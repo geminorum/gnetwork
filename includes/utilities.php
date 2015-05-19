@@ -123,9 +123,8 @@ class gNetworkUtilities
 	}
 
     // idea originally from HTML Emails by Mohammad Jangda
-    public static function get_layout( $layout_name, $require_once = false, $no_cache = false )
+    public static function getLayout( $layout_name, $require_once = false, $no_cache = false )
     {
-
         // must check if it's not admin!
 
         $layout = locate_template( $layout_name );
@@ -134,8 +133,7 @@ class gNetworkUtilities
 				$layout = WP_CONTENT_DIR.DS.$layout_name.'.php';
 
 		if( ! $layout )
-            //$layout = GNETWORK_DIR.DS.'layouts'.DS.$layout_name.'.php';
-            $layout = GNETWORK_DIR.'layouts'.DS.$layout_name.'.php';
+            $layout = GNETWORK_DIR.'assets'.DS.'layouts'.DS.$layout_name.'.php';
 
 		if ( $no_cache )
 			__donot_cache_page();
