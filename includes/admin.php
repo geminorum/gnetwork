@@ -1,0 +1,485 @@
+<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+
+class gNetworkAdmin extends gNetworkModuleCore
+{
+
+	var $_network = false;
+	var $_option_key = false;
+
+	var $menus = array();
+
+	public function setup_actions()
+	{
+		if ( ! is_admin() )
+			return;
+
+		add_action( 'init',       array( &$this, 'init_late' ),        99  );
+		add_action( 'admin_init', array( &$this, 'admin_init_early' ), 1   );
+		add_action( 'admin_menu', array( &$this, 'admin_menu' ),       12  );
+		add_action( 'admin_menu', array( &$this, 'admin_menu_late' ),  999 );
+		add_action( 'adminmenu',  array( &$this, 'adminmenu' ),        10  );
+
+		add_action( 'wp_network_dashboard_setup', array( &$this, 'wp_dashboard_setup' ), 20 );
+		add_action( 'wp_user_dashboard_setup',    array( &$this, 'wp_dashboard_setup' ), 20 );
+		add_action( 'wp_dashboard_setup',         array( &$this, 'wp_dashboard_setup' ), 20 );
+
+		add_action( 'export_wp', array( &$this, 'export_wp' ) );
+
+		// IT MESSES WITH CUSTOM COLUMNS!!
+		//add_filter( 'posts_fields', array( &$this, 'posts_fields' ), 0, 2 );
+
+		add_action( 'admin_print_styles', array( &$this, 'admin_print_styles' ) );
+		add_filter( 'admin_footer_text', array( &$this, 'admin_footer_text' ), 9999 );
+		add_filter( 'update_footer', array( &$this, 'update_footer' ), 9999 );
+
+		add_filter( 'manage_pages_columns', array( &$this, 'manage_pages_columns' ) );
+		add_filter( 'post_date_column_time' , array( &$this, 'post_date_column_time' ) , 10 , 4 );
+
+		if ( GNETWORK_ADMIN_COLUMN_ID ) {
+			add_filter( 'manage_pages_columns', array( &$this, 'manage_posts_columns_id' ), 12 );
+			add_filter( 'manage_posts_columns', array( &$this, 'manage_posts_columns_id' ), 12 );
+			add_action( 'manage_posts_custom_column', array( &$this, 'custom_column_id' ), 5, 2 );
+			add_action( 'manage_pages_custom_column', array( &$this, 'custom_column_id' ), 5, 2 );
+		}
+
+		if ( GNETWORK_ADMIN_JS_ENHANCEMENTS )
+			add_action( 'admin_footer', array( &$this, 'admin_footer' ) );
+
+		if ( GNETWORK_ADMIN_COLOUR )
+			add_action( 'user_register', array( &$this, 'user_register' ) );
+
+		// WORKING
+		// Move Pages above Media
+		//add_filter( 'custom_menu_order', '__return_true' );
+		//add_filter( 'menu_order', array( &$this, 'menu_order' ) );
+	}
+
+	// this will help process other parts of gNetwork modules
+	// wait untill all init actions fired!
+	// PROBABLY: needs security hardening
+	public function init_late()
+	{
+		if ( isset( $_GET['gnetwork_action'] ) )
+			do_action( 'gnetwork_action_'.$_GET['gnetwork_action'], $_GET );
+
+		if ( isset( $_POST['gnetwork_action'] ) )
+			do_action( 'gnetwork_action_'.$_POST['gnetwork_action'], $_POST );
+	}
+
+	public function admin_init_early()
+	{
+		// http://www.wpbeginner.com/wp-tutorials/how-to-increase-the-maximum-file-upload-size-in-wordpress/
+		if ( current_user_can( 'update_plugins' ) ) {
+			@ini_set( 'memory_limit', '256M' );
+			@ini_set( 'upload_max_size' , '64M' );
+			@ini_set( 'post_max_size', '64M' );
+			@ini_set( 'max_execution_time', '300' );
+		}
+	}
+
+	public function admin_menu()
+	{
+		if ( self::cuc( 'manage_options' ) ) {
+
+			$hook = add_menu_page(
+				__( 'gNetwork Extras', GNETWORK_TEXTDOMAIN ),
+				_x( 'Extras', 'Admin Menu Title', GNETWORK_TEXTDOMAIN ),
+				'manage_options',
+				'gnetwork',
+				array( &$this, 'admin_settings_page' ),
+				'dashicons-screenoptions',
+				120
+			);
+
+			foreach( $this->menus as $sub => $args ) {
+				add_submenu_page( 'gnetwork',
+					sprintf( __( 'gNetwork Extras: %s', GNETWORK_TEXTDOMAIN ), $args['title'] ),
+					$args['title'],
+					$args['cap'],
+					'gnetwork&sub='.$sub,
+					array( &$this, 'admin_settings_page' )
+				);
+
+			}
+
+		} else {
+
+			$hook = add_submenu_page( 'index.php',
+				__( 'gNetwork Extras', GNETWORK_TEXTDOMAIN ),
+				_x( 'Extras', 'Admin Menu Title', GNETWORK_TEXTDOMAIN ),
+				'read',
+				'gnetwork',
+				array( &$this, 'admin_settings_page' )
+			);
+
+		}
+
+		add_action( 'load-'.$hook, array( &$this, 'admin_settings_load' ) );
+
+		add_options_page(
+			__( 'All Settings' ),
+			__( 'All Settings' ),
+			'administrator',
+			'options.php'
+		);
+
+		add_submenu_page( 'plugins.php',
+			__( 'Active', GNETWORK_TEXTDOMAIN ),
+			__( 'Active', GNETWORK_TEXTDOMAIN ),
+			'activate_plugins',
+			'plugins.php?plugin_status=active'
+		);
+	}
+
+	// http://justintadlock.com/archives/2011/06/13/removing-menu-pages-from-the-wordpress-admin
+	public function admin_menu_late()
+	{
+		global $submenu;
+		$submenu['gnetwork'][0][0] = __( 'Overview', GNETWORK_TEXTDOMAIN );
+
+		if ( ! self::cuc( 'update_plugins' ) ) {
+			remove_menu_page( 'link-manager.php' );
+			remove_submenu_page( 'themes.php', 'theme-editor.php' );
+		}
+	}
+
+	public static function registerMenu( $sub, $title = null, $callback = false, $capability = 'manage_options' )
+	{
+		if ( ! is_admin() || self::isAJAX() )
+			return;
+
+		global $gNetwork;
+
+		$gNetwork->admin->menus[$sub] = array(
+			'title' => $title ? $title : $sub,
+			'cap' => $capability,
+		);
+
+		if ( $callback ) // && is_callable( $callback ) )
+			add_action( 'gnetwork_admin_settings', $callback );
+	}
+
+	public static function settingsURL( $full = true )
+	{
+		$relative = self::cuc( 'manage_options' ) ? 'admin.php?page=gnetwork' : 'index.php?page=gnetwork';
+
+		if ( $full )
+			return get_admin_url( null, $relative );
+
+		return $relative;
+	}
+
+	public function admin_settings_load()
+	{
+		global $submenu_file;
+
+		if ( isset( $_REQUEST['sub'] ) ) {
+			$sub = $_REQUEST['sub'];
+			$submenu_file = 'gnetwork&sub='.$sub;
+		} else {
+			$sub = null;
+		}
+
+		do_action( 'gnetwork_admin_settings', $sub );
+
+		// ALL DEPRECATED
+		do_action( 'gnetwork_admin_settings_load', $sub );
+		do_action( 'gnetwork_admin_settings_save', $sub );
+		do_action( 'gnetwork_admin_settings_help', $sub );
+	}
+
+    private function subs()
+	{
+		$subs = array();
+
+		//if ( self::cuc( 'manage_options' ) )
+			$subs['overview'] = __( 'Overview', GNETWORK_TEXTDOMAIN );
+
+		foreach( $this->menus as $sub => $args )
+			if ( self::cuc( $args['cap'] ) )
+				$subs[$sub] = $args['title'];
+
+		if ( is_super_admin() )
+			$subs['console'] = __( 'Console', GNETWORK_TEXTDOMAIN );
+
+		return $subs;
+	}
+
+	public function admin_settings_page()
+	{
+		$subs = apply_filters( 'gnetwork_admin_settings_subs', $this->subs() );
+		$sub = isset( $_GET['sub'] ) ? trim( $_GET['sub'] ) : 'overview';
+
+		echo '<div class="wrap">';
+
+		if ( 'overview' == $sub || ( isset( $this->menus[$sub] ) && self::cuc( $this->menus[$sub]['cap'] ) ) ) {
+
+			$settings_uri = self::settingsURL( false );
+			$messages = apply_filters( 'gnetwork_admin_settings_messages', array(
+				'resetting' => gNetworkUtilities::notice( __( 'Resetting Settings.',          GNETWORK_TEXTDOMAIN ), 'updated fade', false ),
+				'updated'   => gNetworkUtilities::notice( __( 'Settings updated.',            GNETWORK_TEXTDOMAIN ), 'updated fade', false ),
+				'error'     => gNetworkUtilities::notice( __( 'Error while saving settings.', GNETWORK_TEXTDOMAIN ), 'error',        false ),
+			) );
+
+			self::sideNotification();
+
+			printf( '<h2>%s</h2>', __( 'gNetwork Extras', GNETWORK_TEXTDOMAIN ) );
+
+			gNetworkUtilities::headerNav( $settings_uri, $sub, $subs );
+
+			if ( isset( $_GET['message'] ) ) {
+
+				if ( isset( $messages[$_GET['message']] ) )
+					echo $messages[$_GET['message']];
+				else
+					gNetworkUtilities::notice( $_GET['message'] );
+
+				$_SERVER['REQUEST_URI'] = remove_query_arg( 'message', $_SERVER['REQUEST_URI'] );
+			}
+
+			if ( file_exists( GNETWORK_DIR.'admin/admin.'.$sub.'.php' ) )
+				require_once( GNETWORK_DIR.'admin/admin.'.$sub.'.php' );
+			else
+				do_action( 'gnetwork_admin_settings_sub_'.$sub, $settings_uri, $sub );
+
+		} else {
+
+			_e( 'Cheatin&#8217; uh?' );
+
+		}
+
+		echo '<div class="clear"></div></div>';
+	}
+
+	// Increase WordPress Exporter Script Execution Time
+	// https://gist.github.com/tollmanz/1362592
+	public function export_wp()
+	{
+		set_time_limit( 0 );
+	}
+
+	public function admin_print_styles()
+	{
+		//gNetworkUtilities::linkStyleSheet( GNETWORK_URL.'styles/admin.css' );
+		gNetworkUtilities::linkStyleSheet( GNETWORK_URL.'assets/css/admin.all.css' );
+		//gNetworkUtilities::customStyleSheet( 'admin.css' );
+	}
+
+	// TODO : add this as one of the top menus
+	public function adminmenu()
+	{
+		echo '<li id="gnetwork-backtotop" cdcid="collapse-menu" class="hide-if-no-js">';
+			echo '<div id="gnetwork-backtotop-button" cdcid="collapse-button"><div></div></div>';
+			echo '<span>'.__( 'Back to Top', GNETWORK_TEXTDOMAIN ).'</span>';
+		echo '</li>';
+
+		return;
+
+		$link = '<span class="dashicons dashicons-arrow-up-alt2"></span>';
+		echo '<div id="gnetwork-admin-backtotop-wrap" style="display:none;">';
+			echo '<a class="gnetwork-backtotop" title="'.esc_attr__( 'Back to Top', GNETWORK_TEXTDOMAIN ).'">'.$link.'</a>';
+		echo '</div>';
+	}
+
+	public function admin_footer( $empty )
+	{
+		echo '<script type="text/javascript" src="'.GNETWORK_URL.'js/admin.all.js"></script>';
+
+		if ( strpos( $_SERVER['REQUEST_URI'], 'page=gnetwork' )
+			|| strpos( $_SERVER['REQUEST_URI'], 'post.php' )
+			|| strpos( $_SERVER['REQUEST_URI'], 'post-new.php' )
+			|| strpos( $_SERVER['REQUEST_URI'], 'edit-tags.php' ) ) {
+			?> <script type="text/javascript">
+/* <![CDATA[ */
+jQuery(document).ready(function($){$('textarea.wp-editor-areaXX, #excerpt, .textarea-autosize, textarea.large-text').autosize();});
+/* ]]> */
+</script> <?php
+		}
+	}
+
+	public function admin_footer_text()
+	{
+		if ( isset( $_GET['noheader'] ) )
+			return;
+
+		return gnetwork_powered();
+	}
+
+	public function update_footer( $content )
+	{
+		if ( isset( $_GET['noheader'] ) )
+			return $content;
+
+		if ( current_user_can( 'update_plugins' ) )
+			$content .= ' | <span><span style="direction:ltr !important;display:inline-block;">'
+					 .gNetworkUtilities::stat().'</span></span>';
+		else
+			$content = '<span class="gnetwork-wrap footer-wp-version" title="'.sprintf( __( 'Version %s' ),
+				apply_filters( 'string_format_i18n', $GLOBALS['wp_version'] ) )
+				.'">CODE IS POETRY</span>';
+		return $content;
+	}
+
+	public function wp_dashboard_setup()
+	{
+		$screen = get_current_screen();
+
+		// https://gist.github.com/chrisguitarguy/1377965
+		// Removes the "Right Now" widget that tells you post/comment counts and what theme you're using.
+		// remove_meta_box( 'dashboard_right_now', $screen, 'normal' );
+
+		// Removes the recent comments widget
+		// remove_meta_box( 'dashboard_recent_comments', $screen, 'normal' );
+
+		// Removes the incoming links widget.
+		// remove_meta_box( 'dashboard_incoming_links', $screen, 'normal' );
+
+		// Removes the plugins widgets that displays the most popular, newest, and recently updated plugins
+		remove_meta_box( 'dashboard_plugins', $screen, 'normal' );
+
+		// Removes the quick press widget that allows you post right from the dashboard
+		// remove_meta_box( 'dashboard_quick_press', $screen, 'side' );
+
+		// Removes the widget containing the list of recent drafts
+		// remove_meta_box( 'dashboard_recent_drafts', $screen, 'side' );
+
+		// Removes the "WordPress Blog" widget
+		remove_meta_box( 'dashboard_primary', $screen, 'side' );
+
+		// Removes the "Other WordPress News" widget
+		remove_meta_box( 'dashboard_secondary', $screen, 'side' );
+
+
+		// TODO : http://code.tutsplus.com/articles/quick-tip-customising-and-simplifying-the-wordpress-admin-for-your-clients--wp-28526
+
+		return;
+
+		// TODO : style this!!
+
+		if ( defined( 'GNETWORK_ADMIN_WIDGET_RSS' ) && constant( 'GNETWORK_ADMIN_WIDGET_RSS' ) ) {
+			add_meta_box( 'abetterplanet_widget',
+				_x( 'Network Feed', 'admin dashboard widget title', GNETWORK_TEXTDOMAIN ),
+				array( &$this, 'widget_network_rss' ),
+				'dashboard', 'normal', 'high' );
+		}
+	}
+
+	// Based on : http://wplift.com/a-better-planet
+	public function widget_network_rss()
+	{
+
+		//public function return_1600( $seconds ) { return 1600; }
+		//add_filter( 'wp_feed_cache_transient_lifetime' , 'return_1600' );
+		$rss = fetch_feed( constant( 'GNETWORK_ADMIN_WIDGET_RSS' ) );
+		//remove_filter( 'wp_feed_cache_transient_lifetime' , 'return_1600' );
+
+		if ( ! is_wp_error( $rss ) ) {
+			// Figure out how many total items there are, but limit it to 3.
+			$maxitems = $rss->get_item_quantity( 8 );
+			// Build an array of all the items, starting with element 0 (first element).
+			$rss_items = $rss->get_items( 0, $maxitems );
+
+			if ( ! empty( $maxitems ) ) {
+				?> <div class="rss-widget"><ul>
+				<?php foreach( $rss_items as $item ) { ?>
+					<li><a class="rsswidget" href='<?php echo $item->get_permalink(); ?>'><?php echo $item->get_title(); ?></a> <span class="rss-date"><?php echo date_i18n( 'j F Y', $item->get_date( 'U' ) ); ?></span></li>
+				<?php } ?></ul></div> <?php
+			}
+		}
+	}
+
+	// http://www.wpcode.net/remove-comment-dashboard.html/
+	public function manage_pages_columns( $defaults )
+	{
+		unset( $defaults['comments'] );
+		return $defaults;
+	}
+
+	// Display Post and Page IDs in the Admin
+	// http://wpmu.org/daily-tip-how-to-display-post-and-page-ids-in-the-wordpress-admin/
+	// TODO: http://wordpress.org/extend/plugins/reveal-ids-for-wp-admin-25/
+	public function manage_posts_columns_id( $defaults )
+	{
+		if ( 1 === GNETWORK_ADMIN_COLUMN_ID )
+			return array_merge( array( 'gn_post_id' => __( 'ID', GNETWORK_TEXTDOMAIN ) ), $defaults );
+
+		$defaults['gn_post_id'] = __( 'ID', GNETWORK_TEXTDOMAIN );
+		return $defaults;
+	}
+
+	public function custom_column_id( $column_name, $id )
+	{
+		if ( $column_name === 'gn_post_id' )
+			echo $id;
+	}
+
+	// Rename Posts to News in Menu
+	// add_action( 'admin_menu', 'admin_menu_rename_menu_label' );
+	public function admin_menu_rename_menu_label()
+	{
+		global $menu;
+		global $submenu;
+		$menu[5][0] = 'News';
+		$submenu['edit.php'][5][0] = 'News Items';
+		$submenu['edit.php'][10][0] = 'Add News Item';
+	}
+
+	// Move Pages above Media : http://wp.tutsplus.com/tutorials/creative-coding/customizing-the-wordpress-admin-custom-admin-menus/
+	public function menu_order( $menu_order )
+	{
+		return array(
+			'index.php',
+			'edit.php',
+			'edit.php?post_type=page',
+			'upload.php',
+		);
+	}
+
+	// http://wpmu.org/how-to-show-the-time-for-a-scheduled-wordpress-post/
+	// Custom public function to add time to the date / time column for future posts
+	public function post_date_column_time( $h_time, $post, $column_name, $mode )
+	{
+		if ( $post->post_status == 'future' ) // If post is scheduled then add the time to the column output
+			$h_time .= '<br />'.get_post_time( 'g:i a', false, $post, true );
+		return $h_time;
+	}
+
+
+	// http://www.wpbeginner.com/wp-tutorials/how-to-set-default-admin-color-scheme-for-new-users-in-wordpress/
+	public function user_register( $user_id )
+	{
+		wp_update_user( array(
+			'ID' => $user_id,
+			'admin_color' => GNETWORK_ADMIN_COLOUR, //'sunrise'
+		) );
+	}
+
+	// http://unserkaiser.com/blog/2013/07/03/speed-up-wordpress-post-list-screens/
+	// https://gist.github.com/franz-josef-kaiser/5917688
+	// (WCM) Faster Admin Post Lists
+	// Reduces the queried fields inside WP_Query for WP_Post_List_Table screens
+	// Author: Franz Josef Kaiser <wecodemore@gmail.com>
+	// AuthorURL: http://unserkaiser.com
+	public function posts_fields( $fields, $query )
+	{
+		if ( ! is_admin()
+			|| ! $query->is_main_query()
+			|| ( defined( 'DOING_AJAX' ) && DOING_AJAX )
+			|| ( defined( 'DOING_CRON' ) && DOING_CRON ) )
+				return $fields;
+
+		$p = $GLOBALS['wpdb']->posts;
+		return implode( ",", array(
+			"{$p}.ID",
+			"{$p}.post_title",
+			"{$p}.post_date",
+			"{$p}.post_author",
+			"{$p}.post_name",
+			"{$p}.comment_status",
+			"{$p}.ping_status",
+			"{$p}.post_password",
+		) );
+	}
+
+
+}
