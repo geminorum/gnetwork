@@ -1,0 +1,74 @@
+
+
+@import "modules/all";
+@import "partials/base";
+
+// @import "gnetwork/front.all";
+// @import "gnetwork/like.front.all";
+// @import "gnetwork/wpcf7.front.all";
+
+
+.login {
+
+    h1 {
+        a {
+            background-image:none !important;
+        }
+    }
+
+    #pass-strength-result {
+        width:96% !important;
+    }
+
+    form {
+        border-radius:2px;
+        box-shadow:none !important;
+
+        input[type="text"], input[type="password"] {
+            margin-top:10px !important;
+        }
+
+        p {
+            text-align: center;
+        }
+    }
+
+    #user_login {
+        direction:ltr;
+        margin-left:0 !important;
+    }
+
+    #user_pass {
+        direction:ltr;
+        margin-left:0 !important;
+    }
+
+    #wp-submit {
+        line-height: 18px;
+    }
+
+    #loginform {
+        padding: 26px 24px;
+    }
+
+    #login_error {
+        box-shadow:none !important;
+    }
+
+    .message {
+        box-shadow:none !important;
+    }
+
+}
+
+body.rtl {
+
+        #lostpasswordform {
+            padding: 26px 24px;
+        }
+
+        input[type=checkbox]:checked:before {
+            margin:-3px -2px 0 0 !important;
+        }
+
+}
