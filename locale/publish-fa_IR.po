@@ -3,19 +3,20 @@ msgstr ""
 "Project-Id-Version: Publish v1.2.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-11-26 20:38+0330\n"
+"PO-Revision-Date: 2015-05-20 07:46+0330\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 1.5.7\n"
-"X-Poedit-SourceCharset: utf-8\n"
+"X-Generator: Poedit 1.7.6\n"
+"X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
 "X-Poedit-Basepath: ../\n"
 "X-Textdomain-Support: yes\n"
+"Language: fa_IR\n"
 "X-Poedit-SearchPath-0: .\n"
 
 # @ publish
@@ -159,8 +160,8 @@ msgid ""
 "title=\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
 msgstr ""
 "این نوشته در دستهٔ %1$s همراه با برچسب %2$s منتشر شده است. <a href=\"%3$s\" "
-"title=\"پیوند پایدار به %4$s\" rel=\"bookmark\">نشانی همیشگی</a> این نوشته "
-"را ذخیره کنید."
+"title=\"پیوند پایدار به %4$s\" rel=\"bookmark\">نشانی همیشگی</a> این نوشته را "
+"ذخیره کنید."
 
 # @ publish
 #: content-single.php:40
@@ -342,13 +343,13 @@ msgstr "%1$s در %2$s"
 msgid ""
 "Posted on <a href=\"%1$s\" title=\"%2$s\" rel=\"bookmark\"><time class="
 "\"entry-date\" datetime=\"%3$s\" pubdate>%4$s</time></a><span class=\"byline"
-"\"> by <span class=\"author vcard\"><a class=\"url fn n\" href=\"%5$s\" "
-"title=\"%6$s\" rel=\"author\">%7$s</a></span></span>"
+"\"> by <span class=\"author vcard\"><a class=\"url fn n\" href=\"%5$s\" title="
+"\"%6$s\" rel=\"author\">%7$s</a></span></span>"
 msgstr ""
 "<a href=\"%1$s\" title=\"%2$s\" rel=\"bookmark\"><time class=\"entry-date\" "
 "datetime=\"%3$s\" pubdate>%4$s</time></a><span class=\"byline\"> توسط <span "
-"class=\"author vcard\"><a class=\"url fn n\" href=\"%5$s\" title=\"%6$s\" "
-"rel=\"author\">%7$s</a></span></span>"
+"class=\"author vcard\"><a class=\"url fn n\" href=\"%5$s\" title=\"%6$s\" rel="
+"\"author\">%7$s</a></span></span>"
 
 # @ publish
 #: inc/template-tags.php:125
@@ -370,11 +371,10 @@ msgstr "پیدا نشد"
 # @ publish
 #: no-results.php:20
 #, php-format
-msgid ""
-"Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
 msgstr ""
-"برای انتشار اولین نوشتهٔ خودتان آماده‌اید؟ از <a href=\"%1$s\">اینجا شروع "
-"کنید</a>."
+"برای انتشار اولین نوشتهٔ خودتان آماده‌اید؟ از <a href=\"%1$s\">اینجا شروع کنید</"
+"a>."
 
 # @ publish
 #: no-results.php:24
@@ -388,8 +388,8 @@ msgstr ""
 # @ publish
 #: no-results.php:29
 msgid ""
-"It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps "
-"searching can help."
+"It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching "
+"can help."
 msgstr "چیزی که به دنبالش بودید پیدا نشد، شاید جست‌وجوی دوباره شما را یاری کند."
 
 # @ publish
