@@ -1,15 +1,3 @@
-#: admin/admin.console.php:46
-msgid "Post"
-msgstr ""
-
-#: admin/admin.console.php:47 includes/opensearch.php:131
-msgid "Tags"
-msgstr ""
-
-#: admin/admin.console.php:48
-msgid "Categories"
-msgstr ""
-
 #: admin/admin.overview.php:4
 msgid "WordPress"
 msgstr ""
@@ -28,26 +16,6 @@ msgstr ""
 
 #: admin/admin.overview.php:28
 msgid "Loaded MO Files"
-msgstr ""
-
-#: admin/network.exdb.php:30
-msgid "DB User"
-msgstr ""
-
-#: admin/network.exdb.php:36
-msgid "DB Password"
-msgstr ""
-
-#: admin/network.exdb.php:42
-msgid "DB Name"
-msgstr ""
-
-#: admin/network.exdb.php:48
-msgid "DB Host"
-msgstr ""
-
-#: admin/network.exdb.php:56
-msgid "Test Connection"
 msgstr ""
 
 #: admin/network.testmail.php:13
@@ -127,72 +95,72 @@ msgctxt "admin dashboard widget title"
 msgid "Network Feed"
 msgstr ""
 
-#: includes/admin.php:404 includes/admin.php:406 includes/network.php:230
-#: includes/network.php:232
+#: includes/admin.php:404 includes/admin.php:406 includes/network.php:229
+#: includes/network.php:231
 msgid "ID"
 msgstr ""
 
-#: includes/adminbar.php:188 includes/debug.php:12 includes/modulecore.php:320
+#: includes/adminbar.php:174 includes/debug.php:12 includes/modulecore.php:320
 msgid "Debug"
 msgstr ""
 
-#: includes/adminbar.php:190
+#: includes/adminbar.php:176
 msgid "Display debug info for the current page"
 msgstr ""
 
-#: includes/adminbar.php:198
+#: includes/adminbar.php:184
 msgid "Flush"
 msgstr ""
 
-#: includes/adminbar.php:200
+#: includes/adminbar.php:186
 msgid "Flush cached data"
 msgstr ""
 
-#: includes/adminbar.php:221
+#: includes/adminbar.php:207
 msgid "Reset Sidebars"
 msgstr ""
 
-#: includes/adminbar.php:223
+#: includes/adminbar.php:209
 msgid "Delete all previous sidebar widgets, be careful!"
 msgstr ""
 
-#: includes/adminbar.php:238
+#: includes/adminbar.php:224
 msgid "Queries | Timer Stop | Memory Usage"
 msgstr ""
 
-#: includes/adminbar.php:248 includes/adminbar.php:285
+#: includes/adminbar.php:234 includes/adminbar.php:271
 msgid "Users"
 msgstr ""
 
-#: includes/adminbar.php:262 includes/adminbar.php:292
+#: includes/adminbar.php:248 includes/adminbar.php:278
 msgid "Settings"
 msgstr ""
 
-#: includes/adminbar.php:269
+#: includes/adminbar.php:255
 msgid "Updates"
 msgstr ""
 
-#: includes/adminbar.php:278
+#: includes/adminbar.php:264
 msgid "All Posts"
 msgstr ""
 
-#: includes/adminbar.php:299
+#: includes/adminbar.php:285
 msgid "Edit Site"
 msgstr ""
 
-#: includes/adminbar.php:306
+#: includes/adminbar.php:292
 msgid "Edit Site Themes"
 msgstr ""
 
-#: includes/adminbar.php:357
+#: includes/adminbar.php:343
 msgid "Log in"
 msgstr ""
 
-#: includes/adminbar.php:366 includes/navigation.php:255
+#: includes/adminbar.php:352 includes/navigation.php:207
 msgid "Register"
 msgstr ""
 
-#: includes/adminbar.php:382
+#: includes/adminbar.php:368
 msgid "Search"
 msgstr ""
 
@@ -407,69 +375,69 @@ msgstr ""
 msgid "CAPTCHA response was incorrect"
 msgstr ""
 
-#: includes/comments.php:11
+#: includes/comments.php:12
 msgid "Comments"
 msgstr ""
 
-#: includes/comments.php:45
+#: includes/comments.php:46
 msgid "Purge Spam Comments"
 msgstr ""
 
-#: includes/comments.php:70
+#: includes/comments.php:71
 msgctxt "Enable Full Comments On Dashboard"
 msgid "Full Comments"
 msgstr ""
 
-#: includes/comments.php:71
+#: includes/comments.php:72
 msgid "Full Comments On Dashboard"
 msgstr ""
 
-#: includes/comments.php:229
+#: includes/comments.php:223
 msgid "Your attempt to add this comment has failed."
 msgstr ""
 
-#: includes/debug.php:57
+#: includes/debug.php:56
 msgid "Purge Expired Transient Data"
 msgstr ""
 
-#: includes/debug.php:58
+#: includes/debug.php:57
 msgid "Purge All Transient Data"
 msgstr ""
 
-#: includes/debug.php:85
+#: includes/debug.php:84
 msgctxt "Debug Version Strings"
 msgid "WordPress"
 msgstr ""
 
-#: includes/debug.php:86
+#: includes/debug.php:85
 msgctxt "Debug Version Strings"
 msgid "WordPress DB revision"
 msgstr ""
 
-#: includes/debug.php:87
+#: includes/debug.php:86
 msgctxt "Debug Version Strings"
 msgid "TinyMCE"
 msgstr ""
 
-#: includes/debug.php:88
+#: includes/debug.php:87
 msgctxt "Debug Version Strings"
 msgid "Required PHP"
 msgstr ""
 
-#: includes/debug.php:89
+#: includes/debug.php:88
 msgctxt "Debug Version Strings"
 msgid "Required MySQL"
 msgstr ""
 
-#: includes/debug.php:121
+#: includes/debug.php:120
 msgid "Delete Cache"
 msgstr ""
 
-#: includes/debug.php:122
+#: includes/debug.php:121
 msgid "Delete cache of the current page"
 msgstr ""
 
-#: includes/debug.php:191
+#: includes/debug.php:190
 msgid "Please talk to the database using $wpdb"
 msgstr ""
 
@@ -489,422 +457,9 @@ msgstr ""
 msgid "WordPress &rsaquo; Error"
 msgstr ""
 
-#: includes/files.php:17
-msgid "FTP"
-msgstr ""
-
-#: includes/files.php:58 includes/mail.php:58
-msgid "From Email"
-msgstr ""
-
-#: includes/files.php:182
-msgid "If you have a plugin in a .zip format, you may install it by uploading it here."
-msgstr ""
-
-#: includes/files.php:185
-msgid "Plugin zip file"
-msgstr ""
-
-#: includes/files.php:187
-msgid "Install Now"
-msgstr ""
-
-#: includes/files.php:198
-msgid "You do not have sufficient permissions to install plugins on this site."
-msgstr ""
-
-#: includes/files.php:204
-msgid "Upload Plugin"
-msgstr ""
-
-#: includes/files.php:210
-msgid "Installing Plugin from uploaded file: %s"
-msgstr ""
-
 #: includes/functions.php:11
 msgid "Built on <a href=\"http://wordpress.org/\" title=\"Semantic Personal Publishing Platform\">WordPress</a> and tea"
 msgstr ""
-
-#: includes/gshop.php:90
-msgid "Payline API Key"
-msgstr ""
-
-#: includes/gshop.php:91 includes/gshop.php:98 includes/gshop.php:105
-msgid "No need in test mode"
-msgstr ""
-
-#: includes/gshop.php:97
-msgid "Parsian PIN Number"
-msgstr ""
-
-#: includes/gshop.php:104
-msgid "Zarinpal API Key"
-msgstr ""
-
-#: includes/gshop.php:119 includes/gshop.php:246
-msgid "Payline"
-msgstr ""
-
-#: includes/gshop.php:120
-msgid "Parsian"
-msgstr ""
-
-#: includes/gshop.php:121
-msgid "Zarinpal"
-msgstr ""
-
-#: includes/gshop.php:244
-msgid "Payment validation failed"
-msgstr ""
-
-#: includes/gshop.php:245
-msgid "Payment validation failed while processing a %s purchase. With error %s : %s"
-msgstr ""
-
-#: includes/gshop.php:248
-msgid "No description"
-msgstr ""
-
-#: includes/gshop.php:426
-msgctxt "gshop zarinpal description"
-msgid "For Payment Number %s"
-msgstr ""
-
-#: includes/highlight.php:183 includes/modulecore.php:179
-msgid "Save Changes"
-msgstr ""
-
-#: includes/import.php:33 includes/import.php:64 includes/options.php:90
-msgid "Import"
-msgstr ""
-
-#: includes/import.php:37
-msgid "Target URL"
-msgstr ""
-
-#: includes/import.php:44
-msgid "HTML Selector"
-msgstr ""
-
-#: includes/import.php:48
-msgid "What part of the target url we must grab!"
-msgstr ""
-
-#: includes/import.php:53
-msgid "Grab Target"
-msgstr ""
-
-#: includes/info.php:39
-msgctxt "wp_image_editor_supports"
-msgid "Saves image to file"
-msgstr ""
-
-#: includes/info.php:40
-msgctxt "wp_image_editor_supports"
-msgid "Resizes image"
-msgstr ""
-
-#: includes/info.php:41
-msgctxt "wp_image_editor_supports"
-msgid "Processes image and saves to disk with multiple sizes"
-msgstr ""
-
-#: includes/info.php:42
-msgctxt "wp_image_editor_supports"
-msgid "Crops Image"
-msgstr ""
-
-#: includes/info.php:43
-msgctxt "wp_image_editor_supports"
-msgid "Rotates image counter-clockwise by $angle"
-msgstr ""
-
-#: includes/info.php:44
-msgctxt "wp_image_editor_supports"
-msgid "Flips image"
-msgstr ""
-
-#: includes/info.php:45
-msgctxt "wp_image_editor_supports"
-msgid "Streams image to browser"
-msgstr ""
-
-#: includes/info.php:46
-msgctxt "wp_image_editor_supports"
-msgid "Gets dimensions of image"
-msgstr ""
-
-#: includes/info.php:47
-msgctxt "wp_image_editor_supports"
-msgid "Sets image size"
-msgstr ""
-
-#: includes/info.php:50
-msgctxt "wp_image_editor_supports"
-msgid "Builds an output filename based on current file, and adding proper suffix"
-msgstr ""
-
-#: includes/info.php:51
-msgctxt "wp_image_editor_supports"
-msgid "Builds and returns proper suffix for file based on height and width."
-msgstr ""
-
-#: includes/info.php:53
-msgctxt "wp_image_editor_supports"
-msgid "Returns first matched mime-type from extension (see wp_get_mime_types)"
-msgstr ""
-
-#: includes/info.php:54
-msgctxt "wp_image_editor_supports"
-msgid "Returns first matched extension from Mime-type (see wp_get_mime_types)"
-msgstr ""
-
-#: includes/limitlogin.php:275
-msgid "%d hour"
-msgid_plural "%d hours"
-msgstr[0] ""
-msgstr[1] ""
-
-#: includes/limitlogin.php:281
-msgid "%d minute"
-msgid_plural "%d minutes"
-msgstr[0] ""
-msgstr[1] ""
-
-#: includes/limitlogin.php:284
-msgid "[%s] Failed login attempts from whitelisted IP"
-msgstr ""
-
-#: includes/limitlogin.php:284
-msgid "[%s] Too many failed login attempts"
-msgstr ""
-
-#: includes/limitlogin.php:285
-msgid "%d failed login attempts (%d lockout(s)) from IP: %s"
-msgstr ""
-
-#: includes/limitlogin.php:288
-msgid "Last user attempted: %s"
-msgstr ""
-
-#: includes/limitlogin.php:291
-msgid "IP was NOT blocked because of external whitelist."
-msgstr ""
-
-#: includes/limitlogin.php:293
-msgid "IP was blocked for %s"
-msgstr ""
-
-#: includes/limitlogin.php:473
-msgid "<strong>ERROR</strong>: Too many failed login attempts."
-msgstr ""
-
-#: includes/limitlogin.php:477
-msgid "Please try again later."
-msgstr ""
-
-#: includes/limitlogin.php:484
-msgid "Please try again in %d hour."
-msgid_plural "Please try again in %d hours."
-msgstr[0] ""
-msgstr[1] ""
-
-#: includes/limitlogin.php:486
-msgid "Please try again in %d minute."
-msgid_plural "Please try again in %d minutes."
-msgstr[0] ""
-msgstr[1] ""
-
-#: includes/limitlogin.php:528
-msgid "<strong>%d</strong> attempt remaining."
-msgid_plural "<strong>%d</strong> attempts remaining."
-msgstr[0] ""
-msgstr[1] ""
-
-#: includes/limitlogin.php:600
-msgid "<strong>ERROR</strong>: Incorrect username or password."
-msgstr ""
-
-#: includes/limitlogin.php:629
-msgctxt "Blog Limit Login Attempts Settings Page Title"
-msgid "Limit Login Attempts"
-msgstr ""
-
-#: includes/limitlogin.php:630
-msgctxt "Blog Limit Login Attempts Menu Title"
-msgid "Login Attempts"
-msgstr ""
-
-#: includes/limitlogin.php:642
-msgctxt "Network Limit Login Attempts Settings Page Title"
-msgid "Limit Login Attempts"
-msgstr ""
-
-#: includes/limitlogin.php:643
-msgctxt "Network Limit Login Attempts Menu Title"
-msgid "Login Attempts"
-msgstr ""
-
-#: includes/limitlogin.php:718
-msgid "Cleared IP log"
-msgstr ""
-
-#: includes/limitlogin.php:719
-msgid "Reset lockout count"
-msgstr ""
-
-#: includes/limitlogin.php:720
-msgid "Cleared current lockouts"
-msgstr ""
-
-#: includes/limitlogin.php:721
-msgid "Options changed"
-msgstr ""
-
-#: includes/limitlogin.php:731
-msgid "It appears the site is reached through a proxy server (proxy IP: %s, your IP: %s)"
-msgstr ""
-
-#: includes/limitlogin.php:736
-msgid "It appears the site is reached directly (from your IP: %s)"
-msgstr ""
-
-#: includes/limitlogin.php:792
-msgid "<strong>Current setting appears to be invalid</strong>. Please make sure it is correct. Further information can be found <a href=\"%s\" title=\"FAQ\">here</a>"
-msgstr ""
-
-#: includes/limitlogin.php:800
-msgid "Limit Login Attempts Settings"
-msgstr ""
-
-#: includes/limitlogin.php:801
-msgid "Statistics"
-msgstr ""
-
-#: includes/limitlogin.php:806
-msgid "Total lockouts"
-msgstr ""
-
-#: includes/limitlogin.php:809
-msgid "Reset Counter"
-msgstr ""
-
-#: includes/limitlogin.php:810
-msgid "%d lockout since last reset"
-msgid_plural "%d lockouts since last reset"
-msgstr[0] ""
-msgstr[1] ""
-
-#: includes/limitlogin.php:811
-msgid "No lockouts yet"
-msgstr ""
-
-#: includes/limitlogin.php:816
-msgid "Active lockouts"
-msgstr ""
-
-#: includes/limitlogin.php:818
-msgid "Restore Lockouts"
-msgstr ""
-
-#: includes/limitlogin.php:819
-msgid "%d IP is currently blocked from trying to log in"
-msgstr ""
-
-#: includes/limitlogin.php:825 includes/options.php:24
-msgid "Options"
-msgstr ""
-
-#: includes/limitlogin.php:830
-msgid "Lockout"
-msgstr ""
-
-#: includes/limitlogin.php:832
-msgid "allowed retries"
-msgstr ""
-
-#: includes/limitlogin.php:833
-msgid "minutes lockout"
-msgstr ""
-
-#: includes/limitlogin.php:834
-msgid "lockouts increase lockout time to"
-msgstr ""
-
-#: includes/limitlogin.php:834
-msgid "hours"
-msgstr ""
-
-#: includes/limitlogin.php:835
-msgid "hours until retries are reset"
-msgstr ""
-
-#: includes/limitlogin.php:839
-msgid "Site connection"
-msgstr ""
-
-#: includes/limitlogin.php:845
-msgid "Direct connection"
-msgstr ""
-
-#: includes/limitlogin.php:850
-msgid "From behind a reversy proxy"
-msgstr ""
-
-#: includes/limitlogin.php:856
-msgid "Handle cookie login"
-msgstr ""
-
-#: includes/limitlogin.php:858
-msgid "Yes"
-msgstr ""
-
-#: includes/limitlogin.php:858
-msgid "No"
-msgstr ""
-
-#: includes/limitlogin.php:862
-msgid "Notify on lockout"
-msgstr ""
-
-#: includes/limitlogin.php:864
-msgid "Log IP"
-msgstr ""
-
-#: includes/limitlogin.php:865
-msgid "Email to admin after"
-msgstr ""
-
-#: includes/limitlogin.php:865
-msgid "lockouts"
-msgstr ""
-
-#: includes/limitlogin.php:870
-msgid "Change Options"
-msgstr ""
-
-#: includes/limitlogin.php:878
-msgid "Lockout log"
-msgstr ""
-
-#: includes/limitlogin.php:883
-msgid "Clear Log"
-msgstr ""
-
-#: includes/limitlogin.php:923
-msgctxt "Internet address"
-msgid "IP"
-msgstr ""
-
-#: includes/limitlogin.php:923
-msgid "Tried to log in as"
-msgstr ""
-
-#: includes/limitlogin.php:928
-msgid "%d lockout"
-msgid_plural "%d lockouts"
-msgstr[0] ""
-msgstr[1] ""
 
 #: includes/lockdown.php:21
 msgid "Login Lockdown"
@@ -986,6 +541,10 @@ msgstr ""
 msgid "Test Mail"
 msgstr ""
 
+#: includes/mail.php:58
+msgid "From Email"
+msgstr ""
+
 #: includes/mail.php:59
 msgid "You can specify the email address that emails should be sent from. If you leave this blank, the default email will be used."
 msgstr ""
@@ -1002,7 +561,7 @@ msgstr ""
 msgid "Return Path"
 msgstr ""
 
-#: includes/mail.php:73 includes/sms.php:64
+#: includes/mail.php:73
 msgid "Set the return-path email address. Use <code>FROM</code> to match the From Email or Empty to disable."
 msgstr ""
 
@@ -1062,7 +621,7 @@ msgstr ""
 msgid "SMTP Settings"
 msgstr ""
 
-#: includes/mail.php:139 includes/shortener.php:97
+#: includes/mail.php:139
 msgid "These options only apply if you have chosen to send mail by SMTP above."
 msgstr ""
 
@@ -1190,86 +749,24 @@ msgstr ""
 msgid "View Item URL"
 msgstr ""
 
-#: includes/meta.php:38
-msgid "Meta Tools"
-msgstr ""
-
-#: includes/meta.php:41
-msgid "Current Custom Fields"
-msgstr ""
-
-#: includes/meta.php:60
-msgid "Select and check for it."
-msgstr ""
-
-#: includes/meta.php:64 includes/meta.php:75
-msgid "From Terms"
-msgstr ""
-
-#: includes/meta.php:66
-msgid "Check"
-msgstr ""
-
-#: includes/meta.php:67
-msgid "Create"
-msgstr ""
-
-#: includes/meta.php:71 includes/meta.php:81
-msgid "Check for new Issue taxs and create the corresponding Issue Posts."
-msgstr ""
-
-#: includes/meta.php:91
-msgid "Meta"
-msgstr ""
-
-#: includes/meta.php:137
-msgid "Invalid custom field key taxonomy."
-msgstr ""
-
-#: includes/meta.php:142
-msgid "Invalid taxonomy."
-msgstr ""
-
-#: includes/meta.php:150
-msgid "Converted <em>%s</em> custom field."
-msgid_plural "Converted <em>%s</em> custom fields."
-msgstr[0] ""
-msgstr[1] ""
-
-#: includes/meta.php:158
-msgid "There were some errors:"
-msgstr ""
-
-#: includes/meta.php:223
-msgid "Go"
-msgstr ""
-
-#: includes/meta.php:231
-msgid "Just Delete"
-msgstr ""
-
-#: includes/meta.php:235 includes/modulecore.php:180
-msgid "Are you sure? This operation can not be undone."
-msgstr ""
-
-#: includes/meta.php:240
-msgid "Custom Field Taxonomies"
-msgstr ""
-
-#: includes/meta.php:242
-msgid "Convert %s custom fields to terms in the %s taxonomy."
+#: includes/modulecore.php:179
+msgid "Save Changes"
 msgstr ""
 
 #: includes/modulecore.php:180
 msgid "Reset Settings"
 msgstr ""
 
-#: includes/modulecore.php:441 includes/notify.php:59 includes/notify.php:81
-#: includes/notify.php:92 includes/shortener.php:58
+#: includes/modulecore.php:180
+msgid "Are you sure? This operation can not be undone."
+msgstr ""
+
+#: includes/modulecore.php:437 includes/notify.php:59 includes/notify.php:81
+#: includes/notify.php:92
 msgid "Disabled"
 msgstr ""
 
-#: includes/modulecore.php:446 includes/notify.php:58 includes/notify.php:80
+#: includes/modulecore.php:442 includes/notify.php:58 includes/notify.php:80
 #: includes/notify.php:91
 msgid "Enabled"
 msgstr ""
@@ -1309,27 +806,27 @@ msgstr ""
 msgid "Add to Menu"
 msgstr ""
 
-#: includes/navigation.php:134
+#: includes/navigation.php:118
 msgid "RSS Feed"
 msgstr ""
 
-#: includes/navigation.php:140
+#: includes/navigation.php:124
 msgid "RSS Comments Feed"
 msgstr ""
 
-#: includes/navigation.php:190
+#: includes/navigation.php:156
 msgid "Log Out"
 msgstr ""
 
-#: includes/navigation.php:196
+#: includes/navigation.php:162
 msgid "Edit Profile"
 msgstr ""
 
-#: includes/navigation.php:202
+#: includes/navigation.php:168
 msgid "Public Profile"
 msgstr ""
 
-#: includes/navigation.php:248
+#: includes/navigation.php:200
 msgid "Log In"
 msgstr ""
 
@@ -1508,6 +1005,10 @@ msgstr ""
 msgid "An email address at which the maintainer of the search engine can be reached."
 msgstr ""
 
+#: includes/opensearch.php:131
+msgid "Tags"
+msgstr ""
+
 #: includes/opensearch.php:132
 msgid "A set of words that are used as keywords to identify and categorize this search content. Single words and are delimited by space. <b>256</b> chars or less, no HTML."
 msgstr ""
@@ -1528,43 +1029,11 @@ msgstr ""
 msgid "Your browser does not support the AddSearchProvider method!"
 msgstr ""
 
-#: includes/options.php:76
-msgid "Backup & Restore Options"
-msgstr ""
-
-#: includes/options.php:80
-msgid "Export"
-msgstr ""
-
-#: includes/options.php:85
-msgid "Generate"
-msgstr ""
-
-#: includes/options.php:86
-msgid "Generating a JSON file for you to save on your computer."
-msgstr ""
-
-#: includes/options.php:94
-msgid "Click Browse button and choose a JSON file that you backup before. <br />Press Restore button, Wordpress do the rest for you."
-msgstr ""
-
-#: includes/options.php:100
-msgid "Restore"
-msgstr ""
-
-#: includes/p2.php:49
-msgid "Attachments for this post"
-msgstr ""
-
-#: includes/p2.php:51
-msgid "Attachments"
-msgstr ""
-
-#: includes/redirect.php:119
+#: includes/redirect.php:117
 msgid "Site Redirect to"
 msgstr ""
 
-#: includes/redirect.php:133
+#: includes/redirect.php:131
 msgid "The site will redirect to this URL. Leave empty to disable."
 msgstr ""
 
@@ -1703,80 +1172,24 @@ msgctxt "Shortcodes: back: home title attr"
 msgid "Home"
 msgstr ""
 
-#: includes/shortcodes.php:334
+#: includes/shortcodes.php:322
 msgctxt "google groups subscribe"
 msgid "Email:"
 msgstr ""
 
-#: includes/shortcodes.php:337
+#: includes/shortcodes.php:325
 msgctxt "google groups subscribe"
 msgid "Subscribe"
 msgstr ""
 
-#: includes/shortcodes.php:394
+#: includes/shortcodes.php:382
 msgid "It appears you don't have Adobe Reader or PDF support in this web browser. <a href=\"%s\">Click here to download the PDF</a>"
 msgstr ""
 
-#: includes/shortcodes.php:678 includes/shortcodes.php:684
-#: includes/shortcodes.php:703 includes/shortcodes.php:710
-#: includes/shortcodes.php:747
+#: includes/shortcodes.php:665 includes/shortcodes.php:671
+#: includes/shortcodes.php:690 includes/shortcodes.php:697
+#: includes/shortcodes.php:735
 msgid "See the footnote"
-msgstr ""
-
-#: includes/shortener.php:14 includes/shortener.php:55
-msgid "Shortener"
-msgstr ""
-
-#: includes/shortener.php:59
-msgid "Goo.gl"
-msgstr ""
-
-#: includes/shortener.php:65
-msgid "Goo.gl API Key"
-msgstr ""
-
-#: includes/shortener.php:75
-msgid "URL"
-msgstr ""
-
-#: includes/shortener.php:82
-msgid "Shortened"
-msgstr ""
-
-#: includes/shortener.php:95
-msgid "Manual Shortening"
-msgstr ""
-
-#: includes/sms.php:16
-msgid "SMS"
-msgstr ""
-
-#: includes/sms.php:49
-msgid "From Number"
-msgstr ""
-
-#: includes/sms.php:50
-msgid "You can specify the phone number that messages should be sent from. If you leave this blank, the default number will be used."
-msgstr ""
-
-#: includes/sms.php:56
-msgid "Admin Numbers"
-msgstr ""
-
-#: includes/sms.php:57
-msgid "XX You can specify the phone number that messages should be sent from. If you leave this blank, the default number will be used."
-msgstr ""
-
-#: includes/sms.php:63
-msgid "Service WSDL"
-msgstr ""
-
-#: includes/sms.php:71
-msgid "Service Username"
-msgstr ""
-
-#: includes/sms.php:78
-msgid "Service Password"
 msgstr ""
 
 #: includes/taxonomy.php:70 includes/taxonomy.php:87
@@ -1880,62 +1293,54 @@ msgstr ""
 msgid "Enter your Google+ publisher number: <code>XXXXXXXXXXXXXXXXXXXXX</code>"
 msgstr ""
 
-#: includes/users.php:68
-msgid "You can&#8217;t give users that role."
-msgstr ""
-
-#: includes/users.php:93
-msgid "Entire Network"
-msgstr ""
-
-#: includes/utilities.php:68
+#: includes/utilities.php:51
 msgid "%d queries in %.3f seconds, using %.2fMB memory."
 msgstr ""
 
-#: includes/utilities.php:136
+#: includes/utilities.php:118
 msgid "&ldquo; and &rdquo;"
 msgstr ""
 
-#: includes/utilities.php:138
+#: includes/utilities.php:120
 msgid "&ldquo;, &rdquo;"
 msgstr ""
 
-#: includes/utilities.php:348
+#: includes/utilities.php:328
 msgctxt "Dropdown: Get User Roles"
 msgid "Administrators"
 msgstr ""
 
-#: includes/utilities.php:349
+#: includes/utilities.php:329
 msgctxt "Dropdown: Get User Roles"
 msgid "Editors"
 msgstr ""
 
-#: includes/utilities.php:350
+#: includes/utilities.php:330
 msgctxt "Dropdown: Get User Roles"
 msgid "Authors"
 msgstr ""
 
-#: includes/utilities.php:351
+#: includes/utilities.php:331
 msgctxt "Dropdown: Get User Roles"
 msgid "Contributors"
 msgstr ""
 
-#: includes/utilities.php:352
+#: includes/utilities.php:332
 msgctxt "Dropdown: Get User Roles"
 msgid "Subscribers"
 msgstr ""
 
-#: includes/utilities.php:357
+#: includes/utilities.php:337
 msgctxt "Dropdown: Get User Roles"
 msgid "Super Admins"
 msgstr ""
 
-#: includes/utilities.php:359
+#: includes/utilities.php:339
 msgctxt "Dropdown: Get User Roles"
 msgid "Network Users"
 msgstr ""
 
-#: includes/utilities.php:363
+#: includes/utilities.php:343
 msgctxt "Dropdown: Get User Roles"
 msgid "&mdash; No One &mdash;"
 msgstr ""
@@ -1956,7 +1361,7 @@ msgstr ""
 msgid "A Custom Mesage"
 msgstr ""
 
-#: includes/widgets.php:71 includes/widgets.php:191
+#: includes/widgets.php:71 includes/widgets.php:188
 msgctxt "Widget Form Label"
 msgid "Title"
 msgstr ""
@@ -1966,15 +1371,15 @@ msgctxt "Widget Form Label"
 msgid "Twitter"
 msgstr ""
 
-#: includes/widgets.php:155
+#: includes/widgets.php:152
 msgid "Shortcode or HTML or Plain Text"
 msgstr ""
 
-#: includes/widgets.php:159
+#: includes/widgets.php:156
 msgid "gNetwork: Shortcode Widget"
 msgstr ""
 
-#: includes/widgets.php:196
+#: includes/widgets.php:193
 msgctxt "Widget Form Label"
 msgid "Automatically add paragraphs"
 msgstr ""
