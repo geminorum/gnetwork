@@ -1,8 +1,8 @@
 
-body.rtl {
+// TODO: must load via action, just for RTL
+@import url(http://fonts.googleapis.com/earlyaccess/droidarabicnaskh.css);
 
-	// TODO: must load via action, just for RTL
-	@import url(http://fonts.googleapis.com/earlyaccess/droidarabicnaskh.css);
+body.rtl {
 
 	direction:rtl;
 	font-family:"Droid Arabic Naskh", Tahoma, "Iranian Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;

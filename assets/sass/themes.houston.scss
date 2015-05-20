@@ -1,9 +1,8 @@
 
+// TODO: must load via action, just for RTL
+@import url(http://fonts.googleapis.com/earlyaccess/droidarabicnaskh.css);
 
 body.rtl {
-
-	// TODO: must load via action, just for RTL
-	@import url(http://fonts.googleapis.com/earlyaccess/droidarabicnaskh.css);
 
 	direction:rtl;
 	font-family:"Droid Arabic Naskh", Tahoma, "Iranian Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -67,7 +66,7 @@ body.rtl {
 	{
 		font:normal 11.1px/16px "Droid Arabic Naskh", Tahoma, "Iranian Sans", verdana;
 	}
-	
+
 	////////////////////////////////////////////////////////////////////////////////
 
 	.site-header a.site-logo + hgroup {
