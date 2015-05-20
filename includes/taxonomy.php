@@ -66,10 +66,10 @@ class gNetworkTaxonomy extends gNetworkModuleCore
 			'textarea_rows' => 10,
 		);
 
-		?><tr class="form-field">
+		?><tr class="form-field term-description-wrap">
 			<th scope="row" valign="top"><label for="description"><?php _ex( 'Description', 'Taxonomy Description', GNETWORK_TEXTDOMAIN ); ?></label></th>
 			<td><?php wp_editor( htmlspecialchars_decode( $tag->description ), 'html-description', $settings ); ?>
-			<span class="description"><?php _e( 'The description is not prominent by default, however some themes may show it.', GNETWORK_TEXTDOMAIN ); ?></span></td>
+			<p class="description"><?php _e( 'The description is not prominent by default, however some themes may show it.', GNETWORK_TEXTDOMAIN ); ?></p></td>
 			<script type="text/javascript">jQuery( 'textarea#description' ).closest( '.form-field' ).remove();</script>
 		</tr> <?php
 	}
@@ -84,7 +84,7 @@ class gNetworkTaxonomy extends gNetworkModuleCore
 			'media_buttons' => false,
 		);
 
-		?><div><label for="tag-description"> <?php _ex( 'Description', 'Taxonomy Description' ); ?></label>
+		?><div class="form-field term-description-wrap"><label for="tag-description"><?php _ex( 'Description', 'Taxonomy Description', GNETWORK_TEXTDOMAIN ); ?></label>
 			<?php wp_editor( '', 'html-tag-description', $settings ); ?>
 			<p class="description"> <?php _e( 'The description is not prominent by default; however, some themes may show it.' ); ?></p>
 			<script type="text/javascript">
