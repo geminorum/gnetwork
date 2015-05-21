@@ -26,6 +26,7 @@ defined( 'GNETWORK_SITE_USER_ID' ) or define( 'GNETWORK_SITE_USER_ID', false ); 
 defined( 'GNETWORK_BODY_CLASS' ) or define( 'GNETWORK_BODY_CLASS', false ); // class for all blog's body html/ false fot disable
 defined( 'GNETWORK_DISABLE_BBQ' ) or define( 'GNETWORK_DISABLE_BBQ', false );
 defined( 'GNETWORK_DISABLE_RECAPTCHA' ) or define( 'GNETWORK_DISABLE_RECAPTCHA', false );
+//defined( 'GNETWORK_DISABLE_FRONT_STYLES' ) or define( 'GNETWORK_DISABLE_FRONT_STYLES', false ); cannot set this early!
 defined( 'GNETWORK_REDIRECT_MAP' ) or define( 'GNETWORK_REDIRECT_MAP', false );
 //defined( 'GNETWORK_REDIRECT_FORMAT' ) or define( 'GNETWORK_REDIRECT_FORMAT', '%1$s' );
 defined( 'GNETWORK_AJAX_ENDPOINT' ) or define( 'GNETWORK_AJAX_ENDPOINT',  admin_url( 'admin-ajax.php' ) ); // if you want to use .ataccess to rewrite
