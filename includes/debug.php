@@ -12,6 +12,8 @@ class gNetworkDebug extends gNetworkModuleCore
 			__( 'Debug', GNETWORK_TEXTDOMAIN ),
 			array( & $this, 'settings' )
 		);
+		
+		add_action( 'debug_bar_panels', array( &$this, 'debug_bar_panels' ) );
 
 		//if ( isset( $_GET['action'] ) && $_GET['action'] == 'gnetworkdeletespams' )
 			//add_action( 'init', array( & $this, 'init_delete_spams' ) );
@@ -39,6 +41,13 @@ class gNetworkDebug extends gNetworkModuleCore
 
 		//add_action( 'wp_scheduled_delete', array( & $this, 'wp_scheduled_delete' ) );
 	}
+	
+	public function debug_bar_panels( $panels )
+	{
+		require_once GNETWORK_DIR.'includes/debugbar-panel.php';
+		$panels[] = new Debug_Bar_gNetwork();
+		return $panels;
+	} 
 
 	public function settings( $sub = null )
 	{

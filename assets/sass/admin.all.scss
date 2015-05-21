@@ -119,6 +119,10 @@ body.rtl {
             direction: ltr;
         }
     }
+	
+	#gnetwork-debugbar-panel {
+		direction: ltr !important;
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////

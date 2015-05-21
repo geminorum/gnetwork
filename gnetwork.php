@@ -91,7 +91,6 @@ function gnetwork_init() {
 		// 'sms'        => 'gNetworkSMS', // WORKING, BUT DISABLED : Must review
 		// 'geo'        => 'gNetworkGeo', // PLANNING!
 		'debug'      => 'gNetworkDebug',
-		'debugbar'   => 'gNetworkDebugBar',
 		'code'       => 'gNetworkCode',
 		// 'files'      => 'gNetworkFiles', // DRAFT
 		'cleanup'    => 'gNetworkCleanup',

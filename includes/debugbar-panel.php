@@ -1,49 +1,21 @@
 <?php defined( 'ABSPATH' ) or die( 'Restricted access' );
 
-class gNetwork_Debug_Bar_Panel extends Debug_Bar_Panel 
+class Debug_Bar_gNetwork extends Debug_Bar_Panel 
 {
-	
-	function init() 
+	public function init() 
 	{
-		$this->title( __( 'gNetwork: Panel', GNETWORK_TEXTDOMAIN ) );
+		$this->title( _x( 'gNetwork', 'debug bar panel title', GNETWORK_TEXTDOMAIN ) );
 	}
 
-	function render() 
+	public function render() 
 	{
-		echo "<div>";
-		//echo "<h3>Post Meta</h3>";
-		$metas = get_post_meta( get_the_ID() );
-		echo '<table style="direction:ltr;">';
-		
-		echo '<tr><td>Current Site Blog ID</td><td>';
-			//echo gNU::getCurrentSiteBlogID();
-			//echo get_current_blog_id();
-			
-			global $current_site;
-			//return absint( $current_site->blog_id );
-			gNU::dump( $current_site );
-
-			
-		echo '</td></tr>';
-		
-		
-		
-		foreach ( $metas as $key => $values ) {
-			echo '<tr><td>' . $key . '</td><td>';
-			
-			foreach ($values as $value) {
-				if ( ( is_serialized( $value ) )  !== false) {
-					//$vals .= '<pre><code>' . print_r( unserialize( $value ), true ) . '</code></pre>';
-					gNU::dump( unserialize( $value ) );
-				} else {
-					//$vals .= '<pre><code>' . print_r( $value, true ) . "</code></pre>\n";	
-					gNU::dump( $value );
-				}
-				
-			}
-			echo '</td></tr>';
+		echo '<div id="gnetwork-debugbar-panel">';
+		foreach( apply_filters( 'gnetwork_debugbar_panel_groups', array() ) as $group_slug => $group_title ) {
+			echo '<h3>'.$group_title.'</h3>';
+			echo '<div class="gnetwork-debugbar-panel-group">';
+			do_action( 'gnetwork_debugbar_panel_'.$group_slug );
+			echo '</div>';
 		}
-		echo '</table>';
-		echo "</div>";
+		echo '</div>';
 	}
 }
