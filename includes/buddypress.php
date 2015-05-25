@@ -16,7 +16,7 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 			__( 'BuddyPress', GNETWORK_TEXTDOMAIN ),
 			array( &$this, 'settings' )
 		);
-		
+
 		add_action( 'init'              , array( &$this, 'init'               ), 10 );
 		add_action( 'bp_init'           , array( &$this, 'bp_init_early'      ), 1  );
 		add_action( 'bp_setup_admin_bar', array( &$this, 'bp_setup_admin_bar' ), 20 );
@@ -46,8 +46,8 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 			add_action( 'bp_include', array( &$this, 'bp_include_remove_widgets' ), 5 );
 			add_action( 'after_setup_theme' , array( &$this, 'after_setup_theme'  ), 10 );
 		}
-		
-		if ( bp_is_active( 'notifications' ) )	
+
+		if ( bp_is_active( 'notifications' ) )
 			add_action( 'bp_core_activated_user', array( &$this, 'bp_core_activated_user' ) );
 	}
 
@@ -60,9 +60,9 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 			'tos_text'    => '',
 			'tos_label'   => _x( 'By checking the Terms of Service Box you have read and agree to all the Policies set forth in this site\'s Terms of Service.', 'BP ToS', GNETWORK_TEXTDOMAIN ),
 			'tos_must'    => _x( 'You have to accept our terms of service. Otherwise we cannot register you on our site.', 'BP ToS', GNETWORK_TEXTDOMAIN ),
-			
+
 			'notification_defaults' => array(),
-			
+
 			'avatars_thumb_width'        => defined( 'BP_AVATAR_THUMB_WIDTH'        ) ? BP_AVATAR_THUMB_WIDTH        : 50,
 			'avatars_thumb_height'       => defined( 'BP_AVATAR_THUMB_HEIGHT'       ) ? BP_AVATAR_THUMB_HEIGHT       : 50,
 			'avatars_full_width'         => defined( 'BP_AVATAR_FULL_WIDTH'         ) ? BP_AVATAR_FULL_WIDTH         : 150,
@@ -76,49 +76,49 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 		$settings = array(
 			'_tos' => array(
 				array(
-					'field' => 'tos_display',
-					'type' => 'enabled',
-					'title' => __( 'Display ToS', GNETWORK_TEXTDOMAIN ),
+					'field'   => 'tos_display',
+					'type'    => 'enabled',
+					'title'   => __( 'Display ToS', GNETWORK_TEXTDOMAIN ),
 					'default' => '0',
 				),
 				array(
 					'field' => 'tos_title',
-					'type' => 'text',
+					'type'  => 'text',
 					'title' => __( 'ToS Title', GNETWORK_TEXTDOMAIN ),
-					'desc' => __( 'Section title, Usually : Terms of Service', GNETWORK_TEXTDOMAIN ),
+					'desc'  => __( 'Section title, Usually : Terms of Service', GNETWORK_TEXTDOMAIN ),
 					'class' => 'large-text',
 				),
 				array(
 					'field' => 'tos_link',
-					'type' => 'text',
+					'type'  => 'text',
 					'title' => __( 'ToS Link', GNETWORK_TEXTDOMAIN ),
-					'desc' => __( 'URL for section title link to actual agreement text', GNETWORK_TEXTDOMAIN ),
+					'desc'  => __( 'URL for section title link to actual agreement text', GNETWORK_TEXTDOMAIN ),
 					'class' => 'large-text',
 				),
 				array(
 					'field' => 'tos_text',
-					'type' => 'textarea',
+					'type'  => 'textarea',
 					'title' => __( 'ToS Text', GNETWORK_TEXTDOMAIN ),
-					'desc' => __( 'Full text of the agreement.', GNETWORK_TEXTDOMAIN ),
+					'desc'  => __( 'Full text of the agreement.', GNETWORK_TEXTDOMAIN ),
 					'class' => 'large-text',
 				),
 				array(
 					'field' => 'tos_label',
-					'type' => 'text',
+					'type'  => 'text',
 					'title' => __( 'ToS Label', GNETWORK_TEXTDOMAIN ),
-					'desc' => __( 'Label next to the mandatory checkbox, below full text.', GNETWORK_TEXTDOMAIN ),
+					'desc'  => __( 'Label next to the mandatory checkbox, below full text.', GNETWORK_TEXTDOMAIN ),
 					'class' => 'large-text',
 				),
 				array(
 					'field' => 'tos_must',
-					'type' => 'text',
+					'type'  => 'text',
 					'title' => __( 'ToS Must', GNETWORK_TEXTDOMAIN ),
-					'desc' => __( 'Error message upon not checking the box.', GNETWORK_TEXTDOMAIN ),
+					'desc'  => __( 'Error message upon not checking the box.', GNETWORK_TEXTDOMAIN ),
 					'class' => 'large-text',
 				),
 			),
 		);
-		
+
 		if ( bp_is_active( 'notifications' ) )
 			$settings['_notifications'] = array(
 				array(
@@ -163,10 +163,10 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 				'title' => __( 'Original Max Width', GNETWORK_TEXTDOMAIN ),
 			),
 		);
-		
+
 		return $settings;
 	}
-	
+
 	public function settings_section_tos()
 	{
 		echo '<h3>'._x( 'Terms of Service', 'Settings Section Title', GNETWORK_TEXTDOMAIN ).'</h3>';
@@ -174,7 +174,7 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 			_e( 'ToS Settings on BuddyPress Registration Page', GNETWORK_TEXTDOMAIN );
 		echo '</p>';
 	}
-	
+
 	public function settings_section_notifications()
 	{
 		echo '<h3>'._x( 'Email Notifications', 'Settings Section Title', GNETWORK_TEXTDOMAIN ).'</h3>';
@@ -182,7 +182,7 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 			_e( 'Control the default email preference for users after activation', GNETWORK_TEXTDOMAIN );
 		echo '</p>';
 	}
-	
+
 	public function settings_section_avatars()
 	{
 		echo '<h3>'._x( 'Avatars Sizes', 'Settings Section Title', GNETWORK_TEXTDOMAIN ).'</h3>';
@@ -205,35 +205,35 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 	{
 		remove_action( 'wp_head', 'bp_core_add_ajax_url_js' );
 		remove_action( 'wp_footer', 'bp_core_print_generation_time' );
-		
+
 		add_filter( 'bp_use_theme_compat_with_current_theme', '__return_false' );
 		add_action( 'wp_enqueue_scripts', function(){
 			wp_dequeue_style( 'bp-parent-css' );
-			wp_dequeue_style( 'bp-child-css' );	
+			wp_dequeue_style( 'bp-child-css' );
 		}, 20 ) ;
 	}
-	
+
 	public function init()
 	{
-		//$this->plugins_loaded();
-		
+		// TODO: add settings to disable this
+		$this->check_compelete();
+
 		// http://buddypress.org/support/topic/how-to-hide-admin-activity-on-buddypress-activity/#post-142995
 		// Don't record activity by the site admins or show them as recently active
 
 		// SEE : http://bpdevel.wordpress.com/2014/02/21/user-last_activity-data-and-buddypress-2-0/
 
-		if ( is_super_admin() ) 
-		{
+		if ( is_super_admin() ) {
 			remove_action( 'wp_head', 'bp_core_record_activity' );
 			delete_user_meta( bp_loggedin_user_id(), 'last_activity' );
-		} 
+		}
 
 		// Notify new users of a successful registration (without blog).
 		//remove_filter( 'wpmu_signup_user_notification', 'bp_core_activation_signup_user_notification', 1, 4 );
 		// Notify new users of a successful registration (with blog).
 		//remove_filter( 'wpmu_signup_blog_notification', 'bp_core_activation_signup_blog_notification', 1, 7 );
 	}
-	
+
 	public function bp_init_early()
 	{
 		defined( 'BP_AVATAR_THUMB_WIDTH'        ) or define( 'BP_AVATAR_THUMB_WIDTH',        $this->options['avatars_thumb_width']        );
@@ -241,6 +241,42 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 		defined( 'BP_AVATAR_FULL_WIDTH'         ) or define( 'BP_AVATAR_FULL_WIDTH',         $this->options['avatars_full_width']         );
 		defined( 'BP_AVATAR_FULL_HEIGHT'        ) or define( 'BP_AVATAR_FULL_HEIGHT',        $this->options['avatars_full_height']        );
 		defined( 'BP_AVATAR_ORIGINAL_MAX_WIDTH' ) or define( 'BP_AVATAR_ORIGINAL_MAX_WIDTH', $this->options['avatars_original_max_width'] );
+	}
+
+	// originally from : Bp Force Profile v 1.1.1
+	// http://wordpress.org/plugins/bp-force-profile/
+	public function check_compelete()
+	{
+		if ( is_admin()
+			|| ! is_user_logged_in()
+			|| ! bp_is_root_blog()
+			|| ! bp_is_active( 'xprofile' )
+			|| bp_current_user_can( 'bp_moderate' )
+			|| bp_loggedin_user_id() != bp_displayed_user_id() )
+				return;
+
+		global $wpdb;
+
+		$bp_prefix = bp_core_get_table_prefix();
+		// $xprofile_fields = $wpdb->get_results( "SELECT `name` FROM {$bp_prefix}bp_xprofile_fields WHERE parent_id = 0 AND is_required = 1 AND id NOT IN (SELECT field_id FROM {$bp_prefix}bp_xprofile_data WHERE user_id = {$user_id} AND `value` IS NOT NULL AND `value` != '')" );
+		$xprofile_fields = $wpdb->get_results( $wpdb->prepare( "
+			SELECT `name` FROM {$bp_prefix}bp_xprofile_fields
+			WHERE parent_id = 0
+			AND is_required = 1
+			AND id NOT IN (SELECT field_id FROM {$bp_prefix}bp_xprofile_data WHERE user_id = %s AND `value` IS NOT NULL AND `value` != '')
+		", bp_displayed_user_id() ) );
+
+		if ( ! count( $xprofile_fields ) )
+			return;
+
+		$fields = array();
+		foreach ( $xprofile_fields as $field )
+			$fields[] = $field->name;
+
+		bp_core_add_message( sprintf(
+			__( 'Please complete your profile: %s', GNETWORK_TEXTDOMAIN ),
+			gNetworkUtilities::join_items( $fields ) ),
+		'warning' );
 	}
 
 	// SEE : https://github.com/bphelp/custom_toolbar/blob/master/custom-toolbar.php
@@ -270,7 +306,7 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 		$title = empty( $this->options['tos_title'] ) ? false : $this->options['tos_title'];
 
 		if ( $title && ! empty( $this->options['tos_link'] ) )
-			printf( '<h4><a href="%1$s" title="%2$s">%3$s</a></h4>', 
+			printf( '<h4><a href="%1$s" title="%2$s">%3$s</a></h4>',
 				esc_url( $this->options['tos_link'] ),
 				_x( 'Read full agreement', 'BP ToS', GNETWORK_TEXTDOMAIN ),
 				$title
@@ -296,9 +332,7 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 
 	public function bp_after_signup_profile_fields()
 	{
-		//echo '<div style="display:none;">';
 		echo '<div style="position:absolute;'.( is_rtl() ? 'right' : 'left' ).':-5000px;">';
-			//echo '<input type="text" name="'.$this->_field_name.'" val="'.$this->_field_val.'" tabindex="-1" /></div>';
 			echo '<input type="text" name="'.$this->_field_name.'" val="" tabindex="-1" />';
 		echo '</div>';
 	}
@@ -315,7 +349,6 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 
 		if( isset( $_POST[$this->_field_name] )
 			&& ! empty( $_POST[$this->_field_name] ) )
-			//&&$this->_field_val != $_POST[$this->_field_name] )
 				$result['errors']->add( 'gnetwork_bp_honeypot',
 					__( "You're totally a spammer. Go somewhere else with your spammy ways.", GNETWORK_TEXTDOMAIN ) );
 
@@ -377,7 +410,6 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 
 		//if we are here, let us check if the current user is the author of the parent activity
 
-
 		$parent_activity = null;
 
 		//if it is an activity comment
@@ -421,29 +453,29 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 		do_action( 'bp_activity_action_delete_activity', $_POST['id'], $comment->user_id );
 		exit;
 	}
-	
+
 	public static function defaultNotifications()
 	{
 		return array(
-			'activity_new_mention'         => _X( 'Activity: New Mention',        'BP Email Notification Settings', GNETWORK_TEXTDOMAIN ),
-			'activity_new_reply'           => _X( 'Activity: New Reply',          'BP Email Notification Settings', GNETWORK_TEXTDOMAIN ),
-			'friends_friendship_request'   => _X( 'Friends: Friendship Request',  'BP Email Notification Settings', GNETWORK_TEXTDOMAIN ),
-			'friends_friendship_accepted'  => _X( 'Friends: Friendship Accepted', 'BP Email Notification Settings', GNETWORK_TEXTDOMAIN ),
-			'groups_invite'                => _X( 'Groups: Invite',               'BP Email Notification Settings', GNETWORK_TEXTDOMAIN ),
-			'groups_group_updated'         => _X( 'Groups: Group Updated',        'BP Email Notification Settings', GNETWORK_TEXTDOMAIN ),
-			'groups_admin_promotion'       => _X( 'Groups: Admin Promotion',      'BP Email Notification Settings', GNETWORK_TEXTDOMAIN ),
-			'groups_membership_request'    => _X( 'Groups: Membership Request',   'BP Email Notification Settings', GNETWORK_TEXTDOMAIN ),
-			'messages_new_message'         => _X( 'Messages: New Message',        'BP Email Notification Settings', GNETWORK_TEXTDOMAIN ),
+			'activity_new_mention'        => _X( 'Activity: New Mention',        'BP Email Notification Settings', GNETWORK_TEXTDOMAIN ),
+			'activity_new_reply'          => _X( 'Activity: New Reply',          'BP Email Notification Settings', GNETWORK_TEXTDOMAIN ),
+			'friends_friendship_request'  => _X( 'Friends: Friendship Request',  'BP Email Notification Settings', GNETWORK_TEXTDOMAIN ),
+			'friends_friendship_accepted' => _X( 'Friends: Friendship Accepted', 'BP Email Notification Settings', GNETWORK_TEXTDOMAIN ),
+			'groups_invite'               => _X( 'Groups: Invite',               'BP Email Notification Settings', GNETWORK_TEXTDOMAIN ),
+			'groups_group_updated'        => _X( 'Groups: Group Updated',        'BP Email Notification Settings', GNETWORK_TEXTDOMAIN ),
+			'groups_admin_promotion'      => _X( 'Groups: Admin Promotion',      'BP Email Notification Settings', GNETWORK_TEXTDOMAIN ),
+			'groups_membership_request'   => _X( 'Groups: Membership Request',   'BP Email Notification Settings', GNETWORK_TEXTDOMAIN ),
+			'messages_new_message'        => _X( 'Messages: New Message',        'BP Email Notification Settings', GNETWORK_TEXTDOMAIN ),
 		);
 	}
 
-	public function bp_core_activated_user( $user_id ) 
+	public function bp_core_activated_user( $user_id )
 	{
 	    foreach( self::defaultNotifications() as $setting => $title ) {
 			$preference = in_array( $setting, $this->options['notification_defaults'] ) ? 'yes' : 'no';
 			bp_update_user_meta( $user_id, 'notification_'.$setting, $preference );
 	    }
-	}	
+	}
 }
 
 

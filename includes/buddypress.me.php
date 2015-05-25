@@ -6,25 +6,23 @@
 
 class gNetwork_BP_Me_Component extends BP_Component
 {
-	
+
 	public function __construct()
 	{
 		global $bp;
+
 		parent::start( 'me', __( 'gNetwork Me', GNETWORK_TEXTDOMAIN ) );
 		$bp->active_components[$this->id] = '1';
 
 		if ( ! is_admin() ) {
-			add_filter( 'bp_members_edit_profile_url', array( & $this, 'bp_members_edit_profile_url' ), 12, 4 );
-
-			if ( $bp->root_blog_id == get_current_blog_id() )
-				add_action( 'init', array( & $this, 'init' ) );
+			add_filter( 'bp_members_edit_profile_url', array( &$this, 'bp_members_edit_profile_url' ), 12, 4 );
 		}
 
-		add_filter( 'gnetwork_bp_me_url', array( & $this, 'url' ) );
+		add_filter( 'gnetwork_bp_me_url', array( &$this, 'url' ) );
 
-		add_filter( 'gnetwork_navigation_loggedin_items', array( & $this, 'navigation_loggedin_items' ) );
-		add_filter( 'gnetwork_navigation_public_profile_url', array( & $this, 'navigation_public_profile_url' ), 12, 4 );
-		add_filter( 'gnetwork_navigation_logout_url', array( & $this, 'navigation_logout_url' ), 12, 4 );
+		add_filter( 'gnetwork_navigation_loggedin_items', array( &$this, 'navigation_loggedin_items' ) );
+		add_filter( 'gnetwork_navigation_public_profile_url', array( &$this, 'navigation_public_profile_url' ), 12, 4 );
+		add_filter( 'gnetwork_navigation_logout_url', array( &$this, 'navigation_logout_url' ), 12, 4 );
 	}
 
 	public function setup_globals( $args = array() )
@@ -39,7 +37,7 @@ class gNetwork_BP_Me_Component extends BP_Component
 			return;
 
 		__donot_cache_page();
-		
+
 		$this->current_action = bp_current_action();
 		if ( empty( $this->current_action ) )
 			$this->current_action = 'profile';
@@ -51,11 +49,11 @@ class gNetwork_BP_Me_Component extends BP_Component
 			bp_core_redirect( wp_login_url( gNetworkUtilities::current_url() ) );
 
 		$actions = apply_filters( 'gnetwork_bp_me_actions', array(
-			'profile' => array( &$this, 'me_action_profile' ),
+			'profile'  => array( &$this, 'me_action_profile' ),
 			'settings' => array( &$this, 'me_action_settings' ),
-			'edit' => array( &$this, 'me_action_edit' ),
-			'avatar' => array( &$this, 'me_action_avatar' ),
-			'logout' => array( &$this, 'me_action_logout' ),
+			'edit'     => array( &$this, 'me_action_edit' ),
+			'avatar'   => array( &$this, 'me_action_avatar' ),
+			'logout'   => array( &$this, 'me_action_logout' ),
 		) );
 
 		if ( array_key_exists( $this->current_action, $actions )
@@ -141,35 +139,5 @@ class gNetwork_BP_Me_Component extends BP_Component
 	public function navigation_logout_url( $logout_url )
 	{
 		return $this->url( 'logout' );
-	}
-
-	public function init()
-	{
-		if ( ! is_user_logged_in()
-			|| ! bp_is_active( 'xprofile' )
-			|| bp_current_user_can( 'bp_moderate' )
-			|| bp_loggedin_user_id() != bp_displayed_user_id() )
-				return;
-
-		$this->complete_message( bp_displayed_user_id() );
-	}
-
-	// originally from : Bp Force Profile v 1.1.1
-	// http://wordpress.org/plugins/bp-force-profile/
-	public function complete_message( $user_id )
-	{
-		global $wpdb;
-
-		$bp_prefix = bp_core_get_table_prefix();
-		$xprofile_fields = $wpdb->get_results( "SELECT `name` FROM {$bp_prefix}bp_xprofile_fields WHERE parent_id = 0 AND is_required = 1 AND id NOT IN (SELECT field_id FROM {$bp_prefix}bp_xprofile_data WHERE user_id = {$user_id} AND `value` IS NOT NULL AND `value` != '')" );
-
-		if ( ! count( $xprofile_fields ) )
-			return;
-
-		$fields = array();
-		foreach ( $xprofile_fields as $field )
-			$fields[] = $field->name;
-
-		bp_core_add_message( sprintf( __( 'Please complete your profile: %s', GNETWORK_TEXTDOMAIN ), gNetworkUtilities::join_items( $fields ) ), 'warning' );
 	}
 }
