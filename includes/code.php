@@ -95,7 +95,7 @@ class gNetworkCode extends gNetworkModuleCore
 			'repo' => 'geminorum/gnetwork',
 		), $atts, $tag );
 
-		wp_enqueue_script( 'gnetwork-github-repowidget', GNETWORK_URL.'/assets/js/jquery.github-repowidget.min.js', array( 'jquery' ), '20150130', true );
+		wp_enqueue_script( 'gnetwork-github-repowidget', GNETWORK_URL.'assets/js/jquery.github-repowidget.min.js', array( 'jquery' ), '20150130', true );
 		return "<div class=\"github-widget\" data-repo=\"".$args['repo']."\"></div>";
 	}
 }

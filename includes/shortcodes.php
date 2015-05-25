@@ -60,9 +60,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		if ( get_user_option( 'rich_editing' ) == 'true' ) {
 			add_filter( 'mce_external_plugins', array( & $this, 'mce_external_plugins' ) );
 			add_filter( 'mce_buttons', array( & $this, 'mce_buttons' ) );
-			// add_filter( 'tiny_mce_version', array( & $this, 'tiny_mce_version' ) );
 		}
-
 	}
 
 	// http://www.paulund.co.uk/get-list-of-all-available-shortcodes
@@ -320,7 +318,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 
 		// form from : http://socket.io/
 		$html = '<form action="http://groups.google.com/group/'.$args['id'].'/boxsubscribe?hl='.$args['hl'].'" id="google-subscribe">';
-		$html .= '<a href="http://groups.google.com/group/'.$args['id'].'?hl='.$args['hl'].'"><img src="'.GNETWORK_URL.'/assets/images/google_groups_'.$args['logo'].'.png" style="'.$args['logo_style'].'" alt="Google Groups"></a>';
+		$html .= '<a href="http://groups.google.com/group/'.$args['id'].'?hl='.$args['hl'].'"><img src="'.GNETWORK_URL.'assets/images/google_groups_'.$args['logo'].'.png" style="'.$args['logo_style'].'" alt="Google Groups"></a>';
 		// <span id="google-members-count">(4889 members)</span>
 		$html .= '<div id="google-subscribe-input">'._x( 'Email:', 'google groups subscribe', GNETWORK_TEXTDOMAIN );
 		$html .= ' <input type="text" name="email" id="google-subscribe-email" data-cip-id="google-subscribe-email" />';
@@ -346,7 +344,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		if ( $args['username'] && $args['name'] ) {
 			$key = 'repo_'.( count( $this->_github_repos ) + 1 );
 			$this->_github_repos[$key] = "$('#".$key."').repo({user:'".$args['username']."',name:'".$args['name']."'".( $args['username'] ? ", branch:'".$key."'" : "" )."});";
-			wp_enqueue_script( 'repo-js', GNETWORK_URL.'/assets/libs/repo.js/repo.min.js', array( 'jquery' ), GNETWORK_VERSION, true );
+			wp_enqueue_script( 'repo-js', GNETWORK_URL.'assets/libs/repo.js/repo.min.js', array( 'jquery' ), GNETWORK_VERSION, true );
 			return '<div id="'.$key.'" class="gnetwork-github"></div>';
 		}
 
@@ -451,7 +449,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 <object type="application/x-shockwave-flash" data="'.$args['swf'].'" width="'.$args['width'].'" height="'.$args['height'].'">
 <!--<![endif]-->
 	<center><a href="'.GNETWORK_GETFLASHPLAYER_URL.'">
-		<img src="'.GNETWORK_URL.'/assets/images/get_flash_player.gif" alt="Get Adobe Flash player" />
+		<img src="'.GNETWORK_URL.'assets/images/get_flash_player.gif" alt="Get Adobe Flash player" />
 	</a></center>
 <!--[if !IE]>-->
 </object>
@@ -616,7 +614,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		$html .= '</'.$list.'></div>';
 
 		$this->_ref_list = true;
-		wp_enqueue_script( 'gnetwork-cite', GNETWORK_URL.'/assets/js/front.cite.js', array( 'jquery' ), GNETWORK_VERSION, true );
+		wp_enqueue_script( 'gnetwork-cite', GNETWORK_URL.'assets/js/front.cite.js', array( 'jquery' ), GNETWORK_VERSION, true );
 
 		return $html;
 	}
@@ -635,20 +633,14 @@ class gNetworkShortCodes extends gNetworkModuleCore
 
 	public function mce_buttons( $buttons )
 	{
-		array_push( $buttons, "|", "gnetworkcite" );
+		array_push( $buttons, '|', 'gnetworkcite' );
 		return $buttons;
 	}
 
 	public function mce_external_plugins( $plugin_array )
 	{
-		$plugin_array['gnetworkcite'] = GNETWORK_URL.'/assets/js/tinymce.cite.js';
+		$plugin_array['gnetworkcite'] = GNETWORK_URL.'assets/js/tinymce.cite.js';
 		return $plugin_array;
-	}
-
-	public function tiny_mce_version( $ver )
-	{
-		$ver += 3;
-		return $ver;
 	}
 
 	// NOT USED YET
@@ -701,7 +693,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			$args['after_number']  = isset( $attrs[4] ) ? $atts[4] : '. ';
 		}
 
-		wp_enqueue_script( 'gnetwork-cite', GNETWORK_URL.'/assets/js/front.cite.js', array( 'jquery' ), GNETWORK_VERSION, true );
+		wp_enqueue_script( 'gnetwork-cite', GNETWORK_URL.'assets/js/front.cite.js', array( 'jquery' ), GNETWORK_VERSION, true );
 
 		return '<span>'.( $args['format_number'] ? number_format_i18n( $args['id'] ) : $args['id'] ).$args['after_number']
 				.'<span class="ref-backlink"><a href="#citeref-'.$args['id'].'-m" class="cite-scroll">'.$args['back']

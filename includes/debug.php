@@ -12,7 +12,7 @@ class gNetworkDebug extends gNetworkModuleCore
 			__( 'Debug', GNETWORK_TEXTDOMAIN ),
 			array( & $this, 'settings' )
 		);
-		
+
 		add_action( 'debug_bar_panels', array( &$this, 'debug_bar_panels' ) );
 
 		//if ( isset( $_GET['action'] ) && $_GET['action'] == 'gnetworkdeletespams' )
@@ -41,13 +41,13 @@ class gNetworkDebug extends gNetworkModuleCore
 
 		//add_action( 'wp_scheduled_delete', array( & $this, 'wp_scheduled_delete' ) );
 	}
-	
+
 	public function debug_bar_panels( $panels )
 	{
 		require_once GNETWORK_DIR.'includes/debugbar-panel.php';
 		$panels[] = new Debug_Bar_gNetwork();
 		return $panels;
-	} 
+	}
 
 	public function settings( $sub = null )
 	{
@@ -98,8 +98,16 @@ class gNetworkDebug extends gNetworkModuleCore
 		);
 
 		echo '<table><tbody>';
-		foreach ( $versions as $global => $title )
-			echo sprintf( '<tr><td style="width:185px">%1$s</td><td><code>%2$s</code></td></tr>', $title, $$global );
+		foreach ( $versions as $key => $val )
+			echo sprintf( '<tr><td style="width:185px">%1$s</td><td><code>%2$s</code></td></tr>', $val, $$key );
+		echo '</tbody></table>';
+	}
+
+	public static function codeTable( $array )
+	{
+		echo '<table><tbody>';
+		foreach ( $array as $key => $val )
+			echo sprintf( '<tr><td style="width:185px">%1$s</td><td><code>%2$s</code></td></tr>', $key, $val );
 		echo '</tbody></table>';
 	}
 
@@ -107,6 +115,18 @@ class gNetworkDebug extends gNetworkModuleCore
 	{
 		global $wp_object_cache;
 		$wp_object_cache->stats();
+	}
+
+	public static function pluginPaths()
+	{
+		$paths = array(
+			'DS'      => DS,
+			'ABSPATH' => ABSPATH,
+			'DIR'     => GNETWORK_DIR,
+			'URL'     => GNETWORK_URL,
+		);
+
+		self::codeTable( $paths );
 	}
 
 	public function plugins_loaded()
@@ -204,5 +224,5 @@ class gNetworkDebug extends gNetworkModuleCore
 
 			return apply_filters( 'wp_error_handler', false, $errno, $errstr, $errfile );
 		}, $errcontext );
-	} 
+	}
 }

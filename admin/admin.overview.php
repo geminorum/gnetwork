@@ -12,6 +12,10 @@ echo '<form method="post" action="">';
 			gNetworkDebug::versions();
 		echo '</td></tr>';
 
+		echo '<tr class="table-block ltr"><th scope="row">'.__( 'Plugin Paths', GNETWORK_TEXTDOMAIN ).'</th><td>';
+			gNetworkDebug::pluginPaths();
+		echo '</td></tr>';
+
 		echo '<tr class="ul-li-inline ltr"><th scope="row">'.__( 'Stats of the Caching', GNETWORK_TEXTDOMAIN ).'</th><td>';
 			gNetworkDebug::cacheStats();
 		echo '</td></tr>';

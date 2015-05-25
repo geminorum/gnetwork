@@ -86,7 +86,7 @@ class gNetworkgPeople extends gNetworkModuleCore
 
 	public function mce_external_plugins( $plugin_array )
 	{
-		$plugin_array['gnetworkgpeople'] = GNETWORK_URL.'/assets/js/tinymce.gpeople.js';
+		$plugin_array['gnetworkgpeople'] = GNETWORK_URL.'assets/js/tinymce.gpeople.js';
 		return $plugin_array;
 	}
 
