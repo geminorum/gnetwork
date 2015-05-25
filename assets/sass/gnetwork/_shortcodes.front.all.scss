@@ -4,11 +4,35 @@
 ////////////////////////////////////////////////////////////////////////////////
 //---Module: Shortcodes---------------------------------------------------------------
 
-.gnetwork-shortcode-back {
-    a.home {
-        
-    }
-    a.parent {
-        
-    }
+
+.gnetwork-wrap-shortcode {
+	@include main-wrap();
+
+
+}
+
+.gnetwork-wrap-shortcode.shortcode-children {
+	ul {
+		li {
+			a {
+
+			}
+		}
+	}
+}
+
+.gnetwork-wrap-shortcode.shortcode-siblings {
+	ul {
+		li {
+			a {
+
+			}
+		}
+	}
+}
+
+.gnetwork-wrap-shortcode.shortcode-back {
+	a {
+
+	}
 }

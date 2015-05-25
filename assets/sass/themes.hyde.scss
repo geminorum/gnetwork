@@ -1,7 +1,7 @@
 
 
 @import "modules/all";
-// @import "partials/base";
+@import "partials/base";
 
 
 // http://www.google.com/fonts#UsePlace:use/Collection:Ubuntu
@@ -10,19 +10,19 @@ body { font-family: 'Ubuntu', sans-serif; }
 
 @media (min-width: 48rem) {
   // html { font-size: 16px;  }
-  
+
     .sidebar {
         h1 {  font-size: 44px !important; }
     }
-  
-} 
+
+}
 @media (min-width: 58rem) {
   // html { font-size: 20px; }
-  
+
   .sidebar {
-      h1 {  font-size: 54px !important; } 
+      h1 {  font-size: 54px !important; }
   }
-  
+
 }
 
 
@@ -33,41 +33,41 @@ body { font-family: 'Ubuntu', sans-serif; }
         list-style:none;
         padding-left:0;
     }
-    
+
 }
 
-.sidebar-about { 
-    p.lead { 
-        font-size:0.89em; 
+.sidebar-about {
+    p.lead {
+        font-size:0.89em;
     }
 }
 
-.sidebar-sticky { 
-    > p { 
-        display:none; 
+.sidebar-sticky {
+    > p {
+        display:none;
     }
 }
 
 
 .entry-content {
-    
+
 }
 
 .entry-footer {
     .edit-link {
         display:none;
-    }    
+    }
 }
 
 
 .wpcf7 {
-    
+
     .wpcf7-response-output {
         margin:0 !important;
         padding:0.2em !important;
-        text-align:center;   
+        text-align:center;
     }
-    
+
     img.ajax-loader {
     	border: none;
     	vertical-align: middle;
@@ -79,22 +79,22 @@ body { font-family: 'Ubuntu', sans-serif; }
     span.wpcf7-not-valid-tip {
         display:inline !important;
     }
-    
+
     span.wpcf7-form-control-wrap {
         position: relative;
-        
+
         input[type="text"], input[type="email"], textarea {
             width:100%;
         }
-        
+
     }
-    
+
     input[type="submit"] {
         width:100%;
     }
 }
 
-.gnetwork-shortcode-back {
+.gnetwork-wrap-shortcode.shortcode-back {
     a {
         text-transform: lowercase;
     }
