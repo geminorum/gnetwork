@@ -31,23 +31,23 @@ class gNetworkShortCodes extends gNetworkModuleCore
 	public function init_late()
 	{
 		$this->shortcodes( array(
-			// 'accordion' => 'shortcode_accordion',
-			'children' => 'shortcode_children',
-			'siblings' => 'shortcode_siblings',
-			'back' => 'shortcode_back',
-			'iframe' => 'shortcode_iframe',
-			'email' => 'shortcode_email',
+			// 'accordion'    => 'shortcode_accordion',
+			'children'     => 'shortcode_children',
+			'siblings'     => 'shortcode_siblings',
+			'back'         => 'shortcode_back',
+			'iframe'       => 'shortcode_iframe',
+			'email'        => 'shortcode_email',
 			'googlegroups' => 'shortcode_googlegroups',
-			// 'github-repo' => 'shortcode_github_repo',
-			'pdf' => 'shortcode_pdf',
-			'bloginfo' => 'shortcode_bloginfo',
-			'audio' => 'shortcode_audio',
-			'flash' => 'shortcode_flash',
-			'ref' => 'shortcode_ref',
-			'reflist' => 'shortcode_reflist',
-			'ref-m' => 'shortcode_ref_manual',
-			'reflist-m' => 'shortcode_reflist_manual',
-			'repo-video' => 'shortcode_repo_video',
+			// 'github-repo'  => 'shortcode_github_repo',
+			'pdf'          => 'shortcode_pdf',
+			'bloginfo'     => 'shortcode_bloginfo',
+			'audio'        => 'shortcode_audio',
+			'flash'        => 'shortcode_flash',
+			'ref'          => 'shortcode_ref',
+			'reflist'      => 'shortcode_reflist',
+			'ref-m'        => 'shortcode_ref_manual',
+			'reflist-m'    => 'shortcode_reflist_manual',
+			'repo-video'   => 'shortcode_repo_video',
 		) );
 
 		add_filter( 'the_content', array( & $this, 'the_content' ), 20 );
@@ -74,8 +74,6 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		foreach ( $shortcode_tags as $code => $callback )
 			echo '<li><code>['.$code.']</code></li>';
 		echo '</ul>';
-
-		// gNetworkUtilities::dump( $shortcode_tags );
 	}
 
 	// http://stephanieleary.com/2010/06/listing-child-pages-with-a-shortcode/
@@ -90,25 +88,26 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			return $content;
 
 		$children = wp_list_pages( array(
-			'child_of' => $args['id'],
-			'post_type' => $args['type'],
-			'echo' => false,
-			'depth' => 1,
-			'title_li' => '',
+			'child_of'    => $args['id'],
+			'post_type'   => $args['type'],
+			'echo'        => false,
+			'depth'       => 1,
+			'title_li'    => '',
 			'sort_column' => 'menu_order, post_title',
 		) );
 
 		if ( ! $children )
 			return $content;
 
-		return '<ul class="children">'.$children.'</ul>';
+		return '<div class="gnetwork-wrap-shortcode shortcode-children"><ul>'.$children.'</ul></div>';
 	}
 
 	public function shortcode_siblings( $atts, $content = null, $tag = '' )
 	{
 		$args = shortcode_atts( array(
 			'parent' => null,
-			'type' => 'page',
+			'type'   => 'page',
+			'ex'     => null,
 		), $atts, $tag );
 
 		if ( ! is_singular( $args['type'] ) )
@@ -123,27 +122,31 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		if ( ! $args['parent'] )
 			return $content;
 
+		if ( is_null( $args['ex'] ) )
+			$args['ex'] = get_queried_object_id();
+
 		$siblings = wp_list_pages( array(
-			'child_of' => $args['parent'],
-			'post_type' => $args['type'],
-			'echo' => false,
-			'depth' => 1,
-			'title_li' => '',
+			'child_of'    => $args['parent'],
+			'post_type'   => $args['type'],
+			'exclude'     => $args['ex'],
+			'echo'        => false,
+			'depth'       => 1,
+			'title_li'    => '',
 			'sort_column' => 'menu_order, post_title',
 		) );
 
 		if ( ! $siblings )
 			return $content;
 
-		return '<ul class="children siblings">'.$siblings.'</ul>';
+		return '<div class="gnetwork-wrap-shortcode shortcode-siblings"><ul>'.$siblings.'</ul></div>';
 	}
 
 	// TODO: finish cases
 	public function shortcode_back( $atts, $content = null, $tag = '' )
 	{
 		$args = shortcode_atts( array(
-			'id' => get_queried_object_id(),
-			'to' => 'parent',
+			'id'   => get_queried_object_id(),
+			'to'   => 'parent',
 			'html' => _x( 'Back', 'Shortcodes: back: default html', GNETWORK_TEXTDOMAIN ),
 		), $atts, $tag );
 
@@ -160,17 +163,17 @@ class gNetworkShortCodes extends gNetworkModuleCore
 				if ( $post ) {
 					if ( $post->post_parent ) {
 						$html = gNetworkUtilities::html( 'a', array(
-							'href' => get_permalink( $post->post_parent ),
+							'href'  => get_permalink( $post->post_parent ),
 							'title' => get_the_title( $post->post_parent ),
 							'class' => 'parent',
-							'rel' => 'parent',
+							'rel'   => 'parent',
 						), $args['html'] );
 					} else {
 						$html = gNetworkUtilities::html( 'a', array(
-							'href' => home_url( '/' ),
+							'href'  => home_url( '/' ),
 							'title' => _x( 'Home', 'Shortcodes: back: home title attr', GNETWORK_TEXTDOMAIN ),
 							'class' => 'home',
-							'rel' => 'home',
+							'rel'   => 'home',
 						), $args['html'] );
 					}
 				}
@@ -180,10 +183,10 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			case 'home' :
 
 				$html = gNetworkUtilities::html( 'a', array(
-					'href' => home_url( '/' ),
+					'href'  => home_url( '/' ),
 					'title' => _x( 'Home', 'Shortcodes: back: home title attr', GNETWORK_TEXTDOMAIN ),
 					'class' => 'home',
-					'rel' => 'home',
+					'rel'   => 'home',
 				), $args['html'] );
 
 			break;
@@ -195,7 +198,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		}
 
 		if ( $html )
-			return '<div class="gnetwork-wrap gnetwork-shortcode-back">'.$html.'</div>';
+			return '<div class="gnetwork-wrap-shortcode shortcode-back">'.$html.'</div>';
 
 		return $content;
 	}
@@ -214,7 +217,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			// set the arguments for children of the ancestor page
 			$args = array(
 				'child_of' => $ancestor,
-				'depth' => '-1',
+				'depth'    => '-1',
 				'title_li' => '',
 			);
 
@@ -264,11 +267,11 @@ class gNetworkShortCodes extends gNetworkModuleCore
 	public function shortcode_iframe( $atts, $content = null, $tag = '' )
 	{
 		$args = shortcode_atts( array(
-			'url' => false,
-			'width' => '100%',
+			'url'    => false,
+			'width'  => '100%',
 			'height' => '520',
 			'scroll' => 'auto',
-			'style' => 'width:100%!important;',
+			'style'  => 'width:100%!important;',
 		), $atts, $tag );
 
 		if ( ! $args['url'] )
@@ -306,10 +309,10 @@ class gNetworkShortCodes extends gNetworkModuleCore
 	{
 		$args = shortcode_atts( array(
 			'title_wrap' => 'h3',
-			'id' => constant( 'GNETWORK_GOOGLE_GROUP_ID' ),
-			'logo' => 'color',
+			'id'         => constant( 'GNETWORK_GOOGLE_GROUP_ID' ),
+			'logo'       => 'color',
 			'logo_style' => 'border:none;box-shadow:none;',
-			'hl' => constant( 'GNETWORK_GOOGLE_GROUP_HL' ),
+			'hl'         => constant( 'GNETWORK_GOOGLE_GROUP_HL' ),
 		), $atts, $tag );
 
 		if ( false == $args['id'] )
@@ -336,8 +339,8 @@ class gNetworkShortCodes extends gNetworkModuleCore
 	{
 		$args = shortcode_atts( array(
 			'username' => false,
-			'name' => false,
-			'branch' => false,
+			'name'     => false,
+			'branch'   => false,
 		), $atts, $tag );
 
 		if ( $args['username'] && $args['name'] ) {
@@ -356,18 +359,16 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		// TODO : get the standard PDF dimensions for A4
 
 		$args = shortcode_atts( array(
-			'url' => false, // comma seperated multiple url to show multiple pdf // UNFINISHED
-			'width' => '100%', // '840px',
-			'height' => '960px',
-			'rand' => false, // if multiple url then use random
-
-			'navpanes' => '1',
+			'url'       => false, // comma seperated multiple url to show multiple pdf // UNFINISHED
+			'width'     => '100%', // '840px',
+			'height'    => '960px',
+			'rand'      => false, // if multiple url then use random
+			'navpanes'  => '1',
 			'statusbar' => '0',
-			'view' => 'FitH',
-			'pagemode' => 'thumbs',
-
-			'rtl' => ( is_rtl() ? 'yes' : 'no' ),
-			'download' => false,
+			'view'      => 'FitH',
+			'pagemode'  => 'thumbs',
+			'rtl'       => ( is_rtl() ? 'yes' : 'no' ),
+			'download'  => false,
 		), $atts, $tag );
 
 		if ( ! $args['url'] )
@@ -401,8 +402,8 @@ class gNetworkShortCodes extends gNetworkModuleCore
 	public function shortcode_bloginfo( $atts, $content = null, $tag = '' )
 	{
 		$args = shortcode_atts( array(
-			'key' => '',
-			'wrap' => false,
+			'key'   => '',
+			'wrap'  => false,
 			'class' => 'blog-info blog-info-%s',
 		), $atts, $tag );
 
@@ -415,18 +416,17 @@ class gNetworkShortCodes extends gNetworkModuleCore
 	public function shortcode_flash( $atts, $content = null, $tag = '' )
 	{
 		$args = shortcode_atts( array(
-			'swf' => false, // comma seperated multiple url to show multiple flash // UNFINISHED
-			'width' => '800',
-			'height' => '600',
-			'rand' => false, // if multiple url then use random
-
-			'loop' => 'no',
+			'swf'       => false, // comma seperated multiple url to show multiple flash // UNFINISHED
+			'width'     => '800',
+			'height'    => '600',
+			'rand'      => false, // if multiple url then use random
+			'loop'      => 'no',
 			'autostart' => 'no',
-			'titles' => '',
-			'artists' => '',
-			'duration' => '',
-			'rtl' => ( is_rtl() ? 'yes' : 'no' ),
-			'download' => false,
+			'titles'    => '',
+			'artists'   => '',
+			'duration'  => '',
+			'rtl'       => ( is_rtl() ? 'yes' : 'no' ),
+			'download'  => false,
 		), $atts, $tag );
 
 		if ( ! $args['swf'] )
@@ -467,23 +467,23 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			return $content;
 
 		$args = apply_filters( 'gnetwork_shortcode_audio_atts', shortcode_atts( array(
-			'source' => false,
-			'mp3' => false,
+			'source'    => false,
+			'mp3'       => false,
 			'mp3remote' => false,
-			'wma' => false,
+			'wma'       => false,
 			'wmaremote' => false,
-			'wma' => false,
+			'wma'       => false,
 			'wmaremote' => false,
-			'wmv' => false,
+			'wmv'       => false,
 			'wmvremote' => false,
-			'loop' => 'no',
+			'loop'      => 'no',
 			'autostart' => 'no',
-			'titles' => get_the_title(),
-			'artists' => '',
-			'width' => '100%',
-			'duration' => '',
-			'rtl' => ( is_rtl() ? 'yes' : 'no' ),
-			'download' => false,
+			'titles'    => get_the_title(),
+			'artists'   => '',
+			'width'     => '100%',
+			'duration'  => '',
+			'rtl'       => ( is_rtl() ? 'yes' : 'no' ),
+			'download'  => false,
 		), $atts ) );
 
 		if ( ! $args['source'] ) {
@@ -555,11 +555,11 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			return null;
 
 		$args = shortcode_atts( array(
-			'url' => false,
-			'class' => 'ref-anchor',
+			'url'           => false,
+			'class'         => 'ref-anchor',
 			'format_number' => true,
-			'rtl' => ( is_rtl() ? 'yes' : 'no' ),
-			'ext' => 'def',
+			'rtl'           => ( is_rtl() ? 'yes' : 'no' ),
+			'ext'           => 'def',
 		), $atts, $tag );
 
 		$html = $url = false;
@@ -594,12 +594,12 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			return null;
 
 		$args = shortcode_atts( array(
-			'class' => 'ref-list',
-			'number' => true,
-			'after_number' => '. ',
+			'class'         => 'ref-list',
+			'number'        => true,
+			'after_number'  => '. ',
 			'format_number' => true,
-			'back' => '[&#8617;]', //'&uarr;',
-			'rtl' => ( is_rtl() ? 'yes' : 'no' ),
+			'back'          => '[&#8617;]', //'&uarr;',
+			'rtl'           => ( is_rtl() ? 'yes' : 'no' ),
 		), $atts, $tag );
 
 		$list = ( $args['number'] ? 'ul' : 'ol' );
@@ -661,9 +661,9 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		// [ref-m 0 "Caption Title"]
 		if ( isset( $atts['id'] ) ) {
 			$args = shortcode_atts( array(
-				'id' => 0,
-				'title' => __( 'See the footnote', GNETWORK_TEXTDOMAIN ),
-				'class' => 'ref-anchor',
+				'id'            => 0,
+				'title'         => __( 'See the footnote', GNETWORK_TEXTDOMAIN ),
+				'class'         => 'ref-anchor',
 				'format_number' => true,
 				), $atts, $tag );
 		} else { //[ref-m 0]
@@ -686,19 +686,19 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		// [reflist-m 0 "Caption Title"]
 		if ( isset( $atts['id'] ) ) {
 			$args = shortcode_atts( array(
-				'id' => 0,
-				'title' => __( 'See the footnote', GNETWORK_TEXTDOMAIN ),
-				'class' => 'ref-anchor',
+				'id'            => 0,
+				'title'         => __( 'See the footnote', GNETWORK_TEXTDOMAIN ),
+				'class'         => 'ref-anchor',
 				'format_number' => true,
-				'back' => '[&#8617;]', //'&uarr;',
+				'back'          => '[&#8617;]', //'&uarr;',
 				), $atts, $tag );
 		} else { //[reflist-m 0]
-			$args['id'] = $atts[0];
-			$args['title'] = isset( $attrs[1] ) ? $atts[1] : __( 'See the footnote', GNETWORK_TEXTDOMAIN );
-			$args['class'] = isset( $attrs[2] ) ? $atts[2] : 'ref-anchor';
+			$args['id']            = $atts[0];
+			$args['title']         = isset( $attrs[1] ) ? $atts[1] : __( 'See the footnote', GNETWORK_TEXTDOMAIN );
+			$args['class']         = isset( $attrs[2] ) ? $atts[2] : 'ref-anchor';
 			$args['format_number'] = isset( $attrs[3] ) ? $atts[3] : true;
-			$args['back'] = isset( $attrs[4] ) ? $atts[4] : '[&#8617;]';
-			$args['after_number'] = isset( $attrs[4] ) ? $atts[4] : '. ';
+			$args['back']          = isset( $attrs[4] ) ? $atts[4] : '[&#8617;]';
+			$args['after_number']  = isset( $attrs[4] ) ? $atts[4] : '. ';
 		}
 
 		wp_enqueue_script( 'gnetwork-cite', GNETWORK_URL.'/assets/js/front.cite.js', array( 'jquery' ), GNETWORK_VERSION, true );
@@ -718,25 +718,21 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		if ( isset( $atts['slug'] ) ) {
 
 			$args = shortcode_atts( array(
-				'path' => false,
-
-
-
-				//'cat' => __( 'See the footnote', GNETWORK_TEXTDOMAIN ),
-				'class' => '',
-				'rtl' => is_rtl(),
+				'path'     => false,
+				// 'cat'      => __( 'See the footnote', GNETWORK_TEXTDOMAIN ),
+				'class'    => '',
+				'rtl'      => is_rtl(),
 				'download' => true,
-
 			), $atts, $tag );
 
 		} else { //[repo 0]
 
-			$args['slug'] = $atts[0];
-			$args['cat'] = isset( $attrs[1] ) ? $atts[1] : __( 'See the footnote', GNETWORK_TEXTDOMAIN );
-			$args['class'] = isset( $attrs[2] ) ? $atts[2] : 'ref-anchor';
+			$args['slug']          = $atts[0];
+			$args['cat']           = isset( $attrs[1] ) ? $atts[1] : __( 'See the footnote', GNETWORK_TEXTDOMAIN );
+			$args['class']         = isset( $attrs[2] ) ? $atts[2] : 'ref-anchor';
 			$args['format_number'] = isset( $attrs[3] ) ? $atts[3] : true;
-			$args['back'] = isset( $attrs[4] ) ? $atts[4] : '[&#8617;]';
-			$args['after_number'] = isset( $attrs[4] ) ? $atts[4] : '. ';
+			$args['back']          = isset( $attrs[4] ) ? $atts[4] : '[&#8617;]';
+			$args['after_number']  = isset( $attrs[4] ) ? $atts[4] : '. ';
 		}
 
 		if ( ! $args['slug'] )
