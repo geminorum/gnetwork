@@ -471,10 +471,10 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 
 	public function bp_core_activated_user( $user_id )
 	{
-	    foreach( self::defaultNotifications() as $setting => $title ) {
+		foreach( self::defaultNotifications() as $setting => $title ) {
 			$preference = in_array( $setting, $this->options['notification_defaults'] ) ? 'yes' : 'no';
 			bp_update_user_meta( $user_id, 'notification_'.$setting, $preference );
-	    }
+		}
 	}
 }
 

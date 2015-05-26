@@ -86,9 +86,9 @@ class gNetworkEditor extends gNetworkModuleCore
 	public function wp_link_query_args( $query )
 	{
 		if ( current_user_can( 'edit_others_posts' ) )
-	    	$query['post_status'] = 'any';
+			$query['post_status'] = 'any';
 
-	    return $query;
+		return $query;
 	}
 
 }

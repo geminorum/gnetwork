@@ -540,12 +540,12 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		}
 	}
 
-    public static function wrapJS( $script = '' )
-    {
-        return '<script type="text/javascript">'."\n".'/* <![CDATA[ */'."\n".'jQuery(document).ready(public function($) {'."\n"
-                .$script.
-                '});'."\n".'/* ]]> */'."\n".'</script>';
-    }
+	public static function wrapJS( $script = '' )
+	{
+		return '<script type="text/javascript">'."\n".'/* <![CDATA[ */'."\n".'jQuery(document).ready(public function($) {'."\n"
+				.$script.
+				'});'."\n".'/* ]]> */'."\n".'</script>';
+	}
 
 	public function shortcode_ref( $atts, $content = null, $tag = '' )
 	{

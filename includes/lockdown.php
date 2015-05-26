@@ -98,16 +98,16 @@ class gNetworkLockDown extends gNetworkModuleCore
 	}
 
 	public function default_options()
-    {
-        return array(
-            'record_attempts' => '0',
-            'failed_expiration' => '60',
-            'locked_expiration' => '60', // must be more than 4 hours
-            'failed_limit' => '4',
-            'trust_proxied_ip' => '0',
-            'locked_notice' => __( '<strong>LOCKED OUT:</strong> Too many login attempts from one IP address! Please take a break and try again.', GNETWORK_TEXTDOMAIN ),
-        );
-    }
+	{
+		return array(
+			'record_attempts' => '0',
+			'failed_expiration' => '60',
+			'locked_expiration' => '60', // must be more than 4 hours
+			'failed_limit' => '4',
+			'trust_proxied_ip' => '0',
+			'locked_notice' => __( '<strong>LOCKED OUT:</strong> Too many login attempts from one IP address! Please take a break and try again.', GNETWORK_TEXTDOMAIN ),
+		);
+	}
 
 	private function ip()
 	{

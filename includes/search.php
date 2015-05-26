@@ -109,20 +109,20 @@ class gNetworkSearch extends gNetworkModuleCore
 	// https://gist.github.com/chrisguitarguy/4477015
 	public function template_redirect_search_again()
 	{
-        global $wp_the_query, $wp_query;
+		global $wp_the_query, $wp_query;
 
-        if ( ! is_404() )
-            return;
+		if ( ! is_404() )
+			return;
 
-        $uri = isset( $_SERVER['REQUEST_URI'] ) ? trim( $_SERVER['REQUEST_URI'], '/' ) : false;
-        if ( ! $uri ) // no request uri? okay.
-            return;
+		$uri = isset( $_SERVER['REQUEST_URI'] ) ? trim( $_SERVER['REQUEST_URI'], '/' ) : false;
+		if ( ! $uri ) // no request uri? okay.
+			return;
 
-        // destroy the query and replace it with our own.
-        $wp_the_query = $wp_query = new WP_Query(array(
-            'post_type' => apply_filters( 'error_search_post_types', 'any' ),
-            's' => str_replace( '/', ' ', $uri ),
-        ));
+		// destroy the query and replace it with our own.
+		$wp_the_query = $wp_query = new WP_Query(array(
+			'post_type' => apply_filters( 'error_search_post_types', 'any' ),
+			's' => str_replace( '/', ' ', $uri ),
+		));
 	}
 
 	// https://gist.github.com/danielbachhuber/4152335

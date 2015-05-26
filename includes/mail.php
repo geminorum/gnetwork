@@ -18,7 +18,7 @@ class gNetworkMail extends gNetworkModuleCore
 		);
 
 		add_filter( 'wp_mail_from', array( & $this, 'wp_mail_from' ), 5 );
-        add_filter( 'wp_mail_from_name', array( & $this, 'wp_mail_from_name' ), 5 );
+		add_filter( 'wp_mail_from_name', array( & $this, 'wp_mail_from_name' ), 5 );
 
 		add_action( 'phpmailer_init', array( & $this, 'phpmailer_init' ) );
 	}
@@ -175,41 +175,41 @@ class gNetworkMail extends gNetworkModuleCore
 		);
 	}
 
-    public function wp_mail_from( $email )
-    {
-        if ( 0 === strpos( $email, 'wordpress@' ) )
-            $email = $this->get_from_email( $email );
-        return apply_filters( 'gnetwork_mail_from_email', $email );
-    }
+	public function wp_mail_from( $email )
+	{
+		if ( 0 === strpos( $email, 'wordpress@' ) )
+			$email = $this->get_from_email( $email );
+		return apply_filters( 'gnetwork_mail_from_email', $email );
+	}
 
-    public function wp_mail_from_name( $name )
-    {
-        if ( 0 === strpos( $name, 'WordPress' ) )
-            $name = $this->get_from_name( $name );
-        return apply_filters( 'gnetwork_mail_from_name', $name );
-    }
+	public function wp_mail_from_name( $name )
+	{
+		if ( 0 === strpos( $name, 'WordPress' ) )
+			$name = $this->get_from_name( $name );
+		return apply_filters( 'gnetwork_mail_from_name', $name );
+	}
 
-    public function get_from_email( $email = '' )
-    {
-        if ( ! empty( $this->options['from_email'] ) )
-            return $this->options['from_email'];
-        else
-            return get_site_option( 'admin_email', $email );
+	public function get_from_email( $email = '' )
+	{
+		if ( ! empty( $this->options['from_email'] ) )
+			return $this->options['from_email'];
+		else
+			return get_site_option( 'admin_email', $email );
 
-        return $email;
-    }
+		return $email;
+	}
 
-    public function get_from_name( $name = '' )
-    {
-        if ( ! empty( $this->options['from_name'] ) ) {
-            return $this->options['from_name'];
-        } else {
-            if ( is_multisite() )
-                return get_site_option( 'site_name', $name );
-            return get_option( 'blogname', $name );
-        }
-        return $name;
-    }
+	public function get_from_name( $name = '' )
+	{
+		if ( ! empty( $this->options['from_name'] ) ) {
+			return $this->options['from_name'];
+		} else {
+			if ( is_multisite() )
+				return get_site_option( 'site_name', $name );
+			return get_option( 'blogname', $name );
+		}
+		return $name;
+	}
 
 	// http://phpmailer.worxware.com/?pg=properties
 	// http://stackoverflow.com/questions/6315052/use-of-phpmailer-class

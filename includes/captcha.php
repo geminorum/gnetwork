@@ -85,13 +85,13 @@ class gNetworkCaptcha extends gNetworkModuleCore
 	}
 
 	public function default_options()
-    {
-        return array(
-            'login_captcha' => '0',
+	{
+		return array(
+			'login_captcha' => '0',
 			'public_key' => '',
-            'private_key' => '',
-        );
-    }
+			'private_key' => '',
+		);
+	}
 
 	// http://www.sitepoint.com/integrating-a-captcha-with-the-wordpress-login-form/
 	// https://github.com/Collizo4sky/WP-Login-Form-with-reCAPTCHA/

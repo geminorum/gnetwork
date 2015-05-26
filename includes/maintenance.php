@@ -17,8 +17,8 @@ class gNetworkMaintenance extends gNetworkModuleCore
 		add_action( 'admin_init', array( & $this, 'admin_init' ) );
 	}
 
-    public function init()
-    {
+	public function init()
+	{
 		if ( ! self::cuc( $this->options['maintenance_site'] ) ) {
 			add_action( 'template_redirect', array( & $this, 'template_redirect' ) );
 			add_filter( 'status_header', array( & $this, 'status_header' ), 10, 4 );
@@ -98,14 +98,14 @@ class gNetworkMaintenance extends gNetworkModuleCore
 	}
 
 	public function default_options()
-    {
-        return array(
-            'maintenance_site' => 'none',
+	{
+		return array(
+			'maintenance_site' => 'none',
 			'maintenance_admin' => 'none',
-            'admin_notice' => __( 'The Maintenance Mode is active.', GNETWORK_TEXTDOMAIN ),
-            'login_message' => __( 'The site is unavailable for scheduled maintenance.', GNETWORK_TEXTDOMAIN ),
-        );
-    }
+			'admin_notice' => __( 'The Maintenance Mode is active.', GNETWORK_TEXTDOMAIN ),
+			'login_message' => __( 'The site is unavailable for scheduled maintenance.', GNETWORK_TEXTDOMAIN ),
+		);
+	}
 
 	public function status_header( $status_header, $header, $text, $protocol )
 	{
@@ -235,14 +235,14 @@ a {
 </style>
 </head><body>
 <div class="bo">
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <h3 dir="ltr">503 Service Unavailable</h3>
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<h3 dir="ltr">503 Service Unavailable</h3>
 </div>
 </body></html> <?php
 	}

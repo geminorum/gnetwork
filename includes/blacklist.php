@@ -59,13 +59,13 @@ class gNetworkBlackList extends gNetworkModuleCore
 	}
 
 	public function default_options()
-    {
-        return array(
-            'check_ip' => '0',
-            'blacklisted_ips' => '',
-            'blacklisted_notice' => '', //__( '', GNETWORK_TEXTDOMAIN ),
-        );
-    }
+	{
+		return array(
+			'check_ip' => '0',
+			'blacklisted_ips' => '',
+			'blacklisted_notice' => '', //__( '', GNETWORK_TEXTDOMAIN ),
+		);
+	}
 
 	public function settings( $sub = null )
 	{

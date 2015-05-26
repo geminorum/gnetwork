@@ -89,8 +89,8 @@ class gNetworkThemes extends gNetworkModuleCore
 
 	public function wp_head()
 	{
-        if ( defined( 'GNETWORK_DISABLE_FRONT_STYLES' ) && GNETWORK_DISABLE_FRONT_STYLES )
-            return;
+		if ( defined( 'GNETWORK_DISABLE_FRONT_STYLES' ) && GNETWORK_DISABLE_FRONT_STYLES )
+			return;
 
 		gNetworkUtilities::linkStyleSheet( GNETWORK_URL.'assets/css/front.all.css' );
 	}

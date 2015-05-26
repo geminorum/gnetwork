@@ -55,11 +55,11 @@ class gNetworkComments extends gNetworkModuleCore
 	}
 
 	public function default_options()
-    {
-        return array(
-            'admin_fullcomments' => ! GNETWORK_ADMIN_FULLCOMMENTS_DISABLED,
-        );
-    }
+	{
+		return array(
+			'admin_fullcomments' => ! GNETWORK_ADMIN_FULLCOMMENTS_DISABLED,
+		);
+	}
 
 	public function default_settings()
 	{

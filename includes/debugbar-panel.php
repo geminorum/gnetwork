@@ -1,13 +1,13 @@
 <?php defined( 'ABSPATH' ) or die( 'Restricted access' );
 
-class Debug_Bar_gNetwork extends Debug_Bar_Panel 
+class Debug_Bar_gNetwork extends Debug_Bar_Panel
 {
-	public function init() 
+	public function init()
 	{
 		$this->title( _x( 'gNetwork', 'debug bar panel title', GNETWORK_TEXTDOMAIN ) );
 	}
 
-	public function render() 
+	public function render()
 	{
 		echo '<div id="gnetwork-debugbar-panel">';
 		foreach( apply_filters( 'gnetwork_debugbar_panel_groups', array() ) as $group_slug => $group_title ) {

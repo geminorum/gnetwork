@@ -55,19 +55,19 @@ class gNetworkModuleCore
 		else
 			$options = get_option( $this->options_key(), $defaults );
 
-        return $this->settings_sanitize( $options, $defaults );
+		return $this->settings_sanitize( $options, $defaults );
 	}
 
-    public function settings_sanitize( $input, $defaults = null )
-    {
+	public function settings_sanitize( $input, $defaults = null )
+	{
 		$output = ( is_null( $defaults ) ? $this->default_options() : $defaults );
 
-        foreach( $output as $key => $val )
-            if ( isset( $input[$key] ) )
-                $output[$key] = $input[$key];
+		foreach( $output as $key => $val )
+			if ( isset( $input[$key] ) )
+				$output[$key] = $input[$key];
 
-        return $output;
-    }
+		return $output;
+	}
 
 	// option and it's default
 	// it's really moot! since we sanitize options

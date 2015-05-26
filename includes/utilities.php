@@ -85,22 +85,22 @@ class gNetworkUtilities
 		return $current_url;
 	}
 
-    public static function register_url( $register = false )
-    {
-        if ( function_exists( 'buddypress' ) ) {
-            if ( bp_get_signup_allowed() )
-                return bp_get_signup_page();
-        } else if ( get_option( 'users_can_register' ) ) {
-            if ( is_multisite() )
-                return apply_filters( 'wp_signup_location', network_site_url( 'wp-signup.php' ) );
-            else
-                //return site_url( 'wp-login.php?action=register', 'login' );
-                return wp_registration_url();
-        } else if ( 'site' == $register ) {
-            return  site_url( '/' );
-        }
-        return $register;
-    }
+	public static function register_url( $register = false )
+	{
+		if ( function_exists( 'buddypress' ) ) {
+			if ( bp_get_signup_allowed() )
+				return bp_get_signup_page();
+		} else if ( get_option( 'users_can_register' ) ) {
+			if ( is_multisite() )
+				return apply_filters( 'wp_signup_location', network_site_url( 'wp-signup.php' ) );
+			else
+				//return site_url( 'wp-login.php?action=register', 'login' );
+				return wp_registration_url();
+		} else if ( 'site' == $register ) {
+			return  site_url( '/' );
+		}
+		return $register;
+	}
 
 	// shows all the "filters" currently attached to a hook
 	public static function filters( $hook )
@@ -122,18 +122,18 @@ class gNetworkUtilities
 				array_slice( $items, -1 ) ) ) ).'&ldquo;.';
 	}
 
-    // idea originally from HTML Emails by Mohammad Jangda
-    public static function getLayout( $layout_name, $require_once = false, $no_cache = false )
-    {
-        // must check if it's not admin!
+	// idea originally from HTML Emails by Mohammad Jangda
+	public static function getLayout( $layout_name, $require_once = false, $no_cache = false )
+	{
+		// must check if it's not admin!
 
-        $layout = locate_template( $layout_name );
-        if( ! $layout )
+		$layout = locate_template( $layout_name );
+		if( ! $layout )
 			if ( file_exists( WP_CONTENT_DIR.DS.$layout_name.'.php' ) )
 				$layout = WP_CONTENT_DIR.DS.$layout_name.'.php';
 
 		if( ! $layout )
-            $layout = GNETWORK_DIR.'assets'.DS.'layouts'.DS.$layout_name.'.php';
+			$layout = GNETWORK_DIR.'assets'.DS.'layouts'.DS.$layout_name.'.php';
 
 		if ( $no_cache )
 			__donot_cache_page();
@@ -142,7 +142,7 @@ class gNetworkUtilities
 			require_once( $layout );
 		else
 			return $layout;
-    }
+	}
 
 	public static function strpos_arr( $haystack, $needle )
 	{
@@ -194,16 +194,16 @@ class gNetworkUtilities
 	}
 
 	public static function dropdown( $list, $name, $prop = false, $selected = 0, $none = false, $none_val = 0, $obj = false )
-    {
-        $html = '<select name="'.$name.'" id="'.$name.'">';
-        if ( $none )
-            $html .= '<option value="'.$none_val.'" '.selected( $selected, $none_val, false ).'>'.esc_html( $none ).'</option>';
-        foreach( $list as $key => $item ) {
-            $html .= '<option value="'.$key.'" '.selected( $selected, $key, false ).'>'
+	{
+		$html = '<select name="'.$name.'" id="'.$name.'">';
+		if ( $none )
+			$html .= '<option value="'.$none_val.'" '.selected( $selected, $none_val, false ).'>'.esc_html( $none ).'</option>';
+		foreach( $list as $key => $item ) {
+			$html .= '<option value="'.$key.'" '.selected( $selected, $key, false ).'>'
 				.esc_html( ( $prop ? ( $obj ? $item->{$prop} : $item[$prop] ) : $item ) ).'</option>';
 		}
-        return $html.'</select>';
-    }
+		return $html.'</select>';
+	}
 
 	public static function same_key_array( $old )
 	{
@@ -214,21 +214,21 @@ class gNetworkUtilities
 	}
 
 	// returns array of the keys if options values are true
-    public static function getKeys( $options = array() )
-    {
-        $keys = array();
+	public static function getKeys( $options = array() )
+	{
+		$keys = array();
 
-        foreach ( (array) $options as $support => $enabled )
-            if ( $enabled )
+		foreach ( (array) $options as $support => $enabled )
+			if ( $enabled )
 				$keys[] = $support;
 
-        return $keys;
-    }
+		return $keys;
+	}
 
 	private static function _tag_open( $tag, $atts, $content = true )
 	{
 		$html = '<'.$tag;
-        foreach( $atts as $key => $att ) {
+		foreach( $atts as $key => $att ) {
 
 			if ( is_array( $att ) && count( $att ) )
 				$att = implode( ' ', array_unique( $att ) );
@@ -262,22 +262,22 @@ class gNetworkUtilities
 		}
 
 		if ( false === $content )
-            return $html.' />';
+			return $html.' />';
 
 		return $html.'>';
 	}
 
-    public static function html( $tag, $atts = array(), $content = false, $sep = '' )
+	public static function html( $tag, $atts = array(), $content = false, $sep = '' )
 	{
 		$html = self::_tag_open( $tag, $atts, $content );
 
 		if ( false === $content )
 			return $html.$sep;
 
-        if ( is_null( $content ) )
-            return $html.'</'.$tag.'>'.$sep;
+		if ( is_null( $content ) )
+			return $html.'</'.$tag.'>'.$sep;
 
-        return $html.$content.'</'.$tag.'>'.$sep;
+		return $html.$content.'</'.$tag.'>'.$sep;
 	}
 
 	// for useing with $('form').serializeArray();
@@ -324,15 +324,15 @@ class gNetworkUtilities
 
 	public static function getUserRoles( $cap = null )
 	{
-        $caps = array(
+		$caps = array(
 			'edit_theme_options'   => _x( 'Administrators',         'Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
-	        'edit_others_posts'    => _x( 'Editors',                'Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
-	        'edit_published_posts' => _x( 'Authors',                'Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
-	        'edit_posts'           => _x( 'Contributors',           'Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
-	        'read'                 => _x( 'Subscribers',            'Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
+			'edit_others_posts'    => _x( 'Editors',                'Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
+			'edit_published_posts' => _x( 'Authors',                'Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
+			'edit_posts'           => _x( 'Contributors',           'Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
+			'read'                 => _x( 'Subscribers',            'Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
 		);
 
-        if ( is_multisite() ) {
+		if ( is_multisite() ) {
 			$caps = array(
 				'manage_network'   => _x( 'Super Admins',           'Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
 			) + $caps + array(
@@ -340,7 +340,7 @@ class gNetworkUtilities
 			);
 		}
 
-        $caps['none']              =  _x( '&mdash; No One &mdash;', 'Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN );
+		$caps['none']              =  _x( '&mdash; No One &mdash;', 'Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN );
 
 		if ( is_null( $cap ) )
 			return $caps;
@@ -552,13 +552,13 @@ class gNetworkUtilities
 
 	// from gMemberHelper
 	public static function getCurrentSiteBlogID()
-    {
-        if ( ! is_multisite() )
-            return get_current_blog_id();
+	{
+		if ( ! is_multisite() )
+			return get_current_blog_id();
 
-        global $current_site;
-        return absint( $current_site->blog_id );
-    }
+		global $current_site;
+		return absint( $current_site->blog_id );
+	}
 
 	public static function elog( $data )
 	{

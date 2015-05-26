@@ -7,7 +7,7 @@ class gNetworkNavigation extends gNetworkModuleCore
 	var $_network    = true;
 
 	var $_restricted = false;   // restricted support
-    var $_feeds      = array(); // restricted support
+	var $_feeds      = array(); // restricted support
 
 	var $_general_pages   = array();
 	var $_loggedout_pages = array();
@@ -16,12 +16,12 @@ class gNetworkNavigation extends gNetworkModuleCore
 
 	public function setup_actions()
 	{
-        if ( is_admin() ) {
+		if ( is_admin() ) {
 			add_action( 'load-nav-menus.php', array( & $this, 'load_nav_menus_php' ) );
-        } else {
+		} else {
 			add_filter( 'wp_setup_nav_menu_item', array( & $this, 'wp_setup_nav_menu_item' ) );
 		}
-    }
+	}
 
 	public function init()
 	{

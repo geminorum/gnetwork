@@ -142,21 +142,21 @@ class gNetworkOpenSearch extends gNetworkModuleCore
 	}
 
 	public function default_options()
-    {
+	{
 		$name = get_bloginfo( 'name', 'display' );
-        return array(
-            'opensearch' => '0',
-            'suggestions' => '0',
+		return array(
+			'opensearch' => '0',
+			'suggestions' => '0',
 
 			'shortname' => $name,
 			'longname' => '',
-            'description' => sprintf( __( 'Search &#x201C;%s&#x201D;', GNETWORK_TEXTDOMAIN ), $name ),
-            'contact' => '',
-            'tags' => '',
-            'attribution' => '',
-            'syndication' => 'open',
-        );
-    }
+			'description' => sprintf( __( 'Search &#x201C;%s&#x201D;', GNETWORK_TEXTDOMAIN ), $name ),
+			'contact' => '',
+			'tags' => '',
+			'attribution' => '',
+			'syndication' => 'open',
+		);
+	}
 
 	public function wp_head()
 	{
@@ -208,11 +208,11 @@ class gNetworkOpenSearch extends gNetworkModuleCore
 			$title = __( 'Add this site search engine plugin to your browser.', GNETWORK_TEXTDOMAIN );
 
 		$script = "function AddSearchEngine () {
-            if (window.external && ('AddSearchProvider' in window.external)) {
-                window.external.AddSearchProvider ('".self::url()."');
-            } else {
-                alert ('".__( 'Your browser does not support the AddSearchProvider method!', GNETWORK_TEXTDOMAIN )."');
-            }}";
+			if (window.external && ('AddSearchProvider' in window.external)) {
+				window.external.AddSearchProvider ('".self::url()."');
+			} else {
+				alert ('".__( 'Your browser does not support the AddSearchProvider method!', GNETWORK_TEXTDOMAIN )."');
+			}}";
 
 		echo '<script type="text/javascript">'.$script.'</script>';
 

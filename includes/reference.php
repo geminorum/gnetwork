@@ -128,36 +128,36 @@ class gNetworkReference extends gNetworkModuleCore
 	///////////////////////////////////////////////////
 	// http://stackoverflow.com/a/18541983
 	private $number_of_notes = 0;
-    private $footnote_texts = array();
+	private $footnote_texts = array();
 
-    public function replace($input) {
+	public function replace($input) {
 
-        return preg_replace_callback('#<span class="fnt">(.*)</span>#i', array($this, 'replace_callback'), $input);
+		return preg_replace_callback('#<span class="fnt">(.*)</span>#i', array($this, 'replace_callback'), $input);
 
-    }
+	}
 
-    protected function replace_callback($matches) {
+	protected function replace_callback($matches) {
 
-        // the text sits in the matches array
-        // see http://php.net/manual/en/function.preg-replace-callback.php
-        $this->footnote_texts[] = $matches[1];
+		// the text sits in the matches array
+		// see http://php.net/manual/en/function.preg-replace-callback.php
+		$this->footnote_texts[] = $matches[1];
 
-        return '<sup><a href="#endnote_'.(++$this->number_of_notes).'">'.$this->number_of_notes.'</a></sup>';
+		return '<sup><a href="#endnote_'.(++$this->number_of_notes).'">'.$this->number_of_notes.'</a></sup>';
 
-    }
+	}
 
-    public function getEndnotes() {
-        $out = array();
-        $out[] = '<ol>';
+	public function getEndnotes() {
+		$out = array();
+		$out[] = '<ol>';
 
-        foreach($this->footnote_texts as $text) {
-            $out[] = '<li>'.$text.'</li>';
-        }
+		foreach($this->footnote_texts as $text) {
+			$out[] = '<li>'.$text.'</li>';
+		}
 
-        $out[] = '</ol>';
+		$out[] = '</ol>';
 
-        return implode("\n", $out);
-    }
+		return implode("\n", $out);
+	}
 
 
 	///////////////////////////////////////////////////

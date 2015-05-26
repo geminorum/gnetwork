@@ -84,16 +84,16 @@ class gNetworkTracking extends gNetworkModuleCore
 	}
 
 	public function default_options()
-    {
-        return array(
-            'ga_account' => '',
-            'ga_domain' => '',
-            'ga_outbound' => '0',
-            'quantcast' => '',
-            'plus_publisher' => '',
-            'ignore_user' => 'edit_others_posts',
-        );
-    }
+	{
+		return array(
+			'ga_account' => '',
+			'ga_domain' => '',
+			'ga_outbound' => '0',
+			'quantcast' => '',
+			'plus_publisher' => '',
+			'ignore_user' => 'edit_others_posts',
+		);
+	}
 
 	public function ignore()
 	{

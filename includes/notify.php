@@ -1,29 +1,29 @@
 <?php defined( 'ABSPATH' ) or die( 'Restricted access' );
 
-class gNetworkNotify extends gNetworkModuleCore 
+class gNetworkNotify extends gNetworkModuleCore
 {
-	
+
 	var $_option_key = 'notify';
 	var $_network    = false;
-	
-	
+
+
 	public function setup_actions()
 	{
 		gNetworkNetwork::registerMenu( 'notify',
 			__( 'Notify', GNETWORK_TEXTDOMAIN ),
 			array( & $this, 'settings' )
 		);
-		
-		if ( $this->options['disable_comments'] ) 
+
+		if ( $this->options['disable_comments'] )
 		{
 			add_filter( 'comment_notification_recipients', '__return_empty_array' ); // filter the list of email addresses to receive a comment notification.
 			add_filter( 'pre_option_moderation_notify', '__return_zero' ); // // notifies the moderator of the blog about a new comment that is awaiting approval.
 		}
-		
-		add_filter( 'wpmu_welcome_notification', array( & $this, 'wpmu_welcome_notification' ), 10, 5 ); 
-		add_filter( 'auto_core_update_send_email', array( & $this, 'auto_core_update_send_email' ), 10, 4 ); 
+
+		add_filter( 'wpmu_welcome_notification', array( & $this, 'wpmu_welcome_notification' ), 10, 5 );
+		add_filter( 'auto_core_update_send_email', array( & $this, 'auto_core_update_send_email' ), 10, 4 );
 	}
-	
+
 	public function settings( $sub = NULL )
 	{
 		if ( 'notify' == $sub ) {
@@ -43,7 +43,7 @@ class gNetworkNotify extends gNetworkModuleCore
 			'disable_password_change' => '1',
 		);
 	}
-	
+
 	public function default_settings()
 	{
 		return array(
@@ -95,11 +95,11 @@ class gNetworkNotify extends gNetworkModuleCore
 				array(
 					'field' => 'debug',
 					'type'  => 'debug',
-				),				
+				),
 			),
 		);
 	}
-	
+
 	// filter whether to bypass the welcome email after site activation.
 	public function wpmu_welcome_notification( $blog_id, $user_id, $password, $title, $meta )
 	{
@@ -107,7 +107,7 @@ class gNetworkNotify extends gNetworkModuleCore
 			return FALSE;
 		return $blog_id;
 	}
-	
+
 	// filter whether to send an email following an automatic background core update.
 	// http://codex.wordpress.org/Configuring_Automatic_Background_Updates
 	public function auto_core_update_send_email( $true, $type, $core_update, $result )
@@ -116,7 +116,7 @@ class gNetworkNotify extends gNetworkModuleCore
 			return TRUE;
 		return FALSE;
 	}
-	
+
 	// pluggable core function
 	// Email login credentials to a newly-registered user.
 	// we removed notifying the admin
@@ -124,7 +124,7 @@ class gNetworkNotify extends gNetworkModuleCore
 	{
 		if ( empty( $plaintext_pass ) && $this->options['disable_new_user'] )
 			return;
-		
+
 		$blogname = $this->blogname;
 		$user = get_userdata( $user_id );
 
@@ -143,7 +143,7 @@ class gNetworkNotify extends gNetworkModuleCore
 
 		wp_mail( $user->user_email, sprintf( __( '[%s] Your username and password' ), $blogname ), $message );
 	}
-	
+
 	// pluggable core function
 	// Notify the blog admin of a user changing password, normally via email.
 	public function wp_password_change_notification( &$user )
@@ -155,7 +155,7 @@ class gNetworkNotify extends gNetworkModuleCore
 		// but check to see if it's the admin whose password we're changing, and skip this
 		if ( 0 === strcasecmp( $user->user_email, get_option( 'admin_email' ) ) )
 			return;
-			
+
 		$message = sprintf( __( 'Password Lost and Changed for user: %s' ), $user->user_login )."\r\n";
 		wp_mail( get_option( 'admin_email' ), sprintf(__('[%s] Password Lost/Changed' ), $this->blogname ), $message );
 	}
@@ -170,7 +170,7 @@ class gNetworkNotify extends gNetworkModuleCore
 }
 
 
-if ( ! function_exists( 'wp_new_user_notification' ) ) : 
+if ( ! function_exists( 'wp_new_user_notification' ) ) :
 function wp_new_user_notification( $user_id, $plaintext_pass = '' ) {
 	global $gNetwork;
 	return $gNetwork->notify->wp_new_user_notification( $user_id, $plaintext_pass );

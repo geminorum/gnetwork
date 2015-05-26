@@ -89,7 +89,7 @@ class gNetworkNetwork extends gNetworkModuleCore
 
 		global $submenu;
 		$submenu['gnetwork'][0][0] = __( 'Overview', GNETWORK_TEXTDOMAIN );
-    }
+	}
 
 	public static function registerMenu( $sub, $title = null, $callback = false, $capability = 'manage_network_options' )
 	{
@@ -137,7 +137,7 @@ class gNetworkNetwork extends gNetworkModuleCore
 		do_action( 'gnetwork_network_settings_help', $sub );
 	}
 
-    private function subs()
+	private function subs()
 	{
 		$subs = array(
 			'overview' => __( 'Overview', GNETWORK_TEXTDOMAIN ),
@@ -155,7 +155,7 @@ class gNetworkNetwork extends gNetworkModuleCore
 
 	public function settings_page()
 	{
-        $settings_uri = self::settingsURL( false );
+		$settings_uri = self::settingsURL( false );
 		$sub = isset( $_REQUEST['sub'] ) ? trim( $_REQUEST['sub'] ) : 'overview';
 		$subs = apply_filters( 'gnetwork_network_settings_subs', $this->subs() );
 

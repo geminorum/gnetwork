@@ -188,7 +188,7 @@ class gNetworkAdmin extends gNetworkModuleCore
 		do_action( 'gnetwork_admin_settings_help', $sub );
 	}
 
-    private function subs()
+	private function subs()
 	{
 		$subs = array();
 

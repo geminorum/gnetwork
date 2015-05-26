@@ -3,10 +3,10 @@
 class gNetwork_Image_Editor_GD extends WP_Image_Editor_GD
 {
 	public function generate_filename( $suffix = null, $dest_path = null, $extension = null )
-    {
+	{
 		if ( is_null( $dest_path ) )
-            $dest_path = gNetworkMedia::getSizesDestPath( $this->file );
+			$dest_path = gNetworkMedia::getSizesDestPath( $this->file );
 
-        return parent::generate_filename( $suffix, $dest_path, $extension );
-    }
+		return parent::generate_filename( $suffix, $dest_path, $extension );
+	}
 }
