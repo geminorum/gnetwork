@@ -322,6 +322,46 @@ class gNetworkUtilities
 		die();
 	}
 
+	// http://wordpress.mfields.org/2011/rekey-an-indexed-array-of-post-objects-by-post-id/
+	public static function reKey( $list, $key )
+	{
+		if ( ! empty( $list ) ) {
+			$ids  = wp_list_pluck( $list, $key );
+			$list = array_combine( $ids, $list );
+		}
+
+		return $list;
+	}
+
+	public static function getPostTypes()
+	{
+		$registered = get_post_types( array(
+			'_builtin' => false,
+			'public'   => true,
+		), 'objects' );
+
+		$post_types = array(
+			'post' => __( 'Posts' ),
+			'page' => __( 'Pages' ),
+		);
+
+		foreach ( $registered as $post_type => $args )
+			$post_types[$post_type] = $args->label;
+
+		return $post_types;
+	}
+
+	public static function getUsers( $all_fields = false )
+	{
+		$users = get_users( array(
+			'blog_id' => '', // TODO : add option to include entire network users
+			'orderby' => 'display_name',
+			'fields'  => ( $all_fields ? 'all_with_meta' : 'all' ),
+		) );
+
+		return self::reKey( $users, 'ID' );
+	}
+
 	public static function getUserRoles( $cap = null )
 	{
 		$caps = array(
@@ -417,9 +457,16 @@ class gNetworkUtilities
 
 	public static function superAdminOnly()
 	{
-		// TODO: check for network install
 		if ( ! is_super_admin() )
-			wp_die(); // TODO: add notice
+			self::cheatin();
+	}
+
+	public static function cheatin( $message )
+	{
+		if ( is_null( $message) )
+			$message = __( 'Cheatin&#8217; uh?' );
+
+		wp_die( $message, 403 );
 	}
 
 	public static function isCLI()
@@ -477,13 +524,11 @@ class gNetworkUtilities
 
 		$args = gNetworkModuleCore::atts( array(
 			'form_url' => '',
-			'referer' => 'filesystem_demo_screen',
-			'content' =>  sanitize_text_field($_POST['demotext']),
-			'method' => '', //leave this empty to perform test for 'direct' writing
-			'context' => WP_CONTENT_DIR.'/gnetwork', //target folder
-
+			'referer'  => 'filesystem_demo_screen',
+			'content'  => sanitize_text_field($_POST['demotext']),
+			'method'   => '', //leave this empty to perform test for 'direct' writing
+			'context'  => WP_CONTENT_DIR.'/gnetwork', //target folder
 			'filename' => 'test.txt',
-
 		), $atts );
 
 

@@ -6,8 +6,8 @@
 
 class gNetworkEditor extends gNetworkModuleCore
 {
-	var $_network    = false;
-	var $_option_key = false;
+	var $_network    = FALSE;
+	var $_option_key = FALSE;
 
 	public function setup_actions()
 	{
@@ -17,15 +17,12 @@ class gNetworkEditor extends gNetworkModuleCore
 		global $tinymce_version;
 
 		if ( ! version_compare( $tinymce_version, '4100', '<' ) ) {
-			add_action( 'mce_external_plugins', array( & $this, 'mce_external_plugins' ) );
-			add_action( 'mce_buttons_2', array( & $this, 'mce_buttons_2' ) );
-			add_action( 'content_save_pre', array( & $this, 'content_save_pre' ), 20 );
+			add_action( 'mce_external_plugins', array( &$this, 'mce_external_plugins' ) );
+			add_action( 'mce_buttons_2', array( &$this, 'mce_buttons_2' ) );
+			add_action( 'content_save_pre', array( &$this, 'content_save_pre' ), 20 );
 		}
 
-		if ( GNETWORK_SITE_USER_ID && is_admin() )
-			add_filter( 'wp_insert_post_data', array( & $this, 'wp_insert_post_data' ), 9, 2 );
-
-		add_filter( 'wp_link_query_args', array( & $this, 'wp_link_query_args' ) );
+		add_filter( 'wp_link_query_args', array( &$this, 'wp_link_query_args' ) );
 	}
 
 	// Initialize TinyMCE table plugin and custom TinyMCE plugin
@@ -48,7 +45,7 @@ class gNetworkEditor extends gNetworkModuleCore
 		return array_merge( array_slice( $buttons, 0, $pos ), array( 'table' ), array_slice( $buttons, $pos ) );
 	}
 
-	// Fixes weirdness resulting from wpautop and formatting clean up not built for tables
+	// fixes weirdness resulting from wpautop and formatting clean up not built for tables
 	public function content_save_pre( $content )
 	{
 		if ( false !== strpos( $content, '<table' ) ) {
@@ -64,25 +61,6 @@ class gNetworkEditor extends gNetworkModuleCore
 		return $content;
 	}
 
-	public function wp_insert_post_data( $data, $postarr )
-	{
-		global $user_ID;
-
-		$post_type_object = get_post_type_object( $postarr['post_type'] );
-
-		if ( is_super_admin() || current_user_can( $post_type_object->cap->edit_others_posts ) ) {
-			if ( 'auto-draft' == $postarr['post_status'] && $user_ID == $postarr['post_author'] ) {
-				$data['post_author'] = (int) GNETWORK_SITE_USER_ID;
-				if ( 'page' == $postarr['post_type'] ) {
-					$data['comment_status'] = 'closed';
-					$data['ping_status'] = 'closed';
-				}
-			}
-		}
-
-		return $data;
-	}
-
 	public function wp_link_query_args( $query )
 	{
 		if ( current_user_can( 'edit_others_posts' ) )
@@ -90,7 +68,6 @@ class gNetworkEditor extends gNetworkModuleCore
 
 		return $query;
 	}
-
 }
 
 // ADD EDITOR BUTTON : http://code.tutsplus.com/articles/quick-tip-how-to-implement-multiple-pages-for-your-wordpress-posts-and-pages--wp-23972

@@ -3,8 +3,8 @@
 class gNetworkAdmin extends gNetworkModuleCore
 {
 
-	var $_network = false;
-	var $_option_key = false;
+	var $_network    = FALSE;
+	var $_option_key = FALSE;
 
 	var $menus = array();
 
@@ -152,7 +152,7 @@ class gNetworkAdmin extends gNetworkModuleCore
 
 		$gNetwork->admin->menus[$sub] = array(
 			'title' => $title ? $title : $sub,
-			'cap' => $capability,
+			'cap'   => $capability,
 		);
 
 		if ( $callback ) // && is_callable( $callback ) )
@@ -174,7 +174,7 @@ class gNetworkAdmin extends gNetworkModuleCore
 		global $submenu_file;
 
 		if ( isset( $_REQUEST['sub'] ) ) {
-			$sub = $_REQUEST['sub'];
+			$sub          = $_REQUEST['sub'];
 			$submenu_file = 'gnetwork&sub='.$sub;
 		} else {
 			$sub = null;
@@ -192,7 +192,7 @@ class gNetworkAdmin extends gNetworkModuleCore
 	{
 		$subs = array();
 
-		//if ( self::cuc( 'manage_options' ) )
+		// if ( self::cuc( 'manage_options' ) )
 			$subs['overview'] = __( 'Overview', GNETWORK_TEXTDOMAIN );
 
 		foreach( $this->menus as $sub => $args )
@@ -260,9 +260,8 @@ class gNetworkAdmin extends gNetworkModuleCore
 
 	public function admin_print_styles()
 	{
-		//gNetworkUtilities::linkStyleSheet( GNETWORK_URL.'styles/admin.css' );
 		gNetworkUtilities::linkStyleSheet( GNETWORK_URL.'assets/css/admin.all.css' );
-		//gNetworkUtilities::customStyleSheet( 'admin.css' );
+		gNetworkUtilities::customStyleSheet( 'admin.css' );
 	}
 
 	// TODO : add this as one of the top menus
@@ -367,7 +366,6 @@ jQuery(document).ready(function($){$('textarea.wp-editor-areaXX, #excerpt, .text
 	// Based on : http://wplift.com/a-better-planet
 	public function widget_network_rss()
 	{
-
 		//public function return_1600( $seconds ) { return 1600; }
 		//add_filter( 'wp_feed_cache_transient_lifetime' , 'return_1600' );
 		$rss = fetch_feed( constant( 'GNETWORK_ADMIN_WIDGET_RSS' ) );
@@ -444,7 +442,6 @@ jQuery(document).ready(function($){$('textarea.wp-editor-areaXX, #excerpt, .text
 		return $h_time;
 	}
 
-
 	// http://www.wpbeginner.com/wp-tutorials/how-to-set-default-admin-color-scheme-for-new-users-in-wordpress/
 	public function user_register( $user_id )
 	{
@@ -480,6 +477,4 @@ jQuery(document).ready(function($){$('textarea.wp-editor-areaXX, #excerpt, .text
 			"{$p}.post_password",
 		) );
 	}
-
-
 }

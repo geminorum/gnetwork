@@ -21,6 +21,10 @@ Requires PHP 5.3
 
 #### Admin Bar
 
+#### Users
+* default post author user
+* bulk change author from user to another by post types
+
 #### Shortcodes
 * Siblings
 * Children

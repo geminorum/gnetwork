@@ -3,31 +3,31 @@
 class gNetworkComments extends gNetworkModuleCore
 {
 
-	var $_network    = false;
+	var $_network    = FALSE;
 	var $_option_key = 'comments';
 
 	public function setup_actions()
 	{
 		gNetworkAdmin::registerMenu( 'comments',
 			__( 'Comments', GNETWORK_TEXTDOMAIN ),
-			array( & $this, 'settings' )
+			array( &$this, 'settings' )
 		);
 
 		//if ( isset( $_GET['action'] ) && $_GET['action'] == 'gnetworkdeletespams' )
-			//add_action( 'init', array( & $this, 'init_delete_spams' ) );
+			//add_action( 'init', array( &$this, 'init_delete_spams' ) );
 
-		add_filter( 'comment_excerpt', array( & $this, 'comment_excerpt' ) );
-		add_filter( 'pre_comment_approved', array( & $this, 'pre_comment_approved' ), 99, 2 );
+		add_filter( 'comment_excerpt', array( &$this, 'comment_excerpt' ) );
+		add_filter( 'pre_comment_approved', array( &$this, 'pre_comment_approved' ), 99, 2 );
 
-		add_filter( 'add_comment_metadata', array( & $this, 'add_comment_metadata' ), 20, 3 );
+		add_filter( 'add_comment_metadata', array( &$this, 'add_comment_metadata' ), 20, 3 );
 
-		//register_shutdown_function( array( & $this, 'delete_spam_comments' ) );
+		//register_shutdown_function( array( &$this, 'delete_spam_comments' ) );
 
 		/** WORKING BUT MAKE SURE THIS NESSECARY?!
 		// ORIGINALLY FROM : http://wordpress.org/plugins/really-simple-comment-validation/
-		add_action( 'comment_form', array( & $this, 'comment_form' ) );
-		add_action( 'pre_comment_approved', array( & $this, 'pre_comment_approved_nounce' ) );
-		add_action( 'explain_nonce_gnc-check_comments', array( & $this, 'explain_nonce' ) );
+		add_action( 'comment_form', array( &$this, 'comment_form' ) );
+		add_action( 'pre_comment_approved', array( &$this, 'pre_comment_approved_nounce' ) );
+		add_action( 'explain_nonce_gnc-check_comments', array( &$this, 'explain_nonce' ) );
 		**/
 	}
 
@@ -39,13 +39,14 @@ class gNetworkComments extends gNetworkModuleCore
 				check_admin_referer( 'gnetwork_'.$sub.'-options' );
 				$this->remove_spam_meta();
 				self::redirect_referer( 'spamspurged' );
+			} else {
+				$this->settings_update( $sub );
 			}
 
-			$this->update( $sub );
 			$this->register_settings();
 			$this->register_button( 'purge_spams', __( 'Purge Spam Comments', GNETWORK_TEXTDOMAIN ) );
 
-			add_action( 'gnetwork_admin_settings_sub_comments', array( & $this, 'settings_html' ), 10, 2 );
+			add_action( 'gnetwork_admin_settings_sub_comments', array( &$this, 'settings_html' ), 10, 2 );
 		}
 	}
 
@@ -66,10 +67,10 @@ class gNetworkComments extends gNetworkModuleCore
 		return array(
 			'_general' => array(
 				array(
-					'field' => 'admin_fullcomments',
-					'type' => 'enabled',
-					'title' => _x( 'Full Comments', 'Enable Full Comments On Dashboard', GNETWORK_TEXTDOMAIN ),
-					'desc' => __( 'Full Comments On Dashboard', GNETWORK_TEXTDOMAIN ),
+					'field'   => 'admin_fullcomments',
+					'type'    => 'enabled',
+					'title'   => _x( 'Full Comments', 'Enable Full Comments On Dashboard', GNETWORK_TEXTDOMAIN ),
+					'desc'    => __( 'Full Comments On Dashboard', GNETWORK_TEXTDOMAIN ),
 					'default' => '0',
 				),
 			),
