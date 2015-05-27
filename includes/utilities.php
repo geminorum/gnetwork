@@ -455,6 +455,13 @@ class gNetworkUtilities
 		self::linkStyleSheet( $url );
 	}
 
+	public static function getTinyMceStrings( $locale )
+	{
+		$strings = apply_filters( 'gnetwork_tinymce_strings', array() );
+
+		return count( $strings ) ? 'tinyMCE.addI18n("'.$locale.'.gnetwork", '.wp_json_encode( $strings ).');'."\n" : '';
+	}
+
 	public static function superAdminOnly()
 	{
 		if ( ! is_super_admin() )

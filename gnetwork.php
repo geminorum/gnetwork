@@ -141,14 +141,23 @@ function gnetwork_init() {
 
 	// http://stephanis.info/2014/08/13/on-jetpack-and-auto-activating-modules
 	add_filter( 'jetpack_get_default_modules', '__return_empty_array' );
+
+	if ( file_exists( GNETWORK_DIR.'includes'.DS.'mce-languages.php' ) ) {
+		add_filter( 'mce_external_languages', function( $languages ){
+			$languages['gnetwork'] = GNETWORK_DIR.'includes'.DS.'mce-languages.php';
+			return $languages;
+		} );
+	}
 }
 
 function gnetwork_bp_include() {
 	global $gNetwork;
+
 	if ( file_exists( GNETWORK_DIR.'includes'.DS.'buddypress.php' ) ) {
 		require_once( GNETWORK_DIR.'includes'.DS.'buddypress.php' );
 		$gNetwork->buddypress = new gNetworkBuddyPress();
 	}
+	
 	if ( file_exists( GNETWORK_DIR.'includes'.DS.'buddypress.me.php' ) ) {
 		require_once( GNETWORK_DIR.'includes'.DS.'buddypress.me.php' );
 		buddypress()->me = new gNetwork_BP_Me_Component();
