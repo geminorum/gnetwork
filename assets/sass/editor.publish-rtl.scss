@@ -1,10 +1,12 @@
 @import url(http://fonts.googleapis.com/earlyaccess/droidarabicnaskh.css);
+
 html .mceContentBody {
 	direction: rtl;
 	unicode-bidi: embed;
 	float: right;
 	max-width:525px;
 }
+
 * {
 	font-family: "Droid Arabic Naskh", tahoma, verdana;
 	color: inherit;

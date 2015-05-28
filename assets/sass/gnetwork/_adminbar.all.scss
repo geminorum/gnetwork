@@ -1,0 +1,56 @@
+
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+//---BUDDYPRESS ADMIN BAR-------------------------------------------------------
+
+// NOT FINISHED
+
+// not quite what i excpected
+// SEE: https://github.com/sass/sass/issues/556
+// @import '../../../buddypress/bp-core/css/admin-bar-rtl.css';
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+//---ADMIN BAR------------------------------------------------------------------
+
+#wpadminbar {
+
+	.shortlink-input{
+		color:#000;
+		font-weight:bold;
+	}
+
+	.quicklinks li .blavatar:before,
+	#wp-admin-bar-wp-logo>.ab-item .ab-icon:before {
+		content: "\f319" !important;
+	}
+
+	// MUST BE ON WP CORE!
+	@include body-rtl() {
+		.menupop .menupop > .ab-item:before {
+			content: "\f141" !important;
+			left:2px;
+		}
+
+		.ab-top-secondary .menupop .menupop > .ab-item:before {
+			content: "\f139" !important;
+			right:2px;
+		}
+	}
+}
+
+// #wpadminbar #wp-admin-bar-wp-logo>.ab-item  {
+// 	background-repeat: no-repeat;
+// 	background-position: center center;
+// 	background-image: url(); // bw version of logo image
+// 	transition: all 0.3s ease;
+// }
+// #wpadminbar #wp-admin-bar-wp-logo.hover>.ab-item {
+// 	background-image: url(); // color version of logo image
+// 	transition: all 0.1s ease;
+// }
+// #wpadminbar #wp-admin-bar-wp-logo>.ab-item .ab-icon:before { content: ''; }
+// #wpadminbar #wp-admin-bar-wp-logo>.ab-item .ab-icon { width:53px; height:26px; }
