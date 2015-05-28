@@ -17,7 +17,6 @@ class gNetworkAdmin extends gNetworkModuleCore
 		add_action( 'admin_init', array( &$this, 'admin_init_early' ), 1   );
 		add_action( 'admin_menu', array( &$this, 'admin_menu' ),       12  );
 		add_action( 'admin_menu', array( &$this, 'admin_menu_late' ),  999 );
-		add_action( 'adminmenu',  array( &$this, 'adminmenu' ),        10  );
 
 		add_action( 'wp_network_dashboard_setup', array( &$this, 'wp_dashboard_setup' ), 20 );
 		add_action( 'wp_user_dashboard_setup',    array( &$this, 'wp_dashboard_setup' ), 20 );
@@ -262,22 +261,6 @@ class gNetworkAdmin extends gNetworkModuleCore
 	{
 		gNetworkUtilities::linkStyleSheet( GNETWORK_URL.'assets/css/admin.all.css' );
 		gNetworkUtilities::customStyleSheet( 'admin.css' );
-	}
-
-	// TODO : add this as one of the top menus
-	public function adminmenu()
-	{
-		echo '<li id="gnetwork-backtotop" cdcid="collapse-menu" class="hide-if-no-js">';
-			echo '<div id="gnetwork-backtotop-button" cdcid="collapse-button"><div></div></div>';
-			echo '<span>'.__( 'Back to Top', GNETWORK_TEXTDOMAIN ).'</span>';
-		echo '</li>';
-
-		return;
-
-		$link = '<span class="dashicons dashicons-arrow-up-alt2"></span>';
-		echo '<div id="gnetwork-admin-backtotop-wrap" style="display:none;">';
-			echo '<a class="gnetwork-backtotop" title="'.esc_attr__( 'Back to Top', GNETWORK_TEXTDOMAIN ).'">'.$link.'</a>';
-		echo '</div>';
 	}
 
 	public function admin_footer( $empty )
