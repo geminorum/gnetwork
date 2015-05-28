@@ -129,6 +129,30 @@ class gNetworkDebug extends gNetworkModuleCore
 		self::codeTable( $paths );
 	}
 
+	// TODO: make it to the debugbar panel
+	// BASED on: https://gist.github.com/ocean90/3751658
+	/**
+	 *  - Time
+	 *  - DB Queries
+	 *  - Memory Usage
+	 *  - Cache Hts/Misses
+	 *  - Active Plugins
+	 */
+	public static function infoAdvanced()
+	{
+		$text  = 'Time : '.timer_stop( 0 ).' | ';
+		$text .= 'DB Queries: '.$GLOBALS['wpdb']->num_queries.' | ';
+		$text .= 'Memory: '.number_format( ( memory_get_peak_usage()/1024/1024 ), 1, ',', '' ).'/'.ini_get( 'memory_limit' ).' | ';
+
+		$ch = empty( $GLOBALS['wp_object_cache']->cache_hits ) ? 0 : $GLOBALS['wp_object_cache']->cache_hits;
+		$cm = empty( $GLOBALS['wp_object_cache']->cache_misses ) ? 0 : $GLOBALS['wp_object_cache']->cache_misses;
+		$text .= 'Cache Hits: '.$ch.' | Cache Misses: '.$cm.' | ';
+
+		$text .= 'Active Plugins: '.count( get_option( 'active_plugins' ) );
+
+		return $text;
+	}
+
 	public function plugins_loaded()
 	{
 		if ( function_exists( 'supercache_admin_bar_render' ) )
