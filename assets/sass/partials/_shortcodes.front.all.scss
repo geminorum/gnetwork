@@ -6,14 +6,27 @@
 
 
 .gnetwork-wrap-shortcode {
-	@include main-wrap();
+	@include mainwrap();
 
 
 }
 
 .gnetwork-wrap-shortcode.shortcode-reflist {
-	ul {
+	ul, ol {
 		li {
+
+			.ref-number {
+
+			}
+
+			.cite-scroll {
+
+			}
+
+			.ref-text {
+
+			}
+
 			a {
 
 			}
