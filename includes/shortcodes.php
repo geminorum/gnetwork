@@ -3,24 +3,25 @@
 class gNetworkShortCodes extends gNetworkModuleCore
 {
 
-	var $_network    = false;
-	var $_option_key = false;
+	var $_network    = FALSE;
+	var $_option_key = FALSE;
 
 	var $_flash_ids  = array();
 	var $_pdf_ids    = array();
 	var $_ref_ids    = array();
-	var $_ref_list   = false;
+	var $_ref_list   = FALSE;
 
 	public function setup_actions()
 	{
-		add_action( 'init', array( & $this, 'init_early' ), 8 );
-		add_action( 'init', array( & $this, 'init_late' ), 12 );
+		add_action( 'init', array( &$this, 'init_early' ), 8 );
+		add_action( 'init', array( &$this, 'init_late' ), 12 );
+		add_action( 'gnetwork_tinymce_strings', array( &$this, 'tinymce_strings' ) );
 	}
 
 	// fallback shortcodes
 	public function init_early()
 	{
-		add_shortcode( 'book', array( & $this, 'shortcode_return_content' ) );
+		add_shortcode( 'book', array( &$this, 'shortcode_return_content' ) );
 	}
 
 	public function shortcode_return_content( $atts, $content = null, $tag = '' )
@@ -32,13 +33,14 @@ class gNetworkShortCodes extends gNetworkModuleCore
 	{
 		$this->shortcodes( array(
 			// 'accordion'    => 'shortcode_accordion',
+			// 'github-repo'  => 'shortcode_github_repo',
 			'children'     => 'shortcode_children',
 			'siblings'     => 'shortcode_siblings',
 			'back'         => 'shortcode_back',
 			'iframe'       => 'shortcode_iframe',
 			'email'        => 'shortcode_email',
+			'tel'          => 'shortcode_tel',
 			'googlegroups' => 'shortcode_googlegroups',
-			// 'github-repo'  => 'shortcode_github_repo',
 			'pdf'          => 'shortcode_pdf',
 			'bloginfo'     => 'shortcode_bloginfo',
 			'audio'        => 'shortcode_audio',
@@ -50,16 +52,14 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			'repo-video'   => 'shortcode_repo_video',
 		) );
 
-		add_filter( 'the_content', array( & $this, 'the_content' ), 20 );
-		add_action( 'wp_footer', array( & $this, 'wp_footer' ), 20 );
+		if ( ! defined( 'GNETWORK_DISABLE_REFLIST_INSERT' ) || ! GNETWORK_DISABLE_REFLIST_INSERT )
+			add_filter( 'the_content', array( &$this, 'the_content' ), 20 );
 
-		if ( ! current_user_can( 'edit_posts' )
-			&& ! current_user_can( 'edit_pages' ) )
-			return;
+		add_action( 'wp_footer', array( &$this, 'wp_footer' ), 20 );
 
 		if ( get_user_option( 'rich_editing' ) == 'true' ) {
-			add_filter( 'mce_external_plugins', array( & $this, 'mce_external_plugins' ) );
-			add_filter( 'mce_buttons', array( & $this, 'mce_buttons' ) );
+			add_filter( 'mce_external_plugins', array( &$this, 'mce_external_plugins' ) );
+			add_filter( 'mce_buttons', array( &$this, 'mce_buttons' ) );
 		}
 	}
 
@@ -74,13 +74,31 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		echo '</ul>';
 	}
 
+	public function tinymce_strings( $strings )
+	{
+		$new = array(
+			'gnetworkcite-title'     => _x( 'Cite This', 'TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+			'gnetworkcite-url'       => _x( 'URL', 'TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+			'gnetworkgemail-title'   => _x( 'Email', 'TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+			'gnetworkgemail-subject' => _x( 'Subject', 'TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+			'gnetworkgpeople-title'  => _x( 'People', 'TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+			'gnetworkgpeople-name'   => _x( 'Name', 'TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+		);
+
+		return array_merge( $strings, $new );
+	}
+
 	// http://stephanieleary.com/2010/06/listing-child-pages-with-a-shortcode/
 	public function shortcode_children( $atts, $content = null, $tag = '' )
 	{
 		$args = shortcode_atts( array(
-			'id' => get_queried_object_id(),
-			'type' => 'page',
+			'id'      => get_queried_object_id(),
+			'type'    => 'page',
+			'context' => null,
 		), $atts, $tag );
+
+		if ( false === $args['context'] ) // bailing
+			return null;
 
 		if ( ! is_singular( $args['type'] ) )
 			return $content;
@@ -103,10 +121,14 @@ class gNetworkShortCodes extends gNetworkModuleCore
 	public function shortcode_siblings( $atts, $content = null, $tag = '' )
 	{
 		$args = shortcode_atts( array(
-			'parent' => null,
-			'type'   => 'page',
-			'ex'     => null,
+			'parent'  => null,
+			'type'    => 'page',
+			'ex'      => null,
+			'context' => null,
 		), $atts, $tag );
+
+		if ( false === $args['context'] ) // bailing
+			return null;
 
 		if ( ! is_singular( $args['type'] ) )
 			return $content;
@@ -146,7 +168,11 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			'id'   => get_queried_object_id(),
 			'to'   => 'parent',
 			'html' => _x( 'Back', 'Shortcodes: back: default html', GNETWORK_TEXTDOMAIN ),
+			'context' => null,
 		), $atts, $tag );
+
+		if ( false === $args['context'] ) // bailing
+			return null;
 
 		if ( ! $args['to'] )
 			return $content;
@@ -201,76 +227,19 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		return $content;
 	}
 
-	// DRAFT
-	// http://code.tutsplus.com/tutorials/developing-plugins-for-your-wordpress-theme-framework--cms-21934
-	// add_action( 'wptp_sidebar', 'wptp_list_subpages' );
-	public function shortcode_subpages( $atts, $content = null, $tag = '' )
-	{
-	  // don't run on the main blog page
-		if ( is_page() && ! is_home() ) {
-
-			// run the wptp_check_for_page_tree public function to fetch top level page
-			$ancestor = self::check_for_page_tree();
-
-			// set the arguments for children of the ancestor page
-			$args = array(
-				'child_of' => $ancestor,
-				'depth'    => '-1',
-				'title_li' => '',
-			);
-
-			// set a value for get_pages to check if it's empty
-			$list_pages = get_pages( $args );
-
-			// check if $list_pages has values
-			if ( $list_pages ) {
-
-				// open a list with the ancestor page at the top
-				?>
-				<ul class="page-tree">
-					<?php // list ancestor page ?>
-					<li class="ancestor">
-						<a href="<?php echo get_permalink( $ancestor ); ?>"><?php echo get_the_title( $ancestor ); ?></a>
-					</li>
-
-					<?php
-					// use wp_list_pages to list subpages of ancestor or current page
-					wp_list_pages( $args );;
-
-					// close the page-tree list
-					?>
-				</ul>
-
-			<?php
-			}
-		}
-	}
-
-	public static function check_for_page_tree()
-	{
-		if ( is_page() ) {
-			global $post;
-
-			// next check if the page has parents
-			if ( $post->post_parent ) {
-				$parents = array_reverse( get_post_ancestors( $post->ID ) ); // fetch the list of ancestors
-				return $parents[0]; // get the top level ancestor
-			}
-
-			return $post->ID; // return the id  - this will be the topmost ancestor if there is one, or the current page if not
-		}
-	}
-
-	// http://urbangiraffe.com/plugins/pageview/
 	public function shortcode_iframe( $atts, $content = null, $tag = '' )
 	{
 		$args = shortcode_atts( array(
-			'url'    => false,
-			'width'  => '100%',
-			'height' => '520',
-			'scroll' => 'auto',
-			'style'  => 'width:100%!important;',
+			'url'     => false,
+			'width'   => '100%',
+			'height'  => '520',
+			'scroll'  => 'auto',
+			'style'   => 'width:100%!important;',
+			'context' => null,
 		), $atts, $tag );
+
+		if ( false === $args['context'] ) // bailing
+			return null;
 
 		if ( ! $args['url'] )
 			return null;
@@ -278,15 +247,28 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		if ( ! in_array( $args['scroll'], array( 'auto', 'yes', 'no' ) ) )
 			$args['scroll'] = 'no';
 
-		return '<iframe src="'.$args['url'].'" frameborder="0" style="'.$args['style'].'" scrolling="'.$args['scroll'].'" height="'.$args['height'].'" width="'.$args['width'].'"></iframe>';
+		$html = gNetworkUtilities::html( 'iframe', array(
+			'frameborder' => '0',
+			'src'         => $args['url'],
+			'style'       => $args['style'],
+			'scrolling'   => $args['scroll'],
+			'height'      => $args['height'],
+			'width'       => $args['width'],
+		), null );
 
+		return '<div class="gnetwork-wrap-shortcode shortcode-iframe">'.$html.'</div>';
 	}
 
+	// DRAFT
 	public function shortcode_accordion( $atts, $content = null, $tag = '' )
 	{
 		$args = shortcode_atts( array(
 			'title_wrap' => 'h3',
+			'context'    => null,
 		), $atts, $tag );
+
+		if ( false === $args['context'] ) // bailing
+			return null;
 
 		// http://www.jacklmoore.com/notes/jquery-accordion-tutorial/
 		// http://www.jacklmoore.com/demo/accordion.html
@@ -298,9 +280,49 @@ class gNetworkShortCodes extends gNetworkModuleCore
 
 	// [email]you@you.com[/email]
 	// http://bavotasan.com/2012/shortcode-to-encode-email-in-wordpress-posts/
-	public function shortcode_email( $atts, $content )
+	// http://www.cubetoon.com/2008/how-to-enter-line-break-into-mailto-body-command/
+	// https://css-tricks.com/snippets/html/mailto-links/
+	public function shortcode_email( $atts, $content = null, $tag = '' )
 	{
-		return '<a href="'.antispambot( "mailto:".$content ).'" class="email">'.antispambot( $content ).'</a>';
+		$args = shortcode_atts( array(
+			'subject' => false,
+			'title'   => false,
+			'context' => null,
+		), $atts, $tag );
+
+		if ( false === $args['context'] ) // bailing
+			return null;
+
+		if ( ! $content ) // what about default site email
+			return $content;
+
+		$html = '<a class="email" href="'.antispambot( "mailto:".$content.( $args['subject'] ? '?subject='.urlencode( $args['subject'] ) : '' ) )
+				.'"'.( $args['title'] ? ' title="'.esc_attr( $args['title'] ).'"' : '' ).'>'
+				.antispambot( $content ).'</a>';
+
+		return '<span class="gnetwork-wrap-shortcode shortcode-email">'.$html.'</span>';
+	}
+
+	// http://stackoverflow.com/a/13662220
+	// http://code.tutsplus.com/tutorials/mobile-web-quick-tip-phone-number-links--mobile-7667
+	public function shortcode_tel( $atts, $content = null, $tag = '' )
+	{
+		$args = shortcode_atts( array(
+			'title'   => false,
+			'context' => null,
+		), $atts, $tag );
+
+		if ( false === $args['context'] ) // bailing
+			return null;
+
+		if ( ! $content ) // what about default site email
+			return $content;
+
+		$html = '<a class="tel" href="tel://'.$content
+				.'"'.( $args['title'] ? ' title="'.esc_attr( $args['title'] ).'"' : '' ).'>'
+				.'&#8206;'.apply_filters( 'string_format_i18n', $content ).'&#8207;</a>';
+
+		return '<span class="gnetwork-wrap-shortcode shortcode-tel">'.$html.'</span>';
 	}
 
 	public function shortcode_googlegroups( $atts, $content = null, $tag = '' )
@@ -311,7 +333,11 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			'logo'       => 'color',
 			'logo_style' => 'border:none;box-shadow:none;',
 			'hl'         => constant( 'GNETWORK_GOOGLE_GROUP_HL' ),
+			'context'    => null,
 		), $atts, $tag );
+
+		if ( false === $args['context'] ) // bailing
+			return null;
 
 		if ( false == $args['id'] )
 			return null;
@@ -339,7 +365,11 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			'username' => false,
 			'name'     => false,
 			'branch'   => false,
+			'context'  => null,
 		), $atts, $tag );
+
+		if ( false === $args['context'] ) // bailing
+			return null;
 
 		if ( $args['username'] && $args['name'] ) {
 			$key = 'repo_'.( count( $this->_github_repos ) + 1 );
@@ -367,7 +397,11 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			'pagemode'  => 'thumbs',
 			'rtl'       => ( is_rtl() ? 'yes' : 'no' ),
 			'download'  => false,
+			'context'   => null,
 		), $atts, $tag );
+
+		if ( false === $args['context'] ) // bailing
+			return null;
 
 		if ( ! $args['url'] )
 			return null;
@@ -384,8 +418,17 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		$id = 'gNetworkPDF'.$key;
 
 		// https://github.com/pipwerks/PDFObject
-		$this->_pdf_ids[$key] = ' var '.$id.' = new PDFObject({url:"'.$args['url'].'",id:"'.$id.'",width:"'.$args['width'].'",height:"'.$args['height'].'",pdfOpenParams:{navpanes:'.$args['navpanes'].',statusbar:'.$args['statusbar'].',view:"'.$args['view'].'",pagemode:"'.$args['pagemode'].'"}}).embed("'.$id.'div"); ';
-		//$this->_pdf_ids[$key] = ' var '.$id.' = new PDFObject({url:"'.$args['url'].'",id:"'.$id.'",pdfOpenParams:{navpanes:'.$args['navpanes'].',statusbar:'.$args['statusbar'].',view:"'.$args['view'].'",pagemode:"'.$args['pagemode'].'"}}).embed("'.$id.'div"); ';
+		$this->_pdf_ids[$key] = ' var '.$id.' = new PDFObject({url:"'.$args['url']
+			.'",id:"'.$id
+			.'",width:"'.$args['width']
+			.'",height:"'.$args['height']
+			.'",pdfOpenParams:{navpanes:'.$args['navpanes']
+				.',statusbar:'.$args['statusbar']
+				.',view:"'.$args['view']
+				.'",pagemode:"'.$args['pagemode']
+			.'"}}).embed("'.$id.'div"); ';
+
+		// $this->_pdf_ids[$key] = ' var '.$id.' = new PDFObject({url:"'.$args['url'].'",id:"'.$id.'",pdfOpenParams:{navpanes:'.$args['navpanes'].',statusbar:'.$args['statusbar'].',view:"'.$args['view'].'",pagemode:"'.$args['pagemode'].'"}}).embed("'.$id.'div"); ';
 
 		wp_enqueue_script( 'pdfobject', GNETWORK_URL.'assets/js/lib.pdfobject.min.js', array(), GNETWORK_VERSION, true );
 		return '<div id="'.$id.'div">'.$fallback.'</div>';
@@ -400,14 +443,17 @@ class gNetworkShortCodes extends gNetworkModuleCore
 	public function shortcode_bloginfo( $atts, $content = null, $tag = '' )
 	{
 		$args = shortcode_atts( array(
-			'key'   => '',
-			'wrap'  => false,
-			'class' => 'blog-info blog-info-%s',
+			'key'     => '',
+			'wrap'    => false,
+			'class'   => 'blog-info blog-info-%s',
+			'context' => null,
 		), $atts, $tag );
+
+		if ( false === $args['context'] ) // bailing
+			return null;
 
 	   return get_bloginfo( $args['key'] );
 	}
-
 
 	// http://wordpress.org/extend/plugins/kimili-flash-embed/other_notes/
 	// http://yoast.com/articles/valid-flash-embedding/
@@ -425,7 +471,11 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			'duration'  => '',
 			'rtl'       => ( is_rtl() ? 'yes' : 'no' ),
 			'download'  => false,
+			'context'   => null,
 		), $atts, $tag );
+
+		if ( false === $args['context'] ) // bailing
+			return null;
 
 		if ( ! $args['swf'] )
 			return null;
@@ -482,7 +532,11 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			'duration'  => '',
 			'rtl'       => ( is_rtl() ? 'yes' : 'no' ),
 			'download'  => false,
+			'context'   => null,
 		), $atts ) );
+
+		if ( false === $args['context'] ) // bailing
+			return null;
 
 		if ( ! $args['source'] ) {
 			$args['source'] = $args['mp3'];
@@ -547,6 +601,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 				'});'."\n".'/* ]]> */'."\n".'</script>';
 	}
 
+	// http://en.wikipedia.org/wiki/Help:Footnotes
 	public function shortcode_ref( $atts, $content = null, $tag = '' )
 	{
 		if ( is_null( $content ) || ! is_singular() )
@@ -554,35 +609,53 @@ class gNetworkShortCodes extends gNetworkModuleCore
 
 		$args = shortcode_atts( array(
 			'url'           => false,
+			'url_title'     => __( 'See More', GNETWORK_TEXTDOMAIN ),
+			'url_icon'      => 'def',
 			'class'         => 'ref-anchor',
 			'format_number' => true,
-			'rtl'           => ( is_rtl() ? 'yes' : 'no' ),
-			'ext'           => 'def',
+			'rtl'           => is_rtl(),
+			'context'       => null,
 		), $atts, $tag );
+
+		if ( false === $args['context'] ) // bailing
+			return null;
 
 		$html = $url = false;
 
 		if ( $content )
 			$html = trim( strip_tags( $content ) );
 
+		if ( 'def' == $args['url_icon'] )
+			$args['url_icon'] = $args['rtl'] ? '&larr;' : '&rarr;';
+
 		if ( $args['url'] )
-			$url = '<a class="refrence-external" href="'.esc_url( $args['url'] ).'">'
-				.( 'def' == $args['ext'] ? ( $args['rtl'] == 'yes' ? '&larr;' : '&rarr;' ) : $args['ext'] ).'</a>';
+			$url = gNetworkUtilities::html( 'a', array(
+				'class' => 'refrence-external',
+				'href'  => $args['url'],
+				'title' => $args['url_title'],
+			), $args['url_icon'] );
 
 		if ( $html && $url )
-			$html = $html.' '.$url;
+			$html = $html.'&nbsp;'.$url;
 		else if ( $url )
 			$html = $url;
 
 		if ( ! $html )
 			return null;
 
-		$key = count( $this->_ref_ids )+1;
+		$key = count( $this->_ref_ids ) + 1;
 		$this->_ref_ids[$key] = $html;
 
-		return '<sup id="citeref-'.$key.'" class="reference '.$args['class'].'" title="'.trim( strip_tags( $content ) ).'" ><a href="#citenote-'.$key.'" class="cite-scroll">['.( $args['format_number'] ? number_format_i18n( $key ) : $key ).']</a></sup>';
+		$html = gNetworkUtilities::html( 'a', array(
+			'class' => 'cite-scroll',
+			'href'  => '#citenote-'.$key,
+			'title' => trim( strip_tags( $content ) ),
+		), '['.( $args['format_number'] ? number_format_i18n( $key ) : $key ).']' );
+
+		return '<sup class="ref reference '.$args['class'].'" id="citeref-'.$key.'">'.$html.'</sup>';
 	}
 
+	// TODO: add column : http://en.wikipedia.org/wiki/Help:Footnotes#Reference_lists:_columns
 	public function shortcode_reflist( $atts, $content = null, $tag = '' )
 	{
 		if ( $this->_ref_list )
@@ -594,29 +667,43 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		$args = shortcode_atts( array(
 			'class'         => 'ref-list',
 			'number'        => true,
-			'after_number'  => '. ',
+			'after_number'  => '- ',
 			'format_number' => true,
-			'back'          => '[&#8617;]', //'&uarr;',
-			'rtl'           => ( is_rtl() ? 'yes' : 'no' ),
+			'back'          => '[&#8617;]', //'[^]', // '[&uarr;]',
+			'context'       => null,
 		), $atts, $tag );
 
-		$list = ( $args['number'] ? 'ul' : 'ol' );
+		if ( false === $args['context'] ) // bailing
+			return null;
 
-		$html = '<div class="reflist '.$args['class'].'">';
-		$html .= apply_filters( 'gnetwork_cite_reflist_before', '', $args );
-		$html .= '<'.$list.'>';
-		foreach( $this->_ref_ids as $key => $text )
-			if ( $text )
-			$html .='<li>'.( $args['number'] ? ( $args['format_number'] ? number_format_i18n( $key ) : $key ).$args['after_number'] : '' )
-				.'<span class="ref-backlink"><a href="#citeref-'.$key.'" class="cite-scroll">'.$args['back']
-				.'</a></span> <span class="ref-text"><span class="citation" id="citenote-'.$key.'">'
-				.$text.'</span></span></li>';
-		$html .= '</'.$list.'></div>';
+		$html = '';
+		foreach ( $this->_ref_ids as $key => $text ) {
+
+			if ( ! $text )
+				continue;
+
+			$item  = '<span class="ref-number">';
+			$item .= ( $args['number'] ? ( $args['format_number'] ? number_format_i18n( $key ) : $key ).$args['after_number'] : '' );
+
+			$item .= gNetworkUtilities::html( 'a', array(
+				'class' => 'cite-scroll',
+				'href'  => '#citeref-'.$key,
+				'title' => trim( strip_tags( $content ) ),
+			), $args['back'] );
+
+			$html .= '<li>'.$item.'</span> <span class="ref-text"><span class="citation" id="citenote-'.$key.'">'.$text.'</span></span></li>';
+		}
+
+		$html = gNetworkUtilities::html( ( $args['number'] ? 'ul' : 'ol' ), array(
+			'class' => $args['class'],
+		), apply_filters( 'gnetwork_cite_reflist_before', '', $args ).$html );
+
+		if ( ! defined( 'GNETWORK_DISABLE_REFLIST_JS' ) || ! GNETWORK_DISABLE_REFLIST_JS )
+			wp_enqueue_script( 'gnetwork-cite', GNETWORK_URL.'assets/js/front.cite.min.js', array( 'jquery' ), GNETWORK_VERSION, true );
 
 		$this->_ref_list = true;
-		wp_enqueue_script( 'gnetwork-cite', GNETWORK_URL.'assets/js/front.cite.js', array( 'jquery' ), GNETWORK_VERSION, true );
 
-		return $html;
+		return '<div class="gnetwork-wrap-shortcode shortcode-reflist">'.$html.'</div>';
 	}
 
 	public function the_content( $content )
@@ -626,24 +713,26 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			|| $this->_ref_list )
 				return $content;
 
-		remove_filter( 'the_content', array( & $this, 'the_content' ), 20 );
+		remove_filter( 'the_content', array( &$this, 'the_content' ), 20 );
 		return $content.apply_filters( 'the_content',
 			$this->shortcode_reflist( array(), null, 'reflist' ) );
 	}
 
 	public function mce_buttons( $buttons )
 	{
-		array_push( $buttons, '|', 'gnetworkcite' );
+		array_push( $buttons, '|', 'gnetworkcite', 'gnetworkgemail' );
 		return $buttons;
 	}
 
 	public function mce_external_plugins( $plugin_array )
 	{
-		$plugin_array['gnetworkcite'] = GNETWORK_URL.'assets/js/tinymce.cite.js';
+		$plugin_array['gnetworkcite']   = GNETWORK_URL.'assets/js/tinymce.cite.js';
+		$plugin_array['gnetworkgemail'] = GNETWORK_URL.'assets/js/tinymce.email.js';
+
 		return $plugin_array;
 	}
 
-	// NOT USED YET
+	// FIXME: check this!
 	public function shortcode_ref_manual( $atts, $content = null, $tag = '' )
 	{
 		if ( is_null( $content ) || ! is_singular() )
@@ -657,7 +746,12 @@ class gNetworkShortCodes extends gNetworkModuleCore
 				'title'         => __( 'See the footnote', GNETWORK_TEXTDOMAIN ),
 				'class'         => 'ref-anchor',
 				'format_number' => true,
+				'context'       => null,
 				), $atts, $tag );
+
+				if ( false === $args['context'] ) // bailing
+					return null;
+
 		} else { //[ref-m 0]
 			$args['id'] = isset( $atts[0] ) ? $atts[0] : false;
 			$args['title'] = isset( $attrs[1] ) ? $atts[1] : __( 'See the footnote', GNETWORK_TEXTDOMAIN );
@@ -671,7 +765,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		return '<sup id="citeref-'.$args['id'].'-m" class="reference '.$args['class'].'" title="'.trim( strip_tags( $args['title'] ) ).'" ><a href="#citenote-'.$args['id'].'-m" class="cite-scroll">['.( $args['format_number'] ? number_format_i18n( $args['id'] ) : $args['id'] ).']</a></sup>';
 	}
 
-	// NOT USED YET
+	// FIXME: check this!
 	public function shortcode_reflist_manual( $atts, $content = null, $tag = '' )
 	{
 		// [reflist-m id="0" caption="Caption Title"]
@@ -683,7 +777,12 @@ class gNetworkShortCodes extends gNetworkModuleCore
 				'class'         => 'ref-anchor',
 				'format_number' => true,
 				'back'          => '[&#8617;]', //'&uarr;',
+				'context'       => null,
 				), $atts, $tag );
+
+				if ( false === $args['context'] ) // bailing
+					return null;
+
 		} else { //[reflist-m 0]
 			$args['id']            = $atts[0];
 			$args['title']         = isset( $attrs[1] ) ? $atts[1] : __( 'See the footnote', GNETWORK_TEXTDOMAIN );
@@ -700,7 +799,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 				.'</a></span><span class="ref-text"><span class="citation" id="citenote-'.$args['id'].'-m">&nbsp;</span></span></span>';
 	}
 
-	// UNFINISHED
+	// FIXME: UNFINISHED
 	public function shortcode_repo_video( $atts, $content = null, $tag = '' )
 	{
 		//if ( is_singular() ) return null;
@@ -715,7 +814,11 @@ class gNetworkShortCodes extends gNetworkModuleCore
 				'class'    => '',
 				'rtl'      => is_rtl(),
 				'download' => true,
+				'context'  => null,
 			), $atts, $tag );
+
+			if ( false === $args['context'] ) // bailing
+				return null;
 
 		} else { //[repo 0]
 

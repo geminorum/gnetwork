@@ -26,14 +26,16 @@ defined( 'GNETWORK_SITE_USER_ID' ) or define( 'GNETWORK_SITE_USER_ID', false ); 
 defined( 'GNETWORK_BODY_CLASS' ) or define( 'GNETWORK_BODY_CLASS', false ); // class for all blog's body html/ false fot disable
 defined( 'GNETWORK_DISABLE_BBQ' ) or define( 'GNETWORK_DISABLE_BBQ', false );
 defined( 'GNETWORK_DISABLE_RECAPTCHA' ) or define( 'GNETWORK_DISABLE_RECAPTCHA', false );
-//defined( 'GNETWORK_DISABLE_FRONT_STYLES' ) or define( 'GNETWORK_DISABLE_FRONT_STYLES', false ); cannot set this early!
+// defined( 'GNETWORK_DISABLE_FRONT_STYLES' ) or define( 'GNETWORK_DISABLE_FRONT_STYLES', false ); // cannot set this early!
+// defined( 'GNETWORK_DISABLE_REFLIST_JS' ) or define( 'GNETWORK_DISABLE_REFLIST_JS', false ); // do not include reflist shortcode js // cannot set this early!
+// defined( 'GNETWORK_DISABLE_REFLIST_INSERT' ) or define( 'GNETWORK_DISABLE_REFLIST_INSERT', false ); // do not include reflist shortcode after content  // cannot set this early!
 defined( 'GNETWORK_REDIRECT_MAP' ) or define( 'GNETWORK_REDIRECT_MAP', false );
-//defined( 'GNETWORK_REDIRECT_FORMAT' ) or define( 'GNETWORK_REDIRECT_FORMAT', '%1$s' );
+// defined( 'GNETWORK_REDIRECT_FORMAT' ) or define( 'GNETWORK_REDIRECT_FORMAT', '%1$s' );
 defined( 'GNETWORK_AJAX_ENDPOINT' ) or define( 'GNETWORK_AJAX_ENDPOINT',  admin_url( 'admin-ajax.php' ) ); // if you want to use .ataccess to rewrite
 defined( 'GNETWORK_MEDIA_SEPERATION' ) or define( 'GNETWORK_MEDIA_SEPERATION', false ); // if you want to seperate generated files from originals!!
 defined( 'GNETWORK_MEDIA_SIZES_DIR' ) or define( 'GNETWORK_MEDIA_SIZES_DIR', WP_CONTENT_DIR.DS.'thumbs' );
 defined( 'GNETWORK_MEDIA_SIZES_URL' ) or define( 'GNETWORK_MEDIA_SIZES_URL', WP_CONTENT_URL.'/thumbs' );
-//defined( 'GNETWORK_MEDIA_SIZES_REL' ) or define( 'GNETWORK_MEDIA_SIZES_REL', '../thumbs' ); // relate path to deffault uploads folder
+// defined( 'GNETWORK_MEDIA_SIZES_REL' ) or define( 'GNETWORK_MEDIA_SIZES_REL', '../thumbs' ); // relate path to deffault uploads folder
 defined( 'GNETWORK_MEDIA_SIZES_CHECK' ) or define( 'GNETWORK_MEDIA_SIZES_CHECK', true ); // check default wp dir before thumbs / make it disable for newly created sites
 
 defined( 'GNETWORK_TIMTHUMB_URL' ) or define( 'GNETWORK_TIMTHUMB_URL', esc_url( home_url( '/repo/' ) ) );
