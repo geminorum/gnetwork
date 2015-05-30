@@ -4,6 +4,7 @@
 @import "partials/base";
 
 @import "gnetwork/adminbar.all";
+@import "gnetwork/taxonomy.admin.all";
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -128,14 +129,6 @@ body.rtl {
 { display:none; }
 #dashboard_activity #published-posts ul { margin-top:0; }
 
-// hide the description of the description!!
-body.edit-tags-php .form-field.term-description-wrap  {
-    > p,
-    .description {
-        display:none;
-    }
-}
-
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -199,7 +192,7 @@ body.rtl .gnetwork-settings-sidebox { float:left; }
 
 
 
-/** gMemmber ---------MUST MOVE TO GMEMBER------------------------
+/** gMember ---------MUST MOVE TO GMEMBER------------------------
 --------------------------------------------------------------**/
 table.users-network td.timestamps table td { padding:0 0 2px; }
 

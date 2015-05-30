@@ -1,0 +1,26 @@
+
+body.edit-tags-php {
+
+	.form-field.term-description-wrap  {
+	    > p,
+	    .description {
+	        display:none; // hide the description of the description!!
+	    }
+	}
+
+	.quicktags-toolbar {
+		input {
+			// width:auto; // Fix the formatting buttons on the HTML section of the visual editor from being full-width
+		}
+	}
+
+	textarea.wp-editor-area {
+		border:none;
+	}
+
+	.gnetwork-taxonomy-input-wrap {
+		input[type="text"] {
+			height: 28px;
+		}
+	}
+}
