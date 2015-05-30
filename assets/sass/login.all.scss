@@ -3,9 +3,9 @@
 @import "modules/all";
 @import "partials/base";
 
-// @import "gnetwork/front.all";
-// @import "gnetwork/like.front.all";
-// @import "gnetwork/wpcf7.front.all";
+// @import "partials/front.all";
+// @import "partials/like.front.all";
+// @import "partials/wpcf7.front.all";
 
 
 .login {
@@ -63,12 +63,11 @@
 
 body.rtl {
 
-        #lostpasswordform {
-            padding: 26px 24px;
-        }
+    #lostpasswordform {
+        padding: 26px 24px;
+    }
 
-        input[type=checkbox]:checked:before {
-            margin:-3px -2px 0 0 !important;
-        }
-
+    input[type=checkbox]:checked:before {
+        margin:-3px -2px 0 0 !important;
+    }
 }

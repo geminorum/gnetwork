@@ -11,6 +11,16 @@
 
 }
 
+.gnetwork-wrap-shortcode.shortcode-reflist {
+	ul {
+		li {
+			a {
+
+			}
+		}
+	}
+}
+
 .gnetwork-wrap-shortcode.shortcode-children {
 	ul {
 		li {
@@ -34,5 +44,26 @@
 .gnetwork-wrap-shortcode.shortcode-back {
 	a {
 
+	}
+}
+
+.gnetwork-wrap-shortcode.shortcode-iframe {
+	iframe {
+
+	}
+}
+
+.gnetwork-wrap-shortcode.shortcode-email {
+	// display:inline;
+	a.email {
+
+	}
+}
+
+.gnetwork-wrap-shortcode.shortcode-tel {
+	// display:inline;
+	// direction:ltr;
+	a.tel {
+		// direction:ltr;
 	}
 }
