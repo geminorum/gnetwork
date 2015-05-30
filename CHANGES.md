@@ -1,3 +1,19 @@
+### 0.2.4
+* users: new module init
+* users: default post author moved from editor
+* users: default post author admin settings
+* users: bulk change author from user to another by post types
+* general: internal api for tinymce localization
+* shortcodes: context attr for all shortcodes
+* shortcodes: email shortcode now has a tinymce button and dialog box
+* shortcodes: email shortcode now accepts subject and title
+* shortcodes: new tel shortcode for phone numbers
+* shortcodes: ref & reflist almost rewrite!
+* admin: back-to-top removed in favor of adminbar click!
+* adminbar: change default icon
+* adminbar: rtl refinements
+* taxonomy: new filters to extend bulk actions
+
 ### 0.2.3
 * cleanup: disable emojis in WP 4.2
 * shortcodes: siblings now excludes current post

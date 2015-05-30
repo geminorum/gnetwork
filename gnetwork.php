@@ -3,7 +3,7 @@
 Plugin Name: gNetwork
 Plugin URI: http://gmeinorum.ir/wordpress/gnetwork
 Description: Network Helper
-Version: 0.2.3
+Version: 0.2.4
 Author: geminorum
 Author URI: http://geminorum.ir/
 Network: true
@@ -14,7 +14,7 @@ GitHub Plugin URI: https://github.com/geminorum/gnetwork
 GitHub Branch: develop
 */
 
-define( 'GNETWORK_VERSION', '0.2.3' );
+define( 'GNETWORK_VERSION', '0.2.4' );
 define( 'GNETWORK_DIR', plugin_dir_path( __FILE__ ) );
 define( 'GNETWORK_URL', plugin_dir_url( __FILE__ ) );
 
@@ -157,7 +157,7 @@ function gnetwork_bp_include() {
 		require_once( GNETWORK_DIR.'includes'.DS.'buddypress.php' );
 		$gNetwork->buddypress = new gNetworkBuddyPress();
 	}
-	
+
 	if ( file_exists( GNETWORK_DIR.'includes'.DS.'buddypress.me.php' ) ) {
 		require_once( GNETWORK_DIR.'includes'.DS.'buddypress.me.php' );
 		buddypress()->me = new gNetwork_BP_Me_Component();
