@@ -9,7 +9,6 @@ Author URI: http://geminorum.ir/
 Network: true
 TextDomain: gnetwork
 DomainPath: /languages
-Plugin URI: http://geminorum.ir/wordpress/gnetwork
 GitHub Plugin URI: https://github.com/geminorum/gnetwork
 GitHub Branch: develop
 */
