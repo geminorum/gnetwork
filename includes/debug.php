@@ -10,18 +10,23 @@ class gNetworkDebug extends gNetworkModuleCore
 	{
 		gNetworkAdmin::registerMenu( 'debug',
 			__( 'Debug', GNETWORK_TEXTDOMAIN ),
-			array( & $this, 'settings' )
+			array( &$this, 'settings' )
 		);
 
-		add_action( 'debug_bar_panels', array( &$this, 'debug_bar_panels' ) );
+		add_action( 'debug_bar_panels', function( $panels ) {
+			require_once GNETWORK_DIR.'includes/debugbar-panel.php';
+			$panels[] = new Debug_Bar_gNetwork();
+			$panels[] = new Debug_Bar_gNetworkMeta();
+			return $panels;
+		} );
 
 		//if ( isset( $_GET['action'] ) && $_GET['action'] == 'gnetworkdeletespams' )
-			//add_action( 'init', array( & $this, 'init_delete_spams' ) );
+			//add_action( 'init', array( &$this, 'init_delete_spams' ) );
 
-		//add_action( 'plugins_loaded', array( & $this, 'plugins_loaded' ) );
+		//add_action( 'plugins_loaded', array( &$this, 'plugins_loaded' ) );
 		//add_action( 'wp_before_admin_bar_render', 'supercache_admin_bar_render' );
 
-		add_action( 'wp_footer', array( & $this, 'wp_footer' ), 999 );
+		add_action( 'wp_footer', array( &$this, 'wp_footer' ), 999 );
 
 		if ( 'production' == WP_STAGE ) {
 			if ( WP_DEBUG_LOG && ! WP_DEBUG_DISPLAY ) {
@@ -31,7 +36,7 @@ class gNetworkDebug extends gNetworkModuleCore
 				add_filter( 'deprecated_argument_trigger_error', '__return_false' );
 			}
 		} else if ( 'development' == WP_STAGE ) {
-			add_action( 'pre_get_posts', array( & $this, 'pre_get_posts' ), 99 );
+			add_action( 'pre_get_posts', array( &$this, 'pre_get_posts' ), 99 );
 		}
 
 		// akismet will log all the http_reqs!!
@@ -39,14 +44,7 @@ class gNetworkDebug extends gNetworkModuleCore
 
 		// $this->log(); // no need
 
-		//add_action( 'wp_scheduled_delete', array( & $this, 'wp_scheduled_delete' ) );
-	}
-
-	public function debug_bar_panels( $panels )
-	{
-		require_once GNETWORK_DIR.'includes/debugbar-panel.php';
-		$panels[] = new Debug_Bar_gNetwork();
-		return $panels;
+		//add_action( 'wp_scheduled_delete', array( &$this, 'wp_scheduled_delete' ) );
 	}
 
 	public function settings( $sub = null )
@@ -60,12 +58,12 @@ class gNetworkDebug extends gNetworkModuleCore
 					self::redirect_referer( 'transientpurged' );
 			}
 
-			//$this->update( $sub );
-			//$this->register_settings();
+			// $this->update( $sub );
+			// $this->register_settings();
 			$this->register_button( 'purge_transient', __( 'Purge Expired Transient Data', GNETWORK_TEXTDOMAIN ) );
 			$this->register_button( 'purge_transient_all', __( 'Purge All Transient Data', GNETWORK_TEXTDOMAIN ) );
 
-			add_action( 'gnetwork_admin_settings_sub_debug', array( & $this, 'settings_html' ), 10, 2 );
+			add_action( 'gnetwork_admin_settings_sub_debug', array( &$this, 'settings_html' ), 10, 2 );
 		}
 	}
 
