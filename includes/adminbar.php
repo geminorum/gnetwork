@@ -3,10 +3,10 @@
 class gNetworkAdminBar extends gNetworkModuleCore
 {
 
-	var $_network    = false;
-	var $_option_key = false;
+	var $_network    = FALSE;
+	var $_option_key = FALSE;
 
-	var $_sidebar_admin = false;
+	var $_sidebar_admin = FALSE;
 	var $remove_nodes   = array();
 
 	public function setup_actions()
@@ -111,8 +111,10 @@ class gNetworkAdminBar extends gNetworkModuleCore
 	// fires early before the Widgets administration screen loads, after scripts are enqueued.
 	public function sidebar_admin_setup()
 	{
-		if ( isset( $_GET['gnetwork'] ) && 'reset-sidebars' == $_GET['gnetwork'] )
+		if ( isset( $_GET['gnetwork-action'] ) && 'reset-sidebars' == $_GET['gnetwork-action'] ) {
 			update_option( 'sidebars_widgets', array() );
+			$_SERVER['REQUEST_URI'] = remove_query_arg( 'gnetwork-action', $_SERVER['REQUEST_URI'] );
+		}
 
 		$this->_sidebar_admin = true;
 	}
@@ -146,84 +148,73 @@ class gNetworkAdminBar extends gNetworkModuleCore
 
 	}
 
-	private function add_nodes( & $wp_admin_bar )
+	private function add_nodes( &$wp_admin_bar )
 	{
 		$current_url = gNetworkUtilities::current_url();
-		$parent_id = 'gnetwork-info';
+		$parent_id   = 'gnetwork-info';
+		$group_id    = $parent_id.'-sub';
 
 		$wp_admin_bar->add_node( array(
-			'id' => $parent_id,
-			'title' => '<span class="ab-icon dashicons dashicons-performance" style="margin:2px 0 0 0;"></span>',
+			'id'     => $parent_id,
+			'title'  => '<span class="ab-icon dashicons dashicons-performance" style="margin:2px 0 0 0;"></span>',
 			'parent' => 'top-secondary',
-			'href' => gNetworkNetwork::settingsURL(),
+			'href'   => gNetworkNetwork::settingsURL(),
 		) );
-
-		// $wp_admin_bar->add_node( array(
-		// 	'parent' => 'gnetwork-info',
-		// 	'id' => 'delete-spams',
-		// 	'title' => __( 'Purge Spam Comments', GNETWORK_TEXTDOMAIN ),
-		// 	'meta' => array(
-		// 		'title' => __( 'Delete spam comments of the current blog', GNETWORK_TEXTDOMAIN ) ,
-		// 	),
-		// 	'href' => wp_nonce_url( admin_url( 'index.php?action=gnetworkdeletespams&path='.urlencode( preg_replace( '/[ <>\'\"\r\n\t\(\)]/', '', $_SERVER['REQUEST_URI'] ) ) ), 'gnetwork-delete-spams' )
-		// ) );
 
 		$wp_admin_bar->add_node( array(
 			'parent' => $parent_id,
-			'id' => 'gnetwork-debug',
-			'title' => __( 'Debug', GNETWORK_TEXTDOMAIN ),
+			'id'     => 'gnetwork-debug',
+			'title'  => __( 'Debug', GNETWORK_TEXTDOMAIN ),
+			'href'   => add_query_arg( 'debug', 'debug', $current_url ),
 			'meta'   => array(
 				'title' => __( 'Display debug info for the current page', GNETWORK_TEXTDOMAIN ),
 			),
-			'href' => add_query_arg( 'debug', 'debug', $current_url ),
 		) );
 
 		$wp_admin_bar->add_node( array(
 			'parent' => $parent_id,
-			'id' => 'gnetwork-flush',
-			'title' => __( 'Flush', GNETWORK_TEXTDOMAIN ),
+			'id'     => 'gnetwork-flush',
+			'title'  => __( 'Flush', GNETWORK_TEXTDOMAIN ),
+			'href'   => add_query_arg( 'flush', '', $current_url ),
 			'meta'   => array(
 				'title' => __( 'Flush cached data', GNETWORK_TEXTDOMAIN ),
 			),
-			'href' => add_query_arg( 'flush', '', $current_url ),
 		) );
 
-		$group_args = array(
+		$wp_admin_bar->add_group( array(
 			'parent' => $parent_id,
-			'id'     => $parent_id.'-sub',
+			'id'     => $group_id,
 			'meta'   => array(
 				'class' => 'ab-sub-secondary',
 			),
-		);
+		) );
+
+		do_action_ref_array( 'gnetwork_adminbar_action', array( &$wp_admin_bar, $parent_id, $group_id, $current_url ) );
 
 		if ( is_admin() ) {
+
 			if ( $this->_sidebar_admin ) {
-
-				$wp_admin_bar->add_group( $group_args );
-
 				$wp_admin_bar->add_node( array(
-					'parent' => $group_args['id'],
-					'id' => 'reset-sidebars',
-					'title' =>  __( 'Reset Sidebars', GNETWORK_TEXTDOMAIN ),
-					'meta' => array(
+					'parent' => $group_id,
+					'id'     => 'reset-sidebars',
+					'title'  => __( 'Reset Sidebars', GNETWORK_TEXTDOMAIN ),
+					'href'   => add_query_arg( 'gnetwork-action', 'reset-sidebars', $current_url ),
+					'meta'   => array(
 						'title' => __( 'Delete all previous sidebar widgets, be careful!', GNETWORK_TEXTDOMAIN ) ,
 					),
-					'href' => add_query_arg( 'gnetwork', 'reset-sidebars', $current_url ),
 				) );
-
 			}
+
 		} else {
 
-			$wp_admin_bar->add_group( $group_args );
-
 			$wp_admin_bar->add_node( array(
-				'parent' => $group_args['id'],
-				'id' => 'gnetwork-info-queries',
-				'title' => gNetworkUtilities::stat( '%dq | %.3fs | %.2fMB' ),
-				'meta' => array(
+				'parent' => $group_id,
+				'id'     => 'gnetwork-info-queries',
+				'title'  => gNetworkUtilities::stat( '%dq | %.3fs | %.2fMB' ),
+				'href'   => gNetworkAdmin::settingsURL(),
+				'meta'   => array(
 					'title' => __( 'Queries | Timer Stop | Memory Usage', GNETWORK_TEXTDOMAIN ),
 				),
-				'href' => gNetworkAdmin::settingsURL(),
 			) );
 
 			if ( current_user_can( 'edit_users' ) ) {
@@ -244,51 +235,51 @@ class gNetworkAdminBar extends gNetworkModuleCore
 	{
 		$wp_admin_bar->add_menu( array(
 			'parent' => 'network-admin',
-			'id' => 'settings',
-			'title' => __( 'Settings' ),
-			'href' => network_admin_url( 'settings.php' )
+			'id'     => 'settings',
+			'title'  => __( 'Settings' ),
+			'href'   => network_admin_url( 'settings.php' )
 		) );
 
 		$wp_admin_bar->add_menu( array(
 			'parent' => 'network-admin',
-			'id' => 'update-core',
-			'title' => __( 'Updates' ),
-			'href' => network_admin_url( 'update-core.php' )
+			'id'     => 'update-core',
+			'title'  => __( 'Updates', GNETWORK_TEXTDOMAIN ),
+			'href'   => network_admin_url( 'update-core.php' )
 		) );
 
 		foreach ( (array) $wp_admin_bar->user->blogs as $blog ) {
 
 			$wp_admin_bar->add_menu( array(
 				'parent' => 'blog-'.$blog->userblog_id,
-				'id' => 'blog-'.$blog->userblog_id.'-e',
-				'title' => __( 'All Posts' ),
-				'href' => get_admin_url( $blog->userblog_id, 'edit.php' ),
+				'id'     => 'blog-'.$blog->userblog_id.'-e',
+				'title'  => __( 'All Posts' ),
+				'href'   => get_admin_url( $blog->userblog_id, 'edit.php' ),
 			) );
 
 			$wp_admin_bar->add_menu( array(
 				'parent' => 'blog-'.$blog->userblog_id,
-				'id' => 'blog-'.$blog->userblog_id.'-u',
-				'title' => __( 'Users' ),
-				'href' => get_admin_url( $blog->userblog_id, 'users.php' ),
+				'id'     => 'blog-'.$blog->userblog_id.'-u',
+				'title'  => __( 'Users' ),
+				'href'   => get_admin_url( $blog->userblog_id, 'users.php' ),
 			) );
 
 			$wp_admin_bar->add_menu( array(
 				'parent' => 'blog-'.$blog->userblog_id,
-				'id' => 'blog-'.$blog->userblog_id.'-o-g',
-				'title' => __( 'Settings' ),
-				'href' => get_admin_url( $blog->userblog_id, 'options-general.php' ),
+				'id'     => 'blog-'.$blog->userblog_id.'-o-g',
+				'title'  => __( 'Settings' ),
+				'href'   => get_admin_url( $blog->userblog_id, 'options-general.php' ),
 			) );
 
 			$wp_admin_bar->add_menu( array(
 				'parent' => 'blog-'.$blog->userblog_id,
-				'id' => 'blog-'.$blog->userblog_id.'-i',
+				'id'     => 'blog-'.$blog->userblog_id.'-i',
 				'title'  => __( 'Edit Site' ),
 				'href'   => network_admin_url( 'site-info.php?id='.$blog->userblog_id ),
 			) );
 
 			$wp_admin_bar->add_menu( array(
 				'parent' => 'blog-'.$blog->userblog_id,
-				'id' => 'blog-'.$blog->userblog_id.'-t',
+				'id'     => 'blog-'.$blog->userblog_id.'-t',
 				'title'  => __( 'Edit Site Themes' ),
 				'href'   => network_admin_url( 'site-themes.php?id='.$blog->userblog_id ),
 			) );
@@ -425,10 +416,10 @@ class gNetworkAdminBar extends gNetworkModuleCore
 			$parent = 'gnetwork-extramenu';
 
 			$wp_admin_bar->add_node( array(
-				'id' => $parent,
-				'title' => '<span class="ab-icon dashicons dashicons-menu" style="margin:2px 0 0 0;"></span>',
-				//'parent' => 'top-secondary', // Off on the right side
-				'href' => false,
+				'id'     => $parent,
+				'title'  => '<span class="ab-icon dashicons dashicons-menu" style="margin:2px 0 0 0;"></span>',
+				// 'parent' => 'top-secondary', // Off on the right side
+				'href'   => false,
 			) );
 
 			foreach ( $menu as $item_id => $item ) {
@@ -452,9 +443,7 @@ class gNetworkAdminBar extends gNetworkModuleCore
 				}
 			}
 		}
-
 	}
-
 }
 
 function gnetwork_adminbar_wp_admin_bar_class( $class ) {
@@ -500,10 +489,9 @@ class gNetwork_WP_Admin_Bar extends WP_Admin_Bar {
 
 		do_action( 'add_admin_bar_menus' );
 	}
-
-
 }
-return 'gNetwork_WP_Admin_Bar';
+
+	return 'gNetwork_WP_Admin_Bar';
 }
 
 // http://wpengineer.com/2366/add-icon-to-site-link-in-the-wordpress-admin-bar/
