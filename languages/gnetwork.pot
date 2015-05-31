@@ -7,14 +7,18 @@ msgid "Core Versions"
 msgstr ""
 
 #: ..\..\plugins\gnetworkadmin/admin.overview.php:15
+msgid "Plugin Paths"
+msgstr ""
+
+#: ..\..\plugins\gnetworkadmin/admin.overview.php:19
 msgid "Stats of the Caching"
 msgstr ""
 
-#: ..\..\plugins\gnetworkadmin/admin.overview.php:22
+#: ..\..\plugins\gnetworkadmin/admin.overview.php:26
 msgid "Available Shortcodes"
 msgstr ""
 
-#: ..\..\plugins\gnetworkadmin/admin.overview.php:28
+#: ..\..\plugins\gnetworkadmin/admin.overview.php:32
 msgid "Loaded MO Files"
 msgstr ""
 
@@ -34,84 +38,80 @@ msgstr ""
 msgid "Network deactivation: uninstalled on %s / %s sites."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/admin.php:85
-#: ..\..\plugins\gnetworkincludes/admin.php:108
-#: ..\..\plugins\gnetworkincludes/admin.php:226
+#: ..\..\plugins\gnetworkincludes/admin.php:84
+#: ..\..\plugins\gnetworkincludes/admin.php:107
+#: ..\..\plugins\gnetworkincludes/admin.php:225
 #: ..\..\plugins\gnetworkincludes/network.php:69
 #: ..\..\plugins\gnetworkincludes/network.php:170
 msgid "gNetwork Extras"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/admin.php:86
-#: ..\..\plugins\gnetworkincludes/admin.php:109
+#: ..\..\plugins\gnetworkincludes/admin.php:85
+#: ..\..\plugins\gnetworkincludes/admin.php:108
 msgctxt "Admin Menu Title"
 msgid "Extras"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/admin.php:96
+#: ..\..\plugins\gnetworkincludes/admin.php:95
 #: ..\..\plugins\gnetworkincludes/network.php:82
 msgid "gNetwork Extras: %s"
 msgstr ""
 
+#: ..\..\plugins\gnetworkincludes/admin.php:119
 #: ..\..\plugins\gnetworkincludes/admin.php:120
-#: ..\..\plugins\gnetworkincludes/admin.php:121
 msgid "All Settings"
 msgstr ""
 
+#: ..\..\plugins\gnetworkincludes/admin.php:126
 #: ..\..\plugins\gnetworkincludes/admin.php:127
-#: ..\..\plugins\gnetworkincludes/admin.php:128
 #: ..\..\plugins\gnetworkincludes/network.php:48
 #: ..\..\plugins\gnetworkincludes/network.php:49
 msgid "Active"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/admin.php:138
-#: ..\..\plugins\gnetworkincludes/admin.php:196
+#: ..\..\plugins\gnetworkincludes/admin.php:137
+#: ..\..\plugins\gnetworkincludes/admin.php:195
 #: ..\..\plugins\gnetworkincludes/network.php:91
 #: ..\..\plugins\gnetworkincludes/network.php:143
 msgid "Overview"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/admin.php:203
+#: ..\..\plugins\gnetworkincludes/admin.php:202
 #: ..\..\plugins\gnetworkincludes/network.php:151
 msgid "Console"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/admin.php:219
+#: ..\..\plugins\gnetworkincludes/admin.php:218
 #: ..\..\plugins\gnetworkincludes/network.php:163
 msgid "Resetting Settings."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/admin.php:220
+#: ..\..\plugins\gnetworkincludes/admin.php:219
 #: ..\..\plugins\gnetworkincludes/network.php:164
 msgid "Settings updated."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/admin.php:221
+#: ..\..\plugins\gnetworkincludes/admin.php:220
 #: ..\..\plugins\gnetworkincludes/network.php:165
 msgid "Error while saving settings."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/admin.php:247
+#: ..\..\plugins\gnetworkincludes/admin.php:246
+#: ..\..\plugins\gnetworkincludes/utilities.php:476
 msgid "Cheatin&#8217; uh?"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/admin.php:273
-#: ..\..\plugins\gnetworkincludes/admin.php:280
-msgid "Back to Top"
-msgstr ""
-
-#: ..\..\plugins\gnetworkincludes/admin.php:317
+#: ..\..\plugins\gnetworkincludes/admin.php:299
 msgid "Version %s"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/admin.php:361
+#: ..\..\plugins\gnetworkincludes/admin.php:343
 msgctxt "admin dashboard widget title"
 msgid "Network Feed"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/admin.php:404
-#: ..\..\plugins\gnetworkincludes/admin.php:406
+#: ..\..\plugins\gnetworkincludes/admin.php:385
+#: ..\..\plugins\gnetworkincludes/admin.php:387
 #: ..\..\plugins\gnetworkincludes/network.php:229
 #: ..\..\plugins\gnetworkincludes/network.php:231
 msgid "ID"
@@ -119,7 +119,7 @@ msgstr ""
 
 #: ..\..\plugins\gnetworkincludes/adminbar.php:174
 #: ..\..\plugins\gnetworkincludes/debug.php:12
-#: ..\..\plugins\gnetworkincludes/modulecore.php:320
+#: ..\..\plugins\gnetworkincludes/modulecore.php:335
 msgid "Debug"
 msgstr ""
 
@@ -149,6 +149,7 @@ msgstr ""
 
 #: ..\..\plugins\gnetworkincludes/adminbar.php:234
 #: ..\..\plugins\gnetworkincludes/adminbar.php:271
+#: ..\..\plugins\gnetworkincludes/users.php:12
 msgid "Users"
 msgstr ""
 
@@ -215,16 +216,12 @@ msgstr ""
 msgid "Locked message on login page."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/buddypress.me.php:13
+#: ..\..\plugins\gnetworkincludes/buddypress.me.php:14
 msgid "gNetwork Me"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/buddypress.me.php:128
+#: ..\..\plugins\gnetworkincludes/buddypress.me.php:126
 msgid "Profile Settings"
-msgstr ""
-
-#: ..\..\plugins\gnetworkincludes/buddypress.me.php:173
-msgid "Please complete your profile: %s"
 msgstr ""
 
 #: ..\..\plugins\gnetworkincludes/buddypress.php:16
@@ -345,16 +342,20 @@ msgstr ""
 msgid "Change the default BuddyPress Avatar values"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/buddypress.php:275
+#: ..\..\plugins\gnetworkincludes/buddypress.php:277
+msgid "Please complete your profile: %s"
+msgstr ""
+
+#: ..\..\plugins\gnetworkincludes/buddypress.php:311
 msgctxt "BP ToS"
 msgid "Read full agreement"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/buddypress.php:320
+#: ..\..\plugins\gnetworkincludes/buddypress.php:353
 msgid "You're totally a spammer. Go somewhere else with your spammy ways."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/buddypress.php:419
+#: ..\..\plugins\gnetworkincludes/buddypress.php:451
 msgid "There was a problem when deleting. Please try again."
 msgstr ""
 
@@ -402,20 +403,20 @@ msgstr ""
 msgid "Comments"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/comments.php:46
+#: ..\..\plugins\gnetworkincludes/comments.php:47
 msgid "Purge Spam Comments"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/comments.php:71
+#: ..\..\plugins\gnetworkincludes/comments.php:72
 msgctxt "Enable Full Comments On Dashboard"
 msgid "Full Comments"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/comments.php:72
+#: ..\..\plugins\gnetworkincludes/comments.php:73
 msgid "Full Comments On Dashboard"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/comments.php:223
+#: ..\..\plugins\gnetworkincludes/comments.php:224
 msgid "Your attempt to add this comment has failed."
 msgstr ""
 
@@ -452,15 +453,15 @@ msgctxt "Debug Version Strings"
 msgid "Required MySQL"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/debug.php:129
+#: ..\..\plugins\gnetworkincludes/debug.php:173
 msgid "Delete Cache"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/debug.php:130
+#: ..\..\plugins\gnetworkincludes/debug.php:174
 msgid "Delete cache of the current page"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/debug.php:199
+#: ..\..\plugins\gnetworkincludes/debug.php:243
 msgid "Please talk to the database using $wpdb"
 msgstr ""
 
@@ -775,26 +776,27 @@ msgstr ""
 msgid "View Item URL"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/modulecore.php:179
+#: ..\..\plugins\gnetworkincludes/modulecore.php:187
 msgid "Save Changes"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/modulecore.php:180
+#: ..\..\plugins\gnetworkincludes/modulecore.php:188
 msgid "Reset Settings"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/modulecore.php:180
+#: ..\..\plugins\gnetworkincludes/modulecore.php:188
+#: ..\..\plugins\gnetworkincludes/users.php:107
 msgid "Are you sure? This operation can not be undone."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/modulecore.php:437
+#: ..\..\plugins\gnetworkincludes/modulecore.php:447
 #: ..\..\plugins\gnetworkincludes/notify.php:59
 #: ..\..\plugins\gnetworkincludes/notify.php:81
 #: ..\..\plugins\gnetworkincludes/notify.php:92
 msgid "Disabled"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/modulecore.php:442
+#: ..\..\plugins\gnetworkincludes/modulecore.php:452
 #: ..\..\plugins\gnetworkincludes/notify.php:58
 #: ..\..\plugins\gnetworkincludes/notify.php:80
 #: ..\..\plugins\gnetworkincludes/notify.php:91
@@ -1198,36 +1200,70 @@ msgstr ""
 msgid "You have to have a key to access this site's feed"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/shortcodes.php:147
+#: ..\..\plugins\gnetworkincludes/shortcodes.php:78
+msgctxt "TINYMCE Strings"
+msgid "Cite This"
+msgstr ""
+
+#: ..\..\plugins\gnetworkincludes/shortcodes.php:79
+msgctxt "TINYMCE Strings"
+msgid "URL"
+msgstr ""
+
+#: ..\..\plugins\gnetworkincludes/shortcodes.php:80
+msgctxt "TINYMCE Strings"
+msgid "Email"
+msgstr ""
+
+#: ..\..\plugins\gnetworkincludes/shortcodes.php:81
+msgctxt "TINYMCE Strings"
+msgid "Subject"
+msgstr ""
+
+#: ..\..\plugins\gnetworkincludes/shortcodes.php:82
+msgctxt "TINYMCE Strings"
+msgid "People"
+msgstr ""
+
+#: ..\..\plugins\gnetworkincludes/shortcodes.php:83
+msgctxt "TINYMCE Strings"
+msgid "Name"
+msgstr ""
+
+#: ..\..\plugins\gnetworkincludes/shortcodes.php:168
 msgctxt "Shortcodes: back: default html"
 msgid "Back"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/shortcodes.php:171
-#: ..\..\plugins\gnetworkincludes/shortcodes.php:184
+#: ..\..\plugins\gnetworkincludes/shortcodes.php:196
+#: ..\..\plugins\gnetworkincludes/shortcodes.php:209
 msgctxt "Shortcodes: back: home title attr"
 msgid "Home"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/shortcodes.php:322
+#: ..\..\plugins\gnetworkincludes/shortcodes.php:347
 msgctxt "google groups subscribe"
 msgid "Email:"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/shortcodes.php:325
+#: ..\..\plugins\gnetworkincludes/shortcodes.php:350
 msgctxt "google groups subscribe"
 msgid "Subscribe"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/shortcodes.php:382
+#: ..\..\plugins\gnetworkincludes/shortcodes.php:413
 msgid "It appears you don't have Adobe Reader or PDF support in this web browser. <a href=\"%s\">Click here to download the PDF</a>"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/shortcodes.php:665
-#: ..\..\plugins\gnetworkincludes/shortcodes.php:671
-#: ..\..\plugins\gnetworkincludes/shortcodes.php:690
-#: ..\..\plugins\gnetworkincludes/shortcodes.php:697
-#: ..\..\plugins\gnetworkincludes/shortcodes.php:735
+#: ..\..\plugins\gnetworkincludes/shortcodes.php:600
+msgid "See More"
+msgstr ""
+
+#: ..\..\plugins\gnetworkincludes/shortcodes.php:732
+#: ..\..\plugins\gnetworkincludes/shortcodes.php:743
+#: ..\..\plugins\gnetworkincludes/shortcodes.php:762
+#: ..\..\plugins\gnetworkincludes/shortcodes.php:774
+#: ..\..\plugins\gnetworkincludes/shortcodes.php:812
 msgid "See the footnote"
 msgstr ""
 
@@ -1333,6 +1369,51 @@ msgstr ""
 msgid "Enter your Google+ publisher number: <code>XXXXXXXXXXXXXXXXXXXXX</code>"
 msgstr ""
 
+#: ..\..\plugins\gnetworkincludes/users.php:58
+msgctxt "Enable Full Comments On Dashboard"
+msgid "Default Author"
+msgstr ""
+
+#: ..\..\plugins\gnetworkincludes/users.php:59
+msgid "The site user as default author of new posts in admin"
+msgstr ""
+
+#: ..\..\plugins\gnetworkincludes/users.php:69
+msgid "Network site user is %s"
+msgstr ""
+
+#: ..\..\plugins\gnetworkincludes/users.php:71
+msgid "Network site user is not defined"
+msgstr ""
+
+#: ..\..\plugins\gnetworkincludes/users.php:77
+msgid "Bulk Change Author"
+msgstr ""
+
+#: ..\..\plugins\gnetworkincludes/users.php:85
+msgid "to"
+msgstr ""
+
+#: ..\..\plugins\gnetworkincludes/users.php:94
+msgid "on"
+msgstr ""
+
+#: ..\..\plugins\gnetworkincludes/users.php:104
+msgid "do"
+msgstr ""
+
+#: ..\..\plugins\gnetworkincludes/users.php:106
+msgid "Change"
+msgstr ""
+
+#: ..\..\plugins\gnetworkincludes/users.php:140
+msgid "%s Post(s) Changed"
+msgstr ""
+
+#: ..\..\plugins\gnetworkincludes/users.php:141
+msgid "No Post Changed"
+msgstr ""
+
 #: ..\..\plugins\gnetworkincludes/utilities.php:51
 msgid "%d queries in %.3f seconds, using %.2fMB memory."
 msgstr ""
@@ -1345,42 +1426,50 @@ msgstr ""
 msgid "&ldquo;, &rdquo;"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/utilities.php:328
+#: ..\..\plugins\gnetworkincludes/utilities.php:346
+msgid "Posts"
+msgstr ""
+
+#: ..\..\plugins\gnetworkincludes/utilities.php:347
+msgid "Pages"
+msgstr ""
+
+#: ..\..\plugins\gnetworkincludes/utilities.php:370
 msgctxt "Dropdown: Get User Roles"
 msgid "Administrators"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/utilities.php:329
+#: ..\..\plugins\gnetworkincludes/utilities.php:371
 msgctxt "Dropdown: Get User Roles"
 msgid "Editors"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/utilities.php:330
+#: ..\..\plugins\gnetworkincludes/utilities.php:372
 msgctxt "Dropdown: Get User Roles"
 msgid "Authors"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/utilities.php:331
+#: ..\..\plugins\gnetworkincludes/utilities.php:373
 msgctxt "Dropdown: Get User Roles"
 msgid "Contributors"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/utilities.php:332
+#: ..\..\plugins\gnetworkincludes/utilities.php:374
 msgctxt "Dropdown: Get User Roles"
 msgid "Subscribers"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/utilities.php:337
+#: ..\..\plugins\gnetworkincludes/utilities.php:379
 msgctxt "Dropdown: Get User Roles"
 msgid "Super Admins"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/utilities.php:339
+#: ..\..\plugins\gnetworkincludes/utilities.php:381
 msgctxt "Dropdown: Get User Roles"
 msgid "Network Users"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/utilities.php:343
+#: ..\..\plugins\gnetworkincludes/utilities.php:385
 msgctxt "Dropdown: Get User Roles"
 msgid "&mdash; No One &mdash;"
 msgstr ""
