@@ -209,9 +209,11 @@ class gNetworkAdmin extends gNetworkModuleCore
 		$subs = apply_filters( 'gnetwork_admin_settings_subs', $this->subs() );
 		$sub = isset( $_GET['sub'] ) ? trim( $_GET['sub'] ) : 'overview';
 
-		echo '<div class="wrap">';
+		echo '<div class="wrap gnetwork-admin-settings-wrap settings-admin sub-'.$sub.'">';
 
-		if ( 'overview' == $sub || ( isset( $this->menus[$sub] ) && self::cuc( $this->menus[$sub]['cap'] ) ) ) {
+		if ( 'overview' == $sub
+			|| ( 'console' == $sub && is_super_admin() )
+			|| ( isset( $this->menus[$sub] ) && self::cuc( $this->menus[$sub]['cap'] ) ) ) {
 
 			$settings_uri = self::settingsURL( false );
 			$messages = apply_filters( 'gnetwork_admin_settings_messages', array(

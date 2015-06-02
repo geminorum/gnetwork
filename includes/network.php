@@ -165,7 +165,7 @@ class gNetworkNetwork extends gNetworkModuleCore
 			'error' => gNetworkUtilities::notice( __( 'Error while saving settings.', GNETWORK_TEXTDOMAIN ), 'error', false ),
 		) );
 
-		echo '<div class="wrap">';
+		echo '<div class="wrap gnetwork-admin-settings-wrap settings-network sub-'.$sub.'">';
 			self::sideNotification();
 			printf( '<h2>%s</h2>', __( 'gNetwork Extras', GNETWORK_TEXTDOMAIN ) );
 
