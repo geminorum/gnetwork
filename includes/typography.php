@@ -43,7 +43,7 @@ class gNetworkTypography extends gNetworkModuleCore
 	// http://en.wikipedia.org/wiki/Asterisk
 	public function shortcode_three_asterisks( $atts, $content = null, $tag = '' )
 	{
-		return '<span class="three-asterisks">&#10059;&nbsp;&#10059;&nbsp;&#10059;</span>';
+		return '<div class="gnetwork-wrap-shortcode shortcode-three-asterisks three-asterisks">&#10059;&nbsp;&#10059;&nbsp;&#10059;</div>';
 	}
 
 	public function shortcode_ltr( $atts, $content = null, $tag = '' )
