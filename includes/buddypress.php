@@ -35,6 +35,7 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 
 		add_action( 'bp_before_register_page', '__donot_cache_page' );
 		add_action( 'bp_before_activation_page', '__donot_cache_page' );
+		add_action( 'bp_template_include_reset_dummy_post_data', '__gpersiandate_skip' );
 
 		if ( bp_is_active( 'activity' ) ) {
 			add_filter( 'bp_activity_user_can_delete', array( &$this, 'bp_activity_user_can_delete' ), 10, 2 );
