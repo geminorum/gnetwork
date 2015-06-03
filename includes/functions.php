@@ -26,3 +26,11 @@ if ( ! function_exists( 'gnetwork_credits' ) ) :
 			return gnetwork_copyright( $rtl );
 	}
 endif;
+
+if ( ! function_exists( '__donot_cache_page' ) ) : function __donot_cache_page() {
+	defined( 'DONOTCACHEPAGE' ) or define( 'DONOTCACHEPAGE', true );
+} endif;
+
+if ( ! function_exists( '__gpersiandate_skip' ) ) : function __gpersiandate_skip() {
+	defined( 'GPERSIANDATE_SKIP' ) or define( 'GPERSIANDATE_SKIP', true );
+} endif;

@@ -618,20 +618,8 @@ class gNetworkUtilities
 	{
 		error_log( print_r( compact( 'data' ), true ) );
 	}
-
 }
 
 function gnetwork_log( $data, $table = 0 ) { gNetworkUtilities::log( $data, $table ); }
 function gnetwork_dump( $var, $htmlSafe = true ) { gNetworkUtilities::dump( $var, $htmlSafe ); }
 function gnetwork_trace( $old = true ) { gNetworkUtilities::trace( $old ); }
-function gnetwork_is_dev() { return gNetworkUtilities::isDev(); }
-
-if ( ! function_exists( '__donot_cache_page' ) ) : function __donot_cache_page() {
-	defined( 'DONOTCACHEPAGE' ) or define( 'DONOTCACHEPAGE', true );
-} endif;
-
-function gnetwork_dump_ref( &$var, $htmlSafe = true ) {
-	defined( 'GPERSIANDATE_SKIP' ) or define( 'GPERSIANDATE_SKIP', true );
-	$result = var_export( $var, true );
-	echo '<pre dir="ltr" style="text-align:left;direction:ltr;">'.( $htmlSafe ? htmlspecialchars( $result ) : $result).'</pre>';
-}
