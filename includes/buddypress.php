@@ -4,8 +4,8 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 {
 
 	var $_option_key = 'buddypress';
-	var $_network    = true;
-	var $_ajax       = true;
+	var $_network    = TRUE;
+	var $_ajax       = TRUE;
 
 	var $_field_name = 'Q2FuaXZuaW1FbnMyb2NwaG9h';
 	var $_field_val  = 'R3JldGlwY3licmVrc3lpYkth';
@@ -17,8 +17,8 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 			array( &$this, 'settings' )
 		);
 
-		add_action( 'init'              , array( &$this, 'init'               ), 10 );
-		add_action( 'bp_init'           , array( &$this, 'bp_init_early'      ), 1  );
+		add_action( 'init' , array( &$this, 'init' ), 10 );
+		add_action( 'bp_init' , array( &$this, 'bp_init_early' ), 1 );
 		add_action( 'bp_setup_admin_bar', array( &$this, 'bp_setup_admin_bar' ), 20 );
 
 		add_filter( 'register_url', array( &$this, 'register_url' ) );
@@ -29,6 +29,11 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 		add_filter( 'bp_core_validate_user_signup', array( &$this, 'bp_core_validate_user_signup' ) );
 
 		add_action( 'bp_ajax_querystring', array( &$this, 'bp_ajax_querystring' ), 20, 2 );
+
+		if ( $this->options['complete_signup'] )
+			add_action( 'bp_complete_signup', function(){
+				bp_core_redirect( $this->options['complete_signup'] );
+			} );
 
 		if ( $this->options['tos_display'] )
 			add_action( 'bp_before_registration_submit_buttons', array( &$this, 'bp_before_registration_submit_buttons' ) );
@@ -55,6 +60,8 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 	public function default_options()
 	{
 		return array(
+			'complete_signup' => '',
+
 			'tos_display' => 0,
 			'tos_title'   => _x( 'Terms of Service', 'BP ToS', GNETWORK_TEXTDOMAIN ),
 			'tos_link'    => '',
@@ -75,48 +82,58 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 	public function default_settings()
 	{
 		$settings = array(
-			'_tos' => array(
+			'_general' => array(
 				array(
-					'field'   => 'tos_display',
-					'type'    => 'enabled',
-					'title'   => __( 'Display ToS', GNETWORK_TEXTDOMAIN ),
-					'default' => '0',
-				),
-				array(
-					'field' => 'tos_title',
+					'field' => 'complete_signup',
 					'type'  => 'text',
-					'title' => __( 'ToS Title', GNETWORK_TEXTDOMAIN ),
-					'desc'  => __( 'Section title, Usually : Terms of Service', GNETWORK_TEXTDOMAIN ),
+					'title' => __( 'Complete Signup', GNETWORK_TEXTDOMAIN ),
+					'desc'  => __( 'Redirect users after successful registration.', GNETWORK_TEXTDOMAIN ),
 					'class' => 'large-text',
 				),
-				array(
-					'field' => 'tos_link',
-					'type'  => 'text',
-					'title' => __( 'ToS Link', GNETWORK_TEXTDOMAIN ),
-					'desc'  => __( 'URL for section title link to actual agreement text', GNETWORK_TEXTDOMAIN ),
-					'class' => 'large-text',
-				),
-				array(
-					'field' => 'tos_text',
-					'type'  => 'textarea',
-					'title' => __( 'ToS Text', GNETWORK_TEXTDOMAIN ),
-					'desc'  => __( 'Full text of the agreement.', GNETWORK_TEXTDOMAIN ),
-					'class' => 'large-text',
-				),
-				array(
-					'field' => 'tos_label',
-					'type'  => 'text',
-					'title' => __( 'ToS Label', GNETWORK_TEXTDOMAIN ),
-					'desc'  => __( 'Label next to the mandatory checkbox, below full text.', GNETWORK_TEXTDOMAIN ),
-					'class' => 'large-text',
-				),
-				array(
-					'field' => 'tos_must',
-					'type'  => 'text',
-					'title' => __( 'ToS Must', GNETWORK_TEXTDOMAIN ),
-					'desc'  => __( 'Error message upon not checking the box.', GNETWORK_TEXTDOMAIN ),
-					'class' => 'large-text',
-				),
+			),
+		);
+
+		$settings['_tos'] = array(
+			array(
+				'field'   => 'tos_display',
+				'type'    => 'enabled',
+				'title'   => __( 'Display ToS', GNETWORK_TEXTDOMAIN ),
+				'default' => '0',
+			),
+			array(
+				'field' => 'tos_title',
+				'type'  => 'text',
+				'title' => __( 'ToS Title', GNETWORK_TEXTDOMAIN ),
+				'desc'  => __( 'Section title, Usually : Terms of Service', GNETWORK_TEXTDOMAIN ),
+				'class' => 'large-text',
+			),
+			array(
+				'field' => 'tos_link',
+				'type'  => 'text',
+				'title' => __( 'ToS Link', GNETWORK_TEXTDOMAIN ),
+				'desc'  => __( 'URL for section title link to actual agreement text', GNETWORK_TEXTDOMAIN ),
+				'class' => 'large-text',
+			),
+			array(
+				'field' => 'tos_text',
+				'type'  => 'textarea',
+				'title' => __( 'ToS Text', GNETWORK_TEXTDOMAIN ),
+				'desc'  => __( 'Full text of the agreement.', GNETWORK_TEXTDOMAIN ),
+				'class' => 'large-text',
+			),
+			array(
+				'field' => 'tos_label',
+				'type'  => 'text',
+				'title' => __( 'ToS Label', GNETWORK_TEXTDOMAIN ),
+				'desc'  => __( 'Label next to the mandatory checkbox, below full text.', GNETWORK_TEXTDOMAIN ),
+				'class' => 'large-text',
+			),
+			array(
+				'field' => 'tos_must',
+				'type'  => 'text',
+				'title' => __( 'ToS Must', GNETWORK_TEXTDOMAIN ),
+				'desc'  => __( 'Error message upon not checking the box.', GNETWORK_TEXTDOMAIN ),
+				'class' => 'large-text',
 			),
 		);
 
@@ -207,7 +224,7 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 		remove_action( 'wp_head', 'bp_core_add_ajax_url_js' );
 		remove_action( 'wp_footer', 'bp_core_print_generation_time' );
 
-		add_filter( 'bp_use_theme_compat_with_current_theme', '__return_false' );
+		add_filter( 'bp_use_theme_compat_with_current_theme', '__return_FALSE' );
 		add_action( 'wp_enqueue_scripts', function(){
 			wp_dequeue_style( 'bp-parent-css' );
 			wp_dequeue_style( 'bp-child-css' );
@@ -304,7 +321,7 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 		echo '<div class="register-section register-section-tos checkbox gnetwork-tos">';
 
 
-		$title = empty( $this->options['tos_title'] ) ? false : $this->options['tos_title'];
+		$title = empty( $this->options['tos_title'] ) ? FALSE : $this->options['tos_title'];
 
 		if ( $title && ! empty( $this->options['tos_link'] ) )
 			printf( '<h4><a href="%1$s" title="%2$s">%3$s</a></h4>',
@@ -358,7 +375,7 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 
 	// http://buddydev.com/buddypress/exclude-users-from-members-directory-on-a-buddypress-based-social-network/
 	// http://wordpress.stackexchange.com/a/61875
-	public function bp_ajax_querystring( $qs = false, $object = false )
+	public function bp_ajax_querystring( $qs = FALSE, $object = FALSE )
 	{
 		if( $object != 'members' ) // members only
 			return $qs;
@@ -393,7 +410,7 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 
 		// if the activity type is empty, it stops BuddyPress BP_Activity_Activity::save() function
 		if( in_array( $activity_object->type, $exclude ) )
-			$activity_object->type = false;
+			$activity_object->type = FALSE;
 	}
 
 	public function bp_include_remove_widgets()
@@ -422,7 +439,7 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 
 		//if the current user is author of main activity, he/she can delete it
 		if( $parent_activity->user_id == get_current_user_id() )
-			$can_delete = true;
+			$can_delete = TRUE;
 
 		return $can_delete;
 	}
@@ -443,7 +460,7 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 		$comment = new BP_Activity_Activity( $_POST['id'] );
 
 		if ( ! bp_activity_user_can_delete( $comment ) )
-			return false; //let others handle it
+			return FALSE; //let others handle it
 
 		// Call the action before the delete so plugins can still fetch information about it
 		do_action( 'bp_activity_before_action_delete_activity', $_POST['id'], $comment->user_id );
