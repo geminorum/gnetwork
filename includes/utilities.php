@@ -353,10 +353,10 @@ class gNetworkUtilities
 		return $post_types;
 	}
 
-	public static function getUsers( $all_fields = false )
+	public static function getUsers( $all_fields = FALSE, $network = FALSE )
 	{
 		$users = get_users( array(
-			'blog_id' => '', // TODO : add option to include entire network users
+			'blog_id' => ( $network ? '' : $GLOBALS['blog_id'] ),
 			'orderby' => 'display_name',
 			'fields'  => ( $all_fields ? 'all_with_meta' : 'all' ),
 		) );
