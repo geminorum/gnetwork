@@ -3,12 +3,12 @@
 class gNetworkModuleCore
 {
 
-	var $_network     = true;       // using network wide options
+	var $_network     = TRUE;       // using network wide options
 	var $_option_base = 'gnetwork';
 	var $_option_key  = '';
 	var $_options     = array();
-	var $_ajax        = false;      // load if ajax
-	var $_dev         = null;       // load if dev
+	var $_ajax        = FALSE;      // load if ajax
+	var $_dev         = NULL;       // load if dev
 
 	public function __construct()
 	{
@@ -17,13 +17,13 @@ class gNetworkModuleCore
 			return;
 
 		if ( ! is_null( $this->_dev ) ) {
-			if ( false === $this->_dev && gNetworkUtilities::isDev() )
+			if ( FALSE === $this->_dev && gNetworkUtilities::isDev() )
 				return;
-			else if ( true === $this->_dev && ! gNetworkUtilities::isDev() )
+			else if ( TRUE === $this->_dev && ! gNetworkUtilities::isDev() )
 				return;
 		}
 
-		if ( false !== $this->_option_key ) // disable the options
+		if ( FALSE !== $this->_option_key ) // disable the options
 			$this->options = $this->init_options();
 
 		$this->setup_actions();
@@ -31,7 +31,7 @@ class gNetworkModuleCore
 
 	public static function isAJAX()
 	{
-		return ( defined( 'DOING_AJAX' ) && constant( 'DOING_AJAX' ) ) ? true : false;
+		return defined( 'DOING_AJAX' ) && DOING_AJAX;
 	}
 
 	public function setup_actions() {}
@@ -58,7 +58,7 @@ class gNetworkModuleCore
 		return $this->settings_sanitize( $options, $defaults );
 	}
 
-	public function settings_sanitize( $input, $defaults = null )
+	public function settings_sanitize( $input, $defaults = NULL )
 	{
 		$output = ( is_null( $defaults ) ? $this->default_options() : $defaults );
 
@@ -71,13 +71,13 @@ class gNetworkModuleCore
 
 	// option and it's default
 	// it's really moot! since we sanitize options
-	public function get_option( $name, $default = false )
+	public function get_option( $name, $default = FALSE )
 	{
 		return ( isset( $this->options[$name] ) ? $this->options[$name] : $default ) ;
 	}
 
 	// update options at once
-	public function update_options( $options = null )
+	public function update_options( $options = NULL )
 	{
 		if ( is_null( $options ) )
 			$options = $this->options;
@@ -93,11 +93,11 @@ class gNetworkModuleCore
 		$this->options[$name] = $value;
 
 		if ( $this->_network )
-			$options = get_site_option( $this->options_key(), false );
+			$options = get_site_option( $this->options_key(), FALSE );
 		else
-			$options = get_option( $this->options_key(), false );
+			$options = get_option( $this->options_key(), FALSE );
 
-		if ( $options === false )
+		if ( $options === FALSE )
 			$options = array();
 
 		$options[$name] = $value;
@@ -108,7 +108,7 @@ class gNetworkModuleCore
 			return update_option( $this->options_key(), $options );
 	}
 
-	public function delete_option( $name, $options_key = null )
+	public function delete_option( $name, $options_key = NULL )
 	{
 		if ( is_null( $options_key ) )
 			$options_key = $this->options_key();
@@ -118,7 +118,7 @@ class gNetworkModuleCore
 		else
 			$options = get_option( $options_key );
 
-		if ( $options === false )
+		if ( $options === FALSE )
 			$options = array();
 
 		unset( $this->options[$name], $options[$name] );
@@ -129,7 +129,7 @@ class gNetworkModuleCore
 			return update_option( $options_key, $options );
 	}
 
-	public function delete_options( $options_key = null )
+	public function delete_options( $options_key = NULL )
 	{
 		if ( is_null( $options_key ) )
 			$options_key = $this->options_key();
@@ -140,14 +140,7 @@ class gNetworkModuleCore
 			return delete_option( $options_key );
 	}
 
-	// dep
-	// used by module settings pages
-	public function field_debug()
-	{
-		gNetworkUtilities::dump( $this->options );
-	}
-
-	public function settings( $sub = null ) {}
+	public function settings( $sub = NULL ) {}
 	public function settings_help() {}
 
 	// default setting sub html
@@ -176,10 +169,6 @@ class gNetworkModuleCore
 			$this->settings_buttons( $sub );
 
 		echo '</form>';
-
-		return;
-		global $wp_settings_fields;
-		gnetwork_dump($wp_settings_fields);
 	}
 
 	public function default_buttons()
@@ -199,12 +188,12 @@ class gNetworkModuleCore
 		);
 	}
 
-	public function settings_buttons( $sub = null )
+	public function settings_buttons( $sub = NULL )
 	{
 		echo '<p class="submit gnetwork-settings-buttons">';
 
 			foreach ( $this->_settings_buttons as $action => $button ) {
-				submit_button( $button['value'], $button['type'], $action, false, $button['atts'] );
+				submit_button( $button['value'], $button['type'], $action, FALSE, $button['atts'] );
 				echo '&nbsp;&nbsp;';
 			}
 
@@ -250,7 +239,7 @@ class gNetworkModuleCore
 		exit();
 	}
 
-	public function reset_settings( $options_key = null )
+	public function reset_settings( $options_key = NULL )
 	{
 		if ( is_null( $options_key ) )
 			$options_key = $this->options_key();
@@ -259,7 +248,7 @@ class gNetworkModuleCore
 	}
 
 	// defult method
-	public function save_settings( $options_key = null )
+	public function save_settings( $options_key = NULL )
 	{
 		// must check nounce before
 		if ( is_null( $options_key ) )
@@ -282,7 +271,7 @@ class gNetworkModuleCore
 			}
 			return $this->update_options( $options );
 		}
-		return false;
+		return FALSE;
 	}
 
 	public function register_settings()
@@ -300,7 +289,7 @@ class gNetworkModuleCore
 					$section_callback = '__return_false';
 
 				$section = $this->options_key().$section_suffix;
-				add_settings_section( $section, false, $section_callback, $this->options_key() );
+				add_settings_section( $section, FALSE, $section_callback, $this->options_key() );
 				foreach ( $fields as $field )
 					$this->add_settings_field( array_merge( $field, array( 'section' => $section ) ) );
 
@@ -315,11 +304,16 @@ class gNetworkModuleCore
 
 	public function add_settings_field( $r )
 	{
+		// workaround to recent changes on WP 4.3-alpha
+		if ( isset( $r['class'] ) && ! isset( $r['field_class'] ) ) {
+			$r['field_class'] = $r['class'];
+			unset( $r['class'] );
+		}
+
 		$args = array_merge( array(
 			'page'      => $this->options_key(),
 			'section'   => $this->options_key().'_general',
-			'field'     => false,
-			// 'label_for' => '',
+			'field'     => FALSE,
 			'title'     => '',
 			'desc'      => '',
 			'callback'  => array( $this, 'do_settings_field' ),
@@ -338,8 +332,14 @@ class gNetworkModuleCore
 		if ( empty( $args['title'] ) )
 			$args['title'] = $args['field'];
 
-		add_settings_field( $args['field'], $args['title'], $args['callback'], $args['page'], $args['section'], $args );
-			//	'label_for' => $this->option_group.'['.$field_name.']',
+		add_settings_field(
+			$args['field'],
+			$args['title'],
+			$args['callback'],
+			$args['page'],
+			$args['section'],
+			$args
+		);
 	}
 
 	public function register_settings_help()
@@ -372,7 +372,7 @@ class gNetworkModuleCore
 		// 		</tbody></table><br />
 		// 		For more information see <a href="http://www.wpbeginner.com/plugins/how-to-send-email-in-wordpress-using-the-gmail-smtp-server/" target="_blank">here</a>.
 		// 		</p>',
-		// 		'callback' => false,
+		// 		'callback' => FALSE,
 		// 	),
 		// );
 	}
@@ -395,30 +395,31 @@ class gNetworkModuleCore
 		// );
 	}
 
-	public function do_settings_field( $atts = array(), $wrap = false )
+	public function do_settings_field( $atts = array(), $wrap = FALSE )
 	{
 		$args = shortcode_atts( array(
 			'title'        => '',
 			'label_for'    => '',
 			'type'         => 'enabled',
-			'field'        => false,
+			'field'        => FALSE,
 			'values'       => array(),
-			'filter'       => false, // will use via sanitize
-			'dir'          => false,
+			'filter'       => FALSE, // will use via sanitize
+			'dir'          => FALSE,
 			'default'      => '',
 			'desc'         => '',
-			'class'        => '',
+			'field_class'  => '', // formally just class!
+			'class'        => '', // now used on wrapper
 			'option_group' => $this->_option_key,
-			'disabled'     => false,
-			'name_attr'    => false, // override
-			'id_attr'      => false, // override
+			'disabled'     => FALSE,
+			'name_attr'    => FALSE, // override
+			'id_attr'      => FALSE, // override
 		), $atts );
 
 		if ( $wrap ) {
 			if ( ! empty( $args['label_for'] ) )
-				echo '<tr><th scope="row"><label for="'.esc_attr( $args['label_for'] ).'">'.$args['title'].'</label></th><td>';
+				echo '<tr class="'.$args['class'].'"><th scope="row"><label for="'.esc_attr( $args['label_for'] ).'">'.$args['title'].'</label></th><td>';
 			else
-				echo '<tr><th scope="row">'.$args['title'].'</th><td>';
+				echo '<tr class="'.$args['class'].'"><th scope="row">'.$args['title'].'</th><td>';
 		}
 
 		if ( ! $args['field'] )
@@ -452,7 +453,7 @@ class gNetworkModuleCore
 				), ( isset( $args['values'][1] ) ? $args['values'][1] : esc_html__( 'Enabled', GNETWORK_TEXTDOMAIN ) ) );
 
 				echo gNetworkUtilities::html( 'select', array(
-					'class' => $args['class'],
+					'class' => $args['field_class'],
 					'name'  => $name,
 					'id'    => $id,
 				), $html );
@@ -464,11 +465,11 @@ class gNetworkModuleCore
 			break;
 
 			case 'text' :
-				if ( ! $args['class'] )
-					$args['class'] = 'regular-text';
+				if ( ! $args['field_class'] )
+					$args['field_class'] = 'regular-text';
 				echo gNetworkUtilities::html( 'input', array(
 					'type'     => 'text',
-					'class'    => $args['class'],
+					'class'    => $args['field_class'],
 					'name'     => $name,
 					'id'       => $id,
 					'value'    => $value,
@@ -487,7 +488,7 @@ class gNetworkModuleCore
 					foreach( $args['values'] as $value_name => $value_title ) {
 						$html = gNetworkUtilities::html( 'input', array(
 							'type'    => 'checkbox',
-							'class'   => $args['class'],
+							'class'   => $args['field_class'],
 							'name'    => $name.'['.$value_name.']',
 							'id'      => $id.'-'.$value_name,
 							'value'   => '1',
@@ -502,7 +503,7 @@ class gNetworkModuleCore
 				} else {
 					$html = gNetworkUtilities::html( 'input', array(
 						'type'    => 'checkbox',
-						'class'   => $args['class'],
+						'class'   => $args['field_class'],
 						'name'    => $name,
 						'id'      => $id,
 						'value'   => '1',
@@ -526,7 +527,7 @@ class gNetworkModuleCore
 					foreach( $args['values'] as $value_name => $value_title ) {
 						$html = gNetworkUtilities::html( 'input', array(
 							'type'    => 'radio',
-							'class'   => $args['class'],
+							'class'   => $args['field_class'],
 							'name'    => $name,
 							'id'      => $id.'-'.$value_name,
 							'value'   => $value_name,
@@ -548,7 +549,7 @@ class gNetworkModuleCore
 
 			case 'select' :
 
-				if ( false !== $args['values'] ) { // alow hiding
+				if ( FALSE !== $args['values'] ) { // alow hiding
 					$html = '';
 					foreach ( $args['values'] as $value_name => $value_title )
 						$html .= gNetworkUtilities::html( 'option', array(
@@ -557,7 +558,7 @@ class gNetworkModuleCore
 						), esc_html( $value_title ) );
 
 					echo gNetworkUtilities::html( 'select', array(
-						'class' => $args['class'],
+						'class' => $args['field_class'],
 						'name'  => $name,
 						'id'    => $id,
 					), $html );
@@ -574,14 +575,14 @@ class gNetworkModuleCore
 				echo gNetworkUtilities::html( 'textarea', array(
 					'class' => array(
 						'large-text',
-						//'textarea-autosize',
-						$args['class'],
+						// 'textarea-autosize',
+						$args['field_class'],
 					),
 					'name' => $name,
 					'id'   => $id,
 					'rows' => 5,
 					'cols' => 45,
-				//), esc_textarea( $value ) );
+				// ), esc_textarea( $value ) );
 				), $value );
 
 				if ( $args['desc'] )
@@ -600,7 +601,7 @@ class gNetworkModuleCore
 					), esc_html( $value_title ) );
 
 				echo gNetworkUtilities::html( 'select', array(
-					'class' => $args['class'],
+					'class' => $args['field_class'],
 					'name'  => $name,
 					'id'    => $id,
 				), $html );
@@ -622,7 +623,7 @@ class gNetworkModuleCore
 					), esc_html( $user_object->display_name ) );
 
 				echo gNetworkUtilities::html( 'select', array(
-					'class' => $args['class'],
+					'class' => $args['field_class'],
 					'name'  => $name,
 					'id'    => $id,
 				), $html );
@@ -637,9 +638,9 @@ class gNetworkModuleCore
 
 				submit_button(
 					$value,
-					( empty( $args['class'] ) ? 'secondary' : $args['class'] ),
+					( empty( $args['field_class'] ) ? 'secondary' : $args['field_class'] ),
 					$id,
-					false
+					FALSE
 				);
 
 				if ( $args['desc'] )
@@ -652,7 +653,7 @@ class gNetworkModuleCore
 
 				echo gNetworkUtilities::html( 'input', array(
 					'type'  => 'file',
-					'class' => $args['class'],
+					'class' => $args['field_class'],
 					'name'  => $id, //$name,
 					'id'    => $id,
 					// 'value' => $value,
@@ -699,7 +700,7 @@ class gNetworkModuleCore
 
 	// helper
 	// current user can
-	public static function cuc( $cap, $none = true )
+	public static function cuc( $cap, $none = TRUE )
 	{
 		if ( 'none' == $cap || '0' == $cap )
 			return $none;
@@ -725,7 +726,7 @@ class gNetworkModuleCore
 	}
 
 	// MAYBE: add general options for on a network panel
-	public static function getSiteUserID( $fallback = true )
+	public static function getSiteUserID( $fallback = TRUE )
 	{
 		if ( defined( 'GNETWORK_SITE_USER_ID' ) && constant( 'GNETWORK_SITE_USER_ID' ) )
 			return GNETWORK_SITE_USER_ID;
@@ -757,7 +758,7 @@ class gNetworkModuleCore
 				return json_decode( wp_remote_retrieve_body( $response ) );
 		}
 
-		return false;
+		return FALSE;
 	}
 
 	public static function getHTML( $url, $atts = array() )
@@ -773,7 +774,7 @@ class gNetworkModuleCore
 				return wp_remote_retrieve_body( $response );
 		}
 
-		return false;
+		return FALSE;
 	}
 
 	public function shortcodes( $shortcodes = array() )
@@ -787,7 +788,7 @@ class gNetworkModuleCore
 	public static function sideNotification()
 	{
 		echo '<div class="gnetwork-sidenotification">';
-			//printf( __( 'gNetwork v%s', GNETWORK_TEXTDOMAIN ), GNETWORK_VERSION );
+			// printf( __( 'gNetwork v%s', GNETWORK_TEXTDOMAIN ), GNETWORK_VERSION );
 			echo GNETWORK_VERSION;
 		echo '</div>';
 	}
