@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gNetwork 0.2.5\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2015-06-01 02:43+0330\n"
+"PO-Revision-Date: 2015-06-04 16:49+0330\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: geminorum <contact@geminorum.ir>\n"
 "Language: fa_IR\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 1.7.6\n"
+"X-Generator: Poedit 1.8.1\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
@@ -20,1706 +20,1572 @@ msgstr ""
 "X-Poedit-SearchPath-0: ../.\n"
 "X-Poedit-SearchPathExcluded-0: ./libs\n"
 
-#: ..\..\plugins\gnetworkadmin/admin.overview.php:4
+#: ../admin/admin.overview.php:4
 msgid "WordPress"
 msgstr ""
 
-#: ..\..\plugins\gnetworkadmin/admin.overview.php:11
+#: ../admin/admin.overview.php:11
 msgid "Core Versions"
 msgstr ""
 
-#: ..\..\plugins\gnetworkadmin/admin.overview.php:15
+#: ../admin/admin.overview.php:15
 msgid "Plugin Paths"
 msgstr ""
 
-#: ..\..\plugins\gnetworkadmin/admin.overview.php:19
+#: ../admin/admin.overview.php:19
 msgid "Stats of the Caching"
 msgstr ""
 
-#: ..\..\plugins\gnetworkadmin/admin.overview.php:26
+#: ../admin/admin.overview.php:26
 msgid "Available Shortcodes"
 msgstr ""
 
-#: ..\..\plugins\gnetworkadmin/admin.overview.php:32
+#: ../admin/admin.overview.php:32
 msgid "Loaded MO Files"
 msgstr ""
 
-#: ..\..\plugins\gnetworkadmin/network.testmail.php:13
+#: ../admin/network.testmail.php:13
 msgid "Send"
 msgstr "ارسال"
 
-#: ..\..\plugins\gnetworkincludes/activation.php:69
+#: ../includes/activation.php:69
 msgid "Network (de)activation: no further action necessary."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/activation.php:76
+#: ../includes/activation.php:76
 msgid "Network activation: installed on %s / %s sites."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/activation.php:77
+#: ../includes/activation.php:77
 msgid "Network deactivation: uninstalled on %s / %s sites."
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/admin.php:84
-#: ..\..\plugins\gnetworkincludes/admin.php:107
-#: ..\..\plugins\gnetworkincludes/admin.php:225
-#: ..\..\plugins\gnetworkincludes/network.php:69
-#: ..\..\plugins\gnetworkincludes/network.php:170
+#: ../includes/admin.php:84 ../includes/admin.php:107
+#: ../includes/admin.php:227 ../includes/network.php:69
+#: ../includes/network.php:170
 msgid "gNetwork Extras"
 msgstr "شبکه"
 
-#: ..\..\plugins\gnetworkincludes/admin.php:85
-#: ..\..\plugins\gnetworkincludes/admin.php:108
+#: ../includes/admin.php:85 ../includes/admin.php:108
 msgctxt "Admin Menu Title"
 msgid "Extras"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/admin.php:95
-#: ..\..\plugins\gnetworkincludes/network.php:82
+#: ../includes/admin.php:95 ../includes/network.php:82
 msgid "gNetwork Extras: %s"
 msgstr ""
 
-# @ default
-#: ..\..\plugins\gnetworkincludes/admin.php:119
-#: ..\..\plugins\gnetworkincludes/admin.php:120
+#: ../includes/admin.php:119 ../includes/admin.php:120
 msgid "All Settings"
 msgstr "همهٔ تنظیمات"
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/admin.php:126
-#: ..\..\plugins\gnetworkincludes/admin.php:127
-#: ..\..\plugins\gnetworkincludes/network.php:48
-#: ..\..\plugins\gnetworkincludes/network.php:49
+#: ../includes/admin.php:126 ../includes/admin.php:127
+#: ../includes/network.php:48 ../includes/network.php:49
 msgid "Active"
 msgstr "فعال"
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/admin.php:137
-#: ..\..\plugins\gnetworkincludes/admin.php:195
-#: ..\..\plugins\gnetworkincludes/network.php:91
-#: ..\..\plugins\gnetworkincludes/network.php:143
+#: ../includes/admin.php:137 ../includes/admin.php:195
+#: ../includes/network.php:91 ../includes/network.php:143
 msgid "Overview"
 msgstr "در یک نگاه"
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/admin.php:202
-#: ..\..\plugins\gnetworkincludes/network.php:151
+#: ../includes/admin.php:202 ../includes/network.php:151
 msgid "Console"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/admin.php:218
-#: ..\..\plugins\gnetworkincludes/network.php:163
+#: ../includes/admin.php:220 ../includes/network.php:163
 msgid "Resetting Settings."
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/admin.php:219
-#: ..\..\plugins\gnetworkincludes/network.php:164
+#: ../includes/admin.php:221 ../includes/network.php:164
 msgid "Settings updated."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/admin.php:220
-#: ..\..\plugins\gnetworkincludes/network.php:165
+#: ../includes/admin.php:222 ../includes/network.php:165
 msgid "Error while saving settings."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/admin.php:246
-#: ..\..\plugins\gnetworkincludes/utilities.php:476
+#: ../includes/admin.php:248 ../includes/utilities.php:476
 msgid "Cheatin&#8217; uh?"
 msgstr ""
 
-# @ default
-#: ..\..\plugins\gnetworkincludes/admin.php:299
+#: ../includes/admin.php:301
 msgid "Version %s"
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/admin.php:343
+#: ../includes/admin.php:345
 msgctxt "admin dashboard widget title"
 msgid "Network Feed"
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/admin.php:385
-#: ..\..\plugins\gnetworkincludes/admin.php:387
-#: ..\..\plugins\gnetworkincludes/network.php:229
-#: ..\..\plugins\gnetworkincludes/network.php:231
+#: ../includes/admin.php:387 ../includes/admin.php:389
+#: ../includes/network.php:229 ../includes/network.php:231
 msgid "ID"
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/adminbar.php:174
-#: ..\..\plugins\gnetworkincludes/debug.php:12
-#: ..\..\plugins\gnetworkincludes/modulecore.php:335
+#: ../includes/adminbar.php:167 ../includes/debug.php:12
+#: ../includes/modulecore.php:329
 msgid "Debug"
 msgstr "دی‌باگ"
 
-#: ..\..\plugins\gnetworkincludes/adminbar.php:176
+#: ../includes/adminbar.php:170
 msgid "Display debug info for the current page"
 msgstr "نمایش اطلاعات خطاگیری برای این صفحه"
 
-#: ..\..\plugins\gnetworkincludes/adminbar.php:184
+#: ../includes/adminbar.php:177
 msgid "Flush"
 msgstr "فلاش"
 
-#: ..\..\plugins\gnetworkincludes/adminbar.php:186
+#: ../includes/adminbar.php:180
 msgid "Flush cached data"
 msgstr "دورریزی داده‌های انباشت شده برای این صفحه"
 
-#: ..\..\plugins\gnetworkincludes/adminbar.php:207
+#: ../includes/adminbar.php:200
 msgid "Reset Sidebars"
 msgstr "بازنشانی ستون‌های کناری"
 
-#: ..\..\plugins\gnetworkincludes/adminbar.php:209
+#: ../includes/adminbar.php:203
 msgid "Delete all previous sidebar widgets, be careful!"
 msgstr "مراقب باشید، این کار همهٔ ابزارک‌های تنظیم شده را حذف میکند."
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/adminbar.php:224
+#: ../includes/adminbar.php:216
 msgid "Queries | Timer Stop | Memory Usage"
 msgstr ""
 
-# @ default
-#: ..\..\plugins\gnetworkincludes/adminbar.php:234
-#: ..\..\plugins\gnetworkincludes/adminbar.php:271
-#: ..\..\plugins\gnetworkincludes/users.php:12
+#: ../includes/adminbar.php:225 ../includes/adminbar.php:262
+#: ../includes/users.php:12
 msgid "Users"
 msgstr "کاربران"
 
-# @ default
-#: ..\..\plugins\gnetworkincludes/adminbar.php:248
-#: ..\..\plugins\gnetworkincludes/adminbar.php:278
+#: ../includes/adminbar.php:239 ../includes/adminbar.php:269
 msgid "Settings"
 msgstr "تنظیمات"
 
-# @ default
-#: ..\..\plugins\gnetworkincludes/adminbar.php:255
+#: ../includes/adminbar.php:246
 msgid "Updates"
 msgstr "به‌روزرسانی‌ها"
 
-# @ default
-#: ..\..\plugins\gnetworkincludes/adminbar.php:264
+#: ../includes/adminbar.php:255
 msgid "All Posts"
 msgstr "همهٔ نوشته‌ها"
 
-# @ default
-#: ..\..\plugins\gnetworkincludes/adminbar.php:285
+#: ../includes/adminbar.php:276
 msgid "Edit Site"
 msgstr "ویرایش سایت"
 
-# @ default
-#: ..\..\plugins\gnetworkincludes/adminbar.php:292
+#: ../includes/adminbar.php:283
 msgid "Edit Site Themes"
 msgstr "ویرایش پوسته‌های سایت"
 
-# @ default
-#: ..\..\plugins\gnetworkincludes/adminbar.php:343
+#: ../includes/adminbar.php:334
 msgid "Log in"
 msgstr "وارد شوید"
 
-# @ default
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/adminbar.php:352
-#: ..\..\plugins\gnetworkincludes/navigation.php:207
+#: ../includes/adminbar.php:343 ../includes/navigation.php:207
 msgid "Register"
 msgstr "نام‌نویسی"
 
-# @ default
-#: ..\..\plugins\gnetworkincludes/adminbar.php:368
+#: ../includes/adminbar.php:359
 msgid "Search"
 msgstr "جست‌وجو"
 
-#: ..\..\plugins\gnetworkincludes/blacklist.php:17
+#: ../includes/blacklist.php:17
 msgid "Black List"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/blacklist.php:35
+#: ../includes/blacklist.php:35
 msgid "Check Addresses"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/blacklist.php:36
+#: ../includes/blacklist.php:36
 msgid "Select to check logged-out visitor's IP againts your list of IPs"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/blacklist.php:42
+#: ../includes/blacklist.php:42
 msgid "IP Addresses"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/blacklist.php:43
+#: ../includes/blacklist.php:43
 msgid ""
 "Comma seperated IP's range or individual IP needs to block. ex: "
 "<code>1.6.0.0 - 1.7.255.255,1.8.0.0,1.8.0.1</code>"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/blacklist.php:49
+#: ../includes/blacklist.php:49
 msgid "Blacklisted Message"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/blacklist.php:50
-#: ..\..\plugins\gnetworkincludes/lockdown.php:89
+#: ../includes/blacklist.php:50 ../includes/lockdown.php:89
 msgid "Locked message on login page."
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/buddypress.me.php:14
+#: ../includes/buddypress.me.php:14
 msgid "gNetwork Me"
 msgstr "من"
 
-#: ..\..\plugins\gnetworkincludes/buddypress.me.php:126
+#: ../includes/buddypress.me.php:126
 msgid "Profile Settings"
 msgstr "اطلاعات نمایه"
 
-#: ..\..\plugins\gnetworkincludes/buddypress.php:16
+#: ../includes/buddypress.php:16
 msgid "BuddyPress"
 msgstr "بادی‌پرس"
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/buddypress.php:58
+#: ../includes/buddypress.php:66
 msgctxt "BP ToS"
 msgid "Terms of Service"
 msgstr "شرایط و قوانین"
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/buddypress.php:61
+#: ../includes/buddypress.php:69
 msgctxt "BP ToS"
 msgid ""
 "By checking the Terms of Service Box you have read and agree to all the "
 "Policies set forth in this site's Terms of Service."
 msgstr "خواندم و تعهد به قوانین سایت را می‌پذیرم."
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/buddypress.php:62
+#: ../includes/buddypress.php:70
 msgctxt "BP ToS"
 msgid ""
 "You have to accept our terms of service. Otherwise we cannot register you on "
 "our site."
 msgstr "برای نام‌نویسی در این سایت باید با قوانین و شرایط سایت موافقت کنید."
 
-#: ..\..\plugins\gnetworkincludes/buddypress.php:81
+#: ../includes/buddypress.php:89
+msgid "Complete Signup"
+msgstr ""
+
+#: ../includes/buddypress.php:90
+msgid "Redirect users after successful registration."
+msgstr ""
+
+#: ../includes/buddypress.php:100
 msgid "Display ToS"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/buddypress.php:87
+#: ../includes/buddypress.php:106
 msgid "ToS Title"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/buddypress.php:88
+#: ../includes/buddypress.php:107
 msgid "Section title, Usually : Terms of Service"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/buddypress.php:94
+#: ../includes/buddypress.php:113
 msgid "ToS Link"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/buddypress.php:95
+#: ../includes/buddypress.php:114
 msgid "URL for section title link to actual agreement text"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/buddypress.php:101
+#: ../includes/buddypress.php:120
 msgid "ToS Text"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/buddypress.php:102
+#: ../includes/buddypress.php:121
 msgid "Full text of the agreement."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/buddypress.php:108
+#: ../includes/buddypress.php:127
 msgid "ToS Label"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/buddypress.php:109
+#: ../includes/buddypress.php:128
 msgid "Label next to the mandatory checkbox, below full text."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/buddypress.php:115
+#: ../includes/buddypress.php:134
 msgid "ToS Must"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/buddypress.php:116
+#: ../includes/buddypress.php:135
 msgid "Error message upon not checking the box."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/buddypress.php:129
+#: ../includes/buddypress.php:147
 msgid "Default Settings"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/buddypress.php:130
+#: ../includes/buddypress.php:148
 msgid ""
 "Select enabled by default BuddyPress email notifications settings upon user "
 "activation."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/buddypress.php:139
+#: ../includes/buddypress.php:157
 msgid "Thumbnail Width"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/buddypress.php:145
+#: ../includes/buddypress.php:163
 msgid "Thumbnail Height"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/buddypress.php:151
+#: ../includes/buddypress.php:169
 msgid "Full Width"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/buddypress.php:157
+#: ../includes/buddypress.php:175
 msgid "Full Height"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/buddypress.php:163
+#: ../includes/buddypress.php:181
 msgid "Original Max Width"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/buddypress.php:172
+#: ../includes/buddypress.php:190
 msgctxt "Settings Section Title"
 msgid "Terms of Service"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/buddypress.php:174
+#: ../includes/buddypress.php:192
 msgid "ToS Settings on BuddyPress Registration Page"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/buddypress.php:180
+#: ../includes/buddypress.php:198
 msgctxt "Settings Section Title"
 msgid "Email Notifications"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/buddypress.php:182
+#: ../includes/buddypress.php:200
 msgid "Control the default email preference for users after activation"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/buddypress.php:188
+#: ../includes/buddypress.php:206
 msgctxt "Settings Section Title"
 msgid "Avatars Sizes"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/buddypress.php:190
+#: ../includes/buddypress.php:208
 msgid "Change the default BuddyPress Avatar values"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/buddypress.php:277
+#: ../includes/buddypress.php:295
 msgid "Please complete your profile: %s"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/buddypress.php:311
+#: ../includes/buddypress.php:329
 msgctxt "BP ToS"
 msgid "Read full agreement"
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/buddypress.php:353
+#: ../includes/buddypress.php:371
 msgid "You're totally a spammer. Go somewhere else with your spammy ways."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/buddypress.php:451
+#: ../includes/buddypress.php:469
 msgid "There was a problem when deleting. Please try again."
 msgstr "خطایی در هنگام پاک کردن رخ داد. لطفا دوباره تلاش کنید."
 
-#: ..\..\plugins\gnetworkincludes/captcha.php:17
+#: ../includes/captcha.php:17
 msgid "Captcha"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/captcha.php:37
+#: ../includes/captcha.php:37
 msgid "Google reCAPTCHA"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/captcha.php:61
+#: ../includes/captcha.php:61
 msgid "Login Captcha"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/captcha.php:62
+#: ../includes/captcha.php:62
 msgid "Display captcha field on login form"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/captcha.php:68
+#: ../includes/captcha.php:68
 msgid "Site Key"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/captcha.php:69
+#: ../includes/captcha.php:69
 msgid "Key in the HTML code your site serves to users."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/captcha.php:75
+#: ../includes/captcha.php:75
 msgid "Secret Key"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/captcha.php:76
+#: ../includes/captcha.php:76
 msgid "Key for communication between your site and Google reCAPTCHA."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/captcha.php:117
+#: ../includes/captcha.php:117
 msgid "CAPTCHA should not be empty"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/captcha.php:123
+#: ../includes/captcha.php:123
 msgid "CAPTCHA response was incorrect"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/comments.php:12
+#: ../includes/comments.php:12
 msgid "Comments"
 msgstr "دیدگاه‌ها"
 
-#: ..\..\plugins\gnetworkincludes/comments.php:47
+#: ../includes/comments.php:47
 msgid "Purge Spam Comments"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/comments.php:72
+#: ../includes/comments.php:72
 msgctxt "Enable Full Comments On Dashboard"
 msgid "Full Comments"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/comments.php:73
+#: ../includes/comments.php:73
 msgid "Full Comments On Dashboard"
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/comments.php:224
+#: ../includes/comments.php:224
 msgid "Your attempt to add this comment has failed."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/debug.php:65
+#: ../includes/debug.php:63
 msgid "Purge Expired Transient Data"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/debug.php:66
+#: ../includes/debug.php:64
 msgid "Purge All Transient Data"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/debug.php:93
+#: ../includes/debug.php:91
 msgctxt "Debug Version Strings"
 msgid "WordPress"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/debug.php:94
+#: ../includes/debug.php:92
 msgctxt "Debug Version Strings"
 msgid "WordPress DB revision"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/debug.php:95
+#: ../includes/debug.php:93
 msgctxt "Debug Version Strings"
 msgid "TinyMCE"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/debug.php:96
+#: ../includes/debug.php:94
 msgctxt "Debug Version Strings"
 msgid "Required PHP"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/debug.php:97
+#: ../includes/debug.php:95
 msgctxt "Debug Version Strings"
 msgid "Required MySQL"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/debug.php:173
+#: ../includes/debug.php:171
 msgid "Delete Cache"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/debug.php:174
+#: ../includes/debug.php:172
 msgid "Delete cache of the current page"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/debug.php:243
+#: ../includes/debug.php:241
 msgid "Please talk to the database using $wpdb"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/debugbar-panel.php:7
+#: ../includes/debugbar-panel.php:7
 msgctxt "debug bar panel title"
-msgid "gNetwork"
-msgstr "شبکه"
+msgid "Extras"
+msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/dev.php:35
+#: ../includes/debugbar-panel.php:27
+msgctxt "debug bar panel title"
+msgid "Post Meta"
+msgstr ""
+
+#: ../includes/debugbar-panel.php:47
+msgctxt "debug bar panel"
+msgid "No Meta!"
+msgstr ""
+
+#: ../includes/dev.php:35
 msgid "Airplane Mode is enabled. oEmbed blocked for %1$s."
 msgstr ""
 
-# @ default
-#: ..\..\plugins\gnetworkincludes/die.php:35
+#: ../includes/die.php:35
 msgid "&laquo; Back"
 msgstr ""
 
-# @ default
-#: ..\..\plugins\gnetworkincludes/die.php:47
+#: ../includes/die.php:47
 msgid "WordPress &rsaquo; Error"
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/functions.php:11
+#: ../includes/functions.php:11
 msgid ""
 "Built on <a href=\"http://wordpress.org/\" title=\"Semantic Personal "
 "Publishing Platform\">WordPress</a> and tea"
 msgstr ""
+"ساخته شده بر نیروی <a href=\"http://wordpress.org/\" title=\"Semantic "
+"Personal Publishing Platform\">وردپرس</a> و چای"
 
-#: ..\..\plugins\gnetworkincludes/lockdown.php:21
+#: ../includes/lockdown.php:21
 msgid "Login Lockdown"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/lockdown.php:50
+#: ../includes/lockdown.php:50
 msgid "Record & Lockdown"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/lockdown.php:51
+#: ../includes/lockdown.php:51
 msgid ""
 "Select to record failed attempts and lockdown after the limit is reached."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/lockdown.php:57
+#: ../includes/lockdown.php:57
 msgid "Trust Proxy Data"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/lockdown.php:58
+#: ../includes/lockdown.php:58
 msgid "Do we trust forwarded IP adresses?"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/lockdown.php:64
+#: ../includes/lockdown.php:64
 msgid "Login Attempt Limit"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/lockdown.php:65
+#: ../includes/lockdown.php:65
 msgid "What is the maximum number of failed login attempts?"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/lockdown.php:72
+#: ../includes/lockdown.php:72
 msgid "Login Lockdown Time"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/lockdown.php:73
+#: ../includes/lockdown.php:73
 msgid "How long should the user be locked out?"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/lockdown.php:76
+#: ../includes/lockdown.php:76
 msgid "30 Minutes"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/lockdown.php:77
+#: ../includes/lockdown.php:77
 msgid "60 Minutes"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/lockdown.php:78
+#: ../includes/lockdown.php:78
 msgid "2 Hours"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/lockdown.php:79
+#: ../includes/lockdown.php:79
 msgid "3 Hours"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/lockdown.php:80
+#: ../includes/lockdown.php:80
 msgid "4 Hours"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/lockdown.php:81
+#: ../includes/lockdown.php:81
 msgid "8 Hours"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/lockdown.php:82
+#: ../includes/lockdown.php:82
 msgid "24 Hours"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/lockdown.php:88
+#: ../includes/lockdown.php:88
 msgid "Locked Message"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/lockdown.php:108
+#: ../includes/lockdown.php:108
 msgid ""
 "<strong>LOCKED OUT:</strong> Too many login attempts from one IP address! "
 "Please take a break and try again."
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/mail.php:12
+#: ../includes/mail.php:12
 msgid "Mail"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/mail.php:17
+#: ../includes/mail.php:17
 msgid "Test Mail"
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/mail.php:58
+#: ../includes/mail.php:58
 msgid "From Email"
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/mail.php:59
+#: ../includes/mail.php:59
 msgid ""
 "You can specify the email address that emails should be sent from. If you "
 "leave this blank, the default email will be used."
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/mail.php:65
+#: ../includes/mail.php:65
 msgid "From Name"
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/mail.php:66
+#: ../includes/mail.php:66
 msgid ""
 "You can specify the name that emails should be sent from. If you leave this "
 "blank, the emails will be sent from WordPress."
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/mail.php:72
+#: ../includes/mail.php:72
 msgid "Return Path"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/mail.php:73
+#: ../includes/mail.php:73
 msgid ""
 "Set the return-path email address. Use <code>FROM</code> to match the From "
 "Email or Empty to disable."
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/mail.php:79
+#: ../includes/mail.php:79
 msgid "Mailer"
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/mail.php:82
+#: ../includes/mail.php:82
 msgid "Use the PHP mail() function to send emails."
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/mail.php:83
+#: ../includes/mail.php:83
 msgid "Send all WordPress emails via SMTP."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/mail.php:91
+#: ../includes/mail.php:91
 msgid "SMTP Host"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/mail.php:97
+#: ../includes/mail.php:97
 msgid "SMTP Port"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/mail.php:104
+#: ../includes/mail.php:104
 msgid "Encryption"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/mail.php:105
+#: ../includes/mail.php:105
 msgid "For most servers SSL is the recommended option."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/mail.php:108
+#: ../includes/mail.php:108
 msgid "No encryption."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/mail.php:109
+#: ../includes/mail.php:109
 msgid "Use SSL encryption."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/mail.php:110
+#: ../includes/mail.php:110
 msgid "Use TLS encryption. This is not the same as STARTTLS."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/mail.php:116
+#: ../includes/mail.php:116
 msgid "Username"
 msgstr "نام کاربری"
 
-#: ..\..\plugins\gnetworkincludes/mail.php:117
+#: ../includes/mail.php:117
 msgid "Empty to disable Authentication."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/mail.php:123
+#: ../includes/mail.php:123
 msgid "Password"
 msgstr "رمز"
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/mail.php:137
+#: ../includes/mail.php:137
 msgid "SMTP Settings"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/mail.php:139
+#: ../includes/mail.php:139
 msgid "These options only apply if you have chosen to send mail by SMTP above."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/mail.php:148
+#: ../includes/mail.php:148
 msgid "Gmail SMTP"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/mail.php:162
+#: ../includes/mail.php:162
 msgid "Mandrill SMTP"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/mail.php:245
+#: ../includes/mail.php:245
 msgid "This is a test email generated by the gNetwork Mail plugin."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/mail.php:246
+#: ../includes/mail.php:246
 msgid "Test mail to "
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/mail.php:250
+#: ../includes/mail.php:250
 msgid "To"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/mail.php:256
+#: ../includes/mail.php:256
 msgid "Subject"
 msgstr "موضوع"
 
-#: ..\..\plugins\gnetworkincludes/mail.php:262
+#: ../includes/mail.php:262
 msgid "Message:"
 msgstr "پیام:"
 
-#: ..\..\plugins\gnetworkincludes/mail.php:305
+#: ../includes/mail.php:305
 msgid "Test Message Sent"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/mail.php:307
+#: ../includes/mail.php:307
 msgid "The result was:"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/mail.php:311
+#: ../includes/mail.php:311
 msgid "The SMTP debugging output:"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/mail.php:315
+#: ../includes/mail.php:315
 msgid "The full debugging output:"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/maintenance.php:12
+#: ../includes/maintenance.php:12
 msgid "Maintenance"
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/maintenance.php:58
+#: ../includes/maintenance.php:58
 msgid "Current Template"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/maintenance.php:60
+#: ../includes/maintenance.php:60
 msgid "There are no templates available. We will use an internal instead."
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/maintenance.php:65
+#: ../includes/maintenance.php:65
 msgid "Site Maintenance"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/maintenance.php:66
-#: ..\..\plugins\gnetworkincludes/restricted.php:87
+#: ../includes/maintenance.php:66 ../includes/restricted.php:87
 msgid "Selected and above can access to the site."
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/maintenance.php:72
+#: ../includes/maintenance.php:72
 msgid "Admin Maintenance"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/maintenance.php:73
-#: ..\..\plugins\gnetworkincludes/restricted.php:94
+#: ../includes/maintenance.php:73 ../includes/restricted.php:94
 msgid "Selected and above can access to the admin."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/maintenance.php:79
+#: ../includes/maintenance.php:79
 msgid "Admin Notice"
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/maintenance.php:80
+#: ../includes/maintenance.php:80
 msgid "The admin notice while site is on maintenance. Leave empty to disable."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/maintenance.php:87
+#: ../includes/maintenance.php:87
 msgid "Login Message"
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/maintenance.php:88
+#: ../includes/maintenance.php:88
 msgid "The login message while site is on maintenance. Leave empty to disable."
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/maintenance.php:105
+#: ../includes/maintenance.php:105
 msgid "The Maintenance Mode is active."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/maintenance.php:106
+#: ../includes/maintenance.php:106
 msgid "The site is unavailable for scheduled maintenance."
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/media.php:203
+#: ../includes/media.php:203
 msgid "View Image URL"
 msgstr "نمایش نشانی تصویر"
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/media.php:211
+#: ../includes/media.php:211
 msgid "View Video URL"
 msgstr "نمایش نشانی ویدئو"
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/media.php:216
+#: ../includes/media.php:216
 msgid "View Data File URL"
 msgstr "نمایش نشانی پروندهٔ داده‌ها"
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/media.php:221
+#: ../includes/media.php:221
 msgid "View Spreadsheet URL"
 msgstr "نمایش نشانی پرونده اکسل"
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/media.php:228
+#: ../includes/media.php:228
 msgid "View Document URL"
 msgstr "نمایش نشانی پروندهٔ متنی"
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/media.php:232
+#: ../includes/media.php:232
 msgid "View HTML file URL"
 msgstr "نمایش نشانی پروندهٔ وب"
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/media.php:236
+#: ../includes/media.php:236
 msgid "View Item URL"
 msgstr "نمایش نشانی پرونده"
 
-#: ..\..\plugins\gnetworkincludes/modulecore.php:187
+#: ../includes/modulecore.php:176
 msgid "Save Changes"
 msgstr "ذخیره تغییرات"
 
-#: ..\..\plugins\gnetworkincludes/modulecore.php:188
+#: ../includes/modulecore.php:177
 msgid "Reset Settings"
 msgstr "بازنشانی تنظیمات اولیه"
 
-#: ..\..\plugins\gnetworkincludes/modulecore.php:188
-#: ..\..\plugins\gnetworkincludes/users.php:107
+#: ../includes/modulecore.php:177 ../includes/users.php:107
 msgid "Are you sure? This operation can not be undone."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/modulecore.php:447
-#: ..\..\plugins\gnetworkincludes/notify.php:59
-#: ..\..\plugins\gnetworkincludes/notify.php:81
-#: ..\..\plugins\gnetworkincludes/notify.php:92
+#: ../includes/modulecore.php:448 ../includes/notify.php:59
+#: ../includes/notify.php:81 ../includes/notify.php:92
 msgid "Disabled"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/modulecore.php:452
-#: ..\..\plugins\gnetworkincludes/notify.php:58
-#: ..\..\plugins\gnetworkincludes/notify.php:80
-#: ..\..\plugins\gnetworkincludes/notify.php:91
+#: ../includes/modulecore.php:453 ../includes/notify.php:58
+#: ../includes/notify.php:80 ../includes/notify.php:91
 msgid "Enabled"
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/navigation.php:38
+#: ../includes/navigation.php:38
 msgid "Network"
 msgstr "شبکه"
 
-#: ..\..\plugins\gnetworkincludes/navigation.php:57
+#: ../includes/navigation.php:57
 msgctxt "Navigation: Tabs"
 msgid "General"
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/navigation.php:58
+#: ../includes/navigation.php:58
 msgid ""
 "<em>General</em> links are relative to the current user and are visible at "
 "any time."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/navigation.php:62
+#: ../includes/navigation.php:62
 msgctxt "Navigation: Tabs"
 msgid "Logged-In"
 msgstr "وارد شده"
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/navigation.php:63
+#: ../includes/navigation.php:63
 msgid ""
 "<em>Logged-In</em> links are relative to the current user, and are not "
 "visible to visitors who are not logged in."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/navigation.php:67
+#: ../includes/navigation.php:67
 msgctxt "Navigation: Tabs"
 msgid "Logged-Out"
 msgstr "وارد نشده"
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/navigation.php:68
+#: ../includes/navigation.php:68
 msgid "<em>Logged-Out</em> links are not visible to users who are logged in."
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/navigation.php:88
+#: ../includes/navigation.php:88
 msgid "Add to Menu"
 msgstr "افزودن به فهرست"
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/navigation.php:118
+#: ../includes/navigation.php:118
 msgid "RSS Feed"
 msgstr "خوراک RSS"
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/navigation.php:124
+#: ../includes/navigation.php:124
 msgid "RSS Comments Feed"
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/navigation.php:156
+#: ../includes/navigation.php:156
 msgid "Log Out"
 msgstr "خروج"
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/navigation.php:162
+#: ../includes/navigation.php:162
 msgid "Edit Profile"
 msgstr "ویرایش نمایه"
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/navigation.php:168
+#: ../includes/navigation.php:168
 msgid "Public Profile"
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/navigation.php:200
+#: ../includes/navigation.php:200
 msgid "Log In"
 msgstr "ورود"
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/network.php:55
-#: ..\..\plugins\gnetworkincludes/network.php:56
-#: ..\..\plugins\gnetworkincludes/network.php:62
-#: ..\..\plugins\gnetworkincludes/network.php:63
+#: ../includes/network.php:55 ../includes/network.php:56
+#: ../includes/network.php:62 ../includes/network.php:63
 msgid "Upload"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/network.php:70
+#: ../includes/network.php:70
 msgctxt "Network Menu Title"
 msgid "Extras"
 msgstr "بیشتر"
 
-#: ..\..\plugins\gnetworkincludes/notify.php:13
+#: ../includes/notify.php:13
 msgid "Notify"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/notify.php:54
+#: ../includes/notify.php:54
 msgid "Comment Notifications"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/notify.php:55
+#: ../includes/notify.php:55
 msgid "Disable all core comment notifications"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/notify.php:65
+#: ../includes/notify.php:65
 msgid "New Users"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/notify.php:66
+#: ../includes/notify.php:66
 msgid "Email login credentials to a newly-registered user"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/notify.php:69
+#: ../includes/notify.php:69
 msgid "All New Users"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/notify.php:70
+#: ../includes/notify.php:70
 msgid "Credential Only"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/notify.php:76
+#: ../includes/notify.php:76
 msgid "Admin Notify"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/notify.php:77
+#: ../includes/notify.php:77
 msgid ""
 "Also, Email login credentials of a newly-registered user to the blog admin"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/notify.php:87
+#: ../includes/notify.php:87
 msgid "Password Reset"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/notify.php:88
+#: ../includes/notify.php:88
 msgid "Notify the blog admin of a user changing password"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/notify.php:133
+#: ../includes/notify.php:133
 msgid "New user registration on your site %s:"
 msgstr ""
 
-# @ default
-#: ..\..\plugins\gnetworkincludes/notify.php:134
-#: ..\..\plugins\gnetworkincludes/notify.php:140
+#: ../includes/notify.php:134 ../includes/notify.php:140
 msgid "Username: %s"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/notify.php:135
+#: ../includes/notify.php:135
 msgid "E-mail: %s"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/notify.php:137
+#: ../includes/notify.php:137
 msgid "[%s] New User Registration"
 msgstr ""
 
-# @ default
-#: ..\..\plugins\gnetworkincludes/notify.php:141
+#: ../includes/notify.php:141
 msgid "Password: %s"
 msgstr ""
 
-# @ default
-#: ..\..\plugins\gnetworkincludes/notify.php:144
+#: ../includes/notify.php:144
 msgid "[%s] Your username and password"
 msgstr ""
 
-# @ default
-#: ..\..\plugins\gnetworkincludes/notify.php:159
+#: ../includes/notify.php:159
 msgid "Password Lost and Changed for user: %s"
 msgstr ""
 
-# @ default
-#: ..\..\plugins\gnetworkincludes/notify.php:160
+#: ../includes/notify.php:160
 msgid "[%s] Password Lost/Changed"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/opensearch.php:12
-#: ..\..\plugins\gnetworkincludes/opensearch.php:67
+#: ../includes/opensearch.php:14 ../includes/opensearch.php:72
 msgid "Open Search"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/opensearch.php:46
+#: ../includes/opensearch.php:51
 msgid "OpenSearch"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/opensearch.php:68
+#: ../includes/opensearch.php:73
 msgid "OpenSearch support for this blog."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/opensearch.php:74
+#: ../includes/opensearch.php:79
 msgid "Suggestions"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/opensearch.php:75
+#: ../includes/opensearch.php:80
 msgid "OpenSearch Suggestions support for this site."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/opensearch.php:81
+#: ../includes/opensearch.php:86
 msgid "ShortName"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/opensearch.php:82
+#: ../includes/opensearch.php:87
 msgid "A short name for the search engine. <b>16</b> chars or less, no HTML."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/opensearch.php:89
+#: ../includes/opensearch.php:94
 msgid "LongName"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/opensearch.php:90
+#: ../includes/opensearch.php:95
 msgid ""
 "An extended name for the search engine. <b>48</b> chars or less, no HTML."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/opensearch.php:96
+#: ../includes/opensearch.php:101
 msgid "Description"
 msgstr "توضیحات"
 
-#: ..\..\plugins\gnetworkincludes/opensearch.php:97
+#: ../includes/opensearch.php:102
 msgid ""
 "A brief description of the search engine. <b>1024</b> chars or less, no HTML."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/opensearch.php:103
+#: ../includes/opensearch.php:108
 msgid "Attribution"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/opensearch.php:104
+#: ../includes/opensearch.php:109
 msgid ""
 "A list of all sources or entities that should be credited. <b>256</b> chars "
 "or less, no HTML."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/opensearch.php:105
+#: ../includes/opensearch.php:110
 msgid "Search data copyright %s"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/opensearch.php:111
+#: ../includes/opensearch.php:116
 msgid "Syndication Right"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/opensearch.php:112
+#: ../includes/opensearch.php:117
 msgid "Indicates the degree to which the search results provided."
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/opensearch.php:115
-#: ..\..\plugins\gnetworkincludes/restricted.php:104
-#: ..\..\plugins\gnetworkincludes/restricted.php:115
+#: ../includes/opensearch.php:120 ../includes/restricted.php:104
+#: ../includes/restricted.php:115
 msgid "Open"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/opensearch.php:116
+#: ../includes/opensearch.php:121
 msgid "Limited"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/opensearch.php:117
+#: ../includes/opensearch.php:122
 msgid "Private"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/opensearch.php:118
+#: ../includes/opensearch.php:123
 msgid "Closed"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/opensearch.php:124
+#: ../includes/opensearch.php:129
 msgid "Contact"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/opensearch.php:125
+#: ../includes/opensearch.php:130
 msgid ""
 "An email address at which the maintainer of the search engine can be reached."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/opensearch.php:131
+#: ../includes/opensearch.php:136
 msgid "Tags"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/opensearch.php:132
+#: ../includes/opensearch.php:137
 msgid ""
 "A set of words that are used as keywords to identify and categorize this "
 "search content. Single words and are delimited by space. <b>256</b> chars or "
 "less, no HTML."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/opensearch.php:153
+#: ../includes/opensearch.php:158
 msgid "Search &#x201C;%s&#x201D;"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/opensearch.php:205
+#: ../includes/opensearch.php:213
 msgid "Search Plugin"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/opensearch.php:208
+#: ../includes/opensearch.php:216
 msgid "Add this site search engine plugin to your browser."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/opensearch.php:214
+#: ../includes/opensearch.php:222
 msgid "Your browser does not support the AddSearchProvider method!"
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/redirect.php:117
+#: ../includes/redirect.php:117
 msgid "Site Redirect to"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/redirect.php:131
+#: ../includes/redirect.php:131
 msgid "The site will redirect to this URL. Leave empty to disable."
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/restricted.php:27
-#: ..\..\plugins\gnetworkincludes/restricted.php:105
-#: ..\..\plugins\gnetworkincludes/restricted.php:116
+#: ../includes/restricted.php:27 ../includes/restricted.php:105
+#: ../includes/restricted.php:116
 msgid "Restricted"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/restricted.php:86
+#: ../includes/restricted.php:86
 msgid "Site Restriction"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/restricted.php:93
+#: ../includes/restricted.php:93
 msgid "Admin Restriction"
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/restricted.php:100
+#: ../includes/restricted.php:100
 msgid "Admin Profile"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/restricted.php:101
+#: ../includes/restricted.php:101
 msgid "Admin profile access if the site is restricted."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/restricted.php:111
+#: ../includes/restricted.php:111
 msgid "Feed Restriction"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/restricted.php:112
+#: ../includes/restricted.php:112
 msgid "Feed access if the site is restricted."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/restricted.php:122
+#: ../includes/restricted.php:122
 msgid "Redirect Page"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/restricted.php:123
+#: ../includes/restricted.php:123
 msgid ""
 "Not authorized users will redirect to this page, to login page if not "
 "selected."
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/restricted.php:126
+#: ../includes/restricted.php:126
 msgid "&mdash; Login &mdash;"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/restricted.php:135
+#: ../includes/restricted.php:135
 msgid "Restricted Notice"
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/restricted.php:136
+#: ../includes/restricted.php:136
 msgid "This will show on top of this site login page."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/restricted.php:156
+#: ../includes/restricted.php:156
 msgid ""
 "<p>This site is restricted to users with %1$s access level. Please visit <a "
 "href=\"%2$s\">here</a> to request access.</p>"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/restricted.php:182
+#: ../includes/restricted.php:182
 msgid "Private Feeds"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/restricted.php:187
+#: ../includes/restricted.php:187
 msgid "Access Key"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/restricted.php:190
+#: ../includes/restricted.php:190
 msgid "Access key not found"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/restricted.php:192
+#: ../includes/restricted.php:192
 msgid "The key will be used on all restricted site feed URLs."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/restricted.php:196
+#: ../includes/restricted.php:196
 msgid "&mdash; Select &mdash;"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/restricted.php:198
+#: ../includes/restricted.php:198
 msgid "Reset your access key"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/restricted.php:199
+#: ../includes/restricted.php:199
 msgid "Remove your access key"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/restricted.php:201
+#: ../includes/restricted.php:201
 msgid "Generate new access key"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/restricted.php:205
+#: ../includes/restricted.php:205
 msgid "Key Operations"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/restricted.php:210
+#: ../includes/restricted.php:210
 msgid "Select an operation to work with your private feed access key."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/restricted.php:216
+#: ../includes/restricted.php:216
 msgid "Your Feed"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/restricted.php:223
+#: ../includes/restricted.php:223
 msgid "Your Comments Feed"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/restricted.php:391
+#: ../includes/restricted.php:391
 msgid "Your site is restricted to public"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/restricted.php:395
+#: ../includes/restricted.php:395
 msgid "Public Access Discouraged"
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/restricted.php:438
+#: ../includes/restricted.php:438
 msgid "Key Valid but no Access"
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/restricted.php:439
+#: ../includes/restricted.php:439
 msgid "Your Key is valid but you have no access to this site"
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/restricted.php:455
+#: ../includes/restricted.php:455
 msgid "No key, no Access"
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/restricted.php:456
+#: ../includes/restricted.php:456
 msgid "You have to have a key to access this site's feed"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/shortcodes.php:78
+#: ../includes/shortcodes.php:80
 msgctxt "TINYMCE Strings"
 msgid "Cite This"
 msgstr "پانوشت کن"
 
-#: ..\..\plugins\gnetworkincludes/shortcodes.php:79
+#: ../includes/shortcodes.php:81
 msgctxt "TINYMCE Strings"
 msgid "URL"
 msgstr "نشانی"
 
-#: ..\..\plugins\gnetworkincludes/shortcodes.php:80
+#: ../includes/shortcodes.php:82
 msgctxt "TINYMCE Strings"
 msgid "Email"
 msgstr "ایمیل"
 
-#: ..\..\plugins\gnetworkincludes/shortcodes.php:81
+#: ../includes/shortcodes.php:83
 msgctxt "TINYMCE Strings"
 msgid "Subject"
 msgstr "موضوع ایمیل"
 
-#: ..\..\plugins\gnetworkincludes/shortcodes.php:82
+#: ../includes/shortcodes.php:84
 msgctxt "TINYMCE Strings"
 msgid "People"
 msgstr "فرد"
 
-#: ..\..\plugins\gnetworkincludes/shortcodes.php:83
+#: ../includes/shortcodes.php:85
 msgctxt "TINYMCE Strings"
 msgid "Name"
 msgstr "نام"
 
-#: ..\..\plugins\gnetworkincludes/shortcodes.php:168
+#: ../includes/shortcodes.php:170
 msgctxt "Shortcodes: back: default html"
 msgid "Back"
 msgstr "بازگشت"
 
-#: ..\..\plugins\gnetworkincludes/shortcodes.php:196
-#: ..\..\plugins\gnetworkincludes/shortcodes.php:209
+#: ../includes/shortcodes.php:198 ../includes/shortcodes.php:211
 msgctxt "Shortcodes: back: home title attr"
 msgid "Home"
 msgstr "خانه"
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/shortcodes.php:347
+#: ../includes/shortcodes.php:349
 msgctxt "google groups subscribe"
 msgid "Email:"
 msgstr "ایمیل"
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/shortcodes.php:350
+#: ../includes/shortcodes.php:352
 msgctxt "google groups subscribe"
 msgid "Subscribe"
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/shortcodes.php:413
+#: ../includes/shortcodes.php:415
 msgid ""
 "It appears you don't have Adobe Reader or PDF support in this web browser. "
 "<a href=\"%s\">Click here to download the PDF</a>"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/shortcodes.php:600
+#: ../includes/shortcodes.php:612
 msgid "See More"
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/shortcodes.php:732
-#: ..\..\plugins\gnetworkincludes/shortcodes.php:743
-#: ..\..\plugins\gnetworkincludes/shortcodes.php:762
-#: ..\..\plugins\gnetworkincludes/shortcodes.php:774
-#: ..\..\plugins\gnetworkincludes/shortcodes.php:812
+#: ../includes/shortcodes.php:746 ../includes/shortcodes.php:757
+#: ../includes/shortcodes.php:776 ../includes/shortcodes.php:788
+#: ../includes/shortcodes.php:826
 msgid "See the footnote"
 msgstr ""
 
-# @ gnetwork
-# @ default
-#: ..\..\plugins\gnetworkincludes/taxonomy.php:70
-#: ..\..\plugins\gnetworkincludes/taxonomy.php:87
+#: ../includes/taxonomy.php:60 ../includes/taxonomy.php:77
 msgctxt "Taxonomy Description"
 msgid "Description"
 msgstr "توضیحات"
 
-# @ gnetwork
-# @ default
-#: ..\..\plugins\gnetworkincludes/taxonomy.php:72
+#: ../includes/taxonomy.php:62
 msgid ""
 "The description is not prominent by default, however some themes may show it."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/taxonomy.php:89
+#: ../includes/taxonomy.php:79
 msgid ""
 "The description is not prominent by default; however, some themes may show "
 "it."
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/taxonomy.php:113
+#: ../includes/taxonomy.php:102
 msgid "Empty"
 msgstr "خالی کردن"
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/taxonomy.php:114
+#: ../includes/taxonomy.php:103
 msgid "Merge"
 msgstr "ترکیب کردن"
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/taxonomy.php:115
+#: ../includes/taxonomy.php:104
 msgid "Change taxonomy"
 msgstr "تغییر دسته‌بندی"
 
-#: ..\..\plugins\gnetworkincludes/taxonomy.php:116
+#: ../includes/taxonomy.php:105
 msgid "Format i18n"
 msgstr "اصلاح زبان محلی"
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/taxonomy.php:121
+#: ../includes/taxonomy.php:110
 msgid "Set parent"
 msgstr "تغییر والد"
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/taxonomy.php:203
+#: ../includes/taxonomy.php:193
 msgid "Terms updated."
 msgstr "دسته‌بندی‌ها به‌روز شدند."
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/taxonomy.php:207
+#: ../includes/taxonomy.php:197
 msgid "Terms not updated."
 msgstr "دسته‌بندی‌ها به‌روز نشدند."
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/taxonomy.php:383
+#: ../includes/taxonomy.php:367
 msgid "into: %s"
 msgstr "در: %s"
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/taxonomy.php:412
+#: ../includes/taxonomy.php:395
 msgid "None"
 msgstr "هیچ"
 
-#: ..\..\plugins\gnetworkincludes/tracking.php:15
+#: ../includes/tracking.php:15
 msgid "Tracking"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/tracking.php:39
+#: ../includes/tracking.php:39
 msgid "Ignore Users"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/tracking.php:40
+#: ../includes/tracking.php:40
 msgid "Selected and above will be ignored"
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/tracking.php:46
+#: ../includes/tracking.php:46
 msgid "GA Domain Name"
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/tracking.php:47
+#: ../includes/tracking.php:47
 msgid "Enter your domain name: <code>example.com</code>"
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/tracking.php:53
+#: ../includes/tracking.php:53
 msgid "GA Account"
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/tracking.php:54
+#: ../includes/tracking.php:54
 msgid "Enter your Google Analytics account number: <code>UA-XXXXX-X</code>"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/tracking.php:60
+#: ../includes/tracking.php:60
 msgid "GA Track Outbounds"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/tracking.php:61
+#: ../includes/tracking.php:61
 msgid "Track outbound links in Google Analytics"
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/tracking.php:67
+#: ../includes/tracking.php:67
 msgid "Quantcast"
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/tracking.php:68
+#: ../includes/tracking.php:68
 msgid "Enter your Quantcast account number: <code>x-XXXXXXXXXXXX-</code>"
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/tracking.php:74
+#: ../includes/tracking.php:74
 msgid "GP Publisher ID"
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/tracking.php:75
+#: ../includes/tracking.php:75
 msgid "Enter your Google+ publisher number: <code>XXXXXXXXXXXXXXXXXXXXX</code>"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/users.php:58
+#: ../includes/users.php:58
 msgctxt "Enable Full Comments On Dashboard"
 msgid "Default Author"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/users.php:59
+#: ../includes/users.php:59
 msgid "The site user as default author of new posts in admin"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/users.php:69
+#: ../includes/users.php:69
 msgid "Network site user is %s"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/users.php:71
+#: ../includes/users.php:71
 msgid "Network site user is not defined"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/users.php:77
+#: ../includes/users.php:77
 msgid "Bulk Change Author"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/users.php:85
+#: ../includes/users.php:85
 msgid "to"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/users.php:94
+#: ../includes/users.php:94
 msgid "on"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/users.php:104
+#: ../includes/users.php:104
 msgid "do"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/users.php:106
+#: ../includes/users.php:106
 msgid "Change"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/users.php:140
+#: ../includes/users.php:140
 msgid "%s Post(s) Changed"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/users.php:141
+#: ../includes/users.php:141
 msgid "No Post Changed"
 msgstr ""
 
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/utilities.php:51
+#: ../includes/utilities.php:51
 msgid "%d queries in %.3f seconds, using %.2fMB memory."
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/utilities.php:118
+#: ../includes/utilities.php:118
 msgid "&ldquo; and &rdquo;"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/utilities.php:120
+#: ../includes/utilities.php:120
 msgid "&ldquo;, &rdquo;"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/utilities.php:346
+#: ../includes/utilities.php:346
 msgid "Posts"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/utilities.php:347
+#: ../includes/utilities.php:347
 msgid "Pages"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/utilities.php:370
+#: ../includes/utilities.php:370
 msgctxt "Dropdown: Get User Roles"
 msgid "Administrators"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/utilities.php:371
+#: ../includes/utilities.php:371
 msgctxt "Dropdown: Get User Roles"
 msgid "Editors"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/utilities.php:372
+#: ../includes/utilities.php:372
 msgctxt "Dropdown: Get User Roles"
 msgid "Authors"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/utilities.php:373
+#: ../includes/utilities.php:373
 msgctxt "Dropdown: Get User Roles"
 msgid "Contributors"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/utilities.php:374
+#: ../includes/utilities.php:374
 msgctxt "Dropdown: Get User Roles"
 msgid "Subscribers"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/utilities.php:379
+#: ../includes/utilities.php:379
 msgctxt "Dropdown: Get User Roles"
 msgid "Super Admins"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/utilities.php:381
+#: ../includes/utilities.php:381
 msgctxt "Dropdown: Get User Roles"
 msgid "Network Users"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/utilities.php:385
+#: ../includes/utilities.php:385
 msgctxt "Dropdown: Get User Roles"
 msgid "&mdash; No One &mdash;"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/widgets.php:50
-msgid "gNetwork: Display your most recent tweet"
+#: ../includes/widgets.php:51
+msgid "gNetwork: Display your most recent tweets"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/widgets.php:53
-msgid "Latest Tweet"
+#: ../includes/widgets.php:54 ../includes/widgets.php:68
+msgid "Latest Tweets"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/widgets.php:66
-msgid "Your Latest Tweet"
+#: ../includes/widgets.php:73
+msgid "Title:"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/widgets.php:67
-msgid "A Custom Mesage"
+#: ../includes/widgets.php:85
+msgid "Username:"
 msgstr ""
 
-#: ..\..\plugins\gnetworkincludes/widgets.php:71
-#: ..\..\plugins\gnetworkincludes/widgets.php:188
+#: ../includes/widgets.php:144
+msgid "Shortcode or HTML or Plain Text"
+msgstr ""
+
+#: ../includes/widgets.php:148
+msgid "gNetwork: Shortcode Widget"
+msgstr ""
+
+#: ../includes/widgets.php:180
 msgctxt "Widget Form Label"
 msgid "Title"
 msgstr "عنوان:"
 
-#: ..\..\plugins\gnetworkincludes/widgets.php:76
-msgctxt "Widget Form Label"
-msgid "Twitter"
-msgstr ""
-
-# @ gnetwork
-#: ..\..\plugins\gnetworkincludes/widgets.php:152
-msgid "Shortcode or HTML or Plain Text"
-msgstr ""
-
-#: ..\..\plugins\gnetworkincludes/widgets.php:156
-msgid "gNetwork: Shortcode Widget"
-msgstr ""
-
-#: ..\..\plugins\gnetworkincludes/widgets.php:193
+#: ../includes/widgets.php:185
 msgctxt "Widget Form Label"
 msgid "Automatically add paragraphs"
 msgstr ""
+
+#~ msgctxt "debug bar panel title"
+#~ msgid "gNetwork"
+#~ msgstr "شبکه"
 
 #, fuzzy
 #~ msgid "Post"
 #~ msgstr "ارسال"
 
-# @ gnetwork
 #, fuzzy
 #~ msgid "Terms of Service"
 #~ msgstr "شرایط و قوانین"
 
-# @ gnetwork
 #~ msgid "Payline"
 #~ msgstr "پی‌لاین"
 
-# @ gnetwork
 #~ msgid "Parsian"
 #~ msgstr "پارسیان"
 
-# @ gnetwork
 #~ msgid "Zarinpal"
 #~ msgstr "زرین پال"
 
-# @ gnetwork
 #, fuzzy
 #~ msgid "No description"
 #~ msgstr "توضیحات"
 
-# @ gnetwork
 #, fuzzy
 #~ msgid "Options"
 #~ msgstr "گزینه‌ها"
 
-# @ gnetwork
 #, fuzzy
 #~ msgid "Yes"
 #~ msgstr "بله"
 
-# @ gnetwork
 #, fuzzy
 #~ msgid "Log IP"
 #~ msgstr "ورود"
@@ -1736,7 +1602,6 @@ msgstr ""
 #~ msgid "Create"
 #~ msgstr "ایجاد گروه و ادامه"
 
-# @ gnetwork
 #, fuzzy
 #~ msgid "Invalid taxonomy."
 #~ msgstr "تغییر دسته‌بندی"
@@ -1745,22 +1610,18 @@ msgstr ""
 #~ msgid "Go"
 #~ msgstr "برو"
 
-# @ gnetwork
 #, fuzzy
 #~ msgid "General"
 #~ msgstr "عمومی"
 
-# @ gnetwork
 #~ msgid "Logged-In"
 #~ msgstr "وارد شده"
 
-# @ gnetwork
 #~ msgid "Logged-Out"
 #~ msgstr "خارج شده"
 
 #~ msgid "Admin Numbers"
 #~ msgstr "شمارهٔ مدیر"
 
-# @ gnetwork
 #~ msgid "Entire Network"
 #~ msgstr "همهٔ شبکه"
