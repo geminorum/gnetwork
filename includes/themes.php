@@ -40,7 +40,7 @@ class gNetworkThemes extends gNetworkModuleCore
 			}, 20 );
 
 			add_filter( 'mce_css', function( $url ){
-				return self::appendMCECSS( $url, 'publish' );
+				return gNetworkThemes::appendMCECSS( $url, 'publish' );
 			} );
 
 		} else if ( $this->is( 'semicolon' ) ) { // v0.9
