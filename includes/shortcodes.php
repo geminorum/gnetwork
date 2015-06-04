@@ -650,7 +650,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			'class' => 'cite-scroll',
 			'href'  => '#citenote-'.$key,
 			'title' => trim( strip_tags( $content ) ),
-		), '['.( $args['format_number'] ? number_format_i18n( $key ) : $key ).']' );
+		), '&#8207;['.( $args['format_number'] ? number_format_i18n( $key ) : $key ).']&#8206;' );
 
 		return '<sup class="ref reference '.$args['class'].'" id="citeref-'.$key.'">'.$html.'</sup>';
 	}
