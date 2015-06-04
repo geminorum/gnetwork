@@ -1,3 +1,15 @@
+### 0.2.5
+* language file updated
+* opensearch: excluding tag injection on core rss export
+* adminbar: new action to hook into plugin menu
+* debug: new meta panel for [Debug Bar](https://wordpress.org/plugins/debug-bar/)
+* buddypress: disable localizing on bp legacy templates
+* buddypress: redirect users after signup
+* modulecore: field class instead of class on register settings
+* locale: BuddyPress language updated to 2.3.0
+* shortcode: ref link with ltr control character
+* themes: fix fatal: cannot access self:: when no class scope is active
+
 ### 0.2.4
 * users: new module init
 * users: default post author moved from editor
