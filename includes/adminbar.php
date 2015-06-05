@@ -207,16 +207,6 @@ class gNetworkAdminBar extends gNetworkModuleCore
 
 		} else {
 
-			$wp_admin_bar->add_node( array(
-				'parent' => $group_id,
-				'id'     => 'gnetwork-info-queries',
-				'title'  => gNetworkUtilities::stat( '%dq | %.3fs | %.2fMB' ),
-				'href'   => gNetworkAdmin::settingsURL(),
-				'meta'   => array(
-					'title' => __( 'Queries | Timer Stop | Memory Usage', GNETWORK_TEXTDOMAIN ),
-				),
-			) );
-
 			if ( current_user_can( 'edit_users' ) ) {
 
 				$wp_admin_bar->add_node( array(
@@ -227,6 +217,16 @@ class gNetworkAdminBar extends gNetworkModuleCore
 				) );
 			}
 		}
+
+		$wp_admin_bar->add_node( array(
+			'parent' => $group_id,
+			'id'     => 'gnetwork-info-queries',
+			'title'  => gNetworkUtilities::stat( '%dq | %.3fs | %.2fMB' ),
+			'href'   => gNetworkAdmin::settingsURL(),
+			'meta'   => array(
+				'title' => __( 'Queries | Timer Stop | Memory Usage', GNETWORK_TEXTDOMAIN ),
+			),
+		) );
 
 		// TODO: add debug.log file size notice as notification for super admin and linkit to log_viewer
 	}
