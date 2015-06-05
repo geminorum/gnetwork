@@ -618,6 +618,18 @@ class gNetworkUtilities
 	{
 		error_log( print_r( compact( 'data' ), true ) );
 	}
+
+	// USE: gNetworkUtilities::callStack( debug_backtrace() );
+	// http://stackoverflow.com/a/8497530
+	public static function callStack( $stacktrace )
+	{
+		print str_repeat( '=', 50 )."\n";
+		$i = 1;
+		foreach( $stacktrace as $node ) {
+			print "$i. ".basename( $node['file'] ).':'.$node['function'].'('.$node['line'].")\n";
+			$i++;
+		}
+	}
 }
 
 function gnetwork_log( $data, $table = 0 ) { gNetworkUtilities::log( $data, $table ); }
