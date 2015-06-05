@@ -31,9 +31,7 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 		add_action( 'bp_ajax_querystring', array( &$this, 'bp_ajax_querystring' ), 20, 2 );
 
 		if ( $this->options['complete_signup'] )
-			add_action( 'bp_complete_signup', function(){
-				bp_core_redirect( $this->options['complete_signup'] );
-			} );
+			add_action( 'bp_complete_signup', array( &$this, 'bp_complete_signup' ) );
 
 		if ( $this->options['tos_display'] )
 			add_action( 'bp_before_registration_submit_buttons', array( &$this, 'bp_before_registration_submit_buttons' ) );
@@ -371,6 +369,11 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 					__( "You're totally a spammer. Go somewhere else with your spammy ways.", GNETWORK_TEXTDOMAIN ) );
 
 		return $result;
+	}
+
+	public function bp_complete_signup()
+	{
+		bp_core_redirect( $this->options['complete_signup'] );
 	}
 
 	// http://buddydev.com/buddypress/exclude-users-from-members-directory-on-a-buddypress-based-social-network/
