@@ -1,0 +1,9 @@
+
+html[dir="rtl"] #qm {
+	direction:ltr !important;
+
+	.qm td,
+	.qm th {
+		text-align:left !important
+	}
+}

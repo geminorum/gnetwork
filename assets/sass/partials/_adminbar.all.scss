@@ -24,8 +24,8 @@
 	}
 
 	.quicklinks li .blavatar:before,
-	#wp-admin-bar-wp-logo>.ab-item .ab-icon:before {
-		content: "\f319" !important;
+	#wp-admin-bar-wp-logo.menupop>.ab-item .ab-icon:before {
+		content: "\f319";
 	}
 
 	// MUST BE ON WP CORE!

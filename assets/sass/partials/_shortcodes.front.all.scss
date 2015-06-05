@@ -8,7 +8,6 @@
 .gnetwork-wrap-shortcode {
 	@include mainwrap();
 
-
 }
 
 .gnetwork-wrap-shortcode.shortcode-reflist {
@@ -78,5 +77,6 @@
 	// direction:ltr;
 	a.tel {
 		// direction:ltr;
+		letter-spacing: 0.4px;
 	}
 }
