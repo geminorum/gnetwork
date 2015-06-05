@@ -1,3 +1,9 @@
+### 0.2.6
+* users: change author select now restricted to blog users
+* widgets: latest tweets widget removed
+* adminbar: query info on admin too
+* buddypress: fix fatal: no this in context
+
 ### 0.2.5
 * language file updated
 * opensearch: excluding tag injection on core rss export
