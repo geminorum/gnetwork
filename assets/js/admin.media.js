@@ -1,8 +1,10 @@
 jQuery(document).ready( function($) {
+
 	// hide my meta fields
 	$( 'table.media td.title div.row-actions' ).each(function() {
 		$( this ).find( 'div.media-url-box' ).hide();
 	});
+
 	// show inputs on click
 	$( 'span.media-url' ).on( 'click', 'a.media-url-click', function(event) {
 
@@ -25,7 +27,7 @@ jQuery(document).ready( function($) {
 		$( edit_row ).slideToggle( 'slow' );
 
 		$( edit_row ).find( 'input.media-url-field' ).select();
-		
+
 		// hide the rest
 		$( 'div.media-url-box' ).not( edit_row ).slideUp( 'slow' );
 

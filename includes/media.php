@@ -3,9 +3,11 @@
 class gNetworkMedia extends gNetworkModuleCore
 {
 
-	var $_network    = false;
-	var $_option_key = false;
-	var $_ajax       = true;
+	var $_network    = FALSE;
+	var $_option_key = FALSE;
+	var $_ajax       = TRUE;
+
+	var $_post_type_sizes = array();
 
 	public function setup_actions()
 	{
@@ -15,6 +17,12 @@ class gNetworkMedia extends gNetworkModuleCore
 		add_action( 'admin_enqueue_scripts', array( &$this, 'admin_enqueue_scripts' ), 10 );
 		add_filter( 'media_row_actions', array( &$this, 'media_row_actions' ), 50, 3 );
 
+		if ( GNETWORK_MEDIA_OBJECT_SIZES ) {
+			// http://wordpress.stackexchange.com/a/36196
+			add_filter( 'intermediate_image_sizes', '__return_empty_array', 99 );
+			// add_filter( 'intermediate_image_sizes_advanced', '__return_empty_array', 99 );
+			add_filter( 'wp_generate_attachment_metadata', array( &$this, 'wp_generate_attachment_metadata' ), 10, 2 );
+		}
 
 		// THIS IS CREAZY!!
 		if ( GNETWORK_MEDIA_SEPERATION ) {
@@ -23,15 +31,89 @@ class gNetworkMedia extends gNetworkModuleCore
 		}
 	}
 
+	public function wp_generate_attachment_metadata( $metadata, $attachment_id )
+	{
+		if ( ! isset( $metadata['file'] ) )
+			return $metadata;
+
+		if ( isset( $metadata['sizes'] ) && count( $metadata['sizes'] ) )
+			return $metadata;
+
+		$parent_type = apply_filters( 'gnetwork_media_object_sizes_parent', null, $attachment_id, $metadata );
+
+		if ( FALSE === $parent_type ) {
+			return $metadata;
+
+		} else if ( is_null( $parent_type ) ) {
+
+			$parent = get_post( wp_get_post_parent_id( $attachment_id ) );
+			if ( ! $parent )
+				return $metadata;
+
+			$parent_type = $parent->post_type;
+		}
+
+		$sizes = $this->get_sizes( $parent_type );
+
+		if ( ! count( $sizes ) )
+			return $metadata;
+
+		$uploads = wp_upload_dir();
+		$editor  = wp_get_image_editor( path_join( $uploads['basedir'], $metadata['file'] ) );
+
+		if ( ! is_wp_error( $editor ) )
+			$metadata['sizes'] = $editor->multi_resize( $sizes );
+
+		if ( gNetworkUtilities::isDev() )
+			error_log( print_r( compact( 'parent_type', 'sizes', 'metadata', 'uploads' ), TRUE ) );
+
+		return $metadata;
+	}
+
+	private function get_sizes( $post_type = 'post' )
+	{
+		if ( isset( $this->_post_type_sizes[$post_type] ) )
+			return $this->_post_type_sizes[$post_type];
+
+		global $_wp_additional_image_sizes;
+
+		$sizes = array();
+
+		foreach ( $_wp_additional_image_sizes as $name => $size )
+			if ( isset( $size['post_type'] ) && in_array( $post_type, $size['post_type'] ) )
+				$sizes[$name] = $size;
+			else if ( 'post' == $post_type ) // fallback
+				$sizes[$name] = $size;
+
+		$this->_post_type_sizes[$post_type] = $sizes;
+
+		return $sizes;
+	}
+
+	// this must be wp core future!!
+	// core duplication with post_type : add_image_size()
+	public static function addImageSize( $name, $width = 0, $height = 0, $crop = FALSE, $post_type = array( 'post' ) )
+	{
+		global $_wp_additional_image_sizes;
+
+		$_wp_additional_image_sizes[ $name ] = array(
+			'width'     => absint( $width ),
+			'height'    => absint( $height ),
+			'crop'      => $crop,
+			'post_type' => $post_type,
+		);
+	}
+
 	public function image_downsize( $false, $post_id, $size )
 	{
 		if ( $data = image_get_intermediate_size( $post_id, $size ) ) {
 
 			$upload_dir = wp_upload_dir();
-			$img_url = wp_get_attachment_url( $post_id );
-			$img_url = str_replace( wp_basename( $img_url ), $data['file'], $img_url );
+			$img_url    = wp_get_attachment_url( $post_id );
+			$img_url    = str_replace( wp_basename( $img_url ), $data['file'], $img_url );
 
-			//error_log( print_r( compact( 'data', 'path', 'upload_dir' ), true ) );
+			if ( gNetworkUtilities::isDev() )
+				error_log( print_r( compact( 'data', 'path', 'upload_dir' ), TRUE ) );
 
 			if ( GNETWORK_MEDIA_SIZES_CHECK && isset( $data['path'] ) && file_exists( $upload_dir['basedir'].DS.$data['path'] ) )
 				return $false;
@@ -40,7 +122,7 @@ class gNetworkMedia extends gNetworkModuleCore
 				str_replace( $upload_dir['baseurl'], trailingslashit( GNETWORK_MEDIA_SIZES_URL ).get_current_blog_id(), $img_url ),
 				$data['width'],
 				$data['height'],
-				true,
+				TRUE,
 			);
 		}
 
@@ -49,19 +131,19 @@ class gNetworkMedia extends gNetworkModuleCore
 
 	public static function getSizesDestPath( $file )
 	{
-		$info = pathinfo( $file );
 		$upload_dir = wp_upload_dir();
-		$folder = str_replace( $upload_dir['basedir'], '', $info['dirname'] );
-		$path = path_join( GNETWORK_MEDIA_SIZES_DIR, get_current_blog_id() ).$folder;
+		$info       = pathinfo( $file );
+		$folder     = str_replace( $upload_dir['basedir'], '', $info['dirname'] );
+		$path       = path_join( GNETWORK_MEDIA_SIZES_DIR, get_current_blog_id() ).$folder;
 
-		//error_log( print_r( compact( 'info', 'upload_dir', 'folder', 'path' ), true ) );
+		if ( gNetworkUtilities::isDev() )
+			error_log( print_r( compact( 'info', 'upload_dir', 'folder', 'path' ), TRUE ) );
 
 		if ( wp_mkdir_p( $path ) )
 			return $path;
 
-		return null;
+		return NULL;
 	}
-
 
 	public function wp_image_editors( $implementations )
 	{
@@ -95,8 +177,8 @@ class gNetworkMedia extends gNetworkModuleCore
 		global $wpdb;
 
 		$args = shortcode_atts( array(
-			'src' => '',
-			'width' => '',
+			'src'    => '',
+			'width'  => '',
 			'height' => '',
 		), $atts, $tag );
 
@@ -162,13 +244,12 @@ class gNetworkMedia extends gNetworkModuleCore
 		return sprintf( '<img src="%s" %s %s />', esc_url( $src ), $width, $height );
 	}
 
-
 	public function admin_enqueue_scripts( $hook )
 	{
 		if ( $hook !== 'upload.php' )
 			return;
 
-		wp_enqueue_script( 'gmember-media', GNETWORK_URL.'assets/js/admin.media.js' , array( 'jquery' ), GNETWORK_VERSION, true );
+		wp_enqueue_script( 'gnetwork-media', GNETWORK_URL.'assets/js/admin.media.min.js', array( 'jquery' ), GNETWORK_VERSION, TRUE );
 	}
 
 	public function media_row_actions( $actions, $post, $detached )
@@ -186,68 +267,57 @@ class gNetworkMedia extends gNetworkModuleCore
 		$actions['media-url'] = $media_link;
 
 		return $actions;
-
 	}
 
 	public static function get_media_type_label( $post_id )
 	{
-		// fetch our item MIME type
 		$type = get_post_mime_type( $post_id );
 
-
-		// filter through my types and return the label based on that
 		switch ( $type ) {
-			case 'image/jpeg':
-			case 'image/png':
-			case 'image/gif':
-				$label	= __( 'View Image URL', GNETWORK_TEXTDOMAIN );
+
+			case 'image/jpeg' :
+			case 'image/png' :
+			case 'image/gif' :
+				$label = __( 'View Image URL', GNETWORK_TEXTDOMAIN );
 				break;
 
-			case 'video/mpeg':
-			case 'video/mp4':
-			case 'video/webm':
-			case 'video/ogg':
+			case 'video/mpeg' :
+			case 'video/mp4' :
+			case 'video/webm' :
+			case 'video/ogg' :
 			case 'video/quicktime':
-				$label	= __( 'View Video URL', GNETWORK_TEXTDOMAIN );
+				$label = __( 'View Video URL', GNETWORK_TEXTDOMAIN );
 				break;
 
-			case 'text/csv':
-			case 'text/xml':
-				$label	= __( 'View Data File URL', GNETWORK_TEXTDOMAIN );
+			case 'text/csv' :
+			case 'text/xml' :
+				$label = __( 'View Data File URL', GNETWORK_TEXTDOMAIN );
 				break;
 
-			case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
-			case 'application/vnd.ms-excel':
-				$label	= __( 'View Spreadsheet URL', GNETWORK_TEXTDOMAIN );
+			case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' :
+			case 'application/vnd.ms-excel' :
+				$label = __( 'View Spreadsheet URL', GNETWORK_TEXTDOMAIN );
 				break;
 
-			case 'application/pdf':
-			case 'application/rtf':
-			case 'application/msword':
-			case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
-				$label	= __( 'View Document URL', GNETWORK_TEXTDOMAIN );
+			case 'application/pdf' :
+			case 'application/rtf' :
+			case 'application/msword' :
+			case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' :
+				$label = __( 'View Document URL', GNETWORK_TEXTDOMAIN );
 				break;
 
-			case 'text/html':
-				$label	= __( 'View HTML file URL', GNETWORK_TEXTDOMAIN );
+			case 'text/html' :
+				$label = __( 'View HTML file URL', GNETWORK_TEXTDOMAIN );
 				break;
 
 			default:
-				$label	= __( 'View Item URL', GNETWORK_TEXTDOMAIN );
+				$label = __( 'View Item URL', GNETWORK_TEXTDOMAIN );
 		}
 
-		// pass through filter to catch whatever else may be out there
-		//$label = apply_filters( 'gnetwork_media_type_label', $label, $type );
-
-		// send it back
-		return $label;
-
+		return apply_filters( 'gnetwork_media_type_label', $label, $type, $post_id );
 	}
 
-	// http://codex.wordpress.org/Uploading_Files
-	// http://wordpress.org/plugins/allow-wordpowerpoint-file-uploads/
-	// http://plugins.svn.wordpress.org/allow-wordpowerpoint-file-uploads/trunk/allow-word-powerpoint-file-uploads.php
-	public function upload_mimes ( $mimes )
+	public function upload_mimes( $mimes )
 	{
 		return array_merge( $mimes, array(
 			'pptx' => 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
@@ -256,10 +326,8 @@ class gNetworkMedia extends gNetworkModuleCore
 			'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
 			'xls'  => 'application/vnd.ms-excel',
 			'xlsx' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-
-			'csv' => 'text/csv',
-			'xml' => 'text/xml',
-
+			'csv'  => 'text/csv',
+			'xml'  => 'text/xml',
 			'webm' => 'video/webm',
 			'flv'  => 'video/x-flv',
 			'ac3'  => 'audio/ac3',
@@ -267,7 +335,6 @@ class gNetworkMedia extends gNetworkModuleCore
 			'mp4'  => 'video/mp4',
 			'mpg4' => 'video/mp4',
 			'flv'  => 'video/x-flv',
-
 			'svg'  => 'image/svg+xml',
 		) );
 	}

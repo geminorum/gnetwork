@@ -37,6 +37,7 @@ defined( 'GNETWORK_MEDIA_SIZES_DIR' ) or define( 'GNETWORK_MEDIA_SIZES_DIR', WP_
 defined( 'GNETWORK_MEDIA_SIZES_URL' ) or define( 'GNETWORK_MEDIA_SIZES_URL', WP_CONTENT_URL.'/thumbs' );
 // defined( 'GNETWORK_MEDIA_SIZES_REL' ) or define( 'GNETWORK_MEDIA_SIZES_REL', '../thumbs' ); // relate path to deffault uploads folder
 defined( 'GNETWORK_MEDIA_SIZES_CHECK' ) or define( 'GNETWORK_MEDIA_SIZES_CHECK', true ); // check default wp dir before thumbs / make it disable for newly created sites
+defined( 'GNETWORK_MEDIA_OBJECT_SIZES' ) or define( 'GNETWORK_MEDIA_OBJECT_SIZES', FALSE ); // disable all image sizes and enable for each posttypes
 
 defined( 'GNETWORK_TIMTHUMB_URL' ) or define( 'GNETWORK_TIMTHUMB_URL', esc_url( home_url( '/repo/' ) ) );
 
