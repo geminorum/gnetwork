@@ -116,7 +116,7 @@ class gNetworkAdminBar extends gNetworkModuleCore
 			$_SERVER['REQUEST_URI'] = remove_query_arg( 'gnetwork-action', $_SERVER['REQUEST_URI'] );
 		}
 
-		$this->_sidebar_admin = true;
+		$this->_sidebar_admin = TRUE;
 	}
 
 	public static function removeMenus( $nodes )
@@ -212,7 +212,7 @@ class gNetworkAdminBar extends gNetworkModuleCore
 				$wp_admin_bar->add_node( array(
 					'parent' => 'site-name',
 					'id'     => 'all-users',
-					'title'  => __( 'Users' ),
+					'title'  => __( 'Users', GNETWORK_TEXTDOMAIN ),
 					'href'   => admin_url( 'users.php' ),
 				) );
 			}
@@ -236,7 +236,7 @@ class gNetworkAdminBar extends gNetworkModuleCore
 		$wp_admin_bar->add_menu( array(
 			'parent' => 'network-admin',
 			'id'     => 'settings',
-			'title'  => __( 'Settings' ),
+			'title'  => __( 'Settings', GNETWORK_TEXTDOMAIN ),
 			'href'   => network_admin_url( 'settings.php' )
 		) );
 
@@ -252,35 +252,35 @@ class gNetworkAdminBar extends gNetworkModuleCore
 			$wp_admin_bar->add_menu( array(
 				'parent' => 'blog-'.$blog->userblog_id,
 				'id'     => 'blog-'.$blog->userblog_id.'-e',
-				'title'  => __( 'All Posts' ),
+				'title'  => __( 'All Posts', GNETWORK_TEXTDOMAIN ),
 				'href'   => get_admin_url( $blog->userblog_id, 'edit.php' ),
 			) );
 
 			$wp_admin_bar->add_menu( array(
 				'parent' => 'blog-'.$blog->userblog_id,
 				'id'     => 'blog-'.$blog->userblog_id.'-u',
-				'title'  => __( 'Users' ),
+				'title'  => __( 'Users', GNETWORK_TEXTDOMAIN ),
 				'href'   => get_admin_url( $blog->userblog_id, 'users.php' ),
 			) );
 
 			$wp_admin_bar->add_menu( array(
 				'parent' => 'blog-'.$blog->userblog_id,
 				'id'     => 'blog-'.$blog->userblog_id.'-o-g',
-				'title'  => __( 'Settings' ),
+				'title'  => __( 'Settings', GNETWORK_TEXTDOMAIN ),
 				'href'   => get_admin_url( $blog->userblog_id, 'options-general.php' ),
 			) );
 
 			$wp_admin_bar->add_menu( array(
 				'parent' => 'blog-'.$blog->userblog_id,
 				'id'     => 'blog-'.$blog->userblog_id.'-i',
-				'title'  => __( 'Edit Site' ),
+				'title'  => __( 'Edit Site', GNETWORK_TEXTDOMAIN ),
 				'href'   => network_admin_url( 'site-info.php?id='.$blog->userblog_id ),
 			) );
 
 			$wp_admin_bar->add_menu( array(
 				'parent' => 'blog-'.$blog->userblog_id,
 				'id'     => 'blog-'.$blog->userblog_id.'-t',
-				'title'  => __( 'Edit Site Themes' ),
+				'title'  => __( 'Edit Site Themes', GNETWORK_TEXTDOMAIN ),
 				'href'   => network_admin_url( 'site-themes.php?id='.$blog->userblog_id ),
 			) );
 		}
@@ -303,14 +303,14 @@ class gNetworkAdminBar extends gNetworkModuleCore
 
 		if ( is_main_site() ) {
 
-			$menu = wp_get_nav_menu_items( $name, array( 'update_post_term_cache' => false ) );
+			$menu = wp_get_nav_menu_items( $name, array( 'update_post_term_cache' => FALSE ) );
 			if ( $menu )
 				update_site_option( 'gnetwork_'.$name, $menu );
 
 			return $menu;
 		}
 
-		return false;
+		return FALSE;
 	}
 
 	public static function main_logo( $wp_admin_bar, $id = 'wp-logo', $title = '<span class="ab-icon"></span>' )
@@ -331,7 +331,7 @@ class gNetworkAdminBar extends gNetworkModuleCore
 			$wp_admin_bar->add_menu( array(
 				'parent'    => $parent,
 				'id'        => 'network-login',
-				'title'     => __( 'Log in' ),
+				'title'     => __( 'Log in', GNETWORK_TEXTDOMAIN ),
 				'href'      => wp_login_url(),
 			) );
 
@@ -340,7 +340,7 @@ class gNetworkAdminBar extends gNetworkModuleCore
 				$wp_admin_bar->add_menu( array(
 					'parent'    => $parent,
 					'id'        => 'network-register',
-					'title'     => __( 'Register' ),
+					'title'     => __( 'Register', GNETWORK_TEXTDOMAIN ),
 					'href'      => $register,
 				) );
 		} else {
@@ -370,7 +370,7 @@ class gNetworkAdminBar extends gNetworkModuleCore
 		) );
 	}
 
-	public static function wp_menu( & $wp_admin_bar )
+	public static function wp_menu( &$wp_admin_bar )
 	{
 		if ( ! is_admin_bar_showing() )
 			return;
@@ -387,11 +387,10 @@ class gNetworkAdminBar extends gNetworkModuleCore
 		$menu = self::get_network_menu();
 
 		if ( $menu && is_array( $menu ) ) {
-			//call_user_func_array( 'gnetwork_network_adminbar_default', array( & $wp_admin_bar ) );
-			$parent = 'wp-logo';
+
 			foreach ( $menu as $item_id => $item ) {
+
 				$wp_admin_bar->add_menu( array(
-					// check target to place link on externals
 					'parent' => ( empty( $item->target ) ? ( empty( $item->menu_item_parent ) ? 'wp-logo' : 'network-menu-'.$item->menu_item_parent ) : 'wp-logo-external' ),
 					'id'     => 'network-menu-'.$item->ID,
 					'title'  => $item->title,
@@ -407,7 +406,7 @@ class gNetworkAdminBar extends gNetworkModuleCore
 		self::login_register( $wp_admin_bar );
 	}
 
-	public static function extra_menu( & $wp_admin_bar )
+	public static function extra_menu( &$wp_admin_bar )
 	{
 		$menu = self::get_network_menu( GNETWORK_NETWORK_EXTRAMENU );
 
