@@ -1,3 +1,9 @@
+### 0.2.7
+* media: attachment sizes by post type. must set `GNETWORK_MEDIA_OBJECT_SIZES`
+* media: loging seperations in dev mode
+* media: minified version of admin.media.js
+* adminbar: adding textdomain to all strings
+
 ### 0.2.6
 * users: change author select now restricted to blog users
 * widgets: latest tweets widget removed
