@@ -62,8 +62,13 @@ body.rtl {
 		font:normal 11.1px/16px $font-family-base;
 	}
 
-	.site-header a.site-logo + hgroup {
-		text-align:center;
+	.site-header a.site-logo {
+		text-align: center;
+	  	display: block;
+
+		& + hgroup {
+			text-align:center;
+		}
 	}
 
 	.widget_search {
