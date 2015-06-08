@@ -740,31 +740,31 @@ msgstr ""
 msgid "The site is unavailable for scheduled maintenance."
 msgstr ""
 
-#: includes/media.php:203
+#: includes/media.php:281
 msgid "View Image URL"
 msgstr ""
 
-#: includes/media.php:211
+#: includes/media.php:289
 msgid "View Video URL"
 msgstr ""
 
-#: includes/media.php:216
+#: includes/media.php:294
 msgid "View Data File URL"
 msgstr ""
 
-#: includes/media.php:221
+#: includes/media.php:299
 msgid "View Spreadsheet URL"
 msgstr ""
 
-#: includes/media.php:228
+#: includes/media.php:306
 msgid "View Document URL"
 msgstr ""
 
-#: includes/media.php:232
+#: includes/media.php:310
 msgid "View HTML file URL"
 msgstr ""
 
-#: includes/media.php:236
+#: includes/media.php:314
 msgid "View Item URL"
 msgstr ""
 

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gNetwork 0.2.7\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2015-06-06 02:16+0330\n"
+"PO-Revision-Date: 2015-06-07 03:55+0330\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: geminorum <contact@geminorum.ir>\n"
 "Language: fa_IR\n"
@@ -783,31 +783,31 @@ msgstr ""
 msgid "The site is unavailable for scheduled maintenance."
 msgstr ""
 
-#: includes/media.php:203
+#: includes/media.php:281
 msgid "View Image URL"
 msgstr "نمایش نشانی تصویر"
 
-#: includes/media.php:211
+#: includes/media.php:289
 msgid "View Video URL"
 msgstr "نمایش نشانی ویدئو"
 
-#: includes/media.php:216
+#: includes/media.php:294
 msgid "View Data File URL"
 msgstr "نمایش نشانی پروندهٔ داده‌ها"
 
-#: includes/media.php:221
+#: includes/media.php:299
 msgid "View Spreadsheet URL"
 msgstr "نمایش نشانی پرونده اکسل"
 
-#: includes/media.php:228
+#: includes/media.php:306
 msgid "View Document URL"
 msgstr "نمایش نشانی پروندهٔ متنی"
 
-#: includes/media.php:232
+#: includes/media.php:310
 msgid "View HTML file URL"
 msgstr "نمایش نشانی پروندهٔ وب"
 
-#: includes/media.php:236
+#: includes/media.php:314
 msgid "View Item URL"
 msgstr "نمایش نشانی پرونده"
 
@@ -835,7 +835,7 @@ msgstr ""
 
 #: includes/navigation.php:38
 msgid "Network"
-msgstr "شبکه"
+msgstr ""
 
 #: includes/navigation.php:57
 msgctxt "Navigation: Tabs"
@@ -1470,51 +1470,51 @@ msgstr ""
 
 #: includes/utilities.php:346
 msgid "Posts"
-msgstr ""
+msgstr "نوشته‌ها"
 
 #: includes/utilities.php:347
 msgid "Pages"
-msgstr ""
+msgstr "برگه‌ها"
 
 #: includes/utilities.php:370
 msgctxt "Dropdown: Get User Roles"
 msgid "Administrators"
-msgstr ""
+msgstr "مدیرها"
 
 #: includes/utilities.php:371
 msgctxt "Dropdown: Get User Roles"
 msgid "Editors"
-msgstr ""
+msgstr "ویرایشگرها"
 
 #: includes/utilities.php:372
 msgctxt "Dropdown: Get User Roles"
 msgid "Authors"
-msgstr ""
+msgstr "نویسنده‌ها"
 
 #: includes/utilities.php:373
 msgctxt "Dropdown: Get User Roles"
 msgid "Contributors"
-msgstr ""
+msgstr "مشارکت‌کننده‌ها"
 
 #: includes/utilities.php:374
 msgctxt "Dropdown: Get User Roles"
 msgid "Subscribers"
-msgstr ""
+msgstr "دنبال‌کننده‌ها"
 
 #: includes/utilities.php:379
 msgctxt "Dropdown: Get User Roles"
 msgid "Super Admins"
-msgstr ""
+msgstr "مدیرهای ارشد"
 
 #: includes/utilities.php:381
 msgctxt "Dropdown: Get User Roles"
 msgid "Network Users"
-msgstr ""
+msgstr "اعضای سایت"
 
 #: includes/utilities.php:385
 msgctxt "Dropdown: Get User Roles"
 msgid "&mdash; No One &mdash;"
-msgstr ""
+msgstr "&mdash; هیچ &mdash;"
 
 #: includes/widgets.php:31
 msgid "Shortcode or HTML or Plain Text"
