@@ -4,10 +4,23 @@
 ////////////////////////////////////////////////////////////////////////////////
 //---Module: Code---------------------------------------------------------------
 
-.gnetwork-github-readme {
+
+.gnetwork-wrap-shortcode.github {
+
+}
+
+.gnetwork-wrap-shortcode.github-readme {
     > h1 { display:none; }
-    
+
     img[src*="badge"], img[src*="shields.io"] {
         display:inline;
     }
+}
+
+.gnetwork-wrap-shortcode.github-gist {
+	direction:ltr !important;
+    
+	td {
+		text-align:left;
+	}
 }
