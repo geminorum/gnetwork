@@ -3,14 +3,14 @@
 class gNetworkDebug extends gNetworkModuleCore
 {
 
-	var $_network    = false;
-	var $_option_key = false;
+	var $_network    = FALSE;
+	var $_option_key = FALSE;
 
 	public function setup_actions()
 	{
 		gNetworkAdmin::registerMenu( 'debug',
 			__( 'Debug', GNETWORK_TEXTDOMAIN ),
-			array( &$this, 'settings' )
+			array( &$this, 'settings' ), 'delete_others_posts'
 		);
 
 		add_action( 'debug_bar_panels', function( $panels ) {
@@ -20,34 +20,30 @@ class gNetworkDebug extends gNetworkModuleCore
 			return $panels;
 		} );
 
-		//if ( isset( $_GET['action'] ) && $_GET['action'] == 'gnetworkdeletespams' )
-			//add_action( 'init', array( &$this, 'init_delete_spams' ) );
-
-		//add_action( 'plugins_loaded', array( &$this, 'plugins_loaded' ) );
-		//add_action( 'wp_before_admin_bar_render', 'supercache_admin_bar_render' );
+		// add_action( 'plugins_loaded', array( &$this, 'plugins_loaded' ) );
+		// add_action( 'wp_before_admin_bar_render', 'supercache_admin_bar_render' );
 
 		add_action( 'wp_footer', array( &$this, 'wp_footer' ), 999 );
 
 		if ( 'production' == WP_STAGE ) {
 			if ( WP_DEBUG_LOG && ! WP_DEBUG_DISPLAY ) {
+
 				add_filter( 'doing_it_wrong_trigger_error', '__return_false' );
 				add_filter( 'deprecated_function_trigger_error', '__return_false' );
 				add_filter( 'deprecated_file_trigger_error', '__return_false' );
 				add_filter( 'deprecated_argument_trigger_error', '__return_false' );
+
+				add_action( 'http_api_debug', array( &$this, 'http_api_debug' ), 10, 3 );
+
+				// akismet will log all the http_reqs!!
+				add_filter( 'akismet_debug_log', '__return_false' );
 			}
 		} else if ( 'development' == WP_STAGE ) {
 			add_action( 'pre_get_posts', array( &$this, 'pre_get_posts' ), 99 );
 		}
-
-		// akismet will log all the http_reqs!!
-		add_filter( 'akismet_debug_log', '__return_false' );
-
-		// $this->log(); // no need
-
-		//add_action( 'wp_scheduled_delete', array( &$this, 'wp_scheduled_delete' ) );
 	}
 
-	public function settings( $sub = null )
+	public function settings( $sub = NULL )
 	{
 		if ( 'debug' == $sub ) {
 
@@ -65,11 +61,6 @@ class gNetworkDebug extends gNetworkModuleCore
 
 			add_action( 'gnetwork_admin_settings_sub_debug', array( &$this, 'settings_html' ), 10, 2 );
 		}
-	}
-
-	public function settings_sidebox( $sub, $settings_uri )
-	{
-		//echo 'TODO: total comments count';
 	}
 
 	// https://wordpress.org/plugins/stop-query-posts/
@@ -140,7 +131,7 @@ class gNetworkDebug extends gNetworkModuleCore
 	{
 		$text  = 'Time : '.timer_stop( 0 ).' | ';
 		$text .= 'DB Queries: '.$GLOBALS['wpdb']->num_queries.' | ';
-		$text .= 'Memory: '.number_format( ( memory_get_peak_usage()/1024/1024 ), 1, ',', '' ).'/'.ini_get( 'memory_limit' ).' | ';
+		$text .= 'Memory: '.number_format( ( memory_get_peak_usage() / 1024 / 1024 ), 1, ',', '' ).'/'.ini_get( 'memory_limit' ).' | ';
 
 		$ch = empty( $GLOBALS['wp_object_cache']->cache_hits ) ? 0 : $GLOBALS['wp_object_cache']->cache_hits;
 		$cm = empty( $GLOBALS['wp_object_cache']->cache_misses ) ? 0 : $GLOBALS['wp_object_cache']->cache_misses;
@@ -157,42 +148,55 @@ class gNetworkDebug extends gNetworkModuleCore
 			remove_action( 'wp_before_admin_bar_render', 'supercache_admin_bar_render' );
 	}
 
-	function supercache_admin_bar_render() {
+	public function supercache_admin_bar_render()
+	{
 		global $wp_admin_bar, $wp_cache_not_logged_in;
-		if ( !is_user_logged_in() || !$wp_cache_not_logged_in )
-			return false;
 
-		if ( function_exists('current_user_can') && false == current_user_can('delete_others_posts') )
-			return false;
+		if ( ! is_user_logged_in() || ! $wp_cache_not_logged_in )
+			return FALSE;
+
+		if ( function_exists( 'current_user_can' )
+			&& FALSE == current_user_can( 'delete_others_posts' ) )
+				return FALSE;
 
 		$wp_admin_bar->add_menu( array(
 			'parent' => '',
-			'id' => 'delete-cache',
-			'title' => __( 'Delete Cache', 'wp-super-cache' ),
-			'meta' => array( 'title' => __( 'Delete cache of the current page', 'wp-super-cache' ) ),
-			'href' => wp_nonce_url( admin_url( 'index.php?action=delcachepage&path=' . urlencode( preg_replace( '/[ <>\'\"\r\n\t\(\)]/', '', $_SERVER[ 'REQUEST_URI' ] ) ) ), 'delete-cache' )
+			'id'     => 'delete-cache',
+			'title'  => __( 'Delete Cache', 'wp-super-cache' ),
+			'meta'   => array( 'title' => __( 'Delete cache of the current page', 'wp-super-cache' ) ),
+			'href'   => wp_nonce_url( admin_url( 'index.php?action=delcachepage&path=' . urlencode( preg_replace( '/[ <>\'\"\r\n\t\(\)]/', '', $_SERVER[ 'REQUEST_URI' ] ) ) ), 'delete-cache' )
 		) );
 	}
 
-	function wp_footer()
+	public function wp_footer()
 	{
 		$stat = gNetworkUtilities::stat();
 		echo "\n\t<!-- {$stat} -->\n";
 	}
 
-	// WP log is working only in debug mode
-	function log()
+	// BASED on : Cron Debug Log v0.1
+	// https://wordpress.org/plugins/cron-debug-log/
+	public function http_api_debug( $response, $type, $transport = FALSE )
 	{
-		if ( defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG )
+		if( ! $transport || 'response' != $type )
 			return;
 
-		@ini_set( 'log_errors', 1 );
-		@ini_set( 'error_log', WP_CONTENT_DIR.'/error.log' );
+		if( is_wp_error( $response ) )
+			$response = $response->get_error_message();
+
+		if( is_array( $response )
+			&& is_array( $response['response'] )
+			&& ! empty( $response['response']['code'] )
+			&& '200' == $response['response']['code'] )
+				return;
+
+		$time = current_time( 'mysql' );
+		error_log( print_r( compact( 'time', 'response', 'type' ), TRUE ) );
 	}
 
 	// https://core.trac.wordpress.org/ticket/20316
 	// http://wordpress.stackexchange.com/a/6652
-	private function purge_transient_data( $site = false, $time = false )
+	private function purge_transient_data( $site = FALSE, $time = FALSE )
 	{
 		global $wpdb, $_wp_using_ext_object_cache;
 
@@ -226,6 +230,7 @@ class gNetworkDebug extends gNetworkModuleCore
 		}
 	}
 
+	// DRAFT
 	// https://gist.github.com/markoheijnen/6157779
 	// Custom error handler for catching MySQL errors
 	function wp_set_error_handler()
@@ -240,7 +245,7 @@ class gNetworkDebug extends gNetworkModuleCore
 				if ( preg_match( '/^(mysql_[a-zA-Z0-9_]+)/', $errstr, $matches ) ) {
 					_doing_it_wrong( $matches[1], __( 'Please talk to the database using $wpdb' ), '3.7' );
 
-					return apply_filters( 'wpdb_drivers_raw_mysql_call_trigger_error', true );
+					return apply_filters( 'wpdb_drivers_raw_mysql_call_trigger_error', TRUE );
 				}
 			}
 
