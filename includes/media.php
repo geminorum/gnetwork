@@ -70,7 +70,7 @@ class gNetworkMedia extends gNetworkModuleCore
 		return $metadata;
 	}
 
-	private function get_sizes( $post_type = 'post' )
+	private function get_sizes( $post_type = 'post', $key = 'post_type' )
 	{
 		if ( isset( $this->_post_type_sizes[$post_type] ) )
 			return $this->_post_type_sizes[$post_type];
@@ -80,7 +80,7 @@ class gNetworkMedia extends gNetworkModuleCore
 		$sizes = array();
 
 		foreach ( $_wp_additional_image_sizes as $name => $size )
-			if ( isset( $size['post_type'] ) && in_array( $post_type, $size['post_type'] ) )
+			if ( isset( $size[$key] ) && in_array( $post_type, $size[$key] ) )
 				$sizes[$name] = $size;
 			else if ( 'post' == $post_type ) // fallback
 				$sizes[$name] = $size;
