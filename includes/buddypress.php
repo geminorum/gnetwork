@@ -219,14 +219,18 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 	// cleanup!
 	public function after_setup_theme()
 	{
-		remove_action( 'wp_head', 'bp_core_add_ajax_url_js' );
-		remove_action( 'wp_footer', 'bp_core_print_generation_time' );
+		if ( is_admin() ) {
+			remove_action( 'tool_box', 'bp_core_admin_available_tools_intro' );
+		} else {
+			remove_action( 'wp_head', 'bp_core_add_ajax_url_js' );
+			remove_action( 'wp_footer', 'bp_core_print_generation_time' );
 
-		add_filter( 'bp_use_theme_compat_with_current_theme', '__return_false' );
-		add_action( 'wp_enqueue_scripts', function(){
-			wp_dequeue_style( 'bp-parent-css' );
-			wp_dequeue_style( 'bp-child-css' );
-		}, 20 ) ;
+			add_filter( 'bp_use_theme_compat_with_current_theme', '__return_false' );
+			add_action( 'wp_enqueue_scripts', function(){
+				wp_dequeue_style( 'bp-parent-css' );
+				wp_dequeue_style( 'bp-child-css' );
+			}, 20 ) ;
+		}
 	}
 
 	public function init()
@@ -431,7 +435,7 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 
 		//if we are here, let us check if the current user is the author of the parent activity
 
-		$parent_activity = null;
+		$parent_activity = NULL;
 
 		//if it is an activity comment
 		if( $activity->item_id ) {
@@ -498,26 +502,3 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 		}
 	}
 }
-
-
-// http://buddydev.com/buddypress-tricks/buddypress-fun-playing-with-buddypress-friends-list-visibility/
-// http://buddydev.com/buddypress-tricks/showing-user-roles-buddypress-profile/
-
-// https://premium.wpmudev.org/project/terms-of-service/
-// http://buddypress.org/support/topic/terms-of-use-plugin-for-buddy-press/
-
-// http://wordpress.org/plugins/buddypress-default-group-avatar/
-
-// https://gist.github.com/BoweFrankema/95166be93b4f05a70a13
-
-// bp_registration_needs_activation()
-// http://bp-tricks.com/snippets/show-custom-message-multisite-site-creation/
-// https://gist.github.com/BoweFrankema/9b298f9e64bb03b62f03
-
-// https://gist.github.com/BoweFrankema/e95ec775f3ba0db92182
-
-
-// CUSTOM FIELD TYPES
-// https://github.com/donmik/buddypress-xprofile-custom-fields-type
-
-// https://codex.buddypress.org/themes/guides/displaying-extended-profile-fields-on-member-profiles/
