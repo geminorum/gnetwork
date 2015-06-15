@@ -51,7 +51,7 @@ body.rtl {
 	textarea,
 	select,
 	button {
-		font:normal 12.3px/23px $font-family-base;
+		font:normal 12.3px $font-family-base;
 	}
 
 
@@ -97,7 +97,8 @@ body.rtl {
 	}
 
 	.entry-content {
-		ul {
+		ul, ol {
+			margin: 0 3em 1.5em 0;
 			li {
 				margin-bottom:0.5em;
 			}
@@ -138,6 +139,23 @@ body.rtl {
 	input#url {
 		direction:ltr;
 	}
+
+	textarea {
+		padding-left:0;
+		padding-right:3px;
+	}
+
+	button,
+	input[type="button"],
+	input[type="reset"],
+	input[type="submit"] {
+		padding: 0.15em 0.5em 0.05em;
+	}
+
+	option {
+		padding:0;
+	}
+
 }
 
 @media only screen and (max-width : 900px) {
@@ -167,5 +185,11 @@ body.rtl {
 	}
 }
 /**--------------------------------------------**/
+body.delnaha-network {
+	.site-header a.site-logo + hgroup {
+		display:none;
+	}
+}
+
 /**--------------------------------------------**/
 /**--------------------------------------------**/
