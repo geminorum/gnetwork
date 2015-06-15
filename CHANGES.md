@@ -1,3 +1,16 @@
+### 0.2.8
+* modulecore: centralizing all options that results in fewer db queries
+* code: new gist embed shortcode: `[github-gist]` using [gist-embed](https://github.com/blairvanderhoof/gist-embed)
+* code: `[github-readme]` now grabs wiki pages and any markdown on the repo as well
+* code: add `CONTRIBUTING.md` to the list of relative links
+* debug: trying to catch cron errors
+* buddypress: annoying tool box notice removed
+* themes: [publish](https://github.com/kovshenin/publish) refinements
+* themes: [hueman](https://github.com/AlxMedia/hueman) support
+* blog: init module, redirect moved here
+* redirect: module deprecated
+* cleanup: removed [BruteProtect](http://bruteprotect.com/) annoying style and empty menu!
+
 ### 0.2.7
 * media: attachment sizes by post type. must set `GNETWORK_MEDIA_OBJECT_SIZES`
 * media: loging seperations in dev mode
