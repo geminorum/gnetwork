@@ -18,9 +18,9 @@ class gNetworkAdmin extends gNetworkModuleCore
 		add_action( 'admin_menu', array( &$this, 'admin_menu' ),       12  );
 		add_action( 'admin_menu', array( &$this, 'admin_menu_late' ),  999 );
 
-		add_action( 'wp_network_dashboard_setup', array( &$this, 'wp_dashboard_setup' ), 20 );
-		add_action( 'wp_user_dashboard_setup',    array( &$this, 'wp_dashboard_setup' ), 20 );
-		add_action( 'wp_dashboard_setup',         array( &$this, 'wp_dashboard_setup' ), 20 );
+		// add_action( 'wp_network_dashboard_setup', array( &$this, 'wp_dashboard_setup' ), 20 );
+		// add_action( 'wp_user_dashboard_setup',    array( &$this, 'wp_dashboard_setup' ), 20 );
+		// add_action( 'wp_dashboard_setup',         array( &$this, 'wp_dashboard_setup' ), 20 );
 
 		add_action( 'export_wp', array( &$this, 'export_wp' ) );
 
@@ -130,16 +130,10 @@ class gNetworkAdmin extends gNetworkModuleCore
 		);
 	}
 
-	// http://justintadlock.com/archives/2011/06/13/removing-menu-pages-from-the-wordpress-admin
 	public function admin_menu_late()
 	{
 		global $submenu;
 		$submenu['gnetwork'][0][0] = __( 'Overview', GNETWORK_TEXTDOMAIN );
-
-		if ( ! self::cuc( 'update_plugins' ) ) {
-			remove_menu_page( 'link-manager.php' );
-			remove_submenu_page( 'themes.php', 'theme-editor.php' );
-		}
 	}
 
 	public static function registerMenu( $sub, $title = null, $callback = false, $capability = 'manage_options' )
@@ -306,38 +300,6 @@ jQuery(document).ready(function($){$('textarea.wp-editor-areaXX, #excerpt, .text
 
 	public function wp_dashboard_setup()
 	{
-		$screen = get_current_screen();
-
-		// https://gist.github.com/chrisguitarguy/1377965
-		// Removes the "Right Now" widget that tells you post/comment counts and what theme you're using.
-		// remove_meta_box( 'dashboard_right_now', $screen, 'normal' );
-
-		// Removes the recent comments widget
-		// remove_meta_box( 'dashboard_recent_comments', $screen, 'normal' );
-
-		// Removes the incoming links widget.
-		// remove_meta_box( 'dashboard_incoming_links', $screen, 'normal' );
-
-		// Removes the plugins widgets that displays the most popular, newest, and recently updated plugins
-		remove_meta_box( 'dashboard_plugins', $screen, 'normal' );
-
-		// Removes the quick press widget that allows you post right from the dashboard
-		// remove_meta_box( 'dashboard_quick_press', $screen, 'side' );
-
-		// Removes the widget containing the list of recent drafts
-		// remove_meta_box( 'dashboard_recent_drafts', $screen, 'side' );
-
-		// Removes the "WordPress Blog" widget
-		remove_meta_box( 'dashboard_primary', $screen, 'side' );
-
-		// Removes the "Other WordPress News" widget
-		remove_meta_box( 'dashboard_secondary', $screen, 'side' );
-
-
-		// TODO : http://code.tutsplus.com/articles/quick-tip-customising-and-simplifying-the-wordpress-admin-for-your-clients--wp-28526
-
-		return;
-
 		// TODO : style this!!
 
 		if ( defined( 'GNETWORK_ADMIN_WIDGET_RSS' ) && constant( 'GNETWORK_ADMIN_WIDGET_RSS' ) ) {
