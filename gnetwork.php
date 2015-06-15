@@ -33,6 +33,8 @@ function gnetwork_init() {
 
 		'network'     => 'gNetworkNetwork',
 		'admin'       => 'gNetworkAdmin',
+		
+		'blog'        => 'gNetworkBlog',
 		'adminbar'    => 'gNetworkAdminBar',
 		'users'       => 'gNetworkUsers',
 
@@ -49,7 +51,6 @@ function gnetwork_init() {
 		'themes'      => 'gNetworkThemes',
 		'media'       => 'gNetworkMedia',
 
-		'redirect'    => 'gNetworkRedirect',
 		'login'       => 'gNetworkLogin',
 		'lockdown'    => 'gNetworkLockDown',
 		'blacklist'   => 'gNetworkBlackList',
