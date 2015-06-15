@@ -54,7 +54,7 @@ class gNetworkDebug extends gNetworkModuleCore
 					self::redirect_referer( 'transientpurged' );
 			}
 
-			// $this->update( $sub );
+			// $this->settings_update( $sub );
 			// $this->register_settings();
 			$this->register_button( 'purge_transient', __( 'Purge Expired Transient Data', GNETWORK_TEXTDOMAIN ) );
 			$this->register_button( 'purge_transient_all', __( 'Purge All Transient Data', GNETWORK_TEXTDOMAIN ) );

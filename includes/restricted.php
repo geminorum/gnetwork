@@ -70,7 +70,7 @@ class gNetworkRestricted extends gNetworkModuleCore
 	public function settings( $sub = null )
 	{
 		if ( 'restricted' == $sub ) {
-			$this->update( $sub );
+			$this->settings_update( $sub );
 			add_action( 'gnetwork_admin_settings_sub_restricted', array( & $this, 'settings_html' ), 10, 2 );
 			$this->register_settings();
 		}

@@ -210,7 +210,7 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 	public function settings( $sub = NULL )
 	{
 		if ( 'buddypress' == $sub ) {
-			$this->update( $sub );
+			$this->settings_update( $sub );
 			add_action( 'gnetwork_network_settings_sub_buddypress', array( &$this, 'settings_html' ), 10, 2 );
 			$this->register_settings();
 		}

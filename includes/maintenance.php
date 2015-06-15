@@ -41,7 +41,7 @@ class gNetworkMaintenance extends gNetworkModuleCore
 	public function settings( $sub = null )
 	{
 		if ( 'maintenance' == $sub ) {
-			$this->update( $sub );
+			$this->settings_update( $sub );
 			add_action( 'gnetwork_admin_settings_sub_maintenance', array( & $this, 'settings_html' ), 10, 2 );
 			$this->register_settings();
 		}

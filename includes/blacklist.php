@@ -70,7 +70,7 @@ class gNetworkBlackList extends gNetworkModuleCore
 	public function settings( $sub = null )
 	{
 		if ( 'blacklist' == $sub ) {
-			$this->update( $sub );
+			$this->settings_update( $sub );
 			add_action( 'gnetwork_network_settings_sub_blacklist', array( &$this, 'settings_html' ), 10, 2 );
 			$this->register_settings();
 		}
