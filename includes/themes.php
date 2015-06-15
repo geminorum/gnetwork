@@ -63,8 +63,16 @@ class gNetworkThemes extends gNetworkModuleCore
 						array(),
 						GNETWORK_VERSION );
 
+					wp_deregister_script( 'flexslider' );
+					wp_enqueue_script( 'flexslider',
+						GNETWORK_URL.'assets/js/jquery.flexslider-rtl-min.js',
+						array( 'jquery' ),
+						GNETWORK_VERSION,
+						FALSE );
+
 				}, 12 );
 			}
+
 		} else if ( $this->is( 'semicolon' ) ) { // v0.9
 			// HOME: https://kovshenin.com/themes/semicolon/
 			// DEMO: http://semicolon.kovshenin.com/
