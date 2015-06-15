@@ -2,6 +2,13 @@
 
 gNU::superAdminOnly();
 
+global $gNetworkOptionsNetwork, $gNetworkOptionsBlog;
+gNU::dump( $gNetworkOptionsNetwork );
+gNU::dump( $gNetworkOptionsBlog );
+
+gNU::dump( get_site_option( 'gnetwork_site', array() ) );
+gNU::dump( get_option( 'gnetwork_blog', array() ) );
+
 $text   = 'این یک متن فارسی است';
 $accent = 'كَتَبَ عَلىٰ نَفسِهِ الرَّحمَةَ';
 $name   = 'ارنست هِمینگ‌وی';
