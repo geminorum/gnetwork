@@ -1,0 +1,147 @@
+@charset "UTF-8";
+
+// TODO: must load via action, just for RTL
+@import url(http://fonts.googleapis.com/earlyaccess/droidarabicnaskh.css);
+
+$font-family-base: "Droid Arabic Naskh", Tahoma, "Iranian Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-family-head: Arial, "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+body.rtl {
+
+	direction:rtl;
+	font-family: $font-family-base;
+
+	h1, h2, h3, h4, h5, h6 {
+		font-weight: 700;
+		font-family: $font-family-head;
+	}
+
+	.search-expand,
+	.toggle-search {
+		right:auto;
+		left:0;
+	}
+
+
+
+
+	#header {
+		.pad {
+			padding-top: 10px;
+			padding-bottom: 5px;
+		}
+	}
+
+	.site-title {
+		float:right;
+		a {
+			img {
+				max-height: 95px;
+			}
+		}
+	}
+
+	.site-description {
+		float:right;
+		margin-right: 20px;
+		margin-left: 0px;
+		line-height: 95px;
+	}
+
+	.post-comments {
+	  right: auto;
+	  left: 0;
+		box-shadow: inset 1px 0 1px rgba(0,0,0,0.2);
+		&:hover {
+			padding-left: 4px;
+			padding-right: 0px;
+		}
+		& > span:before {
+		  border-right: 7px solid transparent;
+		  border-left: 7px solid #82b965;
+		  border-top: 7px solid transparent;
+		  border-bottom: 7px solid transparent;
+		  left:auto;
+		  right: -14px;
+		}
+
+		i {
+			margin-right: 0px;
+			margin-left: 3px;
+		}
+	}
+
+
+	.post-meta {
+		.post-category {
+		  float: right;
+		  margin-left: 6px;
+		  margin-right: 0px;
+		}
+		.post-date {
+			float: right;
+		}
+	}
+
+	.page-title {
+		.meta-single li {
+			float: right;
+			margin-left: 14px;
+			margin-right: 0px;
+		}
+
+		i {
+			margin-left: 8px;
+			margin-right: 0px;
+		}
+	}
+
+
+	.sidebar-top p {
+		float:right;
+	}
+
+	.widget > ul li:before,
+	.widget > ul li a:before,
+	.widget > div > ul li a:before,
+	.widget_calendar caption:before {
+	  margin-left: 6px;
+	  margin-right: 0px;
+	}
+
+
+
+	// .site-title	{
+	// 	font:bold 30px/35px $font-family-head;
+	// }
+	//
+	// .entry-title {
+	// 	font:bold 16.2px/21px $font-family-head;
+	// }
+	//
+	// .widget-area {
+	// 	.widget-title {
+	// 		font:bold 14.2px/18px $font-family-head;
+	// 	}
+	// }
+
+	.entry-content {
+		p {
+			font:normal 14.4px/25.2px $font-family-base;
+		}
+	}
+}
+
+@media only screen and (min-width: 720px) {
+	body.rtl {
+		.nav ul {
+			right:0;
+			left:auto;
+		}
+
+		.nav > li > a:after {
+		  margin-left: 0px;
+		  margin-right: 6px;
+		}
+	}
+}

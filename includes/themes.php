@@ -3,55 +3,82 @@
 class gNetworkThemes extends gNetworkModuleCore
 {
 
-	var $_network    = false;
+	var $_network    = FALSE;
 	var $_option_key = 'themes';
 
-	var $_rtl          = null;
-	var $_active_theme = null;
+	var $_rtl          = NULL;
+	var $_active_theme = NULL;
 
 	public function setup_actions()
 	{
 		add_filter( 'the_generator', '__return_null', 98 );
 
-		add_action( 'after_setup_theme', array( & $this, 'after_setup_theme' ) );
+		add_action( 'after_setup_theme', array( &$this, 'after_setup_theme' ) );
 
-		// NOT WORKING : when trying to enable
-		// add_filter( 'allowed_themes', array( & $this, 'allowed_themes' ) );
+		// NOT WORKING : when trying to enable each theme
+		// add_filter( 'allowed_themes', array( &$this, 'allowed_themes' ) );
 
-		add_action( 'wp_head', array( & $this, 'wp_head' ), 12 );
+		add_action( 'wp_head', array( &$this, 'wp_head' ), 12 );
 
 		if ( GNETWORK_BODY_CLASS )
-			add_filter( 'body_class', array( & $this, 'body_class' ), 5, 2 );
+			add_filter( 'body_class', array( &$this, 'body_class' ), 5, 2 );
 
-		add_action( 'bp_dtheme_credits', array( & $this, 'bp_dtheme_credits' ) );
+		add_action( 'bp_dtheme_credits', array( &$this, 'bp_dtheme_credits' ) );
 	}
 
 	public function after_setup_theme()
 	{
 		if ( $this->is( 'publish' ) ) {
 			// https://github.com/kovshenin/publish
+			// https://kovshenin.com/themes/publish/
+			// https://wordpress.org/themes/publish/
 
 			remove_action( 'publish_credits', 'publish_footer_credits' );
 			remove_filter( 'infinite_scroll_credit', 'publish_get_footer_credits' );
 
-			add_action( 'publish_credits', array( & $this, 'publish_credits' ) );
+			add_action( 'publish_credits', array( &$this, 'publish_credits' ) );
 			add_action( 'wp_enqueue_scripts', function(){
-				wp_enqueue_style( 'gnetwork-themes-publish', GNETWORK_URL.'assets/css/themes.publish.css', array(), GNETWORK_VERSION );
+
+				wp_enqueue_style( 'gnetwork-themes-publish',
+					GNETWORK_URL.'assets/css/themes.publish.css',
+					array(),
+					GNETWORK_VERSION );
+
 			}, 20 );
 
 			add_filter( 'mce_css', function( $url ){
 				return gNetworkThemes::appendMCECSS( $url, 'publish' );
 			} );
 
-		} else if ( $this->is( 'semicolon' ) ) { // v0.9
-			// HOME: https://kovshenin.com/themes/semicolon/
-			// DEMO: http://semicolon.kovshenin.com/
-			// REPO: http://wordpress.org/themes/semicolon
+		} else if ( $this->is( 'hueman' ) ) { // v2.2.3
+			// HOME: http://alxmedia.se/themes/hueman/
+			// DEMO: http://demo.alxmedia.se/hueman/
+			// REPO: https://github.com/AlxMedia/hueman
 
 			if ( is_rtl() ) {
 				add_action( 'wp_enqueue_scripts', function(){
+
+					wp_enqueue_style( 'gnetwork-themes-hueman',
+						GNETWORK_URL.'assets/css/themes.hueman-rtl.css',
+						array(),
+						GNETWORK_VERSION );
+
+				}, 12 );
+			}
+		} else if ( $this->is( 'semicolon' ) ) { // v0.9
+			// HOME: https://kovshenin.com/themes/semicolon/
+			// DEMO: http://semicolon.kovshenin.com/
+			// REPO: https://wordpress.org/themes/semicolon
+
+			if ( is_rtl() ) {
+				add_action( 'wp_enqueue_scripts', function(){
+
 					wp_deregister_style( 'semicolon' );
-					wp_enqueue_style( 'semicolon', GNETWORK_URL.'assets/css/themes.semicolon-rtl.css', array(), GNETWORK_VERSION );
+					wp_enqueue_style( 'semicolon',
+						GNETWORK_URL.'assets/css/themes.semicolon-rtl.css',
+						array(),
+						GNETWORK_VERSION );
+
 				}, 12 );
 			}
 
@@ -71,7 +98,7 @@ class gNetworkThemes extends gNetworkModuleCore
 
 		} else if ( $this->is( 'p2' ) ) {
 
-			add_filter( 'prologue_poweredby_link', array( & $this, 'prologue_poweredby_link' ) );
+			add_filter( 'prologue_poweredby_link', array( &$this, 'prologue_poweredby_link' ) );
 
 		} else if ( $this->is( 'easy-docs' ) ) {
 			// HOME: http://shakenandstirredweb.com/theme/easy-docs
@@ -83,7 +110,7 @@ class gNetworkThemes extends gNetworkModuleCore
 
 		} else if ( $this->is( 'twentytwelve' ) ) {
 
-			add_action( 'twentytwelve_credits', array( & $this, 'twentytwelve_credits' ) );
+			add_action( 'twentytwelve_credits', array( &$this, 'twentytwelve_credits' ) );
 		}
 	}
 
@@ -111,7 +138,7 @@ class gNetworkThemes extends gNetworkModuleCore
 
 		$allowed = array();
 			foreach ( wp_get_themes() as $theme )
-				$allowed[$theme->get_stylesheet()] = true;
+				$allowed[$theme->get_stylesheet()] = TRUE;
 
 		return $allowed;
 	}
@@ -124,7 +151,7 @@ class gNetworkThemes extends gNetworkModuleCore
 
 	public function publish_credits()
 	{
-		echo '<br />'.gnetwork_credits( is_rtl(), false );
+		echo '<br />'.gnetwork_credits( is_rtl(), FALSE );
 	}
 
 	public static function appendMCECSS( $url, $theme )
@@ -137,26 +164,22 @@ class gNetworkThemes extends gNetworkModuleCore
 		return $url.GNETWORK_URL.'assets/css/'.$file;
 	}
 
-	function prologue_poweredby_link( $html )
+	public function prologue_poweredby_link( $html )
 	{
 		return '<span class="alignleft"'.( is_rtl() ? 'style="direction:rtl !important;"' : 'style="padding-right:5px;"' ).'>'
-			.gnetwork_credits( is_rtl(), false ).'</span>';
+			.gnetwork_credits( is_rtl(), FALSE ).'</span>';
 	}
 
-	function twentytwelve_credits()
+	public function twentytwelve_credits()
 	{
 		echo '<style>#colophon .site-info > a {display:none;}</style><span style="display:block !important;">'
-			.gnetwork_credits( is_rtl(), false ).'</span>';
+			.gnetwork_credits( is_rtl(), FALSE ).'</span>';
 	}
 
-	function bp_dtheme_credits()
+	public function bp_dtheme_credits()
 	{
 		echo '<p style="font: 11px/12px Tahoma,Arial,Verdana,sans-serif;margin-bottom:0px;direction:rtl;">';
-		echo gnetwork_credits( is_rtl(), false );
+		echo gnetwork_credits( is_rtl(), FALSE );
 		echo '</p>';
 	}
-
 }
-
-// http://codex.wordpress.org/Right_to_Left_Language_Support
-// http://cssjanus.commoner.com/
