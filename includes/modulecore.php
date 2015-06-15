@@ -48,14 +48,24 @@ class gNetworkModuleCore
 
 	public function init_options()
 	{
-		$defaults = $this->default_options();
+		global $gNetworkOptionsNetwork, $gNetworkOptionsBlog;
+
+		if ( empty( $gNetworkOptionsNetwork ) )
+			$gNetworkOptionsNetwork = get_site_option( $this->_option_base.'_site', array() );
+
+		if ( empty( $gNetworkOptionsBlog ) )
+			$gNetworkOptionsBlog = get_option( $this->_option_base.'_blog', array() );
 
 		if ( $this->_network )
-			$options = get_site_option( $this->options_key(), $defaults );
+			$options = isset( $gNetworkOptionsNetwork[$this->_option_key] )
+				? $gNetworkOptionsNetwork[$this->_option_key]
+				: get_site_option( $this->options_key(), array() );
 		else
-			$options = get_option( $this->options_key(), $defaults );
+			$options = isset( $gNetworkOptionsBlog[$this->_option_key] )
+				? $gNetworkOptionsBlog[$this->_option_key]
+				: get_option( $this->options_key(), array() );
 
-		return $this->settings_sanitize( $options, $defaults );
+		return $this->settings_sanitize( $options, $this->default_options() );
 	}
 
 	public function settings_sanitize( $input, $defaults = NULL )
@@ -82,54 +92,37 @@ class gNetworkModuleCore
 		if ( is_null( $options ) )
 			$options = $this->options;
 
-		if ( $this->_network )
-			return update_site_option( $this->options_key(), $options );
-		else
-			return update_option( $this->options_key(), $options );
+		if ( $this->_network ) {
+
+			$gNetworkOptionsNetwork = get_site_option( $this->_option_base.'_site', array() );
+
+			if ( FALSE === $options )
+				unset( $gNetworkOptionsNetwork[$this->_option_key] );
+			else
+				$gNetworkOptionsNetwork[$this->_option_key] = $options;
+
+			return update_site_option( $this->_option_base.'_site', $gNetworkOptionsNetwork );
+
+		} else {
+
+			$gNetworkOptionsBlog = get_option( $this->_option_base.'_blog', array() );
+
+			if ( FALSE === $options )
+				unset( $gNetworkOptionsBlog[$this->_option_key] );
+			else
+				$gNetworkOptionsBlog[$this->_option_key] = $options;
+
+			return update_option( $this->_option_base.'_blog', $gNetworkOptionsBlog );
+		}
 	}
 
-	public function update_option( $name, $value )
+	public function delete_options()
 	{
-		$this->options[$name] = $value;
-
-		if ( $this->_network )
-			$options = get_site_option( $this->options_key(), FALSE );
-		else
-			$options = get_option( $this->options_key(), FALSE );
-
-		if ( $options === FALSE )
-			$options = array();
-
-		$options[$name] = $value;
-
-		if ( $this->_network )
-			return update_site_option( $this->options_key(), $options );
-		else
-			return update_option( $this->options_key(), $options );
+		return $this->update_options( FALSE );
 	}
 
-	public function delete_option( $name, $options_key = NULL )
-	{
-		if ( is_null( $options_key ) )
-			$options_key = $this->options_key();
-
-		if ( $this->_network )
-			$options = get_site_option( $options_key );
-		else
-			$options = get_option( $options_key );
-
-		if ( $options === FALSE )
-			$options = array();
-
-		unset( $this->options[$name], $options[$name] );
-
-		if ( $this->_network )
-			return update_site_option( $options_key, $options );
-		else
-			return update_option( $options_key, $options );
-	}
-
-	public function delete_options( $options_key = NULL )
+	// used to cleanup old options
+	public function delete_options_legacy( $options_key = NULL )
 	{
 		if ( is_null( $options_key ) )
 			$options_key = $this->options_key();
@@ -241,10 +234,8 @@ class gNetworkModuleCore
 
 	public function reset_settings( $options_key = NULL )
 	{
-		if ( is_null( $options_key ) )
-			$options_key = $this->options_key();
-
-		return $this->delete_options( $options_key );
+		$this->delete_options_legacy( $options_key );
+		return $this->update_options( FALSE );
 	}
 
 	// defult method
@@ -255,7 +246,9 @@ class gNetworkModuleCore
 			$options_key = $this->options_key();
 
 		if ( isset( $_POST[$options_key] ) && is_array( $_POST[$options_key] ) ) {
+
 			$options = $this->default_options();
+
 			foreach ( $options as $setting => $default ) {
 				if ( isset( $_POST[$options_key][$setting] ) ) {
 
@@ -269,8 +262,11 @@ class gNetworkModuleCore
 					}
 				}
 			}
+
+			$this->delete_options_legacy( $options_key );
 			return $this->update_options( $options );
 		}
+
 		return FALSE;
 	}
 
