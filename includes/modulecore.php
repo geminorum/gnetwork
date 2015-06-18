@@ -5,7 +5,7 @@ class gNetworkModuleCore
 
 	var $_network     = TRUE;       // using network wide options
 	var $_option_base = 'gnetwork';
-	var $_option_key  = '';
+	var $_option_key  = FALSE;
 	var $_options     = array();
 	var $_ajax        = FALSE;      // load if ajax
 	var $_dev         = NULL;       // load if dev

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hueman\n"
 "POT-Creation-Date: 2015-02-06 14:15+0100\n"
-"PO-Revision-Date: 2015-06-15 20:09+0330\n"
+"PO-Revision-Date: 2015-06-16 14:02+0330\n"
 "Last-Translator: \n"
 "Language-Team: geminorum <contact@geminorum.ir>\n"
 "MIME-Version: 1.0\n"
@@ -20,18 +20,20 @@ msgid ""
 "The page you are trying to reach does not exist, or has been moved. Please "
 "use the menus or the search box to find what you are looking for."
 msgstr ""
+"برگه مورد نظر شما پیدا نشد. ممکن است جابه‌جا یا حذف شده باشد. شاید بهتر "
+"باشد از منوها و یا جعبهٔ جست‌وجو استفاده کنید."
 
 #: ../comments.php:7
 msgid "No Responses"
-msgstr ""
+msgstr "بدون پاسخ"
 
 #: ../comments.php:7
 msgid "1 Response"
-msgstr ""
+msgstr "یک پاسخ"
 
 #: ../comments.php:7
 msgid "% Responses"
-msgstr ""
+msgstr "% پاسخ"
 
 #: ../comments.php:10
 msgid "Comments"
@@ -39,35 +41,35 @@ msgstr "دیدگاه‌ها"
 
 #: ../comments.php:11
 msgid "Pingbacks"
-msgstr ""
+msgstr "بازخوردها"
 
 #: ../footer.php:76
 msgid "All Rights Reserved."
-msgstr ""
+msgstr "تمامی حقوق محفوظ است."
 
 #: ../footer.php:82
 msgid "Powered by"
-msgstr ""
+msgstr "به نیروی"
 
 #: ../footer.php:82
 msgid "Theme by"
-msgstr ""
+msgstr "پوسته از"
 
 #: ../search.php:10
 msgid "For the term"
-msgstr ""
+msgstr "برای عبارت "
 
 #: ../search.php:12
 msgid "Please try another search:"
-msgstr ""
+msgstr "شاید عبارت دیگری کمک‌تان کند:"
 
 #: ../searchform.php:3
 msgid "To search type and hit enter"
-msgstr ""
+msgstr "عبارت مورد نظر خود را وارد کنید …"
 
 #: ../sidebar-2.php:5 ../sidebar.php:9
 msgid "Expand Sidebar"
-msgstr ""
+msgstr "نمایش ستون کناری"
 
 #: ../sidebar-2.php:11
 msgid "More"

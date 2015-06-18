@@ -1,3 +1,7 @@
+### 0.2.9
+* typography: correct slug for `[wiki]`
+* typography: hex entity number for asterisks in `[three-asterisks]`
+
 ### 0.2.8
 * modulecore: centralizing all options that results in fewer db queries
 * code: new gist embed shortcode: `[github-gist]` using [gist-embed](https://github.com/blairvanderhoof/gist-embed)

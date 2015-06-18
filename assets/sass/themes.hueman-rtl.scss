@@ -204,6 +204,53 @@ body.rtl {
 	.related-posts .related-inner {
 		padding: 0 0 0 20px;
 	}
+
+	.comment-tabs {
+		li {
+			float:right;
+			i {
+				margin-right: 0px;
+				margin-left: 6px;
+			}
+			span {
+				margin-left: 0px;
+				margin-right: 8px;
+			}
+		}
+	}
+
+	.commentlist {
+
+		li {
+			padding:0 60px 0 0;
+
+			li {
+				padding:0 48px 0 0;
+			}
+		}
+
+		.comment-author {
+			padding:0 0 0 6px;
+		}
+
+		.comment-author,
+		.comment-meta,
+		.comment-awaiting-moderation {
+			float:right;
+		}
+
+		.avatar {
+			left:auto;
+			right: -60px;
+		}
+	}
+
+	.pinglist {
+		li {
+			padding:0 60px 0 0;
+		}
+	}
+
 	#commentform {
 		p.comment-form-author {
 			float: right;
@@ -212,12 +259,19 @@ body.rtl {
 			float: left;
 		}
 	}
+
+
 	.themeform {
 		input[type="submit"],
 		button[type="submit"] {
 			padding: 6px 10px 4px;
 		}
 	}
+
+	.wp-pagenavi {
+		direction:ltr; // this is mad!!
+	}
+
 
 	// .site-title	{
 	// 	font:bold 30px/35px $font-family-head;

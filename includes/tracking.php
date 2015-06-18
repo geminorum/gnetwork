@@ -3,28 +3,28 @@
 class gNetworkTracking extends gNetworkModuleCore
 {
 
-	var $_network = true;
+	var $_network    = TRUE;
 	var $_option_key = 'tracking';
 
-	var $_ga_outbound = false;
-	var $_ignore = null;
+	var $_ga_outbound = FALSE;
+	var $_ignore      = NULL;
 
 	public function setup_actions()
 	{
 		gNetworkNetwork::registerMenu( 'tracking',
 			__( 'Tracking', GNETWORK_TEXTDOMAIN ),
-			array( & $this, 'settings' )
+			array( &$this, 'settings' )
 		);
 
-		add_action( 'wp_head',   array( & $this, 'wp_head'   ), 999 );
-		add_action( 'wp_footer', array( & $this, 'wp_footer' ), 9 );
+		add_action( 'wp_head',   array( &$this, 'wp_head'   ), 999 );
+		add_action( 'wp_footer', array( &$this, 'wp_footer' ), 9 );
 	}
 
 	public function settings( $sub = NULL )
 	{
 		if ( 'tracking' == $sub ) {
 			$this->settings_update( $sub );
-			add_action( 'gnetwork_network_settings_sub_tracking', array( & $this, 'settings_html' ), 10, 2 );
+			add_action( 'gnetwork_network_settings_sub_tracking', array( &$this, 'settings_html' ), 10, 2 );
 			$this->register_settings();
 		}
 	}
@@ -34,50 +34,46 @@ class gNetworkTracking extends gNetworkModuleCore
 		return array(
 			'_general' => array(
 				array(
-					'field' => 'ignore_user',
-					'type' => 'roles',
-					'title' => __( 'Ignore Users', GNETWORK_TEXTDOMAIN ),
-					'desc' => __( 'Selected and above will be ignored', GNETWORK_TEXTDOMAIN ),
+					'field'   => 'ignore_user',
+					'type'    => 'roles',
+					'title'   => __( 'Ignore Users', GNETWORK_TEXTDOMAIN ),
+					'desc'    => __( 'Selected and above will be ignored', GNETWORK_TEXTDOMAIN ),
 					'default' => 'edit_others_posts',
 				),
 				array(
-					'field' => 'ga_domain',
-					'type' => 'text',
-					'title' => __( 'GA Domain Name', GNETWORK_TEXTDOMAIN ),
-					'desc' => __( 'Enter your domain name: <code>example.com</code>', GNETWORK_TEXTDOMAIN ),
+					'field'   => 'ga_domain',
+					'type'    => 'text',
+					'title'   => __( 'GA Domain Name', GNETWORK_TEXTDOMAIN ),
+					'desc'    => __( 'Enter your domain name: <code>example.com</code>', GNETWORK_TEXTDOMAIN ),
 					'default' => '',
 				),
 				array(
-					'field' => 'ga_account',
-					'type' => 'text',
-					'title' => __( 'GA Account', GNETWORK_TEXTDOMAIN ),
-					'desc' => __( 'Enter your Google Analytics account number: <code>UA-XXXXX-X</code>', GNETWORK_TEXTDOMAIN ),
+					'field'   => 'ga_account',
+					'type'    => 'text',
+					'title'   => __( 'GA Account', GNETWORK_TEXTDOMAIN ),
+					'desc'    => __( 'Enter your Google Analytics account number: <code>UA-XXXXX-X</code>', GNETWORK_TEXTDOMAIN ),
 					'default' => '',
 				),
 				array(
-					'field' => 'ga_outbound',
-					'type' => 'enabled',
-					'title' => __( 'GA Track Outbounds', GNETWORK_TEXTDOMAIN ),
-					'desc' => __( 'Track outbound links in Google Analytics', GNETWORK_TEXTDOMAIN ),
+					'field'   => 'ga_outbound',
+					'type'    => 'enabled',
+					'title'   => __( 'GA Track Outbounds', GNETWORK_TEXTDOMAIN ),
+					'desc'    => __( 'Track outbound links in Google Analytics', GNETWORK_TEXTDOMAIN ),
 					'default' => '0',
 				),
 				array(
-					'field' => 'quantcast',
-					'type' => 'text',
-					'title' => __( 'Quantcast', GNETWORK_TEXTDOMAIN ),
-					'desc' => __( 'Enter your Quantcast account number: <code>x-XXXXXXXXXXXX-</code>', GNETWORK_TEXTDOMAIN ),
+					'field'   => 'quantcast',
+					'type'    => 'text',
+					'title'   => __( 'Quantcast', GNETWORK_TEXTDOMAIN ),
+					'desc'    => __( 'Enter your Quantcast account number: <code>x-XXXXXXXXXXXX-</code>', GNETWORK_TEXTDOMAIN ),
 					'default' => '',
 				),
 				array(
-					'field' => 'plus_publisher',
-					'type' => 'text',
-					'title' => __( 'GP Publisher ID', GNETWORK_TEXTDOMAIN ),
-					'desc' => __( 'Enter your Google+ publisher number: <code>XXXXXXXXXXXXXXXXXXXXX</code>', GNETWORK_TEXTDOMAIN ),
+					'field'   => 'plus_publisher',
+					'type'    => 'text',
+					'title'   => __( 'GP Publisher ID', GNETWORK_TEXTDOMAIN ),
+					'desc'    => __( 'Enter your Google+ publisher number: <code>XXXXXXXXXXXXXXXXXXXXX</code>', GNETWORK_TEXTDOMAIN ),
 					'default' => '',
-				),
-				array(
-					'field' => 'debug',
-					'type' => 'debug',
 				),
 			),
 		);
@@ -86,12 +82,12 @@ class gNetworkTracking extends gNetworkModuleCore
 	public function default_options()
 	{
 		return array(
-			'ga_account' => '',
-			'ga_domain' => '',
-			'ga_outbound' => '0',
-			'quantcast' => '',
+			'ga_account'     => '',
+			'ga_domain'      => '',
+			'ga_outbound'    => '0',
+			'quantcast'      => '',
 			'plus_publisher' => '',
-			'ignore_user' => 'edit_others_posts',
+			'ignore_user'    => 'edit_others_posts',
 		);
 	}
 
@@ -100,12 +96,12 @@ class gNetworkTracking extends gNetworkModuleCore
 		if ( ! is_null( $this->_ignore ) )
 			return $this->_ignore;
 
-		$this->_ignore = false;
+		$this->_ignore = FALSE;
 
 		if ( gNetworkUtilities::isDev() )
-			$this->_ignore = true;
+			$this->_ignore = TRUE;
 		else if ( self::cuc( $this->options['ignore_user'] ) )
-			$this->_ignore = true;
+			$this->_ignore = TRUE;
 
 		return $this->_ignore;
 	}
@@ -134,7 +130,7 @@ class gNetworkTracking extends gNetworkModuleCore
 </script> <?php
 
 		if ( $this->options['ga_outbound'] ) {
-			$this->_ga_outbound = true;
+			$this->_ga_outbound = TRUE;
 			wp_enqueue_script( 'jquery' );
 		}
 	}
@@ -182,8 +178,3 @@ qacct:"<?php echo $this->options['quantcast']; ?>"
 </noscript><?php
 	}
 }
-
-// http://www.sitepoint.com/upgrading-universal-analytics-guide/
-// http://digwp.com/2012/06/add-google-analytics-wordpress/
-// https://developers.google.com/analytics/devguides/collection/gajs/
-// https://developers.google.com/analytics/devguides/collection/gajs/asyncMigrationExamples
