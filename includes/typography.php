@@ -3,12 +3,12 @@
 class gNetworkTypography extends gNetworkModuleCore
 {
 
-	var $_network    = false;
-	var $_option_key = false;
+	var $_network    = FALSE;
+	var $_option_key = FALSE;
 
 	public function setup_actions()
 	{
-		add_action( 'init', array( & $this, 'init' ), 12 );
+		add_action( 'init', array( &$this, 'init' ), 12 );
 	}
 
 	public function init()
@@ -22,31 +22,47 @@ class gNetworkTypography extends gNetworkModuleCore
 		) );
 	}
 
-	public function shortcode_wiki( $atts, $content = null, $tag = '' )
+	public function shortcode_wiki( $atts, $content = NULL, $tag = '' )
 	{
-		if ( is_null( $content ) )
+		$args = shortcode_atts( array(
+			'slug'    => NULL,
+			'lang'    => NULL,
+			'context' => NULL,
+		), $atts, $tag );
+
+		if ( false === $args['context'] )
+			return null;
+
+		if ( $args['slug'] )
+			$slug = trim( $args['slug'] );
+		else if ( $content )
+			$slug = trim( $content );
+		else
 			return $content;
 
-		$content = trim( $content );
-
-		if ( 'wiki-fa' == $tag )
-			$local = 'fa.';
+		if ( $args['lang'] )
+			$lang = trim( $args['lang'] ).'.';
+		else if ( 'wiki-fa' == $tag )
+			$lang = 'fa.';
 		else if ( 'wiki-en' == $tag )
-			$local = 'en.';
+			$lang = 'en.';
 		else
-			$local = '';
+			$lang = '';
 
-		return '<a src="http://'.$local.'wikipedia.org/wiki/'.esc_url( $content ).'" class="gnetwork-wiki wikipedia">'.$content.'</a>';
+		$url = 'https://'.$lang.'wikipedia.org/wiki/'.urlencode( str_ireplace( ' ', '_', $slug ) );
+
+		return '<a href="'.esc_url( $url ).'" class="gnetwork-wiki wikipedia">'.$content.'</a>';
 	}
 
 	// http://writers.stackexchange.com/a/3304
 	// http://en.wikipedia.org/wiki/Asterisk
-	public function shortcode_three_asterisks( $atts, $content = null, $tag = '' )
+	public function shortcode_three_asterisks( $atts, $content = NULL, $tag = '' )
 	{
-		return '<div class="gnetwork-wrap-shortcode shortcode-three-asterisks three-asterisks">&#10059;&nbsp;&#10059;&nbsp;&#10059;</div>';
+		return '<div class="gnetwork-wrap-shortcode shortcode-three-asterisks three-asterisks">&#x274b;&nbsp;&#x274b;&nbsp;&#x274b;</div>';
 	}
 
-	public function shortcode_ltr( $atts, $content = null, $tag = '' )
+	// FIXME: use entittie in tel short code
+	public function shortcode_ltr( $atts, $content = NULL, $tag = '' )
 	{
 		if ( is_null( $content ) )
 			return $content;
@@ -54,10 +70,3 @@ class gNetworkTypography extends gNetworkModuleCore
 		return '<span class="ltr" dir="ltr">'.$content.'</span>';
 	}
 }
-
-// http://en.wikipedia.org/wiki/Quotation_mark
-// http://en.wikipedia.org/wiki/Guillemet
-// http://en.wikipedia.org/wiki/Book:Typographical_symbols
-// http://dictionary.reference.com/help/faq/language/g61.html
-
-// https://wordpress.org/plugins/wp-typography/
