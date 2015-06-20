@@ -2,9 +2,9 @@
 
 gNU::superAdminOnly();
 
-global $gNetworkOptionsNetwork, $gNetworkOptionsBlog;
-gNU::dump( $gNetworkOptionsNetwork );
-gNU::dump( $gNetworkOptionsBlog );
+global $gnetworkOptionsNetwork, $gnetworkOptionsBlog;
+gNU::dump( $gnetworkOptionsNetwork );
+gNU::dump( $gnetworkOptionsBlog );
 
 gNU::dump( get_site_option( 'gnetwork_site', array() ) );
 gNU::dump( get_option( 'gnetwork_blog', array() ) );

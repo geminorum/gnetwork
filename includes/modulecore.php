@@ -14,7 +14,7 @@ class gNetworkModuleCore
 	{
 		if ( ( ! $this->_ajax && self::isAJAX() )
 			|| ( defined( 'WP_INSTALLING' ) && constant( 'WP_INSTALLING' ) ) )
-			return;
+				return;
 
 		if ( ! is_null( $this->_dev ) ) {
 			if ( FALSE === $this->_dev && gNetworkUtilities::isDev() )
@@ -48,22 +48,25 @@ class gNetworkModuleCore
 
 	public function init_options()
 	{
-		global $gNetworkOptionsNetwork, $gNetworkOptionsBlog;
+		$network = $this->_option_base.'OptionsNetwork';
+		$blog    = $this->_option_base.'OptionsBlog';
 
-		if ( empty( $gNetworkOptionsNetwork ) )
-			$gNetworkOptionsNetwork = get_site_option( $this->_option_base.'_site', array() );
+		global ${$network}, ${$blog};
 
-		if ( empty( $gNetworkOptionsBlog ) )
-			$gNetworkOptionsBlog = get_option( $this->_option_base.'_blog', array() );
+		if ( empty( ${$network} ) )
+			${$network} = get_site_option( $this->_option_base.'_site', array() );
+
+		if ( empty( ${$blog} ) )
+			${$blog} = get_option( $this->_option_base.'_blog', array() );
 
 		if ( $this->_network )
-			$options = isset( $gNetworkOptionsNetwork[$this->_option_key] )
-				? $gNetworkOptionsNetwork[$this->_option_key]
-				: get_site_option( $this->options_key(), array() ); // MUST DROP ON 0.3.0
+			$options = isset( ${$network}[$this->_option_key] )
+				? ${$network}[$this->_option_key]
+				: get_site_option( $this->options_key(), array() ); // MUST DROP ON v0.3.0
 		else
-			$options = isset( $gNetworkOptionsBlog[$this->_option_key] )
-				? $gNetworkOptionsBlog[$this->_option_key]
-				: get_option( $this->options_key(), array() ); // MUST DROP ON 0.3.0
+			$options = isset( ${$blog}[$this->_option_key] )
+				? ${$blog}[$this->_option_key]
+				: get_option( $this->options_key(), array() ); // MUST DROP ON v0.3.0
 
 		return $this->settings_sanitize( $options, $this->default_options() );
 	}
@@ -200,7 +203,8 @@ class gNetworkModuleCore
 
 			if ( isset( $_POST['reset'] ) ) {
 				$message = $this->reset_settings() ? 'resetting' : 'error';
-			} else { // TODO : check if submit button pressed!!
+
+			} else if ( isset( $_POST['submit'] ) ) {
 				$message = $this->save_settings() ? 'updated' : 'error';
 			}
 
