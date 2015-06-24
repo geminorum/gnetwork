@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the Development package.
 msgid ""
 msgstr ""
-"Project-Id-Version: BuddyPress 2.3.0\n"
+"Project-Id-Version: BuddyPress 2.3.2.1\n"
 "Report-Msgid-Bugs-To: https://buddypress.trac.wordpress.org\n"
-"POT-Creation-Date: 2015-06-03 20:43:01+00:00\n"
-"PO-Revision-Date: 2015-06-04 09:13+0330\n"
+"POT-Creation-Date: 2015-06-20 23:54+0330\n"
+"PO-Revision-Date: 2015-06-21 00:20+0330\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: geminorum <contact@geminorum.ir>\n"
 "Language: fa\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 1.7.6\n"
+"X-Generator: Poedit 1.8.1\n"
 "X-Poedit-KeywordsList: __;_e\n"
 
 #: bp-activity/bp-activity-actions.php:175
@@ -896,7 +896,7 @@ msgstr "جست‌وجو در سایت‌ها..."
 
 #: bp-blogs/bp-blogs-loader.php:160
 msgid "Sites <span class=\"%s\">%s</span>"
-msgstr ""
+msgstr "سایت‌ها <span class=\"%s\">%s</span>"
 
 #: bp-blogs/bp-blogs-loader.php:182 bp-blogs/bp-blogs-loader.php:233
 #: bp-blogs/bp-blogs-loader.php:261 bp-core/deprecated/2.1.php:111
@@ -7051,7 +7051,7 @@ msgstr "فعالیت در گسترهٔ سایت"
 #: bp-blogs/bp-blogs-loader.php:69
 msgctxt "component directory title"
 msgid "Sites"
-msgstr ""
+msgstr "سایت‌ها"
 
 #: bp-core/bp-core-filters.php:741
 msgctxt "component directory title"

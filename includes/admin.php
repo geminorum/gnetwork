@@ -261,7 +261,7 @@ class gNetworkAdmin extends gNetworkModuleCore
 
 	public function admin_footer( $empty )
 	{
-		echo '<script type="text/javascript" src="'.GNETWORK_URL.'assets/js/admin.all.js"></script>';
+		echo '<script type="text/javascript" src="'.GNETWORK_URL.'assets/js/admin.all.min.js?ver='.GNETWORK_VERSION.'"></script>';
 
 		if ( strpos( $_SERVER['REQUEST_URI'], 'page=gnetwork' )
 			|| strpos( $_SERVER['REQUEST_URI'], 'post.php' )

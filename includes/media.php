@@ -246,10 +246,8 @@ class gNetworkMedia extends gNetworkModuleCore
 
 	public function admin_enqueue_scripts( $hook )
 	{
-		if ( $hook !== 'upload.php' )
-			return;
-
-		wp_enqueue_script( 'gnetwork-media', GNETWORK_URL.'assets/js/admin.media.min.js', array( 'jquery' ), GNETWORK_VERSION, TRUE );
+		if ( $hook == 'upload.php' )
+			wp_enqueue_script( 'gnetwork-media', GNETWORK_URL.'assets/js/admin.media.min.js', array( 'jquery' ), GNETWORK_VERSION, TRUE );
 	}
 
 	public function media_row_actions( $actions, $post, $detached )
