@@ -108,7 +108,7 @@ class gNetworkModuleCore
 		if ( $this->_network )
 			return update_site_option( $this->_option_base.'_site', $saved );
 		else
-			return update_option( $this->_option_base.'_blog', $saved );
+			return update_option( $this->_option_base.'_blog', $saved, TRUE );
 
 	}
 
