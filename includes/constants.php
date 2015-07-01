@@ -23,6 +23,7 @@ defined( 'GNETWORK_NETWORK_EXTRAMENU' ) or define( 'GNETWORK_NETWORK_EXTRAMENU',
 defined( 'GNETWORK_NETWORK_EXTRAMENU_CAP' ) or define( 'GNETWORK_NETWORK_EXTRAMENU_CAP', 'edit_others_posts' ); // extra_menu capability
 defined( 'GNETWORK_LARGE_NETWORK_IS' ) or define( 'GNETWORK_LARGE_NETWORK_IS', false ); // set to large network value. default wp is 10000 / false to disable the filter
 defined( 'GNETWORK_SITE_USER_ID' ) or define( 'GNETWORK_SITE_USER_ID', false ); // set to default site user id / false fot disable
+defined( 'GNETWORK_SITE_USER_ROLE' ) or define( 'GNETWORK_SITE_USER_ROLE', 'editor' ); // default role for site user in new blog
 defined( 'GNETWORK_BODY_CLASS' ) or define( 'GNETWORK_BODY_CLASS', false ); // class for all blog's body html/ false fot disable
 defined( 'GNETWORK_DISABLE_BBQ' ) or define( 'GNETWORK_DISABLE_BBQ', false );
 defined( 'GNETWORK_DISABLE_RECAPTCHA' ) or define( 'GNETWORK_DISABLE_RECAPTCHA', false );

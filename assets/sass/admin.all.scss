@@ -23,16 +23,16 @@
 .gnetwork-tinymce-icon {
 
 	&:before {
-	    font-family: "dashicons";
+		font-family: "dashicons";
 		content: "\f159"; // DEFAULT
 	}
 
 	&.icon-gnetworkcite:before {
-        content: "\f473";
+		content: "\f473";
 	}
 
 	&.icon-gnetworkgpeople:before {
-        content: "\f307";
+		content: "\f307";
 	}
 
 	&.icon-gnetworkgemail:before {
@@ -57,24 +57,24 @@ input#gnetwork-tinymce-input-gnetworkcite-refurl {
 // DEPRECATED
 .gnetwork-wrap {
 
-    &.footer-wp-version {
-        //@extend .gnetwork-wrap; // NO NEED with &.class
-        cursor:pointer;
-    }
+	&.footer-wp-version {
+		//@extend .gnetwork-wrap; // NO NEED with &.class
+		cursor:pointer;
+	}
 
 }
 
 .gnetwork-sidenotification {
-    float:right;
-    line-height:29px;
-    font-size:23px;
-    font-weight:400;
-    padding:9px 0 4px 15px;
+	float:right;
+	line-height:29px;
+	font-size:23px;
+	font-weight:400;
+	padding:9px 0 4px 15px;
 
-    body.rtl & {
-        float:left;
-        padding:9px 15px 4px 0;
-    }
+	body.rtl & {
+		float:left;
+		padding:9px 15px 4px 0;
+	}
 }
 
 input#adduser-email,
@@ -88,38 +88,38 @@ input#email
 ///---RTL ADMIN ENHANCEMENTS----------------------------------------------------
 body.rtl {
 
-    input[type="search"]::-webkit-search-cancel-button {
-        -webkit-appearance:none; // hiding non RTL cancel button
-    }
+	input[type="search"]::-webkit-search-cancel-button {
+		-webkit-appearance:none; // hiding non RTL cancel button
+	}
 
 	input[type="checkbox"]:checked:before {
 		margin: -3px -3px 0 0;
 	}
 
-    #site-title {
-        font:bold 16px arial, sans-serif;
-    }
+	#site-title {
+		font:bold 16px arial, sans-serif;
+	}
 
-    .wrap {
-        h2 {
-            font:bold 24px arial, sans-serif !important;
-        }
-        h3 {
-            font:bold 16px arial, sans-serif !important;
-        }
-    }
+	.wrap {
+		h2 {
+			font:bold 24px arial, sans-serif !important;
+		}
+		h3 {
+			font:bold 16px arial, sans-serif !important;
+		}
+	}
 
-    .nav-tab {
-        font:bold 16px/24px arial, sans-serif !important;
-        padding-bottom:4px;
-    }
+	.nav-tab {
+		font:bold 16px/24px arial, sans-serif !important;
+		padding-bottom:4px;
+	}
 
 
-    &.debug-bar-maximized {
-        #querylist {
-            direction: ltr;
-        }
-    }
+	&.debug-bar-maximized {
+		#querylist {
+			direction: ltr;
+		}
+	}
 
 	#gnetwork-debugbar-panel {
 		direction: ltr !important;
@@ -129,15 +129,19 @@ body.rtl {
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-///---WORDPRESS EDIT PAGE-------------------------------------------------------
+///---WP LIST TABLE-------------------------------------------------------------
 
 .widefat {
 
 	// ID Column
 	th.column-gn_post_id {
-	    width: 45px;
-	    // width:2.4em;
-    }
+		width: 45px;
+		// width:2.4em;
+		body.rtl & {
+			text-align: left;
+		}
+	}
+
 	td.column-gn_post_id {
 		text-align: right;
 
@@ -145,13 +149,15 @@ body.rtl {
 			text-align: left;
 		}
 	}
-}
 
-.widefat td ul.cat-checklist {
-	height:auto !important;
-	max-height:12em !important;
-	label {
-		line-height:1.5 !important;
+	td {
+		ul.cat-checklist {
+			height:auto !important;
+			max-height:12em !important;
+			label {
+				line-height:1.5 !important;
+			}
+		}
 	}
 }
 
@@ -209,13 +215,13 @@ body.rtl #dashboard_right_now .inside .table td.b a { line-height:8px !important
 ////////////////////////////////////////////////////////////////////////////////
 ///---GENERAL FORM ENHANCEMENTS-------------------------------------------------
 .wrap {
-    input[type="text"]{
-        vertical-align:middle;
-    }
+	input[type="text"]{
+		vertical-align:middle;
+	}
 
-    input.small-text{
-        padding:5px 5px 4px;
-    }
+	input.small-text{
+		padding:5px 5px 4px;
+	}
 }
 /**----------------------------------------------------------------------**/
 table.helper-table th, table.helper-table td { padding:8px 10px; }
@@ -232,9 +238,9 @@ table.helper-table th.helper-column-post_id { width:12%; }
 .gnetwork-form input.big-text { width:56em; }
 .gnetwork-form tr td { vertical-align:top; }
 .gnetwork-form tr th .side-buttons {
-    // margin-top:0.8em;
-    line-height:1em;
-    text-align:right;
+	// margin-top:0.8em;
+	line-height:1em;
+	text-align:right;
 }
 .gnetwork-form tr th .side-buttons .button { display:block; }
 .gnetwork-form textarea { outline:none; }
@@ -303,9 +309,9 @@ table.media input.media-url-field { direction:ltr;}
 
 /**----------------------------------------------------**/
 textarea {
-    // 1width:100%;
-    resize:vertical;
-    transition:height 0.2s ease 0s;
+	// 1width:100%;
+	resize:vertical;
+	transition:height 0.2s ease 0s;
 }
 /**----------------------------------------------------**/
 
@@ -337,20 +343,20 @@ body.rtl.edit-php #the-list td.column-title p
 
 /**----------------------------------------------------**/
 body.rtl .media-frame .attachment-details > h3 {
-    // 1margin:0;
-    display:none;
-    }
+	// 1margin:0;
+	display:none;
+	}
 body.rtl .media-frame .attachment-info { margin-top:10px; margin-bottom:5px; padding-bottom:5px; }
 body.rtl .media-frame .attachment-display-settings > h3 {
-    // margin:0;
-    display:none;
-    }
+	// margin:0;
+	display:none;
+	}
 body.rtl .media-frame .compat-item {
-    // margin-right:-10px;
-    }
+	// margin-right:-10px;
+	}
 body.rtl .media-frame .attachment-display-settings {
-    // margin-right:-10px;
-    }
+	// margin-right:-10px;
+	}
 /**----------------------------------------------------**/
 table.users-network th.column-email { width:14%; }
 table.users-network th.column-registered { width:110px; }

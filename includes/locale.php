@@ -48,10 +48,10 @@ class gNetworkLocale extends gNetworkModuleCore
 	{
 		return array_merge( $new_options, array(
 			'timezone_string' => 'Asia/Tehran',
-			'date_format' => 'Y/n/d',
-			'time_format' => 'H:i',
-			'start_of_week' => 6,
-			'WPLANG' => 'fa_IR',
+			'date_format'     => 'Y/n/d',
+			'time_format'     => 'H:i',
+			'start_of_week'   => 6,
+			'WPLANG'          => 'fa_IR',
 		) );
 	}
 

@@ -23,7 +23,10 @@
 		font-weight:bold;
 	}
 
-	.quicklinks li .blavatar:before,
+	.quicklinks li .blavatar:before {
+		content: "\f319" !important;
+	}
+
 	#wp-admin-bar-wp-logo.menupop>.ab-item .ab-icon:before {
 		content: "\f319";
 	}
