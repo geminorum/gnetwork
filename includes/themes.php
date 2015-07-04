@@ -14,14 +14,11 @@ class gNetworkThemes extends gNetworkModuleCore
 		add_filter( 'the_generator', '__return_null', 98 );
 
 		add_action( 'after_setup_theme', array( &$this, 'after_setup_theme' ) );
+		add_action( 'wp_head', array( &$this, 'wp_head' ), 12 );
+		add_filter( 'body_class', array( &$this, 'body_class' ), 5, 2 );
 
 		// NOT WORKING : when trying to enable each theme
 		// add_filter( 'allowed_themes', array( &$this, 'allowed_themes' ) );
-
-		add_action( 'wp_head', array( &$this, 'wp_head' ), 12 );
-
-		if ( GNETWORK_BODY_CLASS )
-			add_filter( 'body_class', array( &$this, 'body_class' ), 5, 2 );
 
 		add_action( 'bp_dtheme_credits', array( &$this, 'bp_dtheme_credits' ) );
 	}
@@ -153,7 +150,11 @@ class gNetworkThemes extends gNetworkModuleCore
 
 	public function body_class( $classes, $class )
 	{
-		$classes[] = GNETWORK_BODY_CLASS;
+		if ( GNETWORK_BODY_CLASS )
+			$classes[] = GNETWORK_BODY_CLASS;
+			
+		$classes[] = 'locale-'.get_locale();
+		
 		return $classes;
 	}
 
