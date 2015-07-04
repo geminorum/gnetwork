@@ -1,6 +1,9 @@
 ### 0.2.9
 * typography: correct slug for `[wiki]`
 * typography: hex entity number for asterisks in `[three-asterisks]`
+* network: add user to blog upon creation
+* modulecore: add options to autoload
+* themes: locale as body class
 
 ### 0.2.8
 * modulecore: centralizing all options that results in fewer db queries
