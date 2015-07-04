@@ -125,7 +125,7 @@ class gNetworkNotify extends gNetworkModuleCore
 		if ( empty( $plaintext_pass ) && $this->options['disable_new_user'] )
 			return;
 
-		$blogname = $this->blogname;
+		$blogname = $this->blogname();
 		$user = get_userdata( $user_id );
 
 		if ( ! $this->options['disable_new_user_admin'] )
@@ -157,7 +157,7 @@ class gNetworkNotify extends gNetworkModuleCore
 			return;
 
 		$message = sprintf( __( 'Password Lost and Changed for user: %s' ), $user->user_login )."\r\n";
-		wp_mail( get_option( 'admin_email' ), sprintf(__('[%s] Password Lost/Changed' ), $this->blogname ), $message );
+		wp_mail( get_option( 'admin_email' ), sprintf(__('[%s] Password Lost/Changed' ), $this->blogname() ), $message );
 	}
 
 	// HELPER
