@@ -70,39 +70,44 @@ class gNetworkLocale extends gNetworkModuleCore
 
 	public function locale( $locale )
 	{
-		if ( ! is_admin() )
+		if( is_network_admin() )
+			return 'en_US';
+			
+		if ( is_admin() ) {
+			if ( GNETWORK_WPLANG_ADMIN )
+				return GNETWORK_WPLANG_ADMIN;
+		} else {
 			return $locale;
+		}
 
 		if ( 'en_US' == $locale )
 			return $locale;
-
-		if( is_network_admin() )
-			return 'en_US';
+			
 
 		$black_list = apply_filters( 'gnetwork_locale_blacklist', array(
-			'page' => 'rewrite-rules-inspector',
+			'page'      => 'rewrite-rules-inspector',
 			'post_type' => 'deprecated_log',
-			'page' => 'connection-types',
-			'page' => 'regenerate-thumbnails',
-			'page' => 'ThreeWP_Activity_Monitor',
-			'page' => 'wpsupercache',
-			'page' => 'backup-to-dropbox',
-			'page' => 'backup-to-dropbox-monitor',
-			'page' => 'redirection.php',
-			'page' => 'members-settings',
-			'page' => 'roles',
-			'page' => 'wp-dbmanager/wp-dbmanager.php',
-			'page' => 'ozh_yourls',
-			'page' => 'regenerate-thumbnails',
-			'page' => 'a8c_developer',
-			'page' => 'redirection.php',
-			'page' => 'bwp_gxs_stats', // BWP Google XML Sitemaps
-			'page' => 'bwp_gxs_generator', // BWP Google XML Sitemaps
-			'page' => 'bwp_gxs_google_news', // BWP Google XML Sitemaps
-			'page' => 'limit-login-attempts',
-			'page' => 'p3-profiler',
-			'page' => 'wp_aeh_errors',
-			'page' => 'msrtm-website.php', // Multisite Robots.txt Manager
+			'page'      => 'connection-types',
+			'page'      => 'regenerate-thumbnails',
+			'page'      => 'ThreeWP_Activity_Monitor',
+			'page'      => 'wpsupercache',
+			'page'      => 'backup-to-dropbox',
+			'page'      => 'backup-to-dropbox-monitor',
+			'page'      => 'redirection.php',
+			'page'      => 'members-settings',
+			'page'      => 'roles',
+			'page'      => 'wp-dbmanager/wp-dbmanager.php',
+			'page'      => 'ozh_yourls',
+			'page'      => 'regenerate-thumbnails',
+			'page'      => 'a8c_developer',
+			'page'      => 'redirection.php',
+			'page'      => 'bwp_gxs_stats', // BWP Google XML Sitemaps
+			'page'      => 'bwp_gxs_generator', // BWP Google XML Sitemaps
+			'page'      => 'bwp_gxs_google_news', // BWP Google XML Sitemaps
+			'page'      => 'limit-login-attempts',
+			'page'      => 'p3-profiler',
+			'page'      => 'wp_aeh_errors',
+			'page'      => 'msrtm-website.php', // Multisite Robots.txt Manager
 		) );
 
 		foreach( $black_list as $key => $val )
