@@ -3,22 +3,22 @@
 class gNetworkLocale extends gNetworkModuleCore
 {
 
-	var $_network    = true;
-	var $_option_key = false;
+	var $_network    = TRUE;
+	var $_option_key = FALSE;
 
 	var $loaded = array();
 
 	public function setup_actions()
 	{
-		add_filter( 'locale', array( & $this, 'locale' ), 1, 1 );
-		add_filter( 'core_version_check_locale', array( & $this, 'core_version_check_locale' ) );
+		add_filter( 'locale', array( &$this, 'locale' ), 1, 1 );
+		add_filter( 'core_version_check_locale', array( &$this, 'core_version_check_locale' ) );
 
 		if ( defined( 'GNETWORK_WPLANG' ) && 'fa_IR' == constant( 'GNETWORK_WPLANG' ) ) {
 			if ( is_multisite() ) {
-				add_filter( 'gnetwork_new_blog_options', array( & $this, 'gnetwork_new_blog_options' ) );
+				add_filter( 'gnetwork_new_blog_options', array( &$this, 'gnetwork_new_blog_options' ) );
 			}
-			if( ! is_network_admin() ) {
-				add_filter( 'load_textdomain_mofile', array( & $this, 'load_textdomain_mofile' ), 12, 2 );
+			if ( ! is_network_admin() ) {
+				add_filter( 'load_textdomain_mofile', array( &$this, 'load_textdomain_mofile' ), 12, 2 );
 			}
 		}
 	}
@@ -28,7 +28,7 @@ class gNetworkLocale extends gNetworkModuleCore
 		$locale = get_locale();
 		$this->loaded[$locale][$domain][] = $mofile;
 
-		$tailored = GNETWORK_DIR.DS.'locale'.DS.$domain.'-'.$locale.'.mo';
+		$tailored = GNETWORK_DIR.'locale'.DS.$domain.'-'.$locale.'.mo';
 		if ( is_readable( $tailored ) )
 			return $tailored;
 
@@ -41,9 +41,6 @@ class gNetworkLocale extends gNetworkModuleCore
 		gNetworkUtilities::dump( $gNetwork->locale->loaded );
 	}
 
-
-	// TODO:
-	// 	- add site user as editor
 	public function gnetwork_new_blog_options( $new_options )
 	{
 		return array_merge( $new_options, array(
@@ -51,15 +48,13 @@ class gNetworkLocale extends gNetworkModuleCore
 			'date_format'     => 'Y/n/d',
 			'time_format'     => 'H:i',
 			'start_of_week'   => 6,
-			'WPLANG'          => 'fa_IR',
+			'WPLANG'          => GNETWORK_WPLANG,
 		) );
 	}
 
 	public function core_version_check_locale( $locale )
 	{
-		if ( defined( 'GNETWORK_WPLANG' ) )
-			return constant( 'GNETWORK_WPLANG' );
-		return $locale;
+		return defined( 'GNETWORK_WPLANG' ) ? GNETWORK_WPLANG : $locale;
 	}
 
 	// http://wp-snippet.com/snippets/different-admin-and-theme-languages/
@@ -150,6 +145,4 @@ class gNetworkLocale extends gNetworkModuleCore
 		// return $locale;
 		//
 	}
-
-
 }
