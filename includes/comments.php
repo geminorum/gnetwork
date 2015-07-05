@@ -12,26 +12,32 @@ class gNetworkComments extends gNetworkModuleCore
 			__( 'Comments', GNETWORK_TEXTDOMAIN ),
 			array( &$this, 'settings' )
 		);
+		
+		if ( $this->options['disable_comments'] ) {
+			
+			// filter the list of email addresses to receive a comment notification.
+			add_filter( 'comment_notification_recipients', '__return_empty_array' );
+			
+			// notifies the moderator of the blog about a new comment that is awaiting approval.
+			add_filter( 'pre_option_moderation_notify', '__return_zero' ); 
+		}
 
-		//if ( isset( $_GET['action'] ) && $_GET['action'] == 'gnetworkdeletespams' )
-			//add_action( 'init', array( &$this, 'init_delete_spams' ) );
-
-		add_filter( 'comment_excerpt', array( &$this, 'comment_excerpt' ) );
+		if ( is_admin() && $this->options['admin_fullcomments'] )
+			add_filter( 'comment_excerpt', array( &$this, 'comment_excerpt' ) );
+			
 		add_filter( 'pre_comment_approved', array( &$this, 'pre_comment_approved' ), 99, 2 );
-
 		add_filter( 'add_comment_metadata', array( &$this, 'add_comment_metadata' ), 20, 3 );
 
-		//register_shutdown_function( array( &$this, 'delete_spam_comments' ) );
+		// register_shutdown_function( array( &$this, 'delete_spam_comments' ) );
 
-		/** WORKING BUT MAKE SURE THIS NESSECARY?!
-		// ORIGINALLY FROM : http://wordpress.org/plugins/really-simple-comment-validation/
-		add_action( 'comment_form', array( &$this, 'comment_form' ) );
-		add_action( 'pre_comment_approved', array( &$this, 'pre_comment_approved_nounce' ) );
-		add_action( 'explain_nonce_gnc-check_comments', array( &$this, 'explain_nonce' ) );
-		**/
+		// // WORKING BUT MAKE SURE THIS IS NESSECARY?!
+		// // ORIGINALLY FROM : http://wordpress.org/plugins/really-simple-comment-validation/
+		// add_action( 'comment_form', array( &$this, 'comment_form' ) );
+		// add_action( 'pre_comment_approved', array( &$this, 'pre_comment_approved_nounce' ) );
+		// add_action( 'explain_nonce_gnc-check_comments', array( &$this, 'explain_nonce' ) );
 	}
 
-	public function settings( $sub = null )
+	public function settings( $sub = NULL )
 	{
 		if ( 'comments' == $sub ) {
 
@@ -52,12 +58,13 @@ class gNetworkComments extends gNetworkModuleCore
 
 	public function settings_sidebox( $sub, $settings_uri )
 	{
-		echo 'TODO: total comments count';
+		$this->total_comments();
 	}
 
 	public function default_options()
 	{
 		return array(
+			'disable_comments'   => '1',
 			'admin_fullcomments' => ! GNETWORK_ADMIN_FULLCOMMENTS_DISABLED,
 		);
 	}
@@ -66,6 +73,17 @@ class gNetworkComments extends gNetworkModuleCore
 	{
 		return array(
 			'_general' => array(
+				array(
+					'field'   => 'disable_comments',
+					'type'    => 'enabled',
+					'title'   => __( 'Comment Notifications', GNETWORK_TEXTDOMAIN ),
+					'desc'    => __( 'Disable all core comment notifications', GNETWORK_TEXTDOMAIN ),
+					'default' => '1',
+					'values'  => array(
+						__( 'Enabled' , GNETWORK_TEXTDOMAIN ),
+						__( 'Disabled', GNETWORK_TEXTDOMAIN ),
+					),
+				),
 				array(
 					'field'   => 'admin_fullcomments',
 					'type'    => 'enabled',
@@ -77,19 +95,16 @@ class gNetworkComments extends gNetworkModuleCore
 		);
 	}
 
-	// http://scribu.net/wordpress/full-comments-on-dashboard
 	public function comment_excerpt( $excerpt )
 	{
-		//if ( ! is_admin() || GNETWORK_ADMIN_FULLCOMMENTS_DISABLED )
-		if ( ! is_admin() || ! $this->options['admin_fullcomments'] )
-			return $excerpt;
-
 		global $comment;
 
 		$content = wpautop( $comment->comment_content );
-		$content = substr( $content, 3, -5 );	// Remove first <p> and last </p>
-		$content = str_replace( '<p>', '<p style="display:block; margin:1em 0">', $content );
-		$content .= '</p>';
+		
+		// FIXME: disabled for testing
+		// $content = substr( $content, 3, -5 );	// Remove first <p> and last </p>
+		// $content = str_replace( '<p>', '<p style="display:block; margin:1em 0">', $content );
+		// $content .= '</p>';
 
 		return $content;
 	}
@@ -123,44 +138,15 @@ class gNetworkComments extends gNetworkModuleCore
 			'akismet_history',
 			'akismet_user',
 			'akismet_user_result',
-
-			//'akismet_error',
-			//'akismet_as_submitted',
-			//'akismet_pro_tip',
+			// 'akismet_error',
+			// 'akismet_as_submitted',
+			// 'akismet_pro_tip',
 		);
 
 		if( in_array( $meta_key, $to_filter ) )
-			return false;
+			return FALSE;
 
 		return $check;
-	}
-
-	// the admin-bar button moved to : gNetworkAdminBar
-	public function init_delete_spams()
-	{
-		if ( ! is_super_admin() )
-			return;
-
-
-		// if ( function_exists( 'current_user_can' )
-		// 	&& false == current_user_can( 'delete_others_posts' ) )
-		// 		return false;
-
-
-		if ( isset( $_GET['action'] )
-			&& $_GET['action'] == 'gnetworkdeletespams'
-			&& ( isset( $_GET['_wpnonce'] ) ? wp_verify_nonce( $_REQUEST['_wpnonce'], 'gnetwork-delete-spams' ) : false ) ) {
-
-				// $path = trailingslashit( get_supercache_dir() . preg_replace( '/:.*$/', '', $_GET['path'] ) );
-				// $files = get_all_supercache_filenames( $path );
-				// foreach( $files as $cache_file )
-				// 	prune_super_cache( $path . $cache_file, true );
-
-				$this->remove_spam_meta();
-
-				wp_redirect( preg_replace( '/[ <>\'\"\r\n\t\(\)]/', '', $_GET['path'] ) );
-				die();
-		}
 	}
 
 	// https://gist.github.com/boonebgorges/4714650
@@ -176,24 +162,23 @@ class gNetworkComments extends gNetworkModuleCore
 
 			// 4980
 			$next = (int) get_site_option( 'gnc_delete_next_blog' );
-			if ( empty( $next ) ) {
+			
+			if ( empty( $next ) )
 				$next = 1;
-			}
 
-			if ( $next > 4980 ) {
+			if ( $next > 4980 )
 				return;
-			}
 
 			switch_to_blog( $next );
 
-			$spams = $wpdb->get_col( "SELECT comment_id FROM {$wpdb->comments} WHERE comment_approved = 'spam' LIMIT 10"     );
+			$spams = $wpdb->get_col( "SELECT comment_id FROM {$wpdb->comments} WHERE comment_approved = 'spam' LIMIT 10" );
 
 			if ( empty( $spams ) ) {
 				$next++;
 				update_site_option( 'gnc_delete_next_blog', $next );
 			} else {
 				foreach ( $spams as $spam ) {
-					wp_delete_comment( $spam, true );
+					wp_delete_comment( $spam, TRUE );
 					$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->commentmeta} WHERE comment_id = %d", $spam ) );
 				}
 			}
@@ -203,15 +188,13 @@ class gNetworkComments extends gNetworkModuleCore
 			$wpdb->query( "OPTIMIZE TABLE {$wpdb->commentmeta}" );
 
 			restore_current_blog();
-
 			delete_site_option( 'gnc_delete_in_progress' );
-
 		}
 	}
 
 	public function comment_form()
 	{
-		wp_nonce_field( 'gnc-check_comments', '_gnc_nonce', false );
+		wp_nonce_field( 'gnc-check_comments', '_gnc_nonce', FALSE );
 	}
 
 	public function pre_comment_approved_nounce( $content )
@@ -228,14 +211,26 @@ class gNetworkComments extends gNetworkModuleCore
 	public function close_ping()
 	{
 		// http://www.wpbeginner.com/wp-tutorials/how-to-disable-trackbacks-and-pings-on-existing-wordpress-posts/
-		//UPDATE wp_posts SET ping_status='closed' WHERE post_status = 'publish' AND post_type = 'post';
-		//UPDATE wp_posts SET ping_status='closed' WHERE post_status = 'publish' AND post_type = 'page';
-
+		// UPDATE wp_posts SET ping_status='closed' WHERE post_status = 'publish' AND post_type = 'post';
+		// UPDATE wp_posts SET ping_status='closed' WHERE post_status = 'publish' AND post_type = 'page';
+	}
+	
+	// http://www.codecheese.com/2013/11/wordpress-get-total-comment-count/
+	public function total_comments( $post_id = 0 )
+	{
+		$comments = wp_count_comments( $post_id );
+		
+		$map = array(
+			'moderated'      => __( 'Comments in moderation: %s', GNETWORK_TEXTDOMAIN ),
+			'approved'       => __( 'Comments approved: %s', GNETWORK_TEXTDOMAIN ),
+			'spam'           => __( 'Comments in Spam: %s', GNETWORK_TEXTDOMAIN ),
+			'trash'          => __( 'Comments in Trash: %s', GNETWORK_TEXTDOMAIN ),
+			'total_comments' => __( 'Total Comments: %s', GNETWORK_TEXTDOMAIN ),
+		);
+			
+		echo '<ul>';
+		foreach( $map as $key => $string )
+			echo '<li>'.sprintf( $string, number_format_i18n( $comments->{$key} ) ).'</li>';
+		echo '</ul>';
 	}
 }
-
-// http://www.codecheese.com/2013/11/wordpress-get-total-comment-count/
-
-// https://wordpress.org/plugins/disable-comments/
-// https://github.com/solarissmoke/disable-comments
-// https://github.com/solarissmoke/disable-comments-mu
