@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: gNetwork 0.2.7\n"
+"Project-Id-Version: gNetwork 0.2.10\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2015-06-07 03:55+0330\n"
+"PO-Revision-Date: 2015-07-06 04:14+0330\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: geminorum <contact@geminorum.ir>\n"
 "Language: fa_IR\n"
@@ -60,7 +60,7 @@ msgstr ""
 msgid "Network deactivation: uninstalled on %s / %s sites."
 msgstr ""
 
-#: includes/admin.php:84 includes/admin.php:107 includes/admin.php:227
+#: includes/admin.php:84 includes/admin.php:107 includes/admin.php:221
 #: includes/network.php:69 includes/network.php:170
 msgid "gNetwork Extras"
 msgstr "شبکه"
@@ -68,7 +68,7 @@ msgstr "شبکه"
 #: includes/admin.php:85 includes/admin.php:108
 msgctxt "Admin Menu Title"
 msgid "Extras"
-msgstr ""
+msgstr "بیشتر"
 
 #: includes/admin.php:95 includes/network.php:82
 msgid "gNetwork Extras: %s"
@@ -83,46 +83,46 @@ msgstr "همهٔ تنظیمات"
 msgid "Active"
 msgstr "فعال"
 
-#: includes/admin.php:137 includes/admin.php:195 includes/network.php:91
+#: includes/admin.php:136 includes/admin.php:189 includes/network.php:91
 #: includes/network.php:143
 msgid "Overview"
 msgstr "در یک نگاه"
 
-#: includes/admin.php:202 includes/network.php:151
+#: includes/admin.php:196 includes/network.php:151
 msgid "Console"
 msgstr ""
 
-#: includes/admin.php:220 includes/network.php:163
+#: includes/admin.php:214 includes/network.php:163
 msgid "Resetting Settings."
 msgstr ""
 
-#: includes/admin.php:221 includes/network.php:164
+#: includes/admin.php:215 includes/network.php:164
 msgid "Settings updated."
 msgstr ""
 
-#: includes/admin.php:222 includes/network.php:165
+#: includes/admin.php:216 includes/network.php:165
 msgid "Error while saving settings."
 msgstr ""
 
-#: includes/admin.php:248 includes/utilities.php:476
+#: includes/admin.php:242 includes/utilities.php:476
 msgid "Cheatin&#8217; uh?"
 msgstr ""
 
-#: includes/admin.php:301
+#: includes/admin.php:295
 msgid "Version %s"
 msgstr ""
 
-#: includes/admin.php:345
+#: includes/admin.php:307
 msgctxt "admin dashboard widget title"
 msgid "Network Feed"
 msgstr ""
 
-#: includes/admin.php:387 includes/admin.php:389 includes/network.php:229
-#: includes/network.php:231
+#: includes/admin.php:349 includes/admin.php:351 includes/network.php:232
+#: includes/network.php:234
 msgid "ID"
 msgstr ""
 
-#: includes/adminbar.php:167 includes/debug.php:12 includes/modulecore.php:329
+#: includes/adminbar.php:167 includes/debug.php:12 includes/modulecore.php:322
 msgid "Debug"
 msgstr "دی‌باگ"
 
@@ -214,6 +214,19 @@ msgstr ""
 
 #: includes/blacklist.php:50 includes/lockdown.php:89
 msgid "Locked message on login page."
+msgstr ""
+
+#: includes/blog.php:12
+#, fuzzy
+msgid "General"
+msgstr "عمومی"
+
+#: includes/blog.php:43
+msgid "Blog Redirect to"
+msgstr ""
+
+#: includes/blog.php:44
+msgid "The site will redirect to this URL. Leave empty to disable."
 msgstr ""
 
 #: includes/buddypress.me.php:14
@@ -356,20 +369,20 @@ msgstr ""
 msgid "Change the default BuddyPress Avatar values"
 msgstr ""
 
-#: includes/buddypress.php:293
+#: includes/buddypress.php:297
 msgid "Please complete your profile: %s"
 msgstr ""
 
-#: includes/buddypress.php:327
+#: includes/buddypress.php:331
 msgctxt "BP ToS"
 msgid "Read full agreement"
 msgstr ""
 
-#: includes/buddypress.php:369
+#: includes/buddypress.php:373
 msgid "You're totally a spammer. Go somewhere else with your spammy ways."
 msgstr ""
 
-#: includes/buddypress.php:472
+#: includes/buddypress.php:476
 msgid "There was a problem when deleting. Please try again."
 msgstr "خطایی در هنگام پاک کردن رخ داد. لطفا دوباره تلاش کنید."
 
@@ -417,65 +430,103 @@ msgstr ""
 msgid "Comments"
 msgstr "دیدگاه‌ها"
 
-#: includes/comments.php:47
+#: includes/comments.php:53
 msgid "Purge Spam Comments"
 msgstr ""
 
-#: includes/comments.php:72
+#: includes/comments.php:79
+msgid "Comment Notifications"
+msgstr ""
+
+#: includes/comments.php:80
+msgid "Disable all core comment notifications"
+msgstr ""
+
+#: includes/comments.php:83 includes/modulecore.php:446 includes/notify.php:60
+#: includes/notify.php:71
+msgid "Enabled"
+msgstr ""
+
+#: includes/comments.php:84 includes/modulecore.php:441 includes/notify.php:61
+#: includes/notify.php:72
+msgid "Disabled"
+msgstr ""
+
+#: includes/comments.php:90
 msgctxt "Enable Full Comments On Dashboard"
 msgid "Full Comments"
 msgstr ""
 
-#: includes/comments.php:73
+#: includes/comments.php:91
 msgid "Full Comments On Dashboard"
 msgstr ""
 
-#: includes/comments.php:224
+#: includes/comments.php:207
 msgid "Your attempt to add this comment has failed."
 msgstr ""
 
-#: includes/debug.php:63
+#: includes/comments.php:224
+msgid "Comments in moderation: %s"
+msgstr ""
+
+#: includes/comments.php:225
+msgid "Comments approved: %s"
+msgstr ""
+
+#: includes/comments.php:226
+msgid "Comments in Spam: %s"
+msgstr ""
+
+#: includes/comments.php:227
+msgid "Comments in Trash: %s"
+msgstr ""
+
+#: includes/comments.php:228
+msgid "Total Comments: %s"
+msgstr ""
+
+#: includes/debug.php:59
 msgid "Purge Expired Transient Data"
 msgstr ""
 
-#: includes/debug.php:64
+#: includes/debug.php:60
 msgid "Purge All Transient Data"
 msgstr ""
 
-#: includes/debug.php:91
+#: includes/debug.php:82
 msgctxt "Debug Version Strings"
 msgid "WordPress"
 msgstr ""
 
-#: includes/debug.php:92
+#: includes/debug.php:83
 msgctxt "Debug Version Strings"
 msgid "WordPress DB revision"
 msgstr ""
 
-#: includes/debug.php:93
+#: includes/debug.php:84
 msgctxt "Debug Version Strings"
 msgid "TinyMCE"
 msgstr ""
 
-#: includes/debug.php:94
+#: includes/debug.php:85
 msgctxt "Debug Version Strings"
 msgid "Required PHP"
 msgstr ""
 
-#: includes/debug.php:95
+#: includes/debug.php:86
 msgctxt "Debug Version Strings"
 msgid "Required MySQL"
 msgstr ""
 
-#: includes/debug.php:171
+#: includes/debug.php:165
 msgid "Delete Cache"
 msgstr ""
 
-#: includes/debug.php:172
+#: includes/debug.php:166
 msgid "Delete cache of the current page"
 msgstr ""
 
-#: includes/debug.php:241
+#: includes/debug.php:246
 msgid "Please talk to the database using $wpdb"
 msgstr ""
 
@@ -783,54 +834,44 @@ msgstr ""
 msgid "The site is unavailable for scheduled maintenance."
 msgstr ""
 
-#: includes/media.php:281
+#: includes/media.php:279
 msgid "View Image URL"
 msgstr "نمایش نشانی تصویر"
 
-#: includes/media.php:289
+#: includes/media.php:287
 msgid "View Video URL"
 msgstr "نمایش نشانی ویدئو"
 
-#: includes/media.php:294
+#: includes/media.php:292
 msgid "View Data File URL"
 msgstr "نمایش نشانی پروندهٔ داده‌ها"
 
-#: includes/media.php:299
+#: includes/media.php:297
 msgid "View Spreadsheet URL"
 msgstr "نمایش نشانی پرونده اکسل"
 
-#: includes/media.php:306
+#: includes/media.php:304
 msgid "View Document URL"
 msgstr "نمایش نشانی پروندهٔ متنی"
 
-#: includes/media.php:310
+#: includes/media.php:308
 msgid "View HTML file URL"
 msgstr "نمایش نشانی پروندهٔ وب"
 
-#: includes/media.php:314
+#: includes/media.php:312
 msgid "View Item URL"
 msgstr "نمایش نشانی پرونده"
 
-#: includes/modulecore.php:176
+#: includes/modulecore.php:165
 msgid "Save Changes"
 msgstr "ذخیره تغییرات"
 
-#: includes/modulecore.php:177
+#: includes/modulecore.php:166
 msgid "Reset Settings"
 msgstr "بازنشانی تنظیمات اولیه"
 
-#: includes/modulecore.php:177 includes/users.php:107
+#: includes/modulecore.php:166 includes/users.php:107
 msgid "Are you sure? This operation can not be undone."
-msgstr ""
-
-#: includes/modulecore.php:448 includes/notify.php:59 includes/notify.php:81
-#: includes/notify.php:92
-msgid "Disabled"
-msgstr ""
-
-#: includes/modulecore.php:453 includes/notify.php:58 includes/notify.php:80
-#: includes/notify.php:91
-msgid "Enabled"
 msgstr ""
 
 #: includes/navigation.php:38
@@ -906,80 +947,72 @@ msgctxt "Network Menu Title"
 msgid "Extras"
 msgstr "بیشتر"
 
-#: includes/notify.php:13
+#: includes/notify.php:12
 msgid "Notify"
 msgstr ""
 
-#: includes/notify.php:54
-msgid "Comment Notifications"
-msgstr ""
-
-#: includes/notify.php:55
-msgid "Disable all core comment notifications"
-msgstr ""
-
-#: includes/notify.php:65
+#: includes/notify.php:45
 msgid "New Users"
 msgstr ""
 
-#: includes/notify.php:66
+#: includes/notify.php:46
 msgid "Email login credentials to a newly-registered user"
 msgstr ""
 
-#: includes/notify.php:69
+#: includes/notify.php:49
 msgid "All New Users"
 msgstr ""
 
-#: includes/notify.php:70
+#: includes/notify.php:50
 msgid "Credential Only"
 msgstr ""
 
-#: includes/notify.php:76
+#: includes/notify.php:56
 msgid "Admin Notify"
 msgstr ""
 
-#: includes/notify.php:77
+#: includes/notify.php:57
 msgid ""
 "Also, Email login credentials of a newly-registered user to the blog admin"
 msgstr ""
 
-#: includes/notify.php:87
+#: includes/notify.php:67
 msgid "Password Reset"
 msgstr ""
 
-#: includes/notify.php:88
+#: includes/notify.php:68
 msgid "Notify the blog admin of a user changing password"
 msgstr ""
 
-#: includes/notify.php:133
+#: includes/notify.php:111
 msgid "New user registration on your site %s:"
 msgstr ""
 
-#: includes/notify.php:134 includes/notify.php:140
+#: includes/notify.php:112 includes/notify.php:118
 msgid "Username: %s"
 msgstr ""
 
-#: includes/notify.php:135
+#: includes/notify.php:113
 msgid "E-mail: %s"
 msgstr ""
 
-#: includes/notify.php:137
+#: includes/notify.php:115
 msgid "[%s] New User Registration"
 msgstr ""
 
-#: includes/notify.php:141
+#: includes/notify.php:119
 msgid "Password: %s"
 msgstr ""
 
-#: includes/notify.php:144
+#: includes/notify.php:122
 msgid "[%s] Your username and password"
 msgstr ""
 
-#: includes/notify.php:159
+#: includes/notify.php:137
 msgid "Password Lost and Changed for user: %s"
 msgstr ""
 
-#: includes/notify.php:160
+#: includes/notify.php:138
 msgid "[%s] Password Lost/Changed"
 msgstr ""
 
@@ -1102,14 +1135,6 @@ msgstr ""
 
 #: includes/opensearch.php:222
 msgid "Your browser does not support the AddSearchProvider method!"
-msgstr ""
-
-#: includes/redirect.php:117
-msgid "Site Redirect to"
-msgstr ""
-
-#: includes/redirect.php:131
-msgid "The site will redirect to this URL. Leave empty to disable."
 msgstr ""
 
 #: includes/restricted.php:27 includes/restricted.php:105
@@ -1590,10 +1615,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Go"
 #~ msgstr "برو"
-
-#, fuzzy
-#~ msgid "General"
-#~ msgstr "عمومی"
 
 #~ msgid "Logged-In"
 #~ msgstr "وارد شده"
