@@ -3,43 +3,34 @@
 class gNetworkNotify extends gNetworkModuleCore
 {
 
+	var $_network    = TRUE;
 	var $_option_key = 'notify';
-	var $_network    = false;
-
 
 	public function setup_actions()
 	{
 		gNetworkNetwork::registerMenu( 'notify',
 			__( 'Notify', GNETWORK_TEXTDOMAIN ),
-			array( & $this, 'settings' )
+			array( &$this, 'settings' )
 		);
 
-		if ( $this->options['disable_comments'] )
-		{
-			add_filter( 'comment_notification_recipients', '__return_empty_array' ); // filter the list of email addresses to receive a comment notification.
-			add_filter( 'pre_option_moderation_notify', '__return_zero' ); // // notifies the moderator of the blog about a new comment that is awaiting approval.
-		}
-
-		add_filter( 'wpmu_welcome_notification', array( & $this, 'wpmu_welcome_notification' ), 10, 5 );
-		add_filter( 'auto_core_update_send_email', array( & $this, 'auto_core_update_send_email' ), 10, 4 );
+		add_filter( 'wpmu_welcome_notification', array( &$this, 'wpmu_welcome_notification' ), 10, 5 );
+		add_filter( 'auto_core_update_send_email', array( &$this, 'auto_core_update_send_email' ), 10, 4 );
 	}
 
 	public function settings( $sub = NULL )
 	{
 		if ( 'notify' == $sub ) {
 			$this->settings_update( $sub );
-			add_action( 'gnetwork_network_settings_sub_notify', array( & $this, 'settings_html' ), 10, 2 );
+			add_action( 'gnetwork_network_settings_sub_notify', array( &$this, 'settings_html' ), 10, 2 );
 			$this->register_settings();
-			//$this->register_settings_help();
 		}
 	}
 
 	public function default_options()
 	{
 		return array(
-			'disable_comments' => '1',
-			'disable_new_user' => '1',
-			'disable_new_user_admin' => '1',
+			'disable_new_user'        => '1',
+			'disable_new_user_admin'  => '1',
 			'disable_password_change' => '1',
 		);
 	}
@@ -48,17 +39,6 @@ class gNetworkNotify extends gNetworkModuleCore
 	{
 		return array(
 			'_general' => array(
-				array(
-					'field'   => 'disable_comments',
-					'type'    => 'enabled',
-					'title'   => __( 'Comment Notifications', GNETWORK_TEXTDOMAIN ),
-					'desc'    => __( 'Disable all core comment notifications', GNETWORK_TEXTDOMAIN ),
-					'default' => '1',
-					'values'  => array(
-						__( 'Enabled' , GNETWORK_TEXTDOMAIN ),
-						__( 'Disabled', GNETWORK_TEXTDOMAIN ),
-					),
-				),
 				array(
 					'field'   => 'disable_new_user',
 					'type'    => 'enabled',
@@ -92,10 +72,6 @@ class gNetworkNotify extends gNetworkModuleCore
 						__( 'Disabled', GNETWORK_TEXTDOMAIN ),
 					),
 				),
-				array(
-					'field' => 'debug',
-					'type'  => 'debug',
-				),
 			),
 		);
 	}
@@ -105,6 +81,7 @@ class gNetworkNotify extends gNetworkModuleCore
 	{
 		if ( is_super_admin( $user_id ) )
 			return FALSE;
+			
 		return $blog_id;
 	}
 
@@ -114,13 +91,14 @@ class gNetworkNotify extends gNetworkModuleCore
 	{
 		if( in_array( $type, array( 'fail', 'critical' ) ) )
 			return TRUE;
+			
 		return FALSE;
 	}
 
 	// pluggable core function
 	// Email login credentials to a newly-registered user.
-	// we removed notifying the admin
-	function wp_new_user_notification( $user_id, $plaintext_pass = '' )
+	// CHANGED: we removed notifying the admin
+	public function wp_new_user_notification( $user_id, $plaintext_pass = '' )
 	{
 		if ( empty( $plaintext_pass ) && $this->options['disable_new_user'] )
 			return;
@@ -169,7 +147,6 @@ class gNetworkNotify extends gNetworkModuleCore
 	}
 }
 
-
 if ( ! function_exists( 'wp_new_user_notification' ) ) :
 function wp_new_user_notification( $user_id, $plaintext_pass = '' ) {
 	global $gNetwork;
@@ -182,5 +159,3 @@ function wp_password_change_notification( &$user ) {
 	return $gNetwork->notify->wp_password_change_notification( $user );
 } endif;
 
-
-// http://www.paulund.co.uk/change-wordpress-emails
