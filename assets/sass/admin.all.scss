@@ -257,12 +257,11 @@ table.gnetwork-settings .table-block table {}
 table.gnetwork-settings .table-block table td { padding:5px 2px; }
 /**----------------------------------------------------------------------**/
 /**----------------------------------------------------------------------**/
+// JS TAB API: initially used in gImporter
 .gnetwork-tabs {}
 .gnetwork-tabs .nav-tab { }
 .gnetwork-tabs .nav-tab-content { display:none; }
 .gnetwork-tabs .nav-tab-content-active { display:block; }
-.gnetwork-settings-sidebox { width:24%; float:right; border:1px solid #ccc; border-radius:2px; padding:5px; margin:5px;  }
-body.rtl .gnetwork-settings-sidebox { float:left; }
 /**----------------------------------------------------------------------**/
 
 /**--gImporter-------------------------------------------------------------

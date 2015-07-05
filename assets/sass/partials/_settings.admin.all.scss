@@ -1,5 +1,4 @@
 
-
 .gnetwork-admin-settings-wrap {
 	@include mainwrap();
 
@@ -9,5 +8,35 @@
 
 	&.settings-admin {
 
+	}
+	
+	.gnetwork-form {
+
+		.settings-sidebox {
+			@include mainwrap();
+			
+			color: #666;
+			
+			width:25%; 
+			float:right; 
+			border-left:1px solid #ccc; 
+			padding:5px 0px 5px 15px; 
+			
+			@include body-rtl() {
+				float:left;
+				border-left:none; 
+				border-right:1px solid #ccc; 
+				padding:5px 15px 5px 0px;
+			}
+			
+			ul, ol {
+				margin: 0;
+			}
+		}
+		
+		.form-table {
+			width:75%;
+			clear:none;
+		}
 	}
 }

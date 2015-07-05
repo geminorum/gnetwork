@@ -135,12 +135,12 @@ class gNetworkModuleCore
 	// default setting sub html
 	public function settings_html( $settings_uri, $sub = 'general' )
 	{
-		echo '<form method="post" action="" class="gnetwork-form">';
+		echo '<form class="gnetwork-form" method="post" action="">';
 
 			settings_fields( $this->_option_base.'_'.$sub );
 
 			if ( method_exists( $this, 'settings_sidebox' ) ) {
-				echo '<div class="gnetwork-settings-sidebox gnetwork-settings-sidebox-'.$sub.'">';
+				echo '<div class="settings-sidebox settings-sidebox-'.$sub.'">';
 					$this->settings_sidebox( $sub, $settings_uri );
 				echo '</div>';
 			}
