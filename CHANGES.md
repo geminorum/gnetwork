@@ -1,3 +1,11 @@
+### 0.2.10
+* notify: fixed blogname method call
+* notify: fixed per blog settings
+* locale: `GNETWORK_WPLANG_ADMIN` to override admin language
+* comments: disable comments per blog
+* comments: blog comments report on settings
+* modulecore: settings sidebox styling
+
 ### 0.2.9
 * typography: correct slug for `[wiki]`
 * typography: hex entity number for asterisks in `[three-asterisks]`
