@@ -7,7 +7,6 @@ Set of tools to help you maintain your [WordPress](https://wordpress.org/) netwo
 [![Gratipay](http://img.shields.io/gratipay/geminorum.svg?style=flat)](https://gratipay.com/geminorum/)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg?style=flat)](https://gitter.im/geminorum/gnetwork?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-
 ## Included Modules
 See [wiki/Modules](https://github.com/geminorum/gnetwork/wiki/Modules).
 
