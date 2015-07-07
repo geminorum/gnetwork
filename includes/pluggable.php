@@ -10,7 +10,7 @@ if( ! function_exists( 'wp_hash_password' ) ):
 			require_once( ABSPATH.'wp-includes/class-phpass.php' );
 
 			// second arg: make password non-portable (eg. allow bcrypt)
-			$wp_hasher = new PasswordHash( 16, false );
+			$wp_hasher = new PasswordHash( 16, FALSE );
 		}
 
 		return $wp_hasher->HashPassword( $password );

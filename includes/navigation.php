@@ -3,23 +3,22 @@
 class gNetworkNavigation extends gNetworkModuleCore
 {
 
-	var $_option_key = false;
-	var $_network    = true;
+	var $_option_key = FALSE;
+	var $_network    = TRUE;
 
-	var $_restricted = false;   // restricted support
+	var $_restricted = FALSE;   // restricted support
 	var $_feeds      = array(); // restricted support
 
 	var $_general_pages   = array();
 	var $_loggedout_pages = array();
 	var $_loggedin_pages  = array();
 
-
-	public function setup_actions()
+	protected function setup_actions()
 	{
 		if ( is_admin() ) {
-			add_action( 'load-nav-menus.php', array( & $this, 'load_nav_menus_php' ) );
+			add_action( 'load-nav-menus.php', array( &$this, 'load_nav_menus_php' ) );
 		} else {
-			add_filter( 'wp_setup_nav_menu_item', array( & $this, 'wp_setup_nav_menu_item' ) );
+			add_filter( 'wp_setup_nav_menu_item', array( &$this, 'wp_setup_nav_menu_item' ) );
 		}
 	}
 
@@ -28,7 +27,7 @@ class gNetworkNavigation extends gNetworkModuleCore
 		// restricted support
 		if ( class_exists( 'gNetworkRestricted' ) ) {
 			$this->_restricted = gNetworkRestricted::is();
-			$this->_feeds      = gNetworkRestricted::getFeeds( false, $this->_restricted );
+			$this->_feeds      = gNetworkRestricted::getFeeds( FALSE, $this->_restricted );
 		}
 	}
 
@@ -36,12 +35,12 @@ class gNetworkNavigation extends gNetworkModuleCore
 	{
 		add_meta_box( 'add-gnetwork-nav-menu',
 			__( 'Network', GNETWORK_TEXTDOMAIN ),
-			array( & $this, 'nav_menu_meta_box' ),
+			array( &$this, 'nav_menu_meta_box' ),
 			'nav-menus',
 			'side',
 			'default' );
 
-		add_action( 'admin_print_footer_scripts', array( & $this, 'admin_print_footer_scripts' ) );
+		add_action( 'admin_print_footer_scripts', array( &$this, 'admin_print_footer_scripts' ) );
 	}
 
 	// Build and populate the accordion on Appearance > Menus.
@@ -50,7 +49,7 @@ class gNetworkNavigation extends gNetworkModuleCore
 		global $nav_menu_selected_id;
 
 		$post_type_name = 'gnetworknav';
-		$args = array( 'walker' => new gNetwork_Walker_Nav_Menu_Checklist( false ) );
+		$args = array( 'walker' => new gNetwork_Walker_Nav_Menu_Checklist( FALSE ) );
 
 		$tabs = array(
 			'general' => array(
@@ -104,7 +103,7 @@ class gNetworkNavigation extends gNetworkModuleCore
 				settings.find( '.field-url' ).css( 'display', 'none' );
 			}
 		});
-		</script> <?php
+		</script><?php
 	}
 
 	public function get_general_pages()
@@ -252,10 +251,10 @@ class gNetworkNavigation extends gNetworkModuleCore
 		switch ( $matches[1] ) {
 			case 'login' :
 				if ( is_user_logged_in() ) {
-					$menu_item->_invalid = true;
-					//__donot_cache_page();
+					$menu_item->_invalid = TRUE;
+					// __donot_cache_page();
 				} else {
-					//$menu_item->url = wp_login_url( wp_guess_url() );
+					// $menu_item->url = wp_login_url( wp_guess_url() );
 					$menu_item->url = wp_login_url();
 				}
 
@@ -263,10 +262,10 @@ class gNetworkNavigation extends gNetworkModuleCore
 
 			case 'logout' :
 				if ( ! is_user_logged_in() ) {
-					$menu_item->_invalid = true;
+					$menu_item->_invalid = TRUE;
 				} else {
-					//__donot_cache_page();
-					//$menu_item->url = wp_logout_url( wp_guess_url() );
+					// __donot_cache_page();
+					// $menu_item->url = wp_logout_url( wp_guess_url() );
 					$menu_item->url = apply_filters( 'gnetwork_navigation_logout_url', wp_logout_url() );
 				}
 
@@ -274,17 +273,17 @@ class gNetworkNavigation extends gNetworkModuleCore
 
 			case 'register' :
 				if ( is_user_logged_in() ) { // Don't show the Register link to logged-in users
-					$menu_item->_invalid = true;
-					//__donot_cache_page();
+					$menu_item->_invalid = TRUE;
+					// __donot_cache_page();
 				}
 			break;
 
 			case 'edit_profile' :
 				if ( is_user_logged_in() ) {
-					//__donot_cache_page();
+					// __donot_cache_page();
 					$menu_item->url = get_edit_profile_url( get_current_user_id() );
 				} else {
-					$menu_item->_invalid = true;
+					$menu_item->_invalid = TRUE;
 				}
 			break;
 
@@ -304,10 +303,10 @@ class gNetworkNavigation extends gNetworkModuleCore
 			// and so are not relevant to logged-out users
 			default:
 				if ( is_user_logged_in() ) {
-					//__donot_cache_page();
+					// __donot_cache_page();
 					$menu_item->url = $this->get_item_url( $matches[1] );
 				} else {
-					$menu_item->_invalid = true;
+					$menu_item->_invalid = TRUE;
 				}
 
 				break;
@@ -315,12 +314,12 @@ class gNetworkNavigation extends gNetworkModuleCore
 
 		// If component is deactivated, make sure menu item doesn't render
 		if ( empty( $menu_item->url ) ) {
-			$menu_item->_invalid = true;
+			$menu_item->_invalid = TRUE;
 
 		// Highlight the current page
 		} else {
 			// $current = bp_get_requested_url();
-			// if ( strpos( $current, $menu_item->url ) !== false ) {
+			// if ( strpos( $current, $menu_item->url ) !== FALSE ) {
 			// 	$menu_item->classes[] = 'current_page_item';
 			// }
 		}
@@ -332,11 +331,10 @@ class gNetworkNavigation extends gNetworkModuleCore
 class gNetwork_Walker_Nav_Menu_Checklist extends Walker_Nav_Menu
 {
 
-	public function __construct( $fields = false )
+	public function __construct( $fields = FALSE )
 	{
-		if ( $fields ) {
+		if ( $fields )
 			$this->db_fields = $fields;
-		}
 	}
 
 	public function start_lvl( &$output, $depth = 0, $args = array() )
@@ -351,7 +349,7 @@ class gNetwork_Walker_Nav_Menu_Checklist extends Walker_Nav_Menu
 		$output .= "\n$indent</ul>";
 	}
 
-	function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 )
+	public function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 )
 	{
 		global $_nav_menu_placeholder;
 

@@ -1,51 +1,59 @@
 <?php defined( 'ABSPATH' ) or die( 'Restricted access' );
 
-defined( 'GNETWORK_TEXTDOMAIN' ) or define( 'GNETWORK_TEXTDOMAIN', 'gnetwork' );
-defined( 'GNETWORK_BASE' ) or define( 'GNETWORK_BASE', network_home_url() );
-defined( 'GNETWORK_NAME' ) or define( 'GNETWORK_NAME', ( is_multisite() ? get_site_option( 'site_name' ) : get_option( 'blogname' ) ) );
-defined( 'GNETWORK_WPLANG' ) or define( 'GNETWORK_WPLANG', 'en_US' );
-defined( 'GNETWORK_WPLANG_ADMIN' ) or define( 'GNETWORK_WPLANG_ADMIN', FALSE );
-defined( 'GNETWORK_GETFLASHPLAYER_URL' ) or define( 'GNETWORK_GETFLASHPLAYER_URL', 'http://get.adobe.com/flashplayer/' );
-defined( 'GNETWORK_SEARCH_URL' ) or define( 'GNETWORK_SEARCH_URL', esc_url( home_url( '/' ) ) );
-defined( 'GNETWORK_SEARCH_QUERYID' ) or define( 'GNETWORK_SEARCH_QUERYID', 's' );
-defined( 'GNETWORK_SEARCH_REDIRECT' ) or define( 'GNETWORK_SEARCH_REDIRECT', FALSE ); // set TRUE to redirect all searches to the network search url
-defined( 'GNETWORK_BP_EXCLUDEUSERS' ) or define( 'GNETWORK_BP_EXCLUDEUSERS', '1' ); //comma separated ids of users whom you want to exclude
-defined( 'GNETWORK_ADMINBAR' ) or define( 'GNETWORK_ADMINBAR', TRUE ); // disable admin bar for non caps / use cap like : 'edit_others_posts'
-defined( 'GNETWORK_ADMIN_JS_ENHANCEMENTS' ) or define( 'GNETWORK_ADMIN_JS_ENHANCEMENTS', TRUE ); // autoresize textarea and more...
-defined( 'GNETWORK_ADMIN_WIDGET_RSS' ) or define( 'GNETWORK_ADMIN_WIDGET_RSS', FALSE ); //comma separated urls of feeds to display on an admin widget
-defined( 'GNETWORK_ADMIN_COLUMN_ID' ) or define( 'GNETWORK_ADMIN_COLUMN_ID', WP_DEBUG_DISPLAY ); // set to 1 for before title, set TRUE for last
-defined( 'GNETWORK_ADMIN_COLOUR' ) or define( 'GNETWORK_ADMIN_COLOUR', FALSE ); // set default admin colour theme like : 'blue', FALSE to disable.
-defined( 'GNETWORK_ADMIN_FULLCOMMENTS_DISABLED' ) or define( 'GNETWORK_ADMIN_FULLCOMMENTS_DISABLED', FALSE ); // disable full commnet excerpt on admin dashboard widget
-defined( 'GNETWORK_GOOGLE_GROUP_ID' ) or define( 'GNETWORK_GOOGLE_GROUP_ID', FALSE );
-defined( 'GNETWORK_GOOGLE_GROUP_HL' ) or define( 'GNETWORK_GOOGLE_GROUP_HL', 'en' ); // language
-defined( 'GNETWORK_REPORTBUG_URL' ) or define( 'GNETWORK_REPORTBUG_URL', FALSE ); // url with %s for current page url : 'blog.salamzaban.com/bug-report?on=%s'
-defined( 'GNETWORK_NETWORK_ADMINBAR' ) or define( 'GNETWORK_NETWORK_ADMINBAR', 'network_adminbar' ); // name of the menu on the main blog of the network that will be used for network admin bar
-defined( 'GNETWORK_NETWORK_EXTRAMENU' ) or define( 'GNETWORK_NETWORK_EXTRAMENU', 'network_extramenu' ); // name of the menu on the main blog of the network that will be used for network admin bar
-defined( 'GNETWORK_NETWORK_EXTRAMENU_CAP' ) or define( 'GNETWORK_NETWORK_EXTRAMENU_CAP', 'edit_others_posts' ); // extra_menu capability
-defined( 'GNETWORK_LARGE_NETWORK_IS' ) or define( 'GNETWORK_LARGE_NETWORK_IS', FALSE ); // set to large network value. default wp is 10000 / FALSE to disable the filter
-defined( 'GNETWORK_SITE_USER_ID' ) or define( 'GNETWORK_SITE_USER_ID', FALSE ); // set to default site user id / FALSE fot disable
-defined( 'GNETWORK_SITE_USER_ROLE' ) or define( 'GNETWORK_SITE_USER_ROLE', 'editor' ); // default role for site user in new blog
-defined( 'GNETWORK_BODY_CLASS' ) or define( 'GNETWORK_BODY_CLASS', FALSE ); // class for all blog's body html/ FALSE fot disable
-defined( 'GNETWORK_DISABLE_BBQ' ) or define( 'GNETWORK_DISABLE_BBQ', FALSE );
-defined( 'GNETWORK_DISABLE_RECAPTCHA' ) or define( 'GNETWORK_DISABLE_RECAPTCHA', FALSE );
-// defined( 'GNETWORK_DISABLE_FRONT_STYLES' ) or define( 'GNETWORK_DISABLE_FRONT_STYLES', FALSE ); // cannot set this early!
-// defined( 'GNETWORK_DISABLE_REFLIST_JS' ) or define( 'GNETWORK_DISABLE_REFLIST_JS', FALSE ); // do not include reflist shortcode js // cannot set this early!
-// defined( 'GNETWORK_DISABLE_REFLIST_INSERT' ) or define( 'GNETWORK_DISABLE_REFLIST_INSERT', FALSE ); // do not include reflist shortcode after content  // cannot set this early!
-defined( 'GNETWORK_REDIRECT_MAP' ) or define( 'GNETWORK_REDIRECT_MAP', FALSE );
-// defined( 'GNETWORK_REDIRECT_FORMAT' ) or define( 'GNETWORK_REDIRECT_FORMAT', '%1$s' );
-defined( 'GNETWORK_AJAX_ENDPOINT' ) or define( 'GNETWORK_AJAX_ENDPOINT',  admin_url( 'admin-ajax.php' ) ); // if you want to use .ataccess to rewrite
-defined( 'GNETWORK_MEDIA_SEPERATION' ) or define( 'GNETWORK_MEDIA_SEPERATION', FALSE ); // if you want to seperate generated files from originals!!
-defined( 'GNETWORK_MEDIA_SIZES_DIR' ) or define( 'GNETWORK_MEDIA_SIZES_DIR', WP_CONTENT_DIR.DS.'thumbs' );
-defined( 'GNETWORK_MEDIA_SIZES_URL' ) or define( 'GNETWORK_MEDIA_SIZES_URL', WP_CONTENT_URL.'/thumbs' );
-// defined( 'GNETWORK_MEDIA_SIZES_REL' ) or define( 'GNETWORK_MEDIA_SIZES_REL', '../thumbs' ); // relate path to deffault uploads folder
-defined( 'GNETWORK_MEDIA_SIZES_CHECK' ) or define( 'GNETWORK_MEDIA_SIZES_CHECK', TRUE ); // check default wp dir before thumbs / make it disable for newly created sites
-defined( 'GNETWORK_MEDIA_OBJECT_SIZES' ) or define( 'GNETWORK_MEDIA_OBJECT_SIZES', FALSE ); // disable all image sizes and enable for each posttypes
+$gnetwork_constants = array(
+	
+	'GNETWORK_TEXTDOMAIN'            => 'gnetwork',
+	'GNETWORK_BASE'                  => network_home_url(),
+	'GNETWORK_NAME'                  => ( is_multisite() ? get_site_option( 'site_name' ) : get_option( 'blogname' ) ),
+	'GNETWORK_WPLANG'                => 'en_US',
+	'GNETWORK_WPLANG_ADMIN'          => FALSE,
+	'GNETWORK_GETFLASHPLAYER_URL'    => 'http://get.adobe.com/flashplayer/',
+	'GNETWORK_SEARCH_URL'            => esc_url( home_url( '/' ) ),
+	'GNETWORK_SEARCH_QUERYID'        => 's',
+	'GNETWORK_SEARCH_REDIRECT'       => FALSE, // set TRUE to redirect all searches to the network search url
+	'GNETWORK_BP_EXCLUDEUSERS'       => FALSE, //comma separated ids of users whom you want to exclude
+	'GNETWORK_ADMINBAR'              => TRUE, // disable admin bar for non caps / use cap like : 'edit_others_posts'
+	'GNETWORK_ADMIN_JS_ENHANCEMENTS' => TRUE, // autoresize textarea and more...
+	'GNETWORK_ADMIN_WIDGET_RSS'      => FALSE, //comma separated urls of feeds to display on an admin widget
+	'GNETWORK_ADMIN_COLUMN_ID'       => WP_DEBUG_DISPLAY, // set to 1 for before title, set TRUE for last
+	'GNETWORK_ADMIN_COLOUR'          => FALSE, // set default admin colour theme like : 'blue', FALSE to disable.
+	'GNETWORK_GOOGLE_GROUP_ID'       => FALSE,
+	'GNETWORK_GOOGLE_GROUP_HL'       => 'en', // language
+	'GNETWORK_REPORTBUG_URL'         => FALSE, // url with %s for current page url : 'blog.salamzaban.com/bug-report?on=%s'
+	'GNETWORK_NETWORK_ADMINBAR'      => 'network_adminbar', // name of the menu on the main blog of the network that will be used for network admin bar
+	'GNETWORK_NETWORK_EXTRAMENU'     => 'network_extramenu', // name of the menu on the main blog of the network that will be used for network admin bar
+	'GNETWORK_NETWORK_EXTRAMENU_CAP' => 'edit_others_posts', // extra_menu capability
+	'GNETWORK_LARGE_NETWORK_IS'      => FALSE, // set to large network value. default wp is 10000 / FALSE to disable the filter
+	'GNETWORK_SITE_USER_ID'          => FALSE, // set to default site user id / FALSE fot disable
+	'GNETWORK_SITE_USER_ROLE'        => 'editor', // default role for site user in new blog
+	'GNETWORK_BODY_CLASS'            => FALSE, // class for all blog's body html/ FALSE fot disable
+	'GNETWORK_DISABLE_BBQ'           => FALSE,
+	'GNETWORK_DISABLE_RECAPTCHA'     => FALSE,
+	
+	// 'GNETWORK_DISABLE_FRONT_STYLES'   => FALSE, // cannot set this early!
+	// 'GNETWORK_DISABLE_REFLIST_JS'     => FALSE, // do not include reflist shortcode js // cannot set this early!
+	// 'GNETWORK_DISABLE_REFLIST_INSERT' => FALSE, // do not include reflist shortcode after content  // cannot set this early!
+	
+	'GNETWORK_REDIRECT_MAP'    => FALSE,
+	// 'GNETWORK_REDIRECT_FORMAT' => '%1$s',
+	
+	'GNETWORK_AJAX_ENDPOINT'      => admin_url( 'admin-ajax.php' ), // if you want to use .ataccess to rewrite
+	'GNETWORK_MEDIA_SEPERATION'   => FALSE, // if you want to seperate generated files from originals!!
+	'GNETWORK_MEDIA_SIZES_DIR'    => WP_CONTENT_DIR.DS.'thumbs',
+	'GNETWORK_MEDIA_SIZES_URL'    => WP_CONTENT_URL.'/thumbs',
+	// 'GNETWORK_MEDIA_SIZES_REL'    => '../thumbs', // relate path to deffault uploads folder
+	'GNETWORK_MEDIA_SIZES_CHECK'  => TRUE, // check default wp dir before thumbs / make it disable for newly created sites
+	'GNETWORK_MEDIA_OBJECT_SIZES' => FALSE, // disable all image sizes and enable for each posttypes
 
-defined( 'GNETWORK_TIMTHUMB_URL' ) or define( 'GNETWORK_TIMTHUMB_URL', esc_url( home_url( '/repo/' ) ) );
+	'GNETWORK_TIMTHUMB_URL' => esc_url( home_url( '/repo/' ) ), // DEPRECATED
 
-// reset some stuff
-defined( 'GTHEME_DEV_ENVIRONMENT' ) or define( 'GTHEME_DEV_ENVIRONMENT', FALSE );
-defined( 'WP_STAGE' ) or define( 'WP_STAGE', 'production' );
-defined( 'NOBLOGREDIRECT' ) or define( 'NOBLOGREDIRECT', '%siteurl%' );
-defined( 'SCRIPT_DEBUG' ) or define( 'SCRIPT_DEBUG', FALSE );
-defined( 'SAVEQUERIES' ) or define( 'SAVEQUERIES', FALSE );
+	// reset some stuff
+	'GTHEME_DEV_ENVIRONMENT' => FALSE,
+	'WP_STAGE'               => 'production',
+	'NOBLOGREDIRECT'         => '%siteurl%',
+	'SCRIPT_DEBUG'           => FALSE,
+	'SAVEQUERIES'            => FALSE,
+);
+
+foreach ( $gnetwork_constants as $key => $val )
+	defined( $key ) or define( $key, $val );

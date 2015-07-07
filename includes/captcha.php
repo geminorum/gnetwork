@@ -3,19 +3,19 @@
 class gNetworkCaptcha extends gNetworkModuleCore
 {
 
-	var $_network    = true;
+	var $_network    = TRUE;
 	var $_option_key = 'captcha';
 
 	private $public_key, $private_key;
 
-	public function setup_actions()
+	protected function setup_actions()
 	{
 		if ( GNETWORK_DISABLE_RECAPTCHA )
 			return;
 
 		gNetworkNetwork::registerMenu( 'captcha',
 			__( 'Captcha', GNETWORK_TEXTDOMAIN ),
-			array( & $this, 'settings' )
+			array( &$this, 'settings' )
 		);
 
 		if ( ! $this->options['login_captcha'] )
@@ -25,27 +25,27 @@ class gNetworkCaptcha extends gNetworkModuleCore
 			|| empty( $this->options['private_key'] ) )
 				return;
 
-		add_action( 'login_form', array( & $this, 'login_form' ) );
-		add_action( 'wp_authenticate_user', array( & $this, 'wp_authenticate_user' ), 10, 2 );
+		add_action( 'login_form', array( &$this, 'login_form' ) );
+		add_action( 'wp_authenticate_user', array( &$this, 'wp_authenticate_user' ), 10, 2 );
 	}
 
 	public function settings_help_tabs()
 	{
 		return array(
 			array(
-				'id' => 'gnetwork-captcha-help',
-				'title' => __( 'Google reCAPTCHA', GNETWORK_TEXTDOMAIN ),
-				'content' => '<p><br />Register & get the keys from <a href="https://www.google.com/recaptcha/admin#createsite" target="_blank">here</a>.</p>',
-				'callback' => false,
+				'id'       => 'gnetwork-captcha-help',
+				'title'    => __( 'Google reCAPTCHA', GNETWORK_TEXTDOMAIN ),
+				'content'  => '<p><br />Register & get the keys from <a href="https://www.google.com/recaptcha/admin#createsite" target="_blank">here</a>.</p>',
+				'callback' => FALSE,
 			),
 		);
 	}
 
-	public function settings( $sub = null )
+	public function settings( $sub = NULL )
 	{
 		if ( 'captcha' == $sub ) {
 			$this->settings_update( $sub );
-			add_action( 'gnetwork_network_settings_sub_captcha', array( & $this, 'settings_html' ), 10, 2 );
+			add_action( 'gnetwork_network_settings_sub_captcha', array( &$this, 'settings_html' ), 10, 2 );
 			$this->register_settings();
 			$this->register_settings_help();
 		}
@@ -56,29 +56,25 @@ class gNetworkCaptcha extends gNetworkModuleCore
 		return array(
 			'_general' => array(
 				array(
-					'field' => 'login_captcha',
-					'type' => 'enabled',
-					'title' => __( 'Login Captcha', GNETWORK_TEXTDOMAIN ),
-					'desc' => __( 'Display captcha field on login form', GNETWORK_TEXTDOMAIN ),
+					'field'   => 'login_captcha',
+					'type'    => 'enabled',
+					'title'   => __( 'Login Captcha', GNETWORK_TEXTDOMAIN ),
+					'desc'    => __( 'Display captcha field on login form', GNETWORK_TEXTDOMAIN ),
 					'default' => '0',
 				),
 				array(
-					'field' => 'public_key',
-					'type' => 'text',
-					'title' => __( 'Site Key', GNETWORK_TEXTDOMAIN ),
-					'desc' => __( 'Key in the HTML code your site serves to users.', GNETWORK_TEXTDOMAIN ),
+					'field'   => 'public_key',
+					'type'    => 'text',
+					'title'   => __( 'Site Key', GNETWORK_TEXTDOMAIN ),
+					'desc'    => __( 'Key in the HTML code your site serves to users.', GNETWORK_TEXTDOMAIN ),
 					'default' => '',
 				),
 				array(
-					'field' => 'private_key',
-					'type' => 'text',
-					'title' => __( 'Secret Key', GNETWORK_TEXTDOMAIN ),
-					'desc' => __( 'Key for communication between your site and Google reCAPTCHA.', GNETWORK_TEXTDOMAIN ),
+					'field'   => 'private_key',
+					'type'    => 'text',
+					'title'   => __( 'Secret Key', GNETWORK_TEXTDOMAIN ),
+					'desc'    => __( 'Key for communication between your site and Google reCAPTCHA.', GNETWORK_TEXTDOMAIN ),
 					'default' => '',
-				),
-				array(
-					'field' => 'debug',
-					'type' => 'debug',
 				),
 			),
 		);
@@ -88,8 +84,8 @@ class gNetworkCaptcha extends gNetworkModuleCore
 	{
 		return array(
 			'login_captcha' => '0',
-			'public_key' => '',
-			'private_key' => '',
+			'public_key'    => '',
+			'private_key'   => '',
 		);
 	}
 

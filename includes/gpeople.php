@@ -3,15 +3,15 @@
 class gNetworkgPeople extends gNetworkModuleCore
 {
 
-	var $_network    = false;
-	var $_option_key = false;
+	var $_network    = FALSE;
+	var $_option_key = FALSE;
 
 	var $_ref_person = array();
-	var $_tax_people = 'post_tag'; //'people';
+	var $_tax_people = 'post_tag'; // 'people';
 
-	public function setup_actions()
+	protected function setup_actions()
 	{
-		add_action( 'plugins_loaded', array( & $this, 'plugins_loaded' ) );
+		add_action( 'plugins_loaded', array( &$this, 'plugins_loaded' ) );
 	}
 
 	public function plugins_loaded()
@@ -22,52 +22,49 @@ class gNetworkgPeople extends gNetworkModuleCore
 		if ( defined( 'GNETWORK_GPEOPLE_TAXONOMY' ) )
 			$this->_tax_people = constant( 'GNETWORK_GPEOPLE_TAXONOMY' );
 
-		add_action( 'init', array( & $this, 'init' ), 12 );
-		add_filter( 'tiny_mce_version', array( & $this, 'tiny_mce_version' ) );
+		add_action( 'init', array( &$this, 'init' ), 12 );
+		add_filter( 'tiny_mce_version', array( &$this, 'tiny_mce_version' ) );
 	}
 
 	public function init()
 	{
 		remove_shortcode( 'person' );
-		add_shortcode( 'person', array( & $this, 'shortcode_person' ) );
+		add_shortcode( 'person', array( &$this, 'shortcode_person' ) );
 
 		if ( ! current_user_can( 'edit_posts' )
 			&& ! current_user_can( 'edit_pages' ) )
 			return;
 
 		if ( get_user_option( 'rich_editing' ) == 'true' ) {
-			add_filter( 'mce_external_plugins', array( & $this, 'mce_external_plugins' ) );
-			add_filter( 'mce_buttons', array( & $this, 'mce_buttons' ) );
+			add_filter( 'mce_external_plugins', array( &$this, 'mce_external_plugins' ) );
+			add_filter( 'mce_buttons', array( &$this, 'mce_buttons' ) );
 		}
 	}
 
-	public function shortcode_person( $atts, $content = null, $tag )
+	public function shortcode_person( $atts, $content = NULL, $tag )
 	{
 		$args = shortcode_atts( array(
-			'id' => false,
-			'name' => false,
-
-			'url' => false,
-			'class' => 'ref-anchor',
-			'format_number' => true,
-			'rtl' => ( is_rtl() ? 'yes' : 'no' ),
-			'ext' => 'def',
+			'id'            => FALSE,
+			'name'          => FALSE,
+			'url'           => FALSE,
+			'class'         => 'ref-anchor',
+			'format_number' => TRUE,
+			'rtl'           => ( is_rtl() ? 'yes' : 'no' ),
+			'ext'           => 'def',
 		), $atts, $tag );
 
 
-		//if ( $args['id'] )
+		// if ( $args['id'] )
 
 		if ( $args['name'] )
 			$person = trim( $args['name'] );
 		else if ( is_null( $content ) )
-			return null;
+			return NULL;
 		else
 			$person = trim( strip_tags( $content ) );
 
 		if ( ! array_key_exists( $person, $this->_ref_person ) ) {
 			$term = get_term_by( 'name', $person, $this->_tax_people );
-
-			//gnetwork_dump( $term ); return;
 
 			if ( ! $term )
 				return $content;
@@ -90,6 +87,7 @@ class gNetworkgPeople extends gNetworkModuleCore
 		return $plugin_array;
 	}
 
+	// FIXME: necessary?!
 	public function tiny_mce_version( $ver )
 	{
 		$ver += 3;

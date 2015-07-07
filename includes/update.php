@@ -3,19 +3,19 @@
 class gNetworkUpdate extends gNetworkModuleCore
 {
 
-	var $_network    = true;
-	var $_option_key = false;
-	var $_ajax       = true;
+	var $_network    = TRUE;
+	var $_option_key = FALSE;
+	var $_ajax       = TRUE;
 
-	public function setup_actions()
+	protected function setup_actions()
 	{
-		add_action( 'admin_init', array( & $this, 'admin_init_late' ), 100 );
+		add_action( 'admin_init', array( &$this, 'admin_init_late' ), 100 );
 
-		//add_filter( 'automatic_updater_disabled', '__return_true' );
-		//add_filter( 'auto_update_core', '__return_false' );
+		// add_filter( 'automatic_updater_disabled', '__return_true' );
+		// add_filter( 'auto_update_core', '__return_false' );
 	}
 
-	function admin_init_late()
+	public function admin_init_late()
 	{
 		// hide the update WordPress reminder from all users that are not assumed Administrators (cannot upgrade plugins).
 		// from : http://wordpress.org/extend/plugins/hide-update-reminder/

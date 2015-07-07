@@ -6,7 +6,7 @@ class gNetworkTaxonomy extends gNetworkModuleCore
 	var $_network    = FALSE;
 	var $_option_key = FALSE;
 
-	public function setup_actions()
+	protected function setup_actions()
 	{
 		add_action( 'admin_init', array( &$this, 'admin_init' ), 20 );
 

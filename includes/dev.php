@@ -7,19 +7,17 @@ class gNetworkDev extends gNetworkModuleCore
 	var $_network    = FALSE;
 	var $_ajax       = TRUE;
 
-	public function setup_actions()
+	protected function setup_actions()
 	{
 		add_filter( 'http_request_args', array( &$this, 'http_request_args' ), 12, 2 );
 		add_filter( 'https_local_ssl_verify', '__return_false' );
 		add_filter( 'https_ssl_verify'      , '__return_false' );
 
-		return;
+		// add_filter( 'embed_oembed_html',            array( & $this, 'embed_oembed_html'    ), 1,  4 );
+		// add_filter( 'get_avatar',                   array( & $this, 'get_avatar'           ), 1,  5 );
 
-		//add_filter( 'embed_oembed_html',            array( & $this, 'embed_oembed_html'    ), 1,  4 );
-		//add_filter( 'get_avatar',                   array( & $this, 'get_avatar'           ), 1,  5 );
-
-		//add_action( 'template_redirect', array( & $this, 'template_redirect' ) );
-		//add_filter( 'login_url', array( & $this, 'login_url' ), 10, 2 );
+		// add_action( 'template_redirect', array( & $this, 'template_redirect' ) );
+		// add_filter( 'login_url', array( & $this, 'login_url' ), 10, 2 );
 	}
 
 	public function http_request_args( $r, $url )
@@ -28,20 +26,17 @@ class gNetworkDev extends gNetworkModuleCore
 		return $r;
 	}
 
-	// Block oEmbeds from displaying.
+	// block oEmbeds from displaying.
 	public function embed_oembed_html( $html, $url, $attr, $post_ID )
 	{
 		return sprintf( '<div class="loading-placeholder gnetwork-dev-placeholder"><p>%s</p></div>',
 			sprintf( __( 'Airplane Mode is enabled. oEmbed blocked for %1$s.', GNETWORK_TEXTDOMAIN ), esc_url( $url ) ) );
 	}
 
-	// Replace all instances of gravatar with a local image file to remove the call to remote service.
+	// replace all instances of gravatar with a local image file to remove the call to remote service.
 	public function get_avatar( $avatar, $id_or_email, $size, $default, $alt )
 	{
 		$image = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
 		return "<img alt='{$alt}' src='{$image}' class='avatar avatar-{$size} photo' height='{$size}' width='{$size}' style='background:#eee;' />";
 	}
 }
-
-// Resize images on the fly! Great for theme developers who add image sizes to their theme after image assets have already been added to the image library
-// https://wordpress.org/plugins/oomph-wp-inline-image-resizer/

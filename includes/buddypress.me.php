@@ -30,7 +30,7 @@ class gNetwork_BP_Me_Component extends BP_Component
 		parent::setup_globals( array(
 			'slug'          => 'me',
 			'root_slug'     => 'me',
-			'has_directory' => true,
+			'has_directory' => TRUE,
 		) );
 
 		if ( ! bp_is_current_component( $this->id ) )
@@ -63,13 +63,13 @@ class gNetwork_BP_Me_Component extends BP_Component
 		$this->me_action_profile();
 	}
 
-	public function me_action_profile( $vars = false )
+	public function me_action_profile( $vars = FALSE )
 	{
 		bp_core_redirect( bp_get_loggedin_user_link() );
 		die();
 	}
 
-	public function me_action_settings( $vars = false )
+	public function me_action_settings( $vars = FALSE )
 	{
 		global $bp;
 
@@ -79,7 +79,7 @@ class gNetwork_BP_Me_Component extends BP_Component
 		$this->me_action_profile();
 	}
 
-	public function me_action_edit( $vars = false )
+	public function me_action_edit( $vars = FALSE )
 	{
 		global $bp;
 
@@ -89,7 +89,7 @@ class gNetwork_BP_Me_Component extends BP_Component
 		$this->me_action_profile();
 	}
 
-	public function me_action_avatar( $vars = false )
+	public function me_action_avatar( $vars = FALSE )
 	{
 		global $bp;
 
@@ -99,7 +99,7 @@ class gNetwork_BP_Me_Component extends BP_Component
 		$this->me_action_profile();
 	}
 
-	public function me_action_logout( $vars = false )
+	public function me_action_logout( $vars = FALSE )
 	{
 		// TODO : check $_SERVER['HTTP_REFERER']; then safe redirect within network ( must add a filter )
 

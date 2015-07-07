@@ -5,7 +5,8 @@
 
 // https://github.com/bobthecow/mustache.php/wiki
 
-abstract class gNetworkMustache {
+abstract class gNetworkMustache 
+{
 
 	private static $loader;
 	private static $loader_custom;
@@ -24,7 +25,7 @@ abstract class gNetworkMustache {
 		//if ( is_dir( WP_CONTENT_DIR.'/templates' ) )
 			//self::$loader_custom = new MustacheLoader( WP_CONTENT_DIR.'/templates', 'xml' );
 
-		self::$mustache = new Mustache( null, null, self::$loader );
+		self::$mustache = new Mustache( NULL, NULL, self::$loader );
 	}
 
 	public static function render( $template, $data )
@@ -47,5 +48,4 @@ abstract class gNetworkMustache {
 
 		return self::$mustache->render( self::$loader[$file], $data );
 	}
-
 }

@@ -9,14 +9,14 @@ class gNetworkAdminBar extends gNetworkModuleCore
 	var $_sidebar_admin = FALSE;
 	var $remove_nodes   = array();
 
-	public function setup_actions()
+	protected function setup_actions()
 	{
 		add_action( 'init', array( &$this, 'init' ), 20 );
 	}
 
 	public function init()
 	{
-		if ( true == constant( 'GNETWORK_ADMINBAR' )
+		if ( TRUE === constant( 'GNETWORK_ADMINBAR' )
 			|| current_user_can( constant( 'GNETWORK_ADMINBAR' ) ) ) {
 
 			add_action( 'wp_enqueue_scripts', array( &$this, 'wp_enqueue_style' ) );
@@ -42,7 +42,7 @@ class gNetworkAdminBar extends gNetworkModuleCore
 					add_action( 'admin_bar_menu', 'wp_admin_bar_shortlink_menu', 90 );
 			}
 		} else {
-			show_admin_bar( false );
+			show_admin_bar( FALSE );
 			add_action( 'admin_print_scripts-profile.php', array( &$this, 'admin_print_scripts_profile_php' ) );
 		}
 	}
@@ -57,7 +57,7 @@ class gNetworkAdminBar extends gNetworkModuleCore
 		if ( ! is_admin_bar_showing() )
 			return;
 
-		if ( file_exists( WP_CONTENT_DIR.'/adminbar.css' ) )
+		if ( file_exists( WP_CONTENT_DIR.DS.'adminbar.css' ) )
 			wp_enqueue_style( 'gnetwork-adminbar', WP_CONTENT_URL.'/adminbar.css', array( 'admin-bar' ), GNETWORK_VERSION );
 	}
 
@@ -130,7 +130,6 @@ class gNetworkAdminBar extends gNetworkModuleCore
 			$gNetwork->adminbar->remove_nodes[] = $node;
 	}
 
-
 	public function wp_before_admin_bar_render()
 	{
 		global $wp_admin_bar;
@@ -145,7 +144,6 @@ class gNetworkAdminBar extends gNetworkModuleCore
 
 		foreach ( $this->remove_nodes as $node )
 			$wp_admin_bar->remove_node( $node );
-
 	}
 
 	private function add_nodes( &$wp_admin_bar )
@@ -492,7 +490,3 @@ class gNetwork_WP_Admin_Bar extends WP_Admin_Bar {
 
 	return 'gNetwork_WP_Admin_Bar';
 }
-
-// http://wpengineer.com/2366/add-icon-to-site-link-in-the-wordpress-admin-bar/
-// http://wordpress.org/extend/plugins/a-fresher-cache/
-// for coloring the admin bar : http://wordpress.org/extend/plugins/blue-admin-bar/

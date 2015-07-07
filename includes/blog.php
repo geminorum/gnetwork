@@ -6,7 +6,7 @@ class gNetworkBlog extends gNetworkModuleCore
 	var $_option_key = 'blog';
 	var $_network    = FALSE;
 
-	public function setup_actions()
+	protected function setup_actions()
 	{
 		gNetworkAdmin::registerMenu( 'blog',
 			__( 'General', GNETWORK_TEXTDOMAIN ),

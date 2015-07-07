@@ -6,14 +6,14 @@ class gNetworkComments extends gNetworkModuleCore
 	var $_network    = FALSE;
 	var $_option_key = 'comments';
 
-	public function setup_actions()
+	protected function setup_actions()
 	{
 		gNetworkAdmin::registerMenu( 'comments',
 			__( 'Comments', GNETWORK_TEXTDOMAIN ),
 			array( &$this, 'settings' )
 		);
 		
-		if ( $this->options['disable_comments'] ) {
+		if ( $this->options['disable_comments_emails'] ) {
 			
 			// filter the list of email addresses to receive a comment notification.
 			add_filter( 'comment_notification_recipients', '__return_empty_array' );
@@ -42,7 +42,7 @@ class gNetworkComments extends gNetworkModuleCore
 		if ( 'comments' == $sub ) {
 
 			if ( isset( $_POST['purge_spams'] ) ) {
-				check_admin_referer( 'gnetwork_'.$sub.'-options' );
+				$this->check_referer( $sub );
 				$this->remove_spam_meta();
 				self::redirect_referer( 'spamspurged' );
 			} else {
@@ -64,8 +64,8 @@ class gNetworkComments extends gNetworkModuleCore
 	public function default_options()
 	{
 		return array(
-			'disable_comments'   => '1',
-			'admin_fullcomments' => ! GNETWORK_ADMIN_FULLCOMMENTS_DISABLED,
+			'disable_comments_emails' => '1',
+			'admin_fullcomments'      => '1',
 		);
 	}
 
@@ -74,7 +74,7 @@ class gNetworkComments extends gNetworkModuleCore
 		return array(
 			'_general' => array(
 				array(
-					'field'   => 'disable_comments',
+					'field'   => 'disable_comments_emails',
 					'type'    => 'enabled',
 					'title'   => __( 'Comment Notifications', GNETWORK_TEXTDOMAIN ),
 					'desc'    => __( 'Disable all core comment notifications', GNETWORK_TEXTDOMAIN ),

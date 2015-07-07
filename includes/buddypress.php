@@ -10,7 +10,7 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 	var $_field_name = 'Q2FuaXZuaW1FbnMyb2NwaG9h';
 	var $_field_val  = 'R3JldGlwY3licmVrc3lpYkth';
 
-	public function setup_actions()
+	protected function setup_actions()
 	{
 		gNetworkNetwork::registerMenu( 'buddypress',
 			__( 'BuddyPress', GNETWORK_TEXTDOMAIN ),

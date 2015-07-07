@@ -9,7 +9,7 @@ class gNetworkThemes extends gNetworkModuleCore
 	var $_rtl          = NULL;
 	var $_active_theme = NULL;
 
-	public function setup_actions()
+	protected function setup_actions()
 	{
 		add_filter( 'the_generator', '__return_null', 98 );
 

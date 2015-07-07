@@ -9,7 +9,7 @@ class gNetworkMedia extends gNetworkModuleCore
 
 	var $_post_type_sizes = array();
 
-	public function setup_actions()
+	protected function setup_actions()
 	{
 		add_filter( 'upload_mimes', array( &$this, 'upload_mimes' ) );
 

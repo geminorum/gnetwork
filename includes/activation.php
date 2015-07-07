@@ -13,7 +13,7 @@ class gNetworkActivation extends gNetworkModuleCore
 	var $_option_key = false;
 	var $_ajax       = true;
 
-	public function setup_actions()
+	protected function setup_actions()
 	{
 		if ( ! is_multisite() )
 			return;

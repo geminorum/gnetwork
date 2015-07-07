@@ -6,7 +6,7 @@ class gNetworkWidgets extends gNetworkModuleCore
 	var $_network    = FALSE;
 	var $_option_key = FALSE;
 
-	public function setup_actions()
+	protected function setup_actions()
 	{
 		add_action( 'widgets_init', array( &$this, 'widgets_init' ) );
 	}
@@ -24,15 +24,22 @@ class gNetworkWidgets extends gNetworkModuleCore
 
 class gNetworkShortcode_Widget extends WP_Widget
 {
-	function __construct()
+	public function __construct()
 	{
 		$widget_ops = array(
-			'classname' => 'shortcode_widget',
+			'classname'   => 'shortcode_widget',
 			'description' => __( 'Shortcode or HTML or Plain Text', GNETWORK_TEXTDOMAIN )
 		);
-		$control_ops = array( 'width' => 400, 'height' => 350 );
+		
+		$control_ops = array( 
+			'width'  => 400, 
+			'height' => 350,
+		);
+		
 		parent::__construct( 'shortcode-widget',
-			__( 'gNetwork: Shortcode Widget', GNETWORK_TEXTDOMAIN ), $widget_ops, $control_ops );
+			__( 'gNetwork: Shortcode Widget', GNETWORK_TEXTDOMAIN ), 
+			$widget_ops, 
+			$control_ops );
 	}
 
 	public function widget( $args, $instance )

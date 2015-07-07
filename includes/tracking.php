@@ -9,7 +9,7 @@ class gNetworkTracking extends gNetworkModuleCore
 	var $_ga_outbound = FALSE;
 	var $_ignore      = NULL;
 
-	public function setup_actions()
+	protected function setup_actions()
 	{
 		gNetworkNetwork::registerMenu( 'tracking',
 			__( 'Tracking', GNETWORK_TEXTDOMAIN ),

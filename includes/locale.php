@@ -8,7 +8,7 @@ class gNetworkLocale extends gNetworkModuleCore
 
 	var $loaded = array();
 
-	public function setup_actions()
+	protected function setup_actions()
 	{
 		add_filter( 'locale', array( &$this, 'locale' ), 1, 1 );
 		add_filter( 'core_version_check_locale', array( &$this, 'core_version_check_locale' ) );

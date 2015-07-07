@@ -45,14 +45,14 @@ class gNetworkUtilities
 
 	}
 
-	public static function stat( $format = null )
+	public static function stat( $format = NULL )
 	{
 		if ( is_null( $format ) )
 			$format = __( '%d queries in %.3f seconds, using %.2fMB memory.', GNETWORK_TEXTDOMAIN );
 
 		return sprintf( $format,
 			get_num_queries(),
-			self::timer_stop( false, 3 ),
+			self::timer_stop( FALSE, 3 ),
 			memory_get_peak_usage() / 1024 / 1024 // see : size_format()
 		);
 	}
@@ -71,21 +71,21 @@ class gNetworkUtilities
 	}
 
 
-	public static function current_url( $trailingslashit = false )
+	public static function current_url( $trailingslashit = FALSE )
 	{
 		global $wp;
 
 		//if ( is_admin() )
 			//$current_url = add_query_arg( $wp->query_string, '', home_url( $wp->request ) );
 		//else
-			$current_url = home_url( add_query_arg( array(), ( empty( $wp->request ) ? false : $wp->request ) ) );
+			$current_url = home_url( add_query_arg( array(), ( empty( $wp->request ) ? FALSE : $wp->request ) ) );
 
 		if ( $trailingslashit )
 			return trailingslashit( $current_url );
 		return $current_url;
 	}
 
-	public static function register_url( $register = false )
+	public static function register_url( $register = FALSE )
 	{
 		if ( function_exists( 'buddypress' ) ) {
 			if ( bp_get_signup_allowed() )
@@ -123,7 +123,7 @@ class gNetworkUtilities
 	}
 
 	// idea originally from HTML Emails by Mohammad Jangda
-	public static function getLayout( $layout_name, $require_once = false, $no_cache = false )
+	public static function getLayout( $layout_name, $require_once = FALSE, $no_cache = FALSE )
 	{
 		// must check if it's not admin!
 
@@ -150,42 +150,42 @@ class gNetworkUtilities
 			$haystack = array( $haystack );
 
 		foreach( $haystack as $key => $what )
-			if( ( $pos = strpos( $what, $needle ) ) !== false )
+			if( FALSE !== ( $pos = strpos( $what, $needle ) ) )
 				return $pos; // must return $key / but what about zero?!
 
-		return false;
+		return FALSE;
 	}
 
 	public static function isDebug()
 	{
 		if ( WP_DEBUG && WP_DEBUG_DISPLAY && ! self::isDev() )
-			return true;
+			return TRUE;
 
-		return false;
+		return FALSE;
 	}
 
 	public static function isDev()
 	{
 		if ( defined( 'WP_STAGE' )
 			&& 'development' == constant( 'WP_STAGE' ) )
-				return true;
+				return TRUE;
 
-		return false;
+		return FALSE;
 	}
 
 	// TODO: use nonce
 	public static function isFlush()
 	{
 		if ( isset( $_GET['flush'] ) )
-			return true;
+			return TRUE;
 
 		if ( defined( 'GTHEME_FLUSH' ) && GTHEME_FLUSH )
-			return true;
+			return TRUE;
 
-		return false;
+		return FALSE;
 	}
 
-	public static function notice( $notice, $class = 'updated fade', $echo = true )
+	public static function notice( $notice, $class = 'updated fade', $echo = TRUE )
 	{
 		$html = sprintf( '<div id="message" class="%s"><p>%s</p></div>', $class, $notice );
 		if ( ! $echo )
@@ -193,13 +193,13 @@ class gNetworkUtilities
 		echo $html;
 	}
 
-	public static function dropdown( $list, $name, $prop = false, $selected = 0, $none = false, $none_val = 0, $obj = false )
+	public static function dropdown( $list, $name, $prop = FALSE, $selected = 0, $none = FALSE, $none_val = 0, $obj = FALSE )
 	{
 		$html = '<select name="'.$name.'" id="'.$name.'">';
 		if ( $none )
-			$html .= '<option value="'.$none_val.'" '.selected( $selected, $none_val, false ).'>'.esc_html( $none ).'</option>';
+			$html .= '<option value="'.$none_val.'" '.selected( $selected, $none_val, FALSE ).'>'.esc_html( $none ).'</option>';
 		foreach( $list as $key => $item ) {
-			$html .= '<option value="'.$key.'" '.selected( $selected, $key, false ).'>'
+			$html .= '<option value="'.$key.'" '.selected( $selected, $key, FALSE ).'>'
 				.esc_html( ( $prop ? ( $obj ? $item->{$prop} : $item[$prop] ) : $item ) ).'</option>';
 		}
 		return $html.'</select>';
@@ -225,7 +225,7 @@ class gNetworkUtilities
 		return $keys;
 	}
 
-	private static function _tag_open( $tag, $atts, $content = true )
+	private static function _tag_open( $tag, $atts, $content = TRUE )
 	{
 		$html = '<'.$tag;
 		foreach( $atts as $key => $att ) {
@@ -234,22 +234,22 @@ class gNetworkUtilities
 				$att = implode( ' ', array_unique( $att ) );
 
 			if ( 'selected' == $key )
-				$att = ( $att ? 'selected' : false );
+				$att = ( $att ? 'selected' : FALSE );
 
 			if ( 'checked' == $key )
-				$att = ( $att ? 'checked' : false );
+				$att = ( $att ? 'checked' : FALSE );
 
 			if ( 'readonly' == $key )
-				$att = ( $att ? 'readonly' : false );
+				$att = ( $att ? 'readonly' : FALSE );
 
 			if ( 'disabled' == $key )
-				$att = ( $att ? 'disabled' : false );
+				$att = ( $att ? 'disabled' : FALSE );
 
-			if ( false === $att )
+			if ( FALSE === $att )
 				continue;
 
 			if ( 'class' == $key )
-				//$att = sanitize_html_class( $att, false );
+				//$att = sanitize_html_class( $att, FALSE );
 				$att = $att;
 			else if ( 'href' == $key && '#' != $att )
 				$att = esc_url( $att );
@@ -263,17 +263,17 @@ class gNetworkUtilities
 			$html .= ' '.$key.'="'.trim( $att ).'"';
 		}
 
-		if ( false === $content )
+		if ( FALSE === $content )
 			return $html.' />';
 
 		return $html.'>';
 	}
 
-	public static function html( $tag, $atts = array(), $content = false, $sep = '' )
+	public static function html( $tag, $atts = array(), $content = FALSE, $sep = '' )
 	{
 		$html = self::_tag_open( $tag, $atts, $content );
 
-		if ( false === $content )
+		if ( FALSE === $content )
 			return $html.$sep;
 
 		if ( is_null( $content ) )
@@ -292,10 +292,10 @@ class gNetworkUtilities
 		return $parsed;
 	}
 
-	public static function dump( $var, $htmlSafe = true )
+	public static function dump( $var, $htmlSafe = TRUE )
 	{
-		defined( 'GPERSIANDATE_SKIP' ) or define( 'GPERSIANDATE_SKIP', true );
-		$result = var_export( $var, true );
+		defined( 'GPERSIANDATE_SKIP' ) or define( 'GPERSIANDATE_SKIP', TRUE );
+		$result = var_export( $var, TRUE );
 		echo '<pre dir="ltr" style="text-align:left;direction:ltr;">'.( $htmlSafe ? htmlspecialchars( $result ) : $result).'</pre>';
 	}
 
@@ -309,7 +309,7 @@ class gNetworkUtilities
 		}
 	}
 
-	public static function trace( $old = true )
+	public static function trace( $old = TRUE )
 	{
 		// https://gist.github.com/eddieajau/2651181
 		if ( $old ) {
@@ -338,8 +338,8 @@ class gNetworkUtilities
 	public static function getPostTypes()
 	{
 		$registered = get_post_types( array(
-			'_builtin' => false,
-			'public'   => true,
+			'_builtin' => FALSE,
+			'public'   => TRUE,
 		), 'objects' );
 
 		$post_types = array(
@@ -364,7 +364,7 @@ class gNetworkUtilities
 		return self::reKey( $users, 'ID' );
 	}
 
-	public static function getUserRoles( $cap = null )
+	public static function getUserRoles( $cap = NULL )
 	{
 		$caps = array(
 			'edit_theme_options'   => _x( 'Administrators',         'Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
@@ -398,7 +398,7 @@ class gNetworkUtilities
 	public static function headers( $array )
 	{
 		foreach( $array as $h => $k )
-			header( "{$h}: {$k}", true );
+			header( "{$h}: {$k}", TRUE );
 	}
 
 	public static function IP()
@@ -432,16 +432,16 @@ class gNetworkUtilities
 	public static function linkStyleSheet( $url, $version = GNETWORK_VERSION, $media = 'all' )
 	{
 		echo "\t".self::html( 'link', array(
-			'rel' => 'stylesheet',
-			'href' => add_query_arg( 'ver', $version, $url ),
-			'type' => 'text/css',
+			'rel'   => 'stylesheet',
+			'href'  => add_query_arg( 'ver', $version, $url ),
+			'type'  => 'text/css',
 			'media' => $media,
 		) )."\n";
 	}
 
-	public static function customStyleSheet( $css, $link = true )
+	public static function customStyleSheet( $css, $link = TRUE )
 	{
-		$url = false;
+		$url = FALSE;
 
 		if ( file_exists( get_stylesheet_directory().DS.$css ) ) {
 			$url = get_stylesheet_directory_uri().'/'.$css;
@@ -495,30 +495,30 @@ class gNetworkUtilities
 	 * @param array $fields - fileds of $_POST array that should be preserved between screens
 	 * @return bool/str - false on failure, stored text on success
 	 **/
-	public static function initWPFS( $form_url, $method, $context, $fields = null )
+	public static function initWPFS( $form_url, $method, $context, $fields = NULL )
 	{
 		global $wp_filesystem;
 
 		/* first attempt to get credentials */
-		if ( false === ( $creds = request_filesystem_credentials( $form_url, $method, false, $context, $fields ) ) ) {
+		if ( FALSE === ( $creds = request_filesystem_credentials( $form_url, $method, FALSE, $context, $fields ) ) ) {
 
 			/**
 			* if we comes here - we don't have credentials
 			* so the request for them is displaying
 			* no need for further processing
 			**/
-			return false;
+			return FALSE;
 		}
 
 		/* now we got some credentials - try to use them*/
 		if ( ! WP_Filesystem( $creds ) ) {
 
 			/* incorrect connection data - ask for credentials again, now with error message */
-			request_filesystem_credentials( $form_url, $method, true, $context );
-			return false;
+			request_filesystem_credentials( $form_url, $method, TRUE, $context );
+			return FALSE;
 		}
 
-		return true; //filesystem object successfully initiated
+		return TRUE; //filesystem object successfully initiated
 	}
 
 	/**
@@ -551,7 +551,7 @@ class gNetworkUtilities
 		$form_url = wp_nonce_url($form_url, 'filesystem_demo_screen'); //page url with nonce value
 
 		if( ! self::initWPFS( $form_url, $method, $context, $form_fields ) )
-			return false; //stop further processign when request form is displaying
+			return FALSE; //stop further processign when request form is displaying
 
 		/*
 		* now $wp_filesystem could be used
@@ -584,7 +584,7 @@ class gNetworkUtilities
 		$context = WP_PLUGIN_DIR . '/filesystem-demo'; //target folder
 
 		if( ! self::initWPFS( $form_url, $method, $context ) )
-			return false; //stop further processing when request forms displaying
+			return FALSE; //stop further processing when request forms displaying
 
 		/*
 		* now $wp_filesystem could be used
@@ -616,7 +616,7 @@ class gNetworkUtilities
 
 	public static function elog( $data )
 	{
-		error_log( print_r( compact( 'data' ), true ) );
+		error_log( print_r( compact( 'data' ), TRUE ) );
 	}
 
 	// USE: gNetworkUtilities::callStack( debug_backtrace() );
@@ -633,5 +633,5 @@ class gNetworkUtilities
 }
 
 function gnetwork_log( $data, $table = 0 ) { gNetworkUtilities::log( $data, $table ); }
-function gnetwork_dump( $var, $htmlSafe = true ) { gNetworkUtilities::dump( $var, $htmlSafe ); }
-function gnetwork_trace( $old = true ) { gNetworkUtilities::trace( $old ); }
+function gnetwork_dump( $var, $htmlSafe = TRUE ) { gNetworkUtilities::dump( $var, $htmlSafe ); }
+function gnetwork_trace( $old = TRUE ) { gNetworkUtilities::trace( $old ); }

@@ -7,10 +7,10 @@
 class gNetworkBBQ extends gNetworkModuleCore
 {
 
-	var $_network    = false;
-	var $_option_key = false;
+	var $_network    = FALSE;
+	var $_option_key = FALSE;
 
-	public function setup_actions()
+	protected function setup_actions()
 	{
 		if ( GNETWORK_DISABLE_BBQ )
 			return;
@@ -35,6 +35,5 @@ class gNetworkBBQ extends gNetworkModuleCore
 			header( 'Connection: Close' );
 			exit;
 		}
-
 	}
 }

@@ -34,19 +34,19 @@ class gNetworkModuleCore
 		return defined( 'DOING_AJAX' ) && DOING_AJAX;
 	}
 
-	public function setup_actions() {}
+	protected function setup_actions() {}
 
 	public function default_options()
 	{
 		return array();
 	}
 
-	public function options_key()
+	protected function options_key()
 	{
 		return $this->_option_base.'_'.$this->_option_key;
 	}
 
-	public function init_options()
+	protected function init_options()
 	{
 		$network = $this->_option_base.'OptionsNetwork';
 		$blog    = $this->_option_base.'OptionsBlog';
@@ -199,7 +199,7 @@ class gNetworkModuleCore
 	{
 		if ( ! empty( $_POST ) && 'update' == $_POST['action'] ) {
 
-			check_admin_referer( $this->_option_base.'_'.$sub.'-options' );
+			$this->check_referer( $sub );
 
 			if ( isset( $_POST['reset'] ) ) {
 				$message = $this->reset_settings() ? 'resetting' : 'error';
@@ -210,6 +210,11 @@ class gNetworkModuleCore
 
 			self::redirect_referer( $message );
 		}
+	}
+	
+	protected function check_referer( $sub )
+	{
+		check_admin_referer( $this->_option_base.'_'.$sub.'-options' );
 	}
 
 	public static function redirect_referer( $message = 'updated', $key = 'message' )
@@ -236,9 +241,9 @@ class gNetworkModuleCore
 	}
 
 	// defult method
-	public function save_settings( $options_key = NULL )
+	// caller must check nounce before
+	protected function save_settings( $options_key = NULL )
 	{
-		// must check nounce before
 		if ( is_null( $options_key ) )
 			$options_key = $this->options_key();
 
@@ -418,6 +423,7 @@ class gNetworkModuleCore
 		if ( ! $args['field'] )
 			return;
 
+		$html  = '';
 		$name  = $args['name_attr'] ? $args['name_attr'] : $this->_option_base.'_'.$args['option_group'].'['.esc_attr( $args['field'] ).']';
 		$id    = $args['id_attr']   ? $args['id_attr']   : $this->_option_base.'-'.$args['option_group'].'-'.esc_attr( $args['field'] );
 		$value = isset( $this->options[$args['field']] ) ? $this->options[$args['field']] : $args['default'];
@@ -451,15 +457,12 @@ class gNetworkModuleCore
 					'id'    => $id,
 				), $html );
 
-				if ( $args['desc'] )
-					echo gNetworkUtilities::html( 'p', array(
-						'class' => 'description',
-					), $args['desc'] );
 			break;
-
 			case 'text' :
+			
 				if ( ! $args['field_class'] )
 					$args['field_class'] = 'regular-text';
+					
 				echo gNetworkUtilities::html( 'input', array(
 					'type'     => 'text',
 					'class'    => $args['field_class'],
@@ -470,16 +473,12 @@ class gNetworkModuleCore
 					'disabled' => $args['disabled'],
 				) );
 
-				if ( $args['desc'] )
-					echo gNetworkUtilities::html( 'p', array(
-						'class' => 'description',
-					), $args['desc'] );
 			break;
-
 			case 'checkbox' :
+			
 				if ( count( $args['values'] ) ) {
 					foreach( $args['values'] as $value_name => $value_title ) {
-						$html = gNetworkUtilities::html( 'input', array(
+						$html .= gNetworkUtilities::html( 'input', array(
 							'type'    => 'checkbox',
 							'class'   => $args['field_class'],
 							'name'    => $name.'['.$value_name.']',
@@ -509,13 +508,9 @@ class gNetworkModuleCore
 					), $html.'&nbsp;'.esc_html( $value_title ) ).'</p>';
 				}
 
-				if ( $args['desc'] )
-					echo gNetworkUtilities::html( 'p', array(
-						'class' => 'description',
-					), $args['desc'] );
 			break;
-
 			case 'radio' :
+			
 				if ( count( $args['values'] ) ) {
 					foreach( $args['values'] as $value_name => $value_title ) {
 						$html = gNetworkUtilities::html( 'input', array(
@@ -533,17 +528,11 @@ class gNetworkModuleCore
 						), $html.'&nbsp;'.esc_html( $value_title ) ).'</p>';
 					}
 				}
-
-				if ( $args['desc'] )
-					echo gNetworkUtilities::html( 'p', array(
-						'class' => 'description',
-					), $args['desc'] );
+					
 			break;
-
 			case 'select' :
 
 				if ( FALSE !== $args['values'] ) { // alow hiding
-					$html = '';
 					foreach ( $args['values'] as $value_name => $value_title )
 						$html .= gNetworkUtilities::html( 'option', array(
 							'value'    => $value_name,
@@ -555,14 +544,9 @@ class gNetworkModuleCore
 						'name'  => $name,
 						'id'    => $id,
 					), $html );
-
-					if ( $args['desc'] )
-						echo gNetworkUtilities::html( 'p', array(
-							'class' => 'description',
-						), $args['desc'] );
 				}
+				
 			break;
-
 			case 'textarea' :
 
 				echo gNetworkUtilities::html( 'textarea', array(
@@ -578,15 +562,9 @@ class gNetworkModuleCore
 				// ), esc_textarea( $value ) );
 				), $value );
 
-				if ( $args['desc'] )
-					echo gNetworkUtilities::html( 'p', array(
-						'class' => 'description',
-					), $args['desc'] );
 			break;
-
 			case 'roles' :
 
-				$html = '';
 				foreach ( gNetworkUtilities::getUserRoles() as $value_name => $value_title )
 					$html .= gNetworkUtilities::html( 'option', array(
 						'value'    => $value_name,
@@ -599,17 +577,10 @@ class gNetworkModuleCore
 					'id'    => $id,
 				), $html );
 
-				if ( $args['desc'] )
-					echo gNetworkUtilities::html( 'p', array(
-						'class' => 'description',
-					), $args['desc'] );
 			break;
-
 			case 'blog_users' :
 
-				$users = gNetworkUtilities::getUsers();
-				$html = '';
-				foreach ( $users as $user_id => $user_object )
+				foreach ( gNetworkUtilities::getUsers() as $user_id => $user_object )
 					$html .= gNetworkUtilities::html( 'option', array(
 						'value'    => $user_id,
 						'selected' => $value == $user_id,
@@ -621,12 +592,7 @@ class gNetworkModuleCore
 					'id'    => $id,
 				), $html );
 
-				if ( $args['desc'] )
-					echo gNetworkUtilities::html( 'p', array(
-						'class' => 'description',
-					), $args['desc'] );
 			break;
-
 			case 'button' :
 
 				submit_button(
@@ -636,12 +602,7 @@ class gNetworkModuleCore
 					FALSE
 				);
 
-				if ( $args['desc'] )
-					echo gNetworkUtilities::html( 'p', array(
-						'class' => 'description',
-					), $args['desc'] );
 			break;
-
 			case 'file' :
 
 				echo gNetworkUtilities::html( 'input', array(
@@ -653,12 +614,7 @@ class gNetworkModuleCore
 					'dir'   => $args['dir'],
 				) );
 
-				if ( $args['desc'] )
-					echo gNetworkUtilities::html( 'p', array(
-						'class' => 'description',
-					), $args['desc'] );
 			break;
-
 			case 'custom' :
 
 				if ( ! is_array( $args['values'] ) )
@@ -666,26 +622,21 @@ class gNetworkModuleCore
 				else
 					echo $value;
 
-				if ( $args['desc'] )
-					echo gNetworkUtilities::html( 'p', array(
-						'class' => 'description',
-					), $args['desc'] );
 			break;
-
 			case 'debug' :
 
 				gNetworkUtilities::dump( $this->options );
+				
 			break;
-
 			default :
 
-				echo 'Error: Uknown setting type!';
-
-				if ( $args['desc'] )
-					echo gNetworkUtilities::html( 'p', array(
-						'class' => 'description',
-					), $args['desc'] );
+				_e( 'Error: setting type undefined.', GNETWORK_TEXTDOMAIN );
 		}
+
+		if ( $args['desc'] && FALSE !== $args['values'] )
+			echo gNetworkUtilities::html( 'p', array(
+				'class' => 'description',
+			), $args['desc'] );
 
 		if ( $wrap )
 			echo '</td></tr>';

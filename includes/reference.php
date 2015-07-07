@@ -6,21 +6,12 @@ class gNetworkReference extends gNetworkModuleCore
 	var $_network    = FALSE;
 	var $_option_key = FALSE;
 
-	public function setup_actions()
-	{
-		// add_action( 'init', array( &$this, 'init' ), 12 );
-	}
-
-	public function init()
-	{
-
-	}
-
 	public static function parseFootnotes( $footnotes )
 	{
 		$count = 1;
 		$notes = array();
-		$rows = array_filter( preg_split( "/\n/", $footnotes ) );
+		$rows  = array_filter( preg_split( "/\n/", $footnotes ) );
+		
 		$patterns = array(
 			'/\[(\d+)\]\s\-/u',
 			'/\[(\d+)\]\-/u',
@@ -31,7 +22,7 @@ class gNetworkReference extends gNetworkModuleCore
 			'/^(\d+)\-/u',
 			'/^(\d+)\./u',
 			'/^(\d+)/u',
-			//'/^(\.\s)/u', // working but disabled
+			// '/^(\.\s)/u', // working but disabled
 		);
 
 		foreach ( $rows as $row ) {

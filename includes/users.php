@@ -3,10 +3,10 @@
 class gNetworkUsers extends gNetworkModuleCore
 {
 
-	var $_option_key = 'users';
 	var $_network    = FALSE;
+	var $_option_key = 'users';
 
-	public function setup_actions()
+	protected function setup_actions()
 	{
 		gNetworkAdmin::registerMenu( 'users',
 			__( 'Users', GNETWORK_TEXTDOMAIN ),
@@ -17,14 +17,15 @@ class gNetworkUsers extends gNetworkModuleCore
 			add_filter( 'wp_insert_post_data', array( &$this, 'wp_insert_post_data' ), 9, 2 );
 	}
 
-	public function settings( $sub = null )
+	public function settings( $sub = NULL )
 	{
 		if ( 'users' == $sub ) {
 
 			if ( isset( $_POST['bulk_change_author'] ) ) {
-				check_admin_referer( 'gnetwork_'.$sub.'-options' );
+				
+				$this->check_referer( $sub );
 
-				$from_user_id = isset( $_POST['from_user_id'] ) ? intval( $_POST['from_user_id'] ) : false;
+				$from_user_id = isset( $_POST['from_user_id'] ) ? intval( $_POST['from_user_id'] ) : FALSE;
 				$to_user_id   = isset( $_POST['to_user_id']   ) ? intval( $_POST['to_user_id']   ) : GNETWORK_SITE_USER_ID;
 				$on_post_type = isset( $_POST['on_post_type'] ) ? $_POST['on_post_type'] : 'post';
 
@@ -80,7 +81,7 @@ class gNetworkUsers extends gNetworkModuleCore
 				'type'      => 'blog_users',
 				'field'     => 'from_user_id',
 				'name_attr' => 'from_user_id',
-			), false );
+			), FALSE );
 
 			echo '&nbsp;&mdash; &nbsp;'.__( 'to', GNETWORK_TEXTDOMAIN ).'&nbsp;&mdash; &nbsp;';
 
@@ -89,7 +90,7 @@ class gNetworkUsers extends gNetworkModuleCore
 				'field'     => 'to_user_id',
 				'name_attr' => 'to_user_id',
 				'default'   => GNETWORK_SITE_USER_ID ? GNETWORK_SITE_USER_ID : '0',
-			), false );
+			), FALSE );
 
 			echo '&nbsp;&mdash; &nbsp;'.__( 'on', GNETWORK_TEXTDOMAIN ).'&nbsp;&mdash; &nbsp;';
 
@@ -99,11 +100,11 @@ class gNetworkUsers extends gNetworkModuleCore
 				'name_attr' => 'on_post_type',
 				'default'   => 'post',
 				'values'    => gNetworkUtilities::getPostTypes(),
-			), false );
+			), FALSE );
 
 			echo '&nbsp;&mdash; &nbsp;'.__( 'do', GNETWORK_TEXTDOMAIN ).'&nbsp;&mdash; &nbsp;';
 
-			submit_button( __( 'Change', GNETWORK_TEXTDOMAIN ), 'secondary', 'bulk_change_author', false,
+			submit_button( __( 'Change', GNETWORK_TEXTDOMAIN ), 'secondary', 'bulk_change_author', FALSE,
 				sprintf( 'onclick="return confirm( \'%s\' )"', __( 'Are you sure? This operation can not be undone.', GNETWORK_TEXTDOMAIN ) ) );
 
 			echo '</td></tr>';
@@ -117,7 +118,7 @@ class gNetworkUsers extends gNetworkModuleCore
 		$user = get_userdata( $to_user_id );
 
 		if ( ! $user || ! $user->exists() )
-			return false;
+			return FALSE;
 
 		$count = $wpdb->query( $wpdb->prepare( "
 			UPDATE $wpdb->posts SET post_author = %s WHERE post_author = %s AND post_type = %s
@@ -137,8 +138,8 @@ class gNetworkUsers extends gNetworkModuleCore
 		$count = isset( $_GET['count'] ) ? $_GET['count'] : 0 ;
 		$_SERVER['REQUEST_URI'] = remove_query_arg( 'count', $_SERVER['REQUEST_URI'] );
 
-		$messages['bulk-author-changed']     = gNetworkUtilities::notice( sprintf( __( '%s Post(s) Changed', GNETWORK_TEXTDOMAIN ), $count ), 'updated fade', false );
-		$messages['bulk-author-not-changed'] = gNetworkUtilities::notice( __( 'No Post Changed', GNETWORK_TEXTDOMAIN ), 'error', false );
+		$messages['bulk-author-changed']     = gNetworkUtilities::notice( sprintf( __( '%s Post(s) Changed', GNETWORK_TEXTDOMAIN ), $count ), 'updated fade', FALSE );
+		$messages['bulk-author-not-changed'] = gNetworkUtilities::notice( __( 'No Post Changed', GNETWORK_TEXTDOMAIN ), 'error', FALSE );
 
 		return $messages;
 	}

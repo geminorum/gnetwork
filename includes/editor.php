@@ -6,10 +6,11 @@
 
 class gNetworkEditor extends gNetworkModuleCore
 {
+	
 	var $_network    = FALSE;
 	var $_option_key = FALSE;
 
-	public function setup_actions()
+	protected function setup_actions()
 	{
 		if ( ! is_admin() )
 			return;
@@ -48,7 +49,7 @@ class gNetworkEditor extends gNetworkModuleCore
 	// fixes weirdness resulting from wpautop and formatting clean up not built for tables
 	public function content_save_pre( $content )
 	{
-		if ( false !== strpos( $content, '<table' ) ) {
+		if ( FALSE !== strpos( $content, '<table' ) ) {
 			// paragraphed content inside of a td requires first paragraph to have extra line breaks (or else autop breaks)
 			$content  = preg_replace( "/<td([^>]*)>(.+\r?\n\r?\n)/m", "<td$1>\n\n$2", $content );
 
@@ -69,5 +70,3 @@ class gNetworkEditor extends gNetworkModuleCore
 		return $query;
 	}
 }
-
-// ADD EDITOR BUTTON : http://code.tutsplus.com/articles/quick-tip-how-to-implement-multiple-pages-for-your-wordpress-posts-and-pages--wp-23972

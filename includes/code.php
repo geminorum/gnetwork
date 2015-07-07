@@ -6,10 +6,9 @@ class gNetworkCode extends gNetworkModuleCore
 	var $_network    = FALSE;
 	var $_option_key = FALSE;
 
-	public function setup_actions()
+	protected function setup_actions()
 	{
 		add_action( 'init', array( &$this, 'init' ), 12 );
-
 	}
 
 	public function init()

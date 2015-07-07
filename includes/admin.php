@@ -8,12 +8,12 @@ class gNetworkAdmin extends gNetworkModuleCore
 
 	var $menus = array();
 
-	public function setup_actions()
+	protected function setup_actions()
 	{
 		if ( ! is_admin() )
 			return;
 
-		add_action( 'init',       array( &$this, 'init_late' ),        99  );
+		// add_action( 'init',       array( &$this, 'init_late' ),        99  );
 		add_action( 'admin_init', array( &$this, 'admin_init_early' ), 1   );
 		add_action( 'admin_menu', array( &$this, 'admin_menu' ),       12  );
 		add_action( 'admin_menu', array( &$this, 'admin_menu_late' ),  999 );
@@ -25,7 +25,7 @@ class gNetworkAdmin extends gNetworkModuleCore
 		add_action( 'export_wp', array( &$this, 'export_wp' ) );
 
 		// IT MESSES WITH CUSTOM COLUMNS!!
-		//add_filter( 'posts_fields', array( &$this, 'posts_fields' ), 0, 2 );
+		// add_filter( 'posts_fields', array( &$this, 'posts_fields' ), 0, 2 );
 
 		add_action( 'admin_print_styles', array( &$this, 'admin_print_styles' ) );
 		add_filter( 'admin_footer_text', array( &$this, 'admin_footer_text' ), 9999 );
@@ -53,6 +53,7 @@ class gNetworkAdmin extends gNetworkModuleCore
 		//add_filter( 'menu_order', array( &$this, 'menu_order' ) );
 	}
 
+	// NOT USED
 	// this will help process other parts of gNetwork modules
 	// wait untill all init actions fired!
 	// PROBABLY: needs security hardening
@@ -201,7 +202,7 @@ class gNetworkAdmin extends gNetworkModuleCore
 	public function admin_settings_page()
 	{
 		$subs = apply_filters( 'gnetwork_admin_settings_subs', $this->subs() );
-		$sub = isset( $_GET['sub'] ) ? trim( $_GET['sub'] ) : 'overview';
+		$sub  = isset( $_GET['sub'] ) ? trim( $_GET['sub'] ) : 'overview';
 
 		echo '<div class="wrap gnetwork-admin-settings-wrap settings-admin sub-'.$sub.'">';
 
@@ -232,8 +233,8 @@ class gNetworkAdmin extends gNetworkModuleCore
 				$_SERVER['REQUEST_URI'] = remove_query_arg( 'message', $_SERVER['REQUEST_URI'] );
 			}
 
-			if ( file_exists( GNETWORK_DIR.'admin/admin.'.$sub.'.php' ) )
-				require_once( GNETWORK_DIR.'admin/admin.'.$sub.'.php' );
+			if ( file_exists( GNETWORK_DIR.'admin'.DS.'admin.'.$sub.'.php' ) )
+				require_once( GNETWORK_DIR.'admin'.DS.'admin.'.$sub.'.php' );
 			else
 				do_action( 'gnetwork_admin_settings_sub_'.$sub, $settings_uri, $sub );
 
@@ -298,10 +299,9 @@ jQuery(document).ready(function($){$('textarea.wp-editor-areaXX, #excerpt, .text
 		return $content;
 	}
 
+	// FIXME : style this!!
 	public function wp_dashboard_setup()
 	{
-		// TODO : style this!!
-
 		if ( defined( 'GNETWORK_ADMIN_WIDGET_RSS' ) && constant( 'GNETWORK_ADMIN_WIDGET_RSS' ) ) {
 			add_meta_box( 'abetterplanet_widget',
 				_x( 'Network Feed', 'admin dashboard widget title', GNETWORK_TEXTDOMAIN ),
@@ -310,7 +310,6 @@ jQuery(document).ready(function($){$('textarea.wp-editor-areaXX, #excerpt, .text
 		}
 	}
 
-	// Based on : http://wplift.com/a-better-planet
 	public function widget_network_rss()
 	{
 		//public function return_1600( $seconds ) { return 1600; }
@@ -393,7 +392,7 @@ jQuery(document).ready(function($){$('textarea.wp-editor-areaXX, #excerpt, .text
 	public function user_register( $user_id )
 	{
 		wp_update_user( array(
-			'ID' => $user_id,
+			'ID'          => $user_id,
 			'admin_color' => GNETWORK_ADMIN_COLOUR, //'sunrise'
 		) );
 	}

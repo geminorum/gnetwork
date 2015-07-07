@@ -6,7 +6,7 @@ class gNetworkNotify extends gNetworkModuleCore
 	var $_network    = TRUE;
 	var $_option_key = 'notify';
 
-	public function setup_actions()
+	protected function setup_actions()
 	{
 		gNetworkNetwork::registerMenu( 'notify',
 			__( 'Notify', GNETWORK_TEXTDOMAIN ),
@@ -106,13 +106,13 @@ class gNetworkNotify extends gNetworkModuleCore
 		$blogname = $this->blogname();
 		$user = get_userdata( $user_id );
 
-		if ( ! $this->options['disable_new_user_admin'] )
-		{
+		if ( ! $this->options['disable_new_user_admin'] ) {
+			
 			$message  = sprintf( __( 'New user registration on your site %s:' ), $blogname )."\r\n\r\n";
 			$message .= sprintf( __( 'Username: %s' ), $user->user_login )."\r\n\r\n";
 			$message .= sprintf( __( 'E-mail: %s' ), $user->user_email   )."\r\n";
 
-			@wp_mail(get_option('admin_email'), sprintf( __( '[%s] New User Registration' ), $blogname ), $message );
+			@wp_mail( get_option( 'admin_email' ), sprintf( __( '[%s] New User Registration' ), $blogname ), $message );
 		}
 
 		$message  = sprintf( __( 'Username: %s' ), $user->user_login )."\r\n";

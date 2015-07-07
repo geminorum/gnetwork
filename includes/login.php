@@ -3,10 +3,10 @@
 class gNetworkLogin extends gNetworkModuleCore
 {
 
-	var $_network    = true;
-	var $_option_key = false;
+	var $_network    = TRUE;
+	var $_option_key = FALSE;
 
-	public function setup_actions()
+	protected function setup_actions()
 	{
 		add_filter( 'login_headerurl', function( $login_header_url ){
 			return constant( 'GNETWORK_BASE' );

@@ -3,31 +3,31 @@
 class gNetworkMail extends gNetworkModuleCore
 {
 
+	var $_network    = TRUE;
 	var $_option_key = 'mail';
-	var $_network    = true;
 
-	public function setup_actions()
+	protected function setup_actions()
 	{
 		gNetworkNetwork::registerMenu( 'mail',
 			__( 'Mail', GNETWORK_TEXTDOMAIN ),
-			array( & $this, 'settings' )
+			array( &$this, 'settings' )
 		);
 
 		gNetworkNetwork::registerMenu( 'testmail',
 			__( 'Test Mail', GNETWORK_TEXTDOMAIN )
 		);
 
-		add_filter( 'wp_mail_from', array( & $this, 'wp_mail_from' ), 5 );
-		add_filter( 'wp_mail_from_name', array( & $this, 'wp_mail_from_name' ), 5 );
+		add_filter( 'wp_mail_from', array( &$this, 'wp_mail_from' ), 5 );
+		add_filter( 'wp_mail_from_name', array( &$this, 'wp_mail_from_name' ), 5 );
 
-		add_action( 'phpmailer_init', array( & $this, 'phpmailer_init' ) );
+		add_action( 'phpmailer_init', array( &$this, 'phpmailer_init' ) );
 	}
 
 	public function settings( $sub = NULL )
 	{
 		if ( 'mail' == $sub ) {
 			$this->settings_update( $sub );
-			add_action( 'gnetwork_network_settings_sub_mail', array( & $this, 'settings_html' ), 10, 2 );
+			add_action( 'gnetwork_network_settings_sub_mail', array( &$this, 'settings_html' ), 10, 2 );
 			$this->register_settings();
 			$this->register_settings_help();
 		}
@@ -121,12 +121,8 @@ class gNetworkMail extends gNetworkModuleCore
 					'field'   => 'smtp_password',
 					'type'    => 'text',
 					'title'   => __( 'Password', GNETWORK_TEXTDOMAIN ),
-					//'desc'    => __( 'You can specify the name that emails should be sent from. If you leave this blank, the emails will be sent from WordPress.', GNETWORK_TEXTDOMAIN ),
+					// 'desc'    => __( 'You can specify the name that emails should be sent from. If you leave this blank, the emails will be sent from WordPress.', GNETWORK_TEXTDOMAIN ),
 					'default' => '',
-				),
-				array(
-					'field' => 'debug',
-					'type'  => 'debug',
 				),
 			),
 		);
@@ -155,7 +151,7 @@ class gNetworkMail extends gNetworkModuleCore
 				</tbody></table><br />
 				For more information see <a href="http://www.wpbeginner.com/plugins/how-to-send-email-in-wordpress-using-the-gmail-smtp-server/" target="_blank">here</a>.
 				</p>',
-				'callback' => false,
+				'callback' => FALSE,
 			),
 			array(
 				'id'      => 'gnetwork-mail-help-mandrill',
@@ -170,7 +166,7 @@ class gNetworkMail extends gNetworkModuleCore
 				Get your API key from <a href="https://mandrillapp.com/settings" target="_blank">here</a>.<br />
 				For more information see <a href="http://help.mandrill.com/entries/21738447" target="_blank">here</a>.
 				</p>',
-				'callback' => false,
+				'callback' => FALSE,
 			),
 		);
 	}
@@ -283,10 +279,10 @@ class gNetworkMail extends gNetworkModuleCore
 			if ( ! is_object( $phpmailer ) || ! is_a( $phpmailer, 'PHPMailer' ) ) {
 				require_once ABSPATH.WPINC.'/class-phpmailer.php';
 				require_once ABSPATH.WPINC.'/class-smtp.php';
-				$phpmailer = new PHPMailer( true );
+				$phpmailer = new PHPMailer( TRUE );
 			}
 
-			$phpmailer->SMTPDebug = true;
+			$phpmailer->SMTPDebug = TRUE;
 
 			ob_start();
 

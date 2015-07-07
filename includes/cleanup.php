@@ -3,10 +3,10 @@
 class gNetworkCleanup extends gNetworkModuleCore
 {
 
-	var $_network    = false;
-	var $_option_key = false;
+	var $_network    = FALSE;
+	var $_option_key = FALSE;
 
-	public function setup_actions()
+	protected function setup_actions()
 	{
 		add_action( 'plugins_loaded' , array( &$this, 'plugins_loaded' ), 10 );
 		add_action( 'init' , array( &$this, 'init' ), 12 );
@@ -37,7 +37,7 @@ class gNetworkCleanup extends gNetworkModuleCore
 			return;
 
 		$scripts->remove( 'jquery' );
-		$scripts->add( 'jquery', false, array( 'jquery-core' ), '1.11.1' );
+		$scripts->add( 'jquery', FALSE, array( 'jquery-core' ), '1.11.1' );
 	}
 
 	// TODO: add option and/or global constant

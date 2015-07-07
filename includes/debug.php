@@ -6,7 +6,7 @@ class gNetworkDebug extends gNetworkModuleCore
 	var $_network    = FALSE;
 	var $_option_key = FALSE;
 
-	public function setup_actions()
+	protected function setup_actions()
 	{
 		gNetworkAdmin::registerMenu( 'debug',
 			__( 'Debug', GNETWORK_TEXTDOMAIN ),
@@ -49,12 +49,14 @@ class gNetworkDebug extends gNetworkModuleCore
 
 			if ( isset( $_POST['purge_transient'] )
 				|| isset( $_POST['purge_transient_all'] ) ) {
-					check_admin_referer( 'gnetwork_'.$sub.'-options' );
+					
+					$this->check_referer( $sub );
 					$this->purge_transient_data( false, isset( $_POST['purge_transient'] ) );
 					self::redirect_referer( 'transientpurged' );
+			} else {
+				// $this->settings_update( $sub );	
 			}
-
-			// $this->settings_update( $sub );
+			
 			// $this->register_settings();
 			$this->register_button( 'purge_transient', __( 'Purge Expired Transient Data', GNETWORK_TEXTDOMAIN ) );
 			$this->register_button( 'purge_transient_all', __( 'Purge All Transient Data', GNETWORK_TEXTDOMAIN ) );

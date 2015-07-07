@@ -6,7 +6,7 @@ class gNetworkTypography extends gNetworkModuleCore
 	var $_network    = FALSE;
 	var $_option_key = FALSE;
 
-	public function setup_actions()
+	protected function setup_actions()
 	{
 		add_action( 'init', array( &$this, 'init' ), 12 );
 	}
@@ -61,7 +61,7 @@ class gNetworkTypography extends gNetworkModuleCore
 		return '<div class="gnetwork-wrap-shortcode shortcode-three-asterisks three-asterisks">&#x274b;&nbsp;&#x274b;&nbsp;&#x274b;</div>';
 	}
 
-	// FIXME: use entittie in tel short code
+	// FIXME: use entities in tel short code
 	public function shortcode_ltr( $atts, $content = NULL, $tag = '' )
 	{
 		if ( is_null( $content ) )

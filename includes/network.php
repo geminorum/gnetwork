@@ -3,36 +3,37 @@
 class gNetworkNetwork extends gNetworkModuleCore
 {
 
-	var $_option_key = false;
-	var $_network    = true;
+	var $_network    = TRUE;
+	var $_option_key = FALSE;
 	var $menus       = array();
 
-	public function setup_actions()
+	protected function setup_actions()
 	{
 		if ( ! is_multisite() )
 			return;
 
 		if ( is_admin() ) {
 
-			//add_filter( 'all_plugins', array( & $this, 'all_plugins' ) );
-			//add_action( 'load-index.php', array( & $this, 'load_index_php' ) ); // SPEED CAUTIONS
-			add_action( 'network_admin_menu', array( & $this, 'network_admin_menu' ) );
+			// add_filter( 'all_plugins', array( &$this, 'all_plugins' ) );
+			// add_action( 'load-index.php', array( &$this, 'load_index_php' ) ); // SPEED CAUTIONS
+			
+			add_action( 'network_admin_menu', array( &$this, 'network_admin_menu' ) );
 		} else {
 
 			add_filter( 'blog_redirect_404', '__return_false' ); // prevent: maybe_redirect_404()
 
 		}
 
-		add_action( 'wpmu_new_blog', array( & $this, 'wpmu_new_blog' ), 12, 6 );
+		add_action( 'wpmu_new_blog', array( &$this, 'wpmu_new_blog' ), 12, 6 );
 
 		if ( GNETWORK_ADMIN_COLUMN_ID ) {
-			add_filter( 'wpmu_blogs_columns', array( & $this, 'wpmu_blogs_columns' ) );
-			add_action( 'manage_sites_custom_column', array( & $this, 'manage_blogs_custom_column' ), 10, 2 );
-			add_action( 'manage_blogs_custom_column', array( & $this, 'manage_blogs_custom_column' ), 10, 2 );
+			add_filter( 'wpmu_blogs_columns', array( &$this, 'wpmu_blogs_columns' ) );
+			add_action( 'manage_sites_custom_column', array( &$this, 'manage_blogs_custom_column' ), 10, 2 );
+			add_action( 'manage_blogs_custom_column', array( &$this, 'manage_blogs_custom_column' ), 10, 2 );
 		}
 
 		if ( GNETWORK_LARGE_NETWORK_IS )
-			add_filter( 'wp_is_large_network', array( & $this, 'wp_is_large_network' ), 10, 3 );
+			add_filter( 'wp_is_large_network', array( &$this, 'wp_is_large_network' ), 10, 3 );
 	}
 
 	function wp_is_large_network( $is, $using, $count )
@@ -70,12 +71,12 @@ class gNetworkNetwork extends gNetworkModuleCore
 			_x( 'Extras', 'Network Menu Title', GNETWORK_TEXTDOMAIN ),
 			'manage_network_options',
 			'gnetwork',
-			array( & $this, 'settings_page' ),
+			array( &$this, 'settings_page' ),
 			'dashicons-screenoptions',
 			120
 		);
 
-		add_action( 'load-'.$hook, array( & $this, 'network_settings_load' ) );
+		add_action( 'load-'.$hook, array( &$this, 'network_settings_load' ) );
 
 		foreach( $this->menus as $sub => $args ) {
 			add_submenu_page( 'gnetwork',
@@ -83,7 +84,7 @@ class gNetworkNetwork extends gNetworkModuleCore
 				$args['title'],
 				$args['cap'],
 				'gnetwork&sub='.$sub,
-				array( & $this, 'settings_page' )
+				array( &$this, 'settings_page' )
 			);
 		}
 
@@ -91,7 +92,7 @@ class gNetworkNetwork extends gNetworkModuleCore
 		$submenu['gnetwork'][0][0] = __( 'Overview', GNETWORK_TEXTDOMAIN );
 	}
 
-	public static function registerMenu( $sub, $title = null, $callback = false, $capability = 'manage_network_options' )
+	public static function registerMenu( $sub, $title = NULL, $callback = FALSE, $capability = 'manage_network_options' )
 	{
 		if ( ! is_network_admin() || self::isAJAX() )
 			return;
@@ -107,7 +108,7 @@ class gNetworkNetwork extends gNetworkModuleCore
 			add_action( 'gnetwork_network_settings', $callback );
 	}
 
-	public static function settingsURL( $full = true )
+	public static function settingsURL( $full = TRUE )
 	{
 		$relative = 'admin.php?page=gnetwork';
 
@@ -125,7 +126,7 @@ class gNetworkNetwork extends gNetworkModuleCore
 			$sub = $_REQUEST['sub'];
 			$submenu_file = 'gnetwork&sub='.$sub;
 		} else {
-			$sub = null;
+			$sub = NULL;
 		}
 
 		do_action( 'gnetwork_network_settings', $sub );
@@ -141,7 +142,7 @@ class gNetworkNetwork extends gNetworkModuleCore
 	{
 		$subs = array(
 			'overview' => __( 'Overview', GNETWORK_TEXTDOMAIN ),
-			//'general' => __( 'General', GNETWORK_TEXTDOMAIN ),
+			// 'general' => __( 'General', GNETWORK_TEXTDOMAIN ),
 		);
 
 		foreach( $this->menus as $sub => $args )
@@ -155,17 +156,18 @@ class gNetworkNetwork extends gNetworkModuleCore
 
 	public function settings_page()
 	{
-		$settings_uri = self::settingsURL( false );
-		$sub = isset( $_REQUEST['sub'] ) ? trim( $_REQUEST['sub'] ) : 'overview';
-		$subs = apply_filters( 'gnetwork_network_settings_subs', $this->subs() );
+		$settings_uri = self::settingsURL( FALSE );
+		$sub          = isset( $_REQUEST['sub'] ) ? trim( $_REQUEST['sub'] ) : 'overview';
+		$subs         = apply_filters( 'gnetwork_network_settings_subs', $this->subs() );
 
 		$messages = apply_filters( 'gnetwork_network_settings_messages', array(
-			'resetting' => gNetworkUtilities::notice( __( 'Resetting Settings.', GNETWORK_TEXTDOMAIN ), 'updated fade', false ),
-			'updated' => gNetworkUtilities::notice( __( 'Settings updated.', GNETWORK_TEXTDOMAIN ), 'updated fade', false ),
-			'error' => gNetworkUtilities::notice( __( 'Error while saving settings.', GNETWORK_TEXTDOMAIN ), 'error', false ),
+			'resetting' => gNetworkUtilities::notice( __( 'Resetting Settings.', GNETWORK_TEXTDOMAIN ), 'updated fade', FALSE ),
+			'updated'   => gNetworkUtilities::notice( __( 'Settings updated.', GNETWORK_TEXTDOMAIN ), 'updated fade', FALSE ),
+			'error'     => gNetworkUtilities::notice( __( 'Error while saving settings.', GNETWORK_TEXTDOMAIN ), 'error', FALSE ),
 		) );
 
 		echo '<div class="wrap gnetwork-admin-settings-wrap settings-network sub-'.$sub.'">';
+			
 			self::sideNotification();
 			printf( '<h2>%s</h2>', __( 'gNetwork Extras', GNETWORK_TEXTDOMAIN ) );
 
@@ -181,8 +183,8 @@ class gNetworkNetwork extends gNetworkModuleCore
 				$_SERVER['REQUEST_URI'] = remove_query_arg( 'message', $_SERVER['REQUEST_URI'] );
 			}
 
-			if ( file_exists( GNETWORK_DIR.'admin/network.'.$sub.'.php' ) )
-				require_once( GNETWORK_DIR.'admin/network.'.$sub.'.php' );
+			if ( file_exists( GNETWORK_DIR.'admin'.DS.'network.'.$sub.'.php' ) )
+				require_once( GNETWORK_DIR.'admin'.DS.'network.'.$sub.'.php' );
 			else
 				do_action( 'gnetwork_network_settings_sub_'.$sub, $settings_uri, $sub );
 
@@ -192,7 +194,7 @@ class gNetworkNetwork extends gNetworkModuleCore
 	// http://wpengineer.com/2470/hide-welcome-panel-for-wordpress-multisite/
 	function load_index_php()
 	{
-		if ( 2 === (int) get_user_meta( get_current_user_id(), 'show_welcome_panel', true ) )
+		if ( 2 === (int) get_user_meta( get_current_user_id(), 'show_welcome_panel', TRUE ) )
 			update_user_meta( get_current_user_id(), 'show_welcome_panel', 0 );
 	}
 
@@ -273,7 +275,8 @@ class gNetworkNetwork extends gNetworkModuleCore
 
 		foreach ( $disabled_plugins as $disabled_plugin ) {
 			if ( array_key_exists( $disabled_plugin, $plugins ) &&
-				 ( in_array( $disabled_plugin, $undeactivatable_plugins ) || ! is_plugin_active( $disabled_plugin ) )
+				 ( in_array( $disabled_plugin, $undeactivatable_plugins ) 
+					|| ! is_plugin_active( $disabled_plugin ) )
 			) {
 				unset( $plugins[ $disabled_plugin ] );
 			}

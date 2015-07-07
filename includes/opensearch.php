@@ -5,39 +5,38 @@ class gNetworkOpenSearch extends gNetworkModuleCore
 
 	var $_network    = FALSE;
 	var $_option_key = 'opensearch';
+	var $_export     = FALSE;
 
-	var $_export = FALSE;
-
-	public function setup_actions()
+	protected function setup_actions()
 	{
 		gNetworkAdmin::registerMenu( 'opensearch',
 			__( 'Open Search', GNETWORK_TEXTDOMAIN ),
-			array( & $this, 'settings' )//, 'read'
+			array( &$this, 'settings' )//, 'read'
 		);
 
 		if ( ! $this->options['opensearch'] )
 			return;
 
-		add_action( 'wp_head', array( & $this, 'wp_head' ) );
+		add_action( 'wp_head', array( &$this, 'wp_head' ) );
 
 		if ( ! constant( 'GNETWORK_SEARCH_REDIRECT' ) ) {
-			add_action( 'atom_head', array( & $this, 'wp_head' ) );
-			add_action( 'rss2_head', array( & $this, 'rss2_head' ) );
+			add_action( 'atom_head', array( &$this, 'wp_head' ) );
+			add_action( 'rss2_head', array( &$this, 'rss2_head' ) );
 			add_action( 'export_wp', function( $args ){
 				$this->_export = TRUE;
 			} );
 		}
 
-		// add_action( 'rewrite_rules_array', array( & $this, 'rewrite_rules_array' ), 8 );
-		add_filter( 'redirect_canonical', array( & $this, 'redirect_canonical' ), 10, 2 );
-		add_action( 'parse_request', array( & $this, 'parse_request' ), 1 );
+		// add_action( 'rewrite_rules_array', array( &$this, 'rewrite_rules_array' ), 8 );
+		add_filter( 'redirect_canonical', array( &$this, 'redirect_canonical' ), 10, 2 );
+		add_action( 'parse_request', array( &$this, 'parse_request' ), 1 );
 	}
 
-	public function settings( $sub = null )
+	public function settings( $sub = NULL )
 	{
 		if ( 'opensearch' == $sub ) {
 			$this->settings_update( $sub );
-			add_action( 'gnetwork_admin_settings_sub_opensearch', array( & $this, 'settings_html' ), 10, 2 );
+			add_action( 'gnetwork_admin_settings_sub_opensearch', array( &$this, 'settings_html' ), 10, 2 );
 			$this->register_settings();
 			$this->register_settings_help();
 		}
@@ -47,8 +46,8 @@ class gNetworkOpenSearch extends gNetworkModuleCore
 	{
 		return array(
 			 array(
-				'id' => 'gnetwork-opensearch-help',
-				'title' => __( 'OpenSearch', GNETWORK_TEXTDOMAIN ),
+				'id'      => 'gnetwork-opensearch-help',
+				'title'   => __( 'OpenSearch', GNETWORK_TEXTDOMAIN ),
 				'content' => '<p>OpenSearch is a collection of simple formats for the sharing of search results.</p>
 					<p>This blog\'s OpenSearch description file is:<br /><a href="'.self::url().'" target="_blank">'.self::url().'</a></p>
 				<p>Fore more information:<br />
@@ -56,7 +55,7 @@ class gNetworkOpenSearch extends gNetworkModuleCore
 					<a href="https://developer.mozilla.org/en-US/docs/Adding_search_engines_from_web_pages" target="_blank">Adding search engines from web pages</a><br />
 					<a href="https://opensearch.org" target="_blank">OpenSearch.org</a><br />
 				</p>',
-				'callback' => false,
+				'callback' => FALSE,
 			),
 		);
 	}
@@ -67,80 +66,76 @@ class gNetworkOpenSearch extends gNetworkModuleCore
 		return array(
 			'_general' => array(
 				array(
-					'field' => 'opensearch',
-					'type' => 'enabled',
-					'title' => __( 'Open Search', GNETWORK_TEXTDOMAIN ),
-					'desc' => __( 'OpenSearch support for this blog.', GNETWORK_TEXTDOMAIN ),
+					'field'   => 'opensearch',
+					'type'    => 'enabled',
+					'title'   => __( 'Open Search', GNETWORK_TEXTDOMAIN ),
+					'desc'    => __( 'OpenSearch support for this blog.', GNETWORK_TEXTDOMAIN ),
 					'default' => '0',
 				),
 				array(
-					'field' => 'suggestions',
-					'type' => 'enabled',
-					'title' => __( 'Suggestions', GNETWORK_TEXTDOMAIN ),
-					'desc' => __( 'OpenSearch Suggestions support for this site.', GNETWORK_TEXTDOMAIN ),
+					'field'   => 'suggestions',
+					'type'    => 'enabled',
+					'title'   => __( 'Suggestions', GNETWORK_TEXTDOMAIN ),
+					'desc'    => __( 'OpenSearch Suggestions support for this site.', GNETWORK_TEXTDOMAIN ),
 					'default' => '0',
 				),
 				array(
-					'field' => 'shortname',
-					'type' => 'text',
-					'title' => __( 'ShortName', GNETWORK_TEXTDOMAIN ),
-					'desc' => __( 'A short name for the search engine. <b>16</b> chars or less, no HTML.', GNETWORK_TEXTDOMAIN ),
+					'field'   => 'shortname',
+					'type'    => 'text',
+					'title'   => __( 'ShortName', GNETWORK_TEXTDOMAIN ),
+					'desc'    => __( 'A short name for the search engine. <b>16</b> chars or less, no HTML.', GNETWORK_TEXTDOMAIN ),
 					'default' => '',
-					'class' => 'medium-text',
+					'class'   => 'medium-text',
 				),
 				array(
-					'field' => 'longname',
-					'type' => 'text',
-					'title' => __( 'LongName', GNETWORK_TEXTDOMAIN ),
-					'desc' => __( 'An extended name for the search engine. <b>48</b> chars or less, no HTML.', GNETWORK_TEXTDOMAIN ),
-					'default' => '',
-				),
-				array(
-					'field' => 'description',
-					'type' => 'textarea',
-					'title' => __( 'Description', GNETWORK_TEXTDOMAIN ),
-					'desc' => __( 'A brief description of the search engine. <b>1024</b> chars or less, no HTML.', GNETWORK_TEXTDOMAIN ),
+					'field'   => 'longname',
+					'type'    => 'text',
+					'title'   => __( 'LongName', GNETWORK_TEXTDOMAIN ),
+					'desc'    => __( 'An extended name for the search engine. <b>48</b> chars or less, no HTML.', GNETWORK_TEXTDOMAIN ),
 					'default' => '',
 				),
 				array(
-					'field' => 'attribution',
-					'type' => 'text',
-					'title' => __( 'Attribution', GNETWORK_TEXTDOMAIN ),
-					'desc' => __( 'A list of all sources or entities that should be credited. <b>256</b> chars or less, no HTML.', GNETWORK_TEXTDOMAIN ),
+					'field'   => 'description',
+					'type'    => 'textarea',
+					'title'   => __( 'Description', GNETWORK_TEXTDOMAIN ),
+					'desc'    => __( 'A brief description of the search engine. <b>1024</b> chars or less, no HTML.', GNETWORK_TEXTDOMAIN ),
+					'default' => '',
+				),
+				array(
+					'field'   => 'attribution',
+					'type'    => 'text',
+					'title'   => __( 'Attribution', GNETWORK_TEXTDOMAIN ),
+					'desc'    => __( 'A list of all sources or entities that should be credited. <b>256</b> chars or less, no HTML.', GNETWORK_TEXTDOMAIN ),
 					'default' => sprintf( __( 'Search data copyright %s', GNETWORK_TEXTDOMAIN ), $name ),
-					'class' => 'large-text',
+					'class'   => 'large-text',
 				),
 				array(
-					'field' => 'syndication',
-					'type' => 'select',
-					'title' => __( 'Syndication Right', GNETWORK_TEXTDOMAIN ),
-					'desc' => __( 'Indicates the degree to which the search results provided.', GNETWORK_TEXTDOMAIN ),
+					'field'   => 'syndication',
+					'type'    => 'select',
+					'title'   => __( 'Syndication Right', GNETWORK_TEXTDOMAIN ),
+					'desc'    => __( 'Indicates the degree to which the search results provided.', GNETWORK_TEXTDOMAIN ),
 					'default' => 'open',
-					'values' => array(
-						'open' => __( 'Open', GNETWORK_TEXTDOMAIN ),
+					'values'  => array(
+						'open'    => __( 'Open', GNETWORK_TEXTDOMAIN ),
 						'limited' => __( 'Limited', GNETWORK_TEXTDOMAIN ),
 						'private' => __( 'Private', GNETWORK_TEXTDOMAIN ),
-						'closed' => __( 'Closed', GNETWORK_TEXTDOMAIN ),
+						'closed'  => __( 'Closed', GNETWORK_TEXTDOMAIN ),
 					),
 				),
 				array(
-					'field' => 'contact',
-					'type' => 'text',
-					'title' => __( 'Contact', GNETWORK_TEXTDOMAIN ),
-					'desc' => __( 'An email address at which the maintainer of the search engine can be reached.', GNETWORK_TEXTDOMAIN ),
+					'field'   => 'contact',
+					'type'    => 'text',
+					'title'   => __( 'Contact', GNETWORK_TEXTDOMAIN ),
+					'desc'    => __( 'An email address at which the maintainer of the search engine can be reached.', GNETWORK_TEXTDOMAIN ),
 					'default' => get_site_option( 'admin_email' ),
 				),
 				array(
-					'field' => 'tags',
-					'type' => 'text',
-					'title' => __( 'Tags', GNETWORK_TEXTDOMAIN ),
-					'desc' => __( 'A set of words that are used as keywords to identify and categorize this search content. Single words and are delimited by space. <b>256</b> chars or less, no HTML.', GNETWORK_TEXTDOMAIN ),
+					'field'   => 'tags',
+					'type'    => 'text',
+					'title'   => __( 'Tags', GNETWORK_TEXTDOMAIN ),
+					'desc'    => __( 'A set of words that are used as keywords to identify and categorize this search content. Single words and are delimited by space. <b>256</b> chars or less, no HTML.', GNETWORK_TEXTDOMAIN ),
 					'default' => '',
-					'class' => 'large-text',
-				),
-				array(
-					'field' => 'debug',
-					'type' => 'debug',
+					'class'   => 'large-text',
 				),
 			),
 		);
@@ -149,15 +144,15 @@ class gNetworkOpenSearch extends gNetworkModuleCore
 	public function default_options()
 	{
 		$name = get_bloginfo( 'name', 'display' );
+		
 		return array(
-			'opensearch' => '0',
+			'opensearch'  => '0',
 			'suggestions' => '0',
-
-			'shortname' => $name,
-			'longname' => '',
+			'shortname'   => $name,
+			'longname'    => '',
 			'description' => sprintf( __( 'Search &#x201C;%s&#x201D;', GNETWORK_TEXTDOMAIN ), $name ),
-			'contact' => '',
-			'tags' => '',
+			'contact'     => '',
+			'tags'        => '',
 			'attribution' => '',
 			'syndication' => 'open',
 		);
@@ -197,17 +192,17 @@ class gNetworkOpenSearch extends gNetworkModuleCore
 	public function redirect_canonical( $redirect_url, $requested_url )
 	{
 		if ( 'osd.xml' == substr( $requested_url, -7 ) )
-			return false;
+			return FALSE;
 
 		else if ( 'oss.json' == substr( $requested_url, -8 ) )
-			return false;
+			return FALSE;
 
 		return $redirect_url;
 	}
 
 	// https://developer.mozilla.org/en-US/docs/Adding_search_engines_from_web_pages
 	// http://eoinoc.net/create-a-custom-search-engine-for-firefox-ie-chrome/
-	public static function link( $text = null, $title = null, $link = '#' )
+	public static function link( $text = NULL, $title = NULL, $link = '#' )
 	{
 		if ( is_null( $text ) )
 			$text = __( 'Search Plugin', GNETWORK_TEXTDOMAIN );
@@ -225,13 +220,13 @@ class gNetworkOpenSearch extends gNetworkModuleCore
 		echo '<script type="text/javascript">'.$script.'</script>';
 
 		echo gNetworkUtilities::html( 'a', array(
-			'href' => $link,
-			'title' => $title,
+			'href'    => $link,
+			'title'   => $title,
 			'onclick' => "AddSearchEngine()",
 		), $text );
 	}
 
-	public static function url( $escape = true )
+	public static function url( $escape = TRUE )
 	{
 		$url = get_bloginfo( 'url', 'display' ).'/osd.xml';
 		if ( $escape )
@@ -248,28 +243,33 @@ class gNetworkOpenSearch extends gNetworkModuleCore
 		__donot_cache_page();
 
 		$xml  = gNetworkUtilities::html( 'ShortName', array(), trim( $this->options['shortname'] ) );
+		
 		if ( $this->options['longname'] )
 			$xml .= gNetworkUtilities::html( 'LongName', array(), $this->options['longname'] );
+		
 		$xml .= gNetworkUtilities::html( 'Description', array(), $this->options['description'] );
 		$xml .= gNetworkUtilities::html( 'InputEncoding', array(), get_bloginfo( 'charset' ) );
 		$xml .= gNetworkUtilities::html( 'OutputEncoding', array(), get_bloginfo( 'charset' ) );
 		$xml .= gNetworkUtilities::html( 'Language', array(), get_bloginfo( 'language' ) );
 
 		if ( constant( 'GNETWORK_SEARCH_REDIRECT' ) ) {
+			
 			$xml .= gNetworkUtilities::html( 'moz:SearchForm', array(), GNETWORK_SEARCH_URL );
+		
 		} else {
+			
 			$xml .= gNetworkUtilities::html( 'Url', array(
-				'type' => 'application/atom+xml',
+				'type'     => 'application/atom+xml',
 				'template' => add_query_arg( array(
-					'feed' => 'atom',
+					'feed'                  => 'atom',
 					GNETWORK_SEARCH_QUERYID => '{searchTerms}',
 				), GNETWORK_SEARCH_URL ),
 			) );
 
 			$xml .= gNetworkUtilities::html( 'Url', array(
-				'type' => 'application/rss+xml',
+				'type'     => 'application/rss+xml',
 				'template' => add_query_arg( array(
-					'feed' => 'rss2',
+					'feed'                  => 'rss2',
 					GNETWORK_SEARCH_QUERYID => '{searchTerms}',
 				), GNETWORK_SEARCH_URL ),
 			) );
@@ -277,37 +277,37 @@ class gNetworkOpenSearch extends gNetworkModuleCore
 			// <Url type="application/json" rel="suggestions" template="http://my_site/suggest?q={searchTerms}" />
 			if ( $this->options['suggestions'] )
 				$xml .= gNetworkUtilities::html( 'Url', array(
-					'type' => 'application/json',
-					//'type' => 'application/x-suggestions+json',
-					//'method' => 'get',
-					'rel' => 'suggestions',
+					'type'     => 'application/json',
+					// 'type'     => 'application/x-suggestions+json',
+					// 'method'   => 'get',
+					'rel'      => 'suggestions',
 					'template' => add_query_arg( 'q', '{searchTerms}', get_bloginfo( 'url', 'display' ).'/oss.json' ),
 				) );
 		}
 
 		$xml .= gNetworkUtilities::html( 'Url', array(
-			'type' => 'text/html',
-			'method' => 'get',
+			'type'     => 'text/html',
+			'method'   => 'get',
 			'template' => add_query_arg( GNETWORK_SEARCH_QUERYID, '{searchTerms}', GNETWORK_SEARCH_URL ),
 		) );
 
 		$xml .= gNetworkUtilities::html( 'Url', array(
-			'type' => 'application/opensearchdescription+xml',
-			'rel' => 'self',
+			'type'     => 'application/opensearchdescription+xml',
+			'rel'      => 'self',
 			'template' => self::url(),
 		) );
 
 		if ( file_exists( ABSPATH.'favicon.ico' ) )
 			$xml .= gNetworkUtilities::html( 'Image', array(
-				'type' => 'image/x-icon',
-				'width' => '16',
+				'type'   => 'image/x-icon',
+				'width'  => '16',
 				'height' => '16',
 			), get_bloginfo( 'url' ).'/favicon.ico' );
 
 		if ( file_exists( ABSPATH.'favicon.png' ) )
 			$xml .= gNetworkUtilities::html( 'Image', array(
-				'type' => 'image/png',
-				'width' => '64',
+				'type'   => 'image/png',
+				'width'  => '64',
 				'height' => '64',
 			), get_bloginfo( 'url' ).'/favicon.png' );
 
@@ -329,7 +329,7 @@ class gNetworkOpenSearch extends gNetworkModuleCore
 		header( 'Content-Type: text/xml; charset=utf-8' );
 		echo '<?xml version="1.0" encoding="UTF-8"?>'."\n";
 		echo gNetworkUtilities::html( 'OpenSearchDescription', array(
-			'xmlns' => 'http://a9.com/-/spec/opensearch/1.1/',
+			'xmlns'     => 'http://a9.com/-/spec/opensearch/1.1/',
 			'xmlns:moz' => 'http://www.mozilla.org/2006/browser/search/',
 		), $xml );
 		exit();
