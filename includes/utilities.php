@@ -630,6 +630,18 @@ class gNetworkUtilities
 			$i++;
 		}
 	}
+	
+	public static function wrapJS( $script = '' )
+	{
+		if ( $script )
+			echo '<script type="text/javascript">'."\n"
+				.'/* <![CDATA[ */'."\n"
+				.'jQuery(document).ready(function($) {'."\n"
+					.$script
+				.'});'."\n"
+				.'/* ]]> */'."\n"
+				.'</script>';
+	}
 }
 
 function gnetwork_log( $data, $table = 0 ) { gNetworkUtilities::log( $data, $table ); }

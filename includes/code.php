@@ -6,9 +6,12 @@ class gNetworkCode extends gNetworkModuleCore
 	var $_network    = FALSE;
 	var $_option_key = FALSE;
 
+	var $_github_repos = array();
+	
 	protected function setup_actions()
 	{
 		add_action( 'init', array( &$this, 'init' ), 12 );
+		add_action( 'wp_footer', array( &$this, 'wp_footer' ), 20 );
 	}
 
 	public function init()
@@ -17,12 +20,19 @@ class gNetworkCode extends gNetworkModuleCore
 			'github'        => 'shortcode_github',
 			'github-readme' => 'shortcode_github_readme',
 			'github-gist'   => 'shortcode_github_gist',
+			'github-repo'   => 'shortcode_github_repo',
 		) );
 
-		// NOT WORKING: gist id is now diffrent from this pattern
+		// FIXME: NOT WORKING: gist id is now diffrent from this pattern
 		// FIXME: add option to enable this
 		// add_filter( 'the_content', array( &$this, 'the_content_gist_shortcode' ), 9 );
 	}
+	
+	public function wp_footer()
+	{
+		if ( count( $this->_github_repos ) )
+			gNetworkUtilities::wrapJS( implode( "\n", $this->_github_repos ) );
+	}	
 
 	// Originally based on : GitHub README v0.1.0
 	// by Jason Stallings : http://jason.stallin.gs
@@ -191,5 +201,30 @@ class gNetworkCode extends gNetworkModuleCore
 	public function the_content_gist_shortcode( $content )
 	{
 		return preg_replace( '/https:\/\/gist.github.com\/([\d]+)[\.js\?]*[\#]*file[=|_]+([\w\.]+)(?![^<]*<\/a>)/i', '', $content );
+	}
+	
+	// FIXME: find a better way to file wp_footer once!
+	// ALSO SEE: https://github.com/bradthomas127/gitpress-repo
+	// LIB REPO: https://github.com/darcyclarke/Repo.js
+	public function shortcode_github_repo( $atts, $content = NULL, $tag = '' )
+	{
+		$args = shortcode_atts( array(
+			'username' => FALSE,
+			'name'     => FALSE,
+			'branch'   => FALSE,
+			'context'  => NULL,
+		), $atts, $tag );
+
+		if ( FALSE === $args['context'] )
+			return NULL;
+
+		if ( $args['username'] && $args['name'] ) {
+			$key = 'github-repo-'.( count( $this->_github_repos ) + 1 );
+			$this->_github_repos[$key] = "$('#".$key."').repo({user:'".$args['username']."',name:'".$args['name']."'".( $args['branch'] ? ", branch:'".$args['branch']."'" : "" )."});";
+			wp_enqueue_script( 'repo-js', GNETWORK_URL.'assets/libs/repo.js/repo.min.js', array( 'jquery' ), GNETWORK_VERSION, TRUE );
+			return '<div id="'.$key.'" class="gnetwork-wrap-shortcode github-repo"></div>';
+		}
+
+		return $content;
 	}
 }

@@ -15,6 +15,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 	{
 		add_action( 'init', array( &$this, 'init_early' ), 8 );
 		add_action( 'init', array( &$this, 'init_late' ), 12 );
+		add_action( 'wp_footer', array( &$this, 'wp_footer' ), 20 );
 		add_action( 'gnetwork_tinymce_strings', array( &$this, 'tinymce_strings' ) );
 	}
 
@@ -33,7 +34,6 @@ class gNetworkShortCodes extends gNetworkModuleCore
 	{
 		$this->shortcodes( array(
 			// 'accordion'    => 'shortcode_accordion',
-			// 'github-repo'  => 'shortcode_github_repo',
 			'children'     => 'shortcode_children',
 			'siblings'     => 'shortcode_siblings',
 			'back'         => 'shortcode_back',
@@ -54,8 +54,6 @@ class gNetworkShortCodes extends gNetworkModuleCore
 
 		if ( ! defined( 'GNETWORK_DISABLE_REFLIST_INSERT' ) || ! GNETWORK_DISABLE_REFLIST_INSERT )
 			add_filter( 'the_content', array( &$this, 'the_content' ), 20 );
-
-		add_action( 'wp_footer', array( &$this, 'wp_footer' ), 20 );
 
 		if ( get_user_option( 'rich_editing' ) == 'true' ) {
 			add_filter( 'mce_external_plugins', array( &$this, 'mce_external_plugins' ) );
@@ -354,35 +352,8 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		return $html;
 	}
 
-	var $_github_repos = array();
-
-	// TODO: must move to code module
-	// ALSO SEE: https://github.com/bradthomas127/gitpress-repo
-	// LIB REPO: https://github.com/darcyclarke/Repo.js
-	public function shortcode_github_repo( $atts, $content = null, $tag = '' )
-	{
-		$args = shortcode_atts( array(
-			'username' => FALSE,
-			'name'     => FALSE,
-			'branch'   => FALSE,
-			'context'  => null,
-		), $atts, $tag );
-
-		if ( FALSE === $args['context'] ) // bailing
-			return null;
-
-		if ( $args['username'] && $args['name'] ) {
-			$key = 'repo_'.( count( $this->_github_repos ) + 1 );
-			$this->_github_repos[$key] = "$('#".$key."').repo({user:'".$args['username']."',name:'".$args['name']."'".( $args['username'] ? ", branch:'".$key."'" : "" )."});";
-			wp_enqueue_script( 'repo-js', GNETWORK_URL.'assets/libs/repo.js/repo.min.js', array( 'jquery' ), GNETWORK_VERSION, true );
-			return '<div id="'.$key.'" class="gnetwork-github"></div>';
-		}
-
-		return $content;
-	}
-
 	// http://pdfobject.com
-	public function shortcode_pdf( $atts, $content = null, $tag = '' )
+	public function shortcode_pdf( $atts, $content = NULL, $tag = '' )
 	{
 		// TODO : get the standard PDF dimensions for A4
 
@@ -397,14 +368,14 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			'pagemode'  => 'thumbs',
 			'rtl'       => ( is_rtl() ? 'yes' : 'no' ),
 			'download'  => FALSE,
-			'context'   => null,
+			'context'   => NULL,
 		), $atts, $tag );
 
 		if ( FALSE === $args['context'] ) // bailing
-			return null;
+			return NULL;
 
 		if ( ! $args['url'] )
-			return null;
+			return NULL;
 
 		if ( $args['rand'] && FALSE !== strpos( $args['url'], ',' ) ) {
 			$url = explode( ',', $args['url'] );
@@ -573,9 +544,6 @@ class gNetworkShortCodes extends gNetworkModuleCore
 
 	public function wp_footer()
 	{
-		if ( count( $this->_github_repos ) )
-			echo self::wrapJS( implode( "\n", $this->_github_repos ) );
-
 		// this is for onload, so cannot use wrapJS
 		if ( count( $this->_pdf_ids ) ) {
 			echo '<script type="text/javascript">'."\n".'/* <![CDATA[ */'."\n";
@@ -592,13 +560,6 @@ class gNetworkShortCodes extends gNetworkModuleCore
 				echo 'swfobject.registerObject("'.$id.'", "9.0.0");'."\n";
 			echo "\n".'/* ]]> */'."\n".'</script>';
 		}
-	}
-
-	public static function wrapJS( $script = '' )
-	{
-		return '<script type="text/javascript">'."\n".'/* <![CDATA[ */'."\n".'jQuery(document).ready(public function($) {'."\n"
-				.$script.
-				'});'."\n".'/* ]]> */'."\n".'</script>';
 	}
 
 	// http://en.wikipedia.org/wiki/Help:Footnotes

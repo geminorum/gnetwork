@@ -10,17 +10,21 @@
 }
 
 .gnetwork-wrap-shortcode.github-readme {
-    > h1 { display:none; }
+	> h1 { display:none; }
 
-    img[src*="badge"], img[src*="shields.io"] {
-        display:inline;
-    }
+	img[src*="badge"], img[src*="shields.io"] {
+		display:inline;
+	}
 }
 
 .gnetwork-wrap-shortcode.github-gist {
 	direction:ltr !important;
-    
+	
 	td {
 		text-align:left;
 	}
+}
+
+.gnetwork-wrap-shortcode.github-repo {
+	direction:ltr !important;
 }
