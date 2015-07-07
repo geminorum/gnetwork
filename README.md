@@ -29,4 +29,4 @@ Please log issues at [here](https://github.com/geminorum/gnetwork/issues).
 
 [![it's a geminorum project](http://img.shields.io/badge/it's_a-geminorum_project-lightgrey.svg?style=flat)](http://geminorum.ir/)
 
-[![Analytics](https://ga-beacon.appspot.com/UA-865830-4/gnetwork/readme?style=flat)](https://github.com/geminorum/gnetwork)
+[![Analytics](https://ga-beacon.appspot.com/UA-865830-4/gnetwork/readme?pixel)](https://github.com/geminorum/gnetwork)
