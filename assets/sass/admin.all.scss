@@ -9,6 +9,8 @@
 @import "partials/settings.admin.all";
 @import "partials/taxonomy.admin.all";
 
+@import "partials/rtl.admin.all";
+
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -61,7 +63,6 @@ input#gnetwork-tinymce-input-gnetworkcite-refurl {
 		//@extend .gnetwork-wrap; // NO NEED with &.class
 		cursor:pointer;
 	}
-
 }
 
 .gnetwork-sidenotification {
@@ -82,49 +83,6 @@ input#user_login,
 input#email
 { direction:ltr; }
 
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-///---RTL ADMIN ENHANCEMENTS----------------------------------------------------
-body.rtl {
-
-	input[type="search"]::-webkit-search-cancel-button {
-		-webkit-appearance:none; // hiding non RTL cancel button
-	}
-
-	input[type="checkbox"]:checked:before {
-		margin: -3px -3px 0 0;
-	}
-
-	#site-title {
-		font:bold 16px arial, sans-serif;
-	}
-
-	.wrap {
-		h2 {
-			font:bold 24px arial, sans-serif !important;
-		}
-		h3 {
-			font:bold 16px arial, sans-serif !important;
-		}
-	}
-
-	.nav-tab {
-		font:bold 16px/24px arial, sans-serif !important;
-		padding-bottom:4px;
-	}
-
-
-	&.debug-bar-maximized {
-		#querylist {
-			direction: ltr;
-		}
-	}
-
-	#gnetwork-debugbar-panel {
-		direction: ltr !important;
-	}
-}
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -289,7 +247,6 @@ table.media input.media-url-field { direction:ltr;}
 /** ------------------------------------------------------------
 --------------------------------------------------------------**/
 
-
 /**--  Post Edit Page Enhancements :--**/
 #poststuff #postexcerpt div.inside p,
 #poststuff #postcustom div.inside > p
@@ -308,54 +265,17 @@ table.media input.media-url-field { direction:ltr;}
 
 /**----------------------------------------------------**/
 textarea {
-	// 1width:100%;
+	// width:100%;
 	resize:vertical;
 	transition:height 0.2s ease 0s;
 }
 /**----------------------------------------------------**/
-
 body.colored .status-draft     { background:#FCE3F2 !important; }
 body.colored .status-pending { background:#87C5D6 !important; }
 body.colored .status-publish { /* no background keep wp alternating colors */ }
 body.colored .status-future   { background:#C6EBF5 !important; }
 body.colored .status-private { background:#F2D46F; }
-
 /**----------------------------------------------------**/
-body.rtl.options-permalink-php #permalink_structure { float:right; margin-top:-5px; }
-/**----------------------------------------------------**/
-body.rtl.edit-comments-php .fixed .column-response { width:25%; }
-/**----------------------------------------------------**/
-body.rtl.edit-php .row-actions span,
-body.rtl.edit-php td.column-categories,
-body.rtl.edit-php td.column-tags,
-body.rtl.edit-php td.column-date,
-body.rtl.edit-php td.column-gn_post_id
-{ font-size:0.89em; }
-body.rtl.edit-php .post-com-count span
-{ font-weight:normal; }
-body.rtl.edit-php #the-list td.column-title p
-{ font-size:0.78em; }
-
-/**----------------------------------------------------**/
-
-/**----------------------------------------------------**/
-
-/**----------------------------------------------------**/
-body.rtl .media-frame .attachment-details > h3 {
-	// 1margin:0;
-	display:none;
-	}
-body.rtl .media-frame .attachment-info { margin-top:10px; margin-bottom:5px; padding-bottom:5px; }
-body.rtl .media-frame .attachment-display-settings > h3 {
-	// margin:0;
-	display:none;
-	}
-body.rtl .media-frame .compat-item {
-	// margin-right:-10px;
-	}
-body.rtl .media-frame .attachment-display-settings {
-	// margin-right:-10px;
-	}
 /**----------------------------------------------------**/
 table.users-network th.column-email { width:14%; }
 table.users-network th.column-registered { width:110px; }
