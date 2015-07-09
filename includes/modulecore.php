@@ -657,7 +657,7 @@ class gNetworkModuleCore
 	public static function atts( $pairs, $atts )
 	{
 		$atts = (array) $atts;
-		$out = array();
+		$out  = array();
 
 		foreach( $pairs as $name => $default ) {
 			if ( array_key_exists( $name, $atts ) )
@@ -672,12 +672,12 @@ class gNetworkModuleCore
 	// MAYBE: add general options for on a network panel
 	public static function getSiteUserID( $fallback = TRUE )
 	{
-		if ( defined( 'GNETWORK_SITE_USER_ID' ) && constant( 'GNETWORK_SITE_USER_ID' ) )
-			return GNETWORK_SITE_USER_ID;
+		if ( defined( 'GNETWORK_SITE_USER_ID' ) 
+			&& constant( 'GNETWORK_SITE_USER_ID' ) )
+				return GNETWORK_SITE_USER_ID;
 
 		if ( function_exists( 'gtheme_get_option' ) ) {
-			$gtheme_user = gtheme_get_option( 'default_user', 0 );
-			if ( $gtheme_user )
+			if ( $gtheme_user = gtheme_get_option( 'default_user', 0 ) )
 				return $gtheme_user;
 		}
 
@@ -725,7 +725,7 @@ class gNetworkModuleCore
 	{
 		foreach ( $shortcodes as $shortcode => $method ) {
 			remove_shortcode( $shortcode );
-			add_shortcode( $shortcode, array( & $this, $method ) );
+			add_shortcode( $shortcode, array( &$this, $method ) );
 		}
 	}
 

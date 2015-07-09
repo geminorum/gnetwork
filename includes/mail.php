@@ -121,7 +121,6 @@ class gNetworkMail extends gNetworkModuleCore
 					'field'   => 'smtp_password',
 					'type'    => 'text',
 					'title'   => __( 'Password', GNETWORK_TEXTDOMAIN ),
-					// 'desc'    => __( 'You can specify the name that emails should be sent from. If you leave this blank, the emails will be sent from WordPress.', GNETWORK_TEXTDOMAIN ),
 					'default' => '',
 				),
 			),
@@ -209,7 +208,7 @@ class gNetworkMail extends gNetworkModuleCore
 
 	// http://phpmailer.worxware.com/?pg=properties
 	// http://stackoverflow.com/questions/6315052/use-of-phpmailer-class
-	public function phpmailer_init( & $phpmailer )
+	public function phpmailer_init( &$phpmailer )
 	{
 		$phpmailer->Mailer = $this->options['mailer'];
 
@@ -224,7 +223,7 @@ class gNetworkMail extends gNetworkModuleCore
 			$phpmailer->Port = $this->options['smtp_port'];
 
 			if ( $this->options['smtp_username'] && $this->options['smtp_password'] ) {
-				$phpmailer->SMTPAuth = true;
+				$phpmailer->SMTPAuth = TRUE;
 				$phpmailer->Username = $this->options['smtp_username'];
 				$phpmailer->Password = $this->options['smtp_password'];
 			}
