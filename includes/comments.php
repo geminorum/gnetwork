@@ -27,6 +27,8 @@ class gNetworkComments extends gNetworkModuleCore
 			
 		add_filter( 'pre_comment_approved', array( &$this, 'pre_comment_approved' ), 99, 2 );
 		add_filter( 'add_comment_metadata', array( &$this, 'add_comment_metadata' ), 20, 3 );
+		
+		add_filter( 'get_default_comment_status', array( &$this, 'get_default_comment_status' ), 20, 3 );
 
 		// register_shutdown_function( array( &$this, 'delete_spam_comments' ) );
 
@@ -147,6 +149,15 @@ class gNetworkComments extends gNetworkModuleCore
 			return FALSE;
 
 		return $check;
+	}
+	
+	// https://make.wordpress.org/core/2015/07/06/comments-are-now-turned-off-on-pages-by-default/
+	public function get_default_comment_status( $status, $post_type, $comment_type )
+	{
+		if ( 'page' == $post_type )
+			return 'closed'; // also for ping_status
+			
+		return $status;
 	}
 
 	// https://gist.github.com/boonebgorges/4714650

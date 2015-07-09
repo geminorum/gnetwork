@@ -157,6 +157,7 @@ class gNetworkUsers extends gNetworkModuleCore
 
 				$data['post_author'] = (int) GNETWORK_SITE_USER_ID;
 
+				// FIXME: MUST DROP: after WP 4.3
 				if ( 'page' == $postarr['post_type'] ) {
 					$data['comment_status'] = 'closed';
 					$data['ping_status']    = 'closed';
