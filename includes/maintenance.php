@@ -65,14 +65,14 @@ class gNetworkMaintenance extends gNetworkModuleCore
 					'type'    => 'roles',
 					'title'   => __( 'Site Maintenance', GNETWORK_TEXTDOMAIN ),
 					'desc'    => __( 'Selected and above can access to the site.', GNETWORK_TEXTDOMAIN ),
-					'default' => '0',
+					'default' => 'none',
 				),
 				array(
 					'field'   => 'maintenance_admin',
 					'type'    => 'roles',
 					'title'   => __( 'Admin Maintenance', GNETWORK_TEXTDOMAIN ),
 					'desc'    => __( 'Selected and above can access to the admin.', GNETWORK_TEXTDOMAIN ),
-					'default' => '0',
+					'default' => 'none',
 				),
 				array(
 					'field'   => 'admin_notice',

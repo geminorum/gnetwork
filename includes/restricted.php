@@ -85,14 +85,14 @@ class gNetworkRestricted extends gNetworkModuleCore
 					'type'    => 'roles',
 					'title'   => __( 'Site Restriction', GNETWORK_TEXTDOMAIN ),
 					'desc'    => __( 'Selected and above can access to the site.', GNETWORK_TEXTDOMAIN ),
-					'default' => '0',
+					'default' => 'none',
 				),
 				array(
 					'field'   => 'restricted_admin',
 					'type'    => 'roles',
 					'title'   => __( 'Admin Restriction', GNETWORK_TEXTDOMAIN ),
 					'desc'    => __( 'Selected and above can access to the admin.', GNETWORK_TEXTDOMAIN ),
-					'default' => '0',
+					'default' => 'none',
 				),
 				array(
 					'field'   => 'restricted_profile',
