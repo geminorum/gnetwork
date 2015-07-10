@@ -16,7 +16,28 @@
 ////////////////////////////////////////////////////////////////////////////////
 .gnetwork-admin-wrap {
 	// @include mainwrap();
+
+	&.footer-wp-version {
+		cursor:pointer;
+	}	
 }
+
+body {
+	
+	&.profile-php,
+	&.user-edit-php {
+		.show-admin-bar {
+			display:none;
+		}
+	}
+}
+
+textarea {
+	// width:100%;
+	resize:vertical;
+	transition:height 0.2s ease 0s;
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -56,15 +77,6 @@ input#gnetwork-tinymce-input-gnetworkcite-refurl {
 ////////////////////////////////////////////////////////////////////////////////
 ///---GENEREAL ADMIN ENHANCEMENTS-----------------------------------------------
 
-// DEPRECATED
-.gnetwork-wrap {
-
-	&.footer-wp-version {
-		//@extend .gnetwork-wrap; // NO NEED with &.class
-		cursor:pointer;
-	}
-}
-
 .gnetwork-sidenotification {
 	float:right;
 	line-height:29px;
@@ -77,11 +89,6 @@ input#gnetwork-tinymce-input-gnetworkcite-refurl {
 		padding:9px 15px 4px 0;
 	}
 }
-
-input#adduser-email,
-input#user_login,
-input#email
-{ direction:ltr; }
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -264,11 +271,6 @@ table.media input.media-url-field { direction:ltr;}
 .rtl #poststuff input#post_name { direction:ltr;}
 
 /**----------------------------------------------------**/
-textarea {
-	// width:100%;
-	resize:vertical;
-	transition:height 0.2s ease 0s;
-}
 /**----------------------------------------------------**/
 body.colored .status-draft     { background:#FCE3F2 !important; }
 body.colored .status-pending { background:#87C5D6 !important; }
