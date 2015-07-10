@@ -8,11 +8,13 @@ class gNetworkModuleCore
 	var $_option_key  = FALSE;
 	var $_options     = array();
 	var $_ajax        = FALSE;      // load if ajax
+	var $_cron        = FALSE;      // load if cron
 	var $_dev         = NULL;       // load if dev
 
 	public function __construct()
 	{
 		if ( ( ! $this->_ajax && self::isAJAX() )
+			|| ( ! $this->_cron && self::isCRON() )
 			|| ( defined( 'WP_INSTALLING' ) && constant( 'WP_INSTALLING' ) ) )
 				return;
 
@@ -32,6 +34,11 @@ class gNetworkModuleCore
 	public static function isAJAX()
 	{
 		return defined( 'DOING_AJAX' ) && DOING_AJAX;
+	}
+	
+	public static function isCRON()
+	{
+		return defined( 'DOING_CRON' ) && DOING_CRON;
 	}
 
 	protected function setup_actions() {}
