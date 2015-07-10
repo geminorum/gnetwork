@@ -5,27 +5,22 @@ class gNetworkAdmin extends gNetworkModuleCore
 
 	var $_network    = FALSE;
 	var $_option_key = FALSE;
-
-	var $menus = array();
+	var $menus       = array();
 
 	protected function setup_actions()
 	{
 		if ( ! is_admin() )
 			return;
 
-		// add_action( 'init',       array( &$this, 'init_late' ),        99  );
-		add_action( 'admin_init', array( &$this, 'admin_init_early' ), 1   );
-		add_action( 'admin_menu', array( &$this, 'admin_menu' ),       12  );
-		add_action( 'admin_menu', array( &$this, 'admin_menu_late' ),  999 );
+		add_action( 'admin_init', array( &$this, 'admin_init_early' ), 1 );
+		add_action( 'admin_menu', array( &$this, 'admin_menu' ), 12 );
+		add_action( 'admin_menu', array( &$this, 'admin_menu_late' ), 999 );
 
 		// add_action( 'wp_network_dashboard_setup', array( &$this, 'wp_dashboard_setup' ), 20 );
 		// add_action( 'wp_user_dashboard_setup',    array( &$this, 'wp_dashboard_setup' ), 20 );
 		// add_action( 'wp_dashboard_setup',         array( &$this, 'wp_dashboard_setup' ), 20 );
 
 		add_action( 'export_wp', array( &$this, 'export_wp' ) );
-
-		// IT MESSES WITH CUSTOM COLUMNS!!
-		// add_filter( 'posts_fields', array( &$this, 'posts_fields' ), 0, 2 );
 
 		add_action( 'admin_print_styles', array( &$this, 'admin_print_styles' ) );
 		add_filter( 'admin_footer_text', array( &$this, 'admin_footer_text' ), 9999 );
@@ -41,29 +36,15 @@ class gNetworkAdmin extends gNetworkModuleCore
 			add_action( 'manage_pages_custom_column', array( &$this, 'custom_column_id' ), 5, 2 );
 		}
 
-		if ( GNETWORK_ADMIN_JS_ENHANCEMENTS )
-			add_action( 'admin_footer', array( &$this, 'admin_footer' ) );
-
 		if ( GNETWORK_ADMIN_COLOUR )
 			add_action( 'user_register', array( &$this, 'user_register' ) );
 
-		// WORKING
-		// Move Pages above Media
-		//add_filter( 'custom_menu_order', '__return_true' );
-		//add_filter( 'menu_order', array( &$this, 'menu_order' ) );
-	}
+		// WORKING but DISABLED
+		// add_filter( 'custom_menu_order', '__return_true' );
+		// add_filter( 'menu_order', array( &$this, 'menu_order' ) );
 
-	// NOT USED
-	// this will help process other parts of gNetwork modules
-	// wait untill all init actions fired!
-	// PROBABLY: needs security hardening
-	public function init_late()
-	{
-		if ( isset( $_GET['gnetwork_action'] ) )
-			do_action( 'gnetwork_action_'.$_GET['gnetwork_action'], $_GET );
-
-		if ( isset( $_POST['gnetwork_action'] ) )
-			do_action( 'gnetwork_action_'.$_POST['gnetwork_action'], $_POST );
+		// IT MESSES WITH CUSTOM COLUMNS!!
+		// add_filter( 'posts_fields', array( &$this, 'posts_fields' ), 0, 2 );
 	}
 
 	public function admin_init_early()
@@ -137,7 +118,7 @@ class gNetworkAdmin extends gNetworkModuleCore
 		$submenu['gnetwork'][0][0] = __( 'Overview', GNETWORK_TEXTDOMAIN );
 	}
 
-	public static function registerMenu( $sub, $title = null, $callback = false, $capability = 'manage_options' )
+	public static function registerMenu( $sub, $title = NULL, $callback = FALSE, $capability = 'manage_options' )
 	{
 		if ( ! is_admin() || self::isAJAX() )
 			return;
@@ -153,12 +134,12 @@ class gNetworkAdmin extends gNetworkModuleCore
 			add_action( 'gnetwork_admin_settings', $callback );
 	}
 
-	public static function settingsURL( $full = true )
+	public static function settingsURL( $full = TRUE )
 	{
 		$relative = self::cuc( 'manage_options' ) ? 'admin.php?page=gnetwork' : 'index.php?page=gnetwork';
 
 		if ( $full )
-			return get_admin_url( null, $relative );
+			return get_admin_url( NULL, $relative );
 
 		return $relative;
 	}
@@ -171,7 +152,7 @@ class gNetworkAdmin extends gNetworkModuleCore
 			$sub          = $_REQUEST['sub'];
 			$submenu_file = 'gnetwork&sub='.$sub;
 		} else {
-			$sub = null;
+			$sub = NULL;
 		}
 
 		do_action( 'gnetwork_admin_settings', $sub );
@@ -210,11 +191,11 @@ class gNetworkAdmin extends gNetworkModuleCore
 			|| ( 'console' == $sub && is_super_admin() )
 			|| ( isset( $this->menus[$sub] ) && self::cuc( $this->menus[$sub]['cap'] ) ) ) {
 
-			$settings_uri = self::settingsURL( false );
+			$settings_uri = self::settingsURL( FALSE );
 			$messages = apply_filters( 'gnetwork_admin_settings_messages', array(
-				'resetting' => gNetworkUtilities::notice( __( 'Resetting Settings.',          GNETWORK_TEXTDOMAIN ), 'updated fade', false ),
-				'updated'   => gNetworkUtilities::notice( __( 'Settings updated.',            GNETWORK_TEXTDOMAIN ), 'updated fade', false ),
-				'error'     => gNetworkUtilities::notice( __( 'Error while saving settings.', GNETWORK_TEXTDOMAIN ), 'error',        false ),
+				'resetting' => gNetworkUtilities::notice( __( 'Resetting Settings.',          GNETWORK_TEXTDOMAIN ), 'updated fade', FALSE ),
+				'updated'   => gNetworkUtilities::notice( __( 'Settings updated.',            GNETWORK_TEXTDOMAIN ), 'updated fade', FALSE ),
+				'error'     => gNetworkUtilities::notice( __( 'Error while saving settings.', GNETWORK_TEXTDOMAIN ), 'error',        FALSE ),
 			) );
 
 			self::sideNotification();
@@ -258,28 +239,15 @@ class gNetworkAdmin extends gNetworkModuleCore
 	{
 		gNetworkUtilities::linkStyleSheet( GNETWORK_URL.'assets/css/admin.all.css' );
 		gNetworkUtilities::customStyleSheet( 'admin.css' );
-	}
-
-	public function admin_footer( $empty )
-	{
-		echo '<script type="text/javascript" src="'.GNETWORK_URL.'assets/js/admin.all.min.js?ver='.GNETWORK_VERSION.'"></script>';
-
-		if ( strpos( $_SERVER['REQUEST_URI'], 'page=gnetwork' )
-			|| strpos( $_SERVER['REQUEST_URI'], 'post.php' )
-			|| strpos( $_SERVER['REQUEST_URI'], 'post-new.php' )
-			|| strpos( $_SERVER['REQUEST_URI'], 'edit-tags.php' ) ) {
-			?> <script type="text/javascript">
-/* <![CDATA[ */
-jQuery(document).ready(function($){$('textarea.wp-editor-areaXX, #excerpt, .textarea-autosize, textarea.large-text').autosize();});
-/* ]]> */
-</script> <?php
-		}
+		
+		if ( GNETWORK_ADMIN_JS_ENHANCEMENTS )
+			wp_enqueue_script( 'gnetwork-admin', GNETWORK_URL.'assets/js/admin.all.min.js', array( 'jquery' ), GNETWORK_VERSION, TRUE );
 	}
 
 	public function admin_footer_text()
 	{
 		if ( isset( $_GET['noheader'] ) )
-			return;
+			return '';
 
 		return gnetwork_powered();
 	}
@@ -287,22 +255,23 @@ jQuery(document).ready(function($){$('textarea.wp-editor-areaXX, #excerpt, .text
 	public function update_footer( $content )
 	{
 		if ( isset( $_GET['noheader'] ) )
-			return $content;
+			return '';
 
-		if ( current_user_can( 'update_plugins' ) )
-			$content .= ' | <span><span style="direction:ltr !important;display:inline-block;">'
-					 .gNetworkUtilities::stat().'</span></span>';
-		else
-			$content = '<span class="gnetwork-wrap footer-wp-version" title="'.sprintf( __( 'Version %s' ),
-				apply_filters( 'string_format_i18n', $GLOBALS['wp_version'] ) )
-				.'">CODE IS POETRY</span>';
+		if ( ! current_user_can( 'update_core' ) )
+			$content = '<span class="gnetwork-admin-wrap footer-version" title="'
+				.sprintf( __( 'Version %s' ), apply_filters( 'string_format_i18n', $GLOBALS['wp_version'] ) )
+				.'">'.__( 'CODE IS POETRY', GNETWORK_TEXTDOMAIN ).'</span>';
+				
 		return $content;
 	}
 
 	// FIXME : style this!!
 	public function wp_dashboard_setup()
 	{
-		if ( defined( 'GNETWORK_ADMIN_WIDGET_RSS' ) && constant( 'GNETWORK_ADMIN_WIDGET_RSS' ) ) {
+		// FIXME: handle comma seperated
+		if ( defined( 'GNETWORK_ADMIN_WIDGET_RSS' ) 
+			&& constant( 'GNETWORK_ADMIN_WIDGET_RSS' ) ) {
+				
 			add_meta_box( 'abetterplanet_widget',
 				_x( 'Network Feed', 'admin dashboard widget title', GNETWORK_TEXTDOMAIN ),
 				array( &$this, 'widget_network_rss' ),
@@ -312,6 +281,7 @@ jQuery(document).ready(function($){$('textarea.wp-editor-areaXX, #excerpt, .text
 
 	public function widget_network_rss()
 	{
+		// FIXME: handle comma seperated
 		//public function return_1600( $seconds ) { return 1600; }
 		//add_filter( 'wp_feed_cache_transient_lifetime' , 'return_1600' );
 		$rss = fetch_feed( constant( 'GNETWORK_ADMIN_WIDGET_RSS' ) );
@@ -357,18 +327,8 @@ jQuery(document).ready(function($){$('textarea.wp-editor-areaXX, #excerpt, .text
 			echo $id;
 	}
 
-	// Rename Posts to News in Menu
-	// add_action( 'admin_menu', 'admin_menu_rename_menu_label' );
-	public function admin_menu_rename_menu_label()
-	{
-		global $menu;
-		global $submenu;
-		$menu[5][0] = 'News';
-		$submenu['edit.php'][5][0] = 'News Items';
-		$submenu['edit.php'][10][0] = 'Add News Item';
-	}
-
-	// Move Pages above Media : http://wp.tutsplus.com/tutorials/creative-coding/customizing-the-wordpress-admin-custom-admin-menus/
+	// Move Pages above Media
+	// http://wp.tutsplus.com/tutorials/creative-coding/customizing-the-wordpress-admin-custom-admin-menus/
 	public function menu_order( $menu_order )
 	{
 		return array(
@@ -383,8 +343,9 @@ jQuery(document).ready(function($){$('textarea.wp-editor-areaXX, #excerpt, .text
 	// Custom public function to add time to the date / time column for future posts
 	public function post_date_column_time( $h_time, $post, $column_name, $mode )
 	{
-		if ( $post->post_status == 'future' ) // If post is scheduled then add the time to the column output
-			$h_time .= '<br />'.get_post_time( 'g:i a', false, $post, true );
+		if ( 'future' == $post->post_status )
+			$h_time .= '<br />'.get_post_time( 'g:i a', FALSE, $post, TRUE );
+			
 		return $h_time;
 	}
 
@@ -393,16 +354,15 @@ jQuery(document).ready(function($){$('textarea.wp-editor-areaXX, #excerpt, .text
 	{
 		wp_update_user( array(
 			'ID'          => $user_id,
-			'admin_color' => GNETWORK_ADMIN_COLOUR, //'sunrise'
+			'admin_color' => GNETWORK_ADMIN_COLOUR, // 'sunrise'
 		) );
 	}
 
 	// http://unserkaiser.com/blog/2013/07/03/speed-up-wordpress-post-list-screens/
 	// https://gist.github.com/franz-josef-kaiser/5917688
-	// (WCM) Faster Admin Post Lists
+	// Faster Admin Post Lists
 	// Reduces the queried fields inside WP_Query for WP_Post_List_Table screens
-	// Author: Franz Josef Kaiser <wecodemore@gmail.com>
-	// AuthorURL: http://unserkaiser.com
+	// Author: Franz Josef Kaiser <wecodemore@gmail.com> / http://unserkaiser.com
 	public function posts_fields( $fields, $query )
 	{
 		if ( ! is_admin()
