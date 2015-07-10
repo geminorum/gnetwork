@@ -43,13 +43,10 @@ class gNetworkAdminBar extends gNetworkModuleCore
 			}
 		} else {
 			show_admin_bar( FALSE );
-			add_action( 'admin_print_scripts-profile.php', array( &$this, 'admin_print_scripts_profile_php' ) );
+			// add_action( 'admin_print_scripts-profile.php', function(){
+			// 	?><style type="text/css">.show-admin-bar{display:none;}</style><?php
+			// } );
 		}
-	}
-
-	public function admin_print_scripts_profile_php()
-	{
-		?> <style type="text/css">.show-admin-bar {display:none;}</style> <?php
 	}
 
 	public function wp_enqueue_style()
@@ -133,7 +130,7 @@ class gNetworkAdminBar extends gNetworkModuleCore
 	public function wp_before_admin_bar_render()
 	{
 		global $wp_admin_bar;
-
+		
 		if ( is_super_admin() ) {
 
 			if ( is_multisite() )
@@ -368,6 +365,27 @@ class gNetworkAdminBar extends gNetworkModuleCore
 		) );
 	}
 
+	public static function my_sites( &$wp_admin_bar ) 
+	{
+		if ( ! is_user_logged_in() || ! is_multisite() )
+			return;
+
+		if ( count( $wp_admin_bar->user->blogs ) < 1 && ! is_super_admin() )
+			return;
+
+		if ( $wp_admin_bar->user->active_blog ) {
+			$my_sites_url = get_admin_url( $wp_admin_bar->user->active_blog->blog_id, 'my-sites.php' );
+		} else {
+			$my_sites_url = admin_url( 'my-sites.php' );
+		}
+		
+		$wp_admin_bar->remove_node( 'my-sites' );
+		$wp_admin_bar->add_menu( array(
+			'id'    => 'my-sites',
+			'title' => '',
+			'href'  => $my_sites_url,
+		) );
+	}
 	public static function wp_menu( &$wp_admin_bar )
 	{
 		if ( ! is_admin_bar_showing() )
@@ -471,6 +489,7 @@ class gNetwork_WP_Admin_Bar extends WP_Admin_Bar {
 			add_action( 'admin_bar_menu', array( 'gNetworkAdminBar', 'extra_menu' ), 10 );
 
 		add_action( 'admin_bar_menu', 'wp_admin_bar_my_sites_menu', 20 );
+		add_action( 'admin_bar_menu', array( 'gNetworkAdminBar', 'my_sites' ), 25 );
 		add_action( 'admin_bar_menu', 'wp_admin_bar_site_menu', 30 );
 		add_action( 'admin_bar_menu', 'wp_admin_bar_updates_menu', 40 );
 
