@@ -32,16 +32,6 @@ class gNetworkOpenSearch extends gNetworkModuleCore
 		add_action( 'parse_request', array( &$this, 'parse_request' ), 1 );
 	}
 
-	public function settings( $sub = NULL )
-	{
-		if ( 'opensearch' == $sub ) {
-			$this->settings_update( $sub );
-			add_action( 'gnetwork_admin_settings_sub_opensearch', array( &$this, 'settings_html' ), 10, 2 );
-			$this->register_settings();
-			$this->register_settings_help();
-		}
-	}
-
 	public function settings_help_tabs()
 	{
 		return array(

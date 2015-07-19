@@ -17,15 +17,6 @@ class gNetworkNotify extends gNetworkModuleCore
 		add_filter( 'auto_core_update_send_email', array( &$this, 'auto_core_update_send_email' ), 10, 4 );
 	}
 
-	public function settings( $sub = NULL )
-	{
-		if ( 'notify' == $sub ) {
-			$this->settings_update( $sub );
-			add_action( 'gnetwork_network_settings_sub_notify', array( &$this, 'settings_html' ), 10, 2 );
-			$this->register_settings();
-		}
-	}
-
 	public function default_options()
 	{
 		return array(

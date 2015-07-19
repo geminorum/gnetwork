@@ -17,15 +17,6 @@ class gNetworkBlog extends gNetworkModuleCore
 			add_action( 'init', array( &$this, 'init_redirect' ), 1 );
 	}
 
-	public function settings( $sub = NULL )
-	{
-		if ( 'blog' == $sub ) {
-			$this->settings_update( $sub );
-			add_action( 'gnetwork_admin_settings_sub_blog', array( &$this, 'settings_html' ), 10, 2 );
-			$this->register_settings();
-		}
-	}
-
 	public function default_options()
 	{
 		return array(

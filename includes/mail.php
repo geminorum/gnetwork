@@ -28,22 +28,12 @@ class gNetworkMail extends gNetworkModuleCore
 
 	public function settings( $sub = NULL )
 	{
-		if ( 'mail' == $sub ) {
-			
-			if ( isset( $_POST['create_log_folder'] ) ) {
-				$this->check_referer( $sub );
-				gNetworkUtilities::putHTAccessDeny( GNETWORK_MAIL_LOG_DIR, TRUE );
-				self::redirect();
-				
-			} else {
-				$this->settings_update( $sub );
-
-			}
-			
-			add_action( 'gnetwork_network_settings_sub_mail', array( &$this, 'settings_html' ), 10, 2 );
-			
-			$this->register_settings();
-			$this->register_settings_help();
+		if ( 'mail' == $sub && isset( $_POST['create_log_folder'] ) ) {
+			$this->check_referer( $sub );
+			gNetworkUtilities::putHTAccessDeny( GNETWORK_MAIL_LOG_DIR, TRUE );
+			self::redirect();
+		} else {
+			parent::settings( $sub );
 		}
 	}
 
@@ -162,9 +152,6 @@ class gNetworkMail extends gNetworkModuleCore
 	public function settings_section_log()
 	{
 		echo '<h3>'.__( 'Log Settings', GNETWORK_TEXTDOMAIN ).'</h3>';
-		// echo '<p class="description">';
-		// 	_e( 'These options only apply if you have chosen to send mail by SMTP above.', GNETWORK_TEXTDOMAIN );
-		// echo '</p>';
 	}
 
 	public function settings_help_tabs()

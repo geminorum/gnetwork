@@ -16,17 +16,8 @@ class gNetworkTracking extends gNetworkModuleCore
 			array( &$this, 'settings' )
 		);
 
-		add_action( 'wp_head',   array( &$this, 'wp_head'   ), 999 );
+		add_action( 'wp_head', array( &$this, 'wp_head' ), 999 );
 		add_action( 'wp_footer', array( &$this, 'wp_footer' ), 9 );
-	}
-
-	public function settings( $sub = NULL )
-	{
-		if ( 'tracking' == $sub ) {
-			$this->settings_update( $sub );
-			add_action( 'gnetwork_network_settings_sub_tracking', array( &$this, 'settings_html' ), 10, 2 );
-			$this->register_settings();
-		}
 	}
 
 	public function default_settings()

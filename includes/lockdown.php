@@ -29,15 +29,6 @@ class gNetworkLockDown extends gNetworkModuleCore
 		add_filter( 'shake_error_codes', array( &$this, 'shake_error_codes' ) );
 	}
 
-	public function settings( $sub = NULL )
-	{
-		if ( 'lockdown' == $sub ) {
-			$this->settings_update( $sub );
-			add_action( 'gnetwork_network_settings_sub_lockdown', array( &$this, 'settings_html' ), 10, 2 );
-			$this->register_settings();
-		}
-	}
-
 	public function default_settings()
 	{
 		return array(

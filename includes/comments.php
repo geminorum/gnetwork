@@ -41,20 +41,13 @@ class gNetworkComments extends gNetworkModuleCore
 
 	public function settings( $sub = NULL )
 	{
-		if ( 'comments' == $sub ) {
-
-			if ( isset( $_POST['purge_spams'] ) ) {
-				$this->check_referer( $sub );
-				$this->remove_spam_meta();
-				self::redirect_referer( 'spamspurged' );
-			} else {
-				$this->settings_update( $sub );
-			}
-
-			$this->register_settings();
+		if ( 'comments' == $sub && isset( $_POST['purge_spams'] ) ) {
+			$this->check_referer( $sub );
+			$this->remove_spam_meta();
+			self::redirect_referer( 'spamspurged' );
+		} else {
+			parent::settings( $sub );
 			$this->register_button( 'purge_spams', __( 'Purge Spam Comments', GNETWORK_TEXTDOMAIN ) );
-
-			add_action( 'gnetwork_admin_settings_sub_comments', array( &$this, 'settings_html' ), 10, 2 );
 		}
 	}
 

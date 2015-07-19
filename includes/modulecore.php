@@ -136,27 +136,43 @@ class gNetworkModuleCore
 			return delete_option( $options_key );
 	}
 
-	public function settings( $sub = NULL ) {}
+	// default settings hook handler
+	public function settings( $sub = NULL ) 
+	{
+		if ( $this->_option_key && $this->_option_key == $sub ) {
+			$this->settings_update( $sub );
+			add_action( 'gnetwork_'.( $this->_network ? 'network' : 'admin' ).'_settings_sub_'.$this->_option_key, array( &$this, 'settings_html' ), 10, 2 );
+			$this->register_settings();
+			$this->register_settings_help();
+		}
+	}
+	
 	public function settings_help() {}
 
 	// default setting sub html
 	public function settings_html( $settings_uri, $sub = 'general' )
 	{
-		echo '<form class="gnetwork-form" method="post" action="">';
+		$class   = 'gnetwork-form';
+		$sidebox = method_exists( $this, 'settings_sidebox' );
+
+		// MUST DROP ON v0.3.0
+		if ( $this->_network )
+			$options = get_site_option( $this->options_key(), array() ); 
+		else 
+			$options = get_option( $this->options_key(), array() );
+
+		if ( count( $options ) || $sidebox )
+			$class .= ' has-sidebox';
+			
+		echo '<form class="'.$class.'" method="post" action="">';
 
 			settings_fields( $this->_option_base.'_'.$sub );
 
-			if ( method_exists( $this, 'settings_sidebox' ) ) {
+			if ( $sidebox ) {
 				echo '<div class="settings-sidebox settings-sidebox-'.$sub.'">';
 					$this->settings_sidebox( $sub, $settings_uri );
 				echo '</div>';
 			}
-			
-			// MUST DROP ON v0.3.0
-			if ( $this->_network )
-				$options = get_site_option( $this->options_key(), array() ); 
-			else 
-				$options = get_option( $this->options_key(), array() );
 				
 			if ( count( $options ) ) {
 				echo '<div class="settings-sidebox oldoptions">';
@@ -209,13 +225,16 @@ class gNetworkModuleCore
 	}
 
 	// DEPRECATED: user $this->settings_update();
-	public function update( $sub )
+	public function update( $sub = NULL )
 	{
 		$this->settings_update( $sub );
 	}
 
-	public function settings_update( $sub )
+	public function settings_update( $sub = NULL )
 	{
+		if ( is_null( $sub ) )
+			$sub = $this->_option_key ? $this->_option_key : 'general';
+		
 		if ( ! empty( $_POST ) && 'update' == $_POST['action'] ) {
 
 			$this->check_referer( $sub );
@@ -234,8 +253,11 @@ class gNetworkModuleCore
 		}
 	}
 	
-	protected function check_referer( $sub )
+	protected function check_referer( $sub = NULL )
 	{
+		if ( is_null( $sub ) )
+			$sub = $this->_option_key ? $this->_option_key : 'general';
+			
 		check_admin_referer( $this->_option_base.'_'.$sub.'-options' );
 	}
 
@@ -347,6 +369,7 @@ class gNetworkModuleCore
 		if ( 'debug' == $args['field'] ) {
 			if( ! gNetworkUtilities::isDev() )
 				return;
+			$args['type'] = 'debug';
 			if ( ! $args['title'] )
 				$args['title'] = __( 'Debug', GNETWORK_TEXTDOMAIN );
 		}

@@ -41,16 +41,6 @@ class gNetworkCaptcha extends gNetworkModuleCore
 		);
 	}
 
-	public function settings( $sub = NULL )
-	{
-		if ( 'captcha' == $sub ) {
-			$this->settings_update( $sub );
-			add_action( 'gnetwork_network_settings_sub_captcha', array( &$this, 'settings_html' ), 10, 2 );
-			$this->register_settings();
-			$this->register_settings_help();
-		}
-	}
-
 	public function default_settings()
 	{
 		return array(
