@@ -151,6 +151,18 @@ class gNetworkModuleCore
 					$this->settings_sidebox( $sub, $settings_uri );
 				echo '</div>';
 			}
+			
+			// MUST DROP ON v0.3.0
+			if ( $this->_network )
+				$options = get_site_option( $this->options_key(), array() ); 
+			else 
+				$options = get_option( $this->options_key(), array() );
+				
+			if ( count( $options ) ) {
+				echo '<div class="settings-sidebox oldoptions">';
+					echo '<p>'.__( 'Warning: Old Options Exists!', GNETWORK_TEXTDOMAIN ).'</p>';
+				echo '</div>';
+			}
 
 			if ( method_exists( $this, 'settings_before' ) ) {
 				$this->settings_before( $sub, $settings_uri );
@@ -213,6 +225,9 @@ class gNetworkModuleCore
 
 			} else if ( isset( $_POST['submit'] ) ) {
 				$message = $this->save_settings() ? 'updated' : 'error';
+			
+			} else {
+				return FALSE;
 			}
 
 			self::redirect_referer( $message );
@@ -227,17 +242,19 @@ class gNetworkModuleCore
 	public static function redirect_referer( $message = 'updated', $key = 'message' )
 	{
 		if ( is_array( $message ) )
-			$url = add_query_arg( $message, wp_get_referer() );
+			$url = add_query_arg( $message, esc_url( wp_get_referer() ) );
 		else
-			$url = add_query_arg( $key, $message, wp_get_referer() );
+			$url = add_query_arg( $key, $message, esc_url( wp_get_referer() ) );
 
-		wp_redirect( $url );
-		exit();
+		self::redirect( $url );
 	}
 
-	public static function redirect( $location, $status = 302 )
+	public static function redirect( $location = NULL, $status = 302 )
 	{
-		wp_redirect( esc_url( $location ), $status );
+		if ( is_null( $location ) )
+			$location = add_query_arg( esc_url( wp_get_referer() ) );
+		
+		wp_redirect( $location, $status );
 		exit();
 	}
 
