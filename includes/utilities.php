@@ -70,7 +70,6 @@ class gNetworkUtilities
 		return $r;
 	}
 
-
 	public static function current_url( $trailingslashit = FALSE )
 	{
 		global $wp;
@@ -281,6 +280,24 @@ class gNetworkUtilities
 
 		return $html.$content.'</'.$tag.'>'.$sep;
 	}
+	
+	// http://stackoverflow.com/a/4994188
+	public static function esc_filename( $path )
+	{
+		// everything to lower and no spaces begin or end
+		$path = strtolower(trim($path));
+
+		// adding - for spaces and union characters
+		$find = array(' ', '&', '\r\n', '\n', '+',',');
+		$path = str_replace ($find, '-', $path);
+
+		//delete and replace rest of special chars
+		$find = array('/[^a-z0-9\-<>]/', '/[\-]+/', '/<[^>]*>/');
+		$repl = array('', '-', '');
+		$path = preg_replace ($find, $repl, $path);
+		
+		return $path;
+	}
 
 	// for useing with $('form').serializeArray();
 	// http://api.jquery.com/serializeArray/
@@ -482,6 +499,20 @@ class gNetworkUtilities
 	{
 		return defined( 'WP_CLI' ) and WP_CLI;
 	}
+	
+	public static function putHTAccessDeny( $path, $create = TRUE )
+	{
+		if ( $create ) {
+			$dir = wp_mkdir_p( $path );
+			if ( TRUE === $dir )
+				$dir = $path;
+		} else {
+			$dir = $path;
+		}
+		
+		$content = '<Files ~ ".*\..*">'."\n".'order allow,deny'."\n".'deny from all'."\n".'</Files>';
+		file_put_contents( $dir.DS.'.htaccess', $content.PHP_EOL );
+	}
 
 	// http://www.webdesignerdepot.com/2012/08/wordpress-filesystem-api-the-right-way-to-operate-with-local-files/
 	//http://ottopress.com/2011/tutorial-using-the-wp_filesystem/
@@ -631,16 +662,24 @@ class gNetworkUtilities
 		}
 	}
 	
-	public static function wrapJS( $script = '' )
+	public static function wrapJS( $script = '', $echo = TRUE )
 	{
-		if ( $script )
-			echo '<script type="text/javascript">'."\n"
+		if ( $script ) {
+			$data = '<script type="text/javascript">'."\n"
 				.'/* <![CDATA[ */'."\n"
 				.'jQuery(document).ready(function($) {'."\n"
 					.$script
 				.'});'."\n"
 				.'/* ]]> */'."\n"
 				.'</script>';
+			
+			if ( ! $echo )	
+				return $data;
+				
+			echo $data;
+		}
+		
+		return '';
 	}
 }
 
