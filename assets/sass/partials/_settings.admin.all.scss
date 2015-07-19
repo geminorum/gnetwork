@@ -32,6 +32,18 @@
 			ul, ol {
 				margin: 0;
 			}
+			
+			p {
+				margin-top: 0;
+				
+				&:last-of-type {
+					margin-bottom:0;
+				}
+			}
+			
+			&.oldoptions {
+				border-color:red;
+			}
 		}
 		
 		.form-table {
