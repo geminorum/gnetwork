@@ -1,3 +1,15 @@
+### 0.2.11
+* code: `[github-repo]` moved and fixed
+* comments: set default status for comment and ping on pages, [see](https://make.wordpress.org/core/2015/07/06/comments-are-now-turned-off-on-pages-by-default/).
+* bbq: updated to [20150624](https://perishablepress.com/block-bad-queries/)
+* admin: [autosize](http://www.jacklmoore.com/autosize/) updated
+* admin: better enqueue script
+* adminbar: removed `my-sites` text string
+* modulecore: check for cron
+* modulecore: warning for old options
+* modulecore: escape referrer url
+* mail: log all outgoing emails
+
 ### 0.2.10
 * notify: fixed blogname method call
 * notify: fixed per blog settings
