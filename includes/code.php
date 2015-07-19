@@ -11,7 +11,7 @@ class gNetworkCode extends gNetworkModuleCore
 	protected function setup_actions()
 	{
 		add_action( 'init', array( &$this, 'init' ), 12 );
-		add_action( 'wp_footer', array( &$this, 'wp_footer' ), 20 );
+		// add_action( 'wp_footer', array( &$this, 'wp_footer' ), 20 );
 	}
 
 	public function init()
@@ -203,14 +203,13 @@ class gNetworkCode extends gNetworkModuleCore
 		return preg_replace( '/https:\/\/gist.github.com\/([\d]+)[\.js\?]*[\#]*file[=|_]+([\w\.]+)(?![^<]*<\/a>)/i', '', $content );
 	}
 	
-	// FIXME: find a better way to file wp_footer once!
 	// ALSO SEE: https://github.com/bradthomas127/gitpress-repo
 	// LIB REPO: https://github.com/darcyclarke/Repo.js
 	public function shortcode_github_repo( $atts, $content = NULL, $tag = '' )
 	{
 		$args = shortcode_atts( array(
-			'username' => FALSE,
-			'name'     => FALSE,
+			'username' => 'geminorum',
+			'name'     => 'gnetwork',
 			'branch'   => FALSE,
 			'context'  => NULL,
 		), $atts, $tag );
@@ -218,13 +217,12 @@ class gNetworkCode extends gNetworkModuleCore
 		if ( FALSE === $args['context'] )
 			return NULL;
 
-		if ( $args['username'] && $args['name'] ) {
-			$key = 'github-repo-'.( count( $this->_github_repos ) + 1 );
-			$this->_github_repos[$key] = "$('#".$key."').repo({user:'".$args['username']."',name:'".$args['name']."'".( $args['branch'] ? ", branch:'".$args['branch']."'" : "" )."});";
-			wp_enqueue_script( 'repo-js', GNETWORK_URL.'assets/libs/repo.js/repo.min.js', array( 'jquery' ), GNETWORK_VERSION, TRUE );
-			return '<div id="'.$key.'" class="gnetwork-wrap-shortcode github-repo"></div>';
-		}
-
-		return $content;
+		$key = 'github-repo-'.( count( $this->_github_repos ) + 1 );
+		$this->_github_repos[$key] = "$('#".$key."').repo({user:'".$args['username']."',name:'".$args['name']."'".( $args['branch'] ? ", branch:'".$args['branch']."'" : "" )."});";
+		
+		gNetworkUtilities::wrapJS( $this->_github_repos[$key], FALSE );
+		wp_enqueue_script( 'repo-js', GNETWORK_URL.'assets/libs/repo.js/repo.min.js', array( 'jquery' ), GNETWORK_VERSION, TRUE );
+		
+		return '<div id="'.$key.'" class="gnetwork-wrap-shortcode github-repo"></div>';
 	}
 }
