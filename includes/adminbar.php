@@ -384,6 +384,9 @@ class gNetworkAdminBar extends gNetworkModuleCore
 			'id'    => 'my-sites',
 			'title' => '',
 			'href'  => $my_sites_url,
+			'meta'   => array(
+				'title' => __( 'My Sites' ),
+			),
 		) );
 	}
 	public static function wp_menu( &$wp_admin_bar )
