@@ -17,6 +17,9 @@ class gNetworkMail extends gNetworkModuleCore
 			__( 'Test Mail', GNETWORK_TEXTDOMAIN )
 		);
 
+		if ( $this->options['log_all'] )
+			add_filter( 'wp_mail', array( &$this, 'wp_mail' ), 99 );
+		
 		add_filter( 'wp_mail_from', array( &$this, 'wp_mail_from' ), 5 );
 		add_filter( 'wp_mail_from_name', array( &$this, 'wp_mail_from_name' ), 5 );
 
@@ -26,8 +29,19 @@ class gNetworkMail extends gNetworkModuleCore
 	public function settings( $sub = NULL )
 	{
 		if ( 'mail' == $sub ) {
-			$this->settings_update( $sub );
+			
+			if ( isset( $_POST['create_log_folder'] ) ) {
+				$this->check_referer( $sub );
+				gNetworkUtilities::putHTAccessDeny( GNETWORK_MAIL_LOG_DIR, TRUE );
+				self::redirect();
+				
+			} else {
+				$this->settings_update( $sub );
+
+			}
+			
 			add_action( 'gnetwork_network_settings_sub_mail', array( &$this, 'settings_html' ), 10, 2 );
+			
 			$this->register_settings();
 			$this->register_settings_help();
 		}
@@ -45,6 +59,7 @@ class gNetworkMail extends gNetworkModuleCore
 			'smtp_port'     => ( defined( 'WPMS_SMTP_PORT' ) ? constant( 'WPMS_SMTP_PORT' ) : 25 ),
 			'smtp_username' => ( defined( 'WPMS_SMTP_USER' ) ? constant( 'WPMS_SMTP_USER' ) : '' ),
 			'smtp_password' => ( defined( 'WPMS_SMTP_PASS' ) ? constant( 'WPMS_SMTP_PASS' ) : '' ),
+			'log_all'       => '0',
 		);
 	}
 
@@ -124,6 +139,15 @@ class gNetworkMail extends gNetworkModuleCore
 					'default' => '',
 				),
 			),
+			'_log' => array(
+				array(
+					'field'   => 'log_all',
+					'type'    => 'enabled',
+					'title'   => _x( 'Log All', 'Enable log all outgoing', GNETWORK_TEXTDOMAIN ),
+					'desc'    => __( 'Log all outgoing emails in a secure folder', GNETWORK_TEXTDOMAIN ),
+					'default' => '0',
+				),
+			),
 		);
 	}
 
@@ -133,6 +157,14 @@ class gNetworkMail extends gNetworkModuleCore
 		echo '<p class="description">';
 			_e( 'These options only apply if you have chosen to send mail by SMTP above.', GNETWORK_TEXTDOMAIN );
 		echo '</p>';
+	}
+	
+	public function settings_section_log()
+	{
+		echo '<h3>'.__( 'Log Settings', GNETWORK_TEXTDOMAIN ).'</h3>';
+		// echo '<p class="description">';
+		// 	_e( 'These options only apply if you have chosen to send mail by SMTP above.', GNETWORK_TEXTDOMAIN );
+		// echo '</p>';
 	}
 
 	public function settings_help_tabs()
@@ -168,6 +200,26 @@ class gNetworkMail extends gNetworkModuleCore
 				'callback' => FALSE,
 			),
 		);
+	}
+	
+	public function settings_sidebox( $sub, $settings_uri )
+	{
+		if ( $this->options['log_all'] ) {
+		
+			if ( is_dir( GNETWORK_MAIL_LOG_DIR ) && wp_is_writable( GNETWORK_MAIL_LOG_DIR ) ) {
+				echo '<p>'.sprintf( __( 'Log Folder Exists and Writable: <code>%s</code>', GNETWORK_TEXTDOMAIN ), GNETWORK_MAIL_LOG_DIR ).'</p>';
+				
+				if ( ! file_exists( GNETWORK_MAIL_LOG_DIR.DS.'.htaccess' ) )
+					echo '<p>'.__( 'Warning: <code>.htaccess</code> not found!', GNETWORK_TEXTDOMAIN ).'</p>';
+				
+			} else {
+				echo '<p>'.__( 'Log Folder Not Exists and/or Writable', GNETWORK_TEXTDOMAIN ).'</p>';
+				submit_button( __( 'Create Log Folder', GNETWORK_TEXTDOMAIN ), 'secondary', 'create_log_folder' );
+			}	
+		
+		} else {
+			echo '<p>'.__( 'Logging Emails Disabled', GNETWORK_TEXTDOMAIN ).'</p>';
+		}
 	}
 
 	public function wp_mail_from( $email )
@@ -233,7 +285,17 @@ class gNetworkMail extends gNetworkModuleCore
 			$phpmailer->AddCustomHeader( sprintf( '%1$s: %2$s', 'X-MC-Track'    , 'false' ) );
 		}
 	}
-
+	
+	// $mail = array( 'to', 'subject', 'message', 'headers', 'attachments' );
+	public function wp_mail( $mail )
+	{
+		$to = is_array( $mail['to'] ) ? implode( '-', array_filter( array( 'gNetworkUtilities', 'esc_filename' ), $mail['to'] ) ) : gNetworkUtilities::esc_filename( $mail['to'] );
+		
+		file_put_contents( GNETWORK_MAIL_LOG_DIR.DS.current_time( 'Ymd-His' ).'-'.$to.'.email', var_export( $mail, TRUE ).PHP_EOL, FILE_APPEND );
+		
+		return $mail;
+	}
+	
 	public function testmail_form()
 	{
 		$to = isset( $_POST['gnetwork_mail_testmail_to'] ) ? $_POST['gnetwork_mail_testmail_to'] : $this->get_from_email();
