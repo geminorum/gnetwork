@@ -525,7 +525,7 @@ class gNetworkModuleCore
 			
 				if ( count( $args['values'] ) ) {
 					foreach( $args['values'] as $value_name => $value_title ) {
-						$html .= gNetworkUtilities::html( 'input', array(
+						$html = gNetworkUtilities::html( 'input', array(
 							'type'    => 'checkbox',
 							'class'   => $args['field_class'],
 							'name'    => $name.'['.$value_name.']',
