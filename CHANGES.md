@@ -1,3 +1,9 @@
+### 0.2.12
+* modulecore: settings method as internal api
+* modulecore: esc_url messing with referer
+* blog: option key renamed to `general`
+* cleanup: bump jquery core version
+
 ### 0.2.11
 * code: `[github-repo]` moved and fixed
 * comments: set default status for comment and ping on pages, [see](https://make.wordpress.org/core/2015/07/06/comments-are-now-turned-off-on-pages-by-default/).
