@@ -37,7 +37,7 @@ class gNetworkCleanup extends gNetworkModuleCore
 			return;
 
 		$scripts->remove( 'jquery' );
-		$scripts->add( 'jquery', FALSE, array( 'jquery-core' ), '1.11.1' );
+		$scripts->add( 'jquery', FALSE, array( 'jquery-core' ), '1.11.3' );
 	}
 
 	// TODO: add option and/or global constant
@@ -53,7 +53,7 @@ class gNetworkCleanup extends gNetworkModuleCore
 		remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );
 		remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
 
-		add_filter( 'tiny_mce_plugins', array( &$this, 'tiny_mce_plugins'               ) );
+		add_filter( 'tiny_mce_plugins', array( &$this, 'tiny_mce_plugins' ) );
 	}
 
 	public function tiny_mce_plugins( $plugins )
