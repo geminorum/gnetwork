@@ -199,8 +199,7 @@ class gNetworkAdmin extends gNetworkModuleCore
 			) );
 
 			self::sideNotification();
-
-			printf( '<h2>%s</h2>', __( 'gNetwork Extras', GNETWORK_TEXTDOMAIN ) );
+			echo gNetworkUtilities::html( 'h2', __( 'gNetwork Extras', GNETWORK_TEXTDOMAIN ) );
 
 			gNetworkUtilities::headerNav( $settings_uri, $sub, $subs );
 

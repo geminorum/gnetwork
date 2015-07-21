@@ -6,25 +6,25 @@ if ( ! class_exists( 'gNU' ) )
 class gNetworkUtilities
 {
 
-	public static function headerNav( $settings_uri = '', $active = '', $sub_pages = array(), $class_prefix = 'nav-tab-', $tag = 'h3' )
+	public static function headerNav( $uri = '', $active = '', $subs = array(), $prefix = 'nav-tab-', $tag = 'h3' )
 	{
-		if ( ! count( $sub_pages ) )
+		if ( ! count( $subs ) )
 			return;
 
 		$html = '';
 
-		foreach ( $sub_pages as $page_slug => $sub_page )
+		foreach ( $subs as $slug => $page )
 			$html .= self::html( 'a', array(
-				'class' => 'nav-tab '.$class_prefix.$page_slug.( $page_slug == $active ? ' nav-tab-active' : '' ),
-				'href' => add_query_arg( 'sub', $page_slug, $settings_uri ),
-			), $sub_page );
+				'class' => 'nav-tab '.$prefix.$slug.( $slug == $active ? ' nav-tab-active' : '' ),
+				'href'  => add_query_arg( 'sub', $slug, $uri ),
+			), $page );
 
 		echo self::html( $tag, array(
 			'class' => 'nav-tab-wrapper',
 		), $html );
 	}
 
-	public static function tabNav( $tabs, $active = 'manual', $class_prefix = 'nav-tab-', $tag = 'h3' )
+	public static function tabNav( $tabs, $active = 'manual', $prefix = 'nav-tab-', $tag = 'h3' )
 	{
 		if ( ! count( $tabs ) )
 			return;
@@ -33,16 +33,15 @@ class gNetworkUtilities
 
 		foreach ( $tabs as $tab => $title )
 			$html .= self::html( 'a', array(
-				'class' => 'gnetwork-nav-tab nav-tab '.$class_prefix.$tab.( $tab == $active ? ' nav-tab-active' : '' ),
-				'href' => '#',
+				'class'    => 'gnetwork-nav-tab nav-tab '.$prefix.$tab.( $tab == $active ? ' nav-tab-active' : '' ),
+				'href'     => '#',
 				'data-tab' => $tab,
-				'rel' => $tab, // back comp
+				'rel'      => $tab, // back comp
 			), $title );
 
 		echo self::html( $tag, array(
 			'class' => 'nav-tab-wrapper',
 		), $html );
-
 	}
 
 	public static function stat( $format = NULL )
@@ -58,25 +57,25 @@ class gNetworkUtilities
 	}
 
 	// WP Core function without number_format_i18n
-	public static function timer_stop( $display = 0, $precision = 3 )
+	public static function timer_stop( $echo = FALSE, $precision = 3 )
 	{
-		global $timestart, $timeend;
-		$timeend = microtime( true );
-		$timetotal = $timeend - $timestart;
-		//$r = ( function_exists( 'number_format_i18n' ) ) ? number_format_i18n( $timetotal, $precision ) : number_format( $timetotal, $precision );
-		$r = number_format( $timetotal, $precision );
-		if ( $display )
-			echo $r;
-		return $r;
+		global $timestart;
+		
+		$html = number_format( ( microtime( TRUE ) - $timestart ), $precision );
+		
+		if ( $echo )
+			echo $html;
+		
+		return $html;
 	}
 
 	public static function current_url( $trailingslashit = FALSE )
 	{
 		global $wp;
 
-		//if ( is_admin() )
-			//$current_url = add_query_arg( $wp->query_string, '', home_url( $wp->request ) );
-		//else
+		// if ( is_admin() )
+		// 	$current_url = add_query_arg( $wp->query_string, '', home_url( $wp->request ) );
+		// else
 			$current_url = home_url( add_query_arg( array(), ( empty( $wp->request ) ? FALSE : $wp->request ) ) );
 
 		if ( $trailingslashit )
@@ -89,15 +88,18 @@ class gNetworkUtilities
 		if ( function_exists( 'buddypress' ) ) {
 			if ( bp_get_signup_allowed() )
 				return bp_get_signup_page();
+				
 		} else if ( get_option( 'users_can_register' ) ) {
+			
 			if ( is_multisite() )
 				return apply_filters( 'wp_signup_location', network_site_url( 'wp-signup.php' ) );
 			else
-				//return site_url( 'wp-login.php?action=register', 'login' );
 				return wp_registration_url();
+				
 		} else if ( 'site' == $register ) {
 			return  site_url( '/' );
 		}
+		
 		return $register;
 	}
 
@@ -109,24 +111,27 @@ class gNetworkUtilities
 		if( ! isset( $wp_filter[$hook] ) )
 			return;
 
-		gnetwork_dump( $wp_filter[$hook] );
+		self::dump( $wp_filter[$hook] );
 	}
 
 	public static function join_items( $items )
 	{
-		return '&rdquo;'.join( __( '&ldquo; and &rdquo;', GNETWORK_TEXTDOMAIN ),
-			array_filter( array_merge( array(
-				join( __( '&ldquo;, &rdquo;', GNETWORK_TEXTDOMAIN ),
-				array_slice( $items, 0, -1 ) ) ),
-				array_slice( $items, -1 ) ) ) ).'&ldquo;.';
+		return 
+			__( '&rdquo;', GNETWORK_TEXTDOMAIN )
+			.join( __( '&ldquo; and &rdquo;', GNETWORK_TEXTDOMAIN ),
+				array_filter( array_merge( array(
+					join( __( '&ldquo;, &rdquo;', GNETWORK_TEXTDOMAIN ),
+					array_slice( $items, 0, -1 ) ) ),
+					array_slice( $items, -1 ) ) ) )
+			.__( '&ldquo;', GNETWORK_TEXTDOMAIN ).'.';
 	}
 
-	// idea originally from HTML Emails by Mohammad Jangda
 	public static function getLayout( $layout_name, $require_once = FALSE, $no_cache = FALSE )
 	{
-		// must check if it's not admin!
+		// FIXME: must check if it's not admin!
 
 		$layout = locate_template( $layout_name );
+		
 		if( ! $layout )
 			if ( file_exists( WP_CONTENT_DIR.DS.$layout_name.'.php' ) )
 				$layout = WP_CONTENT_DIR.DS.$layout_name.'.php';
@@ -150,7 +155,7 @@ class gNetworkUtilities
 
 		foreach( $haystack as $key => $what )
 			if( FALSE !== ( $pos = strpos( $what, $needle ) ) )
-				return $pos; // must return $key / but what about zero?!
+				return $pos; // must return $key / FIXME: but what about zero?!
 
 		return FALSE;
 	}
@@ -248,14 +253,14 @@ class gNetworkUtilities
 				continue;
 
 			if ( 'class' == $key )
-				//$att = sanitize_html_class( $att, FALSE );
+				// $att = sanitize_html_class( $att, FALSE );
 				$att = $att;
 			else if ( 'href' == $key && '#' != $att )
 				$att = esc_url( $att );
 			else if ( 'src' == $key )
 				$att = esc_url( $att );
-			//else if ( 'input' == $tag && 'value' == $key )
-				//$att = $att;
+			// else if ( 'input' == $tag && 'value' == $key )
+			// 	$att = $att;
 			else
 				$att = esc_attr( $att );
 
@@ -270,7 +275,10 @@ class gNetworkUtilities
 
 	public static function html( $tag, $atts = array(), $content = FALSE, $sep = '' )
 	{
-		$html = self::_tag_open( $tag, $atts, $content );
+		if ( is_array( $atts ) )
+			$html = self::_tag_open( $tag, $atts, $content );
+		else
+			return '<'.$tag.'>'.$atts.'</'.$tag.'>'.$sep;
 
 		if ( FALSE === $content )
 			return $html.$sep;
@@ -285,16 +293,13 @@ class gNetworkUtilities
 	public static function esc_filename( $path )
 	{
 		// everything to lower and no spaces begin or end
-		$path = strtolower(trim($path));
+		$path = strtolower( trim( $path ) );
 
 		// adding - for spaces and union characters
-		$find = array(' ', '&', '\r\n', '\n', '+',',');
-		$path = str_replace ($find, '-', $path);
+		$path = str_replace( array( ' ', '&', '\r\n', '\n', '+', ',' ), '-', $path );
 
-		//delete and replace rest of special chars
-		$find = array('/[^a-z0-9\-<>]/', '/[\-]+/', '/<[^>]*>/');
-		$repl = array('', '-', '');
-		$path = preg_replace ($find, $repl, $path);
+		// delete and replace rest of special chars
+		$path = preg_replace( array( '/[^a-z0-9\-<>]/', '/[\-]+/', '/<[^>]*>/' ), array( '', '-', '' ), $path );
 		
 		return $path;
 	}
@@ -316,14 +321,14 @@ class gNetworkUtilities
 		echo '<pre dir="ltr" style="text-align:left;direction:ltr;">'.( $htmlSafe ? htmlspecialchars( $result ) : $result).'</pre>';
 	}
 
-	public static function log( $data, $table = 0 )
+	public static function log( $data, $table = FALSE )
 	{
-		$verb = $table ? 'table' : 'log';
-		if(is_array($data) || is_object($data)) {
-			echo "<script>console.".$verb."(".json_encode($data).");</script>" ;
-		} else {
-			echo "<script>console.".$verb."(".$data.");</script>" ;
-		}
+		$func = $table ? 'table' : 'log';
+		
+		if ( is_array( $data ) || is_object( $data ) )
+			echo '<script>console.'.$func.'('.json_encode($data).');</script>';
+		else
+			echo '<script>console.'.$func.'('.$data.');</script>';
 	}
 
 	public static function trace( $old = TRUE )
@@ -384,22 +389,22 @@ class gNetworkUtilities
 	public static function getUserRoles( $cap = NULL )
 	{
 		$caps = array(
-			'edit_theme_options'   => _x( 'Administrators',         'Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
-			'edit_others_posts'    => _x( 'Editors',                'Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
-			'edit_published_posts' => _x( 'Authors',                'Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
-			'edit_posts'           => _x( 'Contributors',           'Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
-			'read'                 => _x( 'Subscribers',            'Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
+			'edit_theme_options'   => _x( 'Administrators', 'Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
+			'edit_others_posts'    => _x( 'Editors', 'Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
+			'edit_published_posts' => _x( 'Authors', 'Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
+			'edit_posts'           => _x( 'Contributors', 'Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
+			'read'                 => _x( 'Subscribers', 'Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
 		);
 
 		if ( is_multisite() ) {
 			$caps = array(
-				'manage_network'   => _x( 'Super Admins',           'Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
+				'manage_network' => _x( 'Super Admins', 'Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
 			) + $caps + array(
-				'logged_in_user'   => _x( 'Network Users',          'Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
+				'logged_in_user' => _x( 'Network Users', 'Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
 			);
 		}
 
-		$caps['none']              =  _x( '&mdash; No One &mdash;', 'Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN );
+		$caps['none'] = _x( '&mdash; No One &mdash;', 'Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN );
 
 		if ( is_null( $cap ) )
 			return $caps;

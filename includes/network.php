@@ -16,7 +16,7 @@ class gNetworkNetwork extends gNetworkModuleCore
 
 			// add_filter( 'all_plugins', array( &$this, 'all_plugins' ) );
 			// add_action( 'load-index.php', array( &$this, 'load_index_php' ) ); // SPEED CAUTIONS
-			
+
 			add_action( 'network_admin_menu', array( &$this, 'network_admin_menu' ) );
 		} else {
 
@@ -167,9 +167,9 @@ class gNetworkNetwork extends gNetworkModuleCore
 		) );
 
 		echo '<div class="wrap gnetwork-admin-settings-wrap settings-network sub-'.$sub.'">';
-			
+
 			self::sideNotification();
-			printf( '<h2>%s</h2>', __( 'gNetwork Extras', GNETWORK_TEXTDOMAIN ) );
+			echo gNetworkUtilities::html( 'h2', __( 'gNetwork Extras', GNETWORK_TEXTDOMAIN ) );
 
 			gNetworkUtilities::headerNav( $settings_uri, $sub, $subs );
 
@@ -275,7 +275,7 @@ class gNetworkNetwork extends gNetworkModuleCore
 
 		foreach ( $disabled_plugins as $disabled_plugin ) {
 			if ( array_key_exists( $disabled_plugin, $plugins ) &&
-				 ( in_array( $disabled_plugin, $undeactivatable_plugins ) 
+				 ( in_array( $disabled_plugin, $undeactivatable_plugins )
 					|| ! is_plugin_active( $disabled_plugin ) )
 			) {
 				unset( $plugins[ $disabled_plugin ] );
@@ -284,7 +284,6 @@ class gNetworkNetwork extends gNetworkModuleCore
 
 		return $plugins;
 	}
-
 }
 
 // http://wp.tutsplus.com/tutorials/widgets/how-to-build-custom-dashboard-widgets/
