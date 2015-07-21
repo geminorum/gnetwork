@@ -35,7 +35,7 @@ class gNetworkModuleCore
 	{
 		return defined( 'DOING_AJAX' ) && DOING_AJAX;
 	}
-	
+
 	public static function isCRON()
 	{
 		return defined( 'DOING_CRON' ) && DOING_CRON;
@@ -116,7 +116,6 @@ class gNetworkModuleCore
 			return update_site_option( $this->_option_base.'_site', $saved );
 		else
 			return update_option( $this->_option_base.'_blog', $saved, TRUE );
-
 	}
 
 	public function delete_options()
@@ -137,7 +136,7 @@ class gNetworkModuleCore
 	}
 
 	// default settings hook handler
-	public function settings( $sub = NULL ) 
+	public function settings( $sub = NULL )
 	{
 		if ( $this->_option_key && $this->_option_key == $sub ) {
 			$this->settings_update( $sub );
@@ -146,7 +145,7 @@ class gNetworkModuleCore
 			$this->register_settings_help();
 		}
 	}
-	
+
 	public function settings_help() {}
 
 	// default setting sub html
@@ -157,13 +156,13 @@ class gNetworkModuleCore
 
 		// MUST DROP ON v0.3.0
 		if ( $this->_network )
-			$options = get_site_option( $this->options_key(), array() ); 
-		else 
+			$options = get_site_option( $this->options_key(), array() );
+		else
 			$options = get_option( $this->options_key(), array() );
 
 		if ( count( $options ) || $sidebox )
 			$class .= ' has-sidebox';
-			
+
 		echo '<form class="'.$class.'" method="post" action="">';
 
 			settings_fields( $this->_option_base.'_'.$sub );
@@ -173,7 +172,7 @@ class gNetworkModuleCore
 					$this->settings_sidebox( $sub, $settings_uri );
 				echo '</div>';
 			}
-				
+
 			if ( count( $options ) ) {
 				echo '<div class="settings-sidebox oldoptions">';
 					echo '<p>'.__( 'Warning: Old Options Exists!', GNETWORK_TEXTDOMAIN ).'</p>';
@@ -234,7 +233,7 @@ class gNetworkModuleCore
 	{
 		if ( is_null( $sub ) )
 			$sub = $this->_option_key ? $this->_option_key : 'general';
-		
+
 		if ( ! empty( $_POST ) && 'update' == $_POST['action'] ) {
 
 			$this->check_referer( $sub );
@@ -244,7 +243,7 @@ class gNetworkModuleCore
 
 			} else if ( isset( $_POST['submit'] ) ) {
 				$message = $this->save_settings() ? 'updated' : 'error';
-			
+
 			} else {
 				return FALSE;
 			}
@@ -252,21 +251,21 @@ class gNetworkModuleCore
 			self::redirect_referer( $message );
 		}
 	}
-	
+
 	protected function check_referer( $sub = NULL )
 	{
 		if ( is_null( $sub ) )
 			$sub = $this->_option_key ? $this->_option_key : 'general';
-			
+
 		check_admin_referer( $this->_option_base.'_'.$sub.'-options' );
 	}
 
 	public static function redirect_referer( $message = 'updated', $key = 'message' )
 	{
 		if ( is_array( $message ) )
-			$url = add_query_arg( $message, esc_url( wp_get_referer() ) );
+			$url = add_query_arg( $message, wp_get_referer() );
 		else
-			$url = add_query_arg( $key, $message, esc_url( wp_get_referer() ) );
+			$url = add_query_arg( $key, $message, wp_get_referer() );
 
 		self::redirect( $url );
 	}
@@ -274,8 +273,8 @@ class gNetworkModuleCore
 	public static function redirect( $location = NULL, $status = 302 )
 	{
 		if ( is_null( $location ) )
-			$location = add_query_arg( esc_url( wp_get_referer() ) );
-		
+			$location = add_query_arg( wp_get_referer() );
+
 		wp_redirect( $location, $status );
 		exit();
 	}
@@ -506,10 +505,10 @@ class gNetworkModuleCore
 
 			break;
 			case 'text' :
-			
+
 				if ( ! $args['field_class'] )
 					$args['field_class'] = 'regular-text';
-					
+
 				echo gNetworkUtilities::html( 'input', array(
 					'type'     => 'text',
 					'class'    => $args['field_class'],
@@ -522,7 +521,7 @@ class gNetworkModuleCore
 
 			break;
 			case 'checkbox' :
-			
+
 				if ( count( $args['values'] ) ) {
 					foreach( $args['values'] as $value_name => $value_title ) {
 						$html = gNetworkUtilities::html( 'input', array(
@@ -557,7 +556,7 @@ class gNetworkModuleCore
 
 			break;
 			case 'radio' :
-			
+
 				if ( count( $args['values'] ) ) {
 					foreach( $args['values'] as $value_name => $value_title ) {
 						$html = gNetworkUtilities::html( 'input', array(
@@ -575,7 +574,7 @@ class gNetworkModuleCore
 						), $html.'&nbsp;'.esc_html( $value_title ) ).'</p>';
 					}
 				}
-					
+
 			break;
 			case 'select' :
 
@@ -592,7 +591,7 @@ class gNetworkModuleCore
 						'id'    => $id,
 					), $html );
 				}
-				
+
 			break;
 			case 'textarea' :
 
@@ -673,7 +672,7 @@ class gNetworkModuleCore
 			case 'debug' :
 
 				gNetworkUtilities::dump( $this->options );
-				
+
 			break;
 			default :
 
@@ -719,7 +718,7 @@ class gNetworkModuleCore
 	// MAYBE: add general options for on a network panel
 	public static function getSiteUserID( $fallback = TRUE )
 	{
-		if ( defined( 'GNETWORK_SITE_USER_ID' ) 
+		if ( defined( 'GNETWORK_SITE_USER_ID' )
 			&& constant( 'GNETWORK_SITE_USER_ID' ) )
 				return GNETWORK_SITE_USER_ID;
 
