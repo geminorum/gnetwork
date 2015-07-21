@@ -3,12 +3,12 @@
 class gNetworkBlog extends gNetworkModuleCore
 {
 
-	var $_option_key = 'blog';
+	var $_option_key = 'general';
 	var $_network    = FALSE;
 
 	protected function setup_actions()
 	{
-		gNetworkAdmin::registerMenu( 'blog',
+		gNetworkAdmin::registerMenu( 'general',
 			__( 'General', GNETWORK_TEXTDOMAIN ),
 			array( &$this, 'settings' )
 		);
@@ -20,7 +20,7 @@ class gNetworkBlog extends gNetworkModuleCore
 	public function default_options()
 	{
 		return array(
-			'blog_redirect' => get_option( 'gnetwork_redirect', '' ),
+			'blog_redirect' => '',
 		);
 	}
 
@@ -55,7 +55,7 @@ class gNetworkBlog extends gNetworkModuleCore
 			self::redirect( $this->options['blog_redirect'].$_SERVER['REQUEST_URI'], 307 );
 	}
 
-	public static function whiteListed( $request_uri = null )
+	public static function whiteListed( $request_uri = NULL )
 	{
 		if ( is_null( $request_uri ) )
 			$request_uri = $_SERVER['REQUEST_URI'];
