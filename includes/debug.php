@@ -33,7 +33,7 @@ class gNetworkDebug extends gNetworkModuleCore
 				add_filter( 'deprecated_file_trigger_error', '__return_false' );
 				add_filter( 'deprecated_argument_trigger_error', '__return_false' );
 
-				add_action( 'http_api_debug', array( &$this, 'http_api_debug' ), 10, 3 );
+				add_action( 'http_api_debug', array( &$this, 'http_api_debug' ), 10, 5 );
 
 				// akismet will log all the http_reqs!!
 				add_filter( 'akismet_debug_log', '__return_false' );
@@ -49,14 +49,14 @@ class gNetworkDebug extends gNetworkModuleCore
 
 			if ( isset( $_POST['purge_transient'] )
 				|| isset( $_POST['purge_transient_all'] ) ) {
-					
+
 					$this->check_referer( $sub );
 					$this->purge_transient_data( false, isset( $_POST['purge_transient'] ) );
 					self::redirect_referer( 'transientpurged' );
 			} else {
-				// $this->settings_update( $sub );	
+				// $this->settings_update( $sub );
 			}
-			
+
 			// $this->register_settings();
 			$this->register_button( 'purge_transient', __( 'Purge Expired Transient Data', GNETWORK_TEXTDOMAIN ) );
 			$this->register_button( 'purge_transient_all', __( 'Purge All Transient Data', GNETWORK_TEXTDOMAIN ) );
@@ -176,11 +176,9 @@ class gNetworkDebug extends gNetworkModuleCore
 		echo "\n\t<!-- {$stat} -->\n";
 	}
 
-	// BASED on : Cron Debug Log v0.1
-	// https://wordpress.org/plugins/cron-debug-log/
-	public function http_api_debug( $response, $type, $transport = FALSE )
+	public function http_api_debug( $response, $context, $class, $args, $url )
 	{
-		if( ! $transport || 'response' != $type )
+		if( ! $class || 'response' != $context )
 			return;
 
 		if( is_wp_error( $response ) )
@@ -193,7 +191,7 @@ class gNetworkDebug extends gNetworkModuleCore
 				return;
 
 		$time = current_time( 'mysql' );
-		error_log( print_r( compact( 'time', 'response', 'type' ), TRUE ) );
+		error_log( print_r( compact( 'time', 'url', 'response', 'class', 'args' ), TRUE ) );
 	}
 
 	// https://core.trac.wordpress.org/ticket/20316
