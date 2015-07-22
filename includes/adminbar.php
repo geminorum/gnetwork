@@ -43,8 +43,9 @@ class gNetworkAdminBar extends gNetworkModuleCore
 			}
 		} else {
 			show_admin_bar( FALSE );
+
 			// add_action( 'admin_print_scripts-profile.php', function(){
-			// 	?><style type="text/css">.show-admin-bar{display:none;}</style><?php
+			// 	echo '<style type="text/css">.show-admin-bar{display:none;}</style>';
 			// } );
 		}
 	}
