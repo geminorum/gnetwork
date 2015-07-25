@@ -498,9 +498,8 @@ class gNetworkShortCodes extends gNetworkModuleCore
 
 			if ( $args['download'] && $src = self::getAudioSource( $atts ) )
 				$html .= '<div class="download"><a href="'.$src.'"'
-					.( $args['filename'] ? ' download="'.$args['filename'].'"' : '' ).'>'
-					.apply_filters( 'gnetwork_shortcode_audio_download', $args['download'] )
-					.'</a></div>';
+					.( $args['filename'] ? ' download="'.$args['filename'].'"' : '' )
+					.'>'.$args['download'].'</a></div>';
 
 			if ( $args['wrap'] )
 				$html = '<div class="gnetwork-wrap-shortcode shortcode-audio">'.$html.'</div>';
