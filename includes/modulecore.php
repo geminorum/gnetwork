@@ -715,6 +715,26 @@ class gNetworkModuleCore
 		return $out;
 	}
 
+	// helper
+	// ANCESTOR : wp_parse_args()
+	public static function args( $args, $defaults = '' )
+	{
+		if ( is_object( $args ) )
+			$r = get_object_vars( $args );
+
+		elseif ( is_array( $args ) )
+			$r =& $args;
+
+		else
+			// wp_parse_str( $args, $r );
+			parse_str( $args, $r );
+
+		if ( is_array( $defaults ) )
+			return array_merge( $defaults, $r );
+
+		return $r;
+	}
+
 	// MAYBE: add general options for on a network panel
 	public static function getSiteUserID( $fallback = TRUE )
 	{
