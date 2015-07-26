@@ -27,19 +27,20 @@ class gNetworkDebug extends gNetworkModuleCore
 
 		if ( 'production' == WP_STAGE ) {
 
-			if ( WP_DEBUG_LOG && ! WP_DEBUG_DISPLAY ) {
-
+			if ( ! WP_DEBUG_DISPLAY ) {
 				add_filter( 'doing_it_wrong_trigger_error', '__return_false' );
 				add_filter( 'deprecated_function_trigger_error', '__return_false' );
 				add_filter( 'deprecated_file_trigger_error', '__return_false' );
 				add_filter( 'deprecated_argument_trigger_error', '__return_false' );
 			}
 
+			if ( WP_DEBUG_LOG ) {
+				add_action( 'http_api_debug', array( &$this, 'http_api_debug' ), 10, 5 );
+				add_filter( 'wp_login_errors', array( &$this, 'wp_login_errors' ), 10, 2 );
+			}
+
 			// akismet will log all the http_reqs!!
 			add_filter( 'akismet_debug_log', '__return_false' );
-
-			add_action( 'http_api_debug', array( &$this, 'http_api_debug' ), 10, 5 );
-			add_filter( 'wp_login_errors', array( &$this, 'wp_login_errors' ), 10, 2 );
 
 		} else if ( 'development' == WP_STAGE ) {
 			add_action( 'pre_get_posts', array( &$this, 'pre_get_posts' ), 99 );
