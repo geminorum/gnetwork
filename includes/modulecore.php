@@ -735,6 +735,18 @@ class gNetworkModuleCore
 		return $r;
 	}
 
+	public static function log( $error = '{NO Error Code}', $data = array(), $wp_error = NULL )
+	{
+		$log = array_merge( array(
+			'error'   => $error,
+			'time'    => current_time( 'mysql' ),
+			'ip'      => gNetworkUtilities::IP(),
+			'message' => ( is_null( $wp_error ) ? '{NO WP_Error Object}' : $wp_error->get_error_message() ),
+		), $data );
+
+		error_log( print_r( $log, TRUE ) );
+	}
+
 	// MAYBE: add general options for on a network panel
 	public static function getSiteUserID( $fallback = TRUE )
 	{
