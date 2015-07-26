@@ -38,19 +38,10 @@ class gNetworkMaintenance extends gNetworkModuleCore
 		}
 	}
 
-	public function settings( $sub = NULL )
-	{
-		if ( 'maintenance' == $sub ) {
-			$this->settings_update( $sub );
-			add_action( 'gnetwork_admin_settings_sub_maintenance', array( &$this, 'settings_html' ), 10, 2 );
-			$this->register_settings();
-		}
-	}
-
 	public function default_settings()
 	{
 		$template = self::get_template();
-		
+
 		return array(
 			'_general' => array(
 				array(
@@ -147,7 +138,7 @@ class gNetworkMaintenance extends gNetworkModuleCore
 
 			$template = self::get_template();
 			if ( FALSE !== $template ) {
-				require_once( $template );
+				require_once ( $template );
 
 			} else {
 
@@ -155,8 +146,8 @@ class gNetworkMaintenance extends gNetworkModuleCore
 				call_user_func_array( $default_template, array( true ) );
 
 			}
-			die();
 
+			die();
 		}
 	}
 

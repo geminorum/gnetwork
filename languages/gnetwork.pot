@@ -38,66 +38,51 @@ msgstr ""
 msgid "Network deactivation: uninstalled on %s / %s sites."
 msgstr ""
 
-#: includes/admin.php:66
-#: includes/admin.php:89
-#: includes/admin.php:202
-#: includes/network.php:70
-#: includes/network.php:172
+#: includes/admin.php:66 includes/admin.php:89 includes/admin.php:202
+#: includes/network.php:70 includes/network.php:172
 msgid "gNetwork Extras"
 msgstr ""
 
-#: includes/admin.php:67
-#: includes/admin.php:90
+#: includes/admin.php:67 includes/admin.php:90
 msgctxt "Admin Menu Title"
 msgid "Extras"
 msgstr ""
 
-#: includes/admin.php:77
-#: includes/network.php:83
+#: includes/admin.php:77 includes/network.php:83
 msgid "gNetwork Extras: %s"
 msgstr ""
 
-#: includes/admin.php:101
-#: includes/admin.php:102
+#: includes/admin.php:101 includes/admin.php:102
 msgid "All Settings"
 msgstr ""
 
-#: includes/admin.php:108
-#: includes/admin.php:109
-#: includes/network.php:49
+#: includes/admin.php:108 includes/admin.php:109 includes/network.php:49
 #: includes/network.php:50
 msgid "Active"
 msgstr ""
 
-#: includes/admin.php:118
-#: includes/admin.php:171
-#: includes/network.php:92
+#: includes/admin.php:118 includes/admin.php:171 includes/network.php:92
 #: includes/network.php:144
 msgid "Overview"
 msgstr ""
 
-#: includes/admin.php:178
-#: includes/network.php:152
+#: includes/admin.php:178 includes/network.php:152
 msgid "Console"
 msgstr ""
 
-#: includes/admin.php:196
-#: includes/network.php:164
+#: includes/admin.php:196 includes/network.php:164
 msgid "Resetting Settings."
 msgstr ""
 
-#: includes/admin.php:197
-#: includes/network.php:165
+#: includes/admin.php:197 includes/network.php:165
 msgid "Settings updated."
 msgstr ""
 
-#: includes/admin.php:198
-#: includes/network.php:166
+#: includes/admin.php:198 includes/network.php:166
 msgid "Error while saving settings."
 msgstr ""
 
-#: includes/admin.php:223
-#: includes/utilities.php:498
+#: includes/admin.php:223 includes/utilities.php:498
 msgid "Cheatin&#8217; uh?"
 msgstr ""
 
@@ -114,84 +99,76 @@ msgctxt "admin dashboard widget title"
 msgid "Network Feed"
 msgstr ""
 
-#: includes/admin.php:317
-#: includes/admin.php:319
-#: includes/network.php:234
+#: includes/admin.php:317 includes/admin.php:319 includes/network.php:234
 #: includes/network.php:236
 msgid "ID"
 msgstr ""
 
-#: includes/adminbar.php:162
-#: includes/debug.php:12
-#: includes/modulecore.php:374
+#: includes/adminbar.php:163 includes/debug.php:12 includes/modulecore.php:373
 msgid "Debug"
 msgstr ""
 
-#: includes/adminbar.php:165
+#: includes/adminbar.php:166
 msgid "Display debug info for the current page"
 msgstr ""
 
-#: includes/adminbar.php:172
+#: includes/adminbar.php:173
 msgid "Flush"
 msgstr ""
 
-#: includes/adminbar.php:175
+#: includes/adminbar.php:176
 msgid "Flush cached data"
 msgstr ""
 
-#: includes/adminbar.php:195
+#: includes/adminbar.php:196
 msgid "Reset Sidebars"
 msgstr ""
 
-#: includes/adminbar.php:198
+#: includes/adminbar.php:199
 msgid "Delete all previous sidebar widgets, be careful!"
 msgstr ""
 
-#: includes/adminbar.php:210
-#: includes/adminbar.php:257
-#: includes/users.php:12
+#: includes/adminbar.php:211 includes/adminbar.php:258 includes/users.php:12
 msgid "Users"
 msgstr ""
 
-#: includes/adminbar.php:222
+#: includes/adminbar.php:223
 msgid "Queries | Timer Stop | Memory Usage"
 msgstr ""
 
-#: includes/adminbar.php:234
-#: includes/adminbar.php:264
+#: includes/adminbar.php:235 includes/adminbar.php:265
 msgid "Settings"
 msgstr ""
 
-#: includes/adminbar.php:241
+#: includes/adminbar.php:242
 msgid "Updates"
 msgstr ""
 
-#: includes/adminbar.php:250
+#: includes/adminbar.php:251
 msgid "All Posts"
 msgstr ""
 
-#: includes/adminbar.php:271
+#: includes/adminbar.php:272
 msgid "Edit Site"
 msgstr ""
 
-#: includes/adminbar.php:278
+#: includes/adminbar.php:279
 msgid "Edit Site Themes"
 msgstr ""
 
-#: includes/adminbar.php:329
+#: includes/adminbar.php:330
 msgid "Log in"
 msgstr ""
 
-#: includes/adminbar.php:338
-#: includes/navigation.php:206
+#: includes/adminbar.php:339 includes/navigation.php:206
 msgid "Register"
 msgstr ""
 
-#: includes/adminbar.php:354
+#: includes/adminbar.php:355
 msgid "Search"
 msgstr ""
 
-#: includes/adminbar.php:388
+#: includes/adminbar.php:389
 msgid "My Sites"
 msgstr ""
 
@@ -219,8 +196,7 @@ msgstr ""
 msgid "Blacklisted Message"
 msgstr ""
 
-#: includes/blacklist.php:49
-#: includes/lockdown.php:78
+#: includes/blacklist.php:49 includes/lockdown.php:78
 msgid "Locked message on login page."
 msgstr ""
 
@@ -443,16 +419,12 @@ msgstr ""
 msgid "Disable all core comment notifications"
 msgstr ""
 
-#: includes/comments.php:78
-#: includes/modulecore.php:499
-#: includes/notify.php:51
+#: includes/comments.php:78 includes/modulecore.php:498 includes/notify.php:51
 #: includes/notify.php:62
 msgid "Enabled"
 msgstr ""
 
-#: includes/comments.php:79
-#: includes/modulecore.php:494
-#: includes/notify.php:52
+#: includes/comments.php:79 includes/modulecore.php:493 includes/notify.php:52
 #: includes/notify.php:63
 msgid "Disabled"
 msgstr ""
@@ -531,7 +503,7 @@ msgstr ""
 msgid "Delete cache of the current page"
 msgstr ""
 
-#: includes/debug.php:248
+#: includes/debug.php:246
 msgid "Please talk to the database using $wpdb"
 msgstr ""
 
@@ -823,8 +795,7 @@ msgstr ""
 msgid "Site Maintenance"
 msgstr ""
 
-#: includes/maintenance.php:67
-#: includes/restricted.php:78
+#: includes/maintenance.php:67 includes/restricted.php:78
 msgid "Selected and above can access to the site."
 msgstr ""
 
@@ -832,8 +803,7 @@ msgstr ""
 msgid "Admin Maintenance"
 msgstr ""
 
-#: includes/maintenance.php:74
-#: includes/restricted.php:85
+#: includes/maintenance.php:74 includes/restricted.php:85
 msgid "Selected and above can access to the admin."
 msgstr ""
 
@@ -889,24 +859,23 @@ msgstr ""
 msgid "View Item URL"
 msgstr ""
 
-#: includes/modulecore.php:179
+#: includes/modulecore.php:178
 msgid "Warning: Old Options Exists!"
 msgstr ""
 
-#: includes/modulecore.php:200
+#: includes/modulecore.php:199
 msgid "Save Changes"
 msgstr ""
 
-#: includes/modulecore.php:201
+#: includes/modulecore.php:200
 msgid "Reset Settings"
 msgstr ""
 
-#: includes/modulecore.php:201
-#: includes/users.php:108
+#: includes/modulecore.php:200 includes/users.php:108
 msgid "Are you sure? This operation can not be undone."
 msgstr ""
 
-#: includes/modulecore.php:680
+#: includes/modulecore.php:679
 msgid "Error: setting type undefined."
 msgstr ""
 
@@ -969,9 +938,7 @@ msgstr ""
 msgid "Log In"
 msgstr ""
 
-#: includes/network.php:56
-#: includes/network.php:57
-#: includes/network.php:63
+#: includes/network.php:56 includes/network.php:57 includes/network.php:63
 #: includes/network.php:64
 msgid "Upload"
 msgstr ""
@@ -1021,8 +988,7 @@ msgstr ""
 msgid "New user registration on your site %s:"
 msgstr ""
 
-#: includes/notify.php:103
-#: includes/notify.php:109
+#: includes/notify.php:103 includes/notify.php:109
 msgid "Username: %s"
 msgstr ""
 
@@ -1050,8 +1016,7 @@ msgstr ""
 msgid "[%s] Password Lost/Changed"
 msgstr ""
 
-#: includes/opensearch.php:13
-#: includes/opensearch.php:61
+#: includes/opensearch.php:13 includes/opensearch.php:61
 msgid "Open Search"
 msgstr ""
 
@@ -1115,8 +1080,7 @@ msgstr ""
 msgid "Indicates the degree to which the search results provided."
 msgstr ""
 
-#: includes/opensearch.php:109
-#: includes/restricted.php:95
+#: includes/opensearch.php:109 includes/restricted.php:95
 #: includes/restricted.php:106
 msgid "Open"
 msgstr ""
@@ -1165,8 +1129,7 @@ msgstr ""
 msgid "Your browser does not support the AddSearchProvider method!"
 msgstr ""
 
-#: includes/restricted.php:27
-#: includes/restricted.php:96
+#: includes/restricted.php:27 includes/restricted.php:96
 #: includes/restricted.php:107
 msgid "Restricted"
 msgstr ""
@@ -1291,75 +1254,74 @@ msgstr ""
 msgid "You have to have a key to access this site's feed"
 msgstr ""
 
-#: includes/shortcodes.php:78
+#: includes/shortcodes.php:77
 msgctxt "TINYMCE Strings"
 msgid "Cite This"
 msgstr ""
 
-#: includes/shortcodes.php:79
+#: includes/shortcodes.php:78
 msgctxt "TINYMCE Strings"
 msgid "URL"
 msgstr ""
 
-#: includes/shortcodes.php:80
+#: includes/shortcodes.php:79
 msgctxt "TINYMCE Strings"
 msgid "Email"
 msgstr ""
 
-#: includes/shortcodes.php:81
+#: includes/shortcodes.php:80
 msgctxt "TINYMCE Strings"
 msgid "Subject"
 msgstr ""
 
-#: includes/shortcodes.php:82
+#: includes/shortcodes.php:81
 msgctxt "TINYMCE Strings"
 msgid "People"
 msgstr ""
 
-#: includes/shortcodes.php:83
+#: includes/shortcodes.php:82
 msgctxt "TINYMCE Strings"
 msgid "Name"
 msgstr ""
 
-#: includes/shortcodes.php:168
+#: includes/shortcodes.php:167
 msgctxt "Shortcodes: back: default html"
 msgid "Back"
 msgstr ""
 
-#: includes/shortcodes.php:196
-#: includes/shortcodes.php:209
+#: includes/shortcodes.php:195 includes/shortcodes.php:208
 msgctxt "Shortcodes: back: home title attr"
 msgid "Home"
 msgstr ""
 
-#: includes/shortcodes.php:347
+#: includes/shortcodes.php:327
 msgctxt "google groups subscribe"
 msgid "Email:"
 msgstr ""
 
-#: includes/shortcodes.php:350
+#: includes/shortcodes.php:330
 msgctxt "google groups subscribe"
 msgid "Subscribe"
 msgstr ""
 
-#: includes/shortcodes.php:386
+#: includes/shortcodes.php:367
 msgid "It appears you don't have Adobe Reader or PDF support in this web browser. <a href=\"%s\">Click here to download the PDF</a>"
 msgstr ""
 
-#: includes/shortcodes.php:573
+#: includes/shortcodes.php:475
+msgid "Go to %s second mark and play"
+msgstr ""
+
+#: includes/shortcodes.php:585
 msgid "See More"
 msgstr ""
 
-#: includes/shortcodes.php:707
-#: includes/shortcodes.php:718
-#: includes/shortcodes.php:737
-#: includes/shortcodes.php:749
-#: includes/shortcodes.php:787
+#: includes/shortcodes.php:719 includes/shortcodes.php:730
+#: includes/shortcodes.php:749 includes/shortcodes.php:761
 msgid "See the footnote"
 msgstr ""
 
-#: includes/taxonomy.php:60
-#: includes/taxonomy.php:77
+#: includes/taxonomy.php:60 includes/taxonomy.php:77
 msgctxt "Taxonomy Description"
 msgid "Description"
 msgstr ""

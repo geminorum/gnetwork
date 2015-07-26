@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: gNetwork 0.2.12\n"
+"Project-Id-Version: gNetwork 0.2.13\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2015-07-19 17:02+0430\n"
+"PO-Revision-Date: 2015-07-26 03:43+0430\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: geminorum <contact@geminorum.ir>\n"
 "Language: fa_IR\n"
@@ -126,71 +126,71 @@ msgstr ""
 msgid "ID"
 msgstr ""
 
-#: includes/adminbar.php:162 includes/debug.php:12 includes/modulecore.php:374
+#: includes/adminbar.php:163 includes/debug.php:12 includes/modulecore.php:373
 msgid "Debug"
 msgstr "دی‌باگ"
 
-#: includes/adminbar.php:165
+#: includes/adminbar.php:166
 msgid "Display debug info for the current page"
 msgstr "نمایش اطلاعات خطاگیری برای این صفحه"
 
-#: includes/adminbar.php:172
+#: includes/adminbar.php:173
 msgid "Flush"
 msgstr "فلاش"
 
-#: includes/adminbar.php:175
+#: includes/adminbar.php:176
 msgid "Flush cached data"
 msgstr "دورریزی داده‌های انباشت شده برای این صفحه"
 
-#: includes/adminbar.php:195
+#: includes/adminbar.php:196
 msgid "Reset Sidebars"
 msgstr "بازنشانی ستون‌های کناری"
 
-#: includes/adminbar.php:198
+#: includes/adminbar.php:199
 msgid "Delete all previous sidebar widgets, be careful!"
 msgstr "مراقب باشید، این کار همهٔ ابزارک‌های تنظیم شده را حذف میکند."
 
-#: includes/adminbar.php:210 includes/adminbar.php:257 includes/users.php:12
+#: includes/adminbar.php:211 includes/adminbar.php:258 includes/users.php:12
 msgid "Users"
 msgstr "کاربران"
 
-#: includes/adminbar.php:222
+#: includes/adminbar.php:223
 msgid "Queries | Timer Stop | Memory Usage"
 msgstr ""
 
-#: includes/adminbar.php:234 includes/adminbar.php:264
+#: includes/adminbar.php:235 includes/adminbar.php:265
 msgid "Settings"
 msgstr "تنظیمات"
 
-#: includes/adminbar.php:241
+#: includes/adminbar.php:242
 msgid "Updates"
 msgstr "به‌روزرسانی‌ها"
 
-#: includes/adminbar.php:250
+#: includes/adminbar.php:251
 msgid "All Posts"
 msgstr "همهٔ نوشته‌ها"
 
-#: includes/adminbar.php:271
+#: includes/adminbar.php:272
 msgid "Edit Site"
 msgstr "ویرایش سایت"
 
-#: includes/adminbar.php:278
+#: includes/adminbar.php:279
 msgid "Edit Site Themes"
 msgstr "ویرایش پوسته‌های سایت"
 
-#: includes/adminbar.php:329
+#: includes/adminbar.php:330
 msgid "Log in"
 msgstr "وارد شوید"
 
-#: includes/adminbar.php:338 includes/navigation.php:206
+#: includes/adminbar.php:339 includes/navigation.php:206
 msgid "Register"
 msgstr "نام‌نویسی"
 
-#: includes/adminbar.php:354
+#: includes/adminbar.php:355
 msgid "Search"
 msgstr "جست‌وجو"
 
-#: includes/adminbar.php:388
+#: includes/adminbar.php:389
 msgid "My Sites"
 msgstr ""
 
@@ -449,12 +449,12 @@ msgstr ""
 msgid "Disable all core comment notifications"
 msgstr ""
 
-#: includes/comments.php:78 includes/modulecore.php:499 includes/notify.php:51
+#: includes/comments.php:78 includes/modulecore.php:498 includes/notify.php:51
 #: includes/notify.php:62
 msgid "Enabled"
 msgstr ""
 
-#: includes/comments.php:79 includes/modulecore.php:494 includes/notify.php:52
+#: includes/comments.php:79 includes/modulecore.php:493 includes/notify.php:52
 #: includes/notify.php:63
 msgid "Disabled"
 msgstr ""
@@ -533,7 +533,7 @@ msgstr ""
 msgid "Delete cache of the current page"
 msgstr ""
 
-#: includes/debug.php:248
+#: includes/debug.php:246
 msgid "Please talk to the database using $wpdb"
 msgstr ""
 
@@ -902,23 +902,23 @@ msgstr "نمایش نشانی پروندهٔ وب"
 msgid "View Item URL"
 msgstr "نمایش نشانی پرونده"
 
-#: includes/modulecore.php:179
+#: includes/modulecore.php:178
 msgid "Warning: Old Options Exists!"
 msgstr ""
 
-#: includes/modulecore.php:200
+#: includes/modulecore.php:199
 msgid "Save Changes"
 msgstr "ذخیره تغییرات"
 
-#: includes/modulecore.php:201
+#: includes/modulecore.php:200
 msgid "Reset Settings"
 msgstr "بازنشانی تنظیمات اولیه"
 
-#: includes/modulecore.php:201 includes/users.php:108
+#: includes/modulecore.php:200 includes/users.php:108
 msgid "Are you sure? This operation can not be undone."
 msgstr ""
 
-#: includes/modulecore.php:680
+#: includes/modulecore.php:679
 msgid "Error: setting type undefined."
 msgstr ""
 
@@ -1135,23 +1135,23 @@ msgstr ""
 #: includes/opensearch.php:109 includes/restricted.php:95
 #: includes/restricted.php:106
 msgid "Open"
-msgstr ""
+msgstr "باز"
 
 #: includes/opensearch.php:110
 msgid "Limited"
-msgstr ""
+msgstr "محدود"
 
 #: includes/opensearch.php:111
 msgid "Private"
-msgstr ""
+msgstr "خصوصی"
 
 #: includes/opensearch.php:112
 msgid "Closed"
-msgstr ""
+msgstr "بسته"
 
 #: includes/opensearch.php:118
 msgid "Contact"
-msgstr ""
+msgstr "ارتباط"
 
 #: includes/opensearch.php:119
 msgid ""
@@ -1171,7 +1171,7 @@ msgstr ""
 
 #: includes/opensearch.php:143
 msgid "Search &#x201C;%s&#x201D;"
-msgstr ""
+msgstr "جست‌وجو در «%s»"
 
 #: includes/opensearch.php:198
 msgid "Search Plugin"
@@ -1314,69 +1314,72 @@ msgstr ""
 msgid "You have to have a key to access this site's feed"
 msgstr ""
 
-#: includes/shortcodes.php:78
+#: includes/shortcodes.php:77
 msgctxt "TINYMCE Strings"
 msgid "Cite This"
 msgstr "پانوشت کن"
 
-#: includes/shortcodes.php:79
+#: includes/shortcodes.php:78
 msgctxt "TINYMCE Strings"
 msgid "URL"
 msgstr "نشانی"
 
-#: includes/shortcodes.php:80
+#: includes/shortcodes.php:79
 msgctxt "TINYMCE Strings"
 msgid "Email"
 msgstr "ایمیل"
 
-#: includes/shortcodes.php:81
+#: includes/shortcodes.php:80
 msgctxt "TINYMCE Strings"
 msgid "Subject"
 msgstr "موضوع ایمیل"
 
-#: includes/shortcodes.php:82
+#: includes/shortcodes.php:81
 msgctxt "TINYMCE Strings"
 msgid "People"
 msgstr "فرد"
 
-#: includes/shortcodes.php:83
+#: includes/shortcodes.php:82
 msgctxt "TINYMCE Strings"
 msgid "Name"
 msgstr "نام"
 
-#: includes/shortcodes.php:168
+#: includes/shortcodes.php:167
 msgctxt "Shortcodes: back: default html"
 msgid "Back"
 msgstr "بازگشت"
 
-#: includes/shortcodes.php:196 includes/shortcodes.php:209
+#: includes/shortcodes.php:195 includes/shortcodes.php:208
 msgctxt "Shortcodes: back: home title attr"
 msgid "Home"
 msgstr "خانه"
 
-#: includes/shortcodes.php:347
+#: includes/shortcodes.php:327
 msgctxt "google groups subscribe"
 msgid "Email:"
 msgstr "ایمیل"
 
-#: includes/shortcodes.php:350
+#: includes/shortcodes.php:330
 msgctxt "google groups subscribe"
 msgid "Subscribe"
 msgstr ""
 
-#: includes/shortcodes.php:386
+#: includes/shortcodes.php:367
 msgid ""
 "It appears you don't have Adobe Reader or PDF support in this web browser. "
 "<a href=\"%s\">Click here to download the PDF</a>"
 msgstr ""
 
-#: includes/shortcodes.php:573
+#: includes/shortcodes.php:475
+msgid "Go to %s second mark and play"
+msgstr ""
+
+#: includes/shortcodes.php:585
 msgid "See More"
 msgstr ""
 
-#: includes/shortcodes.php:707 includes/shortcodes.php:718
-#: includes/shortcodes.php:737 includes/shortcodes.php:749
-#: includes/shortcodes.php:787
+#: includes/shortcodes.php:719 includes/shortcodes.php:730
+#: includes/shortcodes.php:749 includes/shortcodes.php:761
 msgid "See the footnote"
 msgstr ""
 

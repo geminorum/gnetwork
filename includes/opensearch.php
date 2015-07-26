@@ -11,7 +11,7 @@ class gNetworkOpenSearch extends gNetworkModuleCore
 	{
 		gNetworkAdmin::registerMenu( 'opensearch',
 			__( 'Open Search', GNETWORK_TEXTDOMAIN ),
-			array( &$this, 'settings' )//, 'read'
+			array( &$this, 'settings' )
 		);
 
 		if ( ! $this->options['opensearch'] )
@@ -37,7 +37,7 @@ class gNetworkOpenSearch extends gNetworkModuleCore
 		return array(
 			 array(
 				'id'      => 'gnetwork-opensearch-help',
-				'title'   => __( 'OpenSearch', GNETWORK_TEXTDOMAIN ),
+				'title'   => __( 'Open Search', GNETWORK_TEXTDOMAIN ),
 				'content' => '<p>OpenSearch is a collection of simple formats for the sharing of search results.</p>
 					<p>This blog\'s OpenSearch description file is:<br /><a href="'.self::url().'" target="_blank">'.self::url().'</a></p>
 				<p>Fore more information:<br />
@@ -134,7 +134,7 @@ class gNetworkOpenSearch extends gNetworkModuleCore
 	public function default_options()
 	{
 		$name = get_bloginfo( 'name', 'display' );
-		
+
 		return array(
 			'opensearch'  => '0',
 			'suggestions' => '0',
@@ -174,7 +174,7 @@ class gNetworkOpenSearch extends gNetworkModuleCore
 	public function rewrite_rules_array( $rules )
 	{
 		return array_merge( array(
-			'osd\.xml$' => 'index.php?opensearch=1',
+			'osd\.xml$'  => 'index.php?opensearch=1',
 			'oss\.json$' => 'index.php?opensearch_suggestions=1',
 		), $rules );
 	}
@@ -212,7 +212,7 @@ class gNetworkOpenSearch extends gNetworkModuleCore
 		echo gNetworkUtilities::html( 'a', array(
 			'href'    => $link,
 			'title'   => $title,
-			'onclick' => "AddSearchEngine()",
+			'onclick' => 'AddSearchEngine()',
 		), $text );
 	}
 
@@ -230,24 +230,24 @@ class gNetworkOpenSearch extends gNetworkModuleCore
 	// https://code.google.com/p/gsa-open-search-via-opensearch/
 	private function xml()
 	{
-		__donot_cache_page();
+		// __donot_cache_page();
 
 		$xml  = gNetworkUtilities::html( 'ShortName', array(), trim( $this->options['shortname'] ) );
-		
+
 		if ( $this->options['longname'] )
 			$xml .= gNetworkUtilities::html( 'LongName', array(), $this->options['longname'] );
-		
+
 		$xml .= gNetworkUtilities::html( 'Description', array(), $this->options['description'] );
 		$xml .= gNetworkUtilities::html( 'InputEncoding', array(), get_bloginfo( 'charset' ) );
 		$xml .= gNetworkUtilities::html( 'OutputEncoding', array(), get_bloginfo( 'charset' ) );
 		$xml .= gNetworkUtilities::html( 'Language', array(), get_bloginfo( 'language' ) );
 
 		if ( constant( 'GNETWORK_SEARCH_REDIRECT' ) ) {
-			
+
 			$xml .= gNetworkUtilities::html( 'moz:SearchForm', array(), GNETWORK_SEARCH_URL );
-		
+
 		} else {
-			
+
 			$xml .= gNetworkUtilities::html( 'Url', array(
 				'type'     => 'application/atom+xml',
 				'template' => add_query_arg( array(

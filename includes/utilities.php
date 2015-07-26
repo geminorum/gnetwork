@@ -60,12 +60,12 @@ class gNetworkUtilities
 	public static function timer_stop( $echo = FALSE, $precision = 3 )
 	{
 		global $timestart;
-		
+
 		$html = number_format( ( microtime( TRUE ) - $timestart ), $precision );
-		
+
 		if ( $echo )
 			echo $html;
-		
+
 		return $html;
 	}
 
@@ -88,18 +88,18 @@ class gNetworkUtilities
 		if ( function_exists( 'buddypress' ) ) {
 			if ( bp_get_signup_allowed() )
 				return bp_get_signup_page();
-				
+
 		} else if ( get_option( 'users_can_register' ) ) {
-			
+
 			if ( is_multisite() )
 				return apply_filters( 'wp_signup_location', network_site_url( 'wp-signup.php' ) );
 			else
 				return wp_registration_url();
-				
+
 		} else if ( 'site' == $register ) {
 			return  site_url( '/' );
 		}
-		
+
 		return $register;
 	}
 
@@ -116,7 +116,7 @@ class gNetworkUtilities
 
 	public static function join_items( $items )
 	{
-		return 
+		return
 			__( '&rdquo;', GNETWORK_TEXTDOMAIN )
 			.join( __( '&ldquo; and &rdquo;', GNETWORK_TEXTDOMAIN ),
 				array_filter( array_merge( array(
@@ -131,7 +131,7 @@ class gNetworkUtilities
 		// FIXME: must check if it's not admin!
 
 		$layout = locate_template( $layout_name );
-		
+
 		if( ! $layout )
 			if ( file_exists( WP_CONTENT_DIR.DS.$layout_name.'.php' ) )
 				$layout = WP_CONTENT_DIR.DS.$layout_name.'.php';
@@ -288,7 +288,7 @@ class gNetworkUtilities
 
 		return $html.$content.'</'.$tag.'>'.$sep;
 	}
-	
+
 	// http://stackoverflow.com/a/4994188
 	public static function esc_filename( $path )
 	{
@@ -300,7 +300,7 @@ class gNetworkUtilities
 
 		// delete and replace rest of special chars
 		$path = preg_replace( array( '/[^a-z0-9\-<>]/', '/[\-]+/', '/<[^>]*>/' ), array( '', '-', '' ), $path );
-		
+
 		return $path;
 	}
 
@@ -324,7 +324,7 @@ class gNetworkUtilities
 	public static function log( $data, $table = FALSE )
 	{
 		$func = $table ? 'table' : 'log';
-		
+
 		if ( is_array( $data ) || is_object( $data ) )
 			echo '<script>console.'.$func.'('.json_encode($data).');</script>';
 		else
@@ -504,7 +504,7 @@ class gNetworkUtilities
 	{
 		return defined( 'WP_CLI' ) and WP_CLI;
 	}
-	
+
 	public static function putHTAccessDeny( $path, $create = TRUE )
 	{
 		if ( $create ) {
@@ -514,7 +514,7 @@ class gNetworkUtilities
 		} else {
 			$dir = $path;
 		}
-		
+
 		$content = '<Files ~ ".*\..*">'."\n".'order allow,deny'."\n".'deny from all'."\n".'</Files>';
 		file_put_contents( $dir.DS.'.htaccess', $content.PHP_EOL );
 	}
@@ -666,7 +666,7 @@ class gNetworkUtilities
 			$i++;
 		}
 	}
-	
+
 	public static function wrapJS( $script = '', $echo = TRUE )
 	{
 		if ( $script ) {
@@ -677,13 +677,13 @@ class gNetworkUtilities
 				.'});'."\n"
 				.'/* ]]> */'."\n"
 				.'</script>';
-			
-			if ( ! $echo )	
+
+			if ( ! $echo )
 				return $data;
-				
+
 			echo $data;
 		}
-		
+
 		return '';
 	}
 }
