@@ -26,18 +26,21 @@ class gNetworkDebug extends gNetworkModuleCore
 		add_action( 'wp_footer', array( &$this, 'wp_footer' ), 999 );
 
 		if ( 'production' == WP_STAGE ) {
+
 			if ( WP_DEBUG_LOG && ! WP_DEBUG_DISPLAY ) {
 
 				add_filter( 'doing_it_wrong_trigger_error', '__return_false' );
 				add_filter( 'deprecated_function_trigger_error', '__return_false' );
 				add_filter( 'deprecated_file_trigger_error', '__return_false' );
 				add_filter( 'deprecated_argument_trigger_error', '__return_false' );
-
-				add_action( 'http_api_debug', array( &$this, 'http_api_debug' ), 10, 5 );
-
-				// akismet will log all the http_reqs!!
-				add_filter( 'akismet_debug_log', '__return_false' );
 			}
+
+			// akismet will log all the http_reqs!!
+			add_filter( 'akismet_debug_log', '__return_false' );
+
+			add_action( 'http_api_debug', array( &$this, 'http_api_debug' ), 10, 5 );
+			add_filter( 'wp_login_errors', array( &$this, 'wp_login_errors' ), 10, 2 );
+
 		} else if ( 'development' == WP_STAGE ) {
 			add_action( 'pre_get_posts', array( &$this, 'pre_get_posts' ), 99 );
 		}
@@ -178,20 +181,24 @@ class gNetworkDebug extends gNetworkModuleCore
 
 	public function http_api_debug( $response, $context, $class, $args, $url )
 	{
-		if( ! $class || 'response' != $context )
-			return;
+		if ( is_wp_error( $response ) ) {
+			self::log( 'HTTP API RESPONSE', array(
+				'url'     => $url,
+				'class'   => $class,
+				'args'    => $args,
+			) );
+		}
+	}
 
-		if( is_wp_error( $response ) )
-			$response = $response->get_error_message();
+	public function wp_login_errors( $errors, $redirect_to )
+	{
+		if ( in_array( 'test_cookie', $errors->get_error_codes() ) ) {
+			self::log( 'TEST COOCKIE', array(
+				'message' => $errors->get_error_message( 'test_cookie' ),
+			) );
+		}
 
-		if( is_array( $response )
-			&& is_array( $response['response'] )
-			&& ! empty( $response['response']['code'] )
-			&& '200' == $response['response']['code'] )
-				return;
-
-		$time = current_time( 'mysql' );
-		error_log( print_r( compact( 'time', 'url', 'response', 'class', 'args' ), TRUE ) );
+		return $errors;
 	}
 
 	// https://core.trac.wordpress.org/ticket/20316
