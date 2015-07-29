@@ -1,3 +1,11 @@
+### 0.2.13
+* debug: more details of http api debug log
+* debug: log test cookie errors
+* modulecore: internal log api
+* shortcodes: using default `wp_audio_shortcode()` with wrapper
+* shortcodes: new `[audio-go]` ([source](http://bavotasan.com/2015/working-with-wordpress-and-mediaelement-js/))
+* themes: new theme support for [Ari](http://www.elmastudio.de/wordpress-themes/ari/)
+
 ### 0.2.12
 * modulecore: settings method as internal api
 * modulecore: esc_url messing with referer
