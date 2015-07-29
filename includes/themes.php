@@ -105,6 +105,14 @@ class gNetworkThemes extends gNetworkModuleCore
 
 			add_filter( 'prologue_poweredby_link', array( &$this, 'prologue_poweredby_link' ) );
 
+		} else if ( $this->is( 'ari' ) ) {
+
+			if ( is_rtl() ) {
+				add_action( 'wp_enqueue_scripts', function(){
+					wp_enqueue_style( 'gnetwork-themes-ari', GNETWORK_URL.'assets/css/themes.ari-rtl.css', array(), GNETWORK_VERSION );
+				}, 20 );
+			}
+
 		} else if ( $this->is( 'easy-docs' ) ) {
 			// HOME: http://shakenandstirredweb.com/theme/easy-docs
 			// DEMO: http://support.shakenandstirredweb.com/shaken-grid/
@@ -152,9 +160,9 @@ class gNetworkThemes extends gNetworkModuleCore
 	{
 		if ( GNETWORK_BODY_CLASS )
 			$classes[] = GNETWORK_BODY_CLASS;
-			
+
 		$classes[] = 'locale-'.get_locale();
-		
+
 		return $classes;
 	}
 
