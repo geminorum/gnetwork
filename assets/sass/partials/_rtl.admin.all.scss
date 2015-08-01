@@ -20,8 +20,13 @@ body.rtl {
 		h2 {
 			font:bold 24px arial, sans-serif !important;
 		}
+
 		h3 {
 			font:bold 16px arial, sans-serif !important;
+		}
+
+		.page-title-action {
+
 		}
 	}
 
@@ -36,7 +41,7 @@ body.rtl {
 			direction: ltr;
 		}
 	}
-	
+
 	.debug-menu-target {
 		direction:ltr !important;
 	}
@@ -44,14 +49,14 @@ body.rtl {
 	#gnetwork-debugbar-panel {
 		direction: ltr !important;
 	}
-	
-	&.options-permalink-php { 
-		#permalink_structure { 
-			float:right; 
-			margin-top:-5px; 
+
+	&.options-permalink-php {
+		#permalink_structure {
+			float:right;
+			margin-top:-5px;
 		}
 	}
-	
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////
