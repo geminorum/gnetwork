@@ -199,7 +199,7 @@ class gNetworkAdmin extends gNetworkModuleCore
 			) );
 
 			self::sideNotification();
-			echo gNetworkUtilities::html( 'h2', __( 'gNetwork Extras', GNETWORK_TEXTDOMAIN ) );
+			echo gNetworkUtilities::html( 'h1', __( 'gNetwork Extras', GNETWORK_TEXTDOMAIN ) );
 
 			gNetworkUtilities::headerNav( $settings_uri, $sub, $subs );
 
@@ -238,7 +238,7 @@ class gNetworkAdmin extends gNetworkModuleCore
 	{
 		gNetworkUtilities::linkStyleSheet( GNETWORK_URL.'assets/css/admin.all.css' );
 		gNetworkUtilities::customStyleSheet( 'admin.css' );
-		
+
 		if ( GNETWORK_ADMIN_JS_ENHANCEMENTS )
 			wp_enqueue_script( 'gnetwork-admin', GNETWORK_URL.'assets/js/admin.all.min.js', array( 'jquery' ), GNETWORK_VERSION, TRUE );
 	}
@@ -260,7 +260,7 @@ class gNetworkAdmin extends gNetworkModuleCore
 			$content = '<span class="gnetwork-admin-wrap footer-version" title="'
 				.sprintf( __( 'Version %s' ), apply_filters( 'string_format_i18n', $GLOBALS['wp_version'] ) )
 				.'">'.__( 'CODE IS POETRY', GNETWORK_TEXTDOMAIN ).'</span>';
-				
+
 		return $content;
 	}
 
@@ -268,9 +268,9 @@ class gNetworkAdmin extends gNetworkModuleCore
 	public function wp_dashboard_setup()
 	{
 		// FIXME: handle comma seperated
-		if ( defined( 'GNETWORK_ADMIN_WIDGET_RSS' ) 
+		if ( defined( 'GNETWORK_ADMIN_WIDGET_RSS' )
 			&& constant( 'GNETWORK_ADMIN_WIDGET_RSS' ) ) {
-				
+
 			add_meta_box( 'abetterplanet_widget',
 				_x( 'Network Feed', 'admin dashboard widget title', GNETWORK_TEXTDOMAIN ),
 				array( &$this, 'widget_network_rss' ),
@@ -344,7 +344,7 @@ class gNetworkAdmin extends gNetworkModuleCore
 	{
 		if ( 'future' == $post->post_status )
 			$h_time .= '<br />'.get_post_time( 'g:i a', FALSE, $post, TRUE );
-			
+
 		return $h_time;
 	}
 

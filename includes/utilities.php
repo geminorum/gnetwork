@@ -6,7 +6,7 @@ if ( ! class_exists( 'gNU' ) )
 class gNetworkUtilities
 {
 
-	public static function headerNav( $uri = '', $active = '', $subs = array(), $prefix = 'nav-tab-', $tag = 'h3' )
+	public static function headerNav( $uri = '', $active = '', $subs = array(), $prefix = 'nav-tab-', $tag = 'h2' )
 	{
 		if ( ! count( $subs ) )
 			return;
@@ -23,8 +23,14 @@ class gNetworkUtilities
 			'class' => 'nav-tab-wrapper',
 		), $html );
 	}
+	
+	// DEPRECATED : use gNetworkUtilities::headerTabs()
+	public static function tabNav( $tabs, $active = 'manual', $prefix = 'nav-tab-', $tag = 'h2' )
+	{
+		self::headerTabs( $tabs, $active, $prefix, $tag );
+	}
 
-	public static function tabNav( $tabs, $active = 'manual', $prefix = 'nav-tab-', $tag = 'h3' )
+	public static function headerTabs( $tabs, $active = 'manual', $prefix = 'nav-tab-', $tag = 'h2' )
 	{
 		if ( ! count( $tabs ) )
 			return;

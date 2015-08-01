@@ -169,7 +169,7 @@ class gNetworkNetwork extends gNetworkModuleCore
 		echo '<div class="wrap gnetwork-admin-settings-wrap settings-network sub-'.$sub.'">';
 
 			self::sideNotification();
-			echo gNetworkUtilities::html( 'h2', __( 'gNetwork Extras', GNETWORK_TEXTDOMAIN ) );
+			echo gNetworkUtilities::html( 'h1', __( 'gNetwork Extras', GNETWORK_TEXTDOMAIN ) );
 
 			gNetworkUtilities::headerNav( $settings_uri, $sub, $subs );
 
