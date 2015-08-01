@@ -1,3 +1,7 @@
+### 0.2.14
+* utilities: support new headings structure in WP4.3,  [see](https://make.wordpress.org/core/2015/07/31/headings-in-admin-screens-change-in-wordpress-4-3/)
+* themes: new theme support for [Revera](http://www.fabthemes.com/revera/)
+
 ### 0.2.13
 * debug: more details of http api debug log
 * debug: log test cookie errors
