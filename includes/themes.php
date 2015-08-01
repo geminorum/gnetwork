@@ -105,6 +105,26 @@ class gNetworkThemes extends gNetworkModuleCore
 
 			add_filter( 'prologue_poweredby_link', array( &$this, 'prologue_poweredby_link' ) );
 
+		} else if ( $this->is( 'revera' ) ) {
+			// DEMO: http://demo.fabthemes.com/revera/
+			// HOME: http://www.fabthemes.com/revera/
+
+			if ( is_rtl() ) {
+				add_theme_support( 'post-thumbnails' );
+
+				add_action( 'wp_enqueue_scripts', function(){
+					wp_enqueue_style( 'gnetwork-themes-revera', GNETWORK_URL.'assets/css/themes.revera-rtl.css', array(), GNETWORK_VERSION );
+
+					// wp_deregister_script( 'flexslider' );
+					// wp_enqueue_script( 'flexslider',
+					// 	GNETWORK_URL.'assets/js/jquery.flexslider-rtl-min.js',
+					// 	array( 'jquery' ),
+					// 	GNETWORK_VERSION,
+					// 	FALSE );
+
+				}, 20 );
+			}
+
 		} else if ( $this->is( 'ari' ) ) {
 
 			if ( is_rtl() ) {

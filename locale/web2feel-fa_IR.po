@@ -1,0 +1,555 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Web2Feel (Revera) Theme 1.0\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: geminorum <contact@geminorum.ir>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.2\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: fa\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#: 404.php:30
+msgid "Oops! That page can&rsquo;t be found."
+msgstr ""
+
+#: 404.php:34
+msgid ""
+"It looks like nothing was found at this location. Maybe try one of the links "
+"below or a search?"
+msgstr ""
+
+#: archive.php:29
+msgid "Author: %s"
+msgstr ""
+
+#: archive.php:37
+msgid "Day: %s"
+msgstr ""
+
+#: archive.php:40
+msgid "Month: %s"
+msgstr ""
+
+#: archive.php:43
+msgid "Year: %s"
+msgstr ""
+
+#: archive.php:46
+msgid "Asides"
+msgstr ""
+
+#: archive.php:49
+msgid "Images"
+msgstr ""
+
+#: archive.php:52
+msgid "Videos"
+msgstr ""
+
+#: archive.php:55
+msgid "Quotes"
+msgstr ""
+
+#: archive.php:58
+msgid "Links"
+msgstr ""
+
+#: archive.php:61
+msgid "Archives"
+msgstr ""
+
+#: class-tgm-plugin-activation.php:164 getplugins.php:91
+msgid "Install Required Plugins"
+msgstr ""
+
+#: class-tgm-plugin-activation.php:165 getplugins.php:92
+msgid "Install Plugins"
+msgstr ""
+
+#: class-tgm-plugin-activation.php:166 getplugins.php:93
+msgid "Installing Plugin: %s"
+msgstr ""
+
+#: class-tgm-plugin-activation.php:167
+msgid "Something went wrong."
+msgstr ""
+
+#: class-tgm-plugin-activation.php:168 getplugins.php:95
+msgid "This theme requires the following plugin: %1$s."
+msgid_plural "This theme requires the following plugins: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: class-tgm-plugin-activation.php:169 getplugins.php:96
+msgid "This theme recommends the following plugin: %1$s."
+msgid_plural "This theme recommends the following plugins: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: class-tgm-plugin-activation.php:170 getplugins.php:97
+msgid ""
+"Sorry, but you do not have the correct permissions to install the %s plugin. "
+"Contact the administrator of this site for help on getting the plugin "
+"installed."
+msgid_plural ""
+"Sorry, but you do not have the correct permissions to install the %s "
+"plugins. Contact the administrator of this site for help on getting the "
+"plugins installed."
+msgstr[0] ""
+msgstr[1] ""
+
+#: class-tgm-plugin-activation.php:171 getplugins.php:98
+msgid "The following required plugin is currently inactive: %1$s."
+msgid_plural "The following required plugins are currently inactive: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: class-tgm-plugin-activation.php:172 getplugins.php:99
+msgid "The following recommended plugin is currently inactive: %1$s."
+msgid_plural "The following recommended plugins are currently inactive: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: class-tgm-plugin-activation.php:173 getplugins.php:100
+msgid ""
+"Sorry, but you do not have the correct permissions to activate the %s "
+"plugin. Contact the administrator of this site for help on getting the "
+"plugin activated."
+msgid_plural ""
+"Sorry, but you do not have the correct permissions to activate the %s "
+"plugins. Contact the administrator of this site for help on getting the "
+"plugins activated."
+msgstr[0] ""
+msgstr[1] ""
+
+#: class-tgm-plugin-activation.php:174 getplugins.php:101
+msgid ""
+"The following plugin needs to be updated to its latest version to ensure "
+"maximum compatibility with this theme: %1$s."
+msgid_plural ""
+"The following plugins need to be updated to their latest version to ensure "
+"maximum compatibility with this theme: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: class-tgm-plugin-activation.php:175 getplugins.php:102
+msgid ""
+"Sorry, but you do not have the correct permissions to update the %s plugin. "
+"Contact the administrator of this site for help on getting the plugin "
+"updated."
+msgid_plural ""
+"Sorry, but you do not have the correct permissions to update the %s plugins. "
+"Contact the administrator of this site for help on getting the plugins "
+"updated."
+msgstr[0] ""
+msgstr[1] ""
+
+#: class-tgm-plugin-activation.php:176 getplugins.php:103
+msgid "Begin installing plugin"
+msgid_plural "Begin installing plugins"
+msgstr[0] ""
+msgstr[1] ""
+
+#: class-tgm-plugin-activation.php:177 getplugins.php:104
+msgid "Activate installed plugin"
+msgid_plural "Activate installed plugins"
+msgstr[0] ""
+msgstr[1] ""
+
+#: class-tgm-plugin-activation.php:178 class-tgm-plugin-activation.php:488
+#: getplugins.php:105
+msgid "Return to Required Plugins Installer"
+msgstr ""
+
+#: class-tgm-plugin-activation.php:179 class-tgm-plugin-activation.php:1841
+#: getplugins.php:106
+msgid "Plugin activated successfully."
+msgstr ""
+
+#: class-tgm-plugin-activation.php:180
+msgid "All plugins installed and activated successfully. %1$s"
+msgstr ""
+
+#: class-tgm-plugin-activation.php:515 class-tgm-plugin-activation.php:2053
+msgid "Return to the Dashboard"
+msgstr ""
+
+#: class-tgm-plugin-activation.php:543
+msgid "The following plugin was activated successfully: %s."
+msgstr ""
+
+#: class-tgm-plugin-activation.php:702
+msgid "Dismiss this notice"
+msgstr ""
+
+#: class-tgm-plugin-activation.php:1086
+msgid "External Link"
+msgstr ""
+
+#: class-tgm-plugin-activation.php:1091
+msgid "Private Repository"
+msgstr ""
+
+#: class-tgm-plugin-activation.php:1094
+msgid "Pre-Packaged"
+msgstr ""
+
+#: class-tgm-plugin-activation.php:1098
+msgid "WordPress Repository"
+msgstr ""
+
+#: class-tgm-plugin-activation.php:1101
+msgid "Required"
+msgstr ""
+
+#: class-tgm-plugin-activation.php:1101
+msgid "Recommended"
+msgstr ""
+
+#: class-tgm-plugin-activation.php:1104
+msgid "Not Installed"
+msgstr ""
+
+#: class-tgm-plugin-activation.php:1106
+msgid "Installed But Not Activated"
+msgstr ""
+
+#: class-tgm-plugin-activation.php:1276
+msgid ""
+"No plugins to install or activate. <a href=\"%1$s\" title=\"Return to the "
+"Dashboard\">Return to the Dashboard</a>"
+msgstr ""
+
+#: class-tgm-plugin-activation.php:1292
+msgid "Plugin"
+msgstr ""
+
+#: class-tgm-plugin-activation.php:1293
+msgid "Source"
+msgstr ""
+
+#: class-tgm-plugin-activation.php:1294
+msgid "Type"
+msgstr ""
+
+#: class-tgm-plugin-activation.php:1295
+msgid "Status"
+msgstr ""
+
+#: class-tgm-plugin-activation.php:1313
+msgid "Install"
+msgstr ""
+
+#: class-tgm-plugin-activation.php:1314
+msgid "Activate"
+msgstr ""
+
+#: class-tgm-plugin-activation.php:1539
+msgid "The following plugin was activated successfully:"
+msgid_plural "The following plugins were activated successfully:"
+msgstr[0] ""
+msgstr[1] ""
+
+#: class-tgm-plugin-activation.php:1824
+msgid "Install package not available."
+msgstr ""
+
+#: class-tgm-plugin-activation.php:1825
+msgid "Downloading install package from <span class=\"code\">%s</span>&#8230;"
+msgstr ""
+
+#: class-tgm-plugin-activation.php:1826
+msgid "Unpacking the package&#8230;"
+msgstr ""
+
+#: class-tgm-plugin-activation.php:1827
+msgid "Installing the plugin&#8230;"
+msgstr ""
+
+#: class-tgm-plugin-activation.php:1828
+msgid "Plugin install failed."
+msgstr ""
+
+#: class-tgm-plugin-activation.php:1829
+msgid "Plugin installed successfully."
+msgstr ""
+
+#: class-tgm-plugin-activation.php:1840
+msgid "Plugin activation failed."
+msgstr ""
+
+#: class-tgm-plugin-activation.php:1950
+msgid ""
+"The installation and activation process is starting. This process may take a "
+"while on some hosts, so please be patient."
+msgstr ""
+
+#: class-tgm-plugin-activation.php:1951
+msgid "%1$s installed and activated successfully."
+msgstr ""
+
+#: class-tgm-plugin-activation.php:1951 class-tgm-plugin-activation.php:1960
+msgid "Show Details"
+msgstr ""
+
+#: class-tgm-plugin-activation.php:1951 class-tgm-plugin-activation.php:1960
+msgid "Hide Details"
+msgstr ""
+
+#: class-tgm-plugin-activation.php:1952
+msgid "All installations and activations have been completed."
+msgstr ""
+
+#: class-tgm-plugin-activation.php:1953
+msgid "Installing and Activating Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#: class-tgm-plugin-activation.php:1957
+msgid ""
+"The installation process is starting. This process may take a while on some "
+"hosts, so please be patient."
+msgstr ""
+
+#: class-tgm-plugin-activation.php:1958
+msgid "An error occurred while installing %1$s: <strong>%2$s</strong>."
+msgstr ""
+
+#: class-tgm-plugin-activation.php:1959
+msgid "The installation of %1$s failed."
+msgstr ""
+
+#: class-tgm-plugin-activation.php:1960
+msgid "%1$s installed successfully."
+msgstr ""
+
+#: class-tgm-plugin-activation.php:1961
+msgid "All installations have been completed."
+msgstr ""
+
+#: class-tgm-plugin-activation.php:1962
+msgid "Installing Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#: comments.php:29
+msgctxt "comments title"
+msgid "One thought on &ldquo;%2$s&rdquo;"
+msgid_plural "%1$s thoughts on &ldquo;%2$s&rdquo;"
+msgstr[0] ""
+msgstr[1] ""
+
+#: comments.php:36 comments.php:56
+msgid "Comment navigation"
+msgstr ""
+
+#: comments.php:37 comments.php:57
+msgid "&larr; Older Comments"
+msgstr ""
+
+#: comments.php:38 comments.php:58
+msgid "Newer Comments &rarr;"
+msgstr ""
+
+#: comments.php:68
+msgid "Comments are closed."
+msgstr ""
+
+#: content-page.php:18 content-single.php:30
+msgid "Pages:"
+msgstr ""
+
+#: content-page.php:23 content-single.php:71 content.php:60
+#: inc/template-tags.php:71 inc/template-tags.php:90
+msgid "Edit"
+msgstr "ویرایش"
+
+#. translators: used between list items, there is a space after the comma
+#: content-single.php:39 content-single.php:42 content.php:37 content.php:47
+msgid ", "
+msgstr ""
+
+#: content-single.php:47
+msgid ""
+"This entry was tagged %2$s. Bookmark the <a href=\"%3$s\" title=\"Permalink "
+"to %4$s\" rel=\"bookmark\">permalink</a>."
+msgstr ""
+
+#: content-single.php:49
+msgid ""
+"Bookmark the <a href=\"%3$s\" title=\"Permalink to %4$s\" rel=\"bookmark"
+"\">permalink</a>."
+msgstr ""
+
+#: content-single.php:55
+msgid ""
+"This entry was posted in %1$s and tagged %2$s. Bookmark the <a href=\"%3$s\" "
+"title=\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
+msgstr ""
+
+#: content-single.php:57
+msgid ""
+"This entry was posted in %1$s. Bookmark the <a href=\"%3$s\" title="
+"\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
+msgstr ""
+
+#: content.php:41
+msgid "Posted in %1$s"
+msgstr "در %1$s"
+
+#: content.php:51
+msgid "Tagged %1$s"
+msgstr ""
+
+#: content.php:57
+msgid "Leave a comment"
+msgstr ""
+
+#: content.php:57
+msgid "1 Comment"
+msgstr ""
+
+#: content.php:57
+msgid "% Comments"
+msgstr ""
+
+#: functions.php:62
+msgid "Primary Menu"
+msgstr ""
+
+#: functions.php:89
+msgid "Sidebar"
+msgstr ""
+
+#: getplugins.php:94
+msgid "Something went wrong with the plugin API."
+msgstr ""
+
+#: getplugins.php:107
+msgid "All plugins installed and activated successfully. %s"
+msgstr ""
+
+#: inc/extras.php:66
+msgid "Page %s"
+msgstr ""
+
+#: inc/template-tags.php:34
+msgid "Post navigation"
+msgstr ""
+
+#: inc/template-tags.php:38
+msgctxt "Previous post link"
+msgid "&larr;"
+msgstr "&rarr;"
+
+#: inc/template-tags.php:39
+msgctxt "Next post link"
+msgid "&rarr;"
+msgstr "&larr;"
+
+#: inc/template-tags.php:44
+msgid "<span class=\"meta-nav\">&larr;</span> Older posts"
+msgstr ""
+
+#: inc/template-tags.php:48
+msgid "Newer posts <span class=\"meta-nav\">&rarr;</span>"
+msgstr ""
+
+#: inc/template-tags.php:71
+msgid "Pingback:"
+msgstr ""
+
+#: inc/template-tags.php:81
+msgid "%s <span class=\"says\">says:</span>"
+msgstr ""
+
+#: inc/template-tags.php:87
+msgctxt "1: date, 2: time"
+msgid "%1$s at %2$s"
+msgstr ""
+
+#: inc/template-tags.php:94
+msgid "Your comment is awaiting moderation."
+msgstr ""
+
+#: inc/template-tags.php:180
+msgid ""
+"<span class=\"posted-on\">Posted on %1$s</span><span class=\"byline\"> by "
+"%2$s</span>"
+msgstr ""
+"<span class=\"posted-on\">%1$s</span> <span class=\"byline\">%2$s</span>"
+
+#: inc/template-tags.php:188
+msgid "View all posts by %s"
+msgstr ""
+
+#: no-results.php:13
+msgid "Nothing Found"
+msgstr ""
+
+#: no-results.php:19
+msgid ""
+"Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+msgstr ""
+
+#: no-results.php:23
+msgid ""
+"Sorry, but nothing matched your search terms. Please try again with some "
+"different keywords."
+msgstr ""
+
+#: no-results.php:28
+msgid ""
+"It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps "
+"searching can help."
+msgstr ""
+
+#: search.php:14
+msgid "You searched for: %s"
+msgstr ""
+
+#: searchform.php:10 searchform.php:11
+msgctxt "label"
+msgid "Search for:"
+msgstr ""
+
+#: searchform.php:11
+msgctxt "placeholder"
+msgid "Search &hellip;"
+msgstr ""
+
+#: searchform.php:13
+msgctxt "submit button"
+msgid "Search"
+msgstr ""
+
+#. Theme Name of the plugin/theme
+msgid "Revera"
+msgstr ""
+
+#. Theme URI of the plugin/theme
+msgid "http://www.fabthemes.com/revera/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Description"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Fabthemes"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "www.fabthemes.com"
+msgstr ""
+
+#. Template Name of the plugin/theme
+msgid "Homepage"
+msgstr ""
+
+#. Template Name of the plugin/theme
+msgid "Portfolio"
+msgstr ""
