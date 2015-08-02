@@ -1,7 +1,7 @@
 <?php defined( 'ABSPATH' ) or die( 'Restricted access' );
 
 $gnetwork_constants = array(
-	
+
 	'GNETWORK_TEXTDOMAIN'            => 'gnetwork',
 	'GNETWORK_BASE'                  => network_home_url(),
 	'GNETWORK_NAME'                  => ( is_multisite() ? get_site_option( 'site_name' ) : get_option( 'blogname' ) ),
@@ -29,16 +29,17 @@ $gnetwork_constants = array(
 	'GNETWORK_BODY_CLASS'            => FALSE, // class for all blog's body html/ FALSE fot disable
 	'GNETWORK_DISABLE_BBQ'           => FALSE,
 	'GNETWORK_DISABLE_RECAPTCHA'     => FALSE,
-	
+
 	'GNETWORK_MAIL_LOG_DIR'          => WP_CONTENT_DIR.DS.'emaillogs',
-	
+
+	// 'GNETWORK_DISABLE_JQUERY_MIGRATE' => TRUE,  // cannot set this early!
 	// 'GNETWORK_DISABLE_FRONT_STYLES'   => FALSE, // cannot set this early!
 	// 'GNETWORK_DISABLE_REFLIST_JS'     => FALSE, // do not include reflist shortcode js // cannot set this early!
 	// 'GNETWORK_DISABLE_REFLIST_INSERT' => FALSE, // do not include reflist shortcode after content  // cannot set this early!
-	
+
 	'GNETWORK_REDIRECT_MAP'    => FALSE,
 	// 'GNETWORK_REDIRECT_FORMAT' => '%1$s',
-	
+
 	'GNETWORK_AJAX_ENDPOINT'      => admin_url( 'admin-ajax.php' ), // if you want to use .ataccess to rewrite
 	'GNETWORK_MEDIA_SEPERATION'   => FALSE, // if you want to seperate generated files from originals!!
 	'GNETWORK_MEDIA_SIZES_DIR'    => WP_CONTENT_DIR.DS.'thumbs',
