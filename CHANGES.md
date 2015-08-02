@@ -1,3 +1,6 @@
+### 0.2.15
+* cleanup: new `GNETWORK_DISABLE_JQUERY_MIGRATE` constant
+
 ### 0.2.14
 * utilities: support new headings structure in WP4.3,  [see](https://make.wordpress.org/core/2015/07/31/headings-in-admin-screens-change-in-wordpress-4-3/)
 * themes: new theme support for [Revera](http://www.fabthemes.com/revera/)
