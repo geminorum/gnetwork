@@ -26,9 +26,37 @@ caption, th, td {
 
 #submenu {
 	@extend %float_right;
-	li {
+	ul {
 		@extend %float_right;
+		li {
+			@extend %float_right;
+			ul {
+				// margin: -44px 160px 0 0;
+
+				// left: auto;
+				// right: -999em;
+
+			}
+		}
 	}
+}
+
+#submenu li:hover ul ul,
+#submenu li:hover ul ul ul,
+#submenu li.sfHover ul ul,
+#submenu li.sfHover ul ul ul {
+	left: auto;
+	right: -999em;
+}
+
+#submenu li:hover ul,
+#submenu li li:hover ul,
+#submenu li li li:hover ul,
+#submenu li.sfHover ul,
+#submenu li li.sfHover ul,
+#submenu li li li.sfHover ul {
+	left: auto;
+	right: auto;
 }
 
 .squarebanner {

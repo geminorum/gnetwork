@@ -109,6 +109,8 @@ class gNetworkThemes extends gNetworkModuleCore
 			// DEMO: http://demo.fabthemes.com/revera/
 			// HOME: http://www.fabthemes.com/revera/
 
+			defined( 'GNETWORK_DISABLE_JQUERY_MIGRATE' ) or define( 'GNETWORK_DISABLE_JQUERY_MIGRATE', FALSE );
+
 			if ( is_rtl() ) {
 				add_theme_support( 'post-thumbnails' );
 
