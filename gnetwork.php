@@ -34,7 +34,9 @@ function gnetwork_init() {
 		'network'     => 'gNetworkNetwork',
 		'admin'       => 'gNetworkAdmin',
 
+		'site'        => 'gNetworkSite',
 		'blog'        => 'gNetworkBlog',
+
 		'adminbar'    => 'gNetworkAdminBar',
 		'users'       => 'gNetworkUsers',
 
