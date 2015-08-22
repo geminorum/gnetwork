@@ -633,7 +633,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		$html = gNetworkUtilities::html( 'a', array(
 			'class' => 'cite-scroll',
 			'href'  => '#citenote-'.$key,
-			'title' => trim( strip_tags( $content ) ),
+			'title' => trim( strip_tags( apply_filters( 'string_format_i18n', $content ) ) ),
 		), '&#8207;['.( $args['format_number'] ? number_format_i18n( $key ) : $key ).']&#8206;' );
 
 		return '<sup class="ref reference '.$args['class'].'" id="citeref-'.$key.'">'.$html.'</sup>';
