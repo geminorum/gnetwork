@@ -195,17 +195,19 @@ class gNetworkShortCodes extends gNetworkModuleCore
 				if ( $post ) {
 					if ( $post->post_parent ) {
 						$html = gNetworkUtilities::html( 'a', array(
-							'href'  => get_permalink( $post->post_parent ),
-							'title' => get_the_title( $post->post_parent ),
-							'class' => 'parent',
-							'rel'   => 'parent',
+							'href'        => get_permalink( $post->post_parent ),
+							'title'       => get_the_title( $post->post_parent ),
+							'class'       => 'parent tooltip',
+							'data-toggle' => 'tooltip',
+							'rel'         => 'parent',
 						), $args['html'] );
 					} else {
 						$html = gNetworkUtilities::html( 'a', array(
-							'href'  => home_url( '/' ),
-							'title' => _x( 'Home', 'Shortcodes: back: home title attr', GNETWORK_TEXTDOMAIN ),
-							'class' => 'home',
-							'rel'   => 'home',
+							'href'        => home_url( '/' ),
+							'title'       => _x( 'Home', 'Shortcodes: back: home title attr', GNETWORK_TEXTDOMAIN ),
+							'class'       => 'home tooltip',
+							'data-toggle' => 'tooltip',
+							'rel'         => 'home',
 						), $args['html'] );
 					}
 				}
@@ -215,10 +217,11 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			case 'home' :
 
 				$html = gNetworkUtilities::html( 'a', array(
-					'href'  => home_url( '/' ),
-					'title' => _x( 'Home', 'Shortcodes: back: home title attr', GNETWORK_TEXTDOMAIN ),
-					'class' => 'home',
-					'rel'   => 'home',
+					'href'        => home_url( '/' ),
+					'title'       => _x( 'Home', 'Shortcodes: back: home title attr', GNETWORK_TEXTDOMAIN ),
+					'class'       => 'home tooltip',
+					'data-toggle' => 'tooltip',
+					'rel'         => 'home',
 				), $args['html'] );
 
 			break;
@@ -285,7 +288,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			return $content;
 
 		$html = '<a class="email" href="'.antispambot( "mailto:".$content.( $args['subject'] ? '?subject='.urlencode( $args['subject'] ) : '' ) )
-				.'"'.( $args['title'] ? ' title="'.esc_attr( $args['title'] ).'"' : '' ).'>'
+				.'"'.( $args['title'] ? ' data-toggle="tooltip" title="'.esc_attr( $args['title'] ).'"' : '' ).'>'
 				.antispambot( $content ).'</a>';
 
 		return '<span class="gnetwork-wrap-shortcode shortcode-email">'.$html.'</span>';
@@ -307,7 +310,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			return $content;
 
 		$html = '<a class="tel" href="tel://'.$content
-				.'"'.( $args['title'] ? ' title="'.esc_attr( $args['title'] ).'"' : '' ).'>'
+				.'"'.( $args['title'] ? ' data-toggle="tooltip" title="'.esc_attr( $args['title'] ).'"' : '' ).'>'
 				.'&#8206;'.apply_filters( 'string_format_i18n', $content ).'&#8207;</a>';
 
 		return '<span class="gnetwork-wrap-shortcode shortcode-tel">'.$html.'</span>';
@@ -614,9 +617,10 @@ class gNetworkShortCodes extends gNetworkModuleCore
 
 		if ( $args['url'] )
 			$url = gNetworkUtilities::html( 'a', array(
-				'class' => 'refrence-external',
-				'href'  => $args['url'],
-				'title' => $args['url_title'],
+				'class'       => 'refrence-external tooltip',
+				'data-toggle' => 'tooltip',
+				'href'        => $args['url'],
+				'title'       => $args['url_title'],
 			), $args['url_icon'] );
 
 		if ( $html && $url )
@@ -631,9 +635,10 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		$this->_ref_ids[$key] = $html;
 
 		$html = gNetworkUtilities::html( 'a', array(
-			'class' => 'cite-scroll',
-			'href'  => '#citenote-'.$key,
-			'title' => trim( strip_tags( apply_filters( 'string_format_i18n', $content ) ) ),
+			'class'       => 'cite-scroll tooltip',
+			'data-toggle' => 'tooltip',
+			'href'        => '#citenote-'.$key,
+			'title'       => trim( strip_tags( apply_filters( 'string_format_i18n', $content ) ) ),
 		), '&#8207;['.( $args['format_number'] ? number_format_i18n( $key ) : $key ).']&#8206;' );
 
 		return '<sup class="ref reference '.$args['class'].'" id="citeref-'.$key.'">'.$html.'</sup>';
@@ -671,9 +676,10 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			$item .= ( $args['number'] ? ( $args['format_number'] ? number_format_i18n( $key ) : $key ).$args['after_number'] : '' );
 
 			$item .= gNetworkUtilities::html( 'a', array(
-				'class' => 'cite-scroll',
-				'href'  => '#citeref-'.$key,
-				'title' => $args['back_title'],
+				'class'       => 'cite-scroll tooltip',
+				'data-toggle' => 'tooltip',
+				'href'        => '#citeref-'.$key,
+				'title'       => $args['back_title'],
 			), $args['back'] );
 
 			$html .= '<li>'.$item.'</span> <span class="ref-text"><span class="citation" id="citenote-'.$key.'">'.$text.'</span></span></li>';
@@ -796,11 +802,13 @@ class gNetworkShortCodes extends gNetworkModuleCore
 				return $content;
 
 			$this->_ref_people[$person] = gNetworkUtilities::html( 'a', array(
-				'href'  => get_term_link( $term, $term->taxonomy ),
-				'title' => sanitize_term_field( 'name', $term->name, $term->term_id, $term->taxonomy, 'display' ),
-				'class' => array(
+				'href'        => get_term_link( $term, $term->taxonomy ),
+				'title'       => sanitize_term_field( 'name', $term->name, $term->term_id, $term->taxonomy, 'display' ),
+				'data-toggle' => 'tooltip',
+				'class'       => array(
 					$args['class'],
 					'person-'.$term->slug,
+					'tooltip',
 				),
 			), trim( strip_tags( $content ) ) );
 		}
