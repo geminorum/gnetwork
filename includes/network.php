@@ -36,14 +36,14 @@ class gNetworkNetwork extends gNetworkModuleCore
 			add_filter( 'wp_is_large_network', array( &$this, 'wp_is_large_network' ), 10, 3 );
 	}
 
-	function wp_is_large_network( $is, $using, $count )
+	public function wp_is_large_network( $is, $using, $count )
 	{
 		if ( 'users' == $using )
 			return $count > GNETWORK_LARGE_NETWORK_IS;
 		return $is;
 	}
 
-	function network_admin_menu()
+	public function network_admin_menu()
 	{
 		add_submenu_page( 'plugins.php',
 			__( 'Active', GNETWORK_TEXTDOMAIN ),
@@ -78,7 +78,7 @@ class gNetworkNetwork extends gNetworkModuleCore
 
 		add_action( 'load-'.$hook, array( &$this, 'network_settings_load' ) );
 
-		foreach( $this->menus as $sub => $args ) {
+		foreach ( $this->menus as $sub => $args ) {
 			add_submenu_page( 'gnetwork',
 				sprintf( __( 'gNetwork Extras: %s', GNETWORK_TEXTDOMAIN ), $args['title'] ),
 				$args['title'],
@@ -142,7 +142,6 @@ class gNetworkNetwork extends gNetworkModuleCore
 	{
 		$subs = array(
 			'overview' => __( 'Overview', GNETWORK_TEXTDOMAIN ),
-			// 'general' => __( 'General', GNETWORK_TEXTDOMAIN ),
 		);
 
 		foreach( $this->menus as $sub => $args )
@@ -192,14 +191,14 @@ class gNetworkNetwork extends gNetworkModuleCore
 	}
 
 	// http://wpengineer.com/2470/hide-welcome-panel-for-wordpress-multisite/
-	function load_index_php()
+	public function load_index_php()
 	{
 		if ( 2 === (int) get_user_meta( get_current_user_id(), 'show_welcome_panel', TRUE ) )
 			update_user_meta( get_current_user_id(), 'show_welcome_panel', 0 );
 	}
 
 	// ALSO SEE: http://stackoverflow.com/a/10372861
-	function wpmu_new_blog( $blog_id, $user_id, $domain, $path, $site_id, $meta )
+	public function wpmu_new_blog( $blog_id, $user_id, $domain, $path, $site_id, $meta )
 	{
 		switch_to_blog( $blog_id );
 
@@ -220,7 +219,6 @@ class gNetworkNetwork extends gNetworkModuleCore
 		wp_transition_post_status( 'draft', $post->post_status, $post );
 		$page = get_post( 2 );
 		wp_transition_post_status( 'draft', $page->post_status, $page );
-		// TODO : disble comments on first page
 
 		restore_current_blog();
 		refresh_blog_details( $blog_id );
@@ -228,7 +226,7 @@ class gNetworkNetwork extends gNetworkModuleCore
 
 	// BASED ON : https://gist.github.com/franz-josef-kaiser/6730571
 	// by : Franz Josef Kaiser <wecodemore@gmail.com>
-	function wpmu_blogs_columns( $columns )
+	public function wpmu_blogs_columns( $columns )
 	{
 		if ( 1 === GNETWORK_ADMIN_COLUMN_ID )
 			return array_merge( array( 'id' => __( 'ID', GNETWORK_TEXTDOMAIN ) ), $columns );
@@ -237,7 +235,7 @@ class gNetworkNetwork extends gNetworkModuleCore
 		return $columns;
 	}
 
-	function manage_blogs_custom_column( $column_name, $blog_id )
+	public function manage_blogs_custom_column( $column_name, $blog_id )
 	{
 		if ( 'id' === $column_name )
 			echo $blog_id;
@@ -251,7 +249,7 @@ class gNetworkNetwork extends gNetworkModuleCore
 	 * Plugins that are to be deprecated should be added to the $disabled_plugins array.
 	 * Plugins that should be un-deactivatable should be added to the $undeactivatable_plugins array
 	 */
-	function all_plugins( $plugins )
+	public function all_plugins( $plugins )
 	{
 		// Allow the super admin to see all plugins, by adding the URL param
 		// show_all_plugins=1
