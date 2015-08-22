@@ -2,7 +2,7 @@
 // FOR: gNetworkDebug
 .gnetwork-admin-wrap.debugbar-panel {
 	@include mainwrap();
-	direction:ltr !important;
+	direction: ltr !important;
 
 	h3 {
 
@@ -18,10 +18,10 @@
 }
 
 html[dir="rtl"] #qm {
-	direction:ltr !important;
+	direction: ltr !important;
 
 	.qm td,
 	.qm th {
-		text-align:left !important
+		text-align: left !important
 	}
 }

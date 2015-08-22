@@ -1,11 +1,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-///---RTL ADMIN ENHANCEMENTS----------------------------------------------------
+/// RTL ADMIN ENHANCEMENTS -----------------------------------------------------
+
 body.rtl {
 
 	input[type="search"]::-webkit-search-cancel-button {
-		-webkit-appearance:none; // hiding non RTL cancel button
+		-webkit-appearance: none; // hiding non RTL cancel button
 	}
 
 	input[type="checkbox"]:checked:before {

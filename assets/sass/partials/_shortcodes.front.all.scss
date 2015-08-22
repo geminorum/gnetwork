@@ -1,99 +1,108 @@
-
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-//---Module: Shortcodes---------------------------------------------------------
-
+/// Module: Shortcodes ---------------------------------------------------------
 
 .gnetwork-wrap-shortcode {
 	@include mainwrap();
 
-}
+	&.shortcode-reflist {
+		ul,
+		ol {
+			li {
 
-.gnetwork-wrap-shortcode.shortcode-reflist {
-	ul, ol {
-		li {
+				.ref-number {
 
-			.ref-number {
+				}
 
-			}
+				.cite-scroll {
 
-			.cite-scroll {
+				}
 
-			}
+				.ref-text {
 
-			.ref-text {
+				}
 
-			}
+				a {
 
-			a {
-
-			}
-		}
-	}
-}
-
-.gnetwork-wrap-shortcode.shortcode-children {
-	ul {
-		li {
-			a {
-
+				}
 			}
 		}
 	}
-}
 
-.gnetwork-wrap-shortcode.shortcode-siblings {
-	ul {
-		li {
-			a {
+	&.shortcode-children {
+		ul {
+			li {
+				a {
 
+				}
 			}
 		}
 	}
-}
 
-.gnetwork-wrap-shortcode.shortcode-back {
-	a {
+	&.shortcode-siblings {
+		ul {
+			li {
+				a {
 
+				}
+			}
+		}
 	}
-}
 
-.gnetwork-wrap-shortcode.shortcode-iframe {
-	iframe {
+	&.shortcode-back {
+		a {
 
+		}
 	}
-}
 
-.gnetwork-wrap-shortcode.shortcode-email {
-	a.email {
+	&.shortcode-iframe {
+		iframe {
 
+		}
 	}
-}
 
-.gnetwork-wrap-shortcode.shortcode-tel {
-	// display:inline;
-	// direction:ltr;
-	a.tel {
+	&.shortcode-email {
+		a.email {
+
+		}
+	}
+
+	&.shortcode-tel {
+		// display:inline;
 		// direction:ltr;
-		letter-spacing: 0.4px;
-	}
-}
-
-.gnetwork-wrap-shortcode.shortcode-audio {
-
-	a.download {
-
+		a.tel {
+			// direction:ltr;
+			letter-spacing: 0.4px;
+		}
 	}
 
-	// WP core shortcode
-	.wp-audio-shortcode {
+	&.shortcode-audio {
 
+		a.download {
+
+		}
+
+		// WP core shortcode
+		.wp-audio-shortcode {
+
+		}
 	}
-}
 
-.gnetwork-wrap-shortcode.shortcode-audio-go {
-	a.audio-go-to-time {
+	&.shortcode-audio-go {
+		a.audio-go-to-time {
 
+		}
+	}
+
+	&.shortcode-person {
+		a.refrence-people {
+
+		}
+	}
+
+	&.shortcode-three-asterisks {
+		margin: 20px 0;
+		text-align: center;
 	}
 }

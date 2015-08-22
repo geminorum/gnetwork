@@ -18,7 +18,7 @@
 
 #wpadminbar {
 
-	.shortlink-input{
+	.shortlink-input {
 		color:#000;
 		font-weight:bold;
 	}
@@ -30,7 +30,7 @@
 	#wp-admin-bar-wp-logo.menupop > .ab-item .ab-icon:before {
 		content: "\f319";
 	}
-	
+
 	#wp-admin-bar-my-sites a.ab-item:before {
 		margin-left:0px;
 		margin-right:0px;
@@ -47,7 +47,7 @@
 			content: "\f139" !important;
 			right:2px;
 		}
-		
+
 		#wp-admin-bar-airplane-mode-toggle span.airplane-toggle-icon {
 			margin-right:0;
 			margin-left:7px;

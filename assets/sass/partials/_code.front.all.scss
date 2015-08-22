@@ -1,30 +1,34 @@
-
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-//---Module: Code---------------------------------------------------------------
+/// Module: Code ---------------------------------------------------------------
 
+.gnetwork-wrap-shortcode {
 
-.gnetwork-wrap-shortcode.github {
+	&.github {
 
-}
-
-.gnetwork-wrap-shortcode.github-readme {
-	> h1 { display:none; }
-
-	img[src*="badge"], img[src*="shields.io"] {
-		display:inline;
 	}
-}
 
-.gnetwork-wrap-shortcode.github-gist {
-	direction:ltr !important;
-	
-	td {
-		text-align:left;
+	&.github-readme {
+		> h1 {
+			display: none;
+		}
+
+		img[src*="badge"],
+		img[src*="shields.io"] {
+			display: inline;
+		}
 	}
-}
 
-.gnetwork-wrap-shortcode.github-repo {
-	direction:ltr !important;
+	&.github-gist {
+		direction: ltr !important;
+
+		td {
+			text-align: left;
+		}
+	}
+
+	&.github-repo {
+		direction: ltr !important;
+	}
 }
