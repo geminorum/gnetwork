@@ -10,9 +10,12 @@ class gNetworkShortCodes extends gNetworkModuleCore
 	var $_pdf_ids    = array();
 	var $_ref_ids    = array();
 	var $_ref_list   = FALSE;
+	var $_ref_people = array();
+	var $_tax_people = 'post_tag'; // 'people';
 
 	protected function setup_actions()
 	{
+		add_action( 'plugins_loaded', array( &$this, 'plugins_loaded' ) );
 		add_action( 'init', array( &$this, 'init_early' ), 8 );
 		add_action( 'init', array( &$this, 'init_late' ), 12 );
 		add_action( 'wp_footer', array( &$this, 'wp_footer' ), 20 );
@@ -20,12 +23,22 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		add_action( 'gnetwork_tinymce_strings', array( &$this, 'tinymce_strings' ) );
 		gNetworkAdmin::registerTinyMCE( 'gnetworkcite', 'assets/js/tinymce.cite.js' );
 		gNetworkAdmin::registerTinyMCE( 'gnetworkemail', 'assets/js/tinymce.email.js' );
+		gNetworkAdmin::registerTinyMCE( 'gnetworkgpeople', 'assets/js/tinymce.gpeople.js' );
+	}
+
+	public function plugins_loaded()
+	{
+		if ( defined( 'GPEOPLE_PEOPLE_TAXONOMY' ) )
+			$this->_tax_people = GPEOPLE_PEOPLE_TAXONOMY;
+		else if ( defined( 'GNETWORK_GPEOPLE_TAXONOMY' ) )
+			$this->_tax_people = GNETWORK_GPEOPLE_TAXONOMY;
 	}
 
 	// fallback shortcodes
 	public function init_early()
 	{
 		add_shortcode( 'book', array( &$this, 'shortcode_return_content' ) );
+		add_shortcode( 'person', array( &$this, 'shortcode_person' ) );
 	}
 
 	public function shortcode_return_content( $atts, $content = NULL, $tag = '' )
@@ -754,5 +767,43 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		return '<span>'.( $args['format_number'] ? number_format_i18n( $args['id'] ) : $args['id'] ).$args['after_number']
 				.'<span class="ref-backlink"><a href="#citeref-'.$args['id'].'-m" class="cite-scroll">'.$args['back']
 				.'</a></span><span class="ref-text"><span class="citation" id="citenote-'.$args['id'].'-m">&nbsp;</span></span></span>';
+	}
+
+	public function shortcode_person( $atts, $content = NULL, $tag = '' )
+	{
+		$args = shortcode_atts( array(
+			'id'            => FALSE,
+			'name'          => FALSE,
+			'class'         => 'refrence-people',
+			'context'       => NULL,
+		), $atts, $tag );
+
+		if ( FALSE === $args['context'] ) // bailing
+			return NULL;
+
+		if ( $args['name'] )
+			$person = trim( $args['name'] );
+		else if ( is_null( $content ) )
+			return NULL;
+		else
+			$person = trim( strip_tags( $content ) );
+
+		if ( ! array_key_exists( $person, $this->_ref_people ) ) {
+			$term = get_term_by( 'name', $person, $this->_tax_people );
+
+			if ( ! $term )
+				return $content;
+
+			$this->_ref_people[$person] = gNetworkUtilities::html( 'a', array(
+				'href'  => get_term_link( $term, $term->taxonomy ),
+				'title' => sanitize_term_field( 'name', $term->name, $term->term_id, $term->taxonomy, 'display' ),
+				'class' => array(
+					$args['class'],
+					'person-'.$term->slug,
+				),
+			), trim( strip_tags( $content ) ) );
+		}
+
+		return '<span class="gnetwork-wrap-shortcode shortcode-person">'.$this->_ref_people[$person].'</span>';
 	}
 }

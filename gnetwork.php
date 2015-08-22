@@ -81,7 +81,6 @@ function gnetwork_init() {
 		'bbpress'    => 'gNetworkbbPress',
 		// 'edd'        => 'gNetworkEDD', // WORKING, BUT DISABLED : Must review
 		// 'gshop'      => 'gNetworkgShop', // WORKING, BUT DISABLED : Must review
-		'gpeople'    => 'gNetworkgPeople',
 
 		// 'barcode'    => 'gNetworkgBarCode', // TEST
 		// 'thumb' => 'gNetworkgThumb', // TEST/DRAFT
