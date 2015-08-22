@@ -9,6 +9,9 @@ class gNetworkTypography extends gNetworkModuleCore
 	protected function setup_actions()
 	{
 		add_action( 'init', array( &$this, 'init' ), 12 );
+
+		add_action( 'gnetwork_tinymce_strings', array( &$this, 'tinymce_strings' ) );
+		gNetworkAdmin::registerTinyMCE( 'gnetworkasterisks', 'assets/js/tinymce.asterisks.js' );
 	}
 
 	public function init()
@@ -20,6 +23,15 @@ class gNetworkTypography extends gNetworkModuleCore
 			'wiki-en'         => 'shortcode_wiki',
 			'wiki-fa'         => 'shortcode_wiki',
 		) );
+	}
+
+	public function tinymce_strings( $strings )
+	{
+		$new = array(
+			'gnetworkasterisks-title' => _x( 'Asterisks', 'TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+		);
+
+		return array_merge( $strings, $new );
 	}
 
 	public function shortcode_wiki( $atts, $content = NULL, $tag = '' )
