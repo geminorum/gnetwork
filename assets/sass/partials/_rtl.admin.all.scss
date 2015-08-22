@@ -57,6 +57,10 @@ body.rtl {
 		}
 	}
 
+	#post-lock-dialog .post-locked-message,
+	#post-lock-dialog .post-taken-over {
+		margin: 20px;
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////
