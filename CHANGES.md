@@ -1,5 +1,8 @@
 ### 0.2.15
 * cleanup: new `GNETWORK_DISABLE_JQUERY_MIGRATE` constant
+* new module: site
+* login: always checked moved to site module and disabled by default
+* widgets: shortcode widget working!
 
 ### 0.2.14
 * utilities: support new headings structure in WP4.3,  [see](https://make.wordpress.org/core/2015/07/31/headings-in-admin-screens-change-in-wordpress-4-3/)
