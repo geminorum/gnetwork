@@ -16,7 +16,10 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		add_action( 'init', array( &$this, 'init_early' ), 8 );
 		add_action( 'init', array( &$this, 'init_late' ), 12 );
 		add_action( 'wp_footer', array( &$this, 'wp_footer' ), 20 );
+
 		add_action( 'gnetwork_tinymce_strings', array( &$this, 'tinymce_strings' ) );
+		gNetworkAdmin::registerTinyMCE( 'gnetworkcite', 'assets/js/tinymce.cite.js' );
+		gNetworkAdmin::registerTinyMCE( 'gnetworkemail', 'assets/js/tinymce.email.js' );
 	}
 
 	// fallback shortcodes
@@ -53,11 +56,6 @@ class gNetworkShortCodes extends gNetworkModuleCore
 
 		if ( ! defined( 'GNETWORK_DISABLE_REFLIST_INSERT' ) || ! GNETWORK_DISABLE_REFLIST_INSERT )
 			add_filter( 'the_content', array( &$this, 'the_content' ), 20 );
-
-		if ( get_user_option( 'rich_editing' ) == 'true' ) {
-			add_filter( 'mce_external_plugins', array( &$this, 'mce_external_plugins' ) );
-			add_filter( 'mce_buttons', array( &$this, 'mce_buttons' ) );
-		}
 	}
 
 	// http://www.paulund.co.uk/get-list-of-all-available-shortcodes
@@ -74,12 +72,12 @@ class gNetworkShortCodes extends gNetworkModuleCore
 	public function tinymce_strings( $strings )
 	{
 		$new = array(
-			'gnetworkcite-title'     => _x( 'Cite This', 'TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
-			'gnetworkcite-url'       => _x( 'URL', 'TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
-			'gnetworkgemail-title'   => _x( 'Email', 'TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
-			'gnetworkgemail-subject' => _x( 'Subject', 'TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
-			'gnetworkgpeople-title'  => _x( 'People', 'TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
-			'gnetworkgpeople-name'   => _x( 'Name', 'TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+			'gnetworkcite-title'    => _x( 'Cite This', 'TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+			'gnetworkcite-url'      => _x( 'URL', 'TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+			'gnetworkemail-title'   => _x( 'Email', 'TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+			'gnetworkemail-subject' => _x( 'Subject', 'TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+			'gnetworkgpeople-title' => _x( 'People', 'TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+			'gnetworkgpeople-name'  => _x( 'Name', 'TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
 		);
 
 		return array_merge( $strings, $new );
@@ -689,20 +687,6 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		remove_filter( 'the_content', array( &$this, 'the_content' ), 20 );
 		return $content.apply_filters( 'the_content',
 			$this->shortcode_reflist( array(), NULL, 'reflist' ) );
-	}
-
-	public function mce_buttons( $buttons )
-	{
-		array_push( $buttons, '|', 'gnetworkcite', 'gnetworkgemail' );
-		return $buttons;
-	}
-
-	public function mce_external_plugins( $plugin_array )
-	{
-		$plugin_array['gnetworkcite']   = GNETWORK_URL.'assets/js/tinymce.cite.js';
-		$plugin_array['gnetworkgemail'] = GNETWORK_URL.'assets/js/tinymce.email.js';
-
-		return $plugin_array;
 	}
 
 	// FIXME: check this!

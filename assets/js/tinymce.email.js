@@ -1,22 +1,22 @@
 (function() {
-	tinymce.create('tinymce.plugins.gnetworkgemail', {
+	tinymce.create('tinymce.plugins.gnetworkemail', {
 		init : function(editor, url) {
-			editor.addButton('gnetworkgemail', {
+			editor.addButton('gnetworkemail', {
 
-				title: editor.getLang('gnetwork.gnetworkgemail-title'),
-				icon:  'icon gnetwork-tinymce-icon icon-gnetworkgemail',
+				title: editor.getLang('gnetwork.gnetworkemail-title'),
+				icon:  'icon gnetwork-tinymce-icon icon-gnetworkemail',
 
 				onclick: function() {
 					editor.windowManager.open( {
-						id: 'gnetwork-tinymce-window-gnetworkgemail',
-				        title: editor.getLang('gnetwork.gnetworkgemail-title'),
-				        body: [{
-							id: 'gnetwork-tinymce-input-gnetworkgemail-subject',
-				            type: 'textbox',
-				            name: 'subject',
-				            label: editor.getLang('gnetwork.gnetworkgemail-subject'),
-				        }],
-				        onsubmit: function( e ) {
+						id: 'gnetwork-tinymce-window-gnetworkemail',
+						title: editor.getLang('gnetwork.gnetworkemail-title'),
+						body: [{
+							id: 'gnetwork-tinymce-input-gnetworkemail-subject',
+							type: 'textbox',
+							name: 'subject',
+							label: editor.getLang('gnetwork.gnetworkemail-subject'),
+						}],
+						onsubmit: function( e ) {
 
 							var text = editor.selection.getContent(),
 								subject = e.data.subject;
@@ -35,8 +35,8 @@
 								else
 									editor.insertContent( '[email]' );
 							}
-				        }
-				    });
+						}
+					});
 				}
 			});
 		},
@@ -54,5 +54,5 @@
 		}
 	});
 
-	tinymce.PluginManager.add('gnetworkgemail', tinymce.plugins.gnetworkgemail);
+	tinymce.PluginManager.add('gnetworkemail', tinymce.plugins.gnetworkemail);
 })();
