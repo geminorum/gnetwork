@@ -654,6 +654,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			'after_number'  => '- ',
 			'format_number' => TRUE,
 			'back'          => '[&#8617;]', //'[^]', // '[&uarr;]',
+			'back_title'    => __( 'Back to Text', GNETWORK_TEXTDOMAIN ),
 			'context'       => NULL,
 		), $atts, $tag );
 
@@ -672,7 +673,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			$item .= gNetworkUtilities::html( 'a', array(
 				'class' => 'cite-scroll',
 				'href'  => '#citeref-'.$key,
-				'title' => trim( strip_tags( $content ) ),
+				'title' => $args['back_title'],
 			), $args['back'] );
 
 			$html .= '<li>'.$item.'</span> <span class="ref-text"><span class="citation" id="citenote-'.$key.'">'.$text.'</span></span></li>';
