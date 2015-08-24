@@ -186,7 +186,7 @@ class gNetworkDebug extends gNetworkModuleCore
 			self::log( 'HTTP API RESPONSE', array(
 				'url'     => $url,
 				'class'   => $class,
-				'args'    => $args,
+				// 'args'    => $args,
 			), $response );
 		}
 	}
