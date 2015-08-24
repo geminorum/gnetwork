@@ -187,7 +187,7 @@ class gNetworkDebug extends gNetworkModuleCore
 				'url'     => $url,
 				'class'   => $class,
 				'args'    => $args,
-			) );
+			), $response );
 		}
 	}
 
@@ -196,7 +196,7 @@ class gNetworkDebug extends gNetworkModuleCore
 		if ( in_array( 'test_cookie', $errors->get_error_codes() ) ) {
 			self::log( 'TEST COOCKIE', array(
 				'message' => $errors->get_error_message( 'test_cookie' ),
-			) );
+			), $errors );
 		}
 
 		return $errors;
