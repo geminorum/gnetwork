@@ -197,7 +197,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 						$html = gNetworkUtilities::html( 'a', array(
 							'href'        => get_permalink( $post->post_parent ),
 							'title'       => get_the_title( $post->post_parent ),
-							'class'       => 'parent tooltip',
+							'class'       => 'parent',
 							'data-toggle' => 'tooltip',
 							'rel'         => 'parent',
 						), $args['html'] );
@@ -205,7 +205,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 						$html = gNetworkUtilities::html( 'a', array(
 							'href'        => home_url( '/' ),
 							'title'       => _x( 'Home', 'Shortcodes: back: home title attr', GNETWORK_TEXTDOMAIN ),
-							'class'       => 'home tooltip',
+							'class'       => 'home',
 							'data-toggle' => 'tooltip',
 							'rel'         => 'home',
 						), $args['html'] );
@@ -219,7 +219,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 				$html = gNetworkUtilities::html( 'a', array(
 					'href'        => home_url( '/' ),
 					'title'       => _x( 'Home', 'Shortcodes: back: home title attr', GNETWORK_TEXTDOMAIN ),
-					'class'       => 'home tooltip',
+					'class'       => 'home',
 					'data-toggle' => 'tooltip',
 					'rel'         => 'home',
 				), $args['html'] );
@@ -617,7 +617,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 
 		if ( $args['url'] )
 			$url = gNetworkUtilities::html( 'a', array(
-				'class'       => 'refrence-external tooltip',
+				'class'       => 'refrence-external',
 				'data-toggle' => 'tooltip',
 				'href'        => $args['url'],
 				'title'       => $args['url_title'],
@@ -635,7 +635,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		$this->_ref_ids[$key] = $html;
 
 		$html = gNetworkUtilities::html( 'a', array(
-			'class'       => 'cite-scroll tooltip',
+			'class'       => 'cite-scroll',
 			'data-toggle' => 'tooltip',
 			'href'        => '#citenote-'.$key,
 			'title'       => trim( strip_tags( apply_filters( 'string_format_i18n', $content ) ) ),
@@ -676,7 +676,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			$item .= ( $args['number'] ? ( $args['format_number'] ? number_format_i18n( $key ) : $key ).$args['after_number'] : '' );
 
 			$item .= gNetworkUtilities::html( 'a', array(
-				'class'       => 'cite-scroll tooltip',
+				'class'       => 'cite-scroll',
 				'data-toggle' => 'tooltip',
 				'href'        => '#citeref-'.$key,
 				'title'       => $args['back_title'],
