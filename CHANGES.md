@@ -1,3 +1,13 @@
+### 0.2.16
+* admin: internal api for tinymce plugins
+* typography: editor button for asterisks
+* shortcodes: `[person]` moved here from gpeople module
+* shortcodes: format i18n for `[ref]` title attr
+* shortcodes: correct title attr for `[reflist]` back to top
+* shortcodes: tooltip support anchors
+* gpeople: module removed
+* debug: include the wp error object on the log
+
 ### 0.2.15
 * cleanup: new `GNETWORK_DISABLE_JQUERY_MIGRATE` constant
 * new module: site
