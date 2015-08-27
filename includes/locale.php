@@ -13,7 +13,7 @@ class gNetworkLocale extends gNetworkModuleCore
 		add_filter( 'locale', array( &$this, 'locale' ), 1, 1 );
 		add_filter( 'core_version_check_locale', array( &$this, 'core_version_check_locale' ) );
 
-		if ( defined( 'GNETWORK_WPLANG' ) && 'fa_IR' == constant( 'GNETWORK_WPLANG' ) ) {
+		if ( defined( 'GNETWORK_WPLANG' ) ) {
 			if ( is_multisite() ) {
 				add_filter( 'gnetwork_new_blog_options', array( &$this, 'gnetwork_new_blog_options' ) );
 			}
@@ -38,18 +38,21 @@ class gNetworkLocale extends gNetworkModuleCore
 	public static function loadedMOfiles()
 	{
 		global $gNetwork;
-		gNetworkUtilities::dump( $gNetwork->locale->loaded );
+		gNetworkUtilities::dump( $gNetwork->locale->loaded ); // TODO: use Table Helper
 	}
 
 	public function gnetwork_new_blog_options( $new_options )
 	{
-		return array_merge( $new_options, array(
-			'timezone_string' => 'Asia/Tehran',
-			'date_format'     => 'Y/n/d',
-			'time_format'     => 'H:i',
-			'start_of_week'   => 6,
-			'WPLANG'          => GNETWORK_WPLANG,
-		) );
+		if ( 'fa_IR' == constant( 'GNETWORK_WPLANG' ) )
+			return array_merge( $new_options, array(
+				'timezone_string' => 'Asia/Tehran',
+				'date_format'     => 'Y/n/d',
+				'time_format'     => 'H:i',
+				'start_of_week'   => 6,
+				'WPLANG'          => GNETWORK_WPLANG,
+			) );
+
+		return $new_options;
 	}
 
 	public function core_version_check_locale( $locale )
@@ -57,20 +60,9 @@ class gNetworkLocale extends gNetworkModuleCore
 		return defined( 'GNETWORK_WPLANG' ) ? GNETWORK_WPLANG : $locale;
 	}
 
-	// http://wp-snippet.com/snippets/different-admin-and-theme-languages/
-	// setup one language for admin and the other for theme
-	// must be called before load_theme_textdomain()
-	// add_filter( 'locale', 'set_my_locale' );
-	public function gnetwork_locale_set_my_locale( $locale )
-	{
-		$locale = ( is_admin() ) ? "en_US" : "it_IT";
-		setlocale( LC_ALL, $local );
-		return $locale;
-	}
-
 	public function locale( $locale )
 	{
-		if( is_network_admin() )
+		if ( is_network_admin() )
 			return 'en_US';
 
 		if ( is_admin() ) {
@@ -83,71 +75,36 @@ class gNetworkLocale extends gNetworkModuleCore
 		if ( 'en_US' == $locale )
 			return $locale;
 
-
 		$black_list = apply_filters( 'gnetwork_locale_blacklist', array(
-			'page'      => 'rewrite-rules-inspector',
-			'post_type' => 'deprecated_log',
-			'page'      => 'connection-types',
-			'page'      => 'regenerate-thumbnails',
-			'page'      => 'ThreeWP_Activity_Monitor',
-			'page'      => 'wpsupercache',
-			'page'      => 'backup-to-dropbox',
-			'page'      => 'backup-to-dropbox-monitor',
-			'page'      => 'redirection.php',
-			'page'      => 'members-settings',
-			'page'      => 'roles',
-			'page'      => 'wp-dbmanager/wp-dbmanager.php',
-			'page'      => 'ozh_yourls',
-			'page'      => 'regenerate-thumbnails',
-			'page'      => 'a8c_developer',
-			'page'      => 'redirection.php',
-			'page'      => 'bwp_gxs_stats', // BWP Google XML Sitemaps
-			'page'      => 'bwp_gxs_generator', // BWP Google XML Sitemaps
-			'page'      => 'bwp_gxs_google_news', // BWP Google XML Sitemaps
-			'page'      => 'limit-login-attempts',
-			'page'      => 'p3-profiler',
-			'page'      => 'wp_aeh_errors',
-			'page'      => 'msrtm-website.php', // Multisite Robots.txt Manager
+			'rewrite-rules-inspector'       => 'page',
+			'deprecated_log'                => 'post_type',
+			'connection-types'              => 'page',
+			'regenerate-thumbnails'         => 'page',
+			'ThreeWP_Activity_Monitor'      => 'page',
+			'wpsupercache'                  => 'page',
+			'backup-to-dropbox'             => 'page',
+			'backup-to-dropbox-monitor'     => 'page',
+			'redirection.php'               => 'page',
+			'members-settings'              => 'page',
+			'roles'                         => 'page',
+			'wp-dbmanager/wp-dbmanager.php' => 'page',
+			'ozh_yourls'                    => 'page',
+			'regenerate-thumbnails'         => 'page',
+			'a8c_developer'                 => 'page',
+			'redirection.php'               => 'page',
+			'bwp_gxs_stats'                 => 'page', // BWP Google XML Sitemaps
+			'bwp_gxs_generator'             => 'page', // BWP Google XML Sitemaps
+			'bwp_gxs_google_news'           => 'page', // BWP Google XML Sitemaps
+			'limit-login-attempts'          => 'page',
+			'p3-profiler'                   => 'page',
+			'wp_aeh_errors'                 => 'page',
+			'msrtm-website.php'             => 'page', // Multisite Robots.txt Manager
 		) );
 
-		foreach ( $black_list as $key => $val )
+		foreach ( $black_list as $val => $key )
 			if ( isset( $_REQUEST[$key] ) && $val == trim( $_REQUEST[$key] ) )
 				return 'en_US';
 
 		return $locale;
-
-
-		// global $gnetwork_local;
-		// if ( ! empty( $gnetwork_local ) )
-		// 	return $gnetwork_local;
-		//
-		// $parsed = parse_url( $_SERVER['REQUEST_URI'] );
-		// //gnetwork_dump( $parsed ); die();
-		// if ( isset( $parsed['query'] ) ) {
-		// 	foreach ( $black_list as $key => $val ) {
-		// 	$b = $key.'='.$val;
-		// 		gnetwork_dump( $b );
-		// 		if ( $parsed['query'] == $key.'='.$val ) {
-		// 			$gnetwork_local = 'en_US';
-		// 			return $gnetwork_local;
-		// 		}
-		// 	}
-		// }
-		//
-		//
-		//
-		// 		gnetwork_dump( $parsed ); die();
-		// //gnetwork_dump( $_GET['page'] ); die();
-		//
-		// foreach ( $black_list as $key => $val ) {
-		// 	//$b = $_GET[$key].'-'.$key;
-		// 	//gnetwork_dump( $b );
-		// 	if ( isset( $_GET[$key] ) && $val == $_GET[$key] ) {
-		// 	}
-		// }
-		//
-		// $gnetwork_local = $locale;
-		// return $locale;
-		//
 	}
 }
