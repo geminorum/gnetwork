@@ -42,8 +42,8 @@ class gNetworkSearch extends gNetworkModuleCore
 		// Get all of the users of the blog and see if the search query matches either the display name or the user login
 		$all_users = get_users();
 		$matching_users = array();
-		foreach( $all_users as $blog_user ) {
-			if ( FALSE !== stripos( $blog_user->display_name, $wp_query->query_vars['s'] ) 
+		foreach ( $all_users as $blog_user ) {
+			if ( FALSE !== stripos( $blog_user->display_name, $wp_query->query_vars['s'] )
 				|| FALSE !== stripos( $blog_user->user_login, $wp_query->query_vars['s'] ) )
 					$matching_users[] = $blog_user->ID;
 		}
@@ -95,11 +95,11 @@ class gNetworkSearch extends gNetworkModuleCore
 	}
 
 	// Modify get_users() to search display_name instead of user_nicename
-	public function pre_user_query( &$user_query ) 
+	public function pre_user_query( &$user_query )
 	{
 		if ( is_object( $user_query ) )
 			$user_query->query_where = str_replace( "user_nicename LIKE", "display_name LIKE", $user_query->query_where );
-			
+
 		return $user_query;
 	}
 
@@ -126,7 +126,7 @@ class gNetworkSearch extends gNetworkModuleCore
 	public function template_redirect_search()
 	{
 		global $wp_query;
-		
+
 		if ( $wp_query->is_search )
 			self::redirect( add_query_arg( GNETWORK_SEARCH_QUERYID, $wp_query->query_vars['s'], GNETWORK_SEARCH_URL ) );
 	}

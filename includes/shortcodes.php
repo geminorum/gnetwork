@@ -574,7 +574,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		if ( count( $this->_pdf_ids ) ) {
 			echo '<script type="text/javascript">'."\n".'/* <![CDATA[ */'."\n";
 			echo 'window.onload = function(){'."\n";
-			foreach( $this->_pdf_ids as $id )
+			foreach ( $this->_pdf_ids as $id )
 				echo $id."\n";
 			echo '};';
 			echo "\n".'/* ]]> */'."\n".'</script>';
@@ -582,7 +582,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 
 		if ( count( $this->_flash_ids ) ) {
 			echo '<script type="text/javascript">'."\n".'/* <![CDATA[ */'."\n";
-			foreach( $this->_flash_ids as $id )
+			foreach ( $this->_flash_ids as $id )
 				echo 'swfobject.registerObject("'.$id.'", "9.0.0");'."\n";
 			echo "\n".'/* ]]> */'."\n".'</script>';
 		}

@@ -70,7 +70,7 @@ class gNetworkBlackList extends gNetworkModuleCore
 		$groups = explode( ',', $this->options['blacklisted_ips'] );
 		$long = ip2long( $_SERVER['REMOTE_ADDR'] );
 
-		foreach( $groups as $group ) {
+		foreach ( $groups as $group ) {
 			if ( FALSE === strpos( $group, '-' ) ) {
 				if ( $long == ip2long( trim( $group ) ) )
 					return TRUE;

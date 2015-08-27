@@ -2,11 +2,11 @@
 
 // Allow WordPress to use bcrypt for passwords.
 // https://gist.github.com/chrisguitarguy/4122483
-if( ! function_exists( 'wp_hash_password' ) ):
+if ( ! function_exists( 'wp_hash_password' ) ):
 	function wp_hash_password( $password ) {
 		global $wp_hasher;
 
-		if( empty( $wp_hasher ) ){
+		if ( empty( $wp_hasher ) ){
 			require_once( ABSPATH.'wp-includes/class-phpass.php' );
 
 			// second arg: make password non-portable (eg. allow bcrypt)

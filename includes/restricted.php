@@ -256,7 +256,7 @@ class gNetworkRestricted extends gNetworkModuleCore
 
 class gNetworkRestrictedBouncer
 {
-	
+
 	var $_options        = array();
 	var $_feed_key       = FALSE;
 	var $_feed_key_valid = FALSE;
@@ -367,7 +367,7 @@ class gNetworkRestrictedBouncer
 			'do_feed',
 		);
 
-		foreach( $actions as $action )
+		foreach ( $actions as $action )
 			add_action( $action, array( &$this, '_check_feed_access' ), 1 );
 	}
 

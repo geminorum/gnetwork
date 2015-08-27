@@ -72,7 +72,7 @@ class gNetworkNotify extends gNetworkModuleCore
 	{
 		if ( is_super_admin( $user_id ) )
 			return FALSE;
-			
+
 		return $blog_id;
 	}
 
@@ -80,9 +80,9 @@ class gNetworkNotify extends gNetworkModuleCore
 	// http://codex.wordpress.org/Configuring_Automatic_Background_Updates
 	public function auto_core_update_send_email( $true, $type, $core_update, $result )
 	{
-		if( in_array( $type, array( 'fail', 'critical' ) ) )
+		if ( in_array( $type, array( 'fail', 'critical' ) ) )
 			return TRUE;
-			
+
 		return FALSE;
 	}
 
@@ -98,7 +98,7 @@ class gNetworkNotify extends gNetworkModuleCore
 		$user = get_userdata( $user_id );
 
 		if ( ! $this->options['disable_new_user_admin'] ) {
-			
+
 			$message  = sprintf( __( 'New user registration on your site %s:' ), $blogname )."\r\n\r\n";
 			$message .= sprintf( __( 'Username: %s' ), $user->user_login )."\r\n\r\n";
 			$message .= sprintf( __( 'E-mail: %s' ), $user->user_email   )."\r\n";
@@ -149,4 +149,3 @@ function wp_password_change_notification( &$user ) {
 	global $gNetwork;
 	return $gNetwork->notify->wp_password_change_notification( $user );
 } endif;
-

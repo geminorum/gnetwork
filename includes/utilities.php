@@ -23,7 +23,7 @@ class gNetworkUtilities
 			'class' => 'nav-tab-wrapper',
 		), $html );
 	}
-	
+
 	// DEPRECATED : use gNetworkUtilities::headerTabs()
 	public static function tabNav( $tabs, $active = 'manual', $prefix = 'nav-tab-', $tag = 'h2' )
 	{
@@ -114,7 +114,7 @@ class gNetworkUtilities
 	{
 		global $wp_filter;
 
-		if( ! isset( $wp_filter[$hook] ) )
+		if ( ! isset( $wp_filter[$hook] ) )
 			return;
 
 		self::dump( $wp_filter[$hook] );
@@ -138,11 +138,11 @@ class gNetworkUtilities
 
 		$layout = locate_template( $layout_name );
 
-		if( ! $layout )
+		if ( ! $layout )
 			if ( file_exists( WP_CONTENT_DIR.DS.$layout_name.'.php' ) )
 				$layout = WP_CONTENT_DIR.DS.$layout_name.'.php';
 
-		if( ! $layout )
+		if ( ! $layout )
 			$layout = GNETWORK_DIR.'assets'.DS.'layouts'.DS.$layout_name.'.php';
 
 		if ( $no_cache )
@@ -156,11 +156,11 @@ class gNetworkUtilities
 
 	public static function strpos_arr( $haystack, $needle )
 	{
-		if( ! is_array( $haystack ) )
+		if ( ! is_array( $haystack ) )
 			$haystack = array( $haystack );
 
-		foreach( $haystack as $key => $what )
-			if( FALSE !== ( $pos = strpos( $what, $needle ) ) )
+		foreach ( $haystack as $key => $what )
+			if ( FALSE !== ( $pos = strpos( $what, $needle ) ) )
 				return $pos; // must return $key / FIXME: but what about zero?!
 
 		return FALSE;
@@ -208,7 +208,7 @@ class gNetworkUtilities
 		$html = '<select name="'.$name.'" id="'.$name.'">';
 		if ( $none )
 			$html .= '<option value="'.$none_val.'" '.selected( $selected, $none_val, FALSE ).'>'.esc_html( $none ).'</option>';
-		foreach( $list as $key => $item ) {
+		foreach ( $list as $key => $item ) {
 			$html .= '<option value="'.$key.'" '.selected( $selected, $key, FALSE ).'>'
 				.esc_html( ( $prop ? ( $obj ? $item->{$prop} : $item[$prop] ) : $item ) ).'</option>';
 		}
@@ -238,7 +238,7 @@ class gNetworkUtilities
 	private static function _tag_open( $tag, $atts, $content = TRUE )
 	{
 		$html = '<'.$tag;
-		foreach( $atts as $key => $att ) {
+		foreach ( $atts as $key => $att ) {
 
 			if ( is_array( $att ) && count( $att ) )
 				$att = implode( ' ', array_unique( $att ) );
@@ -425,7 +425,7 @@ class gNetworkUtilities
 
 	public static function headers( $array )
 	{
-		foreach( $array as $h => $k )
+		foreach ( $array as $h => $k )
 			header( "{$h}: {$k}", TRUE );
 	}
 
@@ -592,7 +592,7 @@ class gNetworkUtilities
 
 		$form_url = wp_nonce_url($form_url, 'filesystem_demo_screen'); //page url with nonce value
 
-		if( ! self::initWPFS( $form_url, $method, $context, $form_fields ) )
+		if ( ! self::initWPFS( $form_url, $method, $context, $form_fields ) )
 			return FALSE; //stop further processign when request form is displaying
 
 		/*
@@ -603,7 +603,7 @@ class gNetworkUtilities
 		$target_file = trailingslashit($target_dir).'test.txt';
 
 		/* write into file */
-		if( ! $wp_filesystem->put_contents( $target_file, $demotext, FS_CHMOD_FILE ) )
+		if ( ! $wp_filesystem->put_contents( $target_file, $demotext, FS_CHMOD_FILE ) )
 			return new WP_Error( 'writing_error', 'Error when writing file' ); //return error object
 
 		return $demotext;
@@ -625,7 +625,7 @@ class gNetworkUtilities
 		$method = ''; //leave this empty to perform test for 'direct' writing
 		$context = WP_PLUGIN_DIR . '/filesystem-demo'; //target folder
 
-		if( ! self::initWPFS( $form_url, $method, $context ) )
+		if ( ! self::initWPFS( $form_url, $method, $context ) )
 			return FALSE; //stop further processing when request forms displaying
 
 		/*
@@ -636,10 +636,10 @@ class gNetworkUtilities
 		$target_file = trailingslashit($target_dir).'test.txt';
 
 		/* read the file */
-		if( $wp_filesystem->exists( $target_file ) ) { //check for existence
+		if ( $wp_filesystem->exists( $target_file ) ) { //check for existence
 
 			$demotext = $wp_filesystem->get_contents( $target_file );
-			if(!$demotext)
+			if ( ! $demotext )
 				return new WP_Error('reading_error', 'Error when reading file'); //return error object
 		}
 
@@ -667,7 +667,7 @@ class gNetworkUtilities
 	{
 		print str_repeat( '=', 50 )."\n";
 		$i = 1;
-		foreach( $stacktrace as $node ) {
+		foreach ( $stacktrace as $node ) {
 			print "$i. ".basename( $node['file'] ).':'.$node['function'].'('.$node['line'].")\n";
 			$i++;
 		}

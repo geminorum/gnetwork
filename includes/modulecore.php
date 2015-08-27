@@ -82,7 +82,7 @@ class gNetworkModuleCore
 	{
 		$output = ( is_null( $defaults ) ? $this->default_options() : $defaults );
 
-		foreach( $output as $key => $val )
+		foreach ( $output as $key => $val )
 			if ( isset( $input[$key] ) )
 				$output[$key] = $input[$key];
 
@@ -366,7 +366,7 @@ class gNetworkModuleCore
 			return;
 
 		if ( 'debug' == $args['field'] ) {
-			if( ! gNetworkUtilities::isDev() )
+			if ( ! gNetworkUtilities::isDev() )
 				return;
 			$args['type'] = 'debug';
 			if ( ! $args['title'] )
@@ -523,7 +523,7 @@ class gNetworkModuleCore
 			case 'checkbox' :
 
 				if ( count( $args['values'] ) ) {
-					foreach( $args['values'] as $value_name => $value_title ) {
+					foreach ( $args['values'] as $value_name => $value_title ) {
 						$html = gNetworkUtilities::html( 'input', array(
 							'type'    => 'checkbox',
 							'class'   => $args['field_class'],
@@ -558,7 +558,7 @@ class gNetworkModuleCore
 			case 'radio' :
 
 				if ( count( $args['values'] ) ) {
-					foreach( $args['values'] as $value_name => $value_title ) {
+					foreach ( $args['values'] as $value_name => $value_title ) {
 						$html = gNetworkUtilities::html( 'input', array(
 							'type'    => 'radio',
 							'class'   => $args['field_class'],
@@ -705,7 +705,7 @@ class gNetworkModuleCore
 		$atts = (array) $atts;
 		$out  = array();
 
-		foreach( $pairs as $name => $default ) {
+		foreach ( $pairs as $name => $default ) {
 			if ( array_key_exists( $name, $atts ) )
 				$out[$name] = $atts[$name];
 			else
@@ -775,7 +775,7 @@ class gNetworkModuleCore
 
 		$response = wp_remote_get( $url, $args );
 
-		if( ! is_wp_error( $response )
+		if ( ! is_wp_error( $response )
 			&& 200 == wp_remote_retrieve_response_code( $response ) ) {
 				return json_decode( wp_remote_retrieve_body( $response ) );
 		}
@@ -791,7 +791,7 @@ class gNetworkModuleCore
 
 		$response = wp_remote_get( $url, $args );
 
-		if( ! is_wp_error( $response )
+		if ( ! is_wp_error( $response )
 			&& 200 == wp_remote_retrieve_response_code( $response ) ) {
 				return wp_remote_retrieve_body( $response );
 		}

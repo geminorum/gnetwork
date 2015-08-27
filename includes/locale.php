@@ -72,7 +72,7 @@ class gNetworkLocale extends gNetworkModuleCore
 	{
 		if( is_network_admin() )
 			return 'en_US';
-			
+
 		if ( is_admin() ) {
 			if ( GNETWORK_WPLANG_ADMIN )
 				return GNETWORK_WPLANG_ADMIN;
@@ -82,7 +82,7 @@ class gNetworkLocale extends gNetworkModuleCore
 
 		if ( 'en_US' == $locale )
 			return $locale;
-			
+
 
 		$black_list = apply_filters( 'gnetwork_locale_blacklist', array(
 			'page'      => 'rewrite-rules-inspector',
@@ -110,7 +110,7 @@ class gNetworkLocale extends gNetworkModuleCore
 			'page'      => 'msrtm-website.php', // Multisite Robots.txt Manager
 		) );
 
-		foreach( $black_list as $key => $val )
+		foreach ( $black_list as $key => $val )
 			if ( isset( $_REQUEST[$key] ) && $val == trim( $_REQUEST[$key] ) )
 				return 'en_US';
 
@@ -124,7 +124,7 @@ class gNetworkLocale extends gNetworkModuleCore
 		// $parsed = parse_url( $_SERVER['REQUEST_URI'] );
 		// //gnetwork_dump( $parsed ); die();
 		// if ( isset( $parsed['query'] ) ) {
-		// 	foreach( $black_list as $key => $val ) {
+		// 	foreach ( $black_list as $key => $val ) {
 		// 	$b = $key.'='.$val;
 		// 		gnetwork_dump( $b );
 		// 		if ( $parsed['query'] == $key.'='.$val ) {
@@ -139,7 +139,7 @@ class gNetworkLocale extends gNetworkModuleCore
 		// 		gnetwork_dump( $parsed ); die();
 		// //gnetwork_dump( $_GET['page'] ); die();
 		//
-		// foreach( $black_list as $key => $val ) {
+		// foreach ( $black_list as $key => $val ) {
 		// 	//$b = $_GET[$key].'-'.$key;
 		// 	//gnetwork_dump( $b );
 		// 	if ( isset( $_GET[$key] ) && $val == $_GET[$key] ) {

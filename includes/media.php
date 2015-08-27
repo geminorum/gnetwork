@@ -210,7 +210,7 @@ class gNetworkMedia extends gNetworkModuleCore
 
 		// Look through the attachment meta data for an image that fits our size.
 		$meta = wp_get_attachment_metadata( $attachment_id );
-		foreach( $meta['sizes'] as $key => $size ) {
+		foreach ( $meta['sizes'] as $key => $size ) {
 			if ( $size['width'] == $width && $size['height'] == $height ) {
 				$src = str_replace( basename( $src ), $size['file'], $src );
 				$needs_resize = false;

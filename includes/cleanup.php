@@ -33,7 +33,7 @@ class gNetworkCleanup extends gNetworkModuleCore
 	// http://www.paulund.co.uk/remove-jquery-migrate-file-wordpress
 	public function wp_default_scripts( &$scripts )
 	{
-		if( is_admin() )
+		if ( is_admin() )
 			return;
 
 		if ( ! defined( 'GNETWORK_DISABLE_JQUERY_MIGRATE' ) || GNETWORK_DISABLE_JQUERY_MIGRATE ) {

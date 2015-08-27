@@ -208,7 +208,7 @@ class gNetworkDebug extends gNetworkModuleCore
 	{
 		global $wpdb, $_wp_using_ext_object_cache;
 
-		if( $_wp_using_ext_object_cache )
+		if ( $_wp_using_ext_object_cache )
 			return;
 
 		if ( $site ) {
@@ -228,7 +228,7 @@ class gNetworkDebug extends gNetworkModuleCore
 			$query = "SELECT {$key} FROM {$table} WHERE {$key} LIKE '_transient_timeout%'";
 		}
 
-		foreach( $wpdb->get_col( $query ) as $transient ) {
+		foreach ( $wpdb->get_col( $query ) as $transient ) {
 			$name = str_replace( '_transient_timeout_', '', $transient );
 			if ( $site ) {
 				delete_site_transient( $name );

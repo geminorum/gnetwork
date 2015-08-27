@@ -11,7 +11,7 @@ class gNetworkReference extends gNetworkModuleCore
 		$count = 1;
 		$notes = array();
 		$rows  = array_filter( preg_split( "/\n/", $footnotes ) );
-		
+
 		$patterns = array(
 			'/\[(\d+)\]\s\-/u',
 			'/\[(\d+)\]\-/u',
@@ -124,7 +124,8 @@ class gNetworkReference extends gNetworkModuleCore
 
 	}
 
-	protected function replace_callback($matches) {
+	protected function replace_callback($matches)
+	{
 
 		// the text sits in the matches array
 		// see http://php.net/manual/en/function.preg-replace-callback.php
@@ -134,11 +135,12 @@ class gNetworkReference extends gNetworkModuleCore
 
 	}
 
-	public function getEndnotes() {
+	public function getEndnotes()
+	{
 		$out = array();
 		$out[] = '<ol>';
 
-		foreach($this->footnote_texts as $text) {
+		foreach ( $this->footnote_texts as $text ) {
 			$out[] = '<li>'.$text.'</li>';
 		}
 

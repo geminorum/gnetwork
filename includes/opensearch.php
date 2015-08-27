@@ -165,9 +165,9 @@ class gNetworkOpenSearch extends gNetworkModuleCore
 
 	public function parse_request( $request )
 	{
-		if( 'osd.xml' == $request->request )
+		if ( 'osd.xml' == $request->request )
 			$this->xml();
-		else if( 'oss.json' == $request->request )
+		else if ( 'oss.json' == $request->request )
 			$this->suggestions();
 	}
 

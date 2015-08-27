@@ -131,7 +131,7 @@ class gNetworkAdminBar extends gNetworkModuleCore
 	public function wp_before_admin_bar_render()
 	{
 		global $wp_admin_bar;
-		
+
 		if ( is_super_admin() ) {
 
 			if ( is_multisite() )
@@ -294,7 +294,7 @@ class gNetworkAdminBar extends gNetworkModuleCore
 	{
 		$menu = get_site_option( 'gnetwork_'.$name );
 
-		if( ! empty( $menu ) )
+		if ( ! empty( $menu ) )
 			return $menu;
 
 		if ( is_main_site() ) {
@@ -366,7 +366,7 @@ class gNetworkAdminBar extends gNetworkModuleCore
 		) );
 	}
 
-	public static function my_sites( &$wp_admin_bar ) 
+	public static function my_sites( &$wp_admin_bar )
 	{
 		if ( ! is_user_logged_in() || ! is_multisite() )
 			return;
@@ -379,7 +379,7 @@ class gNetworkAdminBar extends gNetworkModuleCore
 		} else {
 			$my_sites_url = admin_url( 'my-sites.php' );
 		}
-		
+
 		$wp_admin_bar->remove_node( 'my-sites' );
 		$wp_admin_bar->add_menu( array(
 			'id'    => 'my-sites',

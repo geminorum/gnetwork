@@ -367,7 +367,7 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 					$bp->signup->errors['gnetwork_bp_tos'] = $this->options['tos_must'];
 		}
 
-		if( isset( $_POST[$this->_field_name] )
+		if ( isset( $_POST[$this->_field_name] )
 			&& ! empty( $_POST[$this->_field_name] ) )
 				$result['errors']->add( 'gnetwork_bp_honeypot',
 					__( "You're totally a spammer. Go somewhere else with your spammy ways.", GNETWORK_TEXTDOMAIN ) );
@@ -384,15 +384,15 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 	// http://wordpress.stackexchange.com/a/61875
 	public function bp_ajax_querystring( $qs = FALSE, $object = FALSE )
 	{
-		if( $object != 'members' ) // members only
+		if ( $object != 'members' ) // members only
 			return $qs;
 
 		$args = wp_parse_args( $qs );
 
-		if( ! empty( $args['user_id'] ) ) //check if we are listing friends?, do not exclude in this case
+		if ( ! empty( $args['user_id'] ) ) //check if we are listing friends?, do not exclude in this case
 			return $qs;
 
-		if( ! empty( $args['exclude'] ) )
+		if ( ! empty( $args['exclude'] ) )
 			$args['exclude'] = $args['exclude'].','.constant( 'GNETWORK_BP_EXCLUDEUSERS' );
 		else
 			$args['exclude'] = constant( 'GNETWORK_BP_EXCLUDEUSERS' );
@@ -416,7 +416,7 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 		);
 
 		// if the activity type is empty, it stops BuddyPress BP_Activity_Activity::save() function
-		if( in_array( $activity_object->type, $exclude ) )
+		if ( in_array( $activity_object->type, $exclude ) )
 			$activity_object->type = FALSE;
 	}
 
@@ -430,7 +430,7 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 	public function bp_activity_user_can_delete( $can_delete, $activity )
 	{
 		//if the user already has permission or the user is not logged in, we don't care
-		if( $can_delete || ! is_user_logged_in() )
+		if ( $can_delete || ! is_user_logged_in() )
 			return $can_delete;
 
 		//if we are here, let us check if the current user is the author of the parent activity
@@ -438,14 +438,14 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 		$parent_activity = NULL;
 
 		//if it is an activity comment
-		if( $activity->item_id ) {
+		if ( $activity->item_id ) {
 			$parent_activity = new BP_Activity_Activity( $activity->item_id );
 		} else {
 			$parent_activity = $activity;
 		}
 
 		//if the current user is author of main activity, he/she can delete it
-		if( $parent_activity->user_id == get_current_user_id() )
+		if ( $parent_activity->user_id == get_current_user_id() )
 			$can_delete = TRUE;
 
 		return $can_delete;
@@ -496,7 +496,7 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 
 	public function bp_core_activated_user( $user_id )
 	{
-		foreach( self::defaultNotifications() as $setting => $title ) {
+		foreach ( self::defaultNotifications() as $setting => $title ) {
 			$preference = in_array( $setting, $this->options['notification_defaults'] ) ? 'yes' : 'no';
 			bp_update_user_meta( $user_id, 'notification_'.$setting, $preference );
 		}

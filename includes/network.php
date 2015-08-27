@@ -144,7 +144,7 @@ class gNetworkNetwork extends gNetworkModuleCore
 			'overview' => __( 'Overview', GNETWORK_TEXTDOMAIN ),
 		);
 
-		foreach( $this->menus as $sub => $args )
+		foreach ( $this->menus as $sub => $args )
 			$subs[$sub] = $args['title'];
 
 		if ( is_super_admin() )

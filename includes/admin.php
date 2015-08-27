@@ -83,7 +83,7 @@ class gNetworkAdmin extends gNetworkModuleCore
 				120
 			);
 
-			foreach( $this->menus as $sub => $args ) {
+			foreach ( $this->menus as $sub => $args ) {
 				add_submenu_page( 'gnetwork',
 					sprintf( __( 'gNetwork Extras: %s', GNETWORK_TEXTDOMAIN ), $args['title'] ),
 					$args['title'],
@@ -188,7 +188,7 @@ class gNetworkAdmin extends gNetworkModuleCore
 		// if ( self::cuc( 'manage_options' ) )
 			$subs['overview'] = __( 'Overview', GNETWORK_TEXTDOMAIN );
 
-		foreach( $this->menus as $sub => $args )
+		foreach ( $this->menus as $sub => $args )
 			if ( self::cuc( $args['cap'] ) )
 				$subs[$sub] = $args['title'];
 
@@ -249,7 +249,7 @@ class gNetworkAdmin extends gNetworkModuleCore
 	{
 		array_push( $buttons, '|' );
 
-		foreach( $this->tinymce as $plugin => $filepath )
+		foreach ( $this->tinymce as $plugin => $filepath )
 			array_push( $buttons, $plugin );
 
 		return $buttons;
@@ -257,7 +257,7 @@ class gNetworkAdmin extends gNetworkModuleCore
 
 	public function mce_external_plugins( $plugin_array )
 	{
-		foreach( $this->tinymce as $plugin => $filepath )
+		foreach ( $this->tinymce as $plugin => $filepath )
 			$plugin_array[$plugin] = $filepath;
 
 		return $plugin_array;
@@ -330,7 +330,7 @@ class gNetworkAdmin extends gNetworkModuleCore
 
 			if ( ! empty( $maxitems ) ) {
 				?> <div class="rss-widget"><ul>
-				<?php foreach( $rss_items as $item ) { ?>
+				<?php foreach ( $rss_items as $item ) { ?>
 					<li><a class="rsswidget" href='<?php echo $item->get_permalink(); ?>'><?php echo $item->get_title(); ?></a> <span class="rss-date"><?php echo date_i18n( 'j F Y', $item->get_date( 'U' ) ); ?></span></li>
 				<?php } ?></ul></div> <?php
 			}

@@ -103,7 +103,7 @@ class gNetworkCaptcha extends gNetworkModuleCore
 					__( 'CAPTCHA should not be empty', GNETWORK_TEXTDOMAIN ) );
 
 
-		if( isset( $_POST['recaptcha_response_field'] )
+		if ( isset( $_POST['recaptcha_response_field'] )
 			&& 'false' == $this->recaptcha_response() )
 				return new WP_Error( 'invalid_captcha',
 					__( 'CAPTCHA response was incorrect', GNETWORK_TEXTDOMAIN ) );

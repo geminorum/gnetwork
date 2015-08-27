@@ -12,22 +12,22 @@ class gNetworkComments extends gNetworkModuleCore
 			__( 'Comments', GNETWORK_TEXTDOMAIN ),
 			array( &$this, 'settings' )
 		);
-		
+
 		if ( $this->options['disable_comments_emails'] ) {
-			
+
 			// filter the list of email addresses to receive a comment notification.
 			add_filter( 'comment_notification_recipients', '__return_empty_array' );
-			
+
 			// notifies the moderator of the blog about a new comment that is awaiting approval.
-			add_filter( 'pre_option_moderation_notify', '__return_zero' ); 
+			add_filter( 'pre_option_moderation_notify', '__return_zero' );
 		}
 
 		if ( is_admin() && $this->options['admin_fullcomments'] )
 			add_filter( 'comment_excerpt', array( &$this, 'comment_excerpt' ) );
-			
+
 		add_filter( 'pre_comment_approved', array( &$this, 'pre_comment_approved' ), 99, 2 );
 		add_filter( 'add_comment_metadata', array( &$this, 'add_comment_metadata' ), 20, 3 );
-		
+
 		add_filter( 'get_default_comment_status', array( &$this, 'get_default_comment_status' ), 20, 3 );
 
 		// register_shutdown_function( array( &$this, 'delete_spam_comments' ) );
@@ -95,7 +95,7 @@ class gNetworkComments extends gNetworkModuleCore
 		global $comment;
 
 		$content = wpautop( $comment->comment_content );
-		
+
 		// FIXME: disabled for testing
 		// $content = substr( $content, 3, -5 );	// Remove first <p> and last </p>
 		// $content = str_replace( '<p>', '<p style="display:block; margin:1em 0">', $content );
@@ -138,18 +138,18 @@ class gNetworkComments extends gNetworkModuleCore
 			// 'akismet_pro_tip',
 		);
 
-		if( in_array( $meta_key, $to_filter ) )
+		if ( in_array( $meta_key, $to_filter ) )
 			return FALSE;
 
 		return $check;
 	}
-	
+
 	// https://make.wordpress.org/core/2015/07/06/comments-are-now-turned-off-on-pages-by-default/
 	public function get_default_comment_status( $status, $post_type, $comment_type )
 	{
 		if ( 'page' == $post_type )
 			return 'closed'; // also for ping_status
-			
+
 		return $status;
 	}
 
@@ -166,7 +166,7 @@ class gNetworkComments extends gNetworkModuleCore
 
 			// 4980
 			$next = (int) get_site_option( 'gnc_delete_next_blog' );
-			
+
 			if ( empty( $next ) )
 				$next = 1;
 
@@ -218,12 +218,12 @@ class gNetworkComments extends gNetworkModuleCore
 		// UPDATE wp_posts SET ping_status='closed' WHERE post_status = 'publish' AND post_type = 'post';
 		// UPDATE wp_posts SET ping_status='closed' WHERE post_status = 'publish' AND post_type = 'page';
 	}
-	
+
 	// http://www.codecheese.com/2013/11/wordpress-get-total-comment-count/
 	public function total_comments( $post_id = 0 )
 	{
 		$comments = wp_count_comments( $post_id );
-		
+
 		$map = array(
 			'moderated'      => __( 'Comments in moderation: %s', GNETWORK_TEXTDOMAIN ),
 			'approved'       => __( 'Comments approved: %s', GNETWORK_TEXTDOMAIN ),
@@ -231,9 +231,9 @@ class gNetworkComments extends gNetworkModuleCore
 			'trash'          => __( 'Comments in Trash: %s', GNETWORK_TEXTDOMAIN ),
 			'total_comments' => __( 'Total Comments: %s', GNETWORK_TEXTDOMAIN ),
 		);
-			
+
 		echo '<ul>';
-		foreach( $map as $key => $string )
+		foreach ( $map as $key => $string )
 			echo '<li>'.sprintf( $string, number_format_i18n( $comments->{$key} ) ).'</li>';
 		echo '</ul>';
 	}

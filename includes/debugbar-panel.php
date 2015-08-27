@@ -10,7 +10,7 @@ class Debug_Bar_gNetwork extends Debug_Bar_Panel
 	public function render()
 	{
 		echo '<div id="gnetwork-debugbar-panel" class="gnetwork-admin-wrap debugbar-panel">';
-		foreach( apply_filters( 'gnetwork_debugbar_panel_groups', array() ) as $group_slug => $group_title ) {
+		foreach ( apply_filters( 'gnetwork_debugbar_panel_groups', array() ) as $group_slug => $group_title ) {
 			echo '<h3>'.$group_title.'</h3>';
 			echo '<div class="group">';
 			do_action( 'gnetwork_debugbar_panel_'.$group_slug );
@@ -33,10 +33,10 @@ class Debug_Bar_gNetworkMeta extends Debug_Bar_Panel
 
 		$meta = get_post_meta( get_the_ID() );
 		if ( $meta ) {
-			foreach( $meta as $key => $values ) {
+			foreach ( $meta as $key => $values ) {
 				echo '<h3>'.$key.'</h3>';
 				echo '<div class="group">';
-				foreach( $values as $value ){
+				foreach ( $values as $value ){
 					$data = maybe_unserialize( $value );
 					gNetworkUtilities::dump( $data );
 				}
