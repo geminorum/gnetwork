@@ -1,3 +1,7 @@
+### 0.2.17
+* search: include authors removed
+* locale: custom override actually working!
+
 ### 0.2.16
 * admin: internal api for tinymce plugins
 * typography: editor button for asterisks
