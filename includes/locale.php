@@ -99,6 +99,8 @@ class gNetworkLocale extends gNetworkModuleCore
 			'p3-profiler'                   => 'page',
 			'wp_aeh_errors'                 => 'page',
 			'msrtm-website.php'             => 'page', // Multisite Robots.txt Manager
+			'breadcrumb-navxt'              => 'page', // Breadcrumb NavXT
+			'themecheck'                    => 'page', // Theme Check
 		) );
 
 		foreach ( $black_list as $val => $key )

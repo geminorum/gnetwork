@@ -94,6 +94,34 @@ ol.comment-list li ul.children {
 	margin: 0 0 10px 10px;
 }
 
+.homewidget {
+	h3 {
+		font-size: 20px;
+	}
+	p {
+		font-size: 0.98em;
+	}
+}
+
+h1.widget-title,
+h3.sidetitle,
+h3.sidetitl {
+	height: auto;
+}
+
+.postbox h3,
+h1.widget-title,
+h3.sidetitl,
+h3.sidetitle {
+	font-size: 16px;
+	line-height: 1.6;
+}
+
+h1.entry-title {
+	font-size: 22px;
+	line-height: 1.6;
+}
+
 .page-content,
 .entry-content,
 .entry-summary {

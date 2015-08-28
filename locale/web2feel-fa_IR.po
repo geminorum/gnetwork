@@ -406,7 +406,7 @@ msgstr ""
 
 #: content.php:57
 msgid "Leave a comment"
-msgstr ""
+msgstr "نظر شما"
 
 #: content.php:57
 msgid "1 Comment"
