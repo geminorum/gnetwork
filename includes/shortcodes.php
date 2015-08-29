@@ -677,7 +677,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 
 			$item .= gNetworkUtilities::html( 'a', array(
 				'class'       => 'cite-scroll',
-				'data-toggle' => 'tooltip',
+				// 'data-toggle' => 'tooltip',
 				'href'        => '#citeref-'.$key,
 				'title'       => $args['back_title'],
 			), $args['back'] );
