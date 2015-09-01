@@ -12,6 +12,7 @@ class gNetworkMedia extends gNetworkModuleCore
 	protected function setup_actions()
 	{
 		add_filter( 'upload_mimes', array( &$this, 'upload_mimes' ) );
+		add_filter( 'single_post_title', array( &$this, 'single_post_title' ), 9, 2 );
 
 		// based on: http://wordpress.org/plugins/media-item-url/
 		add_action( 'admin_enqueue_scripts', array( &$this, 'admin_enqueue_scripts' ), 10 );
@@ -158,6 +159,19 @@ class gNetworkMedia extends gNetworkModuleCore
 			'gNetwork_Image_Editor_Imagick',
 			'gNetwork_Image_Editor_GD',
 		);
+	}
+
+	public function single_post_title( $post_title, $post )
+	{
+		if ( 'attachment' == $post->post_type ) {
+			if ( $alt = get_post_meta( $post->ID, '_wp_attachment_image_alt', TRUE ) )
+				return $alt;
+
+			if ( $post->post_excerpt )
+				return wp_trim_words( $post->post_excerpt, 7, ' '.'[&hellip;]' );
+		}
+
+		return $post_title;
 	}
 
 	// UNFINISHED
