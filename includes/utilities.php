@@ -541,26 +541,21 @@ class gNetworkUtilities
 	{
 		global $wp_filesystem;
 
-		/* first attempt to get credentials */
-		if ( FALSE === ( $creds = request_filesystem_credentials( $form_url, $method, FALSE, $context, $fields ) ) ) {
-
-			/**
-			* if we comes here - we don't have credentials
-			* so the request for them is displaying
-			* no need for further processing
-			**/
+		// first attempt to get credentials
+		if ( FALSE === ( $creds = request_filesystem_credentials( $form_url, $method, FALSE, $context, $fields ) ) )
+			// if we comes here - we don't have credentials so the request for them is displaying no need for further processing
 			return FALSE;
-		}
 
-		/* now we got some credentials - try to use them*/
+		// now we got some credentials - try to use them
 		if ( ! WP_Filesystem( $creds ) ) {
 
-			/* incorrect connection data - ask for credentials again, now with error message */
+			// incorrect connection data - ask for credentials again, now with error message
 			request_filesystem_credentials( $form_url, $method, TRUE, $context );
 			return FALSE;
 		}
 
-		return TRUE; //filesystem object successfully initiated
+		// filesystem object successfully initiated
+		return TRUE;
 	}
 
 	/**
@@ -576,35 +571,31 @@ class gNetworkUtilities
 		$args = gNetworkModuleCore::atts( array(
 			'form_url' => '',
 			'referer'  => 'filesystem_demo_screen',
-			'content'  => sanitize_text_field($_POST['demotext']),
-			'method'   => '', //leave this empty to perform test for 'direct' writing
-			'context'  => WP_CONTENT_DIR.'/gnetwork', //target folder
+			'content'  => sanitize_text_field( $_POST['demotext'] ),
+			'method'   => '', // leave this empty to perform test for 'direct' writing
+			'context'  => WP_CONTENT_DIR.'/gnetwork', // target folder
 			'filename' => 'test.txt',
 		), $atts );
 
-
 		check_admin_referer( 'filesystem_demo_screen' );
 
-		$demotext = sanitize_text_field($_POST['demotext']); //sanitize the input
-		$form_fields = array('demotext'); //fields that should be preserved across screens
-		$method = ''; //leave this empty to perform test for 'direct' writing
-		$context = WP_PLUGIN_DIR . '/filesystem-demo'; //target folder
-
-		$form_url = wp_nonce_url($form_url, 'filesystem_demo_screen'); //page url with nonce value
+		$demotext    = sanitize_text_field( $_POST['demotext'] ); // sanitize the input
+		$form_fields = array( 'demotext' ); // fields that should be preserved across screens
+		$method      = ''; // leave this empty to perform test for 'direct' writing
+		$context     = WP_PLUGIN_DIR.'/filesystem-demo'; // target folder
+		$form_url    = wp_nonce_url( $form_url, 'filesystem_demo_screen' ); // page url with nonce value
 
 		if ( ! self::initWPFS( $form_url, $method, $context, $form_fields ) )
-			return FALSE; //stop further processign when request form is displaying
+			return FALSE; // stop further processign when request form is displaying
 
-		/*
-		* now $wp_filesystem could be used
-		* get correct target file first
-		**/
-		$target_dir = $wp_filesystem->find_folder($context);
-		$target_file = trailingslashit($target_dir).'test.txt';
+		// now $wp_filesystem could be used
+		// get correct target file first
+		$target_dir  = $wp_filesystem->find_folder( $context );
+		$target_file = trailingslashit( $target_dir ).'test.txt';
 
-		/* write into file */
+		// write into file
 		if ( ! $wp_filesystem->put_contents( $target_file, $demotext, FS_CHMOD_FILE ) )
-			return new WP_Error( 'writing_error', 'Error when writing file' ); //return error object
+			return new WP_Error( 'writing_error', 'Error when writing file' ); // return error object
 
 		return $demotext;
 	}
@@ -621,26 +612,24 @@ class gNetworkUtilities
 
 		$demotext = '';
 
-		$form_url = wp_nonce_url($form_url, 'filesystem_demo_screen');
-		$method = ''; //leave this empty to perform test for 'direct' writing
-		$context = WP_PLUGIN_DIR . '/filesystem-demo'; //target folder
+		$form_url = wp_nonce_url( $form_url, 'filesystem_demo_screen' );
+		$method   = ''; // leave this empty to perform test for 'direct' writing
+		$context  = WP_PLUGIN_DIR.'/filesystem-demo'; // target folder
 
 		if ( ! self::initWPFS( $form_url, $method, $context ) )
-			return FALSE; //stop further processing when request forms displaying
+			return FALSE; // stop further processing when request forms displaying
 
-		/*
-		* now $wp_filesystem could be used
-		* get correct target file first
-		**/
-		$target_dir = $wp_filesystem->find_folder($context);
-		$target_file = trailingslashit($target_dir).'test.txt';
+		// now $wp_filesystem could be used
+		// get correct target file first
+		$target_dir  = $wp_filesystem->find_folder( $context );
+		$target_file = trailingslashit( $target_dir ).'test.txt';
 
-		/* read the file */
-		if ( $wp_filesystem->exists( $target_file ) ) { //check for existence
+		// read the file
+		if ( $wp_filesystem->exists( $target_file ) ) { // check for existence
 
 			$demotext = $wp_filesystem->get_contents( $target_file );
 			if ( ! $demotext )
-				return new WP_Error('reading_error', 'Error when reading file'); //return error object
+				return new WP_Error( 'reading_error', 'Error when reading file' ); // return error object
 		}
 
 		return $demotext;
