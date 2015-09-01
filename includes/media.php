@@ -32,6 +32,9 @@ class gNetworkMedia extends gNetworkModuleCore
 		}
 	}
 
+	// TODO: check for new thumb folder on :
+	// -- append attachment to a post
+	// -- delete an attachment
 	public function wp_generate_attachment_metadata( $metadata, $attachment_id )
 	{
 		if ( ! isset( $metadata['file'] ) )
@@ -40,7 +43,7 @@ class gNetworkMedia extends gNetworkModuleCore
 		if ( isset( $metadata['sizes'] ) && count( $metadata['sizes'] ) )
 			return $metadata;
 
-		$parent_type = apply_filters( 'gnetwork_media_object_sizes_parent', null, $attachment_id, $metadata );
+		$parent_type = apply_filters( 'gnetwork_media_object_sizes_parent', NULL, $attachment_id, $metadata );
 
 		if ( FALSE === $parent_type ) {
 			return $metadata;
@@ -113,18 +116,20 @@ class gNetworkMedia extends gNetworkModuleCore
 			$img_url    = wp_get_attachment_url( $post_id );
 			$img_url    = str_replace( wp_basename( $img_url ), $data['file'], $img_url );
 
-			if ( gNetworkUtilities::isDev() )
-				error_log( print_r( compact( 'data', 'path', 'upload_dir' ), TRUE ) );
-
-			if ( GNETWORK_MEDIA_SIZES_CHECK && isset( $data['path'] ) && file_exists( $upload_dir['basedir'].DS.$data['path'] ) )
+			if ( GNETWORK_MEDIA_SIZES_CHECK && file_exists( str_replace( $upload_dir['baseurl'], $upload_dir['basedir'], $img_url ) ) )
 				return $false;
 
-			return array(
+			$result = array(
 				str_replace( $upload_dir['baseurl'], trailingslashit( GNETWORK_MEDIA_SIZES_URL ).get_current_blog_id(), $img_url ),
 				$data['width'],
 				$data['height'],
 				TRUE,
 			);
+
+			if ( gNetworkUtilities::isDev() )
+				error_log( print_r( compact( 'size', 'data', 'path', 'img_url', 'result', 'upload_dir' ), TRUE ) );
+
+			return $result;
 		}
 
 		return $false;
