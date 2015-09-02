@@ -101,6 +101,7 @@ class gNetworkLocale extends gNetworkModuleCore
 			'msrtm-website.php'             => 'page', // Multisite Robots.txt Manager
 			'breadcrumb-navxt'              => 'page', // Breadcrumb NavXT
 			'themecheck'                    => 'page', // Theme Check
+			'search-regex.php'              => 'page', // Search Regex
 		) );
 
 		foreach ( $black_list as $val => $key )
