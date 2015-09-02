@@ -108,13 +108,6 @@ class gNetworkAdmin extends gNetworkModuleCore
 
 		add_action( 'load-'.$hook, array( &$this, 'admin_settings_load' ) );
 
-		add_options_page(
-			__( 'All Settings' ),
-			__( 'All Settings' ),
-			'administrator',
-			'options.php'
-		);
-
 		add_submenu_page( 'plugins.php',
 			__( 'Active', GNETWORK_TEXTDOMAIN ),
 			__( 'Active', GNETWORK_TEXTDOMAIN ),
