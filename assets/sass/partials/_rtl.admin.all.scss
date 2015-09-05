@@ -62,6 +62,30 @@ body.rtl {
 	#post-lock-dialog .post-taken-over {
 		margin: 20px;
 	}
+
+	#dashboard-widgets {
+		// #dashboard_activity h4,
+		h4 {
+			font-weight: 700 !important;
+			font-size: 15px;
+		}
+	}
+
+	#dashboard_right_now {
+		.inside {
+			.table {
+				.sub {
+					font:bold 15px/30px arial, sans-serif !important;
+				}
+				td a {
+					font:bold 15px/18px arial, sans-serif !important;
+				}
+				td.b a {
+					line-height:8px !important;
+				}
+			}
+		}
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////

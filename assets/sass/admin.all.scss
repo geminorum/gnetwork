@@ -14,11 +14,13 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
+
 .gnetwork-admin-wrap {
+
 	// @include mainwrap();
 
 	&.footer-wp-version {
-		cursor:pointer;
+		cursor: pointer;
 	}
 }
 
@@ -27,22 +29,21 @@ body {
 	&.profile-php,
 	&.user-edit-php {
 		.show-admin-bar {
-			display:none;
+			display: none;
 		}
 	}
 }
 
 textarea {
-	// width:100%;
-	resize:vertical;
-	transition:height 0.2s ease 0s;
+	// width: 100%;
+	resize: vertical;
+	transition: height 0.2s ease 0s;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-// TINYMCE BUTTON ICONS
-//
+/// TINYMCE BUTTON ICONS -------------------------------------------------------
+
 .gnetwork-tinymce-icon {
 
 	&:before {
@@ -72,33 +73,62 @@ textarea {
 }
 
 input#gnetwork-tinymce-input-gnetworkcite-refurl {
-	direction:ltr !important;
-	text-align:left;
+	direction: ltr !important;
+	text-align: left;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-///---GENEREAL ADMIN ENHANCEMENTS-----------------------------------------------
+/// GENEREAL ADMIN ENHANCEMENTS  -----------------------------------------------
 
 .gnetwork-sidenotification {
-	float:right;
-	line-height:29px;
-	font-size:23px;
-	font-weight:400;
-	padding:9px 0 4px 15px;
+	float: right;
+	line-height: 29px;
+	font-size: 23px;
+	font-weight: 400;
+	padding: 9px 0 4px 15px;
 
 	body.rtl & {
-		float:left;
-		padding:9px 15px 4px 0;
+		float: left;
+		padding: 9px 15px 4px 0;
 	}
 }
 
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// DASHBOARD WIDGETS ----------------------------------------------------------
+
+#dashboard-widgets {
+	h4 {
+	}
+
+	#dashboard_activity {
+		#published-posts {
+			ul {
+				margin-top: 0;
+			}
+		}
+	}
+
+	#dashboard_right_now {
+
+	}
+}
+
+#dashboard_activity #published-posts h4,
+#dashboard_right_now #wp-version-message,
+#dashboard_right_now h4.mu-storage,
+#dashboard_right_now .inside .versions p,
+#dashboard_right_now .inside .versions span,
+#dashboard_right_now .inside p.musub
+{ display: none !important; }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-///---WP LIST TABLE-------------------------------------------------------------
+/// WP LIST TABLE --------------------------------------------------------------
 
 .widefat {
 
@@ -121,10 +151,10 @@ input#gnetwork-tinymce-input-gnetworkcite-refurl {
 
 	td {
 		ul.cat-checklist {
-			height:auto !important;
-			max-height:12em !important;
+			height: auto !important;
+			max-height: 12em !important;
 			label {
-				line-height:1.5 !important;
+				line-height: 1.5 !important;
 			}
 		}
 	}
@@ -132,21 +162,20 @@ input#gnetwork-tinymce-input-gnetworkcite-refurl {
 
 .inline-edit-row {
 	h4 {
-		margin:0;
+		margin: 0;
 		line-height: 1.5;
 	}
 	fieldset {
 		span.title {
-			font-style:normal !important;
-			margin:0 !important;
+			font-style: normal !important;
+			margin: 0 !important;
 		}
 
 		span.inline-edit-categories-label {
-			line-height:1.5 !important;
+			line-height: 1.5 !important;
 		}
 	}
 }
-
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -162,40 +191,20 @@ ul.categorychecklist {
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-///---WORDPRESS ADMIN ENHANCEMENTS----------------------------------------------
-#dashboard_right_now #wp-version-message,
-#dashboard_right_now h4.mu-storage,
-#dashboard_activity #published-posts h4
-{ display:none; }
-#dashboard_activity #published-posts ul { margin-top:0; }
-
-#dashboard_right_now .inside .versions p,
-#dashboard_right_now .inside .versions span,
-#dashboard_right_now .inside p.musub
-{ display:none !important; }
-
-body.rtl #dashboard_right_now .inside .table .sub { font:bold 15px/30px arial, sans-serif !important; }
-body.rtl #dashboard_right_now .inside .table td a { font:bold 15px/18px arial, sans-serif !important; }
-body.rtl #dashboard_right_now .inside .table td.b a { line-height:8px !important; }
-
-
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
 ///---GENERAL FORM ENHANCEMENTS-------------------------------------------------
 .wrap {
 	input[type="text"]{
-		vertical-align:middle;
+		vertical-align: middle;
 	}
 
 	input.small-text{
-		padding:5px 5px 4px;
+		padding: 5px 5px 4px;
 	}
 }
 /**----------------------------------------------------------------------**/
-table.helper-table th, table.helper-table td { padding:8px 10px; }
+table.helper-table th, table.helper-table td { padding: 8px 10px; }
 table.helper-table th.helper-column-id,
-table.helper-table th.helper-column-post_id { width:12%; }
+table.helper-table th.helper-column-post_id { width: 12%; }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -245,8 +254,8 @@ table.users-network td.timestamps table td { padding:0 0 2px; }
 
 /** BWP Google XML Sitemaps--------------------------------------
 --------------------------------------------------------------**/
-form.bwp-option-page { direction:ltr; }
-#bwp-info-place { display:none; }
+// form.bwp-option-page { direction:ltr; }
+// #bwp-info-place { display:none; }
 
 /** gNetworkMedia ----------------------------------------------
 --------------------------------------------------------------**/
