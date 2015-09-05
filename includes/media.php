@@ -18,6 +18,9 @@ class gNetworkMedia extends gNetworkModuleCore
 		add_action( 'admin_enqueue_scripts', array( &$this, 'admin_enqueue_scripts' ), 10 );
 		add_filter( 'media_row_actions', array( &$this, 'media_row_actions' ), 50, 3 );
 
+		if ( GNETWORK_MEDIA_DISABLE_META )
+			add_filter( 'wp_read_image_metadata', '__return_empty_array', 12, 3 );
+
 		if ( GNETWORK_MEDIA_OBJECT_SIZES ) {
 			// http://wordpress.stackexchange.com/a/36196
 			add_filter( 'intermediate_image_sizes', '__return_empty_array', 99 );

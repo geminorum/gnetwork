@@ -47,6 +47,7 @@ $gnetwork_constants = array(
 	// 'GNETWORK_MEDIA_SIZES_REL'    => '../thumbs', // relate path to deffault uploads folder
 	'GNETWORK_MEDIA_SIZES_CHECK'  => TRUE, // check default wp dir before thumbs / make it disable for newly created sites
 	'GNETWORK_MEDIA_OBJECT_SIZES' => FALSE, // disable all image sizes and enable for each posttypes
+	'GNETWORK_MEDIA_DISABLE_META' => FALSE, // disable storing meta (EXIF) data of the attachments
 
 	'GNETWORK_TIMTHUMB_URL' => esc_url( home_url( '/repo/' ) ), // DEPRECATED
 
