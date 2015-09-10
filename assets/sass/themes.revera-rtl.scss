@@ -95,8 +95,12 @@ ol.comment-list li ul.children {
 }
 
 .homewidget {
+	span {
+		line-height: 70px;
+	}
 	h3 {
 		font-size: 20px;
+		line-height: 1.6;
 	}
 	p {
 		font-size: 0.98em;
