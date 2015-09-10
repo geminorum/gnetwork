@@ -46,6 +46,13 @@ class gNetworkTracking extends gNetworkModuleCore
 					'default' => '',
 				),
 				array(
+					'field'   => 'ga_userid',
+					'type'    => 'enabled',
+					'title'   => __( 'GA Track UserID', GNETWORK_TEXTDOMAIN ),
+					'desc'    => __( 'Track usernames in Google Analytics', GNETWORK_TEXTDOMAIN ),
+					'default' => '1',
+				),
+				array(
 					'field'   => 'ga_outbound',
 					'type'    => 'enabled',
 					'title'   => __( 'GA Track Outbounds', GNETWORK_TEXTDOMAIN ),
@@ -75,6 +82,7 @@ class gNetworkTracking extends gNetworkModuleCore
 		return array(
 			'ga_account'     => '',
 			'ga_domain'      => '',
+			'ga_userid'      => '1',
 			'ga_outbound'    => '0',
 			'quantcast'      => '',
 			'plus_publisher' => '',
@@ -108,17 +116,23 @@ class gNetworkTracking extends gNetworkModuleCore
 		if ( empty( $this->options['ga_domain'] ) || empty( $this->options['ga_account'] ) )
 			return;
 
+		$ga = "ga('create', '".esc_js( $this->options['ga_account'] )."', '".esc_js( $this->options['ga_domain'] )."');"."\n";
+
+		if ( $this->options['ga_userid'] && is_user_logged_in() )
+			$ga .= "ga('set', '&uid', '".esc_js( wp_get_current_user()->user_login )."');"."\n";
+
+		$ga .= "ga('send', 'pageview');";
+
 ?><script type="text/javascript">
 /* <![CDATA[ */
-	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-	  ga('create', '<?php echo $this->options['ga_account']; ?>', '<?php echo $this->options['ga_domain']; ?>');
-	  ga('send', 'pageview');
+	<?php echo $ga; ?>
 /* ]]> */
-</script> <?php
+</script><?php
 
 		if ( $this->options['ga_outbound'] ) {
 			$this->_ga_outbound = TRUE;
@@ -128,9 +142,6 @@ class gNetworkTracking extends gNetworkModuleCore
 
 	public function wp_footer()
 	{
-		if ( $this->ignore() )
-			return;
-
 		// http://www.sitepoint.com/track-outbound-links-google-analytics/
 		if ( $this->_ga_outbound ) {
 			?><script type="text/javascript">
