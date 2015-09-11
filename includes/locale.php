@@ -5,6 +5,7 @@ class gNetworkLocale extends gNetworkModuleCore
 
 	var $_network    = TRUE;
 	var $_option_key = FALSE;
+	var $_ajax       = TRUE; 
 
 	var $loaded = array();
 
