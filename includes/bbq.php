@@ -2,7 +2,7 @@
 
 // Based on : Block Bad Queries (BBQ) by Jeff Starr
 // http://perishablepress.com/block-bad-queries/
-// VERSION : 20150624
+// VERSION : 20150808
 
 class gNetworkBBQ extends gNetworkModuleCore
 {
