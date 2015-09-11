@@ -6,8 +6,9 @@ class gNetworkTracking extends gNetworkModuleCore
 	var $_network    = TRUE;
 	var $_option_key = 'tracking';
 
-	var $_ga_outbound = FALSE;
-	var $_ignore      = NULL;
+	var $_ga_outbound   = FALSE;
+	var $_gp_platformjs = FALSE;
+	var $_ignore        = NULL;
 
 	protected function setup_actions()
 	{
@@ -16,6 +17,7 @@ class gNetworkTracking extends gNetworkModuleCore
 			array( &$this, 'settings' )
 		);
 
+		add_action( 'init', array( &$this, 'init' ), 8 );
 		add_action( 'wp_head', array( &$this, 'wp_head' ), 999 );
 		add_action( 'wp_footer', array( &$this, 'wp_footer' ), 9 );
 	}
@@ -105,6 +107,47 @@ class gNetworkTracking extends gNetworkModuleCore
 		return $this->_ignore;
 	}
 
+	public function init()
+	{
+		$this->shortcodes( array(
+			'google-plus-badge' => 'shortcode_google_plus_badge',
+		) );
+	}
+
+	public function shortcode_google_plus_badge( $atts, $content = NULL, $tag = '' )
+	{
+		$args = shortcode_atts( array(
+			'id'      => FALSE,
+			'href'    => FALSE,
+			'width'   => '300',
+			'rel'     => 'publisher',
+			'context' => NULL,
+		), $atts, $tag );
+
+		if ( FALSE === $args['context'] )
+			return NULL;
+
+		if ( ! $args['id'] && ! empty( $this->options['plus_publisher'] ) )
+			$args['id'] = $this->options['plus_publisher'];
+
+		if ( $args['id'] )
+			$args['href'] = sprintf( 'https://plus.google.com/%s', $args['id'] );
+
+		if ( ! $args['href'] )
+			return $content;
+
+		$this->_gp_platformjs = TRUE;
+
+		$html = gNetworkUtilities::html( 'div', array(
+			'class'      => 'g-page',
+			'data-width' => $args['width'],
+			'data-href'  => $args['href'],
+			'data-rel'   => $args['rel'],
+		), NULL );
+
+		return '<div class="gnetwork-wrap-shortcode shortcode-googleplus-badge">'.$html.'</div>';
+	}
+
 	public function wp_head()
 	{
 		if ( $this->ignore() )
@@ -151,8 +194,7 @@ class gNetworkTracking extends gNetworkModuleCore
 </script> <?php
 		}
 
-		if ( empty( $this->options['quantcast'] ) )
-			return;
+		if ( ! empty( $this->options['quantcast'] ) ) {
 
 ?><script type="text/javascript">
 /* <![CDATA[ */
@@ -178,5 +220,23 @@ qacct:"<?php echo $this->options['quantcast']; ?>"
 <img src="//pixel.quantserve.com/pixel/<?php echo $this->options['quantcast']; ?>.gif" border="0" height="1" width="1" alt="Quantcast"/>
 </div>
 </noscript><?php
+
+		}
+
+		// https://developers.google.com/+/web/api/supported-languages
+
+		if ( $this->_gp_platformjs ) {
+?><script type="text/javascript">
+/* <![CDATA[ */
+	window.___gcfg = {lang: 'fa'};
+
+	(function() {
+		var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+		po.src = 'https://apis.google.com/js/platform.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+	})();
+/* ]]> */
+</script><?php
+		}
 	}
 }
