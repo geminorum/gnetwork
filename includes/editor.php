@@ -6,7 +6,7 @@
 
 class gNetworkEditor extends gNetworkModuleCore
 {
-	
+
 	var $_network    = FALSE;
 	var $_option_key = FALSE;
 

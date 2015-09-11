@@ -744,6 +744,7 @@ class gNetworkModuleCore
 			'message' => ( is_null( $wp_error ) ? '{NO WP_Error Object}' : $wp_error->get_error_message() ),
 		), $data );
 
+		// FIXME: we need to check WP_DEBUG_DISPLAY ?
 		error_log( print_r( $log, TRUE ) );
 	}
 

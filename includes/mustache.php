@@ -5,7 +5,7 @@
 
 // https://github.com/bobthecow/mustache.php/wiki
 
-abstract class gNetworkMustache 
+abstract class gNetworkMustache
 {
 
 	private static $loader;

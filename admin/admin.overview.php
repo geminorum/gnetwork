@@ -16,6 +16,8 @@ echo '<form method="post" action="">';
 			gNetworkDebug::pluginPaths();
 		echo '</td></tr>';
 
+		// TODO: add upload paths
+
 		echo '<tr class="ul-li-inline ltr"><th scope="row">'.__( 'Stats of the Caching', GNETWORK_TEXTDOMAIN ).'</th><td>';
 			gNetworkDebug::cacheStats();
 		echo '</td></tr>';

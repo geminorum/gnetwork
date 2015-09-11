@@ -19,7 +19,7 @@ class gNetworkMail extends gNetworkModuleCore
 
 		if ( $this->options['log_all'] )
 			add_filter( 'wp_mail', array( &$this, 'wp_mail' ), 99 );
-		
+
 		add_filter( 'wp_mail_from', array( &$this, 'wp_mail_from' ), 5 );
 		add_filter( 'wp_mail_from_name', array( &$this, 'wp_mail_from_name' ), 5 );
 
@@ -148,7 +148,7 @@ class gNetworkMail extends gNetworkModuleCore
 			_e( 'These options only apply if you have chosen to send mail by SMTP above.', GNETWORK_TEXTDOMAIN );
 		echo '</p>';
 	}
-	
+
 	public function settings_section_log()
 	{
 		echo '<h3>'.__( 'Log Settings', GNETWORK_TEXTDOMAIN ).'</h3>';
@@ -188,22 +188,22 @@ class gNetworkMail extends gNetworkModuleCore
 			),
 		);
 	}
-	
+
 	public function settings_sidebox( $sub, $settings_uri )
 	{
 		if ( $this->options['log_all'] ) {
-		
+
 			if ( is_dir( GNETWORK_MAIL_LOG_DIR ) && wp_is_writable( GNETWORK_MAIL_LOG_DIR ) ) {
 				echo '<p>'.sprintf( __( 'Log Folder Exists and Writable: <code>%s</code>', GNETWORK_TEXTDOMAIN ), GNETWORK_MAIL_LOG_DIR ).'</p>';
-				
+
 				if ( ! file_exists( GNETWORK_MAIL_LOG_DIR.DS.'.htaccess' ) )
 					echo '<p>'.__( 'Warning: <code>.htaccess</code> not found!', GNETWORK_TEXTDOMAIN ).'</p>';
-				
+
 			} else {
 				echo '<p>'.__( 'Log Folder Not Exists and/or Writable', GNETWORK_TEXTDOMAIN ).'</p>';
 				submit_button( __( 'Create Log Folder', GNETWORK_TEXTDOMAIN ), 'secondary', 'create_log_folder' );
-			}	
-		
+			}
+
 		} else {
 			echo '<p>'.__( 'Logging Emails Disabled', GNETWORK_TEXTDOMAIN ).'</p>';
 		}
@@ -272,17 +272,17 @@ class gNetworkMail extends gNetworkModuleCore
 			$phpmailer->AddCustomHeader( sprintf( '%1$s: %2$s', 'X-MC-Track'    , 'false' ) );
 		}
 	}
-	
+
 	// $mail = array( 'to', 'subject', 'message', 'headers', 'attachments' );
 	public function wp_mail( $mail )
 	{
 		$to = is_array( $mail['to'] ) ? implode( '-', array_filter( array( 'gNetworkUtilities', 'esc_filename' ), $mail['to'] ) ) : gNetworkUtilities::esc_filename( $mail['to'] );
-		
+
 		file_put_contents( GNETWORK_MAIL_LOG_DIR.DS.current_time( 'Ymd-His' ).'-'.$to.'.email', var_export( $mail, TRUE ).PHP_EOL, FILE_APPEND );
-		
+
 		return $mail;
 	}
-	
+
 	public function testmail_form()
 	{
 		$to = isset( $_POST['gnetwork_mail_testmail_to'] ) ? $_POST['gnetwork_mail_testmail_to'] : $this->get_from_email();

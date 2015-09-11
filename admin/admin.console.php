@@ -2,6 +2,8 @@
 
 gNU::superAdminOnly();
 
+// gNetworkMedia::clean_attachment( 8319 );
+
 global $gnetworkOptionsNetwork, $gnetworkOptionsBlog;
 gNU::dump( $gnetworkOptionsNetwork );
 gNU::dump( $gnetworkOptionsBlog );

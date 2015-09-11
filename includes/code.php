@@ -7,7 +7,7 @@ class gNetworkCode extends gNetworkModuleCore
 	var $_option_key = FALSE;
 
 	var $_github_repos = array();
-	
+
 	protected function setup_actions()
 	{
 		add_action( 'init', array( &$this, 'init' ), 12 );
@@ -27,12 +27,12 @@ class gNetworkCode extends gNetworkModuleCore
 		// FIXME: add option to enable this
 		// add_filter( 'the_content', array( &$this, 'the_content_gist_shortcode' ), 9 );
 	}
-	
+
 	public function wp_footer()
 	{
 		if ( count( $this->_github_repos ) )
 			gNetworkUtilities::wrapJS( implode( "\n", $this->_github_repos ) );
-	}	
+	}
 
 	// Originally based on : GitHub README v0.1.0
 	// by Jason Stallings : http://jason.stallin.gs
@@ -202,7 +202,7 @@ class gNetworkCode extends gNetworkModuleCore
 	{
 		return preg_replace( '/https:\/\/gist.github.com\/([\d]+)[\.js\?]*[\#]*file[=|_]+([\w\.]+)(?![^<]*<\/a>)/i', '', $content );
 	}
-	
+
 	// ALSO SEE: https://github.com/bradthomas127/gitpress-repo
 	// LIB REPO: https://github.com/darcyclarke/Repo.js
 	public function shortcode_github_repo( $atts, $content = NULL, $tag = '' )
@@ -219,10 +219,10 @@ class gNetworkCode extends gNetworkModuleCore
 
 		$key = 'github-repo-'.( count( $this->_github_repos ) + 1 );
 		$this->_github_repos[$key] = "$('#".$key."').repo({user:'".$args['username']."',name:'".$args['name']."'".( $args['branch'] ? ", branch:'".$args['branch']."'" : "" )."});";
-		
+
 		gNetworkUtilities::wrapJS( $this->_github_repos[$key], FALSE );
 		wp_enqueue_script( 'repo-js', GNETWORK_URL.'assets/libs/repo.js/repo.min.js', array( 'jquery' ), GNETWORK_VERSION, TRUE );
-		
+
 		return '<div id="'.$key.'" class="gnetwork-wrap-shortcode github-repo"></div>';
 	}
 }

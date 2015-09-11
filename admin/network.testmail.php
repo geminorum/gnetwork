@@ -1,5 +1,4 @@
-<?php defined( 'ABSPATH' ) or die( 'Restricted access' ); ?>
-<?php
+<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
 
 global $gNetwork;
 
