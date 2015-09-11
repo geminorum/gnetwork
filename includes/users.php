@@ -22,7 +22,7 @@ class gNetworkUsers extends gNetworkModuleCore
 		if ( 'users' == $sub ) {
 
 			if ( isset( $_POST['bulk_change_author'] ) ) {
-				
+
 				$this->check_referer( $sub );
 
 				$from_user_id = isset( $_POST['from_user_id'] ) ? intval( $_POST['from_user_id'] ) : FALSE;
@@ -153,16 +153,8 @@ class gNetworkUsers extends gNetworkModuleCore
 		if ( is_super_admin() || current_user_can( $post_type_object->cap->edit_others_posts ) ) {
 
 			if ( 'auto-draft' == $postarr['post_status']
-				&& $user_ID == $postarr['post_author'] ) {
-
-				$data['post_author'] = (int) GNETWORK_SITE_USER_ID;
-
-				// FIXME: MUST DROP: after WP 4.3
-				if ( 'page' == $postarr['post_type'] ) {
-					$data['comment_status'] = 'closed';
-					$data['ping_status']    = 'closed';
-				}
-			}
+				&& $user_ID == $postarr['post_author'] )
+					$data['post_author'] = (int) GNETWORK_SITE_USER_ID;
 		}
 
 		return $data;
