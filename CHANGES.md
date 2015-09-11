@@ -1,6 +1,13 @@
 ### 0.2.17
 * search: include authors removed
 * locale: custom override actually working!
+* locale: check on ajax calls
+* media: attachment title by alt/caption of the image
+* media: correct checking for initial thumbs on separation mode
+* media: `GNETWORK_MEDIA_DISABLE_META` to disable saving meta (EXIF) data of the attachments
+* admin: all options menu removed
+* tracking: option to send userid data to analytics
+* tracking: new initial `[google-plus-badge]`
 
 ### 0.2.16
 * admin: internal api for tinymce plugins
