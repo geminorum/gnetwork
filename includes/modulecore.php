@@ -31,6 +31,12 @@ class gNetworkModuleCore
 		$this->setup_actions();
 	}
 
+	// override this for non network install
+	public function is_network()
+	{
+		return $this->is_network();
+	}
+
 	public static function isAJAX()
 	{
 		return defined( 'DOING_AJAX' ) && DOING_AJAX;
@@ -66,7 +72,7 @@ class gNetworkModuleCore
 		if ( empty( ${$blog} ) )
 			${$blog} = get_option( $this->_option_base.'_blog', array() );
 
-		if ( $this->_network )
+		if ( $this->is_network() )
 			$options = isset( ${$network}[$this->_option_key] )
 				? ${$network}[$this->_option_key]
 				: get_site_option( $this->options_key(), array() ); // MUST DROP ON v0.3.0
@@ -102,7 +108,7 @@ class gNetworkModuleCore
 		if ( is_null( $options ) )
 			$options = $this->options;
 
-		if ( $this->_network )
+		if ( $this->is_network() )
 			$saved = get_site_option( $this->_option_base.'_site', array() );
 		else
 			$saved = get_option( $this->_option_base.'_blog', array() );
@@ -112,7 +118,7 @@ class gNetworkModuleCore
 		else
 			$saved[$this->_option_key] = $options;
 
-		if ( $this->_network )
+		if ( $this->is_network() )
 			return update_site_option( $this->_option_base.'_site', $saved );
 		else
 			return update_option( $this->_option_base.'_blog', $saved, TRUE );
@@ -129,7 +135,7 @@ class gNetworkModuleCore
 		if ( is_null( $options_key ) )
 			$options_key = $this->options_key();
 
-		if ( $this->_network )
+		if ( $this->is_network() )
 			return delete_site_option( $options_key );
 		else
 			return delete_option( $options_key );
@@ -140,7 +146,7 @@ class gNetworkModuleCore
 	{
 		if ( $this->_option_key && $this->_option_key == $sub ) {
 			$this->settings_update( $sub );
-			add_action( 'gnetwork_'.( $this->_network ? 'network' : 'admin' ).'_settings_sub_'.$this->_option_key, array( &$this, 'settings_html' ), 10, 2 );
+			add_action( 'gnetwork_'.( $this->is_network() ? 'network' : 'admin' ).'_settings_sub_'.$this->_option_key, array( &$this, 'settings_html' ), 10, 2 );
 			$this->register_settings();
 			$this->register_settings_help();
 		}
@@ -155,7 +161,7 @@ class gNetworkModuleCore
 		$sidebox = method_exists( $this, 'settings_sidebox' );
 
 		// MUST DROP ON v0.3.0
-		if ( $this->_network )
+		if ( $this->is_network() )
 			$options = get_site_option( $this->options_key(), array() );
 		else
 			$options = get_option( $this->options_key(), array() );
