@@ -15,7 +15,7 @@ class gNetworkModuleCore
 	{
 		if ( ( ! $this->_ajax && self::isAJAX() )
 			|| ( ! $this->_cron && self::isCRON() )
-			|| ( defined( 'WP_INSTALLING' ) && constant( 'WP_INSTALLING' ) ) )
+			|| ( defined( 'WP_INSTALLING' ) && WP_INSTALLING ) )
 				return;
 
 		if ( ! is_null( $this->_dev ) ) {
@@ -227,12 +227,6 @@ class gNetworkModuleCore
 			}
 
 		echo '</p>';
-	}
-
-	// DEPRECATED: user $this->settings_update();
-	public function update( $sub = NULL )
-	{
-		$this->settings_update( $sub );
 	}
 
 	public function settings_update( $sub = NULL )
@@ -743,6 +737,9 @@ class gNetworkModuleCore
 
 	public static function log( $error = '{NO Error Code}', $data = array(), $wp_error = NULL )
 	{
+		if ( ! WP_DEBUG_LOG )
+			return;
+
 		$log = array_merge( array(
 			'error'   => $error,
 			'time'    => current_time( 'mysql' ),
@@ -750,16 +747,14 @@ class gNetworkModuleCore
 			'message' => ( is_null( $wp_error ) ? '{NO WP_Error Object}' : $wp_error->get_error_message() ),
 		), $data );
 
-		if ( WP_DEBUG_LOG )
-			error_log( print_r( $log, TRUE ) );
+		error_log( print_r( $log, TRUE ) );
 	}
 
 	// MAYBE: add general options for on a network panel
 	public static function getSiteUserID( $fallback = TRUE )
 	{
-		if ( defined( 'GNETWORK_SITE_USER_ID' )
-			&& constant( 'GNETWORK_SITE_USER_ID' ) )
-				return GNETWORK_SITE_USER_ID;
+		if ( defined( 'GNETWORK_SITE_USER_ID' ) && GNETWORK_SITE_USER_ID )
+			return GNETWORK_SITE_USER_ID;
 
 		if ( function_exists( 'gtheme_get_option' ) ) {
 			if ( $gtheme_user = gtheme_get_option( 'default_user', 0 ) )
