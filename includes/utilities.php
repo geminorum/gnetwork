@@ -240,8 +240,20 @@ class gNetworkUtilities
 		$html = '<'.$tag;
 		foreach ( $atts as $key => $att ) {
 
-			if ( is_array( $att ) && count( $att ) )
-				$att = implode( ' ', array_unique( $att ) );
+			if ( is_array( $att ) && count( $att ) ) {
+				if ( 'data' == $key ) {
+					foreach ( $att as $data_key => $data_val ) {
+						if ( is_array( $data_val ) )
+							$html .= ' data-'.$data_key.'=\''.json_encode( $data_val ).'\'';
+						else
+							$html .= ' data-'.$data_key.'="'.esc_attr( $data_val ).'"';
+					}
+					continue;
+
+				} else {
+					$att = implode( ' ', array_unique( $att ) );
+				}
+			}
 
 			if ( 'selected' == $key )
 				$att = ( $att ? 'selected' : FALSE );
