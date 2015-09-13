@@ -31,10 +31,28 @@ class gNetworkModuleCore
 		$this->setup_actions();
 	}
 
+	public function register_menu( $sub, $title = NULL, $callback = FALSE, $capability = NULL )
+	{
+		if ( $this->is_network() ) {
+			if ( is_null( $capability ) )
+				$capability = 'manage_network_options';
+
+			gNetworkNetwork::registerMenu( $sub, $title, $callback, $capability );
+		} else {
+			if ( is_null( $capability ) )
+				$capability = 'manage_options';
+
+			gNetworkAdmin::registerMenu( $sub, $title, $callback, $capability );
+		}
+	}
+
 	// override this for non network install
 	public function is_network()
 	{
-		return $this->is_network();
+		if ( ! is_multisite() )
+			return FALSE;
+
+		return $this->_network;
 	}
 
 	public static function isAJAX()
