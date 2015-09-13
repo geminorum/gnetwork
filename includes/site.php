@@ -3,7 +3,7 @@
 class gNetworkSite extends gNetworkModuleCore
 {
 
-	var $_option_key = 'general';
+	var $_option_key = 'global';
 	var $_network    = TRUE;
 
 	protected function setup_actions()
