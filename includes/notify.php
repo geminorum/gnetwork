@@ -44,8 +44,8 @@ class gNetworkNotify extends gNetworkModuleCore
 				array(
 					'field'   => 'disable_new_user_admin',
 					'type'    => 'enabled',
-					'title'   => __( 'Admin Notify', GNETWORK_TEXTDOMAIN ),
-					'desc'    => __( 'Also, Email login credentials of a newly-registered user to the blog admin', GNETWORK_TEXTDOMAIN ),
+					'title'   => __( 'New User', GNETWORK_TEXTDOMAIN ),
+					'desc'    => __( 'Notify the blog admin of a newly-registered user', GNETWORK_TEXTDOMAIN ),
 					'default' => '1',
 					'values'  => array(
 						__( 'Enabled' , GNETWORK_TEXTDOMAIN ),
