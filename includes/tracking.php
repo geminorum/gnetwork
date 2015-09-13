@@ -12,7 +12,7 @@ class gNetworkTracking extends gNetworkModuleCore
 
 	protected function setup_actions()
 	{
-		gNetworkNetwork::registerMenu( 'tracking',
+		$this->register_menu( 'tracking',
 			__( 'Tracking', GNETWORK_TEXTDOMAIN ),
 			array( &$this, 'settings' )
 		);

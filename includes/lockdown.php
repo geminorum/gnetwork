@@ -15,7 +15,7 @@ class gNetworkLockDown extends gNetworkModuleCore
 
 	protected function setup_actions()
 	{
-		gNetworkNetwork::registerMenu( 'lockdown',
+		$this->register_menu( 'lockdown',
 			__( 'Login Lockdown', GNETWORK_TEXTDOMAIN ),
 			array( &$this, 'settings' )
 		);

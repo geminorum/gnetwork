@@ -8,8 +8,8 @@ class gNetworkSite extends gNetworkModuleCore
 
 	protected function setup_actions()
 	{
-		gNetworkNetwork::registerMenu( 'general',
-			__( 'General', GNETWORK_TEXTDOMAIN ),
+		$this->register_menu( 'global',
+			__( 'Global', GNETWORK_TEXTDOMAIN ),
 			array( &$this, 'settings' )
 		);
 

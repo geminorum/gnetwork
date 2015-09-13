@@ -8,12 +8,12 @@ class gNetworkMail extends gNetworkModuleCore
 
 	protected function setup_actions()
 	{
-		gNetworkNetwork::registerMenu( 'mail',
+		$this->register_menu( 'mail',
 			__( 'Mail', GNETWORK_TEXTDOMAIN ),
 			array( &$this, 'settings' )
 		);
 
-		gNetworkNetwork::registerMenu( 'testmail',
+		$this->register_menu( 'testmail',
 			__( 'Test Mail', GNETWORK_TEXTDOMAIN )
 		);
 

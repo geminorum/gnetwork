@@ -8,7 +8,7 @@ class gNetworkNotify extends gNetworkModuleCore
 
 	protected function setup_actions()
 	{
-		gNetworkNetwork::registerMenu( 'notify',
+		$this->register_menu( 'notify',
 			__( 'Notify', GNETWORK_TEXTDOMAIN ),
 			array( &$this, 'settings' )
 		);

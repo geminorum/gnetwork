@@ -12,7 +12,7 @@ class gNetworkBlackList extends gNetworkModuleCore
 		if ( ! is_admin() && $this->options['check_ip'] )
 			add_action( 'init', array( &$this, 'init' ), 1 );
 
-		gNetworkNetwork::registerMenu( 'blacklist',
+		$this->register_menu( 'blacklist',
 			__( 'Black List', GNETWORK_TEXTDOMAIN ),
 			array( &$this, 'settings' )
 		);

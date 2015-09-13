@@ -12,7 +12,7 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 
 	protected function setup_actions()
 	{
-		gNetworkNetwork::registerMenu( 'buddypress',
+		$this->register_menu( 'buddypress',
 			__( 'BuddyPress', GNETWORK_TEXTDOMAIN ),
 			array( &$this, 'settings' )
 		);

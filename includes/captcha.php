@@ -13,7 +13,7 @@ class gNetworkCaptcha extends gNetworkModuleCore
 		if ( GNETWORK_DISABLE_RECAPTCHA )
 			return;
 
-		gNetworkNetwork::registerMenu( 'captcha',
+		$this->register_menu( 'captcha',
 			__( 'Captcha', GNETWORK_TEXTDOMAIN ),
 			array( &$this, 'settings' )
 		);
