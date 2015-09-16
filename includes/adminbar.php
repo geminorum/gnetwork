@@ -55,7 +55,7 @@ class gNetworkAdminBar extends gNetworkModuleCore
 		if ( ! is_admin_bar_showing() )
 			return;
 
-		if ( file_exists( WP_CONTENT_DIR'/adminbar.css' ) )
+		if ( file_exists( WP_CONTENT_DIR.'/adminbar.css' ) )
 			wp_enqueue_style( 'gnetwork-adminbar', WP_CONTENT_URL.'/adminbar.css', array( 'admin-bar' ), GNETWORK_VERSION );
 	}
 
