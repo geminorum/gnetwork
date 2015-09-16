@@ -13,11 +13,11 @@ class gNetworkDev extends gNetworkModuleCore
 		add_filter( 'https_local_ssl_verify', '__return_false' );
 		add_filter( 'https_ssl_verify'      , '__return_false' );
 
-		// add_filter( 'embed_oembed_html',            array( & $this, 'embed_oembed_html'    ), 1,  4 );
-		// add_filter( 'get_avatar',                   array( & $this, 'get_avatar'           ), 1,  5 );
+		// add_filter( 'embed_oembed_html',            array( &$this, 'embed_oembed_html'    ), 1,  4 );
+		// add_filter( 'get_avatar',                   array( &$this, 'get_avatar'           ), 1,  5 );
 
-		// add_action( 'template_redirect', array( & $this, 'template_redirect' ) );
-		// add_filter( 'login_url', array( & $this, 'login_url' ), 10, 2 );
+		// add_action( 'template_redirect', array( &$this, 'template_redirect' ) );
+		// add_filter( 'login_url', array( &$this, 'login_url' ), 10, 2 );
 	}
 
 	public function http_request_args( $r, $url )

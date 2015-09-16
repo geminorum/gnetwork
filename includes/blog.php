@@ -42,7 +42,6 @@ class gNetworkBlog extends gNetworkModuleCore
 
 	public function init_redirect()
 	{
-		// admin
 		if ( is_user_logged_in()
 			&& current_user_can( 'manage_options' ) )
 				return;
@@ -50,7 +49,6 @@ class gNetworkBlog extends gNetworkModuleCore
 		if ( $_SERVER['SERVER_NAME'] !== ( str_ireplace( array( 'http://', 'https://' ), '', home_url() ) ) )
 			return;
 
-		// wp core pages
 		if ( FALSE === self::whiteListed() )
 			self::redirect( $this->options['blog_redirect'].$_SERVER['REQUEST_URI'], 307 );
 	}

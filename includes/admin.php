@@ -60,7 +60,6 @@ class gNetworkAdmin extends gNetworkModuleCore
 
 	public function admin_init_early()
 	{
-		// http://www.wpbeginner.com/wp-tutorials/how-to-increase-the-maximum-file-upload-size-in-wordpress/
 		if ( current_user_can( 'update_plugins' ) ) {
 			@ini_set( 'memory_limit', '256M' );
 			@ini_set( 'upload_max_size' , '64M' );
@@ -168,7 +167,7 @@ class gNetworkAdmin extends gNetworkModuleCore
 
 		do_action( 'gnetwork_admin_settings', $sub );
 
-		// ALL DEPRECATED
+		// FIXME: ALL DEPRECATED / MUST DROP
 		do_action( 'gnetwork_admin_settings_load', $sub );
 		do_action( 'gnetwork_admin_settings_save', $sub );
 		do_action( 'gnetwork_admin_settings_help', $sub );
@@ -224,8 +223,8 @@ class gNetworkAdmin extends gNetworkModuleCore
 				$_SERVER['REQUEST_URI'] = remove_query_arg( 'message', $_SERVER['REQUEST_URI'] );
 			}
 
-			if ( file_exists( GNETWORK_DIR.'admin'.DS.'admin.'.$sub.'.php' ) )
-				require_once( GNETWORK_DIR.'admin'.DS.'admin.'.$sub.'.php' );
+			if ( file_exists( GNETWORK_DIR.'admin/admin.'.$sub.'.php' ) )
+				require_once( GNETWORK_DIR.'admin/admin.'.$sub.'.php' );
 			else
 				do_action( 'gnetwork_admin_settings_sub_'.$sub, $settings_uri, $sub );
 

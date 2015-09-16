@@ -73,7 +73,7 @@ class gNetworkCleanup extends gNetworkModuleCore
 			remove_submenu_page( 'themes.php', 'theme-editor.php' );
 		}
 
-		if ( is_multisite() ) {
+		if ( defined( 'BRUTEPROTECT_VERSION' ) && is_multisite() ) {
 			remove_menu_page( 'bruteprotect-config' ); // BruteProtect notice
 		}
 	}

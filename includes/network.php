@@ -182,8 +182,8 @@ class gNetworkNetwork extends gNetworkModuleCore
 				$_SERVER['REQUEST_URI'] = remove_query_arg( 'message', $_SERVER['REQUEST_URI'] );
 			}
 
-			if ( file_exists( GNETWORK_DIR.'admin'.DS.'network.'.$sub.'.php' ) )
-				require_once( GNETWORK_DIR.'admin'.DS.'network.'.$sub.'.php' );
+			if ( file_exists( GNETWORK_DIR.'admin/network.'.$sub.'.php' ) )
+				require_once( GNETWORK_DIR.'admin/network.'.$sub.'.php' );
 			else
 				do_action( 'gnetwork_network_settings_sub_'.$sub, $settings_uri, $sub );
 

@@ -139,11 +139,11 @@ class gNetworkUtilities
 		$layout = locate_template( $layout_name );
 
 		if ( ! $layout )
-			if ( file_exists( WP_CONTENT_DIR.DS.$layout_name.'.php' ) )
-				$layout = WP_CONTENT_DIR.DS.$layout_name.'.php';
+			if ( file_exists( WP_CONTENT_DIR.'/'.$layout_name.'.php' ) )
+				$layout = WP_CONTENT_DIR.'/'.$layout_name.'.php';
 
 		if ( ! $layout )
-			$layout = GNETWORK_DIR.'assets'.DS.'layouts'.DS.$layout_name.'.php';
+			$layout = GNETWORK_DIR.'assets/layouts/'.$layout_name.'.php';
 
 		if ( $no_cache )
 			__donot_cache_page();
@@ -483,11 +483,11 @@ class gNetworkUtilities
 	{
 		$url = FALSE;
 
-		if ( file_exists( get_stylesheet_directory().DS.$css ) ) {
+		if ( file_exists( get_stylesheet_directory().'/'.$css ) ) {
 			$url = get_stylesheet_directory_uri().'/'.$css;
-		} else if ( file_exists( get_template_directory().DS.$css ) ) {
+		} else if ( file_exists( get_template_directory().'/'.$css ) ) {
 			$url = get_template_directory_uri().'/'.$css;
-		} else if ( file_exists( WP_CONTENT_DIR.DS.$css ) ) {
+		} else if ( file_exists( WP_CONTENT_DIR.'/'.$css ) ) {
 			$url = WP_CONTENT_URL.'/'.$css;
 		}
 
@@ -534,7 +534,7 @@ class gNetworkUtilities
 		}
 
 		$content = '<Files ~ ".*\..*">'."\n".'order allow,deny'."\n".'deny from all'."\n".'</Files>';
-		file_put_contents( $dir.DS.'.htaccess', $content.PHP_EOL );
+		file_put_contents( $dir.'/.htaccess', $content.PHP_EOL );
 	}
 
 	// http://www.webdesignerdepot.com/2012/08/wordpress-filesystem-api-the-right-way-to-operate-with-local-files/

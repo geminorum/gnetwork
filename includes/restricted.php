@@ -451,7 +451,7 @@ class gNetworkRestrictedBouncer
 			$link = get_bloginfo_rss( 'url' );
 
 		header( "Content-Type: application/xml; ".get_option( 'blog_charset' ) );
-		require_once( GNETWORK_DIR.'assets'.DS.'layouts'.DS.'feed.temp.php' );
+		require_once( GNETWORK_DIR.'assets/layouts/feed.temp.php' );
 		die();
 	}
 

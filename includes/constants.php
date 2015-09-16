@@ -30,7 +30,7 @@ $gnetwork_constants = array(
 	'GNETWORK_DISABLE_BBQ'           => FALSE,
 	'GNETWORK_DISABLE_RECAPTCHA'     => FALSE,
 
-	'GNETWORK_MAIL_LOG_DIR'          => WP_CONTENT_DIR.DS.'emaillogs',
+	'GNETWORK_MAIL_LOG_DIR'          => WP_CONTENT_DIR.'/emaillogs',
 
 	// 'GNETWORK_DISABLE_JQUERY_MIGRATE' => TRUE,  // cannot set this early!
 	// 'GNETWORK_DISABLE_FRONT_STYLES'   => FALSE, // cannot set this early!
@@ -42,7 +42,7 @@ $gnetwork_constants = array(
 
 	'GNETWORK_AJAX_ENDPOINT'      => admin_url( 'admin-ajax.php' ), // if you want to use .ataccess to rewrite
 	'GNETWORK_MEDIA_SEPERATION'   => FALSE, // if you want to seperate generated files from originals!!
-	'GNETWORK_MEDIA_SIZES_DIR'    => WP_CONTENT_DIR.DS.'thumbs',
+	'GNETWORK_MEDIA_SIZES_DIR'    => WP_CONTENT_DIR.'/thumbs',
 	'GNETWORK_MEDIA_SIZES_URL'    => WP_CONTENT_URL.'/thumbs',
 	// 'GNETWORK_MEDIA_SIZES_REL'    => '../thumbs', // relate path to deffault uploads folder
 	'GNETWORK_MEDIA_SIZES_CHECK'  => TRUE, // check default wp dir before thumbs / make it disable for newly created sites

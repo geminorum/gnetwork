@@ -115,10 +115,10 @@ class gNetworkDebug extends gNetworkModuleCore
 	public static function pluginPaths()
 	{
 		$paths = array(
-			'DS'      => DS,
-			'ABSPATH' => ABSPATH,
-			'DIR'     => GNETWORK_DIR,
-			'URL'     => GNETWORK_URL,
+			'DIRECTORY_SEPARATOR' => DIRECTORY_SEPARATOR,
+			'ABSPATH'             => ABSPATH,
+			'DIR'                 => GNETWORK_DIR,
+			'URL'                 => GNETWORK_URL,
 		);
 
 		self::codeTable( $paths );

@@ -42,8 +42,8 @@ class gNetworkTypography extends gNetworkModuleCore
 			'context' => NULL,
 		), $atts, $tag );
 
-		if ( false === $args['context'] )
-			return null;
+		if ( FALSE === $args['context'] )
+			return NULL;
 
 		if ( $args['slug'] )
 			$slug = trim( $args['slug'] );

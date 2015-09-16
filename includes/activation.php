@@ -9,27 +9,27 @@
 class gNetworkActivation extends gNetworkModuleCore
 {
 
-	var $_network    = true;
-	var $_option_key = false;
-	var $_ajax       = true;
+	var $_network    = TRUE;
+	var $_option_key = FALSE;
+	var $_ajax       = TRUE;
 
 	protected function setup_actions()
 	{
 		if ( ! is_multisite() )
 			return;
 
-		add_action( 'wpmu_new_blog', array( & $this, 'wpmu_new_blog' ) );
-		add_action( 'wp_ajax_gnetwork_activation', array( & $this, 'ajax_response' ) );
+		add_action( 'wpmu_new_blog', array( &$this, 'wpmu_new_blog' ) );
+		add_action( 'wp_ajax_gnetwork_activation', array( &$this, 'ajax_response' ) );
 
 		if ( ! is_network_admin()  )
 			return;
 
-		add_action( 'activated_plugin',  array( & $this, 'update_queue' ), 10, 2 );
-		add_action( 'deactivated_plugin',  array( & $this, 'update_queue' ), 10, 2 );
-		add_action( 'network_admin_notices', array( & $this, 'admin_notices' ) );
+		add_action( 'activated_plugin',  array( &$this, 'update_queue' ), 10, 2 );
+		add_action( 'deactivated_plugin',  array( &$this, 'update_queue' ), 10, 2 );
+		add_action( 'network_admin_notices', array( &$this, 'admin_notices' ) );
 	}
 
-	public function update_queue( $plugin, $network_wide = null )
+	public function update_queue( $plugin, $network_wide = NULL )
 	{
 		if ( ! $network_wide )
 			return;
@@ -48,7 +48,7 @@ class gNetworkActivation extends gNetworkModuleCore
 		if ( 'plugins-network' != get_current_screen()->id )
 			return;
 
-		$action = false;
+		$action = FALSE;
 		foreach ( array( 'activate', 'deactivate' ) as $key ) {
 			if ( isset( $_REQUEST[ $key ] ) || isset( $_REQUEST[ $key . '-multi' ] ) ) {
 				$action = $key;
@@ -64,7 +64,7 @@ class gNetworkActivation extends gNetworkModuleCore
 		if ( empty( $queue ) )
 			return;
 
-		if ( ! in_array( true, $queue ) ) {
+		if ( ! in_array( TRUE, $queue ) ) {
 			delete_site_option( "network_{$action}_queue" );
 			gNetworkUtilities::notice( __( 'Network (de)activation: no further action necessary.', GNETWORK_TEXTDOMAIN ) );
 			return;
@@ -180,8 +180,8 @@ jQuery(document).ready(function($) {
 
 	private static function do_action( $action, $plugin )
 	{
-		do_action( $action.'_'.$plugin, false );
-		do_action( $action.'_plugin', $plugin, false );
+		do_action( $action.'_'.$plugin, FALSE );
+		do_action( $action.'_plugin', $plugin, FALSE );
 	}
 
 }

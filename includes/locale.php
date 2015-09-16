@@ -5,7 +5,7 @@ class gNetworkLocale extends gNetworkModuleCore
 
 	var $_network    = TRUE;
 	var $_option_key = FALSE;
-	var $_ajax       = TRUE; 
+	var $_ajax       = TRUE;
 
 	var $loaded = array();
 
@@ -29,7 +29,7 @@ class gNetworkLocale extends gNetworkModuleCore
 		$locale = get_locale();
 		$this->loaded[$locale][$domain][] = $mofile;
 
-		$tailored = GNETWORK_DIR.'locale'.DS.$domain.'-'.$locale.'.mo';
+		$tailored = GNETWORK_DIR.'locale/'.$domain.'-'.$locale.'.mo';
 		if ( is_readable( $tailored ) )
 			return $tailored;
 

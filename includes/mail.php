@@ -196,7 +196,7 @@ class gNetworkMail extends gNetworkModuleCore
 			if ( is_dir( GNETWORK_MAIL_LOG_DIR ) && wp_is_writable( GNETWORK_MAIL_LOG_DIR ) ) {
 				echo '<p>'.sprintf( __( 'Log Folder Exists and Writable: <code>%s</code>', GNETWORK_TEXTDOMAIN ), GNETWORK_MAIL_LOG_DIR ).'</p>';
 
-				if ( ! file_exists( GNETWORK_MAIL_LOG_DIR.DS.'.htaccess' ) )
+				if ( ! file_exists( GNETWORK_MAIL_LOG_DIR.'/.htaccess' ) )
 					echo '<p>'.__( 'Warning: <code>.htaccess</code> not found!', GNETWORK_TEXTDOMAIN ).'</p>';
 
 			} else {
@@ -278,7 +278,7 @@ class gNetworkMail extends gNetworkModuleCore
 	{
 		$to = is_array( $mail['to'] ) ? implode( '-', array_filter( array( 'gNetworkUtilities', 'esc_filename' ), $mail['to'] ) ) : gNetworkUtilities::esc_filename( $mail['to'] );
 
-		file_put_contents( GNETWORK_MAIL_LOG_DIR.DS.current_time( 'Ymd-His' ).'-'.$to.'.email', var_export( $mail, TRUE ).PHP_EOL, FILE_APPEND );
+		file_put_contents( GNETWORK_MAIL_LOG_DIR.'/'.current_time( 'Ymd-His' ).'-'.$to.'.email', var_export( $mail, TRUE ).PHP_EOL, FILE_APPEND );
 
 		return $mail;
 	}

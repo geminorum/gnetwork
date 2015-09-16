@@ -161,11 +161,11 @@ class gNetworkMaintenance extends gNetworkModuleCore
 		elseif ( ! is_admin() && locate_template( '503.php' ) )
 			return locate_template( '503.php' );
 
-		elseif ( file_exists( WP_CONTENT_DIR.DS.'503.php' ) )
-			return WP_CONTENT_DIR.DS.'503.php';
+		elseif ( file_exists( WP_CONTENT_DIR.'/503.php' ) )
+			return WP_CONTENT_DIR.'/503.php';
 
-		elseif ( file_exists( WP_CONTENT_DIR.DS.'maintenance.php' ) )
-			return WP_CONTENT_DIR.DS.'maintenance.php';
+		elseif ( file_exists( WP_CONTENT_DIR.'/maintenance.php' ) )
+			return WP_CONTENT_DIR.'/maintenance.php';
 
 		return FALSE;
 	}

@@ -17,10 +17,8 @@ define( 'GNETWORK_VERSION', '0.2.17.1' );
 define( 'GNETWORK_DIR', plugin_dir_path( __FILE__ ) );
 define( 'GNETWORK_URL', plugin_dir_url( __FILE__ ) );
 
-defined( 'DS' ) or define( 'DS', DIRECTORY_SEPARATOR );
-
-if ( file_exists( WP_CONTENT_DIR.DS.'gnetwork-custom.php' ) )
-	require_once( WP_CONTENT_DIR.DS.'gnetwork-custom.php' );
+if ( file_exists( WP_CONTENT_DIR.'/gnetwork-custom.php' ) )
+	require_once( WP_CONTENT_DIR.'/gnetwork-custom.php' );
 
 function gnetwork_init() {
 	global $gNetwork;
@@ -52,7 +50,6 @@ function gnetwork_init() {
 		'locale'      => 'gNetworkLocale',
 		'themes'      => 'gNetworkThemes',
 		'media'       => 'gNetworkMedia',
-		// 'sitemap'     => 'gNetworkSiteMap',
 
 		'login'       => 'gNetworkLogin',
 		'lockdown'    => 'gNetworkLockDown',
@@ -117,8 +114,8 @@ function gnetwork_init() {
 	}
 
 	foreach ( $modules as $module_slug => $module_class )
-		if ( file_exists( GNETWORK_DIR.'includes'.DS.$module_slug.'.php' ) )
-			require_once( GNETWORK_DIR.'includes'.DS.$module_slug.'.php' );
+		if ( file_exists( GNETWORK_DIR.'includes/'.$module_slug.'.php' ) )
+			require_once( GNETWORK_DIR.'includes/'.$module_slug.'.php' );
 
 	if ( ! is_object( $gNetwork ) )
 		$gNetwork = new stdClass();
@@ -141,9 +138,9 @@ function gnetwork_init() {
 	// http://stephanis.info/2014/08/13/on-jetpack-and-auto-activating-modules
 	add_filter( 'jetpack_get_default_modules', '__return_empty_array' );
 
-	if ( file_exists( GNETWORK_DIR.'includes'.DS.'mce-languages.php' ) ) {
+	if ( file_exists( GNETWORK_DIR.'includes/mce-languages.php' ) ) {
 		add_filter( 'mce_external_languages', function( $languages ){
-			$languages['gnetwork'] = GNETWORK_DIR.'includes'.DS.'mce-languages.php';
+			$languages['gnetwork'] = GNETWORK_DIR.'includes/mce-languages.php';
 			return $languages;
 		} );
 	}
@@ -152,13 +149,13 @@ function gnetwork_init() {
 function gnetwork_bp_include() {
 	global $gNetwork;
 
-	if ( file_exists( GNETWORK_DIR.'includes'.DS.'buddypress.php' ) ) {
-		require_once( GNETWORK_DIR.'includes'.DS.'buddypress.php' );
+	if ( file_exists( GNETWORK_DIR.'includes/buddypress.php' ) ) {
+		require_once( GNETWORK_DIR.'includes/buddypress.php' );
 		$gNetwork->buddypress = new gNetworkBuddyPress();
 	}
 
-	if ( file_exists( GNETWORK_DIR.'includes'.DS.'buddypress.me.php' ) ) {
-		require_once( GNETWORK_DIR.'includes'.DS.'buddypress.me.php' );
+	if ( file_exists( GNETWORK_DIR.'includes/buddypress.me.php' ) ) {
+		require_once( GNETWORK_DIR.'includes/buddypress.me.php' );
 		buddypress()->me = new gNetwork_BP_Me_Component();
 	}
 }
