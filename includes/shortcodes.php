@@ -105,7 +105,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			'context' => NULL,
 		), $atts, $tag );
 
-		if ( FALSE === $args['context'] ) // bailing
+		if ( FALSE === $args['context'] )
 			return NULL;
 
 		if ( ! is_singular( $args['type'] ) )
@@ -135,7 +135,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			'context' => NULL,
 		), $atts, $tag );
 
-		if ( FALSE === $args['context'] ) // bailing
+		if ( FALSE === $args['context'] )
 			return NULL;
 
 		if ( ! is_singular( $args['type'] ) )
@@ -179,7 +179,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			'context' => NULL,
 		), $atts, $tag );
 
-		if ( FALSE === $args['context'] ) // bailing
+		if ( FALSE === $args['context'] )
 			return NULL;
 
 		if ( ! $args['to'] )
@@ -249,7 +249,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			'context' => NULL,
 		), $atts, $tag );
 
-		if ( FALSE === $args['context'] ) // bailing
+		if ( FALSE === $args['context'] || is_feed() )
 			return NULL;
 
 		if ( ! $args['url'] )
@@ -281,7 +281,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			'context' => NULL,
 		), $atts, $tag );
 
-		if ( FALSE === $args['context'] ) // bailing
+		if ( FALSE === $args['context'] )
 			return NULL;
 
 		if ( ! $content ) // what about default site email
@@ -303,7 +303,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			'context' => NULL,
 		), $atts, $tag );
 
-		if ( FALSE === $args['context'] ) // bailing
+		if ( FALSE === $args['context'] )
 			return NULL;
 
 		if ( ! $content ) // what about default site email
@@ -328,7 +328,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			'context'    => NULL,
 		), $atts, $tag );
 
-		if ( FALSE === $args['context'] ) // bailing
+		if ( FALSE === $args['context'] || is_feed() )
 			return NULL;
 
 		if ( FALSE == $args['id'] )
@@ -366,7 +366,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			'context'   => NULL,
 		), $atts, $tag );
 
-		if ( FALSE === $args['context'] ) // bailing
+		if ( FALSE === $args['context'] || is_feed() )
 			return NULL;
 
 		if ( ! $args['url'] )
@@ -415,7 +415,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			'context' => NULL,
 		), $atts, $tag );
 
-		if ( FALSE === $args['context'] ) // bailing
+		if ( FALSE === $args['context'] )
 			return NULL;
 
 	   return get_bloginfo( $args['key'] );
@@ -440,7 +440,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			'context'   => NULL,
 		), $atts, $tag );
 
-		if ( FALSE === $args['context'] ) // bailing
+		if ( FALSE === $args['context'] || is_feed() )
 			return NULL;
 
 		if ( ! $args['swf'] )
@@ -483,8 +483,11 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			'context'  => NULL,
 		), $atts, $tag );
 
-		if ( FALSE === $args['context'] ) // bailing
+		if ( FALSE === $args['context'] )
 			return NULL;
+
+		if ( is_feed() )
+			return $content;
 
 		$title = sprintf( __( 'Go to %s second mark and play', GNETWORK_TEXTDOMAIN ), $args['to'] );
 		$html  = $content ? trim( $content ) : $title;
@@ -505,7 +508,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			'context'  => NULL,
 		), $atts, $tag );
 
-		if ( FALSE === $args['context'] ) // bailing
+		if ( FALSE === $args['context'] || is_feed() )
 			return NULL;
 
 		if ( $html = wp_audio_shortcode( $atts, $content ) ) {
@@ -591,7 +594,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 	// http://en.wikipedia.org/wiki/Help:Footnotes
 	public function shortcode_ref( $atts, $content = NULL, $tag = '' )
 	{
-		if ( is_null( $content ) || ! is_singular() )
+		if ( is_null( $content ) || ! is_singular() || is_feed() )
 			return NULL;
 
 		$args = shortcode_atts( array(
@@ -604,7 +607,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			'context'       => NULL,
 		), $atts, $tag );
 
-		if ( FALSE === $args['context'] ) // bailing
+		if ( FALSE === $args['context'] )
 			return NULL;
 
 		$html = $url = FALSE;
@@ -647,7 +650,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 	// TODO: add column : http://en.wikipedia.org/wiki/Help:Footnotes#Reference_lists:_columns
 	public function shortcode_reflist( $atts, $content = NULL, $tag = '' )
 	{
-		if ( $this->_ref_list )
+		if ( $this->_ref_list || is_feed() )
 			return NULL;
 
 		if ( ! is_singular() || ! count( $this->_ref_ids ) )
@@ -663,7 +666,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			'context'       => NULL,
 		), $atts, $tag );
 
-		if ( FALSE === $args['context'] ) // bailing
+		if ( FALSE === $args['context'] )
 			return NULL;
 
 		$html = '';
@@ -712,7 +715,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 	// FIXME: check this!
 	public function shortcode_ref_manual( $atts, $content = NULL, $tag = '' )
 	{
-		if ( is_null( $content ) || ! is_singular() )
+		if ( is_null( $content ) || ! is_singular() || is_feed() )
 			return NULL;
 
 		// [ref-m id="0" caption="Caption Title"]
@@ -726,7 +729,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 				'context'       => NULL,
 				), $atts, $tag );
 
-				if ( FALSE === $args['context'] ) // bailing
+				if ( FALSE === $args['context'] )
 					return NULL;
 
 		} else { //[ref-m 0]
@@ -745,6 +748,9 @@ class gNetworkShortCodes extends gNetworkModuleCore
 	// FIXME: check this!
 	public function shortcode_reflist_manual( $atts, $content = NULL, $tag = '' )
 	{
+		if ( is_feed() )
+			return NULL;
+
 		// [reflist-m id="0" caption="Caption Title"]
 		// [reflist-m 0 "Caption Title"]
 		if ( isset( $atts['id'] ) ) {
@@ -757,7 +763,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 				'context'       => NULL,
 				), $atts, $tag );
 
-				if ( FALSE === $args['context'] ) // bailing
+				if ( FALSE === $args['context'] )
 					return NULL;
 
 		} else { //[reflist-m 0]
@@ -785,7 +791,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			'context'       => NULL,
 		), $atts, $tag );
 
-		if ( FALSE === $args['context'] ) // bailing
+		if ( FALSE === $args['context'] )
 			return NULL;
 
 		if ( $args['name'] )

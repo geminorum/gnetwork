@@ -124,7 +124,7 @@ class gNetworkTracking extends gNetworkModuleCore
 			'context' => NULL,
 		), $atts, $tag );
 
-		if ( FALSE === $args['context'] )
+		if ( FALSE === $args['context'] || is_feed() )
 			return NULL;
 
 		if ( ! $args['id'] && ! empty( $this->options['plus_publisher'] ) )
