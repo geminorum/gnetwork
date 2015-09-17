@@ -11,7 +11,6 @@ class gNetworkCode extends gNetworkModuleCore
 	protected function setup_actions()
 	{
 		add_action( 'init', array( &$this, 'init' ), 12 );
-		// add_action( 'wp_footer', array( &$this, 'wp_footer' ), 20 );
 	}
 
 	public function init()
@@ -26,12 +25,6 @@ class gNetworkCode extends gNetworkModuleCore
 		// FIXME: NOT WORKING: gist id is now diffrent from this pattern
 		// FIXME: add option to enable this
 		// add_filter( 'the_content', array( &$this, 'the_content_gist_shortcode' ), 9 );
-	}
-
-	public function wp_footer()
-	{
-		if ( count( $this->_github_repos ) )
-			gNetworkUtilities::wrapJS( implode( "\n", $this->_github_repos ) );
 	}
 
 	// Originally based on : GitHub README v0.1.0
@@ -50,7 +43,7 @@ class gNetworkCode extends gNetworkModuleCore
 			'context' => NULL,
 		), $atts, $tag );
 
-		if ( FALSE === $args['context'] )
+		if ( FALSE === $args['context'] || is_feed() )
 			return NULL;
 
 		$html = $content;
@@ -129,7 +122,7 @@ class gNetworkCode extends gNetworkModuleCore
 			'context' => NULL,
 		), $atts, $tag );
 
-		if ( FALSE === $args['context'] )
+		if ( FALSE === $args['context'] || is_feed() )
 			return NULL;
 
 		wp_enqueue_script( 'gnetwork-code-githubrepowidget', GNETWORK_URL.'assets/js/jquery.github-repowidget.min.js', array( 'jquery' ), '20150130', TRUE );
@@ -152,7 +145,7 @@ class gNetworkCode extends gNetworkModuleCore
 			'context'           => NULL,
 		), $atts, $tag );
 
-		if ( FALSE === $args['context'] )
+		if ( FALSE === $args['context'] || is_feed() )
 			return NULL;
 
 		if ( FALSE == $args['id'] )
@@ -173,31 +166,8 @@ class gNetworkCode extends gNetworkModuleCore
 		return '<div class="gnetwork-wrap-shortcode github-gist" data-github-gist="'.$args['id'].'">'.$html.'</div>';
 	}
 
-	// ORIGINAL METHOD
-	// https://css-tricks.com/snippets/wordpress/detect-gists-and-embed-them/
-	public function shortcode_github_gist_OLD( $atts, $content = NULL, $tag = '' )
-	{
-		$args = shortcode_atts( array(
-			'id'      => FALSE,
-			'file'    => FALSE,
-			'context' => NULL,
-		), $atts, $tag );
-
-		if ( FALSE === $args['context'] )
-			return NULL;
-
-		if ( FALSE == $args['id'] )
-			return $content;
-
-		$html = sprintf( '<script src="https://gist.github.com/%s.js%s"></script>',
-			$args['id'],
-			$args['file'] ? '?file='.$args['file'] : ''
-		);
-
-		return '<div class="gnetwork-wrap-shortcode github-gist" data-github-gist="'.$args['id'].'">'.$html.'</div>';
-	}
-
 	// autoreplace gist links to shortcodes
+	// [Detect Gists and Embed Them | CSS-Tricks](https://css-tricks.com/snippets/wordpress/detect-gists-and-embed-them/)
 	public function the_content_gist_shortcode( $content )
 	{
 		return preg_replace( '/https:\/\/gist.github.com\/([\d]+)[\.js\?]*[\#]*file[=|_]+([\w\.]+)(?![^<]*<\/a>)/i', '', $content );
@@ -214,7 +184,7 @@ class gNetworkCode extends gNetworkModuleCore
 			'context'  => NULL,
 		), $atts, $tag );
 
-		if ( FALSE === $args['context'] )
+		if ( FALSE === $args['context'] || is_feed() )
 			return NULL;
 
 		$key = 'github-repo-'.( count( $this->_github_repos ) + 1 );
