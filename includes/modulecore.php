@@ -372,12 +372,13 @@ class gNetworkModuleCore
 		}
 
 		$args = array_merge( array(
-			'page'      => $this->options_key(),
-			'section'   => $this->options_key().'_general',
-			'field'     => FALSE,
-			'title'     => '',
-			'desc'      => '',
-			'callback'  => array( $this, 'do_settings_field' ),
+			'page'     => $this->options_key(),
+			'section'  => $this->options_key().'_general',
+			'field'    => FALSE,
+			'title'    => '',
+			'desc'     => '',
+			'callback' => array( $this, 'do_settings_field' ),
+			'network'  => NULL,
 		), $r );
 
 		if ( ! $args['field'] )

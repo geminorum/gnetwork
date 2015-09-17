@@ -14,7 +14,7 @@ class gNetworkRestricted extends gNetworkModuleCore
 
 	public function plugins_loaded()
 	{
-		// temporarly : bail if gMember Restricted is present
+		// FIXME: temporarly : bail if gMember Restricted is present
 		if ( class_exists( 'gMemberRestrictedSettings' ) )
 			return;
 
@@ -121,12 +121,12 @@ class gNetworkRestricted extends gNetworkModuleCore
 					) ),
 				),
 				array(
-					'field'   => 'restricted_notice',
-					'type'    => 'textarea',
-					'title'   => __( 'Restricted Notice', GNETWORK_TEXTDOMAIN ),
-					'desc'    => __( 'This will show on top of this site login page.', GNETWORK_TEXTDOMAIN ),
-					'default' => '',
-					'class'   => 'large-text code',
+					'field'       => 'restricted_notice',
+					'type'        => 'textarea',
+					'title'       => __( 'Restricted Notice', GNETWORK_TEXTDOMAIN ),
+					'desc'        => __( 'This will show on top of this site login page.', GNETWORK_TEXTDOMAIN ),
+					'default'     => '',
+					'field_class' => 'large-text code',
 				),
 			),
 		);
@@ -165,18 +165,19 @@ class gNetworkRestricted extends gNetworkModuleCore
 		$feedkey = gNetworkRestrictedBouncer::getUserFeedKey( $profileuser->ID, FALSE );
 		$urls    = self::getFeeds( $feedkey );
 
-		echo '<h3>'.__( 'Private Feeds', GNETWORK_TEXTDOMAIN ).'</h3>';
-		// echo '<p>'.__( 'Used to access restricted site feeds.', GNETWORK_TEXTDOMAIN ).'</p>';
+		echo gNetworkUtilities::html( 'h2', __( 'Private Feeds', GNETWORK_TEXTDOMAIN ) );
+		echo gNetworkUtilities::html( 'p', __( 'Used to access restricted site feeds.', GNETWORK_TEXTDOMAIN ) );
+
 		echo '<table class="form-table">';
 
 			$this->do_settings_field( array(
-				'title'    => __( 'Access Key', GNETWORK_TEXTDOMAIN ),
-				'type'     => 'text',
-				'field'    => 'restricted_feed_key',
-				'default'  => $feedkey ? $feedkey : __( 'Access key not found', GNETWORK_TEXTDOMAIN ),
-				'class'    => 'regular-text code',
-				'desc'     => __( 'The key will be used on all restricted site feed URLs.', GNETWORK_TEXTDOMAIN ),
-				'disabled' => TRUE,
+				'title'       => __( 'Access Key', GNETWORK_TEXTDOMAIN ),
+				'type'        => 'text',
+				'field'       => 'restricted_feed_key',
+				'default'     => $feedkey ? $feedkey : __( 'Access key not found', GNETWORK_TEXTDOMAIN ),
+				'field_class' => 'regular-text code',
+				'desc'        => __( 'The key will be used on all restricted site feed URLs.', GNETWORK_TEXTDOMAIN ),
+				'disabled'    => TRUE,
 			), TRUE );
 
 			$operations = array( 'none' => __( '&mdash; Select &mdash;', GNETWORK_TEXTDOMAIN ) );
@@ -211,7 +212,6 @@ class gNetworkRestricted extends gNetworkModuleCore
 					'field'  => 'restricted_feed_comments_url',
 					'values' => '<code><a href="'.$urls['comments_rss2_url'].'">'.$urls['comments_rss2_url'].'</a></code>',
 				), TRUE );
-
 			}
 
 		echo '</table>';

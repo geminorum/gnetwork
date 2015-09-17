@@ -17,16 +17,16 @@
 // EXAMPLE: @include link-colors(white, blue, green, red);
 @mixin link-colors($link, $visit, $hover, $active) {
   a {
-    color: $link;
-    &:visited {
-      color: $visit;
-    }
-    &:hover {
-      color: $hover;
-    }
-    &:active {
-      color: $active;
-    }
+	color: $link;
+	&:visited {
+	  color: $visit;
+	}
+	&:hover {
+	  color: $hover;
+	}
+	&:active {
+	  color: $active;
+	}
   }
 }
 
@@ -40,17 +40,17 @@
 // EXAMPLE: @include loop-shadow(10, 30px);
 @mixin loop-shadow($elements, $height) {
 
-    @for $i from 0 to $elements {
+	@for $i from 0 to $elements {
 
-        $red: $i * 10 + 150;
-        $green: ($i * 10 + 150) / 2;
-        $blue: ($i * 10 + 150) / 2;
+		$red: $i * 10 + 150;
+		$green: ($i * 10 + 150) / 2;
+		$blue: ($i * 10 + 150) / 2;
 
-        & div:nth-child(#{$i}) {
-            background: rgb($red, $green, $blue);
-            width: 100%;
-            height: $height;
-            box-shadow: 0 -1px #{($elements - $i) * 2}px rgba(0, 0, 0, 0.7);
-        }
-    }
+		& div:nth-child(#{$i}) {
+			background: rgb($red, $green, $blue);
+			width: 100%;
+			height: $height;
+			box-shadow: 0 -1px #{($elements - $i) * 2}px rgba(0, 0, 0, 0.7);
+		}
+	}
 }

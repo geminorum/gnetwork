@@ -14,9 +14,9 @@
 // DEPRICATED: use @include clearfix()
 %clearfix {
   &:after {
-    content: "";
-    display: table;
-    clear: both;
+	content: "";
+	display: table;
+	clear: both;
   }
 }
 
@@ -24,43 +24,43 @@
 	-webkit-box-sizing:border-box;
 	-moz-box-sizing:border-box;
 	box-sizing:border-box;
-    & *,
-    &:after,
-    & *:after,
-    &:before,
-    & *:before {
+	& *,
+	&:after,
+	& *:after,
+	&:before,
+	& *:before {
 		-webkit-box-sizing:border-box;
 		-moz-box-sizing:border-box;
 		box-sizing:border-box;
-    }
+	}
 	padding:0;
 	margin:0;
 	border:0;
 }
 
 @mixin box-reset() {
-    -webkit-box-sizing:border-box;
-    -moz-box-sizing:border-box;
-    box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	box-sizing:border-box;
 }
 
 // DEPRICATED: use @include box-reset()
 %box-reset {
-    -webkit-box-sizing:border-box;
-    -moz-box-sizing:border-box;
-    box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	box-sizing:border-box;
 }
 
 // DEPRICATED: use @include mainwrap()
 %main_wrap {
 	@extend %box-reset;
-    & *,
-    &:after,
-    & *:after,
-    &:before,
-    & *:before {
-        @extend %box-reset;
-    }
+	& *,
+	&:after,
+	& *:after,
+	&:before,
+	& *:before {
+		@extend %box-reset;
+	}
 	padding:0;
 	margin:0;
 	border:0;
@@ -69,13 +69,13 @@
 // MUST DEPRICATED: use @include mainwrap()
 @mixin main-wrap() {
 	@extend %box-reset;
-    & *,
-    &:after,
-    & *:after,
-    &:before,
-    & *:before {
-        @extend %box-reset;
-    }
+	& *,
+	&:after,
+	& *:after,
+	&:before,
+	& *:before {
+		@extend %box-reset;
+	}
 	padding:0;
 	margin:0;
 	border:0;

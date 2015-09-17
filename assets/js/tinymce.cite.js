@@ -9,15 +9,15 @@
 				onclick: function() {
 					editor.windowManager.open( {
 						id: 'gnetwork-tinymce-window-gnetworkcite',
-				        title: editor.getLang('gnetwork.gnetworkcite-title'),
-				        body: [{
+						title: editor.getLang('gnetwork.gnetworkcite-title'),
+						body: [{
 							id: 'gnetwork-tinymce-input-gnetworkcite-refurl',
-				            type: 'textbox',
-				            name: 'refurl',
-				            label: editor.getLang('gnetwork.gnetworkcite-url'),
+							type: 'textbox',
+							name: 'refurl',
+							label: editor.getLang('gnetwork.gnetworkcite-url'),
 							value: 'http://',
-				        }],
-				        onsubmit: function( e ) {
+						}],
+						onsubmit: function( e ) {
 
 							var text = editor.selection.getContent(),
 								refurl = e.data.refurl;
@@ -36,8 +36,8 @@
 								else
 									editor.insertContent( '[ref]' );
 							}
-				        }
-				    });
+						}
+					});
 				}
 			});
 		},

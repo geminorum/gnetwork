@@ -11,16 +11,16 @@ body { font-family: 'Ubuntu', sans-serif; }
 @media (min-width: 48rem) {
   // html { font-size: 16px;  }
 
-    .sidebar {
-        h1 {  font-size: 44px !important; }
-    }
+	.sidebar {
+		h1 {  font-size: 44px !important; }
+	}
 
 }
 @media (min-width: 58rem) {
   // html { font-size: 20px; }
 
   .sidebar {
-      h1 {  font-size: 54px !important; }
+	  h1 {  font-size: 54px !important; }
   }
 
 }
@@ -29,23 +29,23 @@ body { font-family: 'Ubuntu', sans-serif; }
 
 
 .sidebar-nav {
-    ul {
-        list-style:none;
-        padding-left:0;
-    }
+	ul {
+		list-style:none;
+		padding-left:0;
+	}
 
 }
 
 .sidebar-about {
-    p.lead {
-        font-size:0.89em;
-    }
+	p.lead {
+		font-size:0.89em;
+	}
 }
 
 .sidebar-sticky {
-    > p {
-        display:none;
-    }
+	> p {
+		display:none;
+	}
 }
 
 
@@ -54,48 +54,48 @@ body { font-family: 'Ubuntu', sans-serif; }
 }
 
 .entry-footer {
-    .edit-link {
-        display:none;
-    }
+	.edit-link {
+		display:none;
+	}
 }
 
 
 .wpcf7 {
 
-    .wpcf7-response-output {
-        margin:0 !important;
-        padding:0.2em !important;
-        text-align:center;
-    }
+	.wpcf7-response-output {
+		margin:0 !important;
+		padding:0.2em !important;
+		text-align:center;
+	}
 
-    img.ajax-loader {
-    	border: none;
-    	vertical-align: middle;
-    	margin:0 auto;
-        padding-top:0.4em;
-        //clear:both;
-    }
+	img.ajax-loader {
+		border: none;
+		vertical-align: middle;
+		margin:0 auto;
+		padding-top:0.4em;
+		//clear:both;
+	}
 
-    span.wpcf7-not-valid-tip {
-        display:inline !important;
-    }
+	span.wpcf7-not-valid-tip {
+		display:inline !important;
+	}
 
-    span.wpcf7-form-control-wrap {
-        position: relative;
+	span.wpcf7-form-control-wrap {
+		position: relative;
 
-        input[type="text"], input[type="email"], textarea {
-            width:100%;
-        }
+		input[type="text"], input[type="email"], textarea {
+			width:100%;
+		}
 
-    }
+	}
 
-    input[type="submit"] {
-        width:100%;
-    }
+	input[type="submit"] {
+		width:100%;
+	}
 }
 
 .gnetwork-wrap-shortcode.shortcode-back {
-    a {
-        text-transform: lowercase;
-    }
+	a {
+		text-transform: lowercase;
+	}
 }

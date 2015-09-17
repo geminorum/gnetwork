@@ -101,19 +101,12 @@ input#gnetwork-tinymce-input-gnetworkcite-refurl {
 /// DASHBOARD WIDGETS ----------------------------------------------------------
 
 #dashboard-widgets {
-	h4 {
-	}
-
 	#dashboard_activity {
 		#published-posts {
 			ul {
 				margin-top: 0;
 			}
 		}
-	}
-
-	#dashboard_right_now {
-
 	}
 }
 
@@ -122,8 +115,9 @@ input#gnetwork-tinymce-input-gnetworkcite-refurl {
 #dashboard_right_now h4.mu-storage,
 #dashboard_right_now .inside .versions p,
 #dashboard_right_now .inside .versions span,
-#dashboard_right_now .inside p.musub
-{ display: none !important; }
+#dashboard_right_now .inside p.musub {
+	display: none !important;
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -177,6 +171,29 @@ input#gnetwork-tinymce-input-gnetworkcite-refurl {
 	}
 }
 
+body.colored {
+
+	.status-draft { 
+		background:#FCE3F2 !important;
+	}
+
+	.status-pending {
+		background:#87C5D6 !important;
+	}
+
+	.status-publish {
+		// no background keep wp alternating colors
+	}
+
+	.status-future {
+		background:#C6EBF5 !important;
+	}
+
+	.status-private {
+		background:#F2D46F;
+	}
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -185,6 +202,30 @@ input#gnetwork-tinymce-input-gnetworkcite-refurl {
 ul.categorychecklist {
 	li {
 		line-height: 18px !important;
+	}
+}
+
+#poststuff {
+
+	#postexcerpt div.inside p,
+	#postcustom div.inside > p,
+	#trackbacksdiv div.inside p:last-child {
+		display: none;
+		visibility: hidden;
+	}
+
+	#postimagediv div.inside p {
+		text-align:center;
+
+		img.attachment-post-thumbnail{
+			max-width: 100%;
+			height: auto;
+		}
+	}
+
+	input#post_name,
+	select#post_author_override {
+		width: 99%;
 	}
 }
 
@@ -230,64 +271,40 @@ table.gnetwork-settings .ul-li-inline ul li { display:inline-block; margin-right
 body.rtl table.gnetwork-settings .ul-li-inline:not(.ltr) ul li { margin-right:0; margin-left:8px; }
 table.gnetwork-settings .table-block table {}
 table.gnetwork-settings .table-block table td { padding:5px 2px; }
-/**----------------------------------------------------------------------**/
-/**----------------------------------------------------------------------**/
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 // JS TAB API: initially used in gImporter
 .gnetwork-tabs {}
 .gnetwork-tabs .nav-tab { }
 .gnetwork-tabs .nav-tab-content { display:none; }
 .gnetwork-tabs .nav-tab-content-active { display:block; }
-/**----------------------------------------------------------------------**/
 
-/**--gImporter-------------------------------------------------------------
--------------------------------------------------------------------------**/
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// --gImporter-------------------------------------------------------------
 #gimporter_people .byline { padding:10px 5px; }
-/**------------------------------------------------------------------------
--------------------------------------------------------------------------**/
 
-/** gMember ---------MUST MOVE TO GMEMBER------------------------
---------------------------------------------------------------**/
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+// gMember ---------MUST MOVE TO GMEMBER------------------------
 table.users-network td.timestamps table td { padding:0 0 2px; }
 
-/** BWP Google XML Sitemaps--------------------------------------
---------------------------------------------------------------**/
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+// BWP Google XML Sitemaps--------------------------------------
 // form.bwp-option-page { direction:ltr; }
 // #bwp-info-place { display:none; }
 
-/** gNetworkMedia ----------------------------------------------
---------------------------------------------------------------**/
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+// gNetworkMedia ----------------------------------------------
 table.media a.media-url-click{ outline:0 none; }
 table.media div.media-url-box { margin:10px 0; }
 table.media input.media-url-field { direction:ltr;}
-
-
-/** ------------------------------------------------------------
---------------------------------------------------------------**/
-
-/**--  Post Edit Page Enhancements :--**/
-#poststuff #postexcerpt div.inside p,
-#poststuff #postcustom div.inside > p
-{ display:none; visibility:hidden; }
-
-#poststuff #postimagediv div.inside p { text-align:center; }
-#poststuff #postimagediv div.inside p img.attachment-post-thumbnail{ max-width:100%; height:auto; }
-
-#poststuff input#post_name,
-#poststuff select#post_author_override
-{ width:99%; }
-
-/**-- RTL Post Edit Page Enhancements : --**/
-.rtl #poststuff #sample-permalink { margin-left:5px; }
-.rtl #poststuff input#post_name { direction:ltr;}
-
-/**----------------------------------------------------**/
-/**----------------------------------------------------**/
-body.colored .status-draft     { background:#FCE3F2 !important; }
-body.colored .status-pending { background:#87C5D6 !important; }
-body.colored .status-publish { /* no background keep wp alternating colors */ }
-body.colored .status-future   { background:#C6EBF5 !important; }
-body.colored .status-private { background:#F2D46F; }
-/**----------------------------------------------------**/
-/**----------------------------------------------------**/
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 table.users-network th.column-email { width:14%; }
 table.users-network th.column-registered { width:110px; }

@@ -1,13 +1,18 @@
 @charset "UTF-8";
 
+@import "modules/all";
+@import "partials/base";
+
 @import url(http://fonts.googleapis.com/earlyaccess/droidarabicnaskh.css);
 
 $font-family-base: "Droid Arabic Naskh", Tahoma, "Iranian Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 $font-family-head: Arial, "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 body.rtl {
+
 	direction: rtl;
 	font-family: $font-family-base;
+
 	h1,
 	h2,
 	h3,
@@ -17,6 +22,7 @@ body.rtl {
 		font-weight: 700;
 		font-family: $font-family-head;
 	}
+
 	.grid {
 		margin-right: 0;
 		margin-left: 3.2%;
@@ -24,8 +30,8 @@ body.rtl {
 	}
 
 	.last {
-	  clear:left;
-	  margin-left: 0!important;
+	  clear: left;
+	  margin-left: 0 !important;
 	}
 
 	.post-list {
@@ -43,9 +49,8 @@ body.rtl {
 
 		.post,
 		.page {
-			float:right;
+			float: right;
 		}
-
 	}
 
 	.search-expand,
@@ -54,16 +59,19 @@ body.rtl {
 		left: 0;
 
 	}
+
 	.toggle-search {
 		-webkit-box-shadow: 1px 0 0 rgba(255,255,255,0.1);
 		box-shadow: 1px 0 0 rgba(255,255,255,0.1);
 	}
 
 	#flexslider-featured {
+
 		.flex-direction-nav {
 			right: auto;
 			left: 0;
 		}
+
 		.flex-control-nav {
 			li {
 				margin-right: 0;
@@ -72,26 +80,34 @@ body.rtl {
 			}
 		}
 	}
+
 	#header {
 		.pad {
 			padding-top: 10px;
 			padding-bottom: 5px;
 		}
 	}
+
 	.site-title {
+
 		float: right;
+		font-weight: 700;
+		font-family: $font-family-head;
+
 		a {
 			img {
 				// max-height: 95px;
 			}
 		}
 	}
+
 	.site-description {
 		float: right;
 		margin-right: 20px;
 		margin-left: 0;
 		// line-height: 95px;
 	}
+
 	.heading i {
 		margin-right: 0;
 		margin-left: 6px;
@@ -110,10 +126,12 @@ body.rtl {
 		right: auto;
 		left: 0;
 		box-shadow: inset 1px 0 1px rgba(0,0,0,0.2);
+
 		&:hover {
 			padding-left: 4px;
 			padding-right: 0;
 		}
+
 		& > span:before {
 			border-right: 7px solid transparent;
 			border-left: 7px solid #82b965;
@@ -122,35 +140,40 @@ body.rtl {
 			left: auto;
 			right: -14px;
 		}
+
 		i {
 			margin-right: 0;
 			margin-left: 3px;
 		}
 	}
+
 	.post-meta {
 		.post-category {
 			float: right;
 			margin-left: 6px;
 			margin-right: 0;
 		}
+
 		.post-date {
 			float: right;
 		}
 	}
+
 	.page-title {
 		.meta-single {
 			li {
 				float: right;
 				margin-left: 14px;
 				margin-right: 0;
+
 				&.comments {
 					float: left;
-
 					// margin-right: 0;
 					margin-left: 0;
 				}
 			}
 		}
+
 		i {
 			margin-left: 8px;
 			margin-right: 0;
@@ -175,6 +198,7 @@ body.rtl {
 		margin-left: 6px;
 		margin-right: 0;
 	}
+
 	.post-nav li.next i {
 		right: auto;
 		left: 10px;
@@ -182,6 +206,7 @@ body.rtl {
 			content: "\f053";
 		}
 	}
+
 	.post-nav li.previous i {
 		left: auto;
 		right: 10px;
@@ -189,18 +214,22 @@ body.rtl {
 			content: "\f054";
 		}
 	}
+
 	.alx-tabs-nav li {
 		float: right;
 	}
+
 	.alx-tab.thumbs-enabled li {
 		padding-left: 0;
 		padding-right: 94px;
 	}
+
 	.alx-tab .tab-item-thumbnail {
 		margin-left: 0;
 		margin-right: -94px;
 		float: right;
 	}
+
 	.related-posts .related-inner {
 		padding: 0 0 0 20px;
 	}
@@ -286,12 +315,35 @@ body.rtl {
 	// 		font:bold 14.2px/18px $font-family-head;
 	// 	}
 	// }
+
+	.entry,
 	.entry-content {
 		p {
 			font: normal 14.4px/25.2px $font-family-base;
 		}
+
+		blockquote {
+			font-style: italic;
+			padding-right: 50px;
+			padding-left: 0;
+
+			&:before {
+				right: 0;
+				left: auto;
+				@include theme-transform-flip-horizontal();
+			}
+		}
+	}
+
+	.pullquote-right {
+		border-right: none;
+		border-left: 6px solid #eee;
+		float: left;
+		margin: 0.78em 1em 0.78em 0;
+		padding: 0 0 0 20px;
 	}
 }
+
 @media only screen and (min-width: 720px) {
 	body.rtl {
 		.nav ul {
@@ -316,7 +368,7 @@ body.mobahesat-network {
 	}
 
 	#nav-header .nav ul {
-  		background-color: #000C46;
+		  background-color: #000C46;
 	}
 
 	.site-title {
@@ -333,7 +385,6 @@ body.mobahesat-network {
 		font-style:normal;
 		margin-right:10px;
 	}
-
 
 	.s2 .sidebar-top,
 	.s2 .sidebar-toggle {
