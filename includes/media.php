@@ -97,17 +97,39 @@ class gNetworkMedia extends gNetworkModuleCore
 		return $sizes;
 	}
 
+	// FIXME: DEPRECATED
 	// this must be wp core future!!
 	// core duplication with post_type : add_image_size()
 	public static function addImageSize( $name, $width = 0, $height = 0, $crop = FALSE, $post_type = array( 'post' ) )
 	{
 		global $_wp_additional_image_sizes;
 
-		$_wp_additional_image_sizes[ $name ] = array(
+		$_wp_additional_image_sizes[$name] = array(
 			'width'     => absint( $width ),
 			'height'    => absint( $height ),
 			'crop'      => $crop,
 			'post_type' => $post_type,
+		);
+	}
+
+	public static function registerImageSize( $name, $atts = array() )
+	{
+		global $_wp_additional_image_sizes;
+
+		$args = self::atts( array(
+			'n' => __( 'Undefined Image Size', GNETWORK_TEXTDOMAIN ),
+			'w' => 0,
+			'h' => 0,
+			'c' => 0,
+			'p' => array( 'post' ),
+		), $atts );
+
+		$_wp_additional_image_sizes[$name] = array(
+			'width'     => absint( $args['w'] ),
+			'height'    => absint( $args['h'] ),
+			'crop'      => $args['c'],
+			'post_type' => $args['p'],
+			'title'     => $args['n'],
 		);
 	}
 
