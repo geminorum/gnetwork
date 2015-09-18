@@ -21,6 +21,9 @@ class gNetworkBlog extends gNetworkModuleCore
 			add_filter( 'query_vars', array( &$this, 'feed_json_query_vars' ) );
 			add_filter( 'template_include', array( &$this, 'feed_json_template_include' ) );
 		}
+
+		add_filter( 'frontpage_template', array( &$this, 'frontpage_template' ) );
+
 		if ( $this->options['page_for_404'] )
 			add_filter( '404_template', array( &$this, 'custom_404_template' ) );
 	}
@@ -39,12 +42,13 @@ class gNetworkBlog extends gNetworkModuleCore
 		return array(
 			'_general' => array(
 				array(
-					'field'   => 'blog_redirect',
-					'type'    => 'text',
-					'title'   => __( 'Blog Redirect to', GNETWORK_TEXTDOMAIN ),
-					'desc'    => __( 'The site will redirect to this URL. Leave empty to disable.', GNETWORK_TEXTDOMAIN ),
-					'default' => '',
-					'dir'     => 'ltr',
+					'field'       => 'blog_redirect',
+					'type'        => 'text',
+					'title'       => __( 'Blog Redirect to', GNETWORK_TEXTDOMAIN ),
+					'description' => __( 'The site will redirect to this URL. Leave empty to disable.', GNETWORK_TEXTDOMAIN ),
+					'default'     => '',
+					'dir'         => 'ltr',
+				),
 				array(
 					'field'       => 'feed_json',
 					'type'        => 'enabled',
@@ -102,6 +106,17 @@ class gNetworkBlog extends gNetworkModuleCore
 			'wp-admin',
 		), $request_uri );
 	}
+
+	// http://kaspars.net/blog/wordpress/custom-page-template-front-page
+	public function frontpage_template( $template )
+	{
+		// check if a custom template has been selected
+		if ( get_page_template_slug() )
+			return get_page_template();
+
+		return $template;
+	}
+
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
