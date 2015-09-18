@@ -160,6 +160,10 @@ body.rtl {
 	}
 
 	.page-title {
+
+		padding-top: 20px;
+		padding-bottom: 15px;
+
 		.meta-single {
 			li {
 				float: right;
@@ -179,14 +183,19 @@ body.rtl {
 			margin-right: 0;
 		}
 	}
-	.sidebar-top p {
-		float: right;
+
+	.sidebar-top  {
+		padding: 18px 20px 12px;
+
+		p {
+			float: right;
+		}
 	}
 
 	.social-links {
 		float: left;
 		li {
-			margin-right:8px;
+			margin-right: 8px;
 			margin-left: 0px;
 		}
 	}
@@ -251,32 +260,32 @@ body.rtl {
 	.commentlist {
 
 		li {
-			padding:0 60px 0 0;
+			padding: 0 60px 0 0;
 
 			li {
-				padding:0 48px 0 0;
+				padding: 0 48px 0 0;
 			}
 		}
 
 		.comment-author {
-			padding:0 0 0 6px;
+			padding: 0 0 0 6px;
 		}
 
 		.comment-author,
 		.comment-meta,
 		.comment-awaiting-moderation {
-			float:right;
+			float: right;
 		}
 
 		.avatar {
-			left:auto;
+			left: auto;
 			right: -60px;
 		}
 	}
 
 	.pinglist {
 		li {
-			padding:0 60px 0 0;
+			padding: 0 60px 0 0;
 		}
 	}
 
@@ -289,11 +298,19 @@ body.rtl {
 		}
 	}
 
-
 	.themeform {
 		input[type="submit"],
 		button[type="submit"] {
 			padding: 6px 10px 4px;
+		}
+	}
+
+	.pagination {
+		.prev {
+			float: right !important;
+		}
+		.next {
+			float: left !important;
 		}
 	}
 
@@ -333,6 +350,17 @@ body.rtl {
 				@include theme-transform-flip-horizontal();
 			}
 		}
+
+		&.excerpt p {
+			margin-bottom: 0.5em;
+		}
+
+		ol,
+		ul {
+			margin: 0 30px 15px 0;
+			list-style-type: -moz-persian;
+			list-style-type: persian;
+		}
 	}
 
 	.pullquote-right {
@@ -341,6 +369,23 @@ body.rtl {
 		float: left;
 		margin: 0.78em 1em 0.78em 0;
 		padding: 0 0 0 20px;
+	}
+
+	.wpcf7 {
+		direction: rtl !important;
+
+		p,
+		label,
+		textarea,
+		input[type="text"],
+		input[type="email"] {
+			float: right;
+		}
+
+		label {
+			margin: 9px 12px 0 0;
+			text-align: right;
+		}
 	}
 }
 

@@ -12,6 +12,13 @@
 
 	.gnetwork-form {
 
+		.form-table {
+
+			.field-after {
+				vertical-align: middle;
+			}
+		}
+
 		&.has-sidebox {
 			.form-table {
 				width: 75%;
