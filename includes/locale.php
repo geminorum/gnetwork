@@ -103,6 +103,9 @@ class gNetworkLocale extends gNetworkModuleCore
 			'breadcrumb-navxt'              => 'page', // Breadcrumb NavXT
 			'themecheck'                    => 'page', // Theme Check
 			'search-regex.php'              => 'page', // Search Regex
+			'ot-theme-options'              => 'page', // OptionTree: Theme Options
+			'theme-documentation'           => 'page', // Revera Theme Documentation
+			'options-framework'             => 'page', // Revera: Theme Options
 		) );
 
 		foreach ( $black_list as $val => $key )
