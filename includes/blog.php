@@ -15,6 +15,12 @@ class gNetworkBlog extends gNetworkModuleCore
 
 		if ( $this->options['blog_redirect'] )
 			add_action( 'init', array( &$this, 'init_redirect' ), 1 );
+
+		if ( $this->options['feed_json'] ) {
+			add_action( 'init', array( &$this, 'feed_json_init' ) );
+			add_filter( 'query_vars', array( &$this, 'feed_json_query_vars' ) );
+			add_filter( 'template_include', array( &$this, 'feed_json_template_include' ) );
+		}
 		if ( $this->options['page_for_404'] )
 			add_filter( '404_template', array( &$this, 'custom_404_template' ) );
 	}
@@ -24,6 +30,7 @@ class gNetworkBlog extends gNetworkModuleCore
 		return array(
 			'blog_redirect' => '',
 			'page_for_404'  => '0',
+			'feed_json'     => '0',
 		);
 	}
 
@@ -38,6 +45,14 @@ class gNetworkBlog extends gNetworkModuleCore
 					'desc'    => __( 'The site will redirect to this URL. Leave empty to disable.', GNETWORK_TEXTDOMAIN ),
 					'default' => '',
 					'dir'     => 'ltr',
+				array(
+					'field'       => 'feed_json',
+					'type'        => 'enabled',
+					'title'       => __( 'Feed JSON', GNETWORK_TEXTDOMAIN ),
+					'description' => __( 'Adds JSON as new type of feed you can subscribe to.', GNETWORK_TEXTDOMAIN ),
+					'default'     => '0',
+					'after'       => sprintf( '<code class="field-after"><a href="%1$s">%1$s</a></code>', get_feed_link( 'json' ) ),
+				),
 				array(
 					'field'       => 'page_for_404',
 					'type'        => 'page',
@@ -87,6 +102,40 @@ class gNetworkBlog extends gNetworkModuleCore
 			'wp-admin',
 		), $request_uri );
 	}
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// Originally Based on: [Feed JSON](https://wordpress.org/plugins/feed-json/)
+/// By wokamoto : http://twitter.com/wokamoto
+/// Updated on: 20150918 / v1.0.9
+
+	public function feed_json_init()
+	{
+		add_feed( 'json', array( &$this, 'do_feed_json' ) );
+	}
+
+	public function feed_json_query_vars( $qvars )
+	{
+		$qvars[] = 'callback';
+		$qvars[] = 'limit';
+
+		return $qvars;
+	}
+
+	public function do_feed_json()
+	{
+		gNetworkUtilities::getLayout( 'feed.json', TRUE );
+	}
+
+	public function feed_json_template_include( $template )
+	{
+		if ( 'json' === get_query_var( 'feed' )
+			&& $layout = gNetworkUtilities::getLayout( 'feed.json' ) )
+				return $layout;
+
+		return $template;
+	}
+
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
