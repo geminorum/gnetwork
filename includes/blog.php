@@ -15,12 +15,15 @@ class gNetworkBlog extends gNetworkModuleCore
 
 		if ( $this->options['blog_redirect'] )
 			add_action( 'init', array( &$this, 'init_redirect' ), 1 );
+		if ( $this->options['page_for_404'] )
+			add_filter( '404_template', array( &$this, 'custom_404_template' ) );
 	}
 
 	public function default_options()
 	{
 		return array(
 			'blog_redirect' => '',
+			'page_for_404'  => '0',
 		);
 	}
 
@@ -35,6 +38,20 @@ class gNetworkBlog extends gNetworkModuleCore
 					'desc'    => __( 'The site will redirect to this URL. Leave empty to disable.', GNETWORK_TEXTDOMAIN ),
 					'default' => '',
 					'dir'     => 'ltr',
+				array(
+					'field'       => 'page_for_404',
+					'type'        => 'page',
+					'title'       => __( 'Page for Error 404', GNETWORK_TEXTDOMAIN ),
+					'description' => __( 'Set any page to be used as the 404 error page.', GNETWORK_TEXTDOMAIN ),
+					'default'     => '0',
+					'exclude' => implode( ',', array_filter( array(
+						get_option( 'page_on_front' ),
+						get_option( 'page_for_posts' ),
+					) ) ),
+					'after'       => sprintf( '<span class="field-after"><a href="%s">%s</a></span>',
+						admin_url( '/post-new.php?post_type=page' ),
+						__( 'Add New Page', GNETWORK_TEXTDOMAIN )
+					),
 				),
 			),
 		);
@@ -69,5 +86,41 @@ class gNetworkBlog extends gNetworkModuleCore
 			'xmlrpc.php',
 			'wp-admin',
 		), $request_uri );
+	}
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// Originally Based on: [kasparsd/custom-404-page](https://github.com/kasparsd/custom-404-page)
+/// By Kaspars Dambis : http://kaspars.net/
+/// Updated on: 20150918
+
+	// set WP to use page template (page.php) even when returning 404
+	public function custom_404_template( $template )
+	{
+		global $wp_query, $post;
+
+		if ( is_404() ) {
+
+			// get our custom 404 post object. We need to assign
+			// $post global in order to force get_post() to work
+			// during page template resolving.
+			$post = get_post( $this->options['page_for_404'] );
+
+			// populate the posts array with our 404 page object
+			$wp_query->posts = array( $post );
+
+			// set the query object to enable support for custom page templates
+			$wp_query->queried_object_id = $this->options['page_for_404'];
+			$wp_query->queried_object    = $post;
+
+			// set post counters to avoid loop errors
+			$wp_query->post_count    = 1;
+			$wp_query->found_posts   = 1;
+			$wp_query->max_num_pages = 0;
+
+			return get_page_template();
+		}
+
+		return $template;
 	}
 }
