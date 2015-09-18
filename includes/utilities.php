@@ -148,7 +148,7 @@ class gNetworkUtilities
 		if ( $no_cache )
 			__donot_cache_page();
 
-		if ( $require_once )
+		if ( $require_once && $layout )
 			require_once( $layout );
 		else
 			return $layout;
