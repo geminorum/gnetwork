@@ -303,9 +303,38 @@ body.rtl {
 		button[type="submit"] {
 			padding: 6px 10px 4px;
 		}
+
+		&.searchform {
+			div input {
+				padding-left: 0px;
+				padding-right: 32px;
+			}
+			div:after {
+				line-height: 32px;
+				font-size: 14px;
+				left: auto;
+				right: 12px;
+				top: 6px;
+			}
+		}
+	}
+
+	.notebox {
+		&:before {
+			left: auto;
+			right: 13px;
+		}
+		&:after {
+			left: auto;
+			right: 15px;
+		}
 	}
 
 	.pagination {
+		a {
+			font-size: inherit;
+			font-weight: normal;
+		}
 		.prev {
 			float: right !important;
 		}
