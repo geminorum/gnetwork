@@ -1,3 +1,17 @@
+### 0.2.18
+* modulecore: log only if `WP_DEBUG_LOG`
+* modulecore: `is_network()` to override network behavior
+* modulecore: `register_menu()` for conditional menus
+* notify: 4.3 way of handling of credential
+* shortcodes: check for feed in shortcodes
+* code: check for feed in shortcodes
+* admin: style adjusting for [WP4.3](https://make.wordpress.org/core/2015/07/31/headings-in-admin-screens-change-in-wordpress-4-3/)
+* media: new helper for additional image sizes
+* blog: custom 404 page, originally based on [kasparsd/custom-404-page](https://github.com/kasparsd/custom-404-page)
+* blog: JSON feed, originally based on [Feed JSON](https://wordpress.org/plugins/feed-json/)
+* blog: custom page template on frontpage
+* utilities: check user cap before flush
+
 ### 0.2.17
 * search: include authors removed
 * locale: custom override actually working!
