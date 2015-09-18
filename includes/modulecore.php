@@ -365,20 +365,12 @@ class gNetworkModuleCore
 
 	public function add_settings_field( $r )
 	{
-		// workaround to recent changes on WP 4.3-alpha
-		if ( isset( $r['class'] ) && ! isset( $r['field_class'] ) ) {
-			$r['field_class'] = $r['class'];
-			unset( $r['class'] );
-		}
-
 		$args = array_merge( array(
 			'page'     => $this->options_key(),
 			'section'  => $this->options_key().'_general',
 			'field'    => FALSE,
 			'title'    => '',
-			'desc'     => '',
 			'callback' => array( $this, 'do_settings_field' ),
-			'network'  => NULL,
 		), $r );
 
 		if ( ! $args['field'] )
@@ -451,7 +443,7 @@ class gNetworkModuleCore
 		// 			'field' => 'comments',
 		// 			'type' => 'enabled',
 		// 			'title' => _x( 'Comments', 'Enable Like for Comments', GNETWORK_TEXTDOMAIN ),
-		// 			'desc' => __( 'Like button for enabled post types comments', GNETWORK_TEXTDOMAIN ),
+		// 			'description' => __( 'Like button for enabled post types comments', GNETWORK_TEXTDOMAIN ),
 		// 			'default' => 0,
 		// 		),
 		// 	),
@@ -460,19 +452,30 @@ class gNetworkModuleCore
 
 	public function do_settings_field( $atts = array(), $wrap = FALSE )
 	{
+		// TODO: MUST DROP
+		// workaround to recent changes on WP 4.3
+		if ( isset( $atts['class'] ) && ! isset( $atts['field_class'] ) ) {
+			$atts['field_class'] = $atts['class'];
+			unset( $atts['class'] );
+		}
+
 		$args = shortcode_atts( array(
 			'title'        => '',
 			'label_for'    => '',
 			'type'         => 'enabled',
 			'field'        => FALSE,
 			'values'       => array(),
+			'exclude'      => '',
 			'filter'       => FALSE, // will use via sanitize
 			'dir'          => FALSE,
 			'default'      => '',
-			'desc'         => '',
+			'description'  => isset( $atts['desc'] ) ? $atts['desc'] : '',
+			'before'       => '', // html to print before field
+			'after'        => '', // html to print after field
 			'field_class'  => '', // formally just class!
 			'class'        => '', // now used on wrapper
 			'option_group' => $this->_option_key,
+			'network'      => NULL, // FIXME: WTF?
 			'disabled'     => FALSE,
 			'name_attr'    => FALSE, // override
 			'id_attr'      => FALSE, // override
@@ -490,8 +493,12 @@ class gNetworkModuleCore
 
 		$html  = '';
 		$name  = $args['name_attr'] ? $args['name_attr'] : $this->_option_base.'_'.$args['option_group'].'['.esc_attr( $args['field'] ).']';
-		$id    = $args['id_attr']   ? $args['id_attr']   : $this->_option_base.'-'.$args['option_group'].'-'.esc_attr( $args['field'] );
+		$id    = $args['id_attr'] ? $args['id_attr'] : $this->_option_base.'-'.$args['option_group'].'-'.esc_attr( $args['field'] );
 		$value = isset( $this->options[$args['field']] ) ? $this->options[$args['field']] : $args['default'];
+		$exclude = $args['exclude'] && ! is_array( $args['exclude'] ) ? array_filter( explode( ',', $args['exclude'] ) ) : array();
+
+		if ( $args['before'] )
+			echo $args['before'].'&nbsp;';
 
 		switch ( $args['type'] ) {
 
@@ -543,6 +550,10 @@ class gNetworkModuleCore
 
 				if ( count( $args['values'] ) ) {
 					foreach ( $args['values'] as $value_name => $value_title ) {
+
+						if ( in_array( $value_name, $exclude ) )
+							continue;
+
 						$html = gNetworkUtilities::html( 'input', array(
 							'type'    => 'checkbox',
 							'class'   => $args['field_class'],
@@ -578,6 +589,10 @@ class gNetworkModuleCore
 
 				if ( count( $args['values'] ) ) {
 					foreach ( $args['values'] as $value_name => $value_title ) {
+
+						if ( in_array( $value_name, $exclude ) )
+							continue;
+
 						$html = gNetworkUtilities::html( 'input', array(
 							'type'    => 'radio',
 							'class'   => $args['field_class'],
@@ -598,11 +613,16 @@ class gNetworkModuleCore
 			case 'select' :
 
 				if ( FALSE !== $args['values'] ) { // alow hiding
-					foreach ( $args['values'] as $value_name => $value_title )
+					foreach ( $args['values'] as $value_name => $value_title ) {
+
+						if ( in_array( $value_name, $exclude ) )
+							continue;
+
 						$html .= gNetworkUtilities::html( 'option', array(
 							'value'    => $value_name,
 							'selected' => $value == $value_name,
 						), esc_html( $value_title ) );
+					}
 
 					echo gNetworkUtilities::html( 'select', array(
 						'class' => $args['field_class'],
@@ -628,13 +648,37 @@ class gNetworkModuleCore
 				), $value );
 
 			break;
+			case 'page' :
+
+				if ( ! $args['values'] )
+					$args['values'] = 'page';
+
+				wp_dropdown_pages( array(
+					'post_type'        => $args['values'],
+					'selected'         => $value,
+					'name'             => $name,
+					'id'               => $id,
+					'class'            => $args['field_class'],
+					'exclude'          => implode( ',', $exclude ),
+					'show_option_none' => __( '&mdash; Select Page &mdash;', GNETWORK_TEXTDOMAIN ),
+					'sort_column'      => 'menu_order',
+					'sort_order'       => 'asc',
+					'post_status'      => 'publish,private,draft',
+				));
+
+			break;
 			case 'roles' :
 
-				foreach ( gNetworkUtilities::getUserRoles() as $value_name => $value_title )
+				foreach ( gNetworkUtilities::getUserRoles() as $value_name => $value_title ) {
+
+					if ( in_array( $value_name, $exclude ) )
+						continue;
+
 					$html .= gNetworkUtilities::html( 'option', array(
 						'value'    => $value_name,
 						'selected' => $value === $value_name,
 					), esc_html( $value_title ) );
+				}
 
 				echo gNetworkUtilities::html( 'select', array(
 					'class' => $args['field_class'],
@@ -645,11 +689,16 @@ class gNetworkModuleCore
 			break;
 			case 'blog_users' :
 
-				foreach ( gNetworkUtilities::getUsers() as $user_id => $user_object )
+				foreach ( gNetworkUtilities::getUsers() as $user_id => $user_object ) {
+
+					if ( in_array( $user_id, $exclude ) )
+						continue;
+
 					$html .= gNetworkUtilities::html( 'option', array(
 						'value'    => $user_id,
 						'selected' => $value == $user_id,
 					), esc_html( $user_object->display_name ) );
+				}
 
 				echo gNetworkUtilities::html( 'select', array(
 					'class' => $args['field_class'],
@@ -698,10 +747,13 @@ class gNetworkModuleCore
 				_e( 'Error: setting type undefined.', GNETWORK_TEXTDOMAIN );
 		}
 
-		if ( $args['desc'] && FALSE !== $args['values'] )
+		if ( $args['after'] )
+			echo '&nbsp;'.$args['after'];
+
+		if ( $args['description'] && FALSE !== $args['values'] )
 			echo gNetworkUtilities::html( 'p', array(
 				'class' => 'description',
-			), $args['desc'] );
+			), $args['description'] );
 
 		if ( $wrap )
 			echo '</td></tr>';
