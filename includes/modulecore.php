@@ -97,11 +97,11 @@ class gNetworkModuleCore
 		if ( $this->is_network() )
 			$options = isset( ${$network}[$this->_option_key] )
 				? ${$network}[$this->_option_key]
-				: get_site_option( $this->options_key(), array() ); // MUST DROP ON v0.3.0
+				: ( GNETWORK_CHECK_OLD_OPTIONS ? get_site_option( $this->options_key(), array() ) : array() );
 		else
 			$options = isset( ${$blog}[$this->_option_key] )
 				? ${$blog}[$this->_option_key]
-				: get_option( $this->options_key(), array() ); // MUST DROP ON v0.3.0
+				: ( GNETWORK_CHECK_OLD_OPTIONS ? get_option( $this->options_key(), array() ) : array() );
 
 		return $this->settings_sanitize( $options, $this->default_options() );
 	}

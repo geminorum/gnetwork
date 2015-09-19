@@ -7,6 +7,7 @@ $gnetwork_constants = array(
 	'GNETWORK_NAME'                  => ( is_multisite() ? get_site_option( 'site_name' ) : get_option( 'blogname' ) ),
 	'GNETWORK_WPLANG'                => 'en_US',
 	'GNETWORK_WPLANG_ADMIN'          => FALSE,
+	'GNETWORK_CHECK_OLD_OPTIONS'     => FALSE,
 	'GNETWORK_GETFLASHPLAYER_URL'    => 'http://get.adobe.com/flashplayer/',
 	'GNETWORK_SEARCH_URL'            => esc_url( home_url( '/' ) ),
 	'GNETWORK_SEARCH_QUERYID'        => 's',
