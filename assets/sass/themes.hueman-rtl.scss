@@ -57,7 +57,6 @@ body.rtl {
 	.toggle-search {
 		right: auto;
 		left: 0;
-
 	}
 
 	.toggle-search {
@@ -347,7 +346,6 @@ body.rtl {
 		direction:ltr; // this is mad!!
 	}
 
-
 	// .site-title	{
 	// 	font:bold 30px/35px $font-family-head;
 	// }
@@ -420,29 +418,42 @@ body.rtl {
 
 @media only screen and (min-width: 720px) {
 	body.rtl {
+
 		.nav ul {
 			right: 0;
 			left: auto;
-			li {
-				a {
-					// padding: 8px 18px 6px;
-				}
+			top: 48px;
+			ul {
+				left: auto;
+				right: 180px;
+				top: -10px;
 			}
 		}
-		.nav > li > a:after {
+
+		.nav li > a::after {
+			float: left;
+			@include theme-transform-flip-horizontal();
+		}
+
+		.nav > li > a::after {
 			margin-left: 0;
 			margin-right: 6px;
+		}
+
+		#nav-footer .nav ul {
+			text-align: right;
 		}
 	}
 }
 
 body.mobahesat-network {
+
 	#header {
 		background: #000C46;
 	}
 
 	#nav-header .nav ul {
-		  background-color: #000C46;
+		background-color: #000C46;
 	}
 
 	.site-title {
