@@ -1,3 +1,9 @@
+### 0.2.19
+* notify: `wp_new_user_notification()` changes again!
+* all: safe json encoding with `wp_json_encode()`
+* modulecore: check if module must load on frontend
+* modulecore: drop check for old options
+
 ### 0.2.18
 * modulecore: log only if `WP_DEBUG_LOG`
 * modulecore: `is_network()` to override network behavior
