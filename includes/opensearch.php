@@ -348,7 +348,7 @@ class gNetworkOpenSearch extends gNetworkModuleCore
 
 		header( 'Content-Length:'.count( $results ) );
 		header( 'Content-Type: application/json; charset=utf-8' );
-		echo '["'.$_REQUEST['q'].'",'.json_encode( $results ).']';
+		echo '["'.$_REQUEST['q'].'",'.wp_json_encode( $results ).']';
 
 		exit();
 	}

@@ -240,7 +240,7 @@ class gNetworkUtilities
 				if ( 'data' == $key ) {
 					foreach ( $att as $data_key => $data_val ) {
 						if ( is_array( $data_val ) )
-							$html .= ' data-'.$data_key.'=\''.json_encode( $data_val ).'\'';
+							$html .= ' data-'.$data_key.'=\''.wp_json_encode( $data_val ).'\'';
 						else
 							$html .= ' data-'.$data_key.'="'.esc_attr( $data_val ).'"';
 					}
@@ -340,7 +340,7 @@ class gNetworkUtilities
 		$func = $table ? 'table' : 'log';
 
 		if ( is_array( $data ) || is_object( $data ) )
-			echo '<script>console.'.$func.'('.json_encode($data).');</script>';
+			echo '<script>console.'.$func.'('.wp_json_encode($data).');</script>';
 		else
 			echo '<script>console.'.$func.'('.$data.');</script>';
 	}

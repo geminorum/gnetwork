@@ -56,7 +56,7 @@ if ( have_posts() ) {
 		$json[] = $single;
 	}
 
-	$json = json_encode( $json );
+	$json = wp_json_encode( $json );
 
 	nocache_headers();
 
