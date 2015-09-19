@@ -1,4 +1,4 @@
-<?php
+<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
 /*
 Plugin Name: gNetwork
 Plugin URI: http://gmeinorum.ir/wordpress/gnetwork
