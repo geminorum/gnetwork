@@ -86,7 +86,7 @@ class gNetworkNotify extends gNetworkModuleCore
 		return FALSE;
 	}
 
-	public function wp_new_user_notification( $user_id, $notify = '' )
+	public function wp_new_user_notification( $user_id, $deprecated = null, $notify = '' )
 	{
 		global $wpdb, $wp_hasher;
 
@@ -183,9 +183,9 @@ class gNetworkNotify extends gNetworkModuleCore
 }
 
 if ( ! function_exists( 'wp_new_user_notification' ) ) :
-function wp_new_user_notification( $user_id, $notify = '' ) {
+function wp_new_user_notification( $user_id, $deprecated = null, $notify = '' ) {
 	global $gNetwork;
-	return $gNetwork->notify->wp_new_user_notification( $user_id, $notify );
+	return $gNetwork->notify->wp_new_user_notification( $user_id, $deprecated, $notify );
 } endif;
 
 if ( ! function_exists( 'wp_password_change_notification' ) ) :
