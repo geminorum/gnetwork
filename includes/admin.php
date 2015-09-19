@@ -10,6 +10,7 @@ class gNetworkAdmin extends gNetworkModuleCore
 
 	protected function setup_actions()
 	{
+		// FIXME: is this necessary on frontend?
 		add_action( 'init', array( &$this, 'init_late' ), 999 );
 
 		if ( ! is_admin() )

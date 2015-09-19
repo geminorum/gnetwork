@@ -5,6 +5,7 @@ class gNetworkTaxonomy extends gNetworkModuleCore
 
 	var $_network    = FALSE;
 	var $_option_key = FALSE;
+	var $_front_end  = FALSE;
 
 	protected function setup_actions()
 	{

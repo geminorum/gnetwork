@@ -6,6 +6,7 @@ class gNetworkModuleCore
 	var $_network     = TRUE;       // using network wide options
 	var $_option_base = 'gnetwork';
 	var $_option_key  = FALSE;
+	var $_front_end   = TRUE;       // load module on front end?
 	var $_options     = array();
 	var $_ajax        = FALSE;      // load if ajax
 	var $_cron        = FALSE;      // load if cron
@@ -17,6 +18,9 @@ class gNetworkModuleCore
 			|| ( ! $this->_cron && self::isCRON() )
 			|| ( defined( 'WP_INSTALLING' ) && WP_INSTALLING ) )
 				return;
+
+		if ( ! is_admin() && ! $this->_front_end )
+			return;
 
 		if ( ! is_null( $this->_dev ) ) {
 			if ( FALSE === $this->_dev && gNetworkUtilities::isDev() )

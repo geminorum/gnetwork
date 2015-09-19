@@ -9,12 +9,10 @@ class gNetworkEditor extends gNetworkModuleCore
 
 	var $_network    = FALSE;
 	var $_option_key = FALSE;
+	var $_front_end  = FALSE;
 
 	protected function setup_actions()
 	{
-		if ( ! is_admin() )
-			return;
-
 		global $tinymce_version;
 
 		if ( ! version_compare( $tinymce_version, '4100', '<' ) ) {

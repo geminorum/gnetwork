@@ -11,6 +11,7 @@ class gNetworkActivation extends gNetworkModuleCore
 
 	var $_network    = TRUE;
 	var $_option_key = FALSE;
+	var $_front_end  = FALSE;
 	var $_ajax       = TRUE;
 
 	protected function setup_actions()
