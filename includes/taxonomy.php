@@ -62,7 +62,7 @@ class gNetworkTaxonomy extends gNetworkModuleCore
 			<td><?php wp_editor( htmlspecialchars_decode( $tag->description ), 'html-description', $settings ); ?>
 			<p class="description"><?php _e( 'The description is not prominent by default, however some themes may show it.', GNETWORK_TEXTDOMAIN ); ?></p></td>
 			<script type="text/javascript">jQuery( 'textarea#description' ).closest( '.form-field' ).remove();</script>
-		</tr> <?php
+		</tr><?php
 	}
 
 	// Add the visual editor to the add new tag screen
@@ -82,20 +82,17 @@ class gNetworkTaxonomy extends gNetworkModuleCore
 				jQuery( 'textarea#tag-description' ).closest( '.form-field' ).remove();
 				jQuery(function($){$( '#addtag' ).on( 'mousedown', '#submit', function(){tinyMCE.triggerSave();});});
 			</script>
-		</div> <?php
+		</div><?php
 	}
 
-	/////////////////////////////////////////////////////////////////
-	/////////////////////////////////////////////////////////////////
-	/////////////////////////////////////////////////////////////////
-	/////////////////////////////////////////////////////////////////
-	// Originally adapted from : Term Management Tools by scribu
-	// ver: 1.1.3
-	// https://github.com/scribu/wp-term-management-tools
-	// https://wordpress.org/plugins/term-management-tools/
-	// http://scribu.net/wordpress/term-management-tools
-	/////////////////////////////////////////////////////////////////
-	/////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// Originally adapted from : Term Management Tools by scribu
+/// ver: 1.1.3
+/// https://github.com/scribu/wp-term-management-tools
+/// https://wordpress.org/plugins/term-management-tools/
+/// http://scribu.net/wordpress/term-management-tools
 
 	private function get_actions( $taxonomy )
 	{
