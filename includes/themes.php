@@ -68,6 +68,10 @@ class gNetworkThemes extends gNetworkModuleCore
 						FALSE );
 
 				}, 12 );
+
+				add_filter( 'the_excerpt', function( $text ){
+					return $text.self::continueReading();
+				}, 5 );
 			}
 
 		} else if ( $this->is( 'semicolon' ) ) { // v0.9
@@ -176,6 +180,18 @@ class gNetworkThemes extends gNetworkModuleCore
 				$allowed[$theme->get_stylesheet()] = TRUE;
 
 		return $allowed;
+	}
+
+	// HELPER:
+	public function continueReading()
+	{
+		return ' '.sprintf(
+			__( '<a %1$s href="%1$s" title="Continue reading &ldquo;%2$s&rdquo; &hellip;" class="%3$s" >%4$s</a>', GNETWORK_TEXTDOMAIN ),
+			get_permalink(),
+			get_the_title(),
+			'excerpt-link',
+			__( 'Read more&nbsp;<span class="excerpt-link-hellip">&hellip;</span>', GNETWORK_TEXTDOMAIN )
+		);
 	}
 
 	public function body_class( $classes, $class )
