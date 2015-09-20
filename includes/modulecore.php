@@ -174,10 +174,15 @@ class gNetworkModuleCore
 		}
 	}
 
+	public static function settingsSub( $default = 'overview' )
+	{
+		return isset( $_REQUEST['sub'] ) ? trim( $_REQUEST['sub'] ) : $default;
+	}
+
 	public function settings_help() {}
 
 	// default setting sub html
-	public function settings_html( $settings_uri, $sub = 'general' )
+	public function settings_html( $uri, $sub = 'general' )
 	{
 		$class   = 'gnetwork-form';
 		$sidebox = method_exists( $this, 'settings_sidebox' );
@@ -197,7 +202,7 @@ class gNetworkModuleCore
 
 			if ( $sidebox ) {
 				echo '<div class="settings-sidebox settings-sidebox-'.$sub.'">';
-					$this->settings_sidebox( $sub, $settings_uri );
+					$this->settings_sidebox( $sub, $uri );
 				echo '</div>';
 			}
 
@@ -208,13 +213,13 @@ class gNetworkModuleCore
 			}
 
 			if ( method_exists( $this, 'settings_before' ) ) {
-				$this->settings_before( $sub, $settings_uri );
+				$this->settings_before( $sub, $uri );
 			}
 
 			do_settings_sections( $this->_option_base.'_'.$sub );
 
 			if ( method_exists( $this, 'settings_after' ) ) {
-				$this->settings_after( $sub, $settings_uri );
+				$this->settings_after( $sub, $uri );
 			}
 
 			$this->settings_buttons( $sub );

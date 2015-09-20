@@ -189,7 +189,7 @@ class gNetworkMail extends gNetworkModuleCore
 		);
 	}
 
-	public function settings_sidebox( $sub, $settings_uri )
+	public function settings_sidebox( $sub, $uri )
 	{
 		if ( $this->options['log_all'] ) {
 

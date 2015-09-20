@@ -193,8 +193,9 @@ class gNetworkAdmin extends gNetworkModuleCore
 
 	public function admin_settings_page()
 	{
+		$uri  = self::settingsURL( FALSE );
+		$sub  = self::settingsSub( 'overview' );
 		$subs = apply_filters( 'gnetwork_admin_settings_subs', $this->subs() );
-		$sub  = isset( $_GET['sub'] ) ? trim( $_GET['sub'] ) : 'overview';
 
 		echo '<div class="wrap gnetwork-admin-settings-wrap settings-admin sub-'.$sub.'">';
 
@@ -202,7 +203,6 @@ class gNetworkAdmin extends gNetworkModuleCore
 			|| ( 'console' == $sub && is_super_admin() )
 			|| ( isset( $this->menus[$sub] ) && self::cuc( $this->menus[$sub]['cap'] ) ) ) {
 
-			$settings_uri = self::settingsURL( FALSE );
 			$messages = apply_filters( 'gnetwork_admin_settings_messages', array(
 				'resetting' => gNetworkUtilities::notice( __( 'Resetting Settings.',          GNETWORK_TEXTDOMAIN ), 'updated fade', FALSE ),
 				'updated'   => gNetworkUtilities::notice( __( 'Settings updated.',            GNETWORK_TEXTDOMAIN ), 'updated fade', FALSE ),
@@ -212,7 +212,7 @@ class gNetworkAdmin extends gNetworkModuleCore
 			self::sideNotification();
 			echo gNetworkUtilities::html( 'h1', __( 'gNetwork Extras', GNETWORK_TEXTDOMAIN ) );
 
-			gNetworkUtilities::headerNav( $settings_uri, $sub, $subs );
+			gNetworkUtilities::headerNav( $uri, $sub, $subs );
 
 			if ( isset( $_GET['message'] ) ) {
 
@@ -227,7 +227,7 @@ class gNetworkAdmin extends gNetworkModuleCore
 			if ( file_exists( GNETWORK_DIR.'admin/admin.'.$sub.'.php' ) )
 				require_once( GNETWORK_DIR.'admin/admin.'.$sub.'.php' );
 			else
-				do_action( 'gnetwork_admin_settings_sub_'.$sub, $settings_uri, $sub );
+				do_action( 'gnetwork_admin_settings_sub_'.$sub, $uri, $sub );
 
 		} else {
 

@@ -155,9 +155,9 @@ class gNetworkNetwork extends gNetworkModuleCore
 
 	public function settings_page()
 	{
-		$settings_uri = self::settingsURL( FALSE );
-		$sub          = isset( $_REQUEST['sub'] ) ? trim( $_REQUEST['sub'] ) : 'overview';
-		$subs         = apply_filters( 'gnetwork_network_settings_subs', $this->subs() );
+		$uri  = self::settingsURL( FALSE );
+		$sub  = self::settingsSub( 'overview' );
+		$subs = apply_filters( 'gnetwork_network_settings_subs', $this->subs() );
 
 		$messages = apply_filters( 'gnetwork_network_settings_messages', array(
 			'resetting' => gNetworkUtilities::notice( __( 'Resetting Settings.', GNETWORK_TEXTDOMAIN ), 'updated fade', FALSE ),
@@ -170,7 +170,7 @@ class gNetworkNetwork extends gNetworkModuleCore
 			self::sideNotification();
 			echo gNetworkUtilities::html( 'h1', __( 'gNetwork Extras', GNETWORK_TEXTDOMAIN ) );
 
-			gNetworkUtilities::headerNav( $settings_uri, $sub, $subs );
+			gNetworkUtilities::headerNav( $uri, $sub, $subs );
 
 			if ( isset( $_REQUEST['message'] ) ) {
 
@@ -185,7 +185,7 @@ class gNetworkNetwork extends gNetworkModuleCore
 			if ( file_exists( GNETWORK_DIR.'admin/network.'.$sub.'.php' ) )
 				require_once( GNETWORK_DIR.'admin/network.'.$sub.'.php' );
 			else
-				do_action( 'gnetwork_network_settings_sub_'.$sub, $settings_uri, $sub );
+				do_action( 'gnetwork_network_settings_sub_'.$sub, $uri, $sub );
 
 		echo '<div class="clear"></div></div>';
 	}

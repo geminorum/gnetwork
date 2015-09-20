@@ -42,7 +42,7 @@ class gNetworkComments extends gNetworkModuleCore
 	public function settings( $sub = NULL )
 	{
 		if ( 'comments' == $sub ) {
-			
+
 			if ( isset( $_POST['purge_spams'] ) ) {
 				$this->check_referer( $sub );
 				$this->remove_spam_meta();
@@ -54,7 +54,7 @@ class gNetworkComments extends gNetworkModuleCore
 		}
 	}
 
-	public function settings_sidebox( $sub, $settings_uri )
+	public function settings_sidebox( $sub, $uri )
 	{
 		$this->total_comments();
 	}

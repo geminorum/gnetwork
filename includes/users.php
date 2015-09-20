@@ -65,7 +65,7 @@ class gNetworkUsers extends gNetworkModuleCore
 		);
 	}
 
-	public function settings_sidebox( $sub, $settings_uri )
+	public function settings_sidebox( $sub, $uri )
 	{
 		if ( GNETWORK_SITE_USER_ID )
 			printf( __( 'Network site user is %s', GNETWORK_TEXTDOMAIN ), get_userdata( GNETWORK_SITE_USER_ID )->display_name );
@@ -73,7 +73,7 @@ class gNetworkUsers extends gNetworkModuleCore
 			_e( 'Network site user is not defined', GNETWORK_TEXTDOMAIN );
 	}
 
-	public function settings_before( $sub, $settings_uri )
+	public function settings_before( $sub, $uri )
 	{
 		echo '<table class="form-table">';
 			echo '<tr><th scope="row">'.__( 'Bulk Change Author', GNETWORK_TEXTDOMAIN ).'</th><td>';
