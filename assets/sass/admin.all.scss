@@ -3,6 +3,7 @@
 @import "modules/all";
 @import "partials/base";
 
+@import "partials/admin.table";
 @import "partials/debug.all";
 @import "partials/adminbar.all";
 @import "partials/widgets.admin.all";
@@ -173,7 +174,7 @@ input#gnetwork-tinymce-input-gnetworkcite-refurl {
 
 body.colored {
 
-	.status-draft { 
+	.status-draft {
 		background:#FCE3F2 !important;
 	}
 
