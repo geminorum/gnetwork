@@ -16,7 +16,13 @@ echo '<form method="post" action="">';
 			gNetworkDebug::pluginPaths();
 		echo '</td></tr>';
 
-		// TODO: add upload paths
+		echo '<tr class="table-block ltr"><th scope="row">'.__( 'Upload Paths', GNETWORK_TEXTDOMAIN ).'</th><td>';
+			gNetworkDebug::wpUploadDIR();
+		echo '</td></tr>';
+
+		echo '<tr class="table-block ltr"><th scope="row">'.__( 'SERVER', GNETWORK_TEXTDOMAIN ).'</th><td>';
+			gNetworkDebug::dumpServer();
+		echo '</td></tr>';
 
 		echo '<tr class="ul-li-inline ltr"><th scope="row">'.__( 'Stats of the Caching', GNETWORK_TEXTDOMAIN ).'</th><td>';
 			gNetworkDebug::cacheStats();

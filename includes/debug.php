@@ -124,6 +124,29 @@ class gNetworkDebug extends gNetworkModuleCore
 		self::codeTable( $paths );
 	}
 
+	public static function wpUploadDIR()
+	{
+		$upload_dir = wp_upload_dir();
+		unset( $upload_dir['error'], $upload_dir['subdir'] );
+		self::codeTable( $upload_dir );
+	}
+
+	public static function dumpServer()
+	{
+		$server = $_SERVER;
+
+		unset(
+			$server['HTTP_COOKIE'],
+			$server['PATH']
+		);
+
+		$server['SERVER_SIGNATURE']   = strip_tags( $server['SERVER_SIGNATURE'] );
+		$server['REQUEST_TIME_FLOAT'] = date( 'l, j F, Y - H:i:s T', $server['REQUEST_TIME_FLOAT']  ).' ('.$server['REQUEST_TIME_FLOAT'] .')';
+		$server['REQUEST_TIME']       = date( 'l, j F, Y - H:i:s T', $server['REQUEST_TIME']  ).' ('.$server['REQUEST_TIME'] .')';
+
+		self::codeTable( $server );
+	}
+
 	// TODO: make it to the debugbar panel
 	// BASED on: https://gist.github.com/ocean90/3751658
 	/**
