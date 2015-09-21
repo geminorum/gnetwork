@@ -45,7 +45,9 @@ class gNetworkLocale extends gNetworkModuleCore
 	{
 		global $gNetwork;
 
+		echo gNetworkUtilities::html( 'h3', __( 'Loaded MO Files', GNETWORK_TEXTDOMAIN ) );
 		gNetworkUtilities::tableSide( $gNetwork->locale->loaded );
+
 		// gNetworkUtilities::tableSideWrap( $gNetwork->locale->loaded, __( 'Loaded MO Files', GNETWORK_TEXTDOMAIN ) );
 	}
 
