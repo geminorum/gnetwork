@@ -524,16 +524,87 @@ class gNetworkUtilities
 	// HELPER:
 	public static function tableSideWrap( $array, $title = FALSE )
 	{
-		if ( $create ) {
+		echo '<table class="w1idefat f1ixed helper-table-side">';
+			if ( $title )
+				echo '<thead><tr><th>'.$title.'</th></tr></thead>';
+			echo '<tbody>';
+			self::tableSide( $array );
+		echo '</tbody></table>';
+	}
+
+	public static function tableSide( $array )
+	{
+		echo '<table style="direction:ltr;border: 1px solid #ccc;width:100%;border-spacing:0;">';
+
+		if ( count( $array ) ) {
+
+			foreach ( $array as $key => $val ) {
+
+				echo '<tr class="-row">';
+
+				if ( is_string( $key ) ) {
+					echo '<td class="-key" style="padding:5px 5px;vertical-align:top;text-align:right;"><strong>'.$key;
+						echo '</strong><br /><small style="color:gray;">'.gettype( $val ).'</small>';
+					echo '</td>';
+				}
+
+				if ( is_array( $val ) || is_object( $val ) ) {
+					echo '<td class="-val" style="vertical-align:top;">';
+					self::tableSide( $val );
+				} else if ( ! empty( $val ) ){
+					echo '<td class="-val" style="padding:4px 2px;vertical-align:top;"><code>'.$val.'</code>';
+				} else {
+					echo '<td class="-val" style="padding:4px 2px;vertical-align:top;"><small>empty</small>';
+				}
+
+				echo '</td></tr>';
+			}
+
+		} else {
+			echo '<tr class="-row"><td class="-val" style="padding:4px 2px;vertical-align:top;"><small>empty</small></td></tr>';
+		}
+
+		echo '</table>';
+	}
+
+	// HELPER: puts .htaccess deny from all on a given folder
+	public static function putHTAccessDeny( $path, $check_folder = TRUE )
+	{
+		$content = '<Files ~ ".*\..*">'.PHP_EOL.'order allow,deny'.PHP_EOL.'deny from all'.PHP_EOL.'</Files>';
+
+		return self::filePutContents( '.htaccess', $content, $path, FALSE, $check_folder );
+	}
+
+	// HELPER: wrapper for file_get_contents()
+	public static function fileGetContents( $filename )
+	{
+		return file_get_contents( $filename );
+	}
+
+	// HELPER: wrapper for file_put_contents()
+	public static function filePutContents( $filename, $contents, $path = NULL, $append = TRUE, $check_folder = FALSE )
+	{
+		$dir = FALSE;
+
+		if ( is_null( $path ) ) {
+			$dir = WP_CONTENT_DIR; // FIXME: using get_temp_dir() ?!
+
+		} else if ( $check_folder ) {
 			$dir = wp_mkdir_p( $path );
 			if ( TRUE === $dir )
 				$dir = $path;
-		} else {
+
+		} else if ( wp_is_writable( $path ) ) {
 			$dir = $path;
 		}
 
-		$content = '<Files ~ ".*\..*">'."\n".'order allow,deny'."\n".'deny from all'."\n".'</Files>';
-		file_put_contents( $dir.'/.htaccess', $content.PHP_EOL );
+		if ( ! $dir )
+			return $dir;
+
+		if ( $append )
+			return file_put_contents( path_join( $dir, $filename ), $contents.PHP_EOL, FILE_APPEND );
+
+		return file_put_contents( path_join( $dir, $filename ), $contents.PHP_EOL );
 	}
 
 	// http://www.webdesignerdepot.com/2012/08/wordpress-filesystem-api-the-right-way-to-operate-with-local-files/
