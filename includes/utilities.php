@@ -519,7 +519,10 @@ class gNetworkUtilities
 		return defined( 'WP_CLI' ) and WP_CLI;
 	}
 
-	public static function putHTAccessDeny( $path, $create = TRUE )
+	// FIXME: WTF: not wrapping the child table!!
+	// FIXME: DRAFT: needs styling
+	// HELPER:
+	public static function tableSideWrap( $array, $title = FALSE )
 	{
 		if ( $create ) {
 			$dir = wp_mkdir_p( $path );
