@@ -17,8 +17,13 @@ class gNetworkMail extends gNetworkModuleCore
 			__( 'Test Mail', GNETWORK_TEXTDOMAIN )
 		);
 
-		if ( $this->options['log_all'] )
+		if ( $this->options['log_all'] ) {
 			add_filter( 'wp_mail', array( &$this, 'wp_mail' ), 99 );
+
+			$this->register_menu( 'emaillogs',
+				__( 'Email Logs', GNETWORK_TEXTDOMAIN )
+			);
+		}
 
 		add_filter( 'wp_mail_from', array( &$this, 'wp_mail_from' ), 5 );
 		add_filter( 'wp_mail_from_name', array( &$this, 'wp_mail_from_name' ), 5 );
@@ -276,9 +281,19 @@ class gNetworkMail extends gNetworkModuleCore
 	// $mail = array( 'to', 'subject', 'message', 'headers', 'attachments' );
 	public function wp_mail( $mail )
 	{
-		$to = is_array( $mail['to'] ) ? implode( '-', array_filter( array( 'gNetworkUtilities', 'esc_filename' ), $mail['to'] ) ) : gNetworkUtilities::esc_filename( $mail['to'] );
+		$contents = array_merge( array(
+			'timestamp' => current_time( 'mysql' ),
+		), $mail );
 
-		file_put_contents( GNETWORK_MAIL_LOG_DIR.'/'.current_time( 'Ymd-His' ).'-'.$to.'.email', var_export( $mail, TRUE ).PHP_EOL, FILE_APPEND );
+		if ( is_array( $contents['to'] ) )
+			$to = array_filter( array( 'gNetworkUtilities', 'esc_filename' ), $contents['to'] );
+		else
+			$to = gNetworkUtilities::esc_filename( $contents['to'] );
+
+		$filename = current_time( 'Ymd-His' ).'-'.$to.'.json';
+
+		if ( FALSE === gNetworkUtilities::filePutContents( $filename, wp_json_encode( $contents ), GNETWORK_MAIL_LOG_DIR ) )
+			self::log( 'CANNOT LOG EMAIL', array( 'to' => $contents['to'] ) );
 
 		return $mail;
 	}
@@ -311,6 +326,8 @@ class gNetworkMail extends gNetworkModuleCore
 		echo '</tbody></table>';
 	}
 
+	// Originally Based on : WP Mail SMTP by Callum Macdonald v0.9.5 - 20150921
+	// http://wordpress.org/plugins/wp-mail-smtp/
 	public function testmail_send()
 	{
 		global $phpmailer;
@@ -339,10 +356,6 @@ class gNetworkMail extends gNetworkModuleCore
 				$_POST['gnetwork_mail_testmail_subject'],
 				stripslashes( $_POST['gnetwork_mail_testmail_message'] ) );
 
-			// Strip out the language strings which confuse users
-			// unset($phpmailer->language);
-			// This property became protected in WP 3.2
-
 			$smtp_debug = ob_get_clean();
 
 			echo '<div id="m1essage" class="'.( false === $result ? 'error' : 'updated' ).'"><p><strong>';
@@ -350,7 +363,7 @@ class gNetworkMail extends gNetworkModuleCore
 			echo '</strong></p><p>';
 				_e( 'The result was:', GNETWORK_TEXTDOMAIN );
 			echo '</p>';
-				gnetwork_dump( $result );
+				gNetworkUtilities::dump( $result );
 			echo '<p>';
 				_e('The SMTP debugging output:', GNETWORK_TEXTDOMAIN );
 			echo '</p><pre>';
@@ -358,16 +371,103 @@ class gNetworkMail extends gNetworkModuleCore
 			echo '</pre><p>';
 				_e('The full debugging output:', GNETWORK_TEXTDOMAIN );
 			echo '</p>';
-				gnetwork_dump( $phpmailer );
+				gNetworkUtilities::tableSide( $phpmailer );
 			echo '</div>';
 
 			unset( $phpmailer );
 		}
 	}
+
+	// FIXME: use the $offset!
+	protected function get_emaillogs( $limit, $offset = 0, $ext = 'json', $old = NULL )
+	{
+		$i = 0;
+		$logs = array();
+
+		foreach ( glob( wp_normalize_path( GNETWORK_MAIL_LOG_DIR.'\*.'.$ext ) ) as $log ) {
+
+			if ( $i == $limit )
+				break;
+
+			if ( ! is_null( $old ) && filemtime( $log ) < $old )
+				continue;
+
+			$data = json_decode( gNetworkUtilities::fileGetContents( $log ), TRUE );
+
+			$logs[] = array_merge( array(
+				'file' => $log,
+				'size' => filesize( $log ),
+				'date' => filemtime( $log ),
+			), $data );
+
+			$i++;
+		}
+
+		return $logs;
+	}
+
+	// FIXME: needs pagination
+	public function emaillogs_table( $limit = 25 )
+	{
+		echo gNetworkUtilities::html( 'h3', sprintf( __( 'The Last %s Email Logs', GNETWORK_TEXTDOMAIN ), $limit ) );
+
+		$logs = $this->get_emaillogs( $limit );
+
+		if ( ! class_exists( 'gEditorialHelper' ) ) {
+			echo gNetworkUtilities::html( 'p', 'TEMPORARLY: it\'s better to have gEditorial enabled for this!' );
+			gNetworkUtilities::tableSide( $logs );
+		} else {
+
+			gEditorialHelper::table( array(
+				'_cb' => 'term_id',
+
+				'info' => array(
+					'title'    => __( 'Whom, When', GNETWORK_TEXTDOMAIN ),
+					'class'    => '-column-info',
+					'callback' => function( $value, $row, $column ){
+						$info = '';
+
+						if ( isset( $row['to'] ) ) {
+							if ( is_array( $row['to'] ) ) {
+								foreach ( $row['to'] as $to )
+									$info .= '<a href="mailto:'.$to.'">'.$to.'</a><br />';
+							} else {
+								$info .= '<a href="mailto:'.$row['to'].'">'.$row['to'].'</a><br />';
+							}
+						}
+
+						if ( isset( $row['timestamp'] ) )
+							$info .= '<code>'.$row['timestamp'].'</code>';
+
+						if ( isset( $row['attachments'] ) ) {
+							if ( is_array( $row['attachments'] ) ) {
+								foreach ( $row['attachments'] as $attachment )
+									$info .= '<code>'.$attachment.'</code>';
+							} else {
+								$info .= '<code>'.$row['attachments'].'</code>';
+							}
+						}
+
+						return $info;
+					},
+				),
+
+				'content' => array(
+					'title'    => __( 'What', GNETWORK_TEXTDOMAIN ),
+					'class'    => '-column-content',
+					'callback' => function( $value, $row, $column ){
+						$content = '';
+						if ( isset( $row['subject'] ) )
+							$content .= $row['subject'].'<br />';
+
+						if ( isset( $row['message'] ) )
+							$content .= wpautop( $row['message'] );
+
+						return $content;
+					},
+				),
+
+			), $logs );
+		}
+	}
 }
-
-// Originally Based on : WP Mail SMTP by Callum Macdonald v0.9.4
-// http://wordpress.org/plugins/wp-mail-smtp/
-
-// SEE : http://wordpress.org/plugins/wp-smtp/
-// SEE : http://wordpress.org/plugins/check-email/
