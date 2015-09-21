@@ -36,11 +36,5 @@ echo '<form method="post" action="">';
 		echo '</td></tr>';
 	}
 
-	if ( class_exists( 'gNetworkLocale' ) && is_super_admin() ) {
-		echo '<tr class="ltr"><th scope="row">'.__( 'Loaded MO Files', GNETWORK_TEXTDOMAIN ).'</th><td>';
-			gNetworkLocale::loadedMOfiles();
-		echo '</td></tr>';
-	}
-
 	echo '</table>';
 echo '</form>';

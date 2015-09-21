@@ -11,6 +11,11 @@ class gNetworkLocale extends gNetworkModuleCore
 
 	protected function setup_actions()
 	{
+		gNetworkAdmin::registerMenu( 'locale',
+			__( 'Locale', GNETWORK_TEXTDOMAIN ),
+			FALSE, 'manage_network_options'
+		);
+
 		add_filter( 'locale', array( &$this, 'locale' ), 1, 1 );
 		add_filter( 'core_version_check_locale', array( &$this, 'core_version_check_locale' ) );
 
@@ -27,7 +32,7 @@ class gNetworkLocale extends gNetworkModuleCore
 	public function load_textdomain_mofile( $mofile, $domain )
 	{
 		$locale = get_locale();
-		$this->loaded[$locale][$domain][] = $mofile;
+		$this->loaded[$locale][$domain][] = wp_normalize_path ( $mofile );
 
 		$tailored = GNETWORK_DIR.'locale/'.$domain.'-'.$locale.'.mo';
 		if ( is_readable( $tailored ) )
@@ -39,7 +44,9 @@ class gNetworkLocale extends gNetworkModuleCore
 	public static function loadedMOfiles()
 	{
 		global $gNetwork;
-		gNetworkUtilities::dump( $gNetwork->locale->loaded ); // TODO: use Table Helper
+
+		gNetworkUtilities::tableSide( $gNetwork->locale->loaded );
+		// gNetworkUtilities::tableSideWrap( $gNetwork->locale->loaded, __( 'Loaded MO Files', GNETWORK_TEXTDOMAIN ) );
 	}
 
 	public function gnetwork_new_blog_options( $new_options )
