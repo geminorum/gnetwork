@@ -1,3 +1,13 @@
+### 0.2.20
+* themes: excerpt link for hueman
+* debug: upload path and server info
+* locale: new tab and better listing loaded mo files
+* utilities: new table side helper
+* utilities: wrapper for file contents io
+* mail: logging in json files
+* mail: new tab & table for last 25 logged in json
+* mail: table on test mail debug
+
 ### 0.2.19
 * notify: `wp_new_user_notification()` changes again!
 * all: safe json encoding with `wp_json_encode()`
