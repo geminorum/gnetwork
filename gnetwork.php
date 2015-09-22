@@ -50,6 +50,7 @@ function gnetwork_init() {
 		'locale'      => 'gNetworkLocale',
 		'themes'      => 'gNetworkThemes',
 		'media'       => 'gNetworkMedia',
+		'cron'        => 'gNetworkCron',
 
 		'login'       => 'gNetworkLogin',
 		'lockdown'    => 'gNetworkLockDown',
