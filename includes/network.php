@@ -202,8 +202,8 @@ class gNetworkNetwork extends gNetworkModuleCore
 	{
 		switch_to_blog( $blog_id );
 
-		if ( GNETWORK_SITE_USER_ID )
-			add_user_to_blog( $blog_id, GNETWORK_SITE_USER_ID, GNETWORK_SITE_USER_ROLE );
+		if ( $site_user_id = self::getSiteUserID() )
+			add_user_to_blog( $blog_id, $site_user_id, GNETWORK_SITE_USER_ROLE );
 
 		$new_blog_options = apply_filters( 'gnetwork_new_blog_options', array(
 			'blogdescription'        => '',

@@ -831,18 +831,18 @@ class gNetworkModuleCore
 	}
 
 	// MAYBE: add general options for on a network panel
-	public static function getSiteUserID( $fallback = TRUE )
+	public static function getSiteUserID( $fallback = FALSE )
 	{
 		if ( defined( 'GNETWORK_SITE_USER_ID' ) && GNETWORK_SITE_USER_ID )
-			return GNETWORK_SITE_USER_ID;
+			return intval( GNETWORK_SITE_USER_ID );
 
 		if ( function_exists( 'gtheme_get_option' ) ) {
 			if ( $gtheme_user = gtheme_get_option( 'default_user', 0 ) )
-				return $gtheme_user;
+				return intval( $gtheme_user );
 		}
 
 		if ( $fallback )
-			return get_current_user_id();
+			return intval( get_current_user_id() );
 
 		return 0;
 	}

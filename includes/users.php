@@ -14,7 +14,7 @@ class gNetworkUsers extends gNetworkModuleCore
 			array( &$this, 'settings' ), 'remove_users'
 		);
 
-		if ( GNETWORK_SITE_USER_ID && $this->options['siteuser_as_default'] && is_admin() )
+		if ( self::getSiteUserID() && $this->options['siteuser_as_default'] && is_admin() )
 			add_filter( 'wp_insert_post_data', array( &$this, 'wp_insert_post_data' ), 9, 2 );
 	}
 
@@ -27,7 +27,7 @@ class gNetworkUsers extends gNetworkModuleCore
 				$this->check_referer( $sub );
 
 				$from_user_id = isset( $_POST['from_user_id'] ) ? intval( $_POST['from_user_id'] ) : FALSE;
-				$to_user_id   = isset( $_POST['to_user_id']   ) ? intval( $_POST['to_user_id']   ) : GNETWORK_SITE_USER_ID;
+				$to_user_id   = isset( $_POST['to_user_id']   ) ? intval( $_POST['to_user_id']   ) : self::getSiteUserID( TRUE );
 				$on_post_type = isset( $_POST['on_post_type'] ) ? $_POST['on_post_type'] : 'post';
 
 				if ( $from_user_id && $to_user_id && ( $from_user_id != $to_user_id ) )
@@ -46,7 +46,7 @@ class gNetworkUsers extends gNetworkModuleCore
 	public function default_options()
 	{
 		return array(
-			'siteuser_as_default' => GNETWORK_SITE_USER_ID ? '1' : '0',
+			'siteuser_as_default' => self::getSiteUserID() ? '1' : '0',
 		);
 	}
 
@@ -67,8 +67,8 @@ class gNetworkUsers extends gNetworkModuleCore
 
 	public function settings_sidebox( $sub, $uri )
 	{
-		if ( GNETWORK_SITE_USER_ID )
-			printf( __( 'Network site user is %s', GNETWORK_TEXTDOMAIN ), get_userdata( GNETWORK_SITE_USER_ID )->display_name );
+		if ( self::getSiteUserID() )
+			printf( __( 'Network site user is %s', GNETWORK_TEXTDOMAIN ), get_userdata( self::getSiteUserID() )->display_name );
 		else
 			_e( 'Network site user is not defined', GNETWORK_TEXTDOMAIN );
 	}
@@ -90,7 +90,7 @@ class gNetworkUsers extends gNetworkModuleCore
 				'type'      => 'blog_users',
 				'field'     => 'to_user_id',
 				'name_attr' => 'to_user_id',
-				'default'   => GNETWORK_SITE_USER_ID ? GNETWORK_SITE_USER_ID : '0',
+				'default'   => self::getSiteUserID(),
 			), FALSE );
 
 			echo '&nbsp;&mdash; &nbsp;'.__( 'on', GNETWORK_TEXTDOMAIN ).'&nbsp;&mdash; &nbsp;';
@@ -155,7 +155,7 @@ class gNetworkUsers extends gNetworkModuleCore
 
 			if ( 'auto-draft' == $postarr['post_status']
 				&& $user_ID == $postarr['post_author'] )
-					$data['post_author'] = (int) GNETWORK_SITE_USER_ID;
+					$data['post_author'] = self::getSiteUserID();
 		}
 
 		return $data;
