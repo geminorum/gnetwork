@@ -145,6 +145,7 @@ class gNetworkDebug extends gNetworkModuleCore
 		if ( ! empty( $server['SERVER_SIGNATURE'] ) )
 			$server['SERVER_SIGNATURE'] = strip_tags( $server['SERVER_SIGNATURE'] );
 
+		// FIXME: use self::getDateDefaultFormat()
 		$server['REQUEST_TIME_FLOAT'] = date( 'l, j F, Y - H:i:s T', $server['REQUEST_TIME_FLOAT']  ).' ('.$server['REQUEST_TIME_FLOAT'] .')';
 		$server['REQUEST_TIME']       = date( 'l, j F, Y - H:i:s T', $server['REQUEST_TIME']  ).' ('.$server['REQUEST_TIME'] .')';
 

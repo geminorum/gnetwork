@@ -256,6 +256,7 @@ class gNetworkModuleCore
 		echo '</p>';
 	}
 
+	// FIXME: SEE: http://codex.wordpress.org/Data_Validation#Input_Validation
 	public function settings_update( $sub = NULL )
 	{
 		if ( is_null( $sub ) )
