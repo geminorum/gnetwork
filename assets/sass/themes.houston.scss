@@ -1,0 +1,150 @@
+@charset "UTF-8";
+
+// TODO: must load via action, just for RTL
+@import url(http://fonts.googleapis.com/earlyaccess/droidarabicnaskh.css);
+
+body.rtl {
+
+	direction:rtl;
+	font-family:"Droid Arabic Naskh", Tahoma, "Iranian Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6
+	{
+		font-weight:bold;
+		font-family:Arial, "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	}
+
+	.site-title
+	{
+		font:bold 30px/35px Arial, "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	}
+
+	.entry-title
+	{
+		font:bold 16.2px/21px Arial, "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+		}
+
+	.widget-area .widget-title
+	{
+		font:bold 14.2px/18px Arial, "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	}
+
+	.entry-content p
+	{
+		font:normal 14.4px/25.2px "Droid Arabic Naskh", Tahoma, "Iranian Sans", verdana;
+	}
+
+	.site-description,
+	.main-navigation li,
+	.widget-area li,
+	.site-navigation,
+	.post-navigation,
+	.wp-caption .wp-caption-text,
+	input[type=text],
+	input[type=password],
+	input[type=email],
+	textarea,
+	select,
+	button,
+	html input[type="button"],
+	input[type="reset"],
+	input[type="submit"]
+	{
+		font:normal 12.3px/23px "Droid Arabic Naskh", Tahoma, "Iranian Sans", verdana;
+	}
+
+	.temprarly-class
+	{
+		font:normal 12.3px/14.8px "Droid Arabic Naskh", Tahoma, "Iranian Sans", verdana;
+	}
+
+	.entry-meta, .entry-meta a
+	{
+		font:normal 11.1px/16px "Droid Arabic Naskh", Tahoma, "Iranian Sans", verdana;
+	}
+
+	////////////////////////////////////////////////////////////////////////////////
+
+	.site-header a.site-logo + hgroup {
+		text-align:center;
+	}
+
+	.widget_search input[type="text"] {
+		width:95.5%
+	}
+
+	////////////////////////////////////////////////////////////////////////////////
+
+	.site {
+		margin-bottom:0;
+	}
+
+	button,
+	input,
+	select,
+	textarea
+	{
+		max-width:100%;
+	}
+
+	.wp-caption {
+		border-radius:3px;
+	}
+
+	.wp-caption .wp-caption-text {
+		margin:5px;
+	}
+
+	.entry-content ul li {
+		margin-bottom:0.5em;
+	}
+
+	////////////////////////////////////////////////////////////////////////////////
+
+	caption,
+	th,
+	td
+	{
+		text-align:right;
+	}
+
+	////////////////////////////////////////////////////////////////////////////////
+
+	.site-content .nav-previous,
+	.site-navigation .previous-image
+	{
+		float:right;
+	}
+	.site-content .nav-next,
+	.site-navigation .next-image
+	{
+		float:left;
+		text-align:left;
+	}
+
+	////////////////////////////////////////////////////////////////////////////////
+
+	ol.commentlist {
+		margin:0 60px 0 0;
+	}
+
+	ol.commentlist .avatar {
+		float:right;
+		margin-left: 6px;
+		margin-right: -60px;
+	}
+
+	ul.children {
+		margin:0 44px 0 0;
+	}
+
+	input#email, input#url {
+		direction:ltr;
+	}
+
+}

@@ -1,0 +1,311 @@
+@charset "UTF-8";
+
+@import "modules/all";
+@import "partials/base";
+
+@import "partials/admin.table";
+@import "partials/debug.all";
+@import "partials/adminbar.all";
+@import "partials/widgets.admin.all";
+@import "partials/settings.admin.all";
+@import "partials/taxonomy.admin.all";
+
+@import "partials/rtl.admin.all";
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+.gnetwork-admin-wrap {
+
+	// @include mainwrap();
+
+	&.footer-wp-version {
+		cursor: pointer;
+	}
+}
+
+body {
+
+	&.profile-php,
+	&.user-edit-php {
+		.show-admin-bar {
+			display: none;
+		}
+	}
+}
+
+textarea {
+	// width: 100%;
+	resize: vertical;
+	transition: height 0.2s ease 0s;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// TINYMCE BUTTON ICONS -------------------------------------------------------
+
+.gnetwork-tinymce-icon {
+
+	&:before {
+		font-family: "dashicons";
+		content: "\f159"; // DEFAULT
+	}
+
+	&.icon-gnetworkcite:before {
+		content: "\f473";
+	}
+
+	&.icon-gnetworkgpeople:before {
+		content: "\f307";
+	}
+
+	&.icon-gnetworkemail:before {
+		content: "\f466";
+	}
+
+	&.icon-gnetworkasterisks:before {
+		content: "\f155";
+	}
+}
+
+#gnetwork-tinymce-window-gnetworkcite {
+	.mce-container-body {}
+}
+
+input#gnetwork-tinymce-input-gnetworkcite-refurl {
+	direction: ltr !important;
+	text-align: left;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// GENEREAL ADMIN ENHANCEMENTS  -----------------------------------------------
+
+.gnetwork-sidenotification {
+	float: right;
+	line-height: 29px;
+	font-size: 23px;
+	font-weight: 400;
+	padding: 9px 0 4px 15px;
+
+	body.rtl & {
+		float: left;
+		padding: 9px 15px 4px 0;
+	}
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// DASHBOARD WIDGETS ----------------------------------------------------------
+
+#dashboard-widgets {
+	#dashboard_activity {
+		#published-posts {
+			ul {
+				margin-top: 0;
+			}
+		}
+	}
+}
+
+#dashboard_activity #published-posts h4,
+#dashboard_right_now #wp-version-message,
+#dashboard_right_now h4.mu-storage,
+#dashboard_right_now .inside .versions p,
+#dashboard_right_now .inside .versions span,
+#dashboard_right_now .inside p.musub {
+	display: none !important;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// WP LIST TABLE --------------------------------------------------------------
+
+.widefat {
+
+	// ID Column
+	th.column-gn_post_id {
+		width: 45px;
+		// width:2.4em;
+		body.rtl & {
+			text-align: left;
+		}
+	}
+
+	td.column-gn_post_id {
+		text-align: right;
+
+		body.rtl & {
+			text-align: left;
+		}
+	}
+
+	td {
+		ul.cat-checklist {
+			height: auto !important;
+			max-height: 12em !important;
+			label {
+				line-height: 1.5 !important;
+			}
+		}
+	}
+}
+
+.inline-edit-row {
+	h4 {
+		margin: 0;
+		line-height: 1.5;
+	}
+	fieldset {
+		span.title {
+			font-style: normal !important;
+			margin: 0 !important;
+		}
+
+		span.inline-edit-categories-label {
+			line-height: 1.5 !important;
+		}
+	}
+}
+
+body.colored {
+
+	.status-draft {
+		background:#FCE3F2 !important;
+	}
+
+	.status-pending {
+		background:#87C5D6 !important;
+	}
+
+	.status-publish {
+		// no background keep wp alternating colors
+	}
+
+	.status-future {
+		background:#C6EBF5 !important;
+	}
+
+	.status-private {
+		background:#F2D46F;
+	}
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+///---WORDPRESS POST PAGE-------------------------------------------------------
+
+ul.categorychecklist {
+	li {
+		line-height: 18px !important;
+	}
+}
+
+#poststuff {
+
+	#postexcerpt div.inside p,
+	#postcustom div.inside > p,
+	#trackbacksdiv div.inside p:last-child {
+		display: none;
+		visibility: hidden;
+	}
+
+	#postimagediv div.inside p {
+		text-align:center;
+
+		img.attachment-post-thumbnail{
+			max-width: 100%;
+			height: auto;
+		}
+	}
+
+	input#post_name,
+	select#post_author_override {
+		width: 99%;
+	}
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+///---GENERAL FORM ENHANCEMENTS-------------------------------------------------
+
+.wrap {
+	input[type="text"]{
+		vertical-align: middle;
+	}
+
+	input.small-text{
+		padding: 5px 5px 4px;
+	}
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+///---gNetwork Settings General-------------------------------------------------
+
+.gnetwork-form .button.button-small { vertical-align:middle; }
+.gnetwork-form .button.button-icon { padding:1px !important; }
+.gnetwork-form input.big-text { width:56em; }
+.gnetwork-form tr td { vertical-align:top; }
+.gnetwork-form tr th .side-buttons {
+	// margin-top:0.8em;
+	line-height:1em;
+	text-align:right;
+}
+.gnetwork-form tr th .side-buttons .button { display:block; }
+.gnetwork-form textarea { outline:none; }
+body.rtl .gnetwork-form tr th .side-buttons { text-align:left; }
+table.gnetwork-sidebyside { width:100%;}
+table.gnetwork-sidebyside td { padding:0; vertical-align:top; }
+table.gnetwork-sidebyside td.wider{ width:65%; }
+table.gnetwork-sidebyside td.sider{ }
+table.gnetwork-settings {}
+table.gnetwork-settings .ul-li-inline ul:first-child { margin-top:0; }
+table.gnetwork-settings .ul-li-inline ul li { display:inline-block; margin-right:8px; }
+body.rtl table.gnetwork-settings .ul-li-inline:not(.ltr) ul li { margin-right:0; margin-left:8px; }
+table.gnetwork-settings .table-block table {}
+table.gnetwork-settings .table-block table td { padding:5px 2px; }
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+// JS TAB API: initially used in gImporter
+.gnetwork-tabs {}
+.gnetwork-tabs .nav-tab { }
+.gnetwork-tabs .nav-tab-content { display:none; }
+.gnetwork-tabs .nav-tab-content-active { display:block; }
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// --gImporter-------------------------------------------------------------
+#gimporter_people .byline { padding:10px 5px; }
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+// gMember ---------MUST MOVE TO GMEMBER------------------------
+table.users-network td.timestamps table td { padding:0 0 2px; }
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+// BWP Google XML Sitemaps--------------------------------------
+// form.bwp-option-page { direction:ltr; }
+// #bwp-info-place { display:none; }
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+// gNetworkMedia ----------------------------------------------
+table.media a.media-url-click{ outline:0 none; }
+table.media div.media-url-box { margin:10px 0; }
+table.media input.media-url-field { direction:ltr;}
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+table.users-network th.column-email { width:14%; }
+table.users-network th.column-registered { width:110px; }

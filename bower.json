@@ -1,0 +1,7 @@
+{
+	"name": "gNetwork",
+	"private": true,
+	"dependencies": {
+		"autosize": "*"
+	}
+}

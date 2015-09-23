@@ -1,0 +1,135 @@
+@charset "UTF-8";
+
+@import "modules/all";
+@import "partials/base";
+
+@import url(http://fonts.googleapis.com/earlyaccess/droidarabicnaskh.css);
+
+@import "vendor/bootstrap-rtl";
+
+body {
+	direction: rtl;
+	font-family: $font-family-base;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-weight: bold;
+	font-family: $font-family-base; //$font-family-head;
+}
+
+%float_right { float: right; }
+%float_left { float: left; }
+
+caption, th, td {
+	text-align: right;
+}
+
+#submenu {
+	@extend %float_right;
+	ul {
+		@extend %float_right;
+		li {
+			@extend %float_right;
+			ul {
+				li {
+					ul {
+						margin: -44px 150px 0 0;
+					}
+				}
+			}
+		}
+	}
+}
+
+#submenu li:hover ul ul,
+#submenu li:hover ul ul ul,
+#submenu li.sfHover ul ul,
+#submenu li.sfHover ul ul ul {
+	left: auto;
+	right: -999em;
+}
+
+#submenu li:hover ul,
+#submenu li li:hover ul,
+#submenu li li li:hover ul,
+#submenu li.sfHover ul,
+#submenu li li.sfHover ul,
+#submenu li li li.sfHover ul {
+	left: auto;
+	right: auto;
+}
+
+.squarebanner {
+	ul {
+		li {
+			margin: 10px 0px 5px 20px;
+			@extend %float_right;
+		}
+	}
+}
+
+[class*="navigation"] .nav-previous {
+	@extend %float_right;
+}
+
+[class*="navigation"] .nav-next {
+	@extend %float_left;
+	text-align: left;
+}
+
+ol.comment-list li .comment-author .avatar {
+	@extend %float_right;
+	margin: 10px 0px 20px 10px;
+}
+
+ol.comment-list li ul.children {
+	margin: 20px 50px 0px 0px;
+}
+
+.comment-content {
+	padding: 0px 74px 10px 10px;
+}
+
+#respond input {
+	margin: 0 0 10px 10px;
+}
+
+.homewidget {
+	span {
+		line-height: 70px;
+	}
+	h3 {
+		font-size: 20px;
+		line-height: 1.6;
+	}
+	p {
+		font-size: 0.98em;
+	}
+}
+
+h1.widget-title,
+h3.sidetitle,
+h3.sidetitl {
+	height: auto;
+}
+
+.postbox h3,
+h1.widget-title,
+h3.sidetitl,
+h3.sidetitle {
+	font-size: 16px;
+	line-height: 1.6;
+}
+
+h1.entry-title {
+	font-size: 22px;
+	line-height: 1.6;
+}
+
+.page-content,
+.entry-content,
+.entry-summary {
+	p {
+		line-height: 1.8;
+	}
+}

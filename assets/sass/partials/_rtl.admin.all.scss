@@ -1,0 +1,191 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// RTL ADMIN ENHANCEMENTS -----------------------------------------------------
+
+body.rtl {
+
+	input[type="search"]::-webkit-search-cancel-button {
+		-webkit-appearance: none; // hiding non RTL cancel button
+	}
+
+	input[type="checkbox"]:checked:before {
+		margin: -3px -3px 0 0;
+	}
+
+	.wrap h1 {
+		font: bold 24px arial, sans-serif !important;
+	}
+
+	.wrap h2,
+	#site-title,
+	#poststuff h3,
+	.metabox-holder h3 {
+		font: bold 16px arial, sans-serif !important;
+	}
+
+	.wrap .page-title-action {}
+
+	#poststuff h3,
+	.metabox-holder h3 {
+		padding: 9px 12px 5px;
+	}
+
+	.bp-profile-field,
+	.form-table,
+	.form-table td,
+	.form-table th,
+	.form-table td p,
+	.form-wrap label {
+		font-size: 12px;
+	}
+
+	p.help,
+	p.description,
+	span.description,
+	.form-wrap p {
+		font-size: 11px;
+		font-style: normal;
+	}
+
+	.nav-tab {
+		font: bold 16px/24px arial, sans-serif !important;
+		padding-bottom: 4px;
+	}
+
+	&.debug-bar-maximized {
+		#querylist {
+			direction: ltr;
+		}
+	}
+
+	.debug-menu-target {
+		direction: ltr !important;
+	}
+
+	#gnetwork-debugbar-panel {
+		direction: ltr !important;
+	}
+
+	&.options-permalink-php {
+		#permalink_structure {
+			float: right;
+			margin-top: -5px;
+		}
+	}
+
+	#post-lock-dialog .post-locked-message,
+	#post-lock-dialog .post-taken-over {
+		margin: 20px;
+	}
+
+	#poststuff {
+
+		#sample-permalink {
+			margin-left: 5px;
+		}
+
+		input#post_name {
+			direction: ltr;
+		}
+	}
+
+	#dashboard-widgets {
+
+		h4 {
+			font-weight: 700 !important;
+			font-size: 15px;
+		}
+
+		#dashboard_activity {
+			.subsubsub a {
+				padding: 0;
+			}
+		}
+
+		#latest-comments #the-comment-list {
+			.comment-item p.row-actions {
+				font-size: 11px;
+			}
+		}
+	}
+
+	#dashboard_right_now {
+		.inside {
+			.table {
+				.sub {
+					font: bold 15px/30px arial, sans-serif !important;
+				}
+				td a {
+					font: bold 15px/18px arial, sans-serif !important;
+				}
+				td.b a {
+					line-height: 8px !important;
+				}
+			}
+		}
+
+		li.storage-count {
+			font-size: 0.85em;
+			margin-bottom: 0;
+		}
+	}
+
+	.media-frame {
+
+		.attachment-details > h3 {
+			// margin: 0;
+			display: none;
+		}
+
+		.attachment-info {
+			margin-top: 10px;
+			margin-bottom: 5px;
+			padding-bottom: 5px;
+		}
+
+		.attachment-display-settings > h3 {
+			// margin:0;
+			display: none;
+		}
+
+		.compat-item {
+			// margin-right:-10px;
+		}
+
+		.attachment-display-settings {
+			// margin-right:-10px;
+		}
+	}
+
+	&.edit-comments-php {
+		.fixed {
+			.column-response {
+				width: 25%;
+			}
+		}
+	}
+
+	&.edit-php {
+		
+		.row-actions span,
+		td.column-categories,
+		td.column-tags,
+		td.column-date,
+		td.column-gn_post_id {
+			font-size: 0.89em;
+		}
+		.post-com-count span {
+			font-weight: normal;
+		}
+		#the-list td.column-title p {
+			font-size: 0.78em;
+		}
+	}
+
+	input#adduser-email,
+	input#user_login,
+	input#email {
+		direction: ltr;
+	}
+}

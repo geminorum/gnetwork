@@ -1,0 +1,112 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// Module: Shortcodes ---------------------------------------------------------
+
+.gnetwork-wrap-shortcode {
+	@include mainwrap();
+
+	&.shortcode-reflist {
+		ul,
+		ol {
+			li {
+
+				.ref-number {
+
+				}
+
+				.cite-scroll {
+
+				}
+
+				.ref-text {
+
+				}
+
+				a {
+
+				}
+			}
+		}
+	}
+
+	&.shortcode-children {
+		ul {
+			li {
+				a {
+
+				}
+			}
+		}
+	}
+
+	&.shortcode-siblings {
+		ul {
+			li {
+				a {
+
+				}
+			}
+		}
+	}
+
+	&.shortcode-back {
+		a {
+
+		}
+	}
+
+	&.shortcode-iframe {
+		iframe {
+
+		}
+	}
+
+	&.shortcode-email {
+		a.email {
+
+		}
+	}
+
+	&.shortcode-tel {
+		// display:inline;
+		// direction:ltr;
+		a.tel {
+			// direction:ltr;
+			letter-spacing: 0.4px;
+		}
+	}
+
+	&.shortcode-audio {
+
+		a.download {
+
+		}
+
+		// WP core shortcode
+		.wp-audio-shortcode {
+
+		}
+	}
+
+	&.shortcode-audio-go {
+		a.audio-go-to-time {
+
+		}
+	}
+
+	&.shortcode-person {
+		a.refrence-people {
+
+		}
+	}
+
+	&.shortcode-three-asterisks {
+		margin: 20px 0;
+		text-align: center;
+	}
+
+	&.shortcode-googleplus-badge {
+		
+	}
+}

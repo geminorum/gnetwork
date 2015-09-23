@@ -1,0 +1,27 @@
+
+// FOR: gNetworkDebug
+.gnetwork-admin-wrap.debugbar-panel {
+	@include mainwrap();
+	direction: ltr !important;
+
+	h3 {
+
+	}
+
+	.group {
+
+	}
+
+	.empty {
+
+	}
+}
+
+html[dir="rtl"] #qm {
+	direction: ltr !important;
+
+	.qm td,
+	.qm th {
+		text-align: left !important
+	}
+}

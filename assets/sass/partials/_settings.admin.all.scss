@@ -1,0 +1,73 @@
+
+.gnetwork-admin-settings-wrap {
+	@include mainwrap();
+
+	&.settings-network {
+
+	}
+
+	&.settings-admin {
+
+	}
+
+	.gnetwork-form {
+
+		.form-table {
+
+			.field-after {
+				vertical-align: middle;
+			}
+		}
+
+		&.has-sidebox {
+			.form-table {
+				width: 75%;
+				clear: none;
+			}
+		}
+
+		.settings-sidebox {
+			@include mainwrap();
+
+			width: 25%;
+			float: right;
+
+			color: #666;
+			border-left: 1px solid #ccc;
+			padding: 5px 0px 5px 15px;
+
+			@include body-rtl() {
+				float: left;
+				border-left: none;
+				border-right: 1px solid #ccc;
+				padding: 5px 15px 5px 0px;
+
+				&.oldoptions {
+					border-color: red;
+					clear: left;
+				}
+			}
+
+			ul, ol {
+				margin: 0;
+			}
+
+			p {
+				margin-top: 0;
+
+				&:last-of-type {
+					margin-bottom: 0;
+				}
+			}
+
+			code {
+				word-wrap: break-word;
+			}
+
+			&.oldoptions {
+				border-color: red;
+				clear: right;
+			}
+		}
+	}
+}
