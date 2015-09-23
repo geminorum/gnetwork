@@ -3,17 +3,17 @@
 Plugin Name: gNetwork
 Plugin URI: http://gmeinorum.ir/wordpress/gnetwork
 Description: Network Helper
-Version: 0.2.20
+Version: 0.2.21
 Author: geminorum
 Author URI: http://geminorum.ir/
 Network: true
 TextDomain: gnetwork
 DomainPath: /languages
 GitHub Plugin URI: https://github.com/geminorum/gnetwork
-GitHub Branch: develop
+GitHub Branch: master
 */
 
-define( 'GNETWORK_VERSION', '0.2.20' );
+define( 'GNETWORK_VERSION', '0.2.21' );
 define( 'GNETWORK_DIR', plugin_dir_path( __FILE__ ) );
 define( 'GNETWORK_URL', plugin_dir_url( __FILE__ ) );
 
