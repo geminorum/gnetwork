@@ -30,14 +30,13 @@ class gNetworkMedia extends gNetworkModuleCore
 
 		// THIS IS CREAZY!!
 		if ( GNETWORK_MEDIA_SEPERATION ) {
-			add_filter( 'image_downsize', array( &$this, 'image_downsize' ), 5, 3 );
 			add_filter( 'wp_image_editors', array( &$this, 'wp_image_editors' ), 5, 1 );
+			add_filter( 'image_downsize', array( &$this, 'image_downsize' ), 5, 3 );
 		}
 	}
 
-	// TODO: check for new thumb folder on :
 	// -- append attachment to a post
-	// -- delete an attachment
+	// https://github.com/syamilmj/Aqua-Resizer/blob/master/aq_resizer.php
 	public function wp_generate_attachment_metadata( $metadata, $attachment_id )
 	{
 		if ( ! isset( $metadata['file'] ) )
@@ -151,8 +150,8 @@ class gNetworkMedia extends gNetworkModuleCore
 				TRUE,
 			);
 
-			if ( gNetworkUtilities::isDev() )
-				error_log( print_r( compact( 'size', 'data', 'path', 'img_url', 'result', 'upload_dir' ), TRUE ) );
+			// if ( gNetworkUtilities::isDev() )
+			// 	error_log( print_r( compact( 'size', 'data', 'path', 'img_url', 'result', 'upload_dir' ), TRUE ) );
 
 			return $result;
 		}
@@ -190,6 +189,100 @@ class gNetworkMedia extends gNetworkModuleCore
 			'gNetwork_Image_Editor_GD',
 		);
 	}
+
+	public static function get_thumbs( $attachment_id )
+	{
+		$thumbs = array();
+
+		if ( $file = get_post_meta( $attachment_id, '_wp_attached_file', TRUE ) ) { // '2015/05/filename.jpg'
+
+			$wpupload = wp_upload_dir();
+			$filename = wp_basename( $file );
+			$filetype = wp_check_filetype( $filename );
+			// $filepath = wp_normalize_path( str_replace( $filename, '', $file ) );
+			$filepath = dirname( $file );
+
+			$pattern_gn = path_join( GNETWORK_MEDIA_SIZES_DIR, get_current_blog_id() ).'/'.path_join( $filepath, wp_basename( $file, '.'.$filetype['ext'] ) ).'-[0-9]*x[0-9]*.'.$filetype['ext'];
+			$pattern_wp = $wpupload['basedir'].'/'.path_join( $filepath, wp_basename( $file, '.'.$filetype['ext'] ) ).'-[0-9]*x[0-9]*.'.$filetype['ext'];
+
+			$thumbs_gn = glob( $pattern_gn );
+			if ( is_array( $thumbs_gn ) && count( $thumbs_gn ) )
+				$thumbs += $thumbs_gn;
+
+			$thumbs_wp = glob( $pattern_wp );
+			if ( is_array( $thumbs_wp ) && count( $thumbs_wp ) )
+				$thumbs += $thumbs_wp;
+		}
+
+		return $thumbs;
+	}
+
+	// -- 'delete_attachment' // to remove the thumbs
+	public static function clean_attachment( $attachment_id )
+	{
+		$meta = wp_get_attachment_metadata( $attachment_id );
+		$backup_sizes = get_post_meta( $attachment_id, '_wp_attachment_backup_sizes', TRUE );
+		$file = get_attached_file( $attachment_id );
+		$thumbs = self::get_thumbs( $attachment_id );
+
+		// Update attachment file path based on attachment ID.
+		// update_attached_file( $attachment_id, $file )
+
+		// _wp_relative_upload_path()
+
+		gnetwork_dump( $meta );
+		gnetwork_dump( $backup_sizes );
+		gnetwork_dump( $file );
+		gnetwork_dump( $thumbs );
+	}
+
+	/*
+	-- https://wordpress.org/plugins/force-regenerate-thumbnails/
+	-- see: wp_delete_attachment()
+	**/
+
+	// FIXME: after unattachment we must delete all thumbs / also: after attach must regenerate all sizes for the post_type
+	// JUST A COPY : http://ahmadassaf.com/blog/web-development/wordpress/how-to-delete-attachments-assigned-to-wordpress-post-when-deleted/
+	function delete_posts_before_delete_post($id){
+		$subposts = get_children(array(
+			'post_parent' => $id,
+			'post_type'   => 'any',
+			'numberposts' => -1,
+			'post_status' => 'any'
+			));
+
+		if (is_array($subposts) && count($subposts) > 0){
+			$uploadpath = wp_upload_dir();
+
+			foreach($subposts as $subpost){
+
+				$_wp_attached_file = get_post_meta($subpost->ID, '_wp_attached_file', true);
+
+				$original = basename($_wp_attached_file);
+				$pos = strpos(strrev($original), '.');
+				if (strpos($original, '.') !== false){
+					$ext = explode('.', strrev($original));
+					$ext = strrev($ext[0]);
+				} else {
+					$ext = explode('-', strrev($original));
+					$ext = strrev($ext[0]);
+				}
+
+				$pattern  = $uploadpath['basedir'].'/'.dirname($_wp_attached_file).'/'.basename( $original, '.'.$ext).'-[0-9]*x[0-9]*.'.$ext;
+				$original = $uploadpath['basedir'].'/'.dirname($_wp_attached_file).'/'.basename( $original, '.'.$ext).'.'.$ext;
+
+				if (getimagesize($original)){
+					$thumbs = glob($pattern);
+					if (is_array($thumbs) && count($thumbs) > 0){
+						foreach($thumbs as $thumb)
+							unlink($thumb);
+					}
+				}
+
+				wp_delete_attachment( $subpost->ID, true );
+			}
+		}
+	} // add_action('before_delete_post', 'delete_posts_before_delete_post');
 
 	public function single_post_title( $post_title, $post )
 	{
