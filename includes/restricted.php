@@ -394,7 +394,7 @@ class gNetworkRestrictedBouncer
 			wp_redirect( get_page_link( $this->_options['redirect_page'] ), 302 );
 			die();
 		} else {
-			gNetworkUtilities::get_layout( '403', TRUE, TRUE );
+			gNetworkUtilities::getLayout( '403', TRUE, TRUE );
 			die();
 		}
 	}
