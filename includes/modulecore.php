@@ -830,6 +830,21 @@ class gNetworkModuleCore
 		error_log( print_r( $log, TRUE ) );
 	}
 
+	// HELPER:
+	public static function getDateDefaultFormat( $options = FALSE, $date_format = NULL, $time_format = NULL, $joiner = ' @' )
+	{
+		if ( ! $options )
+			return _x( 'l, j F, Y - H:i:s', 'Default Datetime Format', GNETWORK_TEXTDOMAIN );
+
+		if ( is_null( $date_format ) )
+			$date_format = get_option( 'date_format' );
+
+		if ( is_null( $time_format ) )
+			$time_format = get_option( 'time_format' );
+
+		return $date_format.$joiner.$time_format;
+	}
+
 	// MAYBE: add general options for on a network panel
 	public static function getSiteUserID( $fallback = FALSE )
 	{
