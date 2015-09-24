@@ -1,3 +1,9 @@
+### 0.2.22
+* restricted: fixed fatal using old method
+* themes: fixed fatal cannot access self
+* modulecore: single checkbox desc as title
+* debug: supporting user & term meta in debugbar
+
 ### 0.2.21
 * cron: new module, initially just a list of scheduled tasks
 * all: helper for site user id calls
