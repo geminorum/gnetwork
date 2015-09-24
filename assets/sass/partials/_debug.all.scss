@@ -1,15 +1,22 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// Module: Debug ---------------------------------------------------------------
 
-// FOR: gNetworkDebug
 .gnetwork-admin-wrap.debugbar-panel {
+
 	@include mainwrap();
+
 	direction: ltr !important;
 
 	h3 {
-
+		margin: 5px 0 3px 0 !important;
 	}
 
 	.group {
-
+		pre {
+			margin: 0 !important;
+		}
 	}
 
 	.empty {
@@ -17,6 +24,7 @@
 	}
 }
 
+// Query Monitor
 html[dir="rtl"] #qm {
 	direction: ltr !important;
 
