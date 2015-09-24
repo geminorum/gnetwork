@@ -578,7 +578,9 @@ class gNetworkModuleCore
 							'for' => $id.'-'.$value_name,
 						), $html.'&nbsp;'.esc_html( $value_title ) ).'</p>';
 					}
+
 				} else {
+
 					$html = gNetworkUtilities::html( 'input', array(
 						'type'    => 'checkbox',
 						'class'   => $args['field_class'],
@@ -591,7 +593,9 @@ class gNetworkModuleCore
 
 					echo '<p>'.gNetworkUtilities::html( 'label', array(
 						'for' => $id,
-					), $html.'&nbsp;'.esc_html( $value_title ) ).'</p>';
+					), $html.'&nbsp;'.$args['description'] ).'</p>';
+
+					$args['description'] = FALSE;
 				}
 
 			break;
