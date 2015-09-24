@@ -70,7 +70,7 @@ class gNetworkThemes extends gNetworkModuleCore
 				}, 12 );
 
 				add_filter( 'the_excerpt', function( $text ){
-					return $text.self::continueReading();
+					return $text.gNetworkThemes::continueReading();
 				}, 5 );
 			}
 
