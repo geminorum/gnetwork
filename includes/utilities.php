@@ -567,6 +567,21 @@ class gNetworkUtilities
 		echo '</table>';
 	}
 
+	// ORIGINALLY BASED ON: Secure Folder wp-content/uploads v1.2
+	// BY: Daniel Satria : http://ruanglaba.com
+	// HELPER: puts index.html on given folder and subs
+	public static function putIndexHTML( $base, $index )
+	{
+		copy( $index, $base.'/index.html' );
+
+		if ( $dir = opendir( $base ) )
+			while ( FALSE !== ( $file = readdir( $dir ) ) )
+				if ( is_dir( $base.'/'.$file ) && $file != '.' && $file != '..' )
+					self::putIndexHTML( $base.'/'. $file, $index );
+
+		closedir( $dir );
+	}
+
 	// HELPER: puts .htaccess deny from all on a given folder
 	public static function putHTAccessDeny( $path, $check_folder = TRUE )
 	{
