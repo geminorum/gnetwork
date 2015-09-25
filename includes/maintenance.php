@@ -142,15 +142,16 @@ class gNetworkMaintenance extends gNetworkModuleCore
 
 			} else {
 
-				$default_template = apply_filters( 'gnetwork_maintenance_default_template', array( &$this, 'template_503' ) ); // probably, Not works for themes because of the fire order
-				call_user_func_array( $default_template, array( true ) );
-
+				// FIXME: probably, Not works for themes because of the fire order
+				$default_template = apply_filters( 'gnetwork_maintenance_default_template', array( $this, 'template_503' ) );
+				call_user_func_array( $default_template, array( TRUE ) );
 			}
 
 			die();
 		}
 	}
 
+	// FIXME: use gNetworkUtilities::getLayout()
 	public static function get_template()
 	{
 		$forced_template = apply_filters( 'gnetwork_maintenance_forced_template', FALSE );
