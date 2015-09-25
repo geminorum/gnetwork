@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: gNetwork 0.2.20\n"
+"Project-Id-Version: gNetwork 0.2.23\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2015-09-20 18:57+0430\n"
+"PO-Revision-Date: 2015-09-25 07:42+0330\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: geminorum <contact@geminorum.ir>\n"
 "Language: fa_IR\n"
@@ -512,6 +512,26 @@ msgstr ""
 msgid "Total Comments: %s"
 msgstr ""
 
+#: includes/cron.php:13
+msgid "CRON"
+msgstr ""
+
+#: includes/cron.php:30
+msgid "Overview of tasks scheduled for WP-Cron"
+msgstr ""
+
+#: includes/cron.php:35
+msgid "Nothing scheduled"
+msgstr ""
+
+#: includes/cron.php:49
+msgid "Next"
+msgstr ""
+
+#: includes/cron.php:58
+msgid "Tasks"
+msgstr ""
+
 #: includes/debug.php:65
 msgid "Purge Expired Transient Data"
 msgstr ""
@@ -545,31 +565,31 @@ msgctxt "Debug Version Strings"
 msgid "Required MySQL"
 msgstr ""
 
-#: includes/debug.php:200
+#: includes/debug.php:199
 msgid "Delete Cache"
 msgstr ""
 
-#: includes/debug.php:201
+#: includes/debug.php:200
 msgid "Delete cache of the current page"
 msgstr ""
 
-#: includes/debug.php:283
+#: includes/debug.php:282
 msgid "Please talk to the database using $wpdb"
 msgstr ""
 
 #: includes/debugbar-panel.php:7
-msgctxt "debug bar panel title"
+msgctxt "[Debug Module] debug bar panel title"
 msgid "Extras"
 msgstr ""
 
 #: includes/debugbar-panel.php:27
-msgctxt "debug bar panel title"
-msgid "Post Meta"
+msgctxt "[Debug Module] debug bar panel title"
+msgid "Meta Data"
 msgstr ""
 
-#: includes/debugbar-panel.php:47
-msgctxt "debug bar panel"
-msgid "No Meta!"
+#: includes/debugbar-panel.php:62
+msgctxt "[Debug Module] debug bar panel"
+msgid "No Meta Data!"
 msgstr ""
 
 #: includes/dev.php:33
@@ -594,6 +614,10 @@ msgstr ""
 
 #: includes/locale.php:15
 msgid "Locale"
+msgstr ""
+
+#: includes/locale.php:48
+msgid "Loaded MO Files"
 msgstr ""
 
 #: includes/lockdown.php:19
@@ -834,27 +858,31 @@ msgstr "موضوع"
 msgid "Message:"
 msgstr "پیام:"
 
-#: includes/mail.php:363
+#: includes/mail.php:362
 msgid "Test Message Sent"
 msgstr ""
 
-#: includes/mail.php:369
+#: includes/mail.php:364
+msgid "The result was:"
+msgstr ""
+
+#: includes/mail.php:368
 msgid "The SMTP debugging output:"
 msgstr ""
 
-#: includes/mail.php:373
+#: includes/mail.php:372
 msgid "The full debugging output:"
 msgstr ""
 
-#: includes/mail.php:420
+#: includes/mail.php:412
 msgid "The Last %s Email Logs"
 msgstr ""
 
-#: includes/mail.php:426
+#: includes/mail.php:425
 msgid "Whom, When"
 msgstr ""
 
-#: includes/mail.php:457
+#: includes/mail.php:456
 msgid "What"
 msgstr ""
 
@@ -958,12 +986,17 @@ msgstr "بازنشانی تنظیمات اولیه"
 msgid "Are you sure? This operation can not be undone."
 msgstr ""
 
-#: includes/modulecore.php:673
+#: includes/modulecore.php:677
 msgid "&mdash; Select Page &mdash;"
 msgstr ""
 
-#: includes/modulecore.php:757
+#: includes/modulecore.php:761
 msgid "Error: setting type undefined."
+msgstr ""
+
+#: includes/modulecore.php:842
+msgctxt "Default Datetime Format"
+msgid "l, j F, Y - H:i:s"
 msgstr ""
 
 #: includes/navigation.php:37
