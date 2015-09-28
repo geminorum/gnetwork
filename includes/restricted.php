@@ -516,7 +516,7 @@ class gNetworkRestrictedBouncer
 			}
 		}
 
-		$current_url = gNetworkUtilities::current_url();
+		$current_url = gNetworkUtilities::currentURL();
 
 		if ( ! is_front_page() && ! is_home() )
 			self::redirect( wp_login_url( $current_url, TRUE ) );

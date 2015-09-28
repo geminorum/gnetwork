@@ -75,18 +75,17 @@ class gNetworkUtilities
 		return $html;
 	}
 
-	public static function current_url( $trailingslashit = FALSE )
+	public static function currentURL( $trailingslashit = FALSE )
 	{
 		global $wp;
 
-		// if ( is_admin() )
-		// 	$current_url = add_query_arg( $wp->query_string, '', home_url( $wp->request ) );
-		// else
-			$current_url = home_url( add_query_arg( array(), ( empty( $wp->request ) ? FALSE : $wp->request ) ) );
+		$request = $wp->request ? add_query_arg( array(), $wp->request ) : add_query_arg();
+		$current = home_url( $request );
 
 		if ( $trailingslashit )
-			return trailingslashit( $current_url );
-		return $current_url;
+			return trailingslashit( $current );
+
+		return $current;
 	}
 
 	public static function register_url( $register = FALSE )

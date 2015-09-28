@@ -66,7 +66,7 @@ class gNetworkAdminBar extends gNetworkModuleCore
 		if ( constant( 'GNETWORK_REPORTBUG_URL' ) )
 			$items = preg_replace( '%REPORTBUG_URL%',
 				sprintf( constant( 'GNETWORK_REPORTBUG_URL' ),
-					urlencode( gNetworkUtilities::current_url() ) ), $items );
+					urlencode( gNetworkUtilities::currentURL() ) ), $items );
 
 		return $items;
 	}
@@ -146,7 +146,7 @@ class gNetworkAdminBar extends gNetworkModuleCore
 
 	private function add_nodes( &$wp_admin_bar )
 	{
-		$current_url = gNetworkUtilities::current_url();
+		$current_url = gNetworkUtilities::currentURL();
 		$parent_id   = 'gnetwork-info';
 		$group_id    = $parent_id.'-sub';
 
