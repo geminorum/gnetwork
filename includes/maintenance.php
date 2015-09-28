@@ -13,8 +13,10 @@ class gNetworkMaintenance extends gNetworkModuleCore
 			array( &$this, 'settings' )
 		);
 
-		add_action( 'init', array( &$this, 'init' ), 2 );
-		add_action( 'admin_init', array( &$this, 'admin_init' ) );
+		if ( ! is_admin() )
+			add_action( 'init', array( &$this, 'init' ), 2 );
+		else
+			add_action( 'admin_init', array( &$this, 'admin_init' ) );
 	}
 
 	public function init()
