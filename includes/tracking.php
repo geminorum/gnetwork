@@ -37,8 +37,8 @@ class gNetworkTracking extends gNetworkModuleCore
 					'field'   => 'ga_domain',
 					'type'    => 'text',
 					'title'   => __( 'GA Domain Name', GNETWORK_TEXTDOMAIN ),
-					'desc'    => __( 'Enter your domain name: <code>example.com</code>', GNETWORK_TEXTDOMAIN ),
-					'default' => '',
+					'desc'    => __( 'Enter your domain name: <code>example.com</code>, Or just <code>auto</code>', GNETWORK_TEXTDOMAIN ),
+					'default' => 'auto',
 				),
 				array(
 					'field'   => 'ga_account',
@@ -83,7 +83,7 @@ class gNetworkTracking extends gNetworkModuleCore
 	{
 		return array(
 			'ga_account'     => '',
-			'ga_domain'      => '',
+			'ga_domain'      => 'auto',
 			'ga_userid'      => '1',
 			'ga_outbound'    => '0',
 			'quantcast'      => '',
