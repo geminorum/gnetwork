@@ -5,6 +5,7 @@ class gNetworkAdmin extends gNetworkModuleCore
 
 	var $_network    = FALSE;
 	var $_option_key = FALSE;
+	var $_front_end  = FALSE;
 	var $menus       = array();
 	var $tinymce     = array();
 
@@ -13,10 +14,7 @@ class gNetworkAdmin extends gNetworkModuleCore
 		// FIXME: is this necessary on frontend?
 		add_action( 'init', array( &$this, 'init_late' ), 999 );
 
-		if ( ! is_admin() )
-			return;
-
-		add_action( 'admin_init', array( &$this, 'admin_init_early' ), 1 );
+		// add_action( 'admin_init', array( &$this, 'admin_init_early' ), 1 );
 		add_action( 'admin_menu', array( &$this, 'admin_menu' ), 12 );
 		add_action( 'admin_menu', array( &$this, 'admin_menu_late' ), 999 );
 
@@ -31,7 +29,7 @@ class gNetworkAdmin extends gNetworkModuleCore
 		add_filter( 'update_footer', array( &$this, 'update_footer' ), 9999 );
 
 		add_filter( 'manage_pages_columns', array( &$this, 'manage_pages_columns' ) );
-		add_filter( 'post_date_column_time' , array( &$this, 'post_date_column_time' ) , 10 , 4 );
+		add_filter( 'post_date_column_time' , array( &$this, 'post_date_column_time' ), 10, 4 );
 
 		if ( GNETWORK_ADMIN_COLUMN_ID ) {
 			add_filter( 'manage_pages_columns', array( &$this, 'manage_posts_columns_id' ), 12 );
@@ -59,11 +57,12 @@ class gNetworkAdmin extends gNetworkModuleCore
 		}
 	}
 
+	// DISABLED
 	public function admin_init_early()
 	{
 		if ( current_user_can( 'update_plugins' ) ) {
 			@ini_set( 'memory_limit', '256M' );
-			@ini_set( 'upload_max_size' , '64M' );
+			@ini_set( 'upload_max_size', '64M' );
 			@ini_set( 'post_max_size', '64M' );
 			@ini_set( 'max_execution_time', '300' );
 		}
@@ -91,7 +90,6 @@ class gNetworkAdmin extends gNetworkModuleCore
 					'gnetwork&sub='.$sub,
 					array( &$this, 'admin_settings_page' )
 				);
-
 			}
 
 		} else {
@@ -103,7 +101,6 @@ class gNetworkAdmin extends gNetworkModuleCore
 				'gnetwork',
 				array( &$this, 'admin_settings_page' )
 			);
-
 		}
 
 		add_action( 'load-'.$hook, array( &$this, 'admin_settings_load' ) );
@@ -204,9 +201,9 @@ class gNetworkAdmin extends gNetworkModuleCore
 			|| ( isset( $this->menus[$sub] ) && self::cuc( $this->menus[$sub]['cap'] ) ) ) {
 
 			$messages = apply_filters( 'gnetwork_admin_settings_messages', array(
-				'resetting' => gNetworkUtilities::notice( __( 'Resetting Settings.',          GNETWORK_TEXTDOMAIN ), 'updated fade', FALSE ),
-				'updated'   => gNetworkUtilities::notice( __( 'Settings updated.',            GNETWORK_TEXTDOMAIN ), 'updated fade', FALSE ),
-				'error'     => gNetworkUtilities::notice( __( 'Error while saving settings.', GNETWORK_TEXTDOMAIN ), 'error',        FALSE ),
+				'resetting' => gNetworkUtilities::notice( __( 'Resetting Settings.', GNETWORK_TEXTDOMAIN ), 'updated fade', FALSE ),
+				'updated'   => gNetworkUtilities::notice( __( 'Settings updated.', GNETWORK_TEXTDOMAIN ), 'updated fade', FALSE ),
+				'error'     => gNetworkUtilities::notice( __( 'Error while saving settings.', GNETWORK_TEXTDOMAIN ), 'error', FALSE ),
 			) );
 
 			self::sideNotification();
@@ -232,7 +229,6 @@ class gNetworkAdmin extends gNetworkModuleCore
 		} else {
 
 			_e( 'Cheatin&#8217; uh?' );
-
 		}
 
 		echo '<div class="clear"></div></div>';
@@ -260,7 +256,7 @@ class gNetworkAdmin extends gNetworkModuleCore
 	// https://gist.github.com/tollmanz/1362592
 	public function export_wp()
 	{
-		set_time_limit( 0 );
+		@set_time_limit( 0 );
 	}
 
 	public function admin_print_styles()
