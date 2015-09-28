@@ -24,7 +24,8 @@ class gNetworkMaintenance extends gNetworkModuleCore
 			add_filter( 'status_header', array( &$this, 'status_header' ), 10, 4 );
 			add_filter( 'login_message', array( &$this, 'login_message' ) );
 
-			foreach ( array ( 'rdf', 'rss', 'rss2', 'atom' ) as $feed )
+			// FIXME: use a layout with http status code
+			foreach ( array ( 'rdf', 'rss', 'rss2', 'atom', 'json' ) as $feed )
 				add_action( 'do_feed_'.$feed, create_function( '', 'die( \'<?xml version="1.0" encoding="UTF-8"?><status>Service unavailable</status>\' );' ), 1, 1 );
 		}
 	}

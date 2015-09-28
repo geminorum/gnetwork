@@ -364,6 +364,7 @@ class gNetworkRestrictedBouncer
 			'do_feed_rss2',
 			'do_feed_atom',
 			'do_feed_rdf',
+			'do_feed_json',
 			'do_feed',
 		);
 
