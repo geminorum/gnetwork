@@ -13,14 +13,7 @@ class gNetworkBlog extends gNetworkModuleCore
 			array( &$this, 'settings' )
 		);
 
-		if ( $this->options['blog_redirect'] )
-			add_action( 'init', array( &$this, 'init_redirect' ), 1 );
-
-		if ( $this->options['feed_json'] ) {
-			add_action( 'init', array( &$this, 'feed_json_init' ) );
-			add_filter( 'query_vars', array( &$this, 'feed_json_query_vars' ) );
-			add_filter( 'template_include', array( &$this, 'feed_json_template_include' ) );
-		}
+		add_filter( 'init', array( &$this, 'init_early' ), 1 );
 
 		add_filter( 'frontpage_template', array( &$this, 'frontpage_template' ) );
 
@@ -76,7 +69,27 @@ class gNetworkBlog extends gNetworkModuleCore
 		);
 	}
 
-	public function init_redirect()
+	public function init_early()
+	{
+		if ( $this->options['blog_redirect'] )
+			$this->blog_redirect();
+
+		if ( $this->options['feed_json'] ) {
+
+			add_feed( 'json', array( &$this, 'do_feed_json' ) );
+
+			add_filter( 'query_vars', function( $public_query_vars ){
+				$public_query_vars[] = 'callback';
+				$public_query_vars[] = 'limit';
+				return $public_query_vars;
+			} );
+
+			add_filter( 'template_include', array( &$this, 'feed_json_template_include' ) );
+		}
+	}
+
+	// FIXME: test this
+	private function blog_redirect()
 	{
 		if ( is_user_logged_in()
 			&& current_user_can( 'manage_options' ) )
@@ -123,19 +136,6 @@ class gNetworkBlog extends gNetworkModuleCore
 /// Originally Based on: [Feed JSON](https://wordpress.org/plugins/feed-json/)
 /// By wokamoto : http://twitter.com/wokamoto
 /// Updated on: 20150918 / v1.0.9
-
-	public function feed_json_init()
-	{
-		add_feed( 'json', array( &$this, 'do_feed_json' ) );
-	}
-
-	public function feed_json_query_vars( $qvars )
-	{
-		$qvars[] = 'callback';
-		$qvars[] = 'limit';
-
-		return $qvars;
-	}
 
 	public function do_feed_json()
 	{
