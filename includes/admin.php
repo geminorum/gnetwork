@@ -365,7 +365,7 @@ class gNetworkAdmin extends gNetworkModuleCore
 
 	// http://wpmu.org/how-to-show-the-time-for-a-scheduled-wordpress-post/
 	// Custom public function to add time to the date / time column for future posts
-	public function post_date_column_time( $h_time, $post, $column_name, $mode )
+	public function post_date_column_time( $h_time, $post, $column_name = 'date', $mode = 'excerpt' )
 	{
 		if ( 'future' == $post->post_status )
 			$h_time .= '<br />'.get_post_time( 'g:i a', FALSE, $post, TRUE );
