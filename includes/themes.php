@@ -129,6 +129,10 @@ class gNetworkThemes extends gNetworkModuleCore
 					// 	FALSE );
 
 				}, 20 );
+
+				add_filter( 'the_excerpt', function( $text ){
+					return $text.gNetworkThemes::continueReading();
+				}, 5 );
 			}
 
 		} else if ( $this->is( 'ari' ) ) {
