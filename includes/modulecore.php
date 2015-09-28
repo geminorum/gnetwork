@@ -11,6 +11,7 @@ class gNetworkModuleCore
 	var $_ajax        = FALSE;      // load if ajax
 	var $_cron        = FALSE;      // load if cron
 	var $_dev         = NULL;       // load if dev
+	private $_settings_js = array();
 
 	public function __construct()
 	{
@@ -371,6 +372,9 @@ class gNetworkModuleCore
 		}
 
 		$this->default_buttons();
+
+		// NOTE: we register settings on the settings page only
+		add_action( 'admin_print_footer_scripts', array( &$this, 'admin_print_footer_scripts' ), 99 );
 	}
 
 	public function add_settings_field( $r )
@@ -647,17 +651,32 @@ class gNetworkModuleCore
 
 			break;
 			case 'textarea' :
+			case 'textarea-quicktags' :
+
+				$classes = array(
+					'large-text',
+					// 'textarea-autosize',
+					$args['field_class'],
+				);
+
+				if ( 'textarea-quicktags' == $args['type'] ) {
+
+					if ( count( $args['values'] ) )
+						$this->_settings_js[] = 'quicktags({id:"'.$id.'",buttons:"'.implode( ',', $args['values'] ).'"});';
+					else
+						$this->_settings_js[] = 'quicktags({id:"'.$id.'",buttons:"link,em,strong"});';
+
+					wp_enqueue_script( 'quicktags' );
+
+					$classes[] = 'textarea-quicktags';
+				}
 
 				echo gNetworkUtilities::html( 'textarea', array(
-					'class' => array(
-						'large-text',
-						// 'textarea-autosize',
-						$args['field_class'],
-					),
-					'name' => $name,
-					'id'   => $id,
-					'rows' => 5,
-					'cols' => 45,
+					'class' => $classes,
+					'name'  => $name,
+					'id'    => $id,
+					'rows'  => 5,
+					'cols'  => 45,
 				// ), esc_textarea( $value ) );
 				), $value );
 
@@ -771,6 +790,12 @@ class gNetworkModuleCore
 
 		if ( $wrap )
 			echo '</td></tr>';
+	}
+
+	public function admin_print_footer_scripts()
+	{
+		if ( count( $this->_settings_js ) )
+			gNetworkUtilities::wrapJS( implode( "\n", $this->_settings_js ) );
 	}
 
 	// helper

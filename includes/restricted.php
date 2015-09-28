@@ -122,11 +122,11 @@ class gNetworkRestricted extends gNetworkModuleCore
 				),
 				array(
 					'field'       => 'restricted_notice',
-					'type'        => 'textarea',
+					'type'        => 'textarea-quicktags',
 					'title'       => __( 'Restricted Notice', GNETWORK_TEXTDOMAIN ),
 					'desc'        => __( 'This will show on top of this site login page.', GNETWORK_TEXTDOMAIN ),
 					'default'     => '',
-					'field_class' => 'large-text code',
+					'field_class' => 'code',
 				),
 			),
 		);
