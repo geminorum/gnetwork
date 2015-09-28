@@ -17,12 +17,17 @@ class gNetworkLocale extends gNetworkModuleCore
 		);
 
 		add_filter( 'locale', array( &$this, 'locale' ), 1, 1 );
-		add_filter( 'core_version_check_locale', array( &$this, 'core_version_check_locale' ) );
 
 		if ( defined( 'GNETWORK_WPLANG' ) ) {
+
+			add_filter( 'core_version_check_locale', function( $locale ){
+				return gNetworkLocale::getDefault( $locale );
+			} );
+
 			if ( is_multisite() ) {
 				add_filter( 'gnetwork_new_blog_options', array( &$this, 'gnetwork_new_blog_options' ) );
 			}
+
 			if ( ! is_network_admin() ) {
 				add_filter( 'load_textdomain_mofile', array( &$this, 'load_textdomain_mofile' ), 12, 2 );
 			}
@@ -65,9 +70,9 @@ class gNetworkLocale extends gNetworkModuleCore
 		return $new_options;
 	}
 
-	public function core_version_check_locale( $locale )
+	public static function getDefault( $default = 'en_US' )
 	{
-		return defined( 'GNETWORK_WPLANG' ) ? GNETWORK_WPLANG : $locale;
+		return defined( 'GNETWORK_WPLANG' ) && GNETWORK_WPLANG ? GNETWORK_WPLANG : $default;
 	}
 
 	public function locale( $locale )
@@ -76,7 +81,7 @@ class gNetworkLocale extends gNetworkModuleCore
 			return 'en_US';
 
 		if ( is_admin() ) {
-			if ( GNETWORK_WPLANG_ADMIN )
+			if ( defined( 'GNETWORK_WPLANG_ADMIN' ) && GNETWORK_WPLANG_ADMIN )
 				return GNETWORK_WPLANG_ADMIN;
 		} else {
 			return $locale;
