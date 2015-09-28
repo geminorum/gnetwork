@@ -90,7 +90,7 @@ input#gnetwork-tinymce-input-gnetworkcite-refurl {
 	font-weight: 400;
 	padding: 9px 0 4px 15px;
 
-	body.rtl & {
+	@include body-rtl() {
 		float: left;
 		padding: 9px 15px 4px 0;
 	}
@@ -131,7 +131,7 @@ input#gnetwork-tinymce-input-gnetworkcite-refurl {
 	th.column-gn_post_id {
 		width: 45px;
 		// width:2.4em;
-		body.rtl & {
+		@include body-rtl() {
 			text-align: left;
 		}
 	}
@@ -139,7 +139,7 @@ input#gnetwork-tinymce-input-gnetworkcite-refurl {
 	td.column-gn_post_id {
 		text-align: right;
 
-		body.rtl & {
+		@include body-rtl() {
 			text-align: left;
 		}
 	}
@@ -250,18 +250,7 @@ ul.categorychecklist {
 ////////////////////////////////////////////////////////////////////////////////
 ///---gNetwork Settings General-------------------------------------------------
 
-.gnetwork-form .button.button-small { vertical-align:middle; }
-.gnetwork-form .button.button-icon { padding:1px !important; }
-.gnetwork-form input.big-text { width:56em; }
-.gnetwork-form tr td { vertical-align:top; }
-.gnetwork-form tr th .side-buttons {
-	// margin-top:0.8em;
-	line-height:1em;
-	text-align:right;
-}
-.gnetwork-form tr th .side-buttons .button { display:block; }
-.gnetwork-form textarea { outline:none; }
-body.rtl .gnetwork-form tr th .side-buttons { text-align:left; }
+// FIXME: must check the html
 table.gnetwork-sidebyside { width:100%;}
 table.gnetwork-sidebyside td { padding:0; vertical-align:top; }
 table.gnetwork-sidebyside td.wider{ width:65%; }

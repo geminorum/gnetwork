@@ -10,12 +10,46 @@
 
 	}
 
+	.quicktags-toolbar {
+		position: relative;
+		min-height: 30px;
+
+		input.button.button-small {
+			font-size: 12px;
+			height: 26px;
+			line-height: 24px;
+			margin: 0 2px 0 0;
+
+			@include body-rtl() {
+				margin: 0 0 0 2px;
+			}
+		}
+	}
+
 	.gnetwork-form {
 
 		.form-table {
 
 			.field-after {
 				vertical-align: middle;
+			}
+		}
+
+		// FIXME: must check the html
+		.button.button-small { vertical-align: middle; }
+		.button.button-icon { padding: 1px !important; }
+		input.big-text { width: 56em; }
+		tr td { vertical-align: top; }
+		tr th .side-buttons {
+			// margin-top: 0.8em;
+			line-height: 1em;
+			text-align: right;
+		}
+		tr th .side-buttons .button { display: block; }
+		textarea { outline: none; }
+		@include body-rtl() {
+			tr th .side-buttons {
+				text-align: left;
 			}
 		}
 
