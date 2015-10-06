@@ -230,24 +230,48 @@ class gNetworkUtilities
 		return $keys;
 	}
 
+	// NOTE: like core but without filter and fallback
+	public static function sanitizeHTMLClass( $class )
+	{
+		// strip out any % encoded octets
+		$sanitized = preg_replace( '|%[a-fA-F0-9][a-fA-F0-9]|', '', $class );
+
+		// limit to A-Z,a-z,0-9,_,-
+		$sanitized = preg_replace( '/[^A-Za-z0-9_-]/', '', $sanitized );
+
+		return trim( $sanitized );
+	}
+
 	private static function _tag_open( $tag, $atts, $content = TRUE )
 	{
 		$html = '<'.$tag;
+
 		foreach ( $atts as $key => $att ) {
 
+			$sanitized = FALSE;
+
 			if ( is_array( $att ) && count( $att ) ) {
+
 				if ( 'data' == $key ) {
+
 					foreach ( $att as $data_key => $data_val ) {
+
 						if ( is_array( $data_val ) )
 							$html .= ' data-'.$data_key.'=\''.wp_json_encode( $data_val ).'\'';
 						else
 							$html .= ' data-'.$data_key.'="'.esc_attr( $data_val ).'"';
 					}
+
 					continue;
 
+				} else if ( 'class' == $key ) {
+					$att = implode( ' ', array_unique( array_filter( $att, array( __CLASS__, 'sanitizeHTMLClass' ) ) ) );
+
 				} else {
-					$att = implode( ' ', array_unique( $att ) );
+					$att = implode( ' ', array_unique( array_filter( $att, 'trim' ) ) );
 				}
+
+				$sanitized = TRUE;
 			}
 
 			if ( 'selected' == $key )
@@ -265,15 +289,18 @@ class gNetworkUtilities
 			if ( FALSE === $att )
 				continue;
 
-			if ( 'class' == $key )
-				// $att = sanitize_html_class( $att, FALSE );
+			if ( 'class' == $key && ! $sanitized )
+				$att = implode( ' ', array_unique( array_filter( explode( ' ', $att ), array( __CLASS__, 'sanitizeHTMLClass' ) ) ) );
+
+			else if ( 'class' == $key )
 				$att = $att;
+
 			else if ( 'href' == $key && '#' != $att )
 				$att = esc_url( $att );
+
 			else if ( 'src' == $key )
 				$att = esc_url( $att );
-			// else if ( 'input' == $tag && 'value' == $key )
-			// 	$att = $att;
+
 			else
 				$att = esc_attr( $att );
 
