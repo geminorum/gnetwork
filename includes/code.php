@@ -77,8 +77,6 @@ class gNetworkCode extends gNetworkModuleCore
 				if ( ! class_exists( 'MarkdownExtra' ) )
 					require_once( GNETWORK_DIR.'assets/libs/php-markdown/Michelf/MarkdownExtra.inc.php' );
 
-				// __gpersiandate_skip();
-
 				// $html = \Michelf\Markdown::defaultTransform( $md );
 				$html = \Michelf\MarkdownExtra::defaultTransform( $md );
 
@@ -152,13 +150,15 @@ class gNetworkCode extends gNetworkModuleCore
 			return $content;
 
 		$html = gNetworkUtilities::html( 'code', array(
-			'data-gist-id'                => $args['id'],
-			'data-gist-hide-line-numbers' => $args['hide-line-numbers'] ? 'true' : FALSE,
-			'data-gist-hide-footer'       => $args['hide-footer'] ? 'true' : FALSE,
-			'data-gist-file'              => $args['file'] ? $args['file'] : FALSE,
-			'data-gist-line'              => $args['line'] ? $args['line'] : FALSE,
-			'data-gist-highlight-line'    => $args['highlight'] ? $args['highlight'] : FALSE,
-			'data-gist-show-loading'      => $args['loading'] ? FALSE : 'false',
+			'data' => array(
+				'gist-id'                => $args['id'],
+				'gist-hide-line-numbers' => $args['hide-line-numbers'] ? 'true' : FALSE,
+				'gist-hide-footer'       => $args['hide-footer'] ? 'true' : FALSE,
+				'gist-file'              => $args['file'] ? $args['file'] : FALSE,
+				'gist-line'              => $args['line'] ? $args['line'] : FALSE,
+				'gist-highlight-line'    => $args['highlight'] ? $args['highlight'] : FALSE,
+				'gist-show-loading'      => $args['loading'] ? FALSE : 'false',
+			),
 		), NULL );
 
 		wp_enqueue_script( 'gnetwork-code-gistembed', GNETWORK_URL.'assets/js/jquery.gist-embed.min.js', array( 'jquery' ), '2.1', TRUE );

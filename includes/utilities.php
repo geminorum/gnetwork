@@ -258,6 +258,10 @@ class gNetworkUtilities
 
 						if ( is_array( $data_val ) )
 							$html .= ' data-'.$data_key.'=\''.wp_json_encode( $data_val ).'\'';
+
+						else if ( FALSE === $data_val )
+							continue;
+
 						else
 							$html .= ' data-'.$data_key.'="'.esc_attr( $data_val ).'"';
 					}
