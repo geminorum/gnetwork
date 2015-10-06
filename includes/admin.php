@@ -22,7 +22,7 @@ class gNetworkAdmin extends gNetworkModuleCore
 		// add_action( 'wp_user_dashboard_setup',    array( &$this, 'wp_dashboard_setup' ), 20 );
 		// add_action( 'wp_dashboard_setup',         array( &$this, 'wp_dashboard_setup' ), 20 );
 
-		add_action( 'export_wp', array( &$this, 'export_wp' ) );
+		add_action( 'export_wp', array( &$this, 'export_wp' ), 1 );
 
 		add_action( 'admin_print_styles', array( &$this, 'admin_print_styles' ) );
 		add_filter( 'admin_footer_text', array( &$this, 'admin_footer_text' ), 9999 );
@@ -252,11 +252,11 @@ class gNetworkAdmin extends gNetworkModuleCore
 		return $plugin_array;
 	}
 
-	// Increase WordPress Exporter Script Execution Time
-	// https://gist.github.com/tollmanz/1362592
 	public function export_wp()
 	{
 		@set_time_limit( 0 );
+
+		defined( 'GNETWORK_IS_WP_EXPORT' ) or define( 'GNETWORK_IS_WP_EXPORT', TRUE );
 	}
 
 	public function admin_print_styles()

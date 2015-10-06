@@ -5,7 +5,6 @@ class gNetworkOpenSearch extends gNetworkModuleCore
 
 	var $_network    = FALSE;
 	var $_option_key = 'opensearch';
-	var $_export     = FALSE;
 
 	protected function setup_actions()
 	{
@@ -22,9 +21,6 @@ class gNetworkOpenSearch extends gNetworkModuleCore
 		if ( ! constant( 'GNETWORK_SEARCH_REDIRECT' ) ) {
 			add_action( 'atom_head', array( &$this, 'wp_head' ) );
 			add_action( 'rss2_head', array( &$this, 'rss2_head' ) );
-			add_action( 'export_wp', function( $args ){
-				$this->_export = TRUE;
-			} );
 		}
 
 		// add_action( 'rewrite_rules_array', array( &$this, 'rewrite_rules_array' ), 8 );
@@ -156,7 +152,7 @@ class gNetworkOpenSearch extends gNetworkModuleCore
 
 	public function rss2_head()
 	{
-		if ( $this->_export )
+		if ( defined( 'GNETWORK_IS_WP_EXPORT' ) && GNETWORK_IS_WP_EXPORT )
 			return;
 
 		echo "\t".'<atom:link rel="search" type="application/opensearchdescription+xml" href="'
