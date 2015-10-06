@@ -34,6 +34,30 @@ class gNetworkLocale extends gNetworkModuleCore
 		}
 	}
 
+	public static function changeLocale( $locale = NULL )
+	{
+		if ( ! self::cuc( 'manage_options' ) )
+			return FALSE;
+
+		if ( is_null( $locale ) )
+			$locale = self::getDefault();
+
+		if ( 'en_US' == $locale )
+			$locale = '';
+
+		return update_option( 'WPLANG', $locale );
+	}
+
+	public static function available()
+	{
+		$languages = get_available_languages();
+
+		if ( ! in_array( 'en_US', $languages ) )
+			$languages[] = 'en_US';
+
+		return $languages;
+	}
+
 	public function load_textdomain_mofile( $mofile, $domain )
 	{
 		$locale = get_locale();

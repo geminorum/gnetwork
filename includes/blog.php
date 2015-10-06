@@ -74,6 +74,16 @@ class gNetworkBlog extends gNetworkModuleCore
 		if ( $this->options['blog_redirect'] )
 			$this->blog_redirect();
 
+		if ( isset( $_GET['gnetwork_action'] ) && trim( $_GET['gnetwork_action'] ) ) {
+
+			if ( 'locale' == $_GET['gnetwork_action']
+				&& isset( $_GET['locale'] ) && $_GET['locale']
+				&& class_exists( 'gNetworkLocale' ) ) {
+					if ( $result = gNetworkLocale::changeLocale( trim( $_GET['locale'] ) ) )
+						self::redirect( remove_query_arg( array( 'locale', 'gnetwork_action' ), gNetworkUtilities::currentURL() ) );
+			}
+		}
+
 		if ( $this->options['feed_json'] ) {
 
 			add_feed( 'json', array( &$this, 'do_feed_json' ) );

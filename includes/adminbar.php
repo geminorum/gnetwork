@@ -177,6 +177,33 @@ class gNetworkAdminBar extends gNetworkModuleCore
 			),
 		) );
 
+		if ( defined( 'GNETWORK_WPLANG' ) && class_exists( 'gNetworkLocale' ) ) {
+
+			$wp_admin_bar->add_node( array(
+				'parent' => $parent_id,
+				'id'     => 'gnetwork-locale',
+				'title'  => __( 'Locale', GNETWORK_TEXTDOMAIN ),
+				'href'   => add_query_arg( array(
+					'sub' => 'locale',
+				), gNetworkAdmin::settingsURL() ),
+				'meta' => array(
+					'title' => __( 'Quickly Change Locale', GNETWORK_TEXTDOMAIN ),
+				),
+			) );
+
+			foreach ( gNetworkLocale::available() as $locale ) {
+				$wp_admin_bar->add_node( array(
+					'parent' => 'gnetwork-locale',
+					'id'     => 'gnetwork-locale-'.$locale,
+					'title'  => $locale,
+					'href'   => add_query_arg( array(
+						'gnetwork_action' => 'locale',
+						'locale'          => $locale,
+					), $current_url ),
+				) );
+			}
+		}
+
 		$wp_admin_bar->add_group( array(
 			'parent' => $parent_id,
 			'id'     => $group_id,
