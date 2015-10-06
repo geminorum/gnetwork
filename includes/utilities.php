@@ -58,7 +58,7 @@ class gNetworkUtilities
 		return sprintf( $format,
 			get_num_queries(),
 			self::timer_stop( FALSE, 3 ),
-			memory_get_peak_usage() / 1024 / 1024 // see : size_format()
+			memory_get_peak_usage() / 1024 / 1024
 		);
 	}
 
@@ -357,6 +357,14 @@ class gNetworkUtilities
 		$e = new Exception;
 		self::dump( $e->getTraceAsString() );
 		die();
+	}
+
+	// http://stackoverflow.com/a/13272939
+	public static function size( $var )
+	{
+		$start_memory = memory_get_usage();
+		$var = unserialize( serialize( $var ) );
+		return memory_get_usage() - $start_memory - PHP_INT_SIZE * 8;
 	}
 
 	// http://wordpress.mfields.org/2011/rekey-an-indexed-array-of-post-objects-by-post-id/

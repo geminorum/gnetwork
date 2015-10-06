@@ -41,9 +41,6 @@ class gNetworkDebug extends gNetworkModuleCore
 
 			// akismet will log all the http_reqs!!
 			add_filter( 'akismet_debug_log', '__return_false' );
-
-		} else if ( 'development' == WP_STAGE ) {
-			add_action( 'pre_get_posts', array( &$this, 'pre_get_posts' ), 99 );
 		}
 	}
 
@@ -67,13 +64,6 @@ class gNetworkDebug extends gNetworkModuleCore
 
 			add_action( 'gnetwork_admin_settings_sub_debug', array( &$this, 'settings_html' ), 10, 2 );
 		}
-	}
-
-	// https://wordpress.org/plugins/stop-query-posts/
-	public function pre_get_posts( $query )
-	{
-		if ( $query === $GLOBALS['wp_query'] && ! $query->is_main_query() )
-			_doing_it_wrong( 'query_posts', 'You should <a href="http://wordpress.tv/2012/06/15/andrew-nacin-wp_query/">not use query_posts</a>.', null );
 	}
 
 	public static function versions()
