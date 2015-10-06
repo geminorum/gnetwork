@@ -79,7 +79,7 @@ class gNetworkUtilities
 	{
 		global $wp;
 
-		$request = $wp->request ? add_query_arg( array(), $wp->request ) : add_query_arg();
+		$request = $wp->request ? add_query_arg( array(), $wp->request ) : add_query_arg( array() );
 		$current = home_url( $request );
 
 		if ( $trailingslashit )
