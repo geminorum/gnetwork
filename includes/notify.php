@@ -10,11 +10,11 @@ class gNetworkNotify extends gNetworkModuleCore
 	{
 		$this->register_menu( 'notify',
 			__( 'Notify', GNETWORK_TEXTDOMAIN ),
-			array( &$this, 'settings' )
+			array( $this, 'settings' )
 		);
 
-		add_filter( 'wpmu_welcome_notification', array( &$this, 'wpmu_welcome_notification' ), 10, 5 );
-		add_filter( 'auto_core_update_send_email', array( &$this, 'auto_core_update_send_email' ), 10, 4 );
+		add_filter( 'wpmu_welcome_notification', array( $this, 'wpmu_welcome_notification' ), 10, 5 );
+		add_filter( 'auto_core_update_send_email', array( $this, 'auto_core_update_send_email' ), 10, 4 );
 	}
 
 	public function default_options()

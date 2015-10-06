@@ -13,14 +13,14 @@ class gNetworkThemes extends gNetworkModuleCore
 	{
 		add_filter( 'the_generator', '__return_null', 98 );
 
-		add_action( 'after_setup_theme', array( &$this, 'after_setup_theme' ) );
-		add_action( 'wp_head', array( &$this, 'wp_head' ), 12 );
-		add_filter( 'body_class', array( &$this, 'body_class' ), 5, 2 );
+		add_action( 'after_setup_theme', array( $this, 'after_setup_theme' ) );
+		add_action( 'wp_head', array( $this, 'wp_head' ), 12 );
+		add_filter( 'body_class', array( $this, 'body_class' ), 5, 2 );
 
 		// NOT WORKING : when trying to enable each theme
-		// add_filter( 'allowed_themes', array( &$this, 'allowed_themes' ) );
+		// add_filter( 'allowed_themes', array( $this, 'allowed_themes' ) );
 
-		add_action( 'bp_dtheme_credits', array( &$this, 'bp_dtheme_credits' ) );
+		add_action( 'bp_dtheme_credits', array( $this, 'bp_dtheme_credits' ) );
 	}
 
 	public function after_setup_theme()
@@ -33,7 +33,7 @@ class gNetworkThemes extends gNetworkModuleCore
 			remove_action( 'publish_credits', 'publish_footer_credits' );
 			remove_filter( 'infinite_scroll_credit', 'publish_get_footer_credits' );
 
-			add_action( 'publish_credits', array( &$this, 'publish_credits' ) );
+			add_action( 'publish_credits', array( $this, 'publish_credits' ) );
 			add_action( 'wp_enqueue_scripts', function(){
 
 				wp_enqueue_style( 'gnetwork-themes-publish',
@@ -107,7 +107,7 @@ class gNetworkThemes extends gNetworkModuleCore
 
 		} else if ( $this->is( 'p2' ) ) {
 
-			add_filter( 'prologue_poweredby_link', array( &$this, 'prologue_poweredby_link' ) );
+			add_filter( 'prologue_poweredby_link', array( $this, 'prologue_poweredby_link' ) );
 
 		} else if ( $this->is( 'revera' ) ) {
 			// DEMO: http://demo.fabthemes.com/revera/
@@ -153,7 +153,7 @@ class gNetworkThemes extends gNetworkModuleCore
 
 		} else if ( $this->is( 'twentytwelve' ) ) {
 
-			add_action( 'twentytwelve_credits', array( &$this, 'twentytwelve_credits' ) );
+			add_action( 'twentytwelve_credits', array( $this, 'twentytwelve_credits' ) );
 		}
 	}
 

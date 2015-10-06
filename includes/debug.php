@@ -10,7 +10,7 @@ class gNetworkDebug extends gNetworkModuleCore
 	{
 		gNetworkAdmin::registerMenu( 'debug',
 			__( 'Debug', GNETWORK_TEXTDOMAIN ),
-			array( &$this, 'settings' ), 'delete_others_posts'
+			array( $this, 'settings' ), 'delete_others_posts'
 		);
 
 		add_action( 'debug_bar_panels', function( $panels ) {
@@ -20,10 +20,10 @@ class gNetworkDebug extends gNetworkModuleCore
 			return $panels;
 		} );
 
-		// add_action( 'plugins_loaded', array( &$this, 'plugins_loaded' ) );
+		// add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ) );
 		// add_action( 'wp_before_admin_bar_render', 'supercache_admin_bar_render' );
 
-		add_action( 'wp_footer', array( &$this, 'wp_footer' ), 999 );
+		add_action( 'wp_footer', array( $this, 'wp_footer' ), 999 );
 
 		if ( 'production' == WP_STAGE ) {
 
@@ -35,8 +35,8 @@ class gNetworkDebug extends gNetworkModuleCore
 			}
 
 			if ( WP_DEBUG_LOG ) {
-				add_action( 'http_api_debug', array( &$this, 'http_api_debug' ), 10, 5 );
-				add_filter( 'wp_login_errors', array( &$this, 'wp_login_errors' ), 10, 2 );
+				add_action( 'http_api_debug', array( $this, 'http_api_debug' ), 10, 5 );
+				add_filter( 'wp_login_errors', array( $this, 'wp_login_errors' ), 10, 2 );
 			}
 
 			// akismet will log all the http_reqs!!
@@ -62,7 +62,7 @@ class gNetworkDebug extends gNetworkModuleCore
 			$this->register_button( 'purge_transient', __( 'Purge Expired Transient Data', GNETWORK_TEXTDOMAIN ) );
 			$this->register_button( 'purge_transient_all', __( 'Purge All Transient Data', GNETWORK_TEXTDOMAIN ) );
 
-			add_action( 'gnetwork_admin_settings_sub_debug', array( &$this, 'settings_html' ), 10, 2 );
+			add_action( 'gnetwork_admin_settings_sub_debug', array( $this, 'settings_html' ), 10, 2 );
 		}
 	}
 

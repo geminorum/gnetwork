@@ -14,12 +14,12 @@ class gNetworkTracking extends gNetworkModuleCore
 	{
 		$this->register_menu( 'tracking',
 			__( 'Tracking', GNETWORK_TEXTDOMAIN ),
-			array( &$this, 'settings' )
+			array( $this, 'settings' )
 		);
 
-		add_action( 'init', array( &$this, 'init' ), 8 );
-		add_action( 'wp_head', array( &$this, 'wp_head' ), 999 );
-		add_action( 'wp_footer', array( &$this, 'wp_footer' ), 9 );
+		add_action( 'init', array( $this, 'init' ), 8 );
+		add_action( 'wp_head', array( $this, 'wp_head' ), 999 );
+		add_action( 'wp_footer', array( $this, 'wp_footer' ), 9 );
 	}
 
 	public function default_settings()

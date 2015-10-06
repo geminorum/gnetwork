@@ -10,11 +10,11 @@ class gNetworkSite extends gNetworkModuleCore
 	{
 		$this->register_menu( 'global',
 			__( 'Global', GNETWORK_TEXTDOMAIN ),
-			array( &$this, 'settings' )
+			array( $this, 'settings' )
 		);
 
 		if ( $this->options['login_remember'] )
-			add_filter( 'login_footer', array( &$this, 'login_footer_remember' ) );
+			add_filter( 'login_footer', array( $this, 'login_footer_remember' ) );
 	}
 
 	public function default_options()

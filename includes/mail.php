@@ -10,7 +10,7 @@ class gNetworkMail extends gNetworkModuleCore
 	{
 		$this->register_menu( 'mail',
 			__( 'Mail', GNETWORK_TEXTDOMAIN ),
-			array( &$this, 'settings' )
+			array( $this, 'settings' )
 		);
 
 		$this->register_menu( 'testmail',
@@ -18,17 +18,17 @@ class gNetworkMail extends gNetworkModuleCore
 		);
 
 		if ( $this->options['log_all'] ) {
-			add_filter( 'wp_mail', array( &$this, 'wp_mail' ), 99 );
+			add_filter( 'wp_mail', array( $this, 'wp_mail' ), 99 );
 
 			$this->register_menu( 'emaillogs',
 				__( 'Email Logs', GNETWORK_TEXTDOMAIN )
 			);
 		}
 
-		add_filter( 'wp_mail_from', array( &$this, 'wp_mail_from' ), 5 );
-		add_filter( 'wp_mail_from_name', array( &$this, 'wp_mail_from_name' ), 5 );
+		add_filter( 'wp_mail_from', array( $this, 'wp_mail_from' ), 5 );
+		add_filter( 'wp_mail_from_name', array( $this, 'wp_mail_from_name' ), 5 );
 
-		add_action( 'phpmailer_init', array( &$this, 'phpmailer_init' ) );
+		add_action( 'phpmailer_init', array( $this, 'phpmailer_init' ) );
 	}
 
 	public function settings( $sub = NULL )

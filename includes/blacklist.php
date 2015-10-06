@@ -10,11 +10,11 @@ class gNetworkBlackList extends gNetworkModuleCore
 	protected function setup_actions()
 	{
 		if ( ! is_admin() && $this->options['check_ip'] )
-			add_action( 'init', array( &$this, 'init' ), 1 );
+			add_action( 'init', array( $this, 'init' ), 1 );
 
 		$this->register_menu( 'blacklist',
 			__( 'Black List', GNETWORK_TEXTDOMAIN ),
-			array( &$this, 'settings' )
+			array( $this, 'settings' )
 		);
 	}
 

@@ -10,22 +10,22 @@ class gNetworkOpenSearch extends gNetworkModuleCore
 	{
 		gNetworkAdmin::registerMenu( 'opensearch',
 			__( 'Open Search', GNETWORK_TEXTDOMAIN ),
-			array( &$this, 'settings' )
+			array( $this, 'settings' )
 		);
 
 		if ( ! $this->options['opensearch'] )
 			return;
 
-		add_action( 'wp_head', array( &$this, 'wp_head' ) );
+		add_action( 'wp_head', array( $this, 'wp_head' ) );
 
 		if ( ! constant( 'GNETWORK_SEARCH_REDIRECT' ) ) {
-			add_action( 'atom_head', array( &$this, 'wp_head' ) );
-			add_action( 'rss2_head', array( &$this, 'rss2_head' ) );
+			add_action( 'atom_head', array( $this, 'wp_head' ) );
+			add_action( 'rss2_head', array( $this, 'rss2_head' ) );
 		}
 
-		// add_action( 'rewrite_rules_array', array( &$this, 'rewrite_rules_array' ), 8 );
-		add_filter( 'redirect_canonical', array( &$this, 'redirect_canonical' ), 10, 2 );
-		add_action( 'parse_request', array( &$this, 'parse_request' ), 1 );
+		// add_action( 'rewrite_rules_array', array( $this, 'rewrite_rules_array' ), 8 );
+		add_filter( 'redirect_canonical', array( $this, 'redirect_canonical' ), 10, 2 );
+		add_action( 'parse_request', array( $this, 'parse_request' ), 1 );
 	}
 
 	public function settings_help_tabs()

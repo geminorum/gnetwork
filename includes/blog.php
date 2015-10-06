@@ -10,15 +10,15 @@ class gNetworkBlog extends gNetworkModuleCore
 	{
 		gNetworkAdmin::registerMenu( 'general',
 			__( 'General', GNETWORK_TEXTDOMAIN ),
-			array( &$this, 'settings' )
+			array( $this, 'settings' )
 		);
 
-		add_filter( 'init', array( &$this, 'init_early' ), 1 );
+		add_filter( 'init', array( $this, 'init_early' ), 1 );
 
-		add_filter( 'frontpage_template', array( &$this, 'frontpage_template' ) );
+		add_filter( 'frontpage_template', array( $this, 'frontpage_template' ) );
 
 		if ( $this->options['page_for_404'] )
-			add_filter( '404_template', array( &$this, 'custom_404_template' ) );
+			add_filter( '404_template', array( $this, 'custom_404_template' ) );
 	}
 
 	public function default_options()
@@ -86,7 +86,7 @@ class gNetworkBlog extends gNetworkModuleCore
 
 		if ( $this->options['feed_json'] ) {
 
-			add_feed( 'json', array( &$this, 'do_feed_json' ) );
+			add_feed( 'json', array( $this, 'do_feed_json' ) );
 
 			add_filter( 'query_vars', function( $public_query_vars ){
 				$public_query_vars[] = 'callback';
@@ -94,7 +94,7 @@ class gNetworkBlog extends gNetworkModuleCore
 				return $public_query_vars;
 			} );
 
-			add_filter( 'template_include', array( &$this, 'feed_json_template_include' ) );
+			add_filter( 'template_include', array( $this, 'feed_json_template_include' ) );
 		}
 	}
 

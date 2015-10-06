@@ -15,14 +15,14 @@ class gNetwork_BP_Me_Component extends BP_Component
 		$bp->active_components[$this->id] = '1';
 
 		if ( ! is_admin() ) {
-			add_filter( 'bp_members_edit_profile_url', array( &$this, 'bp_members_edit_profile_url' ), 12, 4 );
+			add_filter( 'bp_members_edit_profile_url', array( $this, 'bp_members_edit_profile_url' ), 12, 4 );
 		}
 
-		add_filter( 'gnetwork_bp_me_url', array( &$this, 'url' ) );
+		add_filter( 'gnetwork_bp_me_url', array( $this, 'url' ) );
 
-		add_filter( 'gnetwork_navigation_loggedin_items', array( &$this, 'navigation_loggedin_items' ) );
-		add_filter( 'gnetwork_navigation_public_profile_url', array( &$this, 'navigation_public_profile_url' ), 12, 4 );
-		add_filter( 'gnetwork_navigation_logout_url', array( &$this, 'navigation_logout_url' ), 12, 4 );
+		add_filter( 'gnetwork_navigation_loggedin_items', array( $this, 'navigation_loggedin_items' ) );
+		add_filter( 'gnetwork_navigation_public_profile_url', array( $this, 'navigation_public_profile_url' ), 12, 4 );
+		add_filter( 'gnetwork_navigation_logout_url', array( $this, 'navigation_logout_url' ), 12, 4 );
 	}
 
 	public function setup_globals( $args = array() )
@@ -49,11 +49,11 @@ class gNetwork_BP_Me_Component extends BP_Component
 			bp_core_redirect( wp_login_url( gNetworkUtilities::currentURL() ) );
 
 		$actions = apply_filters( 'gnetwork_bp_me_actions', array(
-			'profile'  => array( &$this, 'me_action_profile' ),
-			'settings' => array( &$this, 'me_action_settings' ),
-			'edit'     => array( &$this, 'me_action_edit' ),
-			'avatar'   => array( &$this, 'me_action_avatar' ),
-			'logout'   => array( &$this, 'me_action_logout' ),
+			'profile'  => array( $this, 'me_action_profile' ),
+			'settings' => array( $this, 'me_action_settings' ),
+			'edit'     => array( $this, 'me_action_edit' ),
+			'avatar'   => array( $this, 'me_action_avatar' ),
+			'logout'   => array( $this, 'me_action_logout' ),
 		) );
 
 		if ( array_key_exists( $this->current_action, $actions )

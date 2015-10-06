@@ -11,12 +11,12 @@ class gNetworkMedia extends gNetworkModuleCore
 
 	protected function setup_actions()
 	{
-		add_filter( 'upload_mimes', array( &$this, 'upload_mimes' ) );
-		add_filter( 'single_post_title', array( &$this, 'single_post_title' ), 9, 2 );
+		add_filter( 'upload_mimes', array( $this, 'upload_mimes' ) );
+		add_filter( 'single_post_title', array( $this, 'single_post_title' ), 9, 2 );
 
 		// based on: http://wordpress.org/plugins/media-item-url/
-		add_action( 'admin_enqueue_scripts', array( &$this, 'admin_enqueue_scripts' ), 10 );
-		add_filter( 'media_row_actions', array( &$this, 'media_row_actions' ), 50, 3 );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), 10 );
+		add_filter( 'media_row_actions', array( $this, 'media_row_actions' ), 50, 3 );
 
 		if ( GNETWORK_MEDIA_DISABLE_META )
 			add_filter( 'wp_read_image_metadata', '__return_empty_array', 12, 3 );
@@ -25,13 +25,13 @@ class gNetworkMedia extends gNetworkModuleCore
 			// http://wordpress.stackexchange.com/a/36196
 			add_filter( 'intermediate_image_sizes', '__return_empty_array', 99 );
 			// add_filter( 'intermediate_image_sizes_advanced', '__return_empty_array', 99 );
-			add_filter( 'wp_generate_attachment_metadata', array( &$this, 'wp_generate_attachment_metadata' ), 10, 2 );
+			add_filter( 'wp_generate_attachment_metadata', array( $this, 'wp_generate_attachment_metadata' ), 10, 2 );
 		}
 
 		// THIS IS CREAZY!!
 		if ( GNETWORK_MEDIA_SEPERATION ) {
-			add_filter( 'wp_image_editors', array( &$this, 'wp_image_editors' ), 5, 1 );
-			add_filter( 'image_downsize', array( &$this, 'image_downsize' ), 5, 3 );
+			add_filter( 'wp_image_editors', array( $this, 'wp_image_editors' ), 5, 1 );
+			add_filter( 'image_downsize', array( $this, 'image_downsize' ), 5, 3 );
 		}
 	}
 

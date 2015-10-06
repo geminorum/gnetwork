@@ -8,16 +8,16 @@ class gNetworkCleanup extends gNetworkModuleCore
 
 	protected function setup_actions()
 	{
-		add_action( 'plugins_loaded' , array( &$this, 'plugins_loaded' ), 10 );
-		add_action( 'init' , array( &$this, 'init' ), 12 );
-		add_action( 'wp_default_scripts', array( &$this, 'wp_default_scripts' ), 9 );
+		add_action( 'plugins_loaded' , array( $this, 'plugins_loaded' ), 10 );
+		add_action( 'init' , array( $this, 'init' ), 12 );
+		add_action( 'wp_default_scripts', array( $this, 'wp_default_scripts' ), 9 );
 
-		add_action( 'admin_menu', array( &$this, 'admin_menu_late' ), 999 );
-		add_action( 'admin_enqueue_scripts', array( &$this, 'admin_enqueue_scripts' ), 999 );
+		add_action( 'admin_menu', array( $this, 'admin_menu_late' ), 999 );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), 999 );
 
-		add_action( 'wp_network_dashboard_setup', array( &$this, 'wp_dashboard_setup' ), 20 );
-		add_action( 'wp_user_dashboard_setup', array( &$this, 'wp_dashboard_setup' ), 20 );
-		add_action( 'wp_dashboard_setup', array( &$this, 'wp_dashboard_setup' ), 20 );
+		add_action( 'wp_network_dashboard_setup', array( $this, 'wp_dashboard_setup' ), 20 );
+		add_action( 'wp_user_dashboard_setup', array( $this, 'wp_dashboard_setup' ), 20 );
+		add_action( 'wp_dashboard_setup', array( $this, 'wp_dashboard_setup' ), 20 );
 
 		add_filter( 'wpcf7_load_css', '__return_false', 15 );
 	}
@@ -55,7 +55,7 @@ class gNetworkCleanup extends gNetworkModuleCore
 		remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );
 		remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
 
-		add_filter( 'tiny_mce_plugins', array( &$this, 'tiny_mce_plugins' ) );
+		add_filter( 'tiny_mce_plugins', array( $this, 'tiny_mce_plugins' ) );
 	}
 
 	public function tiny_mce_plugins( $plugins )

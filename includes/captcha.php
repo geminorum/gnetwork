@@ -15,7 +15,7 @@ class gNetworkCaptcha extends gNetworkModuleCore
 
 		$this->register_menu( 'captcha',
 			__( 'Captcha', GNETWORK_TEXTDOMAIN ),
-			array( &$this, 'settings' )
+			array( $this, 'settings' )
 		);
 
 		if ( ! $this->options['login_captcha'] )
@@ -25,8 +25,8 @@ class gNetworkCaptcha extends gNetworkModuleCore
 			|| empty( $this->options['private_key'] ) )
 				return;
 
-		add_action( 'login_form', array( &$this, 'login_form' ) );
-		add_action( 'wp_authenticate_user', array( &$this, 'wp_authenticate_user' ), 10, 2 );
+		add_action( 'login_form', array( $this, 'login_form' ) );
+		add_action( 'wp_authenticate_user', array( $this, 'wp_authenticate_user' ), 10, 2 );
 	}
 
 	public function settings_help_tabs()

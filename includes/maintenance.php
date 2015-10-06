@@ -10,21 +10,21 @@ class gNetworkMaintenance extends gNetworkModuleCore
 	{
 		gNetworkAdmin::registerMenu( 'maintenance',
 			__( 'Maintenance', GNETWORK_TEXTDOMAIN ),
-			array( &$this, 'settings' )
+			array( $this, 'settings' )
 		);
 
 		if ( ! is_admin() )
-			add_action( 'init', array( &$this, 'init' ), 2 );
+			add_action( 'init', array( $this, 'init' ), 2 );
 		else
-			add_action( 'admin_init', array( &$this, 'admin_init' ) );
+			add_action( 'admin_init', array( $this, 'admin_init' ) );
 	}
 
 	public function init()
 	{
 		if ( ! self::cuc( $this->options['maintenance_site'] ) ) {
-			add_action( 'template_redirect', array( &$this, 'template_redirect' ) );
-			add_filter( 'status_header', array( &$this, 'status_header' ), 10, 4 );
-			add_filter( 'login_message', array( &$this, 'login_message' ) );
+			add_action( 'template_redirect', array( $this, 'template_redirect' ) );
+			add_filter( 'status_header', array( $this, 'status_header' ), 10, 4 );
+			add_filter( 'login_message', array( $this, 'login_message' ) );
 
 			// FIXME: use a layout with http status code
 			foreach ( array ( 'rdf', 'rss', 'rss2', 'atom', 'json' ) as $feed )
@@ -35,9 +35,9 @@ class gNetworkMaintenance extends gNetworkModuleCore
 	public function admin_init()
 	{
 		if ( ! self::cuc( $this->options['maintenance_admin'] ) ) {
-			add_action( 'admin_init', array( &$this, 'template_redirect' ) );
-			add_filter( 'status_header', array( &$this, 'status_header' ), 10, 4 );
-			add_action( 'admin_notices', array( &$this, 'admin_notices' ) );
+			add_action( 'admin_init', array( $this, 'template_redirect' ) );
+			add_filter( 'status_header', array( $this, 'status_header' ), 10, 4 );
+			add_action( 'admin_notices', array( $this, 'admin_notices' ) );
 		}
 	}
 

@@ -12,7 +12,7 @@ class gNetworkComments extends gNetworkModuleCore
 	{
 		gNetworkAdmin::registerMenu( 'comments',
 			__( 'Comments', GNETWORK_TEXTDOMAIN ),
-			array( &$this, 'settings' )
+			array( $this, 'settings' )
 		);
 
 		if ( $this->options['disable_notifications'] ) {
@@ -25,23 +25,23 @@ class gNetworkComments extends gNetworkModuleCore
 		}
 
 		if ( ! is_admin() && $this->options['front_quicktags'] )
-			add_action( 'wp_print_scripts', array( &$this, 'wp_print_scripts' ) );
+			add_action( 'wp_print_scripts', array( $this, 'wp_print_scripts' ) );
 
 		if ( is_admin() && $this->options['admin_fullcomments'] )
-			add_filter( 'comment_excerpt', array( &$this, 'comment_excerpt' ) );
+			add_filter( 'comment_excerpt', array( $this, 'comment_excerpt' ) );
 
-		add_filter( 'pre_comment_approved', array( &$this, 'pre_comment_approved' ), 99, 2 );
-		add_filter( 'add_comment_metadata', array( &$this, 'add_comment_metadata' ), 20, 3 );
+		add_filter( 'pre_comment_approved', array( $this, 'pre_comment_approved' ), 99, 2 );
+		add_filter( 'add_comment_metadata', array( $this, 'add_comment_metadata' ), 20, 3 );
 
-		add_filter( 'get_default_comment_status', array( &$this, 'get_default_comment_status' ), 20, 3 );
+		add_filter( 'get_default_comment_status', array( $this, 'get_default_comment_status' ), 20, 3 );
 
-		// register_shutdown_function( array( &$this, 'delete_spam_comments' ) );
+		// register_shutdown_function( array( $this, 'delete_spam_comments' ) );
 
 		// // WORKING BUT MAKE SURE THIS IS NESSECARY?!
 		// // ORIGINALLY FROM : http://wordpress.org/plugins/really-simple-comment-validation/
-		// add_action( 'comment_form', array( &$this, 'comment_form_nonce' ) );
-		// add_action( 'pre_comment_approved', array( &$this, 'pre_comment_approved_nounce' ) );
-		// add_action( 'explain_nonce_gnc-check_comments', array( &$this, 'explain_nonce' ) );
+		// add_action( 'comment_form', array( $this, 'comment_form_nonce' ) );
+		// add_action( 'pre_comment_approved', array( $this, 'pre_comment_approved_nounce' ) );
+		// add_action( 'explain_nonce_gnc-check_comments', array( $this, 'explain_nonce' ) );
 	}
 
 	public function settings( $sub = NULL )
@@ -135,7 +135,7 @@ class gNetworkComments extends gNetworkModuleCore
 
 			$this->_js[] = 'QTags.addButton("quote","quote","<blockquote>","</blockquote>","quote");';
 
-			add_action( 'wp_footer', array( &$this, 'print_scripts' ), 99 );
+			add_action( 'wp_footer', array( $this, 'print_scripts' ), 99 );
 			wp_enqueue_script( 'quicktags' );
 		}
 	}

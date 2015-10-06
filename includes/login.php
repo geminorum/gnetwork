@@ -16,7 +16,7 @@ class gNetworkLogin extends gNetworkModuleCore
 			return GNETWORK_NAME;
 		}, 1000 );
 
-		add_action( 'login_head', array( &$this, 'login_head' ) );
+		add_action( 'login_head', array( $this, 'login_head' ) );
 	}
 
 	public function login_head()

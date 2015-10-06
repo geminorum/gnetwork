@@ -169,7 +169,7 @@ class gNetworkModuleCore
 	{
 		if ( $this->_option_key && $this->_option_key == $sub ) {
 			$this->settings_update( $sub );
-			add_action( 'gnetwork_'.( $this->is_network() ? 'network' : 'admin' ).'_settings_sub_'.$this->_option_key, array( &$this, 'settings_html' ), 10, 2 );
+			add_action( 'gnetwork_'.( $this->is_network() ? 'network' : 'admin' ).'_settings_sub_'.$this->_option_key, array( $this, 'settings_html' ), 10, 2 );
 			$this->register_settings();
 			$this->register_settings_help();
 		}
@@ -356,7 +356,7 @@ class gNetworkModuleCore
 			if ( is_array( $fields ) ) {
 
 				if ( method_exists( $this, 'settings_section'.$section_suffix ) )
-					$section_callback = array( &$this, 'settings_section'.$section_suffix );
+					$section_callback = array( $this, 'settings_section'.$section_suffix );
 				else
 					$section_callback = '__return_false';
 
@@ -374,7 +374,7 @@ class gNetworkModuleCore
 		$this->default_buttons();
 
 		// NOTE: we register settings on the settings page only
-		add_action( 'admin_print_footer_scripts', array( &$this, 'print_scripts' ), 99 );
+		add_action( 'admin_print_footer_scripts', array( $this, 'print_scripts' ), 99 );
 	}
 
 	public function add_settings_field( $r )
@@ -944,7 +944,7 @@ class gNetworkModuleCore
 	{
 		foreach ( $shortcodes as $shortcode => $method ) {
 			remove_shortcode( $shortcode );
-			add_shortcode( $shortcode, array( &$this, $method ) );
+			add_shortcode( $shortcode, array( $this, $method ) );
 		}
 	}
 

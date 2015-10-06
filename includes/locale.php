@@ -16,7 +16,7 @@ class gNetworkLocale extends gNetworkModuleCore
 			FALSE, 'manage_network_options'
 		);
 
-		add_filter( 'locale', array( &$this, 'locale' ), 1, 1 );
+		add_filter( 'locale', array( $this, 'locale' ), 1, 1 );
 
 		if ( defined( 'GNETWORK_WPLANG' ) ) {
 
@@ -25,11 +25,11 @@ class gNetworkLocale extends gNetworkModuleCore
 			} );
 
 			if ( is_multisite() ) {
-				add_filter( 'gnetwork_new_blog_options', array( &$this, 'gnetwork_new_blog_options' ) );
+				add_filter( 'gnetwork_new_blog_options', array( $this, 'gnetwork_new_blog_options' ) );
 			}
 
 			if ( ! is_network_admin() ) {
-				add_filter( 'load_textdomain_mofile', array( &$this, 'load_textdomain_mofile' ), 12, 2 );
+				add_filter( 'load_textdomain_mofile', array( $this, 'load_textdomain_mofile' ), 12, 2 );
 			}
 		}
 	}

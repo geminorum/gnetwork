@@ -10,7 +10,7 @@ class gNetworkCode extends gNetworkModuleCore
 
 	protected function setup_actions()
 	{
-		add_action( 'init', array( &$this, 'init' ), 12 );
+		add_action( 'init', array( $this, 'init' ), 12 );
 	}
 
 	public function init()
@@ -24,7 +24,7 @@ class gNetworkCode extends gNetworkModuleCore
 
 		// FIXME: NOT WORKING: gist id is now diffrent from this pattern
 		// FIXME: add option to enable this
-		// add_filter( 'the_content', array( &$this, 'the_content_gist_shortcode' ), 9 );
+		// add_filter( 'the_content', array( $this, 'the_content_gist_shortcode' ), 9 );
 	}
 
 	// Originally based on : GitHub README v0.1.0

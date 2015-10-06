@@ -8,9 +8,9 @@ class gNetworkTypography extends gNetworkModuleCore
 
 	protected function setup_actions()
 	{
-		add_action( 'init', array( &$this, 'init' ), 12 );
+		add_action( 'init', array( $this, 'init' ), 12 );
 
-		add_action( 'gnetwork_tinymce_strings', array( &$this, 'tinymce_strings' ) );
+		add_action( 'gnetwork_tinymce_strings', array( $this, 'tinymce_strings' ) );
 		gNetworkAdmin::registerTinyMCE( 'gnetworkasterisks', 'assets/js/tinymce.asterisks.js' );
 	}
 

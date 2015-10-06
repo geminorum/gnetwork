@@ -14,26 +14,26 @@ class gNetworkNetwork extends gNetworkModuleCore
 
 		if ( is_admin() ) {
 
-			// add_filter( 'all_plugins', array( &$this, 'all_plugins' ) );
-			// add_action( 'load-index.php', array( &$this, 'load_index_php' ) ); // SPEED CAUTIONS
+			// add_filter( 'all_plugins', array( $this, 'all_plugins' ) );
+			// add_action( 'load-index.php', array( $this, 'load_index_php' ) ); // SPEED CAUTIONS
 
-			add_action( 'network_admin_menu', array( &$this, 'network_admin_menu' ) );
+			add_action( 'network_admin_menu', array( $this, 'network_admin_menu' ) );
 		} else {
 
 			add_filter( 'blog_redirect_404', '__return_false' ); // prevent: maybe_redirect_404()
 
 		}
 
-		add_action( 'wpmu_new_blog', array( &$this, 'wpmu_new_blog' ), 12, 6 );
+		add_action( 'wpmu_new_blog', array( $this, 'wpmu_new_blog' ), 12, 6 );
 
 		if ( GNETWORK_ADMIN_COLUMN_ID ) {
-			add_filter( 'wpmu_blogs_columns', array( &$this, 'wpmu_blogs_columns' ) );
-			add_action( 'manage_sites_custom_column', array( &$this, 'manage_blogs_custom_column' ), 10, 2 );
-			add_action( 'manage_blogs_custom_column', array( &$this, 'manage_blogs_custom_column' ), 10, 2 );
+			add_filter( 'wpmu_blogs_columns', array( $this, 'wpmu_blogs_columns' ) );
+			add_action( 'manage_sites_custom_column', array( $this, 'manage_blogs_custom_column' ), 10, 2 );
+			add_action( 'manage_blogs_custom_column', array( $this, 'manage_blogs_custom_column' ), 10, 2 );
 		}
 
 		if ( GNETWORK_LARGE_NETWORK_IS )
-			add_filter( 'wp_is_large_network', array( &$this, 'wp_is_large_network' ), 10, 3 );
+			add_filter( 'wp_is_large_network', array( $this, 'wp_is_large_network' ), 10, 3 );
 	}
 
 	public function wp_is_large_network( $is, $using, $count )
@@ -71,12 +71,12 @@ class gNetworkNetwork extends gNetworkModuleCore
 			_x( 'Extras', 'Network Menu Title', GNETWORK_TEXTDOMAIN ),
 			'manage_network_options',
 			'gnetwork',
-			array( &$this, 'settings_page' ),
+			array( $this, 'settings_page' ),
 			'dashicons-screenoptions',
 			120
 		);
 
-		add_action( 'load-'.$hook, array( &$this, 'network_settings_load' ) );
+		add_action( 'load-'.$hook, array( $this, 'network_settings_load' ) );
 
 		foreach ( $this->menus as $sub => $args ) {
 			add_submenu_page( 'gnetwork',
@@ -84,7 +84,7 @@ class gNetworkNetwork extends gNetworkModuleCore
 				$args['title'],
 				$args['cap'],
 				'gnetwork&sub='.$sub,
-				array( &$this, 'settings_page' )
+				array( $this, 'settings_page' )
 			);
 		}
 

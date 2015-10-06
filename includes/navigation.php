@@ -16,9 +16,9 @@ class gNetworkNavigation extends gNetworkModuleCore
 	protected function setup_actions()
 	{
 		if ( is_admin() ) {
-			add_action( 'load-nav-menus.php', array( &$this, 'load_nav_menus_php' ) );
+			add_action( 'load-nav-menus.php', array( $this, 'load_nav_menus_php' ) );
 		} else {
-			add_filter( 'wp_setup_nav_menu_item', array( &$this, 'wp_setup_nav_menu_item' ) );
+			add_filter( 'wp_setup_nav_menu_item', array( $this, 'wp_setup_nav_menu_item' ) );
 		}
 	}
 
@@ -35,12 +35,12 @@ class gNetworkNavigation extends gNetworkModuleCore
 	{
 		add_meta_box( 'add-gnetwork-nav-menu',
 			__( 'Network', GNETWORK_TEXTDOMAIN ),
-			array( &$this, 'nav_menu_meta_box' ),
+			array( $this, 'nav_menu_meta_box' ),
 			'nav-menus',
 			'side',
 			'default' );
 
-		add_action( 'admin_print_footer_scripts', array( &$this, 'admin_print_footer_scripts' ) );
+		add_action( 'admin_print_footer_scripts', array( $this, 'admin_print_footer_scripts' ) );
 	}
 
 	// Build and populate the accordion on Appearance > Menus.

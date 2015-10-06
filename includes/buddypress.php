@@ -14,45 +14,45 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 	{
 		$this->register_menu( 'buddypress',
 			__( 'BuddyPress', GNETWORK_TEXTDOMAIN ),
-			array( &$this, 'settings' )
+			array( $this, 'settings' )
 		);
 
-		add_action( 'init' , array( &$this, 'init' ), 10 );
-		add_action( 'bp_init' , array( &$this, 'bp_init_early' ), 1 );
-		add_action( 'bp_setup_admin_bar', array( &$this, 'bp_setup_admin_bar' ), 20 );
+		add_action( 'init' , array( $this, 'init' ), 10 );
+		add_action( 'bp_init' , array( $this, 'bp_init_early' ), 1 );
+		add_action( 'bp_setup_admin_bar', array( $this, 'bp_setup_admin_bar' ), 20 );
 
-		add_filter( 'register_url', array( &$this, 'register_url' ) );
+		add_filter( 'register_url', array( $this, 'register_url' ) );
 
 		// https://github.com/pixeljar/BuddyPress-Honeypot
 		// http://pixeljar.net/2012/09/19/eliminate-buddypress-spam-registrations/
-		add_action( 'bp_after_signup_profile_fields', array( &$this, 'bp_after_signup_profile_fields' ) );
-		add_filter( 'bp_core_validate_user_signup', array( &$this, 'bp_core_validate_user_signup' ) );
+		add_action( 'bp_after_signup_profile_fields', array( $this, 'bp_after_signup_profile_fields' ) );
+		add_filter( 'bp_core_validate_user_signup', array( $this, 'bp_core_validate_user_signup' ) );
 
-		add_action( 'bp_ajax_querystring', array( &$this, 'bp_ajax_querystring' ), 20, 2 );
+		add_action( 'bp_ajax_querystring', array( $this, 'bp_ajax_querystring' ), 20, 2 );
 
 		if ( $this->options['complete_signup'] )
-			add_action( 'bp_complete_signup', array( &$this, 'bp_complete_signup' ) );
+			add_action( 'bp_complete_signup', array( $this, 'bp_complete_signup' ) );
 
 		if ( $this->options['tos_display'] )
-			add_action( 'bp_before_registration_submit_buttons', array( &$this, 'bp_before_registration_submit_buttons' ) );
+			add_action( 'bp_before_registration_submit_buttons', array( $this, 'bp_before_registration_submit_buttons' ) );
 
 		add_action( 'bp_before_register_page', '__donot_cache_page' );
 		add_action( 'bp_before_activation_page', '__donot_cache_page' );
 		add_action( 'bp_template_include_reset_dummy_post_data', '__gpersiandate_skip' );
 
 		if ( bp_is_active( 'activity' ) ) {
-			add_filter( 'bp_activity_user_can_delete', array( &$this, 'bp_activity_user_can_delete' ), 10, 2 );
-			add_action( 'wp_ajax_delete_activity_comment', array( &$this, 'wp_ajax_delete_activity_comment' ), 1 );
-			add_action( 'bp_activity_before_save', array( &$this, 'bp_activity_before_save' ) );
+			add_filter( 'bp_activity_user_can_delete', array( $this, 'bp_activity_user_can_delete' ), 10, 2 );
+			add_action( 'wp_ajax_delete_activity_comment', array( $this, 'wp_ajax_delete_activity_comment' ), 1 );
+			add_action( 'bp_activity_before_save', array( $this, 'bp_activity_before_save' ) );
 		}
 
 		if ( ! bp_is_root_blog() ) {
-			add_action( 'bp_include', array( &$this, 'bp_include_remove_widgets' ), 5 );
-			add_action( 'after_setup_theme' , array( &$this, 'after_setup_theme'  ), 10 );
+			add_action( 'bp_include', array( $this, 'bp_include_remove_widgets' ), 5 );
+			add_action( 'after_setup_theme' , array( $this, 'after_setup_theme'  ), 10 );
 		}
 
 		if ( bp_is_active( 'notifications' ) )
-			add_action( 'bp_core_activated_user', array( &$this, 'bp_core_activated_user' ) );
+			add_action( 'bp_core_activated_user', array( $this, 'bp_core_activated_user' ) );
 	}
 
 	public function default_options()
@@ -211,7 +211,7 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 	{
 		if ( 'buddypress' == $sub ) {
 			$this->settings_update( $sub );
-			add_action( 'gnetwork_network_settings_sub_buddypress', array( &$this, 'settings_html' ), 10, 2 );
+			add_action( 'gnetwork_network_settings_sub_buddypress', array( $this, 'settings_html' ), 10, 2 );
 			$this->register_settings();
 		}
 	}

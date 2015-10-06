@@ -9,22 +9,22 @@ class gNetworkDev extends gNetworkModuleCore
 
 	protected function setup_actions()
 	{
-		add_filter( 'http_request_args', array( &$this, 'http_request_args' ), 12, 2 );
+		add_filter( 'http_request_args', array( $this, 'http_request_args' ), 12, 2 );
 		add_filter( 'https_local_ssl_verify', '__return_false' );
 		add_filter( 'https_ssl_verify', '__return_false' );
 
-		add_action( 'pre_get_posts', array( &$this, 'pre_get_posts' ), 99 );
+		add_action( 'pre_get_posts', array( $this, 'pre_get_posts' ), 99 );
 
-		register_shutdown_function( array( &$this, 'shutdown' ) );
+		register_shutdown_function( array( $this, 'shutdown' ) );
 
 		if ( is_admin() )
-			add_action( 'contextual_help', array( &$this, 'contextual_help' ), 10, 3 );
+			add_action( 'contextual_help', array( $this, 'contextual_help' ), 10, 3 );
 
-		// add_filter( 'embed_oembed_html',            array( &$this, 'embed_oembed_html'    ), 1,  4 );
-		// add_filter( 'get_avatar',                   array( &$this, 'get_avatar'           ), 1,  5 );
+		// add_filter( 'embed_oembed_html',            array( $this, 'embed_oembed_html'    ), 1,  4 );
+		// add_filter( 'get_avatar',                   array( $this, 'get_avatar'           ), 1,  5 );
 
-		// add_action( 'template_redirect', array( &$this, 'template_redirect' ) );
-		// add_filter( 'login_url', array( &$this, 'login_url' ), 10, 2 );
+		// add_action( 'template_redirect', array( $this, 'template_redirect' ) );
+		// add_filter( 'login_url', array( $this, 'login_url' ), 10, 2 );
 	}
 
 	public function http_request_args( $r, $url )

@@ -11,7 +11,7 @@ class gNetworkAdminBar extends gNetworkModuleCore
 
 	protected function setup_actions()
 	{
-		add_action( 'init', array( &$this, 'init' ), 20 );
+		add_action( 'init', array( $this, 'init' ), 20 );
 	}
 
 	public function init()
@@ -19,22 +19,22 @@ class gNetworkAdminBar extends gNetworkModuleCore
 		if ( TRUE === constant( 'GNETWORK_ADMINBAR' )
 			|| current_user_can( constant( 'GNETWORK_ADMINBAR' ) ) ) {
 
-			add_action( 'wp_enqueue_scripts', array( &$this, 'wp_enqueue_style' ) );
+			add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_style' ) );
 			add_filter( 'wp_admin_bar_class', 'gnetwork_adminbar_wp_admin_bar_class' );
-			add_filter( 'wp_nav_menu_items', array( &$this, 'wp_nav_menu_items' ), 20, 2 );
+			add_filter( 'wp_nav_menu_items', array( $this, 'wp_nav_menu_items' ), 20, 2 );
 
-			add_action( 'wp_before_admin_bar_render', array( &$this, 'wp_before_admin_bar_render' ) );
+			add_action( 'wp_before_admin_bar_render', array( $this, 'wp_before_admin_bar_render' ) );
 
 			if ( is_multisite() && is_super_admin() )
-				add_action( 'admin_bar_init', array( &$this, 'admin_bar_init_allblogs' ) );
+				add_action( 'admin_bar_init', array( $this, 'admin_bar_init_allblogs' ) );
 
 			if ( is_main_site() )
-				add_action( 'save_post_nav_menu_item', array( &$this, 'save_post_nav_menu_item' ), 10, 2 );
+				add_action( 'save_post_nav_menu_item', array( $this, 'save_post_nav_menu_item' ), 10, 2 );
 
 			if ( is_admin() ) {
 				$this->wp_enqueue_style();
 
-				add_action( 'sidebar_admin_setup', array( &$this, 'sidebar_admin_setup' ) );
+				add_action( 'sidebar_admin_setup', array( $this, 'sidebar_admin_setup' ) );
 
 			} else {
 				// http://wordpress.org/plugins/reenable-shortlink-item-in-admin-toolbar/

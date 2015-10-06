@@ -16,12 +16,12 @@ class gNetworkEditor extends gNetworkModuleCore
 		global $tinymce_version;
 
 		if ( ! version_compare( $tinymce_version, '4100', '<' ) ) {
-			add_action( 'mce_external_plugins', array( &$this, 'mce_external_plugins' ) );
-			add_action( 'mce_buttons_2', array( &$this, 'mce_buttons_2' ) );
-			add_action( 'content_save_pre', array( &$this, 'content_save_pre' ), 20 );
+			add_action( 'mce_external_plugins', array( $this, 'mce_external_plugins' ) );
+			add_action( 'mce_buttons_2', array( $this, 'mce_buttons_2' ) );
+			add_action( 'content_save_pre', array( $this, 'content_save_pre' ), 20 );
 		}
 
-		add_filter( 'wp_link_query_args', array( &$this, 'wp_link_query_args' ) );
+		add_filter( 'wp_link_query_args', array( $this, 'wp_link_query_args' ) );
 	}
 
 	// Initialize TinyMCE table plugin and custom TinyMCE plugin

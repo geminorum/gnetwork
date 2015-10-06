@@ -12,48 +12,48 @@ class gNetworkAdmin extends gNetworkModuleCore
 	protected function setup_actions()
 	{
 		// FIXME: is this necessary on frontend?
-		add_action( 'init', array( &$this, 'init_late' ), 999 );
+		add_action( 'init', array( $this, 'init_late' ), 999 );
 
-		// add_action( 'admin_init', array( &$this, 'admin_init_early' ), 1 );
-		add_action( 'admin_menu', array( &$this, 'admin_menu' ), 12 );
-		add_action( 'admin_menu', array( &$this, 'admin_menu_late' ), 999 );
+		// add_action( 'admin_init', array( $this, 'admin_init_early' ), 1 );
+		add_action( 'admin_menu', array( $this, 'admin_menu' ), 12 );
+		add_action( 'admin_menu', array( $this, 'admin_menu_late' ), 999 );
 
-		// add_action( 'wp_network_dashboard_setup', array( &$this, 'wp_dashboard_setup' ), 20 );
-		// add_action( 'wp_user_dashboard_setup',    array( &$this, 'wp_dashboard_setup' ), 20 );
-		// add_action( 'wp_dashboard_setup',         array( &$this, 'wp_dashboard_setup' ), 20 );
+		// add_action( 'wp_network_dashboard_setup', array( $this, 'wp_dashboard_setup' ), 20 );
+		// add_action( 'wp_user_dashboard_setup',    array( $this, 'wp_dashboard_setup' ), 20 );
+		// add_action( 'wp_dashboard_setup',         array( $this, 'wp_dashboard_setup' ), 20 );
 
-		add_action( 'export_wp', array( &$this, 'export_wp' ), 1 );
+		add_action( 'export_wp', array( $this, 'export_wp' ), 1 );
 
-		add_action( 'admin_print_styles', array( &$this, 'admin_print_styles' ) );
-		add_filter( 'admin_footer_text', array( &$this, 'admin_footer_text' ), 9999 );
-		add_filter( 'update_footer', array( &$this, 'update_footer' ), 9999 );
+		add_action( 'admin_print_styles', array( $this, 'admin_print_styles' ) );
+		add_filter( 'admin_footer_text', array( $this, 'admin_footer_text' ), 9999 );
+		add_filter( 'update_footer', array( $this, 'update_footer' ), 9999 );
 
-		add_filter( 'manage_pages_columns', array( &$this, 'manage_pages_columns' ) );
-		add_filter( 'post_date_column_time' , array( &$this, 'post_date_column_time' ), 10, 4 );
+		add_filter( 'manage_pages_columns', array( $this, 'manage_pages_columns' ) );
+		add_filter( 'post_date_column_time' , array( $this, 'post_date_column_time' ), 10, 4 );
 
 		if ( GNETWORK_ADMIN_COLUMN_ID ) {
-			add_filter( 'manage_pages_columns', array( &$this, 'manage_posts_columns_id' ), 12 );
-			add_filter( 'manage_posts_columns', array( &$this, 'manage_posts_columns_id' ), 12 );
-			add_action( 'manage_posts_custom_column', array( &$this, 'custom_column_id' ), 5, 2 );
-			add_action( 'manage_pages_custom_column', array( &$this, 'custom_column_id' ), 5, 2 );
+			add_filter( 'manage_pages_columns', array( $this, 'manage_posts_columns_id' ), 12 );
+			add_filter( 'manage_posts_columns', array( $this, 'manage_posts_columns_id' ), 12 );
+			add_action( 'manage_posts_custom_column', array( $this, 'custom_column_id' ), 5, 2 );
+			add_action( 'manage_pages_custom_column', array( $this, 'custom_column_id' ), 5, 2 );
 		}
 
 		if ( GNETWORK_ADMIN_COLOUR )
-			add_action( 'user_register', array( &$this, 'user_register' ) );
+			add_action( 'user_register', array( $this, 'user_register' ) );
 
 		// WORKING but DISABLED
 		// add_filter( 'custom_menu_order', '__return_true' );
-		// add_filter( 'menu_order', array( &$this, 'menu_order' ) );
+		// add_filter( 'menu_order', array( $this, 'menu_order' ) );
 
 		// IT MESSES WITH CUSTOM COLUMNS!!
-		// add_filter( 'posts_fields', array( &$this, 'posts_fields' ), 0, 2 );
+		// add_filter( 'posts_fields', array( $this, 'posts_fields' ), 0, 2 );
 	}
 
 	public function init_late()
 	{
 		if ( 'true' == get_user_option( 'rich_editing' ) && count( $this->tinymce ) ) {
-			add_filter( 'mce_external_plugins', array( &$this, 'mce_external_plugins' ) );
-			add_filter( 'mce_buttons', array( &$this, 'mce_buttons' ) );
+			add_filter( 'mce_external_plugins', array( $this, 'mce_external_plugins' ) );
+			add_filter( 'mce_buttons', array( $this, 'mce_buttons' ) );
 		}
 	}
 
@@ -77,7 +77,7 @@ class gNetworkAdmin extends gNetworkModuleCore
 				_x( 'Extras', 'Admin Menu Title', GNETWORK_TEXTDOMAIN ),
 				'manage_options',
 				'gnetwork',
-				array( &$this, 'admin_settings_page' ),
+				array( $this, 'admin_settings_page' ),
 				'dashicons-screenoptions',
 				120
 			);
@@ -88,7 +88,7 @@ class gNetworkAdmin extends gNetworkModuleCore
 					$args['title'],
 					$args['cap'],
 					'gnetwork&sub='.$sub,
-					array( &$this, 'admin_settings_page' )
+					array( $this, 'admin_settings_page' )
 				);
 			}
 
@@ -99,11 +99,11 @@ class gNetworkAdmin extends gNetworkModuleCore
 				_x( 'Extras', 'Admin Menu Title', GNETWORK_TEXTDOMAIN ),
 				'read',
 				'gnetwork',
-				array( &$this, 'admin_settings_page' )
+				array( $this, 'admin_settings_page' )
 			);
 		}
 
-		add_action( 'load-'.$hook, array( &$this, 'admin_settings_load' ) );
+		add_action( 'load-'.$hook, array( $this, 'admin_settings_load' ) );
 
 		add_submenu_page( 'plugins.php',
 			__( 'Active', GNETWORK_TEXTDOMAIN ),
@@ -298,7 +298,7 @@ class gNetworkAdmin extends gNetworkModuleCore
 
 			add_meta_box( 'abetterplanet_widget',
 				_x( 'Network Feed', 'admin dashboard widget title', GNETWORK_TEXTDOMAIN ),
-				array( &$this, 'widget_network_rss' ),
+				array( $this, 'widget_network_rss' ),
 				'dashboard', 'normal', 'high' );
 		}
 	}

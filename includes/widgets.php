@@ -9,7 +9,7 @@ class gNetworkWidgets extends gNetworkModuleCore
 
 	protected function setup_actions()
 	{
-		add_action( 'widgets_init', array( &$this, 'widgets_init' ) );
+		add_action( 'widgets_init', array( $this, 'widgets_init' ) );
 	}
 
 	public function widgets_init()

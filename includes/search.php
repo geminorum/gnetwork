@@ -8,11 +8,11 @@ class gNetworkSearch extends gNetworkModuleCore
 
 	protected function setup_actions()
 	{
-		add_action( 'template_redirect', array( &$this, 'template_redirect_singlepost' ), 9 );
-		// add_action( 'template_redirect', array( &$this, 'template_redirect_search_again' ), 999 );
+		add_action( 'template_redirect', array( $this, 'template_redirect_singlepost' ), 9 );
+		// add_action( 'template_redirect', array( $this, 'template_redirect_search_again' ), 999 );
 
 		if ( constant( 'GNETWORK_SEARCH_REDIRECT' ) )
-			add_action( 'template_redirect', array( &$this, 'template_redirect_search' ), 1 );
+			add_action( 'template_redirect', array( $this, 'template_redirect_search' ), 1 );
 	}
 
 	// http://www.wprecipes.com/how-to-redirect-to-post-if-search-results-only-returns-one-post

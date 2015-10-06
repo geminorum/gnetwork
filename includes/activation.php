@@ -19,15 +19,15 @@ class gNetworkActivation extends gNetworkModuleCore
 		if ( ! is_multisite() )
 			return;
 
-		add_action( 'wpmu_new_blog', array( &$this, 'wpmu_new_blog' ) );
-		add_action( 'wp_ajax_gnetwork_activation', array( &$this, 'ajax_response' ) );
+		add_action( 'wpmu_new_blog', array( $this, 'wpmu_new_blog' ) );
+		add_action( 'wp_ajax_gnetwork_activation', array( $this, 'ajax_response' ) );
 
 		if ( ! is_network_admin()  )
 			return;
 
-		add_action( 'activated_plugin',  array( &$this, 'update_queue' ), 10, 2 );
-		add_action( 'deactivated_plugin',  array( &$this, 'update_queue' ), 10, 2 );
-		add_action( 'network_admin_notices', array( &$this, 'admin_notices' ) );
+		add_action( 'activated_plugin',  array( $this, 'update_queue' ), 10, 2 );
+		add_action( 'deactivated_plugin',  array( $this, 'update_queue' ), 10, 2 );
+		add_action( 'network_admin_notices', array( $this, 'admin_notices' ) );
 	}
 
 	public function update_queue( $plugin, $network_wide = NULL )

@@ -11,11 +11,11 @@ class gNetworkUsers extends gNetworkModuleCore
 	{
 		gNetworkAdmin::registerMenu( 'users',
 			__( 'Users', GNETWORK_TEXTDOMAIN ),
-			array( &$this, 'settings' ), 'remove_users'
+			array( $this, 'settings' ), 'remove_users'
 		);
 
 		if ( self::getSiteUserID() && $this->options['siteuser_as_default'] && is_admin() )
-			add_filter( 'wp_insert_post_data', array( &$this, 'wp_insert_post_data' ), 9, 2 );
+			add_filter( 'wp_insert_post_data', array( $this, 'wp_insert_post_data' ), 9, 2 );
 	}
 
 	public function settings( $sub = NULL )
@@ -37,8 +37,8 @@ class gNetworkUsers extends gNetworkModuleCore
 				$this->settings_update( $sub );
 			}
 
-			add_action( 'gnetwork_admin_settings_sub_users', array( &$this, 'settings_html' ), 10, 2 );
-			add_filter( 'gnetwork_admin_settings_messages', array( &$this, 'admin_settings_messages' ), 10 );
+			add_action( 'gnetwork_admin_settings_sub_users', array( $this, 'settings_html' ), 10, 2 );
+			add_filter( 'gnetwork_admin_settings_messages', array( $this, 'admin_settings_messages' ), 10 );
 			$this->register_settings();
 		}
 	}

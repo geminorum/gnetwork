@@ -15,12 +15,12 @@ class gNetworkShortCodes extends gNetworkModuleCore
 
 	protected function setup_actions()
 	{
-		add_action( 'plugins_loaded', array( &$this, 'plugins_loaded' ) );
-		add_action( 'init', array( &$this, 'init_early' ), 8 );
-		add_action( 'init', array( &$this, 'init_late' ), 12 );
-		add_action( 'wp_footer', array( &$this, 'wp_footer' ), 20 );
+		add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ) );
+		add_action( 'init', array( $this, 'init_early' ), 8 );
+		add_action( 'init', array( $this, 'init_late' ), 12 );
+		add_action( 'wp_footer', array( $this, 'wp_footer' ), 20 );
 
-		add_action( 'gnetwork_tinymce_strings', array( &$this, 'tinymce_strings' ) );
+		add_action( 'gnetwork_tinymce_strings', array( $this, 'tinymce_strings' ) );
 		gNetworkAdmin::registerTinyMCE( 'gnetworkcite', 'assets/js/tinymce.cite.js' );
 		gNetworkAdmin::registerTinyMCE( 'gnetworkemail', 'assets/js/tinymce.email.js' );
 		gNetworkAdmin::registerTinyMCE( 'gnetworkgpeople', 'assets/js/tinymce.gpeople.js' );
@@ -37,8 +37,8 @@ class gNetworkShortCodes extends gNetworkModuleCore
 	// fallback shortcodes
 	public function init_early()
 	{
-		add_shortcode( 'book', array( &$this, 'shortcode_return_content' ) );
-		add_shortcode( 'person', array( &$this, 'shortcode_person' ) );
+		add_shortcode( 'book', array( $this, 'shortcode_return_content' ) );
+		add_shortcode( 'person', array( $this, 'shortcode_person' ) );
 	}
 
 	public function shortcode_return_content( $atts, $content = NULL, $tag = '' )
@@ -68,7 +68,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		) );
 
 		if ( ! defined( 'GNETWORK_DISABLE_REFLIST_INSERT' ) || ! GNETWORK_DISABLE_REFLIST_INSERT )
-			add_filter( 'the_content', array( &$this, 'the_content' ), 20 );
+			add_filter( 'the_content', array( $this, 'the_content' ), 20 );
 	}
 
 	// http://www.paulund.co.uk/get-list-of-all-available-shortcodes
@@ -707,7 +707,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			|| $this->_ref_list )
 				return $content;
 
-		remove_filter( 'the_content', array( &$this, 'the_content' ), 20 );
+		remove_filter( 'the_content', array( $this, 'the_content' ), 20 );
 		return $content.apply_filters( 'the_content',
 			$this->shortcode_reflist( array(), NULL, 'reflist' ) );
 	}

@@ -9,10 +9,10 @@ class gNetworkTaxonomy extends gNetworkModuleCore
 
 	protected function setup_actions()
 	{
-		add_action( 'admin_init', array( &$this, 'admin_init' ), 20 );
+		add_action( 'admin_init', array( $this, 'admin_init' ), 20 );
 
-		add_action( 'load-edit-tags.php', array( &$this, 'load_edit_tags_php' ) );
-		add_action( 'admin_notices', array( &$this, 'admin_notices' ) );
+		add_action( 'load-edit-tags.php', array( $this, 'load_edit_tags_php' ) );
+		add_action( 'admin_notices', array( $this, 'admin_notices' ) );
 	}
 
 	public function admin_init()
@@ -44,8 +44,8 @@ class gNetworkTaxonomy extends gNetworkModuleCore
 
 		// loop through the taxonomies, adding actions
 		foreach ( $taxonomies as $taxonomy ) {
-			add_action( $taxonomy.'_edit_form_fields', array( &$this, 'render_field_edit' ), 1, 2 );
-			add_action( $taxonomy.'_add_form_fields', array( &$this, 'render_field_add' ), 1, 1 );
+			add_action( $taxonomy.'_edit_form_fields', array( $this, 'render_field_edit' ), 1, 2 );
+			add_action( $taxonomy.'_add_form_fields', array( $this, 'render_field_add' ), 1, 1 );
 		}
 	}
 
@@ -130,8 +130,8 @@ class gNetworkTaxonomy extends gNetworkModuleCore
 		if ( ! current_user_can( $tax->cap->manage_terms ) )
 			return;
 
-		add_action( 'admin_enqueue_scripts', array( &$this, 'admin_enqueue_scripts' ) );
-		add_action( 'admin_footer', array( &$this, 'admin_footer' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
+		add_action( 'admin_footer', array( $this, 'admin_footer' ) );
 
 		$action = FALSE;
 		foreach ( array( 'action', 'action2' ) as $key ) {
@@ -154,7 +154,7 @@ class gNetworkTaxonomy extends gNetworkModuleCore
 		foreach ( array_keys( $this->get_actions( $taxonomy ) ) as $key ) {
 			if ( 'bulk_'.$key == $action ) {
 				check_admin_referer( 'bulk-tags' );
-				$callback = apply_filters( 'gnetwork_taxonomy_bulk_callback', array( &$this, 'handle_'.$key ), $key, $taxonomy );
+				$callback = apply_filters( 'gnetwork_taxonomy_bulk_callback', array( $this, 'handle_'.$key ), $key, $taxonomy );
 				if ( is_callable( $callback ) )
 					$results = call_user_func( $callback, $term_ids, $taxonomy );
 				break;
@@ -355,7 +355,7 @@ class gNetworkTaxonomy extends gNetworkModuleCore
 		foreach ( array_keys( $this->get_actions( $taxonomy ) ) as $key ) {
 			echo "<div id='gnetwork-taxonomy-input-$key' class='gnetwork-taxonomy-input-wrap' style='display:none'>\n";
 
-				$callback = apply_filters( 'gnetwork_taxonomy_bulk_input', array( &$this, 'input_'.$key ), $key, $taxonomy );
+				$callback = apply_filters( 'gnetwork_taxonomy_bulk_input', array( $this, 'input_'.$key ), $key, $taxonomy );
 				if ( is_callable( $callback ) )
 					call_user_func( $callback, $taxonomy );
 

@@ -9,7 +9,7 @@ class gNetworkRestricted extends gNetworkModuleCore
 
 	protected function setup_actions()
 	{
-		add_action( 'plugins_loaded', array( &$this, 'plugins_loaded' ), 1 );
+		add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ), 1 );
 	}
 
 	public function plugins_loaded()
@@ -21,18 +21,18 @@ class gNetworkRestricted extends gNetworkModuleCore
 		if ( 'none' != $this->options['restricted_site'] )
 			$this->_bouncer = new gNetworkRestrictedBouncer( $this->options );
 
-		add_action( 'init', array( &$this, 'init' ), 1 );
+		add_action( 'init', array( $this, 'init' ), 1 );
 
 		gNetworkAdmin::registerMenu( 'restricted',
 			__( 'Restricted', GNETWORK_TEXTDOMAIN ),
-			array( &$this, 'settings' )
+			array( $this, 'settings' )
 		);
 
 		if ( is_admin() ) {
-			add_filter( 'show_user_profile', array( &$this, 'edit_user_profile' ), 10, 1  );
-			add_action( 'edit_user_profile', array( &$this, 'edit_user_profile' ), 10, 1  );
-			add_action( 'personal_options_update', array( &$this, 'edit_user_profile_update' ), 10, 1 );
-			add_action( 'edit_user_profile_update', array( &$this, 'edit_user_profile_update' ), 10, 1 );
+			add_filter( 'show_user_profile', array( $this, 'edit_user_profile' ), 10, 1  );
+			add_action( 'edit_user_profile', array( $this, 'edit_user_profile' ), 10, 1  );
+			add_action( 'personal_options_update', array( $this, 'edit_user_profile_update' ), 10, 1 );
+			add_action( 'edit_user_profile_update', array( $this, 'edit_user_profile_update' ), 10, 1 );
 		}
 	}
 
@@ -266,15 +266,15 @@ class gNetworkRestrictedBouncer
 	{
 		$this->_options = $options;
 
-		add_action( 'init', array( &$this, 'init' ), 1 );
-		add_action( 'admin_init', array( &$this, 'admin_init' ), 1 );
-		add_action( 'template_redirect', array( &$this, 'template_redirect' ), 1 );
+		add_action( 'init', array( $this, 'init' ), 1 );
+		add_action( 'admin_init', array( $this, 'admin_init' ), 1 );
+		add_action( 'template_redirect', array( $this, 'template_redirect' ), 1 );
 
 		if ( ! empty( $options['restricted_notice'] ) )
-			add_filter( 'login_message', array( &$this, 'login_message' ) );
+			add_filter( 'login_message', array( $this, 'login_message' ) );
 
 		// block search engines and robots
-		add_filter( 'robots_txt', array( &$this, 'robots_txt' ) );
+		add_filter( 'robots_txt', array( $this, 'robots_txt' ) );
 		add_filter( 'option_blog_public', function( $option ){
 			return 0;
 		}, 20 );
@@ -291,7 +291,7 @@ class gNetworkRestrictedBouncer
 		$this->_feed_key = self::getUserFeedKey();
 
 		if ( $this->_feed_key && is_user_logged_in() )
-			add_filter( 'feed_link', array( &$this, 'feed_link' ), 12, 2 );
+			add_filter( 'feed_link', array( $this, 'feed_link' ), 12, 2 );
 
 		$feed_key = isset( $_GET['feedkey'] ) ? trim( $_GET['feedkey'] ) : FALSE;
 		if ( ! $feed_key ) {
@@ -369,7 +369,7 @@ class gNetworkRestrictedBouncer
 		);
 
 		foreach ( $actions as $action )
-			add_action( $action, array( &$this, '_check_feed_access' ), 1 );
+			add_action( $action, array( $this, '_check_feed_access' ), 1 );
 	}
 
 	public function admin_init()

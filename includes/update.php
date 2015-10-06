@@ -10,7 +10,7 @@ class gNetworkUpdate extends gNetworkModuleCore
 
 	protected function setup_actions()
 	{
-		add_action( 'admin_init', array( &$this, 'admin_init_late' ), 100 );
+		add_action( 'admin_init', array( $this, 'admin_init_late' ), 100 );
 
 		// add_filter( 'automatic_updater_disabled', '__return_true' );
 		// add_filter( 'auto_update_core', '__return_false' );

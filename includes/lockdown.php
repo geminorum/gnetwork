@@ -17,16 +17,16 @@ class gNetworkLockDown extends gNetworkModuleCore
 	{
 		$this->register_menu( 'lockdown',
 			__( 'Login Lockdown', GNETWORK_TEXTDOMAIN ),
-			array( &$this, 'settings' )
+			array( $this, 'settings' )
 		);
 
 		if ( ! $this->options['record_attempts'] )
 			return;
 
-		add_filter( 'authenticate', array( &$this, 'authenticate' ), 1 );
-		add_action( 'wp_login', array( &$this, 'wp_login' ) );
-		add_action( 'wp_login_failed', array( &$this, 'wp_login_failed' ) );
-		add_filter( 'shake_error_codes', array( &$this, 'shake_error_codes' ) );
+		add_filter( 'authenticate', array( $this, 'authenticate' ), 1 );
+		add_action( 'wp_login', array( $this, 'wp_login' ) );
+		add_action( 'wp_login_failed', array( $this, 'wp_login_failed' ) );
+		add_filter( 'shake_error_codes', array( $this, 'shake_error_codes' ) );
 	}
 
 	public function default_settings()
@@ -163,7 +163,7 @@ class gNetworkLockDown extends gNetworkModuleCore
 
 		do_action( 'gnetwork_lockdown_attempt', $ip );
 
-		remove_action( 'wp_login_failed', array( &$this, 'wp_login_failed' ) );
+		remove_action( 'wp_login_failed', array( $this, 'wp_login_failed' ) );
 		remove_filter( 'authenticate', 'wp_authenticate_username_password', 20, 3 );
 
 		return new WP_Error( 'gnetwork_lockdown_locked', $this->options['locked_notice'] );
