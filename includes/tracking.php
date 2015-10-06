@@ -185,6 +185,9 @@ class gNetworkTracking extends gNetworkModuleCore
 
 	public function wp_footer()
 	{
+		if ( $this->ignore() )
+			return;
+
 		// http://www.sitepoint.com/track-outbound-links-google-analytics/
 		if ( $this->_ga_outbound ) {
 			?><script type="text/javascript">
@@ -223,6 +226,7 @@ qacct:"<?php echo $this->options['quantcast']; ?>"
 
 		}
 
+		// FIXME: get locale
 		// https://developers.google.com/+/web/api/supported-languages
 
 		if ( $this->_gp_platformjs ) {
