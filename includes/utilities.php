@@ -192,7 +192,7 @@ class gNetworkUtilities
 
 	public static function notice( $notice, $class = 'updated fade', $echo = TRUE )
 	{
-		$html = sprintf( '<div id="message" class="%s"><p>%s</p></div>', $class, $notice );
+		$html = sprintf( '<div id="message" class="%s notice is-dismissible"><p>%s</p></div>', $class, $notice );
 		if ( ! $echo )
 			return $html;
 		echo $html;
