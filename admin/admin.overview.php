@@ -12,6 +12,10 @@ echo '<form method="post" action="">';
 			gNetworkDebug::versions();
 		echo '</td></tr>';
 
+		echo '<tr class="table-block ltr"><th scope="row">'.__( 'Initial Constants', GNETWORK_TEXTDOMAIN ).'</th><td>';
+			gNetworkDebug::initialConstants();
+		echo '</td></tr>';
+
 		echo '<tr class="table-block ltr"><th scope="row">'.__( 'Plugin Paths', GNETWORK_TEXTDOMAIN ).'</th><td>';
 			gNetworkDebug::pluginPaths();
 		echo '</td></tr>';

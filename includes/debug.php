@@ -102,6 +102,20 @@ class gNetworkDebug extends gNetworkModuleCore
 		$wp_object_cache->stats();
 	}
 
+	public static function initialConstants()
+	{
+		$paths = array(
+			'WP_MEMORY_LIMIT'     => WP_MEMORY_LIMIT,
+			'WP_MAX_MEMORY_LIMIT' => WP_MAX_MEMORY_LIMIT,
+			'WP_DEBUG'            => WP_DEBUG,
+			'SCRIPT_DEBUG'        => SCRIPT_DEBUG,
+			'WP_CONTENT_DIR'      => WP_CONTENT_DIR,
+			'WP_CACHE'            => WP_CACHE,
+		);
+
+		self::codeTable( $paths );
+	}
+
 	public static function pluginPaths()
 	{
 		$paths = array(
