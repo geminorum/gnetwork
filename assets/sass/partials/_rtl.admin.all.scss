@@ -28,7 +28,7 @@ body.rtl {
 
 	#poststuff h3,
 	.metabox-holder h3 {
-		padding: 9px 12px 5px;
+		padding: 10px 12px 5px;
 	}
 
 	.bp-profile-field,
@@ -81,8 +81,12 @@ body.rtl {
 
 	#poststuff {
 
+		#edit-slug-box {
+			direction: ltr;
+		}
+
 		#sample-permalink {
-			margin-left: 5px;
+			margin-right: 5px;
 		}
 
 		input#post_name {
@@ -167,7 +171,7 @@ body.rtl {
 	}
 
 	&.edit-php {
-		
+
 		.row-actions span,
 		td.column-categories,
 		td.column-tags,

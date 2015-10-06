@@ -41,15 +41,39 @@ div.wpcf7 {
 		border: 2px solid #f7e700;
 	}
 
+	.wpcf7-form-control {
+
+		&.wpcf7-recaptcha {
+			> div > div {
+				margin: 0 auto;
+			}
+		}
+	}
+
 	.wpcf7-form-control-wrap {
 		position: relative;
 
+		select,
+		option,
 		textarea,
+		input {
+			@include box-reset();
+		}
+
+		select,
+		textarea,
+		input[type="tel"],
 		input[type="text"],
+		input[type="password"],
 		input[type="email"] {
 			width: 100%;
 		}
 
+		input[type="number"] {
+			width: 33%;
+		}
+
+		input[type="tel"],
 		input[type="email"] {
 			direction: ltr !important;
 		}

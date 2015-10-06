@@ -6,6 +6,10 @@
 $font-family-base: "Droid Arabic Naskh", Tahoma, "Iranian Sans", serif;
 $font-family-head: Arial, "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
 body.rtl {
 
 	direction:rtl;
@@ -42,9 +46,10 @@ body.rtl {
 	.site-navigation,
 	.post-navigation,
 	.wp-caption .wp-caption-text,
-	input[type=text],
-	input[type=password],
-	input[type=email],
+	input[type="tel"],
+	input[type="text"],
+	input[type="password"],
+	input[type="email"],
 	input[type="button"],
 	input[type="reset"],
 	input[type="submit"],
@@ -64,7 +69,8 @@ body.rtl {
 
 	.site-header a.site-logo {
 		text-align: center;
-		  display: block;
+		display: block;
+		outline: none;
 
 		& + hgroup {
 			text-align:center;
@@ -85,7 +91,7 @@ body.rtl {
 	input,
 	select,
 	textarea {
-		max-width:100%;
+		max-width: 100%;
 	}
 
 	.wp-caption {
@@ -156,43 +162,61 @@ body.rtl {
 	}
 
 	option {
-		padding:0;
+		padding: 0;
 	}
 
+	select,
+	textarea,
+	input[type="tel"],
+	input[type="text"],
+	input[type="number"],
+	input[type="password"],
+	input[type="email"] {
+		padding: 3px;
+		border: 1px solid #CCC;
+		border-radius: 3px;
+	}
 }
 
-@media only screen and (max-width : 900px) {
+@media only screen and (max-width: 900px) {
 	body.rtl {
-	.main-small-navigation .menu-toggle:before {
-		margin-left: 10px;
-		margin-right: -20px;
-	}
-	.site-title,
-	.site-description {
-		clear: none;
-		margin-right: 98px;
-		margin-left:0;
-	}
-	.site-logo,
-	.site-logo img {
-		float: right;
-		width: 78px;
-	}
-	.site-header a.site-logo + hgroup {
-		text-align:right;
-	}
-}
-}
-@media only screen and (max-width : 600px) {
-	body.rtl {
-	}
-}
-/**--------------------------------------------**/
-body.delnaha-network {
-	.site-header a.site-logo + hgroup {
-		display:none;
+		.main-small-navigation .menu-toggle:before {
+			margin-left: 10px;
+			margin-right: -20px;
+		}
+
+		.site-title,
+		.site-description {
+			clear: none;
+			margin-right: 98px;
+			margin-left: 0;
+		}
+
+		.site-logo,
+		.site-logo img {
+			float: right;
+			width: 78px;
+		}
+
+		.site-header a.site-logo + hgroup {
+			text-align: right;
+		}
 	}
 }
 
-/**--------------------------------------------**/
-/**--------------------------------------------**/
+@media only screen and (max-width: 600px) {
+	body.rtl {}
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+body.manaedu-network .site-header a.site-logo + hgroup .site-title,
+body.delnaha-network .site-header a.site-logo + hgroup {
+	display: none;
+}
+
+body.manaedu-network .site-header a.site-logo + hgroup .site-description {
+	font-size: 0.8em;
+	margin-top: 0;
+}

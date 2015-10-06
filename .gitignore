@@ -5,3 +5,5 @@
 /assets/vendor
 /assets/bin
 /node_modules
+
+composer.lock

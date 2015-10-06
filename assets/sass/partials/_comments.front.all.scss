@@ -1,0 +1,41 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// Module: Comments ---------------------------------------------------------
+
+.gnetwork-wrap-comments {
+	// @include mainwrap();
+	
+}
+
+#commentform .quicktags-toolbar {
+
+	position: relative;
+	margin-top: 1em;
+
+	input.button.button-small {
+
+		margin: 0 0.2em 0 0;
+		padding: 0.5em 1em;
+		// padding: 2px 4px;
+
+		width: auto;
+		display: inline-block;
+
+		@include body-rtl() {
+			margin: 0 0 0 0.2em;
+		}
+	}
+
+	input[value="link"] {
+		text-decoration: underline
+	}
+
+	input[value="i"] {
+		font-style: italic
+	}
+
+	input[value="b"] {
+		font-weight: bold
+	}
+}
