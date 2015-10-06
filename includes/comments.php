@@ -13,7 +13,7 @@ class gNetworkComments extends gNetworkModuleCore
 			array( &$this, 'settings' )
 		);
 
-		if ( $this->options['disable_comments_emails'] ) {
+		if ( $this->options['disable_notifications'] ) {
 
 			// filter the list of email addresses to receive a comment notification.
 			add_filter( 'comment_notification_recipients', '__return_empty_array' );
@@ -34,7 +34,7 @@ class gNetworkComments extends gNetworkModuleCore
 
 		// // WORKING BUT MAKE SURE THIS IS NESSECARY?!
 		// // ORIGINALLY FROM : http://wordpress.org/plugins/really-simple-comment-validation/
-		// add_action( 'comment_form', array( &$this, 'comment_form' ) );
+		// add_action( 'comment_form', array( &$this, 'comment_form_nonce' ) );
 		// add_action( 'pre_comment_approved', array( &$this, 'pre_comment_approved_nounce' ) );
 		// add_action( 'explain_nonce_gnc-check_comments', array( &$this, 'explain_nonce' ) );
 	}
@@ -62,8 +62,8 @@ class gNetworkComments extends gNetworkModuleCore
 	public function default_options()
 	{
 		return array(
-			'disable_comments_emails' => '1',
-			'admin_fullcomments'      => '1',
+			'disable_notifications' => '1',
+			'admin_fullcomments'    => '1',
 		);
 	}
 
@@ -72,9 +72,9 @@ class gNetworkComments extends gNetworkModuleCore
 		return array(
 			'_general' => array(
 				array(
-					'field'   => 'disable_comments_emails',
+					'field'   => 'disable_notifications',
 					'type'    => 'enabled',
-					'title'   => __( 'Comment Notifications', GNETWORK_TEXTDOMAIN ),
+					'title'   => _x( 'Comment Notifications', '[Comments Module]', GNETWORK_TEXTDOMAIN ),
 					'desc'    => __( 'Disable all core comment notifications', GNETWORK_TEXTDOMAIN ),
 					'default' => '1',
 					'values'  => array(
@@ -85,8 +85,8 @@ class gNetworkComments extends gNetworkModuleCore
 				array(
 					'field'   => 'admin_fullcomments',
 					'type'    => 'enabled',
-					'title'   => _x( 'Full Comments', 'Enable Full Comments On Dashboard', GNETWORK_TEXTDOMAIN ),
-					'desc'    => __( 'Full Comments On Dashboard', GNETWORK_TEXTDOMAIN ),
+					'title'   => _x( 'Full Comments', '[Comments Module]', GNETWORK_TEXTDOMAIN ),
+					'desc'    => __( 'Full comments on dashboard', GNETWORK_TEXTDOMAIN ),
 					'default' => '0',
 				),
 			),
@@ -199,7 +199,7 @@ class gNetworkComments extends gNetworkModuleCore
 		}
 	}
 
-	public function comment_form()
+	public function comment_form_nonce()
 	{
 		wp_nonce_field( 'gnc-check_comments', '_gnc_nonce', FALSE );
 	}
