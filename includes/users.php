@@ -139,8 +139,8 @@ class gNetworkUsers extends gNetworkModuleCore
 		$count = isset( $_GET['count'] ) ? $_GET['count'] : 0 ;
 		$_SERVER['REQUEST_URI'] = remove_query_arg( 'count', $_SERVER['REQUEST_URI'] );
 
-		$messages['bulk-author-changed']     = gNetworkUtilities::notice( sprintf( __( '%s Post(s) Changed', GNETWORK_TEXTDOMAIN ), $count ), 'updated fade', FALSE );
-		$messages['bulk-author-not-changed'] = gNetworkUtilities::notice( __( 'No Post Changed', GNETWORK_TEXTDOMAIN ), 'error', FALSE );
+		$messages['bulk-author-changed']     = self::error( sprintf( __( '%s Post(s) Changed', GNETWORK_TEXTDOMAIN ), number_format_i18n( $count ) ) );
+		$messages['bulk-author-not-changed'] = self::updated( __( 'No Post Changed', GNETWORK_TEXTDOMAIN ) );
 
 		return $messages;
 	}

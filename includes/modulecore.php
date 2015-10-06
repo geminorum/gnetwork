@@ -846,6 +846,7 @@ class gNetworkModuleCore
 		return $r;
 	}
 
+	// HELPER
 	public static function log( $error = '{NO Error Code}', $data = array(), $wp_error = NULL )
 	{
 		if ( ! WP_DEBUG_LOG )
@@ -861,7 +862,19 @@ class gNetworkModuleCore
 		error_log( print_r( $log, TRUE ) );
 	}
 
-	// HELPER:
+	// HELPER
+	public static function error( $message )
+	{
+		return gNetworkUtilities::notice( $message, 'error fade', FALSE );
+	}
+
+	// HELPER
+	public static function updated( $message )
+	{
+		return gNetworkUtilities::notice( $message, 'updated fade', FALSE );
+	}
+
+	// HELPER
 	public static function getDateDefaultFormat( $options = FALSE, $date_format = NULL, $time_format = NULL, $joiner = ' @' )
 	{
 		if ( ! $options )

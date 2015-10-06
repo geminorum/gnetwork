@@ -160,9 +160,9 @@ class gNetworkNetwork extends gNetworkModuleCore
 		$subs = apply_filters( 'gnetwork_network_settings_subs', $this->subs() );
 
 		$messages = apply_filters( 'gnetwork_network_settings_messages', array(
-			'resetting' => gNetworkUtilities::notice( __( 'Resetting Settings.', GNETWORK_TEXTDOMAIN ), 'updated fade', FALSE ),
-			'updated'   => gNetworkUtilities::notice( __( 'Settings updated.', GNETWORK_TEXTDOMAIN ), 'updated fade', FALSE ),
-			'error'     => gNetworkUtilities::notice( __( 'Error while saving settings.', GNETWORK_TEXTDOMAIN ), 'error', FALSE ),
+			'resetting' => self::updated( __( 'Resetting Settings.', GNETWORK_TEXTDOMAIN ) ),
+			'updated'   => self::updated( __( 'Settings updated.', GNETWORK_TEXTDOMAIN ) ),
+			'error'     => self::error( __( 'Error while saving settings.', GNETWORK_TEXTDOMAIN ) ),
 		) );
 
 		echo '<div class="wrap gnetwork-admin-settings-wrap settings-network sub-'.$sub.'">';

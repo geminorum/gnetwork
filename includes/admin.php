@@ -201,9 +201,9 @@ class gNetworkAdmin extends gNetworkModuleCore
 			|| ( isset( $this->menus[$sub] ) && self::cuc( $this->menus[$sub]['cap'] ) ) ) {
 
 			$messages = apply_filters( 'gnetwork_admin_settings_messages', array(
-				'resetting' => gNetworkUtilities::notice( __( 'Resetting Settings.', GNETWORK_TEXTDOMAIN ), 'updated fade', FALSE ),
-				'updated'   => gNetworkUtilities::notice( __( 'Settings updated.', GNETWORK_TEXTDOMAIN ), 'updated fade', FALSE ),
-				'error'     => gNetworkUtilities::notice( __( 'Error while saving settings.', GNETWORK_TEXTDOMAIN ), 'error', FALSE ),
+				'resetting' => self::updated( __( 'Resetting Settings.', GNETWORK_TEXTDOMAIN ) ),
+				'updated'   => self::updated( __( 'Settings updated.', GNETWORK_TEXTDOMAIN ) ),
+				'error'     => self::error( __( 'Error while saving settings.', GNETWORK_TEXTDOMAIN ) ),
 			) );
 
 			self::sideNotification();
