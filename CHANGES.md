@@ -1,3 +1,25 @@
+### 0.2.23
+* locale: adminbar menus to quickly change current language
+* locale: no actions/filters if no `GNETWORK_WPLANG`/`GNETWORK_WPLANG_ADMIN`
+* utilities: cleanup current url helper
+* utilities: html generator now sanitize classes
+* tracking: analytics default domain to `auto`
+* tracking: also ignoring editors in footer codes
+* comments: quick tags in frontend
+* modulecore: javascript in footer helper
+* modulecore: new settings textarea with quick-tags
+* restricted: support for json feed
+* maintenance: support for json feed
+* maintenance: fewer checks
+* reference: also parsing ref list numbers with dash
+* blog: fewer actions/filters
+* admin: not loading in front end
+* admin: `GNETWORK_IS_WP_EXPORT` when wp is exporting
+* themes: excerpt link for revera
+* debug: overview initial default constants
+* dev: screen variables helper
+* including [Kint](https://github.com/raveren/kint/) debugging library
+
 ### 0.2.22
 * restricted: fixed fatal using old method
 * themes: fixed fatal cannot access self
