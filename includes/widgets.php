@@ -3,9 +3,9 @@
 class gNetworkWidgets extends gNetworkModuleCore
 {
 
-	var $_network    = FALSE;
-	var $_option_key = FALSE;
-	var $_ajax       = TRUE;
+	protected $option_key = FALSE;
+	protected $network    = FALSE;
+	protected $ajax       = TRUE;
 
 	protected function setup_actions()
 	{
@@ -25,6 +25,7 @@ class gNetworkWidgets extends gNetworkModuleCore
 
 class gNetworkShortcode_Widget extends WP_Widget
 {
+	
 	public function __construct()
 	{
 		$widget_ops = array(

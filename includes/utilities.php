@@ -218,7 +218,7 @@ class gNetworkUtilities
 		return $new;
 	}
 
-	// returns array of the keys if options values are true
+	// returns array of the keys if options values are TRUE
 	public static function getKeys( $options = array() )
 	{
 		$keys = array();
@@ -495,7 +495,7 @@ class gNetworkUtilities
 		return $_SERVER['REMOTE_ADDR'];
 	}
 
-	public static function range( $start, $end, $step = 1, $format = true )
+	public static function range( $start, $end, $step = 1, $format = TRUE )
 	{
 		$array = array();
 		foreach ( range( $start, $end, $step ) as $number )

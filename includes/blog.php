@@ -3,8 +3,8 @@
 class gNetworkBlog extends gNetworkModuleCore
 {
 
-	var $_option_key = 'general';
-	var $_network    = FALSE;
+	protected $option_key = 'general';
+	protected $network    = FALSE;
 
 	protected function setup_actions()
 	{

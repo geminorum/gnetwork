@@ -3,9 +3,9 @@
 class gNetworkDev extends gNetworkModuleCore
 {
 
-	var $_option_key = FALSE;
-	var $_network    = FALSE;
-	var $_ajax       = TRUE;
+	protected $option_key = FALSE;
+	protected $network    = FALSE;
+	protected $ajax       = TRUE;
 
 	protected function setup_actions()
 	{
@@ -20,8 +20,8 @@ class gNetworkDev extends gNetworkModuleCore
 		if ( is_admin() )
 			add_action( 'contextual_help', array( $this, 'contextual_help' ), 10, 3 );
 
-		// add_filter( 'embed_oembed_html',            array( $this, 'embed_oembed_html'    ), 1,  4 );
-		// add_filter( 'get_avatar',                   array( $this, 'get_avatar'           ), 1,  5 );
+		// add_filter( 'embed_oembed_html', array( $this, 'embed_oembed_html' ), 1,  4 );
+		// add_filter( 'get_avatar', array( $this, 'get_avatar' ), 1,  5 );
 
 		// add_action( 'template_redirect', array( $this, 'template_redirect' ) );
 		// add_filter( 'login_url', array( $this, 'login_url' ), 10, 2 );

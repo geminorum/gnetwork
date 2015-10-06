@@ -3,10 +3,11 @@
 class gNetworkCaptcha extends gNetworkModuleCore
 {
 
-	var $_network    = TRUE;
-	var $_option_key = 'captcha';
+	protected $option_key = 'captcha';
+	protected $network    = TRUE;
 
-	private $public_key, $private_key;
+	private $public_key;
+	private $private_key;
 
 	protected function setup_actions()
 	{

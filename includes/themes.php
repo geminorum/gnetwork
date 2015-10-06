@@ -3,11 +3,11 @@
 class gNetworkThemes extends gNetworkModuleCore
 {
 
-	var $_network    = FALSE;
-	var $_option_key = 'themes';
+	protected $option_key = 'themes';
+	protected $network    = FALSE;
 
-	var $_rtl          = NULL;
-	var $_active_theme = NULL;
+	private $rtl   = NULL;
+	private $theme = NULL;
 
 	protected function setup_actions()
 	{
@@ -25,6 +25,8 @@ class gNetworkThemes extends gNetworkModuleCore
 
 	public function after_setup_theme()
 	{
+		$this->rtl = is_rtl();
+
 		if ( $this->is( 'publish' ) ) {
 			// https://github.com/kovshenin/publish
 			// https://kovshenin.com/themes/publish/
@@ -52,7 +54,7 @@ class gNetworkThemes extends gNetworkModuleCore
 			// DEMO: http://demo.alxmedia.se/hueman/
 			// REPO: https://github.com/AlxMedia/hueman
 
-			if ( is_rtl() ) {
+			if ( $this->rtl ) {
 				add_action( 'wp_enqueue_scripts', function(){
 
 					wp_enqueue_style( 'gnetwork-themes-hueman',
@@ -79,7 +81,7 @@ class gNetworkThemes extends gNetworkModuleCore
 			// DEMO: http://semicolon.kovshenin.com/
 			// REPO: https://wordpress.org/themes/semicolon
 
-			if ( is_rtl() ) {
+			if ( $this->rtl ) {
 				add_action( 'wp_enqueue_scripts', function(){
 
 					wp_deregister_style( 'semicolon' );
@@ -115,7 +117,7 @@ class gNetworkThemes extends gNetworkModuleCore
 
 			defined( 'GNETWORK_DISABLE_JQUERY_MIGRATE' ) or define( 'GNETWORK_DISABLE_JQUERY_MIGRATE', FALSE );
 
-			if ( is_rtl() ) {
+			if ( $this->rtl ) {
 				add_theme_support( 'post-thumbnails' );
 
 				add_action( 'wp_enqueue_scripts', function(){
@@ -137,7 +139,7 @@ class gNetworkThemes extends gNetworkModuleCore
 
 		} else if ( $this->is( 'ari' ) ) {
 
-			if ( is_rtl() ) {
+			if ( $this->rtl ) {
 				add_action( 'wp_enqueue_scripts', function(){
 					wp_enqueue_style( 'gnetwork-themes-ari', GNETWORK_URL.'assets/css/themes.ari-rtl.css', array(), GNETWORK_VERSION );
 				}, 20 );
@@ -168,10 +170,10 @@ class gNetworkThemes extends gNetworkModuleCore
 	// helper
 	public function is( $theme )
 	{
-		if ( is_null( $this->_active_theme ) )
-			$this->_active_theme = wp_get_theme();
+		if ( is_null( $this->theme ) )
+			$this->theme = wp_get_theme();
 
-		return ( $theme == $this->_active_theme->template || $theme == $this->_active_theme->stylesheet );
+		return ( $theme == $this->theme->template || $theme == $this->theme->stylesheet );
 	}
 
 	public function allowed_themes( $themes )
@@ -210,7 +212,7 @@ class gNetworkThemes extends gNetworkModuleCore
 
 	public function publish_credits()
 	{
-		echo '<br />'.gnetwork_credits( is_rtl(), FALSE );
+		echo '<br />'.gnetwork_credits( $this->rtl, FALSE );
 	}
 
 	public static function appendMCECSS( $url, $theme )
@@ -225,20 +227,20 @@ class gNetworkThemes extends gNetworkModuleCore
 
 	public function prologue_poweredby_link( $html )
 	{
-		return '<span class="alignleft"'.( is_rtl() ? 'style="direction:rtl !important;"' : 'style="padding-right:5px;"' ).'>'
-			.gnetwork_credits( is_rtl(), FALSE ).'</span>';
+		return '<span class="alignleft"'.( $this->rtl ? 'style="direction:rtl !important;"' : 'style="padding-right:5px;"' ).'>'
+			.gnetwork_credits( $this->rtl, FALSE ).'</span>';
 	}
 
 	public function twentytwelve_credits()
 	{
 		echo '<style>#colophon .site-info > a {display:none;}</style><span style="display:block !important;">'
-			.gnetwork_credits( is_rtl(), FALSE ).'</span>';
+			.gnetwork_credits( $this->rtl, FALSE ).'</span>';
 	}
 
 	public function bp_dtheme_credits()
 	{
 		echo '<p style="font: 11px/12px Tahoma,Arial,Verdana,sans-serif;margin-bottom:0px;direction:rtl;">';
-		echo gnetwork_credits( is_rtl(), FALSE );
+		echo gnetwork_credits( $this->rtl, FALSE );
 		echo '</p>';
 	}
 }

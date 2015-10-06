@@ -125,7 +125,7 @@ function gnetwork_init() {
 		if ( $module_class && class_exists( $module_class ) )
 			$gNetwork->{$module_slug} = new $module_class();
 
-	load_plugin_textdomain( GNETWORK_TEXTDOMAIN, false, 'gnetwork/languages' );
+	load_plugin_textdomain( GNETWORK_TEXTDOMAIN, FALSE, 'gnetwork/languages' );
 
 	add_action( 'bp_include', 'gnetwork_bp_include' );
 

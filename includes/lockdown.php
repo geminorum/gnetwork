@@ -7,11 +7,11 @@
 class gNetworkLockDown extends gNetworkModuleCore
 {
 
-	var $_network    = TRUE;
-	var $_option_key = 'lockdown';
+	protected $option_key = 'lockdown';
+	protected $network    = TRUE;
 
-	var $_locked_prefix = 'gnld_locked_';
-	var $_failed_prefix = 'gnld_failed_';
+	private $locked_prefix = 'gnld_locked_';
+	private $failed_prefix = 'gnld_failed_';
 
 	protected function setup_actions()
 	{
@@ -107,12 +107,12 @@ class gNetworkLockDown extends gNetworkModuleCore
 
 	private function locked( $ip )
 	{
-		return (bool) get_site_transient( $this->_locked_prefix.$ip );
+		return (bool) get_site_transient( $this->locked_prefix.$ip );
 	}
 
 	private function failed( $ip )
 	{
-		$failed = get_site_transient( $this->_failed_prefix.$ip );
+		$failed = get_site_transient( $this->failed_prefix.$ip );
 		if ( $failed )
 			return absint( $failed );
 		return 0;
@@ -120,20 +120,20 @@ class gNetworkLockDown extends gNetworkModuleCore
 
 	private function clear( $ip )
 	{
-		 delete_site_transient( $this->_locked_prefix.$ip );
-		 delete_site_transient( $this->_failed_prefix.$ip );
+		 delete_site_transient( $this->locked_prefix.$ip );
+		 delete_site_transient( $this->failed_prefix.$ip );
 	}
 
 	private function fail( $ip )
 	{
 		$failed = $this->failed( $ip ) + 1;
-		set_site_transient( $this->_failed_prefix.$ip, $failed, $this->options['failed_expiration'] * 60 );
+		set_site_transient( $this->failed_prefix.$ip, $failed, $this->options['failed_expiration'] * 60 );
 		return $failed;
 	}
 
 	private function lock( $ip )
 	{
-		set_site_transient( $this->_locked_prefix.$ip, true, $this->options['locked_expiration'] * 60 );
+		set_site_transient( $this->locked_prefix.$ip, TRUE, $this->options['locked_expiration'] * 60 );
 	}
 
 	// make sure auth cookie really get cleared (for this session too)
@@ -186,7 +186,7 @@ class gNetworkLockDown extends gNetworkModuleCore
 		if ( empty( $ip ) )
 			return;
 
-		if ( apply_filters( 'gnetwork_lockdown_allow_ip', false, $ip ) )
+		if ( apply_filters( 'gnetwork_lockdown_allow_ip', FALSE, $ip ) )
 			return;
 
 		$this->cookies();

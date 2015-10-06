@@ -3,9 +3,9 @@
 class gNetworkUsers extends gNetworkModuleCore
 {
 
-	var $_network    = FALSE;
-	var $_option_key = 'users';
-	var $_front_end  = FALSE;
+	protected $option_key = 'users';
+	protected $network    = FALSE;
+	protected $front_end  = FALSE;
 
 	protected function setup_actions()
 	{

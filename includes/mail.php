@@ -3,8 +3,8 @@
 class gNetworkMail extends gNetworkModuleCore
 {
 
-	var $_network    = TRUE;
-	var $_option_key = 'mail';
+	protected $option_key = 'mail';
+	protected $network    = TRUE;
 
 	protected function setup_actions()
 	{
@@ -358,7 +358,7 @@ class gNetworkMail extends gNetworkModuleCore
 
 			$smtp_debug = ob_get_clean();
 
-			echo '<div id="m1essage" class="'.( false === $result ? 'error' : 'updated' ).'"><p><strong>';
+			echo '<div id="m1essage" class="'.( FALSE === $result ? 'error' : 'updated' ).'"><p><strong>';
 				_e( 'Test Message Sent', GNETWORK_TEXTDOMAIN );
 			echo '</strong></p><p>';
 				_e( 'The result was:', GNETWORK_TEXTDOMAIN );

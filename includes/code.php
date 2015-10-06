@@ -3,10 +3,8 @@
 class gNetworkCode extends gNetworkModuleCore
 {
 
-	var $_network    = FALSE;
-	var $_option_key = FALSE;
-
-	var $_github_repos = array();
+	protected $option_key = FALSE;
+	protected $network    = FALSE;
 
 	protected function setup_actions()
 	{
@@ -187,10 +185,10 @@ class gNetworkCode extends gNetworkModuleCore
 		if ( FALSE === $args['context'] || is_feed() )
 			return NULL;
 
-		$key = 'github-repo-'.( count( $this->_github_repos ) + 1 );
-		$this->_github_repos[$key] = "$('#".$key."').repo({user:'".$args['username']."',name:'".$args['name']."'".( $args['branch'] ? ", branch:'".$args['branch']."'" : "" )."});";
+		$key = 'github-repo-'.( count( $this->js ) + 1 );
+		$this->js[$key] = "$('#".$key."').repo({user:'".$args['username']."',name:'".$args['name']."'".( $args['branch'] ? ", branch:'".$args['branch']."'" : "" )."});";
 
-		gNetworkUtilities::wrapJS( $this->_github_repos[$key], FALSE );
+		gNetworkUtilities::wrapJS( $this->js[$key], FALSE );
 		wp_enqueue_script( 'repo-js', GNETWORK_URL.'assets/libs/repo.js/repo.min.js', array( 'jquery' ), GNETWORK_VERSION, TRUE );
 
 		return '<div id="'.$key.'" class="gnetwork-wrap-shortcode github-repo"></div>';

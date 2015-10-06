@@ -3,34 +3,36 @@
 class gNetworkModuleCore
 {
 
-	var $_network     = TRUE;       // using network wide options
-	var $_option_base = 'gnetwork';
-	var $_option_key  = FALSE;
-	var $_front_end   = TRUE;       // load module on front end?
-	var $_options     = array();
-	var $_ajax        = FALSE;      // load if ajax
-	var $_cron        = FALSE;      // load if cron
-	var $_dev         = NULL;       // load if dev
-	protected $_js    = array();
+	protected $option_base = 'gnetwork';
+	protected $option_key  = FALSE;
+	protected $network     = TRUE;       // using network wide options
+	protected $front_end   = TRUE;       // load module on front end?
+	protected $options     = array();
+	protected $js          = array();
+	protected $ajax        = FALSE;      // load if ajax
+	protected $cron        = FALSE;      // load if cron
+	protected $dev         = NULL;       // load if dev
+
+	private $settings_buttons = array();
 
 	public function __construct()
 	{
-		if ( ( ! $this->_ajax && self::isAJAX() )
-			|| ( ! $this->_cron && self::isCRON() )
+		if ( ( ! $this->ajax && self::isAJAX() )
+			|| ( ! $this->cron && self::isCRON() )
 			|| ( defined( 'WP_INSTALLING' ) && WP_INSTALLING ) )
 				return;
 
-		if ( ! is_admin() && ! $this->_front_end )
+		if ( ! is_admin() && ! $this->front_end )
 			return;
 
-		if ( ! is_null( $this->_dev ) ) {
-			if ( FALSE === $this->_dev && gNetworkUtilities::isDev() )
+		if ( ! is_null( $this->dev ) ) {
+			if ( FALSE === $this->dev && gNetworkUtilities::isDev() )
 				return;
-			else if ( TRUE === $this->_dev && ! gNetworkUtilities::isDev() )
+			else if ( TRUE === $this->dev && ! gNetworkUtilities::isDev() )
 				return;
 		}
 
-		if ( FALSE !== $this->_option_key ) // disable the options
+		if ( FALSE !== $this->option_key ) // disable the options
 			$this->options = $this->init_options();
 
 		$this->setup_actions();
@@ -57,7 +59,7 @@ class gNetworkModuleCore
 		if ( ! is_multisite() )
 			return FALSE;
 
-		return $this->_network;
+		return $this->network;
 	}
 
 	public static function isAJAX()
@@ -79,29 +81,29 @@ class gNetworkModuleCore
 
 	protected function options_key()
 	{
-		return $this->_option_base.'_'.$this->_option_key;
+		return $this->option_base.'_'.$this->option_key;
 	}
 
 	protected function init_options()
 	{
-		$network = $this->_option_base.'OptionsNetwork';
-		$blog    = $this->_option_base.'OptionsBlog';
+		$network = $this->option_base.'OptionsNetwork';
+		$blog    = $this->option_base.'OptionsBlog';
 
 		global ${$network}, ${$blog};
 
 		if ( empty( ${$network} ) )
-			${$network} = get_site_option( $this->_option_base.'_site', array() );
+			${$network} = get_site_option( $this->option_base.'_site', array() );
 
 		if ( empty( ${$blog} ) )
-			${$blog} = get_option( $this->_option_base.'_blog', array() );
+			${$blog} = get_option( $this->option_base.'_blog', array() );
 
 		if ( $this->is_network() )
-			$options = isset( ${$network}[$this->_option_key] )
-				? ${$network}[$this->_option_key]
+			$options = isset( ${$network}[$this->option_key] )
+				? ${$network}[$this->option_key]
 				: ( GNETWORK_CHECK_OLD_OPTIONS ? get_site_option( $this->options_key(), array() ) : array() );
 		else
-			$options = isset( ${$blog}[$this->_option_key] )
-				? ${$blog}[$this->_option_key]
+			$options = isset( ${$blog}[$this->option_key] )
+				? ${$blog}[$this->option_key]
 				: ( GNETWORK_CHECK_OLD_OPTIONS ? get_option( $this->options_key(), array() ) : array() );
 
 		return $this->settings_sanitize( $options, $this->default_options() );
@@ -132,19 +134,19 @@ class gNetworkModuleCore
 			$options = $this->options;
 
 		if ( $this->is_network() )
-			$saved = get_site_option( $this->_option_base.'_site', array() );
+			$saved = get_site_option( $this->option_base.'_site', array() );
 		else
-			$saved = get_option( $this->_option_base.'_blog', array() );
+			$saved = get_option( $this->option_base.'_blog', array() );
 
 		if ( $reset || ! count( $options ) )
-			unset( $saved[$this->_option_key] );
+			unset( $saved[$this->option_key] );
 		else
-			$saved[$this->_option_key] = $options;
+			$saved[$this->option_key] = $options;
 
 		if ( $this->is_network() )
-			return update_site_option( $this->_option_base.'_site', $saved );
+			return update_site_option( $this->option_base.'_site', $saved );
 		else
-			return update_option( $this->_option_base.'_blog', $saved, TRUE );
+			return update_option( $this->option_base.'_blog', $saved, TRUE );
 	}
 
 	public function delete_options()
@@ -167,9 +169,9 @@ class gNetworkModuleCore
 	// default settings hook handler
 	public function settings( $sub = NULL )
 	{
-		if ( $this->_option_key && $this->_option_key == $sub ) {
+		if ( $this->option_key && $this->option_key == $sub ) {
 			$this->settings_update( $sub );
-			add_action( 'gnetwork_'.( $this->is_network() ? 'network' : 'admin' ).'_settings_sub_'.$this->_option_key, array( $this, 'settings_html' ), 10, 2 );
+			add_action( 'gnetwork_'.( $this->is_network() ? 'network' : 'admin' ).'_settings_sub_'.$this->option_key, array( $this, 'settings_html' ), 10, 2 );
 			$this->register_settings();
 			$this->register_settings_help();
 		}
@@ -199,7 +201,7 @@ class gNetworkModuleCore
 
 		echo '<form class="'.$class.'" method="post" action="">';
 
-			settings_fields( $this->_option_base.'_'.$sub );
+			settings_fields( $this->option_base.'_'.$sub );
 
 			if ( $sidebox ) {
 				echo '<div class="settings-sidebox settings-sidebox-'.$sub.'">';
@@ -217,7 +219,7 @@ class gNetworkModuleCore
 				$this->settings_before( $sub, $uri );
 			}
 
-			do_settings_sections( $this->_option_base.'_'.$sub );
+			do_settings_sections( $this->option_base.'_'.$sub );
 
 			if ( method_exists( $this, 'settings_after' ) ) {
 				$this->settings_after( $sub, $uri );
@@ -234,11 +236,9 @@ class gNetworkModuleCore
 		$this->register_button( 'reset', __( 'Reset Settings', GNETWORK_TEXTDOMAIN ), sprintf( 'onclick="return confirm( \'%s\' )"', __( 'Are you sure? This operation can not be undone.', GNETWORK_TEXTDOMAIN ) ) );
 	}
 
-	var $_settings_buttons = array();
-
 	public function register_button( $key, $value, $atts = array(), $type = 'secondary' )
 	{
-		$this->_settings_buttons[$key] = array(
+		$this->settings_buttons[$key] = array(
 			'value' => $value,
 			'atts'  => $atts,
 			'type'  => $type,
@@ -249,7 +249,7 @@ class gNetworkModuleCore
 	{
 		echo '<p class="submit gnetwork-settings-buttons">';
 
-			foreach ( $this->_settings_buttons as $action => $button ) {
+			foreach ( $this->settings_buttons as $action => $button ) {
 				submit_button( $button['value'], $button['type'], $action, FALSE, $button['atts'] );
 				echo '&nbsp;&nbsp;';
 			}
@@ -261,7 +261,7 @@ class gNetworkModuleCore
 	public function settings_update( $sub = NULL )
 	{
 		if ( is_null( $sub ) )
-			$sub = $this->_option_key ? $this->_option_key : 'general';
+			$sub = $this->option_key ? $this->option_key : 'general';
 
 		if ( ! empty( $_POST ) && 'update' == $_POST['action'] ) {
 
@@ -284,9 +284,9 @@ class gNetworkModuleCore
 	protected function check_referer( $sub = NULL )
 	{
 		if ( is_null( $sub ) )
-			$sub = $this->_option_key ? $this->_option_key : 'general';
+			$sub = $this->option_key ? $this->option_key : 'general';
 
-		check_admin_referer( $this->_option_base.'_'.$sub.'-options' );
+		check_admin_referer( $this->option_base.'_'.$sub.'-options' );
 	}
 
 	public static function redirect_referer( $message = 'updated', $key = 'message' )
@@ -488,7 +488,7 @@ class gNetworkModuleCore
 			'after'        => '', // html to print after field
 			'field_class'  => '', // formally just class!
 			'class'        => '', // now used on wrapper
-			'option_group' => $this->_option_key,
+			'option_group' => $this->option_key,
 			'network'      => NULL, // FIXME: WTF?
 			'disabled'     => FALSE,
 			'name_attr'    => FALSE, // override
@@ -506,8 +506,8 @@ class gNetworkModuleCore
 			return;
 
 		$html  = '';
-		$name  = $args['name_attr'] ? $args['name_attr'] : $this->_option_base.'_'.$args['option_group'].'['.esc_attr( $args['field'] ).']';
-		$id    = $args['id_attr'] ? $args['id_attr'] : $this->_option_base.'-'.$args['option_group'].'-'.esc_attr( $args['field'] );
+		$name  = $args['name_attr'] ? $args['name_attr'] : $this->option_base.'_'.$args['option_group'].'['.esc_attr( $args['field'] ).']';
+		$id    = $args['id_attr'] ? $args['id_attr'] : $this->option_base.'-'.$args['option_group'].'-'.esc_attr( $args['field'] );
 		$value = isset( $this->options[$args['field']] ) ? $this->options[$args['field']] : $args['default'];
 		$exclude = $args['exclude'] && ! is_array( $args['exclude'] ) ? array_filter( explode( ',', $args['exclude'] ) ) : array();
 
@@ -662,9 +662,9 @@ class gNetworkModuleCore
 				if ( 'textarea-quicktags' == $args['type'] ) {
 
 					if ( count( $args['values'] ) )
-						$this->_js[] = 'quicktags({id:"'.$id.'",buttons:"'.implode( ',', $args['values'] ).'"});';
+						$this->js[] = 'quicktags({id:"'.$id.'",buttons:"'.implode( ',', $args['values'] ).'"});';
 					else
-						$this->_js[] = 'quicktags({id:"'.$id.'",buttons:"link,em,strong"});';
+						$this->js[] = 'quicktags({id:"'.$id.'",buttons:"link,em,strong"});';
 
 					wp_enqueue_script( 'quicktags' );
 
@@ -795,8 +795,8 @@ class gNetworkModuleCore
 	// HELPER
 	public function print_scripts()
 	{
-		if ( count( $this->_js ) )
-			gNetworkUtilities::wrapJS( implode( "\n", $this->_js ) );
+		if ( count( $this->js ) )
+			gNetworkUtilities::wrapJS( implode( "\n", $this->js ) );
 	}
 
 	// helper

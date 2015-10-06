@@ -3,12 +3,12 @@
 class gNetworkTracking extends gNetworkModuleCore
 {
 
-	var $_network    = TRUE;
-	var $_option_key = 'tracking';
+	protected $option_key = 'tracking';
+	protected $network    = TRUE;
 
-	var $_ga_outbound   = FALSE;
-	var $_gp_platformjs = FALSE;
-	var $_ignore        = NULL;
+	private $ga_outbound   = FALSE;
+	private $gp_platformjs = FALSE;
+	private $ignore        = NULL;
 
 	protected function setup_actions()
 	{
@@ -94,17 +94,17 @@ class gNetworkTracking extends gNetworkModuleCore
 
 	public function ignore()
 	{
-		if ( ! is_null( $this->_ignore ) )
-			return $this->_ignore;
+		if ( ! is_null( $this->ignore ) )
+			return $this->ignore;
 
-		$this->_ignore = FALSE;
+		$this->ignore = FALSE;
 
 		if ( gNetworkUtilities::isDev() )
-			$this->_ignore = TRUE;
+			$this->ignore = TRUE;
 		else if ( self::cuc( $this->options['ignore_user'] ) )
-			$this->_ignore = TRUE;
+			$this->ignore = TRUE;
 
-		return $this->_ignore;
+		return $this->ignore;
 	}
 
 	public function init()
@@ -136,7 +136,7 @@ class gNetworkTracking extends gNetworkModuleCore
 		if ( ! $args['href'] )
 			return $content;
 
-		$this->_gp_platformjs = TRUE;
+		$this->gp_platformjs = TRUE;
 
 		$html = gNetworkUtilities::html( 'div', array(
 			'class'      => 'g-page',
@@ -178,7 +178,7 @@ class gNetworkTracking extends gNetworkModuleCore
 </script><?php
 
 		if ( $this->options['ga_outbound'] ) {
-			$this->_ga_outbound = TRUE;
+			$this->ga_outbound = TRUE;
 			wp_enqueue_script( 'jquery' );
 		}
 	}
@@ -189,7 +189,7 @@ class gNetworkTracking extends gNetworkModuleCore
 			return;
 
 		// http://www.sitepoint.com/track-outbound-links-google-analytics/
-		if ( $this->_ga_outbound ) {
+		if ( $this->ga_outbound ) {
 			?><script type="text/javascript">
 /* <![CDATA[ */
 	(function($){"use strict";var baseURI=window.location.host;$("body").on("click",function(e){if(e.isDefaultPrevented()||typeof ga!=="function")return;var link=$(e.target).closest("a");if(link.length!=1||baseURI==link[0].host)return;e.preventDefault();var href=link[0].href;ga('send',{'hitType':'event','eventCategory':'outbound','eventAction':'link','eventLabel':href,'hitCallback':loadPage});setTimeout(loadPage,1000);function loadPage(){document.location=href;}});})(jQuery);
@@ -229,7 +229,7 @@ qacct:"<?php echo $this->options['quantcast']; ?>"
 		// FIXME: get locale
 		// https://developers.google.com/+/web/api/supported-languages
 
-		if ( $this->_gp_platformjs ) {
+		if ( $this->gp_platformjs ) {
 ?><script type="text/javascript">
 /* <![CDATA[ */
 	window.___gcfg = {lang: 'fa'};

@@ -3,10 +3,10 @@
 class gNetworkComments extends gNetworkModuleCore
 {
 
-	var $_network    = FALSE;
-	var $_option_key = 'comments';
+	protected $option_key = 'comments';
+	protected $network    = FALSE;
 
-	protected $_textareas = array();
+	private $textareas = array();
 
 	protected function setup_actions()
 	{
@@ -115,25 +115,25 @@ class gNetworkComments extends gNetworkModuleCore
 		) );
 
 		if ( is_singular() && comments_open() ) {
-			$this->_textareas['comment']  = $default_buttons;
-			$this->_textareas['posttext'] = $default_buttons;
+			$this->textareas['comment']  = $default_buttons;
+			$this->textareas['posttext'] = $default_buttons;
 		}
 
 		if ( function_exists( 'is_bbpress' ) ) {
 			if ( is_bbpress() && get_option( '_bbp_use_wp_editor' ) ) {
-				$this->_textareas['bbp_reply_content'] = $default_buttons;
-				$this->_textareas['bbp_topic_content'] = $default_buttons;
+				$this->textareas['bbp_reply_content'] = $default_buttons;
+				$this->textareas['bbp_topic_content'] = $default_buttons;
 			}
 		}
 
-		$textareas = apply_filters( 'gnetwork_comments_quicktags_textarea', $this->_textareas, $default_buttons );
+		$textareas = apply_filters( 'gnetwork_comments_quicktags_textarea', $this->textareas, $default_buttons );
 
 		if ( count( $textareas ) ) {
 
 			foreach ( $textareas as $textarea => $buttons )
-				$this->_js[] = 'quicktags({id:"'.$textarea.'",buttons:"'.implode( ',', $buttons ).'"});';
+				$this->js[] = 'quicktags({id:"'.$textarea.'",buttons:"'.implode( ',', $buttons ).'"});';
 
-			$this->_js[] = 'QTags.addButton("quote","quote","<blockquote>","</blockquote>","quote");';
+			$this->js[] = 'QTags.addButton("quote","quote","<blockquote>","</blockquote>","quote");';
 
 			add_action( 'wp_footer', array( $this, 'print_scripts' ), 99 );
 			wp_enqueue_script( 'quicktags' );

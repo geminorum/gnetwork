@@ -3,8 +3,8 @@
 class gNetworkReference extends gNetworkModuleCore
 {
 
-	var $_network    = FALSE;
-	var $_option_key = FALSE;
+	protected $option_key = FALSE;
+	protected $network    = FALSE;
 
 	public static function parseFootnotes( $footnotes )
 	{
@@ -70,7 +70,7 @@ class gNetworkReference extends gNetworkModuleCore
 	// DRAFT
 	// http://stackoverflow.com/a/22877248
 	// https://regex101.com/r/pF1qO4/1
-	public static function extract( $html, $brackets = true )
+	public static function extract( $html, $brackets = TRUE )
 	{
 		//return $html;
 
@@ -211,7 +211,7 @@ class gNetworkReference extends gNetworkModuleCore
 		$content = preg_replace( $find, $replace, $content );
 
 		//add meta so we know it has been parsed
-		add_post_meta($post->ID, 'parsed_footnotes', true, true);
+		add_post_meta( $post->ID, 'parsed_footnotes', TRUE, TRUE );
 
 		return addslashes($content);
 	}

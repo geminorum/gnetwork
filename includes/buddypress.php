@@ -3,12 +3,11 @@
 class gNetworkBuddyPress extends gNetworkModuleCore
 {
 
-	var $_option_key = 'buddypress';
-	var $_network    = TRUE;
-	var $_ajax       = TRUE;
+	protected $option_key = 'buddypress';
+	protected $network    = TRUE;
+	protected $ajax       = TRUE;
 
-	var $_field_name = 'Q2FuaXZuaW1FbnMyb2NwaG9h';
-	var $_field_val  = 'R3JldGlwY3licmVrc3lpYkth';
+	private $field_name = 'R3JldGlwY3licmVrc3lpYkth';
 
 	protected function setup_actions()
 	{
@@ -353,7 +352,7 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 	public function bp_after_signup_profile_fields()
 	{
 		echo '<div style="position:absolute;'.( is_rtl() ? 'right' : 'left' ).':-5000px;">';
-			echo '<input type="text" name="'.$this->_field_name.'" val="" tabindex="-1" />';
+			echo '<input type="text" name="'.$this->field_name.'" val="" tabindex="-1" />';
 		echo '</div>';
 	}
 
@@ -367,8 +366,8 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 					$bp->signup->errors['gnetwork_bp_tos'] = $this->options['tos_must'];
 		}
 
-		if ( isset( $_POST[$this->_field_name] )
-			&& ! empty( $_POST[$this->_field_name] ) )
+		if ( isset( $_POST[$this->field_name] )
+			&& ! empty( $_POST[$this->field_name] ) )
 				$result['errors']->add( 'gnetwork_bp_honeypot',
 					__( "You're totally a spammer. Go somewhere else with your spammy ways.", GNETWORK_TEXTDOMAIN ) );
 

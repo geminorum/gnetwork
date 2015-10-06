@@ -3,8 +3,8 @@
 class gNetworkNotify extends gNetworkModuleCore
 {
 
-	var $_network    = TRUE;
-	var $_option_key = 'notify';
+	protected $option_key = 'notify';
+	protected $network    = TRUE;
 
 	protected function setup_actions()
 	{
@@ -86,7 +86,7 @@ class gNetworkNotify extends gNetworkModuleCore
 		return FALSE;
 	}
 
-	public function wp_new_user_notification( $user_id, $deprecated = null, $notify = '' )
+	public function wp_new_user_notification( $user_id, $deprecated = NULL, $notify = '' )
 	{
 		global $wpdb, $wp_hasher;
 
@@ -107,7 +107,7 @@ class gNetworkNotify extends gNetworkModuleCore
 		}
 
 		// Generate something random for a password reset key.
-		$key = wp_generate_password( 20, false );
+		$key = wp_generate_password( 20, FALSE );
 
 		/** This action is documented in wp-login.php */
 		do_action( 'retrieve_password_key', $user->user_login, $key );
@@ -115,7 +115,7 @@ class gNetworkNotify extends gNetworkModuleCore
 		// Now insert the key, hashed, into the DB.
 		if ( empty( $wp_hasher ) ) {
 			require_once ABSPATH . WPINC . '/class-phpass.php';
-			$wp_hasher = new PasswordHash( 8, true );
+			$wp_hasher = new PasswordHash( 8, TRUE );
 		}
 		$hashed = time() . ':' . $wp_hasher->HashPassword( $key );
 		$wpdb->update( $wpdb->users, array( 'user_activation_key' => $hashed ), array( 'user_login' => $user->user_login ) );
@@ -183,7 +183,7 @@ class gNetworkNotify extends gNetworkModuleCore
 }
 
 if ( ! function_exists( 'wp_new_user_notification' ) ) :
-function wp_new_user_notification( $user_id, $deprecated = null, $notify = '' ) {
+function wp_new_user_notification( $user_id, $deprecated = NULL, $notify = '' ) {
 	global $gNetwork;
 	return $gNetwork->notify->wp_new_user_notification( $user_id, $deprecated, $notify );
 } endif;

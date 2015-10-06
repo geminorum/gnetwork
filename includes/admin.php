@@ -3,11 +3,12 @@
 class gNetworkAdmin extends gNetworkModuleCore
 {
 
-	var $_network    = FALSE;
-	var $_option_key = FALSE;
-	var $_front_end  = FALSE;
-	var $menus       = array();
-	var $tinymce     = array();
+	protected $option_key = FALSE;
+	protected $network    = FALSE;
+	protected $front_end  = FALSE;
+
+	public $menus   = array();
+	public $tinymce = array();
 
 	protected function setup_actions()
 	{

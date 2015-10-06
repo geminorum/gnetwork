@@ -7,9 +7,9 @@
 class gNetworkEditor extends gNetworkModuleCore
 {
 
-	var $_network    = FALSE;
-	var $_option_key = FALSE;
-	var $_front_end  = FALSE;
+	protected $option_key = FALSE;
+	protected $network    = FALSE;
+	protected $front_end  = FALSE;
 
 	protected function setup_actions()
 	{

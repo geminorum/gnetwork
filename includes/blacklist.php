@@ -3,9 +3,9 @@
 class gNetworkBlackList extends gNetworkModuleCore
 {
 
-	var $_network    = TRUE;
-	var $_option_key = 'blacklist';
-	var $_ajax       = TRUE;
+	protected $option_key = 'blacklist';
+	protected $network    = TRUE;
+	protected $ajax       = TRUE;
 
 	protected function setup_actions()
 	{

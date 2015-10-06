@@ -3,9 +3,10 @@
 class gNetworkRestricted extends gNetworkModuleCore
 {
 
-	var $_network    = FALSE;
-	var $_option_key = 'restricted';
-	var $_bouncer    = FALSE;
+	protected $option_key = 'restricted';
+	protected $network    = FALSE;
+
+	private $bouncer = FALSE;
 
 	protected function setup_actions()
 	{
@@ -19,7 +20,7 @@ class gNetworkRestricted extends gNetworkModuleCore
 			return;
 
 		if ( 'none' != $this->options['restricted_site'] )
-			$this->_bouncer = new gNetworkRestrictedBouncer( $this->options );
+			$this->bouncer = new gNetworkRestrictedBouncer( $this->options );
 
 		add_action( 'init', array( $this, 'init' ), 1 );
 
@@ -257,14 +258,14 @@ class gNetworkRestricted extends gNetworkModuleCore
 class gNetworkRestrictedBouncer
 {
 
-	var $_options        = array();
-	var $_feed_key       = FALSE;
-	var $_feed_key_valid = FALSE;
-	var $_feed_access    = FALSE;
+	protected $options        = array();
+	protected $feed_key       = FALSE;
+	protected $feed_key_valid = FALSE;
+	protected $feed_access    = FALSE;
 
 	public function __construct( $options )
 	{
-		$this->_options = $options;
+		$this->options = $options;
 
 		add_action( 'init', array( $this, 'init' ), 1 );
 		add_action( 'admin_init', array( $this, 'admin_init' ), 1 );
@@ -282,15 +283,15 @@ class gNetworkRestrictedBouncer
 
 	public function init()
 	{
-		if ( 'open' == $this->_options['restricted_feed'] )
+		if ( 'open' == $this->options['restricted_feed'] )
 			return;
 
 		if ( is_admin() )
 			return;
 
-		$this->_feed_key = self::getUserFeedKey();
+		$this->feed_key = self::getUserFeedKey();
 
-		if ( $this->_feed_key && is_user_logged_in() )
+		if ( $this->feed_key && is_user_logged_in() )
 			add_filter( 'feed_link', array( $this, 'feed_link' ), 12, 2 );
 
 		$feed_key = isset( $_GET['feedkey'] ) ? trim( $_GET['feedkey'] ) : FALSE;
@@ -301,12 +302,12 @@ class gNetworkRestrictedBouncer
 
 		} else if ( is_user_logged_in() ) {
 
-			if ( $feed_key == $this->_feed_key )
-				$this->_feed_key_valid = TRUE;
+			if ( $feed_key == $this->feed_key )
+				$this->feed_key_valid = TRUE;
 
-			if ( 'logged_in_user' == $this->_options['restricted_site']
-				|| current_user_can( $this->_options['restricted_site'] ) )
-					$this->_feed_access = TRUE;
+			if ( 'logged_in_user' == $this->options['restricted_site']
+				|| current_user_can( $this->options['restricted_site'] ) )
+					$this->feed_access = TRUE;
 
 		} else {
 
@@ -315,12 +316,12 @@ class gNetworkRestrictedBouncer
 			$founded = $wpdb->get_results( $wpdb->prepare( "SELECT user_id FROM $wpdb->usermeta WHERE meta_value = %s", $feed_key ) );
 
 			if ( ! empty( $founded ) ) {
-				$this->_feed_key_valid = TRUE;
+				$this->feed_key_valid = TRUE;
 
-				if ( 'logged_in_user' == $this->_options['restricted_site'] )
-					$this->_feed_access = TRUE;
-				else if ( user_can( intval( $founded ), $this->_options['restricted_site'] ) )
-					$this->_feed_access = TRUE;
+				if ( 'logged_in_user' == $this->options['restricted_site'] )
+					$this->feed_access = TRUE;
+				else if ( user_can( intval( $founded ), $this->options['restricted_site'] ) )
+					$this->feed_access = TRUE;
 
 
 			}
@@ -340,7 +341,7 @@ class gNetworkRestrictedBouncer
 		);
 
 		if ( FALSE !== gNetworkUtilities::strpos_arr( $files, basename( $_SERVER['PHP_SELF'] ) ) )
-			$this->_check_feed_access();
+			$this->check_feed_access();
 
 		// wordpress feed queries
 		if ( isset( $_GET['feed'] ) ) {
@@ -354,7 +355,7 @@ class gNetworkRestrictedBouncer
 			);
 
 			if ( FALSE !== gNetworkUtilities::strpos_arr( $feeds, $_GET['feed'] ) )
-				$this->_check_feed_access();
+				$this->check_feed_access();
 		}
 
 		$actions = array(
@@ -382,17 +383,17 @@ class gNetworkRestrictedBouncer
 			return __( 'Public Access Discouraged', GNETWORK_TEXTDOMAIN );
 		}, 20 );
 
-		if ( current_user_can( $this->_options['restricted_admin'] ) )
+		if ( current_user_can( $this->options['restricted_admin'] ) )
 			return;
 		global $pagenow;
 
-		if ( 'open' == $this->_options['restricted_profile']
+		if ( 'open' == $this->options['restricted_profile']
 			&& 'profile.php' == $pagenow ) {
 
 			// do nothing
 
-		} else if ( $this->_options['redirect_page'] ) {
-			wp_redirect( get_page_link( $this->_options['redirect_page'] ), 302 );
+		} else if ( $this->options['redirect_page'] ) {
+			wp_redirect( get_page_link( $this->options['redirect_page'] ), 302 );
 			die();
 		} else {
 			gNetworkUtilities::getLayout( '403', TRUE, TRUE );
@@ -402,29 +403,29 @@ class gNetworkRestrictedBouncer
 
 	public function feed_link( $output, $feed )
 	{
-		if ( $this->_feed_key )
-			return add_query_arg( 'feedkey', $this->_feed_key, $output );
+		if ( $this->feed_key )
+			return add_query_arg( 'feedkey', $this->feed_key, $output );
 
 		return $output;
 	}
 
-	function _check_feed_access()
+	private function check_feed_access()
 	{
-		if ( $this->_feed_key_valid && $this->_feed_access ) {
+		if ( $this->feed_key_valid && $this->feed_access ) {
 
 			return;
 
-		} else if ( $this->_feed_key_valid ) {
+		} else if ( $this->feed_key_valid ) {
 
 			// key is valid but no access
 			// redirect to request access page
 
 			//echo 'valid';
 
-			self::_temp_feed(
+			self::temp_feed(
 				__( 'Key Valid but no Access', GNETWORK_TEXTDOMAIN ),
 				__( 'Your Key is valid but you have no access to this site', GNETWORK_TEXTDOMAIN ),
-				( $this->_options['redirect_page'] ? get_page_link( $this->_options['redirect_page'] ) : FALSE ) );
+				( $this->options['redirect_page'] ? get_page_link( $this->options['redirect_page'] ) : FALSE ) );
 
 		} else if ( is_user_logged_in() ) {
 
@@ -438,15 +439,15 @@ class gNetworkRestrictedBouncer
 			// key is not valid and no access
 			// redirect to request access page
 
-			self::_temp_feed(
+			self::temp_feed(
 				__( 'No key, no Access', GNETWORK_TEXTDOMAIN ),
 				__( 'You have to have a key to access this site\'s feed', GNETWORK_TEXTDOMAIN ),
-				( $this->_options['redirect_page'] ? get_page_link( $this->_options['redirect_page'] ) : FALSE ) );
+				( $this->options['redirect_page'] ? get_page_link( $this->options['redirect_page'] ) : FALSE ) );
 		}
 
 	}
 
-	private function _temp_feed( $title = '', $desc = '', $link = FALSE )
+	private function temp_feed( $title = '', $desc = '', $link = FALSE )
 	{
 		if ( FALSE == $link )
 			$link = get_bloginfo_rss( 'url' );
@@ -491,26 +492,26 @@ class gNetworkRestrictedBouncer
 			&& bp_is_current_component( 'register' ) )
 				return;
 
-		if ( 'closed' == $this->_options['restricted_feed']
+		if ( 'closed' == $this->options['restricted_feed']
 			&& is_feed() ) {
-			$this->_check_feed_access();
+			$this->check_feed_access();
 			return;
 		}
 
-		if ( $this->_options['redirect_page']
-			&& is_page( intval( $this->_options['redirect_page'] ) ) )
+		if ( $this->options['redirect_page']
+			&& is_page( intval( $this->options['redirect_page'] ) ) )
 				return;
 
 		if ( is_user_logged_in() ) {
 
-			if ( 'logged_in_user' == $this->_options['restricted_site'] )
+			if ( 'logged_in_user' == $this->options['restricted_site'] )
 				return;
 
-			if ( current_user_can( $this->_options['restricted_site'] ) )
+			if ( current_user_can( $this->options['restricted_site'] ) )
 				return;
 
-			if ( $this->_options['redirect_page'] ) {
-				self::redirect( get_page_link( $this->_options['redirect_page'] ), TRUE );
+			if ( $this->options['redirect_page'] ) {
+				self::redirect( get_page_link( $this->options['redirect_page'] ), TRUE );
 			} else {
 				gNetworkUtilities::getLayout( '403', TRUE, TRUE );
 				die();
@@ -522,8 +523,8 @@ class gNetworkRestrictedBouncer
 		if ( ! is_front_page() && ! is_home() )
 			self::redirect( wp_login_url( $current_url, TRUE ) );
 
-		if ( $this->_options['redirect_page'] )
-			self::redirect( get_page_link( $this->_options['redirect_page'] ), TRUE );
+		if ( $this->options['redirect_page'] )
+			self::redirect( get_page_link( $this->options['redirect_page'] ), TRUE );
 
 		self::redirect( wp_login_url( $current_url, TRUE ) );
 	}
@@ -541,9 +542,9 @@ class gNetworkRestrictedBouncer
 	{
 		echo '<div id="login_error">';
 
-		printf( $this->_options['restricted_notice'],
-			gNetworkUtilities::getUserRoles( $this->_options['restricted_site'] ),
-			( $this->_options['redirect_page'] ? get_page_link( $this->_options['redirect_page'] ) : gNetworkUtilities::register_url( 'site' ) ) );
+		printf( $this->options['restricted_notice'],
+			gNetworkUtilities::getUserRoles( $this->options['restricted_site'] ),
+			( $this->options['redirect_page'] ? get_page_link( $this->options['redirect_page'] ) : gNetworkUtilities::register_url( 'site' ) ) );
 
 		echo '</div>';
 		echo '<style>#backtoblog {display:none;}</style>';

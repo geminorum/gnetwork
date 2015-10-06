@@ -2,6 +2,7 @@
 
 class gNetwork_Image_Editor_Imagick extends WP_Image_Editor_Imagick
 {
+	
 	public function generate_filename( $suffix = NULL, $dest_path = NULL, $extension = NULL )
 	{
 		if ( is_null( $dest_path ) )

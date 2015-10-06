@@ -3,15 +3,15 @@
 class gNetworkShortCodes extends gNetworkModuleCore
 {
 
-	var $_network    = FALSE;
-	var $_option_key = FALSE;
+	protected $option_key = FALSE;
+	protected $network    = FALSE;
 
-	var $_flash_ids  = array();
-	var $_pdf_ids    = array();
-	var $_ref_ids    = array();
-	var $_ref_list   = FALSE;
-	var $_ref_people = array();
-	var $_tax_people = 'post_tag'; // 'people';
+	private $flash_ids  = array();
+	private $pdf_ids    = array();
+	private $ref_ids    = array();
+	private $ref_list   = FALSE;
+	private $people     = array();
+	private $people_tax = 'post_tag'; // 'people';
 
 	protected function setup_actions()
 	{
@@ -29,9 +29,9 @@ class gNetworkShortCodes extends gNetworkModuleCore
 	public function plugins_loaded()
 	{
 		if ( defined( 'GPEOPLE_PEOPLE_TAXONOMY' ) )
-			$this->_tax_people = GPEOPLE_PEOPLE_TAXONOMY;
+			$this->people_tax = GPEOPLE_PEOPLE_TAXONOMY;
 		else if ( defined( 'GNETWORK_GPEOPLE_TAXONOMY' ) )
-			$this->_tax_people = GNETWORK_GPEOPLE_TAXONOMY;
+			$this->people_tax = GNETWORK_GPEOPLE_TAXONOMY;
 	}
 
 	// fallback shortcodes
@@ -380,11 +380,11 @@ class gNetworkShortCodes extends gNetworkModuleCore
 
 		$fallback = apply_filters( 'gnetwork_shortcode_pdf_fallback', sprintf( __( 'It appears you don\'t have Adobe Reader or PDF support in this web browser. <a href="%s">Click here to download the PDF</a>', GNETWORK_TEXTDOMAIN ), $args['url'] ) );
 
-		$key = count( $this->_pdf_ids ) + 1;
+		$key = count( $this->pdf_ids ) + 1;
 		$id = 'gNetworkPDF'.$key;
 
 		// https://github.com/pipwerks/PDFObject
-		$this->_pdf_ids[$key] = ' var '.$id.' = new PDFObject({url:"'.$args['url']
+		$this->pdf_ids[$key] = ' var '.$id.' = new PDFObject({url:"'.$args['url']
 			.'",id:"'.$id
 			.'",width:"'.$args['width']
 			.'",height:"'.$args['height']
@@ -394,7 +394,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 				.'",pagemode:"'.$args['pagemode']
 			.'"}}).embed("'.$id.'div"); ';
 
-		// $this->_pdf_ids[$key] = ' var '.$id.' = new PDFObject({url:"'.$args['url'].'",id:"'.$id.'",pdfOpenParams:{navpanes:'.$args['navpanes'].',statusbar:'.$args['statusbar'].',view:"'.$args['view'].'",pagemode:"'.$args['pagemode'].'"}}).embed("'.$id.'div"); ';
+		// $this->pdf_ids[$key] = ' var '.$id.' = new PDFObject({url:"'.$args['url'].'",id:"'.$id.'",pdfOpenParams:{navpanes:'.$args['navpanes'].',statusbar:'.$args['statusbar'].',view:"'.$args['view'].'",pagemode:"'.$args['pagemode'].'"}}).embed("'.$id.'div"); ';
 
 		wp_enqueue_script( 'pdfobject', GNETWORK_URL.'assets/js/lib.pdfobject.min.js', array(), GNETWORK_VERSION, TRUE );
 		return '<div id="'.$id.'div">'.$fallback.'</div>';
@@ -452,9 +452,9 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			$args['swf'] = $swf[$key];
 		}
 
-		$key = count( $this->_flash_ids ) + 1;
+		$key = count( $this->flash_ids ) + 1;
 		$id = 'gNetworkFlash_'.$key;
-		$this->_flash_ids[$key] = $id;
+		$this->flash_ids[$key] = $id;
 
 		wp_enqueue_script( 'swfobject' );
 
@@ -574,18 +574,18 @@ class gNetworkShortCodes extends gNetworkModuleCore
 	public function wp_footer()
 	{
 		// this is for onload, so cannot use wrapJS
-		if ( count( $this->_pdf_ids ) ) {
+		if ( count( $this->pdf_ids ) ) {
 			echo '<script type="text/javascript">'."\n".'/* <![CDATA[ */'."\n";
 			echo 'window.onload = function(){'."\n";
-			foreach ( $this->_pdf_ids as $id )
+			foreach ( $this->pdf_ids as $id )
 				echo $id."\n";
 			echo '};';
 			echo "\n".'/* ]]> */'."\n".'</script>';
 		}
 
-		if ( count( $this->_flash_ids ) ) {
+		if ( count( $this->flash_ids ) ) {
 			echo '<script type="text/javascript">'."\n".'/* <![CDATA[ */'."\n";
-			foreach ( $this->_flash_ids as $id )
+			foreach ( $this->flash_ids as $id )
 				echo 'swfobject.registerObject("'.$id.'", "9.0.0");'."\n";
 			echo "\n".'/* ]]> */'."\n".'</script>';
 		}
@@ -634,8 +634,8 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		if ( ! $html )
 			return NULL;
 
-		$key = count( $this->_ref_ids ) + 1;
-		$this->_ref_ids[$key] = $html;
+		$key = count( $this->ref_ids ) + 1;
+		$this->ref_ids[$key] = $html;
 
 		$html = gNetworkUtilities::html( 'a', array(
 			'class'       => 'cite-scroll',
@@ -650,10 +650,10 @@ class gNetworkShortCodes extends gNetworkModuleCore
 	// TODO: add column : http://en.wikipedia.org/wiki/Help:Footnotes#Reference_lists:_columns
 	public function shortcode_reflist( $atts, $content = NULL, $tag = '' )
 	{
-		if ( $this->_ref_list || is_feed() )
+		if ( $this->ref_list || is_feed() )
 			return NULL;
 
-		if ( ! is_singular() || ! count( $this->_ref_ids ) )
+		if ( ! is_singular() || ! count( $this->ref_ids ) )
 			return NULL;
 
 		$args = shortcode_atts( array(
@@ -670,7 +670,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			return NULL;
 
 		$html = '';
-		foreach ( $this->_ref_ids as $key => $text ) {
+		foreach ( $this->ref_ids as $key => $text ) {
 
 			if ( ! $text )
 				continue;
@@ -695,7 +695,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		if ( ! defined( 'GNETWORK_DISABLE_REFLIST_JS' ) || ! GNETWORK_DISABLE_REFLIST_JS )
 			wp_enqueue_script( 'gnetwork-cite', GNETWORK_URL.'assets/js/front.cite.min.js', array( 'jquery' ), GNETWORK_VERSION, TRUE );
 
-		$this->_ref_list = TRUE;
+		$this->ref_list = TRUE;
 
 		return '<div class="gnetwork-wrap-shortcode shortcode-reflist">'.$html.'</div>';
 	}
@@ -703,8 +703,8 @@ class gNetworkShortCodes extends gNetworkModuleCore
 	public function the_content( $content )
 	{
 		if ( ! is_singular()
-			|| ! count( $this->_ref_ids )
-			|| $this->_ref_list )
+			|| ! count( $this->ref_ids )
+			|| $this->ref_list )
 				return $content;
 
 		remove_filter( 'the_content', array( $this, 'the_content' ), 20 );
@@ -801,13 +801,13 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		else
 			$person = trim( strip_tags( $content ) );
 
-		if ( ! array_key_exists( $person, $this->_ref_people ) ) {
-			$term = get_term_by( 'name', $person, $this->_tax_people );
+		if ( ! array_key_exists( $person, $this->people ) ) {
+			$term = get_term_by( 'name', $person, $this->people_tax );
 
 			if ( ! $term )
 				return $content;
 
-			$this->_ref_people[$person] = gNetworkUtilities::html( 'a', array(
+			$this->people[$person] = gNetworkUtilities::html( 'a', array(
 				'href'        => get_term_link( $term, $term->taxonomy ),
 				'title'       => sanitize_term_field( 'name', $term->name, $term->term_id, $term->taxonomy, 'display' ),
 				'data-toggle' => 'tooltip',
@@ -819,6 +819,6 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			), trim( strip_tags( $content ) ) );
 		}
 
-		return '<span class="gnetwork-wrap-shortcode shortcode-person">'.$this->_ref_people[$person].'</span>';
+		return '<span class="gnetwork-wrap-shortcode shortcode-person">'.$this->people[$person].'</span>';
 	}
 }

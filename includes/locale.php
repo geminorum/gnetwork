@@ -3,11 +3,11 @@
 class gNetworkLocale extends gNetworkModuleCore
 {
 
-	var $_network    = TRUE;
-	var $_option_key = FALSE;
-	var $_ajax       = TRUE;
+	protected $option_key = FALSE;
+	protected $network    = TRUE;
+	protected $ajax       = TRUE;
 
-	var $loaded = array();
+	public $loaded = array();
 
 	protected function setup_actions()
 	{

@@ -3,9 +3,9 @@
 class gNetworkTaxonomy extends gNetworkModuleCore
 {
 
-	var $_network    = FALSE;
-	var $_option_key = FALSE;
-	var $_front_end  = FALSE;
+	protected $option_key = FALSE;
+	protected $network    = FALSE;
+	protected $front_end  = FALSE;
 
 	protected function setup_actions()
 	{
@@ -165,7 +165,7 @@ class gNetworkTaxonomy extends gNetworkModuleCore
 			return;
 
 		$referer = wp_get_referer();
-		if ( $referer && false !== strpos( $referer, 'edit-tags.php' ) ) {
+		if ( $referer && FALSE !== strpos( $referer, 'edit-tags.php' ) ) {
 			$location = $referer;
 		} else {
 			$location = add_query_arg( 'taxonomy', $taxonomy, 'edit-tags.php' );

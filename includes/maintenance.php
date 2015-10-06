@@ -3,8 +3,8 @@
 class gNetworkMaintenance extends gNetworkModuleCore
 {
 
-	var $_network    = FALSE;
-	var $_option_key = 'maintenance';
+	protected $option_key = 'maintenance';
+	protected $network    = FALSE;
 
 	protected function setup_actions()
 	{

@@ -2,6 +2,7 @@
 
 class Debug_Bar_gNetwork extends Debug_Bar_Panel
 {
+
 	public function init()
 	{
 		$this->title( _x( 'Extras', '[Debug Module] debug bar panel title', GNETWORK_TEXTDOMAIN ) );
@@ -22,6 +23,7 @@ class Debug_Bar_gNetwork extends Debug_Bar_Panel
 
 class Debug_Bar_gNetworkMeta extends Debug_Bar_Panel
 {
+	
 	public function init()
 	{
 		$this->title( _x( 'Meta Data', '[Debug Module] debug bar panel title', GNETWORK_TEXTDOMAIN ) );

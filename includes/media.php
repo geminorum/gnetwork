@@ -3,11 +3,11 @@
 class gNetworkMedia extends gNetworkModuleCore
 {
 
-	var $_network    = FALSE;
-	var $_option_key = FALSE;
-	var $_ajax       = TRUE;
+	protected $option_key = FALSE;
+	protected $network    = FALSE;
+	protected $ajax       = TRUE;
 
-	var $_post_type_sizes = array();
+	private $posttype_sizes = array();
 
 	protected function setup_actions()
 	{
@@ -78,8 +78,8 @@ class gNetworkMedia extends gNetworkModuleCore
 
 	private function get_sizes( $post_type = 'post', $key = 'post_type' )
 	{
-		if ( isset( $this->_post_type_sizes[$post_type] ) )
-			return $this->_post_type_sizes[$post_type];
+		if ( isset( $this->posttype_sizes[$post_type] ) )
+			return $this->posttype_sizes[$post_type];
 
 		global $_wp_additional_image_sizes;
 
@@ -91,7 +91,7 @@ class gNetworkMedia extends gNetworkModuleCore
 			else if ( 'post' == $post_type ) // fallback
 				$sizes[$name] = $size;
 
-		$this->_post_type_sizes[$post_type] = $sizes;
+		$this->posttype_sizes[$post_type] = $sizes;
 
 		return $sizes;
 	}
@@ -256,11 +256,11 @@ class gNetworkMedia extends gNetworkModuleCore
 
 			foreach($subposts as $subpost){
 
-				$_wp_attached_file = get_post_meta($subpost->ID, '_wp_attached_file', true);
+				$_wp_attached_file = get_post_meta($subpost->ID, '_wp_attached_file', TRUE );
 
 				$original = basename($_wp_attached_file);
 				$pos = strpos(strrev($original), '.');
-				if (strpos($original, '.') !== false){
+				if (strpos($original, '.') !== FALSE){
 					$ext = explode('.', strrev($original));
 					$ext = strrev($ext[0]);
 				} else {
@@ -279,7 +279,7 @@ class gNetworkMedia extends gNetworkModuleCore
 					}
 				}
 
-				wp_delete_attachment( $subpost->ID, true );
+				wp_delete_attachment( $subpost->ID, TRUE );
 			}
 		}
 	} // add_action('before_delete_post', 'delete_posts_before_delete_post');
@@ -309,7 +309,7 @@ class gNetworkMedia extends gNetworkModuleCore
 	 *
 	 * @uses image_make_intermediate_size
 	 */
-	public function shortcode_children( $atts, $content = null, $tag = '' )
+	public function shortcode_children( $atts, $content = NULL, $tag = '' )
 	{
 		global $wpdb;
 
@@ -326,7 +326,7 @@ class gNetworkMedia extends gNetworkModuleCore
 		$height = absint( $height );
 		$width = absint( $width );
 		$src = esc_url( strtolower( $src ) );
-		$needs_resize = true;
+		$needs_resize = TRUE;
 
 		$upload_dir = wp_upload_dir();
 		$base_url = strtolower( $upload_dir['baseurl'] );
@@ -358,7 +358,7 @@ class gNetworkMedia extends gNetworkModuleCore
 		// If an image of such size was not found, we can create one.
 		if ( $needs_resize ) {
 			$attached_file = get_attached_file( $attachment_id );
-			$resized = image_make_intermediate_size( $attached_file, $width, $height, true );
+			$resized = image_make_intermediate_size( $attached_file, $width, $height, TRUE );
 			if ( ! is_wp_error( $resized ) ) {
 
 				// Let metadata know about our new size.
@@ -368,7 +368,7 @@ class gNetworkMedia extends gNetworkModuleCore
 				wp_update_attachment_metadata( $attachment_id, $meta );
 
 				// Record in backup sizes so everything's cleaned up when attachment is deleted.
-				$backup_sizes = get_post_meta( $attachment_id, '_wp_attachment_backup_sizes', true );
+				$backup_sizes = get_post_meta( $attachment_id, '_wp_attachment_backup_sizes', TRUE );
 				if ( ! is_array( $backup_sizes ) ) $backup_sizes = array();
 				$backup_sizes[$key] = $resized;
 				update_post_meta( $attachment_id, '_wp_attachment_backup_sizes', $backup_sizes );

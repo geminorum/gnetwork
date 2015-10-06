@@ -3,15 +3,15 @@
 class gNetworkNavigation extends gNetworkModuleCore
 {
 
-	var $_option_key = FALSE;
-	var $_network    = TRUE;
+	protected $option_key = FALSE;
+	protected $network    = TRUE;
 
-	var $_restricted = FALSE;   // restricted support
-	var $_feeds      = array(); // restricted support
+	private $restricted = FALSE;   // restricted support
+	private $feeds      = array(); // restricted support
 
-	var $_general_pages   = array();
-	var $_loggedout_pages = array();
-	var $_loggedin_pages  = array();
+	private $general_pages   = array();
+	private $loggedout_pages = array();
+	private $loggedin_pages  = array();
 
 	protected function setup_actions()
 	{
@@ -26,8 +26,8 @@ class gNetworkNavigation extends gNetworkModuleCore
 	{
 		// restricted support
 		if ( class_exists( 'gNetworkRestricted' ) ) {
-			$this->_restricted = gNetworkRestricted::is();
-			$this->_feeds      = gNetworkRestricted::getFeeds( FALSE, $this->_restricted );
+			$this->restricted = gNetworkRestricted::is();
+			$this->feeds      = gNetworkRestricted::getFeeds( FALSE, $this->restricted );
 		}
 	}
 
@@ -108,8 +108,8 @@ class gNetworkNavigation extends gNetworkModuleCore
 
 	public function get_general_pages()
 	{
-		if ( count( $this->_general_pages ) )
-			return $this->_general_pages;
+		if ( count( $this->general_pages ) )
+			return $this->general_pages;
 
 		$items = array();
 
@@ -128,7 +128,7 @@ class gNetworkNavigation extends gNetworkModuleCore
 		$items = apply_filters( 'gnetwork_navigation_general_items', $items );
 
 		foreach ( $items as $item ) {
-			$this->_general_pages[ $item['slug'] ] = (object) array(
+			$this->general_pages[ $item['slug'] ] = (object) array(
 				'ID'             => -1,
 				'post_title'     => $item['name'],
 				'post_author'    => 0,
@@ -141,13 +141,13 @@ class gNetworkNavigation extends gNetworkModuleCore
 			);
 		}
 
-		return $this->_general_pages;
+		return $this->general_pages;
 	}
 
 	public function get_loggedin_pages()
 	{
-		if ( count( $this->_loggedin_pages ) )
-			return $this->_loggedin_pages;
+		if ( count( $this->loggedin_pages ) )
+			return $this->loggedin_pages;
 
 		$items = array();
 
@@ -172,7 +172,7 @@ class gNetworkNavigation extends gNetworkModuleCore
 		$items = apply_filters( 'gnetwork_navigation_loggedin_items', $items );
 
 		foreach ( $items as $item ) {
-			$this->_loggedin_pages[ $item['slug'] ] = (object) array(
+			$this->loggedin_pages[ $item['slug'] ] = (object) array(
 				'ID'             => -1,
 				'post_title'     => $item['name'],
 				'post_author'    => 0,
@@ -185,13 +185,13 @@ class gNetworkNavigation extends gNetworkModuleCore
 			);
 		}
 
-		return $this->_loggedin_pages;
+		return $this->loggedin_pages;
 	}
 
 	public function get_loggedout_pages()
 	{
-		if ( count( $this->_loggedout_pages ) )
-			return $this->_loggedout_pages;
+		if ( count( $this->loggedout_pages ) )
+			return $this->loggedout_pages;
 
 		$items = array();
 
@@ -211,7 +211,7 @@ class gNetworkNavigation extends gNetworkModuleCore
 		$items = apply_filters( 'gnetwork_navigation_loggedout_items', $items );
 
 		foreach ( $items as $item ) {
-			$this->_loggedout_pages[ $item['slug'] ] = (object) array(
+			$this->loggedout_pages[ $item['slug'] ] = (object) array(
 				'ID'             => -1,
 				'post_title'     => $item['name'],
 				'post_author'    => 0,
@@ -224,7 +224,7 @@ class gNetworkNavigation extends gNetworkModuleCore
 			);
 		}
 
-		return $this->_loggedout_pages;
+		return $this->loggedout_pages;
 	}
 
 	public function get_item_url( $slug )
@@ -288,15 +288,15 @@ class gNetworkNavigation extends gNetworkModuleCore
 			break;
 
 			case 'feed' :
-				if ( $this->_restricted )
+				if ( $this->restricted )
 					__donot_cache_page();
-				$menu_item->url = $this->_feeds['rss2'];
+				$menu_item->url = $this->feeds['rss2'];
 			break;
 
 			case 'comments_feed' :
-				if ( $this->_restricted )
+				if ( $this->restricted )
 					__donot_cache_page();
-				$menu_item->url = $this->_feeds['comments_rss2_url'];
+				$menu_item->url = $this->feeds['comments_rss2_url'];
 			break;
 
 			// All other nav items are specific to the logged-in user,

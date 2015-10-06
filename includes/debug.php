@@ -3,8 +3,8 @@
 class gNetworkDebug extends gNetworkModuleCore
 {
 
-	var $_network    = FALSE;
-	var $_option_key = FALSE;
+	protected $option_key = FALSE;
+	protected $network    = FALSE;
 
 	protected function setup_actions()
 	{
@@ -52,7 +52,7 @@ class gNetworkDebug extends gNetworkModuleCore
 				|| isset( $_POST['purge_transient_all'] ) ) {
 
 					$this->check_referer( $sub );
-					$this->purge_transient_data( false, isset( $_POST['purge_transient'] ) );
+					$this->purge_transient_data( FALSE, isset( $_POST['purge_transient'] ) );
 					self::redirect_referer( 'transientpurged' );
 			} else {
 				// $this->settings_update( $sub );

@@ -3,8 +3,8 @@
 class gNetworkOpenSearch extends gNetworkModuleCore
 {
 
-	var $_network    = FALSE;
-	var $_option_key = 'opensearch';
+	protected $option_key = 'opensearch';
+	protected $network    = FALSE;
 
 	protected function setup_actions()
 	{

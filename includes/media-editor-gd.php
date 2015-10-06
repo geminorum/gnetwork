@@ -2,6 +2,7 @@
 
 class gNetwork_Image_Editor_GD extends WP_Image_Editor_GD
 {
+	
 	public function generate_filename( $suffix = NULL, $dest_path = NULL, $extension = NULL )
 	{
 		if ( is_null( $dest_path ) )

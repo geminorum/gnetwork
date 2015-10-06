@@ -3,9 +3,10 @@
 class gNetworkNetwork extends gNetworkModuleCore
 {
 
-	var $_network    = TRUE;
-	var $_option_key = FALSE;
-	var $menus       = array();
+	protected $option_key = FALSE;
+	protected $network    = TRUE;
+
+	public $menus = array();
 
 	protected function setup_actions()
 	{
@@ -21,7 +22,6 @@ class gNetworkNetwork extends gNetworkModuleCore
 		} else {
 
 			add_filter( 'blog_redirect_404', '__return_false' ); // prevent: maybe_redirect_404()
-
 		}
 
 		add_action( 'wpmu_new_blog', array( $this, 'wpmu_new_blog' ), 12, 6 );

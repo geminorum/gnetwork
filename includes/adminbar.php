@@ -3,11 +3,12 @@
 class gNetworkAdminBar extends gNetworkModuleCore
 {
 
-	var $_network    = FALSE;
-	var $_option_key = FALSE;
+	protected $option_key = FALSE;
+	protected $network    = FALSE;
 
-	var $_sidebar_admin = FALSE;
-	var $remove_nodes   = array();
+	private $sidebar_admin = FALSE;
+
+	public $remove_nodes   = array();
 
 	protected function setup_actions()
 	{
@@ -114,7 +115,7 @@ class gNetworkAdminBar extends gNetworkModuleCore
 			$_SERVER['REQUEST_URI'] = remove_query_arg( 'gnetwork-action', $_SERVER['REQUEST_URI'] );
 		}
 
-		$this->_sidebar_admin = TRUE;
+		$this->sidebar_admin = TRUE;
 	}
 
 	public static function removeMenus( $nodes )
@@ -216,7 +217,7 @@ class gNetworkAdminBar extends gNetworkModuleCore
 
 		if ( is_admin() ) {
 
-			if ( $this->_sidebar_admin ) {
+			if ( $this->sidebar_admin ) {
 				$wp_admin_bar->add_node( array(
 					'parent' => $group_id,
 					'id'     => 'reset-sidebars',
@@ -423,7 +424,7 @@ class gNetworkAdminBar extends gNetworkModuleCore
 			return;
 
 		// custom menu by filter, it's better 'cause there are no default wp menu.
-		$custom = apply_filters( 'gnetwork_adminbar_custom', false );
+		$custom = apply_filters( 'gnetwork_adminbar_custom', FALSE );
 		if ( $custom ) {
 			call_user_func_array( $custom, array( & $wp_admin_bar ) );
 			return;
@@ -465,15 +466,13 @@ class gNetworkAdminBar extends gNetworkModuleCore
 				'id'     => $parent,
 				'title'  => '<span class="ab-icon dashicons dashicons-menu" style="margin:2px 0 0 0;"></span>',
 				// 'parent' => 'top-secondary', // Off on the right side
-				'href'   => false,
+				'href'   => FALSE,
 			) );
 
 			foreach ( $menu as $item_id => $item ) {
-				$hide = false;
-				if ( $item->xfn )
-					$hide = current_user_can( $item->xfn ) ? false : true;
 
-				if ( ! $hide ) {
+				if (  ( $item->xfn ? current_user_can( $item->xfn ) : TRUE ) ) {
+
 					$wp_admin_bar->add_menu( array(
 						// check target to place link on externals
 						//'parent' => ( empty( $item->target ) ? ( empty( $item->menu_item_parent ) ? 'wp-logo' : 'network-menu-'.$item->menu_item_parent ) : 'wp-logo-external' ),
