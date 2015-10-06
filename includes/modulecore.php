@@ -11,7 +11,7 @@ class gNetworkModuleCore
 	var $_ajax        = FALSE;      // load if ajax
 	var $_cron        = FALSE;      // load if cron
 	var $_dev         = NULL;       // load if dev
-	private $_settings_js = array();
+	protected $_js    = array();
 
 	public function __construct()
 	{
@@ -374,7 +374,7 @@ class gNetworkModuleCore
 		$this->default_buttons();
 
 		// NOTE: we register settings on the settings page only
-		add_action( 'admin_print_footer_scripts', array( &$this, 'admin_print_footer_scripts' ), 99 );
+		add_action( 'admin_print_footer_scripts', array( &$this, 'print_scripts' ), 99 );
 	}
 
 	public function add_settings_field( $r )
@@ -662,9 +662,9 @@ class gNetworkModuleCore
 				if ( 'textarea-quicktags' == $args['type'] ) {
 
 					if ( count( $args['values'] ) )
-						$this->_settings_js[] = 'quicktags({id:"'.$id.'",buttons:"'.implode( ',', $args['values'] ).'"});';
+						$this->_js[] = 'quicktags({id:"'.$id.'",buttons:"'.implode( ',', $args['values'] ).'"});';
 					else
-						$this->_settings_js[] = 'quicktags({id:"'.$id.'",buttons:"link,em,strong"});';
+						$this->_js[] = 'quicktags({id:"'.$id.'",buttons:"link,em,strong"});';
 
 					wp_enqueue_script( 'quicktags' );
 
@@ -792,10 +792,11 @@ class gNetworkModuleCore
 			echo '</td></tr>';
 	}
 
-	public function admin_print_footer_scripts()
+	// HELPER
+	public function print_scripts()
 	{
-		if ( count( $this->_settings_js ) )
-			gNetworkUtilities::wrapJS( implode( "\n", $this->_settings_js ) );
+		if ( count( $this->_js ) )
+			gNetworkUtilities::wrapJS( implode( "\n", $this->_js ) );
 	}
 
 	// helper
