@@ -20,7 +20,8 @@ class gNetworkReference extends gNetworkModuleCore
 			'/\((\d+)\)\s\-/u',
 			'/\((\d+)\)\-/u',
 			'/^(\d+)\-/u',
-			'/^(\d+)\./u',
+			'/^(\d+)\./u', // 13.
+			'/^(\d+)\s\./u', // 13 .
 			'/^(\d+)/u',
 			// '/^(\.\s)/u', // working but disabled
 		);
@@ -28,7 +29,10 @@ class gNetworkReference extends gNetworkModuleCore
 		foreach ( $rows as $row ) {
 			foreach ( $patterns as $pattern ) {
 				if ( preg_match( $pattern, trim( $row ), $matches ) ) {
-					$notes[] = trim( str_ireplace( $matches[0], '', trim( $row ), $count ) );
+					$note = trim( str_ireplace( $matches[0], '', trim( $row ), $count ) );
+					$note = str_ireplace( array( '-', '—' ), '–', $note );
+					$notes[] = trim( trim( $note, '–' ) );
+					// gNU::dump( $notes );
 					break;
 				}
 			}
@@ -37,18 +41,28 @@ class gNetworkReference extends gNetworkModuleCore
 		return $notes;
 	}
 
-	public static function replaceFootnotes( $content, $footnotes = '', $brackets = true )
+	public static function replaceFootnotes( $content, $footnotes = '', $type = 'brackets', $shortcode = 'ref' )
 	{
-		$pattern = $brackets ? '/\[(\d+)\]/u' : '/\((\d+)\)/u';
-		$html = str_ireplace( $footnotes, '', $content );
+		switch ( $type ){
+			case 'brackets' : $pattern = '/\[(\d+)\]/u'; break;
+			case 'parentheses' : $pattern = '/\((\d+)\)/u'; break;
+		}
+
+		$html  = str_ireplace( $footnotes, '', $content );
 		$notes = self::parseFootnotes( $footnotes );
+
+		// gNU::dump($notes ); die();
+
 		preg_match_all( $pattern, $html, $matches );
 
+		// gNU::dump($matches ); die();
+
 		$count = 1;
-		foreach ( $matches[0] as $key => $match )
+		foreach ( $matches[0] as $key => $match ) {
 			$html = str_ireplace( $match,
-				( isset( $notes[$key] ) ? '[ref]'.$notes[$key].'[/ref]' : '[ref]'.$matches[1][$key].'[/ref]' ),
+				( isset( $notes[$key] ) ? '['.$shortcode.']'.$notes[$key].'[/'.$shortcode.']' : '['.$shortcode.']'.$matches[1][$key].'[/'.$shortcode.']' ),
 			$html, $count );
+		}
 
 		return $html;
 	}
