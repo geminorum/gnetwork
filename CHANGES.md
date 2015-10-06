@@ -1,3 +1,6 @@
+### 0.2.24
+* modulecore: notice updated/error helpers
+
 ### 0.2.23
 * locale: adminbar menus to quickly change current language
 * locale: no actions/filters if no `GNETWORK_WPLANG`/`GNETWORK_WPLANG_ADMIN`
