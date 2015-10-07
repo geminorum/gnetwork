@@ -321,7 +321,7 @@ class gNetworkOpenSearch extends gNetworkModuleCore
 		exit();
 	}
 
-	// TODO: NOT WORKING, NEEDS TEST
+	// FIXME: NOT WORKING, NEEDS TEST
 	// https://wiki.mozilla.org/Search_Service/Suggestions
 	// http://www.opensearch.org/Specifications/OpenSearch/Extensions/Suggestions
 	private function suggestions()
