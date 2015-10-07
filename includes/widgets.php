@@ -15,12 +15,43 @@ class gNetworkWidgets extends gNetworkModuleCore
 	public function widgets_init()
 	{
 		$widgets = array(
+			'gNetworkDev_Legend_Widget',
 			'gNetworkTracking_Quantcast_Widget',
 			'gNetworkShortcode_Widget',
 		);
 
 		foreach ( $widgets as $widget )
 			register_widget( $widget );
+	}
+}
+
+class gNetworkDev_Legend_Widget extends WP_Widget
+{
+
+	public function __construct()
+	{
+		parent::__construct( 'gnetwork-legend-widget',
+			__( 'gNetwork Dev: Legend Widget', GNETWORK_TEXTDOMAIN ),
+			array(
+				'classname'   => 'gnetwork-wrap-widget legend-widget',
+				'description' => __( 'Simple Changelog Legend', GNETWORK_TEXTDOMAIN )
+			) );
+	}
+
+	public function widget( $args, $instance )
+	{
+		echo $args['before_widget'];
+			echo $args['before_title'].'legend'.$args['after_title'];
+
+			echo '* &mdash; security fix<br />
+			# &mdash; bug fix<br />
+			$ &mdash; language fix or change<br />
+			+ &mdash; addition<br />
+			^ &mdash; change<br />
+			- &mdash; removed<br />
+			! &mdash; note';
+
+		echo $args['after_widget'];
 	}
 }
 
