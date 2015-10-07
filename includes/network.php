@@ -190,6 +190,36 @@ class gNetworkNetwork extends gNetworkModuleCore
 		echo '<div class="clear"></div></div>';
 	}
 
+	// HELPER
+	public static function getLogo( $wrap = FALSE, $fallback = TRUE )
+	{
+		$html = '';
+
+		if ( file_exists( WP_CONTENT_DIR.'/'.GNETWORK_LOGO ) ) {
+
+			$html .= gNetworkUtilities::html( 'img', array(
+				'src' => WP_CONTENT_URL.'/'.GNETWORK_LOGO,
+				'alt' => GNETWORK_NAME,
+			) );
+
+		} else if ( $fallback ) {
+			$html .= GNETWORK_NAME;
+		}
+
+		if ( ! $html )
+			return '';
+
+		$html = gNetworkUtilities::html( 'a', array(
+			'href'  => GNETWORK_BASE,
+			'title' => GNETWORK_NAME,
+		), $html );
+
+		if ( $wrap )
+			$html = gNetworkUtilities::html( $wrap, $html );
+
+		return $html;
+	}
+
 	// http://wpengineer.com/2470/hide-welcome-panel-for-wordpress-multisite/
 	public function load_index_php()
 	{

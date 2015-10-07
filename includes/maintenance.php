@@ -174,6 +174,25 @@ class gNetworkMaintenance extends gNetworkModuleCore
 		return FALSE;
 	}
 
+	// HELPER
+	public static function get503Message( $class = 'message' )
+	{
+		global $gNetwork;
+
+		if ( isset( $gNetwork->maintenance ) && $gNetwork->maintenance->options['login_message'] )
+			$html = $gNetwork->maintenance->options['login_message'];
+		else
+			$html = __( 'The site is unavailable for scheduled maintenance.', GNETWORK_TEXTDOMAIN );
+
+		if ( $class )
+			$html = gNetworkUtilities::html( 'div', array(
+				'class' => $class,
+			), $html );
+
+		return $html;
+	}
+
+	// FIXME: use self::get503Message()
 	public function template_503( $logged_in = FALSE )
 	{
 		$protocol = $_SERVER["SERVER_PROTOCOL"];

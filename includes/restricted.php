@@ -125,7 +125,15 @@ class gNetworkRestricted extends gNetworkModuleCore
 					'field'       => 'restricted_notice',
 					'type'        => 'textarea-quicktags',
 					'title'       => __( 'Restricted Notice', GNETWORK_TEXTDOMAIN ),
-					'desc'        => __( 'This will show on top of this site login page.', GNETWORK_TEXTDOMAIN ),
+					'desc'        => __( 'This will show on top of this site login page. <code>%1$s</code> for the role, <code>%2$s</code> for the page.', GNETWORK_TEXTDOMAIN ),
+					'default'     => '',
+					'field_class' => 'code',
+				),
+				array(
+					'field'       => 'restricted_access',
+					'type'        => 'textarea-quicktags',
+					'title'       => __( 'Restricted Access', GNETWORK_TEXTDOMAIN ),
+					'desc'        => __( 'This will show on 403 page for logged-in users. <code>%1$s</code> for the role, <code>%2$s</code> for the page.', GNETWORK_TEXTDOMAIN ),
 					'default'     => '',
 					'field_class' => 'code',
 				),
@@ -142,6 +150,7 @@ class gNetworkRestricted extends gNetworkModuleCore
 			'restricted_feed'    => 'open',
 			'redirect_page'      => '0',
 			'restricted_notice'  => __( '<p>This site is restricted to users with %1$s access level. Please visit <a href="%2$s">here</a> to request access.</p>', GNETWORK_TEXTDOMAIN ),
+			'restricted_access'  => __( '<p>You do not have %1$s access level. Please visit <a href="%2$s">here</a> to request access.</p>', GNETWORK_TEXTDOMAIN ),
 		);
 	}
 
@@ -252,6 +261,60 @@ class gNetworkRestricted extends gNetworkModuleCore
 			'rss2'              => ( $feed_key ? add_query_arg( 'feedkey', $feed_key, get_feed_link( 'rss2' ) ) : get_feed_link( 'rss2' ) ),
 			'comments_rss2_url' => ( $feed_key ? add_query_arg( 'feedkey', $feed_key, get_feed_link( 'comments_rss2' ) ) : get_feed_link( 'comments_rss2' ) ),
 		);
+	}
+
+	// HELPER
+	public static function get403Logout( $class = 'logout' )
+	{
+		$html = gNetworkUtilities::html( 'a', array(
+			'href'  => GNETWORK_BASE,
+			'title' => GNETWORK_NAME,
+		), __( 'Home Page', GNETWORK_TEXTDOMAIN ) );
+
+		if ( is_user_logged_in() ) {
+			$html .= ' / '.gNetworkUtilities::html( 'a', array(
+				'href' => wp_logout_url(),
+				'title' => __( 'Logout of this site', GNETWORK_TEXTDOMAIN ),
+			), __( 'Log Out', GNETWORK_TEXTDOMAIN ) );
+		}
+
+		if ( $class )
+			$html = gNetworkUtilities::html( 'div', array(
+				'class' => $class,
+			), $html );
+
+		return $html;
+	}
+
+	// HELPER
+	public static function get403Message( $class = 'message' )
+	{
+		global $gNetwork;
+
+		if ( isset( $gNetwork->restricted ) && $gNetwork->restricted->options['restricted_access'] )
+			$html = self::getNotice(
+				$gNetwork->restricted->options['restricted_access'],
+				$gNetwork->restricted->options['restricted_site'],
+				$gNetwork->restricted->options['redirect_page'],
+				FALSE );
+		else
+			$html = __( 'You do not have sufficient access level.', GNETWORK_TEXTDOMAIN );
+
+		if ( $class )
+			$html = gNetworkUtilities::html( 'div', array(
+				'class' => $class,
+			), $html );
+
+		return $html;
+	}
+
+	// HELPER
+	public static function getNotice( $notice, $role, $page = FALSE, $register = TRUE )
+	{
+		return sprintf( $notice,
+			gNetworkUtilities::getUserRoles( $role ),
+			( $page ? get_page_link( $page )
+				: ( $register ? gNetworkUtilities::registerURL( 'site' ) : '#' ) ) );
 	}
 }
 
@@ -542,9 +605,10 @@ class gNetworkRestrictedBouncer
 	{
 		echo '<div id="login_error">';
 
-		printf( $this->options['restricted_notice'],
-			gNetworkUtilities::getUserRoles( $this->options['restricted_site'] ),
-			( $this->options['redirect_page'] ? get_page_link( $this->options['redirect_page'] ) : gNetworkUtilities::register_url( 'site' ) ) );
+			echo gNetworkRestricted::getNotice(
+				$this->options['restricted_notice'],
+				$this->options['restricted_site'],
+				$this->options['redirect_page'] );
 
 		echo '</div>';
 		echo '<style>#backtoblog {display:none;}</style>';

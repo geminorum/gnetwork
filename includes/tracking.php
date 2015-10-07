@@ -254,4 +254,27 @@ qacct:"<?php echo $this->options['quantcast']; ?>"
 </script><?php
 		}
 	}
+
+	// HELPER
+	public static function getContact( $class = 'contact' )
+	{
+		global $gNetwork;
+
+		if ( isset( $gNetwork->tracking ) && $gNetwork->tracking->options['twitter_site'] )
+			$html = gNetworkUtilities::html( 'a', array(
+				'href'  => 'https://twitter.com/intent/follow?screen_name='.$gNetwork->tracking->options['twitter_site'],
+				'title' => __( 'Follow Us', GNETWORK_TEXTDOMAIN ),
+				'rel'   => 'follow',
+				'dir'   => 'ltr',
+			), '@'.$gNetwork->tracking->options['twitter_site'] );
+		else
+			return '';
+
+		if ( $class )
+			$html = gNetworkUtilities::html( 'div', array(
+				'class' => $class,
+			), $html );
+
+		return $html;
+	}
 }
