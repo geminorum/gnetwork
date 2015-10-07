@@ -131,9 +131,9 @@ class gNetworkComments extends gNetworkModuleCore
 		if ( count( $textareas ) ) {
 
 			foreach ( $textareas as $textarea => $buttons )
-				$this->js[] = 'quicktags({id:"'.$textarea.'",buttons:"'.implode( ',', $buttons ).'"});';
+				$this->scripts[] = 'quicktags({id:"'.$textarea.'",buttons:"'.implode( ',', $buttons ).'"});';
 
-			$this->js[] = 'QTags.addButton("quote","quote","<blockquote>","</blockquote>","quote");';
+			$this->scripts[] = 'QTags.addButton("quote","quote","<blockquote>","</blockquote>","quote");';
 
 			add_action( 'wp_footer', array( $this, 'print_scripts' ), 99 );
 			wp_enqueue_script( 'quicktags' );

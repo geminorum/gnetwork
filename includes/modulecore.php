@@ -3,17 +3,17 @@
 class gNetworkModuleCore
 {
 
+	public $options = array();
+	public $buttons = array();
+	public $scripts = array();
+
 	protected $option_base = 'gnetwork';
 	protected $option_key  = FALSE;
 	protected $network     = TRUE;       // using network wide options
 	protected $front_end   = TRUE;       // load module on front end?
-	protected $options     = array();
-	protected $js          = array();
 	protected $ajax        = FALSE;      // load if ajax
 	protected $cron        = FALSE;      // load if cron
 	protected $dev         = NULL;       // load if dev
-
-	private $settings_buttons = array();
 
 	public function __construct()
 	{
@@ -238,7 +238,7 @@ class gNetworkModuleCore
 
 	public function register_button( $key, $value, $atts = array(), $type = 'secondary' )
 	{
-		$this->settings_buttons[$key] = array(
+		$this->buttons[$key] = array(
 			'value' => $value,
 			'atts'  => $atts,
 			'type'  => $type,
@@ -249,7 +249,7 @@ class gNetworkModuleCore
 	{
 		echo '<p class="submit gnetwork-settings-buttons">';
 
-			foreach ( $this->settings_buttons as $action => $button ) {
+			foreach ( $this->buttons as $action => $button ) {
 				submit_button( $button['value'], $button['type'], $action, FALSE, $button['atts'] );
 				echo '&nbsp;&nbsp;';
 			}
@@ -662,9 +662,9 @@ class gNetworkModuleCore
 				if ( 'textarea-quicktags' == $args['type'] ) {
 
 					if ( count( $args['values'] ) )
-						$this->js[] = 'quicktags({id:"'.$id.'",buttons:"'.implode( ',', $args['values'] ).'"});';
+						$this->scripts[] = 'quicktags({id:"'.$id.'",buttons:"'.implode( ',', $args['values'] ).'"});';
 					else
-						$this->js[] = 'quicktags({id:"'.$id.'",buttons:"link,em,strong"});';
+						$this->scripts[] = 'quicktags({id:"'.$id.'",buttons:"link,em,strong"});';
 
 					wp_enqueue_script( 'quicktags' );
 
@@ -795,8 +795,8 @@ class gNetworkModuleCore
 	// HELPER
 	public function print_scripts()
 	{
-		if ( count( $this->js ) )
-			gNetworkUtilities::wrapJS( implode( "\n", $this->js ) );
+		if ( count( $this->scripts ) )
+			gNetworkUtilities::wrapJS( implode( "\n", $this->scripts ) );
 	}
 
 	// helper
