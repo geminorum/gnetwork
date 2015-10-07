@@ -162,7 +162,7 @@ class gNetworkAdminBar extends gNetworkModuleCore
 			'parent' => $parent_id,
 			'id'     => 'gnetwork-debug',
 			'title'  => __( 'Debug', GNETWORK_TEXTDOMAIN ),
-			'href'   => add_query_arg( 'debug', 'debug', $current_url ),
+			'href'   => add_query_arg( 'debug', '', $current_url ),
 			'meta'   => array(
 				'title' => __( 'Display debug info for the current page', GNETWORK_TEXTDOMAIN ),
 			),
@@ -184,10 +184,8 @@ class gNetworkAdminBar extends gNetworkModuleCore
 				'parent' => $parent_id,
 				'id'     => 'gnetwork-locale',
 				'title'  => __( 'Locale', GNETWORK_TEXTDOMAIN ),
-				'href'   => add_query_arg( array(
-					'sub' => 'locale',
-				), gNetworkAdmin::settingsURL() ),
-				'meta' => array(
+				'href'   => add_query_arg( 'sub', 'locale', gNetworkAdmin::settingsURL() ),
+				'meta'   => array(
 					'title' => __( 'Quickly Change Locale', GNETWORK_TEXTDOMAIN ),
 				),
 			) );
@@ -261,14 +259,14 @@ class gNetworkAdminBar extends gNetworkModuleCore
 			'parent' => 'network-admin',
 			'id'     => 'settings',
 			'title'  => __( 'Settings', GNETWORK_TEXTDOMAIN ),
-			'href'   => network_admin_url( 'settings.php' )
+			'href'   => network_admin_url( 'settings.php' ),
 		) );
 
 		$wp_admin_bar->add_menu( array(
 			'parent' => 'network-admin',
 			'id'     => 'update-core',
 			'title'  => __( 'Updates', GNETWORK_TEXTDOMAIN ),
-			'href'   => network_admin_url( 'update-core.php' )
+			'href'   => network_admin_url( 'update-core.php' ),
 		) );
 
 		foreach ( (array) $wp_admin_bar->user->blogs as $blog ) {
@@ -352,11 +350,12 @@ class gNetworkAdminBar extends gNetworkModuleCore
 			return;
 
 		if ( ! is_user_logged_in() ) {
+
 			$wp_admin_bar->add_menu( array(
-				'parent'    => $parent,
-				'id'        => 'network-login',
-				'title'     => __( 'Log in', GNETWORK_TEXTDOMAIN ),
-				'href'      => wp_login_url(),
+				'parent' => $parent,
+				'id'     => 'network-login',
+				'title'  => __( 'Log in', GNETWORK_TEXTDOMAIN ),
+				'href'   => wp_login_url(),
 			) );
 
 			if ( $register_url = gNetworkUtilities::registerURL() )
@@ -366,8 +365,6 @@ class gNetworkAdminBar extends gNetworkModuleCore
 					'title'  => __( 'Register', GNETWORK_TEXTDOMAIN ),
 					'href'   => $register_url,
 				) );
-		} else {
-
 		}
 	}
 
@@ -412,7 +409,7 @@ class gNetworkAdminBar extends gNetworkModuleCore
 			'id'    => 'my-sites',
 			'title' => '',
 			'href'  => $my_sites_url,
-			'meta'   => array(
+			'meta'  => array(
 				'title' => __( 'My Sites' ),
 			),
 		) );
@@ -442,7 +439,7 @@ class gNetworkAdminBar extends gNetworkModuleCore
 					'id'     => 'network-menu-'.$item->ID,
 					'title'  => $item->title,
 					'href'   => $item->url,
-					'meta'  => array(
+					'meta'   => array(
 						'title' => $item->attr_title,
 						'class' => join( ' ', $item->classes ),
 					),
@@ -479,7 +476,7 @@ class gNetworkAdminBar extends gNetworkModuleCore
 						'id'     => 'network-extramenu-'.$item->ID,
 						'title'  => $item->title,
 						'href'   => $item->url,
-						'meta'  => array(
+						'meta'   => array(
 							'title' => $item->attr_title,
 							'class' => join( ' ', $item->classes ),
 						),
