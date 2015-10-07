@@ -8,9 +8,9 @@
 	@include mainwrap();
 
 	&.legend-widget {
-
+		direction: ltr;
 	}
-	
+
 	&.quantcast-widget {
 
 		iframe {
