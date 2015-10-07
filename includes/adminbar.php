@@ -359,13 +359,12 @@ class gNetworkAdminBar extends gNetworkModuleCore
 				'href'      => wp_login_url(),
 			) );
 
-			$register = gNetworkUtilities::register_url();
-			if ( $register )
+			if ( $register_url = gNetworkUtilities::registerURL() )
 				$wp_admin_bar->add_menu( array(
-					'parent'    => $parent,
-					'id'        => 'network-register',
-					'title'     => __( 'Register', GNETWORK_TEXTDOMAIN ),
-					'href'      => $register,
+					'parent' => $parent,
+					'id'     => 'network-register',
+					'title'  => __( 'Register', GNETWORK_TEXTDOMAIN ),
+					'href'   => $register_url,
 				) );
 		} else {
 

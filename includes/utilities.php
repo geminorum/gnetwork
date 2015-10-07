@@ -88,7 +88,7 @@ class gNetworkUtilities
 		return $current;
 	}
 
-	public static function register_url( $register = FALSE )
+	public static function registerURL( $register = FALSE )
 	{
 		if ( function_exists( 'buddypress' ) ) {
 			if ( bp_get_signup_allowed() )
