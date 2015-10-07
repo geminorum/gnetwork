@@ -441,22 +441,22 @@ class gNetworkUtilities
 	public static function getUserRoles( $cap = NULL )
 	{
 		$caps = array(
-			'edit_theme_options'   => _x( 'Administrators', 'Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
-			'edit_others_posts'    => _x( 'Editors', 'Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
-			'edit_published_posts' => _x( 'Authors', 'Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
-			'edit_posts'           => _x( 'Contributors', 'Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
-			'read'                 => _x( 'Subscribers', 'Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
+			'edit_theme_options'   => _x( 'Administrators', 'Utilities: Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
+			'edit_others_posts'    => _x( 'Editors', 'Utilities: Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
+			'edit_published_posts' => _x( 'Authors', 'Utilities: Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
+			'edit_posts'           => _x( 'Contributors', 'Utilities: Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
+			'read'                 => _x( 'Subscribers', 'Utilities: Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
 		);
 
 		if ( is_multisite() ) {
 			$caps = array(
-				'manage_network' => _x( 'Super Admins', 'Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
+				'manage_network' => _x( 'Super Admins', 'Utilities: Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
 			) + $caps + array(
-				'logged_in_user' => _x( 'Network Users', 'Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
+				'logged_in_user' => _x( 'Network Users', 'Utilities: Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
 			);
 		}
 
-		$caps['none'] = _x( '&mdash; No One &mdash;', 'Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN );
+		$caps['none'] = _x( '&mdash; No One &mdash;', 'Utilities: Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN );
 
 		if ( is_null( $cap ) )
 			return $caps;

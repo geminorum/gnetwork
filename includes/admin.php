@@ -75,7 +75,7 @@ class gNetworkAdmin extends gNetworkModuleCore
 
 			$hook = add_menu_page(
 				__( 'gNetwork Extras', GNETWORK_TEXTDOMAIN ),
-				_x( 'Extras', 'Admin Menu Title', GNETWORK_TEXTDOMAIN ),
+				_x( 'Extras', 'Admin Module: Menu Title', GNETWORK_TEXTDOMAIN ),
 				'manage_options',
 				'gnetwork',
 				array( $this, 'admin_settings_page' ),
@@ -97,7 +97,7 @@ class gNetworkAdmin extends gNetworkModuleCore
 
 			$hook = add_submenu_page( 'index.php',
 				__( 'gNetwork Extras', GNETWORK_TEXTDOMAIN ),
-				_x( 'Extras', 'Admin Menu Title', GNETWORK_TEXTDOMAIN ),
+				_x( 'Extras', 'Admin Module: Menu Title', GNETWORK_TEXTDOMAIN ),
 				'read',
 				'gnetwork',
 				array( $this, 'admin_settings_page' )
@@ -298,7 +298,7 @@ class gNetworkAdmin extends gNetworkModuleCore
 			&& constant( 'GNETWORK_ADMIN_WIDGET_RSS' ) ) {
 
 			add_meta_box( 'abetterplanet_widget',
-				_x( 'Network Feed', 'admin dashboard widget title', GNETWORK_TEXTDOMAIN ),
+				_x( 'Network Feed', 'Admin Module: Dashboard Widget Title', GNETWORK_TEXTDOMAIN ),
 				array( $this, 'widget_network_rss' ),
 				'dashboard', 'normal', 'high' );
 		}

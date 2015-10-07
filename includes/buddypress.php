@@ -60,11 +60,11 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 			'complete_signup' => '',
 
 			'tos_display' => 0,
-			'tos_title'   => _x( 'Terms of Service', 'BP ToS', GNETWORK_TEXTDOMAIN ),
+			'tos_title'   => _x( 'Terms of Service', 'BuddyPress Module: ToS', GNETWORK_TEXTDOMAIN ),
 			'tos_link'    => '',
 			'tos_text'    => '',
-			'tos_label'   => _x( 'By checking the Terms of Service Box you have read and agree to all the Policies set forth in this site\'s Terms of Service.', 'BP ToS', GNETWORK_TEXTDOMAIN ),
-			'tos_must'    => _x( 'You have to accept our terms of service. Otherwise we cannot register you on our site.', 'BP ToS', GNETWORK_TEXTDOMAIN ),
+			'tos_label'   => _x( 'By checking the Terms of Service Box you have read and agree to all the Policies set forth in this site\'s Terms of Service.', 'BuddyPress Module: ToS', GNETWORK_TEXTDOMAIN ),
+			'tos_must'    => _x( 'You have to accept our terms of service. Otherwise we cannot register you on our site.', 'BuddyPress Module: ToS', GNETWORK_TEXTDOMAIN ),
 
 			'notification_defaults' => array(),
 
@@ -184,7 +184,7 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 
 	public function settings_section_tos()
 	{
-		echo '<h3>'._x( 'Terms of Service', 'Settings Section Title', GNETWORK_TEXTDOMAIN ).'</h3>';
+		echo '<h3>'._x( 'Terms of Service', 'BuddyPress Module: Settings Section Title', GNETWORK_TEXTDOMAIN ).'</h3>';
 		echo '<p class="description">';
 			_e( 'ToS Settings on BuddyPress Registration Page', GNETWORK_TEXTDOMAIN );
 		echo '</p>';
@@ -192,7 +192,7 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 
 	public function settings_section_notifications()
 	{
-		echo '<h3>'._x( 'Email Notifications', 'Settings Section Title', GNETWORK_TEXTDOMAIN ).'</h3>';
+		echo '<h3>'._x( 'Email Notifications', 'BuddyPress Module: Settings Section Title', GNETWORK_TEXTDOMAIN ).'</h3>';
 		echo '<p class="description">';
 			_e( 'Control the default email preference for users after activation', GNETWORK_TEXTDOMAIN );
 		echo '</p>';
@@ -200,7 +200,7 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 
 	public function settings_section_avatars()
 	{
-		echo '<h3>'._x( 'Avatars Sizes', 'Settings Section Title', GNETWORK_TEXTDOMAIN ).'</h3>';
+		echo '<h3>'._x( 'Avatars Sizes', 'BuddyPress Module: Settings Section Title', GNETWORK_TEXTDOMAIN ).'</h3>';
 		echo '<p class="description">';
 			_e( 'Change the default BuddyPress Avatar values', GNETWORK_TEXTDOMAIN );
 		echo '</p>';
@@ -327,7 +327,7 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 		if ( $title && ! empty( $this->options['tos_link'] ) )
 			printf( '<h4><a href="%1$s" title="%2$s">%3$s</a></h4>',
 				esc_url( $this->options['tos_link'] ),
-				_x( 'Read full agreement', 'BP ToS', GNETWORK_TEXTDOMAIN ),
+				_x( 'Read full agreement', 'BuddyPress Module: ToS', GNETWORK_TEXTDOMAIN ),
 				$title
 			);
 		else if ( $title )
@@ -369,7 +369,7 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 		if ( isset( $_POST[$this->field_name] )
 			&& ! empty( $_POST[$this->field_name] ) )
 				$result['errors']->add( 'gnetwork_bp_honeypot',
-					__( "You're totally a spammer. Go somewhere else with your spammy ways.", GNETWORK_TEXTDOMAIN ) );
+					_x( 'You\'re totally a spammer. Go somewhere else with your spammy ways.', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ) );
 
 		return $result;
 	}

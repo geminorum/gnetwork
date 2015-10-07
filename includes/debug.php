@@ -75,11 +75,11 @@ class gNetworkDebug extends gNetworkModuleCore
 			$required_mysql_version;
 
 		$versions = array(
-			'wp_version'             => _x( 'WordPress', 'Debug Version Strings', GNETWORK_TEXTDOMAIN ),
-			'wp_db_version'          => _x( 'WordPress DB revision', 'Debug Version Strings', GNETWORK_TEXTDOMAIN ),
-			'tinymce_version'        => _x( 'TinyMCE', 'Debug Version Strings', GNETWORK_TEXTDOMAIN ),
-			'required_php_version'   => _x( 'Required PHP', 'Debug Version Strings', GNETWORK_TEXTDOMAIN ),
-			'required_mysql_version' => _x( 'Required MySQL', 'Debug Version Strings', GNETWORK_TEXTDOMAIN ),
+			'wp_version'             => _x( 'WordPress', 'Debug Module: Version Strings', GNETWORK_TEXTDOMAIN ),
+			'wp_db_version'          => _x( 'WordPress DB revision', 'Debug Module: Version Strings', GNETWORK_TEXTDOMAIN ),
+			'tinymce_version'        => _x( 'TinyMCE', 'Debug Module: Version Strings', GNETWORK_TEXTDOMAIN ),
+			'required_php_version'   => _x( 'Required PHP', 'Debug Module: Version Strings', GNETWORK_TEXTDOMAIN ),
+			'required_mysql_version' => _x( 'Required MySQL', 'Debug Module: Version Strings', GNETWORK_TEXTDOMAIN ),
 		);
 
 		echo '<table><tbody>';

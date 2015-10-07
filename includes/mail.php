@@ -138,8 +138,8 @@ class gNetworkMail extends gNetworkModuleCore
 				array(
 					'field'   => 'log_all',
 					'type'    => 'enabled',
-					'title'   => _x( 'Log All', 'Enable log all outgoing', GNETWORK_TEXTDOMAIN ),
-					'desc'    => __( 'Log all outgoing emails in a secure folder', GNETWORK_TEXTDOMAIN ),
+					'title'   => _x( 'Log All', 'Mail Module: Enable log all outgoing', GNETWORK_TEXTDOMAIN ),
+					'desc'    => _x( 'Log all outgoing emails in a secure folder', 'Mail Module', GNETWORK_TEXTDOMAIN ),
 					'default' => '0',
 				),
 			),

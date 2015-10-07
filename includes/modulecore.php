@@ -456,7 +456,7 @@ class gNetworkModuleCore
 		// 		array(
 		// 			'field' => 'comments',
 		// 			'type' => 'enabled',
-		// 			'title' => _x( 'Comments', 'Enable Like for Comments', GNETWORK_TEXTDOMAIN ),
+		// 			'title' => _x( 'Comments', 'X Module: Enable Like for Comments', GNETWORK_TEXTDOMAIN ),
 		// 			'description' => __( 'Like button for enabled post types comments', GNETWORK_TEXTDOMAIN ),
 		// 			'default' => 0,
 		// 		),
@@ -878,7 +878,7 @@ class gNetworkModuleCore
 	public static function getDateDefaultFormat( $options = FALSE, $date_format = NULL, $time_format = NULL, $joiner = ' @' )
 	{
 		if ( ! $options )
-			return _x( 'l, j F, Y - H:i:s', 'Default Datetime Format', GNETWORK_TEXTDOMAIN );
+			return _x( 'l, j F, Y - H:i:s', 'Module Core: Default Datetime Format', GNETWORK_TEXTDOMAIN );
 
 		if ( is_null( $date_format ) )
 			$date_format = get_option( 'date_format' );

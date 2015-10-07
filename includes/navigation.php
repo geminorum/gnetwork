@@ -53,17 +53,17 @@ class gNetworkNavigation extends gNetworkModuleCore
 
 		$tabs = array(
 			'general' => array(
-				'label' => _x( 'General', 'Navigation: Tabs', GNETWORK_TEXTDOMAIN ),
+				'label' => _x( 'General', 'Navigation Module: Tabs', GNETWORK_TEXTDOMAIN ),
 				'desc'  => __( '<em>General</em> links are relative to the current user and are visible at any time.', GNETWORK_TEXTDOMAIN ),
 				'pages' => $this->get_general_pages(),
 			),
 			'loggedin' => array(
-				'label' => _x( 'Logged-In', 'Navigation: Tabs', GNETWORK_TEXTDOMAIN ),
+				'label' => _x( 'Logged-In', 'Navigation Module: Tabs', GNETWORK_TEXTDOMAIN ),
 				'desc'  => __( '<em>Logged-In</em> links are relative to the current user, and are not visible to visitors who are not logged in.', GNETWORK_TEXTDOMAIN ),
 				'pages' => $this->get_loggedin_pages(),
 			),
 			'loggedout' => array(
-				'label' => _x( 'Logged-Out', 'Navigation: Tabs', GNETWORK_TEXTDOMAIN ),
+				'label' => _x( 'Logged-Out', 'Navigation Module: Tabs', GNETWORK_TEXTDOMAIN ),
 				'desc'  => __( '<em>Logged-Out</em> links are not visible to users who are logged in.', GNETWORK_TEXTDOMAIN ),
 				'pages' => $this->get_loggedout_pages(),
 			),

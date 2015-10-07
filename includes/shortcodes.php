@@ -85,12 +85,12 @@ class gNetworkShortCodes extends gNetworkModuleCore
 	public function tinymce_strings( $strings )
 	{
 		$new = array(
-			'gnetworkcite-title'    => _x( 'Cite This', 'TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
-			'gnetworkcite-url'      => _x( 'URL', 'TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
-			'gnetworkemail-title'   => _x( 'Email', 'TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
-			'gnetworkemail-subject' => _x( 'Subject', 'TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
-			'gnetworkgpeople-title' => _x( 'People', 'TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
-			'gnetworkgpeople-name'  => _x( 'Name', 'TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+			'gnetworkcite-title'    => _x( 'Cite This', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+			'gnetworkcite-url'      => _x( 'URL', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+			'gnetworkemail-title'   => _x( 'Email', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+			'gnetworkemail-subject' => _x( 'Subject', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+			'gnetworkgpeople-title' => _x( 'People', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+			'gnetworkgpeople-name'  => _x( 'Name', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
 		);
 
 		return array_merge( $strings, $new );
@@ -175,7 +175,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		$args = shortcode_atts( array(
 			'id'      => get_queried_object_id(),
 			'to'      => 'parent',
-			'html'    => _x( 'Back', 'Shortcodes: back: default html', GNETWORK_TEXTDOMAIN ),
+			'html'    => _x( 'Back', 'ShortCode Module: back: default html', GNETWORK_TEXTDOMAIN ),
 			'context' => NULL,
 		), $atts, $tag );
 
@@ -204,7 +204,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 					} else {
 						$html = gNetworkUtilities::html( 'a', array(
 							'href'        => home_url( '/' ),
-							'title'       => _x( 'Home', 'Shortcodes: back: home title attr', GNETWORK_TEXTDOMAIN ),
+							'title'       => _x( 'Home', 'ShortCode Module: back: home title attr', GNETWORK_TEXTDOMAIN ),
 							'class'       => 'home',
 							'data-toggle' => 'tooltip',
 							'rel'         => 'home',
@@ -218,7 +218,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 
 				$html = gNetworkUtilities::html( 'a', array(
 					'href'        => home_url( '/' ),
-					'title'       => _x( 'Home', 'Shortcodes: back: home title attr', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Home', 'ShortCode Module: back: home title attr', GNETWORK_TEXTDOMAIN ),
 					'class'       => 'home',
 					'data-toggle' => 'tooltip',
 					'rel'         => 'home',

@@ -80,7 +80,7 @@ class gNetworkComments extends gNetworkModuleCore
 				array(
 					'field'   => 'disable_notifications',
 					'type'    => 'enabled',
-					'title'   => _x( 'Comment Notifications', '[Comments Module]', GNETWORK_TEXTDOMAIN ),
+					'title'   => _x( 'Comment Notifications', 'Comments Module', GNETWORK_TEXTDOMAIN ),
 					'desc'    => __( 'Disable all core comment notifications', GNETWORK_TEXTDOMAIN ),
 					'default' => '1',
 					'values'  => array(
@@ -91,14 +91,14 @@ class gNetworkComments extends gNetworkModuleCore
 				array(
 					'field'   => 'admin_fullcomments',
 					'type'    => 'enabled',
-					'title'   => _x( 'Full Comments', '[Comments Module]', GNETWORK_TEXTDOMAIN ),
+					'title'   => _x( 'Full Comments', 'Comments Module', GNETWORK_TEXTDOMAIN ),
 					'desc'    => __( 'Full comments on dashboard', GNETWORK_TEXTDOMAIN ),
 					'default' => '0',
 				),
 				array(
 					'field'   => 'front_quicktags',
 					'type'    => 'enabled',
-					'title'   => _x( 'Quicktags', '[Comments Module]', GNETWORK_TEXTDOMAIN ),
+					'title'   => _x( 'Quicktags', 'Comments Module', GNETWORK_TEXTDOMAIN ),
 					'desc'    => __( 'Activate Quicktags for comments on Frontend', GNETWORK_TEXTDOMAIN ),
 					'default' => '0',
 				),

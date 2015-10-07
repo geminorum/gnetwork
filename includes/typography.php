@@ -28,7 +28,7 @@ class gNetworkTypography extends gNetworkModuleCore
 	public function tinymce_strings( $strings )
 	{
 		$new = array(
-			'gnetworkasterisks-title' => _x( 'Asterisks', 'TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+			'gnetworkasterisks-title' => _x( 'Asterisks', 'Typography Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
 		);
 
 		return array_merge( $strings, $new );

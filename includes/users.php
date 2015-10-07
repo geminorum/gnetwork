@@ -57,7 +57,7 @@ class gNetworkUsers extends gNetworkModuleCore
 				array(
 					'field'   => 'siteuser_as_default',
 					'type'    => 'enabled',
-					'title'   => _x( 'Default Author', 'Enable Full Comments On Dashboard', GNETWORK_TEXTDOMAIN ),
+					'title'   => _x( 'Default Author', 'Users Module: Enable Full Comments On Dashboard', GNETWORK_TEXTDOMAIN ),
 					'desc'    => __( 'The site user as default author of new posts in admin', GNETWORK_TEXTDOMAIN ),
 					'default' => '0',
 				),

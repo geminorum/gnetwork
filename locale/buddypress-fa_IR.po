@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the Development package.
 msgid ""
 msgstr ""
-"Project-Id-Version: BuddyPress 2.3.2.1\n"
+"Project-Id-Version: BuddyPress 2.3.3\n"
 "Report-Msgid-Bugs-To: https://buddypress.trac.wordpress.org\n"
-"POT-Creation-Date: 2015-06-20 23:54+0330\n"
-"PO-Revision-Date: 2015-06-21 00:20+0330\n"
+"POT-Creation-Date: 2015-10-07 07:08+0330\n"
+"PO-Revision-Date: 2015-10-07 07:10+0330\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: geminorum <contact@geminorum.ir>\n"
 "Language: fa\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 1.8.1\n"
+"X-Generator: Poedit 1.8.5\n"
 "X-Poedit-KeywordsList: __;_e\n"
 
 #: bp-activity/bp-activity-actions.php:175
@@ -303,7 +303,7 @@ msgstr ""
 msgid "Approved"
 msgstr ""
 
-#: bp-activity/bp-activity-admin.php:726 bp-activity/bp-activity-admin.php:1512
+#: bp-activity/bp-activity-admin.php:726 bp-activity/bp-activity-admin.php:1544
 #: bp-activity/bp-activity-akismet.php:206
 #: bp-activity/bp-activity-akismet.php:235
 #: bp-core/admin/bp-core-admin-functions.php:863
@@ -320,8 +320,8 @@ msgstr ""
 msgid "Submitted on: <strong>%1$s</strong>"
 msgstr "ارسال‌شده در: <strong>%1$s</strong>"
 
-#: bp-activity/bp-activity-admin.php:735 bp-activity/bp-activity-admin.php:1505
-#: bp-forums/bp-forums-template.php:2554 bp-groups/bp-groups-admin.php:1547
+#: bp-activity/bp-activity-admin.php:735 bp-activity/bp-activity-admin.php:1537
+#: bp-forums/bp-forums-template.php:2554 bp-groups/bp-groups-admin.php:1579
 #: bp-xprofile/bp-xprofile-admin.php:544
 msgid "Edit"
 msgstr "ویرایش"
@@ -370,6 +370,7 @@ msgstr ""
 msgid "%s activity item has been permanently deleted."
 msgid_plural "%s activity items have been permanently deleted."
 msgstr[0] ""
+msgstr[1] ""
 
 #: bp-activity/bp-activity-admin.php:927
 msgid "An error occurred when trying to update activity ID #%s."
@@ -388,11 +389,13 @@ msgstr ""
 msgid "%s activity item has been successfully spammed."
 msgid_plural "%s activity items have been successfully spammed."
 msgstr[0] ""
+msgstr[1] ""
 
 #: bp-activity/bp-activity-admin.php:948
 msgid "%s activity item has been successfully unspammed."
 msgid_plural "%s activity items have been successfully unspammed."
 msgstr[0] ""
+msgstr[1] ""
 
 #: bp-activity/bp-activity-admin.php:951
 msgid "The activity item has been updated successfully."
@@ -424,77 +427,78 @@ msgstr ""
 msgid "Cancel"
 msgstr "لغو"
 
-#: bp-activity/bp-activity-admin.php:1005 bp-activity/bp-activity-admin.php:1499
+#: bp-activity/bp-activity-admin.php:1005 bp-activity/bp-activity-admin.php:1531
 #: bp-templates/bp-legacy/buddypress/activity/comment.php:44
 #: bp-templates/bp-legacy/buddypress/groups/single/forum/edit.php:17
 msgid "Reply"
 msgstr "پاسخ"
 
-#: bp-activity/bp-activity-admin.php:1211
+#: bp-activity/bp-activity-admin.php:1212
 msgid "No activities found."
 msgstr ""
 
-#: bp-activity/bp-activity-admin.php:1282 bp-groups/bp-groups-admin.php:1385
+#: bp-activity/bp-activity-admin.php:1283 bp-groups/bp-groups-admin.php:1386
 msgid "All"
 msgstr "همه"
 
-#: bp-activity/bp-activity-admin.php:1283
+#: bp-activity/bp-activity-admin.php:1284
 msgid "Spam <span class=\"count\">(%s)</span>"
 msgstr ""
 
-#: bp-activity/bp-activity-admin.php:1309
+#: bp-activity/bp-activity-admin.php:1310
 msgid "Mark as Spam"
 msgstr ""
 
-#: bp-activity/bp-activity-admin.php:1310 bp-activity/bp-activity-admin.php:1510
+#: bp-activity/bp-activity-admin.php:1311 bp-activity/bp-activity-admin.php:1542
 #: bp-core/admin/bp-core-admin-functions.php:857
 msgid "Not Spam"
 msgstr ""
 
-#: bp-activity/bp-activity-admin.php:1311 bp-activity/bp-activity-admin.php:1515
+#: bp-activity/bp-activity-admin.php:1312 bp-activity/bp-activity-admin.php:1547
 #: bp-groups/bp-groups-admin.php:677
 msgid "Delete Permanently"
 msgstr ""
 
-#: bp-activity/bp-activity-admin.php:1383
+#: bp-activity/bp-activity-admin.php:1384
 msgid "View all actions"
 msgstr ""
 
-#: bp-activity/bp-activity-admin.php:1408
+#: bp-activity/bp-activity-admin.php:1409
 msgid "Filter"
 msgstr ""
 
-#: bp-activity/bp-activity-admin.php:1424
+#: bp-activity/bp-activity-admin.php:1456
 msgid "Select activity item %1$d"
 msgstr ""
 
-#: bp-activity/bp-activity-admin.php:1455
+#: bp-activity/bp-activity-admin.php:1487
 msgid "Unregistered action - %s"
 msgstr ""
 
-#: bp-activity/bp-activity-admin.php:1501
+#: bp-activity/bp-activity-admin.php:1533
 msgid "Replies are disabled for this activity item"
 msgstr ""
 
-#: bp-activity/bp-activity-admin.php:1501
+#: bp-activity/bp-activity-admin.php:1533
 msgid "Replies disabled"
 msgstr ""
 
-#: bp-activity/bp-activity-admin.php:1515 bp-core/bp-core-cssjs.php:115
+#: bp-activity/bp-activity-admin.php:1547 bp-core/bp-core-cssjs.php:115
 msgid "Are you sure?"
 msgstr "آیا اطمینان دارید؟"
 
 #. translators: 2: activity admin ui date/time
-#: bp-activity/bp-activity-admin.php:1531
+#: bp-activity/bp-activity-admin.php:1563
 msgid "Submitted on <a href=\"%1$s\">%2$s at %3$s</a>"
 msgstr "فرستاده شده در <a href=\"%1$s\">%2$s، %3$s</a>"
 
-#: bp-activity/bp-activity-admin.php:1587
+#: bp-activity/bp-activity-admin.php:1619
 msgid "%s related activity"
 msgid_plural "%s related activities"
 msgstr[0] ""
+msgstr[1] ""
 
-#: bp-activity/bp-activity-admin.php:1598
+#: bp-activity/bp-activity-admin.php:1630
 msgid "<a href=\"%1$s\">View Activity</a>"
 msgstr ""
 
@@ -616,10 +620,8 @@ msgstr "جست‌وجو در فعالیت‌ها..."
 #: bp-groups/bp-groups-template.php:2403 bp-groups/bp-groups-template.php:3908
 #: bp-groups/bp-groups-template.php:3949 bp-groups/bp-groups-template.php:3991
 #: bp-groups/bp-groups-template.php:5217 bp-members/bp-members-loader.php:275
-#: bp-members/bp-members-template.php:926
-#: bp-members/bp-members-template.php:1467
-#: bp-members/bp-members-template.php:1516
-#: bp-messages/bp-messages-loader.php:317
+#: bp-members/bp-members-template.php:926 bp-members/bp-members-template.php:1467
+#: bp-members/bp-members-template.php:1516 bp-messages/bp-messages-loader.php:317
 #: bp-messages/bp-messages-template.php:1002
 #: bp-notifications/bp-notifications-loader.php:235
 #: bp-templates/bp-legacy/buddypress/groups/single/admin.php:242
@@ -747,7 +749,7 @@ msgstr "یک کاربر به یک به روز رسانی یا دیدگاه که 
 #: bp-groups/bp-groups-template.php:5383
 #: bp-groups/classes/class-bp-groups-group.php:705
 #: bp-messages/bp-messages-template.php:125
-#: bp-messages/classes/class-bp_messages-thread.php:409
+#: bp-messages/classes/class-bp-messages-thread.php:409
 #: bp-xprofile/bp-xprofile-template.php:134
 msgid ""
 "Arguments passed to %1$s should be in an associative array. See the inline "
@@ -772,7 +774,7 @@ msgstr "تصویر نمایه"
 msgid "Group logo"
 msgstr "نشان گروه"
 
-#: bp-activity/bp-activity-template.php:1633 bp-groups/bp-groups-admin.php:1574
+#: bp-activity/bp-activity-template.php:1633 bp-groups/bp-groups-admin.php:1606
 #: bp-groups/bp-groups-template.php:897
 msgid "Group logo of %s"
 msgstr "نشان گروه %s"
@@ -792,13 +794,13 @@ msgid ""
 msgstr ""
 
 #: bp-activity/bp-activity-template.php:3148 bp-core/bp-core-attachments.php:221
-#: bp-forums/bp-forums-template.php:2555 bp-groups/bp-groups-admin.php:1422
-#: bp-groups/bp-groups-admin.php:1550 bp-groups/bp-groups-loader.php:598
+#: bp-forums/bp-forums-template.php:2555 bp-groups/bp-groups-admin.php:1423
+#: bp-groups/bp-groups-admin.php:1582 bp-groups/bp-groups-loader.php:598
 #: bp-members/admin/bp-members-admin-classes.php:156
-#: bp-members/admin/bp-members-admin-classes.php:296
-#: bp-members/admin/bp-members-admin-classes.php:524
-#: bp-members/admin/bp-members-admin-classes.php:655
-#: bp-messages/bp-messages-template.php:1294
+#: bp-members/admin/bp-members-admin-classes.php:302
+#: bp-members/admin/bp-members-admin-classes.php:530
+#: bp-members/admin/bp-members-admin-classes.php:681
+#: bp-messages/bp-messages-template.php:1297
 #: bp-notifications/bp-notifications-template.php:1050
 #: bp-notifications/bp-notifications-template.php:1283
 #: bp-templates/bp-legacy/buddypress/activity/comment.php:50
@@ -812,7 +814,7 @@ msgstr "حذف"
 #: bp-activity/bp-activity-template.php:3270
 #: bp-core/admin/bp-core-admin-functions.php:869
 #: bp-core/admin/bp-core-admin-slugs.php:113
-#: bp-core/admin/bp-core-admin-slugs.php:189 bp-groups/bp-groups-admin.php:1553
+#: bp-core/admin/bp-core-admin-slugs.php:189 bp-groups/bp-groups-admin.php:1585
 #: bp-members/bp-members-template.php:1141
 #: bp-templates/bp-legacy/buddypress-functions.php:311
 msgid "View"
@@ -1058,6 +1060,7 @@ msgstr "دیدن سایت"
 msgid "%s site"
 msgid_plural "%s sites"
 msgstr[0] ""
+msgstr[1] ""
 
 #: bp-blogs/bp-blogs-widgets.php:35
 msgid "A list of recently published posts from across your network."
@@ -1132,21 +1135,25 @@ msgstr ""
 msgid "Active <span class=\"count\">(%s)</span>"
 msgid_plural "Active <span class=\"count\">(%s)</span>"
 msgstr[0] ""
+msgstr[1] ""
 
 #: bp-core/admin/bp-core-admin-components.php:154
 msgid "Inactive <span class=\"count\">(%s)</span>"
 msgid_plural "Inactive <span class=\"count\">(%s)</span>"
 msgstr[0] ""
+msgstr[1] ""
 
 #: bp-core/admin/bp-core-admin-components.php:155
 msgid "Must-Use <span class=\"count\">(%s)</span>"
 msgid_plural "Must-Use <span class=\"count\">(%s)</span>"
 msgstr[0] ""
+msgstr[1] ""
 
 #: bp-core/admin/bp-core-admin-components.php:156
 msgid "Retired <span class=\"count\">(%s)</span>"
 msgid_plural "Retired <span class=\"count\">(%s)</span>"
 msgstr[0] ""
+msgstr[1] ""
 
 #: bp-core/admin/bp-core-admin-components.php:163
 #: bp-core/admin/bp-core-admin-components.php:171
@@ -1272,11 +1279,11 @@ msgstr ""
 
 #: bp-core/admin/bp-core-admin-functions.php:270
 #: bp-core/admin/bp-core-admin-slugs.php:148
-#: bp-members/admin/bp-members-admin-classes.php:288
-#: bp-members/admin/bp-members-admin-classes.php:292
-#: bp-members/admin/bp-members-admin-classes.php:647
-#: bp-members/admin/bp-members-admin-classes.php:651
-#: bp-messages/bp-messages-template.php:1529
+#: bp-members/admin/bp-members-admin-classes.php:294
+#: bp-members/admin/bp-members-admin-classes.php:298
+#: bp-members/admin/bp-members-admin-classes.php:673
+#: bp-members/admin/bp-members-admin-classes.php:677
+#: bp-messages/bp-messages-template.php:1532
 #: bp-templates/bp-legacy/buddypress/members/activate.php:46
 msgid "Activate"
 msgstr "فعال‌سازی"
@@ -1925,28 +1932,33 @@ msgstr ""
 msgid "Maintenance Release"
 msgid_plural "Maintenance Releases"
 msgstr[0] ""
+msgstr[1] ""
 
 #: bp-core/bp-core-admin.php:881
 msgid "Security Release"
 msgid_plural "Security Releases"
 msgstr[0] ""
+msgstr[1] ""
 
 #: bp-core/bp-core-admin.php:882
 msgid "Maintenance and Security Release"
 msgid_plural "Maintenance and Security Releases"
 msgstr[0] ""
+msgstr[1] ""
 
 #. translators: 1: WordPress version number.
 #: bp-core/bp-core-admin.php:885
 msgid "<strong>Version %1$s</strong> addressed a security issue."
 msgid_plural "<strong>Version %1$s</strong> addressed some security issues."
 msgstr[0] ""
+msgstr[1] ""
 
 #. translators: 1: WordPress version number, 2: plural number of bugs.
 #: bp-core/bp-core-admin.php:890
 msgid "<strong>Version %1$s</strong> addressed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed %2$s bugs."
 msgstr[0] ""
+msgstr[1] ""
 
 #. translators: 1: WordPress version number, 2: plural number of bugs. Singular
 #. security issue.
@@ -1956,6 +1968,7 @@ msgid ""
 msgid_plural ""
 "<strong>Version %1$s</strong> addressed a security issue and fixed %2$s bugs."
 msgstr[0] ""
+msgstr[1] ""
 
 #. translators: 1: WordPress version number, 2: plural number of bugs. More
 #. than one security issue.
@@ -1967,6 +1980,7 @@ msgid_plural ""
 "<strong>Version %1$s</strong> addressed some security issues and fixed %2$s "
 "bugs."
 msgstr[0] ""
+msgstr[1] ""
 
 #: bp-core/bp-core-admin.php:904
 msgid "For more information, see <a href=\"%s\">the release notes</a>."
@@ -2054,11 +2068,11 @@ msgstr ""
 
 #: bp-core/bp-core-attachments.php:112
 msgid "Upload stopped."
-msgstr ""
+msgstr "بارگذاری متوقف شد."
 
 #: bp-core/bp-core-attachments.php:113
 msgid "Dismiss"
-msgstr ""
+msgstr "بستن"
 
 #: bp-core/bp-core-attachments.php:114
 msgid "Crunching&hellip;"
@@ -2080,7 +2094,7 @@ msgstr ""
 
 #: bp-core/bp-core-attachments.php:218
 msgid "Upload"
-msgstr ""
+msgstr "بارگذاری"
 
 #: bp-core/bp-core-attachments.php:226
 msgid "Take Photo"
@@ -2334,7 +2348,7 @@ msgstr "بگرد برای هرچیزی..."
 msgid " [&hellip;]"
 msgstr "…"
 
-#: bp-core/bp-core-template.php:1034
+#: bp-core/bp-core-template.php:1083
 msgid "Community"
 msgstr ""
 
@@ -2346,7 +2360,7 @@ msgstr ""
 
 #: bp-core/bp-core-widgets.php:113
 #: bp-members/admin/bp-members-admin-classes.php:135
-#: bp-members/admin/bp-members-admin-classes.php:503
+#: bp-members/admin/bp-members-admin-classes.php:509
 #: bp-templates/bp-legacy/buddypress/members/register.php:66
 msgid "Username"
 msgstr "شناسه"
@@ -2490,7 +2504,7 @@ msgstr "نمایه من"
 
 #: bp-core/deprecated/1.5.php:149
 #: bp-members/admin/bp-members-admin-classes.php:136
-#: bp-members/admin/bp-members-admin-classes.php:504
+#: bp-members/admin/bp-members-admin-classes.php:510
 #: bp-templates/bp-legacy/buddypress/members/single/profile/profile-wp.php:29
 msgid "Name"
 msgstr "نام"
@@ -2702,9 +2716,9 @@ msgstr "موضوع جدید"
 
 #: bp-forums/bp-forums-template.php:887 bp-forums/bp-forums-template.php:1048
 #: bp-forums/bp-forums-template.php:2435
-#: bp-messages/bp-messages-template.php:2139
-#: bp-messages/bp-messages-template.php:2380
-#: bp-messages/classes/class-bp_messages-thread.php:774
+#: bp-messages/bp-messages-template.php:2146
+#: bp-messages/bp-messages-template.php:2387
+#: bp-messages/classes/class-bp-messages-thread.php:786
 msgid "Deleted User"
 msgstr "کاربر را پاک کرد"
 
@@ -3134,6 +3148,7 @@ msgstr "درخواست دوستی"
 msgid "%s friend"
 msgid_plural "%s friends"
 msgstr[0] ""
+msgstr[1] ""
 
 #: bp-friends/bp-friends-widgets.php:48
 msgid ""
@@ -3456,6 +3471,7 @@ msgstr ""
 msgid "%s group has been permanently deleted."
 msgid_plural "%s groups have been permanently deleted."
 msgstr[0] ""
+msgstr[1] ""
 
 #: bp-groups/bp-groups-admin.php:725 bp-groups/bp-groups-notifications.php:774
 #: bp-groups/bp-groups-notifications.php:863
@@ -3479,17 +3495,17 @@ msgstr "فعال سازی انجمن گفتگو"
 msgid "Privacy"
 msgstr ""
 
-#: bp-groups/bp-groups-admin.php:777 bp-groups/bp-groups-admin.php:1621
+#: bp-groups/bp-groups-admin.php:777 bp-groups/bp-groups-admin.php:1653
 #: bp-groups/bp-groups-template.php:1270
 msgid "Public"
 msgstr "عمومی"
 
-#: bp-groups/bp-groups-admin.php:778 bp-groups/bp-groups-admin.php:1624
+#: bp-groups/bp-groups-admin.php:778 bp-groups/bp-groups-admin.php:1656
 #: bp-groups/bp-groups-template.php:1272
 msgid "Private"
 msgstr "خصوصی"
 
-#: bp-groups/bp-groups-admin.php:779 bp-groups/bp-groups-admin.php:1627
+#: bp-groups/bp-groups-admin.php:779 bp-groups/bp-groups-admin.php:1659
 msgid "Hidden"
 msgstr "پنهان‌شده"
 
@@ -3615,26 +3631,29 @@ msgstr[1] ""
 msgid "%1$s (%2$s)"
 msgstr ""
 
-#: bp-groups/bp-groups-admin.php:1307
+#: bp-groups/bp-groups-admin.php:1308
 msgid "No groups found."
 msgstr "هیچ گروهی پیدا نشد."
 
-#: bp-groups/bp-groups-admin.php:1386
+#: bp-groups/bp-groups-admin.php:1387
 msgid "Public <span class=\"count\">(%s)</span>"
 msgid_plural "Public <span class=\"count\">(%s)</span>"
 msgstr[0] ""
+msgstr[1] ""
 
-#: bp-groups/bp-groups-admin.php:1387
+#: bp-groups/bp-groups-admin.php:1388
 msgid "Private <span class=\"count\">(%s)</span>"
 msgid_plural "Private <span class=\"count\">(%s)</span>"
 msgstr[0] ""
+msgstr[1] ""
 
-#: bp-groups/bp-groups-admin.php:1388
+#: bp-groups/bp-groups-admin.php:1389
 msgid "Hidden <span class=\"count\">(%s)</span>"
 msgid_plural "Hidden <span class=\"count\">(%s)</span>"
 msgstr[0] ""
+msgstr[1] ""
 
-#: bp-groups/bp-groups-admin.php:1489
+#: bp-groups/bp-groups-admin.php:1521
 msgid "Select group %1$d"
 msgstr ""
 
@@ -4366,46 +4385,46 @@ msgid "BuddyPress Default"
 msgstr ""
 
 #: bp-members/admin/bp-members-admin-classes.php:137
-#: bp-members/admin/bp-members-admin-classes.php:293
-#: bp-members/admin/bp-members-admin-classes.php:505
-#: bp-members/admin/bp-members-admin-classes.php:652
+#: bp-members/admin/bp-members-admin-classes.php:299
+#: bp-members/admin/bp-members-admin-classes.php:511
+#: bp-members/admin/bp-members-admin-classes.php:678
 #: bp-settings/bp-settings-loader.php:106 bp-settings/bp-settings-loader.php:180
 msgid "Email"
 msgstr "ایمیل"
 
 #: bp-members/admin/bp-members-admin-classes.php:138
-#: bp-members/admin/bp-members-admin-classes.php:506
+#: bp-members/admin/bp-members-admin-classes.php:512
 msgid "Registered"
 msgstr ""
 
 #: bp-members/admin/bp-members-admin-classes.php:139
-#: bp-members/admin/bp-members-admin-classes.php:507
+#: bp-members/admin/bp-members-admin-classes.php:513
 msgid "Last Sent"
 msgstr ""
 
 #: bp-members/admin/bp-members-admin-classes.php:140
-#: bp-members/admin/bp-members-admin-classes.php:508
+#: bp-members/admin/bp-members-admin-classes.php:514
 msgid "Emails Sent"
 msgstr ""
 
 #: bp-members/admin/bp-members-admin-classes.php:172
-#: bp-members/admin/bp-members-admin-classes.php:539
+#: bp-members/admin/bp-members-admin-classes.php:545
 msgid "No pending accounts found."
 msgstr ""
 
 #: bp-members/admin/bp-members-admin-classes.php:178
 #: bp-members/admin/bp-members-admin-classes.php:180
-#: bp-members/admin/bp-members-admin-classes.php:544
+#: bp-members/admin/bp-members-admin-classes.php:550
 msgid "Edit settings"
 msgstr "ویرایش تنظیمات"
 
 #: bp-members/admin/bp-members-admin-classes.php:183
-#: bp-members/admin/bp-members-admin-classes.php:547
+#: bp-members/admin/bp-members-admin-classes.php:553
 msgid "Registration is disabled. %s"
 msgstr "نام‌نویسی غیرفعال شده است. %s"
 
-#: bp-members/admin/bp-members-admin-classes.php:243
-#: bp-members/admin/bp-members-admin-classes.php:602
+#: bp-members/admin/bp-members-admin-classes.php:249
+#: bp-members/admin/bp-members-admin-classes.php:628
 msgid "Select user: %s"
 msgstr ""
 
@@ -5045,7 +5064,7 @@ msgid "Inbox"
 msgstr "صندوق ورودی"
 
 #: bp-messages/bp-messages-loader.php:177 bp-messages/bp-messages-loader.php:269
-#: bp-messages/bp-messages-star.php:98
+#: bp-messages/bp-messages-star.php:104
 #: bp-templates/bp-legacy/buddypress-functions.php:340
 msgid "Starred"
 msgstr ""
@@ -5114,8 +5133,7 @@ msgid_plural "You have %s new private messages"
 msgstr[0] ""
 msgstr[1] ""
 
-#: bp-messages/bp-messages-screens.php:90
-#: bp-messages/bp-messages-screens.php:125
+#: bp-messages/bp-messages-screens.php:90 bp-messages/bp-messages-screens.php:125
 msgid "There was an error sending that message. Please try again."
 msgstr "خطایی در هنگام فرستادن پیام رخ داد، لطفاً دوباره تلاش کنید."
 
@@ -5164,49 +5182,49 @@ msgstr "اطلاعیه حذف شد."
 msgid "A member sends you a new message"
 msgstr "یک عضو پیامی برای شما فرستاده است."
 
-#: bp-messages/bp-messages-star.php:96
+#: bp-messages/bp-messages-star.php:102
 #: bp-templates/bp-legacy/buddypress-functions.php:338
 msgid "Unstar"
 msgstr ""
 
-#: bp-messages/bp-messages-star.php:97
+#: bp-messages/bp-messages-star.php:103
 #: bp-templates/bp-legacy/buddypress/members/single/messages/messages-loop.php:65
 #: bp-templates/bp-legacy/buddypress-functions.php:339
 msgid "Star"
 msgstr ""
 
-#: bp-messages/bp-messages-star.php:99
+#: bp-messages/bp-messages-star.php:105
 #: bp-templates/bp-legacy/buddypress-functions.php:341
 msgid "Not starred"
 msgstr ""
 
-#: bp-messages/bp-messages-star.php:100
+#: bp-messages/bp-messages-star.php:106
 #: bp-templates/bp-legacy/buddypress-functions.php:342
 msgid "Remove all starred messages in this thread"
 msgstr ""
 
-#: bp-messages/bp-messages-star.php:101
+#: bp-messages/bp-messages-star.php:107
 #: bp-templates/bp-legacy/buddypress-functions.php:343
 msgid "Star the first message in this thread"
 msgstr ""
 
-#: bp-messages/bp-messages-star.php:423
+#: bp-messages/bp-messages-star.php:446
 msgid "%s message was successfully starred"
 msgid_plural "%s messages were successfully starred"
 msgstr[0] ""
 msgstr[1] ""
 
-#: bp-messages/bp-messages-star.php:437
+#: bp-messages/bp-messages-star.php:460
 msgid "%s message was successfully unstarred"
 msgid_plural "%s messages were successfully unstarred"
 msgstr[0] ""
 msgstr[1] ""
 
-#: bp-messages/bp-messages-star.php:473
+#: bp-messages/bp-messages-star.php:496
 msgid "Add star"
 msgstr ""
 
-#: bp-messages/bp-messages-star.php:474
+#: bp-messages/bp-messages-star.php:497
 msgid "Remove star"
 msgstr ""
 
@@ -5231,52 +5249,52 @@ msgstr[1] ""
 msgid "Search Messages"
 msgstr "جست‌وجو در پیام‌ها"
 
-#: bp-messages/bp-messages-template.php:1260
+#: bp-messages/bp-messages-template.php:1263
 msgid "Select:"
 msgstr "انتخاب کنید:"
 
-#: bp-messages/bp-messages-template.php:1264
+#: bp-messages/bp-messages-template.php:1267
 msgid "Select"
 msgstr "انتخاب"
 
-#: bp-messages/bp-messages-template.php:1277
+#: bp-messages/bp-messages-template.php:1280
 msgid "Delete Selected"
 msgstr "پاک کردن انتخاب شده ها"
 
-#: bp-messages/bp-messages-template.php:1289
+#: bp-messages/bp-messages-template.php:1292
 #: bp-notifications/bp-notifications-template.php:1274
 msgid "Select Bulk Action"
 msgstr ""
 
-#: bp-messages/bp-messages-template.php:1291
+#: bp-messages/bp-messages-template.php:1294
 #: bp-notifications/bp-notifications-template.php:1276
 msgid "Bulk Actions"
 msgstr "گزینه‌ها"
 
-#: bp-messages/bp-messages-template.php:1292
+#: bp-messages/bp-messages-template.php:1295
 #: bp-notifications/bp-notifications-template.php:1279
 msgid "Mark read"
 msgstr "خوانده شده"
 
-#: bp-messages/bp-messages-template.php:1293
+#: bp-messages/bp-messages-template.php:1296
 #: bp-notifications/bp-notifications-template.php:1281
 msgid "Mark unread"
 msgstr "خوانده نشده"
 
-#: bp-messages/bp-messages-template.php:1304
+#: bp-messages/bp-messages-template.php:1307
 #: bp-notifications/bp-notifications-template.php:1285
 msgid "Apply"
 msgstr ""
 
-#: bp-messages/bp-messages-template.php:1355
+#: bp-messages/bp-messages-template.php:1358
 msgid "Currently Active"
 msgstr "به تازگی فعال"
 
-#: bp-messages/bp-messages-template.php:1527
+#: bp-messages/bp-messages-template.php:1530
 msgid "Deactivate"
 msgstr "غیرفعال‌سازی"
 
-#: bp-messages/bp-messages-template.php:1594
+#: bp-messages/bp-messages-template.php:1597
 #: bp-templates/bp-legacy/buddypress/members/register.php:178
 #: bp-templates/bp-legacy/buddypress/members/single/profile/edit.php:60
 #: bp-templates/bp-legacy/buddypress-functions.php:300
@@ -5284,19 +5302,19 @@ msgstr "غیرفعال‌سازی"
 msgid "Close"
 msgstr "بستن"
 
-#: bp-messages/bp-messages-template.php:1672
+#: bp-messages/bp-messages-template.php:1675
 msgid "Send a private message to this user."
 msgstr "ارسال پیام خصوصی به این کاربر"
 
-#: bp-messages/bp-messages-template.php:1673
+#: bp-messages/bp-messages-template.php:1676
 msgid "Private Message"
 msgstr "پیام خصوصی"
 
-#: bp-messages/bp-messages-template.php:2076
+#: bp-messages/bp-messages-template.php:2083
 msgid "%s recipients"
 msgstr "%s دریافت‌کننده"
 
-#: bp-messages/bp-messages-template.php:2437
+#: bp-messages/bp-messages-template.php:2444
 #: bp-templates/bp-legacy/buddypress-functions.php:1558
 msgid "Sent %s"
 msgstr "ارسال %s"
@@ -5309,7 +5327,7 @@ msgstr ""
 msgid "Display Sitewide Notices posted by the site administrator"
 msgstr ""
 
-#: bp-messages/classes/class-bp_messages-thread.php:766
+#: bp-messages/classes/class-bp-messages-thread.php:778
 msgid "%s Recipients"
 msgstr "%s دریافت‌کننده"
 
@@ -7003,22 +7021,22 @@ msgctxt "Admin SWA page"
 msgid "Activity"
 msgstr "فعالیت‌ها"
 
-#: bp-activity/bp-activity-admin.php:1335
+#: bp-activity/bp-activity-admin.php:1336
 msgctxt "Admin SWA column header"
 msgid "Author"
 msgstr ""
 
-#: bp-activity/bp-activity-admin.php:1336
+#: bp-activity/bp-activity-admin.php:1337
 msgctxt "Admin SWA column header"
 msgid "Activity"
 msgstr "فعالیت‌ها"
 
-#: bp-activity/bp-activity-admin.php:1337
+#: bp-activity/bp-activity-admin.php:1338
 msgctxt "Admin SWA column header"
 msgid "Action"
 msgstr "گزینه‌ها"
 
-#: bp-activity/bp-activity-admin.php:1338
+#: bp-activity/bp-activity-admin.php:1339
 msgctxt "Admin SWA column header"
 msgid "In Response To"
 msgstr ""
@@ -7198,6 +7216,7 @@ msgctxt "plugins"
 msgid "All <span class=\"count\">(%s)</span>"
 msgid_plural "All <span class=\"count\">(%s)</span>"
 msgstr[0] ""
+msgstr[1] ""
 
 #: bp-core/admin/bp-core-admin-schema.php:350
 msgctxt "First field-group name"
@@ -7267,6 +7286,21 @@ msgstr ""
 #: bp-core/bp-core-catchuri.php:277
 msgctxt "member type URL base"
 msgid "type"
+msgstr ""
+
+#: bp-core/bp-core-filters.php:954
+msgctxt "customizer menu type label"
+msgid "Custom Link"
+msgstr ""
+
+#: bp-core/bp-core-filters.php:974
+msgctxt "customizer menu section title"
+msgid "BuddyPress (logged-in)"
+msgstr ""
+
+#: bp-core/bp-core-filters.php:979
+msgctxt "customizer menu section title"
+msgid "BuddyPress (logged-out)"
 msgstr ""
 
 #: bp-core/bp-core-functions.php:640
@@ -7491,28 +7525,28 @@ msgctxt "Group member role in group admin"
 msgid "Group Role"
 msgstr ""
 
-#: bp-groups/bp-groups-admin.php:1446
+#: bp-groups/bp-groups-admin.php:1447
 msgctxt "Groups admin Group Name column header"
 msgid "Name"
 msgstr ""
 
-#: bp-groups/bp-groups-admin.php:1447
+#: bp-groups/bp-groups-admin.php:1448
 msgctxt "Groups admin Group Description column header"
 msgid "Description"
 msgstr ""
 
-#: bp-groups/bp-groups-admin.php:1448
+#: bp-groups/bp-groups-admin.php:1449
 msgctxt "Groups admin Privacy Status column header"
 msgid "Status"
 msgstr ""
 
-#: bp-groups/bp-groups-admin.php:1449
+#: bp-groups/bp-groups-admin.php:1450
 #, fuzzy
 msgctxt "Groups admin Members column header"
 msgid "# Members"
 msgstr "اعضاء"
 
-#: bp-groups/bp-groups-admin.php:1450
+#: bp-groups/bp-groups-admin.php:1451
 msgctxt "Groups admin Last Active column header"
 msgid "Last Active"
 msgstr ""
@@ -7687,20 +7721,20 @@ msgid "&rarr;"
 msgstr "&larr;"
 
 #: bp-members/admin/bp-members-admin-classes.php:100
-#: bp-members/admin/bp-members-admin-classes.php:482
+#: bp-members/admin/bp-members-admin-classes.php:488
 #: bp-members/bp-members-admin.php:1351
 msgctxt "signup users"
 msgid "Pending %s"
 msgstr ""
 
 #: bp-members/admin/bp-members-admin-classes.php:151
-#: bp-members/admin/bp-members-admin-classes.php:519
+#: bp-members/admin/bp-members-admin-classes.php:525
 msgctxt "Pending signup action"
 msgid "Activate"
 msgstr ""
 
 #: bp-members/admin/bp-members-admin-classes.php:152
-#: bp-members/admin/bp-members-admin-classes.php:520
+#: bp-members/admin/bp-members-admin-classes.php:526
 msgctxt "Pending signup action"
 msgid "Email"
 msgstr "ایمیل"
@@ -7747,18 +7781,21 @@ msgctxt "signup resent"
 msgid "%s account successfully activated! "
 msgid_plural "%s accounts successfully activated! "
 msgstr[0] ""
+msgstr[1] ""
 
 #: bp-members/bp-members-admin.php:1622
 msgctxt "signup notsent"
 msgid "%s activation email was not sent."
 msgid_plural "%s activation emails were not sent."
 msgstr[0] ""
+msgstr[1] ""
 
 #: bp-members/bp-members-admin.php:1656
 msgctxt "signup notsent"
 msgid "%s account was not activated."
 msgid_plural "%s accounts were not activated."
 msgstr[0] ""
+msgstr[1] ""
 
 #: bp-members/bp-members-admin.php:1679
 msgctxt "signup deleted"
@@ -7772,6 +7809,7 @@ msgctxt "signup notdeleted"
 msgid "%s sign-up was not deleted."
 msgid_plural "%s sign-ups were not deleted."
 msgstr[0] ""
+msgstr[1] ""
 
 #: bp-members/bp-members-loader.php:237
 msgctxt "Member profile main navigation"
@@ -7813,27 +7851,27 @@ msgctxt "Message pagination next text"
 msgid "&rarr;"
 msgstr "&larr;"
 
-#: bp-messages/bp-messages-template.php:1265
+#: bp-messages/bp-messages-template.php:1268
 msgctxt "Message dropdown filter"
 msgid "Read"
 msgstr "خوانده شده"
 
-#: bp-messages/bp-messages-template.php:1266
+#: bp-messages/bp-messages-template.php:1269
 msgctxt "Message dropdown filter"
 msgid "Unread"
 msgstr "خوانده نشده"
 
-#: bp-messages/bp-messages-template.php:1267
+#: bp-messages/bp-messages-template.php:1270
 msgctxt "Message dropdown filter"
 msgid "All"
 msgstr "همه"
 
-#: bp-messages/bp-messages-template.php:1272
+#: bp-messages/bp-messages-template.php:1275
 msgctxt "Message management markup"
 msgid "Mark as Read"
 msgstr "علامتگذاری به عنوان خوانده شده"
 
-#: bp-messages/bp-messages-template.php:1273
+#: bp-messages/bp-messages-template.php:1276
 msgctxt "Message management markup"
 msgid "Mark as Unread"
 msgstr "علامتگذاری به عنوان خوانده نشده"
