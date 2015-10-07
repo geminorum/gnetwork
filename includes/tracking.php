@@ -34,6 +34,13 @@ class gNetworkTracking extends gNetworkModuleCore
 					'default' => 'edit_others_posts',
 				),
 				array(
+					'field'   => 'primary_domain',
+					'type'    => 'text',
+					'title'   => __( 'Primary Domain Name', GNETWORK_TEXTDOMAIN ),
+					'desc'    => __( 'Enter your primary domain name: <code>example.com</code>', GNETWORK_TEXTDOMAIN ),
+					'default' => str_ireplace( array( 'http://', 'https://' ), '', home_url() ),
+				),
+				array(
 					'field'   => 'ga_domain',
 					'type'    => 'text',
 					'title'   => __( 'GA Domain Name', GNETWORK_TEXTDOMAIN ),
@@ -89,6 +96,7 @@ class gNetworkTracking extends gNetworkModuleCore
 	public function default_options()
 	{
 		return array(
+			'primary_domain' => '',
 			'ga_account'     => '',
 			'ga_domain'      => 'auto',
 			'ga_userid'      => '1',
@@ -210,6 +218,8 @@ class gNetworkTracking extends gNetworkModuleCore
 
 		if ( ! empty( $this->options['quantcast'] ) ) {
 
+		// TODO: add quant cast widget
+
 ?><script type="text/javascript">
 /* <![CDATA[ */
 var _qevents = _qevents || [];
@@ -254,6 +264,8 @@ qacct:"<?php echo $this->options['quantcast']; ?>"
 </script><?php
 		}
 	}
+
+	// TODO: helper for tracking on 503/403 pages
 
 	// HELPER
 	public static function getContact( $class = 'contact' )

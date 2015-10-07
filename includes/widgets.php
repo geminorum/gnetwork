@@ -15,6 +15,7 @@ class gNetworkWidgets extends gNetworkModuleCore
 	public function widgets_init()
 	{
 		$widgets = array(
+			'gNetworkTracking_Quantcast_Widget',
 			'gNetworkShortcode_Widget',
 		);
 
@@ -23,9 +24,45 @@ class gNetworkWidgets extends gNetworkModuleCore
 	}
 }
 
+class gNetworkTracking_Quantcast_Widget extends WP_Widget
+{
+
+	public function __construct()
+	{
+		parent::__construct( 'gnetwork-quantcast-widget',
+			__( 'gNetwork Tracking: Quantcast Widget', GNETWORK_TEXTDOMAIN ),
+			array(
+				'classname'   => 'gnetwork-wrap-widget quantcast-widget',
+				'description' => __( 'Arbitrary text or HTML or Shortcode!', GNETWORK_TEXTDOMAIN )
+			) );
+	}
+
+	public function widget( $args, $instance )
+	{
+		global $gNetwork;
+
+		if ( isset( $gNetwork->tracking ) && $gNetwork->tracking->options['primary_domain'] ) {
+
+			echo $args['before_widget'];
+
+			echo gNetworkUtilities::html( 'iframe', array(
+				'frameborder'  => '0',
+				'marginheight' => '0',
+				'marginwidth'  => '0',
+				'height'       => '120',
+				'width'        => '160',
+				'scrolling'    => 'no',
+				'src'          => 'http://widget.quantcast.com/'.$gNetwork->tracking->options['primary_domain'].'/10?&timeWidth=1&daysOfData=90',
+			), NULL );
+
+			echo $args['after_widget'];
+		}
+	}
+}
+
 class gNetworkShortcode_Widget extends WP_Widget
 {
-	
+
 	public function __construct()
 	{
 		$widget_ops = array(
