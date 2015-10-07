@@ -338,10 +338,10 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		$html = '<form action="http://groups.google.com/group/'.$args['id'].'/boxsubscribe?hl='.$args['hl'].'" id="google-subscribe">';
 		$html .= '<a href="http://groups.google.com/group/'.$args['id'].'?hl='.$args['hl'].'"><img src="'.GNETWORK_URL.'assets/images/google_groups_'.$args['logo'].'.png" style="'.$args['logo_style'].'" alt="Google Groups"></a>';
 		// <span id="google-members-count">(4889 members)</span>
-		$html .= '<div id="google-subscribe-input">'._x( 'Email:', 'google groups subscribe', GNETWORK_TEXTDOMAIN );
+		$html .= '<div id="google-subscribe-input">'._x( 'Email:', 'ShortCode Module: Google Groups Subscribe', GNETWORK_TEXTDOMAIN );
 		$html .= ' <input type="text" name="email" id="google-subscribe-email" data-cip-id="google-subscribe-email" />';
 		$html .= ' <input type="hidden" name="hl" value="'.$args['hl'].'" />';
-		$html .= ' <input type="submit" name="go" value="'._x( 'Subscribe', 'google groups subscribe', GNETWORK_TEXTDOMAIN ).'" /></div></form>';
+		$html .= ' <input type="submit" name="go" value="'._x( 'Subscribe', 'ShortCode Module: Google Groups Subscribe', GNETWORK_TEXTDOMAIN ).'" /></div></form>';
 
 		return $html;
 	}
