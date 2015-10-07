@@ -75,6 +75,13 @@ class gNetworkTracking extends gNetworkModuleCore
 					'desc'    => __( 'Enter your Google+ publisher number: <code>XXXXXXXXXXXXXXXXXXXXX</code>', GNETWORK_TEXTDOMAIN ),
 					'default' => '',
 				),
+				array(
+					'field'   => 'twitter_site',
+					'type'    => 'text',
+					'title'   => __( 'Twitter Account', GNETWORK_TEXTDOMAIN ),
+					'desc'    => __( 'Enter site twitter account username: <code>username</code>', GNETWORK_TEXTDOMAIN ),
+					'default' => '',
+				),
 			),
 		);
 	}
@@ -88,6 +95,7 @@ class gNetworkTracking extends gNetworkModuleCore
 			'ga_outbound'    => '0',
 			'quantcast'      => '',
 			'plus_publisher' => '',
+			'twitter_site'   => '',
 			'ignore_user'    => 'edit_others_posts',
 		);
 	}
@@ -155,6 +163,9 @@ class gNetworkTracking extends gNetworkModuleCore
 
 		if ( ! empty( $this->options['plus_publisher'] ) )
 			echo "\t".'<link href="https://plus.google.com/'.$this->options['plus_publisher'].'" rel="publisher" />'."\n";
+
+		if ( ! empty( $this->options['twitter_site'] ) )
+			echo "\t".'<meta name="twitter:site" content="@'.$this->options['twitter_site'].'" />'."\n";
 
 		if ( empty( $this->options['ga_domain'] ) || empty( $this->options['ga_account'] ) )
 			return;
