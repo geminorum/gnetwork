@@ -1,0 +1,21 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// gNetwork Partials: Front ALL -----------------------------------------------
+
+// user switching plugin
+#user_switching_switch_on {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	padding: 5px 10px;
+	margin: 0;
+
+	background-color: #000;
+	color: yellow;
+}
+
+// bruteprotect plugin
+#bruteprotect_uptime_check_string {
+	display: none !important;
+}

@@ -1,3 +1,7 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// gNetwork Partials: Settings Admin ALL --------------------------------------
 
 .gnetwork-admin-settings-wrap {
 	@include mainwrap();
@@ -32,6 +36,23 @@
 
 			.field-after {
 				vertical-align: middle;
+
+				&.icon-wrap {
+					a {
+						text-decoration: none;
+						color: #666;
+						&:focus {
+							outline: none;
+							box-shadow: none;
+						}
+					}
+					.dashicons {
+						vertical-align: middle;
+						width: 22px;
+						height: 22px;
+						font-size: 22px;
+					}
+				}
 			}
 		}
 
