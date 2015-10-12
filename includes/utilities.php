@@ -438,7 +438,23 @@ class gNetworkUtilities
 		return self::reKey( $users, 'ID' );
 	}
 
-	public static function getUserRoles( $cap = NULL )
+	public static function getUserRoleList( $object = FALSE )
+	{
+		$roles = $object ? new stdClass : array();
+
+		foreach ( get_editable_roles() as $role_name => $role )
+
+			if ( $object )
+				$roles->{$role_name} = translate_user_role( $role['name'] );
+
+			else
+				$roles[$role_name] = translate_user_role( $role['name'] );
+
+		return $roles;
+	}
+
+	// NOTE: this actually use caps instead of roles
+	public static function getUserRoles( $cap = NULL, $none_title = NULL, $none_value = NULL )
 	{
 		$caps = array(
 			'edit_theme_options'   => _x( 'Administrators', 'Utilities: Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
@@ -456,7 +472,14 @@ class gNetworkUtilities
 			);
 		}
 
-		$caps['none'] = _x( '&mdash; No One &mdash;', 'Utilities: Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN );
+		if ( is_null( $none_title ) )
+			$none_title = _x( '&mdash; No One &mdash;', 'Utilities: Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN );
+
+		if ( is_null( $none_value ) )
+			$none_value = 'none';
+
+		if ( $none_title )
+			$caps[$none_value] = $none_title;
 
 		if ( is_null( $cap ) )
 			return $caps;
