@@ -129,16 +129,6 @@ function gnetwork_init() {
 
 	add_action( 'bp_include', 'gnetwork_bp_include' );
 
-	// http://plugins.svn.wordpress.org/link-manager/trunk/link-manager.php
-	// http://core.trac.wordpress.org/ticket/21307
-	// add_filter( 'pre_option_link_manager_enabled', '__return_false' );
-
-	// http://wpengineer.com/2484/xml-rpc-enabled-by-default-in-wordpress-3-5/
-	// add_filter( 'xmlrpc_enabled', '__return_false' );
-
-	// http://stephanis.info/2014/08/13/on-jetpack-and-auto-activating-modules
-	add_filter( 'jetpack_get_default_modules', '__return_empty_array' );
-
 	if ( file_exists( GNETWORK_DIR.'includes/mce-languages.php' ) ) {
 		add_filter( 'mce_external_languages', function( $languages ){
 			$languages['gnetwork'] = GNETWORK_DIR.'includes/mce-languages.php';

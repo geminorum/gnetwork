@@ -20,6 +20,9 @@ class gNetworkCleanup extends gNetworkModuleCore
 		add_action( 'wp_dashboard_setup', array( $this, 'wp_dashboard_setup' ), 20 );
 
 		add_filter( 'wpcf7_load_css', '__return_false', 15 );
+
+		// SEE: http://stephanis.info/2014/08/13/on-jetpack-and-auto-activating-modules
+		add_filter( 'jetpack_get_default_modules', '__return_empty_array' );
 	}
 
 	public function plugins_loaded()
