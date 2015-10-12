@@ -166,7 +166,7 @@ class gNetworkModuleCore
 			return delete_option( $options_key );
 	}
 
-	// default settings hook handler
+	// DEFAULT METHOD: settings hook handler
 	public function settings( $sub = NULL )
 	{
 		if ( $this->option_key && $this->option_key == $sub ) {
@@ -809,8 +809,8 @@ class gNetworkModuleCore
 		return current_user_can( $cap );
 	}
 
-	// helper
-	// ANCESTOR : shortcode_atts()
+	// HELPER
+	// ANCESTOR: shortcode_atts()
 	public static function atts( $pairs, $atts )
 	{
 		$atts = (array) $atts;
@@ -826,8 +826,8 @@ class gNetworkModuleCore
 		return $out;
 	}
 
-	// helper
-	// ANCESTOR : wp_parse_args()
+	// HELPER
+	// ANCESTOR: wp_parse_args()
 	public static function args( $args, $defaults = '' )
 	{
 		if ( is_object( $args ) )
@@ -904,6 +904,57 @@ class gNetworkModuleCore
 			return intval( get_current_user_id() );
 
 		return 0;
+	}
+
+	// HELPER
+	public static function getSearchLink( $query = FALSE )
+	{
+		if ( GNETWORK_SEARCH_REDIRECT )
+			return $query ? add_query_arg( GNETWORK_SEARCH_QUERYID, urlencode( $query ), GNETWORK_SEARCH_URL ) : GNETWORK_SEARCH_URL;
+
+		return $query ? add_query_arg( 's', urlencode( $query ), get_option( 'home' ) ) : get_option( 'home' );
+	}
+
+	// HELPER
+	public static function getNewPostTypeLink( $post_type = 'page' )
+	{
+		return gNetworkUtilities::html( 'a', array(
+			'href'   => admin_url( '/post-new.php?post_type='.$post_type ),
+			'title'  => _x( 'Add New Post Type', 'Moduel Core', GNETWORK_TEXTDOMAIN ),
+			'target' => '_blank',
+		), _x( 'Add New', 'Moduel Core: Add New Post Type', GNETWORK_TEXTDOMAIN ) );
+	}
+
+	// HELPER
+	public static function getWPCodexLink( $page = '', $text = FALSE )
+	{
+		return gNetworkUtilities::html( 'a', array(
+			'href'   => 'https://codex.wordpress.org/'.$page,
+			'title'  => sprintf( _x( 'See WordPress Codex for %s', 'Moduel Core', GNETWORK_TEXTDOMAIN ), str_ireplace( '_', ' ', $page ) ),
+			'target' => '_blank',
+		), ( $text ? _x( 'See Codex', 'Moduel Core', GNETWORK_TEXTDOMAIN ) : self::getDashicon( 'media-code' ) ) );
+	}
+
+	// HELPER
+	// SEE: https://developer.wordpress.org/resource/dashicons/
+	public static function getDashicon( $icon = 'wordpress-alt', $tag = 'span' )
+	{
+		return gNetworkUtilities::html( $tag, array(
+			'class' => array(
+				'dashicons',
+				'dashicons-'.$icon,
+			),
+		), NULL );
+	}
+
+	// HELPER
+	public static function getMoreInfoIcon( $url = '', $title = NULL, $icon = 'info' )
+	{
+		return gNetworkUtilities::html( 'a', array(
+			'href'   => $url,
+			'title'  => is_null( $title ) ? _x( 'See More Information', 'Moduel Core', GNETWORK_TEXTDOMAIN ) : $title,
+			'target' => '_blank',
+		), self::getDashicon( $icon ) );
 	}
 
 	// http://code.tutsplus.com/tutorials/a-look-at-the-wordpress-http-api-a-brief-survey-of-wp_remote_get--wp-32065
