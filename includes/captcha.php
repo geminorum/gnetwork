@@ -15,7 +15,7 @@ class gNetworkCaptcha extends gNetworkModuleCore
 			return;
 
 		$this->register_menu( 'captcha',
-			__( 'Captcha', GNETWORK_TEXTDOMAIN ),
+			_x( 'Captcha', 'Captcha Module: Menu Name', GNETWORK_TEXTDOMAIN ),
 			array( $this, 'settings' )
 		);
 
@@ -35,7 +35,7 @@ class gNetworkCaptcha extends gNetworkModuleCore
 		return array(
 			array(
 				'id'       => 'gnetwork-captcha-help',
-				'title'    => __( 'Google reCAPTCHA', GNETWORK_TEXTDOMAIN ),
+				'title'    => _x( 'Google reCAPTCHA', 'Captcha Module', GNETWORK_TEXTDOMAIN ),
 				'content'  => '<p><br />Register & get the keys from <a href="https://www.google.com/recaptcha/admin#createsite" target="_blank">here</a>.</p>',
 				'callback' => FALSE,
 			),
@@ -49,22 +49,22 @@ class gNetworkCaptcha extends gNetworkModuleCore
 				array(
 					'field'   => 'login_captcha',
 					'type'    => 'enabled',
-					'title'   => __( 'Login Captcha', GNETWORK_TEXTDOMAIN ),
-					'desc'    => __( 'Display captcha field on login form', GNETWORK_TEXTDOMAIN ),
+					'title'   => _x( 'Login Captcha', 'Captcha Module', GNETWORK_TEXTDOMAIN ),
+					'desc'    => _x( 'Display captcha field on login form', 'Captcha Module', GNETWORK_TEXTDOMAIN ),
 					'default' => '0',
 				),
 				array(
 					'field'   => 'public_key',
 					'type'    => 'text',
-					'title'   => __( 'Site Key', GNETWORK_TEXTDOMAIN ),
-					'desc'    => __( 'Key in the HTML code your site serves to users.', GNETWORK_TEXTDOMAIN ),
+					'title'   => _s( 'Site Key', 'Captcha Module', GNETWORK_TEXTDOMAIN ),
+					'desc'    => _s( 'Key in the HTML code your site serves to users.', 'Captcha Module', GNETWORK_TEXTDOMAIN ),
 					'default' => '',
 				),
 				array(
 					'field'   => 'private_key',
 					'type'    => 'text',
-					'title'   => __( 'Secret Key', GNETWORK_TEXTDOMAIN ),
-					'desc'    => __( 'Key for communication between your site and Google reCAPTCHA.', GNETWORK_TEXTDOMAIN ),
+					'title'   => _x( 'Secret Key', GNETWORK_TEXTDOMAIN ),
+					'desc'    => _x( 'Key for communication between your site and Google reCAPTCHA.', 'Captcha Module', GNETWORK_TEXTDOMAIN ),
 					'default' => '',
 				),
 			),
@@ -92,7 +92,7 @@ class gNetworkCaptcha extends gNetworkModuleCore
 		<noscript><iframe src="http://www.google.com/recaptcha/api/noscript?k=<?=$this->options['public_key'];?>" height="300" width="300" frameborder="0"></iframe>
 		<br><textarea name="recaptcha_challenge_field" rows="3" cols="40"></textarea>
 		<input type="hidden" name="recaptcha_response_field" value="manual_challenge" />
-		</noscript> <?php
+		</noscript><?php
 	}
 
 	// verify the captcha answer
@@ -101,42 +101,40 @@ class gNetworkCaptcha extends gNetworkModuleCore
 		if ( ! isset( $_POST['recaptcha_response_field'] )
 			|| empty( $_POST['recaptcha_response_field'] ) )
 				return new WP_Error( 'empty_captcha',
-					__( 'CAPTCHA should not be empty', GNETWORK_TEXTDOMAIN ) );
+					_x( 'CAPTCHA should not be empty', 'Captcha Module', GNETWORK_TEXTDOMAIN ) );
 
 
 		if ( isset( $_POST['recaptcha_response_field'] )
 			&& 'false' == $this->recaptcha_response() )
 				return new WP_Error( 'invalid_captcha',
-					__( 'CAPTCHA response was incorrect', GNETWORK_TEXTDOMAIN ) );
+					_x( 'CAPTCHA response was incorrect', 'Captcha Module', GNETWORK_TEXTDOMAIN ) );
 
 		return $user;
 	}
 
 	// get the reCAPTCHA API response.
-	public function recaptcha_response()
+	private function recaptcha_response()
 	{
 		return $this->recaptcha_post_request( array(
 			'privatekey' => $this->options['private_key'],
-			'remoteip' => $_SERVER['REMOTE_ADDR'],
-			'challenge' => isset( $_POST['recaptcha_challenge_field'] ) ? esc_attr( $_POST['recaptcha_challenge_field'] ) : '',
-			'response' => isset( $_POST['recaptcha_response_field'] ) ? esc_attr( $_POST['recaptcha_response_field'] ) : '',
+			'remoteip'   => $_SERVER['REMOTE_ADDR'],
+			'challenge'  => isset( $_POST['recaptcha_challenge_field'] ) ? esc_attr( $_POST['recaptcha_challenge_field'] ) : '',
+			'response'   => isset( $_POST['recaptcha_response_field'] ) ? esc_attr( $_POST['recaptcha_response_field'] ) : '',
 		) );
 	}
 
 	// send http post request and return the response.
-	public function recaptcha_post_request( $post_body )
+	private function recaptcha_post_request( $post )
 	{
-		$args = array( 'body' => $post_body );
-		$request = wp_remote_post( 'https://www.google.com/recaptcha/api/verify', $args );
-		$response_body = wp_remote_retrieve_body( $request );
+		$args = array( 'body' => $post );
+		$req  = wp_remote_post( 'https://www.google.com/recaptcha/api/verify', $args );
+		$body = wp_remote_retrieve_body( $req );
 
-		/**
-		* explode the response body and use the request_status
-		* @see https://developers.google.com/recaptcha/docs/verify
-		*/
-		$answers = explode( "\n", $response_body );
-		$request_status = trim( $answers[0] );
+		// explode the response body and use the request_status
+		// @see https://developers.google.com/recaptcha/docs/verify
+		$answers = explode( "\n", $body );
+		$status  = trim( $answers[0] );
 
-		return $request_status;
+		return $status;
 	}
 }
