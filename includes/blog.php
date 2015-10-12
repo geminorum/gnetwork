@@ -17,22 +17,39 @@ class gNetworkBlog extends gNetworkModuleCore
 
 		add_filter( 'frontpage_template', array( $this, 'frontpage_template' ) );
 
-		if ( $this->options['page_for_404'] )
+		if ( ! $this->options['xmlrpc_enabled'] )
+			add_filter( 'xmlrpc_enabled', '__return_false', 12 );
+
+		if ( $this->options['linkmanager_enabled'] )
+			add_filter( 'pre_option_link_manager_enabled', '__return_true', 12 );
+
+		if ( $this->options['page_copyright'] )
+			add_filter( 'wp_head', array( $this, 'wp_head_copyright' ) );
+
+		if ( $this->options['page_404'] )
 			add_filter( '404_template', array( $this, 'custom_404_template' ) );
 	}
 
 	public function default_options()
 	{
 		return array(
-			'blog_redirect' => '',
-			'page_for_404'  => '0',
-			'feed_json'     => '0',
+			'blog_redirect'       => '',
+			'linkmanager_enabled' => '0',
+			'xmlrpc_enabled'      => '0',
+			'page_copyright'      => '0',
+			'page_404'            => '0',
+			'feed_json'           => '0',
 		);
 	}
 
 	public function default_settings()
 	{
-		return array(
+		$exclude = array_filter( array(
+			get_option( 'page_on_front' ),
+			get_option( 'page_for_posts' ),
+		) );
+
+		$settings = array(
 			'_general' => array(
 				array(
 					'field'       => 'blog_redirect',
@@ -41,6 +58,22 @@ class gNetworkBlog extends gNetworkModuleCore
 					'description' => __( 'The site will redirect to this URL. Leave empty to disable.', GNETWORK_TEXTDOMAIN ),
 					'default'     => '',
 					'dir'         => 'ltr',
+				),
+				// FIXME: wont work, wont enable!
+				array(
+					'field'       => 'linkmanager_enabled',
+					'type'        => 'enabled',
+					'title'       => __( 'Link Manager', GNETWORK_TEXTDOMAIN ),
+					'description' => __( 'Enables the Link Manager that existed in WordPress until version 3.5.', GNETWORK_TEXTDOMAIN ),
+					'default'     => '0',
+					'after'       => sprintf( '<span class="field-after icon-wrap">%s</span>', self::getWPCodexLink( 'Links_Manager' ) ),
+				),
+				array(
+					'field'       => 'xmlrpc_enabled',
+					'type'        => 'enabled',
+					'title'       => __( 'XML-RPC', GNETWORK_TEXTDOMAIN ),
+					'description' => __( 'Whether XML-RPC services are enabled on this site.', GNETWORK_TEXTDOMAIN ),
+					'default'     => '0',
 				),
 				array(
 					'field'       => 'feed_json',
@@ -51,22 +84,26 @@ class gNetworkBlog extends gNetworkModuleCore
 					'after'       => sprintf( '<code class="field-after"><a href="%1$s">%1$s</a></code>', get_feed_link( 'json' ) ),
 				),
 				array(
-					'field'       => 'page_for_404',
+					'field'       => 'page_copyright',
+					'type'        => 'page',
+					'title'       => __( 'Page for Copyright', GNETWORK_TEXTDOMAIN ),
+					'description' => __( 'Set any page to be used as copyright page on html head.', GNETWORK_TEXTDOMAIN ),
+					'default'     => '0',
+					'exclude'     => $exclude,
+					'after'       => sprintf( '<span class="field-after">%s</span>', self::getNewPostTypeLink( 'page' ) ),
+				),
+				array(
+					'field'       => 'page_404',
 					'type'        => 'page',
 					'title'       => __( 'Page for Error 404', GNETWORK_TEXTDOMAIN ),
 					'description' => __( 'Set any page to be used as the 404 error page.', GNETWORK_TEXTDOMAIN ),
 					'default'     => '0',
-					'exclude' => implode( ',', array_filter( array(
-						get_option( 'page_on_front' ),
-						get_option( 'page_for_posts' ),
-					) ) ),
-					'after'       => sprintf( '<span class="field-after"><a href="%s">%s</a></span>',
-						admin_url( '/post-new.php?post_type=page' ),
-						__( 'Add New Page', GNETWORK_TEXTDOMAIN )
-					),
+					'exclude'     => $exclude,
+					'after'       => sprintf( '<span class="field-after">%s</span>', self::getNewPostTypeLink( 'page' ) ),
 				),
 			),
 		);
+		return $settings;
 	}
 
 	public function init_early()
@@ -96,6 +133,11 @@ class gNetworkBlog extends gNetworkModuleCore
 
 			add_filter( 'template_include', array( $this, 'feed_json_template_include' ) );
 		}
+	}
+
+	public function wp_head_copyright()
+	{
+		echo "\t".'<link rel="copyright" href="'.get_page_link( $this->options['page_copyright'] ).'">'."\n";
 	}
 
 	// FIXME: test this
@@ -178,13 +220,13 @@ class gNetworkBlog extends gNetworkModuleCore
 			// get our custom 404 post object. We need to assign
 			// $post global in order to force get_post() to work
 			// during page template resolving.
-			$post = get_post( $this->options['page_for_404'] );
+			$post = get_post( $this->options['page_404'] );
 
 			// populate the posts array with our 404 page object
 			$wp_query->posts = array( $post );
 
 			// set the query object to enable support for custom page templates
-			$wp_query->queried_object_id = $this->options['page_for_404'];
+			$wp_query->queried_object_id = $this->options['page_404'];
 			$wp_query->queried_object    = $post;
 
 			// set post counters to avoid loop errors
