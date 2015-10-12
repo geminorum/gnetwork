@@ -480,6 +480,8 @@ class gNetworkModuleCore
 			'field'        => FALSE,
 			'values'       => array(),
 			'exclude'      => '',
+			'none_title'   => NULL, // select option none title
+			'none_value'   => NULL, // select option none value
 			'filter'       => FALSE, // will use via sanitize
 			'dir'          => FALSE,
 			'default'      => '',
@@ -517,14 +519,17 @@ class gNetworkModuleCore
 		switch ( $args['type'] ) {
 
 			case 'hidden' :
+
 				echo gNetworkUtilities::html( 'input', array(
 					'type'  => 'hidden',
 					'name'  => $name,
 					'id'    => $id,
 					'value' => $value,
 				) );
-			break;
 
+				$args['description'] = FALSE;
+
+			break;
 			case 'enabled' :
 
 				$html = gNetworkUtilities::html( 'option', array(
@@ -560,9 +565,48 @@ class gNetworkModuleCore
 				) );
 
 			break;
+			case 'number' :
+
+				if ( ! $args['field_class'] )
+					$args['field_class'] = 'small-text';
+
+				if ( ! $args['dir'] )
+					$args['dir'] = 'ltr';
+
+				echo gNetworkUtilities::html( 'input', array(
+					'type'  => 'number',
+					'class' => $args['field_class'],
+					'name'  => $name,
+					'id'    => $id,
+					'value' => $value,
+					'step'  => '1', // FIXME: get from args
+					'min'   => '0', // FIXME: get from args
+					'dir'   => $args['dir'],
+					'disabled' => $args['disabled'],
+				) );
+
+			break;
 			case 'checkbox' :
 
 				if ( count( $args['values'] ) ) {
+
+					if ( ! is_null( $args['none_title'] ) ) {
+
+						$html = gNetworkUtilities::html( 'input', array(
+							'type'    => 'checkbox',
+							'class'   => $args['field_class'],
+							'name'    => $name.( is_null( $args['none_value'] ) ? '' : '-'.$args['none_value'] ),
+							'id'      => $id.( is_null( $args['none_value'] ) ? '' : '-'.$args['none_value'] ),
+							'value'   => is_null( $args['none_value'] ) ? '1' : $args['none_value'],
+							'checked' => in_array( $args['none_value'], ( array ) $value ),
+							'dir'     => $args['dir'],
+						) );
+
+						echo '<p>'.gNetworkUtilities::html( 'label', array(
+							'for' => $id.( is_null( $args['none_value'] ) ? '' : '-'.$args['none_value'] ),
+						), $html.'&nbsp;'.esc_html( $args['none_title'] ) ).'</p>';
+					}
+
 					foreach ( $args['values'] as $value_name => $value_title ) {
 
 						if ( in_array( $value_name, $exclude ) )
@@ -606,6 +650,24 @@ class gNetworkModuleCore
 			case 'radio' :
 
 				if ( count( $args['values'] ) ) {
+
+					if ( ! is_null( $args['none_title'] ) ) {
+
+						$html = gNetworkUtilities::html( 'input', array(
+							'type'    => 'radio',
+							'class'   => $args['field_class'],
+							'name'    => $name,
+							'id'      => $id.( is_null( $args['none_value'] ) ? '' : '-'.$args['none_value'] ),
+							'value'   => is_null( $args['none_value'] ) ? FALSE : $args['none_value'],
+							'checked' => in_array( $args['none_value'], ( array ) $value ),
+							'dir'     => $args['dir'],
+						) );
+
+						echo '<p>'.gNetworkUtilities::html( 'label', array(
+							'for' => $id.( is_null( $args['none_value'] ) ? '' : '-'.$args['none_value'] ),
+						), $html.'&nbsp;'.esc_html( $args['none_title'] ) ).'</p>';
+					}
+
 					foreach ( $args['values'] as $value_name => $value_title ) {
 
 						if ( in_array( $value_name, $exclude ) )
@@ -631,6 +693,15 @@ class gNetworkModuleCore
 			case 'select' :
 
 				if ( FALSE !== $args['values'] ) { // alow hiding
+
+					if ( ! is_null( $args['none_title'] ) ) {
+
+						$html .= gNetworkUtilities::html( 'option', array(
+							'value'    => is_null( $args['none_value'] ) ? FALSE : $args['none_value'],
+							'selected' => $value == $args['none_value'],
+						), esc_html( $args['none_title'] ) );
+					}
+
 					foreach ( $args['values'] as $value_name => $value_title ) {
 
 						if ( in_array( $value_name, $exclude ) )
@@ -686,41 +757,71 @@ class gNetworkModuleCore
 				if ( ! $args['values'] )
 					$args['values'] = 'page';
 
+				if ( is_null( $args['none_title'] ) )
+					$args['none_title'] = __( '&mdash; Select Page &mdash;', GNETWORK_TEXTDOMAIN );
+
+				if ( is_null( $args['none_value'] ) )
+					$args['none_value'] = '';
+
+				// TODO: use custom walker to display page status along the title
+
 				wp_dropdown_pages( array(
-					'post_type'        => $args['values'],
-					'selected'         => $value,
-					'name'             => $name,
-					'id'               => $id,
-					'class'            => $args['field_class'],
-					'exclude'          => implode( ',', $exclude ),
-					'show_option_none' => __( '&mdash; Select Page &mdash;', GNETWORK_TEXTDOMAIN ),
-					'sort_column'      => 'menu_order',
-					'sort_order'       => 'asc',
-					'post_status'      => 'publish,private,draft',
+					'post_type'         => $args['values'],
+					'selected'          => $value,
+					'name'              => $name,
+					'id'                => $id,
+					'class'             => $args['field_class'],
+					'exclude'           => implode( ',', $exclude ),
+					'show_option_none'  => $args['none_title'],
+					'option_none_value' => $args['none_value'],
+					'sort_column'       => 'menu_order',
+					'sort_order'        => 'asc',
+					'post_status'       => 'publish,private,draft',
 				));
 
 			break;
 			case 'roles' :
 
-				foreach ( gNetworkUtilities::getUserRoles() as $value_name => $value_title ) {
+				// TODO: if current user cannot 'edit_users' then just print the default as disabled
+				// NOTE: rename the tag name to avoid saving and using the default!
 
-					if ( in_array( $value_name, $exclude ) )
-						continue;
+				if ( ! count( $args['values'] ) )
+					$args['values'] = gNetworkUtilities::getUserRoles( NULL, $args['none_title'], $args['none_value'] );
 
-					$html .= gNetworkUtilities::html( 'option', array(
-						'value'    => $value_name,
-						'selected' => $value === $value_name,
-					), esc_html( $value_title ) );
+				if ( count( $args['values'] ) ) {
+
+					foreach ( $args['values'] as $value_name => $value_title ) {
+
+						if ( in_array( $value_name, $exclude ) )
+							continue;
+
+						$html .= gNetworkUtilities::html( 'option', array(
+							'value'    => $value_name,
+							'selected' => $value === $value_name,
+						), esc_html( $value_title ) );
+					}
+
+					echo gNetworkUtilities::html( 'select', array(
+						'class' => $args['field_class'],
+						'name'  => $name,
+						'id'    => $id,
+					), $html );
+
+				} else {
+
+					$args['description'] = FALSE;
 				}
-
-				echo gNetworkUtilities::html( 'select', array(
-					'class' => $args['field_class'],
-					'name'  => $name,
-					'id'    => $id,
-				), $html );
 
 			break;
 			case 'blog_users' :
+
+				if ( ! is_null( $args['none_title'] ) ) {
+
+					$html .= gNetworkUtilities::html( 'option', array(
+						'value'    => is_null( $args['none_value'] ) ? FALSE : $args['none_value'],
+						'selected' => $value == $args['none_value'],
+					), esc_html( $args['none_title'] ) );
+				}
 
 				foreach ( gNetworkUtilities::getUsers() as $user_id => $user_object ) {
 
