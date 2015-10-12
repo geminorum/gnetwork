@@ -39,6 +39,7 @@ class gNetworkBlog extends gNetworkModuleCore
 			'page_copyright'      => '0',
 			'page_404'            => '0',
 			'feed_json'           => '0',
+			'ga_override'         => '',
 		);
 	}
 
@@ -103,6 +104,19 @@ class gNetworkBlog extends gNetworkModuleCore
 				),
 			),
 		);
+
+		if ( class_exists( 'gNetworkTracking' ) )
+			$settings['_tracking'] = array(
+				array(
+					'field'       => 'ga_override',
+					'type'        => 'text',
+					'title'       => __( 'GA Override', GNETWORK_TEXTDOMAIN ),
+					'description' => __( 'Enter your Google Analytics account number to override network default: <code>UA-XXXXX-X</code>', GNETWORK_TEXTDOMAIN ),
+					'default'     => '',
+					'dir'         => 'ltr',
+				),
+			);
+
 		return $settings;
 	}
 

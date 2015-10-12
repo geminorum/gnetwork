@@ -169,6 +169,8 @@ class gNetworkTracking extends gNetworkModuleCore
 		if ( $this->ignore() )
 			return;
 
+		global $gNetwork;
+
 		if ( ! empty( $this->options['plus_publisher'] ) )
 			echo "\t".'<link href="https://plus.google.com/'.$this->options['plus_publisher'].'" rel="publisher" />'."\n";
 
@@ -178,7 +180,12 @@ class gNetworkTracking extends gNetworkModuleCore
 		if ( empty( $this->options['ga_domain'] ) || empty( $this->options['ga_account'] ) )
 			return;
 
-		$ga = "ga('create', '".esc_js( $this->options['ga_account'] )."', '".esc_js( $this->options['ga_domain'] )."');"."\n";
+		if ( isset( $gNetwork->blog->options['ga_override'] ) && $gNetwork->blog->options['ga_override'] )
+			$account = $gNetwork->blog->options['ga_override'];
+		else
+			$account = $this->options['ga_account'];
+
+		$ga = "ga('create', '".esc_js( $account )."', '".esc_js( $this->options['ga_domain'] )."');"."\n";
 
 		if ( $this->options['ga_userid'] && is_user_logged_in() )
 			$ga .= "ga('set', '&uid', '".esc_js( wp_get_current_user()->user_login )."');"."\n";
@@ -192,7 +199,7 @@ class gNetworkTracking extends gNetworkModuleCore
 	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-	<?php echo $ga; ?>
+	<?php echo $ga."\n"; ?>
 /* ]]> */
 </script><?php
 
