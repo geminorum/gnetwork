@@ -3,6 +3,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// gNetwork Partials: Front ALL -----------------------------------------------
 
+.gnetwork-wrap-iframe {
+	@include theme-responsive-iframe;
+}
+
 // user switching plugin
 #user_switching_switch_on {
 	position: fixed;

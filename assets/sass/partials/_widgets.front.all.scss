@@ -18,4 +18,9 @@
 			display: block;
 		}
 	}
+
+	// NOTE: we use additional .gnetwork-wrap-iframe class for iframe responsive
+	&.gplusbadge-widget {
+		iframe {}
+	}
 }
