@@ -975,6 +975,21 @@ class gNetworkModuleCore
 		return gNetworkUtilities::notice( $message, 'updated fade', FALSE );
 	}
 
+	// HELPER : Will remove trailing forward and backslashes if it exists already before adding
+	// a trailing forward slash. This prevents double slashing a string or path.
+	// ANCESTOR: trailingslashit()
+	public static function trail( $string )
+	{
+		return self::untrail( $string ).'/';
+	}
+
+	// HELPER: Removes trailing forward slashes and backslashes if they exist.
+	// ANCESTOR: untrailingslashit()
+	public static function untrail( $string )
+	{
+		return rtrim( $string, '/\\' );
+	}
+
 	// HELPER
 	public static function getDateDefaultFormat( $options = FALSE, $date_format = NULL, $time_format = NULL, $joiner = ' @' )
 	{
