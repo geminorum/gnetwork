@@ -109,19 +109,24 @@ class gNetworkTracking_GPlusBadge_Widget extends WP_Widget
 	{
 		global $gNetwork;
 
-		if ( isset( $gNetwork->tracking ) && $gNetwork->tracking->options['plus_publisher'] ) {
+		$override = isset( $instance['override'] ) ? $instance['override'] : FALSE;
 
-			$html = $gNetwork->tracking->shortcode_google_plus_badge( array(
-				'id'      => isset( $instance['override'] ) ? $instance['override'] : FALSE,
-				'width'   => isset( $instance['width'] ) ? $instance['width'] : '300',
-				'context' => 'widget',
-				'wrap'    => FALSE,
-			) );
+		if ( isset( $gNetwork->tracking ) ) {
 
-			if ( $html ) {
-				echo $args['before_widget'];
-					echo '<div class="gnetwork-wrap-iframe">'.$html.'</div>';
-				echo $args['after_widget'];
+			if ( $override || $gNetwork->tracking->options['plus_publisher'] ) {
+
+				$html = $gNetwork->tracking->shortcode_google_plus_badge( array(
+					'id'      => $override,
+					'width'   => isset( $instance['width'] ) ? $instance['width'] : '300',
+					'context' => 'widget',
+					'wrap'    => FALSE,
+				) );
+
+				if ( $html ) {
+					echo $args['before_widget'];
+						echo '<div class="gnetwork-wrap-iframe">'.$html.'</div>';
+					echo $args['after_widget'];
+				}
 			}
 		}
 	}
