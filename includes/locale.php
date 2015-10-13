@@ -34,6 +34,7 @@ class gNetworkLocale extends gNetworkModuleCore
 		}
 	}
 
+	// HELPER
 	public static function changeLocale( $locale = NULL )
 	{
 		if ( ! self::cuc( 'manage_options' ) )
@@ -48,6 +49,7 @@ class gNetworkLocale extends gNetworkModuleCore
 		return update_option( 'WPLANG', $locale );
 	}
 
+	// HELPER
 	public static function available()
 	{
 		$languages = get_available_languages();
@@ -56,6 +58,21 @@ class gNetworkLocale extends gNetworkModuleCore
 			$languages[] = 'en_US';
 
 		return $languages;
+	}
+
+	// HELPER
+	// http://stackoverflow.com/a/16838443/4864081
+	public static function getISO( $locale = NULL )
+	{
+		if ( is_null( $locale ) )
+			$locale = get_locale();
+
+		if ( ! $locale )
+			return 'en';
+
+		$lang = explode( '_', $locale );
+
+		return strtolower( $lang[0] );
 	}
 
 	public function load_textdomain_mofile( $mofile, $domain )
