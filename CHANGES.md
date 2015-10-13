@@ -1,5 +1,16 @@
 ### 0.2.24
+* all: `503`/`403` template helpers
 * modulecore: notice updated/error helpers
+* modulecore: options/buttons/scripts are now public
+* tracking: support for [GA Beacon](https://github.com/igrigorik/ga-beacon) with shortcode
+* tracking: override GA account by blog
+* tracking: twitter site meta tag
+* widgets: simple g+ badge
+* widgets: simple quantcast data badge
+* widgets: simple changelog legend
+* blog: XML-RPC disable option
+* blog: copyright page meta tag
+* opensearch: another attempt to make suggestion work!
 
 ### 0.2.23
 * locale: adminbar menus to quickly change current language
