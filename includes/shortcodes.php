@@ -400,25 +400,28 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		return '<div id="'.$id.'div">'.$fallback.'</div>';
 	}
 
-	// Bloginfo Shortcode
-	// http://css-tricks.com/snippets/wordpress/bloginfo-shortcode/
-	// http://codex.wordpress.org/Template_Tags/bloginfo
-	//
-	// [bloginfo key='name']
-	// <img src="[bloginfo key='template_url']/images/logo.jpg" alt="[bloginfo key='name'] logo" />
+	// EXAMPLE: [bloginfo key='name']
 	public function shortcode_bloginfo( $atts, $content = NULL, $tag = '' )
 	{
 		$args = shortcode_atts( array(
-			'key'     => '',
-			'wrap'    => FALSE,
-			'class'   => 'blog-info blog-info-%s',
+			'key'     => '', // SEE: http://codex.wordpress.org/Template_Tags/bloginfo
+			'class'   => '', // OR: 'key-%s'
 			'context' => NULL,
+			'wrap'    => FALSE,
 		), $atts, $tag );
 
 		if ( FALSE === $args['context'] )
 			return NULL;
 
-	   return get_bloginfo( $args['key'] );
+		$info = get_bloginfo( $args['key'] );
+
+		if ( $args['wrap'] )
+			$info = '<span class="gnetwork-wrap-shortcode -bloginfo -key-'.$args['key'].' '.sprintf( $args['class'], $args['key'] ).'">'.$info.'</span>';
+
+		else if ( $args['class'] )
+			$info = '<span class="'.sprintf( $args['class'], $args['key'] ).'">'.$info.'</span>';
+
+		return $info;
 	}
 
 	// http://wordpress.org/extend/plugins/kimili-flash-embed/other_notes/
