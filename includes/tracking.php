@@ -39,6 +39,7 @@ class gNetworkTracking extends gNetworkModuleCore
 					'title'   => __( 'Primary Domain Name', GNETWORK_TEXTDOMAIN ),
 					'desc'    => __( 'Enter your primary domain name: <code>example.com</code>', GNETWORK_TEXTDOMAIN ),
 					'default' => str_ireplace( array( 'http://', 'https://' ), '', home_url() ),
+					'dir'     => 'ltr',
 				),
 				array(
 					'field'   => 'ga_domain',
@@ -46,6 +47,7 @@ class gNetworkTracking extends gNetworkModuleCore
 					'title'   => __( 'GA Domain Name', GNETWORK_TEXTDOMAIN ),
 					'desc'    => __( 'Enter your domain name: <code>example.com</code>, Or just <code>auto</code>', GNETWORK_TEXTDOMAIN ),
 					'default' => 'auto',
+					'dir'     => 'ltr',
 				),
 				array(
 					'field'   => 'ga_account',
@@ -53,6 +55,16 @@ class gNetworkTracking extends gNetworkModuleCore
 					'title'   => __( 'GA Account', GNETWORK_TEXTDOMAIN ),
 					'desc'    => __( 'Enter your Google Analytics account number: <code>UA-XXXXX-X</code>', GNETWORK_TEXTDOMAIN ),
 					'default' => '',
+					'dir'     => 'ltr',
+				),
+				array(
+					'field'   => 'ga_beacon',
+					'type'    => 'text',
+					'title'   => __( 'GA Beacon', GNETWORK_TEXTDOMAIN ),
+					'desc'    => __( 'Enter your Google Analytics Beacon account number: <code>UA-XXXXX-X</code>', GNETWORK_TEXTDOMAIN ),
+					'default' => '',
+					'dir'     => 'ltr',
+					'after'   => sprintf( '<span class="field-after icon-wrap">%s</span>', self::getMoreInfoIcon( 'https://github.com/igrigorik/ga-beacon' ) ),
 				),
 				array(
 					'field'   => 'ga_userid',
@@ -74,6 +86,7 @@ class gNetworkTracking extends gNetworkModuleCore
 					'title'   => __( 'Quantcast', GNETWORK_TEXTDOMAIN ),
 					'desc'    => __( 'Enter your Quantcast account number: <code>x-XXXXXXXXXXXX-</code>', GNETWORK_TEXTDOMAIN ),
 					'default' => '',
+					'dir'     => 'ltr',
 				),
 				array(
 					'field'   => 'plus_publisher',
@@ -81,6 +94,7 @@ class gNetworkTracking extends gNetworkModuleCore
 					'title'   => __( 'GP Publisher ID', GNETWORK_TEXTDOMAIN ),
 					'desc'    => __( 'Enter your Google+ publisher number: <code>XXXXXXXXXXXXXXXXXXXXX</code>', GNETWORK_TEXTDOMAIN ),
 					'default' => '',
+					'dir'     => 'ltr',
 				),
 				array(
 					'field'   => 'twitter_site',
@@ -88,6 +102,7 @@ class gNetworkTracking extends gNetworkModuleCore
 					'title'   => __( 'Twitter Account', GNETWORK_TEXTDOMAIN ),
 					'desc'    => __( 'Enter site twitter account username: <code>username</code>', GNETWORK_TEXTDOMAIN ),
 					'default' => '',
+					'dir'     => 'ltr',
 				),
 			),
 		);
@@ -98,6 +113,7 @@ class gNetworkTracking extends gNetworkModuleCore
 		return array(
 			'primary_domain' => '',
 			'ga_account'     => '',
+			'ga_beacon'      => '',
 			'ga_domain'      => 'auto',
 			'ga_userid'      => '1',
 			'ga_outbound'    => '0',
@@ -127,10 +143,11 @@ class gNetworkTracking extends gNetworkModuleCore
 	{
 		$this->shortcodes( array(
 			'google-plus-badge' => 'shortcode_google_plus_badge',
+			'ga-beacon'         => 'shortcode_ga_beacon',
 		) );
 	}
 
-	public function shortcode_google_plus_badge( $atts, $content = NULL, $tag = '' )
+	public function shortcode_google_plus_badge( $atts = array(), $content = NULL, $tag = '' )
 	{
 		$args = shortcode_atts( array(
 			'id'      => FALSE,
@@ -138,6 +155,7 @@ class gNetworkTracking extends gNetworkModuleCore
 			'width'   => '300',
 			'rel'     => 'publisher',
 			'context' => NULL,
+			'wrap'    => TRUE,
 		), $atts, $tag );
 
 		if ( FALSE === $args['context'] || is_feed() )
@@ -161,7 +179,43 @@ class gNetworkTracking extends gNetworkModuleCore
 			'data-rel'   => $args['rel'],
 		), NULL );
 
-		return '<div class="gnetwork-wrap-shortcode shortcode-googleplus-badge">'.$html.'</div>';
+		if ( $args['wrap'] )
+			return '<div class="gnetwork-wrap-shortcode -googleplus-badge gnetwork-wrap-iframe">'.$html.'</div>';
+
+		return $html;
+	}
+
+	public function shortcode_ga_beacon( $atts, $content = NULL, $tag = '' )
+	{
+		$args = shortcode_atts( array(
+			'server'  => 'https://ga-beacon.appspot.com/',
+			'beacon'  => $this->options['ga_beacon'],
+			'domain'  => $this->options['primary_domain'],
+			'page'    => '',
+			'badge'   => 'pixel', // 'flat' / 'flat-gif'
+			'alt'     => 'Analytics',
+			'context' => NULL,
+			'wrap'    => FALSE,
+			'md'      => NULL, // markdown // FIXME
+		), $atts, $tag );
+
+		if ( FALSE === $args['context'] || is_feed() )
+			return NULL;
+
+		$src = self::trail( $args['server'] ).$args['beacon'].'/'.$args['domain'].'/'.$args['page'];
+
+		if ( $args['badge'] )
+			$src .= '?'. $args['badge'];
+
+		$html = gNetworkUtilities::html( 'img', array(
+			'src' => $src,
+			'alt' => $args['alt'],
+		) );
+
+		if ( $args['wrap'] )
+			return '<div class="gnetwork-wrap-shortcode -beacon">'.$html.'</div>';
+
+		return $html;
 	}
 
 	public function wp_head()
@@ -254,13 +308,13 @@ qacct:"<?php echo $this->options['quantcast']; ?>"
 
 		}
 
-		// FIXME: get locale
-		// https://developers.google.com/+/web/api/supported-languages
+		// SEE: https://developers.google.com/+/web/api/supported-languages
+		$iso = class_exists( 'gNetworkLocale' ) ? gNetworkLocale::getISO() : 'en';
 
 		if ( $this->gp_platformjs ) {
 ?><script type="text/javascript">
 /* <![CDATA[ */
-	window.___gcfg = {lang: 'fa'};
+	window.___gcfg = {lang: '<?php echo $iso; ?>'};
 
 	(function() {
 		var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
@@ -281,7 +335,7 @@ qacct:"<?php echo $this->options['quantcast']; ?>"
 
 		if ( isset( $gNetwork->tracking ) && $gNetwork->tracking->options['twitter_site'] )
 			$html = gNetworkUtilities::html( 'a', array(
-				'href'  => 'https://twitter.com/intent/follow?screen_name='.$gNetwork->tracking->options['twitter_site'],
+				'href'  => 'https://twitter.com/intent/user?screen_name='.$gNetwork->tracking->options['twitter_site'],
 				'title' => __( 'Follow Us', GNETWORK_TEXTDOMAIN ),
 				'rel'   => 'follow',
 				'dir'   => 'ltr',
