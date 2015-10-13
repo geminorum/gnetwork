@@ -16,9 +16,13 @@ class gNetworkWidgets extends gNetworkModuleCore
 	{
 		$widgets = array(
 			'gNetworkDev_Legend_Widget',
-			'gNetworkTracking_Quantcast_Widget',
 			'gNetworkShortcode_Widget',
 		);
+
+		if ( class_exists( 'gNetworkTracking' ) ) {
+			$widgets[] = 'gNetworkTracking_Quantcast_Widget';
+			$widgets[] = 'gNetworkTracking_GPlusBadge_Widget';
+		}
 
 		foreach ( $widgets as $widget )
 			register_widget( $widget );
@@ -55,6 +59,74 @@ class gNetworkDev_Legend_Widget extends WP_Widget
 	}
 }
 
+
+class gNetworkTracking_GPlusBadge_Widget extends WP_Widget
+{
+
+	public function __construct()
+	{
+		parent::__construct( 'gnetwork-gplusbadge-widget',
+			_x( 'gNetwork Tracking: Google Plus Badge', 'Widgets Module', GNETWORK_TEXTDOMAIN ),
+			array(
+				'classname'   => 'gnetwork-wrap-widget gplusbadge-widget',
+				'description' => _x( 'Simple Google Plus Badge', 'Widgets Module', GNETWORK_TEXTDOMAIN )
+			) );
+	}
+
+	public function form( $instance )
+	{
+		$html = gNetworkUtilities::html( 'input', array(
+			'type'  => 'number',
+			'id'    => $this->get_field_id( 'width' ),
+			'name'  => $this->get_field_name( 'width' ),
+			'value' => isset( $instance['width'] ) ? $instance['width'] : '300',
+			'class' => 'small-text',
+			'dir'   => 'ltr',
+		) );
+
+		echo '<p>'. gNetworkUtilities::html( 'label', array(
+			'for' => $this->get_field_id( 'width' ),
+		), _x( 'Side bar width:', 'Widgets Module', GNETWORK_TEXTDOMAIN ).' '.$html ).'</p>';
+
+		$html = gNetworkUtilities::html( 'input', array(
+			'type'  => 'text',
+			'id'    => $this->get_field_id( 'override' ),
+			'name'  => $this->get_field_name( 'override' ),
+			'value' => isset( $instance['override'] ) ? $instance['override'] : '',
+			'class' => 'widefat',
+			'dir'   => 'ltr',
+		) );
+
+		echo '<p>'. gNetworkUtilities::html( 'label', array(
+			'for' => $this->get_field_id( 'override' ),
+		), _x( 'Override Publisher ID:', 'Widgets Module', GNETWORK_TEXTDOMAIN ).' '.$html );
+
+		echo '<br /><span class="description">'._x( 'Leave empty to use site Publisher ID', 'Widgets Module', GNETWORK_TEXTDOMAIN ).'</span>';
+		echo '</p>';
+	}
+
+	public function widget( $args, $instance )
+	{
+		global $gNetwork;
+
+		if ( isset( $gNetwork->tracking ) && $gNetwork->tracking->options['plus_publisher'] ) {
+
+			$html = $gNetwork->tracking->shortcode_google_plus_badge( array(
+				'id'      => isset( $instance['override'] ) ? $instance['override'] : FALSE,
+				'width'   => isset( $instance['width'] ) ? $instance['width'] : '300',
+				'context' => 'widget',
+				'wrap'    => FALSE,
+			) );
+
+			if ( $html ) {
+				echo $args['before_widget'];
+					echo '<div class="gnetwork-wrap-iframe">'.$html.'</div>';
+				echo $args['after_widget'];
+			}
+		}
+	}
+}
+
 class gNetworkTracking_Quantcast_Widget extends WP_Widget
 {
 
@@ -76,7 +148,7 @@ class gNetworkTracking_Quantcast_Widget extends WP_Widget
 
 			echo $args['before_widget'];
 
-			echo gNetworkUtilities::html( 'iframe', array(
+			echo '<div class="gnetwork-wrap-iframe">'.gNetworkUtilities::html( 'iframe', array(
 				'frameborder'  => '0',
 				'marginheight' => '0',
 				'marginwidth'  => '0',
@@ -84,7 +156,7 @@ class gNetworkTracking_Quantcast_Widget extends WP_Widget
 				'width'        => '160',
 				'scrolling'    => 'no',
 				'src'          => 'http://widget.quantcast.com/'.$gNetwork->tracking->options['primary_domain'].'/10?&timeWidth=1&daysOfData=90',
-			), NULL );
+			), NULL ).'</div>';
 
 			echo $args['after_widget'];
 		}
