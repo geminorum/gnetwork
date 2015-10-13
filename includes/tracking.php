@@ -190,7 +190,7 @@ class gNetworkTracking extends gNetworkModuleCore
 		$args = shortcode_atts( array(
 			'server'  => 'https://ga-beacon.appspot.com/',
 			'beacon'  => $this->options['ga_beacon'],
-			'domain'  => $this->options['primary_domain'],
+			'domain'  => gNetworkUtilities::getDomain( $this->options['primary_domain'] ),
 			'page'    => '',
 			'badge'   => 'pixel', // 'flat' / 'flat-gif'
 			'alt'     => 'Analytics',

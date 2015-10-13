@@ -131,6 +131,19 @@ class gNetworkUtilities
 			.__( '&ldquo;', GNETWORK_TEXTDOMAIN ).'.';
 	}
 
+	public static function getDomain( $string )
+	{
+		// FIXME: strip all the path
+		// SEE: http://stackoverflow.com/questions/569137/how-to-get-domain-name-from-url
+
+		if ( FALSE !== strpos( $string, '.' ) ) {
+			$domain = explode( '.', $string );
+			$domain = $domain[0];
+		}
+
+		return strtolower( $domain );
+	}
+
 	public static function getLayout( $layout_name, $require_once = FALSE, $no_cache = FALSE )
 	{
 		// FIXME: must check if it's not admin!
