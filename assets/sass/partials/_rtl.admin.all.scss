@@ -19,14 +19,14 @@ body.rtl {
 
 	.wrap h2,
 	#site-title,
-	#poststuff h3,
+	#poststuff h2,
 	.metabox-holder h3 {
 		font: bold 16px arial, sans-serif !important;
 	}
 
 	.wrap .page-title-action {}
 
-	#poststuff h3,
+	#poststuff h2,
 	.metabox-holder h3 {
 		padding: 10px 12px 5px;
 	}
@@ -185,6 +185,25 @@ body.rtl {
 		#the-list td.column-title p {
 			font-size: 0.78em;
 		}
+	}
+
+	// ThickBox
+	#TB_ajaxWindowTitle {
+		padding: 0 10px 0 29px;
+	}
+
+	#TB_closeAjaxWindow {
+		float: left;
+	}
+	
+	#TB_window,
+	#TB_ajaxContent {
+		text-align: right;
+	}
+
+	.tb-close-icon {
+		right: auto;
+		left: 0;
 	}
 
 	input#adduser-email,

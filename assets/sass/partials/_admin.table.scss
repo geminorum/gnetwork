@@ -1,6 +1,18 @@
 
 // FIXME: move this to where it blongs!
 
+table.helper-table {
+	.-column-debug {
+		padding: 0;
+	}
+
+	pre {
+		margin: 0;
+		padding: 0;
+	}
+}
+
+// OLD: WTF?!
 table.helper-table-side {
 
 	direction: ltr;
