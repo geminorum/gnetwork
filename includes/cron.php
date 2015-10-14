@@ -11,8 +11,81 @@ class gNetworkCron extends gNetworkModuleCore
 	{
 		gNetworkAdmin::registerMenu( 'cron',
 			__( 'CRON', GNETWORK_TEXTDOMAIN ),
-			FALSE, 'manage_network_options'
+			array( $this, 'settings' )
 		);
+	}
+
+	public function settings( $sub = NULL )
+	{
+		if ( 'cron' == $sub ) {
+			$this->settings_update( $sub );
+
+			add_action( 'gnetwork_admin_settings_messages', array( $this, 'settings_messages' ), 10, 2 );
+			add_action( 'gnetwork_admin_settings_sub_cron', array( $this, 'settings_html' ), 10, 2 );
+
+			$this->register_button( 'unschedule', _x( 'Unschedule', 'Cron Module', GNETWORK_TEXTDOMAIN ), array( 'default' => 'default' ), 'primary' );
+		}
+	}
+
+	protected function settings_update( $sub )
+	{
+		if ( ! empty( $_POST ) && 'bulk' == $_POST['action'] ) {
+
+			$this->check_referer( $sub );
+
+			if ( isset( $_POST['unschedule'], $_POST['_cb'] ) ) {
+
+				$count = 0;
+				$cron = self::getCronArray();
+
+				foreach ( $_POST['_cb'] as $event )
+					if ( self::unschedule( intval( $event ), $cron ) )
+						$count++;
+
+			} else {
+				return FALSE;
+			}
+
+			self::redirect_referer( array(
+				'message' => 'unscheduled',
+				'count'   => $count,
+			) );
+		}
+	}
+
+	// HELPER
+	protected static function unschedule( $timestamp, $cron )
+	{
+		if ( array_key_exists( $timestamp, $cron ) ) {
+			foreach ( $cron[$timestamp] as $action => $hashes ) {
+				foreach ( $hashes as $hash ) {
+					wp_unschedule_event( $timestamp, $action, $hash['args'] );
+					return TRUE;
+				}
+			}
+		}
+
+		return FALSE;
+	}
+
+	public function settings_messages( $messages, $sub )
+	{
+		$messages['unscheduled'] = self::counted( _x( '%s Events Unscheduled!', 'Cron Module', GNETWORK_TEXTDOMAIN ) );
+		return $messages;
+	}
+
+	public function settings_html( $uri, $sub = 'general' )
+	{
+		echo '<form class="gnetwork-form" method="post" action="">';
+
+			$this->settings_fields( $sub, 'bulk' );
+
+			self::cronInfo();
+
+			if ( class_exists( 'gEditorialHelper' ) )
+				$this->settings_buttons( $sub );
+
+		echo '</form>';
 	}
 
 	// HELPER
@@ -93,6 +166,13 @@ class gNetworkCron extends gNetworkModuleCore
 						return $info;
 					},
 				),
+				// 'debug' => array(
+				// 	'title' => __( 'Debug', GNETWORK_TEXTDOMAIN ),
+				// 	'class' => '-column-debug',
+				// 	'callback' => function( $value, $row, $column, $index ){
+				// 		return gPluginUtils::dump_get( $row );
+				// 	},
+				// ),
 			), $cron );
 		}
 	}
