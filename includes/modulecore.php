@@ -190,7 +190,7 @@ class gNetworkModuleCore
 		$class   = 'gnetwork-form';
 		$sidebox = method_exists( $this, 'settings_sidebox' );
 
-		// MUST DROP ON v0.3.0
+		// TODO: MUST DROP: on v0.3.0
 		if ( $this->is_network() )
 			$options = get_site_option( $this->options_key(), array() );
 		else
@@ -201,7 +201,7 @@ class gNetworkModuleCore
 
 		echo '<form class="'.$class.'" method="post" action="">';
 
-			settings_fields( $this->option_base.'_'.$sub );
+			$this->settings_fields( $sub, 'update' );
 
 			if ( $sidebox ) {
 				echo '<div class="settings-sidebox settings-sidebox-'.$sub.'">';
@@ -245,7 +245,7 @@ class gNetworkModuleCore
 		);
 	}
 
-	public function settings_buttons( $sub = NULL )
+	protected function settings_buttons( $sub = NULL )
 	{
 		echo '<p class="submit gnetwork-settings-buttons">';
 
@@ -257,12 +257,18 @@ class gNetworkModuleCore
 		echo '</p>';
 	}
 
-	// FIXME: SEE: http://codex.wordpress.org/Data_Validation#Input_Validation
-	public function settings_update( $sub = NULL )
+	protected function settings_fields( $sub, $action = 'update' )
 	{
-		if ( is_null( $sub ) )
-			$sub = $this->option_key ? $this->option_key : 'general';
+		echo '<input type="hidden" name="base" value="'.$this->option_base.'" />';
+		echo '<input type="hidden" name="sub" value="'.$sub.'" />';
+		echo '<input type="hidden" name="action" value="'.$action.'" />';
 
+		wp_nonce_field( $this->option_base.'_'.$sub.'-settings' );
+	}
+
+	// FIXME: SEE: http://codex.wordpress.org/Data_Validation#Input_Validation
+	protected function settings_update( $sub )
+	{
 		if ( ! empty( $_POST ) && 'update' == $_POST['action'] ) {
 
 			$this->check_referer( $sub );
@@ -281,12 +287,9 @@ class gNetworkModuleCore
 		}
 	}
 
-	protected function check_referer( $sub = NULL )
+	protected function check_referer( $sub )
 	{
-		if ( is_null( $sub ) )
-			$sub = $this->option_key ? $this->option_key : 'general';
-
-		check_admin_referer( $this->option_base.'_'.$sub.'-options' );
+		check_admin_referer( $this->option_base.'_'.$sub.'-settings' );
 	}
 
 	public static function redirect_referer( $message = 'updated', $key = 'message' )
