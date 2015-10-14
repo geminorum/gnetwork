@@ -92,7 +92,7 @@ class gNetworkBlog extends gNetworkModuleCore
 					'description' => __( 'Set any page to be used as copyright page on html head.', GNETWORK_TEXTDOMAIN ),
 					'default'     => '0',
 					'exclude'     => $exclude,
-					'after'       => sprintf( '<span class="field-after">%s</span>', self::getNewPostTypeLink( 'page' ) ),
+					'after'       => sprintf( '<span class="field-after icon-wrap">%s</span>', self::getNewPostTypeLink( 'page' ) ),
 				),
 				array(
 					'field'       => 'page_404',
@@ -101,7 +101,7 @@ class gNetworkBlog extends gNetworkModuleCore
 					'description' => __( 'Set any page to be used as the 404 error page.', GNETWORK_TEXTDOMAIN ),
 					'default'     => '0',
 					'exclude'     => $exclude,
-					'after'       => sprintf( '<span class="field-after">%s</span>', self::getNewPostTypeLink( 'page' ) ),
+					'after'       => sprintf( '<span class="field-after icon-wrap">%s</span>', self::getNewPostTypeLink( 'page' ) ),
 				),
 			),
 		);
@@ -112,7 +112,7 @@ class gNetworkBlog extends gNetworkModuleCore
 					'field'       => 'ga_override',
 					'type'        => 'text',
 					'title'       => __( 'GA Override', GNETWORK_TEXTDOMAIN ),
-					'description' => __( 'Enter your Google Analytics account number to override network default: <code>UA-XXXXX-X</code>', GNETWORK_TEXTDOMAIN ),
+					'description' => __( 'This blog Google Analytics account to override the network', GNETWORK_TEXTDOMAIN ),
 					'default'     => '',
 					'dir'         => 'ltr',
 					'placeholder' => 'UA-XXXXX-X',

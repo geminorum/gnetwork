@@ -1044,13 +1044,13 @@ class gNetworkModuleCore
 	}
 
 	// HELPER
-	public static function getNewPostTypeLink( $post_type = 'page' )
+	public static function getNewPostTypeLink( $post_type = 'page', $text = FALSE )
 	{
 		return gNetworkUtilities::html( 'a', array(
 			'href'   => admin_url( '/post-new.php?post_type='.$post_type ),
 			'title'  => _x( 'Add New Post Type', 'Moduel Core', GNETWORK_TEXTDOMAIN ),
 			'target' => '_blank',
-		), _x( 'Add New', 'Moduel Core: Add New Post Type', GNETWORK_TEXTDOMAIN ) );
+		), ( $text ? _x( 'Add New', 'Moduel Core: Add New Post Type', GNETWORK_TEXTDOMAIN ) : self::getDashicon( 'welcome-add-page' ) ) );
 	}
 
 	// HELPER
