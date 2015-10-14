@@ -1,3 +1,8 @@
+### 0.2.25
+* locale: custom network admin language
+* cron: unscheduling events
+* network: github readme as overview
+
 ### 0.2.24
 * all: `503`/`403` template helpers
 * modulecore: notice updated/error helpers
