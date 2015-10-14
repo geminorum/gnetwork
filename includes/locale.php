@@ -50,6 +50,7 @@ class gNetworkLocale extends gNetworkModuleCore
 	}
 
 	// HELPER
+	// TODO: add arg to get by localized names
 	public static function available()
 	{
 		$languages = get_available_languages();
@@ -118,8 +119,10 @@ class gNetworkLocale extends gNetworkModuleCore
 
 	public function locale( $locale )
 	{
+		global $gNetwork;
+
 		if ( is_network_admin() )
-			return 'en_US';
+			return isset( $gNetwork->site ) && $gNetwork->site->options['admin_locale'] ? $gNetwork->site->options['admin_locale'] : 'en_US';
 
 		if ( is_admin() ) {
 			if ( defined( 'GNETWORK_WPLANG_ADMIN' ) && GNETWORK_WPLANG_ADMIN )

@@ -20,13 +20,15 @@ class gNetworkSite extends gNetworkModuleCore
 	public function default_options()
 	{
 		return array(
+			'admin_locale'   => 'en_US',
 			'login_remember' => 0,
 		);
 	}
 
 	public function default_settings()
 	{
-		return array(
+
+		$settings = array(
 			'_general' => array(
 				array(
 					'field'   => 'login_remember',
@@ -37,6 +39,20 @@ class gNetworkSite extends gNetworkModuleCore
 				),
 			),
 		);
+
+		if ( class_exists( 'gNetworkLocale' ) )
+			$settings['_locale'] = array(
+				array(
+					'field'   => 'admin_locale',
+					'type'    => 'select',
+					'title'   => __( 'Network Language', GNETWORK_TEXTDOMAIN ),
+					'desc'    => __( 'Despite of the site language, always display network admin in this locale', GNETWORK_TEXTDOMAIN ),
+					'values'  => gNetworkUtilities::sameKey( gNetworkLocale::available() ),
+					'default' => 'en_US',
+				),
+			);
+
+		return $settings;
 	}
 
 	public function login_footer_remember()
