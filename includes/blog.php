@@ -59,6 +59,7 @@ class gNetworkBlog extends gNetworkModuleCore
 					'description' => __( 'The site will redirect to this URL. Leave empty to disable.', GNETWORK_TEXTDOMAIN ),
 					'default'     => '',
 					'dir'         => 'ltr',
+					'placeholder' => 'http://example.com',
 				),
 				// FIXME: wont work, wont enable!
 				array(
@@ -114,6 +115,7 @@ class gNetworkBlog extends gNetworkModuleCore
 					'description' => __( 'Enter your Google Analytics account number to override network default: <code>UA-XXXXX-X</code>', GNETWORK_TEXTDOMAIN ),
 					'default'     => '',
 					'dir'         => 'ltr',
+					'placeholder' => 'UA-XXXXX-X',
 				),
 			);
 

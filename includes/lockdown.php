@@ -72,11 +72,11 @@ class gNetworkLockDown extends gNetworkModuleCore
 					),
 				),
 				array(
-					'field' => 'locked_notice',
-					'type'  => 'textarea',
-					'title' => __( 'Locked Message', GNETWORK_TEXTDOMAIN ),
-					'desc'  => __( 'Locked message on login page.', GNETWORK_TEXTDOMAIN ),
-					'class' => 'large-text code',
+					'field'       => 'locked_notice',
+					'type'        => 'textarea',
+					'title'       => __( 'Locked Message', GNETWORK_TEXTDOMAIN ),
+					'desc'        => __( 'Locked message on login page.', GNETWORK_TEXTDOMAIN ),
+					'field_class' => 'large-text code',
 				),
 			),
 		);

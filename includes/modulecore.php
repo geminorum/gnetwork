@@ -469,14 +469,7 @@ class gNetworkModuleCore
 
 	public function do_settings_field( $atts = array(), $wrap = FALSE )
 	{
-		// TODO: MUST DROP
-		// workaround to recent changes on WP 4.3
-		if ( isset( $atts['class'] ) && ! isset( $atts['field_class'] ) ) {
-			$atts['field_class'] = $atts['class'];
-			unset( $atts['class'] );
-		}
-
-		$args = shortcode_atts( array(
+		$args = self::atts( array(
 			'title'        => '',
 			'label_for'    => '',
 			'type'         => 'enabled',
@@ -498,6 +491,7 @@ class gNetworkModuleCore
 			'disabled'     => FALSE,
 			'name_attr'    => FALSE, // override
 			'id_attr'      => FALSE, // override
+			'placeholder'  => FALSE,
 		), $atts );
 
 		if ( $wrap ) {
@@ -558,13 +552,14 @@ class gNetworkModuleCore
 					$args['field_class'] = 'regular-text';
 
 				echo gNetworkUtilities::html( 'input', array(
-					'type'     => 'text',
-					'class'    => $args['field_class'],
-					'name'     => $name,
-					'id'       => $id,
-					'value'    => $value,
-					'dir'      => $args['dir'],
-					'disabled' => $args['disabled'],
+					'type'        => 'text',
+					'class'       => $args['field_class'],
+					'name'        => $name,
+					'id'          => $id,
+					'value'       => $value,
+					'dir'         => $args['dir'],
+					'disabled'    => $args['disabled'],
+					'placeholder' => $args['placeholder'],
 				) );
 
 			break;
@@ -577,15 +572,16 @@ class gNetworkModuleCore
 					$args['dir'] = 'ltr';
 
 				echo gNetworkUtilities::html( 'input', array(
-					'type'  => 'number',
-					'class' => $args['field_class'],
-					'name'  => $name,
-					'id'    => $id,
-					'value' => $value,
-					'step'  => '1', // FIXME: get from args
-					'min'   => '0', // FIXME: get from args
-					'dir'   => $args['dir'],
-					'disabled' => $args['disabled'],
+					'type'        => 'number',
+					'class'       => $args['field_class'],
+					'name'        => $name,
+					'id'          => $id,
+					'value'       => $value,
+					'step'        => '1', // FIXME: get from args
+					'min'         => '0', // FIXME: get from args
+					'dir'         => $args['dir'],
+					'disabled'    => $args['disabled'],
+					'placeholder' => $args['placeholder'],
 				) );
 
 			break;
@@ -746,11 +742,12 @@ class gNetworkModuleCore
 				}
 
 				echo gNetworkUtilities::html( 'textarea', array(
-					'class' => $classes,
-					'name'  => $name,
-					'id'    => $id,
-					'rows'  => 5,
-					'cols'  => 45,
+					'class'       => $classes,
+					'name'        => $name,
+					'id'          => $id,
+					'rows'        => 5,
+					'cols'        => 45,
+					'placeholder' => $args['placeholder'],
 				// ), esc_textarea( $value ) );
 				), $value );
 
