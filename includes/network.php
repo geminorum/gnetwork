@@ -167,20 +167,9 @@ class gNetworkNetwork extends gNetworkModuleCore
 
 		echo '<div class="wrap gnetwork-admin-settings-wrap settings-network sub-'.$sub.'">';
 
-			self::sideNotification();
-			echo gNetworkUtilities::html( 'h1', __( 'gNetwork Extras', GNETWORK_TEXTDOMAIN ) );
-
+			self::settingsTitle();
 			gNetworkUtilities::headerNav( $uri, $sub, $subs );
-
-			if ( isset( $_REQUEST['message'] ) ) {
-
-				if ( isset( $messages[$_REQUEST['message']] ) )
-					echo $messages[$_REQUEST['message']];
-				else
-					gNetworkUtilities::notice( $_REQUEST['message'] );
-
-				$_SERVER['REQUEST_URI'] = remove_query_arg( 'message', $_SERVER['REQUEST_URI'] );
-			}
+			self::settingsMessage( $messages );
 
 			if ( file_exists( GNETWORK_DIR.'admin/network.'.$sub.'.php' ) )
 				require_once( GNETWORK_DIR.'admin/network.'.$sub.'.php' );

@@ -1127,11 +1127,32 @@ class gNetworkModuleCore
 		}
 	}
 
-	public static function sideNotification()
+	public static function settingsTitle()
 	{
-		echo '<div class="gnetwork-sidenotification">';
-			// printf( __( 'gNetwork v%s', GNETWORK_TEXTDOMAIN ), GNETWORK_VERSION );
-			echo GNETWORK_VERSION;
-		echo '</div>';
+		echo '<h1>';
+
+			_ex( 'gNetwork Extras', 'Moduel Core: Page Title', GNETWORK_TEXTDOMAIN );
+
+			echo ' '.gNetworkUtilities::html( 'a', array(
+				'href'   => 'http://geminorum.ir/wordpress/gnetwork',
+				'title'  => _x( 'Plugin Homepage', 'Moduel Core: Title Attr', GNETWORK_TEXTDOMAIN ),
+				'class'  => 'page-title-action',
+				'target' => '_blank',
+			), GNETWORK_VERSION );
+
+		echo '</h1>';
+	}
+
+	public static function settingsMessage( $messages = array() )
+	{
+		if ( isset( $_GET['message'] ) ) {
+
+			if ( isset( $messages[$_GET['message']] ) )
+				echo $messages[$_GET['message']];
+			else
+				gNetworkUtilities::notice( $_GET['message'] );
+
+			$_SERVER['REQUEST_URI'] = remove_query_arg( 'message', $_SERVER['REQUEST_URI'] );
+		}
 	}
 }

@@ -205,22 +205,11 @@ class gNetworkAdmin extends gNetworkModuleCore
 				'resetting' => self::updated( __( 'Resetting Settings.', GNETWORK_TEXTDOMAIN ) ),
 				'updated'   => self::updated( __( 'Settings updated.', GNETWORK_TEXTDOMAIN ) ),
 				'error'     => self::error( __( 'Error while saving settings.', GNETWORK_TEXTDOMAIN ) ),
-			) );
+			), $sub );
 
-			self::sideNotification();
-			echo gNetworkUtilities::html( 'h1', __( 'gNetwork Extras', GNETWORK_TEXTDOMAIN ) );
-
+			self::settingsTitle();
 			gNetworkUtilities::headerNav( $uri, $sub, $subs );
-
-			if ( isset( $_GET['message'] ) ) {
-
-				if ( isset( $messages[$_GET['message']] ) )
-					echo $messages[$_GET['message']];
-				else
-					gNetworkUtilities::notice( $_GET['message'] );
-
-				$_SERVER['REQUEST_URI'] = remove_query_arg( 'message', $_SERVER['REQUEST_URI'] );
-			}
+			self::settingsMessage( $messages );
 
 			if ( file_exists( GNETWORK_DIR.'admin/admin.'.$sub.'.php' ) )
 				require_once( GNETWORK_DIR.'admin/admin.'.$sub.'.php' );

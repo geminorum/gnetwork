@@ -6,7 +6,7 @@ if ( ! class_exists( 'gNU' ) )
 class gNetworkUtilities
 {
 
-	public static function headerNav( $uri = '', $active = '', $subs = array(), $prefix = 'nav-tab-', $tag = 'h2' )
+	public static function headerNav( $uri = '', $active = '', $subs = array(), $prefix = 'nav-tab-', $tag = 'h3' )
 	{
 		if ( ! count( $subs ) )
 			return;
@@ -223,11 +223,14 @@ class gNetworkUtilities
 		return $html.'</select>';
 	}
 
-	public static function same_key_array( $old )
+	// OLD same_key_array()
+	public static function sameKey( $old )
 	{
 		$new = array();
+
 		foreach ( $old as $key => $value )
 			$new[$value] = $value;
+
 		return $new;
 	}
 
