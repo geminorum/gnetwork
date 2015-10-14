@@ -38,7 +38,7 @@ class gNetworkUsers extends gNetworkModuleCore
 			}
 
 			add_action( 'gnetwork_admin_settings_sub_users', array( $this, 'settings_html' ), 10, 2 );
-			add_filter( 'gnetwork_admin_settings_messages', array( $this, 'admin_settings_messages' ), 10 );
+			add_filter( 'gnetwork_admin_settings_messages', array( $this, 'settings_messages' ), 10, 2 );
 			$this->register_settings();
 		}
 	}
@@ -127,20 +127,17 @@ class gNetworkUsers extends gNetworkModuleCore
 
 		if ( $count )
 			self::redirect_referer( array(
-				'message' => 'bulk-author-changed',
+				'message' => 'changed',
 				'count'   => $count,
 			) );
 		else
-			self::redirect_referer( 'bulk-author-not-changed' );
+			self::redirect_referer( 'nochange' );
 	}
 
-	public function admin_settings_messages( $messages )
+	public function settings_messages( $messages, $sub )
 	{
-		$count = isset( $_GET['count'] ) ? $_GET['count'] : 0 ;
-		$_SERVER['REQUEST_URI'] = remove_query_arg( 'count', $_SERVER['REQUEST_URI'] );
-
-		$messages['bulk-author-changed']     = self::error( sprintf( __( '%s Post(s) Changed', GNETWORK_TEXTDOMAIN ), number_format_i18n( $count ) ) );
-		$messages['bulk-author-not-changed'] = self::updated( __( 'No Post Changed', GNETWORK_TEXTDOMAIN ) );
+		$messages['changed']  = self::counted( __( '%s Post(s) Changed', GNETWORK_TEXTDOMAIN ) );
+		$messages['nochange'] = self::error( __( 'No Post Changed', GNETWORK_TEXTDOMAIN ) );
 
 		return $messages;
 	}

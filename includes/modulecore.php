@@ -975,6 +975,18 @@ class gNetworkModuleCore
 		return gNetworkUtilities::notice( $message, 'updated fade', FALSE );
 	}
 
+	// HELPER
+	public static function counted( $message = NULL, $count = NULL, $class = 'updated' )
+	{
+		if ( is_null( $message ) )
+			$message = _x( '%s Counted!', 'Module Core', GNETWORK_TEXTDOMAIN );
+
+		if ( is_null( $count ) )
+			$count = isset( $_REQUEST['count'] ) ? $_REQUEST['count'] : 0;
+
+		return gNetworkUtilities::notice( sprintf( $message, number_format_i18n( $count ) ), $class.' fade', FALSE );
+	}
+
 	// HELPER : Will remove trailing forward and backslashes if it exists already before adding
 	// a trailing forward slash. This prevents double slashing a string or path.
 	// ANCESTOR: trailingslashit()
