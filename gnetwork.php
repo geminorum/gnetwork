@@ -28,16 +28,14 @@ function gnetwork_init() {
 		'functions'   => '',
 		'utilities'   => '',
 		'modulecore'  => '',
-
+		'die'         => '',
+		'pluggable'   => '',
 		'network'     => 'gNetworkNetwork',
 		'admin'       => 'gNetworkAdmin',
-
 		'site'        => 'gNetworkSite',
 		'blog'        => 'gNetworkBlog',
-
 		'adminbar'    => 'gNetworkAdminBar',
 		'users'       => 'gNetworkUsers',
-
 		'tracking'    => 'gNetworkTracking',
 		'maintenance' => 'gNetworkMaintenance',
 		'restricted'  => 'gNetworkRestricted',
@@ -46,59 +44,27 @@ function gnetwork_init() {
 		'opensearch'  => 'gNetworkOpenSearch',
 		'mail'        => 'gNetworkMail',
 		'navigation'  => 'gNetworkNavigation',
-		// 'activation'  => 'gNetworkActivation', // WORKING, NEEDS Final CHECK and seeing the Original
+		// 'activation'  => 'gNetworkActivation', // WORKING, NEEDS Final CHECK
 		'locale'      => 'gNetworkLocale',
 		'themes'      => 'gNetworkThemes',
 		'media'       => 'gNetworkMedia',
 		'cron'        => 'gNetworkCron',
-
 		'login'       => 'gNetworkLogin',
 		'lockdown'    => 'gNetworkLockDown',
 		'blacklist'   => 'gNetworkBlackList',
-
-		// 'backup'      => 'gNetworkBackup',
 		'update'      => 'gNetworkUpdate',
-		// 'limitlogin' => 'gNetworkLimitLogin',
-
-		'die'         => '',
-		'pluggable'   => '',
-
-
-		// 'options' => 'gNetworkOptions', // NOT FINISHED!!
-		// 'screen' => 'gNetworkScreen', // DRAFT
-
-		// 'p2' => 'gNetworkP2', // must rename to attachment or move to media module
-
-		// 'url' => 'gNetworkURL',
-		'search'     => 'gNetworkSearch',
-
-		'taxonomy'   => 'gNetworkTaxonomy',
-		// 'meta' => 'gNetworkMeta', // must clean the mess!
-		'shortcodes' => 'gNetworkShortCodes',
-		'comments'   => 'gNetworkComments',
-		'widgets'    => 'gNetworkWidgets',
-		'bbpress'    => 'gNetworkbbPress',
-		// 'edd'        => 'gNetworkEDD', // WORKING, BUT DISABLED : Must review
-		// 'gshop'      => 'gNetworkgShop', // WORKING, BUT DISABLED : Must review
-
-		// 'barcode'    => 'gNetworkgBarCode', // TEST
-		// 'thumb' => 'gNetworkgThumb', // TEST/DRAFT
-
-		'notify'     => 'gNetworkNotify',
-		'reference'  => 'gNetworkReference',
-		'typography' => 'gNetworkTypography',
-		// 'highlight'  => 'gNetworkHighLight', // DRAFT
-
-		// 'sms'        => 'gNetworkSMS', // WORKING, BUT DISABLED : Must review
-		// 'geo'        => 'gNetworkGeo', // PLANNING!
-		'debug'      => 'gNetworkDebug',
-		'code'       => 'gNetworkCode',
-		// 'files'      => 'gNetworkFiles', // DRAFT
-		'cleanup'    => 'gNetworkCleanup',
-		// 'shortener'  => 'gNetworkShortener', // UNFINISHED
-		// 'pot'        => 'gNetworkPOT',
-		// 'htaccess'   => 'gNetworkHTAccess',
-		// 'signup' => 'gNetworkSignUp',
+		'search'      => 'gNetworkSearch',
+		'taxonomy'    => 'gNetworkTaxonomy',
+		'shortcodes'  => 'gNetworkShortCodes',
+		'comments'    => 'gNetworkComments',
+		'widgets'     => 'gNetworkWidgets',
+		'bbpress'     => 'gNetworkbbPress',
+		'notify'      => 'gNetworkNotify',
+		'reference'   => 'gNetworkReference',
+		'typography'  => 'gNetworkTypography',
+		'debug'       => 'gNetworkDebug',
+		'code'        => 'gNetworkCode',
+		'cleanup'     => 'gNetworkCleanup',
 	);
 
 	if ( defined( 'WP_STAGE' ) ) {
@@ -106,11 +72,6 @@ function gnetwork_init() {
 			$modules['bbq'] = 'gNetworkBBQ';
 		} else if ( 'development' == WP_STAGE ){
 			$modules['dev'] = 'gNetworkDev';
-
-			// BETA FEATURES
-			// $modules['mustache'] = 'gNetworkMustache'; // WORKING
-			// $modules['invoice'] = 'gNetworkInvoice'; // PLANNING
-
 		}
 	}
 
