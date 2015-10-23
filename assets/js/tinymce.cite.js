@@ -7,6 +7,7 @@
 				icon:  'icon gnetwork-tinymce-icon icon-gnetworkcite',
 
 				onclick: function() {
+
 					editor.windowManager.open( {
 						id: 'gnetwork-tinymce-window-gnetworkcite',
 						title: editor.getLang('gnetwork.gnetworkcite-title'),

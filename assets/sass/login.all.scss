@@ -3,11 +3,6 @@
 @import "modules/all";
 @import "partials/base";
 
-// @import "partials/front.all";
-// @import "partials/like.front.all";
-// @import "partials/wpcf7.front.all";
-
-
 .login {
 
 	a {
@@ -16,20 +11,21 @@
 
 	h1 {
 		a {
-			background-image:none !important;
+			background-image: none !important;
 		}
 	}
 
 	#pass-strength-result {
-		width:96% !important;
+		width: 96% !important;
 	}
 
 	form {
-		border-radius:2px;
-		box-shadow:none !important;
+		border-radius: 2px;
+		box-shadow: none !important;
 
-		input[type="text"], input[type="password"] {
-			margin-top:10px !important;
+		input[type="text"],
+		input[type="password"] {
+			margin-top: 10px !important;
 		}
 
 		p {
@@ -37,14 +33,10 @@
 		}
 	}
 
-	#user_login {
-		direction:ltr;
-		margin-left:0 !important;
-	}
-
+	#user_login,
 	#user_pass {
-		direction:ltr;
-		margin-left:0 !important;
+		direction: ltr;
+		margin-left: 0 !important;
 	}
 
 	#wp-submit {
@@ -56,13 +48,22 @@
 	}
 
 	#login_error {
-		box-shadow:none !important;
+		box-shadow: none !important;
 	}
 
 	.message {
-		box-shadow:none !important;
+		box-shadow: none !important;
 	}
 
+	p.sum {
+		margin: 0;
+		padding-bottom: 20px;
+
+		input[type="number"] {
+			width: 38px;
+			padding:0 2px;
+		}
+	}
 }
 
 body.rtl {
@@ -72,6 +73,6 @@ body.rtl {
 	}
 
 	input[type=checkbox]:checked:before {
-		margin:-3px -2px 0 0 !important;
+		margin: -3px -2px 0 0 !important;
 	}
 }

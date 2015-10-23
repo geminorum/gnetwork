@@ -9,6 +9,12 @@
 	&.shortcode-reflist {
 		ul,
 		ol {
+
+			padding: 0;
+			margin: 0;
+			border: 0;
+			list-style: none;
+
 			li {
 
 				.ref-number {
@@ -114,7 +120,7 @@
 
 	&.-googleplus-badge {
 		iframe {
-			
+
 		}
 	}
 
