@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: gNetwork 0.2.24\n"
+"Project-Id-Version: gNetwork 0.2.26\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-07 06:45+0330\n"
-"PO-Revision-Date: 2015-10-07 07:06+0330\n"
+"POT-Creation-Date: 2015-10-23 18:28+0330\n"
+"PO-Revision-Date: 2015-10-23 18:34+0330\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: geminorum <contact@geminorum.ir>\n"
 "Language: fa_IR\n"
@@ -74,8 +74,7 @@ msgstr ""
 msgid "Network deactivation: uninstalled on %s / %s sites."
 msgstr ""
 
-#: includes/admin.php:77 includes/admin.php:99 includes/admin.php:211
-#: includes/network.php:70 includes/network.php:171
+#: includes/admin.php:77 includes/admin.php:99 includes/network.php:70
 msgid "gNetwork Extras"
 msgstr "شبکه"
 
@@ -115,30 +114,30 @@ msgstr "تنظیمات به‌روز شد."
 msgid "Error while saving settings."
 msgstr ""
 
-#: includes/admin.php:232 includes/utilities.php:550
+#: includes/admin.php:221 includes/utilities.php:589
 msgid "Cheatin&#8217; uh?"
 msgstr "کلک میزنی، ها؟"
 
-#: includes/admin.php:287
+#: includes/admin.php:276
 #, php-format
 msgid "Version %s"
 msgstr ""
 
-#: includes/admin.php:288
+#: includes/admin.php:277
 msgid "CODE IS POETRY"
 msgstr ""
 
-#: includes/admin.php:301
+#: includes/admin.php:290
 msgctxt "Admin Module: Dashboard Widget Title"
 msgid "Network Feed"
 msgstr "اخبار داخلی"
 
-#: includes/admin.php:343 includes/admin.php:345 includes/network.php:262
-#: includes/network.php:264
+#: includes/admin.php:332 includes/admin.php:334 includes/network.php:251
+#: includes/network.php:253
 msgid "ID"
 msgstr ""
 
-#: includes/adminbar.php:164 includes/debug.php:12 includes/modulecore.php:398
+#: includes/adminbar.php:164 includes/debug.php:12 includes/modulecore.php:407
 msgid "Debug"
 msgstr "دی‌باگ"
 
@@ -232,8 +231,8 @@ msgstr ""
 
 #: includes/blacklist.php:42
 msgid ""
-"Comma seperated IP's range or individual IP needs to block. ex: <code>1.6.0.0 "
-"- 1.7.255.255,1.8.0.0,1.8.0.1</code>"
+"Comma seperated IP's range or individual IP needs to block. ex: "
+"<code>1.6.0.0 - 1.7.255.255,1.8.0.0,1.8.0.1</code>"
 msgstr ""
 
 #: includes/blacklist.php:48
@@ -248,32 +247,60 @@ msgstr ""
 msgid "General"
 msgstr "عمومی"
 
-#: includes/blog.php:40
+#: includes/blog.php:58
 msgid "Blog Redirect to"
 msgstr ""
 
-#: includes/blog.php:41
+#: includes/blog.php:59
 msgid "The site will redirect to this URL. Leave empty to disable."
 msgstr ""
 
-#: includes/blog.php:48
+#: includes/blog.php:68
+msgid "Link Manager"
+msgstr ""
+
+#: includes/blog.php:69
+msgid "Enables the Link Manager that existed in WordPress until version 3.5."
+msgstr ""
+
+#: includes/blog.php:76
+msgid "XML-RPC"
+msgstr ""
+
+#: includes/blog.php:77
+msgid "Whether XML-RPC services are enabled on this site."
+msgstr ""
+
+#: includes/blog.php:83
 msgid "Feed JSON"
 msgstr ""
 
-#: includes/blog.php:49
+#: includes/blog.php:84
 msgid "Adds JSON as new type of feed you can subscribe to."
 msgstr ""
 
-#: includes/blog.php:56
+#: includes/blog.php:91
+msgid "Page for Copyright"
+msgstr ""
+
+#: includes/blog.php:92
+msgid "Set any page to be used as copyright page on html head."
+msgstr ""
+
+#: includes/blog.php:100
 msgid "Page for Error 404"
 msgstr ""
 
-#: includes/blog.php:57
+#: includes/blog.php:101
 msgid "Set any page to be used as the 404 error page."
 msgstr ""
 
-#: includes/blog.php:65
-msgid "Add New Page"
+#: includes/blog.php:114
+msgid "GA Override"
+msgstr ""
+
+#: includes/blog.php:115
+msgid "This blog Google Analytics account to override the network"
 msgstr ""
 
 #: includes/buddypress.me.php:14
@@ -436,42 +463,37 @@ msgid "There was a problem when deleting. Please try again."
 msgstr "خطایی در هنگام پاک کردن رخ داد. لطفا دوباره تلاش کنید."
 
 #: includes/captcha.php:18
+msgctxt "Captcha Module: Menu Name"
 msgid "Captcha"
 msgstr ""
 
 #: includes/captcha.php:38
+msgctxt "Captcha Module"
 msgid "Google reCAPTCHA"
 msgstr ""
 
 #: includes/captcha.php:52
+msgctxt "Captcha Module"
 msgid "Login Captcha"
 msgstr ""
 
 #: includes/captcha.php:53
+msgctxt "Captcha Module"
 msgid "Display captcha field on login form"
 msgstr ""
 
-#: includes/captcha.php:59
-msgid "Site Key"
-msgstr ""
-
-#: includes/captcha.php:60
-msgid "Key in the HTML code your site serves to users."
-msgstr ""
-
-#: includes/captcha.php:66
-msgid "Secret Key"
-msgstr ""
-
 #: includes/captcha.php:67
+msgctxt "Captcha Module"
 msgid "Key for communication between your site and Google reCAPTCHA."
 msgstr ""
 
 #: includes/captcha.php:104
+msgctxt "Captcha Module"
 msgid "CAPTCHA should not be empty"
 msgstr ""
 
 #: includes/captcha.php:110
+msgctxt "Captcha Module"
 msgid "CAPTCHA response was incorrect"
 msgstr ""
 
@@ -492,12 +514,12 @@ msgstr ""
 msgid "Disable all core comment notifications"
 msgstr ""
 
-#: includes/comments.php:87 includes/modulecore.php:538 includes/notify.php:51
+#: includes/comments.php:87 includes/modulecore.php:554 includes/notify.php:51
 #: includes/notify.php:62
 msgid "Enabled"
 msgstr "فعال"
 
-#: includes/comments.php:88 includes/modulecore.php:533 includes/notify.php:52
+#: includes/comments.php:88 includes/modulecore.php:549 includes/notify.php:52
 #: includes/notify.php:63
 msgid "Disabled"
 msgstr "غیرفعال"
@@ -553,19 +575,30 @@ msgstr ""
 msgid "CRON"
 msgstr "کرون"
 
-#: includes/cron.php:30
+#: includes/cron.php:26
+msgctxt "Cron Module"
+msgid "Unschedule"
+msgstr ""
+
+#: includes/cron.php:73
+#, php-format
+msgctxt "Cron Module"
+msgid "%s Events Unscheduled!"
+msgstr ""
+
+#: includes/cron.php:108
 msgid "Overview of tasks scheduled for WP-Cron"
 msgstr ""
 
-#: includes/cron.php:35
+#: includes/cron.php:113
 msgid "Nothing scheduled"
 msgstr ""
 
-#: includes/cron.php:49
+#: includes/cron.php:127
 msgid "Next"
 msgstr ""
 
-#: includes/cron.php:58
+#: includes/cron.php:136
 msgid "Tasks"
 msgstr ""
 
@@ -650,12 +683,12 @@ msgstr ""
 "ساخته شده بر نیروی <a href=\"http://wordpress.org/\" title=\"Semantic "
 "Personal Publishing Platform\">وردپرس</a> و چای"
 
-#: includes/locale.php:77
+#: includes/locale.php:95
 msgid "Loaded MO Files"
 msgstr ""
 
 #: includes/lockdown.php:19
-msgid "Login Lockdown"
+msgid "Lockdown"
 msgstr ""
 
 #: includes/lockdown.php:39
@@ -727,6 +760,94 @@ msgstr ""
 msgid ""
 "<strong>LOCKED OUT:</strong> Too many login attempts from one IP address! "
 "Please take a break and try again."
+msgstr ""
+
+#: includes/login.php:12
+msgctxt "Login Module: Menu Name"
+msgid "Login"
+msgstr ""
+
+#: includes/login.php:51
+msgctxt "Login Module"
+msgid "Header URL"
+msgstr ""
+
+#: includes/login.php:52
+msgctxt "Login Module"
+msgid "Login page header logo link URL"
+msgstr ""
+
+#: includes/login.php:60
+msgctxt "Login Module"
+msgid "Header Title"
+msgstr ""
+
+#: includes/login.php:61
+msgctxt "Login Module"
+msgid "Login page header logo link title attribute"
+msgstr ""
+
+#: includes/login.php:68
+msgctxt "Login Module"
+msgid "Login Remember"
+msgstr ""
+
+#: includes/login.php:69
+msgctxt "Login Module"
+msgid "Always checked Remember Me checkbox"
+msgstr ""
+
+#: includes/login.php:80
+msgctxt "Login Module"
+msgid "Login Math"
+msgstr ""
+
+#: includes/login.php:81
+msgctxt "Login Module"
+msgid "Puts a math problem after the login form."
+msgstr ""
+
+#: includes/login.php:87
+msgctxt "Login Module"
+msgid "Random Hash Key"
+msgstr ""
+
+#: includes/login.php:88
+msgctxt "Login Module"
+msgid "Will used to sign with the math answer."
+msgstr ""
+
+#: includes/login.php:99
+msgctxt "Login Module"
+msgid "Math Settings"
+msgstr ""
+
+#: includes/login.php:101
+msgctxt "Login Module"
+msgid ""
+"Blocks Spam by Math. Verifies that a user answered the math problem "
+"correctly while loggin in."
+msgstr ""
+
+#: includes/login.php:139
+msgctxt "Login Module"
+msgid "Prove your humanity:"
+msgstr "اگر قصد دارید وارد شوید:"
+
+#: includes/login.php:166
+msgctxt "Login Module"
+msgid ""
+"<strong>This site is not properly configured.</strong> Please ask this "
+"site's web developer to review for information on how to resolve this issue."
+msgstr ""
+
+#: includes/login.php:169
+msgctxt "Login Module"
+msgid ""
+"<strong>You failed to correctly answer the math problem.</strong> This is "
+"used to combat spam Please use your browser's back button to return to the "
+"login form, press the \"refresh\" button to generate a new math problem, and "
+"try to log in again."
 msgstr ""
 
 #: includes/mail.php:12
@@ -874,52 +995,52 @@ msgstr ""
 msgid "Logging Emails Disabled"
 msgstr ""
 
-#: includes/mail.php:304
+#: includes/mail.php:305
 msgid "This is a test email generated by the gNetwork Mail plugin."
 msgstr ""
 
-#: includes/mail.php:305
+#: includes/mail.php:306
 msgid "Test mail to "
 msgstr ""
 
-#: includes/mail.php:309
+#: includes/mail.php:310
 msgid "To"
 msgstr ""
 
-#: includes/mail.php:315
+#: includes/mail.php:316
 msgid "Subject"
 msgstr "موضوع"
 
-#: includes/mail.php:321
+#: includes/mail.php:322
 msgid "Message:"
 msgstr "پیام:"
 
-#: includes/mail.php:362
+#: includes/mail.php:363
 msgid "Test Message Sent"
 msgstr ""
 
-#: includes/mail.php:364
+#: includes/mail.php:365
 msgid "The result was:"
 msgstr ""
 
-#: includes/mail.php:368
+#: includes/mail.php:369
 msgid "The SMTP debugging output:"
 msgstr ""
 
-#: includes/mail.php:372
+#: includes/mail.php:373
 msgid "The full debugging output:"
 msgstr ""
 
-#: includes/mail.php:412
+#: includes/mail.php:413
 #, php-format
 msgid "The Last %s Email Logs"
 msgstr ""
 
-#: includes/mail.php:425
+#: includes/mail.php:426
 msgid "Whom, When"
 msgstr ""
 
-#: includes/mail.php:456
+#: includes/mail.php:457
 msgid "What"
 msgstr ""
 
@@ -939,7 +1060,7 @@ msgstr ""
 msgid "Site Maintenance"
 msgstr ""
 
-#: includes/maintenance.php:61 includes/restricted.php:79
+#: includes/maintenance.php:61
 msgid "Selected and above can access to the site."
 msgstr ""
 
@@ -947,7 +1068,7 @@ msgstr ""
 msgid "Admin Maintenance"
 msgstr ""
 
-#: includes/maintenance.php:68 includes/restricted.php:86
+#: includes/maintenance.php:68
 msgid "Selected and above can access to the admin."
 msgstr ""
 
@@ -1007,33 +1128,75 @@ msgstr "نمایش نشانی پروندهٔ وب"
 msgid "View Item URL"
 msgstr "نمایش نشانی پرونده"
 
-#: includes/modulecore.php:214
+#: includes/modulecore.php:220
 msgid "Warning: Old Options Exists!"
 msgstr ""
 
-#: includes/modulecore.php:235
+#: includes/modulecore.php:241
 msgid "Save Changes"
 msgstr "ذخیره تغییرات"
 
-#: includes/modulecore.php:236
+#: includes/modulecore.php:242
 msgid "Reset Settings"
 msgstr "بازنشانی تنظیمات اولیه"
 
-#: includes/modulecore.php:236 includes/users.php:109
+#: includes/modulecore.php:242 includes/users.php:109
 msgid "Are you sure? This operation can not be undone."
 msgstr ""
 
-#: includes/modulecore.php:696
+#: includes/modulecore.php:775
 msgid "&mdash; Select Page &mdash;"
 msgstr ""
 
-#: includes/modulecore.php:780
+#: includes/modulecore.php:895
 msgid "Error: setting type undefined."
 msgstr ""
 
-#: includes/modulecore.php:881
+#: includes/modulecore.php:996
+#, php-format
+msgctxt "Module Core"
+msgid "%s Counted!"
+msgstr ""
+
+#: includes/modulecore.php:1023
 msgctxt "Module Core: Default Datetime Format"
 msgid "l, j F, Y - H:i:s"
+msgstr ""
+
+#: includes/modulecore.php:1065
+msgctxt "Moduel Core"
+msgid "Add New Post Type"
+msgstr ""
+
+#: includes/modulecore.php:1067
+msgctxt "Moduel Core: Add New Post Type"
+msgid "Add New"
+msgstr ""
+
+#: includes/modulecore.php:1075
+#, php-format
+msgctxt "Moduel Core"
+msgid "See WordPress Codex for %s"
+msgstr ""
+
+#: includes/modulecore.php:1077
+msgctxt "Moduel Core"
+msgid "See Codex"
+msgstr ""
+
+#: includes/modulecore.php:1097
+msgctxt "Moduel Core"
+msgid "See More Information"
+msgstr ""
+
+#: includes/modulecore.php:1148
+msgctxt "Moduel Core: Page Title"
+msgid "gNetwork Extras"
+msgstr ""
+
+#: includes/modulecore.php:1152
+msgctxt "Moduel Core: Title Attr"
+msgid "Plugin Homepage"
 msgstr ""
 
 #: includes/navigation.php:37
@@ -1083,7 +1246,7 @@ msgstr "خوراک RSS"
 msgid "RSS Comments Feed"
 msgstr ""
 
-#: includes/navigation.php:155 includes/restricted.php:278
+#: includes/navigation.php:155
 msgid "Log Out"
 msgstr "خروج"
 
@@ -1184,365 +1347,457 @@ msgstr ""
 msgid "[%s] Password Lost/Changed"
 msgstr ""
 
-#: includes/opensearch.php:12 includes/opensearch.php:36
-#: includes/opensearch.php:57
+#: includes/opensearch.php:14
+msgctxt "OpenSearch Module: Menu Name"
 msgid "Open Search"
 msgstr ""
 
-#: includes/opensearch.php:58
+#: includes/opensearch.php:45 includes/opensearch.php:66
+msgctxt "OpenSearch Module"
+msgid "Open Search"
+msgstr ""
+
+#: includes/opensearch.php:67
+msgctxt "OpenSearch Module"
 msgid "OpenSearch support for this blog."
 msgstr ""
 
-#: includes/opensearch.php:64
+#: includes/opensearch.php:73
+msgctxt "OpenSearch Module"
 msgid "Suggestions"
 msgstr ""
 
-#: includes/opensearch.php:65
+#: includes/opensearch.php:74
+msgctxt "OpenSearch Module"
 msgid "OpenSearch Suggestions support for this site."
 msgstr ""
 
-#: includes/opensearch.php:71
+#: includes/opensearch.php:80
+msgctxt "OpenSearch Module"
 msgid "ShortName"
 msgstr ""
 
-#: includes/opensearch.php:72
+#: includes/opensearch.php:81
+msgctxt "OpenSearch Module"
 msgid "A short name for the search engine. <b>16</b> chars or less, no HTML."
 msgstr ""
 
-#: includes/opensearch.php:79
+#: includes/opensearch.php:88
+msgctxt "OpenSearch Module"
 msgid "LongName"
 msgstr ""
 
-#: includes/opensearch.php:80
+#: includes/opensearch.php:89
+msgctxt "OpenSearch Module"
 msgid ""
 "An extended name for the search engine. <b>48</b> chars or less, no HTML."
 msgstr ""
 
-#: includes/opensearch.php:86
+#: includes/opensearch.php:95
+msgctxt "OpenSearch Module"
 msgid "Description"
-msgstr "توضیحات"
+msgstr ""
 
-#: includes/opensearch.php:87
+#: includes/opensearch.php:96
+msgctxt "OpenSearch Module"
 msgid ""
 "A brief description of the search engine. <b>1024</b> chars or less, no HTML."
 msgstr ""
 
-#: includes/opensearch.php:93
+#: includes/opensearch.php:102
+msgctxt "OpenSearch Module"
 msgid "Attribution"
 msgstr ""
 
-#: includes/opensearch.php:94
+#: includes/opensearch.php:103
+msgctxt "OpenSearch Module"
 msgid ""
 "A list of all sources or entities that should be credited. <b>256</b> chars "
 "or less, no HTML."
 msgstr ""
 
-#: includes/opensearch.php:95
+#: includes/opensearch.php:104
 #, php-format
+msgctxt "OpenSearch Module"
 msgid "Search data copyright %s"
 msgstr ""
 
-#: includes/opensearch.php:101
+#: includes/opensearch.php:110
+msgctxt "OpenSearch Module"
 msgid "Syndication Right"
 msgstr ""
 
-#: includes/opensearch.php:102
+#: includes/opensearch.php:111
+msgctxt "OpenSearch Module"
 msgid "Indicates the degree to which the search results provided."
 msgstr ""
 
-#: includes/opensearch.php:105 includes/restricted.php:96
-#: includes/restricted.php:107
-msgid "Open"
-msgstr "باز"
-
-#: includes/opensearch.php:106
-msgid "Limited"
-msgstr "محدود"
-
-#: includes/opensearch.php:107
-msgid "Private"
-msgstr "خصوصی"
-
-#: includes/opensearch.php:108
-msgid "Closed"
-msgstr "بسته"
-
 #: includes/opensearch.php:114
-msgid "Contact"
-msgstr "ارتباط"
+msgctxt "OpenSearch Module"
+msgid "Open"
+msgstr ""
 
 #: includes/opensearch.php:115
+msgctxt "OpenSearch Module"
+msgid "Limited"
+msgstr ""
+
+#: includes/opensearch.php:116
+msgctxt "OpenSearch Module"
+msgid "Private"
+msgstr ""
+
+#: includes/opensearch.php:117
+msgctxt "OpenSearch Module"
+msgid "Closed"
+msgstr ""
+
+#: includes/opensearch.php:123
+msgctxt "OpenSearch Module"
+msgid "Contact"
+msgstr ""
+
+#: includes/opensearch.php:124
+msgctxt "OpenSearch Module"
 msgid ""
 "An email address at which the maintainer of the search engine can be reached."
 msgstr ""
 
-#: includes/opensearch.php:121
+#: includes/opensearch.php:130
+msgctxt "OpenSearch Module"
 msgid "Tags"
 msgstr ""
 
-#: includes/opensearch.php:122
+#: includes/opensearch.php:131
+msgctxt "OpenSearch Module"
 msgid ""
 "A set of words that are used as keywords to identify and categorize this "
 "search content. Single words and are delimited by space. <b>256</b> chars or "
 "less, no HTML."
 msgstr ""
 
-#: includes/opensearch.php:139
+#: includes/opensearch.php:148
 #, php-format
-msgid "Search &#x201C;%s&#x201D;"
-msgstr "جست‌وجو در «%s»"
+msgctxt "OpenSearch Module"
+msgid "Search %s"
+msgstr "جست‌وجو در %s"
 
-#: includes/opensearch.php:194
-msgid "Search Plugin"
+#: includes/opensearch.php:217
+msgctxt "OpenSearch Module"
+msgid "Search Engine"
 msgstr ""
 
-#: includes/opensearch.php:197
+#: includes/opensearch.php:220
+msgctxt "OpenSearch Module"
 msgid "Add this site search engine plugin to your browser."
 msgstr ""
 
-#: includes/opensearch.php:203
+#: includes/opensearch.php:224
+msgctxt "OpenSearch Module"
 msgid "Your browser does not support the AddSearchProvider method!"
 msgstr ""
 
-#: includes/restricted.php:28 includes/restricted.php:97
-#: includes/restricted.php:108
+#: includes/restricted.php:28
+msgctxt "Restricted Module: Menu Name"
 msgid "Restricted"
-msgstr ""
+msgstr "محدودیت"
 
 #: includes/restricted.php:78
+msgctxt "Restricted Module"
 msgid "Site Restriction"
 msgstr ""
 
+#: includes/restricted.php:79
+msgctxt "Restricted Module"
+msgid "Selected and above can access to the site."
+msgstr ""
+
 #: includes/restricted.php:85
+msgctxt "Restricted Module"
 msgid "Admin Restriction"
 msgstr ""
 
+#: includes/restricted.php:86
+msgctxt "Restricted Module"
+msgid "Selected and above can access to the admin."
+msgstr ""
+
 #: includes/restricted.php:92
+msgctxt "Restricted Module"
 msgid "Admin Profile"
 msgstr ""
 
 #: includes/restricted.php:93
+msgctxt "Restricted Module"
 msgid "Admin profile access if the site is restricted."
 msgstr ""
 
+#: includes/restricted.php:96
+msgctxt "Restricted Module"
+msgid "Open"
+msgstr ""
+
+#: includes/restricted.php:97 includes/restricted.php:108
+msgctxt "Restricted Module"
+msgid "Restricted"
+msgstr ""
+
 #: includes/restricted.php:103
+msgctxt "Restricted Module"
 msgid "Feed Restriction"
 msgstr ""
 
 #: includes/restricted.php:104
+msgctxt "Restricted Module"
 msgid "Feed access if the site is restricted."
 msgstr ""
 
 #: includes/restricted.php:114
+msgctxt "Restricted Module"
 msgid "Redirect Page"
 msgstr ""
 
 #: includes/restricted.php:115
+msgctxt "Restricted Module"
 msgid ""
 "Not authorized users will redirect to this page, to login page if not "
 "selected."
 msgstr ""
 
-#: includes/restricted.php:118
+#: includes/restricted.php:116
+msgctxt "Restricted Module"
 msgid "&mdash; Login &mdash;"
-msgstr "&mdash; برگه ورود &mdash;"
+msgstr ""
 
-#: includes/restricted.php:127
+#: includes/restricted.php:122
+msgctxt "Restricted Module"
 msgid "Restricted Notice"
-msgstr "اخطار محدودیت سایت"
+msgstr ""
 
-#: includes/restricted.php:128
+#: includes/restricted.php:123
 #, php-format
+msgctxt "Restricted Module"
 msgid ""
 "This will show on top of this site login page. <code>%1$s</code> for the "
 "role, <code>%2$s</code> for the page."
 msgstr ""
 
-#: includes/restricted.php:135
+#: includes/restricted.php:130
+msgctxt "Restricted Module"
 msgid "Restricted Access"
 msgstr ""
 
-#: includes/restricted.php:136
+#: includes/restricted.php:131
 #, php-format
+msgctxt "Restricted Module"
 msgid ""
 "This will show on 403 page for logged-in users. <code>%1$s</code> for the "
 "role, <code>%2$s</code> for the page."
 msgstr ""
 
-#: includes/restricted.php:152
+#: includes/restricted.php:147
 #, php-format
+msgctxt "Restricted Module"
 msgid ""
 "<p>This site is restricted to users with %1$s access level. Please visit <a "
 "href=\"%2$s\">here</a> to request access.</p>"
 msgstr ""
 
-#: includes/restricted.php:153
+#: includes/restricted.php:148
 #, php-format
+msgctxt "Restricted Module"
 msgid ""
 "<p>You do not have %1$s access level. Please visit <a href=\"%2$s\">here</a> "
 "to request access.</p>"
 msgstr ""
 
-#: includes/restricted.php:178
+#: includes/restricted.php:173
+msgctxt "Restricted Module"
 msgid "Private Feeds"
-msgstr "خوراک اختصاصی"
+msgstr ""
+
+#: includes/restricted.php:174
+msgctxt "Restricted Module"
+msgid "Used to access restricted site feeds."
+msgstr ""
 
 #: includes/restricted.php:179
-msgid "Used to access restricted site feeds."
-msgstr "از این پیوندها برای دسترسی به خوراک‌های محدودشده سایت استفاده کنید."
-
-#: includes/restricted.php:184
+msgctxt "Restricted Module"
 msgid "Access Key"
 msgstr "کلید دسترسی"
 
-#: includes/restricted.php:187
+#: includes/restricted.php:182
+msgctxt "Restricted Module"
 msgid "Access key not found"
 msgstr "کلید دسترسی تولید نشده است"
 
-#: includes/restricted.php:189
+#: includes/restricted.php:184
+msgctxt "Restricted Module"
 msgid "The key will be used on all restricted site feed URLs."
 msgstr "از این کلید هنگام استفاده از خوراک سایت‌های محدود شده استفاده خواهد شد."
 
-#: includes/restricted.php:193
+#: includes/restricted.php:188
+msgctxt "Restricted Module"
 msgid "&mdash; Select &mdash;"
-msgstr "&mdash; انتخاب کنید &mdash;"
+msgstr "&mdash; انتخاب &mdash;"
 
-#: includes/restricted.php:195
+#: includes/restricted.php:190
+msgctxt "Restricted Module"
 msgid "Reset your access key"
 msgstr "بازنشانی کلید دسترسی"
 
-#: includes/restricted.php:196
+#: includes/restricted.php:191
+msgctxt "Restricted Module"
 msgid "Remove your access key"
 msgstr "حذف کلید دسترسی"
 
-#: includes/restricted.php:198
+#: includes/restricted.php:193
+msgctxt "Restricted Module"
 msgid "Generate new access key"
 msgstr "تولید کلید دسترسی"
 
-#: includes/restricted.php:202
+#: includes/restricted.php:197
+msgctxt "Restricted Module"
 msgid "Key Operations"
 msgstr "گزینه‌های کلید"
 
-#: includes/restricted.php:207
+#: includes/restricted.php:202
+msgctxt "Restricted Module"
 msgid "Select an operation to work with your private feed access key."
-msgstr "برای تغیر کلید، یکی از این گزینه‌ها را انتخاب کنید."
+msgstr "برای تغیر کلید دسترسی یکی از این گزینه‌ها را انتخاب کنید."
 
-#: includes/restricted.php:213
+#: includes/restricted.php:208
+msgctxt "Restricted Module"
 msgid "Your Feed"
 msgstr "خوراک شما"
 
-#: includes/restricted.php:220
+#: includes/restricted.php:215
+msgctxt "Restricted Module"
 msgid "Your Comments Feed"
 msgstr "خوراک دیدگاه‌های شما"
 
-#: includes/restricted.php:272
+#: includes/restricted.php:267
+msgctxt "Restricted Module"
 msgid "Home Page"
-msgstr ""
+msgstr "صفحه اصلی"
 
-#: includes/restricted.php:277
+#: includes/restricted.php:272
+msgctxt "Restricted Module"
 msgid "Logout of this site"
-msgstr ""
+msgstr "خروج از این سایت"
 
-#: includes/restricted.php:301
+#: includes/restricted.php:273
+msgctxt "Restricted Module"
+msgid "Log Out"
+msgstr "خروج"
+
+#: includes/restricted.php:296
+msgctxt "Restricted Module"
 msgid "You do not have sufficient access level."
-msgstr ""
+msgstr "محتوای این صفحه برای شما قابل دسترسی نیست."
 
-#: includes/restricted.php:442
+#: includes/restricted.php:437
+msgctxt "Restricted Module"
 msgid "Your site is restricted to public"
-msgstr ""
+msgstr "سایت شما برای عموم بسته شده است."
 
-#: includes/restricted.php:446
+#: includes/restricted.php:441
+msgctxt "Restricted Module"
 msgid "Public Access Discouraged"
 msgstr ""
 
-#: includes/restricted.php:489
+#: includes/restricted.php:484
+msgctxt "Restricted Module"
 msgid "Key Valid but no Access"
-msgstr ""
+msgstr "کلید درست اما بدون دسترسی"
 
-#: includes/restricted.php:490
+#: includes/restricted.php:485
+msgctxt "Restricted Module"
 msgid "Your Key is valid but you have no access to this site"
-msgstr ""
+msgstr "کلید دسترسی شما درست است، اما متاسفانه دسترسی به این سایت ندارید."
 
-#: includes/restricted.php:506
+#: includes/restricted.php:501
+msgctxt "Restricted Module"
 msgid "No key, no Access"
 msgstr "بدون کلید، بدون دسترسی!"
 
-#: includes/restricted.php:507
+#: includes/restricted.php:502
+msgctxt "Restricted Module"
 msgid "You have to have a key to access this site's feed"
-msgstr ""
+msgstr "برای دسترسی به خراک این سایت، احتیاج به کلید دسترسی دارید."
 
-#: includes/shortcodes.php:88
+#: includes/shortcodes.php:87
 msgctxt "ShortCode Module: TINYMCE Strings"
 msgid "Cite This"
 msgstr "پانویس کن"
 
-#: includes/shortcodes.php:89
+#: includes/shortcodes.php:88
 msgctxt "ShortCode Module: TINYMCE Strings"
 msgid "URL"
 msgstr "نشانی"
 
-#: includes/shortcodes.php:90
+#: includes/shortcodes.php:89
 msgctxt "ShortCode Module: TINYMCE Strings"
 msgid "Email"
 msgstr "ایمیل"
 
-#: includes/shortcodes.php:91
+#: includes/shortcodes.php:90
 msgctxt "ShortCode Module: TINYMCE Strings"
 msgid "Subject"
 msgstr "موضوع ایمیل"
 
-#: includes/shortcodes.php:92
+#: includes/shortcodes.php:91
 msgctxt "ShortCode Module: TINYMCE Strings"
 msgid "People"
 msgstr "افراد"
 
-#: includes/shortcodes.php:93
+#: includes/shortcodes.php:92
 msgctxt "ShortCode Module: TINYMCE Strings"
 msgid "Name"
 msgstr "نام"
 
-#: includes/shortcodes.php:178
+#: includes/shortcodes.php:185
 msgctxt "ShortCode Module: back: default html"
 msgid "Back"
 msgstr "بازگشت"
 
-#: includes/shortcodes.php:207 includes/shortcodes.php:221
+#: includes/shortcodes.php:215 includes/shortcodes.php:229
 msgctxt "ShortCode Module: back: home title attr"
 msgid "Home"
 msgstr "خانه"
 
-#: includes/shortcodes.php:341
-msgctxt "google groups subscribe"
+#: includes/shortcodes.php:367
+msgctxt "ShortCode Module: Google Groups Subscribe"
 msgid "Email:"
-msgstr "ایمیل"
+msgstr ""
 
-#: includes/shortcodes.php:344
-msgctxt "google groups subscribe"
+#: includes/shortcodes.php:370
+msgctxt "ShortCode Module: Google Groups Subscribe"
 msgid "Subscribe"
 msgstr ""
 
-#: includes/shortcodes.php:381
+#: includes/shortcodes.php:408
 #, php-format
 msgid ""
-"It appears you don't have Adobe Reader or PDF support in this web browser. <a "
-"href=\"%s\">Click here to download the PDF</a>"
+"It appears you don't have Adobe Reader or PDF support in this web browser. "
+"<a href=\"%s\">Click here to download the PDF</a>"
 msgstr ""
 
-#: includes/shortcodes.php:492
+#: includes/shortcodes.php:525
 #, php-format
 msgid "Go to %s second mark and play"
 msgstr "از ثانیه %s بشنوید"
 
-#: includes/shortcodes.php:602
+#: includes/shortcodes.php:638
 msgid "See More"
 msgstr "بیشتر"
 
-#: includes/shortcodes.php:665
+#: includes/shortcodes.php:701
 msgid "Back to Text"
 msgstr "بازگشت به متن"
 
-#: includes/shortcodes.php:726 includes/shortcodes.php:737
-#: includes/shortcodes.php:759 includes/shortcodes.php:771
+#: includes/shortcodes.php:766 includes/shortcodes.php:777
+#: includes/shortcodes.php:799 includes/shortcodes.php:812
 msgid "See the footnote"
 msgstr "نمایش پانویس"
 
@@ -1550,12 +1805,13 @@ msgstr "نمایش پانویس"
 msgid "Global"
 msgstr ""
 
-#: includes/site.php:34
-msgid "Login Remember"
+#: includes/site.php:37
+msgid "Network Language"
 msgstr ""
 
-#: includes/site.php:35
-msgid "Always checked Remember Me checkbox"
+#: includes/site.php:38
+msgid ""
+"Despite of the site language, always display network admin in this locale"
 msgstr ""
 
 #: includes/taxonomy.php:61 includes/taxonomy.php:78
@@ -1570,7 +1826,8 @@ msgstr ""
 
 #: includes/taxonomy.php:80
 msgid ""
-"The description is not prominent by default; however, some themes may show it."
+"The description is not prominent by default; however, some themes may show "
+"it."
 msgstr ""
 
 #: includes/taxonomy.php:100
@@ -1616,8 +1873,8 @@ msgid ""
 "<a %1$s href=\"%1$s\" title=\"Continue reading &ldquo;%2$s&rdquo; &hellip;\" "
 "class=\"%3$s\" >%4$s</a>"
 msgstr ""
-"<a %1$s href=\"%1$s\" title=\"ادامه &rdquo;%2$s&ldquo; را مطالعه کنید &hellip;"
-"\" class=\"%3$s\" >%4$s</a>"
+"<a %1$s href=\"%1$s\" title=\"ادامه &rdquo;%2$s&ldquo; را مطالعه کنید "
+"&hellip;\" class=\"%3$s\" >%4$s</a>"
 
 #: includes/themes.php:199
 msgid "Read more&nbsp;<span class=\"excerpt-link-hellip\">&hellip;</span>"
@@ -1636,63 +1893,78 @@ msgid "Selected and above will be ignored"
 msgstr ""
 
 #: includes/tracking.php:39
-msgid "GA Domain Name"
+msgid "Primary Domain Name"
 msgstr ""
 
 #: includes/tracking.php:40
-msgid ""
-"Enter your domain name: <code>example.com</code>, Or just <code>auto</code>"
+msgid "Network primary domain name"
 msgstr ""
 
-#: includes/tracking.php:46
+#: includes/tracking.php:48
+msgid "GA Domain Name"
+msgstr ""
+
+#: includes/tracking.php:49
+msgid "Network Google Analytics domain name or just <code>auto</code>"
+msgstr ""
+
+#: includes/tracking.php:57
 msgid "GA Account"
 msgstr ""
 
-#: includes/tracking.php:47
-msgid "Enter your Google Analytics account number: <code>UA-XXXXX-X</code>"
+#: includes/tracking.php:58
+msgid "Network Google Analytics account number"
 msgstr ""
 
-#: includes/tracking.php:53
-msgid "GA Track UserID"
-msgstr ""
-
-#: includes/tracking.php:54
-msgid "Track usernames in Google Analytics"
-msgstr ""
-
-#: includes/tracking.php:60
-msgid "GA Track Outbounds"
-msgstr ""
-
-#: includes/tracking.php:61
-msgid "Track outbound links in Google Analytics"
+#: includes/tracking.php:66
+msgid "GA Beacon"
 msgstr ""
 
 #: includes/tracking.php:67
+msgid "Network Google Analytics Beacon account number"
+msgstr ""
+
+#: includes/tracking.php:76
+msgid "GA Track UserID"
+msgstr ""
+
+#: includes/tracking.php:77
+msgid "Track usernames in Google Analytics"
+msgstr ""
+
+#: includes/tracking.php:83
+msgid "GA Track Outbounds"
+msgstr ""
+
+#: includes/tracking.php:84
+msgid "Track outbound links in Google Analytics"
+msgstr ""
+
+#: includes/tracking.php:90
 msgid "Quantcast"
 msgstr ""
 
-#: includes/tracking.php:68
-msgid "Enter your Quantcast account number: <code>x-XXXXXXXXXXXX-</code>"
+#: includes/tracking.php:91
+msgid "Network Quantcast P-Code"
 msgstr ""
 
-#: includes/tracking.php:74
+#: includes/tracking.php:100
 msgid "GP Publisher ID"
 msgstr ""
 
-#: includes/tracking.php:75
-msgid "Enter your Google+ publisher number: <code>XXXXXXXXXXXXXXXXXXXXX</code>"
+#: includes/tracking.php:101
+msgid "Network Google+ publisher id"
 msgstr ""
 
-#: includes/tracking.php:81
+#: includes/tracking.php:109
 msgid "Twitter Account"
 msgstr ""
 
-#: includes/tracking.php:82
-msgid "Enter site twitter account username: <code>username</code>"
+#: includes/tracking.php:110
+msgid "Network site twitter account"
 msgstr ""
 
-#: includes/tracking.php:266
+#: includes/tracking.php:350
 msgid "Follow Us"
 msgstr ""
 
@@ -1739,12 +2011,12 @@ msgstr "انجام بده"
 msgid "Change"
 msgstr "تبدیل"
 
-#: includes/users.php:142
+#: includes/users.php:139
 #, php-format
 msgid "%s Post(s) Changed"
 msgstr "%s نوشته تغییر کرد."
 
-#: includes/users.php:143
+#: includes/users.php:140
 msgid "No Post Changed"
 msgstr "نوشته‌ای تغییر نکرد."
 
@@ -1769,73 +2041,188 @@ msgstr "&raquo;، &laquo;"
 msgid "&ldquo;"
 msgstr "&raquo;"
 
-#: includes/utilities.php:420
+#: includes/utilities.php:436
 msgid "Posts"
 msgstr "نوشته‌ها"
 
-#: includes/utilities.php:421
+#: includes/utilities.php:437
 msgid "Pages"
 msgstr "برگه‌ها"
 
-#: includes/utilities.php:444
+#: includes/utilities.php:476
 msgctxt "Utilities: Dropdown: Get User Roles"
 msgid "Administrators"
 msgstr "مدیران"
 
-#: includes/utilities.php:445
+#: includes/utilities.php:477
 msgctxt "Utilities: Dropdown: Get User Roles"
 msgid "Editors"
 msgstr "ویرایشگرها"
 
-#: includes/utilities.php:446
+#: includes/utilities.php:478
 msgctxt "Utilities: Dropdown: Get User Roles"
 msgid "Authors"
 msgstr "نویسنده‌ها"
 
-#: includes/utilities.php:447
+#: includes/utilities.php:479
 msgctxt "Utilities: Dropdown: Get User Roles"
 msgid "Contributors"
 msgstr "مشارکت‌کننده‌ها"
 
-#: includes/utilities.php:448
+#: includes/utilities.php:480
 msgctxt "Utilities: Dropdown: Get User Roles"
 msgid "Subscribers"
 msgstr "دنبال‌کننده‌ها"
 
-#: includes/utilities.php:453
+#: includes/utilities.php:485
 msgctxt "Utilities: Dropdown: Get User Roles"
 msgid "Super Admins"
 msgstr "مدیران ارشد"
 
-#: includes/utilities.php:455
+#: includes/utilities.php:487
 msgctxt "Utilities: Dropdown: Get User Roles"
 msgid "Network Users"
 msgstr "اعضای سایت"
 
-#: includes/utilities.php:459
+#: includes/utilities.php:492
 msgctxt "Utilities: Dropdown: Get User Roles"
 msgid "&mdash; No One &mdash;"
 msgstr "&mdash; هیچ &mdash;"
 
-#: includes/widgets.php:33
-msgid "Arbitrary text or HTML or Shortcode!"
+#: includes/widgets.php:38
+msgid "gNetwork Dev: Legend Widget"
 msgstr ""
 
-#: includes/widgets.php:42
-msgid "gNetwork: Shortcode Widget"
+#: includes/widgets.php:41
+msgid "Simple Changelog Legend"
 msgstr ""
 
-#: includes/widgets.php:83
-msgid "Title:"
+#: includes/widgets.php:69
+msgctxt "Widgets Module"
+msgid "gNetwork Tracking: Google Plus Badge"
 msgstr ""
 
-#: includes/widgets.php:86
-msgid "Content:"
+#: includes/widgets.php:72
+msgctxt "Widgets Module"
+msgid "Simple Google Plus Badge"
 msgstr ""
 
 #: includes/widgets.php:89
+msgctxt "Widgets Module"
+msgid "Side bar width:"
+msgstr ""
+
+#: includes/widgets.php:102
+msgctxt "Widgets Module"
+msgid "Override Publisher ID:"
+msgstr ""
+
+#: includes/widgets.php:104
+msgctxt "Widgets Module"
+msgid "Leave empty to use site Publisher ID"
+msgstr ""
+
+#: includes/widgets.php:141
+msgid "gNetwork Tracking: Quantcast Widget"
+msgstr ""
+
+#: includes/widgets.php:144
+msgid "Simple Quantcast Data Badge"
+msgstr ""
+
+#: includes/widgets.php:178
+msgid "Arbitrary text or HTML or Shortcode!"
+msgstr ""
+
+#: includes/widgets.php:187
+msgid "gNetwork: Shortcode Widget"
+msgstr ""
+
+#: includes/widgets.php:228
+msgid "Title:"
+msgstr ""
+
+#: includes/widgets.php:231
+msgid "Content:"
+msgstr ""
+
+#: includes/widgets.php:234
 msgid "Automatically add paragraphs"
 msgstr ""
+
+#~ msgid "Description"
+#~ msgstr "توضیحات"
+
+#~ msgid "Open"
+#~ msgstr "باز"
+
+#~ msgid "Limited"
+#~ msgstr "محدود"
+
+#~ msgid "Private"
+#~ msgstr "خصوصی"
+
+#~ msgid "Closed"
+#~ msgstr "بسته"
+
+#~ msgid "Contact"
+#~ msgstr "ارتباط"
+
+#~ msgid "Search &#x201C;%s&#x201D;"
+#~ msgstr "جست‌وجو در «%s»"
+
+#~ msgid "&mdash; Login &mdash;"
+#~ msgstr "&mdash; برگه ورود &mdash;"
+
+#~ msgid "Restricted Notice"
+#~ msgstr "اخطار محدودیت سایت"
+
+#~ msgid "Private Feeds"
+#~ msgstr "خوراک اختصاصی"
+
+#~ msgid "Used to access restricted site feeds."
+#~ msgstr "از این پیوندها برای دسترسی به خوراک‌های محدودشده سایت استفاده کنید."
+
+#~ msgid "Access Key"
+#~ msgstr "کلید دسترسی"
+
+#~ msgid "Access key not found"
+#~ msgstr "کلید دسترسی تولید نشده است"
+
+#~ msgid "The key will be used on all restricted site feed URLs."
+#~ msgstr ""
+#~ "از این کلید هنگام استفاده از خوراک سایت‌های محدود شده استفاده خواهد شد."
+
+#~ msgid "&mdash; Select &mdash;"
+#~ msgstr "&mdash; انتخاب کنید &mdash;"
+
+#~ msgid "Reset your access key"
+#~ msgstr "بازنشانی کلید دسترسی"
+
+#~ msgid "Remove your access key"
+#~ msgstr "حذف کلید دسترسی"
+
+#~ msgid "Generate new access key"
+#~ msgstr "تولید کلید دسترسی"
+
+#~ msgid "Key Operations"
+#~ msgstr "گزینه‌های کلید"
+
+#~ msgid "Select an operation to work with your private feed access key."
+#~ msgstr "برای تغیر کلید، یکی از این گزینه‌ها را انتخاب کنید."
+
+#~ msgid "Your Feed"
+#~ msgstr "خوراک شما"
+
+#~ msgid "Your Comments Feed"
+#~ msgstr "خوراک دیدگاه‌های شما"
+
+#~ msgid "No key, no Access"
+#~ msgstr "بدون کلید، بدون دسترسی!"
+
+#~ msgctxt "google groups subscribe"
+#~ msgid "Email:"
+#~ msgstr "ایمیل"
 
 #~ msgctxt "Admin Menu Title"
 #~ msgid "Extras"
