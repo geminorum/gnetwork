@@ -205,7 +205,7 @@ class gNetworkThemes extends gNetworkModuleCore
 		if ( GNETWORK_BODY_CLASS )
 			$classes[] = GNETWORK_BODY_CLASS;
 
-		$classes[] = 'locale-'.get_locale();
+		$classes[] = 'locale-'.sanitize_html_class( strtolower( str_replace( '_', '-', get_locale() ) ) );
 
 		return $classes;
 	}
