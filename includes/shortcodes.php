@@ -71,7 +71,6 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			add_filter( 'the_content', array( $this, 'the_content' ), 20 );
 	}
 
-	// http://www.paulund.co.uk/get-list-of-all-available-shortcodes
 	public static function available()
 	{
 		global $shortcode_tags;
@@ -103,6 +102,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			'id'      => get_queried_object_id(),
 			'type'    => 'page',
 			'context' => NULL,
+			'wrap'    => TRUE,
 		), $atts, $tag );
 
 		if ( FALSE === $args['context'] )
@@ -123,7 +123,10 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		if ( ! $children )
 			return $content;
 
-		return '<div class="gnetwork-wrap-shortcode shortcode-children"><ul>'.$children.'</ul></div>';
+		if ( $args['wrap'] )
+			return '<div class="gnetwork-wrap-shortcode shortcode-children"><ul>'.$children.'</ul></div>';
+
+		return $children;
 	}
 
 	public function shortcode_siblings( $atts, $content = NULL, $tag = '' )
@@ -133,6 +136,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			'type'    => 'page',
 			'ex'      => NULL,
 			'context' => NULL,
+			'wrap'    => TRUE,
 		), $atts, $tag );
 
 		if ( FALSE === $args['context'] )
@@ -166,7 +170,10 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		if ( ! $siblings )
 			return $content;
 
-		return '<div class="gnetwork-wrap-shortcode shortcode-siblings"><ul>'.$siblings.'</ul></div>';
+		if ( $args['wrap'] )
+			return '<div class="gnetwork-wrap-shortcode shortcode-siblings"><ul>'.$siblings.'</ul></div>';
+
+		return $siblings;
 	}
 
 	// TODO: more cases
@@ -177,6 +184,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			'to'      => 'parent',
 			'html'    => _x( 'Back', 'ShortCode Module: back: default html', GNETWORK_TEXTDOMAIN ),
 			'context' => NULL,
+			'wrap'    => TRUE,
 		), $atts, $tag );
 
 		if ( FALSE === $args['context'] )
@@ -232,8 +240,13 @@ class gNetworkShortCodes extends gNetworkModuleCore
 
 		}
 
-		if ( $html )
-			return '<div class="gnetwork-wrap-shortcode shortcode-back">'.$html.'</div>';
+		if ( $html ) {
+
+			if ( $args['wrap'] )
+				return '<div class="gnetwork-wrap-shortcode shortcode-back">'.$html.'</div>';
+
+			return $html;
+		}
 
 		return $content;
 	}
@@ -245,8 +258,9 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			'width'   => '100%',
 			'height'  => '520',
 			'scroll'  => 'auto',
-			'style'   => 'width:100%!important;',
+			'style'   => 'width:100% !important;',
 			'context' => NULL,
+			'wrap'    => TRUE,
 		), $atts, $tag );
 
 		if ( FALSE === $args['context'] || is_feed() )
@@ -267,7 +281,10 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			'width'       => $args['width'],
 		), NULL );
 
-		return '<div class="gnetwork-wrap-shortcode shortcode-iframe">'.$html.'</div>';
+		if ( $args['wrap'] )
+			return '<div class="gnetwork-wrap-shortcode shortcode-iframe">'.$html.'</div>';
+
+		return $html;
 	}
 
 	// [email]you@you.com[/email]
@@ -279,6 +296,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			'subject' => FALSE,
 			'title'   => FALSE,
 			'context' => NULL,
+			'wrap'    => TRUE,
 		), $atts, $tag );
 
 		if ( FALSE === $args['context'] )
@@ -291,7 +309,10 @@ class gNetworkShortCodes extends gNetworkModuleCore
 				.'"'.( $args['title'] ? ' data-toggle="tooltip" title="'.esc_attr( $args['title'] ).'"' : '' ).'>'
 				.antispambot( $content ).'</a>';
 
-		return '<span class="gnetwork-wrap-shortcode shortcode-email">'.$html.'</span>';
+		if ( $args['wrap'] )
+			return '<span class="gnetwork-wrap-shortcode shortcode-email">'.$html.'</span>';
+
+		return $html;
 	}
 
 	// http://stackoverflow.com/a/13662220
@@ -301,6 +322,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		$args = shortcode_atts( array(
 			'title'   => FALSE,
 			'context' => NULL,
+			'wrap'    => TRUE,
 		), $atts, $tag );
 
 		if ( FALSE === $args['context'] )
@@ -313,7 +335,10 @@ class gNetworkShortCodes extends gNetworkModuleCore
 				.'"'.( $args['title'] ? ' data-toggle="tooltip" title="'.esc_attr( $args['title'] ).'"' : '' ).'>'
 				.'&#8206;'.apply_filters( 'string_format_i18n', $content ).'&#8207;</a>';
 
-		return '<span class="gnetwork-wrap-shortcode shortcode-tel">'.$html.'</span>';
+		if ( $args['wrap'] )
+			return '<span class="gnetwork-wrap-shortcode shortcode-tel">'.$html.'</span>';
+
+		return $html;
 	}
 
 	// TODO: rewrite this
@@ -326,6 +351,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			'logo_style' => 'border:none;box-shadow:none;',
 			'hl'         => constant( 'GNETWORK_GOOGLE_GROUP_HL' ),
 			'context'    => NULL,
+			'wrap'       => TRUE,
 		), $atts, $tag );
 
 		if ( FALSE === $args['context'] || is_feed() )
@@ -364,6 +390,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			'rtl'       => ( is_rtl() ? 'yes' : 'no' ),
 			'download'  => FALSE,
 			'context'   => NULL,
+			'wrap'      => TRUE,
 		), $atts, $tag );
 
 		if ( FALSE === $args['context'] || is_feed() )
@@ -441,6 +468,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			'rtl'       => ( is_rtl() ? 'yes' : 'no' ),
 			'download'  => FALSE,
 			'context'   => NULL,
+			'wrap'      => TRUE,
 		), $atts, $tag );
 
 		if ( FALSE === $args['context'] || is_feed() )
@@ -456,7 +484,8 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		}
 
 		$key = count( $this->flash_ids ) + 1;
-		$id = 'gNetworkFlash_'.$key;
+		$id  = 'flash-object-'.$key;
+
 		$this->flash_ids[$key] = $id;
 
 		wp_enqueue_script( 'swfobject' );
@@ -484,6 +513,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			'to'       => '0',
 			'instance' => '0',
 			'context'  => NULL,
+			'wrap'     => TRUE,
 		), $atts, $tag );
 
 		if ( FALSE === $args['context'] )
@@ -498,7 +528,10 @@ class gNetworkShortCodes extends gNetworkModuleCore
 
 		wp_enqueue_script( 'gnetwork-audio-go', GNETWORK_URL.'assets/js/front.audio-go.min.js', array( 'jquery' ), GNETWORK_VERSION, TRUE );
 
-		return '<span class="gnetwork-wrap-shortcode shortcode-audio-go">'.$html.'</span>';
+		if ( $args['wrap'] )
+			return '<span class="gnetwork-wrap-shortcode shortcode-audio-go">'.$html.'</span>';
+
+		return $html;
 	}
 
 	// wrapper for default core audio shortcode
@@ -507,8 +540,8 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		$args = shortcode_atts( array(
 			'download' => FALSE,
 			'filename' => FALSE, // http://davidwalsh.name/download-attribute
-			'wrap'     => TRUE,
 			'context'  => NULL,
+			'wrap'     => TRUE,
 		), $atts, $tag );
 
 		if ( FALSE === $args['context'] || is_feed() )
@@ -522,7 +555,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 					.'>'.$args['download'].'</a></div>';
 
 			if ( $args['wrap'] )
-				$html = '<div class="gnetwork-wrap-shortcode shortcode-audio">'.$html.'</div>';
+				return '<div class="gnetwork-wrap-shortcode shortcode-audio">'.$html.'</div>';
 
 			return $html;
 		}
@@ -662,11 +695,12 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		$args = shortcode_atts( array(
 			'class'         => 'ref-list',
 			'number'        => TRUE,
-			'after_number'  => '- ',
+			'after_number'  => '.&nbsp;',
 			'format_number' => TRUE,
 			'back'          => '[&#8617;]', //'[^]', // '[&uarr;]',
 			'back_title'    => __( 'Back to Text', GNETWORK_TEXTDOMAIN ),
 			'context'       => NULL,
+			'wrap'          => TRUE,
 		), $atts, $tag );
 
 		if ( FALSE === $args['context'] )
@@ -700,7 +734,10 @@ class gNetworkShortCodes extends gNetworkModuleCore
 
 		$this->ref_list = TRUE;
 
-		return '<div class="gnetwork-wrap-shortcode shortcode-reflist">'.$html.'</div>';
+		if ( $args['wrap'] )
+			return '<div class="gnetwork-wrap-shortcode shortcode-reflist">'.$html.'</div>';
+
+		return $html;
 	}
 
 	public function the_content( $content )
@@ -764,10 +801,11 @@ class gNetworkShortCodes extends gNetworkModuleCore
 				'format_number' => TRUE,
 				'back'          => '[&#8617;]', //'&uarr;',
 				'context'       => NULL,
-				), $atts, $tag );
+				'wrap'          => TRUE,
+			), $atts, $tag );
 
-				if ( FALSE === $args['context'] )
-					return NULL;
+			if ( FALSE === $args['context'] )
+				return NULL;
 
 		} else { //[reflist-m 0]
 			$args['id']            = $atts[0];
@@ -776,6 +814,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			$args['format_number'] = isset( $attrs[3] ) ? $atts[3] : TRUE;
 			$args['back']          = isset( $attrs[4] ) ? $atts[4] : '[&#8617;]';
 			$args['after_number']  = isset( $attrs[4] ) ? $atts[4] : '. ';
+			$args['wrap']          = TRUE;
 		}
 
 		wp_enqueue_script( 'gnetwork-cite', GNETWORK_URL.'assets/js/front.cite.js', array( 'jquery' ), GNETWORK_VERSION, TRUE );
@@ -788,10 +827,11 @@ class gNetworkShortCodes extends gNetworkModuleCore
 	public function shortcode_person( $atts, $content = NULL, $tag = '' )
 	{
 		$args = shortcode_atts( array(
-			'id'            => FALSE,
-			'name'          => FALSE,
-			'class'         => 'refrence-people',
-			'context'       => NULL,
+			'id'      => FALSE,
+			'name'    => FALSE,
+			'class'   => 'refrence-people',
+			'context' => NULL,
+			'wrap'    => TRUE,
 		), $atts, $tag );
 
 		if ( FALSE === $args['context'] )
@@ -822,6 +862,9 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			), trim( strip_tags( $content ) ) );
 		}
 
-		return '<span class="gnetwork-wrap-shortcode shortcode-person">'.$this->people[$person].'</span>';
+		if ( $args['wrap'] )
+			return '<span class="gnetwork-wrap-shortcode shortcode-person">'.$this->people[$person].'</span>';
+
+		return $this->people[$person];
 	}
 }
