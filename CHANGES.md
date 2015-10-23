@@ -1,3 +1,9 @@
+### 0.2.26
+* shortcodes: reflist global style reset
+* shortcodes: wrap option
+* login: custom title/url for login logo
+* login: adoption of [BruteProtect](http://bruteprotect.com/) math fallback
+
 ### 0.2.25
 * locale: custom network admin language
 * cron: unscheduling events
