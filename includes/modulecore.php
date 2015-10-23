@@ -79,6 +79,12 @@ class gNetworkModuleCore
 		return array();
 	}
 
+	public function default_option( $key, $default = '' )
+	{
+		$options = $this->default_options();
+		return isset( $options[$key] ) ? $options[$key] : $default;
+	}
+
 	protected function options_key()
 	{
 		return $this->option_base.'_'.$this->option_key;
@@ -504,11 +510,19 @@ class gNetworkModuleCore
 		if ( ! $args['field'] )
 			return;
 
-		$html  = '';
-		$name  = $args['name_attr'] ? $args['name_attr'] : $this->option_base.'_'.$args['option_group'].'['.esc_attr( $args['field'] ).']';
-		$id    = $args['id_attr'] ? $args['id_attr'] : $this->option_base.'-'.$args['option_group'].'-'.esc_attr( $args['field'] );
-		$value = isset( $this->options[$args['field']] ) ? $this->options[$args['field']] : $args['default'];
+		$html    = '';
+		$value   = $args['default'];
+		$name    = $args['name_attr'] ? $args['name_attr'] : $this->option_base.'_'.$args['option_group'].'['.esc_attr( $args['field'] ).']';
+		$id      = $args['id_attr'] ? $args['id_attr'] : $this->option_base.'-'.$args['option_group'].'-'.esc_attr( $args['field'] );
 		$exclude = $args['exclude'] && ! is_array( $args['exclude'] ) ? array_filter( explode( ',', $args['exclude'] ) ) : array();
+
+		if ( isset( $this->options[$args['field']] ) ) {
+			$value = $this->options[$args['field']];
+
+			// using settings default instead of module's
+			if ( $value === $this->default_option( $args['field'], $args['default'] ) )
+				$value = $args['default'];
+		}
 
 		if ( $args['before'] )
 			echo $args['before'].'&nbsp;';
