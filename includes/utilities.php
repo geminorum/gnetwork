@@ -333,7 +333,7 @@ class gNetworkUtilities
 		return $html.'>';
 	}
 
-	public static function html( $tag, $atts = array(), $content = FALSE, $sep = "\n" )
+	public static function html( $tag, $atts = array(), $content = FALSE, $sep = '' )
 	{
 		if ( is_array( $atts ) )
 			$html = self::_tag_open( $tag, $atts, $content );
