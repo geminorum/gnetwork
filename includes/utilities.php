@@ -855,6 +855,18 @@ class gNetworkUtilities
 
 		return '';
 	}
+
+	public static function genRandomKey( $salt )
+	{
+		$chr = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		$len = 32;
+		$key = '';
+
+		for ( $i = 0; $i < $len; $i++ )
+			$key .= $chr[( mt_rand( 0,( strlen( $chr ) - 1 ) ) )];
+
+		return md5( $salt.$key );
+	}
 }
 
 function gnetwork_log( $data, $table = 0 ) { gNetworkUtilities::log( $data, $table ); }

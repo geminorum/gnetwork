@@ -535,12 +535,8 @@ class gNetworkRestrictedBouncer
 	private static function genFeedKey()
 	{
 		global $userdata;
-		$charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-		$keylength = 32;
-		$key = '';
-		for ( $i = 0; $i < $keylength; $i++ )
-			$key .= $charset[( mt_rand( 0,( strlen( $charset ) - 1 ) ) )];
-		return md5( $userdata->user_login.$key );
+
+		return gNetworkUtilities::genRandomKey( $userdata->user_login );
 	}
 
 	public function template_redirect()
