@@ -247,19 +247,19 @@ class gNetworkOpenSearch extends gNetworkModuleCore
 
 		$url = add_query_arg( GNETWORK_SEARCH_QUERYID, '{searchTerms}', GNETWORK_SEARCH_URL );
 
-		$xml = "\t".gNetworkUtilities::html( 'ShortName', trim( $this->options['shortname'] ) );
+		$xml = "\t".gNetworkUtilities::html( 'ShortName', trim( $this->options['shortname'] ) )."\n";
 
 		if ( $this->options['longname'] )
-			$xml .= "\t".gNetworkUtilities::html( 'LongName', $this->options['longname'] );
+			$xml .= "\t".gNetworkUtilities::html( 'LongName', $this->options['longname'] )."\n";
 
-		$xml .= "\t".gNetworkUtilities::html( 'Description', $this->options['description'] );
-		$xml .= "\t".gNetworkUtilities::html( 'InputEncoding', get_bloginfo( 'charset' ) );
-		$xml .= "\t".gNetworkUtilities::html( 'OutputEncoding', get_bloginfo( 'charset' ) );
-		$xml .= "\t".gNetworkUtilities::html( 'Language', get_bloginfo( 'language' ) );
+		$xml .= "\t".gNetworkUtilities::html( 'Description', $this->options['description'] )."\n";
+		$xml .= "\t".gNetworkUtilities::html( 'InputEncoding', get_bloginfo( 'charset' ) )."\n";
+		$xml .= "\t".gNetworkUtilities::html( 'OutputEncoding', get_bloginfo( 'charset' ) )."\n";
+		$xml .= "\t".gNetworkUtilities::html( 'Language', get_bloginfo( 'language' ) )."\n";
 
 		if ( GNETWORK_SEARCH_REDIRECT ) {
 
-			$xml .= "\t".gNetworkUtilities::html( 'moz:SearchForm', GNETWORK_SEARCH_URL );
+			$xml .= "\t".gNetworkUtilities::html( 'moz:SearchForm', GNETWORK_SEARCH_URL )."\n";
 
 		} else {
 
@@ -274,7 +274,7 @@ class gNetworkOpenSearch extends gNetworkModuleCore
 					'feed'                  => 'atom',
 					GNETWORK_SEARCH_QUERYID => '{searchTerms}',
 				), GNETWORK_SEARCH_URL ),
-			) );
+			) )."\n";
 
 			$xml .= "\t".gNetworkUtilities::html( 'Url', array(
 				'type'     => 'application/rss+xml',
@@ -282,7 +282,7 @@ class gNetworkOpenSearch extends gNetworkModuleCore
 					'feed'                  => 'rss2',
 					GNETWORK_SEARCH_QUERYID => '{searchTerms}',
 				), GNETWORK_SEARCH_URL ),
-			) );
+			) )."\n";
 
 			if ( $this->options['suggestions'] ) {
 				$xml .= "\t".gNetworkUtilities::html( 'Url', array(
@@ -292,7 +292,7 @@ class gNetworkOpenSearch extends gNetworkModuleCore
 					// 'method'   => 'get',
 					// 'rel'      => 'suggestions',
 					'template' => add_query_arg( 'query', '{searchTerms}', get_bloginfo( 'url', 'display' ).'/oss.json' ),
-				) );
+				) )."\n";
 
 				$url = add_query_arg( array(
 					GNETWORK_SEARCH_QUERYID => '{searchTerms}',
@@ -309,38 +309,38 @@ class gNetworkOpenSearch extends gNetworkModuleCore
 			'type'     => 'text/html',
 			'method'   => 'get',
 			'template' => $url,
-		) );
+		) )."\n";
 
 		$xml .= "\t".gNetworkUtilities::html( 'Url', array(
 			'type'     => 'application/opensearchdescription+xml',
 			'rel'      => 'self',
 			'template' => self::url(),
-		) );
+		) )."\n";
 
 		if ( file_exists( ABSPATH.'favicon.ico' ) )
 			$xml .= "\t".gNetworkUtilities::html( 'Image', array(
 				'type'   => 'image/x-icon',
 				'width'  => '16',
 				'height' => '16',
-			), get_bloginfo( 'url' ).'/favicon.ico' );
+			), get_bloginfo( 'url' ).'/favicon.ico' )."\n";
 
 		if ( file_exists( ABSPATH.'favicon.png' ) )
 			$xml .= "\t".gNetworkUtilities::html( 'Image', array(
 				'type'   => 'image/png',
 				'width'  => '64',
 				'height' => '64',
-			), get_bloginfo( 'url' ).'/favicon.png' );
+			), get_bloginfo( 'url' ).'/favicon.png' )."\n";
 
 		if ( $this->options['contact'] )
-			$xml .= "\t".gNetworkUtilities::html( 'Contact', $this->options['contact'] );
+			$xml .= "\t".gNetworkUtilities::html( 'Contact', $this->options['contact'] )."\n";
 
 		if ( $this->options['tags'] )
-			$xml .= "\t".gNetworkUtilities::html( 'Tags', $this->options['tags'] );
+			$xml .= "\t".gNetworkUtilities::html( 'Tags', $this->options['tags'] )."\n";
 
 		if ( $this->options['attribution'] )
-			$xml .= "\t".gNetworkUtilities::html( 'Attribution', $this->options['attribution'] );
+			$xml .= "\t".gNetworkUtilities::html( 'Attribution', $this->options['attribution'] )."\n";
 
-		$xml .= "\t".gNetworkUtilities::html( 'SyndicationRight', $this->options['syndication'] );
+		$xml .= "\t".gNetworkUtilities::html( 'SyndicationRight', $this->options['syndication'] )."\n";
 
 		$xml .= "\t".'<Query role="example" searchTerms="tag" />'."\n";
 		$xml .= "\t".'<AdultContent>false</AdultContent>';
