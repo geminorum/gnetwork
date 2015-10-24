@@ -163,7 +163,7 @@ class gNetworkNetwork extends gNetworkModuleCore
 			'resetting' => self::updated( __( 'Resetting Settings.', GNETWORK_TEXTDOMAIN ) ),
 			'updated'   => self::updated( __( 'Settings updated.', GNETWORK_TEXTDOMAIN ) ),
 			'error'     => self::error( __( 'Error while saving settings.', GNETWORK_TEXTDOMAIN ) ),
-		) );
+		), $sub );
 
 		echo '<div class="wrap gnetwork-admin-settings-wrap settings-network sub-'.$sub.'">';
 
