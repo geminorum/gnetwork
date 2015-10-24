@@ -5,6 +5,7 @@ class gNetworkBlog extends gNetworkModuleCore
 
 	protected $option_key = 'general';
 	protected $network    = FALSE;
+	protected $ajax       = TRUE;
 
 	protected function setup_actions()
 	{
