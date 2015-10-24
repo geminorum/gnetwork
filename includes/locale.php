@@ -119,25 +119,28 @@ class gNetworkLocale extends gNetworkModuleCore
 
 	public function locale( $locale )
 	{
-		global $gNetwork;
+		global $gNetwork, $gNetworkCurrentLocale;
+
+		if ( ! empty( $gNetworkCurrentLocale ) )
+			return $gNetworkCurrentLocale;
 
 		if ( is_network_admin() )
-			return isset( $gNetwork->site ) && $gNetwork->site->options['admin_locale'] ? $gNetwork->site->options['admin_locale'] : 'en_US';
+			return $gNetworkCurrentLocale = isset( $gNetwork->site ) && $gNetwork->site->options['admin_locale'] ? $gNetwork->site->options['admin_locale'] : 'en_US';
 
 		if ( is_admin() ) {
 
 			if ( isset( $gNetwork->blog ) && $gNetwork->blog->options['admin_locale'] )
-				return $gNetwork->blog->options['admin_locale'];
+				return $gNetworkCurrentLocale = $gNetwork->blog->options['admin_locale'];
 
 			else if ( defined( 'GNETWORK_WPLANG_ADMIN' ) && GNETWORK_WPLANG_ADMIN )
-				return GNETWORK_WPLANG_ADMIN;
+				return $gNetworkCurrentLocale = GNETWORK_WPLANG_ADMIN;
 
 		} else {
-			return $locale;
+			return $gNetworkCurrentLocale = $locale;
 		}
 
 		if ( 'en_US' == $locale )
-			return $locale;
+			return $gNetworkCurrentLocale = $locale;
 
 		$black_list = apply_filters( 'gnetwork_locale_blacklist', array(
 			'rewrite-rules-inspector'       => 'page',
@@ -173,8 +176,8 @@ class gNetworkLocale extends gNetworkModuleCore
 
 		foreach ( $black_list as $val => $key )
 			if ( isset( $_REQUEST[$key] ) && $val == trim( $_REQUEST[$key] ) )
-				return 'en_US';
+				return $gNetworkCurrentLocale = 'en_US';
 
-		return $locale;
+		return $gNetworkCurrentLocale = $locale;
 	}
 }
