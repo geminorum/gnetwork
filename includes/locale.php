@@ -125,8 +125,13 @@ class gNetworkLocale extends gNetworkModuleCore
 			return isset( $gNetwork->site ) && $gNetwork->site->options['admin_locale'] ? $gNetwork->site->options['admin_locale'] : 'en_US';
 
 		if ( is_admin() ) {
-			if ( defined( 'GNETWORK_WPLANG_ADMIN' ) && GNETWORK_WPLANG_ADMIN )
+
+			if ( isset( $gNetwork->blog ) && $gNetwork->blog->options['admin_locale'] )
+				return $gNetwork->blog->options['admin_locale'];
+
+			else if ( defined( 'GNETWORK_WPLANG_ADMIN' ) && GNETWORK_WPLANG_ADMIN )
 				return GNETWORK_WPLANG_ADMIN;
+
 		} else {
 			return $locale;
 		}

@@ -33,6 +33,7 @@ class gNetworkBlog extends gNetworkModuleCore
 	public function default_options()
 	{
 		return array(
+			'admin_locale'        => '',
 			'blog_redirect'       => '',
 			'linkmanager_enabled' => '0',
 			'xmlrpc_enabled'      => '0',
@@ -116,6 +117,18 @@ class gNetworkBlog extends gNetworkModuleCore
 					'default'     => '',
 					'dir'         => 'ltr',
 					'placeholder' => 'UA-XXXXX-X',
+				),
+			);
+
+		if ( class_exists( 'gNetworkLocale' ) )
+			$settings['_locale'] = array(
+				array(
+					'field'   => 'admin_locale',
+					'type'    => 'select',
+					'title'   => __( 'Admin Language', GNETWORK_TEXTDOMAIN ),
+					'desc'    => __( 'Despite of the site language, always display admin in this locale', GNETWORK_TEXTDOMAIN ),
+					'values'  => gNetworkUtilities::sameKey( gNetworkLocale::available() ),
+					'default' => get_locale(),
 				),
 			);
 
