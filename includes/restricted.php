@@ -164,7 +164,7 @@ class gNetworkRestricted extends gNetworkModuleCore
 	public function edit_user_profile( $profileuser )
 	{
 		if ( 'none' == $this->options['restricted_site']
-			&& ! gNetworkUtilities::isDev() )
+			&& ! self::isDev() )
 				return;
 
 		$feedkey = gNetworkRestrictedBouncer::getUserFeedKey( $profileuser->ID, FALSE );

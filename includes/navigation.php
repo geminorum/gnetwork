@@ -201,7 +201,7 @@ class gNetworkNavigation extends gNetworkModuleCore
 			'link' => wp_login_url(),
 		);
 
-		if ( $register_url = gNetworkUtilities::registerURL() )
+		if ( $register_url = self::registerURL() )
 			$items[] = array(
 				'name' => __( 'Register', GNETWORK_TEXTDOMAIN ),
 				'slug' => 'register',

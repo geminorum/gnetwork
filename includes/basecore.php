@@ -490,7 +490,7 @@ class gNetworkBaseCore
 		) )."\n";
 	}
 
-	public static function customStyleSheet( $css, $link = TRUE )
+	public static function customStyleSheet( $css, $link = TRUE, $version = NULL )
 	{
 		$url = FALSE;
 
@@ -505,7 +505,7 @@ class gNetworkBaseCore
 		if ( ! $url || ! $link )
 			return $link;
 
-		self::linkStyleSheet( $url );
+		self::linkStyleSheet( $url, $version );
 	}
 
 	public static function superAdminOnly()
@@ -638,7 +638,7 @@ class gNetworkBaseCore
 		error_log( print_r( compact( 'data' ), TRUE ) );
 	}
 
-	// USE: gNetworkUtilities::callStack( debug_backtrace() );
+	// USE: gNetworkBaseCore::callStack( debug_backtrace() );
 	// http://stackoverflow.com/a/8497530
 	public static function callStack( $stacktrace )
 	{

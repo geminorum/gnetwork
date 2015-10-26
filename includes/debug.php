@@ -208,7 +208,7 @@ class gNetworkDebug extends gNetworkModuleCore
 
 	public function wp_footer()
 	{
-		$stat = gNetworkUtilities::stat();
+		$stat = self::stat();
 		echo "\n\t<!-- {$stat} -->\n";
 	}
 

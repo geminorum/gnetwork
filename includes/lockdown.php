@@ -53,7 +53,7 @@ class gNetworkLockDown extends gNetworkModuleCore
 					'title'   => __( 'Login Attempt Limit', GNETWORK_TEXTDOMAIN ),
 					'desc'    => __( 'What is the maximum number of failed login attempts?', GNETWORK_TEXTDOMAIN ),
 					'default' => '4',
-					'values'  => gNetworkUtilities::range( 4, 20, 2 ),
+					'values'  => self::range( 4, 20, 2 ),
 				),
 				array(
 					'field'   => 'locked_expiration',
@@ -97,7 +97,7 @@ class gNetworkLockDown extends gNetworkModuleCore
 	private function get_ip()
 	{
 		if ( $this->options['trust_proxied_ip'] )
-			return array_shift( array_map( 'trim', explode( ',', gNetworkUtilities::IP() ) ) );
+			return array_shift( array_map( 'trim', explode( ',', self::IP() ) ) );
 
 		if ( getenv( 'HTTP_FORWARDED' ) )
 			return getenv( 'HTTP_FORWARDED' );

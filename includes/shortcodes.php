@@ -202,7 +202,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 				$post = get_post( $args['id'] );
 				if ( $post ) {
 					if ( $post->post_parent ) {
-						$html = gNetworkUtilities::html( 'a', array(
+						$html = self::html( 'a', array(
 							'href'        => get_permalink( $post->post_parent ),
 							'title'       => get_the_title( $post->post_parent ),
 							'class'       => 'parent',
@@ -210,7 +210,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 							'rel'         => 'parent',
 						), $args['html'] );
 					} else {
-						$html = gNetworkUtilities::html( 'a', array(
+						$html = self::html( 'a', array(
 							'href'        => home_url( '/' ),
 							'title'       => _x( 'Home', 'ShortCode Module: back: home title attr', GNETWORK_TEXTDOMAIN ),
 							'class'       => 'home',
@@ -224,7 +224,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 
 			case 'home' :
 
-				$html = gNetworkUtilities::html( 'a', array(
+				$html = self::html( 'a', array(
 					'href'        => home_url( '/' ),
 					'title'       => _x( 'Home', 'ShortCode Module: back: home title attr', GNETWORK_TEXTDOMAIN ),
 					'class'       => 'home',
@@ -272,7 +272,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		if ( ! in_array( $args['scroll'], array( 'auto', 'yes', 'no' ) ) )
 			$args['scroll'] = 'no';
 
-		$html = gNetworkUtilities::html( 'iframe', array(
+		$html = self::html( 'iframe', array(
 			'frameborder' => '0',
 			'src'         => $args['url'],
 			'style'       => $args['style'],
@@ -655,7 +655,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			$args['url_icon'] = $args['rtl'] ? '&larr;' : '&rarr;';
 
 		if ( $args['url'] )
-			$url = gNetworkUtilities::html( 'a', array(
+			$url = self::html( 'a', array(
 				'class'       => 'refrence-external',
 				'data-toggle' => 'tooltip',
 				'href'        => $args['url'],
@@ -673,7 +673,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		$key = count( $this->ref_ids ) + 1;
 		$this->ref_ids[$key] = $html;
 
-		$html = gNetworkUtilities::html( 'a', array(
+		$html = self::html( 'a', array(
 			'class'       => 'cite-scroll',
 			'data-toggle' => 'tooltip',
 			'href'        => '#citenote-'.$key,
@@ -715,7 +715,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			$item  = '<span class="ref-number">';
 			$item .= ( $args['number'] ? ( $args['format_number'] ? number_format_i18n( $key ) : $key ).$args['after_number'] : '' );
 
-			$item .= gNetworkUtilities::html( 'a', array(
+			$item .= self::html( 'a', array(
 				'class'       => 'cite-scroll',
 				// 'data-toggle' => 'tooltip',
 				'href'        => '#citeref-'.$key,
@@ -725,7 +725,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			$html .= '<li>'.$item.'</span> <span class="ref-text"><span class="citation" id="citenote-'.$key.'">'.$text.'</span></span></li>';
 		}
 
-		$html = gNetworkUtilities::html( ( $args['number'] ? 'ul' : 'ol' ), array(
+		$html = self::html( ( $args['number'] ? 'ul' : 'ol' ), array(
 			'class' => $args['class'],
 		), apply_filters( 'gnetwork_cite_reflist_before', '', $args ).$html );
 
@@ -850,7 +850,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			if ( ! $term )
 				return $content;
 
-			$this->people[$person] = gNetworkUtilities::html( 'a', array(
+			$this->people[$person] = self::html( 'a', array(
 				'href'        => get_term_link( $term, $term->taxonomy ),
 				'title'       => sanitize_term_field( 'name', $term->name, $term->term_id, $term->taxonomy, 'display' ),
 				'data-toggle' => 'tooltip',

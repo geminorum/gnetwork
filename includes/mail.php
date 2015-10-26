@@ -35,7 +35,7 @@ class gNetworkMail extends gNetworkModuleCore
 	{
 		if ( 'mail' == $sub && isset( $_POST['create_log_folder'] ) ) {
 			$this->check_referer( $sub );
-			gNetworkUtilities::putHTAccessDeny( GNETWORK_MAIL_LOG_DIR, TRUE );
+			self::putHTAccessDeny( GNETWORK_MAIL_LOG_DIR, TRUE );
 			self::redirect();
 		} else {
 			parent::settings( $sub );
@@ -286,13 +286,13 @@ class gNetworkMail extends gNetworkModuleCore
 		), $mail );
 
 		if ( is_array( $contents['to'] ) )
-			$to = array_filter( array( 'gNetworkUtilities', 'esc_filename' ), $contents['to'] );
+			$to = array_filter( array( 'gNetworkBaseCore', 'esc_filename' ), $contents['to'] );
 		else
-			$to = gNetworkUtilities::esc_filename( $contents['to'] );
+			$to = self::esc_filename( $contents['to'] );
 
 		$filename = current_time( 'Ymd-His' ).'-'.$to.'.json';
 
-		if ( FALSE === gNetworkUtilities::filePutContents( $filename, wp_json_encode( $contents ), GNETWORK_MAIL_LOG_DIR ) )
+		if ( FALSE === self::filePutContents( $filename, wp_json_encode( $contents ), GNETWORK_MAIL_LOG_DIR ) )
 			self::log( 'CANNOT LOG EMAIL', array( 'to' => $contents['to'] ) );
 
 		return $mail;
@@ -363,7 +363,7 @@ class gNetworkMail extends gNetworkModuleCore
 			echo '</strong></p><p>';
 				_e( 'The result was:', GNETWORK_TEXTDOMAIN );
 			echo '</p>';
-				gNetworkUtilities::dump( $result );
+				self::dump( $result );
 			echo '<p>';
 				_e('The SMTP debugging output:', GNETWORK_TEXTDOMAIN );
 			echo '</p><pre>';
@@ -371,7 +371,7 @@ class gNetworkMail extends gNetworkModuleCore
 			echo '</pre><p>';
 				_e('The full debugging output:', GNETWORK_TEXTDOMAIN );
 			echo '</p>';
-				gNetworkUtilities::tableSide( $phpmailer );
+				self::tableSide( $phpmailer );
 			echo '</div>';
 
 			unset( $phpmailer );
@@ -392,7 +392,7 @@ class gNetworkMail extends gNetworkModuleCore
 			if ( ! is_null( $old ) && filemtime( $log ) < $old )
 				continue;
 
-			$data = json_decode( gNetworkUtilities::fileGetContents( $log ), TRUE );
+			$data = json_decode( self::fileGetContents( $log ), TRUE );
 
 			$logs[] = array_merge( array(
 				'file' => $log,
@@ -409,13 +409,13 @@ class gNetworkMail extends gNetworkModuleCore
 	// FIXME: needs pagination
 	public function emaillogs_table( $limit = 25 )
 	{
-		echo gNetworkUtilities::html( 'h3', sprintf( __( 'The Last %s Email Logs', GNETWORK_TEXTDOMAIN ), $limit ) );
+		echo self::html( 'h3', sprintf( __( 'The Last %s Email Logs', GNETWORK_TEXTDOMAIN ), $limit ) );
 
 		$logs = $this->get_emaillogs( $limit );
 
 		if ( ! class_exists( 'gEditorialHelper' ) ) {
-			echo gNetworkUtilities::html( 'p', 'TEMPORARLY: it\'s better to have gEditorial enabled for this!' );
-			gNetworkUtilities::tableSide( $logs );
+			echo self::html( 'p', 'TEMPORARLY: it\'s better to have gEditorial enabled for this!' );
+			self::tableSide( $logs );
 		} else {
 
 			gEditorialHelper::table( array(

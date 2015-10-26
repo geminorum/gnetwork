@@ -189,12 +189,12 @@ class gNetworkTaxonomy extends gNetworkModuleCore
 		switch ( $_GET['message'] ) {
 			case  'gnetwork-taxonomy-updated':
 
-				gNetworkUtilities::notice( __( 'Terms updated.', GNETWORK_TEXTDOMAIN ) );
+				self::notice( __( 'Terms updated.', GNETWORK_TEXTDOMAIN ) );
 
 			break;
 			case 'gnetwork-taxonomy-error':
 
-				gNetworkUtilities::notice( __( 'Terms not updated.', GNETWORK_TEXTDOMAIN ), 'error' );
+				self::notice( __( 'Terms not updated.', GNETWORK_TEXTDOMAIN ), 'error' );
 
 			break;
 		}

@@ -168,7 +168,7 @@ class gNetworkNetwork extends gNetworkModuleCore
 		echo '<div class="wrap gnetwork-admin-settings-wrap settings-network sub-'.$sub.'">';
 
 			self::settingsTitle();
-			gNetworkUtilities::headerNav( $uri, $sub, $subs );
+			self::headerNav( $uri, $sub, $subs );
 			self::settingsMessage( $messages );
 
 			if ( file_exists( GNETWORK_DIR.'admin/network.'.$sub.'.php' ) )
@@ -186,7 +186,7 @@ class gNetworkNetwork extends gNetworkModuleCore
 
 		if ( file_exists( WP_CONTENT_DIR.'/'.GNETWORK_LOGO ) ) {
 
-			$html .= gNetworkUtilities::html( 'img', array(
+			$html .= self::html( 'img', array(
 				'src' => WP_CONTENT_URL.'/'.GNETWORK_LOGO,
 				'alt' => GNETWORK_NAME,
 			) );
@@ -198,13 +198,13 @@ class gNetworkNetwork extends gNetworkModuleCore
 		if ( ! $html )
 			return '';
 
-		$html = gNetworkUtilities::html( 'a', array(
+		$html = self::html( 'a', array(
 			'href'  => GNETWORK_BASE,
 			'title' => GNETWORK_NAME,
 		), $html );
 
 		if ( $wrap )
-			$html = gNetworkUtilities::html( $wrap, $html );
+			$html = self::html( $wrap, $html );
 
 		return $html;
 	}

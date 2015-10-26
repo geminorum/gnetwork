@@ -128,7 +128,7 @@ class gNetworkBlog extends gNetworkModuleCore
 					'type'    => 'select',
 					'title'   => __( 'Admin Language', GNETWORK_TEXTDOMAIN ),
 					'desc'    => __( 'Despite of the site language, always display admin in this locale', GNETWORK_TEXTDOMAIN ),
-					'values'  => gNetworkUtilities::sameKey( gNetworkLocale::available() ),
+					'values'  => self::sameKey( gNetworkLocale::available() ),
 					'default' => get_locale(),
 				),
 			);
@@ -147,7 +147,7 @@ class gNetworkBlog extends gNetworkModuleCore
 				&& isset( $_GET['locale'] ) && $_GET['locale']
 				&& class_exists( 'gNetworkLocale' ) ) {
 					if ( $result = gNetworkLocale::changeLocale( trim( $_GET['locale'] ) ) )
-						self::redirect( remove_query_arg( array( 'locale', 'gnetwork_action' ), gNetworkUtilities::currentURL() ) );
+						self::redirect( remove_query_arg( array( 'locale', 'gnetwork_action' ), self::currentURL() ) );
 			}
 		}
 
@@ -189,7 +189,7 @@ class gNetworkBlog extends gNetworkModuleCore
 		if ( is_null( $request_uri ) )
 			$request_uri = $_SERVER['REQUEST_URI'];
 
-		return gNetworkUtilities::strpos_arr( array(
+		return self::strpos_arr( array(
 			'wp-cron.php',
 			'wp-mail.php',
 			'wp-login.php',

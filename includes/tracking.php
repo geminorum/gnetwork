@@ -139,7 +139,7 @@ class gNetworkTracking extends gNetworkModuleCore
 
 		$this->ignore = FALSE;
 
-		if ( gNetworkUtilities::isDev() )
+		if ( self::isDev() )
 			$this->ignore = TRUE;
 		else if ( self::cuc( $this->options['ignore_user'] ) )
 			$this->ignore = TRUE;
@@ -180,7 +180,7 @@ class gNetworkTracking extends gNetworkModuleCore
 
 		$this->gp_platformjs = TRUE;
 
-		$html = gNetworkUtilities::html( 'div', array(
+		$html = self::html( 'div', array(
 			'class'      => 'g-page',
 			'data-width' => $args['width'],
 			'data-href'  => $args['href'],
@@ -198,7 +198,7 @@ class gNetworkTracking extends gNetworkModuleCore
 		$args = shortcode_atts( array(
 			'server'  => 'https://ga-beacon.appspot.com/',
 			'beacon'  => $this->options['ga_beacon'],
-			'domain'  => gNetworkUtilities::getDomain( $this->options['primary_domain'] ),
+			'domain'  => self::getDomain( $this->options['primary_domain'] ),
 			'page'    => '',
 			'badge'   => 'pixel', // 'flat' / 'flat-gif'
 			'alt'     => 'Analytics',
@@ -215,7 +215,7 @@ class gNetworkTracking extends gNetworkModuleCore
 		if ( $args['badge'] )
 			$src .= '?'. $args['badge'];
 
-		$html = gNetworkUtilities::html( 'img', array(
+		$html = self::html( 'img', array(
 			'src' => $src,
 			'alt' => $args['alt'],
 		) );
@@ -342,7 +342,7 @@ qacct:"<?php echo $this->options['quantcast']; ?>"
 		global $gNetwork;
 
 		if ( isset( $gNetwork->tracking ) && $gNetwork->tracking->options['twitter_site'] )
-			$html = gNetworkUtilities::html( 'a', array(
+			$html = self::html( 'a', array(
 				'href'  => 'https://twitter.com/intent/user?screen_name='.$gNetwork->tracking->options['twitter_site'],
 				'title' => __( 'Follow Us', GNETWORK_TEXTDOMAIN ),
 				'rel'   => 'follow',
@@ -352,7 +352,7 @@ qacct:"<?php echo $this->options['quantcast']; ?>"
 			return '';
 
 		if ( $class )
-			$html = gNetworkUtilities::html( 'div', array(
+			$html = self::html( 'div', array(
 				'class' => $class,
 			), $html );
 

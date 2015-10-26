@@ -100,18 +100,18 @@ class gNetworkCron extends gNetworkModuleCore
 
 	public static function cronInfo()
 	{
-		echo gNetworkUtilities::html( 'h3', __( 'Overview of tasks scheduled for WP-Cron', GNETWORK_TEXTDOMAIN ) );
+		echo self::html( 'h3', __( 'Overview of tasks scheduled for WP-Cron', GNETWORK_TEXTDOMAIN ) );
 
 		$cron = self::getCronArray();
 
 		if ( empty( $cron ) ) {
-			echo gNetworkUtilities::html( 'strong', __( 'Nothing scheduled', GNETWORK_TEXTDOMAIN ) );
+			echo self::html( 'strong', __( 'Nothing scheduled', GNETWORK_TEXTDOMAIN ) );
 			return;
 		}
 
 		if ( ! class_exists( 'gEditorialHelper' ) ) {
-			echo gNetworkUtilities::html( 'p', 'TEMPORARLY: it\'s better to have gEditorial enabled for this!' );
-			gNetworkUtilities::tableSide( $cron );
+			echo self::html( 'p', 'TEMPORARLY: it\'s better to have gEditorial enabled for this!' );
+			self::tableSide( $cron );
 
 		} else {
 

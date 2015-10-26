@@ -49,7 +49,7 @@ class gNetworkCode extends gNetworkModuleCore
 
 		$key = 'gnetwork_code_githubreadme_'.$args['repo'].'_'.$args['type'].'_'.$args['trim'];
 
-		if ( gNetworkUtilities::isFlush() )
+		if ( self::isFlush() )
 			delete_site_transient( $key );
 
 		if ( FALSE === ( $html = get_site_transient( $key ) ) ) {
@@ -78,7 +78,7 @@ class gNetworkCode extends gNetworkModuleCore
 			}
 		}
 
-		if ( gNetworkUtilities::isDev() )
+		if ( self::isDev() )
 			delete_site_transient( $key );
 
 		return '<div class="gnetwork-wrap-shortcode github-readme" data-github-repo="'.$args['repo'].'">'.$html.'</div>';
@@ -139,7 +139,7 @@ class gNetworkCode extends gNetworkModuleCore
 		if ( FALSE == $args['id'] )
 			return $content;
 
-		$html = gNetworkUtilities::html( 'code', array(
+		$html = self::html( 'code', array(
 			'data' => array(
 				'gist-id'                => $args['id'],
 				'gist-hide-line-numbers' => $args['hide-line-numbers'] ? 'true' : FALSE,
@@ -180,7 +180,7 @@ class gNetworkCode extends gNetworkModuleCore
 		$key = 'github-repo-'.( count( $this->scripts ) + 1 );
 		$this->scripts[$key] = "$('#".$key."').repo({user:'".$args['username']."',name:'".$args['name']."'".( $args['branch'] ? ", branch:'".$args['branch']."'" : "" )."});";
 
-		gNetworkUtilities::wrapJS( $this->scripts[$key], FALSE );
+		self::wrapJS( $this->scripts[$key], FALSE );
 		wp_enqueue_script( 'repo-js', GNETWORK_URL.'assets/libs/repo.js/repo.min.js', array( 'jquery' ), GNETWORK_VERSION, TRUE );
 
 		return '<div id="'.$key.'" class="gnetwork-wrap-shortcode github-repo"></div>';

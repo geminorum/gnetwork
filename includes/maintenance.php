@@ -108,14 +108,14 @@ class gNetworkMaintenance extends gNetworkModuleCore
 	public function admin_notices()
 	{
 		if ( $this->options['admin_notice'] && ! empty( $this->options['admin_notice'] )  )
-			gNetworkUtilities::notice( $this->options['admin_notice'], 'error' );
+			self::notice( $this->options['admin_notice'], 'error' );
 	}
 
 	public function login_message()
 	{
 		if ( $this->options['login_message'] && ! empty( $this->options['login_message'] ) )
 			echo '<div id="login_error">'.wpautop( $this->options['login_message'] ).'</div>';
-			// gNetworkUtilities::notice( $this->options['login_message'], 'error' );
+			// self::notice( $this->options['login_message'], 'error' );
 	}
 
 	public function template_redirect()

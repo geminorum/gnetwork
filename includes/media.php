@@ -70,7 +70,7 @@ class gNetworkMedia extends gNetworkModuleCore
 		if ( ! is_wp_error( $editor ) )
 			$metadata['sizes'] = $editor->multi_resize( $sizes );
 
-		if ( gNetworkUtilities::isDev() )
+		if ( self::isDev() )
 			error_log( print_r( compact( 'parent_type', 'sizes', 'metadata', 'uploads' ), TRUE ) );
 
 		return $metadata;
@@ -150,7 +150,7 @@ class gNetworkMedia extends gNetworkModuleCore
 				TRUE,
 			);
 
-			// if ( gNetworkUtilities::isDev() )
+			// if ( self::isDev() )
 			// 	error_log( print_r( compact( 'size', 'data', 'path', 'img_url', 'result', 'upload_dir' ), TRUE ) );
 
 			return $result;
@@ -166,7 +166,7 @@ class gNetworkMedia extends gNetworkModuleCore
 		$folder     = str_replace( $upload_dir['basedir'], '', $info['dirname'] );
 		$path       = path_join( GNETWORK_MEDIA_SIZES_DIR, get_current_blog_id() ).$folder;
 
-		if ( gNetworkUtilities::isDev() )
+		if ( self::isDev() )
 			error_log( print_r( compact( 'info', 'upload_dir', 'folder', 'path' ), TRUE ) );
 
 		if ( wp_mkdir_p( $path ) )

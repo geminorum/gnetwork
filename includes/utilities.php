@@ -115,9 +115,16 @@ class gNetworkUtilities extends gNetworkBaseCore
 			return $caps[$cap];
 	}
 
+	// NOTE: override to use plugin version
 	public static function linkStyleSheet( $url, $version = GNETWORK_VERSION, $media = 'all' )
 	{
 		parent::linkStyleSheet( $url, $version, $media );
+	}
+
+	// NOTE: override to use plugin version
+	public static function customStyleSheet( $css, $link = TRUE, $version = GNETWORK_VERSION )
+	{
+		parent::customStyleSheet( $css, $link, $version );
 	}
 
 	public static function getTinyMceStrings( $locale )
@@ -127,6 +134,7 @@ class gNetworkUtilities extends gNetworkBaseCore
 		return count( $strings ) ? 'tinyMCE.addI18n("'.$locale.'.gnetwork", '.wp_json_encode( $strings ).');'."\n" : '';
 	}
 
+	// FIXME: WTF ?!
 	// http://www.webdesignerdepot.com/2012/08/wordpress-filesystem-api-the-right-way-to-operate-with-local-files/
 	//http://ottopress.com/2011/tutorial-using-the-wp_filesystem/
 
@@ -170,7 +178,7 @@ class gNetworkUtilities extends gNetworkBaseCore
 	{
 		global $wp_filesystem;
 
-		$args = gNetworkModuleCore::atts( array(
+		$args = self::atts( array(
 			'form_url' => '',
 			'referer'  => 'filesystem_demo_screen',
 			'content'  => sanitize_text_field( $_POST['demotext'] ),

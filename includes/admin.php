@@ -208,7 +208,7 @@ class gNetworkAdmin extends gNetworkModuleCore
 			), $sub );
 
 			self::settingsTitle();
-			gNetworkUtilities::headerNav( $uri, $sub, $subs );
+			self::headerNav( $uri, $sub, $subs );
 			self::settingsMessage( $messages );
 
 			if ( file_exists( GNETWORK_DIR.'admin/admin.'.$sub.'.php' ) )

@@ -67,7 +67,7 @@ class gNetworkActivation extends gNetworkModuleCore
 
 		if ( ! in_array( TRUE, $queue ) ) {
 			delete_site_option( "network_{$action}_queue" );
-			gNetworkUtilities::notice( __( 'Network (de)activation: no further action necessary.', GNETWORK_TEXTDOMAIN ) );
+			self::notice( __( 'Network (de)activation: no further action necessary.', GNETWORK_TEXTDOMAIN ) );
 			return;
 		}
 
@@ -83,7 +83,7 @@ class gNetworkActivation extends gNetworkModuleCore
 			"<span id='gnetwork-activation-count-total'>$total</span>"
 		);
 
-		gNetworkUtilities::notice( $message );
+		self::notice( $message );
 		//echo "<div class='updated'><p id='gnetwork-activation'>$message</p></div>";
 ?>
 <script type="text/javascript">

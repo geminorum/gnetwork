@@ -67,7 +67,7 @@ class gNetworkAdminBar extends gNetworkModuleCore
 		if ( constant( 'GNETWORK_REPORTBUG_URL' ) )
 			$items = preg_replace( '%REPORTBUG_URL%',
 				sprintf( constant( 'GNETWORK_REPORTBUG_URL' ),
-					urlencode( gNetworkUtilities::currentURL() ) ), $items );
+					urlencode( self::currentURL() ) ), $items );
 
 		return $items;
 	}
@@ -147,7 +147,7 @@ class gNetworkAdminBar extends gNetworkModuleCore
 
 	private function add_nodes( &$wp_admin_bar )
 	{
-		$current_url = gNetworkUtilities::currentURL();
+		$current_url = self::currentURL();
 		$parent_id   = 'gnetwork-info';
 		$group_id    = $parent_id.'-sub';
 
@@ -243,7 +243,7 @@ class gNetworkAdminBar extends gNetworkModuleCore
 		$wp_admin_bar->add_node( array(
 			'parent' => $group_id,
 			'id'     => 'gnetwork-info-queries',
-			'title'  => gNetworkUtilities::stat( '%dq | %.3fs | %.2fMB' ),
+			'title'  => self::stat( '%dq | %.3fs | %.2fMB' ),
 			'href'   => gNetworkAdmin::settingsURL(),
 			'meta'   => array(
 				'title' => __( 'Queries | Timer Stop | Memory Usage', GNETWORK_TEXTDOMAIN ),
@@ -358,7 +358,7 @@ class gNetworkAdminBar extends gNetworkModuleCore
 				'href'   => wp_login_url(),
 			) );
 
-			if ( $register_url = gNetworkUtilities::registerURL() )
+			if ( $register_url = self::registerURL() )
 				$wp_admin_bar->add_menu( array(
 					'parent' => $parent,
 					'id'     => 'network-register',
