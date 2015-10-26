@@ -1,3 +1,7 @@
+### 0.2.27
+* locale: custom blog admin language
+* utilizing composer
+
 ### 0.2.26
 * shortcodes: reflist global style reset
 * shortcodes: wrap option
