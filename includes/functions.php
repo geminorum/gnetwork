@@ -34,3 +34,15 @@ if ( ! function_exists( '__donot_cache_page' ) ) : function __donot_cache_page()
 if ( ! function_exists( '__gpersiandate_skip' ) ) : function __gpersiandate_skip() {
 	defined( 'GPERSIANDATE_SKIP' ) or define( 'GPERSIANDATE_SKIP', TRUE );
 } endif;
+
+if ( ! function_exists( 'gnetwork_log' ) ) : function gnetwork_log( $data, $table = 0 ) {
+	gNetworkBaseCore::log( $data, $table );
+} endif;
+
+if ( ! function_exists( 'gnetwork_dump' ) ) : function gnetwork_dump( $var, $htmlSafe = TRUE ) {
+	gNetworkBaseCore::dump( $var, $htmlSafe );
+} endif;
+
+if ( ! function_exists( 'gnetwork_trace' ) ) : function gnetwork_trace( $old = TRUE ) {
+	gNetworkBaseCore::trace( $old );
+} endif;

@@ -24,6 +24,7 @@ function gnetwork_init() {
 	global $gNetwork;
 
 	$modules = array(
+		'basecore'    => '',
 		'constants'   => '',
 		'functions'   => '',
 		'utilities'   => '',

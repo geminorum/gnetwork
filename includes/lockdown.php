@@ -94,7 +94,7 @@ class gNetworkLockDown extends gNetworkModuleCore
 		);
 	}
 
-	private function ip()
+	private function get_ip()
 	{
 		if ( $this->options['trust_proxied_ip'] )
 			return array_shift( array_map( 'trim', explode( ',', gNetworkUtilities::IP() ) ) );
@@ -153,7 +153,7 @@ class gNetworkLockDown extends gNetworkModuleCore
 
 	public function authenticate( $user )
 	{
-		$ip = $this->ip();
+		$ip = $this->get_ip();
 
 		if ( empty( $ip ) )
 			return $user;
@@ -171,7 +171,7 @@ class gNetworkLockDown extends gNetworkModuleCore
 
 	public function wp_login()
 	{
-		$ip = $this->ip();
+		$ip = $this->get_ip();
 
 		if ( empty( $ip ) )
 			return;
@@ -181,7 +181,7 @@ class gNetworkLockDown extends gNetworkModuleCore
 
 	public function wp_login_failed()
 	{
-		$ip = $this->ip();
+		$ip = $this->get_ip();
 
 		if ( empty( $ip ) )
 			return;

@@ -1,6 +1,6 @@
 <?php defined( 'ABSPATH' ) or die( 'Restricted access' );
 
-class gNetworkModuleCore
+class gNetworkModuleCore extends gNetworkBaseCore
 {
 
 	public $options = array();
@@ -26,9 +26,9 @@ class gNetworkModuleCore
 			return;
 
 		if ( ! is_null( $this->dev ) ) {
-			if ( FALSE === $this->dev && gNetworkUtilities::isDev() )
+			if ( FALSE === $this->dev && self::isDev() )
 				return;
-			else if ( TRUE === $this->dev && ! gNetworkUtilities::isDev() )
+			else if ( TRUE === $this->dev && ! self::isDev() )
 				return;
 		}
 
@@ -60,16 +60,6 @@ class gNetworkModuleCore
 			return FALSE;
 
 		return $this->network;
-	}
-
-	public static function isAJAX()
-	{
-		return defined( 'DOING_AJAX' ) && DOING_AJAX;
-	}
-
-	public static function isCRON()
-	{
-		return defined( 'DOING_CRON' ) && DOING_CRON;
 	}
 
 	protected function setup_actions() {}
@@ -183,11 +173,6 @@ class gNetworkModuleCore
 		}
 	}
 
-	public static function settingsSub( $default = 'overview' )
-	{
-		return isset( $_REQUEST['sub'] ) ? trim( $_REQUEST['sub'] ) : $default;
-	}
-
 	public function settings_help() {}
 
 	// default setting sub html
@@ -298,25 +283,6 @@ class gNetworkModuleCore
 		check_admin_referer( $this->option_base.'_'.$sub.'-settings' );
 	}
 
-	public static function redirect_referer( $message = 'updated', $key = 'message' )
-	{
-		if ( is_array( $message ) )
-			$url = add_query_arg( $message, wp_get_referer() );
-		else
-			$url = add_query_arg( $key, $message, wp_get_referer() );
-
-		self::redirect( $url );
-	}
-
-	public static function redirect( $location = NULL, $status = 302 )
-	{
-		if ( is_null( $location ) )
-			$location = add_query_arg( wp_get_referer() );
-
-		wp_redirect( $location, $status );
-		exit();
-	}
-
 	public function reset_settings( $options_key = NULL )
 	{
 		$this->delete_options_legacy( $options_key );
@@ -339,7 +305,7 @@ class gNetworkModuleCore
 
 					// multiple checkboxes
 					if ( is_array( $_POST[$options_key][$setting] ) ) {
-						$options[$setting] = gNetworkUtilities::getKeys( $_POST[$options_key][$setting] );
+						$options[$setting] = self::getKeys( $_POST[$options_key][$setting] );
 
 					// other options
 					} else {
@@ -358,6 +324,7 @@ class gNetworkModuleCore
 	public function register_settings()
 	{
 		$settings = $this->default_settings();
+
 		if ( ! count( $settings ) )
 			return;
 
@@ -400,7 +367,7 @@ class gNetworkModuleCore
 			return;
 
 		if ( 'debug' == $args['field'] ) {
-			if ( ! gNetworkUtilities::isDev() )
+			if ( ! self::isDev() )
 				return;
 			$args['type'] = 'debug';
 			if ( ! $args['title'] )
@@ -531,7 +498,7 @@ class gNetworkModuleCore
 
 			case 'hidden' :
 
-				echo gNetworkUtilities::html( 'input', array(
+				echo self::html( 'input', array(
 					'type'  => 'hidden',
 					'name'  => $name,
 					'id'    => $id,
@@ -543,17 +510,17 @@ class gNetworkModuleCore
 			break;
 			case 'enabled' :
 
-				$html = gNetworkUtilities::html( 'option', array(
+				$html = self::html( 'option', array(
 					'value'    => '0',
 					'selected' => '0' == $value,
 				), ( isset( $args['values'][0] ) ? $args['values'][0] : esc_html__( 'Disabled', GNETWORK_TEXTDOMAIN ) ) );
 
-				$html .= gNetworkUtilities::html( 'option', array(
+				$html .= self::html( 'option', array(
 					'value'    => '1',
 					'selected' => '1' == $value,
 				), ( isset( $args['values'][1] ) ? $args['values'][1] : esc_html__( 'Enabled', GNETWORK_TEXTDOMAIN ) ) );
 
-				echo gNetworkUtilities::html( 'select', array(
+				echo self::html( 'select', array(
 					'class' => $args['field_class'],
 					'name'  => $name,
 					'id'    => $id,
@@ -565,7 +532,7 @@ class gNetworkModuleCore
 				if ( ! $args['field_class'] )
 					$args['field_class'] = 'regular-text';
 
-				echo gNetworkUtilities::html( 'input', array(
+				echo self::html( 'input', array(
 					'type'        => 'text',
 					'class'       => $args['field_class'],
 					'name'        => $name,
@@ -585,7 +552,7 @@ class gNetworkModuleCore
 				if ( ! $args['dir'] )
 					$args['dir'] = 'ltr';
 
-				echo gNetworkUtilities::html( 'input', array(
+				echo self::html( 'input', array(
 					'type'        => 'number',
 					'class'       => $args['field_class'],
 					'name'        => $name,
@@ -605,7 +572,7 @@ class gNetworkModuleCore
 
 					if ( ! is_null( $args['none_title'] ) ) {
 
-						$html = gNetworkUtilities::html( 'input', array(
+						$html = self::html( 'input', array(
 							'type'    => 'checkbox',
 							'class'   => $args['field_class'],
 							'name'    => $name.( is_null( $args['none_value'] ) ? '' : '-'.$args['none_value'] ),
@@ -615,7 +582,7 @@ class gNetworkModuleCore
 							'dir'     => $args['dir'],
 						) );
 
-						echo '<p>'.gNetworkUtilities::html( 'label', array(
+						echo '<p>'.self::html( 'label', array(
 							'for' => $id.( is_null( $args['none_value'] ) ? '' : '-'.$args['none_value'] ),
 						), $html.'&nbsp;'.esc_html( $args['none_title'] ) ).'</p>';
 					}
@@ -625,7 +592,7 @@ class gNetworkModuleCore
 						if ( in_array( $value_name, $exclude ) )
 							continue;
 
-						$html = gNetworkUtilities::html( 'input', array(
+						$html = self::html( 'input', array(
 							'type'    => 'checkbox',
 							'class'   => $args['field_class'],
 							'name'    => $name.'['.$value_name.']',
@@ -635,14 +602,14 @@ class gNetworkModuleCore
 							'dir'     => $args['dir'],
 						) );
 
-						echo '<p>'.gNetworkUtilities::html( 'label', array(
+						echo '<p>'.self::html( 'label', array(
 							'for' => $id.'-'.$value_name,
 						), $html.'&nbsp;'.esc_html( $value_title ) ).'</p>';
 					}
 
 				} else {
 
-					$html = gNetworkUtilities::html( 'input', array(
+					$html = self::html( 'input', array(
 						'type'    => 'checkbox',
 						'class'   => $args['field_class'],
 						'name'    => $name,
@@ -652,7 +619,7 @@ class gNetworkModuleCore
 						'dir'     => $args['dir'],
 					) );
 
-					echo '<p>'.gNetworkUtilities::html( 'label', array(
+					echo '<p>'.self::html( 'label', array(
 						'for' => $id,
 					), $html.'&nbsp;'.$args['description'] ).'</p>';
 
@@ -666,7 +633,7 @@ class gNetworkModuleCore
 
 					if ( ! is_null( $args['none_title'] ) ) {
 
-						$html = gNetworkUtilities::html( 'input', array(
+						$html = self::html( 'input', array(
 							'type'    => 'radio',
 							'class'   => $args['field_class'],
 							'name'    => $name,
@@ -676,7 +643,7 @@ class gNetworkModuleCore
 							'dir'     => $args['dir'],
 						) );
 
-						echo '<p>'.gNetworkUtilities::html( 'label', array(
+						echo '<p>'.self::html( 'label', array(
 							'for' => $id.( is_null( $args['none_value'] ) ? '' : '-'.$args['none_value'] ),
 						), $html.'&nbsp;'.esc_html( $args['none_title'] ) ).'</p>';
 					}
@@ -686,7 +653,7 @@ class gNetworkModuleCore
 						if ( in_array( $value_name, $exclude ) )
 							continue;
 
-						$html = gNetworkUtilities::html( 'input', array(
+						$html = self::html( 'input', array(
 							'type'    => 'radio',
 							'class'   => $args['field_class'],
 							'name'    => $name,
@@ -696,7 +663,7 @@ class gNetworkModuleCore
 							'dir'     => $args['dir'],
 						) );
 
-						echo '<p>'.gNetworkUtilities::html( 'label', array(
+						echo '<p>'.self::html( 'label', array(
 							'for' => $id.'-'.$value_name,
 						), $html.'&nbsp;'.esc_html( $value_title ) ).'</p>';
 					}
@@ -709,7 +676,7 @@ class gNetworkModuleCore
 
 					if ( ! is_null( $args['none_title'] ) ) {
 
-						$html .= gNetworkUtilities::html( 'option', array(
+						$html .= self::html( 'option', array(
 							'value'    => is_null( $args['none_value'] ) ? FALSE : $args['none_value'],
 							'selected' => $value == $args['none_value'],
 						), esc_html( $args['none_title'] ) );
@@ -720,13 +687,13 @@ class gNetworkModuleCore
 						if ( in_array( $value_name, $exclude ) )
 							continue;
 
-						$html .= gNetworkUtilities::html( 'option', array(
+						$html .= self::html( 'option', array(
 							'value'    => $value_name,
 							'selected' => $value == $value_name,
 						), esc_html( $value_title ) );
 					}
 
-					echo gNetworkUtilities::html( 'select', array(
+					echo self::html( 'select', array(
 						'class' => $args['field_class'],
 						'name'  => $name,
 						'id'    => $id,
@@ -755,7 +722,7 @@ class gNetworkModuleCore
 					$classes[] = 'textarea-quicktags';
 				}
 
-				echo gNetworkUtilities::html( 'textarea', array(
+				echo self::html( 'textarea', array(
 					'class'       => $classes,
 					'name'        => $name,
 					'id'          => $id,
@@ -809,13 +776,13 @@ class gNetworkModuleCore
 						if ( in_array( $value_name, $exclude ) )
 							continue;
 
-						$html .= gNetworkUtilities::html( 'option', array(
+						$html .= self::html( 'option', array(
 							'value'    => $value_name,
 							'selected' => $value === $value_name,
 						), esc_html( $value_title ) );
 					}
 
-					echo gNetworkUtilities::html( 'select', array(
+					echo self::html( 'select', array(
 						'class' => $args['field_class'],
 						'name'  => $name,
 						'id'    => $id,
@@ -831,24 +798,24 @@ class gNetworkModuleCore
 
 				if ( ! is_null( $args['none_title'] ) ) {
 
-					$html .= gNetworkUtilities::html( 'option', array(
+					$html .= self::html( 'option', array(
 						'value'    => is_null( $args['none_value'] ) ? FALSE : $args['none_value'],
 						'selected' => $value == $args['none_value'],
 					), esc_html( $args['none_title'] ) );
 				}
 
-				foreach ( gNetworkUtilities::getUsers() as $user_id => $user_object ) {
+				foreach ( self::getUsers() as $user_id => $user_object ) {
 
 					if ( in_array( $user_id, $exclude ) )
 						continue;
 
-					$html .= gNetworkUtilities::html( 'option', array(
+					$html .= self::html( 'option', array(
 						'value'    => $user_id,
 						'selected' => $value == $user_id,
 					), esc_html( $user_object->display_name ) );
 				}
 
-				echo gNetworkUtilities::html( 'select', array(
+				echo self::html( 'select', array(
 					'class' => $args['field_class'],
 					'name'  => $name,
 					'id'    => $id,
@@ -867,7 +834,7 @@ class gNetworkModuleCore
 			break;
 			case 'file' :
 
-				echo gNetworkUtilities::html( 'input', array(
+				echo self::html( 'input', array(
 					'type'  => 'file',
 					'class' => $args['field_class'],
 					'name'  => $id, //$name,
@@ -887,7 +854,7 @@ class gNetworkModuleCore
 			break;
 			case 'debug' :
 
-				gNetworkUtilities::dump( $this->options );
+				self::dump( $this->options );
 
 			break;
 			default :
@@ -899,7 +866,7 @@ class gNetworkModuleCore
 			echo '&nbsp;'.$args['after'];
 
 		if ( $args['description'] && FALSE !== $args['values'] )
-			echo gNetworkUtilities::html( 'p', array(
+			echo self::html( 'p', array(
 				'class' => 'description',
 			), $args['description'] );
 
@@ -911,82 +878,16 @@ class gNetworkModuleCore
 	public function print_scripts()
 	{
 		if ( count( $this->scripts ) )
-			gNetworkUtilities::wrapJS( implode( "\n", $this->scripts ) );
-	}
-
-	// helper
-	// current user can
-	public static function cuc( $cap, $none = TRUE )
-	{
-		if ( 'none' == $cap || '0' == $cap )
-			return $none;
-
-		return current_user_can( $cap );
+			self::wrapJS( implode( "\n", $this->scripts ) );
 	}
 
 	// HELPER
-	// ANCESTOR: shortcode_atts()
-	public static function atts( $pairs, $atts )
+	public function shortcodes( $shortcodes = array() )
 	{
-		$atts = (array) $atts;
-		$out  = array();
-
-		foreach ( $pairs as $name => $default ) {
-			if ( array_key_exists( $name, $atts ) )
-				$out[$name] = $atts[$name];
-			else
-				$out[$name] = $default;
+		foreach ( $shortcodes as $shortcode => $method ) {
+			remove_shortcode( $shortcode );
+			add_shortcode( $shortcode, array( $this, $method ) );
 		}
-
-		return $out;
-	}
-
-	// HELPER
-	// ANCESTOR: wp_parse_args()
-	public static function args( $args, $defaults = '' )
-	{
-		if ( is_object( $args ) )
-			$r = get_object_vars( $args );
-
-		elseif ( is_array( $args ) )
-			$r =& $args;
-
-		else
-			// wp_parse_str( $args, $r );
-			parse_str( $args, $r );
-
-		if ( is_array( $defaults ) )
-			return array_merge( $defaults, $r );
-
-		return $r;
-	}
-
-	// HELPER
-	public static function log( $error = '{NO Error Code}', $data = array(), $wp_error = NULL )
-	{
-		if ( ! WP_DEBUG_LOG )
-			return;
-
-		$log = array_merge( array(
-			'error'   => $error,
-			'time'    => current_time( 'mysql' ),
-			'ip'      => gNetworkUtilities::IP(),
-			'message' => ( is_null( $wp_error ) ? '{NO WP_Error Object}' : $wp_error->get_error_message() ),
-		), $data );
-
-		error_log( print_r( $log, TRUE ) );
-	}
-
-	// HELPER
-	public static function error( $message )
-	{
-		return gNetworkUtilities::notice( $message, 'error fade', FALSE );
-	}
-
-	// HELPER
-	public static function updated( $message )
-	{
-		return gNetworkUtilities::notice( $message, 'updated fade', FALSE );
 	}
 
 	// HELPER
@@ -998,25 +899,11 @@ class gNetworkModuleCore
 		if ( is_null( $count ) )
 			$count = isset( $_REQUEST['count'] ) ? $_REQUEST['count'] : 0;
 
-		return gNetworkUtilities::notice( sprintf( $message, number_format_i18n( $count ) ), $class.' fade', FALSE );
-	}
-
-	// HELPER : Will remove trailing forward and backslashes if it exists already before adding
-	// a trailing forward slash. This prevents double slashing a string or path.
-	// ANCESTOR: trailingslashit()
-	public static function trail( $string )
-	{
-		return self::untrail( $string ).'/';
-	}
-
-	// HELPER: Removes trailing forward slashes and backslashes if they exist.
-	// ANCESTOR: untrailingslashit()
-	public static function untrail( $string )
-	{
-		return rtrim( $string, '/\\' );
+		return self::notice( sprintf( $message, number_format_i18n( $count ) ), $class.' fade', FALSE );
 	}
 
 	// HELPER
+	// FIXME: move to gNetworkUtilities
 	public static function getDateDefaultFormat( $options = FALSE, $date_format = NULL, $time_format = NULL, $joiner = ' @' )
 	{
 		if ( ! $options )
@@ -1031,36 +918,10 @@ class gNetworkModuleCore
 		return $date_format.$joiner.$time_format;
 	}
 
-	// MAYBE: add general options for on a network panel
-	public static function getSiteUserID( $fallback = FALSE )
-	{
-		if ( defined( 'GNETWORK_SITE_USER_ID' ) && GNETWORK_SITE_USER_ID )
-			return intval( GNETWORK_SITE_USER_ID );
-
-		if ( function_exists( 'gtheme_get_option' ) ) {
-			if ( $gtheme_user = gtheme_get_option( 'default_user', 0 ) )
-				return intval( $gtheme_user );
-		}
-
-		if ( $fallback )
-			return intval( get_current_user_id() );
-
-		return 0;
-	}
-
-	// HELPER
-	public static function getSearchLink( $query = FALSE )
-	{
-		if ( GNETWORK_SEARCH_REDIRECT )
-			return $query ? add_query_arg( GNETWORK_SEARCH_QUERYID, urlencode( $query ), GNETWORK_SEARCH_URL ) : GNETWORK_SEARCH_URL;
-
-		return $query ? add_query_arg( 's', urlencode( $query ), get_option( 'home' ) ) : get_option( 'home' );
-	}
-
 	// HELPER
 	public static function getNewPostTypeLink( $post_type = 'page', $text = FALSE )
 	{
-		return gNetworkUtilities::html( 'a', array(
+		return self::html( 'a', array(
 			'href'   => admin_url( '/post-new.php?post_type='.$post_type ),
 			'title'  => _x( 'Add New Post Type', 'Moduel Core', GNETWORK_TEXTDOMAIN ),
 			'target' => '_blank',
@@ -1070,7 +931,7 @@ class gNetworkModuleCore
 	// HELPER
 	public static function getWPCodexLink( $page = '', $text = FALSE )
 	{
-		return gNetworkUtilities::html( 'a', array(
+		return self::html( 'a', array(
 			'href'   => 'https://codex.wordpress.org/'.$page,
 			'title'  => sprintf( _x( 'See WordPress Codex for %s', 'Moduel Core', GNETWORK_TEXTDOMAIN ), str_ireplace( '_', ' ', $page ) ),
 			'target' => '_blank',
@@ -1081,7 +942,7 @@ class gNetworkModuleCore
 	// SEE: https://developer.wordpress.org/resource/dashicons/
 	public static function getDashicon( $icon = 'wordpress-alt', $tag = 'span' )
 	{
-		return gNetworkUtilities::html( $tag, array(
+		return self::html( $tag, array(
 			'class' => array(
 				'dashicons',
 				'dashicons-'.$icon,
@@ -1092,53 +953,16 @@ class gNetworkModuleCore
 	// HELPER
 	public static function getMoreInfoIcon( $url = '', $title = NULL, $icon = 'info' )
 	{
-		return gNetworkUtilities::html( 'a', array(
+		return self::html( 'a', array(
 			'href'   => $url,
 			'title'  => is_null( $title ) ? _x( 'See More Information', 'Moduel Core', GNETWORK_TEXTDOMAIN ) : $title,
 			'target' => '_blank',
 		), self::getDashicon( $icon ) );
 	}
 
-	// http://code.tutsplus.com/tutorials/a-look-at-the-wordpress-http-api-a-brief-survey-of-wp_remote_get--wp-32065
-	// http://wordpress.stackexchange.com/a/114922
-	public static function getJSON( $url, $atts = array() )
+	public static function settingsSub( $default = 'overview' )
 	{
-		$args = self::atts( array(
-			'timeout' => 15,
-		), $atts );
-
-		$response = wp_remote_get( $url, $args );
-
-		if ( ! is_wp_error( $response )
-			&& 200 == wp_remote_retrieve_response_code( $response ) ) {
-				return json_decode( wp_remote_retrieve_body( $response ) );
-		}
-
-		return FALSE;
-	}
-
-	public static function getHTML( $url, $atts = array() )
-	{
-		$args = self::atts( array(
-			'timeout' => 15,
-		), $atts );
-
-		$response = wp_remote_get( $url, $args );
-
-		if ( ! is_wp_error( $response )
-			&& 200 == wp_remote_retrieve_response_code( $response ) ) {
-				return wp_remote_retrieve_body( $response );
-		}
-
-		return FALSE;
-	}
-
-	public function shortcodes( $shortcodes = array() )
-	{
-		foreach ( $shortcodes as $shortcode => $method ) {
-			remove_shortcode( $shortcode );
-			add_shortcode( $shortcode, array( $this, $method ) );
-		}
+		return isset( $_REQUEST['sub'] ) ? trim( $_REQUEST['sub'] ) : $default;
 	}
 
 	public static function settingsTitle()
@@ -1147,7 +971,7 @@ class gNetworkModuleCore
 
 			_ex( 'gNetwork Extras', 'Moduel Core: Page Title', GNETWORK_TEXTDOMAIN );
 
-			echo ' '.gNetworkUtilities::html( 'a', array(
+			echo ' '.self::html( 'a', array(
 				'href'   => 'http://geminorum.ir/wordpress/gnetwork',
 				'title'  => _x( 'Plugin Homepage', 'Moduel Core: Title Attr', GNETWORK_TEXTDOMAIN ),
 				'class'  => 'page-title-action',
@@ -1164,7 +988,7 @@ class gNetworkModuleCore
 			if ( isset( $messages[$_GET['message']] ) )
 				echo $messages[$_GET['message']];
 			else
-				gNetworkUtilities::notice( $_GET['message'] );
+				self::notice( $_GET['message'] );
 
 			$_SERVER['REQUEST_URI'] = remove_query_arg( 'message', $_SERVER['REQUEST_URI'] );
 		}
