@@ -189,7 +189,7 @@ class gNetworkBlog extends gNetworkModuleCore
 		if ( is_null( $request_uri ) )
 			$request_uri = $_SERVER['REQUEST_URI'];
 
-		return self::strpos_arr( array(
+		return self::strposArray( array(
 			'wp-cron.php',
 			'wp-mail.php',
 			'wp-login.php',

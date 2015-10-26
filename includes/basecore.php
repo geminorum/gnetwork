@@ -123,7 +123,7 @@ class gNetworkBaseCore
 		return strtolower( $domain );
 	}
 
-	public static function strpos_arr( $haystack, $needle )
+	public static function strposArray( $haystack, $needle )
 	{
 		if ( ! is_array( $haystack ) )
 			$haystack = array( $haystack );
@@ -322,7 +322,7 @@ class gNetworkBaseCore
 	}
 
 	// http://stackoverflow.com/a/4994188
-	public static function esc_filename( $path )
+	public static function escFilename( $path )
 	{
 		// everything to lower and no spaces begin or end
 		$path = strtolower( trim( $path ) );

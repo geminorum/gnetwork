@@ -398,7 +398,7 @@ class gNetworkRestrictedBouncer
 			'wp-feed.php',
 		);
 
-		if ( FALSE !== gNetworkUtilities::strpos_arr( $files, basename( $_SERVER['PHP_SELF'] ) ) )
+		if ( FALSE !== self::strposArray( $files, basename( $_SERVER['PHP_SELF'] ) ) )
 			$this->check_feed_access();
 
 		// wordpress feed queries
@@ -412,7 +412,7 @@ class gNetworkRestrictedBouncer
 				'rdf',
 			);
 
-			if ( FALSE !== gNetworkUtilities::strpos_arr( $feeds, $_GET['feed'] ) )
+			if ( FALSE !== self::strposArray( $feeds, $_GET['feed'] ) )
 				$this->check_feed_access();
 		}
 

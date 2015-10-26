@@ -286,9 +286,9 @@ class gNetworkMail extends gNetworkModuleCore
 		), $mail );
 
 		if ( is_array( $contents['to'] ) )
-			$to = array_filter( array( 'gNetworkBaseCore', 'esc_filename' ), $contents['to'] );
+			$to = array_filter( array( 'gNetworkBaseCore', 'escFilename' ), $contents['to'] );
 		else
-			$to = self::esc_filename( $contents['to'] );
+			$to = self::escFilename( $contents['to'] );
 
 		$filename = current_time( 'Ymd-His' ).'-'.$to.'.json';
 
