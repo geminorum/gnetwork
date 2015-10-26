@@ -67,18 +67,10 @@ class gNetworkCode extends gNetworkModuleCore
 				if ( $args['trim'] )
 					$md = implode( "\n", array_slice( explode( "\n", $md ), intval( $args['trim'] ) ) );
 
-				// TODO: must use : http://parsedown.org/demo
+				$parsedown = new Parsedown();
+				$html = $parsedown->text( $md );
 
-				// if ( ! class_exists( 'Markdown' ) )
-				// 	require_once( GNETWORK_DIR.'assets/libs/php-markdown/Michelf/Markdown.inc.php' );
-
-				if ( ! class_exists( 'MarkdownExtra' ) )
-					require_once( GNETWORK_DIR.'assets/libs/php-markdown/Michelf/MarkdownExtra.inc.php' );
-
-				// $html = \Michelf\Markdown::defaultTransform( $md );
-				$html = \Michelf\MarkdownExtra::defaultTransform( $md );
-
-				// http://www.the-art-of-web.com/php/parse-links/
+				// @SOURCE: http://www.the-art-of-web.com/php/parse-links/
 				$regexp = "<a\s[^>]*href=(\"??)([^\" >]*?)\\1[^>]*>(.*)<\/a>";
 				$html = preg_replace_callback( "/$regexp/siU", array( $this, 'github_readme_link_cb' ), $html );
 

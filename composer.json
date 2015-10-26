@@ -24,7 +24,7 @@
 	"require": {
 		"composer/installers": "~1.0",
 		"php": ">=5.3",
-		"michelf/php-markdown": "^1.5",
+		"erusev/parsedown": "^1.6.0",
 		"mustache/mustache": "~2.5",
 		"raveren/kint": "^1.0"
 	},
