@@ -1,6 +1,7 @@
 .sass-cache
 
 /assets/components
+/assets/views/cache
 /assets/packages/jquery
 /assets/vendor
 /assets/bin
