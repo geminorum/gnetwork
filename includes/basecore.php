@@ -130,9 +130,9 @@ class gNetworkBaseCore
 
 		foreach ( $haystack as $key => $what )
 			if ( FALSE !== ( $pos = strpos( $what, $needle ) ) )
-				return $pos; // must return $key / FIXME: but what about zero?!
+				return $key; // $pos;
 
-		return FALSE;
+		return FALSE; // NOTE: always check for FALSE
 	}
 
 	public static function isDebug()
