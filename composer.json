@@ -1,0 +1,35 @@
+{
+	"name": "geminorum/gnetwork",
+	"description": "Network Helper",
+	"type": "wordpress-plugin",
+	"keywords": [
+		"wordpress",
+		"network"
+	],
+	"homepage": "http://geminorum.ir/wordpress/gnetwork",
+	"license": "GPL-2.0+",
+	"authors": [
+		{
+			"name": "Nasser Rafie",
+			"email": "contact@geminorum.ir",
+			"homepage": "http://geminorum.ir/",
+			"role": "Developer"
+		}
+	],
+	"support": {
+		"issues": "http://geminorum.ir/wordpress/gnetwork/issues",
+		"wiki": "http://geminorum.ir/wordpress/gnetwork/wiki",
+		"source": "http://geminorum.ir/wordpress/gnetwork"
+	},
+	"require": {
+		"composer/installers": "~1.0",
+		"php": ">=5.3",
+		"michelf/php-markdown": "^1.5",
+		"mustache/mustache": "~2.5",
+		"raveren/kint": "^1.0"
+	},
+	"config": {
+		"vendor-dir": "assets/vendor",
+		"vendor/bin": "assets/bin"
+	}
+}

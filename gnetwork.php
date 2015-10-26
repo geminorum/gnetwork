@@ -112,4 +112,8 @@ function gnetwork_bp_include() {
 	}
 }
 
-gnetwork_init();
+if ( file_exists( GNETWORK_DIR.'assets/vendor/autoload.php' ) ) {
+	require_once( GNETWORK_DIR.'assets/vendor/autoload.php' );
+
+	gnetwork_init();
+}
