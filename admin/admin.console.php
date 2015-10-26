@@ -90,26 +90,12 @@ $footnotes = 'پا‌نوشت‌ها</strong>
 42 – Jeffrey by Paul Rudnik';
 
 gNetworkReference::replaceFootnotes( '', $footnotes, 'ndash' );
-
-
-
-return;
-
-global $gNetwork, $gEditorial, $gMemberNetwork, $gPeopleNetwork;
-require_once( GNETWORK_DIR.'assets/libs/kint/Kint.class.php' );
-
-echo gNU::size( $gEditorial );
-Kint::dump( $gEditorial );
-
 return;
 
 global $wp;
-
 gNU::dump( gNU::currentURL() );
 gNU::dump( $_SERVER['REQUEST_URI'] );
 gNU::dump( $wp );
-
-
 return;
 
 
