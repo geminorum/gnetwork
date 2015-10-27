@@ -67,7 +67,7 @@ class gNetworkCode extends gNetworkModuleCore
 				if ( $args['trim'] )
 					$md = implode( "\n", array_slice( explode( "\n", $md ), intval( $args['trim'] ) ) );
 
-				$parsedown = new Parsedown();
+				$parsedown = new ParsedownExtra();
 				$html = $parsedown->text( $md );
 
 				// @SOURCE: http://www.the-art-of-web.com/php/parse-links/
