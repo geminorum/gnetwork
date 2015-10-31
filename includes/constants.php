@@ -59,6 +59,9 @@ $gnetwork_constants = array(
 	'NOBLOGREDIRECT'         => '%siteurl%',
 	'SCRIPT_DEBUG'           => FALSE,
 	'SAVEQUERIES'            => FALSE,
+
+	'FS_CHMOD_DIR'  => ( 0755 & ~ umask() ),
+	'FS_CHMOD_FILE' => ( 0644 & ~ umask() ),
 );
 
 foreach ( $gnetwork_constants as $key => $val )
