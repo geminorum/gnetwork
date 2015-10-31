@@ -158,18 +158,13 @@ class gNetworkAdmin extends gNetworkModuleCore
 		global $submenu_file;
 
 		if ( isset( $_REQUEST['sub'] ) ) {
-			$sub          = $_REQUEST['sub'];
+			$sub = $_REQUEST['sub'];
 			$submenu_file = 'gnetwork&sub='.$sub;
 		} else {
 			$sub = NULL;
 		}
 
 		do_action( 'gnetwork_admin_settings', $sub );
-
-		// FIXME: ALL DEPRECATED / MUST DROP
-		do_action( 'gnetwork_admin_settings_load', $sub );
-		do_action( 'gnetwork_admin_settings_save', $sub );
-		do_action( 'gnetwork_admin_settings_help', $sub );
 	}
 
 	private function subs()
