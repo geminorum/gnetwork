@@ -18,6 +18,7 @@ class gNetworkCode extends gNetworkModuleCore
 			'github-readme' => 'shortcode_github_readme',
 			'github-gist'   => 'shortcode_github_gist',
 			'github-repo'   => 'shortcode_github_repo',
+			'textarea'      => 'shortcode_textarea',
 		) );
 
 		// FIXME: NOT WORKING: gist id is now diffrent from this pattern
@@ -185,4 +186,47 @@ class gNetworkCode extends gNetworkModuleCore
 
 		return '<div id="'.$key.'" class="gnetwork-wrap-shortcode github-repo"></div>';
 	}
+
+	public function shortcode_textarea( $atts, $content = NULL, $tag = '' )
+	{
+		$args = shortcode_atts( array(
+			'js'       => TRUE,
+			'readonly' => TRUE,
+			'class'    => 'large-text',
+			'context'  => NULL,
+			'wrap'     => TRUE,
+		), $atts, $tag );
+
+		if ( FALSE === $args['context'] || is_feed() )
+			return NULL;
+
+		if ( ! $content )
+			return NULL;
+
+		$texarea = str_ireplace( array(
+			'&',
+			'<',
+			'>',
+			'"',
+			"'",
+		), array(
+			'&amp;',
+			'&lt;',
+			'&gt;',
+			'&quot;',
+			'&#39;',
+		), $content );
+
+		$html = self::html( 'textarea', array(
+			'class'    => $args['class'],
+			'readonly' => $args['readonly'],
+			'onclick'  => $args['js'] ? 'this.focus();this.select()' : FALSE,
+		), $texarea );
+
+		if ( $args['wrap'] )
+			return '<div class="gnetwork-wrap-shortcode -textarea">'.$html.'</div>';
+
+		return $html;
+	}
+
 }
