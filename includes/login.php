@@ -36,7 +36,7 @@ class gNetworkLogin extends gNetworkModuleCore
 			'login_headerurl'   => GNETWORK_BASE,
 			'login_headertitle' => GNETWORK_NAME,
 			'login_remember'    => 0,
-			'login_math'        => ! defined( 'BRUTEPROTECT_VERSION' ),
+			'login_math'        => 0,
 			'math_hashkey'      => '',
 		);
 	}
@@ -79,7 +79,7 @@ class gNetworkLogin extends gNetworkModuleCore
 					'type'    => 'enabled',
 					'title'   => _x( 'Login Math', 'Login Module', GNETWORK_TEXTDOMAIN ),
 					'desc'    => _x( 'Puts a math problem after the login form.', 'Login Module', GNETWORK_TEXTDOMAIN ),
-					'default' => 1,
+					'default' => 0,
 				),
 				array(
 					'field'       => 'math_hashkey',
