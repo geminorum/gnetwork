@@ -57,7 +57,7 @@
 
 	p.sum {
 		margin: 0;
-		padding-bottom: 20px;
+		padding:20px 0 46px;
 
 		input[type="number"] {
 			width: 38px;
@@ -74,5 +74,13 @@ body.rtl {
 
 	input[type=checkbox]:checked:before {
 		margin: -3px -2px 0 0 !important;
+	}
+}
+
+.gnetwork-wrap {
+
+	&.-footer {
+		margin: 2em 0 1em;
+		text-align: center;
 	}
 }

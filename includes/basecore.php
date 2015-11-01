@@ -604,7 +604,7 @@ class gNetworkBaseCore
 		$dir = FALSE;
 
 		if ( is_null( $path ) ) {
-			$dir = WP_CONTENT_DIR; // FIXME: using get_temp_dir() ?!
+			$dir = WP_CONTENT_DIR;
 
 		} else if ( $check_folder ) {
 			$dir = wp_mkdir_p( $path );
