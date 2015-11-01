@@ -3,6 +3,47 @@
 class gNetworkBaseCore
 {
 
+	// INTERNAL: used on anything deprecated
+	protected static function __dep( $use = FALSE )
+	{
+		if ( ! WP_DEBUG_LOG )
+			return;
+
+		$trace = debug_backtrace();
+
+		$log = 'DEP: ';
+
+		if ( isset( $trace[1]['class'] ) )
+			$log .= $trace[1]['class'].'::';
+
+		$log .= $trace[1]['function'].'()';
+
+		if ( isset( $trace[2]['function'] ) ) {
+			$log .= '|FROM: ';
+			if ( isset( $trace[2]['class'] ) )
+				$log .= $trace[2]['class'].'::';
+			$log .= $trace[2]['function'].'()';
+		}
+
+		if ( $use )
+			$log .= '|USE: '.$use;
+
+		error_log( $log );
+	}
+
+	// TODO: DRAFT: not tested
+	// http://stackoverflow.com/a/9934684
+	// SEE: http://xdebug.org/docs/install
+	protected function __callee()
+	{
+		return sprintf("callee() called @ %s: %s from %s::%s",
+			xdebug_call_file(),
+			xdebug_call_line(),
+			xdebug_call_class(),
+			xdebug_call_function()
+		);
+	}
+
 	public static function headerNav( $uri = '', $active = '', $subs = array(), $prefix = 'nav-tab-', $tag = 'h3' )
 	{
 		if ( ! count( $subs ) )
