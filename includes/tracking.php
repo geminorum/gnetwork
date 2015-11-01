@@ -19,6 +19,7 @@ class gNetworkTracking extends gNetworkModuleCore
 
 		add_action( 'init', array( $this, 'init' ), 8 );
 		add_action( 'wp_head', array( $this, 'wp_head' ), 999 );
+		add_action( 'login_head', array( $this, 'login_head' ), 999 );
 		add_action( 'wp_footer', array( $this, 'wp_footer' ), 9 );
 	}
 
@@ -226,34 +227,23 @@ class gNetworkTracking extends gNetworkModuleCore
 		return $html;
 	}
 
-	public function wp_head()
+	private function ga()
 	{
-		if ( $this->ignore() )
-			return;
-
 		global $gNetwork;
 
-		if ( ! empty( $this->options['plus_publisher'] ) )
-			echo "\t".'<link href="https://plus.google.com/'.$this->options['plus_publisher'].'" rel="publisher" />'."\n";
-
-		if ( ! empty( $this->options['twitter_site'] ) )
-			echo "\t".'<meta name="twitter:site" content="@'.$this->options['twitter_site'].'" />'."\n";
-
 		if ( empty( $this->options['ga_domain'] ) || empty( $this->options['ga_account'] ) )
-			return;
+			return FALSE;
 
 		if ( isset( $gNetwork->blog->options['ga_override'] ) && $gNetwork->blog->options['ga_override'] )
 			$account = $gNetwork->blog->options['ga_override'];
 		else
 			$account = $this->options['ga_account'];
 
-		$ga = "ga('create', '".esc_js( $account )."', '".esc_js( $this->options['ga_domain'] )."');"."\n";
+		return "ga('create', '".esc_js( $account )."', '".esc_js( $this->options['ga_domain'] )."');"."\n";
+	}
 
-		if ( $this->options['ga_userid'] && is_user_logged_in() )
-			$ga .= "ga('set', '&uid', '".esc_js( wp_get_current_user()->user_login )."');"."\n";
-
-		$ga .= "ga('send', 'pageview');";
-
+	private function ga_code( $ga )
+	{
 ?><script type="text/javascript">
 /* <![CDATA[ */
 	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -264,10 +254,42 @@ class gNetworkTracking extends gNetworkModuleCore
 	<?php echo $ga."\n"; ?>
 /* ]]> */
 </script><?php
+	}
+
+	public function wp_head()
+	{
+		if ( $this->ignore() )
+			return;
+
+		if ( ! empty( $this->options['plus_publisher'] ) )
+			echo "\t".'<link href="https://plus.google.com/'.$this->options['plus_publisher'].'" rel="publisher" />'."\n";
+
+		if ( ! empty( $this->options['twitter_site'] ) )
+			echo "\t".'<meta name="twitter:site" content="@'.$this->options['twitter_site'].'" />'."\n";
+
+		if ( ! ( $ga = $this->ga() ) )
+			return;
+
+		if ( $this->options['ga_userid'] && is_user_logged_in() )
+			$ga .= "ga('set', '&uid', '".esc_js( wp_get_current_user()->user_login )."');"."\n";
+
+		$ga .= "ga('send', 'pageview');";
+
+		$this->ga_code( $ga );
 
 		if ( $this->options['ga_outbound'] ) {
 			$this->ga_outbound = TRUE;
 			wp_enqueue_script( 'jquery' );
+		}
+	}
+
+	public function login_head()
+	{
+		if ( $ga = $this->ga() ) {
+
+			$ga .= "ga('send', {hitType: 'pageview', title:'login', page: location.pathname});";
+
+			$this->ga_code( $ga );
 		}
 	}
 
