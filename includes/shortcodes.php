@@ -344,6 +344,8 @@ class gNetworkShortCodes extends gNetworkModuleCore
 	// TODO: rewrite this
 	public function shortcode_googlegroups( $atts, $content = NULL, $tag = '' )
 	{
+		self::__dep();
+
 		$args = shortcode_atts( array(
 			'title_wrap' => 'h3',
 			'id'         => constant( 'GNETWORK_GOOGLE_GROUP_ID' ),
@@ -374,9 +376,10 @@ class gNetworkShortCodes extends gNetworkModuleCore
 
 	// TODO: rewrite this
 	// http://pdfobject.com
+	// TODO : get the standard PDF dimensions for A4
 	public function shortcode_pdf( $atts, $content = NULL, $tag = '' )
 	{
-		// TODO : get the standard PDF dimensions for A4
+		self::__dep();
 
 		$args = shortcode_atts( array(
 			'url'       => FALSE, // comma seperated multiple url to show multiple pdf // UNFINISHED
@@ -455,6 +458,8 @@ class gNetworkShortCodes extends gNetworkModuleCore
 	// http://yoast.com/articles/valid-flash-embedding/
 	public function shortcode_flash( $atts, $content = NULL, $tag = '' )
 	{
+		self::__dep();
+		
 		$args = shortcode_atts( array(
 			'swf'       => FALSE, // comma seperated multiple url to show multiple flash // UNFINISHED
 			'width'     => '800',
