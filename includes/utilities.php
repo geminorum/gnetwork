@@ -3,6 +3,12 @@
 class gNetworkUtilities extends gNetworkBaseCore
 {
 
+	public static function creditsBadge()
+	{
+		return '<a href="http://geminorum.ir" title="it\'s a geminorum project"><img src="'
+			.GNETWORK_URL.'assets/images/itsageminorumproject-lightgrey.svg" alt="" /></a>';
+	}
+
 	// @SEE: https://github.com/bobthecow/mustache.php/wiki
 	public static function getMustache()
 	{

@@ -182,9 +182,7 @@ JS;
 			return;
 
 		echo '<div class="gnetwork-wrap -footer">';
-			echo '<a href="http://geminorum.ir" title="it\'s a geminorum project">';
-				echo '<img src="'.GNETWORK_URL.'assets/images/itsageminorumproject-lightgrey.svg" alt="" />';
-			echo '</a>';
+			echo gNetworkUtilities::creditsBadge();
 		echo '</div>';
 	}
 }
