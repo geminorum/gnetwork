@@ -19,6 +19,7 @@ class gNetworkCode extends gNetworkModuleCore
 			'github-gist'   => 'shortcode_github_gist',
 			'github-repo'   => 'shortcode_github_repo',
 			'textarea'      => 'shortcode_textarea',
+			'shields-io'    => 'shortcode_shields_io',
 		) );
 
 		// FIXME: NOT WORKING: gist id is now diffrent from this pattern
@@ -229,4 +230,38 @@ class gNetworkCode extends gNetworkModuleCore
 		return $html;
 	}
 
+	// @SEE: http://shields.io/
+	public function shortcode_shields_io( $atts, $content = NULL, $tag = '' )
+	{
+		$args = shortcode_atts( array(
+			'link'      => 'http://geminorum.ir',
+			'subject'   => "it's a",
+			'status'    => 'geminorum project',
+			'color'     => 'lightgrey',
+			'style'     => 'flat-square', // 'plastic', 'flat', 'flat-square', 'social'
+			'provider'  => 'http://img.shields.io/badge/',
+			'extension' => 'svg',
+			'context'   => NULL,
+			'wrap'      => TRUE,
+		), $atts, $tag );
+
+		if ( FALSE === $args['context'] )
+			return NULL;
+
+		$char  = array( '-', '_', ' ' );
+		$with  = array( '--', '__', '_' );
+		$badge = str_ireplace( $char, $with, $args['subject'] ).'-'.str_ireplace( $char, $with, $args['status'] ).'-'.$args['color'];
+		$html  = '<img class="-badge" src="'.$args['provider'].$badge.'.'.$args['extension'].'?style='.$args['style'].'" />';
+
+		if ( $args['link'] )
+			$html = self::html( 'a', array(
+				'href'  => $args['link'],
+				'title' => $args['subject'].' '.$args['status'],
+			), $html );
+
+		if ( $args['wrap'] )
+			return '<span class="gnetwork-wrap-shortcode -shields-io">'.$html.'</span>';
+
+		return $html;
+	}
 }
