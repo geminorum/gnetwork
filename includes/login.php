@@ -140,7 +140,7 @@ JS;
 		echo '<p class="sum">';
 
 			echo '<label>'._x( 'Prove your humanity:', 'Login Module', GNETWORK_TEXTDOMAIN ).'</label>';
-			echo ' &nbsp; '.number_format_i18n( $one ).' &nbsp; + &nbsp; '.number_format_i18n( $two ).' &nbsp; = &nbsp; ';
+			echo '&nbsp;'.number_format_i18n( $one ).'&nbsp;+&nbsp;'.number_format_i18n( $two ).'&nbsp;=&nbsp; ';
 
 			echo gNetworkUtilities::html( 'input', array(
 				'type'  => 'number',
