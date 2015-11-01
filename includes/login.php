@@ -20,7 +20,7 @@ class gNetworkLogin extends gNetworkModuleCore
 			add_filter( 'login_headertitle', array( $this, 'login_headertitle' ), 1000 );
 
 		if ( $this->options['login_remember'] )
-			add_filter( 'login_footer', array( $this, 'login_footer_remember' ) );
+			add_filter( 'login_footer', array( $this, 'login_footer_remember' ), 99 );
 
 		add_action( 'login_head', array( $this, 'login_head' ) );
 
@@ -28,6 +28,9 @@ class gNetworkLogin extends gNetworkModuleCore
 			add_action( 'login_form', array( $this, 'login_form' ) );
 			add_filter( 'authenticate', array( $this, 'authenticate' ), 1, 3 );
 		}
+
+		if ( ! GNETWORK_DISABLE_CREDITS )
+			add_filter( 'login_footer', array( $this, 'login_footer_badge' ) );
 	}
 
 	public function default_options()
@@ -171,7 +174,17 @@ JS;
 		return $null;
 	}
 
-	// TODO: add custom credit after login form
-	// USE: gNetworkCode::shortcode_shields_io();
-	// USE: gNetworkTracking::shortcode_ga_beacon();
+	public function login_footer_badge()
+	{
+		global $interim_login;
+
+		if ( $interim_login )
+			return;
+
+		echo '<div class="gnetwork-wrap -footer">';
+			echo '<a href="http://geminorum.ir" title="it\'s a geminorum project">';
+				echo '<img src="'.GNETWORK_URL.'assets/images/itsageminorumproject-lightgrey.svg" alt="" />';
+			echo '</a>';
+		echo '</div>';
+	}
 }
