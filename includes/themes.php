@@ -27,7 +27,7 @@ class gNetworkThemes extends gNetworkModuleCore
 	{
 		$this->rtl = is_rtl();
 
-		if ( $this->is( 'publish' ) ) {
+		if ( $this->isTheme( 'publish' ) ) {
 			// https://github.com/kovshenin/publish
 			// https://kovshenin.com/themes/publish/
 			// https://wordpress.org/themes/publish/
@@ -49,7 +49,7 @@ class gNetworkThemes extends gNetworkModuleCore
 				return gNetworkThemes::appendMCECSS( $url, 'publish' );
 			} );
 
-		} else if ( $this->is( 'hueman' ) ) { // v2.2.3
+		} else if ( $this->isTheme( 'hueman' ) ) { // v2.2.3
 			// HOME: http://alxmedia.se/themes/hueman/
 			// DEMO: http://demo.alxmedia.se/hueman/
 			// REPO: https://github.com/AlxMedia/hueman
@@ -76,7 +76,7 @@ class gNetworkThemes extends gNetworkModuleCore
 				}, 5 );
 			}
 
-		} else if ( $this->is( 'semicolon' ) ) { // v0.9
+		} else if ( $this->isTheme( 'semicolon' ) ) { // v0.9
 			// HOME: https://kovshenin.com/themes/semicolon/
 			// DEMO: http://semicolon.kovshenin.com/
 			// REPO: https://wordpress.org/themes/semicolon
@@ -93,7 +93,7 @@ class gNetworkThemes extends gNetworkModuleCore
 				}, 12 );
 			}
 
-		} else if ( $this->is( 'hyde' ) ) {
+		} else if ( $this->isTheme( 'hyde' ) ) {
 			// REPO: https://github.com/tim-online/wordpress-hyde-theme
 			// HOME: http://hyde.getpoole.com/
 
@@ -101,17 +101,17 @@ class gNetworkThemes extends gNetworkModuleCore
 				wp_enqueue_style( 'gnetwork-themes-hyde', GNETWORK_URL.'assets/css/themes.hyde.css', array(), GNETWORK_VERSION );
 			}, 20 );
 
-		} else if ( $this->is( 'houston' ) ) {
+		} else if ( $this->isTheme( 'houston' ) ) {
 
 			add_action( 'wp_enqueue_scripts', function(){
 				wp_enqueue_style( 'gnetwork-themes-houston', GNETWORK_URL.'assets/css/themes.houston.css', array(), GNETWORK_VERSION );
 			}, 20 );
 
-		} else if ( $this->is( 'p2' ) ) {
+		} else if ( $this->isTheme( 'p2' ) ) {
 
 			add_filter( 'prologue_poweredby_link', array( $this, 'prologue_poweredby_link' ) );
 
-		} else if ( $this->is( 'revera' ) ) {
+		} else if ( $this->isTheme( 'revera' ) ) {
 			// DEMO: http://demo.fabthemes.com/revera/
 			// HOME: http://www.fabthemes.com/revera/
 
@@ -137,7 +137,7 @@ class gNetworkThemes extends gNetworkModuleCore
 				}, 5 );
 			}
 
-		} else if ( $this->is( 'ari' ) ) {
+		} else if ( $this->isTheme( 'ari' ) ) {
 
 			if ( $this->rtl ) {
 				add_action( 'wp_enqueue_scripts', function(){
@@ -145,7 +145,7 @@ class gNetworkThemes extends gNetworkModuleCore
 				}, 20 );
 			}
 
-		} else if ( $this->is( 'easy-docs' ) ) {
+		} else if ( $this->isTheme( 'easy-docs' ) ) {
 			// HOME: http://shakenandstirredweb.com/theme/easy-docs
 			// DEMO: http://support.shakenandstirredweb.com/shaken-grid/
 
@@ -153,7 +153,7 @@ class gNetworkThemes extends gNetworkModuleCore
 				wp_enqueue_style( 'gnetwork-themes-easy-docs', GNETWORK_URL.'assets/css/themes.easy-docs.css', array(), GNETWORK_VERSION );
 			}, 20 );
 
-		} else if ( $this->is( 'twentytwelve' ) ) {
+		} else if ( $this->isTheme( 'twentytwelve' ) ) {
 
 			add_action( 'twentytwelve_credits', array( $this, 'twentytwelve_credits' ) );
 		}
@@ -167,13 +167,16 @@ class gNetworkThemes extends gNetworkModuleCore
 		gNetworkUtilities::linkStyleSheet( GNETWORK_URL.'assets/css/front.all.css' );
 	}
 
-	// helper
-	public function is( $theme )
+	// HELPER
+	public function isTheme( $template, $not_stylesheet = NULL )
 	{
 		if ( is_null( $this->theme ) )
 			$this->theme = wp_get_theme();
 
-		return ( $theme == $this->theme->template || $theme == $this->theme->stylesheet );
+		if ( ! is_null( $not_stylesheet ) )
+			return ( $template == $this->theme->template && $not_stylesheet != $this->theme->stylesheet );
+
+		return ( $template == $this->theme->template || $template == $this->theme->stylesheet );
 	}
 
 	public function allowed_themes( $themes )
@@ -188,7 +191,7 @@ class gNetworkThemes extends gNetworkModuleCore
 		return $allowed;
 	}
 
-	// HELPER:
+	// HELPER
 	public function continueReading()
 	{
 		return ' '.sprintf(
