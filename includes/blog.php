@@ -138,7 +138,7 @@ class gNetworkBlog extends gNetworkModuleCore
 
 	public function init_early()
 	{
-		if ( $this->options['blog_redirect'] )
+		if ( $this->options['blog_redirect'] && ! is_admin() && ! self::isAJAX() )
 			$this->blog_redirect();
 
 		if ( isset( $_GET['gnetwork_action'] ) && trim( $_GET['gnetwork_action'] ) ) {
@@ -173,15 +173,24 @@ class gNetworkBlog extends gNetworkModuleCore
 	// FIXME: test this
 	private function blog_redirect()
 	{
+		global $pagenow;
+
 		if ( is_user_logged_in()
 			&& current_user_can( 'manage_options' ) )
 				return;
 
-		if ( $_SERVER['SERVER_NAME'] !== ( str_ireplace( array( 'http://', 'https://' ), '', home_url() ) ) )
-			return;
+		// FIXME: WHY is that?!
+		// if ( $_SERVER['SERVER_NAME'] !== ( str_ireplace( array( 'http://', 'https://' ), '', home_url() ) ) )
+		// 	return;
 
+		$redirect = self::untrail( $this->options['blog_redirect'] ).$_SERVER['REQUEST_URI'];
+
+		if ( ! empty( $pagenow ) && 'index.php' == $pagenow )
+			self::redirect( $redirect, 307 );
+
+		// DEPRECATED: FALLBACK
 		if ( FALSE === self::whiteListed() )
-			self::redirect( $this->options['blog_redirect'].$_SERVER['REQUEST_URI'], 307 );
+			self::redirect( $redirect, 307 );
 	}
 
 	public static function whiteListed( $request_uri = NULL )
@@ -198,7 +207,6 @@ class gNetworkBlog extends gNetworkModuleCore
 			'wp-trackback.php',
 			'wp-links-opml.php',
 			'xmlrpc.php',
-			'wp-admin',
 		), $request_uri );
 	}
 
