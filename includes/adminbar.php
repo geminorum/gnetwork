@@ -145,8 +145,11 @@ class gNetworkAdminBar extends gNetworkModuleCore
 			$wp_admin_bar->remove_node( $node );
 	}
 
+	// NOTE: super admins only
 	private function add_nodes( &$wp_admin_bar )
 	{
+		global $pagenow;
+
 		$current_url = self::currentURL();
 		$parent_id   = 'gnetwork-info';
 		$group_id    = $parent_id.'-sub';
@@ -229,16 +232,20 @@ class gNetworkAdminBar extends gNetworkModuleCore
 
 		} else {
 
-			if ( current_user_can( 'edit_users' ) ) {
-
-				$wp_admin_bar->add_node( array(
-					'parent' => 'site-name',
-					'id'     => 'all-users',
-					'title'  => __( 'Users', GNETWORK_TEXTDOMAIN ),
-					'href'   => admin_url( 'users.php' ),
-				) );
-			}
+			$wp_admin_bar->add_node( array(
+				'parent' => 'site-name',
+				'id'     => 'all-users',
+				'title'  => __( 'Users', GNETWORK_TEXTDOMAIN ),
+				'href'   => admin_url( 'users.php' ),
+			) );
 		}
+
+		$wp_admin_bar->add_node( array(
+			'parent' => $group_id,
+			'id'     => 'gnetwork-info-pagenow',
+			'title'  => 'PageNow: '.( empty( $pagenow ) ? 'EMPTY' : $pagenow ),
+			// 'href'   => gNetworkAdmin::settingsURL(), // FIXME
+		) );
 
 		$wp_admin_bar->add_node( array(
 			'parent' => $group_id,
@@ -250,7 +257,7 @@ class gNetworkAdminBar extends gNetworkModuleCore
 			),
 		) );
 
-		// TODO: add debug.log file size notice as notification for super admin and linkit to log_viewer
+		// TODO: add debug.log file size notice as notification and link to log_viewer
 	}
 
 	private function add_nodes_network( & $wp_admin_bar )
