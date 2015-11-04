@@ -10,7 +10,7 @@ class gNetworkUsers extends gNetworkModuleCore
 	protected function setup_actions()
 	{
 		gNetworkAdmin::registerMenu( 'users',
-			__( 'Users', GNETWORK_TEXTDOMAIN ),
+			_x( 'Users', 'Users Module: Menu Name', GNETWORK_TEXTDOMAIN ),
 			array( $this, 'settings' ), 'remove_users'
 		);
 
@@ -58,7 +58,7 @@ class gNetworkUsers extends gNetworkModuleCore
 					'field'   => 'siteuser_as_default',
 					'type'    => 'enabled',
 					'title'   => _x( 'Default Author', 'Users Module: Enable Full Comments On Dashboard', GNETWORK_TEXTDOMAIN ),
-					'desc'    => __( 'The site user as default author of new posts in admin', GNETWORK_TEXTDOMAIN ),
+					'desc'    => _x( 'The site user as default author of new posts in admin', 'Users Module', GNETWORK_TEXTDOMAIN ),
 					'default' => '0',
 				),
 			),
@@ -67,16 +67,16 @@ class gNetworkUsers extends gNetworkModuleCore
 
 	public function settings_sidebox( $sub, $uri )
 	{
-		if ( self::getSiteUserID() )
-			printf( __( 'Network site user is %s', GNETWORK_TEXTDOMAIN ), get_userdata( self::getSiteUserID() )->display_name );
+		if ( $user = self::getSiteUserID() )
+			printf( _x( 'Network site user is %s', 'Users Module', GNETWORK_TEXTDOMAIN ), get_userdata( $user )->display_name );
 		else
-			_e( 'Network site user is not defined', GNETWORK_TEXTDOMAIN );
+			_ex( 'Network site user is not defined', 'Users Module', GNETWORK_TEXTDOMAIN );
 	}
 
 	public function settings_before( $sub, $uri )
 	{
 		echo '<table class="form-table">';
-			echo '<tr><th scope="row">'.__( 'Bulk Change Author', GNETWORK_TEXTDOMAIN ).'</th><td>';
+			echo '<tr><th scope="row">'._x( 'Bulk Change Author', 'Users Module', GNETWORK_TEXTDOMAIN ).'</th><td>';
 
 			$this->do_settings_field( array(
 				'type'      => 'blog_users',
@@ -84,7 +84,7 @@ class gNetworkUsers extends gNetworkModuleCore
 				'name_attr' => 'from_user_id',
 			), FALSE );
 
-			echo '&nbsp;&mdash; &nbsp;'.__( 'to', GNETWORK_TEXTDOMAIN ).'&nbsp;&mdash; &nbsp;';
+			echo '&nbsp;&mdash;&nbsp;'._x( 'to', 'Users Module', GNETWORK_TEXTDOMAIN ).'&nbsp;&mdash; &nbsp;';
 
 			$this->do_settings_field( array(
 				'type'      => 'blog_users',
@@ -93,20 +93,19 @@ class gNetworkUsers extends gNetworkModuleCore
 				'default'   => self::getSiteUserID(),
 			), FALSE );
 
-			echo '&nbsp;&mdash; &nbsp;'.__( 'on', GNETWORK_TEXTDOMAIN ).'&nbsp;&mdash; &nbsp;';
+			echo '&nbsp;&mdash;&nbsp;'._x( 'on', 'Users Module', GNETWORK_TEXTDOMAIN ).'&nbsp;&mdash; &nbsp;';
 
 			$this->do_settings_field( array(
 				'type'      => 'select',
 				'field'     => 'on_post_type',
 				'name_attr' => 'on_post_type',
 				'default'   => 'post',
-				'values'    => gNetworkUtilities::getPostTypes(),
+				'values'    => self::getPostTypes(),
 			), FALSE );
 
-			echo '&nbsp;&mdash; &nbsp;'.__( 'do', GNETWORK_TEXTDOMAIN ).'&nbsp;&mdash; &nbsp;';
+			echo '&nbsp;&mdash;&nbsp;'._x( 'do', 'Users Module', GNETWORK_TEXTDOMAIN ).'&nbsp;&mdash; &nbsp;';
 
-			submit_button( __( 'Change', GNETWORK_TEXTDOMAIN ), 'secondary', 'bulk_change_author', FALSE,
-				sprintf( 'onclick="return confirm( \'%s\' )"', __( 'Are you sure? This operation can not be undone.', GNETWORK_TEXTDOMAIN ) ) );
+			submit_button( _x( 'Change', 'Users Module', GNETWORK_TEXTDOMAIN ), 'secondary', 'bulk_change_author', FALSE, self::getButtonConfirm() );
 
 			echo '</td></tr>';
 		echo '</table>';
@@ -136,8 +135,8 @@ class gNetworkUsers extends gNetworkModuleCore
 
 	public function settings_messages( $messages, $sub )
 	{
-		$messages['changed']  = self::counted( __( '%s Post(s) Changed', GNETWORK_TEXTDOMAIN ) );
-		$messages['nochange'] = self::error( __( 'No Post Changed', GNETWORK_TEXTDOMAIN ) );
+		$messages['changed']  = self::counted( _x( '%s Post(s) Changed', 'Users Module: Settings Message', GNETWORK_TEXTDOMAIN ) );
+		$messages['nochange'] = self::error( _x( 'No Post Changed', 'Users Module: Settings Message', GNETWORK_TEXTDOMAIN ) );
 
 		return $messages;
 	}
