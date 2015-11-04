@@ -221,10 +221,16 @@ class gNetworkModuleCore extends gNetworkBaseCore
 		echo '</form>';
 	}
 
+	// HELPER
+	public static function getButtonConfirm()
+	{
+		return sprintf( 'onclick="return confirm( \'%s\' )"', _x( 'Are you sure? This operation can not be undone.', 'Module Core', GNETWORK_TEXTDOMAIN ) );
+	}
+
 	public function default_buttons()
 	{
-		$this->register_button( 'submit', __( 'Save Changes', GNETWORK_TEXTDOMAIN ), array( 'default' => 'default' ), 'primary' );
-		$this->register_button( 'reset', __( 'Reset Settings', GNETWORK_TEXTDOMAIN ), sprintf( 'onclick="return confirm( \'%s\' )"', __( 'Are you sure? This operation can not be undone.', GNETWORK_TEXTDOMAIN ) ) );
+		$this->register_button( 'submit', _x( 'Save Changes', 'Module Core', GNETWORK_TEXTDOMAIN ), array( 'default' => 'default' ), 'primary' );
+		$this->register_button( 'reset', _x( 'Reset Settings', 'Module Core', GNETWORK_TEXTDOMAIN ), self::getButtonConfirm() );
 	}
 
 	public function register_button( $key, $value, $atts = array(), $type = 'secondary' )
