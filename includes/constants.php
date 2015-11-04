@@ -21,7 +21,6 @@ $gnetwork_constants = array(
 	'GNETWORK_ADMIN_COLOUR'          => FALSE, // set default admin colour theme like : 'blue', FALSE to disable.
 	'GNETWORK_GOOGLE_GROUP_ID'       => FALSE,
 	'GNETWORK_GOOGLE_GROUP_HL'       => 'en', // language
-	'GNETWORK_REPORTBUG_URL'         => FALSE, // url with %s for current page url : 'blog.salamzaban.com/bug-report?on=%s'
 	'GNETWORK_NETWORK_ADMINBAR'      => 'network_adminbar', // name of the menu on the main blog of the network that will be used for network admin bar
 	'GNETWORK_NETWORK_EXTRAMENU'     => 'network_extramenu', // name of the menu on the main blog of the network that will be used for network admin bar
 	'GNETWORK_NETWORK_EXTRAMENU_CAP' => 'edit_others_posts', // extra_menu capability

@@ -22,7 +22,6 @@ class gNetworkAdminBar extends gNetworkModuleCore
 
 			add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_style' ) );
 			add_filter( 'wp_admin_bar_class', 'gnetwork_adminbar_wp_admin_bar_class' );
-			add_filter( 'wp_nav_menu_items', array( $this, 'wp_nav_menu_items' ), 20, 2 );
 
 			add_action( 'wp_before_admin_bar_render', array( $this, 'wp_before_admin_bar_render' ) );
 
@@ -58,18 +57,6 @@ class gNetworkAdminBar extends gNetworkModuleCore
 
 		if ( file_exists( WP_CONTENT_DIR.'/adminbar.css' ) )
 			wp_enqueue_style( 'gnetwork-adminbar', WP_CONTENT_URL.'/adminbar.css', array( 'admin-bar' ), GNETWORK_VERSION );
-	}
-
-	public function wp_nav_menu_items( $items, $args )
-	{
-		// just put REPORTBUG_URL on a menu item url
-		// url with %s for current page url : 'blog.salamzaban.com/bug-report?on=%s'
-		if ( constant( 'GNETWORK_REPORTBUG_URL' ) )
-			$items = preg_replace( '%REPORTBUG_URL%',
-				sprintf( constant( 'GNETWORK_REPORTBUG_URL' ),
-					urlencode( self::currentURL() ) ), $items );
-
-		return $items;
 	}
 
 	// ORIGINALLY FROM : Hyper Admins by scribu
