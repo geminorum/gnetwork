@@ -16,7 +16,7 @@ class gNetworkLockDown extends gNetworkModuleCore
 	protected function setup_actions()
 	{
 		$this->register_menu( 'lockdown',
-			__( 'Login Lockdown', GNETWORK_TEXTDOMAIN ),
+			_x( 'Lockdown', 'LockDown Module: Menu Name', GNETWORK_TEXTDOMAIN ),
 			array( $this, 'settings' )
 		);
 
@@ -36,46 +36,46 @@ class gNetworkLockDown extends gNetworkModuleCore
 				array(
 					'field'   => 'record_attempts',
 					'type'    => 'enabled',
-					'title'   => __( 'Record & Lockdown', GNETWORK_TEXTDOMAIN ),
-					'desc'    => __( 'Select to record failed attempts and lockdown after the limit is reached.', GNETWORK_TEXTDOMAIN ),
+					'title'   => _x( 'Record & Lockdown', 'LockDown Module', GNETWORK_TEXTDOMAIN ),
+					'desc'    => _x( 'Select to record failed attempts and lockdown after the limit is reached.', 'LockDown Module', GNETWORK_TEXTDOMAIN ),
 					'default' => '0',
 				),
 				array(
 					'field'   => 'trust_proxied_ip',
 					'type'    => 'enabled',
-					'title'   => __( 'Trust Proxy Data', GNETWORK_TEXTDOMAIN ),
-					'desc'    => __( 'Do we trust forwarded IP adresses?', GNETWORK_TEXTDOMAIN ),
+					'title'   => _x( 'Trust Proxy Data', 'LockDown Module', GNETWORK_TEXTDOMAIN ),
+					'desc'    => _x( 'Do we trust forwarded IP adresses?', 'LockDown Module', GNETWORK_TEXTDOMAIN ),
 					'default' => '0',
 				),
 				array(
 					'field'   => 'failed_limit',
 					'type'    => 'select',
-					'title'   => __( 'Login Attempt Limit', GNETWORK_TEXTDOMAIN ),
-					'desc'    => __( 'What is the maximum number of failed login attempts?', GNETWORK_TEXTDOMAIN ),
+					'title'   => _x( 'Login Attempt Limit', 'LockDown Module', GNETWORK_TEXTDOMAIN ),
+					'desc'    => _x( 'What is the maximum number of failed login attempts?', 'LockDown Module', GNETWORK_TEXTDOMAIN ),
 					'default' => '4',
 					'values'  => self::range( 4, 20, 2 ),
 				),
 				array(
 					'field'   => 'locked_expiration',
 					'type'    => 'select',
-					'title'   => __( 'Login Lockdown Time', GNETWORK_TEXTDOMAIN ),
-					'desc'    => __( 'How long should the user be locked out?', GNETWORK_TEXTDOMAIN ),
+					'title'   => _x( 'Login Lockdown Time', 'LockDown Module', GNETWORK_TEXTDOMAIN ),
+					'desc'    => _x( 'How long should the user be locked out?', 'LockDown Module', GNETWORK_TEXTDOMAIN ),
 					'default' => '60',
 					'values'  => array(
-						'30'   => __( '30 Minutes', GNETWORK_TEXTDOMAIN ),
-						'60'   => __( '60 Minutes', GNETWORK_TEXTDOMAIN ),
-						'120'  => __( '2 Hours'   , GNETWORK_TEXTDOMAIN ),
-						'180'  => __( '3 Hours'   , GNETWORK_TEXTDOMAIN ),
-						'240'  => __( '4 Hours'   , GNETWORK_TEXTDOMAIN ),
-						'480'  => __( '8 Hours'   , GNETWORK_TEXTDOMAIN ),
-						'1440' => __( '24 Hours'  , GNETWORK_TEXTDOMAIN ),
+						'30'   => _x( '30 Minutes', 'LockDown Module', GNETWORK_TEXTDOMAIN ),
+						'60'   => _x( '60 Minutes', 'LockDown Module', GNETWORK_TEXTDOMAIN ),
+						'120'  => _x( '2 Hours', 'LockDown Module', GNETWORK_TEXTDOMAIN ),
+						'180'  => _x( '3 Hours', 'LockDown Module', GNETWORK_TEXTDOMAIN ),
+						'240'  => _x( '4 Hours', 'LockDown Module', GNETWORK_TEXTDOMAIN ),
+						'480'  => _x( '8 Hours', 'LockDown Module', GNETWORK_TEXTDOMAIN ),
+						'1440' => _x( '24 Hours', 'LockDown Module', GNETWORK_TEXTDOMAIN ),
 					),
 				),
 				array(
 					'field'       => 'locked_notice',
 					'type'        => 'textarea',
-					'title'       => __( 'Locked Message', GNETWORK_TEXTDOMAIN ),
-					'desc'        => __( 'Locked message on login page.', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Locked Message', 'LockDown Module', GNETWORK_TEXTDOMAIN ),
+					'desc'        => _x( 'Locked message on login page.', 'LockDown Module', GNETWORK_TEXTDOMAIN ),
 					'field_class' => 'large-text code',
 				),
 			),
@@ -87,10 +87,10 @@ class gNetworkLockDown extends gNetworkModuleCore
 		return array(
 			'record_attempts'   => '0',
 			'failed_expiration' => '60',
-			'locked_expiration' => '60', // must be more than 4 hours
+			'locked_expiration' => '60', // FIXME: better be more than 4 hours?
 			'failed_limit'      => '4',
 			'trust_proxied_ip'  => '0',
-			'locked_notice'     => __( '<strong>LOCKED OUT:</strong> Too many login attempts from one IP address! Please take a break and try again.', GNETWORK_TEXTDOMAIN ),
+			'locked_notice'     => _x( '<strong>LOCKED OUT</strong>: Too many login attempts from one IP address! Please take a break and try again.', 'LockDown Module', GNETWORK_TEXTDOMAIN ),
 		);
 	}
 
@@ -199,7 +199,7 @@ class gNetworkLockDown extends gNetworkModuleCore
 		}
 	}
 
-	function shake_error_codes( $error_codes )
+	public function shake_error_codes( $error_codes )
 	{
 		$error_codes[] = 'gnetwork_lockdown_locked';
 		return $error_codes;
