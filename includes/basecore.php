@@ -86,6 +86,24 @@ class gNetworkBaseCore
 		), $html );
 	}
 
+	// NOTE: WP core function without number_format_i18n
+	public static function size_format( $bytes, $decimals = 0 )
+	{
+		$quant = array(
+			'TB' => TB_IN_BYTES,
+			'GB' => GB_IN_BYTES,
+			'MB' => MB_IN_BYTES,
+			'kB' => KB_IN_BYTES,
+			'B'  => 1,
+		);
+
+		foreach ( $quant as $unit => $mag )
+			if ( doubleval( $bytes ) >= $mag )
+				return number_format( $bytes / $mag, $decimals ).' '.$unit;
+
+		return FALSE;
+	}
+
 	public static function stat( $format = NULL )
 	{
 		if ( is_null( $format ) )
@@ -98,7 +116,7 @@ class gNetworkBaseCore
 		);
 	}
 
-	// WP Core function without number_format_i18n
+	// NOTE: WP core function without number_format_i18n
 	public static function timer_stop( $echo = FALSE, $precision = 3 )
 	{
 		global $timestart;
@@ -122,6 +140,15 @@ class gNetworkBaseCore
 			return trailingslashit( $current );
 
 		return $current;
+	}
+
+	public static function currentBlog()
+	{
+		$blog = home_url();
+		$blog = str_ireplace( array( 'https://', 'http://' ), '', $blog );
+		$blog = str_ireplace( array( '/', '\/' ), '-', $blog );
+
+		return $blog;
 	}
 
 	public static function registerURL( $register = FALSE )
