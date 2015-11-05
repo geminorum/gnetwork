@@ -19,6 +19,7 @@ class gNetworkNavigation extends gNetworkModuleCore
 			add_action( 'load-nav-menus.php', array( $this, 'load_nav_menus_php' ) );
 		} else {
 			add_filter( 'wp_setup_nav_menu_item', array( $this, 'wp_setup_nav_menu_item' ) );
+			add_filter( 'wp_nav_menu_items', array( $this, 'wp_nav_menu_items' ), 20, 2 );
 		}
 	}
 
@@ -325,6 +326,18 @@ class gNetworkNavigation extends gNetworkModuleCore
 		}
 
 		return $menu_item;
+	}
+
+	public function wp_nav_menu_items( $items, $args )
+	{
+		$current = self::currentURL();
+		$replace = apply_filters( 'gnetwork_navigation_replace_nav_menu', array(
+		), $current );
+
+		foreach ( $replace as $pattern => $replacement )
+			$items = preg_replace( $pattern, sprintf( $replacement, urlencode( $current ) ), $items );
+
+		return $items;
 	}
 }
 
