@@ -2,6 +2,7 @@
 
 @import "modules/all";
 @import "partials/base";
+@import "partials/fonts";
 
 .login {
 
@@ -58,6 +59,10 @@
 	p.sum {
 		margin: 0;
 		padding:20px 0 46px;
+
+		label {
+			vertical-align: inherit;
+		}
 
 		input[type="number"] {
 			width: 38px;

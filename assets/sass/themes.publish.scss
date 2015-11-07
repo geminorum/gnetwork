@@ -1,5 +1,10 @@
 @charset "UTF-8";
 
+@import "modules/all";
+@import "partials/base";
+@import "partials/fonts";
+
+
 // TODO: must load via action, just for RTL
 @import url(http://fonts.googleapis.com/earlyaccess/droidarabicnaskh.css);
 
@@ -21,22 +26,22 @@ body.rtl {
 	}
 
 	.site-title	{
-		font:bold 30px/35px $font-family-head;
+		font: bold 30px/35px $font-family-head;
 	}
 
 	.entry-title {
-		font:bold 16.2px/21px $font-family-head;
+		font: bold 16.2px/21px $font-family-head;
 	}
 
 	.widget-area {
 		.widget-title {
-			font:bold 14.2px/18px $font-family-head;
+			font: bold 14.2px/18px $font-family-head;
 		}
 	}
 
 	.entry-content {
 		p {
-			font:normal 14.4px/25.2px $font-family-base;
+			font: normal 14.4px/25.2px $font-family-base;
 		}
 	}
 
