@@ -1,0 +1,171 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// gNetwork Default Font Stuff ------------------------------------------------
+
+// FIXME: @at-root not supported via current sass compiler
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// Droid Arabic Naskh (Arabic) v7
+// http://www.google.com/webfonts/earlyaccess
+// http://openfontlibrary.org/en/font/droid-arabic-naskh
+
+@mixin theme-fonts-DroidArabicNaskh($base: "../fonts") {
+
+	$name: "Droid Arabic Naskh";
+	$folder: "droidarabicnaskh";
+	$file: "DroidNaskh-Regular";
+	$path: $base + "/" + $folder + "/" + $file;
+
+	// @at-root {
+		@font-face {
+			font-family: "#{$name}";
+			font-style: normal;
+			font-weight: 400;
+			src: url($path + '.eot');
+			src: url($path + '.eot?#iefix') format('embedded-opentype'),
+				 url($path + '.woff2') format('woff2'),
+				 url($path + '.woff') format('woff'),
+				 url($path + '.ttf') format('truetype');
+		}
+	// }
+
+	$name: "Droid Arabic Naskh";
+	$folder: "droidarabicnaskh";
+	$file: "DroidNaskh-Bold";
+	$path: $base + "/" + $folder + "/" + $file;
+
+	// @at-root {
+		@font-face {
+			font-family: "#{$name}";
+			font-style: normal;
+			font-weight: 700;
+			src: url($path + '.eot');
+			src: url($path + '.eot?#iefix') format('embedded-opentype'),
+				 url($path + '.woff2') format('woff2'),
+				 url($path + '.woff') format('woff'),
+				 url($path + '.ttf') format('truetype');
+		}
+	// }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// Noto Naskh Arabic (Arabic) v3
+// https://www.google.com/get/noto/
+// https://github.com/googlei18n/noto-fonts
+
+@mixin theme-fonts-NotoNaskhArabic($base: "../fonts") {
+
+	$name: "Noto Naskh Arabic";
+	$folder: "notonaskharabic";
+	$file: "NotoNaskhArabic-Regular";
+	$path: $base + "/" + $folder + "/" + $file;
+
+	// @at-root {
+		@font-face {
+			font-family: "#{$name}";
+			font-style: normal;
+			font-weight: 400;
+			src: url($path + '.eot');
+			src: url($path + '.eot?#iefix') format('embedded-opentype'),
+				 url($path + '.woff2') format('woff2'),
+				 url($path + '.woff') format('woff'),
+				 url($path + '.ttf') format('truetype');
+		}
+	// }
+
+	$name: "Noto Naskh Arabic";
+	$folder: "notonaskharabic";
+	$file: "NotoNaskhArabic-Bold";
+	$path: $base + "/" + $folder + "/" + $file;
+
+	// @at-root {
+		@font-face {
+			font-family: "#{$name}";
+			font-style: normal;
+			font-weight: 700;
+			src: url($path + '.eot');
+			src: url($path + '.eot?#iefix') format('embedded-opentype'),
+				 url($path + '.woff2') format('woff2'),
+				 url($path + '.woff') format('woff'),
+				 url($path + '.ttf') format('truetype');
+		}
+	// }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// Droid Arabic Kufi (Arabic) v6
+// http://www.google.com/fonts/earlyaccess
+
+@mixin theme-fonts-DroidArabicKufi($base: "../fonts") {
+
+	$name: "Droid Arabic Kufi";
+	$folder: "droidarabickufi";
+	$file: "DroidKufi-Regular";
+	$path: $base + "/" + $folder + "/" + $file;
+
+	// @at-root {
+		@font-face {
+			font-family: "#{$name}";
+			font-style: normal;
+			font-weight: 400;
+			src: url($path + '.eot');
+			src: url($path + '.eot?#iefix') format('embedded-opentype'),
+				 url($path + '.woff2') format('woff2'),
+				 url($path + '.woff') format('woff'),
+				 url($path + '.ttf') format('truetype');
+		}
+	// }
+
+	$name: "Droid Arabic Kufi";
+	$folder: "droidarabickufi";
+	$file: "DroidKufi-Bold";
+	$path: $base + "/" + $folder + "/" + $file;
+
+	// @at-root {
+		@font-face {
+			font-family: "#{$name}";
+			font-style: normal;
+			font-weight: 700;
+			src: url($path + '.eot');
+			src: url($path + '.eot?#iefix') format('embedded-opentype'),
+				 url($path + '.woff2') format('woff2'),
+				 url($path + '.woff') format('woff'),
+				 url($path + '.ttf') format('truetype');
+		}
+	// }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// Weblogma Webfont Yekan v3
+// http://goo.gl/WhRr3a
+// http://weblogma.com/
+
+@mixin theme-fonts-WeblogmaYekan($base: "../fonts") {
+
+	$name: "Weblogma Yekan";
+	$folder: "weblogmayekan";
+	$file: "WeblogmaYekan";
+	$path: $base + "/" + $folder + "/" + $file;
+
+	// @at-root {
+		@font-face {
+			font-family: "#{$name}";
+			font-style: normal;
+			font-weight: 400;
+			src: url($path + '.eot');
+			src: url($path + '.eot?#iefix') format('embedded-opentype'),
+				//  url($path + '.woff2') format('woff2'),
+				 url($path + '.woff') format('woff'),
+				 url($path + '.ttf') format('truetype');
+		}
+	// }
+}
