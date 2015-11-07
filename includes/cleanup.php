@@ -3,11 +3,16 @@
 class gNetworkCleanup extends gNetworkModuleCore
 {
 
-	protected $option_key = FALSE;
+	protected $option_key = 'cleanup';
 	protected $network    = FALSE;
 
 	protected function setup_actions()
 	{
+		$this->register_menu( 'cleanup',
+			_x( 'Cleanup', 'Cleanup Module: Menu Name', GNETWORK_TEXTDOMAIN ),
+			array( $this, 'settings' )
+		);
+
 		add_action( 'plugins_loaded' , array( $this, 'plugins_loaded' ), 10 );
 		add_action( 'init' , array( $this, 'init' ), 12 );
 		add_action( 'wp_default_scripts', array( $this, 'wp_default_scripts' ), 9 );
@@ -23,6 +28,73 @@ class gNetworkCleanup extends gNetworkModuleCore
 
 		// SEE: http://stephanis.info/2014/08/13/on-jetpack-and-auto-activating-modules
 		add_filter( 'jetpack_get_default_modules', '__return_empty_array' );
+	}
+
+	public function default_settings()
+	{
+		$confirm = self::getButtonConfirm();
+
+		return array(
+			'_general' => array(
+				array(
+					'field'   => 'akismet_purge_meta',
+					'type'    => 'button',
+					'title'   => _x( 'Akismet', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+					'desc'    => _x( 'Removes akismet related meta from comments', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+					'default' => _x( 'Purge Metadata', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+					'values'  => $confirm,
+				),
+				array(
+					'field'   => 'purge_comment_agent',
+					'type'    => 'button',
+					'title'   => _x( 'Comments', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+					'desc'    => _x( 'Removes user agent field of comments', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+					'default' => _x( 'Purge User Agents', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+					'values'  => $confirm,
+				),
+				array(
+					'field'   => 'optimize_tables',
+					'type'    => 'button',
+					'title'   => _x( 'Comment Tables', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+					'desc'    => _x( 'Checks for orphaned comment metas and optimize tables', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+					'default' => _x( 'Orphaned & Optimize', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+					'values'  => $confirm,
+				),
+				array(
+					'field'   => 'delete_post_editmeta',
+					'type'    => 'button',
+					'title'   => _x( 'Post Edit Meta', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+					'desc'    => _x( 'Removes posts last edit user and lock metas', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+					'default' => _x( 'Delete Last User & Lock', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+					'values'  => $confirm,
+				),
+			),
+		);
+	}
+
+	protected function settings_update( $sub )
+	{
+		if ( ! empty( $_POST ) && 'update' == $_POST['action'] ) {
+
+			$this->check_referer( $sub );
+
+			if ( isset( $_POST['optimize_tables'] ) )
+				$message = $this->optimize_tables() ? 'optimized' : 'error';
+
+			else if ( isset( $_POST['purge_comment_agent'] ) )
+				$message = $this->purge_comment_agent() ? 'purged' : 'error';
+
+			else if ( isset( $_POST['delete_post_editmeta'] ) )
+				$message = $this->delete_post_editmeta() ? 'purged' : 'error';
+
+			else if ( isset( $_POST['akismet_purge_meta'] ) )
+				$message = $this->akismet_purge_meta() ? 'purged' : 'error';
+
+			else
+				return FALSE;
+
+			self::redirect_referer( $message );
+		}
 	}
 
 	public function plugins_loaded()
@@ -116,5 +188,49 @@ class gNetworkCleanup extends gNetworkModuleCore
 
 		// Removes the "Other WordPress News" widget
 		remove_meta_box( 'dashboard_secondary', $screen, 'side' );
+	}
+
+	// @SEE: http://www.catswhocode.com/blog/10-useful-sql-queries-to-clean-up-your-wordpress-database
+	private function optimize_tables()
+	{
+		global $wpdb;
+
+		$wpdb->query( "DELETE FROM {$wpdb->commentmeta} WHERE comment_id NOT IN (SELECT comment_id FROM {$wpdb->comments})" );
+
+		$wpdb->query( "OPTIMIZE TABLE {$wpdb->comments}" );
+		$wpdb->query( "OPTIMIZE TABLE {$wpdb->commentmeta}" );
+
+		return TRUE;
+	}
+
+	private function purge_comment_agent()
+	{
+		global $wpdb;
+
+		$wpdb->query( "UPDATE {$wpdb->comments} SET comment_agent = ''" );
+
+		return TRUE;
+	}
+
+	private function akismet_purge_meta()
+	{
+		global $wpdb;
+
+		// $wpdb->query( "DELETE FROM {$wpdb->commentmeta} WHERE 'meta_key' IN ( 'akismet_result', 'akismet_history', 'akismet_user', 'akismet_user_result' ) " );
+		$wpdb->query( "DELETE FROM {$wpdb->commentmeta} WHERE meta_key LIKE '%akismet%'" );
+
+		return TRUE;
+	}
+
+	private function delete_post_editmeta()
+	{
+		global $wpdb;
+
+		$wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = '_edit_last'" );
+		$wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = '_edit_lock'" );
+
+		$wpdb->query( "OPTIMIZE TABLE {$wpdb->postmeta}" );
+
+		return TRUE;
 	}
 }
