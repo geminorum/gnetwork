@@ -27,6 +27,12 @@ class gNetworkComments extends gNetworkModuleCore
 		if ( ! is_admin() && $this->options['front_quicktags'] )
 			add_action( 'wp_print_scripts', array( $this, 'wp_print_scripts' ) );
 
+		if ( ! is_admin() && $this->options['disable_notes'] )
+			add_filter( 'comment_form_defaults', function( $defaults ){
+				$defaults['comment_notes_after'] = '';
+				return $defaults;
+			}, 12 );
+
 		if ( is_admin() && $this->options['admin_fullcomments'] )
 			add_filter( 'comment_excerpt', array( $this, 'comment_excerpt' ) );
 
@@ -53,6 +59,7 @@ class gNetworkComments extends gNetworkModuleCore
 			'disable_notifications' => '1',
 			'admin_fullcomments'    => '1',
 			'front_quicktags'       => '0',
+			'disable_notes'         => '1',
 		);
 	}
 
@@ -84,6 +91,13 @@ class gNetworkComments extends gNetworkModuleCore
 					'title'   => _x( 'Quicktags', 'Comments Module', GNETWORK_TEXTDOMAIN ),
 					'desc'    => __( 'Activate Quicktags for comments on Frontend', GNETWORK_TEXTDOMAIN ),
 					'default' => '0',
+				),
+				array(
+					'field'   => 'disable_notes',
+					'type'    => 'enabled',
+					'title'   => _x( 'Form Notes', 'Comments Module', GNETWORK_TEXTDOMAIN ),
+					'desc'    => __( 'Removes extra notes after comment form on frontend', GNETWORK_TEXTDOMAIN ),
+					'default' => '1',
 				),
 			),
 		);
