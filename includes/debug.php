@@ -88,12 +88,7 @@ class gNetworkDebug extends gNetworkModuleCore
 		echo '</tbody></table>';
 	}
 
-	public static function codeTable( $array )
 	{
-		echo '<table><tbody>';
-		foreach ( $array as $key => $val )
-			echo sprintf( '<tr><td style="width:185px">%1$s</td><td><code>%2$s</code></td></tr>', $key, $val );
-		echo '</tbody></table>';
 	}
 
 	public static function cacheStats()
@@ -113,7 +108,7 @@ class gNetworkDebug extends gNetworkModuleCore
 			'WP_CACHE'            => WP_CACHE,
 		);
 
-		self::codeTable( $paths );
+		self::tableCode( $paths );
 	}
 
 	public static function pluginPaths()
@@ -125,14 +120,14 @@ class gNetworkDebug extends gNetworkModuleCore
 			'URL'                 => GNETWORK_URL,
 		);
 
-		self::codeTable( $paths );
+		self::tableCode( $paths );
 	}
 
 	public static function wpUploadDIR()
 	{
 		$upload_dir = wp_upload_dir();
 		unset( $upload_dir['error'], $upload_dir['subdir'] );
-		self::codeTable( $upload_dir );
+		self::tableCode( $upload_dir );
 	}
 
 	// FIXME: it's not good
@@ -153,7 +148,7 @@ class gNetworkDebug extends gNetworkModuleCore
 		$server['REQUEST_TIME_FLOAT'] = date( 'l, j F, Y - H:i:s T', $server['REQUEST_TIME_FLOAT']  ).' ('.$server['REQUEST_TIME_FLOAT'] .')';
 		$server['REQUEST_TIME']       = date( 'l, j F, Y - H:i:s T', $server['REQUEST_TIME']  ).' ('.$server['REQUEST_TIME'] .')';
 
-		self::codeTable( $server );
+		self::tableCode( $server );
 	}
 
 	// TODO: make it to the debugbar panel

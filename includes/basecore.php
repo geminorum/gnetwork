@@ -604,6 +604,14 @@ class gNetworkBaseCore
 		wp_die( $message, 403 );
 	}
 
+	public static function tableCode( $array )
+	{
+		echo '<table><tbody>';
+		foreach ( $array as $key => $val )
+			echo sprintf( '<tr><td style="width:185px">%1$s</td><td><code>%2$s</code></td></tr>', $key, $val );
+		echo '</tbody></table>';
+	}
+
 	// FIXME: WTF: not wrapping the child table!!
 	// FIXME: DRAFT: needs styling
 	public static function tableSideWrap( $array, $title = FALSE )
