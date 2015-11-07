@@ -1,10 +1,70 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// gNetwork Partials: Table ---------------------------------------------------
 
-// FIXME: move this to where it blongs!
+table {
+	&.base-table-list,
+	&.base-table-code,
+	&.base-table-side-wrap,
+	&.base-table-side {
 
-table.helper-table {
+		width: 100%;
+	}
+}
+
+table.base-table-list {
+
+	thead {
+		.check-column {
+			width: 2.2em;
+		}
+
+		.-column-slug {
+			width: 25%;
+		}
+	}
+
+	td {
+		vertical-align: top;
+	}
+
+	td,
+	th {
+		padding: 8px 10px;
+	}
+
+	.-cb-all {}
+	.-cb {}
+	.-column {}
+
+	.-column-id,
+	.-column-ID,
+	.-column-post_id,
+	.-column-term_id {
+		width: 60px;
+	}
+
+	.-column-count {
+		width: 40px;
+	}
+
+	.-column-content {}
+	.-column-info {
+		width: 34%;
+	}
+
+	.-column-tasks {}
+	.-column-next {
+		width: 34%;
+	}
+
 	.-column-debug {
 		padding: 0;
 	}
+
+	.-row {}
+	.-cell {}
 
 	pre {
 		margin: 0;
@@ -12,32 +72,58 @@ table.helper-table {
 	}
 }
 
-// OLD: WTF?!
-table.helper-table-side {
+table.base-table-code {
+
+	> tbody > tr > td {
+
+		&.-var {
+			width: 185px;
+		}
+
+		&.-val {
+
+		}
+	}
+}
+
+table.base-table-side {
 
 	direction: ltr;
+	border: 1px solid #ccc;
+	border-spacing: 0;
 
+	tr.-row {}
 
-	table {
-		width: 100%;
-		direction: ltr;
+	td.-key {
+		padding: 5px 5px;
+		vertical-align: top;
+		text-align: right;
+
+		strong {}
+
+		small {
+			color: gray;
+		}
 	}
 
-	// td {
-	// 	vertical-align: top;
-	// }
-	//
-	// td,
-	// th {
-	// 	padding: 8px 10px;
-	// }
-	// pre {
-	// 	margin: 0;
-	// }
+	td.-val {
+		vertical-align: top;
 
-	.-row {}
-	.-key {}
-	.-val {}
+		&.-table {}
+
+		&.-not-table {
+			padding: 4px 2px;
+		}
+
+		code {}
+	}
+
+	.-empty {}
+}
+
+table.base-table-side-wrap {
+
+	direction: ltr;
 
 	border: 1px solid #ccc;
 	border-width: 1px 1px 1px 0;

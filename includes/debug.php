@@ -82,9 +82,9 @@ class gNetworkDebug extends gNetworkModuleCore
 			'required_mysql_version' => _x( 'Required MySQL', 'Debug Module: Version Strings', GNETWORK_TEXTDOMAIN ),
 		);
 
-		echo '<table><tbody>';
+		echo '<table class="base-table-code"><tbody>';
 		foreach ( $versions as $key => $val )
-			echo sprintf( '<tr><td style="width:185px">%1$s</td><td><code>%2$s</code></td></tr>', $val, $$key );
+			echo sprintf( '<tr><td class="-var">%1$s</td><td class="-val"><code>%2$s</code></td></tr>', $val, $$key );
 		echo '</tbody></table>';
 	}
 

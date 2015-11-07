@@ -414,61 +414,55 @@ class gNetworkMail extends gNetworkModuleCore
 
 		$logs = $this->get_emaillogs( $limit );
 
-		if ( ! class_exists( 'gEditorialHelper' ) ) {
-			echo self::html( 'p', 'TEMPORARLY: it\'s better to have gEditorial enabled for this!' );
-			self::tableSide( $logs );
-		} else {
+		self::tableList( array(
+			'_cb' => 'term_id',
 
-			gEditorialHelper::table( array(
-				'_cb' => 'term_id',
+			'info' => array(
+				'title'    => __( 'Whom, When', GNETWORK_TEXTDOMAIN ),
+				'class'    => '-column-info',
+				'callback' => function( $value, $row, $column ){
+					$info = '';
 
-				'info' => array(
-					'title'    => __( 'Whom, When', GNETWORK_TEXTDOMAIN ),
-					'class'    => '-column-info',
-					'callback' => function( $value, $row, $column ){
-						$info = '';
-
-						if ( isset( $row['to'] ) ) {
-							if ( is_array( $row['to'] ) ) {
-								foreach ( $row['to'] as $to )
-									$info .= '<a href="mailto:'.$to.'">'.$to.'</a><br />';
-							} else {
-								$info .= '<a href="mailto:'.$row['to'].'">'.$row['to'].'</a><br />';
-							}
+					if ( isset( $row['to'] ) ) {
+						if ( is_array( $row['to'] ) ) {
+							foreach ( $row['to'] as $to )
+								$info .= '<a href="mailto:'.$to.'">'.$to.'</a><br />';
+						} else {
+							$info .= '<a href="mailto:'.$row['to'].'">'.$row['to'].'</a><br />';
 						}
+					}
 
-						if ( isset( $row['timestamp'] ) )
-							$info .= '<code>'.$row['timestamp'].'</code>';
+					if ( isset( $row['timestamp'] ) )
+						$info .= '<code>'.$row['timestamp'].'</code>';
 
-						if ( isset( $row['attachments'] ) ) {
-							if ( is_array( $row['attachments'] ) ) {
-								foreach ( $row['attachments'] as $attachment )
-									$info .= '<code>'.$attachment.'</code>';
-							} else {
-								$info .= '<code>'.$row['attachments'].'</code>';
-							}
+					if ( isset( $row['attachments'] ) ) {
+						if ( is_array( $row['attachments'] ) ) {
+							foreach ( $row['attachments'] as $attachment )
+								$info .= '<code>'.$attachment.'</code>';
+						} else {
+							$info .= '<code>'.$row['attachments'].'</code>';
 						}
+					}
 
-						return $info;
-					},
-				),
 
-				'content' => array(
-					'title'    => __( 'What', GNETWORK_TEXTDOMAIN ),
-					'class'    => '-column-content',
-					'callback' => function( $value, $row, $column ){
-						$content = '';
-						if ( isset( $row['subject'] ) )
-							$content .= $row['subject'].'<br />';
+					return $info;
+				},
+			),
 
-						if ( isset( $row['message'] ) )
-							$content .= wpautop( $row['message'] );
+			'content' => array(
+				'title'    => __( 'What', GNETWORK_TEXTDOMAIN ),
+				'class'    => '-column-content',
+				'callback' => function( $value, $row, $column ){
+					$content = '';
+					if ( isset( $row['subject'] ) )
+						$content .= $row['subject'].'<br />';
 
-						return $content;
-					},
-				),
+					if ( isset( $row['message'] ) )
+						$content .= wpautop( $row['message'] );
 
-			), $logs );
-		}
+					return $content;
+				},
+			),
+		), $logs );
 	}
 }

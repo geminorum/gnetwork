@@ -607,11 +607,104 @@ class gNetworkBaseCore
 		wp_die( $message, 403 );
 	}
 
+	public static function tableList( $columns, $data = array(), $actions = array() )
+	{
+		if ( ! count( $columns ) )
+			return FALSE;
+
+		echo '<table class="widefat fixed base-table-list"><thead><tr>';
+			foreach ( $columns as $key => $column ) {
+
+				$tag   = 'th';
+				$class = '';
+
+				if ( is_array( $column ) ) {
+					$title = isset( $column['title'] ) ? $column['title'] : $key;
+				} else if ( '_cb' == $key ) {
+					$title = '<input type="checkbox" id="cb-select-all-1" class="-cb-all" />';
+					$class = ' check-column';
+					$tag   = 'td';
+				} else {
+					$title = $column;
+				}
+
+				echo '<'.$tag.' class="-column -column-'.esc_attr( $key ).$class.'">'.$title.'</'.$tag.'>';
+			}
+		echo '</tr></thead><tbody>';
+
+		$alt = TRUE;
+		foreach ( $data as $index => $row ) {
+
+			echo '<tr class="-row -row-'.$index.( $alt ? ' alternate' : '' ).'">';
+
+			foreach ( $columns as $key => $column ) {
+
+				$class = $callback = '';
+				$cell = 'td';
+
+				if ( '_cb' == $key ) {
+					if ( '_index' == $column )
+						$value = $index;
+					else if ( is_array( $column ) && isset( $column['value'] ) )
+						$value = call_user_func_array( $column['value'], array( NULL, $row, $column, $index ) );
+					else if ( is_array( $row ) && isset( $row[$column] ) )
+						$value = $row[$column];
+					else if ( is_object( $row ) && isset( $row->{$column} ) )
+						$value = $row->{$column};
+					else
+						$value = '';
+					$value = '<input type="checkbox" name="_cb[]" value="'.esc_attr( $value ).'" class="-cb" />';
+					$class .= ' check-column';
+					$cell = 'th';
+
+				} else if ( is_array( $row ) && isset( $row[$key] ) ) {
+					$value = $row[$key];
+
+				} else if ( is_object( $row ) && isset( $row->{$key} ) ) {
+					$value = $row->{$key};
+
+				} else {
+					$value = NULL;
+				}
+
+				if ( is_array( $column ) ) {
+					if ( isset( $column['class'] ) )
+						$class .= ' '.esc_attr( $column['class'] );
+
+					if ( isset( $column['callback'] ) )
+						$callback = $column['callback'];
+				}
+
+				echo '<'.$cell.' class="-cell -cell-'.$key.$class.'">';
+
+				if ( $callback ){
+					echo call_user_func_array( $callback, array( $value, $row, $column, $index ) );
+
+				} else if ( $value ) {
+					echo $value;
+
+				} else {
+					echo '&nbsp;';
+
+				}
+
+				echo '</'.$cell.'>';
+			}
+
+			$alt = ! $alt;
+
+			echo '</tr>';
+		}
+
+		echo '</tbody></table>';
+		echo '<div class="clear"></div>';
+	}
+
 	public static function tableCode( $array )
 	{
-		echo '<table><tbody>';
+		echo '<table class="base-table-code"><tbody>';
 		foreach ( $array as $key => $val )
-			echo sprintf( '<tr><td style="width:185px">%1$s</td><td><code>%2$s</code></td></tr>', $key, $val );
+			echo sprintf( '<tr><td class="-var">%1$s</td><td class="-val"><code>%2$s</code></td></tr>', $key, $val );
 		echo '</tbody></table>';
 	}
 
@@ -619,7 +712,7 @@ class gNetworkBaseCore
 	// FIXME: DRAFT: needs styling
 	public static function tableSideWrap( $array, $title = FALSE )
 	{
-		echo '<table class="w1idefat f1ixed helper-table-side">';
+		echo '<table class="w1idefat f1ixed base-table-side-wrap">';
 			if ( $title )
 				echo '<thead><tr><th>'.$title.'</th></tr></thead>';
 			echo '<tbody>';
@@ -629,7 +722,7 @@ class gNetworkBaseCore
 
 	public static function tableSide( $array )
 	{
-		echo '<table style="direction:ltr;border: 1px solid #ccc;width:100%;border-spacing:0;">';
+		echo '<table class="base-table-side">';
 
 		if ( count( $array ) ) {
 
@@ -638,25 +731,25 @@ class gNetworkBaseCore
 				echo '<tr class="-row">';
 
 				if ( is_string( $key ) ) {
-					echo '<td class="-key" style="padding:5px 5px;vertical-align:top;text-align:right;"><strong>'.$key;
-						echo '</strong><br /><small style="color:gray;">'.gettype( $val ).'</small>';
+					echo '<td class="-key" style=""><strong>'.$key;
+						echo '</strong><br /><small>'.gettype( $val ).'</small>';
 					echo '</td>';
 				}
 
 				if ( is_array( $val ) || is_object( $val ) ) {
-					echo '<td class="-val" style="vertical-align:top;">';
+					echo '<td class="-val -table">';
 					self::tableSide( $val );
 				} else if ( ! empty( $val ) ){
-					echo '<td class="-val" style="padding:4px 2px;vertical-align:top;"><code>'.$val.'</code>';
+					echo '<td class="-val -not-table"><code>'.$val.'</code>';
 				} else {
-					echo '<td class="-val" style="padding:4px 2px;vertical-align:top;"><small>empty</small>';
+					echo '<td class="-val -not-table"><small class="-empty">empty</small>';
 				}
 
 				echo '</td></tr>';
 			}
 
 		} else {
-			echo '<tr class="-row"><td class="-val" style="padding:4px 2px;vertical-align:top;"><small>empty</small></td></tr>';
+			echo '<tr class="-row"><td class="-val -not-table"><small class="-empty">empty</small></td></tr>';
 		}
 
 		echo '</table>';

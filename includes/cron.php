@@ -87,8 +87,7 @@ class gNetworkCron extends gNetworkModuleCore
 
 			self::cronInfo();
 
-			if ( class_exists( 'gEditorialHelper' ) )
-				$this->settings_buttons( $sub );
+			$this->settings_buttons( $sub );
 
 		echo '</form>';
 	}
@@ -114,71 +113,57 @@ class gNetworkCron extends gNetworkModuleCore
 			return;
 		}
 
-		if ( ! class_exists( 'gEditorialHelper' ) ) {
-			echo self::html( 'p', 'TEMPORARLY: it\'s better to have gEditorial enabled for this!' );
-			self::tableSide( $cron );
+		self::tableList( array(
+			'_cb' => '_index',
 
-		} else {
+			'next' => array(
+				'title'    => __( 'Next', GNETWORK_TEXTDOMAIN ),
+				'class'    => '-column-next',
+				'callback' => function( $value, $row, $column, $index ){
+					// return date_i18n( self::getDateDefaultFormat(), $index );
+					return date_i18n( 'H:i:s - D, j M, Y', $index );
+				},
+			),
 
-			gEditorialHelper::table( array(
-				'_cb' => '_index',
-
-				'next' => array(
-					'title'    => __( 'Next', GNETWORK_TEXTDOMAIN ),
-					'class'    => '-column-next',
-					'callback' => function( $value, $row, $column, $index ){
-						// return date_i18n( self::getDateDefaultFormat(), $index );
-						return date_i18n( 'H:i:s - D, j M, Y', $index );
-					},
+			'tasks' => array(
+				'title' => __( 'Tasks', GNETWORK_TEXTDOMAIN ),
+				'class' => '-column-tasks',
+				'args'  => array(
+					'schedules' => wp_get_schedules(),
 				),
+				'callback' => function( $value, $row, $column, $index ){
 
-				'tasks' => array(
-					'title' => __( 'Tasks', GNETWORK_TEXTDOMAIN ),
-					'class' => '-column-tasks',
-					'args'  => array(
-						'schedules' => wp_get_schedules(),
-					),
-					'callback' => function( $value, $row, $column, $index ){
+					$info = '';
 
-						$info = '';
+					foreach ( $row as $action => $tasks ) {
+						foreach ( $tasks as $hash => $task ) {
 
-						foreach ( $row as $action => $tasks ) {
-							foreach ( $tasks as $hash => $task ) {
+							$info .= '<div style="line-height:1.8">';
 
-								$info .= '<div style="line-height:1.8">';
+							if ( function_exists('has_action') )
+								$style = ( has_action( $action ) ) ? ' style="color:green;"' : ' style="color:red;"';
+							else
+								$style = '';
 
-								if ( function_exists('has_action') )
-									$style = ( has_action( $action ) ) ? ' style="color:green;"' : ' style="color:red;"';
-								else
-									$style = '';
+							$info .= '<code'.$style.'>'.$action.'</code>';
 
-								$info .= '<code'.$style.'>'.$action.'</code>';
-
-								if ( isset( $task['schedule'] )
-									&& $task['schedule']
-									&& isset( $column['args']['schedules'][$task['schedule']] ) ) {
-										$info .= ' <small>'.$column['args']['schedules'][$task['schedule']]['display']. '</small>';
-								}
-
-								if ( isset( $task['args'] ) && count( $task['args'] ) )
-									foreach ( $task['args'] as $arg_key => $arg_val )
-										$info .= $arg_key.': <code>'.$arg_val.'</code>';
-
-								$info .= '</div>';
+							if ( isset( $task['schedule'] )
+								&& $task['schedule']
+								&& isset( $column['args']['schedules'][$task['schedule']] ) ) {
+									$info .= ' <small>'.$column['args']['schedules'][$task['schedule']]['display']. '</small>';
 							}
-						}
 
-						return $info;
-					},
-				),
-				// 'debug' => array(
-				// 	'title' => __( 'Debug', GNETWORK_TEXTDOMAIN ),
-				// 	'class' => '-column-debug',
-				// 	'callback' => function( $value, $row, $column, $index ){
-				// 		return gPluginUtils::dump_get( $row );
-				// 	},
-				// ),
-			), $cron );
-		}
+							if ( isset( $task['args'] ) && count( $task['args'] ) )
+								foreach ( $task['args'] as $arg_key => $arg_val )
+									$info .= $arg_key.': <code>'.$arg_val.'</code>';
+
+							$info .= '</div>';
+						}
+					}
+
+					return $info;
+				},
+			),
+		), $cron );
 	}
 }
