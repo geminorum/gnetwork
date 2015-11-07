@@ -830,11 +830,12 @@ class gNetworkModuleCore extends gNetworkBaseCore
 			break;
 			case 'button' :
 
-				submit_button(
+				echo get_submit_button(
 					$value,
 					( empty( $args['field_class'] ) ? 'secondary' : $args['field_class'] ),
-					$id,
-					FALSE
+					$args['field'], // $id,
+					FALSE,
+					$args['values']
 				);
 
 			break;
