@@ -85,9 +85,10 @@ class gNetworkCron extends gNetworkModuleCore
 
 			$this->settings_fields( $sub, 'bulk' );
 
-			self::cronInfo();
+			$scheduled = self::cronInfo();
 
-			$this->settings_buttons( $sub );
+			if ( $scheduled )
+				$this->settings_buttons( $sub );
 
 		echo '</form>';
 	}
@@ -110,7 +111,7 @@ class gNetworkCron extends gNetworkModuleCore
 
 		if ( empty( $cron ) ) {
 			echo self::html( 'strong', __( 'Nothing scheduled', GNETWORK_TEXTDOMAIN ) );
-			return;
+			return FALSE;
 		}
 
 		self::tableList( array(
@@ -165,5 +166,7 @@ class gNetworkCron extends gNetworkModuleCore
 				},
 			),
 		), $cron );
+
+		return TRUE;
 	}
 }
