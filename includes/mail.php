@@ -283,6 +283,7 @@ class gNetworkMail extends gNetworkModuleCore
 	{
 		$contents = array_merge( array(
 			'timestamp' => current_time( 'mysql' ),
+			'blog'      => self::currentBlog(),
 		), $mail );
 
 		if ( is_array( $contents['to'] ) )
