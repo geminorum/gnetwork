@@ -155,15 +155,10 @@ class gNetworkNetwork extends gNetworkModuleCore
 
 	public function settings_page()
 	{
-		$uri  = self::settingsURL( FALSE );
-		$sub  = self::settingsSub( 'overview' );
-		$subs = apply_filters( 'gnetwork_network_settings_subs', $this->subs() );
-
-		$messages = apply_filters( 'gnetwork_network_settings_messages', array(
-			'resetting' => self::updated( __( 'Resetting Settings.', GNETWORK_TEXTDOMAIN ) ),
-			'updated'   => self::updated( __( 'Settings updated.', GNETWORK_TEXTDOMAIN ) ),
-			'error'     => self::error( __( 'Error while saving settings.', GNETWORK_TEXTDOMAIN ) ),
-		), $sub );
+		$uri      = self::settingsURL( FALSE );
+		$sub      = self::settingsSub( 'overview' );
+		$subs     = apply_filters( 'gnetwork_network_settings_subs', $this->subs() );
+		$messages = apply_filters( 'gnetwork_network_settings_messages', self::settingsMessages(), $sub );
 
 		echo '<div class="wrap gnetwork-admin-settings-wrap settings-network sub-'.$sub.'">';
 

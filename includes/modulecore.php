@@ -987,6 +987,17 @@ class gNetworkModuleCore extends gNetworkBaseCore
 		echo '</h1>';
 	}
 
+	public static function settingsMessages()
+	{
+		return array(
+			'resetting' => self::updated( _x( 'Settings reset.', 'Moduel Core', GNETWORK_TEXTDOMAIN ) ),
+			'optimized' => self::updated( _x( 'Tables optimized.', 'Moduel Core', GNETWORK_TEXTDOMAIN ) ),
+			'updated'   => self::updated( _x( 'Settings updated.', 'Moduel Core', GNETWORK_TEXTDOMAIN ) ),
+			'purged'    => self::updated( _x( 'Data purged.', 'Moduel Core', GNETWORK_TEXTDOMAIN ) ),
+			'error'     => self::error( _x( 'Error while settings save.', 'Moduel Core', GNETWORK_TEXTDOMAIN ) ),
+		);
+	}
+
 	public static function settingsMessage( $messages = array() )
 	{
 		if ( isset( $_GET['message'] ) ) {
