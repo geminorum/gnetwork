@@ -290,7 +290,8 @@ class gNetworkBaseCore
 		return $keys;
 	}
 
-	// NOTE: like core but without filter and fallback
+	// NOTE: like WP core but without filter and fallback
+	// ANCESTOR: sanitize_html_class()
 	public static function sanitizeHTMLClass( $class )
 	{
 		// strip out any % encoded octets
@@ -299,7 +300,14 @@ class gNetworkBaseCore
 		// limit to A-Z,a-z,0-9,_,-
 		$sanitized = preg_replace( '/[^A-Za-z0-9_-]/', '', $sanitized );
 
-		return trim( $sanitized );
+		return $sanitized;
+	}
+
+	// NOTE: like WP core but without filter
+	// ANCESTOR: tag_escape()
+	public static function sanitizeHTMLTag( $tag )
+	{
+		return strtolower( preg_replace('/[^a-zA-Z0-9_:]/', '', $tag ) );
 	}
 
 	private static function _tag_open( $tag, $atts, $content = TRUE )
@@ -379,6 +387,8 @@ class gNetworkBaseCore
 
 	public static function html( $tag, $atts = array(), $content = FALSE, $sep = '' )
 	{
+		$tag = self::sanitizeHTMLTag( $tag );
+
 		if ( is_array( $atts ) )
 			$html = self::_tag_open( $tag, $atts, $content );
 		else
