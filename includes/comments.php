@@ -92,7 +92,7 @@ class gNetworkComments extends gNetworkModuleCore
 					'field'   => 'front_quicktags',
 					'type'    => 'enabled',
 					'title'   => _x( 'Quicktags', 'Comments Module', GNETWORK_TEXTDOMAIN ),
-					'desc'    => __( 'Activate Quicktags for comments on Frontend', GNETWORK_TEXTDOMAIN ),
+					'desc'    => __( 'Activate Quicktags for comments on frontend', GNETWORK_TEXTDOMAIN ),
 					'default' => '0',
 				),
 				array(
@@ -160,7 +160,7 @@ class gNetworkComments extends gNetworkModuleCore
 		return ( strlen( $commentdata['comment_author_url'] ) > 50 ) ? 'spam' : $approved;
 	}
 
-	// http://rayofsolaris.net/blog/2012/akismet-bloat
+	// @SOURCE: http://rayofsolaris.net/blog/2012/akismet-bloat
 	public function add_comment_metadata( $check, $object_id, $meta_key )
 	{
 		$to_filter = array(

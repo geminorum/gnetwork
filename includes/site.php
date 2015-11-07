@@ -17,7 +17,7 @@ class gNetworkSite extends gNetworkModuleCore
 	public function default_options()
 	{
 		return array(
-			'admin_locale'   => 'en_US',
+			'admin_locale' => 'en_US',
 		);
 	}
 

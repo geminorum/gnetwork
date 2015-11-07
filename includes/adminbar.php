@@ -59,8 +59,7 @@ class gNetworkAdminBar extends gNetworkModuleCore
 			wp_enqueue_style( 'gnetwork-adminbar', WP_CONTENT_URL.'/adminbar.css', array( 'admin-bar' ), GNETWORK_VERSION );
 	}
 
-	// ORIGINALLY FROM : Hyper Admins by scribu
-	// http://wordpress.org/extend/plugins/hyper-admins/
+	// @SOURCE: https://wordpress.org/plugins/hyper-admins/
 	public function admin_bar_init_allblogs()
 	{
 		global $wpdb;

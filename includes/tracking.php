@@ -309,8 +309,6 @@ class gNetworkTracking extends gNetworkModuleCore
 
 		if ( ! empty( $this->options['quantcast'] ) ) {
 
-		// TODO: add quant cast widget
-
 ?><script type="text/javascript">
 /* <![CDATA[ */
 var _qevents = _qevents || [];
@@ -340,6 +338,11 @@ qacct:"<?php echo $this->options['quantcast']; ?>"
 
 		// SEE: https://developers.google.com/+/web/api/supported-languages
 		$iso = class_exists( 'gNetworkLocale' ) ? gNetworkLocale::getISO() : 'en';
+
+		// FIXME: make this responsive / use jquery
+		// http://technumero.com/internet/customize-google-plus-badge-website-wordpress-blog/2773
+		// http://stackoverflow.com/a/20316430
+		// document.getElementsByClassName('g-page')[0].setAttribute('data-width', document.getElementById('google-badge').clientWidth);
 
 		if ( $this->gp_platformjs ) {
 ?><script type="text/javascript">

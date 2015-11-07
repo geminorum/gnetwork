@@ -78,6 +78,11 @@ class gNetworkCron extends gNetworkModuleCore
 	{
 		echo '<form class="gnetwork-form" method="post" action="">';
 
+			// TODO: add info on DISABLE_WP_CRON
+			// TODO: add info on url/path to wp-cron.php
+			// TODO: adding wp-cron-multisite.php / much like emaillogs folder
+			// SEE: https://www.lucasrolff.com/wordpress/why-wp-cron-sucks/
+
 			$this->settings_fields( $sub, 'bulk' );
 
 			self::cronInfo();

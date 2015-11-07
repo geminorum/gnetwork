@@ -19,7 +19,7 @@ class gNetworkModuleCore extends gNetworkBaseCore
 	{
 		if ( ( ! $this->ajax && self::isAJAX() )
 			|| ( ! $this->cron && self::isCRON() )
-			|| ( defined( 'WP_INSTALLING' ) && WP_INSTALLING ) )
+			|| ( defined( 'WP_INSTALLING' ) && WP_INSTALLING ) ) // FIXME: Use wp_installing() instead of WP_INSTALLING constant. @SEE: https://core.trac.wordpress.org/changeset/34828
 				return;
 
 		if ( ! is_admin() && ! $this->front_end )
@@ -96,7 +96,7 @@ class gNetworkModuleCore extends gNetworkBaseCore
 		if ( $this->is_network() )
 			$options = isset( ${$network}[$this->option_key] )
 				? ${$network}[$this->option_key]
-				: ( GNETWORK_CHECK_OLD_OPTIONS ? get_site_option( $this->options_key(), array() ) : array() );
+				: ( GNETWORK_CHECK_OLD_OPTIONS ? get_site_option( $this->options_key(), array() ) : array() ); // FIXME: https://core.trac.wordpress.org/ticket/28290
 		else
 			$options = isset( ${$blog}[$this->option_key] )
 				? ${$blog}[$this->option_key]
@@ -130,7 +130,7 @@ class gNetworkModuleCore extends gNetworkBaseCore
 			$options = $this->options;
 
 		if ( $this->is_network() )
-			$saved = get_site_option( $this->option_base.'_site', array() );
+			$saved = get_site_option( $this->option_base.'_site', array() ); // FIXME: https://core.trac.wordpress.org/ticket/28290
 		else
 			$saved = get_option( $this->option_base.'_blog', array() );
 
@@ -140,7 +140,7 @@ class gNetworkModuleCore extends gNetworkBaseCore
 			$saved[$this->option_key] = $options;
 
 		if ( $this->is_network() )
-			return update_site_option( $this->option_base.'_site', $saved );
+			return update_site_option( $this->option_base.'_site', $saved ); // FIXME: https://core.trac.wordpress.org/ticket/28290
 		else
 			return update_option( $this->option_base.'_blog', $saved, TRUE );
 	}
@@ -175,7 +175,7 @@ class gNetworkModuleCore extends gNetworkBaseCore
 
 	public function settings_help() {}
 
-	// default setting sub html
+	// DEFAULT METHOD: setting sub html
 	public function settings_html( $uri, $sub = 'general' )
 	{
 		$class   = 'gnetwork-form';
@@ -268,7 +268,8 @@ class gNetworkModuleCore extends gNetworkBaseCore
 		wp_nonce_field( $this->option_base.'_'.$sub.'-settings' );
 	}
 
-	// FIXME: SEE: http://codex.wordpress.org/Data_Validation#Input_Validation
+	// FIXME: use filter arg for sanitize
+	// @SEE: http://codex.wordpress.org/Data_Validation#Input_Validation
 	protected function settings_update( $sub )
 	{
 		if ( ! empty( $_POST ) && 'update' == $_POST['action'] ) {
@@ -299,8 +300,8 @@ class gNetworkModuleCore extends gNetworkBaseCore
 		return $this->update_options( NULL, TRUE );
 	}
 
-	// defult method
-	// caller must check nounce before
+	// DEFAULT METHOD
+	// NOTE: caller must check for nounce
 	protected function save_settings( $options_key = NULL )
 	{
 		if ( is_null( $options_key ) )

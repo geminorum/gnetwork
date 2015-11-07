@@ -28,10 +28,13 @@ echo '<form method="post" action="">';
 			gNetworkDebug::dumpServer();
 		echo '</td></tr>';
 
+		echo '<tr class="table-block ltr"><th scope="row">'.__( 'gPlugin', GNETWORK_TEXTDOMAIN ).'</th><td>';
+			gNetworkDebug::gPlugin();
+		echo '</td></tr>';
+
 		echo '<tr class="ul-li-inline ltr"><th scope="row">'.__( 'Stats of the Caching', GNETWORK_TEXTDOMAIN ).'</th><td>';
 			gNetworkDebug::cacheStats();
 		echo '</td></tr>';
-
 	}
 
 	if ( class_exists( 'gNetworkShortCodes' ) && current_user_can( 'edit_posts' ) ) {

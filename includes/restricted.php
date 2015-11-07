@@ -380,8 +380,6 @@ class gNetworkRestrictedBouncer
 					$this->feed_access = TRUE;
 				else if ( user_can( intval( $founded ), $this->options['restricted_site'] ) )
 					$this->feed_access = TRUE;
-
-
 			}
 		}
 
@@ -478,8 +476,6 @@ class gNetworkRestrictedBouncer
 			// key is valid but no access
 			// redirect to request access page
 
-			//echo 'valid';
-
 			self::temp_feed(
 				_x( 'Key Valid but no Access', 'Restricted Module', GNETWORK_TEXTDOMAIN ),
 				_x( 'Your Key is valid but you have no access to this site', 'Restricted Module', GNETWORK_TEXTDOMAIN ),
@@ -487,13 +483,13 @@ class gNetworkRestrictedBouncer
 
 		} else if ( is_user_logged_in() ) {
 
-			// you have access but your key is invalid
-			// add notice;
+			// user have access but the key is invalid
+			// TODO: add notice;
 
 			return;
 
 		} else {
-			//echo 'not valid';
+
 			// key is not valid and no access
 			// redirect to request access page
 
@@ -509,6 +505,8 @@ class gNetworkRestrictedBouncer
 	{
 		if ( ! $link )
 			$link = get_bloginfo_rss( 'url' );
+
+		// TODO: use getLayout helper
 
 		header( "Content-Type: application/xml; ".get_option( 'blog_charset' ) );
 		require_once( GNETWORK_DIR.'assets/layouts/feed.temp.php' );
@@ -528,7 +526,8 @@ class gNetworkRestrictedBouncer
 		if ( ( $gen && ( empty( $feed_key ) || FALSE == $feed_key ) ) || $reset ) {
 			$feed_key = self::genFeedKey();
 			update_user_meta( $user_id, 'feed_key', $feed_key );
-		} //else return FALSE;
+		} // else return FALSE;
+
 		return $feed_key;
 	}
 
@@ -602,6 +601,7 @@ class gNetworkRestrictedBouncer
 				$this->options['redirect_page'] );
 
 		echo '</div>';
+
 		echo '<style>#backtoblog {display:none;}</style>';
 	}
 

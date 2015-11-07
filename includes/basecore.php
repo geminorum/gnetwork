@@ -557,8 +557,10 @@ class gNetworkBaseCore
 	public static function range( $start, $end, $step = 1, $format = TRUE )
 	{
 		$array = array();
+
 		foreach ( range( $start, $end, $step ) as $number )
 			$array[$number] = $format ? number_format_i18n( $number ) : $number;
+
 		return $array;
 	}
 
@@ -809,9 +811,11 @@ class gNetworkBaseCore
 
 	public static function getSearchLink( $query = FALSE )
 	{
+		// FIXME: add to filter: 'search_link' / on search module
 		if ( GNETWORK_SEARCH_REDIRECT )
 			return $query ? add_query_arg( GNETWORK_SEARCH_QUERYID, urlencode( $query ), GNETWORK_SEARCH_URL ) : GNETWORK_SEARCH_URL;
 
+		// FIXME: use get_search_link()
 		return $query ? add_query_arg( 's', urlencode( $query ), get_option( 'home' ) ) : get_option( 'home' );
 	}
 
