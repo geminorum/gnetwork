@@ -42,21 +42,6 @@ class gNetworkComments extends gNetworkModuleCore
 		// add_action( 'explain_nonce_gnc-check_comments', array( $this, 'explain_nonce' ) );
 	}
 
-	public function settings( $sub = NULL )
-	{
-		if ( 'comments' == $sub ) {
-
-			if ( isset( $_POST['purge_spams'] ) ) {
-				$this->check_referer( $sub );
-				$this->remove_spam_meta();
-				self::redirect_referer( 'spamspurged' );
-			}
-
-			parent::settings( $sub );
-			$this->register_button( 'purge_spams', __( 'Purge Spam Comments', GNETWORK_TEXTDOMAIN ) );
-		}
-	}
-
 	public function settings_sidebox( $sub, $uri )
 	{
 		$this->total_comments();
@@ -156,21 +141,6 @@ class gNetworkComments extends gNetworkModuleCore
 	public function pre_comment_approved( $approved , $commentdata )
 	{
 		return ( strlen( $commentdata['comment_author_url'] ) > 50 ) ? 'spam' : $approved;
-	}
-
-	// http://south-gippsland.net/remove-spam-from-wordpress-database/
-	public function remove_spam_meta()
-	{
-		global $wpdb;
-
-		$wpdb->query( "DELETE FROM {$wpdb->commentmeta} WHERE comment_id NOT IN (SELECT comment_id FROM {$wpdb->comments})" );
-		$wpdb->query( "DELETE FROM {$wpdb->commentmeta} WHERE meta_key LIKE '%akismet%'" );
-		$wpdb->query( "OPTIMIZE TABLE {$wpdb->comments}" );
-
-		// http://rayofsolaris.net/blog/2012/akismet-bloat
-		// "DELETE FROM {$wpdb->commentmeta} WHERE 'meta_key' IN ( 'akismet_result', 'akismet_history', 'akismet_user', 'akismet_user_result' ) ";
-
-		// SEE : http://www.catswhocode.com/blog/10-useful-sql-queries-to-clean-up-your-wordpress-database
 	}
 
 	// http://rayofsolaris.net/blog/2012/akismet-bloat
