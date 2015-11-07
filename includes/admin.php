@@ -196,11 +196,7 @@ class gNetworkAdmin extends gNetworkModuleCore
 			|| ( 'console' == $sub && is_super_admin() )
 			|| ( isset( $this->menus[$sub] ) && self::cuc( $this->menus[$sub]['cap'] ) ) ) {
 
-			$messages = apply_filters( 'gnetwork_admin_settings_messages', array(
-				'resetting' => self::updated( __( 'Resetting Settings.', GNETWORK_TEXTDOMAIN ) ),
-				'updated'   => self::updated( __( 'Settings updated.', GNETWORK_TEXTDOMAIN ) ),
-				'error'     => self::error( __( 'Error while saving settings.', GNETWORK_TEXTDOMAIN ) ),
-			), $sub );
+			$messages = apply_filters( 'gnetwork_admin_settings_messages', self::settingsMessages(), $sub );
 
 			self::settingsTitle();
 			self::headerNav( $uri, $sub, $subs );

@@ -507,7 +507,7 @@ class gNetworkRestrictedBouncer
 
 	private function temp_feed( $title = '', $desc = '', $link = FALSE )
 	{
-		if ( FALSE == $link )
+		if ( ! $link )
 			$link = get_bloginfo_rss( 'url' );
 
 		header( "Content-Type: application/xml; ".get_option( 'blog_charset' ) );
@@ -548,8 +548,8 @@ class gNetworkRestrictedBouncer
 
 		if ( 'closed' == $this->options['restricted_feed']
 			&& is_feed() ) {
-			$this->check_feed_access();
-			return;
+				$this->check_feed_access();
+				return;
 		}
 
 		if ( $this->options['redirect_page']

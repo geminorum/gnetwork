@@ -576,13 +576,14 @@ class gNetworkBaseCore
 	{
 		$url = FALSE;
 
-		if ( file_exists( get_stylesheet_directory().'/'.$css ) ) {
+		if ( file_exists( get_stylesheet_directory().'/'.$css ) )
 			$url = get_stylesheet_directory_uri().'/'.$css;
-		} else if ( file_exists( get_template_directory().'/'.$css ) ) {
+
+		else if ( file_exists( get_template_directory().'/'.$css ) )
 			$url = get_template_directory_uri().'/'.$css;
-		} else if ( file_exists( WP_CONTENT_DIR.'/'.$css ) ) {
+
+		else if ( file_exists( WP_CONTENT_DIR.'/'.$css ) )
 			$url = WP_CONTENT_URL.'/'.$css;
-		}
 
 		if ( ! $url || ! $link )
 			return $link;

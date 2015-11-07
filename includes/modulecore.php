@@ -275,15 +275,14 @@ class gNetworkModuleCore extends gNetworkBaseCore
 
 			$this->check_referer( $sub );
 
-			if ( isset( $_POST['reset'] ) ) {
+			if ( isset( $_POST['reset'] ) )
 				$message = $this->reset_settings() ? 'resetting' : 'error';
 
-			} else if ( isset( $_POST['submit'] ) ) {
+			else if ( isset( $_POST['submit'] ) )
 				$message = $this->save_settings() ? 'updated' : 'error';
 
-			} else {
+			else
 				return FALSE;
-			}
 
 			self::redirect_referer( $message );
 		}
