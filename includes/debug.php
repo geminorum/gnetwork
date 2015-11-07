@@ -88,7 +88,13 @@ class gNetworkDebug extends gNetworkModuleCore
 		echo '</tbody></table>';
 	}
 
+	public static function gPlugin()
 	{
+		if ( class_exists( 'gPlugin' ) ) {
+			$info = gPlugin::get_info();
+			self::tableCode( $info[1] );
+			self::tableSide( $info[0] );
+		}
 	}
 
 	public static function cacheStats()
