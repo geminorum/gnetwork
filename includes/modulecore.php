@@ -222,9 +222,14 @@ class gNetworkModuleCore extends gNetworkBaseCore
 	}
 
 	// HELPER
-	public static function getButtonConfirm()
+	public static function getButtonConfirm( $message = NULL )
 	{
-		return sprintf( 'onclick="return confirm( \'%s\' )"', _x( 'Are you sure? This operation can not be undone.', 'Module Core', GNETWORK_TEXTDOMAIN ) );
+		if ( is_null( $message ) )
+			$message = _x( 'Are you sure? This operation can not be undone.', 'Module Core', GNETWORK_TEXTDOMAIN );
+
+		return array(
+			'onclick' => sprintf( 'return confirm(\'%s\')', esc_attr( $message ) ),
+		);
 	}
 
 	public function default_buttons()
