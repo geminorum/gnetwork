@@ -278,13 +278,18 @@ class gNetworkMail extends gNetworkModuleCore
 		}
 	}
 
+	// TODO: https://github.com/Seldaek/monolog
 	// $mail = array( 'to', 'subject', 'message', 'headers', 'attachments' );
 	public function wp_mail( $mail )
 	{
 		$contents = array_merge( array(
 			'timestamp' => current_time( 'mysql' ),
 			'blog'      => self::currentBlog(),
-		), $mail );
+			'locale'    => get_locale(),
+		), self::filterArray( $mail ) );
+
+		if ( is_rtl() )
+			$contents['rtl'] = 'true';
 
 		if ( is_array( $contents['to'] ) )
 			$to = array_filter( array( 'gNetworkBaseCore', 'escFilename' ), $contents['to'] );
