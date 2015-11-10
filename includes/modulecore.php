@@ -915,6 +915,18 @@ class gNetworkModuleCore extends gNetworkBaseCore
 	}
 
 	// HELPER
+	public static function limit( $default = 25, $key = 'limit' )
+	{
+		return intval( ( isset( $_REQUEST[$key] ) ? $_REQUEST[$key] : $default ) );
+	}
+
+	// HELPER
+	public static function paged( $default = 1, $key = 'paged' )
+	{
+		return intval( ( isset( $_REQUEST[$key] ) ? $_REQUEST[$key] : $default ) );
+	}
+
+	// HELPER
 	// FIXME: move to gNetworkUtilities
 	public static function getDateDefaultFormat( $options = FALSE, $date_format = NULL, $time_format = NULL, $joiner = ' @' )
 	{
@@ -999,8 +1011,11 @@ class gNetworkModuleCore extends gNetworkBaseCore
 			'resetting' => self::updated( _x( 'Settings reset.', 'Moduel Core', GNETWORK_TEXTDOMAIN ) ),
 			'optimized' => self::updated( _x( 'Tables optimized.', 'Moduel Core', GNETWORK_TEXTDOMAIN ) ),
 			'updated'   => self::updated( _x( 'Settings updated.', 'Moduel Core', GNETWORK_TEXTDOMAIN ) ),
+			'created'   => self::updated( _x( 'File/Folder created.', 'Moduel Core', GNETWORK_TEXTDOMAIN ) ),
+			'deleted'   => self::counted( _x( '%s deleted!', 'Moduel Core', GNETWORK_TEXTDOMAIN ) ),
 			'purged'    => self::updated( _x( 'Data purged.', 'Moduel Core', GNETWORK_TEXTDOMAIN ) ),
 			'error'     => self::error( _x( 'Error while settings save.', 'Moduel Core', GNETWORK_TEXTDOMAIN ) ),
+			'wrong'     => self::error( _x( 'Something\'s wrong!', 'Moduel Core', GNETWORK_TEXTDOMAIN ) ),
 		);
 	}
 
