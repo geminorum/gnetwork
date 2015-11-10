@@ -207,6 +207,16 @@ class gNetworkBaseCore
 		return FALSE; // NOTE: always check for FALSE
 	}
 
+	// deep array_filter()
+	public static function filterArray( $input, $callback = NULL )
+	{
+		foreach ( $input as &$value )
+			if ( is_array( $value ) )
+				$value = self::filterArray( $value, $callback );
+
+		return $callback ? array_filter( $input, $callback ) : array_filter( $input );
+	}
+
 	public static function isDebug()
 	{
 		if ( WP_DEBUG && WP_DEBUG_DISPLAY && ! self::isDev() )
