@@ -43,7 +43,7 @@ class gNetworkCron extends gNetworkModuleCore
 						$count++;
 
 			} else {
-				return FALSE;
+				self::redirect_referer( 'wrong' );
 			}
 
 			self::redirect_referer( array(
