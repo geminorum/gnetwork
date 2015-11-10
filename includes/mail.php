@@ -33,13 +33,71 @@ class gNetworkMail extends gNetworkModuleCore
 
 	public function settings( $sub = NULL )
 	{
-		if ( 'mail' == $sub && isset( $_POST['create_log_folder'] ) ) {
-			$this->check_referer( $sub );
-			self::putHTAccessDeny( GNETWORK_MAIL_LOG_DIR, TRUE );
-			self::redirect();
-		} else {
-			parent::settings( $sub );
+		if ( 'mail' == $sub ) {
+
+			if ( isset( $_POST['create_log_folder'] ) ) {
+
+				$this->check_referer( $sub );
+
+				$message = FALSE === self::putHTAccessDeny( GNETWORK_MAIL_LOG_DIR, TRUE ) ? 'error' : 'created';
+
+				self::redirect_referer( $message );
+
+			} else {
+				parent::settings( $sub );
+			}
+
+		} else if ( 'testmail' == $sub ) {
+
+			// FIXME: move test email here
+
+		} else if ( 'emaillogs' == $sub ) {
+
+			if ( ! empty( $_POST ) && 'bulk' == $_POST['action'] ) {
+
+				$this->check_referer( $sub );
+
+				if ( isset( $_POST['deletelogs_all'] ) ) {
+
+					$message = FALSE === self::deleteEmailLogs() ? 'error' : 'purged';
+
+					self::redirect_referer( $message );
+
+				} else if ( isset( $_POST['deletelogs_selected'], $_POST['_cb'] ) ) {
+
+					$count = 0;
+
+					foreach ( $_POST['_cb'] as $log )
+						if ( TRUE === unlink( GNETWORK_MAIL_LOG_DIR.'/'.$log.'.json' ) )
+							$count++;
+
+					self::redirect_referer( array(
+						'message' => 'deleted',
+						'count'   => $count,
+					) );
+
+				} else {
+					self::redirect_referer( 'wrong' );
+				}
+			}
+
+			add_action( 'gnetwork_network_settings_sub_emaillogs', array( $this, 'settings_html_emaillogs' ), 10, 2 );
+
+			$this->register_button( 'deletelogs_selected', _x( 'Delete Selected', 'Mail Module', GNETWORK_TEXTDOMAIN ), array( 'default' => 'default' ), 'primary' );
+			$this->register_button( 'deletelogs_all', _x( 'Delete All', 'Mail Module', GNETWORK_TEXTDOMAIN ), self::getButtonConfirm() );
 		}
+	}
+
+	public function settings_html_emaillogs( $uri, $sub = 'general' )
+	{
+		echo '<form class="gnetwork-form" method="post" action="">';
+
+			$this->settings_fields( $sub, 'bulk' );
+
+			if ( $this->email_logs( self::limit(), self::paged() ) )
+				$this->settings_buttons( $sub );
+
+		echo '</form>';
 	}
 
 	public function default_options()
@@ -384,13 +442,23 @@ class gNetworkMail extends gNetworkModuleCore
 		}
 	}
 
-	// FIXME: use the $offset!
-	protected function get_emaillogs( $limit, $offset = 0, $ext = 'json', $old = NULL )
+	// @SOURCE: http://stackoverflow.com/a/14744288/4864081
+	protected static function getEmailLogs( $limit, $paged = 1, $ext = 'json', $old = NULL )
 	{
 		$i = 0;
-		$logs = array();
+		$logs = $pagination = array();
 
-		foreach ( glob( wp_normalize_path( GNETWORK_MAIL_LOG_DIR.'\*.'.$ext ) ) as $log ) {
+		$files = glob( wp_normalize_path( GNETWORK_MAIL_LOG_DIR.'/*.'.$ext ) );
+
+		usort( $files, function( $a, $b ) {
+			return filemtime( $b ) - filemtime( $a );
+		} );
+
+		$pages  = ceil( count( $files ) / $limit );
+		$offset = ( $paged - 1 ) * $limit;
+		$filter = array_slice( $files, $offset, $limit );
+
+		foreach ( $filter as $log ) {
 
 			if ( $i == $limit )
 				break;
@@ -401,7 +469,7 @@ class gNetworkMail extends gNetworkModuleCore
 			$data = json_decode( self::fileGetContents( $log ), TRUE );
 
 			$logs[] = array_merge( array(
-				'file' => $log,
+				'file' => basename( $log, '.json' ),
 				'size' => filesize( $log ),
 				'date' => filemtime( $log ),
 			), $data );
@@ -409,18 +477,53 @@ class gNetworkMail extends gNetworkModuleCore
 			$i++;
 		}
 
-		return $logs;
+		if ( $pages > 1 ) {
+			if ( $paged != 1 )
+				$pagination['prev'] = '<a href="?page='.( $paged - 1 ).'">Prev</a>';
+
+			if ( $paged != $pages )
+				$pagination['next'] = '<a href="?page='.( $paged + 1 ).'">Next</a>';
+		}
+
+		return array( $logs, $pagination, count( $files ), $pages );
 	}
 
-	// FIXME: needs pagination
-	public function emaillogs_table( $limit = 25 )
+	protected static function deleteEmailLogs( $ext = 'json' )
 	{
-		echo self::html( 'h3', sprintf( __( 'The Last %s Email Logs', GNETWORK_TEXTDOMAIN ), $limit ) );
+		// @SOURCE: http://stackoverflow.com/a/13468943/4864081
+		// NOTE: It deletes all files in the current folder, but it returns a warning for subfolders and doesn't delete them.
+		// return array_map( 'unlink', glob( GNETWORK_MAIL_LOG_DIR.'/*.'.$ext ) );
 
-		$logs = $this->get_emaillogs( $limit );
+		try {
+
+			// @SOURCE: http://stackoverflow.com/a/4594268/4864081
+			foreach ( new \DirectoryIterator( GNETWORK_MAIL_LOG_DIR ) as $file )
+				if ( ! $file->isDot() )
+					unlink( $file->getPathname() );
+
+		} catch ( \Exception $e ) {
+			// echo 'Caught exception: '.$e->getMessage().'<br/>';
+		}
+
+		return self::putHTAccessDeny( GNETWORK_MAIL_LOG_DIR, FALSE );
+	}
+
+	private function email_logs( $limit = 5, $paged = 1 )
+	{
+		list( $logs, $pagination, $total, $pages ) = self::getEmailLogs( $limit, $paged );
+		// $current = count( $logs );
+
+		if ( ! $total ) {
+			echo self::html( 'strong', _x( 'No Logs!', 'Mail Module', GNETWORK_TEXTDOMAIN ) );
+			return FALSE;
+		}
+
+		echo self::html( 'h3', sprintf( __( 'Total %s Email Logs', GNETWORK_TEXTDOMAIN ), number_format_i18n( $total ) ) );
+
+		// FIXME: add pagination to table list helper
 
 		self::tableList( array(
-			'_cb' => 'term_id',
+			'_cb' => 'file',
 
 			'info' => array(
 				'title'    => __( 'Whom, When', GNETWORK_TEXTDOMAIN ),
@@ -428,27 +531,38 @@ class gNetworkMail extends gNetworkModuleCore
 				'callback' => function( $value, $row, $column ){
 					$info = '';
 
+					if ( isset( $row['timestamp'] ) )
+						$info .= '<code title="'
+							.human_time_diff( strtotime( $row['timestamp'] ) )
+							.'">'.$row['timestamp'].'</code>';
+
 					if ( isset( $row['to'] ) ) {
 						if ( is_array( $row['to'] ) ) {
 							foreach ( $row['to'] as $to )
-								$info .= '<a href="mailto:'.$to.'">'.$to.'</a><br />';
+								$info .= ' <a href="mailto:'.$to.'">'.$to.'</a>';
 						} else {
-							$info .= '<a href="mailto:'.$row['to'].'">'.$row['to'].'</a><br />';
+							$info .= ' <a href="mailto:'.$row['to'].'">'.$row['to'].'</a>';
 						}
 					}
 
-					if ( isset( $row['timestamp'] ) )
-						$info .= '<code>'.$row['timestamp'].'</code>';
+					if ( isset( $row['headers'] ) ) {
+						$info .= '<hr />';
+						if ( ! is_array( $row['headers'] ) )
+							$row['headers'] = explode( "\n", $row['headers']  );
+
+						foreach ( array_filter( $row['headers'] ) as $header )
+							$info .= '<code>'.$header.'</code><br />';
+					}
 
 					if ( isset( $row['attachments'] ) ) {
+						$info .= '<hr />';
 						if ( is_array( $row['attachments'] ) ) {
-							foreach ( $row['attachments'] as $attachment )
-								$info .= '<code>'.$attachment.'</code>';
-						} else {
-							$info .= '<code>'.$row['attachments'].'</code>';
+							foreach ( array_filter( $row['attachments'] ) as $attachment )
+								$info .= '<code>'.$attachment.'</code><br />';
+						} else if ( $row['attachments'] ) {
+							$info .= '<code>'.$row['attachments'].'</code><br />';
 						}
 					}
-
 
 					return $info;
 				},
@@ -458,16 +572,22 @@ class gNetworkMail extends gNetworkModuleCore
 				'title'    => __( 'What', GNETWORK_TEXTDOMAIN ),
 				'class'    => '-column-content',
 				'callback' => function( $value, $row, $column ){
-					$content = '';
+					$content   = '';
+					$direction = isset( $row['rtl'] ) ? ' dir="rtl"' : '';
+
 					if ( isset( $row['subject'] ) )
-						$content .= $row['subject'].'<br />';
+						$content .= '<code>'.__( 'Subject', GNETWORK_TEXTDOMAIN ).'</code> <span'
+							.$direction.'>'.$row['subject'].'</span><hr />';
 
 					if ( isset( $row['message'] ) )
-						$content .= wpautop( $row['message'] );
+						$content .= '<div'.$direction.'>'
+							.wpautop( make_clickable( $row['message'] ) ).'</div>';
 
 					return $content;
 				},
 			),
 		), $logs );
+
+		return TRUE;
 	}
 }
