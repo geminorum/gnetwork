@@ -56,8 +56,8 @@ class gNetworkCaptcha extends gNetworkModuleCore
 				array(
 					'field'   => 'public_key',
 					'type'    => 'text',
-					'title'   => _s( 'Site Key', 'Captcha Module', GNETWORK_TEXTDOMAIN ),
-					'desc'    => _s( 'Key in the HTML code your site serves to users.', 'Captcha Module', GNETWORK_TEXTDOMAIN ),
+					'title'   => _x( 'Site Key', 'Captcha Module', GNETWORK_TEXTDOMAIN ),
+					'desc'    => _x( 'Key in the HTML code your site serves to users.', 'Captcha Module', GNETWORK_TEXTDOMAIN ),
 					'default' => '',
 				),
 				array(
