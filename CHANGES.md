@@ -1,3 +1,24 @@
+### 0.2.28
+* refactoring main classes
+* basecore: table helper from gEditorial
+* constants: default `FS_CHMOD_DIR` / `FS_CHMOD_FILE`
+* utilities: utilizing mustache template engine
+* code: moved to [erusev/parsedown-extra](https://github.com/erusev/parsedown-extra)
+* code: new `[textarea]` shortcode
+* code: new `[shields-io]` shortcode
+* tracking: track login pageviews
+* login: credits badge, can disabled with `GNETWORK_DISABLE_CREDITS`
+* blog: better check for redirect
+* admin: autosize updated
+* adminbar: display `$pagenow` global
+* navigation: `gnetwork_navigation_replace_nav_menu` filter for dynamic strings on nav menu
+* comments: option to disable form notes
+* cleanup: purge akismet meta
+* cleanup: purge comment agent field
+* cleanup: optimize comment tables
+* mail: sort and delete email logs
+* bbq: updated to [20151107](https://wordpress.org/plugins/block-bad-queries/changelog/)
+
 ### 0.2.27
 * locale: custom blog admin language
 * utilizing composer
