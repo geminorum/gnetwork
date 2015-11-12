@@ -71,6 +71,10 @@ class gNetworkLogin extends gNetworkModuleCore
 					'title'   => _x( 'Login Remember', 'Login Module', GNETWORK_TEXTDOMAIN ),
 					'desc'    => _x( 'Always checked Remember Me checkbox', 'Login Module', GNETWORK_TEXTDOMAIN ),
 					'default' => 0,
+					'values'  => array(
+						_x( 'Not Checked', 'Login Module', GNETWORK_TEXTDOMAIN ),
+						_x( 'Checked', 'Login Module', GNETWORK_TEXTDOMAIN ),
+					),
 				),
 			),
 		);
