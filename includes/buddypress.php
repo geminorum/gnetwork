@@ -184,35 +184,26 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 
 	public function settings_section_tos()
 	{
-		echo '<h3>'._x( 'Terms of Service', 'BuddyPress Module: Settings Section Title', GNETWORK_TEXTDOMAIN ).'</h3>';
-		echo '<p class="description">';
-			_e( 'ToS Settings on BuddyPress Registration Page', GNETWORK_TEXTDOMAIN );
-		echo '</p>';
+		self::settingsSection(
+			_x( 'Terms of Service', 'BuddyPress Module: Settings Section Title', GNETWORK_TEXTDOMAIN ),
+			_x( 'ToS Settings on BuddyPress Registration Page', 'BuddyPress Module: Settings Section Desc', GNETWORK_TEXTDOMAIN )
+		);
 	}
 
 	public function settings_section_notifications()
 	{
-		echo '<h3>'._x( 'Email Notifications', 'BuddyPress Module: Settings Section Title', GNETWORK_TEXTDOMAIN ).'</h3>';
-		echo '<p class="description">';
-			_e( 'Control the default email preference for users after activation', GNETWORK_TEXTDOMAIN );
-		echo '</p>';
+		self::settingsSection(
+			_x( 'Email Notifications', 'BuddyPress Module: Settings Section Title', GNETWORK_TEXTDOMAIN ),
+			_x( 'Control the default email preference for users after activation', 'BuddyPress Module: Settings Section Desc', GNETWORK_TEXTDOMAIN )
+		);
 	}
 
 	public function settings_section_avatars()
 	{
-		echo '<h3>'._x( 'Avatars Sizes', 'BuddyPress Module: Settings Section Title', GNETWORK_TEXTDOMAIN ).'</h3>';
-		echo '<p class="description">';
-			_e( 'Change the default BuddyPress Avatar values', GNETWORK_TEXTDOMAIN );
-		echo '</p>';
-	}
-
-	public function settings( $sub = NULL )
-	{
-		if ( 'buddypress' == $sub ) {
-			$this->settings_update( $sub );
-			add_action( 'gnetwork_network_settings_sub_buddypress', array( $this, 'settings_html' ), 10, 2 );
-			$this->register_settings();
-		}
+		self::settingsSection(
+			_x( 'Avatars Sizes', 'BuddyPress Module: Settings Section Title', GNETWORK_TEXTDOMAIN ),
+			_x( 'Change the default BuddyPress Avatar values', 'BuddyPress Module: Settings Section Desc', GNETWORK_TEXTDOMAIN )
+		);
 	}
 
 	// cleanup!

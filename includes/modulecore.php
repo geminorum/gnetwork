@@ -1031,4 +1031,12 @@ class gNetworkModuleCore extends gNetworkBaseCore
 			$_SERVER['REQUEST_URI'] = remove_query_arg( 'message', $_SERVER['REQUEST_URI'] );
 		}
 	}
+
+	public static function settingsSection( $title, $description = FALSE )
+	{
+		echo '<h3>'.$title.'</h3>';
+
+		if ( $description )
+			echo '<p class="description">'.$description.'</p>';
+	}
 }
