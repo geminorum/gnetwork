@@ -106,8 +106,8 @@ class gNetworkMail extends gNetworkModuleCore
 			'from_email'    => '',
 			'from_name'     => '',
 			'sender'        => 'FROM',
-			'mailer'        => ( defined( 'WPMS_MAILER'    ) ? constant( 'WPMS_MAILER'    ) : 'mail' ), // possible values 'smtp', 'mail', or 'sendmail'
-			'smtp_secure'   => ( defined( 'WPMS_SSL'       ) ? constant( 'WPMS_SSL'       ) : 'no' ), // possible values '', 'ssl', 'tls' - note TLS is not STARTTLS
+			'mailer'        => ( defined( 'WPMS_MAILER' ) ? constant( 'WPMS_MAILER' ) : 'mail' ), // possible values 'smtp', 'mail', or 'sendmail'
+			'smtp_secure'   => ( defined( 'WPMS_SSL' ) ? constant( 'WPMS_SSL' ) : 'no' ), // possible values '', 'ssl', 'tls' - note TLS is not STARTTLS
 			'smtp_host'     => ( defined( 'WPMS_SMTP_HOST' ) ? constant( 'WPMS_SMTP_HOST' ) : 'localhost' ),
 			'smtp_port'     => ( defined( 'WPMS_SMTP_PORT' ) ? constant( 'WPMS_SMTP_PORT' ) : 25 ),
 			'smtp_username' => ( defined( 'WPMS_SMTP_USER' ) ? constant( 'WPMS_SMTP_USER' ) : '' ),

@@ -393,7 +393,7 @@ class gNetwork_Walker_Nav_Menu_Checklist extends Walker_Nav_Menu
 			$item->classes[] = 'gnetwork-'. $item->post_excerpt .'-nav';
 		}
 
-		// Menu item hidden fields
+		// menu item hidden fields
 		$output .= '<input type="hidden" class="menu-item-db-id" name="menu-item['.$possible_object_id.'][menu-item-db-id]" value="'.$possible_db_id.'" />';
 		$output .= '<input type="hidden" class="menu-item-object" name="menu-item['.$possible_object_id.'][menu-item-object]" value="'. esc_attr( $item->object ) .'" />';
 		$output .= '<input type="hidden" class="menu-item-parent-id" name="menu-item['.$possible_object_id.'][menu-item-parent-id]" value="'. esc_attr( $item->menu_item_parent ) .'" />';
@@ -406,13 +406,3 @@ class gNetwork_Walker_Nav_Menu_Checklist extends Walker_Nav_Menu
 		$output .= '<input type="hidden" class="menu-item-xfn" name="menu-item['.$possible_object_id.'][menu-item-xfn]" value="'. esc_attr( $item->xfn ) .'" />';
 	}
 }
-
-// Based on BuddyPress!!
-
-// Custom menus (and much more) for logged in WordPress users
-// https://gist.github.com/chrisguitarguy/1342471
-// IDEA : network wide widget for global menus, like admin bar
-// http://codex.wordpress.org/Next_and_Previous_Links
-// https://wordpress.org/plugins/next-page/
-// https://wordpress.org/plugins/next-page-not-next-post/
-// http://teleogistic.net/2013/02/dynamically-add-items-to-a-wp_nav_menu-list/

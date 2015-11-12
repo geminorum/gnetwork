@@ -33,9 +33,3 @@ class gNetworkUpdate extends gNetworkModuleCore
 		}
 	}
 }
-
-// http://www.paulund.co.uk/force-wordpress-check-updates
-// http://www.wpoptimus.com/626/7-ways-disable-update-wordpress-notifications/
-// http://codex.wordpress.org/Configuring_Automatic_Background_Updates
-// https://wordpress.org/plugins/stops-core-theme-and-plugin-updates/
-// https://wordpress.org/plugins/disable-wordpress-updates/

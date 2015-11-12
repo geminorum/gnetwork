@@ -297,7 +297,3 @@ class gNetworkNetwork extends gNetworkModuleCore
 		return $plugins;
 	}
 }
-
-// http://wp.tutsplus.com/tutorials/widgets/how-to-build-custom-dashboard-widgets/
-// http://wplift.com/spring-clean-how-to-tidy-up-your-wordpress-site-make-it-faster
-// http://wordpress.org/plugins/wpmu-new-blog-defaults/

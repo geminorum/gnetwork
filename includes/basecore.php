@@ -438,6 +438,16 @@ class gNetworkBaseCore
 		return $parsed;
 	}
 
+	public static function kill( $var = FALSE )
+	{
+		if ( $var )
+			self::dump( $var );
+
+		// FIXME: add query/memory/time info
+
+		die();
+	}
+
 	public static function dump( $var, $htmlSafe = TRUE )
 	{
 		defined( 'GPERSIANDATE_SKIP' ) or define( 'GPERSIANDATE_SKIP', TRUE );
@@ -611,7 +621,7 @@ class gNetworkBaseCore
 
 	public static function cheatin( $message )
 	{
-		if ( is_null( $message) )
+		if ( is_null( $message ) )
 			$message = __( 'Cheatin&#8217; uh?' );
 
 		wp_die( $message, 403 );
@@ -818,6 +828,19 @@ class gNetworkBaseCore
 			return file_put_contents( path_join( $dir, $filename ), $contents.PHP_EOL, FILE_APPEND );
 
 		return file_put_contents( path_join( $dir, $filename ), $contents.PHP_EOL );
+	}
+
+	// FIXME: TEST
+	// @SOURCE: http://stackoverflow.com/a/11267139/4864081
+	public static function dirRemove( $dir )
+	{
+		foreach ( glob( "{$dir}/*" ) as $file )
+			if ( is_dir( $file ) )
+				self::dirRemove( $file );
+			else
+				unlink( $file );
+
+		rmdir( $dir );
 	}
 
 	public static function getCurrentSiteBlogID()

@@ -24,6 +24,8 @@ class gNetworkCron extends gNetworkModuleCore
 			add_action( 'gnetwork_admin_settings_sub_cron', array( $this, 'settings_html' ), 10, 2 );
 
 			$this->register_button( 'unschedule', _x( 'Unschedule', 'Cron Module', GNETWORK_TEXTDOMAIN ), array( 'default' => 'default' ), 'primary' );
+
+			// $this->register_settings_help(); // TODO: add context help info
 		}
 	}
 

@@ -217,10 +217,3 @@ class gNetworkReference extends gNetworkModuleCore
 	}
 	// add_filter( 'content_save_pre', 'bb_parse_footnotes' );
 }
-
-
-// http://andrewnacin.com/2010/07/24/simple-footnotes-0-3/
-// https://wordpress.org/plugins/simple-footnotes/
-// http://www.mediawiki.org/wiki/Extension:Cite
-// http://meta.wikimedia.org/wiki/Help:Footnotes
-// http://wikis.evergreen.edu/computing/index.php/References_-_Mediawiki

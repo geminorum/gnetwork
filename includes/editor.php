@@ -1,9 +1,5 @@
 <?php defined( 'ABSPATH' ) or die( 'Restricted access' );
 
-// Originally based on : MCE Table Buttons v3.2
-// by Jake Goldman http://10up.com
-// http://10up.com/plugins-modules/wordpress-mce-table-buttons/
-
 class gNetworkEditor extends gNetworkModuleCore
 {
 
@@ -24,7 +20,15 @@ class gNetworkEditor extends gNetworkModuleCore
 		add_filter( 'wp_link_query_args', array( $this, 'wp_link_query_args' ) );
 	}
 
-	// Initialize TinyMCE table plugin and custom TinyMCE plugin
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+// Originally based on : MCE Table Buttons v3.2
+// by Jake Goldman http://10up.com
+// http://10up.com/plugins-modules/wordpress-mce-table-buttons/
+// @SOURCE: https://wordpress.org/plugins/mce-table-buttons/
+
+	// initialize TinyMCE table plugin and custom TinyMCE plugin
 	public function mce_external_plugins( $plugin_array )
 	{
 		$variant = ( defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ) ? '' : '.min';
@@ -32,7 +36,7 @@ class gNetworkEditor extends gNetworkModuleCore
 		return $plugin_array;
 	}
 
-	// Add TinyMCE table control buttons
+	// add TinyMCE table control buttons
 	public function mce_buttons_2( $buttons )
 	{
 		// in case someone is manipulating other buttons, drop table controls at the end of the row

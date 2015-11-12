@@ -258,5 +258,3 @@ a {
 </body></html> <?php
 	}
 }
-
-// http://codecanyon.net/item/closed-beta-wordpress-plugin/3395536

@@ -8,7 +8,7 @@ class gNetworkAdminBar extends gNetworkModuleCore
 
 	private $sidebar_admin = FALSE;
 
-	public $remove_nodes   = array();
+	public $remove_nodes = array();
 
 	protected function setup_actions()
 	{
@@ -318,8 +318,7 @@ class gNetworkAdminBar extends gNetworkModuleCore
 
 		if ( is_main_site() ) {
 
-			$menu = wp_get_nav_menu_items( $name, array( 'update_post_term_cache' => FALSE ) );
-			if ( $menu )
+			if ( $menu = wp_get_nav_menu_items( $name, array( 'update_post_term_cache' => FALSE ) ) )
 				update_site_option( 'gnetwork_'.$name, $menu );
 
 			return $menu;
@@ -407,6 +406,7 @@ class gNetworkAdminBar extends gNetworkModuleCore
 			),
 		) );
 	}
+
 	public static function wp_menu( &$wp_admin_bar )
 	{
 		if ( ! is_admin_bar_showing() )
@@ -454,7 +454,7 @@ class gNetworkAdminBar extends gNetworkModuleCore
 			$wp_admin_bar->add_node( array(
 				'id'     => $parent,
 				'title'  => '<span class="ab-icon dashicons dashicons-menu" style="margin:2px 0 0 0;"></span>',
-				// 'parent' => 'top-secondary', // Off on the right side
+				// 'parent' => 'top-secondary', // off on the right side
 				'href'   => FALSE,
 			) );
 
@@ -464,7 +464,7 @@ class gNetworkAdminBar extends gNetworkModuleCore
 
 					$wp_admin_bar->add_menu( array(
 						// check target to place link on externals
-						//'parent' => ( empty( $item->target ) ? ( empty( $item->menu_item_parent ) ? 'wp-logo' : 'network-menu-'.$item->menu_item_parent ) : 'wp-logo-external' ),
+						// 'parent' => ( empty( $item->target ) ? ( empty( $item->menu_item_parent ) ? 'wp-logo' : 'network-menu-'.$item->menu_item_parent ) : 'wp-logo-external' ),
 						'parent' => $parent,
 						'id'     => 'network-extramenu-'.$item->ID,
 						'title'  => $item->title,
@@ -481,50 +481,43 @@ class gNetworkAdminBar extends gNetworkModuleCore
 }
 
 function gnetwork_adminbar_wp_admin_bar_class( $class ) {
-class gNetwork_WP_Admin_Bar extends WP_Admin_Bar {
 
-	// // probably needed if want to change the styles site wide
-	// function initialize()
-	// {
-	// 	parent::initialize();
-	// 	if ( ! is_admin() )
-	// 		wp_dequeue_style( 'admin-bar' );
-	// }
+	class gNetwork_WP_Admin_Bar extends WP_Admin_Bar {
 
-	public function add_menus()
-	{
-		// User related, aligned right.
-		add_action( 'admin_bar_menu', 'wp_admin_bar_my_account_menu', 0 );
+		public function add_menus()
+		{
+			// user related, aligned right
+			add_action( 'admin_bar_menu', 'wp_admin_bar_my_account_menu', 0 );
 
-		// add_action( 'admin_bar_menu', 'wp_admin_bar_search_menu', 4 );
-		add_action( 'admin_bar_menu', array( 'gNetworkAdminBar', 'search_menu' ), 4 );
+			// add_action( 'admin_bar_menu', 'wp_admin_bar_search_menu', 4 );
+			add_action( 'admin_bar_menu', array( 'gNetworkAdminBar', 'search_menu' ), 4 );
 
-		add_action( 'admin_bar_menu', 'wp_admin_bar_my_account_item', 7 );
+			add_action( 'admin_bar_menu', 'wp_admin_bar_my_account_item', 7 );
 
-		// Site related.
-		add_action( 'admin_bar_menu', array( 'gNetworkAdminBar', 'wp_menu' ), 10 );
+			// site related
+			add_action( 'admin_bar_menu', array( 'gNetworkAdminBar', 'wp_menu' ), 10 );
 
-		if ( GNETWORK_NETWORK_EXTRAMENU && current_user_can( GNETWORK_NETWORK_EXTRAMENU_CAP ) )
-			add_action( 'admin_bar_menu', array( 'gNetworkAdminBar', 'extra_menu' ), 10 );
+			if ( GNETWORK_NETWORK_EXTRAMENU && current_user_can( GNETWORK_NETWORK_EXTRAMENU_CAP ) )
+				add_action( 'admin_bar_menu', array( 'gNetworkAdminBar', 'extra_menu' ), 10 );
 
-		add_action( 'admin_bar_menu', 'wp_admin_bar_my_sites_menu', 20 );
-		add_action( 'admin_bar_menu', array( 'gNetworkAdminBar', 'my_sites' ), 25 );
-		add_action( 'admin_bar_menu', 'wp_admin_bar_site_menu', 30 );
-		add_action( 'admin_bar_menu', 'wp_admin_bar_updates_menu', 40 );
+			add_action( 'admin_bar_menu', 'wp_admin_bar_my_sites_menu', 20 );
+			add_action( 'admin_bar_menu', array( 'gNetworkAdminBar', 'my_sites' ), 25 );
+			add_action( 'admin_bar_menu', 'wp_admin_bar_site_menu', 30 );
+			add_action( 'admin_bar_menu', 'wp_admin_bar_updates_menu', 40 );
 
-		// Content related.
-		if ( ! is_network_admin() && ! is_user_admin() ) {
-			add_action( 'admin_bar_menu', 'wp_admin_bar_comments_menu', 60 );
-			add_action( 'admin_bar_menu', 'wp_admin_bar_new_content_menu', 70 );
+			// content related
+			if ( ! is_network_admin() && ! is_user_admin() ) {
+				add_action( 'admin_bar_menu', 'wp_admin_bar_comments_menu', 60 );
+				add_action( 'admin_bar_menu', 'wp_admin_bar_new_content_menu', 70 );
+			}
+
+			add_action( 'admin_bar_menu', 'wp_admin_bar_edit_menu', 80 );
+
+			add_action( 'admin_bar_menu', 'wp_admin_bar_add_secondary_groups', 200 );
+
+			do_action( 'add_admin_bar_menus' );
 		}
-
-		add_action( 'admin_bar_menu', 'wp_admin_bar_edit_menu', 80 );
-
-		add_action( 'admin_bar_menu', 'wp_admin_bar_add_secondary_groups', 200 );
-
-		do_action( 'add_admin_bar_menus' );
 	}
-}
 
 	return 'gNetwork_WP_Admin_Bar';
 }

@@ -27,7 +27,7 @@ class gNetworkUsers extends gNetworkModuleCore
 				$this->check_referer( $sub );
 
 				$from_user_id = isset( $_POST['from_user_id'] ) ? intval( $_POST['from_user_id'] ) : FALSE;
-				$to_user_id   = isset( $_POST['to_user_id']   ) ? intval( $_POST['to_user_id']   ) : self::getSiteUserID( TRUE );
+				$to_user_id   = isset( $_POST['to_user_id'] ) ? intval( $_POST['to_user_id'] ) : self::getSiteUserID( TRUE );
 				$on_post_type = isset( $_POST['on_post_type'] ) ? $_POST['on_post_type'] : 'post';
 
 				if ( $from_user_id && $to_user_id && ( $from_user_id != $to_user_id ) )

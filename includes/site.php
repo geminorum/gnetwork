@@ -23,9 +23,7 @@ class gNetworkSite extends gNetworkModuleCore
 
 	public function default_settings()
 	{
-
-		$settings = array(
-		);
+		$settings = array();
 
 		if ( class_exists( 'gNetworkLocale' ) )
 			$settings['_locale'] = array(

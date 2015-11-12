@@ -7,12 +7,12 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 	protected $network    = TRUE;
 	protected $ajax       = TRUE;
 
-	private $field_name = 'R3JldGlwY3licmVrc3lpYkth';
+	private $field_name = 'zBNP0KprGNhs8yHIifCeeevh';
 
 	protected function setup_actions()
 	{
 		$this->register_menu( 'buddypress',
-			__( 'BuddyPress', GNETWORK_TEXTDOMAIN ),
+			_x( 'BuddyPress', 'BuddyPress Module: Menu Name', GNETWORK_TEXTDOMAIN ),
 			array( $this, 'settings' )
 		);
 
@@ -68,10 +68,10 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 
 			'notification_defaults' => array(),
 
-			'avatars_thumb_width'        => defined( 'BP_AVATAR_THUMB_WIDTH'        ) ? BP_AVATAR_THUMB_WIDTH        : 50,
-			'avatars_thumb_height'       => defined( 'BP_AVATAR_THUMB_HEIGHT'       ) ? BP_AVATAR_THUMB_HEIGHT       : 50,
-			'avatars_full_width'         => defined( 'BP_AVATAR_FULL_WIDTH'         ) ? BP_AVATAR_FULL_WIDTH         : 150,
-			'avatars_full_height'        => defined( 'BP_AVATAR_FULL_HEIGHT'        ) ? BP_AVATAR_FULL_HEIGHT        : 150,
+			'avatars_thumb_width'        => defined( 'BP_AVATAR_THUMB_WIDTH' ) ? BP_AVATAR_THUMB_WIDTH : 50,
+			'avatars_thumb_height'       => defined( 'BP_AVATAR_THUMB_HEIGHT' ) ? BP_AVATAR_THUMB_HEIGHT : 50,
+			'avatars_full_width'         => defined( 'BP_AVATAR_FULL_WIDTH' ) ? BP_AVATAR_FULL_WIDTH : 150,
+			'avatars_full_height'        => defined( 'BP_AVATAR_FULL_HEIGHT' ) ? BP_AVATAR_FULL_HEIGHT : 150,
 			'avatars_original_max_width' => defined( 'BP_AVATAR_ORIGINAL_MAX_WIDTH' ) ? BP_AVATAR_ORIGINAL_MAX_WIDTH : 450,
 		);
 	}
@@ -83,8 +83,8 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 				array(
 					'field'       => 'complete_signup',
 					'type'        => 'text',
-					'title'       => __( 'Complete Signup', GNETWORK_TEXTDOMAIN ),
-					'desc'        => __( 'Redirect users after successful registration.', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Complete Signup', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
+					'desc'        => _x( 'Redirect users after successful registration.', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
 					'field_class' => 'large-text',
 				),
 			),
@@ -94,42 +94,42 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 			array(
 				'field'   => 'tos_display',
 				'type'    => 'enabled',
-				'title'   => __( 'Display ToS', GNETWORK_TEXTDOMAIN ),
+				'title'   => _x( 'Display ToS', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
 				'default' => '0',
 			),
 			array(
 				'field'       => 'tos_title',
 				'type'        => 'text',
-				'title'       => __( 'ToS Title', GNETWORK_TEXTDOMAIN ),
-				'desc'        => __( 'Section title, Usually : Terms of Service', GNETWORK_TEXTDOMAIN ),
+				'title'       => _x( 'ToS Title', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
+				'desc'        => _x( 'Section title, Usually : Terms of Service', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
 				'field_class' => 'large-text',
 			),
 			array(
 				'field'       => 'tos_link',
 				'type'        => 'text',
-				'title'       => __( 'ToS Link', GNETWORK_TEXTDOMAIN ),
-				'desc'        => __( 'URL for section title link to actual agreement text', GNETWORK_TEXTDOMAIN ),
+				'title'       => _x( 'ToS Link', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
+				'desc'        => _x( 'URL for section title link to actual agreement text', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
 				'field_class' => 'large-text',
 			),
 			array(
 				'field'       => 'tos_text',
 				'type'        => 'textarea',
-				'title'       => __( 'ToS Text', GNETWORK_TEXTDOMAIN ),
-				'desc'        => __( 'Full text of the agreement.', GNETWORK_TEXTDOMAIN ),
+				'title'       => _x( 'ToS Text', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
+				'desc'        => _x( 'Full text of the agreement', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
 				'field_class' => 'large-text',
 			),
 			array(
 				'field'       => 'tos_label',
 				'type'        => 'text',
-				'title'       => __( 'ToS Label', GNETWORK_TEXTDOMAIN ),
-				'desc'        => __( 'Label next to the mandatory checkbox, below full text.', GNETWORK_TEXTDOMAIN ),
+				'title'       => _x( 'ToS Label', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
+				'desc'        => _x( 'Label next to the mandatory checkbox, below full text', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
 				'field_class' => 'large-text',
 			),
 			array(
 				'field'       => 'tos_must',
 				'type'        => 'text',
-				'title'       => __( 'ToS Must', GNETWORK_TEXTDOMAIN ),
-				'desc'        => __( 'Error message upon not checking the box.', GNETWORK_TEXTDOMAIN ),
+				'title'       => _x( 'ToS Must', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
+				'desc'        => _x( 'Error message upon not checking the box', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
 				'field_class' => 'large-text',
 			),
 		);
@@ -141,8 +141,8 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 					'type'    => 'checkbox',
 					'values'  => self::defaultNotifications(),
 					'default' => array(),
-					'title'   => __( 'Default Settings', GNETWORK_TEXTDOMAIN ),
-					'desc'    => __( 'Select enabled by default BuddyPress email notifications settings upon user activation.', GNETWORK_TEXTDOMAIN ),
+					'title'   => _x( 'Default Settings', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
+					'desc'    => _x( 'Select enabled by default BuddyPress email notifications settings upon user activation', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
 				),
 			);
 
@@ -151,31 +151,31 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 				'field'       => 'avatars_thumb_width',
 				'type'        => 'text',
 				'field_class' => 'small-text',
-				'title'       => __( 'Thumbnail Width', GNETWORK_TEXTDOMAIN ),
+				'title'       => _x( 'Thumbnail Width', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
 			),
 			array(
 				'field'       => 'avatars_thumb_height',
 				'type'        => 'text',
 				'field_class' => 'small-text',
-				'title'       => __( 'Thumbnail Height', GNETWORK_TEXTDOMAIN ),
+				'title'       => _x( 'Thumbnail Height', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
 			),
 			array(
 				'field'       => 'avatars_full_width',
 				'type'        => 'text',
 				'field_class' => 'small-text',
-				'title'       => __( 'Full Width', GNETWORK_TEXTDOMAIN ),
+				'title'       => _x( 'Full Width', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
 			),
 			array(
 				'field'       => 'avatars_full_height',
 				'type'        => 'text',
 				'field_class' => 'small-text',
-				'title'       => __( 'Full Height', GNETWORK_TEXTDOMAIN ),
+				'title'       => _x( 'Full Height', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
 			),
 			array(
 				'field'       => 'avatars_original_max_width',
 				'type'        => 'text',
 				'field_class' => 'small-text',
-				'title'       => __( 'Original Max Width', GNETWORK_TEXTDOMAIN ),
+				'title'       => _x( 'Original Max Width', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
 			),
 		);
 
@@ -239,17 +239,17 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 		}
 
 		// Notify new users of a successful registration (without blog).
-		//remove_filter( 'wpmu_signup_user_notification', 'bp_core_activation_signup_user_notification', 1, 4 );
+		// remove_filter( 'wpmu_signup_user_notification', 'bp_core_activation_signup_user_notification', 1, 4 );
 		// Notify new users of a successful registration (with blog).
-		//remove_filter( 'wpmu_signup_blog_notification', 'bp_core_activation_signup_blog_notification', 1, 7 );
+		// remove_filter( 'wpmu_signup_blog_notification', 'bp_core_activation_signup_blog_notification', 1, 7 );
 	}
 
 	public function bp_init_early()
 	{
-		defined( 'BP_AVATAR_THUMB_WIDTH'        ) or define( 'BP_AVATAR_THUMB_WIDTH',        $this->options['avatars_thumb_width']        );
-		defined( 'BP_AVATAR_THUMB_HEIGHT'       ) or define( 'BP_AVATAR_THUMB_HEIGHT',       $this->options['avatars_thumb_height']       );
-		defined( 'BP_AVATAR_FULL_WIDTH'         ) or define( 'BP_AVATAR_FULL_WIDTH',         $this->options['avatars_full_width']         );
-		defined( 'BP_AVATAR_FULL_HEIGHT'        ) or define( 'BP_AVATAR_FULL_HEIGHT',        $this->options['avatars_full_height']        );
+		defined( 'BP_AVATAR_THUMB_WIDTH' ) or define( 'BP_AVATAR_THUMB_WIDTH', $this->options['avatars_thumb_width'] );
+		defined( 'BP_AVATAR_THUMB_HEIGHT' ) or define( 'BP_AVATAR_THUMB_HEIGHT', $this->options['avatars_thumb_height'] );
+		defined( 'BP_AVATAR_FULL_WIDTH' ) or define( 'BP_AVATAR_FULL_WIDTH', $this->options['avatars_full_width'] );
+		defined( 'BP_AVATAR_FULL_HEIGHT' ) or define( 'BP_AVATAR_FULL_HEIGHT', $this->options['avatars_full_height'] );
 		defined( 'BP_AVATAR_ORIGINAL_MAX_WIDTH' ) or define( 'BP_AVATAR_ORIGINAL_MAX_WIDTH', $this->options['avatars_original_max_width'] );
 	}
 
@@ -284,7 +284,7 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 			$fields[] = $field->name;
 
 		bp_core_add_message( sprintf(
-			__( 'Please complete your profile: %s', GNETWORK_TEXTDOMAIN ),
+			_x( 'Please complete your profile: %s', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
 			gNetworkUtilities::join_items( $fields ) ),
 		'warning' );
 	}
@@ -312,7 +312,6 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 		echo '<div style="clear:both;"></div>';
 		echo '<div class="register-section register-section-tos checkbox gnetwork-tos">';
 
-
 		$title = empty( $this->options['tos_title'] ) ? FALSE : $this->options['tos_title'];
 
 		if ( $title && ! empty( $this->options['tos_link'] ) )
@@ -323,7 +322,6 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 			);
 		else if ( $title )
 			printf( '<h4>%s</h4>', $title );
-
 
 		do_action( 'bp_gnetwork_bp_tos_errors' );
 
@@ -415,26 +413,26 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 		remove_all_actions( 'bp_register_widgets' );
 	}
 
-	// Allow activity authors to delete activity comments by other users on your BuddyPress based social network
+	// allow activity authors to delete activity comments by other users on your BuddyPress based social network
 	// http://buddydev.com/buddypress/allow-activity-authors-delete-activity-comments-users-buddypress-based-social-network/
 	public function bp_activity_user_can_delete( $can_delete, $activity )
 	{
-		//if the user already has permission or the user is not logged in, we don't care
+		// if the user already has permission or the user is not logged in, we don't care
 		if ( $can_delete || ! is_user_logged_in() )
 			return $can_delete;
 
-		//if we are here, let us check if the current user is the author of the parent activity
+		// if we are here, let us check if the current user is the author of the parent activity
 
 		$parent_activity = NULL;
 
-		//if it is an activity comment
+		// if it is an activity comment
 		if ( $activity->item_id ) {
 			$parent_activity = new BP_Activity_Activity( $activity->item_id );
 		} else {
 			$parent_activity = $activity;
 		}
 
-		//if the current user is author of main activity, he/she can delete it
+		// if the current user is author of main activity, he/she can delete it
 		if ( $parent_activity->user_id == get_current_user_id() )
 			$can_delete = TRUE;
 
@@ -463,7 +461,7 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 		do_action( 'bp_activity_before_action_delete_activity', $_POST['id'], $comment->user_id );
 
 		if ( ! bp_activity_delete_comment( $comment->item_id, $comment->id ) )
-			exit( '-1<div id="message" class="error"><p>'.__( 'There was a problem when deleting. Please try again.', 'buddypress' ).'</p></div>' );
+			exit( '-1<div id="message" class="error"><p>'._x( 'There was a problem when deleting. Please try again.', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ).'</p></div>' );
 
 		do_action( 'bp_activity_action_delete_activity', $_POST['id'], $comment->user_id );
 		exit;
@@ -472,15 +470,15 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 	public static function defaultNotifications()
 	{
 		return array(
-			'activity_new_mention'        => _X( 'Activity: New Mention',        'BP Email Notification Settings', GNETWORK_TEXTDOMAIN ),
-			'activity_new_reply'          => _X( 'Activity: New Reply',          'BP Email Notification Settings', GNETWORK_TEXTDOMAIN ),
-			'friends_friendship_request'  => _X( 'Friends: Friendship Request',  'BP Email Notification Settings', GNETWORK_TEXTDOMAIN ),
-			'friends_friendship_accepted' => _X( 'Friends: Friendship Accepted', 'BP Email Notification Settings', GNETWORK_TEXTDOMAIN ),
-			'groups_invite'               => _X( 'Groups: Invite',               'BP Email Notification Settings', GNETWORK_TEXTDOMAIN ),
-			'groups_group_updated'        => _X( 'Groups: Group Updated',        'BP Email Notification Settings', GNETWORK_TEXTDOMAIN ),
-			'groups_admin_promotion'      => _X( 'Groups: Admin Promotion',      'BP Email Notification Settings', GNETWORK_TEXTDOMAIN ),
-			'groups_membership_request'   => _X( 'Groups: Membership Request',   'BP Email Notification Settings', GNETWORK_TEXTDOMAIN ),
-			'messages_new_message'        => _X( 'Messages: New Message',        'BP Email Notification Settings', GNETWORK_TEXTDOMAIN ),
+			'activity_new_mention'        => _x( 'Activity: New Mention', 'BuddyPress Module: Default Email Notification', GNETWORK_TEXTDOMAIN ),
+			'activity_new_reply'          => _x( 'Activity: New Reply', 'BuddyPress Module: Default Email Notification', GNETWORK_TEXTDOMAIN ),
+			'friends_friendship_request'  => _x( 'Friends: Friendship Request', 'BuddyPress Module: Default Email Notification', GNETWORK_TEXTDOMAIN ),
+			'friends_friendship_accepted' => _x( 'Friends: Friendship Accepted', 'BuddyPress Module: Default Email Notification', GNETWORK_TEXTDOMAIN ),
+			'groups_invite'               => _x( 'Groups: Invite', 'BuddyPress Module: Default Email Notification', GNETWORK_TEXTDOMAIN ),
+			'groups_group_updated'        => _x( 'Groups: Group Updated', 'BuddyPress Module: Default Email Notification', GNETWORK_TEXTDOMAIN ),
+			'groups_admin_promotion'      => _x( 'Groups: Admin Promotion', 'BuddyPress Module: Default Email Notification', GNETWORK_TEXTDOMAIN ),
+			'groups_membership_request'   => _x( 'Groups: Membership Request', 'BuddyPress Module: Default Email Notification', GNETWORK_TEXTDOMAIN ),
+			'messages_new_message'        => _x( 'Messages: New Message', 'BuddyPress Module: Default Email Notification', GNETWORK_TEXTDOMAIN ),
 		);
 	}
 

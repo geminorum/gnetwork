@@ -1,9 +1,5 @@
 <?php defined( 'ABSPATH' ) or die( 'Restricted access' );
 
-// http://buddypress.org/support/topic/dynamic-urls-for-buddypress-user-profiles-friends-etc/
-// http://buddypress.org/support/topic/logged-in-user-profile-link-url/
-// http://codex.buddypress.org/plugindev/playing-with-the-users-id-in-different-contexts/
-
 class gNetwork_BP_Me_Component extends BP_Component
 {
 
@@ -101,7 +97,7 @@ class gNetwork_BP_Me_Component extends BP_Component
 
 	public function me_action_logout( $vars = FALSE )
 	{
-		// TODO : check $_SERVER['HTTP_REFERER']; then safe redirect within network ( must add a filter )
+		// TODO: check $_SERVER['HTTP_REFERER']; then safe redirect within network ( must add a filter )
 
 		$redirect = bp_get_loggedin_user_link();
 		wp_logout();
