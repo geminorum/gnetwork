@@ -592,13 +592,14 @@ class gNetworkModuleCore extends gNetworkBaseCore
 					if ( ! is_null( $args['none_title'] ) ) {
 
 						$html = self::html( 'input', array(
-							'type'    => 'checkbox',
-							'class'   => $args['field_class'],
-							'name'    => $name.( is_null( $args['none_value'] ) ? '' : '-'.$args['none_value'] ),
-							'id'      => $id.( is_null( $args['none_value'] ) ? '' : '-'.$args['none_value'] ),
-							'value'   => is_null( $args['none_value'] ) ? '1' : $args['none_value'],
-							'checked' => in_array( $args['none_value'], ( array ) $value ),
-							'dir'     => $args['dir'],
+							'type'     => 'checkbox',
+							'class'    => $args['field_class'],
+							'name'     => $name.( is_null( $args['none_value'] ) ? '' : '-'.$args['none_value'] ),
+							'id'       => $id.( is_null( $args['none_value'] ) ? '' : '-'.$args['none_value'] ),
+							'value'    => is_null( $args['none_value'] ) ? '1' : $args['none_value'],
+							'checked'  => in_array( $args['none_value'], ( array ) $value ),
+							'disabled' => $args['disabled'],
+							'dir'      => $args['dir'],
 						) );
 
 						echo '<p>'.self::html( 'label', array(
@@ -612,13 +613,14 @@ class gNetworkModuleCore extends gNetworkBaseCore
 							continue;
 
 						$html = self::html( 'input', array(
-							'type'    => 'checkbox',
-							'class'   => $args['field_class'],
-							'name'    => $name.'['.$value_name.']',
-							'id'      => $id.'-'.$value_name,
-							'value'   => '1',
-							'checked' => in_array( $value_name, ( array ) $value ),
-							'dir'     => $args['dir'],
+							'type'     => 'checkbox',
+							'class'    => $args['field_class'],
+							'name'     => $name.'['.$value_name.']',
+							'id'       => $id.'-'.$value_name,
+							'value'    => '1',
+							'checked'  => in_array( $value_name, ( array ) $value ),
+							'disabled' => $args['disabled'],
+							'dir'      => $args['dir'],
 						) );
 
 						echo '<p>'.self::html( 'label', array(
@@ -653,13 +655,14 @@ class gNetworkModuleCore extends gNetworkBaseCore
 					if ( ! is_null( $args['none_title'] ) ) {
 
 						$html = self::html( 'input', array(
-							'type'    => 'radio',
-							'class'   => $args['field_class'],
-							'name'    => $name,
-							'id'      => $id.( is_null( $args['none_value'] ) ? '' : '-'.$args['none_value'] ),
-							'value'   => is_null( $args['none_value'] ) ? FALSE : $args['none_value'],
-							'checked' => in_array( $args['none_value'], ( array ) $value ),
-							'dir'     => $args['dir'],
+							'type'     => 'radio',
+							'class'    => $args['field_class'],
+							'name'     => $name,
+							'id'       => $id.( is_null( $args['none_value'] ) ? '' : '-'.$args['none_value'] ),
+							'value'    => is_null( $args['none_value'] ) ? FALSE : $args['none_value'],
+							'checked'  => in_array( $args['none_value'], ( array ) $value ),
+							'disabled' => $args['disabled'],
+							'dir'      => $args['dir'],
 						) );
 
 						echo '<p>'.self::html( 'label', array(
@@ -673,13 +676,14 @@ class gNetworkModuleCore extends gNetworkBaseCore
 							continue;
 
 						$html = self::html( 'input', array(
-							'type'    => 'radio',
-							'class'   => $args['field_class'],
-							'name'    => $name,
-							'id'      => $id.'-'.$value_name,
-							'value'   => $value_name,
-							'checked' => in_array( $value_name, ( array ) $value ),
-							'dir'     => $args['dir'],
+							'type'     => 'radio',
+							'class'    => $args['field_class'],
+							'name'     => $name,
+							'id'       => $id.'-'.$value_name,
+							'value'    => $value_name,
+							'checked'  => in_array( $value_name, ( array ) $value ),
+							'disabled' => $args['disabled'],
+							'dir'      => $args['dir'],
 						) );
 
 						echo '<p>'.self::html( 'label', array(
@@ -713,9 +717,10 @@ class gNetworkModuleCore extends gNetworkBaseCore
 					}
 
 					echo self::html( 'select', array(
-						'class' => $args['field_class'],
-						'name'  => $name,
-						'id'    => $id,
+						'name'     => $name,
+						'id'       => $id,
+						'class'    => $args['field_class'],
+						'disabled' => $args['disabled'],
 					), $html );
 				}
 
@@ -723,11 +728,8 @@ class gNetworkModuleCore extends gNetworkBaseCore
 			case 'textarea' :
 			case 'textarea-quicktags' :
 
-				$classes = array(
-					'large-text',
-					// 'textarea-autosize',
-					$args['field_class'],
-				);
+				if ( ! $args['field_class'] )
+					$args['field_class'] = 'large-text';
 
 				if ( 'textarea-quicktags' == $args['type'] ) {
 
@@ -738,15 +740,19 @@ class gNetworkModuleCore extends gNetworkBaseCore
 
 					wp_enqueue_script( 'quicktags' );
 
-					$classes[] = 'textarea-quicktags';
+					if ( is_array( $args['field_class'] ) )
+						$args['field_class'][] = 'textarea-quicktags';
+					else
+						$args['field_class'] .= ' textarea-quicktags';
 				}
 
 				echo self::html( 'textarea', array(
-					'class'       => $classes,
 					'name'        => $name,
 					'id'          => $id,
 					'rows'        => 5,
 					'cols'        => 45,
+					'class'       => $args['field_class'],
+					'disabled'    => $args['disabled'],
 					'placeholder' => $args['placeholder'],
 				// ), esc_textarea( $value ) );
 				), $value );
@@ -764,6 +770,7 @@ class gNetworkModuleCore extends gNetworkBaseCore
 					$args['none_value'] = '';
 
 				// TODO: use custom walker to display page status along the title
+				// FIXME: needs 'disabled' attr
 
 				wp_dropdown_pages( array(
 					'post_type'         => $args['values'],
@@ -783,7 +790,7 @@ class gNetworkModuleCore extends gNetworkBaseCore
 			case 'roles' :
 
 				// TODO: if current user cannot 'edit_users' then just print the default as disabled
-				// NOTE: rename the tag name to avoid saving and using the default!
+				// rename the tag name to avoid saving and using the default!
 
 				if ( ! count( $args['values'] ) )
 					$args['values'] = gNetworkUtilities::getUserRoles( NULL, $args['none_title'], $args['none_value'] );
