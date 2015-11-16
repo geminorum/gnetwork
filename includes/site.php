@@ -9,7 +9,7 @@ class gNetworkSite extends gNetworkModuleCore
 	protected function setup_actions()
 	{
 		$this->register_menu( 'global',
-			__( 'Global', GNETWORK_TEXTDOMAIN ),
+			_x( 'Global', 'Site Module: Menu Name', GNETWORK_TEXTDOMAIN ),
 			array( $this, 'settings' )
 		);
 	}
@@ -25,17 +25,18 @@ class gNetworkSite extends gNetworkModuleCore
 	{
 		$settings = array();
 
-		if ( class_exists( 'gNetworkLocale' ) )
+		if ( class_exists( 'gNetworkLocale' ) ) {
 			$settings['_locale'] = array(
 				array(
 					'field'   => 'admin_locale',
 					'type'    => 'select',
-					'title'   => __( 'Network Language', GNETWORK_TEXTDOMAIN ),
-					'desc'    => __( 'Despite of the site language, always display network admin in this locale', GNETWORK_TEXTDOMAIN ),
+					'title'   => _x( 'Network Language', 'Site Module', GNETWORK_TEXTDOMAIN ),
+					'desc'    => _x( 'Despite of the site language, always display network admin in this locale', 'Site Module', GNETWORK_TEXTDOMAIN ),
 					'values'  => gNetworkUtilities::sameKey( gNetworkLocale::available() ),
 					'default' => 'en_US',
 				),
 			);
+		}
 
 		return $settings;
 	}

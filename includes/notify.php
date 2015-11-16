@@ -9,7 +9,7 @@ class gNetworkNotify extends gNetworkModuleCore
 	protected function setup_actions()
 	{
 		$this->register_menu( 'notify',
-			__( 'Notify', GNETWORK_TEXTDOMAIN ),
+			_x( 'Notify', 'Notify Module: Menu Name', GNETWORK_TEXTDOMAIN ),
 			array( $this, 'settings' )
 		);
 
@@ -33,19 +33,19 @@ class gNetworkNotify extends gNetworkModuleCore
 				// array(
 				// 	'field'   => 'disable_new_user',
 				// 	'type'    => 'enabled',
-				// 	'title'   => __( 'New Users', GNETWORK_TEXTDOMAIN ),
-				// 	'desc'    => __( 'Email login credentials to a newly-registered user', GNETWORK_TEXTDOMAIN ),
+				// 	'title'   => _x( 'New Users', 'Notify Module', GNETWORK_TEXTDOMAIN ),
+				// 	'desc'    => _x( 'Email login credentials to a newly-registered user', 'Notify Module', GNETWORK_TEXTDOMAIN ),
 				// 	'default' => '1',
 				// 	'values'  => array(
-				// 		__( 'All New Users', GNETWORK_TEXTDOMAIN ),
-				// 		__( 'Credential Only' , GNETWORK_TEXTDOMAIN ),
+				// 		_x( 'All New Users', 'Notify Module', GNETWORK_TEXTDOMAIN ),
+				// 		_x( 'Credential Only', 'Notify Module', GNETWORK_TEXTDOMAIN ),
 				// 	),
 				// ),
 				array(
 					'field'   => 'disable_new_user_admin',
 					'type'    => 'enabled',
-					'title'   => __( 'New User', GNETWORK_TEXTDOMAIN ),
-					'desc'    => __( 'Notify the blog admin of a newly-registered user', GNETWORK_TEXTDOMAIN ),
+					'title'   => _x( 'New User', 'Notify Module', GNETWORK_TEXTDOMAIN ),
+					'desc'    => _x( 'Notify the blog admin of a newly-registered user', 'Notify Module', GNETWORK_TEXTDOMAIN ),
 					'default' => '1',
 					'values'  => array(
 						__( 'Enabled' , GNETWORK_TEXTDOMAIN ),
@@ -55,8 +55,8 @@ class gNetworkNotify extends gNetworkModuleCore
 				array(
 					'field'   => 'disable_password_change',
 					'type'    => 'enabled',
-					'title'   => __( 'Password Reset', GNETWORK_TEXTDOMAIN ),
-					'desc'    => __( 'Notify the blog admin of a user changing password', GNETWORK_TEXTDOMAIN ),
+					'title'   => _x( 'Password Reset', 'Notify Module', GNETWORK_TEXTDOMAIN ),
+					'desc'    => _x( 'Notify the blog admin of a user changing password', 'Notify Module', GNETWORK_TEXTDOMAIN ),
 					'default' => '1',
 					'values'  => array(
 						__( 'Enabled' , GNETWORK_TEXTDOMAIN ),

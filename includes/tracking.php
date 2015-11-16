@@ -13,7 +13,7 @@ class gNetworkTracking extends gNetworkModuleCore
 	protected function setup_actions()
 	{
 		$this->register_menu( 'tracking',
-			__( 'Tracking', GNETWORK_TEXTDOMAIN ),
+			_x( 'Tracking', 'Tracking Module: Menu Name', GNETWORK_TEXTDOMAIN ),
 			array( $this, 'settings' )
 		);
 
@@ -30,15 +30,15 @@ class gNetworkTracking extends gNetworkModuleCore
 				array(
 					'field'   => 'ignore_user',
 					'type'    => 'roles',
-					'title'   => __( 'Ignore Users', GNETWORK_TEXTDOMAIN ),
-					'desc'    => __( 'Selected and above will be ignored', GNETWORK_TEXTDOMAIN ),
+					'title'   => _x( 'Ignore Users', 'Tracking Module', GNETWORK_TEXTDOMAIN ),
+					'desc'    => _x( 'Selected and above will be ignored', 'Tracking Module', GNETWORK_TEXTDOMAIN ),
 					'default' => 'edit_others_posts',
 				),
 				array(
 					'field'       => 'primary_domain',
 					'type'        => 'text',
-					'title'       => __( 'Primary Domain Name', GNETWORK_TEXTDOMAIN ),
-					'desc'        => __( 'Network primary domain name', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Primary Domain Name', 'Tracking Module', GNETWORK_TEXTDOMAIN ),
+					'desc'        => _x( 'Network primary domain name', 'Tracking Module', GNETWORK_TEXTDOMAIN ),
 					'default'     => str_ireplace( array( 'http://', 'https://' ), '', home_url() ),
 					'dir'         => 'ltr',
 					'placeholder' => 'example.com',
@@ -46,8 +46,8 @@ class gNetworkTracking extends gNetworkModuleCore
 				array(
 					'field'       => 'ga_domain',
 					'type'        => 'text',
-					'title'       => __( 'GA Domain Name', GNETWORK_TEXTDOMAIN ),
-					'desc'        => __( 'Network Google Analytics domain name or just <code>auto</code>', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'GA Domain Name', 'Tracking Module', GNETWORK_TEXTDOMAIN ),
+					'desc'        => _x( 'Network Google Analytics domain name or just <code>auto</code>', 'Tracking Module', GNETWORK_TEXTDOMAIN ),
 					'default'     => 'auto',
 					'dir'         => 'ltr',
 					'placeholder' => 'example.com',
@@ -55,8 +55,8 @@ class gNetworkTracking extends gNetworkModuleCore
 				array(
 					'field'       => 'ga_account',
 					'type'        => 'text',
-					'title'       => __( 'GA Account', GNETWORK_TEXTDOMAIN ),
-					'desc'        => __( 'Network Google Analytics account number', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'GA Account', 'Tracking Module', GNETWORK_TEXTDOMAIN ),
+					'desc'        => _x( 'Network Google Analytics account number', 'Tracking Module', GNETWORK_TEXTDOMAIN ),
 					'default'     => '',
 					'dir'         => 'ltr',
 					'placeholder' => 'UA-XXXXX-X',
@@ -64,8 +64,8 @@ class gNetworkTracking extends gNetworkModuleCore
 				array(
 					'field'       => 'ga_beacon',
 					'type'        => 'text',
-					'title'       => __( 'GA Beacon', GNETWORK_TEXTDOMAIN ),
-					'desc'        => __( 'Network Google Analytics Beacon account number', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'GA Beacon', 'Tracking Module', GNETWORK_TEXTDOMAIN ),
+					'desc'        => _x( 'Network Google Analytics Beacon account number', 'Tracking Module', GNETWORK_TEXTDOMAIN ),
 					'default'     => '',
 					'dir'         => 'ltr',
 					'placeholder' => 'UA-XXXXX-X',
@@ -74,22 +74,23 @@ class gNetworkTracking extends gNetworkModuleCore
 				array(
 					'field'   => 'ga_userid',
 					'type'    => 'enabled',
-					'title'   => __( 'GA Track UserID', GNETWORK_TEXTDOMAIN ),
-					'desc'    => __( 'Track usernames in Google Analytics', GNETWORK_TEXTDOMAIN ),
+					'title'   => _x( 'GA Track UserID', 'Tracking Module', GNETWORK_TEXTDOMAIN ),
+					'desc'    => _x( 'Track usernames in Google Analytics', 'Tracking Module', GNETWORK_TEXTDOMAIN ),
 					'default' => '1',
+					// TODO: add info link
 				),
 				array(
 					'field'   => 'ga_outbound',
 					'type'    => 'enabled',
-					'title'   => __( 'GA Track Outbounds', GNETWORK_TEXTDOMAIN ),
-					'desc'    => __( 'Track outbound links in Google Analytics', GNETWORK_TEXTDOMAIN ),
+					'title'   => _x( 'GA Track Outbounds', 'Tracking Module', GNETWORK_TEXTDOMAIN ),
+					'desc'    => _x( 'Track outbound links in Google Analytics', 'Tracking Module', GNETWORK_TEXTDOMAIN ),
 					'default' => '0',
 				),
 				array(
 					'field'       => 'quantcast',
 					'type'        => 'text',
-					'title'       => __( 'Quantcast', GNETWORK_TEXTDOMAIN ),
-					'desc'        => __( 'Network Quantcast P-Code', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Quantcast', 'Tracking Module', GNETWORK_TEXTDOMAIN ),
+					'desc'        => _x( 'Network Quantcast P-Code', 'Tracking Module', GNETWORK_TEXTDOMAIN ),
 					'default'     => '',
 					'dir'         => 'ltr',
 					'placeholder' => 'x-XXXXXXXXXXXX-',
@@ -98,8 +99,8 @@ class gNetworkTracking extends gNetworkModuleCore
 				array(
 					'field'       => 'plus_publisher',
 					'type'        => 'text',
-					'title'       => __( 'GP Publisher ID', GNETWORK_TEXTDOMAIN ),
-					'desc'        => __( 'Network Google+ publisher id', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'GP Publisher ID', 'Tracking Module', GNETWORK_TEXTDOMAIN ),
+					'desc'        => _x( 'Network Google+ publisher id', 'Tracking Module', GNETWORK_TEXTDOMAIN ),
 					'default'     => '',
 					'dir'         => 'ltr',
 					'placeholder' => 'XXXXXXXXXXXXXXXXXXXXX',
@@ -107,8 +108,8 @@ class gNetworkTracking extends gNetworkModuleCore
 				array(
 					'field'       => 'twitter_site',
 					'type'        => 'text',
-					'title'       => __( 'Twitter Account', GNETWORK_TEXTDOMAIN ),
-					'desc'        => __( 'Network site twitter account', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Twitter Account', 'Tracking Module', GNETWORK_TEXTDOMAIN ),
+					'desc'        => _x( 'Network site twitter account', 'Tracking Module', GNETWORK_TEXTDOMAIN ),
 					'default'     => '',
 					'dir'         => 'ltr',
 					'placeholder' => 'username'
@@ -369,7 +370,7 @@ qacct:"<?php echo $this->options['quantcast']; ?>"
 		if ( isset( $gNetwork->tracking ) && $gNetwork->tracking->options['twitter_site'] )
 			$html = self::html( 'a', array(
 				'href'  => 'https://twitter.com/intent/user?screen_name='.$gNetwork->tracking->options['twitter_site'],
-				'title' => __( 'Follow Us', GNETWORK_TEXTDOMAIN ),
+				'title' => _x( 'Follow Us', 'Tracking Module: Contact Title Attribute', GNETWORK_TEXTDOMAIN ),
 				'rel'   => 'follow',
 				'dir'   => 'ltr',
 			), '@'.$gNetwork->tracking->options['twitter_site'] );

@@ -9,19 +9,19 @@ class gNetworkMail extends gNetworkModuleCore
 	protected function setup_actions()
 	{
 		$this->register_menu( 'mail',
-			__( 'Mail', GNETWORK_TEXTDOMAIN ),
+			_x( 'Mail', 'Mail Module: Menu Name', GNETWORK_TEXTDOMAIN ),
 			array( $this, 'settings' )
 		);
 
 		$this->register_menu( 'testmail',
-			__( 'Test Mail', GNETWORK_TEXTDOMAIN )
+			_x( 'Test Mail', 'Mail Module: Menu Name', GNETWORK_TEXTDOMAIN )
 		);
 
 		if ( $this->options['log_all'] ) {
 			add_filter( 'wp_mail', array( $this, 'wp_mail' ), 99 );
 
 			$this->register_menu( 'emaillogs',
-				__( 'Email Logs', GNETWORK_TEXTDOMAIN )
+				_x( 'Email Logs', 'Mail Module: Menu Name', GNETWORK_TEXTDOMAIN )
 			);
 		}
 
@@ -123,32 +123,32 @@ class gNetworkMail extends gNetworkModuleCore
 				array(
 					'field'   => 'from_email',
 					'type'    => 'text',
-					'title'   => __( 'From Email', GNETWORK_TEXTDOMAIN ),
-					'desc'    => __( 'You can specify the email address that emails should be sent from. If you leave this blank, the default email will be used.', GNETWORK_TEXTDOMAIN ),
+					'title'   => _x( 'From Email', 'Mail Module', GNETWORK_TEXTDOMAIN ),
+					'desc'    => _x( 'You can specify the email address that emails should be sent from. If you leave this blank, the default email will be used.', 'Mail Module', GNETWORK_TEXTDOMAIN ),
 					'default' => '',
 				),
 				array(
 					'field'   => 'from_name',
 					'type'    => 'text',
-					'title'   => __( 'From Name', GNETWORK_TEXTDOMAIN ),
-					'desc'    => __( 'You can specify the name that emails should be sent from. If you leave this blank, the emails will be sent from WordPress.', GNETWORK_TEXTDOMAIN ),
+					'title'   => _x( 'From Name', 'Mail Module', GNETWORK_TEXTDOMAIN ),
+					'desc'    => _x( 'You can specify the name that emails should be sent from. If you leave this blank, the emails will be sent from WordPress.', 'Mail Module', GNETWORK_TEXTDOMAIN ),
 					'default' => '',
 				),
 				array(
 					'field'   => 'sender',
 					'type'    => 'text',
-					'title'   => __( 'Return Path', GNETWORK_TEXTDOMAIN ),
-					'desc'    => __( 'Set the return-path email address. Use <code>FROM</code> to match the From Email or Empty to disable.', GNETWORK_TEXTDOMAIN ),
+					'title'   => _x( 'Return Path', 'Mail Module', GNETWORK_TEXTDOMAIN ),
+					'desc'    => _x( 'Set the return-path email address. Use <code>FROM</code> to match the From Email or Empty to disable.', 'Mail Module', GNETWORK_TEXTDOMAIN ),
 					'default' => 'FROM',
 				),
 				array(
 					'field'   => 'mailer',
 					'type'    => 'radio',
-					'title'   => __( 'Mailer', GNETWORK_TEXTDOMAIN ),
+					'title'   => _x( 'Mailer', 'Mail Module', GNETWORK_TEXTDOMAIN ),
 					'default' => 'mail',
 					'values'  => array(
-						'mail' => __( 'Use the PHP mail() function to send emails.', GNETWORK_TEXTDOMAIN ),
-						'smtp' => __( 'Send all WordPress emails via SMTP.', GNETWORK_TEXTDOMAIN ),
+						'mail' => _x( 'Use the PHP mail() function to send emails.', 'Mail Module', GNETWORK_TEXTDOMAIN ),
+						'smtp' => _x( 'Send all WordPress emails via SMTP.', 'Mail Module', GNETWORK_TEXTDOMAIN ),
 					),
 				),
 			),
@@ -156,39 +156,39 @@ class gNetworkMail extends gNetworkModuleCore
 				array(
 					'field'   => 'smtp_host',
 					'type'    => 'text',
-					'title'   => __( 'SMTP Host', GNETWORK_TEXTDOMAIN ),
+					'title'   => _x( 'SMTP Host', 'Mail Module', GNETWORK_TEXTDOMAIN ),
 					'default' => '',
 				),
 				array(
 					'field'   => 'smtp_port',
 					'type'    => 'text',
-					'title'   => __( 'SMTP Port', GNETWORK_TEXTDOMAIN ),
+					'title'   => _x( 'SMTP Port', 'Mail Module', GNETWORK_TEXTDOMAIN ),
 					'default' => '',
 					'style'   => 'width:100px',
 				),
 				array(
 					'field'   => 'smtp_secure',
 					'type'    => 'radio',
-					'title'   => __( 'Encryption', GNETWORK_TEXTDOMAIN ),
-					'desc'    => __( 'For most servers SSL is the recommended option.', GNETWORK_TEXTDOMAIN ),
+					'title'   => _x( 'Encryption', 'Mail Module', GNETWORK_TEXTDOMAIN ),
+					'desc'    => _x( 'For most servers SSL is the recommended option.', 'Mail Module', GNETWORK_TEXTDOMAIN ),
 					'default' => 'no',
 					'values'  => array(
-						'no'  => __( 'No encryption.', GNETWORK_TEXTDOMAIN ),
-						'ssl' => __( 'Use SSL encryption.', GNETWORK_TEXTDOMAIN ),
-						'tls' => __( 'Use TLS encryption. This is not the same as STARTTLS.', GNETWORK_TEXTDOMAIN ),
+						'no'  => _x( 'No encryption.', 'Mail Module: Encryption Option', GNETWORK_TEXTDOMAIN ),
+						'ssl' => _x( 'Use SSL encryption.', 'Mail Module: Encryption Option', GNETWORK_TEXTDOMAIN ),
+						'tls' => _x( 'Use TLS encryption. This is not the same as STARTTLS.', 'Mail Module: Encryption Option', GNETWORK_TEXTDOMAIN ),
 					),
 				),
 				array(
 					'field'   => 'smtp_username',
 					'type'    => 'text',
-					'title'   => __( 'Username', GNETWORK_TEXTDOMAIN ),
-					'desc'    => __( 'Empty to disable Authentication.', GNETWORK_TEXTDOMAIN ),
+					'title'   => _x( 'Username', 'Mail Module', GNETWORK_TEXTDOMAIN ),
+					'desc'    => _x( 'Empty to disable Authentication.', 'Mail Module', GNETWORK_TEXTDOMAIN ),
 					'default' => '',
 				),
 				array(
 					'field'   => 'smtp_password',
 					'type'    => 'text',
-					'title'   => __( 'Password', GNETWORK_TEXTDOMAIN ),
+					'title'   => _x( 'Password', 'Mail Module', GNETWORK_TEXTDOMAIN ),
 					'default' => '',
 				),
 			),
@@ -206,15 +206,17 @@ class gNetworkMail extends gNetworkModuleCore
 
 	public function settings_section_smtp()
 	{
-		echo '<h3>'.__( 'SMTP Settings', GNETWORK_TEXTDOMAIN ).'</h3>';
-		echo '<p class="description">';
-			_e( 'These options only apply if you have chosen to send mail by SMTP above.', GNETWORK_TEXTDOMAIN );
-		echo '</p>';
+		self::settingsSection(
+			_x( 'SMTP Settings', 'Mail Module: Settings Section Title', GNETWORK_TEXTDOMAIN ),
+			_x( 'These options only apply if you have chosen to send mail by SMTP above.', 'Mail Module: Settings Section Desc', GNETWORK_TEXTDOMAIN )
+		);
 	}
 
 	public function settings_section_log()
 	{
-		echo '<h3>'.__( 'Log Settings', GNETWORK_TEXTDOMAIN ).'</h3>';
+		self::settingsSection(
+			_x( 'Log Settings', 'Mail Module: Settings Section Title', GNETWORK_TEXTDOMAIN )
+		);
 	}
 
 	public function settings_help_tabs()
@@ -222,7 +224,7 @@ class gNetworkMail extends gNetworkModuleCore
 		return array(
 			array(
 				'id'      => 'gnetwork-mail-help-gmail',
-				'title'   => __( 'Gmail SMTP', GNETWORK_TEXTDOMAIN ),
+				'title'   => _x( 'Gmail SMTP', 'Mail Module: Screen Help Title', GNETWORK_TEXTDOMAIN ),
 				'content' => '<p><table><tbody>
 				<tr><td style="width:150px">SMTP Host</td><td><code>smtp.gmail.com</code></td></tr>
 				<tr><td>SMTP Port</td><td><code>465</code></td></tr>
@@ -236,7 +238,7 @@ class gNetworkMail extends gNetworkModuleCore
 			),
 			array(
 				'id'      => 'gnetwork-mail-help-mandrill',
-				'title'   => __( 'Mandrill SMTP', GNETWORK_TEXTDOMAIN ),
+				'title'   => _x( 'Mandrill SMTP', 'Mail Module: Screen Help Title', GNETWORK_TEXTDOMAIN ),
 				'content' => '<p><table><tbody>
 				<tr><td style="width:150px">SMTP Host</td><td>smtp.mandrillapp.com</td></tr>
 				<tr><td>SMTP Port</td><td>465</td></tr>
@@ -257,18 +259,18 @@ class gNetworkMail extends gNetworkModuleCore
 		if ( $this->options['log_all'] ) {
 
 			if ( is_dir( GNETWORK_MAIL_LOG_DIR ) && wp_is_writable( GNETWORK_MAIL_LOG_DIR ) ) {
-				echo '<p>'.sprintf( __( 'Log Folder Exists and Writable: <code>%s</code>', GNETWORK_TEXTDOMAIN ), GNETWORK_MAIL_LOG_DIR ).'</p>';
+				echo '<p>'.sprintf( _x( 'Log Folder Exists and Writable: <code>%s</code>', 'Mail Module', GNETWORK_TEXTDOMAIN ), GNETWORK_MAIL_LOG_DIR ).'</p>';
 
 				if ( ! file_exists( GNETWORK_MAIL_LOG_DIR.'/.htaccess' ) )
-					echo '<p>'.__( 'Warning: <code>.htaccess</code> not found!', GNETWORK_TEXTDOMAIN ).'</p>';
+					echo '<p>'._x( 'Warning: <code>.htaccess</code> not found!', 'Mail Module', GNETWORK_TEXTDOMAIN ).'</p>';
 
 			} else {
-				echo '<p>'.__( 'Log Folder Not Exists and/or Writable', GNETWORK_TEXTDOMAIN ).'</p>';
-				submit_button( __( 'Create Log Folder', GNETWORK_TEXTDOMAIN ), 'secondary', 'create_log_folder' );
+				echo '<p>'._x( 'Log Folder Not Exists and/or Writable', 'Mail Module', GNETWORK_TEXTDOMAIN ).'</p>';
+				submit_button( _x( 'Create Log Folder', 'Mail Module', GNETWORK_TEXTDOMAIN ), 'secondary', 'create_log_folder' );
 			}
 
 		} else {
-			echo '<p>'.__( 'Logging Emails Disabled', GNETWORK_TEXTDOMAIN ).'</p>';
+			echo '<p>'._x( 'Logging Emails Disabled', 'Mail Module', GNETWORK_TEXTDOMAIN ).'</p>';
 		}
 	}
 
@@ -365,27 +367,27 @@ class gNetworkMail extends gNetworkModuleCore
 	public function testmail_form()
 	{
 		$to = isset( $_POST['gnetwork_mail_testmail_to'] ) ? $_POST['gnetwork_mail_testmail_to'] : $this->get_from_email();
-		$message = isset( $_POST['gnetwork_mail_testmail_message'] ) ? $_POST['gnetwork_mail_testmail_message'] : __( 'This is a test email generated by the gNetwork Mail plugin.', GNETWORK_TEXTDOMAIN );
-		$subject = isset( $_POST['gnetwork_mail_testmail_subject'] ) ? $_POST['gnetwork_mail_testmail_subject'] : __( 'Test mail to ', GNETWORK_TEXTDOMAIN ).$to;
+		$message = isset( $_POST['gnetwork_mail_testmail_message'] ) ? $_POST['gnetwork_mail_testmail_message'] : _x( 'This is a test email generated by the gNetwork Mail plugin.', 'Mail Module', GNETWORK_TEXTDOMAIN );
+		$subject = isset( $_POST['gnetwork_mail_testmail_subject'] ) ? $_POST['gnetwork_mail_testmail_subject'] : _x( 'Test mail to ', 'Mail Module', GNETWORK_TEXTDOMAIN ).$to;
 
 		echo '<table class="form-table"><tbody>';
 			echo '<tr><th scope="row"><label for="gnetwork_mail_testmail_to">';
-				_e( 'To', GNETWORK_TEXTDOMAIN );
+				_ex( 'To', 'Mail Module', GNETWORK_TEXTDOMAIN );
 			echo '</label></th><td><input type="text" id="gnetwork_mail_testmail_to" name="gnetwork_mail_testmail_to" value="'.$to.'" class="regular-text code" />';
 			echo '<p class="description">';
-				//_e( 'Type an email address here and then click Send Test to generate a test email.', GNETWORK_TEXTDOMAIN );
+				// _ex( 'Type an email address here and then click Send Test to generate a test email.', 'Mail Module', GNETWORK_TEXTDOMAIN );
 			echo '</p></td></tr>';
 			echo '<tr><th scope="row"><label for="gnetwork_mail_testmail_subject">';
-				_e( 'Subject', GNETWORK_TEXTDOMAIN );
+				_ex( 'Subject', 'Mail Module', GNETWORK_TEXTDOMAIN );
 			echo '</label></th><td><input type="text" id="gnetwork_mail_testmail_subject" name="gnetwork_mail_testmail_subject" value="'.$subject.'" class="regular-text code" />';
 			echo '<p class="description">';
-				//_e( 'Type an email address here and then click Send Test to generate a test email.', GNETWORK_TEXTDOMAIN );
+				// _ex( 'Type an email address here and then click Send Test to generate a test email.', 'Mail Module', GNETWORK_TEXTDOMAIN );
 			echo '</p></td></tr>';
 			echo '<tr><th scope="row"><label for="gnetwork_mail_testmail_message">';
-				_e( 'Message:', GNETWORK_TEXTDOMAIN );
+				_ex( 'Message:', 'Mail Module', GNETWORK_TEXTDOMAIN );
 			echo '</label></th><td><textarea id="gnetwork_mail_testmail_message" name="gnetwork_mail_testmail_message" cols="45" rows="5" class="large-text" >'.$message.'</textarea>';
 			echo '<p class="description">';
-				//_e( 'Type an email address here and then click Send Test to generate a test email.', GNETWORK_TEXTDOMAIN );
+				// _ex( 'Type an email address here and then click Send Test to generate a test email.', 'Mail Module', GNETWORK_TEXTDOMAIN );
 			echo '</p></td></tr>';
 		echo '</tbody></table>';
 	}
@@ -518,7 +520,7 @@ class gNetworkMail extends gNetworkModuleCore
 			return FALSE;
 		}
 
-		echo self::html( 'h3', sprintf( __( 'Total %s Email Logs', GNETWORK_TEXTDOMAIN ), number_format_i18n( $total ) ) );
+		echo self::html( 'h3', sprintf( _x( 'Total %s Email Logs', 'Mail Module', GNETWORK_TEXTDOMAIN ), number_format_i18n( $total ) ) );
 
 		// FIXME: add pagination to table list helper
 
@@ -526,7 +528,7 @@ class gNetworkMail extends gNetworkModuleCore
 			'_cb' => 'file',
 
 			'info' => array(
-				'title'    => __( 'Whom, When', GNETWORK_TEXTDOMAIN ),
+				'title'    => _x( 'Whom, When', 'Mail Module: Email Logs Table Column', GNETWORK_TEXTDOMAIN ),
 				'class'    => '-column-info',
 				'callback' => function( $value, $row, $column ){
 					$info = '';
@@ -569,14 +571,14 @@ class gNetworkMail extends gNetworkModuleCore
 			),
 
 			'content' => array(
-				'title'    => __( 'What', GNETWORK_TEXTDOMAIN ),
+				'title'    => _x( 'What', 'Mail Module: Email Logs Table Column', GNETWORK_TEXTDOMAIN ),
 				'class'    => '-column-content',
 				'callback' => function( $value, $row, $column ){
 					$content   = '';
 					$direction = isset( $row['rtl'] ) ? ' dir="rtl"' : '';
 
 					if ( isset( $row['subject'] ) )
-						$content .= '<code>'.__( 'Subject', GNETWORK_TEXTDOMAIN ).'</code> <span'
+						$content .= '<code>'._x( 'Subject', 'Mail Module: Email Logs Table Prefix', GNETWORK_TEXTDOMAIN ).'</code> <span'
 							.$direction.'>'.$row['subject'].'</span><hr />';
 
 					if ( isset( $row['message'] ) )

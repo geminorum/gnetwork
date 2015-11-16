@@ -53,25 +53,25 @@ class gNetworkLogin extends gNetworkModuleCore
 					'type'        => 'text',
 					'title'       => _x( 'Header URL', 'Login Module', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Login page header logo link URL', 'Login Module', GNETWORK_TEXTDOMAIN ),
+					'placeholder' => GNETWORK_BASE,
 					'default'     => GNETWORK_BASE,
 					'dir'         => 'ltr',
-					'placeholder' => GNETWORK_BASE,
 				),
 				array(
 					'field'       => 'login_headertitle',
 					'type'        => 'text',
 					'title'       => _x( 'Header Title', 'Login Module', GNETWORK_TEXTDOMAIN ),
-					'desc'        => _x( 'Login page header logo link title attribute', 'Login Module', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Login page header logo link title attribute', 'Login Module', GNETWORK_TEXTDOMAIN ),
 					'default'     => GNETWORK_NAME,
 					'placeholder' => GNETWORK_NAME,
 				),
 				array(
-					'field'   => 'login_remember',
-					'type'    => 'enabled',
-					'title'   => _x( 'Login Remember', 'Login Module', GNETWORK_TEXTDOMAIN ),
-					'desc'    => _x( 'Always checked Remember Me checkbox', 'Login Module', GNETWORK_TEXTDOMAIN ),
-					'default' => 0,
-					'values'  => array(
+					'field'       => 'login_remember',
+					'type'        => 'enabled',
+					'title'       => _x( 'Login Remember', 'Login Module', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Always checked Remember Me checkbox', 'Login Module', GNETWORK_TEXTDOMAIN ),
+					'default'     => 0,
+					'values'      => array(
 						_x( 'Not Checked', 'Login Module', GNETWORK_TEXTDOMAIN ),
 						_x( 'Checked', 'Login Module', GNETWORK_TEXTDOMAIN ),
 					),
@@ -82,11 +82,11 @@ class gNetworkLogin extends gNetworkModuleCore
 		if ( ! defined( 'BRUTEPROTECT_VERSION' ) )
 			$settings['_math'] = array(
 				array(
-					'field'   => 'login_math',
-					'type'    => 'enabled',
-					'title'   => _x( 'Login Math', 'Login Module', GNETWORK_TEXTDOMAIN ),
-					'desc'    => _x( 'Puts a math problem after the login form.', 'Login Module', GNETWORK_TEXTDOMAIN ),
-					'default' => 0,
+					'field'       => 'login_math',
+					'type'        => 'enabled',
+					'title'       => _x( 'Login Math', 'Login Module', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Puts a math problem after the login form.', 'Login Module', GNETWORK_TEXTDOMAIN ),
+					'default'     => 0,
 				),
 				array(
 					'field'       => 'math_hashkey',
@@ -103,10 +103,10 @@ class gNetworkLogin extends gNetworkModuleCore
 
 	public function settings_section_math()
 	{
-		echo '<h3>'._x( 'Math Settings', 'Login Module', GNETWORK_TEXTDOMAIN ).'</h3>';
-		echo '<p class="description">';
-			_ex( 'Blocks Spam by Math. Verifies that a user answered the math problem correctly while loggin in.', 'Login Module', GNETWORK_TEXTDOMAIN );
-		echo '</p>';
+		self::settingsSection(
+			_x( 'Math Settings', 'Login Module: Settings Section Title', GNETWORK_TEXTDOMAIN ),
+			_x( 'Blocks Spam by Math. Verifies that a user answered the math problem correctly while loggin in.', 'Login Module: Settings Section Desc', GNETWORK_TEXTDOMAIN )
+		);
 	}
 
 	public function login_head()
@@ -136,8 +136,8 @@ JS;
 
 	public function login_form()
 	{
-		$one = rand( 0, 10 );
-		$two = rand( 1, 10 );
+		$one = wp_rand( 0, 10 );
+		$two = wp_rand( 1, 10 );
 		$sum = $one + $two;
 		$ans = sha1( $this->options['math_hashkey'].$sum );
 

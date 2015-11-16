@@ -10,7 +10,7 @@ class gNetworkBlog extends gNetworkModuleCore
 	protected function setup_actions()
 	{
 		gNetworkAdmin::registerMenu( 'general',
-			__( 'General', GNETWORK_TEXTDOMAIN ),
+			_x( 'General', 'Blog Module: Menu Name', GNETWORK_TEXTDOMAIN ),
 			array( $this, 'settings' )
 		);
 
@@ -57,8 +57,8 @@ class gNetworkBlog extends gNetworkModuleCore
 				array(
 					'field'       => 'blog_redirect',
 					'type'        => 'text',
-					'title'       => __( 'Blog Redirect to', GNETWORK_TEXTDOMAIN ),
-					'description' => __( 'The site will redirect to this URL. Leave empty to disable.', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Blog Redirect to', 'Blog Module', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'The site will redirect to this URL. Leave empty to disable.', 'Blog Module', GNETWORK_TEXTDOMAIN ),
 					'default'     => '',
 					'dir'         => 'ltr',
 					'placeholder' => 'http://example.com',
@@ -67,31 +67,32 @@ class gNetworkBlog extends gNetworkModuleCore
 				array(
 					'field'       => 'linkmanager_enabled',
 					'type'        => 'enabled',
-					'title'       => __( 'Link Manager', GNETWORK_TEXTDOMAIN ),
-					'description' => __( 'Enables the Link Manager that existed in WordPress until version 3.5.', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Link Manager', 'Blog Module', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Enables the Link Manager that existed in WordPress until version 3.5.', 'Blog Module', GNETWORK_TEXTDOMAIN ),
 					'default'     => '0',
 					'after'       => sprintf( '<span class="field-after icon-wrap">%s</span>', self::getWPCodexLink( 'Links_Manager' ) ),
 				),
 				array(
 					'field'       => 'xmlrpc_enabled',
 					'type'        => 'enabled',
-					'title'       => __( 'XML-RPC', GNETWORK_TEXTDOMAIN ),
-					'description' => __( 'Whether XML-RPC services are enabled on this site.', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'XML-RPC', 'Blog Module', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Whether XML-RPC services are enabled on this site.', 'Blog Module', GNETWORK_TEXTDOMAIN ),
 					'default'     => '0',
 				),
+				// TODO: move this to feed module
 				array(
 					'field'       => 'feed_json',
 					'type'        => 'enabled',
-					'title'       => __( 'Feed JSON', GNETWORK_TEXTDOMAIN ),
-					'description' => __( 'Adds JSON as new type of feed you can subscribe to.', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Feed JSON', 'Blog Module', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Adds JSON as new type of feed you can subscribe to.', 'Blog Module', GNETWORK_TEXTDOMAIN ),
 					'default'     => '0',
 					'after'       => sprintf( '<code class="field-after"><a href="%1$s">%1$s</a></code>', get_feed_link( 'json' ) ),
 				),
 				array(
 					'field'       => 'page_copyright',
 					'type'        => 'page',
-					'title'       => __( 'Page for Copyright', GNETWORK_TEXTDOMAIN ),
-					'description' => __( 'Set any page to be used as copyright page on html head.', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Page for Copyright', 'Blog Module', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Set any page to be used as copyright page on html head.', 'Blog Module', GNETWORK_TEXTDOMAIN ),
 					'default'     => '0',
 					'exclude'     => $exclude,
 					'after'       => sprintf( '<span class="field-after icon-wrap">%s</span>', self::getNewPostTypeLink( 'page' ) ),
@@ -99,8 +100,8 @@ class gNetworkBlog extends gNetworkModuleCore
 				array(
 					'field'       => 'page_404',
 					'type'        => 'page',
-					'title'       => __( 'Page for Error 404', GNETWORK_TEXTDOMAIN ),
-					'description' => __( 'Set any page to be used as the 404 error page.', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Page for Error 404', 'Blog Module', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Set any page to be used as the 404 error page.', 'Blog Module', GNETWORK_TEXTDOMAIN ),
 					'default'     => '0',
 					'exclude'     => $exclude,
 					'after'       => sprintf( '<span class="field-after icon-wrap">%s</span>', self::getNewPostTypeLink( 'page' ) ),
@@ -108,16 +109,16 @@ class gNetworkBlog extends gNetworkModuleCore
 			),
 		);
 
-		if ( class_exists( 'gNetworkTracking' ) )
+		if ( class_exists( 'gNetworkTracking' ) && is_multisite() )
 			$settings['_tracking'] = array(
 				array(
 					'field'       => 'ga_override',
 					'type'        => 'text',
-					'title'       => __( 'GA Override', GNETWORK_TEXTDOMAIN ),
-					'description' => __( 'This blog Google Analytics account to override the network', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'GA Override', 'Blog Module', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'This blog Google Analytics account to override the network', 'Blog Module', GNETWORK_TEXTDOMAIN ),
+					'placeholder' => 'UA-XXXXX-X',
 					'default'     => '',
 					'dir'         => 'ltr',
-					'placeholder' => 'UA-XXXXX-X',
 				),
 			);
 
@@ -126,8 +127,8 @@ class gNetworkBlog extends gNetworkModuleCore
 				array(
 					'field'   => 'admin_locale',
 					'type'    => 'select',
-					'title'   => __( 'Admin Language', GNETWORK_TEXTDOMAIN ),
-					'desc'    => __( 'Despite of the site language, always display admin in this locale', GNETWORK_TEXTDOMAIN ),
+					'title'   => _x( 'Admin Language', 'Blog Module', GNETWORK_TEXTDOMAIN ),
+					'desc'    => _x( 'Despite of the site language, always display admin in this locale', 'Blog Module', GNETWORK_TEXTDOMAIN ),
 					'values'  => self::sameKey( gNetworkLocale::available() ),
 					'default' => get_locale(),
 				),
