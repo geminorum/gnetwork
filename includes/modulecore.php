@@ -476,6 +476,7 @@ class gNetworkModuleCore extends gNetworkBaseCore
 			'name_attr'    => FALSE, // override
 			'id_attr'      => FALSE, // override
 			'placeholder'  => FALSE,
+			'constant'     => FALSE, // override value if constant defined / also disabling
 		), $atts );
 
 		if ( $wrap ) {
@@ -500,6 +501,13 @@ class gNetworkModuleCore extends gNetworkBaseCore
 			// using settings default instead of module's
 			if ( $value === $this->default_option( $args['field'], $args['default'] ) )
 				$value = $args['default'];
+		}
+
+		if ( $args['constant'] && defined( $args['constant'] ) ) {
+			$value = constant( $args['constant'] );
+
+			$args['disabled'] = TRUE;
+			$args['after']    = '<code title="'._x( 'Getting from constant', 'Module Core', GNETWORK_TEXTDOMAIN ).'">'.$args['constant'].'</code>';
 		}
 
 		if ( $args['before'] )
