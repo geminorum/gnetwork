@@ -137,7 +137,7 @@ class gNetworkBaseCore
 		$current = home_url( $request );
 
 		if ( $trailingslashit )
-			return trailingslashit( $current );
+			return self::trail( $current );
 
 		return $current;
 	}
@@ -217,6 +217,16 @@ class gNetworkBaseCore
 		return $callback ? array_filter( $input, $callback ) : array_filter( $input );
 	}
 
+	public static function roundArray( $array, $precision = -3, $mode = PHP_ROUND_HALF_UP )
+	{
+		$rounded = array();
+
+		foreach( (array) $array as $key => $value )
+			$rounded[$key] = round( (float) $value, $precision, $mode );
+
+		return $rounded;
+	}
+
 	public static function isDebug()
 	{
 		if ( WP_DEBUG && WP_DEBUG_DISPLAY && ! self::isDev() )
@@ -277,7 +287,16 @@ class gNetworkBaseCore
 		return $html.'</select>';
 	}
 
-	// OLD: same_key_array()
+	public static function reKey( $list, $key )
+	{
+		if ( ! empty( $list ) ) {
+			$ids  = wp_list_pluck( $list, $key );
+			$list = array_combine( $ids, $list );
+		}
+
+		return $list;
+	}
+
 	public static function sameKey( $old )
 	{
 		$new = array();
@@ -288,14 +307,13 @@ class gNetworkBaseCore
 		return $new;
 	}
 
-	// returns array of the keys if options values are TRUE
-	public static function getKeys( $options = array() )
+	public static function getKeys( $options, $if = TRUE )
 	{
 		$keys = array();
 
-		foreach ( (array) $options as $support => $enabled )
-			if ( $enabled )
-				$keys[] = $support;
+		foreach ( (array) $options as $key => $value )
+			if ( $value == $if )
+				$keys[] = $key;
 
 		return $keys;
 	}
@@ -486,17 +504,6 @@ class gNetworkBaseCore
 		$start_memory = memory_get_usage();
 		$var = unserialize( serialize( $var ) );
 		return memory_get_usage() - $start_memory - PHP_INT_SIZE * 8;
-	}
-
-	// http://wordpress.mfields.org/2011/rekey-an-indexed-array-of-post-objects-by-post-id/
-	public static function reKey( $list, $key )
-	{
-		if ( ! empty( $list ) ) {
-			$ids  = wp_list_pluck( $list, $key );
-			$list = array_combine( $ids, $list );
-		}
-
-		return $list;
 	}
 
 	public static function getPostTypes()
@@ -1063,5 +1070,10 @@ class gNetworkBaseCore
 			$url = add_query_arg( $key, $message, wp_get_referer() );
 
 		self::redirect( $url );
+	}
+
+	public static function redirect_login( $location = '', $status = 302 )
+	{
+		self::redirect( wp_login_url( $location, TRUE ), $status );
 	}
 }
