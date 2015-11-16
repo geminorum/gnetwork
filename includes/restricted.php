@@ -170,8 +170,8 @@ class gNetworkRestricted extends gNetworkModuleCore
 		$feedkey = gNetworkRestrictedBouncer::getUserFeedKey( $profileuser->ID, FALSE );
 		$urls    = self::getFeeds( $feedkey );
 
-		echo gNetworkUtilities::html( 'h2', _x( 'Private Feeds', 'Restricted Module', GNETWORK_TEXTDOMAIN ) );
-		echo gNetworkUtilities::html( 'p', _x( 'Used to access restricted site feeds.', 'Restricted Module', GNETWORK_TEXTDOMAIN ) );
+		echo self::html( 'h2', _x( 'Private Feeds', 'Restricted Module', GNETWORK_TEXTDOMAIN ) );
+		echo self::html( 'p', _x( 'Used to access restricted site feeds.', 'Restricted Module', GNETWORK_TEXTDOMAIN ) );
 
 		echo '<table class="form-table">';
 
@@ -261,20 +261,20 @@ class gNetworkRestricted extends gNetworkModuleCore
 	// HELPER
 	public static function get403Logout( $class = 'logout' )
 	{
-		$html = gNetworkUtilities::html( 'a', array(
+		$html = self::html( 'a', array(
 			'href'  => GNETWORK_BASE,
 			'title' => GNETWORK_NAME,
 		), _x( 'Home Page', 'Restricted Module', GNETWORK_TEXTDOMAIN ) );
 
 		if ( is_user_logged_in() ) {
-			$html .= ' / '.gNetworkUtilities::html( 'a', array(
+			$html .= ' / '.self::html( 'a', array(
 				'href' => wp_logout_url(),
 				'title' => _x( 'Logout of this site', 'Restricted Module', GNETWORK_TEXTDOMAIN ),
 			), _x( 'Log Out', 'Restricted Module', GNETWORK_TEXTDOMAIN ) );
 		}
 
 		if ( $class )
-			$html = gNetworkUtilities::html( 'div', array(
+			$html = self::html( 'div', array(
 				'class' => $class,
 			), $html );
 
@@ -296,7 +296,7 @@ class gNetworkRestricted extends gNetworkModuleCore
 			$html = _x( 'You do not have sufficient access level.', 'Restricted Module', GNETWORK_TEXTDOMAIN );
 
 		if ( $class )
-			$html = gNetworkUtilities::html( 'div', array(
+			$html = self::html( 'div', array(
 				'class' => $class,
 			), $html );
 

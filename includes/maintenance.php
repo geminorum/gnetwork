@@ -185,7 +185,7 @@ class gNetworkMaintenance extends gNetworkModuleCore
 			$html = __( 'The site is unavailable for scheduled maintenance.', GNETWORK_TEXTDOMAIN );
 
 		if ( $class )
-			$html = gNetworkUtilities::html( 'div', array(
+			$html = self::html( 'div', array(
 				'class' => $class,
 			), $html );
 

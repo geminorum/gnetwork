@@ -92,10 +92,10 @@ class gNetworkLocale extends gNetworkModuleCore
 	{
 		global $gNetwork;
 
-		echo gNetworkUtilities::html( 'h3', __( 'Loaded MO Files', GNETWORK_TEXTDOMAIN ) );
-		gNetworkUtilities::tableSide( $gNetwork->locale->loaded );
+		echo self::html( 'h3', __( 'Loaded MO Files', GNETWORK_TEXTDOMAIN ) );
+		self::tableSide( $gNetwork->locale->loaded );
 
-		// gNetworkUtilities::tableSideWrap( $gNetwork->locale->loaded, __( 'Loaded MO Files', GNETWORK_TEXTDOMAIN ) );
+		// self::tableSideWrap( $gNetwork->locale->loaded, __( 'Loaded MO Files', GNETWORK_TEXTDOMAIN ) );
 	}
 
 	public function gnetwork_new_blog_options( $new_options )
