@@ -313,7 +313,7 @@ class gNetworkRestricted extends gNetworkModuleCore
 	}
 }
 
-class gNetworkRestrictedBouncer
+class gNetworkRestrictedBouncer extends gNetworkBaseCore
 {
 
 	protected $options        = array();
@@ -498,7 +498,6 @@ class gNetworkRestrictedBouncer
 				_x( 'You have to have a key to access this site\'s feed', 'Restricted Module', GNETWORK_TEXTDOMAIN ),
 				( $this->options['redirect_page'] ? get_page_link( $this->options['redirect_page'] ) : FALSE ) );
 		}
-
 	}
 
 	private function temp_feed( $title = '', $desc = '', $link = FALSE )
@@ -535,7 +534,7 @@ class gNetworkRestrictedBouncer
 	{
 		global $userdata;
 
-		return gNetworkUtilities::genRandomKey( $userdata->user_login );
+		return self::genRandomKey( $userdata->user_login );
 	}
 
 	public function template_redirect()
@@ -564,31 +563,22 @@ class gNetworkRestrictedBouncer
 				return;
 
 			if ( $this->options['redirect_page'] ) {
-				self::redirect( get_page_link( $this->options['redirect_page'] ), TRUE );
+				self::redirect( get_page_link( $this->options['redirect_page'] ), 403 );
 			} else {
 				gNetworkUtilities::getLayout( '403', TRUE, TRUE );
 				die();
 			}
 		}
 
-		$current_url = gNetworkUtilities::currentURL();
+		$current_url = self::currentURL();
 
 		if ( ! is_front_page() && ! is_home() )
-			self::redirect( wp_login_url( $current_url, TRUE ) );
+			self::redirect_login( $current_url );
 
 		if ( $this->options['redirect_page'] )
-			self::redirect( get_page_link( $this->options['redirect_page'] ), TRUE );
+			self::redirect( get_page_link( $this->options['redirect_page'] ), 403 );
 
-		self::redirect( wp_login_url( $current_url, TRUE ) );
-	}
-
-	public static function redirect( $url, $found = FALSE )
-	{
-		if ( $found )
-			wp_redirect( $url, 302 );
-		else
-			wp_redirect( $url );
-		exit();
+		self::redirect_login( $current_url );
 	}
 
 	public function login_message()
