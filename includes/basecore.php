@@ -910,7 +910,7 @@ class gNetworkBaseCore
 
 	// http://code.tutsplus.com/tutorials/a-look-at-the-wordpress-http-api-a-brief-survey-of-wp_remote_get--wp-32065
 	// http://wordpress.stackexchange.com/a/114922
-	public static function getJSON( $url, $atts = array() )
+	public static function getJSON( $url, $atts = array(), $assoc = FALSE )
 	{
 		$args = self::atts( array(
 			'timeout' => 15,
@@ -920,7 +920,7 @@ class gNetworkBaseCore
 
 		if ( ! is_wp_error( $response )
 			&& 200 == wp_remote_retrieve_response_code( $response ) ) {
-				return json_decode( wp_remote_retrieve_body( $response ) );
+				return json_decode( wp_remote_retrieve_body( $response ), $assoc );
 		}
 
 		return FALSE;
