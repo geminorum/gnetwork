@@ -167,30 +167,35 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 				'type'        => 'text',
 				'title'       => _x( 'Thumbnail Width', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
 				'field_class' => 'small-text',
+				'default'     => defined( 'BP_AVATAR_THUMB_WIDTH' ) ? BP_AVATAR_THUMB_WIDTH : 50,
 			),
 			array(
 				'field'       => 'avatars_thumb_height',
 				'type'        => 'text',
 				'title'       => _x( 'Thumbnail Height', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
 				'field_class' => 'small-text',
+				'default'     => defined( 'BP_AVATAR_THUMB_HEIGHT' ) ? BP_AVATAR_THUMB_HEIGHT : 50,
 			),
 			array(
 				'field'       => 'avatars_full_width',
 				'type'        => 'text',
 				'title'       => _x( 'Full Width', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
 				'field_class' => 'small-text',
+				'default'     => defined( 'BP_AVATAR_FULL_WIDTH' ) ? BP_AVATAR_FULL_WIDTH : 150,
 			),
 			array(
 				'field'       => 'avatars_full_height',
 				'type'        => 'text',
 				'title'       => _x( 'Full Height', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
 				'field_class' => 'small-text',
+				'default'     => defined( 'BP_AVATAR_FULL_HEIGHT' ) ? BP_AVATAR_FULL_HEIGHT : 150,
 			),
 			array(
 				'field'       => 'avatars_original_max_width',
 				'type'        => 'text',
 				'title'       => _x( 'Original Max Width', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
 				'field_class' => 'small-text',
+				'default'     => defined( 'BP_AVATAR_ORIGINAL_MAX_WIDTH' ) ? BP_AVATAR_ORIGINAL_MAX_WIDTH : 450,
 			),
 		);
 
