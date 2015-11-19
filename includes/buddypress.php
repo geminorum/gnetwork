@@ -29,12 +29,6 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 
 		add_action( 'bp_ajax_querystring', array( $this, 'bp_ajax_querystring' ), 20, 2 );
 
-		if ( ! $this->options['cover_images'] ) {
-			// @SOURCE: http://buddydev.com/buddypress/disable-cover-images-for-buddypress-2-4/
-			add_filter( 'bp_is_profile_cover_image_active', '__return_false' );
-			add_filter( 'bp_is_groups_cover_image_active', '__return_false' );
-		}
-
 		if ( $this->options['complete_signup'] )
 			add_action( 'bp_complete_signup', array( $this, 'bp_complete_signup' ) );
 
@@ -63,7 +57,6 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 	public function default_options()
 	{
 		return array(
-			'cover_images'    => '1',
 			'complete_signup' => '',
 
 			'tos_display' => 0,
@@ -94,13 +87,6 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 					'description' => _x( 'Redirect users after successful registration.', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
 					'field_class' => 'large-text',
 					'placeholder' => 'http://example.com/welcome',
-				),
-				array(
-					'field'       => 'cover_images',
-					'type'        => 'enabled',
-					'title'       => _x( 'Cover Images', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Disable the cover image completely', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
-					'default'     => '1',
 				),
 			),
 		);
