@@ -31,6 +31,7 @@ $gnetwork_constants = array(
 	'GNETWORK_DISABLE_BBQ'           => FALSE,
 	'GNETWORK_DISABLE_RECAPTCHA'     => FALSE,
 	'GNETWORK_DISABLE_CREDITS'       => FALSE,
+	'GNETWORK_HIDDEN_FEATURES'       => FALSE,
 
 	'GNETWORK_MAIL_LOG_DIR'          => WP_CONTENT_DIR.'/emaillogs',
 

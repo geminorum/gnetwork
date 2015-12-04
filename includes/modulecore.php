@@ -7,16 +7,20 @@ class gNetworkModuleCore extends gNetworkBaseCore
 	public $buttons = array();
 	public $scripts = array();
 
-	protected $option_base = 'gnetwork';
-	protected $option_key  = FALSE;
-	protected $network     = TRUE;       // using network wide options
-	protected $front_end   = TRUE;       // load module on front end?
-	protected $ajax        = FALSE;      // load if ajax
-	protected $cron        = FALSE;      // load if cron
-	protected $dev         = NULL;       // load if dev
+    protected $option_base = 'gnetwork';
+    protected $option_key  = FALSE;
+    protected $network     = TRUE;       // using network wide options
+    protected $front_end   = TRUE;       // load module on front end?
+    protected $ajax        = FALSE;      // load if ajax
+    protected $cron        = FALSE;      // load if cron
+    protected $dev         = NULL;       // load if dev
+    protected $hidden      = FALSE;      // load if hidden
 
 	public function __construct()
 	{
+		if ( ! GNETWORK_HIDDEN_FEATURES && $this->hidden )
+			return;
+		
 		if ( ( ! $this->ajax && self::isAJAX() )
 			|| ( ! $this->cron && self::isCRON() )
 			|| ( defined( 'WP_INSTALLING' ) && WP_INSTALLING ) ) // FIXME: Use wp_installing() instead of WP_INSTALLING constant. @SEE: https://core.trac.wordpress.org/changeset/34828
