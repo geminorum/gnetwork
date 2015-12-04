@@ -105,7 +105,7 @@ class gNetworkCron extends gNetworkModuleCore
 		return array();
 	}
 
-	public static function cronInfo()
+	private static function cronInfo()
 	{
 		echo self::html( 'h3', __( 'Overview of tasks scheduled for WP-Cron', GNETWORK_TEXTDOMAIN ) );
 

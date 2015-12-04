@@ -87,7 +87,7 @@ class gNetworkUtilities extends gNetworkBaseCore
 			return $layout;
 	}
 
-	// NOTE: this actually use caps instead of roles
+	// using caps instead of roles
 	public static function getUserRoles( $cap = NULL, $none_title = NULL, $none_value = NULL )
 	{
 		$caps = array(
@@ -121,13 +121,13 @@ class gNetworkUtilities extends gNetworkBaseCore
 			return $caps[$cap];
 	}
 
-	// NOTE: override to use plugin version
+	// override to use plugin version
 	public static function linkStyleSheet( $url, $version = GNETWORK_VERSION, $media = 'all' )
 	{
 		parent::linkStyleSheet( $url, $version, $media );
 	}
 
-	// NOTE: override to use plugin version
+	// override to use plugin version
 	public static function customStyleSheet( $css, $link = TRUE, $version = GNETWORK_VERSION )
 	{
 		parent::customStyleSheet( $css, $link, $version );

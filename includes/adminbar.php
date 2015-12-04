@@ -131,7 +131,7 @@ class gNetworkAdminBar extends gNetworkModuleCore
 			$wp_admin_bar->remove_node( $node );
 	}
 
-	// NOTE: super admins only
+	// super admins only
 	private function add_nodes( &$wp_admin_bar )
 	{
 		global $pagenow;

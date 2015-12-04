@@ -21,10 +21,10 @@ class gNetworkComments extends gNetworkModuleCore
 			add_filter( 'comment_notification_recipients', '__return_empty_array' );
 
 			// notifies the moderator of the blog about a new comment that is awaiting approval.
-			add_filter( 'pre_option_moderation_notify', '__return_zero' ); // FIXME: DROP THIS AFTER WP4.4
+			add_filter( 'pre_option_moderation_notify', '__return_zero' ); // FIXME: DROP THIS: AFTER WP 4.4
 
 			// filter whether to send the site moderator email notifications, overriding the site setting.
-			add_filter( 'notify_moderator', '__return_false' ); // NOTE: since WP4.4
+			add_filter( 'notify_moderator', '__return_false' ); // since WP 4.4
 		}
 
 		if ( ! is_admin() && $this->options['front_quicktags'] )

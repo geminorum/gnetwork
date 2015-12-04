@@ -86,7 +86,7 @@ class gNetworkBaseCore
 		), $html );
 	}
 
-	// NOTE: WP core function without number_format_i18n
+	// WP core function without number_format_i18n
 	public static function size_format( $bytes, $decimals = 0 )
 	{
 		$quant = array(
@@ -116,7 +116,7 @@ class gNetworkBaseCore
 		);
 	}
 
-	// NOTE: WP core function without number_format_i18n
+	// WP core function without number_format_i18n
 	public static function timer_stop( $echo = FALSE, $precision = 3 )
 	{
 		global $timestart;
@@ -204,7 +204,7 @@ class gNetworkBaseCore
 			if ( FALSE !== ( $pos = strpos( $what, $needle ) ) )
 				return $key; // $pos;
 
-		return FALSE; // NOTE: always check for FALSE
+		return FALSE; // must always check for FALSE
 	}
 
 	// deep array_filter()
@@ -318,7 +318,7 @@ class gNetworkBaseCore
 		return $keys;
 	}
 
-	// NOTE: like WP core but without filter and fallback
+	// like WP core but without filter and fallback
 	// ANCESTOR: sanitize_html_class()
 	public static function sanitizeHTMLClass( $class )
 	{
@@ -331,7 +331,7 @@ class gNetworkBaseCore
 		return $sanitized;
 	}
 
-	// NOTE: like WP core but without filter
+	// like WP core but without filter
 	// ANCESTOR: tag_escape()
 	public static function sanitizeHTMLTag( $tag )
 	{

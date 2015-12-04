@@ -492,10 +492,6 @@ class gNetworkMail extends gNetworkModuleCore
 
 	protected static function deleteEmailLogs( $ext = 'json' )
 	{
-		// @SOURCE: http://stackoverflow.com/a/13468943/4864081
-		// NOTE: It deletes all files in the current folder, but it returns a warning for subfolders and doesn't delete them.
-		// return array_map( 'unlink', glob( GNETWORK_MAIL_LOG_DIR.'/*.'.$ext ) );
-
 		try {
 
 			// @SOURCE: http://stackoverflow.com/a/4594268/4864081

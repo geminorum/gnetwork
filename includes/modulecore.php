@@ -301,7 +301,7 @@ class gNetworkModuleCore extends gNetworkBaseCore
 	}
 
 	// DEFAULT METHOD
-	// NOTE: caller must check for nounce
+	// CAUTION: caller must check the nounce
 	protected function save_settings( $options_key = NULL )
 	{
 		if ( is_null( $options_key ) )
@@ -360,11 +360,11 @@ class gNetworkModuleCore extends gNetworkBaseCore
 
 		$this->default_buttons();
 
-		// NOTE: we register settings on the settings page only
+		// register settings on the settings page only
 		add_action( 'admin_print_footer_scripts', array( $this, 'print_scripts' ), 99 );
 	}
 
-	public function add_settings_field( $r )
+	public function add_settings_field( $atts )
 	{
 		$args = array_merge( array(
 			'page'     => $this->options_key(),
@@ -372,14 +372,16 @@ class gNetworkModuleCore extends gNetworkBaseCore
 			'field'    => FALSE,
 			'title'    => '',
 			'callback' => array( $this, 'do_settings_field' ),
-		), $r );
+		), $atts );
 
 		if ( ! $args['field'] )
 			return;
 
 		if ( 'debug' == $args['field'] ) {
+
 			if ( ! self::isDev() )
 				return;
+
 			$args['type'] = 'debug';
 			if ( ! $args['title'] )
 				$args['title'] = __( 'Debug', GNETWORK_TEXTDOMAIN );
@@ -406,6 +408,7 @@ class gNetworkModuleCore extends gNetworkBaseCore
 			return;
 
 		$screen = get_current_screen();
+		
 		foreach ( $tabs as $tab )
 			$screen->add_help_tab( $tab );
 	}

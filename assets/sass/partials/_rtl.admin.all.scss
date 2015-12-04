@@ -116,13 +116,25 @@ body.rtl {
 
 	#dashboard_right_now {
 		.inside {
-			.table {
+			.table { // <------- test this!! FIXME
+
 				.sub {
 					font: bold 15px/30px arial, sans-serif !important;
+
+					p.akismet-right-now {
+						direction: ltr;
+						font-size: 0.85em;
+					}
+
+					p:last-child {
+						margin-bottom: 0;
+					}
 				}
+
 				td a {
 					font: bold 15px/18px arial, sans-serif !important;
 				}
+
 				td.b a {
 					line-height: 8px !important;
 				}
@@ -132,6 +144,13 @@ body.rtl {
 		li.storage-count {
 			font-size: 0.85em;
 			margin-bottom: 0;
+		}
+	}
+
+	// Google Analytics Dashboard
+	#gadash-widget {
+		#ga-dash {
+			direction: ltr;
 		}
 	}
 
@@ -195,7 +214,7 @@ body.rtl {
 	#TB_closeAjaxWindow {
 		float: left;
 	}
-	
+
 	#TB_window,
 	#TB_ajaxContent {
 		text-align: right;
@@ -206,9 +225,12 @@ body.rtl {
 		left: 0;
 	}
 
+	.inline-edit-col input[name="slug"],
 	input#adduser-email,
 	input#user_login,
-	input#email {
+	input#email,
+	input#tag-slug,
+	input#slug {
 		direction: ltr;
 	}
 }
