@@ -83,9 +83,15 @@ function gnetwork_init() {
 	if ( ! is_object( $gNetwork ) )
 		$gNetwork = new stdClass();
 
-	foreach ( $modules as $module_slug => $module_class )
-		if ( $module_class && class_exists( $module_class ) )
-			$gNetwork->{$module_slug} = new $module_class();
+	foreach ( $modules as $module_slug => $module_class ) {
+		if ( $module_class && class_exists( $module_class ) ) {
+			try {
+				$gNetwork->{$module_slug} = new $module_class();
+			} catch ( \Exception $e ) {
+				// do nothing!
+			}
+		}
+	}
 
 	load_plugin_textdomain( GNETWORK_TEXTDOMAIN, FALSE, 'gnetwork/languages' );
 
@@ -104,7 +110,11 @@ function gnetwork_bp_include() {
 
 	if ( file_exists( GNETWORK_DIR.'includes/buddypress.php' ) ) {
 		require_once( GNETWORK_DIR.'includes/buddypress.php' );
-		$gNetwork->buddypress = new gNetworkBuddyPress();
+		try {
+			$gNetwork->buddypress = new gNetworkBuddyPress();
+		} catch ( \Exception $e ) {
+			// do nothing!
+		}
 	}
 
 	if ( file_exists( GNETWORK_DIR.'includes/buddypress.me.php' ) ) {

@@ -19,21 +19,29 @@ class gNetworkModuleCore extends gNetworkBaseCore
 	public function __construct()
 	{
 		if ( ! GNETWORK_HIDDEN_FEATURES && $this->hidden )
-			return;
-		
-		if ( ( ! $this->ajax && self::isAJAX() )
-			|| ( ! $this->cron && self::isCRON() )
-			|| ( defined( 'WP_INSTALLING' ) && WP_INSTALLING ) ) // FIXME: Use wp_installing() instead of WP_INSTALLING constant. @SEE: https://core.trac.wordpress.org/changeset/34828
-				return;
+			throw new Exception( 'Hidden Feature!' );
+
+		if ( ! $this->ajax && self::isAJAX() )
+			throw new Exception( 'Not on AJAX Calls!' );
+
+		if ( ! $this->cron && self::isCRON() )
+			throw new Exception( 'Not on CRON Calls!' );
+
+		// FIXME: Use wp_installing() instead of WP_INSTALLING constant.
+		// @SEE: https://core.trac.wordpress.org/changeset/34828
+		if ( defined( 'WP_INSTALLING' ) && WP_INSTALLING )
+			throw new Exception( 'Not while WP is Installing!' );
 
 		if ( ! is_admin() && ! $this->front_end )
-			return;
+			throw new Exception( 'Not on Frontend!' );
 
 		if ( ! is_null( $this->dev ) ) {
+
 			if ( FALSE === $this->dev && self::isDev() )
-				return;
+				throw new Exception( 'Not on Develepment Environment!' );
+
 			else if ( TRUE === $this->dev && ! self::isDev() )
-				return;
+				throw new Exception( 'Only on Develepment Environment!' );
 		}
 
 		if ( FALSE !== $this->option_key ) // disable the options
