@@ -35,19 +35,6 @@ class gNetworkBaseCore
 		error_log( $log );
 	}
 
-	// TODO: DRAFT: not tested
-	// http://stackoverflow.com/a/9934684
-	// SEE: http://xdebug.org/docs/install
-	protected function __callee()
-	{
-		return sprintf("callee() called @ %s: %s from %s::%s",
-			xdebug_call_file(),
-			xdebug_call_line(),
-			xdebug_call_class(),
-			xdebug_call_function()
-		);
-	}
-
 	public static function headerNav( $uri = '', $active = '', $subs = array(), $prefix = 'nav-tab-', $tag = 'h3' )
 	{
 		if ( ! count( $subs ) )
@@ -145,6 +132,7 @@ class gNetworkBaseCore
 	public static function currentBlog()
 	{
 		$blog = home_url();
+
 		$blog = str_ireplace( array( 'https://', 'http://' ), '', $blog );
 		$blog = str_ireplace( array( '/', '\/' ), '-', $blog );
 
