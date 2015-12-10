@@ -88,11 +88,10 @@ class gNetworkTaxonomy extends gNetworkModuleCore
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-/// Originally adapted from : Term Management Tools by scribu
-/// ver: 1.1.3
-/// https://github.com/scribu/wp-term-management-tools
-/// https://wordpress.org/plugins/term-management-tools/
-/// http://scribu.net/wordpress/term-management-tools
+/// Originally adapted from : Term Management Tools by scribu v1.1.4
+// https://github.com/scribu/wp-term-management-tools
+// https://wordpress.org/plugins/term-management-tools/
+// http://scribu.net/wordpress/term-management-tools
 
 	private function get_actions( $taxonomy )
 	{
@@ -175,8 +174,11 @@ class gNetworkTaxonomy extends gNetworkModuleCore
 			'message' => $results ? 'gnetwork-taxonomy-updated' : 'gnetwork-taxonomy-error',
 		);
 
-		if ( isset( $_GET['paged'] ) && $_GET['paged'] )
-			$query['paged'] = $_GET['paged'];
+		if ( isset( $_REQUEST['post_type'] ) && 'post' != $_REQUEST['post_type'] )
+			$query['post_type'] = $_REQUEST['post_type'];
+
+		if ( isset( $_REQUEST['paged'] ) && $_REQUEST['paged'] )
+			$query['paged'] = $_REQUEST['paged'];
 
 		self::redirect( esc_url( add_query_arg( $query, $location ) ) );
 	}
@@ -267,7 +269,7 @@ class gNetworkTaxonomy extends gNetworkModuleCore
 			if ( is_wp_error( $merged ) )
 				continue;
 
-			// old : 'term_management_tools_term_merged', $to_term_obj, $old_term
+			// OLD: 'term_management_tools_term_merged'
 			do_action( 'gnetwork_taxonomy_term_merged', $taxonomy, $to_term_obj, $old_term );
 		}
 
@@ -334,8 +336,11 @@ class gNetworkTaxonomy extends gNetworkModuleCore
 			$wpdb->query( "UPDATE $wpdb->term_taxonomy SET parent = 0 WHERE term_taxonomy_id IN ($tt_ids)" );
 		}
 
-		delete_option( "{$taxonomy}_children" );
-		delete_option( "{$new_tax}_children" );
+		clean_term_cache( $tt_ids, $taxonomy );
+		clean_term_cache( $tt_ids, $new_tax );
+
+		// OLD: 'term_management_tools_term_changed_taxonomy'
+		do_action( 'gnetwork_taxonomy_term_changed_taxonomy', $tt_ids, $new_tax, $taxonomy );
 
 		return TRUE;
 	}
