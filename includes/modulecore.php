@@ -27,9 +27,7 @@ class gNetworkModuleCore extends gNetworkBaseCore
 		if ( ! $this->cron && self::isCRON() )
 			throw new \Exception( 'Not on CRON Calls!' );
 
-		// FIXME: Use wp_installing() instead of WP_INSTALLING constant.
-		// @SEE: https://core.trac.wordpress.org/changeset/34828
-		if ( defined( 'WP_INSTALLING' ) && WP_INSTALLING )
+		if ( wp_installing() )
 			throw new \Exception( 'Not while WP is Installing!' );
 
 		if ( ! is_admin() && ! $this->front_end )
