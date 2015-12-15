@@ -386,7 +386,7 @@ class gNetworkBaseCore
 			else if ( 'href' == $key && '#' != $att )
 				$att = esc_url( $att );
 
-			else if ( 'src' == $key )
+			else if ( 'src' == $key && FALSE === strpos( $att, 'data:image' ) )
 				$att = esc_url( $att );
 
 			else
