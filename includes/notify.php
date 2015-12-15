@@ -21,7 +21,6 @@ class gNetworkNotify extends gNetworkModuleCore
 	public function default_options()
 	{
 		return array(
-			// 'disable_new_user'        => '1',
 			'disable_new_user_admin'  => '1',
 			'disable_password_change' => '1',
 		);
@@ -31,17 +30,6 @@ class gNetworkNotify extends gNetworkModuleCore
 	{
 		return array(
 			'_general' => array(
-				// array(
-				// 	'field'   => 'disable_new_user',
-				// 	'type'    => 'enabled',
-				// 	'title'   => _x( 'New Users', 'Notify Module', GNETWORK_TEXTDOMAIN ),
-				// 	'desc'    => _x( 'Email login credentials to a newly-registered user', 'Notify Module', GNETWORK_TEXTDOMAIN ),
-				// 	'default' => '1',
-				// 	'values'  => array(
-				// 		_x( 'All New Users', 'Notify Module', GNETWORK_TEXTDOMAIN ),
-				// 		_x( 'Credential Only', 'Notify Module', GNETWORK_TEXTDOMAIN ),
-				// 	),
-				// ),
 				array(
 					'field'   => 'disable_new_user_admin',
 					'type'    => 'enabled',
@@ -87,75 +75,47 @@ class gNetworkNotify extends gNetworkModuleCore
 		return FALSE;
 	}
 
+	// pluggable core function
+	// Email login credentials to a newly-registered user.
+	// CHANGED: we opt-out notifying the admin
 	public function wp_new_user_notification( $user_id, $deprecated = NULL, $notify = '' )
 	{
 		global $wpdb, $wp_hasher;
 
-		$user     = get_userdata( $user_id );
-		$blogname = $this->blogname();
+		$blog = $this->blogname();
+        $user = get_userdata( $user_id );
 
 		if ( ! $this->options['disable_new_user_admin'] ) {
 
-			$message  = sprintf(__('New user registration on your site %s:'), $blogname) . "\r\n\r\n";
-			$message .= sprintf(__('Username: %s'), $user->user_login) . "\r\n\r\n";
-			$message .= sprintf(__('Email: %s'), $user->user_email) . "\r\n";
+			$message  = sprintf( __( 'New user registration on your site %s:' ), $blog )."\r\n\r\n";
+			$message .= sprintf( __( 'Username: %s' ), $user->user_login )."\r\n\r\n";
+			$message .= sprintf( __( 'Email: %s' ), $user->user_email )."\r\n";
 
-			@wp_mail(get_option('admin_email'), sprintf(__('[%s] New User Registration'), $blogname), $message);
+			@wp_mail( get_option( 'admin_email' ), sprintf( __( '[%s] New User Registration' ), $blog ), $message );
 		}
 
-		if ( 'admin' === $notify || empty( $notify ) ) {
+		if ( 'admin' === $notify || ( empty( $deprecated ) && empty( $notify ) ) ) {
 			return;
 		}
 
-		// Generate something random for a password reset key.
 		$key = wp_generate_password( 20, FALSE );
 
-		/** This action is documented in wp-login.php */
 		do_action( 'retrieve_password_key', $user->user_login, $key );
 
-		// Now insert the key, hashed, into the DB.
 		if ( empty( $wp_hasher ) ) {
-			require_once ABSPATH . WPINC . '/class-phpass.php';
+			require_once ABSPATH.WPINC.'/class-phpass.php';
 			$wp_hasher = new PasswordHash( 8, TRUE );
 		}
-		$hashed = time() . ':' . $wp_hasher->HashPassword( $key );
+
+		$hashed = time().':'.$wp_hasher->HashPassword( $key );
 		$wpdb->update( $wpdb->users, array( 'user_activation_key' => $hashed ), array( 'user_login' => $user->user_login ) );
 
-		$message = sprintf(__('Username: %s'), $user->user_login) . "\r\n\r\n";
-		$message .= __('To set your password, visit the following address:') . "\r\n\r\n";
-		$message .= '<' . network_site_url("wp-login.php?action=rp&key=$key&login=" . rawurlencode($user->user_login), 'login') . ">\r\n\r\n";
-
-		$message .= wp_login_url() . "\r\n";
-
-		wp_mail($user->user_email, sprintf(__('[%s] Your username and password info'), $blogname), $message);
-	}
-
-	// FIXME: OLD
-	// pluggable core function
-	// Email login credentials to a newly-registered user.
-	// CHANGED: we removed notifying the admin
-	public function wp_new_user_notification_OLD( $user_id, $plaintext_pass = '' )
-	{
-		if ( empty( $plaintext_pass ) && $this->options['disable_new_user'] )
-			return;
-
-		$blogname = $this->blogname();
-		$user = get_userdata( $user_id );
-
-		if ( ! $this->options['disable_new_user_admin'] ) {
-
-			$message  = sprintf( __( 'New user registration on your site %s:' ), $blogname )."\r\n\r\n";
-			$message .= sprintf( __( 'Username: %s' ), $user->user_login )."\r\n\r\n";
-			$message .= sprintf( __( 'E-mail: %s' ), $user->user_email   )."\r\n";
-
-			@wp_mail( get_option( 'admin_email' ), sprintf( __( '[%s] New User Registration' ), $blogname ), $message );
-		}
-
-		$message  = sprintf( __( 'Username: %s' ), $user->user_login )."\r\n";
-		$message .= sprintf( __( 'Password: %s' ), $plaintext_pass   )."\r\n";
+		$message  = sprintf( __( 'Username: %s' ), $user->user_login )."\r\n\r\n";
+		$message .= __( 'To set your password, visit the following address:' )."\r\n\r\n";
+		$message .= '<'.network_site_url( "wp-login.php?action=rp&key=$key&login=".rawurlencode( $user->user_login ), 'login' ).">\r\n\r\n";
 		$message .= wp_login_url()."\r\n";
 
-		wp_mail( $user->user_email, sprintf( __( '[%s] Your username and password' ), $blogname ), $message );
+		wp_mail( $user->user_email, sprintf( __( '[%s] Your username and password info' ), $blog ), $message );
 	}
 
 	// pluggable core function
@@ -171,7 +131,7 @@ class gNetworkNotify extends gNetworkModuleCore
 			return;
 
 		$message = sprintf( __( 'Password Lost and Changed for user: %s' ), $user->user_login )."\r\n";
-		wp_mail( get_option( 'admin_email' ), sprintf(__('[%s] Password Lost/Changed' ), $this->blogname() ), $message );
+		wp_mail( get_option( 'admin_email' ), sprintf( __( '[%s] Password Lost/Changed' ), $this->blogname() ), $message );
 	}
 
 	// HELPER
