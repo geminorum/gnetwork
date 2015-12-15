@@ -10,6 +10,7 @@ class gNetworkBBQ extends gNetworkModuleCore
 
 	protected $option_key = FALSE;
 	protected $network    = FALSE;
+	protected $ajax       = TRUE;
 
 	protected function setup_actions()
 	{

@@ -5,6 +5,7 @@ class gNetworkNotify extends gNetworkModuleCore
 
 	protected $option_key = 'notify';
 	protected $network    = TRUE;
+	protected $ajax       = TRUE;
 
 	protected function setup_actions()
 	{
