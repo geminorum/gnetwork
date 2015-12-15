@@ -23,12 +23,12 @@
 	},
 	"require": {
 		"php": ">=5.3",
-		"composer/installers": "~1.0",
-		"mustache/mustache": "^2.5",
-		"erusev/parsedown-extra": "^0.7.0"
+		"erusev/parsedown-extra": "^0.7.0",
 	},
 	"require-dev": {
-		"raveren/kint": "^1.0"
+		"raveren/kint": "^1.0",
+		"mustache/mustache": "^2.5",
+		"phelium/mysql-backup": "dev-master"
 	},
 	"config": {
 		"vendor-dir": "assets/vendor",

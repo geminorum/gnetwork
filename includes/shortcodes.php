@@ -459,7 +459,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 	public function shortcode_flash( $atts, $content = NULL, $tag = '' )
 	{
 		self::__dep();
-		
+
 		$args = shortcode_atts( array(
 			'swf'       => FALSE, // comma seperated multiple url to show multiple flash // UNFINISHED
 			'width'     => '800',

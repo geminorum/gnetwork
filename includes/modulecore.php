@@ -106,7 +106,7 @@ class gNetworkModuleCore extends gNetworkBaseCore
 		if ( $this->is_network() )
 			$options = isset( ${$network}[$this->option_key] )
 				? ${$network}[$this->option_key]
-				: ( GNETWORK_CHECK_OLD_OPTIONS ? get_site_option( $this->options_key(), array() ) : array() ); // FIXME: https://core.trac.wordpress.org/ticket/28290
+				: ( GNETWORK_CHECK_OLD_OPTIONS ? get_site_option( $this->options_key(), array() ) : array() );
 		else
 			$options = isset( ${$blog}[$this->option_key] )
 				? ${$blog}[$this->option_key]
@@ -418,7 +418,7 @@ class gNetworkModuleCore extends gNetworkBaseCore
 			return;
 
 		$screen = get_current_screen();
-		
+
 		foreach ( $tabs as $tab )
 			$screen->add_help_tab( $tab );
 	}
