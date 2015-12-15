@@ -454,6 +454,12 @@ class gNetworkBaseCore
 		die();
 	}
 
+	public static function devDump( $var )
+	{
+		if ( self::isDev() )
+			self::dump( $var );
+	}
+
 	public static function dump( $var, $htmlSafe = TRUE )
 	{
 		defined( 'GPERSIANDATE_SKIP' ) or define( 'GPERSIANDATE_SKIP', TRUE );

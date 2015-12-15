@@ -229,6 +229,8 @@ class gNetworkModuleCore extends gNetworkBaseCore
 			$this->settings_buttons( $sub );
 
 		echo '</form>';
+		
+		self::devDump( $this->options );
 	}
 
 	// HELPER
