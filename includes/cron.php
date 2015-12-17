@@ -10,7 +10,7 @@ class gNetworkCron extends gNetworkModuleCore
 	protected function setup_actions()
 	{
 		gNetworkAdmin::registerMenu( 'cron',
-			__( 'CRON', GNETWORK_TEXTDOMAIN ),
+			_x( 'CRON', 'CRON Module: Menu Name', GNETWORK_TEXTDOMAIN ),
 			array( $this, 'settings' )
 		);
 	}
@@ -107,12 +107,12 @@ class gNetworkCron extends gNetworkModuleCore
 
 	private static function cronInfo()
 	{
-		echo self::html( 'h3', __( 'Overview of tasks scheduled for WP-Cron', GNETWORK_TEXTDOMAIN ) );
+		echo self::html( 'h3', _x( 'Overview of tasks scheduled for WP-Cron', 'CRON Module', GNETWORK_TEXTDOMAIN ) );
 
 		$cron = self::getCronArray();
 
 		if ( empty( $cron ) ) {
-			echo self::html( 'strong', __( 'Nothing scheduled', GNETWORK_TEXTDOMAIN ) );
+			echo self::html( 'strong', _x( 'Nothing scheduled', 'CRON Module', GNETWORK_TEXTDOMAIN ) );
 			return FALSE;
 		}
 
@@ -120,7 +120,7 @@ class gNetworkCron extends gNetworkModuleCore
 			'_cb' => '_index',
 
 			'next' => array(
-				'title'    => __( 'Next', GNETWORK_TEXTDOMAIN ),
+				'title'    => _x( 'Next', 'CRON Module', GNETWORK_TEXTDOMAIN ),
 				'class'    => '-column-next',
 				'callback' => function( $value, $row, $column, $index ){
 					// return date_i18n( self::getDateDefaultFormat(), $index );
@@ -129,7 +129,7 @@ class gNetworkCron extends gNetworkModuleCore
 			),
 
 			'tasks' => array(
-				'title' => __( 'Tasks', GNETWORK_TEXTDOMAIN ),
+				'title' => _x( 'Tasks', 'CRON Module', GNETWORK_TEXTDOMAIN ),
 				'class' => '-column-tasks',
 				'args'  => array(
 					'schedules' => wp_get_schedules(),

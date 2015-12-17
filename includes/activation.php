@@ -67,15 +67,15 @@ class gNetworkActivation extends gNetworkModuleCore
 
 		if ( ! in_array( TRUE, $queue ) ) {
 			delete_site_option( "network_{$action}_queue" );
-			self::notice( __( 'Network (de)activation: no further action necessary.', GNETWORK_TEXTDOMAIN ) );
+			self::notice( _x( 'Network (de)activation: no further action necessary.', 'Activation Module', GNETWORK_TEXTDOMAIN ) );
 			return;
 		}
 
 		$total = get_blog_count();
 
 		$messages = array(
-			'activate' => __( 'Network activation: installed on %s / %s sites.', GNETWORK_TEXTDOMAIN ),
-			'deactivate' => __( 'Network deactivation: uninstalled on %s / %s sites.', GNETWORK_TEXTDOMAIN ),
+            'activate'   => _x( 'Network activation: installed on %s / %s sites.', 'Activation Module', GNETWORK_TEXTDOMAIN ),
+            'deactivate' => _x( 'Network deactivation: uninstalled on %s / %s sites.', 'Activation Module', GNETWORK_TEXTDOMAIN ),
 		);
 
 		$message = sprintf( $messages[ $action ],

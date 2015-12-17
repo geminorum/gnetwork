@@ -12,7 +12,7 @@ class gNetworkLocale extends gNetworkModuleCore
 	protected function setup_actions()
 	{
 		gNetworkAdmin::registerMenu( 'locale',
-			__( 'Locale', GNETWORK_TEXTDOMAIN ),
+			_x( 'Locale', 'Locale Module: Menu Name', GNETWORK_TEXTDOMAIN ),
 			FALSE, 'manage_network_options'
 		);
 
@@ -92,10 +92,10 @@ class gNetworkLocale extends gNetworkModuleCore
 	{
 		global $gNetwork;
 
-		echo self::html( 'h3', __( 'Loaded MO Files', GNETWORK_TEXTDOMAIN ) );
+		echo self::html( 'h3', _x( 'Loaded MO Files', 'Locale Module', GNETWORK_TEXTDOMAIN ) );
 		self::tableSide( $gNetwork->locale->loaded );
 
-		// self::tableSideWrap( $gNetwork->locale->loaded, __( 'Loaded MO Files', GNETWORK_TEXTDOMAIN ) );
+		// self::tableSideWrap( $gNetwork->locale->loaded, _x( 'Loaded MO Files', 'Locale Module', GNETWORK_TEXTDOMAIN ) );
 	}
 
 	public function gnetwork_new_blog_options( $new_options )

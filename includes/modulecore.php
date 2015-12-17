@@ -452,15 +452,15 @@ class gNetworkModuleCore extends gNetworkBaseCore
 	{
 		return array();
 
-		// // EXAMPLE
+		// EXAMPLE
 		// return array(
 		// 	'_general' => array(
 		// 		array(
-		// 			'field' => 'comments',
-		// 			'type' => 'enabled',
-		// 			'title' => _x( 'Comments', 'X Module: Enable Like for Comments', GNETWORK_TEXTDOMAIN ),
-		// 			'description' => __( 'Like button for enabled post types comments', GNETWORK_TEXTDOMAIN ),
-		// 			'default' => 0,
+        //             'field'       => 'comments',
+        //             'type'        => 'enabled',
+        //             'title'       => _x( 'Comments', 'X Module: Enable Like for Comments', GNETWORK_TEXTDOMAIN ),
+        //             'description' => _x( 'Like button for enabled post types comments', 'X Module', GNETWORK_TEXTDOMAIN ),
+        //             'default'     => 0,
 		// 		),
 		// 	),
 		// );

@@ -46,29 +46,29 @@ class gNetworkNetwork extends gNetworkModuleCore
 	public function network_admin_menu()
 	{
 		add_submenu_page( 'plugins.php',
-			__( 'Active', GNETWORK_TEXTDOMAIN ),
-			__( 'Active', GNETWORK_TEXTDOMAIN ),
+			_x( 'Active', 'Network Module', GNETWORK_TEXTDOMAIN ),
+			_x( 'Active', 'Network Module', GNETWORK_TEXTDOMAIN ),
 			'manage_network',
 			'plugins.php?plugin_status=active'
 		);
 
 		add_submenu_page( 'plugins.php',
-			__( 'Upload', GNETWORK_TEXTDOMAIN ),
-			__( 'Upload', GNETWORK_TEXTDOMAIN ),
+			_x( 'Upload', 'Network Module', GNETWORK_TEXTDOMAIN ),
+			_x( 'Upload', 'Network Module', GNETWORK_TEXTDOMAIN ),
 			'manage_network',
 			'plugin-install.php?tab=upload'
 		);
 
 		add_submenu_page( 'themes.php',
-			__( 'Upload', GNETWORK_TEXTDOMAIN ),
-			__( 'Upload', GNETWORK_TEXTDOMAIN ),
+			_x( 'Upload', 'Network Module', GNETWORK_TEXTDOMAIN ),
+			_x( 'Upload', 'Network Module', GNETWORK_TEXTDOMAIN ),
 			'manage_network_themes',
 			'theme-install.php?upload'
 		);
 
 		$hook = add_menu_page(
-			__( 'gNetwork Extras', GNETWORK_TEXTDOMAIN ),
-			_x( 'Extras', 'Network Menu Title', GNETWORK_TEXTDOMAIN ),
+			_x( 'gNetwork Extras', 'Network Module: Page Menu HTML Title', GNETWORK_TEXTDOMAIN ),
+			_x( 'Extras', 'Network Module: Page Menu Title', GNETWORK_TEXTDOMAIN ),
 			'manage_network_options',
 			'gnetwork',
 			array( $this, 'settings_page' ),
@@ -80,7 +80,7 @@ class gNetworkNetwork extends gNetworkModuleCore
 
 		foreach ( $this->menus as $sub => $args ) {
 			add_submenu_page( 'gnetwork',
-				sprintf( __( 'gNetwork Extras: %s', GNETWORK_TEXTDOMAIN ), $args['title'] ),
+				sprintf( _x( 'gNetwork Extras: %s', 'Network Module: Sub Page Menu Title', GNETWORK_TEXTDOMAIN ), $args['title'] ),
 				$args['title'],
 				$args['cap'],
 				'gnetwork&sub='.$sub,
@@ -89,7 +89,7 @@ class gNetworkNetwork extends gNetworkModuleCore
 		}
 
 		global $submenu;
-		$submenu['gnetwork'][0][0] = __( 'Overview', GNETWORK_TEXTDOMAIN );
+		$submenu['gnetwork'][0][0] = _x( 'Overview', 'Network Module', GNETWORK_TEXTDOMAIN );
 	}
 
 	public static function registerMenu( $sub, $title = NULL, $callback = FALSE, $capability = 'manage_network_options' )
@@ -141,14 +141,14 @@ class gNetworkNetwork extends gNetworkModuleCore
 	private function subs()
 	{
 		$subs = array(
-			'overview' => __( 'Overview', GNETWORK_TEXTDOMAIN ),
+			'overview' => _x( 'Overview', 'Network Module', GNETWORK_TEXTDOMAIN ),
 		);
 
 		foreach ( $this->menus as $sub => $args )
 			$subs[$sub] = $args['title'];
 
 		if ( is_super_admin() )
-			$subs['console'] = __( 'Console', GNETWORK_TEXTDOMAIN );
+			$subs['console'] = _x( 'Console', 'Network Module', GNETWORK_TEXTDOMAIN );
 
 		return $subs;
 	}
@@ -243,9 +243,9 @@ class gNetworkNetwork extends gNetworkModuleCore
 	public function wpmu_blogs_columns( $columns )
 	{
 		if ( 1 === GNETWORK_ADMIN_COLUMN_ID )
-			return array_merge( array( 'id' => __( 'ID', GNETWORK_TEXTDOMAIN ) ), $columns );
+			return array_merge( array( 'id' => _x( 'ID', 'Network Module: Column Blog ID', GNETWORK_TEXTDOMAIN ) ), $columns );
 
-		$columns['id'] = __( 'ID', GNETWORK_TEXTDOMAIN );
+		$columns['id'] = _x( 'ID', 'Network Module: Column Blog ID', GNETWORK_TEXTDOMAIN );
 		return $columns;
 	}
 

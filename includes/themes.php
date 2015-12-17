@@ -195,11 +195,11 @@ class gNetworkThemes extends gNetworkModuleCore
 	public function continueReading()
 	{
 		return ' '.sprintf(
-			__( '<a %1$s href="%1$s" title="Continue reading &ldquo;%2$s&rdquo; &hellip;" class="%3$s" >%4$s</a>', GNETWORK_TEXTDOMAIN ),
+			_x( '<a %1$s href="%1$s" title="Continue reading &ldquo;%2$s&rdquo; &hellip;" class="%3$s" >%4$s</a>', 'Themes Module: Continue Reading Helper', GNETWORK_TEXTDOMAIN ),
 			get_permalink(),
 			get_the_title(),
 			'excerpt-link',
-			__( 'Read more&nbsp;<span class="excerpt-link-hellip">&hellip;</span>', GNETWORK_TEXTDOMAIN )
+			_x( 'Read more&nbsp;<span class="excerpt-link-hellip">&hellip;</span>', 'Themes Module: Continue Reading Helper', GNETWORK_TEXTDOMAIN )
 		);
 	}
 

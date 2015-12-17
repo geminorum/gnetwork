@@ -96,15 +96,15 @@ class gNetworkTaxonomy extends gNetworkModuleCore
 	private function get_actions( $taxonomy )
 	{
 		$actions = apply_filters( 'gnetwork_taxonomy_bulk_actions', array(
-			'empty'       => __( 'Empty', GNETWORK_TEXTDOMAIN ),
-			'merge'       => __( 'Merge', GNETWORK_TEXTDOMAIN ),
-			'change_tax'  => __( 'Change taxonomy', GNETWORK_TEXTDOMAIN ),
-			'format_i18n' => __( 'Format i18n', GNETWORK_TEXTDOMAIN ),
+			'empty'       => _x( 'Empty', 'Taxonomy Module: Bulk Action', GNETWORK_TEXTDOMAIN ),
+			'merge'       => _x( 'Merge', 'Taxonomy Module: Bulk Action', GNETWORK_TEXTDOMAIN ),
+			'change_tax'  => _x( 'Change Taxonomy', 'Taxonomy Module: Bulk Action', GNETWORK_TEXTDOMAIN ),
+			'format_i18n' => _x( 'Format i18n', 'Taxonomy Module: Bulk Action', GNETWORK_TEXTDOMAIN ),
 		), $taxonomy );
 
 		if ( is_taxonomy_hierarchical( $taxonomy ) ) {
 			$actions = array_merge( array(
-				'set_parent' => __( 'Set parent', GNETWORK_TEXTDOMAIN ),
+				'set_parent' => _x( 'Set Parent', 'Taxonomy Module: Bulk Action', GNETWORK_TEXTDOMAIN ),
 			), $actions );
 		}
 
@@ -191,12 +191,12 @@ class gNetworkTaxonomy extends gNetworkModuleCore
 		switch ( $_GET['message'] ) {
 			case  'gnetwork-taxonomy-updated':
 
-				self::notice( __( 'Terms updated.', GNETWORK_TEXTDOMAIN ) );
+				self::notice( _x( 'Terms updated.', 'Taxonomy Module: Notice', GNETWORK_TEXTDOMAIN ) );
 
 			break;
 			case 'gnetwork-taxonomy-error':
 
-				self::notice( __( 'Terms not updated.', GNETWORK_TEXTDOMAIN ), 'error' );
+				self::notice( _x( 'Terms not updated.', 'Taxonomy Module: Notice', GNETWORK_TEXTDOMAIN ), 'error' );
 
 			break;
 		}
@@ -370,7 +370,7 @@ class gNetworkTaxonomy extends gNetworkModuleCore
 
 	public function input_merge( $taxonomy )
 	{
-		printf( __( 'into: %s', GNETWORK_TEXTDOMAIN ),
+		printf( _x( 'into: %s', 'Taxonomy Module', GNETWORK_TEXTDOMAIN ),
 			'<input name="bulk_to_tag" type="text" size="20"></input>' );
 	}
 
@@ -398,7 +398,7 @@ class gNetworkTaxonomy extends gNetworkModuleCore
 			'orderby'          => 'name',
 			'taxonomy'         => $taxonomy,
 			'hierarchical'     => TRUE,
-			'show_option_none' => __( 'None', GNETWORK_TEXTDOMAIN )
+			'show_option_none' => _x( 'None', 'Taxonomy Module: Set Parent None Option', GNETWORK_TEXTDOMAIN )
 		) );
 	}
 }

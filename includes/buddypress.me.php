@@ -7,7 +7,7 @@ class gNetwork_BP_Me_Component extends BP_Component
 	{
 		global $bp;
 
-		parent::start( 'me', __( 'gNetwork Me', GNETWORK_TEXTDOMAIN ) );
+		parent::start( 'me', _x( 'gNetwork Me', 'BuddyPress Me: Component Name', GNETWORK_TEXTDOMAIN ) );
 		$bp->active_components[$this->id] = '1';
 
 		if ( ! is_admin() ) {
@@ -119,7 +119,7 @@ class gNetwork_BP_Me_Component extends BP_Component
 	{
 		if ( bp_is_active( 'settings' ) )
 			$items[] = array(
-				'name' => __( 'Profile Settings', GNETWORK_TEXTDOMAIN ),
+				'name' => _x( 'Profile Settings', 'BuddyPress Me', GNETWORK_TEXTDOMAIN ),
 				'slug' => 'settings',
 				'link' => $this->url( 'settings' ),
 			);

@@ -35,10 +35,10 @@ class gNetworkDev_Legend_Widget extends WP_Widget
 	public function __construct()
 	{
 		parent::__construct( 'gnetwork-legend-widget',
-			__( 'gNetwork Dev: Legend Widget', GNETWORK_TEXTDOMAIN ),
+			_x( 'gNetwork Dev: Legend Widget', 'Widgets Module', GNETWORK_TEXTDOMAIN ),
 			array(
 				'classname'   => 'gnetwork-wrap-widget legend-widget',
-				'description' => __( 'Simple Changelog Legend', GNETWORK_TEXTDOMAIN )
+				'description' => _x( 'Simple Changelog Legend', 'Widgets Module', GNETWORK_TEXTDOMAIN )
 			) );
 	}
 
@@ -138,10 +138,10 @@ class gNetworkTracking_Quantcast_Widget extends WP_Widget
 	public function __construct()
 	{
 		parent::__construct( 'gnetwork-quantcast-widget',
-			__( 'gNetwork Tracking: Quantcast Widget', GNETWORK_TEXTDOMAIN ),
+			_x( 'gNetwork Tracking: Quantcast Widget', 'Widgets Module', GNETWORK_TEXTDOMAIN ),
 			array(
 				'classname'   => 'gnetwork-wrap-widget quantcast-widget',
-				'description' => __( 'Simple Quantcast Data Badge', GNETWORK_TEXTDOMAIN )
+				'description' => _x( 'Simple Quantcast Data Badge', 'Widgets Module', GNETWORK_TEXTDOMAIN )
 			) );
 	}
 
@@ -175,7 +175,7 @@ class gNetworkShortcode_Widget extends WP_Widget
 	{
 		$widget_ops = array(
 			'classname'   => 'shortcode_widget',
-			'description' => __( 'Arbitrary text or HTML or Shortcode!', GNETWORK_TEXTDOMAIN )
+			'description' => _x( 'Arbitrary text or HTML or Shortcode!', 'Widgets Module', GNETWORK_TEXTDOMAIN )
 		);
 
 		$control_ops = array(
@@ -184,7 +184,7 @@ class gNetworkShortcode_Widget extends WP_Widget
 		);
 
 		parent::__construct( 'shortcode-widget',
-			__( 'gNetwork: Shortcode Widget', GNETWORK_TEXTDOMAIN ),
+			_x( 'gNetwork: Shortcode Widget', 'Widgets Module', GNETWORK_TEXTDOMAIN ),
 			$widget_ops,
 			$control_ops );
 	}

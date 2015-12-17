@@ -13,7 +13,7 @@ class gNetworkBlackList extends gNetworkModuleCore
 			add_action( 'init', array( $this, 'init' ), 1 );
 
 		$this->register_menu( 'blacklist',
-			__( 'Black List', GNETWORK_TEXTDOMAIN ),
+			_x( 'Black List', 'BlackList Module: Menu Name', GNETWORK_TEXTDOMAIN ),
 			array( $this, 'settings' )
 		);
 	}
@@ -31,22 +31,22 @@ class gNetworkBlackList extends gNetworkModuleCore
 				array(
 					'field'   => 'check_ip',
 					'type'    => 'enabled',
-					'title'   => __( 'Check Addresses', GNETWORK_TEXTDOMAIN ),
-					'desc'    => __( 'Select to check logged-out visitor\'s IP againts your list of IPs', GNETWORK_TEXTDOMAIN ),
+					'title'   => _x( 'Check Addresses', 'BlackList Module', GNETWORK_TEXTDOMAIN ),
+					'desc'    => _x( 'Select to check logged-out visitor\'s IP againts your list of IPs', 'BlackList Module', GNETWORK_TEXTDOMAIN ),
 					'default' => '0',
 				),
 				array(
 					'field'       => 'blacklisted_ips',
 					'type'        => 'textarea',
-					'title'       => __( 'IP Addresses', GNETWORK_TEXTDOMAIN ),
-					'desc'        => __( 'Comma seperated IP\'s range or individual IP needs to block. ex: <code>1.6.0.0 - 1.7.255.255,1.8.0.0,1.8.0.1</code>', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'IP Addresses', 'BlackList Module', GNETWORK_TEXTDOMAIN ),
+					'desc'        => _x( 'Comma seperated IP\'s range or individual IP needs to block. ex: <code>1.6.0.0 - 1.7.255.255,1.8.0.0,1.8.0.1</code>', 'BlackList Module', GNETWORK_TEXTDOMAIN ),
 					'field_class' => 'large-text code',
 				),
 				array(
 					'field'       => 'blacklisted_notice',
 					'type'        => 'textarea',
-					'title'       => __( 'Blacklisted Message', GNETWORK_TEXTDOMAIN ),
-					'desc'        => __( 'Locked message on login page.', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Blacklisted Message', 'BlackList Module', GNETWORK_TEXTDOMAIN ),
+					'desc'        => _x( 'Locked message on login page.', 'BlackList Module', GNETWORK_TEXTDOMAIN ),
 					'field_class' => 'large-text',
 				),
 			),

@@ -408,7 +408,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			$args['url'] = $url[$key];
 		}
 
-		$fallback = apply_filters( 'gnetwork_shortcode_pdf_fallback', sprintf( __( 'It appears you don\'t have Adobe Reader or PDF support in this web browser. <a href="%s">Click here to download the PDF</a>', GNETWORK_TEXTDOMAIN ), $args['url'] ) );
+		$fallback = apply_filters( 'gnetwork_shortcode_pdf_fallback', sprintf( _x( 'It appears you don\'t have Adobe Reader or PDF support in this web browser. <a href="%s">Click here to download the PDF</a>', 'Shortcodes Module: PDF Fallback', GNETWORK_TEXTDOMAIN ), $args['url'] ) );
 
 		$key = count( $this->pdf_ids ) + 1;
 		$id = 'gNetworkPDF'.$key;
@@ -527,7 +527,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		if ( is_feed() )
 			return $content;
 
-		$title = sprintf( __( 'Go to %s second mark and play', GNETWORK_TEXTDOMAIN ), $args['to'] );
+		$title = sprintf( _x( 'Go to %s second mark and play', 'Shortcodes Module: Audio Go Shortcode', GNETWORK_TEXTDOMAIN ), $args['to'] );
 		$html  = $content ? trim( $content ) : $title;
 		$html  = '<a href="#" class="audio-go-to-time" title="'.esc_attr( $title ).'" data-time="'.$args['to'].'" data-instance="'.$args['instance'].'">'.$html.'</a>';
 
@@ -640,7 +640,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 
 		$args = shortcode_atts( array(
 			'url'           => FALSE,
-			'url_title'     => __( 'See More', GNETWORK_TEXTDOMAIN ),
+			'url_title'     => _x( 'See More', 'Shortcodes Module: Ref Shortcode', GNETWORK_TEXTDOMAIN ),
 			'url_icon'      => 'def',
 			'class'         => 'ref-anchor',
 			'format_number' => TRUE,
@@ -702,8 +702,8 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			'number'        => TRUE,
 			'after_number'  => '.&nbsp;',
 			'format_number' => TRUE,
-			'back'          => '[&#8617;]', //'[^]', // '[&uarr;]',
-			'back_title'    => __( 'Back to Text', GNETWORK_TEXTDOMAIN ),
+			'back'          => '[&#8617;]', // '[^]', // '[&uarr;]',
+			'back_title'    => _x( 'Back to Text', 'Shortcodes Module: RefList Shortcode', GNETWORK_TEXTDOMAIN ),
 			'context'       => NULL,
 			'wrap'          => TRUE,
 		), $atts, $tag );
@@ -768,7 +768,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		if ( isset( $atts['id'] ) ) {
 			$args = shortcode_atts( array(
 				'id'            => 0,
-				'title'         => __( 'See the footnote', GNETWORK_TEXTDOMAIN ),
+				'title'         => _x( 'See the footnote', 'Shortcodes Module: Ref Manual Shortcode', GNETWORK_TEXTDOMAIN ),
 				'class'         => 'ref-anchor',
 				'format_number' => TRUE,
 				'context'       => NULL,
@@ -777,9 +777,9 @@ class gNetworkShortCodes extends gNetworkModuleCore
 				if ( FALSE === $args['context'] )
 					return NULL;
 
-		} else { //[ref-m 0]
+		} else { // [ref-m 0]
 			$args['id'] = isset( $atts[0] ) ? $atts[0] : FALSE;
-			$args['title'] = isset( $attrs[1] ) ? $atts[1] : __( 'See the footnote', GNETWORK_TEXTDOMAIN );
+			$args['title'] = isset( $attrs[1] ) ? $atts[1] : _x( 'See the footnote', 'Shortcodes Module: Ref Manual Shortcode', GNETWORK_TEXTDOMAIN );
 			$args['class'] = isset( $attrs[2] ) ? $atts[2] : 'ref-anchor';
 			$args['format_number'] = isset( $attrs[3] ) ? $atts[3] : TRUE;
 		}
@@ -801,7 +801,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		if ( isset( $atts['id'] ) ) {
 			$args = shortcode_atts( array(
 				'id'            => 0,
-				'title'         => __( 'See the footnote', GNETWORK_TEXTDOMAIN ),
+				'title'         => _x( 'See the footnote', 'Shortcodes Module: RefList Manual Shortcode', GNETWORK_TEXTDOMAIN ),
 				'class'         => 'ref-anchor',
 				'format_number' => TRUE,
 				'back'          => '[&#8617;]', //'&uarr;',
@@ -812,9 +812,9 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			if ( FALSE === $args['context'] )
 				return NULL;
 
-		} else { //[reflist-m 0]
+		} else { // [reflist-m 0]
 			$args['id']            = $atts[0];
-			$args['title']         = isset( $attrs[1] ) ? $atts[1] : __( 'See the footnote', GNETWORK_TEXTDOMAIN );
+			$args['title']         = isset( $attrs[1] ) ? $atts[1] : _x( 'See the footnote', 'Shortcodes Module: RefList Manual Shortcode', GNETWORK_TEXTDOMAIN );
 			$args['class']         = isset( $attrs[2] ) ? $atts[2] : 'ref-anchor';
 			$args['format_number'] = isset( $attrs[3] ) ? $atts[3] : TRUE;
 			$args['back']          = isset( $attrs[4] ) ? $atts[4] : '[&#8617;]';

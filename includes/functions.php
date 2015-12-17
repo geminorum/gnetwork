@@ -8,7 +8,7 @@ endif;
 
 if ( ! function_exists( 'gnetwork_copyright' ) ) :
 	function gnetwork_copyright( $rtl = NULL ){
-		return __( 'Built on <a href="http://wordpress.org/" title="Semantic Personal Publishing Platform">WordPress</a> and tea', GNETWORK_TEXTDOMAIN );
+		return _x( 'Built on <a href="http://wordpress.org/" title="Semantic Personal Publishing Platform">WordPress</a> and tea', 'Default Copyright', GNETWORK_TEXTDOMAIN );
 	}
 endif;
 

@@ -11,7 +11,7 @@ class gNetworkComments extends gNetworkModuleCore
 	protected function setup_actions()
 	{
 		gNetworkAdmin::registerMenu( 'comments',
-			__( 'Comments', GNETWORK_TEXTDOMAIN ),
+			_x( 'Comments', 'Comments Module: Menu Name', GNETWORK_TEXTDOMAIN ),
 			array( $this, 'settings' )
 		);
 
@@ -74,7 +74,7 @@ class gNetworkComments extends gNetworkModuleCore
 					'field'   => 'disable_notifications',
 					'type'    => 'enabled',
 					'title'   => _x( 'Comment Notifications', 'Comments Module', GNETWORK_TEXTDOMAIN ),
-					'desc'    => __( 'Disable all core comment notifications', GNETWORK_TEXTDOMAIN ),
+					'desc'    => _x( 'Disable all core comment notifications', 'Comments Module', GNETWORK_TEXTDOMAIN ),
 					'default' => '1',
 					'values'  => array(
 						__( 'Enabled' , GNETWORK_TEXTDOMAIN ),
@@ -85,21 +85,21 @@ class gNetworkComments extends gNetworkModuleCore
 					'field'   => 'admin_fullcomments',
 					'type'    => 'enabled',
 					'title'   => _x( 'Full Comments', 'Comments Module', GNETWORK_TEXTDOMAIN ),
-					'desc'    => __( 'Full comments on dashboard', GNETWORK_TEXTDOMAIN ),
+					'desc'    => _x( 'Full comments on dashboard', 'Comments Module', GNETWORK_TEXTDOMAIN ),
 					'default' => '0',
 				),
 				array(
 					'field'   => 'front_quicktags',
 					'type'    => 'enabled',
 					'title'   => _x( 'Quicktags', 'Comments Module', GNETWORK_TEXTDOMAIN ),
-					'desc'    => __( 'Activate Quicktags for comments on frontend', GNETWORK_TEXTDOMAIN ),
+					'desc'    => _x( 'Activate Quicktags for comments on frontend', 'Comments Module', GNETWORK_TEXTDOMAIN ),
 					'default' => '0',
 				),
 				array(
 					'field'   => 'disable_notes',
 					'type'    => 'enabled',
 					'title'   => _x( 'Form Notes', 'Comments Module', GNETWORK_TEXTDOMAIN ),
-					'desc'    => __( 'Removes extra notes after comment form on frontend', GNETWORK_TEXTDOMAIN ),
+					'desc'    => _x( 'Removes extra notes after comment form on frontend', 'Comments Module', GNETWORK_TEXTDOMAIN ),
 					'default' => '1',
 				),
 			),
@@ -234,7 +234,7 @@ class gNetworkComments extends gNetworkModuleCore
 
 	public function explain_nonce()
 	{
-		return __( 'Your attempt to add this comment has failed.', GNETWORK_TEXTDOMAIN );
+		return _x( 'Your attempt to add this comment has failed.', 'Comments Module', GNETWORK_TEXTDOMAIN );
 	}
 
 	// DRAFT
@@ -251,11 +251,11 @@ class gNetworkComments extends gNetworkModuleCore
 		$comments = wp_count_comments( $post_id );
 
 		$map = array(
-			'moderated'      => __( 'Comments in moderation: %s', GNETWORK_TEXTDOMAIN ),
-			'approved'       => __( 'Comments approved: %s', GNETWORK_TEXTDOMAIN ),
-			'spam'           => __( 'Comments in Spam: %s', GNETWORK_TEXTDOMAIN ),
-			'trash'          => __( 'Comments in Trash: %s', GNETWORK_TEXTDOMAIN ),
-			'total_comments' => __( 'Total Comments: %s', GNETWORK_TEXTDOMAIN ),
+			'moderated'      => _x( 'Comments in moderation: %s', 'Comments Module: Total Comments Item', GNETWORK_TEXTDOMAIN ),
+			'approved'       => _x( 'Comments approved: %s', 'Comments Module: Total Comments Item', GNETWORK_TEXTDOMAIN ),
+			'spam'           => _x( 'Comments in Spam: %s', 'Comments Module: Total Comments Item', GNETWORK_TEXTDOMAIN ),
+			'trash'          => _x( 'Comments in Trash: %s', 'Comments Module: Total Comments Item', GNETWORK_TEXTDOMAIN ),
+			'total_comments' => _x( 'Total Comments: %s', 'Comments Module: Total Comments Item', GNETWORK_TEXTDOMAIN ),
 		);
 
 		echo '<ul>';

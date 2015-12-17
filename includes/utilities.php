@@ -56,13 +56,13 @@ class gNetworkUtilities extends gNetworkBaseCore
 	public static function join_items( $items )
 	{
 		return
-			__( '&rdquo;', GNETWORK_TEXTDOMAIN )
-			.join( __( '&ldquo; and &rdquo;', GNETWORK_TEXTDOMAIN ),
+			_x( '&rdquo;', 'Utilities Module: Join Items Helper', GNETWORK_TEXTDOMAIN )
+			.join( _x( '&ldquo; and &rdquo;', 'Utilities Module: Join Items Helper', GNETWORK_TEXTDOMAIN ),
 				array_filter( array_merge( array(
-					join( __( '&ldquo;, &rdquo;', GNETWORK_TEXTDOMAIN ),
+					join( _x( '&ldquo;, &rdquo;', 'Utilities Module: Join Items Helper', GNETWORK_TEXTDOMAIN ),
 					array_slice( $items, 0, -1 ) ) ),
 					array_slice( $items, -1 ) ) ) )
-			.__( '&ldquo;', GNETWORK_TEXTDOMAIN ).'.';
+			._x( '&ldquo;', 'Utilities Module: Join Items Helper', GNETWORK_TEXTDOMAIN ).'.';
 	}
 
 	public static function getLayout( $layout_name, $require_once = FALSE, $no_cache = FALSE )

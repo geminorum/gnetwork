@@ -35,7 +35,7 @@ class gNetworkNavigation extends gNetworkModuleCore
 	public function load_nav_menus_php()
 	{
 		add_meta_box( 'add-gnetwork-nav-menu',
-			__( 'Network', GNETWORK_TEXTDOMAIN ),
+			_x( 'Network', 'Navigation Module: Meta Box Title', GNETWORK_TEXTDOMAIN ),
 			array( $this, 'nav_menu_meta_box' ),
 			'nav-menus',
 			'side',
@@ -55,17 +55,17 @@ class gNetworkNavigation extends gNetworkModuleCore
 		$tabs = array(
 			'general' => array(
 				'label' => _x( 'General', 'Navigation Module: Tabs', GNETWORK_TEXTDOMAIN ),
-				'desc'  => __( '<em>General</em> links are relative to the current user and are visible at any time.', GNETWORK_TEXTDOMAIN ),
+				'desc'  => _x( '<em>General</em> links are relative to the current user and are visible at any time.', 'Navigation Module', GNETWORK_TEXTDOMAIN ),
 				'pages' => $this->get_general_pages(),
 			),
 			'loggedin' => array(
 				'label' => _x( 'Logged-In', 'Navigation Module: Tabs', GNETWORK_TEXTDOMAIN ),
-				'desc'  => __( '<em>Logged-In</em> links are relative to the current user, and are not visible to visitors who are not logged in.', GNETWORK_TEXTDOMAIN ),
+				'desc'  => _x( '<em>Logged-In</em> links are relative to the current user, and are not visible to visitors who are not logged in.', 'Navigation Module', GNETWORK_TEXTDOMAIN ),
 				'pages' => $this->get_loggedin_pages(),
 			),
 			'loggedout' => array(
 				'label' => _x( 'Logged-Out', 'Navigation Module: Tabs', GNETWORK_TEXTDOMAIN ),
-				'desc'  => __( '<em>Logged-Out</em> links are not visible to users who are logged in.', GNETWORK_TEXTDOMAIN ),
+				'desc'  => _x( '<em>Logged-Out</em> links are not visible to users who are logged in.', 'Navigation Module', GNETWORK_TEXTDOMAIN ),
 				'pages' => $this->get_loggedout_pages(),
 			),
 		);
@@ -115,13 +115,13 @@ class gNetworkNavigation extends gNetworkModuleCore
 		$items = array();
 
 		$items[] = array(
-			'name' => __( 'RSS Feed', GNETWORK_TEXTDOMAIN ),
+			'name' => _x( 'RSS Feed', 'Navigation Module', GNETWORK_TEXTDOMAIN ),
 			'slug' => 'feed',
 			'link' => get_feed_link( 'rss2' ),
 		);
 
 		$items[] = array(
-			'name' => __( 'RSS Comments Feed', GNETWORK_TEXTDOMAIN ),
+			'name' => _x( 'RSS Comments Feed', 'Navigation Module', GNETWORK_TEXTDOMAIN ),
 			'slug' => 'comments_feed',
 			'link' => get_feed_link( 'comments_rss2' ),
 		);
@@ -153,19 +153,19 @@ class gNetworkNavigation extends gNetworkModuleCore
 		$items = array();
 
 		$items[] = array(
-			'name' => __( 'Log Out', GNETWORK_TEXTDOMAIN ),
+			'name' => _x( 'Log Out', 'Navigation Module', GNETWORK_TEXTDOMAIN ),
 			'slug' => 'logout',
 			'link' => apply_filters( 'gnetwork_navigation_logout_url', wp_logout_url() ),
 		);
 
 		$items[] = array(
-			'name' => __( 'Edit Profile', GNETWORK_TEXTDOMAIN ),
+			'name' => _x( 'Edit Profile', 'Navigation Module', GNETWORK_TEXTDOMAIN ),
 			'slug' => 'edit_profile',
 			'link' => get_edit_profile_url(),
 		);
 
 		$items[] = array(
-			'name' => __( 'Public Profile', GNETWORK_TEXTDOMAIN ),
+			'name' => _x( 'Public Profile', 'Navigation Module', GNETWORK_TEXTDOMAIN ),
 			'slug' => 'profile',
 			'link' => apply_filters( 'gnetwork_navigation_public_profile_url', get_edit_profile_url() ),
 		);
@@ -197,14 +197,14 @@ class gNetworkNavigation extends gNetworkModuleCore
 		$items = array();
 
 		$items[] = array(
-			'name' => __( 'Log In', GNETWORK_TEXTDOMAIN ),
+			'name' => _x( 'Log In', 'Navigation Module', GNETWORK_TEXTDOMAIN ),
 			'slug' => 'login',
 			'link' => wp_login_url(),
 		);
 
 		if ( $register_url = self::registerURL() )
 			$items[] = array(
-				'name' => __( 'Register', GNETWORK_TEXTDOMAIN ),
+				'name' => _x( 'Register', 'Navigation Module', GNETWORK_TEXTDOMAIN ),
 				'slug' => 'register',
 				'link' => $register_url,
 			);

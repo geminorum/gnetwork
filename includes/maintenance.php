@@ -9,7 +9,7 @@ class gNetworkMaintenance extends gNetworkModuleCore
 	protected function setup_actions()
 	{
 		gNetworkAdmin::registerMenu( 'maintenance',
-			__( 'Maintenance', GNETWORK_TEXTDOMAIN ),
+			_x( 'Maintenance', 'Maintenance Module: Menu Name', GNETWORK_TEXTDOMAIN ),
 			array( $this, 'settings' )
 		);
 
@@ -50,37 +50,37 @@ class gNetworkMaintenance extends gNetworkModuleCore
 				array(
 					'field'  => 'current_template',
 					'type'   => 'custom',
-					'title'  => __( 'Current Template', GNETWORK_TEXTDOMAIN ),
+					'title'  => _x( 'Current Template', 'Maintenance Module', GNETWORK_TEXTDOMAIN ),
 					'values' => ( $template ? '<p class="description code"><code>'.$template.'</code></p>' :
-						__( 'There are no templates available. We will use an internal instead.', GNETWORK_TEXTDOMAIN ) ),
+						_x( 'There are no templates available. We will use an internal instead.', 'Maintenance Module', GNETWORK_TEXTDOMAIN ) ),
 				),
 				array(
 					'field'   => 'maintenance_site',
 					'type'    => 'roles',
-					'title'   => __( 'Site Maintenance', GNETWORK_TEXTDOMAIN ),
-					'desc'    => __( 'Selected and above can access to the site.', GNETWORK_TEXTDOMAIN ),
+					'title'   => _x( 'Site Maintenance', 'Maintenance Module', GNETWORK_TEXTDOMAIN ),
+					'desc'    => _x( 'Selected and above can access to the site.', 'Maintenance Module', GNETWORK_TEXTDOMAIN ),
 					'default' => 'none',
 				),
 				array(
 					'field'   => 'maintenance_admin',
 					'type'    => 'roles',
-					'title'   => __( 'Admin Maintenance', GNETWORK_TEXTDOMAIN ),
-					'desc'    => __( 'Selected and above can access to the admin.', GNETWORK_TEXTDOMAIN ),
+					'title'   => _x( 'Admin Maintenance', 'Maintenance Module', GNETWORK_TEXTDOMAIN ),
+					'desc'    => _x( 'Selected and above can access to the admin.', 'Maintenance Module', GNETWORK_TEXTDOMAIN ),
 					'default' => 'none',
 				),
 				array(
 					'field'       => 'admin_notice',
 					'type'        => 'textarea-quicktags',
-					'title'       => __( 'Admin Notice', GNETWORK_TEXTDOMAIN ),
-					'desc'        => __( 'The admin notice while site is on maintenance. Leave empty to disable.', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Admin Notice', 'Maintenance Module', GNETWORK_TEXTDOMAIN ),
+					'desc'        => _x( 'The admin notice while site is on maintenance. Leave empty to disable.', 'Maintenance Module', GNETWORK_TEXTDOMAIN ),
 					'default'     => '',
 					'field_class' => 'code',
 				),
 				array(
 					'field'       => 'login_message',
 					'type'        => 'textarea-quicktags',
-					'title'       => __( 'Login Message', GNETWORK_TEXTDOMAIN ),
-					'desc'        => __( 'The login message while site is on maintenance. Leave empty to disable.', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Login Message', GNETWORK_TEXTDOMAIN ),
+					'desc'        => _x( 'The login message while site is on maintenance. Leave empty to disable.', 'Maintenance Module', GNETWORK_TEXTDOMAIN ),
 					'default'     => '',
 					'field_class' => 'code',
 				),
@@ -93,8 +93,8 @@ class gNetworkMaintenance extends gNetworkModuleCore
 		return array(
 			'maintenance_site'  => 'none',
 			'maintenance_admin' => 'none',
-			'admin_notice'      => __( 'The Maintenance Mode is active.', GNETWORK_TEXTDOMAIN ),
-			'login_message'     => __( 'The site is unavailable for scheduled maintenance.', GNETWORK_TEXTDOMAIN ),
+			'admin_notice'      => _x( 'The Maintenance Mode is active.', 'Maintenance Module: Defult Option', GNETWORK_TEXTDOMAIN ),
+			'login_message'     => _x( 'The site is unavailable for scheduled maintenance.', 'Maintenance Module: Default Option', GNETWORK_TEXTDOMAIN ),
 		);
 	}
 
@@ -182,7 +182,7 @@ class gNetworkMaintenance extends gNetworkModuleCore
 		if ( isset( $gNetwork->maintenance ) && $gNetwork->maintenance->options['login_message'] )
 			$html = $gNetwork->maintenance->options['login_message'];
 		else
-			$html = __( 'The site is unavailable for scheduled maintenance.', GNETWORK_TEXTDOMAIN );
+			$html = _x( 'The site is unavailable for scheduled maintenance.', 'Maintenance Module: Default 503 Message', GNETWORK_TEXTDOMAIN );
 
 		if ( $class )
 			$html = self::html( 'div', array(

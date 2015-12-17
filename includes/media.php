@@ -116,7 +116,7 @@ class gNetworkMedia extends gNetworkModuleCore
 		global $_wp_additional_image_sizes;
 
 		$args = self::atts( array(
-			'n' => __( 'Undefined Image Size', GNETWORK_TEXTDOMAIN ),
+			'n' => _x( 'Undefined Image Size', 'Media Module', GNETWORK_TEXTDOMAIN ),
 			'w' => 0,
 			'h' => 0,
 			'c' => 0,
@@ -413,7 +413,7 @@ class gNetworkMedia extends gNetworkModuleCore
 			case 'image/jpeg' :
 			case 'image/png' :
 			case 'image/gif' :
-				$label = __( 'View Image URL', GNETWORK_TEXTDOMAIN );
+				$label = _x( 'View Image URL', 'Media Module', GNETWORK_TEXTDOMAIN );
 				break;
 
 			case 'video/mpeg' :
@@ -421,32 +421,32 @@ class gNetworkMedia extends gNetworkModuleCore
 			case 'video/webm' :
 			case 'video/ogg' :
 			case 'video/quicktime':
-				$label = __( 'View Video URL', GNETWORK_TEXTDOMAIN );
+				$label = _x( 'View Video URL', 'Media Module', GNETWORK_TEXTDOMAIN );
 				break;
 
 			case 'text/csv' :
 			case 'text/xml' :
-				$label = __( 'View Data File URL', GNETWORK_TEXTDOMAIN );
+				$label = _x( 'View Data File URL', 'Media Module', GNETWORK_TEXTDOMAIN );
 				break;
 
 			case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' :
 			case 'application/vnd.ms-excel' :
-				$label = __( 'View Spreadsheet URL', GNETWORK_TEXTDOMAIN );
+				$label = _x( 'View Spreadsheet URL', 'Media Module', GNETWORK_TEXTDOMAIN );
 				break;
 
 			case 'application/pdf' :
 			case 'application/rtf' :
 			case 'application/msword' :
 			case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' :
-				$label = __( 'View Document URL', GNETWORK_TEXTDOMAIN );
+				$label = _x( 'View Document URL', 'Media Module', GNETWORK_TEXTDOMAIN );
 				break;
 
 			case 'text/html' :
-				$label = __( 'View HTML file URL', GNETWORK_TEXTDOMAIN );
+				$label = _x( 'View HTML file URL', 'Media Module', GNETWORK_TEXTDOMAIN );
 				break;
 
 			default:
-				$label = __( 'View Item URL', GNETWORK_TEXTDOMAIN );
+				$label = _x( 'View Item URL', 'Media Module', GNETWORK_TEXTDOMAIN );
 		}
 
 		return apply_filters( 'gnetwork_media_type_label', $label, $type, $post_id );
