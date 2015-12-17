@@ -354,6 +354,8 @@ class gNetworkModuleCore extends gNetworkBaseCore
 		if ( ! count( $settings ) )
 			return;
 
+		$page = $this->menu_key ? $this->option_base.'_'.$this->menu_key : $this->options_key();
+
 		foreach ( $settings as $section_suffix => $fields ) {
 			if ( is_array( $fields ) ) {
 
@@ -362,10 +364,14 @@ class gNetworkModuleCore extends gNetworkBaseCore
 				else
 					$section_callback = '__return_false';
 
-				$section = $this->options_key().$section_suffix;
-				add_settings_section( $section, FALSE, $section_callback, $this->options_key() );
+				$section = $page.$section_suffix;
+				add_settings_section( $section, FALSE, $section_callback, $page );
+
 				foreach ( $fields as $field )
-					$this->add_settings_field( array_merge( $field, array( 'section' => $section ) ) );
+					$this->add_settings_field( array_merge( $field, array(
+                        'page'    => $page,
+                        'section' => $section,
+					) ) );
 
 			// for pre internal custom options
 			} else if ( is_callable( $fields ) ) {
