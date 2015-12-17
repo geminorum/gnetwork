@@ -17,7 +17,7 @@ class gNetworkActivation extends gNetworkModuleCore
 	protected function setup_actions()
 	{
 		if ( ! is_multisite() )
-			return;
+			throw new \Exception( 'Only on Multisite!' );
 
 		add_action( 'wpmu_new_blog', array( $this, 'wpmu_new_blog' ) );
 		add_action( 'wp_ajax_gnetwork_activation', array( $this, 'ajax_response' ) );

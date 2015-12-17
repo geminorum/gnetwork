@@ -11,7 +11,7 @@ class gNetworkNetwork extends gNetworkModuleCore
 	protected function setup_actions()
 	{
 		if ( ! is_multisite() )
-			return;
+			throw new \Exception( 'Only on Multisite!' );
 
 		if ( is_admin() ) {
 
