@@ -9,6 +9,7 @@ class gNetworkModuleCore extends gNetworkBaseCore
 
     protected $option_base = 'gnetwork';
     protected $option_key  = FALSE;
+    protected $menu_key    = FALSE;
     protected $network     = TRUE;       // using network wide options
     protected $front_end   = TRUE;       // load module on front end?
     protected $ajax        = FALSE;      // load if ajax
@@ -175,9 +176,11 @@ class gNetworkModuleCore extends gNetworkBaseCore
 	// DEFAULT METHOD: settings hook handler
 	public function settings( $sub = NULL )
 	{
-		if ( $this->option_key && $this->option_key == $sub ) {
+		$menu = $this->menu_key ? $this->menu_key : $this->option_key;
+
+		if ( $menu && $menu == $sub ) {
 			$this->settings_update( $sub );
-			add_action( 'gnetwork_'.( $this->is_network() ? 'network' : 'admin' ).'_settings_sub_'.$this->option_key, array( $this, 'settings_html' ), 10, 2 );
+			add_action( 'gnetwork_'.( $this->is_network() ? 'network' : 'admin' ).'_settings_sub_'.$sub, array( $this, 'settings_html' ), 10, 2 );
 			$this->register_settings();
 			$this->register_settings_help();
 		}
@@ -229,7 +232,7 @@ class gNetworkModuleCore extends gNetworkBaseCore
 			$this->settings_buttons( $sub );
 
 		echo '</form>';
-		
+
 		self::devDump( $this->options );
 	}
 
