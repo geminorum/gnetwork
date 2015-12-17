@@ -902,6 +902,40 @@ class gNetworkBaseCore
 		return md5( $salt.$key );
 	}
 
+	// @API: https://developers.google.com/chart/infographics/docs/qr_codes
+	// @EXAMPLE: https://createqrcode.appspot.com/
+	// @SEE: https://github.com/endroid/QrCode
+	// @SEE: https://github.com/aferrandini/PHPQRCode
+	public static function getGoogleQRCode( $data, $atts = array() )
+	{
+		$args = self::atts( array(
+            'tag'        => TRUE,
+            'size'       => 150,
+            'encoding'   => 'UTF-8',
+            'correction' => 'H', // 'L', 'M', 'Q', 'H'
+            'margin'     => 0,
+            'url'        => 'https://chart.googleapis.com/chart',
+		), $atts );
+
+		$src = add_query_arg( array(
+            'cht'  => 'qr',
+            'chs'  => $args['size'].'x'.$args['size'],
+            'chl'  => urlencode( $data ),
+            'chld' => $args['correction'].'|'.$args['margin'],
+            'choe' => $args['encoding'],
+		), $args['url'] );
+
+		if ( ! $args['tag'] )
+			return $src;
+
+		return self::html( 'img', array(
+            'src'    => $src,
+            'width'  => $args['size'],
+            'height' => $args['size'],
+            'alt'    => strip_tags( $data ),
+		) );
+	}
+
 	// http://code.tutsplus.com/tutorials/a-look-at-the-wordpress-http-api-a-brief-survey-of-wp_remote_get--wp-32065
 	// http://wordpress.stackexchange.com/a/114922
 	public static function getJSON( $url, $atts = array(), $assoc = FALSE )

@@ -65,6 +65,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			'reflist'      => 'shortcode_reflist',
 			'ref-m'        => 'shortcode_ref_manual',
 			'reflist-m'    => 'shortcode_reflist_manual',
+			'qrcode'       => 'shortcode_qrcode',
 		) );
 
 		if ( ! defined( 'GNETWORK_DISABLE_REFLIST_INSERT' ) || ! GNETWORK_DISABLE_REFLIST_INSERT )
@@ -339,6 +340,16 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			return '<span class="gnetwork-wrap-shortcode shortcode-tel">'.$html.'</span>';
 
 		return $html;
+	}
+
+	// WORKING DRAFT
+	// FIXME: add def atts / wrap
+	public function shortcode_qrcode( $atts, $content = NULL, $tag = '' )
+	{
+		if ( $content )
+			return self::getGoogleQRCode( trim( $content ), $atts );
+
+		return $content;
 	}
 
 	// TODO: rewrite this
