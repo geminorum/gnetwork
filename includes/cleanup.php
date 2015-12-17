@@ -3,8 +3,8 @@
 class gNetworkCleanup extends gNetworkModuleCore
 {
 
-	protected $option_key = 'cleanup';
-	protected $network    = FALSE;
+	protected $menu_key = 'cleanup';
+	protected $network  = FALSE;
 
 	protected function setup_actions()
 	{
@@ -36,43 +36,81 @@ class gNetworkCleanup extends gNetworkModuleCore
 	public function default_settings()
 	{
 		$confirm = self::getButtonConfirm();
+		$settings = array();
 
-		return array(
-			'_general' => array(
-				array(
-					'field'   => 'akismet_purge_meta',
-					'type'    => 'button',
-					'title'   => _x( 'Akismet', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-					'desc'    => _x( 'Removes akismet related meta from comments', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-					'default' => _x( 'Purge Metadata', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-					'values'  => $confirm,
-				),
-				array(
-					'field'   => 'purge_comment_agent',
-					'type'    => 'button',
-					'title'   => _x( 'Comments', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-					'desc'    => _x( 'Removes user agent field of comments', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-					'default' => _x( 'Purge User Agents', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-					'values'  => $confirm,
-				),
-				array(
-					'field'   => 'optimize_tables',
-					'type'    => 'button',
-					'title'   => _x( 'Comment Tables', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-					'desc'    => _x( 'Checks for orphaned comment metas and optimize tables', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-					'default' => _x( 'Orphaned & Optimize', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-					'values'  => $confirm,
-				),
-				array(
-					'field'   => 'delete_post_editmeta',
-					'type'    => 'button',
-					'title'   => _x( 'Post Edit Meta', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-					'desc'    => _x( 'Removes posts last edit user and lock metas', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-					'default' => _x( 'Delete Last User & Lock', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-					'values'  => $confirm,
-				),
-			),
+		$settings['_transient'][] = array(
+			'field'   => 'transient_purge',
+			'type'    => 'button',
+			'title'   => _x( 'Transient', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'desc'    => _x( 'Purge Expired Transient Data', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'default' => _x( 'Purge Expired', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'values'  => $confirm,
 		);
+
+		$settings['_transient'][] = array(
+			'field'   => 'transient_purge_all',
+			'type'    => 'button',
+			'desc'    => _x( 'Purge All Transient Data', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'default' => _x( 'Purge All', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'values'  => $confirm,
+		);
+
+		if ( is_main_site() ) {
+
+			$settings['_transient'][] = array(
+				'field'   => 'transient_purge_site',
+				'type'    => 'button',
+				'desc'    => _x( 'Purge Expired Network Transient Data', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+				'default' => _x( 'Purge Network Expired', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+				'values'  => $confirm,
+			);
+
+			$settings['_transient'][] = array(
+				'field'   => 'transient_purge_site_all',
+				'type'    => 'button',
+				'desc'    => _x( 'Purge All Network Transient Data', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+				'default' => _x( 'Purge All Network', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+				'values'  => $confirm,
+			);
+		}
+
+		$settings['_comments'][] = array(
+			'field'   => 'akismet_purge_meta',
+			'type'    => 'button',
+			'title'   => _x( 'Akismet', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'desc'    => _x( 'Removes akismet related meta from comments', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'default' => _x( 'Purge Metadata', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'values'  => $confirm,
+		);
+
+		$settings['_comments'][] = array(
+			'field'   => 'purge_comment_agent',
+			'type'    => 'button',
+			'title'   => _x( 'Comments', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'desc'    => _x( 'Removes user agent field of comments', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'default' => _x( 'Purge User Agents', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'values'  => $confirm,
+		);
+
+		$settings['_comments'][] = array(
+			'field'   => 'optimize_tables',
+			'type'    => 'button',
+			'title'   => _x( 'Comment Tables', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'desc'    => _x( 'Checks for orphaned comment metas and optimize tables', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'default' => _x( 'Orphaned & Optimize', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'values'  => $confirm,
+		);
+
+		$settings['_posts'][] = array(
+			'field'   => 'delete_post_editmeta',
+			'type'    => 'button',
+			'title'   => _x( 'Post Edit Meta', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'desc'    => _x( 'Removes posts last edit user and lock metas', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'default' => _x( 'Delete Last User & Lock', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'values'  => $confirm,
+		);
+
+		return $settings;
 	}
 
 	protected function settings_update( $sub )
@@ -81,7 +119,19 @@ class gNetworkCleanup extends gNetworkModuleCore
 
 			$this->check_referer( $sub );
 
-			if ( isset( $_POST['optimize_tables'] ) )
+			if ( isset( $_POST['transient_purge'] ) )
+				$message = $this->purge_transient_data( FALSE, TRUE ) ? 'purged' : 'error';
+
+			else if ( isset( $_POST['transient_purge_all'] ) )
+				$message = $this->purge_transient_data( FALSE, FALSE ) ? 'purged' : 'error';
+
+			else if ( isset( $_POST['transient_purge_site'] ) )
+				$message = $this->purge_transient_data( TRUE, TRUE ) ? 'purged' : 'error';
+
+			else if ( isset( $_POST['transient_purge_site_all'] ) )
+				$message = $this->purge_transient_data( TRUE, FALSE ) ? 'purged' : 'error';
+
+			else if ( isset( $_POST['optimize_tables'] ) )
 				$message = $this->optimize_tables() ? 'optimized' : 'error';
 
 			else if ( isset( $_POST['purge_comment_agent'] ) )
@@ -102,13 +152,11 @@ class gNetworkCleanup extends gNetworkModuleCore
 
 	public function plugins_loaded()
 	{
-		// added by: Search Everything
-		// http://wordpress.org/plugins/search-everything/
-		remove_action( 'wp_enqueue_scripts', 'se_enqueue_styles' );
+		// added by: Search Everything / http://wordpress.org/plugins/search-everything/
 		remove_action( 'wp_head', 'se_global_head' );
 	}
 
-	// http://www.paulund.co.uk/remove-jquery-migrate-file-wordpress
+	// @SOURCE: http://www.paulund.co.uk/remove-jquery-migrate-file-wordpress
 	public function wp_default_scripts( &$scripts )
 	{
 		if ( is_admin() )
@@ -142,7 +190,7 @@ class gNetworkCleanup extends gNetworkModuleCore
 		return array();
 	}
 
-	// http://justintadlock.com/archives/2011/06/13/removing-menu-pages-from-the-wordpress-admin
+	// @SOURCE: http://justintadlock.com/archives/2011/06/13/removing-menu-pages-from-the-wordpress-admin
 	public function admin_menu_late()
 	{
 		if ( ! self::cuc( 'update_plugins' ) ) {
@@ -161,8 +209,6 @@ class gNetworkCleanup extends gNetworkModuleCore
 			wp_dequeue_style( 'bruteprotect-css' ); // BruteProtect global css!!
 	}
 
-	// TODO : http://code.tutsplus.com/articles/quick-tip-customising-and-simplifying-the-wordpress-admin-for-your-clients--wp-28526
-	// https://gist.github.com/chrisguitarguy/1377965
 	public function wp_dashboard_setup()
 	{
 		$screen = get_current_screen();
@@ -190,6 +236,43 @@ class gNetworkCleanup extends gNetworkModuleCore
 
 		// Removes the "Other WordPress News" widget
 		remove_meta_box( 'dashboard_secondary', $screen, 'side' );
+	}
+
+	// https://core.trac.wordpress.org/ticket/20316
+	// http://wordpress.stackexchange.com/a/6652
+	private function purge_transient_data( $site = FALSE, $time = FALSE )
+	{
+		global $wpdb, $_wp_using_ext_object_cache;
+
+		if ( $_wp_using_ext_object_cache )
+			return FALSE;
+
+		if ( $site ) {
+            $table = $wpdb->sitemeta;
+            $key   = 'meta_key';
+            $val   = 'meta_value';
+            $like  = '%_site_transient_timeout_%';
+		} else {
+            $table = $wpdb->options;
+            $key   = 'option_name';
+            $val   = 'option_value';
+            $like  = '%_transient_timeout_%';
+		}
+
+		$query = "SELECT {$key} FROM {$table} WHERE {$key} LIKE '{$like}'";
+
+		if ( $time ) {
+			$timestamp = isset( $_SERVER['REQUEST_TIME'] ) ? intval( $_SERVER['REQUEST_TIME'] ) : time();
+			$query .= " AND {$val} < {$timestamp};";
+		}
+
+		foreach ( $wpdb->get_col( $query ) as $transient )
+			if ( $site )
+				delete_site_transient( str_replace( '_site_transient_timeout_', '', $transient ) );
+			else
+				delete_transient( str_replace( '_transient_timeout_', '', $transient ) );
+
+		return TRUE;
 	}
 
 	// @SEE: http://www.catswhocode.com/blog/10-useful-sql-queries-to-clean-up-your-wordpress-database
