@@ -30,6 +30,7 @@ $gnetwork_constants = array(
 	'GNETWORK_BODY_CLASS'            => FALSE, // network html body class / FALSE to disable
 	'GNETWORK_DISABLE_BBQ'           => FALSE,
 	'GNETWORK_DISABLE_RECAPTCHA'     => FALSE,
+	'GNETWORK_DISABLE_EMOJIS'        => TRUE,
 	'GNETWORK_DISABLE_CREDITS'       => FALSE,
 	'GNETWORK_HIDDEN_FEATURES'       => FALSE,
 

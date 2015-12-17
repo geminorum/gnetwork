@@ -14,7 +14,10 @@ class gNetworkCleanup extends gNetworkModuleCore
 		);
 
 		add_action( 'plugins_loaded' , array( $this, 'plugins_loaded' ), 10 );
-		add_action( 'init' , array( $this, 'init' ), 12 );
+
+		if ( GNETWORK_DISABLE_EMOJIS )
+			add_action( 'init' , array( $this, 'init' ), 12 );
+
 		add_action( 'wp_default_scripts', array( $this, 'wp_default_scripts' ), 9 );
 
 		add_action( 'admin_menu', array( $this, 'admin_menu_late' ), 999 );
@@ -117,9 +120,8 @@ class gNetworkCleanup extends gNetworkModuleCore
 		}
 	}
 
-	// TODO: add option and/or global constant
-	// from : Disable Emojis v1.5
-	// https://wordpress.org/plugins/disable-emojis/
+	// originally from: Disable Emojis v1.5.1
+	// @SOURCE: https://wordpress.org/plugins/disable-emojis/
 	public function init()
 	{
 		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
