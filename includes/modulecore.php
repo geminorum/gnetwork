@@ -179,13 +179,16 @@ class gNetworkModuleCore extends gNetworkBaseCore
 		$menu = $this->menu_key ? $this->menu_key : $this->option_key;
 
 		if ( $menu && $menu == $sub ) {
+			$this->settings_actions( $sub );
 			$this->settings_update( $sub );
 			add_action( 'gnetwork_'.( $this->is_network() ? 'network' : 'admin' ).'_settings_sub_'.$sub, array( $this, 'settings_html' ), 10, 2 );
 			$this->register_settings();
+			$this->register_settings_buttons();
 			$this->register_settings_help();
 		}
 	}
 
+	protected function settings_actions( $sub = NULL ) {}
 	public function settings_help() {}
 
 	// DEFAULT METHOD: setting sub html
@@ -379,10 +382,14 @@ class gNetworkModuleCore extends gNetworkBaseCore
 			}
 		}
 
-		$this->default_buttons();
-
 		// register settings on the settings page only
 		add_action( 'admin_print_footer_scripts', array( $this, 'print_scripts' ), 99 );
+	}
+
+	protected function register_settings_buttons()
+	{
+		if ( count( $this->default_settings() ) )
+			$this->default_buttons();
 	}
 
 	public function add_settings_field( $atts )
