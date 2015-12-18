@@ -1054,14 +1054,16 @@ class gNetworkModuleCore extends gNetworkBaseCore
 	public static function settingsMessages()
 	{
 		return array(
-			'resetting' => self::updated( _x( 'Settings reset.', 'Moduel Core', GNETWORK_TEXTDOMAIN ) ),
-			'optimized' => self::updated( _x( 'Tables optimized.', 'Moduel Core', GNETWORK_TEXTDOMAIN ) ),
-			'updated'   => self::updated( _x( 'Settings updated.', 'Moduel Core', GNETWORK_TEXTDOMAIN ) ),
-			'created'   => self::updated( _x( 'File/Folder created.', 'Moduel Core', GNETWORK_TEXTDOMAIN ) ),
-			'deleted'   => self::counted( _x( '%s deleted!', 'Moduel Core', GNETWORK_TEXTDOMAIN ) ),
-			'purged'    => self::updated( _x( 'Data purged.', 'Moduel Core', GNETWORK_TEXTDOMAIN ) ),
-			'error'     => self::error( _x( 'Error while settings save.', 'Moduel Core', GNETWORK_TEXTDOMAIN ) ),
-			'wrong'     => self::error( _x( 'Something\'s wrong!', 'Moduel Core', GNETWORK_TEXTDOMAIN ) ),
+			'resetting' => self::updated( _x( 'Settings reset.', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN ) ),
+			'optimized' => self::updated( _x( 'Tables optimized.', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN ) ),
+			'updated'   => self::updated( _x( 'Settings updated.', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN ) ),
+			'created'   => self::updated( _x( 'File/Folder created.', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN ) ),
+			'deleted'   => self::counted( _x( '%s deleted!', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN ) ),
+			'purged'    => self::updated( _x( 'Data purged.', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN ) ),
+			'changed'   => self::counted( _x( '%s Items(s) Changed', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN ) ),
+			'nochange'  => self::error( _x( 'No Item Changed', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN ) ),
+			'error'     => self::error( _x( 'Error while settings save.', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN ) ),
+			'wrong'     => self::error( _x( 'Something\'s wrong!', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN ) ),
 		);
 	}
 
