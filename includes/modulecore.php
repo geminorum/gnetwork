@@ -7,15 +7,15 @@ class gNetworkModuleCore extends gNetworkBaseCore
 	public $buttons = array();
 	public $scripts = array();
 
-    protected $option_base = 'gnetwork';
-    protected $option_key  = FALSE;
-    protected $menu_key    = FALSE;
-    protected $network     = TRUE;       // using network wide options
-    protected $front_end   = TRUE;       // load module on front end?
-    protected $ajax        = FALSE;      // load if ajax
-    protected $cron        = FALSE;      // load if cron
-    protected $dev         = NULL;       // load if dev
-    protected $hidden      = FALSE;      // load if hidden
+	protected $option_base = 'gnetwork';
+	protected $option_key  = FALSE;
+	protected $menu_key    = FALSE;
+	protected $network     = TRUE;       // using network wide options
+	protected $front_end   = TRUE;       // load module on front end?
+	protected $ajax        = FALSE;      // load if ajax
+	protected $cron        = FALSE;      // load if cron
+	protected $dev         = NULL;       // load if dev
+	protected $hidden      = FALSE;      // load if hidden
 
 	public function __construct()
 	{
@@ -415,8 +415,8 @@ class gNetworkModuleCore extends gNetworkBaseCore
 				$args['title'] = __( 'Debug', GNETWORK_TEXTDOMAIN );
 		}
 
-		if ( empty( $args['title'] ) )
-			$args['title'] = $args['field'];
+		// if ( empty( $args['title'] ) )
+		// 	$args['title'] = $args['field'];
 
 		add_settings_field(
 			$args['field'],

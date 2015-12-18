@@ -690,7 +690,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		$this->ref_ids[$key] = $html;
 
 		$html = self::html( 'a', array(
-			'class'       => 'cite-scroll',
+			'class'       => 'cite-scroll', // FIXME: add default styles
 			'data-toggle' => 'tooltip',
 			'href'        => '#citenote-'.$key,
 			'title'       => trim( strip_tags( apply_filters( 'string_format_i18n', $content ) ) ),
@@ -702,7 +702,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 	// TODO: add column : http://en.wikipedia.org/wiki/Help:Footnotes#Reference_lists:_columns
 	public function shortcode_reflist( $atts, $content = NULL, $tag = '' )
 	{
-		if ( $this->ref_list || is_feed() )
+		if ( $this->ref_list || is_feed() ) // FIXME: add notice in feed to read ref on the blog
 			return NULL;
 
 		if ( ! is_singular() || ! count( $this->ref_ids ) )

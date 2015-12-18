@@ -177,6 +177,46 @@ class gNetworkDebug extends gNetworkModuleCore
 		self::tableCode( $upload_dir );
 	}
 
+	// FIXME: DRAFT
+	public static function getServer()
+	{
+		return array(
+			array(
+				'name'  => 'server',
+				'title' => _x( 'Server', 'Debug Module: Server Vars Group', GNETWORK_TEXTDOMAIN ),
+				'keys'  => array(
+					'SERVER_SOFTWARE'  => _x( 'Software', 'Debug Module: Server Vars', GNETWORK_TEXTDOMAIN ),
+					'SERVER_NAME'      => _x( 'Name', 'Debug Module: Server Vars', GNETWORK_TEXTDOMAIN ),
+					'SERVER_ADMIN'     => _x( 'Admin', 'Debug Module: Server Vars', GNETWORK_TEXTDOMAIN ),
+					'SERVER_PROTOCOL'  => _x( 'Protocol', 'Debug Module: Server Vars', GNETWORK_TEXTDOMAIN ),
+					'SERVER_PORT'      => _x( 'Port', 'Debug Module: Server Vars', GNETWORK_TEXTDOMAIN ),
+					'SERVER_SIGNATURE' => _x( 'Signature', 'Debug Module: Server Vars', GNETWORK_TEXTDOMAIN ),
+					'SERVER_ADDR'      => _x( 'Address', 'Debug Module: Server Vars', GNETWORK_TEXTDOMAIN ),
+				),
+			),
+			array(
+				'name'  => 'request',
+				'title' => _x( 'Request', 'Debug Module: Server Vars Group', GNETWORK_TEXTDOMAIN ),
+				'keys'  => array(
+					'REQUEST_TIME'       => _x( 'Time', 'Debug Module: Server Vars', GNETWORK_TEXTDOMAIN ),
+					'REQUEST_TIME_FLOAT' => _x( 'Time (Float)', 'Debug Module: Server Vars', GNETWORK_TEXTDOMAIN ),
+					'REQUEST_METHOD'     => _x( 'Method', 'Debug Module: Server Vars', GNETWORK_TEXTDOMAIN ),
+					'REQUEST_URI'        => _x( 'URI', 'Debug Module: Server Vars', GNETWORK_TEXTDOMAIN ),
+				),
+			),
+			array(
+				'name'  => 'script',
+				'title' => _x( 'Script', 'Debug Module: Server Vars Group', GNETWORK_TEXTDOMAIN ),
+				'keys'  => array(
+					'SCRIPT_NAME'     => _x( 'Name', 'Debug Module: Server Vars', GNETWORK_TEXTDOMAIN ),
+					'SCRIPT_FILENAME' => _x( 'Filename', 'Debug Module: Server Vars', GNETWORK_TEXTDOMAIN ),
+					'SCRIPT_URL'      => _x( 'URL', 'Debug Module: Server Vars', GNETWORK_TEXTDOMAIN ),
+					'SCRIPT_URI'      => _x( 'URI', 'Debug Module: Server Vars', GNETWORK_TEXTDOMAIN ),
+				),
+			),
+		);
+	}
+
 	// FIXME: it's not good
 	public static function dumpServer()
 	{
@@ -192,8 +232,8 @@ class gNetworkDebug extends gNetworkModuleCore
 			$server['SERVER_SIGNATURE'] = strip_tags( $server['SERVER_SIGNATURE'] );
 
 		// FIXME: use self::getDateDefaultFormat()
-		$server['REQUEST_TIME_FLOAT'] = date( 'l, j F, Y - H:i:s T', $server['REQUEST_TIME_FLOAT']  ).' ('.$server['REQUEST_TIME_FLOAT'] .')';
-		$server['REQUEST_TIME']       = date( 'l, j F, Y - H:i:s T', $server['REQUEST_TIME']  ).' ('.$server['REQUEST_TIME'] .')';
+		$server['REQUEST_TIME_FLOAT'] = date( 'l, j F, Y - H:i:s T', $server['REQUEST_TIME_FLOAT'] ).' ('.$server['REQUEST_TIME_FLOAT'] .')';
+		$server['REQUEST_TIME']       = date( 'l, j F, Y - H:i:s T', $server['REQUEST_TIME'] ).' ('.$server['REQUEST_TIME'] .')';
 
 		self::tableCode( $server );
 	}

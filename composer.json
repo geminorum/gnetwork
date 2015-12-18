@@ -23,12 +23,13 @@
 	},
 	"require": {
 		"php": ">=5.3",
-		"erusev/parsedown-extra": "^0.7.0",
+		"erusev/parsedown-extra": "^0.7.0"
 	},
 	"require-dev": {
 		"raveren/kint": "^1.0",
 		"mustache/mustache": "^2.5",
-		"phelium/mysql-backup": "dev-master"
+		"phelium/mysql-backup": "dev-master",
+		"picqer/php-barcode-generator": "^0.1.0"
 	},
 	"config": {
 		"vendor-dir": "assets/vendor",
