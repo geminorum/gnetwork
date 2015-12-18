@@ -3,14 +3,14 @@
 class gNetworkDebug extends gNetworkModuleCore
 {
 
-	protected $option_key = FALSE;
-	protected $network    = FALSE;
+	protected $menu_key = 'debug';
+	protected $network  = TRUE;
 
 	protected function setup_actions()
 	{
-		gNetworkAdmin::registerMenu( 'debug',
-			__( 'Debug', GNETWORK_TEXTDOMAIN ),
-			array( $this, 'settings' ), 'delete_others_posts'
+		gNetworkNetwork::registerMenu( 'debug',
+			_x( 'Debug Logs', 'Debug Module: Menu Name', GNETWORK_TEXTDOMAIN ),
+			array( $this, 'settings' )
 		);
 
 		add_action( 'debug_bar_panels', function( $panels ) {
@@ -41,25 +41,67 @@ class gNetworkDebug extends gNetworkModuleCore
 		}
 	}
 
-	public function settings( $sub = NULL )
+	protected function settings_actions( $sub = NULL )
 	{
-		if ( 'debug' == $sub ) {
+		if ( isset( $_POST['clear_error_log'] ) ) {
+			$this->check_referer( $sub );
+			self::redirect_referer( ( unlink( GNETWORK_DEBUG_LOG ) ? 'purged' : 'error' ) );
+		}
+	}
 
-			if ( isset( $_POST['purge_transient'] )
-				|| isset( $_POST['purge_transient_all'] ) ) {
+	public function settings_html( $uri, $sub = 'general' )
+	{
+		echo '<form class="gnetwork-form" method="post" action="">';
 
-					$this->check_referer( $sub );
-					$this->purge_transient_data( FALSE, isset( $_POST['purge_transient'] ) );
-					self::redirect_referer( 'transientpurged' );
+			$this->settings_fields( $sub, 'bulk' );
+
+			// TODO: add limit input
+
+			self::displayErrorLogs();
+
+			$this->settings_buttons( $sub );
+
+		echo '</form>';
+	}
+
+	protected function register_settings_buttons()
+	{
+		$this->register_button( 'clear_error_log', _x( 'Clear Log', 'Debug Module', GNETWORK_TEXTDOMAIN ), array( 'default' => 'default' ), 'primary' );
+	}
+
+	private static function displayErrorLogs( $limit = 100, $length = 300 )
+	{
+		if ( file_exists( GNETWORK_DEBUG_LOG ) ) {
+
+			if ( $errors = self::fileGetLastLines( GNETWORK_DEBUG_LOG, $limit ) ) {
+
+				echo self::html( 'h3', sprintf( _x( 'The Last %s Errors, in Reverse Order', 'Debug Module: Error Box', GNETWORK_TEXTDOMAIN ), number_format_i18n( count( $errors ) ) ) );
+				echo '<div class="error-box"><ol>';
+
+				foreach ( $errors as $error ) {
+
+					if ( ! trim( $error ) )
+						continue;
+
+					echo '<li>';
+
+					$line = preg_replace_callback( '/\[([^\]]+)\]/', function( $matches ){
+						return '<b><span title="'.human_time_diff( strtotime( $matches[1] ) ).'">['.$matches[1].']</span></b>';
+					}, trim ( $error ), 1 );
+
+					echo strlen( $line ) > $length ? substr( $line, 0, $length ).' [&hellip;]' : $line;
+
+					echo '</li>';
+				}
+
+				echo '</ol></div><p>'.sprintf( _x( 'File Size: %s', 'Debug Module: Error Box', GNETWORK_TEXTDOMAIN ), self::fileGetSize( GNETWORK_DEBUG_LOG ) ).'</p>';
+
 			} else {
-				// $this->settings_update( $sub );
+				echo '<p>'._x( 'No errors currently logged.', 'Debug Module: Error Box', GNETWORK_TEXTDOMAIN ).'</p>';
 			}
 
-			// $this->register_settings();
-			$this->register_button( 'purge_transient', __( 'Purge Expired Transient Data', GNETWORK_TEXTDOMAIN ) );
-			$this->register_button( 'purge_transient_all', __( 'Purge All Transient Data', GNETWORK_TEXTDOMAIN ) );
-
-			add_action( 'gnetwork_admin_settings_sub_debug', array( $this, 'settings_html' ), 10, 2 );
+		} else {
+			echo '<p>'._x( 'There was a problem reading the error log file.', 'Debug Module: Error Box', GNETWORK_TEXTDOMAIN ).'</p>';
 		}
 	}
 
@@ -204,42 +246,6 @@ class gNetworkDebug extends gNetworkModuleCore
 		}
 
 		return $errors;
-	}
-
-	// https://core.trac.wordpress.org/ticket/20316
-	// http://wordpress.stackexchange.com/a/6652
-	private function purge_transient_data( $site = FALSE, $time = FALSE )
-	{
-		global $wpdb, $_wp_using_ext_object_cache;
-
-		if ( $_wp_using_ext_object_cache )
-			return;
-
-		if ( $site ) {
-			$table = $wpdb->sitemeta;
-			$key = 'meta_key';
-			$val = 'meta_value';
-		} else {
-			$table = $wpdb->options;
-			$key = 'option_name';
-			$val = 'option_value';
-		}
-
-		if ( $time ) {
-			$timestamp = isset ( $_SERVER['REQUEST_TIME'] ) ? intval( $_SERVER['REQUEST_TIME'] ) : time();
-			$query = "SELECT {$key} FROM {$table} WHERE {$key} LIKE '_transient_timeout%' AND {$val} < {$timestamp};";
-		} else {
-			$query = "SELECT {$key} FROM {$table} WHERE {$key} LIKE '_transient_timeout%'";
-		}
-
-		foreach ( $wpdb->get_col( $query ) as $transient ) {
-			$name = str_replace( '_transient_timeout_', '', $transient );
-			if ( $site ) {
-				delete_site_transient( $name );
-			} else {
-				delete_transient( $name );
-			}
-		}
 	}
 
 	// DRAFT
