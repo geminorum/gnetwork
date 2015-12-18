@@ -230,7 +230,10 @@ class gNetworkAdminBar extends gNetworkModuleCore
 			'parent' => $group_id,
 			'id'     => 'gnetwork-info-pagenow',
 			'title'  => 'PageNow: '.( empty( $pagenow ) ? 'EMPTY' : $pagenow ),
-			// 'href'   => gNetworkAdmin::settingsURL(), // FIXME
+			'href'   => add_query_arg( 'sub', 'debug', gNetworkNetwork::settingsURL() ),
+			'meta'   => array(
+				'title' => _x( 'Click to see Debug Logs', 'AdminBar Module', GNETWORK_TEXTDOMAIN ),
+			),
 		) );
 
 		$wp_admin_bar->add_node( array(
@@ -242,8 +245,6 @@ class gNetworkAdminBar extends gNetworkModuleCore
 				'title' => _x( 'Queries | Timer Stop | Memory Usage', 'AdminBar Module', GNETWORK_TEXTDOMAIN ),
 			),
 		) );
-
-		// TODO: add debug.log file size notice as notification and link to log_viewer
 	}
 
 	private function add_nodes_network( & $wp_admin_bar )

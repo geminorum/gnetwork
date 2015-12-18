@@ -34,6 +34,7 @@ $gnetwork_constants = array(
 	'GNETWORK_DISABLE_CREDITS'       => FALSE,
 	'GNETWORK_HIDDEN_FEATURES'       => FALSE,
 
+	'GNETWORK_DEBUG_LOG'             => WP_CONTENT_DIR.'/debug.log',
 	'GNETWORK_MAIL_LOG_DIR'          => WP_CONTENT_DIR.'/emaillogs',
 
 	// 'GNETWORK_DISABLE_JQUERY_MIGRATE' => TRUE,  // cannot set this early!
