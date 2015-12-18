@@ -57,9 +57,8 @@ class gNetworkDebug extends gNetworkModuleCore
 
 			// TODO: add limit input
 
-			self::displayErrorLogs();
-
-			$this->settings_buttons( $sub );
+			if ( self::displayErrorLogs() )
+				$this->settings_buttons( $sub );
 
 		echo '</form>';
 	}
@@ -102,7 +101,10 @@ class gNetworkDebug extends gNetworkModuleCore
 
 		} else {
 			echo '<p>'._x( 'There was a problem reading the error log file.', 'Debug Module: Error Box', GNETWORK_TEXTDOMAIN ).'</p>';
+			return FALSE;
 		}
+
+		return TRUE;
 	}
 
 	public static function versions()
