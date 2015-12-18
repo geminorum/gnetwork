@@ -18,28 +18,27 @@ class gNetworkUsers extends gNetworkModuleCore
 			add_filter( 'wp_insert_post_data', array( $this, 'wp_insert_post_data' ), 9, 2 );
 	}
 
-	public function settings( $sub = NULL )
+	protected function settings_actions( $sub = NULL )
 	{
-		if ( 'users' == $sub ) {
+		if ( isset( $_POST['bulk_change_author'] ) ) {
 
-			if ( isset( $_POST['bulk_change_author'] ) ) {
+			$this->check_referer( $sub );
 
-				$this->check_referer( $sub );
+			$from_user_id = isset( $_POST['from_user_id'] ) ? intval( $_POST['from_user_id'] ) : FALSE;
+			$to_user_id   = isset( $_POST['to_user_id'] ) ? intval( $_POST['to_user_id'] ) : self::getSiteUserID( TRUE );
+			$on_post_type = isset( $_POST['on_post_type'] ) ? $_POST['on_post_type'] : 'post';
 
-				$from_user_id = isset( $_POST['from_user_id'] ) ? intval( $_POST['from_user_id'] ) : FALSE;
-				$to_user_id   = isset( $_POST['to_user_id'] ) ? intval( $_POST['to_user_id'] ) : self::getSiteUserID( TRUE );
-				$on_post_type = isset( $_POST['on_post_type'] ) ? $_POST['on_post_type'] : 'post';
+			if ( $from_user_id && $to_user_id && ( $from_user_id != $to_user_id ) ) {
 
-				if ( $from_user_id && $to_user_id && ( $from_user_id != $to_user_id ) )
-					$this->bulk_change_author( $from_user_id, $to_user_id, $on_post_type );
+				if ( $count = $this->bulk_change_author( $from_user_id, $to_user_id, $on_post_type ) )
+					self::redirect_referer( array(
+						'message' => 'changed',
+						'count'   => $count,
+					) );
 
-			} else {
-				$this->settings_update( $sub );
+				else
+					self::redirect_referer( 'nochange' );
 			}
-
-			add_action( 'gnetwork_admin_settings_sub_users', array( $this, 'settings_html' ), 10, 2 );
-			add_filter( 'gnetwork_admin_settings_messages', array( $this, 'settings_messages' ), 10, 2 );
-			$this->register_settings();
 		}
 	}
 
@@ -120,25 +119,9 @@ class gNetworkUsers extends gNetworkModuleCore
 		if ( ! $user || ! $user->exists() )
 			return FALSE;
 
-		$count = $wpdb->query( $wpdb->prepare( "
+		return $wpdb->query( $wpdb->prepare( "
 			UPDATE $wpdb->posts SET post_author = %s WHERE post_author = %s AND post_type = %s
 		", $user->ID, $from_user_id, $on_post_type ) );
-
-		if ( $count )
-			self::redirect_referer( array(
-				'message' => 'changed',
-				'count'   => $count,
-			) );
-		else
-			self::redirect_referer( 'nochange' );
-	}
-
-	public function settings_messages( $messages, $sub )
-	{
-		$messages['changed']  = self::counted( _x( '%s Post(s) Changed', 'Users Module: Settings Message', GNETWORK_TEXTDOMAIN ) );
-		$messages['nochange'] = self::error( _x( 'No Post Changed', 'Users Module: Settings Message', GNETWORK_TEXTDOMAIN ) );
-
-		return $messages;
 	}
 
 	public function wp_insert_post_data( $data, $postarr )
