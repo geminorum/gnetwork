@@ -3,7 +3,7 @@
 class gNetworkCron extends gNetworkModuleCore
 {
 
-	protected $option_key = FALSE;
+	protected $menu_key   = 'cron';
 	protected $network    = FALSE;
 	protected $front_end  = FALSE;
 
@@ -15,21 +15,7 @@ class gNetworkCron extends gNetworkModuleCore
 		);
 	}
 
-	public function settings( $sub = NULL )
-	{
-		if ( 'cron' == $sub ) {
-			$this->settings_update( $sub );
-
-			add_action( 'gnetwork_admin_settings_messages', array( $this, 'settings_messages' ), 10, 2 );
-			add_action( 'gnetwork_admin_settings_sub_cron', array( $this, 'settings_html' ), 10, 2 );
-
-			$this->register_button( 'unschedule', _x( 'Unschedule', 'Cron Module', GNETWORK_TEXTDOMAIN ), array( 'default' => 'default' ), 'primary' );
-
-			// $this->register_settings_help(); // TODO: add context help info
-		}
-	}
-
-	protected function settings_update( $sub )
+	protected function settings_actions( $sub = NULL )
 	{
 		if ( ! empty( $_POST ) && 'bulk' == $_POST['action'] ) {
 
@@ -49,7 +35,7 @@ class gNetworkCron extends gNetworkModuleCore
 			}
 
 			self::redirect_referer( array(
-				'message' => 'unscheduled',
+				'message' => 'deleted',
 				'count'   => $count,
 			) );
 		}
@@ -70,12 +56,6 @@ class gNetworkCron extends gNetworkModuleCore
 		return FALSE;
 	}
 
-	public function settings_messages( $messages, $sub )
-	{
-		$messages['unscheduled'] = self::counted( _x( '%s Events Unscheduled!', 'Cron Module', GNETWORK_TEXTDOMAIN ) );
-		return $messages;
-	}
-
 	public function settings_html( $uri, $sub = 'general' )
 	{
 		echo '<form class="gnetwork-form" method="post" action="">';
@@ -93,6 +73,11 @@ class gNetworkCron extends gNetworkModuleCore
 				$this->settings_buttons( $sub );
 
 		echo '</form>';
+	}
+
+	protected function register_settings_buttons()
+	{
+		$this->register_button( 'unschedule', _x( 'Unschedule', 'Cron Module', GNETWORK_TEXTDOMAIN ), array( 'default' => 'default' ), 'primary' );
 	}
 
 	// HELPER
