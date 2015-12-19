@@ -1,3 +1,11 @@
+### 0.2.29
+* all: using exception for module constructors
+* taxonomy: term management tools updated
+* shortcodes: `[qrcode]` using [Google Chart Tools](https://developers.google.com/chart/infographics/docs/qr_codes)
+* cleanup: purge transient moved and working!
+* cleanup: `GNETWORK_DISABLE_EMOJIS` for overriding, default is true
+* debug: display error logs
+
 ### 0.2.28
 * refactoring main classes
 * basecore: table helper from gEditorial
