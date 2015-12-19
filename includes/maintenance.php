@@ -52,7 +52,7 @@ class gNetworkMaintenance extends gNetworkModuleCore
 					'type'   => 'custom',
 					'title'  => _x( 'Current Template', 'Maintenance Module', GNETWORK_TEXTDOMAIN ),
 					'values' => ( $template ? '<p class="description code"><code>'.$template.'</code></p>' :
-						_x( 'There are no templates available. We will use an internal instead.', 'Maintenance Module', GNETWORK_TEXTDOMAIN ) ),
+						'<p class="description">'._x( 'There are no templates available. We will use an internal instead.', 'Maintenance Module', GNETWORK_TEXTDOMAIN ).'</p>' ),
 				),
 				array(
 					'field'   => 'maintenance_site',

@@ -135,6 +135,8 @@ class gNetworkDebug extends gNetworkModuleCore
 			$info = gPlugin::get_info();
 			self::tableCode( $info[1] );
 			self::tableSide( $info[0] );
+		} else {
+			echo '<p class="description">'._x( 'No Instance of gPlugin found.', 'Debug Module', GNETWORK_TEXTDOMAIN ).'</p>';
 		}
 	}
 
