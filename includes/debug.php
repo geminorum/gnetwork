@@ -72,6 +72,9 @@ class gNetworkDebug extends gNetworkModuleCore
 	{
 		if ( file_exists( GNETWORK_DEBUG_LOG ) ) {
 
+			if ( ! $file_size = self::fileGetSize( GNETWORK_DEBUG_LOG ) )
+				return FALSE;
+
 			if ( $errors = self::fileGetLastLines( GNETWORK_DEBUG_LOG, $limit ) ) {
 
 				echo self::html( 'h3', sprintf( _x( 'The Last %s Errors, in Reverse Order', 'Debug Module: Error Box', GNETWORK_TEXTDOMAIN ), number_format_i18n( count( $errors ) ) ) );
@@ -93,7 +96,7 @@ class gNetworkDebug extends gNetworkModuleCore
 					echo '</li>';
 				}
 
-				echo '</ol></div><p>'.sprintf( _x( 'File Size: %s', 'Debug Module: Error Box', GNETWORK_TEXTDOMAIN ), self::fileGetSize( GNETWORK_DEBUG_LOG ) ).'</p>';
+				echo '</ol></div><p>'.sprintf( _x( 'File Size: %s', 'Debug Module: Error Box', GNETWORK_TEXTDOMAIN ), $file_size ).'</p>';
 
 			} else {
 				echo '<p>'._x( 'No errors currently logged.', 'Debug Module: Error Box', GNETWORK_TEXTDOMAIN ).'</p>';
