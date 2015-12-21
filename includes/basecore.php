@@ -1033,14 +1033,16 @@ class gNetworkBaseCore
 		return FALSE;
 	}
 
-	public static function getSearchLink( $query = FALSE )
+	// FIXME: add to filter: 'search_link' / DEPRICATE THIS
+	public static function getSearchLink( $query = '', $url = FALSE, $query_id = GNETWORK_SEARCH_QUERYID )
 	{
-		// FIXME: add to filter: 'search_link' / on search module
-		if ( GNETWORK_SEARCH_REDIRECT )
-			return $query ? add_query_arg( GNETWORK_SEARCH_QUERYID, urlencode( $query ), GNETWORK_SEARCH_URL ) : GNETWORK_SEARCH_URL;
+		if ( $url )
+			return $query ? add_query_arg( $query_id, urlencode( $query ), $url ) : $url;
 
-		// FIXME: use get_search_link()
-		return $query ? add_query_arg( 's', urlencode( $query ), get_option( 'home' ) ) : get_option( 'home' );
+		if ( GNETWORK_SEARCH_REDIRECT )
+			return $query ? add_query_arg( $query_id, urlencode( $query ), GNETWORK_SEARCH_URL ) : GNETWORK_SEARCH_URL;
+
+		return get_search_link( $query );
 	}
 
 	// FIXME: add general options for on a network panel

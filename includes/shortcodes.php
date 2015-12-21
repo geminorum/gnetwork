@@ -66,6 +66,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			'ref-m'        => 'shortcode_ref_manual',
 			'reflist-m'    => 'shortcode_reflist_manual',
 			'qrcode'       => 'shortcode_qrcode',
+			'search'       => 'shortcode_search',
 		) );
 
 		if ( ! defined( 'GNETWORK_DISABLE_REFLIST_INSERT' ) || ! GNETWORK_DISABLE_REFLIST_INSERT )
@@ -350,6 +351,28 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			return self::getGoogleQRCode( trim( $content ), $atts );
 
 		return $content;
+	}
+
+	public function shortcode_search( $atts, $content = NULL, $tag = '' )
+	{
+		$args = shortcode_atts( array(
+            'url'     => FALSE,
+            'context' => NULL,
+            'wrap'    => TRUE,
+		), $atts, $tag );
+
+		if ( FALSE === $args['context'] )
+			return NULL;
+
+		if ( ! $content )
+			return $content;
+
+		$html = self::getSearchLink( $content, $args['url'] );
+
+		if ( $args['wrap'] )
+			return '<span class="gnetwork-wrap-shortcode shortcode-search">'.$html.'</span>';
+
+		return $html;
 	}
 
 	// TODO: rewrite this
