@@ -357,6 +357,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 	{
 		$args = shortcode_atts( array(
             'url'     => FALSE,
+            'title'   => _x( 'Search for %s', 'ShortCode Module: search: link title attr', GNETWORK_TEXTDOMAIN ),
             'context' => NULL,
             'wrap'    => TRUE,
 		), $atts, $tag );
@@ -367,7 +368,12 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		if ( ! $content )
 			return $content;
 
-		$html = self::getSearchLink( $content, $args['url'] );
+		$html = trim( strip_tags( $content ) );
+
+		$html = self::html( 'a', array(
+            'href'  => self::getSearchLink( $html, $args['url'] ),
+            'title' => sprintf( $args['title'], $html ),
+		), $html );
 
 		if ( $args['wrap'] )
 			return '<span class="gnetwork-wrap-shortcode shortcode-search">'.$html.'</span>';
