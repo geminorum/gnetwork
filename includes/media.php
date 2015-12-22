@@ -12,11 +12,17 @@ class gNetworkMedia extends gNetworkModuleCore
 	protected function setup_actions()
 	{
 		add_filter( 'upload_mimes', array( $this, 'upload_mimes' ) );
-		add_filter( 'single_post_title', array( $this, 'single_post_title' ), 9, 2 );
 
-		// based on: http://wordpress.org/plugins/media-item-url/
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), 10 );
-		add_filter( 'media_row_actions', array( $this, 'media_row_actions' ), 50, 3 );
+		if ( is_admin() ) {
+
+			// based on: http://wordpress.org/plugins/media-item-url/
+			add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), 10 );
+			add_filter( 'media_row_actions', array( $this, 'media_row_actions' ), 50, 3 );
+
+		} else {
+
+			add_filter( 'single_post_title', array( $this, 'single_post_title' ), 9, 2 );
+		}
 
 		if ( GNETWORK_MEDIA_DISABLE_META )
 			add_filter( 'wp_read_image_metadata', '__return_empty_array', 12, 3 );
