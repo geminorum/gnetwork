@@ -247,15 +247,8 @@ class gNetworkAdminBar extends gNetworkModuleCore
 		) );
 	}
 
-	private function add_nodes_network( & $wp_admin_bar )
+	private function add_nodes_network( &$wp_admin_bar )
 	{
-		$wp_admin_bar->add_menu( array(
-			'parent' => 'network-admin',
-			'id'     => 'settings',
-			'title'  => _x( 'Settings', 'AdminBar Module', GNETWORK_TEXTDOMAIN ),
-			'href'   => network_admin_url( 'settings.php' ),
-		) );
-
 		$wp_admin_bar->add_menu( array(
 			'parent' => 'network-admin',
 			'id'     => 'update-core',
