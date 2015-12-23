@@ -21,7 +21,8 @@ class gNetworkDev extends gNetworkModuleCore
 			add_action( 'contextual_help', array( $this, 'contextual_help' ), 10, 3 );
 
 		// add_filter( 'embed_oembed_html', array( $this, 'embed_oembed_html' ), 1,  4 );
-		// add_filter( 'get_avatar', array( $this, 'get_avatar' ), 1,  5 );
+		add_filter( 'pre_get_avatar', array( $this, 'pre_get_avatar' ), 99, 3 );
+		remove_filter( 'get_avatar', 'bp_core_fetch_avatar_filter', 10, 6 );
 
 		// add_action( 'template_redirect', array( $this, 'template_redirect' ) );
 		// add_filter( 'login_url', array( $this, 'login_url' ), 10, 2 );
@@ -41,10 +42,21 @@ class gNetworkDev extends gNetworkModuleCore
 	}
 
 	// replace all instances of gravatar with a local image file to remove the call to remote service.
-	public function get_avatar( $avatar, $id_or_email, $size, $default, $alt )
+	// it's faster than airplane-mode
+	public function pre_get_avatar( $null, $id_or_email, $args )
 	{
-		$image = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
-		return "<img alt='{$alt}' src='{$image}' class='avatar avatar-{$size} photo' height='{$size}' width='{$size}' style='background:#eee;' />";
+		return self::html( 'img', array(
+            'src'    => 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==',
+            'alt'    => $args['alt'],
+            'width'  => $args['size'],
+            'height' => $args['size'],
+            'style'  => 'background:#eee;',
+            'class'  => array(
+				'avatar',
+				'avatar-'.$args['size'],
+				'photo',
+			),
+		) );
 	}
 
 	// https://wordpress.org/plugins/stop-query-posts/
