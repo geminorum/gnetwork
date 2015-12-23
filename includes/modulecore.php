@@ -771,10 +771,12 @@ class gNetworkModuleCore extends gNetworkBaseCore
 
 					wp_enqueue_script( 'quicktags' );
 
-					if ( is_array( $args['field_class'] ) )
+					if ( is_array( $args['field_class'] ) ) {
 						$args['field_class'][] = 'textarea-quicktags';
-					else
-						$args['field_class'] .= ' textarea-quicktags';
+						$args['field_class'][] = 'code';
+					} else {
+						$args['field_class'] .= ' textarea-quicktags code';
+					}
 				}
 
 				echo self::html( 'textarea', array(
