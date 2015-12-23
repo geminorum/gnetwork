@@ -15,7 +15,7 @@ class gNetworkDev extends gNetworkModuleCore
 
 		add_action( 'pre_get_posts', array( $this, 'pre_get_posts' ), 99 );
 
-		register_shutdown_function( array( $this, 'shutdown' ) );
+		add_action( 'shutdown', array( $this, 'shutdown' ), 99 );
 
 		if ( is_admin() )
 			add_action( 'contextual_help', array( $this, 'contextual_help' ), 10, 3 );
@@ -69,12 +69,28 @@ class gNetworkDev extends gNetworkModuleCore
 	// FIXME: WORKING: BETTER
 	public function shutdown()
 	{
-		global $gNetwork, $gEditorial, $gPeopleNetwork, $gMemberNetwork;
+		global $gNetwork, $gPeopleNetwork, $gMemberNetwork;
 
-		$log = 'gNetwork:'.size_format( gNetworkUtilities::size( $gNetwork ) )
-			.' | gEditorial:'.size_format( gNetworkUtilities::size( $gEditorial ) )
-			.' | gPeople:'.size_format( gNetworkUtilities::size( $gPeopleNetwork ) )
-			.' | gMember:'.size_format( gNetworkUtilities::size( $gMemberNetwork ) );
+		$log = '';
+
+		$log .= is_admin() ? 'isAdmin|' : '';
+		$log .= is_network_admin() ? 'isNetworkAdmin|' : '';
+
+		$log .= self::isFlush() ? 'isFlush|' : '';
+		$log .= self::isCLI() ? 'isCLI|' : '';
+		$log .= self::isCRON() ? 'isCRON|' : '';
+		$log .= self::isAJAX() ? 'isAJAX|' : '';
+
+		$log .= 'gNetwork:'.self::size_format( self::size( $gNetwork ) ).'|';
+
+		if ( function_exists( 'gEditorial' ) )
+			$log .= 'gEditorial:'.self::size_format( self::size( gEditorial() ) ).'|';
+
+		$log .= 'gPeople:'.self::size_format( self::size( $gPeopleNetwork ) ).'|';
+		$log .= 'gMember:'.self::size_format( self::size( $gMemberNetwork ) ).'|';
+
+		if ( function_exists( 'gPersianDate' ) )
+			$log .= 'gPersianDate:'.self::size_format( self::size( gPersianDate() ) ).'|';
 
 		error_log( $log );
 	}
