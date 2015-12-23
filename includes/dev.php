@@ -38,7 +38,7 @@ class gNetworkDev extends gNetworkModuleCore
 	public function embed_oembed_html( $html, $url, $attr, $post_ID )
 	{
 		return sprintf( '<div class="loading-placeholder gnetwork-dev-placeholder"><p>%s</p></div>',
-			sprintf( __( 'Airplane Mode is enabled. oEmbed blocked for %1$s.', GNETWORK_TEXTDOMAIN ), esc_url( $url ) ) );
+			sprintf( _x( 'Airplane Mode is enabled. oEmbed blocked for %1$s.', 'Dev Module', GNETWORK_TEXTDOMAIN ), esc_url( $url ) ) );
 	}
 
 	// replace all instances of gravatar with a local image file to remove the call to remote service.
@@ -96,7 +96,7 @@ class gNetworkDev extends gNetworkModuleCore
 	}
 
 	// FIXME: WORKING: ADJUST IT
-	// http://code.tutsplus.com/articles/quick-tip-get-the-current-screens-hooks--wp-26891
+	// @SOURCE: http://code.tutsplus.com/articles/quick-tip-get-the-current-screens-hooks--wp-26891
 	public function contextual_help( $contextual_help, $screen_id, $screen )
 	{
 		global $hook_suffix;
@@ -134,7 +134,7 @@ class gNetworkDev extends gNetworkModuleCore
 
 		// Add help panel
 		$screen->add_help_tab( array(
-			'id'      => 'wptuts-screen-help',
+			'id'      => 'gnetwork-screen-help',
 			'title'   => 'Screen Information',
 			'content' => $help_content,
 		));
