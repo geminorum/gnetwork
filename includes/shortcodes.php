@@ -20,10 +20,12 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		add_action( 'init', array( $this, 'init_late' ), 12 );
 		add_action( 'wp_footer', array( $this, 'wp_footer' ), 20 );
 
-		add_action( 'gnetwork_tinymce_strings', array( $this, 'tinymce_strings' ) );
-		gNetworkAdmin::registerTinyMCE( 'gnetworkcite', 'assets/js/tinymce.cite.js' );
-		gNetworkAdmin::registerTinyMCE( 'gnetworkemail', 'assets/js/tinymce.email.js' );
-		gNetworkAdmin::registerTinyMCE( 'gnetworkgpeople', 'assets/js/tinymce.gpeople.js' );
+		if ( class_exists( 'gNetworkAdmin' ) ) {
+			add_action( 'gnetwork_tinymce_strings', array( $this, 'tinymce_strings' ) );
+			gNetworkAdmin::registerTinyMCE( 'gnetworkcite', 'assets/js/tinymce.cite.js' );
+			gNetworkAdmin::registerTinyMCE( 'gnetworkemail', 'assets/js/tinymce.email.js' );
+			gNetworkAdmin::registerTinyMCE( 'gnetworkgpeople', 'assets/js/tinymce.gpeople.js' );
+		}
 	}
 
 	public function plugins_loaded()

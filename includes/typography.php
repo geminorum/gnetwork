@@ -10,8 +10,10 @@ class gNetworkTypography extends gNetworkModuleCore
 	{
 		add_action( 'init', array( $this, 'init' ), 12 );
 
-		add_action( 'gnetwork_tinymce_strings', array( $this, 'tinymce_strings' ) );
-		gNetworkAdmin::registerTinyMCE( 'gnetworkasterisks', 'assets/js/tinymce.asterisks.js' );
+		if ( class_exists( 'gNetworkAdmin' ) ) {
+			add_action( 'gnetwork_tinymce_strings', array( $this, 'tinymce_strings' ) );
+			gNetworkAdmin::registerTinyMCE( 'gnetworkasterisks', 'assets/js/tinymce.asterisks.js' );
+		}
 	}
 
 	public function init()
