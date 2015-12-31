@@ -1,5 +1,5 @@
 (function() {
-	tinymce.create('tinymce.plugins.gnetworkgpeople', {
+	tinymce.create('tinymce.plugins.gNetworkgPeople', {
 
 		init : function(editor, url) {
 			editor.addButton('gnetworkgpeople', {
@@ -9,40 +9,36 @@
 
 				onclick : function() {
 					editor.windowManager.open( {
-						id: 'gnetwork-tinymce-window-gnetworkgpeople',
-						title: editor.getLang('gnetwork.gnetworkgpeople-title'),
-						body: [{
-							type: 'textbox',
-							name: 'name',
-							label: editor.getLang('gnetwork.gnetworkgpeople-name'),
+                        id:    'gnetwork-tinymce-window-gnetworkgpeople',
+                        title: editor.getLang('gnetwork.gnetworkgpeople-title'),
+                        body:  [{
+                            type:  'textbox',
+                            name:  'name',
+                            label: editor.getLang('gnetwork.gnetworkgpeople-name'),
 						}],
-						onsubmit: function( e ) {
+						onsubmit: function(e) {
 
 							var text = editor.selection.getContent(),
 								name = e.data.name;
 
-							if  ( ! (text != null && text != '') && ! (name != null && name != '' ) )
+							if (!(text != null && text != '') && !(name != null && name != ''))
 								return;
 
 							if (text != null && text != '') {
-									if (name != null && name != '' )
-									editor.insertContent( '[person name="'+name+'"]'+text+'[/person]' );
+								if (name != null && name != '')
+									editor.insertContent('[person name="'+name+'"]'+text+'[/person]');
 								else
-									editor.insertContent( '[person]'+text+'[/person]' );
+									editor.insertContent('[person]'+text+'[/person]');
 							} else {
-								if ( name != null && name != '' )
-									editor.insertContent( '[person name="'+name+'" /]' );
+								if (name != null && name != '')
+									editor.insertContent('[person name="'+name+'" /]');
 								else
-									editor.insertContent( '[person]' );
+									editor.insertContent('[person]');
 							}
 						}
 					});
 				}
 			});
-		},
-
-		createControl : function(n, cm) {
-			return null;
 		},
 
 		getInfo : function() {
@@ -56,5 +52,5 @@
 		}
 	});
 
-	tinymce.PluginManager.add('gnetworkgpeople', tinymce.plugins.gnetworkgpeople);
+	tinymce.PluginManager.add('gnetworkgpeople', tinymce.plugins.gNetworkgPeople);
 })();

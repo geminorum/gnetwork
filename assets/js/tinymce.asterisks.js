@@ -1,18 +1,15 @@
 (function() {
-	tinymce.create('tinymce.plugins.gnetworkasterisks', {
+	tinymce.create('tinymce.plugins.gNetworkAsterisks', {
 		init: function(editor, url) {
 			editor.addButton('gnetworkasterisks', {
-				title:   editor.getLang('gnetwork.gnetworkasterisks-title'),
-				icon:    'icon geditorial-tinymce-icon icon-gnetworkasterisks',
-				icon:  'icon gnetwork-tinymce-icon icon-gnetworkasterisks',
-				onclick: function() {
+                title:   editor.getLang('gnetwork.gnetworkasterisks-title'),
+                icon:    'icon gnetwork-tinymce-icon icon-gnetworkasterisks',
+                onclick: function() {
 					editor.selection.setContent('[three-asterisks]');
 				}
 			});
 		},
-		createControl: function(n, cm) {
-			return null;
-		},
+
 		getInfo: function() {
 			return {
 				longname:  "gNetwork Asterisks",
@@ -23,5 +20,5 @@
 			};
 		}
 	});
-	tinymce.PluginManager.add('gnetworkasterisks', tinymce.plugins.gnetworkasterisks);
+	tinymce.PluginManager.add('gnetworkasterisks', tinymce.plugins.gNetworkAsterisks);
 })();
