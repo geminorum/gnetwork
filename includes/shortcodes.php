@@ -24,6 +24,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			add_action( 'gnetwork_tinymce_strings', array( $this, 'tinymce_strings' ) );
 			gNetworkAdmin::registerTinyMCE( 'gnetworkcite', 'assets/js/tinymce.cite.js' );
 			gNetworkAdmin::registerTinyMCE( 'gnetworkemail', 'assets/js/tinymce.email.js' );
+			gNetworkAdmin::registerTinyMCE( 'gnetworksearch', 'assets/js/tinymce.search.js' );
 			gNetworkAdmin::registerTinyMCE( 'gnetworkgpeople', 'assets/js/tinymce.gpeople.js' );
 		}
 	}
@@ -32,6 +33,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 	{
 		if ( defined( 'GPEOPLE_PEOPLE_TAXONOMY' ) )
 			$this->people_tax = GPEOPLE_PEOPLE_TAXONOMY;
+
 		else if ( defined( 'GNETWORK_GPEOPLE_TAXONOMY' ) )
 			$this->people_tax = GNETWORK_GPEOPLE_TAXONOMY;
 	}
@@ -92,6 +94,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			'gnetworkcite-url'      => _x( 'URL', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
 			'gnetworkemail-title'   => _x( 'Email', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
 			'gnetworkemail-subject' => _x( 'Subject', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+			'gnetworksearch-title' => _x( 'Search', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
 			'gnetworkgpeople-title' => _x( 'People', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
 			'gnetworkgpeople-name'  => _x( 'Name', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
 		);
