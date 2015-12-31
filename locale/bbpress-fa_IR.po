@@ -4,15 +4,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bbPress 2.5.8\n"
 "Report-Msgid-Bugs-To: https://bbpress.trac.wordpress.org\n"
-"POT-Creation-Date: 2015-09-29 00:37+0330\n"
-"PO-Revision-Date: 2015-09-29 01:32+0330\n"
+"POT-Creation-Date: 2015-12-31 03:24+0330\n"
+"PO-Revision-Date: 2015-12-31 04:07+0330\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: geminorum <contact@geminorum.ir>\n"
 "Language: fa_IR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.4\n"
+"X-Generator: Poedit 1.8.6\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
@@ -130,34 +130,34 @@ msgstr "تالارها"
 #: includes/admin/admin.php:257 includes/admin/admin.php:258
 #: includes/admin/admin.php:266 includes/admin/admin.php:267
 msgid "Welcome to bbPress"
-msgstr ""
+msgstr "به بی‌بی‌پرس خوش‌آمدید"
 
 #: includes/admin/admin.php:280 includes/admin/admin.php:281
 #: includes/admin/admin.php:302 includes/admin/admin.php:303
 #: includes/admin/admin.php:1010 includes/admin/admin.php:1097
 msgid "Update Forums"
-msgstr ""
+msgstr "به‌روزرسانی تالارها"
 
 #: includes/admin/admin.php:510
 msgid "Settings"
-msgstr ""
+msgstr "تنظیمات"
 
 #: includes/admin/admin.php:515
 msgid "About"
-msgstr ""
+msgstr "درباره"
 
 #: includes/admin/admin.php:530
 msgid "Right Now in Forums"
-msgstr ""
+msgstr "تالارها در یک نگاه"
 
 #: includes/admin/admin.php:545
 msgid "About bbPress"
-msgstr ""
+msgstr "درباره بی‌بی‌پرس"
 
 #: includes/admin/admin.php:630
 msgctxt "admin color scheme"
 msgid "Mint"
-msgstr ""
+msgstr "نعنایی"
 
 #: includes/admin/admin.php:639
 msgctxt "admin color scheme"
@@ -170,7 +170,7 @@ msgstr ""
 
 #: includes/admin/admin.php:776 includes/admin/admin.php:853
 msgid "Welcome to bbPress %s"
-msgstr ""
+msgstr "به بی‌بی‌پرس %s خوش‌آمدید"
 
 #: includes/admin/admin.php:777
 msgid ""
@@ -180,7 +180,7 @@ msgstr ""
 
 #: includes/admin/admin.php:778 includes/admin/admin.php:855
 msgid "Version %s"
-msgstr ""
+msgstr "نسخه %s"
 
 #: includes/admin/admin.php:782 includes/admin/admin.php:859
 msgid "What&#8217;s New"
@@ -188,7 +188,7 @@ msgstr ""
 
 #: includes/admin/admin.php:784 includes/admin/admin.php:861
 msgid "Credits"
-msgstr ""
+msgstr "اعتبارات"
 
 #: includes/admin/admin.php:789
 msgid "Forum Subscriptions"
@@ -827,7 +827,7 @@ msgstr ""
 
 #: includes/admin/metaboxes.php:42
 msgid "Discussion"
-msgstr ""
+msgstr "گفت‌وگو"
 
 #: includes/admin/metaboxes.php:67 includes/admin/metaboxes.php:458
 #: includes/admin/replies.php:571 includes/admin/settings.php:301
@@ -835,7 +835,6 @@ msgstr ""
 #: templates/default/bbpress/content-single-topic-lead.php:22
 #: templates/default/bbpress/content-single-topic-lead.php:94
 #: templates/default/bbpress/loop-topics.php:19
-#, fuzzy
 msgid "Topic"
 msgid_plural "Topics"
 msgstr[0] "موضوع"
@@ -845,23 +844,22 @@ msgstr[0] "موضوع"
 #: includes/topics/template.php:2921
 msgid "Reply"
 msgid_plural "Replies"
-msgstr[0] ""
+msgstr[0] "پاسخ"
 
 #: includes/admin/metaboxes.php:103 includes/admin/settings.php:309
 #: includes/topics/template.php:3367
-#, fuzzy
 msgid "Topic Tag"
 msgid_plural "Topic Tags"
-msgstr[0] "برچسب موضوع"
+msgstr[0] "برچسب"
 
 #: includes/admin/metaboxes.php:127
 msgid "Users &amp; Moderation"
-msgstr ""
+msgstr "مدیریت و کاربران"
 
 #: includes/admin/metaboxes.php:135
 msgid "User"
 msgid_plural "Users"
-msgstr[0] ""
+msgstr[0] "کاربر"
 
 #: includes/admin/metaboxes.php:154
 msgid "Hidden Topic"
@@ -876,11 +874,11 @@ msgstr[0] "پاسخ پنهانی"
 #: includes/admin/metaboxes.php:198
 msgid "Empty Topic Tag"
 msgid_plural "Empty Topic Tags"
-msgstr[0] ""
+msgstr[0] "برچسب خالی"
 
 #: includes/admin/metaboxes.php:222
 msgid "You are using <span class=\"b\">bbPress %s</span>."
-msgstr ""
+msgstr "شما از <span class=\"b\">‌بی‌بی‌پرس %s</span> استفاده می‌کنید."
 
 #: includes/admin/metaboxes.php:261 includes/admin/metaboxes.php:262
 #: includes/admin/metaboxes.php:355
