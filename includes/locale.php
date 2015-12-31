@@ -172,6 +172,7 @@ class gNetworkLocale extends gNetworkModuleCore
 			'ot-theme-options'              => 'page', // OptionTree: Theme Options
 			'theme-documentation'           => 'page', // Revera Theme Documentation
 			'options-framework'             => 'page', // Revera: Theme Options
+			'domainmapping'                 => 'page', // WordPress MU Domain Mapping
 		) );
 
 		foreach ( $black_list as $val => $key )

@@ -17,10 +17,11 @@ body.rtl {
 		font: bold 24px arial, sans-serif !important;
 	}
 
-	.wrap h2,
-	#site-title,
+	.mce-window .mce-window-head .mce-title,
+	.metabox-holder h3,
 	#poststuff h2,
-	.metabox-holder h3 {
+	#site-title,
+	.wrap h2 {
 		font: bold 16px arial, sans-serif !important;
 	}
 
@@ -223,6 +224,15 @@ body.rtl {
 	.tb-close-icon {
 		right: auto;
 		left: 0;
+	}
+
+	.mce-window .mce-window-head .mce-title {
+		padding-top: 12px;
+	}
+
+	.mce-window-body .mce-container.mce-rtl * {
+		direction: rtl;
+		text-align: right;
 	}
 
 	.inline-edit-col input[name="slug"],
