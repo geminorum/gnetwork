@@ -90,11 +90,11 @@ class gNetworkShortCodes extends gNetworkModuleCore
 	public function tinymce_strings( $strings )
 	{
 		$new = array(
-			'gnetworkcite-title'    => _x( 'Cite This', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+			'gnetworkcite-title'    => _x( 'Cite This (Ctrl+Q)', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
 			'gnetworkcite-url'      => _x( 'URL', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
-			'gnetworkemail-title'   => _x( 'Email', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+			'gnetworkemail-title'   => _x( 'Email (Ctrl+E)', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
 			'gnetworkemail-subject' => _x( 'Subject', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
-			'gnetworksearch-title' => _x( 'Search', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+			'gnetworksearch-title'  => _x( 'Search (Ctrl+3)', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
 			'gnetworkgpeople-title' => _x( 'People', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
 			'gnetworkgpeople-name'  => _x( 'Name', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
 		);
@@ -102,7 +102,6 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		return array_merge( $strings, $new );
 	}
 
-	// http://stephanieleary.com/2010/06/listing-child-pages-with-a-shortcode/
 	public function shortcode_children( $atts, $content = NULL, $tag = '' )
 	{
 		$args = shortcode_atts( array(
@@ -294,7 +293,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		return $html;
 	}
 
-	// [email]you@you.com[/email]
+	// [email subject="Email Subject"]you@you.com[/email]
 	// http://www.cubetoon.com/2008/how-to-enter-line-break-into-mailto-body-command/
 	// https://css-tricks.com/snippets/html/mailto-links/
 	public function shortcode_email( $atts, $content = NULL, $tag = '' )
@@ -362,7 +361,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 	{
 		$args = shortcode_atts( array(
             'url'     => FALSE,
-            'title'   => _x( 'Search for %s', 'ShortCode Module: search: link title attr', GNETWORK_TEXTDOMAIN ),
+            'title'   => _x( 'Search this site for “%s”', 'ShortCode Module: search: link title attr', GNETWORK_TEXTDOMAIN ),
             'context' => NULL,
             'wrap'    => TRUE,
 		), $atts, $tag );
