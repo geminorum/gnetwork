@@ -13,6 +13,7 @@ class gNetworkTypography extends gNetworkModuleCore
 		if ( class_exists( 'gNetworkAdmin' ) ) {
 			add_action( 'gnetwork_tinymce_strings', array( $this, 'tinymce_strings' ) );
 			gNetworkAdmin::registerTinyMCE( 'gnetworkasterisks', 'assets/js/tinymce.asterisks.js' );
+			gNetworkAdmin::registerTinyMCE( 'gnetworkquote', 'assets/js/tinymce.quote.js' );
 		}
 	}
 
@@ -31,6 +32,13 @@ class gNetworkTypography extends gNetworkModuleCore
 	{
 		$new = array(
 			'gnetworkasterisks-title' => _x( 'Asterisks', 'Typography Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+            'gnetworkquote-title'     => _x( 'Quote This', 'Typography Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+            'gnetworkquote-attr'      => _x( 'Quote This', 'Typography Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+            'gnetworkquote-text'      => _x( 'Quote Text', 'Typography Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+            'gnetworkquote-cite'      => _x( 'Cite Text', 'Typography Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+            'gnetworkquote-url'       => _x( 'Cite URL', 'Typography Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+            'gnetworkquote-align'     => _x( 'Quote Align', 'Typography Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+            'gnetworkquote-intro'     => _x( 'Intro Quote', 'Typography Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
 		);
 
 		return array_merge( $strings, $new );
