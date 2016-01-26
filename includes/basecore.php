@@ -1087,19 +1087,16 @@ class gNetworkBaseCore
 		return self::notice( $message, 'updated fade', FALSE );
 	}
 
-	public static function log( $error = '{NO Error Code}', $data = array(), $wp_error = NULL )
+	public static function log( $error = '[Unknown]', $message = FALSE, $extra = FALSE )
 	{
-		if ( ! WP_DEBUG_LOG )
-			return;
-
-		$log = array_merge( array(
-			'error'   => $error,
-			'time'    => current_time( 'mysql' ),
-			'ip'      => self::IP(),
-			'message' => ( is_null( $wp_error ) ? '{NO WP_Error Object}' : $wp_error->get_error_message() ),
-		), $data );
-
-		error_log( print_r( $log, TRUE ) );
+		if ( defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG )
+			error_log(
+				'['.current_time( 'mysql' ).'] '
+				.self::IP().' '
+				.$error
+				.( $message ? ' :: '.strip_tags( $message ) : '' )
+				.( $extra ? ' :: '.$extra : '' )
+				."\n", 3, GNETWORK_DEBUG_LOG );
 	}
 
 	// ANCESTOR: shortcode_atts()

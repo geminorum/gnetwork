@@ -359,7 +359,7 @@ class gNetworkMail extends gNetworkModuleCore
 		$filename = current_time( 'Ymd-His' ).'-'.$to.'.json';
 
 		if ( FALSE === self::filePutContents( $filename, wp_json_encode( $contents ), GNETWORK_MAIL_LOG_DIR ) )
-			self::log( 'CANNOT LOG EMAIL', array( 'to' => $contents['to'] ) );
+			self::log( 'EMAIL NOT LOGGED', 'TO: '.$contents['to'] );
 
 		return $mail;
 	}

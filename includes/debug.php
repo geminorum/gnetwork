@@ -275,22 +275,14 @@ class gNetworkDebug extends gNetworkModuleCore
 
 	public function http_api_debug( $response, $context, $class, $args, $url )
 	{
-		if ( is_wp_error( $response ) ) {
-			self::log( 'HTTP API RESPONSE', array(
-				'url'     => $url,
-				'class'   => $class,
-				// 'args'    => $args,
-			), $response );
-		}
+		if ( is_wp_error( $response ) )
+			self::log( 'HTTP API RESPONSE: '.$class, $response->get_error_message(), $url );
 	}
 
 	public function wp_login_errors( $errors, $redirect_to )
 	{
-		if ( in_array( 'test_cookie', $errors->get_error_codes() ) ) {
-			self::log( 'TEST COOCKIE', array(
-				'message' => $errors->get_error_message( 'test_cookie' ),
-			), $errors );
-		}
+		if ( in_array( 'test_cookie', $errors->get_error_codes() ) )
+			self::log( 'TEST COOCKIE', $errors->get_error_message( 'test_cookie' ) );
 
 		return $errors;
 	}

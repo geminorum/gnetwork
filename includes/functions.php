@@ -35,10 +35,6 @@ if ( ! function_exists( '__gpersiandate_skip' ) ) : function __gpersiandate_skip
 	defined( 'GPERSIANDATE_SKIP' ) or define( 'GPERSIANDATE_SKIP', TRUE );
 } endif;
 
-if ( ! function_exists( 'gnetwork_log' ) ) : function gnetwork_log( $data, $table = 0 ) {
-	gNetworkUtilities::log( $data, $table );
-} endif;
-
 if ( ! function_exists( 'gnetwork_dump' ) ) : function gnetwork_dump( $var, $htmlSafe = TRUE ) {
 	gNetworkUtilities::dump( $var, $htmlSafe );
 } endif;

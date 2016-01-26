@@ -73,26 +73,25 @@ class gNetworkDev extends gNetworkModuleCore
 
 		$log = '';
 
-		$log .= is_admin() ? 'isAdmin|' : '';
-		$log .= is_network_admin() ? 'isNetworkAdmin|' : '';
+		$log .= is_network_admin() ? 'NetworkAdmin|' : ( is_admin() ? 'Admin|' : '' );
 
-		$log .= self::isFlush() ? 'isFlush|' : '';
-		$log .= self::isCLI() ? 'isCLI|' : '';
-		$log .= self::isCRON() ? 'isCRON|' : '';
-		$log .= self::isAJAX() ? 'isAJAX|' : '';
+		$log .= self::isFlush() ? 'Flush|' : '';
+		$log .= self::isCLI() ? 'CLI|' : '';
+		$log .= self::isCRON() ? 'CRON|' : '';
+		$log .= self::isAJAX() ? 'AJAX|' : '';
 
-		$log .= 'gNetwork:'.self::size_format( self::size( $gNetwork ) ).'|';
+		$log .= 'gN:'.self::size_format( self::size( $gNetwork ) ).'|';
 
 		if ( function_exists( 'gEditorial' ) )
-			$log .= 'gEditorial:'.self::size_format( self::size( gEditorial() ) ).'|';
+			$log .= 'gE:'.self::size_format( self::size( gEditorial() ) ).'|';
 
-		$log .= 'gPeople:'.self::size_format( self::size( $gPeopleNetwork ) ).'|';
-		$log .= 'gMember:'.self::size_format( self::size( $gMemberNetwork ) ).'|';
+		$log .= 'gP:'.self::size_format( self::size( $gPeopleNetwork ) ).'|';
+		$log .= 'gM:'.self::size_format( self::size( $gMemberNetwork ) ).'|';
 
 		if ( function_exists( 'gPersianDate' ) )
-			$log .= 'gPersianDate:'.self::size_format( self::size( gPersianDate() ) ).'|';
+			$log .= 'gPD:'.self::size_format( self::size( gPersianDate() ) ).'|';
 
-		error_log( $log );
+		self::log( 'BENCHMARK', $log );
 	}
 
 	// FIXME: WORKING: ADJUST IT
