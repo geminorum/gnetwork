@@ -3,18 +3,18 @@ msgstr ""
 "Project-Id-Version: Publish v1.2.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2015-06-14 11:40+0330\n"
+"PO-Revision-Date: 2016-01-13 00:49+0330\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 1.8.1\n"
+"X-Generator: Poedit 1.8.6\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
-"X-Poedit-Basepath: ../\n"
+"X-Poedit-Basepath: ..\n"
 "X-Textdomain-Support: yes\n"
 "Language: fa_IR\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -43,7 +43,7 @@ msgstr "محبوب‌ترین دسته‌ها"
 #: 404.php:35
 #, php-format
 msgid "Try looking in the monthly archives. %1$s"
-msgstr "از بایگانی ماهیانه هم میتوانید استفاده کنید."
+msgstr "از بایگانی ماهیانه هم میتوانید استفاده کنید. %1$s"
 
 # @ publish
 #: archive.php:22
@@ -97,7 +97,7 @@ msgstr[1] "%1$s نظر در پاسخ به &rdquo;%2$s&ldquo;"
 # @ publish
 #: comments.php:37 comments.php:57
 msgid "Comment navigation"
-msgstr ""
+msgstr "مرور دیدگاه‌ها"
 
 # @ publish
 #: comments.php:38 comments.php:58
@@ -159,9 +159,9 @@ msgid ""
 "This entry was posted in %1$s and tagged %2$s. Bookmark the <a href=\"%3$s\" "
 "title=\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
 msgstr ""
-"این نوشته در دستهٔ %1$s همراه با برچسب %2$s منتشر شده است. <a href=\"%3$s\" "
-"title=\"پیوند پایدار به %4$s\" rel=\"bookmark\">نشانی همیشگی</a> این نوشته را "
-"ذخیره کنید."
+"این نوشته در دستهٔ %1$s همراه با برچسب %2$s منتشر شده است. <a href=\"%3$s\" title="
+"\"پیوند پایدار به %4$s\" rel=\"bookmark\">نشانی همیشگی</a> این نوشته را ذخیره "
+"کنید."
 
 # @ publish
 #: content-single.php:40
@@ -235,15 +235,15 @@ msgstr "ناوبری"
 # @ publish
 #: header.php:40
 msgid "Skip to content"
-msgstr ""
+msgstr "جهش به متن اصلی"
 
 # @ publish
 #: image.php:24
 #, php-format
 msgid ""
 "Published <span class=\"entry-date\"><time class=\"entry-date\" datetime=\"%1$s"
-"\" pubdate>%2$s</time></span> at <a href=\"%3$s\" title=\"Link to full-size "
-"image\">%4$s &times; %5$s</a> in <a href=\"%6$s\" title=\"Return to %7$s\" rel="
+"\" pubdate>%2$s</time></span> at <a href=\"%3$s\" title=\"Link to full-size image"
+"\">%4$s &times; %5$s</a> in <a href=\"%6$s\" title=\"Return to %7$s\" rel="
 "\"gallery\">%7$s</a>"
 msgstr ""
 
@@ -290,7 +290,7 @@ msgstr ""
 # @ publish
 #: inc/template-tags.php:39
 msgid "Post navigation"
-msgstr ""
+msgstr "مرور نوشته‌ها"
 
 # @ publish
 #: inc/template-tags.php:43
@@ -342,9 +342,9 @@ msgstr "%1$s در %2$s"
 #, php-format
 msgid ""
 "Posted on <a href=\"%1$s\" title=\"%2$s\" rel=\"bookmark\"><time class=\"entry-"
-"date\" datetime=\"%3$s\" pubdate>%4$s</time></a><span class=\"byline\"> by "
-"<span class=\"author vcard\"><a class=\"url fn n\" href=\"%5$s\" title=\"%6$s\" "
-"rel=\"author\">%7$s</a></span></span>"
+"date\" datetime=\"%3$s\" pubdate>%4$s</time></a><span class=\"byline\"> by <span "
+"class=\"author vcard\"><a class=\"url fn n\" href=\"%5$s\" title=\"%6$s\" rel="
+"\"author\">%7$s</a></span></span>"
 msgstr ""
 "<a href=\"%1$s\" title=\"%2$s\" rel=\"bookmark\"><time class=\"entry-date\" "
 "datetime=\"%3$s\" pubdate>%4$s</time></a><span class=\"byline\"> توسط <span "
@@ -355,7 +355,7 @@ msgstr ""
 #: inc/template-tags.php:125
 #, php-format
 msgid "View all posts by %s"
-msgstr ""
+msgstr "نمایش تمامی نوشته‌های %s"
 
 # @ publish
 #: inc/template-tags.php:191
@@ -373,8 +373,7 @@ msgstr "پیدا نشد"
 #, php-format
 msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
 msgstr ""
-"برای انتشار اولین نوشتهٔ خودتان آماده‌اید؟ از <a href=\"%1$s\">اینجا شروع کنید</"
-"a>."
+"برای انتشار اولین نوشتهٔ خودتان آماده‌اید؟ از <a href=\"%1$s\">اینجا شروع کنید</a>."
 
 # @ publish
 #: no-results.php:24
