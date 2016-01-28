@@ -1,3 +1,12 @@
+### 0.2.30
+* modulecore: check for user admin
+* shortcodes: new `[search]`
+* shortcodes: keyboard shortcut for `[ref]`, `[email]`, `[search]`
+* shortcodes: rewrite editor plugins based on [TinyMCE docs](http://archive.tinymce.com/wiki.php/Tutorials:Creating_a_plugin)
+* typography: editor quote button
+* code: [gist-embed](https://github.com/blairvanderhoof/gist-embed) updated to v2.4
+* debug: simpler logs
+
 ### 0.2.29
 * all: using exception for module constructors
 * taxonomy: term management tools updated
