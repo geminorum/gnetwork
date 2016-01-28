@@ -1,5 +1,5 @@
-/*!
-	Autosize 3.0.14
+/**
+	Autosize v.3.0.14 - 2015-11-11
 	license: MIT
 	http://www.jacklmoore.com/autosize
 */

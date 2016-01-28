@@ -641,6 +641,10 @@ class gNetworkBaseCore
 
 				if ( is_array( $column ) ) {
 					$title = isset( $column['title'] ) ? $column['title'] : $key;
+
+					if ( isset( $column['class'] ) )
+						$class = esc_attr( $column['class'] );
+
 				} else if ( '_cb' == $key ) {
 					$title = '<input type="checkbox" id="cb-select-all-1" class="-cb-all" />';
 					$class = ' check-column';

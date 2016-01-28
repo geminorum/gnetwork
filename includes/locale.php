@@ -159,9 +159,10 @@ class gNetworkLocale extends gNetworkModuleCore
 			'regenerate-thumbnails'         => 'page',
 			'a8c_developer'                 => 'page',
 			'redirection.php'               => 'page',
-			'bwp_gxs_stats'                 => 'page', // BWP Google XML Sitemaps
 			'bwp_gxs_generator'             => 'page', // BWP Google XML Sitemaps
-			'bwp_gxs_google_news'           => 'page', // BWP Google XML Sitemaps
+			'bwp_gxs_extensions'            => 'page', // BWP Google XML Sitemaps
+			'bwp_gxs_generator_advanced'    => 'page', // BWP Google XML Sitemaps
+			'bwp_gxs_stats'                 => 'page', // BWP Google XML Sitemaps
 			'limit-login-attempts'          => 'page',
 			'p3-profiler'                   => 'page',
 			'wp_aeh_errors'                 => 'page',
@@ -173,6 +174,9 @@ class gNetworkLocale extends gNetworkModuleCore
 			'theme-documentation'           => 'page', // Revera Theme Documentation
 			'options-framework'             => 'page', // Revera: Theme Options
 			'domainmapping'                 => 'page', // WordPress MU Domain Mapping
+			'wp-db-backup'                  => 'page', // WP-DB-Backup // https://wordpress.org/plugins/wp-db-backup/
+			'odb_settings_page'             => 'page', // Optimize Database after Deleting Revisions // https://wordpress.org/plugins/rvg-optimize-database/
+			'rvg-optimize-database'         => 'page', // Optimize Database after Deleting Revisions // https://wordpress.org/plugins/rvg-optimize-database/
 		) );
 
 		foreach ( $black_list as $val => $key )

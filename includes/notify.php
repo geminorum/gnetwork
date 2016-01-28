@@ -15,7 +15,7 @@ class gNetworkNotify extends gNetworkModuleCore
 		);
 
 		add_filter( 'wpmu_welcome_notification', array( $this, 'wpmu_welcome_notification' ), 10, 5 );
-		add_filter( 'auto_core_update_send_email', array( $this, 'auto_core_update_send_email' ), 10, 4 );
+		add_filter( 'auto_core_update_send_email', array( $this, 'auto_core_update_send_email' ), 12, 4 );
 	}
 
 	public function default_options()
@@ -65,6 +65,7 @@ class gNetworkNotify extends gNetworkModuleCore
 		return $blog_id;
 	}
 
+	// FIXME: apparently not working!
 	// filter whether to send an email following an automatic background core update.
 	// http://codex.wordpress.org/Configuring_Automatic_Background_Updates
 	public function auto_core_update_send_email( $true, $type, $core_update, $result )

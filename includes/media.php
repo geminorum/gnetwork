@@ -76,8 +76,8 @@ class gNetworkMedia extends gNetworkModuleCore
 		if ( ! is_wp_error( $editor ) )
 			$metadata['sizes'] = $editor->multi_resize( $sizes );
 
-		if ( self::isDev() )
-			error_log( print_r( compact( 'parent_type', 'sizes', 'metadata', 'uploads' ), TRUE ) );
+		// if ( self::isDev() )
+		// 	error_log( print_r( compact( 'parent_type', 'sizes', 'metadata', 'uploads' ), TRUE ) );
 
 		return $metadata;
 	}

@@ -226,15 +226,6 @@ body.rtl {
 		left: 0;
 	}
 
-	.mce-window .mce-window-head .mce-title {
-		padding-top: 12px;
-	}
-
-	.mce-window-body .mce-container.mce-rtl * {
-		direction: rtl;
-		text-align: right;
-	}
-
 	.inline-edit-col input[name="slug"],
 	input#adduser-email,
 	input#user_login,

@@ -1,0 +1,62 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// gNetwork Partials: Editor ---------------------------------------------------
+
+.gnetwork-tinymce-icon {
+
+	&:before {
+		font-family: "dashicons";
+		content: "\f159"; // DEFAULT
+	}
+
+	&.icon-gnetworkref:before {
+		content: "\f473";
+	}
+
+	&.icon-gnetworkgpeople:before {
+		content: "\f307";
+	}
+
+	&.icon-gnetworkemail:before {
+		content: "\f466";
+	}
+
+	&.icon-gnetworksearch:before {
+		content: "\f179";
+	}
+
+	&.icon-gnetworkasterisks:before {
+		content: "\f155";
+	}
+
+	&.icon-gnetworkquote:before {
+		content: "\f122";
+	}
+}
+
+#gnetwork-tinymce-window-gnetworkcite {
+	// .mce-container-body {}
+}
+
+input#gnetwork-tinymce-input-gnetworkcite-refurl {
+	// we use inline style
+	// direction: ltr !important;
+	// text-align: left;
+}
+
+body.rtl {
+
+	.mce-tooltip-inner {
+		direction: rtl; // !important;
+	}
+
+	.mce-window .mce-window-head .mce-title {
+		padding-top: 12px;
+	}
+
+	.mce-window-body .mce-container.mce-rtl * {
+		direction: rtl;
+		text-align: right;
+	}
+}

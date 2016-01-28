@@ -509,7 +509,6 @@ class gNetworkMail extends gNetworkModuleCore
 	private function email_logs( $limit = 5, $paged = 1 )
 	{
 		list( $logs, $pagination, $total, $pages ) = self::getEmailLogs( $limit, $paged );
-		// $current = count( $logs );
 
 		if ( ! $total ) {
 			echo self::html( 'strong', _x( 'No Logs!', 'Mail Module', GNETWORK_TEXTDOMAIN ) );
