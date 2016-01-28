@@ -11,6 +11,7 @@ class gNetworkModuleCore extends gNetworkBaseCore
 	protected $option_key  = FALSE;
 	protected $menu_key    = FALSE;
 	protected $network     = TRUE;       // using network wide options
+	protected $user        = NULL;       // load module on user admin?
 	protected $front_end   = TRUE;       // load module on front end?
 	protected $ajax        = FALSE;      // load if ajax
 	protected $cron        = FALSE;      // load if cron
@@ -34,13 +35,24 @@ class gNetworkModuleCore extends gNetworkBaseCore
 		if ( ! is_admin() && ! $this->front_end )
 			throw new \Exception( 'Not on Frontend!' );
 
+		if ( ! is_null( $this->user ) && is_multisite() ) {
+			if ( is_user_admin() ) {
+				if ( FALSE === $this->user )
+					throw new \Exception( 'Not on User Admin!' );
+			} else {
+				if ( TRUE === $this->user )
+					throw new \Exception( 'Only on User Admin!' );
+			}
+		}
+
 		if ( ! is_null( $this->dev ) ) {
-
-			if ( FALSE === $this->dev && self::isDev() )
-				throw new \Exception( 'Not on Develepment Environment!' );
-
-			else if ( TRUE === $this->dev && ! self::isDev() )
-				throw new \Exception( 'Only on Develepment Environment!' );
+			if ( self::isDev() ) {
+				if ( FALSE === $this->dev )
+					throw new \Exception( 'Not on Develepment Environment!' );
+			} else {
+				if ( TRUE === $this->dev )
+					throw new \Exception( 'Only on Develepment Environment!' );
+			}
 		}
 
 		if ( FALSE !== $this->option_key ) // disable the options
