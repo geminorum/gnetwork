@@ -22,10 +22,10 @@ class gNetworkShortCodes extends gNetworkModuleCore
 
 		if ( class_exists( 'gNetworkAdmin' ) ) {
 			add_action( 'gnetwork_tinymce_strings', array( $this, 'tinymce_strings' ) );
-			gNetworkAdmin::registerTinyMCE( 'gnetworkcite', 'assets/js/tinymce.cite.js' );
-			gNetworkAdmin::registerTinyMCE( 'gnetworkemail', 'assets/js/tinymce.email.js' );
-			gNetworkAdmin::registerTinyMCE( 'gnetworksearch', 'assets/js/tinymce.search.js' );
-			gNetworkAdmin::registerTinyMCE( 'gnetworkgpeople', 'assets/js/tinymce.gpeople.js' );
+			gNetworkAdmin::registerTinyMCE( 'gnetworkref', 'assets/js/tinymce.ref.min.js' );
+			gNetworkAdmin::registerTinyMCE( 'gnetworkemail', 'assets/js/tinymce.email.min.js' );
+			gNetworkAdmin::registerTinyMCE( 'gnetworksearch', 'assets/js/tinymce.search.min.js' );
+			gNetworkAdmin::registerTinyMCE( 'gnetworkgpeople', 'assets/js/tinymce.gpeople.min.js' );
 		}
 	}
 
@@ -90,13 +90,26 @@ class gNetworkShortCodes extends gNetworkModuleCore
 	public function tinymce_strings( $strings )
 	{
 		$new = array(
-			'gnetworkcite-title'    => _x( 'Cite This (Ctrl+Q)', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
-			'gnetworkcite-url'      => _x( 'URL', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
-			'gnetworkemail-title'   => _x( 'Email (Ctrl+E)', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
-			'gnetworkemail-subject' => _x( 'Subject', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
-			'gnetworksearch-title'  => _x( 'Search (Ctrl+3)', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
-			'gnetworkgpeople-title' => _x( 'People', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
-			'gnetworkgpeople-name'  => _x( 'Name', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+            'gnetworkref-title' => _x( 'Cite This', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+            'gnetworkref-attr'  => _x( 'Cite This (Ctrl+Q)', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+            'gnetworkref-text'  => _x( 'Ref Text', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+            'gnetworkref-url'   => _x( 'Ref URL', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+
+            'gnetworkemail-title'   => _x( 'Email', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+            'gnetworkemail-attr'    => _x( 'Email (Ctrl+E)', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+            'gnetworkemail-email'   => _x( 'Full Email', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+            'gnetworkemail-text'    => _x( 'Display Text', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+            'gnetworkemail-subject' => _x( 'Email Subject', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+            'gnetworkemail-hover'   => _x( 'Link Hover', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+
+            'gnetworksearch-title' => _x( 'Search', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+            'gnetworksearch-attr'  => _x( 'Search (Ctrl+3)', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+            'gnetworksearch-text'  => _x( 'Display Text', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+            'gnetworksearch-query' => _x( 'Override Criteria', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+
+            'gnetworkgpeople-title' => _x( 'People', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+            'gnetworkgpeople-attr'  => _x( 'People', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+            'gnetworkgpeople-name'  => _x( 'Name', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
 		);
 
 		return array_merge( $strings, $new );
@@ -298,9 +311,13 @@ class gNetworkShortCodes extends gNetworkModuleCore
 	// https://css-tricks.com/snippets/html/mailto-links/
 	public function shortcode_email( $atts, $content = NULL, $tag = '' )
 	{
+		global $gNetwork;
+
 		$args = shortcode_atts( array(
 			'subject' => FALSE,
 			'title'   => FALSE,
+			'email'   => FALSE, // override
+			'content' => FALSE, // override
 			'context' => NULL,
 			'wrap'    => TRUE,
 		), $atts, $tag );
@@ -308,12 +325,18 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		if ( FALSE === $args['context'] )
 			return NULL;
 
-		if ( ! $content ) // what about default site email
-			return $content;
+        $text  = $args['content'] ? trim( $args['content'] ) : trim( $content );
+        $email = $args['email'] && is_email( $args['email'] ) ? trim( $args['email'] ) : trim( $content );
 
-		$html = '<a class="email" href="'.antispambot( "mailto:".$content.( $args['subject'] ? '?subject='.urlencode( $args['subject'] ) : '' ) )
+		if ( ! $email && isset( $gNetwork->mail ) )
+			$email = $gNetwork->mail->get_from_email();
+
+		if ( ! $email )
+			return $text;
+
+		$html = '<a class="email" href="'.antispambot( "mailto:".$email.( $args['subject'] ? '?subject='.urlencode( $args['subject'] ) : '' ) )
 				.'"'.( $args['title'] ? ' data-toggle="tooltip" title="'.esc_attr( $args['title'] ).'"' : '' ).'>'
-				.antispambot( $content ).'</a>';
+				.( $email == $text ? antispambot( $email ) : $text ).'</a>';
 
 		if ( $args['wrap'] )
 			return '<span class="gnetwork-wrap-shortcode shortcode-email">'.$html.'</span>';
@@ -357,10 +380,12 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		return $content;
 	}
 
+	// TODO: also [search-form] to include current theme search form
 	public function shortcode_search( $atts, $content = NULL, $tag = '' )
 	{
 		$args = shortcode_atts( array(
-            'url'     => FALSE,
+            'for'     => FALSE, // override
+            'url'     => FALSE, // override
             'title'   => _x( 'Search this site for “%s”', 'ShortCode Module: search: link title attr', GNETWORK_TEXTDOMAIN ),
             'context' => NULL,
             'wrap'    => TRUE,
@@ -372,12 +397,13 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		if ( ! $content )
 			return $content;
 
-		$html = trim( strip_tags( $content ) );
+        $text = trim( strip_tags( $content ) );
+        $for  = $args['for'] ? trim( $args['for'] ) : $text;
 
 		$html = self::html( 'a', array(
-            'href'  => self::getSearchLink( $html, $args['url'] ),
-            'title' => sprintf( $args['title'], $html ),
-		), $html );
+            'href'  => self::getSearchLink( $for, $args['url'] ),
+            'title' => sprintf( $args['title'], $for ),
+		), $text );
 
 		if ( $args['wrap'] )
 			return '<span class="gnetwork-wrap-shortcode shortcode-search">'.$html.'</span>';
@@ -899,6 +925,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			if ( ! $term )
 				return $content;
 
+			// FIXME: must cache the term, not html
 			$this->people[$person] = self::html( 'a', array(
 				'href'        => get_term_link( $term, $term->taxonomy ),
 				'title'       => sanitize_term_field( 'name', $term->name, $term->term_id, $term->taxonomy, 'display' ),
@@ -908,7 +935,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 					'person-'.$term->slug,
 					'tooltip',
 				),
-			), trim( strip_tags( $content ) ) );
+			), ( $content ? trim( strip_tags( $content ) ) : $term->name ) );
 		}
 
 		if ( $args['wrap'] )

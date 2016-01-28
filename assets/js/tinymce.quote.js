@@ -10,12 +10,11 @@
 				var selected = editor.selection.getContent();
 
 				editor.windowManager.open( {
-					title:  editor.getLang('gnetwork.gnetworkquote-title'),
-					width:  450,
-					height: 305,
-					body:   [
+                    title:    editor.getLang('gnetwork.gnetworkquote-title'),
+                    minWidth: 450,
+                    body:     [
 						{
-							type:      'textbox', // http://archive.tinymce.com/wiki.php/api4:class.tinymce.ui.TextBox
+							type:      'textbox',
 							name:      'text',
 							label:     editor.getLang('gnetwork.gnetworkquote-text'),
 							value:     selected,
@@ -32,6 +31,7 @@
 							type:  'textbox',
 							name:  'url',
 							label: editor.getLang('gnetwork.gnetworkquote-url'),
+							style: 'direction:ltr;text-align:left;',
 						},
 						{
 							type:     'listbox',
@@ -52,10 +52,9 @@
 					],
 					buttons: [
 						{
-							text: 'Insert',
-							// type: 'submit'
-							subtype: 'primary',
-							onclick: 'submit'
+                            text:    'Insert',
+                            subtype: 'primary',
+                            onclick: 'submit'
 						},
 						{
 							text:    'Close',
@@ -65,10 +64,12 @@
 					onsubmit: function(e) {
 						if ( e.data.text ) {
 
+							var open = '<blockquote>';
+
 							if ( e.data.intro ) {
-								var open = 'none' == e.data.align ? '<blockquote class="intro-quote">' : '<blockquote class="intro-quote align'+e.data.align+'">';
+								open = 'none' == e.data.align ? '<blockquote class="intro-quote">' : '<blockquote class="intro-quote align'+e.data.align+'">';
 							} else {
-								var open = 'none' == e.data.align ? '<blockquote>' : '<blockquote class="align'+e.data.align+'">';
+								open = 'none' == e.data.align ? '<blockquote>' : '<blockquote class="align'+e.data.align+'">';
 							}
 
 							if ( e.data.cite ) {

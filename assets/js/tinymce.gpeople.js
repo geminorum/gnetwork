@@ -1,56 +1,45 @@
 (function() {
-	tinymce.create('tinymce.plugins.gNetworkgPeople', {
+	tinymce.PluginManager.add('gnetworkgpeople', function(editor, url) {
+		editor.addButton('gnetworkgpeople', {
 
-		init : function(editor, url) {
-			editor.addButton('gnetworkgpeople', {
+			title: editor.getLang('gnetwork.gnetworkgpeople-attr'),
+			icon:  'icon gnetwork-tinymce-icon icon-gnetworkgpeople',
 
-				title: editor.getLang('gnetwork.gnetworkgpeople-title'),
-				icon:  'icon gnetwork-tinymce-icon icon-gnetworkgpeople',
+			onclick : function() {
 
-				onclick : function() {
-					editor.windowManager.open( {
-                        id:    'gnetwork-tinymce-window-gnetworkgpeople',
-                        title: editor.getLang('gnetwork.gnetworkgpeople-title'),
-                        body:  [{
-                            type:  'textbox',
-                            name:  'name',
-                            label: editor.getLang('gnetwork.gnetworkgpeople-name'),
-						}],
-						onsubmit: function(e) {
+				var selected = editor.selection.getContent();
 
-							var text = editor.selection.getContent(),
-								name = e.data.name;
-
-							if (!(text != null && text != '') && !(name != null && name != ''))
-								return;
-
-							if (text != null && text != '') {
-								if (name != null && name != '')
-									editor.insertContent('[person name="'+name+'"]'+text+'[/person]');
-								else
-									editor.insertContent('[person]'+text+'[/person]');
-							} else {
-								if (name != null && name != '')
-									editor.insertContent('[person name="'+name+'" /]');
-								else
-									editor.insertContent('[person]');
-							}
+				editor.windowManager.open( {
+                    title:    editor.getLang('gnetwork.gnetworkgpeople-title'),
+                    minWidth: 450,
+                    body:     [
+						{
+	                        type:  'textbox',
+	                        name:  'name',
+	                        label: editor.getLang('gnetwork.gnetworkgpeople-name'),
+							value: selected,
 						}
-					});
-				}
-			});
-		},
-
-		getInfo : function() {
-			return {
-				longname:  "gNetwork People",
-				author:    'geminorum',
-				authorurl: 'http://geminorum.ir',
-				infourl:   'http://geminorum.ir/wordpress/gnetwork',
-				version:   "1.0"
-			};
-		}
+					],
+					buttons: [
+						{
+                            text:    'Insert',
+                            subtype: 'primary',
+                            onclick: 'submit'
+						},
+						{
+							text:    'Close',
+							onclick: 'close'
+						}
+					],
+					onsubmit: function(e) {
+						editor.insertContent((
+							e.data.name ? '[person name="'+e.data.name+'"]' : '[person]'
+						)+(
+							selected ? selected+'[/person]' : ''
+						));
+					}
+				});
+			}
+		});
 	});
-
-	tinymce.PluginManager.add('gnetworkgpeople', tinymce.plugins.gNetworkgPeople);
 })();

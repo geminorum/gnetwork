@@ -1,68 +1,83 @@
 (function() {
-	tinymce.create('tinymce.plugins.gNetworkEmail', {
-		init : function(editor, url) {
+	tinymce.PluginManager.add('gnetworkemail', function(editor, url) {
+		editor.addShortcut('ctrl+e', editor.getLang('gnetwork.gnetworkemail-title'), 'gnetworkemail');
 
-			editor.addShortcut('ctrl+e', editor.getLang('gnetwork.gnetworkemail-title'), 'gnetworkemail');
+		editor.addCommand('gnetworkemail', function() {
+			var text = editor.selection.getContent();
+			editor.insertContent('[email]'+(text?text+'[/email]':''));
+		});
 
-			editor.addCommand('gnetworkemail', function() {
-				var text = editor.selection.getContent();
+		editor.addButton('gnetworkemail', {
 
-				if ( '' == text )
-					editor.insertContent('[email]');
-				else
-					editor.insertContent('[email]'+text+'[/email]');
-			});
+			title: editor.getLang('gnetwork.gnetworkemail-attr'),
+			icon:  'icon gnetwork-tinymce-icon icon-gnetworkemail',
 
-			editor.addButton('gnetworkemail', {
+			onclick: function() {
 
-				title: editor.getLang('gnetwork.gnetworkemail-title'),
-				icon:  'icon gnetwork-tinymce-icon icon-gnetworkemail',
+				var selected = editor.selection.getContent();
 
-				onclick: function() {
-					editor.windowManager.open( {
-                        id:    'gnetwork-tinymce-window-gnetworkemail',
-                        title: editor.getLang('gnetwork.gnetworkemail-title'),
-                        body:  [{
-                            id:    'gnetwork-tinymce-input-gnetworkemail-subject',
+				editor.windowManager.open( {
+                    title:    editor.getLang('gnetwork.gnetworkemail-title'),
+                    minWidth: 450,
+                    body:     [
+						{
                             type:  'textbox',
-                            name:  'subject',
-                            label: editor.getLang('gnetwork.gnetworkemail-subject'),
-						}],
-						onsubmit: function(e) {
-
-							var text = editor.selection.getContent(),
-								subject = e.data.subject;
-
-							if (!(text != null && text != '') && !(subject != null && subject != ''))
-								return;
-
-							if (text != null && text != '') {
-								if (subject != null && subject != '')
-									editor.insertContent('[email subject="'+subject+'"]'+text+'[/email]');
-								else
-									editor.insertContent('[email]'+text+'[/email]');
-							} else {
-								if (subject != null && subject != '')
-									editor.insertContent('[email subject="'+subject+'" /]');
-								else
-									editor.insertContent('[email]');
-							}
+                            name:  'email',
+                            label: editor.getLang('gnetwork.gnetworkemail-email'),
+                            value: selected,
+							style: 'direction:ltr;text-align:left;',
+						},
+						{
+                            type:  'textbox',
+                            name:  'text',
+                            label: editor.getLang('gnetwork.gnetworkemail-text'),
+                            value: selected,
+						},
+						{
+                            type:      'textbox',
+                            name:      'subject',
+                            label:     editor.getLang('gnetwork.gnetworkemail-subject'),
+                            autofocus: selected,
+						},
+						{
+                            type:  'textbox',
+                            name:  'hover',
+                            label: editor.getLang('gnetwork.gnetworkemail-hover'),
 						}
-					});
-				}
-			});
-		},
+					],
+					buttons: [
+						{
+							text:    'Insert',
+							subtype: 'primary',
+							onclick: 'submit'
+						},
+						{
+							text:    'Close',
+							onclick: 'close'
+						}
+					],
+					onsubmit: function(e) {
 
-		getInfo: function() {
-			return {
-				longname:  "gNetwork Email",
-				author:    'geminorum',
-				authorurl: 'http://geminorum.ir',
-				infourl:   'http://geminorum.ir/wordpress/gnetwork',
-				version:   "1.0"
-			};
-		}
+						var open = '[email'+(
+							e.data.subject ? ' subject="'+e.data.subject+'"' : ''
+						)+(
+							e.data.hover ? ' title="'+e.data.hover+'"' : ''
+						);
+
+						if ( e.data.email && e.data.text && e.data.text == e.data.email )
+							editor.insertContent(open+']'+e.data.email+'[/email]');
+
+						else if ( ! e.data.text )
+							editor.insertContent(open+']'+e.data.email+'[/email]');
+
+						else if ( ! e.data.email )
+							editor.insertContent(open+' content="'+e.data.text+'" /]');
+
+						else
+							editor.insertContent(open+' email="'+e.data.email+'"]'+e.data.text+'[/email]');
+					}
+				});
+			}
+		});
 	});
-
-	tinymce.PluginManager.add('gnetworkemail', tinymce.plugins.gNetworkEmail);
 })();
