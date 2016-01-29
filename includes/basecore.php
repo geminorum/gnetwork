@@ -1094,13 +1094,18 @@ class gNetworkBaseCore
 	public static function log( $error = '[Unknown]', $message = FALSE, $extra = FALSE )
 	{
 		if ( defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG )
-			error_log(
-				'['.current_time( 'mysql' ).'] '
+			error_log( self::getLogTime()
 				.self::IP().' '
 				.$error
 				.( $message ? ' :: '.strip_tags( $message ) : '' )
 				.( $extra ? ' :: '.$extra : '' )
 				."\n", 3, GNETWORK_DEBUG_LOG );
+	}
+
+	// EXAMPLE: [03-Feb-2015 21:20:19 UTC]
+	public static function getLogTime()
+	{
+		return '['.gmdate( 'd-M-Y H:i:s e' ).'] ';
 	}
 
 	// ANCESTOR: shortcode_atts()
