@@ -121,12 +121,14 @@ class gNetworkRestricted extends gNetworkModuleCore
 					'type'        => 'textarea-quicktags',
 					'title'       => _x( 'Restricted Notice', 'Restricted Module', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'This will show on top of this site login page. <code>%1$s</code> for the role, <code>%2$s</code> for the page.', 'Restricted Module', GNETWORK_TEXTDOMAIN ),
+					'field_class' => 'large-text',
 				),
 				array(
 					'field'       => 'restricted_access',
 					'type'        => 'textarea-quicktags',
 					'title'       => _x( 'Restricted Access', 'Restricted Module', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'This will show on 403 page for logged-in users. <code>%1$s</code> for the role, <code>%2$s</code> for the page.', 'Restricted Module', GNETWORK_TEXTDOMAIN ),
+					'field_class' => 'large-text',
 				),
 			),
 		);
@@ -176,8 +178,8 @@ class gNetworkRestricted extends gNetworkModuleCore
 				'type'        => 'text',
 				'field'       => 'restricted_feed_key',
 				'default'     => $feedkey ? $feedkey : _x( 'Access key not found', 'Restricted Module', GNETWORK_TEXTDOMAIN ),
-				'field_class' => 'regular-text code',
-				'desc'        => _x( 'The key will be used on all restricted site feed URLs.', 'Restricted Module', GNETWORK_TEXTDOMAIN ),
+				'field_class' => array( 'regular-text', 'code' ),
+				'description' => _x( 'The key will be used on all restricted site feed URLs.', 'Restricted Module', GNETWORK_TEXTDOMAIN ),
 				'disabled'    => TRUE,
 			), TRUE );
 
@@ -190,12 +192,12 @@ class gNetworkRestricted extends gNetworkModuleCore
 			}
 
 			$this->do_settings_field( array(
-				'title'   => _x( 'Key Operations', 'Restricted Module', GNETWORK_TEXTDOMAIN ),
-				'type'    => 'select',
-				'field'   => 'feed_operations',
-				'default' => 'none',
-				'values'  => $operations,
-				'desc'    => _x( 'Select an operation to work with your private feed access key.', 'Restricted Module', GNETWORK_TEXTDOMAIN ),
+				'field'       => 'feed_operations',
+				'type'        => 'select',
+				'title'       => _x( 'Key Operations', 'Restricted Module', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Select an operation to work with your private feed access key.', 'Restricted Module', GNETWORK_TEXTDOMAIN ),
+				'default'     => 'none',
+				'values'      => $operations,
 			), TRUE );
 
 			if ( $feedkey ) {

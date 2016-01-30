@@ -29,24 +29,24 @@ class gNetworkBlackList extends gNetworkModuleCore
 		return array(
 			'_general' => array(
 				array(
-					'field'   => 'check_ip',
-					'type'    => 'enabled',
-					'title'   => _x( 'Check Addresses', 'BlackList Module', GNETWORK_TEXTDOMAIN ),
-					'desc'    => _x( 'Select to check logged-out visitor\'s IP againts your list of IPs', 'BlackList Module', GNETWORK_TEXTDOMAIN ),
-					'default' => '0',
+					'field'       => 'check_ip',
+					'type'        => 'enabled',
+					'title'       => _x( 'Check Addresses', 'BlackList Module', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Select to check logged-out visitor\'s IP againts your list of IPs', 'BlackList Module', GNETWORK_TEXTDOMAIN ),
+					'default'     => '0',
 				),
 				array(
 					'field'       => 'blacklisted_ips',
 					'type'        => 'textarea',
 					'title'       => _x( 'IP Addresses', 'BlackList Module', GNETWORK_TEXTDOMAIN ),
-					'desc'        => _x( 'Comma seperated IP\'s range or individual IP needs to block. ex: <code>1.6.0.0 - 1.7.255.255,1.8.0.0,1.8.0.1</code>', 'BlackList Module', GNETWORK_TEXTDOMAIN ),
-					'field_class' => 'large-text code',
+					'description' => _x( 'Comma seperated IP\'s range or individual IP needs to block. ex: <code>1.6.0.0 - 1.7.255.255,1.8.0.0,1.8.0.1</code>', 'BlackList Module', GNETWORK_TEXTDOMAIN ),
+					'field_class' => array( 'large-text', 'code' ),
 				),
 				array(
 					'field'       => 'blacklisted_notice',
-					'type'        => 'textarea',
+					'type'        => 'textarea-quicktags',
 					'title'       => _x( 'Blacklisted Message', 'BlackList Module', GNETWORK_TEXTDOMAIN ),
-					'desc'        => _x( 'Locked message on login page.', 'BlackList Module', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Locked message on WordPress die page', 'BlackList Module', GNETWORK_TEXTDOMAIN ),
 					'field_class' => 'large-text',
 				),
 			),

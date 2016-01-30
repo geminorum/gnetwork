@@ -54,11 +54,11 @@ class gNetworkUsers extends gNetworkModuleCore
 		return array(
 			'_general' => array(
 				array(
-					'field'   => 'siteuser_as_default',
-					'type'    => 'enabled',
-					'title'   => _x( 'Default Author', 'Users Module: Enable Full Comments On Dashboard', GNETWORK_TEXTDOMAIN ),
-					'desc'    => _x( 'The site user as default author of new posts in admin', 'Users Module', GNETWORK_TEXTDOMAIN ),
-					'default' => '0',
+					'field'       => 'siteuser_as_default',
+					'type'        => 'enabled',
+					'title'       => _x( 'Default Author', 'Users Module: Enable Full Comments On Dashboard', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'The site user as default author of new posts in admin', 'Users Module', GNETWORK_TEXTDOMAIN ),
+					'default'     => '0',
 				),
 			),
 		);

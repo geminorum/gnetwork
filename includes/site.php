@@ -28,12 +28,12 @@ class gNetworkSite extends gNetworkModuleCore
 		if ( class_exists( 'gNetworkLocale' ) ) {
 			$settings['_locale'] = array(
 				array(
-					'field'   => 'admin_locale',
-					'type'    => 'select',
-					'title'   => _x( 'Network Language', 'Site Module', GNETWORK_TEXTDOMAIN ),
-					'desc'    => _x( 'Despite of the site language, always display network admin in this locale', 'Site Module', GNETWORK_TEXTDOMAIN ),
-					'values'  => gNetworkUtilities::sameKey( gNetworkLocale::available() ),
-					'default' => 'en_US',
+					'field'       => 'admin_locale',
+					'type'        => 'select',
+					'title'       => _x( 'Network Language', 'Site Module', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Despite of the site language, always display network admin in this locale', 'Site Module', GNETWORK_TEXTDOMAIN ),
+					'default'     => 'en_US',
+					'values'      => gNetworkUtilities::sameKey( gNetworkLocale::available() ),
 				),
 			);
 		}

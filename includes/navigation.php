@@ -54,26 +54,26 @@ class gNetworkNavigation extends gNetworkModuleCore
 
 		$tabs = array(
 			'general' => array(
-				'label' => _x( 'General', 'Navigation Module: Tabs', GNETWORK_TEXTDOMAIN ),
-				'desc'  => _x( '<em>General</em> links are relative to the current user and are visible at any time.', 'Navigation Module', GNETWORK_TEXTDOMAIN ),
-				'pages' => $this->get_general_pages(),
+				'label'       => _x( 'General', 'Navigation Module: Tabs', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( '<em>General</em> links are relative to the current user and are visible at any time.', 'Navigation Module', GNETWORK_TEXTDOMAIN ),
+				'pages'       => $this->get_general_pages(),
 			),
 			'loggedin' => array(
-				'label' => _x( 'Logged-In', 'Navigation Module: Tabs', GNETWORK_TEXTDOMAIN ),
-				'desc'  => _x( '<em>Logged-In</em> links are relative to the current user, and are not visible to visitors who are not logged in.', 'Navigation Module', GNETWORK_TEXTDOMAIN ),
-				'pages' => $this->get_loggedin_pages(),
+				'label'       => _x( 'Logged-In', 'Navigation Module: Tabs', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( '<em>Logged-In</em> links are relative to the current user, and are not visible to visitors who are not logged in.', 'Navigation Module', GNETWORK_TEXTDOMAIN ),
+				'pages'       => $this->get_loggedin_pages(),
 			),
 			'loggedout' => array(
-				'label' => _x( 'Logged-Out', 'Navigation Module: Tabs', GNETWORK_TEXTDOMAIN ),
-				'desc'  => _x( '<em>Logged-Out</em> links are not visible to users who are logged in.', 'Navigation Module', GNETWORK_TEXTDOMAIN ),
-				'pages' => $this->get_loggedout_pages(),
+				'label'       => _x( 'Logged-Out', 'Navigation Module: Tabs', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( '<em>Logged-Out</em> links are not visible to users who are logged in.', 'Navigation Module', GNETWORK_TEXTDOMAIN ),
+				'pages'       => $this->get_loggedout_pages(),
 			),
 		);
 
 		echo '<div id="gnetwork-menu" class="posttypediv">';
 
 			foreach ( $tabs as $group => $items ) {
-				printf( '<h4>%s</h4><p>%s</p>', $items['label'], $items['desc'] );
+				printf( '<h4>%s</h4><p>%s</p>', $items['label'], $items['description'] );
 				echo '<div id="tabs-panel-posttype-'.$post_type_name.'-'.$group.'" class="tabs-panel tabs-panel-active">';
 					echo '<ul id="gnetwork-menu-checklist-'.$group.'" class="categorychecklist form-no-clear">';
 					echo walk_nav_menu_tree( array_map( 'wp_setup_nav_menu_item', $items['pages'] ), 0, (object) $args );

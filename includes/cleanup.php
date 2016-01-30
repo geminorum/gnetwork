@@ -35,79 +35,79 @@ class gNetworkCleanup extends gNetworkModuleCore
 
 	public function default_settings()
 	{
-		$confirm = self::getButtonConfirm();
 		$settings = array();
+        $confirm  = self::getButtonConfirm();
 
 		$settings['_transient'][] = array(
-			'field'   => 'transient_purge',
-			'type'    => 'button',
-			'title'   => _x( 'Transient', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-			'desc'    => _x( 'Purge Expired Transient Data', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-			'default' => _x( 'Purge Expired', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-			'values'  => $confirm,
+			'field'       => 'transient_purge',
+			'type'        => 'button',
+			'title'       => _x( 'Transient', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Purge Expired Transient Data', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'default'     => _x( 'Purge Expired', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'values'      => $confirm,
 		);
 
 		$settings['_transient'][] = array(
-			'field'   => 'transient_purge_all',
-			'type'    => 'button',
-			'desc'    => _x( 'Purge All Transient Data', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-			'default' => _x( 'Purge All', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-			'values'  => $confirm,
+			'field'       => 'transient_purge_all',
+			'type'        => 'button',
+			'description' => _x( 'Purge All Transient Data', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'default'     => _x( 'Purge All', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'values'      => $confirm,
 		);
 
 		if ( is_main_site() ) {
 
 			$settings['_transient'][] = array(
-				'field'   => 'transient_purge_site',
-				'type'    => 'button',
-				'desc'    => _x( 'Purge Expired Network Transient Data', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-				'default' => _x( 'Purge Network Expired', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-				'values'  => $confirm,
+				'field'       => 'transient_purge_site',
+				'type'        => 'button',
+				'description' => _x( 'Purge Expired Network Transient Data', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+				'default'     => _x( 'Purge Network Expired', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+				'values'      => $confirm,
 			);
 
 			$settings['_transient'][] = array(
-				'field'   => 'transient_purge_site_all',
-				'type'    => 'button',
-				'desc'    => _x( 'Purge All Network Transient Data', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-				'default' => _x( 'Purge All Network', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-				'values'  => $confirm,
+				'field'       => 'transient_purge_site_all',
+				'type'        => 'button',
+				'description' => _x( 'Purge All Network Transient Data', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+				'default'     => _x( 'Purge All Network', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+				'values'      => $confirm,
 			);
 		}
 
 		$settings['_comments'][] = array(
-			'field'   => 'akismet_purge_meta',
-			'type'    => 'button',
-			'title'   => _x( 'Akismet', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-			'desc'    => _x( 'Removes akismet related meta from comments', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-			'default' => _x( 'Purge Metadata', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-			'values'  => $confirm,
+			'field'       => 'akismet_purge_meta',
+			'type'        => 'button',
+			'title'       => _x( 'Akismet', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Removes akismet related meta from comments', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'default'     => _x( 'Purge Metadata', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'values'      => $confirm,
 		);
 
 		$settings['_comments'][] = array(
-			'field'   => 'purge_comment_agent',
-			'type'    => 'button',
-			'title'   => _x( 'Comments', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-			'desc'    => _x( 'Removes user agent field of comments', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-			'default' => _x( 'Purge User Agents', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-			'values'  => $confirm,
+			'field'       => 'purge_comment_agent',
+			'type'        => 'button',
+			'title'       => _x( 'Comments', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Removes user agent field of comments', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'default'     => _x( 'Purge User Agents', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'values'      => $confirm,
 		);
 
 		$settings['_comments'][] = array(
-			'field'   => 'optimize_tables',
-			'type'    => 'button',
-			'title'   => _x( 'Comment Tables', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-			'desc'    => _x( 'Checks for orphaned comment metas and optimize tables', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-			'default' => _x( 'Orphaned & Optimize', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-			'values'  => $confirm,
+			'field'       => 'optimize_tables',
+			'type'        => 'button',
+			'title'       => _x( 'Comment Tables', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Checks for orphaned comment metas and optimize tables', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'default'     => _x( 'Orphaned & Optimize', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'values'      => $confirm,
 		);
 
 		$settings['_posts'][] = array(
-			'field'   => 'delete_post_editmeta',
-			'type'    => 'button',
-			'title'   => _x( 'Post Edit Meta', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-			'desc'    => _x( 'Removes posts last edit user and lock metas', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-			'default' => _x( 'Delete Last User & Lock', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-			'values'  => $confirm,
+			'field'       => 'delete_post_editmeta',
+			'type'        => 'button',
+			'title'       => _x( 'Post Edit Meta', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Removes posts last edit user and lock metas', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'default'     => _x( 'Delete Last User & Lock', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'values'      => $confirm,
 		);
 
 		return $settings;

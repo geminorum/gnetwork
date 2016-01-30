@@ -117,7 +117,6 @@ class gNetworkBlog extends gNetworkModuleCore
 					'title'       => _x( 'GA Override', 'Blog Module', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'This blog Google Analytics account to override the network', 'Blog Module', GNETWORK_TEXTDOMAIN ),
 					'placeholder' => 'UA-XXXXX-X',
-					'default'     => '',
 					'dir'         => 'ltr',
 				),
 			);
@@ -125,12 +124,12 @@ class gNetworkBlog extends gNetworkModuleCore
 		if ( class_exists( 'gNetworkLocale' ) )
 			$settings['_locale'] = array(
 				array(
-					'field'   => 'admin_locale',
-					'type'    => 'select',
-					'title'   => _x( 'Admin Language', 'Blog Module', GNETWORK_TEXTDOMAIN ),
-					'desc'    => _x( 'Despite of the site language, always display admin in this locale', 'Blog Module', GNETWORK_TEXTDOMAIN ),
-					'values'  => self::sameKey( gNetworkLocale::available() ),
-					'default' => get_locale(),
+					'field'       => 'admin_locale',
+					'type'        => 'select',
+					'title'       => _x( 'Admin Language', 'Blog Module', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Despite of the site language, always display admin in this locale', 'Blog Module', GNETWORK_TEXTDOMAIN ),
+					'values'      => self::sameKey( gNetworkLocale::available() ),
+					'default'     => get_locale(),
 				),
 			);
 

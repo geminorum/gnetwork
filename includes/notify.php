@@ -31,23 +31,23 @@ class gNetworkNotify extends gNetworkModuleCore
 		return array(
 			'_general' => array(
 				array(
-					'field'   => 'disable_new_user_admin',
-					'type'    => 'enabled',
-					'title'   => _x( 'New User', 'Notify Module', GNETWORK_TEXTDOMAIN ),
-					'desc'    => _x( 'Notify the blog admin of a newly-registered user', 'Notify Module', GNETWORK_TEXTDOMAIN ),
-					'default' => '1',
-					'values'  => array(
+					'field'       => 'disable_new_user_admin',
+					'type'        => 'enabled',
+					'title'       => _x( 'New User', 'Notify Module', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Notify the blog admin of a newly-registered user', 'Notify Module', GNETWORK_TEXTDOMAIN ),
+					'default'     => '1',
+					'values'      => array(
 						__( 'Enabled' , GNETWORK_TEXTDOMAIN ),
 						__( 'Disabled', GNETWORK_TEXTDOMAIN ),
 					),
 				),
 				array(
-					'field'   => 'disable_password_change',
-					'type'    => 'enabled',
-					'title'   => _x( 'Password Reset', 'Notify Module', GNETWORK_TEXTDOMAIN ),
-					'desc'    => _x( 'Notify the blog admin of a user changing password', 'Notify Module', GNETWORK_TEXTDOMAIN ),
-					'default' => '1',
-					'values'  => array(
+					'field'       => 'disable_password_change',
+					'type'        => 'enabled',
+					'title'       => _x( 'Password Reset', 'Notify Module', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Notify the blog admin of a user changing password', 'Notify Module', GNETWORK_TEXTDOMAIN ),
+					'default'     => '1',
+					'values'      => array(
 						__( 'Enabled' , GNETWORK_TEXTDOMAIN ),
 						__( 'Disabled', GNETWORK_TEXTDOMAIN ),
 					),
