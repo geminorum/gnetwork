@@ -27,28 +27,36 @@ class gNetworkComments extends gNetworkModuleCore
 			add_filter( 'notify_moderator', '__return_false' ); // since WP 4.4
 		}
 
-		if ( ! is_admin() && $this->options['front_quicktags'] )
-			add_action( 'wp_print_scripts', array( $this, 'wp_print_scripts' ) );
+		if ( is_admin() ) {
 
-		if ( ! is_admin() && $this->options['disable_notes'] )
-			add_filter( 'comment_form_defaults', function( $defaults ){
-				$defaults['comment_notes_after'] = '';
-				return $defaults;
-			}, 12 );
+			if ( $this->options['admin_fullcomments'] )
+				add_filter( 'comment_excerpt', array( $this, 'comment_excerpt' ) );
 
-		if ( is_admin() && $this->options['admin_fullcomments'] )
-			add_filter( 'comment_excerpt', array( $this, 'comment_excerpt' ) );
+		} else {
+
+			if ( $this->options['blacklist_check'] )
+				add_action( 'wp_blacklist_check', array( $this, 'wp_blacklist_check' ), 10, 6 );
+
+			if ( $this->options['front_quicktags'] )
+				add_action( 'wp_print_scripts', array( $this, 'wp_print_scripts' ) );
+
+			if ( $this->options['disable_notes'] )
+				add_filter( 'comment_form_defaults', function( $defaults ){
+					$defaults['comment_notes_after'] = '';
+					return $defaults;
+				}, 12 );
+
+			if ( $this->options['front_nonce'] ) {
+				add_action( 'comment_form', array( $this, 'comment_form_nonce' ) );
+				add_action( 'pre_comment_approved', array( $this, 'pre_comment_approved_nounce' ) );
+				add_action( 'explain_nonce_gnc-check_comments', array( $this, 'explain_nonce' ) );
+			}
+		}
 
 		add_filter( 'pre_comment_approved', array( $this, 'pre_comment_approved' ), 99, 2 );
 		add_filter( 'add_comment_metadata', array( $this, 'add_comment_metadata' ), 20, 3 );
 
 		// register_shutdown_function( array( $this, 'delete_spam_comments' ) );
-
-		// // WORKING BUT MAKE SURE THIS IS NESSECARY?!
-		// // ORIGINALLY FROM : http://wordpress.org/plugins/really-simple-comment-validation/
-		// add_action( 'comment_form', array( $this, 'comment_form_nonce' ) );
-		// add_action( 'pre_comment_approved', array( $this, 'pre_comment_approved_nounce' ) );
-		// add_action( 'explain_nonce_gnc-check_comments', array( $this, 'explain_nonce' ) );
 	}
 
 	public function settings_sidebox( $sub, $uri )
@@ -63,47 +71,63 @@ class gNetworkComments extends gNetworkModuleCore
 			'admin_fullcomments'    => '1',
 			'front_quicktags'       => '0',
 			'disable_notes'         => '1',
+			'blacklist_check'       => '0', // FIXME: DRAFT: needs test / NO Settgins UI YET
+			'front_nonce'           => '0', // FIXME: DRAFT: working / NO Settgins UI YET / check the hooks
+			'captcha'               => '0',
 		);
 	}
 
 	public function default_settings()
 	{
-		return array(
+		$settings = array(
 			'_general' => array(
 				array(
-					'field'   => 'disable_notifications',
-					'type'    => 'enabled',
-					'title'   => _x( 'Comment Notifications', 'Comments Module', GNETWORK_TEXTDOMAIN ),
-					'desc'    => _x( 'Disable all core comment notifications', 'Comments Module', GNETWORK_TEXTDOMAIN ),
-					'default' => '1',
-					'values'  => array(
+					'field'       => 'disable_notifications',
+					'type'        => 'enabled',
+					'title'       => _x( 'Comment Notifications', 'Comments Module', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Disable all core comment notifications', 'Comments Module', GNETWORK_TEXTDOMAIN ),
+					'default'     => '1',
+					'values'      => array(
 						__( 'Enabled' , GNETWORK_TEXTDOMAIN ),
 						__( 'Disabled', GNETWORK_TEXTDOMAIN ),
 					),
 				),
 				array(
-					'field'   => 'admin_fullcomments',
-					'type'    => 'enabled',
-					'title'   => _x( 'Full Comments', 'Comments Module', GNETWORK_TEXTDOMAIN ),
-					'desc'    => _x( 'Full comments on dashboard', 'Comments Module', GNETWORK_TEXTDOMAIN ),
-					'default' => '0',
+					'field'       => 'admin_fullcomments',
+					'type'        => 'enabled',
+					'title'       => _x( 'Full Comments', 'Comments Module', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Full comments on dashboard', 'Comments Module', GNETWORK_TEXTDOMAIN ),
+					'default'     => '0',
 				),
 				array(
-					'field'   => 'front_quicktags',
-					'type'    => 'enabled',
-					'title'   => _x( 'Quicktags', 'Comments Module', GNETWORK_TEXTDOMAIN ),
-					'desc'    => _x( 'Activate Quicktags for comments on frontend', 'Comments Module', GNETWORK_TEXTDOMAIN ),
-					'default' => '0',
+					'field'       => 'front_quicktags',
+					'type'        => 'enabled',
+					'title'       => _x( 'Quicktags', 'Comments Module', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Activate Quicktags for comments on frontend', 'Comments Module', GNETWORK_TEXTDOMAIN ),
+					'default'     => '0',
 				),
 				array(
-					'field'   => 'disable_notes',
-					'type'    => 'enabled',
-					'title'   => _x( 'Form Notes', 'Comments Module', GNETWORK_TEXTDOMAIN ),
-					'desc'    => _x( 'Removes extra notes after comment form on frontend', 'Comments Module', GNETWORK_TEXTDOMAIN ),
-					'default' => '1',
+					'field'       => 'disable_notes',
+					'type'        => 'enabled',
+					'title'       => _x( 'Form Notes', 'Comments Module', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Removes extra notes after comment form on frontend', 'Comments Module', GNETWORK_TEXTDOMAIN ),
+					'default'     => '1',
 				),
 			),
 		);
+
+		if ( class_exists( 'gNetworkCaptcha' ) )
+			$settings['_captcha'] = array(
+				array(
+					'field'       => 'captcha',
+					'type'        => 'enabled',
+					'title'       => _x( 'Captcha', 'Comments Module', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Display captcha field on comment form', 'Comments Module', GNETWORK_TEXTDOMAIN ),
+					'default'     => '0',
+				),
+			);
+
+		return $settings;
 	}
 
 	public function wp_print_scripts()
@@ -144,14 +168,7 @@ class gNetworkComments extends gNetworkModuleCore
 	{
 		global $comment;
 
-		$content = wpautop( $comment->comment_content );
-
-		// FIXME: disabled for testing
-		// $content = substr( $content, 3, -5 );	// Remove first <p> and last </p>
-		// $content = str_replace( '<p>', '<p style="display:block; margin:1em 0">', $content );
-		// $content .= '</p>';
-
-		return $content;
+		return wpautop( trim( $comment->comment_content ) );
 	}
 
 	// http://css-tricks.com/snippets/wordpress/spam-comments-with-very-long-urls/
@@ -245,7 +262,6 @@ class gNetworkComments extends gNetworkModuleCore
 		// UPDATE wp_posts SET ping_status='closed' WHERE post_status = 'publish' AND post_type = 'page';
 	}
 
-	// http://www.codecheese.com/2013/11/wordpress-get-total-comment-count/
 	public function total_comments( $post_id = 0 )
 	{
 		$comments = wp_count_comments( $post_id );
@@ -262,5 +278,108 @@ class gNetworkComments extends gNetworkModuleCore
 		foreach ( $map as $key => $string )
 			echo '<li>'.sprintf( $string, number_format_i18n( $comments->{$key} ) ).'</li>';
 		echo '</ul>';
+	}
+
+	// TODO: add option for:
+	private $links_limit        = 5;
+	private $links_limit_action = 'reject';
+	private $duplicate_action   = 'reject';
+	private $known_sites_action = 'spam';
+	private $group_action       = 'reject';
+	private $known_ip_action    = 'spam';
+	private $known_ip_limit     = 3;
+	private $known_sites        = array();
+
+	// @SOURCE: https://github.com/Rarst/deny-spam
+	public function wp_blacklist_check( $author, $email, $url, $comment, $user_ip, $user_agent )
+	{
+		global $wpdb;
+
+		// links limit
+		if ( substr_count( strtolower( $comment ), 'http://' ) > $this->links_limit ) {
+
+			if ( 'reject' == $this->links_limit_action )
+				wp_die( sprintf( _x( 'Comment has <strong>over %s links</strong>. Please reduce number of those.', GNETWORK_TEXTDOMAIN ), $this->links_limit ) );
+
+			else
+				add_filter( 'pre_comment_approved', array( $this, 'pre_comment_approved_spam' ) );
+
+			return;
+		}
+
+		// duplicate comment content
+		$dupe = "SELECT comment_ID FROM {$wpdb->comments} WHERE comment_approved='spam' AND comment_content = '{$comment}' LIMIT 1";
+		if ( $wpdb->get_var( $dupe ) ) {
+
+			if ( 'reject' == $this->duplicate_action )
+				wp_die( _x( 'Duplicate comment content. Please rephrase.', 'Comments Module', GNETWORK_TEXTDOMAIN ) );
+
+			else
+				add_filter( 'pre_comment_approved', array( $this, 'pre_comment_approved_spam' ) );
+
+			return;
+		}
+
+		// known spam URL
+		if ( ! empty( $url ) ) {
+			$dupe = "SELECT comment_ID FROM {$wpdb->comments} WHERE comment_approved='spam' AND comment_author_url = '{$url}' LIMIT 1";
+			if ( $wpdb->get_var( $dupe ) || $this->is_known_spam_domain( $url ) ) {
+
+				if ( 'reject' == $this->known_sites_action )
+					wp_die( _x( 'Your URL or domain is in list of known spam-promoted sites. If you believe this to be an error please contact site admin.', 'Comments Module', GNETWORK_TEXTDOMAIN ) );
+
+				else
+					add_filter( 'pre_comment_approved', array( $this, 'pre_comment_approved_spam' ) );
+
+				return;
+			}
+		}
+
+		// known spam IP
+		$dupe = "SELECT COUNT(comment_ID) FROM $wpdb->comments WHERE comment_approved='spam' AND comment_author_IP = '$user_ip'";
+		if ( $wpdb->get_var( $dupe ) > $this->known_ip_limit ) {
+
+			if ( 'reject' == $this->known_ip_action )
+				wp_die( _x( 'Your IP is in list of known spam sources. If you believe this to be an error please contact site admin.', 'Comments Module', GNETWORK_TEXTDOMAIN ) );
+
+			else
+				add_filter( 'pre_comment_approved', array( $this, 'pre_comment_approved_spam' ) );
+
+			return;
+		}
+
+		// group of spam duplicates
+		$dupe = "SELECT comment_ID FROM $wpdb->comments WHERE comment_approved='0' AND comment_content = '$comment' LIMIT 1";
+		if ( $wpdb->get_var( $dupe ) ) {
+
+			if ( 'reject' == $this->group_action ) {
+				$wpdb->query( "UPDATE $wpdb->comments SET comment_approved='trash' WHERE comment_content = '$comment'" );
+				wp_die( _x( 'Duplicate comment content. Please rephrase.', 'Comments Module', GNETWORK_TEXTDOMAIN ) );
+
+			} else {
+
+				$wpdb->query( "UPDATE $wpdb->comments SET comment_approved='spam' WHERE comment_content = '$comment'" );
+				add_filter( 'pre_comment_approved', array( $this, 'pre_comment_approved_spam' ) );
+			}
+
+			return;
+		}
+	}
+
+	// overrides approved status with 'spam'
+	public function pre_comment_approved_spam()
+	{
+		return 'spam';
+	}
+
+	// checks url against top spam domains
+	private function is_known_spam_domain( $url )
+	{
+		$host = @parse_url( $url, PHP_URL_HOST );
+
+		if ( empty( $host ) )
+			return FALSE;
+
+		return in_array( strtolower( $host ), $this->known_sites );
 	}
 }
