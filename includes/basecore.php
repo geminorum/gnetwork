@@ -745,7 +745,7 @@ class gNetworkBaseCore
 		echo '</tbody></table>';
 	}
 
-	public static function tableSide( $array )
+	public static function tableSide( $array, $type = TRUE )
 	{
 		echo '<table class="base-table-side">';
 
@@ -756,14 +756,14 @@ class gNetworkBaseCore
 				echo '<tr class="-row">';
 
 				if ( is_string( $key ) ) {
-					echo '<td class="-key" style=""><strong>'.$key;
-						echo '</strong><br /><small>'.gettype( $val ).'</small>';
+					echo '<td class="-key" style=""><strong>'.$key.'</strong>';
+						if ( $type ) echo '<br /><small>'.gettype( $val ).'</small>';
 					echo '</td>';
 				}
 
 				if ( is_array( $val ) || is_object( $val ) ) {
 					echo '<td class="-val -table">';
-					self::tableSide( $val );
+					self::tableSide( $val, $type );
 				} else if ( ! empty( $val ) ){
 					echo '<td class="-val -not-table"><code>'.$val.'</code>';
 				} else {
