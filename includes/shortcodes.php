@@ -59,6 +59,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			'iframe'       => 'shortcode_iframe',
 			'email'        => 'shortcode_email',
 			'tel'          => 'shortcode_tel',
+			'sms'          => 'shortcode_sms',
 			'googlegroups' => 'shortcode_googlegroups',
 			'pdf'          => 'shortcode_pdf',
 			'bloginfo'     => 'shortcode_bloginfo',
@@ -366,6 +367,30 @@ class gNetworkShortCodes extends gNetworkModuleCore
 
 		if ( $args['wrap'] )
 			return '<span class="gnetwork-wrap-shortcode shortcode-tel">'.$html.'</span>';
+
+		return $html;
+	}
+
+	public function shortcode_sms( $atts, $content = NULL, $tag = '' )
+	{
+		$args = shortcode_atts( array(
+			'title'   => FALSE,
+			'context' => NULL,
+			'wrap'    => TRUE,
+		), $atts, $tag );
+
+		if ( FALSE === $args['context'] )
+			return NULL;
+
+		if ( ! $content ) // what about default site email
+			return $content;
+
+		$html = '<a class="sms" href="sms://'.$content
+				.'"'.( $args['title'] ? ' data-toggle="tooltip" title="'.esc_attr( $args['title'] ).'"' : '' ).'>'
+				.'&#8206;'.apply_filters( 'string_format_i18n', $content ).'&#8207;</a>';
+
+		if ( $args['wrap'] )
+			return '<span class="gnetwork-wrap-shortcode shortcode-sms">'.$html.'</span>';
 
 		return $html;
 	}
