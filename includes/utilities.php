@@ -140,6 +140,21 @@ class gNetworkUtilities extends gNetworkBaseCore
 		return count( $strings ) ? 'tinyMCE.addI18n("'.$locale.'.gnetwork", '.wp_json_encode( $strings ).');'."\n" : '';
 	}
 
+	// for other plugins too!
+	public static function githubREADME( $repo = 'geminorum/gnetwork', $wrap = TRUE )
+	{
+		global $gNetwork;
+
+		if ( isset( $gNetwork->code ) ) {
+			echo '<div class="gnetwork-overview-wrap">';
+				echo $gNetwork->code->shortcode_github_readme( array(
+					'context' => 'overview',
+					'repo'    => $repo,
+				) );
+			echo '</div>';
+		}
+	}
+
 	// FIXME: WTF ?!
 	// http://www.webdesignerdepot.com/2012/08/wordpress-filesystem-api-the-right-way-to-operate-with-local-files/
 	//http://ottopress.com/2011/tutorial-using-the-wp_filesystem/
