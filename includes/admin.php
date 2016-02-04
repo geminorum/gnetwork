@@ -7,14 +7,10 @@ class gNetworkAdmin extends gNetworkModuleCore
 	protected $network    = FALSE;
 	protected $front_end  = FALSE;
 
-	public $menus   = array();
-	public $tinymce = array();
+	public $menus = array();
 
 	protected function setup_actions()
 	{
-		// FIXME: is this necessary on frontend?
-		add_action( 'init', array( $this, 'init_late' ), 999 );
-
 		// add_action( 'admin_init', array( $this, 'admin_init_early' ), 1 );
 		add_action( 'admin_menu', array( $this, 'admin_menu' ), 12 );
 		add_action( 'admin_menu', array( $this, 'admin_menu_late' ), 999 );
@@ -44,14 +40,6 @@ class gNetworkAdmin extends gNetworkModuleCore
 
 		// IT MESSES WITH CUSTOM COLUMNS!!
 		// add_filter( 'posts_fields', array( $this, 'posts_fields' ), 0, 2 );
-	}
-
-	public function init_late()
-	{
-		if ( 'true' == get_user_option( 'rich_editing' ) && count( $this->tinymce ) ) {
-			add_filter( 'mce_external_plugins', array( $this, 'mce_external_plugins' ) );
-			add_filter( 'mce_buttons', array( $this, 'mce_buttons' ) );
-		}
 	}
 
 	// DISABLED
@@ -136,7 +124,8 @@ class gNetworkAdmin extends gNetworkModuleCore
 	{
 		global $gNetwork;
 
-		$gNetwork->admin->tinymce[$plugin] = GNETWORK_URL.$filepath;
+		if ( isset( $gNetwork->editor ) )
+			$gNetwork->editor->tinymce[$plugin] = GNETWORK_URL.$filepath;
 	}
 
 	public static function settingsURL( $full = TRUE )
@@ -209,24 +198,6 @@ class gNetworkAdmin extends gNetworkModuleCore
 		}
 
 		echo '<div class="clear"></div></div>';
-	}
-
-	public function mce_buttons( $buttons )
-	{
-		array_push( $buttons, '|' );
-
-		foreach ( $this->tinymce as $plugin => $filepath )
-			array_push( $buttons, $plugin );
-
-		return $buttons;
-	}
-
-	public function mce_external_plugins( $plugin_array )
-	{
-		foreach ( $this->tinymce as $plugin => $filepath )
-			$plugin_array[$plugin] = $filepath;
-
-		return $plugin_array;
 	}
 
 	public function export_wp()
