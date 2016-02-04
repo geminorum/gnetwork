@@ -340,7 +340,7 @@ class gNetworkModuleCore extends gNetworkBaseCore
 
 		if ( isset( $_POST[$options_key] ) && is_array( $_POST[$options_key] ) ) {
 
-			$options = $this->default_options();
+			$options = apply_filters( $options_key.'_default_options', $this->default_options() );
 
 			foreach ( $options as $setting => $default ) {
 				if ( isset( $_POST[$options_key][$setting] ) ) {
@@ -365,12 +365,12 @@ class gNetworkModuleCore extends gNetworkBaseCore
 
 	public function register_settings()
 	{
-		$settings = $this->default_settings();
+		$page = $this->menu_key ? $this->option_base.'_'.$this->menu_key : $this->options_key();
+
+		$settings = apply_filters( $page.'_default_settings', $this->default_settings() );
 
 		if ( ! count( $settings ) )
 			return;
-
-		$page = $this->menu_key ? $this->option_base.'_'.$this->menu_key : $this->options_key();
 
 		foreach ( $settings as $section_suffix => $fields ) {
 			if ( is_array( $fields ) ) {
@@ -380,8 +380,10 @@ class gNetworkModuleCore extends gNetworkBaseCore
 				else
 					$section_callback = '__return_false';
 
+				$callback = apply_filters( $page.'_settings_section', $section_callback, $section_suffix );
+
 				$section = $page.$section_suffix;
-				add_settings_section( $section, FALSE, $section_callback, $page );
+				add_settings_section( $section, FALSE, $callback, $page );
 
 				foreach ( $fields as $field )
 					$this->add_settings_field( array_merge( $field, array(
