@@ -128,15 +128,16 @@ class gNetworkModuleCore extends gNetworkBaseCore
 		return $this->settings_sanitize( $options, $this->default_options() );
 	}
 
-	public function settings_sanitize( $input, $defaults = NULL )
+	public function settings_sanitize( $options, $defaults = NULL )
 	{
-		$output = ( is_null( $defaults ) ? $this->default_options() : $defaults );
+		if ( is_null( $defaults ) )
+			$defaults = $this->default_options();
 
-		foreach ( $output as $key => $val )
-			if ( isset( $input[$key] ) )
-				$output[$key] = $input[$key];
+		foreach ( $defaults as $key => $val )
+			if ( ! isset( $options[$key] ) )
+				$options[$key] = $defaults[$key];
 
-		return $output;
+		return $options;
 	}
 
 	// option and it's default
