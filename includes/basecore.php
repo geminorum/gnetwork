@@ -1131,6 +1131,21 @@ class gNetworkBaseCore
 		return '['.gmdate( 'd-M-Y H:i:s e' ).'] ';
 	}
 
+	public static function logArray( $error = '[Unknown]', $data = array(), $wp_error = NULL )
+	{
+		if ( ! WP_DEBUG_LOG )
+			return;
+
+		$log = array_merge( array(
+			'error'   => $error,
+			'time'    => current_time( 'mysql' ),
+			'ip'      => self::IP(),
+			'message' => ( is_null( $wp_error ) ? '[NO WP_Error Object]' : $wp_error->get_error_message() ),
+		), $data );
+
+		error_log( print_r( $log, TRUE ) );
+	}
+
 	// ANCESTOR: shortcode_atts()
 	public static function atts( $pairs, $atts )
 	{
