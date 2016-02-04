@@ -79,11 +79,13 @@ class gNetworkLocale extends gNetworkModuleCore
 	public function load_textdomain_mofile( $mofile, $domain )
 	{
 		$locale = get_locale();
-		$this->loaded[$locale][$domain][] = wp_normalize_path ( $mofile );
+		$this->loaded[$locale][$domain][] = wp_normalize_path( $mofile );
 
-		$tailored = GNETWORK_DIR.'locale/'.$domain.'-'.$locale.'.mo';
-		if ( is_readable( $tailored ) )
+		$tailored = wp_normalize_path( GNETWORK_DIR.'locale/'.$domain.'-'.$locale.'.mo' );
+		if ( is_readable( $tailored ) ) {
+			$this->loaded[$locale][$domain][] = $tailored;
 			return $tailored;
+		}
 
 		return $mofile;
 	}
@@ -177,6 +179,17 @@ class gNetworkLocale extends gNetworkModuleCore
 			'wp-db-backup'                  => 'page', // WP-DB-Backup // https://wordpress.org/plugins/wp-db-backup/
 			'odb_settings_page'             => 'page', // Optimize Database after Deleting Revisions // https://wordpress.org/plugins/rvg-optimize-database/
 			'rvg-optimize-database'         => 'page', // Optimize Database after Deleting Revisions // https://wordpress.org/plugins/rvg-optimize-database/
+
+			// [AddThis Website Tools](https://wordpress.org/plugins/addthis-all/)
+			'addthis_registration'      => 'page',
+			'addthis_advanced_settings' => 'page',
+
+			// [Google Analytics Dashboard for WP](https://wordpress.org/plugins/google-analytics-dashboard-for-wp/)
+			'gadash_settings'          => 'page',
+			'gadash_backend_settings'  => 'page',
+			'gadash_frontend_settings' => 'page',
+			'gadash_tracking_settings' => 'page',
+			'gadash_errors_debugging'  => 'page',
 		) );
 
 		foreach ( $black_list as $val => $key )

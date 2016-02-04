@@ -1,16 +1,19 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-/// gNetwork Partials: Ad Block! -----------------------------------------------
+/// gNetwork Partials: Form ----------------------------------------------------
 
+.wrap {
 
-// BWP Google XML Sitemaps
-#bwp-get-social,
-#bwp-plugin-info,
-#bwp-sidebar-right,
+	input[type="text"] {
+		vertical-align: middle;
+	}
 
-// Google Analytics Dashboard
-#poststuff .gadwp .postbox-container
-{
-	display: none;
+	input.small-text {
+		padding: 5px 5px 4px;
+	}
+
+	input.medium-text {
+		width: 12em;
+	}
 }

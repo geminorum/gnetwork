@@ -76,10 +76,15 @@
 	}
 
 	&.shortcode-tel {
-		// display:inline;
-		// direction:ltr;
+
 		a.tel {
-			// direction:ltr;
+			letter-spacing: 0.4px;
+		}
+	}
+
+	&.shortcode-sms {
+
+		a.sms {
 			letter-spacing: 0.4px;
 		}
 	}

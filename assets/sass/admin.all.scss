@@ -7,6 +7,7 @@
 @import "partials/admin.adblock";
 @import "partials/admin.editor";
 @import "partials/admin.table";
+@import "partials/admin.form";
 
 @import "partials/debug.all";
 @import "partials/adminbar.all";
@@ -179,21 +180,6 @@ ul.categorychecklist {
 	input#post_name,
 	select#post_author_override {
 		width: 99%;
-	}
-}
-
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-///---GENERAL FORM ENHANCEMENTS-------------------------------------------------
-
-.wrap {
-	input[type="text"]{
-		vertical-align: middle;
-	}
-
-	input.small-text{
-		padding: 5px 5px 4px;
 	}
 }
 

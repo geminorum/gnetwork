@@ -109,8 +109,26 @@ body.rtl {
 		}
 
 		#latest-comments #the-comment-list {
-			.comment-item p.row-actions {
-				font-size: 11px;
+			.comment-item  {
+				p.comment-meta {
+					font-size: 0.95em;
+					margin-bottom: 0.5em;
+
+						span.approve:before {
+							@include theme-transform-flip-horizontal;
+							display: inline-block;
+						}
+				}
+				.dashboard-comment-wrap {
+					blockquote p {
+						font-size: 0.85em;
+						margin-bottom: 0.5em;
+						display: block;
+					}
+				}
+				p.row-actions {
+					font-size: 0.85em;
+				}
 			}
 		}
 	}
@@ -146,6 +164,10 @@ body.rtl {
 			font-size: 0.85em;
 			margin-bottom: 0;
 		}
+	}
+
+	#dashboard_activity {
+
 	}
 
 	// Google Analytics Dashboard

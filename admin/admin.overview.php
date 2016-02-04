@@ -6,7 +6,7 @@ echo '<form method="post" action="">';
 
 	$manage_options = current_user_can( 'manage_options' );
 
-	if ( class_exists( 'gNetworkDebug' ) && $manage_options  ) {
+	if ( class_exists( 'gNetworkDebug' ) && $manage_options ) {
 
 		echo '<tr class="table-block ltr"><th scope="row">'.__( 'Core Versions', GNETWORK_TEXTDOMAIN ).'</th><td>';
 			gNetworkDebug::versions();
