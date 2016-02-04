@@ -22,10 +22,10 @@ class gNetworkShortCodes extends gNetworkModuleCore
 
 		if ( class_exists( 'gNetworkAdmin' ) ) {
 			add_action( 'gnetwork_tinymce_strings', array( $this, 'tinymce_strings' ) );
-			gNetworkAdmin::registerTinyMCE( 'gnetworkref', 'assets/js/tinymce.ref.min.js' );
-			gNetworkAdmin::registerTinyMCE( 'gnetworkemail', 'assets/js/tinymce.email.min.js' );
-			gNetworkAdmin::registerTinyMCE( 'gnetworksearch', 'assets/js/tinymce.search.min.js' );
-			gNetworkAdmin::registerTinyMCE( 'gnetworkgpeople', 'assets/js/tinymce.gpeople.min.js' );
+			gNetworkAdmin::registerTinyMCE( 'gnetworkref', 'assets/js/tinymce.ref', 1 );
+			gNetworkAdmin::registerTinyMCE( 'gnetworkemail', 'assets/js/tinymce.email', 1 );
+			gNetworkAdmin::registerTinyMCE( 'gnetworksearch', 'assets/js/tinymce.search', 2 );
+			gNetworkAdmin::registerTinyMCE( 'gnetworkgpeople', 'assets/js/tinymce.gpeople', 2 );
 		}
 	}
 

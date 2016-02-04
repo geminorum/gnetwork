@@ -5,9 +5,13 @@ class gNetworkEditor extends gNetworkModuleCore
 	protected $option_key = FALSE;
 	protected $network    = FALSE;
 
-	public $tinymce = array();
-
-	private $table = FALSE;
+	public $tinymce = array(
+		array(), // 0: teeny_mce_buttons
+		array(), // 1: mce_buttons
+		array(), // 2: mce_buttons_2
+		array(), // 3: mce_buttons_3
+		array(), // 4: mce_buttons_4
+	);
 
 	protected function setup_actions()
 	{
@@ -20,12 +24,19 @@ class gNetworkEditor extends gNetworkModuleCore
 		if ( 'true' != get_user_option( 'rich_editing' ) )
 			return;
 
-		if ( count( $this->tinymce ) )
-			add_filter( 'mce_buttons', array( $this, 'mce_buttons' ) );
+		global $tinymce_version;
 
-		add_action( 'mce_buttons_2', array( $this, 'mce_buttons_2' ) );
-		add_action( 'mce_external_plugins', array( $this, 'mce_external_plugins' ) );
-		add_action( 'content_save_pre', array( $this, 'content_save_pre' ), 20 );
+		add_filter( 'teeny_mce_buttons', array( $this, 'teeny_mce_buttons' ), 10, 2 );
+		add_filter( 'mce_buttons', array( $this, 'mce_buttons' ), 10, 2 );
+		add_filter( 'mce_buttons_2', array( $this, 'mce_buttons_2' ), 10, 2 );
+		add_filter( 'mce_buttons_3', array( $this, 'mce_buttons_3' ), 10, 2 );
+		add_filter( 'mce_buttons_4', array( $this, 'mce_buttons_4' ), 10, 2 );
+		add_filter( 'mce_external_plugins', array( $this, 'mce_external_plugins' ) );
+
+		if ( ! version_compare( $tinymce_version, '4100', '<' ) ) {
+			gNetworkAdmin::registerTinyMCE( 'table', 'assets/js/tinymce.table', 2 );
+			add_filter( 'content_save_pre', array( $this, 'content_save_pre' ), 20 );
+		}
 	}
 
 	public function wp_link_query_args( $query )
@@ -36,35 +47,78 @@ class gNetworkEditor extends gNetworkModuleCore
 		return $query;
 	}
 
-	public function mce_buttons( $buttons )
+	public function teeny_mce_buttons( $buttons, $editor_id )
 	{
+		if ( ! count( $this->tinymce[0] ) )
+			return $buttons;
+
 		array_push( $buttons, '|' );
 
-		foreach ( $this->tinymce as $plugin => $filepath )
+		foreach ( $this->tinymce[0] as $plugin => $filepath )
 			array_push( $buttons, $plugin );
 
 		return $buttons;
 	}
 
-	public function mce_buttons_2( $buttons )
+	public function mce_buttons( $buttons, $editor_id )
 	{
-		// in case someone is manipulating other buttons, drop table controls at the end of the row
-		if ( ! $pos = array_search( 'undo', $buttons ) ) {
-			array_push( $buttons, 'table' );
+		if ( ! count( $this->tinymce[1] ) )
 			return $buttons;
-		}
 
-		return array_merge( array_slice( $buttons, 0, $pos ), array( 'table' ), array_slice( $buttons, $pos ) );
+		array_push( $buttons, '|' );
+
+		foreach ( $this->tinymce[1] as $plugin => $filepath )
+			array_push( $buttons, $plugin );
+
+		return $buttons;
+	}
+
+	public function mce_buttons_2( $buttons, $editor_id )
+	{
+		if ( ! count( $this->tinymce[2] ) )
+			return $buttons;
+
+		array_push( $buttons, '|' );
+
+		foreach ( $this->tinymce[2] as $plugin => $filepath )
+			array_push( $buttons, $plugin );
+
+		return $buttons;
+	}
+
+	public function mce_buttons_3( $buttons, $editor_id )
+	{
+		if ( ! count( $this->tinymce[3] ) )
+			return $buttons;
+
+		array_push( $buttons, '|' );
+
+		foreach ( $this->tinymce[3] as $plugin => $filepath )
+			array_push( $buttons, $plugin );
+
+		return $buttons;
+	}
+
+	public function mce_buttons_4( $buttons, $editor_id )
+	{
+		if ( ! count( $this->tinymce[4] ) )
+			return $buttons;
+
+		array_push( $buttons, '|' );
+
+		foreach ( $this->tinymce[4] as $plugin => $filepath )
+			array_push( $buttons, $plugin );
+
+		return $buttons;
 	}
 
 	public function mce_external_plugins( $plugin_array )
 	{
 		$variant = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
-		foreach ( $this->tinymce as $plugin => $filepath )
-			$plugin_array[$plugin] = $filepath;
-
-		$plugin_array['table'] = GNETWORK_URL.'assets/js/tinymce-table-plugin'.$variant.'.js';
+		foreach( $this->tinymce as $row )
+			foreach ( $row as $plugin => $filepath )
+				$plugin_array[$plugin] = $filepath.$variant.'.js';
 
 		return $plugin_array;
 	}

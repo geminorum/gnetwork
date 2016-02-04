@@ -12,8 +12,8 @@ class gNetworkTypography extends gNetworkModuleCore
 
 		if ( class_exists( 'gNetworkAdmin' ) ) {
 			add_action( 'gnetwork_tinymce_strings', array( $this, 'tinymce_strings' ) );
-			gNetworkAdmin::registerTinyMCE( 'gnetworkasterisks', 'assets/js/tinymce.asterisks.min.js' );
-			gNetworkAdmin::registerTinyMCE( 'gnetworkquote', 'assets/js/tinymce.quote.min.js' );
+			gNetworkAdmin::registerTinyMCE( 'gnetworkquote', 'assets/js/tinymce.quote', 1 );
+			gNetworkAdmin::registerTinyMCE( 'gnetworkasterisks', 'assets/js/tinymce.asterisks', 2 );
 		}
 	}
 

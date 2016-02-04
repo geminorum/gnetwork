@@ -120,12 +120,12 @@ class gNetworkAdmin extends gNetworkModuleCore
 			add_action( 'gnetwork_admin_settings', $callback );
 	}
 
-	public static function registerTinyMCE( $plugin, $filepath )
+	public static function registerTinyMCE( $plugin, $filepath, $row = 1 )
 	{
 		global $gNetwork;
 
 		if ( isset( $gNetwork->editor ) )
-			$gNetwork->editor->tinymce[$plugin] = GNETWORK_URL.$filepath;
+			$gNetwork->editor->tinymce[$row][$plugin] = GNETWORK_URL.$filepath;
 	}
 
 	public static function settingsURL( $full = TRUE )
