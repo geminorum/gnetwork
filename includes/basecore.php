@@ -116,7 +116,22 @@ class gNetworkBaseCore
 		return $html;
 	}
 
-	public static function currentURL( $trailingslashit = FALSE )
+	// FIXME: test this!
+	// @SOURCE: http://stackoverflow.com/a/8891890/4864081
+	public static function currentURL( $trailingslashit = FALSE, $forwarded_host = FALSE )
+	{
+	    $ssl      = ( ! empty( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] == 'on' );
+	    $sp       = strtolower( $_SERVER['SERVER_PROTOCOL'] );
+	    $protocol = substr( $sp, 0, strpos( $sp, '/' ) ) . ( ( $ssl ) ? 's' : '' );
+	    $port     = $_SERVER['SERVER_PORT'];
+	    $port     = ( ( ! $ssl && $port=='80' ) || ( $ssl && $port=='443' ) ) ? '' : ':'.$port;
+	    $host     = ( $forwarded_host && isset( $_SERVER['HTTP_X_FORWARDED_HOST'] ) ) ? $_SERVER['HTTP_X_FORWARDED_HOST'] : ( isset( $_SERVER['HTTP_HOST'] ) ? $_SERVER['HTTP_HOST'] : NULL );
+	    $host     = isset( $host ) ? $host : $_SERVER['SERVER_NAME'].$port;
+
+		return $protocol.'://'.$host.$_SERVER['REQUEST_URI'];
+	}
+
+	public static function currentURL_OLD( $trailingslashit = FALSE )
 	{
 		global $wp;
 
