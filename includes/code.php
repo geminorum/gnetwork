@@ -224,10 +224,7 @@ class gNetworkCode extends gNetworkModuleCore
 			'onclick'  => $args['js'] ? 'this.focus();this.select()' : FALSE,
 		), $texarea );
 
-		if ( $args['wrap'] )
-			return '<div class="gnetwork-wrap-shortcode -textarea">'.$html.'</div>';
-
-		return $html;
+		return self::shortcodeWrap( $html, 'textarea', $args );
 	}
 
 	// @SEE: http://shields.io/
@@ -259,9 +256,6 @@ class gNetworkCode extends gNetworkModuleCore
 				'title' => $args['subject'].' '.$args['status'],
 			), $html );
 
-		if ( $args['wrap'] )
-			return '<span class="gnetwork-wrap-shortcode -shields-io">'.$html.'</span>';
-
-		return $html;
+		return self::shortcodeWrap( $html, 'shields-io', $args, FALSE );
 	}
 }

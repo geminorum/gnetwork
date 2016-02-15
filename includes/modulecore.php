@@ -966,6 +966,23 @@ class gNetworkModuleCore extends gNetworkBaseCore
 	}
 
 	// HELPER
+	public static function shortcodeWrap( $html, $suffix = FALSE, $args = array(), $block = TRUE )
+	{
+		if ( isset( $args['wrap'] ) && ! $args['wrap'] )
+			return $html;
+
+		$classes = array( 'gnetwork-wrap-shortcode' );
+
+		if ( $suffix )
+			$classes[] = 'shortcode-'.$suffix;
+
+		if ( isset( $args['context'] ) && $args['context'] )
+			$classes[] = 'context-'.$args['context'];
+
+		return self::html( $block ? 'div' : 'span', array( 'class' => $classes ), $html );
+	}
+
+	// HELPER
 	public static function counted( $message = NULL, $count = NULL, $class = 'updated' )
 	{
 		if ( is_null( $message ) )
