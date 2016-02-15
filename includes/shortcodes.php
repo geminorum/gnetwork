@@ -15,7 +15,6 @@ class gNetworkShortCodes extends gNetworkModuleCore
 
 	protected function setup_actions()
 	{
-		add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ) );
 		add_action( 'init', array( $this, 'init_early' ), 8 );
 		add_action( 'init', array( $this, 'init_late' ), 12 );
 		add_action( 'wp_footer', array( $this, 'wp_footer' ), 20 );
@@ -29,18 +28,15 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		}
 	}
 
-	public function plugins_loaded()
+	public function init_early()
 	{
 		if ( defined( 'GPEOPLE_PEOPLE_TAXONOMY' ) )
 			$this->people_tax = GPEOPLE_PEOPLE_TAXONOMY;
 
 		else if ( defined( 'GNETWORK_GPEOPLE_TAXONOMY' ) )
 			$this->people_tax = GNETWORK_GPEOPLE_TAXONOMY;
-	}
 
-	// fallback shortcodes
-	public function init_early()
-	{
+		// fallback shortcodes
 		add_shortcode( 'book', array( $this, 'shortcode_return_content' ) );
 		add_shortcode( 'person', array( $this, 'shortcode_person' ) );
 	}
