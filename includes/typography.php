@@ -50,6 +50,7 @@ class gNetworkTypography extends gNetworkModuleCore
 		$args = shortcode_atts( array(
 			'slug'    => NULL,
 			'lang'    => NULL,
+			'title'   => FALSE,
 			'context' => NULL,
 		), $atts, $tag );
 
@@ -74,14 +75,18 @@ class gNetworkTypography extends gNetworkModuleCore
 
 		$url = 'https://'.$lang.'wikipedia.org/wiki/'.urlencode( str_ireplace( ' ', '_', $slug ) );
 
-		return '<a href="'.esc_url( $url ).'" class="gnetwork-wiki wikipedia">'.$content.'</a>';
+		$html = '<a href="'.esc_url( $url ).'" class="wiki wikipedia"'
+				.( $args['title'] ? ' data-toggle="tooltip" title="'.esc_attr( $args['title'] ).'"' : '' )
+				.'>'.$content.'</a>';
+
+		return self::shortcodeWrap( $html, 'wikipedia', $args, FALSE );
 	}
 
-	// http://writers.stackexchange.com/a/3304
-	// http://en.wikipedia.org/wiki/Asterisk
+	// @SOURCE: http://writers.stackexchange.com/a/3304
+	// @SOURCE: http://en.wikipedia.org/wiki/Asterisk
 	public function shortcode_three_asterisks( $atts, $content = NULL, $tag = '' )
 	{
-		return '<div class="gnetwork-wrap-shortcode shortcode-three-asterisks three-asterisks">&#x274b;&nbsp;&#x274b;&nbsp;&#x274b;</div>';
+		return self::shortcodeWrap( '&#x274b;&nbsp;&#x274b;&nbsp;&#x274b;', 'asterisks', $atts );
 	}
 
 	// FIXME: use entities in tel short code
