@@ -2,4 +2,5 @@
 
 gNetworkUtilities::superAdminOnly();
 
-echo '<iframe src="'.GNETWORK_URL.'assets/layouts/info.php" style="width:100%;" height="600"></iframe>';
+if ( class_exists( 'gNetworkDebug' ) )
+	gNetworkDebug::phpinfo();

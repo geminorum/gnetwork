@@ -243,28 +243,19 @@ class gNetworkDebug extends gNetworkModuleCore
 		self::tableCode( $server );
 	}
 
-	// TODO: make it to the debugbar panel
-	// BASED on: https://gist.github.com/ocean90/3751658
-	/**
-	 *  - Time
-	 *  - DB Queries
-	 *  - Memory Usage
-	 *  - Cache Hts/Misses
-	 *  - Active Plugins
-	 */
-	public static function infoAdvanced()
+
+	public static function phpinfo()
 	{
-		$text  = 'Time : '.timer_stop( 0 ).' | ';
-		$text .= 'DB Queries: '.$GLOBALS['wpdb']->num_queries.' | ';
-		$text .= 'Memory: '.number_format( ( memory_get_peak_usage() / 1024 / 1024 ), 1, ',', '' ).'/'.ini_get( 'memory_limit' ).' | ';
+		$dom = new domDocument;
 
-		$ch = empty( $GLOBALS['wp_object_cache']->cache_hits ) ? 0 : $GLOBALS['wp_object_cache']->cache_hits;
-		$cm = empty( $GLOBALS['wp_object_cache']->cache_misses ) ? 0 : $GLOBALS['wp_object_cache']->cache_misses;
-		$text .= 'Cache Hits: '.$ch.' | Cache Misses: '.$cm.' | ';
+		ob_start();
+		phpinfo();
 
-		$text .= 'Active Plugins: '.count( get_option( 'active_plugins' ) );
-
-		return $text;
+		$dom->loadHTML( ob_get_clean() );
+		$body = $dom->documentElement->lastChild;
+		echo '<div class="gnetwork-phpinfo-wrap">';
+			echo $dom->saveHTML( $body );
+		echo '</div>';
 	}
 
 	public function wp_footer()
