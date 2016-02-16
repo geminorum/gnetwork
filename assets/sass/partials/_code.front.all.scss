@@ -32,13 +32,13 @@
 		direction: ltr !important;
 	}
 
-	&.-textarea {
+	&.shortcode-textarea {
 		direction: ltr;
 		width: 100%;
 		height: auto;
 	}
 
-	&.-shields-io {
+	&.shortcode-shields-io {
 		a {
 			img {
 

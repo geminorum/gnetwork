@@ -233,9 +233,6 @@ class gNetworkCleanup extends gNetworkModuleCore
 
 		// Removes the "WordPress Blog" widget
 		remove_meta_box( 'dashboard_primary', $screen, 'side' );
-
-		// Removes the "Other WordPress News" widget
-		remove_meta_box( 'dashboard_secondary', $screen, 'side' );
 	}
 
 	// https://core.trac.wordpress.org/ticket/20316
