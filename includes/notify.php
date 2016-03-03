@@ -121,7 +121,7 @@ class gNetworkNotify extends gNetworkModuleCore
 
 	// pluggable core function
 	// Notify the blog admin of a user changing password, normally via email.
-	public function wp_password_change_notification( &$user )
+	public function wp_password_change_notification( $user )
 	{
 		if ( $this->options['disable_password_change'] )
 			return;
@@ -151,7 +151,7 @@ function wp_new_user_notification( $user_id, $deprecated = NULL, $notify = '' ) 
 } endif;
 
 if ( ! function_exists( 'wp_password_change_notification' ) ) :
-function wp_password_change_notification( &$user ) {
+function wp_password_change_notification( $user ) {
 	global $gNetwork;
 	return $gNetwork->notify->wp_password_change_notification( $user );
 } endif;
