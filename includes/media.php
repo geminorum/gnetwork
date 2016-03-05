@@ -3,9 +3,9 @@
 class gNetworkMedia extends gNetworkModuleCore
 {
 
-	protected $option_key = FALSE;
-	protected $network    = FALSE;
-	protected $ajax       = TRUE;
+	protected $menu_key = 'media';
+	protected $network  = FALSE;
+	protected $ajax     = TRUE;
 
 	private $posttype_sizes = array();
 
@@ -14,6 +14,12 @@ class gNetworkMedia extends gNetworkModuleCore
 		add_filter( 'upload_mimes', array( $this, 'upload_mimes' ) );
 
 		if ( is_admin() ) {
+
+			if ( GNETWORK_MEDIA_OBJECT_SIZES )
+				$this->register_menu( 'media',
+					_x( 'Media', 'Media Module: Menu Name', GNETWORK_TEXTDOMAIN ),
+					array( $this, 'settings' )
+				);
 
 			// based on: http://wordpress.org/plugins/media-item-url/
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), 10 );
@@ -38,11 +44,139 @@ class gNetworkMedia extends gNetworkModuleCore
 		if ( GNETWORK_MEDIA_SEPERATION ) {
 			add_filter( 'wp_image_editors', array( $this, 'wp_image_editors' ), 5, 1 );
 			add_filter( 'image_downsize', array( $this, 'image_downsize' ), 5, 3 );
+			// FIXME: also 'delete_attachment' // to remove the thumbs
 		}
 	}
 
-	// -- append attachment to a post
-	// https://github.com/syamilmj/Aqua-Resizer/blob/master/aq_resizer.php
+	protected function settings_actions( $sub = NULL )
+	{
+		if ( ! empty( $_POST ) && 'bulk' == $_POST['action'] ) {
+
+			$this->check_referer( $sub );
+
+			if ( isset( $_POST['clean_attachments'], $_POST['_cb'] ) ) {
+
+				$count = 0;
+
+				foreach ( $_POST['_cb'] as $post_id )
+					if ( $this->clean_attachments( $post_id ) )
+						$count++;
+
+			} else {
+				self::redirect_referer( array(
+					'message' => 'wrong',
+					'limit'   => self::limit(),
+					'paged'   => self::paged() + 1,
+				) );
+			}
+
+			self::redirect_referer( array(
+				'message' => 'cleaned',
+				'count'   => $count,
+				'limit'   => self::limit(),
+				'paged'   => self::paged() + 1,
+			) );
+		}
+	}
+
+	public function settings_html( $uri, $sub = 'general' )
+	{
+		echo '<form class="gnetwork-form" method="post" action="">';
+
+			$this->settings_fields( $sub, 'bulk' );
+
+			if ( self::postInfo() )
+				$this->settings_buttons( $sub );
+
+		echo '</form>';
+	}
+
+	protected function register_settings_buttons()
+	{
+		$this->register_button( 'clean_attachments', _x( 'Clean Attachments', 'Media Module', GNETWORK_TEXTDOMAIN ), array( 'default' => 'default' ), 'primary' );
+	}
+
+	protected static function getPostArray()
+	{
+		$limit  = self::limit();
+		$paged  = self::paged();
+		$offset = ( $paged - 1 ) * $limit;
+
+		return get_posts( array(
+			'posts_per_page'   => $limit,
+			'paged'            => $paged,
+			'offset'           => $offset,
+			'orderby'          => 'ID',
+			'order'            => 'ASC', // 'DESC',
+			'post_type'        => 'any',
+			'post_status'      => 'publish,draft,pending',
+			'suppress_filters' => TRUE,
+		) );
+	}
+
+	private static function postInfo()
+	{
+		return self::tableList( array(
+			'_cb' => 'ID',
+			'ID'  => _x( 'ID', 'Media Module', GNETWORK_TEXTDOMAIN ),
+
+			'date' => array(
+				'title'    => _x( 'Date', 'Media Module', GNETWORK_TEXTDOMAIN ),
+				'callback' => function( $value, $row, $column, $index ){
+					return date_i18n( 'j M Y', strtotime( $row->post_date ) );
+				},
+			),
+
+			'type' => array(
+				'title' => _x( 'Type', 'Media Module', GNETWORK_TEXTDOMAIN ),
+				'args'  => array(
+					'post_types' => self::getPostTypes( 'singular_name' ),
+				),
+				'callback' => function( $value, $row, $column, $index ){
+					return isset( $column['args']['post_types'][$row->post_type] ) ? $column['args']['post_types'][$row->post_type] : $row->post_type;
+				},
+			),
+
+			'post' => array(
+				'title'    => _x( 'Post', 'Media Module', GNETWORK_TEXTDOMAIN ),
+				'callback' => function( $value, $row, $column, $index ){
+
+					$url = add_query_arg( array(
+						'action' => 'edit',
+						'post'   => $row->ID,
+					), get_admin_url( NULL, 'post.php' ) );
+
+					$terms = get_the_term_list( $row->ID, 'post_tag', '<br />', ', ', '' );
+					return $row->post_title.' <small>( <a href="'.$url.'" target="_blank">Edit</a> | <a href="#" target="_blank">View</a> )</small><br /><small>'.$terms.'</small>';
+				},
+			),
+
+			'media' => array(
+				'title' => _x( 'Media', 'Media Module', GNETWORK_TEXTDOMAIN ),
+				'args'  => array(
+					'wpuploads' => wp_upload_dir(),
+				),
+				'callback' => function( $value, $row, $column, $index ){
+					$links = array();
+
+					foreach ( gNetworkMedia::getAttachments( $row->ID ) as $attachment ) {
+						$attached = get_post_meta( $attachment->ID, '_wp_attached_file', TRUE );
+						$links[] = '<a target="_blank" href="'.$column['args']['wpuploads']['baseurl'].'/'.$attached.'">'.$attached.'</a>';
+					}
+
+					return count( $links ) ? ( '<div dir="ltr">'.implode( '<br />', $links ).'</div>' ) : '';
+				},
+			),
+		), self::getPostArray(), array(
+			'offset' => 'before',
+			'search' => 'before',
+			'title'  => self::html( 'h3', _x( 'Overview of posts with attachments', 'Media Module', GNETWORK_TEXTDOMAIN ) ),
+			'empty'  => self::html( 'strong', _x( 'No Posts!', 'Media Module', GNETWORK_TEXTDOMAIN ) ),
+		) );
+	}
+
+	// FIXME: also must run on: appending attachment to a post
+	// @SEE: https://github.com/syamilmj/Aqua-Resizer/blob/master/aq_resizer.php
 	public function wp_generate_attachment_metadata( $metadata, $attachment_id )
 	{
 		if ( ! isset( $metadata['file'] ) )
@@ -70,14 +204,14 @@ class gNetworkMedia extends gNetworkModuleCore
 		if ( ! count( $sizes ) )
 			return $metadata;
 
-		$uploads = wp_upload_dir();
-		$editor  = wp_get_image_editor( path_join( $uploads['basedir'], $metadata['file'] ) );
+		$wpupload = wp_upload_dir();
+		$editor   = wp_get_image_editor( path_join( $wpupload['basedir'], $metadata['file'] ) );
 
 		if ( ! is_wp_error( $editor ) )
 			$metadata['sizes'] = $editor->multi_resize( $sizes );
 
-		// if ( self::isDev() )
-		// 	error_log( print_r( compact( 'parent_type', 'sizes', 'metadata', 'uploads' ), TRUE ) );
+		if ( self::isDev() )
+			error_log( print_r( compact( 'parent_type', 'sizes', 'metadata', 'wpupload' ), TRUE ) );
 
 		return $metadata;
 	}
@@ -94,7 +228,7 @@ class gNetworkMedia extends gNetworkModuleCore
 		foreach ( $_wp_additional_image_sizes as $name => $size )
 			if ( isset( $size[$key] ) && in_array( $post_type, $size[$key] ) )
 				$sizes[$name] = $size;
-			else if ( 'post' == $post_type ) // fallback
+			else if ( ! isset( $size[$key] ) && 'post' == $post_type )
 				$sizes[$name] = $size;
 
 		$this->posttype_sizes[$post_type] = $sizes;
@@ -102,11 +236,11 @@ class gNetworkMedia extends gNetworkModuleCore
 		return $sizes;
 	}
 
-	// FIXME: DEPRECATED
-	// this must be wp core future!!
-	// core duplication with post_type : add_image_size()
+	// DEPRECATED: core duplication with post_type : add_image_size()
 	public static function addImageSize( $name, $width = 0, $height = 0, $crop = FALSE, $post_type = array( 'post' ) )
 	{
+		self::__dep();
+
 		global $_wp_additional_image_sizes;
 
 		$_wp_additional_image_sizes[$name] = array(
@@ -142,22 +276,22 @@ class gNetworkMedia extends gNetworkModuleCore
 	{
 		if ( $data = image_get_intermediate_size( $post_id, $size ) ) {
 
-			$upload_dir = wp_upload_dir();
-			$img_url    = wp_get_attachment_url( $post_id );
-			$img_url    = str_replace( wp_basename( $img_url ), $data['file'], $img_url );
+			$wpupload = wp_upload_dir();
+			$img_url  = wp_get_attachment_url( $post_id );
+			$img_url  = str_replace( wp_basename( $img_url ), $data['file'], $img_url );
 
-			if ( GNETWORK_MEDIA_SIZES_CHECK && file_exists( str_replace( $upload_dir['baseurl'], $upload_dir['basedir'], $img_url ) ) )
+			if ( GNETWORK_MEDIA_SIZES_CHECK && file_exists( str_replace( $wpupload['baseurl'], $wpupload['basedir'], $img_url ) ) )
 				return $false;
 
 			$result = array(
-				str_replace( $upload_dir['baseurl'], trailingslashit( GNETWORK_MEDIA_SIZES_URL ).get_current_blog_id(), $img_url ),
+				str_replace( $wpupload['baseurl'], trailingslashit( GNETWORK_MEDIA_SIZES_URL ).get_current_blog_id(), $img_url ),
 				$data['width'],
 				$data['height'],
 				TRUE,
 			);
 
-			// if ( self::isDev() )
-			// 	error_log( print_r( compact( 'size', 'data', 'path', 'img_url', 'result', 'upload_dir' ), TRUE ) );
+			if ( self::isDev() )
+				error_log( print_r( compact( 'size', 'data', 'path', 'img_url', 'result', 'wpupload' ), TRUE ) );
 
 			return $result;
 		}
@@ -167,13 +301,13 @@ class gNetworkMedia extends gNetworkModuleCore
 
 	public static function getSizesDestPath( $file )
 	{
-		$upload_dir = wp_upload_dir();
-		$info       = pathinfo( $file );
-		$folder     = str_replace( $upload_dir['basedir'], '', $info['dirname'] );
-		$path       = path_join( GNETWORK_MEDIA_SIZES_DIR, get_current_blog_id() ).$folder;
+		$wpupload = wp_upload_dir();
+		$info     = pathinfo( $file );
+		$folder   = str_replace( $wpupload['basedir'], '', $info['dirname'] );
+		$path     = path_join( GNETWORK_MEDIA_SIZES_DIR, get_current_blog_id() ).$folder;
 
 		if ( self::isDev() )
-			error_log( print_r( compact( 'info', 'upload_dir', 'folder', 'path' ), TRUE ) );
+			error_log( print_r( compact( 'info', 'wpupload', 'folder', 'path' ), TRUE ) );
 
 		if ( wp_mkdir_p( $path ) )
 			return $path;
@@ -196,7 +330,7 @@ class gNetworkMedia extends gNetworkModuleCore
 		);
 	}
 
-	public static function get_thumbs( $attachment_id )
+	public function get_thumbs( $attachment_id )
 	{
 		$thumbs = array();
 
@@ -223,72 +357,122 @@ class gNetworkMedia extends gNetworkModuleCore
 		return $thumbs;
 	}
 
-	// -- 'delete_attachment' // to remove the thumbs
-	public static function clean_attachment( $attachment_id )
+	public function url_thumbs( $thumbs, $wpupload )
 	{
-		$meta = wp_get_attachment_metadata( $attachment_id );
-		$backup_sizes = get_post_meta( $attachment_id, '_wp_attachment_backup_sizes', TRUE );
-		$file = get_attached_file( $attachment_id );
-		$thumbs = self::get_thumbs( $attachment_id );
+		$urls = array();
 
-		// Update attachment file path based on attachment ID.
-		// update_attached_file( $attachment_id, $file )
+		foreach ( $thumbs as $thumb )
+			$urls[] = str_replace( $wpupload['basedir'], $wpupload['baseurl'], $thumb );
 
-		// _wp_relative_upload_path()
-
-		gnetwork_dump( $meta );
-		gnetwork_dump( $backup_sizes );
-		gnetwork_dump( $file );
-		gnetwork_dump( $thumbs );
+		return $urls;
 	}
 
-	/*
-	-- https://wordpress.org/plugins/force-regenerate-thumbnails/
-	-- see: wp_delete_attachment()
-	**/
+	public function delete_thumbs( $thumbs )
+	{
+		$count = 0;
 
-	// FIXME: after unattachment we must delete all thumbs / also: after attach must regenerate all sizes for the post_type
-	// JUST A COPY : http://ahmadassaf.com/blog/web-development/wordpress/how-to-delete-attachments-assigned-to-wordpress-post-when-deleted/
-	function delete_posts_before_delete_post($id){
-		$subposts = get_children(array(
-			'post_parent' => $id,
-			'post_type'   => 'any',
-			'numberposts' => -1,
-			'post_status' => 'any'
-			));
+		foreach ( $thumbs as $thumb )
+			if ( @unlink( wp_normalize_path( $thumb ) ) )
+				$count++;
 
-		if (is_array($subposts) && count($subposts) > 0){
-			$uploadpath = wp_upload_dir();
+		return $count;
+	}
 
-			foreach($subposts as $subpost){
+	// FIXME: WORKING DRAFT: not used yet!
+	public function reset_meta_sizes( $attachment_id )
+	{
+		$meta = wp_get_attachment_metadata( $attachment_id );
 
-				$_wp_attached_file = get_post_meta($subpost->ID, '_wp_attached_file', TRUE );
+		if ( ! isset( $meta['sizes'] ) )
+			return TRUE;
 
-				$original = basename($_wp_attached_file);
-				$pos = strpos(strrev($original), '.');
-				if (strpos($original, '.') !== FALSE){
-					$ext = explode('.', strrev($original));
-					$ext = strrev($ext[0]);
-				} else {
-					$ext = explode('-', strrev($original));
-					$ext = strrev($ext[0]);
+		$meta['sizes'] = array();
+		// FIXME: remove EXIF too!
+
+		delete_post_meta( $attachment_id, '_wp_attachment_backup_sizes' );
+		update_post_meta( $attachment_id, '_wp_attachment_metadata', $meta );
+
+		return TRUE;
+	}
+
+	public static function getAttachments( $post_id )
+	{
+		return get_children( array(
+			'post_parent'    => $post_id,
+			'post_type'      => 'attachment',
+			'post_mime_type' => 'image',
+			'post_status'    => 'any',
+			'numberposts'    => -1,
+		) );
+	}
+
+	public function clean_attachments( $post_id )
+	{
+		global $wpdb;
+
+		$clean = $moved = array();
+
+		foreach ( self::getAttachments( $post_id ) as $attachment ) {
+
+			// self::dump( $attachment );
+			// self::dump( get_post_meta( $attachment->ID ) );
+			// self::dump( get_post_custom( $attachment->ID ) );
+			// self::dump( $this->get_thumbs( $attachment->ID ) );
+
+			if ( $attached_file = get_post_meta( $attachment->ID, '_wp_attached_file', TRUE ) ) {
+				if ( str_replace( wp_basename( $attached_file ), '', $attached_file ) ) {
+					$clean[$attachment->ID] = $attached_file;
 				}
+			}
+		}
 
-				$pattern  = $uploadpath['basedir'].'/'.dirname($_wp_attached_file).'/'.basename( $original, '.'.$ext).'-[0-9]*x[0-9]*.'.$ext;
-				$original = $uploadpath['basedir'].'/'.dirname($_wp_attached_file).'/'.basename( $original, '.'.$ext).'.'.$ext;
+		if ( ! count( $clean ) )
+			return TRUE;
 
-				if (getimagesize($original)){
-					$thumbs = glob($pattern);
-					if (is_array($thumbs) && count($thumbs) > 0){
-						foreach($thumbs as $thumb)
-							unlink($thumb);
+		$post = get_post( $post_id );
+		$wpupload = wp_upload_dir( ( substr( $post->post_date, 0, 4 ) > 0 ? $post->post_date : NULL ) );
+
+		preg_match_all( '|<img.*?src=[\'"](.*?)[\'"].*?>|i', $post->post_content, $matches );
+
+		foreach ( $clean as $clean_id => $clean_file ) {
+
+			// $clean_upload = media_sideload_image( $wpupload['baseurl'].'/'.$clean_file, $post_id, NULL, 'src' );
+
+			$clean_path = path_join( $wpupload['basedir'], $clean_file );
+			$moved_path = path_join( $wpupload['path'], $clean_file );
+
+			if ( file_exists( $clean_path ) && @rename( $clean_path, $moved_path ) ) {
+
+				$thumbs_path = $this->get_thumbs( $clean_id );
+				$thumbs_url = $this->url_thumbs( $thumbs_path, $wpupload );
+
+				foreach ( $thumbs_url as $thumbs_url ) {
+					foreach ( $matches[1] as $offset => $url ) {
+						if ( $thumbs_url == $url ) {
+							$wpdb->query( $wpdb->prepare( "
+								UPDATE $wpdb->posts SET post_content = REPLACE(post_content, '%s', '%s') WHERE ID = %d
+							", $url, ( $wpupload['url'].'/'.wp_basename( $url ) ), $post_id ) );
+						}
 					}
 				}
 
-				wp_delete_attachment( $subpost->ID, TRUE );
+				$this->delete_thumbs( $thumbs_path );
+
+				$meta = wp_generate_attachment_metadata( $clean_id, $moved_path );
+				wp_update_attachment_metadata( $clean_id, $meta );
+
+				$wpdb->query( $wpdb->prepare( "
+					UPDATE $wpdb->posts SET guid = %s WHERE ID = %d
+				", esc_url_raw( $wpupload['url'].'/'.$clean_file ), $clean_id ) );
+
+				update_attached_file( $clean_id, $moved_path );
+
+				$moved[$clean_id] = $wpupload['subdir'].'/'.$clean_file;
 			}
 		}
-	} // add_action('before_delete_post', 'delete_posts_before_delete_post');
+
+		return count( $moved );
+	}
 
 	public function single_post_title( $post_title, $post )
 	{
@@ -301,90 +485,6 @@ class gNetworkMedia extends gNetworkModuleCore
 		}
 
 		return $post_title;
-	}
-
-	// UNFINISHED
-	// https://kovshenin.com/2012/native-image-sizing-on-the-fly-with-wordpress/
-	// https://gist.github.com/kovshenin/1984363
-	/**
-	 * Image shortcode callback
-	 *
-	 * Enables the [kovshenin_image] shortcode, pseudo-TimThumb but creates resized and cropped image files
-	 * from existing media library entries. Usage:
-	 * [kovshenin_image src="http://example.org/wp-content/uploads/2012/03/image.png" width="100" height="100"]
-	 *
-	 * @uses image_make_intermediate_size
-	 */
-	public function shortcode_children( $atts, $content = NULL, $tag = '' )
-	{
-		global $wpdb;
-
-		$args = shortcode_atts( array(
-			'src'    => '',
-			'width'  => '',
-			'height' => '',
-		), $atts, $tag );
-
-		if ( empty( $args['src'] ) )
-			return $content;
-
-		// Sanitize
-		$height = absint( $height );
-		$width = absint( $width );
-		$src = esc_url( strtolower( $src ) );
-		$needs_resize = TRUE;
-
-		$upload_dir = wp_upload_dir();
-		$base_url = strtolower( $upload_dir['baseurl'] );
-
-		// Let's see if the image belongs to our uploads directory.
-		if ( substr( $src, 0, strlen( $base_url ) ) != $base_url ) {
-			return "Error: external images are not supported.";
-		}
-
-		// Look the file up in the database.
-		$file = str_replace( trailingslashit( $base_url ), '', $src );
-		$attachment_id = $wpdb->get_var( $wpdb->prepare( "SELECT post_id FROM $wpdb->postmeta WHERE meta_key = '_wp_attachment_metadata' AND meta_value LIKE %s LIMIT 1;", '%"' . like_escape( $file ) . '"%' ) );
-
-		// If an attachment record was not found.
-		if ( ! $attachment_id ) {
-			return "Error: attachment not found.";
-		}
-
-		// Look through the attachment meta data for an image that fits our size.
-		$meta = wp_get_attachment_metadata( $attachment_id );
-		foreach ( $meta['sizes'] as $key => $size ) {
-			if ( $size['width'] == $width && $size['height'] == $height ) {
-				$src = str_replace( basename( $src ), $size['file'], $src );
-				$needs_resize = false;
-				break;
-			}
-		}
-
-		// If an image of such size was not found, we can create one.
-		if ( $needs_resize ) {
-			$attached_file = get_attached_file( $attachment_id );
-			$resized = image_make_intermediate_size( $attached_file, $width, $height, TRUE );
-			if ( ! is_wp_error( $resized ) ) {
-
-				// Let metadata know about our new size.
-				$key = sprintf( 'resized-%dx%d', $width, $height );
-				$meta['sizes'][$key] = $resized;
-				$src = str_replace( basename( $src ), $resized['file'], $src );
-				wp_update_attachment_metadata( $attachment_id, $meta );
-
-				// Record in backup sizes so everything's cleaned up when attachment is deleted.
-				$backup_sizes = get_post_meta( $attachment_id, '_wp_attachment_backup_sizes', TRUE );
-				if ( ! is_array( $backup_sizes ) ) $backup_sizes = array();
-				$backup_sizes[$key] = $resized;
-				update_post_meta( $attachment_id, '_wp_attachment_backup_sizes', $backup_sizes );
-			}
-		}
-
-		// Generate the markup and return.
-		$width = ( $width ) ? 'width="' . absint( $width ) . '"' : '';
-		$height = ( $height ) ? 'height="' . absint( $height ) . '"' : '';
-		return sprintf( '<img src="%s" %s %s />', esc_url( $src ), $width, $height );
 	}
 
 	public function admin_enqueue_scripts( $hook )
