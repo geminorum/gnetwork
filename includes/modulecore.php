@@ -1093,6 +1093,7 @@ class gNetworkModuleCore extends gNetworkBaseCore
 			'updated'   => self::updated( _x( 'Settings updated.', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN ) ),
 			'created'   => self::updated( _x( 'File/Folder created.', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN ) ),
 			'deleted'   => self::counted( _x( '%s deleted!', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN ) ),
+			'cleaned'   => self::counted( _x( '%s cleaned!', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN ) ),
 			'purged'    => self::updated( _x( 'Data purged.', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN ) ),
 			'changed'   => self::counted( _x( '%s Items(s) Changed', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN ) ),
 			'nochange'  => self::error( _x( 'No Item Changed', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN ) ),
