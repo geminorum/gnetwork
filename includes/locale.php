@@ -190,6 +190,11 @@ class gNetworkLocale extends gNetworkModuleCore
 			'gadash_frontend_settings' => 'page',
 			'gadash_tracking_settings' => 'page',
 			'gadash_errors_debugging'  => 'page',
+			
+			// [bonny/WordPress-Simple-History: Track user changes in WordPress admin](https://github.com/bonny/WordPress-Simple-History)
+			// [See admin changes on your WordPress site with Simple History](https://simple-history.com/)
+			'simple_history_page'               => 'page',
+			'simple_history_settings_menu_slug' => 'page',
 		) );
 
 		foreach ( $black_list as $val => $key )

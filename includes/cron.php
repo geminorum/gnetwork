@@ -67,9 +67,7 @@ class gNetworkCron extends gNetworkModuleCore
 
 			$this->settings_fields( $sub, 'bulk' );
 
-			$scheduled = self::cronInfo();
-
-			if ( $scheduled )
+			if ( self::cronInfo() )
 				$this->settings_buttons( $sub );
 
 		echo '</form>';
@@ -108,7 +106,6 @@ class gNetworkCron extends gNetworkModuleCore
 				'title'    => _x( 'Next', 'CRON Module', GNETWORK_TEXTDOMAIN ),
 				'class'    => '-column-next',
 				'callback' => function( $value, $row, $column, $index ){
-					// return date_i18n( self::getDateDefaultFormat(), $index );
 					return date_i18n( 'H:i:s - D, j M, Y', $index );
 				},
 			),

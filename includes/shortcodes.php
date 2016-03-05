@@ -441,6 +441,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 
 	// TODO: rewrite this
 	// http://pdfobject.com
+	// https://github.com/pipwerks/PDFObject
 	// TODO : get the standard PDF dimensions for A4
 	public function shortcode_pdf( $atts, $content = NULL, $tag = '' )
 	{

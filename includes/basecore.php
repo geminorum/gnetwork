@@ -80,7 +80,7 @@ class gNetworkBaseCore
 			'TB' => TB_IN_BYTES,
 			'GB' => GB_IN_BYTES,
 			'MB' => MB_IN_BYTES,
-			'kB' => KB_IN_BYTES,
+			'KB' => KB_IN_BYTES,
 			'B'  => 1,
 		);
 

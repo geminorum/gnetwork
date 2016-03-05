@@ -13,7 +13,29 @@ table {
 	}
 }
 
+div.base-table-actions {
+
+	&.base-table-list-before {
+		margin-bottom: 4px;
+	}
+
+	&.base-table-list-after {
+		margin-top: 4px;
+	}
+
+	input.base-table-paged,
+	input.base-table-limit {
+		margin: 0 4px 0 0;
+		@include body-rtl() {
+			margin: 0 0 0 4px;
+		}
+	}
+}
+
 table.base-table-list {
+
+	> .-before {}
+	> .-after {}
 
 	thead {
 		.check-column {
@@ -59,6 +81,12 @@ table.base-table-list {
 	.-column-next {
 		width: 34%;
 	}
+
+	.-column-date { width: 8%; }
+	.-column-type { width: 6%; }
+
+	.-column-post {}
+	.-column-media {}
 
 	.-column-debug {
 		padding: 0;

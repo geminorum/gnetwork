@@ -57,6 +57,12 @@ class gNetworkMail extends gNetworkModuleCore
 
 				$this->check_referer( $sub );
 
+				// TODO: add exporting to .eml files
+				// http://stackoverflow.com/a/16039103/4864081
+				// http://stackoverflow.com/a/8777197/4864081
+				// http://www.alexcasamassima.com/2013/02/send-pre-formatted-eml-file-in-php.html
+				// https://wiki.zarafa.com/index.php/Eml_vs_msg
+
 				if ( isset( $_POST['deletelogs_all'] ) ) {
 
 					$message = FALSE === self::deleteEmailLogs() ? 'error' : 'purged';
@@ -340,6 +346,7 @@ class gNetworkMail extends gNetworkModuleCore
 			'timestamp' => current_time( 'mysql' ),
 			'blog'      => self::currentBlog(),
 			'locale'    => get_locale(),
+			// TODO: get smtp server as well
 		), self::filterArray( $mail ) );
 
 		if ( is_rtl() )
