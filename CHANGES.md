@@ -1,3 +1,10 @@
+### 0.2.31
+* debug: network settings tab for `phpinfo()`
+* captcha: [recaptcha](https://www.google.com/recaptcha/) for comment forms
+* shortcodes: new `[sms]`
+* admin: [jacklmoore.com/autosize](http://jacklmoore.com/autosize) updated to v3.0.15
+* media: draft for clean attachments
+
 ### 0.2.30
 * modulecore: check for user admin
 * shortcodes: new `[search]`
