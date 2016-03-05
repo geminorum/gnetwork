@@ -515,7 +515,7 @@ class gNetworkBaseCore
 		return memory_get_usage() - $start_memory - PHP_INT_SIZE * 8;
 	}
 
-	public static function getPostTypes()
+	public static function getPostTypes( $title_key = 'name' )
 	{
 		$registered = get_post_types( array(
 			'_builtin' => FALSE,
@@ -528,7 +528,7 @@ class gNetworkBaseCore
 		);
 
 		foreach ( $registered as $post_type => $args )
-			$post_types[$post_type] = $args->label;
+			$post_types[$post_type] = isset( $args->labels->{$title_key} ) ? $args->labels->{$title_key} : $args->label;
 
 		return $post_types;
 	}
