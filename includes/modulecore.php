@@ -995,18 +995,6 @@ class gNetworkModuleCore extends gNetworkBaseCore
 	}
 
 	// HELPER
-	public static function limit( $default = 25, $key = 'limit' )
-	{
-		return intval( ( isset( $_REQUEST[$key] ) ? $_REQUEST[$key] : $default ) );
-	}
-
-	// HELPER
-	public static function paged( $default = 1, $key = 'paged' )
-	{
-		return intval( ( isset( $_REQUEST[$key] ) ? $_REQUEST[$key] : $default ) );
-	}
-
-	// HELPER
 	// FIXME: move to gNetworkUtilities
 	public static function getDateDefaultFormat( $options = FALSE, $date_format = NULL, $time_format = NULL, $joiner = ' @' )
 	{

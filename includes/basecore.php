@@ -651,12 +651,34 @@ class gNetworkBaseCore
 		wp_die( $message, 403 );
 	}
 
-	public static function tableList( $columns, $data = array(), $actions = array() )
+	public static function tableList( $columns, $data = array(), $args = array() )
 	{
 		if ( ! count( $columns ) )
 			return FALSE;
 
-		echo '<table class="widefat fixed base-table-list"><thead><tr>';
+		if ( isset( $args['title'] ) && $args['title'] )
+			echo $args['title'];
+
+		if ( ! count( $data ) ) {
+			if ( isset( $args['empty'] ) && $args['empty'] )
+				echo $args['empty'];
+			return FALSE;
+		}
+
+		if ( isset( $args['before'] )
+			|| ( isset( $args['offset'] ) && 'before' == $args['offset'] )
+			|| ( isset( $args['search'] ) && 'before' == $args['search'] ) )
+				echo '<div class="base-table-actions base-table-list-before">';
+		else
+			echo '<div>';
+
+		if ( isset( $args['offset'] ) && 'before' == $args['offset'] )
+			self::tableOffset();
+
+		if ( isset( $args['before'] ) && is_callable( $args['before'] ) )
+			call_user_func_array( $args['before'], array( $columns, $data, $args ) );
+
+		echo '</div><table class="widefat fixed base-table-list"><thead><tr>';
 			foreach ( $columns as $key => $column ) {
 
 				$tag   = 'th';
@@ -733,7 +755,6 @@ class gNetworkBaseCore
 
 				} else {
 					echo '&nbsp;';
-
 				}
 
 				echo '</'.$cell.'>';
@@ -746,6 +767,41 @@ class gNetworkBaseCore
 
 		echo '</tbody></table>';
 		echo '<div class="clear"></div>';
+
+		if ( isset( $args['after'] )
+			|| ( isset( $args['offset'] ) && 'after' == $args['offset'] )
+			|| ( isset( $args['search'] ) && 'after' == $args['search'] ) )
+				echo '<div class="base-table-actions base-table-list-after">';
+		else
+			echo '<div>';
+
+		if ( isset( $args['offset'] ) && 'after' == $args['offset'] )
+			self::tableOffset();
+
+		// FIXME: add search box
+
+		if ( isset( $args['after'] ) && is_callable( $args['after'] ) )
+			call_user_func_array( $args['after'], array( $columns, $data, $args ) );
+
+		echo '</div>';
+
+		return TRUE;
+	}
+
+	public static function tableOffset()
+	{
+		echo '<input type="number" class="small-text base-table-paged" name="paged" value="'.self::paged().'" />';
+		echo '<input type="number" class="small-text base-table-limit" name="limit" value="'.self::limit().'" />';
+	}
+
+	public static function limit( $default = 25, $key = 'limit' )
+	{
+		return intval( ( isset( $_REQUEST[$key] ) ? $_REQUEST[$key] : $default ) );
+	}
+
+	public static function paged( $default = 1, $key = 'paged' )
+	{
+		return intval( ( isset( $_REQUEST[$key] ) ? $_REQUEST[$key] : $default ) );
 	}
 
 	public static function tableCode( $array )
