@@ -180,7 +180,7 @@ class gNetworkTaxonomy extends gNetworkModuleCore
 		if ( isset( $_REQUEST['paged'] ) && $_REQUEST['paged'] )
 			$query['paged'] = $_REQUEST['paged'];
 
-		self::redirect( esc_url( add_query_arg( $query, $location ) ) );
+		self::redirect( add_query_arg( $query, $location ) );
 	}
 
 	public function admin_notices()
