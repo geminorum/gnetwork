@@ -309,6 +309,9 @@ class gNetworkTaxonomy extends gNetworkModuleCore
 		foreach ( $term_ids as $term_id ) {
 			$term = get_term( $term_id, $taxonomy );
 
+			if ( ! $term || is_wp_error( $term ) )
+				continue;
+
 			if ( $term->parent && ! in_array( $term->parent,$term_ids ) ) {
 				$wpdb->update( $wpdb->term_taxonomy,
 					array( 'parent' => 0 ),
