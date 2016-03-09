@@ -118,6 +118,16 @@ class gNetworkNetwork extends gNetworkModuleCore
 		return $relative;
 	}
 
+	public static function getEmail()
+	{
+		global $gNetwork;
+
+		if ( isset( $gNetwork->email ) )
+			return $gNetwork->email->get_from_email();
+
+		return FALSE;
+	}
+
 	public function network_settings_load()
 	{
 		global $submenu_file;

@@ -294,8 +294,6 @@ class gNetworkShortCodes extends gNetworkModuleCore
 	// https://css-tricks.com/snippets/html/mailto-links/
 	public function shortcode_email( $atts, $content = NULL, $tag = '' )
 	{
-		global $gNetwork;
-
 		$args = shortcode_atts( array(
 			'subject' => FALSE,
 			'title'   => FALSE,
@@ -311,8 +309,8 @@ class gNetworkShortCodes extends gNetworkModuleCore
         $text  = $args['content'] ? trim( $args['content'] ) : trim( $content );
         $email = $args['email'] && is_email( $args['email'] ) ? trim( $args['email'] ) : trim( $content );
 
-		if ( ! $email && isset( $gNetwork->mail ) )
-			$email = $gNetwork->mail->get_from_email();
+		if ( ! $email )
+			$email = gNetworkNetwork::getEmail();
 
 		if ( ! $email )
 			return $text;
