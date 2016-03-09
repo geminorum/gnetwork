@@ -322,11 +322,12 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		return self::shortcodeWrap( $html, 'email', $args, FALSE );
 	}
 
-	// http://stackoverflow.com/a/13662220
-	// http://code.tutsplus.com/tutorials/mobile-web-quick-tip-phone-number-links--mobile-7667
+	// @REF: http://stackoverflow.com/a/13662220
+	// @SEE http://code.tutsplus.com/tutorials/mobile-web-quick-tip-phone-number-links--mobile-7667
 	public function shortcode_tel( $atts, $content = NULL, $tag = '' )
 	{
 		$args = shortcode_atts( array(
+			'number'  => NULL,
 			'title'   => FALSE,
 			'context' => NULL,
 			'wrap'    => TRUE,
@@ -335,19 +336,33 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		if ( FALSE === $args['context'] )
 			return NULL;
 
-		if ( ! $content ) // what about default site email
+		if ( $args['number'] )
+			$number = $args['number'];
+
+		else if ( $content )
+			$number = $content;
+
+		else // what about default site tel
 			return $content;
 
-		$html = '<a class="tel" href="tel://'.$content
-				.'"'.( $args['title'] ? ' data-toggle="tooltip" title="'.esc_attr( $args['title'] ).'"' : '' ).'>'
+		if ( ! $content )
+			$content = $number;
+
+		$html = '<a class="tel" href="tel:'.str_ireplace( array( '-', ' ' ), '', $number )
+				.'"'.( $args['title'] ? ' data-toggle="tooltip" title="'.esc_attr( $args['title'] ).'"' : '' )
+				.' data-tel-number="'.esc_attr( $number ).'">'
 				.'&#8206;'.apply_filters( 'string_format_i18n', $content ).'&#8207;</a>';
 
 		return self::shortcodeWrap( $html, 'tel', $args, FALSE );
 	}
 
+	// @REF: http://stackoverflow.com/a/19126326/4864081
+	// @TEST: http://bradorego.com/test/sms.html
 	public function shortcode_sms( $atts, $content = NULL, $tag = '' )
 	{
 		$args = shortcode_atts( array(
+			'number'  => NULL,
+			'body'    => FALSE,
 			'title'   => FALSE,
 			'context' => NULL,
 			'wrap'    => TRUE,
@@ -356,11 +371,23 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		if ( FALSE === $args['context'] )
 			return NULL;
 
-		if ( ! $content ) // what about default site email
+		if ( $args['number'] )
+			$number = $args['number'];
+
+		else if ( $content )
+			$number = $content;
+
+		else
 			return $content;
 
-		$html = '<a class="sms" href="sms://'.$content
-				.'"'.( $args['title'] ? ' data-toggle="tooltip" title="'.esc_attr( $args['title'] ).'"' : '' ).'>'
+		if ( ! $content )
+			$content = $number;
+
+		$html = '<a class="sms" href="sms:'.str_ireplace( array( '-', ' ' ), '', $number )
+				.( $args['body'] ? '?body='.rawurlencode( $args['body'] )
+				.'" data-sms-body="'.esc_attr( $args['body'] ) : '' )
+				.'"'.( $args['title'] ? ' data-toggle="tooltip" title="'.esc_attr( $args['title'] )
+				.'"' : '' ).' data-sms-number="'.esc_attr( $number ).'">'
 				.'&#8206;'.apply_filters( 'string_format_i18n', $content ).'&#8207;</a>';
 
 		return self::shortcodeWrap( $html, 'sms', $args, FALSE );
