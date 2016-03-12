@@ -4,14 +4,14 @@ class gNetworkBaseCore
 {
 
 	// INTERNAL: used on anything deprecated
-	protected static function __dep( $note = '' )
+	protected static function __dep( $note = '', $prefix = 'DEP: ' )
 	{
 		if ( defined( 'WP_DEBUG_LOG' ) && ! WP_DEBUG_LOG )
 			return;
 
 		$trace = debug_backtrace();
 
-		$log = 'DEP: ';
+		$log = $prefix;
 
 		if ( isset( $trace[1]['object'] ) )
 			$log .= get_class( $trace[1]['object'] ).'::';
