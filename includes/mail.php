@@ -27,6 +27,7 @@ class gNetworkMail extends gNetworkModuleCore
 
 		add_filter( 'wp_mail_from', array( $this, 'wp_mail_from' ), 5 );
 		add_filter( 'wp_mail_from_name', array( $this, 'wp_mail_from_name' ), 5 );
+		add_action( 'bp_email', array( $this, 'bp_email' ), 5, 2 );
 
 		add_action( 'phpmailer_init', array( $this, 'phpmailer_init' ) );
 	}
@@ -286,6 +287,15 @@ class gNetworkMail extends gNetworkModuleCore
 		if ( 0 === strpos( $name, 'WordPress' ) )
 			$name = $this->get_from_name( $name );
 		return apply_filters( 'gnetwork_mail_from_name', $name );
+	}
+
+	public function bp_email( $email_type, $bp_email )
+	{
+		$email = $this->get_from_email( $email );
+		$name  = $this->get_from_name( $name );
+
+		$bp_email->set_from( $email, $name );
+		$bp_email->set_reply_to( $email, $name );
 	}
 
 	public function get_from_email( $email = '' )
