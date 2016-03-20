@@ -1269,4 +1269,14 @@ class gNetworkBaseCore
 	{
 		self::redirect( wp_login_url( $location, TRUE ), $status );
 	}
+
+	// get an appropriate hostname. varies depending on site configuration.
+	// originally from BuddyPress 2.5.0
+	public static function getHostName()
+	{
+		if ( is_multisite() )
+			return get_current_site()->domain;
+
+		return preg_replace( '#^https?://#i', '', get_option( 'home' ) );
+	}
 }
