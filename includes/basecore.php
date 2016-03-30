@@ -53,8 +53,11 @@ class gNetworkBaseCore
 		), $html );
 	}
 
-	public static function headerTabs( $tabs, $active = 'manual', $prefix = 'nav-tab-', $tag = 'h2' )
+	// FIXME: DEPRICATED
+	public static function headerTabs( $tabs, $active = 'manual', $prefix = 'nav-tab-', $tag = 'h3' )
 	{
+		self::__dep( 'tabsList()' );
+
 		if ( ! count( $tabs ) )
 			return;
 
@@ -71,6 +74,80 @@ class gNetworkBaseCore
 		echo self::html( $tag, array(
 			'class' => 'nav-tab-wrapper',
 		), $html );
+	}
+
+	public static function tabsList( $tabs, $atts = array() )
+	{
+		if ( ! count( $tabs ) )
+			return FALSE;
+
+		$args = self::atts( array(
+			'title'  => FALSE,
+			'class'  => FALSE,
+			'prefix' => 'nav-tab',
+			'nav'    => 'h3',
+		), $atts );
+
+		$navs = $contents = '';
+
+		foreach ( $tabs as $tab => $tab_atts ) {
+
+			$tab_args = self::atts( array(
+				'active'  => FALSE,
+				'title'   => $tab,
+				'link'    => '#',
+				'cb'      => FALSE,
+				'content' => '',
+			), $tab_atts );
+
+			$navs .= self::html( 'a', array(
+				'href'  => $tab_args['link'],
+				'class' => $args['prefix'].' -nav'.( $tab_args['active'] ? ' '.$args['prefix'].'-active -active' : '' ),
+				'data'  => array(
+					'toggle' => 'tab',
+					'tab'    => $tab,
+				),
+			), $tab_args['title'] );
+
+			$content = '';
+
+			if ( $tab_args['cb'] && is_callable( $tab_args['cb'] ) ) {
+
+				ob_start();
+					call_user_func_array( $tab_args['cb'], array( $tab, $tab_args, $args ) );
+				$content .= ob_get_clean();
+
+			} else if ( $tab_args['content'] ) {
+				$content = $tab_args['content'];
+			}
+
+			if ( $content )
+				$contents .= self::html( 'div', array(
+					'class' => $args['prefix'].'-content -content',
+					'data'  => array(
+						'tab' => $tab,
+					),
+				), $content );
+		}
+
+		if ( isset( $args['title'] ) && $args['title'] )
+			echo $args['title'];
+
+		$navs = self::html( $args['nav'], array(
+			'class' => $args['prefix'].'-wrapper -wrapper',
+		), $navs );
+
+		echo self::html( 'div', array(
+			'class' => array(
+				'base-tabs-list',
+				'-base',
+				$args['prefix'].'-base',
+				$args['class'],
+			),
+		), $navs.$contents );
+
+		if ( class_exists( 'gNetworkUtilities' ) )
+			gNetworkUtilities::enqueueScript( 'admin.tabs' );
 	}
 
 	// WP core function without number_format_i18n
@@ -507,6 +584,16 @@ class gNetworkBaseCore
 		die();
 	}
 
+	public static function isFuncDisabled( $func = NULL )
+	{
+		$disabled = explode( ',', ini_get( 'disable_functions' ) );
+
+		if ( is_null( $func ) )
+			return $disabled;
+
+		return in_array( $func, $disabled );
+	}
+
 	// http://stackoverflow.com/a/13272939
 	public static function size( $var )
 	{
@@ -802,6 +889,24 @@ class gNetworkBaseCore
 	public static function paged( $default = 1, $key = 'paged' )
 	{
 		return intval( ( isset( $_REQUEST[$key] ) ? $_REQUEST[$key] : $default ) );
+	}
+
+	public static function listCode( $array, $row = NULL, $first = FALSE )
+	{
+		if ( count( $array ) ) {
+			echo '<ul class="base-list-code">';
+
+			if ( is_null( $row ) )
+				$row = '<code title="%2$s">%1$s</code>';
+
+			if ( $first )
+				echo '<li>'.$first.'</li>';
+
+			foreach ( $array as $key => $val )
+				echo '<li>'.sprintf( $row, $key, $val ).'</li>';
+
+			echo '</ul>';
+		}
 	}
 
 	public static function tableCode( $array )
