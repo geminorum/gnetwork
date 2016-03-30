@@ -31,6 +31,7 @@ function gnetwork_init() {
 		'functions'   => '',
 		'utilities'   => '',
 		'modulecore'  => '',
+		'providercore' => '',
 		'die'         => '',
 		'pluggable'   => '',
 		'network'     => 'gNetworkNetwork',
@@ -47,6 +48,7 @@ function gnetwork_init() {
 		'captcha'     => 'gNetworkCaptcha',
 		'opensearch'  => 'gNetworkOpenSearch',
 		'mail'        => 'gNetworkMail',
+		'sms'         => 'gNetworkSMS',
 		'navigation'  => 'gNetworkNavigation',
 		// 'activation'  => 'gNetworkActivation', // WORKING, NEEDS Final CHECK
 		'locale'      => 'gNetworkLocale',

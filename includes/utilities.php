@@ -9,6 +9,18 @@ class gNetworkUtilities extends gNetworkBaseCore
 			.GNETWORK_URL.'assets/images/itsageminorumproject-lightgrey.svg" alt="" /></a>';
 	}
 
+	// TODO: must move to main gNetwork object
+	public static function getProviders( $type = 'sms', $pre = array() )
+	{
+		global $gNetwork;
+
+		if ( isset( $gNetwork->{$type} ) && $gNetwork->{$type}->options['load_providers'] )
+			foreach ( $gNetwork->{$type}->providers as $name => &$provider )
+				$pre[$name] = $provider->providerName();
+
+		return $pre;
+	}
+
 	// @SEE: https://github.com/bobthecow/mustache.php/wiki
 	public static function getMustache()
 	{

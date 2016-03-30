@@ -29,7 +29,8 @@
 		"raveren/kint": "^1.0",
 		"mustache/mustache": "^2.5",
 		"phelium/mysql-backup": "dev-master",
-		"picqer/php-barcode-generator": "^0.1.0"
+		"picqer/php-barcode-generator": "^0.1.0",
+		"deviservi/nusoap": "^1.123"
 	},
 	"config": {
 		"vendor-dir": "assets/vendor",
