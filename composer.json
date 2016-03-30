@@ -8,14 +8,12 @@
 	],
 	"homepage": "http://geminorum.ir/wordpress/gnetwork",
 	"license": "GPL-2.0+",
-	"authors": [
-		{
-			"name": "Nasser Rafie",
-			"email": "contact@geminorum.ir",
-			"homepage": "http://geminorum.ir/",
-			"role": "Developer"
-		}
-	],
+	"authors": [{
+		"name": "Nasser Rafie",
+		"email": "contact@geminorum.ir",
+		"homepage": "http://geminorum.ir/",
+		"role": "Developer"
+	}],
 	"support": {
 		"issues": "http://geminorum.ir/wordpress/gnetwork/issues",
 		"wiki": "http://geminorum.ir/wordpress/gnetwork/wiki",
