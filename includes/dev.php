@@ -3,12 +3,17 @@
 class gNetworkDev extends gNetworkModuleCore
 {
 
-	protected $option_key = FALSE;
-	protected $network    = FALSE;
+	protected $menu_key   = 'dev';
+	protected $network    = TRUE;
 	protected $ajax       = TRUE;
 
 	protected function setup_actions()
 	{
+		$this->register_menu( 'dev',
+			_x( 'Dev Tools', 'Dev Module: Menu Name', GNETWORK_TEXTDOMAIN ),
+			array( $this, 'settings' )
+		);
+
 		add_filter( 'http_request_args', array( $this, 'http_request_args' ), 12, 2 );
 		add_filter( 'https_local_ssl_verify', '__return_false' );
 		add_filter( 'https_ssl_verify', '__return_false' );
@@ -26,6 +31,16 @@ class gNetworkDev extends gNetworkModuleCore
 
 		// add_action( 'template_redirect', array( $this, 'template_redirect' ) );
 		// add_filter( 'login_url', array( $this, 'login_url' ), 10, 2 );
+	}
+
+	public function settings_html( $uri, $sub = 'general' )
+	{
+		echo '<form class="gnetwork-form" method="post" action="">';
+
+			$this->settings_fields( $sub, 'bulk' );
+			self::generateCustomTax();
+
+		echo '</form>';
 	}
 
 	public function http_request_args( $r, $url )
@@ -96,7 +111,7 @@ class gNetworkDev extends gNetworkModuleCore
 
 	// FIXME: WORKING: ADJUST IT
 	// @SOURCE: http://code.tutsplus.com/articles/quick-tip-get-the-current-screens-hooks--wp-26891
-	public function contextual_help( $contextual_help, $screen_id, $screen )
+	public function contextual_help( $old_help, $screen_id, $screen )
 	{
 		global $hook_suffix;
 
@@ -138,6 +153,77 @@ class gNetworkDev extends gNetworkModuleCore
 			'content' => $help_content,
 		));
 
-		return $contextual_help;
+		return $old_help;
+	}
+
+	public static function generateCustomTax()
+	{
+		// gNetworkUtilities::renderMustache( 'posttype-post', self::generateCustomTax_Post() );
+		// gNetworkUtilities::renderMustache( 'posttype-page', self::generateCustomTax_Post() );
+		// gNetworkUtilities::renderMustache( 'taxonomy-tag', self::generateCustomTax_Tag() );
+		gNetworkUtilities::renderMustache( 'taxonomy-cat', self::generateCustomTax_Cat() );
+	}
+
+	public static function generateCustomTax_Post()
+	{
+		return array(
+			'name'           => 'Divisions',
+			'name_lower'     => 'divisions',
+			'singular'       => 'Division',
+			'singular_lower' => 'division',
+
+			'description'    => 'Division Post Type',
+			'featured'       => FALSE, //'Featured Image', // Featured Image / or FALSE to disable
+			'featured_lower' => 'featured image', // featured image
+
+			'context'        => 'Divisions Module: Division CPT Labels',
+			'textdomain'     => 'GEDITORIAL_TEXTDOMAIN',
+		);
+	}
+
+	public static function generateCustomTax_Tag()
+	{
+		return array(
+			// 'name'           => 'Publication Sizes',
+			// 'name_lower'     => 'publication sizes',
+			// 'singular'       => 'Publication Size',
+			// 'singular_lower' => 'publication size',
+
+			'name'           => 'Alphabets',
+			'name_lower'     => 'alphabets',
+			'singular'       => 'Alphabet',
+			'singular_lower' => 'alphabet',
+
+			'context'        => 'Alphabet Module: Alphabet Tax Labels',
+			'textdomain'     => 'GEDITORIAL_TEXTDOMAIN',
+		);
+	}
+
+	public static function generateCustomTax_Cat()
+	{
+		return array(
+			// 'name'           => 'Event Categories',
+			// 'name_lower'     => 'event categories',
+			// 'singular'       => 'Event Category',
+			// 'singular_lower' => 'event category',
+
+			// 'name'           => 'Publication Types',
+			// 'name_lower'     => 'publication types',
+			// 'singular'       => 'Publication Type',
+			// 'singular_lower' => 'publication type',
+
+			// 'name'           => 'Publication Statuses',
+			// 'name_lower'     => 'publication statuses',
+			// 'singular'       => 'Publication Status',
+			// 'singular_lower' => 'publication status',
+
+			'name'           => 'Sections',
+			'name_lower'     => 'sections',
+			'singular'       => 'Section',
+			'singular_lower' => 'section',
+
+			'context'        => 'Magazine Module: Section Tax Labels',
+			'textdomain'     => 'GEDITORIAL_TEXTDOMAIN',
+		);
 	}
 }
