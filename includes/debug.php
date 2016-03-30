@@ -245,19 +245,52 @@ class gNetworkDebug extends gNetworkModuleCore
 		self::tableCode( $server );
 	}
 
-
 	public static function phpinfo()
 	{
-		$dom = new domDocument;
+		if ( self::isFuncDisabled( 'phpinfo' ) ) {
 
-		ob_start();
-		phpinfo();
+			echo '<div class="gnetwork-phpinfo-disabled description">';
+				_ex( '<code>phpinfo()</code> has been disabled.', 'Debug Module', GNETWORK_TEXTDOMAIN );
+			echo '</div>';
 
-		$dom->loadHTML( ob_get_clean() );
-		$body = $dom->documentElement->lastChild;
-		echo '<div class="gnetwork-phpinfo-wrap">';
-			echo $dom->saveHTML( $body );
-		echo '</div>';
+		} else {
+
+			$dom = new domDocument;
+
+			ob_start();
+			phpinfo();
+
+			$dom->loadHTML( ob_get_clean() );
+			$body = $dom->documentElement->lastChild;
+			echo '<div class="gnetwork-phpinfo-wrap">';
+				echo $dom->saveHTML( $body );
+			echo '</div>';
+		}
+	}
+
+	public static function phpversion()
+	{
+		echo '<p class="description">'.sprintf( _x( 'Current PHP version: <code>%s</code>', 'Debug Module', GNETWORK_TEXTDOMAIN ), phpversion() ).'</p>';
+
+		self::listCode( self::getPHPExtensions(), NULL, '<span class="description">'._x( 'Loaded Extensions', 'Debug Module', GNETWORK_TEXTDOMAIN ).':</span>' );
+	}
+
+	public static function getPHPExtensions()
+	{
+		$extensions = array();
+
+		foreach ( get_loaded_extensions() as $ext ) {
+
+			if ( 'core' == strtolower( $ext ) )
+				continue;
+
+			if ( $ver = phpversion( $ext ) )
+				$extensions[$ext] = 'v'.esc_attr( $ver );
+			else
+				$extensions[$ext] = '';
+		}
+
+		return $extensions;
 	}
 
 	public function wp_footer()
