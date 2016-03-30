@@ -66,7 +66,7 @@ class gNetworkMedia extends gNetworkModuleCore
 				self::redirect_referer( array(
 					'message' => 'wrong',
 					'limit'   => self::limit(),
-					'paged'   => self::paged() + 1,
+					'paged'   => self::paged(),
 				) );
 			}
 
@@ -74,7 +74,7 @@ class gNetworkMedia extends gNetworkModuleCore
 				'message' => 'cleaned',
 				'count'   => $count,
 				'limit'   => self::limit(),
-				'paged'   => self::paged() + 1,
+				'paged'   => self::paged(),
 			) );
 		}
 	}
@@ -138,16 +138,24 @@ class gNetworkMedia extends gNetworkModuleCore
 			),
 
 			'post' => array(
-				'title'    => _x( 'Post', 'Media Module', GNETWORK_TEXTDOMAIN ),
+				'title' => _x( 'Post', 'Media Module', GNETWORK_TEXTDOMAIN ),
+				'args'  => array(
+					'url'   => get_bloginfo( 'url' ),
+					'admin' => get_admin_url( NULL, 'post.php' ),
+				),
 				'callback' => function( $value, $row, $column, $index ){
 
-					$url = add_query_arg( array(
+					$edit = add_query_arg( array(
 						'action' => 'edit',
 						'post'   => $row->ID,
-					), get_admin_url( NULL, 'post.php' ) );
+					), $column['args']['admin'] );
+
+					$view = add_query_arg( array(
+						'p' => $row->ID,
+					), $column['args']['url'] );
 
 					$terms = get_the_term_list( $row->ID, 'post_tag', '<br />', ', ', '' );
-					return $row->post_title.' <small>( <a href="'.$url.'" target="_blank">Edit</a> | <a href="#" target="_blank">View</a> )</small><br /><small>'.$terms.'</small>';
+					return $row->post_title.' <small>( <a href="'.$edit.'" target="_blank">Edit</a> | <a href="'.$view.'" target="_blank">View</a> )</small><br /><small>'.$terms.'</small>';
 				},
 			),
 
@@ -362,7 +370,7 @@ class gNetworkMedia extends gNetworkModuleCore
 		$urls = array();
 
 		foreach ( $thumbs as $thumb )
-			$urls[] = str_replace( $wpupload['basedir'], $wpupload['baseurl'], $thumb );
+			$urls[] = str_replace( $wpupload['basedir'], $wpupload['baseurl'], wp_normalize_path( $thumb ) );
 
 		return $urls;
 	}
@@ -420,14 +428,14 @@ class gNetworkMedia extends gNetworkModuleCore
 			// self::dump( $this->get_thumbs( $attachment->ID ) );
 
 			if ( $attached_file = get_post_meta( $attachment->ID, '_wp_attached_file', TRUE ) ) {
-				if ( str_replace( wp_basename( $attached_file ), '', $attached_file ) ) {
+				if ( ! str_replace( wp_basename( $attached_file ), '', $attached_file ) ) {
 					$clean[$attachment->ID] = $attached_file;
 				}
 			}
 		}
 
 		if ( ! count( $clean ) )
-			return TRUE;
+			return FALSE;
 
 		$post = get_post( $post_id );
 		$wpupload = wp_upload_dir( ( substr( $post->post_date, 0, 4 ) > 0 ? $post->post_date : NULL ) );
@@ -446,9 +454,11 @@ class gNetworkMedia extends gNetworkModuleCore
 				$thumbs_path = $this->get_thumbs( $clean_id );
 				$thumbs_url = $this->url_thumbs( $thumbs_path, $wpupload );
 
-				foreach ( $thumbs_url as $thumbs_url ) {
+				$thumbs_url[] = $wpupload['baseurl'].'/'.$clean_file; // also the original
+
+				foreach ( $thumbs_url as $thumb_url ) {
 					foreach ( $matches[1] as $offset => $url ) {
-						if ( $thumbs_url == $url ) {
+						if ( $thumb_url == $url ) {
 							$wpdb->query( $wpdb->prepare( "
 								UPDATE $wpdb->posts SET post_content = REPLACE(post_content, '%s', '%s') WHERE ID = %d
 							", $url, ( $wpupload['url'].'/'.wp_basename( $url ) ), $post_id ) );
