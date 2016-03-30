@@ -107,6 +107,23 @@ class gNetworkThemes extends gNetworkModuleCore
 				wp_enqueue_style( 'gnetwork-themes-houston', GNETWORK_URL.'assets/css/themes.houston.css', array(), GNETWORK_VERSION );
 			}, 20 );
 
+		} else if ( $this->isTheme( 'p2', 'gp2' ) ) {
+			// @HOME: http://p2theme.com/
+			// @DEMO: https://p2demo.wordpress.com/
+			// @REPO: https://wordpress.org/themes/p2/
+
+			if ( $this->rtl ) {
+
+				add_action( 'wp_head', function(){
+					gNetworkUtilities::linkStyleSheet( GNETWORK_URL.'assets/css/themes.p2-rtl.css' );
+					// wp_enqueue_style( 'p2-rtl', GNETWORK_URL.'assets/css/themes.p2-rtl.css', array(), GNETWORK_VERSION );
+					// wp_enqueue_style( 'p2-print-style-rtl', GNETWORK_URL.'assets/css/themes.p2-rtl-print.css', array( 'p2-rtl' ), GNETWORK_VERSION, 'print' );
+				}, 99 );
+			}
+
+			add_filter( 'prologue_poweredby_link', array( $this, 'prologue_poweredby_link' ) );
+
+		// FALLBACK: for gP2 child theme: https://github.com/geminorum/gp2/
 		} else if ( $this->isTheme( 'p2' ) ) {
 
 			add_filter( 'prologue_poweredby_link', array( $this, 'prologue_poweredby_link' ) );
