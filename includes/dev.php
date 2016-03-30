@@ -23,7 +23,7 @@ class gNetworkDev extends gNetworkModuleCore
 		add_action( 'shutdown', array( $this, 'shutdown' ), 99 );
 
 		if ( is_admin() )
-			add_action( 'contextual_help', array( $this, 'contextual_help' ), 10, 3 );
+			add_filter( 'contextual_help', array( $this, 'contextual_help' ), 10, 3 );
 
 		// add_filter( 'embed_oembed_html', array( $this, 'embed_oembed_html' ), 1,  4 );
 		add_filter( 'pre_get_avatar', array( $this, 'pre_get_avatar' ), 99, 3 );

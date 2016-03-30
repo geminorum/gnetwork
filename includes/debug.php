@@ -77,8 +77,10 @@ class gNetworkDebug extends gNetworkModuleCore
 
 			if ( $errors = self::fileGetLastLines( GNETWORK_DEBUG_LOG, $limit ) ) {
 
-				echo self::html( 'h3', sprintf( _x( 'The Last %s Errors, in Reverse Order', 'Debug Module: Error Box', GNETWORK_TEXTDOMAIN ), number_format_i18n( count( $errors ) ) ) );
-				echo '<div class="error-box"><ol>';
+				echo '<h3 class="error-box-header">';
+					printf( _x( 'The Last %s Errors, in reverse order', 'Debug Module: Error Box', GNETWORK_TEXTDOMAIN ), number_format_i18n( count( $errors ) ) );
+
+				echo '</h3><div class="error-box"><ol>';
 
 				foreach ( $errors as $error ) {
 
@@ -96,14 +98,14 @@ class gNetworkDebug extends gNetworkModuleCore
 					echo '</li>';
 				}
 
-				echo '</ol></div><p>'.sprintf( _x( 'File Size: %s', 'Debug Module: Error Box', GNETWORK_TEXTDOMAIN ), $file_size ).'</p>';
+				echo '</ol></div><p class="error-box-footer description">'.sprintf( _x( 'File Size: %s', 'Debug Module: Error Box', GNETWORK_TEXTDOMAIN ), $file_size ).'</p>';
 
 			} else {
-				echo '<p>'._x( 'No errors currently logged.', 'Debug Module: Error Box', GNETWORK_TEXTDOMAIN ).'</p>';
+				echo '<p class="description">'._x( 'No errors currently logged.', 'Debug Module: Error Box', GNETWORK_TEXTDOMAIN ).'</p>';
 			}
 
 		} else {
-			echo '<p>'._x( 'There was a problem reading the error log file.', 'Debug Module: Error Box', GNETWORK_TEXTDOMAIN ).'</p>';
+			echo '<p class="description">'._x( 'There was a problem reading the error log file.', 'Debug Module: Error Box', GNETWORK_TEXTDOMAIN ).'</p>';
 			return FALSE;
 		}
 
@@ -273,7 +275,7 @@ class gNetworkDebug extends gNetworkModuleCore
 	public function wp_login_errors( $errors, $redirect_to )
 	{
 		if ( in_array( 'test_cookie', $errors->get_error_codes() ) )
-			self::log( 'TEST COOCKIE', $errors->get_error_message( 'test_cookie' ) );
+			self::log( 'TEST COOCKIE', $errors->get_error_message( 'test_cookie' ) ); // FIXME: generate static message
 
 		return $errors;
 	}

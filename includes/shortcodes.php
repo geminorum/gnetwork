@@ -78,10 +78,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 	{
 		global $shortcode_tags;
 
-		echo '<ul>';
-		foreach ( $shortcode_tags as $code => $callback )
-			echo '<li><code>['.$code.']</code></li>';
-		echo '</ul>';
+		self::listCode( $shortcode_tags, '<code>[%1$s]</code>' );
 	}
 
 	public function tinymce_strings( $strings )

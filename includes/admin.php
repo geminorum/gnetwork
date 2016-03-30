@@ -22,7 +22,7 @@ class gNetworkAdmin extends gNetworkModuleCore
 		add_filter( 'update_footer', array( $this, 'update_footer' ), 9999 );
 
 		add_filter( 'manage_pages_columns', array( $this, 'manage_pages_columns' ) );
-		add_filter( 'post_date_column_time' , array( $this, 'post_date_column_time' ), 10, 4 );
+		add_filter( 'post_date_column_time', array( $this, 'post_date_column_time' ), 10, 4 );
 
 		if ( GNETWORK_ADMIN_COLUMN_ID ) {
 			add_filter( 'manage_pages_columns', array( $this, 'manage_posts_columns_id' ), 12 );
@@ -274,8 +274,6 @@ class gNetworkAdmin extends gNetworkModuleCore
 		);
 	}
 
-	// http://wpmu.org/how-to-show-the-time-for-a-scheduled-wordpress-post/
-	// Custom public function to add time to the date / time column for future posts
 	public function post_date_column_time( $h_time, $post, $column_name = 'date', $mode = 'excerpt' )
 	{
 		if ( 'future' == $post->post_status )

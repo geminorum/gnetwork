@@ -2,6 +2,7 @@
 .sass-cache
 .gulp
 .imdone
+.temp
 
 /assets/components
 /assets/views/cache

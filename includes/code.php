@@ -153,7 +153,7 @@ class gNetworkCode extends gNetworkModuleCore
 			),
 		), NULL );
 
-		wp_enqueue_script( 'gnetwork-code-gistembed', GNETWORK_URL.'assets/js/jquery.gist-embed.min.js', array( 'jquery' ), '2.1', TRUE );
+		gNetworkUtilities::enqueueScript( 'jquery.gist-embed' );
 
 		return '<div class="gnetwork-wrap-shortcode github-gist" data-github-gist="'.$args['id'].'">'.$html.'</div>';
 	}

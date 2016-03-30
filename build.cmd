@@ -5,5 +5,6 @@ ECHO GIT -----------------------------------------------------------------------
 git clone https://github.com/geminorum/gnetwork .
 PAUSE
 ECHO COMPOSER ------------------------------------------------------------------
-composer install --no-dev --optimize-autoloader --prefer-dist
+composer install --no-dev --optimize-autoloader --prefer-dist -v
 ECHO FINISHED ------------------------------------------------------------------
+cd ..
