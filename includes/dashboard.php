@@ -9,44 +9,89 @@ class gNetworkDashboard extends gNetworkModuleCore
 
 	protected function setup_actions()
 	{
-		add_action( 'wp_network_dashboard_setup', array( $this, 'wp_dashboard_setup' ), 20 );
-		add_action( 'wp_user_dashboard_setup', array( $this, 'wp_dashboard_setup' ), 20 );
-		add_action( 'wp_dashboard_setup', array( $this, 'wp_dashboard_setup' ), 20 );
+		foreach ( array(
+			'wp_network_dashboard_setup',
+			'wp_user_dashboard_setup',
+			'wp_dashboard_setup',
+		) as $action )
+			add_action( $action, array( $this, 'wp_dashboard_setup' ), 20 );
+
+		// add_action( 'wp_ajax_dashboard_widgets', array( $this, 'ajax_dashboard_widgets' ), 0 );
+		add_action( 'wp_ajax_gnetwork_dashboard', array( $this, 'ajax_dashboard_widgets' ), 0 );
 	}
 
 	public function wp_dashboard_setup()
 	{
-		// FIXME: handle comma seperated
-		if ( defined( 'GNETWORK_ADMIN_WIDGET_RSS' )
-			&& constant( 'GNETWORK_ADMIN_WIDGET_RSS' ) ) {
+		global $gNetwork;
 
-			add_meta_box( 'abetterplanet_widget',
-				_x( 'Network Feed', 'Admin Module: Dashboard Widget Title', GNETWORK_TEXTDOMAIN ),
-				array( $this, 'widget_network_rss' ),
-				'dashboard', 'normal', 'high' );
+		if ( has_filter( 'gnetwork_dashoboard_external_feeds' ) ) {
+			wp_add_dashboard_widget(
+				'gnetwork_dashboard_external_feed',
+				_x( 'External Feed', 'Dashboard Module: Dashboard Widget Title', GNETWORK_TEXTDOMAIN ),
+				array( $this, 'widget_external_feed' )
+			);
+		}
+
+		if ( isset( $gNetwork->sms ) && $gNetwork->sms->options['load_providers'] ) {
+			wp_add_dashboard_widget(
+				'gnetwork_dashboard_sms_summary',
+				_x( 'SMS Providers', 'Dashboard Module: Dashboard Widget Title', GNETWORK_TEXTDOMAIN ),
+				array( $this, 'widget_sms_summary' )
+			);
 		}
 	}
 
-	public function widget_network_rss()
+	public function widget_sms_summary()
 	{
-		// FIXME: handle comma seperated
-		//public function return_1600( $seconds ) { return 1600; }
-		//add_filter( 'wp_feed_cache_transient_lifetime' , 'return_1600' );
-		$rss = fetch_feed( constant( 'GNETWORK_ADMIN_WIDGET_RSS' ) );
-		//remove_filter( 'wp_feed_cache_transient_lifetime' , 'return_1600' );
+		global $gNetwork;
 
-		if ( ! is_wp_error( $rss ) ) {
-			// Figure out how many total items there are, but limit it to 3.
-			$maxitems = $rss->get_item_quantity( 8 );
-			// Build an array of all the items, starting with element 0 (first element).
-			$rss_items = $rss->get_items( 0, $maxitems );
-
-			if ( ! empty( $maxitems ) ) {
-				?> <div class="rss-widget"><ul>
-				<?php foreach ( $rss_items as $item ) { ?>
-					<li><a class="rsswidget" href='<?php echo $item->get_permalink(); ?>'><?php echo $item->get_title(); ?></a> <span class="rss-date"><?php echo date_i18n( 'j F Y', $item->get_date( 'U' ) ); ?></span></li>
-				<?php } ?></ul></div> <?php
+		foreach ( $gNetwork->sms->providers as $name => &$provider ) {
+			if ( $provider->providerEnabled() ) {
+				echo '<h3>'.$name.'</h3>';
+				$status = $provider->providerStatus();
+				echo gNetworkProviderCore::dateFormat( $status['timestamp'] );
+				echo '<br/>'.$provider->providerBalance();
 			}
 		}
+	}
+
+	public function widget_external_feed()
+	{
+		$feeds = array();
+
+		foreach ( apply_filters( 'gnetwork_dashoboard_external_feeds', array() ) as $name => $feed )
+			$feeds[$name] = array_merge( array(
+				'link'         => 'http://geminorum.ir/',
+				'url'          => 'http://geminorum.ir/feed',
+				'title'        => $name,
+				'items'        => 3,
+				'show_summary' => 1,
+				'show_author'  => 0,
+				'show_date'    => 1,
+			), $feed );
+
+		wp_dashboard_cached_rss_widget( 'gnetwork_feeds', 'wp_dashboard_primary_output', $feeds );
+	}
+
+	public function ajax_dashboard_widgets()
+	{
+		require_once ABSPATH.'wp-admin/includes/dashboard.php';
+
+		self::logArray( 'AJAX', $_GET );
+
+		$pagenow = $_GET['pagenow'];
+		if ( $pagenow === 'dashboard-user' || $pagenow === 'dashboard-network' || $pagenow === 'dashboard' ) {
+			set_current_screen( $pagenow );
+		}
+
+		switch ( $_GET['widget'] ) {
+			case 'gnetwork_dashboard_external_feed':
+
+				$this->widget_external_feed();
+				
+			break;
+		}
+
+		wp_die();
 	}
 }
