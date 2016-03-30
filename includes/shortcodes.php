@@ -517,7 +517,8 @@ class gNetworkShortCodes extends gNetworkModuleCore
 
 		// $this->pdf_ids[$key] = ' var '.$id.' = new PDFObject({url:"'.$args['url'].'",id:"'.$id.'",pdfOpenParams:{navpanes:'.$args['navpanes'].',statusbar:'.$args['statusbar'].',view:"'.$args['view'].'",pagemode:"'.$args['pagemode'].'"}}).embed("'.$id.'div"); ';
 
-		wp_enqueue_script( 'pdfobject', GNETWORK_URL.'assets/js/lib.pdfobject.min.js', array(), GNETWORK_VERSION, TRUE );
+		gNetworkUtilities::enqueueScript( 'lib.pdfobject' );
+		
 		return '<div id="'.$id.'div">'.$fallback.'</div>';
 	}
 
@@ -622,7 +623,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		$html  = $content ? trim( $content ) : $title;
 		$html  = '<a href="#" class="audio-go-to-time" title="'.esc_attr( $title ).'" data-time="'.$args['to'].'" data-instance="'.$args['instance'].'">'.$html.'</a>';
 
-		wp_enqueue_script( 'gnetwork-audio-go', GNETWORK_URL.'assets/js/front.audio-go.min.js', array( 'jquery' ), GNETWORK_VERSION, TRUE );
+		gNetworkUtilities::enqueueScript( 'front.audio-go' );
 
 		return self::shortcodeWrap( $html, 'audio-go', $args, FALSE );
 	}
@@ -820,7 +821,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		), apply_filters( 'gnetwork_cite_reflist_before', '', $args ).$html );
 
 		if ( ! defined( 'GNETWORK_DISABLE_REFLIST_JS' ) || ! GNETWORK_DISABLE_REFLIST_JS )
-			wp_enqueue_script( 'gnetwork-cite', GNETWORK_URL.'assets/js/front.cite.min.js', array( 'jquery' ), GNETWORK_VERSION, TRUE );
+			gNetworkUtilities::enqueueScript( 'front.cite' );
 
 		$this->ref_list = TRUE;
 
@@ -904,7 +905,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			$args['wrap']          = TRUE;
 		}
 
-		wp_enqueue_script( 'gnetwork-cite', GNETWORK_URL.'assets/js/front.cite.js', array( 'jquery' ), GNETWORK_VERSION, TRUE );
+		gNetworkUtilities::enqueueScript( 'front.cite' );
 
 		return '<span>'.( $args['format_number'] ? number_format_i18n( $args['id'] ) : $args['id'] ).$args['after_number']
 				.'<span class="ref-backlink"><a href="#citeref-'.$args['id'].'-m" class="cite-scroll">'.$args['back']

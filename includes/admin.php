@@ -213,7 +213,7 @@ class gNetworkAdmin extends gNetworkModuleCore
 		gNetworkUtilities::customStyleSheet( 'admin.css' );
 
 		if ( GNETWORK_ADMIN_JS_ENHANCEMENTS )
-			wp_enqueue_script( 'gnetwork-admin', GNETWORK_URL.'assets/js/admin.all.min.js', array( 'jquery' ), GNETWORK_VERSION, TRUE );
+			gNetworkUtilities::enqueueScript( 'admin.all' );
 	}
 
 	public function admin_footer_text()

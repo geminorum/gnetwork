@@ -352,8 +352,7 @@ class gNetworkTaxonomy extends gNetworkModuleCore
 	{
 		global $taxonomy;
 
-		wp_enqueue_script( 'gnetwork-taxonomy', GNETWORK_URL.'assets/js/admin.taxonomy.min.js', array( 'jquery' ), GNETWORK_VERSION, TRUE );
-		wp_localize_script( 'gnetwork-taxonomy', 'gNetworkTaxonomy', $this->get_actions( $taxonomy ) );
+		wp_localize_script( gNetworkUtilities::enqueueScript( 'admin.taxonomy' ), 'gNetworkTaxonomy', $this->get_actions( $taxonomy ) );
 	}
 
 	public function admin_footer()

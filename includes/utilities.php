@@ -135,9 +135,12 @@ class gNetworkUtilities extends gNetworkBaseCore
 
 	public static function enqueueScript( $asset, $dep = array( 'jquery' ), $version = GNETWORK_VERSION, $base = GNETWORK_URL )
 	{
+		$handle  = 'gnetwork-'.str_replace( '.', '-', $asset );
 		$variant = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
-		
-		wp_enqueue_script( 'gnetwork.'.$asset, $base.'assets/js/'.$asset.$variant.'.js', $dep, $version, TRUE );
+
+		wp_enqueue_script( $handle, $base.'assets/js/'.$asset.$variant.'.js', $dep, $version, TRUE );
+
+		return $handle;
 	}
 
 	public static function getTinyMceStrings( $locale )
