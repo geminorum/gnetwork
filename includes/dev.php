@@ -81,32 +81,58 @@ class gNetworkDev extends gNetworkModuleCore
 			_doing_it_wrong( 'query_posts', 'You should <a href="http://wordpress.tv/2012/06/15/andrew-nacin-wp_query/">not use query_posts</a>.', NULL );
 	}
 
-	// FIXME: WORKING: BETTER
 	public function shutdown()
 	{
-		global $gNetwork, $gPeopleNetwork, $gMemberNetwork;
+		global $wpdb, $gNetwork, $gPeopleNetwork, $gMemberNetwork;
 
-		$log = '';
+		$log = array(
+			self::timer_stop( FALSE, 3 ).'s',
+			number_format( ( memory_get_peak_usage() / 1024 / 1024 ), 1, ',', '' ).'/'.ini_get( 'memory_limit' ),
+			$wpdb->num_queries.'q',
+		);
 
-		$log .= is_network_admin() ? 'NetworkAdmin|' : ( is_admin() ? 'Admin|' : '' );
+		if ( is_network_admin() )
+			$log[] = 'NetworkAdmin';
 
-		$log .= self::isFlush() ? 'Flush|' : '';
-		$log .= self::isCLI() ? 'CLI|' : '';
-		$log .= self::isCRON() ? 'CRON|' : '';
-		$log .= self::isAJAX() ? 'AJAX|' : '';
+		if ( is_blog_admin() )
+			$log[] = 'BlogAdmin';
 
-		$log .= 'gN:'.self::size_format( self::size( $gNetwork ) ).'|';
+		if ( is_user_admin() )
+			$log[] = 'UserAdmin';
+
+		if ( is_admin() )
+			$log[] = 'Admin';
+
+		if ( self::isFlush() )
+			$log[] = 'Flush';
+
+		if ( self::isCLI() )
+			$log[] = 'CLI';
+
+		if ( self::isCRON() )
+			$log[] = 'CRON';
+
+		if ( self::isAJAX() )
+			$log[] = 'AJAX';
+
+		$log[] = 'gN:'.self::size_format( self::size( $gNetwork ) );
 
 		if ( function_exists( 'gEditorial' ) )
-			$log .= 'gE:'.self::size_format( self::size( gEditorial() ) ).'|';
+			$log[] = 'gE:'.self::size_format( self::size( gEditorial() ) );
 
-		$log .= 'gP:'.self::size_format( self::size( $gPeopleNetwork ) ).'|';
-		$log .= 'gM:'.self::size_format( self::size( $gMemberNetwork ) ).'|';
+		if ( $gPeopleNetwork )
+			$log[] = 'gP:'.self::size_format( self::size( $gPeopleNetwork ) );
+
+		if ( $gMemberNetwork )
+			$log[] = 'gM:'.self::size_format( self::size( $gMemberNetwork ) );
 
 		if ( function_exists( 'gPersianDate' ) )
-			$log .= 'gPD:'.self::size_format( self::size( gPersianDate() ) ).'|';
+			$log[] = 'gPD:'.self::size_format( self::size( gPersianDate() ) );
 
-		self::log( 'BENCHMARK', $log );
+		if ( $_SERVER['REQUEST_URI'] )
+			$log[] = $_SERVER['REQUEST_URI'];
+
+		self::log( 'BENCHMARK', implode( '|', $log ) );
 	}
 
 	// FIXME: WORKING: ADJUST IT
