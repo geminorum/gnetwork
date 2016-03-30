@@ -6,7 +6,10 @@
 
 @import "partials/admin.adblock";
 @import "partials/admin.editor";
+@import "partials/admin.importer";
 @import "partials/admin.table";
+@import "partials/admin.list";
+@import "partials/admin.tabs";
 @import "partials/admin.form";
 
 @import "partials/debug.all";
@@ -128,11 +131,11 @@ textarea {
 body.colored {
 
 	.status-draft {
-		background:#FCE3F2 !important;
+		background: #FCE3F2 !important;
 	}
 
 	.status-pending {
-		background:#87C5D6 !important;
+		background: #87C5D6 !important;
 	}
 
 	.status-publish {
@@ -140,11 +143,11 @@ body.colored {
 	}
 
 	.status-future {
-		background:#C6EBF5 !important;
+		background: #C6EBF5 !important;
 	}
 
 	.status-private {
-		background:#F2D46F;
+		background: #F2D46F;
 	}
 }
 
@@ -182,33 +185,3 @@ ul.categorychecklist {
 		width: 99%;
 	}
 }
-
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-///---gNetwork Settings General-------------------------------------------------
-
-// FIXME: must check the html
-table.gnetwork-sidebyside { width:100%;}
-table.gnetwork-sidebyside td { padding:0; vertical-align:top; }
-table.gnetwork-sidebyside td.wider{ width:65%; }
-table.gnetwork-sidebyside td.sider{ }
-table.gnetwork-settings {}
-table.gnetwork-settings .ul-li-inline ul:first-child { margin-top:0; }
-table.gnetwork-settings .ul-li-inline ul li { display:inline-block; margin-right:8px; }
-body.rtl table.gnetwork-settings .ul-li-inline:not(.ltr) ul li { margin-right:0; margin-left:8px; }
-table.gnetwork-settings .table-block table {}
-table.gnetwork-settings .table-block table td { padding:5px 2px; }
-
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-// JS TAB API: initially used in gImporter
-.gnetwork-tabs {}
-.gnetwork-tabs .nav-tab { }
-.gnetwork-tabs .nav-tab-content { display:none; }
-.gnetwork-tabs .nav-tab-content-active { display:block; }
-
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-/// --gImporter-------------------------------------------------------------
-#gimporter_people .byline { padding:10px 5px; }

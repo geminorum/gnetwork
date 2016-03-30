@@ -33,7 +33,17 @@
 	&.sub-overview {}
 
 	&.sub-debug {
+
+		h3.error-box-header {
+			margin-bottom: 0.5em;
+		}
+
+		p.error-box-footer {
+			margin-top: 0.2em;
+		}
+
 		.error-box {
+
 			height: 100%;
 			// overflow: scroll;
 			padding: 2px;
@@ -76,6 +86,10 @@
 	}
 
 	&.sub-phpinfo {
+
+		.gnetwork-phpinfo-disabled {
+			padding: 1em;
+		}
 
 		// default style from phpinfo()
 		.gnetwork-phpinfo-wrap {
