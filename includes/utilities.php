@@ -133,6 +133,13 @@ class gNetworkUtilities extends gNetworkBaseCore
 		parent::customStyleSheet( $css, $link, $version );
 	}
 
+	public static function enqueueScript( $asset, $dep = array( 'jquery' ), $version = GNETWORK_VERSION, $base = GNETWORK_URL )
+	{
+		$variant = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+		
+		wp_enqueue_script( 'gnetwork.'.$asset, $base.'assets/js/'.$asset.$variant.'.js', $dep, $version, TRUE );
+	}
+
 	public static function getTinyMceStrings( $locale )
 	{
 		$strings = apply_filters( 'gnetwork_tinymce_strings', array() );
