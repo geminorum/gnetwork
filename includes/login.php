@@ -13,24 +13,12 @@ class gNetworkLogin extends gNetworkModuleCore
 			array( $this, 'settings' )
 		);
 
-		if ( $this->options['login_headerurl'] )
-			add_filter( 'login_headerurl', array( $this, 'login_headerurl' ), 1000 );
-
-		if ( $this->options['login_headertitle'] )
-			add_filter( 'login_headertitle', array( $this, 'login_headertitle' ), 1000 );
-
-		if ( $this->options['login_remember'] )
-			add_filter( 'login_footer', array( $this, 'login_footer_remember' ), 99 );
-
-		add_action( 'login_head', array( $this, 'login_head' ) );
+		add_action( 'login_init', array( $this, 'login_init' ), 1 );
 
 		if ( $this->options['login_math'] && $this->options['math_hashkey'] ) {
 			add_action( 'login_form', array( $this, 'login_form' ) );
 			add_filter( 'authenticate', array( $this, 'authenticate' ), 1, 3 );
 		}
-
-		if ( ! GNETWORK_DISABLE_CREDITS )
-			add_filter( 'login_footer', array( $this, 'login_footer_badge' ) );
 	}
 
 	public function default_options()
@@ -107,6 +95,23 @@ class gNetworkLogin extends gNetworkModuleCore
 			_x( 'Math Settings', 'Login Module: Settings Section Title', GNETWORK_TEXTDOMAIN ),
 			_x( 'Blocks Spam by Math. Verifies that a user answered the math problem correctly while loggin in.', 'Login Module: Settings Section Desc', GNETWORK_TEXTDOMAIN )
 		);
+	}
+
+	public function login_init()
+	{
+		if ( $this->options['login_headerurl'] )
+			add_filter( 'login_headerurl', array( $this, 'login_headerurl' ), 1000 );
+
+		if ( $this->options['login_headertitle'] )
+			add_filter( 'login_headertitle', array( $this, 'login_headertitle' ), 1000 );
+
+		if ( $this->options['login_remember'] )
+			add_filter( 'login_footer', array( $this, 'login_footer_remember' ), 99 );
+
+		add_action( 'login_head', array( $this, 'login_head' ) );
+
+		if ( ! GNETWORK_DISABLE_CREDITS )
+			add_filter( 'login_footer', array( $this, 'login_footer_badge' ) );
 	}
 
 	public function login_head()
