@@ -987,6 +987,23 @@ class gNetworkBaseCore
 		return self::filePutContents( '.htaccess', $content, $path, FALSE, $check_folder );
 	}
 
+	public static function urlGetContents( $url )
+	{
+		$handle = curl_init();
+
+		curl_setopt( $handle, CURLOPT_URL, $url );
+		curl_setopt( $handle, CURLOPT_RETURNTRANSFER, TRUE );
+
+		$contents = curl_exec( $handle );
+
+		curl_close( $handle );
+
+		if ( ! $contents )
+			return FALSE;
+
+		return $contents;
+	}
+
 	// wrapper for file_get_contents()
 	public static function fileGetContents( $filename )
 	{
