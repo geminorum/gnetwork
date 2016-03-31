@@ -1007,7 +1007,7 @@ class gNetworkBaseCore
 	// wrapper for file_get_contents()
 	public static function fileGetContents( $filename )
 	{
-		return file_get_contents( $filename );
+		return @file_get_contents( $filename );
 	}
 
 	// wrapper for file_put_contents()
