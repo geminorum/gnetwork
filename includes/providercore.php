@@ -222,7 +222,7 @@ class gNetworkProviderCore extends gNetworkBaseCore
     {
 		if ( ! $url )
 			return new WP_Error( 'curl_no_endpoint', 'NO EndPoint for cURL' );
-// self::kill(http_build_query( $data ) );
+
 		$handle = curl_init();
 
         curl_setopt( $handle, CURLOPT_URL, $url );
@@ -255,21 +255,21 @@ class gNetworkProviderCore extends gNetworkBaseCore
         }
 
 		$response = curl_exec( $handle );
-		$code = curl_getinfo( $handle, CURLINFO_HTTP_CODE );
+		$httpcode = curl_getinfo( $handle, CURLINFO_HTTP_CODE );
 
 		if ( $this->options['debug_providers'] )
 			self::logArray( '[Provider: '.$this->provider_slug.' - cURL]', array(
 				'url'      => $url,
 				'data'     => $data,
-				'code'     => $code,
+				'code'     => $httpcode,
 				'response' => $response,
 			) );
 
 
-        return $this->curlResults( $response, $code );
+        return $this->curlResults( $response, $httpcode );
     }
 
-	protected function curlResults( $response, $code )
+	protected function curlResults( $response, $httpcode )
 	{
 		// return json_decode( $response, TRUE );
 		return $response;
