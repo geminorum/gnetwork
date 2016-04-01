@@ -67,7 +67,7 @@ class gNetworkCron extends gNetworkModuleCore
 
 			$this->settings_fields( $sub, 'bulk' );
 
-			if ( self::cronInfo() )
+			if ( self::tableCronInfo() )
 				$this->settings_buttons( $sub );
 
 		echo '</form>';
@@ -88,18 +88,9 @@ class gNetworkCron extends gNetworkModuleCore
 		return array();
 	}
 
-	private static function cronInfo()
+	private static function tableCronInfo()
 	{
-		echo self::html( 'h3', _x( 'Overview of tasks scheduled for WP-Cron', 'CRON Module', GNETWORK_TEXTDOMAIN ) );
-
-		$cron = self::getCronArray();
-
-		if ( empty( $cron ) ) {
-			echo self::html( 'strong', _x( 'Nothing scheduled', 'CRON Module', GNETWORK_TEXTDOMAIN ) );
-			return FALSE;
-		}
-
-		self::tableList( array(
+		return self::tableList( array(
 			'_cb' => '_index',
 
 			'next' => array(
@@ -149,8 +140,9 @@ class gNetworkCron extends gNetworkModuleCore
 					return $info;
 				},
 			),
-		), $cron );
-
-		return TRUE;
+		), self::getCronArray(), array(
+			'title' => self::html( 'h3', _x( 'Overview of tasks scheduled for WP-Cron', 'CRON Module', GNETWORK_TEXTDOMAIN ) ),
+			'empty' => self::html( 'strong', _x( 'Nothing scheduled!', 'CRON Module', GNETWORK_TEXTDOMAIN ) ),
+		) );
 	}
 }

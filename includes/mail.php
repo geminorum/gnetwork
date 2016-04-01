@@ -66,9 +66,7 @@ class gNetworkMail extends gNetworkModuleCore
 
 				if ( isset( $_POST['deletelogs_all'] ) ) {
 
-					$message = FALSE === self::deleteEmailLogs() ? 'error' : 'purged';
-
-					self::redirect_referer( $message );
+					self::redirect_referer( ( FALSE === self::deleteEmailLogs() ? 'error' : 'purged' ) );
 
 				} else if ( isset( $_POST['deletelogs_selected'], $_POST['_cb'] ) ) {
 
@@ -101,7 +99,7 @@ class gNetworkMail extends gNetworkModuleCore
 
 			$this->settings_fields( $sub, 'bulk' );
 
-			if ( $this->email_logs( self::limit(), self::paged() ) )
+			if ( self::tableEmailLogs() )
 				$this->settings_buttons( $sub );
 
 		echo '</form>';
@@ -403,8 +401,6 @@ class gNetworkMail extends gNetworkModuleCore
 		echo '</tbody></table>';
 	}
 
-	// Originally Based on : WP Mail SMTP by Callum Macdonald v0.9.5 - 20150921
-	// http://wordpress.org/plugins/wp-mail-smtp/
 	public function testmail_send()
 	{
 		global $phpmailer;
@@ -459,7 +455,7 @@ class gNetworkMail extends gNetworkModuleCore
 	protected static function getEmailLogs( $limit, $paged = 1, $ext = 'json', $old = NULL )
 	{
 		$i = 0;
-		$logs = $pagination = array();
+		$logs = array();
 
 		$files = glob( wp_normalize_path( GNETWORK_MAIL_LOG_DIR.'/*.'.$ext ) );
 
@@ -490,15 +486,24 @@ class gNetworkMail extends gNetworkModuleCore
 			$i++;
 		}
 
-		if ( $pages > 1 ) {
-			if ( $paged != 1 )
-				$pagination['prev'] = '<a href="?page='.( $paged - 1 ).'">Prev</a>';
+		$pagination = array(
+			'total'    => count( $files ),
+			'pages'    => $pages,
+			'limit'    => $limit,
+			'paged'    => $paged,
+			'next'     => FALSE,
+			'previous' => FALSE,
+		);
 
-			if ( $paged != $pages )
-				$pagination['next'] = '<a href="?page='.( $paged + 1 ).'">Next</a>';
+		if ( $pagination['pages'] > 1 ) {
+			if ( $paged != 1 )
+				$pagination['previous'] = $paged - 1;
+
+			if ( $paged != $pagination['pages'] )
+				$pagination['next'] = $paged + 1;
 		}
 
-		return array( $logs, $pagination, count( $files ), $pages );
+		return array( $logs, $pagination );
 	}
 
 	protected static function deleteEmailLogs( $ext = 'json' )
@@ -517,20 +522,11 @@ class gNetworkMail extends gNetworkModuleCore
 		return self::putHTAccessDeny( GNETWORK_MAIL_LOG_DIR, FALSE );
 	}
 
-	private function email_logs( $limit = 5, $paged = 1 )
+	private static function tableEmailLogs()
 	{
-		list( $logs, $pagination, $total, $pages ) = self::getEmailLogs( $limit, $paged );
+		list( $logs, $pagination ) = self::getEmailLogs( self::limit(), self::paged() );
 
-		if ( ! $total ) {
-			echo self::html( 'strong', _x( 'No Logs!', 'Mail Module', GNETWORK_TEXTDOMAIN ) );
-			return FALSE;
-		}
-
-		echo self::html( 'h3', sprintf( _x( 'Total %s Email Logs', 'Mail Module', GNETWORK_TEXTDOMAIN ), number_format_i18n( $total ) ) );
-
-		// FIXME: add pagination to table list helper
-
-		self::tableList( array(
+		return self::tableList( array(
 			'_cb' => 'file',
 
 			'info' => array(
@@ -594,8 +590,12 @@ class gNetworkMail extends gNetworkModuleCore
 					return $content;
 				},
 			),
-		), $logs );
-
-		return TRUE;
+		), $logs, array(
+			'navigation' => 'before',
+			'search'     => 'before',
+			'title'      => self::html( 'h3', sprintf( _x( 'Total %s Email Logs', 'Mail Module', GNETWORK_TEXTDOMAIN ), number_format_i18n( $pagination['total'] ) ) ),
+			'empty'      => self::html( 'strong', _x( 'No Logs!', 'Mail Module', GNETWORK_TEXTDOMAIN ) ),
+			'pagination' => $pagination,
+		) );
 	}
 }

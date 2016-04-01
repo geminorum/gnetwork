@@ -85,7 +85,7 @@ class gNetworkMedia extends gNetworkModuleCore
 
 			$this->settings_fields( $sub, 'bulk' );
 
-			if ( self::postInfo() )
+			if ( self::tablePostInfo() )
 				$this->settings_buttons( $sub );
 
 		echo '</form>';
@@ -102,7 +102,7 @@ class gNetworkMedia extends gNetworkModuleCore
 		$paged  = self::paged();
 		$offset = ( $paged - 1 ) * $limit;
 
-		return get_posts( array(
+		$args = array(
 			'posts_per_page'   => $limit,
 			'paged'            => $paged,
 			'offset'           => $offset,
@@ -111,11 +111,36 @@ class gNetworkMedia extends gNetworkModuleCore
 			'post_type'        => 'any',
 			'post_status'      => 'publish,draft,pending',
 			'suppress_filters' => TRUE,
-		) );
+			'no_found_rows'    => TRUE,
+		);
+
+		$query = new WP_Query;
+		$posts = $query->query( $args );
+
+		$pagination = array(
+			'total'    => $query->found_posts,
+			'pages'    => $query->max_num_pages,
+			'limit'    => $limit,
+			'paged'    => $paged,
+			'next'     => FALSE,
+			'previous' => FALSE,
+		);
+
+		if ( $pagination['pages'] > 1 ) {
+			if ( $paged != 1 )
+				$pagination['previous'] = $paged - 1;
+
+			if ( $paged != $pagination['pages'] )
+				$pagination['next'] = $paged + 1;
+		}
+
+		return array( $posts, $pagination );
 	}
 
-	private static function postInfo()
+	private static function tablePostInfo()
 	{
+		list( $posts, $pagination ) = self::getPostArray();
+
 		return self::tableList( array(
 			'_cb' => 'ID',
 			'ID'  => _x( 'ID', 'Media Module', GNETWORK_TEXTDOMAIN ),
@@ -141,7 +166,7 @@ class gNetworkMedia extends gNetworkModuleCore
 				'title' => _x( 'Post', 'Media Module', GNETWORK_TEXTDOMAIN ),
 				'args'  => array(
 					'url'   => get_bloginfo( 'url' ),
-					'admin' => get_admin_url( NULL, 'post.php' ),
+					'admin' => admin_url( 'post.php' ),
 				),
 				'callback' => function( $value, $row, $column, $index ){
 
@@ -175,11 +200,12 @@ class gNetworkMedia extends gNetworkModuleCore
 					return count( $links ) ? ( '<div dir="ltr">'.implode( '<br />', $links ).'</div>' ) : '';
 				},
 			),
-		), self::getPostArray(), array(
-			'offset' => 'before',
-			'search' => 'before',
-			'title'  => self::html( 'h3', _x( 'Overview of posts with attachments', 'Media Module', GNETWORK_TEXTDOMAIN ) ),
-			'empty'  => self::html( 'strong', _x( 'No Posts!', 'Media Module', GNETWORK_TEXTDOMAIN ) ),
+		), $posts, array(
+			'navigation' => 'before',
+			'search'     => 'before',
+			'title'      => self::html( 'h3', _x( 'Overview of posts with attachments', 'Media Module', GNETWORK_TEXTDOMAIN ) ),
+			'empty'      => self::html( 'strong', _x( 'No Posts!', 'Media Module', GNETWORK_TEXTDOMAIN ) ),
+			'pagination' => $pagination,
 		) );
 	}
 
