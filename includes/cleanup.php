@@ -162,7 +162,10 @@ class gNetworkCleanup extends gNetworkModuleCore
 		if ( is_admin() )
 			return;
 
-		if ( ! defined( 'GNETWORK_DISABLE_JQUERY_MIGRATE' ) || GNETWORK_DISABLE_JQUERY_MIGRATE ) {
+		if ( ! SCRIPT_DEBUG
+			&& ( ! defined( 'GNETWORK_DISABLE_JQUERY_MIGRATE' )
+				|| GNETWORK_DISABLE_JQUERY_MIGRATE ) ) {
+
 			$scripts->remove( 'jquery' );
 			$scripts->add( 'jquery', FALSE, array( 'jquery-core' ), '1.12.2' );
 		}
