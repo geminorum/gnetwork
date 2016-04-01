@@ -749,24 +749,26 @@ class gNetworkBaseCore
 		if ( ! count( $columns ) )
 			return FALSE;
 
-		if ( isset( $args['title'] ) && $args['title'] )
-			echo $args['title'];
-
-		if ( ! count( $data ) ) {
+		if ( ! $data || ! count( $data ) ) {
 			if ( isset( $args['empty'] ) && $args['empty'] )
-				echo $args['empty'];
+				echo '<div class="base-table-empty description">'.$args['empty'].'</div>';
 			return FALSE;
 		}
 
+		if ( isset( $args['title'] ) && $args['title'] )
+			echo '<div class="base-table-title">'.$args['title'].'</div>';
+
+		$pagination = isset( $args['pagination'] ) ? $args['pagination'] : array();
+
 		if ( isset( $args['before'] )
-			|| ( isset( $args['offset'] ) && 'before' == $args['offset'] )
+			|| ( isset( $args['navigation'] ) && 'before' == $args['navigation'] )
 			|| ( isset( $args['search'] ) && 'before' == $args['search'] ) )
 				echo '<div class="base-table-actions base-table-list-before">';
 		else
 			echo '<div>';
 
-		if ( isset( $args['offset'] ) && 'before' == $args['offset'] )
-			self::tableOffset();
+		if ( isset( $args['navigation'] ) && 'before' == $args['navigation'] )
+			self::tableNavigation( $pagination );
 
 		if ( isset( $args['before'] ) && is_callable( $args['before'] ) )
 			call_user_func_array( $args['before'], array( $columns, $data, $args ) );
@@ -862,14 +864,14 @@ class gNetworkBaseCore
 		echo '<div class="clear"></div>';
 
 		if ( isset( $args['after'] )
-			|| ( isset( $args['offset'] ) && 'after' == $args['offset'] )
+			|| ( isset( $args['navigation'] ) && 'after' == $args['navigation'] )
 			|| ( isset( $args['search'] ) && 'after' == $args['search'] ) )
 				echo '<div class="base-table-actions base-table-list-after">';
 		else
 			echo '<div>';
 
-		if ( isset( $args['offset'] ) && 'after' == $args['offset'] )
-			self::tableOffset();
+		if ( isset( $args['navigation'] ) && 'after' == $args['navigation'] )
+			self::tableNavigation( $pagination );
 
 		// FIXME: add search box
 
@@ -881,10 +883,49 @@ class gNetworkBaseCore
 		return TRUE;
 	}
 
-	public static function tableOffset()
+	public static function tableNavigation( $pagination = array() )
 	{
-		echo '<input type="number" class="small-text base-table-paged" name="paged" value="'.self::paged().'" />';
-		echo '<input type="number" class="small-text base-table-limit" name="limit" value="'.self::limit().'" />';
+		$args = self::atts( array(
+			'total'    => 0,
+			'pages'    => 0,
+			'limit'    => self::limit(),
+			'paged'    => self::paged(),
+			'next'     => FALSE,
+			'previous' => FALSE,
+		), $pagination );
+
+		$icons = array(
+			'next'     => '<span class="dashicons dashicons-redo"></span>', // &rsaquo;
+			'previous' => '<span class="dashicons dashicons-undo"></span>', // &lsaquo;
+			'refresh'  => '<span class="dashicons dashicons-image-rotate"></span>',
+		);
+
+		echo '<div class="base-table-navigation">';
+
+			echo '<input type="number" class="small-text -paged" name="paged" value="'.$args['paged'].'" />';
+			echo '<input type="number" class="small-text -limit" name="limit" value="'.$args['limit'].'" />';
+
+			vprintf( '<span class="-total-pages">%s / %s</span>', array(
+				number_format_i18n( $args['total'] ),
+				number_format_i18n( $args['pages'] ),
+			) );
+
+			vprintf( '<span class="-next-previous">%s %s %s</span>', array(
+				( FALSE === $args['previous'] ? '<span class="-previous -span" aria-hidden="true">'.$icons['previous'].'</span>' : self::html( 'a', array(
+					'href'  => add_query_arg( 'paged', $args['previous'] ),
+					'class' => '-previous -link',
+				), $icons['previous'] ) ),
+				self::html( 'a', array(
+					'href'  => add_query_arg(),
+					'class' => '-refresh -link',
+				), $icons['refresh'] ),
+				( FALSE === $args['next'] ? '<span class="-next -span" aria-hidden="true">'.$icons['next'].'</span>' : self::html( 'a', array(
+					'href'  => add_query_arg( 'paged', $args['next'] ),
+					'class' => '-next -link',
+				), $icons['next'] ) ),
+			) );
+
+		echo '</div>';
 	}
 
 	public static function limit( $default = 25, $key = 'limit' )
