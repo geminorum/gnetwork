@@ -1073,6 +1073,19 @@ class gNetworkModuleCore extends gNetworkBaseCore
 	}
 
 	// HELPER
+	public static function getLoginLogoLink( $image = GNETWORK_LOGO, $text = FALSE )
+	{
+		if ( file_exists( WP_CONTENT_DIR.'/'.$image ) )
+			return self::html( 'a', array(
+				'href'   => WP_CONTENT_URL.'/'.$image,
+				'title'  => _x( 'Full URL to the current login logo image', 'Moduel Core', GNETWORK_TEXTDOMAIN ),
+				'target' => '_blank',
+			), ( $text ? _x( 'Login Logo', 'Moduel Core', GNETWORK_TEXTDOMAIN ) : self::getDashicon( 'format-image' ) ) );
+
+		return FALSE;
+	}
+
+	// HELPER
 	// SEE: https://developer.wordpress.org/resource/dashicons/
 	public static function getDashicon( $icon = 'wordpress-alt', $tag = 'span' )
 	{
