@@ -47,12 +47,14 @@ class gNetworkCaptcha extends gNetworkModuleCore
 					'type'        => 'text',
 					'title'       => _x( 'Site Key', 'Captcha Module', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Key in the HTML code your site serves to users.', 'Captcha Module', GNETWORK_TEXTDOMAIN ),
+					'field_class' => array( 'regular-text', 'code-text' ),
 				),
 				array(
 					'field'       => 'private_key',
 					'type'        => 'text',
 					'title'       => _x( 'Secret Key', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Key for communication between your site and Google reCAPTCHA.', 'Captcha Module', GNETWORK_TEXTDOMAIN ),
+					'field_class' => array( 'regular-text', 'code-text' ),
 				),
 				array(
 					'field'       => 'login_captcha',

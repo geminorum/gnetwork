@@ -73,14 +73,14 @@ class gNetworkMaintenance extends gNetworkModuleCore
 					'type'        => 'textarea-quicktags',
 					'title'       => _x( 'Admin Notice', 'Maintenance Module', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'The admin notice while site is on maintenance. Leave empty to disable.', 'Maintenance Module', GNETWORK_TEXTDOMAIN ),
-					'field_class' => 'large-text',
+					'field_class' => array( 'large-text', 'code-text' ),
 				),
 				array(
 					'field'       => 'login_message',
 					'type'        => 'textarea-quicktags',
 					'title'       => _x( 'Login Message', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'The login message while site is on maintenance. Leave empty to disable.', 'Maintenance Module', GNETWORK_TEXTDOMAIN ),
-					'field_class' => 'large-text',
+					'field_class' => array( 'large-text', 'code-text' ),
 				),
 			),
 		);

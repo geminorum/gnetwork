@@ -33,21 +33,20 @@ class gNetworkBlackList extends gNetworkModuleCore
 					'type'        => 'enabled',
 					'title'       => _x( 'Check Addresses', 'BlackList Module', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Select to check logged-out visitor\'s IP againts your list of IPs', 'BlackList Module', GNETWORK_TEXTDOMAIN ),
-					'default'     => '0',
 				),
 				array(
 					'field'       => 'blacklisted_ips',
 					'type'        => 'textarea',
 					'title'       => _x( 'IP Addresses', 'BlackList Module', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Comma seperated IP\'s range or individual IP needs to block. ex: <code>1.6.0.0 - 1.7.255.255,1.8.0.0,1.8.0.1</code>', 'BlackList Module', GNETWORK_TEXTDOMAIN ),
-					'field_class' => array( 'large-text', 'code' ),
+					'field_class' => array( 'large-text', 'code-text' ),
 				),
 				array(
 					'field'       => 'blacklisted_notice',
 					'type'        => 'textarea-quicktags',
 					'title'       => _x( 'Blacklisted Message', 'BlackList Module', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Locked message on WordPress die page', 'BlackList Module', GNETWORK_TEXTDOMAIN ),
-					'field_class' => 'large-text',
+					'field_class' => array( 'large-text', 'code-text' ),
 				),
 			),
 		);

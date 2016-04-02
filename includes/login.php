@@ -38,12 +38,12 @@ class gNetworkLogin extends gNetworkModuleCore
 			'_general' => array(
 				array(
 					'field'       => 'login_headerurl',
-					'type'        => 'text',
+					'type'        => 'url',
 					'title'       => _x( 'Header URL', 'Login Module', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Login page header logo link URL', 'Login Module', GNETWORK_TEXTDOMAIN ),
 					'placeholder' => GNETWORK_BASE,
 					'default'     => GNETWORK_BASE,
-					'dir'         => 'ltr',
+					'field_class' => array( 'regular-text', 'url-text' ),
 				),
 				array(
 					'field'       => 'login_headertitle',
@@ -82,7 +82,7 @@ class gNetworkLogin extends gNetworkModuleCore
 					'title'       => _x( 'Random Hash Key', 'Login Module', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Will used to sign with the math answer.', 'Login Module', GNETWORK_TEXTDOMAIN ),
 					'default'     => gNetworkUtilities::genRandomKey( get_site_option( 'admin_email' ) ),
-					'dir'         => 'ltr',
+					'field_class' => array( 'regular-text', 'code-text' ),
 				),
 			);
 

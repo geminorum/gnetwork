@@ -129,13 +129,14 @@ class gNetworkMail extends gNetworkModuleCore
 					'field'       => 'from_email',
 					'type'        => 'text',
 					'title'       => _x( 'From Email', 'Mail Module', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'You can specify the email address that emails should be sent from. If you leave this blank, the default email will be used.', 'Mail Module', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'You can specify the email address that emails should be sent from. Leave blank for default.', 'Mail Module', GNETWORK_TEXTDOMAIN ),
+					'field_class' => array( 'regular-text', 'email-text' ),
 				),
 				array(
 					'field'       => 'from_name',
 					'type'        => 'text',
 					'title'       => _x( 'From Name', 'Mail Module', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'You can specify the name that emails should be sent from. If you leave this blank, the emails will be sent from WordPress.', 'Mail Module', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'You can specify the name that emails should be sent from. Leave blank for WordPress.', 'Mail Module', GNETWORK_TEXTDOMAIN ),
 				),
 				array(
 					'field'       => 'sender',
@@ -143,6 +144,7 @@ class gNetworkMail extends gNetworkModuleCore
 					'title'       => _x( 'Return Path', 'Mail Module', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Set the return-path email address. Use <code>FROM</code> to match the From Email or Empty to disable.', 'Mail Module', GNETWORK_TEXTDOMAIN ),
 					'default'     => 'FROM',
+					'field_class' => array( 'regular-text', 'email-text' ),
 				),
 				array(
 					'field'   => 'mailer',
@@ -157,15 +159,15 @@ class gNetworkMail extends gNetworkModuleCore
 			),
 			'_smtp' => array(
 				array(
-					'field'   => 'smtp_host',
-					'type'    => 'text',
-					'title'   => _x( 'SMTP Host', 'Mail Module', GNETWORK_TEXTDOMAIN ),
+					'field'       => 'smtp_host',
+					'type'        => 'text',
+					'title'       => _x( 'SMTP Host', 'Mail Module', GNETWORK_TEXTDOMAIN ),
+					'field_class' => array( 'medium-text', 'ip-text' ),
 				),
 				array(
-					'field'       => 'smtp_port',
-					'type'        => 'text',
-					'title'       => _x( 'SMTP Port', 'Mail Module', GNETWORK_TEXTDOMAIN ),
-					'field_class' => 'small-text',
+					'field' => 'smtp_port',
+					'type'  => 'number',
+					'title' => _x( 'SMTP Port', 'Mail Module', GNETWORK_TEXTDOMAIN ),
 				),
 				array(
 					'field'       => 'smtp_secure',
@@ -184,11 +186,13 @@ class gNetworkMail extends gNetworkModuleCore
 					'type'        => 'text',
 					'title'       => _x( 'Username', 'Mail Module', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Empty to disable Authentication.', 'Mail Module', GNETWORK_TEXTDOMAIN ),
+					'field_class' => array( 'regular-text', 'code-text' ),
 				),
 				array(
-					'field'   => 'smtp_password',
-					'type'    => 'text',
-					'title'   => _x( 'Password', 'Mail Module', GNETWORK_TEXTDOMAIN ),
+					'field'       => 'smtp_password',
+					'type'        => 'text',
+					'title'       => _x( 'Password', 'Mail Module', GNETWORK_TEXTDOMAIN ),
+					'field_class' => array( 'regular-text', 'code-text' ),
 				),
 			),
 			'_log' => array(
@@ -197,7 +201,6 @@ class gNetworkMail extends gNetworkModuleCore
 					'type'        => 'enabled',
 					'title'       => _x( 'Log All', 'Mail Module: Enable log all outgoing', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Log all outgoing emails in a secure folder', 'Mail Module', GNETWORK_TEXTDOMAIN ),
-					'default'     => '0',
 				),
 			),
 		);

@@ -56,11 +56,10 @@ class gNetworkBlog extends gNetworkModuleCore
 			'_general' => array(
 				array(
 					'field'       => 'blog_redirect',
-					'type'        => 'text',
+					'type'        => 'url',
 					'title'       => _x( 'Blog Redirect to', 'Blog Module', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'The site will redirect to this URL. Leave empty to disable.', 'Blog Module', GNETWORK_TEXTDOMAIN ),
-					'default'     => '',
-					'dir'         => 'ltr',
+					'field_class' => array( 'regular-text', 'url-text' ),
 					'placeholder' => 'http://example.com',
 				),
 				// FIXME: wont work, wont enable!
@@ -117,7 +116,7 @@ class gNetworkBlog extends gNetworkModuleCore
 					'title'       => _x( 'GA Override', 'Blog Module', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'This blog Google Analytics account to override the network', 'Blog Module', GNETWORK_TEXTDOMAIN ),
 					'placeholder' => 'UA-XXXXX-X',
-					'dir'         => 'ltr',
+					'field_class' => array( 'regular-text', 'code-text' ),
 				),
 			);
 

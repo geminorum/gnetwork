@@ -82,10 +82,9 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 			'_general' => array(
 				array(
 					'field'       => 'complete_signup',
-					'type'        => 'text',
+					'type'        => 'url',
 					'title'       => _x( 'Complete Signup', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Redirect users after successful registration.', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
-					'field_class' => 'large-text',
 					'placeholder' => 'http://example.com/welcome',
 				),
 			),
@@ -107,10 +106,9 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 			),
 			array(
 				'field'       => 'tos_link',
-				'type'        => 'text',
+				'type'        => 'url',
 				'title'       => _x( 'ToS Link', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
 				'description' => _x( 'URL for section title link to actual agreement text', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
-				'field_class' => 'large-text',
 			),
 			array(
 				'field'       => 'tos_text',
@@ -149,39 +147,34 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 
 		$settings['_avatars'] = array(
 			array(
-				'field'       => 'avatars_thumb_width',
-				'type'        => 'text',
-				'title'       => _x( 'Thumbnail Width', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
-				'field_class' => 'small-text',
-				'default'     => defined( 'BP_AVATAR_THUMB_WIDTH' ) ? BP_AVATAR_THUMB_WIDTH : 50,
+				'field'   => 'avatars_thumb_width',
+				'type'    => 'number',
+				'title'   => _x( 'Thumbnail Width', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
+				'default' => defined( 'BP_AVATAR_THUMB_WIDTH' ) ? BP_AVATAR_THUMB_WIDTH : 50,
 			),
 			array(
-				'field'       => 'avatars_thumb_height',
-				'type'        => 'text',
-				'title'       => _x( 'Thumbnail Height', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
-				'field_class' => 'small-text',
-				'default'     => defined( 'BP_AVATAR_THUMB_HEIGHT' ) ? BP_AVATAR_THUMB_HEIGHT : 50,
+				'field'   => 'avatars_thumb_height',
+				'type'    => 'number',
+				'title'   => _x( 'Thumbnail Height', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
+				'default' => defined( 'BP_AVATAR_THUMB_HEIGHT' ) ? BP_AVATAR_THUMB_HEIGHT : 50,
 			),
 			array(
-				'field'       => 'avatars_full_width',
-				'type'        => 'text',
-				'title'       => _x( 'Full Width', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
-				'field_class' => 'small-text',
-				'default'     => defined( 'BP_AVATAR_FULL_WIDTH' ) ? BP_AVATAR_FULL_WIDTH : 150,
+				'field'   => 'avatars_full_width',
+				'type'    => 'number',
+				'title'   => _x( 'Full Width', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
+				'default' => defined( 'BP_AVATAR_FULL_WIDTH' ) ? BP_AVATAR_FULL_WIDTH : 150,
 			),
 			array(
-				'field'       => 'avatars_full_height',
-				'type'        => 'text',
-				'title'       => _x( 'Full Height', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
-				'field_class' => 'small-text',
-				'default'     => defined( 'BP_AVATAR_FULL_HEIGHT' ) ? BP_AVATAR_FULL_HEIGHT : 150,
+				'field'   => 'avatars_full_height',
+				'type'    => 'number',
+				'title'   => _x( 'Full Height', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
+				'default' => defined( 'BP_AVATAR_FULL_HEIGHT' ) ? BP_AVATAR_FULL_HEIGHT : 150,
 			),
 			array(
-				'field'       => 'avatars_original_max_width',
-				'type'        => 'text',
-				'title'       => _x( 'Original Max Width', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
-				'field_class' => 'small-text',
-				'default'     => defined( 'BP_AVATAR_ORIGINAL_MAX_WIDTH' ) ? BP_AVATAR_ORIGINAL_MAX_WIDTH : 450,
+				'field'   => 'avatars_original_max_width',
+				'type'    => 'number',
+				'title'   => _x( 'Original Max Width', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
+				'default' => defined( 'BP_AVATAR_ORIGINAL_MAX_WIDTH' ) ? BP_AVATAR_ORIGINAL_MAX_WIDTH : 450,
 			),
 		);
 

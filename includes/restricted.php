@@ -121,14 +121,14 @@ class gNetworkRestricted extends gNetworkModuleCore
 					'type'        => 'textarea-quicktags',
 					'title'       => _x( 'Restricted Notice', 'Restricted Module', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'This will show on top of this site login page. <code>%1$s</code> for the role, <code>%2$s</code> for the page.', 'Restricted Module', GNETWORK_TEXTDOMAIN ),
-					'field_class' => 'large-text',
+					'field_class' => array( 'large-text', 'code-text' ),
 				),
 				array(
 					'field'       => 'restricted_access',
 					'type'        => 'textarea-quicktags',
 					'title'       => _x( 'Restricted Access', 'Restricted Module', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'This will show on 403 page for logged-in users. <code>%1$s</code> for the role, <code>%2$s</code> for the page.', 'Restricted Module', GNETWORK_TEXTDOMAIN ),
-					'field_class' => 'large-text',
+					'field_class' => array( 'large-text', 'code-text' ),
 				),
 			),
 		);
@@ -178,7 +178,7 @@ class gNetworkRestricted extends gNetworkModuleCore
 				'type'        => 'text',
 				'field'       => 'restricted_feed_key',
 				'default'     => $feedkey ? $feedkey : _x( 'Access key not found', 'Restricted Module', GNETWORK_TEXTDOMAIN ),
-				'field_class' => array( 'regular-text', 'code' ),
+				'field_class' => array( 'regular-text', 'code-text' ),
 				'description' => _x( 'The key will be used on all restricted site feed URLs.', 'Restricted Module', GNETWORK_TEXTDOMAIN ),
 				'disabled'    => TRUE,
 			), TRUE );
