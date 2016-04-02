@@ -523,6 +523,7 @@ class gNetworkModuleCore extends gNetworkBaseCore
 			'id_attr'      => FALSE, // override
 			'placeholder'  => FALSE,
 			'constant'     => FALSE, // override value if constant defined / also disabling
+			'data'         => array(), // data attr
 		), $atts );
 
 		if ( $wrap ) {
@@ -568,6 +569,7 @@ class gNetworkModuleCore extends gNetworkBaseCore
 					'name'  => $name,
 					'id'    => $id,
 					'value' => $value,
+					'data'  => $args['data'],
 				) );
 
 				$args['description'] = FALSE;
@@ -589,6 +591,7 @@ class gNetworkModuleCore extends gNetworkBaseCore
 					'class' => $args['field_class'],
 					'name'  => $name,
 					'id'    => $id,
+					'data'  => $args['data'],
 				), $html );
 
 			break;
@@ -606,6 +609,7 @@ class gNetworkModuleCore extends gNetworkBaseCore
 					'dir'         => $args['dir'],
 					'disabled'    => $args['disabled'],
 					'placeholder' => $args['placeholder'],
+					'data'        => $args['data'],
 				) );
 
 			break;
@@ -628,6 +632,7 @@ class gNetworkModuleCore extends gNetworkBaseCore
 					'dir'         => $args['dir'],
 					'disabled'    => $args['disabled'],
 					'placeholder' => $args['placeholder'],
+					'data'        => $args['data'],
 				) );
 
 			break;
@@ -684,6 +689,7 @@ class gNetworkModuleCore extends gNetworkBaseCore
 						'value'   => '1',
 						'checked' => $value,
 						'dir'     => $args['dir'],
+						'data'    => $args['data'],
 					) );
 
 					echo '<p>'.self::html( 'label', array(
@@ -767,6 +773,7 @@ class gNetworkModuleCore extends gNetworkBaseCore
 						'id'       => $id,
 						'class'    => $args['field_class'],
 						'disabled' => $args['disabled'],
+						'data'     => $args['data'],
 					), $html );
 				}
 
@@ -802,6 +809,7 @@ class gNetworkModuleCore extends gNetworkBaseCore
 					'class'       => $args['field_class'],
 					'disabled'    => $args['disabled'],
 					'placeholder' => $args['placeholder'],
+					'data'        => $args['data'],
 				// ), esc_textarea( $value ) );
 				), $value );
 
@@ -819,6 +827,7 @@ class gNetworkModuleCore extends gNetworkBaseCore
 
 				// TODO: use custom walker to display page status along the title
 				// FIXME: needs 'disabled' attr
+				// FIXME: needs 'data' attr
 
 				wp_dropdown_pages( array(
 					'post_type'         => $args['values'],
@@ -860,6 +869,7 @@ class gNetworkModuleCore extends gNetworkBaseCore
 						'class' => $args['field_class'],
 						'name'  => $name,
 						'id'    => $id,
+						'data'  => $args['data'],
 					), $html );
 
 				} else {
@@ -893,6 +903,7 @@ class gNetworkModuleCore extends gNetworkBaseCore
 					'class' => $args['field_class'],
 					'name'  => $name,
 					'id'    => $id,
+					'data'  => $args['data'],
 				), $html );
 
 			break;
@@ -916,6 +927,7 @@ class gNetworkModuleCore extends gNetworkBaseCore
 					'id'    => $id,
 					// 'value' => $value,
 					'dir'   => $args['dir'],
+					'data'  => $args['data'],
 				) );
 
 			break;
