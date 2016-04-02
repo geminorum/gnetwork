@@ -26,6 +26,8 @@ class gNetworkLogin extends gNetworkModuleCore
 		return array(
 			'login_headerurl'   => GNETWORK_BASE,
 			'login_headertitle' => GNETWORK_NAME,
+			'login_logourl'     => '',
+			'login_styles'      => '',
 			'login_remember'    => 0,
 			'login_math'        => 0,
 			'math_hashkey'      => '',
@@ -63,6 +65,21 @@ class gNetworkLogin extends gNetworkModuleCore
 						_x( 'Not Checked', 'Login Module', GNETWORK_TEXTDOMAIN ),
 						_x( 'Checked', 'Login Module', GNETWORK_TEXTDOMAIN ),
 					),
+				),
+				array(
+					'field'       => 'login_logourl',
+					'type'        => 'url',
+					'title'       => _x( 'Logo Image', 'Login Module', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Full URL to the login logo image', 'Login Module', GNETWORK_TEXTDOMAIN ),
+					'field_class' => array( 'regular-text', 'url-text' ),
+					'after'       => sprintf( '<span class="field-after icon-wrap">%s</span>', self::getLoginLogoLink() ),
+				),
+				array(
+					'field'       => 'login_styles',
+					'type'        => 'textarea',
+					'title'       => _x( 'Extra CSS', 'Login Module', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Additional styles to use on login page', 'Login Module', GNETWORK_TEXTDOMAIN ),
+					'field_class' => array( 'large-text', 'code-text' ),
 				),
 			),
 		);
@@ -118,6 +135,9 @@ class gNetworkLogin extends gNetworkModuleCore
 	{
 		gNetworkUtilities::linkStyleSheet( GNETWORK_URL.'assets/css/login.all.css' );
 		gNetworkUtilities::customStyleSheet( 'login.css' );
+
+		if ( $this->options['login_styles'] )
+			echo '<style>'.$this->options['login_styles'].'</style>';
 	}
 
 	public function login_headerurl( $login_header_url )
