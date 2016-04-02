@@ -600,6 +600,9 @@ class gNetworkModuleCore extends gNetworkBaseCore
 				if ( ! $args['field_class'] )
 					$args['field_class'] = 'regular-text';
 
+				if ( ! count( $args['dir'] ) )
+					$args['data'] = array( 'accept' => 'text' );
+
 				echo self::html( 'input', array(
 					'type'        => 'text',
 					'class'       => $args['field_class'],
@@ -621,6 +624,9 @@ class gNetworkModuleCore extends gNetworkBaseCore
 				if ( ! $args['dir'] )
 					$args['dir'] = 'ltr';
 
+				if ( ! count( $args['dir'] ) )
+					$args['data'] = array( 'accept' => 'number' );
+
 				echo self::html( 'input', array(
 					'type'        => 'number',
 					'class'       => $args['field_class'],
@@ -629,6 +635,30 @@ class gNetworkModuleCore extends gNetworkBaseCore
 					'value'       => $value,
 					'step'        => '1', // FIXME: get from args
 					'min'         => '0', // FIXME: get from args
+					'dir'         => $args['dir'],
+					'disabled'    => $args['disabled'],
+					'placeholder' => $args['placeholder'],
+					'data'        => $args['data'],
+				) );
+
+			break;
+			case 'url' :
+
+				if ( ! $args['field_class'] )
+					$args['field_class'] = array( 'large-text', 'url-text', 'code' ),
+
+				if ( ! $args['dir'] )
+					$args['dir'] = 'ltr';
+
+				if ( ! count( $args['dir'] ) )
+					$args['data'] = array( 'accept' => 'url' );
+
+				echo self::html( 'input', array(
+					'type'        => 'url',
+					'class'       => $args['field_class'],
+					'name'        => $name,
+					'id'          => $id,
+					'value'       => $value,
 					'dir'         => $args['dir'],
 					'disabled'    => $args['disabled'],
 					'placeholder' => $args['placeholder'],
