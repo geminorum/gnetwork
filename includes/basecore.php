@@ -1332,14 +1332,14 @@ class gNetworkBaseCore
 		return rtrim( $string, '/\\' );
 	}
 
-	public static function error( $message )
+	public static function error( $message, $echo = FALSE )
 	{
-		return self::notice( $message, 'error fade', FALSE );
+		return self::notice( $message, 'error fade', $echo );
 	}
 
-	public static function updated( $message )
+	public static function updated( $message, $echo = FALSE )
 	{
-		return self::notice( $message, 'updated fade', FALSE );
+		return self::notice( $message, 'updated fade', $echo );
 	}
 
 	public static function log( $error = '[Unknown]', $message = FALSE, $extra = FALSE )
