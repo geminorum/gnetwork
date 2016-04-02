@@ -426,7 +426,10 @@ class gNetworkBaseCore
 
 			$sanitized = FALSE;
 
-			if ( is_array( $att ) && count( $att ) ) {
+			if ( is_array( $att ) ) {
+
+				if ( ! count( $att ) )
+					continue;
 
 				if ( 'data' == $key ) {
 
