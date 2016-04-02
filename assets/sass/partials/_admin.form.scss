@@ -13,7 +13,32 @@
 		padding: 5px 5px 4px;
 	}
 
-	input.medium-text {
+	input.medium-text,
+	textarea.medium-text {
 		width: 12em;
+	}
+
+	input.ip-text,
+	input.url-text,
+	input.email-text,
+	input.code-text,
+	textarea.code-text {
+		direction: ltr;
+		font-family: Consolas, Monaco, monospace;
+    	unicode-bidi: embed;
+		font-size: 13px;
+		background: #f9f9f9;
+		outline: none;
+	}
+
+	input.code-text,
+	textarea.code-text {
+
+	}
+
+	input.ip-text,
+	input.url-text,
+	input.email-text {
+
 	}
 }
