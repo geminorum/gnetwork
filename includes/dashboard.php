@@ -45,12 +45,21 @@ class gNetworkDashboard extends gNetworkModuleCore
 	{
 		global $gNetwork;
 
+		// FIXME: move this to sms module
+		
 		foreach ( $gNetwork->sms->providers as $name => &$provider ) {
 			if ( $provider->providerEnabled() ) {
-				echo '<h3>'.$name.'</h3>';
 				$status = $provider->providerStatus();
-				echo gNetworkProviderCore::dateFormat( $status['timestamp'] );
-				echo '<br/>'.$provider->providerBalance();
+				if ( is_wp_error( $status ) ) {
+					self::error( vsprintf( _x( '%s: %s', 'Dashboard Module', GNETWORK_TEXTDOMAIN ), array(
+						$provider->providerName(),
+						$status->get_error_message(),
+					) ), TRUE );
+				} else {
+					echo '<h3>'.$provider->providerName().'</h3>';
+					echo gNetworkProviderCore::dateFormat( $status['timestamp'] );
+					echo '<br/>'.$provider->providerBalance();
+				}
 			}
 		}
 	}
@@ -88,7 +97,7 @@ class gNetworkDashboard extends gNetworkModuleCore
 			case 'gnetwork_dashboard_external_feed':
 
 				$this->widget_external_feed();
-				
+
 			break;
 		}
 
