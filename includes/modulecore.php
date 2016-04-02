@@ -645,7 +645,7 @@ class gNetworkModuleCore extends gNetworkBaseCore
 			case 'url' :
 
 				if ( ! $args['field_class'] )
-					$args['field_class'] = array( 'large-text', 'url-text', 'code' ),
+					$args['field_class'] = array( 'large-text', 'url-text', 'code' );
 
 				if ( ! $args['dir'] )
 					$args['dir'] = 'ltr';
