@@ -1,75 +1,95 @@
-(function () {
+(function() {
 	'use strict';
 
 	var
-		gulp       = require('gulp'),
-		sass       = require('gulp-sass'), // https://github.com/dlmanning/gulp-sass
-		changed    = require('gulp-changed'),
-		tinypng    = require('gulp-tinypng'), // https://github.com/creativeaura/gulp-tinypng
-		nano       = require('gulp-cssnano'), // https://github.com/ben-eb/gulp-cssnano
+		gulp = require('gulp'),
+		sass = require('gulp-sass'), // https://github.com/dlmanning/gulp-sass
+		changed = require('gulp-changed'),
+		tinypng = require('gulp-tinypng'), // https://github.com/creativeaura/gulp-tinypng
+		nano = require('gulp-cssnano'), // https://github.com/ben-eb/gulp-cssnano
 		sourcemaps = require('gulp-sourcemaps'),
-		smushit    = require('gulp-smushit'), // https://github.com/heldr/gulp-smushit
-		pngquant   = require('imagemin-pngquant'); // https://github.com/imagemin/imagemin-pngquant
+		smushit = require('gulp-smushit'), // https://github.com/heldr/gulp-smushit
+		pngquant = require('imagemin-pngquant'), // https://github.com/imagemin/imagemin-pngquant
+		excludeGitignore = require('gulp-exclude-gitignore'), // https://github.com/sboudrias/gulp-exclude-gitignore
+		wpPot = require('gulp-wp-pot'), // https://github.com/rasmusbe/gulp-wp-pot
+		sort = require('gulp-sort'),
+		fs = require('fs');
 
-	gulp.task( 'tinypng', function() {
+	var
+		json = JSON.parse(fs.readFileSync('./package.json'));
 
-		return gulp.src( './assets/images/raw/*.png' )
+	gulp.task('tinypng', function() {
 
-			.pipe( tinypng( '' ) )
+		return gulp.src('./assets/images/raw/*.png')
 
-			.pipe( gulp.dest( './assets/images' ) );
+		.pipe(tinypng(''))
+
+		.pipe(gulp.dest('./assets/images'));
 	});
 
-	gulp.task( 'pngquant', function() {
+	gulp.task('pngquant', function() {
 
-		return gulp.src( './assets/images/raw/*.png' )
+		return gulp.src('./assets/images/raw/*.png')
 
-			.pipe( pngquant({
-				quality: '65-80',
-				speed: 4
-			} ) )
+		.pipe(pngquant({
+			quality: '65-80',
+			speed: 4
+		}))
 
-			.pipe( gulp.dest( './assets/images' ) );
+		.pipe(gulp.dest('./assets/images'));
 	});
 
-	gulp.task( 'smushit', function () {
+	gulp.task('smushit', function() {
 
-		return gulp.src( './assets/images/raw/**/*.{jpg,png}' )
+		return gulp.src('./assets/images/raw/**/*.{jpg,png}')
 
-			.pipe( smushit() )
+		.pipe(smushit())
 
-			.pipe( gulp.dest( './assets/images' ) );
+		.pipe(gulp.dest('./assets/images'));
 	});
 
-	gulp.task( 'sass', function() {
+	gulp.task('pot', function() {
+
+		return gulp.src(['./**/*.php', '!./assets/libs/**'])
+
+		.pipe(excludeGitignore())
+
+		.pipe(sort())
+
+		.pipe(wpPot(json._pot))
+
+		.pipe(gulp.dest('./languages'));
+	});
+
+	gulp.task('sass', function() {
 
 		return gulp.src('./assets/sass/**/*.scss')
 
-			.pipe( sourcemaps.init() )
+		.pipe(sourcemaps.init())
 
-			.pipe( sass().on( 'error', sass.logError ) )
+		.pipe(sass().on('error', sass.logError))
 
-			.pipe( nano( {
-				discardComments: {
-					removeAll: true
-				}
-			} ) )
+		.pipe(nano({
+			discardComments: {
+				removeAll: true
+			}
+		}))
 
-			.pipe( sourcemaps.write( './maps' ) )
+		.pipe(sourcemaps.write('./maps'))
 
-			.pipe( gulp.dest( './assets/css' ) );
+		.pipe(gulp.dest('./assets/css'));
 	});
 
-	gulp.task( 'watch', function () {
+	gulp.task('watch', function() {
 
-		gulp.watch( './assets/sass/**/*.scss', [
+		gulp.watch('./assets/sass/**/*.scss', [
 			'sass'
-		] );
+		]);
 	});
 
-	gulp.task( 'default', function() {
+	gulp.task('default', function() {
 
-		console.log( 'Hi, I\'m Gulp!' );
+		console.log('Hi, I\'m Gulp!');
 	});
 
 }());
