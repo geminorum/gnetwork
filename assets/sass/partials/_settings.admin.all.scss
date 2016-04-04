@@ -129,6 +129,8 @@
 					margin-left: auto;
 					margin-right: auto;
 					text-align: left;
+					direction: ltr;
+					width: 100% !important; 
 				}
 
 				th {
@@ -138,7 +140,7 @@
 
 			td, th {
 				border: 1px solid #000000;
-				font-size: 75%;
+				font-size: 95%;
 				vertical-align: baseline;
 			}
 
@@ -169,6 +171,7 @@
 			.v {
 				background-color: #cccccc;
 				color: #000000;
+				word-break: break-word;
 			}
 
 			.vr {
