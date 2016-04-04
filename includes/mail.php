@@ -343,10 +343,6 @@ class gNetworkMail extends gNetworkModuleCore
 				$phpmailer->Username = $this->options['smtp_username'];
 				$phpmailer->Password = $this->options['smtp_password'];
 			}
-
-			// adding important header for mandrill smtp
-			$phpmailer->AddCustomHeader( sprintf( '%1$s: %2$s', 'X-MC-Important', 'true'  ) );
-			$phpmailer->AddCustomHeader( sprintf( '%1$s: %2$s', 'X-MC-Track'    , 'false' ) );
 		}
 	}
 
