@@ -68,14 +68,14 @@ class gNetworkDebug extends gNetworkModuleCore
 		$this->register_button( 'clear_error_log', _x( 'Clear Log', 'Debug Module', GNETWORK_TEXTDOMAIN ), array( 'default' => 'default' ), 'primary' );
 	}
 
-	private static function displayErrorLogs( $limit = 100, $length = 300 )
+	private static function displayErrorLogs( $length = 300 )
 	{
 		if ( file_exists( GNETWORK_DEBUG_LOG ) ) {
 
 			if ( ! $file_size = self::fileGetSize( GNETWORK_DEBUG_LOG ) )
 				return FALSE;
 
-			if ( $errors = self::fileGetLastLines( GNETWORK_DEBUG_LOG, $limit ) ) {
+			if ( $errors = self::fileGetLastLines( GNETWORK_DEBUG_LOG, self::limit( 100 ) ) ) {
 
 				echo '<h3 class="error-box-header">';
 					printf( _x( 'The Last %s Errors, in reverse order', 'Debug Module: Error Box', GNETWORK_TEXTDOMAIN ), number_format_i18n( count( $errors ) ) );
