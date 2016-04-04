@@ -326,6 +326,7 @@ class gNetworkMail extends gNetworkModuleCore
 	public function phpmailer_init( &$phpmailer )
 	{
 		$phpmailer->Mailer = $this->options['mailer'];
+		$phpmailer->Hostname = self::getHostName();
 
 		if ( 'from' == strtolower( $this->options['sender'] ) )
 			$phpmailer->Sender = $phpmailer->From;
