@@ -1,3 +1,15 @@
+### 0.2.32
+* network: default email helper
+* taxonomy: unnecessary escape on redirection
+* shortcodes: new `[in-term]`
+* shortcodes: new `[all-terms]`
+* shortcodes: correct syntax for tel & sms links, [see](http://stackoverflow.com/a/19126326/4864081)
+* mail: email & from defaults for `bp_mail()`
+* debug: `phpversion()` & loaded extensions on overview
+* cleanup: jQuery Updated, [see](https://make.wordpress.org/core/2016/03/29/jquery-updates-in-wordpress-4-5/)
+* cleanup: checking script debug before disabling jquery migrate
+* login: custom style setting
+
 ### 0.2.31
 * debug: network settings tab for `phpinfo()`
 * captcha: [recaptcha](https://www.google.com/recaptcha/) for comment forms
