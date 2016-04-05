@@ -104,12 +104,11 @@ class gNetworkMedia extends gNetworkModuleCore
 
 		$args = array(
 			'posts_per_page'   => $limit,
-			'paged'            => $paged,
 			'offset'           => $offset,
-			'orderby'          => 'ID',
-			'order'            => 'ASC', // 'DESC',
+			'orderby'          => self::orderby( 'ID' ),
+			'order'            => self::order( 'asc' ),
 			'post_type'        => 'any',
-			'post_status'      => 'publish,draft,pending',
+			'post_status'      => array( 'publish', 'future', 'draft', 'pending' ),
 			'suppress_filters' => TRUE,
 			'no_found_rows'    => TRUE,
 		);
