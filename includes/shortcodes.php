@@ -51,6 +51,8 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		$this->shortcodes( array(
 			'children'     => 'shortcode_children',
 			'siblings'     => 'shortcode_siblings',
+			'in-term'      => 'shortcode_in_term',
+			'all-terms'    => 'shortcode_all_terms',
 			'back'         => 'shortcode_back',
 			'iframe'       => 'shortcode_iframe',
 			'email'        => 'shortcode_email',
@@ -181,6 +183,218 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			return $content;
 
 		return self::shortcodeWrap( '<ul>'.$siblings.'</ul>', 'siblings', $args );
+	}
+
+	// USAGE: [in-term tax="category" slug="ungategorized" order="menu_order" /]
+	// EDITED: 4/5/2016, 5:03:30 PM
+	public function shortcode_in_term( $atts, $content = NULL, $tag = '' )
+	{
+		$args = shortcode_atts( array(
+			'id'            => FALSE,
+			'slug'          => FALSE,
+			'tax'           => 'category',
+			'type'          => 'post',
+			'title'         => NULL, // FALSE to disable
+			'title_link'    => NULL, // FALSE to disable
+			'title_title'   => '',
+			'title_tag'     => 'h3',
+			'title_anchor'  => 'term-',
+			'list'          => 'ul',
+			'limit'         => '-1',
+			'future'        => 'off',
+			'li_link'       => TRUE,
+			'li_before'     => '',
+			'li_title'      => '', // use %s for post title
+			'li_anchor'     => 'post-',
+			'order_before'  => FALSE,
+			'order_sep'     => ' - ',
+			'order_zeroise' => FALSE,
+			'orderby'       => 'date',
+			'order'         => 'ASC',
+			'cb'            => FALSE,
+			'context'       => NULL,
+			'wrap'          => TRUE,
+		), $atts, $tag );
+
+		if ( FALSE === $args['context'] )
+			return NULL;
+
+		// if ( ! is_singular( $args['type'] ) )
+		// 	return $content;
+
+		$error = $term = FALSE;
+		$html = $tax_query = '';
+
+		$key = md5( serialize( $args ) );
+		$cache = wp_cache_get( $key, 'gnetwork-term' );
+		if ( FALSE !== $cache )
+			return $cache;
+
+		if ( $args['cb'] && ! is_callable( $args['cb'] ) )
+			$args['cb'] = FALSE;
+
+		if ( $args['id'] && $args['id'] ) {
+
+			if ( $term = get_term_by( 'id', $args['id'], $args['tax'] ) )
+				$tax_query = array( array(
+					'taxonomy' => $args['tax'],
+					'field'    => 'term_id',
+					'terms'    => array( $args['id'] ),
+				) );
+
+			else
+				$error = TRUE;
+
+		} else if ( $args['slug'] && $args['slug'] ) {
+
+			if ( $term = get_term_by( 'slug', $args['slug'], $args['tax'] ) )
+				$tax_query = array( array(
+					'taxonomy' => $args['tax'],
+					'field'    => 'slug',
+					'terms'    => array( $args['slug'] ),
+				) );
+
+			else
+				$error = TRUE;
+
+		} else if ( $post->post_type == $args['type'] ) {
+
+			$terms = get_the_terms( $post->ID, $args['tax'] );
+
+			if ( $terms && ! is_wp_error( $terms ) ) {
+
+				foreach ( $terms as $term )
+					$term_list[] = $term->term_id;
+
+				$tax_query = array( array(
+					'taxonomy' => $args['tax'],
+					'field'    => 'term_id',
+					'terms'    => $term_list,
+				) );
+
+			} else {
+				$error = TRUE;
+			}
+		}
+
+		if ( $error )
+			return $content;
+
+		$args['title'] = self::shortcodeTermTitle( $args, $term );
+
+		if ( 'on' == $args['future'] )
+			$post_status = array( 'publish', 'future', 'draft' );
+		else
+			$post_status = array( 'publish' );
+
+		$query_args = array(
+			'tax_query'        => $tax_query,
+			'posts_per_page'   => $args['limit'],
+			'orderby'          => $args['orderby'],
+			'order'            => $args['order'],
+			'post_type'        => $args['type'],
+			'post_status'      => $post_status,
+			'suppress_filters' => TRUE,
+			'no_found_rows'    => TRUE,
+		);
+
+		$query = new WP_Query;
+		$posts = $query->query( $query_args );
+
+		if ( count( $posts ) ) {
+			foreach ( $posts as $post ) {
+
+				$list  = '';
+				setup_postdata( $post );
+
+				if ( $args['cb'] ) {
+					$list = call_user_func_array( $args['cb'], array( $post, $args ) );
+
+				} else {
+
+					$title = get_the_title( $post->ID );
+					$order = $args['order_before'] ? number_format_i18n( $args['order_zeroise'] ? zeroise( $post->menu_order, $args['order_zeroise'] ) : $post->menu_order ).$args['order_sep'] : '';
+
+					if ( 'publish' == $post->post_status && $args['li_link'] )
+						$list = $args['li_before'].self::html( 'a', array(
+							'href'  => get_permalink( $post->ID ),
+							'title' => $args['li_title'] ? sprintf( $args['li_title'], $title ) : FALSE,
+							'class' => '-link',
+						), $order.$title );
+
+					else
+						$list = $args['li_before'].self::html( 'span', array(
+							'title' => $args['li_title'] ? sprintf( $args['li_title'], $title ) : FALSE,
+							'class' => $args['li_link'] ? '-future' : FALSE,
+						), $order.$title );
+
+					// TODO: add excerpt/content of the post
+					// TODO: add show/more js
+				}
+
+				$html .= self::html( 'li', array(
+					'id'    => $args['li_anchor'].$post->ID,
+					'class' => '-item',
+				), $list );
+			}
+
+			$html = self::html( $args['list'], array( 'class' => '-list' ), $html );
+
+			if ( $args['title'] )
+				$html = $args['title'].$html;
+
+			$html = self::shortcodeWrap( $html, 'in-term', $args );
+
+			wp_reset_postdata();
+			wp_cache_set( $key, $html, 'gnetwork-term' );
+
+			return $html;
+		}
+
+		return $content;
+	}
+
+	// FIXME: working draft
+	// EDITED: 4/5/2016, 5:01:31 PM
+	public function shortcode_all_terms( $atts, $content = NULL, $tag = '' )
+	{
+		$args = shortcode_atts( array(
+			'id'      => get_queried_object_id(),
+			'tax'     => NULL,
+			'context' => NULL,
+			'wrap'    => TRUE,
+		), $atts, $tag );
+
+		if ( FALSE === $args['context'] )
+			return NULL;
+
+		$html = '';
+
+		$post = get_post( $args['id'] );
+
+		foreach ( get_object_taxonomies( $post->post_type, 'objects' ) as $taxonomy ) {
+
+			if ( ! $taxonomy->public )
+				continue;
+
+			if ( $args['tax'] && ! in_array( $taxonomy->name, explode( ',', $args['tax'] ) ) )
+				continue;
+
+			if ( $terms = get_the_terms( $post->ID, $taxonomy->name ) ) {
+
+				$html .= '<h2>'.$taxonomy->label.'</h2><ul>';
+
+				foreach ( $terms as $term )
+					$html .= sprintf( '<li><a href="%1$s">%2$s</a></li>',
+						esc_url( get_term_link( $term->slug, $taxonomy->name ) ),
+						esc_html( $term->name )
+					);
+
+				$html .= '</ul>';
+			}
+		}
+
+		return self::shortcodeWrap( $html, 'all-terms', $args );
 	}
 
 	// TODO: more cases
@@ -515,7 +729,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		// $this->pdf_ids[$key] = ' var '.$id.' = new PDFObject({url:"'.$args['url'].'",id:"'.$id.'",pdfOpenParams:{navpanes:'.$args['navpanes'].',statusbar:'.$args['statusbar'].',view:"'.$args['view'].'",pagemode:"'.$args['pagemode'].'"}}).embed("'.$id.'div"); ';
 
 		gNetworkUtilities::enqueueScript( 'lib.pdfobject' );
-		
+
 		return '<div id="'.$id.'div">'.$fallback.'</div>';
 	}
 
