@@ -941,6 +941,16 @@ class gNetworkBaseCore
 		return intval( ( isset( $_REQUEST[$key] ) ? $_REQUEST[$key] : $default ) );
 	}
 
+	public static function orderby( $default = 'title', $key = 'orderby' )
+	{
+		return isset( $_REQUEST[$key] ) ? $_REQUEST[$key] : $default;
+	}
+
+	public static function order( $default = 'desc', $key = 'order' )
+	{
+		return isset( $_REQUEST[$key] ) ? $_REQUEST[$key] : $default;
+	}
+
 	public static function listCode( $array, $row = NULL, $first = FALSE )
 	{
 		if ( count( $array ) ) {
