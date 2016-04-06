@@ -92,7 +92,7 @@ function gnetwork_init() {
 	foreach ( $modules as $module_slug => $module_class ) {
 		if ( $module_class && class_exists( $module_class ) ) {
 			try {
-				$gNetwork->{$module_slug} = new $module_class();
+				$gNetwork->{$module_slug} = new $module_class( $module_slug );
 			} catch ( \Exception $e ) {
 				// do nothing!
 			}
@@ -117,7 +117,7 @@ function gnetwork_bp_include() {
 	if ( file_exists( GNETWORK_DIR.'includes/buddypress.php' ) ) {
 		require_once( GNETWORK_DIR.'includes/buddypress.php' );
 		try {
-			$gNetwork->buddypress = new gNetworkBuddyPress();
+			$gNetwork->buddypress = new gNetworkBuddyPress( 'buddypress' );
 		} catch ( \Exception $e ) {
 			// do nothing!
 		}

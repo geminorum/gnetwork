@@ -3,6 +3,7 @@
 class gNetworkModuleCore extends gNetworkBaseCore
 {
 
+	public $module  = 'core';
 	public $options = array();
 	public $buttons = array();
 	public $scripts = array();
@@ -18,7 +19,7 @@ class gNetworkModuleCore extends gNetworkBaseCore
 	protected $dev         = NULL;       // load if dev
 	protected $hidden      = FALSE;      // load if hidden
 
-	public function __construct()
+	public function __construct( $module = NULL )
 	{
 		if ( ! GNETWORK_HIDDEN_FEATURES && $this->hidden )
 			throw new \Exception( 'Hidden Feature!' );
@@ -54,6 +55,9 @@ class gNetworkModuleCore extends gNetworkBaseCore
 					throw new \Exception( 'Only on Develepment Environment!' );
 			}
 		}
+
+		if ( ! is_null( $module ) )
+			$this->module = $module;
 
 		if ( FALSE !== $this->option_key ) // disable the options
 			$this->options = $this->init_options();
@@ -101,6 +105,11 @@ class gNetworkModuleCore extends gNetworkBaseCore
 	protected function options_key()
 	{
 		return $this->option_base.'_'.$this->option_key;
+	}
+
+	protected function hook( $suffix = NULL )
+	{
+		return $this->option_base.'_'.$this->module.( is_null( $suffix ) ? '' : '_'.$suffix );
 	}
 
 	protected function init_options()
