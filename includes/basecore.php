@@ -4,7 +4,7 @@ class gNetworkBaseCore
 {
 
 	// INTERNAL: used on anything deprecated
-	protected static function __dep( $note = '', $prefix = 'DEP: ' )
+	protected static function __dep( $note = '', $prefix = 'DEP: ', $offset = 1 )
 	{
 		if ( defined( 'WP_DEBUG_LOG' ) && ! WP_DEBUG_LOG )
 			return;
@@ -13,26 +13,35 @@ class gNetworkBaseCore
 
 		$log = $prefix;
 
-		if ( isset( $trace[1]['object'] ) )
-			$log .= get_class( $trace[1]['object'] ).'::';
-		else if ( isset( $trace[1]['class'] ) )
-			$log .= $trace[1]['class'].'::';
+		if ( isset( $trace[$offset]['object'] ) )
+			$log .= get_class( $trace[$offset]['object'] ).'::';
+		else if ( isset( $trace[$offset]['class'] ) )
+			$log .= $trace[$offset]['class'].'::';
 
-		$log .= $trace[1]['function'].'()';
+		$log .= $trace[$offset]['function'].'()';
 
-		if ( isset( $trace[2]['function'] ) ) {
+		$offset++;
+
+		if ( isset( $trace[$offset]['function'] ) ) {
 			$log .= '|FROM: ';
-			if ( isset( $trace[2]['object'] ) )
-				$log .= get_class( $trace[2]['object'] ).'::';
-			else if ( isset( $trace[2]['class'] ) )
-				$log .= $trace[2]['class'].'::';
-			$log .= $trace[2]['function'].'()';
+			if ( isset( $trace[$offset]['object'] ) )
+				$log .= get_class( $trace[$offset]['object'] ).'::';
+			else if ( isset( $trace[$offset]['class'] ) )
+				$log .= $trace[$offset]['class'].'::';
+			$log .= $trace[$offset]['function'].'()';
 		}
 
 		if ( $note )
 			$log .= '|'.$note;
 
 		error_log( $log );
+	}
+
+	// INTERNAL: used on anything deprecated : only on dev mode
+	protected static function __dev_dep( $note = '', $prefix = 'DEP: ', $offset = 2 )
+	{
+		if ( self::isDev() )
+			self::__dep( $note, $prefix, $offset );
 	}
 
 	public static function headerNav( $uri = '', $active = '', $subs = array(), $prefix = 'nav-tab-', $tag = 'h3' )
