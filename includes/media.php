@@ -203,7 +203,7 @@ class gNetworkMedia extends gNetworkModuleCore
 			'navigation' => 'before',
 			'search'     => 'before',
 			'title'      => self::html( 'h3', _x( 'Overview of posts with attachments', 'Media Module', GNETWORK_TEXTDOMAIN ) ),
-			'empty'      => self::html( 'strong', _x( 'No Posts!', 'Media Module', GNETWORK_TEXTDOMAIN ) ),
+			'empty'      => self::warning( _x( 'No Posts!', 'Media Module', GNETWORK_TEXTDOMAIN ) ),
 			'pagination' => $pagination,
 		) );
 	}
