@@ -705,7 +705,7 @@ class gNetworkBaseCore
 			$url = add_query_arg( $version, $url );
 
 		else if ( $version )
-			$url = add_query_arg( 'ver', $version, $url );
+			$url = add_query_arg( array( 'ver' => $version ), $url );
 
 		echo "\t".self::html( 'link', array(
 			'rel'   => 'stylesheet',
