@@ -346,7 +346,6 @@ class gNetworkMail extends gNetworkModuleCore
 		}
 	}
 
-	// TODO: https://github.com/Seldaek/monolog
 	// $mail = array( 'to', 'subject', 'message', 'headers', 'attachments' );
 	public function wp_mail( $mail )
 	{
@@ -475,13 +474,12 @@ class gNetworkMail extends gNetworkModuleCore
 			if ( ! is_null( $old ) && filemtime( $log ) < $old )
 				continue;
 
-			$data = json_decode( self::fileGetContents( $log ), TRUE );
-
-			$logs[] = array_merge( array(
-				'file' => basename( $log, '.json' ),
-				'size' => filesize( $log ),
-				'date' => filemtime( $log ),
-			), $data );
+			if ( $data = json_decode( self::fileGetContents( $log ), TRUE ) )
+				$logs[] = array_merge( array(
+					'file' => basename( $log, '.json' ),
+					'size' => filesize( $log ),
+					'date' => filemtime( $log ),
+				), $data );
 
 			$i++;
 		}
