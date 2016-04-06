@@ -1176,13 +1176,13 @@ class gNetworkModuleCore extends gNetworkBaseCore
 	public static function settingsMessages()
 	{
 		return array(
-			'resetting' => self::updated( _x( 'Settings reset.', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN ) ),
-			'optimized' => self::updated( _x( 'Tables optimized.', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN ) ),
-			'updated'   => self::updated( _x( 'Settings updated.', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN ) ),
-			'created'   => self::updated( _x( 'File/Folder created.', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN ) ),
+			'resetting' => self::success( _x( 'Settings reset.', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN ) ),
+			'optimized' => self::success( _x( 'Tables optimized.', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN ) ),
+			'updated'   => self::success( _x( 'Settings updated.', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN ) ),
+			'created'   => self::success( _x( 'File/Folder created.', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN ) ),
 			'deleted'   => self::counted( _x( '%s deleted!', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN ) ),
 			'cleaned'   => self::counted( _x( '%s cleaned!', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN ) ),
-			'purged'    => self::updated( _x( 'Data purged.', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN ) ),
+			'purged'    => self::success( _x( 'Data purged.', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN ) ),
 			'changed'   => self::counted( _x( '%s Items(s) Changed', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN ) ),
 			'nochange'  => self::error( _x( 'No Item Changed', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN ) ),
 			'error'     => self::error( _x( 'Error while settings save.', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN ) ),

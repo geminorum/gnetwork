@@ -356,14 +356,6 @@ class gNetworkBaseCore
 		return defined( 'WP_CLI' ) && WP_CLI;
 	}
 
-	public static function notice( $notice, $class = 'updated fade', $echo = TRUE )
-	{
-		$html = sprintf( '<div id="message" class="%s notice is-dismissible"><p>%s</p></div>', $class, $notice );
-		if ( ! $echo )
-			return $html;
-		echo $html;
-	}
-
 	public static function dropdown( $list, $name, $prop = FALSE, $selected = 0, $none = FALSE, $none_val = 0, $obj = FALSE )
 	{
 		$html = '<select name="'.$name.'" id="'.$name.'">';
@@ -716,9 +708,9 @@ class gNetworkBaseCore
 			$url = add_query_arg( 'ver', $version, $url );
 
 		echo "\t".self::html( 'link', array(
-			'rel' => 'stylesheet',
-			'href' => $url,
-			'type' => 'text/css',
+			'rel'   => 'stylesheet',
+			'href'  => $url,
+			'type'  => 'text/css',
 			'media' => $media,
 		) )."\n";
 	}
@@ -1351,14 +1343,42 @@ class gNetworkBaseCore
 		return rtrim( $string, '/\\' );
 	}
 
-	public static function error( $message, $echo = FALSE )
+	// @REF: https://codex.wordpress.org/Plugin_API/Action_Reference/admin_notices
+	public static function notice( $notice, $class = 'notice-success fade', $echo = TRUE )
 	{
-		return self::notice( $message, 'error fade', $echo );
+		$html = sprintf( '<div class="notice %s is-dismissible"><p>%s</p></div>', $class, $notice );
+
+		if ( ! $echo )
+			return $html;
+
+		echo $html;
 	}
 
+	public static function error( $message, $echo = FALSE )
+	{
+		return self::notice( $message, 'notice-error fade', $echo );
+	}
+
+	// FIXME: DEPRICATED: use self::success()
 	public static function updated( $message, $echo = FALSE )
 	{
-		return self::notice( $message, 'updated fade', $echo );
+		self::__dev_dep( 'self::success()' );
+		return self::notice( $message, 'notice-success fade', $echo );
+	}
+
+	public static function success( $message, $echo = FALSE )
+	{
+		return self::notice( $message, 'notice-success fade', $echo );
+	}
+
+	public static function warning( $message, $echo = FALSE )
+	{
+		return self::notice( $message, 'notice-warning fade', $echo );
+	}
+
+	public static function info( $message, $echo = FALSE )
+	{
+		return self::notice( $message, 'notice-info fade', $echo );
 	}
 
 	public static function log( $error = '[Unknown]', $message = FALSE, $extra = FALSE )
@@ -1416,7 +1436,7 @@ class gNetworkBaseCore
 			$r = get_object_vars( $args );
 
 		elseif ( is_array( $args ) )
-			$r =& $args;
+			$r = &$args;
 
 		else
 			// wp_parse_str( $args, $r );
