@@ -88,6 +88,8 @@ function gnetwork_init() {
 	if ( ! is_object( $gNetwork ) )
 		$gNetwork = new stdClass();
 
+	load_plugin_textdomain( GNETWORK_TEXTDOMAIN, FALSE, 'gnetwork/languages' );
+
 	foreach ( $modules as $module_slug => $module_class ) {
 		if ( $module_class && class_exists( $module_class ) ) {
 			try {
@@ -97,8 +99,6 @@ function gnetwork_init() {
 			}
 		}
 	}
-
-	load_plugin_textdomain( GNETWORK_TEXTDOMAIN, FALSE, 'gnetwork/languages' );
 
 	add_action( 'bp_include', 'gnetwork_bp_include' );
 
