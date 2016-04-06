@@ -101,11 +101,12 @@ class gNetworkDebug extends gNetworkModuleCore
 				echo '</ol></div><p class="error-box-footer description">'.sprintf( _x( 'File Size: %s', 'Debug Module: Error Box', GNETWORK_TEXTDOMAIN ), $file_size ).'</p>';
 
 			} else {
-				echo '<p class="description">'._x( 'No errors currently logged.', 'Debug Module: Error Box', GNETWORK_TEXTDOMAIN ).'</p>';
+				self::warning( _x( 'No errors currently logged.', 'Debug Module: Error Box', GNETWORK_TEXTDOMAIN ), TRUE );
+				return FALSE;
 			}
 
 		} else {
-			echo '<p class="description">'._x( 'There was a problem reading the error log file.', 'Debug Module: Error Box', GNETWORK_TEXTDOMAIN ).'</p>';
+			self::error( _x( 'There was a problem reading the error log file.', 'Debug Module: Error Box', GNETWORK_TEXTDOMAIN ), TRUE );
 			return FALSE;
 		}
 
