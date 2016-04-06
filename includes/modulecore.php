@@ -80,6 +80,23 @@ class gNetworkModuleCore extends gNetworkBaseCore
 		}
 	}
 
+	public function get_settings_url( $action = FALSE, $full = FALSE )
+	{
+		$args = array(
+			'sub' => $this->menu_key ? $this->menu_key : $this->module,
+		);
+
+		if ( is_array( $action ) )
+			$args = array_merge( $args, $action );
+
+		else if ( FALSE !== $action )
+			$args['action'] = $action;
+
+		$url = $this->is_network() ? gNetworkNetwork::settingsURL( $full ) : gNetworkAdmin::settingsURL( $full );
+
+		return add_query_arg( $args, $url );
+	}
+
 	// override this for non network install
 	public function is_network()
 	{
