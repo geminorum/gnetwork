@@ -51,7 +51,6 @@ function gnetwork_init() {
 		'mail'        => 'gNetworkMail',
 		'sms'         => 'gNetworkSMS',
 		'navigation'  => 'gNetworkNavigation',
-		// 'activation'  => 'gNetworkActivation', // WORKING, NEEDS Final CHECK
 		'locale'      => 'gNetworkLocale',
 		'themes'      => 'gNetworkThemes',
 		'media'       => 'gNetworkMedia',
