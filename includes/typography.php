@@ -95,6 +95,6 @@ class gNetworkTypography extends gNetworkModuleCore
 		if ( is_null( $content ) )
 			return $content;
 
-		return '<span class="ltr" dir="ltr">'.$content.'</span>';
+		return '<span class="ltr" dir="ltr">'.do_shortcode( $content, TRUE ).'</span>';
 	}
 }
