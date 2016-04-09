@@ -6,7 +6,7 @@ jQuery(document).ready(function($) {
 	});
 
 	// show inputs on click
-	$('span.media-url').on('click', 'a.media-url-click', function(event) {
+	$('span.media-url').on('click', 'a.media-url-attachment', function(event) {
 
 		// this removes the hash in the URL for cleaner UI
 		event.preventDefault();
