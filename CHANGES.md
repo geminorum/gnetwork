@@ -1,3 +1,9 @@
+### 0.2.33
+* media: media objects now cleans the attachments
+* media: clean attachments on media row & bulk actions
+* typography: do shortcode inside ltr shortcode
+* login: pre login page body classes
+
 ### 0.2.32
 * network: default email helper
 * taxonomy: unnecessary escape on redirection
