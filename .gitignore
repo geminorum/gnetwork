@@ -11,5 +11,7 @@
 /assets/bin
 /node_modules
 
+/x-local-*
+
 composer.lock
 npm-debug.log
