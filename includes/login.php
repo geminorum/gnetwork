@@ -28,6 +28,7 @@ class gNetworkLogin extends gNetworkModuleCore
 			'login_headertitle' => GNETWORK_NAME,
 			'login_logourl'     => '',
 			'login_styles'      => '',
+			'login_class'       => '',
 			'login_remember'    => 0,
 			'login_math'        => 0,
 			'math_hashkey'      => '',
@@ -73,6 +74,17 @@ class gNetworkLogin extends gNetworkModuleCore
 					'description' => _x( 'Full URL to the login logo image', 'Login Module', GNETWORK_TEXTDOMAIN ),
 					'field_class' => array( 'regular-text', 'url-text' ),
 					'after'       => sprintf( '<span class="field-after icon-wrap">%s</span>', self::getLoginLogoLink() ),
+				),
+				array(
+					'field'       => 'login_class',
+					'type'        => 'select',
+					'title'       => _x( 'CSS Class', 'Login Module', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Select from pre designed login themes', 'Login Module', GNETWORK_TEXTDOMAIN ),
+					'none_title'  => _x( '&mdash; Select &mdash;', 'Login Module', GNETWORK_TEXTDOMAIN ),
+					'none_value'  => 'no-class',
+					'values'      => apply_filters( $this->hook( 'login_class' ), array(
+						'webogram' => _x( 'Webogram', 'Login Module: Login Class', GNETWORK_TEXTDOMAIN ),
+					) ),
 				),
 				array(
 					'field'       => 'login_styles',
@@ -125,10 +137,15 @@ class gNetworkLogin extends gNetworkModuleCore
 		if ( $this->options['login_remember'] )
 			add_filter( 'login_footer', array( $this, 'login_footer_remember' ), 99 );
 
+		if ( $this->options['login_class'] )
+			add_filter( 'login_body_class', array( $this, 'login_body_class' ), 99, 2 );
+
 		add_action( 'login_head', array( $this, 'login_head' ) );
 
 		if ( ! GNETWORK_DISABLE_CREDITS )
 			add_filter( 'login_footer', array( $this, 'login_footer_badge' ) );
+
+		echo '<div class="-head-placeholder"></div>';
 	}
 
 	public function login_head()
@@ -138,6 +155,11 @@ class gNetworkLogin extends gNetworkModuleCore
 
 		if ( $this->options['login_styles'] )
 			echo '<style>'.$this->options['login_styles'].'</style>';
+	}
+
+	public function login_body_class( $classes, $action )
+	{
+		return array_merge( $classes, array( $this->options['login_class'] ) );
 	}
 
 	public function login_headerurl( $login_header_url )
