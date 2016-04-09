@@ -89,3 +89,25 @@ body.rtl {
 		text-align: center;
 	}
 }
+
+// https://zhukov.github.io/webogram/#/login
+body.webogram {
+
+	background: #f7f7f7;
+
+	.-head-placeholder {
+		background: #5682a3;
+    	height: 226px;
+		box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.15);
+	}
+
+	#login {
+		margin-top: -15.5em;
+		width: auto;
+		max-width: 404px;
+		form {
+			box-shadow: 0 1px 1px rgba(97,127,152,.2), 1px 0 0 rgba(97,127,152,.1), -1px 0 0 rgba(97,127,152,.1);
+			border-radius: 2px;
+		}
+	}
+}
