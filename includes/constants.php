@@ -44,23 +44,19 @@ $gnetwork_constants = array(
 	'GNETWORK_REDIRECT_MAP'    => FALSE,
 	// 'GNETWORK_REDIRECT_FORMAT' => '%1$s',
 
-	'GNETWORK_AJAX_ENDPOINT'      => admin_url( 'admin-ajax.php' ), // if you want to use .ataccess to rewrite
-	'GNETWORK_MEDIA_SEPERATION'   => FALSE, // if you want to seperate generated files from originals!!
-	'GNETWORK_MEDIA_SIZES_DIR'    => WP_CONTENT_DIR.'/thumbs',
-	'GNETWORK_MEDIA_SIZES_URL'    => WP_CONTENT_URL.'/thumbs',
-	// 'GNETWORK_MEDIA_SIZES_REL'    => '../thumbs', // relate path to deffault uploads folder
-	'GNETWORK_MEDIA_SIZES_CHECK'  => TRUE, // check default wp dir before thumbs / make it disable for newly created sites
-	'GNETWORK_MEDIA_OBJECT_SIZES' => FALSE, // disable all image sizes and enable for each posttypes
-	'GNETWORK_MEDIA_DISABLE_META' => FALSE, // disable storing meta (EXIF) data of the attachments
-
-	'GNETWORK_TIMTHUMB_URL' => esc_url( home_url( '/repo/' ) ), // DEPRECATED
+	'GNETWORK_AJAX_ENDPOINT'         => admin_url( 'admin-ajax.php' ), // if you want to use .ataccess to rewrite
+	'GNETWORK_MEDIA_SEPARATE_THUMBS' => FALSE, // if you want to seperate generated files from originals!!
+	'GNETWORK_MEDIA_SIZES_DIR'       => WP_CONTENT_DIR.'/thumbs',
+	'GNETWORK_MEDIA_SIZES_URL'       => WP_CONTENT_URL.'/thumbs',
+	// 'GNETWORK_MEDIA_SIZES_REL'       => '../thumbs', // relate path to deffault uploads folder
+	'GNETWORK_MEDIA_SIZES_CHECK'     => TRUE, // check default wp dir before thumbs / make it disable for newly created sites
+	'GNETWORK_MEDIA_OBJECT_SIZES'    => FALSE, // disable all image sizes and enable for each posttypes
+	'GNETWORK_MEDIA_DISABLE_META'    => FALSE, // disable storing meta (EXIF) data of the attachments
 
 	// reset some stuff
-	'GTHEME_DEV_ENVIRONMENT' => FALSE,
-	'WP_STAGE'               => 'production',
-	'NOBLOGREDIRECT'         => '%siteurl%',
-	'SCRIPT_DEBUG'           => FALSE,
-	'SAVEQUERIES'            => FALSE,
+	'WP_STAGE'       => 'production',
+	'NOBLOGREDIRECT' => '%siteurl%',
+	'SAVEQUERIES'    => FALSE,
 
 	'FS_CHMOD_DIR'  => ( 0755 & ~ umask() ),
 	'FS_CHMOD_FILE' => ( 0644 & ~ umask() ),
