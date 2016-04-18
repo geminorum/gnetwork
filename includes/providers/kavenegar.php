@@ -1,16 +1,20 @@
-<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+<?php namespace geminorum\gNetwork;
 
-class gNetworkProviderKavenegar extends gNetworkProviderCore
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+
+class KavenegarProvider extends ProviderCore
 {
 
-	protected $provider_slug = 'kavenegar';
-	protected $api_uri       = 'http://api.kavenegar.com/v1/%s/';
-	protected $api_suffix    = '.json';
-	protected $api_key       = '';
+	protected $key  = 'kavenegar';
+	protected $type = 'sms';
+
+	protected $api_uri    = 'http://api.kavenegar.com/v1/%s/';
+	protected $api_suffix = '.json';
+	protected $api_key    = '';
 
 	public function providerName()
 	{
-		return _x( 'Kavenegar', 'Provider Kavenegar', GNETWORK_TEXTDOMAIN );
+		return _x( 'Kavenegar', 'Provider: Kavenegar', GNETWORK_TEXTDOMAIN );
 	}
 
 	protected function setup_actions()
@@ -24,27 +28,27 @@ class gNetworkProviderKavenegar extends gNetworkProviderCore
 		return array(
 			'api_key' => array(
 				'type'        => 'text',
-				'title'       => _x( 'API Key', 'Provider Kavenegar', GNETWORK_TEXTDOMAIN ),
-				'description' => _x( 'Key for communication between your site and Kavenegar.', 'Provider Kavenegar', GNETWORK_TEXTDOMAIN ),
+				'title'       => _x( 'API Key', 'Provider: Kavenegar', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Key for communication between your site and Kavenegar.', 'Provider: Kavenegar', GNETWORK_TEXTDOMAIN ),
 				'field_class' => 'large-text'
 			),
 			'from_number' => array(
 				'type'  => 'text',
-				'title' => __( 'From Number', GNETWORK_TEXTDOMAIN ),
-				'desc'  => __( 'You can specify the phone number that messages should be sent from. If you leave this blank, the default number will be used.', GNETWORK_TEXTDOMAIN ),
+				'title' => _x( 'From Number', 'Provider: Kavenegar', GNETWORK_TEXTDOMAIN ),
+				'desc'  => _x( 'You can specify the phone number that messages should be sent from. If you leave this blank, the default number will be used.', 'Provider: Kavenegar', GNETWORK_TEXTDOMAIN ),
 			),
 			'admin_numbers' => array(
 				'type'  => 'text',
-				'title' => __( 'Admin Numbers', GNETWORK_TEXTDOMAIN ),
+				'title' => _x( 'Admin Numbers', 'Provider: Kavenegar', GNETWORK_TEXTDOMAIN ),
 			),
 		);
 	}
 
 	public function settings_section()
 	{
-		gNetworkModuleCore::settingsSection(
-			_x( 'Kavenegar', 'Provider Kavenegar: Settings Section Title', GNETWORK_TEXTDOMAIN ),
-			_x( 'Kavenegar is a Persian SMS Provider', 'Provider Kavenegar: Settings Section Desc', GNETWORK_TEXTDOMAIN )
+		ModuleCore::settingsSection(
+			_x( 'Kavenegar', 'Provider: Kavenegar: Settings Section Title', GNETWORK_TEXTDOMAIN ),
+			_x( 'Kavenegar is a Persian SMS Provider', 'Provider" Kavenegar: Settings Section Desc', GNETWORK_TEXTDOMAIN )
 		);
 	}
 
@@ -64,7 +68,7 @@ class gNetworkProviderKavenegar extends gNetworkProviderCore
 
 	protected function isResults( $response, $status_code = NULL )
 	{
-		if ( is_wp_error( $response ) )
+		if ( self::isError( $response ) )
 			return FALSE;
 
 		if ( isset( $response['return']['status'] )
@@ -106,7 +110,7 @@ class gNetworkProviderKavenegar extends gNetworkProviderCore
 		), $atts );
 
 		if ( ! $args['receptor'] )
-			return new WP_Error( 'sms_no_reciver', 'NO SMS Reciver', $args );
+			return new Error( 'sms_no_reciver', 'NO SMS Reciver', $args );
 
 		// $args['message'] = iconv( 'UTF-8', 'UTF-8//TRANSLIT', $args['message'] );
 		$args['message'] = urlencode( $args['message'] );
@@ -132,7 +136,7 @@ class gNetworkProviderKavenegar extends gNetworkProviderCore
 		), $atts );
 
 		if ( ! $args['receptor'] )
-			return new WP_Error( 'sms_no_reciver', 'NO SMS Reciver', $args );
+			return new Error( 'sms_no_reciver', 'NO SMS Reciver', $args );
 
 		$args['message'] = iconv( 'UTF-8', 'UTF-8//TRANSLIT', $args['message'] );
 

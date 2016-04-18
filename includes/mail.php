@@ -1,29 +1,16 @@
-<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+<?php namespace geminorum\gNetwork;
 
-class gNetworkMail extends gNetworkModuleCore
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+
+class Mail extends ModuleCore
 {
 
-	protected $option_key = 'mail';
-	protected $network    = TRUE;
+	protected $key = 'mail';
 
 	protected function setup_actions()
 	{
-		$this->register_menu( 'mail',
-			_x( 'Mail', 'Mail Module: Menu Name', GNETWORK_TEXTDOMAIN ),
-			array( $this, 'settings' )
-		);
-
-		$this->register_menu( 'testmail',
-			_x( 'Test Mail', 'Mail Module: Menu Name', GNETWORK_TEXTDOMAIN )
-		);
-
-		if ( $this->options['log_all'] ) {
+		if ( $this->options['log_all'] )
 			add_filter( 'wp_mail', array( $this, 'wp_mail' ), 99 );
-
-			$this->register_menu( 'emaillogs',
-				_x( 'Email Logs', 'Mail Module: Menu Name', GNETWORK_TEXTDOMAIN )
-			);
-		}
 
 		add_filter( 'wp_mail_from', array( $this, 'wp_mail_from' ), 5 );
 		add_filter( 'wp_mail_from_name', array( $this, 'wp_mail_from_name' ), 5 );
@@ -32,9 +19,194 @@ class gNetworkMail extends gNetworkModuleCore
 		add_action( 'phpmailer_init', array( $this, 'phpmailer_init' ) );
 	}
 
+	public function setup_menu( $context )
+	{
+		$this->register_menu(
+			_x( 'Mail', 'Mail Module: Menu Name', GNETWORK_TEXTDOMAIN ),
+			array( $this, 'settings' )
+		);
+
+		$this->register_menu(
+			_x( 'Test Mail', 'Mail Module: Menu Name', GNETWORK_TEXTDOMAIN ),
+			FALSE, 'testmail'
+		);
+
+		if ( $this->options['log_all'] )
+			$this->register_menu(
+				_x( 'Email Logs', 'Mail Module: Menu Name', GNETWORK_TEXTDOMAIN ),
+				FALSE, 'emaillogs'
+			);
+	}
+
+	public function default_options()
+	{
+		return array(
+			'from_email'    => '',
+			'from_name'     => '',
+			'sender'        => 'FROM',
+			'mailer'        => ( defined( 'WPMS_MAILER' ) ? constant( 'WPMS_MAILER' ) : 'mail' ), // possible values 'smtp', 'mail', or 'sendmail'
+			'smtp_secure'   => ( defined( 'WPMS_SSL' ) ? constant( 'WPMS_SSL' ) : 'no' ), // possible values '', 'ssl', 'tls' - note TLS is not STARTTLS
+			'smtp_host'     => ( defined( 'WPMS_SMTP_HOST' ) ? constant( 'WPMS_SMTP_HOST' ) : 'localhost' ),
+			'smtp_port'     => ( defined( 'WPMS_SMTP_PORT' ) ? constant( 'WPMS_SMTP_PORT' ) : 25 ),
+			'smtp_username' => ( defined( 'WPMS_SMTP_USER' ) ? constant( 'WPMS_SMTP_USER' ) : '' ),
+			'smtp_password' => ( defined( 'WPMS_SMTP_PASS' ) ? constant( 'WPMS_SMTP_PASS' ) : '' ),
+			'log_all'       => '0',
+		);
+	}
+
+	public function default_settings()
+	{
+		return array(
+			'_general' => array(
+				array(
+					'field'       => 'from_email',
+					'type'        => 'text',
+					'title'       => _x( 'From Email', 'Mail Module', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'You can specify the email address that emails should be sent from. Leave blank for default.', 'Mail Module', GNETWORK_TEXTDOMAIN ),
+					'field_class' => array( 'regular-text', 'email-text' ),
+				),
+				array(
+					'field'       => 'from_name',
+					'type'        => 'text',
+					'title'       => _x( 'From Name', 'Mail Module', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'You can specify the name that emails should be sent from. Leave blank for WordPress.', 'Mail Module', GNETWORK_TEXTDOMAIN ),
+				),
+				array(
+					'field'       => 'sender',
+					'type'        => 'text',
+					'title'       => _x( 'Return Path', 'Mail Module', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Set the return-path email address. Use <code>FROM</code> to match the From Email or Empty to disable.', 'Mail Module', GNETWORK_TEXTDOMAIN ),
+					'default'     => 'FROM',
+					'field_class' => array( 'regular-text', 'email-text' ),
+				),
+				array(
+					'field'   => 'mailer',
+					'type'    => 'radio',
+					'title'   => _x( 'Mailer', 'Mail Module', GNETWORK_TEXTDOMAIN ),
+					'default' => 'mail',
+					'values'  => array(
+						'mail' => _x( 'Use the PHP mail() function to send emails.', 'Mail Module', GNETWORK_TEXTDOMAIN ),
+						'smtp' => _x( 'Send all WordPress emails via SMTP.', 'Mail Module', GNETWORK_TEXTDOMAIN ),
+					),
+				),
+			),
+			'_smtp' => array(
+				array(
+					'field'       => 'smtp_host',
+					'type'        => 'text',
+					'title'       => _x( 'SMTP Host', 'Mail Module', GNETWORK_TEXTDOMAIN ),
+					'field_class' => array( 'regular-text', 'url-text' ),
+				),
+				array(
+					'field' => 'smtp_port',
+					'type'  => 'number',
+					'title' => _x( 'SMTP Port', 'Mail Module', GNETWORK_TEXTDOMAIN ),
+				),
+				array(
+					'field'       => 'smtp_secure',
+					'type'        => 'radio',
+					'title'       => _x( 'Encryption', 'Mail Module', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'For most servers SSL is the recommended option.', 'Mail Module', GNETWORK_TEXTDOMAIN ),
+					'default'     => 'no',
+					'values'      => array(
+						'no'  => _x( 'No encryption.', 'Mail Module: Encryption Option', GNETWORK_TEXTDOMAIN ),
+						'ssl' => _x( 'Use SSL encryption.', 'Mail Module: Encryption Option', GNETWORK_TEXTDOMAIN ),
+						'tls' => _x( 'Use TLS encryption. This is not the same as STARTTLS.', 'Mail Module: Encryption Option', GNETWORK_TEXTDOMAIN ),
+					),
+				),
+				array(
+					'field'       => 'smtp_username',
+					'type'        => 'text',
+					'title'       => _x( 'Username', 'Mail Module', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Empty to disable Authentication.', 'Mail Module', GNETWORK_TEXTDOMAIN ),
+					'field_class' => array( 'regular-text', 'code-text' ),
+				),
+				array(
+					'field'       => 'smtp_password',
+					'type'        => 'text',
+					'title'       => _x( 'Password', 'Mail Module', GNETWORK_TEXTDOMAIN ),
+					'field_class' => array( 'regular-text', 'code-text' ),
+				),
+			),
+			'_log' => array(
+				array(
+					'field'       => 'log_all',
+					'title'       => _x( 'Log All', 'Mail Module: Enable log all outgoing', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Log all outgoing emails in a secure folder', 'Mail Module', GNETWORK_TEXTDOMAIN ),
+				),
+			),
+		);
+	}
+
+	public function settings_section_smtp()
+	{
+		self::settingsSection(
+			_x( 'SMTP Settings', 'Mail Module: Settings Section Title', GNETWORK_TEXTDOMAIN ),
+			_x( 'These options only apply if you have chosen to send mail by SMTP above.', 'Mail Module: Settings Section Desc', GNETWORK_TEXTDOMAIN )
+		);
+	}
+
+	public function settings_section_log()
+	{
+		self::settingsSection(
+			_x( 'Log Settings', 'Mail Module: Settings Section Title', GNETWORK_TEXTDOMAIN )
+		);
+	}
+
+	public function settings_help_tabs()
+	{
+		return array(
+			array(
+				'id'      => 'gnetwork-mail-help-gmail',
+				'title'   => _x( 'Gmail SMTP', 'Mail Module: Screen Help Title', GNETWORK_TEXTDOMAIN ),
+				'content' => '<p><table><tbody>
+				<tr><td style="width:150px">SMTP Host</td><td><code>smtp.gmail.com</code></td></tr>
+				<tr><td>SMTP Port</td><td><code>465</code></td></tr>
+				<tr><td>Encryption</td><td>SSL</td></tr>
+				<tr><td>Username</td><td><em>your.gmail@gmail.com</em></td></tr>
+				<tr><td>Password</td><td><em>yourpassword</em></td></tr>
+				</tbody></table><br />
+				For more information see <a href="http://www.wpbeginner.com/plugins/how-to-send-email-in-wordpress-using-the-gmail-smtp-server/" target="_blank">here</a>.</p>',
+			),
+			array(
+				'id'      => 'gnetwork-mail-help-mandrill',
+				'title'   => _x( 'Mandrill SMTP', 'Mail Module: Screen Help Title', GNETWORK_TEXTDOMAIN ),
+				'content' => '<p><table><tbody>
+				<tr><td style="width:150px">SMTP Host</td><td>smtp.mandrillapp.com</td></tr>
+				<tr><td>SMTP Port</td><td>465</td></tr>
+				<tr><td>Encryption</td><td>SSL</td></tr>
+				<tr><td>Username</td><td><em>your.mandrill.username</em></td></tr>
+				<tr><td>Password</td><td><em>any valid API key</em></td></tr>
+				</tbody></table><br />
+				Get your API key from <a href="https://mandrillapp.com/settings" target="_blank">here</a>.<br />
+				For more information see <a href="http://help.mandrill.com/entries/21738447" target="_blank">here</a>.</p>',
+			),
+		);
+	}
+
+	public function settings_sidebox( $sub, $uri )
+	{
+		if ( $this->options['log_all'] ) {
+
+			if ( is_dir( GNETWORK_MAIL_LOG_DIR ) && wp_is_writable( GNETWORK_MAIL_LOG_DIR ) ) {
+				echo '<p>'.sprintf( _x( 'Log Folder Exists and Writable: <code>%s</code>', 'Mail Module', GNETWORK_TEXTDOMAIN ), GNETWORK_MAIL_LOG_DIR ).'</p>';
+
+				if ( ! file_exists( GNETWORK_MAIL_LOG_DIR.'/.htaccess' ) )
+					echo '<p>'._x( 'Warning: <code>.htaccess</code> not found!', 'Mail Module', GNETWORK_TEXTDOMAIN ).'</p>';
+
+			} else {
+				echo '<p>'._x( 'Log Folder Not Exists and/or Writable', 'Mail Module', GNETWORK_TEXTDOMAIN ).'</p>';
+				submit_button( _x( 'Create Log Folder', 'Mail Module', GNETWORK_TEXTDOMAIN ), 'secondary', 'create_log_folder' );
+			}
+
+		} else {
+			echo '<p>'._x( 'Logging Emails Disabled', 'Mail Module', GNETWORK_TEXTDOMAIN ).'</p>';
+		}
+	}
+
 	public function settings( $sub = NULL )
 	{
-		if ( 'mail' == $sub ) {
+		if ( $this->key == $sub ) {
 
 			if ( isset( $_POST['create_log_folder'] ) ) {
 
@@ -105,177 +277,6 @@ class gNetworkMail extends gNetworkModuleCore
 		echo '</form>';
 	}
 
-	public function default_options()
-	{
-		return array(
-			'from_email'    => '',
-			'from_name'     => '',
-			'sender'        => 'FROM',
-			'mailer'        => ( defined( 'WPMS_MAILER' ) ? constant( 'WPMS_MAILER' ) : 'mail' ), // possible values 'smtp', 'mail', or 'sendmail'
-			'smtp_secure'   => ( defined( 'WPMS_SSL' ) ? constant( 'WPMS_SSL' ) : 'no' ), // possible values '', 'ssl', 'tls' - note TLS is not STARTTLS
-			'smtp_host'     => ( defined( 'WPMS_SMTP_HOST' ) ? constant( 'WPMS_SMTP_HOST' ) : 'localhost' ),
-			'smtp_port'     => ( defined( 'WPMS_SMTP_PORT' ) ? constant( 'WPMS_SMTP_PORT' ) : 25 ),
-			'smtp_username' => ( defined( 'WPMS_SMTP_USER' ) ? constant( 'WPMS_SMTP_USER' ) : '' ),
-			'smtp_password' => ( defined( 'WPMS_SMTP_PASS' ) ? constant( 'WPMS_SMTP_PASS' ) : '' ),
-			'log_all'       => '0',
-		);
-	}
-
-	public function default_settings()
-	{
-		return array(
-			'_general' => array(
-				array(
-					'field'       => 'from_email',
-					'type'        => 'text',
-					'title'       => _x( 'From Email', 'Mail Module', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'You can specify the email address that emails should be sent from. Leave blank for default.', 'Mail Module', GNETWORK_TEXTDOMAIN ),
-					'field_class' => array( 'regular-text', 'email-text' ),
-				),
-				array(
-					'field'       => 'from_name',
-					'type'        => 'text',
-					'title'       => _x( 'From Name', 'Mail Module', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'You can specify the name that emails should be sent from. Leave blank for WordPress.', 'Mail Module', GNETWORK_TEXTDOMAIN ),
-				),
-				array(
-					'field'       => 'sender',
-					'type'        => 'text',
-					'title'       => _x( 'Return Path', 'Mail Module', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Set the return-path email address. Use <code>FROM</code> to match the From Email or Empty to disable.', 'Mail Module', GNETWORK_TEXTDOMAIN ),
-					'default'     => 'FROM',
-					'field_class' => array( 'regular-text', 'email-text' ),
-				),
-				array(
-					'field'   => 'mailer',
-					'type'    => 'radio',
-					'title'   => _x( 'Mailer', 'Mail Module', GNETWORK_TEXTDOMAIN ),
-					'default' => 'mail',
-					'values'  => array(
-						'mail' => _x( 'Use the PHP mail() function to send emails.', 'Mail Module', GNETWORK_TEXTDOMAIN ),
-						'smtp' => _x( 'Send all WordPress emails via SMTP.', 'Mail Module', GNETWORK_TEXTDOMAIN ),
-					),
-				),
-			),
-			'_smtp' => array(
-				array(
-					'field'       => 'smtp_host',
-					'type'        => 'text',
-					'title'       => _x( 'SMTP Host', 'Mail Module', GNETWORK_TEXTDOMAIN ),
-					'field_class' => array( 'medium-text', 'ip-text' ),
-				),
-				array(
-					'field' => 'smtp_port',
-					'type'  => 'number',
-					'title' => _x( 'SMTP Port', 'Mail Module', GNETWORK_TEXTDOMAIN ),
-				),
-				array(
-					'field'       => 'smtp_secure',
-					'type'        => 'radio',
-					'title'       => _x( 'Encryption', 'Mail Module', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'For most servers SSL is the recommended option.', 'Mail Module', GNETWORK_TEXTDOMAIN ),
-					'default'     => 'no',
-					'values'      => array(
-						'no'  => _x( 'No encryption.', 'Mail Module: Encryption Option', GNETWORK_TEXTDOMAIN ),
-						'ssl' => _x( 'Use SSL encryption.', 'Mail Module: Encryption Option', GNETWORK_TEXTDOMAIN ),
-						'tls' => _x( 'Use TLS encryption. This is not the same as STARTTLS.', 'Mail Module: Encryption Option', GNETWORK_TEXTDOMAIN ),
-					),
-				),
-				array(
-					'field'       => 'smtp_username',
-					'type'        => 'text',
-					'title'       => _x( 'Username', 'Mail Module', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Empty to disable Authentication.', 'Mail Module', GNETWORK_TEXTDOMAIN ),
-					'field_class' => array( 'regular-text', 'code-text' ),
-				),
-				array(
-					'field'       => 'smtp_password',
-					'type'        => 'text',
-					'title'       => _x( 'Password', 'Mail Module', GNETWORK_TEXTDOMAIN ),
-					'field_class' => array( 'regular-text', 'code-text' ),
-				),
-			),
-			'_log' => array(
-				array(
-					'field'       => 'log_all',
-					'type'        => 'enabled',
-					'title'       => _x( 'Log All', 'Mail Module: Enable log all outgoing', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Log all outgoing emails in a secure folder', 'Mail Module', GNETWORK_TEXTDOMAIN ),
-				),
-			),
-		);
-	}
-
-	public function settings_section_smtp()
-	{
-		self::settingsSection(
-			_x( 'SMTP Settings', 'Mail Module: Settings Section Title', GNETWORK_TEXTDOMAIN ),
-			_x( 'These options only apply if you have chosen to send mail by SMTP above.', 'Mail Module: Settings Section Desc', GNETWORK_TEXTDOMAIN )
-		);
-	}
-
-	public function settings_section_log()
-	{
-		self::settingsSection(
-			_x( 'Log Settings', 'Mail Module: Settings Section Title', GNETWORK_TEXTDOMAIN )
-		);
-	}
-
-	public function settings_help_tabs()
-	{
-		return array(
-			array(
-				'id'      => 'gnetwork-mail-help-gmail',
-				'title'   => _x( 'Gmail SMTP', 'Mail Module: Screen Help Title', GNETWORK_TEXTDOMAIN ),
-				'content' => '<p><table><tbody>
-				<tr><td style="width:150px">SMTP Host</td><td><code>smtp.gmail.com</code></td></tr>
-				<tr><td>SMTP Port</td><td><code>465</code></td></tr>
-				<tr><td>Encryption</td><td>SSL</td></tr>
-				<tr><td>Username</td><td><em>your.gmail@gmail.com</em></td></tr>
-				<tr><td>Password</td><td><em>yourpassword</em></td></tr>
-				</tbody></table><br />
-				For more information see <a href="http://www.wpbeginner.com/plugins/how-to-send-email-in-wordpress-using-the-gmail-smtp-server/" target="_blank">here</a>.
-				</p>',
-				'callback' => FALSE,
-			),
-			array(
-				'id'      => 'gnetwork-mail-help-mandrill',
-				'title'   => _x( 'Mandrill SMTP', 'Mail Module: Screen Help Title', GNETWORK_TEXTDOMAIN ),
-				'content' => '<p><table><tbody>
-				<tr><td style="width:150px">SMTP Host</td><td>smtp.mandrillapp.com</td></tr>
-				<tr><td>SMTP Port</td><td>465</td></tr>
-				<tr><td>Encryption</td><td>SSL</td></tr>
-				<tr><td>Username</td><td><em>your.mandrill.username</em></td></tr>
-				<tr><td>Password</td><td><em>any valid API key</em></td></tr>
-				</tbody></table><br />
-				Get your API key from <a href="https://mandrillapp.com/settings" target="_blank">here</a>.<br />
-				For more information see <a href="http://help.mandrill.com/entries/21738447" target="_blank">here</a>.
-				</p>',
-				'callback' => FALSE,
-			),
-		);
-	}
-
-	public function settings_sidebox( $sub, $uri )
-	{
-		if ( $this->options['log_all'] ) {
-
-			if ( is_dir( GNETWORK_MAIL_LOG_DIR ) && wp_is_writable( GNETWORK_MAIL_LOG_DIR ) ) {
-				echo '<p>'.sprintf( _x( 'Log Folder Exists and Writable: <code>%s</code>', 'Mail Module', GNETWORK_TEXTDOMAIN ), GNETWORK_MAIL_LOG_DIR ).'</p>';
-
-				if ( ! file_exists( GNETWORK_MAIL_LOG_DIR.'/.htaccess' ) )
-					echo '<p>'._x( 'Warning: <code>.htaccess</code> not found!', 'Mail Module', GNETWORK_TEXTDOMAIN ).'</p>';
-
-			} else {
-				echo '<p>'._x( 'Log Folder Not Exists and/or Writable', 'Mail Module', GNETWORK_TEXTDOMAIN ).'</p>';
-				submit_button( _x( 'Create Log Folder', 'Mail Module', GNETWORK_TEXTDOMAIN ), 'secondary', 'create_log_folder' );
-			}
-
-		} else {
-			echo '<p>'._x( 'Logging Emails Disabled', 'Mail Module', GNETWORK_TEXTDOMAIN ).'</p>';
-		}
-	}
-
 	public function wp_mail_from( $email )
 	{
 		if ( 0 === strpos( $email, 'wordpress@' ) )
@@ -295,12 +296,15 @@ class gNetworkMail extends gNetworkModuleCore
 		$email = $this->get_from_email( $email );
 		$name  = $this->get_from_name( $name );
 
-		$bp_email->set_from( $email, $name );
+		$bp_email->set_from( $email, $name ); // DROP: NO NEED AFTER BP v2.6.0
 		$bp_email->set_reply_to( $email, $name );
 	}
 
 	public function get_from_email( $email = '' )
 	{
+		if ( $blog = gNetwork()->option( 'from_email', 'blog' ) )
+			return $blog;
+
 		if ( ! empty( $this->options['from_email'] ) )
 			return $this->options['from_email'];
 		else
@@ -311,6 +315,9 @@ class gNetworkMail extends gNetworkModuleCore
 
 	public function get_from_name( $name = '' )
 	{
+		if ( $blog = gNetwork()->option( 'from_name', 'blog' ) )
+			return $blog;
+
 		if ( ! empty( $this->options['from_name'] ) ) {
 			return $this->options['from_name'];
 		} else {
@@ -360,7 +367,7 @@ class gNetworkMail extends gNetworkModuleCore
 			$contents['rtl'] = 'true';
 
 		if ( is_array( $contents['to'] ) )
-			$to = array_filter( array( 'gNetworkBaseCore', 'escFilename' ), $contents['to'] );
+			$to = array_filter( array( __NAMESPACE__.'\\BaseCore', 'escFilename' ), $contents['to'] );
 		else
 			$to = self::escFilename( $contents['to'] );
 
@@ -416,7 +423,7 @@ class gNetworkMail extends gNetworkModuleCore
 			if ( ! is_object( $phpmailer ) || ! is_a( $phpmailer, 'PHPMailer' ) ) {
 				require_once ABSPATH.WPINC.'/class-phpmailer.php';
 				require_once ABSPATH.WPINC.'/class-smtp.php';
-				$phpmailer = new PHPMailer( TRUE );
+				$phpmailer = new \PHPMailer( TRUE );
 			}
 
 			$phpmailer->SMTPDebug = TRUE;
@@ -513,7 +520,7 @@ class gNetworkMail extends gNetworkModuleCore
 				if ( ! $file->isDot() )
 					unlink( $file->getPathname() );
 
-		} catch ( \Exception $e ) {
+		} catch ( Exception $e ) {
 			// echo 'Caught exception: '.$e->getMessage().'<br/>';
 		}
 

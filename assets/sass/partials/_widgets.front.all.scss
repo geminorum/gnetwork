@@ -5,13 +5,31 @@
 
 .gnetwork-wrap-widget {
 
-	@include mainwrap();
+	// we need current theme styles!
+	// @include mainwrap();
+	// @include box-reset();
 
-	&.legend-widget {
+	&.-legend-widget {
+
 		direction: ltr;
+
+		table.base-table-code {
+
+			width: 100%;
+			
+			td {
+				text-align: left;
+				direction: ltr;
+			}
+
+			.-val {
+				width: 15%;
+				text-align: center;
+			}
+		}
 	}
 
-	&.quantcast-widget {
+	&.-quantcast-widget {
 
 		iframe {
 			margin: 0 auto;
@@ -20,7 +38,7 @@
 	}
 
 	// we use additional .gnetwork-wrap-iframe class for iframe responsive
-	&.gplusbadge-widget {
+	&.-gplusbadge-widget {
 		iframe {}
 	}
 }

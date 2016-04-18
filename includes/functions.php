@@ -1,4 +1,4 @@
-<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+<?php defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 if ( ! function_exists( 'gnetwork_powered' ) ) :
 	function gnetwork_powered( $rtl = NULL ){
@@ -36,9 +36,9 @@ if ( ! function_exists( '__gpersiandate_skip' ) ) : function __gpersiandate_skip
 } endif;
 
 if ( ! function_exists( 'gnetwork_dump' ) ) : function gnetwork_dump( $var, $htmlSafe = TRUE ) {
-	gNetworkUtilities::dump( $var, $htmlSafe );
+	\geminorum\gNetwork\Utilities::dump( $var, $htmlSafe );
 } endif;
 
 if ( ! function_exists( 'gnetwork_trace' ) ) : function gnetwork_trace( $old = TRUE ) {
-	gNetworkUtilities::trace( $old );
+	\geminorum\gNetwork\Utilities::trace( $old );
 } endif;

@@ -1,19 +1,15 @@
-<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+<?php namespace geminorum\gNetwork;
 
-class gNetworkDev extends gNetworkModuleCore
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+
+class Dev extends ModuleCore
 {
 
-	protected $menu_key   = 'dev';
-	protected $network    = TRUE;
-	protected $ajax       = TRUE;
+	protected $key  = 'dev';
+	protected $ajax = TRUE;
 
 	protected function setup_actions()
 	{
-		$this->register_menu( 'dev',
-			_x( 'Dev Tools', 'Dev Module: Menu Name', GNETWORK_TEXTDOMAIN ),
-			array( $this, 'settings' )
-		);
-
 		add_filter( 'http_request_args', array( $this, 'http_request_args' ), 12, 2 );
 		add_filter( 'https_local_ssl_verify', '__return_false' );
 		add_filter( 'https_ssl_verify', '__return_false' );
@@ -33,11 +29,20 @@ class gNetworkDev extends gNetworkModuleCore
 		// add_filter( 'login_url', array( $this, 'login_url' ), 10, 2 );
 	}
 
+	public function setup_menu( $context )
+	{
+		$this->register_menu(
+			_x( 'Dev Tools', 'Dev Module: Menu Name', GNETWORK_TEXTDOMAIN ),
+			array( $this, 'settings' )
+		);
+	}
+
 	public function settings_html( $uri, $sub = 'general' )
 	{
 		echo '<form class="gnetwork-form" method="post" action="">';
 
 			$this->settings_fields( $sub, 'bulk' );
+
 			self::generateCustomTax();
 
 		echo '</form>';
@@ -83,7 +88,7 @@ class gNetworkDev extends gNetworkModuleCore
 
 	public function shutdown()
 	{
-		global $wpdb, $gNetwork, $gPeopleNetwork, $gMemberNetwork;
+		global $wpdb, $gPeopleNetwork, $gMemberNetwork;
 
 		$log = array(
 			self::timer_stop( FALSE, 3 ).'s',
@@ -115,7 +120,8 @@ class gNetworkDev extends gNetworkModuleCore
 		if ( self::isAJAX() )
 			$log[] = 'AJAX';
 
-		$log[] = 'gN:'.self::size_format( self::size( $gNetwork ) );
+		if ( function_exists( 'gNetwork' ) )
+			$log[] = 'gN:'.self::size_format( self::size( gNetwork() ) );
 
 		if ( function_exists( 'gEditorial' ) )
 			$log[] = 'gE:'.self::size_format( self::size( gEditorial() ) );
@@ -172,6 +178,8 @@ class gNetworkDev extends gNetworkModuleCore
 		// Combine $variables list with $hooks list.
 		$help_content = $variables . $hooks;
 
+		// $help_content .= self::dump( $screen, TRUE, FALSE );
+
 		// Add help panel
 		$screen->add_help_tab( array(
 			'id'      => 'gnetwork-screen-help',
@@ -184,10 +192,10 @@ class gNetworkDev extends gNetworkModuleCore
 
 	public static function generateCustomTax()
 	{
-		// gNetworkUtilities::renderMustache( 'posttype-post', self::generateCustomTax_Post() );
-		// gNetworkUtilities::renderMustache( 'posttype-page', self::generateCustomTax_Post() );
-		// gNetworkUtilities::renderMustache( 'taxonomy-tag', self::generateCustomTax_Tag() );
-		gNetworkUtilities::renderMustache( 'taxonomy-cat', self::generateCustomTax_Cat() );
+		// Utilities::renderMustache( 'posttype-post', self::generateCustomTax_Post() );
+		// Utilities::renderMustache( 'posttype-page', self::generateCustomTax_Post() );
+		// Utilities::renderMustache( 'taxonomy-tag', self::generateCustomTax_Tag() );
+		Utilities::renderMustache( 'taxonomy-cat', self::generateCustomTax_Cat() );
 	}
 
 	public static function generateCustomTax_Post()

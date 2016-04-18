@@ -1,9 +1,12 @@
-<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+<?php namespace geminorum\gNetwork;
 
-class gNetworkEditor extends gNetworkModuleCore
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+
+class Editor extends ModuleCore
 {
-	protected $option_key = FALSE;
-	protected $network    = FALSE;
+
+	protected $key     = 'editor';
+	protected $network = FALSE;
 
 	public $tinymce = array(
 		array(), // 0: teeny_mce_buttons
@@ -34,7 +37,7 @@ class gNetworkEditor extends gNetworkModuleCore
 		add_filter( 'mce_external_plugins', array( $this, 'mce_external_plugins' ) );
 
 		if ( ! version_compare( $tinymce_version, '4100', '<' ) ) {
-			gNetworkAdmin::registerTinyMCE( 'table', 'assets/js/tinymce.table', 2 );
+			Admin::registerTinyMCE( 'table', 'assets/js/tinymce.table', 2 );
 			add_filter( 'content_save_pre', array( $this, 'content_save_pre' ), 20 );
 		}
 	}

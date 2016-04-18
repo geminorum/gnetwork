@@ -1,10 +1,11 @@
-<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+<?php namespace geminorum\gNetwork;
 
-class gNetworkbbPress extends gNetworkModuleCore
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+
+class bbPress extends ModuleCore
 {
-
-	protected $option_key = FALSE;
-	protected $network    = FALSE;
+	protected $key     = 'bbpress';
+	protected $network = FALSE;
 
 	protected function setup_actions()
 	{

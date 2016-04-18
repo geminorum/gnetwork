@@ -1,11 +1,13 @@
-<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+<?php namespace geminorum\gNetwork;
 
-class gNetworkTaxonomy extends gNetworkModuleCore
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+
+class Taxonomy extends ModuleCore
 {
 
-	protected $option_key = FALSE;
-	protected $network    = FALSE;
-	protected $front_end  = FALSE;
+	protected $key     = 'taxonomy';
+	protected $network = FALSE;
+	protected $front   = FALSE;
 
 	protected function setup_actions()
 	{
@@ -208,7 +210,7 @@ class gNetworkTaxonomy extends gNetworkModuleCore
 
 			$posts = get_objects_in_term( (int) $term_id, $taxonomy );
 
-			if ( is_wp_error( $posts ) )
+			if ( self::isError( $posts ) )
 				continue;
 
 			foreach ( $posts as $post )
@@ -224,7 +226,7 @@ class gNetworkTaxonomy extends gNetworkModuleCore
 
 			$term = get_term( $term_id, $taxonomy );
 
-			if ( is_wp_error( $term ) )
+			if ( self::isError( $term ) )
 				continue;
 
 			$args = array(
@@ -248,7 +250,7 @@ class gNetworkTaxonomy extends gNetworkModuleCore
 		if ( ! $term = term_exists( $term_name, $taxonomy ) )
 			$term = wp_insert_term( $term_name, $taxonomy );
 
-		if ( is_wp_error( $term ) )
+		if ( self::isError( $term ) )
 			return FALSE;
 
 		$to_term = $term['term_id'];
@@ -266,7 +268,7 @@ class gNetworkTaxonomy extends gNetworkModuleCore
 				'force_default' => TRUE,
 			) );
 
-			if ( is_wp_error( $merged ) )
+			if ( self::isError( $merged ) )
 				continue;
 
 			// OLD: 'term_management_tools_term_merged'
@@ -286,7 +288,7 @@ class gNetworkTaxonomy extends gNetworkModuleCore
 
 			$ret = wp_update_term( $term_id, $taxonomy, array( 'parent' => $parent_id ) );
 
-			if ( is_wp_error( $ret ) )
+			if ( self::isError( $ret ) )
 				return FALSE;
 		}
 
@@ -309,7 +311,7 @@ class gNetworkTaxonomy extends gNetworkModuleCore
 		foreach ( $term_ids as $term_id ) {
 			$term = get_term( $term_id, $taxonomy );
 
-			if ( ! $term || is_wp_error( $term ) )
+			if ( ! $term || self::isError( $term ) )
 				continue;
 
 			if ( $term->parent && ! in_array( $term->parent,$term_ids ) ) {
@@ -352,7 +354,8 @@ class gNetworkTaxonomy extends gNetworkModuleCore
 	{
 		global $taxonomy;
 
-		wp_localize_script( gNetworkUtilities::enqueueScript( 'admin.taxonomy' ), 'gNetworkTaxonomy', $this->get_actions( $taxonomy ) );
+		wp_localize_script( Utilities::enqueueScript( 'admin.taxonomy' ),
+			'gNetworkTaxonomy', $this->get_actions( $taxonomy ) );
 	}
 
 	public function admin_footer()

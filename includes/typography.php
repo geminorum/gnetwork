@@ -1,20 +1,20 @@
-<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+<?php namespace geminorum\gNetwork;
 
-class gNetworkTypography extends gNetworkModuleCore
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+
+class Typography extends ModuleCore
 {
 
-	protected $option_key = FALSE;
-	protected $network    = FALSE;
+	protected $key     = 'typography';
+	protected $network = FALSE;
 
 	protected function setup_actions()
 	{
 		add_action( 'init', array( $this, 'init' ), 12 );
 
-		if ( class_exists( 'gNetworkAdmin' ) ) {
-			add_action( 'gnetwork_tinymce_strings', array( $this, 'tinymce_strings' ) );
-			gNetworkAdmin::registerTinyMCE( 'gnetworkquote', 'assets/js/tinymce.quote', 1 );
-			gNetworkAdmin::registerTinyMCE( 'gnetworkasterisks', 'assets/js/tinymce.asterisks', 2 );
-		}
+		add_action( 'gnetwork_tinymce_strings', array( $this, 'tinymce_strings' ) );
+		Admin::registerTinyMCE( 'gnetworkquote', 'assets/js/tinymce.quote', 1 );
+		Admin::registerTinyMCE( 'gnetworkasterisks', 'assets/js/tinymce.asterisks', 2 );
 	}
 
 	public function init()

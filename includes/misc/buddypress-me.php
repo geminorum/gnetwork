@@ -1,6 +1,8 @@
-<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+<?php namespace geminorum\gNetwork;
 
-class gNetwork_BP_Me_Component extends BP_Component
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+
+class BP_Me_Component extends \BP_Component
 {
 
 	public function __construct()
@@ -42,7 +44,7 @@ class gNetwork_BP_Me_Component extends BP_Component
 			bp_core_redirect( bp_get_root_domain() );
 
 		if ( ! bp_loggedin_user_id() )
-			bp_core_redirect( wp_login_url( gNetworkUtilities::currentURL() ) );
+			bp_core_redirect( wp_login_url( Utilities::currentURL() ) );
 
 		$actions = apply_filters( 'gnetwork_bp_me_actions', array(
 			'profile'  => array( $this, 'me_action_profile' ),

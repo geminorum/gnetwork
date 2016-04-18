@@ -130,7 +130,7 @@
 					margin-right: auto;
 					text-align: left;
 					direction: ltr;
-					width: 100% !important; 
+					width: 100% !important;
 				}
 
 				th {
@@ -203,16 +203,20 @@
 				vertical-align: middle;
 
 				&.icon-wrap {
+
 					a {
 						text-decoration: none;
 						color: #666;
+
 						&:focus {
 							outline: none;
 							box-shadow: none;
 						}
 					}
+
 					.dashicons {
-						vertical-align: middle;
+						// vertical-align: middle;
+						vertical-align: text-top;
 						width: 22px;
 						height: 22px;
 						font-size: 22px;

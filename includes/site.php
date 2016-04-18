@@ -1,14 +1,15 @@
-<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+<?php namespace geminorum\gNetwork;
 
-class gNetworkSite extends gNetworkModuleCore
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+
+class Site extends ModuleCore
 {
 
-	protected $option_key = 'global';
-	protected $network    = TRUE;
+	protected $key = 'general';
 
-	protected function setup_actions()
+	public function setup_menu( $context )
 	{
-		$this->register_menu( 'global',
+		Network::registerMenu( $this->key,
 			_x( 'Global', 'Site Module: Menu Name', GNETWORK_TEXTDOMAIN ),
 			array( $this, 'settings' )
 		);
@@ -25,7 +26,7 @@ class gNetworkSite extends gNetworkModuleCore
 	{
 		$settings = array();
 
-		if ( class_exists( 'gNetworkLocale' ) ) {
+		if ( class_exists( __NAMESPACE__.'\\Locale' ) ) {
 			$settings['_locale'] = array(
 				array(
 					'field'       => 'admin_locale',
@@ -33,7 +34,7 @@ class gNetworkSite extends gNetworkModuleCore
 					'title'       => _x( 'Network Language', 'Site Module', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Despite of the site language, always display network admin in this locale', 'Site Module', GNETWORK_TEXTDOMAIN ),
 					'default'     => 'en_US',
-					'values'      => gNetworkUtilities::sameKey( gNetworkLocale::available() ),
+					'values'      => Utilities::sameKey( Locale::available() ),
 				),
 			);
 		}

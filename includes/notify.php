@@ -1,21 +1,28 @@
-<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+<?php namespace geminorum\gNetwork;
 
-class gNetworkNotify extends gNetworkModuleCore
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+
+class Notify extends ModuleCore
 {
 
-	protected $option_key = 'notify';
-	protected $network    = TRUE;
-	protected $ajax       = TRUE;
+	protected $key  = 'notify';
+	protected $ajax = TRUE;
 
 	protected function setup_actions()
 	{
-		$this->register_menu( 'notify',
+		add_filter( 'wpmu_welcome_notification', array( $this, 'wpmu_welcome_notification' ), 10, 5 );
+		add_filter( 'auto_core_update_send_email', array( $this, 'auto_core_update_send_email' ), 12, 4 );
+
+		if ( file_exists( GNETWORK_DIR.'includes/misc/notify-pluggable.php' ) )
+			require_once( GNETWORK_DIR.'includes/misc/notify-pluggable.php' );
+	}
+
+	public function setup_menu( $context )
+	{
+		$this->register_menu(
 			_x( 'Notify', 'Notify Module: Menu Name', GNETWORK_TEXTDOMAIN ),
 			array( $this, 'settings' )
 		);
-
-		add_filter( 'wpmu_welcome_notification', array( $this, 'wpmu_welcome_notification' ), 10, 5 );
-		add_filter( 'auto_core_update_send_email', array( $this, 'auto_core_update_send_email' ), 12, 4 );
 	}
 
 	public function default_options()
@@ -32,7 +39,6 @@ class gNetworkNotify extends gNetworkModuleCore
 			'_general' => array(
 				array(
 					'field'       => 'disable_new_user_admin',
-					'type'        => 'enabled',
 					'title'       => _x( 'New User', 'Notify Module', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Notify the blog admin of a newly-registered user', 'Notify Module', GNETWORK_TEXTDOMAIN ),
 					'default'     => '1',
@@ -43,7 +49,6 @@ class gNetworkNotify extends gNetworkModuleCore
 				),
 				array(
 					'field'       => 'disable_password_change',
-					'type'        => 'enabled',
 					'title'       => _x( 'Password Reset', 'Notify Module', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Notify the blog admin of a user changing password', 'Notify Module', GNETWORK_TEXTDOMAIN ),
 					'default'     => '1',
@@ -105,7 +110,7 @@ class gNetworkNotify extends gNetworkModuleCore
 
 		if ( empty( $wp_hasher ) ) {
 			require_once ABSPATH.WPINC.'/class-phpass.php';
-			$wp_hasher = new PasswordHash( 8, TRUE );
+			$wp_hasher = new \PasswordHash( 8, TRUE );
 		}
 
 		$hashed = time().':'.$wp_hasher->HashPassword( $key );
@@ -135,7 +140,6 @@ class gNetworkNotify extends gNetworkModuleCore
 		wp_mail( get_option( 'admin_email' ), sprintf( __( '[%s] Password Lost/Changed' ), $this->blogname() ), $message );
 	}
 
-	// HELPER
 	// The blogname option is escaped with esc_html on the way into the database in sanitize_option
 	// we want to reverse this for the plain text arena of emails.
 	public function blogname()
@@ -143,15 +147,3 @@ class gNetworkNotify extends gNetworkModuleCore
 		return wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
 	}
 }
-
-if ( ! function_exists( 'wp_new_user_notification' ) ) :
-function wp_new_user_notification( $user_id, $deprecated = NULL, $notify = '' ) {
-	global $gNetwork;
-	return $gNetwork->notify->wp_new_user_notification( $user_id, $deprecated, $notify );
-} endif;
-
-if ( ! function_exists( 'wp_password_change_notification' ) ) :
-function wp_password_change_notification( $user ) {
-	global $gNetwork;
-	return $gNetwork->notify->wp_password_change_notification( $user );
-} endif;

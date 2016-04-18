@@ -1,32 +1,48 @@
-<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+<?php namespace geminorum\gNetwork;
 
-// Originally based on : Simple Login Lockdown v1.1
-// BY: chrisguitarguy http://www.pwsausa.org/
-// SEE: https://github.com/chrisguitarguy/simple-login-lockdown
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
-class gNetworkLockDown extends gNetworkModuleCore
+class LockDown extends ModuleCore
 {
 
-	protected $option_key = 'lockdown';
-	protected $network    = TRUE;
+	protected $key = 'lockdown';
 
 	private $locked_prefix = 'gnld_locked_';
 	private $failed_prefix = 'gnld_failed_';
 
 	protected function setup_actions()
 	{
-		$this->register_menu( 'lockdown',
-			_x( 'Lockdown', 'LockDown Module: Menu Name', GNETWORK_TEXTDOMAIN ),
-			array( $this, 'settings' )
-		);
-
 		if ( ! $this->options['record_attempts'] )
 			return;
+
+		// Originally based on : Simple Login Lockdown v1.1
+		// BY: chrisguitarguy http://www.pwsausa.org/
+		// SEE: https://github.com/chrisguitarguy/simple-login-lockdown
 
 		add_filter( 'authenticate', array( $this, 'authenticate' ), 1 );
 		add_action( 'wp_login', array( $this, 'wp_login' ) );
 		add_action( 'wp_login_failed', array( $this, 'wp_login_failed' ) );
 		add_filter( 'shake_error_codes', array( $this, 'shake_error_codes' ) );
+	}
+
+	public function setup_menu( $context )
+	{
+		$this->register_menu(
+			_x( 'Lockdown', 'LockDown Module: Menu Name', GNETWORK_TEXTDOMAIN ),
+			array( $this, 'settings' )
+		);
+	}
+
+	public function default_options()
+	{
+		return array(
+			'record_attempts'   => '0',
+			'failed_expiration' => '60',
+			'locked_expiration' => '60', // FIXME: better be more than 4 hours?
+			'failed_limit'      => '4',
+			'trust_proxied_ip'  => '0',
+			'locked_notice'     => _x( '<strong>LOCKED OUT</strong>: Too many login attempts from one IP address! Please take a break and try again.', 'LockDown Module', GNETWORK_TEXTDOMAIN ),
+		);
 	}
 
 	public function default_settings()
@@ -35,17 +51,13 @@ class gNetworkLockDown extends gNetworkModuleCore
 			'_general' => array(
 				array(
 					'field'       => 'record_attempts',
-					'type'        => 'enabled',
 					'title'       => _x( 'Record & Lockdown', 'LockDown Module', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Select to record failed attempts and lockdown after the limit is reached.', 'LockDown Module', GNETWORK_TEXTDOMAIN ),
-					'default'     => '0',
 				),
 				array(
 					'field'       => 'trust_proxied_ip',
-					'type'        => 'enabled',
 					'title'       => _x( 'Trust Proxy Data', 'LockDown Module', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Do we trust forwarded IP adresses?', 'LockDown Module', GNETWORK_TEXTDOMAIN ),
-					'default'     => '0',
 				),
 				array(
 					'field'       => 'failed_limit',
@@ -61,15 +73,7 @@ class gNetworkLockDown extends gNetworkModuleCore
 					'title'       => _x( 'Login Lockdown Time', 'LockDown Module', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'How long should the user be locked out?', 'LockDown Module', GNETWORK_TEXTDOMAIN ),
 					'default'     => '60',
-					'values'      => array(
-						'30'   => _x( '30 Minutes', 'LockDown Module', GNETWORK_TEXTDOMAIN ),
-						'60'   => _x( '60 Minutes', 'LockDown Module', GNETWORK_TEXTDOMAIN ),
-						'120'  => _x( '2 Hours', 'LockDown Module', GNETWORK_TEXTDOMAIN ),
-						'180'  => _x( '3 Hours', 'LockDown Module', GNETWORK_TEXTDOMAIN ),
-						'240'  => _x( '4 Hours', 'LockDown Module', GNETWORK_TEXTDOMAIN ),
-						'480'  => _x( '8 Hours', 'LockDown Module', GNETWORK_TEXTDOMAIN ),
-						'1440' => _x( '24 Hours', 'LockDown Module', GNETWORK_TEXTDOMAIN ),
-					),
+					'values'      => Utilities::getTimeInMinutes(),
 				),
 				array(
 					'field'       => 'locked_notice',
@@ -79,18 +83,6 @@ class gNetworkLockDown extends gNetworkModuleCore
 					'field_class' => 'large-text',
 				),
 			),
-		);
-	}
-
-	public function default_options()
-	{
-		return array(
-			'record_attempts'   => '0',
-			'failed_expiration' => '60',
-			'locked_expiration' => '60', // FIXME: better be more than 4 hours?
-			'failed_limit'      => '4',
-			'trust_proxied_ip'  => '0',
-			'locked_notice'     => _x( '<strong>LOCKED OUT</strong>: Too many login attempts from one IP address! Please take a break and try again.', 'LockDown Module', GNETWORK_TEXTDOMAIN ),
 		);
 	}
 
@@ -166,7 +158,7 @@ class gNetworkLockDown extends gNetworkModuleCore
 		remove_action( 'wp_login_failed', array( $this, 'wp_login_failed' ) );
 		remove_filter( 'authenticate', 'wp_authenticate_username_password', 20, 3 );
 
-		return new WP_Error( 'gnetwork_lockdown_locked', $this->options['locked_notice'] );
+		return new Error( 'gnetwork_lockdown_locked', $this->options['locked_notice'] );
 	}
 
 	public function wp_login()

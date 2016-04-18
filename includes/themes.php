@@ -1,10 +1,12 @@
-<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+<?php namespace geminorum\gNetwork;
 
-class gNetworkThemes extends gNetworkModuleCore
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+
+class Themes extends ModuleCore
 {
 
-	protected $option_key = 'themes';
-	protected $network    = FALSE;
+	protected $key     = 'themes';
+	protected $network = FALSE;
 
 	private $rtl   = NULL;
 	private $theme = NULL;
@@ -13,11 +15,13 @@ class gNetworkThemes extends gNetworkModuleCore
 	{
 		add_filter( 'the_generator', '__return_null', 98 );
 
-		add_action( 'after_setup_theme', array( $this, 'after_setup_theme' ) );
+		if ( ! GNETWORK_DISABLE_THEMES )
+			add_action( 'after_setup_theme', array( $this, 'after_setup_theme' ) );
+
 		add_action( 'wp_head', array( $this, 'wp_head' ), 12 );
 		add_filter( 'body_class', array( $this, 'body_class' ), 5, 2 );
 
-		// NOT WORKING : when trying to enable each theme
+		// FIXME: NOT WORKING : when trying to enable each theme
 		// add_filter( 'allowed_themes', array( $this, 'allowed_themes' ) );
 
 		add_action( 'bp_dtheme_credits', array( $this, 'bp_dtheme_credits' ) );
@@ -46,7 +50,7 @@ class gNetworkThemes extends gNetworkModuleCore
 			}, 20 );
 
 			add_filter( 'mce_css', function( $url ){
-				return gNetworkThemes::appendMCECSS( $url, 'publish' );
+				return Themes::appendMCECSS( $url, 'publish' );
 			} );
 
 		} else if ( $this->isTheme( 'hueman' ) ) { // v2.2.3
@@ -72,7 +76,7 @@ class gNetworkThemes extends gNetworkModuleCore
 				}, 12 );
 
 				add_filter( 'the_excerpt', function( $text ){
-					return $text.gNetworkThemes::continueReading();
+					return $text.Themes::continueReading();
 				}, 5 );
 			}
 
@@ -115,7 +119,7 @@ class gNetworkThemes extends gNetworkModuleCore
 			if ( $this->rtl ) {
 
 				add_action( 'wp_head', function(){
-					gNetworkUtilities::linkStyleSheet( GNETWORK_URL.'assets/css/themes.p2-rtl.css' );
+					Utilities::linkStyleSheet( GNETWORK_URL.'assets/css/themes.p2-rtl.css' );
 					// wp_enqueue_style( 'p2-rtl', GNETWORK_URL.'assets/css/themes.p2-rtl.css', array(), GNETWORK_VERSION );
 					// wp_enqueue_style( 'p2-print-style-rtl', GNETWORK_URL.'assets/css/themes.p2-rtl-print.css', array( 'p2-rtl' ), GNETWORK_VERSION, 'print' );
 				}, 99 );
@@ -150,7 +154,7 @@ class gNetworkThemes extends gNetworkModuleCore
 				}, 20 );
 
 				add_filter( 'the_excerpt', function( $text ){
-					return $text.gNetworkThemes::continueReading();
+					return $text.Themes::continueReading();
 				}, 5 );
 			}
 
@@ -178,13 +182,13 @@ class gNetworkThemes extends gNetworkModuleCore
 
 	public function wp_head()
 	{
-		if ( defined( 'GNETWORK_DISABLE_FRONT_STYLES' ) && GNETWORK_DISABLE_FRONT_STYLES )
-			return;
+		if ( defined( 'GNETWORK_DISABLE_FRONT_STYLES' )
+			&& GNETWORK_DISABLE_FRONT_STYLES )
+				return;
 
-		gNetworkUtilities::linkStyleSheet( GNETWORK_URL.'assets/css/front.all.css' );
+		Utilities::linkStyleSheet( GNETWORK_URL.'assets/css/front.all.css' );
 	}
 
-	// HELPER
 	public function isTheme( $template, $not_stylesheet = NULL )
 	{
 		if ( is_null( $this->theme ) )
@@ -208,8 +212,7 @@ class gNetworkThemes extends gNetworkModuleCore
 		return $allowed;
 	}
 
-	// HELPER
-	public function continueReading()
+	public static function continueReading()
 	{
 		return ' '.sprintf(
 			_x( '<a %1$s href="%1$s" title="Continue reading &ldquo;%2$s&rdquo; &hellip;" class="%3$s" >%4$s</a>', 'Themes Module: Continue Reading Helper', GNETWORK_TEXTDOMAIN ),

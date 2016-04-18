@@ -164,6 +164,7 @@ ul.categorychecklist {
 
 #poststuff {
 
+	#set-post-thumbnail-desc,
 	#postexcerpt div.inside p,
 	#postcustom div.inside > p,
 	#trackbacksdiv div.inside p:last-child {
@@ -171,12 +172,17 @@ ul.categorychecklist {
 		visibility: hidden;
 	}
 
-	#postimagediv div.inside p {
-		text-align:center;
+	#postimagediv {
 
-		img.attachment-post-thumbnail{
-			max-width: 100%;
-			height: auto;
+		div.inside p {
+			text-align:center;
+		}
+
+		#set-post-thumbnail {
+			img {
+				max-width: 100%;
+				height: auto;
+			}
 		}
 	}
 

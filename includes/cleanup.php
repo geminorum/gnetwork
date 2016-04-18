@@ -1,23 +1,16 @@
-<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+<?php namespace geminorum\gNetwork;
 
-class gNetworkCleanup extends gNetworkModuleCore
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+
+class Cleanup extends ModuleCore
 {
 
-	protected $menu_key = 'cleanup';
-	protected $network  = FALSE;
+	protected $key     = 'cleanup';
+	protected $network = FALSE;
 
 	protected function setup_actions()
 	{
-		$this->register_menu( 'cleanup',
-			_x( 'Cleanup', 'Cleanup Module: Menu Name', GNETWORK_TEXTDOMAIN ),
-			array( $this, 'settings' )
-		);
-
-		add_action( 'plugins_loaded' , array( $this, 'plugins_loaded' ), 10 );
-
-		if ( GNETWORK_DISABLE_EMOJIS )
-			add_action( 'init' , array( $this, 'init' ), 12 );
-
+		add_action( 'init' , array( $this, 'init_late' ), 99 );
 		add_action( 'wp_default_scripts', array( $this, 'wp_default_scripts' ), 9 );
 
 		add_action( 'admin_menu', array( $this, 'admin_menu_late' ), 999 );
@@ -31,6 +24,14 @@ class gNetworkCleanup extends gNetworkModuleCore
 
 		// SEE: http://stephanis.info/2014/08/13/on-jetpack-and-auto-activating-modules
 		add_filter( 'jetpack_get_default_modules', '__return_empty_array' );
+	}
+
+	public function setup_menu( $context )
+	{
+		Admin::registerMenu( $this->key,
+			_x( 'Cleanup', 'Cleanup Module: Menu Name', GNETWORK_TEXTDOMAIN ),
+			array( $this, 'settings' )
+		);
 	}
 
 	public function default_settings()
@@ -150,10 +151,10 @@ class gNetworkCleanup extends gNetworkModuleCore
 		}
 	}
 
-	public function plugins_loaded()
+	public function init_late()
 	{
-		// added by: Search Everything / http://wordpress.org/plugins/search-everything/
-		remove_action( 'wp_head', 'se_global_head' );
+		remove_action( 'wp_head', 'se_global_head' ); // by: Search Everything / http://wordpress.org/plugins/search-everything/
+		remove_action( 'rightnow_end', array( 'Akismet_Admin', 'rightnow_stats' ) ); // by: Akismet
 	}
 
 	// @SOURCE: http://www.paulund.co.uk/remove-jquery-migrate-file-wordpress
@@ -167,30 +168,8 @@ class gNetworkCleanup extends gNetworkModuleCore
 				|| GNETWORK_DISABLE_JQUERY_MIGRATE ) ) {
 
 			$scripts->remove( 'jquery' );
-			$scripts->add( 'jquery', FALSE, array( 'jquery-core' ), '1.12.2' );
+			$scripts->add( 'jquery', FALSE, array( 'jquery-core' ), '1.12.3' );
 		}
-	}
-
-	// originally from: Disable Emojis v1.5.1
-	// @SOURCE: https://wordpress.org/plugins/disable-emojis/
-	public function init()
-	{
-		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
-		remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
-		remove_action( 'wp_print_styles', 'print_emoji_styles' );
-		remove_action( 'admin_print_styles', 'print_emoji_styles' );
-		remove_filter( 'the_content_feed', 'wp_staticize_emoji' );
-		remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );
-		remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
-
-		add_filter( 'tiny_mce_plugins', array( $this, 'tiny_mce_plugins' ) );
-	}
-
-	public function tiny_mce_plugins( $plugins )
-	{
-		if ( is_array( $plugins ) )
-			return array_diff( $plugins, array( 'wpemoji' ) );
-		return array();
 	}
 
 	// @SOURCE: http://justintadlock.com/archives/2011/06/13/removing-menu-pages-from-the-wordpress-admin

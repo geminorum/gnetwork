@@ -1,22 +1,27 @@
-<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+<?php namespace geminorum\gNetwork;
 
-class gNetworkMaintenance extends gNetworkModuleCore
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+
+class Maintenance extends ModuleCore
 {
 
-	protected $option_key = 'maintenance';
-	protected $network    = FALSE;
+	protected $key     = 'maintenance';
+	protected $network = FALSE;
 
 	protected function setup_actions()
 	{
-		gNetworkAdmin::registerMenu( 'maintenance',
+		if ( is_admin() )
+			add_action( 'admin_init', array( $this, 'admin_init' ) );
+		else
+			add_action( 'init', array( $this, 'init' ), 2 );
+	}
+
+	public function setup_menu( $context )
+	{
+		Admin::registerMenu( $this->key,
 			_x( 'Maintenance', 'Maintenance Module: Menu Name', GNETWORK_TEXTDOMAIN ),
 			array( $this, 'settings' )
 		);
-
-		if ( ! is_admin() )
-			add_action( 'init', array( $this, 'init' ), 2 );
-		else
-			add_action( 'admin_init', array( $this, 'admin_init' ) );
 	}
 
 	public function init()
@@ -26,9 +31,8 @@ class gNetworkMaintenance extends gNetworkModuleCore
 			add_filter( 'status_header', array( $this, 'status_header' ), 10, 4 );
 			add_filter( 'login_message', array( $this, 'login_message' ) );
 
-			// FIXME: use a layout with http status code
-			foreach ( array ( 'rdf', 'rss', 'rss2', 'atom', 'json' ) as $feed )
-				add_action( 'do_feed_'.$feed, create_function( '', 'die( \'<?xml version="1.0" encoding="UTF-8"?><status>Service unavailable</status>\' );' ), 1, 1 );
+			foreach ( Utilities::getFeeds() as $feed )
+				add_action( 'do_feed_'.$feed, array( $this, 'do_feed_feed' ), 1, 1 );
 		}
 	}
 
@@ -39,6 +43,18 @@ class gNetworkMaintenance extends gNetworkModuleCore
 			add_filter( 'status_header', array( $this, 'status_header' ), 10, 4 );
 			add_action( 'admin_notices', array( $this, 'admin_notices' ) );
 		}
+	}
+
+	public function default_options()
+	{
+		return array(
+			'maintenance_site'  => 'none',
+			'maintenance_admin' => 'none',
+			'admin_notice'      => '',
+			'login_message'     => '',
+			'status_code'       => '503',
+			'retry_after'       => '10',
+		);
 	}
 
 	public function default_settings()
@@ -73,6 +89,7 @@ class gNetworkMaintenance extends gNetworkModuleCore
 					'type'        => 'textarea-quicktags',
 					'title'       => _x( 'Admin Notice', 'Maintenance Module', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'The admin notice while site is on maintenance. Leave empty to disable.', 'Maintenance Module', GNETWORK_TEXTDOMAIN ),
+					'default'     => _x( 'The Maintenance Mode is active.', 'Maintenance Module: Default Option', GNETWORK_TEXTDOMAIN ),
 					'field_class' => array( 'large-text', 'code-text' ),
 				),
 				array(
@@ -80,27 +97,59 @@ class gNetworkMaintenance extends gNetworkModuleCore
 					'type'        => 'textarea-quicktags',
 					'title'       => _x( 'Login Message', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'The login message while site is on maintenance. Leave empty to disable.', 'Maintenance Module', GNETWORK_TEXTDOMAIN ),
+					'default'     => _x( 'The site is unavailable for scheduled maintenance.', 'Maintenance Module: Default Option', GNETWORK_TEXTDOMAIN ),
 					'field_class' => array( 'large-text', 'code-text' ),
+				),
+				array(
+					'field'       => 'status_code',
+					'type'        => 'select',
+					'title'       => _x( 'Status Code', 'Maintenance Module', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'HTTP status header code', 'Maintenance Module', GNETWORK_TEXTDOMAIN ),
+					'dir'         => 'ltr',
+					'default'     => '503',
+					'values'      => array(
+						'307' => '307 Temporary Redirect',
+						'403' => '403 Forbidden',
+						'404' => '404 Not Found',
+						'406' => '406 Not Acceptable',
+						'410' => '410 Gone',
+						'451' => '451 Unavailable For Legal Reasons',
+						'500' => '500 Internal Server Error',
+						'501' => '501 Not Implemented',
+						'503' => '503 Service Unavailable',
+					),
+				),
+				array(
+					'field'       => 'retry_after',
+					'type'        => 'select',
+					'title'       => _x( 'Retry After', 'Maintenance Module', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'HTTP status header retry after', 'Maintenance Module', GNETWORK_TEXTDOMAIN ),
+					'default'     => '10',
+					'values'      => Utilities::getTimeInMinutes(),
 				),
 			),
 		);
 	}
 
-	public function default_options()
+	public function do_feed_feed()
 	{
-		return array(
-			'maintenance_site'  => 'none',
-			'maintenance_admin' => 'none',
-			'admin_notice'      => _x( 'The Maintenance Mode is active.', 'Maintenance Module: Defult Option', GNETWORK_TEXTDOMAIN ),
-			'login_message'     => _x( 'The site is unavailable for scheduled maintenance.', 'Maintenance Module: Default Option', GNETWORK_TEXTDOMAIN ),
-		);
+		nocache_headers();
+
+		status_header( $this->options['status_code'] );
+
+		self::headerRetryInMinutes( $this->options['retry_after'] );
+
+		echo '<?xml version="1.0" encoding="UTF-8"?><status>'.get_status_header_desc( $this->options['status_code'] ).'</status>';
+
+		die();
 	}
 
 	public function status_header( $status_header, $header, $text, $protocol )
 	{
-		if ( ! is_user_logged_in()
-			|| ! current_user_can( 'manage_options' )  )
-				return "$protocol 503 Service Unavailable";
+		if ( current_user_can( 'manage_options' ) )
+			return $status_header;
+
+		return $protocol.' '.$this->options['status_code'].' '.get_status_header_desc( $this->options['status_code'] );
 	}
 
 	public function admin_notices()
@@ -152,7 +201,7 @@ class gNetworkMaintenance extends gNetworkModuleCore
 		}
 	}
 
-	// FIXME: use gNetworkUtilities::getLayout()
+	// FIXME: use Utilities::getLayout()
 	public static function get_template()
 	{
 		$forced_template = apply_filters( 'gnetwork_maintenance_forced_template', FALSE );
@@ -172,15 +221,13 @@ class gNetworkMaintenance extends gNetworkModuleCore
 		return FALSE;
 	}
 
-	// HELPER
-	public static function get503Message( $class = 'message' )
+	public static function get503Message( $class = 'message', $fallback = NULL )
 	{
-		global $gNetwork;
+		if ( is_null( $fallback ) )
+			$fallback = _x( 'The site is unavailable for scheduled maintenance.',
+				'Maintenance Module: Default 503 Message', GNETWORK_TEXTDOMAIN );
 
-		if ( isset( $gNetwork->maintenance ) && $gNetwork->maintenance->options['login_message'] )
-			$html = $gNetwork->maintenance->options['login_message'];
-		else
-			$html = _x( 'The site is unavailable for scheduled maintenance.', 'Maintenance Module: Default 503 Message', GNETWORK_TEXTDOMAIN );
+		$html = gNetwork()->option( 'login_message', 'maintenance', $fallback );
 
 		if ( $class )
 			$html = self::html( 'div', array(
@@ -212,7 +259,7 @@ class gNetworkMaintenance extends gNetworkModuleCore
 		);
 
 		header( "HTTP/1.1 503 Service Unavailable", TRUE, 503 );
-		gNetworkUtilities::headers( $headers );
+		Utilities::headers( $headers );
 
 		?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fa">

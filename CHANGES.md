@@ -1,3 +1,10 @@
+### 3.0.0
+* moved to [Semantic Versioning](http://semver.org/)
+* moved to namespace structure
+* comments: frontend autogrow, adopted from [Comment Autogrow](https://wordpress.org/plugins/comment-autogrow/) by [scribu](http://scribu.net/)
+* comments: new comment type as `archived`, also hides and excluded from comments count
+* themes: `GNETWORK_DISABLE_THEMES` constant
+
 ### 0.2.33
 * media: media objects now cleans the attachments
 * media: clean attachments on media row & bulk actions

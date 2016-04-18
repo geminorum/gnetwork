@@ -1,21 +1,23 @@
-<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+<?php namespace geminorum\gNetwork;
 
-// Based on: Block Bad Queries (BBQ) by Jeff Starr
-// http://perishablepress.com/block-bad-queries/
-// @SOURCE: https://wordpress.org/plugins/block-bad-queries/
-// @VERSION: 20151107
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
-class gNetworkBBQ extends gNetworkModuleCore
+class BBQ extends ModuleCore
 {
 
-	protected $option_key = FALSE;
-	protected $network    = FALSE;
-	protected $ajax       = TRUE;
+	protected $key     = 'bbq';
+	protected $network = FALSE;
+	protected $ajax    = TRUE;
 
 	protected function setup_actions()
 	{
 		if ( GNETWORK_DISABLE_BBQ )
-			throw new \Exception( 'BBQ is diabled!' );
+			throw new Exception( 'BBQ is diabled!' );
+
+		// Based on: Block Bad Queries (BBQ) by Jeff Starr
+		// http://perishablepress.com/block-bad-queries/
+		// @SOURCE: https://wordpress.org/plugins/block-bad-queries/
+		// @VERSION: 20151107
 
 		$request_uri_array  = array( 'eval\(', 'UNION(.*)SELECT', '\(null\)', 'base64_', '\/localhost', '\%2Flocalhost', '\/pingserver', '\/config\.', '\/wwwroot', '\/makefile', 'crossdomain\.', 'proc\/self\/environ', 'etc\/passwd', '\/https\:', '\/http\:', '\/ftp\:', '\/cgi\/', '\.cgi', '\.exe', '\.sql', '\.ini', '\.dll', '\.asp', '\.jsp', '\/\.bash', '\/\.git', '\/\.svn', '\/\.tar', ' ', '\<', '\>', '\/\=', '\.\.\.', '\+\+\+', '\:\/\/', '\/&&', '\/Nt\.', '\;Nt\.', '\=Nt\.', '\,Nt\.', '\.exec\(', '\)\.html\(', '\{x\.html\(', '\(function\(', '\.php\([0-9]+\)' );
 		$query_string_array = array( '\.\.\/', '127\.0\.0\.1', 'localhost', 'loopback', '\%0A', '\%0D', '\%00', '\%2e\%2e', 'input_file', 'execute', 'mosconfig', 'path\=\.', 'mod\=\.', 'wp-config\.php' );

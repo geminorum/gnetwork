@@ -1,27 +1,8 @@
-<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+<?php namespace geminorum\gNetwork;
 
-class Debug_Bar_gNetwork extends Debug_Bar_Panel
-{
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
-	public function init()
-	{
-		$this->title( _x( 'Extras', 'Debug Module: Debug Bar Panel Title', GNETWORK_TEXTDOMAIN ) );
-	}
-
-	public function render()
-	{
-		echo '<div id="gnetwork-debugbar-panel" class="gnetwork-admin-wrap debugbar-panel">';
-		foreach ( apply_filters( 'gnetwork_debugbar_panel_groups', array() ) as $group_slug => $group_title ) {
-			echo '<h3>'.$group_title.'</h3>';
-			echo '<div class="group">';
-			do_action( 'gnetwork_debugbar_panel_'.$group_slug );
-			echo '</div>';
-		}
-		echo '</div>';
-	}
-}
-
-class Debug_Bar_gNetworkMeta extends Debug_Bar_Panel
+class Debug_Bar_gNetworkMeta extends \Debug_Bar_Panel
 {
 
 	public function init()
@@ -53,9 +34,9 @@ class Debug_Bar_gNetworkMeta extends Debug_Bar_Panel
 				foreach ( $values as $value ){
 					$data = maybe_unserialize( $value );
 					if ( is_array( $value ) )
-						gNetworkUtilities::tableSide( $data );
+						Utilities::tableSide( $data );
 					else
-						gNetworkUtilities::dump( $data );
+						Utilities::dump( $data );
 				}
 				echo '</div>';
 			}

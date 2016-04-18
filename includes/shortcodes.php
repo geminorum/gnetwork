@@ -1,10 +1,12 @@
-<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+<?php namespace geminorum\gNetwork;
 
-class gNetworkShortCodes extends gNetworkModuleCore
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+
+class ShortCodes extends ModuleCore
 {
 
-	protected $option_key = FALSE;
-	protected $network    = FALSE;
+	protected $key     = 'shortcodes';
+	protected $network = FALSE;
 
 	private $flash_ids  = array();
 	private $pdf_ids    = array();
@@ -19,13 +21,11 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		add_action( 'init', array( $this, 'init_late' ), 12 );
 		add_action( 'wp_footer', array( $this, 'wp_footer' ), 20 );
 
-		if ( class_exists( 'gNetworkAdmin' ) ) {
-			add_action( 'gnetwork_tinymce_strings', array( $this, 'tinymce_strings' ) );
-			gNetworkAdmin::registerTinyMCE( 'gnetworkref', 'assets/js/tinymce.ref', 1 );
-			gNetworkAdmin::registerTinyMCE( 'gnetworkemail', 'assets/js/tinymce.email', 1 );
-			gNetworkAdmin::registerTinyMCE( 'gnetworksearch', 'assets/js/tinymce.search', 2 );
-			gNetworkAdmin::registerTinyMCE( 'gnetworkgpeople', 'assets/js/tinymce.gpeople', 2 );
-		}
+		add_action( 'gnetwork_tinymce_strings', array( $this, 'tinymce_strings' ) );
+		Admin::registerTinyMCE( 'gnetworkref', 'assets/js/tinymce.ref', 1 );
+		Admin::registerTinyMCE( 'gnetworkemail', 'assets/js/tinymce.email', 1 );
+		Admin::registerTinyMCE( 'gnetworksearch', 'assets/js/tinymce.search', 2 );
+		Admin::registerTinyMCE( 'gnetworkgpeople', 'assets/js/tinymce.gpeople', 2 );
 	}
 
 	public function init_early()
@@ -72,8 +72,9 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			'search'       => 'shortcode_search',
 		) );
 
-		if ( ! defined( 'GNETWORK_DISABLE_REFLIST_INSERT' ) || ! GNETWORK_DISABLE_REFLIST_INSERT )
-			add_filter( 'the_content', array( $this, 'the_content' ), 20 );
+		if ( ! defined( 'GNETWORK_DISABLE_REFLIST_INSERT' )
+			|| ! GNETWORK_DISABLE_REFLIST_INSERT )
+				add_filter( 'the_content', array( $this, 'the_content' ), 20 );
 	}
 
 	public static function available()
@@ -261,7 +262,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 
 			$terms = get_the_terms( $post->ID, $args['tax'] );
 
-			if ( $terms && ! is_wp_error( $terms ) ) {
+			if ( $terms && ! self::isError( $terms ) ) {
 
 				foreach ( $terms as $term )
 					$term_list[] = $term->term_id;
@@ -298,7 +299,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			'no_found_rows'    => TRUE,
 		);
 
-		$query = new WP_Query;
+		$query = new \WP_Query;
 		$posts = $query->query( $query_args );
 
 		if ( count( $posts ) ) {
@@ -521,7 +522,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
         $email = $args['email'] && is_email( $args['email'] ) ? trim( $args['email'] ) : trim( $content );
 
 		if ( ! $email )
-			$email = gNetworkNetwork::getEmail();
+			$email = gNetwork()->email();
 
 		if ( ! $email )
 			return $text;
@@ -728,7 +729,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 
 		// $this->pdf_ids[$key] = ' var '.$id.' = new PDFObject({url:"'.$args['url'].'",id:"'.$id.'",pdfOpenParams:{navpanes:'.$args['navpanes'].',statusbar:'.$args['statusbar'].',view:"'.$args['view'].'",pagemode:"'.$args['pagemode'].'"}}).embed("'.$id.'div"); ';
 
-		gNetworkUtilities::enqueueScript( 'lib.pdfobject' );
+		Utilities::enqueueScript( 'lib.pdfobject' );
 
 		return '<div id="'.$id.'div">'.$fallback.'</div>';
 	}
@@ -834,7 +835,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		$html  = $content ? trim( $content ) : $title;
 		$html  = '<a href="#" class="audio-go-to-time" title="'.esc_attr( $title ).'" data-time="'.$args['to'].'" data-instance="'.$args['instance'].'">'.$html.'</a>';
 
-		gNetworkUtilities::enqueueScript( 'front.audio-go' );
+		Utilities::enqueueScript( 'front.audio-go' );
 
 		return self::shortcodeWrap( $html, 'audio-go', $args, FALSE );
 	}
@@ -1032,7 +1033,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 		), apply_filters( 'gnetwork_cite_reflist_before', '', $args ).$html );
 
 		if ( ! defined( 'GNETWORK_DISABLE_REFLIST_JS' ) || ! GNETWORK_DISABLE_REFLIST_JS )
-			gNetworkUtilities::enqueueScript( 'front.cite' );
+			Utilities::enqueueScript( 'front.cite' );
 
 		$this->ref_list = TRUE;
 
@@ -1116,7 +1117,7 @@ class gNetworkShortCodes extends gNetworkModuleCore
 			$args['wrap']          = TRUE;
 		}
 
-		gNetworkUtilities::enqueueScript( 'front.cite' );
+		Utilities::enqueueScript( 'front.cite' );
 
 		return '<span>'.( $args['format_number'] ? number_format_i18n( $args['id'] ) : $args['id'] ).$args['after_number']
 				.'<span class="ref-backlink"><a href="#citeref-'.$args['id'].'-m" class="cite-scroll">'.$args['back']

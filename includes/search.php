@@ -1,10 +1,12 @@
-<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+<?php namespace geminorum\gNetwork;
 
-class gNetworkSearch extends gNetworkModuleCore
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+
+class Search extends ModuleCore
 {
 
-	protected $option_key = FALSE;
-	protected $network    = FALSE;
+	protected $key     = 'search';
+	protected $network = FALSE;
 
 	protected function setup_actions()
 	{
@@ -39,7 +41,7 @@ class gNetworkSearch extends gNetworkModuleCore
 		if ( ! $uri )
 			return;
 
-		$wp_the_query = $wp_query = new WP_Query(array(
+		$wp_the_query = $wp_query = new \WP_Query(array(
 			'post_type' => apply_filters( 'error_search_post_types', 'any' ),
 			's'         => str_replace( '/', ' ', $uri ),
 		));

@@ -1,11 +1,13 @@
-<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+<?php namespace geminorum\gNetwork;
 
-class gNetworkAdmin extends gNetworkModuleCore
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+
+class Admin extends ModuleCore
 {
 
-	protected $option_key = FALSE;
-	protected $network    = FALSE;
-	protected $front_end  = FALSE;
+	protected $key     = 'admin';
+	protected $network = FALSE;
+	protected $front   = FALSE;
 
 	public $menus = array();
 
@@ -55,24 +57,26 @@ class gNetworkAdmin extends gNetworkModuleCore
 
 	public function admin_menu()
 	{
+		do_action( 'gnetwork_setup_menu', 'admin' );
+
 		if ( self::cuc( 'manage_options' ) ) {
 
 			$hook = add_menu_page(
 				_x( 'gNetwork Extras', 'Admin Module: Page Menu HTML Title', GNETWORK_TEXTDOMAIN ),
 				_x( 'Extras', 'Admin Module: Page Menu Title', GNETWORK_TEXTDOMAIN ),
 				'manage_options',
-				'gnetwork',
+				$this->base,
 				array( $this, 'admin_settings_page' ),
 				'dashicons-screenoptions',
 				120
 			);
 
 			foreach ( $this->menus as $sub => $args ) {
-				add_submenu_page( 'gnetwork',
+				add_submenu_page( $this->base,
 					sprintf( _x( 'gNetwork Extras: %s', 'Admin Module', GNETWORK_TEXTDOMAIN ), $args['title'] ),
 					$args['title'],
 					$args['cap'],
-					'gnetwork&sub='.$sub,
+					$this->base.'&sub='.$sub,
 					array( $this, 'admin_settings_page' )
 				);
 			}
@@ -83,7 +87,7 @@ class gNetworkAdmin extends gNetworkModuleCore
 				_x( 'gNetwork Extras', 'Admin Module: Page Menu HTML Title', GNETWORK_TEXTDOMAIN ),
 				_x( 'Extras', 'Admin Module: Page Menu Title', GNETWORK_TEXTDOMAIN ),
 				'read',
-				'gnetwork',
+				$this->base,
 				array( $this, 'admin_settings_page' )
 			);
 		}
@@ -100,8 +104,7 @@ class gNetworkAdmin extends gNetworkModuleCore
 
 	public function admin_menu_late()
 	{
-		global $submenu;
-		$submenu['gnetwork'][0][0] = _x( 'Overview', 'Admin Module', GNETWORK_TEXTDOMAIN );
+		$GLOBALS['submenu'][$this->base][0][0] = _x( 'Overview', 'Admin Module', GNETWORK_TEXTDOMAIN );
 	}
 
 	public static function registerMenu( $sub, $title = NULL, $callback = FALSE, $capability = 'manage_options' )
@@ -109,9 +112,7 @@ class gNetworkAdmin extends gNetworkModuleCore
 		if ( ! is_admin() || self::isAJAX() )
 			return;
 
-		global $gNetwork;
-
-		$gNetwork->admin->menus[$sub] = array(
+		gNetwork()->admin->menus[$sub] = array(
 			'title' => $title ? $title : $sub,
 			'cap'   => $capability,
 		);
@@ -122,15 +123,15 @@ class gNetworkAdmin extends gNetworkModuleCore
 
 	public static function registerTinyMCE( $plugin, $filepath, $row = 1 )
 	{
-		global $gNetwork;
-
-		if ( isset( $gNetwork->editor ) )
-			$gNetwork->editor->tinymce[$row][$plugin] = GNETWORK_URL.$filepath;
+		if ( isset( gNetwork()->editor ) )
+			gNetwork()->editor->tinymce[$row][$plugin] = GNETWORK_URL.$filepath;
 	}
 
 	public static function settingsURL( $full = TRUE )
 	{
-		$relative = self::cuc( 'manage_options' ) ? 'admin.php?page=gnetwork' : 'index.php?page=gnetwork';
+		$base = self::base();
+
+		$relative = self::cuc( 'manage_options' ) ? 'admin.php?page='.$base : 'index.php?page='.$base;
 
 		if ( $full )
 			return get_admin_url( NULL, $relative );
@@ -140,14 +141,8 @@ class gNetworkAdmin extends gNetworkModuleCore
 
 	public function admin_settings_load()
 	{
-		global $submenu_file;
-
-		if ( isset( $_REQUEST['sub'] ) ) {
-			$sub = $_REQUEST['sub'];
-			$submenu_file = 'gnetwork&sub='.$sub;
-		} else {
-			$sub = NULL;
-		}
+		if ( ( $sub = isset( $_REQUEST['sub'] ) ? $_REQUEST['sub'] : NULL ) )
+			$GLOBALS['submenu_file'] = $this->base.'&sub='.$sub;
 
 		do_action( 'gnetwork_admin_settings', $sub );
 	}
@@ -173,7 +168,7 @@ class gNetworkAdmin extends gNetworkModuleCore
 	{
 		$uri  = self::settingsURL( FALSE );
 		$sub  = self::settingsSub( 'overview' );
-		$subs = apply_filters( 'gnetwork_admin_settings_subs', $this->subs() );
+		$subs = apply_filters( $this->hook( 'settings_subs' ), $this->subs() );
 
 		echo '<div class="wrap gnetwork-admin-settings-wrap settings-admin sub-'.$sub.'">';
 
@@ -181,20 +176,20 @@ class gNetworkAdmin extends gNetworkModuleCore
 			|| ( 'console' == $sub && is_super_admin() )
 			|| ( isset( $this->menus[$sub] ) && self::cuc( $this->menus[$sub]['cap'] ) ) ) {
 
-			$messages = apply_filters( 'gnetwork_admin_settings_messages', self::settingsMessages(), $sub );
+			$messages = apply_filters( $this->hook( 'settings_messages' ), self::settingsMessages(), $sub );
 
 			self::settingsTitle();
 			self::headerNav( $uri, $sub, $subs );
 			self::settingsMessage( $messages );
 
-			if ( file_exists( GNETWORK_DIR.'admin/admin.'.$sub.'.php' ) )
-				require_once( GNETWORK_DIR.'admin/admin.'.$sub.'.php' );
+			if ( file_exists( GNETWORK_DIR.'includes/settings/'.$this->key.'.'.$sub.'.php' ) )
+				require_once( GNETWORK_DIR.'includes/settings/'.$this->key.'.'.$sub.'.php' );
 			else
-				do_action( 'gnetwork_admin_settings_sub_'.$sub, $uri, $sub );
+				do_action( $this->hook( 'settings_sub_'.$sub ), $uri, $sub );
 
 		} else {
 
-			_e( 'Cheatin&#8217; uh?' );
+			self::cheatin();
 		}
 
 		echo '<div class="clear"></div></div>';
@@ -209,11 +204,11 @@ class gNetworkAdmin extends gNetworkModuleCore
 
 	public function admin_print_styles()
 	{
-		gNetworkUtilities::linkStyleSheet( GNETWORK_URL.'assets/css/admin.all.css' );
-		gNetworkUtilities::customStyleSheet( 'admin.css' );
+		Utilities::linkStyleSheet( GNETWORK_URL.'assets/css/admin.all.css' );
+		Utilities::customStyleSheet( 'admin.css' );
 
 		if ( GNETWORK_ADMIN_JS_ENHANCEMENTS )
-			gNetworkUtilities::enqueueScript( 'admin.all' );
+			Utilities::enqueueScript( 'admin.all' );
 	}
 
 	public function admin_footer_text()

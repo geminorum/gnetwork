@@ -1,15 +1,16 @@
-<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+<?php namespace geminorum\gNetwork;
 
-class gNetworkCron extends gNetworkModuleCore
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+
+class Cron extends ModuleCore
 {
+	protected $key     = 'cron';
+	protected $network = FALSE;
+	protected $front   = FALSE;
 
-	protected $menu_key   = 'cron';
-	protected $network    = FALSE;
-	protected $front_end  = FALSE;
-
-	protected function setup_actions()
+	public function setup_menu( $context )
 	{
-		gNetworkAdmin::registerMenu( 'cron',
+		Admin::registerMenu( $this->key,
 			_x( 'CRON', 'CRON Module: Menu Name', GNETWORK_TEXTDOMAIN ),
 			array( $this, 'settings' )
 		);
@@ -41,7 +42,6 @@ class gNetworkCron extends gNetworkModuleCore
 		}
 	}
 
-	// HELPER
 	protected static function unschedule( $timestamp, $cron )
 	{
 		if ( array_key_exists( $timestamp, $cron ) ) {
@@ -78,10 +78,9 @@ class gNetworkCron extends gNetworkModuleCore
 		$this->register_button( 'unschedule', _x( 'Unschedule', 'Cron Module', GNETWORK_TEXTDOMAIN ), array( 'default' => 'default' ), 'primary' );
 	}
 
-	// HELPER
 	protected static function getCronArray()
 	{
-		// b/c it's private!
+		// it's private!
 		if ( function_exists( '_get_cron_array' ) )
 			return _get_cron_array();
 
@@ -142,7 +141,7 @@ class gNetworkCron extends gNetworkModuleCore
 			),
 		), self::getCronArray(), array(
 			'title' => self::html( 'h3', _x( 'Overview of tasks scheduled for WP-Cron', 'CRON Module', GNETWORK_TEXTDOMAIN ) ),
-			'empty' => self::html( 'strong', _x( 'Nothing scheduled!', 'CRON Module', GNETWORK_TEXTDOMAIN ) ),
+			'empty' => self::warning( _x( 'Nothing scheduled!', 'CRON Module', GNETWORK_TEXTDOMAIN ) ),
 		) );
 	}
 }

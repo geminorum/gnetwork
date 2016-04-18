@@ -1,20 +1,16 @@
-<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+<?php namespace geminorum\gNetwork;
 
-class gNetworkOpenSearch extends gNetworkModuleCore
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+
+class OpenSearch extends ModuleCore
 {
-
-	protected $option_key = 'opensearch';
-	protected $network    = FALSE;
+	protected $key     = 'opensearch';
+	protected $network = FALSE;
 
 	private $ajax_action = 'opensearch_suggestions';
 
 	protected function setup_actions()
 	{
-		gNetworkAdmin::registerMenu( 'opensearch',
-			_x( 'Open Search', 'OpenSearch Module: Menu Name', GNETWORK_TEXTDOMAIN ),
-			array( $this, 'settings' )
-		);
-
 		if ( ! $this->options['opensearch'] )
 			return;
 
@@ -37,27 +33,35 @@ class gNetworkOpenSearch extends gNetworkModuleCore
 		add_action( 'parse_request', array( $this, 'parse_request' ), 1 );
 	}
 
-	public function settings_help_tabs()
+	public function setup_menu( $context )
 	{
-		return array(
-			 array(
-				'id'      => 'gnetwork-opensearch-help',
-				'title'   => _x( 'Open Search', 'OpenSearch Module', GNETWORK_TEXTDOMAIN ),
-				'content' => '<p>OpenSearch is a collection of simple formats for the sharing of search results.</p>
-					<p>This blog\'s OpenSearch description file is:<br /><a href="'.self::url().'" target="_blank">'.self::url().'</a></p>
-				<p>Fore more information:<br />
-					<a href="https://developer.mozilla.org/en-US/Add-ons/Creating_OpenSearch_plugins_for_Firefox" target="_blank">Creating OpenSearch plugins for Firefox</a><br />
-					<a href="https://developer.mozilla.org/en-US/docs/Adding_search_engines_from_web_pages" target="_blank">Adding search engines from web pages</a><br />
-					<a href="https://opensearch.org" target="_blank">OpenSearch.org</a><br />
-				</p>',
-				'callback' => FALSE,
-			),
+		Admin::registerMenu( $this->key,
+			_x( 'Open Search', 'OpenSearch Module: Menu Name', GNETWORK_TEXTDOMAIN ),
+			array( $this, 'settings' )
 		);
 	}
 
+	public function default_options()
+	{
+		$name = get_bloginfo( 'name', 'display' );
+
+		return array(
+			'opensearch'  => '0',
+			'suggestions' => '0',
+			'shortname'   => $name,
+			'longname'    => '',
+			'description' => sprintf( _x( 'Search %s', 'OpenSearch Module', GNETWORK_TEXTDOMAIN ), $name ),
+			'contact'     => '',
+			'tags'        => '',
+			'attribution' => '',
+			'syndication' => 'open',
+		);
+	}
+	
 	public function default_settings()
 	{
 		$name = get_bloginfo( 'name', 'display' );
+
 		return array(
 			'_general' => array(
 				array(
@@ -133,20 +137,20 @@ class gNetworkOpenSearch extends gNetworkModuleCore
 		);
 	}
 
-	public function default_options()
+	public function settings_help_tabs()
 	{
-		$name = get_bloginfo( 'name', 'display' );
-
 		return array(
-			'opensearch'  => '0',
-			'suggestions' => '0',
-			'shortname'   => $name,
-			'longname'    => '',
-			'description' => sprintf( _x( 'Search %s', 'OpenSearch Module', GNETWORK_TEXTDOMAIN ), $name ),
-			'contact'     => '',
-			'tags'        => '',
-			'attribution' => '',
-			'syndication' => 'open',
+			 array(
+				'id'      => 'gnetwork-opensearch-help',
+				'title'   => _x( 'Open Search', 'OpenSearch Module', GNETWORK_TEXTDOMAIN ),
+				'content' => '<p>OpenSearch is a collection of simple formats for the sharing of search results.</p>
+					<p>This blog\'s OpenSearch description file is:<br /><a href="'.self::url().'" target="_blank">'.self::url().'</a></p>
+				<p>Fore more information:<br />
+					<a href="https://developer.mozilla.org/en-US/Add-ons/Creating_OpenSearch_plugins_for_Firefox" target="_blank">Creating OpenSearch plugins for Firefox</a><br />
+					<a href="https://developer.mozilla.org/en-US/docs/Adding_search_engines_from_web_pages" target="_blank">Adding search engines from web pages</a><br />
+					<a href="https://opensearch.org" target="_blank">OpenSearch.org</a><br />
+				</p>',
+			),
 		);
 	}
 
@@ -389,7 +393,7 @@ class gNetworkOpenSearch extends gNetworkModuleCore
 			// TODO: make this query as light as possible
 			// SEE: http://code.tutsplus.com/series/mastering-wp_query--cms-818
 
-			$the_query = new WP_Query( array(
+			$the_query = new \WP_Query( array(
 				's'                      => $query_string,
 				'post_status'            => 'publish',
 				'post_type'              => 'any',

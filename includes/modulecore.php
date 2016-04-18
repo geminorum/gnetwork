@@ -1,90 +1,108 @@
-<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+<?php namespace geminorum\gNetwork;
 
-class gNetworkModuleCore extends gNetworkBaseCore
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+
+class ModuleCore extends BaseCore
 {
 
-	public $module  = 'core';
 	public $options = array();
 	public $buttons = array();
 	public $scripts = array();
 
-	protected $option_base = 'gnetwork';
-	protected $option_key  = FALSE;
-	protected $menu_key    = FALSE;
-	protected $network     = TRUE;       // using network wide options
-	protected $user        = NULL;       // load module on user admin?
-	protected $front_end   = TRUE;       // load module on front end?
-	protected $ajax        = FALSE;      // load if ajax
-	protected $cron        = FALSE;      // load if cron
-	protected $dev         = NULL;       // load if dev
-	protected $hidden      = FALSE;      // load if hidden
+	protected $base = 'gnetwork';
+	protected $key  = NULL;
 
-	public function __construct( $module = NULL )
+	protected $network = TRUE;
+	protected $user    = NULL;
+	protected $front   = TRUE;
+
+	protected $ajax   = FALSE;
+	protected $cron   = FALSE;
+	protected $dev    = NULL;
+	protected $hidden = FALSE;
+
+	protected $scripts_printed = FALSE;
+
+	public function __construct( $base = NULL, $slug = NULL )
 	{
+		if ( is_null( $this->key ) )
+			throw new Exception( 'Key Undefined!' );
+
 		if ( ! GNETWORK_HIDDEN_FEATURES && $this->hidden )
-			throw new \Exception( 'Hidden Feature!' );
+			throw new Exception( 'Hidden Feature!' );
 
 		if ( ! $this->ajax && self::isAJAX() )
-			throw new \Exception( 'Not on AJAX Calls!' );
+			throw new Exception( 'Not on AJAX Calls!' );
 
 		if ( ! $this->cron && self::isCRON() )
-			throw new \Exception( 'Not on CRON Calls!' );
+			throw new Exception( 'Not on CRON Calls!' );
 
 		if ( wp_installing() )
-			throw new \Exception( 'Not while WP is Installing!' );
+			throw new Exception( 'Not while WP is Installing!' );
 
-		if ( ! is_admin() && ! $this->front_end )
-			throw new \Exception( 'Not on Frontend!' );
+		if ( ! is_admin() && ! $this->front )
+			throw new Exception( 'Not on Frontend!' );
 
 		if ( ! is_null( $this->user ) && is_multisite() ) {
 			if ( is_user_admin() ) {
 				if ( FALSE === $this->user )
-					throw new \Exception( 'Not on User Admin!' );
+					throw new Exception( 'Not on User Admin!' );
 			} else {
 				if ( TRUE === $this->user )
-					throw new \Exception( 'Only on User Admin!' );
+					throw new Exception( 'Only on User Admin!' );
 			}
 		}
 
 		if ( ! is_null( $this->dev ) ) {
 			if ( self::isDev() ) {
 				if ( FALSE === $this->dev )
-					throw new \Exception( 'Not on Develepment Environment!' );
+					throw new Exception( 'Not on Develepment Environment!' );
 			} else {
 				if ( TRUE === $this->dev )
-					throw new \Exception( 'Only on Develepment Environment!' );
+					throw new Exception( 'Only on Develepment Environment!' );
 			}
 		}
 
-		if ( ! is_null( $module ) )
-			$this->module = $module;
+		if ( ! is_null( $base ) )
+			$this->base = $base;
 
-		if ( FALSE !== $this->option_key ) // disable the options
+		if ( method_exists( $this, 'default_settings' ) )
 			$this->options = $this->init_options();
 
-		$this->setup_actions();
+		$setup = $this->setup_actions();
+
+		if ( FALSE !== $setup
+			&& is_admin()
+			&& method_exists( $this, 'setup_menu' ) )
+				add_action( 'gnetwork_setup_menu', array( $this, 'setup_menu' ) );
 	}
 
-	public function register_menu( $sub, $title = NULL, $callback = FALSE, $capability = NULL )
+	public function register_menu( $title = NULL, $callback = FALSE, $sub = NULL, $capability = NULL )
 	{
+		if ( ! is_admin() || self::isAJAX() )
+			return;
+
+		if ( is_null( $sub ) )
+			$sub = $this->key;
+
 		if ( $this->is_network() ) {
 			if ( is_null( $capability ) )
 				$capability = 'manage_network_options';
 
-			gNetworkNetwork::registerMenu( $sub, $title, $callback, $capability );
+			Network::registerMenu( $sub, $title, $callback, $capability );
 		} else {
 			if ( is_null( $capability ) )
 				$capability = 'manage_options';
 
-			gNetworkAdmin::registerMenu( $sub, $title, $callback, $capability );
+			Admin::registerMenu( $sub, $title, $callback, $capability );
 		}
+
+		// TODO : add register for user admin
 	}
 
 	public function get_settings_url( $action = FALSE, $full = FALSE )
 	{
-		$args = array(
-			'sub' => $this->menu_key ? $this->menu_key : $this->module,
-		);
+		$args = array( 'sub' => $this->key );
 
 		if ( is_array( $action ) )
 			$args = array_merge( $args, $action );
@@ -92,7 +110,7 @@ class gNetworkModuleCore extends gNetworkBaseCore
 		else if ( FALSE !== $action )
 			$args['action'] = $action;
 
-		$url = $this->is_network() ? gNetworkNetwork::settingsURL( $full ) : gNetworkAdmin::settingsURL( $full );
+		$url = $this->is_network() ? Network::settingsURL( $full ) : Admin::settingsURL( $full );
 
 		return add_query_arg( $args, $url );
 	}
@@ -121,35 +139,37 @@ class gNetworkModuleCore extends gNetworkBaseCore
 
 	protected function options_key()
 	{
-		return $this->option_base.'_'.$this->option_key;
+		return $this->base.'_'.$this->key;
 	}
 
 	protected function hook( $suffix = NULL )
 	{
-		return $this->option_base.'_'.$this->module.( is_null( $suffix ) ? '' : '_'.$suffix );
+		return $this->base.'_'.$this->key.( is_null( $suffix ) ? '' : '_'.$suffix );
+	}
+
+	// OVERRIDED BY CHILD PLUGINS
+	public static function base()
+	{
+		return gNetwork()->base;
 	}
 
 	protected function init_options()
 	{
-		$network = $this->option_base.'OptionsNetwork';
-		$blog    = $this->option_base.'OptionsBlog';
+		$network = $this->base.'OptionsNetwork';
+		$blog    = $this->base.'OptionsBlog';
 
 		global ${$network}, ${$blog};
 
 		if ( empty( ${$network} ) )
-			${$network} = get_site_option( $this->option_base.'_site', array() );
+			${$network} = get_site_option( $this->base.'_site', array() );
 
 		if ( empty( ${$blog} ) )
-			${$blog} = get_option( $this->option_base.'_blog', array() );
+			${$blog} = get_option( $this->base.'_blog', array() );
 
 		if ( $this->is_network() )
-			$options = isset( ${$network}[$this->option_key] )
-				? ${$network}[$this->option_key]
-				: ( GNETWORK_CHECK_OLD_OPTIONS ? get_site_option( $this->options_key(), array() ) : array() );
+			$options = isset( ${$network}[$this->key] ) ? ${$network}[$this->key] : array();
 		else
-			$options = isset( ${$blog}[$this->option_key] )
-				? ${$blog}[$this->option_key]
-				: ( GNETWORK_CHECK_OLD_OPTIONS ? get_option( $this->options_key(), array() ) : array() );
+			$options = isset( ${$blog}[$this->key] ) ? ${$blog}[$this->key] : array();
 
 		return $this->settings_sanitize( $options, $this->default_options() );
 	}
@@ -180,19 +200,19 @@ class gNetworkModuleCore extends gNetworkBaseCore
 			$options = $this->options;
 
 		if ( $this->is_network() )
-			$saved = get_site_option( $this->option_base.'_site', array() ); // FIXME: https://core.trac.wordpress.org/ticket/28290
+			$saved = get_site_option( $this->base.'_site', array() ); // FIXME: https://core.trac.wordpress.org/ticket/28290
 		else
-			$saved = get_option( $this->option_base.'_blog', array() );
+			$saved = get_option( $this->base.'_blog', array() );
 
 		if ( $reset || ! count( $options ) )
-			unset( $saved[$this->option_key] );
+			unset( $saved[$this->key] );
 		else
-			$saved[$this->option_key] = $options;
+			$saved[$this->key] = $options;
 
 		if ( $this->is_network() )
-			return update_site_option( $this->option_base.'_site', $saved ); // FIXME: https://core.trac.wordpress.org/ticket/28290
+			return update_site_option( $this->base.'_site', $saved ); // FIXME: https://core.trac.wordpress.org/ticket/28290
 		else
-			return update_option( $this->option_base.'_blog', $saved, TRUE );
+			return update_option( $this->base.'_blog', $saved, TRUE );
 	}
 
 	public function delete_options()
@@ -215,9 +235,7 @@ class gNetworkModuleCore extends gNetworkBaseCore
 	// DEFAULT METHOD: settings hook handler
 	public function settings( $sub = NULL )
 	{
-		$menu = $this->menu_key ? $this->menu_key : $this->option_key;
-
-		if ( $menu && $menu == $sub ) {
+		if ( $this->key == $sub ) {
 			$this->settings_actions( $sub );
 			$this->settings_update( $sub );
 			add_action( 'gnetwork_'.( $this->is_network() ? 'network' : 'admin' ).'_settings_sub_'.$sub, array( $this, 'settings_html' ), 10, 2 );
@@ -241,16 +259,9 @@ class gNetworkModuleCore extends gNetworkBaseCore
 	// DEFAULT METHOD: setting sub html
 	public function settings_html( $uri, $sub = 'general' )
 	{
-		$class   = 'gnetwork-form';
-		$sidebox = method_exists( $this, 'settings_sidebox' );
+		$class = 'gnetwork-form';
 
-		// TODO: MUST DROP: on v0.3.0
-		if ( $this->is_network() )
-			$options = get_site_option( $this->options_key(), array() );
-		else
-			$options = get_option( $this->options_key(), array() );
-
-		if ( count( $options ) || $sidebox )
+		if ( $sidebox = method_exists( $this, 'settings_sidebox' ) )
 			$class .= ' has-sidebox';
 
 		echo '<form class="'.$class.'" method="post" action="">';
@@ -263,30 +274,21 @@ class gNetworkModuleCore extends gNetworkBaseCore
 				echo '</div>';
 			}
 
-			if ( count( $options ) ) {
-				echo '<div class="settings-sidebox oldoptions">';
-					echo '<p>'.__( 'Warning: Old Options Exists!', GNETWORK_TEXTDOMAIN ).'</p>';
-				echo '</div>';
-			}
-
-			if ( method_exists( $this, 'settings_before' ) ) {
+			if ( method_exists( $this, 'settings_before' ) )
 				$this->settings_before( $sub, $uri );
-			}
 
-			do_settings_sections( $this->option_base.'_'.$sub );
+			do_settings_sections( $this->base.'_'.$sub );
 
-			if ( method_exists( $this, 'settings_after' ) ) {
+			if ( method_exists( $this, 'settings_after' ) )
 				$this->settings_after( $sub, $uri );
-			}
 
 			$this->settings_buttons( $sub );
 
 		echo '</form>';
 
-		self::devDump( $this->options );
+		self::dumpDev( $this->options );
 	}
 
-	// HELPER
 	public static function getButtonConfirm( $message = NULL )
 	{
 		if ( is_null( $message ) )
@@ -326,11 +328,11 @@ class gNetworkModuleCore extends gNetworkBaseCore
 
 	protected function settings_fields( $sub, $action = 'update' )
 	{
-		echo '<input type="hidden" name="base" value="'.$this->option_base.'" />';
+		echo '<input type="hidden" name="base" value="'.$this->base.'" />';
 		echo '<input type="hidden" name="sub" value="'.$sub.'" />';
 		echo '<input type="hidden" name="action" value="'.$action.'" />';
 
-		wp_nonce_field( $this->option_base.'_'.$sub.'-settings' );
+		wp_nonce_field( $this->base.'_'.$sub.'-settings' );
 	}
 
 	// FIXME: use filter arg for sanitize
@@ -356,7 +358,7 @@ class gNetworkModuleCore extends gNetworkBaseCore
 
 	protected function check_referer( $sub )
 	{
-		check_admin_referer( $this->option_base.'_'.$sub.'-settings' );
+		check_admin_referer( $this->base.'_'.$sub.'-settings' );
 	}
 
 	public function reset_settings( $options_key = NULL )
@@ -399,7 +401,10 @@ class gNetworkModuleCore extends gNetworkBaseCore
 
 	public function register_settings()
 	{
-		$page = $this->menu_key ? $this->option_base.'_'.$this->menu_key : $this->options_key();
+		if ( ! method_exists( $this, 'default_settings' ) )
+			return;
+
+		$page = $this->options_key();
 
 		$settings = apply_filters( $page.'_default_settings', $this->default_settings() );
 
@@ -437,8 +442,9 @@ class gNetworkModuleCore extends gNetworkBaseCore
 
 	protected function register_settings_buttons()
 	{
-		if ( count( $this->default_settings() ) )
-			$this->default_buttons();
+		if ( method_exists( $this, 'default_settings' )
+			&& count( $this->default_settings() ) )
+				$this->default_buttons();
 	}
 
 	public function add_settings_field( $atts )
@@ -493,42 +499,6 @@ class gNetworkModuleCore extends gNetworkBaseCore
 	public function settings_help_tabs()
 	{
 		return array();
-
-		// // EXAMPLE
-		// return array(
-		// 	array(
-		// 		'id' => 'gnetwork-mail-help-gmail',
-		// 		'title' => __( 'Gmail SMTP', GNETWORK_TEXTDOMAIN ),
-		// 		'content' => '<p><table><tbody>
-		// 		<tr><td style="width:150px">SMTP Host</td><td><code>smtp.gmail.com</code></td></tr>
-		// 		<tr><td>SMTP Port</td><td><code>465</code></td></tr>
-		// 		<tr><td>Encryption</td><td>SSL</td></tr>
-		// 		<tr><td>Username</td><td><em>your.gmail@gmail.com</em></td></tr>
-		// 		<tr><td>Password</td><td><em>yourpassword</em></td></tr>
-		// 		</tbody></table><br />
-		// 		For more information see <a href="http://www.wpbeginner.com/plugins/how-to-send-email-in-wordpress-using-the-gmail-smtp-server/" target="_blank">here</a>.
-		// 		</p>',
-		// 		'callback' => FALSE,
-		// 	),
-		// );
-	}
-
-	public function default_settings()
-	{
-		return array();
-
-		// EXAMPLE
-		// return array(
-		// 	'_general' => array(
-		// 		array(
-        //             'field'       => 'comments',
-        //             'type'        => 'enabled',
-        //             'title'       => _x( 'Comments', 'X Module: Enable Like for Comments', GNETWORK_TEXTDOMAIN ),
-        //             'description' => _x( 'Like button for enabled post types comments', 'X Module', GNETWORK_TEXTDOMAIN ),
-        //             'default'     => 0,
-		// 		),
-		// 	),
-		// );
 	}
 
 	public function do_settings_field( $atts = array(), $wrap = FALSE )
@@ -550,13 +520,13 @@ class gNetworkModuleCore extends gNetworkBaseCore
 			'after'        => '', // html to print after field
 			'field_class'  => '', // formally just class!
 			'class'        => '', // now used on wrapper
-			'option_group' => $this->option_key,
+			'option_group' => $this->key,
 			'network'      => NULL, // FIXME: WTF?
 			'disabled'     => FALSE,
 			'name_attr'    => FALSE, // override
 			'id_attr'      => FALSE, // override
 			'placeholder'  => FALSE,
-			'constant'     => FALSE, // override value if constant defined / also disabling
+			'constant'     => FALSE, // override value if constant defined & disabling
 			'data'         => array(), // data attr
 		), $atts );
 
@@ -572,8 +542,8 @@ class gNetworkModuleCore extends gNetworkBaseCore
 
 		$html    = '';
 		$value   = $args['default'];
-		$name    = $args['name_attr'] ? $args['name_attr'] : $this->option_base.'_'.$args['option_group'].'['.esc_attr( $args['field'] ).']';
-		$id      = $args['id_attr'] ? $args['id_attr'] : $this->option_base.'-'.$args['option_group'].'-'.esc_attr( $args['field'] );
+		$name    = $args['name_attr'] ? $args['name_attr'] : $this->base.'_'.$args['option_group'].'['.esc_attr( $args['field'] ).']';
+		$id      = $args['id_attr'] ? $args['id_attr'] : $this->base.'-'.$args['option_group'].'-'.esc_attr( $args['field'] );
 		$exclude = $args['exclude'] && ! is_array( $args['exclude'] ) ? array_filter( explode( ',', $args['exclude'] ) ) : array();
 
 		if ( isset( $this->options[$args['field']] ) ) {
@@ -914,7 +884,7 @@ class gNetworkModuleCore extends gNetworkBaseCore
 				// rename the tag name to avoid saving and using the default!
 
 				if ( ! count( $args['values'] ) )
-					$args['values'] = gNetworkUtilities::getUserRoles( NULL, $args['none_title'], $args['none_value'] );
+					$args['values'] = Utilities::getUserRoles( NULL, $args['none_title'], $args['none_value'] );
 
 				if ( count( $args['values'] ) ) {
 
@@ -1025,14 +995,17 @@ class gNetworkModuleCore extends gNetworkBaseCore
 			echo '</td></tr>';
 	}
 
-	// HELPER
 	public function print_scripts()
 	{
+		if ( $this->scripts_printed )
+			return;
+
 		if ( count( $this->scripts ) )
 			self::wrapJS( implode( "\n", $this->scripts ) );
+
+		$this->scripts_printed = TRUE;
 	}
 
-	// HELPER
 	public function shortcodes( $shortcodes = array() )
 	{
 		foreach ( $shortcodes as $shortcode => $method ) {
@@ -1041,7 +1014,6 @@ class gNetworkModuleCore extends gNetworkBaseCore
 		}
 	}
 
-	// HELPER
 	public static function shortcodeWrap( $html, $suffix = FALSE, $args = array(), $block = TRUE )
 	{
 		if ( isset( $args['wrap'] ) && ! $args['wrap'] )
@@ -1094,7 +1066,6 @@ class gNetworkModuleCore extends gNetworkBaseCore
 		return $args['title'];
 	}
 
-	// HELPER
 	public static function counted( $message = NULL, $count = NULL, $class = 'updated' )
 	{
 		if ( is_null( $message ) )
@@ -1106,23 +1077,6 @@ class gNetworkModuleCore extends gNetworkBaseCore
 		return self::notice( sprintf( $message, number_format_i18n( $count ) ), $class.' fade', FALSE );
 	}
 
-	// HELPER
-	// FIXME: move to gNetworkUtilities
-	public static function getDateDefaultFormat( $options = FALSE, $date_format = NULL, $time_format = NULL, $joiner = ' @' )
-	{
-		if ( ! $options )
-			return _x( 'l, j F, Y - H:i:s', 'Module Core: Default Datetime Format', GNETWORK_TEXTDOMAIN );
-
-		if ( is_null( $date_format ) )
-			$date_format = get_option( 'date_format' );
-
-		if ( is_null( $time_format ) )
-			$time_format = get_option( 'time_format' );
-
-		return $date_format.$joiner.$time_format;
-	}
-
-	// HELPER
 	public static function getNewPostTypeLink( $post_type = 'page', $text = FALSE )
 	{
 		return self::html( 'a', array(
@@ -1132,7 +1086,6 @@ class gNetworkModuleCore extends gNetworkBaseCore
 		), ( $text ? _x( 'Add New', 'Moduel Core: Add New Post Type', GNETWORK_TEXTDOMAIN ) : self::getDashicon( 'welcome-add-page' ) ) );
 	}
 
-	// HELPER
 	public static function getWPCodexLink( $page = '', $text = FALSE )
 	{
 		return self::html( 'a', array(
@@ -1142,7 +1095,6 @@ class gNetworkModuleCore extends gNetworkBaseCore
 		), ( $text ? _x( 'See Codex', 'Moduel Core', GNETWORK_TEXTDOMAIN ) : self::getDashicon( 'media-code' ) ) );
 	}
 
-	// HELPER
 	public static function getLoginLogoLink( $image = GNETWORK_LOGO, $text = FALSE )
 	{
 		if ( file_exists( WP_CONTENT_DIR.'/'.$image ) )
@@ -1155,8 +1107,7 @@ class gNetworkModuleCore extends gNetworkBaseCore
 		return FALSE;
 	}
 
-	// HELPER
-	// SEE: https://developer.wordpress.org/resource/dashicons/
+	// @REF: https://developer.wordpress.org/resource/dashicons/
 	public static function getDashicon( $icon = 'wordpress-alt', $tag = 'span' )
 	{
 		return self::html( $tag, array(
@@ -1167,7 +1118,6 @@ class gNetworkModuleCore extends gNetworkBaseCore
 		), NULL );
 	}
 
-	// HELPER
 	public static function getMoreInfoIcon( $url = '', $title = NULL, $icon = 'info' )
 	{
 		return self::html( 'a', array(
@@ -1175,6 +1125,22 @@ class gNetworkModuleCore extends gNetworkBaseCore
 			'title'  => is_null( $title ) ? _x( 'See More Information', 'Moduel Core', GNETWORK_TEXTDOMAIN ) : $title,
 			'target' => '_blank',
 		), self::getDashicon( $icon ) );
+	}
+
+	public static function settingsFieldAfterIcon( $text = '', $class = 'icon-wrap' )
+	{
+		return self::html( 'span', array( 'class' => 'field-after '.$class ), $text );
+	}
+
+	public static function settingsFieldAfterLink( $link = '', $class = '' )
+	{
+		return
+			'<code class="field-after">'
+				.self::html( 'a', array(
+					'class' => $class,
+					'href'  => $link,
+				), $link )
+			.'</code>';
 	}
 
 	public static function settingsSub( $default = 'overview' )
@@ -1222,7 +1188,7 @@ class gNetworkModuleCore extends gNetworkBaseCore
 			if ( isset( $messages[$_GET['message']] ) )
 				echo $messages[$_GET['message']];
 			else
-				self::notice( $_GET['message'] );
+				self::warning( $_GET['message'], TRUE );
 
 			$_SERVER['REQUEST_URI'] = remove_query_arg( 'message', $_SERVER['REQUEST_URI'] );
 		}
@@ -1234,5 +1200,44 @@ class gNetworkModuleCore extends gNetworkBaseCore
 
 		if ( $description )
 			echo '<p class="description">'.$description.'</p>';
+	}
+
+	public static function cheatin( $message = NULL )
+	{
+		if ( is_null( $message ) )
+			$message = _x( 'Cheatin&#8217; uh?', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN );
+
+		self::error( $message, TRUE );
+	}
+
+	protected function is_action( $action, $extra = NULL, $default = FALSE )
+	{
+		if ( empty( $_REQUEST[$this->base.'_action'] )
+			|| $_REQUEST[$this->base.'_action'] != $action )
+				return $default;
+
+		else if ( is_null( $extra ) )
+			return $_REQUEST[$this->base.'_action'] == $action;
+
+		else if ( ! empty( $_REQUEST[$extra] ) )
+			return trim( $_REQUEST[$extra] );
+
+		else
+			return $default;
+	}
+
+	protected function remove_action( $extra = array(), $url = NULL )
+	{
+		if ( is_null( $url ) )
+			$url = self::currentURL();
+
+		if ( is_array( $extra ) )
+			$remove = $extra;
+		else
+			$remove[] = $extra;
+
+		$remove[] = $this->base.'_action';
+
+		return remove_query_arg( $remove, $url );
 	}
 }

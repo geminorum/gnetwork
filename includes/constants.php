@@ -1,4 +1,4 @@
-<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+<?php defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 $gnetwork_constants = array(
 
@@ -8,7 +8,6 @@ $gnetwork_constants = array(
 	'GNETWORK_LOGO'                  => 'login.png', // default logo image file, must be on wp-content
 	// 'GNETWORK_WPLANG'                => 'en_US', // define if necessary
 	// 'GNETWORK_WPLANG_ADMIN'          => FALSE, // define if necessary
-	'GNETWORK_CHECK_OLD_OPTIONS'     => FALSE,
 	'GNETWORK_GETFLASHPLAYER_URL'    => 'http://get.adobe.com/flashplayer/',
 	'GNETWORK_SEARCH_REDIRECT'       => FALSE, // set TRUE to redirect all searches to the network search url
 	'GNETWORK_SEARCH_URL'            => esc_url( home_url( '/' ) ),
@@ -27,6 +26,7 @@ $gnetwork_constants = array(
 	'GNETWORK_SITE_USER_ID'          => FALSE, // set to default site user id / FALSE to disable
 	'GNETWORK_SITE_USER_ROLE'        => 'editor', // default role for site user in new blog
 	'GNETWORK_BODY_CLASS'            => FALSE, // network html body class / FALSE to disable
+	'GNETWORK_DISABLE_THEMES'        => FALSE,
 	'GNETWORK_DISABLE_BBQ'           => FALSE,
 	'GNETWORK_DISABLE_RECAPTCHA'     => FALSE,
 	'GNETWORK_DISABLE_EMOJIS'        => TRUE,
@@ -35,6 +35,10 @@ $gnetwork_constants = array(
 
 	'GNETWORK_DEBUG_LOG'             => WP_CONTENT_DIR.'/debug.log',
 	'GNETWORK_MAIL_LOG_DIR'          => WP_CONTENT_DIR.'/emaillogs',
+
+	'GNETWORK_DL_REMOTE' => FALSE,
+	'GNETWORK_DL_DIR'    => ABSPATH.'repo',
+	'GNETWORK_DL_URL'    => network_home_url( 'repo' ),
 
 	// 'GNETWORK_DISABLE_JQUERY_MIGRATE' => TRUE,  // cannot set this early!
 	// 'GNETWORK_DISABLE_FRONT_STYLES'   => FALSE, // cannot set this early!
@@ -64,3 +68,5 @@ $gnetwork_constants = array(
 
 foreach ( $gnetwork_constants as $key => $val )
 	defined( $key ) or define( $key, $val );
+
+unset( $gnetwork_constants, $key, $val );

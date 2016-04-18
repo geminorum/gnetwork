@@ -1,12 +1,13 @@
-<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+<?php namespace geminorum\gNetwork;
 
-class gNetworkUpdate extends gNetworkModuleCore
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+
+class Update extends ModuleCore
 {
 
-	protected $option_key = FALSE;
-	protected $network    = TRUE;
-	protected $front_end  = FALSE;
-	protected $ajax       = TRUE;
+	protected $key   = 'update';
+	protected $front = FALSE;
+	protected $ajax  = TRUE;
 
 	protected function setup_actions()
 	{
