@@ -1,5 +1,28 @@
 <?php defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
+if ( ! function_exists( 'gnetwork_github' ) ) :
+	function gnetwork_github( $atts = array(), $content = NULL ) {
+
+		if ( gNetwork()->module( 'code' ) )
+			return gNetwork()->code->shortcode_github_readme( $atts, $content );
+
+		return $content;
+	}
+endif;
+
+if ( ! function_exists( 'gnetwork_github_readme' ) ) :
+	function gnetwork_github_readme( $repo = 'geminorum/gnetwork', $wrap = TRUE ) {
+		if ( gNetwork()->module( 'code' ) ) {
+			echo '<div class="gnetwork-overview-wrap">';
+				echo gNetwork()->code->shortcode_github_readme( array(
+					'context' => 'overview',
+					'repo'    => $repo,
+				) );
+			echo '</div>';
+		}
+	}
+endif;
+
 if ( ! function_exists( 'gnetwork_powered' ) ) :
 	function gnetwork_powered( $rtl = NULL ){
 		return '<a href="http://wordpress.org/" title="WP powered"><img src="'.GNETWORK_URL.'assets/images/wpmini-grey.png" alt="wp" /></a>';
