@@ -138,6 +138,14 @@ class gNetwork
 		return $languages;
 	}
 
+	public function module( $module, $object = FALSE )
+	{
+		if ( isset( $this->{$module} ) )
+			return $object ? $this->{$module} : TRUE;
+
+		return FALSE;
+	}
+
 	public function option( $key, $module = 'network', $default = FALSE )
 	{
 		if ( isset( $this->{$module}->options[$key] ) )
