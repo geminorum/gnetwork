@@ -28,7 +28,7 @@
   "private": true,
 
   "_pot": {
-    "domain": "gnetwork",
+    "domain": "GNETWORK_TEXTDOMAIN",
     "destFile": "gnetwork.pot",
     "package": "gNetwork",
     "bugReport": "http://geminorum.ir/wordpress/gnetwork/issues",
