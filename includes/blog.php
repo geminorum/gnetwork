@@ -27,6 +27,48 @@ class Blog extends ModuleCore
 
 		if ( $this->options['page_404'] )
 			add_filter( '404_template', array( $this, 'custom_404_template' ) );
+
+		// @REF: http://wordpress.stackexchange.com/a/212472
+		if ( '-1' == $this->options['rest_api_support'] ) {
+
+			add_action( 'after_setup_theme', function() {
+
+				// Remove the REST API lines from the HTML Header
+				remove_action( 'wp_head', 'rest_output_link_wp_head', 10 );
+
+				// Remove the REST API endpoint.
+				remove_action( 'rest_api_init', 'wp_oembed_register_route' );
+
+				// Turn off oEmbed auto discovery.
+				add_filter( 'embed_oembed_discover', '__return_false' );
+
+				// Don't filter oEmbed results.
+				remove_filter( 'oembed_dataparse', 'wp_filter_oembed_result', 10 );
+
+				// Remove oEmbed discovery links.
+				remove_action( 'wp_head', 'wp_oembed_add_discovery_links' );
+
+				// Remove oEmbed-specific JavaScript from the front-end and back-end.
+				remove_action( 'wp_head', 'wp_oembed_add_host_js' );
+
+				// Remove all embeds rewrite rules.
+				add_filter( 'rewrite_rules_array', 'disable_embeds_rewrites' );
+			} );
+
+		} else ( ! $this->options['rest_api_support'] ) {
+
+			// `{"code":"rest_disabled","message":"The REST API is disabled on this site."}`
+			add_action( 'after_setup_theme', function() {
+
+				// Filters for WP-API version 1.x
+				add_filter('json_enabled', '__return_false');
+				add_filter('json_jsonp_enabled', '__return_false');
+
+				// Filters for WP-API version 2.x
+				add_filter('rest_enabled', '__return_false');
+				add_filter('rest_jsonp_enabled', '__return_false');
+			} );
+		}
 	}
 
 	public function setup_menu( $context )
@@ -47,6 +89,7 @@ class Blog extends ModuleCore
 			'page_copyright'      => '0',
 			'page_404'            => '0',
 			'feed_json'           => '0',
+			'rest_api_support'    => '0',
 			'disable_emojis'      => GNETWORK_DISABLE_EMOJIS,
 			'ga_override'         => '',
 			'from_email'          => '',
@@ -70,6 +113,18 @@ class Blog extends ModuleCore
 					'description' => _x( 'The site will redirect to this URL. Leave empty to disable.', 'Blog Module', GNETWORK_TEXTDOMAIN ),
 					'field_class' => array( 'regular-text', 'url-text' ),
 					'placeholder' => 'http://example.com',
+				),
+				array(
+					'field'       => 'rest_api_support',
+					'type'        => 'select',
+					'title'       => _x( 'Rest API Support', 'Blog Module', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Disable or Remove WordPress JSON discovery API', 'Blog Module', GNETWORK_TEXTDOMAIN ),
+					// 'after'       => // TODO: get api endpoint
+					'values'      => array(
+						'0' => __( 'Disabled', GNETWORK_TEXTDOMAIN ),
+						'1' => __( 'Enabled' , GNETWORK_TEXTDOMAIN ),
+						'-1' => __( 'Removed', GNETWORK_TEXTDOMAIN ),
+					),
 				),
 				// FIXME: wont work, wont enable!
 				array(
