@@ -17,13 +17,20 @@ class Search extends ModuleCore
 			add_action( 'template_redirect', array( $this, 'template_redirect_search' ), 1 );
 	}
 
-	// http://www.wprecipes.com/how-to-redirect-to-post-if-search-results-only-returns-one-post
 	public function template_redirect_singlepost()
 	{
 		if ( is_search() ) {
+
 			global $wp_query;
+
+			// redirect to post if search results only returns single post
 			if ( $wp_query->post_count == 1 )
 				wp_redirect( get_permalink( $wp_query->posts['0']->ID ) );
+
+			add_action( 'wp_head', function(){
+				// prevent search bots from indexing search results
+				echo "\t".'<meta name="robots" content="noindex, nofollow" />'."\n";
+			}, 1 );
 		}
 	}
 
