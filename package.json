@@ -26,13 +26,10 @@
   },
   "readme": "ERROR: No README data found!",
   "private": true,
-
   "_pot": {
     "domain": "GNETWORK_TEXTDOMAIN",
     "destFile": "gnetwork.pot",
     "package": "gNetwork",
-    "bugReport": "http://geminorum.ir/wordpress/gnetwork/issues",
-    "lastTranslator": "Nasser Rafie <contact@geminorum.ir>",
-    "team": "geminorum <contact@gminorum.ir>"
+    "headers": false
   }
 }
