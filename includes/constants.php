@@ -26,7 +26,6 @@ $gnetwork_constants = array(
 	'GNETWORK_SITE_USER_ID'          => FALSE, // set to default site user id / FALSE to disable
 	'GNETWORK_SITE_USER_ROLE'        => 'editor', // default role for site user in new blog
 	'GNETWORK_BODY_CLASS'            => FALSE, // network html body class / FALSE to disable
-	'GNETWORK_DISABLE_THEMES'        => FALSE,
 	'GNETWORK_DISABLE_BBQ'           => FALSE,
 	'GNETWORK_DISABLE_RECAPTCHA'     => FALSE,
 	'GNETWORK_DISABLE_EMOJIS'        => TRUE,

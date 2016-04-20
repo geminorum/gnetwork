@@ -13,18 +13,79 @@ class Themes extends ModuleCore
 
 	protected function setup_actions()
 	{
-		add_filter( 'the_generator', '__return_null', 98 );
+		if ( is_admin() ) {
 
-		if ( ! GNETWORK_DISABLE_THEMES )
-			add_action( 'after_setup_theme', array( $this, 'after_setup_theme' ) );
+			// FIXME: NOT WORKING : when trying to enable each theme
+			// add_filter( 'allowed_themes', array( $this, 'allowed_themes' ) );
 
-		add_action( 'wp_head', array( $this, 'wp_head' ), 12 );
-		add_filter( 'body_class', array( $this, 'body_class' ), 5, 2 );
+		} else {
 
-		// FIXME: NOT WORKING : when trying to enable each theme
-		// add_filter( 'allowed_themes', array( $this, 'allowed_themes' ) );
+			if ( ! $this->options['disable_themes'] )
+				add_action( 'after_setup_theme', array( $this, 'after_setup_theme' ) );
 
-		add_action( 'bp_dtheme_credits', array( $this, 'bp_dtheme_credits' ) );
+			if ( $this->options['jquery_bottom'] )
+				add_action( 'wp_default_scripts', array( $this, 'wp_default_scripts' ) );
+
+			add_action( 'wp_head', array( $this, 'wp_head' ), 12 );
+			add_filter( 'the_generator', '__return_null', 98 );
+			add_filter( 'body_class', array( $this, 'body_class' ), 5, 2 );
+
+			add_action( 'bp_dtheme_credits', array( $this, 'bp_dtheme_credits' ) );
+		}
+	}
+
+	public function setup_menu( $context )
+	{
+		Admin::registerMenu( $this->key,
+			_x( 'Themes', 'Themes Module: Menu Name', GNETWORK_TEXTDOMAIN ),
+			array( $this, 'settings' )
+		);
+	}
+
+	public function default_options()
+	{
+		return array(
+			'jquery_bottom'  => '0',
+			'disable_themes' => '0',
+			'body_class'     => GNETWORK_BODY_CLASS,
+		);
+	}
+
+	public function default_settings()
+	{
+		$settings = array(
+			'_general' => array(
+				array(
+					'field'       => 'jquery_bottom',
+					'title'       => _x( 'jQuery on Bottom', 'Themes Module: Setting Title', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Prints jQuery in footer on front-end', 'Themes Module: Setting Description', GNETWORK_TEXTDOMAIN ),
+				),
+				array(
+					'field'       => 'disable_themes',
+					'title'       => _x( 'Theme Enhancments', 'Themes Module: Setting Title', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Extra styles and more for suported themes', 'Themes Module: Setting Description', GNETWORK_TEXTDOMAIN ),
+					'values'      => array(
+						__( 'Enabled' , GNETWORK_TEXTDOMAIN ),
+						__( 'Disabled', GNETWORK_TEXTDOMAIN ),
+					),
+				),
+				array(
+					'field'       => 'body_class',
+					'type'        => 'text',
+					'title'       => _x( 'Body Class', 'Themes Module: Setting Title', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'The site will be added as html body class to all pages', 'Themes Module: Setting Description', GNETWORK_TEXTDOMAIN ),
+					'field_class' => array( 'regular-text', 'code-text' ),
+					'default'     => GNETWORK_BODY_CLASS,
+				),
+			),
+		);
+
+		return $settings;
+	}
+
+	public function wp_default_scripts( &$scripts )
+	{
+		$scripts->add_data( 'jquery', 'group', 1 );
 	}
 
 	public function after_setup_theme()
@@ -225,8 +286,8 @@ class Themes extends ModuleCore
 
 	public function body_class( $classes, $class )
 	{
-		if ( GNETWORK_BODY_CLASS )
-			$classes[] = GNETWORK_BODY_CLASS;
+		if ( $this->options['body_class'] )
+			$classes[] = trim( $this->options['body_class'] );
 
 		$classes[] = 'locale-'.sanitize_html_class( strtolower( str_replace( '_', '-', get_locale() ) ) );
 
