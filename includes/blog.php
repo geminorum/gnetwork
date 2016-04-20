@@ -55,7 +55,7 @@ class Blog extends ModuleCore
 				add_filter( 'rewrite_rules_array', 'disable_embeds_rewrites' );
 			} );
 
-		} else ( ! $this->options['rest_api_support'] ) {
+		} else if ( ! $this->options['rest_api_support'] ) {
 
 			// `{"code":"rest_disabled","message":"The REST API is disabled on this site."}`
 			add_action( 'after_setup_theme', function() {
