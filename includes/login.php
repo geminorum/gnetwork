@@ -147,7 +147,8 @@ class Login extends ModuleCore
 		if ( ! GNETWORK_DISABLE_CREDITS )
 			add_filter( 'login_footer', array( $this, 'login_footer_badge' ) );
 
-		echo '<div class="-head-placeholder"></div>';
+		// FIXME: no way to put this before form
+		// echo '<div class="-head-placeholder"></div>';
 	}
 
 	public function login_head()
