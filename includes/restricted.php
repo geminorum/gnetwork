@@ -27,11 +27,9 @@ class Restricted extends ModuleCore
 		add_action( 'init', array( $this, 'init' ), 1 );
 
 		if ( is_admin() ) {
-			add_filter( 'show_user_profile', array( $this, 'edit_user_profile' ), 10, 1  );
-			add_action( 'edit_user_profile', array( $this, 'edit_user_profile' ), 10, 1  );
-			add_action( 'personal_options_update', array( $this, 'edit_user_profile_update' ), 10, 1 );
-			add_action( 'edit_user_profile_update', array( $this, 'edit_user_profile_update' ), 10, 1 );
-		}
+			add_action( 'load-profile.php', array( $this, 'load_profile' ) );
+			add_action( 'load-user-edit.php', array( $this, 'load_profile' ) );
+		} // TODO: else on any front profile
 	}
 
 	public function setup_menu( $context )
@@ -164,6 +162,18 @@ class Restricted extends ModuleCore
 			'new-content',
 			'comments',
 		) );
+	}
+
+	public function load_profile()
+	{
+		if ( is_network_admin()
+			|| is_user_admin() )
+				return;
+
+		add_filter( 'show_user_profile', array( $this, 'edit_user_profile' ), 10, 1  );
+		add_action( 'edit_user_profile', array( $this, 'edit_user_profile' ), 10, 1  );
+		add_action( 'personal_options_update', array( $this, 'edit_user_profile_update' ), 10, 1 );
+		add_action( 'edit_user_profile_update', array( $this, 'edit_user_profile_update' ), 10, 1 );
 	}
 
 	public function edit_user_profile( $profileuser )
