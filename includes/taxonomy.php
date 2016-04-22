@@ -115,6 +115,10 @@ class Taxonomy extends ModuleCore
 
 	public function load_edit_tags_php()
 	{
+		add_filter( 'admin_body_class', function( $classes ){
+			return $classes.' gnetowrk-taxonomy';
+		} );
+		
 		$defaults = array(
 			'taxonomy'    => 'post_tag',
 			'delete_tags' => FALSE,
