@@ -39,6 +39,7 @@ $gnetwork_constants = array(
 	'GNETWORK_DL_DIR'    => ABSPATH.'repo',
 	'GNETWORK_DL_URL'    => network_home_url( 'repo' ),
 
+	// 'GNETWORK_DISABLE_CONTENT_ACTIONS' => TRUE, // cannot set this early!
 	// 'GNETWORK_DISABLE_JQUERY_MIGRATE' => TRUE,  // cannot set this early!
 	// 'GNETWORK_DISABLE_FRONT_STYLES'   => FALSE, // cannot set this early!
 	// 'GNETWORK_DISABLE_REFLIST_JS'     => FALSE, // do not include reflist shortcode js // cannot set this early!

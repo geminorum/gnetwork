@@ -23,6 +23,9 @@ class Themes extends ModuleCore
 			if ( ! $this->options['disable_themes'] )
 				add_action( 'after_setup_theme', array( $this, 'after_setup_theme' ) );
 
+			if ( $this->options['content_actions'] )
+				add_filter( 'the_content', array( $this, 'the_content' ), 999 );
+
 			if ( $this->options['jquery_bottom'] )
 				add_action( 'wp_default_scripts', array( $this, 'wp_default_scripts' ) );
 
@@ -45,9 +48,10 @@ class Themes extends ModuleCore
 	public function default_options()
 	{
 		return array(
-			'jquery_bottom'  => '0',
-			'disable_themes' => '0',
-			'body_class'     => GNETWORK_BODY_CLASS,
+			'jquery_bottom'   => '0',
+			'disable_themes'  => '0',
+			'content_actions' => '1',
+			'body_class'      => GNETWORK_BODY_CLASS,
 		);
 	}
 
@@ -68,6 +72,12 @@ class Themes extends ModuleCore
 						__( 'Enabled' , GNETWORK_TEXTDOMAIN ),
 						__( 'Disabled', GNETWORK_TEXTDOMAIN ),
 					),
+				),
+				array(
+					'field'       => 'content_actions',
+					'title'       => _x( 'Content Actions', 'Themes Module: Setting Title', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Extra hooks before and after post content', 'Themes Module: Setting Description', GNETWORK_TEXTDOMAIN ),
+					'default'     => '1',
 				),
 				array(
 					'field'       => 'body_class',
@@ -271,6 +281,35 @@ class Themes extends ModuleCore
 				$allowed[$theme->get_stylesheet()] = TRUE;
 
 		return $allowed;
+	}
+
+	public function the_content( $content )
+	{
+		if ( defined( 'GNETWORK_DISABLE_CONTENT_ACTIONS' )
+			&& GNETWORK_DISABLE_CONTENT_ACTIONS )
+				return $content;
+
+		$before = $after = '';
+
+		if ( has_action( $this->hook( 'content_before' ) ) ) {
+			ob_start();
+				do_action( $this->hook( 'content_before' ), $content );
+			$before = ob_get_clean();
+
+			if ( trim( $before ) )
+				$before = '<div class="gnetwork-wrap-action content-before">'.$before.'</div>';
+		}
+
+		if ( has_action( $this->hook( 'content_after' ) ) ) {
+			ob_start();
+				do_action( $this->hook( 'content_after' ), $content );
+			$after = ob_get_clean();
+
+			if ( trim( $after ) )
+				$after = '<div class="gnetwork-wrap-action content-after">'.$after.'</div>';
+		}
+
+		return $before.$content.$after;
 	}
 
 	public static function continueReading()

@@ -74,7 +74,8 @@ class ShortCodes extends ModuleCore
 
 		if ( ! defined( 'GNETWORK_DISABLE_REFLIST_INSERT' )
 			|| ! GNETWORK_DISABLE_REFLIST_INSERT )
-				add_filter( 'the_content', array( $this, 'the_content' ), 20 );
+				// add_filter( 'the_content', array( $this, 'the_content' ), 20 );
+				add_action( 'gnetwork_themes_content_after', array( $this, 'content_after_reflist' ), 5 );
 	}
 
 	public static function available()
@@ -1040,6 +1041,14 @@ class ShortCodes extends ModuleCore
 		return self::shortcodeWrap( $html, 'reflist', $args );
 	}
 
+	public function content_after_reflist( $content )
+	{
+		if ( ! $this->ref_list )
+			echo $this->shortcode_reflist( array(), NULL, 'reflist' );
+	}
+
+	// FIXME: DEPRECATED
+	// it causes much problems!
 	public function the_content( $content )
 	{
 		if ( ! is_singular()
