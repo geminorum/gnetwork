@@ -5,6 +5,8 @@ defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 class Captcha extends ModuleCore
 {
 
+	// FIXME: move to NoCaptcha: [Using Googles NoCaptcha ReCaptcha In WordPress](https://paulund.co.uk/using-googles-nocaptcha-recaptcha-wordpress)
+
 	protected $key = 'captcha';
 
 	private $public_key;
@@ -74,7 +76,7 @@ class Captcha extends ModuleCore
 				array(
 					'field'       => 'private_key',
 					'type'        => 'text',
-					'title'       => _x( 'Secret Key', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Secret Key', 'Captcha Module', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Key for communication between your site and Google reCAPTCHA.', 'Captcha Module', GNETWORK_TEXTDOMAIN ),
 					'field_class' => array( 'regular-text', 'code-text' ),
 				),

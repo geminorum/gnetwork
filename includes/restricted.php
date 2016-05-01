@@ -120,7 +120,7 @@ class Restricted extends ModuleCore
 					'description' => _x( 'Feed access if the site is restricted.', 'Restricted Module', GNETWORK_TEXTDOMAIN ),
 					'default'     => 'open',
 					'values'      => array(
-						'open'   => _x( 'Open', GNETWORK_TEXTDOMAIN ),
+						'open'   => _x( 'Open', 'Restricted Module', GNETWORK_TEXTDOMAIN ),
 						'closed' => _x( 'Restricted', 'Restricted Module', GNETWORK_TEXTDOMAIN ),
 					),
 				),

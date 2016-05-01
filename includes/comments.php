@@ -477,7 +477,7 @@ class Comments extends ModuleCore
 		if ( substr_count( strtolower( $comment ), 'http://' ) > $this->links_limit ) {
 
 			if ( 'reject' == $this->links_limit_action )
-				wp_die( sprintf( _x( 'Comment has <strong>over %s links</strong>. Please reduce number of those.', GNETWORK_TEXTDOMAIN ), $this->links_limit ) );
+				wp_die( sprintf( _x( 'Comment has <strong>over %s links</strong>. Please reduce number of those.', 'Comments Module', GNETWORK_TEXTDOMAIN ), $this->links_limit ) );
 
 			else
 				add_filter( 'pre_comment_approved', array( $this, 'pre_comment_approved_spam' ) );

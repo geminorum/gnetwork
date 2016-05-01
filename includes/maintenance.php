@@ -67,7 +67,7 @@ class Maintenance extends ModuleCore
 					'field'  => 'current_template',
 					'type'   => 'custom',
 					'title'  => _x( 'Current Template', 'Maintenance Module', GNETWORK_TEXTDOMAIN ),
-					'values' => ( $template ? '<p class="description code"><code>'.$template.'</code></p>' :
+					'values' => ( $template ? '<p class="description code"><code>'. wp_normalize_path( $template ).'</code></p>' :
 						'<p class="description">'._x( 'There are no templates available. We will use an internal instead.', 'Maintenance Module', GNETWORK_TEXTDOMAIN ).'</p>' ),
 				),
 				array(
@@ -95,7 +95,7 @@ class Maintenance extends ModuleCore
 				array(
 					'field'       => 'login_message',
 					'type'        => 'textarea-quicktags',
-					'title'       => _x( 'Login Message', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Login Message', 'Maintenance Module', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'The login message while site is on maintenance. Leave empty to disable.', 'Maintenance Module', GNETWORK_TEXTDOMAIN ),
 					'default'     => _x( 'The site is unavailable for scheduled maintenance.', 'Maintenance Module: Default Option', GNETWORK_TEXTDOMAIN ),
 					'field_class' => array( 'large-text', 'code-text' ),

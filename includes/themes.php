@@ -74,7 +74,7 @@ class Themes extends ModuleCore
 					'type'        => 'text',
 					'title'       => _x( 'Body Class', 'Themes Module: Setting Title', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'This will be added as html body class to all pages on front-end', 'Themes Module: Setting Description', GNETWORK_TEXTDOMAIN ),
-					'field_class' => array( 'medium-text', 'code-text' ),
+					'field_class' => array( 'regular-text', 'code-text' ),
 					'default'     => GNETWORK_BODY_CLASS,
 				),
 			),
