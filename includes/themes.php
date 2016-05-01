@@ -248,6 +248,17 @@ class Themes extends ModuleCore
 		} else if ( $this->isTheme( 'twentytwelve' ) ) {
 
 			add_action( 'twentytwelve_credits', array( $this, 'twentytwelve_credits' ) );
+
+		} else if ( $this->isTheme( 'twentyfifteen' ) ) {
+
+			if ( $this->rtl ) {
+				add_action( 'wp_enqueue_scripts', function(){
+					wp_enqueue_style( 'gnetwork-themes-twentyfifteen', GNETWORK_URL.'assets/css/themes.twentyfifteen-rtl.css', array(), GNETWORK_VERSION );
+				}, 20 );
+			}
+
+			add_action( 'twentyfifteen_credits', array( $this, 'twentytwelve_credits' ) );
+
 		}
 	}
 
