@@ -3,30 +3,15 @@ msgstr ""
 "Project-Id-Version: gNetwork 3.0.0\n"
 "Report-Msgid-Bugs-To: http://geminorum.ir/wordpress/gnetwork/issues\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2016-04-19 19:39+0430\n"
+"PO-Revision-Date: 2016-05-01 06:32+0430\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: geminorum <contact@geminorum.ir>\n"
 "Language: fa_IR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.7\n"
-"X-Textdomain-Support: yes\n"
-"X-Poedit-Basepath: ..\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
-"_n_noop:1,2;_c;_nc:4c,1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_ex:1,2c;"
-"esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
-"X-Poedit-SearchPath-0: .\n"
-"X-Poedit-SearchPathExcluded-0: .git\n"
-"X-Poedit-SearchPathExcluded-1: .imdone\n"
-"X-Poedit-SearchPathExcluded-2: .sass-cache\n"
-"X-Poedit-SearchPathExcluded-3: .temp\n"
-"X-Poedit-SearchPathExcluded-4: assets\n"
-"X-Poedit-SearchPathExcluded-5: languages\n"
-"X-Poedit-SearchPathExcluded-6: locale\n"
-"X-Poedit-SearchPathExcluded-7: node_modules\n"
+"X-Generator: Poedit 1.8.7\n"
 
 #: includes/admin.php:65, includes/admin.php:87
 msgctxt "Admin Module: Page Menu HTML Title"
@@ -66,7 +51,7 @@ msgstr "نسخه %s"
 #: includes/admin.php:230
 msgctxt "Admin Module"
 msgid "CODE IS POETRY"
-msgstr ""
+msgstr "کد نوشتن، شاعرانه است."
 
 #: includes/admin.php:248, includes/admin.php:250
 msgctxt "Admin Module: Column Blog ID"
@@ -215,135 +200,152 @@ msgctxt "BlackList Module"
 msgid "Locked message on WordPress die page"
 msgstr ""
 
-#: includes/blog.php:35
+#: includes/blog.php:77
 msgctxt "Blog Module: Menu Name"
 msgid "General"
 msgstr "همگانی"
 
-#: includes/blog.php:69
+#: includes/blog.php:112
 msgctxt "Blog Module"
 msgid "Blog Redirect to"
 msgstr "سایت هدایت دوباره شود به"
 
-#: includes/blog.php:70
+#: includes/blog.php:113
 msgctxt "Blog Module"
 msgid "The site will redirect to this URL. Leave empty to disable."
 msgstr ""
 
-#: includes/blog.php:77
+#: includes/blog.php:120
+msgctxt "Blog Module"
+msgid "Rest API Support"
+msgstr ""
+
+#: includes/blog.php:121
+msgctxt "Blog Module"
+msgid "Disable or Remove WordPress JSON discovery API"
+msgstr ""
+
+#: includes/blog.php:124, includes/blog.php:155, includes/comments.php:107,
+#: includes/modulecore.php:587, includes/notify.php:47, includes/notify.php:57,
+#: includes/themes.php:69
+msgid "Disabled"
+msgstr "غیرفعال"
+
+#: includes/blog.php:125, includes/blog.php:154, includes/comments.php:106,
+#: includes/modulecore.php:592, includes/notify.php:46, includes/notify.php:56,
+#: includes/themes.php:68
+msgid "Enabled"
+msgstr "فعال"
+
+#: includes/blog.php:126
+msgid "Removed"
+msgstr ""
+
+#: includes/blog.php:132
 msgctxt "Blog Module"
 msgid "Link Manager"
 msgstr ""
 
-#: includes/blog.php:78
+#: includes/blog.php:133
 msgctxt "Blog Module"
 msgid "Enables the Link Manager that existed in WordPress until version 3.5."
 msgstr ""
 
-#: includes/blog.php:83
+#: includes/blog.php:138
 msgctxt "Blog Module"
 msgid "XML-RPC"
 msgstr ""
 
-#: includes/blog.php:84
+#: includes/blog.php:139
 msgctxt "Blog Module"
 msgid "Whether XML-RPC services are enabled on this site."
 msgstr ""
 
-#: includes/blog.php:88
+#: includes/blog.php:143
 msgctxt "Blog Module"
 msgid "Feed JSON"
-msgstr ""
+msgstr "خوراک JSON"
 
-#: includes/blog.php:89
+#: includes/blog.php:144
 msgctxt "Blog Module"
 msgid "Adds JSON as new type of feed you can subscribe to."
 msgstr ""
 
-#: includes/blog.php:94
+#: includes/blog.php:149
 msgctxt "Blog Module"
 msgid "Emoji Support"
 msgstr ""
 
-#: includes/blog.php:95
+#: includes/blog.php:150
 msgctxt "Blog Module"
 msgid ""
 "Removes the extra code bloat used to add support for emoji's in older browsers"
 msgstr ""
 
-#: includes/blog.php:99, includes/comments.php:106, includes/modulecore.php:592,
-#: includes/notify.php:46, includes/notify.php:56
-msgid "Enabled"
-msgstr "فعال"
-
-#: includes/blog.php:100, includes/comments.php:107, includes/modulecore.php:587,
-#: includes/notify.php:47, includes/notify.php:57
-msgid "Disabled"
-msgstr "غیرفعال"
-
-#: includes/blog.php:106
+#: includes/blog.php:161
 msgctxt "Blog Module"
 msgid "Page for Copyright"
-msgstr ""
+msgstr "برگه برای اطلاعات کپی‌رایت"
 
-#: includes/blog.php:107
+#: includes/blog.php:162
 msgctxt "Blog Module"
 msgid "Set any page to be used as copyright page on html head."
 msgstr ""
+"پیوند این برگه، به عنوان صفحهٔ اطلاعات کپی‌رایت در ساختار HTML تعریف می‌شود."
 
-#: includes/blog.php:115
+#: includes/blog.php:170
 msgctxt "Blog Module"
 msgid "Page for Error 404"
-msgstr ""
+msgstr "برگه برای خطای ۴۰۴"
 
-#: includes/blog.php:116
+#: includes/blog.php:171
 msgctxt "Blog Module"
 msgid "Set any page to be used as the 404 error page."
-msgstr ""
+msgstr "هر برگه‌ای را به عنوان برگهٔ خطای ۴۰۴ انتخاب کنید."
 
-#: includes/blog.php:129
+#: includes/blog.php:184
 msgctxt "Blog Module"
 msgid "From Email"
-msgstr ""
+msgstr "ارسال ایمیل با نشانی"
 
-#: includes/blog.php:130
+#: includes/blog.php:185
 msgctxt "Blog Module"
 msgid ""
 "This blog email address that emails should be sent from. Set to override the "
 "network"
 msgstr ""
 
-#: includes/blog.php:136
+#: includes/blog.php:191
 msgctxt "Blog Module"
 msgid "From Name"
-msgstr ""
+msgstr "ارسال ایمیل با نام"
 
-#: includes/blog.php:137
+#: includes/blog.php:192
 msgctxt "Blog Module"
 msgid ""
 "This blog email name that emails should be sent from. Set to override the "
 "network"
 msgstr ""
 
-#: includes/blog.php:147
+#: includes/blog.php:202
 msgctxt "Blog Module"
 msgid "GA Override"
-msgstr ""
+msgstr "بازنویسی آنالیتیک"
 
-#: includes/blog.php:148
+#: includes/blog.php:203
 msgctxt "Blog Module"
 msgid "This blog Google Analytics account. Set to override the network"
-msgstr ""
+msgstr "این وبلاگ گوگل آنالیز حساب. تنظیم شبکه را نادیده بگیرید"
 
-#: includes/blog.php:159
+#: includes/blog.php:214
 msgctxt "Blog Module"
 msgid "Admin Language"
-msgstr ""
+msgstr "زبان مدیریت"
 
-#: includes/blog.php:160
+#: includes/blog.php:215
 msgctxt "Blog Module"
 msgid "Despite of the site language, always display admin in this locale"
-msgstr ""
+msgstr "جدای از زبان سایت، زبان بخش مدیریت را تنظیم کنید."
 
 #: includes/buddypress.php:56
 msgctxt "BuddyPress Module: Menu Name"
@@ -582,7 +584,7 @@ msgid "Key in the HTML code your site serves to users."
 msgstr ""
 
 #: includes/captcha.php:79
-msgctxt "GNETWORK_TEXTDOMAIN"
+msgctxt "Captcha Module"
 msgid "Secret Key"
 msgstr ""
 
@@ -739,12 +741,12 @@ msgstr ""
 #: includes/comments.php:76
 msgctxt "Comments Module: Menu Name"
 msgid "Comments"
-msgstr ""
+msgstr "دیدگاه‌ها"
 
 #: includes/comments.php:102
 msgctxt "Comments Module"
 msgid "Comment Notifications"
-msgstr ""
+msgstr "آگاه‌سازی از دیدگاه‌ها"
 
 #: includes/comments.php:103
 msgctxt "Comments Module"
@@ -754,7 +756,7 @@ msgstr ""
 #: includes/comments.php:112
 msgctxt "Comments Module"
 msgid "Archived Comments"
-msgstr ""
+msgstr "بایگانی برای دیدگاه‌ها"
 
 #: includes/comments.php:113
 msgctxt "Comments Module"
@@ -769,7 +771,7 @@ msgstr "متن کامل دیدگاه"
 #: includes/comments.php:118
 msgctxt "Comments Module"
 msgid "Full comments on dashboard"
-msgstr ""
+msgstr "متن کامل برای هر دیدگاه روی پیشخوان"
 
 #: includes/comments.php:122
 msgctxt "Comments Module"
@@ -877,7 +879,7 @@ msgid "Total Comments: %s"
 msgstr ""
 
 #: includes/comments.php:480
-msgctxt "GNETWORK_TEXTDOMAIN"
+msgctxt "Comments Module"
 msgid ""
 "Comment has <strong>over %s links</strong>. Please reduce number of those."
 msgstr ""
@@ -904,22 +906,22 @@ msgstr ""
 #: includes/cron.php:14
 msgctxt "CRON Module: Menu Name"
 msgid "CRON"
-msgstr ""
+msgstr "کرون"
 
 #: includes/cron.php:78
 msgctxt "Cron Module"
 msgid "Unschedule"
-msgstr ""
+msgstr "حذف زمان‌بندی"
 
 #: includes/cron.php:96
 msgctxt "CRON Module"
 msgid "Next"
-msgstr ""
+msgstr "بعدی"
 
 #: includes/cron.php:104
 msgctxt "CRON Module"
 msgid "Tasks"
-msgstr ""
+msgstr "تکالیف"
 
 #: includes/cron.php:143
 msgctxt "CRON Module"
@@ -944,7 +946,7 @@ msgstr ""
 #: includes/debug.php:69
 msgctxt "Debug Module"
 msgid "Clear Log"
-msgstr ""
+msgstr "پاک‌کردن لاگ‌ها"
 
 #: includes/debug.php:82
 msgctxt "Debug Module: Error Box"
@@ -1107,6 +1109,8 @@ msgid ""
 "Built on <a href=\"http://wordpress.org/\" title=\"Semantic Personal "
 "Publishing Platform\">WordPress</a> and tea"
 msgstr ""
+"ساخته شده بر نیروی <a href=\"http://wordpress.org/\" title=\"Semantic Personal "
+"Publishing Platform\">وردپرس</a> و چای!"
 
 #: includes/locale.php:34
 msgctxt "Locale Module: Menu Name"
@@ -1297,19 +1301,19 @@ msgid ""
 "while loggin in."
 msgstr ""
 
-#: includes/login.php:195
+#: includes/login.php:196
 msgctxt "Login Module"
 msgid "Prove your humanity:"
 msgstr "اگر قصد دارید وارد شوید:"
 
-#: includes/login.php:222
+#: includes/login.php:223
 msgctxt "Login Module"
 msgid ""
 "<strong>This site is not properly configured.</strong> Please ask this site's "
 "web developer to review for information on how to resolve this issue."
 msgstr ""
 
-#: includes/login.php:225
+#: includes/login.php:226
 msgctxt "Login Module"
 msgid ""
 "<strong>You failed to correctly answer the math problem.</strong> This is used "
@@ -1584,7 +1588,7 @@ msgstr "نگه‌داشت"
 #: includes/maintenance.php:69
 msgctxt "Maintenance Module"
 msgid "Current Template"
-msgstr ""
+msgstr "پوسته فعال"
 
 #: includes/maintenance.php:71
 msgctxt "Maintenance Module"
@@ -1594,40 +1598,43 @@ msgstr ""
 #: includes/maintenance.php:76
 msgctxt "Maintenance Module"
 msgid "Site Maintenance"
-msgstr ""
+msgstr "نگه‌داشت سایت"
 
 #: includes/maintenance.php:77
 msgctxt "Maintenance Module"
 msgid "Selected and above can access to the site."
-msgstr ""
+msgstr "سطح کاربری انتخاب شده و بالاتر توانایی دسترسی به سایت را خواهد داشت."
 
 #: includes/maintenance.php:83
 msgctxt "Maintenance Module"
 msgid "Admin Maintenance"
-msgstr ""
+msgstr "نگه‌داشت مدیریت"
 
 #: includes/maintenance.php:84
 msgctxt "Maintenance Module"
 msgid "Selected and above can access to the admin."
 msgstr ""
+"سطح کاربری انتخاب شده و بالاتر توانایی دسترسی به بخش مدیریت را خواهد داشت."
 
 #: includes/maintenance.php:90
 msgctxt "Maintenance Module"
 msgid "Admin Notice"
-msgstr ""
+msgstr "اطلاعیه مدیریت"
 
 #: includes/maintenance.php:91
 msgctxt "Maintenance Module"
 msgid "The admin notice while site is on maintenance. Leave empty to disable."
 msgstr ""
+"اطلاعیه در بخش مدیریت در حالی که سایت در تعمیر و نگه‌داری است. برای غیرفعال "
+"کردن خالی بگذارید."
 
 #: includes/maintenance.php:92
 msgctxt "Maintenance Module: Default Option"
 msgid "The Maintenance Mode is active."
-msgstr ""
+msgstr "حالت نگه‌داری فعال است."
 
 #: includes/maintenance.php:98
-msgctxt "GNETWORK_TEXTDOMAIN"
+msgctxt "Maintenance Module"
 msgid "Login Message"
 msgstr ""
 
@@ -1635,36 +1642,38 @@ msgstr ""
 msgctxt "Maintenance Module"
 msgid "The login message while site is on maintenance. Leave empty to disable."
 msgstr ""
+"پیام ورود به سایت در حالی که سایت در تعمیر و نگه‌داری است. برای غیرفعال کردن "
+"خالی بگذارید."
 
 #: includes/maintenance.php:100
 msgctxt "Maintenance Module: Default Option"
 msgid "The site is unavailable for scheduled maintenance."
-msgstr ""
+msgstr "سایت برای انجام تعمیرات زمان‌بندی‌شده در دسترس نیست."
 
 #: includes/maintenance.php:106
 msgctxt "Maintenance Module"
 msgid "Status Code"
-msgstr ""
+msgstr "کد وضعیت"
 
 #: includes/maintenance.php:107
 msgctxt "Maintenance Module"
 msgid "HTTP status header code"
-msgstr ""
+msgstr "کد وضعیت هدر HTTP"
 
 #: includes/maintenance.php:125
 msgctxt "Maintenance Module"
 msgid "Retry After"
-msgstr ""
+msgstr "تلاش دوباره"
 
 #: includes/maintenance.php:126
 msgctxt "Maintenance Module"
 msgid "HTTP status header retry after"
-msgstr ""
+msgstr "زمان تلاش دوباره برای وضعیت HTTP"
 
 #: includes/maintenance.php:227
 msgctxt "Maintenance Module: Default 503 Message"
 msgid "The site is unavailable for scheduled maintenance."
-msgstr ""
+msgstr "سایت برای انجام تعمیرات زمان‌بندی‌شده در دسترس نیست."
 
 #: includes/media.php:35
 msgctxt "Media Module: Menu Name"
@@ -2325,231 +2334,227 @@ msgctxt "Provider\" Kavenegar: Settings Section Desc"
 msgid "Kavenegar is a Persian SMS Provider"
 msgstr ""
 
-#: includes/restricted.php:40
+#: includes/restricted.php:38
 msgctxt "Restricted Module: Menu Name"
 msgid "Restricted"
 msgstr "محدودیت"
 
-#: includes/restricted.php:96
+#: includes/restricted.php:94
 msgctxt "Restricted Module"
 msgid "Site Restriction"
 msgstr ""
 
-#: includes/restricted.php:97
+#: includes/restricted.php:95
 msgctxt "Restricted Module"
 msgid "Selected and above can access to the site."
-msgstr ""
+msgstr "سطح کاربری انتخاب شده و بالاتر توانایی دسترسی به سایت را خواهد داشت."
 
-#: includes/restricted.php:103
+#: includes/restricted.php:101
 msgctxt "Restricted Module"
 msgid "Admin Restriction"
 msgstr ""
 
-#: includes/restricted.php:104
+#: includes/restricted.php:102
 msgctxt "Restricted Module"
 msgid "Selected and above can access to the admin."
 msgstr ""
+"سطح کاربری انتخاب شده و بالاتر توانایی دسترسی به بخش مدیریت را خواهد داشت."
 
-#: includes/restricted.php:110
+#: includes/restricted.php:108
 msgctxt "Restricted Module"
 msgid "Admin Profile"
 msgstr ""
 
-#: includes/restricted.php:111
+#: includes/restricted.php:109
 msgctxt "Restricted Module"
 msgid "Admin profile access if the site is restricted."
 msgstr ""
 
-#: includes/restricted.php:114
+#: includes/restricted.php:112, includes/restricted.php:123
 msgctxt "Restricted Module"
 msgid "Open"
 msgstr "آزاد"
 
-#: includes/restricted.php:115, includes/restricted.php:126
+#: includes/restricted.php:113, includes/restricted.php:124
 msgctxt "Restricted Module"
 msgid "Restricted"
 msgstr "محدود"
 
-#: includes/restricted.php:121
+#: includes/restricted.php:119
 msgctxt "Restricted Module"
 msgid "Feed Restriction"
 msgstr "محدودیت خوراک"
 
-#: includes/restricted.php:122
+#: includes/restricted.php:120
 msgctxt "Restricted Module"
 msgid "Feed access if the site is restricted."
 msgstr ""
 
-#: includes/restricted.php:125
-msgctxt "GNETWORK_TEXTDOMAIN"
-msgid "Open"
-msgstr ""
-
-#: includes/restricted.php:132
+#: includes/restricted.php:130
 msgctxt "Restricted Module"
 msgid "Redirect Page"
 msgstr "سایت هدایت دوباره شود به"
 
-#: includes/restricted.php:133
+#: includes/restricted.php:131
 msgctxt "Restricted Module"
 msgid ""
 "Not authorized users will redirect to this page, to login page if not selected."
 msgstr ""
 
-#: includes/restricted.php:134
+#: includes/restricted.php:132
 msgctxt "Restricted Module"
 msgid "&mdash; Login &mdash;"
 msgstr "&mdash; ورود &mdash;"
 
-#: includes/restricted.php:140
+#: includes/restricted.php:138
 msgctxt "Restricted Module"
 msgid "Restricted Notice"
 msgstr "اخطار محدودیت سایت"
 
-#: includes/restricted.php:141
+#: includes/restricted.php:139
 msgctxt "Restricted Module"
 msgid ""
 "This will show on top of this site login page. <code>%1$s</code> for the role, "
 "<code>%2$s</code> for the page."
 msgstr ""
 
-#: includes/restricted.php:142
+#: includes/restricted.php:140
 msgctxt "Restricted Module: Default Option"
 msgid ""
 "<p>This site is restricted to users with %1$s access level. Please visit <a "
 "href=\"%2$s\">here</a> to request access.</p>"
 msgstr ""
 
-#: includes/restricted.php:148
+#: includes/restricted.php:146
 msgctxt "Restricted Module"
 msgid "Restricted Access"
 msgstr "دسترسی محدود"
 
-#: includes/restricted.php:149
+#: includes/restricted.php:147
 msgctxt "Restricted Module"
 msgid ""
 "This will show on 403 page for logged-in users. <code>%1$s</code> for the "
 "role, <code>%2$s</code> for the page."
 msgstr ""
 
-#: includes/restricted.php:150
+#: includes/restricted.php:148
 msgctxt "Restricted Module: Default Option"
 msgid ""
 "<p>You do not have %1$s access level. Please visit <a href=\"%2$s\">here</a> "
 "to request access.</p>"
 msgstr ""
 
-#: includes/restricted.php:178
+#: includes/restricted.php:188
 msgctxt "Restricted Module"
 msgid "Private Feeds"
 msgstr "خوراک‌های خصوصی"
 
-#: includes/restricted.php:179
+#: includes/restricted.php:189
 msgctxt "Restricted Module"
 msgid "Used to access restricted site feeds."
 msgstr ""
 
-#: includes/restricted.php:184
+#: includes/restricted.php:194
 msgctxt "Restricted Module"
 msgid "Access Key"
 msgstr "کلید دسترسی"
 
-#: includes/restricted.php:187
+#: includes/restricted.php:197
 msgctxt "Restricted Module"
 msgid "Access key not found"
 msgstr "کلید دسترسی تولید نشده است"
 
-#: includes/restricted.php:189
+#: includes/restricted.php:199
 msgctxt "Restricted Module"
 msgid "The key will be used on all restricted site feed URLs."
 msgstr "از این کلید هنگام استفاده از خوراک سایت‌های محدود شده استفاده خواهد شد."
 
-#: includes/restricted.php:193
+#: includes/restricted.php:203
 msgctxt "Restricted Module"
 msgid "&mdash; Select &mdash;"
 msgstr "&mdash; انتخاب &mdash;"
 
-#: includes/restricted.php:195
+#: includes/restricted.php:205
 msgctxt "Restricted Module"
 msgid "Reset your access key"
 msgstr "بازنشانی کلید دسترسی"
 
-#: includes/restricted.php:196
+#: includes/restricted.php:206
 msgctxt "Restricted Module"
 msgid "Remove your access key"
 msgstr "حذف کلید دسترسی"
 
-#: includes/restricted.php:198
+#: includes/restricted.php:208
 msgctxt "Restricted Module"
 msgid "Generate new access key"
 msgstr "تولید کلید دسترسی"
 
-#: includes/restricted.php:204
+#: includes/restricted.php:214
 msgctxt "Restricted Module"
 msgid "Key Operations"
 msgstr "گزینه‌های کلید"
 
-#: includes/restricted.php:205
+#: includes/restricted.php:215
 msgctxt "Restricted Module"
 msgid "Select an operation to work with your private feed access key."
 msgstr "برای تغیر کلید دسترسی یکی از این گزینه‌ها را انتخاب کنید."
 
-#: includes/restricted.php:213
+#: includes/restricted.php:223
 msgctxt "Restricted Module"
 msgid "Your Feed"
 msgstr "خوراک شما"
 
-#: includes/restricted.php:220
+#: includes/restricted.php:230
 msgctxt "Restricted Module"
 msgid "Your Comments Feed"
 msgstr "خوراک دیدگاه‌های شما"
 
-#: includes/restricted.php:269
+#: includes/restricted.php:279
 msgctxt "Restricted Module"
 msgid "Home Page"
 msgstr "صفحه اصلی"
 
-#: includes/restricted.php:274
+#: includes/restricted.php:284
 msgctxt "Restricted Module"
 msgid "Logout of this site"
 msgstr "خروج از این سایت"
 
-#: includes/restricted.php:275
+#: includes/restricted.php:285
 msgctxt "Restricted Module"
 msgid "Log Out"
 msgstr "خروج"
 
-#: includes/restricted.php:297
+#: includes/restricted.php:307
 msgctxt "Restricted Module"
 msgid "You do not have sufficient access level."
 msgstr "محتوای این صفحه برای شما قابل دسترسی نیست."
 
-#: includes/restricted.php:437
+#: includes/restricted.php:447
 msgctxt "Restricted Module"
 msgid "Your site is restricted to public"
 msgstr "سایت شما برای عموم قابل دسترسی نیست."
 
-#: includes/restricted.php:441
+#: includes/restricted.php:451
 msgctxt "Restricted Module"
 msgid "Public Access Discouraged"
 msgstr "دسترسی عمومی امکان‌پذیر نیست."
 
-#: includes/restricted.php:486
+#: includes/restricted.php:496
 msgctxt "Restricted Module"
 msgid "Key Valid but no Access"
 msgstr "کلید درست اما بدون دسترسی"
 
-#: includes/restricted.php:487
+#: includes/restricted.php:497
 msgctxt "Restricted Module"
 msgid "Your Key is valid but you have no access to this site"
 msgstr "کلید دسترسی شما درست است، اما متاسفانه دسترسی به این سایت ندارید."
 
-#: includes/restricted.php:503
+#: includes/restricted.php:513
 msgctxt "Restricted Module"
 msgid "No key, no Access"
 msgstr "بدون کلید، بدون دسترسی!"
 
-#: includes/restricted.php:504
+#: includes/restricted.php:514
 msgctxt "Restricted Module"
 msgid "You have to have a key to access this site's feed"
 msgstr "برای دسترسی به خراک این سایت، احتیاج به کلید دسترسی دارید."
@@ -2775,11 +2780,13 @@ msgstr "سطح دسترسی"
 msgctxt "SMS Module"
 msgid "Selected and above can view the providers information"
 msgstr ""
+"سطح کاربری انتخاب شده و بالاتر توانایی دسترسی به اطلاعات ارائه‌دهنده را خواهد "
+"داشت."
 
 #: includes/sms.php:70
 msgctxt "SMS Module"
 msgid "Default Provider"
-msgstr ""
+msgstr "ارائه‌دهندهٔ پیش‌فرض"
 
 #: includes/sms.php:73
 msgctxt "SMS Module"
@@ -2805,6 +2812,8 @@ msgstr "توضیحات"
 msgid ""
 "The description is not prominent by default, however some themes may show it."
 msgstr ""
+"توضیحات به صورت پیش فرض مهم نیستند، با این حال برخی از پوسته‌ها ممکن است آنها "
+"را نمایش دهند."
 
 #: includes/taxonomy.php:101
 msgctxt "Taxonomy Module: Bulk Action"
@@ -2831,27 +2840,62 @@ msgctxt "Taxonomy Module: Bulk Action"
 msgid "Set Parent"
 msgstr "تغییر والد"
 
-#: includes/taxonomy.php:196
+#: includes/taxonomy.php:200
 msgctxt "Taxonomy Module: Notice"
 msgid "Terms updated."
 msgstr "رده‌بندی‌ها به‌روز شدند."
 
-#: includes/taxonomy.php:201
+#: includes/taxonomy.php:205
 msgctxt "Taxonomy Module: Notice"
 msgid "Terms not updated."
 msgstr "رده‌بندی‌ها به روز نشدند."
 
-#: includes/taxonomy.php:378
+#: includes/taxonomy.php:382
 msgctxt "Taxonomy Module"
 msgid "into: %s"
 msgstr "در: %s"
 
-#: includes/taxonomy.php:406
+#: includes/taxonomy.php:410
 msgctxt "Taxonomy Module: Set Parent None Option"
 msgid "None"
 msgstr "هیچ‌کدام"
 
-#: includes/themes.php:218
+#: includes/themes.php:40
+msgctxt "Themes Module: Menu Name"
+msgid "Themes"
+msgstr "پوسته‌ها"
+
+#: includes/themes.php:60
+msgctxt "Themes Module: Setting Title"
+msgid "jQuery on Bottom"
+msgstr ""
+
+#: includes/themes.php:61
+msgctxt "Themes Module: Setting Description"
+msgid "Prints jQuery in footer on front-end"
+msgstr ""
+
+#: includes/themes.php:65
+msgctxt "Themes Module: Setting Title"
+msgid "Theme Enhancments"
+msgstr ""
+
+#: includes/themes.php:66
+msgctxt "Themes Module: Setting Description"
+msgid "Extra styles and more for suported themes"
+msgstr ""
+
+#: includes/themes.php:75
+msgctxt "Themes Module: Setting Title"
+msgid "Body Class"
+msgstr ""
+
+#: includes/themes.php:76
+msgctxt "Themes Module: Setting Description"
+msgid "This will be added as html body class to all pages on front-end"
+msgstr ""
+
+#: includes/themes.php:290
 msgctxt "Themes Module: Continue Reading Helper"
 msgid ""
 "<a %1$s href=\"%1$s\" title=\"Continue reading &ldquo;%2$s&rdquo; &hellip;\" "
@@ -2860,7 +2904,7 @@ msgstr ""
 "<a %1$s href=\"%1$s\" title=\"ادامه &rdquo;%2$s&ldquo; را مطالعه کنید &hellip;"
 "\" class=\"%3$s\" >%4$s</a>"
 
-#: includes/themes.php:222
+#: includes/themes.php:294
 msgctxt "Themes Module: Continue Reading Helper"
 msgid "Read more&nbsp;<span class=\"excerpt-link-hellip\">&hellip;</span>"
 msgstr "ادامه&nbsp;<span class=\"excerpt-link-hellip\">&hellip;</span>"
@@ -2878,7 +2922,7 @@ msgstr ""
 #: includes/tracking.php:54
 msgctxt "Tracking Module"
 msgid "Selected and above will be ignored"
-msgstr ""
+msgstr "سطح کاربری انتخاب شده و بالاتر توانایی در آمارها شمارش نخواهد شد."
 
 #: includes/tracking.php:60
 msgctxt "Tracking Module"

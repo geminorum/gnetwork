@@ -194,125 +194,139 @@ msgctxt "BlackList Module"
 msgid "Locked message on WordPress die page"
 msgstr ""
 
-#: includes/blog.php:35
+#: includes/blog.php:77
 msgctxt "Blog Module: Menu Name"
 msgid "General"
 msgstr ""
 
-#: includes/blog.php:69
+#: includes/blog.php:112
 msgctxt "Blog Module"
 msgid "Blog Redirect to"
 msgstr ""
 
-#: includes/blog.php:70
+#: includes/blog.php:113
 msgctxt "Blog Module"
 msgid "The site will redirect to this URL. Leave empty to disable."
 msgstr ""
 
-#: includes/blog.php:77
+#: includes/blog.php:120
+msgctxt "Blog Module"
+msgid "Rest API Support"
+msgstr ""
+
+#: includes/blog.php:121
+msgctxt "Blog Module"
+msgid "Disable or Remove WordPress JSON discovery API"
+msgstr ""
+
+#: includes/blog.php:124, includes/blog.php:155, includes/comments.php:107, includes/modulecore.php:587, includes/notify.php:47, includes/notify.php:57, includes/themes.php:69
+msgid "Disabled"
+msgstr ""
+
+#: includes/blog.php:125, includes/blog.php:154, includes/comments.php:106, includes/modulecore.php:592, includes/notify.php:46, includes/notify.php:56, includes/themes.php:68
+msgid "Enabled"
+msgstr ""
+
+#: includes/blog.php:126
+msgid "Removed"
+msgstr ""
+
+#: includes/blog.php:132
 msgctxt "Blog Module"
 msgid "Link Manager"
 msgstr ""
 
-#: includes/blog.php:78
+#: includes/blog.php:133
 msgctxt "Blog Module"
 msgid "Enables the Link Manager that existed in WordPress until version 3.5."
 msgstr ""
 
-#: includes/blog.php:83
+#: includes/blog.php:138
 msgctxt "Blog Module"
 msgid "XML-RPC"
 msgstr ""
 
-#: includes/blog.php:84
+#: includes/blog.php:139
 msgctxt "Blog Module"
 msgid "Whether XML-RPC services are enabled on this site."
 msgstr ""
 
-#: includes/blog.php:88
+#: includes/blog.php:143
 msgctxt "Blog Module"
 msgid "Feed JSON"
 msgstr ""
 
-#: includes/blog.php:89
+#: includes/blog.php:144
 msgctxt "Blog Module"
 msgid "Adds JSON as new type of feed you can subscribe to."
 msgstr ""
 
-#: includes/blog.php:94
+#: includes/blog.php:149
 msgctxt "Blog Module"
 msgid "Emoji Support"
 msgstr ""
 
-#: includes/blog.php:95
+#: includes/blog.php:150
 msgctxt "Blog Module"
 msgid "Removes the extra code bloat used to add support for emoji's in older browsers"
 msgstr ""
 
-#: includes/blog.php:99, includes/comments.php:106, includes/modulecore.php:592, includes/notify.php:46, includes/notify.php:56
-msgid "Enabled"
-msgstr ""
-
-#: includes/blog.php:100, includes/comments.php:107, includes/modulecore.php:587, includes/notify.php:47, includes/notify.php:57
-msgid "Disabled"
-msgstr ""
-
-#: includes/blog.php:106
+#: includes/blog.php:161
 msgctxt "Blog Module"
 msgid "Page for Copyright"
 msgstr ""
 
-#: includes/blog.php:107
+#: includes/blog.php:162
 msgctxt "Blog Module"
 msgid "Set any page to be used as copyright page on html head."
 msgstr ""
 
-#: includes/blog.php:115
+#: includes/blog.php:170
 msgctxt "Blog Module"
 msgid "Page for Error 404"
 msgstr ""
 
-#: includes/blog.php:116
+#: includes/blog.php:171
 msgctxt "Blog Module"
 msgid "Set any page to be used as the 404 error page."
 msgstr ""
 
-#: includes/blog.php:129
+#: includes/blog.php:184
 msgctxt "Blog Module"
 msgid "From Email"
 msgstr ""
 
-#: includes/blog.php:130
+#: includes/blog.php:185
 msgctxt "Blog Module"
 msgid "This blog email address that emails should be sent from. Set to override the network"
 msgstr ""
 
-#: includes/blog.php:136
+#: includes/blog.php:191
 msgctxt "Blog Module"
 msgid "From Name"
 msgstr ""
 
-#: includes/blog.php:137
+#: includes/blog.php:192
 msgctxt "Blog Module"
 msgid "This blog email name that emails should be sent from. Set to override the network"
 msgstr ""
 
-#: includes/blog.php:147
+#: includes/blog.php:202
 msgctxt "Blog Module"
 msgid "GA Override"
 msgstr ""
 
-#: includes/blog.php:148
+#: includes/blog.php:203
 msgctxt "Blog Module"
 msgid "This blog Google Analytics account. Set to override the network"
 msgstr ""
 
-#: includes/blog.php:159
+#: includes/blog.php:214
 msgctxt "Blog Module"
 msgid "Admin Language"
 msgstr ""
 
-#: includes/blog.php:160
+#: includes/blog.php:215
 msgctxt "Blog Module"
 msgid "Despite of the site language, always display admin in this locale"
 msgstr ""
@@ -548,7 +562,7 @@ msgid "Key in the HTML code your site serves to users."
 msgstr ""
 
 #: includes/captcha.php:79
-msgctxt "GNETWORK_TEXTDOMAIN"
+msgctxt "Captcha Module"
 msgid "Secret Key"
 msgstr ""
 
@@ -843,7 +857,7 @@ msgid "Total Comments: %s"
 msgstr ""
 
 #: includes/comments.php:480
-msgctxt "GNETWORK_TEXTDOMAIN"
+msgctxt "Comments Module"
 msgid "Comment has <strong>over %s links</strong>. Please reduce number of those."
 msgstr ""
 
@@ -1252,17 +1266,17 @@ msgctxt "Login Module: Settings Section Desc"
 msgid "Blocks Spam by Math. Verifies that a user answered the math problem correctly while loggin in."
 msgstr ""
 
-#: includes/login.php:195
+#: includes/login.php:196
 msgctxt "Login Module"
 msgid "Prove your humanity:"
 msgstr ""
 
-#: includes/login.php:222
+#: includes/login.php:223
 msgctxt "Login Module"
 msgid "<strong>This site is not properly configured.</strong> Please ask this site's web developer to review for information on how to resolve this issue."
 msgstr ""
 
-#: includes/login.php:225
+#: includes/login.php:226
 msgctxt "Login Module"
 msgid "<strong>You failed to correctly answer the math problem.</strong> This is used to combat spam Please use your browser's back button to return to the login form, press the \"refresh\" button to generate a new math problem, and try to log in again."
 msgstr ""
@@ -1569,7 +1583,7 @@ msgid "The Maintenance Mode is active."
 msgstr ""
 
 #: includes/maintenance.php:98
-msgctxt "GNETWORK_TEXTDOMAIN"
+msgctxt "Maintenance Module"
 msgid "Login Message"
 msgstr ""
 
@@ -2248,222 +2262,217 @@ msgctxt "Provider\" Kavenegar: Settings Section Desc"
 msgid "Kavenegar is a Persian SMS Provider"
 msgstr ""
 
-#: includes/restricted.php:40
+#: includes/restricted.php:38
 msgctxt "Restricted Module: Menu Name"
 msgid "Restricted"
 msgstr ""
 
-#: includes/restricted.php:96
+#: includes/restricted.php:94
 msgctxt "Restricted Module"
 msgid "Site Restriction"
 msgstr ""
 
-#: includes/restricted.php:97
+#: includes/restricted.php:95
 msgctxt "Restricted Module"
 msgid "Selected and above can access to the site."
 msgstr ""
 
-#: includes/restricted.php:103
+#: includes/restricted.php:101
 msgctxt "Restricted Module"
 msgid "Admin Restriction"
 msgstr ""
 
-#: includes/restricted.php:104
+#: includes/restricted.php:102
 msgctxt "Restricted Module"
 msgid "Selected and above can access to the admin."
 msgstr ""
 
-#: includes/restricted.php:110
+#: includes/restricted.php:108
 msgctxt "Restricted Module"
 msgid "Admin Profile"
 msgstr ""
 
-#: includes/restricted.php:111
+#: includes/restricted.php:109
 msgctxt "Restricted Module"
 msgid "Admin profile access if the site is restricted."
 msgstr ""
 
-#: includes/restricted.php:114
+#: includes/restricted.php:112, includes/restricted.php:123
 msgctxt "Restricted Module"
 msgid "Open"
 msgstr ""
 
-#: includes/restricted.php:115, includes/restricted.php:126
+#: includes/restricted.php:113, includes/restricted.php:124
 msgctxt "Restricted Module"
 msgid "Restricted"
 msgstr ""
 
-#: includes/restricted.php:121
+#: includes/restricted.php:119
 msgctxt "Restricted Module"
 msgid "Feed Restriction"
 msgstr ""
 
-#: includes/restricted.php:122
+#: includes/restricted.php:120
 msgctxt "Restricted Module"
 msgid "Feed access if the site is restricted."
 msgstr ""
 
-#: includes/restricted.php:125
-msgctxt "GNETWORK_TEXTDOMAIN"
-msgid "Open"
-msgstr ""
-
-#: includes/restricted.php:132
+#: includes/restricted.php:130
 msgctxt "Restricted Module"
 msgid "Redirect Page"
 msgstr ""
 
-#: includes/restricted.php:133
+#: includes/restricted.php:131
 msgctxt "Restricted Module"
 msgid "Not authorized users will redirect to this page, to login page if not selected."
 msgstr ""
 
-#: includes/restricted.php:134
+#: includes/restricted.php:132
 msgctxt "Restricted Module"
 msgid "&mdash; Login &mdash;"
 msgstr ""
 
-#: includes/restricted.php:140
+#: includes/restricted.php:138
 msgctxt "Restricted Module"
 msgid "Restricted Notice"
 msgstr ""
 
-#: includes/restricted.php:141
+#: includes/restricted.php:139
 msgctxt "Restricted Module"
 msgid "This will show on top of this site login page. <code>%1$s</code> for the role, <code>%2$s</code> for the page."
 msgstr ""
 
-#: includes/restricted.php:142
+#: includes/restricted.php:140
 msgctxt "Restricted Module: Default Option"
 msgid "<p>This site is restricted to users with %1$s access level. Please visit <a href=\"%2$s\">here</a> to request access.</p>"
 msgstr ""
 
-#: includes/restricted.php:148
+#: includes/restricted.php:146
 msgctxt "Restricted Module"
 msgid "Restricted Access"
 msgstr ""
 
-#: includes/restricted.php:149
+#: includes/restricted.php:147
 msgctxt "Restricted Module"
 msgid "This will show on 403 page for logged-in users. <code>%1$s</code> for the role, <code>%2$s</code> for the page."
 msgstr ""
 
-#: includes/restricted.php:150
+#: includes/restricted.php:148
 msgctxt "Restricted Module: Default Option"
 msgid "<p>You do not have %1$s access level. Please visit <a href=\"%2$s\">here</a> to request access.</p>"
 msgstr ""
 
-#: includes/restricted.php:178
+#: includes/restricted.php:188
 msgctxt "Restricted Module"
 msgid "Private Feeds"
 msgstr ""
 
-#: includes/restricted.php:179
+#: includes/restricted.php:189
 msgctxt "Restricted Module"
 msgid "Used to access restricted site feeds."
 msgstr ""
 
-#: includes/restricted.php:184
+#: includes/restricted.php:194
 msgctxt "Restricted Module"
 msgid "Access Key"
 msgstr ""
 
-#: includes/restricted.php:187
+#: includes/restricted.php:197
 msgctxt "Restricted Module"
 msgid "Access key not found"
 msgstr ""
 
-#: includes/restricted.php:189
+#: includes/restricted.php:199
 msgctxt "Restricted Module"
 msgid "The key will be used on all restricted site feed URLs."
 msgstr ""
 
-#: includes/restricted.php:193
+#: includes/restricted.php:203
 msgctxt "Restricted Module"
 msgid "&mdash; Select &mdash;"
 msgstr ""
 
-#: includes/restricted.php:195
+#: includes/restricted.php:205
 msgctxt "Restricted Module"
 msgid "Reset your access key"
 msgstr ""
 
-#: includes/restricted.php:196
+#: includes/restricted.php:206
 msgctxt "Restricted Module"
 msgid "Remove your access key"
 msgstr ""
 
-#: includes/restricted.php:198
+#: includes/restricted.php:208
 msgctxt "Restricted Module"
 msgid "Generate new access key"
 msgstr ""
 
-#: includes/restricted.php:204
+#: includes/restricted.php:214
 msgctxt "Restricted Module"
 msgid "Key Operations"
 msgstr ""
 
-#: includes/restricted.php:205
+#: includes/restricted.php:215
 msgctxt "Restricted Module"
 msgid "Select an operation to work with your private feed access key."
 msgstr ""
 
-#: includes/restricted.php:213
+#: includes/restricted.php:223
 msgctxt "Restricted Module"
 msgid "Your Feed"
 msgstr ""
 
-#: includes/restricted.php:220
+#: includes/restricted.php:230
 msgctxt "Restricted Module"
 msgid "Your Comments Feed"
 msgstr ""
 
-#: includes/restricted.php:269
+#: includes/restricted.php:279
 msgctxt "Restricted Module"
 msgid "Home Page"
 msgstr ""
 
-#: includes/restricted.php:274
+#: includes/restricted.php:284
 msgctxt "Restricted Module"
 msgid "Logout of this site"
 msgstr ""
 
-#: includes/restricted.php:275
+#: includes/restricted.php:285
 msgctxt "Restricted Module"
 msgid "Log Out"
 msgstr ""
 
-#: includes/restricted.php:297
+#: includes/restricted.php:307
 msgctxt "Restricted Module"
 msgid "You do not have sufficient access level."
 msgstr ""
 
-#: includes/restricted.php:437
+#: includes/restricted.php:447
 msgctxt "Restricted Module"
 msgid "Your site is restricted to public"
 msgstr ""
 
-#: includes/restricted.php:441
+#: includes/restricted.php:451
 msgctxt "Restricted Module"
 msgid "Public Access Discouraged"
 msgstr ""
 
-#: includes/restricted.php:486
+#: includes/restricted.php:496
 msgctxt "Restricted Module"
 msgid "Key Valid but no Access"
 msgstr ""
 
-#: includes/restricted.php:487
+#: includes/restricted.php:497
 msgctxt "Restricted Module"
 msgid "Your Key is valid but you have no access to this site"
 msgstr ""
 
-#: includes/restricted.php:503
+#: includes/restricted.php:513
 msgctxt "Restricted Module"
 msgid "No key, no Access"
 msgstr ""
 
-#: includes/restricted.php:504
+#: includes/restricted.php:514
 msgctxt "Restricted Module"
 msgid "You have to have a key to access this site's feed"
 msgstr ""
@@ -2742,32 +2751,67 @@ msgctxt "Taxonomy Module: Bulk Action"
 msgid "Set Parent"
 msgstr ""
 
-#: includes/taxonomy.php:196
+#: includes/taxonomy.php:200
 msgctxt "Taxonomy Module: Notice"
 msgid "Terms updated."
 msgstr ""
 
-#: includes/taxonomy.php:201
+#: includes/taxonomy.php:205
 msgctxt "Taxonomy Module: Notice"
 msgid "Terms not updated."
 msgstr ""
 
-#: includes/taxonomy.php:378
+#: includes/taxonomy.php:382
 msgctxt "Taxonomy Module"
 msgid "into: %s"
 msgstr ""
 
-#: includes/taxonomy.php:406
+#: includes/taxonomy.php:410
 msgctxt "Taxonomy Module: Set Parent None Option"
 msgid "None"
 msgstr ""
 
-#: includes/themes.php:218
+#: includes/themes.php:40
+msgctxt "Themes Module: Menu Name"
+msgid "Themes"
+msgstr ""
+
+#: includes/themes.php:60
+msgctxt "Themes Module: Setting Title"
+msgid "jQuery on Bottom"
+msgstr ""
+
+#: includes/themes.php:61
+msgctxt "Themes Module: Setting Description"
+msgid "Prints jQuery in footer on front-end"
+msgstr ""
+
+#: includes/themes.php:65
+msgctxt "Themes Module: Setting Title"
+msgid "Theme Enhancments"
+msgstr ""
+
+#: includes/themes.php:66
+msgctxt "Themes Module: Setting Description"
+msgid "Extra styles and more for suported themes"
+msgstr ""
+
+#: includes/themes.php:75
+msgctxt "Themes Module: Setting Title"
+msgid "Body Class"
+msgstr ""
+
+#: includes/themes.php:76
+msgctxt "Themes Module: Setting Description"
+msgid "This will be added as html body class to all pages on front-end"
+msgstr ""
+
+#: includes/themes.php:290
 msgctxt "Themes Module: Continue Reading Helper"
 msgid "<a %1$s href=\"%1$s\" title=\"Continue reading &ldquo;%2$s&rdquo; &hellip;\" class=\"%3$s\" >%4$s</a>"
 msgstr ""
 
-#: includes/themes.php:222
+#: includes/themes.php:294
 msgctxt "Themes Module: Continue Reading Helper"
 msgid "Read more&nbsp;<span class=\"excerpt-link-hellip\">&hellip;</span>"
 msgstr ""
