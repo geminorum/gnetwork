@@ -1306,9 +1306,9 @@ class BaseCore
 	// http://wordpress.stackexchange.com/a/114922
 	public static function getJSON( $url, $atts = array(), $assoc = FALSE )
 	{
-		$args = self::atts( array(
+		$args = self::recursiveParseArgs( $atts, array(
 			'timeout' => 15,
-		), $atts );
+		) );
 
 		$response = wp_remote_get( $url, $args );
 
@@ -1322,9 +1322,9 @@ class BaseCore
 
 	public static function getHTML( $url, $atts = array() )
 	{
-		$args = self::atts( array(
+		$args = self::recursiveParseArgs( $atts, array(
 			'timeout' => 15,
-		), $atts );
+		) );
 
 		$response = wp_remote_get( $url, $args );
 
