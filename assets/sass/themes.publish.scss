@@ -17,7 +17,7 @@ $font-family-head: Arial, "HelveticaNeue-Light", "Helvetica Neue Light", "Helvet
 
 body.rtl {
 
-	direction:rtl;
+	direction: rtl;
 	font-family: $font-family-base;
 
 	h1, h2, h3, h4, h5, h6 {
@@ -61,7 +61,7 @@ body.rtl {
 	textarea,
 	select,
 	button {
-		font:normal 12.3px $font-family-base;
+		font: normal 12.3px $font-family-base;
 	}
 
 

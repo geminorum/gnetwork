@@ -5,10 +5,12 @@
 
 body.edit-tags-php {
 
-	.form-field.term-description-wrap  {
-		> p,
-		.description {
-			display: none; // hide the description of the description!!
+	&:not(.gnetowrk-taxonomy)  { // only if taxonomy module not loading
+		.form-field.term-description-wrap  {
+			> p,
+			.description {
+				display: none; // hide the description of the description
+			}
 		}
 	}
 

@@ -5,6 +5,55 @@
 
 // FIXME: @at-root not supported via current sass compiler
 
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// Samim
+// https://github.com/rastikerdar/samim-font
+// http://rastikerdar.github.io/samim-font/
+
+@mixin theme-fonts-Samim-CDN() {
+
+	$name: "Samim";
+	$base: "https://cdn.rawgit.com";
+	$repo: "rastikerdar/samim-font/master/dist";
+	$file: "Samim";
+	$path: $base + "/" + $repo + "/" + $file;
+
+	// @at-root {
+		@font-face {
+			font-family: "#{$name}";
+			font-style: normal;
+			font-weight: 400;
+			src: url($path + '.eot');
+			src: url($path + '.eot?#iefix') format('embedded-opentype'),
+				//  url($path + '.woff2') format('woff2'),
+				 url($path + '.woff') format('woff'),
+				 url($path + '.ttf') format('truetype');
+		}
+	// }
+
+	$name: "Samim";
+	$base: "https://cdn.rawgit.com";
+	$repo: "rastikerdar/samim-font/master/dist";
+	$file: "Samim-Bold";
+	$path: $base + "/" + $repo + "/" + $file;
+
+	// @at-root {
+		@font-face {
+			font-family: "#{$name}";
+			font-style: normal;
+			font-weight: 700;
+			src: url($path + '.eot');
+			src: url($path + '.eot?#iefix') format('embedded-opentype'),
+				//  url($path + '.woff2') format('woff2'),
+				 url($path + '.woff') format('woff'),
+				 url($path + '.ttf') format('truetype');
+		}
+	// }
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////

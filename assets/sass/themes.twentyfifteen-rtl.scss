@@ -1,0 +1,209 @@
+@charset "UTF-8";
+
+@import "modules/all";
+@import "partials/base";
+@import "partials/fonts";
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+@include theme-fonts-Samim-CDN();
+
+// $base-size-font:     16px !default;
+// $base-size-baseline: 16px !default;
+
+$font-family-base: "Samim", "Tahoma", "Iranian Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+$font-family-head: "Samim", "Arial", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+body.rtl {
+
+	direction: rtl;
+	font-family: $font-family-base;
+
+    h1, h2, h3, h4, h5, h6 {
+		font-weight: bold;
+		font-family: $font-family-head;
+	}
+
+	button, input[type="button"], input[type="reset"], input[type="submit"], input, select, textarea, blockquote cite, blockquote small, .post-password-form label, .main-navigation .menu-item-description, .post-navigation .meta-nav, .post-navigation .post-title, .pagination, .image-navigation, .comment-navigation, .site-title, .site-description, .widget-title, .widget_calendar caption, .widget_rss .rss-date, .widget_rss cite, .author-heading, .entry-footer, .page-title, .page-links, .entry-caption, .comments-title, .comment-reply-title, .comment-metadata, .pingback .edit-link, .comment-list .reply a, .comment-form label, .comment-notes, .comment-awaiting-moderation, .logged-in-as, .form-allowed-tags, .no-comments, .wp-caption-text, .gallery-caption {
+		font-family: $font-family-base;
+	}
+
+	.widget-title,
+	.widget_calendar caption {
+    	letter-spacing: normal !important;
+	}
+}
+
+// http://stackoverflow.com/a/2610741
+*::-moz-placeholder {
+	font-family: $font-family-base !important;
+}
+*::-webkit-input-placeholder {
+   font-family: $font-family-base !important;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+.entry-content {
+
+	blockquote.intro-quote {
+		margin-top: -3.5em !important;
+	}
+
+	sup.ref-anchor a {
+		color: #999;
+		text-decoration: none;
+		border-bottom: none;
+		&:hover {
+			color: #222;
+		}
+	}
+
+	.people.byline {
+
+		margin:0;
+		font-size: 0.9em;
+
+		&:before {
+			display: none;
+		}
+
+		a {
+			// color: #999;
+			text-decoration: none;
+			border-bottom: none;
+			&:hover {
+				// color: #222;
+			}
+		}
+	}
+
+	.geditorial-wrap.estimated {
+		font-size: 0.8em;
+	}
+
+	.people.byline,
+	.geditorial-wrap.estimated {
+		&.-before {
+			margin-bottom: 0.5em;
+		}
+		&.-after {
+			margin-top: 0.5em;
+		}
+	}
+}
+
+.gnetwork-wrap-shortcode {
+	&.shortcode-reflist {
+		font-size: 0.89em;
+		margin-top: 1.5em;
+		padding-top: 1.5em;
+	    border-top: solid 1px #ddd;
+
+		.cite-scroll {
+			color: #999;
+			text-decoration: none;
+			border-bottom: none;
+			&:hover {
+				color: #222;
+			}
+		}
+	}
+}
+
+.gnetwork-wrap-action {
+
+	&.content-before {
+		margin-top: -2em;
+		margin-bottom: 4em !important;
+	}
+
+	&.content-after {
+		margin-top: 2em !important;;
+	}
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+.social-navigation a:before,
+.secondary-toggle:before,
+.dropdown-toggle:after,
+.bypostauthor > article .fn:after,
+.comment-reply-title small a:before,
+.comment-navigation .nav-next a:after,
+.comment-navigation .nav-previous a:before,
+.posted-on:before,
+.byline:before,
+.cat-links:before,
+.tags-links:before,
+.comments-link:before,
+.entry-format:before,
+.edit-link:before,
+.full-size-link:before,
+.pagination .prev:before,
+.pagination .next:before,
+.image-navigation a:before,
+.image-navigation a:after,
+.format-link .entry-title a:after,
+.entry-content .more-link:after,
+.entry-summary .more-link:after,
+.author-link:after {
+    font-size: 20px;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+@media screen and (min-width: 59.6875em) {
+	.site-branding {
+		.custom-logo-link + .site-title,
+		.custom-logo-link + .site-title + .site-description {
+			text-align: center;
+		}
+	}
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+// @media screen and (min-width: 77.5em) {
+// 	.posted-on:before, .byline:before, .cat-links:before, .tags-links:before, .comments-link:before, .entry-format:before, .edit-link:before, .full-size-link:before {
+//     	top: 4px;
+// 	}
+// }
+//
+// @media screen and (min-width: 68.75em) {
+// 	.posted-on:before, .byline:before, .cat-links:before, .tags-links:before, .comments-link:before, .entry-format:before, .edit-link:before, .full-size-link:before {
+//     	top: 3px;
+// 	}
+// }
+//
+// @media screen and (min-width: 59.6875em) {
+// 	.posted-on:before, .byline:before, .cat-links:before, .tags-links:before, .comments-link:before, .entry-format:before, .edit-link:before, .full-size-link:before {
+//     	top: 0;
+// 	}
+// }
+//
+// @media screen and (min-width: 55em) {
+// 	.posted-on:before, .byline:before, .cat-links:before, .tags-links:before, .comments-link:before, .entry-format:before, .edit-link:before, .full-size-link:before {
+//     	top: 4px;
+// 	}
+// }
+//
+// @media screen and (min-width: 46.25em) {
+// 	.posted-on:before, .byline:before, .cat-links:before, .tags-links:before, .comments-link:before, .entry-format:before, .edit-link:before, .full-size-link:before {
+//     	top: 3px;
+// 	}
+// }
