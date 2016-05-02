@@ -20,8 +20,11 @@ class Debug_Bar_gNetworkMeta extends \Debug_Bar_Panel
 		else if ( defined( 'IS_PROFILE_PAGE' ) && IS_PROFILE_PAGE && current_user_can( 'edit_users' ) )
 			$meta = get_user_meta( get_current_user_id() );
 
-		else if ( isset( $_GET['user_id'] ) && $_GET['user_id'] && current_user_can( 'edit_users' ) )
+		else if ( ! empty( $_GET['user_id'] ) && current_user_can( 'edit_users' ) )
 			$meta = get_user_meta( $_GET['user_id'] );
+
+		else if ( ! empty( $_GET['tag_ID'] ) )
+			$meta = get_term_meta( $_GET['tag_ID'] );
 
 		else // is_singular()
 			$meta = get_post_meta( get_the_ID() );
