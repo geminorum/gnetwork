@@ -384,7 +384,7 @@ class ShortCodes extends ModuleCore
 
 			if ( $terms = get_the_terms( $post->ID, $taxonomy->name ) ) {
 
-				$html .= '<h2>'.$taxonomy->label.'</h2><ul>';
+				$html .= '<h3>'.$taxonomy->label.'</h3><ul>';
 
 				foreach ( $terms as $term )
 					$html .= sprintf( '<li><a href="%1$s">%2$s</a></li>',
@@ -1108,7 +1108,7 @@ class ShortCodes extends ModuleCore
 				'title'         => _x( 'See the footnote', 'Shortcodes Module: RefList Manual Shortcode', GNETWORK_TEXTDOMAIN ),
 				'class'         => 'ref-anchor',
 				'format_number' => TRUE,
-				'back'          => '[&#8617;]', //'&uarr;',
+				'back'          => is_rtl() ? '[&#8618;]' : '[&#8617;]', //'&uarr;',
 				'context'       => NULL,
 				'wrap'          => TRUE,
 			), $atts, $tag );
@@ -1121,7 +1121,7 @@ class ShortCodes extends ModuleCore
 			$args['title']         = isset( $attrs[1] ) ? $atts[1] : _x( 'See the footnote', 'Shortcodes Module: RefList Manual Shortcode', GNETWORK_TEXTDOMAIN );
 			$args['class']         = isset( $attrs[2] ) ? $atts[2] : 'ref-anchor';
 			$args['format_number'] = isset( $attrs[3] ) ? $atts[3] : TRUE;
-			$args['back']          = isset( $attrs[4] ) ? $atts[4] : '[&#8617;]';
+			$args['back']          = isset( $attrs[4] ) ? $atts[4] : ( is_rtl() ? '[&#8618;]' : '[&#8617;]' );
 			$args['after_number']  = isset( $attrs[4] ) ? $atts[4] : '. ';
 			$args['wrap']          = TRUE;
 		}

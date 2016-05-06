@@ -1,5 +1,5 @@
 {
-  "name": "gNetwork",
+  "name": "gnetwork",
   "version": "3.0.0",
   "description": "WordPress Network Helper",
   "author": {
@@ -8,7 +8,6 @@
     "url": "http://geminorum.ir"
   },
   "main": "gulpfile.js",
-  "dependencies": {},
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-changed": "^1.3.0",

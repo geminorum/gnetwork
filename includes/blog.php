@@ -144,12 +144,12 @@ class Blog extends ModuleCore
 					),
 				),
 				// FIXME: wont work, wont enable!
-				array(
-					'field'       => 'linkmanager_enabled',
-					'title'       => _x( 'Link Manager', 'Blog Module', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Enables the Link Manager that existed in WordPress until version 3.5.', 'Blog Module', GNETWORK_TEXTDOMAIN ),
-					'after'       => self::settingsFieldAfterIcon( self::getWPCodexLink( 'Links_Manager' ) ),
-				),
+				// array(
+				// 	'field'       => 'linkmanager_enabled',
+				// 	'title'       => _x( 'Link Manager', 'Blog Module', GNETWORK_TEXTDOMAIN ),
+				// 	'description' => _x( 'Enables the Link Manager that existed in WordPress until version 3.5.', 'Blog Module', GNETWORK_TEXTDOMAIN ),
+				// 	'after'       => self::settingsFieldAfterIcon( self::getWPCodexLink( 'Links_Manager' ) ),
+				// ),
 				array(
 					'field'       => 'xmlrpc_enabled',
 					'title'       => _x( 'XML-RPC', 'Blog Module', GNETWORK_TEXTDOMAIN ),

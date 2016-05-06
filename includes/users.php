@@ -55,6 +55,9 @@ class Users extends ModuleCore
 	public function settings_before( $sub, $uri )
 	{
 		echo '<table class="form-table">';
+
+			// FIXME: add site user to this blog ( with cap select )
+
 			echo '<tr><th scope="row">'._x( 'Bulk Change Author', 'Users Module', GNETWORK_TEXTDOMAIN ).'</th><td>';
 
 			$this->do_settings_field( array(
