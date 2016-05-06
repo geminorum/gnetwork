@@ -11,7 +11,7 @@ Network: true
 TextDomain: gnetwork
 DomainPath: /languages
 GitHub Plugin URI: https://github.com/geminorum/gnetwork
-GitHub Branch: v3x
+GitHub Branch: master
 Release Asset: true
 Requires WP: 4.5
 Requires PHP: 5.3
