@@ -27,11 +27,10 @@ class Taxonomy extends ModuleCore
 
 	public function admin_init()
 	{
-		// Originally from v1.3 : Visual Term Description Editor
+		// Originally from Visual Term Description Editor v1.4.1 - 20160506
 		// http://wordpress.org/plugins/visual-term-description-editor/
 		// https://github.com/bungeshea/visual-term-description-editor
 
-		// only users with the "publish_posts" capability can use this feature
 		if ( ! current_user_can( 'publish_posts' ) )
 			return;
 
@@ -47,15 +46,25 @@ class Taxonomy extends ModuleCore
 			add_filter( 'term_description', 'wp_kses_post' );
 		}
 
-		// evaluate shortcodes
-		// add_filter( 'term_description', 'do_shortcode' );
-		// convert smilies
+		// add_filter( 'pre_term_description', 'wptexturize' );
+		// add_filter( 'pre_term_description', 'convert_smilies' );
+		// add_filter( 'pre_term_description', 'convert_chars' );
+		// add_filter( 'pre_term_description', 'wpautop' );
+		// add_filter( 'pre_term_description', 'shortcode_unautop' );
+		// add_filter( 'pre_term_description', 'prepend_attachment' );
+		// add_filter( 'pre_term_description', 'do_shortcode', 11 );
+		//
+		// add_filter( 'term_description', 'wptexturize' );
 		// add_filter( 'term_description', 'convert_smilies' );
+		// add_filter( 'term_description', 'convert_chars' );
+		// add_filter( 'term_description', 'wpautop' );
+		// add_filter( 'term_description', 'shortcode_unautop' );
+		// add_filter( 'term_description', 'prepend_attachment' );
+		// add_filter( 'term_description', 'do_shortcode', 11 );
 
-		// loop through the taxonomies, adding actions
 		foreach ( $taxonomies as $taxonomy ) {
-			add_action( $taxonomy.'_edit_form_fields', array( $this, 'render_field_edit' ), 1, 2 );
-			add_action( $taxonomy.'_add_form_fields', array( $this, 'render_field_add' ), 1, 1 );
+			add_action( $taxonomy.'_edit_form_fields', array( $this, 'edit_form_fields' ), 1, 2 );
+			add_action( $taxonomy.'_add_form_fields', array( $this, 'add_form_fields' ), 1, 1 );
 		}
 	}
 
@@ -137,7 +146,7 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 				wp_update_term( $term_id, $taxonomy, array( 'description' => $_POST['gnetwork-description'] ) );
 	}
 
-	public function render_field_edit( $tag, $taxonomy )
+	public function edit_form_fields( $tag, $taxonomy )
 	{
 		$settings = array(
 			'textarea_name' => 'description',
@@ -152,7 +161,7 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 		</tr><?php
 	}
 
-	public function render_field_add( $taxonomy )
+	public function add_form_fields( $taxonomy )
 	{
 		$settings = array(
 			'textarea_name' => 'description',
