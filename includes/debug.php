@@ -56,7 +56,7 @@ class Debug extends ModuleCore
 
 			$this->settings_fields( $sub, 'bulk' );
 
-			// TODO: add limit input
+			// TODO: add limit/length input
 
 			if ( self::displayErrorLogs() )
 				$this->settings_buttons( $sub );
@@ -69,7 +69,7 @@ class Debug extends ModuleCore
 		$this->register_button( 'clear_error_log', _x( 'Clear Log', 'Debug Module', GNETWORK_TEXTDOMAIN ), array( 'default' => 'default' ), 'primary' );
 	}
 
-	private static function displayErrorLogs( $length = 300 )
+	private static function displayErrorLogs()
 	{
 		if ( file_exists( GNETWORK_DEBUG_LOG ) ) {
 
@@ -77,6 +77,8 @@ class Debug extends ModuleCore
 				return FALSE;
 
 			if ( $errors = self::fileGetLastLines( GNETWORK_DEBUG_LOG, self::limit( 100 ) ) ) {
+
+				$length = self::req( 'length', 300 );
 
 				echo '<h3 class="error-box-header">';
 					printf( _x( 'The Last %s Errors, in reverse order', 'Debug Module: Error Box', GNETWORK_TEXTDOMAIN ), number_format_i18n( count( $errors ) ) );
@@ -94,7 +96,7 @@ class Debug extends ModuleCore
 						return '<b><span title="'.human_time_diff( strtotime( $matches[1] ) ).'">['.$matches[1].']</span></b>';
 					}, trim ( $error ), 1 );
 
-					echo strlen( $line ) > $length ? substr( $line, 0, $length ).' [&hellip;]' : $line;
+					echo self::strLen( $line ) > $length ? self::subStr( $line, 0, $length ).' [&hellip;]' : $line;
 
 					echo '</li>';
 				}
