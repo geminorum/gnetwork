@@ -147,7 +147,7 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 		?><tr class="form-field term-description-wrap">
 			<th scope="row" valign="top"><label for="description"><?php _ex( 'Description', 'Taxonomy Module', GNETWORK_TEXTDOMAIN ); ?></label></th>
 			<td><?php wp_editor( htmlspecialchars_decode( $tag->description ), 'html-description', $settings ); ?>
-			<p class="description"><?php _ex( 'The description is not prominent by default, however some themes may show it.', 'Taxonomy Module', GNETWORK_TEXTDOMAIN ); ?></p></td>
+			<p class="description"><?php _ex( 'The description is not prominent by default; however, some themes may show it.', 'Taxonomy Module', GNETWORK_TEXTDOMAIN ); ?></p></td>
 			<script type="text/javascript">jQuery( 'textarea#description' ).closest( '.form-field' ).remove();</script>
 		</tr><?php
 	}
@@ -182,12 +182,12 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 	private function get_actions( $taxonomy )
 	{
 		$actions = apply_filters( 'gnetwork_taxonomy_bulk_actions', array(
-			'empty'        => _x( 'Empty', 'Taxonomy Module: Bulk Action', GNETWORK_TEXTDOMAIN ),
 			'merge'        => _x( 'Merge', 'Taxonomy Module: Bulk Action', GNETWORK_TEXTDOMAIN ),
 			'change_tax'   => _x( 'Change Taxonomy', 'Taxonomy Module: Bulk Action', GNETWORK_TEXTDOMAIN ),
-			'format_i18n'  => _x( 'Format i18n', 'Taxonomy Module: Bulk Action', GNETWORK_TEXTDOMAIN ),
-			'rewrite_slug' => _x( 'Rewrite Slug', 'Taxonomy Module: Bulk Action', GNETWORK_TEXTDOMAIN ),
+			'empty_posts'  => _x( 'Empty Posts', 'Taxonomy Module: Bulk Action', GNETWORK_TEXTDOMAIN ),
 			'empty_desc'   => _x( 'Empty Description', 'Taxonomy Module: Bulk Action', GNETWORK_TEXTDOMAIN ),
+			'rewrite_slug' => _x( 'Rewrite Slug', 'Taxonomy Module: Bulk Action', GNETWORK_TEXTDOMAIN ),
+			'format_i18n'  => _x( 'Format i18n', 'Taxonomy Module: Bulk Action', GNETWORK_TEXTDOMAIN ),
 		), $taxonomy );
 
 		if ( is_taxonomy_hierarchical( $taxonomy ) ) {
@@ -291,7 +291,7 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 		}
 	}
 
-	public function handle_empty( $term_ids, $taxonomy )
+	public function handle_empty_posts( $term_ids, $taxonomy )
 	{
 		foreach ( $term_ids as $term_id ) {
 
