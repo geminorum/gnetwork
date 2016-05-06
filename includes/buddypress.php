@@ -1,21 +1,17 @@
-<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+<?php namespace geminorum\gNetwork;
 
-class gNetworkBuddyPress extends gNetworkModuleCore
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+
+class BuddyPress extends ModuleCore
 {
 
-	protected $option_key = 'buddypress';
-	protected $network    = TRUE;
-	protected $ajax       = TRUE;
+	protected $key  = 'buddypress';
+	protected $ajax = TRUE;
 
 	private $field_name = 'zBNP0KprGNhs8yHIifCeeevh';
 
 	protected function setup_actions()
 	{
-		$this->register_menu( 'buddypress',
-			_x( 'BuddyPress', 'BuddyPress Module: Menu Name', GNETWORK_TEXTDOMAIN ),
-			array( $this, 'settings' )
-		);
-
 		add_action( 'init' , array( $this, 'init' ), 10 );
 		add_action( 'bp_init' , array( $this, 'bp_init_early' ), 1 );
 		add_action( 'bp_setup_admin_bar', array( $this, 'bp_setup_admin_bar' ), 20 );
@@ -52,6 +48,14 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 
 		if ( bp_is_active( 'notifications' ) )
 			add_action( 'bp_core_activated_user', array( $this, 'bp_core_activated_user' ) );
+	}
+
+	public function setup_menu( $context )
+	{
+		$this->register_menu(
+			_x( 'BuddyPress', 'BuddyPress Module: Menu Name', GNETWORK_TEXTDOMAIN ),
+			array( $this, 'settings' )
+		);
 	}
 
 	public function default_options()
@@ -92,10 +96,8 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 
 		$settings['_tos'] = array(
 			array(
-				'field'   => 'tos_display',
-				'type'    => 'enabled',
-				'title'   => _x( 'Display ToS', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
-				'default' => '0',
+				'field' => 'tos_display',
+				'title' => _x( 'Display ToS', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
 			),
 			array(
 				'field'       => 'tos_title',
@@ -284,14 +286,14 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 
 		bp_core_add_message( sprintf(
 			_x( 'Please complete your profile: %s', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
-			gNetworkUtilities::join_items( $fields ) ),
+			Utilities::join_items( $fields ) ),
 		'warning' );
 	}
 
 	// SEE : https://github.com/bphelp/custom_toolbar/blob/master/custom-toolbar.php
 	public function bp_setup_admin_bar()
 	{
-		gNetworkAdminBar::removeMenus( array(
+		AdminBar::removeMenus( array(
 			'bp-about',
 			'bp-register',
 			'bp-login',
@@ -426,7 +428,7 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 
 		// if it is an activity comment
 		if ( $activity->item_id ) {
-			$parent_activity = new BP_Activity_Activity( $activity->item_id );
+			$parent_activity = new \BP_Activity_Activity( $activity->item_id );
 		} else {
 			$parent_activity = $activity;
 		}
@@ -451,7 +453,7 @@ class gNetworkBuddyPress extends gNetworkModuleCore
 		if ( ! is_user_logged_in() )
 		exit( '-1' );
 
-		$comment = new BP_Activity_Activity( $_POST['id'] );
+		$comment = new \BP_Activity_Activity( $_POST['id'] );
 
 		if ( ! bp_activity_user_can_delete( $comment ) )
 			return FALSE; //let others handle it

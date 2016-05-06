@@ -1,11 +1,11 @@
-<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+<?php namespace geminorum\gNetwork;
 
-global $gNetwork;
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
-$gNetwork->mail->testmail_send();
+gNetwork()->mail->testmail_send();
 
 ?><form method="post" action="">
-	<?php $gNetwork->mail->testmail_form(); ?>
+	<?php gNetwork()->mail->testmail_form(); ?>
 	<?php wp_nonce_field( 'gnetwork-testmail' ); ?>
 	<input type="hidden" name="action" value="sendtest" />
 	<input type="hidden" name="_wp_http_referer" value="<?php echo esc_url( add_query_arg( 'sub', $sub, $uri ) ); ?>" />

@@ -1,6 +1,10 @@
-<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+<?php namespace geminorum\gNetwork;
 
-class gNetworkUtilities extends gNetworkBaseCore
+use Symfony\Component\Stopwatch\Stopwatch;
+
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+
+class Utilities extends BaseCore
 {
 
 	public static function creditsBadge()
@@ -9,16 +13,25 @@ class gNetworkUtilities extends gNetworkBaseCore
 			.GNETWORK_URL.'assets/images/itsageminorumproject-lightgrey.svg" alt="" /></a>';
 	}
 
-	// TODO: must move to main gNetwork object
-	public static function getProviders( $type = 'sms', $pre = array() )
+	public static function getFeeds( $filter = TRUE )
 	{
-		global $gNetwork;
+		$feeds = array( 'rdf', 'rss', 'rss2', 'atom', 'json' );
 
-		if ( isset( $gNetwork->{$type} ) && $gNetwork->{$type}->options['load_providers'] )
-			foreach ( $gNetwork->{$type}->providers as $name => &$provider )
-				$pre[$name] = $provider->providerName();
+		return $filter ? apply_filters( 'gnetwork_get_feeds', $feeds ) : $feeds;
+	}
 
-		return $pre;
+	public static function getDateDefaultFormat( $options = FALSE, $date_format = NULL, $time_format = NULL, $joiner = ' @' )
+	{
+		if ( ! $options )
+			return _x( 'l, j F, Y - H:i:s', 'Module Core: Default Datetime Format', GNETWORK_TEXTDOMAIN );
+
+		if ( is_null( $date_format ) )
+			$date_format = get_option( 'date_format' );
+
+		if ( is_null( $time_format ) )
+			$time_format = get_option( 'time_format' );
+
+		return $date_format.$joiner.$time_format;
 	}
 
 	// @SEE: https://github.com/bobthecow/mustache.php/wiki
@@ -29,13 +42,13 @@ class gNetworkUtilities extends gNetworkBaseCore
 		if ( ! empty( $gNetworkMustache ) )
 			return $gNetworkMustache;
 
-		$gNetworkMustache = new Mustache_Engine(array(
+		$gNetworkMustache = new \Mustache_Engine(array(
 			'template_class_prefix'  => '__MyTemplates_',
 			'cache'                  => GNETWORK_DIR.'assets/views/cache', // get_temp_dir().'mustache',
 			'cache_file_mode'        => FS_CHMOD_FILE,
 			'cache_lambda_templates' => TRUE,
-			'loader'                 => new Mustache_Loader_FilesystemLoader( GNETWORK_DIR.'assets/views' ),
-			'partials_loader'        => new Mustache_Loader_FilesystemLoader( GNETWORK_DIR.'assets/views/partials' ),
+			'loader'                 => new \Mustache_Loader_FilesystemLoader( GNETWORK_DIR.'assets/views' ),
+			'partials_loader'        => new \Mustache_Loader_FilesystemLoader( GNETWORK_DIR.'assets/views/partials' ),
 			// 'logger'                 => new Mustache_Logger_StreamLogger('php://stderr'),
 			// 'strict_callables'       => TRUE,
 			// 'pragmas'                => [Mustache_Engine::PRAGMA_FILTERS],
@@ -133,6 +146,23 @@ class gNetworkUtilities extends gNetworkBaseCore
 			return $caps[$cap];
 	}
 
+	public static function getTimeInMinutes()
+	{
+		return array(
+			'5'    => _x( '5 Minutes', 'Utilities: Time in Minutes', GNETWORK_TEXTDOMAIN ),
+			'10'   => _x( '10 Minutes', 'Utilities: Time in Minutes', GNETWORK_TEXTDOMAIN ),
+			'15'   => _x( '15 Minutes', 'Utilities: Time in Minutes', GNETWORK_TEXTDOMAIN ),
+			'30'   => _x( '30 Minutes', 'Utilities: Time in Minutes', GNETWORK_TEXTDOMAIN ),
+			'60'   => _x( '60 Minutes', 'Utilities: Time in Minutes', GNETWORK_TEXTDOMAIN ),
+			'120'  => _x( '2 Hours', 'Utilities: Time in Minutes', GNETWORK_TEXTDOMAIN ),
+			'180'  => _x( '3 Hours', 'Utilities: Time in Minutes', GNETWORK_TEXTDOMAIN ),
+			'240'  => _x( '4 Hours', 'Utilities: Time in Minutes', GNETWORK_TEXTDOMAIN ),
+			'480'  => _x( '8 Hours', 'Utilities: Time in Minutes', GNETWORK_TEXTDOMAIN ),
+			'1440' => _x( '24 Hours', 'Utilities: Time in Minutes', GNETWORK_TEXTDOMAIN ),
+		);
+	}
+
+
 	// override to use plugin version
 	public static function linkStyleSheet( $url, $version = GNETWORK_VERSION, $media = 'all' )
 	{
@@ -162,14 +192,14 @@ class gNetworkUtilities extends gNetworkBaseCore
 		return count( $strings ) ? 'tinyMCE.addI18n("'.$locale.'.gnetwork", '.wp_json_encode( $strings ).');'."\n" : '';
 	}
 
-	// for other plugins too!
+	// FIXME: DEPRECATED: use `gnetwork_github_readme()`
 	public static function githubREADME( $repo = 'geminorum/gnetwork', $wrap = TRUE )
 	{
-		global $gNetwork;
+		self::__dep( 'gnetwork_github_readme()' );
 
-		if ( isset( $gNetwork->code ) ) {
+		if ( gNetwork()->module( 'code' ) ) {
 			echo '<div class="gnetwork-overview-wrap">';
-				echo $gNetwork->code->shortcode_github_readme( array(
+				echo gNetwork()->code->shortcode_github_readme( array(
 					'context' => 'overview',
 					'repo'    => $repo,
 				) );
@@ -248,7 +278,7 @@ class gNetworkUtilities extends gNetworkBaseCore
 
 		// write into file
 		if ( ! $wp_filesystem->put_contents( $target_file, $demotext, FS_CHMOD_FILE ) )
-			return new WP_Error( 'writing_error', 'Error when writing file' ); // return error object
+			return new Error( 'writing_error', 'Error when writing file' ); // return error object
 
 		return $demotext;
 	}
@@ -282,9 +312,55 @@ class gNetworkUtilities extends gNetworkBaseCore
 
 			$demotext = $wp_filesystem->get_contents( $target_file );
 			if ( ! $demotext )
-				return new WP_Error( 'reading_error', 'Error when reading file' ); // return error object
+				return new Error( 'reading_error', 'Error when reading file' ); // return error object
 		}
 
 		return $demotext;
+	}
+
+	// @link	http://symfony.com/doc/current/components/stopwatch.html
+	public static function startWatch( $name = 'testing', $category = 'gnetwork' )
+	{
+		global $gNetworkStopWatch;
+
+		if ( empty( $gNetworkStopWatch ) )
+			$gNetworkStopWatch = new Stopwatch();
+
+		return $gNetworkStopWatch->start( $name, $category );
+	}
+
+	public static function lapWatch( $name = 'testing', $category = 'gnetwork' )
+	{
+		global $gNetworkStopWatch;
+
+		if ( empty( $gNetworkStopWatch ) )
+			return FALSE;
+
+		return $gNetworkStopWatch->lap( $name, $category );
+	}
+
+	public static function stopWatch( $name = 'testing', $category = 'gnetwork' )
+	{
+		global $gNetworkStopWatch;
+
+		if ( empty( $gNetworkStopWatch ) )
+			return FALSE;
+
+		$event = $gNetworkStopWatch->stop( $name, $category );
+
+		// $event->getCategory();   // Returns the category the event was started in
+		// $event->getOrigin();     // Returns the event start time in milliseconds
+		// $event->ensureStopped(); // Stops all periods not already stopped
+		// $event->getStartTime();  // Returns the start time of the very first period
+		// $event->getEndTime();    // Returns the end time of the very last period
+		// $event->getDuration();   // Returns the event duration, including all periods
+		// $event->getMemory();     // Returns the max memory usage of all periods
+
+		$event->ensureStopped();
+
+		return array(
+			'dur' => $event->getDuration(),
+			'mem' => $event->getMemory(),
+		);
 	}
 }

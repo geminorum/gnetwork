@@ -1,40 +1,41 @@
-<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+<?php namespace geminorum\gNetwork;
 
-class gNetworkLocale extends gNetworkModuleCore
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+
+class Locale extends ModuleCore
 {
 
-	protected $option_key = FALSE;
-	protected $network    = TRUE;
-	protected $ajax       = TRUE;
+	protected $key  = 'locale';
+	protected $ajax = TRUE;
 
 	public $loaded = array();
 
 	protected function setup_actions()
 	{
-		gNetworkAdmin::registerMenu( 'locale',
-			_x( 'Locale', 'Locale Module: Menu Name', GNETWORK_TEXTDOMAIN ),
-			FALSE, 'manage_network_options'
-		);
-
 		add_filter( 'locale', array( $this, 'locale' ), 1, 1 );
 
 		if ( defined( 'GNETWORK_WPLANG' ) ) {
 
 			add_filter( 'core_version_check_locale', function( $locale ){
-				return gNetworkLocale::getDefault( $locale );
+				return Locale::getDefault( $locale );
 			} );
 
-			if ( is_multisite() ) {
+			if ( is_multisite() )
 				add_filter( 'gnetwork_new_blog_options', array( $this, 'gnetwork_new_blog_options' ) );
-			}
 
-			if ( ! is_network_admin() ) {
+			if ( ! is_network_admin() )
 				add_filter( 'load_textdomain_mofile', array( $this, 'load_textdomain_mofile' ), 12, 2 );
-			}
 		}
 	}
 
-	// HELPER
+	public function setup_menu( $context )
+	{
+		Admin::registerMenu( $this->key,
+			_x( 'Locale', 'Locale Module: Menu Name', GNETWORK_TEXTDOMAIN ),
+			FALSE, 'manage_network_options'
+		);
+	}
+
 	public static function changeLocale( $locale = NULL )
 	{
 		if ( ! self::cuc( 'manage_options' ) )
@@ -49,7 +50,6 @@ class gNetworkLocale extends gNetworkModuleCore
 		return update_option( 'WPLANG', $locale );
 	}
 
-	// HELPER
 	// TODO: add arg to get by localized names
 	public static function available()
 	{
@@ -61,8 +61,7 @@ class gNetworkLocale extends gNetworkModuleCore
 		return $languages;
 	}
 
-	// HELPER
-	// http://stackoverflow.com/a/16838443/4864081
+	// @REF: http://stackoverflow.com/a/16838443/4864081
 	public static function getISO( $locale = NULL )
 	{
 		if ( is_null( $locale ) )
@@ -92,12 +91,10 @@ class gNetworkLocale extends gNetworkModuleCore
 
 	public static function loadedMOfiles()
 	{
-		global $gNetwork;
-
 		echo self::html( 'h3', _x( 'Loaded MO Files', 'Locale Module', GNETWORK_TEXTDOMAIN ) );
-		self::tableSide( $gNetwork->locale->loaded );
+		self::tableSide( gNetwork()->locale->loaded );
 
-		// self::tableSideWrap( $gNetwork->locale->loaded, _x( 'Loaded MO Files', 'Locale Module', GNETWORK_TEXTDOMAIN ) );
+		// self::tableSideWrap( gNetwork()->locale->loaded, _x( 'Loaded MO Files', 'Locale Module', GNETWORK_TEXTDOMAIN ) );
 	}
 
 	public function gnetwork_new_blog_options( $new_options )
@@ -121,18 +118,18 @@ class gNetworkLocale extends gNetworkModuleCore
 
 	public function locale( $locale )
 	{
-		global $gNetwork, $gNetworkCurrentLocale;
+		global $gNetworkCurrentLocale;
 
 		if ( ! empty( $gNetworkCurrentLocale ) )
 			return $gNetworkCurrentLocale;
 
 		if ( is_network_admin() )
-			return $gNetworkCurrentLocale = isset( $gNetwork->site ) && $gNetwork->site->options['admin_locale'] ? $gNetwork->site->options['admin_locale'] : 'en_US';
+			return $gNetworkCurrentLocale = gNetwork()->option( 'admin_locale', 'site', 'en_US' );
 
 		if ( is_admin() ) {
 
-			if ( isset( $gNetwork->blog ) && $gNetwork->blog->options['admin_locale'] )
-				return $gNetworkCurrentLocale = $gNetwork->blog->options['admin_locale'];
+			if ( gNetwork()->option( 'admin_locale', 'blog' ) )
+				return $gNetworkCurrentLocale = gNetwork()->option( 'admin_locale', 'blog' );
 
 			else if ( defined( 'GNETWORK_WPLANG_ADMIN' ) && GNETWORK_WPLANG_ADMIN )
 				return $gNetworkCurrentLocale = GNETWORK_WPLANG_ADMIN;
@@ -190,7 +187,7 @@ class gNetworkLocale extends gNetworkModuleCore
 			'gadash_frontend_settings' => 'page',
 			'gadash_tracking_settings' => 'page',
 			'gadash_errors_debugging'  => 'page',
-			
+
 			// [bonny/WordPress-Simple-History: Track user changes in WordPress admin](https://github.com/bonny/WordPress-Simple-History)
 			// [See admin changes on your WordPress site with Simple History](https://simple-history.com/)
 			'simple_history_page'               => 'page',

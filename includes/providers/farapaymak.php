@@ -1,13 +1,16 @@
-<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+<?php namespace geminorum\gNetwork;
 
-class gNetworkProviderFarapaymak extends gNetworkProviderCore
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+
+class FarapaymakProvider extends ProviderCore
 {
 
-	protected $provider_slug = 'farapaymak';
+	protected $key  = 'farapaymak';
+	protected $type = 'sms';
 
 	public function providerName()
 	{
-		return _x( 'Farapaymak', 'Provider Farapaymak', GNETWORK_TEXTDOMAIN );
+		return _x( 'Farapaymak', 'Provider: Farapaymak', GNETWORK_TEXTDOMAIN );
 	}
 
 	protected function setup_actions()
@@ -29,35 +32,35 @@ class gNetworkProviderFarapaymak extends gNetworkProviderCore
 		return array(
 			'wsdl' => array(
 				'type'        => 'text',
-				'title'       => __( 'Service WSDL', GNETWORK_TEXTDOMAIN ),
+				'title'       => _x( 'Service WSDL', 'Provider: Farapaymak', GNETWORK_TEXTDOMAIN ),
 				'default'     => 'http://87.107.121.54/post/Send.asmx?wsdl',
 				'field_class' => 'large-text'
 			),
 			'username' => array(
 				'type'  => 'text',
-				'title' => __( 'Service Username', GNETWORK_TEXTDOMAIN ),
+				'title' => _x( 'Service Username', 'Provider: Farapaymak', GNETWORK_TEXTDOMAIN ),
 			),
 			'password' => array(
 				'type'  => 'text',
-				'title' => __( 'Service Password', GNETWORK_TEXTDOMAIN ),
+				'title' => _x( 'Service Password', 'Provider: Farapaymak', GNETWORK_TEXTDOMAIN ),
 			),
 			'from_number' => array(
 				'type'  => 'text',
-				'title' => __( 'From Number', GNETWORK_TEXTDOMAIN ),
-				'desc'  => __( 'You can specify the phone number that messages should be sent from. If you leave this blank, the default number will be used.', GNETWORK_TEXTDOMAIN ),
+				'title' => _x( 'From Number', 'Provider: Farapaymak', GNETWORK_TEXTDOMAIN ),
+				'desc'  => _x( 'You can specify the phone number that messages should be sent from. If you leave this blank, the default number will be used.', 'Provider: Farapaymak', GNETWORK_TEXTDOMAIN ),
 			),
 			'admin_numbers' => array(
 				'type'  => 'text',
-				'title' => __( 'Admin Numbers', GNETWORK_TEXTDOMAIN ),
+				'title' => _x( 'Admin Numbers', 'Provider: Farapaymak', GNETWORK_TEXTDOMAIN ),
 			),
 		);
 	}
 
 	public function settings_section()
 	{
-		gNetworkModuleCore::settingsSection(
-			_x( 'Farapaymak', 'Provider Farapaymak: Settings Section Title', GNETWORK_TEXTDOMAIN ),
-			_x( 'Farapaymak is a Persian SMS Provider', 'Provider Farapaymak: Settings Section Desc', GNETWORK_TEXTDOMAIN )
+		ModuleCore::settingsSection(
+			_x( 'Farapaymak', 'Provider: Farapaymak: Settings Section Title', GNETWORK_TEXTDOMAIN ),
+			_x( 'Farapaymak is a Persian SMS Provider', 'Provider: Farapaymak: Settings Section Description', GNETWORK_TEXTDOMAIN )
 		);
 	}
 
@@ -79,7 +82,7 @@ class gNetworkProviderFarapaymak extends gNetworkProviderCore
 		), $atts );
 
 		if ( ! $args['to'] )
-			return new WP_Error( 'sms_no_reciver', 'NO SMS Reciver', $args );
+			return new Error( 'sms_no_reciver', 'NO SMS Reciver', $args );
 
 		$args['text'] = iconv( 'UTF-8', 'UTF-8//TRANSLIT', $args['text'] );
 

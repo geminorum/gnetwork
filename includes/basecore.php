@@ -1,7 +1,38 @@
-<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+<?php namespace geminorum\gNetwork;
 
-class gNetworkBaseCore
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+
+class BaseCore
 {
+
+	public static function dump( $var, $htmlsafe = TRUE, $echo = TRUE )
+	{
+		$result = var_export( $var, TRUE );
+
+		$html = '<pre dir="ltr" style="text-align:left;direction:ltr;">'
+			.( $htmlsafe ? htmlspecialchars( $result ) : $result ).'</pre>';
+
+		if ( ! $echo )
+			return $html;
+
+		echo $html;
+	}
+
+	public static function kill( $var = FALSE )
+	{
+		if ( $var )
+			self::dump( $var );
+
+		// FIXME: add query/memory/time info
+
+		die();
+	}
+
+	public static function dumpDev( $var )
+	{
+		if ( self::isDev() )
+			self::dump( $var );
+	}
 
 	// INTERNAL: used on anything deprecated
 	protected static function __dep( $note = '', $prefix = 'DEP: ', $offset = 1 )
@@ -42,6 +73,31 @@ class gNetworkBaseCore
 	{
 		if ( self::isDev() )
 			self::__dep( $note, $prefix, $offset );
+	}
+
+	public static function console( $data, $table = FALSE )
+	{
+		$func = $table ? 'table' : 'log';
+
+		if ( is_array( $data ) || is_object( $data ) )
+			echo '<script>console.'.$func.'('.wp_json_encode($data).');</script>';
+		else
+			echo '<script>console.'.$func.'('.$data.');</script>';
+	}
+
+	public static function trace( $old = TRUE )
+	{
+		// https://gist.github.com/eddieajau/2651181
+		if ( $old ) {
+			foreach ( debug_backtrace() as $trace )
+				echo sprintf( "\n%s:%s %s::%s", $trace['file'], $trace['line'], $trace['class'], $trace['function'] );
+			die();
+		}
+
+		// http://stackoverflow.com/a/7039409
+		$e = new Exception;
+		self::dump( $e->getTraceAsString() );
+		die();
 	}
 
 	public static function headerNav( $uri = '', $active = '', $subs = array(), $prefix = 'nav-tab-', $tag = 'h3' )
@@ -155,8 +211,8 @@ class gNetworkBaseCore
 			),
 		), $navs.$contents );
 
-		if ( class_exists( 'gNetworkUtilities' ) )
-			gNetworkUtilities::enqueueScript( 'admin.tabs' );
+		if ( class_exists( __NAMESPACE__.'\\Utilities' ) )
+			Utilities::enqueueScript( 'admin.tabs' );
 	}
 
 	// WP core function without number_format_i18n
@@ -540,53 +596,6 @@ class gNetworkBaseCore
 		return $parsed;
 	}
 
-	public static function kill( $var = FALSE )
-	{
-		if ( $var )
-			self::dump( $var );
-
-		// FIXME: add query/memory/time info
-
-		die();
-	}
-
-	public static function devDump( $var )
-	{
-		if ( self::isDev() )
-			self::dump( $var );
-	}
-
-	public static function dump( $var, $htmlSafe = TRUE )
-	{
-		defined( 'GPERSIANDATE_SKIP' ) or define( 'GPERSIANDATE_SKIP', TRUE );
-		$result = var_export( $var, TRUE );
-		echo '<pre dir="ltr" style="text-align:left;direction:ltr;">'.( $htmlSafe ? htmlspecialchars( $result ) : $result).'</pre>';
-	}
-
-	public static function console( $data, $table = FALSE )
-	{
-		$func = $table ? 'table' : 'log';
-
-		if ( is_array( $data ) || is_object( $data ) )
-			echo '<script>console.'.$func.'('.wp_json_encode($data).');</script>';
-		else
-			echo '<script>console.'.$func.'('.$data.');</script>';
-	}
-
-	public static function trace( $old = TRUE )
-	{
-		// https://gist.github.com/eddieajau/2651181
-		if ( $old ) {
-			foreach ( debug_backtrace() as $trace )
-				echo sprintf( "\n%s:%s %s::%s", $trace['file'], $trace['line'], $trace['class'], $trace['function'] );
-			die();
-		}
-
-		// http://stackoverflow.com/a/7039409
-		$e = new Exception;
-		self::dump( $e->getTraceAsString() );
-		die();
-	}
 
 	public static function isFuncDisabled( $func = NULL )
 	{
@@ -658,7 +667,17 @@ class gNetworkBaseCore
 	public static function headers( $array )
 	{
 		foreach ( $array as $h => $k )
-			header( "{$h}: {$k}", TRUE );
+			@header( "{$h}: {$k}", TRUE );
+	}
+
+	public static function headerRetryInMinutes( $minutes = '30' )
+	{
+		@header( "Retry-After: ".( absint( $minutes ) * MINUTE_IN_SECONDS ) );
+	}
+
+	public static function headerContentUTF8()
+	{
+		@header( "Content-Type: text/html; charset=utf-8" );
 	}
 
 	public static function IP( $pad = FALSE )
@@ -740,12 +759,20 @@ class gNetworkBaseCore
 			self::cheatin();
 	}
 
-	public static function cheatin( $message )
+	public static function cheatin( $message = NULL )
 	{
 		if ( is_null( $message ) )
-			$message = __( 'Cheatin&#8217; uh?' );
+			$message = __( 'Cheatin&#8217; uh?', GNETWORK_TEXTDOMAIN );
 
 		wp_die( $message, 403 );
+	}
+
+	public static function huh( $message = NULL )
+	{
+		if ( $message )
+			return sprintf ( __( 'huh? %s', GNETWORK_TEXTDOMAIN ), $message );
+
+		return __( 'huh?', GNETWORK_TEXTDOMAIN );
 	}
 
 	public static function tableList( $columns, $data = array(), $args = array() )
@@ -894,6 +921,7 @@ class gNetworkBaseCore
 			'pages'    => 0,
 			'limit'    => self::limit(),
 			'paged'    => self::paged(),
+			'all'      => FALSE,
 			'next'     => FALSE,
 			'previous' => FALSE,
 		), $pagination );
@@ -920,7 +948,7 @@ class gNetworkBaseCore
 					'class' => '-previous -link',
 				), $icons['previous'] ) ),
 				self::html( 'a', array(
-					'href'  => add_query_arg(),
+					'href'  => self::currentURL(),
 					'class' => '-refresh -link',
 				), $icons['refresh'] ),
 				( FALSE === $args['next'] ? '<span class="-next -span" aria-hidden="true">'.$icons['next'].'</span>' : self::html( 'a', array(
@@ -932,24 +960,29 @@ class gNetworkBaseCore
 		echo '</div>';
 	}
 
+	public static function req( $key, $default = '' )
+	{
+		return empty( $_REQUEST[$key] ) ? $default : $_REQUEST[$key];
+	}
+
 	public static function limit( $default = 25, $key = 'limit' )
 	{
-		return intval( ( isset( $_REQUEST[$key] ) ? $_REQUEST[$key] : $default ) );
+		return intval( self::req( $key, $default ) );
 	}
 
 	public static function paged( $default = 1, $key = 'paged' )
 	{
-		return intval( ( isset( $_REQUEST[$key] ) ? $_REQUEST[$key] : $default ) );
+		return intval( self::req( $key, $default ) );
 	}
 
 	public static function orderby( $default = 'title', $key = 'orderby' )
 	{
-		return isset( $_REQUEST[$key] ) ? $_REQUEST[$key] : $default;
+		return self::req( $key, $default );
 	}
 
 	public static function order( $default = 'desc', $key = 'order' )
 	{
-		return isset( $_REQUEST[$key] ) ? $_REQUEST[$key] : $default;
+		return self::req( $key, $default );
 	}
 
 	public static function listCode( $array, $row = NULL, $first = FALSE )
@@ -970,11 +1003,23 @@ class gNetworkBaseCore
 		}
 	}
 
-	public static function tableCode( $array )
+	public static function tableCode( $array, $reverse = FALSE, $caption = FALSE )
 	{
-		echo '<table class="base-table-code"><tbody>';
-		foreach ( $array as $key => $val )
-			echo sprintf( '<tr><td class="-var">%1$s</td><td class="-val"><code>%2$s</code></td></tr>', $key, $val );
+		if ( $reverse )
+			$row = '<tr><td class="-val"><code>%1$s</code></td><td class="-var">%2$s</td></tr>';
+		else
+			$row = '<tr><td class="-var">%1$s</td><td class="-val"><code>%2$s</code></td></tr>';
+
+		echo '<table class="base-table-code'.( $reverse ? ' -reverse' : '' ).'">';
+
+		if ( $caption )
+			echo '<caption>'.$caption.'</caption>';
+
+		echo '<tbody>';
+
+		foreach ( (array) $array as $key => $val )
+			printf( $row, $key, $val );
+
 		echo '</tbody></table>';
 	}
 
@@ -1187,7 +1232,7 @@ class gNetworkBaseCore
 		error_log( print_r( compact( 'data' ), TRUE ) );
 	}
 
-	// USE: gNetworkBaseCore::callStack( debug_backtrace() );
+	// USE: BaseCore::callStack( debug_backtrace() );
 	// http://stackoverflow.com/a/8497530
 	public static function callStack( $stacktrace )
 	{
@@ -1269,13 +1314,13 @@ class gNetworkBaseCore
 	// http://wordpress.stackexchange.com/a/114922
 	public static function getJSON( $url, $atts = array(), $assoc = FALSE )
 	{
-		$args = self::atts( array(
+		$args = self::recursiveParseArgs( $atts, array(
 			'timeout' => 15,
-		), $atts );
+		) );
 
 		$response = wp_remote_get( $url, $args );
 
-		if ( ! is_wp_error( $response )
+		if ( ! self::isError( $response )
 			&& 200 == wp_remote_retrieve_response_code( $response ) ) {
 				return json_decode( wp_remote_retrieve_body( $response ), $assoc );
 		}
@@ -1285,13 +1330,13 @@ class gNetworkBaseCore
 
 	public static function getHTML( $url, $atts = array() )
 	{
-		$args = self::atts( array(
+		$args = self::recursiveParseArgs( $atts, array(
 			'timeout' => 15,
-		), $atts );
+		) );
 
 		$response = wp_remote_get( $url, $args );
 
-		if ( ! is_wp_error( $response )
+		if ( ! self::isError( $response )
 			&& 200 == wp_remote_retrieve_response_code( $response ) ) {
 				return wp_remote_retrieve_body( $response );
 		}
@@ -1407,7 +1452,7 @@ class gNetworkBaseCore
 			'error'   => $error,
 			'time'    => current_time( 'mysql' ),
 			'ip'      => self::IP(),
-			'message' => ( is_null( $wp_error ) ? '[NO WP_Error Object]' : $wp_error->get_error_message() ),
+			'message' => ( is_null( $wp_error ) ? '[NO Error Object]' : $wp_error->get_error_message() ),
 		), $data );
 
 		error_log( print_r( $log, TRUE ) );
@@ -1515,5 +1560,98 @@ class gNetworkBaseCore
 			return get_current_site()->domain;
 
 		return preg_replace( '#^https?://#i', '', get_option( 'home' ) );
+	}
+
+	// ANCESTOR: is_wp_error()
+	public static function isError( $thing )
+	{
+		return ( ( $thing instanceof \WP_Error ) || ( $thing instanceof Error ) );
+	}
+
+	// @SEE: `mb_convert_case()`
+	public static function strToLower( $string, $encoding = 'UTF-8' )
+	{
+		return function_exists( 'mb_strtolower' ) ? mb_strtolower( $string, $encoding ) : strtolower( $string );
+	}
+
+	public static function strLen( $string, $encoding = 'UTF-8' )
+	{
+		return function_exists( 'mb_strlen' ) ? mb_strlen( $string, $encoding ) : strlen( $string );
+	}
+
+	public static function subStr( $string, $start = 0, $length = 1, $encoding = 'UTF-8' )
+	{
+		return function_exists( 'mb_substr' ) ? mb_substr( $string, $start, $length, $encoding ) : substr( $string, $start, $length );
+	}
+
+	public static function internalEncoding( $encoding = 'UTF-8' )
+	{
+		if ( function_exists( 'mb_internal_encoding' ) )
+			return mb_internal_encoding( $encoding );
+
+		return FALSE;
+	}
+
+	/*
+		@REF: https://gist.github.com/geminorum/fe2a9ba25db5cf2e5ad6718423d00f8a
+
+		Original Title Case script (c) John Gruber <daringfireball.net>
+		Javascript port (c) David Gouch <individed.com>
+		PHP port of the above by Kroc Camen <camendesign.com>
+	*/
+	public static function titleCase( $title )
+	{
+		// remove HTML, storing it for later
+		//       HTML elements to ignore    | tags  | entities
+		$regx = '/<(code|var)[^>]*>.*?<\/\1>|<[^>]+>|&\S+;/';
+		preg_match_all( $regx, $title, $html, PREG_OFFSET_CAPTURE );
+		$title = preg_replace( $regx, '', $title );
+
+		// find each word (including punctuation attached)
+		preg_match_all( '/[\w\p{L}&`\'‘’"“\.@:\/\{\(\[<>_]+-? */u', $title, $m1, PREG_OFFSET_CAPTURE );
+
+		foreach ( $m1[0] as &$m2 ) {
+
+			// shorthand these- "match" and "index"
+			list( $m, $i ) = $m2;
+
+			// correct offsets for multi-byte characters (`PREG_OFFSET_CAPTURE` returns *byte*-offset)
+			// we fix this by recounting the text before the offset using multi-byte aware `strlen`
+			$i = mb_strlen( substr( $title, 0, $i ), 'UTF-8' );
+
+			// find words that should always be lowercase…
+			// (never on the first word, and never if preceded by a colon)
+			$m = $i > 0 && mb_substr( $title, max( 0, $i - 2 ), 1, 'UTF-8' ) !== ':' && preg_match(
+				'/^(a(nd?|s|t)?|b(ut|y)|en|for|i[fn]|o[fnr]|t(he|o)|vs?\.?|via)[ \-]/i', $m
+			) ?	//…and convert them to lowercase
+				mb_strtolower ($m, 'UTF-8')
+
+			// else: brackets and other wrappers
+			: (	preg_match( '/[\'"_{(\[‘“]/u', mb_substr( $title, max( 0, $i - 1 ), 3, 'UTF-8' ) )
+			?	//convert first letter within wrapper to uppercase
+				mb_substr( $m, 0, 1, 'UTF-8' ).
+				mb_strtoupper( mb_substr( $m, 1, 1, 'UTF-8' ), 'UTF-8' ).
+				mb_substr( $m, 2, mb_strlen( $m, 'UTF-8' ) - 2, 'UTF-8' )
+
+			// else: do not uppercase these cases
+			: (	preg_match( '/[\])}]/', mb_substr( $title, max( 0, $i - 1 ), 3, 'UTF-8' ) ) ||
+				preg_match( '/[A-Z]+|&|\w+[._]\w+/u', mb_substr( $m, 1, mb_strlen( $m, 'UTF-8' ) - 1, 'UTF-8' ) )
+			?	$m
+				// if all else fails, then no more fringe-cases; uppercase the word
+			:	mb_strtoupper( mb_substr( $m, 0, 1, 'UTF-8' ), 'UTF-8' ).
+				mb_substr( $m, 1, mb_strlen( $m, 'UTF-8' ), 'UTF-8' )
+			));
+
+			// resplice the title with the change (`substr_replace` is not multi-byte aware)
+			$title = mb_substr( $title, 0, $i, 'UTF-8' ).$m.
+					 mb_substr( $title, $i + mb_strlen( $m, 'UTF-8' ), mb_strlen( $title, 'UTF-8' ), 'UTF-8' )
+			;
+		}
+
+		// restore the HTML
+		foreach ( $html[0] as &$tag )
+			$title = substr_replace( $title, $tag[0], $tag[1], 0 );
+
+		return $title;
 	}
 }

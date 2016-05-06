@@ -1,10 +1,12 @@
-<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+<?php namespace geminorum\gNetwork;
 
-class gNetworkReference extends gNetworkModuleCore
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+
+class Reference extends ModuleCore
 {
 
-	protected $option_key = FALSE;
-	protected $network    = FALSE;
+	protected $key     = 'reference';
+	protected $network = FALSE;
 
 	public static function parseFootnotes( $footnotes )
 	{
@@ -182,9 +184,9 @@ class gNetworkReference extends gNetworkModuleCore
 	 */
 	public function bb_parse_footnotes( $content )
 	{
-
 		global $post;
-		if ( !isset( $post ) )
+
+		if ( empty( $post ) )
 			return;
 
 		//if we have already parsed, kick

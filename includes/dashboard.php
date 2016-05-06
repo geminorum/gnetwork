@@ -1,11 +1,12 @@
-<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+<?php namespace geminorum\gNetwork;
 
-class gNetworkDashboard extends gNetworkModuleCore
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+
+class Dashboard extends ModuleCore
 {
 
-	protected $option_key = FALSE;
-	protected $network    = TRUE;
-	protected $front_end  = FALSE;
+	protected $key   = 'dashboard';
+	protected $front = FALSE;
 
 	protected function setup_actions()
 	{
@@ -22,45 +23,12 @@ class gNetworkDashboard extends gNetworkModuleCore
 
 	public function wp_dashboard_setup()
 	{
-		global $gNetwork;
-
 		if ( has_filter( 'gnetwork_dashoboard_external_feeds' ) ) {
 			wp_add_dashboard_widget(
 				'gnetwork_dashboard_external_feed',
 				_x( 'External Feed', 'Dashboard Module: Dashboard Widget Title', GNETWORK_TEXTDOMAIN ),
 				array( $this, 'widget_external_feed' )
 			);
-		}
-
-		if ( isset( $gNetwork->sms ) && $gNetwork->sms->options['load_providers'] ) {
-			wp_add_dashboard_widget(
-				'gnetwork_dashboard_sms_summary',
-				_x( 'SMS Providers', 'Dashboard Module: Dashboard Widget Title', GNETWORK_TEXTDOMAIN ),
-				array( $this, 'widget_sms_summary' )
-			);
-		}
-	}
-
-	public function widget_sms_summary()
-	{
-		global $gNetwork;
-
-		// FIXME: move this to sms module
-		
-		foreach ( $gNetwork->sms->providers as $name => &$provider ) {
-			if ( $provider->providerEnabled() ) {
-				$status = $provider->providerStatus();
-				if ( is_wp_error( $status ) ) {
-					self::error( vsprintf( _x( '%s: %s', 'Dashboard Module', GNETWORK_TEXTDOMAIN ), array(
-						$provider->providerName(),
-						$status->get_error_message(),
-					) ), TRUE );
-				} else {
-					echo '<h3>'.$provider->providerName().'</h3>';
-					echo gNetworkProviderCore::dateFormat( $status['timestamp'] );
-					echo '<br/>'.$provider->providerBalance();
-				}
-			}
 		}
 	}
 

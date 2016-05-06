@@ -1,20 +1,18 @@
-<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+<?php namespace geminorum\gNetwork;
 
-class gNetworkBlog extends gNetworkModuleCore
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+
+class Blog extends ModuleCore
 {
 
-	protected $option_key = 'general';
-	protected $network    = FALSE;
-	protected $ajax       = TRUE;
+	protected $key     = 'general';
+	protected $network = FALSE;
+	protected $ajax    = TRUE;
 
 	protected function setup_actions()
 	{
-		gNetworkAdmin::registerMenu( 'general',
-			_x( 'General', 'Blog Module: Menu Name', GNETWORK_TEXTDOMAIN ),
-			array( $this, 'settings' )
-		);
-
 		add_filter( 'init', array( $this, 'init_early' ), 1 );
+		add_filter( 'wp_loaded', array( $this, 'wp_loaded' ), 99 );
 
 		add_filter( 'frontpage_template', array( $this, 'frontpage_template' ) );
 
@@ -29,6 +27,56 @@ class gNetworkBlog extends gNetworkModuleCore
 
 		if ( $this->options['page_404'] )
 			add_filter( '404_template', array( $this, 'custom_404_template' ) );
+
+		// @REF: http://wordpress.stackexchange.com/a/212472
+		if ( '-1' == $this->options['rest_api_support'] ) {
+
+			add_action( 'after_setup_theme', function() {
+
+				// Remove the REST API lines from the HTML Header
+				remove_action( 'wp_head', 'rest_output_link_wp_head', 10 );
+
+				// Remove the REST API endpoint.
+				remove_action( 'rest_api_init', 'wp_oembed_register_route' );
+
+				// Turn off oEmbed auto discovery.
+				add_filter( 'embed_oembed_discover', '__return_false' );
+
+				// Don't filter oEmbed results.
+				remove_filter( 'oembed_dataparse', 'wp_filter_oembed_result', 10 );
+
+				// Remove oEmbed discovery links.
+				remove_action( 'wp_head', 'wp_oembed_add_discovery_links' );
+
+				// Remove oEmbed-specific JavaScript from the front-end and back-end.
+				remove_action( 'wp_head', 'wp_oembed_add_host_js' );
+
+				// Remove all embeds rewrite rules.
+				add_filter( 'rewrite_rules_array', 'disable_embeds_rewrites' );
+			} );
+
+		} else if ( ! $this->options['rest_api_support'] ) {
+
+			// `{"code":"rest_disabled","message":"The REST API is disabled on this site."}`
+			add_action( 'after_setup_theme', function() {
+
+				// Filters for WP-API version 1.x
+				add_filter('json_enabled', '__return_false');
+				add_filter('json_jsonp_enabled', '__return_false');
+
+				// Filters for WP-API version 2.x
+				add_filter('rest_enabled', '__return_false');
+				add_filter('rest_jsonp_enabled', '__return_false');
+			} );
+		}
+	}
+
+	public function setup_menu( $context )
+	{
+		Admin::registerMenu( $this->key,
+			_x( 'General', 'Blog Module: Menu Name', GNETWORK_TEXTDOMAIN ),
+			array( $this, 'settings' )
+		);
 	}
 
 	public function default_options()
@@ -36,12 +84,17 @@ class gNetworkBlog extends gNetworkModuleCore
 		return array(
 			'admin_locale'        => '',
 			'blog_redirect'       => '',
+			'blog_redirect_status'=> '301',
 			'linkmanager_enabled' => '0',
 			'xmlrpc_enabled'      => '0',
 			'page_copyright'      => '0',
 			'page_404'            => '0',
 			'feed_json'           => '0',
+			'rest_api_support'    => '0',
+			'disable_emojis'      => GNETWORK_DISABLE_EMOJIS,
 			'ga_override'         => '',
+			'from_email'          => '',
+			'from_name'           => '',
 		);
 	}
 
@@ -62,30 +115,62 @@ class gNetworkBlog extends gNetworkModuleCore
 					'field_class' => array( 'regular-text', 'url-text' ),
 					'placeholder' => 'http://example.com',
 				),
-				// FIXME: wont work, wont enable!
 				array(
-					'field'       => 'linkmanager_enabled',
-					'type'        => 'enabled',
-					'title'       => _x( 'Link Manager', 'Blog Module', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Enables the Link Manager that existed in WordPress until version 3.5.', 'Blog Module', GNETWORK_TEXTDOMAIN ),
-					'default'     => '0',
-					'after'       => sprintf( '<span class="field-after icon-wrap">%s</span>', self::getWPCodexLink( 'Links_Manager' ) ),
+					'field'       => 'blog_redirect_status',
+					'type'        => 'select',
+					'title'       => _x( 'Blog Redirect Status Code', 'Blog Module', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'HTTP status header code', 'Blog Module', GNETWORK_TEXTDOMAIN ),
+					'after'       => self::settingsFieldAfterIcon( self::getMoreInfoIcon( 'https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#3xx_Redirection' ) ),
+					'dir'         => 'ltr',
+					'default'     => '301',
+					'values'      => array(
+						'301' => '301 Moved Permanently',
+						'302' => '302 Found',
+						'303' => '303 See Other',
+						'307' => '307 Temporary Redirect',
+						'307' => '308 Permanent Redirect',
+					),
 				),
+				array(
+					'field'       => 'rest_api_support',
+					'type'        => 'select',
+					'title'       => _x( 'Rest API Support', 'Blog Module', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Disable or Remove WordPress JSON discovery API', 'Blog Module', GNETWORK_TEXTDOMAIN ),
+					// 'after'       => // TODO: get api endpoint
+					'values'      => array(
+						'0' => __( 'Disabled', GNETWORK_TEXTDOMAIN ),
+						'1' => __( 'Enabled' , GNETWORK_TEXTDOMAIN ),
+						'-1' => __( 'Removed', GNETWORK_TEXTDOMAIN ),
+					),
+				),
+				// FIXME: wont work, wont enable!
+				// array(
+				// 	'field'       => 'linkmanager_enabled',
+				// 	'title'       => _x( 'Link Manager', 'Blog Module', GNETWORK_TEXTDOMAIN ),
+				// 	'description' => _x( 'Enables the Link Manager that existed in WordPress until version 3.5.', 'Blog Module', GNETWORK_TEXTDOMAIN ),
+				// 	'after'       => self::settingsFieldAfterIcon( self::getWPCodexLink( 'Links_Manager' ) ),
+				// ),
 				array(
 					'field'       => 'xmlrpc_enabled',
-					'type'        => 'enabled',
 					'title'       => _x( 'XML-RPC', 'Blog Module', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Whether XML-RPC services are enabled on this site.', 'Blog Module', GNETWORK_TEXTDOMAIN ),
-					'default'     => '0',
 				),
-				// TODO: move this to feed module
 				array(
 					'field'       => 'feed_json',
-					'type'        => 'enabled',
 					'title'       => _x( 'Feed JSON', 'Blog Module', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Adds JSON as new type of feed you can subscribe to.', 'Blog Module', GNETWORK_TEXTDOMAIN ),
-					'default'     => '0',
-					'after'       => sprintf( '<code class="field-after"><a href="%1$s">%1$s</a></code>', get_feed_link( 'json' ) ),
+					'after'       => self::settingsFieldAfterLink( get_feed_link( 'json' ) ),
+				),
+				array(
+					'field'       => 'disable_emojis',
+					'title'       => _x( 'Emoji Support', 'Blog Module', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Removes the extra code bloat used to add support for emoji\'s in older browsers', 'Blog Module', GNETWORK_TEXTDOMAIN ),
+					'default'     => GNETWORK_DISABLE_EMOJIS,
+					'after'       => self::settingsFieldAfterIcon( self::getWPCodexLink( 'Emoji' ) ),
+					'values'      => array(
+						__( 'Enabled' , GNETWORK_TEXTDOMAIN ),
+						__( 'Disabled', GNETWORK_TEXTDOMAIN ),
+					),
 				),
 				array(
 					'field'       => 'page_copyright',
@@ -94,7 +179,7 @@ class gNetworkBlog extends gNetworkModuleCore
 					'description' => _x( 'Set any page to be used as copyright page on html head.', 'Blog Module', GNETWORK_TEXTDOMAIN ),
 					'default'     => '0',
 					'exclude'     => $exclude,
-					'after'       => sprintf( '<span class="field-after icon-wrap">%s</span>', self::getNewPostTypeLink( 'page' ) ),
+					'after'       => self::settingsFieldAfterIcon( self::getNewPostTypeLink( 'page' ) ),
 				),
 				array(
 					'field'       => 'page_404',
@@ -103,31 +188,49 @@ class gNetworkBlog extends gNetworkModuleCore
 					'description' => _x( 'Set any page to be used as the 404 error page.', 'Blog Module', GNETWORK_TEXTDOMAIN ),
 					'default'     => '0',
 					'exclude'     => $exclude,
-					'after'       => sprintf( '<span class="field-after icon-wrap">%s</span>', self::getNewPostTypeLink( 'page' ) ),
+					'after'       => self::settingsFieldAfterIcon( self::getNewPostTypeLink( 'page' ) ),
 				),
 			),
 		);
 
-		if ( class_exists( 'gNetworkTracking' ) && is_multisite() )
+		if ( class_exists( __NAMESPACE__.'\\Mail' ) && is_multisite() ) {
+			$settings['_email'] = array(
+				array(
+					'field'       => 'from_email',
+					'type'        => 'text',
+					'title'       => _x( 'From Email', 'Blog Module', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'This blog email address that emails should be sent from. Set to override the network', 'Blog Module', GNETWORK_TEXTDOMAIN ),
+					'field_class' => array( 'regular-text', 'email-text' ),
+				),
+				array(
+					'field'       => 'from_name',
+					'type'        => 'text',
+					'title'       => _x( 'From Name', 'Blog Module', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'This blog email name that emails should be sent from. Set to override the network', 'Blog Module', GNETWORK_TEXTDOMAIN ),
+				),
+			);
+		}
+
+		if ( class_exists( __NAMESPACE__.'\\Tracking' ) && is_multisite() )
 			$settings['_tracking'] = array(
 				array(
 					'field'       => 'ga_override',
 					'type'        => 'text',
 					'title'       => _x( 'GA Override', 'Blog Module', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'This blog Google Analytics account to override the network', 'Blog Module', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'This blog Google Analytics account. Set to override the network', 'Blog Module', GNETWORK_TEXTDOMAIN ),
 					'placeholder' => 'UA-XXXXX-X',
 					'field_class' => array( 'regular-text', 'code-text' ),
 				),
 			);
 
-		if ( class_exists( 'gNetworkLocale' ) )
+		if ( class_exists( __NAMESPACE__.'\\Locale' ) )
 			$settings['_locale'] = array(
 				array(
 					'field'       => 'admin_locale',
 					'type'        => 'select',
 					'title'       => _x( 'Admin Language', 'Blog Module', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Despite of the site language, always display admin in this locale', 'Blog Module', GNETWORK_TEXTDOMAIN ),
-					'values'      => self::sameKey( gNetworkLocale::available() ),
+					'values'      => self::sameKey( Locale::available() ),
 					'default'     => get_locale(),
 				),
 			);
@@ -135,20 +238,28 @@ class gNetworkBlog extends gNetworkModuleCore
 		return $settings;
 	}
 
+	public function wp_loaded()
+	{
+		if ( $this->is_action( 'flushrewrite' )
+			&& self::cuc( 'edit_others_posts' ) ) {
+
+			flush_rewrite_rules();
+
+			self::redirect( $this->remove_action() );
+		}
+	}
+
 	public function init_early()
 	{
-		if ( $this->options['blog_redirect'] && ! is_admin() && ! self::isAJAX() )
-			$this->blog_redirect();
+		if ( $this->options['blog_redirect']
+			&& ! is_admin()
+			&& ! self::isAJAX() )
+				$this->blog_redirect();
 
-		if ( isset( $_GET['gnetwork_action'] ) && trim( $_GET['gnetwork_action'] ) ) {
-
-			if ( 'locale' == $_GET['gnetwork_action']
-				&& isset( $_GET['locale'] ) && $_GET['locale']
-				&& class_exists( 'gNetworkLocale' ) ) {
-					if ( $result = gNetworkLocale::changeLocale( trim( $_GET['locale'] ) ) )
-						self::redirect( remove_query_arg( array( 'locale', 'gnetwork_action' ), self::currentURL() ) );
-			}
-		}
+		if ( ( $locale = $this->is_action( 'locale', 'locale' ) )
+			&& class_exists( __NAMESPACE__.'\\Locale' )
+			&& ( $result = Locale::changeLocale( $locale ) ) )
+				self::redirect( $this->remove_action( 'locale' ) );
 
 		if ( $this->options['feed_json'] ) {
 
@@ -161,6 +272,24 @@ class gNetworkBlog extends gNetworkModuleCore
 			} );
 
 			add_filter( 'template_include', array( $this, 'feed_json_template_include' ) );
+		}
+
+		// originally from: Disable Emojis v1.5.1
+		// @SOURCE: https://wordpress.org/plugins/disable-emojis/
+		if ( $this->options['disable_emojis'] ) {
+
+			remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+			remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+			remove_action( 'wp_print_styles', 'print_emoji_styles' );
+			remove_action( 'admin_print_styles', 'print_emoji_styles' );
+
+			remove_filter( 'the_content_feed', 'wp_staticize_emoji' );
+			remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );
+			remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
+
+			add_filter( 'tiny_mce_plugins', function( $plugins ) {
+				return is_array( $plugins ) ? array_diff( $plugins, array( 'wpemoji' ) ) : array();
+			} );
 		}
 	}
 
@@ -185,11 +314,11 @@ class gNetworkBlog extends gNetworkModuleCore
 		$redirect = self::untrail( $this->options['blog_redirect'] ).$_SERVER['REQUEST_URI'];
 
 		if ( ! empty( $pagenow ) && 'index.php' == $pagenow )
-			self::redirect( $redirect, 307 );
+			self::redirect( $redirect, $this->options['blog_redirect_status'] );
 
 		// DEPRECATED: FALLBACK
 		if ( FALSE === self::whiteListed() )
-			self::redirect( $redirect, 307 );
+			self::redirect( $redirect, $this->options['blog_redirect_status'] );
 	}
 
 	public static function whiteListed( $request_uri = NULL )
@@ -228,13 +357,13 @@ class gNetworkBlog extends gNetworkModuleCore
 
 	public function do_feed_json()
 	{
-		gNetworkUtilities::getLayout( 'feed.json', TRUE );
+		Utilities::getLayout( 'feed.json', TRUE );
 	}
 
 	public function feed_json_template_include( $template )
 	{
 		if ( 'json' === get_query_var( 'feed' )
-			&& $layout = gNetworkUtilities::getLayout( 'feed.json' ) )
+			&& $layout = Utilities::getLayout( 'feed.json' ) )
 				return $layout;
 
 		return $template;

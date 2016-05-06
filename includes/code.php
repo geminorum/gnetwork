@@ -1,10 +1,11 @@
-<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+<?php namespace geminorum\gNetwork;
 
-class gNetworkCode extends gNetworkModuleCore
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+
+class Code extends ModuleCore
 {
-
-	protected $option_key = FALSE;
-	protected $network    = FALSE;
+	protected $key     = 'code';
+	protected $network = FALSE;
 
 	protected function setup_actions()
 	{
@@ -31,6 +32,7 @@ class gNetworkCode extends gNetworkModuleCore
 	// by Jason Stallings : http://jason.stallin.gs
 	// https://github.com/octalmage/github-readme
 	// https://wordpress.org/plugins/github-readme/
+	// @REF: [GitHub API v3 | GitHub Developer Guide](https://developer.github.com/v3/)
 	public function shortcode_github_readme( $atts, $content = NULL, $tag = '' )
 	{
 		$args = shortcode_atts( array(
@@ -69,7 +71,9 @@ class gNetworkCode extends gNetworkModuleCore
 				if ( $args['trim'] )
 					$md = implode( "\n", array_slice( explode( "\n", $md ), intval( $args['trim'] ) ) );
 
-				$parsedown = new ParsedownExtra();
+				// FIXME: use github conversion api instead of ParsedownExtra
+
+				$parsedown = new \ParsedownExtra();
 				$html = $parsedown->text( $md );
 
 				// @SOURCE: http://www.the-art-of-web.com/php/parse-links/
@@ -101,10 +105,7 @@ class gNetworkCode extends gNetworkModuleCore
 		return $matchs[0];
 	}
 
-	// Originally based on : GitHub Shortcode v0.1
-	// by Jason Stallings
-	// http://json.sx/projects/github-shortcode/
-	// https://wordpress.org/plugins/github-shortcode/
+	// @REF: https://github.com/JoelSutherland/GitHub-jQuery-Repo-Widget
 	public function shortcode_github( $atts, $content = NULL, $tag = '' )
 	{
 		$args = shortcode_atts( array(
@@ -153,7 +154,7 @@ class gNetworkCode extends gNetworkModuleCore
 			),
 		), NULL );
 
-		gNetworkUtilities::enqueueScript( 'jquery.gist-embed' );
+		Utilities::enqueueScript( 'jquery.gist-embed' );
 
 		return '<div class="gnetwork-wrap-shortcode github-gist" data-github-gist="'.$args['id'].'">'.$html.'</div>';
 	}

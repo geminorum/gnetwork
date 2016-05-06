@@ -1,24 +1,30 @@
-<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+<?php namespace geminorum\gNetwork;
 
-class gNetworkLogin extends gNetworkModuleCore
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+
+class Login extends ModuleCore
 {
 
-	protected $option_key = 'login';
-	protected $network    = TRUE;
+	protected $key = 'login';
 
 	protected function setup_actions()
 	{
-		$this->register_menu( 'login',
-			_x( 'Login', 'Login Module: Menu Name', GNETWORK_TEXTDOMAIN ),
-			array( $this, 'settings' )
-		);
-
 		add_action( 'login_init', array( $this, 'login_init' ), 1 );
 
-		if ( $this->options['login_math'] && $this->options['math_hashkey'] ) {
+		if ( $this->options['login_math']
+			&& $this->options['math_hashkey'] ) {
+
 			add_action( 'login_form', array( $this, 'login_form' ) );
 			add_filter( 'authenticate', array( $this, 'authenticate' ), 1, 3 );
 		}
+	}
+
+	public function setup_menu( $context )
+	{
+		$this->register_menu(
+			_x( 'Login', 'Login Module: Menu Name', GNETWORK_TEXTDOMAIN ),
+			array( $this, 'settings' )
+		);
 	}
 
 	public function default_options()
@@ -58,10 +64,8 @@ class gNetworkLogin extends gNetworkModuleCore
 				),
 				array(
 					'field'       => 'login_remember',
-					'type'        => 'enabled',
 					'title'       => _x( 'Login Remember', 'Login Module', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Always checked Remember Me checkbox', 'Login Module', GNETWORK_TEXTDOMAIN ),
-					'default'     => 0,
 					'values'      => array(
 						_x( 'Not Checked', 'Login Module', GNETWORK_TEXTDOMAIN ),
 						_x( 'Checked', 'Login Module', GNETWORK_TEXTDOMAIN ),
@@ -100,17 +104,15 @@ class gNetworkLogin extends gNetworkModuleCore
 			$settings['_math'] = array(
 				array(
 					'field'       => 'login_math',
-					'type'        => 'enabled',
 					'title'       => _x( 'Login Math', 'Login Module', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Puts a math problem after the login form.', 'Login Module', GNETWORK_TEXTDOMAIN ),
-					'default'     => 0,
 				),
 				array(
 					'field'       => 'math_hashkey',
 					'type'        => 'text',
 					'title'       => _x( 'Random Hash Key', 'Login Module', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Will used to sign with the math answer.', 'Login Module', GNETWORK_TEXTDOMAIN ),
-					'default'     => gNetworkUtilities::genRandomKey( get_site_option( 'admin_email' ) ),
+					'default'     => Utilities::genRandomKey( get_site_option( 'admin_email' ) ),
 					'field_class' => array( 'regular-text', 'code-text' ),
 				),
 			);
@@ -145,13 +147,14 @@ class gNetworkLogin extends gNetworkModuleCore
 		if ( ! GNETWORK_DISABLE_CREDITS )
 			add_filter( 'login_footer', array( $this, 'login_footer_badge' ) );
 
-		echo '<div class="-head-placeholder"></div>';
+		// FIXME: no way to put this before form
+		// echo '<div class="-head-placeholder"></div>';
 	}
 
 	public function login_head()
 	{
-		gNetworkUtilities::linkStyleSheet( GNETWORK_URL.'assets/css/login.all.css' );
-		gNetworkUtilities::customStyleSheet( 'login.css' );
+		Utilities::linkStyleSheet( GNETWORK_URL.'assets/css/login.all.css' );
+		Utilities::customStyleSheet( 'login.css' );
 
 		if ( $this->options['login_styles'] )
 			echo '<style>'.$this->options['login_styles'].'</style>';
@@ -233,7 +236,7 @@ JS;
 			return;
 
 		echo '<div class="gnetwork-wrap -footer">';
-			echo gNetworkUtilities::creditsBadge();
+			echo Utilities::creditsBadge();
 		echo '</div>';
 	}
 }

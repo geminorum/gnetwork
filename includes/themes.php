@@ -1,26 +1,101 @@
-<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+<?php namespace geminorum\gNetwork;
 
-class gNetworkThemes extends gNetworkModuleCore
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+
+class Themes extends ModuleCore
 {
 
-	protected $option_key = 'themes';
-	protected $network    = FALSE;
+	protected $key     = 'themes';
+	protected $network = FALSE;
 
 	private $rtl   = NULL;
 	private $theme = NULL;
 
 	protected function setup_actions()
 	{
-		add_filter( 'the_generator', '__return_null', 98 );
+		if ( is_admin() ) {
 
-		add_action( 'after_setup_theme', array( $this, 'after_setup_theme' ) );
-		add_action( 'wp_head', array( $this, 'wp_head' ), 12 );
-		add_filter( 'body_class', array( $this, 'body_class' ), 5, 2 );
+			// FIXME: NOT WORKING : when trying to enable each theme
+			// add_filter( 'allowed_themes', array( $this, 'allowed_themes' ) );
 
-		// NOT WORKING : when trying to enable each theme
-		// add_filter( 'allowed_themes', array( $this, 'allowed_themes' ) );
+		} else {
 
-		add_action( 'bp_dtheme_credits', array( $this, 'bp_dtheme_credits' ) );
+			if ( ! $this->options['disable_themes'] )
+				add_action( 'after_setup_theme', array( $this, 'after_setup_theme' ) );
+
+			if ( $this->options['content_actions'] )
+				add_filter( 'the_content', array( $this, 'the_content' ), 999 );
+
+			if ( $this->options['jquery_bottom'] )
+				add_action( 'wp_default_scripts', array( $this, 'wp_default_scripts' ) );
+
+			add_action( 'wp_head', array( $this, 'wp_head' ), 12 );
+			add_filter( 'the_generator', '__return_null', 98 );
+			add_filter( 'body_class', array( $this, 'body_class' ), 5, 2 );
+
+			add_action( 'bp_dtheme_credits', array( $this, 'bp_dtheme_credits' ) );
+		}
+	}
+
+	public function setup_menu( $context )
+	{
+		Admin::registerMenu( $this->key,
+			_x( 'Themes', 'Themes Module: Menu Name', GNETWORK_TEXTDOMAIN ),
+			array( $this, 'settings' )
+		);
+	}
+
+	public function default_options()
+	{
+		return array(
+			'jquery_bottom'   => '0',
+			'disable_themes'  => '0',
+			'content_actions' => '1',
+			'body_class'      => GNETWORK_BODY_CLASS,
+		);
+	}
+
+	public function default_settings()
+	{
+		$settings = array(
+			'_general' => array(
+				array(
+					'field'       => 'jquery_bottom',
+					'title'       => _x( 'jQuery on Bottom', 'Themes Module: Setting Title', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Prints jQuery in footer on front-end', 'Themes Module: Setting Description', GNETWORK_TEXTDOMAIN ),
+				),
+				array(
+					'field'       => 'disable_themes',
+					'title'       => _x( 'Theme Enhancements', 'Themes Module: Setting Title', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Extra styles and more for suported themes', 'Themes Module: Setting Description', GNETWORK_TEXTDOMAIN ),
+					'values'      => array(
+						__( 'Enabled' , GNETWORK_TEXTDOMAIN ),
+						__( 'Disabled', GNETWORK_TEXTDOMAIN ),
+					),
+				),
+				array(
+					'field'       => 'content_actions',
+					'title'       => _x( 'Content Actions', 'Themes Module: Setting Title', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Extra hooks before and after post content', 'Themes Module: Setting Description', GNETWORK_TEXTDOMAIN ),
+					'default'     => '1',
+				),
+				array(
+					'field'       => 'body_class',
+					'type'        => 'text',
+					'title'       => _x( 'Body Class', 'Themes Module: Setting Title', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'This will be added as html body class to all pages on front-end', 'Themes Module: Setting Description', GNETWORK_TEXTDOMAIN ),
+					'field_class' => array( 'regular-text', 'code-text' ),
+					'default'     => GNETWORK_BODY_CLASS,
+				),
+			),
+		);
+
+		return $settings;
+	}
+
+	public function wp_default_scripts( &$scripts )
+	{
+		$scripts->add_data( 'jquery', 'group', 1 );
 	}
 
 	public function after_setup_theme()
@@ -46,7 +121,7 @@ class gNetworkThemes extends gNetworkModuleCore
 			}, 20 );
 
 			add_filter( 'mce_css', function( $url ){
-				return gNetworkThemes::appendMCECSS( $url, 'publish' );
+				return Themes::appendMCECSS( $url, 'publish' );
 			} );
 
 		} else if ( $this->isTheme( 'hueman' ) ) { // v2.2.3
@@ -72,7 +147,7 @@ class gNetworkThemes extends gNetworkModuleCore
 				}, 12 );
 
 				add_filter( 'the_excerpt', function( $text ){
-					return $text.gNetworkThemes::continueReading();
+					return $text.Themes::continueReading();
 				}, 5 );
 			}
 
@@ -115,7 +190,7 @@ class gNetworkThemes extends gNetworkModuleCore
 			if ( $this->rtl ) {
 
 				add_action( 'wp_head', function(){
-					gNetworkUtilities::linkStyleSheet( GNETWORK_URL.'assets/css/themes.p2-rtl.css' );
+					Utilities::linkStyleSheet( GNETWORK_URL.'assets/css/themes.p2-rtl.css' );
 					// wp_enqueue_style( 'p2-rtl', GNETWORK_URL.'assets/css/themes.p2-rtl.css', array(), GNETWORK_VERSION );
 					// wp_enqueue_style( 'p2-print-style-rtl', GNETWORK_URL.'assets/css/themes.p2-rtl-print.css', array( 'p2-rtl' ), GNETWORK_VERSION, 'print' );
 				}, 99 );
@@ -150,7 +225,7 @@ class gNetworkThemes extends gNetworkModuleCore
 				}, 20 );
 
 				add_filter( 'the_excerpt', function( $text ){
-					return $text.gNetworkThemes::continueReading();
+					return $text.Themes::continueReading();
 				}, 5 );
 			}
 
@@ -173,18 +248,29 @@ class gNetworkThemes extends gNetworkModuleCore
 		} else if ( $this->isTheme( 'twentytwelve' ) ) {
 
 			add_action( 'twentytwelve_credits', array( $this, 'twentytwelve_credits' ) );
+
+		} else if ( $this->isTheme( 'twentyfifteen' ) ) {
+
+			if ( $this->rtl ) {
+				add_action( 'wp_enqueue_scripts', function(){
+					wp_enqueue_style( 'gnetwork-themes-twentyfifteen', GNETWORK_URL.'assets/css/themes.twentyfifteen-rtl.css', array(), GNETWORK_VERSION );
+				}, 20 );
+			}
+
+			add_action( 'twentyfifteen_credits', array( $this, 'twentytwelve_credits' ) );
+
 		}
 	}
 
 	public function wp_head()
 	{
-		if ( defined( 'GNETWORK_DISABLE_FRONT_STYLES' ) && GNETWORK_DISABLE_FRONT_STYLES )
-			return;
+		if ( defined( 'GNETWORK_DISABLE_FRONT_STYLES' )
+			&& GNETWORK_DISABLE_FRONT_STYLES )
+				return;
 
-		gNetworkUtilities::linkStyleSheet( GNETWORK_URL.'assets/css/front.all.css' );
+		Utilities::linkStyleSheet( GNETWORK_URL.'assets/css/front.all.css' );
 	}
 
-	// HELPER
 	public function isTheme( $template, $not_stylesheet = NULL )
 	{
 		if ( is_null( $this->theme ) )
@@ -208,8 +294,36 @@ class gNetworkThemes extends gNetworkModuleCore
 		return $allowed;
 	}
 
-	// HELPER
-	public function continueReading()
+	public function the_content( $content )
+	{
+		if ( defined( 'GNETWORK_DISABLE_CONTENT_ACTIONS' )
+			&& GNETWORK_DISABLE_CONTENT_ACTIONS )
+				return $content;
+
+		$before = $after = '';
+
+		if ( has_action( $this->hook( 'content_before' ) ) ) {
+			ob_start();
+				do_action( $this->hook( 'content_before' ), $content );
+			$before = ob_get_clean();
+
+			if ( trim( $before ) )
+				$before = '<div class="gnetwork-wrap-action content-before">'.$before.'</div>';
+		}
+
+		if ( has_action( $this->hook( 'content_after' ) ) ) {
+			ob_start();
+				do_action( $this->hook( 'content_after' ), $content );
+			$after = ob_get_clean();
+
+			if ( trim( $after ) )
+				$after = '<div class="gnetwork-wrap-action content-after">'.$after.'</div>';
+		}
+
+		return $before.$content.$after;
+	}
+
+	public static function continueReading()
 	{
 		return ' '.sprintf(
 			_x( '<a %1$s href="%1$s" title="Continue reading &ldquo;%2$s&rdquo; &hellip;" class="%3$s" >%4$s</a>', 'Themes Module: Continue Reading Helper', GNETWORK_TEXTDOMAIN ),
@@ -222,8 +336,8 @@ class gNetworkThemes extends gNetworkModuleCore
 
 	public function body_class( $classes, $class )
 	{
-		if ( GNETWORK_BODY_CLASS )
-			$classes[] = GNETWORK_BODY_CLASS;
+		if ( $this->options['body_class'] )
+			$classes[] = trim( $this->options['body_class'] );
 
 		$classes[] = 'locale-'.sanitize_html_class( strtolower( str_replace( '_', '-', get_locale() ) ) );
 

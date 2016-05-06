@@ -1,17 +1,18 @@
-<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+<?php namespace geminorum\gNetwork;
 
-class gNetworkNetwork extends gNetworkModuleCore
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+
+class Network extends ModuleCore
 {
 
-	protected $option_key = FALSE;
-	protected $network    = TRUE;
+	protected $key = 'network';
 
 	public $menus = array();
 
 	protected function setup_actions()
 	{
 		if ( ! is_multisite() )
-			throw new \Exception( 'Only on Multisite!' );
+			throw new Exception( 'Only on Multisite!' );
 
 		if ( is_admin() ) {
 
@@ -40,11 +41,14 @@ class gNetworkNetwork extends gNetworkModuleCore
 	{
 		if ( 'users' == $using )
 			return $count > GNETWORK_LARGE_NETWORK_IS;
+
 		return $is;
 	}
 
 	public function network_admin_menu()
 	{
+		do_action( 'gnetwork_setup_menu', 'network' );
+
 		add_submenu_page( 'plugins.php',
 			_x( 'Active', 'Network Module', GNETWORK_TEXTDOMAIN ),
 			_x( 'Active', 'Network Module', GNETWORK_TEXTDOMAIN ),
@@ -70,7 +74,7 @@ class gNetworkNetwork extends gNetworkModuleCore
 			_x( 'gNetwork Extras', 'Network Module: Page Menu HTML Title', GNETWORK_TEXTDOMAIN ),
 			_x( 'Extras', 'Network Module: Page Menu Title', GNETWORK_TEXTDOMAIN ),
 			'manage_network_options',
-			'gnetwork',
+			$this->base,
 			array( $this, 'settings_page' ),
 			'dashicons-screenoptions',
 			120
@@ -79,17 +83,17 @@ class gNetworkNetwork extends gNetworkModuleCore
 		add_action( 'load-'.$hook, array( $this, 'network_settings_load' ) );
 
 		foreach ( $this->menus as $sub => $args ) {
-			add_submenu_page( 'gnetwork',
+			add_submenu_page( $this->base,
 				sprintf( _x( 'gNetwork Extras: %s', 'Network Module: Sub Page Menu Title', GNETWORK_TEXTDOMAIN ), $args['title'] ),
 				$args['title'],
 				$args['cap'],
-				'gnetwork&sub='.$sub,
+				$this->base.'&sub='.$sub,
 				array( $this, 'settings_page' )
 			);
 		}
 
 		global $submenu;
-		$submenu['gnetwork'][0][0] = _x( 'Overview', 'Network Module', GNETWORK_TEXTDOMAIN );
+		$submenu[$this->base][0][0] = _x( 'Overview', 'Network Module', GNETWORK_TEXTDOMAIN );
 	}
 
 	public static function registerMenu( $sub, $title = NULL, $callback = FALSE, $capability = 'manage_network_options' )
@@ -97,9 +101,7 @@ class gNetworkNetwork extends gNetworkModuleCore
 		if ( ! is_network_admin() || self::isAJAX() )
 			return;
 
-		global $gNetwork;
-
-		$gNetwork->network->menus[$sub] = array(
+		gNetwork()->network->menus[$sub] = array(
 			'title' => $title ? $title : $sub,
 			'cap'   => $capability,
 		);
@@ -110,22 +112,12 @@ class gNetworkNetwork extends gNetworkModuleCore
 
 	public static function settingsURL( $full = TRUE )
 	{
-		$relative = 'admin.php?page=gnetwork';
+		$relative = 'admin.php?page='.self::base();
 
 		if ( $full )
 			return network_admin_url( $relative );
 
 		return $relative;
-	}
-
-	public static function getEmail()
-	{
-		global $gNetwork;
-
-		if ( isset( $gNetwork->email ) )
-			return $gNetwork->email->get_from_email();
-
-		return FALSE;
 	}
 
 	public function network_settings_load()
@@ -134,7 +126,7 @@ class gNetworkNetwork extends gNetworkModuleCore
 
 		if ( isset( $_REQUEST['sub'] ) ) {
 			$sub = $_REQUEST['sub'];
-			$submenu_file = 'gnetwork&sub='.$sub;
+			$submenu_file = $this->base.'&sub='.$sub;
 		} else {
 			$sub = NULL;
 		}
@@ -167,31 +159,38 @@ class gNetworkNetwork extends gNetworkModuleCore
 
 	public function settings_page()
 	{
-		$uri      = self::settingsURL( FALSE );
-		$sub      = self::settingsSub( 'overview' );
-		$subs     = apply_filters( 'gnetwork_network_settings_subs', $this->subs() );
-		$messages = apply_filters( 'gnetwork_network_settings_messages', self::settingsMessages(), $sub );
+		$uri  = self::settingsURL( FALSE );
+		$sub  = self::settingsSub( 'overview' );
+		$subs = apply_filters( $this->hook( 'settings_subs' ), $this->subs() );
 
 		echo '<div class="wrap gnetwork-admin-settings-wrap settings-network sub-'.$sub.'">';
+
+			$messages = apply_filters( $this->hook( 'settings_messages' ), self::settingsMessages(), $sub );
 
 			self::settingsTitle();
 			self::headerNav( $uri, $sub, $subs );
 			self::settingsMessage( $messages );
 
-			if ( file_exists( GNETWORK_DIR.'admin/network.'.$sub.'.php' ) )
-				require_once( GNETWORK_DIR.'admin/network.'.$sub.'.php' );
+			if ( file_exists( GNETWORK_DIR.'includes/settings/'.$this->key.'.'.$sub.'.php' ) )
+				require_once( GNETWORK_DIR.'includes/settings/'.$this->key.'.'.$sub.'.php' );
 			else
-				do_action( 'gnetwork_network_settings_sub_'.$sub, $uri, $sub );
+				do_action( $this->hook( 'settings_sub_'.$sub ), $uri, $sub );
 
 		echo '<div class="clear"></div></div>';
 	}
 
-	// HELPER
-	public static function getLogo( $wrap = FALSE, $fallback = TRUE )
+	public static function getLogo( $wrap = FALSE, $fallback = TRUE, $logo = NULL )
 	{
 		$html = '';
 
-		if ( file_exists( WP_CONTENT_DIR.'/'.GNETWORK_LOGO ) ) {
+		if ( ! is_null( ) ) {
+
+			$html .= self::html( 'img', array(
+				'src' => $logo,
+				'alt' => GNETWORK_NAME,
+			) );
+
+		} else if ( file_exists( WP_CONTENT_DIR.'/'.GNETWORK_LOGO ) ) {
 
 			$html .= self::html( 'img', array(
 				'src' => WP_CONTENT_URL.'/'.GNETWORK_LOGO,
@@ -211,7 +210,9 @@ class gNetworkNetwork extends gNetworkModuleCore
 		), $html );
 
 		if ( $wrap )
-			$html = self::html( $wrap, $html );
+			$html = self::html( $wrap, array(
+				'class' => 'logo',
+			), $html );
 
 		return $html;
 	}
@@ -254,17 +255,21 @@ class gNetworkNetwork extends gNetworkModuleCore
 	// by : Franz Josef Kaiser <wecodemore@gmail.com>
 	public function wpmu_blogs_columns( $columns )
 	{
-		if ( 1 === GNETWORK_ADMIN_COLUMN_ID )
-			return array_merge( array( 'id' => _x( 'ID', 'Network Module: Column Blog ID', GNETWORK_TEXTDOMAIN ) ), $columns );
+		$custom = array(
+			'id' => _x( 'ID', 'Network Module: Column Blog ID', GNETWORK_TEXTDOMAIN ),
+		);
 
-		$columns['id'] = _x( 'ID', 'Network Module: Column Blog ID', GNETWORK_TEXTDOMAIN );
-		return $columns;
+		if ( 1 === GNETWORK_ADMIN_COLUMN_ID )
+			return array_merge( $custom, $columns );
+		else
+			return array_merge( $columns, $custom );
 	}
 
 	public function manage_blogs_custom_column( $column_name, $blog_id )
 	{
-		if ( 'id' === $column_name )
+		if ( 'id' == $column_name )
 			echo $blog_id;
+
 		return $column_name;
 	}
 

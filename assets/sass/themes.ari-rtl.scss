@@ -171,13 +171,13 @@ a.post-edit-link {
 	font-style: normal;
 }
 
-/**--------------------------------------------**/
+////////////////////////////////////////////////////////////////////////////////
 
 h1.archive {
 	font: bold 14.2px/18px $font-family-head;
 }
 
-/**--------------------------------------------**/
+////////////////////////////////////////////////////////////////////////////////
 
 ul {
 	&.sidebar li.widget_text img {
@@ -213,12 +213,14 @@ ul {
 }
 
 #sidebar-primary {
-	.widget_search #1searchform {
-	text-align: left;
+
+	.widget_search #searchform {
+		// text-align: left;
 	}
-	#1searchsubmit {
-	margin: 0 0 0 4px;
-	float: left;
+
+	#searchsubmit {
+		// margin: 0 0 0 4px;
+		// float: left;
 	}
 }
 
@@ -226,9 +228,14 @@ table#wp-calendar caption {
 	text-align: right;
 }
 
-
-
-#comments-content ol li.depth-2, #content #page #comments-content ol li.depth-2, #comments-content ol li.depth-3, #content #page #comments-content ol li.depth-3, #comments-content ol li.depth-4, #content #page #comments-content ol li.depth-4, #comments-content ol li.depth-5, #content #page #comments-content ol li.depth-5 {
+#comments-content ol li.depth-2,
+#content #page #comments-content ol li.depth-2,
+#comments-content ol li.depth-3,
+#content #page #comments-content ol li.depth-3,
+#comments-content ol li.depth-4,
+#content #page #comments-content ol li.depth-4,
+#comments-content ol li.depth-5,
+#content #page #comments-content ol li.depth-5 {
 	margin: 10px 30px 0 0;
 }
 
@@ -258,11 +265,11 @@ form#commentform p.form-submit input#submit {
 }
 
 .nav-previous {
-	f1loat: right;
+	// float: right;
 }
 
 .nav-next {
-	f1loat: left;
+	// float: left;
 }
 
 #TB_window img#TB_Image {
@@ -273,7 +280,7 @@ form#commentform p.form-submit input#submit {
 	padding: 11px 0 10px 15px ! important;
 }
 
-/**--------------------------------------------**/
+////////////////////////////////////////////////////////////////////////////////
 
 form#commentform textarea#comment {
 	outline: none;
@@ -305,24 +312,26 @@ form#commentform textarea#comment {
 	}
 	}
 	.page p.meta {
-	background-position: right top;
+		background-position: right top;
 	}
 }
 
-div.comment-meta, p.logged-in-as, form#commentform p.comment-notes {
+div.comment-meta,
+p.logged-in-as,
+form#commentform p.comment-notes {
 	padding: 2px 5px 10px 0;
 	font-style: normal;
 	font: normal 12.3px/14.8px $font-family-base;
 }
 
-/**--------------------------------------------**/
+////////////////////////////////////////////////////////////////////////////////
 
 .gari-post-actions {
 	float: left;
 	font: 11.1px/16px $font-family-base;
 }
 
-/**--------------------------------------------**/
+////////////////////////////////////////////////////////////////////////////////
 
 div.wpcf7 input.wpcf7-text, textarea.wpcf7-textarea {
 	box-sizing: border-box;
@@ -335,7 +344,7 @@ div.wpcf7 input.wpcf7-email {
 	direction: ltr;
 }
 
-/**--------------------------------------------**/
+////////////////////////////////////////////////////////////////////////////////
 
 .p2-likes-link {
 	float: left;
@@ -357,12 +366,12 @@ div.wpcf7 input.wpcf7-email {
 }
 
 .p2-likes-user img {
-	b2order-radius: 100px 100px 100px 100px;
+	// border-radius: 100px 100px 100px 100px;
 	border-radius: 8px 8px 8px 8px;
 	margin: 0;
 }
 
-/**--------------------------------------------**/
+////////////////////////////////////////////////////////////////////////////////
 
 .issue_cover {
 	margin: 5px 0 0 0;
@@ -382,17 +391,18 @@ div.wpcf7 input.wpcf7-email {
 	height: auto !important;
 }
 
-/**----CUSTOM----------------------**/
+////////////////////////////////////////////////////////////////////////////////
+/// CUSTOM
 
 #sidebar-primary {
-	p1osition: static;
+	// position: static;
 }
 
 #footer p {
-	d1isplay: none;
+	// display: none;
 }
 
-/**--------------------------**/
+////////////////////////////////////////////////////////////////////////////////
 
 @media screen and (max-width: 870px) {
 	#content {
@@ -421,14 +431,16 @@ div.wpcf7 input.wpcf7-email {
 		.search-input {}
 	}
 	}
-	/* --- Secondary Sidebar Widgets --- */
+
+	/// Secondary Sidebar Widgets
 	#searchsubmit {
-	margin: 0 5px 0 0;
-	font-family: $font-family-base;
+		margin: 0 5px 0 0;
+		font-family: $font-family-base;
 	}
-	/* --- Footer --- */
+
+	/// Footer
 	#footer {
-	float: left;
+		float: left;
 	}
 }
 
@@ -496,14 +508,14 @@ div.wpcf7 input.wpcf7-email {
 	}
 }
 
-.a1lignright {
-	float: left;
-	margin-right: 10px;
-	margin-left: 0;
-}
-
-.a1lignleft {
-	float: right;
-	margin-left: 10px;
-	margin-right: 0;
-}
+// .alignright {
+// 	float: left;
+// 	margin-right: 10px;
+// 	margin-left: 0;
+// }
+//
+// .alignleft {
+// 	float: right;
+// 	margin-left: 10px;
+// 	margin-right: 0;
+// }

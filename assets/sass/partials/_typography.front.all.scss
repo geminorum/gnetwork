@@ -14,3 +14,21 @@
 
 	}
 }
+
+.entry-content {
+
+	blockquote {
+		&.intro-quote {
+			width: 45%;
+			font-size: 0.9em;
+
+			cite {
+				font-size: 0.8em;
+				// font-style: italic;
+				&:before {
+					content: "— ";
+				}
+			}
+		}
+	}
+}

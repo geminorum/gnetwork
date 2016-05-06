@@ -1,10 +1,11 @@
-<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+<?php namespace geminorum\gNetwork;
 
-class gNetworkTracking extends gNetworkModuleCore
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+
+class Tracking extends ModuleCore
 {
 
-	protected $option_key = 'tracking';
-	protected $network    = TRUE;
+	protected $key = 'tracking';
 
 	private $ga_outbound   = FALSE;
 	private $gp_platformjs = FALSE;
@@ -12,15 +13,34 @@ class gNetworkTracking extends gNetworkModuleCore
 
 	protected function setup_actions()
 	{
-		$this->register_menu( 'tracking',
-			_x( 'Tracking', 'Tracking Module: Menu Name', GNETWORK_TEXTDOMAIN ),
-			array( $this, 'settings' )
-		);
-
 		add_action( 'init', array( $this, 'init' ), 8 );
 		add_action( 'wp_head', array( $this, 'wp_head' ), 999 );
 		add_action( 'login_head', array( $this, 'login_head' ), 999 );
 		add_action( 'wp_footer', array( $this, 'wp_footer' ), 9 );
+	}
+
+	public function setup_menu( $context )
+	{
+		$this->register_menu(
+			_x( 'Tracking', 'Tracking Module: Menu Name', GNETWORK_TEXTDOMAIN ),
+			array( $this, 'settings' )
+		);
+	}
+
+	public function default_options()
+	{
+		return array(
+			'primary_domain' => '',
+			'ga_account'     => '',
+			'ga_beacon'      => '',
+			'ga_domain'      => 'auto',
+			'ga_userid'      => '1',
+			'ga_outbound'    => '0',
+			'quantcast'      => '',
+			'plus_publisher' => '',
+			'twitter_site'   => '',
+			'ignore_user'    => 'edit_others_posts',
+		);
 	}
 
 	public function default_settings()
@@ -71,7 +91,6 @@ class gNetworkTracking extends gNetworkModuleCore
 				),
 				array(
 					'field'       => 'ga_userid',
-					'type'        => 'enabled',
 					'title'       => _x( 'GA Track UserID', 'Tracking Module', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Track usernames in Google Analytics', 'Tracking Module', GNETWORK_TEXTDOMAIN ),
 					'default'     => '1',
@@ -79,10 +98,8 @@ class gNetworkTracking extends gNetworkModuleCore
 				),
 				array(
 					'field'       => 'ga_outbound',
-					'type'        => 'enabled',
 					'title'       => _x( 'GA Track Outbounds', 'Tracking Module', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Track outbound links in Google Analytics', 'Tracking Module', GNETWORK_TEXTDOMAIN ),
-					'default'     => '0',
 				),
 				array(
 					'field'       => 'quantcast',
@@ -113,22 +130,6 @@ class gNetworkTracking extends gNetworkModuleCore
 		);
 	}
 
-	public function default_options()
-	{
-		return array(
-			'primary_domain' => '',
-			'ga_account'     => '',
-			'ga_beacon'      => '',
-			'ga_domain'      => 'auto',
-			'ga_userid'      => '1',
-			'ga_outbound'    => '0',
-			'quantcast'      => '',
-			'plus_publisher' => '',
-			'twitter_site'   => '',
-			'ignore_user'    => 'edit_others_posts',
-		);
-	}
-
 	public function ignore()
 	{
 		if ( ! is_null( $this->ignore ) )
@@ -138,6 +139,7 @@ class gNetworkTracking extends gNetworkModuleCore
 
 		if ( self::isDev() )
 			$this->ignore = TRUE;
+
 		else if ( self::cuc( $this->options['ignore_user'] ) )
 			$this->ignore = TRUE;
 
@@ -225,14 +227,11 @@ class gNetworkTracking extends gNetworkModuleCore
 
 	private function ga()
 	{
-		global $gNetwork;
+		if ( empty( $this->options['ga_domain'] )
+			|| empty( $this->options['ga_account'] ) )
+				return FALSE;
 
-		if ( empty( $this->options['ga_domain'] ) || empty( $this->options['ga_account'] ) )
-			return FALSE;
-
-		if ( isset( $gNetwork->blog->options['ga_override'] ) && $gNetwork->blog->options['ga_override'] )
-			$account = $gNetwork->blog->options['ga_override'];
-		else
+		if ( ! $account = gNetwork()->option( 'ga_override', 'blog' ) )
 			$account = $this->options['ga_account'];
 
 		return "ga('create', '".esc_js( $account )."', '".esc_js( $this->options['ga_domain'] )."');"."\n";
@@ -333,7 +332,7 @@ qacct:"<?php echo $this->options['quantcast']; ?>"
 		}
 
 		// SEE: https://developers.google.com/+/web/api/supported-languages
-		$iso = class_exists( 'gNetworkLocale' ) ? gNetworkLocale::getISO() : 'en';
+		$iso = class_exists( __NAMESPACE__.'\\Locale' ) ? Locale::getISO() : 'en';
 
 		// FIXME: make this responsive / use jquery
 		// http://technumero.com/internet/customize-google-plus-badge-website-wordpress-blog/2773
@@ -358,17 +357,15 @@ qacct:"<?php echo $this->options['quantcast']; ?>"
 	// TODO: helper for tracking on 503/403 pages
 
 	// HELPER
-	public static function getContact( $class = 'contact' )
+	public static function getContact( $class = 'contact', $fallback = FALSE )
 	{
-		global $gNetwork;
-
-		if ( isset( $gNetwork->tracking ) && $gNetwork->tracking->options['twitter_site'] )
+		if ( $twitter = gNetwork()->option( 'twitter_site', 'tracking', $fallback ) )
 			$html = self::html( 'a', array(
-				'href'  => 'https://twitter.com/intent/user?screen_name='.$gNetwork->tracking->options['twitter_site'],
+				'href'  => 'https://twitter.com/intent/user?screen_name='.$twitter,
 				'title' => _x( 'Follow Us', 'Tracking Module: Contact Title Attribute', GNETWORK_TEXTDOMAIN ),
 				'rel'   => 'follow',
 				'dir'   => 'ltr',
-			), '@'.$gNetwork->tracking->options['twitter_site'] );
+			), '@'.$twitter );
 		else
 			return '';
 

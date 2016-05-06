@@ -1,48 +1,50 @@
-<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+<?php namespace geminorum\gNetwork;
+
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 echo '<form method="post" action="">';
 	echo '<table class="form-table">';
 
 	$manage_options = current_user_can( 'manage_options' );
 
-	if ( class_exists( 'gNetworkDebug' ) && $manage_options ) {
+	if ( class_exists( __NAMESPACE__.'\\Debug' ) && $manage_options ) {
 
 		echo '<tr class="ltr"><th scope="row">'.__( 'PHP Versions', GNETWORK_TEXTDOMAIN ).'</th><td>';
-			gNetworkDebug::phpversion();
+			Debug::phpversion();
 		echo '</td></tr>';
 
 		echo '<tr class="ltr"><th scope="row">'.__( 'Core Versions', GNETWORK_TEXTDOMAIN ).'</th><td>';
-			gNetworkDebug::versions();
+			Debug::versions();
 		echo '</td></tr>';
 
 		echo '<tr class="ltr"><th scope="row">'.__( 'Initial Constants', GNETWORK_TEXTDOMAIN ).'</th><td>';
-			gNetworkDebug::initialConstants();
+			Debug::initialConstants();
 		echo '</td></tr>';
 
 		echo '<tr class="ltr"><th scope="row">'.__( 'Plugin Paths', GNETWORK_TEXTDOMAIN ).'</th><td>';
-			gNetworkDebug::pluginPaths();
+			Debug::pluginPaths();
 		echo '</td></tr>';
 
 		echo '<tr class="ltr"><th scope="row">'.__( 'Upload Paths', GNETWORK_TEXTDOMAIN ).'</th><td>';
-			gNetworkDebug::wpUploadDIR();
+			Debug::wpUploadDIR();
 		echo '</td></tr>';
 
 		echo '<tr class="ltr"><th scope="row">'.__( 'SERVER', GNETWORK_TEXTDOMAIN ).'</th><td>';
-			gNetworkDebug::dumpServer();
+			Debug::dumpServer();
 		echo '</td></tr>';
 
 		echo '<tr class="ltr"><th scope="row">'.__( 'gPlugin', GNETWORK_TEXTDOMAIN ).'</th><td>';
-			gNetworkDebug::gPlugin();
+			Debug::gPlugin();
 		echo '</td></tr>';
 
 		echo '<tr class="ltr"><th scope="row">'.__( 'Stats of the Caching', GNETWORK_TEXTDOMAIN ).'</th><td>';
-			gNetworkDebug::cacheStats();
+			Debug::cacheStats();
 		echo '</td></tr>';
 	}
 
-	if ( class_exists( 'gNetworkShortCodes' ) && current_user_can( 'edit_posts' ) ) {
+	if ( class_exists( __NAMESPACE__.'\\ShortCodes' ) && current_user_can( 'edit_posts' ) ) {
 		echo '<tr class="ltr"><th scope="row">'.__( 'Available Shortcodes', GNETWORK_TEXTDOMAIN ).'</th><td>';
-			gNetworkShortCodes::available();
+			ShortCodes::available();
 		echo '</td></tr>';
 	}
 

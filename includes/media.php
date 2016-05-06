@@ -1,21 +1,18 @@
-<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+<?php namespace geminorum\gNetwork;
 
-class gNetworkMedia extends gNetworkModuleCore
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+
+class Media extends ModuleCore
 {
 
-	protected $menu_key = 'media';
-	protected $network  = FALSE;
-	protected $ajax     = TRUE;
+	protected $key     = 'media';
+	protected $network = FALSE;
+	protected $ajax    = TRUE;
 
 	private $posttype_sizes = array();
 
 	protected function setup_actions()
 	{
-		$this->register_menu( 'media',
-			_x( 'Media', 'Media Module: Menu Name', GNETWORK_TEXTDOMAIN ),
-			array( $this, 'settings' )
-		);
-
 		add_action( 'init', array( $this, 'init_late' ), 999 );
 		add_filter( 'upload_mimes', array( $this, 'upload_mimes' ) );
 
@@ -30,6 +27,14 @@ class gNetworkMedia extends gNetworkModuleCore
 
 			add_filter( 'single_post_title', array( $this, 'single_post_title' ), 9, 2 );
 		}
+	}
+
+	public function setup_menu( $context )
+	{
+		Admin::registerMenu( $this->key,
+			_x( 'Media', 'Media Module: Menu Name', GNETWORK_TEXTDOMAIN ),
+			array( $this, 'settings' )
+		);
 	}
 
 	public function init_late()
@@ -142,7 +147,7 @@ class gNetworkMedia extends gNetworkModuleCore
 		if ( 'attachment' == $args['post_type'] )
 			$args['post_status'][] = 'inherit';
 
-		$query = new WP_Query;
+		$query = new \WP_Query;
 		$posts = $query->query( $args );
 
 		$pagination = array(
@@ -150,6 +155,7 @@ class gNetworkMedia extends gNetworkModuleCore
 			'pages'    => $query->max_num_pages,
 			'limit'    => $limit,
 			'paged'    => $paged,
+			'all'      => FALSE,
 			'next'     => FALSE,
 			'previous' => FALSE,
 		);
@@ -215,7 +221,7 @@ class gNetworkMedia extends gNetworkModuleCore
 			'media' => array(
 				'title' => _x( 'Media', 'Media Module', GNETWORK_TEXTDOMAIN ),
 				'args'  => array(
-					'wpuploads' => wp_upload_dir(),
+					'wpuploads' => wp_get_upload_dir(),
 				),
 				'callback' => function( $value, $row, $column, $index ){
 
@@ -224,7 +230,7 @@ class gNetworkMedia extends gNetworkModuleCore
 
 					$links = array();
 
-					foreach ( gNetworkMedia::getAttachments( $row->ID ) as $attachment ) {
+					foreach ( Media::getAttachments( $row->ID ) as $attachment ) {
 						$attached = get_post_meta( $attachment->ID, '_wp_attached_file', TRUE );
 						$links[] = '<a target="_blank" href="'.$column['args']['wpuploads']['baseurl'].'/'.$attached.'">'.$attached.'</a>';
 					}
@@ -274,10 +280,10 @@ class gNetworkMedia extends gNetworkModuleCore
 		if ( ! count( $sizes ) )
 			return $metadata;
 
-		$wpupload = wp_upload_dir();
+		$wpupload = wp_get_upload_dir();
 		$editor   = wp_get_image_editor( path_join( $wpupload['basedir'], $metadata['file'] ) );
 
-		if ( ! is_wp_error( $editor ) )
+		if ( ! self::isError( $editor ) )
 			$metadata['sizes'] = $editor->multi_resize( $sizes );
 
 		if ( self::isDev() )
@@ -351,7 +357,7 @@ class gNetworkMedia extends gNetworkModuleCore
 	{
 		if ( $data = image_get_intermediate_size( $post_id, $size ) ) {
 
-			$wpupload = wp_upload_dir();
+			$wpupload = wp_get_upload_dir();
 			$img_url  = wp_get_attachment_url( $post_id );
 			$img_url  = str_replace( wp_basename( $img_url ), $data['file'], $img_url );
 
@@ -376,7 +382,7 @@ class gNetworkMedia extends gNetworkModuleCore
 
 	public static function getSizesDestPath( $file )
 	{
-		$wpupload = wp_upload_dir();
+		$wpupload = wp_get_upload_dir();
 		$info     = pathinfo( $file );
 		$folder   = str_replace( $wpupload['basedir'], '', $info['dirname'] );
 		$path     = path_join( GNETWORK_MEDIA_THUMBS_DIR, get_current_blog_id() ).$folder;
@@ -396,12 +402,12 @@ class gNetworkMedia extends gNetworkModuleCore
 		require_once ABSPATH.WPINC.'/class-wp-image-editor-gd.php';
 		require_once ABSPATH.WPINC.'/class-wp-image-editor-imagick.php';
 
-		require_once GNETWORK_DIR.'includes/media-editor-gd.php';
-		require_once GNETWORK_DIR.'includes/media-editor-imagick.php';
+		require_once GNETWORK_DIR.'includes/misc/media-editor-gd.php';
+		require_once GNETWORK_DIR.'includes/misc/media-editor-imagick.php';
 
 		return array(
-			'gNetwork_Image_Editor_Imagick',
-			'gNetwork_Image_Editor_GD',
+			__NAMESPACE__.'\\Image_Editor_Imagick',
+			__NAMESPACE__.'\\Image_Editor_GD',
 		);
 	}
 
@@ -411,7 +417,7 @@ class gNetworkMedia extends gNetworkModuleCore
 
 		if ( $file = get_post_meta( $attachment_id, '_wp_attached_file', TRUE ) ) { // '2015/05/filename.jpg'
 
-			$wpupload = wp_upload_dir();
+			$wpupload = wp_get_upload_dir();
 			$filename = wp_basename( $file );
 			$filetype = wp_check_filetype( $filename );
 			// $filepath = wp_normalize_path( str_replace( $filename, '', $file ) );
@@ -581,7 +587,7 @@ class gNetworkMedia extends gNetworkModuleCore
 		if ( 'upload.php' != $hook_suffix )
 			return;
 
-		gNetworkUtilities::enqueueScript( 'admin.media' );
+		Utilities::enqueueScript( 'admin.media' );
 
 		add_action( 'admin_print_scripts', array( $this, 'admin_print_scripts' ), 99 );
 	}

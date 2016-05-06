@@ -1,27 +1,36 @@
-<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+<?php namespace geminorum\gNetwork;
 
-class gNetworkTaxonomy extends gNetworkModuleCore
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+
+class Taxonomy extends ModuleCore
 {
 
-	protected $option_key = FALSE;
-	protected $network    = FALSE;
-	protected $front_end  = FALSE;
+	protected $key     = 'taxonomy';
+	protected $network = FALSE;
+	protected $front   = FALSE;
+	protected $ajax    = TRUE;
 
 	protected function setup_actions()
 	{
 		add_action( 'admin_init', array( $this, 'admin_init' ), 20 );
-
 		add_action( 'load-edit-tags.php', array( $this, 'load_edit_tags_php' ) );
-		add_action( 'admin_notices', array( $this, 'admin_notices' ) );
+	}
+
+	protected function setup_ajax( $request )
+	{
+		if ( ( $taxnow = empty( $request['taxonomy'] ) ? FALSE : $request['taxonomy'] ) ) {
+			add_action( 'edit_term', array( $this, 'edit_term' ), 10, 3 );
+			add_filter( 'manage_edit-'.$taxnow.'_columns', array( $this, 'manage_edit_columns' ), 5 );
+			add_filter( 'manage_'.$taxnow.'_custom_column', array( $this, 'manage_custom_column' ), 10, 3 );
+		}
 	}
 
 	public function admin_init()
 	{
-		// Originally from v1.3 : Visual Term Description Editor
+		// Originally from Visual Term Description Editor v1.4.1 - 20160506
 		// http://wordpress.org/plugins/visual-term-description-editor/
 		// https://github.com/bungeshea/visual-term-description-editor
 
-		// only users with the "publish_posts" capability can use this feature
 		if ( ! current_user_can( 'publish_posts' ) )
 			return;
 
@@ -37,20 +46,107 @@ class gNetworkTaxonomy extends gNetworkModuleCore
 			add_filter( 'term_description', 'wp_kses_post' );
 		}
 
-		// evaluate shortcodes
-		// add_filter( 'term_description', 'do_shortcode' );
-		// convert smilies
+		// add_filter( 'pre_term_description', 'wptexturize' );
+		// add_filter( 'pre_term_description', 'convert_smilies' );
+		// add_filter( 'pre_term_description', 'convert_chars' );
+		// add_filter( 'pre_term_description', 'wpautop' );
+		// add_filter( 'pre_term_description', 'shortcode_unautop' );
+		// add_filter( 'pre_term_description', 'prepend_attachment' );
+		// add_filter( 'pre_term_description', 'do_shortcode', 11 );
+		//
+		// add_filter( 'term_description', 'wptexturize' );
 		// add_filter( 'term_description', 'convert_smilies' );
+		// add_filter( 'term_description', 'convert_chars' );
+		// add_filter( 'term_description', 'wpautop' );
+		// add_filter( 'term_description', 'shortcode_unautop' );
+		// add_filter( 'term_description', 'prepend_attachment' );
+		// add_filter( 'term_description', 'do_shortcode', 11 );
 
-		// loop through the taxonomies, adding actions
 		foreach ( $taxonomies as $taxonomy ) {
-			add_action( $taxonomy.'_edit_form_fields', array( $this, 'render_field_edit' ), 1, 2 );
-			add_action( $taxonomy.'_add_form_fields', array( $this, 'render_field_add' ), 1, 1 );
+			add_action( $taxonomy.'_edit_form_fields', array( $this, 'edit_form_fields' ), 1, 2 );
+			add_action( $taxonomy.'_add_form_fields', array( $this, 'add_form_fields' ), 1, 1 );
 		}
 	}
 
-	// Add the visual editor to the edit tag screen
-	public function render_field_edit( $tag, $taxonomy )
+	public function load_edit_tags_php()
+	{
+		global $taxnow;
+
+		add_filter( 'admin_body_class', function( $classes ){
+			return $classes.' gnetowrk-taxonomy';
+		} );
+
+		add_filter( 'manage_edit-'.$taxnow.'_columns', array( $this, 'manage_edit_columns' ), 5 );
+		add_filter( 'manage_'.$taxnow.'_custom_column', array( $this, 'manage_custom_column' ), 10, 3 );
+		add_action( 'quick_edit_custom_box', array( $this, 'quick_edit_custom_box' ), 10, 3 );
+
+		$this->term_management();
+	}
+
+	public function manage_edit_columns( $columns )
+	{
+		$new_columns = array();
+
+		foreach ( $columns as $key => $value ) {
+
+			if ( 'description' == $key )
+				$new_columns['gnetwork_description'] = _x( 'Description', 'Taxonomy Module', GNETWORK_TEXTDOMAIN );
+			else
+				$new_columns[$key] = $value;
+		}
+
+		return $new_columns;
+	}
+
+	public function manage_custom_column( $empty, $column_name, $term_id )
+	{
+		if ( 'gnetwork_description' == $column_name )
+			if ( $term = get_term( intval( $term_id ) ) )
+				return $term->description;
+
+		return $empty;
+	}
+
+	public function quick_edit_custom_box( $column_name, $screen, $taxonomy )
+	{
+		// no need
+		// if ( $screen !== 'edit-tags' )
+		// 	return;
+
+		if ( 'gnetwork_description' != $column_name )
+			return;
+
+		if ( ! current_user_can( get_taxonomy( $taxonomy )->cap->edit_terms ) )
+			return;
+
+		echo '<fieldset><div class="inline-edit-col"><label>';
+		echo '<span class="title">';
+			_ex( 'Description', 'Taxonomy Module', GNETWORK_TEXTDOMAIN );
+		echo '</span><span class="input-text-wrap">';
+        	echo '<textarea id="inline-desc" name="gnetwork-description" rows="6" class="ptitle"></textarea>';
+        echo '</span></label></div></fieldset>';
+
+		?><script>
+jQuery('#the-list').on('click', 'a.editinline', function(){
+    var now = jQuery(this).closest('tr').find('td.gnetwork_description').text();
+    jQuery('#inline-desc').text( now );
+	// if (typeof autosize !== 'undefined' && jQuery.isFunction(autosize)) {
+	// 	autosize(jQuery('#inline-desc'));
+	// }
+});
+</script><?php
+	}
+
+	public function edit_term( $term_id, $tt_id, $taxonomy )
+	{
+		remove_action( 'edit_term', array( $this, 'edit_term' ), 10, 3 );
+
+		if ( wp_verify_nonce( @$_REQUEST['_inline_edit'], 'taxinlineeditnonce' ) )
+			if ( isset( $_POST['gnetwork-description'] ) )
+				wp_update_term( $term_id, $taxonomy, array( 'description' => $_POST['gnetwork-description'] ) );
+	}
+
+	public function edit_form_fields( $tag, $taxonomy )
 	{
 		$settings = array(
 			'textarea_name' => 'description',
@@ -58,15 +154,14 @@ class gNetworkTaxonomy extends gNetworkModuleCore
 		);
 
 		?><tr class="form-field term-description-wrap">
-			<th scope="row" valign="top"><label for="description"><?php _ex( 'Description', 'Taxonomy Description', GNETWORK_TEXTDOMAIN ); ?></label></th>
+			<th scope="row" valign="top"><label for="description"><?php _ex( 'Description', 'Taxonomy Module', GNETWORK_TEXTDOMAIN ); ?></label></th>
 			<td><?php wp_editor( htmlspecialchars_decode( $tag->description ), 'html-description', $settings ); ?>
-			<p class="description"><?php _e( 'The description is not prominent by default, however some themes may show it.', GNETWORK_TEXTDOMAIN ); ?></p></td>
+			<p class="description"><?php _ex( 'The description is not prominent by default; however, some themes may show it.', 'Taxonomy Module', GNETWORK_TEXTDOMAIN ); ?></p></td>
 			<script type="text/javascript">jQuery( 'textarea#description' ).closest( '.form-field' ).remove();</script>
 		</tr><?php
 	}
 
-	// Add the visual editor to the add new tag screen
-	public function render_field_add( $taxonomy )
+	public function add_form_fields( $taxonomy )
 	{
 		$settings = array(
 			'textarea_name' => 'description',
@@ -75,9 +170,9 @@ class gNetworkTaxonomy extends gNetworkModuleCore
 			'media_buttons' => FALSE,
 		);
 
-		?><div class="form-field term-description-wrap"><label for="tag-description"><?php _ex( 'Description', 'Taxonomy Description', GNETWORK_TEXTDOMAIN ); ?></label>
+		?><div class="form-field term-description-wrap"><label for="tag-description"><?php _ex( 'Description', 'Taxonomy Module', GNETWORK_TEXTDOMAIN ); ?></label>
 			<?php wp_editor( '', 'html-tag-description', $settings ); ?>
-			<p class="description"> <?php _e( 'The description is not prominent by default; however, some themes may show it.' ); ?></p>
+			<p class="description"> <?php _ex( 'The description is not prominent by default; however, some themes may show it.', 'Taxonomy Module', GNETWORK_TEXTDOMAIN ); ?></p>
 			<script type="text/javascript">
 				jQuery( 'textarea#tag-description' ).closest( '.form-field' ).remove();
 				jQuery(function($){$( '#addtag' ).on( 'mousedown', '#submit', function(){tinyMCE.triggerSave();});});
@@ -96,10 +191,12 @@ class gNetworkTaxonomy extends gNetworkModuleCore
 	private function get_actions( $taxonomy )
 	{
 		$actions = apply_filters( 'gnetwork_taxonomy_bulk_actions', array(
-			'empty'       => _x( 'Empty', 'Taxonomy Module: Bulk Action', GNETWORK_TEXTDOMAIN ),
-			'merge'       => _x( 'Merge', 'Taxonomy Module: Bulk Action', GNETWORK_TEXTDOMAIN ),
-			'change_tax'  => _x( 'Change Taxonomy', 'Taxonomy Module: Bulk Action', GNETWORK_TEXTDOMAIN ),
-			'format_i18n' => _x( 'Format i18n', 'Taxonomy Module: Bulk Action', GNETWORK_TEXTDOMAIN ),
+			'merge'        => _x( 'Merge', 'Taxonomy Module: Bulk Action', GNETWORK_TEXTDOMAIN ),
+			'change_tax'   => _x( 'Change Taxonomy', 'Taxonomy Module: Bulk Action', GNETWORK_TEXTDOMAIN ),
+			'empty_posts'  => _x( 'Empty Posts', 'Taxonomy Module: Bulk Action', GNETWORK_TEXTDOMAIN ),
+			'empty_desc'   => _x( 'Empty Description', 'Taxonomy Module: Bulk Action', GNETWORK_TEXTDOMAIN ),
+			'rewrite_slug' => _x( 'Rewrite Slug', 'Taxonomy Module: Bulk Action', GNETWORK_TEXTDOMAIN ),
+			'format_i18n'  => _x( 'Format i18n', 'Taxonomy Module: Bulk Action', GNETWORK_TEXTDOMAIN ),
 		), $taxonomy );
 
 		if ( is_taxonomy_hierarchical( $taxonomy ) ) {
@@ -111,7 +208,7 @@ class gNetworkTaxonomy extends gNetworkModuleCore
 		return $actions;
 	}
 
-	public function load_edit_tags_php()
+	private function term_management()
 	{
 		$defaults = array(
 			'taxonomy'    => 'post_tag',
@@ -129,6 +226,7 @@ class gNetworkTaxonomy extends gNetworkModuleCore
 		if ( ! current_user_can( $tax->cap->manage_terms ) )
 			return;
 
+		add_action( 'admin_notices', array( $this, 'admin_notices' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 		add_action( 'admin_footer', array( $this, 'admin_footer' ) );
 
@@ -202,17 +300,47 @@ class gNetworkTaxonomy extends gNetworkModuleCore
 		}
 	}
 
-	public function handle_empty( $term_ids, $taxonomy )
+	public function handle_empty_posts( $term_ids, $taxonomy )
 	{
 		foreach ( $term_ids as $term_id ) {
 
 			$posts = get_objects_in_term( (int) $term_id, $taxonomy );
 
-			if ( is_wp_error( $posts ) )
+			if ( self::isError( $posts ) )
 				continue;
 
 			foreach ( $posts as $post )
 				wp_remove_object_terms( $post, (int) $term_id, $taxonomy );
+		}
+
+		return TRUE;
+	}
+
+	public function handle_rewrite_slug( $term_ids, $taxonomy )
+	{
+		foreach ( $term_ids as $term_id ) {
+
+			$term = get_term( $term_id, $taxonomy );
+
+			if ( self::isError( $term ) )
+				continue;
+
+			wp_update_term( $term_id, $taxonomy, array( 'slug' => $term->name ) );
+		}
+
+		return TRUE;
+	}
+
+	public function handle_empty_desc( $term_ids, $taxonomy )
+	{
+		foreach ( $term_ids as $term_id ) {
+
+			$term = get_term( $term_id, $taxonomy );
+
+			if ( self::isError( $term ) )
+				continue;
+
+			wp_update_term( $term_id, $taxonomy, array( 'description' => '' ) );
 		}
 
 		return TRUE;
@@ -224,7 +352,7 @@ class gNetworkTaxonomy extends gNetworkModuleCore
 
 			$term = get_term( $term_id, $taxonomy );
 
-			if ( is_wp_error( $term ) )
+			if ( self::isError( $term ) )
 				continue;
 
 			$args = array(
@@ -248,7 +376,7 @@ class gNetworkTaxonomy extends gNetworkModuleCore
 		if ( ! $term = term_exists( $term_name, $taxonomy ) )
 			$term = wp_insert_term( $term_name, $taxonomy );
 
-		if ( is_wp_error( $term ) )
+		if ( self::isError( $term ) )
 			return FALSE;
 
 		$to_term = $term['term_id'];
@@ -266,7 +394,7 @@ class gNetworkTaxonomy extends gNetworkModuleCore
 				'force_default' => TRUE,
 			) );
 
-			if ( is_wp_error( $merged ) )
+			if ( self::isError( $merged ) )
 				continue;
 
 			// OLD: 'term_management_tools_term_merged'
@@ -286,7 +414,7 @@ class gNetworkTaxonomy extends gNetworkModuleCore
 
 			$ret = wp_update_term( $term_id, $taxonomy, array( 'parent' => $parent_id ) );
 
-			if ( is_wp_error( $ret ) )
+			if ( self::isError( $ret ) )
 				return FALSE;
 		}
 
@@ -309,7 +437,7 @@ class gNetworkTaxonomy extends gNetworkModuleCore
 		foreach ( $term_ids as $term_id ) {
 			$term = get_term( $term_id, $taxonomy );
 
-			if ( ! $term || is_wp_error( $term ) )
+			if ( ! $term || self::isError( $term ) )
 				continue;
 
 			if ( $term->parent && ! in_array( $term->parent,$term_ids ) ) {
@@ -352,7 +480,8 @@ class gNetworkTaxonomy extends gNetworkModuleCore
 	{
 		global $taxonomy;
 
-		wp_localize_script( gNetworkUtilities::enqueueScript( 'admin.taxonomy' ), 'gNetworkTaxonomy', $this->get_actions( $taxonomy ) );
+		wp_localize_script( Utilities::enqueueScript( 'admin.taxonomy' ),
+			'gNetworkTaxonomy', $this->get_actions( $taxonomy ) );
 	}
 
 	public function admin_footer()

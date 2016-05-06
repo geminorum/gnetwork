@@ -1,10 +1,12 @@
-<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+<?php namespace geminorum\gNetwork;
 
-class gNetworkNavigation extends gNetworkModuleCore
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+
+class Navigation extends ModuleCore
 {
 
-	protected $option_key = FALSE;
-	protected $network    = TRUE;
+	protected $key     = 'navigation';
+	protected $network = FALSE;
 
 	private $restricted = FALSE;   // restricted support
 	private $feeds      = array(); // restricted support
@@ -26,9 +28,9 @@ class gNetworkNavigation extends gNetworkModuleCore
 	public function init()
 	{
 		// restricted support
-		if ( class_exists( 'gNetworkRestricted' ) ) {
-			$this->restricted = gNetworkRestricted::is();
-			$this->feeds      = gNetworkRestricted::getFeeds( FALSE, $this->restricted );
+		if ( class_exists( __NAMESPACE__.'\\Restricted' ) ) {
+			$this->restricted = Restricted::is();
+			$this->feeds      = Restricted::getFeeds( FALSE, $this->restricted );
 		}
 	}
 
@@ -50,7 +52,9 @@ class gNetworkNavigation extends gNetworkModuleCore
 		global $nav_menu_selected_id;
 
 		$post_type_name = 'gnetworknav';
-		$args = array( 'walker' => new gNetwork_Walker_Nav_Menu_Checklist( FALSE ) );
+		$args = array(
+			'walker' => new Walker_Nav_Menu_Checklist( FALSE ),
+		);
 
 		$tabs = array(
 			'general' => array(
@@ -341,7 +345,7 @@ class gNetworkNavigation extends gNetworkModuleCore
 	}
 }
 
-class gNetwork_Walker_Nav_Menu_Checklist extends Walker_Nav_Menu
+class Walker_Nav_Menu_Checklist extends \Walker_Nav_Menu
 {
 
 	public function __construct( $fields = FALSE )

@@ -5,11 +5,12 @@
 		gulp = require('gulp'),
 		sass = require('gulp-sass'), // https://github.com/dlmanning/gulp-sass
 		changed = require('gulp-changed'),
+		// notify = require('gulp-notify'), // https://github.com/mikaelbr/gulp-notify
 		tinypng = require('gulp-tinypng'), // https://github.com/creativeaura/gulp-tinypng
 		nano = require('gulp-cssnano'), // https://github.com/ben-eb/gulp-cssnano
 		sourcemaps = require('gulp-sourcemaps'),
 		smushit = require('gulp-smushit'), // https://github.com/heldr/gulp-smushit
-		pngquant = require('imagemin-pngquant'), // https://github.com/imagemin/imagemin-pngquant
+		// pngquant = require('imagemin-pngquant'), // https://github.com/imagemin/imagemin-pngquant
 		excludeGitignore = require('gulp-exclude-gitignore'), // https://github.com/sboudrias/gulp-exclude-gitignore
 		wpPot = require('gulp-wp-pot'), // https://github.com/rasmusbe/gulp-wp-pot
 		sort = require('gulp-sort'),
@@ -50,7 +51,10 @@
 
 	gulp.task('pot', function() {
 
-		return gulp.src(['./**/*.php', '!./assets/libs/**'])
+		return gulp.src([
+			'./**/*.php',
+			'!./assets/libs/**',
+		])
 
 		.pipe(excludeGitignore())
 
@@ -78,6 +82,13 @@
 		.pipe(sourcemaps.write('./maps'))
 
 		.pipe(gulp.dest('./assets/css'));
+
+		//.pipe(livereload())
+
+		// .pipe(notify({
+		// 	message: "Sass Compiled."
+		// }));
+
 	});
 
 	gulp.task('watch', function() {

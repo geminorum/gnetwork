@@ -1,26 +1,19 @@
-<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+<?php namespace geminorum\gNetwork;
 
-class gNetworkDebug extends gNetworkModuleCore
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+
+class Debug extends ModuleCore
 {
-
-	protected $menu_key = 'debug';
-	protected $network  = TRUE;
+	protected $key = 'debug';
 
 	protected function setup_actions()
 	{
-		gNetworkNetwork::registerMenu( 'debug',
-			_x( 'Debug Logs', 'Debug Module: Menu Name', GNETWORK_TEXTDOMAIN ),
-			array( $this, 'settings' )
-		);
-
-		add_action( 'debug_bar_panels', function( $panels ) {
-			require_once GNETWORK_DIR.'includes/debugbar-panel.php';
-			$panels[] = new Debug_Bar_gNetwork();
-			$panels[] = new Debug_Bar_gNetworkMeta();
-			return $panels;
-		} );
-
+		add_filter( 'debug_bar_panels', array( $this, 'debug_bar_panels' ) );
 		add_action( 'wp_footer', array( $this, 'wp_footer' ), 999 );
+
+		add_filter( 'wp_die_handler', function( $function ){
+			return array( __NAMESPACE__.'\\Debug', 'wp_die_handler' );
+		} );
 
 		if ( 'production' == WP_STAGE ) {
 
@@ -41,6 +34,14 @@ class gNetworkDebug extends gNetworkModuleCore
 		}
 	}
 
+	public function setup_menu( $context )
+	{
+		Network::registerMenu( $this->key,
+			_x( 'Debug Logs', 'Debug Module: Menu Name', GNETWORK_TEXTDOMAIN ),
+			array( $this, 'settings' )
+		);
+	}
+
 	protected function settings_actions( $sub = NULL )
 	{
 		if ( isset( $_POST['clear_error_log'] ) ) {
@@ -55,7 +56,7 @@ class gNetworkDebug extends gNetworkModuleCore
 
 			$this->settings_fields( $sub, 'bulk' );
 
-			// TODO: add limit input
+			// TODO: add limit/length input
 
 			if ( self::displayErrorLogs() )
 				$this->settings_buttons( $sub );
@@ -68,7 +69,7 @@ class gNetworkDebug extends gNetworkModuleCore
 		$this->register_button( 'clear_error_log', _x( 'Clear Log', 'Debug Module', GNETWORK_TEXTDOMAIN ), array( 'default' => 'default' ), 'primary' );
 	}
 
-	private static function displayErrorLogs( $length = 300 )
+	private static function displayErrorLogs()
 	{
 		if ( file_exists( GNETWORK_DEBUG_LOG ) ) {
 
@@ -76,6 +77,8 @@ class gNetworkDebug extends gNetworkModuleCore
 				return FALSE;
 
 			if ( $errors = self::fileGetLastLines( GNETWORK_DEBUG_LOG, self::limit( 100 ) ) ) {
+
+				$length = self::req( 'length', 300 );
 
 				echo '<h3 class="error-box-header">';
 					printf( _x( 'The Last %s Errors, in reverse order', 'Debug Module: Error Box', GNETWORK_TEXTDOMAIN ), number_format_i18n( count( $errors ) ) );
@@ -93,7 +96,7 @@ class gNetworkDebug extends gNetworkModuleCore
 						return '<b><span title="'.human_time_diff( strtotime( $matches[1] ) ).'">['.$matches[1].']</span></b>';
 					}, trim ( $error ), 1 );
 
-					echo strlen( $line ) > $length ? substr( $line, 0, $length ).' [&hellip;]' : $line;
+					echo self::strLen( $line ) > $length ? self::subStr( $line, 0, $length ).' [&hellip;]' : $line;
 
 					echo '</li>';
 				}
@@ -138,7 +141,7 @@ class gNetworkDebug extends gNetworkModuleCore
 	public static function gPlugin()
 	{
 		if ( class_exists( 'gPlugin' ) ) {
-			$info = gPlugin::get_info();
+			$info = \gPlugin::get_info();
 			self::tableCode( $info[1] );
 			self::tableSide( $info[0] );
 		} else {
@@ -169,10 +172,14 @@ class gNetworkDebug extends gNetworkModuleCore
 	public static function pluginPaths()
 	{
 		$paths = array(
-			'DIRECTORY_SEPARATOR' => DIRECTORY_SEPARATOR,
-			'ABSPATH'             => ABSPATH,
-			'DIR'                 => GNETWORK_DIR,
-			'URL'                 => GNETWORK_URL,
+			'ABSPATH'       => ABSPATH,
+			'DIR'           => GNETWORK_DIR,
+			'URL'           => GNETWORK_URL,
+			'DL_DIR'        => GNETWORK_DL_DIR,
+			'DL_URL'        => GNETWORK_DL_URL,
+			'MAIL_LOG_DIR'  => GNETWORK_MAIL_LOG_DIR,
+			'AJAX_ENDPOINT' => GNETWORK_AJAX_ENDPOINT,
+
 		);
 
 		self::tableCode( $paths );
@@ -239,7 +246,7 @@ class gNetworkDebug extends gNetworkModuleCore
 		if ( ! empty( $server['SERVER_SIGNATURE'] ) )
 			$server['SERVER_SIGNATURE'] = strip_tags( $server['SERVER_SIGNATURE'] );
 
-		// FIXME: use self::getDateDefaultFormat()
+		// FIXME: use Utilities::getDateDefaultFormat()
 		$server['REQUEST_TIME_FLOAT'] = date( 'l, j F, Y - H:i:s T', $server['REQUEST_TIME_FLOAT'] ).' ('.$server['REQUEST_TIME_FLOAT'] .')';
 		$server['REQUEST_TIME']       = date( 'l, j F, Y - H:i:s T', $server['REQUEST_TIME'] ).' ('.$server['REQUEST_TIME'] .')';
 
@@ -256,7 +263,7 @@ class gNetworkDebug extends gNetworkModuleCore
 
 		} else {
 
-			$dom = new domDocument;
+			$dom = new \domDocument;
 
 			ob_start();
 			phpinfo();
@@ -294,6 +301,21 @@ class gNetworkDebug extends gNetworkModuleCore
 		return $extensions;
 	}
 
+	public function debug_bar_panels( $panels )
+	{
+		if ( file_exists( GNETWORK_DIR.'includes/misc/debug-debugbar.php' ) ) {
+			require_once( GNETWORK_DIR.'includes/misc/debug-debugbar.php' );
+			$panels[] = new Debug_Bar_gNetwork();
+		}
+
+		if ( file_exists( GNETWORK_DIR.'includes/misc/debug-debugbar-meta.php' ) ) {
+			require_once( GNETWORK_DIR.'includes/misc/debug-debugbar-meta.php' );
+			$panels[] = new Debug_Bar_gNetworkMeta();
+		}
+
+		return $panels;
+	}
+
 	public function wp_footer()
 	{
 		$stat = self::stat();
@@ -302,7 +324,7 @@ class gNetworkDebug extends gNetworkModuleCore
 
 	public function http_api_debug( $response, $context, $class, $args, $url )
 	{
-		if ( is_wp_error( $response ) )
+		if ( self::isError( $response ) )
 			self::log( 'HTTP API RESPONSE: '.$class, $response->get_error_message(), $url );
 	}
 
@@ -312,6 +334,81 @@ class gNetworkDebug extends gNetworkModuleCore
 			self::log( 'TEST COOCKIE', $errors->get_error_message( 'test_cookie' ) ); // FIXME: generate static message
 
 		return $errors;
+	}
+
+	public static function wp_die_handler( $message, $title = '', $args = array() )
+	{
+		$r = wp_parse_args( $args, array(
+			'response' => 500,
+		) );
+
+		$have_gettext = function_exists( '__' );
+
+		if ( self::isError( $message ) ) {
+
+			if ( empty( $title ) ) {
+				$error_data = $message->get_error_data();
+				if ( is_array( $error_data ) && isset( $error_data['title'] ) )
+					$title = $error_data['title'];
+			}
+
+			$errors = $message->get_error_messages();
+			switch ( count( $errors ) ) :
+			case 0 :
+				$message = '';
+				break;
+			case 1 :
+				$message = "<p>{$errors[0]}</p>";
+				break;
+			default :
+				$message = "<ul>\n\t\t<li>" . join( "</li>\n\t\t<li>", $errors ) . "</li>\n\t</ul>";
+				break;
+			endswitch;
+		} elseif ( is_string( $message ) ) {
+			$message = "<p>$message</p>";
+		}
+
+		if ( isset( $r['back_link'] ) && $r['back_link'] ) {
+			$back_text = $have_gettext? __('&laquo; Back') : '&laquo; Back';
+			$message .= "\n<p><a href='javascript:history.back()'>$back_text</a></p>";
+		}
+
+		if ( ! did_action( 'admin_head' ) ) :
+			if ( ! headers_sent() ) {
+				status_header( $r['response'] );
+				nocache_headers();
+				header( 'Content-Type: text/html; charset=utf-8' );
+			}
+
+			if ( empty($title) )
+				$title = $have_gettext ? __('WordPress &rsaquo; Error') : 'WordPress &rsaquo; Error';
+
+			$text_direction = 'ltr';
+			if ( isset( $r['text_direction'] ) && 'rtl' == $r['text_direction'] )
+				$text_direction = 'rtl';
+			elseif ( function_exists( 'is_rtl' ) && is_rtl() )
+				$text_direction = 'rtl';
+
+?><!DOCTYPE html>
+<!-- Ticket #11289, IE bug fix: always pad the error page with enough characters such that it is greater than 512 bytes, even after gzip compression abcdefghijklmnopqrstuvwxyz1234567890aabbccddeeffgghhiijjkkllmmnnooppqqrrssttuuvvwwxxyyzz11223344556677889900abacbcbdcdcededfefegfgfhghgihihjijikjkjlklkmlmlnmnmononpopoqpqprqrqsrsrtstsubcbcdcdedefefgfabcadefbghicjkldmnoepqrfstugvwxhyz1i234j567k890laabmbccnddeoeffpgghqhiirjjksklltmmnunoovppqwqrrxsstytuuzvvw0wxx1yyz2z113223434455666777889890091abc2def3ghi4jkl5mno6pqr7stu8vwx9yz11aab2bcc3dd4ee5ff6gg7hh8ii9j0jk1kl2lmm3nnoo4p5pq6qrr7ss8tt9uuvv0wwx1x2yyzz13aba4cbcb5dcdc6dedfef8egf9gfh0ghg1ihi2hji3jik4jkj5lkl6kml7mln8mnm9ono
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" <?php if ( function_exists( 'language_attributes' ) && function_exists( 'is_rtl' ) ) language_attributes(); else echo "dir='$text_direction'"; ?>>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<?php
+		echo '<title>'.$title.'</title>';
+		Utilities::linkStyleSheet( GNETWORK_URL.'assets/css/die.all.css' );
+		Utilities::customStyleSheet( 'die.css' );
+
+	?>
+</head>
+<body id="error-page" class="<?php echo $text_direction; ?>">
+<?php endif; // ! did_action( 'admin_head' ) ?>
+	<?php echo $message; ?>
+</body>
+</html>
+<?php
+		die();
 	}
 
 	// DRAFT

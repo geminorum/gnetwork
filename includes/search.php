@@ -1,10 +1,12 @@
-<?php defined( 'ABSPATH' ) or die( 'Restricted access' );
+<?php namespace geminorum\gNetwork;
 
-class gNetworkSearch extends gNetworkModuleCore
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+
+class Search extends ModuleCore
 {
 
-	protected $option_key = FALSE;
-	protected $network    = FALSE;
+	protected $key     = 'search';
+	protected $network = FALSE;
 
 	protected function setup_actions()
 	{
@@ -15,13 +17,20 @@ class gNetworkSearch extends gNetworkModuleCore
 			add_action( 'template_redirect', array( $this, 'template_redirect_search' ), 1 );
 	}
 
-	// http://www.wprecipes.com/how-to-redirect-to-post-if-search-results-only-returns-one-post
 	public function template_redirect_singlepost()
 	{
 		if ( is_search() ) {
+
 			global $wp_query;
+
+			// redirect to post if search results only returns single post
 			if ( $wp_query->post_count == 1 )
 				wp_redirect( get_permalink( $wp_query->posts['0']->ID ) );
+
+			add_action( 'wp_head', function(){
+				// prevent search bots from indexing search results
+				echo "\t".'<meta name="robots" content="noindex, nofollow" />'."\n";
+			}, 1 );
 		}
 	}
 
@@ -39,7 +48,7 @@ class gNetworkSearch extends gNetworkModuleCore
 		if ( ! $uri )
 			return;
 
-		$wp_the_query = $wp_query = new WP_Query(array(
+		$wp_the_query = $wp_query = new \WP_Query(array(
 			'post_type' => apply_filters( 'error_search_post_types', 'any' ),
 			's'         => str_replace( '/', ' ', $uri ),
 		));

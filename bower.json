@@ -1,7 +1,8 @@
 {
-	"name": "gNetwork",
-	"private": true,
-	"dependencies": {
-		"autosize": "*"
-	}
+  "name": "gnetwork",
+  "private": true,
+  "devDependencies": {
+    "autosize": "^3.0.15",
+    "samim-font": "^0.10.4"
+  }
 }
