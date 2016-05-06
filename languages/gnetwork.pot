@@ -159,6 +159,18 @@ msgctxt "AdminBar Module"
 msgid "My Sites"
 msgstr ""
 
+#: includes/basecore.php:765
+msgid "Cheatin&#8217; uh?"
+msgstr ""
+
+#: includes/basecore.php:773
+msgid "huh? %s"
+msgstr ""
+
+#: includes/basecore.php:775
+msgid "huh?"
+msgstr ""
+
 #: includes/blacklist.php:21
 msgctxt "BlackList Module: Menu Name"
 msgid "Black List"
@@ -199,134 +211,144 @@ msgctxt "Blog Module: Menu Name"
 msgid "General"
 msgstr ""
 
-#: includes/blog.php:112
+#: includes/blog.php:113
 msgctxt "Blog Module"
 msgid "Blog Redirect to"
 msgstr ""
 
-#: includes/blog.php:113
+#: includes/blog.php:114
 msgctxt "Blog Module"
 msgid "The site will redirect to this URL. Leave empty to disable."
 msgstr ""
 
-#: includes/blog.php:120
+#: includes/blog.php:121
+msgctxt "Blog Module"
+msgid "Blog Redirect Status Code"
+msgstr ""
+
+#: includes/blog.php:122
+msgctxt "Blog Module"
+msgid "HTTP status header code"
+msgstr ""
+
+#: includes/blog.php:137
 msgctxt "Blog Module"
 msgid "Rest API Support"
 msgstr ""
 
-#: includes/blog.php:121
+#: includes/blog.php:138
 msgctxt "Blog Module"
 msgid "Disable or Remove WordPress JSON discovery API"
 msgstr ""
 
-#: includes/blog.php:124, includes/blog.php:155, includes/comments.php:107, includes/modulecore.php:587, includes/notify.php:47, includes/notify.php:57, includes/themes.php:69
+#: includes/blog.php:141, includes/blog.php:172, includes/comments.php:107, includes/modulecore.php:590, includes/notify.php:47, includes/notify.php:57, includes/themes.php:73
 msgid "Disabled"
 msgstr ""
 
-#: includes/blog.php:125, includes/blog.php:154, includes/comments.php:106, includes/modulecore.php:592, includes/notify.php:46, includes/notify.php:56, includes/themes.php:68
+#: includes/blog.php:142, includes/blog.php:171, includes/comments.php:106, includes/modulecore.php:595, includes/notify.php:46, includes/notify.php:56, includes/themes.php:72
 msgid "Enabled"
 msgstr ""
 
-#: includes/blog.php:126
-msgid "Removed"
-msgstr ""
-
-#: includes/blog.php:132
-msgctxt "Blog Module"
-msgid "Link Manager"
-msgstr ""
-
-#: includes/blog.php:133
-msgctxt "Blog Module"
-msgid "Enables the Link Manager that existed in WordPress until version 3.5."
-msgstr ""
-
-#: includes/blog.php:138
-msgctxt "Blog Module"
-msgid "XML-RPC"
-msgstr ""
-
-#: includes/blog.php:139
-msgctxt "Blog Module"
-msgid "Whether XML-RPC services are enabled on this site."
-msgstr ""
-
 #: includes/blog.php:143
-msgctxt "Blog Module"
-msgid "Feed JSON"
-msgstr ""
-
-#: includes/blog.php:144
-msgctxt "Blog Module"
-msgid "Adds JSON as new type of feed you can subscribe to."
+msgid "Removed"
 msgstr ""
 
 #: includes/blog.php:149
 msgctxt "Blog Module"
-msgid "Emoji Support"
+msgid "Link Manager"
 msgstr ""
 
 #: includes/blog.php:150
 msgctxt "Blog Module"
-msgid "Removes the extra code bloat used to add support for emoji's in older browsers"
+msgid "Enables the Link Manager that existed in WordPress until version 3.5."
+msgstr ""
+
+#: includes/blog.php:155
+msgctxt "Blog Module"
+msgid "XML-RPC"
+msgstr ""
+
+#: includes/blog.php:156
+msgctxt "Blog Module"
+msgid "Whether XML-RPC services are enabled on this site."
+msgstr ""
+
+#: includes/blog.php:160
+msgctxt "Blog Module"
+msgid "Feed JSON"
 msgstr ""
 
 #: includes/blog.php:161
 msgctxt "Blog Module"
+msgid "Adds JSON as new type of feed you can subscribe to."
+msgstr ""
+
+#: includes/blog.php:166
+msgctxt "Blog Module"
+msgid "Emoji Support"
+msgstr ""
+
+#: includes/blog.php:167
+msgctxt "Blog Module"
+msgid "Removes the extra code bloat used to add support for emoji's in older browsers"
+msgstr ""
+
+#: includes/blog.php:178
+msgctxt "Blog Module"
 msgid "Page for Copyright"
 msgstr ""
 
-#: includes/blog.php:162
+#: includes/blog.php:179
 msgctxt "Blog Module"
 msgid "Set any page to be used as copyright page on html head."
 msgstr ""
 
-#: includes/blog.php:170
+#: includes/blog.php:187
 msgctxt "Blog Module"
 msgid "Page for Error 404"
 msgstr ""
 
-#: includes/blog.php:171
+#: includes/blog.php:188
 msgctxt "Blog Module"
 msgid "Set any page to be used as the 404 error page."
 msgstr ""
 
-#: includes/blog.php:184
+#: includes/blog.php:201
 msgctxt "Blog Module"
 msgid "From Email"
 msgstr ""
 
-#: includes/blog.php:185
+#: includes/blog.php:202
 msgctxt "Blog Module"
 msgid "This blog email address that emails should be sent from. Set to override the network"
 msgstr ""
 
-#: includes/blog.php:191
+#: includes/blog.php:208
 msgctxt "Blog Module"
 msgid "From Name"
 msgstr ""
 
-#: includes/blog.php:192
+#: includes/blog.php:209
 msgctxt "Blog Module"
 msgid "This blog email name that emails should be sent from. Set to override the network"
 msgstr ""
 
-#: includes/blog.php:202
+#: includes/blog.php:219
 msgctxt "Blog Module"
 msgid "GA Override"
 msgstr ""
 
-#: includes/blog.php:203
+#: includes/blog.php:220
 msgctxt "Blog Module"
 msgid "This blog Google Analytics account. Set to override the network"
 msgstr ""
 
-#: includes/blog.php:214
+#: includes/blog.php:231
 msgctxt "Blog Module"
 msgid "Admin Language"
 msgstr ""
 
-#: includes/blog.php:215
+#: includes/blog.php:232
 msgctxt "Blog Module"
 msgid "Despite of the site language, always display admin in this locale"
 msgstr ""
@@ -921,147 +943,147 @@ msgctxt "Debug Module"
 msgid "Clear Log"
 msgstr ""
 
-#: includes/debug.php:82
+#: includes/debug.php:84
 msgctxt "Debug Module: Error Box"
 msgid "The Last %s Errors, in reverse order"
 msgstr ""
 
-#: includes/debug.php:102
+#: includes/debug.php:104
 msgctxt "Debug Module: Error Box"
 msgid "File Size: %s"
 msgstr ""
 
-#: includes/debug.php:105
+#: includes/debug.php:107
 msgctxt "Debug Module: Error Box"
 msgid "No errors currently logged."
 msgstr ""
 
-#: includes/debug.php:110
+#: includes/debug.php:112
 msgctxt "Debug Module: Error Box"
 msgid "There was a problem reading the error log file."
 msgstr ""
 
-#: includes/debug.php:126
+#: includes/debug.php:128
 msgctxt "Debug Module: Version Strings"
 msgid "WordPress"
 msgstr ""
 
-#: includes/debug.php:127
+#: includes/debug.php:129
 msgctxt "Debug Module: Version Strings"
 msgid "WordPress DB revision"
 msgstr ""
 
-#: includes/debug.php:128
+#: includes/debug.php:130
 msgctxt "Debug Module: Version Strings"
 msgid "TinyMCE"
 msgstr ""
 
-#: includes/debug.php:129
+#: includes/debug.php:131
 msgctxt "Debug Module: Version Strings"
 msgid "Required PHP"
 msgstr ""
 
-#: includes/debug.php:130
+#: includes/debug.php:132
 msgctxt "Debug Module: Version Strings"
 msgid "Required MySQL"
 msgstr ""
 
-#: includes/debug.php:146
+#: includes/debug.php:148
 msgctxt "Debug Module"
 msgid "No Instance of gPlugin found."
 msgstr ""
 
-#: includes/debug.php:199
+#: includes/debug.php:201
 msgctxt "Debug Module: Server Vars Group"
 msgid "Server"
 msgstr ""
 
-#: includes/debug.php:201
+#: includes/debug.php:203
 msgctxt "Debug Module: Server Vars"
 msgid "Software"
 msgstr ""
 
-#: includes/debug.php:202, includes/debug.php:224
+#: includes/debug.php:204, includes/debug.php:226
 msgctxt "Debug Module: Server Vars"
 msgid "Name"
 msgstr ""
 
-#: includes/debug.php:203
+#: includes/debug.php:205
 msgctxt "Debug Module: Server Vars"
 msgid "Admin"
 msgstr ""
 
-#: includes/debug.php:204
+#: includes/debug.php:206
 msgctxt "Debug Module: Server Vars"
 msgid "Protocol"
 msgstr ""
 
-#: includes/debug.php:205
+#: includes/debug.php:207
 msgctxt "Debug Module: Server Vars"
 msgid "Port"
 msgstr ""
 
-#: includes/debug.php:206
+#: includes/debug.php:208
 msgctxt "Debug Module: Server Vars"
 msgid "Signature"
 msgstr ""
 
-#: includes/debug.php:207
+#: includes/debug.php:209
 msgctxt "Debug Module: Server Vars"
 msgid "Address"
 msgstr ""
 
-#: includes/debug.php:212
+#: includes/debug.php:214
 msgctxt "Debug Module: Server Vars Group"
 msgid "Request"
 msgstr ""
 
-#: includes/debug.php:214
+#: includes/debug.php:216
 msgctxt "Debug Module: Server Vars"
 msgid "Time"
 msgstr ""
 
-#: includes/debug.php:215
+#: includes/debug.php:217
 msgctxt "Debug Module: Server Vars"
 msgid "Time (Float)"
 msgstr ""
 
-#: includes/debug.php:216
+#: includes/debug.php:218
 msgctxt "Debug Module: Server Vars"
 msgid "Method"
 msgstr ""
 
-#: includes/debug.php:217, includes/debug.php:227
+#: includes/debug.php:219, includes/debug.php:229
 msgctxt "Debug Module: Server Vars"
 msgid "URI"
 msgstr ""
 
-#: includes/debug.php:222
+#: includes/debug.php:224
 msgctxt "Debug Module: Server Vars Group"
 msgid "Script"
 msgstr ""
 
-#: includes/debug.php:225
+#: includes/debug.php:227
 msgctxt "Debug Module: Server Vars"
 msgid "Filename"
 msgstr ""
 
-#: includes/debug.php:226
+#: includes/debug.php:228
 msgctxt "Debug Module: Server Vars"
 msgid "URL"
 msgstr ""
 
-#: includes/debug.php:259
+#: includes/debug.php:261
 msgctxt "Debug Module"
 msgid "<code>phpinfo()</code> has been disabled."
 msgstr ""
 
-#: includes/debug.php:279
+#: includes/debug.php:281
 msgctxt "Debug Module"
 msgid "Current PHP version: <code>%s</code>"
 msgstr ""
 
-#: includes/debug.php:281
+#: includes/debug.php:283
 msgctxt "Debug Module"
 msgid "Loaded Extensions"
 msgstr ""
@@ -1607,17 +1629,17 @@ msgctxt "Maintenance Module"
 msgid "HTTP status header code"
 msgstr ""
 
-#: includes/maintenance.php:125
+#: includes/maintenance.php:126
 msgctxt "Maintenance Module"
 msgid "Retry After"
 msgstr ""
 
-#: includes/maintenance.php:126
+#: includes/maintenance.php:127
 msgctxt "Maintenance Module"
 msgid "HTTP status header retry after"
 msgstr ""
 
-#: includes/maintenance.php:227
+#: includes/maintenance.php:228
 msgctxt "Maintenance Module: Default 503 Message"
 msgid "The site is unavailable for scheduled maintenance."
 msgstr ""
@@ -1731,154 +1753,154 @@ msgctxt "Debug Module: Debug Bar Panel Title"
 msgid "Meta Data"
 msgstr ""
 
-#: includes/misc/debug-debugbar-meta.php:45
+#: includes/misc/debug-debugbar-meta.php:48
 msgctxt "Debug Module: Debug Bar Panel"
 msgid "No Meta Data!"
 msgstr ""
 
 #: includes/misc/debug-debugbar.php:10
 msgctxt "Debug Module: Debug Bar Panel Title"
-msgid "Extras"
+msgid "Debug Extras"
 msgstr ""
 
-#: includes/modulecore.php:295
+#: includes/modulecore.php:298
 msgctxt "Module Core"
 msgid "Are you sure? This operation can not be undone."
 msgstr ""
 
-#: includes/modulecore.php:304
+#: includes/modulecore.php:307
 msgctxt "Module Core"
 msgid "Save Changes"
 msgstr ""
 
-#: includes/modulecore.php:305
+#: includes/modulecore.php:308
 msgctxt "Module Core"
 msgid "Reset Settings"
 msgstr ""
 
-#: includes/modulecore.php:470
+#: includes/modulecore.php:473
 msgid "Debug"
 msgstr ""
 
-#: includes/modulecore.php:561
+#: includes/modulecore.php:564
 msgctxt "Module Core"
 msgid "Getting from constant"
 msgstr ""
 
-#: includes/modulecore.php:857
+#: includes/modulecore.php:860
 msgid "&mdash; Select Page &mdash;"
 msgstr ""
 
-#: includes/modulecore.php:983
+#: includes/modulecore.php:986
 msgid "Error: setting type undefined."
 msgstr ""
 
-#: includes/modulecore.php:1072
+#: includes/modulecore.php:1075
 msgctxt "Module Core"
 msgid "%s Counted!"
 msgstr ""
 
-#: includes/modulecore.php:1084
+#: includes/modulecore.php:1087
 msgctxt "Moduel Core"
 msgid "Add New Post Type"
 msgstr ""
 
-#: includes/modulecore.php:1086
+#: includes/modulecore.php:1089
 msgctxt "Moduel Core: Add New Post Type"
 msgid "Add New"
 msgstr ""
 
-#: includes/modulecore.php:1093
+#: includes/modulecore.php:1096
 msgctxt "Moduel Core"
 msgid "See WordPress Codex for %s"
 msgstr ""
 
-#: includes/modulecore.php:1095
+#: includes/modulecore.php:1098
 msgctxt "Moduel Core"
 msgid "See Codex"
 msgstr ""
 
-#: includes/modulecore.php:1103
+#: includes/modulecore.php:1106
 msgctxt "Moduel Core"
 msgid "Full URL to the current login logo image"
 msgstr ""
 
-#: includes/modulecore.php:1105
+#: includes/modulecore.php:1108
 msgctxt "Moduel Core"
 msgid "Login Logo"
 msgstr ""
 
-#: includes/modulecore.php:1125
+#: includes/modulecore.php:1128
 msgctxt "Moduel Core"
 msgid "See More Information"
 msgstr ""
 
-#: includes/modulecore.php:1155
+#: includes/modulecore.php:1158
 msgctxt "Moduel Core: Page Title"
 msgid "gNetwork Extras"
 msgstr ""
 
-#: includes/modulecore.php:1159
+#: includes/modulecore.php:1162
 msgctxt "Moduel Core: Title Attr"
 msgid "Plugin Homepage"
 msgstr ""
 
-#: includes/modulecore.php:1170
+#: includes/modulecore.php:1173
 msgctxt "Moduel Core: Settings Message"
 msgid "Settings reset."
 msgstr ""
 
-#: includes/modulecore.php:1171
+#: includes/modulecore.php:1174
 msgctxt "Moduel Core: Settings Message"
 msgid "Tables optimized."
 msgstr ""
 
-#: includes/modulecore.php:1172
+#: includes/modulecore.php:1175
 msgctxt "Moduel Core: Settings Message"
 msgid "Settings updated."
 msgstr ""
 
-#: includes/modulecore.php:1173
+#: includes/modulecore.php:1176
 msgctxt "Moduel Core: Settings Message"
 msgid "File/Folder created."
 msgstr ""
 
-#: includes/modulecore.php:1174
+#: includes/modulecore.php:1177
 msgctxt "Moduel Core: Settings Message"
 msgid "%s deleted!"
 msgstr ""
 
-#: includes/modulecore.php:1175
+#: includes/modulecore.php:1178
 msgctxt "Moduel Core: Settings Message"
 msgid "%s cleaned!"
 msgstr ""
 
-#: includes/modulecore.php:1176
+#: includes/modulecore.php:1179
 msgctxt "Moduel Core: Settings Message"
 msgid "Data purged."
 msgstr ""
 
-#: includes/modulecore.php:1177
+#: includes/modulecore.php:1180
 msgctxt "Moduel Core: Settings Message"
 msgid "%s Items(s) Changed"
 msgstr ""
 
-#: includes/modulecore.php:1178
+#: includes/modulecore.php:1181
 msgctxt "Moduel Core: Settings Message"
 msgid "No Item Changed"
 msgstr ""
 
-#: includes/modulecore.php:1179
+#: includes/modulecore.php:1182
 msgctxt "Moduel Core: Settings Message"
 msgid "Error while settings save."
 msgstr ""
 
-#: includes/modulecore.php:1180
+#: includes/modulecore.php:1183
 msgctxt "Moduel Core: Settings Message"
 msgid "Something's wrong!"
 msgstr ""
 
-#: includes/modulecore.php:1208
+#: includes/modulecore.php:1212
 msgctxt "Moduel Core: Settings Message"
 msgid "Cheatin&#8217; uh?"
 msgstr ""
@@ -2517,132 +2539,132 @@ msgstr ""
 msgid "Send"
 msgstr ""
 
-#: includes/shortcodes.php:90
+#: includes/shortcodes.php:91
 msgctxt "ShortCode Module: TINYMCE Strings"
 msgid "Cite This"
 msgstr ""
 
-#: includes/shortcodes.php:91
+#: includes/shortcodes.php:92
 msgctxt "ShortCode Module: TINYMCE Strings"
 msgid "Cite This (Ctrl+Q)"
 msgstr ""
 
-#: includes/shortcodes.php:92
+#: includes/shortcodes.php:93
 msgctxt "ShortCode Module: TINYMCE Strings"
 msgid "Ref Text"
 msgstr ""
 
-#: includes/shortcodes.php:93
+#: includes/shortcodes.php:94
 msgctxt "ShortCode Module: TINYMCE Strings"
 msgid "Ref URL"
 msgstr ""
 
-#: includes/shortcodes.php:95
+#: includes/shortcodes.php:96
 msgctxt "ShortCode Module: TINYMCE Strings"
 msgid "Email"
 msgstr ""
 
-#: includes/shortcodes.php:96
+#: includes/shortcodes.php:97
 msgctxt "ShortCode Module: TINYMCE Strings"
 msgid "Email (Ctrl+E)"
 msgstr ""
 
-#: includes/shortcodes.php:97
+#: includes/shortcodes.php:98
 msgctxt "ShortCode Module: TINYMCE Strings"
 msgid "Full Email"
 msgstr ""
 
-#: includes/shortcodes.php:98, includes/shortcodes.php:104
+#: includes/shortcodes.php:99, includes/shortcodes.php:105
 msgctxt "ShortCode Module: TINYMCE Strings"
 msgid "Display Text"
 msgstr ""
 
-#: includes/shortcodes.php:99
+#: includes/shortcodes.php:100
 msgctxt "ShortCode Module: TINYMCE Strings"
 msgid "Email Subject"
 msgstr ""
 
-#: includes/shortcodes.php:100
+#: includes/shortcodes.php:101
 msgctxt "ShortCode Module: TINYMCE Strings"
 msgid "Link Hover"
 msgstr ""
 
-#: includes/shortcodes.php:102
+#: includes/shortcodes.php:103
 msgctxt "ShortCode Module: TINYMCE Strings"
 msgid "Search"
 msgstr ""
 
-#: includes/shortcodes.php:103
+#: includes/shortcodes.php:104
 msgctxt "ShortCode Module: TINYMCE Strings"
 msgid "Search (Ctrl+3)"
 msgstr ""
 
-#: includes/shortcodes.php:105
+#: includes/shortcodes.php:106
 msgctxt "ShortCode Module: TINYMCE Strings"
 msgid "Override Criteria"
 msgstr ""
 
-#: includes/shortcodes.php:107, includes/shortcodes.php:108
+#: includes/shortcodes.php:108, includes/shortcodes.php:109
 msgctxt "ShortCode Module: TINYMCE Strings"
 msgid "People"
 msgstr ""
 
-#: includes/shortcodes.php:109
+#: includes/shortcodes.php:110
 msgctxt "ShortCode Module: TINYMCE Strings"
 msgid "Name"
 msgstr ""
 
-#: includes/shortcodes.php:407
+#: includes/shortcodes.php:408
 msgctxt "ShortCode Module: back: default html"
 msgid "Back"
 msgstr ""
 
-#: includes/shortcodes.php:437, includes/shortcodes.php:451
+#: includes/shortcodes.php:438, includes/shortcodes.php:452
 msgctxt "ShortCode Module: back: home title attr"
 msgid "Home"
 msgstr ""
 
-#: includes/shortcodes.php:624
+#: includes/shortcodes.php:625
 msgctxt "ShortCode Module: search: link title attr"
 msgid "Search this site for “%s”"
 msgstr ""
 
-#: includes/shortcodes.php:671
+#: includes/shortcodes.php:672
 msgctxt "ShortCode Module: Google Groups Subscribe"
 msgid "Email:"
 msgstr ""
 
-#: includes/shortcodes.php:674
+#: includes/shortcodes.php:675
 msgctxt "ShortCode Module: Google Groups Subscribe"
 msgid "Subscribe"
 msgstr ""
 
-#: includes/shortcodes.php:714
+#: includes/shortcodes.php:715
 msgctxt "Shortcodes Module: PDF Fallback"
 msgid "It appears you don't have Adobe Reader or PDF support in this web browser. <a href=\"%s\">Click here to download the PDF</a>"
 msgstr ""
 
-#: includes/shortcodes.php:834
+#: includes/shortcodes.php:835
 msgctxt "Shortcodes Module: Audio Go Shortcode"
 msgid "Go to %s second mark and play"
 msgstr ""
 
-#: includes/shortcodes.php:941
+#: includes/shortcodes.php:942
 msgctxt "Shortcodes Module: Ref Shortcode"
 msgid "See More"
 msgstr ""
 
-#: includes/shortcodes.php:1004
+#: includes/shortcodes.php:1005
 msgctxt "Shortcodes Module: RefList Shortcode"
 msgid "Back to Text"
 msgstr ""
 
-#: includes/shortcodes.php:1066, includes/shortcodes.php:1077
+#: includes/shortcodes.php:1075, includes/shortcodes.php:1086
 msgctxt "Shortcodes Module: Ref Manual Shortcode"
 msgid "See the footnote"
 msgstr ""
 
-#: includes/shortcodes.php:1099, includes/shortcodes.php:1112
+#: includes/shortcodes.php:1108, includes/shortcodes.php:1121
 msgctxt "Shortcodes Module: RefList Manual Shortcode"
 msgid "See the footnote"
 msgstr ""
@@ -2717,101 +2739,122 @@ msgctxt "Dashboard Module"
 msgid "%s: %s"
 msgstr ""
 
-#: includes/taxonomy.php:63, includes/taxonomy.php:80
-msgctxt "Taxonomy Description"
+#: includes/taxonomy.php:93, includes/taxonomy.php:124, includes/taxonomy.php:157, includes/taxonomy.php:173
+msgctxt "Taxonomy Module"
 msgid "Description"
 msgstr ""
 
-#: includes/taxonomy.php:65
-msgid "The description is not prominent by default, however some themes may show it."
+#: includes/taxonomy.php:159, includes/taxonomy.php:175
+msgctxt "Taxonomy Module"
+msgid "The description is not prominent by default; however, some themes may show it."
 msgstr ""
 
-#: includes/taxonomy.php:101
-msgctxt "Taxonomy Module: Bulk Action"
-msgid "Empty"
-msgstr ""
-
-#: includes/taxonomy.php:102
+#: includes/taxonomy.php:194
 msgctxt "Taxonomy Module: Bulk Action"
 msgid "Merge"
 msgstr ""
 
-#: includes/taxonomy.php:103
+#: includes/taxonomy.php:195
 msgctxt "Taxonomy Module: Bulk Action"
 msgid "Change Taxonomy"
 msgstr ""
 
-#: includes/taxonomy.php:104
+#: includes/taxonomy.php:196
+msgctxt "Taxonomy Module: Bulk Action"
+msgid "Empty Posts"
+msgstr ""
+
+#: includes/taxonomy.php:197
+msgctxt "Taxonomy Module: Bulk Action"
+msgid "Empty Description"
+msgstr ""
+
+#: includes/taxonomy.php:198
+msgctxt "Taxonomy Module: Bulk Action"
+msgid "Rewrite Slug"
+msgstr ""
+
+#: includes/taxonomy.php:199
 msgctxt "Taxonomy Module: Bulk Action"
 msgid "Format i18n"
 msgstr ""
 
-#: includes/taxonomy.php:109
+#: includes/taxonomy.php:204
 msgctxt "Taxonomy Module: Bulk Action"
 msgid "Set Parent"
 msgstr ""
 
-#: includes/taxonomy.php:200
+#: includes/taxonomy.php:292
 msgctxt "Taxonomy Module: Notice"
 msgid "Terms updated."
 msgstr ""
 
-#: includes/taxonomy.php:205
+#: includes/taxonomy.php:297
 msgctxt "Taxonomy Module: Notice"
 msgid "Terms not updated."
 msgstr ""
 
-#: includes/taxonomy.php:382
+#: includes/taxonomy.php:504
 msgctxt "Taxonomy Module"
 msgid "into: %s"
 msgstr ""
 
-#: includes/taxonomy.php:410
+#: includes/taxonomy.php:532
 msgctxt "Taxonomy Module: Set Parent None Option"
 msgid "None"
 msgstr ""
 
-#: includes/themes.php:40
+#: includes/themes.php:43
 msgctxt "Themes Module: Menu Name"
 msgid "Themes"
 msgstr ""
 
-#: includes/themes.php:60
+#: includes/themes.php:64
 msgctxt "Themes Module: Setting Title"
 msgid "jQuery on Bottom"
 msgstr ""
 
-#: includes/themes.php:61
+#: includes/themes.php:65
 msgctxt "Themes Module: Setting Description"
 msgid "Prints jQuery in footer on front-end"
 msgstr ""
 
-#: includes/themes.php:65
+#: includes/themes.php:69
 msgctxt "Themes Module: Setting Title"
-msgid "Theme Enhancments"
+msgid "Theme Enhancements"
 msgstr ""
 
-#: includes/themes.php:66
+#: includes/themes.php:70
 msgctxt "Themes Module: Setting Description"
 msgid "Extra styles and more for suported themes"
 msgstr ""
 
-#: includes/themes.php:75
+#: includes/themes.php:78
+msgctxt "Themes Module: Setting Title"
+msgid "Content Actions"
+msgstr ""
+
+#: includes/themes.php:79
+msgctxt "Themes Module: Setting Description"
+msgid "Extra hooks before and after post content"
+msgstr ""
+
+#: includes/themes.php:85
 msgctxt "Themes Module: Setting Title"
 msgid "Body Class"
 msgstr ""
 
-#: includes/themes.php:76
+#: includes/themes.php:86
 msgctxt "Themes Module: Setting Description"
 msgid "This will be added as html body class to all pages on front-end"
 msgstr ""
 
-#: includes/themes.php:290
+#: includes/themes.php:329
 msgctxt "Themes Module: Continue Reading Helper"
 msgid "<a %1$s href=\"%1$s\" title=\"Continue reading &ldquo;%2$s&rdquo; &hellip;\" class=\"%3$s\" >%4$s</a>"
 msgstr ""
 
-#: includes/themes.php:294
+#: includes/themes.php:333
 msgctxt "Themes Module: Continue Reading Helper"
 msgid "Read more&nbsp;<span class=\"excerpt-link-hellip\">&hellip;</span>"
 msgstr ""
@@ -2926,37 +2969,62 @@ msgctxt "Tracking Module: Contact Title Attribute"
 msgid "Follow Us"
 msgstr ""
 
-#: includes/typography.php:34
+#: includes/typography.php:30
+msgctxt "Typography Module: Menu Name"
+msgid "Typography"
+msgstr ""
+
+#: includes/typography.php:49
+msgctxt "Typography Module: Setting Title"
+msgid "Editor Buttons"
+msgstr ""
+
+#: includes/typography.php:50
+msgctxt "Typography Module: Setting Description"
+msgid "Extra Typography Buttons for Post Editor"
+msgstr ""
+
+#: includes/typography.php:54
+msgctxt "Typography Module: Setting Title"
+msgid "Title to Title Case"
+msgstr ""
+
+#: includes/typography.php:55
+msgctxt "Typography Module: Setting Description"
+msgid "Properly-Cased Title of Posts"
+msgstr ""
+
+#: includes/typography.php:76
 msgctxt "Typography Module: TINYMCE Strings"
 msgid "Asterisks"
 msgstr ""
 
-#: includes/typography.php:36, includes/typography.php:37
+#: includes/typography.php:78, includes/typography.php:79
 msgctxt "Typography Module: TINYMCE Strings"
 msgid "Quote This"
 msgstr ""
 
-#: includes/typography.php:38
+#: includes/typography.php:80
 msgctxt "Typography Module: TINYMCE Strings"
 msgid "Quote Text"
 msgstr ""
 
-#: includes/typography.php:39
+#: includes/typography.php:81
 msgctxt "Typography Module: TINYMCE Strings"
 msgid "Cite Text"
 msgstr ""
 
-#: includes/typography.php:40
+#: includes/typography.php:82
 msgctxt "Typography Module: TINYMCE Strings"
 msgid "Cite URL"
 msgstr ""
 
-#: includes/typography.php:41
+#: includes/typography.php:83
 msgctxt "Typography Module: TINYMCE Strings"
 msgid "Quote Align"
 msgstr ""
 
-#: includes/typography.php:42
+#: includes/typography.php:84
 msgctxt "Typography Module: TINYMCE Strings"
 msgid "Intro Quote"
 msgstr ""
@@ -2986,142 +3054,142 @@ msgctxt "Users Module"
 msgid "Network site user is not defined"
 msgstr ""
 
-#: includes/users.php:58
+#: includes/users.php:61
 msgctxt "Users Module"
 msgid "Bulk Change Author"
 msgstr ""
 
-#: includes/users.php:66
+#: includes/users.php:69
 msgctxt "Users Module"
 msgid "to"
 msgstr ""
 
-#: includes/users.php:75
+#: includes/users.php:78
 msgctxt "Users Module"
 msgid "on"
 msgstr ""
 
-#: includes/users.php:85
+#: includes/users.php:88
 msgctxt "Users Module"
 msgid "do"
 msgstr ""
 
-#: includes/users.php:87
+#: includes/users.php:90
 msgctxt "Users Module"
 msgid "Change"
 msgstr ""
 
-#: includes/utilities.php:24
+#: includes/utilities.php:26
 msgctxt "Module Core: Default Datetime Format"
 msgid "l, j F, Y - H:i:s"
 msgstr ""
 
-#: includes/utilities.php:82
+#: includes/utilities.php:84
 msgctxt "Utilities Module: Join Items Helper"
 msgid "&rdquo;"
 msgstr ""
 
-#: includes/utilities.php:83
+#: includes/utilities.php:85
 msgctxt "Utilities Module: Join Items Helper"
 msgid "&ldquo; and &rdquo;"
 msgstr ""
 
-#: includes/utilities.php:85
+#: includes/utilities.php:87
 msgctxt "Utilities Module: Join Items Helper"
 msgid "&ldquo;, &rdquo;"
 msgstr ""
 
-#: includes/utilities.php:88
+#: includes/utilities.php:90
 msgctxt "Utilities Module: Join Items Helper"
 msgid "&ldquo;"
 msgstr ""
 
-#: includes/utilities.php:117
+#: includes/utilities.php:119
 msgctxt "Utilities: Dropdown: Get User Roles"
 msgid "Administrators"
 msgstr ""
 
-#: includes/utilities.php:118
+#: includes/utilities.php:120
 msgctxt "Utilities: Dropdown: Get User Roles"
 msgid "Editors"
 msgstr ""
 
-#: includes/utilities.php:119
+#: includes/utilities.php:121
 msgctxt "Utilities: Dropdown: Get User Roles"
 msgid "Authors"
 msgstr ""
 
-#: includes/utilities.php:120
+#: includes/utilities.php:122
 msgctxt "Utilities: Dropdown: Get User Roles"
 msgid "Contributors"
 msgstr ""
 
-#: includes/utilities.php:121
+#: includes/utilities.php:123
 msgctxt "Utilities: Dropdown: Get User Roles"
 msgid "Subscribers"
 msgstr ""
 
-#: includes/utilities.php:126
+#: includes/utilities.php:128
 msgctxt "Utilities: Dropdown: Get User Roles"
 msgid "Super Admins"
 msgstr ""
 
-#: includes/utilities.php:128
+#: includes/utilities.php:130
 msgctxt "Utilities: Dropdown: Get User Roles"
 msgid "Network Users"
 msgstr ""
 
-#: includes/utilities.php:133
+#: includes/utilities.php:135
 msgctxt "Utilities: Dropdown: Get User Roles"
 msgid "&mdash; No One &mdash;"
 msgstr ""
 
-#: includes/utilities.php:150
+#: includes/utilities.php:152
 msgctxt "Utilities: Time in Minutes"
 msgid "5 Minutes"
 msgstr ""
 
-#: includes/utilities.php:151
+#: includes/utilities.php:153
 msgctxt "Utilities: Time in Minutes"
 msgid "10 Minutes"
 msgstr ""
 
-#: includes/utilities.php:152
+#: includes/utilities.php:154
 msgctxt "Utilities: Time in Minutes"
 msgid "15 Minutes"
 msgstr ""
 
-#: includes/utilities.php:153
+#: includes/utilities.php:155
 msgctxt "Utilities: Time in Minutes"
 msgid "30 Minutes"
 msgstr ""
 
-#: includes/utilities.php:154
+#: includes/utilities.php:156
 msgctxt "Utilities: Time in Minutes"
 msgid "60 Minutes"
 msgstr ""
 
-#: includes/utilities.php:155
+#: includes/utilities.php:157
 msgctxt "Utilities: Time in Minutes"
 msgid "2 Hours"
 msgstr ""
 
-#: includes/utilities.php:156
+#: includes/utilities.php:158
 msgctxt "Utilities: Time in Minutes"
 msgid "3 Hours"
 msgstr ""
 
-#: includes/utilities.php:157
+#: includes/utilities.php:159
 msgctxt "Utilities: Time in Minutes"
 msgid "4 Hours"
 msgstr ""
 
-#: includes/utilities.php:158
+#: includes/utilities.php:160
 msgctxt "Utilities: Time in Minutes"
 msgid "8 Hours"
 msgstr ""
 
-#: includes/utilities.php:159
+#: includes/utilities.php:161
 msgctxt "Utilities: Time in Minutes"
 msgid "24 Hours"
 msgstr ""
