@@ -84,6 +84,7 @@ class Blog extends ModuleCore
 		return array(
 			'admin_locale'        => '',
 			'blog_redirect'       => '',
+			'blog_redirect_status'=> '301',
 			'linkmanager_enabled' => '0',
 			'xmlrpc_enabled'      => '0',
 			'page_copyright'      => '0',
@@ -113,6 +114,22 @@ class Blog extends ModuleCore
 					'description' => _x( 'The site will redirect to this URL. Leave empty to disable.', 'Blog Module', GNETWORK_TEXTDOMAIN ),
 					'field_class' => array( 'regular-text', 'url-text' ),
 					'placeholder' => 'http://example.com',
+				),
+				array(
+					'field'       => 'blog_redirect_status',
+					'type'        => 'select',
+					'title'       => _x( 'Blog Redirect Status Code', 'Blog Module', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'HTTP status header code', 'Blog Module', GNETWORK_TEXTDOMAIN ),
+					'after'       => self::settingsFieldAfterIcon( self::getMoreInfoIcon( 'https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#3xx_Redirection' ) ),
+					'dir'         => 'ltr',
+					'default'     => '301',
+					'values'      => array(
+						'301' => '301 Moved Permanently',
+						'302' => '302 Found',
+						'303' => '303 See Other',
+						'307' => '307 Temporary Redirect',
+						'307' => '308 Permanent Redirect',
+					),
 				),
 				array(
 					'field'       => 'rest_api_support',
@@ -297,11 +314,11 @@ class Blog extends ModuleCore
 		$redirect = self::untrail( $this->options['blog_redirect'] ).$_SERVER['REQUEST_URI'];
 
 		if ( ! empty( $pagenow ) && 'index.php' == $pagenow )
-			self::redirect( $redirect, 307 );
+			self::redirect( $redirect, $this->options['blog_redirect_status'] );
 
 		// DEPRECATED: FALLBACK
 		if ( FALSE === self::whiteListed() )
-			self::redirect( $redirect, 307 );
+			self::redirect( $redirect, $this->options['blog_redirect_status'] );
 	}
 
 	public static function whiteListed( $request_uri = NULL )
