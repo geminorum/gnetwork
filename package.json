@@ -20,7 +20,7 @@
     "gulp-sort": "^2.0.0",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-tinypng": "^1.0.2",
-    "gulp-wp-pot": "^1.2.1",
+    "gulp-wp-pot": "^1.2.2",
     "imagemin-pngquant": "^4.2.2"
   },
   "readme": "ERROR: No README data found!",

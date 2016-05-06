@@ -145,7 +145,7 @@ class Cleanup extends ModuleCore
 				$message = $this->akismet_purge_meta() ? 'purged' : 'error';
 
 			else
-				return FALSE;
+				$message = 'huh';
 
 			self::redirect_referer( $message );
 		}

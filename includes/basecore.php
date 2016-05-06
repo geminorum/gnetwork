@@ -1594,7 +1594,7 @@ class BaseCore
 
 	/*
 		@REF: https://gist.github.com/geminorum/fe2a9ba25db5cf2e5ad6718423d00f8a
-		
+
 		Original Title Case script (c) John Gruber <daringfireball.net>
 		Javascript port (c) David Gouch <individed.com>
 		PHP port of the above by Kroc Camen <camendesign.com>

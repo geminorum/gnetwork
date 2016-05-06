@@ -36,15 +36,15 @@ class Admin extends ModuleCore
 		if ( GNETWORK_ADMIN_COLOUR )
 			add_action( 'user_register', array( $this, 'user_register' ) );
 
-		// WORKING but DISABLED
+		// FIXME: WORKING but DISABLED
 		// add_filter( 'custom_menu_order', '__return_true' );
 		// add_filter( 'menu_order', array( $this, 'menu_order' ) );
 
-		// IT MESSES WITH CUSTOM COLUMNS!!
+		// FIXME: IT MESSES WITH CUSTOM COLUMNS!!
 		// add_filter( 'posts_fields', array( $this, 'posts_fields' ), 0, 2 );
 	}
 
-	// DISABLED
+	// FIXME: DISABLED
 	public function admin_init_early()
 	{
 		if ( current_user_can( 'update_plugins' ) ) {
