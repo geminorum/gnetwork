@@ -96,10 +96,12 @@ class Taxonomy extends ModuleCore
 	private function get_actions( $taxonomy )
 	{
 		$actions = apply_filters( 'gnetwork_taxonomy_bulk_actions', array(
-			'empty'       => _x( 'Empty', 'Taxonomy Module: Bulk Action', GNETWORK_TEXTDOMAIN ),
-			'merge'       => _x( 'Merge', 'Taxonomy Module: Bulk Action', GNETWORK_TEXTDOMAIN ),
-			'change_tax'  => _x( 'Change Taxonomy', 'Taxonomy Module: Bulk Action', GNETWORK_TEXTDOMAIN ),
-			'format_i18n' => _x( 'Format i18n', 'Taxonomy Module: Bulk Action', GNETWORK_TEXTDOMAIN ),
+			'empty'        => _x( 'Empty', 'Taxonomy Module: Bulk Action', GNETWORK_TEXTDOMAIN ),
+			'merge'        => _x( 'Merge', 'Taxonomy Module: Bulk Action', GNETWORK_TEXTDOMAIN ),
+			'change_tax'   => _x( 'Change Taxonomy', 'Taxonomy Module: Bulk Action', GNETWORK_TEXTDOMAIN ),
+			'format_i18n'  => _x( 'Format i18n', 'Taxonomy Module: Bulk Action', GNETWORK_TEXTDOMAIN ),
+			'rewrite_slug' => _x( 'Rewrite Slug', 'Taxonomy Module: Bulk Action', GNETWORK_TEXTDOMAIN ),
+			'empty_desc'   => _x( 'Empty Description', 'Taxonomy Module: Bulk Action', GNETWORK_TEXTDOMAIN ),
 		), $taxonomy );
 
 		if ( is_taxonomy_hierarchical( $taxonomy ) ) {
@@ -218,6 +220,36 @@ class Taxonomy extends ModuleCore
 
 			foreach ( $posts as $post )
 				wp_remove_object_terms( $post, (int) $term_id, $taxonomy );
+		}
+
+		return TRUE;
+	}
+
+	public function handle_rewrite_slug( $term_ids, $taxonomy )
+	{
+		foreach ( $term_ids as $term_id ) {
+
+			$term = get_term( $term_id, $taxonomy );
+
+			if ( self::isError( $term ) )
+				continue;
+
+			wp_update_term( $term_id, $taxonomy, array( 'slug' => $term->name ) );
+		}
+
+		return TRUE;
+	}
+
+	public function handle_empty_desc( $term_ids, $taxonomy )
+	{
+		foreach ( $term_ids as $term_id ) {
+
+			$term = get_term( $term_id, $taxonomy );
+
+			if ( self::isError( $term ) )
+				continue;
+
+			wp_update_term( $term_id, $taxonomy, array( 'description' => '' ) );
 		}
 
 		return TRUE;
