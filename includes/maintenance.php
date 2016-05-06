@@ -105,6 +105,7 @@ class Maintenance extends ModuleCore
 					'type'        => 'select',
 					'title'       => _x( 'Status Code', 'Maintenance Module', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'HTTP status header code', 'Maintenance Module', GNETWORK_TEXTDOMAIN ),
+					'after'       => self::settingsFieldAfterIcon( self::getMoreInfoIcon( 'https://en.wikipedia.org/wiki/List_of_HTTP_status_codes' ) ),
 					'dir'         => 'ltr',
 					'default'     => '503',
 					'values'      => array(
