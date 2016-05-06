@@ -66,7 +66,7 @@ class Themes extends ModuleCore
 				),
 				array(
 					'field'       => 'disable_themes',
-					'title'       => _x( 'Theme Enhancments', 'Themes Module: Setting Title', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Theme Enhancements', 'Themes Module: Setting Title', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Extra styles and more for suported themes', 'Themes Module: Setting Description', GNETWORK_TEXTDOMAIN ),
 					'values'      => array(
 						__( 'Enabled' , GNETWORK_TEXTDOMAIN ),
