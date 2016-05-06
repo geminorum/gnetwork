@@ -12,9 +12,7 @@ class Taxonomy extends ModuleCore
 	protected function setup_actions()
 	{
 		add_action( 'admin_init', array( $this, 'admin_init' ), 20 );
-
 		add_action( 'load-edit-tags.php', array( $this, 'load_edit_tags_php' ) );
-		add_action( 'admin_notices', array( $this, 'admin_notices' ) );
 	}
 
 	public function admin_init()
@@ -118,7 +116,7 @@ class Taxonomy extends ModuleCore
 		add_filter( 'admin_body_class', function( $classes ){
 			return $classes.' gnetowrk-taxonomy';
 		} );
-		
+
 		$defaults = array(
 			'taxonomy'    => 'post_tag',
 			'delete_tags' => FALSE,
@@ -135,6 +133,7 @@ class Taxonomy extends ModuleCore
 		if ( ! current_user_can( $tax->cap->manage_terms ) )
 			return;
 
+		add_action( 'admin_notices', array( $this, 'admin_notices' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 		add_action( 'admin_footer', array( $this, 'admin_footer' ) );
 
