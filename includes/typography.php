@@ -12,9 +12,51 @@ class Typography extends ModuleCore
 	{
 		add_action( 'init', array( $this, 'init' ), 12 );
 
-		add_action( 'gnetwork_tinymce_strings', array( $this, 'tinymce_strings' ) );
-		Admin::registerTinyMCE( 'gnetworkquote', 'assets/js/tinymce.quote', 1 );
-		Admin::registerTinyMCE( 'gnetworkasterisks', 'assets/js/tinymce.asterisks', 2 );
+		if ( $this->options['editor_buttons'] ) {
+
+			add_action( 'gnetwork_tinymce_strings', array( $this, 'tinymce_strings' ) );
+
+			Admin::registerTinyMCE( 'gnetworkquote', 'assets/js/tinymce.quote', 1 );
+			Admin::registerTinyMCE( 'gnetworkasterisks', 'assets/js/tinymce.asterisks', 2 );
+		}
+
+		if ( $this->options['title_titlecase'] )
+			add_filter( 'the_title', array( $this, 'the_title' ) );
+	}
+
+	public function setup_menu( $context )
+	{
+		Admin::registerMenu( $this->key,
+			_x( 'Typography', 'Typography Module: Menu Name', GNETWORK_TEXTDOMAIN ),
+			array( $this, 'settings' )
+		);
+	}
+
+	public function default_options()
+	{
+		return array(
+			'editor_buttons'  => '0',
+			'title_titlecase' => '0',
+		);
+	}
+
+	public function default_settings()
+	{
+		return array(
+			'_general' => array(
+				array(
+					'field'       => 'editor_buttons',
+					'title'       => _x( 'Editor Buttons', 'Typography Module: Setting Title', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Extra Typography Buttons for Post Editor', 'Typography Module: Setting Description', GNETWORK_TEXTDOMAIN ),
+				),
+				array(
+					'field'       => 'title_titlecase',
+					'title'       => _x( 'Title to Title Case', 'Typography Module: Setting Title', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Properly-Cased Title of Posts', 'Typography Module: Setting Description', GNETWORK_TEXTDOMAIN ),
+					'after'       => self::settingsFieldAfterIcon( self::getMoreInfoIcon( 'https://gist.github.com/geminorum/fe2a9ba25db5cf2e5ad6718423d00f8a' ) ),
+				),
+			),
+		);
 	}
 
 	public function init()
@@ -96,5 +138,10 @@ class Typography extends ModuleCore
 			return $content;
 
 		return '<span class="ltr" dir="ltr">'.do_shortcode( $content, TRUE ).'</span>';
+	}
+
+	public function the_title( $title )
+	{
+		return self::titleCase( $title );
 	}
 }
