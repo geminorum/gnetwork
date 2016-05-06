@@ -762,9 +762,17 @@ class BaseCore
 	public static function cheatin( $message = NULL )
 	{
 		if ( is_null( $message ) )
-			$message = __( 'Cheatin&#8217; uh?' );
+			$message = __( 'Cheatin&#8217; uh?', GNETWORK_TEXTDOMAIN );
 
 		wp_die( $message, 403 );
+	}
+
+	public static function huh( $message = NULL )
+	{
+		if ( $message )
+			return sprintf ( __( 'huh? %s', GNETWORK_TEXTDOMAIN ), $message );
+
+		return __( 'huh?', GNETWORK_TEXTDOMAIN );
 	}
 
 	public static function tableList( $columns, $data = array(), $args = array() )

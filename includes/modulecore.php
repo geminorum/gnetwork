@@ -1178,6 +1178,7 @@ class ModuleCore extends BaseCore
 			'nochange'  => self::error( _x( 'No Item Changed', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN ) ),
 			'error'     => self::error( _x( 'Error while settings save.', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN ) ),
 			'wrong'     => self::error( _x( 'Something\'s wrong!', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN ) ),
+			'huh'       => self::error( self::huh( empty( $_REQUEST['huh'] ) ? NULL : $_REQUEST['huh'] ) ),
 		);
 	}
 
