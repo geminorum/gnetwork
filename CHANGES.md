@@ -1,3 +1,19 @@
+### 3.1.0
+* blog: redirect status code
+* blog: option to disable/remove wp api, [see](http://wordpress.stackexchange.com/a/212472)
+* themes: new content actions
+* themes: option to load jquery in footer on front
+* themes: custom body class
+* themes: option to disable theme enhancements, `GNETWORK_DISABLE_THEMES` removed
+* themes: rtl enhancements for [Twenty Fifteen](https://wordpress.org/themes/twentyfifteen/)
+* search: prevent search bots from indexing search results
+* restricted: hiding feed keys on user admin pages
+* taxonomy: quick edit description
+* taxonomy: new bulk action: empty description
+* taxonomy: new bulk action: rewrite slug
+* typography: title case post titles, [see](https://gist.github.com/geminorum/fe2a9ba25db5cf2e5ad6718423d00f8a)
+* typography: option to disable editor buttons
+
 ### 3.0.0
 * moved to [Semantic Versioning](http://semver.org/)
 * moved to namespace structure
