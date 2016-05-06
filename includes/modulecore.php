@@ -69,6 +69,9 @@ class ModuleCore extends BaseCore
 		if ( method_exists( $this, 'default_settings' ) )
 			$this->options = $this->init_options();
 
+		if ( self::isAJAX() && method_exists( $this, 'setup_ajax' ) )
+			$this->setup_ajax( $_REQUEST );
+
 		$setup = $this->setup_actions();
 
 		if ( FALSE !== $setup
