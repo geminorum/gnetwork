@@ -88,7 +88,7 @@ class Dev extends ModuleCore
 
 	public function shutdown()
 	{
-		global $wpdb, $gPeopleNetwork, $gMemberNetwork;
+		global $pagenow, $wpdb, $gPeopleNetwork, $gMemberNetwork;
 
 		$log = array(
 			self::timer_stop( FALSE, 3 ).'s',
@@ -137,6 +137,9 @@ class Dev extends ModuleCore
 
 		if ( $_SERVER['REQUEST_URI'] )
 			$log[] = $_SERVER['REQUEST_URI'];
+		
+		if ( ! empty( $pagenow ) )
+			$log[] = 'PageNow:'.$pagenow;
 
 		self::log( 'BENCHMARK', implode( '|', $log ) );
 	}
