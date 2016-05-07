@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Twenty Fifteen 1.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/twentyfifteen\n"
 "POT-Creation-Date: 2016-05-01 03:29+0430\n"
-"PO-Revision-Date: 2016-05-01 04:43+0430\n"
+"PO-Revision-Date: 2016-05-08 00:18+0430\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: geminorum <contact@geminorum.ir>\n"
 "Language: fa_IR\n"
@@ -27,16 +27,16 @@ msgstr ""
 
 #: archive.php:49 index.php:46 search.php:38
 msgid "Previous page"
-msgstr ""
+msgstr "برگهٔ قبلی"
 
 #: archive.php:50 index.php:47 search.php:39
 msgid "Next page"
-msgstr ""
+msgstr "برگهٔ بعدی"
 
 #: archive.php:51 content-link.php:40 content-page.php:29 content.php:42
 #: image.php:63 index.php:48 search.php:40
 msgid "Page"
-msgstr ""
+msgstr "برگه"
 
 #: author-bio.php:12
 msgid "Published by"
@@ -44,7 +44,7 @@ msgstr "منتشر شده توسط"
 
 #: author-bio.php:34
 msgid "View all posts by %s"
-msgstr ""
+msgstr "نمایش تمامی نوشته‌های %s"
 
 #: comments.php:28
 msgctxt "comments title"
@@ -55,7 +55,7 @@ msgstr[1] "%1$s دیدگاه در مورد «%2$s»"
 
 #: comments.php:53
 msgid "Comments are closed."
-msgstr ""
+msgstr "دیدگاه‌ها بسته شده است."
 
 #. translators: %s: Name of current post
 #: content-link.php:31 content.php:33 inc/template-tags.php:238
@@ -79,12 +79,16 @@ msgstr "مطلبی پیدا نشد"
 msgid ""
 "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
 msgstr ""
+"برای انتشار اولین نوشتهٔ خودتان آماده‌اید؟ <a href=\"%1$s\">از اینجا شروع "
+"کنید</a>."
 
 #: content-none.php:26
 msgid ""
 "Sorry, but nothing matched your search terms. Please try again with some "
 "different keywords."
 msgstr ""
+"متأسفیم، چیزی در مورد عبارتی که به دنبالش بودید پیدا نکردیم. از عبارت‌های "
+"دیگری برای جست‌وجو استفاده کنید."
 
 #: content-none.php:31
 msgid ""
@@ -103,7 +107,7 @@ msgstr "با افتخار نیرو گرفته از %s"
 
 #: functions.php:85
 msgid "Primary Menu"
-msgstr ""
+msgstr "فهرست اصلی"
 
 #: functions.php:86
 msgid "Social Links Menu"
@@ -159,7 +163,7 @@ msgstr ""
 
 #: header.php:26
 msgid "Skip to content"
-msgstr ""
+msgstr "جهش به متن"
 
 #: header.php:45
 msgid "Menu and widgets"
