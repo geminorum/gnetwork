@@ -128,7 +128,7 @@ class Blog extends ModuleCore
 						'302' => '302 Found',
 						'303' => '303 See Other',
 						'307' => '307 Temporary Redirect',
-						'307' => '308 Permanent Redirect',
+						'308' => '308 Permanent Redirect',
 					),
 				),
 				array(
