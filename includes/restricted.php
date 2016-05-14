@@ -444,11 +444,11 @@ class RestrictedBouncer extends BaseCore
 	public function admin_init()
 	{
 		add_filter( 'privacy_on_link_title', function( $title ) {
-			return _x( 'Your site is restricted to public', 'Restricted Module', GNETWORK_TEXTDOMAIN );
+			return _x( 'Your site is restricted to public', 'Restricted Module: At a Glance: Title Attr', GNETWORK_TEXTDOMAIN );
 		}, 20 );
 
 		add_filter( 'privacy_on_link_text', function( $content ) {
-			return _x( 'Public Access Discouraged', 'Restricted Module', GNETWORK_TEXTDOMAIN );
+			return _x( 'Public Access Discouraged', 'Restricted Module: At a Glance: Text', GNETWORK_TEXTDOMAIN );
 		}, 20 );
 
 		if ( self::cuc( $this->options['restricted_admin'] ) )
