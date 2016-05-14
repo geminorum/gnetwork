@@ -13,15 +13,15 @@ class Themes extends ModuleCore
 
 	protected function setup_actions()
 	{
+		if ( ! $this->options['disable_themes'] )
+			add_action( 'after_setup_theme', array( $this, 'after_setup_theme' ) );
+
 		if ( is_admin() ) {
 
 			// FIXME: NOT WORKING : when trying to enable each theme
 			// add_filter( 'allowed_themes', array( $this, 'allowed_themes' ) );
 
 		} else {
-
-			if ( ! $this->options['disable_themes'] )
-				add_action( 'after_setup_theme', array( $this, 'after_setup_theme' ) );
 
 			if ( $this->options['content_actions'] )
 				add_filter( 'the_content', array( $this, 'the_content' ), 999 );
@@ -255,6 +255,10 @@ class Themes extends ModuleCore
 				add_action( 'wp_enqueue_scripts', function(){
 					wp_enqueue_style( 'gnetwork-themes-twentyfifteen', GNETWORK_URL.'assets/css/themes.twentyfifteen-rtl.css', array(), GNETWORK_VERSION );
 				}, 20 );
+
+				add_filter( 'mce_css', function( $url ){
+					return Themes::appendMCECSS( $url, 'twentyfifteen' );
+				} );
 			}
 
 			add_action( 'twentyfifteen_credits', array( $this, 'twentytwelve_credits' ) );
