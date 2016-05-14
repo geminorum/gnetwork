@@ -142,22 +142,17 @@ class Locale extends ModuleCore
 			return $gNetworkCurrentLocale = $locale;
 
 		$black_list = apply_filters( 'gnetwork_locale_blacklist', array(
-			'rewrite-rules-inspector'       => 'page',
 			'deprecated_log'                => 'post_type',
+			'rewrite-rules-inspector'       => 'page',
 			'connection-types'              => 'page',
 			'regenerate-thumbnails'         => 'page',
-			'ThreeWP_Activity_Monitor'      => 'page',
 			'wpsupercache'                  => 'page',
-			'backup-to-dropbox'             => 'page',
-			'backup-to-dropbox-monitor'     => 'page',
-			'redirection.php'               => 'page',
 			'members-settings'              => 'page',
 			'roles'                         => 'page',
 			'wp-dbmanager/wp-dbmanager.php' => 'page',
-			'ozh_yourls'                    => 'page',
 			'regenerate-thumbnails'         => 'page',
 			'a8c_developer'                 => 'page',
-			'redirection.php'               => 'page',
+			'redirection.php'               => 'page', // Redirection
 			'bwp_gxs_generator'             => 'page', // BWP Google XML Sitemaps
 			'bwp_gxs_extensions'            => 'page', // BWP Google XML Sitemaps
 			'bwp_gxs_generator_advanced'    => 'page', // BWP Google XML Sitemaps
