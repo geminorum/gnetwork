@@ -183,7 +183,7 @@ class Network extends ModuleCore
 	{
 		$html = '';
 
-		if ( ! is_null( ) ) {
+		if ( ! is_null( $logo ) ) {
 
 			$html .= self::html( 'img', array(
 				'src' => $logo,
