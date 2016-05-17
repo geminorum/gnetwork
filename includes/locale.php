@@ -171,6 +171,7 @@ class Locale extends ModuleCore
 			'wp-db-backup'                  => 'page', // WP-DB-Backup // https://wordpress.org/plugins/wp-db-backup/
 			'odb_settings_page'             => 'page', // Optimize Database after Deleting Revisions // https://wordpress.org/plugins/rvg-optimize-database/
 			'rvg-optimize-database'         => 'page', // Optimize Database after Deleting Revisions // https://wordpress.org/plugins/rvg-optimize-database/
+			'github-updater'                => 'page', // [GitHub Updater](https://github.com/afragen/github-updater)
 
 			// [AddThis Website Tools](https://wordpress.org/plugins/addthis-all/)
 			'addthis_registration'      => 'page',
