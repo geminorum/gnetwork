@@ -690,7 +690,7 @@ msgstr ""
 
 #: includes/cleanup.php:83
 msgctxt "Cleanup Module"
-msgid "Purge Last User & Post Lock"
+msgid "Purge Last User & Post Lock Metadata"
 msgstr ""
 
 #: includes/cleanup.php:90
@@ -700,52 +700,42 @@ msgstr ""
 
 #: includes/cleanup.php:91
 msgctxt "Cleanup Module"
-msgid "Purge Old Slugs Redirects"
+msgid "Purge Old Slug Redirect Metadata"
 msgstr ""
 
 #: includes/cleanup.php:98
 msgctxt "Cleanup Module"
-msgid "Akismet"
+msgid "Comments"
 msgstr ""
 
 #: includes/cleanup.php:99
 msgctxt "Cleanup Module"
-msgid "Removes Akismet Related Meta From Comments"
+msgid "Checks for Orphaned Comment Metas"
 msgstr ""
 
 #: includes/cleanup.php:100
 msgctxt "Cleanup Module"
-msgid "Purge Metadata"
+msgid "Purge Orphaned Matadata"
 msgstr ""
 
 #: includes/cleanup.php:107
 msgctxt "Cleanup Module"
-msgid "Comments"
+msgid "Removes Akismet Related Metadata from Comments"
 msgstr ""
 
 #: includes/cleanup.php:108
 msgctxt "Cleanup Module"
-msgid "Removes User Agent Field of Comments"
+msgid "Purge Akismet Metadata"
 msgstr ""
 
-#: includes/cleanup.php:109
+#: includes/cleanup.php:115
 msgctxt "Cleanup Module"
-msgid "Purge User Agents"
+msgid "Removes User Agent Fields from Comments"
 msgstr ""
 
 #: includes/cleanup.php:116
 msgctxt "Cleanup Module"
-msgid "Comment Tables"
-msgstr ""
-
-#: includes/cleanup.php:117
-msgctxt "Cleanup Module"
-msgid "Checks for Orphaned Comment Metas and Optimize Tables"
-msgstr ""
-
-#: includes/cleanup.php:118
-msgctxt "Cleanup Module"
-msgid "Orphaned & Optimize"
+msgid "Purge User Agent Fields"
 msgstr ""
 
 #: includes/comments.php:76

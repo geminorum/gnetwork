@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gNetwork v3.2.0\n"
 "Report-Msgid-Bugs-To: http://geminorum.ir/wordpress/gnetwork/issues\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2016-05-19 02:34+0430\n"
+"PO-Revision-Date: 2016-05-19 03:15+0430\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: geminorum <contact@geminorum.ir>\n"
 "Language: fa_IR\n"
@@ -661,7 +661,7 @@ msgstr "پالایش"
 #: includes/cleanup.php:45
 msgctxt "Cleanup Module"
 msgid "Transient"
-msgstr ""
+msgstr "ترنزینت"
 
 #: includes/cleanup.php:46
 msgctxt "Cleanup Module"
@@ -706,7 +706,7 @@ msgstr ""
 #: includes/cleanup.php:81
 msgctxt "Cleanup Module"
 msgid "Post Meta"
-msgstr ""
+msgstr "پست متا"
 
 #: includes/cleanup.php:82
 msgctxt "Cleanup Module"
@@ -715,7 +715,7 @@ msgstr ""
 
 #: includes/cleanup.php:83
 msgctxt "Cleanup Module"
-msgid "Purge Last User & Post Lock"
+msgid "Purge Last User & Post Lock Metadata"
 msgstr ""
 
 #: includes/cleanup.php:90
@@ -725,52 +725,42 @@ msgstr ""
 
 #: includes/cleanup.php:91
 msgctxt "Cleanup Module"
-msgid "Purge Old Slugs Redirects"
+msgid "Purge Old Slug Redirect Metadata"
 msgstr ""
 
 #: includes/cleanup.php:98
 msgctxt "Cleanup Module"
-msgid "Akismet"
-msgstr "اکیسمت"
+msgid "Comments"
+msgstr "دیدگاه‌ها"
 
 #: includes/cleanup.php:99
 msgctxt "Cleanup Module"
-msgid "Removes Akismet Related Meta From Comments"
+msgid "Checks for Orphaned Comment Metas"
 msgstr ""
 
 #: includes/cleanup.php:100
 msgctxt "Cleanup Module"
-msgid "Purge Metadata"
+msgid "Purge Orphaned Matadata"
 msgstr ""
 
 #: includes/cleanup.php:107
 msgctxt "Cleanup Module"
-msgid "Comments"
-msgstr "دیدگاه‌ها"
+msgid "Removes Akismet Related Metadata from Comments"
+msgstr ""
 
 #: includes/cleanup.php:108
 msgctxt "Cleanup Module"
-msgid "Removes User Agent Field of Comments"
+msgid "Purge Akismet Metadata"
 msgstr ""
 
-#: includes/cleanup.php:109
+#: includes/cleanup.php:115
 msgctxt "Cleanup Module"
-msgid "Purge User Agents"
+msgid "Removes User Agent Fields from Comments"
 msgstr ""
 
 #: includes/cleanup.php:116
 msgctxt "Cleanup Module"
-msgid "Comment Tables"
-msgstr ""
-
-#: includes/cleanup.php:117
-msgctxt "Cleanup Module"
-msgid "Checks for Orphaned Comment Metas and Optimize Tables"
-msgstr ""
-
-#: includes/cleanup.php:118
-msgctxt "Cleanup Module"
-msgid "Orphaned & Optimize"
+msgid "Purge User Agent Fields"
 msgstr ""
 
 #: includes/comments.php:76
@@ -976,7 +966,7 @@ msgstr ""
 #: includes/debug.php:40
 msgctxt "Debug Module: Menu Name"
 msgid "Debug Logs"
-msgstr ""
+msgstr "لاگ اشکال‌زدایی"
 
 #: includes/debug.php:69
 msgctxt "Debug Module"
@@ -1160,7 +1150,7 @@ msgstr ""
 #: includes/lockdown.php:31
 msgctxt "LockDown Module: Menu Name"
 msgid "Lockdown"
-msgstr ""
+msgstr "لاک‌داون"
 
 #: includes/lockdown.php:44
 msgctxt "LockDown Module"
@@ -1366,12 +1356,12 @@ msgstr "ایمیل"
 #: includes/mail.php:30
 msgctxt "Mail Module: Menu Name"
 msgid "Test Mail"
-msgstr ""
+msgstr "آزمایش ایمیل"
 
 #: includes/mail.php:36
 msgctxt "Mail Module: Menu Name"
 msgid "Email Logs"
-msgstr ""
+msgstr "لاگ ایمیل‌ها"
 
 #: includes/mail.php:64
 msgctxt "Mail Module"
@@ -3366,6 +3356,10 @@ msgstr "پیگیری: کوانت‌کست"
 msgctxt "Widget: Description"
 msgid "Simple Quantcast Data Badge"
 msgstr ""
+
+#~ msgctxt "Cleanup Module"
+#~ msgid "Akismet"
+#~ msgstr "اکیسمت"
 
 #~ msgctxt "Restricted Module"
 #~ msgid "Your site is restricted to public"
