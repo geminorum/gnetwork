@@ -455,6 +455,11 @@ class BaseCore
 		return $keys;
 	}
 
+	public static function sanitizePhoneNumber( $number )
+	{
+		return esc_url( 'tel:'.str_replace( array( '(', ')', '-', '.', '|', ' ' ), '', $number ) );
+	}
+
 	// like WP core but without filter and fallback
 	// ANCESTOR: sanitize_html_class()
 	public static function sanitizeHTMLClass( $class )

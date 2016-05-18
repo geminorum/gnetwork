@@ -561,7 +561,7 @@ class ShortCodes extends ModuleCore
 		if ( ! $content )
 			$content = $number;
 
-		$html = '<a class="tel" href="tel:'.str_ireplace( array( '-', ' ' ), '', $number )
+		$html = '<a class="tel" href="'.self::sanitizePhoneNumber( $number )
 				.'"'.( $args['title'] ? ' data-toggle="tooltip" title="'.esc_attr( $args['title'] ).'"' : '' )
 				.' data-tel-number="'.esc_attr( $number ).'">'
 				.'&#8206;'.apply_filters( 'string_format_i18n', $content ).'&#8207;</a>';
