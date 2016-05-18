@@ -19,7 +19,10 @@ class KavenegarProvider extends ProviderCore
 
 	protected function setup_actions()
 	{
-		if ( isset( $this->options['kavenegar_api_key'] ) )
+		if ( defined( 'KAVENEGAR_API_KEY' ) )
+			$this->api_key = KAVENEGAR_API_KEY;
+
+		else if ( isset( $this->options['kavenegar_api_key'] ) )
 			$this->api_key = $this->options['kavenegar_api_key'];
 	}
 
@@ -30,7 +33,7 @@ class KavenegarProvider extends ProviderCore
 				'type'        => 'text',
 				'title'       => _x( 'API Key', 'Provider: Kavenegar', GNETWORK_TEXTDOMAIN ),
 				'description' => _x( 'Key for communication between your site and Kavenegar.', 'Provider: Kavenegar', GNETWORK_TEXTDOMAIN ),
-				'field_class' => 'large-text'
+				'constant'    => 'KAVENEGAR_API_KEY',
 			),
 			'from_number' => array(
 				'type'  => 'text',
