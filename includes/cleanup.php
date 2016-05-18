@@ -43,7 +43,7 @@ class Cleanup extends ModuleCore
 			'field'       => 'transient_purge',
 			'type'        => 'button',
 			'title'       => _x( 'Transient', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-			'description' => _x( 'Purge Expired Transient Data', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Removes Expired Transient Data', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
 			'default'     => _x( 'Purge Expired', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
 			'values'      => $confirm,
 		);
@@ -51,7 +51,7 @@ class Cleanup extends ModuleCore
 		$settings['_transient'][] = array(
 			'field'       => 'transient_purge_all',
 			'type'        => 'button',
-			'description' => _x( 'Purge All Transient Data', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Removes All Transient Data', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
 			'default'     => _x( 'Purge All', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
 			'values'      => $confirm,
 		);
@@ -61,7 +61,7 @@ class Cleanup extends ModuleCore
 			$settings['_transient'][] = array(
 				'field'       => 'transient_purge_site',
 				'type'        => 'button',
-				'description' => _x( 'Purge Expired Network Transient Data', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Removes Expired Network Transient Data', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
 				'default'     => _x( 'Purge Network Expired', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
 				'values'      => $confirm,
 			);
@@ -69,17 +69,34 @@ class Cleanup extends ModuleCore
 			$settings['_transient'][] = array(
 				'field'       => 'transient_purge_site_all',
 				'type'        => 'button',
-				'description' => _x( 'Purge All Network Transient Data', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Removes All Network Transient Data', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
 				'default'     => _x( 'Purge All Network', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
 				'values'      => $confirm,
 			);
 		}
 
+		$settings['_posts'][] = array(
+			'field'       => 'delete_post_editmeta',
+			'type'        => 'button',
+			'title'       => _x( 'Post Meta', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Removes Posts Last Edit User and Lock Data', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'default'     => _x( 'Purge Last User & Post Lock', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'values'      => $confirm,
+		);
+
+		$settings['_posts'][] = array(
+			'field'       => 'delete_post_oldslug',
+			'type'        => 'button',
+			'description' => _x( 'Removes the Previous URL Slugs for Posts', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'default'     => _x( 'Purge Old Slugs Redirects', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'values'      => $confirm,
+		);
+
 		$settings['_comments'][] = array(
 			'field'       => 'akismet_purge_meta',
 			'type'        => 'button',
 			'title'       => _x( 'Akismet', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-			'description' => _x( 'Removes akismet related meta from comments', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Removes Akismet Related Meta From Comments', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
 			'default'     => _x( 'Purge Metadata', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
 			'values'      => $confirm,
 		);
@@ -88,7 +105,7 @@ class Cleanup extends ModuleCore
 			'field'       => 'purge_comment_agent',
 			'type'        => 'button',
 			'title'       => _x( 'Comments', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-			'description' => _x( 'Removes user agent field of comments', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Removes User Agent Field of Comments', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
 			'default'     => _x( 'Purge User Agents', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
 			'values'      => $confirm,
 		);
@@ -97,17 +114,8 @@ class Cleanup extends ModuleCore
 			'field'       => 'optimize_tables',
 			'type'        => 'button',
 			'title'       => _x( 'Comment Tables', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-			'description' => _x( 'Checks for orphaned comment metas and optimize tables', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Checks for Orphaned Comment Metas and Optimize Tables', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
 			'default'     => _x( 'Orphaned & Optimize', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-			'values'      => $confirm,
-		);
-
-		$settings['_posts'][] = array(
-			'field'       => 'delete_post_editmeta',
-			'type'        => 'button',
-			'title'       => _x( 'Post Edit Meta', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-			'description' => _x( 'Removes posts last edit user and lock metas', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-			'default'     => _x( 'Delete Last User & Lock', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
 			'values'      => $confirm,
 		);
 
@@ -140,6 +148,9 @@ class Cleanup extends ModuleCore
 
 			else if ( isset( $_POST['delete_post_editmeta'] ) )
 				$message = $this->delete_post_editmeta() ? 'purged' : 'error';
+
+			else if ( isset( $_POST['delete_post_oldslug'] ) )
+				$message = $this->delete_post_oldslug() ? 'purged' : 'error';
 
 			else if ( isset( $_POST['akismet_purge_meta'] ) )
 				$message = $this->akismet_purge_meta() ? 'purged' : 'error';
@@ -292,6 +303,17 @@ class Cleanup extends ModuleCore
 
 		$wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = '_edit_last'" );
 		$wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = '_edit_lock'" );
+
+		$wpdb->query( "OPTIMIZE TABLE {$wpdb->postmeta}" );
+
+		return TRUE;
+	}
+
+	private function delete_post_oldslug()
+	{
+		global $wpdb;
+
+		$wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = '_wp_old_slug'" );
 
 		$wpdb->query( "OPTIMIZE TABLE {$wpdb->postmeta}" );
 
