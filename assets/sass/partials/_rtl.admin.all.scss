@@ -97,6 +97,10 @@ body.rtl {
 		}
 	}
 
+	.mce-menubtn.mce-fixed-width span {
+		text-align: right;
+	}
+
 	#dashboard-widgets {
 
 		h4 {
@@ -181,8 +185,9 @@ body.rtl {
 
 	.media-frame {
 
-		.attachment-details > h3 {
-			// margin: 0;
+		.attachment-details > h3,
+		.attachment-display-settings > h3,
+		.media-types.media-types-required-info {
 			display: none;
 		}
 
@@ -192,17 +197,9 @@ body.rtl {
 			padding-bottom: 5px;
 		}
 
-		.attachment-display-settings > h3 {
-			// margin:0;
-			display: none;
-		}
-
-		.compat-item {
-			// margin-right:-10px;
-		}
-
+		.compat-item,
 		.attachment-display-settings {
-			// margin-right:-10px;
+			float: none;
 		}
 	}
 
