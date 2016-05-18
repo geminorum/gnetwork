@@ -159,15 +159,15 @@ msgctxt "AdminBar Module"
 msgid "My Sites"
 msgstr ""
 
-#: includes/basecore.php:765
+#: includes/basecore.php:770
 msgid "Cheatin&#8217; uh?"
 msgstr ""
 
-#: includes/basecore.php:773
+#: includes/basecore.php:778
 msgid "huh? %s"
 msgstr ""
 
-#: includes/basecore.php:775
+#: includes/basecore.php:780
 msgid "huh?"
 msgstr ""
 
@@ -640,7 +640,7 @@ msgstr ""
 
 #: includes/cleanup.php:46
 msgctxt "Cleanup Module"
-msgid "Purge Expired Transient Data"
+msgid "Removes Expired Transient Data"
 msgstr ""
 
 #: includes/cleanup.php:47
@@ -650,7 +650,7 @@ msgstr ""
 
 #: includes/cleanup.php:54
 msgctxt "Cleanup Module"
-msgid "Purge All Transient Data"
+msgid "Removes All Transient Data"
 msgstr ""
 
 #: includes/cleanup.php:55
@@ -660,7 +660,7 @@ msgstr ""
 
 #: includes/cleanup.php:64
 msgctxt "Cleanup Module"
-msgid "Purge Expired Network Transient Data"
+msgid "Removes Expired Network Transient Data"
 msgstr ""
 
 #: includes/cleanup.php:65
@@ -670,7 +670,7 @@ msgstr ""
 
 #: includes/cleanup.php:72
 msgctxt "Cleanup Module"
-msgid "Purge All Network Transient Data"
+msgid "Removes All Network Transient Data"
 msgstr ""
 
 #: includes/cleanup.php:73
@@ -680,62 +680,72 @@ msgstr ""
 
 #: includes/cleanup.php:81
 msgctxt "Cleanup Module"
-msgid "Akismet"
+msgid "Post Meta"
 msgstr ""
 
 #: includes/cleanup.php:82
 msgctxt "Cleanup Module"
-msgid "Removes akismet related meta from comments"
+msgid "Removes Posts Last Edit User and Lock Data"
 msgstr ""
 
 #: includes/cleanup.php:83
 msgctxt "Cleanup Module"
-msgid "Purge Metadata"
+msgid "Purge Last User & Post Lock"
 msgstr ""
 
 #: includes/cleanup.php:90
 msgctxt "Cleanup Module"
-msgid "Comments"
+msgid "Removes the Previous URL Slugs for Posts"
 msgstr ""
 
 #: includes/cleanup.php:91
 msgctxt "Cleanup Module"
-msgid "Removes user agent field of comments"
+msgid "Purge Old Slugs Redirects"
 msgstr ""
 
-#: includes/cleanup.php:92
+#: includes/cleanup.php:98
 msgctxt "Cleanup Module"
-msgid "Purge User Agents"
+msgid "Akismet"
 msgstr ""
 
 #: includes/cleanup.php:99
 msgctxt "Cleanup Module"
-msgid "Comment Tables"
+msgid "Removes Akismet Related Meta From Comments"
 msgstr ""
 
 #: includes/cleanup.php:100
 msgctxt "Cleanup Module"
-msgid "Checks for orphaned comment metas and optimize tables"
+msgid "Purge Metadata"
 msgstr ""
 
-#: includes/cleanup.php:101
+#: includes/cleanup.php:107
 msgctxt "Cleanup Module"
-msgid "Orphaned & Optimize"
+msgid "Comments"
 msgstr ""
 
 #: includes/cleanup.php:108
 msgctxt "Cleanup Module"
-msgid "Post Edit Meta"
+msgid "Removes User Agent Field of Comments"
 msgstr ""
 
 #: includes/cleanup.php:109
 msgctxt "Cleanup Module"
-msgid "Removes posts last edit user and lock metas"
+msgid "Purge User Agents"
 msgstr ""
 
-#: includes/cleanup.php:110
+#: includes/cleanup.php:116
 msgctxt "Cleanup Module"
-msgid "Delete Last User & Lock"
+msgid "Comment Tables"
+msgstr ""
+
+#: includes/cleanup.php:117
+msgctxt "Cleanup Module"
+msgid "Checks for Orphaned Comment Metas and Optimize Tables"
+msgstr ""
+
+#: includes/cleanup.php:118
+msgctxt "Cleanup Module"
+msgid "Orphaned & Optimize"
 msgstr ""
 
 #: includes/comments.php:76
@@ -1689,51 +1699,51 @@ msgctxt "Media Module"
 msgid "No Posts!"
 msgstr ""
 
-#: includes/media.php:335
+#: includes/media.php:355
 msgctxt "Media Module"
 msgid "Undefined Image Size"
 msgstr ""
 
-#: includes/media.php:599
+#: includes/media.php:622
 msgid "Clean Attachments"
 msgstr ""
 
-#: includes/media.php:641
+#: includes/media.php:664
 msgctxt "Media Module: Row Action"
 msgid "Clean"
 msgstr ""
 
-#: includes/media.php:670
+#: includes/media.php:693
 msgctxt "Media Module: Row Action"
 msgid "View Image URL"
 msgstr ""
 
-#: includes/media.php:678
+#: includes/media.php:701
 msgctxt "Media Module: Row Action"
 msgid "View Video URL"
 msgstr ""
 
-#: includes/media.php:683
+#: includes/media.php:706
 msgctxt "Media Module: Row Action"
 msgid "View Data File URL"
 msgstr ""
 
-#: includes/media.php:688
+#: includes/media.php:711
 msgctxt "Media Module: Row Action"
 msgid "View Spreadsheet URL"
 msgstr ""
 
-#: includes/media.php:695
+#: includes/media.php:718
 msgctxt "Media Module: Row Action"
 msgid "View Document URL"
 msgstr ""
 
-#: includes/media.php:699
+#: includes/media.php:722
 msgctxt "Media Module: Row Action"
 msgid "View HTML file URL"
 msgstr ""
 
-#: includes/media.php:703
+#: includes/media.php:726
 msgctxt "Media Module: Row Action"
 msgid "View Item URL"
 msgstr ""
@@ -2249,37 +2259,37 @@ msgctxt "Provider: Kavenegar"
 msgid "Kavenegar"
 msgstr ""
 
-#: includes/providers/kavenegar.php:31
+#: includes/providers/kavenegar.php:34
 msgctxt "Provider: Kavenegar"
 msgid "API Key"
 msgstr ""
 
-#: includes/providers/kavenegar.php:32
+#: includes/providers/kavenegar.php:35
 msgctxt "Provider: Kavenegar"
 msgid "Key for communication between your site and Kavenegar."
 msgstr ""
 
-#: includes/providers/kavenegar.php:37
+#: includes/providers/kavenegar.php:40
 msgctxt "Provider: Kavenegar"
 msgid "From Number"
 msgstr ""
 
-#: includes/providers/kavenegar.php:38
+#: includes/providers/kavenegar.php:41
 msgctxt "Provider: Kavenegar"
 msgid "You can specify the phone number that messages should be sent from. If you leave this blank, the default number will be used."
 msgstr ""
 
-#: includes/providers/kavenegar.php:42
+#: includes/providers/kavenegar.php:45
 msgctxt "Provider: Kavenegar"
 msgid "Admin Numbers"
 msgstr ""
 
-#: includes/providers/kavenegar.php:50
+#: includes/providers/kavenegar.php:53
 msgctxt "Provider: Kavenegar: Settings Section Title"
 msgid "Kavenegar"
 msgstr ""
 
-#: includes/providers/kavenegar.php:51
+#: includes/providers/kavenegar.php:54
 msgctxt "Provider\" Kavenegar: Settings Section Desc"
 msgid "Kavenegar is a Persian SMS Provider"
 msgstr ""
@@ -2470,12 +2480,12 @@ msgid "You do not have sufficient access level."
 msgstr ""
 
 #: includes/restricted.php:447
-msgctxt "Restricted Module"
+msgctxt "Restricted Module: At a Glance: Title Attr"
 msgid "Your site is restricted to public"
 msgstr ""
 
 #: includes/restricted.php:451
-msgctxt "Restricted Module"
+msgctxt "Restricted Module: At a Glance: Text"
 msgid "Public Access Discouraged"
 msgstr ""
 
@@ -2849,12 +2859,12 @@ msgctxt "Themes Module: Setting Description"
 msgid "This will be added as html body class to all pages on front-end"
 msgstr ""
 
-#: includes/themes.php:329
+#: includes/themes.php:333
 msgctxt "Themes Module: Continue Reading Helper"
 msgid "<a %1$s href=\"%1$s\" title=\"Continue reading &ldquo;%2$s&rdquo; &hellip;\" class=\"%3$s\" >%4$s</a>"
 msgstr ""
 
-#: includes/themes.php:333
+#: includes/themes.php:337
 msgctxt "Themes Module: Continue Reading Helper"
 msgid "Read more&nbsp;<span class=\"excerpt-link-hellip\">&hellip;</span>"
 msgstr ""
