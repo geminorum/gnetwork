@@ -76,46 +76,44 @@ class Cleanup extends ModuleCore
 		}
 
 		$settings['_posts'][] = array(
-			'field'       => 'delete_post_editmeta',
+			'field'       => 'postmeta_editdata',
 			'type'        => 'button',
 			'title'       => _x( 'Post Meta', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
 			'description' => _x( 'Removes Posts Last Edit User and Lock Data', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-			'default'     => _x( 'Purge Last User & Post Lock', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'default'     => _x( 'Purge Last User & Post Lock Metadata', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
 			'values'      => $confirm,
 		);
 
 		$settings['_posts'][] = array(
-			'field'       => 'delete_post_oldslug',
+			'field'       => 'postmeta_oldslug',
 			'type'        => 'button',
 			'description' => _x( 'Removes the Previous URL Slugs for Posts', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-			'default'     => _x( 'Purge Old Slugs Redirects', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'default'     => _x( 'Purge Old Slug Redirect Metadata', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
 			'values'      => $confirm,
 		);
 
 		$settings['_comments'][] = array(
-			'field'       => 'akismet_purge_meta',
-			'type'        => 'button',
-			'title'       => _x( 'Akismet', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-			'description' => _x( 'Removes Akismet Related Meta From Comments', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-			'default'     => _x( 'Purge Metadata', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-			'values'      => $confirm,
-		);
-
-		$settings['_comments'][] = array(
-			'field'       => 'purge_comment_agent',
+			'field'       => 'comments_orphanedmeta',
 			'type'        => 'button',
 			'title'       => _x( 'Comments', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-			'description' => _x( 'Removes User Agent Field of Comments', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-			'default'     => _x( 'Purge User Agents', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Checks for Orphaned Comment Metas', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'default'     => _x( 'Purge Orphaned Matadata', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
 			'values'      => $confirm,
 		);
 
 		$settings['_comments'][] = array(
-			'field'       => 'optimize_tables',
+			'field'       => 'comments_akismetmeta',
 			'type'        => 'button',
-			'title'       => _x( 'Comment Tables', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-			'description' => _x( 'Checks for Orphaned Comment Metas and Optimize Tables', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-			'default'     => _x( 'Orphaned & Optimize', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Removes Akismet Related Metadata from Comments', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'default'     => _x( 'Purge Akismet Metadata', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'values'      => $confirm,
+		);
+
+		$settings['_comments'][] = array(
+			'field'       => 'comments_agentfield',
+			'type'        => 'button',
+			'description' => _x( 'Removes User Agent Fields from Comments', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'default'     => _x( 'Purge User Agent Fields', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
 			'values'      => $confirm,
 		);
 
@@ -140,20 +138,20 @@ class Cleanup extends ModuleCore
 			else if ( isset( $_POST['transient_purge_site_all'] ) )
 				$message = $this->purge_transient_data( TRUE, FALSE ) ? 'purged' : 'error';
 
-			else if ( isset( $_POST['optimize_tables'] ) )
-				$message = $this->optimize_tables() ? 'optimized' : 'error';
+			else if ( isset( $_POST['postmeta_editdata'] ) )
+				$message = $this->postmeta_editdata() ? 'purged' : 'error';
 
-			else if ( isset( $_POST['purge_comment_agent'] ) )
-				$message = $this->purge_comment_agent() ? 'purged' : 'error';
+			else if ( isset( $_POST['postmeta_oldslug'] ) )
+				$message = $this->postmeta_oldslug() ? 'purged' : 'error';
 
-			else if ( isset( $_POST['delete_post_editmeta'] ) )
-				$message = $this->delete_post_editmeta() ? 'purged' : 'error';
+			else if ( isset( $_POST['comments_orphanedmeta'] ) )
+				$message = $this->comments_orphanedmeta() ? 'optimized' : 'error';
 
-			else if ( isset( $_POST['delete_post_oldslug'] ) )
-				$message = $this->delete_post_oldslug() ? 'purged' : 'error';
+			else if ( isset( $_POST['comments_agentfield'] ) )
+				$message = $this->comments_agentfield() ? 'purged' : 'error';
 
-			else if ( isset( $_POST['akismet_purge_meta'] ) )
-				$message = $this->akismet_purge_meta() ? 'purged' : 'error';
+			else if ( isset( $_POST['comments_akismetmeta'] ) )
+				$message = $this->comments_akismetmeta() ? 'purged' : 'error';
 
 			else
 				$message = 'huh';
@@ -265,39 +263,41 @@ class Cleanup extends ModuleCore
 		return TRUE;
 	}
 
-	// @SEE: http://www.catswhocode.com/blog/10-useful-sql-queries-to-clean-up-your-wordpress-database
-	private function optimize_tables()
+	private function comments_orphanedmeta()
 	{
 		global $wpdb;
 
 		$wpdb->query( "DELETE FROM {$wpdb->commentmeta} WHERE comment_id NOT IN (SELECT comment_id FROM {$wpdb->comments})" );
 
-		$wpdb->query( "OPTIMIZE TABLE {$wpdb->comments}" );
 		$wpdb->query( "OPTIMIZE TABLE {$wpdb->commentmeta}" );
 
 		return TRUE;
 	}
 
-	private function purge_comment_agent()
+	private function comments_agentfield()
 	{
 		global $wpdb;
 
 		$wpdb->query( "UPDATE {$wpdb->comments} SET comment_agent = ''" );
 
+		$wpdb->query( "OPTIMIZE TABLE {$wpdb->comments}" );
+
 		return TRUE;
 	}
 
-	private function akismet_purge_meta()
+	private function comments_akismetmeta()
 	{
 		global $wpdb;
 
 		// $wpdb->query( "DELETE FROM {$wpdb->commentmeta} WHERE 'meta_key' IN ( 'akismet_result', 'akismet_history', 'akismet_user', 'akismet_user_result' ) " );
 		$wpdb->query( "DELETE FROM {$wpdb->commentmeta} WHERE meta_key LIKE '%akismet%'" );
 
+		$wpdb->query( "OPTIMIZE TABLE {$wpdb->commentmeta}" );
+
 		return TRUE;
 	}
 
-	private function delete_post_editmeta()
+	private function postmeta_editdata()
 	{
 		global $wpdb;
 
@@ -309,7 +309,7 @@ class Cleanup extends ModuleCore
 		return TRUE;
 	}
 
-	private function delete_post_oldslug()
+	private function postmeta_oldslug()
 	{
 		global $wpdb;
 
