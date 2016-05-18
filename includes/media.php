@@ -261,6 +261,9 @@ class Media extends ModuleCore
 		if ( isset( $metadata['sizes'] ) && count( $metadata['sizes'] ) )
 			return $metadata;
 
+		if ( $this->attachment_is_custom( $attachment_id ) )
+			return $metadata;
+
 		$parent_type = apply_filters( 'gnetwork_media_object_sizes_parent', NULL, $attachment_id, $metadata );
 
 		if ( FALSE === $parent_type ) {
@@ -312,6 +315,23 @@ class Media extends ModuleCore
 		return $sizes;
 	}
 
+	public function attachment_is_custom( $attachment_id )
+	{
+		if ( get_post_meta( $attachment_id, '_wp_attachment_is_custom_header', TRUE ) )
+			return TRUE;
+
+		if ( get_post_meta( $attachment_id, '_wp_attachment_is_custom_background', TRUE ) )
+			return TRUE;
+
+		if ( $attachment_id == get_option( 'site_icon' ) )
+			return TRUE;
+
+		if ( $attachment_id == get_theme_mod( 'site_logo' ) )
+			return TRUE;
+
+		return FALSE;
+	}
+
 	// FIXME: DEPRECATED: core duplication with post_type : add_image_size()
 	public static function addImageSize( $name, $width = 0, $height = 0, $crop = FALSE, $post_type = array( 'post' ) )
 	{
@@ -350,7 +370,7 @@ class Media extends ModuleCore
 
 	public function delete_attachment( $attachment_id )
 	{
-		$this->clean_attachment( $attachment_id, FALSE );
+		$this->clean_attachment( $attachment_id, FALSE, TRUE );
 	}
 
 	public function image_downsize( $false, $post_id, $size )
@@ -489,15 +509,18 @@ class Media extends ModuleCore
 		) );
 	}
 
-	public function clean_attachment( $attachment_id, $regenerate = TRUE )
+	public function clean_attachment( $attachment_id, $regenerate = TRUE, $force = FALSE )
 	{
-		$thumbs = $this->get_thumbs( $attachment_id );
-		$delete = $this->delete_thumbs( $thumbs );
+		if ( $force || ! $this->attachment_is_custom( $attachment_id ) ) {
 
-		if ( $regenerate ) {
-			$file   = get_attached_file( $attachment_id, TRUE );
-			$meta   = wp_generate_attachment_metadata( $attachment_id, $file );
-			$update = wp_update_attachment_metadata( $attachment_id,$meta );
+			$thumbs = $this->get_thumbs( $attachment_id );
+			$delete = $this->delete_thumbs( $thumbs );
+
+			if ( $regenerate ) {
+				$file   = get_attached_file( $attachment_id, TRUE );
+				$meta   = wp_generate_attachment_metadata( $attachment_id, $file );
+				$update = wp_update_attachment_metadata( $attachment_id,$meta );
+			}
 		}
 
 		if ( self::isDev() )
