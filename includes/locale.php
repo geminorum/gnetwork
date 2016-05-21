@@ -91,7 +91,7 @@ class Locale extends ModuleCore
 
 	public static function loadedMOfiles()
 	{
-		echo self::html( 'h3', _x( 'Loaded MO Files', 'Locale Module', GNETWORK_TEXTDOMAIN ) );
+		echo HTML::tag( 'h3', _x( 'Loaded MO Files', 'Locale Module', GNETWORK_TEXTDOMAIN ) );
 		self::tableSide( gNetwork()->locale->loaded );
 
 		// self::tableSideWrap( gNetwork()->locale->loaded, _x( 'Loaded MO Files', 'Locale Module', GNETWORK_TEXTDOMAIN ) );

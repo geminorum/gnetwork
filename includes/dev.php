@@ -65,7 +65,7 @@ class Dev extends ModuleCore
 	// it's faster than airplane-mode
 	public function pre_get_avatar( $null, $id_or_email, $args )
 	{
-		return self::html( 'img', array(
+		return HTML::tag( 'img', array(
             'src'    => 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==',
             'alt'    => $args['alt'],
             'width'  => $args['size'],

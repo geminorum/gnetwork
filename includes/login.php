@@ -196,12 +196,12 @@ JS;
 			echo '<label>'._x( 'Prove your humanity:', 'Login Module', GNETWORK_TEXTDOMAIN ).'</label>';
 			echo '&nbsp;'.number_format_i18n( $one ).'&nbsp;+&nbsp;'.number_format_i18n( $two ).'&nbsp;=&nbsp; ';
 
-			echo self::html( 'input', array(
+			echo HTML::tag( 'input', array(
 				'type'  => 'number',
 				'name'  => 'num',
 			) );
 
-			echo self::html( 'input', array(
+			echo HTML::tag( 'input', array(
 				'type'  => 'hidden',
 				'name'  => 'ans',
 				'value' => $ans,

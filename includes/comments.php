@@ -206,7 +206,7 @@ class Comments extends ModuleCore
 
 			$nonce = esc_html( '_wpnonce='.wp_create_nonce( 'archive-comment_'.$comment->comment_ID ) );
 
-			$actions['comment_archive'] = self::html( 'a', array(
+			$actions['comment_archive'] = HTML::tag( 'a', array(
 				'href'       => 'comment.php?c='.$comment->comment_ID.'&action=archive&'.$nonce,
 				'aria-label' => _x( 'Move this comment to the Archives', 'Comments Module', GNETWORK_TEXTDOMAIN ),
 			), _x( 'Archive', 'Comments Module', GNETWORK_TEXTDOMAIN ) );
@@ -215,7 +215,7 @@ class Comments extends ModuleCore
 
 			$nonce = esc_html( '_wpnonce='.wp_create_nonce( 'archive-comment_'.$comment->comment_ID ) );
 
-			$actions['comment_unarchive'] = self::html( 'a', array(
+			$actions['comment_unarchive'] = HTML::tag( 'a', array(
 				'href'       => 'comment.php?c='.$comment->comment_ID.'&action=unarchive&'.$nonce,
 				'aria-label' => _x( 'Move back this comment from the Archives', 'Comments Module', GNETWORK_TEXTDOMAIN ),
 			), _x( 'Unarchive', 'Comments Module', GNETWORK_TEXTDOMAIN ) );
@@ -228,7 +228,7 @@ class Comments extends ModuleCore
 	{
 		global $comment_type;
 
-		$status_links[$this->type_archived] = self::html( 'a', array(
+		$status_links[$this->type_archived] = HTML::tag( 'a', array(
 			'href'  => add_query_arg( 'comment_type', $this->type_archived, admin_url( 'edit-comments.php' ) ),
 			'class' => ( $this->type_archived == $comment_type ? 'current' : FALSE ),
 			'title' => _x( 'All Archived Comments', 'Comments Module', GNETWORK_TEXTDOMAIN ),

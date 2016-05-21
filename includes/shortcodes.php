@@ -318,14 +318,14 @@ class ShortCodes extends ModuleCore
 					$order = $args['order_before'] ? number_format_i18n( $args['order_zeroise'] ? zeroise( $post->menu_order, $args['order_zeroise'] ) : $post->menu_order ).$args['order_sep'] : '';
 
 					if ( 'publish' == $post->post_status && $args['li_link'] )
-						$list = $args['li_before'].self::html( 'a', array(
+						$list = $args['li_before'].HTML::tag( 'a', array(
 							'href'  => get_permalink( $post->ID ),
 							'title' => $args['li_title'] ? sprintf( $args['li_title'], $title ) : FALSE,
 							'class' => '-link',
 						), $order.$title );
 
 					else
-						$list = $args['li_before'].self::html( 'span', array(
+						$list = $args['li_before'].HTML::tag( 'span', array(
 							'title' => $args['li_title'] ? sprintf( $args['li_title'], $title ) : FALSE,
 							'class' => $args['li_link'] ? '-future' : FALSE,
 						), $order.$title );
@@ -334,13 +334,13 @@ class ShortCodes extends ModuleCore
 					// TODO: add show/more js
 				}
 
-				$html .= self::html( 'li', array(
+				$html .= HTML::tag( 'li', array(
 					'id'    => $args['li_anchor'].$post->ID,
 					'class' => '-item',
 				), $list );
 			}
 
-			$html = self::html( $args['list'], array( 'class' => '-list' ), $html );
+			$html = HTML::tag( $args['list'], array( 'class' => '-list' ), $html );
 
 			if ( $args['title'] )
 				$html = $args['title'].$html;
@@ -425,7 +425,7 @@ class ShortCodes extends ModuleCore
 				$post = get_post( $args['id'] );
 				if ( $post ) {
 					if ( $post->post_parent ) {
-						$html = self::html( 'a', array(
+						$html = HTML::tag( 'a', array(
 							'href'        => get_permalink( $post->post_parent ),
 							'title'       => get_the_title( $post->post_parent ),
 							'class'       => 'parent',
@@ -433,7 +433,7 @@ class ShortCodes extends ModuleCore
 							'rel'         => 'parent',
 						), $args['html'] );
 					} else {
-						$html = self::html( 'a', array(
+						$html = HTML::tag( 'a', array(
 							'href'        => home_url( '/' ),
 							'title'       => _x( 'Home', 'ShortCode Module: back: home title attr', GNETWORK_TEXTDOMAIN ),
 							'class'       => 'home',
@@ -447,7 +447,7 @@ class ShortCodes extends ModuleCore
 
 			case 'home' :
 
-				$html = self::html( 'a', array(
+				$html = HTML::tag( 'a', array(
 					'href'        => home_url( '/' ),
 					'title'       => _x( 'Home', 'ShortCode Module: back: home title attr', GNETWORK_TEXTDOMAIN ),
 					'class'       => 'home',
@@ -490,7 +490,7 @@ class ShortCodes extends ModuleCore
 		if ( ! in_array( $args['scroll'], array( 'auto', 'yes', 'no' ) ) )
 			$args['scroll'] = 'no';
 
-		$html = self::html( 'iframe', array(
+		$html = HTML::tag( 'iframe', array(
 			'frameborder' => '0',
 			'src'         => $args['url'],
 			'style'       => $args['style'],
@@ -561,7 +561,7 @@ class ShortCodes extends ModuleCore
 		if ( ! $content )
 			$content = $number;
 
-		$html = '<a class="tel" href="'.self::sanitizePhoneNumber( $number )
+		$html = '<a class="tel" href="'.HTML::sanitizePhoneNumber( $number )
 				.'"'.( $args['title'] ? ' data-toggle="tooltip" title="'.esc_attr( $args['title'] ).'"' : '' )
 				.' data-tel-number="'.esc_attr( $number ).'">'
 				.'&#8206;'.apply_filters( 'string_format_i18n', $content ).'&#8207;</a>';
@@ -636,7 +636,7 @@ class ShortCodes extends ModuleCore
         $text = trim( strip_tags( $content ) );
         $for  = $args['for'] ? trim( $args['for'] ) : $text;
 
-		$html = self::html( 'a', array(
+		$html = HTML::tag( 'a', array(
             'href'  => self::getSearchLink( $for, $args['url'] ),
             'title' => sprintf( $args['title'], $for ),
 		), $text );
@@ -959,7 +959,7 @@ class ShortCodes extends ModuleCore
 			$args['url_icon'] = $args['rtl'] ? '&larr;' : '&rarr;';
 
 		if ( $args['url'] )
-			$url = self::html( 'a', array(
+			$url = HTML::tag( 'a', array(
 				'class'       => 'refrence-external',
 				'data-toggle' => 'tooltip',
 				'href'        => $args['url'],
@@ -977,7 +977,7 @@ class ShortCodes extends ModuleCore
 		$key = count( $this->ref_ids ) + 1;
 		$this->ref_ids[$key] = $html;
 
-		$html = self::html( 'a', array(
+		$html = HTML::tag( 'a', array(
 			'class'       => 'cite-scroll', // FIXME: add default styles
 			'data-toggle' => 'tooltip',
 			'href'        => '#citenote-'.$key,
@@ -1019,7 +1019,7 @@ class ShortCodes extends ModuleCore
 			$item  = '<span class="ref-number">';
 			$item .= ( $args['number'] ? ( $args['format_number'] ? number_format_i18n( $key ) : $key ).$args['after_number'] : '' );
 
-			$item .= self::html( 'a', array(
+			$item .= HTML::tag( 'a', array(
 				'class'       => 'cite-scroll',
 				// 'data-toggle' => 'tooltip',
 				'href'        => '#citeref-'.$key,
@@ -1029,7 +1029,7 @@ class ShortCodes extends ModuleCore
 			$html .= '<li>'.$item.'</span> <span class="ref-text"><span class="citation" id="citenote-'.$key.'">'.$text.'</span></span></li>';
 		}
 
-		$html = self::html( ( $args['number'] ? 'ul' : 'ol' ), array(
+		$html = HTML::tag( ( $args['number'] ? 'ul' : 'ol' ), array(
 			'class' => $args['class'],
 		), apply_filters( 'gnetwork_cite_reflist_before', '', $args ).$html );
 
@@ -1160,7 +1160,7 @@ class ShortCodes extends ModuleCore
 				return $content;
 
 			// FIXME: must cache the term, not html
-			$this->people[$person] = self::html( 'a', array(
+			$this->people[$person] = HTML::tag( 'a', array(
 				'href'        => get_term_link( $term, $term->taxonomy ),
 				'title'       => sanitize_term_field( 'name', $term->name, $term->term_id, $term->taxonomy, 'display' ),
 				'data-toggle' => 'tooltip',

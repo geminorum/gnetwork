@@ -598,7 +598,7 @@ class Mail extends ModuleCore
 		), $logs, array(
 			'navigation' => 'before',
 			'search'     => 'before',
-			'title'      => self::html( 'h3', sprintf( _x( 'Total %s Email Logs', 'Mail Module', GNETWORK_TEXTDOMAIN ), number_format_i18n( $pagination['total'] ) ) ),
+			'title'      => HTML::tag( 'h3', sprintf( _x( 'Total %s Email Logs', 'Mail Module', GNETWORK_TEXTDOMAIN ), number_format_i18n( $pagination['total'] ) ) ),
 			'empty'      => self::warning( _x( 'No Logs!', 'Mail Module', GNETWORK_TEXTDOMAIN ) ),
 			'pagination' => $pagination,
 		) );

@@ -30,7 +30,7 @@ class DevLegend_Widget extends \WP_Widget
 				'!' => 'note',
 			);
 
-			Utilities::tableCode( $legend, TRUE );
+			HTML::tableCode( $legend, TRUE );
 
 		echo $args['after_widget'];
 	}

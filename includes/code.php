@@ -142,7 +142,7 @@ class Code extends ModuleCore
 		if ( FALSE == $args['id'] )
 			return $content;
 
-		$html = self::html( 'code', array(
+		$html = HTML::tag( 'code', array(
 			'data' => array(
 				'gist-id'                => $args['id'],
 				'gist-hide-line-numbers' => $args['hide-line-numbers'] ? 'true' : FALSE,
@@ -219,7 +219,7 @@ class Code extends ModuleCore
 			'&#39;',
 		), $content );
 
-		$html = self::html( 'textarea', array(
+		$html = HTML::tag( 'textarea', array(
 			'class'    => $args['class'],
 			'readonly' => $args['readonly'],
 			'onclick'  => $args['js'] ? 'this.focus();this.select()' : FALSE,
@@ -252,7 +252,7 @@ class Code extends ModuleCore
 		$html  = '<img class="-badge" src="'.$args['provider'].$badge.'.'.$args['extension'].'?style='.$args['style'].'" />';
 
 		if ( $args['link'] )
-			$html = self::html( 'a', array(
+			$html = HTML::tag( 'a', array(
 				'href'  => $args['link'],
 				'title' => $args['subject'].' '.$args['status'],
 			), $html );

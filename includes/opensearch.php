@@ -227,7 +227,7 @@ class OpenSearch extends ModuleCore
 
 		echo '<script type="text/javascript">'.$script.'</script>';
 
-		echo $before.self::html( 'a', array(
+		echo $before.HTML::tag( 'a', array(
 			'href'    => $link,
 			'title'   => $title,
 			'onclick' => 'return AddSearchEngine()',
@@ -248,19 +248,19 @@ class OpenSearch extends ModuleCore
 
 		$url = add_query_arg( GNETWORK_SEARCH_QUERYID, '{searchTerms}', GNETWORK_SEARCH_URL );
 
-		$xml = "\t".self::html( 'ShortName', trim( $this->options['shortname'] ) )."\n";
+		$xml = "\t".HTML::tag( 'ShortName', trim( $this->options['shortname'] ) )."\n";
 
 		if ( $this->options['longname'] )
-			$xml .= "\t".self::html( 'LongName', $this->options['longname'] )."\n";
+			$xml .= "\t".HTML::tag( 'LongName', $this->options['longname'] )."\n";
 
-		$xml .= "\t".self::html( 'Description', $this->options['description'] )."\n";
-		$xml .= "\t".self::html( 'InputEncoding', get_bloginfo( 'charset' ) )."\n";
-		$xml .= "\t".self::html( 'OutputEncoding', get_bloginfo( 'charset' ) )."\n";
-		$xml .= "\t".self::html( 'Language', get_bloginfo( 'language' ) )."\n";
+		$xml .= "\t".HTML::tag( 'Description', $this->options['description'] )."\n";
+		$xml .= "\t".HTML::tag( 'InputEncoding', get_bloginfo( 'charset' ) )."\n";
+		$xml .= "\t".HTML::tag( 'OutputEncoding', get_bloginfo( 'charset' ) )."\n";
+		$xml .= "\t".HTML::tag( 'Language', get_bloginfo( 'language' ) )."\n";
 
 		if ( GNETWORK_SEARCH_REDIRECT ) {
 
-			$xml .= "\t".self::html( 'moz:SearchForm', GNETWORK_SEARCH_URL )."\n";
+			$xml .= "\t".HTML::tag( 'moz:SearchForm', GNETWORK_SEARCH_URL )."\n";
 
 		} else {
 
@@ -269,7 +269,7 @@ class OpenSearch extends ModuleCore
 			// SEE: https://www.drupal.org/project/opensearch
 			// ALSO : http://www.opensearch.org/Documentation/Developer_how_to_guide#How_to_indicate_errors
 
-			$xml .= "\t".self::html( 'Url', array(
+			$xml .= "\t".HTML::tag( 'Url', array(
 				'type'     => 'application/atom+xml',
 				'template' => add_query_arg( array(
 					'feed'                  => 'atom',
@@ -277,7 +277,7 @@ class OpenSearch extends ModuleCore
 				), GNETWORK_SEARCH_URL ),
 			) )."\n";
 
-			$xml .= "\t".self::html( 'Url', array(
+			$xml .= "\t".HTML::tag( 'Url', array(
 				'type'     => 'application/rss+xml',
 				'template' => add_query_arg( array(
 					'feed'                  => 'rss2',
@@ -286,7 +286,7 @@ class OpenSearch extends ModuleCore
 			) )."\n";
 
 			if ( $this->options['suggestions'] ) {
-				$xml .= "\t".self::html( 'Url', array(
+				$xml .= "\t".HTML::tag( 'Url', array(
 					// 'type'     => 'application/json',
 					'type'     => 'application/x-suggestions+json',
 					// 'type'     => 'application/x-moz-keywordsearch',
@@ -306,42 +306,42 @@ class OpenSearch extends ModuleCore
 		// TODO: add more query strings
 		// LIKE: /?s={searchTerms}&itemstart={startIndex}&itempage={startPage}&itemlimit={count}
 
-		$xml .= "\t".self::html( 'Url', array(
+		$xml .= "\t".HTML::tag( 'Url', array(
 			'type'     => 'text/html',
 			'method'   => 'get',
 			'template' => $url,
 		) )."\n";
 
-		$xml .= "\t".self::html( 'Url', array(
+		$xml .= "\t".HTML::tag( 'Url', array(
 			'type'     => 'application/opensearchdescription+xml',
 			'rel'      => 'self',
 			'template' => self::url(),
 		) )."\n";
 
 		if ( file_exists( ABSPATH.'favicon.ico' ) )
-			$xml .= "\t".self::html( 'Image', array(
+			$xml .= "\t".HTML::tag( 'Image', array(
 				'type'   => 'image/x-icon',
 				'width'  => '16',
 				'height' => '16',
 			), get_bloginfo( 'url' ).'/favicon.ico' )."\n";
 
 		if ( file_exists( ABSPATH.'favicon.png' ) )
-			$xml .= "\t".self::html( 'Image', array(
+			$xml .= "\t".HTML::tag( 'Image', array(
 				'type'   => 'image/png',
 				'width'  => '64',
 				'height' => '64',
 			), get_bloginfo( 'url' ).'/favicon.png' )."\n";
 
 		if ( $this->options['contact'] )
-			$xml .= "\t".self::html( 'Contact', $this->options['contact'] )."\n";
+			$xml .= "\t".HTML::tag( 'Contact', $this->options['contact'] )."\n";
 
 		if ( $this->options['tags'] )
-			$xml .= "\t".self::html( 'Tags', $this->options['tags'] )."\n";
+			$xml .= "\t".HTML::tag( 'Tags', $this->options['tags'] )."\n";
 
 		if ( $this->options['attribution'] )
-			$xml .= "\t".self::html( 'Attribution', $this->options['attribution'] )."\n";
+			$xml .= "\t".HTML::tag( 'Attribution', $this->options['attribution'] )."\n";
 
-		$xml .= "\t".self::html( 'SyndicationRight', $this->options['syndication'] )."\n";
+		$xml .= "\t".HTML::tag( 'SyndicationRight', $this->options['syndication'] )."\n";
 
 		$xml .= "\t".'<Query role="example" searchTerms="tag" />'."\n";
 		$xml .= "\t".'<AdultContent>false</AdultContent>';
@@ -350,7 +350,7 @@ class OpenSearch extends ModuleCore
 		header( 'Content-Type: application/opensearchdescription+xml; charset=utf-8' );
 
 		echo '<?xml version="1.0" encoding="UTF-8"?>'."\n";
-		echo self::html( 'OpenSearchDescription', array(
+		echo HTML::tag( 'OpenSearchDescription', array(
 			'xmlns'             => 'http://a9.com/-/spec/opensearch/1.1/',
 			'xmlns:moz'         => 'http://www.mozilla.org/2006/browser/search/',
 			'xmlns:suggestions' => $this->options['suggestions'] ? 'http://www.opensearch.org/specifications/opensearch/extensions/suggestions/1.1' : FALSE,

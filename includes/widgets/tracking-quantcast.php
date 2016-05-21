@@ -21,7 +21,7 @@ class Tracking_Quantcast_Widget extends \WP_Widget
 
 			echo $args['before_widget'];
 
-			echo '<div class="gnetwork-wrap-iframe">'.Utilities::html( 'iframe', array(
+			echo '<div class="gnetwork-wrap-iframe">'.HTML::tag( 'iframe', array(
 				'frameborder'  => '0',
 				'marginheight' => '0',
 				'marginwidth'  => '0',

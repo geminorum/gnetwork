@@ -138,7 +138,7 @@ class Maintenance extends ModuleCore
 
 		status_header( $this->options['status_code'] );
 
-		self::headerRetryInMinutes( $this->options['retry_after'] );
+		HTTP::headerRetryInMinutes( $this->options['retry_after'] );
 
 		echo '<?xml version="1.0" encoding="UTF-8"?><status>'.get_status_header_desc( $this->options['status_code'] ).'</status>';
 
@@ -231,7 +231,7 @@ class Maintenance extends ModuleCore
 		$html = gNetwork()->option( 'login_message', 'maintenance', $fallback );
 
 		if ( $class )
-			$html = self::html( 'div', array(
+			$html = HTML::tag( 'div', array(
 				'class' => $class,
 			), $html );
 
@@ -260,7 +260,7 @@ class Maintenance extends ModuleCore
 		);
 
 		header( "HTTP/1.1 503 Service Unavailable", TRUE, 503 );
-		Utilities::headers( $headers );
+		HTTP::headers( $headers );
 
 		?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fa">

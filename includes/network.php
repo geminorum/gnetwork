@@ -185,14 +185,14 @@ class Network extends ModuleCore
 
 		if ( ! is_null( $logo ) ) {
 
-			$html .= self::html( 'img', array(
+			$html .= HTML::tag( 'img', array(
 				'src' => $logo,
 				'alt' => GNETWORK_NAME,
 			) );
 
 		} else if ( file_exists( WP_CONTENT_DIR.'/'.GNETWORK_LOGO ) ) {
 
-			$html .= self::html( 'img', array(
+			$html .= HTML::tag( 'img', array(
 				'src' => WP_CONTENT_URL.'/'.GNETWORK_LOGO,
 				'alt' => GNETWORK_NAME,
 			) );
@@ -204,13 +204,13 @@ class Network extends ModuleCore
 		if ( ! $html )
 			return '';
 
-		$html = self::html( 'a', array(
+		$html = HTML::tag( 'a', array(
 			'href'  => GNETWORK_BASE,
 			'title' => GNETWORK_NAME,
 		), $html );
 
 		if ( $wrap )
-			$html = self::html( $wrap, array(
+			$html = HTML::tag( $wrap, array(
 				'class' => 'logo',
 			), $html );
 

@@ -89,7 +89,7 @@ class LockDown extends ModuleCore
 	private function get_ip()
 	{
 		if ( $this->options['trust_proxied_ip'] )
-			return array_shift( array_map( 'trim', explode( ',', self::IP() ) ) );
+			return array_shift( array_map( 'trim', explode( ',', HTTP::IP() ) ) );
 
 		if ( getenv( 'HTTP_FORWARDED' ) )
 			return getenv( 'HTTP_FORWARDED' );

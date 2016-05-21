@@ -571,7 +571,7 @@ class ModuleCore extends BaseCore
 
 			case 'hidden' :
 
-				echo self::html( 'input', array(
+				echo HTML::tag( 'input', array(
 					'type'  => 'hidden',
 					'name'  => $name,
 					'id'    => $id,
@@ -584,17 +584,17 @@ class ModuleCore extends BaseCore
 			break;
 			case 'enabled' :
 
-				$html = self::html( 'option', array(
+				$html = HTML::tag( 'option', array(
 					'value'    => '0',
 					'selected' => '0' == $value,
 				), ( isset( $args['values'][0] ) ? $args['values'][0] : esc_html__( 'Disabled', GNETWORK_TEXTDOMAIN ) ) );
 
-				$html .= self::html( 'option', array(
+				$html .= HTML::tag( 'option', array(
 					'value'    => '1',
 					'selected' => '1' == $value,
 				), ( isset( $args['values'][1] ) ? $args['values'][1] : esc_html__( 'Enabled', GNETWORK_TEXTDOMAIN ) ) );
 
-				echo self::html( 'select', array(
+				echo HTML::tag( 'select', array(
 					'class' => $args['field_class'],
 					'name'  => $name,
 					'id'    => $id,
@@ -610,7 +610,7 @@ class ModuleCore extends BaseCore
 				if ( ! count( $args['dir'] ) )
 					$args['data'] = array( 'accept' => 'text' );
 
-				echo self::html( 'input', array(
+				echo HTML::tag( 'input', array(
 					'type'        => 'text',
 					'class'       => $args['field_class'],
 					'name'        => $name,
@@ -634,7 +634,7 @@ class ModuleCore extends BaseCore
 				if ( ! count( $args['dir'] ) )
 					$args['data'] = array( 'accept' => 'number' );
 
-				echo self::html( 'input', array(
+				echo HTML::tag( 'input', array(
 					'type'        => 'number',
 					'class'       => $args['field_class'],
 					'name'        => $name,
@@ -660,7 +660,7 @@ class ModuleCore extends BaseCore
 				if ( ! count( $args['dir'] ) )
 					$args['data'] = array( 'accept' => 'url' );
 
-				echo self::html( 'input', array(
+				echo HTML::tag( 'input', array(
 					'type'        => 'url',
 					'class'       => $args['field_class'],
 					'name'        => $name,
@@ -679,7 +679,7 @@ class ModuleCore extends BaseCore
 
 					if ( ! is_null( $args['none_title'] ) ) {
 
-						$html = self::html( 'input', array(
+						$html = HTML::tag( 'input', array(
 							'type'     => 'checkbox',
 							'class'    => $args['field_class'],
 							'name'     => $name.( is_null( $args['none_value'] ) ? '' : '-'.$args['none_value'] ),
@@ -690,7 +690,7 @@ class ModuleCore extends BaseCore
 							'dir'      => $args['dir'],
 						) );
 
-						echo '<p>'.self::html( 'label', array(
+						echo '<p>'.HTML::tag( 'label', array(
 							'for' => $id.( is_null( $args['none_value'] ) ? '' : '-'.$args['none_value'] ),
 						), $html.'&nbsp;'.esc_html( $args['none_title'] ) ).'</p>';
 					}
@@ -700,7 +700,7 @@ class ModuleCore extends BaseCore
 						if ( in_array( $value_name, $exclude ) )
 							continue;
 
-						$html = self::html( 'input', array(
+						$html = HTML::tag( 'input', array(
 							'type'     => 'checkbox',
 							'class'    => $args['field_class'],
 							'name'     => $name.'['.$value_name.']',
@@ -711,14 +711,14 @@ class ModuleCore extends BaseCore
 							'dir'      => $args['dir'],
 						) );
 
-						echo '<p>'.self::html( 'label', array(
+						echo '<p>'.HTML::tag( 'label', array(
 							'for' => $id.'-'.$value_name,
 						), $html.'&nbsp;'.esc_html( $value_title ) ).'</p>';
 					}
 
 				} else {
 
-					$html = self::html( 'input', array(
+					$html = HTML::tag( 'input', array(
 						'type'    => 'checkbox',
 						'class'   => $args['field_class'],
 						'name'    => $name,
@@ -729,7 +729,7 @@ class ModuleCore extends BaseCore
 						'data'    => $args['data'],
 					) );
 
-					echo '<p>'.self::html( 'label', array(
+					echo '<p>'.HTML::tag( 'label', array(
 						'for' => $id,
 					), $html.'&nbsp;'.$args['description'] ).'</p>';
 
@@ -743,7 +743,7 @@ class ModuleCore extends BaseCore
 
 					if ( ! is_null( $args['none_title'] ) ) {
 
-						$html = self::html( 'input', array(
+						$html = HTML::tag( 'input', array(
 							'type'     => 'radio',
 							'class'    => $args['field_class'],
 							'name'     => $name,
@@ -754,7 +754,7 @@ class ModuleCore extends BaseCore
 							'dir'      => $args['dir'],
 						) );
 
-						echo '<p>'.self::html( 'label', array(
+						echo '<p>'.HTML::tag( 'label', array(
 							'for' => $id.( is_null( $args['none_value'] ) ? '' : '-'.$args['none_value'] ),
 						), $html.'&nbsp;'.esc_html( $args['none_title'] ) ).'</p>';
 					}
@@ -764,7 +764,7 @@ class ModuleCore extends BaseCore
 						if ( in_array( $value_name, $exclude ) )
 							continue;
 
-						$html = self::html( 'input', array(
+						$html = HTML::tag( 'input', array(
 							'type'     => 'radio',
 							'class'    => $args['field_class'],
 							'name'     => $name,
@@ -775,7 +775,7 @@ class ModuleCore extends BaseCore
 							'dir'      => $args['dir'],
 						) );
 
-						echo '<p>'.self::html( 'label', array(
+						echo '<p>'.HTML::tag( 'label', array(
 							'for' => $id.'-'.$value_name,
 						), $html.'&nbsp;'.esc_html( $value_title ) ).'</p>';
 					}
@@ -788,7 +788,7 @@ class ModuleCore extends BaseCore
 
 					if ( ! is_null( $args['none_title'] ) ) {
 
-						$html .= self::html( 'option', array(
+						$html .= HTML::tag( 'option', array(
 							'value'    => is_null( $args['none_value'] ) ? FALSE : $args['none_value'],
 							'selected' => $value == $args['none_value'],
 						), esc_html( $args['none_title'] ) );
@@ -799,13 +799,13 @@ class ModuleCore extends BaseCore
 						if ( in_array( $value_name, $exclude ) )
 							continue;
 
-						$html .= self::html( 'option', array(
+						$html .= HTML::tag( 'option', array(
 							'value'    => $value_name,
 							'selected' => $value == $value_name,
 						), esc_html( $value_title ) );
 					}
 
-					echo self::html( 'select', array(
+					echo HTML::tag( 'select', array(
 						'name'     => $name,
 						'id'       => $id,
 						'class'    => $args['field_class'],
@@ -838,7 +838,7 @@ class ModuleCore extends BaseCore
 					}
 				}
 
-				echo self::html( 'textarea', array(
+				echo HTML::tag( 'textarea', array(
 					'name'        => $name,
 					'id'          => $id,
 					'rows'        => 5,
@@ -896,13 +896,13 @@ class ModuleCore extends BaseCore
 						if ( in_array( $value_name, $exclude ) )
 							continue;
 
-						$html .= self::html( 'option', array(
+						$html .= HTML::tag( 'option', array(
 							'value'    => $value_name,
 							'selected' => $value === $value_name,
 						), esc_html( $value_title ) );
 					}
 
-					echo self::html( 'select', array(
+					echo HTML::tag( 'select', array(
 						'class' => $args['field_class'],
 						'name'  => $name,
 						'id'    => $id,
@@ -919,7 +919,7 @@ class ModuleCore extends BaseCore
 
 				if ( ! is_null( $args['none_title'] ) ) {
 
-					$html .= self::html( 'option', array(
+					$html .= HTML::tag( 'option', array(
 						'value'    => is_null( $args['none_value'] ) ? FALSE : $args['none_value'],
 						'selected' => $value == $args['none_value'],
 					), esc_html( $args['none_title'] ) );
@@ -930,13 +930,13 @@ class ModuleCore extends BaseCore
 					if ( in_array( $user_id, $exclude ) )
 						continue;
 
-					$html .= self::html( 'option', array(
+					$html .= HTML::tag( 'option', array(
 						'value'    => $user_id,
 						'selected' => $value == $user_id,
 					), esc_html( $user_object->display_name ) );
 				}
 
-				echo self::html( 'select', array(
+				echo HTML::tag( 'select', array(
 					'class' => $args['field_class'],
 					'name'  => $name,
 					'id'    => $id,
@@ -957,7 +957,7 @@ class ModuleCore extends BaseCore
 			break;
 			case 'file' :
 
-				echo self::html( 'input', array(
+				echo HTML::tag( 'input', array(
 					'type'  => 'file',
 					'class' => $args['field_class'],
 					'name'  => $id, //$name,
@@ -990,7 +990,7 @@ class ModuleCore extends BaseCore
 			echo '&nbsp;'.$args['after'];
 
 		if ( $args['description'] && FALSE !== $args['values'] )
-			echo self::html( 'p', array(
+			echo HTML::tag( 'p', array(
 				'class' => 'description',
 			), $args['description'] );
 
@@ -1030,7 +1030,7 @@ class ModuleCore extends BaseCore
 		if ( isset( $args['context'] ) && $args['context'] )
 			$classes[] = 'context-'.$args['context'];
 
-		return self::html( $block ? 'div' : 'span', array( 'class' => $classes ), $html );
+		return HTML::tag( $block ? 'div' : 'span', array( 'class' => $classes ), $html );
 	}
 
 	public static function shortcodeTermTitle( $atts, $term = FALSE )
@@ -1048,20 +1048,20 @@ class ModuleCore extends BaseCore
 
 		if ( $args['title'] ) {
 			if ( is_null( $args['title_link'] ) && $term )
-				$args['title'] = self::html( 'a', array(
+				$args['title'] = HTML::tag( 'a', array(
 					'href'  => get_term_link( $term, $term->taxonomy ),
 					'title' => $args['title_title'],
 				), $args['title'] );
 
 			else if ( $args['title_link'] )
-				$args['title'] = self::html( 'a', array(
+				$args['title'] = HTML::tag( 'a', array(
 					'href'  => $args['title_link'],
 					'title' => $args['title_title'],
 				), $args['title'] );
 		}
 
 		if ( $args['title'] && $args['title_tag'] )
-			$args['title'] = self::html( $args['title_tag'], array(
+			$args['title'] = HTML::tag( $args['title_tag'], array(
 				'id'    => $term ? $args['title_anchor'].$term->term_id : FALSE,
 				'class' => '-title',
 			), $args['title'] );
@@ -1082,7 +1082,7 @@ class ModuleCore extends BaseCore
 
 	public static function getNewPostTypeLink( $post_type = 'page', $text = FALSE )
 	{
-		return self::html( 'a', array(
+		return HTML::tag( 'a', array(
 			'href'   => admin_url( '/post-new.php?post_type='.$post_type ),
 			'title'  => _x( 'Add New Post Type', 'Moduel Core', GNETWORK_TEXTDOMAIN ),
 			'target' => '_blank',
@@ -1091,7 +1091,7 @@ class ModuleCore extends BaseCore
 
 	public static function getWPCodexLink( $page = '', $text = FALSE )
 	{
-		return self::html( 'a', array(
+		return HTML::tag( 'a', array(
 			'href'   => 'https://codex.wordpress.org/'.$page,
 			'title'  => sprintf( _x( 'See WordPress Codex for %s', 'Moduel Core', GNETWORK_TEXTDOMAIN ), str_ireplace( '_', ' ', $page ) ),
 			'target' => '_blank',
@@ -1101,7 +1101,7 @@ class ModuleCore extends BaseCore
 	public static function getLoginLogoLink( $image = GNETWORK_LOGO, $text = FALSE )
 	{
 		if ( file_exists( WP_CONTENT_DIR.'/'.$image ) )
-			return self::html( 'a', array(
+			return HTML::tag( 'a', array(
 				'href'   => WP_CONTENT_URL.'/'.$image,
 				'title'  => _x( 'Full URL to the current login logo image', 'Moduel Core', GNETWORK_TEXTDOMAIN ),
 				'target' => '_blank',
@@ -1113,7 +1113,7 @@ class ModuleCore extends BaseCore
 	// @REF: https://developer.wordpress.org/resource/dashicons/
 	public static function getDashicon( $icon = 'wordpress-alt', $tag = 'span' )
 	{
-		return self::html( $tag, array(
+		return HTML::tag( $tag, array(
 			'class' => array(
 				'dashicons',
 				'dashicons-'.$icon,
@@ -1123,7 +1123,7 @@ class ModuleCore extends BaseCore
 
 	public static function getMoreInfoIcon( $url = '', $title = NULL, $icon = 'info' )
 	{
-		return self::html( 'a', array(
+		return HTML::tag( 'a', array(
 			'href'   => $url,
 			'title'  => is_null( $title ) ? _x( 'See More Information', 'Moduel Core', GNETWORK_TEXTDOMAIN ) : $title,
 			'target' => '_blank',
@@ -1132,14 +1132,14 @@ class ModuleCore extends BaseCore
 
 	public static function settingsFieldAfterIcon( $text = '', $class = 'icon-wrap' )
 	{
-		return self::html( 'span', array( 'class' => 'field-after '.$class ), $text );
+		return HTML::tag( 'span', array( 'class' => 'field-after '.$class ), $text );
 	}
 
 	public static function settingsFieldAfterLink( $link = '', $class = '' )
 	{
 		return
 			'<code class="field-after">'
-				.self::html( 'a', array(
+				.HTML::tag( 'a', array(
 					'class' => $class,
 					'href'  => $link,
 				), $link )
@@ -1157,7 +1157,7 @@ class ModuleCore extends BaseCore
 
 			_ex( 'gNetwork Extras', 'Moduel Core: Page Title', GNETWORK_TEXTDOMAIN );
 
-			echo ' '.self::html( 'a', array(
+			echo ' '.HTML::tag( 'a', array(
 				'href'   => 'http://geminorum.ir/wordpress/gnetwork',
 				'title'  => _x( 'Plugin Homepage', 'Moduel Core: Title Attr', GNETWORK_TEXTDOMAIN ),
 				'class'  => 'page-title-action',

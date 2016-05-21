@@ -179,7 +179,7 @@ class Tracking extends ModuleCore
 
 		$this->gp_platformjs = TRUE;
 
-		$html = self::html( 'div', array(
+		$html = HTML::tag( 'div', array(
 			'class'      => 'g-page',
 			'data-width' => $args['width'],
 			'data-href'  => $args['href'],
@@ -214,7 +214,7 @@ class Tracking extends ModuleCore
 		if ( $args['badge'] )
 			$src .= '?'. $args['badge'];
 
-		$html = self::html( 'img', array(
+		$html = HTML::tag( 'img', array(
 			'src' => $src,
 			'alt' => $args['alt'],
 		) );
@@ -360,7 +360,7 @@ qacct:"<?php echo $this->options['quantcast']; ?>"
 	public static function getContact( $class = 'contact', $fallback = FALSE )
 	{
 		if ( $twitter = gNetwork()->option( 'twitter_site', 'tracking', $fallback ) )
-			$html = self::html( 'a', array(
+			$html = HTML::tag( 'a', array(
 				'href'  => 'https://twitter.com/intent/user?screen_name='.$twitter,
 				'title' => _x( 'Follow Us', 'Tracking Module: Contact Title Attribute', GNETWORK_TEXTDOMAIN ),
 				'rel'   => 'follow',
@@ -370,7 +370,7 @@ qacct:"<?php echo $this->options['quantcast']; ?>"
 			return '';
 
 		if ( $class )
-			$html = self::html( 'div', array(
+			$html = HTML::tag( 'div', array(
 				'class' => $class,
 			), $html );
 

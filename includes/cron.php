@@ -140,7 +140,7 @@ class Cron extends ModuleCore
 				},
 			),
 		), self::getCronArray(), array(
-			'title' => self::html( 'h3', _x( 'Overview of tasks scheduled for WP-Cron', 'CRON Module', GNETWORK_TEXTDOMAIN ) ),
+			'title' => HTML::tag( 'h3', _x( 'Overview of tasks scheduled for WP-Cron', 'CRON Module', GNETWORK_TEXTDOMAIN ) ),
 			'empty' => self::warning( _x( 'Nothing scheduled!', 'CRON Module', GNETWORK_TEXTDOMAIN ) ),
 		) );
 	}

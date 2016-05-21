@@ -108,12 +108,12 @@ class BaseCore
 		$html = '';
 
 		foreach ( $subs as $slug => $page )
-			$html .= self::html( 'a', array(
+			$html .= HTML::tag( 'a', array(
 				'class' => 'nav-tab '.$prefix.$slug.( $slug == $active ? ' nav-tab-active' : '' ),
 				'href'  => add_query_arg( 'sub', $slug, $uri ),
 			), $page );
 
-		echo self::html( $tag, array(
+		echo HTML::tag( $tag, array(
 			'class' => 'nav-tab-wrapper',
 		), $html );
 	}
@@ -129,14 +129,14 @@ class BaseCore
 		$html = '';
 
 		foreach ( $tabs as $tab => $title )
-			$html .= self::html( 'a', array(
+			$html .= HTML::tag( 'a', array(
 				'class'    => 'gnetwork-nav-tab nav-tab '.$prefix.$tab.( $tab == $active ? ' nav-tab-active' : '' ),
 				'href'     => '#',
 				'data-tab' => $tab,
 				'rel'      => $tab, // back comp
 			), $title );
 
-		echo self::html( $tag, array(
+		echo HTML::tag( $tag, array(
 			'class' => 'nav-tab-wrapper',
 		), $html );
 	}
@@ -165,7 +165,7 @@ class BaseCore
 				'content' => '',
 			), $tab_atts );
 
-			$navs .= self::html( 'a', array(
+			$navs .= HTML::tag( 'a', array(
 				'href'  => $tab_args['link'],
 				'class' => $args['prefix'].' -nav'.( $tab_args['active'] ? ' '.$args['prefix'].'-active -active' : '' ),
 				'data'  => array(
@@ -187,7 +187,7 @@ class BaseCore
 			}
 
 			if ( $content )
-				$contents .= self::html( 'div', array(
+				$contents .= HTML::tag( 'div', array(
 					'class' => $args['prefix'].'-content -content',
 					'data'  => array(
 						'tab' => $tab,
@@ -198,11 +198,11 @@ class BaseCore
 		if ( isset( $args['title'] ) && $args['title'] )
 			echo $args['title'];
 
-		$navs = self::html( $args['nav'], array(
+		$navs = HTML::tag( $args['nav'], array(
 			'class' => $args['prefix'].'-wrapper -wrapper',
 		), $navs );
 
-		echo self::html( 'div', array(
+		echo HTML::tag( 'div', array(
 			'class' => array(
 				'base-tabs-list',
 				'-base',
@@ -731,7 +731,7 @@ class BaseCore
 		else if ( $version )
 			$url = add_query_arg( array( 'ver' => $version ), $url );
 
-		echo "\t".self::html( 'link', array(
+		echo "\t".HTML::tag( 'link', array(
 			'rel'   => 'stylesheet',
 			'href'  => $url,
 			'type'  => 'text/css',
@@ -948,15 +948,15 @@ class BaseCore
 			) );
 
 			vprintf( '<span class="-next-previous">%s %s %s</span>', array(
-				( FALSE === $args['previous'] ? '<span class="-previous -span" aria-hidden="true">'.$icons['previous'].'</span>' : self::html( 'a', array(
+				( FALSE === $args['previous'] ? '<span class="-previous -span" aria-hidden="true">'.$icons['previous'].'</span>' : HTML::tag( 'a', array(
 					'href'  => add_query_arg( 'paged', $args['previous'] ),
 					'class' => '-previous -link',
 				), $icons['previous'] ) ),
-				self::html( 'a', array(
+				HTML::tag( 'a', array(
 					'href'  => self::currentURL(),
 					'class' => '-refresh -link',
 				), $icons['refresh'] ),
-				( FALSE === $args['next'] ? '<span class="-next -span" aria-hidden="true">'.$icons['next'].'</span>' : self::html( 'a', array(
+				( FALSE === $args['next'] ? '<span class="-next -span" aria-hidden="true">'.$icons['next'].'</span>' : HTML::tag( 'a', array(
 					'href'  => add_query_arg( 'paged', $args['next'] ),
 					'class' => '-next -link',
 				), $icons['next'] ) ),
@@ -1307,7 +1307,7 @@ class BaseCore
 		if ( ! $args['tag'] )
 			return $src;
 
-		return self::html( 'img', array(
+		return HTML::tag( 'img', array(
             'src'    => $src,
             'width'  => $args['size'],
             'height' => $args['size'],
@@ -1436,7 +1436,7 @@ class BaseCore
 		if ( defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG )
 			error_log( self::getLogTime()
 				.$error.' '
-				.self::IP( TRUE )
+				.HTTP::IP( TRUE )
 				.( $message ? ' :: '.strip_tags( $message ) : '' )
 				.( $extra ? ' :: '.$extra : '' )
 				."\n", 3, GNETWORK_DEBUG_LOG );
@@ -1456,7 +1456,7 @@ class BaseCore
 		$log = array_merge( array(
 			'error'   => $error,
 			'time'    => current_time( 'mysql' ),
-			'ip'      => self::IP(),
+			'ip'      => HTTP::IP(),
 			'message' => ( is_null( $wp_error ) ? '[NO Error Object]' : $wp_error->get_error_message() ),
 		), $data );
 

@@ -241,7 +241,7 @@ class Media extends ModuleCore
 		), $posts, array(
 			'navigation' => 'before',
 			'search'     => 'before',
-			'title'      => self::html( 'h3', _x( 'Overview of posts with attachments', 'Media Module', GNETWORK_TEXTDOMAIN ) ),
+			'title'      => HTML::tag( 'h3', _x( 'Overview of posts with attachments', 'Media Module', GNETWORK_TEXTDOMAIN ) ),
 			'empty'      => self::warning( _x( 'No Posts!', 'Media Module', GNETWORK_TEXTDOMAIN ) ),
 			'pagination' => $pagination,
 		) );
@@ -649,7 +649,7 @@ class Media extends ModuleCore
 		$url = wp_get_attachment_url( $post->ID );
 
 		if ( wp_attachment_is( 'image', $post->ID ) )
-			$actions['media-clean'] = self::html( 'a', array(
+			$actions['media-clean'] = HTML::tag( 'a', array(
 				'target' => '_blank',
 				'class'  => 'media-clean-attachment',
 				'href'   => $this->get_settings_url( array(
@@ -663,7 +663,7 @@ class Media extends ModuleCore
 				),
 			), _x( 'Clean', 'Media Module: Row Action', GNETWORK_TEXTDOMAIN ) );
 
-		$link = self::html( 'a', array(
+		$link = HTML::tag( 'a', array(
 			'target' => '_blank',
 			'class'  => 'media-url-click media-url-attachment',
 			'href'   => $url,

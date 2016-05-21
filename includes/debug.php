@@ -142,7 +142,7 @@ class Debug extends ModuleCore
 	{
 		if ( class_exists( 'gPlugin' ) ) {
 			$info = \gPlugin::get_info();
-			self::tableCode( $info[1] );
+			HTML::tableCode( $info[1] );
 			self::tableSide( $info[0] );
 		} else {
 			echo '<p class="description">'._x( 'No Instance of gPlugin found.', 'Debug Module', GNETWORK_TEXTDOMAIN ).'</p>';
@@ -166,7 +166,7 @@ class Debug extends ModuleCore
 			'WP_CACHE'            => WP_CACHE,
 		);
 
-		self::tableCode( $paths );
+		HTML::tableCode( $paths );
 	}
 
 	public static function pluginPaths()
@@ -182,14 +182,14 @@ class Debug extends ModuleCore
 
 		);
 
-		self::tableCode( $paths );
+		HTML::tableCode( $paths );
 	}
 
 	public static function wpUploadDIR()
 	{
 		$upload_dir = wp_upload_dir();
 		unset( $upload_dir['error'], $upload_dir['subdir'] );
-		self::tableCode( $upload_dir );
+		HTML::tableCode( $upload_dir );
 	}
 
 	// FIXME: DRAFT
@@ -250,7 +250,7 @@ class Debug extends ModuleCore
 		$server['REQUEST_TIME_FLOAT'] = date( 'l, j F, Y - H:i:s T', $server['REQUEST_TIME_FLOAT'] ).' ('.$server['REQUEST_TIME_FLOAT'] .')';
 		$server['REQUEST_TIME']       = date( 'l, j F, Y - H:i:s T', $server['REQUEST_TIME'] ).' ('.$server['REQUEST_TIME'] .')';
 
-		self::tableCode( $server );
+		HTML::tableCode( $server );
 	}
 
 	public static function phpinfo()
