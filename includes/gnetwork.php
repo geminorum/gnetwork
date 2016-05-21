@@ -57,6 +57,8 @@ class gNetwork
 			'error'        => '',
 			'exception'    => '',
 			'basecore'     => '',
+			'html'         => '',
+			'http'         => '',
 			'constants'    => '',
 			'functions'    => '',
 			'utilities'    => '',
