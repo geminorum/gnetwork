@@ -22,7 +22,8 @@
 	"require": {
 		"php": ">=5.3",
 		"erusev/parsedown-extra": "^0.7.0",
-		"symfony/stopwatch": "^3.0"
+		"symfony/stopwatch": "^3.0",
+		"parsecsv/php-parsecsv": "^0.4.5"
 	},
 	"require-dev": {
 		"raveren/kint": "^1.0",

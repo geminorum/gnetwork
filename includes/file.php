@@ -5,6 +5,32 @@ defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 class File extends BaseCore
 {
 
+	public static function getCSV( $path, $limit = FALSE, $offset = FALSE )
+	{
+		if ( file_exists( $path )
+			&& is_readable( $path ) ) {
+
+			$csv = new \parseCSV();
+
+			$csv->encoding( 'UTF-16', 'UTF-8' );
+
+			if ( $offset )
+				$csv->offset = $offset;
+
+			if ( $limit )
+				$csv->limit = $limit;
+
+			$csv->auto( $path );
+
+			return array(
+				'titles' => $csv->titles,
+				'data'   => $csv->data,
+			);
+		}
+
+		return FALSE;
+	}
+
 	// ORIGINALLY BASED ON: Secure Folder wp-content/uploads v1.2
 	// BY: Daniel Satria : http://ruanglaba.com
 	// puts index.html on given folder and subs
