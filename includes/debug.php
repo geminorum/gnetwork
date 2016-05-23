@@ -73,10 +73,10 @@ class Debug extends ModuleCore
 	{
 		if ( file_exists( GNETWORK_DEBUG_LOG ) ) {
 
-			if ( ! $file_size = self::fileGetSize( GNETWORK_DEBUG_LOG ) )
+			if ( ! $file_size = File::getSize( GNETWORK_DEBUG_LOG ) )
 				return FALSE;
 
-			if ( $errors = self::fileGetLastLines( GNETWORK_DEBUG_LOG, self::limit( 100 ) ) ) {
+			if ( $errors = File::getLastLines( GNETWORK_DEBUG_LOG, self::limit( 100 ) ) ) {
 
 				$length = self::req( 'length', 300 );
 

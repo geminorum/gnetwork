@@ -142,6 +142,6 @@ class Typography extends ModuleCore
 
 	public function the_title( $title )
 	{
-		return self::titleCase( $title );
+		return Text::titleCase( $title );
 	}
 }

@@ -59,6 +59,8 @@ class gNetwork
 			'basecore'     => '',
 			'html'         => '',
 			'http'         => '',
+			'file'         => '',
+			'text'         => '',
 			'constants'    => '',
 			'functions'    => '',
 			'utilities'    => '',

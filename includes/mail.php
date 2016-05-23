@@ -212,7 +212,7 @@ class Mail extends ModuleCore
 
 				$this->check_referer( $sub );
 
-				$message = FALSE === self::putHTAccessDeny( GNETWORK_MAIL_LOG_DIR, TRUE ) ? 'error' : 'created';
+				$message = FALSE === File::putHTAccessDeny( GNETWORK_MAIL_LOG_DIR, TRUE ) ? 'error' : 'created';
 
 				self::redirect_referer( $message );
 
@@ -373,7 +373,7 @@ class Mail extends ModuleCore
 
 		$filename = current_time( 'Ymd-His' ).'-'.$to.'.json';
 
-		if ( FALSE === self::filePutContents( $filename, wp_json_encode( $contents ), GNETWORK_MAIL_LOG_DIR ) )
+		if ( FALSE === File::putContents( $filename, wp_json_encode( $contents ), GNETWORK_MAIL_LOG_DIR ) )
 			self::log( 'EMAIL NOT LOGGED', 'TO: '.$contents['to'] );
 
 		return $mail;
@@ -481,7 +481,7 @@ class Mail extends ModuleCore
 			if ( ! is_null( $old ) && filemtime( $log ) < $old )
 				continue;
 
-			if ( $data = json_decode( self::fileGetContents( $log ), TRUE ) )
+			if ( $data = json_decode( File::getContents( $log ), TRUE ) )
 				$logs[] = array_merge( array(
 					'file' => basename( $log, '.json' ),
 					'size' => filesize( $log ),
@@ -524,7 +524,7 @@ class Mail extends ModuleCore
 			// echo 'Caught exception: '.$e->getMessage().'<br/>';
 		}
 
-		return self::putHTAccessDeny( GNETWORK_MAIL_LOG_DIR, FALSE );
+		return File::putHTAccessDeny( GNETWORK_MAIL_LOG_DIR, FALSE );
 	}
 
 	private static function tableEmailLogs()
