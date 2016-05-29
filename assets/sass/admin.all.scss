@@ -11,6 +11,7 @@
 @import "partials/admin.list";
 @import "partials/admin.tabs";
 @import "partials/admin.form";
+@import "partials/admin.p2p";
 
 @import "partials/debug.all";
 @import "partials/adminbar.all";
@@ -167,6 +168,8 @@ ul.categorychecklist {
 	#set-post-thumbnail-desc,
 	#postexcerpt div.inside p,
 	#postcustom div.inside > p,
+	#pageparentdiv div.inside > p > strong,
+	#pageparentdiv div.inside p:last-child,
 	#trackbacksdiv div.inside p:last-child {
 		display: none;
 		visibility: hidden;
@@ -175,7 +178,7 @@ ul.categorychecklist {
 	#postimagediv {
 
 		div.inside p {
-			text-align:center;
+			text-align: center;
 		}
 
 		#set-post-thumbnail {
@@ -186,7 +189,13 @@ ul.categorychecklist {
 		}
 	}
 
+	#pageparentdiv div.inside {
+		padding-bottom: 0;
+	}
+
 	input#post_name,
+	select#parent_id,
+	select#page_template,
 	select#post_author_override {
 		width: 99%;
 	}
