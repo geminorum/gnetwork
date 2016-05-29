@@ -192,19 +192,12 @@ class Utilities extends BaseCore
 		return count( $strings ) ? 'tinyMCE.addI18n("'.$locale.'.gnetwork", '.wp_json_encode( $strings ).');'."\n" : '';
 	}
 
-	// FIXME: DEPRECATED: use `gnetwork_github_readme()`
+	// FIXME: DROP THIS
+	// DEPRECATED: use `gnetwork_github_readme()`
 	public static function githubREADME( $repo = 'geminorum/gnetwork', $wrap = TRUE )
 	{
 		self::__dep( 'gnetwork_github_readme()' );
-
-		if ( gNetwork()->module( 'code' ) ) {
-			echo '<div class="gnetwork-overview-wrap">';
-				echo gNetwork()->code->shortcode_github_readme( array(
-					'context' => 'overview',
-					'repo'    => $repo,
-				) );
-			echo '</div>';
-		}
+		gnetwork_github_readme( $repo, $wrap );
 	}
 
 	// FIXME: WTF ?!
