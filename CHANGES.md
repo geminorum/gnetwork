@@ -1,3 +1,11 @@
+### 3.2.0
+* media: skip cleaning custom attachments
+* shortcodes: sanitizing phone numbers, [see](http://www.billerickson.net/code/phone-number-url/)
+* cleanup: purge old slugs
+* blog: fix duplicate keys
+* locale: Persian twentyfifteen updated
+* themes: fixed setup theme on admin
+
 ### 3.1.0
 * blog: redirect status code
 * blog: option to disable/remove wp api, [see](http://wordpress.stackexchange.com/a/212472)
