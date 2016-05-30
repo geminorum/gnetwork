@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Twenty Fifteen 1.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/twentyfifteen\n"
 "POT-Creation-Date: 2016-05-01 03:29+0430\n"
-"PO-Revision-Date: 2016-05-08 00:18+0430\n"
+"PO-Revision-Date: 2016-05-30 01:36+0430\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: geminorum <contact@geminorum.ir>\n"
 "Language: fa_IR\n"
@@ -17,13 +17,13 @@ msgstr ""
 
 #: 404.php:17
 msgid "Oops! That page can&rsquo;t be found."
-msgstr "پوزش ، اما این صفحه پیدا نشد . &rsquo;"
+msgstr "متأسفیم، صفحه مورد نظر شما پیدا نشد."
 
 #: 404.php:21
 msgid "It looks like nothing was found at this location. Maybe try a search?"
 msgstr ""
-"مطلبی که به دنبالش بودید را متاسفانه پیدا نکردیم , شاید جستجوی دیگر به شما "
-"کمک کند."
+"شرمنده! ولی صفحه‌ای که دنبال آن هستید، پیدا نشد. شاید اگر جست‌وجو کنید، پیدا "
+"شود."
 
 #: archive.php:49 index.php:46 search.php:38
 msgid "Previous page"
@@ -249,37 +249,37 @@ msgstr "برگزیده"
 #: inc/template-tags.php:55
 msgctxt "Used before post format."
 msgid "Format"
-msgstr ""
+msgstr "قالب"
 
 #: inc/template-tags.php:76
 msgctxt "Used before publish date."
 msgid "Posted on"
-msgstr ""
+msgstr "در"
 
 #: inc/template-tags.php:85
 msgctxt "Used before post author name."
 msgid "Author"
-msgstr ""
+msgstr "مؤلف"
 
 #: inc/template-tags.php:91 inc/template-tags.php:99
 msgctxt "Used between list items, there is a space after the comma."
 msgid ", "
-msgstr ""
+msgstr "، "
 
 #: inc/template-tags.php:94
 msgctxt "Used before category names."
 msgid "Categories"
-msgstr ""
+msgstr "دسته‌ها"
 
 #: inc/template-tags.php:102
 msgctxt "Used before tag names."
 msgid "Tags"
-msgstr ""
+msgstr "برچسب‌ها"
 
 #: inc/template-tags.php:113
 msgctxt "Used before full size attachment link."
 msgid "Full size"
-msgstr ""
+msgstr "اندازه کامل"
 
 #. translators: %s: post title
 #: inc/template-tags.php:123
