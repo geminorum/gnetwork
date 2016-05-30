@@ -124,8 +124,8 @@ class gNetwork
 
 	public function bp_include()
 	{
-		if ( file_exists( GNETWORK_DIR.'includes/buddypress.php' ) ) {
-			require_once( GNETWORK_DIR.'includes/buddypress.php' );
+		if ( file_exists( GNETWORK_DIR.'includes/modules/buddypress.php' ) ) {
+			require_once( GNETWORK_DIR.'includes/modules/buddypress.php' );
 			try {
 				$this->buddypress = new BuddyPress( $this->base, 'buddypress' );
 			} catch ( Exception $e ) {
