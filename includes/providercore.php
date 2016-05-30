@@ -2,7 +2,7 @@
 
 defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
-class ProviderCore extends BaseCore
+class ProviderCore extends Base
 {
 
 	public $options = array();
@@ -40,10 +40,10 @@ class ProviderCore extends BaseCore
 		if ( ! GNETWORK_HIDDEN_FEATURES && $this->hidden )
 			throw new Exception( 'Hidden Feature!' );
 
-		if ( ! $this->ajax && self::isAJAX() )
+		if ( ! $this->ajax && WordPress::isAJAX() )
 			throw new Exception( 'Not on AJAX Calls!' );
 
-		if ( ! $this->cron && self::isCRON() )
+		if ( ! $this->cron && WordPress::isCRON() )
 			throw new Exception( 'Not on CRON Calls!' );
 
 		if ( wp_installing() )
@@ -63,7 +63,7 @@ class ProviderCore extends BaseCore
 		}
 
 		if ( ! is_null( $this->dev ) ) {
-			if ( self::isDev() ) {
+			if ( WordPress::isDev() ) {
 				if ( FALSE === $this->dev )
 					throw new Exception( 'Not on Develepment Environment!' );
 			} else {

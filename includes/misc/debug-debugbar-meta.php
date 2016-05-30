@@ -37,7 +37,7 @@ class Debug_Bar_gNetworkMeta extends \Debug_Bar_Panel
 				foreach ( $values as $value ){
 					$data = maybe_unserialize( $value );
 					if ( is_array( $value ) )
-						Utilities::tableSide( $data );
+						HTML::tableSide( $data );
 					else
 						Utilities::dump( $data );
 				}

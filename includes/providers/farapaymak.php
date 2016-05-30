@@ -34,7 +34,7 @@ class FarapaymakProvider extends ProviderCore
 				'type'        => 'text',
 				'title'       => _x( 'Service WSDL', 'Provider: Farapaymak', GNETWORK_TEXTDOMAIN ),
 				'default'     => 'http://87.107.121.54/post/Send.asmx?wsdl',
-				'field_class' => 'large-text'
+				'field_class' => 'large-text',
 			),
 			'username' => array(
 				'type'  => 'text',
@@ -58,7 +58,7 @@ class FarapaymakProvider extends ProviderCore
 
 	public function settings_section()
 	{
-		ModuleCore::settingsSection(
+		Settings::fieldSection(
 			_x( 'Farapaymak', 'Provider: Farapaymak: Settings Section Title', GNETWORK_TEXTDOMAIN ),
 			_x( 'Farapaymak is a Persian SMS Provider', 'Provider: Farapaymak: Settings Section Description', GNETWORK_TEXTDOMAIN )
 		);

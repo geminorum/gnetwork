@@ -31,11 +31,12 @@ class gNetwork
 		foreach ( $modules as $module_slug => $module_class ) {
 
 			$class = __NAMESPACE__.'\\'.$module_class;
+			$slug  = str_ireplace( array( 'modules/', 'misc/' ), '', $module_slug );
 
 			if ( $module_class && class_exists( $class ) ) {
 
 				try {
-					$this->{$module_slug} = new $class( $this->base, $module_slug );
+					$this->{$slug} = new $class( $this->base, $slug );
 
 				} catch ( Exception $e ) {
 
@@ -54,64 +55,69 @@ class gNetwork
 	private function get_modules()
 	{
 		$modules = array(
-			'error'        => '',
-			'exception'    => '',
-			'basecore'     => '',
-			'html'         => '',
-			'http'         => '',
-			'file'         => '',
-			'text'         => '',
+			'core/base'      => '',
+			'core/error'     => '',
+			'core/exception' => '',
+			'core/html'      => '',
+			'core/http'      => '',
+			'core/file'      => '',
+			'core/arraay'    => '',
+			'core/text'      => '',
+			'core/wordpress' => '',
+
 			'constants'    => '',
 			'functions'    => '',
 			'utilities'    => '',
+			'settings'     => '',
 			'modulecore'   => '',
 			'providercore' => '',
 
-			'locale'      => 'Locale',
-			'network'     => 'Network',
-			'admin'       => 'Admin',
-			'site'        => 'Site',
-			'blog'        => 'Blog',
-			'adminbar'    => 'AdminBar',
-			'dashboard'   => 'Dashboard',
-			'users'       => 'Users',
-			'tracking'    => 'Tracking',
-			'maintenance' => 'Maintenance',
-			'restricted'  => 'Restricted',
-			'editor'      => 'Editor',
-			'captcha'     => 'Captcha',
-			'opensearch'  => 'OpenSearch',
-			'mail'        => 'Mail',
-			'sms'         => 'SMS',
-			'navigation'  => 'Navigation',
-			'themes'      => 'Themes',
-			'media'       => 'Media',
-			'cron'        => 'Cron',
-			'login'       => 'Login',
-			'lockdown'    => 'LockDown',
-			'blacklist'   => 'BlackList',
-			'update'      => 'Update',
-			'search'      => 'Search',
-			'taxonomy'    => 'Taxonomy',
-			'shortcodes'  => 'ShortCodes',
-			'comments'    => 'Comments',
-			'widgets'     => 'Widgets',
-			'bbpress'     => 'bbPress',
-			'notify'      => 'Notify',
-			'reference'   => 'Reference',
-			'typography'  => 'Typography',
-			'debug'       => 'Debug',
-			'code'        => 'Code',
-			'cleanup'     => 'Cleanup',
+			'modules/locale'      => 'Locale',
+			'modules/network'     => 'Network',
+			'modules/admin'       => 'Admin',
+			'modules/site'        => 'Site',
+			'modules/blog'        => 'Blog',
+			'modules/api'         => 'API',
+			'modules/adminbar'    => 'AdminBar',
+			'modules/dashboard'   => 'Dashboard',
+			'modules/users'       => 'Users',
+			'modules/tracking'    => 'Tracking',
+			'modules/maintenance' => 'Maintenance',
+			'modules/restricted'  => 'Restricted',
+			'modules/editor'      => 'Editor',
+			'modules/captcha'     => 'Captcha',
+			'modules/opensearch'  => 'OpenSearch',
+			'modules/mail'        => 'Mail',
+			'modules/sms'         => 'SMS',
+			'modules/navigation'  => 'Navigation',
+			'modules/themes'      => 'Themes',
+			'modules/media'       => 'Media',
+			'modules/cron'        => 'Cron',
+			'modules/login'       => 'Login',
+			'modules/lockdown'    => 'LockDown',
+			'modules/blacklist'   => 'BlackList',
+			'modules/update'      => 'Update',
+			'modules/search'      => 'Search',
+			'modules/taxonomy'    => 'Taxonomy',
+			'modules/shortcodes'  => 'ShortCodes',
+			'modules/comments'    => 'Comments',
+			'modules/widgets'     => 'Widgets',
+			'modules/bbpress'     => 'bbPress',
+			'modules/notify'      => 'Notify',
+			'modules/reference'   => 'Reference',
+			'modules/typography'  => 'Typography',
+			'modules/debug'       => 'Debug',
+			'modules/code'        => 'Code',
+			'modules/cleanup'     => 'Cleanup',
 
 			'pluggable' => '',
 		);
 
 		if ( defined( 'WP_STAGE' ) )
 			if ( 'production' == WP_STAGE )
-				$modules['bbq'] = 'BBQ';
+				$modules['modules/bbq'] = 'BBQ';
 			else if ( 'development' == WP_STAGE )
-				$modules['dev'] = 'Dev';
+				$modules['modules/dev'] = 'Dev';
 
 		return $modules;
 	}

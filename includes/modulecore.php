@@ -2,7 +2,7 @@
 
 defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
-class ModuleCore extends BaseCore
+class ModuleCore extends Base
 {
 
 	public $options = array();
@@ -31,10 +31,10 @@ class ModuleCore extends BaseCore
 		if ( ! GNETWORK_HIDDEN_FEATURES && $this->hidden )
 			throw new Exception( 'Hidden Feature!' );
 
-		if ( ! $this->ajax && self::isAJAX() )
+		if ( ! $this->ajax && WordPress::isAJAX() )
 			throw new Exception( 'Not on AJAX Calls!' );
 
-		if ( ! $this->cron && self::isCRON() )
+		if ( ! $this->cron && WordPress::isCRON() )
 			throw new Exception( 'Not on CRON Calls!' );
 
 		if ( wp_installing() )
@@ -54,7 +54,7 @@ class ModuleCore extends BaseCore
 		}
 
 		if ( ! is_null( $this->dev ) ) {
-			if ( self::isDev() ) {
+			if ( WordPress::isDev() ) {
 				if ( FALSE === $this->dev )
 					throw new Exception( 'Not on Develepment Environment!' );
 			} else {
@@ -69,7 +69,7 @@ class ModuleCore extends BaseCore
 		if ( method_exists( $this, 'default_settings' ) )
 			$this->options = $this->init_options();
 
-		if ( self::isAJAX() && method_exists( $this, 'setup_ajax' ) )
+		if ( WordPress::isAJAX() && method_exists( $this, 'setup_ajax' ) )
 			$this->setup_ajax( $_REQUEST );
 
 		$setup = $this->setup_actions();
@@ -82,7 +82,7 @@ class ModuleCore extends BaseCore
 
 	public function register_menu( $title = NULL, $callback = FALSE, $sub = NULL, $capability = NULL )
 	{
-		if ( ! is_admin() || self::isAJAX() )
+		if ( ! is_admin() || WordPress::isAJAX() )
 			return;
 
 		if ( is_null( $sub ) )
@@ -113,7 +113,7 @@ class ModuleCore extends BaseCore
 		else if ( FALSE !== $action )
 			$args['action'] = $action;
 
-		$url = $this->is_network() ? Network::settingsURL( $full ) : Admin::settingsURL( $full );
+		$url = $this->is_network() ? Settings::networkURL( $full ) : Settings::adminURL( $full );
 
 		return add_query_arg( $args, $url );
 	}
@@ -292,20 +292,10 @@ class ModuleCore extends BaseCore
 		self::dumpDev( $this->options );
 	}
 
-	public static function getButtonConfirm( $message = NULL )
-	{
-		if ( is_null( $message ) )
-			$message = _x( 'Are you sure? This operation can not be undone.', 'Module Core', GNETWORK_TEXTDOMAIN );
-
-		return array(
-			'onclick' => sprintf( 'return confirm(\'%s\')', esc_attr( $message ) ),
-		);
-	}
-
 	public function default_buttons()
 	{
 		$this->register_button( 'submit', _x( 'Save Changes', 'Module Core', GNETWORK_TEXTDOMAIN ), array( 'default' => 'default' ), 'primary' );
-		$this->register_button( 'reset', _x( 'Reset Settings', 'Module Core', GNETWORK_TEXTDOMAIN ), self::getButtonConfirm() );
+		$this->register_button( 'reset', _x( 'Reset Settings', 'Module Core', GNETWORK_TEXTDOMAIN ), Settings::getButtonConfirm() );
 	}
 
 	public function register_button( $key, $value, $atts = array(), $type = 'secondary' )
@@ -386,7 +376,7 @@ class ModuleCore extends BaseCore
 
 					// multiple checkboxes
 					if ( is_array( $_POST[$options_key][$setting] ) ) {
-						$options[$setting] = self::getKeys( $_POST[$options_key][$setting] );
+						$options[$setting] = Arraay::getKeys( $_POST[$options_key][$setting] );
 
 					// other options
 					} else {
@@ -465,16 +455,14 @@ class ModuleCore extends BaseCore
 
 		if ( 'debug' == $args['field'] ) {
 
-			if ( ! self::isDev() )
+			if ( ! WordPress::isDev() )
 				return;
 
 			$args['type'] = 'debug';
-			if ( ! $args['title'] )
-				$args['title'] = __( 'Debug', GNETWORK_TEXTDOMAIN );
-		}
 
-		// if ( empty( $args['title'] ) )
-		// 	$args['title'] = $args['field'];
+			if ( ! $args['title'] )
+				$args['title'] = _x( 'Debug', 'Module Core', GNETWORK_TEXTDOMAIN );
+		}
 
 		add_settings_field(
 			$args['field'],
@@ -857,7 +845,7 @@ class ModuleCore extends BaseCore
 					$args['values'] = 'page';
 
 				if ( is_null( $args['none_title'] ) )
-					$args['none_title'] = __( '&mdash; Select Page &mdash;', GNETWORK_TEXTDOMAIN );
+					$args['none_title'] = _x( '&mdash; Select &mdash;', 'Module Core', GNETWORK_TEXTDOMAIN );
 
 				if ( is_null( $args['none_value'] ) )
 					$args['none_value'] = '';
@@ -925,7 +913,7 @@ class ModuleCore extends BaseCore
 					), esc_html( $args['none_title'] ) );
 				}
 
-				foreach ( self::getUsers() as $user_id => $user_object ) {
+				foreach ( WordPress::getUsers() as $user_id => $user_object ) {
 
 					if ( in_array( $user_id, $exclude ) )
 						continue;
@@ -1004,7 +992,7 @@ class ModuleCore extends BaseCore
 			return;
 
 		if ( count( $this->scripts ) )
-			self::wrapJS( implode( "\n", $this->scripts ) );
+			HTML::wrapJS( implode( "\n", $this->scripts ) );
 
 		$this->scripts_printed = TRUE;
 	}
@@ -1069,151 +1057,6 @@ class ModuleCore extends BaseCore
 		return $args['title'];
 	}
 
-	public static function counted( $message = NULL, $count = NULL, $class = 'updated' )
-	{
-		if ( is_null( $message ) )
-			$message = _x( '%s Counted!', 'Module Core', GNETWORK_TEXTDOMAIN );
-
-		if ( is_null( $count ) )
-			$count = isset( $_REQUEST['count'] ) ? $_REQUEST['count'] : 0;
-
-		return self::notice( sprintf( $message, number_format_i18n( $count ) ), $class.' fade', FALSE );
-	}
-
-	public static function getNewPostTypeLink( $post_type = 'page', $text = FALSE )
-	{
-		return HTML::tag( 'a', array(
-			'href'   => admin_url( '/post-new.php?post_type='.$post_type ),
-			'title'  => _x( 'Add New Post Type', 'Moduel Core', GNETWORK_TEXTDOMAIN ),
-			'target' => '_blank',
-		), ( $text ? _x( 'Add New', 'Moduel Core: Add New Post Type', GNETWORK_TEXTDOMAIN ) : self::getDashicon( 'welcome-add-page' ) ) );
-	}
-
-	public static function getWPCodexLink( $page = '', $text = FALSE )
-	{
-		return HTML::tag( 'a', array(
-			'href'   => 'https://codex.wordpress.org/'.$page,
-			'title'  => sprintf( _x( 'See WordPress Codex for %s', 'Moduel Core', GNETWORK_TEXTDOMAIN ), str_ireplace( '_', ' ', $page ) ),
-			'target' => '_blank',
-		), ( $text ? _x( 'See Codex', 'Moduel Core', GNETWORK_TEXTDOMAIN ) : self::getDashicon( 'media-code' ) ) );
-	}
-
-	public static function getLoginLogoLink( $image = GNETWORK_LOGO, $text = FALSE )
-	{
-		if ( file_exists( WP_CONTENT_DIR.'/'.$image ) )
-			return HTML::tag( 'a', array(
-				'href'   => WP_CONTENT_URL.'/'.$image,
-				'title'  => _x( 'Full URL to the current login logo image', 'Moduel Core', GNETWORK_TEXTDOMAIN ),
-				'target' => '_blank',
-			), ( $text ? _x( 'Login Logo', 'Moduel Core', GNETWORK_TEXTDOMAIN ) : self::getDashicon( 'format-image' ) ) );
-
-		return FALSE;
-	}
-
-	// @REF: https://developer.wordpress.org/resource/dashicons/
-	public static function getDashicon( $icon = 'wordpress-alt', $tag = 'span' )
-	{
-		return HTML::tag( $tag, array(
-			'class' => array(
-				'dashicons',
-				'dashicons-'.$icon,
-			),
-		), NULL );
-	}
-
-	public static function getMoreInfoIcon( $url = '', $title = NULL, $icon = 'info' )
-	{
-		return HTML::tag( 'a', array(
-			'href'   => $url,
-			'title'  => is_null( $title ) ? _x( 'See More Information', 'Moduel Core', GNETWORK_TEXTDOMAIN ) : $title,
-			'target' => '_blank',
-		), self::getDashicon( $icon ) );
-	}
-
-	public static function settingsFieldAfterIcon( $text = '', $class = 'icon-wrap' )
-	{
-		return HTML::tag( 'span', array( 'class' => 'field-after '.$class ), $text );
-	}
-
-	public static function settingsFieldAfterLink( $link = '', $class = '' )
-	{
-		return
-			'<code class="field-after">'
-				.HTML::tag( 'a', array(
-					'class' => $class,
-					'href'  => $link,
-				), $link )
-			.'</code>';
-	}
-
-	public static function settingsSub( $default = 'overview' )
-	{
-		return isset( $_REQUEST['sub'] ) ? trim( $_REQUEST['sub'] ) : $default;
-	}
-
-	public static function settingsTitle()
-	{
-		echo '<h1>';
-
-			_ex( 'gNetwork Extras', 'Moduel Core: Page Title', GNETWORK_TEXTDOMAIN );
-
-			echo ' '.HTML::tag( 'a', array(
-				'href'   => 'http://geminorum.ir/wordpress/gnetwork',
-				'title'  => _x( 'Plugin Homepage', 'Moduel Core: Title Attr', GNETWORK_TEXTDOMAIN ),
-				'class'  => 'page-title-action',
-				'target' => '_blank',
-			), GNETWORK_VERSION );
-
-		echo '</h1>';
-	}
-
-	public static function settingsMessages()
-	{
-		return array(
-			'resetting' => self::success( _x( 'Settings reset.', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN ) ),
-			'optimized' => self::success( _x( 'Tables optimized.', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN ) ),
-			'updated'   => self::success( _x( 'Settings updated.', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN ) ),
-			'created'   => self::success( _x( 'File/Folder created.', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN ) ),
-			'deleted'   => self::counted( _x( '%s deleted!', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN ) ),
-			'cleaned'   => self::counted( _x( '%s cleaned!', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN ) ),
-			'purged'    => self::success( _x( 'Data purged.', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN ) ),
-			'changed'   => self::counted( _x( '%s Items(s) Changed', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN ) ),
-			'nochange'  => self::error( _x( 'No Item Changed', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN ) ),
-			'error'     => self::error( _x( 'Error while settings save.', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN ) ),
-			'wrong'     => self::error( _x( 'Something\'s wrong!', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN ) ),
-			'huh'       => self::error( self::huh( empty( $_REQUEST['huh'] ) ? NULL : $_REQUEST['huh'] ) ),
-		);
-	}
-
-	public static function settingsMessage( $messages = array() )
-	{
-		if ( isset( $_GET['message'] ) ) {
-
-			if ( isset( $messages[$_GET['message']] ) )
-				echo $messages[$_GET['message']];
-			else
-				self::warning( $_GET['message'], TRUE );
-
-			$_SERVER['REQUEST_URI'] = remove_query_arg( 'message', $_SERVER['REQUEST_URI'] );
-		}
-	}
-
-	public static function settingsSection( $title, $description = FALSE )
-	{
-		echo '<h3>'.$title.'</h3>';
-
-		if ( $description )
-			echo '<p class="description">'.$description.'</p>';
-	}
-
-	public static function cheatin( $message = NULL )
-	{
-		if ( is_null( $message ) )
-			$message = _x( 'Cheatin&#8217; uh?', 'Moduel Core: Settings Message', GNETWORK_TEXTDOMAIN );
-
-		self::error( $message, TRUE );
-	}
-
 	protected function is_action( $action, $extra = NULL, $default = FALSE )
 	{
 		if ( empty( $_REQUEST[$this->base.'_action'] )
@@ -1233,7 +1076,7 @@ class ModuleCore extends BaseCore
 	protected function remove_action( $extra = array(), $url = NULL )
 	{
 		if ( is_null( $url ) )
-			$url = self::currentURL();
+			$url = HTTP::currentURL();
 
 		if ( is_array( $extra ) )
 			$remove = $extra;

@@ -4,7 +4,7 @@ use Symfony\Component\Stopwatch\Stopwatch;
 
 defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
-class Utilities extends BaseCore
+class Utilities extends Base
 {
 
 	public static function creditsBadge()
@@ -23,7 +23,7 @@ class Utilities extends BaseCore
 	public static function getDateDefaultFormat( $options = FALSE, $date_format = NULL, $time_format = NULL, $joiner = ' @' )
 	{
 		if ( ! $options )
-			return _x( 'l, j F, Y - H:i:s', 'Module Core: Default Datetime Format', GNETWORK_TEXTDOMAIN );
+			return _x( 'l, j F, Y - H:i:s', 'Utilities: Default Datetime Format', GNETWORK_TEXTDOMAIN );
 
 		if ( is_null( $date_format ) )
 			$date_format = get_option( 'date_format' );
@@ -81,13 +81,13 @@ class Utilities extends BaseCore
 	public static function join_items( $items )
 	{
 		return
-			_x( '&rdquo;', 'Utilities Module: Join Items Helper', GNETWORK_TEXTDOMAIN )
-			.join( _x( '&ldquo; and &rdquo;', 'Utilities Module: Join Items Helper', GNETWORK_TEXTDOMAIN ),
+			_x( '&rdquo;', 'Utilities: Join Items Helper', GNETWORK_TEXTDOMAIN )
+			.join( _x( '&ldquo; and &rdquo;', 'Utilities: Join Items Helper', GNETWORK_TEXTDOMAIN ),
 				array_filter( array_merge( array(
-					join( _x( '&ldquo;, &rdquo;', 'Utilities Module: Join Items Helper', GNETWORK_TEXTDOMAIN ),
+					join( _x( '&ldquo;, &rdquo;', 'Utilities: Join Items Helper', GNETWORK_TEXTDOMAIN ),
 					array_slice( $items, 0, -1 ) ) ),
 					array_slice( $items, -1 ) ) ) )
-			._x( '&ldquo;', 'Utilities Module: Join Items Helper', GNETWORK_TEXTDOMAIN ).'.';
+			._x( '&ldquo;', 'Utilities: Join Items Helper', GNETWORK_TEXTDOMAIN ).'.';
 	}
 
 	public static function getLayout( $layout_name, $require_once = FALSE, $no_cache = FALSE )
@@ -162,17 +162,16 @@ class Utilities extends BaseCore
 		);
 	}
 
-
 	// override to use plugin version
 	public static function linkStyleSheet( $url, $version = GNETWORK_VERSION, $media = 'all' )
 	{
-		parent::linkStyleSheet( $url, $version, $media );
+		HTML::linkStyleSheet( $url, $version, $media );
 	}
 
 	// override to use plugin version
 	public static function customStyleSheet( $css, $link = TRUE, $version = GNETWORK_VERSION )
 	{
-		parent::customStyleSheet( $css, $link, $version );
+		WordPress::customStyleSheet( $css, $link, $version );
 	}
 
 	public static function enqueueScript( $asset, $dep = array( 'jquery' ), $version = GNETWORK_VERSION, $base = GNETWORK_URL )
@@ -355,5 +354,39 @@ class Utilities extends BaseCore
 			'dur' => $event->getDuration(),
 			'mem' => $event->getMemory(),
 		);
+	}
+
+	// @API: https://developers.google.com/chart/infographics/docs/qr_codes
+	// @EXAMPLE: https://createqrcode.appspot.com/
+	// @SEE: https://github.com/endroid/QrCode
+	// @SEE: https://github.com/aferrandini/PHPQRCode
+	public static function getGoogleQRCode( $data, $atts = array() )
+	{
+		$args = self::atts( array(
+            'tag'        => TRUE,
+            'size'       => 150,
+            'encoding'   => 'UTF-8',
+            'correction' => 'H', // 'L', 'M', 'Q', 'H'
+            'margin'     => 0,
+            'url'        => 'https://chart.googleapis.com/chart',
+		), $atts );
+
+		$src = add_query_arg( array(
+            'cht'  => 'qr',
+            'chs'  => $args['size'].'x'.$args['size'],
+            'chl'  => urlencode( $data ),
+            'chld' => $args['correction'].'|'.$args['margin'],
+            'choe' => $args['encoding'],
+		), $args['url'] );
+
+		if ( ! $args['tag'] )
+			return $src;
+
+		return HTML::tag( 'img', array(
+            'src'    => $src,
+            'width'  => $args['size'],
+            'height' => $args['size'],
+            'alt'    => strip_tags( $data ),
+		) );
 	}
 }
