@@ -94,7 +94,7 @@ class gNetwork
 			'modules/media'       => 'Media',
 			'modules/cron'        => 'Cron',
 			'modules/login'       => 'Login',
-			'modules/lockdown'    => 'LockDown',
+			'modules/lockdown'    => 'Lockdown',
 			'modules/blacklist'   => 'BlackList',
 			'modules/update'      => 'Update',
 			'modules/search'      => 'Search',

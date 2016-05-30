@@ -2,7 +2,7 @@
 
 defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
-class LockDown extends ModuleCore
+class Lockdown extends ModuleCore
 {
 
 	protected $key = 'lockdown';
