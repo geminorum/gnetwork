@@ -5,6 +5,11 @@ defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 class Settings extends Base
 {
 
+	public static function base()
+	{
+		return gNetwork()->base;
+	}
+
 	public static function sub( $default = 'overview' )
 	{
 		return isset( $_REQUEST['sub'] ) ? trim( $_REQUEST['sub'] ) : $default;
