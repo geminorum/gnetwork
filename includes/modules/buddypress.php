@@ -8,7 +8,7 @@ class BuddyPress extends ModuleCore
 	protected $key  = 'buddypress';
 	protected $ajax = TRUE;
 
-	private $field_name = 'zBNP0KprGNhs8yHIifCeeevh';
+	private $field_name = 'vJD6QVKIjiWbjuxhLqJjVIuZ';
 
 	protected function setup_actions()
 	{
@@ -53,7 +53,7 @@ class BuddyPress extends ModuleCore
 	public function setup_menu( $context )
 	{
 		$this->register_menu(
-			_x( 'BuddyPress', 'BuddyPress Module: Menu Name', GNETWORK_TEXTDOMAIN ),
+			_x( 'BuddyPress', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
 			array( $this, 'settings' )
 		);
 	}
@@ -64,11 +64,11 @@ class BuddyPress extends ModuleCore
 			'complete_signup' => '',
 
 			'tos_display' => 0,
-			'tos_title'   => _x( 'Terms of Service', 'BuddyPress Module: ToS', GNETWORK_TEXTDOMAIN ),
+			'tos_title'   => '',
 			'tos_link'    => '',
 			'tos_text'    => '',
-			'tos_label'   => _x( 'By checking the Terms of Service Box you have read and agree to all the Policies set forth in this site\'s Terms of Service.', 'BuddyPress Module: ToS', GNETWORK_TEXTDOMAIN ),
-			'tos_must'    => _x( 'You have to accept our terms of service. Otherwise we cannot register you on our site.', 'BuddyPress Module: ToS', GNETWORK_TEXTDOMAIN ),
+			'tos_label'   => '',
+			'tos_must'    => '',
 
 			'notification_defaults' => array(),
 
@@ -87,8 +87,8 @@ class BuddyPress extends ModuleCore
 				array(
 					'field'       => 'complete_signup',
 					'type'        => 'url',
-					'title'       => _x( 'Complete Signup', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Redirect users after successful registration.', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Complete Signup', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Redirect users after successful registration.', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
 					'placeholder' => 'http://example.com/welcome',
 				),
 			),
@@ -97,40 +97,43 @@ class BuddyPress extends ModuleCore
 		$settings['_tos'] = array(
 			array(
 				'field' => 'tos_display',
-				'title' => _x( 'Display ToS', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
+				'title' => _x( 'Display ToS', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
 			),
 			array(
 				'field'       => 'tos_title',
 				'type'        => 'text',
-				'title'       => _x( 'ToS Title', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
-				'description' => _x( 'Section title, Usually : Terms of Service', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
+				'title'       => _x( 'ToS Title', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Section title, Usually : Terms of Service', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
+				'default'     => _x( 'Terms of Service', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
 				'field_class' => 'large-text',
 			),
 			array(
 				'field'       => 'tos_link',
 				'type'        => 'url',
-				'title'       => _x( 'ToS Link', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
-				'description' => _x( 'URL for section title link to actual agreement text', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
+				'title'       => _x( 'ToS Link', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'URL for section title link to actual agreement text', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
 			),
 			array(
 				'field'       => 'tos_text',
 				'type'        => 'textarea',
-				'title'       => _x( 'ToS Text', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
-				'description' => _x( 'Full text of the agreement', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
+				'title'       => _x( 'ToS Text', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Full text of the agreement', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
 				'field_class' => 'large-text',
 			),
 			array(
 				'field'       => 'tos_label',
 				'type'        => 'text',
-				'title'       => _x( 'ToS Label', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
-				'description' => _x( 'Label next to the mandatory checkbox, below full text', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
+				'title'       => _x( 'ToS Label', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Label next to the mandatory checkbox, below full text', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
+				'default'     => _x( 'By checking the Terms of Service Box you have read and agree to all the Policies set forth in this site\'s Terms of Service.', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
 				'field_class' => 'large-text',
 			),
 			array(
 				'field'       => 'tos_must',
 				'type'        => 'text',
-				'title'       => _x( 'ToS Must', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
-				'description' => _x( 'Error message upon not checking the box', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
+				'title'       => _x( 'ToS Must', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Error message upon not checking the box', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
+				'default'     => _x( 'You have to accept our terms of service. Otherwise we cannot register you on our site.', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
 				'field_class' => 'large-text',
 			),
 		);
@@ -140,8 +143,8 @@ class BuddyPress extends ModuleCore
 				array(
 					'field'       => 'notification_defaults',
 					'type'        => 'checkbox',
-					'title'       => _x( 'Default Settings', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Select enabled by default BuddyPress email notifications settings upon user activation', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Default Settings', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Select enabled by default BuddyPress email notifications settings upon user activation', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
 					'values'      => self::defaultNotifications(),
 					'default'     => array(),
 				),
@@ -151,31 +154,31 @@ class BuddyPress extends ModuleCore
 			array(
 				'field'   => 'avatars_thumb_width',
 				'type'    => 'number',
-				'title'   => _x( 'Thumbnail Width', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
+				'title'   => _x( 'Thumbnail Width', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
 				'default' => defined( 'BP_AVATAR_THUMB_WIDTH' ) ? BP_AVATAR_THUMB_WIDTH : 50,
 			),
 			array(
 				'field'   => 'avatars_thumb_height',
 				'type'    => 'number',
-				'title'   => _x( 'Thumbnail Height', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
+				'title'   => _x( 'Thumbnail Height', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
 				'default' => defined( 'BP_AVATAR_THUMB_HEIGHT' ) ? BP_AVATAR_THUMB_HEIGHT : 50,
 			),
 			array(
 				'field'   => 'avatars_full_width',
 				'type'    => 'number',
-				'title'   => _x( 'Full Width', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
+				'title'   => _x( 'Full Width', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
 				'default' => defined( 'BP_AVATAR_FULL_WIDTH' ) ? BP_AVATAR_FULL_WIDTH : 150,
 			),
 			array(
 				'field'   => 'avatars_full_height',
 				'type'    => 'number',
-				'title'   => _x( 'Full Height', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
+				'title'   => _x( 'Full Height', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
 				'default' => defined( 'BP_AVATAR_FULL_HEIGHT' ) ? BP_AVATAR_FULL_HEIGHT : 150,
 			),
 			array(
 				'field'   => 'avatars_original_max_width',
 				'type'    => 'number',
-				'title'   => _x( 'Original Max Width', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
+				'title'   => _x( 'Original Max Width', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
 				'default' => defined( 'BP_AVATAR_ORIGINAL_MAX_WIDTH' ) ? BP_AVATAR_ORIGINAL_MAX_WIDTH : 450,
 			),
 		);
@@ -186,24 +189,24 @@ class BuddyPress extends ModuleCore
 	public function settings_section_tos()
 	{
 		Settings::fieldSection(
-			_x( 'Terms of Service', 'BuddyPress Module: Settings Section Title', GNETWORK_TEXTDOMAIN ),
-			_x( 'ToS Settings on BuddyPress Registration Page', 'BuddyPress Module: Settings Section Desc', GNETWORK_TEXTDOMAIN )
+			_x( 'Terms of Service', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
+			_x( 'ToS Settings on BuddyPress Registration Page', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN )
 		);
 	}
 
 	public function settings_section_notifications()
 	{
 		Settings::fieldSection(
-			_x( 'Email Notifications', 'BuddyPress Module: Settings Section Title', GNETWORK_TEXTDOMAIN ),
-			_x( 'Control the default email preference for users after activation', 'BuddyPress Module: Settings Section Desc', GNETWORK_TEXTDOMAIN )
+			_x( 'Email Notifications', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
+			_x( 'Control the default email preference for users after activation', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN )
 		);
 	}
 
 	public function settings_section_avatars()
 	{
 		Settings::fieldSection(
-			_x( 'Avatars Sizes', 'BuddyPress Module: Settings Section Title', GNETWORK_TEXTDOMAIN ),
-			_x( 'Change the default BuddyPress Avatar values', 'BuddyPress Module: Settings Section Desc', GNETWORK_TEXTDOMAIN )
+			_x( 'Avatars Sizes', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
+			_x( 'Change the default BuddyPress Avatar values', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN )
 		);
 	}
 
@@ -285,7 +288,7 @@ class BuddyPress extends ModuleCore
 			$fields[] = $field->name;
 
 		bp_core_add_message( sprintf(
-			_x( 'Please complete your profile: %s', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ),
+			_x( 'Please complete your profile: %s', 'Modules: BuddyPress', GNETWORK_TEXTDOMAIN ),
 			Utilities::join_items( $fields ) ),
 		'warning' );
 	}
@@ -318,7 +321,7 @@ class BuddyPress extends ModuleCore
 		if ( $title && ! empty( $this->options['tos_link'] ) )
 			printf( '<h4><a href="%1$s" title="%2$s">%3$s</a></h4>',
 				esc_url( $this->options['tos_link'] ),
-				_x( 'Read full agreement', 'BuddyPress Module: ToS', GNETWORK_TEXTDOMAIN ),
+				_x( 'Read full agreement', 'Modules: BuddyPress', GNETWORK_TEXTDOMAIN ),
 				$title
 			);
 		else if ( $title )
@@ -359,7 +362,7 @@ class BuddyPress extends ModuleCore
 		if ( isset( $_POST[$this->field_name] )
 			&& ! empty( $_POST[$this->field_name] ) )
 				$result['errors']->add( 'gnetwork_bp_honeypot',
-					_x( 'You\'re totally a spammer. Go somewhere else with your spammy ways.', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ) );
+					_x( 'You\'re totally a spammer. Go somewhere else with your spammy ways.', 'Modules: BuddyPress', GNETWORK_TEXTDOMAIN ) );
 
 		return $result;
 	}
@@ -462,7 +465,7 @@ class BuddyPress extends ModuleCore
 		do_action( 'bp_activity_before_action_delete_activity', $_POST['id'], $comment->user_id );
 
 		if ( ! bp_activity_delete_comment( $comment->item_id, $comment->id ) )
-			exit( '-1<div id="message" class="error"><p>'._x( 'There was a problem when deleting. Please try again.', 'BuddyPress Module', GNETWORK_TEXTDOMAIN ).'</p></div>' );
+			exit( '-1<div id="message" class="error"><p>'._x( 'There was a problem when deleting. Please try again.', 'Modules: BuddyPress', GNETWORK_TEXTDOMAIN ).'</p></div>' );
 
 		do_action( 'bp_activity_action_delete_activity', $_POST['id'], $comment->user_id );
 		exit;
@@ -471,15 +474,15 @@ class BuddyPress extends ModuleCore
 	public static function defaultNotifications()
 	{
 		return array(
-			'activity_new_mention'        => _x( 'Activity: New Mention', 'BuddyPress Module: Default Email Notification', GNETWORK_TEXTDOMAIN ),
-			'activity_new_reply'          => _x( 'Activity: New Reply', 'BuddyPress Module: Default Email Notification', GNETWORK_TEXTDOMAIN ),
-			'friends_friendship_request'  => _x( 'Friends: Friendship Request', 'BuddyPress Module: Default Email Notification', GNETWORK_TEXTDOMAIN ),
-			'friends_friendship_accepted' => _x( 'Friends: Friendship Accepted', 'BuddyPress Module: Default Email Notification', GNETWORK_TEXTDOMAIN ),
-			'groups_invite'               => _x( 'Groups: Invite', 'BuddyPress Module: Default Email Notification', GNETWORK_TEXTDOMAIN ),
-			'groups_group_updated'        => _x( 'Groups: Group Updated', 'BuddyPress Module: Default Email Notification', GNETWORK_TEXTDOMAIN ),
-			'groups_admin_promotion'      => _x( 'Groups: Admin Promotion', 'BuddyPress Module: Default Email Notification', GNETWORK_TEXTDOMAIN ),
-			'groups_membership_request'   => _x( 'Groups: Membership Request', 'BuddyPress Module: Default Email Notification', GNETWORK_TEXTDOMAIN ),
-			'messages_new_message'        => _x( 'Messages: New Message', 'BuddyPress Module: Default Email Notification', GNETWORK_TEXTDOMAIN ),
+			'activity_new_mention'        => _x( 'Activity: New Mention', 'Modules: BuddyPress: Notifications', GNETWORK_TEXTDOMAIN ),
+			'activity_new_reply'          => _x( 'Activity: New Reply', 'Modules: BuddyPress: Notifications', GNETWORK_TEXTDOMAIN ),
+			'friends_friendship_request'  => _x( 'Friends: Friendship Request', 'Modules: BuddyPress: Notifications', GNETWORK_TEXTDOMAIN ),
+			'friends_friendship_accepted' => _x( 'Friends: Friendship Accepted', 'Modules: BuddyPress: Notifications', GNETWORK_TEXTDOMAIN ),
+			'groups_invite'               => _x( 'Groups: Invite', 'Modules: BuddyPress: Notifications', GNETWORK_TEXTDOMAIN ),
+			'groups_group_updated'        => _x( 'Groups: Group Updated', 'Modules: BuddyPress: Notifications', GNETWORK_TEXTDOMAIN ),
+			'groups_admin_promotion'      => _x( 'Groups: Admin Promotion', 'Modules: BuddyPress: Notifications', GNETWORK_TEXTDOMAIN ),
+			'groups_membership_request'   => _x( 'Groups: Membership Request', 'Modules: BuddyPress: Notifications', GNETWORK_TEXTDOMAIN ),
+			'messages_new_message'        => _x( 'Messages: New Message', 'Modules: BuddyPress: Notifications', GNETWORK_TEXTDOMAIN ),
 		);
 	}
 

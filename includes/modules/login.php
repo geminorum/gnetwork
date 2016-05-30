@@ -22,7 +22,7 @@ class Login extends ModuleCore
 	public function setup_menu( $context )
 	{
 		$this->register_menu(
-			_x( 'Login', 'Login Module: Menu Name', GNETWORK_TEXTDOMAIN ),
+			_x( 'Login', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
 			array( $this, 'settings' )
 		);
 	}
@@ -48,8 +48,8 @@ class Login extends ModuleCore
 				array(
 					'field'       => 'login_headerurl',
 					'type'        => 'url',
-					'title'       => _x( 'Header URL', 'Login Module', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Login page header logo link URL', 'Login Module', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Header URL', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Login page header logo link URL', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'placeholder' => GNETWORK_BASE,
 					'default'     => GNETWORK_BASE,
 					'field_class' => array( 'regular-text', 'url-text' ),
@@ -57,44 +57,44 @@ class Login extends ModuleCore
 				array(
 					'field'       => 'login_headertitle',
 					'type'        => 'text',
-					'title'       => _x( 'Header Title', 'Login Module', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Login page header logo link title attribute', 'Login Module', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Header Title', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Login page header logo link title attribute', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => GNETWORK_NAME,
 					'placeholder' => GNETWORK_NAME,
 				),
 				array(
 					'field'       => 'login_remember',
-					'title'       => _x( 'Login Remember', 'Login Module', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Always checked Remember Me checkbox', 'Login Module', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Login Remember', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Always checked Remember Me checkbox', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'values'      => array(
-						_x( 'Not Checked', 'Login Module', GNETWORK_TEXTDOMAIN ),
-						_x( 'Checked', 'Login Module', GNETWORK_TEXTDOMAIN ),
+						_x( 'Not Checked', 'Modules: Login', GNETWORK_TEXTDOMAIN ),
+						_x( 'Checked', 'Modules: Login', GNETWORK_TEXTDOMAIN ),
 					),
 				),
 				array(
 					'field'       => 'login_logourl',
 					'type'        => 'url',
-					'title'       => _x( 'Logo Image', 'Login Module', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Full URL to the login logo image', 'Login Module', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Logo Image', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Full URL to the login logo image', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'field_class' => array( 'regular-text', 'url-text' ),
 					'after'       => sprintf( '<span class="field-after icon-wrap">%s</span>', Settings::getLoginLogoLink() ),
 				),
 				array(
 					'field'       => 'login_class',
 					'type'        => 'select',
-					'title'       => _x( 'CSS Class', 'Login Module', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Select from pre designed login themes', 'Login Module', GNETWORK_TEXTDOMAIN ),
-					'none_title'  => _x( '&mdash; Select &mdash;', 'Login Module', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'CSS Class', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Select from pre designed login themes', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'none_title'  => _x( '&mdash; Select &mdash;', 'Settings: Option', GNETWORK_TEXTDOMAIN ),
 					'none_value'  => 'no-class',
 					'values'      => apply_filters( $this->hook( 'login_class' ), array(
-						'webogram' => _x( 'Webogram', 'Login Module: Login Class', GNETWORK_TEXTDOMAIN ),
+						'webogram' => _x( 'Webogram', 'Modules: Login: Login Class', GNETWORK_TEXTDOMAIN ),
 					) ),
 				),
 				array(
 					'field'       => 'login_styles',
 					'type'        => 'textarea',
-					'title'       => _x( 'Extra CSS', 'Login Module', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Additional styles to use on login page', 'Login Module', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Extra CSS', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Additional styles to use on login page', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'field_class' => array( 'large-text', 'code-text' ),
 				),
 			),
@@ -104,14 +104,14 @@ class Login extends ModuleCore
 			$settings['_math'] = array(
 				array(
 					'field'       => 'login_math',
-					'title'       => _x( 'Login Math', 'Login Module', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Puts a math problem after the login form.', 'Login Module', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Login Math', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Puts a math problem after the login form.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 				),
 				array(
 					'field'       => 'math_hashkey',
 					'type'        => 'text',
-					'title'       => _x( 'Random Hash Key', 'Login Module', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Will used to sign with the math answer.', 'Login Module', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Random Hash Key', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Will used to sign with the math answer.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => Utilities::genRandomKey( get_site_option( 'admin_email' ) ),
 					'field_class' => array( 'regular-text', 'code-text' ),
 				),
@@ -123,8 +123,8 @@ class Login extends ModuleCore
 	public function settings_section_math()
 	{
 		Settings::fieldSection(
-			_x( 'Math Settings', 'Login Module: Settings Section Title', GNETWORK_TEXTDOMAIN ),
-			_x( 'Blocks Spam by Math. Verifies that a user answered the math problem correctly while loggin in.', 'Login Module: Settings Section Desc', GNETWORK_TEXTDOMAIN )
+			_x( 'Math Settings', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+			_x( 'Blocks Spam by Math. Verifies that a user answered the math problem correctly while loggin in.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN )
 		);
 	}
 
@@ -193,7 +193,7 @@ JS;
 
 		echo '<p class="sum">';
 
-			echo '<label>'._x( 'Prove your humanity:', 'Login Module', GNETWORK_TEXTDOMAIN ).'</label>';
+			echo '<label>'._x( 'Prove your humanity:', 'Modules: Login', GNETWORK_TEXTDOMAIN ).'</label>';
 			echo '&nbsp;'.number_format_i18n( $one ).'&nbsp;+&nbsp;'.number_format_i18n( $two ).'&nbsp;=&nbsp; ';
 
 			echo HTML::tag( 'input', array(
@@ -220,10 +220,10 @@ JS;
 		$correct = isset( $_POST['ans'] ) ? $_POST['ans'] : FALSE;
 
 		if ( FALSE === $correct )
-			wp_die( _x( '<strong>This site is not properly configured.</strong> Please ask this site\'s web developer to review for information on how to resolve this issue.', 'Login Module', GNETWORK_TEXTDOMAIN ) );
+			wp_die( _x( '<strong>This site is not properly configured.</strong> Please ask this site\'s web developer to review for information on how to resolve this issue.', 'Modules: Login', GNETWORK_TEXTDOMAIN ) );
 
 		else if ( $salted != $correct )
-			wp_die( _x( '<strong>You failed to correctly answer the math problem.</strong> This is used to combat spam Please use your browser\'s back button to return to the login form, press the "refresh" button to generate a new math problem, and try to log in again.', 'Login Module', GNETWORK_TEXTDOMAIN ) );
+			wp_die( _x( '<strong>You failed to correctly answer the math problem.</strong> This is used to combat spam Please use your browser\'s back button to return to the login form, press the "refresh" button to generate a new math problem, and try to log in again.', 'Modules: Login', GNETWORK_TEXTDOMAIN ) );
 
 		return $null;
 	}

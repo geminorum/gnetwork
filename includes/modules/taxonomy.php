@@ -90,7 +90,7 @@ class Taxonomy extends ModuleCore
 		foreach ( $columns as $key => $value ) {
 
 			if ( 'description' == $key )
-				$new_columns['gnetwork_description'] = _x( 'Description', 'Taxonomy Module', GNETWORK_TEXTDOMAIN );
+				$new_columns['gnetwork_description'] = _x( 'Description', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN );
 			else
 				$new_columns[$key] = $value;
 		}
@@ -121,7 +121,7 @@ class Taxonomy extends ModuleCore
 
 		echo '<fieldset><div class="inline-edit-col"><label>';
 		echo '<span class="title">';
-			_ex( 'Description', 'Taxonomy Module', GNETWORK_TEXTDOMAIN );
+			_ex( 'Description', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN );
 		echo '</span><span class="input-text-wrap">';
         	echo '<textarea id="inline-desc" name="gnetwork-description" rows="6" class="ptitle"></textarea>';
         echo '</span></label></div></fieldset>';
@@ -154,9 +154,9 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 		);
 
 		?><tr class="form-field term-description-wrap">
-			<th scope="row" valign="top"><label for="description"><?php _ex( 'Description', 'Taxonomy Module', GNETWORK_TEXTDOMAIN ); ?></label></th>
+			<th scope="row" valign="top"><label for="description"><?php _ex( 'Description', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN ); ?></label></th>
 			<td><?php wp_editor( htmlspecialchars_decode( $tag->description ), 'html-description', $settings ); ?>
-			<p class="description"><?php _ex( 'The description is not prominent by default; however, some themes may show it.', 'Taxonomy Module', GNETWORK_TEXTDOMAIN ); ?></p></td>
+			<p class="description"><?php _ex( 'The description is not prominent by default; however, some themes may show it.', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN ); ?></p></td>
 			<script type="text/javascript">jQuery( 'textarea#description' ).closest( '.form-field' ).remove();</script>
 		</tr><?php
 	}
@@ -170,9 +170,9 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 			'media_buttons' => FALSE,
 		);
 
-		?><div class="form-field term-description-wrap"><label for="tag-description"><?php _ex( 'Description', 'Taxonomy Module', GNETWORK_TEXTDOMAIN ); ?></label>
+		?><div class="form-field term-description-wrap"><label for="tag-description"><?php _ex( 'Description', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN ); ?></label>
 			<?php wp_editor( '', 'html-tag-description', $settings ); ?>
-			<p class="description"> <?php _ex( 'The description is not prominent by default; however, some themes may show it.', 'Taxonomy Module', GNETWORK_TEXTDOMAIN ); ?></p>
+			<p class="description"> <?php _ex( 'The description is not prominent by default; however, some themes may show it.', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN ); ?></p>
 			<script type="text/javascript">
 				jQuery( 'textarea#tag-description' ).closest( '.form-field' ).remove();
 				jQuery(function($){$( '#addtag' ).on( 'mousedown', '#submit', function(){tinyMCE.triggerSave();});});
@@ -191,17 +191,17 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 	private function get_actions( $taxonomy )
 	{
 		$actions = apply_filters( 'gnetwork_taxonomy_bulk_actions', array(
-			'merge'        => _x( 'Merge', 'Taxonomy Module: Bulk Action', GNETWORK_TEXTDOMAIN ),
-			'change_tax'   => _x( 'Change Taxonomy', 'Taxonomy Module: Bulk Action', GNETWORK_TEXTDOMAIN ),
-			'empty_posts'  => _x( 'Empty Posts', 'Taxonomy Module: Bulk Action', GNETWORK_TEXTDOMAIN ),
-			'empty_desc'   => _x( 'Empty Description', 'Taxonomy Module: Bulk Action', GNETWORK_TEXTDOMAIN ),
-			'rewrite_slug' => _x( 'Rewrite Slug', 'Taxonomy Module: Bulk Action', GNETWORK_TEXTDOMAIN ),
-			'format_i18n'  => _x( 'Format i18n', 'Taxonomy Module: Bulk Action', GNETWORK_TEXTDOMAIN ),
+			'merge'        => _x( 'Merge', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN ),
+			'change_tax'   => _x( 'Change Taxonomy', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN ),
+			'empty_posts'  => _x( 'Empty Posts', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN ),
+			'empty_desc'   => _x( 'Empty Description', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN ),
+			'rewrite_slug' => _x( 'Rewrite Slug', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN ),
+			'format_i18n'  => _x( 'Format i18n', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN ),
 		), $taxonomy );
 
 		if ( is_taxonomy_hierarchical( $taxonomy ) ) {
 			$actions = array_merge( array(
-				'set_parent' => _x( 'Set Parent', 'Taxonomy Module: Bulk Action', GNETWORK_TEXTDOMAIN ),
+				'set_parent' => _x( 'Set Parent', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN ),
 			), $actions );
 		}
 
@@ -289,12 +289,12 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 		switch ( $_GET['message'] ) {
 			case  'gnetwork-taxonomy-updated':
 
-				HTML::notice( _x( 'Terms updated.', 'Taxonomy Module: Notice', GNETWORK_TEXTDOMAIN ) );
+				HTML::notice( _x( 'Terms updated.', 'Settings: Message', GNETWORK_TEXTDOMAIN ) );
 
 			break;
 			case 'gnetwork-taxonomy-error':
 
-				HTML::notice( _x( 'Terms not updated.', 'Taxonomy Module: Notice', GNETWORK_TEXTDOMAIN ), 'error' );
+				HTML::notice( _x( 'Terms not updated.', 'Settings: Message', GNETWORK_TEXTDOMAIN ), 'error' );
 
 			break;
 		}
@@ -501,7 +501,7 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 
 	public function input_merge( $taxonomy )
 	{
-		printf( _x( 'into: %s', 'Taxonomy Module', GNETWORK_TEXTDOMAIN ),
+		printf( _x( 'into: %s', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN ),
 			'<input name="bulk_to_tag" type="text" size="20"></input>' );
 	}
 
@@ -529,7 +529,7 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 			'orderby'          => 'name',
 			'taxonomy'         => $taxonomy,
 			'hierarchical'     => TRUE,
-			'show_option_none' => _x( 'None', 'Taxonomy Module: Set Parent None Option', GNETWORK_TEXTDOMAIN )
+			'show_option_none' => _x( 'None', 'Settings: Option', GNETWORK_TEXTDOMAIN )
 		) );
 	}
 }

@@ -27,7 +27,7 @@ class Typography extends ModuleCore
 	public function setup_menu( $context )
 	{
 		Admin::registerMenu( $this->key,
-			_x( 'Typography', 'Typography Module: Menu Name', GNETWORK_TEXTDOMAIN ),
+			_x( 'Typography', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
 			array( $this, 'settings' )
 		);
 	}
@@ -46,13 +46,13 @@ class Typography extends ModuleCore
 			'_general' => array(
 				array(
 					'field'       => 'editor_buttons',
-					'title'       => _x( 'Editor Buttons', 'Typography Module: Setting Title', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Extra Typography Buttons for Post Editor', 'Typography Module: Setting Description', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Editor Buttons', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Extra Typography Buttons for Post Editor', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
 				),
 				array(
 					'field'       => 'title_titlecase',
-					'title'       => _x( 'Title to Title Case', 'Typography Module: Setting Title', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Properly-Cased Title of Posts', 'Typography Module: Setting Description', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Title to Title Case', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Properly-Cased Title of Posts', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
 					'after'       => Settings::fieldAfterIcon( Settings::getMoreInfoIcon( 'https://gist.github.com/geminorum/fe2a9ba25db5cf2e5ad6718423d00f8a' ) ),
 				),
 			),
@@ -73,15 +73,15 @@ class Typography extends ModuleCore
 	public function tinymce_strings( $strings )
 	{
 		$new = array(
-			'gnetworkasterisks-title' => _x( 'Asterisks', 'Typography Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+			'gnetworkasterisks-title' => _x( 'Asterisks', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
 
-			'gnetworkquote-title' => _x( 'Quote This', 'Typography Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
-			'gnetworkquote-attr'  => _x( 'Quote This', 'Typography Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
-			'gnetworkquote-text'  => _x( 'Quote Text', 'Typography Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
-			'gnetworkquote-cite'  => _x( 'Cite Text', 'Typography Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
-			'gnetworkquote-url'   => _x( 'Cite URL', 'Typography Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
-			'gnetworkquote-align' => _x( 'Quote Align', 'Typography Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
-			'gnetworkquote-intro' => _x( 'Intro Quote', 'Typography Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+			'gnetworkquote-title' => _x( 'Quote This', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
+			'gnetworkquote-attr'  => _x( 'Quote This', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
+			'gnetworkquote-text'  => _x( 'Quote Text', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
+			'gnetworkquote-cite'  => _x( 'Cite Text', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
+			'gnetworkquote-url'   => _x( 'Cite URL', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
+			'gnetworkquote-align' => _x( 'Quote Align', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
+			'gnetworkquote-intro' => _x( 'Intro Quote', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
 		);
 
 		return array_merge( $strings, $new );

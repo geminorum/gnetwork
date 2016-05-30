@@ -29,7 +29,7 @@ class Cleanup extends ModuleCore
 	public function setup_menu( $context )
 	{
 		Admin::registerMenu( $this->key,
-			_x( 'Cleanup', 'Cleanup Module: Menu Name', GNETWORK_TEXTDOMAIN ),
+			_x( 'Cleanup', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
 			array( $this, 'settings' )
 		);
 	}
@@ -42,17 +42,17 @@ class Cleanup extends ModuleCore
 		$settings['_transient'][] = array(
 			'field'       => 'transient_purge',
 			'type'        => 'button',
-			'title'       => _x( 'Transient', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-			'description' => _x( 'Removes Expired Transient Data', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-			'default'     => _x( 'Purge Expired', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'title'       => _x( 'Transient', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Removes Expired Transient Data', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+			'default'     => _x( 'Purge Expired', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'values'      => $confirm,
 		);
 
 		$settings['_transient'][] = array(
 			'field'       => 'transient_purge_all',
 			'type'        => 'button',
-			'description' => _x( 'Removes All Transient Data', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-			'default'     => _x( 'Purge All', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Removes All Transient Data', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+			'default'     => _x( 'Purge All', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'values'      => $confirm,
 		);
 
@@ -61,16 +61,16 @@ class Cleanup extends ModuleCore
 			$settings['_transient'][] = array(
 				'field'       => 'transient_purge_site',
 				'type'        => 'button',
-				'description' => _x( 'Removes Expired Network Transient Data', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-				'default'     => _x( 'Purge Network Expired', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Removes Expired Network Transient Data', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+				'default'     => _x( 'Purge Network Expired', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 				'values'      => $confirm,
 			);
 
 			$settings['_transient'][] = array(
 				'field'       => 'transient_purge_site_all',
 				'type'        => 'button',
-				'description' => _x( 'Removes All Network Transient Data', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-				'default'     => _x( 'Purge All Network', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Removes All Network Transient Data', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+				'default'     => _x( 'Purge All Network', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 				'values'      => $confirm,
 			);
 		}
@@ -78,42 +78,42 @@ class Cleanup extends ModuleCore
 		$settings['_posts'][] = array(
 			'field'       => 'postmeta_editdata',
 			'type'        => 'button',
-			'title'       => _x( 'Post Meta', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-			'description' => _x( 'Removes Posts Last Edit User and Lock Data', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-			'default'     => _x( 'Purge Last User & Post Lock Metadata', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'title'       => _x( 'Post Meta', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Removes Posts Last Edit User and Lock Data', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+			'default'     => _x( 'Purge Last User & Post Lock Metadata', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'values'      => $confirm,
 		);
 
 		$settings['_posts'][] = array(
 			'field'       => 'postmeta_oldslug',
 			'type'        => 'button',
-			'description' => _x( 'Removes the Previous URL Slugs for Posts', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-			'default'     => _x( 'Purge Old Slug Redirect Metadata', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Removes the Previous URL Slugs for Posts', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+			'default'     => _x( 'Purge Old Slug Redirect Metadata', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'values'      => $confirm,
 		);
 
 		$settings['_comments'][] = array(
 			'field'       => 'comments_orphanedmeta',
 			'type'        => 'button',
-			'title'       => _x( 'Comments', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-			'description' => _x( 'Checks for Orphaned Comment Metas', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-			'default'     => _x( 'Purge Orphaned Matadata', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'title'       => _x( 'Comments', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Checks for Orphaned Comment Metas', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+			'default'     => _x( 'Purge Orphaned Matadata', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'values'      => $confirm,
 		);
 
 		$settings['_comments'][] = array(
 			'field'       => 'comments_akismetmeta',
 			'type'        => 'button',
-			'description' => _x( 'Removes Akismet Related Metadata from Comments', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-			'default'     => _x( 'Purge Akismet Metadata', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Removes Akismet Related Metadata from Comments', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+			'default'     => _x( 'Purge Akismet Metadata', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'values'      => $confirm,
 		);
 
 		$settings['_comments'][] = array(
 			'field'       => 'comments_agentfield',
 			'type'        => 'button',
-			'description' => _x( 'Removes User Agent Fields from Comments', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
-			'default'     => _x( 'Purge User Agent Fields', 'Cleanup Module', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Removes User Agent Fields from Comments', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+			'default'     => _x( 'Purge User Agent Fields', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'values'      => $confirm,
 		);
 

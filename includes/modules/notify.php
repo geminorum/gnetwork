@@ -20,7 +20,7 @@ class Notify extends ModuleCore
 	public function setup_menu( $context )
 	{
 		$this->register_menu(
-			_x( 'Notify', 'Notify Module: Menu Name', GNETWORK_TEXTDOMAIN ),
+			_x( 'Notify', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
 			array( $this, 'settings' )
 		);
 	}
@@ -39,8 +39,8 @@ class Notify extends ModuleCore
 			'_general' => array(
 				array(
 					'field'       => 'disable_new_user_admin',
-					'title'       => _x( 'New User', 'Notify Module', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Notify the blog admin of a newly-registered user', 'Notify Module', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'New User', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Notify the blog admin of a newly-registered user', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '1',
 					'values'      => array(
 						__( 'Enabled' , GNETWORK_TEXTDOMAIN ),
@@ -49,8 +49,8 @@ class Notify extends ModuleCore
 				),
 				array(
 					'field'       => 'disable_password_change',
-					'title'       => _x( 'Password Reset', 'Notify Module', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Notify the blog admin of a user changing password', 'Notify Module', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Password Reset', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Notify the blog admin of a user changing password', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '1',
 					'values'      => array(
 						__( 'Enabled' , GNETWORK_TEXTDOMAIN ),

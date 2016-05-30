@@ -27,7 +27,7 @@ class Captcha extends ModuleCore
 	public function setup_menu( $context )
 	{
 		$this->register_menu(
-			_x( 'Captcha', 'Captcha Module: Menu Name', GNETWORK_TEXTDOMAIN ),
+			_x( 'Captcha', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
 			array( $this, 'settings' )
 		);
 	}
@@ -69,26 +69,26 @@ class Captcha extends ModuleCore
 				array(
 					'field'       => 'public_key',
 					'type'        => 'text',
-					'title'       => _x( 'Site Key', 'Captcha Module', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Key in the HTML code your site serves to users.', 'Captcha Module', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Site Key', 'Modules: Captcha: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Key in the HTML code your site serves to users.', 'Modules: Captcha: Settings', GNETWORK_TEXTDOMAIN ),
 					'field_class' => array( 'regular-text', 'code-text' ),
 				),
 				array(
 					'field'       => 'private_key',
 					'type'        => 'text',
-					'title'       => _x( 'Secret Key', 'Captcha Module', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Key for communication between your site and Google reCAPTCHA.', 'Captcha Module', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Secret Key', 'Modules: Captcha: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Key for communication between your site and Google reCAPTCHA.', 'Modules: Captcha: Settings', GNETWORK_TEXTDOMAIN ),
 					'field_class' => array( 'regular-text', 'code-text' ),
 				),
 				array(
 					'field'       => 'login_captcha',
-					'title'       => _x( 'Login Captcha', 'Captcha Module', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Display captcha field on login form', 'Captcha Module', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Login Captcha', 'Modules: Captcha: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Display captcha field on login form', 'Modules: Captcha: Settings', GNETWORK_TEXTDOMAIN ),
 				),
 				array(
 					'field'       => 'logged_in',
-					'title'       => _x( 'Logged In', 'Captcha Module', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Display captcha field for logged in users', 'Captcha Module', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Logged In', 'Modules: Captcha: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Display captcha field for logged in users', 'Modules: Captcha: Settings', GNETWORK_TEXTDOMAIN ),
 				),
 			),
 		);
@@ -99,7 +99,7 @@ class Captcha extends ModuleCore
 		return array(
 			array(
 				'id'      => 'gnetwork-captcha-help',
-				'title'   => _x( 'Google reCAPTCHA', 'Captcha Module', GNETWORK_TEXTDOMAIN ),
+				'title'   => _x( 'Google reCAPTCHA', 'Modules: Captcha: Help', GNETWORK_TEXTDOMAIN ),
 				'content' => '<p><br />Register & get the keys from <a href="https://www.google.com/recaptcha/admin#createsite" target="_blank">here</a>.</p>',
 			),
 		);
@@ -108,8 +108,8 @@ class Captcha extends ModuleCore
 	private function recaptcha_errors()
 	{
 		return array(
-			'empty_captcha'   => _x( 'CAPTCHA should not be empty', 'Captcha Module: ReCaptcha Error', GNETWORK_TEXTDOMAIN ),
-			'invalid_captcha' => _x( 'CAPTCHA response was incorrect', 'Captcha Module: ReCaptcha Error', GNETWORK_TEXTDOMAIN ),
+			'empty_captcha'   => _x( 'CAPTCHA should not be empty', 'Modules: Captcha: ReCaptcha Error', GNETWORK_TEXTDOMAIN ),
+			'invalid_captcha' => _x( 'CAPTCHA response was incorrect', 'Modules: Captcha: ReCaptcha Error', GNETWORK_TEXTDOMAIN ),
 		);
 	}
 

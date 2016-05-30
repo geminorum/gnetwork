@@ -11,7 +11,7 @@ class Cron extends ModuleCore
 	public function setup_menu( $context )
 	{
 		Admin::registerMenu( $this->key,
-			_x( 'CRON', 'CRON Module: Menu Name', GNETWORK_TEXTDOMAIN ),
+			_x( 'CRON', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
 			array( $this, 'settings' )
 		);
 	}
@@ -93,7 +93,7 @@ class Cron extends ModuleCore
 			'_cb' => '_index',
 
 			'next' => array(
-				'title'    => _x( 'Next', 'CRON Module', GNETWORK_TEXTDOMAIN ),
+				'title'    => _x( 'Next', 'Modules: CRON', GNETWORK_TEXTDOMAIN ),
 				'class'    => '-column-next',
 				'callback' => function( $value, $row, $column, $index ){
 					return date_i18n( 'H:i:s - D, j M, Y', $index );
@@ -101,7 +101,7 @@ class Cron extends ModuleCore
 			),
 
 			'tasks' => array(
-				'title' => _x( 'Tasks', 'CRON Module', GNETWORK_TEXTDOMAIN ),
+				'title' => _x( 'Tasks', 'Modules: CRON', GNETWORK_TEXTDOMAIN ),
 				'class' => '-column-tasks',
 				'args'  => array(
 					'schedules' => wp_get_schedules(),
@@ -140,8 +140,8 @@ class Cron extends ModuleCore
 				},
 			),
 		), self::getCronArray(), array(
-			'title' => HTML::tag( 'h3', _x( 'Overview of tasks scheduled for WP-Cron', 'CRON Module', GNETWORK_TEXTDOMAIN ) ),
-			'empty' => self::warning( _x( 'Nothing scheduled!', 'CRON Module', GNETWORK_TEXTDOMAIN ) ),
+			'title' => HTML::tag( 'h3', _x( 'Overview of tasks scheduled for WP-Cron', 'Modules: CRON', GNETWORK_TEXTDOMAIN ) ),
+			'empty' => self::warning( _x( 'Nothing scheduled!', 'Modules: CRON', GNETWORK_TEXTDOMAIN ) ),
 		) );
 	}
 }

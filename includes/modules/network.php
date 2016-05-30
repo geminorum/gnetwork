@@ -50,29 +50,29 @@ class Network extends ModuleCore
 		do_action( 'gnetwork_setup_menu', 'network' );
 
 		add_submenu_page( 'plugins.php',
-			_x( 'Active', 'Network Module', GNETWORK_TEXTDOMAIN ),
-			_x( 'Active', 'Network Module', GNETWORK_TEXTDOMAIN ),
+			_x( 'Active', 'Modules: Network: Page Menu', GNETWORK_TEXTDOMAIN ),
+			_x( 'Active', 'Modules: Network: Page Menu', GNETWORK_TEXTDOMAIN ),
 			'manage_network',
 			'plugins.php?plugin_status=active'
 		);
 
 		add_submenu_page( 'plugins.php',
-			_x( 'Upload', 'Network Module', GNETWORK_TEXTDOMAIN ),
-			_x( 'Upload', 'Network Module', GNETWORK_TEXTDOMAIN ),
+			_x( 'Upload', 'Modules: Network: Page Menu', GNETWORK_TEXTDOMAIN ),
+			_x( 'Upload', 'Modules: Network: Page Menu', GNETWORK_TEXTDOMAIN ),
 			'manage_network',
 			'plugin-install.php?tab=upload'
 		);
 
 		add_submenu_page( 'themes.php',
-			_x( 'Upload', 'Network Module', GNETWORK_TEXTDOMAIN ),
-			_x( 'Upload', 'Network Module', GNETWORK_TEXTDOMAIN ),
+			_x( 'Upload', 'Modules: Network: Page Menu', GNETWORK_TEXTDOMAIN ),
+			_x( 'Upload', 'Modules: Network: Page Menu', GNETWORK_TEXTDOMAIN ),
 			'manage_network_themes',
 			'theme-install.php?upload'
 		);
 
 		$hook = add_menu_page(
-			_x( 'gNetwork Extras', 'Network Module: Page Menu HTML Title', GNETWORK_TEXTDOMAIN ),
-			_x( 'Extras', 'Network Module: Page Menu Title', GNETWORK_TEXTDOMAIN ),
+			_x( 'gNetwork Extras', 'Modules: Network: Page Menu', GNETWORK_TEXTDOMAIN ),
+			_x( 'Extras', 'Modules: Network: Page Menu', GNETWORK_TEXTDOMAIN ),
 			'manage_network_options',
 			$this->base,
 			array( $this, 'settings_page' ),
@@ -84,7 +84,7 @@ class Network extends ModuleCore
 
 		foreach ( $this->menus as $sub => $args ) {
 			add_submenu_page( $this->base,
-				sprintf( _x( 'gNetwork Extras: %s', 'Network Module: Sub Page Menu Title', GNETWORK_TEXTDOMAIN ), $args['title'] ),
+				sprintf( _x( 'gNetwork Extras: %s', 'Modules: Network: Page Menu', GNETWORK_TEXTDOMAIN ), $args['title'] ),
 				$args['title'],
 				$args['cap'],
 				$this->base.'&sub='.$sub,
@@ -93,7 +93,7 @@ class Network extends ModuleCore
 		}
 
 		global $submenu;
-		$submenu[$this->base][0][0] = _x( 'Overview', 'Network Module', GNETWORK_TEXTDOMAIN );
+		$submenu[$this->base][0][0] = _x( 'Overview', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN );
 	}
 
 	public static function registerMenu( $sub, $title = NULL, $callback = FALSE, $capability = 'manage_network_options' )
@@ -133,15 +133,15 @@ class Network extends ModuleCore
 	private function subs()
 	{
 		$subs = array(
-			'overview' => _x( 'Overview', 'Network Module', GNETWORK_TEXTDOMAIN ),
+			'overview' => _x( 'Overview', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
 		);
 
 		foreach ( $this->menus as $sub => $args )
 			$subs[$sub] = $args['title'];
 
 		if ( is_super_admin() ) {
-			$subs['phpinfo'] = _x( 'PHP Info', 'Network Module', GNETWORK_TEXTDOMAIN );
-			$subs['console'] = _x( 'Console', 'Network Module', GNETWORK_TEXTDOMAIN );
+			$subs['phpinfo'] = _x( 'PHP Info', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN );
+			$subs['console'] = _x( 'Console', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN );
 		}
 
 		return $subs;
@@ -246,7 +246,7 @@ class Network extends ModuleCore
 	public function wpmu_blogs_columns( $columns )
 	{
 		$custom = array(
-			'id' => _x( 'ID', 'Network Module: Column Blog ID', GNETWORK_TEXTDOMAIN ),
+			'id' => _x( 'ID', 'Modules: Network: Column', GNETWORK_TEXTDOMAIN ),
 		);
 
 		if ( 1 === GNETWORK_ADMIN_COLUMN_ID )

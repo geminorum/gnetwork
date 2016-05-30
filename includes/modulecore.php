@@ -845,7 +845,7 @@ class ModuleCore extends Base
 					$args['values'] = 'page';
 
 				if ( is_null( $args['none_title'] ) )
-					$args['none_title'] = _x( '&mdash; Select &mdash;', 'Module Core', GNETWORK_TEXTDOMAIN );
+					$args['none_title'] = _x( '&mdash; Select &mdash;', 'Settings: Option', GNETWORK_TEXTDOMAIN );
 
 				if ( is_null( $args['none_value'] ) )
 					$args['none_value'] = '';

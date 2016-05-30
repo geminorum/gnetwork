@@ -32,7 +32,7 @@ class Dev extends ModuleCore
 	public function setup_menu( $context )
 	{
 		$this->register_menu(
-			_x( 'Dev Tools', 'Dev Module: Menu Name', GNETWORK_TEXTDOMAIN ),
+			_x( 'Dev Tools', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
 			array( $this, 'settings' )
 		);
 	}
@@ -58,7 +58,7 @@ class Dev extends ModuleCore
 	public function embed_oembed_html( $html, $url, $attr, $post_ID )
 	{
 		return sprintf( '<div class="loading-placeholder gnetwork-dev-placeholder"><p>%s</p></div>',
-			sprintf( _x( 'Airplane Mode is enabled. oEmbed blocked for %1$s.', 'Dev Module', GNETWORK_TEXTDOMAIN ), esc_url( $url ) ) );
+			sprintf( _x( 'Airplane Mode is enabled. oEmbed blocked for %1$s.', 'Modules: Dev', GNETWORK_TEXTDOMAIN ), esc_url( $url ) ) );
 	}
 
 	// replace all instances of gravatar with a local image file to remove the call to remote service.

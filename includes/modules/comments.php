@@ -73,7 +73,7 @@ class Comments extends ModuleCore
 	public function setup_menu( $context )
 	{
 		Admin::registerMenu( $this->key,
-			_x( 'Comments', 'Comments Module: Menu Name', GNETWORK_TEXTDOMAIN ),
+			_x( 'Comments', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
 			array( $this, 'settings' )
 		);
 	}
@@ -99,8 +99,8 @@ class Comments extends ModuleCore
 			'_general' => array(
 				array(
 					'field'       => 'disable_notifications',
-					'title'       => _x( 'Comment Notifications', 'Comments Module', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Disable all core comment notifications', 'Comments Module', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Comment Notifications', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Disable all core comment notifications', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '1',
 					'values'      => array(
 						__( 'Enabled' , GNETWORK_TEXTDOMAIN ),
@@ -109,28 +109,28 @@ class Comments extends ModuleCore
 				),
 				array(
 					'field'       => 'archived_comments',
-					'title'       => _x( 'Archived Comments', 'Comments Module', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Archived comments and hide from counts', 'Comments Module', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Archived Comments', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Archived comments and hide from counts', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
 				),
 				array(
 					'field'       => 'admin_fullcomments',
-					'title'       => _x( 'Full Comments', 'Comments Module', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Full comments on dashboard', 'Comments Module', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Full Comments', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Full comments on dashboard', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
 				),
 				array(
 					'field'       => 'front_quicktags',
-					'title'       => _x( 'Frontend Quicktags', 'Comments Module', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Activate Quicktags for comments on frontend', 'Comments Module', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Frontend Quicktags', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Activate Quicktags for comments on frontend', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
 				),
 				array(
 					'field'       => 'front_autogrow',
-					'title'       => _x( 'Frontend Autogrow', 'Comments Module', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Makes the comment textarea expand in height automatically', 'Comments Module', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Frontend Autogrow', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Makes the comment textarea expand in height automatically', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
 				),
 				array(
 					'field'       => 'disable_notes',
-					'title'       => _x( 'Form Notes', 'Comments Module', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Removes extra notes after comment form on frontend', 'Comments Module', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Form Notes', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Removes extra notes after comment form on frontend', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '1',
 				),
 			),
@@ -140,8 +140,8 @@ class Comments extends ModuleCore
 			$settings['_captcha'] = array(
 				array(
 					'field'       => 'captcha',
-					'title'       => _x( 'Captcha', 'Comments Module', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Display captcha field on comment form', 'Comments Module', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Captcha', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Display captcha field on comment form', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
 				),
 			);
 
@@ -208,8 +208,8 @@ class Comments extends ModuleCore
 
 			$actions['comment_archive'] = HTML::tag( 'a', array(
 				'href'       => 'comment.php?c='.$comment->comment_ID.'&action=archive&'.$nonce,
-				'aria-label' => _x( 'Move this comment to the Archives', 'Comments Module', GNETWORK_TEXTDOMAIN ),
-			), _x( 'Archive', 'Comments Module', GNETWORK_TEXTDOMAIN ) );
+				'aria-label' => _x( 'Move this comment to the Archives', 'Modules: Comments', GNETWORK_TEXTDOMAIN ),
+			), _x( 'Archive', 'Modules: Comments', GNETWORK_TEXTDOMAIN ) );
 
 		} else if ( $this->type_archived == $comment->comment_type ) {
 
@@ -217,8 +217,8 @@ class Comments extends ModuleCore
 
 			$actions['comment_unarchive'] = HTML::tag( 'a', array(
 				'href'       => 'comment.php?c='.$comment->comment_ID.'&action=unarchive&'.$nonce,
-				'aria-label' => _x( 'Move back this comment from the Archives', 'Comments Module', GNETWORK_TEXTDOMAIN ),
-			), _x( 'Unarchive', 'Comments Module', GNETWORK_TEXTDOMAIN ) );
+				'aria-label' => _x( 'Move back this comment from the Archives', 'Modules: Comments', GNETWORK_TEXTDOMAIN ),
+			), _x( 'Unarchive', 'Modules: Comments', GNETWORK_TEXTDOMAIN ) );
 		}
 
 		return $actions;
@@ -231,15 +231,15 @@ class Comments extends ModuleCore
 		$status_links[$this->type_archived] = HTML::tag( 'a', array(
 			'href'  => add_query_arg( 'comment_type', $this->type_archived, admin_url( 'edit-comments.php' ) ),
 			'class' => ( $this->type_archived == $comment_type ? 'current' : FALSE ),
-			'title' => _x( 'All Archived Comments', 'Comments Module', GNETWORK_TEXTDOMAIN ),
-		), _x( 'Archives', 'Comments Module', GNETWORK_TEXTDOMAIN ) );
+			'title' => _x( 'All Archived Comments', 'Modules: Comments', GNETWORK_TEXTDOMAIN ),
+		), _x( 'Archives', 'Modules: Comments', GNETWORK_TEXTDOMAIN ) );
 
 		return $status_links;
 	}
 
 	public function admin_comment_types_dropdown( $comment_types )
 	{
-		$comment_types[$this->type_archived] = _x( 'Archived', 'Comments Module', GNETWORK_TEXTDOMAIN );
+		$comment_types[$this->type_archived] = _x( 'Archived', 'Modules: Comments', GNETWORK_TEXTDOMAIN );
 		return $comment_types;
 	}
 
@@ -429,7 +429,7 @@ class Comments extends ModuleCore
 
 	public function explain_nonce()
 	{
-		return _x( 'Your attempt to add this comment has failed.', 'Comments Module', GNETWORK_TEXTDOMAIN );
+		return _x( 'Your attempt to add this comment has failed.', 'Modules: Comments', GNETWORK_TEXTDOMAIN );
 	}
 
 	// DRAFT
@@ -445,11 +445,11 @@ class Comments extends ModuleCore
 		$comments = wp_count_comments( $post_id );
 
 		$map = array(
-			'moderated'      => _x( 'Comments in moderation: %s', 'Comments Module: Total Comments Item', GNETWORK_TEXTDOMAIN ),
-			'approved'       => _x( 'Comments approved: %s', 'Comments Module: Total Comments Item', GNETWORK_TEXTDOMAIN ),
-			'spam'           => _x( 'Comments in Spam: %s', 'Comments Module: Total Comments Item', GNETWORK_TEXTDOMAIN ),
-			'trash'          => _x( 'Comments in Trash: %s', 'Comments Module: Total Comments Item', GNETWORK_TEXTDOMAIN ),
-			'total_comments' => _x( 'Total Comments: %s', 'Comments Module: Total Comments Item', GNETWORK_TEXTDOMAIN ),
+			'moderated'      => _x( 'Comments in moderation: %s', 'Modules: Comments: Total Comments Item', GNETWORK_TEXTDOMAIN ),
+			'approved'       => _x( 'Comments approved: %s', 'Modules: Comments: Total Comments Item', GNETWORK_TEXTDOMAIN ),
+			'spam'           => _x( 'Comments in Spam: %s', 'Modules: Comments: Total Comments Item', GNETWORK_TEXTDOMAIN ),
+			'trash'          => _x( 'Comments in Trash: %s', 'Modules: Comments: Total Comments Item', GNETWORK_TEXTDOMAIN ),
+			'total_comments' => _x( 'Total Comments: %s', 'Modules: Comments: Total Comments Item', GNETWORK_TEXTDOMAIN ),
 		);
 
 		echo '<ul>';
@@ -477,7 +477,7 @@ class Comments extends ModuleCore
 		if ( substr_count( strtolower( $comment ), 'http://' ) > $this->links_limit ) {
 
 			if ( 'reject' == $this->links_limit_action )
-				wp_die( sprintf( _x( 'Comment has <strong>over %s links</strong>. Please reduce number of those.', 'Comments Module', GNETWORK_TEXTDOMAIN ), $this->links_limit ) );
+				wp_die( sprintf( _x( 'Comment has <strong>over %s links</strong>. Please reduce number of those.', 'Modules: Comments', GNETWORK_TEXTDOMAIN ), $this->links_limit ) );
 
 			else
 				add_filter( 'pre_comment_approved', array( $this, 'pre_comment_approved_spam' ) );
@@ -490,7 +490,7 @@ class Comments extends ModuleCore
 		if ( $wpdb->get_var( $dupe ) ) {
 
 			if ( 'reject' == $this->duplicate_action )
-				wp_die( _x( 'Duplicate comment content. Please rephrase.', 'Comments Module', GNETWORK_TEXTDOMAIN ) );
+				wp_die( _x( 'Duplicate comment content. Please rephrase.', 'Modules: Comments', GNETWORK_TEXTDOMAIN ) );
 
 			else
 				add_filter( 'pre_comment_approved', array( $this, 'pre_comment_approved_spam' ) );
@@ -504,7 +504,7 @@ class Comments extends ModuleCore
 			if ( $wpdb->get_var( $dupe ) || $this->is_known_spam_domain( $url ) ) {
 
 				if ( 'reject' == $this->known_sites_action )
-					wp_die( _x( 'Your URL or domain is in list of known spam-promoted sites. If you believe this to be an error please contact site admin.', 'Comments Module', GNETWORK_TEXTDOMAIN ) );
+					wp_die( _x( 'Your URL or domain is in list of known spam-promoted sites. If you believe this to be an error please contact site admin.', 'Modules: Comments', GNETWORK_TEXTDOMAIN ) );
 
 				else
 					add_filter( 'pre_comment_approved', array( $this, 'pre_comment_approved_spam' ) );
@@ -518,7 +518,7 @@ class Comments extends ModuleCore
 		if ( $wpdb->get_var( $dupe ) > $this->known_ip_limit ) {
 
 			if ( 'reject' == $this->known_ip_action )
-				wp_die( _x( 'Your IP is in list of known spam sources. If you believe this to be an error please contact site admin.', 'Comments Module', GNETWORK_TEXTDOMAIN ) );
+				wp_die( _x( 'Your IP is in list of known spam sources. If you believe this to be an error please contact site admin.', 'Modules: Comments', GNETWORK_TEXTDOMAIN ) );
 
 			else
 				add_filter( 'pre_comment_approved', array( $this, 'pre_comment_approved_spam' ) );
@@ -532,7 +532,7 @@ class Comments extends ModuleCore
 
 			if ( 'reject' == $this->group_action ) {
 				$wpdb->query( "UPDATE $wpdb->comments SET comment_approved='trash' WHERE comment_content = '$comment'" );
-				wp_die( _x( 'Duplicate comment content. Please rephrase.', 'Comments Module', GNETWORK_TEXTDOMAIN ) );
+				wp_die( _x( 'Duplicate comment content. Please rephrase.', 'Modules: Comments', GNETWORK_TEXTDOMAIN ) );
 
 			} else {
 

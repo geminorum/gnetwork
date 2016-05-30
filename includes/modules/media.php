@@ -32,7 +32,7 @@ class Media extends ModuleCore
 	public function setup_menu( $context )
 	{
 		Admin::registerMenu( $this->key,
-			_x( 'Media', 'Media Module: Menu Name', GNETWORK_TEXTDOMAIN ),
+			_x( 'Media', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
 			array( $this, 'settings' )
 		);
 	}
@@ -118,7 +118,7 @@ class Media extends ModuleCore
 
 	protected function register_settings_buttons()
 	{
-		$this->register_button( 'clean_attachments', _x( 'Clean Attachments', 'Media Module', GNETWORK_TEXTDOMAIN ), array( 'default' => 'default' ), 'primary' );
+		$this->register_button( 'clean_attachments', _x( 'Clean Attachments', 'Modules: Media', GNETWORK_TEXTDOMAIN ), array( 'default' => 'default' ), 'primary' );
 	}
 
 	protected static function getPostArray()
@@ -177,17 +177,17 @@ class Media extends ModuleCore
 
 		return HTML::tableList( array(
 			'_cb' => 'ID',
-			'ID'  => _x( 'ID', 'Media Module', GNETWORK_TEXTDOMAIN ),
+			'ID'  => _x( 'ID', 'Modules: Media', GNETWORK_TEXTDOMAIN ),
 
 			'date' => array(
-				'title'    => _x( 'Date', 'Media Module', GNETWORK_TEXTDOMAIN ),
+				'title'    => _x( 'Date', 'Modules: Media', GNETWORK_TEXTDOMAIN ),
 				'callback' => function( $value, $row, $column, $index ){
 					return date_i18n( 'j M Y', strtotime( $row->post_date ) );
 				},
 			),
 
 			'type' => array(
-				'title' => _x( 'Type', 'Media Module', GNETWORK_TEXTDOMAIN ),
+				'title' => _x( 'Type', 'Modules: Media', GNETWORK_TEXTDOMAIN ),
 				'args'  => array(
 					'post_types' => WordPress::getPostTypes( 'singular_name' ),
 				),
@@ -197,7 +197,7 @@ class Media extends ModuleCore
 			),
 
 			'post' => array(
-				'title' => _x( 'Post', 'Media Module', GNETWORK_TEXTDOMAIN ),
+				'title' => _x( 'Post', 'Modules: Media', GNETWORK_TEXTDOMAIN ),
 				'args'  => array(
 					'url'   => get_bloginfo( 'url' ),
 					'admin' => admin_url( 'post.php' ),
@@ -219,7 +219,7 @@ class Media extends ModuleCore
 			),
 
 			'media' => array(
-				'title' => _x( 'Media', 'Media Module', GNETWORK_TEXTDOMAIN ),
+				'title' => _x( 'Media', 'Modules: Media', GNETWORK_TEXTDOMAIN ),
 				'args'  => array(
 					'wpuploads' => wp_get_upload_dir(),
 				),
@@ -241,8 +241,8 @@ class Media extends ModuleCore
 		), $posts, array(
 			'navigation' => 'before',
 			'search'     => 'before',
-			'title'      => HTML::tag( 'h3', _x( 'Overview of posts with attachments', 'Media Module', GNETWORK_TEXTDOMAIN ) ),
-			'empty'      => self::warning( _x( 'No Posts!', 'Media Module', GNETWORK_TEXTDOMAIN ) ),
+			'title'      => HTML::tag( 'h3', _x( 'Overview of posts with attachments', 'Modules: Media', GNETWORK_TEXTDOMAIN ) ),
+			'empty'      => self::warning( _x( 'No Posts!', 'Modules: Media', GNETWORK_TEXTDOMAIN ) ),
 			'pagination' => $pagination,
 		) );
 	}
@@ -352,7 +352,7 @@ class Media extends ModuleCore
 		global $_wp_additional_image_sizes;
 
 		$args = self::atts( array(
-			'n' => _x( 'Undefined Image Size', 'Media Module', GNETWORK_TEXTDOMAIN ),
+			'n' => _x( 'Undefined Image Size', 'Modules: Media', GNETWORK_TEXTDOMAIN ),
 			'w' => 0,
 			'h' => 0,
 			'c' => 0,
@@ -661,7 +661,7 @@ class Media extends ModuleCore
 					'id'     => $post->ID,
 					'action' => 'clean_attachment',
 				),
-			), _x( 'Clean', 'Media Module: Row Action', GNETWORK_TEXTDOMAIN ) );
+			), _x( 'Clean', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) );
 
 		$link = HTML::tag( 'a', array(
 			'target' => '_blank',
@@ -690,7 +690,7 @@ class Media extends ModuleCore
 			case 'image/jpeg' :
 			case 'image/png' :
 			case 'image/gif' :
-				$label = _x( 'View Image URL', 'Media Module: Row Action', GNETWORK_TEXTDOMAIN );
+				$label = _x( 'View Image URL', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN );
 				break;
 
 			case 'video/mpeg' :
@@ -698,32 +698,32 @@ class Media extends ModuleCore
 			case 'video/webm' :
 			case 'video/ogg' :
 			case 'video/quicktime':
-				$label = _x( 'View Video URL', 'Media Module: Row Action', GNETWORK_TEXTDOMAIN );
+				$label = _x( 'View Video URL', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN );
 				break;
 
 			case 'text/csv' :
 			case 'text/xml' :
-				$label = _x( 'View Data File URL', 'Media Module: Row Action', GNETWORK_TEXTDOMAIN );
+				$label = _x( 'View Data File URL', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN );
 				break;
 
 			case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' :
 			case 'application/vnd.ms-excel' :
-				$label = _x( 'View Spreadsheet URL', 'Media Module: Row Action', GNETWORK_TEXTDOMAIN );
+				$label = _x( 'View Spreadsheet URL', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN );
 				break;
 
 			case 'application/pdf' :
 			case 'application/rtf' :
 			case 'application/msword' :
 			case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' :
-				$label = _x( 'View Document URL', 'Media Module: Row Action', GNETWORK_TEXTDOMAIN );
+				$label = _x( 'View Document URL', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN );
 				break;
 
 			case 'text/html' :
-				$label = _x( 'View HTML file URL', 'Media Module: Row Action', GNETWORK_TEXTDOMAIN );
+				$label = _x( 'View HTML file URL', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN );
 				break;
 
 			default:
-				$label = _x( 'View Item URL', 'Media Module: Row Action', GNETWORK_TEXTDOMAIN );
+				$label = _x( 'View Item URL', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN );
 		}
 
 		return apply_filters( $this->hook( 'mime_type_label' ), $label, $mime_type, $post_id );

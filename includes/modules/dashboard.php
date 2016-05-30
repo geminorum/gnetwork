@@ -26,7 +26,7 @@ class Dashboard extends ModuleCore
 		if ( has_filter( 'gnetwork_dashoboard_external_feeds' ) ) {
 			wp_add_dashboard_widget(
 				'gnetwork_dashboard_external_feed',
-				_x( 'External Feed', 'Dashboard Module: Dashboard Widget Title', GNETWORK_TEXTDOMAIN ),
+				_x( 'External Feed', 'Modules: Dashboard: Widget Title', GNETWORK_TEXTDOMAIN ),
 				array( $this, 'widget_external_feed' )
 			);
 		}

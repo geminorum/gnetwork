@@ -18,7 +18,7 @@ class BlackList extends ModuleCore
 	public function setup_menu( $context )
 	{
 		$this->register_menu(
-			_x( 'Black List', 'BlackList Module: Menu Name', GNETWORK_TEXTDOMAIN ),
+			_x( 'Black List', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
 			array( $this, 'settings' )
 		);
 	}
@@ -44,21 +44,21 @@ class BlackList extends ModuleCore
 			'_general' => array(
 				array(
 					'field'       => 'check_ip',
-					'title'       => _x( 'Check Addresses', 'BlackList Module', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Select to check logged-out visitor\'s IP againts your list of IPs', 'BlackList Module', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Check Addresses', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Select to check logged-out visitor\'s IP againts your list of IPs', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ),
 				),
 				array(
 					'field'       => 'blacklisted_ips',
 					'type'        => 'textarea',
-					'title'       => _x( 'IP Addresses', 'BlackList Module', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Comma seperated IP\'s range or individual IP needs to block. ex: <code>1.6.0.0 - 1.7.255.255,1.8.0.0,1.8.0.1</code>', 'BlackList Module', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'IP Addresses', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Comma seperated IP\'s range or individual IP needs to block. ex: <code>1.6.0.0 - 1.7.255.255,1.8.0.0,1.8.0.1</code>', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ),
 					'field_class' => array( 'large-text', 'code-text' ),
 				),
 				array(
 					'field'       => 'blacklisted_notice',
 					'type'        => 'textarea-quicktags',
-					'title'       => _x( 'Blacklisted Message', 'BlackList Module', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Locked message on WordPress die page', 'BlackList Module', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Blacklisted Message', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Locked message on WordPress die page', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ),
 					'field_class' => array( 'large-text', 'code-text' ),
 				),
 			),

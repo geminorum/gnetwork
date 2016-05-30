@@ -19,7 +19,7 @@ class Maintenance extends ModuleCore
 	public function setup_menu( $context )
 	{
 		Admin::registerMenu( $this->key,
-			_x( 'Maintenance', 'Maintenance Module: Menu Name', GNETWORK_TEXTDOMAIN ),
+			_x( 'Maintenance', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
 			array( $this, 'settings' )
 		);
 	}
@@ -66,45 +66,45 @@ class Maintenance extends ModuleCore
 				array(
 					'field'  => 'current_template',
 					'type'   => 'custom',
-					'title'  => _x( 'Current Template', 'Maintenance Module', GNETWORK_TEXTDOMAIN ),
+					'title'  => _x( 'Current Template', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
 					'values' => ( $template ? '<p class="description code"><code>'. wp_normalize_path( $template ).'</code></p>' :
-						'<p class="description">'._x( 'There are no templates available. We will use an internal instead.', 'Maintenance Module', GNETWORK_TEXTDOMAIN ).'</p>' ),
+						'<p class="description">'._x( 'There are no templates available. We will use an internal instead.', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ).'</p>' ),
 				),
 				array(
 					'field'       => 'maintenance_site',
 					'type'        => 'roles',
-					'title'       => _x( 'Site Maintenance', 'Maintenance Module', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Selected and above can access to the site.', 'Maintenance Module', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Site Maintenance', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Selected and above can access to the site.', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => 'none',
 				),
 				array(
 					'field'       => 'maintenance_admin',
 					'type'        => 'roles',
-					'title'       => _x( 'Admin Maintenance', 'Maintenance Module', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Selected and above can access to the admin.', 'Maintenance Module', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Admin Maintenance', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Selected and above can access to the admin.', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => 'none',
 				),
 				array(
 					'field'       => 'admin_notice',
 					'type'        => 'textarea-quicktags',
-					'title'       => _x( 'Admin Notice', 'Maintenance Module', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'The admin notice while site is on maintenance. Leave empty to disable.', 'Maintenance Module', GNETWORK_TEXTDOMAIN ),
-					'default'     => _x( 'The Maintenance Mode is active.', 'Maintenance Module: Default Option', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Admin Notice', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'The admin notice while site is on maintenance. Leave empty to disable.', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
+					'default'     => _x( 'The Maintenance Mode is active.', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
 					'field_class' => array( 'large-text', 'code-text' ),
 				),
 				array(
 					'field'       => 'login_message',
 					'type'        => 'textarea-quicktags',
-					'title'       => _x( 'Login Message', 'Maintenance Module', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'The login message while site is on maintenance. Leave empty to disable.', 'Maintenance Module', GNETWORK_TEXTDOMAIN ),
-					'default'     => _x( 'The site is unavailable for scheduled maintenance.', 'Maintenance Module: Default Option', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Login Message', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'The login message while site is on maintenance. Leave empty to disable.', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
+					'default'     => _x( 'The site is unavailable for scheduled maintenance.', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
 					'field_class' => array( 'large-text', 'code-text' ),
 				),
 				array(
 					'field'       => 'status_code',
 					'type'        => 'select',
-					'title'       => _x( 'Status Code', 'Maintenance Module', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'HTTP status header code', 'Maintenance Module', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Status Code', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'HTTP status header code', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
 					'after'       => Settings::fieldAfterIcon( Settings::getMoreInfoIcon( 'https://en.wikipedia.org/wiki/List_of_HTTP_status_codes' ) ),
 					'dir'         => 'ltr',
 					'default'     => '503',
@@ -123,8 +123,8 @@ class Maintenance extends ModuleCore
 				array(
 					'field'       => 'retry_after',
 					'type'        => 'select',
-					'title'       => _x( 'Retry After', 'Maintenance Module', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'HTTP status header retry after', 'Maintenance Module', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Retry After', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'HTTP status header retry after', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '10',
 					'values'      => Utilities::getTimeInMinutes(),
 				),
@@ -226,7 +226,7 @@ class Maintenance extends ModuleCore
 	{
 		if ( is_null( $fallback ) )
 			$fallback = _x( 'The site is unavailable for scheduled maintenance.',
-				'Maintenance Module: Default 503 Message', GNETWORK_TEXTDOMAIN );
+				'Modules: Maintenance: Default 503 Message', GNETWORK_TEXTDOMAIN );
 
 		$html = gNetwork()->option( 'login_message', 'maintenance', $fallback );
 

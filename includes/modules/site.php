@@ -16,7 +16,7 @@ class Site extends ModuleCore
 	public function setup_menu( $context )
 	{
 		Network::registerMenu( $this->key,
-			_x( 'Global', 'Site Module: Menu Name', GNETWORK_TEXTDOMAIN ),
+			_x( 'Global', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
 			array( $this, 'settings' )
 		);
 	}
@@ -43,8 +43,8 @@ class Site extends ModuleCore
 				array(
 					'field'       => 'admin_locale',
 					'type'        => 'select',
-					'title'       => _x( 'Network Language', 'Site Module: Setting Title', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Despite of the site language, always display network admin in this locale', 'Site Module: Setting Description', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Network Language', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Despite of the site language, always display network admin in this locale', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => 'en_US',
 					'values'      => Arraay::sameKey( Locale::available() ),
 				),
@@ -55,8 +55,8 @@ class Site extends ModuleCore
 			array(
 				'field'       => 'page_signup',
 				'type'        => 'page',
-				'title'       => _x( 'Page for Signup', 'Site Module: Setting Title', GNETWORK_TEXTDOMAIN ),
-				'description' => _x( 'Redirects signups into this page, if registration disabled', 'Site Module: Setting Description', GNETWORK_TEXTDOMAIN ),
+				'title'       => _x( 'Page for Signup', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Redirects signups into this page, if registration disabled', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
 				'default'     => '0',
 				'exclude'     => $exclude,
 				'after'       => Settings::fieldAfterIcon( Settings::getNewPostTypeLink( 'page' ) ),

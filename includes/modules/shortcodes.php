@@ -88,26 +88,26 @@ class ShortCodes extends ModuleCore
 	public function tinymce_strings( $strings )
 	{
 		$new = array(
-            'gnetworkref-title' => _x( 'Cite This', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
-            'gnetworkref-attr'  => _x( 'Cite This (Ctrl+Q)', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
-            'gnetworkref-text'  => _x( 'Ref Text', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
-            'gnetworkref-url'   => _x( 'Ref URL', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+            'gnetworkref-title' => _x( 'Cite This', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
+            'gnetworkref-attr'  => _x( 'Cite This (Ctrl+Q)', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
+            'gnetworkref-text'  => _x( 'Ref Text', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
+            'gnetworkref-url'   => _x( 'Ref URL', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
 
-            'gnetworkemail-title'   => _x( 'Email', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
-            'gnetworkemail-attr'    => _x( 'Email (Ctrl+E)', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
-            'gnetworkemail-email'   => _x( 'Full Email', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
-            'gnetworkemail-text'    => _x( 'Display Text', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
-            'gnetworkemail-subject' => _x( 'Email Subject', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
-            'gnetworkemail-hover'   => _x( 'Link Hover', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+            'gnetworkemail-title'   => _x( 'Email', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
+            'gnetworkemail-attr'    => _x( 'Email (Ctrl+E)', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
+            'gnetworkemail-email'   => _x( 'Full Email', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
+            'gnetworkemail-text'    => _x( 'Display Text', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
+            'gnetworkemail-subject' => _x( 'Email Subject', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
+            'gnetworkemail-hover'   => _x( 'Link Hover', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
 
-            'gnetworksearch-title' => _x( 'Search', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
-            'gnetworksearch-attr'  => _x( 'Search (Ctrl+3)', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
-            'gnetworksearch-text'  => _x( 'Display Text', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
-            'gnetworksearch-query' => _x( 'Override Criteria', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+            'gnetworksearch-title' => _x( 'Search', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
+            'gnetworksearch-attr'  => _x( 'Search (Ctrl+3)', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
+            'gnetworksearch-text'  => _x( 'Display Text', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
+            'gnetworksearch-query' => _x( 'Override Criteria', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
 
-            'gnetworkgpeople-title' => _x( 'People', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
-            'gnetworkgpeople-attr'  => _x( 'People', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
-            'gnetworkgpeople-name'  => _x( 'Name', 'ShortCode Module: TINYMCE Strings', GNETWORK_TEXTDOMAIN ),
+            'gnetworkgpeople-title' => _x( 'People', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
+            'gnetworkgpeople-attr'  => _x( 'People', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
+            'gnetworkgpeople-name'  => _x( 'Name', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
 		);
 
 		return array_merge( $strings, $new );
@@ -405,7 +405,7 @@ class ShortCodes extends ModuleCore
 		$args = shortcode_atts( array(
 			'id'      => get_queried_object_id(),
 			'to'      => 'parent',
-			'html'    => _x( 'Back', 'ShortCode Module: back: default html', GNETWORK_TEXTDOMAIN ),
+			'html'    => _x( 'Back', 'Modules: ShortCodes: Defaults', GNETWORK_TEXTDOMAIN ),
 			'context' => NULL,
 			'wrap'    => TRUE,
 		), $atts, $tag );
@@ -435,7 +435,7 @@ class ShortCodes extends ModuleCore
 					} else {
 						$html = HTML::tag( 'a', array(
 							'href'        => home_url( '/' ),
-							'title'       => _x( 'Home', 'ShortCode Module: back: home title attr', GNETWORK_TEXTDOMAIN ),
+							'title'       => _x( 'Home', 'Modules: ShortCodes: Defaults', GNETWORK_TEXTDOMAIN ),
 							'class'       => 'home',
 							'data-toggle' => 'tooltip',
 							'rel'         => 'home',
@@ -449,7 +449,7 @@ class ShortCodes extends ModuleCore
 
 				$html = HTML::tag( 'a', array(
 					'href'        => home_url( '/' ),
-					'title'       => _x( 'Home', 'ShortCode Module: back: home title attr', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Home', 'Modules: ShortCodes: Defaults', GNETWORK_TEXTDOMAIN ),
 					'class'       => 'home',
 					'data-toggle' => 'tooltip',
 					'rel'         => 'home',
@@ -622,7 +622,7 @@ class ShortCodes extends ModuleCore
 		$args = shortcode_atts( array(
             'for'     => FALSE, // override
             'url'     => FALSE, // override
-            'title'   => _x( 'Search this site for “%s”', 'ShortCode Module: search: link title attr', GNETWORK_TEXTDOMAIN ),
+            'title'   => _x( 'Search this site for &ldquo;%s&rdquo;', 'Modules: ShortCodes: Defaults', GNETWORK_TEXTDOMAIN ),
             'context' => NULL,
             'wrap'    => TRUE,
 		), $atts, $tag );
@@ -669,10 +669,10 @@ class ShortCodes extends ModuleCore
 		$html = '<form action="http://groups.google.com/group/'.$args['id'].'/boxsubscribe?hl='.$args['hl'].'" id="google-subscribe">';
 		$html .= '<a href="http://groups.google.com/group/'.$args['id'].'?hl='.$args['hl'].'"><img src="'.GNETWORK_URL.'assets/images/google_groups_'.$args['logo'].'.png" style="'.$args['logo_style'].'" alt="Google Groups"></a>';
 		// <span id="google-members-count">(4889 members)</span>
-		$html .= '<div id="google-subscribe-input">'._x( 'Email:', 'ShortCode Module: Google Groups Subscribe', GNETWORK_TEXTDOMAIN );
+		$html .= '<div id="google-subscribe-input">'._x( 'Email:', 'Modules: ShortCodes: Google Groups Subscribe', GNETWORK_TEXTDOMAIN );
 		$html .= ' <input type="text" name="email" id="google-subscribe-email" data-cip-id="google-subscribe-email" />';
 		$html .= ' <input type="hidden" name="hl" value="'.$args['hl'].'" />';
-		$html .= ' <input type="submit" name="go" value="'._x( 'Subscribe', 'ShortCode Module: Google Groups Subscribe', GNETWORK_TEXTDOMAIN ).'" /></div></form>';
+		$html .= ' <input type="submit" name="go" value="'._x( 'Subscribe', 'Modules: ShortCodes: Google Groups Subscribe', GNETWORK_TEXTDOMAIN ).'" /></div></form>';
 
 		return $html;
 	}
@@ -712,7 +712,7 @@ class ShortCodes extends ModuleCore
 			$args['url'] = $url[$key];
 		}
 
-		$fallback = apply_filters( 'gnetwork_shortcode_pdf_fallback', sprintf( _x( 'It appears you don\'t have Adobe Reader or PDF support in this web browser. <a href="%s">Click here to download the PDF</a>', 'Shortcodes Module: PDF Fallback', GNETWORK_TEXTDOMAIN ), $args['url'] ) );
+		$fallback = apply_filters( 'gnetwork_shortcode_pdf_fallback', sprintf( _x( 'It appears you don\'t have Adobe Reader or PDF support in this web browser. <a href="%s">Click here to download the PDF</a>', 'Shortcodes Module: Defaults', GNETWORK_TEXTDOMAIN ), $args['url'] ) );
 
 		$key = count( $this->pdf_ids ) + 1;
 		$id = 'gNetworkPDF'.$key;
@@ -824,6 +824,7 @@ class ShortCodes extends ModuleCore
 			'instance' => '0',
 			'context'  => NULL,
 			'wrap'     => TRUE,
+			'title' => _x( 'Go to %s second mark and play', 'Shortcodes Module: Defaults', GNETWORK_TEXTDOMAIN ),
 		), $atts, $tag );
 
 		if ( FALSE === $args['context'] )
@@ -832,7 +833,7 @@ class ShortCodes extends ModuleCore
 		if ( is_feed() )
 			return $content;
 
-		$title = sprintf( _x( 'Go to %s second mark and play', 'Shortcodes Module: Audio Go Shortcode', GNETWORK_TEXTDOMAIN ), $args['to'] );
+		$title = sprintf( $args['title'], $args['to'] );
 		$html  = $content ? trim( $content ) : $title;
 		$html  = '<a href="#" class="audio-go-to-time" title="'.esc_attr( $title ).'" data-time="'.$args['to'].'" data-instance="'.$args['instance'].'">'.$html.'</a>';
 
@@ -939,7 +940,7 @@ class ShortCodes extends ModuleCore
 
 		$args = shortcode_atts( array(
 			'url'           => FALSE,
-			'url_title'     => _x( 'See More', 'Shortcodes Module: Ref Shortcode', GNETWORK_TEXTDOMAIN ),
+			'url_title'     => _x( 'See More', 'Shortcodes Module: Defaults', GNETWORK_TEXTDOMAIN ),
 			'url_icon'      => 'def',
 			'class'         => 'ref-anchor',
 			'format_number' => TRUE,
@@ -1002,7 +1003,7 @@ class ShortCodes extends ModuleCore
 			'after_number'  => '.&nbsp;',
 			'format_number' => TRUE,
 			'back'          => '[&#8617;]', // '[^]', // '[&uarr;]',
-			'back_title'    => _x( 'Back to Text', 'Shortcodes Module: RefList Shortcode', GNETWORK_TEXTDOMAIN ),
+			'back_title'    => _x( 'Back to Text', 'Shortcodes Module: Defaults', GNETWORK_TEXTDOMAIN ),
 			'context'       => NULL,
 			'wrap'          => TRUE,
 		), $atts, $tag );
@@ -1072,7 +1073,7 @@ class ShortCodes extends ModuleCore
 		if ( isset( $atts['id'] ) ) {
 			$args = shortcode_atts( array(
 				'id'            => 0,
-				'title'         => _x( 'See the footnote', 'Shortcodes Module: Ref Manual Shortcode', GNETWORK_TEXTDOMAIN ),
+				'title'         => _x( 'See the Footnote', 'Shortcodes Module: Defaults', GNETWORK_TEXTDOMAIN ),
 				'class'         => 'ref-anchor',
 				'format_number' => TRUE,
 				'context'       => NULL,
@@ -1083,7 +1084,7 @@ class ShortCodes extends ModuleCore
 
 		} else { // [ref-m 0]
 			$args['id'] = isset( $atts[0] ) ? $atts[0] : FALSE;
-			$args['title'] = isset( $attrs[1] ) ? $atts[1] : _x( 'See the footnote', 'Shortcodes Module: Ref Manual Shortcode', GNETWORK_TEXTDOMAIN );
+			$args['title'] = isset( $attrs[1] ) ? $atts[1] : _x( 'See the Footnote', 'Shortcodes Module: Defaults', GNETWORK_TEXTDOMAIN );
 			$args['class'] = isset( $attrs[2] ) ? $atts[2] : 'ref-anchor';
 			$args['format_number'] = isset( $attrs[3] ) ? $atts[3] : TRUE;
 		}
@@ -1105,7 +1106,7 @@ class ShortCodes extends ModuleCore
 		if ( isset( $atts['id'] ) ) {
 			$args = shortcode_atts( array(
 				'id'            => 0,
-				'title'         => _x( 'See the footnote', 'Shortcodes Module: RefList Manual Shortcode', GNETWORK_TEXTDOMAIN ),
+				'title'         => _x( 'See the Footnote', 'Shortcodes Module: Defaults', GNETWORK_TEXTDOMAIN ),
 				'class'         => 'ref-anchor',
 				'format_number' => TRUE,
 				'back'          => is_rtl() ? '[&#8618;]' : '[&#8617;]', //'&uarr;',
@@ -1118,7 +1119,7 @@ class ShortCodes extends ModuleCore
 
 		} else { // [reflist-m 0]
 			$args['id']            = $atts[0];
-			$args['title']         = isset( $attrs[1] ) ? $atts[1] : _x( 'See the footnote', 'Shortcodes Module: RefList Manual Shortcode', GNETWORK_TEXTDOMAIN );
+			$args['title']         = isset( $attrs[1] ) ? $atts[1] : _x( 'See the Footnote', 'Shortcodes Module: Defaults', GNETWORK_TEXTDOMAIN );
 			$args['class']         = isset( $attrs[2] ) ? $atts[2] : 'ref-anchor';
 			$args['format_number'] = isset( $attrs[3] ) ? $atts[3] : TRUE;
 			$args['back']          = isset( $attrs[4] ) ? $atts[4] : ( is_rtl() ? '[&#8618;]' : '[&#8617;]' );

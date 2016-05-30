@@ -37,7 +37,7 @@ class Debug extends ModuleCore
 	public function setup_menu( $context )
 	{
 		Network::registerMenu( $this->key,
-			_x( 'Debug Logs', 'Debug Module: Menu Name', GNETWORK_TEXTDOMAIN ),
+			_x( 'Debug Logs', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
 			array( $this, 'settings' )
 		);
 	}
@@ -66,7 +66,7 @@ class Debug extends ModuleCore
 
 	protected function register_settings_buttons()
 	{
-		$this->register_button( 'clear_error_log', _x( 'Clear Log', 'Debug Module', GNETWORK_TEXTDOMAIN ), array( 'default' => 'default' ), 'primary' );
+		$this->register_button( 'clear_error_log', _x( 'Clear Log', 'Modules: Debug', GNETWORK_TEXTDOMAIN ), array( 'default' => 'default' ), 'primary' );
 	}
 
 	private static function displayErrorLogs()
@@ -81,7 +81,7 @@ class Debug extends ModuleCore
 				$length = self::req( 'length', 300 );
 
 				echo '<h3 class="error-box-header">';
-					printf( _x( 'The Last %s Errors, in reverse order', 'Debug Module: Error Box', GNETWORK_TEXTDOMAIN ), number_format_i18n( count( $errors ) ) );
+					printf( _x( 'The Last %s Errors, in reverse order', 'Modules: Debug: Error Box', GNETWORK_TEXTDOMAIN ), number_format_i18n( count( $errors ) ) );
 
 				echo '</h3><div class="error-box"><ol>';
 
@@ -101,15 +101,15 @@ class Debug extends ModuleCore
 					echo '</li>';
 				}
 
-				echo '</ol></div><p class="error-box-footer description">'.sprintf( _x( 'File Size: %s', 'Debug Module: Error Box', GNETWORK_TEXTDOMAIN ), $file_size ).'</p>';
+				echo '</ol></div><p class="error-box-footer description">'.sprintf( _x( 'File Size: %s', 'Modules: Debug: Error Box', GNETWORK_TEXTDOMAIN ), $file_size ).'</p>';
 
 			} else {
-				self::warning( _x( 'No errors currently logged.', 'Debug Module: Error Box', GNETWORK_TEXTDOMAIN ), TRUE );
+				self::warning( _x( 'No errors currently logged.', 'Modules: Debug: Error Box', GNETWORK_TEXTDOMAIN ), TRUE );
 				return FALSE;
 			}
 
 		} else {
-			self::error( _x( 'There was a problem reading the error log file.', 'Debug Module: Error Box', GNETWORK_TEXTDOMAIN ), TRUE );
+			self::error( _x( 'There was a problem reading the error log file.', 'Modules: Debug: Error Box', GNETWORK_TEXTDOMAIN ), TRUE );
 			return FALSE;
 		}
 
@@ -125,11 +125,11 @@ class Debug extends ModuleCore
 			$required_mysql_version;
 
 		$versions = array(
-			'wp_version'             => _x( 'WordPress', 'Debug Module: Version Strings', GNETWORK_TEXTDOMAIN ),
-			'wp_db_version'          => _x( 'WordPress DB revision', 'Debug Module: Version Strings', GNETWORK_TEXTDOMAIN ),
-			'tinymce_version'        => _x( 'TinyMCE', 'Debug Module: Version Strings', GNETWORK_TEXTDOMAIN ),
-			'required_php_version'   => _x( 'Required PHP', 'Debug Module: Version Strings', GNETWORK_TEXTDOMAIN ),
-			'required_mysql_version' => _x( 'Required MySQL', 'Debug Module: Version Strings', GNETWORK_TEXTDOMAIN ),
+			'wp_version'             => _x( 'WordPress', 'Modules: Debug: Version Strings', GNETWORK_TEXTDOMAIN ),
+			'wp_db_version'          => _x( 'WordPress DB revision', 'Modules: Debug: Version Strings', GNETWORK_TEXTDOMAIN ),
+			'tinymce_version'        => _x( 'TinyMCE', 'Modules: Debug: Version Strings', GNETWORK_TEXTDOMAIN ),
+			'required_php_version'   => _x( 'Required PHP', 'Modules: Debug: Version Strings', GNETWORK_TEXTDOMAIN ),
+			'required_mysql_version' => _x( 'Required MySQL', 'Modules: Debug: Version Strings', GNETWORK_TEXTDOMAIN ),
 		);
 
 		echo '<table class="base-table-code"><tbody>';
@@ -145,7 +145,7 @@ class Debug extends ModuleCore
 			HTML::tableCode( $info[1] );
 			HTML::tableSide( $info[0] );
 		} else {
-			echo '<p class="description">'._x( 'No Instance of gPlugin found.', 'Debug Module', GNETWORK_TEXTDOMAIN ).'</p>';
+			echo '<p class="description">'._x( 'No Instance of gPlugin found.', 'Modules: Debug', GNETWORK_TEXTDOMAIN ).'</p>';
 		}
 	}
 
@@ -198,35 +198,35 @@ class Debug extends ModuleCore
 		return array(
 			array(
 				'name'  => 'server',
-				'title' => _x( 'Server', 'Debug Module: Server Vars Group', GNETWORK_TEXTDOMAIN ),
+				'title' => _x( 'Server', 'Modules: Debug: Server Vars Group', GNETWORK_TEXTDOMAIN ),
 				'keys'  => array(
-					'SERVER_SOFTWARE'  => _x( 'Software', 'Debug Module: Server Vars', GNETWORK_TEXTDOMAIN ),
-					'SERVER_NAME'      => _x( 'Name', 'Debug Module: Server Vars', GNETWORK_TEXTDOMAIN ),
-					'SERVER_ADMIN'     => _x( 'Admin', 'Debug Module: Server Vars', GNETWORK_TEXTDOMAIN ),
-					'SERVER_PROTOCOL'  => _x( 'Protocol', 'Debug Module: Server Vars', GNETWORK_TEXTDOMAIN ),
-					'SERVER_PORT'      => _x( 'Port', 'Debug Module: Server Vars', GNETWORK_TEXTDOMAIN ),
-					'SERVER_SIGNATURE' => _x( 'Signature', 'Debug Module: Server Vars', GNETWORK_TEXTDOMAIN ),
-					'SERVER_ADDR'      => _x( 'Address', 'Debug Module: Server Vars', GNETWORK_TEXTDOMAIN ),
+					'SERVER_SOFTWARE'  => _x( 'Software', 'Modules: Debug: Server Vars', GNETWORK_TEXTDOMAIN ),
+					'SERVER_NAME'      => _x( 'Name', 'Modules: Debug: Server Vars', GNETWORK_TEXTDOMAIN ),
+					'SERVER_ADMIN'     => _x( 'Admin', 'Modules: Debug: Server Vars', GNETWORK_TEXTDOMAIN ),
+					'SERVER_PROTOCOL'  => _x( 'Protocol', 'Modules: Debug: Server Vars', GNETWORK_TEXTDOMAIN ),
+					'SERVER_PORT'      => _x( 'Port', 'Modules: Debug: Server Vars', GNETWORK_TEXTDOMAIN ),
+					'SERVER_SIGNATURE' => _x( 'Signature', 'Modules: Debug: Server Vars', GNETWORK_TEXTDOMAIN ),
+					'SERVER_ADDR'      => _x( 'Address', 'Modules: Debug: Server Vars', GNETWORK_TEXTDOMAIN ),
 				),
 			),
 			array(
 				'name'  => 'request',
-				'title' => _x( 'Request', 'Debug Module: Server Vars Group', GNETWORK_TEXTDOMAIN ),
+				'title' => _x( 'Request', 'Modules: Debug: Server Vars Group', GNETWORK_TEXTDOMAIN ),
 				'keys'  => array(
-					'REQUEST_TIME'       => _x( 'Time', 'Debug Module: Server Vars', GNETWORK_TEXTDOMAIN ),
-					'REQUEST_TIME_FLOAT' => _x( 'Time (Float)', 'Debug Module: Server Vars', GNETWORK_TEXTDOMAIN ),
-					'REQUEST_METHOD'     => _x( 'Method', 'Debug Module: Server Vars', GNETWORK_TEXTDOMAIN ),
-					'REQUEST_URI'        => _x( 'URI', 'Debug Module: Server Vars', GNETWORK_TEXTDOMAIN ),
+					'REQUEST_TIME'       => _x( 'Time', 'Modules: Debug: Server Vars', GNETWORK_TEXTDOMAIN ),
+					'REQUEST_TIME_FLOAT' => _x( 'Time (Float)', 'Modules: Debug: Server Vars', GNETWORK_TEXTDOMAIN ),
+					'REQUEST_METHOD'     => _x( 'Method', 'Modules: Debug: Server Vars', GNETWORK_TEXTDOMAIN ),
+					'REQUEST_URI'        => _x( 'URI', 'Modules: Debug: Server Vars', GNETWORK_TEXTDOMAIN ),
 				),
 			),
 			array(
 				'name'  => 'script',
-				'title' => _x( 'Script', 'Debug Module: Server Vars Group', GNETWORK_TEXTDOMAIN ),
+				'title' => _x( 'Script', 'Modules: Debug: Server Vars Group', GNETWORK_TEXTDOMAIN ),
 				'keys'  => array(
-					'SCRIPT_NAME'     => _x( 'Name', 'Debug Module: Server Vars', GNETWORK_TEXTDOMAIN ),
-					'SCRIPT_FILENAME' => _x( 'Filename', 'Debug Module: Server Vars', GNETWORK_TEXTDOMAIN ),
-					'SCRIPT_URL'      => _x( 'URL', 'Debug Module: Server Vars', GNETWORK_TEXTDOMAIN ),
-					'SCRIPT_URI'      => _x( 'URI', 'Debug Module: Server Vars', GNETWORK_TEXTDOMAIN ),
+					'SCRIPT_NAME'     => _x( 'Name', 'Modules: Debug: Server Vars', GNETWORK_TEXTDOMAIN ),
+					'SCRIPT_FILENAME' => _x( 'Filename', 'Modules: Debug: Server Vars', GNETWORK_TEXTDOMAIN ),
+					'SCRIPT_URL'      => _x( 'URL', 'Modules: Debug: Server Vars', GNETWORK_TEXTDOMAIN ),
+					'SCRIPT_URI'      => _x( 'URI', 'Modules: Debug: Server Vars', GNETWORK_TEXTDOMAIN ),
 				),
 			),
 		);
@@ -258,7 +258,7 @@ class Debug extends ModuleCore
 		if ( self::isFuncDisabled( 'phpinfo' ) ) {
 
 			echo '<div class="gnetwork-phpinfo-disabled description">';
-				_ex( '<code>phpinfo()</code> has been disabled.', 'Debug Module', GNETWORK_TEXTDOMAIN );
+				_ex( '<code>phpinfo()</code> has been disabled.', 'Modules: Debug', GNETWORK_TEXTDOMAIN );
 			echo '</div>';
 
 		} else {
@@ -278,9 +278,9 @@ class Debug extends ModuleCore
 
 	public static function phpversion()
 	{
-		echo '<p class="description">'.sprintf( _x( 'Current PHP version: <code>%s</code>', 'Debug Module', GNETWORK_TEXTDOMAIN ), phpversion() ).'</p>';
+		echo '<p class="description">'.sprintf( _x( 'Current PHP version: <code>%s</code>', 'Modules: Debug', GNETWORK_TEXTDOMAIN ), phpversion() ).'</p>';
 
-		HTML::listCode( self::getPHPExtensions(), NULL, '<span class="description">'._x( 'Loaded Extensions', 'Debug Module', GNETWORK_TEXTDOMAIN ).':</span>' );
+		HTML::listCode( self::getPHPExtensions(), NULL, '<span class="description">'._x( 'Loaded Extensions', 'Modules: Debug', GNETWORK_TEXTDOMAIN ).':</span>' );
 	}
 
 	public static function getPHPExtensions()

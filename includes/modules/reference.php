@@ -7,6 +7,7 @@ class Reference extends ModuleCore
 
 	protected $key     = 'reference';
 	protected $network = FALSE;
+	protected $hidden  = TRUE; // FIXME
 
 	public static function parseFootnotes( $footnotes )
 	{

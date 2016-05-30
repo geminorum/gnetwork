@@ -20,7 +20,7 @@ class SMS extends ModuleCore
 	public function setup_menu( $context )
 	{
 		$this->register_menu(
-			_x( 'SMS', 'SMS Module: Menu Name', GNETWORK_TEXTDOMAIN ),
+			_x( 'SMS', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
 			array( $this, 'settings' )
 		);
 	}
@@ -42,22 +42,22 @@ class SMS extends ModuleCore
 				array(
 					'field'       => 'load_providers',
 					'type'        => 'enabled',
-					'title'       => _x( 'Load Providers', 'SMS Module', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Load available sms providers', 'SMS Module', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Load Providers', 'Modules: SMS: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Load available sms providers', 'Modules: SMS: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '0',
 				),
 				array(
 					'field'       => 'debug_providers',
 					'type'        => 'enabled',
-					'title'       => _x( 'Debug Providers', 'SMS Module', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Debug available sms providers', 'SMS Module', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Debug Providers', 'Modules: SMS: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Debug available sms providers', 'Modules: SMS: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '0',
 				),
 				array(
 					'field'       => 'manage_providers',
 					'type'        => 'roles',
-					'title'       => _x( 'Access Level', 'SMS Module', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Selected and above can view the providers information', 'SMS Module', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Access Level', 'Modules: SMS: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Selected and above can view the providers information', 'Modules: SMS: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => 'edit_others_posts',
 				),
 			),
@@ -67,10 +67,10 @@ class SMS extends ModuleCore
 			$settings['_general'][] = array(
 				'field'   => 'default_provider',
 				'type'    => 'select',
-				'title'   => _x( 'Default Provider', 'SMS Module', GNETWORK_TEXTDOMAIN ),
+				'title'   => _x( 'Default Provider', 'Modules: SMS: Settings', GNETWORK_TEXTDOMAIN ),
 				'default' => 'none',
 				'values'  => gNetwork()->providers( 'sms', array(
-					'none' => _x( '&mdash; Select &mdash;', 'SMS Module', GNETWORK_TEXTDOMAIN ),
+					'none' => _x( '&mdash; Select &mdash;', 'Settings: Option', GNETWORK_TEXTDOMAIN ),
 				) ),
 			);
 
@@ -124,7 +124,7 @@ class SMS extends ModuleCore
 		if ( WordPress::cuc( $this->options['manage_providers'] ) )
 			wp_add_dashboard_widget(
 				'gnetwork_sms_widget_summary',
-				_x( 'SMS Providers', 'SMS Module: Dashboard Widget Title', GNETWORK_TEXTDOMAIN ),
+				_x( 'SMS Providers', 'Modules: SMS: Widget Title', GNETWORK_TEXTDOMAIN ),
 				array( $this, 'admin_widget_summary' )
 			);
 	}
@@ -139,7 +139,7 @@ class SMS extends ModuleCore
 
 				if ( self::isError( $status ) ) {
 
-					self::error( vsprintf( _x( '%s: %s', 'Dashboard Module', GNETWORK_TEXTDOMAIN ), array(
+					self::error( vsprintf( _x( '%s: %s', 'Modules: SMS', GNETWORK_TEXTDOMAIN ), array(
 						$provider->providerName(),
 						$status->get_error_message(),
 					) ), TRUE );

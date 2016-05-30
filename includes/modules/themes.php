@@ -40,7 +40,7 @@ class Themes extends ModuleCore
 	public function setup_menu( $context )
 	{
 		Admin::registerMenu( $this->key,
-			_x( 'Themes', 'Themes Module: Menu Name', GNETWORK_TEXTDOMAIN ),
+			_x( 'Themes', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
 			array( $this, 'settings' )
 		);
 	}
@@ -61,13 +61,13 @@ class Themes extends ModuleCore
 			'_general' => array(
 				array(
 					'field'       => 'jquery_bottom',
-					'title'       => _x( 'jQuery on Bottom', 'Themes Module: Setting Title', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Prints jQuery in footer on front-end', 'Themes Module: Setting Description', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'jQuery on Bottom', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Prints jQuery in footer on front-end', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
 				),
 				array(
 					'field'       => 'disable_themes',
-					'title'       => _x( 'Theme Enhancements', 'Themes Module: Setting Title', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Extra styles and more for suported themes', 'Themes Module: Setting Description', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Theme Enhancements', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Extra styles and more for suported themes', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
 					'values'      => array(
 						__( 'Enabled' , GNETWORK_TEXTDOMAIN ),
 						__( 'Disabled', GNETWORK_TEXTDOMAIN ),
@@ -75,15 +75,15 @@ class Themes extends ModuleCore
 				),
 				array(
 					'field'       => 'content_actions',
-					'title'       => _x( 'Content Actions', 'Themes Module: Setting Title', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Extra hooks before and after post content', 'Themes Module: Setting Description', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Content Actions', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Extra hooks before and after post content', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '1',
 				),
 				array(
 					'field'       => 'body_class',
 					'type'        => 'text',
-					'title'       => _x( 'Body Class', 'Themes Module: Setting Title', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'This will be added as html body class to all pages on front-end', 'Themes Module: Setting Description', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Body Class', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'This will be added as html body class to all pages on front-end', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
 					'field_class' => array( 'regular-text', 'code-text' ),
 					'default'     => GNETWORK_BODY_CLASS,
 				),
@@ -330,11 +330,11 @@ class Themes extends ModuleCore
 	public static function continueReading()
 	{
 		return ' '.sprintf(
-			_x( '<a %1$s href="%1$s" title="Continue reading &ldquo;%2$s&rdquo; &hellip;" class="%3$s" >%4$s</a>', 'Themes Module: Continue Reading Helper', GNETWORK_TEXTDOMAIN ),
+			_x( '<a %1$s href="%1$s" title="Continue reading &ldquo;%2$s&rdquo; &hellip;" class="%3$s" >%4$s</a>', 'Modules: Themes', GNETWORK_TEXTDOMAIN ),
 			get_permalink(),
 			get_the_title(),
 			'excerpt-link',
-			_x( 'Read more&nbsp;<span class="excerpt-link-hellip">&hellip;</span>', 'Themes Module: Continue Reading Helper', GNETWORK_TEXTDOMAIN )
+			_x( 'Read more&nbsp;<span class="excerpt-link-hellip">&hellip;</span>', 'Modules: Themes', GNETWORK_TEXTDOMAIN )
 		);
 	}
 

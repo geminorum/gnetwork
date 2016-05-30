@@ -62,8 +62,8 @@ class Admin extends ModuleCore
 		if ( WordPress::cuc( 'manage_options' ) ) {
 
 			$hook = add_menu_page(
-				_x( 'gNetwork Extras', 'Admin Module: Page Menu HTML Title', GNETWORK_TEXTDOMAIN ),
-				_x( 'Extras', 'Admin Module: Page Menu Title', GNETWORK_TEXTDOMAIN ),
+				_x( 'gNetwork Extras', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN ),
+				_x( 'Extras', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN ),
 				'manage_options',
 				$this->base,
 				array( $this, 'admin_settings_page' ),
@@ -73,7 +73,7 @@ class Admin extends ModuleCore
 
 			foreach ( $this->menus as $sub => $args ) {
 				add_submenu_page( $this->base,
-					sprintf( _x( 'gNetwork Extras: %s', 'Admin Module', GNETWORK_TEXTDOMAIN ), $args['title'] ),
+					sprintf( _x( 'gNetwork Extras: %s', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN ), $args['title'] ),
 					$args['title'],
 					$args['cap'],
 					$this->base.'&sub='.$sub,
@@ -84,8 +84,8 @@ class Admin extends ModuleCore
 		} else {
 
 			$hook = add_submenu_page( 'index.php',
-				_x( 'gNetwork Extras', 'Admin Module: Page Menu HTML Title', GNETWORK_TEXTDOMAIN ),
-				_x( 'Extras', 'Admin Module: Page Menu Title', GNETWORK_TEXTDOMAIN ),
+				_x( 'gNetwork Extras', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN ),
+				_x( 'Extras', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN ),
 				'read',
 				$this->base,
 				array( $this, 'admin_settings_page' )
@@ -95,8 +95,8 @@ class Admin extends ModuleCore
 		add_action( 'load-'.$hook, array( $this, 'admin_settings_load' ) );
 
 		add_submenu_page( 'plugins.php',
-			_x( 'Active', 'Admin Module', GNETWORK_TEXTDOMAIN ),
-			_x( 'Active', 'Admin Module', GNETWORK_TEXTDOMAIN ),
+			_x( 'Active', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN ),
+			_x( 'Active', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN ),
 			'activate_plugins',
 			'plugins.php?plugin_status=active'
 		);
@@ -104,7 +104,7 @@ class Admin extends ModuleCore
 
 	public function admin_menu_late()
 	{
-		$GLOBALS['submenu'][$this->base][0][0] = _x( 'Overview', 'Admin Module', GNETWORK_TEXTDOMAIN );
+		$GLOBALS['submenu'][$this->base][0][0] = _x( 'Overview', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN );
 	}
 
 	public static function registerMenu( $sub, $title = NULL, $callback = FALSE, $capability = 'manage_options' )
@@ -140,14 +140,14 @@ class Admin extends ModuleCore
 		$subs = array();
 
 		// if ( WordPress::cuc( 'manage_options' ) )
-			$subs['overview'] = _x( 'Overview', 'Admin Module', GNETWORK_TEXTDOMAIN );
+			$subs['overview'] = _x( 'Overview', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN );
 
 		foreach ( $this->menus as $sub => $args )
 			if ( WordPress::cuc( $args['cap'] ) )
 				$subs[$sub] = $args['title'];
 
 		if ( is_super_admin() )
-			$subs['console'] = _x( 'Console', 'Admin Module', GNETWORK_TEXTDOMAIN );
+			$subs['console'] = _x( 'Console', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN );
 
 		return $subs;
 	}
@@ -214,8 +214,8 @@ class Admin extends ModuleCore
 
 		if ( ! current_user_can( 'update_core' ) )
 			$content = '<span class="gnetwork-admin-wrap footer-version" title="'
-				.sprintf( _x( 'Version %s', 'Admin Module', GNETWORK_TEXTDOMAIN ), apply_filters( 'string_format_i18n', $GLOBALS['wp_version'] ) )
-				.'">'._x( 'CODE IS POETRY', 'Admin Module', GNETWORK_TEXTDOMAIN ).'</span>';
+				.sprintf( _x( 'Version %s', 'Modules: Admin', GNETWORK_TEXTDOMAIN ), apply_filters( 'string_format_i18n', $GLOBALS['wp_version'] ) )
+				.'">'._x( 'CODE IS POETRY', 'Modules: Admin', GNETWORK_TEXTDOMAIN ).'</span>';
 
 		return $content;
 	}
@@ -233,9 +233,9 @@ class Admin extends ModuleCore
 	public function manage_posts_columns_id( $defaults )
 	{
 		if ( 1 === GNETWORK_ADMIN_COLUMN_ID )
-			return array_merge( array( 'gn_post_id' => _x( 'ID', 'Admin Module: Column Blog ID', GNETWORK_TEXTDOMAIN ) ), $defaults );
+			return array_merge( array( 'gn_post_id' => _x( 'ID', 'Modules: Admin: Column Blog ID', GNETWORK_TEXTDOMAIN ) ), $defaults );
 
-		$defaults['gn_post_id'] = _x( 'ID', 'Admin Module: Column Blog ID', GNETWORK_TEXTDOMAIN );
+		$defaults['gn_post_id'] = _x( 'ID', 'Modules: Admin: Column Blog ID', GNETWORK_TEXTDOMAIN );
 		return $defaults;
 	}
 
