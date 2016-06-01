@@ -5,6 +5,30 @@ defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 class Text extends Base
 {
 
+	// @SEE: `mb_convert_case()`
+	public static function strToLower( $string, $encoding = 'UTF-8' )
+	{
+		return function_exists( 'mb_strtolower' ) ? mb_strtolower( $string, $encoding ) : strtolower( $string );
+	}
+
+	public static function strLen( $string, $encoding = 'UTF-8' )
+	{
+		return function_exists( 'mb_strlen' ) ? mb_strlen( $string, $encoding ) : strlen( $string );
+	}
+
+	public static function subStr( $string, $start = 0, $length = 1, $encoding = 'UTF-8' )
+	{
+		return function_exists( 'mb_substr' ) ? mb_substr( $string, $start, $length, $encoding ) : substr( $string, $start, $length );
+	}
+
+	public static function internalEncoding( $encoding = 'UTF-8' )
+	{
+		if ( function_exists( 'mb_internal_encoding' ) )
+			return mb_internal_encoding( $encoding );
+
+		return FALSE;
+	}
+
 	public static function getDomain( $string )
 	{
 		// FIXME: strip all the path

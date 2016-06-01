@@ -96,7 +96,7 @@ class Debug extends ModuleCore
 						return '<b><span title="'.human_time_diff( strtotime( $matches[1] ) ).'">['.$matches[1].']</span></b>';
 					}, trim ( $error ), 1 );
 
-					echo self::strLen( $line ) > $length ? self::subStr( $line, 0, $length ).' [&hellip;]' : $line;
+					echo Text::strLen( $line ) > $length ? Text::subStr( $line, 0, $length ).' [&hellip;]' : $line;
 
 					echo '</li>';
 				}
