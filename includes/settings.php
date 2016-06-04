@@ -15,6 +15,11 @@ class Settings extends Base
 		return isset( $_REQUEST['sub'] ) ? trim( $_REQUEST['sub'] ) : $default;
 	}
 
+	public static function subURL( $sub = 'general', $network = TRUE )
+	{
+		return add_query_arg( 'sub', $sub, ( $network ? self::networkURL() : self::adminURL() ) );
+	}
+
 	public static function adminURL( $full = TRUE )
 	{
 		$base = self::base();
