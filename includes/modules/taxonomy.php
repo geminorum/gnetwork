@@ -19,7 +19,7 @@ class Taxonomy extends ModuleCore
 	protected function setup_ajax( $request )
 	{
 		if ( ( $taxnow = empty( $request['taxonomy'] ) ? FALSE : $request['taxonomy'] ) ) {
-			add_action( 'edit_term', array( $this, 'edit_term' ), 10, 3 );
+			add_action( 'edited_term', array( $this, 'edited_term' ), 10, 3 );
 			add_filter( 'manage_edit-'.$taxnow.'_columns', array( $this, 'manage_edit_columns' ), 5 );
 			add_filter( 'manage_'.$taxnow.'_custom_column', array( $this, 'manage_custom_column' ), 10, 3 );
 		}
@@ -137,13 +137,15 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 </script><?php
 	}
 
-	public function edit_term( $term_id, $tt_id, $taxonomy )
+	public function edited_term( $term_id, $tt_id, $taxonomy )
 	{
-		remove_action( 'edit_term', array( $this, 'edit_term' ), 10, 3 );
+		remove_action( 'edited_term', array( $this, 'edited_term' ), 10, 3 );
 
 		if ( wp_verify_nonce( @$_REQUEST['_inline_edit'], 'taxinlineeditnonce' ) )
-			if ( isset( $_POST['gnetwork-description'] ) )
-				wp_update_term( $term_id, $taxonomy, array( 'description' => $_POST['gnetwork-description'] ) );
+			if ( isset( $_REQUEST['gnetwork-description'] ) )
+				wp_update_term( $term_id, $taxonomy, array(
+					'description' => $_POST['gnetwork-description'],
+				) );
 	}
 
 	public function edit_form_fields( $tag, $taxonomy )
