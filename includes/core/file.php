@@ -6,6 +6,7 @@ class File extends Base
 {
 
 	// http://stackoverflow.com/a/4994188
+	// core has `sanitize_file_name()` but with certain mime types
 	public static function escFilename( $path )
 	{
 		// everything to lower and no spaces begin or end

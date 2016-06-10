@@ -424,6 +424,7 @@ class ModuleCore extends Base
 					) ) );
 
 			// for pre internal custom options
+			// FIXME: use $this
 			} else if ( is_callable( $fields ) ) {
 				call_user_func( $fields );
 			}
@@ -445,9 +446,9 @@ class ModuleCore extends Base
 		$args = array_merge( array(
 			'page'     => $this->options_key(),
 			'section'  => $this->options_key().'_general',
+			'field_cb' => array( $this, 'do_settings_field' ),
 			'field'    => FALSE,
 			'title'    => '',
-			'field_cb' => array( $this, 'do_settings_field' ),
 		), $atts );
 
 		if ( ! $args['field'] )

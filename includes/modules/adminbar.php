@@ -421,7 +421,7 @@ class AdminBar extends ModuleCore
 		// custom menu by filter, it's better 'cause there are no default wp menu.
 		$custom = apply_filters( 'gnetwork_adminbar_custom', FALSE );
 		if ( $custom ) {
-			call_user_func_array( $custom, array( & $wp_admin_bar ) );
+			call_user_func_array( $custom, array( &$wp_admin_bar ) );
 			return;
 		}
 

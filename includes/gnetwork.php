@@ -31,7 +31,7 @@ class gNetwork
 		foreach ( $modules as $module_slug => $module_class ) {
 
 			$class = __NAMESPACE__.'\\'.$module_class;
-			$slug  = str_ireplace( array( 'modules/', 'misc/' ), '', $module_slug );
+			$slug  = str_ireplace( array( 'core/', 'modules/', 'misc/' ), '', $module_slug );
 
 			if ( $module_class && class_exists( $class ) ) {
 
