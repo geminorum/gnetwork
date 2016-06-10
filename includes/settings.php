@@ -42,6 +42,12 @@ class Settings extends Base
 		return $relative;
 	}
 
+	// FIXME: check for network/admin
+	public static function getScreenHook( $network = TRUE )
+	{
+		return 'toplevel_page_'.self::base();
+	}
+
 	public static function headerTitle()
 	{
 		echo '<h1>';
