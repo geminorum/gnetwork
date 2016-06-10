@@ -447,7 +447,7 @@ class ModuleCore extends Base
 			'section'  => $this->options_key().'_general',
 			'field'    => FALSE,
 			'title'    => '',
-			'callback' => array( $this, 'do_settings_field' ),
+			'field_cb' => array( $this, 'do_settings_field' ),
 		), $atts );
 
 		if ( ! $args['field'] )
@@ -467,7 +467,7 @@ class ModuleCore extends Base
 		add_settings_field(
 			$args['field'],
 			$args['title'],
-			$args['callback'],
+			$args['field_cb'],
 			$args['page'],
 			$args['section'],
 			$args
@@ -504,6 +504,7 @@ class ModuleCore extends Base
 			'none_title'   => NULL, // select option none title
 			'none_value'   => NULL, // select option none value
 			'filter'       => FALSE, // will use via sanitize
+			'callback'     => FALSE, // callable for `callback` type
 			'dir'          => FALSE,
 			'default'      => '',
 			'description'  => isset( $atts['desc'] ) ? $atts['desc'] : '',
@@ -956,6 +957,19 @@ class ModuleCore extends Base
 				) );
 
 			break;
+			case 'callback' :
+
+				if ( is_callable( $args['callback'] ) ) {
+
+					call_user_func_array( $args['callback'], array( &$args,
+						compact( 'html', 'value', 'name', 'id', 'exclude' ) ) );
+
+				} else if ( WordPress::isDev() ) {
+
+					_e( 'Error: Setting Is Not Callable', GNETWORK_TEXTDOMAIN );
+				}
+
+			break;
 			case 'custom' :
 
 				if ( ! is_array( $args['values'] ) )
@@ -971,7 +985,8 @@ class ModuleCore extends Base
 			break;
 			default :
 
-				_e( 'Error: setting type undefined.', GNETWORK_TEXTDOMAIN );
+				if ( WordPress::isDev() )
+					_e( 'Error: Setting Type Undefined', GNETWORK_TEXTDOMAIN );
 		}
 
 		if ( $args['after'] )
