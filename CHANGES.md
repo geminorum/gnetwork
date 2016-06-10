@@ -1,3 +1,12 @@
+### 3.3.0
+* all: new folder structure
+* all: refactoring localization strings
+* modulecore: callback type for setting fields
+* site: redirect to page if registration disabled
+* utilities: deprecate github readme method
+* taxonomy: quick edit glitch fixed
+* widgets: selective disable of sidebar/dashboard widgets, inspired by [WP Widget Disable](https://wordpress.org/plugins/wp-widget-disable/)
+
 ### 3.2.0
 * media: skip cleaning custom attachments
 * shortcodes: sanitizing phone numbers, [see](http://www.billerickson.net/code/phone-number-url/)
