@@ -15,3 +15,8 @@
 body.rtl {
 	font-family: $font-family-base !important;
 }
+
+ol {
+	list-style-type: -moz-persian;
+	list-style-type: persian;
+}

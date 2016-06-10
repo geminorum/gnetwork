@@ -7,6 +7,12 @@
 
 @import url(http://fonts.googleapis.com/earlyaccess/droidarabicnaskh.css);
 
+$font-family-base: "Droid Arabic Naskh", Tahoma, "Iranian Sans", serif;
+$font-family-head: Arial, "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
 html .mceContentBody {
 	direction: rtl;
 	unicode-bidi: embed;
@@ -15,20 +21,20 @@ html .mceContentBody {
 }
 
 * {
-	font-family: "Droid Arabic Naskh", tahoma, verdana;
+	font-family: $font-family-base;
 	color: inherit;
 	font-style: inherit;
 	font-weight: inherit;
-	font-size:14.4px;
-	line-height:25px;
+	font-size: 14.4px;
+	line-height: 25px;
 }
 
 h1, h2, h3, h4, h5, h6 {
-	font-family: arial, sans-serif;
+	font-family: $font-family-head;
 }
 
 ul, ol {
-	margin: 0 2.5em 1.625em 0;
+	margin: 0 3em 1.5em 0;
 }
 blockquote {
 	font-style: bold;
@@ -41,4 +47,10 @@ strong {
 }
 cite, em, i {
 	font-style: italic;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+ol {
+	list-style-type: -moz-persian;
+	list-style-type: persian;
 }

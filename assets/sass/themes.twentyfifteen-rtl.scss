@@ -87,6 +87,11 @@ body.rtl {
 			margin-top: 0.5em;
 		}
 	}
+
+	ol {
+		list-style-type: -moz-persian;
+		list-style-type: persian;
+	}
 }
 
 .gnetwork-wrap-shortcode {
