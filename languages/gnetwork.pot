@@ -54,31 +54,35 @@ msgctxt "Module Core"
 msgid "Reset Settings"
 msgstr ""
 
-#: includes/modulecore.php:464
+#: includes/modulecore.php:465
 msgctxt "Module Core"
 msgid "Debug"
 msgstr ""
 
-#: includes/modulecore.php:552
+#: includes/modulecore.php:554
 msgctxt "Module Core"
 msgid "Getting from constant"
 msgstr ""
 
-#: includes/modulecore.php:578, includes/modules/blog.php:141, includes/modules/blog.php:172, includes/modules/comments.php:107, includes/modules/notify.php:47, includes/modules/notify.php:57, includes/modules/themes.php:73
+#: includes/modulecore.php:580, includes/modules/blog.php:141, includes/modules/blog.php:172, includes/modules/comments.php:107, includes/modules/notify.php:47, includes/modules/notify.php:57, includes/modules/themes.php:73
 msgid "Disabled"
 msgstr ""
 
-#: includes/modulecore.php:583, includes/modules/blog.php:142, includes/modules/blog.php:171, includes/modules/comments.php:106, includes/modules/notify.php:46, includes/modules/notify.php:56, includes/modules/themes.php:72
+#: includes/modulecore.php:585, includes/modules/blog.php:142, includes/modules/blog.php:171, includes/modules/comments.php:106, includes/modules/notify.php:46, includes/modules/notify.php:56, includes/modules/themes.php:72
 msgid "Enabled"
 msgstr ""
 
-#: includes/modulecore.php:848, includes/modules/login.php:87, includes/modules/restricted.php:203, includes/modules/sms.php:73
+#: includes/modulecore.php:850, includes/modules/login.php:87, includes/modules/restricted.php:203, includes/modules/sms.php:73
 msgctxt "Settings: Option"
 msgid "&mdash; Select &mdash;"
 msgstr ""
 
-#: includes/modulecore.php:974
-msgid "Error: setting type undefined."
+#: includes/modulecore.php:970
+msgid "Error: Setting Is Not Callable"
+msgstr ""
+
+#: includes/modulecore.php:990
+msgid "Error: Setting Type Undefined"
 msgstr ""
 
 #: includes/modules/admin.php:65, includes/modules/admin.php:87
@@ -166,72 +170,77 @@ msgctxt "Modules: AdminBar: Nodes"
 msgid "Quickly change current blog language"
 msgstr ""
 
-#: includes/modules/adminbar.php:222
+#: includes/modules/adminbar.php:211
+msgctxt "Modules: AdminBar: Nodes"
+msgid "API Calls"
+msgstr ""
+
+#: includes/modules/adminbar.php:241
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Reset Sidebars"
 msgstr ""
 
-#: includes/modules/adminbar.php:225
+#: includes/modules/adminbar.php:244
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Delete all previous sidebar widgets, be careful!"
 msgstr ""
 
-#: includes/modules/adminbar.php:235, includes/modules/adminbar.php:283
+#: includes/modules/adminbar.php:254, includes/modules/adminbar.php:302
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Users"
 msgstr ""
 
-#: includes/modules/adminbar.php:246
+#: includes/modules/adminbar.php:265
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Click to see Debug Logs"
 msgstr ""
 
-#: includes/modules/adminbar.php:256
+#: includes/modules/adminbar.php:275
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Queries | Timer Stop | Memory Usage"
 msgstr ""
 
-#: includes/modules/adminbar.php:267
+#: includes/modules/adminbar.php:286
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Updates"
 msgstr ""
 
-#: includes/modules/adminbar.php:276
+#: includes/modules/adminbar.php:295
 msgctxt "Modules: AdminBar: Nodes"
 msgid "All Posts"
 msgstr ""
 
-#: includes/modules/adminbar.php:290
+#: includes/modules/adminbar.php:309
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Settings"
 msgstr ""
 
-#: includes/modules/adminbar.php:297
+#: includes/modules/adminbar.php:316
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Edit Site"
 msgstr ""
 
-#: includes/modules/adminbar.php:304
+#: includes/modules/adminbar.php:323
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Edit Site Themes"
 msgstr ""
 
-#: includes/modules/adminbar.php:355
+#: includes/modules/adminbar.php:374
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Log in"
 msgstr ""
 
-#: includes/modules/adminbar.php:363
+#: includes/modules/adminbar.php:382
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Register"
 msgstr ""
 
-#: includes/modules/adminbar.php:377
+#: includes/modules/adminbar.php:396
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Search"
 msgstr ""
 
-#: includes/modules/adminbar.php:411
+#: includes/modules/adminbar.php:430
 msgctxt "Modules: AdminBar: Nodes"
 msgid "My Sites"
 msgstr ""
@@ -985,157 +994,157 @@ msgctxt "Modules: Dashboard: Widget Title"
 msgid "External Feed"
 msgstr ""
 
-#: includes/modules/debug.php:40
+#: includes/modules/debug.php:42
 msgctxt "Modules: Menu Name"
 msgid "Debug Logs"
 msgstr ""
 
-#: includes/modules/debug.php:69
+#: includes/modules/debug.php:71
 msgctxt "Modules: Debug"
 msgid "Clear Log"
 msgstr ""
 
-#: includes/modules/debug.php:84
+#: includes/modules/debug.php:86
 msgctxt "Modules: Debug: Error Box"
 msgid "The Last %s Errors, in reverse order"
 msgstr ""
 
-#: includes/modules/debug.php:104
+#: includes/modules/debug.php:106
 msgctxt "Modules: Debug: Error Box"
 msgid "File Size: %s"
 msgstr ""
 
-#: includes/modules/debug.php:107
+#: includes/modules/debug.php:109
 msgctxt "Modules: Debug: Error Box"
 msgid "No errors currently logged."
 msgstr ""
 
-#: includes/modules/debug.php:112
+#: includes/modules/debug.php:114
 msgctxt "Modules: Debug: Error Box"
 msgid "There was a problem reading the error log file."
 msgstr ""
 
-#: includes/modules/debug.php:128
+#: includes/modules/debug.php:138
 msgctxt "Modules: Debug: Version Strings"
 msgid "WordPress"
 msgstr ""
 
-#: includes/modules/debug.php:129
+#: includes/modules/debug.php:139
 msgctxt "Modules: Debug: Version Strings"
 msgid "WordPress DB revision"
 msgstr ""
 
-#: includes/modules/debug.php:130
+#: includes/modules/debug.php:140
 msgctxt "Modules: Debug: Version Strings"
 msgid "TinyMCE"
 msgstr ""
 
-#: includes/modules/debug.php:131
+#: includes/modules/debug.php:141
 msgctxt "Modules: Debug: Version Strings"
 msgid "Required PHP"
 msgstr ""
 
-#: includes/modules/debug.php:132
+#: includes/modules/debug.php:142
 msgctxt "Modules: Debug: Version Strings"
 msgid "Required MySQL"
 msgstr ""
 
-#: includes/modules/debug.php:148
+#: includes/modules/debug.php:158
 msgctxt "Modules: Debug"
 msgid "No Instance of gPlugin found."
 msgstr ""
 
-#: includes/modules/debug.php:201
+#: includes/modules/debug.php:211
 msgctxt "Modules: Debug: Server Vars Group"
 msgid "Server"
 msgstr ""
 
-#: includes/modules/debug.php:203
+#: includes/modules/debug.php:213
 msgctxt "Modules: Debug: Server Vars"
 msgid "Software"
 msgstr ""
 
-#: includes/modules/debug.php:204, includes/modules/debug.php:226
+#: includes/modules/debug.php:214, includes/modules/debug.php:236
 msgctxt "Modules: Debug: Server Vars"
 msgid "Name"
 msgstr ""
 
-#: includes/modules/debug.php:205
+#: includes/modules/debug.php:215
 msgctxt "Modules: Debug: Server Vars"
 msgid "Admin"
 msgstr ""
 
-#: includes/modules/debug.php:206
+#: includes/modules/debug.php:216
 msgctxt "Modules: Debug: Server Vars"
 msgid "Protocol"
 msgstr ""
 
-#: includes/modules/debug.php:207
+#: includes/modules/debug.php:217
 msgctxt "Modules: Debug: Server Vars"
 msgid "Port"
 msgstr ""
 
-#: includes/modules/debug.php:208
+#: includes/modules/debug.php:218
 msgctxt "Modules: Debug: Server Vars"
 msgid "Signature"
 msgstr ""
 
-#: includes/modules/debug.php:209
+#: includes/modules/debug.php:219
 msgctxt "Modules: Debug: Server Vars"
 msgid "Address"
 msgstr ""
 
-#: includes/modules/debug.php:214
+#: includes/modules/debug.php:224
 msgctxt "Modules: Debug: Server Vars Group"
 msgid "Request"
 msgstr ""
 
-#: includes/modules/debug.php:216
+#: includes/modules/debug.php:226
 msgctxt "Modules: Debug: Server Vars"
 msgid "Time"
 msgstr ""
 
-#: includes/modules/debug.php:217
+#: includes/modules/debug.php:227
 msgctxt "Modules: Debug: Server Vars"
 msgid "Time (Float)"
 msgstr ""
 
-#: includes/modules/debug.php:218
+#: includes/modules/debug.php:228
 msgctxt "Modules: Debug: Server Vars"
 msgid "Method"
 msgstr ""
 
-#: includes/modules/debug.php:219, includes/modules/debug.php:229
+#: includes/modules/debug.php:229, includes/modules/debug.php:239
 msgctxt "Modules: Debug: Server Vars"
 msgid "URI"
 msgstr ""
 
-#: includes/modules/debug.php:224
+#: includes/modules/debug.php:234
 msgctxt "Modules: Debug: Server Vars Group"
 msgid "Script"
 msgstr ""
 
-#: includes/modules/debug.php:227
+#: includes/modules/debug.php:237
 msgctxt "Modules: Debug: Server Vars"
 msgid "Filename"
 msgstr ""
 
-#: includes/modules/debug.php:228
+#: includes/modules/debug.php:238
 msgctxt "Modules: Debug: Server Vars"
 msgid "URL"
 msgstr ""
 
-#: includes/modules/debug.php:261
+#: includes/modules/debug.php:271
 msgctxt "Modules: Debug"
 msgid "<code>phpinfo()</code> has been disabled."
 msgstr ""
 
-#: includes/modules/debug.php:281
+#: includes/modules/debug.php:291
 msgctxt "Modules: Debug"
 msgid "Current PHP version: <code>%s</code>"
 msgstr ""
 
-#: includes/modules/debug.php:283
+#: includes/modules/debug.php:293
 msgctxt "Modules: Debug"
 msgid "Loaded Extensions"
 msgstr ""
@@ -2475,67 +2484,67 @@ msgctxt "Modules: SMS"
 msgid "%s: %s"
 msgstr ""
 
-#: includes/modules/taxonomy.php:93, includes/modules/taxonomy.php:124, includes/modules/taxonomy.php:157, includes/modules/taxonomy.php:173
+#: includes/modules/taxonomy.php:93, includes/modules/taxonomy.php:124, includes/modules/taxonomy.php:159, includes/modules/taxonomy.php:175
 msgctxt "Modules: Taxonomy"
 msgid "Description"
 msgstr ""
 
-#: includes/modules/taxonomy.php:159, includes/modules/taxonomy.php:175
+#: includes/modules/taxonomy.php:161, includes/modules/taxonomy.php:177
 msgctxt "Modules: Taxonomy"
 msgid "The description is not prominent by default; however, some themes may show it."
 msgstr ""
 
-#: includes/modules/taxonomy.php:194
+#: includes/modules/taxonomy.php:196
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Merge"
 msgstr ""
 
-#: includes/modules/taxonomy.php:195
+#: includes/modules/taxonomy.php:197
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Change Taxonomy"
 msgstr ""
 
-#: includes/modules/taxonomy.php:196
+#: includes/modules/taxonomy.php:198
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Empty Posts"
 msgstr ""
 
-#: includes/modules/taxonomy.php:197
+#: includes/modules/taxonomy.php:199
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Empty Description"
 msgstr ""
 
-#: includes/modules/taxonomy.php:198
+#: includes/modules/taxonomy.php:200
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Rewrite Slug"
 msgstr ""
 
-#: includes/modules/taxonomy.php:199
+#: includes/modules/taxonomy.php:201
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Format i18n"
 msgstr ""
 
-#: includes/modules/taxonomy.php:204
+#: includes/modules/taxonomy.php:206
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Set Parent"
 msgstr ""
 
-#: includes/modules/taxonomy.php:292
+#: includes/modules/taxonomy.php:294
 msgctxt "Settings: Message"
 msgid "Terms updated."
 msgstr ""
 
-#: includes/modules/taxonomy.php:297
+#: includes/modules/taxonomy.php:299
 msgctxt "Settings: Message"
 msgid "Terms not updated."
 msgstr ""
 
-#: includes/modules/taxonomy.php:504
+#: includes/modules/taxonomy.php:506
 msgctxt "Modules: Taxonomy"
 msgid "into: %s"
 msgstr ""
 
-#: includes/modules/taxonomy.php:532
+#: includes/modules/taxonomy.php:534
 msgctxt "Settings: Option"
 msgid "None"
 msgstr ""
@@ -2815,6 +2824,31 @@ msgctxt "Modules: Users: Settings"
 msgid "Change"
 msgstr ""
 
+#: includes/modules/widgets.php:30
+msgctxt "Modules: Menu Name"
+msgid "Widgets"
+msgstr ""
+
+#: includes/modules/widgets.php:50
+msgctxt "Modules: Widgets: Settings"
+msgid "Sidebar Widgets"
+msgstr ""
+
+#: includes/modules/widgets.php:51
+msgctxt "Modules: Widgets: Settings"
+msgid "Choose the Sidebar Widgets You Would Like to Disable"
+msgstr ""
+
+#: includes/modules/widgets.php:57
+msgctxt "Modules: Widgets: Settings"
+msgid "Dashboard Widgets"
+msgstr ""
+
+#: includes/modules/widgets.php:58
+msgctxt "Modules: Widgets: Settings"
+msgid "Choose the Dashboard Widgets You Would Like to Disable"
+msgstr ""
+
 #: includes/providercore.php:114
 msgctxt "Provider Core"
 msgid "Provider"
@@ -2910,127 +2944,127 @@ msgctxt "Provider\" Kavenegar: Settings Section Desc"
 msgid "Kavenegar is a Persian SMS Provider"
 msgstr ""
 
-#: includes/settings.php:44
+#: includes/settings.php:55
 msgctxt "Settings: Header Title"
 msgid "gNetwork Extras"
 msgstr ""
 
-#: includes/settings.php:48
+#: includes/settings.php:59
 msgctxt "Settings: Header Title: Link Title Attr"
 msgid "Plugin Homepage"
 msgstr ""
 
-#: includes/settings.php:64
+#: includes/settings.php:75
 msgctxt "Settings: Message"
 msgid "Settings reset."
 msgstr ""
 
-#: includes/settings.php:65
+#: includes/settings.php:76
 msgctxt "Settings: Message"
 msgid "Tables optimized."
 msgstr ""
 
-#: includes/settings.php:66
+#: includes/settings.php:77
 msgctxt "Settings: Message"
 msgid "Settings updated."
 msgstr ""
 
-#: includes/settings.php:67
+#: includes/settings.php:78
 msgctxt "Settings: Message"
 msgid "File/Folder created."
 msgstr ""
 
-#: includes/settings.php:68
+#: includes/settings.php:79
 msgctxt "Settings: Message"
 msgid "%s deleted!"
 msgstr ""
 
-#: includes/settings.php:69
+#: includes/settings.php:80
 msgctxt "Settings: Message"
 msgid "%s cleaned!"
 msgstr ""
 
-#: includes/settings.php:70
+#: includes/settings.php:81
 msgctxt "Settings: Message"
 msgid "Data purged."
 msgstr ""
 
-#: includes/settings.php:71
+#: includes/settings.php:82
 msgctxt "Settings: Message"
 msgid "%s Items(s) Changed"
 msgstr ""
 
-#: includes/settings.php:72
+#: includes/settings.php:83
 msgctxt "Settings: Message"
 msgid "No Item Changed"
 msgstr ""
 
-#: includes/settings.php:73
+#: includes/settings.php:84
 msgctxt "Settings: Message"
 msgid "Error while settings save."
 msgstr ""
 
-#: includes/settings.php:74
+#: includes/settings.php:85
 msgctxt "Settings: Message"
 msgid "Something's wrong!"
 msgstr ""
 
-#: includes/settings.php:82
+#: includes/settings.php:93
 msgctxt "Settings"
 msgid "%s Counted!"
 msgstr ""
 
-#: includes/settings.php:93
+#: includes/settings.php:104
 msgctxt "Settings: Message"
 msgid "Cheatin&#8217; uh?"
 msgstr ""
 
-#: includes/settings.php:101
+#: includes/settings.php:112
 msgctxt "Settings: Message"
 msgid "huh? %s"
 msgstr ""
 
-#: includes/settings.php:103
+#: includes/settings.php:114
 msgctxt "Settings: Message"
 msgid "huh?"
 msgstr ""
 
-#: includes/settings.php:122
+#: includes/settings.php:133
 msgctxt "Settings: Confirm"
 msgid "Are you sure? This operation can not be undone."
 msgstr ""
 
-#: includes/settings.php:133
+#: includes/settings.php:144
 msgctxt "Settings"
 msgid "Add New Post Type"
 msgstr ""
 
-#: includes/settings.php:135
+#: includes/settings.php:146
 msgctxt "Settings: Add New Post Type"
 msgid "Add New"
 msgstr ""
 
-#: includes/settings.php:142
+#: includes/settings.php:153
 msgctxt "Settings"
 msgid "See WordPress Codex for %s"
 msgstr ""
 
-#: includes/settings.php:144
+#: includes/settings.php:155
 msgctxt "Settings"
 msgid "See Codex"
 msgstr ""
 
-#: includes/settings.php:152
+#: includes/settings.php:163
 msgctxt "Settings"
 msgid "Full URL to the current login logo image"
 msgstr ""
 
-#: includes/settings.php:154
+#: includes/settings.php:165
 msgctxt "Settings"
 msgid "Login Logo"
 msgstr ""
 
-#: includes/settings.php:163
+#: includes/settings.php:174
 msgctxt "Settings"
 msgid "See More Information"
 msgstr ""

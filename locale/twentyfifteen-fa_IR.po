@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Twenty Fifteen 1.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/twentyfifteen\n"
-"POT-Creation-Date: 2016-05-01 03:29+0430\n"
-"PO-Revision-Date: 2016-05-30 01:36+0430\n"
+"POT-Creation-Date: 2016-06-06 04:34+0430\n"
+"PO-Revision-Date: 2016-06-06 04:39+0430\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: geminorum <contact@geminorum.ir>\n"
 "Language: fa_IR\n"
@@ -308,7 +308,7 @@ msgstr "نوشتهٔ قبلی:"
 
 #. Theme Name of the plugin/theme
 msgid "Twenty Fifteen"
-msgstr "تونتی فیف‌تین"
+msgstr "دو هزار و پانزده"
 
 #. Theme URI of the plugin/theme
 msgid "https://wordpress.org/themes/twentyfifteen/"
@@ -326,4 +326,4 @@ msgstr ""
 
 #. Author of the plugin/theme
 msgid "the WordPress team"
-msgstr ""
+msgstr "تیم وردپرس"
