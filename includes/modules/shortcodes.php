@@ -191,6 +191,8 @@ class ShortCodes extends ModuleCore
 	// EDITED: 4/5/2016, 5:03:30 PM
 	public function shortcode_in_term( $atts, $content = NULL, $tag = '' )
 	{
+		global $post;
+
 		$args = shortcode_atts( array(
 			'id'            => FALSE,
 			'slug'          => FALSE,
@@ -225,10 +227,11 @@ class ShortCodes extends ModuleCore
 		// 	return $content;
 
 		$error = $term = FALSE;
-		$html = $tax_query = '';
+		$html  = $tax_query = '';
 
-		$key = md5( serialize( $args ) );
+		$key   = md5( serialize( $args ) );
 		$cache = wp_cache_get( $key, 'gnetwork-term' );
+
 		if ( FALSE !== $cache )
 			return $cache;
 
@@ -1084,9 +1087,9 @@ class ShortCodes extends ModuleCore
 
 		} else { // [ref-m 0]
 			$args['id'] = isset( $atts[0] ) ? $atts[0] : FALSE;
-			$args['title'] = isset( $attrs[1] ) ? $atts[1] : _x( 'See the Footnote', 'Shortcodes Module: Defaults', GNETWORK_TEXTDOMAIN );
-			$args['class'] = isset( $attrs[2] ) ? $atts[2] : 'ref-anchor';
-			$args['format_number'] = isset( $attrs[3] ) ? $atts[3] : TRUE;
+			$args['title'] = isset( $atts[1] ) ? $atts[1] : _x( 'See the Footnote', 'Shortcodes Module: Defaults', GNETWORK_TEXTDOMAIN );
+			$args['class'] = isset( $atts[2] ) ? $atts[2] : 'ref-anchor';
+			$args['format_number'] = isset( $atts[3] ) ? $atts[3] : TRUE;
 		}
 
 		if ( FALSE === $args['id'] )
@@ -1119,11 +1122,11 @@ class ShortCodes extends ModuleCore
 
 		} else { // [reflist-m 0]
 			$args['id']            = $atts[0];
-			$args['title']         = isset( $attrs[1] ) ? $atts[1] : _x( 'See the Footnote', 'Shortcodes Module: Defaults', GNETWORK_TEXTDOMAIN );
-			$args['class']         = isset( $attrs[2] ) ? $atts[2] : 'ref-anchor';
-			$args['format_number'] = isset( $attrs[3] ) ? $atts[3] : TRUE;
-			$args['back']          = isset( $attrs[4] ) ? $atts[4] : ( is_rtl() ? '[&#8618;]' : '[&#8617;]' );
-			$args['after_number']  = isset( $attrs[4] ) ? $atts[4] : '. ';
+			$args['title']         = isset( $atts[1] ) ? $atts[1] : _x( 'See the Footnote', 'Shortcodes Module: Defaults', GNETWORK_TEXTDOMAIN );
+			$args['class']         = isset( $atts[2] ) ? $atts[2] : 'ref-anchor';
+			$args['format_number'] = isset( $atts[3] ) ? $atts[3] : TRUE;
+			$args['back']          = isset( $atts[4] ) ? $atts[4] : ( is_rtl() ? '[&#8618;]' : '[&#8617;]' );
+			$args['after_number']  = isset( $atts[4] ) ? $atts[4] : '. ';
 			$args['wrap']          = TRUE;
 		}
 
