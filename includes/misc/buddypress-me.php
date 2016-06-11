@@ -44,7 +44,7 @@ class BP_Me_Component extends \BP_Component
 			bp_core_redirect( bp_get_root_domain() );
 
 		if ( ! bp_loggedin_user_id() )
-			bp_core_redirect( wp_login_url( Utilities::currentURL() ) );
+			bp_core_redirect( wp_login_url( WordPress::currentURL() ) );
 
 		$actions = apply_filters( 'gnetwork_bp_me_actions', array(
 			'profile'  => array( $this, 'me_action_profile' ),
