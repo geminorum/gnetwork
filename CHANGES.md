@@ -1,3 +1,9 @@
+### 3.3.1
+* restricted: fixed fatal: omitted class name changes
+* bp me: fixed fatal: omitted class name changes
+* shortcodes: fixed notice for global post object in `[in-term]`
+* typography: new `[pad]`
+
 ### 3.3.0
 * all: new folder structure
 * all: refactoring localization strings
