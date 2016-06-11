@@ -2359,52 +2359,52 @@ msgctxt "Modules: TinyMCE"
 msgid "Name"
 msgstr ""
 
-#: includes/modules/shortcodes.php:408
+#: includes/modules/shortcodes.php:411
 msgctxt "Modules: ShortCodes: Defaults"
 msgid "Back"
 msgstr ""
 
-#: includes/modules/shortcodes.php:438, includes/modules/shortcodes.php:452
+#: includes/modules/shortcodes.php:441, includes/modules/shortcodes.php:455
 msgctxt "Modules: ShortCodes: Defaults"
 msgid "Home"
 msgstr ""
 
-#: includes/modules/shortcodes.php:625
+#: includes/modules/shortcodes.php:628
 msgctxt "Modules: ShortCodes: Defaults"
 msgid "Search this site for &ldquo;%s&rdquo;"
 msgstr ""
 
-#: includes/modules/shortcodes.php:672
+#: includes/modules/shortcodes.php:675
 msgctxt "Modules: ShortCodes: Google Groups Subscribe"
 msgid "Email:"
 msgstr ""
 
-#: includes/modules/shortcodes.php:675
+#: includes/modules/shortcodes.php:678
 msgctxt "Modules: ShortCodes: Google Groups Subscribe"
 msgid "Subscribe"
 msgstr ""
 
-#: includes/modules/shortcodes.php:715
+#: includes/modules/shortcodes.php:718
 msgctxt "Shortcodes Module: Defaults"
 msgid "It appears you don't have Adobe Reader or PDF support in this web browser. <a href=\"%s\">Click here to download the PDF</a>"
 msgstr ""
 
-#: includes/modules/shortcodes.php:827
+#: includes/modules/shortcodes.php:830
 msgctxt "Shortcodes Module: Defaults"
 msgid "Go to %s second mark and play"
 msgstr ""
 
-#: includes/modules/shortcodes.php:943
+#: includes/modules/shortcodes.php:946
 msgctxt "Shortcodes Module: Defaults"
 msgid "See More"
 msgstr ""
 
-#: includes/modules/shortcodes.php:1006
+#: includes/modules/shortcodes.php:1009
 msgctxt "Shortcodes Module: Defaults"
 msgid "Back to Text"
 msgstr ""
 
-#: includes/modules/shortcodes.php:1076, includes/modules/shortcodes.php:1087, includes/modules/shortcodes.php:1109, includes/modules/shortcodes.php:1122
+#: includes/modules/shortcodes.php:1079, includes/modules/shortcodes.php:1090, includes/modules/shortcodes.php:1112, includes/modules/shortcodes.php:1125
 msgctxt "Shortcodes Module: Defaults"
 msgid "See the Footnote"
 msgstr ""
@@ -2739,37 +2739,37 @@ msgctxt "Modules: Typography: Settings"
 msgid "Properly-Cased Title of Posts"
 msgstr ""
 
-#: includes/modules/typography.php:76
+#: includes/modules/typography.php:77
 msgctxt "Modules: TinyMCE"
 msgid "Asterisks"
 msgstr ""
 
-#: includes/modules/typography.php:78, includes/modules/typography.php:79
+#: includes/modules/typography.php:79, includes/modules/typography.php:80
 msgctxt "Modules: TinyMCE"
 msgid "Quote This"
 msgstr ""
 
-#: includes/modules/typography.php:80
+#: includes/modules/typography.php:81
 msgctxt "Modules: TinyMCE"
 msgid "Quote Text"
 msgstr ""
 
-#: includes/modules/typography.php:81
+#: includes/modules/typography.php:82
 msgctxt "Modules: TinyMCE"
 msgid "Cite Text"
 msgstr ""
 
-#: includes/modules/typography.php:82
+#: includes/modules/typography.php:83
 msgctxt "Modules: TinyMCE"
 msgid "Cite URL"
 msgstr ""
 
-#: includes/modules/typography.php:83
+#: includes/modules/typography.php:84
 msgctxt "Modules: TinyMCE"
 msgid "Quote Align"
 msgstr ""
 
-#: includes/modules/typography.php:84
+#: includes/modules/typography.php:85
 msgctxt "Modules: TinyMCE"
 msgid "Intro Quote"
 msgstr ""

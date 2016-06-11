@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gNetwork v3.3.0\n"
 "Report-Msgid-Bugs-To: http://geminorum.ir/wordpress/gnetwork/issues\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2016-06-10 10:29+0430\n"
+"PO-Revision-Date: 2016-06-12 02:29+0430\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: geminorum <contact@geminorum.ir>\n"
 "Language: fa_IR\n"
@@ -2448,55 +2448,55 @@ msgctxt "Modules: TinyMCE"
 msgid "Name"
 msgstr "نام"
 
-#: includes/modules/shortcodes.php:408
+#: includes/modules/shortcodes.php:411
 msgctxt "Modules: ShortCodes: Defaults"
 msgid "Back"
 msgstr "بازگشت"
 
-#: includes/modules/shortcodes.php:438, includes/modules/shortcodes.php:452
+#: includes/modules/shortcodes.php:441, includes/modules/shortcodes.php:455
 msgctxt "Modules: ShortCodes: Defaults"
 msgid "Home"
 msgstr "خانه"
 
-#: includes/modules/shortcodes.php:625
+#: includes/modules/shortcodes.php:628
 msgctxt "Modules: ShortCodes: Defaults"
 msgid "Search this site for &ldquo;%s&rdquo;"
 msgstr "جست‌وجوی این سایت برای &rdquo;%s&ldquo;"
 
-#: includes/modules/shortcodes.php:672
+#: includes/modules/shortcodes.php:675
 msgctxt "Modules: ShortCodes: Google Groups Subscribe"
 msgid "Email:"
 msgstr "ایمیل:"
 
-#: includes/modules/shortcodes.php:675
+#: includes/modules/shortcodes.php:678
 msgctxt "Modules: ShortCodes: Google Groups Subscribe"
 msgid "Subscribe"
 msgstr "نام‌نویسی"
 
-#: includes/modules/shortcodes.php:715
+#: includes/modules/shortcodes.php:718
 msgctxt "Shortcodes Module: Defaults"
 msgid ""
 "It appears you don't have Adobe Reader or PDF support in this web browser. "
 "<a href=\"%s\">Click here to download the PDF</a>"
 msgstr ""
 
-#: includes/modules/shortcodes.php:827
+#: includes/modules/shortcodes.php:830
 msgctxt "Shortcodes Module: Defaults"
 msgid "Go to %s second mark and play"
 msgstr ""
 
-#: includes/modules/shortcodes.php:943
+#: includes/modules/shortcodes.php:946
 msgctxt "Shortcodes Module: Defaults"
 msgid "See More"
 msgstr ""
 
-#: includes/modules/shortcodes.php:1006
+#: includes/modules/shortcodes.php:1009
 msgctxt "Shortcodes Module: Defaults"
 msgid "Back to Text"
 msgstr ""
 
-#: includes/modules/shortcodes.php:1076, includes/modules/shortcodes.php:1087,
-#: includes/modules/shortcodes.php:1109, includes/modules/shortcodes.php:1122
+#: includes/modules/shortcodes.php:1079, includes/modules/shortcodes.php:1090,
+#: includes/modules/shortcodes.php:1112, includes/modules/shortcodes.php:1125
 msgctxt "Shortcodes Module: Defaults"
 msgid "See the Footnote"
 msgstr ""
@@ -2842,37 +2842,37 @@ msgctxt "Modules: Typography: Settings"
 msgid "Properly-Cased Title of Posts"
 msgstr ""
 
-#: includes/modules/typography.php:76
+#: includes/modules/typography.php:77
 msgctxt "Modules: TinyMCE"
 msgid "Asterisks"
 msgstr "ستاره‌ها"
 
-#: includes/modules/typography.php:78, includes/modules/typography.php:79
+#: includes/modules/typography.php:79, includes/modules/typography.php:80
 msgctxt "Modules: TinyMCE"
 msgid "Quote This"
 msgstr "نقل کنید"
 
-#: includes/modules/typography.php:80
+#: includes/modules/typography.php:81
 msgctxt "Modules: TinyMCE"
 msgid "Quote Text"
 msgstr "متن نقل"
 
-#: includes/modules/typography.php:81
+#: includes/modules/typography.php:82
 msgctxt "Modules: TinyMCE"
 msgid "Cite Text"
 msgstr "عنوان منبع"
 
-#: includes/modules/typography.php:82
+#: includes/modules/typography.php:83
 msgctxt "Modules: TinyMCE"
 msgid "Cite URL"
 msgstr "نشانی منبع"
 
-#: includes/modules/typography.php:83
+#: includes/modules/typography.php:84
 msgctxt "Modules: TinyMCE"
 msgid "Quote Align"
 msgstr "چینش متن"
 
-#: includes/modules/typography.php:84
+#: includes/modules/typography.php:85
 msgctxt "Modules: TinyMCE"
 msgid "Intro Quote"
 msgstr "مقدمه"
