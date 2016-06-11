@@ -64,6 +64,7 @@ class Typography extends ModuleCore
 		$this->shortcodes( array(
 			'three-asterisks' => 'shortcode_three_asterisks',
 			'ltr'             => 'shortcode_ltr',
+			'pad'             => 'shortcode_pad',
 			'wiki'            => 'shortcode_wiki',
 			'wiki-en'         => 'shortcode_wiki',
 			'wiki-fa'         => 'shortcode_wiki',
@@ -138,6 +139,38 @@ class Typography extends ModuleCore
 			return $content;
 
 		return '<span class="ltr" dir="ltr">'.do_shortcode( $content, TRUE ).'</span>';
+	}
+
+	public function shortcode_pad( $atts, $content = NULL, $tag = '' )
+	{
+		if ( isset( $atts['space'] ) ) {
+
+			$args = shortcode_atts( array(
+				'space'   => 3,
+				'class'   => 'typography-pad',
+				'context' => NULL,
+			), $atts, $tag );
+
+			if ( FALSE === $args['context'] )
+				return NULL;
+
+		} else {
+
+			$args['space'] = isset( $atts[0] ) ? $atts[0] : 3;
+			$args['class'] = isset( $atts[1] ) ? $atts[1] : 'typography-pad';
+		}
+
+		if ( ! $args['space'] )
+			return NULL;
+
+		$html = '';
+
+		for ( $i = 1; $i <= $args['space']; $i++ )
+			$html .= '<span></span>';
+
+		return HTML::tag( 'span', array(
+			'class' => $args['class'],
+		), $html );
 	}
 
 	public function the_title( $title )
