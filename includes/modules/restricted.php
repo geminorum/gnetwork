@@ -319,7 +319,7 @@ class Restricted extends ModuleCore
 		return sprintf( $notice,
 			Utilities::getUserRoles( $role ),
 			( $page ? get_page_link( $page )
-				: ( $register ? Utilities::registerURL( 'site' ) : '#' ) ) );
+				: ( $register ? WordPress::registerURL( 'site' ) : '#' ) ) );
 	}
 }
 
