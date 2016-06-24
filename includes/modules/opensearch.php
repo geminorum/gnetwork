@@ -351,6 +351,8 @@ class OpenSearch extends ModuleCore
 
 		// header( 'Content-Type: text/xml; charset=utf-8' );
 		header( 'Content-Type: application/opensearchdescription+xml; charset=utf-8' );
+		header( 'Expires: '.gmdate( 'D, d M Y H:i:s', time() + MONTH_IN_SECONDS ).' GMT' );
+		header( 'Cache-Control: max-age='.MONTH_IN_SECONDS.', must-revalidate' );
 
 		echo '<?xml version="1.0" encoding="UTF-8"?>'."\n";
 		echo HTML::tag( 'OpenSearchDescription', array(
