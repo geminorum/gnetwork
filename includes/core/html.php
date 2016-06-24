@@ -123,7 +123,8 @@ class HTML extends Base
 	// ANCESTOR: tag_escape()
 	public static function sanitizeTag( $tag )
 	{
-		return strtolower( preg_replace('/[^a-zA-Z0-9_:]/', '', $tag ) );
+		// return strtolower( preg_replace( '/[^a-zA-Z0-9_:]/', '', $tag ) );
+		return preg_replace( '/[^a-zA-Z0-9_:]/', '', $tag );
 	}
 
 	public static function sanitizePhoneNumber( $number )
@@ -131,15 +132,18 @@ class HTML extends Base
 		return self::escapeURL( 'tel:'.str_replace( array( '(', ')', '-', '.', '|', ' ' ), '', $number ) );
 	}
 
+	// DEPRECATED
 	public static function dropdown( $list, $name, $prop = FALSE, $selected = 0, $none = FALSE, $none_val = 0, $obj = FALSE )
 	{
 		$html = '<select name="'.$name.'" id="'.$name.'">';
+
 		if ( $none )
 			$html .= '<option value="'.$none_val.'" '.selected( $selected, $none_val, FALSE ).'>'.esc_html( $none ).'</option>';
-		foreach ( $list as $key => $item ) {
+
+		foreach ( $list as $key => $item )
 			$html .= '<option value="'.$key.'" '.selected( $selected, $key, FALSE ).'>'
 				.esc_html( ( $prop ? ( $obj ? $item->{$prop} : $item[$prop] ) : $item ) ).'</option>';
-		}
+
 		return $html.'</select>';
 	}
 
