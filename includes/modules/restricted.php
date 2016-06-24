@@ -557,8 +557,9 @@ class RestrictedBouncer extends Base
 	{
 		// using BuddyPress and on the register page
 		if ( function_exists( 'bp_is_current_component' )
-			&& bp_is_current_component( 'register' ) )
-				return;
+			&& ( bp_is_current_component( 'register' )
+				|| bp_is_current_component( 'activate' ) ) )
+					return;
 
 		if ( 'closed' == $this->options['restricted_feed']
 			&& is_feed() ) {
