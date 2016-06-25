@@ -66,15 +66,12 @@ class Arraay extends Base
 		return $parsed;
 	}
 
-	public static function strposArray( $haystack, $needle )
+	public static function strposArray( $needles, $haystack )
 	{
-		if ( ! is_array( $haystack ) )
-			$haystack = array( $haystack );
+		foreach ( (array) $needles as $key => $needle )
+			if ( FALSE !== strpos( $haystack, $needle ) )
+				return $key;
 
-		foreach ( $haystack as $key => $what )
-			if ( FALSE !== ( $pos = strpos( $what, $needle ) ) )
-				return $key; // $pos;
-
-		return FALSE; // must always check for FALSE
+		return FALSE;
 	}
 }
