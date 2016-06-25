@@ -32,6 +32,7 @@ class Themes extends ModuleCore
 			add_action( 'wp_head', array( $this, 'wp_head' ), 12 );
 			add_filter( 'the_generator', '__return_null', 98 );
 			add_filter( 'body_class', array( $this, 'body_class' ), 5, 2 );
+			add_filter( 'post_class', array( $this, 'post_class' ), 5, 3 );
 
 			add_action( 'bp_dtheme_credits', array( $this, 'bp_dtheme_credits' ) );
 		}
@@ -344,6 +345,13 @@ class Themes extends ModuleCore
 			$classes[] = trim( $this->options['body_class'] );
 
 		$classes[] = 'locale-'.sanitize_html_class( strtolower( str_replace( '_', '-', get_locale() ) ) );
+
+		return $classes;
+	}
+
+	public function post_class( $classes, $class, $post_id )
+	{
+		$classes[] = 'entry';
 
 		return $classes;
 	}
