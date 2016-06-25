@@ -312,7 +312,7 @@ class Themes extends ModuleCore
 			$before = ob_get_clean();
 
 			if ( trim( $before ) )
-				$before = '<div class="gnetwork-wrap-action content-before">'.$before.'</div>';
+				$before = '<div class="gnetwork-wrap-actions content-before">'.$before.'</div>';
 		}
 
 		if ( has_action( $this->hook( 'content_after' ) ) ) {
@@ -321,7 +321,7 @@ class Themes extends ModuleCore
 			$after = ob_get_clean();
 
 			if ( trim( $after ) )
-				$after = '<div class="gnetwork-wrap-action content-after">'.$after.'</div>';
+				$after = '<div class="gnetwork-wrap-actions content-after">'.$after.'</div>';
 		}
 
 		return $before.$content.$after;
