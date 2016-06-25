@@ -181,6 +181,19 @@ class Mail extends ModuleCore
 				Get your API key from <a href="https://mandrillapp.com/settings" target="_blank">here</a>.<br />
 				For more information see <a href="http://help.mandrill.com/entries/21738447" target="_blank">here</a>.</p>',
 			),
+			array(
+				'id'      => 'gnetwork-mail-help-pepipost',
+				'title'   => _x( 'Pepipost SMTP', 'Modules: Mail: Help', GNETWORK_TEXTDOMAIN ),
+				'content' => '<p><table><tbody>
+				<tr><td style="width:150px">SMTP Host</td><td>smtp.pepipost.com</td></tr>
+				<tr><td>SMTP Port</td><td>25 / 587 / 2525</td></tr>
+				<tr><td>Encryption</td><td>TLS</td></tr>
+				<tr><td>Username</td><td><em>your.pepipost.username</em></td></tr>
+				<tr><td>Password</td><td><em>your smtp password</em></td></tr>
+				</tbody></table><br />
+				Get your API key from <a href="https://app1.pepipost.com/index.php/settings/index" target="_blank">here</a>.<br />
+				For more information see <a href="http://support.pepipost.com/knowledge_base/topics/smtp-docs" target="_blank">here</a>.</p>',
+			),
 		);
 	}
 
