@@ -205,25 +205,11 @@ class Code extends ModuleCore
 		if ( ! $content )
 			return NULL;
 
-		$texarea = str_ireplace( array(
-			'&',
-			'<',
-			'>',
-			'"',
-			"'",
-		), array(
-			'&amp;',
-			'&lt;',
-			'&gt;',
-			'&quot;',
-			'&#39;',
-		), $content );
-
 		$html = HTML::tag( 'textarea', array(
 			'class'    => $args['class'],
 			'readonly' => $args['readonly'],
 			'onclick'  => $args['js'] ? 'this.focus();this.select()' : FALSE,
-		), $texarea );
+		), HTML::escapeTextarea( $content ) );
 
 		return self::shortcodeWrap( $html, 'textarea', $args );
 	}

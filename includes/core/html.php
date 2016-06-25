@@ -106,6 +106,11 @@ class HTML extends Base
 		return esc_url( $url );
 	}
 
+	public static function escapeTextarea( $html )
+	{
+		return htmlspecialchars( $html, ENT_QUOTES, 'UTF-8' );
+	}
+
 	// like WP core but without filter and fallback
 	// ANCESTOR: sanitize_html_class()
 	public static function sanitizeClass( $class )

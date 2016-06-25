@@ -537,7 +537,7 @@ class Mail extends ModuleCore
 			'info' => array(
 				'title'    => _x( 'Whom, When', 'Modules: Mail: Email Logs Table Column', GNETWORK_TEXTDOMAIN ),
 				'class'    => '-column-info',
-				'callback' => function( $value, $row, $column ){
+				'callback' => function( $value, $row, $column, $index ){
 					$info = '';
 
 					if ( isset( $row['timestamp'] ) )
@@ -560,7 +560,7 @@ class Mail extends ModuleCore
 							$row['headers'] = explode( "\n", $row['headers']  );
 
 						foreach ( array_filter( $row['headers'] ) as $header )
-							$info .= '<code>'.$header.'</code><br />';
+							$info .= '<code>'.HTML::escapeTextarea( $header ).'</code><br />';
 					}
 
 					if ( isset( $row['attachments'] ) ) {
@@ -580,7 +580,7 @@ class Mail extends ModuleCore
 			'content' => array(
 				'title'    => _x( 'What', 'Modules: Mail: Email Logs Table Column', GNETWORK_TEXTDOMAIN ),
 				'class'    => '-column-content',
-				'callback' => function( $value, $row, $column ){
+				'callback' => function( $value, $row, $column, $index ){
 					$content   = '';
 					$direction = isset( $row['rtl'] ) ? ' dir="rtl"' : '';
 
@@ -590,7 +590,7 @@ class Mail extends ModuleCore
 
 					if ( isset( $row['message'] ) )
 						$content .= '<div'.$direction.'>'
-							.wpautop( make_clickable( $row['message'] ) ).'</div>';
+							.wpautop( make_clickable( HTML::escapeTextarea( $row['message'] ) ) ).'</div>';
 
 					return $content;
 				},

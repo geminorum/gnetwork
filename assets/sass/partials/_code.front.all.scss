@@ -33,9 +33,11 @@
 	}
 
 	&.shortcode-textarea {
-		direction: ltr;
-		width: 100%;
-		height: auto;
+		> textarea {
+			direction: ltr;
+			width: 100%;
+			height: auto;
+		}
 	}
 
 	&.shortcode-shields-io {

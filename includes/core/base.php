@@ -143,11 +143,6 @@ class Base
 		return memory_get_usage() - $start_memory - PHP_INT_SIZE * 8;
 	}
 
-	public static function entities( $html )
-	{
-		return trim( htmlspecialchars( $html, ENT_QUOTES, get_option( 'blog_charset' ) ) );
-	}
-
 	public static function range( $start, $end, $step = 1, $format = TRUE )
 	{
 		$array = array();
