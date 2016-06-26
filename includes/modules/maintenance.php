@@ -10,10 +10,16 @@ class Maintenance extends ModuleCore
 
 	protected function setup_actions()
 	{
-		if ( is_admin() )
-			add_action( 'admin_init', array( $this, 'admin_init' ) );
-		else
-			add_action( 'init', array( $this, 'init' ), 2 );
+		if ( is_admin() ) {
+
+			if ( 'none' != $this->options['maintenance_admin'] )
+				add_action( 'admin_init', array( $this, 'admin_init' ) );
+
+		} else {
+
+			if ( 'none' != $this->options['maintenance_site'] )
+				add_action( 'init', array( $this, 'init' ), 2 );
+		}
 	}
 
 	public function setup_menu( $context )
