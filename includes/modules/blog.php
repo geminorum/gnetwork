@@ -293,13 +293,13 @@ class Blog extends ModuleCore
 		}
 	}
 
-	public function wp_head_copyright()
+	public function init_late()
 	{
-		echo "\t".'<link rel="copyright" href="'.get_page_link( $this->options['page_copyright'] ).'">'."\n";
+		// no need for redirect option check
+		$this->blog_redirect( FALSE );
 	}
 
-	// FIXME: test this
-	private function blog_redirect()
+	private function blog_redirect( $check = TRUE )
 	{
 		global $pagenow;
 
@@ -307,16 +307,17 @@ class Blog extends ModuleCore
 			&& current_user_can( 'manage_options' ) )
 				return;
 
-		// FIXME: WHY is that?!
-		// if ( $_SERVER['SERVER_NAME'] !== ( str_ireplace( array( 'http://', 'https://' ), '', home_url() ) ) )
-		// 	return;
+		// postpone checking in favor of WP Remote
+		if ( $check && ! empty( $_POST['wpr_verify_key'] ) ) {
+			add_filter( 'init', array( $this, 'init_late' ), 999 ); // must be over 100
+			return;
+		}
 
 		$redirect = self::untrail( $this->options['blog_redirect'] ).$_SERVER['REQUEST_URI'];
 
 		if ( ! empty( $pagenow ) && 'index.php' == $pagenow )
 			self::redirect( $redirect, $this->options['blog_redirect_status'] );
 
-		// DEPRECATED: FALLBACK
 		if ( FALSE === self::whiteListed() )
 			self::redirect( $redirect, $this->options['blog_redirect_status'] );
 	}
@@ -346,6 +347,11 @@ class Blog extends ModuleCore
 			return get_page_template();
 
 		return $template;
+	}
+
+	public function wp_head_copyright()
+	{
+		echo "\t".'<link rel="copyright" href="'.get_page_link( $this->options['page_copyright'] ).'">'."\n";
 	}
 
 ////////////////////////////////////////////////////////////////////////////////
