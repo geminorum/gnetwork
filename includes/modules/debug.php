@@ -8,6 +8,9 @@ class Debug extends ModuleCore
 
 	protected function setup_actions()
 	{
+		if ( is_admin() )
+			add_action( 'core_upgrade_preamble', array( $this, 'core_upgrade_preamble' ), 20 );
+
 		add_filter( 'debug_bar_panels', array( $this, 'debug_bar_panels' ) );
 		add_action( 'wp_footer', array( $this, 'wp_footer' ), 999 );
 
@@ -334,6 +337,18 @@ class Debug extends ModuleCore
 			self::log( 'TEST COOCKIE', $errors->get_error_message( 'test_cookie' ) ); // FIXME: generate static message
 
 		return $errors;
+	}
+
+	public function core_upgrade_preamble()
+	{
+		echo '<div class="gnetwork-admin-wrap debug-update-core">';
+
+			echo HTML::tag( 'a', array(
+				'class' => 'button',
+				'href'  => Settings::subURL( 'debug' ),
+			), _x( 'Check Debug Logs', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+
+		echo '</div>';
 	}
 
 	public static function wp_die_handler( $message, $title = '', $args = array() )
