@@ -35,7 +35,6 @@ class Reference extends ModuleCore
 					$note = trim( str_ireplace( $matches[0], '', trim( $row ), $count ) );
 					$note = str_ireplace( array( '-', '—' ), '–', $note );
 					$notes[] = trim( trim( $note, '–' ) );
-					// gNU::dump( $notes );
 					break;
 				}
 			}
@@ -46,24 +45,23 @@ class Reference extends ModuleCore
 
 	public static function replaceFootnotes( $content, $footnotes = '', $type = 'brackets', $shortcode = 'ref' )
 	{
-		switch ( $type ){
-			case 'brackets' : $pattern = '/\[(\d+)\]/u'; break;
-			case 'parentheses' : $pattern = '/\((\d+)\)/u'; break;
+		switch ( $type ) {
+			case 'brackets': $pattern = '/\[(\d+)\]/u'; break;
+			case 'parentheses': $pattern = '/\((\d+)\)/u'; break;
 		}
 
 		$html  = str_ireplace( $footnotes, '', $content );
 		$notes = self::parseFootnotes( $footnotes );
 
-		// gNU::dump($notes ); die();
-
 		preg_match_all( $pattern, $html, $matches );
-
-		// gNU::dump($matches ); die();
 
 		$count = 1;
 		foreach ( $matches[0] as $key => $match ) {
 			$html = str_ireplace( $match,
-				( isset( $notes[$key] ) ? '['.$shortcode.']'.$notes[$key].'[/'.$shortcode.']' : '['.$shortcode.']'.$matches[1][$key].'[/'.$shortcode.']' ),
+				( isset( $notes[$key] )
+					? '['.$shortcode.']'.trim( $notes[$key] ).'[/'.$shortcode.']'
+					: '['.$shortcode.']'.trim( $matches[1][$key] ).'[/'.$shortcode.']'
+				),
 			$html, $count );
 		}
 
@@ -104,8 +102,6 @@ class Reference extends ModuleCore
 
 		preg_match_all( $pattern, $html, $matches );
 		gnetwork_dump( $matches ); die();
-
-
 
 
 

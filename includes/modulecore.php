@@ -214,7 +214,7 @@ class ModuleCore extends Base
 			$options = $this->options;
 
 		if ( $this->is_network() )
-			$saved = get_site_option( $this->base.'_site', array() ); // FIXME: https://core.trac.wordpress.org/ticket/28290
+			$saved = get_site_option( $this->base.'_site', array() );
 		else
 			$saved = get_option( $this->base.'_blog', array() );
 

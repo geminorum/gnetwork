@@ -391,7 +391,8 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 				continue;
 
 			$old_term = get_term( $term_id, $taxonomy );
-			$merged   = wp_delete_term( $term_id, $taxonomy, array(
+
+			$merged = wp_delete_term( $term_id, $taxonomy, array(
 				'default'       => $to_term,
 				'force_default' => TRUE,
 			) );
@@ -399,7 +400,6 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 			if ( self::isError( $merged ) )
 				continue;
 
-			// OLD: 'term_management_tools_term_merged'
 			do_action( 'gnetwork_taxonomy_term_merged', $taxonomy, $to_term_obj, $old_term );
 		}
 
@@ -436,7 +436,9 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 			return FALSE;
 
 		$tt_ids = array();
+
 		foreach ( $term_ids as $term_id ) {
+
 			$term = get_term( $term_id, $taxonomy );
 
 			if ( ! $term || self::isError( $term ) )
@@ -452,27 +454,29 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 			$tt_ids[] = $term->term_taxonomy_id;
 
 			if ( is_taxonomy_hierarchical( $taxonomy ) ) {
+
 				$child_terms = get_terms( $taxonomy, array(
 					'child_of'   => $term_id,
 					'hide_empty' => FALSE
 				) );
+
 				$tt_ids = array_merge( $tt_ids, wp_list_pluck( $child_terms, 'term_taxonomy_id' ) );
 			}
 		}
+
 		$tt_ids = implode( ',', array_map( 'absint', $tt_ids ) );
 
 		$wpdb->query( $wpdb->prepare( "
 			UPDATE $wpdb->term_taxonomy SET taxonomy = %s WHERE term_taxonomy_id IN ($tt_ids)
 		", $new_tax ) );
 
-		if ( is_taxonomy_hierarchical( $taxonomy ) && ! is_taxonomy_hierarchical( $new_tax ) ) {
-			$wpdb->query( "UPDATE $wpdb->term_taxonomy SET parent = 0 WHERE term_taxonomy_id IN ($tt_ids)" );
-		}
+		if ( is_taxonomy_hierarchical( $taxonomy )
+			&& ! is_taxonomy_hierarchical( $new_tax ) )
+				$wpdb->query( "UPDATE $wpdb->term_taxonomy SET parent = 0 WHERE term_taxonomy_id IN ($tt_ids)" );
 
 		clean_term_cache( $tt_ids, $taxonomy );
 		clean_term_cache( $tt_ids, $new_tax );
 
-		// OLD: 'term_management_tools_term_changed_taxonomy'
 		do_action( 'gnetwork_taxonomy_term_changed_taxonomy', $tt_ids, $new_tax, $taxonomy );
 
 		return TRUE;
