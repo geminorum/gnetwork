@@ -18,6 +18,7 @@ class ModuleCore extends Base
 
 	protected $ajax   = FALSE;
 	protected $cron   = FALSE;
+	protected $cli    = NULL;
 	protected $dev    = NULL;
 	protected $hidden = FALSE;
 
@@ -60,6 +61,16 @@ class ModuleCore extends Base
 			} else {
 				if ( TRUE === $this->dev )
 					throw new Exception( 'Only on Develepment Environment!' );
+			}
+		}
+
+		if ( ! is_null( $this->cli ) ) {
+			if ( WordPress::isCLI() ) {
+				if ( FALSE === $this->cli )
+					throw new Exception( 'Not on CLI!' );
+			} else {
+				if ( TRUE === $this->cli )
+					throw new Exception( 'Only on CLI!' );
 			}
 		}
 
