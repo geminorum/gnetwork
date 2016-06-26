@@ -12,19 +12,10 @@ class Restricted extends ModuleCore
 
 	protected function setup_actions()
 	{
-		add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ), 1 );
-	}
-
-	public function plugins_loaded()
-	{
-		// FIXME: temporarly : bail if gMember Restricted is present
-		if ( class_exists( 'gMemberRestrictedSettings' ) )
-			return FALSE;
-
 		if ( 'none' != $this->options['restricted_site'] )
 			$this->bouncer = new RestrictedBouncer( $this->options );
 
-		add_action( 'init', array( $this, 'init' ), 1 );
+		add_action( 'init', array( $this, 'init' ), 2 );
 
 		if ( is_admin() ) {
 			add_action( 'load-profile.php', array( $this, 'load_profile' ) );
@@ -67,7 +58,6 @@ class Restricted extends ModuleCore
 		} else if ( ! WordPress::cuc( $this->options['restricted_site'] ) ) {
 
 			$this->remove_menus();
-
 		}
 	}
 
@@ -393,52 +383,6 @@ class RestrictedBouncer extends Base
 					$this->access = TRUE;
 			}
 		}
-
-		// PROBABLY NO NEED TO CHECK FURTHER!!!
-		// return;
-
-		// wordpress feed files
-		$files = array(
-			'wp-rss.php',
-			'wp-rss2.php',
-			'wp-atom.php',
-			'wp-rdf.php',
-			'wp-commentsrss2.php',
-			'wp-feed.php',
-		);
-
-		if ( FALSE !== Arraay::strposArray( $files, basename( $_SERVER['PHP_SELF'] ) ) )
-			$this->check_feed_access();
-
-		// wordpress feed queries
-		if ( isset( $_GET['feed'] ) ) {
-			$feeds = array(
-				'comments-rss2',
-				'comments-atom',
-				'rss',
-				'rss2',
-				'atom',
-				'rdf',
-			);
-
-			if ( FALSE !== Arraay::strposArray( $feeds, $_GET['feed'] ) )
-				$this->check_feed_access();
-		}
-
-		// TODO: use `Utilities::getFeeds()`
-		$actions = array(
-			'do_feed_comments_rss2',
-			'do_feed_comments_rss2',
-			'do_feed_rss',
-			'do_feed_rss2',
-			'do_feed_atom',
-			'do_feed_rdf',
-			'do_feed_json',
-			'do_feed',
-		);
-
-		foreach ( $actions as $action )
-			add_action( $action, array( $this, '_check_feed_access' ), 1 );
 	}
 
 	public function admin_init()
@@ -475,10 +419,7 @@ class RestrictedBouncer extends Base
 
 	public function feed_link( $output, $feed )
 	{
-		if ( $this->key )
-			return add_query_arg( 'feedkey', $this->key, $output );
-
-		return $output;
+		return $this->key ? add_query_arg( 'feedkey', $this->key, $output ) : $output;
 	}
 
 	private function check_feed_access()
@@ -614,8 +555,6 @@ class RestrictedBouncer extends Base
 
 	public function robots_txt( $output )
 	{
-		$output .= 'Disallow: /';
-		$output .= "\n";
-		return $output;
+		return $output.'Disallow: /'."\n";
 	}
 }
