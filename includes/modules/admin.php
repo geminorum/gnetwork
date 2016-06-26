@@ -259,8 +259,9 @@ class Admin extends ModuleCore
 
 	public function post_date_column_time( $h_time, $post, $column_name = 'date', $mode = 'excerpt' )
 	{
-		if ( 'future' == $post->post_status )
-			$h_time .= '<br />'.get_post_time( 'g:i a', FALSE, $post, TRUE );
+		if ( 'excerpt' !== $mode
+			&& 'future' == $post->post_status )
+				$h_time .= '<br />'.get_post_time( 'g:i a', FALSE, $post, TRUE );
 
 		return $h_time;
 	}
