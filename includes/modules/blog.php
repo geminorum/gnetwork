@@ -328,13 +328,14 @@ class Blog extends ModuleCore
 			$request_uri = $_SERVER['REQUEST_URI'];
 
 		return Arraay::strposArray( array(
-			'wp-cron.php',
-			'wp-mail.php',
-			'wp-login.php',
-			'wp-signup.php',
 			'wp-activate.php',
-			'wp-trackback.php',
+			'wp-comments-post.php',
+			'wp-cron.php',
 			'wp-links-opml.php',
+			'wp-login.php',
+			'wp-mail.php',
+			'wp-signup.php',
+			'wp-trackback.php',
 			'xmlrpc.php',
 		), $request_uri );
 	}
