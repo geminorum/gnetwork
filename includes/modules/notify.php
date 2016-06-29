@@ -7,6 +7,7 @@ class Notify extends ModuleCore
 
 	protected $key  = 'notify';
 	protected $ajax = TRUE;
+	protected $cron = TRUE;
 
 	protected function setup_actions()
 	{
@@ -131,13 +132,11 @@ class Notify extends ModuleCore
 		if ( $this->options['disable_password_change'] )
 			return;
 
-		// send a copy of password change notification to the admin
-		// but check to see if it's the admin whose password we're changing, and skip this
 		if ( 0 === strcasecmp( $user->user_email, get_option( 'admin_email' ) ) )
 			return;
 
-		$message = sprintf( __( 'Password Lost and Changed for user: %s' ), $user->user_login )."\r\n";
-		wp_mail( get_option( 'admin_email' ), sprintf( __( '[%s] Password Lost/Changed' ), $this->blogname() ), $message );
+		$message = sprintf( __( 'Password changed for user: %s' ), $user->user_login )."\r\n";
+		wp_mail( get_option( 'admin_email' ), sprintf( __( '[%s] Password Changed' ), $this->blogname() ), $message );
 	}
 
 	// The blogname option is escaped with esc_html on the way into the database in sanitize_option
