@@ -306,11 +306,7 @@ class Mail extends ModuleCore
 
 	public function bp_email( $email_type, $bp_email )
 	{
-		$email = $this->get_from_email();
-		$name  = $this->get_from_name();
-
-		$bp_email->set_from( $email, $name ); // DROP: NO NEED AFTER BP v2.6.0
-		$bp_email->set_reply_to( $email, $name );
+		$bp_email->set_reply_to( $this->get_from_email(), $this->get_from_name() );
 	}
 
 	public function get_from_email( $email = '' )
