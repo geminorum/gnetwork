@@ -23,8 +23,7 @@ class Locale extends ModuleCore
 			if ( is_multisite() )
 				add_filter( 'gnetwork_new_blog_options', array( $this, 'gnetwork_new_blog_options' ) );
 
-			if ( ! is_network_admin() )
-				add_filter( 'load_textdomain_mofile', array( $this, 'load_textdomain_mofile' ), 12, 2 );
+			add_filter( 'load_textdomain_mofile', array( $this, 'load_textdomain_mofile' ), 12, 2 );
 		}
 	}
 
@@ -78,6 +77,10 @@ class Locale extends ModuleCore
 	public function load_textdomain_mofile( $mofile, $domain )
 	{
 		$locale = get_locale();
+
+		if ( 'en_US' == $locale )
+			return $mofile;
+
 		$this->loaded[$locale][$domain][] = wp_normalize_path( $mofile );
 
 		$tailored = wp_normalize_path( GNETWORK_DIR.'locale/'.$domain.'-'.$locale.'.mo' );
