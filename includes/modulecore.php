@@ -27,7 +27,7 @@ class ModuleCore extends Base
 	public function __construct( $base = NULL, $slug = NULL )
 	{
 		if ( is_null( $this->key ) )
-			throw new Exception( 'Key Undefined!' );
+			$this->key = strtolower( str_ireplace( __NAMESPACE__.'\\', '', get_class( $this ) ) );
 
 		if ( ! GNETWORK_HIDDEN_FEATURES && $this->hidden )
 			throw new Exception( 'Hidden Feature!' );
