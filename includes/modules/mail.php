@@ -9,8 +9,10 @@ class Mail extends ModuleCore
 
 	protected function setup_actions()
 	{
-		if ( $this->options['log_all'] )
+		if ( $this->options['log_all'] ) {
 			add_filter( 'wp_mail', array( $this, 'wp_mail' ), 99 );
+			add_action( 'bp_send_email_success', array( $this, 'bp_send_email_success' ), 99, 2 );
+		}
 
 		add_filter( 'wp_mail_from', array( $this, 'wp_mail_from' ), 5 );
 		add_filter( 'wp_mail_from_name', array( $this, 'wp_mail_from_name' ), 5 );
@@ -386,6 +388,22 @@ class Mail extends ModuleCore
 			self::log( 'EMAIL NOT LOGGED', 'TO: '.$contents['to'] );
 
 		return $mail;
+	}
+
+	public function bp_send_email_success( $status, $email )
+	{
+		$mail = array(
+			'subject' => $email->get_subject( 'replace-tokens' ),
+			'message' => \PHPMailer::normalizeBreaks( $email->get_content_plaintext( 'replace-tokens' ) ),
+		);
+
+		foreach ( $email->get_to() as $recipient )
+			$mail['to'][] = $recipient->get_address();
+
+		foreach ( $email->get_headers() as $name => $content )
+			$mail['headers'][] = sprintf( '%s: %s', $name, $content );
+
+		$this->wp_mail( $mail );
 	}
 
 	public function testmail_form()
