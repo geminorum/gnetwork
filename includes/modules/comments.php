@@ -66,7 +66,7 @@ class Comments extends ModuleCore
 		}
 
 		add_filter( 'pre_comment_approved', array( $this, 'pre_comment_approved' ), 99, 2 );
-		add_filter( 'add_comment_metadata', array( $this, 'add_comment_metadata' ), 20, 3 );
+		add_filter( 'add_comment_metadata', array( $this, 'add_comment_metadata' ), 20, 5 );
 
 		// register_shutdown_function( array( $this, 'delete_spam_comments' ) );
 	}
@@ -357,7 +357,7 @@ class Comments extends ModuleCore
 	}
 
 	// @SOURCE: http://rayofsolaris.net/blog/2012/akismet-bloat
-	public function add_comment_metadata( $check, $object_id, $meta_key )
+	public function add_comment_metadata( $check, $object_id, $meta_key, $meta_value, $unique )
 	{
 		$to_filter = array(
 			'akismet_result',
