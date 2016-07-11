@@ -104,4 +104,19 @@ class Text extends Base
 
 		return $title;
 	}
+
+	// @SOURCE: [Checking UTF-8 for Well Formedness](http://www.phpwact.org/php/i18n/charsets#checking_utf-8_for_well_formedness)
+	// @SEE: http://www.php.net/manual/en/reference.pcre.pattern.modifiers.php#54805
+	// @SEE: WP core's : `seems_utf8()`
+	public static function utf8Compliant( $string )
+	{
+	    if ( 0 == strlen( $string ) )
+	        return TRUE;
+
+	    // If even just the first character can be matched, when the /u
+	    // modifier is used, then it's valid UTF-8. If the UTF-8 is somehow
+	    // invalid, nothing at all will match, even if the string contains
+	    // some valid sequences
+	    return ( 1 == preg_match( '/^.{1}/us', $string, $ar ) );
+	}
 }
