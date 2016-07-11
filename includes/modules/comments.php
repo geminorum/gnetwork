@@ -6,6 +6,7 @@ class Comments extends ModuleCore
 {
 	protected $key     = 'comments';
 	protected $network = FALSE;
+	protected $cron    = TRUE;
 
 	private $textareas = array();
 
