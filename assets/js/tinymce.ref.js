@@ -5,7 +5,7 @@
 
 		editor.addCommand('gnetworkref', function() {
 			var text = editor.selection.getContent();
-			editor.insertContent('[ref]' + (text ? text + '[/ref]' : ''));
+			editor.insertContent('[ref]' + (text ? text : '' ) + '[/ref]');
 		});
 
 		editor.addButton('gnetworkref', {
@@ -46,7 +46,7 @@
 						editor.insertContent((
 							e.data.url ? '[ref url="' + encodeURI(e.data.url) + '"]' : '[ref]'
 						) + (
-							e.data.text ? e.data.text + '[/ref]' : ''
+							e.data.text ? e.data.text + '[/ref]' : '[/ref]'
 						));
 					}
 				});
