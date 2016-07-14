@@ -37,7 +37,7 @@ class Users extends ModuleCore
 				array(
 					'field'       => 'siteuser_as_default',
 					'title'       => _x( 'Default Author', 'Modules: Users: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'The site user as default author of new posts in admin', 'Modules: Users: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'The Site User as Default Author of New Posts in Admin', 'Modules: Users: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => WordPress::getSiteUserID() ? '1' : '0',
 				),
 			),
@@ -48,9 +48,9 @@ class Users extends ModuleCore
 	public function settings_sidebox( $sub, $uri )
 	{
 		if ( $user = WordPress::getSiteUserID() )
-			printf( _x( 'Network site user is %s', 'Modules: Users: Settings', GNETWORK_TEXTDOMAIN ), get_userdata( $user )->display_name );
+			printf( _x( 'Network Site User Is %s', 'Modules: Users: Settings', GNETWORK_TEXTDOMAIN ), get_userdata( $user )->display_name );
 		else
-			_ex( 'Network site user is not defined', 'Modules: Users: Settings', GNETWORK_TEXTDOMAIN );
+			_ex( 'Network Site User Is Not Defined', 'Modules: Users: Settings', GNETWORK_TEXTDOMAIN );
 	}
 
 	public function settings_before( $sub, $uri )

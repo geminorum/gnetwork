@@ -63,12 +63,12 @@ class Themes extends ModuleCore
 				array(
 					'field'       => 'jquery_bottom',
 					'title'       => _x( 'jQuery on Bottom', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Prints jQuery in footer on front-end', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Prints jQuery in Footer on Front-End', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
 				),
 				array(
 					'field'       => 'disable_themes',
 					'title'       => _x( 'Theme Enhancements', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Extra styles and more for suported themes', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Extra Styles and More for Suported Themes', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
 					'values'      => array(
 						__( 'Enabled' , GNETWORK_TEXTDOMAIN ),
 						__( 'Disabled', GNETWORK_TEXTDOMAIN ),
@@ -77,14 +77,14 @@ class Themes extends ModuleCore
 				array(
 					'field'       => 'content_actions',
 					'title'       => _x( 'Content Actions', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Extra hooks before and after post content', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Extra Hooks Before and After Post Content', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '1',
 				),
 				array(
 					'field'       => 'body_class',
 					'type'        => 'text',
 					'title'       => _x( 'Body Class', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'This will be added as html body class to all pages on front-end', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'This Will Be Added as HTML Body Class to All Pages on Front-End', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
 					'field_class' => array( 'regular-text', 'code-text' ),
 					'default'     => GNETWORK_BODY_CLASS,
 				),
