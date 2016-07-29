@@ -137,20 +137,23 @@ class AdminBar extends ModuleCore
 		global $pagenow;
 
 		$current_url = HTTP::currentURL();
-		$parent_id   = $this->base.'-info';
-		$group_id    = $parent_id.'-sub';
+		// $network_url = Settings::networkURL();
+		$admin_url   = Settings::adminURL();
+
+		$parent_id = $this->base.'-info';
+		$group_id  = $parent_id.'-sub';
 
 		$wp_admin_bar->add_node( array(
 			'id'     => $parent_id,
 			'title'  => '<span class="ab-icon dashicons dashicons-performance" style="margin:2px 0 0 0;"></span>',
 			'parent' => 'top-secondary',
-			'href'   => Settings::networkURL(),
+			'href'   => $admin_url,
 		) );
 
 		$wp_admin_bar->add_node( array(
 			'parent' => $parent_id,
 			'id'     => $this->base.'-debug',
-			'title'  => _x( 'Debug Errors', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+			'title'  => _x( 'Display Errors', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 			'href'   => add_query_arg( 'debug', '', $current_url ),
 			'meta'   => array(
 				'title' => _x( 'Display debug info for the current page', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
@@ -184,7 +187,7 @@ class AdminBar extends ModuleCore
 				'parent' => $parent_id,
 				'id'     => $this->base.'-locale',
 				'title'  => _x( 'Change Locale', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
-				'href'   => add_query_arg( 'sub', 'locale', Settings::adminURL() ),
+				'href'   => Settings::subURL( 'locale', FALSE ),
 				'meta'   => array(
 					'title' => _x( 'Quickly change current blog language', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 				),
@@ -241,7 +244,7 @@ class AdminBar extends ModuleCore
 			'parent' => $group_id,
 			'id'     => $this->base.'-info-pagenow',
 			'title'  => 'PageNow: '.( empty( $pagenow ) ? 'EMPTY' : $pagenow ),
-			'href'   => add_query_arg( 'sub', 'debug', Settings::networkURL() ),
+			'href'   => FALSE,
 			'meta'   => array(
 				'title' => _x( 'Click to see Debug Logs', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 			),
@@ -251,7 +254,7 @@ class AdminBar extends ModuleCore
 			'parent' => $group_id,
 			'id'     => $this->base.'-info-queries',
 			'title'  => self::stat( '%dq | %.3fs | %.2fMB' ),
-			'href'   => Settings::adminURL(),
+			'href'   => Settings::subURL( 'debug' ),
 			'meta'   => array(
 				'title' => _x( 'Queries | Timer Stop | Memory Usage', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 			),
