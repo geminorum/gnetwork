@@ -185,7 +185,7 @@ class HTML extends Base
 		echo '<tbody>';
 
 		foreach ( (array) $array as $key => $val )
-			printf( $row, $key, $val );
+			printf( $row, $key, ( is_bool( $val ) ? ( $val ? 'TRUE' : 'FALSE' ) : $val ) );
 
 		echo '</tbody></table>';
 	}
@@ -221,6 +221,8 @@ class HTML extends Base
 				if ( is_array( $val ) || is_object( $val ) ) {
 					echo '<td class="-val -table">';
 					self::tableSide( $val, $type );
+				} else if ( is_bool( $val ) ){
+					echo '<td class="-val -not-table"><code>'.( $val ? 'TRUE' : 'FALSE' ).'</code>';
 				} else if ( ! empty( $val ) ){
 					echo '<td class="-val -not-table"><code>'.$val.'</code>';
 				} else {
