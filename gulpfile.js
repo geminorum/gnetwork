@@ -53,7 +53,7 @@
 		.pipe(gulp.dest('./languages'));
 	});
 
-	gulp.task('sass', function() {
+	gulp.task('dev:sass', function() {
 
 		return gulp.src('./assets/sass/**/*.scss')
 
@@ -80,14 +80,14 @@
 
 	});
 
-	gulp.task('watch', function() {
+	gulp.task('dev:watch', function() {
 
 		gulp.watch('./assets/sass/**/*.scss', [
-			'sass'
+			'dev:sass'
 		]);
 	});
 
-	gulp.task('build-styles', function() {
+	gulp.task('build:styles', function() {
 
 		return gulp.src('./assets/sass/**/*.scss')
 
@@ -105,7 +105,7 @@
 	});
 
 
-	gulp.task('build-copy', ['build-ready'], function() {
+	gulp.task('build:copy', ['build:ready'], function() {
 
 		del(['./ready']);
 
@@ -140,7 +140,7 @@
 		.pipe(gulp.dest('./ready/' + pkg.name));
 	});
 
-	gulp.task('build-zip', ['build-copy'], function() {
+	gulp.task('build:zip', ['build:copy'], function() {
 
 		return gulp.src('./ready/**/*')
 
@@ -149,9 +149,9 @@
 		.pipe(gulp.dest('..'));
 	});
 
-	gulp.task('build-ready', ['build-styles']);
+	gulp.task('build:ready', ['build:styles']);
 
-	gulp.task('build', ['build-zip']);
+	gulp.task('build', ['build:zip']);
 
 	gulp.task('default', function() {
 
