@@ -140,7 +140,7 @@ class Themes extends ModuleCore
 
 					wp_deregister_script( 'flexslider' );
 					wp_enqueue_script( 'flexslider',
-						GNETWORK_URL.'assets/js/jquery.flexslider-rtl-min.js',
+						GNETWORK_URL.'assets/js/jquery.flexslider-rtl.min.js',
 						array( 'jquery' ),
 						GNETWORK_VERSION,
 						FALSE );
@@ -218,7 +218,7 @@ class Themes extends ModuleCore
 
 					// wp_deregister_script( 'flexslider' );
 					// wp_enqueue_script( 'flexslider',
-					// 	GNETWORK_URL.'assets/js/jquery.flexslider-rtl-min.js',
+					// 	GNETWORK_URL.'assets/js/jquery.flexslider-rtl.min.js',
 					// 	array( 'jquery' ),
 					// 	GNETWORK_VERSION,
 					// 	FALSE );
