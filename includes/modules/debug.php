@@ -170,6 +170,9 @@ class Debug extends ModuleCore
 			'SCRIPT_DEBUG'        => SCRIPT_DEBUG,
 			'WP_CONTENT_DIR'      => WP_CONTENT_DIR,
 			'WP_CACHE'            => WP_CACHE,
+			'WP_POST_REVISIONS'   => WP_POST_REVISIONS,
+			'EMPTY_TRASH_DAYS'    => EMPTY_TRASH_DAYS,
+			'AUTOSAVE_INTERVAL'   => AUTOSAVE_INTERVAL,
 		);
 
 		HTML::tableCode( $paths );
