@@ -25,6 +25,12 @@ body.rtl {
 		font: bold 16px arial, sans-serif !important;
 	}
 
+	.wrap .subtitle {
+		font-size: 15px;
+		font-weight: 700;
+		vertical-align: middle;
+	}
+
 	.wrap .page-title-action {
 		font-size: 15px;
 	}
@@ -83,6 +89,10 @@ body.rtl {
 	#post-lock-dialog .post-locked-message,
 	#post-lock-dialog .post-taken-over {
 		margin: 20px;
+
+		p:last-child {
+			clear: both;
+		}
 	}
 
 	#poststuff {
@@ -245,9 +255,10 @@ body.rtl {
 		text-align: right;
 	}
 
+	#TB_closeWindowButton,
 	.tb-close-icon {
-		right: auto;
 		left: 0;
+		right: auto;
 	}
 
 	.inline-edit-col input[name="slug"],

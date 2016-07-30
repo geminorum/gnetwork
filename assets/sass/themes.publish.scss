@@ -238,11 +238,14 @@ body.rtl {
 }
 
 .entry-content {
-	sup.ref-anchor a {
-		color: #999;
-		text-decoration: none;
-		&:hover {
-			color: #222;
+	sup.ref-anchor {
+		bottom: .5ex;
+		a {
+			color: #999;
+			text-decoration: none;
+			&:hover {
+				color: #222;
+			}
 		}
 	}
 }
