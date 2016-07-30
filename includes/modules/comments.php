@@ -227,21 +227,20 @@ class Comments extends ModuleCore
 
 	public function comment_status_links( $status_links )
 	{
-		global $comment_type;
-
-		$status_links[$this->type_archived] = HTML::tag( 'a', array(
-			'href'  => add_query_arg( 'comment_type', $this->type_archived, admin_url( 'edit-comments.php' ) ),
-			'class' => ( $this->type_archived == $comment_type ? 'current' : FALSE ),
-			'title' => _x( 'All Archived Comments', 'Modules: Comments', GNETWORK_TEXTDOMAIN ),
-		), _x( 'Archives', 'Modules: Comments', GNETWORK_TEXTDOMAIN ) );
-
-		return $status_links;
+		return array_merge( $status_links, array(
+			$this->type_archived => HTML::tag( 'a', array(
+				'href'  => add_query_arg( 'comment_type', $this->type_archived, admin_url( 'edit-comments.php' ) ),
+				'class' => ( $this->type_archived == $GLOBALS['comment_type'] ? 'current' : FALSE ),
+				'title' => _x( 'All Archived Comments', 'Modules: Comments', GNETWORK_TEXTDOMAIN ),
+			), _x( 'Archives', 'Modules: Comments', GNETWORK_TEXTDOMAIN ) ),
+		) );
 	}
 
 	public function admin_comment_types_dropdown( $comment_types )
 	{
-		$comment_types[$this->type_archived] = _x( 'Archived', 'Modules: Comments', GNETWORK_TEXTDOMAIN );
-		return $comment_types;
+		return array_merge( $comment_types, array(
+			$this->type_archived => _x( 'Archived', 'Modules: Comments', GNETWORK_TEXTDOMAIN ),
+		) );
 	}
 
 	public function pre_get_comments( &$query )
@@ -296,12 +295,12 @@ class Comments extends ModuleCore
 			", $this->type_archived );
 		}
 
-		$totals = (array) $wpdb->get_results("
+		$totals = (array) $wpdb->get_results( "
 			SELECT comment_approved, COUNT( * ) AS total
 			FROM {$wpdb->comments}
 			{$where}
 			GROUP BY comment_approved
-		", ARRAY_A);
+		", ARRAY_A );
 
 		$comment_count = array(
 			'approved'            => 0,
@@ -345,9 +344,7 @@ class Comments extends ModuleCore
 
 	public function comment_excerpt( $excerpt )
 	{
-		global $comment;
-
-		return wpautop( trim( $comment->comment_content ) );
+		return wpautop( trim( $GLOBALS['comment']->comment_content ) );
 	}
 
 	// http://css-tricks.com/snippets/wordpress/spam-comments-with-very-long-urls/
