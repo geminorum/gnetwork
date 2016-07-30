@@ -12,10 +12,12 @@
 		excludeGitignore = require('gulp-exclude-gitignore'), // https://github.com/sboudrias/gulp-exclude-gitignore
 		wpPot = require('gulp-wp-pot'), // https://github.com/rasmusbe/gulp-wp-pot
 		sort = require('gulp-sort'),
+		zip = require('gulp-zip'), // https://github.com/sindresorhus/gulp-zip
+		del = require('del'),
 		fs = require('fs');
 
 	var
-		json = JSON.parse(fs.readFileSync('./package.json'));
+		pkg = JSON.parse(fs.readFileSync('./package.json'), 'utf8');
 
 	gulp.task('tinypng', function() {
 
@@ -46,7 +48,7 @@
 
 		.pipe(sort())
 
-		.pipe(wpPot(json._pot))
+		.pipe(wpPot(pkg._pot))
 
 		.pipe(gulp.dest('./languages'));
 	});
@@ -61,10 +63,9 @@
 
 		.pipe(nano({
 			// http://cssnano.co/optimisations/
+			core: false,
 			zindex: false,
-			discardComments: {
-				removeAll: true
-			}
+			discardComments: false,
 		}))
 
 		.pipe(sourcemaps.write('./maps'))
@@ -85,6 +86,72 @@
 			'sass'
 		]);
 	});
+
+	gulp.task('build-styles', function() {
+
+		return gulp.src('./assets/sass/**/*.scss')
+
+		.pipe(sass().on('error', sass.logError))
+
+		.pipe(nano({
+			zindex: false,
+			discardComments: {
+				removeAll: true
+			}
+		}))
+
+		.pipe(gulp.dest('./assets/css'));
+
+	});
+
+
+	gulp.task('build-copy', ['build-ready'], function() {
+
+		del(['./ready']);
+
+		return gulp.src([
+			'./assets/css/**/*.css',
+			'./assets/css/**/*.html',
+			// './assets/fonts/**/*',
+			'./assets/images/**/*',
+			'./assets/js/**/*.min.js',
+			'./assets/js/**/*.html',
+			'./assets/layouts/**/*',
+			'./assets/libs/**/*',
+			'./assets/vendor/**/*.php',
+			'!./assets/vendor/**/test/*',
+			'!./assets/vendor/**/Tests/*',
+			'!./assets/vendor/**/examples/*',
+			'!./assets/vendor/**/.git',
+			'./assets/index.html',
+			'./includes/**/*',
+			'./languages/**/*',
+			'!./languages/**/*.po',
+			'./locale/**/*',
+			'!./locale/**/*.po',
+			'./*.php',
+			'./*.md',
+			'./LICENSE',
+			'./index.html',
+		], {
+			"base": "."
+		})
+
+		.pipe(gulp.dest('./ready/' + pkg.name));
+	});
+
+	gulp.task('build-zip', ['build-copy'], function() {
+
+		return gulp.src('./ready/**/*')
+
+		.pipe(zip(pkg.name + '-' + pkg.version + '.zip'))
+
+		.pipe(gulp.dest('..'));
+	});
+
+	gulp.task('build-ready', ['build-styles']);
+
+	gulp.task('build', ['build-zip']);
 
 	gulp.task('default', function() {
 

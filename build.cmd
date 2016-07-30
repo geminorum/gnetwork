@@ -1,10 +1,15 @@
 @ECHO OFF
-md gnetwork
-cd gnetwork
+Title gNetwork Package Builder
+md .build
+cd .build
 ECHO GIT -----------------------------------------------------------------------
-git clone https://github.com/geminorum/gnetwork .
-PAUSE
+CALL git clone https://github.com/geminorum/gnetwork .
 ECHO COMPOSER ------------------------------------------------------------------
-composer install --no-dev --optimize-autoloader --prefer-dist -v
+CALL composer install --no-dev --optimize-autoloader --prefer-dist -v
+ECHO NPM -----------------------------------------------------------------------
+CALL npm install
+ECHO BUILD ---------------------------------------------------------------------
+CALL gulp build
 ECHO FINISHED ------------------------------------------------------------------
 cd ..
+PAUSE

@@ -1,14 +1,17 @@
+.build
 .idea
 .sass-cache
 .gulp
 .imdone
 .temp
 
+/assets/bin
+/assets/css/*.css
+/assets/css/maps
 /assets/components
 /assets/views/cache
 /assets/packages/jquery
 /assets/vendor
-/assets/bin
 /node_modules
 
 /x-local-*
