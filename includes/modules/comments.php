@@ -6,6 +6,7 @@ class Comments extends ModuleCore
 {
 	protected $key     = 'comments';
 	protected $network = FALSE;
+	protected $ajax    = TRUE;
 	protected $cron    = TRUE;
 
 	private $textareas = array();
@@ -21,6 +22,9 @@ class Comments extends ModuleCore
 
 			// filter whether to send the site moderator email notifications, overriding the site setting.
 			add_filter( 'notify_moderator', '__return_false' );
+
+			// whether to send the post author new comment notification emails, overriding the site setting.
+			add_filter( 'notify_post_author', '__return_false' );
 		}
 
 		if ( is_admin() ) {
