@@ -318,16 +318,18 @@ class ModuleCore extends Base
 		);
 	}
 
-	protected function settings_buttons( $sub = NULL )
+	protected function settings_buttons( $sub = NULL, $wrap = '' )
 	{
-		echo '<p class="submit gnetwork-settings-buttons">';
+		if ( FALSE !== $wrap )
+			echo '<p class="submit gnetwork-settings-buttons '.$wrap.'">';
 
-			foreach ( $this->buttons as $action => $button ) {
-				submit_button( $button['value'], $button['type'], $action, FALSE, $button['atts'] );
-				echo '&nbsp;&nbsp;';
-			}
+		foreach ( $this->buttons as $action => $button ) {
+			echo get_submit_button( $button['value'], $button['type'], $action, FALSE, $button['atts'] );
+			echo '&nbsp;&nbsp;';
+		}
 
-		echo '</p>';
+		if ( FALSE !== $wrap )
+			echo '</p>';
 	}
 
 	protected function settings_fields( $sub, $action = 'update' )
