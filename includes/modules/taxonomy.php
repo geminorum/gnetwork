@@ -274,11 +274,14 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 			'message' => $results ? 'gnetwork-taxonomy-updated' : 'gnetwork-taxonomy-error',
 		);
 
-		if ( isset( $_REQUEST['post_type'] ) && 'post' != $_REQUEST['post_type'] )
+		if ( ! empty( $_REQUEST['post_type'] ) && 'post' != $_REQUEST['post_type'] )
 			$query['post_type'] = $_REQUEST['post_type'];
 
-		if ( isset( $_REQUEST['paged'] ) && $_REQUEST['paged'] )
+		if ( ! empty( $_REQUEST['paged'] ) )
 			$query['paged'] = $_REQUEST['paged'];
+
+		if ( ! empty( $_REQUEST['s'] ) )
+			$query['s'] = $_REQUEST['s'];
 
 		self::redirect( add_query_arg( $query, $location ) );
 	}
