@@ -23,6 +23,14 @@ if ( ! function_exists( 'gnetwork_github_readme' ) ) :
 	}
 endif;
 
+if ( ! function_exists( 'gnetwork_register_imagesize' ) ) :
+	function gnetwork_register_imagesize( $name, $atts = array() ) {
+
+		if ( class_exists( '\geminorum\gNetwork\Media' ) )
+			return \geminorum\gNetwork\Media::registerImageSize( $name, $atts );
+	}
+endif;
+
 if ( ! function_exists( 'gnetwork_powered' ) ) :
 	function gnetwork_powered( $rtl = NULL ){
 		return '<a href="http://wordpress.org/" title="WP powered"><img src="'.GNETWORK_URL.'assets/images/wpmini-grey.png" alt="wp" /></a>';
