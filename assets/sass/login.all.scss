@@ -16,10 +16,6 @@
 		}
 	}
 
-	#pass-strength-result {
-		width: 96% !important;
-	}
-
 	form {
 		border-radius: 2px;
 		box-shadow: none !important;
@@ -31,6 +27,10 @@
 
 		p {
 			text-align: center;
+
+			&.description {
+				text-align: right;
+			}
 		}
 	}
 
