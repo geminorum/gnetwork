@@ -1,3 +1,28 @@
+### 3.3.2
+* html: skip strtolower on sanitizing tags
+* html: escape textarea helper
+* Arraay: correct check for needle in the haystack!
+* modulecore: check the module for CLI
+* modulecore: getting module key from class name if not defined
+* adminbar: rethinking menu links
+* blog: postpone redirect checking in favor of [WP Remote](https://wpremote.com/)
+* blog: adding comments post file to the redirect whitelist
+* debug: debug shortcut button on admin update page
+* opensearch: caching headers
+* restricted: skip on buddypress activation page
+* restricted: drop old version support
+* maintenance: skip unnecessary hooks
+* mail: logging bp email
+* mail: dropping mail from for bp email
+* network: default plugins upon new blog
+* notify: runs on cron
+* comments: runs on ajax/cron
+* comments: disable notify author
+* locale: internal mo on network admin
+* locale: short circuit mo overrides
+* shortcodes: closing shortcode on empty ref
+* taxonomy: preserve search in redirect
+
 ### 3.3.1
 * restricted: fixed fatal: omitted class name changes
 * bp me: fixed fatal: omitted class name changes
