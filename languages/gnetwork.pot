@@ -14,7 +14,7 @@ msgctxt "Core: WordPress"
 msgid "Cheatin&#8217; uh?"
 msgstr ""
 
-#: includes/functions.php:34
+#: includes/functions.php:42
 msgctxt "Default Copyright"
 msgid "Built on <a href=\"http://wordpress.org/\" title=\"Semantic Personal Publishing Platform\">WordPress</a> and tea"
 msgstr ""
@@ -54,34 +54,34 @@ msgctxt "Module Core"
 msgid "Reset Settings"
 msgstr ""
 
-#: includes/modulecore.php:476
+#: includes/modulecore.php:478
 msgctxt "Module Core"
 msgid "Debug"
 msgstr ""
 
-#: includes/modulecore.php:565
+#: includes/modulecore.php:567
 msgctxt "Module Core"
 msgid "Getting from constant"
 msgstr ""
 
-#: includes/modulecore.php:591, includes/modules/blog.php:141, includes/modules/blog.php:172, includes/modules/comments.php:108, includes/modules/notify.php:48, includes/modules/notify.php:58, includes/modules/themes.php:74
+#: includes/modulecore.php:593, includes/modules/blog.php:141, includes/modules/blog.php:172, includes/modules/comments.php:112, includes/modules/notify.php:48, includes/modules/notify.php:58, includes/modules/themes.php:74
 msgid "Disabled"
 msgstr ""
 
-#: includes/modulecore.php:596, includes/modules/blog.php:142, includes/modules/blog.php:171, includes/modules/comments.php:107, includes/modules/notify.php:47, includes/modules/notify.php:57, includes/modules/themes.php:73
+#: includes/modulecore.php:598, includes/modules/blog.php:142, includes/modules/blog.php:171, includes/modules/comments.php:111, includes/modules/notify.php:47, includes/modules/notify.php:57, includes/modules/themes.php:73
 msgid "Enabled"
 msgstr ""
 
-#: includes/modulecore.php:861, includes/modules/login.php:87, includes/modules/restricted.php:193, includes/modules/sms.php:73
+#: includes/modulecore.php:863, includes/modules/login.php:87, includes/modules/restricted.php:193, includes/modules/sms.php:73
 msgctxt "Settings: Option"
 msgid "&mdash; Select &mdash;"
 msgstr ""
 
-#: includes/modulecore.php:981
+#: includes/modulecore.php:983
 msgid "Error: Setting Is Not Callable"
 msgstr ""
 
-#: includes/modulecore.php:1001
+#: includes/modulecore.php:1003
 msgid "Error: Setting Type Undefined"
 msgstr ""
 
@@ -799,162 +799,162 @@ msgctxt "Modules: Cleanup: Settings"
 msgid "Purge User Agent Fields"
 msgstr ""
 
-#: includes/modules/comments.php:77
+#: includes/modules/comments.php:81
 msgctxt "Modules: Menu Name"
 msgid "Comments"
 msgstr ""
 
-#: includes/modules/comments.php:103
+#: includes/modules/comments.php:107
 msgctxt "Modules: Comments: Settings"
 msgid "Comment Notifications"
 msgstr ""
 
-#: includes/modules/comments.php:104
+#: includes/modules/comments.php:108
 msgctxt "Modules: Comments: Settings"
 msgid "Disable all core comment notifications"
 msgstr ""
 
-#: includes/modules/comments.php:113
+#: includes/modules/comments.php:117
 msgctxt "Modules: Comments: Settings"
 msgid "Archived Comments"
 msgstr ""
 
-#: includes/modules/comments.php:114
+#: includes/modules/comments.php:118
 msgctxt "Modules: Comments: Settings"
 msgid "Archived comments and hide from counts"
 msgstr ""
 
-#: includes/modules/comments.php:118
+#: includes/modules/comments.php:122
 msgctxt "Modules: Comments: Settings"
 msgid "Full Comments"
 msgstr ""
 
-#: includes/modules/comments.php:119
+#: includes/modules/comments.php:123
 msgctxt "Modules: Comments: Settings"
 msgid "Full comments on dashboard"
 msgstr ""
 
-#: includes/modules/comments.php:123
+#: includes/modules/comments.php:127
 msgctxt "Modules: Comments: Settings"
 msgid "Frontend Quicktags"
 msgstr ""
 
-#: includes/modules/comments.php:124
+#: includes/modules/comments.php:128
 msgctxt "Modules: Comments: Settings"
 msgid "Activate Quicktags for comments on frontend"
 msgstr ""
 
-#: includes/modules/comments.php:128
+#: includes/modules/comments.php:132
 msgctxt "Modules: Comments: Settings"
 msgid "Frontend Autogrow"
 msgstr ""
 
-#: includes/modules/comments.php:129
+#: includes/modules/comments.php:133
 msgctxt "Modules: Comments: Settings"
 msgid "Makes the comment textarea expand in height automatically"
 msgstr ""
 
-#: includes/modules/comments.php:133
+#: includes/modules/comments.php:137
 msgctxt "Modules: Comments: Settings"
 msgid "Form Notes"
 msgstr ""
 
-#: includes/modules/comments.php:134
+#: includes/modules/comments.php:138
 msgctxt "Modules: Comments: Settings"
 msgid "Removes extra notes after comment form on frontend"
 msgstr ""
 
-#: includes/modules/comments.php:144
+#: includes/modules/comments.php:148
 msgctxt "Modules: Comments: Settings"
 msgid "Captcha"
 msgstr ""
 
-#: includes/modules/comments.php:145
+#: includes/modules/comments.php:149
 msgctxt "Modules: Comments: Settings"
 msgid "Display captcha field on comment form"
 msgstr ""
 
-#: includes/modules/comments.php:212
+#: includes/modules/comments.php:216
 msgctxt "Modules: Comments"
 msgid "Move this comment to the Archives"
 msgstr ""
 
-#: includes/modules/comments.php:213
+#: includes/modules/comments.php:217
 msgctxt "Modules: Comments"
 msgid "Archive"
 msgstr ""
 
-#: includes/modules/comments.php:221
+#: includes/modules/comments.php:225
 msgctxt "Modules: Comments"
 msgid "Move back this comment from the Archives"
 msgstr ""
 
-#: includes/modules/comments.php:222
+#: includes/modules/comments.php:226
 msgctxt "Modules: Comments"
 msgid "Unarchive"
 msgstr ""
 
-#: includes/modules/comments.php:234
+#: includes/modules/comments.php:258
 msgctxt "Modules: Comments"
 msgid "All Archived Comments"
 msgstr ""
 
-#: includes/modules/comments.php:235
+#: includes/modules/comments.php:259
 msgctxt "Modules: Comments"
 msgid "Archives"
 msgstr ""
 
-#: includes/modules/comments.php:242
+#: includes/modules/comments.php:266
 msgctxt "Modules: Comments"
 msgid "Archived"
 msgstr ""
 
-#: includes/modules/comments.php:430
+#: includes/modules/comments.php:454
 msgctxt "Modules: Comments"
 msgid "Your attempt to add this comment has failed."
 msgstr ""
 
-#: includes/modules/comments.php:446
+#: includes/modules/comments.php:470
 msgctxt "Modules: Comments: Total Comments Item"
 msgid "Comments in moderation: %s"
 msgstr ""
 
-#: includes/modules/comments.php:447
+#: includes/modules/comments.php:471
 msgctxt "Modules: Comments: Total Comments Item"
 msgid "Comments approved: %s"
 msgstr ""
 
-#: includes/modules/comments.php:448
+#: includes/modules/comments.php:472
 msgctxt "Modules: Comments: Total Comments Item"
 msgid "Comments in Spam: %s"
 msgstr ""
 
-#: includes/modules/comments.php:449
+#: includes/modules/comments.php:473
 msgctxt "Modules: Comments: Total Comments Item"
 msgid "Comments in Trash: %s"
 msgstr ""
 
-#: includes/modules/comments.php:450
+#: includes/modules/comments.php:474
 msgctxt "Modules: Comments: Total Comments Item"
 msgid "Total Comments: %s"
 msgstr ""
 
-#: includes/modules/comments.php:478
+#: includes/modules/comments.php:502
 msgctxt "Modules: Comments"
 msgid "Comment has <strong>over %s links</strong>. Please reduce number of those."
 msgstr ""
 
-#: includes/modules/comments.php:491, includes/modules/comments.php:533
+#: includes/modules/comments.php:515, includes/modules/comments.php:557
 msgctxt "Modules: Comments"
 msgid "Duplicate comment content. Please rephrase."
 msgstr ""
 
-#: includes/modules/comments.php:505
+#: includes/modules/comments.php:529
 msgctxt "Modules: Comments"
 msgid "Your URL or domain is in list of known spam-promoted sites. If you believe this to be an error please contact site admin."
 msgstr ""
 
-#: includes/modules/comments.php:519
+#: includes/modules/comments.php:543
 msgctxt "Modules: Comments"
 msgid "Your IP is in list of known spam sources. If you believe this to be an error please contact site admin."
 msgstr ""
@@ -1744,62 +1744,67 @@ msgctxt "Modules: Media"
 msgid "Media"
 msgstr ""
 
-#: includes/modules/media.php:244
+#: includes/modules/media.php:243
+msgctxt "Modules: Media"
+msgid "Meta"
+msgstr ""
+
+#: includes/modules/media.php:251
 msgctxt "Modules: Media"
 msgid "Overview of posts with attachments"
 msgstr ""
 
-#: includes/modules/media.php:245
+#: includes/modules/media.php:252
 msgctxt "Modules: Media"
 msgid "No Posts!"
 msgstr ""
 
-#: includes/modules/media.php:355
+#: includes/modules/media.php:362
 msgctxt "Modules: Media"
 msgid "Undefined Image Size"
 msgstr ""
 
-#: includes/modules/media.php:622
+#: includes/modules/media.php:629
 msgctxt "Modules: Media: Bulk Action"
 msgid "Clean Attachments"
 msgstr ""
 
-#: includes/modules/media.php:664
+#: includes/modules/media.php:671
 msgctxt "Modules: Media: Row Action"
 msgid "Clean"
 msgstr ""
 
-#: includes/modules/media.php:693
+#: includes/modules/media.php:700
 msgctxt "Modules: Media: Row Action"
 msgid "View Image URL"
 msgstr ""
 
-#: includes/modules/media.php:701
+#: includes/modules/media.php:708
 msgctxt "Modules: Media: Row Action"
 msgid "View Video URL"
 msgstr ""
 
-#: includes/modules/media.php:706
+#: includes/modules/media.php:713
 msgctxt "Modules: Media: Row Action"
 msgid "View Data File URL"
 msgstr ""
 
-#: includes/modules/media.php:711
+#: includes/modules/media.php:718
 msgctxt "Modules: Media: Row Action"
 msgid "View Spreadsheet URL"
 msgstr ""
 
-#: includes/modules/media.php:718
+#: includes/modules/media.php:725
 msgctxt "Modules: Media: Row Action"
 msgid "View Document URL"
 msgstr ""
 
-#: includes/modules/media.php:722
+#: includes/modules/media.php:729
 msgctxt "Modules: Media: Row Action"
 msgid "View HTML file URL"
 msgstr ""
 
-#: includes/modules/media.php:726
+#: includes/modules/media.php:733
 msgctxt "Modules: Media: Row Action"
 msgid "View Item URL"
 msgstr ""
@@ -1909,7 +1914,7 @@ msgctxt "Modules: Menu Name"
 msgid "PHP Info"
 msgstr ""
 
-#: includes/modules/network.php:249
+#: includes/modules/network.php:256
 msgctxt "Modules: Network: Column"
 msgid "ID"
 msgstr ""
@@ -2539,22 +2544,22 @@ msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Set Parent"
 msgstr ""
 
-#: includes/modules/taxonomy.php:294
+#: includes/modules/taxonomy.php:297
 msgctxt "Settings: Message"
 msgid "Terms updated."
 msgstr ""
 
-#: includes/modules/taxonomy.php:299
+#: includes/modules/taxonomy.php:302
 msgctxt "Settings: Message"
 msgid "Terms not updated."
 msgstr ""
 
-#: includes/modules/taxonomy.php:510
+#: includes/modules/taxonomy.php:513
 msgctxt "Modules: Taxonomy"
 msgid "into: %s"
 msgstr ""
 
-#: includes/modules/taxonomy.php:538
+#: includes/modules/taxonomy.php:541
 msgctxt "Settings: Option"
 msgid "None"
 msgstr ""
