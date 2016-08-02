@@ -304,6 +304,7 @@ class HTML extends Base
 
 		$args = self::atts( array(
 			'title'  => FALSE,
+			'active' => FALSE,
 			'class'  => FALSE,
 			'prefix' => 'nav-tab',
 			'nav'    => 'h3',
@@ -344,7 +345,7 @@ class HTML extends Base
 
 			if ( $content )
 				$contents .= self::tag( 'div', array(
-					'class' => $args['prefix'].'-content -content',
+					'class' => $args['prefix'].'-content'.( $tab_args['active'] ? ' '.$args['prefix'].'-content-active -active' : '' ).' -content',
 					'data'  => array(
 						'tab' => $tab,
 					),
