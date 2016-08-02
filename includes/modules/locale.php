@@ -191,6 +191,19 @@ class Locale extends ModuleCore
 			// [See admin changes on your WordPress site with Simple History](https://simple-history.com/)
 			'simple_history_page'               => 'page',
 			'simple_history_settings_menu_slug' => 'page',
+
+			// [Search Everything](https://wordpress.org/plugins/search-everything/)
+			'extend_search' => 'page',
+
+			// [Edit Flow](https://wordpress.org/plugins/edit-flow/)
+			'ef-settings'                    => 'page',
+			'ef-calendar-settings'           => 'page',
+			'ef-custom-status-settings'      => 'page',
+			'ef-dashboard-settings'          => 'page',
+			'ef-editorial-comments-settings' => 'page',
+			'ef-editorial-metadata-settings' => 'page',
+			'ef-notifications-settings'      => 'page',
+			'ef-user-groups-settings'        => 'page',
 		) );
 
 		foreach ( $black_list as $val => $key )
