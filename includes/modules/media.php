@@ -42,7 +42,7 @@ class Media extends ModuleCore
 		if ( apply_filters( $this->hook( 'disable_meta' ),
 			GNETWORK_MEDIA_DISABLE_META, get_current_blog_id() ) ) {
 
-			add_filter( 'wp_read_image_metadata', '__return_empty_array', 12, 3 );
+			add_filter( 'wp_read_image_metadata', '__return_empty_array', 12, 4 );
 		}
 
 		if ( apply_filters( $this->hook( 'object_sizes' ),
