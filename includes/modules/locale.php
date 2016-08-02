@@ -21,7 +21,7 @@ class Locale extends ModuleCore
 			} );
 
 			if ( is_multisite() )
-				add_filter( 'gnetwork_new_blog_options', array( $this, 'gnetwork_new_blog_options' ) );
+				add_filter( 'gnetwork_network_new_blog_options', array( $this, 'new_blog_options' ) );
 
 			add_filter( 'load_textdomain_mofile', array( $this, 'load_textdomain_mofile' ), 12, 2 );
 		}
@@ -100,7 +100,7 @@ class Locale extends ModuleCore
 		// HTML::tableSideWrap( gNetwork()->locale->loaded, _x( 'Loaded MO Files', 'Modules: Locale', GNETWORK_TEXTDOMAIN ) );
 	}
 
-	public function gnetwork_new_blog_options( $new_options )
+	public function new_blog_options( $new_options )
 	{
 		if ( 'fa_IR' == constant( 'GNETWORK_WPLANG' ) )
 			return array_merge( $new_options, array(

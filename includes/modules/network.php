@@ -222,7 +222,7 @@ class Network extends ModuleCore
 		if ( $site_user_id = WordPress::getSiteUserID() )
 			add_user_to_blog( $blog_id, $site_user_id, GNETWORK_SITE_USER_ROLE );
 
-		$new_blog_options = apply_filters( 'gnetwork_new_blog_options', array(
+		$new_blog_options = apply_filters( $this->hook( 'new_blog_options' ), array(
 			'blogdescription'        => '',
 			'permalink_structure'    => '/entries/%post_id%',
 			'default_comment_status' => 'closed',
