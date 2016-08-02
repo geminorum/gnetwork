@@ -214,7 +214,7 @@ class Network extends ModuleCore
 			update_user_meta( get_current_user_id(), 'show_welcome_panel', 0 );
 	}
 
-	// ALSO SEE: http://stackoverflow.com/a/10372861
+	// TODO: http://stackoverflow.com/a/10372861
 	public function wpmu_new_blog( $blog_id, $user_id, $domain, $path, $site_id, $meta )
 	{
 		switch_to_blog( $blog_id );
@@ -232,10 +232,17 @@ class Network extends ModuleCore
 		foreach ( $new_blog_options as $new_blog_option_key => $new_blog_option )
 			update_option( $new_blog_option_key, $new_blog_option );
 
-		$post = get_post( 1 );
-		wp_transition_post_status( 'draft', $post->post_status, $post );
-		$page = get_post( 2 );
-		wp_transition_post_status( 'draft', $page->post_status, $page );
+		wp_update_post( array( 'ID' => 1, 'post_status' => 'draft' ) );
+		wp_update_post( array( 'ID' => 2, 'post_status' => 'draft' ) );
+		wp_set_comment_status( 1, 'trash' );
+
+		$new_blog_plugins = apply_filters( $this->hook( 'new_blog_plugins' ), array(
+			'geditorial/geditorial.php'     => TRUE,
+			'gpersiandate/gpersiandate.php' => TRUE,
+		) );
+
+		foreach ( $new_blog_plugins as $new_blog_plugin => $new_blog_plugin_silent )
+			activate_plugin( $new_blog_plugin, '', FALSE, $new_blog_plugin_silent );
 
 		restore_current_blog();
 		refresh_blog_details( $blog_id );
