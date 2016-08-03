@@ -203,7 +203,7 @@ class Mail extends ModuleCore
 	{
 		if ( $this->options['log_all'] ) {
 
-			if ( is_dir( GNETWORK_MAIL_LOG_DIR ) && wp_is_writable( GNETWORK_MAIL_LOG_DIR ) ) {
+			if ( wp_is_writable( GNETWORK_MAIL_LOG_DIR ) ) {
 				echo '<p>'.sprintf( _x( 'Log Folder Exists and Writable: <code>%s</code>', 'Modules: Mail', GNETWORK_TEXTDOMAIN ), GNETWORK_MAIL_LOG_DIR ).'</p>';
 
 				if ( ! file_exists( GNETWORK_MAIL_LOG_DIR.'/.htaccess' ) )
