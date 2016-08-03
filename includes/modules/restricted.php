@@ -147,7 +147,7 @@ class Restricted extends ModuleCore
 		AdminBar::removeMenus( array(
 			'site-name',
 			'my-sites',
-			'blog-'.get_current_blog_id(),
+			'blog-'.$this->blog,
 			'edit',
 			'new-content',
 			'comments',

@@ -40,13 +40,13 @@ class Media extends ModuleCore
 	public function init_late()
 	{
 		if ( apply_filters( $this->hook( 'disable_meta' ),
-			GNETWORK_MEDIA_DISABLE_META, get_current_blog_id() ) ) {
+			GNETWORK_MEDIA_DISABLE_META, $this->blog ) ) {
 
 			add_filter( 'wp_read_image_metadata', '__return_empty_array', 12, 4 );
 		}
 
 		if ( apply_filters( $this->hook( 'object_sizes' ),
-			GNETWORK_MEDIA_OBJECT_SIZES, get_current_blog_id() ) ) {
+			GNETWORK_MEDIA_OBJECT_SIZES, $this->blog ) ) {
 
 			add_filter( 'intermediate_image_sizes', '__return_empty_array', 99 );
 			// add_filter( 'intermediate_image_sizes_advanced', '__return_empty_array', 99 );
@@ -55,7 +55,7 @@ class Media extends ModuleCore
 		}
 
 		if ( apply_filters( $this->hook( 'thumbs_separation' ),
-			GNETWORK_MEDIA_THUMBS_SEPARATION, get_current_blog_id() ) ) {
+			GNETWORK_MEDIA_THUMBS_SEPARATION, $this->blog ) ) {
 
 			add_filter( 'wp_image_editors', array( $this, 'wp_image_editors' ), 5, 1 );
 			add_filter( 'image_downsize', array( $this, 'image_downsize' ), 5, 3 );
@@ -385,7 +385,7 @@ class Media extends ModuleCore
 				return $false;
 
 			$result = array(
-				str_replace( $wpupload['baseurl'], trailingslashit( GNETWORK_MEDIA_THUMBS_URL ).get_current_blog_id(), $img_url ),
+				str_replace( $wpupload['baseurl'], trailingslashit( GNETWORK_MEDIA_THUMBS_URL ).$this->blog, $img_url ),
 				$data['width'],
 				$data['height'],
 				TRUE,
@@ -405,7 +405,7 @@ class Media extends ModuleCore
 		$wpupload = wp_get_upload_dir();
 		$info     = pathinfo( $file );
 		$folder   = str_replace( $wpupload['basedir'], '', $info['dirname'] );
-		$path     = path_join( GNETWORK_MEDIA_THUMBS_DIR, get_current_blog_id() ).$folder;
+		$path     = path_join( GNETWORK_MEDIA_THUMBS_DIR, $this->blog ).$folder;
 
 		if ( WordPress::isDev() )
 			error_log( print_r( compact( 'info', 'wpupload', 'folder', 'path' ), TRUE ) );
@@ -443,7 +443,7 @@ class Media extends ModuleCore
 			// $filepath = wp_normalize_path( str_replace( $filename, '', $file ) );
 			$filepath = dirname( $file );
 
-			$pattern_gn = path_join( GNETWORK_MEDIA_THUMBS_DIR, get_current_blog_id() ).'/'.path_join( $filepath, wp_basename( $file, '.'.$filetype['ext'] ) ).'-[0-9]*x[0-9]*.'.$filetype['ext'];
+			$pattern_gn = path_join( GNETWORK_MEDIA_THUMBS_DIR, $this->blog ).'/'.path_join( $filepath, wp_basename( $file, '.'.$filetype['ext'] ) ).'-[0-9]*x[0-9]*.'.$filetype['ext'];
 			$pattern_wp = $wpupload['basedir'].'/'.path_join( $filepath, wp_basename( $file, '.'.$filetype['ext'] ) ).'-[0-9]*x[0-9]*.'.$filetype['ext'];
 
 			$thumbs_gn = glob( $pattern_gn );

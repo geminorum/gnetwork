@@ -11,6 +11,7 @@ class ModuleCore extends Base
 
 	protected $base = 'gnetwork';
 	protected $key  = NULL;
+	protected $blog = NULL;
 
 	protected $network = TRUE;
 	protected $user    = NULL;
@@ -76,6 +77,8 @@ class ModuleCore extends Base
 
 		if ( ! is_null( $base ) )
 			$this->base = $base;
+
+		$this->blog = get_current_blog_id();
 
 		if ( method_exists( $this, 'default_settings' ) )
 			$this->options = $this->init_options();
