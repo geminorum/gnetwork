@@ -23,6 +23,10 @@ class Dashboard extends ModuleCore
 
 	public function wp_dashboard_setup()
 	{
+		$screen = get_current_screen();
+
+		remove_meta_box( 'dashboard_primary', $screen, 'side' );
+
 		if ( has_filter( 'gnetwork_dashoboard_external_feeds' ) ) {
 			wp_add_dashboard_widget(
 				'gnetwork_dashboard_external_feed',

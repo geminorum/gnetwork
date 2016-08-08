@@ -16,10 +16,6 @@ class Cleanup extends ModuleCore
 		add_action( 'admin_menu', array( $this, 'admin_menu_late' ), 999 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), 999 );
 
-		add_action( 'wp_network_dashboard_setup', array( $this, 'wp_dashboard_setup' ), 20 );
-		add_action( 'wp_user_dashboard_setup', array( $this, 'wp_dashboard_setup' ), 20 );
-		add_action( 'wp_dashboard_setup', array( $this, 'wp_dashboard_setup' ), 20 );
-
 		add_filter( 'wpcf7_load_css', '__return_false', 15 );
 
 		// SEE: http://stephanis.info/2014/08/13/on-jetpack-and-auto-activating-modules
@@ -198,32 +194,6 @@ class Cleanup extends ModuleCore
 	{
 		if ( defined( 'BRUTEPROTECT_VERSION' ) )
 			wp_dequeue_style( 'bruteprotect-css' ); // BruteProtect global css!!
-	}
-
-	public function wp_dashboard_setup()
-	{
-		$screen = get_current_screen();
-
-		// Removes the "Right Now" widget that tells you post/comment counts and what theme you're using.
-		// remove_meta_box( 'dashboard_right_now', $screen, 'normal' );
-
-		// Removes the recent comments widget
-		// remove_meta_box( 'dashboard_recent_comments', $screen, 'normal' );
-
-		// Removes the incoming links widget.
-		// remove_meta_box( 'dashboard_incoming_links', $screen, 'normal' );
-
-		// Removes the plugins widgets that displays the most popular, newest, and recently updated plugins
-		remove_meta_box( 'dashboard_plugins', $screen, 'normal' );
-
-		// Removes the quick press widget that allows you post right from the dashboard
-		// remove_meta_box( 'dashboard_quick_press', $screen, 'side' );
-
-		// Removes the widget containing the list of recent drafts
-		// remove_meta_box( 'dashboard_recent_drafts', $screen, 'side' );
-
-		// Removes the "WordPress Blog" widget
-		remove_meta_box( 'dashboard_primary', $screen, 'side' );
 	}
 
 	// https://core.trac.wordpress.org/ticket/20316
