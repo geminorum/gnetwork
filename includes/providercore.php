@@ -222,40 +222,40 @@ class ProviderCore extends Base
 	}
 
 	protected function curlExecute( $url, $data = array(), $method = 'POST', $headers = array() )
-    {
+	{
 		if ( ! $url )
 			return new Error( 'curl_no_endpoint', 'NO EndPoint for cURL' );
 
 		$handle = curl_init();
 
-        curl_setopt( $handle, CURLOPT_URL, $url );
-        curl_setopt( $handle, CURLOPT_HTTPHEADER, array_merge( $this->curlDefaultHeaders(), $headers ) );
-        curl_setopt( $handle, CURLOPT_RETURNTRANSFER, TRUE );
-        curl_setopt( $handle, CURLOPT_SSL_VERIFYHOST, FALSE );
-        curl_setopt( $handle, CURLOPT_SSL_VERIFYPEER, FALSE );
+		curl_setopt( $handle, CURLOPT_URL, $url );
+		curl_setopt( $handle, CURLOPT_HTTPHEADER, array_merge( $this->curlDefaultHeaders(), $headers ) );
+		curl_setopt( $handle, CURLOPT_RETURNTRANSFER, TRUE );
+		curl_setopt( $handle, CURLOPT_SSL_VERIFYHOST, FALSE );
+		curl_setopt( $handle, CURLOPT_SSL_VERIFYPEER, FALSE );
 
-        switch ( $method ) {
-            case 'GET':
+		switch ( $method ) {
+			case 'GET':
 
-            break;
-            case 'POST':
+			break;
+			case 'POST':
 
-                curl_setopt( $handle, CURLOPT_POST, TRUE );
-                curl_setopt( $handle, CURLOPT_POSTFIELDS, http_build_query( $data ) );
+				curl_setopt( $handle, CURLOPT_POST, TRUE );
+				curl_setopt( $handle, CURLOPT_POSTFIELDS, http_build_query( $data ) );
 
-            break;
-            case 'PUT':
+			break;
+			case 'PUT':
 
-                curl_setopt( $handle, CURLOPT_CUSTOMREQUEST, 'PUT' );
-                curl_setopt( $handle, CURLOPT_POSTFIELDS, $data );
+				curl_setopt( $handle, CURLOPT_CUSTOMREQUEST, 'PUT' );
+				curl_setopt( $handle, CURLOPT_POSTFIELDS, $data );
 
-            break;
-            case 'DELETE':
+			break;
+			case 'DELETE':
 
-                curl_setopt( $handle, CURLOPT_CUSTOMREQUEST, 'DELETE' );
+				curl_setopt( $handle, CURLOPT_CUSTOMREQUEST, 'DELETE' );
 
-            break;
-        }
+			break;
+		}
 
 		$response = curl_exec( $handle );
 		$httpcode = curl_getinfo( $handle, CURLINFO_HTTP_CODE );
@@ -269,8 +269,8 @@ class ProviderCore extends Base
 			) );
 
 
-        return $this->curlResults( $response, $httpcode );
-    }
+		return $this->curlResults( $response, $httpcode );
+	}
 
 	protected function curlResults( $response, $httpcode )
 	{

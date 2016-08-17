@@ -12,9 +12,9 @@ class Shortcode_Widget extends \WP_Widget
 		parent::__construct( 'shortcode-widget',
 			_x( 'gNetwork: Shortcode HTML', 'Widget: Title', GNETWORK_TEXTDOMAIN ),
 			array(
-			   'classname'   => 'shortcode_widget',
-			   'description' => _x( 'Arbitrary text or HTML or Shortcode!', 'Widget: Description', GNETWORK_TEXTDOMAIN )
-		   ), array(
+				'classname'   => 'shortcode_widget',
+				'description' => _x( 'Arbitrary text or HTML or Shortcode!', 'Widget: Description', GNETWORK_TEXTDOMAIN )
+			), array(
 				'width'  => 400,
 				'height' => 350,
 			) );

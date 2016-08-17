@@ -90,7 +90,7 @@ class Notify extends ModuleCore
 		global $wpdb, $wp_hasher;
 
 		$blog = $this->blogname();
-        $user = get_userdata( $user_id );
+		$user = get_userdata( $user_id );
 
 		if ( ! $this->options['disable_new_user_admin'] ) {
 

@@ -123,13 +123,13 @@ class Taxonomy extends ModuleCore
 		echo '<span class="title">';
 			_ex( 'Description', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN );
 		echo '</span><span class="input-text-wrap">';
-        	echo '<textarea id="inline-desc" name="gnetwork-description" rows="6" class="ptitle"></textarea>';
-        echo '</span></label></div></fieldset>';
+			echo '<textarea id="inline-desc" name="gnetwork-description" rows="6" class="ptitle"></textarea>';
+		echo '</span></label></div></fieldset>';
 
 		?><script>
 jQuery('#the-list').on('click', 'a.editinline', function(){
-    var now = jQuery(this).closest('tr').find('td.gnetwork_description').text();
-    jQuery('#inline-desc').text( now );
+	var now = jQuery(this).closest('tr').find('td.gnetwork_description').text();
+	jQuery('#inline-desc').text( now );
 	// if (typeof autosize !== 'undefined' && jQuery.isFunction(autosize)) {
 	// 	autosize(jQuery('#inline-desc'));
 	// }

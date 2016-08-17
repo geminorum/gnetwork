@@ -88,26 +88,26 @@ class ShortCodes extends ModuleCore
 	public function tinymce_strings( $strings )
 	{
 		$new = array(
-            'gnetworkref-title' => _x( 'Cite This', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
-            'gnetworkref-attr'  => _x( 'Cite This (Ctrl+Q)', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
-            'gnetworkref-text'  => _x( 'Ref Text', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
-            'gnetworkref-url'   => _x( 'Ref URL', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
+			'gnetworkref-title' => _x( 'Cite This', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
+			'gnetworkref-attr'  => _x( 'Cite This (Ctrl+Q)', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
+			'gnetworkref-text'  => _x( 'Ref Text', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
+			'gnetworkref-url'   => _x( 'Ref URL', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
 
-            'gnetworkemail-title'   => _x( 'Email', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
-            'gnetworkemail-attr'    => _x( 'Email (Ctrl+E)', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
-            'gnetworkemail-email'   => _x( 'Full Email', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
-            'gnetworkemail-text'    => _x( 'Display Text', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
-            'gnetworkemail-subject' => _x( 'Email Subject', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
-            'gnetworkemail-hover'   => _x( 'Link Hover', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
+			'gnetworkemail-title'   => _x( 'Email', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
+			'gnetworkemail-attr'    => _x( 'Email (Ctrl+E)', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
+			'gnetworkemail-email'   => _x( 'Full Email', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
+			'gnetworkemail-text'    => _x( 'Display Text', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
+			'gnetworkemail-subject' => _x( 'Email Subject', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
+			'gnetworkemail-hover'   => _x( 'Link Hover', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
 
-            'gnetworksearch-title' => _x( 'Search', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
-            'gnetworksearch-attr'  => _x( 'Search (Ctrl+3)', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
-            'gnetworksearch-text'  => _x( 'Display Text', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
-            'gnetworksearch-query' => _x( 'Override Criteria', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
+			'gnetworksearch-title' => _x( 'Search', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
+			'gnetworksearch-attr'  => _x( 'Search (Ctrl+3)', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
+			'gnetworksearch-text'  => _x( 'Display Text', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
+			'gnetworksearch-query' => _x( 'Override Criteria', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
 
-            'gnetworkgpeople-title' => _x( 'People', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
-            'gnetworkgpeople-attr'  => _x( 'People', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
-            'gnetworkgpeople-name'  => _x( 'Name', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
+			'gnetworkgpeople-title' => _x( 'People', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
+			'gnetworkgpeople-attr'  => _x( 'People', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
+			'gnetworkgpeople-name'  => _x( 'Name', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
 		);
 
 		return array_merge( $strings, $new );
@@ -522,8 +522,8 @@ class ShortCodes extends ModuleCore
 		if ( FALSE === $args['context'] )
 			return NULL;
 
-        $text  = $args['content'] ? trim( $args['content'] ) : trim( $content );
-        $email = $args['email'] && is_email( $args['email'] ) ? trim( $args['email'] ) : trim( $content );
+		$text  = $args['content'] ? trim( $args['content'] ) : trim( $content );
+		$email = $args['email'] && is_email( $args['email'] ) ? trim( $args['email'] ) : trim( $content );
 
 		if ( ! $email )
 			$email = gNetwork()->email();
@@ -623,11 +623,11 @@ class ShortCodes extends ModuleCore
 	public function shortcode_search( $atts, $content = NULL, $tag = '' )
 	{
 		$args = shortcode_atts( array(
-            'for'     => FALSE, // override
-            'url'     => FALSE, // override
-            'title'   => _x( 'Search this site for &ldquo;%s&rdquo;', 'Modules: ShortCodes: Defaults', GNETWORK_TEXTDOMAIN ),
-            'context' => NULL,
-            'wrap'    => TRUE,
+			'for'     => FALSE, // override
+			'url'     => FALSE, // override
+			'title'   => _x( 'Search this site for &ldquo;%s&rdquo;', 'Modules: ShortCodes: Defaults', GNETWORK_TEXTDOMAIN ),
+			'context' => NULL,
+			'wrap'    => TRUE,
 		), $atts, $tag );
 
 		if ( FALSE === $args['context'] )
@@ -636,12 +636,12 @@ class ShortCodes extends ModuleCore
 		if ( ! $content )
 			return $content;
 
-        $text = trim( strip_tags( $content ) );
-        $for  = $args['for'] ? trim( $args['for'] ) : $text;
+		$text = trim( strip_tags( $content ) );
+		$for  = $args['for'] ? trim( $args['for'] ) : $text;
 
 		$html = HTML::tag( 'a', array(
-            'href'  => WordPress::getSearchLink( $for, $args['url'] ),
-            'title' => sprintf( $args['title'], $for ),
+			'href'  => WordPress::getSearchLink( $for, $args['url'] ),
+			'title' => sprintf( $args['title'], $for ),
 		), $text );
 
 		return self::shortcodeWrap( $html, 'search', $args, FALSE );

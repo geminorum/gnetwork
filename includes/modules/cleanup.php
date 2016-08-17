@@ -33,7 +33,7 @@ class Cleanup extends ModuleCore
 	public function default_settings()
 	{
 		$settings = array();
-        $confirm  = Settings::getButtonConfirm();
+		$confirm  = Settings::getButtonConfirm();
 
 		$settings['_transient'][] = array(
 			'field'       => 'transient_purge',
@@ -206,15 +206,15 @@ class Cleanup extends ModuleCore
 			return FALSE;
 
 		if ( $site ) {
-            $table = $wpdb->sitemeta;
-            $key   = 'meta_key';
-            $val   = 'meta_value';
-            $like  = '%_site_transient_timeout_%';
+			$table = $wpdb->sitemeta;
+			$key   = 'meta_key';
+			$val   = 'meta_value';
+			$like  = '%_site_transient_timeout_%';
 		} else {
-            $table = $wpdb->options;
-            $key   = 'option_name';
-            $val   = 'option_value';
-            $like  = '%_transient_timeout_%';
+			$table = $wpdb->options;
+			$key   = 'option_name';
+			$val   = 'option_value';
+			$like  = '%_transient_timeout_%';
 		}
 
 		$query = "SELECT {$key} FROM {$table} WHERE {$key} LIKE '{$like}'";

@@ -435,8 +435,8 @@ class ModuleCore extends Base
 
 				foreach ( $fields as $field )
 					$this->add_settings_field( array_merge( $field, array(
-                        'page'    => $page,
-                        'section' => $section,
+						'page'    => $page,
+						'section' => $section,
 					) ) );
 
 			// for pre internal custom options

@@ -106,63 +106,63 @@ class File extends Base
 	// read the last n lines of a file without reading through all of it
 	public static function getLastLines( $path, $count, $block_size = 512 )
 	{
-	    $lines = array();
+		$lines = array();
 
-	    // we will always have a fragment of a non-complete line
-	    // keep this in here till we have our next entire line.
-	    $leftover = '';
+		// we will always have a fragment of a non-complete line
+		// keep this in here till we have our next entire line.
+		$leftover = '';
 
-	    $fh = fopen( $path, 'r' );
+		$fh = fopen( $path, 'r' );
 
 		// go to the end of the file
-	    fseek( $fh, 0, SEEK_END );
+		fseek( $fh, 0, SEEK_END );
 
 		do {
 
-	        // need to know whether we can actually go back
-	        $can_read = $block_size; // $block_size in bytes
+			// need to know whether we can actually go back
+			$can_read = $block_size; // $block_size in bytes
 
 			if ( ftell( $fh ) < $block_size )
-	            $can_read = ftell( $fh );
+				$can_read = ftell( $fh );
 
-	        // go back as many bytes as we can
-	        // read them to $data and then move the file pointer
-	        // back to where we were.
-	        fseek( $fh, -$can_read, SEEK_CUR );
-	        $data = fread( $fh, $can_read );
-	        $data .= $leftover;
-	        fseek( $fh, -$can_read, SEEK_CUR );
+			// go back as many bytes as we can
+			// read them to $data and then move the file pointer
+			// back to where we were.
+			fseek( $fh, -$can_read, SEEK_CUR );
+			$data = fread( $fh, $can_read );
+			$data .= $leftover;
+			fseek( $fh, -$can_read, SEEK_CUR );
 
-	        // split lines by \n. Then reverse them,
-	        // now the last line is most likely not a complete
-	        // line which is why we do not directly add it, but
-	        // append it to the data read the next time.
-            $split_data = array_reverse( explode( "\n", $data ) );
-            $new_lines  = array_slice( $split_data, 0, -1 );
-            $lines      = array_merge( $lines, $new_lines );
-            $leftover   = $split_data[count( $split_data ) - 1];
-	    }
+			// split lines by \n. Then reverse them,
+			// now the last line is most likely not a complete
+			// line which is why we do not directly add it, but
+			// append it to the data read the next time.
+			$split_data = array_reverse( explode( "\n", $data ) );
+			$new_lines  = array_slice( $split_data, 0, -1 );
+			$lines      = array_merge( $lines, $new_lines );
+			$leftover   = $split_data[count( $split_data ) - 1];
+		}
 
 		while ( count( $lines ) < $count && 0 != ftell( $fh ) );
 
 		if ( 0 == ftell( $fh ) )
-	        $lines[] = $leftover;
+			$lines[] = $leftover;
 
-	    fclose( $fh );
+		fclose( $fh );
 
 		// usually, we will read too many lines, correct that here.
-	    return array_slice( $lines, 0, $count );
+		return array_slice( $lines, 0, $count );
 	}
 
 	// @SOURCE: http://stackoverflow.com/a/6674672/4864081
 	// determines the file size without any acrobatics
 	public static function getSize( $path, $format = TRUE )
 	{
-        $fh   = fopen( $path, 'r+' );
-        $stat = fstat( $fh );
+		$fh   = fopen( $path, 'r+' );
+		$stat = fstat( $fh );
 		fclose( $fh );
 
-        return $format ? self::formatSize( $stat['size'] ) : $stat['size'];
+		return $format ? self::formatSize( $stat['size'] ) : $stat['size'];
 	}
 
 	// WP core `size_format()` function without `number_format_i18n()`

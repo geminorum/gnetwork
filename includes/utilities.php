@@ -363,30 +363,30 @@ class Utilities extends Base
 	public static function getGoogleQRCode( $data, $atts = array() )
 	{
 		$args = self::atts( array(
-            'tag'        => TRUE,
-            'size'       => 150,
-            'encoding'   => 'UTF-8',
-            'correction' => 'H', // 'L', 'M', 'Q', 'H'
-            'margin'     => 0,
-            'url'        => 'https://chart.googleapis.com/chart',
+			'tag'        => TRUE,
+			'size'       => 150,
+			'encoding'   => 'UTF-8',
+			'correction' => 'H', // 'L', 'M', 'Q', 'H'
+			'margin'     => 0,
+			'url'        => 'https://chart.googleapis.com/chart',
 		), $atts );
 
 		$src = add_query_arg( array(
-            'cht'  => 'qr',
-            'chs'  => $args['size'].'x'.$args['size'],
-            'chl'  => urlencode( $data ),
-            'chld' => $args['correction'].'|'.$args['margin'],
-            'choe' => $args['encoding'],
+			'cht'  => 'qr',
+			'chs'  => $args['size'].'x'.$args['size'],
+			'chl'  => urlencode( $data ),
+			'chld' => $args['correction'].'|'.$args['margin'],
+			'choe' => $args['encoding'],
 		), $args['url'] );
 
 		if ( ! $args['tag'] )
 			return $src;
 
 		return HTML::tag( 'img', array(
-            'src'    => $src,
-            'width'  => $args['size'],
-            'height' => $args['size'],
-            'alt'    => strip_tags( $data ),
+			'src'    => $src,
+			'width'  => $args['size'],
+			'height' => $args['size'],
+			'alt'    => strip_tags( $data ),
 		) );
 	}
 }

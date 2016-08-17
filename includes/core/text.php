@@ -110,13 +110,13 @@ class Text extends Base
 	// @SEE: WP core's : `seems_utf8()`
 	public static function utf8Compliant( $string )
 	{
-	    if ( 0 == strlen( $string ) )
-	        return TRUE;
+		if ( 0 === strlen( $string ) )
+			return TRUE;
 
-	    // If even just the first character can be matched, when the /u
-	    // modifier is used, then it's valid UTF-8. If the UTF-8 is somehow
-	    // invalid, nothing at all will match, even if the string contains
-	    // some valid sequences
-	    return ( 1 == preg_match( '/^.{1}/us', $string, $ar ) );
+		// If even just the first character can be matched, when the /u
+		// modifier is used, then it's valid UTF-8. If the UTF-8 is somehow
+		// invalid, nothing at all will match, even if the string contains
+		// some valid sequences
+		return ( 1 == preg_match( '/^.{1}/us', $string, $ar ) );
 	}
 }
