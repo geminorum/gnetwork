@@ -26,32 +26,34 @@ if ( have_posts() ) {
 	while ( have_posts() ) {
 
 		the_post();
-		$id = (int) $post->ID;
 
 		$single = array(
-			'id'        => $id,
+			'id'        => $post->ID,
 			'title'     => get_the_title(),
 			'permalink' => get_permalink(),
 			'content'   => get_the_content(),
 			'excerpt'   => get_the_excerpt(),
 			'date'      => get_the_date( 'Y-m-d H:i:s', '', '', FALSE ),
 			'author'    => get_the_author(),
+			'terms'     => array(),
 		);
 
-		// FIXME: use get attachment url
-		if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail( $id ) )
-			$single["thumbnail"] = preg_replace( "/^.*['\"](https?:\/\/[^'\"]*)['\"].*/i", "$1", get_the_post_thumbnail( $id ) );
+		if ( $tumbnail = get_the_post_thumbnail_url( $post->ID ) )
+			$single['thumbnail'] = $tumbnail;
 
-		// TODO: include all public taxonomy for this object
-		$single["categories"] = $single["tags"] = array();
+		foreach ( get_object_taxonomies( $post->post_type, 'objects' ) as $taxonomy ) {
 
-		$categories = get_the_category();
-		if ( ! empty( $categories ) )
-			$single["categories"] = wp_list_pluck( $categories, 'cat_name' );
+			if ( ! $taxonomy->public )
+				continue;
 
-		$tags = get_the_tags();
-		if ( ! empty( $tags ) )
-			$single["tags"] = wp_list_pluck( $tags, 'name' );
+			if ( $terms = get_the_terms( $post->ID, $taxonomy->name ) ) {
+
+				$name = sanitize_term_field( 'name', $term->name, $term->term_id, $taxonomy->name, 'display' );
+				$url = get_term_link( $term->slug, $taxonomy->name );
+
+				$single['terms'][$taxonomy->label][$name] = esc_url( $url );
+			}
+		}
 
 		$json[] = $single;
 	}
@@ -61,16 +63,16 @@ if ( have_posts() ) {
 	nocache_headers();
 
 	if ( ! empty( $callback ) ) {
-		header( "Content-Type: application/x-javascript; charset={$charset}" );
+		header( 'Content-Type: application/x-javascript; charset='.$charset );
 		echo "{$callback}({$json});";
 
 	} else {
-		header( "Content-Type: application/json; charset={$charset}" );
+		header( 'Content-Type: application/json; charset='.$charset );
 		echo $json;
 	}
 
 } else {
 
 	status_header( '404' );
-	wp_die( "404 Not Found" );
+	wp_die( '404 Not Found' );
 }
