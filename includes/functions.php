@@ -23,6 +23,14 @@ if ( ! function_exists( 'gnetwork_github_readme' ) ) :
 	}
 endif;
 
+if ( ! function_exists( 'gnetwork_update_notice' ) ) :
+	function gnetwork_update_notice( $plugin = GNETWORK_FILE ) {
+
+		if ( class_exists( '\geminorum\gNetwork\Utilities' ) )
+			return \geminorum\gNetwork\Utilities::updateNotice( $plugin );
+	}
+endif;
+
 if ( ! function_exists( 'gnetwork_register_imagesize' ) ) :
 	function gnetwork_register_imagesize( $name, $atts = array() ) {
 

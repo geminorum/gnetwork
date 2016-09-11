@@ -13,6 +13,21 @@ class Utilities extends Base
 			.GNETWORK_URL.'assets/images/itsageminorumproject-lightgrey.svg" alt="" /></a>';
 	}
 
+	public static function updateNotice( $plugin = GNETWORK_FILE )
+	{
+		$updates = get_plugin_updates();
+
+		if ( ! empty( $updates[$plugin] ) )
+			self::info( sprintf(
+				_x( 'A new version of %s is available. Please update to version %s to ensure compatibility with your WordPress.', 'Utilities: Update Notice', GNETWORK_TEXTDOMAIN ),
+				HTML::tag( 'a', array( 'href' => $updates[$plugin]->PluginURI ), $updates[$plugin]->Name ),
+				$updates[$plugin]->update->new_version
+			), TRUE );
+
+		else
+			return FALSE;
+	}
+
 	public static function getFeeds( $filter = TRUE )
 	{
 		$feeds = array( 'rdf', 'rss', 'rss2', 'atom', 'json' );
