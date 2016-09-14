@@ -562,7 +562,7 @@ class Mail extends ModuleCore
 			'_cb' => 'file',
 
 			'info' => array(
-				'title'    => _x( 'Whom, When', 'Modules: Mail: Email Logs Table Column', GNETWORK_TEXTDOMAIN ),
+				'title'    => _x( 'When, Whom', 'Modules: Mail: Email Logs Table Column', GNETWORK_TEXTDOMAIN ),
 				'class'    => '-column-info',
 				'callback' => function( $value, $row, $column, $index ){
 					$info = '';
