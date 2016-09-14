@@ -2,6 +2,7 @@
   "name": "gnetwork",
   "version": "3.3.2",
   "description": "WordPress Network Helper",
+  "license": "GPL-3+",
   "author": {
     "name": "Nasser Rafie",
     "email": "contact@geminorum.ir",
