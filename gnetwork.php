@@ -38,4 +38,12 @@ if ( file_exists( GNETWORK_DIR.'assets/vendor/autoload.php' ) ) {
 	global $gNetwork;
 
 	$gNetwork = gNetwork();
+
+} else if ( is_network_admin() ) {
+
+	add_action( 'network_admin_notices', function(){
+		echo '<div class="notice notice-warning notice-alt is-dismissible"><p>';
+			printf( '<b>gNetwork</b> is not installed correctly. go grab the latest package <a href="%s" target="_blank">here</a>.', 'https://github.com/geminorum/gnetwork/releases/latest' ) ;
+		echo '</p></div>';
+	} );
 }
