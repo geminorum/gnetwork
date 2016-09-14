@@ -104,7 +104,12 @@ class Admin extends ModuleCore
 
 	public function admin_menu_late()
 	{
-		$GLOBALS['submenu'][$this->base][0][0] = _x( 'Overview', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN );
+		$GLOBALS['submenu'][$this->base][0] = array(
+			_x( 'Overview', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
+			'read',
+			$this->base,
+			_x( 'gNetwork Extras', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN ),
+		);
 	}
 
 	public static function registerMenu( $sub, $title = NULL, $callback = FALSE, $capability = 'manage_options' )
