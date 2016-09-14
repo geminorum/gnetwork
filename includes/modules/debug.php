@@ -184,6 +184,7 @@ class Debug extends ModuleCore
 			'ABSPATH'       => ABSPATH,
 			'DIR'           => GNETWORK_DIR,
 			'URL'           => GNETWORK_URL,
+			'FILE'          => GNETWORK_FILE,
 			'DL_DIR'        => GNETWORK_DL_DIR,
 			'DL_URL'        => GNETWORK_DL_URL,
 			'MAIL_LOG_DIR'  => GNETWORK_MAIL_LOG_DIR,
