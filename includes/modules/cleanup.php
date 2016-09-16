@@ -88,6 +88,14 @@ class Cleanup extends ModuleCore
 			'values'      => $confirm,
 		);
 
+		$settings['_posts'][] = array(
+			'field'       => 'thumbnail_orphanedmeta',
+			'type'        => 'button',
+			'description' => _x( 'Checks for Orphaned Thumbnail Metas', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+			'default'     => _x( 'Purge Orphaned Featured Image Matadata', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+			'values'      => $confirm,
+		);
+
 		$settings['_comments'][] = array(
 			'field'       => 'comments_orphanedmeta',
 			'type'        => 'button',
@@ -139,6 +147,9 @@ class Cleanup extends ModuleCore
 
 			else if ( isset( $_POST['postmeta_oldslug'] ) )
 				$message = $this->postmeta_oldslug() ? 'purged' : 'error';
+
+			else if ( isset( $_POST['thumbnail_orphanedmeta'] ) )
+				$message = $this->thumbnail_orphanedmeta() ? 'purged' : 'error';
 
 			else if ( isset( $_POST['comments_orphanedmeta'] ) )
 				$message = $this->comments_orphanedmeta() ? 'optimized' : 'error';
@@ -284,6 +295,17 @@ class Cleanup extends ModuleCore
 		global $wpdb;
 
 		$wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = '_wp_old_slug'" );
+
+		$wpdb->query( "OPTIMIZE TABLE {$wpdb->postmeta}" );
+
+		return TRUE;
+	}
+
+	private function thumbnail_orphanedmeta()
+	{
+		global $wpdb;
+
+		$wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = '_thumbnail_id' AND meta_value NOT IN (SELECT ID FROM {$wpdb->posts})" );
 
 		$wpdb->query( "OPTIMIZE TABLE {$wpdb->postmeta}" );
 
