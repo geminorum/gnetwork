@@ -315,7 +315,7 @@ class Blog extends ModuleCore
 
 		$redirect = self::untrail( $this->options['blog_redirect'] ).$_SERVER['REQUEST_URI'];
 
-		if ( ! empty( $pagenow ) && 'index.php' == $pagenow )
+		if ( ! empty( $pagenow ) && 'index.php' == $pagenow && ! is_admin() )
 			self::redirect( $redirect, $this->options['blog_redirect_status'] );
 
 		if ( FALSE === self::whiteListed() )
@@ -328,6 +328,7 @@ class Blog extends ModuleCore
 			$request_uri = $_SERVER['REQUEST_URI'];
 
 		return Arraay::strposArray( array(
+			'wp-admin',
 			'wp-activate.php',
 			'wp-comments-post.php',
 			'wp-cron.php',
