@@ -391,13 +391,12 @@ class ModuleCore extends Base
 				if ( isset( $_POST[$options_key][$setting] ) ) {
 
 					// multiple checkboxes
-					if ( is_array( $_POST[$options_key][$setting] ) ) {
-						$options[$setting] = Arraay::getKeys( $_POST[$options_key][$setting] );
+					if ( is_array( $_POST[$options_key][$setting] ) )
+						$options[$setting] = array_keys( $_POST[$options_key][$setting] );
 
 					// other options
-					} else {
+					else
 						$options[$setting] = trim( stripslashes( $_POST[$options_key][$setting] ) );
-					}
 				}
 			}
 
