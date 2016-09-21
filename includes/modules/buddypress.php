@@ -314,30 +314,33 @@ class BuddyPress extends ModuleCore
 	public function bp_before_registration_submit_buttons()
 	{
 		echo '<div style="clear:both;"></div>';
-		echo '<div class="register-section register-section-tos checkbox gnetwork-tos">';
+		echo '<div class="register-section register-section-tos checkbox gnetwork-wrap-tos">';
 
 		$title = empty( $this->options['tos_title'] ) ? FALSE : $this->options['tos_title'];
 
 		if ( $title && ! empty( $this->options['tos_link'] ) )
-			printf( '<h4><a href="%1$s" title="%2$s">%3$s</a></h4>',
+			printf( '<h4 class="-title"><a href="%1$s" title="%2$s">%3$s</a></h4>',
 				esc_url( $this->options['tos_link'] ),
 				_x( 'Read full agreement', 'Modules: BuddyPress', GNETWORK_TEXTDOMAIN ),
 				$title
 			);
+
 		else if ( $title )
-			printf( '<h4>%s</h4>', $title );
+			printf( '<h4 class="-title">%s</h4>', $title );
 
 		do_action( 'bp_gnetwork_bp_tos_errors' );
 
 		if ( ! empty( $this->options['tos_text'] ) ) {
-			echo '<textarea class="no-autosize" readonly="readonly" style="width:95%;height:220px">';
+			echo '<textarea class="-text no-autosize" readonly="readonly">';
 				echo esc_textarea( $this->options['tos_text'] );
 			echo '</textarea>';
 		}
 
 		if ( ! empty( $this->options['tos_label'] ) )
-			echo '<label for="gnetwork-bp-tos"><input type="checkbox" id="gnetwork-bp-tos" name="gnetwork_bp_tos" value="accepted" style="vertical-align:middle;"> '
-				 .$this->options['tos_label'].'</label>';
+			echo '<label for="gnetwork-bp-tos">'
+				.'<input type="checkbox" class="-checkbox" id="gnetwork-bp-tos" name="gnetwork_bp_tos" value="accepted">&nbsp;'
+					.$this->options['tos_label']
+				.'</label>';
 
 		echo '</div>';
 	}
