@@ -718,7 +718,7 @@ class ModuleCore extends Base
 
 						echo '<p>'.HTML::tag( 'label', array(
 							'for' => $id.'-'.$value_name,
-						), $html.'&nbsp;'.esc_html( $value_title ) ).'</p>';
+						), $html.'&nbsp;'.$value_title ).'</p>';
 					}
 
 				} else {
