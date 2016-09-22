@@ -954,10 +954,10 @@ class ShortCodes extends ModuleCore
 		if ( FALSE === $args['context'] )
 			return NULL;
 
-		$html = $url = FALSE;
+		$ref = $title = $url = FALSE;
 
 		if ( $content )
-			$html = trim( strip_tags( $content ) );
+			$ref = $title = trim( strip_tags( apply_filters( 'string_format_i18n', $content ) ) );
 
 		if ( 'def' == $args['url_icon'] )
 			$args['url_icon'] = $args['rtl'] ? '&larr;' : '&rarr;';
@@ -970,22 +970,22 @@ class ShortCodes extends ModuleCore
 				'title'       => $args['url_title'],
 			), $args['url_icon'] );
 
-		if ( $html && $url )
-			$html = $html.'&nbsp;'.$url;
+		if ( $ref && $url )
+			$ref = $ref.'&nbsp;'.$url;
 		else if ( $url )
-			$html = $url;
+			$ref = $url;
 
-		if ( ! $html )
+		if ( ! $ref )
 			return NULL;
 
 		$key = count( $this->ref_ids ) + 1;
-		$this->ref_ids[$key] = $html;
+		$this->ref_ids[$key] = $ref;
 
 		$html = HTML::tag( 'a', array(
 			'class'       => 'cite-scroll', // FIXME: add default styles
 			'data-toggle' => 'tooltip',
 			'href'        => '#citenote-'.$key,
-			'title'       => trim( strip_tags( apply_filters( 'string_format_i18n', $content ) ) ),
+			'title'       => $title,
 		), '&#8207;['.( $args['format_number'] ? number_format_i18n( $key ) : $key ).']&#8206;' );
 
 		return '<sup class="ref reference '.$args['class'].'" id="citeref-'.$key.'">'.$html.'</sup>';
