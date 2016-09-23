@@ -920,6 +920,7 @@ class ModuleCore extends Base
 				}
 
 			break;
+			case 'users' :
 			case 'blog_users' :
 
 				if ( ! is_null( $args['none_title'] ) ) {
@@ -938,7 +939,7 @@ class ModuleCore extends Base
 					$html .= HTML::tag( 'option', array(
 						'value'    => $user_id,
 						'selected' => $value == $user_id,
-					), esc_html( $user_object->display_name ) );
+					), esc_html( sprintf( '%1$s (%2$s)', $user_object->display_name, $user_object->user_login ) ) );
 				}
 
 				echo HTML::tag( 'select', array(
