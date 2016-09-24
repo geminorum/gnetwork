@@ -20,8 +20,9 @@ class Typography extends ModuleCore
 			Admin::registerTinyMCE( 'gnetworkasterisks', 'assets/js/tinymce.asterisks', 2 );
 		}
 
-		if ( $this->options['title_titlecase'] )
-			add_filter( 'the_title', array( $this, 'the_title' ) );
+		if ( $this->options['title_titlecase']
+			|| $this->options['title_wordwrap'] )
+				add_filter( 'the_title', array( $this, 'the_title' ) );
 	}
 
 	public function setup_menu( $context )
@@ -37,6 +38,7 @@ class Typography extends ModuleCore
 		return array(
 			'editor_buttons'  => '0',
 			'title_titlecase' => '0',
+			'title_wordwrap'  => '0',
 		);
 	}
 
@@ -51,9 +53,15 @@ class Typography extends ModuleCore
 				),
 				array(
 					'field'       => 'title_titlecase',
-					'title'       => _x( 'Title to Title Case', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Properly-Cased Title of Posts', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Title in Title Case', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Properly-Cased Post Titles', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
 					'after'       => Settings::fieldAfterIcon( Settings::getMoreInfoIcon( 'https://gist.github.com/geminorum/fe2a9ba25db5cf2e5ad6718423d00f8a' ) ),
+				),
+				array(
+					'field'       => 'title_wordwrap',
+					'title'       => _x( 'Title Word Wrapper', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Preventing Widows in Post Titles', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
+					'after'       => Settings::fieldAfterIcon( Settings::getMoreInfoIcon( 'https://davidwalsh.name/word-wrap-mootools-php' ) ),
 				),
 			),
 		);
@@ -175,6 +183,12 @@ class Typography extends ModuleCore
 
 	public function the_title( $title )
 	{
-		return Text::titleCase( $title );
+		if ( $this->options['title_titlecase'] )
+			$title = Text::titleCase( $title );
+
+		if ( $this->options['title_wordwrap'] )
+			$title = Text::wordWrap( $title );
+
+		return $title;
 	}
 }
