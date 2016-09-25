@@ -104,7 +104,6 @@ class gNetwork
 			'modules/widgets'     => 'Widgets',
 			'modules/bbpress'     => 'bbPress',
 			'modules/notify'      => 'Notify',
-			'modules/reference'   => 'Reference',
 			'modules/typography'  => 'Typography',
 			'modules/debug'       => 'Debug',
 			'modules/code'        => 'Code',
