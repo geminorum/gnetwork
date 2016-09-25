@@ -189,7 +189,6 @@ class Debug extends ModuleCore
 			'DL_URL'        => GNETWORK_DL_URL,
 			'MAIL_LOG_DIR'  => GNETWORK_MAIL_LOG_DIR,
 			'AJAX_ENDPOINT' => GNETWORK_AJAX_ENDPOINT,
-
 		);
 
 		HTML::tableCode( $paths );
@@ -263,25 +262,33 @@ class Debug extends ModuleCore
 		HTML::tableCode( $server );
 	}
 
+	private static function get_phpinfo()
+	{
+		if ( self::isFuncDisabled( 'phpinfo' ) )
+			return FALSE;
+
+		ob_start();
+		@phpinfo();
+
+		if ( ! $info = ob_get_clean() )
+			return FALSE;
+
+		$dom = new \domDocument;
+		$dom->loadHTML( $info );
+
+		$body = $dom->documentElement->lastChild;
+		return $dom->saveHTML( $body );
+	}
+
 	public static function phpinfo()
 	{
-		if ( self::isFuncDisabled( 'phpinfo' ) ) {
-
+		if ( $phpinfo = self::get_phpinfo() ) {
+			echo '<div class="gnetwork-phpinfo-wrap">';
+				echo $phpinfo;
+			echo '</div>';
+		} else {
 			echo '<div class="gnetwork-phpinfo-disabled description">';
 				_ex( '<code>phpinfo()</code> has been disabled.', 'Modules: Debug', GNETWORK_TEXTDOMAIN );
-			echo '</div>';
-
-		} else {
-
-			$dom = new \domDocument;
-
-			ob_start();
-			phpinfo();
-
-			$dom->loadHTML( ob_get_clean() );
-			$body = $dom->documentElement->lastChild;
-			echo '<div class="gnetwork-phpinfo-wrap">';
-				echo $dom->saveHTML( $body );
 			echo '</div>';
 		}
 	}
