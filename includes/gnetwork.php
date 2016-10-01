@@ -63,6 +63,7 @@ class gNetwork
 			'core/file'      => '',
 			'core/arraay'    => '',
 			'core/text'      => '',
+			'core/number'    => '',
 			'core/date'      => '',
 			'core/wordpress' => '',
 
