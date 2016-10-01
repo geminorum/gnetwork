@@ -22,8 +22,8 @@ class Blog extends ModuleCore
 		if ( $this->options['linkmanager_enabled'] )
 			add_filter( 'pre_option_link_manager_enabled', '__return_true', 12 );
 
-		if ( $this->options['page_copyright'] )
-			add_filter( 'wp_head', array( $this, 'wp_head_copyright' ) );
+		if ( $this->options['page_copyright'] || $this->options['meta_revised'] )
+			add_filter( 'wp_head', array( $this, 'wp_head' ) );
 
 		if ( $this->options['page_404'] )
 			add_filter( '404_template', array( $this, 'custom_404_template' ) );
@@ -82,19 +82,20 @@ class Blog extends ModuleCore
 	public function default_options()
 	{
 		return array(
-			'admin_locale'        => '',
-			'blog_redirect'       => '',
-			'blog_redirect_status'=> '301',
-			'linkmanager_enabled' => '0',
-			'xmlrpc_enabled'      => '0',
-			'page_copyright'      => '0',
-			'page_404'            => '0',
-			'feed_json'           => '0',
-			'rest_api_support'    => '0',
-			'disable_emojis'      => GNETWORK_DISABLE_EMOJIS,
-			'ga_override'         => '',
-			'from_email'          => '',
-			'from_name'           => '',
+			'admin_locale'         => '',
+			'blog_redirect'        => '',
+			'blog_redirect_status' => '301',
+			'linkmanager_enabled'  => '0',
+			'xmlrpc_enabled'       => '0',
+			'page_copyright'       => '0',
+			'page_404'             => '0',
+			'meta_revised'         => '0',
+			'feed_json'            => '0',
+			'rest_api_support'     => '0',
+			'disable_emojis'       => GNETWORK_DISABLE_EMOJIS,
+			'ga_override'          => '',
+			'from_email'           => '',
+			'from_name'            => '',
 		);
 	}
 
@@ -189,6 +190,11 @@ class Blog extends ModuleCore
 					'default'     => '0',
 					'exclude'     => $exclude,
 					'after'       => Settings::fieldAfterIcon( Settings::getNewPostTypeLink( 'page' ) ),
+				),
+				array(
+					'field'       => 'meta_revised',
+					'title'       => _x( 'Meta Revised', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'HTML Revised Meta Tags for Posts', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 				),
 			),
 		);
@@ -351,9 +357,13 @@ class Blog extends ModuleCore
 		return $template;
 	}
 
-	public function wp_head_copyright()
+	public function wp_head()
 	{
-		echo "\t".'<link rel="copyright" href="'.get_page_link( $this->options['page_copyright'] ).'">'."\n";
+		if ( $this->options['page_copyright'] )
+			echo "\t".'<link rel="copyright" href="'.get_page_link( $this->options['page_copyright'] ).'" />'."\n";
+
+		if ( $this->options['meta_revised'] && is_singular() )
+			echo "\t".'<meta name="revised" content="'.get_post_modified_time( 'D, m M Y G:i:s', TRUE ).'" />'."\n";
 	}
 
 ////////////////////////////////////////////////////////////////////////////////
