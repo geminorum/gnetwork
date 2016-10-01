@@ -1039,8 +1039,11 @@ class ModuleCore extends Base
 
 	public static function shortcodeWrap( $html, $suffix = FALSE, $args = array(), $block = TRUE )
 	{
-		if ( isset( $args['wrap'] ) && ! $args['wrap'] )
-			return $html;
+		$before = empty( $args['before'] ) ? '' : $args['before'];
+		$after  = empty( $args['after'] ) ? '' : $args['after'];
+
+		if ( empty( $args['wrap'] ) )
+			return $before.$html.$after;
 
 		$classes = array( 'gnetwork-wrap-shortcode' );
 
@@ -1050,7 +1053,10 @@ class ModuleCore extends Base
 		if ( isset( $args['context'] ) && $args['context'] )
 			$classes[] = 'context-'.$args['context'];
 
-		return HTML::tag( $block ? 'div' : 'span', array( 'class' => $classes ), $html );
+		if ( $after )
+			return $before.HTML::tag( $block ? 'div' : 'span', array( 'class' => $classes ), $html ).$after;
+
+		return HTML::tag( $block ? 'div' : 'span', array( 'class' => $classes ), $before.$html );
 	}
 
 	public static function shortcodeTermTitle( $atts, $term = FALSE )
