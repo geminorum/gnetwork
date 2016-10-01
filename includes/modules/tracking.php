@@ -16,7 +16,7 @@ class Tracking extends ModuleCore
 		add_action( 'init', array( $this, 'init' ), 8 );
 		add_action( 'wp_head', array( $this, 'wp_head' ), 999 );
 		add_action( 'login_head', array( $this, 'login_head' ), 999 );
-		add_action( 'wp_footer', array( $this, 'wp_footer' ), 9 );
+		add_action( 'wp_footer', array( $this, 'wp_footer' ), 99 );
 	}
 
 	public function setup_menu( $context )
@@ -299,7 +299,7 @@ class Tracking extends ModuleCore
 /* <![CDATA[ */
 	(function($){"use strict";var baseURI=window.location.host;$("body").on("click",function(e){if(e.isDefaultPrevented()||typeof ga!=="function")return;var link=$(e.target).closest("a");if(link.length!=1||baseURI==link[0].host)return;e.preventDefault();var href=link[0].href;ga('send',{'hitType':'event','eventCategory':'outbound','eventAction':'link','eventLabel':href,'hitCallback':loadPage});setTimeout(loadPage,1000);function loadPage(){document.location=href;}});})(jQuery);
 /* ]]> */
-</script> <?php
+</script><?php
 		}
 
 		if ( ! empty( $this->options['quantcast'] ) ) {

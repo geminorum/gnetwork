@@ -272,7 +272,7 @@ class BuddyPress extends ModuleCore
 		global $wpdb;
 
 		$bp_prefix = bp_core_get_table_prefix();
-		// $xprofile_fields = $wpdb->get_results( "SELECT `name` FROM {$bp_prefix}bp_xprofile_fields WHERE parent_id = 0 AND is_required = 1 AND id NOT IN (SELECT field_id FROM {$bp_prefix}bp_xprofile_data WHERE user_id = {$user_id} AND `value` IS NOT NULL AND `value` != '')" );
+
 		$xprofile_fields = $wpdb->get_results( $wpdb->prepare( "
 			SELECT `name` FROM {$bp_prefix}bp_xprofile_fields
 			WHERE parent_id = 0

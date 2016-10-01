@@ -33,7 +33,7 @@ class Debug extends ModuleCore
 			}
 
 			// akismet will log all the http_reqs!!
-			add_filter( 'akismet_debug_log', '__return_false' );
+			add_filter( 'akismet_debug_log', '__return_false', 20 );
 		}
 	}
 
@@ -355,14 +355,14 @@ class Debug extends ModuleCore
 
 	public function core_upgrade_preamble()
 	{
-		echo '<div class="gnetwork-admin-wrap debug-update-core">';
+		echo '<p class="gnetwork-admin-wrap debug-update-core">';
 
 			echo HTML::tag( 'a', array(
 				'class' => 'button',
 				'href'  => Settings::subURL( 'debug' ),
 			), _x( 'Check Debug Logs', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
 
-		echo '</div>';
+		echo '</p>';
 	}
 
 	public static function wp_die_handler( $message, $title = '', $args = array() )

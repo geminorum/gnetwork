@@ -576,6 +576,9 @@ class Mail extends ModuleCore
 						if ( is_array( $row['to'] ) ) {
 							foreach ( $row['to'] as $to )
 								$info .= ' <a href="mailto:'.$to.'">'.$to.'</a>';
+
+						// FIXME: check for comma seperated list
+
 						} else {
 							$info .= ' <a href="mailto:'.$row['to'].'">'.$row['to'].'</a>';
 						}

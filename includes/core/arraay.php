@@ -19,7 +19,7 @@ class Arraay extends Base
 	{
 		$rounded = array();
 
-		foreach( (array) $array as $key => $value )
+		foreach ( (array) $array as $key => $value )
 			$rounded[$key] = round( (float) $value, $precision, $mode );
 
 		return $rounded;

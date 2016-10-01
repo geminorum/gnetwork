@@ -53,6 +53,7 @@ class Utilities extends Base
 		return date_i18n( $format, $time );
 	}
 
+	// @SEE: http://www.phpformatdate.com/
 	public static function getDateDefaultFormat( $options = FALSE, $date_format = NULL, $time_format = NULL, $joiner = ' @' )
 	{
 		if ( ! $options )

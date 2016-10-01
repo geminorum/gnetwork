@@ -141,6 +141,8 @@ class Dev extends ModuleCore
 		if ( ! empty( $pagenow ) )
 			$log[] = 'PageNow:'.$pagenow;
 
+		// TODO: add blog name
+
 		self::log( 'BENCHMARK', implode( '|', $log ) );
 	}
 

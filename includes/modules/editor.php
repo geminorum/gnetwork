@@ -119,7 +119,7 @@ class Editor extends ModuleCore
 	{
 		$variant = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
-		foreach( $this->tinymce as $row )
+		foreach ( $this->tinymce as $row )
 			foreach ( $row as $plugin => $filepath )
 				$plugin_array[$plugin] = $filepath.$variant.'.js';
 
