@@ -65,7 +65,7 @@ class Lockdown extends ModuleCore
 					'title'       => _x( 'Login Attempt Limit', 'Modules: Lockdown: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'What is the maximum number of failed login attempts?', 'Modules: Lockdown: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '4',
-					'values'      => self::range( 4, 20, 2 ),
+					'values'      => Arraay::range( 4, 20, 2 ),
 				),
 				array(
 					'field'       => 'locked_expiration',

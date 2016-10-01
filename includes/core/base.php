@@ -34,6 +34,18 @@ class Base
 			self::dump( $var );
 	}
 
+	// INTERNAL
+	public static function __log( $log )
+	{
+		if ( defined( 'WP_DEBUG_LOG' ) && ! WP_DEBUG_LOG )
+			return;
+
+		if ( is_array( $log ) || is_object( $log ) )
+			error_log( print_r( $log, TRUE ) );
+		else
+			error_log( $log );
+	}
+
 	// INTERNAL: used on anything deprecated
 	protected static function __dep( $note = '', $prefix = 'DEP: ', $offset = 1 )
 	{
@@ -141,16 +153,6 @@ class Base
 		$start_memory = memory_get_usage();
 		$var = unserialize( serialize( $var ) );
 		return memory_get_usage() - $start_memory - PHP_INT_SIZE * 8;
-	}
-
-	public static function range( $start, $end, $step = 1, $format = TRUE )
-	{
-		$array = array();
-
-		foreach ( range( $start, $end, $step ) as $number )
-			$array[$number] = $format ? number_format_i18n( $number ) : $number;
-
-		return $array;
 	}
 
 	public static function req( $key, $default = '' )

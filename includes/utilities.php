@@ -35,6 +35,24 @@ class Utilities extends Base
 		return $filter ? apply_filters( 'gnetwork_get_feeds', $feeds ) : $feeds;
 	}
 
+	public static function humanTimeDiff( $time, $round = TRUE, $format = NULL )
+	{
+		$ago = _x( '%s ago', 'Utilities: Human Time Diff', GNETWORK_TEXTDOMAIN );
+
+		if ( ! $round )
+			return sprintf( $ago, human_time_diff( $time ) );
+
+		$time_diff = time() - $time;
+
+		if ( $time_diff > 0 && $time_diff < DAY_IN_SECONDS )
+			return sprintf( $ago, human_time_diff( $time ) );
+
+		if ( is_null( $format ) )
+			$format = _x( 'Y/m/d', 'Utilities: Human Time Diff', GNETWORK_TEXTDOMAIN );
+
+		return date_i18n( $format, $time );
+	}
+
 	public static function getDateDefaultFormat( $options = FALSE, $date_format = NULL, $time_format = NULL, $joiner = ' @' )
 	{
 		if ( ! $options )

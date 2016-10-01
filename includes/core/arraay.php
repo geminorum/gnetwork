@@ -56,6 +56,16 @@ class Arraay extends Base
 		return $keys;
 	}
 
+	public static function range( $start, $end, $step = 1, $format = TRUE )
+	{
+		$array = array();
+
+		foreach ( range( $start, $end, $step ) as $number )
+			$array[$number] = $format ? Number::format( $number ) : $number;
+
+		return $array;
+	}
+
 	// for useing with $('form').serializeArray();
 	// http://api.jquery.com/serializeArray/
 	public static function parseJSArray( $array )
@@ -73,5 +83,14 @@ class Arraay extends Base
 				return $key;
 
 		return FALSE;
+	}
+
+	public static function stripDefaults( $atts, $defaults = array() )
+	{
+		foreach ( $defaults as $key => $value )
+			if ( isset( $atts[$key] ) && $value === $atts[$key] )
+				unset( $atts[$key] );
+
+		return $atts;
 	}
 }

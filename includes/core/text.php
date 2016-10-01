@@ -138,4 +138,46 @@ class Text extends Base
 		// some valid sequences
 		return ( 1 == preg_match( '/^.{1}/us', $string, $ar ) );
 	}
+
+	public static function stripHTMLforEmail( $html )
+	{
+		$html = preg_replace( array(
+			'@<head[^>]*?>.*?</head>@siu',
+			'@<style[^>]*?>.*?</style>@siu',
+			'@<script[^>]*?.*?</script>@siu',
+			'@<object[^>]*?.*?</object>@siu',
+			'@<embed[^>]*?.*?</embed>@siu',
+			'@<noscript[^>]*?.*?</noscript>@siu',
+			'@<noembed[^>]*?.*?</noembed>@siu',
+			'@\t+@siu',
+			'@\n+@siu'
+		), '', $html );
+
+		$html = preg_replace( '@</?((div)|(h[1-9])|(/tr)|(p)|(pre))@iu', "\n\$0", $html );
+		$html = preg_replace( '@</((td)|(th))@iu', " \$0", $html );
+
+		return trim( strip_tags( $html ) );
+	}
+
+	// @SOURCE: http://php.net/manual/en/function.preg-replace-callback.php#96899
+	public static function hex2str( $string )
+	{
+		return preg_replace_callback('#\%[a-zA-Z0-9]{2}#', function( $hex ){
+			$hex = substr( $hex[0], 1 );
+			$str = '';
+			for( $i=0; $i < strlen( $hex ); $i += 2 )
+				$str .= chr( hexdec( substr( $hex, $i, 2 ) ) );
+			return $str;
+		}, (string) $string );
+	}
+
+	// @SOURCE: http://php.net/manual/en/function.preg-replace-callback.php#91950
+	// USAGE: echo replaceWords( $list, $str, function($v) { return "<strong>{$v}</strong>"; });
+	public static function replaceWords( $list, $line, $callback )
+	{
+		$patterns = '/(^|[^\\w\\-])('.implode( '|', array_map( 'preg_quote', $list ) ).')($|[^\\w\\-])/mi';
+		return preg_replace_callback( $patterns, function($v) use ($callback) {
+			return $v[1].$callback($v[2]).$v[3];
+		}, $line );
+	}
 }
