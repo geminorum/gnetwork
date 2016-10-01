@@ -23,11 +23,10 @@ class Themes extends ModuleCore
 
 		} else {
 
+			add_action( 'wp_default_scripts', array( $this, 'wp_default_scripts' ), 9 );
+
 			if ( $this->options['content_actions'] )
 				add_filter( 'the_content', array( $this, 'the_content' ), 999 );
-
-			if ( $this->options['jquery_bottom'] )
-				add_action( 'wp_default_scripts', array( $this, 'wp_default_scripts' ) );
 
 			add_action( 'wp_head', array( $this, 'wp_head' ), 12 );
 			add_filter( 'the_generator', '__return_null', 98 );
@@ -49,6 +48,7 @@ class Themes extends ModuleCore
 	public function default_options()
 	{
 		return array(
+			'jquery_cdn'      => '0',
 			'jquery_bottom'   => '0',
 			'disable_themes'  => '0',
 			'content_actions' => '1',
@@ -60,6 +60,11 @@ class Themes extends ModuleCore
 	{
 		$settings = array(
 			'_general' => array(
+				array(
+					'field'       => 'jquery_cdn',
+					'title'       => _x( 'jQuery from CDN', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Replace Core\'s jQuery with CDN', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
+				),
 				array(
 					'field'       => 'jquery_bottom',
 					'title'       => _x( 'jQuery on Bottom', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
@@ -96,7 +101,38 @@ class Themes extends ModuleCore
 
 	public function wp_default_scripts( &$scripts )
 	{
-		$scripts->add_data( 'jquery', 'group', 1 );
+		if ( SCRIPT_DEBUG )
+			return;
+
+		$bottom  = $this->options['jquery_bottom'] ? 1 : NULL;
+		$disable = ( ! defined( 'GNETWORK_DISABLE_JQUERY_MIGRATE' ) || GNETWORK_DISABLE_JQUERY_MIGRATE );
+
+		if ( ! $bottom && ! $disable )
+			return;
+
+		// v4.7-alpha-38178-src
+		$jquery_ver  = '1.12.4';
+		$migrate_ver = '1.4.1';
+
+		$jquery_url = $this->options['jquery_cdn']
+			? '//code.jquery.com/jquery-'.$jquery_ver.'.min.js'
+			: '/wp-includes/js/jquery/jquery.js';
+
+		$migrate_url = $this->options['jquery_cdn']
+			? '//code.jquery.com/jquery-migrate-'.$migrate_ver.'.min.js'
+			: '/wp-includes/js/jquery/jquery-migrate.min.js';
+
+		$scripts->remove( 'jquery', 'jquery-core', 'jquery-migrate' );
+		$scripts->add( 'jquery-core', $jquery_url, FALSE, $jquery_ver, $bottom );
+
+		$deps = array( 'jquery-core' );
+
+		if ( ! $disable ) {
+			$scripts->add( 'jquery-migrate', $migrate_url, FALSE, $migrate_ver, $bottom );
+			$deps[] = 'jquery-migrate';
+		}
+
+		$scripts->add( 'jquery', FALSE, $deps, $jquery_ver, $bottom );
 	}
 
 	public function after_setup_theme()

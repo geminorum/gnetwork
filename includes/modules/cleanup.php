@@ -11,7 +11,6 @@ class Cleanup extends ModuleCore
 	protected function setup_actions()
 	{
 		add_action( 'init' , array( $this, 'init_late' ), 99 );
-		add_action( 'wp_default_scripts', array( $this, 'wp_default_scripts' ), 9 );
 
 		add_action( 'admin_menu', array( $this, 'admin_menu_late' ), 999 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), 999 );
@@ -171,21 +170,6 @@ class Cleanup extends ModuleCore
 	{
 		remove_action( 'wp_head', 'se_global_head' ); // by: Search Everything / http://wordpress.org/plugins/search-everything/
 		remove_action( 'rightnow_end', array( 'Akismet_Admin', 'rightnow_stats' ) ); // by: Akismet
-	}
-
-	// @SOURCE: http://www.paulund.co.uk/remove-jquery-migrate-file-wordpress
-	public function wp_default_scripts( &$scripts )
-	{
-		if ( is_admin() )
-			return;
-
-		if ( ! SCRIPT_DEBUG
-			&& ( ! defined( 'GNETWORK_DISABLE_JQUERY_MIGRATE' )
-				|| GNETWORK_DISABLE_JQUERY_MIGRATE ) ) {
-
-			$scripts->remove( 'jquery' );
-			$scripts->add( 'jquery', FALSE, array( 'jquery-core' ), '1.12.4' );
-		}
 	}
 
 	// @SOURCE: http://justintadlock.com/archives/2011/06/13/removing-menu-pages-from-the-wordpress-admin
