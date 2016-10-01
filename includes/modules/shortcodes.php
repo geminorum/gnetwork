@@ -70,6 +70,8 @@ class ShortCodes extends ModuleCore
 			'reflist-m'    => 'shortcode_reflist_manual',
 			'qrcode'       => 'shortcode_qrcode',
 			'search'       => 'shortcode_search',
+			'last-edited'  => 'shortcode_last_edited',
+			'lastupdate'   => 'shortcode_last_edited',
 		) );
 
 		if ( ! defined( 'GNETWORK_DISABLE_REFLIST_INSERT' )
@@ -400,6 +402,38 @@ class ShortCodes extends ModuleCore
 		}
 
 		return self::shortcodeWrap( $html, 'all-terms', $args );
+	}
+
+	public function shortcode_last_edited( $atts, $content = NULL, $tag = '' )
+	{
+		$args = shortcode_atts( array(
+			'id'       => get_queried_object_id(),
+			'format'   => _x( 'l, F j, Y', 'Modules: ShortCodes: Defaults: Last Edited', GNETWORK_TEXTDOMAIN ),
+			'title'    => 'timeago',
+			'round'    => FALSE,
+			'link'     => FALSE,
+			'context'  => NULL,
+			'wrap'     => TRUE,
+			'before'   => '',
+			'after'    => '',
+		), $atts, $tag );
+
+		if ( FALSE === $args['context'] )
+			return NULL;
+
+		$time = get_post_modified_time( 'U', FALSE, $args['id'], FALSE );
+
+		if ( 'timeago' == $args['title'] )
+			$title = Utilities::humanTimeDiff( $time, $args['round'] );
+		else
+			$title = esc_attr( $args['title'] );
+
+		$html = Date::htmlDateTime( $time, $args['format'], $title );
+
+		if ( $args['link'] )
+			$html = HTML::tag( 'a', array( 'href' => $args['link'] ), $html );
+
+		return self::shortcodeWrap( $html, 'last-edited', $args, FALSE );
 	}
 
 	// TODO: more cases
