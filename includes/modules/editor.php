@@ -50,6 +50,17 @@ class Editor extends ModuleCore
 		return $query;
 	}
 
+	private function mce_wppage_button( $buttons )
+	{
+		if ( FALSE !== ( $pos = array_search( 'wp_more', $buttons, TRUE ) ) ) {
+			$extra = array_slice( $buttons, 0, $pos + 1 );
+			$extra[] = 'wp_page';
+			return array_merge( $extra, array_slice( $buttons, $pos + 1 ) );
+		}
+
+		return $buttons;
+	}
+
 	public function teeny_mce_buttons( $buttons, $editor_id )
 	{
 		if ( ! count( $this->tinymce[0] ) )
@@ -65,6 +76,8 @@ class Editor extends ModuleCore
 
 	public function mce_buttons( $buttons, $editor_id )
 	{
+		$buttons = $this->mce_wppage_button( $buttons );
+
 		if ( ! count( $this->tinymce[1] ) )
 			return $buttons;
 
