@@ -175,8 +175,11 @@ class Restricted extends ModuleCore
 		$feedkey = RestrictedBouncer::getUserFeedKey( $profileuser->ID, FALSE );
 		$urls    = self::getFeeds( $feedkey );
 
-		echo HTML::tag( 'h2', _x( 'Private Feeds', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ) );
-		echo HTML::tag( 'p', _x( 'Used to access restricted site feeds.', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ) );
+		Settings::fieldSection(
+			_x( 'Private Feeds', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
+			_x( 'Used to access restricted site feeds.', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
+			'h2'
+		);
 
 		echo '<table class="form-table">';
 

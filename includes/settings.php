@@ -176,9 +176,9 @@ class Settings extends Base
 		), HTML::getDashicon( $icon ) );
 	}
 
-	public static function fieldSection( $title, $description = FALSE )
+	public static function fieldSection( $title, $description = FALSE, $tag = 'h3' )
 	{
-		echo '<h3>'.$title.'</h3>';
+		echo HTML::tag( $tag, $title );
 
 		if ( $description )
 			echo '<p class="description">'.$description.'</p>';
