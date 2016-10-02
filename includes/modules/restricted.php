@@ -186,12 +186,14 @@ class Restricted extends ModuleCore
 			$this->do_settings_field( array(
 				'title'       => _x( 'Access Key', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
 				'type'        => 'text',
+				'cap'         => 'read',
 				'field'       => 'restricted_feed_key',
 				'default'     => $feedkey ? $feedkey : _x( 'Access key not found', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
 				'field_class' => array( 'regular-text', 'code-text' ),
 				'description' => _x( 'The key will be used on all restricted site feed URLs.', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
 				'disabled'    => TRUE,
-			), TRUE );
+				'wrap'        => TRUE,
+			) );
 
 			$operations = array( 'none' => _x( '&mdash; Select &mdash;', 'Settings: Option', GNETWORK_TEXTDOMAIN ) );
 			if ( $feedkey ) {
@@ -204,27 +206,33 @@ class Restricted extends ModuleCore
 			$this->do_settings_field( array(
 				'field'       => 'feed_operations',
 				'type'        => 'select',
+				'cap'         => 'read',
 				'title'       => _x( 'Key Operations', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
 				'description' => _x( 'Select an operation to work with your private feed access key.', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
 				'default'     => 'none',
 				'values'      => $operations,
-			), TRUE );
+				'wrap'        => TRUE,
+			) );
 
 			if ( $feedkey ) {
 
 				$this->do_settings_field( array(
 					'title'  => _x( 'Your Feed', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
 					'type'   => 'custom',
+					'cap'    => 'read',
 					'field'  => 'restricted_feed_url',
-					'values' => '<code><a href="'.$urls['rss2'].'">'.$urls['rss2'].'</a></code>',
-				), TRUE );
+					'values' => '<code><a href="'.$urls['rss2'].'" target="_blank">'.$urls['rss2'].'</a></code>',
+					'wrap'   => TRUE,
+				) );
 
 				$this->do_settings_field( array(
 					'title'  => _x( 'Your Comments Feed', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
 					'type'   => 'custom',
+					'cap'    => 'read',
 					'field'  => 'restricted_feed_comments_url',
-					'values' => '<code><a href="'.$urls['comments_rss2_url'].'">'.$urls['comments_rss2_url'].'</a></code>',
-				), TRUE );
+					'values' => '<code><a href="'.$urls['comments_rss2_url'].'" target="_blank">'.$urls['comments_rss2_url'].'</a></code>',
+					'wrap'   => TRUE,
+				) );
 			}
 
 		echo '</table>';
