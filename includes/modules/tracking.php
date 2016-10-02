@@ -49,7 +49,7 @@ class Tracking extends ModuleCore
 			'_general' => array(
 				array(
 					'field'       => 'ignore_user',
-					'type'        => 'roles',
+					'type'        => 'cap',
 					'title'       => _x( 'Ignore Users', 'Modules: Tracking: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Selected and above will be ignored', 'Modules: Tracking: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => 'edit_others_posts',

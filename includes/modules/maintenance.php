@@ -78,14 +78,14 @@ class Maintenance extends ModuleCore
 				),
 				array(
 					'field'       => 'maintenance_site',
-					'type'        => 'roles',
+					'type'        => 'cap',
 					'title'       => _x( 'Site Maintenance', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Selected and above can access to the site.', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => 'none',
 				),
 				array(
 					'field'       => 'maintenance_admin',
-					'type'        => 'roles',
+					'type'        => 'cap',
 					'title'       => _x( 'Admin Maintenance', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Selected and above can access to the admin.', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => 'none',

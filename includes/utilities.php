@@ -147,7 +147,8 @@ class Utilities extends Base
 	}
 
 	// using caps instead of roles
-	public static function getUserRoles( $cap = NULL, $none_title = NULL, $none_value = NULL )
+	// OLD: getUserRoles()
+	public static function getUserCapList( $cap = NULL, $none_title = NULL, $none_value = NULL )
 	{
 		$caps = array(
 			'edit_theme_options'   => _x( 'Administrators', 'Utilities: Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),

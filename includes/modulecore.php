@@ -886,13 +886,13 @@ class ModuleCore extends Base
 				));
 
 			break;
-			case 'roles' :
+			case 'cap' :
 
 				// TODO: if current user cannot 'edit_users' then just print the default as disabled
 				// rename the tag name to avoid saving and using the default!
 
 				if ( ! count( $args['values'] ) )
-					$args['values'] = Utilities::getUserRoles( NULL, $args['none_title'], $args['none_value'] );
+					$args['values'] = Utilities::getUserCapList( NULL, $args['none_title'], $args['none_value'] );
 
 				if ( count( $args['values'] ) ) {
 

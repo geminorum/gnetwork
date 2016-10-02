@@ -55,7 +55,7 @@ class SMS extends ModuleCore
 				),
 				array(
 					'field'       => 'manage_providers',
-					'type'        => 'roles',
+					'type'        => 'cap',
 					'title'       => _x( 'Access Level', 'Modules: SMS: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Selected and above can view the providers information', 'Modules: SMS: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => 'edit_others_posts',

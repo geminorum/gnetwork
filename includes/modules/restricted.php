@@ -80,14 +80,14 @@ class Restricted extends ModuleCore
 			'_general' => array(
 				array(
 					'field'       => 'restricted_site',
-					'type'        => 'roles',
+					'type'        => 'cap',
 					'title'       => _x( 'Site Restriction', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Selected and above can access to the site.', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => 'none',
 				),
 				array(
 					'field'       => 'restricted_admin',
-					'type'        => 'roles',
+					'type'        => 'cap',
 					'title'       => _x( 'Admin Restriction', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Selected and above can access to the admin.', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => 'none',
@@ -307,7 +307,7 @@ class Restricted extends ModuleCore
 	public static function getNotice( $notice, $role, $page = FALSE, $register = TRUE )
 	{
 		return sprintf( $notice,
-			Utilities::getUserRoles( $role ),
+			Utilities::getUserCapList( $role ),
 			( $page ? get_page_link( $page )
 				: ( $register ? WordPress::registerURL( 'site' ) : '#' ) ) );
 	}
