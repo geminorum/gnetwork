@@ -53,18 +53,16 @@ class Debug extends ModuleCore
 		}
 	}
 
-	public function settings_html( $uri, $sub = 'general' )
+	public function settings_form( $uri, $sub = 'general' )
 	{
-		echo '<form class="gnetwork-form" method="post" action="">';
-
-			$this->settings_fields( $sub, 'bulk' );
+		$this->settings_form_before( $uri, $sub, 'bulk' );
 
 			// TODO: add limit/length input
 
 			if ( self::displayErrorLogs() )
 				$this->settings_buttons( $sub );
 
-		echo '</form>';
+		$this->settings_form_after( $uri, $sub );
 	}
 
 	protected function register_settings_buttons()

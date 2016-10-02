@@ -255,7 +255,7 @@ class ModuleCore extends Base
 		if ( $this->key == $sub ) {
 			$this->settings_actions( $sub );
 			$this->settings_update( $sub );
-			add_action( 'gnetwork_'.( $this->is_network() ? 'network' : 'admin' ).'_settings_sub_'.$sub, array( $this, 'settings_html' ), 10, 2 );
+			add_action( 'gnetwork_'.( $this->is_network() ? 'network' : 'admin' ).'_settings_sub_'.$sub, array( $this, 'settings_form' ), 10, 2 );
 			$this->register_settings();
 			$this->register_settings_buttons();
 			$this->register_settings_help();
@@ -274,7 +274,49 @@ class ModuleCore extends Base
 	public function settings_help() {}
 
 	// DEFAULT METHOD: setting sub html
-	public function settings_html( $uri, $sub = 'general' )
+	public function settings_form( $uri, $sub = 'general' )
+	{
+		$this->settings_form_before( $uri, $sub );
+
+		if ( method_exists( $this, 'settings_before' ) )
+			$this->settings_before( $sub, $uri );
+
+		do_settings_sections( $this->base.'_'.$sub );
+
+		if ( method_exists( $this, 'settings_after' ) )
+			$this->settings_after( $sub, $uri );
+
+		$this->settings_buttons( $sub );
+
+		$this->settings_form_after( $uri, $sub );
+	}
+
+	protected function settings_form_before( $uri, $sub = 'general', $action = 'update', $check = TRUE )
+	{
+		$class = 'gnetwork-form';
+
+		if ( $check && $sidebox = method_exists( $this, 'settings_sidebox' ) )
+			$class .= ' has-sidebox';
+
+		echo '<form class="'.$class.'" method="post" action="">';
+
+			$this->settings_fields( $sub, 'update' );
+
+			if ( $check && $sidebox ) {
+				echo '<div class="settings-sidebox settings-sidebox-'.$sub.'">';
+					$this->settings_sidebox( $sub, $uri );
+				echo '</div>';
+			}
+	}
+
+	protected function settings_form_after( $uri, $sub = 'general', $action = 'update', $check = TRUE )
+	{
+		echo '</form>';
+		self::dumpDev( $this->options );
+	}
+
+	// FIXME: DROP THIS
+	public function settings_form_OLD( $uri, $sub = 'general' )
 	{
 		$class = 'gnetwork-form';
 

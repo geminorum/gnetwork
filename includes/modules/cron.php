@@ -56,21 +56,19 @@ class Cron extends ModuleCore
 		return FALSE;
 	}
 
-	public function settings_html( $uri, $sub = 'general' )
+	public function settings_form( $uri, $sub = 'general' )
 	{
-		echo '<form class="gnetwork-form" method="post" action="">';
+		$this->settings_form_before( $uri, $sub, 'bulk' );
 
 			// TODO: add info on DISABLE_WP_CRON
 			// TODO: add info on url/path to wp-cron.php
 			// TODO: adding wp-cron-multisite.php / much like emaillogs folder
 			// SEE: https://www.lucasrolff.com/wordpress/why-wp-cron-sucks/
 
-			$this->settings_fields( $sub, 'bulk' );
-
 			if ( self::tableCronInfo() )
 				$this->settings_buttons( $sub );
 
-		echo '</form>';
+		$this->settings_form_after( $uri, $sub );
 	}
 
 	protected function register_settings_buttons()

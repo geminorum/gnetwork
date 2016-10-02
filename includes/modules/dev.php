@@ -37,15 +37,13 @@ class Dev extends ModuleCore
 		);
 	}
 
-	public function settings_html( $uri, $sub = 'general' )
+	public function settings_form( $uri, $sub = 'general' )
 	{
-		echo '<form class="gnetwork-form" method="post" action="">';
-
-			$this->settings_fields( $sub, 'bulk' );
+		$this->settings_form_before( $uri, $sub, 'bulk' );
 
 			self::generateCustomTax();
 
-		echo '</form>';
+		$this->settings_form_after( $uri, $sub );
 	}
 
 	public function http_request_args( $r, $url )
