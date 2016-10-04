@@ -356,7 +356,7 @@ class Debug extends ModuleCore
 		echo '<p class="gnetwork-admin-wrap debug-update-core">';
 
 			echo HTML::tag( 'a', array(
-				'class' => 'button',
+				'class' => 'button button-secondary',
 				'href'  => Settings::subURL( 'debug' ),
 			), _x( 'Check Debug Logs', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
 
