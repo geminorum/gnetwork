@@ -187,7 +187,7 @@ class Media extends ModuleCore
 			'type' => array(
 				'title' => _x( 'Type', 'Modules: Media', GNETWORK_TEXTDOMAIN ),
 				'args'  => array(
-					'post_types' => WordPress::getPostTypes( 'singular_name' ),
+					'post_types' => WordPress::getPostTypes( 2 ),
 				),
 				'callback' => function( $value, $row, $column, $index ){
 					return isset( $column['args']['post_types'][$row->post_type] ) ? $column['args']['post_types'][$row->post_type] : $row->post_type;

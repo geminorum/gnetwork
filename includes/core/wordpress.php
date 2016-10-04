@@ -187,22 +187,42 @@ class WordPress extends Base
 		return get_search_link( $query );
 	}
 
-	public static function getPostTypes( $title_key = 'name' )
+	// EDITED: 8/12/2016, 8:53:06 AM
+	public static function getPostTypes( $mod = 0, $args = array( 'public' => TRUE ) )
 	{
-		$registered = get_post_types( array(
-			'_builtin' => FALSE,
-			'public'   => TRUE,
-		), 'objects' );
+		$list = array();
 
-		$post_types = array(
-			'post' => __( 'Posts' ),
-			'page' => __( 'Pages' ),
-		);
+		foreach ( get_post_types( $args, 'objects' ) as $post_type => $post_type_obj ) {
 
-		foreach ( $registered as $post_type => $args )
-			$post_types[$post_type] = isset( $args->labels->{$title_key} ) ? $args->labels->{$title_key} : $args->label;
+			// label
+			if ( 0 === $mod )
+				$list[$post_type] = $post_type_obj->label;
 
-		return $post_types;
+			// plural
+			else if ( 1 === $mod )
+				$list[$post_type] = $post_type_obj->labels->name;
+
+			// singular
+			else if ( 2 === $mod )
+				$list[$post_type] = $post_type_obj->labels->singular_name;
+
+			// nooped
+			else if ( 3 === $mod )
+				$list[$post_type] = array(
+					0          => $post_type_obj->labels->singular_name,
+					1          => $post_type_obj->labels->name,
+					'singular' => $post_type_obj->labels->singular_name,
+					'plural'   => $post_type_obj->labels->name,
+					'context'  => NULL,
+					'domain'   => NULL,
+				);
+
+			// object
+			else if ( 4 === $mod )
+				$list[$post_type] = $post_type_obj;
+		}
+
+		return $list;
 	}
 
 	public static function customStyleSheet( $css, $link = TRUE, $version = NULL )
