@@ -19,7 +19,12 @@ class Users extends ModuleCore
 	{
 		Admin::registerMenu( $this->key,
 			_x( 'Users', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			array( $this, 'settings' ), 'remove_users'
+			array( $this, 'settings' ), 'list_users'
+		);
+
+		Admin::registerMenu( 'roles',
+			_x( 'Roles', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
+			array( $this, 'settings' ), 'list_users'
 		);
 	}
 
@@ -84,7 +89,7 @@ class Users extends ModuleCore
 				'name_attr' => 'on_post_type',
 				'default'   => 'post',
 				'values'    => WordPress::getPostTypes(),
-			), FALSE );
+			) );
 
 			echo '&nbsp;&mdash;&nbsp;'._x( 'do', 'Modules: Users: Settings', GNETWORK_TEXTDOMAIN ).'&nbsp;&mdash; &nbsp;';
 
@@ -94,9 +99,18 @@ class Users extends ModuleCore
 		echo '</table>';
 	}
 
+	public function settings( $sub = NULL )
+	{
+		if ( 'roles' == $sub )
+			add_action( 'gnetwork_admin_settings_sub_'.$sub, array( $this, 'settings_form_roles' ), 10, 2 );
+
+		else
+			parent::settings( $sub );
+	}
+
 	protected function settings_actions( $sub = NULL )
 	{
-		if ( isset( $_POST['bulk_change_author'] ) ) {
+		if ( ! empty( $_POST['bulk_change_author'] ) ) {
 
 			$this->check_referer( $sub );
 
@@ -116,6 +130,16 @@ class Users extends ModuleCore
 					self::redirect_referer( 'nochange' );
 			}
 		}
+	}
+
+	public function settings_form_roles( $uri, $sub = 'general' )
+	{
+		$this->settings_form_before( $uri, $sub, 'bulk', FALSE );
+
+			Settings::fieldSection( _x( 'Current User Roles and Capabilities', 'Modules: Users', GNETWORK_TEXTDOMAIN ) );
+			HTML::tableSide( get_editable_roles() );
+
+		$this->settings_form_after( $uri, $sub );
 	}
 
 	private function bulk_change_author( $from_user_id, $to_user_id, $on_post_type = 'post' )
