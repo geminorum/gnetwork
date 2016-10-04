@@ -23,6 +23,21 @@ class HTML extends Base
 		return $html.$content.'</'.$tag.'>'.$sep;
 	}
 
+	public static function class()
+	{
+		$classes = array();
+
+		foreach( func_get_args() as $arg )
+
+			if ( is_array( $arg ) )
+				$classes += $arg;
+
+			else if ( $arg )
+				$classes += explode( ' ', $arg );
+
+		return array_unique( array_filter( $classes, 'trim' ) );
+	}
+
 	private static function _tag_open( $tag, $atts, $content = TRUE )
 	{
 		$html = '<'.$tag;

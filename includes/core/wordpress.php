@@ -132,6 +132,24 @@ class WordPress extends Base
 			self::cheatin();
 	}
 
+	public static function getUserRoles( $user_id = FALSE )
+	{
+		$user = get_user_by( 'id', ( $user_id ? $user_id : get_current_user_id() ) );
+		return empty( $user ) ? array() : $user->roles;
+	}
+
+	public static function userHasRole( $role, $user_id = FALSE )
+	{
+		return in_array( $role, self::getUserRoles( $user_id ) );
+	}
+
+	// current user role
+	public static function cur( $role = FALSE )
+	{
+		$roles = self::getUserRoles();
+		return $role ? in_array( $role, $roles ) : $roles;
+	}
+
 	public static function getUserRoleList( $object = FALSE )
 	{
 		$roles = $object ? new stdClass : array();
