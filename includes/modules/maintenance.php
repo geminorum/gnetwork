@@ -132,7 +132,7 @@ class Maintenance extends ModuleCore
 					'title'       => _x( 'Retry After', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'HTTP status header retry after', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '10',
-					'values'      => Utilities::getTimeInMinutes(),
+					'values'      => Settings::minutesOptions(),
 				),
 			),
 		);

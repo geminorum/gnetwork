@@ -84,7 +84,7 @@ class Login extends ModuleCore
 					'type'        => 'select',
 					'title'       => _x( 'CSS Class', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Select from pre designed login themes', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'none_title'  => _x( '&mdash; Select &mdash;', 'Settings: Option', GNETWORK_TEXTDOMAIN ),
+					'none_title'  => Settings::showOptionNone(),
 					'none_value'  => 'no-class',
 					'values'      => apply_filters( $this->hook( 'login_class' ), array(
 						'webogram' => _x( 'Webogram', 'Modules: Login: Login Class', GNETWORK_TEXTDOMAIN ),

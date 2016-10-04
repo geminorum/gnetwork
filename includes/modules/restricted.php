@@ -195,7 +195,7 @@ class Restricted extends ModuleCore
 				'wrap'        => TRUE,
 			) );
 
-			$operations = array( 'none' => _x( '&mdash; Select &mdash;', 'Settings: Option', GNETWORK_TEXTDOMAIN ) );
+			$operations = array( 'none' => Settings::showOptionNone() );
 			if ( $feedkey ) {
 				$operations['reset']  = _x( 'Reset your access key', 'Modules: Restricted', GNETWORK_TEXTDOMAIN );
 				$operations['remove'] = _x( 'Remove your access key', 'Modules: Restricted', GNETWORK_TEXTDOMAIN );
@@ -318,7 +318,7 @@ class Restricted extends ModuleCore
 	public static function getNotice( $notice, $role, $page = FALSE, $register = TRUE )
 	{
 		return sprintf( $notice,
-			Utilities::getUserCapList( $role ),
+			Settings::getUserCapList( $role ),
 			( $page ? get_page_link( $page )
 				: ( $register ? WordPress::registerURL( 'site' ) : '#' ) ) );
 	}

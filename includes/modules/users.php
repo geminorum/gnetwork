@@ -62,19 +62,19 @@ class Users extends ModuleCore
 			echo '<tr><th scope="row">'._x( 'Bulk Change Author', 'Modules: Users: Settings', GNETWORK_TEXTDOMAIN ).'</th><td>';
 
 			$this->do_settings_field( array(
-				'type'      => 'blog_users',
+				'type'      => 'user',
 				'field'     => 'from_user_id',
 				'name_attr' => 'from_user_id',
-			), FALSE );
+			) );
 
 			echo '&nbsp;&mdash;&nbsp;'._x( 'to', 'Modules: Users: Settings', GNETWORK_TEXTDOMAIN ).'&nbsp;&mdash; &nbsp;';
 
 			$this->do_settings_field( array(
-				'type'      => 'blog_users',
+				'type'      => 'user',
 				'field'     => 'to_user_id',
 				'name_attr' => 'to_user_id',
 				'default'   => WordPress::getSiteUserID(),
-			), FALSE );
+			) );
 
 			echo '&nbsp;&mdash;&nbsp;'._x( 'on', 'Modules: Users: Settings', GNETWORK_TEXTDOMAIN ).'&nbsp;&mdash; &nbsp;';
 

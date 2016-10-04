@@ -70,7 +70,7 @@ class SMS extends ModuleCore
 				'title'   => _x( 'Default Provider', 'Modules: SMS: Settings', GNETWORK_TEXTDOMAIN ),
 				'default' => 'none',
 				'values'  => gNetwork()->providers( 'sms', array(
-					'none' => _x( '&mdash; Select &mdash;', 'Settings: Option', GNETWORK_TEXTDOMAIN ),
+					'none' => Settings::showOptionNone(),
 				) ),
 			);
 

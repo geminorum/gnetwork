@@ -146,57 +146,6 @@ class Utilities extends Base
 			return $layout;
 	}
 
-	// using caps instead of roles
-	// OLD: getUserRoles()
-	public static function getUserCapList( $cap = NULL, $none_title = NULL, $none_value = NULL )
-	{
-		$caps = array(
-			'edit_theme_options'   => _x( 'Administrators', 'Utilities: Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
-			'edit_others_posts'    => _x( 'Editors', 'Utilities: Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
-			'edit_published_posts' => _x( 'Authors', 'Utilities: Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
-			'edit_posts'           => _x( 'Contributors', 'Utilities: Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
-			'read'                 => _x( 'Subscribers', 'Utilities: Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
-		);
-
-		if ( is_multisite() ) {
-			$caps = array(
-				'manage_network' => _x( 'Super Admins', 'Utilities: Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
-			) + $caps + array(
-				'logged_in_user' => _x( 'Network Users', 'Utilities: Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
-			);
-		}
-
-		if ( is_null( $none_title ) )
-			$none_title = _x( '&mdash; No One &mdash;', 'Utilities: Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN );
-
-		if ( is_null( $none_value ) )
-			$none_value = 'none';
-
-		if ( $none_title )
-			$caps[$none_value] = $none_title;
-
-		if ( is_null( $cap ) )
-			return $caps;
-		else
-			return $caps[$cap];
-	}
-
-	public static function getTimeInMinutes()
-	{
-		return array(
-			'5'    => _x( '5 Minutes', 'Utilities: Time in Minutes', GNETWORK_TEXTDOMAIN ),
-			'10'   => _x( '10 Minutes', 'Utilities: Time in Minutes', GNETWORK_TEXTDOMAIN ),
-			'15'   => _x( '15 Minutes', 'Utilities: Time in Minutes', GNETWORK_TEXTDOMAIN ),
-			'30'   => _x( '30 Minutes', 'Utilities: Time in Minutes', GNETWORK_TEXTDOMAIN ),
-			'60'   => _x( '60 Minutes', 'Utilities: Time in Minutes', GNETWORK_TEXTDOMAIN ),
-			'120'  => _x( '2 Hours', 'Utilities: Time in Minutes', GNETWORK_TEXTDOMAIN ),
-			'180'  => _x( '3 Hours', 'Utilities: Time in Minutes', GNETWORK_TEXTDOMAIN ),
-			'240'  => _x( '4 Hours', 'Utilities: Time in Minutes', GNETWORK_TEXTDOMAIN ),
-			'480'  => _x( '8 Hours', 'Utilities: Time in Minutes', GNETWORK_TEXTDOMAIN ),
-			'1440' => _x( '24 Hours', 'Utilities: Time in Minutes', GNETWORK_TEXTDOMAIN ),
-		);
-	}
-
 	// override to use plugin version
 	public static function linkStyleSheet( $url, $version = GNETWORK_VERSION, $media = 'all' )
 	{

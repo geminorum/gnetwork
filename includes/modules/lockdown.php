@@ -73,7 +73,7 @@ class Lockdown extends ModuleCore
 					'title'       => _x( 'Login Lockdown Time', 'Modules: Lockdown: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'How long should the user be locked out?', 'Modules: Lockdown: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '60',
-					'values'      => Utilities::getTimeInMinutes(),
+					'values'      => Settings::minutesOptions(),
 				),
 				array(
 					'field'       => 'locked_notice',
