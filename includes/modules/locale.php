@@ -31,8 +31,24 @@ class Locale extends ModuleCore
 	{
 		Admin::registerMenu( $this->key,
 			_x( 'Locale', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			FALSE, 'manage_network_options'
+			array( $this, 'settings' )
 		);
+	}
+
+	public function settings( $sub = NULL )
+	{
+		if ( $sub == $this->key )
+			add_action( 'gnetwork_admin_settings_sub_'.$sub, array( $this, 'settings_form' ), 10, 2 );
+	}
+
+	public function settings_form( $uri, $sub = 'general' )
+	{
+		$this->settings_form_before( $uri, $sub, 'bulk', FALSE );
+
+			Settings::fieldSection( _x( 'Loaded MO Files', 'Modules: Locale', GNETWORK_TEXTDOMAIN ) );
+			HTML::tableSide( $this->loaded );
+
+		$this->settings_form_after( $uri, $sub );
 	}
 
 	public static function changeLocale( $locale = NULL )
@@ -90,14 +106,6 @@ class Locale extends ModuleCore
 		}
 
 		return $mofile;
-	}
-
-	public static function loadedMOfiles()
-	{
-		echo HTML::tag( 'h3', _x( 'Loaded MO Files', 'Modules: Locale', GNETWORK_TEXTDOMAIN ) );
-		HTML::tableSide( gNetwork()->locale->loaded );
-
-		// HTML::tableSideWrap( gNetwork()->locale->loaded, _x( 'Loaded MO Files', 'Modules: Locale', GNETWORK_TEXTDOMAIN ) );
 	}
 
 	public function new_blog_options( $new_options )
