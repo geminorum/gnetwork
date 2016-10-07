@@ -9,7 +9,6 @@ CALL composer install --no-dev --optimize-autoloader --prefer-dist -v
 ECHO NPM -----------------------------------------------------------------------
 CALL npm install
 ECHO BUILD ---------------------------------------------------------------------
-CALL gulp build
+CALL npm run build
 ECHO FINISHED ------------------------------------------------------------------
 cd ..
-PAUSE

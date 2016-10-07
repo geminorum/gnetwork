@@ -1,39 +1,42 @@
 {
-	"name": "geminorum/gnetwork",
-	"description": "WordPress Network Helper",
-	"type": "wordpress-plugin",
-	"keywords": [
-		"wordpress",
-		"network"
-	],
-	"homepage": "http://geminorum.ir/wordpress/gnetwork",
-	"license": "GPL-2.0+",
-	"authors": [{
-		"name": "Nasser Rafie",
-		"email": "contact@geminorum.ir",
-		"homepage": "http://geminorum.ir/",
-		"role": "Developer"
-	}],
-	"support": {
-		"issues": "http://geminorum.ir/wordpress/gnetwork/issues",
-		"wiki": "http://geminorum.ir/wordpress/gnetwork/wiki",
-		"source": "http://geminorum.ir/wordpress/gnetwork"
-	},
-	"require": {
-		"php": ">=5.3",
-		"erusev/parsedown-extra": "^0.7.0",
-		"symfony/stopwatch": "^3.0",
-		"parsecsv/php-parsecsv": "^0.4.5"
-	},
-	"require-dev": {
-		"raveren/kint": "^1.0",
-		"mustache/mustache": "^2.5",
-		"phelium/mysql-backup": "dev-master",
-		"picqer/php-barcode-generator": "^0.1.0",
-		"deviservi/nusoap": "^1.123"
-	},
-	"config": {
-		"vendor-dir": "assets/vendor",
-		"vendor/bin": "assets/bin"
-	}
+  "name": "geminorum/gnetwork",
+  "description": "WordPress Network Helper",
+  "license": "GPL-3+",
+  "type": "wordpress-plugin",
+  "keywords": [
+    "wordpress",
+    "network"
+  ],
+  "homepage": "http://geminorum.ir/wordpress/gnetwork",
+  "authors": [{
+    "name": "Nasser Rafie",
+    "email": "contact@geminorum.ir",
+    "homepage": "http://geminorum.ir/",
+    "role": "Developer"
+  }],
+  "support": {
+    "issues": "http://geminorum.ir/wordpress/gnetwork/issues",
+    "wiki": "http://geminorum.ir/wordpress/gnetwork/wiki",
+    "source": "http://geminorum.ir/wordpress/gnetwork"
+  },
+  "require": {
+    "php": ">=5.3",
+    "composer/installers": "^1.2",
+    "erusev/parsedown-extra": "^0.7.1",
+    "symfony/stopwatch": "^3.1",
+    "parsecsv/php-parsecsv": "^0.4.5"
+  },
+  "require-dev": {
+    "raveren/kint": "^1.0",
+    "mustache/mustache": "^2.11",
+    "phelium/mysql-backup": "dev-master",
+    "picqer/php-barcode-generator": "^0.2.0",
+    "deviservi/nusoap": "^1.123",
+    "tinify/tinify": "^1.3",
+    "jbroadway/urlify": "^1.0"
+  },
+  "config": {
+    "vendor-dir": "assets/vendor",
+    "vendor/bin": "assets/bin"
+  }
 }
