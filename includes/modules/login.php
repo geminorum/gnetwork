@@ -239,4 +239,19 @@ JS;
 			echo Utilities::creditsBadge();
 		echo '</div>';
 	}
+
+	public static function getLoginStyleLink( $style = NULL, $text = FALSE )
+	{
+		if ( is_null( $style ) )
+			$style = Utilities::customStyleSheet( 'login.css', FALSE );
+
+		if ( $style )
+			return HTML::tag( 'a', array(
+				'href'   => $style,
+				'title'  => _x( 'Full URL to the current login style file', 'Modules: Login', GNETWORK_TEXTDOMAIN ),
+				'target' => '_blank',
+			), ( $text ? _x( 'Login Style', 'Modules: Login', GNETWORK_TEXTDOMAIN ) : HTML::getDashicon( 'admin-customizer' ) ) );
+
+		return FALSE;
+	}
 }
