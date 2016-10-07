@@ -257,7 +257,7 @@ class WordPress extends Base
 			$url = WP_CONTENT_URL.'/'.$css;
 
 		if ( ! $url || ! $link )
-			return $link;
+			return $url;
 
 		HTML::linkStyleSheet( $url, $version );
 	}
