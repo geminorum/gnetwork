@@ -77,13 +77,14 @@ class Login extends ModuleCore
 					'title'       => _x( 'Logo Image', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Full URL to the login logo image', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'field_class' => array( 'regular-text', 'url-text' ),
-					'after'       => sprintf( '<span class="field-after icon-wrap">%s</span>', Settings::getLoginLogoLink() ),
+					'after'       => Settings::fieldAfterIcon( Settings::getLoginLogoLink() ),
 				),
 				array(
 					'field'       => 'login_class',
 					'type'        => 'select',
 					'title'       => _x( 'CSS Class', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Select from pre designed login themes', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'after'       => Settings::fieldAfterIcon( self::getLoginStyleLink() ),
 					'none_title'  => Settings::showOptionNone(),
 					'none_value'  => 'no-class',
 					'values'      => apply_filters( $this->hook( 'login_class' ), array(

@@ -85,9 +85,9 @@ class Tracking extends ModuleCore
 					'type'        => 'text',
 					'title'       => _x( 'GA Beacon', 'Modules: Tracking: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Network Google Analytics Beacon account number', 'Modules: Tracking: Settings', GNETWORK_TEXTDOMAIN ),
+					'after'       => Settings::fieldAfterIcon( Settings::getMoreInfoIcon( 'https://github.com/igrigorik/ga-beacon' ) ),
 					'dir'         => 'ltr',
 					'placeholder' => 'UA-XXXXX-X',
-					'after'       => sprintf( '<span class="field-after icon-wrap">%s</span>', Settings::getMoreInfoIcon( 'https://github.com/igrigorik/ga-beacon' ) ),
 				),
 				array(
 					'field'       => 'ga_userid',
@@ -106,9 +106,9 @@ class Tracking extends ModuleCore
 					'type'        => 'text',
 					'title'       => _x( 'Quantcast', 'Modules: Tracking: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Network Quantcast P-Code', 'Modules: Tracking: Settings', GNETWORK_TEXTDOMAIN ),
+					'after'       => Settings::fieldAfterIcon( Settings::getMoreInfoIcon( 'https://www.quantcast.com/' ) ),
 					'dir'         => 'ltr',
 					'placeholder' => 'x-XXXXXXXXXXXX-',
-					'after'       => sprintf( '<span class="field-after icon-wrap">%s</span>', Settings::getMoreInfoIcon( 'https://www.quantcast.com/' ) ),
 				),
 				array(
 					'field'       => 'plus_publisher',

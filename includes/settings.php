@@ -184,9 +184,9 @@ class Settings extends Base
 			echo '<p class="description">'.$description.'</p>';
 	}
 
-	public static function fieldAfterIcon( $text = '', $class = 'icon-wrap' )
+	public static function fieldAfterIcon( $text, $class = 'icon-wrap' )
 	{
-		return HTML::tag( 'span', array( 'class' => 'field-after '.$class ), $text );
+		return $text ? HTML::tag( 'span', array( 'class' => 'field-after '.$class ), $text ) : '';
 	}
 
 	public static function fieldAfterLink( $link = '', $class = '' )
