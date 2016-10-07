@@ -9,9 +9,9 @@
 		fs = require('fs'),
 
 		pkg = JSON.parse(fs.readFileSync('./package.json'), 'utf8'),
-		env = yaml.safeLoad(fs.readFileSync('./environment.yml', 'utf8'), {
-			'json': true
-		}),
+		env = {
+			tinypng: '',
+		},
 
 		banner = ['/**',
 			' * <%= pkg.name %> - <%= pkg.description %>',
@@ -76,6 +76,14 @@
 			'ready': './ready/',
 			'final': '..',
 		};
+
+	try {
+		env = yaml.safeLoad(fs.readFileSync('./environment.yml', 'utf8'), {
+			'json': true
+		});
+	} catch (e) {
+		gutil.log('no environment.yml loaded!');
+	}
 
 	gulp.task('tinypng', function() {
 
@@ -211,7 +219,7 @@
 		}))
 
 		.pipe(plugins.uglify({
-			preserveComments: 'all' // 'license'
+			// preserveComments: 'license'
 		}))
 
 		.pipe(plugins.header(banner, {
