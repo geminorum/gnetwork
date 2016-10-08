@@ -83,6 +83,9 @@ class Taxonomy extends ModuleCore
 		add_filter( 'manage_'.$taxnow.'_custom_column', array( $this, 'manage_custom_column' ), 10, 3 );
 		add_action( 'quick_edit_custom_box', array( $this, 'quick_edit_custom_box' ), 10, 3 );
 
+		add_filter( 'get_terms_args', array( $this, 'get_terms_args' ), 10, 2 );
+		add_filter( 'terms_clauses', array( $this, 'terms_clauses' ), 10, 3 );
+
 		$this->term_management();
 	}
 
@@ -188,6 +191,31 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 	public function pre_term_field( $value, $taxonomy )
 	{
 		return trim( preg_replace( '!\s+!', ' ', $value ) );
+	}
+
+	public function get_terms_args( $args, $taxonomies )
+	{
+		if ( ! empty( $args['search'] ) ) {
+			$this->terms_search = $args['search'];
+			unset( $args['search'] );
+		}
+
+		return $args;
+	}
+
+	public function terms_clauses( $clauses, $taxonomies, $args )
+	{
+		if ( ! empty( $this->terms_search ) ) {
+
+			global $wpdb;
+
+			$like = '%'.$wpdb->esc_like( $this->terms_search ).'%';
+			$clauses['where'] .= $wpdb->prepare( ' AND ((t.name LIKE %s) OR (t.slug LIKE %s) OR (tt.description LIKE %s))', $like, $like, $like );
+
+			$this->terms_search = '';
+		}
+
+		return $clauses;
 	}
 
 ////////////////////////////////////////////////////////////////////////////////
