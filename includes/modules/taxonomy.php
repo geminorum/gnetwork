@@ -14,6 +14,9 @@ class Taxonomy extends ModuleCore
 	{
 		add_action( 'admin_init', array( $this, 'admin_init' ), 20 );
 		add_action( 'load-edit-tags.php', array( $this, 'load_edit_tags_php' ) );
+
+		add_filter( 'pre_term_name', array( $this, 'pre_term_field' ), 9, 2 );
+		// add_filter( 'pre_term_description', array( $this, 'pre_term_field' ), 9, 2 );
 	}
 
 	protected function setup_ajax( $request )
@@ -180,6 +183,11 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 				jQuery(function($){$( '#addtag' ).on( 'mousedown', '#submit', function(){tinyMCE.triggerSave();});});
 			</script>
 		</div><?php
+	}
+
+	public function pre_term_field( $value, $taxonomy )
+	{
+		return trim( preg_replace( '!\s+!', ' ', $value ) );
 	}
 
 ////////////////////////////////////////////////////////////////////////////////
