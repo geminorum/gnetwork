@@ -13,6 +13,7 @@ class BP_Me_Component extends \BP_Component
 		$bp->active_components[$this->id] = '1';
 
 		if ( ! is_admin() ) {
+			add_filter( 'get_edit_user_link', array( $this, 'get_edit_user_link' ), 12, 2 );
 			add_filter( 'bp_members_edit_profile_url', array( $this, 'bp_members_edit_profile_url' ), 12, 4 );
 		}
 
@@ -114,7 +115,12 @@ class BP_Me_Component extends \BP_Component
 
 	public function bp_members_edit_profile_url( $profile_link, $url, $user_id, $scheme )
 	{
-		return $this->url( 'edit' );
+		return $user_id == get_current_user_id() ? $this->url( 'edit' ) : $profile_link;
+	}
+
+	public function get_edit_user_link( $link, $user_id )
+	{
+		return $user_id == get_current_user_id() ? $this->url( 'edit' ) : $link;
 	}
 
 	public function navigation_loggedin_items( $items )
