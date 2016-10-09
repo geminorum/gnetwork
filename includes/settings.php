@@ -387,7 +387,7 @@ class Settings extends Base
 				echo HTML::tag( 'select', array(
 					'id'       => $id,
 					'name'     => $name,
-					'class'    => HTML::class( $args['field_class'], '-type-enabled' ),
+					'class'    => HTML::cssClass( $args['field_class'], '-type-enabled' ),
 					'disabled' => $args['disabled'],
 					'readonly' => $args['readonly'],
 					'dir'      => $args['dir'],
@@ -435,7 +435,7 @@ class Settings extends Base
 					'value'       => $value,
 					'step'        => $args['step_attr'],
 					'min'         => $args['min_attr'],
-					'class'       => HTML::class( $args['field_class'], '-type-number' ),
+					'class'       => HTML::cssClass( $args['field_class'], '-type-number' ),
 					'placeholder' => $args['placeholder'],
 					'disabled'    => $args['disabled'],
 					'readonly'    => $args['readonly'],
@@ -481,7 +481,7 @@ class Settings extends Base
 							'name'     => $name.( is_null( $args['none_value'] ) ? '' : '-'.$args['none_value'] ),
 							'value'    => is_null( $args['none_value'] ) ? '1' : $args['none_value'],
 							'checked'  => in_array( $args['none_value'], ( array ) $value ),
-							'class'    => HTML::class( $args['field_class'], '-type-checkbox', '-option-none' ),
+							'class'    => HTML::cssClass( $args['field_class'], '-type-checkbox', '-option-none' ),
 							'disabled' => $args['disabled'],
 							'readonly' => $args['readonly'],
 							'dir'      => $args['dir'],
@@ -549,7 +549,7 @@ class Settings extends Base
 							'name'     => $name,
 							'value'    => is_null( $args['none_value'] ) ? FALSE : $args['none_value'],
 							'checked'  => in_array( $args['none_value'], ( array ) $value ),
-							'class'    => HTML::class( $args['field_class'], '-type-radio', '-option-none' ),
+							'class'    => HTML::cssClass( $args['field_class'], '-type-radio', '-option-none' ),
 							'disabled' => $args['disabled'],
 							'readonly' => $args['readonly'],
 							'dir'      => $args['dir'],
@@ -571,7 +571,7 @@ class Settings extends Base
 							'name'     => $name,
 							'value'    => $value_name,
 							'checked'  => in_array( $value_name, ( array ) $value ),
-							'class'    => HTML::class( $args['field_class'], '-type-radio' ),
+							'class'    => HTML::cssClass( $args['field_class'], '-type-radio' ),
 							'disabled' => $args['disabled'],
 							'readonly' => $args['readonly'],
 							'dir'      => $args['dir'],
@@ -613,7 +613,7 @@ class Settings extends Base
 					echo HTML::tag( 'select', array(
 						'id'       => $id,
 						'name'     => $name,
-						'class'    => HTML::class( $args['field_class'], '-type-select' ),
+						'class'    => HTML::cssClass( $args['field_class'], '-type-select' ),
 						'disabled' => $args['disabled'],
 						'readonly' => $args['readonly'],
 						'dir'      => $args['dir'],
@@ -630,7 +630,7 @@ class Settings extends Base
 
 				if ( 'textarea-quicktags' == $args['type'] ) {
 
-					$args['field_class'] = HTML::class( $args['field_class'], 'textarea-quicktags', 'code' );
+					$args['field_class'] = HTML::cssClass( $args['field_class'], 'textarea-quicktags', 'code' );
 
 					if ( ! $args['values'] )
 						$args['values'] = array(
@@ -649,7 +649,7 @@ class Settings extends Base
 					'name'        => $name,
 					'rows'        => $args['rows_attr'],
 					'cols'        => $args['cols_attr'],
-					'class'       => HTML::class( $args['field_class'], '-type'.$args['type'] ),
+					'class'       => HTML::cssClass( $args['field_class'], '-type'.$args['type'] ),
 					'placeholder' => $args['placeholder'],
 					'disabled'    => $args['disabled'],
 					'readonly'    => $args['readonly'],
@@ -691,7 +691,7 @@ class Settings extends Base
 					echo HTML::tag( 'select', array(
 						'id'       => $id,
 						'name'     => $name,
-						'class'    => HTML::class( $args['field_class'], '-type-page', '-posttype-'.$args['values'] ),
+						'class'    => HTML::cssClass( $args['field_class'], '-type-page', '-posttype-'.$args['values'] ),
 						'disabled' => $args['disabled'],
 						'readonly' => $args['readonly'],
 						'dir'      => $args['dir'],
@@ -732,7 +732,7 @@ class Settings extends Base
 				echo HTML::tag( 'select', array(
 					'id'       => $id,
 					'name'     => $name,
-					'class'    => HTML::class( $args['field_class'], '-type-role' ),
+					'class'    => HTML::cssClass( $args['field_class'], '-type-role' ),
 					'disabled' => $args['disabled'],
 					'readonly' => $args['readonly'],
 					'dir'      => $args['dir'],
@@ -761,7 +761,7 @@ class Settings extends Base
 					echo HTML::tag( 'select', array(
 						'id'       => $id,
 						'name'     => $name,
-						'class'    => HTML::class( $args['field_class'], '-type-cap' ),
+						'class'    => HTML::cssClass( $args['field_class'], '-type-cap' ),
 						'disabled' => $args['disabled'],
 						'readonly' => $args['readonly'],
 						'dir'      => $args['dir'],
@@ -801,7 +801,7 @@ class Settings extends Base
 				echo HTML::tag( 'select', array(
 					'id'       => $id,
 					'name'     => $name,
-					'class'    => HTML::class( $args['field_class'], '-type-user' ),
+					'class'    => HTML::cssClass( $args['field_class'], '-type-user' ),
 					'disabled' => $args['disabled'],
 					'readonly' => $args['readonly'],
 					'dir'      => $args['dir'],
@@ -831,7 +831,7 @@ class Settings extends Base
 				echo HTML::tag( 'select', array(
 					'id'       => $id,
 					'name'     => $name,
-					'class'    => HTML::class( $args['field_class'], '-type-priority' ),
+					'class'    => HTML::cssClass( $args['field_class'], '-type-priority' ),
 					'disabled' => $args['disabled'],
 					'readonly' => $args['readonly'],
 					'dir'      => $args['dir'],
@@ -880,7 +880,7 @@ class Settings extends Base
 						'name'     => $name.'['.$value_name.']',
 						'value'    => '1',
 						'checked'  => in_array( $value_name, ( array ) $value ),
-						'class'    => HTML::class( $args['field_class'], '-type-posttypes' ),
+						'class'    => HTML::cssClass( $args['field_class'], '-type-posttypes' ),
 						'disabled' => $args['disabled'],
 						'readonly' => $args['readonly'],
 						'dir'      => $args['dir'],
