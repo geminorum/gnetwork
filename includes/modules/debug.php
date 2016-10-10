@@ -91,16 +91,21 @@ class Debug extends ModuleCore
 
 				foreach ( $errors as $error ) {
 
-					if ( ! trim( $error ) )
+					$line = trim( strip_tags( $error ) );
+
+					if ( ! $line )
 						continue;
 
 					echo '<li>';
 
 					$line = preg_replace_callback( '/\[([^\]]+)\]/', function( $matches ){
-						return '<b><span title="'.human_time_diff( strtotime( $matches[1] ) ).'">['.$matches[1].']</span></b>';
-					}, trim ( $error ), 1 );
+						return '<b><span title="'.esc_attr( human_time_diff( strtotime( $matches[1] ) ) ).'">['.$matches[1].']</span></b>';
+					}, $line, 1 );
 
-					echo Text::strLen( $line ) > $length ? Text::subStr( $line, 0, $length ).' [&hellip;]' : $line;
+					if ( Text::strLen( $line ) > $length )
+						echo Text::subStr( $line, 0, $length ).' <span title="'.esc_attr( $line ).'">[&hellip;]</span>';
+					else
+						$line;
 
 					echo '</li>';
 				}
