@@ -422,11 +422,16 @@ class Debug extends ModuleCore
 <html xmlns="http://www.w3.org/1999/xhtml" <?php if ( function_exists( 'language_attributes' ) && function_exists( 'is_rtl' ) ) language_attributes(); else echo "dir='$text_direction'"; ?>>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width">
 	<?php
+
+		if ( function_exists( 'wp_no_robots' ) )
+			wp_no_robots();
+
 		echo '<title>'.$title.'</title>';
+
 		Utilities::linkStyleSheet( GNETWORK_URL.'assets/css/die.all.css' );
 		Utilities::customStyleSheet( 'die.css' );
-
 	?>
 </head>
 <body id="error-page" class="<?php echo $text_direction; ?>">
