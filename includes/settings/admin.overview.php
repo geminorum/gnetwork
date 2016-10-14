@@ -9,6 +9,10 @@ echo '<form method="post" action="">';
 
 	if ( class_exists( __NAMESPACE__.'\\Debug' ) && $manage_options ) {
 
+		echo '<tr class="ltr"><th scope="row">'.__( 'Your IP Summary', GNETWORK_TEXTDOMAIN ).'</th><td>';
+			Debug::summaryIPs();
+		echo '</td></tr>';
+
 		echo '<tr class="ltr"><th scope="row">'.__( 'PHP Versions', GNETWORK_TEXTDOMAIN ).'</th><td>';
 			Debug::phpversion();
 		echo '</td></tr>';

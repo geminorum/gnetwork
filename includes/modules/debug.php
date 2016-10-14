@@ -197,6 +197,24 @@ class Debug extends ModuleCore
 		HTML::tableCode( $paths );
 	}
 
+	public static function summaryIPs( $caption = FALSE )
+	{
+		$summary = array();
+
+		foreach ( array(
+			'HTTP_CLIENT_IP',
+			'HTTP_X_FORWARDED_FOR',
+			'HTTP_X_FORWARDED',
+			'HTTP_FORWARDED_FOR',
+			'HTTP_FORWARDED',
+			'REMOTE_ADDR',
+		) as $key )
+			if ( isset( $_SERVER[$key] ) )
+				$summary[$key] = $_SERVER[$key];
+
+		HTML::tableCode( $summary, FALSE, $caption );
+	}
+
 	public static function wpUploadDIR()
 	{
 		$upload_dir = wp_upload_dir();
@@ -252,7 +270,13 @@ class Debug extends ModuleCore
 		unset(
 			$server['RAW_HTTP_COOKIE'],
 			$server['HTTP_COOKIE'],
-			$server['PATH']
+			$server['PATH'],
+			$server['HTTP_CLIENT_IP'],
+			$server['HTTP_X_FORWARDED_FOR'],
+			$server['HTTP_X_FORWARDED'],
+			$server['HTTP_FORWARDED_FOR'],
+			$server['HTTP_FORWARDED'],
+			$server['REMOTE_ADDR']
 		);
 
 		if ( ! empty( $server['SERVER_SIGNATURE'] ) )
