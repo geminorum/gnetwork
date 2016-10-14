@@ -190,6 +190,7 @@ class Debug extends ModuleCore
 			'FILE'          => GNETWORK_FILE,
 			'DL_DIR'        => GNETWORK_DL_DIR,
 			'DL_URL'        => GNETWORK_DL_URL,
+			'DEBUG_LOG'     => GNETWORK_DEBUG_LOG,
 			'MAIL_LOG_DIR'  => GNETWORK_MAIL_LOG_DIR,
 			'AJAX_ENDPOINT' => GNETWORK_AJAX_ENDPOINT,
 		);

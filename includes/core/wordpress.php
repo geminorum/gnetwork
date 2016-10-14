@@ -188,7 +188,7 @@ class WordPress extends Base
 	public static function cheatin( $message = NULL )
 	{
 		if ( is_null( $message ) )
-			$message = _x( 'Cheatin&#8217; uh?', 'Core: WordPress', GNETWORK_TEXTDOMAIN );
+			$message = __( 'Cheatin&#8217; uh?' );
 
 		wp_die( $message, 403 );
 	}

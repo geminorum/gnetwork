@@ -282,7 +282,7 @@ class Mail extends ModuleCore
 
 	public function settings_form_emaillogs( $uri, $sub = 'general' )
 	{
-		$this->settings_form_before( $uri, $sub, 'bulk' );
+		$this->settings_form_before( $uri, $sub, 'bulk', FALSE );
 
 			if ( self::tableEmailLogs() )
 				$this->settings_buttons( $sub );

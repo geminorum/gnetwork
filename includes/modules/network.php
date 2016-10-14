@@ -63,13 +63,6 @@ class Network extends ModuleCore
 			'plugin-install.php?tab=upload'
 		);
 
-		add_submenu_page( 'themes.php',
-			_x( 'Upload', 'Modules: Network: Page Menu', GNETWORK_TEXTDOMAIN ),
-			_x( 'Upload', 'Modules: Network: Page Menu', GNETWORK_TEXTDOMAIN ),
-			'manage_network_themes',
-			'theme-install.php?upload'
-		);
-
 		$hook = add_menu_page(
 			_x( 'gNetwork Extras', 'Modules: Network: Page Menu', GNETWORK_TEXTDOMAIN ),
 			_x( 'Extras', 'Modules: Network: Page Menu', GNETWORK_TEXTDOMAIN ),

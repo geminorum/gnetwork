@@ -187,6 +187,9 @@ class HTML extends Base
 
 	public static function tableCode( $array, $reverse = FALSE, $caption = FALSE )
 	{
+		if ( ! $array )
+			return;
+			
 		if ( $reverse )
 			$row = '<tr><td class="-val"><code>%1$s</code></td><td class="-var">%2$s</td></tr>';
 		else
