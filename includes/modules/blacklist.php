@@ -12,7 +12,7 @@ class BlackList extends ModuleCore
 	protected function setup_actions()
 	{
 		if ( ! is_admin() && $this->options['check_ip'] )
-			add_action( 'init', array( $this, 'init' ), 1 );
+			add_action( 'init', array( $this, 'init' ), -10 );
 	}
 
 	public function setup_menu( $context )
@@ -59,10 +59,19 @@ class BlackList extends ModuleCore
 					'type'        => 'textarea-quicktags',
 					'title'       => _x( 'Blacklisted Message', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Locked message on WordPress die page', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ),
+					'default'     => 'you\'re blacklisted!',
 					'field_class' => array( 'large-text', 'code-text' ),
 				),
 			),
 		);
+	}
+
+	public function settings_sidebox( $sub, $uri )
+	{
+		if ( class_exists( __NAMESPACE__.'\\Debug' ) )
+			Debug::summaryIPs( _x( 'Your IP Summary', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ) );
+		else
+			printf( _x( 'Your IP: <code title="%s">%s</code>', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ), HTTP::IP(), $_SERVER['REMOTE_ADDR'] );
 	}
 
 	private function blacklisted()
@@ -71,14 +80,14 @@ class BlackList extends ModuleCore
 			return FALSE;
 
 		$groups = explode( ',', $this->options['blacklisted_ips'] );
-		$long = ip2long( $_SERVER['REMOTE_ADDR'] );
+		$long   = ip2long( $_SERVER['REMOTE_ADDR'] );
 
 		foreach ( $groups as $group ) {
 			if ( FALSE === strpos( $group, '-' ) ) {
 				if ( $long == ip2long( trim( $group ) ) )
 					return TRUE;
 			} else {
-				$range = array_map('trim', explode( '-', $group ) );
+				$range = array_map( 'trim', explode( '-', $group ) );
 				if ( $long >= ip2long( $range[0] )
 					&& $long <= ip2long( $range[1] ) )
 						return TRUE;
