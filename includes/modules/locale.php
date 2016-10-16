@@ -164,7 +164,6 @@ class Locale extends ModuleCore
 			'wpsupercache'                  => 'page',
 			'members-settings'              => 'page',
 			'roles'                         => 'page',
-			'wp-dbmanager/wp-dbmanager.php' => 'page',
 			'regenerate-thumbnails'         => 'page',
 			'a8c_developer'                 => 'page',
 			'redirection.php'               => 'page', // Redirection
@@ -216,6 +215,16 @@ class Locale extends ModuleCore
 			'ef-editorial-metadata-settings' => 'page',
 			'ef-notifications-settings'      => 'page',
 			'ef-user-groups-settings'        => 'page',
+
+			// [WP-DBManager](https://wordpress.org/plugins/wp-dbmanager/)
+			'wp-dbmanager/wp-dbmanager.php'      => 'page',
+			'wp-dbmanager/database-manager.php'  => 'page',
+			'wp-dbmanager/database-backup.php'   => 'page',
+			'wp-dbmanager/database-manage.php'   => 'page',
+			'wp-dbmanager/database-optimize.php' => 'page',
+			'wp-dbmanager/database-repair.php'   => 'page',
+			'wp-dbmanager/database-empty.php'    => 'page',
+			'wp-dbmanager/database-run.php'      => 'page',
 		) );
 
 		foreach ( $black_list as $val => $key )
