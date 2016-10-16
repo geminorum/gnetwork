@@ -373,4 +373,18 @@ class Utilities extends Base
 			'alt'    => strip_tags( $data ),
 		) );
 	}
+
+	// @SEE: https://core.trac.wordpress.org/ticket/24661
+	// @SEE: https://core.trac.wordpress.org/ticket/22363
+	// @SEE: https://core.trac.wordpress.org/ticket/35951
+	// @SEE: https://core.trac.wordpress.org/ticket/30130
+	public static function URLifyDownCode( $string, $locale = NULL )
+	{
+		// \URLify::add_chars( array(
+		// ) );
+
+		$iso = class_exists( __NAMESPACE__.'\\Locale' ) ? Locale::getISO( $locale ) : $locale;
+
+		return \URLify::downcode( $string, $iso );
+	}
 }

@@ -15,6 +15,7 @@ class Media extends ModuleCore
 	{
 		add_action( 'init', array( $this, 'init_late' ), 999 );
 		add_filter( 'upload_mimes', array( $this, 'upload_mimes' ) );
+		// add_filter( 'sanitize_file_name', array( $this, 'sanitize_file_name' ), 12, 2 );
 
 		if ( is_admin() ) {
 
@@ -43,6 +44,8 @@ class Media extends ModuleCore
 			GNETWORK_MEDIA_DISABLE_META, $this->blog ) ) {
 
 			add_filter( 'wp_read_image_metadata', '__return_empty_array', 12, 4 );
+		// } else {
+		// 	add_filter( 'wp_read_image_metadata', 'wp_read_image_metadata', 12, 4 );
 		}
 
 		if ( apply_filters( $this->hook( 'object_sizes' ),
@@ -447,6 +450,7 @@ class Media extends ModuleCore
 		);
 	}
 
+	// FIXME: ALSO SEE: https://core.trac.wordpress.org/changeset/38113
 	public function get_thumbs( $attachment_id )
 	{
 		$thumbs = array();
@@ -753,6 +757,38 @@ class Media extends ModuleCore
 			'mpg4' => 'video/mp4',
 			'flv'  => 'video/x-flv',
 			'svg'  => 'image/svg+xml',
+		) );
+	}
+
+	// FIXME: WORKING BUT DISABLED:
+	// TODO: waiting for: https://core.trac.wordpress.org/ticket/22363
+	public function sanitize_file_name( $filename, $filename_raw )
+	{
+		$info = pathinfo( $filename );
+		$ext  = empty( $info['extension'] ) ? '' : '.'.$info['extension'];
+		$name = basename( $filename, $ext );
+
+		$name = Utilities::URLifyDownCode( $name );
+		return Text::strToLower( $name ).$ext;
+	}
+
+	// FIXME: WORKING BUT DISABLED: there will be notices!
+	// TODO: add core tiket!
+	public function wp_read_image_metadata( $meta, $file, $sourceImageType, $iptc )
+	{
+		return Arraay::stripDefaults( $meta, array(
+			'aperture'          => 0,
+			'credit'            => '',
+			'camera'            => '',
+			'caption'           => '',
+			'created_timestamp' => 0,
+			'copyright'         => '',
+			'focal_length'      => 0,
+			'iso'               => 0,
+			'shutter_speed'     => 0,
+			'title'             => '',
+			'orientation'       => 0,
+			'keywords'          => array(),
 		) );
 	}
 }
