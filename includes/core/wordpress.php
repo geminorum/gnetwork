@@ -205,6 +205,17 @@ class WordPress extends Base
 		return get_search_link( $query );
 	}
 
+	public static function getAttachments( $post_id, $mime_type = 'image' )
+	{
+		return get_children( array(
+			'post_mime_type' => $mime_type,
+			'post_parent'    => $post_id,
+			'post_type'      => 'attachment',
+			'post_status'    => 'inherit',
+			'numberposts'    => -1,
+		) );
+	}
+
 	// EDITED: 8/12/2016, 8:53:06 AM
 	public static function getPostTypes( $mod = 0, $args = array( 'public' => TRUE ) )
 	{

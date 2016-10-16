@@ -228,7 +228,7 @@ class Media extends ModuleCore
 
 					$links = array();
 
-					foreach ( Media::getAttachments( $row->ID ) as $attachment ) {
+					foreach ( WordPress::getAttachments( $row->ID ) as $attachment ) {
 						$attached = get_post_meta( $attachment->ID, '_wp_attached_file', TRUE );
 						$links[] = '<a target="_blank" href="'.$column['args']['wpuploads']['baseurl'].'/'.$attached.'">'.$attached.'</a>';
 					}
@@ -496,17 +496,6 @@ class Media extends ModuleCore
 		return TRUE;
 	}
 
-	public static function getAttachments( $post_id )
-	{
-		return get_children( array(
-			'post_parent'    => $post_id,
-			'post_type'      => 'attachment',
-			'post_mime_type' => 'image',
-			'post_status'    => 'any',
-			'numberposts'    => -1,
-		) );
-	}
-
 	public function clean_attachment( $attachment_id, $regenerate = TRUE, $force = FALSE )
 	{
 		if ( $force || ! $this->attachment_is_custom( $attachment_id ) ) {
@@ -531,7 +520,7 @@ class Media extends ModuleCore
 
 		$clean = $moved = array();
 
-		foreach ( self::getAttachments( $post_id ) as $attachment ) {
+		foreach ( WordPress::getAttachments( $post_id ) as $attachment ) {
 			if ( $attached_file = get_post_meta( $attachment->ID, '_wp_attached_file', TRUE ) ) {
 				if ( ! str_replace( wp_basename( $attached_file ), '', $attached_file ) ) {
 					$clean[$attachment->ID] = $attached_file;
