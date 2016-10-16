@@ -173,6 +173,8 @@ class Media extends ModuleCore
 	{
 		list( $posts, $pagination ) = self::getPostArray();
 
+		$wpuploads = wp_get_upload_dir();
+
 		return HTML::tableList( array(
 			'_cb' => 'ID',
 			'ID'  => _x( 'ID', 'Modules: Media', GNETWORK_TEXTDOMAIN ),
@@ -219,11 +221,11 @@ class Media extends ModuleCore
 			'media' => array(
 				'title' => _x( 'Media', 'Modules: Media', GNETWORK_TEXTDOMAIN ),
 				'args'  => array(
-					'wpuploads' => wp_get_upload_dir(),
+					'wpuploads' => $wpuploads,
 				),
 				'callback' => function( $value, $row, $column, $index ){
 
-					// TODO: check for attachment type & get the parent
+					// TODO: check for attachment type & get the parent: use wp icons
 					// TODO: list images in the content of the post/parent
 
 					$links = array();
@@ -233,7 +235,23 @@ class Media extends ModuleCore
 						$links[] = '<a target="_blank" href="'.$column['args']['wpuploads']['baseurl'].'/'.$attached.'">'.$attached.'</a>';
 					}
 
-					return count( $links ) ? ( '<div dir="ltr">'.implode( '<br />', $links ).'</div>' ) : '';
+					return count( $links ) ? ( '<div dir="ltr">'.implode( '<br />', $links ).'</div>' ) : '&mdash;';
+				},
+			),
+
+			'meta' => array(
+				'title' => _x( 'Thumbnail', 'Modules: Media', GNETWORK_TEXTDOMAIN ),
+				'args'  => array(
+					'wpuploads' => $wpuploads,
+				),
+				'callback' => function( $value, $row, $column, $index ){
+
+					if ( $attachment_id = get_post_meta( $row->ID, '_thumbnail_id', TRUE ) ) {
+						$attached = get_post_meta( $attachment_id, '_wp_attached_file', TRUE );
+						return '<div dir="ltr"><a target="_blank" href="'.$column['args']['wpuploads']['baseurl'].'/'.$attached.'">'.$attached.'</a></div>';
+					}
+
+					return '&mdash;';
 				},
 			),
 		), $posts, array(
