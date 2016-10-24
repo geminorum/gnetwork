@@ -5,26 +5,19 @@ defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 class Base
 {
 
-	public static function dump( $var, $htmlsafe = TRUE, $echo = TRUE )
+	public static function dump( $var, $safe = TRUE, $echo = TRUE )
 	{
-		$result = var_export( $var, TRUE );
-
-		$html = '<pre dir="ltr" style="text-align:left;direction:ltr;">'
-			.( $htmlsafe ? htmlspecialchars( $result ) : $result ).'</pre>';
-
-		if ( ! $echo )
-			return $html;
-
-		echo $html;
+		$export = var_export( $var, TRUE );
+		if ( $safe ) $export = htmlspecialchars( $export );
+		$export = '<pre dir="ltr" style="text-align:left;direction:ltr;">'.$export.'</pre>';
+		if ( ! $echo ) return $export;
+		echo $export;
 	}
 
 	public static function kill( $var = FALSE )
 	{
-		if ( $var )
-			self::dump( $var );
-
-		// FIXME: add query/memory/time info
-
+		if ( $var ) self::dump( $var );
+		echo self::stat();
 		die();
 	}
 
@@ -118,23 +111,19 @@ class Base
 			$format = '%d queries in %.3f seconds, using %.2fMB memory.';
 
 		return sprintf( $format,
-			get_num_queries(),
-			self::timer_stop( FALSE, 3 ),
+			@$GLOBALS['wpdb']->num_queries,
+			self::timerStop( FALSE, 3 ),
 			memory_get_peak_usage() / 1024 / 1024
 		);
 	}
 
 	// WP core function without number_format_i18n
-	public static function timer_stop( $echo = FALSE, $precision = 3 )
+	public static function timerStop( $echo = FALSE, $precision = 3 )
 	{
 		global $timestart;
-
-		$html = number_format( ( microtime( TRUE ) - $timestart ), $precision );
-
-		if ( $echo )
-			echo $html;
-
-		return $html;
+		$total = number_format( ( microtime( TRUE ) - $timestart ), $precision );
+		if ( $echo ) echo $total;
+		return $total;
 	}
 
 	public static function isFuncDisabled( $func = NULL )

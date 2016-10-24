@@ -89,7 +89,7 @@ class Dev extends ModuleCore
 		global $pagenow, $wpdb, $gPeopleNetwork, $gMemberNetwork;
 
 		$log = array(
-			self::timer_stop( FALSE, 3 ).'s',
+			self::timerStop( FALSE, 3 ).'s',
 			number_format( ( memory_get_peak_usage() / 1024 / 1024 ), 1, ',', '' ).'/'.ini_get( 'memory_limit' ),
 			$wpdb->num_queries.'q',
 		);
