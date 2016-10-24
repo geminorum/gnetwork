@@ -36,7 +36,8 @@
 			'images': './assets/images/raw/**/*.{png,jpg,jpeg}',
 			'banner': [
 				'./assets/css/**/*.css',
-				'./assets/js/**/*.js',
+				'!./assets/js/**/*.raw.css',
+				'./assets/js/**/*.min.js',
 			],
 			'ready': './ready/**/*',
 			'final': [
@@ -56,8 +57,10 @@
 				'./assets/index.html',
 				'./includes/**/*',
 				'./languages/**/*',
+				'!./languages/**/*.pot',
 				'!./languages/**/*.po',
 				'./locale/**/*',
+				'!./locale/**/*.pot',
 				'!./locale/**/*.po',
 				'./*.php',
 				'./*.md',
@@ -210,10 +213,6 @@
 			}
 		}))
 
-		.pipe(plugins.header(banner, {
-			pkg: pkg
-		}))
-
 		.pipe(gulp.dest(output.css));
 
 	});
@@ -226,13 +225,7 @@
 			suffix: '.min',
 		}))
 
-		.pipe(plugins.uglify({
-			// preserveComments: 'license'
-		}))
-
-		.pipe(plugins.header(banner, {
-			pkg: pkg
-		}))
+		.pipe(plugins.uglify())
 
 		.pipe(gulp.dest(output.js));
 	});
@@ -250,7 +243,7 @@
 		.pipe(gulp.dest('.'));
 	});
 
-	gulp.task('build:copy', ['build:ready'], function() {
+	gulp.task('build:copy', ['build:ready', 'build:banner'], function() {
 
 		del([output.ready]);
 
