@@ -23,7 +23,7 @@ class HTML extends Base
 		return $html.$content.'</'.$tag.'>'.$sep;
 	}
 
-	public static function cssClass()
+	public static function attrClass()
 	{
 		$classes = array();
 
@@ -189,7 +189,7 @@ class HTML extends Base
 	{
 		if ( ! $array )
 			return;
-			
+
 		if ( $reverse )
 			$row = '<tr><td class="-val"><code>%1$s</code></td><td class="-var">%2$s</td></tr>';
 		else
