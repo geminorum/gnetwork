@@ -5,6 +5,12 @@ defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 class Text extends Base
 {
 
+	// @SEE: [normalize_whitespace()](https://developer.wordpress.org/reference/functions/normalize_whitespace/)
+	public static function normalizeWhitespace( $string )
+	{
+		return trim( preg_replace( '!\s+!', ' ', $string ) );
+	}
+
 	// @SEE: `mb_convert_case()`
 	public static function strToLower( $string, $encoding = 'UTF-8' )
 	{
@@ -61,6 +67,8 @@ class Text extends Base
 		$buffer = preg_replace( '/(:| )(\.?)0(%|em|ex|px|in|cm|mm|pt|pc)/i', '${1}0', $buffer ); // strips units if value is 0 (converts 0px to 0)
 		$buffer = preg_replace( '/0 0 0 0/', '0', $buffer ); // converts all zeros value into short-hand
 		$buffer = preg_replace( '/#([a-f0-9])\\1([a-f0-9])\\2([a-f0-9])\\3/i', '#\1\2\3', $buffer ); // shortern 6-character hex color codes to 3-character where possible
+
+		$buffer = preg_replace( '/\x{FEFF}/u', '', $buffer ); // remove utf8 bom
 
 		return trim( $buffer );
 	}
@@ -162,6 +170,11 @@ class Text extends Base
 		return $title;
 	}
 
+	public static function utf8StripBOM( $string )
+	{
+		return preg_replace( '/\x{FEFF}/u', '', $string );
+	}
+
 	// @SOURCE: [Checking UTF-8 for Well Formedness](http://www.phpwact.org/php/i18n/charsets#checking_utf-8_for_well_formedness)
 	// @SEE: http://www.php.net/manual/en/reference.pcre.pattern.modifiers.php#54805
 	// @SEE: WP core's : `seems_utf8()`
@@ -177,6 +190,7 @@ class Text extends Base
 		return ( 1 == preg_match( '/^.{1}/us', $string, $ar ) );
 	}
 
+	// @SEE: [wp_strip_all_tags()](https://developer.wordpress.org/reference/functions/wp_strip_all_tags/)
 	public static function stripHTMLforEmail( $html )
 	{
 		$html = preg_replace( array(
