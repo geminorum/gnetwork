@@ -45,6 +45,11 @@ class WordPress extends Base
 		return defined( 'WP_CLI' ) && WP_CLI;
 	}
 
+	public static function doNotCache()
+	{
+		defined( 'DONOTCACHEPAGE' ) or define( 'DONOTCACHEPAGE', TRUE );
+	}
+
 	public static function registerURL( $register = FALSE )
 	{
 		if ( function_exists( 'buddypress' ) ) {

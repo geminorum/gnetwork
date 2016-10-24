@@ -67,7 +67,7 @@ if ( ! function_exists( 'gnetwork_credits' ) ) :
 endif;
 
 if ( ! function_exists( '__donot_cache_page' ) ) : function __donot_cache_page() {
-	defined( 'DONOTCACHEPAGE' ) or define( 'DONOTCACHEPAGE', TRUE );
+	\geminorum\gNetwork\WordPress::doNotCache();
 } endif;
 
 if ( ! function_exists( '__gpersiandate_skip' ) ) : function __gpersiandate_skip() {
