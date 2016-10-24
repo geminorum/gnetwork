@@ -7,10 +7,11 @@ class Users extends ModuleCore
 
 	protected $key     = 'users';
 	protected $network = FALSE;
-	protected $front   = FALSE;
 
 	protected function setup_actions()
 	{
+		add_action( 'init', array( $this, 'init' ), 8 );
+
 		if ( WordPress::getSiteUserID() && $this->options['siteuser_as_default'] && is_admin() )
 			add_filter( 'wp_insert_post_data', array( $this, 'wp_insert_post_data' ), 9, 2 );
 	}
@@ -154,6 +155,50 @@ class Users extends ModuleCore
 		return $wpdb->query( $wpdb->prepare( "
 			UPDATE $wpdb->posts SET post_author = %s WHERE post_author = %s AND post_type = %s
 		", $user->ID, $from_user_id, $on_post_type ) );
+	}
+
+	public function init()
+	{
+		$this->shortcodes( array(
+			'logged-in'     => 'shortcode_logged_in',
+			'not-logged-in' => 'shortcode_not_logged_in',
+		) );
+	}
+
+	public function shortcode_logged_in( $atts = array(), $content = NULL, $tag = '' )
+	{
+		$args = shortcode_atts( array(
+			'text'    => NULL,
+			'cap'     => NULL,
+			'context' => NULL,
+		), $atts, $tag );
+
+		if ( FALSE === $args['context'] || is_feed() )
+			return NULL;
+
+		if ( $args['cap'] && ! WordPress::cuc( $args['cap'] ) )
+			return $args['text'];
+
+		if ( ! is_user_logged_in() )
+			return $args['text'];
+
+		return $content;
+	}
+
+	public function shortcode_not_logged_in( $atts = array(), $content = NULL, $tag = '' )
+	{
+		$args = shortcode_atts( array(
+			'text'    => NULL,
+			'context' => NULL,
+		), $atts, $tag );
+
+		if ( FALSE === $args['context'] )
+			return NULL;
+
+		if ( is_user_logged_in() )
+			return $args['text'];
+
+		return $content;
 	}
 
 	public function wp_insert_post_data( $data, $postarr )
