@@ -74,10 +74,12 @@ class Navigation extends ModuleCore
 			),
 		);
 
-		echo '<div id="gnetwork-menu" class="posttypediv">';
+		echo '<div id="gnetwork-menu" class="gnetwork-admin-wrap-metabox -navigation posttypediv">';
 
 			foreach ( $tabs as $group => $items ) {
-				printf( '<h4>%s</h4><p>%s</p>', $items['label'], $items['description'] );
+
+				Settings::fieldSection( $items['label'], $items['description'], 'h4' );
+
 				echo '<div id="tabs-panel-posttype-'.$post_type_name.'-'.$group.'" class="tabs-panel tabs-panel-active">';
 					echo '<ul id="gnetwork-menu-checklist-'.$group.'" class="categorychecklist form-no-clear">';
 					echo walk_nav_menu_tree( array_map( 'wp_setup_nav_menu_item', $items['pages'] ), 0, (object) $args );
