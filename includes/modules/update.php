@@ -15,6 +15,11 @@ class Update extends ModuleCore
 
 		// add_filter( 'automatic_updater_disabled', '__return_true' );
 		// add_filter( 'auto_update_core', '__return_false' );
+
+		// disable asynchronous and automatic background translation updates
+		// @REF: https://make.wordpress.org/core/2014/09/05/language-chooser-in-4-0/
+		add_filter( 'async_update_translation', '__return_false' );
+		add_filter( 'auto_update_translation', '__return_false' );
 	}
 
 	public function admin_init_late()
