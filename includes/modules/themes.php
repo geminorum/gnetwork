@@ -149,12 +149,7 @@ class Themes extends ModuleCore
 
 			add_action( 'publish_credits', array( $this, 'publish_credits' ) );
 			add_action( 'wp_enqueue_scripts', function(){
-
-				wp_enqueue_style( 'gnetwork-themes-publish',
-					GNETWORK_URL.'assets/css/themes.publish.css',
-					array(),
-					GNETWORK_VERSION );
-
+				Themes::enqueueStyle( 'publish' );
 			}, 20 );
 
 			add_filter( 'mce_css', function( $url ){
@@ -168,11 +163,7 @@ class Themes extends ModuleCore
 
 			if ( $this->rtl ) {
 				add_action( 'wp_enqueue_scripts', function(){
-
-					wp_enqueue_style( 'gnetwork-themes-hueman',
-						GNETWORK_URL.'assets/css/themes.hueman-rtl.css',
-						array(),
-						GNETWORK_VERSION );
+					Themes::enqueueStyle( 'hueman', TRUE );
 
 					wp_deregister_script( 'flexslider' );
 					wp_enqueue_script( 'flexslider',
@@ -195,13 +186,8 @@ class Themes extends ModuleCore
 
 			if ( $this->rtl ) {
 				add_action( 'wp_enqueue_scripts', function(){
-
 					wp_deregister_style( 'semicolon' );
-					wp_enqueue_style( 'semicolon',
-						GNETWORK_URL.'assets/css/themes.semicolon-rtl.css',
-						array(),
-						GNETWORK_VERSION );
-
+					Themes::enqueueStyle( 'semicolon', TRUE );
 				}, 12 );
 			}
 
@@ -210,13 +196,13 @@ class Themes extends ModuleCore
 			// HOME: http://hyde.getpoole.com/
 
 			add_action( 'wp_enqueue_scripts', function(){
-				wp_enqueue_style( 'gnetwork-themes-hyde', GNETWORK_URL.'assets/css/themes.hyde.css', array(), GNETWORK_VERSION );
+				Themes::enqueueStyle( 'hyde' );
 			}, 20 );
 
 		} else if ( $this->isTheme( 'houston' ) ) {
 
 			add_action( 'wp_enqueue_scripts', function(){
-				wp_enqueue_style( 'gnetwork-themes-houston', GNETWORK_URL.'assets/css/themes.houston.css', array(), GNETWORK_VERSION );
+				Themes::enqueueStyle( 'houston' );
 			}, 20 );
 
 		} else if ( $this->isTheme( 'p2', 'gp2' ) ) {
@@ -250,7 +236,7 @@ class Themes extends ModuleCore
 				add_theme_support( 'post-thumbnails' );
 
 				add_action( 'wp_enqueue_scripts', function(){
-					wp_enqueue_style( 'gnetwork-themes-revera', GNETWORK_URL.'assets/css/themes.revera-rtl.css', array(), GNETWORK_VERSION );
+					Themes::enqueueStyle( 'revera', TRUE );
 
 					// wp_deregister_script( 'flexslider' );
 					// wp_enqueue_script( 'flexslider',
@@ -270,7 +256,7 @@ class Themes extends ModuleCore
 
 			if ( $this->rtl ) {
 				add_action( 'wp_enqueue_scripts', function(){
-					wp_enqueue_style( 'gnetwork-themes-ari', GNETWORK_URL.'assets/css/themes.ari-rtl.css', array(), GNETWORK_VERSION );
+					Themes::enqueueStyle( 'ari', TRUE );
 				}, 20 );
 			}
 
@@ -279,7 +265,7 @@ class Themes extends ModuleCore
 			// DEMO: http://support.shakenandstirredweb.com/shaken-grid/
 
 			add_action( 'wp_enqueue_scripts', function(){
-				wp_enqueue_style( 'gnetwork-themes-easy-docs', GNETWORK_URL.'assets/css/themes.easy-docs.css', array(), GNETWORK_VERSION );
+				Themes::enqueueStyle( 'easy-docs' );
 			}, 20 );
 
 		} else if ( $this->isTheme( 'twentytwelve' ) ) {
@@ -290,7 +276,7 @@ class Themes extends ModuleCore
 
 			if ( $this->rtl ) {
 				add_action( 'wp_enqueue_scripts', function(){
-					wp_enqueue_style( 'gnetwork-themes-twentyfifteen', GNETWORK_URL.'assets/css/themes.twentyfifteen-rtl.css', array(), GNETWORK_VERSION );
+					Themes::enqueueStyle( 'twentyfifteen', TRUE );
 				}, 20 );
 
 				add_filter( 'mce_css', function( $url ){
@@ -405,6 +391,11 @@ class Themes extends ModuleCore
 			$url .= ',';
 
 		return $url.GNETWORK_URL.'assets/css/'.$file;
+	}
+
+	public static function enqueueStyle( $theme, $rtl = FALSE )
+	{
+		wp_enqueue_style( 'gnetwork-themes-'.$theme, GNETWORK_URL.'assets/css/themes.'.$theme.( $rtl ? '-rtl' : '' ).'.css', array(), GNETWORK_VERSION );
 	}
 
 	public function prologue_poweredby_link( $html )
