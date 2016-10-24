@@ -32,9 +32,8 @@
 				'./assets/js/**/*.js',
 				'!./assets/js/**/*.min.js',
 			],
-			'png': './assets/images/raw/**/*.png',
 			'svg': './assets/images/raw/**/*.svg',
-			'images': './assets/images/raw/**/*.{jpg,png}',
+			'images': './assets/images/raw/**/*.{png,jpg,jpeg}',
 			'banner': [
 				'./assets/css/**/*.css',
 				'./assets/js/**/*.js',
@@ -75,6 +74,10 @@
 			'languages': './languages',
 			'ready': './ready/',
 			'final': '..',
+		},
+
+		logs = {
+			'tinypng': './assets/images/raw/.tinypng-sigs'
 		};
 
 	try {
@@ -85,13 +88,18 @@
 		gutil.log('no environment.yml loaded!');
 	}
 
-	gulp.task('tinypng', function() {
+	gulp.task('dev:tinify', function () {
 
-		return gulp.src(input.png)
+		return gulp.src(input.images)
 
 		.pipe(plugins.newer(output.images))
 
-		.pipe(plugins.tinypng(env.tinypng))
+		.pipe(plugins.tinypngCompress({
+			key: env.tinypng,
+			sigFile: logs.tinypng,
+			summarize: true,
+			log: true
+		}))
 
 		.pipe(gulp.dest(output.images));
 	});
