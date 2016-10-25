@@ -65,7 +65,7 @@ class Maintenance extends ModuleCore
 
 	public function default_settings()
 	{
-		$template = self::get_template();
+		$template = self::getTemplate();
 
 		return array(
 			'_general' => array(
@@ -193,8 +193,7 @@ class Maintenance extends ModuleCore
 
 		} else {
 
-			$template = self::get_template();
-			if ( FALSE !== $template ) {
+			if ( $template = self::getTemplate() ) {
 				require_once ( $template );
 
 			} else {
@@ -208,13 +207,10 @@ class Maintenance extends ModuleCore
 		}
 	}
 
-	// FIXME: use Utilities::getLayout()
-	public static function get_template()
+	public static function getTemplate()
 	{
-		$forced_template = apply_filters( 'gnetwork_maintenance_forced_template', FALSE );
-
-		if ( FALSE !== $forced_template )
-			return $forced_template;
+		if ( $override = apply_filters( 'gnetwork_maintenance_forced_template', FALSE ) )
+			return $override;
 
 		elseif ( ! is_admin() && locate_template( '503.php' ) )
 			return locate_template( '503.php' );
