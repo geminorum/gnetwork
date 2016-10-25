@@ -15,7 +15,9 @@ $callback = trim( esc_html( get_query_var( 'callback' ) ) );
 $charset  = get_option( 'charset' );
 
 if ( have_posts() ) {
-	global $wp_query;
+
+	global $wp_query, $post;
+
 	$query_array = $wp_query->query;
 
 	// make sure query args are always in the same order
