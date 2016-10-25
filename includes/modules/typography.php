@@ -16,8 +16,8 @@ class Typography extends ModuleCore
 
 			add_action( 'gnetwork_tinymce_strings', array( $this, 'tinymce_strings' ) );
 
-			Admin::registerTinyMCE( 'gnetworkquote', 'assets/js/tinymce.quote', 1 );
-			Admin::registerTinyMCE( 'gnetworkasterisks', 'assets/js/tinymce.asterisks', 2 );
+			Admin::registerTinyMCE( 'gnetworkquote', 'assets/js/tinymce/quote', 1 );
+			Admin::registerTinyMCE( 'gnetworkasterisks', 'assets/js/tinymce/asterisks', 2 );
 		}
 
 		if ( $this->options['title_titlecase']
