@@ -37,7 +37,7 @@ class Editor extends ModuleCore
 		add_filter( 'mce_external_plugins', array( $this, 'mce_external_plugins' ) );
 
 		if ( ! version_compare( $tinymce_version, '4100', '<' ) ) {
-			Admin::registerTinyMCE( 'table', 'assets/js/tinymce.table', 2 );
+			Admin::registerTinyMCE( 'table', 'assets/js/vendor/tinymce.table', 2 );
 			add_filter( 'content_save_pre', array( $this, 'content_save_pre' ), 20 );
 		}
 	}
