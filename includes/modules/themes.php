@@ -13,8 +13,12 @@ class Themes extends ModuleCore
 
 	protected function setup_actions()
 	{
-		if ( ! $this->options['disable_themes'] )
+		if ( ! $this->options['disable_themes'] ) {
 			add_action( 'after_setup_theme', array( $this, 'after_setup_theme' ) );
+
+			if ( file_exists( GNETWORK_DIR.'includes/misc/themes-pluggable.php' ) )
+				require_once( GNETWORK_DIR.'includes/misc/themes-pluggable.php' );
+		}
 
 		if ( is_admin() ) {
 
