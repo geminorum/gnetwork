@@ -2,12 +2,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Didi Lite\n"
 "POT-Creation-Date: 2016-10-04 16:58+0330\n"
-"PO-Revision-Date: 2016-10-09 07:34+0330\n"
+"PO-Revision-Date: 2016-10-25 07:11+0330\n"
 "Language-Team: geminorum <contact@geminorum.ir>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 1.8.11\n"
 "X-Poedit-Basepath: ..\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Poedit-KeywordsList: esc_html_e;esc_html__;esc_url;_nx;esc_html_x\n"
@@ -118,12 +118,12 @@ msgstr ""
 
 #: author-bio.php:11
 msgid "Published by"
-msgstr ""
+msgstr "نویسنده"
 
 #: author-bio.php:35
 #, php-format
 msgid "View all posts by %s"
-msgstr ""
+msgstr "دیدن همهٔ نوشته‌های %s"
 
 #: comments.php:29
 #, php-format
@@ -281,7 +281,7 @@ msgstr "ویرایش %1$s"
 #: inc/template-tags.php:58
 #, php-format
 msgid "by %1$s"
-msgstr ""
+msgstr "توسط %1$s"
 
 #. translators: used between list items, there is a space after the comma
 #: inc/template-tags.php:83 inc/template-tags.php:89
@@ -291,7 +291,7 @@ msgstr ""
 #: inc/template-tags.php:49
 #, php-format
 msgid "Posted on %1$s"
-msgstr "در %1$s"
+msgstr "منتشر شده در %1$s"
 
 #: inc/template-tags.php:85
 #, php-format
@@ -301,7 +301,7 @@ msgstr "در %1$s"
 #: inc/template-tags.php:91
 #, php-format
 msgid "Tagged %1$s"
-msgstr ""
+msgstr "با برچسب %1$s"
 
 #: search.php:16
 #, php-format
@@ -329,3 +329,9 @@ msgid ""
 "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching "
 "can help."
 msgstr "چیزی که به دنبالش بودید پیدا نشد، شاید جست‌وجوی دوباره شما را یاری کند."
+
+msgid "<span class=\"meta-nav\">Next Post</span> %title"
+msgstr "<span class=\"meta-nav\">تازه‌تر</span> %title"
+
+msgid "<span class=\"meta-nav\">Previous Post</span> %title"
+msgstr "<span class=\"meta-nav\">کهنه‌تر</span> %title"
