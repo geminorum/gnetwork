@@ -1,11 +1,14 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-/// MODULE: ALL ----------------------------------------------------------------
+/// gNetwork Partials: Navigation Module ---------------------------------------
 
-@import 'utilities';
-@import 'extra';
-@import 'coloring';
-@import 'sizing';
-@import 'transform';
-@import 'responsive';
+.gnetwork-admin-wrap-metabox.-navigation {
+  > h4 {
+    margin: 0 0 0.5em 0;
+  }
+
+  .tabs-panel {
+    margin-bottom: 1em;
+  }
+}

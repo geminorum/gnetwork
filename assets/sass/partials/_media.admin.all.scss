@@ -1,19 +1,18 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-/// gNetwork Partials: Media Module -----------------------------------------
+/// gNetwork Partials: Media Module --------------------------------------------
 
 table.media {
+  a.media-url-attachment {
+    outline: 0 none;
+  }
 
-	a.media-url-attachment {
-		outline: 0 none;
-	}
+  div.media-url-box {
+    margin: 10px 0;
+  }
 
-	div.media-url-box {
-		margin: 10px 0;
-	}
-
-	input.media-url-field {
-		direction: ltr;
-	}
+  input.media-url-field {
+    direction: ltr;
+  }
 }

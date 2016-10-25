@@ -4,12 +4,11 @@
 /// gNetwork Partals: Module: Themes Front All ---------------------------------
 
 .gnetwork-wrap-actions {
+  &.content-before {
+    margin-bottom: 1.5em;
+  }
 
-	&.content-before {
-		margin-bottom: 1.5em;
-	}
-
-	&.content-after {
-		margin-top: 1.5em;
-	}
+  &.content-after {
+    margin-top: 1.5em;
+  }
 }

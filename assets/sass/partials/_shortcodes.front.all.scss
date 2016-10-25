@@ -4,130 +4,102 @@
 /// gNetwork Partials: Shortcodes Module ---------------------------------------
 
 .gnetwork-wrap-shortcode {
-	@include mainwrap();
+  @include mainwrap();
 
-	&.shortcode-reflist {
-		ul,
-		ol {
+  &.shortcode-reflist {
+    ol,
+    ul {
+      padding: 0;
+      margin: 0;
+      border: 0;
+      list-style: none;
+      list-style-type: none;
 
-			padding: 0;
-			margin: 0;
-			border: 0;
-			list-style: none;
-			list-style-type: none;
+      li {
+        .ref-number {}
 
-			li {
+        .cite-scroll {}
 
-				.ref-number {
+        .ref-text {}
 
-				}
+        a {}
+      }
+    }
+  }
 
-				.cite-scroll {
+  &.shortcode-children {
+    ul {
+      li {
+        a {}
+      }
+    }
+  }
 
-				}
+  &.shortcode-siblings {
+    ul {
+      li {
+        a {}
+      }
+    }
+  }
 
-				.ref-text {
+  &.shortcode-back {
+    a {}
+  }
 
-				}
+  &.shortcode-last-edited {
+    color: $gray;
+    font-size: 0.8em;
+    line-height: inherit;
+    time {
+      cursor: help;
+    }
+  }
 
-				a {
+  &.shortcode-iframe {
+    iframe {}
+  }
 
-				}
-			}
-		}
-	}
+  &.shortcode-email {
+    a.email {}
+  }
 
-	&.shortcode-children {
-		ul {
-			li {
-				a {
+  &.shortcode-tel {
+    a.tel {
+      letter-spacing: 0.4px;
+    }
+  }
 
-				}
-			}
-		}
-	}
+  &.shortcode-sms {
+    a.sms {
+      letter-spacing: 0.4px;
+    }
+  }
 
-	&.shortcode-siblings {
-		ul {
-			li {
-				a {
+  &.shortcode-audio {
+    a.download {}
+    // WP core shortcode
+    .wp-audio-shortcode {}
+  }
 
-				}
-			}
-		}
-	}
+  &.shortcode-audio-go {
+    a.audio-go-to-time {}
+  }
 
-	&.shortcode-back {
-		a {
+  &.shortcode-person {
+    a.refrence-people {}
+  }
 
-		}
-	}
+  &.-bloginfo {
+    // EXAMPLE:
+    // &.-key-home {}
+  }
 
-	&.shortcode-iframe {
-		iframe {
+  &.-googleplus-badge {
+    iframe {}
+  }
 
-		}
-	}
-
-	&.shortcode-email {
-		a.email {
-
-		}
-	}
-
-	&.shortcode-tel {
-
-		a.tel {
-			letter-spacing: 0.4px;
-		}
-	}
-
-	&.shortcode-sms {
-
-		a.sms {
-			letter-spacing: 0.4px;
-		}
-	}
-
-	&.shortcode-audio {
-
-		a.download {
-
-		}
-
-		// WP core shortcode
-		.wp-audio-shortcode {
-
-		}
-	}
-
-	&.shortcode-audio-go {
-		a.audio-go-to-time {
-
-		}
-	}
-
-	&.shortcode-person {
-		a.refrence-people {
-
-		}
-	}
-
-	&.-bloginfo {
-
-		// EXAMPLE:
-		// &.-key-home {}
-	}
-
-	&.-googleplus-badge {
-		iframe {
-
-		}
-	}
-
-	&.-beacon {
-		img {
-
-		}
-	}
+  &.-beacon {
+    img {}
+  }
 }

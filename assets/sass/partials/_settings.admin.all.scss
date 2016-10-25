@@ -4,302 +4,312 @@
 /// gNetwork Partials: Settings Admin ALL --------------------------------------
 
 .gnetwork-admin-settings-wrap {
-	@include mainwrap();
+  @include mainwrap();
 
-	&.settings-network {
+  &.settings-network {}
 
-	}
+  &.settings-admin {}
 
-	&.settings-admin {
+  .quicktags-toolbar {
+    min-height: 30px;
+    position: relative;
 
-	}
+    input.button.button-small {
+      font-size: 12px;
+      height: 26px;
+      line-height: 24px;
+      margin: 0 2px 0 0;
+      @include body-rtl() {
+        margin: 0 0 0 2px;
+      }
+    }
+  }
 
-	.quicktags-toolbar {
-		position: relative;
-		min-height: 30px;
+  &.sub-overview {}
 
-		input.button.button-small {
-			font-size: 12px;
-			height: 26px;
-			line-height: 24px;
-			margin: 0 2px 0 0;
+  &.sub-debug {
+    h3.error-box-header {
+      margin-bottom: 0.5em;
+    }
 
-			@include body-rtl() {
-				margin: 0 0 0 2px;
-			}
-		}
-	}
+    p.error-box-footer {
+      margin-top: 0.2em;
+    }
 
-	&.sub-overview {}
+    .error-box {
+      height: 100%;
+      // overflow: scroll;
+      padding: 2px;
+      background-color: #faf9f7;
+      border: 1px solid #ccc;
 
-	&.sub-debug {
+      ol {
+        padding: 0;
+        margin: 0;
+        list-style: none;
 
-		h3.error-box-header {
-			margin-bottom: 0.5em;
-		}
+        li {
+          padding: 2px 4px 6px;
+          border-bottom: 1px solid #ececec;
 
-		p.error-box-footer {
-			margin-top: 0.2em;
-		}
+          &:last-child {
+            border: none;
+            padding-bottom: 0;
+          }
 
-		.error-box {
+          &.more {
+            padding: 2px;
+            // border-top: 2px solid #ccc;
+            // border-bottom: none;
+          }
 
-			height: 100%;
-			// overflow: scroll;
-			padding: 2px;
-			background-color: #faf9f7;
-			border: 1px solid #ccc;
+          b {
+            span {
+              cursor: pointer;
+            }
+          }
 
-			ol {
-				padding: 0;
-				margin: 0;
-				list-style: none;
+          pre {
+            display: inline;
+            margin: 0;
+          }
+        }
+      }
+    }
+  }
 
-				li {
-					padding: 2px 4px 6px;
-					border-bottom: 1px solid #ececec;
+  &.sub-phpinfo {
+    .gnetwork-phpinfo-disabled {
+      padding: 1em;
+    }
+    // default style from phpinfo()
+    .gnetwork-phpinfo-wrap {
+      padding-top: 1em;
+      // background-color: #ffffff;
+      color: #000000;
 
-					&:last-child {
-						border: none;
-						padding-bottom: 0;
-					}
+      &,
+      h1,
+      h2,
+      td,
+      th {
+        // font-family: sans-serif;
+      }
 
-					&.more {
-						padding: 2px;
-						// border-top: 2px solid #ccc;
-						// border-bottom: none;
-					}
+      pre {
+        margin: 0;
+        font-family: monospace;
+      }
 
-					b {
-						span {
-							cursor: pointer;
-						}
-					}
+      a:link {
+        color: #000099;
+        text-decoration: none;
+        background-color: #ffffff;
+      }
 
-					pre {
-						display: inline;
-						margin: 0;
-					}
-				}
-			}
-		}
-	}
+      a:hover {
+        text-decoration: underline;
+      }
 
-	&.sub-phpinfo {
+      table {
+        border-collapse: collapse;
+      }
 
-		.gnetwork-phpinfo-disabled {
-			padding: 1em;
-		}
+      .center {
+        text-align: center;
 
-		// default style from phpinfo()
-		.gnetwork-phpinfo-wrap {
+        table {
+          margin-left: auto;
+          margin-right: auto;
+          text-align: left;
+          direction: ltr;
+          width: 100% !important;
+        }
 
-			padding-top: 1em;
+        th {
+          text-align: center !important;
+        }
+      }
 
-			// background-color: #ffffff;
-			color: #000000;
+      td,
+      th {
+        border: 1px solid #000000;
+        font-size: 95%;
+        vertical-align: baseline;
+      }
 
-			&, td, th, h1, h2 {
-				// font-family: sans-serif;
-			}
+      h1 {
+        font-size: 150%;
+      }
 
-			pre {
-				margin: 0px;
-				font-family: monospace;
-			}
+      h2 {
+        font-size: 125%;
+      }
 
-			a:link {
-				color: #000099;
-				text-decoration: none;
-				background-color: #ffffff;
-			}
+      .p {
+        text-align: left;
+      }
 
-			a:hover {
-				text-decoration: underline;
-			}
+      .e {
+        background-color: #ccccff;
+        font-weight: bold;
+        color: #000000;
+      }
 
-			table {
-				border-collapse: collapse;
-			}
+      .h {
+        background-color: #9999cc;
+        font-weight: bold;
+        color: #000000;
+      }
 
-			.center {
-				text-align: center;
+      .v {
+        background-color: #cccccc;
+        color: #000000;
+        word-break: break-word;
+      }
 
-				table {
-					margin-left: auto;
-					margin-right: auto;
-					text-align: left;
-					direction: ltr;
-					width: 100% !important;
-				}
+      .vr {
+        background-color: #cccccc;
+        text-align: right;
+        color: #000000;
+      }
 
-				th {
-					text-align: center !important;
-				}
-			}
+      img {
+        float: right;
+        border: 0;
+      }
 
-			td, th {
-				border: 1px solid #000000;
-				font-size: 95%;
-				vertical-align: baseline;
-			}
+      hr {
+        width: 600px;
+        background-color: #cccccc;
+        border: 0;
+        height: 1px;
+        color: #000000;
+      }
+    }
+  }
 
-			h1 {
-				font-size: 150%;
-			}
+  .gnetwork-form {
+    .form-table {
+      .field-after {
+        vertical-align: middle;
 
-			h2 {
-				font-size: 125%;
-			}
+        &.icon-wrap {
+          a {
+            color: $gray-light;
+            display: inline-block;
+            line-height: 22px;
+            text-decoration: none;
 
-			.p {
-				text-align: left;
-			}
+            &:focus {
+              outline: none;
+              box-shadow: none;
+            }
+          }
 
-			.e {
-				background-color: #ccccff;
-				font-weight: bold;
-				color: #000000;
-			}
+          .dashicons {
+            width: 22px;
+            height: 22px;
+            font-size: 22px;
+          }
+        }
+      }
+    }
+    // FIXME: must check the html
+    .button.button-small {
+      vertical-align: middle;
+    }
 
-			.h {
-				background-color: #9999cc;
-				font-weight: bold;
-				color: #000000;
-			}
+    .button.button-icon {
+      padding: 1px !important;
+    }
 
-			.v {
-				background-color: #cccccc;
-				color: #000000;
-				word-break: break-word;
-			}
+    input.big-text {
+      width: 56em;
+    }
 
-			.vr {
-				background-color: #cccccc;
-				text-align: right;
-				color: #000000;
-			}
+    tr td {
+      vertical-align: top;
+    }
 
-			img {
-				float: right;
-				border: 0px;
-			}
+    tr th .side-buttons {
+      // margin-top: 0.8em;
+      line-height: 1em;
+      text-align: right;
+    }
 
-			hr {
-				width: 600px;
-				background-color: #cccccc;
-				border: 0px;
-				height: 1px;
-				color: #000000;
-			}
-		}
-	}
+    tr th .side-buttons .button {
+      display: block;
+    }
 
-	.gnetwork-form {
+    textarea {
+      outline: none;
+    }
+    @include body-rtl() {
+      tr th .side-buttons {
+        text-align: left;
+      }
+    }
 
-		.form-table {
+    &.has-sidebox {
+      .form-table {
+        width: 75%;
+        clear: none;
+      }
+    }
 
-			.field-after {
-				vertical-align: middle;
+    .settings-sidebox {
+      @include mainwrap();
+      width: 25%;
+      float: right;
+      color: #666;
+      border-left: 1px solid #ccc;
+      padding: 5px 0 5px 15px;
+      @include body-rtl() {
+        float: left;
+        border-left: none;
+        border-right: 1px solid #ccc;
+        padding: 5px 15px 5px 0;
 
-				&.icon-wrap {
+        &.oldoptions {
+          border-color: red;
+          clear: left;
+        }
+      }
 
-					a {
-						text-decoration: none;
-						color: #666;
+      ol,
+      ul {
+        margin: 0;
+      }
 
-						&:focus {
-							outline: none;
-							box-shadow: none;
-						}
-					}
+      p {
+        margin-top: 0;
 
-					.dashicons {
-						// vertical-align: middle;
-						vertical-align: text-top;
-						width: 22px;
-						height: 22px;
-						font-size: 22px;
-					}
-				}
-			}
-		}
+        &:last-of-type {
+          margin-bottom: 0;
+        }
+      }
 
-		// FIXME: must check the html
-		.button.button-small { vertical-align: middle; }
-		.button.button-icon { padding: 1px !important; }
-		input.big-text { width: 56em; }
-		tr td { vertical-align: top; }
-		tr th .side-buttons {
-			// margin-top: 0.8em;
-			line-height: 1em;
-			text-align: right;
-		}
-		tr th .side-buttons .button { display: block; }
-		textarea { outline: none; }
-		@include body-rtl() {
-			tr th .side-buttons {
-				text-align: left;
-			}
-		}
+      code {
+        word-wrap: break-word;
+      }
 
-		&.has-sidebox {
-			.form-table {
-				width: 75%;
-				clear: none;
-			}
-		}
+      table caption {
+        text-align: inherit;
+      }
 
-		.settings-sidebox {
-			@include mainwrap();
-
-			width: 25%;
-			float: right;
-
-			color: #666;
-			border-left: 1px solid #ccc;
-			padding: 5px 0px 5px 15px;
-
-			@include body-rtl() {
-				float: left;
-				border-left: none;
-				border-right: 1px solid #ccc;
-				padding: 5px 15px 5px 0px;
-
-				&.oldoptions {
-					border-color: red;
-					clear: left;
-				}
-			}
-
-			ul, ol {
-				margin: 0;
-			}
-
-			p {
-				margin-top: 0;
-
-				&:last-of-type {
-					margin-bottom: 0;
-				}
-			}
-
-			code {
-				word-wrap: break-word;
-			}
-
-			&.oldoptions {
-				border-color: red;
-				clear: right;
-			}
-		}
-	}
+      &.oldoptions {
+        border-color: red;
+        clear: right;
+      }
+    }
+  }
 }
 
 .gnetwork-overview-wrap {
-	.github-readme {
-		background: #fff;
-		margin: 2em 0;
-		padding: 1em 2em;
-	}
+  .github-readme {
+    background: #fff;
+    margin: 2em 0;
+    padding: 1em 2em;
+  }
 }

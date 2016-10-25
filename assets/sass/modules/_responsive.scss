@@ -1,10 +1,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-/// gNetwork Modules: Responsive -----------------------------------------------
-
-// SEE: http://jsfiddle.net/masau/7wrhm/
-@mixin theme-responsive-iframe(){
+/// MODULE: Responsive ---------------------------------------------------------
+// @SEE: http://jsfiddle.net/masau/7wrhm/
+@mixin theme-responsive-iframe() {
 	& {
 		position: relative !important;
 
@@ -17,15 +16,12 @@
 		}
 	}
 }
-
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-/// Embeds responsive
+/// Embeds Responsive
 // From: Bootstrap 3 Sass
 // Credit: Nicolas Gallagher and SUIT CSS.
-@mixin theme-responsive-embed(){
-
+@mixin theme-responsive-embed() {
 	position: relative;
 	display: block;
 	height: 0;
@@ -33,8 +29,8 @@
 	overflow: hidden;
 
 	.embed-responsive-item,
-	iframe,
 	embed,
+	iframe,
 	object,
 	video {
 		position: absolute;
@@ -45,14 +41,12 @@
 		width: 100%;
 		border: 0;
 	}
-
-	// Modifier class for 16:9 aspect ratio
+	// modifier class for 16:9 aspect ratio
 	&.embed-responsive-16by9 {
-	  padding-bottom: 56.25%;
+		padding-bottom: 56.25%;
 	}
-
-	// Modifier class for 4:3 aspect ratio
+	// modifier class for 4:3 aspect ratio
 	&.embed-responsive-4by3 {
-	  padding-bottom: 75%;
+		padding-bottom: 75%;
 	}
 }

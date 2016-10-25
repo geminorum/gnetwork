@@ -1,113 +1,109 @@
-@charset "UTF-8";
-
-@import "modules/all";
-@import "partials/base";
-@import "partials/fonts";
+@import 'modules/all';
+@import 'partials/base';
+@import 'partials/theme.fonts';
 
 .login {
+  a {
+    box-shadow: none;
+  }
 
-	a {
-		box-shadow: none;
-	}
+  h1 {
+    a {
+      background-image: none !important;
+      height: 0;
+    }
+  }
 
-	h1 {
-		a {
-			background-image: none !important;
-		}
-	}
+  form {
+    border-radius: 2px;
+    box-shadow: none !important;
 
-	form {
-		border-radius: 2px;
-		box-shadow: none !important;
+    input[type=password],
+    input[type=text] {
+      margin-top: 10px !important;
+    }
 
-		input[type="text"],
-		input[type="password"] {
-			margin-top: 10px !important;
-		}
+    p {
+      text-align: center;
 
-		p {
-			text-align: center;
+      &.description {
+        text-align: right;
+      }
+    }
+  }
 
-			&.description {
-				text-align: right;
-			}
-		}
-	}
+  #user_login,
+  #user_pass {
+    direction: ltr;
+    margin-left: 0 !important;
+  }
 
-	#user_login,
-	#user_pass {
-		direction: ltr;
-		margin-left: 0 !important;
-	}
+  #wp-submit {
+    line-height: 18px;
+  }
 
-	#wp-submit {
-		line-height: 18px;
-	}
+  #loginform {
+    padding: 26px 24px;
+  }
 
-	#loginform {
-		padding: 26px 24px;
-	}
+  #login_error {
+    box-shadow: none !important;
+  }
 
-	#login_error {
-		box-shadow: none !important;
-	}
+  .message {
+    box-shadow: none !important;
+  }
 
-	.message {
-		box-shadow: none !important;
-	}
+  p.sum {
+    margin: 0;
+    padding: 20px 0 46px;
 
-	p.sum {
-		margin: 0;
-		padding:20px 0 46px;
+    label {
+      vertical-align: inherit;
+    }
 
-		label {
-			vertical-align: inherit;
-		}
-
-		input[type="number"] {
-			width: 38px;
-			padding:0 2px;
-		}
-	}
+    input[type=number] {
+      height: 28px;
+      padding: 0 2px;
+      width: 42px;
+    }
+  }
 }
 
 body.rtl {
+  #lostpasswordform {
+    padding: 26px 24px;
+  }
 
-	#lostpasswordform {
-		padding: 26px 24px;
-	}
-
-	input[type=checkbox]:checked:before {
-		margin: -3px -2px 0 0 !important;
-	}
+  input[type=checkbox]:checked:before {
+    margin: -3px -2px 0 0 !important;
+  }
 }
 
 .gnetwork-wrap {
-
-	&.-footer {
-		margin: 2em 0 1em;
-		text-align: center;
-	}
+  &.-footer {
+    margin: 2em 0 1em;
+    text-align: center;
+  }
 }
-
 // https://zhukov.github.io/webogram/#/login
 body.webogram {
+  background: #f7f7f7;
 
-	background: #f7f7f7;
+  .-head-placeholder {
+    background: #5682a3;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,0.15);
+    height: 226px;
+  }
 
-	.-head-placeholder {
-		background: #5682a3;
-    	height: 226px;
-		box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.15);
-	}
+  #login {
+    margin-top: -15.5em;
+    max-width: 404px;
+    width: auto;
 
-	#login {
-		margin-top: -15.5em;
-		width: auto;
-		max-width: 404px;
-		form {
-			box-shadow: 0 1px 1px rgba(97,127,152,.2), 1px 0 0 rgba(97,127,152,.1), -1px 0 0 rgba(97,127,152,.1);
-			border-radius: 2px;
-		}
-	}
+    form {
+      border-radius: 2px;
+      box-shadow: 0 1px 1px rgba(97,127,152,.2), 1px 0 0 rgba(97,127,152,.1), -1px 0 0 rgba(97,127,152,.1);
+    }
+  }
 }

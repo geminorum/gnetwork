@@ -4,22 +4,34 @@
 /// gNetwork Partials: Front ALL -----------------------------------------------
 
 .gnetwork-wrap-iframe {
-	@include theme-responsive-iframe;
+  @include theme-responsive-iframe;
 }
-
 // user switching plugin
 #user_switching_switch_on {
-	position: fixed;
-	bottom: 0;
-	left: 0;
-	padding: 5px 10px;
-	margin: 0;
-
-	background-color: #000;
-	color: yellow;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: 5px 10px;
+  margin: 0;
+  background-color: #000;
+  color: yellow;
 }
-
 // bruteprotect plugin
 #bruteprotect_uptime_check_string {
-	display: none !important;
+  display: none !important;
+}
+
+// from wp core common styles
+.screen-reader-text,
+.screen-reader-text span,
+.ui-helper-hidden-accessible {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  word-wrap: normal !important;
 }

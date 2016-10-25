@@ -1,0 +1,106 @@
+@import 'modules/all';
+@import 'partials/base';
+@import 'partials/theme.fonts';
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+@include theme-fonts-Samim-CDN();
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+body.rtl {
+  direction: rtl;
+  font-family: $font-family-base;
+}
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    // font-weight: bold;
+    font-family: $font-family-head;
+  }
+
+  .nav-wrap {
+    width: auto;
+  }
+
+  .site-main .widget-area {
+    float: left;
+  }
+
+  body.widget-area {
+    .content-area {
+      float: right !important;
+    }
+
+    .site-content {
+      // margin: 0 0 10% 0
+    }
+  }
+
+  .main-navigation ul ul,
+  .widget_calendar #wp-calendar caption,
+  caption,
+  td,
+  th {
+    text-align: right;
+  }
+
+  .site-content .nav-next {
+    text-align: left;
+  }
+
+  .commentlist .avatar,
+  .site-content .nav-next {
+    float: left;
+  }
+
+  .site-content .nav-previous {
+    float: right;
+  }
+
+  .main-navigation {
+    li {
+      margin: 0 25px 0 0;
+    }
+
+    ul ul {
+      float: right;
+      right: -10px;
+      left: auto;
+
+      li {
+        margin: 0;
+      }
+    }
+
+    ul ul ul {
+      right: 100%;
+      left: auto;
+    }
+  }
+
+  .entry-content {
+    ol,
+    ul {
+      list-style-type: -moz-persian;
+      list-style-type: persian;
+      margin: 0 3em 1.5em 0;
+    }
+  }
+// }
+
+.site-header img {
+  display: block;
+}
+// http://stackoverflow.com/a/2610741
+*::-moz-placeholder {
+  font-family: $font-family-base !important;
+}
+
+*::-webkit-input-placeholder {
+  font-family: $font-family-base !important;
+}
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////

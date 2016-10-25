@@ -1,15 +1,18 @@
-@import "modules/all";
-@import "partials/base";
-@import "partials/fonts";
+@import 'modules/all';
+@import 'partials/base';
+@import 'partials/theme.fonts';
 
-@import "partials/debug.all";
-@import "partials/adminbar.all";
+@import 'partials/debug.all';
+@import 'partials/adminbar.all';
+@import 'partials/thickbox.all';
 
-@import "partials/front.all";
-@import "partials/widgets.front.all";
-@import "partials/code.front.all";
-@import "partials/comments.front.all";
-@import "partials/shortcodes.front.all";
-@import "partials/typography.front.all";
-@import "partials/themes.front.all";
-@import "partials/wpcf7.front.all";
+@import 'partials/front.all';
+@import 'partials/front.adblock';
+@import 'partials/buddypress.front.all';
+@import 'partials/widgets.front.all';
+@import 'partials/code.front.all';
+@import 'partials/comments.front.all';
+@import 'partials/shortcodes.front.all';
+@import 'partials/typography.front.all';
+@import 'partials/themes.front.all';
+@import 'partials/wpcf7.front.all';

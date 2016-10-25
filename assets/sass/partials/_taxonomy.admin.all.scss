@@ -4,37 +4,36 @@
 /// gNetwork Partials: Taxonomy Module -----------------------------------------
 
 body.edit-tags-php {
+  &:not(.gnetowrk-taxonomy) {
+    // only if taxonomy module not loading
 
-	&:not(.gnetowrk-taxonomy)  { // only if taxonomy module not loading
-		.form-field.term-description-wrap  {
-			> p,
-			.description {
-				display: none; // hide the description of the description
-			}
-		}
-	}
+    .form-field.term-description-wrap {
+      .description,
+      > p {
+        display: none; // hide the description of the description
+      }
+    }
+  }
 
-	.column-gnetwork_description {
+  .column-gnetwork_description {}
 
-	}
+  .inline-edit-row fieldset label textarea {
+    height: auto !important;
+  }
 
-	.inline-edit-row fieldset label textarea {
-		height: auto !important;
-	}
+  .quicktags-toolbar {
+    input {
+      width: auto; // Fix the formatting buttons on the HTML section of the visual editor from being full-width
+    }
+  }
 
-	.quicktags-toolbar {
-		input {
-			// width:auto; // Fix the formatting buttons on the HTML section of the visual editor from being full-width
-		}
-	}
+  textarea.wp-editor-area {
+    border: none;
+  }
 
-	textarea.wp-editor-area {
-		border: none;
-	}
-
-	.gnetwork-taxonomy-input-wrap {
-		input[type="text"] {
-			height: 28px;
-		}
-	}
+  .gnetwork-taxonomy-input-wrap {
+    input[type="text"] {
+      height: 28px;
+    }
+  }
 }

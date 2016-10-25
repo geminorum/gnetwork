@@ -4,7 +4,6 @@
 /// RTL ADMIN ENHANCEMENTS -----------------------------------------------------
 
 body.rtl {
-
 	input[type="search"]::-webkit-search-cancel-button {
 		-webkit-appearance: none; // hiding non RTL cancel button
 	}
@@ -17,12 +16,27 @@ body.rtl {
 		font: bold 24px arial, sans-serif !important;
 	}
 
-	.mce-window .mce-window-head .mce-title,
-	.metabox-holder h3,
+	span.postbox-title-action {
+		font-family: Tahoma, serif;
+
+		a {
+			text-decoration: none;
+		}
+	}
+
 	#poststuff h2,
 	#site-title,
+	.media-frame.mode-grid .attachments-browser .no-media,
+	.mce-window .mce-window-head .mce-title,
+	.metabox-holder h3,
 	.wrap h2 {
-		font: bold 16px arial, sans-serif !important;
+		font: 700 16px arial,sans-serif !important
+	}
+
+	.widget-title h3,
+	.widget-title h4 {
+		font-size: 1.28em;
+		padding: 15px 15px 12px 15px;
 	}
 
 	.wrap .subtitle {
@@ -46,16 +60,16 @@ body.rtl {
 	.bp-profile-field,
 	.form-table,
 	.form-table td,
-	.form-table th,
 	.form-table td p,
+	.form-table th,
 	.form-wrap label {
 		font-size: 12px;
 	}
 
-	p.help,
+	.form-wrap p,
 	p.description,
-	span.description,
-	.form-wrap p {
+	p.help,
+	span.description {
 		font-size: 11px;
 		font-style: normal;
 	}
@@ -96,7 +110,6 @@ body.rtl {
 	}
 
 	#poststuff {
-
 		#edit-slug-box {
 			direction: ltr;
 		}
@@ -115,7 +128,6 @@ body.rtl {
 	}
 
 	#dashboard-widgets {
-
 		h4 {
 			font-weight: 700 !important;
 			font-size: 15px;
@@ -128,16 +140,17 @@ body.rtl {
 		}
 
 		#latest-comments #the-comment-list {
-			.comment-item  {
+			.comment-item {
 				p.comment-meta {
 					font-size: 0.95em;
 					margin-bottom: 0.5em;
 
-						span.approve:before {
-							@include theme-transform-flip-horizontal;
-							display: inline-block;
-						}
+					span.approve:before {
+						@include theme-transform-flip-horizontal;
+						display: inline-block;
+					}
 				}
+
 				.dashboard-comment-wrap {
 					blockquote p {
 						font-size: 0.85em;
@@ -145,6 +158,7 @@ body.rtl {
 						display: block;
 					}
 				}
+
 				p.row-actions {
 					font-size: 0.85em;
 				}
@@ -154,7 +168,8 @@ body.rtl {
 
 	#dashboard_right_now {
 		.inside {
-			.table { // <------- test this!! FIXME
+			.table {
+				// <------- test this!! FIXME
 
 				.sub {
 					font: bold 15px/30px arial, sans-serif !important;
@@ -185,10 +200,7 @@ body.rtl {
 		}
 	}
 
-	#dashboard_activity {
-
-	}
-
+	#dashboard_activity {}
 	// Google Analytics Dashboard
 	#gadash-widget {
 		#ga-dash {
@@ -197,7 +209,6 @@ body.rtl {
 	}
 
 	.media-frame {
-
 		.attachment-details > h3,
 		.attachment-display-settings > h3,
 		.media-types.media-types-required-info {
@@ -210,8 +221,8 @@ body.rtl {
 			padding-bottom: 5px;
 		}
 
-		.compat-item,
-		.attachment-display-settings {
+		.attachment-display-settings,
+		.compat-item {
 			float: none;
 		}
 	}
@@ -225,48 +236,29 @@ body.rtl {
 	}
 
 	&.edit-php {
-
 		.row-actions span,
 		td.column-categories,
-		td.column-tags,
 		td.column-date,
-		td.column-gn_post_id {
+		td.column-gn_post_id,
+		td.column-tags {
 			font-size: 0.89em;
 		}
+
 		.post-com-count span {
 			font-weight: normal;
 		}
+
 		#the-list td.column-title p {
 			font-size: 0.78em;
 		}
 	}
 
-	// ThickBox
-	#TB_ajaxWindowTitle {
-		padding: 0 10px 0 29px;
-	}
-
-	#TB_closeAjaxWindow {
-		float: left;
-	}
-
-	#TB_window,
-	#TB_ajaxContent {
-		text-align: right;
-	}
-
-	#TB_closeWindowButton,
-	.tb-close-icon {
-		left: 0;
-		right: auto;
-	}
-
 	.inline-edit-col input[name="slug"],
 	input#adduser-email,
-	input#user_login,
 	input#email,
+	input#slug,
 	input#tag-slug,
-	input#slug {
+	input#user_login {
 		direction: ltr;
 	}
 }

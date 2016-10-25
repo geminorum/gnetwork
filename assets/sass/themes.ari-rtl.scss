@@ -1,79 +1,53 @@
-@charset "UTF-8";
-
-@import "modules/all";
-@import "partials/base";
-@import "partials/fonts";
-
+@import 'modules/all';
+@import 'partials/base';
+@import 'partials/theme.fonts';
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 @import url(http://fonts.googleapis.com/earlyaccess/droidarabicnaskh.css);
-
-$theme-font-sizes-OLD:(
-	11.1px/16px,
-	12.3px/23px,
-	12.3px/14.8px,
-	12.3px/19.5px,
-	14.2px/18px,
-	14.4px/25.2px,
-	16.2px/21px
-);
-
-$theme-font-sizes:(
-	11.1px,
-	12.3px/23px,
-	12.3px/14.8px,
-	12.3px/19.5px,
-	14.2px/18px,
-	14.4px/25.2px,
-	16.2px/21px
-);
-
-$theme-line-heights:(
-	16px,
-	23px,
-	14.8px,
-	18px,
-	19.5px,
-	21px,
-	25px
-);
+$theme-font-sizes-OLD: ( 11.1px/16px, 12.3px/23px, 12.3px/14.8px, 12.3px/19.5px, 14.2px/18px, 14.4px/25.2px, 16.2px/21px );
+$theme-font-sizes: ( 11.1px, 12.3px/23px, 12.3px/14.8px, 12.3px/19.5px, 14.2px/18px, 14.4px/25.2px, 16.2px/21px );
+$theme-line-heights: ( 16px, 23px, 14.8px, 18px, 19.5px, 21px, 25px );
 
 body {
 	direction: rtl;
 	font-family: $font-family-base;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
 	font-weight: bold;
 	font-family: $font-family-head;
 }
-
 ////////////////////////////////////////////////////////////////////////////////
 #content,
 #sidebar-primary {
 	float: right;
 }
 
-#main,
 #footer,
+#main,
 #sidebar-secondary {
 	float: left;
 }
-
 ////////////////////////////////////////////////////////////////////////////////
 #content {
-
 	figure {
-		margin:0;
+		margin: 0;
 	}
 
 	img {
 		// &.wp-post-image {
-			// margin: 5px 0 5px 15px !important;
-			// float: right;
+		// margin: 5px 0 5px 15px !important;
+		// float: right;
 		// }
 		&.alignleft,
 		&.alignright {
-			max-width:50%;
-			height:auto;
+			max-width: 50%;
+			height: auto;
 		}
 	}
 
@@ -81,6 +55,7 @@ h1, h2, h3, h4, h5, h6 {
 		&.previous {
 			float: right;
 		}
+
 		&.next {
 			float: left;
 		}
@@ -92,15 +67,12 @@ h1, h2, h3, h4, h5, h6 {
 		font-family: inherit;
 	}
 
-
 	.post #author-avatar {
 		margin: 5px 0 0 15px;
 		float: right;
 	}
 }
-
 ////////////////////////////////////////////////////////////////////////////////
-
 ul.sidebar {
 	li {
 		h3.widget-title {
@@ -124,44 +96,47 @@ ul.sidebar {
 	}
 }
 
-
-#searchsubmit, form#commentform p.form-submit input#submit, input.wpcf7-submit {
+#searchsubmit,
+form#commentform p.form-submit input#submit,
+input.wpcf7-submit {
 	font: normal 12.3px/14.8px $font-family-base;
 }
 
 #content {
-
 	padding: 0 60px 0 0;
 
 	h2 {
 		font: bold 16.2px/21px $font-family-head;
 	}
 
-	.post p,
-	.page p {
+	.page p,
+	.post p {
 		font-size: 14.4px;
 		line-height: 25.2px;
 	}
 
-	#page ul, .post ul {
+	#page ul,
+	.post ul {
 		padding: 20px 25px 0 0;
 	}
-	#page ol, .post ol {
+
+	#page ol,
+	.post ol {
 		padding: 20px 30px 0 0;
 	}
-
 
 	#author-description {
 		h2 {
 			font: bold 14.2px/18px $font-family-head;
 		}
+
 		p {
 			font: normal 12.3px/19.5px $font-family-base;
 		}
 	}
 
-	.post p.meta span,
-	.page p.meta span {
+	.page p.meta span,
+	.post p.meta span {
 		font: normal 11.1px/16px $font-family-base;
 	}
 }
@@ -170,27 +145,26 @@ a.post-edit-link {
 	font: normal 11.1px/16px $font-family-base;
 	font-style: normal;
 }
-
 ////////////////////////////////////////////////////////////////////////////////
-
 h1.archive {
 	font: bold 14.2px/18px $font-family-head;
 }
-
 ////////////////////////////////////////////////////////////////////////////////
-
 ul {
 	&.sidebar li.widget_text img {
 		margin: 3px 0 0 10px;
 		float: right;
 	}
+
 	&.sub-menu {
 		margin: 0 15px 0 0;
 	}
+
 	&.sidebar li {
-	&.widget_categories ul li.cat-item ul.children, &.widget_pages ul li.page_item ul.children {
-		margin: 0 15px 0 0;
-	}
+		&.widget_categories ul li.cat-item ul.children,
+		&.widget_pages ul li.page_item ul.children {
+			margin: 0 15px 0 0;
+		}
 	}
 }
 
@@ -208,12 +182,11 @@ ul {
 }
 
 #searchsubmit {
-	margin: 0 0 0 0;
+	margin: 0;
 	float: left;
 }
 
 #sidebar-primary {
-
 	.widget_search #searchform {
 		// text-align: left;
 	}
@@ -229,12 +202,12 @@ table#wp-calendar caption {
 }
 
 #comments-content ol li.depth-2,
-#content #page #comments-content ol li.depth-2,
 #comments-content ol li.depth-3,
-#content #page #comments-content ol li.depth-3,
 #comments-content ol li.depth-4,
-#content #page #comments-content ol li.depth-4,
 #comments-content ol li.depth-5,
+#content #page #comments-content ol li.depth-2,
+#content #page #comments-content ol li.depth-3,
+#content #page #comments-content ol li.depth-4,
 #content #page #comments-content ol li.depth-5 {
 	margin: 10px 30px 0 0;
 }
@@ -277,19 +250,18 @@ form#commentform p.form-submit input#submit {
 }
 
 #TB_closeWindow {
-	padding: 11px 0 10px 15px ! important;
+	padding: 11px 0 10px 15px !important;
 }
-
 ////////////////////////////////////////////////////////////////////////////////
-
 form#commentform textarea#comment {
 	outline: none;
 	resize: vertical;
 }
 
 #commentform {
-	#email, #url {
-	direction: ltr;
+	#email,
+	#url {
+		direction: ltr;
 	}
 }
 
@@ -299,41 +271,41 @@ form#commentform textarea#comment {
 
 #content {
 	.post {
-	#comments-content {
-		#respond h3#reply-title {
-		padding: 80px 6px 0 0;
+		#comments-content {
+			#respond h3#reply-title {
+				padding: 80px 6px 0 0;
+			}
+
+			h3#comments {
+				padding: 80px 8px 0 0;
+			}
 		}
-		h3#comments {
-		padding: 80px 8px 0 0;
+
+		p.meta {
+			background-position: right top;
 		}
 	}
-	p.meta {
-		background-position: right top;
-	}
-	}
+
 	.page p.meta {
 		background-position: right top;
 	}
 }
 
 div.comment-meta,
-p.logged-in-as,
-form#commentform p.comment-notes {
+form#commentform p.comment-notes,
+p.logged-in-as {
 	padding: 2px 5px 10px 0;
 	font-style: normal;
 	font: normal 12.3px/14.8px $font-family-base;
 }
-
 ////////////////////////////////////////////////////////////////////////////////
-
 .gari-post-actions {
 	float: left;
 	font: 11.1px/16px $font-family-base;
 }
-
 ////////////////////////////////////////////////////////////////////////////////
-
-div.wpcf7 input.wpcf7-text, textarea.wpcf7-textarea {
+div.wpcf7 input.wpcf7-text,
+textarea.wpcf7-textarea {
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
@@ -343,9 +315,7 @@ div.wpcf7 input.wpcf7-text, textarea.wpcf7-textarea {
 div.wpcf7 input.wpcf7-email {
 	direction: ltr;
 }
-
 ////////////////////////////////////////////////////////////////////////////////
-
 .p2-likes-link {
 	float: left;
 	margin-right: 3px;
@@ -370,14 +340,13 @@ div.wpcf7 input.wpcf7-email {
 	border-radius: 8px 8px 8px 8px;
 	margin: 0;
 }
-
 ////////////////////////////////////////////////////////////////////////////////
-
 .issue_cover {
-	margin: 5px 0 0 0;
+	margin: 5px 0 0;
+
 	a img {
-	border: 1px solid #eee;
-	padding: 2px;
+		border: 1px solid #eee;
+		padding: 2px;
 	}
 }
 
@@ -390,7 +359,6 @@ div.wpcf7 input.wpcf7-email {
 	max-width: 144px !important;
 	height: auto !important;
 }
-
 ////////////////////////////////////////////////////////////////////////////////
 /// CUSTOM
 
@@ -401,113 +369,125 @@ div.wpcf7 input.wpcf7-email {
 #footer p {
 	// display: none;
 }
-
 ////////////////////////////////////////////////////////////////////////////////
-
 @media screen and (max-width: 870px) {
 	#content {
-	padding: 0 80px 0 0;
-	}
-	#sidebar-secondary {
-	padding: 50px 80px 0 0;
-	img.banner {
-		margin: 0 0 10px 10px;
-	}
-	ul {
-		&.sidebar li.widget-container {
-		margin: 0 0 30px 20px;
-		float: right;
-		}
-		li.widget_sociallinks ul li {
-		float: right;
-		margin: 0 0 5px 22px;
-		}
-		&.sidebar li {
-		&.widget_pages ul li, &.widget_archive ul li, &.widget_categories ul li, &.widget_links ul li {
-			float: right;
-			margin: 0 0 5px 22px;
-		}
-		}
-		.search-input {}
-	}
+		padding: 0 80px 0 0;
 	}
 
+	#sidebar-secondary {
+		padding: 50px 80px 0 0;
+
+		img.banner {
+			margin: 0 0 10px 10px;
+		}
+
+		ul {
+			&.sidebar li.widget-container {
+				margin: 0 0 30px 20px;
+				float: right;
+			}
+
+			li.widget_sociallinks ul li {
+				float: right;
+				margin: 0 0 5px 22px;
+			}
+
+			&.sidebar li {
+				&.widget_archive ul li,
+				&.widget_categories ul li,
+				&.widget_links ul li,
+				&.widget_pages ul li {
+					float: right;
+					margin: 0 0 5px 22px;
+				}
+			}
+
+			.search-input {}
+		}
+	}
 	/// Secondary Sidebar Widgets
 	#searchsubmit {
 		margin: 0 5px 0 0;
 		font-family: $font-family-base;
 	}
-
 	/// Footer
 	#footer {
 		float: left;
 	}
 }
-
 @media screen and (max-width: 770px) {
 	#main {
-	float: left;
-	}
-	#content {
-	padding: 0 60px 0 0;
-	}
-	#sidebar-secondary {
-	padding: 50px 60px 0 0;
-	}
-}
-
-@media screen and (max-width: 620px) {
-	#sidebar-primary {
-	.logo {
-		text-align: center;
-		margin: 0;
-	}
-	width: auto;
-	position: relative;
-	float: none;
-	clear: both;
-	ul li.widget_social_links ul li {
-		float: right;
-	}
-	}
-	#main {
-	width: auto;
-	margin: 0;
-	padding: 0;
-	float: none;
-	clear: both;
-	}
-	#content {
-	width: auto;
-	margin: 0px 0px 50px 0px;
-	padding: 0;
-	float: none;
-	clear: both;
-	}
-	#sidebar-secondary {
-	width: auto;
-	padding: 50px 0px 0px 0px;
-	margin: 0px 0px 50px 0px;
-	float: none;
-	clear: both;
-	}
-	#content img.wp-post-image {
-	margin: 3px 0 5px 10px !important;
-	}
-	#sidebar-secondary ul.sidebar li.widget-container {
-	margin: 0 0 30px 20px;
-	float: right;
-	}
-	#content p {
-	&.previous {
-		float: right;
-	}
-	&.next {
 		float: left;
 	}
+
+	#content {
+		padding: 0 60px 0 0;
+	}
+
+	#sidebar-secondary {
+		padding: 50px 60px 0 0;
 	}
 }
+@media screen and (max-width: 620px) {
+	#sidebar-primary {
+		.logo {
+			text-align: center;
+			margin: 0;
+		}
+		width: auto;
+		position: relative;
+		float: none;
+		clear: both;
 
+		ul li.widget_social_links ul li {
+			float: right;
+		}
+	}
+
+	#main {
+		width: auto;
+		margin: 0;
+		padding: 0;
+		float: none;
+		clear: both;
+	}
+
+	#content {
+		width: auto;
+		margin: 0 0 50px;
+		padding: 0;
+		float: none;
+		clear: both;
+	}
+
+	#sidebar-secondary {
+		width: auto;
+		padding: 50px 0 0;
+		margin: 0 0 50px;
+		float: none;
+		clear: both;
+	}
+
+	#content img.wp-post-image {
+		margin: 3px 0 5px 10px !important;
+	}
+
+	#sidebar-secondary ul.sidebar li.widget-container {
+		margin: 0 0 30px 20px;
+		float: right;
+	}
+
+	#content p {
+		&.previous {
+			float: right;
+		}
+
+		&.next {
+			float: left;
+		}
+	}
+}
 // .alignright {
 // 	float: left;
 // 	margin-right: 10px;
