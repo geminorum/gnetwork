@@ -36,7 +36,7 @@
 			'images': './assets/images/raw/**/*.{png,jpg,jpeg}',
 			'banner': [
 				'./assets/css/**/*.css',
-				'!./assets/js/**/*.raw.css',
+				'!./assets/css/**/*.raw.css',
 				'./assets/js/**/*.min.js',
 			],
 			'ready': './ready/**/*',
@@ -52,6 +52,8 @@
 				'./assets/vendor/**/*.php',
 				'!./assets/vendor/**/test/*',
 				'!./assets/vendor/**/Tests/*',
+				'!./assets/vendor/**/tests/*',
+				'!./assets/vendor/**/scripts/*',
 				'!./assets/vendor/**/examples/*',
 				'!./assets/vendor/**/.git',
 				'./assets/index.html',
