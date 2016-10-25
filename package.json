@@ -30,7 +30,7 @@
     "gulp-sass": "^2.3.2",
     "gulp-smushit": "^1.2.0",
     "gulp-sort": "^2.0.0",
-    "gulp-sourcemaps": "^1.6.0",
+    "gulp-sourcemaps": "^2.2.0",
     "gulp-svgmin": "^1.2.3",
     "gulp-tinypng-compress": "^1.2.1",
     "gulp-uglify": "^2.0.0",
