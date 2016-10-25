@@ -272,6 +272,18 @@ class Themes extends ModuleCore
 				Themes::enqueueStyle( 'easy-docs' );
 			}, 20 );
 
+		} else if ( $this->isTheme( 'didi-lite' ) ) {
+
+			if ( $this->rtl ) {
+				add_action( 'wp_enqueue_scripts', function(){
+					Themes::enqueueStyle( 'didi-lite', TRUE );
+				}, 20 );
+
+				add_filter( 'mce_css', function( $url ){
+					return Themes::appendMCECSS( $url, 'didi-lite' );
+				} );
+			}
+
 		} else if ( $this->isTheme( 'twentytwelve' ) ) {
 
 			add_action( 'twentytwelve_credits', array( $this, 'twentytwelve_credits' ) );
