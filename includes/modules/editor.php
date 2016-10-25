@@ -134,7 +134,8 @@ class Editor extends ModuleCore
 
 		foreach ( $this->tinymce as $row )
 			foreach ( $row as $plugin => $filepath )
-				$plugin_array[$plugin] = $filepath.$variant.'.js';
+				if ( $filepath )
+					$plugin_array[$plugin] = $filepath.$variant.'.js';
 
 		return $plugin_array;
 	}

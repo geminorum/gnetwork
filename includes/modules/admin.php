@@ -129,7 +129,7 @@ class Admin extends ModuleCore
 	public static function registerTinyMCE( $plugin, $filepath, $row = 1 )
 	{
 		if ( isset( gNetwork()->editor ) )
-			gNetwork()->editor->tinymce[$row][$plugin] = GNETWORK_URL.$filepath;
+			gNetwork()->editor->tinymce[$row][$plugin] = $filepath ? GNETWORK_URL.$filepath : FALSE;
 	}
 
 	public function admin_settings_load()
