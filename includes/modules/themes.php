@@ -352,13 +352,46 @@ class Themes extends ModuleCore
 
 	public static function continueReading()
 	{
-		return ' '.sprintf(
-			_x( '<a %1$s href="%1$s" title="Continue reading &ldquo;%2$s&rdquo; &hellip;" class="%3$s" >%4$s</a>', 'Modules: Themes', GNETWORK_TEXTDOMAIN ),
+		return vsprintf( ' <a href="%1$s" aria-label="%3$s" class="%4$s">%2$s</a>', array(
 			get_permalink(),
-			get_the_title(),
+			_x( 'Read more&nbsp;<span class="excerpt-link-hellip">&hellip;</span>', 'Modules: Themes', GNETWORK_TEXTDOMAIN ),
+			sprintf( _x( 'Continue reading &ldquo;%s&rdquo; &hellip;', 'Modules: Themes', GNETWORK_TEXTDOMAIN ), get_the_title() ),
 			'excerpt-link',
-			_x( 'Read more&nbsp;<span class="excerpt-link-hellip">&hellip;</span>', 'Modules: Themes', GNETWORK_TEXTDOMAIN )
-		);
+		) );
+	}
+
+	public static function getByLine( $before = '<span class="byline">', $after = '</span>' )
+	{
+		$text   = _x( 'by %s', 'Modules: Themes', GNETWORK_TEXTDOMAIN );
+		$title  = _x( 'View all posts by %s', 'Modules: Themes', GNETWORK_TEXTDOMAIN );
+		$format = '<span class="author vcard"><a class="url fn n" href="%3$s" title="%2$s" rel="author">%1$s</a></span>';
+		$author = get_the_author();
+
+		return $before.sprintf( $text, vsprintf( $format, array(
+			esc_html( $author ),
+			esc_attr( sprintf( $title, $author ) ),
+			esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
+		) ) ).$after;
+	}
+
+	public static function postedOn( $before = '', $after = '', $byline = TRUE )
+	{
+		$format = '<a href="%1$s" title="%2$s" rel="bookmark">'
+			.'<time class="entry-date" datetime="%3$s">%4$s</time></a>';
+
+		echo $before;
+
+		vprintf( $format, array(
+			esc_url( get_permalink() ),
+			esc_attr( get_the_time() ),
+			esc_attr( get_the_date( 'c' ) ),
+			esc_html( get_the_date() ),
+		) );
+
+		if ( $byline )
+			echo ' '.self::getByLine();
+
+		echo $after;
 	}
 
 	public function body_class( $classes, $class )
