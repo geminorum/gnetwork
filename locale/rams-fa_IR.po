@@ -1,0 +1,361 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Rams v1.15\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2016-08-28 11:59+0430\n"
+"Language-Team: geminorum <contact@geminorum.ir>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.8\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Textdomain-Support: yes\n"
+"Last-Translator: geminorum <contact@geminorum.ir>\n"
+"Language: fa_IR\n"
+"X-Poedit-SearchPath-0: .\n"
+
+# @ rams
+#: 404.php:11
+msgid "Error 404"
+msgstr "خطای ۴۰۴"
+
+# @ rams
+#: 404.php:17
+msgid "It seems like you have tried to open a page that doesn't exist. It could have been deleted, moved, or it never existed at all. You are welcome to search for what you are looking for with the form below."
+msgstr "چیزی که به دنبالش بودید پیدا نشد، شاید جست‌وجوی دوباره شما را یاری کند."
+
+# @ rams
+#: archive.php:10
+#, php-format
+msgid "Date: %s"
+msgstr "تاریخ: %s"
+
+# @ rams
+#: archive.php:12
+#, php-format
+msgid "Month: %s"
+msgstr "ماه: %s"
+
+# @ rams
+#: archive.php:12
+msgctxt "F = Month, Y = Year"
+msgid "F Y"
+msgstr ""
+
+# @ rams
+#: archive.php:14
+#, php-format
+msgid "Year: %s"
+msgstr "سال: %s"
+
+# @ rams
+#: archive.php:14
+msgctxt "Y = Year"
+msgid "Y"
+msgstr ""
+
+# @ rams
+#: archive.php:16
+#, php-format
+msgid "Category: %s"
+msgstr "دسته: %s"
+
+# @ rams
+#: archive.php:18
+#, php-format
+msgid "Tag: %s"
+msgstr "برچسب: %s"
+
+# @ rams
+#: archive.php:21
+#, php-format
+msgid "Author: %s"
+msgstr "نویسنده: %s"
+
+# @ rams
+#: archive.php:23
+msgid "Archive"
+msgstr "بایگانی"
+
+# @ rams
+#: archive.php:31 search.php:18 search.php:63
+#, php-format
+msgid "(page %s of %s)"
+msgstr ""
+
+# @ rams
+#: archive.php:65 index.php:41 search.php:40
+msgid "Older posts"
+msgstr "نوشته‌های کهنه‌تر"
+
+# @ rams
+#: archive.php:67 index.php:43 search.php:42
+msgid "Newer posts"
+msgstr "نوشته‌های تازه‌تر"
+
+# @ rams
+#. gettext fix: identical singular and plural forms found, that may be ambiguous! Please check the code!
+#: comments.php:12 comments.php:93
+msgid "Comment"
+msgid_plural "Comments"
+msgstr[0] "دیدگاه"
+msgstr[1] "دیدگاه"
+
+# @ rams
+#: comments.php:16
+msgid "Add yours"
+msgstr "دیدگاه شما"
+
+# @ rams
+#: comments.php:37
+msgid "Pingback"
+msgid_plural "Pingbacks"
+msgstr[0] ""
+msgstr[1] ""
+
+# @ rams
+#: comments.php:57
+msgid "Older Comments"
+msgstr "دیدگاه‌های کهنه‌تر"
+
+# @ rams
+#: comments.php:63
+msgid "Newer Comments"
+msgstr "دیدگاه‌های تازه‌تر"
+
+# @ rams
+#: comments.php:79
+msgid "Comments are closed."
+msgstr "دیدگاه‌ها مسدود است."
+
+# @ rams
+#: comments.php:101
+msgid "Name"
+msgstr "نام"
+
+# @ rams
+#: comments.php:107
+msgid "Email"
+msgstr "ایمیل"
+
+# @ rams
+#: comments.php:113
+msgid "Website"
+msgstr "وب‌گاه"
+
+# @ rams
+#: content-gallery.php:19 content-video.php:39 content.php:27
+msgid "Sticky"
+msgstr "سنجاق‌شده"
+
+# @ rams
+#: header.php:80
+msgid "Theme by"
+msgstr ""
+
+# @ rams
+#: functions.php:102
+#, php-format
+msgid "Page %s"
+msgstr ""
+
+# @ rams
+#: functions.php:246
+msgid "Pingback:"
+msgstr ""
+
+# @ rams
+#: functions.php:246
+msgid "(Edit)"
+msgstr "(ویرایش)"
+
+# @ rams
+#: functions.php:276
+msgid "Your comment is awaiting moderation."
+msgstr ""
+
+# @ rams
+#: functions.php:298
+msgid "Edit"
+msgstr "ویرایش"
+
+# @ rams
+#: functions.php:289
+msgid "Reply"
+msgstr "پاسخ"
+
+# @ rams
+#: functions.php:463
+msgid "Accent Color"
+msgstr "طیف رنگی"
+
+# @ rams
+#: header.php:51
+msgid "Menu"
+msgstr "فهرست"
+
+# @ rams
+#: image.php:43 page.php:53 single.php:207 template-archive.php:113
+msgid "We couldn't find any posts that matched your query. Please try again."
+msgstr ""
+
+# @ rams
+#: index.php:19
+#, php-format
+msgid "Page %s of %s"
+msgstr ""
+
+# @ rams
+#: search.php:11 search.php:56
+msgid "Search results:"
+msgstr "نتایج جست‌وجو:"
+
+# @ rams
+#: search.php:75
+msgid "No results. Try again, would you kindly?"
+msgstr "نتیجه‌ای نداشت. بهتر است دوباره امتحان کنید."
+
+# @ rams
+#: functions.php:26
+msgid "Primary Menu"
+msgstr "منوی اولیه"
+
+# @ rams
+#: functions.php:125
+msgid "Read more"
+msgstr "ادامه …"
+
+# @ rams
+#: functions.php:316
+msgid "Video URL"
+msgstr ""
+
+# @ rams
+#: functions.php:317
+msgid "Quote content"
+msgstr ""
+
+# @ rams
+#: functions.php:318
+msgid "Quote attribution"
+msgstr ""
+
+# @ rams
+#: header.php:38
+msgid "Click to view the navigation"
+msgstr "برای دیدن راه‌بری کلیک کنید"
+
+# @ rams
+#: header.php:52
+msgid "Close"
+msgstr "بستن"
+
+# @ rams
+#: page.php:33 single.php:104
+msgid "Pages:"
+msgstr ""
+
+# @ rams
+#: single.php:169
+msgid "Next post"
+msgstr "نوشته بعدی"
+
+# @ rams
+#: single.php:180
+msgid "Previous post"
+msgstr "نوشته‌های قبلی"
+
+# @ rams
+#: single.php:144 template-archive.php:47
+msgid "Categories"
+msgstr "دسته‌بندی‌ها"
+
+# @ rams
+#: single.php:150 template-archive.php:51
+msgid "Tags"
+msgstr "برچسب‌ها"
+
+# @ rams
+#: searchform.php:2
+msgid "Type and press enter"
+msgstr "برای جست‌وجو وارد کنید"
+
+# @ rams
+#: image.php:49 single.php:118
+msgid "Show information about the post"
+msgstr "نمایش اطلاعات بیشتر دربارهٔ این نوشته"
+
+# @ rams
+#: image.php:69 single.php:138
+msgid "Author"
+msgstr "نویسنده"
+
+# @ rams
+#: image.php:71 single.php:140
+msgid "Posted"
+msgstr "ارسال‌شده در"
+
+# @ rams
+#: single.php:168
+msgid "Next"
+msgstr "بعدی"
+
+# @ rams
+#: single.php:179
+msgid "Previous"
+msgstr "قبلی"
+
+# @ rams
+#: functions.php:442
+msgid "Options for Rams"
+msgstr ""
+
+# @ rams
+#: functions.php:445
+msgid "Allows you to customize theme settings for Rams."
+msgstr ""
+
+# @ rams
+#: image.php:59 single.php:128
+msgid "Post meta"
+msgstr "اطلاعات بیشتر"
+
+# @ rams
+#: image.php:75
+msgid "Resolution"
+msgstr ""
+
+# @ rams
+#: template-archive.php:31
+msgid "Posts"
+msgstr "نوشته‌ها"
+
+# @ rams
+#: template-archive.php:58
+#, php-format
+msgid "View all posts in %s"
+msgstr ""
+
+# @ rams
+#: template-archive.php:65
+msgid "Contributors"
+msgstr "مشارکت‌کنندگان"
+
+# @ rams
+#: template-archive.php:71
+msgid "Archives by Year"
+msgstr "بایگانی بر اساس سال"
+
+# @ rams
+#: template-archive.php:77
+msgid "Archives by Month"
+msgstr "بایگانی بر اساس ماه"
+
+# @ rams
+#: template-archive.php:83
+msgid "Archives by Day"
+msgstr "بایگانی بر اساس روز"
