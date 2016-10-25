@@ -143,6 +143,16 @@ class ModuleCore extends Base
 
 	protected function setup_actions() {}
 
+	protected function action( $hook, $args = 1, $priority = 10, $method = FALSE )
+	{
+		add_action( $hook, array( $this, ( $method ? $method : $hook ) ), $priority, $args );
+	}
+
+	protected function filter( $hook, $args = 1, $priority = 10, $method = FALSE )
+	{
+		add_filter( $hook, array( $this, ( $method ? $method : $hook ) ), $priority, $args );
+	}
+
 	public function default_options()
 	{
 		return array();
