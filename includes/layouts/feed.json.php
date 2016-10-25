@@ -46,12 +46,17 @@ if ( have_posts() ) {
 			if ( ! $taxonomy->public )
 				continue;
 
-			if ( $terms = get_the_terms( $post->ID, $taxonomy->name ) ) {
+			$terms = get_the_terms( $post->ID, $taxonomy->name );
 
-				$name = sanitize_term_field( 'name', $term->name, $term->term_id, $taxonomy->name, 'display' );
-				$url = get_term_link( $term->slug, $taxonomy->name );
+			if ( $terms && ! is_wp_error( $terms ) ) {
 
-				$single['terms'][$taxonomy->label][$name] = esc_url( $url );
+				foreach ( $terms as $term ) {
+
+					$name = sanitize_term_field( 'name', $term->name, $term->term_id, $taxonomy->name, 'display' );
+					$url  = get_term_link( $term->slug, $taxonomy->name );
+
+					$single['terms'][$taxonomy->label][$name] = esc_url( $url );
+				}
 			}
 		}
 

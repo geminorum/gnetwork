@@ -135,7 +135,7 @@ class Utilities extends Base
 				$layout = WP_CONTENT_DIR.'/'.$layout_name.'.php';
 
 		if ( ! $layout )
-			$layout = GNETWORK_DIR.'assets/layouts/'.$layout_name.'.php';
+			$layout = GNETWORK_DIR.'includes/layouts/'.$layout_name.'.php';
 
 		if ( $no_cache )
 			__donot_cache_page();

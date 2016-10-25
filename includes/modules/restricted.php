@@ -473,10 +473,11 @@ class RestrictedBouncer extends Base
 		if ( ! $link )
 			$link = get_bloginfo_rss( 'url' );
 
-		// TODO: use getLayout helper
-
 		header( "Content-Type: application/xml; ".get_option( 'blog_charset' ) );
-		require_once( GNETWORK_DIR.'assets/layouts/feed.temp.php' );
+
+		if ( $layout = Utilities::getLayout( 'feed.temp' ) )
+			require_once( $layout );
+
 		die();
 	}
 
