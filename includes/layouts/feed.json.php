@@ -31,7 +31,7 @@ if ( have_posts() ) {
 			'id'        => $post->ID,
 			'title'     => get_the_title(),
 			'permalink' => get_permalink(),
-			'content'   => get_the_content(),
+			'content'   => get_the_content_feed( 'json' ),
 			'excerpt'   => get_the_excerpt(),
 			'date'      => get_the_date( 'Y-m-d H:i:s', '', '', FALSE ),
 			'author'    => get_the_author(),
@@ -60,10 +60,13 @@ if ( have_posts() ) {
 			}
 		}
 
+		if ( ! count( $single['terms'] ) )
+			unset( $single['terms'] );
+
 		$json[] = $single;
 	}
 
-	$json = wp_json_encode( $json );
+	$json = wp_json_encode( $json, JSON_UNESCAPED_UNICODE );
 
 	nocache_headers();
 
