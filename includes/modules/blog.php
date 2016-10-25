@@ -160,7 +160,7 @@ class Blog extends ModuleCore
 					'field'       => 'feed_json',
 					'title'       => _x( 'JSON Feed', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Adds JSON as New Type of Feed You Can Subscribe To', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'after'       => Settings::fieldAfterLink( get_feed_link( 'json' ) ),
+					'after'       => $this->options['feed_json'] ? Settings::fieldAfterLink( get_feed_link( 'json' ) ) : '',
 				),
 				array(
 					'field'       => 'disable_emojis',
