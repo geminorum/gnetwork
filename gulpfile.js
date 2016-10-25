@@ -43,11 +43,9 @@
 			'final': [
 				'./assets/css/**/*.css',
 				'./assets/css/**/*.html',
-				// './assets/fonts/**/*',
 				'./assets/images/**/*',
 				'./assets/js/**/*.min.js',
 				'./assets/js/**/*.html',
-				'./assets/layouts/**/*',
 				'./assets/libs/**/*',
 				'./assets/vendor/**/*.php',
 				'!./assets/vendor/**/test/*',
@@ -245,7 +243,7 @@
 		.pipe(gulp.dest('.'));
 	});
 
-	gulp.task('build:copy', ['build:ready', 'build:banner'], function() {
+	gulp.task('build:copy', ['build:ready'], function() {
 
 		del([output.ready]);
 
@@ -265,7 +263,9 @@
 		.pipe(gulp.dest(output.final));
 	});
 
-	gulp.task('build:ready', ['build:styles', 'build:scripts']);
+	gulp.task('build:banner', ['build:styles', 'build:scripts']);
+
+	gulp.task('build:ready', ['build:banner']);
 
 	gulp.task('build', ['build:zip']);
 
