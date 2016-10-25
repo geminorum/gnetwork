@@ -33,7 +33,7 @@
     "phelium/mysql-backup": "dev-master",
     "picqer/php-barcode-generator": "^0.2.0",
     "deviservi/nusoap": "^1.123",
-    "tinify/tinify": "^1.3",
+    "tinify/tinify": "^1.3"
   },
   "config": {
     "vendor-dir": "assets/vendor",
