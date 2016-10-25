@@ -991,7 +991,7 @@ class ShortCodes extends ModuleCore
 		$ref = $title = $url = FALSE;
 
 		if ( $content )
-			$ref = $title = trim( strip_tags( apply_filters( 'string_format_i18n', $content ) ) );
+			$ref = $title = trim( strip_tags( apply_filters( 'html_format_i18n', $content ) ) );
 
 		if ( 'def' == $args['url_icon'] )
 			$args['url_icon'] = $args['rtl'] ? '&larr;' : '&rarr;';
