@@ -23,6 +23,14 @@ class Typography extends ModuleCore
 		if ( $this->options['title_titlecase']
 			|| $this->options['title_wordwrap'] )
 				add_filter( 'the_title', array( $this, 'the_title' ) );
+
+		if ( $this->options['arabic_typography']
+			|| $this->options['persian_typography'] )
+				add_filter( 'the_content', array( $this, 'the_content' ), 1000 );
+
+		add_filter( $this->hook( 'arabic' ), array( $this, 'arabic_typography' ) );
+		add_filter( $this->hook( 'persian' ), array( $this, 'persian_typography' ) );
+		add_filter( $this->hook(), array( $this, 'the_content' ) );
 	}
 
 	public function setup_menu( $context )
@@ -36,9 +44,11 @@ class Typography extends ModuleCore
 	public function default_options()
 	{
 		return array(
-			'editor_buttons'  => '0',
-			'title_titlecase' => '0',
-			'title_wordwrap'  => '0',
+			'editor_buttons'     => '0',
+			'title_titlecase'    => '0',
+			'title_wordwrap'     => '0',
+			'arabic_typography'  => '0',
+			'persian_typography' => '0',
 		);
 	}
 
@@ -63,8 +73,31 @@ class Typography extends ModuleCore
 					'description' => _x( 'Preventing Widows in Post Titles', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
 					'after'       => Settings::fieldAfterIcon( Settings::getMoreInfoIcon( 'https://davidwalsh.name/word-wrap-mootools-php' ) ),
 				),
+				array(
+					'field'       => 'arabic_typography',
+					'title'       => _x( 'Arabic Typography', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Apply Arabic Typography to Post Contents', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
+				),
+				array(
+					'field'       => 'persian_typography',
+					'title'       => _x( 'Persian Typography', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Apply Persian Typography to Post Contents', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
+				),
 			),
 		);
+	}
+
+	public function arabic_typography( $content )
+	{
+		$content = preg_replace("/\(ع\)/i", "<sup>(ع)</sup>", $content );
+		$content = preg_replace("/\(ص\)/i", "<sup>(ص)</sup>", $content );
+
+		return $content;
+	}
+
+	public function persian_typography( $content )
+	{
+		return $content;
 	}
 
 	public function init()
@@ -94,6 +127,17 @@ class Typography extends ModuleCore
 		);
 
 		return array_merge( $strings, $new );
+	}
+
+	public function the_content( $content )
+	{
+		if ( $this->options['arabic_typography'] )
+			$content = apply_filters( $this->hook( 'arabic' ), $content );
+
+		if ( $this->options['persian_typography'] )
+			$content = apply_filters( $this->hook( 'persian' ), $content );
+
+		return $content;
 	}
 
 	public function shortcode_wiki( $atts, $content = NULL, $tag = '' )
