@@ -1,3 +1,60 @@
+### 3.4.0
+* admin notice upon no autoload file
+* assets/js: :up: autosize v3.0.17
+* core/date: :new: core class
+* core/number: :new: core class
+* core/wordpress: extra args for getting users
+* core/wordpress: more generic get posttypes
+* main/modulecore: action/filter shorthand
+* main/modulecore: settings form before/after helpers
+* main/modulecore: php native to get the keys
+* main/modulecore: display name & username on users dropdown
+* main/modulecore: before/after args on shortcode wrap helper
+* main/modulecore: setting type `roles` renamed to `cap`
+* main/settings: field generator separated from module api
+* main/settings: heading tag for the section intro
+* module/network: large network is 1000 users by default
+* module/admin: parent menu hack for non admin users
+* module/blog: :new: all public taxes on JSON feed
+* module/blog: :new: revised meta tag
+* module/blog: skip redirect if admin
+* module/blacklist: user ip summary as settings sidebox
+* module/blacklist: earlier check for blacklisted
+* module/blacklist: default message
+* module/buddypress: cleanup tos inline styles
+* module/buddypress/me: short link for edit user link filter
+* module/cleanup: :new: purge orphaned featured image matadata
+* module/debug: :warning: fixed notice when `phpinfo()` disabled
+* module/debug: updated die handler from core
+* module/debug: strip html tags before trim on error box
+* module/debug: :new: ip summary on overview
+* module/editor: wp page button in mce first row
+* module/locale: using internal setting loader for loaded mo files
+* module/locale: check for frontend ajax/tinymce
+* module/login: skip loading custom css if saved on options
+* module/media: thumbnail column for clean attachments table
+* module/navigation: better styling
+* module/restricted: default cap for access key operations
+* module/restricted: open feed links in new window
+* module/shortcodes: :new: `[last-edited]` shortcode
+* module/shortcodes: html format i18n for ref texts
+* module/themes: pluggable functions
+* module/themes: :new: jquery cdn
+* module/themes: better jquery on bottom of the page
+* module/themes: moved jquery migrate removal
+* module/themes: simplifing style enqueue
+* module/themes: by line/posted on helpers
+* module/themes: continue reading refactored
+* module/themes: support for didi-lite theme
+* module/taxonomy: search descriptions as well on admin edit terms page
+* module/taxonomy: trim and normalize whitespaces on term insertion
+* modyle/typography: :new: Arabic/Persian typography filters
+* module/typography: :new: title word wrapper, [see](https://davidwalsh.name/word-wrap-mootools-php)
+* modeule/update: disable async update translations
+* module/users: roles tab to list caps
+* module/users: :new: `[logged-in]`, `[not-logged-in]` shortcodes
+* utilities: :new: update notice api
+
 ### 3.3.2
 * html: skip strtolower on sanitizing tags
 * html: escape textarea helper
