@@ -24,7 +24,8 @@
     "composer/installers": "^1.2",
     "erusev/parsedown-extra": "^0.7.1",
     "symfony/stopwatch": "^3.1",
-    "parsecsv/php-parsecsv": "^0.4.5"
+    "parsecsv/php-parsecsv": "^0.4.5",
+    "jbroadway/urlify": "^1.0"
   },
   "require-dev": {
     "raveren/kint": "^1.0",
@@ -33,7 +34,6 @@
     "picqer/php-barcode-generator": "^0.2.0",
     "deviservi/nusoap": "^1.123",
     "tinify/tinify": "^1.3",
-    "jbroadway/urlify": "^1.0"
   },
   "config": {
     "vendor-dir": "assets/vendor",
