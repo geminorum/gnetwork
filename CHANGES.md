@@ -48,9 +48,9 @@
 * module/themes: support for didi-lite theme
 * module/taxonomy: search descriptions as well on admin edit terms page
 * module/taxonomy: trim and normalize whitespaces on term insertion
-* modyle/typography: :new: Arabic/Persian typography filters
+* module/typography: :new: Arabic/Persian typography filters
 * module/typography: :new: title word wrapper, [see](https://davidwalsh.name/word-wrap-mootools-php)
-* modeule/update: disable async update translations
+* module/update: disable async update translations
 * module/users: roles tab to list caps
 * module/users: :new: `[logged-in]`, `[not-logged-in]` shortcodes
 * utilities: :new: update notice api
