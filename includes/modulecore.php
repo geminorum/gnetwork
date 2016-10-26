@@ -579,7 +579,7 @@ class ModuleCore extends Base
 			return;
 
 		if ( count( $this->scripts ) )
-			HTML::wrapJS( implode( "\n", $this->scripts ) );
+			HTML::wrapjQueryReady( implode( "\n", $this->scripts ) );
 
 		$this->scripts_printed = TRUE;
 	}

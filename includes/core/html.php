@@ -575,8 +575,11 @@ class HTML extends Base
 		echo '</div>';
 	}
 
+	// FIXME: DEPRECATED
 	public static function wrapJS( $script = '', $echo = TRUE )
 	{
+		self::__dev_dep( 'HTML::wrapjQueryReady()' );
+
 		if ( $script ) {
 			$data = '<script type="text/javascript">'."\n"
 				.'/* <![CDATA[ */'."\n"
@@ -593,6 +596,26 @@ class HTML extends Base
 		}
 
 		return '';
+	}
+
+	public static function wrapScript( $script )
+	{
+		if ( ! $script )
+			return;
+
+		echo '<script type="text/javascript">'."\n".'/* <![CDATA[ */'."\n";
+			echo $script;
+		echo "\n".'/* ]]> */'."\n".'</script>';
+	}
+
+	public static function wrapjQueryReady( $script )
+	{
+		if ( ! $script )
+			return;
+
+		echo '<script type="text/javascript">'."\n".'/* <![CDATA[ */'."\n";
+			echo 'jQuery(document).ready(function($) {'."\n".$script.'});'."\n";
+		echo '/* ]]> */'."\n".'</script>'."\n";
 	}
 
 	// @REF: https://codex.wordpress.org/Plugin_API/Action_Reference/admin_notices
