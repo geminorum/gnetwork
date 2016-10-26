@@ -153,7 +153,7 @@ class Code extends ModuleCore
 			),
 		), NULL );
 
-		Utilities::enqueueScriptVendor( 'jquery.gist-embed' );
+		Utilities::enqueueScriptVendor( 'jquery.gist-embed', array( 'jquery' ), '2.6' );
 
 		return '<div class="gnetwork-wrap-shortcode shortcode-github-gist" data-github-gist="'.$args['id'].'">'.$html.'</div>';
 	}
