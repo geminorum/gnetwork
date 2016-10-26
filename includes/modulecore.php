@@ -25,6 +25,8 @@ class ModuleCore extends Base
 
 	protected $scripts_printed = FALSE;
 
+	protected $counter = 0;
+
 	public function __construct( $base = NULL, $slug = NULL )
 	{
 		if ( is_null( $this->key ) )
@@ -582,6 +584,12 @@ class ModuleCore extends Base
 			HTML::wrapjQueryReady( implode( "\n", $this->scripts ) );
 
 		$this->scripts_printed = TRUE;
+	}
+
+	protected function selector( $prefix = '%1$s-selector-%2$s' )
+	{
+		$this->counter++;
+		return sprintf( $prefix, $this->key, $this->counter );
 	}
 
 	public function shortcodes( $shortcodes = array() )
