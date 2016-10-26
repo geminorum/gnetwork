@@ -27,8 +27,11 @@
     }
     return lineNumbers;
   }
-
-  $.fn.gist = function() {
+  
+  //object to cache the calls made to the same gist-id
+  var gistCache = {};
+  
+  $.fn.gist = function(callback) {
     return this.each(function() {
       var $elem = $(this),
         id,
@@ -41,6 +44,7 @@
         hideLineNumbersOption,
         showLoading,
         showSpinner,
+        enableCache,
         data = {};
 
       // make block level so loading text shows properly
@@ -70,6 +74,7 @@
       }
 
       url = 'https://gist.github.com/' + id + '.json';
+      enableCache = $elem.data('gist-enable-cache') === true || gistCache[url];
       loading = 'Loading gist ' + url + (data.file ? ', file: ' + data.file : '') + '...';
 
       // loading
@@ -81,15 +86,9 @@
       if (showSpinner) {
         $elem.html('<img style="display:block;margin-left:auto;margin-right:auto"  alt="' + loading + '" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif">');
       }
-
-      // request the json version of this gist
-      $.ajax({
-        url: url,
-        data: data,
-        dataType: 'jsonp',
-        timeout: 10000,
-        success: function(response) {
-          var linkTag,
+      
+      function successCallback(response) {
+        var linkTag,
             head,
             lineNumbers,
             highlightLineNumbers,
@@ -182,9 +181,54 @@
           } else {
             $elem.html('Failed loading gist ' + url);
           }
+      }
+      
+      function errorCallBack(textStatus) {
+        $elem.html('Failed loading gist ' + url + ': ' + textStatus);
+      }
+      
+      function completeCallBack() {
+        if (typeof callback === 'function') {
+            callback();
+        } 
+      }
+      // request the json version of this gist
+      $.ajax({
+        url: url,
+        data: data,
+        dataType: 'jsonp',
+        timeout: 20000,
+        beforeSend : function() {
+            // option to enable cacheing of the gists
+            if (enableCache) {
+                if (gistCache[url]) {
+                    // loading the response from cache and preventing the ajax call
+                    gistCache[url].then(function(response) {
+                        successCallback(response);
+                        completeCallBack();
+                    }, function(errorStatus) {
+                        errorCallBack(errorStatus);
+                    });
+                    return false;
+                } else {
+                    // saving the promise for the requested json as a proxy for the actuall response
+                    gistCache[url] = $.Deferred();
+                }
+            }
+        },
+        success: function(response) {
+            if (enableCache) {
+                if (gistCache[url]) {
+                    gistCache[url].resolve(response);
+                }
+            }
+            successCallback(response);
         },
         error: function(jqXHR, textStatus) {
-          $elem.html('Failed loading gist ' + url + ': ' + textStatus);
+           errorCallBack(textStatus);
+        },
+        complete: function() {
+          completeCallBack();
         }
       });
 

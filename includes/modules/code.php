@@ -86,7 +86,7 @@ class Code extends ModuleCore
 		if ( WordPress::isDev() )
 			delete_site_transient( $key );
 
-		return '<div class="gnetwork-wrap-shortcode github-readme" data-github-repo="'.$args['repo'].'">'.$html.'</div>';
+		return '<div class="gnetwork-wrap-shortcode shortcode-github-readme" data-github-repo="'.$args['repo'].'">'.$html.'</div>';
 	}
 
 	public function github_readme_link_cb( $matchs )
@@ -153,9 +153,9 @@ class Code extends ModuleCore
 			),
 		), NULL );
 
-		Utilities::enqueueScript( 'jquery.gist-embed' );
+		Utilities::enqueueScriptVendor( 'jquery.gist-embed' );
 
-		return '<div class="gnetwork-wrap-shortcode github-gist" data-github-gist="'.$args['id'].'">'.$html.'</div>';
+		return '<div class="gnetwork-wrap-shortcode shortcode-github-gist" data-github-gist="'.$args['id'].'">'.$html.'</div>';
 	}
 
 	// autoreplace gist links to shortcodes
