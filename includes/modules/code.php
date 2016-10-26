@@ -115,9 +115,9 @@ class Code extends ModuleCore
 		if ( FALSE === $args['context'] || is_feed() )
 			return NULL;
 
-		wp_enqueue_script( 'gnetwork-code-githubrepowidget', GNETWORK_URL.'assets/js/jquery.github-repowidget.min.js', array( 'jquery' ), '20150130', TRUE );
+		Utilities::enqueueScriptVendor( 'jquery.githubRepoWidget', array( 'jquery' ), '20150102' );
 
-		return '<div class="gnetwork-wrap-shortcode github" data-github-repo="'.$args['repo'].'"></div>';
+		return '<div class="gnetwork-wrap-shortcode shortcode-github github-widget" data-repo="'.$args['repo'].'"></div>';
 	}
 
 	// https://github.com/blairvanderhoof/gist-embed
