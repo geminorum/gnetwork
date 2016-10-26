@@ -170,11 +170,7 @@ class Themes extends ModuleCore
 					Themes::enqueueStyle( 'hueman', TRUE );
 
 					wp_deregister_script( 'flexslider' );
-					wp_enqueue_script( 'flexslider',
-						GNETWORK_URL.'assets/js/jquery.flexslider-rtl.min.js',
-						array( 'jquery' ),
-						GNETWORK_VERSION,
-						FALSE );
+					Utilities::enqueueScriptVendor( 'jquery.flexslider-rtl', array( 'jquery' ), '2.6.1' );
 
 				}, 12 );
 
@@ -243,11 +239,7 @@ class Themes extends ModuleCore
 					Themes::enqueueStyle( 'revera', TRUE );
 
 					// wp_deregister_script( 'flexslider' );
-					// wp_enqueue_script( 'flexslider',
-					// 	GNETWORK_URL.'assets/js/jquery.flexslider-rtl.min.js',
-					// 	array( 'jquery' ),
-					// 	GNETWORK_VERSION,
-					// 	FALSE );
+					// Utilities::enqueueScriptVendor( 'jquery.flexslider-rtl', array( 'jquery' ), '2.6.1' );
 
 				}, 20 );
 
