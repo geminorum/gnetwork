@@ -122,6 +122,8 @@ class ShortCodes extends ModuleCore
 			'type'    => 'page',
 			'context' => NULL,
 			'wrap'    => TRUE,
+			'before'  => '',
+			'after'   => '',
 		), $atts, $tag );
 
 		if ( FALSE === $args['context'] )
@@ -153,6 +155,8 @@ class ShortCodes extends ModuleCore
 			'ex'      => NULL,
 			'context' => NULL,
 			'wrap'    => TRUE,
+			'before'  => '',
+			'after'   => '',
 		), $atts, $tag );
 
 		if ( FALSE === $args['context'] )
@@ -220,6 +224,8 @@ class ShortCodes extends ModuleCore
 			'cb'            => FALSE,
 			'context'       => NULL,
 			'wrap'          => TRUE,
+			'before'        => '',
+			'after'         => '',
 		), $atts, $tag );
 
 		if ( FALSE === $args['context'] )
@@ -370,6 +376,8 @@ class ShortCodes extends ModuleCore
 			'tax'     => NULL,
 			'context' => NULL,
 			'wrap'    => TRUE,
+			'before'  => '',
+			'after'   => '',
 		), $atts, $tag );
 
 		if ( FALSE === $args['context'] )
@@ -445,6 +453,8 @@ class ShortCodes extends ModuleCore
 			'html'    => _x( 'Back', 'Modules: ShortCodes: Defaults', GNETWORK_TEXTDOMAIN ),
 			'context' => NULL,
 			'wrap'    => TRUE,
+			'before'  => '',
+			'after'   => '',
 		), $atts, $tag );
 
 		if ( FALSE === $args['context'] )
@@ -500,10 +510,7 @@ class ShortCodes extends ModuleCore
 
 		}
 
-		if ( $html )
-			return self::shortcodeWrap( $html, 'back', $args );
-
-		return $content;
+		return $html ? self::shortcodeWrap( $html, 'back', $args ) : $content;
 	}
 
 	public function shortcode_iframe( $atts, $content = NULL, $tag = '' )
@@ -551,6 +558,8 @@ class ShortCodes extends ModuleCore
 			'content' => FALSE, // override
 			'context' => NULL,
 			'wrap'    => TRUE,
+			'before'  => '',
+			'after'   => '',
 		), $atts, $tag );
 
 		if ( FALSE === $args['context'] )
@@ -581,6 +590,8 @@ class ShortCodes extends ModuleCore
 			'title'   => FALSE,
 			'context' => NULL,
 			'wrap'    => TRUE,
+			'before'  => '',
+			'after'   => '',
 		), $atts, $tag );
 
 		if ( FALSE === $args['context'] )
@@ -616,6 +627,8 @@ class ShortCodes extends ModuleCore
 			'title'   => FALSE,
 			'context' => NULL,
 			'wrap'    => TRUE,
+			'before'  => '',
+			'after'   => '',
 		), $atts, $tag );
 
 		if ( FALSE === $args['context'] )
@@ -662,6 +675,8 @@ class ShortCodes extends ModuleCore
 			'title'   => _x( 'Search this site for &ldquo;%s&rdquo;', 'Modules: ShortCodes: Defaults', GNETWORK_TEXTDOMAIN ),
 			'context' => NULL,
 			'wrap'    => TRUE,
+			'before'  => '',
+			'after'   => '',
 		), $atts, $tag );
 
 		if ( FALSE === $args['context'] )
@@ -842,9 +857,11 @@ class ShortCodes extends ModuleCore
 		$args = shortcode_atts( array(
 			'to'       => '0',
 			'instance' => '0',
+			'title'    => _x( 'Go to %s second mark and play', 'Shortcodes Module: Defaults', GNETWORK_TEXTDOMAIN ),
 			'context'  => NULL,
 			'wrap'     => TRUE,
-			'title' => _x( 'Go to %s second mark and play', 'Shortcodes Module: Defaults', GNETWORK_TEXTDOMAIN ),
+			'before'   => '',
+			'after'    => '',
 		), $atts, $tag );
 
 		if ( FALSE === $args['context'] )
@@ -870,6 +887,8 @@ class ShortCodes extends ModuleCore
 			'filename' => FALSE, // http://davidwalsh.name/download-attribute
 			'context'  => NULL,
 			'wrap'     => TRUE,
+			'before'   => '',
+			'after'    => '',
 		), $atts, $tag );
 
 		if ( FALSE === $args['context'] || is_feed() )
@@ -889,47 +908,26 @@ class ShortCodes extends ModuleCore
 	}
 
 	// helper
-	public static function getAudioSource( $atts )
+	public static function getAudioSource( $atts = array() )
 	{
-		$args = self::atts( array(
-			'src'       => FALSE,
-			'source'    => FALSE,
-			'mp3'       => FALSE,
-			'mp3remote' => FALSE,
-			'wma'       => FALSE,
-			'wmaremote' => FALSE,
-			'wma'       => FALSE,
-			'wmaremote' => FALSE,
-			'wmv'       => FALSE,
-			'wmvremote' => FALSE,
-		), $atts );
+		$sources = array(
+			'src',
+			'source',
+			'mp3',
+			'mp3remote',
+			'wma',
+			'wmaremote',
+			'wma',
+			'wmaremote',
+			'wmv',
+			'wmvremote',
+		);
 
-		if ( ! $args['src'] ) {
-			$args['src'] = $args['source'];
-			if ( ! $args['src'] ) {
-				$args['src'] = $args['mp3'];
-				if ( ! $args['src'] ) {
-					$args['src'] = $args['mp3remote'];
-					if ( ! $args['src'] ) {
-						$args['src'] = $args['wma'];
-						if ( ! $args['src'] ) {
-							$args['src'] = $args['wmaremote'];
-							if ( ! $args['src'] ) {
-								$args['src'] = $args['wmv'];
-								if ( ! $args['src'] ) {
-									$args['src'] = $args['wmvremote'];
-									if ( ! $args['src'] ) {
-										return FALSE;
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
+		foreach ( $sources as $source )
+			if ( ! empty( $atts[$source] ) )
+				return $atts[$source];
 
-		return $args['src'];
+		return FALSE;
 	}
 
 	public function wp_footer()
@@ -1016,6 +1014,8 @@ class ShortCodes extends ModuleCore
 			'back_title'    => _x( 'Back to Text', 'Shortcodes Module: Defaults', GNETWORK_TEXTDOMAIN ),
 			'context'       => NULL,
 			'wrap'          => TRUE,
+			'before'        => '',
+			'after'         => '',
 		), $atts, $tag );
 
 		if ( FALSE === $args['context'] )
@@ -1152,6 +1152,8 @@ class ShortCodes extends ModuleCore
 			'class'   => 'refrence-people',
 			'context' => NULL,
 			'wrap'    => TRUE,
+			'before'  => '',
+			'after'   => '',
 		), $atts, $tag );
 
 		if ( FALSE === $args['context'] )

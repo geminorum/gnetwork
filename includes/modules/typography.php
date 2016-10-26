@@ -147,6 +147,9 @@ class Typography extends ModuleCore
 			'lang'    => NULL,
 			'title'   => FALSE,
 			'context' => NULL,
+			'wrap'    => TRUE,
+			'before'  => '',
+			'after'   => '',
 		), $atts, $tag );
 
 		if ( FALSE === $args['context'] )
