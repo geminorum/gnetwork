@@ -18,7 +18,6 @@ class Code extends ModuleCore
 			'github'        => 'shortcode_github',
 			'github-readme' => 'shortcode_github_readme',
 			'github-gist'   => 'shortcode_github_gist',
-			'github-repo'   => 'shortcode_github_repo',
 			'textarea'      => 'shortcode_textarea',
 			'shields-io'    => 'shortcode_shields_io',
 		) );
@@ -164,29 +163,6 @@ class Code extends ModuleCore
 	public function the_content_gist_shortcode( $content )
 	{
 		return preg_replace( '/https:\/\/gist.github.com\/([\d]+)[\.js\?]*[\#]*file[=|_]+([\w\.]+)(?![^<]*<\/a>)/i', '', $content );
-	}
-
-	// ALSO SEE: https://github.com/bradthomas127/gitpress-repo
-	// LIB REPO: https://github.com/darcyclarke/Repo.js
-	public function shortcode_github_repo( $atts, $content = NULL, $tag = '' )
-	{
-		$args = shortcode_atts( array(
-			'username' => 'geminorum',
-			'name'     => 'gnetwork',
-			'branch'   => FALSE,
-			'context'  => NULL,
-		), $atts, $tag );
-
-		if ( FALSE === $args['context'] || is_feed() )
-			return NULL;
-
-		$key = 'github-repo-'.( count( $this->scripts ) + 1 );
-		$this->scripts[$key] = "$('#".$key."').repo({user:'".$args['username']."',name:'".$args['name']."'".( $args['branch'] ? ", branch:'".$args['branch']."'" : "" )."});";
-
-		HTML::wrapJS( $this->scripts[$key], FALSE );
-		wp_enqueue_script( 'repo-js', GNETWORK_URL.'assets/libs/repo.js/repo.min.js', array( 'jquery' ), GNETWORK_VERSION, TRUE );
-
-		return '<div id="'.$key.'" class="gnetwork-wrap-shortcode github-repo"></div>';
 	}
 
 	public function shortcode_textarea( $atts, $content = NULL, $tag = '' )
