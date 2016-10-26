@@ -9,7 +9,6 @@ class ShortCodes extends ModuleCore
 	protected $network = FALSE;
 
 	private $flash_ids  = array();
-	private $pdf_ids    = array();
 	private $ref_ids    = array();
 	private $ref_list   = FALSE;
 	private $people     = array();
@@ -20,6 +19,7 @@ class ShortCodes extends ModuleCore
 		add_action( 'init', array( $this, 'init_early' ), 8 );
 		add_action( 'init', array( $this, 'init_late' ), 12 );
 		add_action( 'wp_footer', array( $this, 'wp_footer' ), 20 );
+		add_action( 'wp_footer', array( $this, 'print_scripts' ), 20 );
 
 		add_action( 'gnetwork_tinymce_strings', array( $this, 'tinymce_strings' ) );
 		Admin::registerTinyMCE( 'gnetworkref', 'assets/js/tinymce/ref', 1 );
@@ -714,62 +714,45 @@ class ShortCodes extends ModuleCore
 		return $html;
 	}
 
-	// TODO: rewrite this
-	// http://pdfobject.com
-	// https://github.com/pipwerks/PDFObject
-	// TODO : get the standard PDF dimensions for A4
+	// @SEE: https://github.com/pipwerks/PDFObject
+	// TODO: download option
 	public function shortcode_pdf( $atts, $content = NULL, $tag = '' )
 	{
-		self::__dep();
-
 		$args = shortcode_atts( array(
-			'url'       => FALSE, // comma seperated multiple url to show multiple pdf // UNFINISHED
-			'width'     => '100%', // '840px',
-			'height'    => '960px',
-			'rand'      => FALSE, // if multiple url then use random
-			'navpanes'  => '1',
-			'statusbar' => '0',
-			'view'      => 'FitH',
-			'pagemode'  => 'thumbs',
-			'rtl'       => ( is_rtl() ? 'yes' : 'no' ),
-			'download'  => FALSE,
-			'context'   => NULL,
-			'wrap'      => TRUE,
+			'url'      => FALSE,
+			'width'    => FALSE, // default is full width
+			'height'   => FALSE, // '960px',
+			'view'     => FALSE, // 'FitV',  //'FitH',
+			'fallback' => _x( 'It appears you don\'t have Adobe Reader or PDF support in this web browser. <a href="%s">Click here to download the PDF</a>', 'Modules: ShortCodes: Defaults', GNETWORK_TEXTDOMAIN ),
+			'feedlink' => _x( '<a href="%s">Click here to download the PDF</a>', 'Modules: ShortCodes: Defaults', GNETWORK_TEXTDOMAIN ),
+			'context'  => NULL,
+			'wrap'     => TRUE,
+			'before'   => '',
+			'after'    => '',
 		), $atts, $tag );
 
-		if ( FALSE === $args['context'] || is_feed() )
+		if ( FALSE === $args['context'] )
 			return NULL;
 
 		if ( ! $args['url'] )
 			return NULL;
 
-		if ( $args['rand'] && FALSE !== strpos( $args['url'], ',' ) ) {
-			$url = explode( ',', $args['url'] );
-			$key = rand( 0, ( count( $url ) - 1 ) );
-			$args['url'] = $url[$key];
-		}
+		if ( is_feed() )
+			return '<p class="-feedlink">'.sprintf( $args['feedlink'], $args['url'] ).'</p>';
 
-		$fallback = apply_filters( 'gnetwork_shortcode_pdf_fallback', sprintf( _x( 'It appears you don\'t have Adobe Reader or PDF support in this web browser. <a href="%s">Click here to download the PDF</a>', 'Shortcodes Module: Defaults', GNETWORK_TEXTDOMAIN ), $args['url'] ) );
+		$options = array(
+			'fallbackLink' => '<p class="-fallback">'.sprintf( $args['fallback'], $args['url'] ).'</p>',
+		);
 
-		$key = count( $this->pdf_ids ) + 1;
-		$id = 'gNetworkPDF'.$key;
+		foreach ( array( 'width', 'height', 'view' ) as $option )
+			if ( $args[$option] )
+				$options[$option] = $args[$option];
 
-		// https://github.com/pipwerks/PDFObject
-		$this->pdf_ids[$key] = ' var '.$id.' = new PDFObject({url:"'.$args['url']
-			.'",id:"'.$id
-			.'",width:"'.$args['width']
-			.'",height:"'.$args['height']
-			.'",pdfOpenParams:{navpanes:'.$args['navpanes']
-				.',statusbar:'.$args['statusbar']
-				.',view:"'.$args['view']
-				.'",pagemode:"'.$args['pagemode']
-			.'"}}).embed("'.$id.'div"); ';
+		$selector = $this->selector( 'pdfobject-%2$s' );
+		$this->scripts_nojquery[$selector] = 'PDFObject.embed("'.$args['url'].'", "#'.$selector.'",'.wp_json_encode( $options ).');';
 
-		// $this->pdf_ids[$key] = ' var '.$id.' = new PDFObject({url:"'.$args['url'].'",id:"'.$id.'",pdfOpenParams:{navpanes:'.$args['navpanes'].',statusbar:'.$args['statusbar'].',view:"'.$args['view'].'",pagemode:"'.$args['pagemode'].'"}}).embed("'.$id.'div"); ';
-
-		Utilities::enqueueScript( 'lib.pdfobject' );
-
-		return '<div id="'.$id.'div">'.$fallback.'</div>';
+		Utilities::enqueueScriptVendor( 'pdfobject', array(), '2.0.201604172' );
+		return self::shortcodeWrap( '<div id="'.$selector.'"></div>', 'pdf', $args );
 	}
 
 	// EXAMPLE: [bloginfo key='name']
@@ -951,16 +934,6 @@ class ShortCodes extends ModuleCore
 
 	public function wp_footer()
 	{
-		// this is for onload, cannot use `HTML::wrapJS()`
-		if ( count( $this->pdf_ids ) ) {
-			echo '<script type="text/javascript">'."\n".'/* <![CDATA[ */'."\n";
-			echo 'window.onload = function(){'."\n";
-			foreach ( $this->pdf_ids as $id )
-				echo $id."\n";
-			echo '};';
-			echo "\n".'/* ]]> */'."\n".'</script>';
-		}
-
 		if ( count( $this->flash_ids ) ) {
 			echo '<script type="text/javascript">'."\n".'/* <![CDATA[ */'."\n";
 			foreach ( $this->flash_ids as $id )
