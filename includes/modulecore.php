@@ -7,7 +7,6 @@ class ModuleCore extends Base
 
 	public $options = array();
 	public $buttons = array();
-	public $scripts = array();
 
 	protected $base = 'gnetwork';
 	protected $key  = NULL;
@@ -23,7 +22,9 @@ class ModuleCore extends Base
 	protected $dev    = NULL;
 	protected $hidden = FALSE;
 
-	protected $scripts_printed = FALSE;
+	protected $scripts_printed  = FALSE;
+	protected $scripts_nojquery = array();
+	protected $scripts          = array();
 
 	protected $counter = 0;
 
@@ -579,6 +580,9 @@ class ModuleCore extends Base
 	{
 		if ( $this->scripts_printed )
 			return;
+
+		if ( count( $this->scripts_nojquery ) )
+			HTML::wrapScript( implode( "\n", $this->scripts_nojquery ) );
 
 		if ( count( $this->scripts ) )
 			HTML::wrapjQueryReady( implode( "\n", $this->scripts ) );
