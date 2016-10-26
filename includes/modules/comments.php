@@ -197,7 +197,7 @@ class Comments extends ModuleCore
 		if ( is_singular()
 			&& 'open' == $GLOBALS['wp_query']->post->comment_status ) {
 
-			Utilities::enqueueScript( 'jquery.growfield' );
+			Utilities::enqueueScriptVendor( 'jquery.growfield' );
 
 			$this->scripts[] = '$("#comment").growfield();';
 
