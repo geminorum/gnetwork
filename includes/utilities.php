@@ -158,14 +158,19 @@ class Utilities extends Base
 		return WordPress::customStyleSheet( $css, $link, $version );
 	}
 
-	public static function enqueueScript( $asset, $dep = array( 'jquery' ), $version = GNETWORK_VERSION, $base = GNETWORK_URL )
+	public static function enqueueScript( $asset, $dep = array( 'jquery' ), $version = GNETWORK_VERSION, $base = GNETWORK_URL, $path = 'assets/js' )
 	{
-		$handle  = 'gnetwork-'.str_replace( '.', '-', $asset );
+		$handle  = strtolower( 'gnetwork-'.str_replace( '.', '-', $asset ) );
 		$variant = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
-		wp_enqueue_script( $handle, $base.'assets/js/'.$asset.$variant.'.js', $dep, $version, TRUE );
+		wp_enqueue_script( $handle, $base.$path.'/'.$asset.$variant.'.js', $dep, $version, TRUE );
 
 		return $handle;
+	}
+
+	public static function enqueueScriptVendor( $asset, $dep = array(), $version = GNETWORK_VERSION, $base = GNETWORK_URL, $path = 'assets/js/vendor' )
+	{
+		return self::enqueueScript( $asset, $dep, $version, $base, $path );
 	}
 
 	public static function getTinyMceStrings( $locale )
