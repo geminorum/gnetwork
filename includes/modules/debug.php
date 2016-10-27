@@ -105,7 +105,7 @@ class Debug extends ModuleCore
 					if ( Text::strLen( $line ) > $length )
 						echo Text::subStr( $line, 0, $length ).' <span title="'.esc_attr( $line ).'">[&hellip;]</span>';
 					else
-						$line;
+						echo $line;
 
 					echo '</li>';
 				}
