@@ -16,10 +16,10 @@ class Date extends Base
 		);
 	}
 
-	public static function htmlDateTime( $time, $format = 'l, F j, Y', $title = FALSE )
+	public static function htmlDateTime( $time, $gmt = NULL, $format = 'l, F j, Y', $title = FALSE )
 	{
 		return HTML::tag( 'time', array(
-			'datetime' => date( 'c', $time ),
+			'datetime' => date( 'c', ( $gmt ? $gmt : $time ) ),
 			'title'    => $title,
 		), date_i18n( $format, $time ) );
 	}

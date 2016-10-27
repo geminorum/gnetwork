@@ -429,14 +429,15 @@ class ShortCodes extends ModuleCore
 		if ( FALSE === $args['context'] )
 			return NULL;
 
-		$time = get_post_modified_time( 'U', FALSE, $args['id'], FALSE );
+		$gmt   = get_post_modified_time( 'U', TRUE,  $args['id'], FALSE );
+		$local = get_post_modified_time( 'U', FALSE, $args['id'], FALSE );
 
 		if ( 'timeago' == $args['title'] )
-			$title = Utilities::humanTimeDiff( $time, $args['round'] );
+			$title = Utilities::humanTimeDiff( $local, $args['round'] );
 		else
 			$title = esc_attr( $args['title'] );
 
-		$html = Date::htmlDateTime( $time, $args['format'], $title );
+		$html = Date::htmlDateTime( $local, $gmt, $args['format'], $title );
 
 		if ( $args['link'] )
 			$html = HTML::tag( 'a', array( 'href' => $args['link'] ), $html );
