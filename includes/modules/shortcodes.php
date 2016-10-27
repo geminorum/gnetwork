@@ -524,6 +524,8 @@ class ShortCodes extends ModuleCore
 			'style'   => 'width:100% !important;',
 			'context' => NULL,
 			'wrap'    => TRUE,
+			'before'  => '',
+			'after'   => '',
 		), $atts, $tag );
 
 		if ( FALSE === $args['context'] || is_feed() )

@@ -607,7 +607,7 @@ class ModuleCore extends Base
 	public static function shortcodeWrap( $html, $suffix = FALSE, $args = array(), $block = TRUE )
 	{
 		$before = empty( $args['before'] ) ? '' : $args['before'];
-		$after  = empty( $args['after'] ) ? '' : $args['after'];
+		$after  = empty( $args['after'] )  ? '' : $args['after'];
 
 		if ( empty( $args['wrap'] ) )
 			return $before.$html.$after;
