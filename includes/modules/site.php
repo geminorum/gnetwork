@@ -11,6 +11,9 @@ class Site extends ModuleCore
 	{
 		if ( $this->options['page_signup'] && ! is_admin() )
 			add_action( 'before_signup_header', array( $this, 'before_signup_header' ), 1 );
+
+		if ( $this->options['contact_methods'] )
+			$this->filter( 'user_contactmethods', 2 );
 	}
 
 	public function setup_menu( $context )
@@ -24,8 +27,9 @@ class Site extends ModuleCore
 	public function default_options()
 	{
 		return array(
-			'admin_locale' => 'en_US',
-			'page_signup'  => '0',
+			'admin_locale'    => 'en_US',
+			'page_signup'     => '0',
+			'contact_methods' => '1',
 		);
 	}
 
@@ -63,6 +67,15 @@ class Site extends ModuleCore
 			),
 		);
 
+		$settings['_users'] = array(
+			array(
+				'field'       => 'contact_methods',
+				'title'       => _x( 'Contact Methods', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Adds extra contact methods to user profiles', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+				'default'     => '1',
+			),
+		);
+
 		return $settings;
 	}
 
@@ -70,5 +83,14 @@ class Site extends ModuleCore
 	{
 		if ( 'none' == get_site_option( 'registration', 'none' ) )
 			self::redirect( get_page_link( $this->options['page_signup'] ) );
+	}
+
+	public function user_contactmethods( $contactmethods, $user )
+	{
+		return array_merge( $contactmethods, array(
+			'googleplus' => _x( 'Google+ Profile', 'Modules: Site: User Contact Method', GNETWORK_TEXTDOMAIN ),
+			'twitter'    => _x( 'Twitter', 'Modules: Site: User Contact Method', GNETWORK_TEXTDOMAIN ),
+			'mobile'     => _x( 'Mobile Phone', 'Modules: Site: User Contact Method', GNETWORK_TEXTDOMAIN ),
+		) );
 	}
 }
