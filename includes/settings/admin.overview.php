@@ -13,6 +13,10 @@ echo '<form method="post" action="">';
 			Debug::summaryIPs();
 		echo '</td></tr>';
 
+		echo '<tr class="ltr"><th scope="row">'.__( 'Current Time', GNETWORK_TEXTDOMAIN ).'</th><td>';
+			Debug::currentTime();
+		echo '</td></tr>';
+
 		echo '<tr class="ltr"><th scope="row">'.__( 'PHP Versions', GNETWORK_TEXTDOMAIN ).'</th><td>';
 			Debug::phpversion();
 		echo '</td></tr>';

@@ -198,6 +198,24 @@ class Debug extends ModuleCore
 		HTML::tableCode( $paths );
 	}
 
+	public static function currentTime( $format = 'Y-m-d H:i:s' )
+	{
+		$times = array(
+			'date_i18n()'                     => date_i18n( $format ),
+			'date_i18n() UTC'                 => date_i18n( $format, FALSE, TRUE ),
+			'date_default_timezone_get()'     => date_default_timezone_get(),
+			'date(\'e\')'                     => date( 'e' ),
+			'date(\'T\')'                     => date( 'T' ),
+			'ini_get(\'date.timezone\')'      => ini_get( 'date.timezone' ),
+			'get_option(\'gmt_offset\')'      => get_option( 'gmt_offset' ),
+			'get_option(\'timezone_string\')' => get_option( 'timezone_string' ),
+			'REQUEST_TIME_FLOAT'              => date( $format, $_SERVER['REQUEST_TIME_FLOAT'] ),
+			'REQUEST_TIME'                    => date( $format, $_SERVER['REQUEST_TIME'] ),
+		);
+
+		HTML::tableCode( $times );
+	}
+
 	public static function summaryIPs( $caption = FALSE )
 	{
 		$summary = array();
