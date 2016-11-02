@@ -22,8 +22,8 @@ class ShortCodes extends ModuleCore
 		add_action( 'wp_footer', array( $this, 'print_scripts' ), 20 );
 
 		add_action( 'gnetwork_tinymce_strings', array( $this, 'tinymce_strings' ) );
-		Admin::registerTinyMCE( 'gnetworkref', 'assets/js/tinymce/ref', 1 );
-		Admin::registerTinyMCE( 'gnetworkemail', 'assets/js/tinymce/email', 1 );
+		Admin::registerTinyMCE( 'gnetworkref', 'assets/js/tinymce/ref', 2 );
+		Admin::registerTinyMCE( 'gnetworkemail', 'assets/js/tinymce/email', 2 );
 		Admin::registerTinyMCE( 'gnetworksearch', 'assets/js/tinymce/search', 2 );
 		Admin::registerTinyMCE( 'gnetworkgpeople', 'assets/js/tinymce/gpeople', 2 );
 	}
