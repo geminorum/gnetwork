@@ -7,6 +7,8 @@ class Editor extends ModuleCore
 
 	protected $key     = 'editor';
 	protected $network = FALSE;
+	protected $front   = FALSE;
+	protected $ajax    = TRUE;
 
 	public $tinymce = array(
 		array(), // 0: teeny_mce_buttons
@@ -19,7 +21,9 @@ class Editor extends ModuleCore
 	protected function setup_actions()
 	{
 		add_action( 'init', array( $this, 'init_late' ), 999 );
+
 		add_filter( 'wp_link_query_args', array( $this, 'wp_link_query_args' ) );
+		add_filter( 'wp_link_query', array( $this, 'wp_link_query' ), 12, 2 );
 	}
 
 	public function init_late()
@@ -48,6 +52,15 @@ class Editor extends ModuleCore
 			$query['post_status'] = 'any';
 
 		return $query;
+	}
+
+	// using shortlinks instead of permalinks inside the editor
+	public function wp_link_query( $results, $query )
+	{
+		foreach ( $results as &$result )
+			$result['permalink'] = wp_get_shortlink( $result['ID'], 'post', FALSE );
+
+		return $results;
 	}
 
 	private function mce_wppage_button( $buttons )
