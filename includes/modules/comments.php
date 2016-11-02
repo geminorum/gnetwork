@@ -33,11 +33,15 @@ class Comments extends ModuleCore
 				add_filter( 'comment_excerpt', array( $this, 'comment_excerpt' ) );
 
 			if ( $this->options['archived_comments'] ) {
-				add_filter( 'comment_status_links', array( $this, 'comment_status_links' ), 1, 2 );
-				add_filter( 'admin_comment_types_dropdown', array( $this, 'admin_comment_types_dropdown' ) );
-				add_filter( 'comment_row_actions', array( $this, 'comment_row_actions' ), 15, 2 );
 
-				// FIXME: UNFINISHED: add the actual actions!!
+				$this->filter( 'comment_status_links', 2, 1 );
+				$this->filter( 'admin_comment_types_dropdown' );
+				$this->filter( 'comment_row_actions', 2, 15 );
+
+				$this->filter( 'bulk_actions-edit-comments', 1, 10, 'bulk_actions' );
+				$this->filter( 'handle_bulk_actions-edit-comments', 3, 10, 'handle_bulk_actions' );
+
+				// FIXME: UNFINISHED: add the row actions
 			}
 
 		} else {
@@ -65,8 +69,9 @@ class Comments extends ModuleCore
 		}
 
 		if ( $this->options['archived_comments'] ) {
-			add_action( 'pre_get_comments', array( $this, 'pre_get_comments' ) );
-			add_filter( 'wp_count_comments', array( $this, 'wp_count_comments' ), 1, 2 );
+			$this->action( 'pre_get_comments' );
+			$this->filter( 'wp_count_comments', 2, 1 );
+			$this->filter( 'pre_wp_update_comment_count_now', 3 );
 		}
 
 		add_filter( 'pre_comment_approved', array( $this, 'pre_comment_approved' ), 99, 2 );
@@ -213,8 +218,8 @@ class Comments extends ModuleCore
 
 			$actions['comment_archive'] = HTML::tag( 'a', array(
 				'href'       => 'comment.php?c='.$comment->comment_ID.'&action=archive&'.$nonce,
-				'aria-label' => _x( 'Move this comment to the Archives', 'Modules: Comments', GNETWORK_TEXTDOMAIN ),
-			), _x( 'Archive', 'Modules: Comments', GNETWORK_TEXTDOMAIN ) );
+				'aria-label' => _x( 'Move this comment to the Archives', 'Modules: Comments: Action Title Attr', GNETWORK_TEXTDOMAIN ),
+			), _x( 'Archive', 'Modules: Comments: Action', GNETWORK_TEXTDOMAIN ) );
 
 		} else if ( $this->type_archived == $comment->comment_type ) {
 
@@ -222,21 +227,98 @@ class Comments extends ModuleCore
 
 			$actions['comment_unarchive'] = HTML::tag( 'a', array(
 				'href'       => 'comment.php?c='.$comment->comment_ID.'&action=unarchive&'.$nonce,
-				'aria-label' => _x( 'Move back this comment from the Archives', 'Modules: Comments', GNETWORK_TEXTDOMAIN ),
-			), _x( 'Unarchive', 'Modules: Comments', GNETWORK_TEXTDOMAIN ) );
+				'aria-label' => _x( 'Move back this comment from the Archives', 'Modules: Comments: Action Title Attr', GNETWORK_TEXTDOMAIN ),
+			), _x( 'Unarchive', 'Modules: Comments: Action', GNETWORK_TEXTDOMAIN ) );
 		}
 
 		return $actions;
 	}
 
+	public function bulk_actions( $actions )
+	{
+		if ( empty( $_GET['comment_type'] ) || 'archived' != $_GET['comment_type'] )
+			$new = array( 'archive' => _x( 'Move to Archives', 'Modules: Comments: Bulk Action', GNETWORK_TEXTDOMAIN ) );
+		else
+			$new = array( 'unarchive' => _x( 'Move from Archives', 'Modules: Comments: Bulk Action', GNETWORK_TEXTDOMAIN ) );
+
+		return array_merge( $actions, $new );
+	}
+
+	public function handle_bulk_actions( $redirect_to, $doaction, $comment_ids )
+	{
+		if ( ! in_array( $doaction, array( 'archive', 'unarchive' ) ) )
+			return $redirect_to;
+
+		$archived = 0;
+
+		foreach ( $comment_ids as $comment_id )
+			if ( $this->comment_archive( $comment_id, ( $doaction == 'archive' ? TRUE : FALSE ) ) )
+				$archived++;
+
+		return add_query_arg( 'archived', $archived, $redirect_to );
+	}
+
+	// @REF: wp_set_comment_status()
+	protected function comment_archive( $comment_id, $archive = TRUE, $wp_error = FALSE )
+	{
+		global $wpdb;
+
+		$comment_old  = clone get_comment( $comment_id );
+		$comment_type = $archive ? $this->type_archived : '';
+
+		if ( ! $wpdb->update( $wpdb->comments,
+			array( 'comment_type' => $comment_type ),
+			array( 'comment_ID' => $comment_old->comment_ID ) ) )
+				return $wp_error ? new WP_Error( 'db_update_error',
+					__( 'Could not update comment status', 'Modules: Comments: DB Update Error', GNETWORK_TEXTDOMAIN ),
+					$wpdb->last_error ) : FALSE;
+
+		clean_comment_cache( $comment_old->comment_ID );
+
+		$status  = $archive ? 'archive' : 'unarchive';
+		$comment = get_comment( $comment_old->comment_ID );
+
+		do_action( 'wp_set_comment_status', $comment->comment_ID, $status );
+
+		wp_transition_comment_status( $status, ( $this->type_archived == $comment_old->comment_type ? 'archive' : 'unarchive' ), $comment );
+
+		wp_update_comment_count( $comment->comment_post_ID );
+
+		return TRUE;
+	}
+
+	public function pre_wp_update_comment_count_now( $new, $old, $post_id )
+	{
+		global $wpdb;
+
+ 	 	return $wpdb->get_var( $wpdb->prepare( "
+			SELECT COUNT(*) FROM $wpdb->comments
+			WHERE comment_post_ID = %d
+			AND comment_type <> '%s'
+			AND comment_approved = '1'
+		", $post_id, $this->type_archived ) );
+	}
+
 	public function comment_status_links( $status_links )
 	{
+		$status_links = array_map( function( $link ){
+
+			if ( $this->type_archived == $GLOBALS['comment_type'] )
+				$link = str_ireplace( ' class="current"', '', $link );
+
+			$link = str_ireplace( '?comment_type='.$this->type_archived.'&', '?', $link );
+			$link = str_ireplace( '?comment_type='.$this->type_archived, '', $link );
+			$link = str_ireplace( '&comment_type='.$this->type_archived, '', $link );
+
+			return $link;
+		}, $status_links );
+
 		return array_merge( $status_links, array(
 			$this->type_archived => HTML::tag( 'a', array(
 				'href'  => add_query_arg( 'comment_type', $this->type_archived, admin_url( 'edit-comments.php' ) ),
-				'class' => ( $this->type_archived == $GLOBALS['comment_type'] ? 'current' : FALSE ),
-				'title' => _x( 'All Archived Comments', 'Modules: Comments', GNETWORK_TEXTDOMAIN ),
-			), _x( 'Archives', 'Modules: Comments', GNETWORK_TEXTDOMAIN ) ),
+				'class' => $this->type_archived == $GLOBALS['comment_type'] ? 'current' : FALSE,
+				'title' => _x( 'All Archived Comments', 'Modules: Comments: Status Link Title Attr', GNETWORK_TEXTDOMAIN ),
+			), _x( 'Archives', 'Modules: Comments: Status Link', GNETWORK_TEXTDOMAIN ) ),
 		) );
 	}
 
