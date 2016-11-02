@@ -68,6 +68,23 @@ class Cleanup extends ModuleCore
 				'default'     => _x( 'Purge All Network', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 				'values'      => $confirm,
 			);
+
+			$settings['_users'][] = array(
+				'field'       => 'users_defaultmeta',
+				'type'        => 'button',
+				'title'       => _x( 'User Meta', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Removes Default Meta Stored for Each User', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+				'default'     => _x( 'Purge Default Meta', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+				'values'      => $confirm,
+			);
+
+			$settings['_users'][] = array(
+				'field'       => 'users_contactmethods',
+				'type'        => 'button',
+				'description' => _x( 'Removes Empty Contact Methods Stored for Each User', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+				'default'     => _x( 'Purge Empty Contact Methods', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+				'values'      => $confirm,
+			);
 		}
 
 		$settings['_posts'][] = array(
@@ -140,6 +157,12 @@ class Cleanup extends ModuleCore
 
 			else if ( isset( $_POST['transient_purge_site_all'] ) )
 				$message = $this->purge_transient_data( TRUE, FALSE ) ? 'purged' : 'error';
+
+			else if ( isset( $_POST['users_defaultmeta'] ) )
+				$message = $this->users_defaultmeta() ? 'purged' : 'error';
+
+			else if ( isset( $_POST['users_contactmethods'] ) )
+				$message = $this->users_contactmethods() ? 'purged' : 'error';
 
 			else if ( isset( $_POST['postmeta_editdata'] ) )
 				$message = $this->postmeta_editdata() ? 'purged' : 'error';
@@ -224,6 +247,57 @@ class Cleanup extends ModuleCore
 				delete_site_transient( str_replace( '_site_transient_timeout_', '', $transient ) );
 			else
 				delete_transient( str_replace( '_transient_timeout_', '', $transient ) );
+
+		return TRUE;
+	}
+
+	private function users_defaultmeta()
+	{
+		global $wpdb;
+
+		$meta_keys = array(
+			'nickname'             => '',
+			'first_name'           => '',
+			'last_name'            => '',
+			'description'          => '',
+			'rich_editing'         => 'true',
+			'comment_shortcuts'    => 'false',
+			'admin_color'          => 'fresh',
+			'use_ssl'              => 0,
+			'show_admin_bar_front' => 'true',
+			'locale'               => '',
+		);
+
+		foreach ( $meta_keys as $key => $val )
+			$wpdb->query( $wpdb->prepare( "
+				DELETE FROM {$wpdb->usermeta}
+				WHERE meta_key = '%s'
+				AND meta_value = '%s'
+			", $key, $val ) );
+
+		$wpdb->query( "OPTIMIZE TABLE {$wpdb->usermeta}" );
+
+		return TRUE;
+	}
+
+	private function users_contactmethods()
+	{
+		global $wpdb;
+
+		// old wp contact methods
+		$meta_keys = array_merge( wp_get_user_contact_methods(), array(
+			'yim'    => '',
+			'jabber' => '',
+		) );
+
+		foreach ( $meta_keys as $key => $val )
+			$wpdb->query( $wpdb->prepare( "
+				DELETE FROM {$wpdb->usermeta}
+				WHERE meta_key = '%s'
+				AND meta_value = ''
+			", $key ) );
+
+		$wpdb->query( "OPTIMIZE TABLE {$wpdb->usermeta}" );
 
 		return TRUE;
 	}
