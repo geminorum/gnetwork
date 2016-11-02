@@ -140,6 +140,9 @@ class Cleanup extends ModuleCore
 		return $settings;
 	}
 
+	// no buttons
+	public function default_buttons() {}
+
 	protected function settings_update( $sub )
 	{
 		if ( ! empty( $_POST ) && 'update' == $_POST['action'] ) {
