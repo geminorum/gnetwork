@@ -229,7 +229,7 @@ class Network extends ModuleCore
 		wp_update_post( array( 'ID' => 2, 'post_status' => 'draft' ) );
 		wp_set_comment_status( 1, 'trash' );
 
-		$new_blog_plugins = $this->filters( 'new_blog_plugins' ), array(
+		$new_blog_plugins = $this->filters( 'new_blog_plugins', array(
 			'geditorial/geditorial.php'     => TRUE,
 			'gpersiandate/gpersiandate.php' => TRUE,
 		) );
