@@ -1,4 +1,5 @@
-(function() {
+(function(tinymce) {
+
 	tinymce.PluginManager.add('gnetworkquote', function(editor, url) {
 		editor.addButton('gnetworkquote', {
 
@@ -85,4 +86,4 @@
 			}
 		});
 	});
-})();
+})(window.tinymce);

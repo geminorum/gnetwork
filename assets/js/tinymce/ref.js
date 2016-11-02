@@ -1,4 +1,5 @@
-(function() {
+(function(tinymce) {
+
 	tinymce.PluginManager.add('gnetworkref', function(editor, url) {
 
 		editor.addShortcut('ctrl+q', editor.getLang('gnetwork.gnetworkref-title'), 'gnetworkref');
@@ -53,4 +54,4 @@
 			}
 		});
 	});
-})();
+})(window.tinymce);

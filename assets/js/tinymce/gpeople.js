@@ -1,4 +1,5 @@
-(function() {
+(function(tinymce) {
+
 	tinymce.PluginManager.add('gnetworkgpeople', function(editor, url) {
 		editor.addButton('gnetworkgpeople', {
 
@@ -37,4 +38,4 @@
 			}
 		});
 	});
-})();
+})(window.tinymce);

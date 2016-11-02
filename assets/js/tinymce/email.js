@@ -1,4 +1,5 @@
-(function() {
+(function(tinymce) {
+
 	tinymce.PluginManager.add('gnetworkemail', function(editor, url) {
 		editor.addShortcut('ctrl+e', editor.getLang('gnetwork.gnetworkemail-title'), 'gnetworkemail');
 
@@ -72,4 +73,4 @@
 			}
 		});
 	});
-})();
+})(window.tinymce);

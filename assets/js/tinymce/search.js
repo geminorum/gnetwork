@@ -1,4 +1,5 @@
-(function() {
+(function(tinymce) {
+
 	tinymce.PluginManager.add('gnetworksearch', function(editor, url) {
 		editor.addShortcut('ctrl+3', editor.getLang('gnetwork.gnetworksearch-title'), 'gnetworksearch');
 
@@ -49,4 +50,4 @@
 			}
 		});
 	});
-})();
+})(window.tinymce);
