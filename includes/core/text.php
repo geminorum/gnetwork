@@ -11,6 +11,18 @@ class Text extends Base
 		return trim( preg_replace( '!\s+!', ' ', $string ) );
 	}
 
+	// @REF: _cleanup_image_add_caption()
+	// remove any line breaks from inside the tags
+	public static function noLineBreak( $string )
+	{
+		return preg_replace( '/[\r\n\t]+/', ' ', $string );
+	}
+
+	public function stripWidthHeight( $string )
+	{
+		return preg_replace( '/(width|height)="\d*"\s/', '', $string );
+	}
+
 	// @SEE: `mb_convert_case()`
 	public static function strToLower( $string, $encoding = 'UTF-8' )
 	{

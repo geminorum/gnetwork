@@ -56,6 +56,21 @@ class Arraay extends Base
 		return $keys;
 	}
 
+	// @SOURCE: http://stackoverflow.com/a/24436324/4864081
+	// USEAGE: Arraay::replaceKeys( $array, array( 'old_key_1' => 'new_key_1', 'old_key_2' => 'new_key_2' ) );
+	public static function replaceKeys( $array, $keys_map )
+	{
+		$keys = array_keys( $array );
+
+		foreach ( $keys_map as $old_key => $new_key ){
+			if ( FALSE === $index = array_search( $old_key, $keys ) )
+				continue;
+			$keys[$index] = $new_key;
+		}
+
+		return array_combine( $keys, array_values( $array ) );
+	}
+
 	public static function range( $start, $end, $step = 1, $format = TRUE )
 	{
 		$array = array();
