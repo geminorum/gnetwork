@@ -183,7 +183,7 @@ class Comments extends ModuleCore
 			}
 		}
 
-		$textareas = apply_filters( 'gnetwork_comments_quicktags_textarea', $this->textareas, $default_buttons );
+		$textareas = apply_filters( $this->hook( 'quicktags_textarea' ), $this->textareas, $default_buttons );
 
 		if ( count( $textareas ) ) {
 
