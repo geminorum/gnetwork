@@ -156,7 +156,7 @@ class Locale extends ModuleCore
 		if ( 'en_US' == $locale )
 			return $gNetworkCurrentLocale = $locale;
 
-		$black_list = apply_filters( 'gnetwork_locale_blacklist', array(
+		$black_list = $this->filters( 'blacklist', array(
 			'deprecated_log'                => 'post_type',
 			'rewrite-rules-inspector'       => 'page',
 			'connection-types'              => 'page',

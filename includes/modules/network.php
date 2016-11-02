@@ -144,11 +144,11 @@ class Network extends ModuleCore
 	{
 		$uri  = Settings::networkURL( FALSE );
 		$sub  = Settings::sub( 'overview' );
-		$subs = apply_filters( $this->hook( 'settings_subs' ), $this->subs() );
+		$subs = $this->filters( 'settings_subs', $this->subs() );
 
 		echo '<div class="wrap gnetwork-admin-settings-wrap settings-network sub-'.$sub.'">';
 
-			$messages = apply_filters( $this->hook( 'settings_messages' ), Settings::messages(), $sub );
+			$messages = $this->filters( 'settings_messages', Settings::messages(), $sub );
 
 			Settings::headerTitle();
 			Settings::headerNav( $uri, $sub, $subs );
@@ -157,7 +157,7 @@ class Network extends ModuleCore
 			if ( file_exists( GNETWORK_DIR.'includes/settings/'.$this->key.'.'.$sub.'.php' ) )
 				require_once( GNETWORK_DIR.'includes/settings/'.$this->key.'.'.$sub.'.php' );
 			else
-				do_action( $this->hook( 'settings_sub_'.$sub ), $uri, $sub );
+				$this->actions( 'settings_sub_'.$sub, $uri, $sub );
 
 		echo '<div class="clear"></div></div>';
 	}
@@ -215,7 +215,7 @@ class Network extends ModuleCore
 		if ( $site_user_id = WordPress::getSiteUserID() )
 			add_user_to_blog( $blog_id, $site_user_id, GNETWORK_SITE_USER_ROLE );
 
-		$new_blog_options = apply_filters( $this->hook( 'new_blog_options' ), array(
+		$new_blog_options = $this->filters( 'new_blog_options', array(
 			'blogdescription'        => '',
 			'permalink_structure'    => '/entries/%post_id%',
 			'default_comment_status' => 'closed',
@@ -229,7 +229,7 @@ class Network extends ModuleCore
 		wp_update_post( array( 'ID' => 2, 'post_status' => 'draft' ) );
 		wp_set_comment_status( 1, 'trash' );
 
-		$new_blog_plugins = apply_filters( $this->hook( 'new_blog_plugins' ), array(
+		$new_blog_plugins = $this->filters( 'new_blog_plugins' ), array(
 			'geditorial/geditorial.php'     => TRUE,
 			'gpersiandate/gpersiandate.php' => TRUE,
 		) );

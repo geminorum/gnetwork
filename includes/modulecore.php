@@ -156,6 +156,30 @@ class ModuleCore extends Base
 		add_filter( $hook, array( $this, ( $method ? $method : $hook ) ), $priority, $args );
 	}
 
+	protected function actions()
+	{
+		$args = func_get_args();
+
+		if ( count( $args ) < 1 )
+			return FALSE;
+
+		$args[0] = $this->hook( $args[0] );
+
+		return call_user_func_array( 'do_action', $args );
+	}
+
+	protected function filters()
+	{
+		$args = func_get_args();
+
+		if ( count( $args ) < 2 )
+			return FALSE;
+
+		$args[0] = $this->hook( $args[0] );
+
+		return call_user_func_array( 'apply_filters', $args );
+	}
+
 	public function default_options()
 	{
 		return array();

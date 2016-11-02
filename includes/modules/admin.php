@@ -161,7 +161,7 @@ class Admin extends ModuleCore
 	{
 		$uri  = Settings::adminURL( FALSE );
 		$sub  = Settings::sub( 'overview' );
-		$subs = apply_filters( $this->hook( 'settings_subs' ), $this->subs() );
+		$subs = $this->filters( 'settings_subs', $this->subs() );
 
 		echo '<div class="wrap gnetwork-admin-settings-wrap settings-admin sub-'.$sub.'">';
 
@@ -169,7 +169,7 @@ class Admin extends ModuleCore
 			|| ( 'console' == $sub && is_super_admin() )
 			|| ( isset( $this->menus[$sub] ) && WordPress::cuc( $this->menus[$sub]['cap'] ) ) ) {
 
-			$messages = apply_filters( $this->hook( 'settings_messages' ), Settings::messages(), $sub );
+			$messages = $this->filters( 'settings_messages', Settings::messages(), $sub );
 
 			Settings::headerTitle();
 			Settings::headerNav( $uri, $sub, $subs );
@@ -178,7 +178,7 @@ class Admin extends ModuleCore
 			if ( file_exists( GNETWORK_DIR.'includes/settings/'.$this->key.'.'.$sub.'.php' ) )
 				require_once( GNETWORK_DIR.'includes/settings/'.$this->key.'.'.$sub.'.php' );
 			else
-				do_action( $this->hook( 'settings_sub_'.$sub ), $uri, $sub );
+				$this->actions( 'settings_sub_'.$sub, $uri, $sub );
 
 		} else {
 

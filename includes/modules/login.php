@@ -87,7 +87,7 @@ class Login extends ModuleCore
 					'after'       => Settings::fieldAfterIcon( self::getLoginStyleLink() ),
 					'none_title'  => Settings::showOptionNone(),
 					'none_value'  => 'no-class',
-					'values'      => apply_filters( $this->hook( 'login_class' ), array(
+					'values'      => $this->filters( 'login_class', array(
 						'webogram' => _x( 'Webogram', 'Modules: Login: Login Class', GNETWORK_TEXTDOMAIN ),
 					) ),
 				),

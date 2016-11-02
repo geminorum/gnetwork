@@ -339,7 +339,7 @@ class Themes extends ModuleCore
 
 		if ( has_action( $this->hook( 'content_before' ) ) ) {
 			ob_start();
-				do_action( $this->hook( 'content_before' ), $content );
+				$this->actions( 'content_before', $content );
 			$before = ob_get_clean();
 
 			if ( trim( $before ) )
@@ -348,7 +348,7 @@ class Themes extends ModuleCore
 
 		if ( has_action( $this->hook( 'content_after' ) ) ) {
 			ob_start();
-				do_action( $this->hook( 'content_after' ), $content );
+				$this->actions( 'content_after', $content );
 			$after = ob_get_clean();
 
 			if ( trim( $after ) )

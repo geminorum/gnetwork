@@ -179,7 +179,7 @@ class Lockdown extends ModuleCore
 		if ( empty( $ip ) )
 			return;
 
-		if ( apply_filters( 'gnetwork_lockdown_allow_ip', FALSE, $ip ) )
+		if ( $this->filters( 'allow_ip', FALSE, $ip ) )
 			return;
 
 		$this->cookies();

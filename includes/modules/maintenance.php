@@ -199,7 +199,7 @@ class Maintenance extends ModuleCore
 			} else {
 
 				// FIXME: probably, Not works for themes because of the fire order
-				$default_template = apply_filters( 'gnetwork_maintenance_default_template', array( $this, 'template_503' ) );
+				$default_template = $this->filters( 'default_template', array( $this, 'template_503' ) );
 				call_user_func_array( $default_template, array( TRUE ) );
 			}
 
@@ -209,7 +209,7 @@ class Maintenance extends ModuleCore
 
 	public static function getTemplate()
 	{
-		if ( $override = apply_filters( 'gnetwork_maintenance_forced_template', FALSE ) )
+		if ( $override = $this->filters( 'forced_template', FALSE ) )
 			return $override;
 
 		elseif ( ! is_admin() && locate_template( '503.php' ) )

@@ -90,9 +90,7 @@ class SMS extends ModuleCore
 			),
 		);
 
-		$providers = apply_filters( 'gnetwork_sms_providers', $bundled );
-
-		foreach ( $providers as $provider => $args ) {
+		foreach ( $this->filters( 'providers', $bundled ) as $provider => $args ) {
 
 			if ( isset( $args['path'] ) && file_exists( $args['path'] ) ) {
 

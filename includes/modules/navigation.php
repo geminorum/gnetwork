@@ -132,7 +132,7 @@ class Navigation extends ModuleCore
 			'link' => get_feed_link( 'comments_rss2' ),
 		);
 
-		$items = apply_filters( 'gnetwork_navigation_general_items', $items );
+		$items = $this->filters( 'general_items', $items );
 
 		foreach ( $items as $item ) {
 			$this->general_pages[ $item['slug'] ] = (object) array(
@@ -161,7 +161,7 @@ class Navigation extends ModuleCore
 		$items[] = array(
 			'name' => _x( 'Log Out', 'Modules: Navigation', GNETWORK_TEXTDOMAIN ),
 			'slug' => 'logout',
-			'link' => apply_filters( 'gnetwork_navigation_logout_url', wp_logout_url() ),
+			'link' => $this->filters( 'logout_url', wp_logout_url() ),
 		);
 
 		$items[] = array(
@@ -173,10 +173,10 @@ class Navigation extends ModuleCore
 		$items[] = array(
 			'name' => _x( 'Public Profile', 'Modules: Navigation', GNETWORK_TEXTDOMAIN ),
 			'slug' => 'profile',
-			'link' => apply_filters( 'gnetwork_navigation_public_profile_url', get_edit_profile_url() ),
+			'link' => $this->filters( 'public_profile_url', get_edit_profile_url() ),
 		);
 
-		$items = apply_filters( 'gnetwork_navigation_loggedin_items', $items );
+		$items = $this->filters( 'loggedin_items', $items );
 
 		foreach ( $items as $item ) {
 			$this->loggedin_pages[ $item['slug'] ] = (object) array(
@@ -215,7 +215,7 @@ class Navigation extends ModuleCore
 				'link' => $register_url,
 			);
 
-		$items = apply_filters( 'gnetwork_navigation_loggedout_items', $items );
+		$items = $this->filters( 'loggedout_items', $items );
 
 		foreach ( $items as $item ) {
 			$this->loggedout_pages[ $item['slug'] ] = (object) array(
@@ -273,7 +273,7 @@ class Navigation extends ModuleCore
 				} else {
 					// __donot_cache_page();
 					// $menu_item->url = wp_logout_url( wp_guess_url() );
-					$menu_item->url = apply_filters( 'gnetwork_navigation_logout_url', wp_logout_url() );
+					$menu_item->url = $this->filters( 'logout_url', wp_logout_url() );
 				}
 
 			break;
@@ -337,8 +337,7 @@ class Navigation extends ModuleCore
 	public function wp_nav_menu_items( $items, $args )
 	{
 		$current = HTTP::currentURL();
-		$replace = apply_filters( 'gnetwork_navigation_replace_nav_menu', array(
-		), $current );
+		$replace = $this->filters( 'replace_nav_menu', array(), $current );
 
 		foreach ( $replace as $pattern => $replacement )
 			$items = preg_replace( $pattern, sprintf( $replacement, urlencode( $current ) ), $items );

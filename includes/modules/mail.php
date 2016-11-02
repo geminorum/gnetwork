@@ -294,14 +294,16 @@ class Mail extends ModuleCore
 	{
 		if ( 0 === strpos( $email, 'wordpress@' ) )
 			$email = $this->get_from_email( $email );
-		return apply_filters( 'gnetwork_mail_from_email', $email );
+		
+		return $this->filters( 'from_email', $email );
 	}
 
 	public function wp_mail_from_name( $name )
 	{
 		if ( 0 === strpos( $name, 'WordPress' ) )
 			$name = $this->get_from_name( $name );
-		return apply_filters( 'gnetwork_mail_from_name', $name );
+
+		return $this->filters( 'from_name', $name );
 	}
 
 	public function bp_email( $email_type, $bp_email )

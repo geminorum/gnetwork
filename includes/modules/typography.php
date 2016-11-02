@@ -132,10 +132,10 @@ class Typography extends ModuleCore
 	public function the_content( $content )
 	{
 		if ( $this->options['arabic_typography'] )
-			$content = apply_filters( $this->hook( 'arabic' ), $content );
+			$content = $this->filters( 'arabic', $content );
 
 		if ( $this->options['persian_typography'] )
-			$content = apply_filters( $this->hook( 'persian' ), $content );
+			$content = $this->filters( 'persian', $content );
 
 		return $content;
 	}

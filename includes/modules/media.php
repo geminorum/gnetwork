@@ -40,16 +40,14 @@ class Media extends ModuleCore
 
 	public function init_late()
 	{
-		if ( apply_filters( $this->hook( 'disable_meta' ),
-			GNETWORK_MEDIA_DISABLE_META, $this->blog ) ) {
+		if ( $this->filters( 'disable_meta', GNETWORK_MEDIA_DISABLE_META, $this->blog ) ) {
 
 			add_filter( 'wp_read_image_metadata', '__return_empty_array', 12, 4 );
 		// } else {
 		// 	add_filter( 'wp_read_image_metadata', 'wp_read_image_metadata', 12, 4 );
 		}
 
-		if ( apply_filters( $this->hook( 'object_sizes' ),
-			GNETWORK_MEDIA_OBJECT_SIZES, $this->blog ) ) {
+		if ( $this->filters( 'object_sizes', GNETWORK_MEDIA_OBJECT_SIZES, $this->blog ) ) {
 
 			add_filter( 'intermediate_image_sizes', '__return_empty_array', 99 );
 			// add_filter( 'intermediate_image_sizes_advanced', '__return_empty_array', 99 );
@@ -57,8 +55,7 @@ class Media extends ModuleCore
 			add_action( 'clean_attachment_cache', array( $this, 'clean_attachment_cache' ), 10, 1 );
 		}
 
-		if ( apply_filters( $this->hook( 'thumbs_separation' ),
-			GNETWORK_MEDIA_THUMBS_SEPARATION, $this->blog ) ) {
+		if ( $this->filters( 'thumbs_separation', GNETWORK_MEDIA_THUMBS_SEPARATION, $this->blog ) ) {
 
 			add_filter( 'wp_image_editors', array( $this, 'wp_image_editors' ), 5, 1 );
 			add_filter( 'image_downsize', array( $this, 'image_downsize' ), 5, 3 );
@@ -283,7 +280,7 @@ class Media extends ModuleCore
 		if ( $this->attachment_is_custom( $attachment_id ) )
 			return $metadata;
 
-		$parent_type = apply_filters( 'gnetwork_media_object_sizes_parent', NULL, $attachment_id, $metadata );
+		$parent_type = $this->filters( 'object_sizes_parent', NULL, $attachment_id, $metadata );
 
 		if ( FALSE === $parent_type ) {
 			return $metadata;
@@ -735,7 +732,7 @@ class Media extends ModuleCore
 				$label = _x( 'View Item URL', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN );
 		}
 
-		return apply_filters( $this->hook( 'mime_type_label' ), $label, $mime_type, $post_id );
+		return $this->filters( 'mime_type_label', $label, $mime_type, $post_id );
 	}
 
 	public function upload_mimes( $mimes )

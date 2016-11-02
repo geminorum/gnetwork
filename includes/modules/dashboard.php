@@ -40,7 +40,7 @@ class Dashboard extends ModuleCore
 	{
 		$feeds = array();
 
-		foreach ( apply_filters( 'gnetwork_dashoboard_external_feeds', array() ) as $name => $feed )
+		foreach ( $this->filters( 'external_feeds', array() ) as $name => $feed )
 			$feeds[$name] = array_merge( array(
 				'link'         => 'http://geminorum.ir/',
 				'url'          => 'http://geminorum.ir/feed',

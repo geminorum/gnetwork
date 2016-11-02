@@ -165,7 +165,7 @@ class Comments extends ModuleCore
 
 	public function wp_print_scripts()
 	{
-		$default_buttons = apply_filters( 'gnetwork_comments_quicktags_buttons', array(
+		$default_buttons = $this->filters( 'quicktags_buttons', array(
 			'link',
 			'em',
 			'strong',
@@ -183,7 +183,7 @@ class Comments extends ModuleCore
 			}
 		}
 
-		$textareas = apply_filters( $this->hook( 'quicktags_textarea' ), $this->textareas, $default_buttons );
+		$textareas = $this->filters( 'quicktags_textarea', $this->textareas, $default_buttons );
 
 		if ( count( $textareas ) ) {
 

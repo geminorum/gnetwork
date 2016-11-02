@@ -223,7 +223,7 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 
 	private function get_actions( $taxonomy )
 	{
-		$actions = apply_filters( 'gnetwork_taxonomy_bulk_actions', array(
+		$actions = $this->filters( 'bulk_actions', array(
 			'merge'        => _x( 'Merge', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN ),
 			'change_tax'   => _x( 'Change Taxonomy', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN ),
 			'empty_posts'  => _x( 'Empty Posts', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN ),
@@ -284,7 +284,7 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 		foreach ( array_keys( $this->get_actions( $taxonomy ) ) as $key ) {
 			if ( 'bulk_'.$key == $action ) {
 				check_admin_referer( 'bulk-tags' );
-				$callback = apply_filters( 'gnetwork_taxonomy_bulk_callback', array( $this, 'handle_'.$key ), $key, $taxonomy );
+				$callback = $this->filters( 'bulk_callback', array( $this, 'handle_'.$key ), $key, $taxonomy );
 				if ( is_callable( $callback ) )
 					$results = call_user_func( $callback, $term_ids, $taxonomy );
 				break;
@@ -531,7 +531,7 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 		foreach ( array_keys( $this->get_actions( $taxonomy ) ) as $key ) {
 			echo "<div id='gnetwork-taxonomy-input-$key' class='gnetwork-taxonomy-input-wrap' style='display:none'>\n";
 
-				$callback = apply_filters( 'gnetwork_taxonomy_bulk_input', array( $this, 'input_'.$key ), $key, $taxonomy );
+				$callback = $this->filters( 'bulk_input', array( $this, 'input_'.$key ), $key, $taxonomy );
 				if ( is_callable( $callback ) )
 					call_user_func( $callback, $taxonomy );
 

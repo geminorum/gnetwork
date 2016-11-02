@@ -49,7 +49,7 @@ class Search extends ModuleCore
 			return;
 
 		$wp_the_query = $wp_query = new \WP_Query(array(
-			'post_type' => apply_filters( 'error_search_post_types', 'any' ),
+			'post_type' => $this->filters( 'error_post_types', 'any' ),
 			's'         => str_replace( '/', ' ', $uri ),
 		));
 	}
