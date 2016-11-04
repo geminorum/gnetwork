@@ -165,11 +165,14 @@ ul.categorychecklist {
   }
 
   #postimagediv {
-    div.inside p {
-      margin: 0;
-      text-align: center;
-      &:last-child {
-        margin-top: 1em;
+    div.inside {
+      padding: 6px 12px 6px;
+      p {
+        margin: 0;
+        text-align: center;
+        &:last-child {
+          margin-top: 1em;
+        }
       }
     }
 

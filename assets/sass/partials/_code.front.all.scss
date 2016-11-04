@@ -5,46 +5,40 @@
 
 .gnetwork-wrap-shortcode {
 
-	&.github {
+  &.shortcode-github {
+    direction: ltr;
+  }
 
-	}
+  &.shortcode-github-readme {
+    > h1 {
+      display: none;
+    }
 
-	&.github-readme {
-		> h1 {
-			display: none;
-		}
+    img[src*="badge"],
+    img[src*="shields.io"] {
+      display: inline;
+    }
+  }
 
-		img[src*="badge"],
-		img[src*="shields.io"] {
-			display: inline;
-		}
-	}
+  &.shortcode-github-gist {
+    direction: ltr !important;
 
-	&.github-gist {
-		direction: ltr !important;
+    td {
+      text-align: left;
+    }
+  }
 
-		td {
-			text-align: left;
-		}
-	}
+  &.shortcode-textarea {
+    > textarea {
+      direction: ltr;
+      width: 100%;
+      height: auto;
+    }
+  }
 
-	&.github-repo {
-		direction: ltr !important;
-	}
-
-	&.shortcode-textarea {
-		> textarea {
-			direction: ltr;
-			width: 100%;
-			height: auto;
-		}
-	}
-
-	&.shortcode-shields-io {
-		a {
-			img {
-
-			}
-		}
-	}
+  &.shortcode-shields-io {
+    a {
+      img {}
+    }
+  }
 }

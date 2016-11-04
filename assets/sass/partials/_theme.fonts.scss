@@ -43,7 +43,7 @@
   $font-family-base: "Vazir", "Tahoma", "Iranian Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif !global;
 
   $name: "Vazir";
-  $ver: "v4.4.0";
+  $ver: "v4.4.1";
   $weight: "normal";
 
   $base: "https://cdn.rawgit.com";
@@ -59,12 +59,28 @@
   $font-family-head: "Vazir", "Arial", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", "Helvetica", "Arial", sans-serif !global;
 
   $name: "Vazir";
-  $ver: "v4.4.0";
+  $ver: "v4.4.1";
   $weight: "bold";
 
   $base: "https://cdn.rawgit.com";
   $repo: "rastikerdar/vazir-font";
   $file: "dist/Vazir-Bold";
+  $path: $base + "/" + $repo + "/" + $ver + "/" + $file;
+
+  @include _theme-fonts-fontface($name, $path, $weight);
+}
+
+@mixin theme-fonts-Vazir-Light-CDN() {
+
+  $font-family-light: "Vazir", "Arial", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", "Helvetica", "Arial", sans-serif !global;
+
+  $name: "Vazir";
+  $ver: "v4.4.1";
+  $weight: "300";
+
+  $base: "https://cdn.rawgit.com";
+  $repo: "rastikerdar/vazir-font";
+  $file: "dist/Vazir-Light";
   $path: $base + "/" + $repo + "/" + $ver + "/" + $file;
 
   @include _theme-fonts-fontface($name, $path, $weight);

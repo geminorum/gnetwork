@@ -4,6 +4,13 @@
 /// gNetwork Partials: Media Module --------------------------------------------
 
 table.media {
+
+  img[src$=".svg"].attachment-post-thumbnail,
+  td.media-icon img[src$=".svg"] {
+    width: 100% !important;
+    height: auto !important;
+  }
+
   a.media-url-attachment {
     outline: 0 none;
   }

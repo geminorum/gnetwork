@@ -87,6 +87,15 @@ body.rtl {
         left: -.75em;
       }
     }
+
+    ul > li.menu-item-has-children,
+    ul > li.page_item_has_children {
+      > a:after {
+        margin-top: 0;
+        right: auto;
+        left: -3em;
+      }
+    }
   }
 }
 
