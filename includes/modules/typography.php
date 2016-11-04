@@ -115,15 +115,15 @@ class Typography extends ModuleCore
 	public function tinymce_strings( $strings )
 	{
 		$new = array(
-			'gnetworkasterisks-title' => _x( 'Asterisks', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
+			'gnetworkasterisks-title' => _x( 'Asterisks', 'TinyMCE Strings: Asterisks', GNETWORK_TEXTDOMAIN ),
 
-			'gnetworkquote-title' => _x( 'Quote This', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
-			'gnetworkquote-attr'  => _x( 'Quote This', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
-			'gnetworkquote-text'  => _x( 'Quote Text', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
-			'gnetworkquote-cite'  => _x( 'Cite Text', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
-			'gnetworkquote-url'   => _x( 'Cite URL', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
-			'gnetworkquote-align' => _x( 'Quote Align', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
-			'gnetworkquote-intro' => _x( 'Intro Quote', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
+			'gnetworkquote-title' => _x( 'Quote This', 'TinyMCE Strings: Quote', GNETWORK_TEXTDOMAIN ),
+			'gnetworkquote-attr'  => _x( 'Quote This', 'TinyMCE Strings: Quote', GNETWORK_TEXTDOMAIN ),
+			'gnetworkquote-text'  => _x( 'Quote Text', 'TinyMCE Strings: Quote', GNETWORK_TEXTDOMAIN ),
+			'gnetworkquote-cite'  => _x( 'Cite Text', 'TinyMCE Strings: Quote', GNETWORK_TEXTDOMAIN ),
+			'gnetworkquote-url'   => _x( 'Cite URL', 'TinyMCE Strings: Quote', GNETWORK_TEXTDOMAIN ),
+			'gnetworkquote-align' => _x( 'Quote Align', 'TinyMCE Strings: Quote', GNETWORK_TEXTDOMAIN ),
+			'gnetworkquote-intro' => _x( 'Intro Quote', 'TinyMCE Strings: Quote', GNETWORK_TEXTDOMAIN ),
 		);
 
 		return array_merge( $strings, $new );

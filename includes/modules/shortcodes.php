@@ -90,26 +90,26 @@ class ShortCodes extends ModuleCore
 	public function tinymce_strings( $strings )
 	{
 		$new = array(
-			'gnetworkref-title' => _x( 'Cite This', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
-			'gnetworkref-attr'  => _x( 'Cite This (Ctrl+Q)', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
-			'gnetworkref-text'  => _x( 'Ref Text', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
-			'gnetworkref-url'   => _x( 'Ref URL', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
+			'gnetworkref-title' => _x( 'Cite This', 'TinyMCE Strings: Ref', GNETWORK_TEXTDOMAIN ),
+			'gnetworkref-attr'  => _x( 'Cite This (Ctrl+Q)', 'TinyMCE Strings: Ref', GNETWORK_TEXTDOMAIN ),
+			'gnetworkref-text'  => _x( 'Ref Text', 'TinyMCE Strings: Ref', GNETWORK_TEXTDOMAIN ),
+			'gnetworkref-url'   => _x( 'Ref URL', 'TinyMCE Strings: Ref', GNETWORK_TEXTDOMAIN ),
 
-			'gnetworkemail-title'   => _x( 'Email', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
-			'gnetworkemail-attr'    => _x( 'Email (Ctrl+E)', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
-			'gnetworkemail-email'   => _x( 'Full Email', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
-			'gnetworkemail-text'    => _x( 'Display Text', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
-			'gnetworkemail-subject' => _x( 'Email Subject', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
-			'gnetworkemail-hover'   => _x( 'Link Hover', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
+			'gnetworkemail-title'   => _x( 'Email', 'TinyMCE Strings: Email', GNETWORK_TEXTDOMAIN ),
+			'gnetworkemail-attr'    => _x( 'Email (Ctrl+E)', 'TinyMCE Strings: Email', GNETWORK_TEXTDOMAIN ),
+			'gnetworkemail-email'   => _x( 'Full Email', 'TinyMCE Strings: Email', GNETWORK_TEXTDOMAIN ),
+			'gnetworkemail-text'    => _x( 'Display Text', 'TinyMCE Strings: Email', GNETWORK_TEXTDOMAIN ),
+			'gnetworkemail-subject' => _x( 'Email Subject', 'TinyMCE Strings: Email', GNETWORK_TEXTDOMAIN ),
+			'gnetworkemail-hover'   => _x( 'Link Hover', 'TinyMCE Strings: Email', GNETWORK_TEXTDOMAIN ),
 
-			'gnetworksearch-title' => _x( 'Search', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
-			'gnetworksearch-attr'  => _x( 'Search (Ctrl+3)', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
-			'gnetworksearch-text'  => _x( 'Display Text', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
-			'gnetworksearch-query' => _x( 'Override Criteria', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
+			'gnetworksearch-title' => _x( 'Search', 'TinyMCE Strings: Search', GNETWORK_TEXTDOMAIN ),
+			'gnetworksearch-attr'  => _x( 'Search (Ctrl+3)', 'TinyMCE Strings: Search', GNETWORK_TEXTDOMAIN ),
+			'gnetworksearch-text'  => _x( 'Display Text', 'TinyMCE Strings: Search', GNETWORK_TEXTDOMAIN ),
+			'gnetworksearch-query' => _x( 'Override Criteria', 'TinyMCE Strings: Search', GNETWORK_TEXTDOMAIN ),
 
-			'gnetworkgpeople-title' => _x( 'People', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
-			'gnetworkgpeople-attr'  => _x( 'People', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
-			'gnetworkgpeople-name'  => _x( 'Name', 'Modules: TinyMCE', GNETWORK_TEXTDOMAIN ),
+			'gnetworkgpeople-title' => _x( 'People', 'TinyMCE Strings: People', GNETWORK_TEXTDOMAIN ),
+			'gnetworkgpeople-attr'  => _x( 'People', 'TinyMCE Strings: People', GNETWORK_TEXTDOMAIN ),
+			'gnetworkgpeople-name'  => _x( 'Name', 'TinyMCE Strings: People', GNETWORK_TEXTDOMAIN ),
 		);
 
 		return array_merge( $strings, $new );
