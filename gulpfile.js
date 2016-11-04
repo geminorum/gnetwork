@@ -29,22 +29,25 @@
 			],
 			'sass': './assets/sass/**/*.scss',
 			'js': [
-				'./assets/js/**/*.js',
-				'!./assets/js/**/*.min.js',
+				'./assets/js/*.js',
+				'!./assets/js/*.min.js',
+				'./assets/js/tinymce/*.js',
+				'!./assets/js/tinymce/*.min.js',
 			],
 			'svg': './assets/images/raw/**/*.svg',
 			'images': './assets/images/raw/**/*.{png,jpg,jpeg}',
 			'banner': [
 				'./assets/css/**/*.css',
 				'!./assets/css/**/*.raw.css',
-				'./assets/js/**/*.min.js',
+				'./assets/js/*.js',
+				'./assets/js/tinymce/*.js',
 			],
 			'ready': './ready/**/*',
 			'final': [
 				'./assets/css/**/*.css',
 				'./assets/css/**/*.html',
 				'./assets/images/**/*',
-				'./assets/js/**/*.min.js',
+				'./assets/js/**/*.js',
 				'./assets/js/**/*.html',
 				'./assets/libs/**/*',
 				'./assets/vendor/**/*.php',
@@ -71,7 +74,7 @@
 
 		output = {
 			'css': './assets/css',
-			'js': './assets/js',
+			// 'js': './assets/js',
 			'sourcemaps': './maps',
 			'images': './assets/images',
 			'languages': './languages',
@@ -227,7 +230,8 @@
 
 		.pipe(plugins.uglify())
 
-		.pipe(gulp.dest(output.js));
+		// .pipe(gulp.dest(output.js));
+		.pipe(gulp.dest('.'));
 	});
 
 	gulp.task('build:banner', function() {
@@ -271,7 +275,8 @@
 
 	gulp.task('default', function() {
 
-		console.log('Hi, I\'m Gulp!');
+		gutil.log('Hi, I\'m Gulp!');
+		gutil.log("Sass is:\n"+require('node-sass').info);
 	});
 
 }());
