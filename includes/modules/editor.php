@@ -79,8 +79,6 @@ class Editor extends ModuleCore
 		if ( ! count( $this->tinymce[0] ) )
 			return $buttons;
 
-		array_push( $buttons, '|' );
-
 		foreach ( $this->tinymce[0] as $plugin => $filepath )
 			array_push( $buttons, $plugin );
 
@@ -94,8 +92,6 @@ class Editor extends ModuleCore
 		if ( ! count( $this->tinymce[1] ) )
 			return $buttons;
 
-		array_push( $buttons, '|' );
-
 		foreach ( $this->tinymce[1] as $plugin => $filepath )
 			array_push( $buttons, $plugin );
 
@@ -106,8 +102,6 @@ class Editor extends ModuleCore
 	{
 		if ( ! count( $this->tinymce[2] ) )
 			return $buttons;
-
-		array_push( $buttons, '|' );
 
 		foreach ( $this->tinymce[2] as $plugin => $filepath )
 			array_push( $buttons, $plugin );
@@ -120,8 +114,6 @@ class Editor extends ModuleCore
 		if ( ! count( $this->tinymce[3] ) )
 			return $buttons;
 
-		array_push( $buttons, '|' );
-
 		foreach ( $this->tinymce[3] as $plugin => $filepath )
 			array_push( $buttons, $plugin );
 
@@ -132,8 +124,6 @@ class Editor extends ModuleCore
 	{
 		if ( ! count( $this->tinymce[4] ) )
 			return $buttons;
-
-		array_push( $buttons, '|' );
 
 		foreach ( $this->tinymce[4] as $plugin => $filepath )
 			array_push( $buttons, $plugin );
