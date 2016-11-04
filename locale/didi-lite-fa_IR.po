@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Didi Lite\n"
 "POT-Creation-Date: 2016-10-04 16:58+0330\n"
-"PO-Revision-Date: 2016-10-25 07:11+0330\n"
+"PO-Revision-Date: 2016-10-25 08:05+0330\n"
 "Language-Team: geminorum <contact@geminorum.ir>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,13 +17,13 @@ msgstr ""
 
 #: 404.php:15
 msgid "Oops! That page can&rsquo;t be found."
-msgstr ""
+msgstr "چیزی که به دنبالش بودید پیدا نشد!"
 
 #: 404.php:19
 msgid ""
 "It looks like nothing was found at this location. Maybe try one of the links "
 "below or a search?"
-msgstr ""
+msgstr "چیزی که به دنبالش بودید پیدا نشد، شاید جست‌وجوی دوباره شما را یاری کند."
 
 #: 404.php:27
 msgid "Most Used Categories"
@@ -128,11 +128,11 @@ msgstr "دیدن همهٔ نوشته‌های %s"
 #: comments.php:29
 #, php-format
 msgid "One thought on &ldquo;%2$s&rdquo;"
-msgstr ""
+msgstr "یک دیدگاه درباره &laquo;%2$s&raquo;"
 
 #: comments.php:49
 msgid "Comment navigation"
-msgstr ""
+msgstr "راه‌بری در کامنت‌ها"
 
 #: comments.php:52
 msgid "Older Comments"
@@ -140,11 +140,11 @@ msgstr "دیدگاه‌های کهنه‌تر"
 
 #: comments.php:53
 msgid "Newer Comments"
-msgstr ""
+msgstr "دیدگاه‌های تازه‌تر"
 
 #: comments.php:65
 msgid "Comments are closed."
-msgstr ""
+msgstr "امکان ارسال دیدگاه وجود ندارد."
 
 #: footer.php:34
 #, php-format
@@ -181,7 +181,7 @@ msgstr "در"
 
 #: functions.php:259
 msgid "Continue reading &rarr;"
-msgstr ""
+msgstr "ادامه &larr;"
 
 #: functions.php:305
 msgid "Edit"
@@ -265,11 +265,11 @@ msgstr "دیدگاه شما"
 
 #: inc/template-tags.php:21
 msgid "1 Comment"
-msgstr ""
+msgstr "یک دیدگاه"
 
 #: inc/template-tags.php:21
 msgid "% Comments"
-msgstr ""
+msgstr "% دیدگاه"
 
 #: inc/template-tags.php:26 inc/template-tags.php:95
 #: template-parts/content-front-page.php:31 template-parts/content-page.php:21
@@ -335,3 +335,6 @@ msgstr "<span class=\"meta-nav\">تازه‌تر</span> %title"
 
 msgid "<span class=\"meta-nav\">Previous Post</span> %title"
 msgstr "<span class=\"meta-nav\">کهنه‌تر</span> %title"
+
+msgid "Continue reading %s <span class=\"meta-nav\">&rarr;</span>"
+msgstr "ادامه <span class=\"meta-nav\">&larr;</span>"
