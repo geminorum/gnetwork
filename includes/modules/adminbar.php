@@ -81,8 +81,9 @@ class AdminBar extends ModuleCore
 		foreach ( $blog_ids as $blog_id ) {
 			$blog_id = (int) $blog_id;
 
-			$blog = get_blog_details( $blog_id );
-			$blogs[ $blog_id ] = (object) array(
+			$blog = get_site( $blog_id );
+
+			$blogs[$blog_id] = (object) array(
 				'userblog_id' => $blog_id,
 				'blogname'    => $blog->blogname,
 				'domain'      => $blog->domain,
