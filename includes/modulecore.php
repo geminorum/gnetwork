@@ -16,11 +16,13 @@ class ModuleCore extends Base
 	protected $user    = NULL;
 	protected $front   = TRUE;
 
+	protected $hidden = FALSE;
 	protected $ajax   = FALSE;
 	protected $cron   = FALSE;
 	protected $cli    = NULL;
 	protected $dev    = NULL;
-	protected $hidden = FALSE;
+	protected $xmlrpc = NULL;
+	protected $iframe = NULL;
 
 	protected $scripts_printed  = FALSE;
 	protected $scripts_nojquery = array();
@@ -45,19 +47,6 @@ class ModuleCore extends Base
 		if ( wp_installing() )
 			throw new Exception( 'Not while WP is Installing!' );
 
-		if ( ! is_admin() && ! $this->front )
-			throw new Exception( 'Not on Frontend!' );
-
-		if ( ! is_null( $this->user ) && is_multisite() ) {
-			if ( is_user_admin() ) {
-				if ( FALSE === $this->user )
-					throw new Exception( 'Not on User Admin!' );
-			} else {
-				if ( TRUE === $this->user )
-					throw new Exception( 'Only on User Admin!' );
-			}
-		}
-
 		if ( ! is_null( $this->dev ) ) {
 			if ( WordPress::isDev() ) {
 				if ( FALSE === $this->dev )
@@ -75,6 +64,39 @@ class ModuleCore extends Base
 			} else {
 				if ( TRUE === $this->cli )
 					throw new Exception( 'Only on CLI!' );
+			}
+		}
+
+		if ( ! is_null( $this->xmlrpc ) ) {
+			if ( WordPress::isXMLRPC() ) {
+				if ( FALSE === $this->xmlrpc )
+					throw new Exception( 'Not on XML-RPC!' );
+			} else {
+				if ( TRUE === $this->xmlrpc )
+					throw new Exception( 'Only on XML-RPC!' );
+			}
+		}
+
+		if ( ! is_null( $this->iframe ) ) {
+			if ( WordPress::isIFrame() ) {
+				if ( FALSE === $this->iframe )
+					throw new Exception( 'Not on iFrame!' );
+			} else {
+				if ( TRUE === $this->iframe )
+					throw new Exception( 'Only on iFrame!' );
+			}
+		}
+
+		if ( ! is_admin() && ! $this->front )
+			throw new Exception( 'Not on Frontend!' );
+
+		if ( ! is_null( $this->user ) && is_multisite() ) {
+			if ( is_user_admin() ) {
+				if ( FALSE === $this->user )
+					throw new Exception( 'Not on User Admin!' );
+			} else {
+				if ( TRUE === $this->user )
+					throw new Exception( 'Only on User Admin!' );
 			}
 		}
 
