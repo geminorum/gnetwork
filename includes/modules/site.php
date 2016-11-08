@@ -9,8 +9,18 @@ class Site extends ModuleCore
 
 	protected function setup_actions()
 	{
-		if ( $this->options['page_signup'] && ! is_admin() )
-			add_action( 'before_signup_header', array( $this, 'before_signup_header' ), 1 );
+		if ( is_admin() ) {
+
+			if ( ! $this->options['user_locale'] ) {
+				$this->filter( 'admin_body_class' );
+				$this->filter( 'insert_user_meta', 3, 8 );
+			}
+
+		} else {
+
+			if ( $this->options['page_signup'] )
+				$this->action( 'before_signup_header', 0, 1 );
+		}
 
 		if ( $this->options['contact_methods'] )
 			$this->filter( 'user_contactmethods', 2 );
@@ -30,6 +40,7 @@ class Site extends ModuleCore
 			'admin_locale'    => 'en_US',
 			'page_signup'     => '0',
 			'contact_methods' => '1',
+			'user_locale'     => '0',
 		);
 	}
 
@@ -48,7 +59,7 @@ class Site extends ModuleCore
 					'field'       => 'admin_locale',
 					'type'        => 'select',
 					'title'       => _x( 'Network Language', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Despite of the site language, always display network admin in this locale', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Network admin language, despite of the site locale', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => 'en_US',
 					'values'      => Arraay::sameKey( Locale::available() ),
 				),
@@ -60,7 +71,7 @@ class Site extends ModuleCore
 				'field'       => 'page_signup',
 				'type'        => 'page',
 				'title'       => _x( 'Page for Signup', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
-				'description' => _x( 'Redirects signups into this page, if registration disabled', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Redirects signups into this page, if registration <strong>disabled</strong>', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
 				'default'     => '0',
 				'exclude'     => $exclude,
 				'after'       => Settings::fieldAfterIcon( Settings::getNewPostTypeLink( 'page' ) ),
@@ -73,6 +84,12 @@ class Site extends ModuleCore
 				'title'       => _x( 'Contact Methods', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
 				'description' => _x( 'Adds extra contact methods to user profiles', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
 				'default'     => '1',
+			),
+			array(
+				'field'       => 'user_locale',
+				'title'       => _x( 'User Language', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'User admin language switcher', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+				'after'       => Settings::fieldAfterIcon( Settings::getMoreInfoIcon( 'https://core.trac.wordpress.org/ticket/29783' ) ),
 			),
 		);
 
@@ -92,5 +109,20 @@ class Site extends ModuleCore
 			'twitter'    => _x( 'Twitter', 'Modules: Site: User Contact Method', GNETWORK_TEXTDOMAIN ),
 			'mobile'     => _x( 'Mobile Phone', 'Modules: Site: User Contact Method', GNETWORK_TEXTDOMAIN ),
 		) );
+	}
+
+	public function admin_body_class( $classes )
+	{
+		return $classes.' hide-userlocale-option';
+	}
+
+	public function insert_user_meta( $meta, $user, $update )
+	{
+		if ( $update )
+			delete_user_meta( $user->ID, 'locale' );
+
+		unset( $meta['locale'] );
+
+		return $meta;
 	}
 }
