@@ -61,6 +61,38 @@ class AdminBar extends ModuleCore
 		}
 	}
 
+	public function add_menus()
+	{
+		// user related, aligned right
+		add_action( 'admin_bar_menu', 'wp_admin_bar_my_account_menu', 0 );
+		add_action( 'admin_bar_menu', array( $this, 'wp_admin_bar_search_menu' ), 4 );
+		add_action( 'admin_bar_menu', 'wp_admin_bar_my_account_item', 7 );
+
+		// site related
+		add_action( 'admin_bar_menu', 'wp_admin_bar_sidebar_toggle', 0 );
+		add_action( 'admin_bar_menu', array( $this, 'wp_admin_bar_wp_menu' ), 10 );
+
+		if ( GNETWORK_NETWORK_EXTRAMENU && current_user_can( GNETWORK_NETWORK_EXTRAMENU_CAP ) )
+			add_action( 'admin_bar_menu', array( $this, 'wp_admin_bar_extra_menu' ), 10 );
+
+		add_action( 'admin_bar_menu', array( $this, 'wp_admin_bar_my_sites_menu' ), 25 );
+
+		add_action( 'admin_bar_menu', 'wp_admin_bar_site_menu', 30 );
+		add_action( 'admin_bar_menu', 'wp_admin_bar_customize_menu', 40 );
+		add_action( 'admin_bar_menu', 'wp_admin_bar_updates_menu', 50 );
+
+		// content related
+		if ( ! is_network_admin() && ! is_user_admin() ) {
+			add_action( 'admin_bar_menu', 'wp_admin_bar_comments_menu', 60 );
+			add_action( 'admin_bar_menu', 'wp_admin_bar_new_content_menu', 70 );
+		}
+
+		add_action( 'admin_bar_menu', 'wp_admin_bar_edit_menu', 80 );
+		add_action( 'admin_bar_menu', array( $this, 'wp_admin_bar_shortlink_menu' ), 90 );
+
+		add_action( 'admin_bar_menu', 'wp_admin_bar_add_secondary_groups', 200 );
+	}
+
 	public function show_adminbar()
 	{
 		if ( ! is_null( $this->show_adminbar ) )
@@ -303,7 +335,7 @@ class AdminBar extends ModuleCore
 		return FALSE;
 	}
 
-	public static function addSearchMenu( $wp_admin_bar )
+	public function wp_admin_bar_search_menu( $wp_admin_bar )
 	{
 		if ( is_admin() )
 			return;
@@ -325,7 +357,7 @@ class AdminBar extends ModuleCore
 		) );
 	}
 
-	public static function addShortLinkMenu( $wp_admin_bar )
+	public function wp_admin_bar_shortlink_menu( $wp_admin_bar )
 	{
 		if ( is_admin() || ! is_singular() )
 			return;
@@ -344,7 +376,7 @@ class AdminBar extends ModuleCore
 		) );
 	}
 
-	public static function addMySites( $wp_admin_bar )
+	public function wp_admin_bar_my_sites_menu( $wp_admin_bar )
 	{
 		if ( ! is_user_logged_in() || ! is_multisite() )
 			return;
@@ -533,7 +565,7 @@ class AdminBar extends ModuleCore
 		return $blogs;
 	}
 
-	public static function addNetworkMenu( &$wp_admin_bar )
+	public function wp_admin_bar_wp_menu( $wp_admin_bar )
 	{
 		// custom menu by filter, it's better 'cause there are no default wp menu.
 		if ( apply_filters( 'gnetwork_adminbar_custom', FALSE ) ) {
@@ -569,7 +601,7 @@ class AdminBar extends ModuleCore
 	{
 		$wp_admin_bar->add_menu( array(
 			'id'    => $id,
-			'title' => $title,
+			'title' => $title.'<span class="screen-reader-text">'.GNETWORK_NAME.'</span>',
 			'href'  => GNETWORK_BASE,
 		) );
 	}
@@ -595,7 +627,7 @@ class AdminBar extends ModuleCore
 		}
 	}
 
-	public static function addExtraMenu( $wp_admin_bar )
+	public function wp_admin_bar_extra_menu( $wp_admin_bar )
 	{
 		$menu = self::getNetworkMenu( GNETWORK_NETWORK_EXTRAMENU );
 
@@ -636,38 +668,9 @@ function wp_admin_bar_class( $class ) {
 
 	class WP_Admin_Bar extends \WP_Admin_Bar
 	{
-
 		public function add_menus()
 		{
-			// user related, aligned right
-			add_action( 'admin_bar_menu', 'wp_admin_bar_my_account_menu', 0 );
-			add_action( 'admin_bar_menu', array( __NAMESPACE__.'\\AdminBar', 'addSearchMenu' ), 4 );
-			add_action( 'admin_bar_menu', 'wp_admin_bar_my_account_item', 7 );
-
-			// site related
-			add_action( 'admin_bar_menu', 'wp_admin_bar_sidebar_toggle', 0 );
-			add_action( 'admin_bar_menu', array( __NAMESPACE__.'\\AdminBar', 'addNetworkMenu' ), 10 );
-
-			if ( GNETWORK_NETWORK_EXTRAMENU && current_user_can( GNETWORK_NETWORK_EXTRAMENU_CAP ) )
-				add_action( 'admin_bar_menu', array( __NAMESPACE__.'\\AdminBar', 'addExtraMenu' ), 10 );
-
-			add_action( 'admin_bar_menu', array( __NAMESPACE__.'\\AdminBar', 'addMySites' ), 25 );
-
-			add_action( 'admin_bar_menu', 'wp_admin_bar_site_menu', 30 );
-			add_action( 'admin_bar_menu', 'wp_admin_bar_customize_menu', 40 );
-			add_action( 'admin_bar_menu', 'wp_admin_bar_updates_menu', 50 );
-
-			// content related
-			if ( ! is_network_admin() && ! is_user_admin() ) {
-				add_action( 'admin_bar_menu', 'wp_admin_bar_comments_menu', 60 );
-				add_action( 'admin_bar_menu', 'wp_admin_bar_new_content_menu', 70 );
-			}
-
-			add_action( 'admin_bar_menu', 'wp_admin_bar_edit_menu', 80 );
-			add_action( 'admin_bar_menu', array( __NAMESPACE__.'\\AdminBar', 'addShortLinkMenu' ), 90 );
-
-			add_action( 'admin_bar_menu', 'wp_admin_bar_add_secondary_groups', 200 );
-
+			gNetwork()->adminbar->add_menus();
 			do_action( 'add_admin_bar_menus' );
 		}
 	}
