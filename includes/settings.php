@@ -87,6 +87,37 @@ class Settings extends Base
 		);
 	}
 
+	public static function messageExtra()
+	{
+		$extra = array();
+
+		if ( isset( $_REQUEST['count'] ) )
+			$extra[] = sprintf( _x( 'Count: %s', 'Settings', GNETWORK_TEXTDOMAIN ),
+				Number::format( $_REQUEST['count'] ) );
+
+		return count( $extra ) ? ' ['.Utilities::joinItems( $extra ).']' : '';
+	}
+
+	public static function error( $message, $echo = FALSE )
+	{
+		return parent::error( $message.self::messageExtra(), $echo );
+	}
+
+	public static function success( $message, $echo = FALSE )
+	{
+		return parent::success( $message.self::messageExtra(), $echo );
+	}
+
+	public static function warning( $message, $echo = FALSE )
+	{
+		return parent::warning( $message.self::messageExtra(), $echo );
+	}
+
+	public static function info( $message, $echo = FALSE )
+	{
+		return parent::info( $message.self::messageExtra(), $echo );
+	}
+
 	public static function counted( $message = NULL, $count = NULL, $class = 'updated' )
 	{
 		if ( is_null( $message ) )
