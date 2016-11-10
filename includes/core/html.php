@@ -542,9 +542,9 @@ class HTML extends Base
 		), $pagination );
 
 		$icons = array(
-			'next'     => '<span class="dashicons dashicons-redo"></span>', // &rsaquo;
-			'previous' => '<span class="dashicons dashicons-undo"></span>', // &lsaquo;
-			'refresh'  => '<span class="dashicons dashicons-image-rotate"></span>',
+			'next'     => self::getDashicon( 'redo' ), // &rsaquo;
+			'previous' => self::getDashicon( 'undo' ), // &lsaquo;
+			'refresh'  => self::getDashicon( 'image' ),
 		);
 
 		echo '<div class="base-table-navigation">';

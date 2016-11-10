@@ -169,7 +169,7 @@ class AdminBar extends ModuleCore
 
 		$wp_admin_bar->add_node( array(
 			'id'     => $parent_id,
-			'title'  => '<span class="ab-icon dashicons dashicons-performance" style="margin:2px 0 0 0;"></span>',
+			'title'  => self::getIcon( 'performance' ),
 			'parent' => 'top-secondary',
 			'href'   => $admin_url,
 		) );
@@ -367,7 +367,7 @@ class AdminBar extends ModuleCore
 
 		$wp_admin_bar->add_menu( array(
 			'id'    => 'get-shortlink',
-			'title' => '<span class="ab-icon dashicons dashicons-admin-links" style="margin:2px 0 0 0;"></span>',
+			'title' => self::getIcon( 'admin-links' ),
 			'href'  => $short,
 			'meta'  => array(
 				'html'  => '<input class="shortlink-input" style="margin:2px 0 0 0;" type="text" readonly="readonly" value="'.esc_attr( $short ).'" />',
@@ -636,9 +636,9 @@ class AdminBar extends ModuleCore
 			$parent = 'gnetwork-extramenu';
 
 			$wp_admin_bar->add_node( array(
-				'id'     => $parent,
-				'title'  => '<span class="ab-icon dashicons dashicons-menu" style="margin:2px 0 0 0;"></span>',
 				// 'parent' => 'top-secondary', // off on the right side
+				'id'     => $parent,
+				'title'  => self::getIcon( 'menu' ),
 				'href'   => FALSE,
 			) );
 
@@ -661,6 +661,18 @@ class AdminBar extends ModuleCore
 				}
 			}
 		}
+	}
+
+	public static function getIcon( $icon, $style = 'margin:2px 0 0 0;' )
+	{
+		return HTML::tag( 'span', array(
+			'class' => array(
+				'ab-icon',
+				'dashicons',
+				'dashicons-'.$icon,
+			),
+			'style' => $style,
+		), NULL );
 	}
 }
 
