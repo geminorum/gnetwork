@@ -326,7 +326,7 @@ class ShortCodes extends ModuleCore
 				} else {
 
 					$title = get_the_title( $post->ID );
-					$order = $args['order_before'] ? number_format_i18n( $args['order_zeroise'] ? zeroise( $post->menu_order, $args['order_zeroise'] ) : $post->menu_order ).$args['order_sep'] : '';
+					$order = $args['order_before'] ? Number::format( $args['order_zeroise'] ? zeroise( $post->menu_order, $args['order_zeroise'] ) : $post->menu_order ).$args['order_sep'] : '';
 
 					if ( 'publish' == $post->post_status && $args['li_link'] )
 						$list = $args['li_before'].HTML::tag( 'a', array(
@@ -994,7 +994,7 @@ class ShortCodes extends ModuleCore
 			'data-toggle' => 'tooltip',
 			'href'        => '#citenote-'.$key,
 			'title'       => $title,
-		), '&#8207;['.( $args['format_number'] ? number_format_i18n( $key ) : $key ).']&#8206;' );
+		), '&#8207;['.( $args['format_number'] ? Number::format( $key ) : $key ).']&#8206;' );
 
 		return '<sup class="ref reference '.$args['class'].'" id="citeref-'.$key.'">'.$html.'</sup>';
 	}
@@ -1031,7 +1031,7 @@ class ShortCodes extends ModuleCore
 				continue;
 
 			$item  = '<span class="ref-number">';
-			$item .= ( $args['number'] ? ( $args['format_number'] ? number_format_i18n( $key ) : $key ).$args['after_number'] : '' );
+			$item .= ( $args['number'] ? ( $args['format_number'] ? Number::format( $key ) : $key ).$args['after_number'] : '' );
 
 			$item .= HTML::tag( 'a', array(
 				'class'       => 'cite-scroll',
@@ -1105,7 +1105,7 @@ class ShortCodes extends ModuleCore
 		if ( FALSE === $args['id'] )
 			return NULL;
 
-		return '<sup id="citeref-'.$args['id'].'-m" class="reference '.$args['class'].'" title="'.trim( strip_tags( $args['title'] ) ).'" ><a href="#citenote-'.$args['id'].'-m" class="cite-scroll">['.( $args['format_number'] ? number_format_i18n( $args['id'] ) : $args['id'] ).']</a></sup>';
+		return '<sup id="citeref-'.$args['id'].'-m" class="reference '.$args['class'].'" title="'.trim( strip_tags( $args['title'] ) ).'" ><a href="#citenote-'.$args['id'].'-m" class="cite-scroll">['.( $args['format_number'] ? Number::format( $args['id'] ) : $args['id'] ).']</a></sup>';
 	}
 
 	// FIXME: check this!
@@ -1142,7 +1142,7 @@ class ShortCodes extends ModuleCore
 
 		Utilities::enqueueScript( 'front.cite' );
 
-		return '<span>'.( $args['format_number'] ? number_format_i18n( $args['id'] ) : $args['id'] ).$args['after_number']
+		return '<span>'.( $args['format_number'] ? Number::format( $args['id'] ) : $args['id'] ).$args['after_number']
 				.'<span class="ref-backlink"><a href="#citeref-'.$args['id'].'-m" class="cite-scroll">'.$args['back']
 				.'</a></span><span class="ref-text"><span class="citation" id="citenote-'.$args['id'].'-m">&nbsp;</span></span></span>';
 	}
