@@ -150,40 +150,40 @@ class Cleanup extends ModuleCore
 			$this->check_referer( $sub );
 
 			if ( isset( $_POST['transient_purge'] ) )
-				$message = $this->purge_transient_data( FALSE, TRUE ) ? 'purged' : 'error';
+				$message = $this->purge_transient_data( FALSE, TRUE );
 
 			else if ( isset( $_POST['transient_purge_all'] ) )
-				$message = $this->purge_transient_data( FALSE, FALSE ) ? 'purged' : 'error';
+				$message = $this->purge_transient_data( FALSE, FALSE );
 
 			else if ( isset( $_POST['transient_purge_site'] ) )
-				$message = $this->purge_transient_data( TRUE, TRUE ) ? 'purged' : 'error';
+				$message = $this->purge_transient_data( TRUE, TRUE );
 
 			else if ( isset( $_POST['transient_purge_site_all'] ) )
-				$message = $this->purge_transient_data( TRUE, FALSE ) ? 'purged' : 'error';
+				$message = $this->purge_transient_data( TRUE, FALSE );
 
 			else if ( isset( $_POST['users_defaultmeta'] ) )
-				$message = $this->users_defaultmeta() ? 'purged' : 'error';
+				$message = $this->users_defaultmeta();
 
 			else if ( isset( $_POST['users_contactmethods'] ) )
-				$message = $this->users_contactmethods() ? 'purged' : 'error';
+				$message = $this->users_contactmethods();
 
 			else if ( isset( $_POST['postmeta_editdata'] ) )
-				$message = $this->postmeta_editdata() ? 'purged' : 'error';
+				$message = $this->postmeta_editdata();
 
 			else if ( isset( $_POST['postmeta_oldslug'] ) )
-				$message = $this->postmeta_oldslug() ? 'purged' : 'error';
+				$message = $this->postmeta_oldslug();
 
 			else if ( isset( $_POST['thumbnail_orphanedmeta'] ) )
-				$message = $this->thumbnail_orphanedmeta() ? 'purged' : 'error';
+				$message = $this->thumbnail_orphanedmeta();
 
 			else if ( isset( $_POST['comments_orphanedmeta'] ) )
-				$message = $this->comments_orphanedmeta() ? 'optimized' : 'error';
+				$message = $this->comments_orphanedmeta();
 
 			else if ( isset( $_POST['comments_agentfield'] ) )
-				$message = $this->comments_agentfield() ? 'purged' : 'error';
+				$message = $this->comments_agentfield();
 
 			else if ( isset( $_POST['comments_akismetmeta'] ) )
-				$message = $this->comments_akismetmeta() ? 'purged' : 'error';
+				$message = $this->comments_akismetmeta();
 
 			else
 				$message = 'huh';
@@ -221,10 +221,12 @@ class Cleanup extends ModuleCore
 	// http://wordpress.stackexchange.com/a/6652
 	private function purge_transient_data( $site = FALSE, $time = FALSE )
 	{
-		global $wpdb, $_wp_using_ext_object_cache;
+		if ( wp_using_ext_object_cache() )
+			return 'wrong';
 
-		if ( $_wp_using_ext_object_cache )
-			return FALSE;
+		global $wpdb;
+
+		$count = 0;
 
 		if ( $site ) {
 			$table = $wpdb->sitemeta;
@@ -245,18 +247,29 @@ class Cleanup extends ModuleCore
 			$query .= " AND {$val} < {$timestamp};";
 		}
 
-		foreach ( $wpdb->get_col( $query ) as $transient )
-			if ( $site )
-				delete_site_transient( str_replace( '_site_transient_timeout_', '', $transient ) );
-			else
-				delete_transient( str_replace( '_transient_timeout_', '', $transient ) );
+		foreach ( $wpdb->get_col( $query ) as $transient ) {
+			if ( $site ) {
 
-		return TRUE;
+				if ( delete_site_transient( str_replace( '_site_transient_timeout_', '', $transient ) ) )
+					$count++;
+			} else {
+
+				if ( delete_transient( str_replace( '_transient_timeout_', '', $transient ) ) )
+					$count++;
+			}
+		}
+
+		return $count ? array(
+			'message' => 'purged',
+			'count'   => $count,
+		) : 'nochange';
 	}
 
 	private function users_defaultmeta()
 	{
 		global $wpdb;
+
+		$count = 0;
 
 		$meta_keys = array(
 			'nickname'             => '',
@@ -272,7 +285,7 @@ class Cleanup extends ModuleCore
 		);
 
 		foreach ( $meta_keys as $key => $val )
-			$wpdb->query( $wpdb->prepare( "
+			$count += $wpdb->query( $wpdb->prepare( "
 				DELETE FROM {$wpdb->usermeta}
 				WHERE meta_key = '%s'
 				AND meta_value = '%s'
@@ -280,12 +293,17 @@ class Cleanup extends ModuleCore
 
 		$wpdb->query( "OPTIMIZE TABLE {$wpdb->usermeta}" );
 
-		return TRUE;
+		return $count ? array(
+			'message' => 'purged',
+			'count'   => $count,
+		) : 'optimized';
 	}
 
 	private function users_contactmethods()
 	{
 		global $wpdb;
+
+		$count = 0;
 
 		// old wp contact methods
 		$meta_keys = array_merge( wp_get_user_contact_methods(), array(
@@ -294,7 +312,7 @@ class Cleanup extends ModuleCore
 		) );
 
 		foreach ( $meta_keys as $key => $val )
-			$wpdb->query( $wpdb->prepare( "
+			$count += $wpdb->query( $wpdb->prepare( "
 				DELETE FROM {$wpdb->usermeta}
 				WHERE meta_key = '%s'
 				AND meta_value = ''
@@ -302,74 +320,97 @@ class Cleanup extends ModuleCore
 
 		$wpdb->query( "OPTIMIZE TABLE {$wpdb->usermeta}" );
 
-		return TRUE;
+		return $count ? array(
+			'message' => 'purged',
+			'count'   => $count,
+		) : 'optimized';
 	}
 
 	private function comments_orphanedmeta()
 	{
 		global $wpdb;
 
-		$wpdb->query( "DELETE FROM {$wpdb->commentmeta} WHERE comment_id NOT IN (SELECT comment_id FROM {$wpdb->comments})" );
+		$count = $wpdb->query( "DELETE FROM {$wpdb->commentmeta} WHERE comment_id NOT IN (SELECT comment_id FROM {$wpdb->comments})" );
 
 		$wpdb->query( "OPTIMIZE TABLE {$wpdb->commentmeta}" );
 
-		return TRUE;
+		return $count ? array(
+			'message' => 'purged',
+			'count'   => $count,
+		) : 'optimized';
 	}
 
 	private function comments_agentfield()
 	{
 		global $wpdb;
 
-		$wpdb->query( "UPDATE {$wpdb->comments} SET comment_agent = ''" );
+		$count = $wpdb->query( "UPDATE {$wpdb->comments} SET comment_agent = ''" );
 
 		$wpdb->query( "OPTIMIZE TABLE {$wpdb->comments}" );
 
-		return TRUE;
+		return $count ? array(
+			'message' => 'purged',
+			'count'   => $count,
+		) : 'optimized';
 	}
 
 	private function comments_akismetmeta()
 	{
 		global $wpdb;
 
-		// $wpdb->query( "DELETE FROM {$wpdb->commentmeta} WHERE 'meta_key' IN ( 'akismet_result', 'akismet_history', 'akismet_user', 'akismet_user_result' ) " );
-		$wpdb->query( "DELETE FROM {$wpdb->commentmeta} WHERE meta_key LIKE '%akismet%'" );
+		// $count = $wpdb->query( "DELETE FROM {$wpdb->commentmeta} WHERE 'meta_key' IN ( 'akismet_result', 'akismet_history', 'akismet_user', 'akismet_user_result' ) " );
+		$count = $wpdb->query( "DELETE FROM {$wpdb->commentmeta} WHERE meta_key LIKE '%akismet%'" );
 
 		$wpdb->query( "OPTIMIZE TABLE {$wpdb->commentmeta}" );
 
-		return TRUE;
+		return $count ? array(
+			'message' => 'purged',
+			'count'   => $count,
+		) : 'optimized';
 	}
 
 	private function postmeta_editdata()
 	{
 		global $wpdb;
 
-		$wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = '_edit_last'" );
-		$wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = '_edit_lock'" );
+		$count = 0;
+
+		$count += $wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = '_edit_last'" );
+		$count += $wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = '_edit_lock'" );
 
 		$wpdb->query( "OPTIMIZE TABLE {$wpdb->postmeta}" );
 
-		return TRUE;
+		return $count ? array(
+			'message' => 'purged',
+			'count'   => $count,
+		) : 'optimized';
 	}
 
 	private function postmeta_oldslug()
 	{
 		global $wpdb;
 
-		$wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = '_wp_old_slug'" );
+		$count = $wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = '_wp_old_slug'" );
 
 		$wpdb->query( "OPTIMIZE TABLE {$wpdb->postmeta}" );
 
-		return TRUE;
+		return $count ? array(
+			'message' => 'purged',
+			'count'   => $count,
+		) : 'optimized';
 	}
 
 	private function thumbnail_orphanedmeta()
 	{
 		global $wpdb;
 
-		$wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = '_thumbnail_id' AND meta_value NOT IN (SELECT ID FROM {$wpdb->posts})" );
+		$count = $wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = '_thumbnail_id' AND meta_value NOT IN (SELECT ID FROM {$wpdb->posts})" );
 
 		$wpdb->query( "OPTIMIZE TABLE {$wpdb->postmeta}" );
 
-		return TRUE;
+		return $count ? array(
+			'message' => 'purged',
+			'count'   => $count,
+		) : 'optimized';
 	}
 }
