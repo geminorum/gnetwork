@@ -289,7 +289,7 @@ class BuddyPress extends ModuleCore
 
 		bp_core_add_message( sprintf(
 			_x( 'Please complete your profile: %s', 'Modules: BuddyPress', GNETWORK_TEXTDOMAIN ),
-			Utilities::join_items( $fields ) ),
+			Utilities::joinItems( $fields ) ),
 		'warning' );
 	}
 

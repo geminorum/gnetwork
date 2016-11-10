@@ -113,7 +113,7 @@ class Utilities extends Base
 		echo $html;
 	}
 
-	public static function join_items( $items )
+	public static function joinItems( $items )
 	{
 		return
 			_x( '&rdquo;', 'Utilities: Join Items Helper', GNETWORK_TEXTDOMAIN )
