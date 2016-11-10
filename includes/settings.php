@@ -80,7 +80,7 @@ class Settings extends Base
 			'cleaned'   => self::counted( _x( '%s cleaned!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
 			'purged'    => self::success( _x( 'Data purged.', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
 			'changed'   => self::counted( _x( '%s Items(s) Changed', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
-			'nochange'  => self::error( _x( 'No Item Changed', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
+			'nochange'  => self::warning( _x( 'No Item Changed', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
 			'error'     => self::error( _x( 'Error while settings save.', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
 			'wrong'     => self::error( _x( 'Something\'s wrong!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
 			'huh'       => self::error( self::huh( empty( $_REQUEST['huh'] ) ? NULL : $_REQUEST['huh'] ) ),
@@ -92,10 +92,10 @@ class Settings extends Base
 		$extra = array();
 
 		if ( isset( $_REQUEST['count'] ) )
-			$extra[] = sprintf( _x( 'Count: %s', 'Settings', GNETWORK_TEXTDOMAIN ),
+			$extra[] = sprintf( _x( '%s Counted!', 'Settings', GNETWORK_TEXTDOMAIN ),
 				Number::format( $_REQUEST['count'] ) );
 
-		return count( $extra ) ? ' ['.Utilities::joinItems( $extra ).']' : '';
+		return count( $extra ) ? ' ('.implode( ', ', $extra ).')' : '';
 	}
 
 	public static function error( $message, $echo = FALSE )
@@ -154,7 +154,7 @@ class Settings extends Base
 			else
 				self::warning( $_GET['message'], TRUE );
 
-			$_SERVER['REQUEST_URI'] = remove_query_arg( 'message', $_SERVER['REQUEST_URI'] );
+			$_SERVER['REQUEST_URI'] = remove_query_arg( array( 'message', 'count', 'limit' ), $_SERVER['REQUEST_URI'] );
 		}
 	}
 
