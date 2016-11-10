@@ -294,7 +294,7 @@ class Mail extends ModuleCore
 	{
 		if ( 0 === strpos( $email, 'wordpress@' ) )
 			$email = $this->get_from_email( $email );
-		
+
 		return $this->filters( 'from_email', $email );
 	}
 
@@ -628,7 +628,7 @@ class Mail extends ModuleCore
 		), $logs, array(
 			'navigation' => 'before',
 			'search'     => 'before',
-			'title'      => HTML::tag( 'h3', sprintf( _x( 'Total %s Email Logs', 'Modules: Mail', GNETWORK_TEXTDOMAIN ), number_format_i18n( $pagination['total'] ) ) ),
+			'title'      => HTML::tag( 'h3', sprintf( _x( 'Total %s Email Logs', 'Modules: Mail', GNETWORK_TEXTDOMAIN ), Number::format( $pagination['total'] ) ) ),
 			'empty'      => self::warning( _x( 'No Logs!', 'Modules: Mail', GNETWORK_TEXTDOMAIN ) ),
 			'pagination' => $pagination,
 		) );

@@ -126,7 +126,7 @@ class Settings extends Base
 		if ( is_null( $count ) )
 			$count = isset( $_REQUEST['count'] ) ? $_REQUEST['count'] : 0;
 
-		return HTML::notice( sprintf( $message, number_format_i18n( $count ) ), $class.' fade', FALSE );
+		return HTML::notice( sprintf( $message, Number::format( $count ) ), $class.' fade', FALSE );
 	}
 
 	public static function cheatin( $message = NULL )

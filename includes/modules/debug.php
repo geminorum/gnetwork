@@ -85,7 +85,7 @@ class Debug extends ModuleCore
 				$length = self::req( 'length', 300 );
 
 				echo '<h3 class="error-box-header">';
-					printf( _x( 'The Last %s Errors, in reverse order', 'Modules: Debug: Error Box', GNETWORK_TEXTDOMAIN ), number_format_i18n( count( $errors ) ) );
+					printf( _x( 'The Last %s Errors, in reverse order', 'Modules: Debug: Error Box', GNETWORK_TEXTDOMAIN ), Number::format( count( $errors ) ) );
 
 				echo '</h3><div class="error-box"><ol>';
 

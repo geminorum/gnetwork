@@ -538,7 +538,7 @@ class Comments extends ModuleCore
 
 		echo '<ul>';
 		foreach ( $map as $key => $string )
-			echo '<li>'.sprintf( $string, number_format_i18n( $comments->{$key} ) ).'</li>';
+			echo '<li>'.sprintf( $string, Number::format( $comments->{$key} ) ).'</li>';
 		echo '</ul>';
 	}
 

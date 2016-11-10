@@ -553,8 +553,8 @@ class HTML extends Base
 			echo '<input type="number" class="small-text -limit" name="limit" value="'.$args['limit'].'" />';
 
 			vprintf( '<span class="-total-pages">%s / %s</span>', array(
-				number_format_i18n( $args['total'] ),
-				number_format_i18n( $args['pages'] ),
+				Number::format( $args['total'] ),
+				Number::format( $args['pages'] ),
 			) );
 
 			vprintf( '<span class="-next-previous">%s %s %s</span>', array(

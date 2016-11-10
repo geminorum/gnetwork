@@ -196,7 +196,7 @@ JS;
 		echo '<p class="sum">';
 
 			echo '<label>'._x( 'Prove your humanity:', 'Modules: Login', GNETWORK_TEXTDOMAIN ).'</label>';
-			echo '&nbsp;'.number_format_i18n( $one ).'&nbsp;+&nbsp;'.number_format_i18n( $two ).'&nbsp;=&nbsp; ';
+			echo '&nbsp;'.Number::format( $one ).'&nbsp;+&nbsp;'.Number::format( $two ).'&nbsp;=&nbsp; ';
 
 			echo HTML::tag( 'input', array(
 				'type'  => 'number',
