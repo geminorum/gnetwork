@@ -133,12 +133,13 @@ class ShortCodes extends ModuleCore
 			return $content;
 
 		$children = wp_list_pages( array(
-			'child_of'    => $args['id'],
-			'post_type'   => $args['type'],
-			'echo'        => FALSE,
-			'depth'       => 1,
-			'title_li'    => '',
-			'sort_column' => 'menu_order, post_title',
+			'child_of'     => $args['id'],
+			'post_type'    => $args['type'],
+			'echo'         => FALSE,
+			'depth'        => 1,
+			'title_li'     => '',
+			'item_spacing' => 'discard',
+			'sort_column'  => 'menu_order, post_title',
 		) );
 
 		if ( ! $children )
@@ -178,13 +179,14 @@ class ShortCodes extends ModuleCore
 			$args['ex'] = get_queried_object_id();
 
 		$siblings = wp_list_pages( array(
-			'child_of'    => $args['parent'],
-			'post_type'   => $args['type'],
-			'exclude'     => $args['ex'],
-			'echo'        => FALSE,
-			'depth'       => 1,
-			'title_li'    => '',
-			'sort_column' => 'menu_order, post_title',
+			'child_of'     => $args['parent'],
+			'post_type'    => $args['type'],
+			'exclude'      => $args['ex'],
+			'echo'         => FALSE,
+			'depth'        => 1,
+			'title_li'     => '',
+			'item_spacing' => 'discard',
+			'sort_column'  => 'menu_order, post_title',
 		) );
 
 		if ( ! $siblings )
