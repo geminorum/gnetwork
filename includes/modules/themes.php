@@ -7,6 +7,8 @@ class Themes extends ModuleCore
 
 	protected $key     = 'themes';
 	protected $network = FALSE;
+	protected $xmlrpc  = FALSE;
+	protected $iframe  = FALSE;
 
 	private $rtl   = NULL;
 	private $theme = NULL;
@@ -264,6 +266,20 @@ class Themes extends ModuleCore
 				Themes::enqueueStyle( 'easy-docs' );
 			}, 20 );
 
+		} else if ( $this->isTheme( 'rams' ) ) {
+			// HOME: http://www.andersnoren.se/themes/rams/
+			// DEMO: http://andersnoren.se/themes/rams/
+
+			if ( $this->rtl ) {
+				add_action( 'wp_enqueue_scripts', function(){
+					Themes::enqueueStyle( 'rams', TRUE );
+				}, 20 );
+
+				add_filter( 'mce_css', function( $url ){
+					return Themes::appendMCECSS( $url, 'rams' );
+				} );
+			}
+
 		} else if ( $this->isTheme( 'didi-lite' ) ) {
 
 			if ( $this->rtl ) {
@@ -275,6 +291,20 @@ class Themes extends ModuleCore
 					return Themes::appendMCECSS( $url, 'didi-lite' );
 				} );
 			}
+
+		} else if ( $this->isTheme( 'untitled' ) ) {
+
+			if ( $this->rtl ) {
+				add_action( 'wp_enqueue_scripts', function(){
+					Themes::enqueueStyle( 'untitled', TRUE );
+				}, 20 );
+
+				add_filter( 'mce_css', function( $url ){
+					return Themes::appendMCECSS( $url, 'untitled' );
+				} );
+			}
+
+			add_action( 'untitled_credits', array( $this, 'untitled_credits' ) );
 
 		} else if ( $this->isTheme( 'twentytwelve' ) ) {
 
@@ -293,7 +323,6 @@ class Themes extends ModuleCore
 			}
 
 			add_action( 'twentyfifteen_credits', array( $this, 'twentytwelve_credits' ) );
-
 		}
 	}
 
@@ -355,6 +384,10 @@ class Themes extends ModuleCore
 				$after = '<div class="gnetwork-wrap-actions content-after">'.$after.'</div>';
 		}
 
+		// global $pages, $page;
+		// $after .= 'page:'.$page;
+		// $after .= self::dump( $pages, TRUE, FALSE );
+
 		return $before.$content.$after;
 	}
 
@@ -385,7 +418,7 @@ class Themes extends ModuleCore
 	public static function postedOn( $before = '', $after = '', $byline = TRUE )
 	{
 		$format = '<a href="%1$s" title="%2$s" rel="bookmark">'
-			.'<time class="entry-date" datetime="%3$s">%4$s</time></a>';
+			.'<time class="entry-date published" datetime="%3$s">%4$s</time></a>';
 
 		echo $before;
 
@@ -419,11 +452,6 @@ class Themes extends ModuleCore
 		return $classes;
 	}
 
-	public function publish_credits()
-	{
-		echo '<br />'.gnetwork_credits( $this->rtl, FALSE );
-	}
-
 	public static function appendMCECSS( $url, $theme )
 	{
 		$file = is_rtl() ? 'editor.'.$theme.'-rtl.css' : 'editor.'.$theme.'.css';
@@ -439,10 +467,24 @@ class Themes extends ModuleCore
 		wp_enqueue_style( 'gnetwork-themes-'.$theme, GNETWORK_URL.'assets/css/themes.'.$theme.( $rtl ? '-rtl' : '' ).'.css', array(), GNETWORK_VERSION );
 	}
 
+	public function publish_credits()
+	{
+		echo '<br />'.gnetwork_credits( $this->rtl, FALSE );
+	}
+
 	public function prologue_poweredby_link( $html )
 	{
 		return '<span class="alignleft"'.( $this->rtl ? 'style="direction:rtl !important;"' : 'style="padding-right:5px;"' ).'>'
 			.gnetwork_credits( $this->rtl, FALSE ).'</span>';
+	}
+
+	// @REF: http://stackoverflow.com/a/15196985/4864081
+	public function untitled_credits()
+	{
+		echo '<style>#colophon .site-info {visibility:collapse;}</style>'
+			.'<span style="visibility:visible;">'
+				.gnetwork_credits( $this->rtl, FALSE )
+			.'</span>';
 	}
 
 	public function twentytwelve_credits()
