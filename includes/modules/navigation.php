@@ -248,6 +248,9 @@ class Navigation extends ModuleCore
 
 	public function wp_setup_nav_menu_item( $menu_item )
 	{
+		if ( empty( $menu_item->classes ) )
+			return $menu_item;
+
 		// we use information stored in the CSS class to determine what kind of menu item this is, and how it should be treated
 		$css_target = preg_match( '/\sgnetwork-(.*)-nav/', implode( ' ', $menu_item->classes ), $matches );
 
