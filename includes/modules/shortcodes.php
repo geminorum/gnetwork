@@ -399,13 +399,13 @@ class ShortCodes extends ModuleCore
 
 			if ( $terms = get_the_terms( $post->ID, $taxonomy->name ) ) {
 
-				$html .= '<h3>'.$taxonomy->label.'</h3><ul>';
+				$html .= '<h3>'.$taxonomy->label.'</h3><ul class="-tax">';
 
 				foreach ( $terms as $term )
-					$html .= sprintf( '<li><a href="%1$s">%2$s</a></li>',
+					$html .= vsprintf( '<li class="-term"><a href="%1$s">%2$s</a></li>', array(
 						esc_url( get_term_link( $term->slug, $taxonomy->name ) ),
-						esc_html( $term->name )
-					);
+						sanitize_term_field( 'name', $term->name, $term->term_id, $taxonomy->name, 'display' ),
+					) );
 
 				$html .= '</ul>';
 			}

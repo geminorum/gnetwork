@@ -189,7 +189,7 @@ class Restricted extends ModuleCore
 				'cap'         => 'read',
 				'field'       => 'restricted_feed_key',
 				'default'     => $feedkey ? $feedkey : _x( 'Access key not found', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
-				'field_class' => array( 'regular-text', 'code-text' ),
+				'field_class' => array( 'regular-text', 'code-text', 'rtl-placeholder' ),
 				'description' => _x( 'The key will be used on all restricted site feed URLs.', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
 				'disabled'    => TRUE,
 				'wrap'        => TRUE,

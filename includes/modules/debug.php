@@ -150,9 +150,12 @@ class Debug extends ModuleCore
 	public static function gPlugin()
 	{
 		if ( class_exists( 'gPlugin' ) ) {
+
 			$info = \gPlugin::get_info();
-			HTML::tableCode( $info[1] );
+
+			HTML::tableCode( $info[1], TRUE );
 			HTML::tableSide( $info[0] );
+
 		} else {
 			echo '<p class="description">'._x( 'No Instance of gPlugin found.', 'Modules: Debug', GNETWORK_TEXTDOMAIN ).'</p>';
 		}

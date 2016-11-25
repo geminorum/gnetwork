@@ -18,7 +18,7 @@ class Text extends Base
 		return preg_replace( '/[\r\n\t]+/', ' ', $string );
 	}
 
-	public function stripWidthHeight( $string )
+	public static function stripWidthHeight( $string )
 	{
 		return preg_replace( '/(width|height)="\d*"\s/', '', $string );
 	}
@@ -240,7 +240,7 @@ class Text extends Base
 	public static function replaceWords( $list, $line, $callback )
 	{
 		$patterns = '/(^|[^\\w\\-])('.implode( '|', array_map( 'preg_quote', $list ) ).')($|[^\\w\\-])/mi';
-		return preg_replace_callback( $patterns, function($v) use ($callback) {
+		return preg_replace_callback( $patterns, function( $v ) use ( $callback ) {
 			return $v[1].$callback($v[2]).$v[3];
 		}, $line );
 	}
