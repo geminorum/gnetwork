@@ -165,35 +165,41 @@ class Locale extends ModuleCore
 			return $gNetworkCurrentLocale = $locale;
 
 		$black_list = $this->filters( 'blacklist', array(
-			'deprecated_log'                => 'post_type',
-			'rewrite-rules-inspector'       => 'page',
-			'connection-types'              => 'page',
-			'regenerate-thumbnails'         => 'page',
-			'wpsupercache'                  => 'page',
-			'members-settings'              => 'page',
-			'roles'                         => 'page',
-			'regenerate-thumbnails'         => 'page',
-			'a8c_developer'                 => 'page',
-			'redirection.php'               => 'page', // Redirection
-			'bwp_gxs_generator'             => 'page', // BWP Google XML Sitemaps
-			'bwp_gxs_extensions'            => 'page', // BWP Google XML Sitemaps
-			'bwp_gxs_generator_advanced'    => 'page', // BWP Google XML Sitemaps
-			'bwp_gxs_stats'                 => 'page', // BWP Google XML Sitemaps
-			'limit-login-attempts'          => 'page',
-			'p3-profiler'                   => 'page',
-			'wp_aeh_errors'                 => 'page',
-			'msrtm-website.php'             => 'page', // Multisite Robots.txt Manager
-			'breadcrumb-navxt'              => 'page', // Breadcrumb NavXT
-			'themecheck'                    => 'page', // Theme Check
-			'search-regex.php'              => 'page', // Search Regex
-			'ot-theme-options'              => 'page', // OptionTree: Theme Options
-			'theme-documentation'           => 'page', // Revera Theme Documentation
-			'options-framework'             => 'page', // Revera: Theme Options
-			'domainmapping'                 => 'page', // WordPress MU Domain Mapping
-			'wp-db-backup'                  => 'page', // WP-DB-Backup // https://wordpress.org/plugins/wp-db-backup/
-			'odb_settings_page'             => 'page', // Optimize Database after Deleting Revisions // https://wordpress.org/plugins/rvg-optimize-database/
-			'rvg-optimize-database'         => 'page', // Optimize Database after Deleting Revisions // https://wordpress.org/plugins/rvg-optimize-database/
-			'github-updater'                => 'page', // [GitHub Updater](https://github.com/afragen/github-updater)
+			'deprecated_log'             => 'post_type',
+			'rewrite-rules-inspector'    => 'page',
+			'connection-types'           => 'page',
+			'regenerate-thumbnails'      => 'page',
+			'wpsupercache'               => 'page',
+			'members-settings'           => 'page',
+			'roles'                      => 'page',
+			'regenerate-thumbnails'      => 'page',
+			'a8c_developer'              => 'page',
+			'redirection.php'            => 'page', // Redirection
+			'bwp_gxs_generator'          => 'page', // BWP Google XML Sitemaps
+			'bwp_gxs_extensions'         => 'page', // BWP Google XML Sitemaps
+			'bwp_gxs_generator_advanced' => 'page', // BWP Google XML Sitemaps
+			'bwp_gxs_stats'              => 'page', // BWP Google XML Sitemaps
+			'limit-login-attempts'       => 'page',
+			'p3-profiler'                => 'page',
+			'wp_aeh_errors'              => 'page',
+			'msrtm-website.php'          => 'page', // Multisite Robots.txt Manager
+			'breadcrumb-navxt'           => 'page', // Breadcrumb NavXT
+			'themecheck'                 => 'page', // Theme Check
+			'search-regex.php'           => 'page', // Search Regex
+			'ot-theme-options'           => 'page', // OptionTree: Theme Options
+			'theme-documentation'        => 'page', // Revera Theme Documentation
+			'options-framework'          => 'page', // Revera: Theme Options
+			'domainmapping'              => 'page', // WordPress MU Domain Mapping
+			'wp-db-backup'               => 'page', // WP-DB-Backup // https://wordpress.org/plugins/wp-db-backup/
+			'odb_settings_page'          => 'page', // Optimize Database after Deleting Revisions // https://wordpress.org/plugins/rvg-optimize-database/
+			'rvg-optimize-database'      => 'page', // Optimize Database after Deleting Revisions // https://wordpress.org/plugins/rvg-optimize-database/
+			'github-updater'             => 'page', // [GitHub Updater](https://github.com/afragen/github-updater)
+			'extend_search'              => 'page', // [Search Everything](https://wordpress.org/plugins/search-everything/)
+			'revision-control'           => 'page', // [Revision Control](https://wordpress.org/plugins/revision-control/)
+			'export-user-data'           => 'page', // [Export User Data](https://wordpress.org/plugins/export-user-data/)
+			'exploit-scanner'            => 'page', // [Exploit Scanner](https://wordpress.org/plugins/exploit-scanner/)
+			'vip-scanner'                => 'page', // [VIP Scanner](https://wordpress.org/plugins/vip-scanner/)
+			'antivirus'                  => 'page', // [AntiVirus](https://wordpress.org/plugins/antivirus/)
 
 			// [AddThis Website Tools](https://wordpress.org/plugins/addthis-all/)
 			'addthis_registration'      => 'page',
@@ -210,9 +216,6 @@ class Locale extends ModuleCore
 			// [See admin changes on your WordPress site with Simple History](https://simple-history.com/)
 			'simple_history_page'               => 'page',
 			'simple_history_settings_menu_slug' => 'page',
-
-			// [Search Everything](https://wordpress.org/plugins/search-everything/)
-			'extend_search' => 'page',
 
 			// [Edit Flow](https://wordpress.org/plugins/edit-flow/)
 			'ef-settings'                    => 'page',
