@@ -70,6 +70,18 @@ class HTTP extends Base
 		return $prot.'://'.$host.$_SERVER['REQUEST_URI'];
 	}
 
+	// @SOURCE: wp_get_raw_referer()
+	public static function referer()
+	{
+		if ( ! empty( $_REQUEST['_wp_http_referer'] ) )
+			return wp_unslash( $_REQUEST['_wp_http_referer'] );
+
+		if ( ! empty( $_SERVER['HTTP_REFERER'] ) )
+			return wp_unslash( $_SERVER['HTTP_REFERER'] );
+
+		return FALSE;
+	}
+
 	public static function IP( $pad = FALSE )
 	{
 		$ip = '';
