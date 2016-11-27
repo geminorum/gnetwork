@@ -20,18 +20,16 @@ class Network extends ModuleCore
 			// add_action( 'load-index.php', array( $this, 'load_index_php' ) ); // SPEED CAUTIONS
 
 			add_action( 'network_admin_menu', array( $this, 'network_admin_menu' ) );
+
+			add_filter( 'wpmu_blogs_columns', array( $this, 'wpmu_blogs_columns' ), 20 );
+			add_action( 'manage_sites_custom_column', array( $this, 'manage_sites_custom_column' ), 10, 2 );
+
 		} else {
 
 			add_filter( 'blog_redirect_404', '__return_false' ); // prevent: maybe_redirect_404()
 		}
 
 		add_action( 'wpmu_new_blog', array( $this, 'wpmu_new_blog' ), 12, 6 );
-
-		if ( GNETWORK_ADMIN_COLUMN_ID ) {
-			add_filter( 'wpmu_blogs_columns', array( $this, 'wpmu_blogs_columns' ) );
-			add_action( 'manage_sites_custom_column', array( $this, 'manage_blogs_custom_column' ), 10, 2 );
-			add_action( 'manage_blogs_custom_column', array( $this, 'manage_blogs_custom_column' ), 10, 2 );
-		}
 
 		if ( GNETWORK_LARGE_NETWORK_IS )
 			add_filter( 'wp_is_large_network', array( $this, 'wp_is_large_network' ), 10, 3 );
@@ -241,26 +239,19 @@ class Network extends ModuleCore
 		refresh_blog_details( $blog_id );
 	}
 
-	// BASED ON : https://gist.github.com/franz-josef-kaiser/6730571
-	// by : Franz Josef Kaiser <wecodemore@gmail.com>
 	public function wpmu_blogs_columns( $columns )
 	{
-		$custom = array(
-			'id' => _x( 'ID', 'Modules: Network: Column', GNETWORK_TEXTDOMAIN ),
-		);
-
-		if ( 1 === GNETWORK_ADMIN_COLUMN_ID )
-			return array_merge( $custom, $columns );
-		else
-			return array_merge( $columns, $custom );
+		return array_merge( $columns, array( 'gnetwork-network-id' => _x( 'ID', 'Modules: Network: Column', GNETWORK_TEXTDOMAIN ) ) );
 	}
 
-	public function manage_blogs_custom_column( $column_name, $blog_id )
+	public function manage_sites_custom_column( $column_name, $blog_id )
 	{
-		if ( 'id' == $column_name )
-			echo $blog_id;
+		if ( 'gnetwork-network-id' != $column_name )
+			return;
 
-		return $column_name;
+		echo '<div class="gnetwork-admin-wrap-column -network -id">';
+			echo esc_html( $blog_id );
+		echo '</div>';
 	}
 
 	// http://teleogistic.net/2013/02/selectively-deprecating-wordpress-plugins-from-dashboard-plugins/
