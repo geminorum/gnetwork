@@ -35,13 +35,6 @@ class Admin extends ModuleCore
 
 		if ( GNETWORK_ADMIN_COLOUR )
 			add_action( 'user_register', array( $this, 'user_register' ) );
-
-		// FIXME: WORKING but DISABLED
-		// add_filter( 'custom_menu_order', '__return_true' );
-		// add_filter( 'menu_order', array( $this, 'menu_order' ) );
-
-		// FIXME: IT MESSES WITH CUSTOM COLUMNS!!
-		// add_filter( 'posts_fields', array( $this, 'posts_fields' ), 0, 2 );
 	}
 
 	// FIXME: DISABLED
@@ -250,18 +243,6 @@ class Admin extends ModuleCore
 			echo $id;
 	}
 
-	// Move Pages above Media
-	// http://wp.tutsplus.com/tutorials/creative-coding/customizing-the-wordpress-admin-custom-admin-menus/
-	public function menu_order( $menu_order )
-	{
-		return array(
-			'index.php',
-			'edit.php',
-			'edit.php?post_type=page',
-			'upload.php',
-		);
-	}
-
 	public function post_date_column_time( $h_time, $post, $column_name = 'date', $mode = 'excerpt' )
 	{
 		if ( 'excerpt' !== $mode
@@ -277,32 +258,6 @@ class Admin extends ModuleCore
 		wp_update_user( array(
 			'ID'          => $user_id,
 			'admin_color' => GNETWORK_ADMIN_COLOUR, // 'sunrise'
-		) );
-	}
-
-	// http://unserkaiser.com/blog/2013/07/03/speed-up-wordpress-post-list-screens/
-	// https://gist.github.com/franz-josef-kaiser/5917688
-	// Faster Admin Post Lists
-	// Reduces the queried fields inside WP_Query for WP_Post_List_Table screens
-	// Author: Franz Josef Kaiser <wecodemore@gmail.com> / http://unserkaiser.com
-	public function posts_fields( $fields, $query )
-	{
-		if ( ! is_admin()
-			|| ! $query->is_main_query()
-			|| ( defined( 'DOING_AJAX' ) && DOING_AJAX )
-			|| ( defined( 'DOING_CRON' ) && DOING_CRON ) )
-				return $fields;
-
-		$p = $GLOBALS['wpdb']->posts;
-		return implode( ",", array(
-			"{$p}.ID",
-			"{$p}.post_title",
-			"{$p}.post_date",
-			"{$p}.post_author",
-			"{$p}.post_name",
-			"{$p}.comment_status",
-			"{$p}.ping_status",
-			"{$p}.post_password",
 		) );
 	}
 }
