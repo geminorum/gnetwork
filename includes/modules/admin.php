@@ -25,16 +25,6 @@ class Admin extends ModuleCore
 
 		add_filter( 'manage_pages_columns', array( $this, 'manage_pages_columns' ) );
 		add_filter( 'post_date_column_time', array( $this, 'post_date_column_time' ), 10, 4 );
-
-		if ( GNETWORK_ADMIN_COLUMN_ID ) {
-			add_filter( 'manage_pages_columns', array( $this, 'manage_posts_columns_id' ), 12 );
-			add_filter( 'manage_posts_columns', array( $this, 'manage_posts_columns_id' ), 12 );
-			add_action( 'manage_posts_custom_column', array( $this, 'custom_column_id' ), 5, 2 );
-			add_action( 'manage_pages_custom_column', array( $this, 'custom_column_id' ), 5, 2 );
-		}
-
-		if ( GNETWORK_ADMIN_COLOUR )
-			add_action( 'user_register', array( $this, 'user_register' ) );
 	}
 
 	// FIXME: DISABLED
@@ -218,29 +208,10 @@ class Admin extends ModuleCore
 		return $content;
 	}
 
-	// http://www.wpcode.net/remove-comment-dashboard.html/
 	public function manage_pages_columns( $defaults )
 	{
 		unset( $defaults['comments'] );
 		return $defaults;
-	}
-
-	// Display Post and Page IDs in the Admin
-	// http://wpmu.org/daily-tip-how-to-display-post-and-page-ids-in-the-wordpress-admin/
-	// TODO: http://wordpress.org/extend/plugins/reveal-ids-for-wp-admin-25/
-	public function manage_posts_columns_id( $defaults )
-	{
-		if ( 1 === GNETWORK_ADMIN_COLUMN_ID )
-			return array_merge( array( 'gn_post_id' => _x( 'ID', 'Modules: Admin: Column Blog ID', GNETWORK_TEXTDOMAIN ) ), $defaults );
-
-		$defaults['gn_post_id'] = _x( 'ID', 'Modules: Admin: Column Blog ID', GNETWORK_TEXTDOMAIN );
-		return $defaults;
-	}
-
-	public function custom_column_id( $column_name, $id )
-	{
-		if ( $column_name === 'gn_post_id' )
-			echo $id;
 	}
 
 	public function post_date_column_time( $h_time, $post, $column_name = 'date', $mode = 'excerpt' )
@@ -250,14 +221,5 @@ class Admin extends ModuleCore
 				$h_time .= '<br />'.get_post_time( 'g:i a', FALSE, $post, TRUE );
 
 		return $h_time;
-	}
-
-	// http://www.wpbeginner.com/wp-tutorials/how-to-set-default-admin-color-scheme-for-new-users-in-wordpress/
-	public function user_register( $user_id )
-	{
-		wp_update_user( array(
-			'ID'          => $user_id,
-			'admin_color' => GNETWORK_ADMIN_COLOUR, // 'sunrise'
-		) );
 	}
 }
