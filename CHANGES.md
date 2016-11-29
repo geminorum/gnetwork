@@ -1,3 +1,59 @@
+### 3.5.0
+* assets/js: passing tinymce object into mce plugins
+* core/number: internal format handling
+* main/modulecore: internal api for calling hooks
+* main/modulecore: new methods for wrapping scripts
+* main/modulecore: selector helper
+* main/modulecore: non-jquery scripts array
+* main/modulecore: check for xml-rpc and iframe
+* main/settings: id/name generator callback
+* main/settings: extra info on message strings
+* main/utilities: layout folder moved
+* main/utilities: enqueue from vendor folder
+* module/adminbar: complete overhaul
+* module/blog: :warning: fixed fatal on json feed template
+* module/blog: :warning: global post missed
+* module/blog: json feed unescaped unicode
+* module/blog: json feed content filters
+* module/blog: json feed skip empty terms
+* module/blog: hide json feed link if disabled
+* module/buddypress: complete overhaul
+* module/buddypress: option to close directories for non logged-in
+* module/buddypress: option to check for empty require fields
+* module/buddypress: redirect signup page to register
+* module/cleanup: :new: actions to clean up user meta
+* module/cleanup: hiding default buttons
+* module/cleanup: returning count rows
+* module/code: removed `[github-repo]` shortcode
+* module/code: fixed broken `[github]` shortcode
+* module/code: `[github-gist]` updated to [blairvanderhoof/gist-embed](https://github.com/blairvanderhoof/gist-embed) v2.6
+* module/comments: second attempt to archiving comments
+* module/comments: using internal hook generator
+* module/comments: moved [Growfield](http://code.google.com/p/jquery-dynamic/) to vendor folder
+* module/debug: current time section on overview tab
+* module/debug: missed printing the actual line!
+* module/editor: accept registering button with no js file
+* module/editor: table plugin moved to vendor folder
+* module/editor: short-links for internal links
+* module/editor: removed the pipe separators
+* module/locale: check locale for ajax calls on network admin
+* module/network: blog id column by default
+* module/navigation: check for classes prop
+* module/site: :new: extra contact method fields on user profiles
+* module/site: option to disable user locale
+* module/shortcodes: correct gmt timestamp and human time diff for `[last-edited]`
+* module/shortcodes: rewrite `[pdf]` shortcode with [pipwerks/PDFObject](https://github.com/pipwerks/PDFObject) v2.0
+* module/shortcodes: before/after atts
+* module/shortcodes: editor button js moved
+* module/shortcodes: moved editor buttons to second row
+* module/shortcodes: mce string context
+* module/shortcodes: discarding whitespace in page lists, [see](https://make.wordpress.org/core/?p=20577)
+* module/themes: flexslider-rtl updated to [layalk/FlexSlider](https://github.com/layalk/FlexSlider) v2.6.1
+* module/themes: skip on xml-rpc/iframe
+* module/typography: editor button js moved
+* misc/buddypress me: cover slug
+* misc/buddypress me: better handling profile slug
+
 ### 3.4.0
 * admin notice upon no autoload file
 * assets/js: :up: autosize v3.0.17
