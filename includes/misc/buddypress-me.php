@@ -42,7 +42,7 @@ class BP_Me_Component extends \BP_Component
 			$this->current_action = 'profile';
 
 		if ( 'logout' == $this->current_action && ! bp_loggedin_user_id() )
-			bp_core_redirect( bp_get_root_domain() );
+			bp_core_redirect();
 
 		if ( ! bp_loggedin_user_id() )
 			bp_core_redirect( wp_login_url( WordPress::currentURL() ) );
@@ -52,6 +52,7 @@ class BP_Me_Component extends \BP_Component
 			'settings' => array( $this, 'me_action_settings' ),
 			'edit'     => array( $this, 'me_action_edit' ),
 			'avatar'   => array( $this, 'me_action_avatar' ),
+			'cover'    => array( $this, 'me_action_cover' ),
 			'logout'   => array( $this, 'me_action_logout' ),
 		) );
 
@@ -65,13 +66,11 @@ class BP_Me_Component extends \BP_Component
 	public function me_action_profile( $vars = FALSE )
 	{
 		bp_core_redirect( bp_get_loggedin_user_link() );
-		die();
+		exit();
 	}
 
 	public function me_action_settings( $vars = FALSE )
 	{
-		global $bp;
-
 		if ( bp_is_active( 'settings' ) )
 			bp_core_redirect( bp_loggedin_user_domain().bp_get_settings_slug() );
 
@@ -80,20 +79,24 @@ class BP_Me_Component extends \BP_Component
 
 	public function me_action_edit( $vars = FALSE )
 	{
-		global $bp;
-
 		if ( bp_is_active( 'xprofile' ) )
-			bp_core_redirect( bp_loggedin_user_domain().$bp->profile->slug.'/edit' );
+			bp_core_redirect( trailingslashit( bp_loggedin_user_domain().bp_get_profile_slug().'/edit' ) );
 
 		$this->me_action_profile();
 	}
 
 	public function me_action_avatar( $vars = FALSE )
 	{
-		global $bp;
+		if ( buddypress()->avatar->show_avatars )
+			bp_core_redirect( trailingslashit( bp_loggedin_user_domain().bp_get_profile_slug().'/change-avatar' ) );
 
-		if ( ! (int) $bp->site_options['bp-disable-avatar-uploads'] )
-			bp_core_redirect( bp_loggedin_user_domain().$bp->profile->slug.'/change-avatar/' );
+		$this->me_action_profile();
+	}
+
+	public function me_action_cover( $vars = FALSE )
+	{
+		if ( bp_displayed_user_use_cover_image_header() )
+			bp_core_redirect( trailingslashit( bp_loggedin_user_domain().bp_get_profile_slug().'/change-cover-image' ) );
 
 		$this->me_action_profile();
 	}
@@ -127,9 +130,23 @@ class BP_Me_Component extends \BP_Component
 	{
 		if ( bp_is_active( 'settings' ) )
 			$items[] = array(
-				'name' => _x( 'Profile Settings', 'BuddyPress Me', GNETWORK_TEXTDOMAIN ),
+				'name' => _x( 'Profile Settings', 'BuddyPress Me: Navigation Item', GNETWORK_TEXTDOMAIN ),
 				'slug' => 'settings',
 				'link' => $this->url( 'settings' ),
+			);
+
+		if ( buddypress()->avatar->show_avatars )
+			$items[] = array(
+				'name' => _x( 'Change Avatar', 'BuddyPress Me: Navigation Item', GNETWORK_TEXTDOMAIN ),
+				'slug' => 'avatar',
+				'link' => $this->url( 'avatar' ),
+			);
+
+		if ( bp_displayed_user_use_cover_image_header() )
+			$items[] = array(
+				'name' => _x( 'Change Cover', 'BuddyPress Me: Navigation Item', GNETWORK_TEXTDOMAIN ),
+				'slug' => 'cover',
+				'link' => $this->url( 'cover' ),
 			);
 
 		return $items;
