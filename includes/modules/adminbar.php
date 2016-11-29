@@ -230,6 +230,7 @@ class AdminBar extends ModuleCore
 			}
 		}
 
+		/***
 		if ( class_exists( __NAMESPACE__.'\\Debug' ) ) {
 
 			$wp_admin_bar->add_node( array(
@@ -248,6 +249,7 @@ class AdminBar extends ModuleCore
 				) );
 			}
 		}
+		**/
 
 		$wp_admin_bar->add_group( array(
 			'parent' => $parent_id,
