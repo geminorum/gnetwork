@@ -12,42 +12,53 @@ class BuddyPress extends ModuleCore
 
 	protected function setup_actions()
 	{
-		add_action( 'init' , array( $this, 'init' ), 10 );
-		add_action( 'bp_init' , array( $this, 'bp_init_early' ), 1 );
-		add_action( 'bp_setup_admin_bar', array( $this, 'bp_setup_admin_bar' ), 20 );
+		$this->action( 'init' );
+		$this->action( 'bp_init', 0, 1 );
+		$this->action( 'bp_setup_admin_bar', 0, 20 );
 
-		add_filter( 'register_url', array( $this, 'register_url' ) );
+		$this->filter( 'register_url' );
+		$this->action( 'before_signup_header' );
 
-		// https://github.com/pixeljar/BuddyPress-Honeypot
-		// http://pixeljar.net/2012/09/19/eliminate-buddypress-spam-registrations/
-		add_action( 'bp_after_signup_profile_fields', array( $this, 'bp_after_signup_profile_fields' ) );
-		add_filter( 'bp_core_validate_user_signup', array( $this, 'bp_core_validate_user_signup' ) );
+		if ( bp_is_root_blog() ) {
 
-		add_action( 'bp_ajax_querystring', array( $this, 'bp_ajax_querystring' ), 20, 2 );
+			if ( $this->options['complete_signup'] )
+				$this->action( 'bp_complete_signup' );
 
-		if ( $this->options['complete_signup'] )
-			add_action( 'bp_complete_signup', array( $this, 'bp_complete_signup' ) );
+			if ( ! $this->options['open_directories'] )
+				$this->action( 'bp_screens' );
 
-		if ( $this->options['tos_display'] )
-			add_action( 'bp_before_registration_submit_buttons', array( $this, 'bp_before_registration_submit_buttons' ) );
+			if ( $this->options['tos_display'] )
+				$this->action( 'bp_before_registration_submit_buttons' );
 
-		add_action( 'bp_before_register_page', '__donot_cache_page' );
-		add_action( 'bp_before_activation_page', '__donot_cache_page' );
-		add_action( 'bp_template_include_reset_dummy_post_data', '__gpersiandate_skip' );
+			// https://github.com/pixeljar/BuddyPress-Honeypot
+			// https://www.pixeljar.com/?p=961
+			$this->filter( 'bp_core_validate_user_signup' );
+			$this->action( 'bp_after_signup_profile_fields' );
 
-		if ( bp_is_active( 'activity' ) ) {
-			add_filter( 'bp_activity_user_can_delete', array( $this, 'bp_activity_user_can_delete' ), 10, 2 );
-			add_action( 'wp_ajax_delete_activity_comment', array( $this, 'wp_ajax_delete_activity_comment' ), 1 );
-			add_action( 'bp_activity_before_save', array( $this, 'bp_activity_before_save' ) );
+			if ( GNETWORK_BP_EXCLUDEUSERS )
+				$this->action( 'bp_ajax_querystring', 2, 20 );
+
+			if ( bp_is_active( 'notifications' ) )
+				$this->action( 'bp_core_activated_user' );
+
+			if ( bp_is_active( 'activity' ) ) {
+
+				$this->action( 'bp_activity_before_save' );
+
+				// allow activity authors to delete activity comments by others
+				// https://buddydev.com/?p=17058
+				$this->filter( 'bp_activity_user_can_delete', 2 );
+				$this->action( 'wp_ajax_delete_activity_comment', 0, 1 );
+			}
+
+			add_action( 'bp_before_register_page', '__donot_cache_page' );
+			add_action( 'bp_before_activation_page', '__donot_cache_page' );
+			add_action( 'bp_template_include_reset_dummy_post_data', '__gpersiandate_skip' );
+
+		} else {
+			remove_all_actions( 'bp_register_widgets' );
+			$this->action( 'after_setup_theme' );
 		}
-
-		if ( ! bp_is_root_blog() ) {
-			add_action( 'bp_include', array( $this, 'bp_include_remove_widgets' ), 5 );
-			add_action( 'after_setup_theme' , array( $this, 'after_setup_theme'  ), 10 );
-		}
-
-		if ( bp_is_active( 'notifications' ) )
-			add_action( 'bp_core_activated_user', array( $this, 'bp_core_activated_user' ) );
 	}
 
 	public function setup_menu( $context )
@@ -61,7 +72,9 @@ class BuddyPress extends ModuleCore
 	public function default_options()
 	{
 		return array(
-			'complete_signup' => '',
+			'complete_signup'  => '',
+			'open_directories' => '0',
+			'check_completed'  => '0',
 
 			'tos_display' => 0,
 			'tos_title'   => '',
@@ -85,11 +98,23 @@ class BuddyPress extends ModuleCore
 		$settings = array(
 			'_general' => array(
 				array(
+					'field'       => 'open_directories',
+					'title'       => _x( 'Open Directories', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Redirect directories to homepage for not logged-in users.', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
+				),
+				array(
 					'field'       => 'complete_signup',
 					'type'        => 'url',
 					'title'       => _x( 'Complete Signup', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Redirect users after successful registration.', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
 					'placeholder' => 'http://example.com/welcome',
+				),
+			),
+			'_xprofile' => array(
+				array(
+					'field'       => 'check_completed',
+					'title'       => _x( 'Check Completed', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Notice member for empty required fields.', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
 				),
 			),
 		);
@@ -229,26 +254,24 @@ class BuddyPress extends ModuleCore
 
 	public function init()
 	{
-		// TODO: add settings to disable this
-		$this->check_compelete();
-
-		// http://buddypress.org/support/topic/how-to-hide-admin-activity-on-buddypress-activity/#post-142995
-		// Don't record activity by the site admins or show them as recently active
-
-		// SEE : http://bpdevel.wordpress.com/2014/02/21/user-last_activity-data-and-buddypress-2-0/
-
 		if ( is_super_admin() ) {
-			remove_action( 'wp_head', 'bp_core_record_activity' );
-			delete_user_meta( bp_loggedin_user_id(), 'last_activity' );
-		}
 
-		// Notify new users of a successful registration (without blog).
-		// remove_filter( 'wpmu_signup_user_notification', 'bp_core_activation_signup_user_notification', 1, 4 );
-		// Notify new users of a successful registration (with blog).
-		// remove_filter( 'wpmu_signup_blog_notification', 'bp_core_activation_signup_blog_notification', 1, 7 );
+			// Don't record activity by the site admins
+			// or show them as recently active
+			// REF: http://wp.me/pLVLj-gc
+			$user_id = bp_loggedin_user_id();
+			\BP_Core_User::delete_last_activity( $user_id );
+			delete_user_meta( $user_id, 'last_activity' );
+			remove_action( 'wp_head', 'bp_core_record_activity' );
+
+		} else {
+
+			if ( $this->options['check_completed'] )
+				$this->check_completed();
+		}
 	}
 
-	public function bp_init_early()
+	public function bp_init()
 	{
 		defined( 'BP_AVATAR_THUMB_WIDTH' ) or define( 'BP_AVATAR_THUMB_WIDTH', $this->options['avatars_thumb_width'] );
 		defined( 'BP_AVATAR_THUMB_HEIGHT' ) or define( 'BP_AVATAR_THUMB_HEIGHT', $this->options['avatars_thumb_height'] );
@@ -257,15 +280,13 @@ class BuddyPress extends ModuleCore
 		defined( 'BP_AVATAR_ORIGINAL_MAX_WIDTH' ) or define( 'BP_AVATAR_ORIGINAL_MAX_WIDTH', $this->options['avatars_original_max_width'] );
 	}
 
-	// originally from : Bp Force Profile v 1.1.1
-	// http://wordpress.org/plugins/bp-force-profile/
-	public function check_compelete()
+	public function check_completed()
 	{
 		if ( is_admin()
 			|| ! is_user_logged_in()
 			|| ! bp_is_root_blog()
 			|| ! bp_is_active( 'xprofile' )
-			|| bp_current_user_can( 'bp_moderate' )
+			// || bp_current_user_can( 'bp_moderate' )
 			|| bp_loggedin_user_id() != bp_displayed_user_id() )
 				return;
 
@@ -273,27 +294,22 @@ class BuddyPress extends ModuleCore
 
 		$bp_prefix = bp_core_get_table_prefix();
 
-		$xprofile_fields = $wpdb->get_results( $wpdb->prepare( "
+		$fields = $wpdb->get_results( $wpdb->prepare( "
 			SELECT `name` FROM {$bp_prefix}bp_xprofile_fields
 			WHERE parent_id = 0
 			AND is_required = 1
 			AND id NOT IN (SELECT field_id FROM {$bp_prefix}bp_xprofile_data WHERE user_id = %s AND `value` IS NOT NULL AND `value` != '')
 		", bp_displayed_user_id() ) );
 
-		if ( ! count( $xprofile_fields ) )
+		if ( ! count( $fields ) )
 			return;
 
-		$fields = array();
-		foreach ( $xprofile_fields as $field )
-			$fields[] = $field->name;
+		$message = sprintf( _x( 'Please complete your profile: %s', 'Modules: BuddyPress', GNETWORK_TEXTDOMAIN ),
+			Utilities::joinItems( wp_list_pluck( $fields, 'name' ) ) );
 
-		bp_core_add_message( sprintf(
-			_x( 'Please complete your profile: %s', 'Modules: BuddyPress', GNETWORK_TEXTDOMAIN ),
-			Utilities::joinItems( $fields ) ),
-		'warning' );
+		bp_core_add_message( $message, 'warning' );
 	}
 
-	// SEE : https://github.com/bphelp/custom_toolbar/blob/master/custom-toolbar.php
 	public function bp_setup_admin_bar()
 	{
 		AdminBar::removeMenus( array(
@@ -309,6 +325,12 @@ class BuddyPress extends ModuleCore
 			return bp_get_signup_page();
 
 		return $url;
+	}
+
+	public function before_signup_header()
+	{
+		if ( bp_get_signup_allowed() )
+			bp_core_redirect( bp_get_signup_page() );
 	}
 
 	public function bp_before_registration_submit_buttons()
@@ -375,102 +397,100 @@ class BuddyPress extends ModuleCore
 		bp_core_redirect( $this->options['complete_signup'] );
 	}
 
-	// http://buddydev.com/buddypress/exclude-users-from-members-directory-on-a-buddypress-based-social-network/
-	// http://wordpress.stackexchange.com/a/61875
-	public function bp_ajax_querystring( $qs = FALSE, $object = FALSE )
+	public function bp_screens()
 	{
-		if ( $object != 'members' ) // members only
-			return $qs;
+		if ( ! bp_loggedin_user_id() && bp_is_directory() )
+			bp_core_redirect( '', 403 );
+	}
 
-		$args = wp_parse_args( $qs );
+	public function bp_ajax_querystring( $querystring, $object = FALSE )
+	{
+		if ( ! $querystring )
+			return $querystring;
 
-		if ( ! empty( $args['user_id'] ) ) //check if we are listing friends?, do not exclude in this case
-			return $qs;
+		if ( $object != 'members' )
+			return $querystring;
+
+		$args = wp_parse_args( $querystring );
+
+		// check if we are listing friends
+		// check if we are searching
+		if ( ! empty( $args['user_id'] )
+		 	|| ! empty( $args['search_terms'] ) )
+				return $querystring;
 
 		if ( ! empty( $args['exclude'] ) )
-			$args['exclude'] = $args['exclude'].','.constant( 'GNETWORK_BP_EXCLUDEUSERS' );
+			$args['exclude'] .= ','.GNETWORK_BP_EXCLUDEUSERS;
 		else
-			$args['exclude'] = constant( 'GNETWORK_BP_EXCLUDEUSERS' );
+			$args['exclude'] = GNETWORK_BP_EXCLUDEUSERS;
 
-		$qs = build_query( $args );
-
-		return $qs;
+		return build_query( $args );
 	}
 
 	// block certain activity types from being added
-	// http://bp-tricks.com/snippets/block-activity-types-added-activity-stream/
-	// https://gist.github.com/BoweFrankema/ed8ea0435223d7b361d5
-	public function bp_activity_before_save( $activity_object )
+	public function bp_activity_before_save( &$activity )
 	{
-		$exclude = array(
+		$blocked = $this->filters( 'activity_blocked', array(
 			'updated_profile',
 			'new_member',
 			'new_avatar',
 			'friendship_created',
 			'joined_group'
-		);
+		) );
 
-		// if the activity type is empty, it stops BuddyPress BP_Activity_Activity::save() function
-		if ( in_array( $activity_object->type, $exclude ) )
-			$activity_object->type = FALSE;
+		// if the type is empty, it stops BP_Activity_Activity::save()
+		if ( in_array( $activity->type, $blocked ) )
+			$activity->type = '';
 	}
 
-	public function bp_include_remove_widgets()
-	{
-		remove_all_actions( 'bp_register_widgets' );
-	}
-
-	// allow activity authors to delete activity comments by other users on your BuddyPress based social network
-	// http://buddydev.com/buddypress/allow-activity-authors-delete-activity-comments-users-buddypress-based-social-network/
 	public function bp_activity_user_can_delete( $can_delete, $activity )
 	{
-		// if the user already has permission or the user is not logged in, we don't care
-		if ( $can_delete || ! is_user_logged_in() )
+		if ( $can_delete )
 			return $can_delete;
 
-		// if we are here, let us check if the current user is the author of the parent activity
-
-		$parent_activity = NULL;
+		if ( ! $current_user = bp_loggedin_user_id() )
+			return $can_delete;
 
 		// if it is an activity comment
-		if ( $activity->item_id ) {
-			$parent_activity = new \BP_Activity_Activity( $activity->item_id );
-		} else {
-			$parent_activity = $activity;
-		}
+		if ( $activity->item_id )
+			$parent = new \BP_Activity_Activity( $activity->item_id );
 
-		// if the current user is author of main activity, he/she can delete it
-		if ( $parent_activity->user_id == get_current_user_id() )
-			$can_delete = TRUE;
+		else
+			$parent = $activity;
+
+		if ( $parent->user_id == $current_user )
+			return TRUE;
 
 		return $can_delete;
 	}
 
-	// http://buddydev.com/buddypress/allow-activity-authors-delete-activity-comments-users-buddypress-based-social-network/
 	public function wp_ajax_delete_activity_comment()
 	{
-
-		// Bail if not a POST action
 		if ( 'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ) )
 			return;
 
 		check_admin_referer( 'bp_activity_delete_link' );
 
 		if ( ! is_user_logged_in() )
-		exit( '-1' );
+			exit( '-1' );
 
-		$comment = new \BP_Activity_Activity( $_POST['id'] );
+		if ( empty( $_POST['id'] ) || ! is_numeric( $_POST['id'] ) )
+			exit( '-1' );
 
-		if ( ! bp_activity_user_can_delete( $comment ) )
-			return FALSE; //let others handle it
+		$activity = new \BP_Activity_Activity( (int) $_POST['id'] );
 
-		// Call the action before the delete so plugins can still fetch information about it
-		do_action( 'bp_activity_before_action_delete_activity', $_POST['id'], $comment->user_id );
+		// let others handle it
+		if ( ! bp_activity_user_can_delete( $activity ) )
+			return;
 
-		if ( ! bp_activity_delete_comment( $comment->item_id, $comment->id ) )
-			exit( '-1<div id="message" class="error"><p>'._x( 'There was a problem when deleting. Please try again.', 'Modules: BuddyPress', GNETWORK_TEXTDOMAIN ).'</p></div>' );
+		do_action( 'bp_activity_before_action_delete_activity', $activity->id, $activity->user_id );
 
-		do_action( 'bp_activity_action_delete_activity', $_POST['id'], $comment->user_id );
+		if ( ! bp_activity_delete( array( 'id' => $activity->id, 'user_id' => $activity->user_id ) ) )
+			exit( '-1<div id="message" class="error bp-ajax-message"><p>'
+					.__( 'There was a problem when deleting. Please try again.', 'buddypress' )
+					.'</p></div>' );
+
+		do_action( 'bp_activity_action_delete_activity', $activity->id, $activity->user_id );
 		exit;
 	}
 
