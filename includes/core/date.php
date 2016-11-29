@@ -7,7 +7,7 @@ class Date extends Base
 
 	public static function monthFirstAndLast( $year, $month, $format = 'Y-m-d H:i:s' )
 	{
-		$start = new DateTime( $year.'-'.$month.'-01 00:00:00' );
+		$start = new \DateTime( $year.'-'.$month.'-01 00:00:00' );
 		$end   = $start->modify( '+1 month -1 day -1 minute' );
 
 		return array(

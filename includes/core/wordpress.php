@@ -30,6 +30,7 @@ class WordPress extends Base
 		return FALSE;
 	}
 
+	// SEE: wp_doing_ajax() since 4.7.0
 	public static function isAJAX()
 	{
 		return defined( 'DOING_AJAX' ) && DOING_AJAX;

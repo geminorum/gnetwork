@@ -52,6 +52,7 @@ class Settings extends Base
 	{
 		echo '<h1>';
 
+			// @REF: `get_admin_page_title()`
 			_ex( 'gNetwork Extras', 'Settings: Header Title', GNETWORK_TEXTDOMAIN );
 
 			echo ' '.HTML::tag( 'a', array(

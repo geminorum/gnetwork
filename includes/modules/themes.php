@@ -116,7 +116,7 @@ class Themes extends ModuleCore
 		if ( ! $bottom && ! $disable )
 			return;
 
-		// v4.7-alpha-38178-src
+		// v4.8-alpha-39357-src
 		$jquery_ver  = '1.12.4';
 		$migrate_ver = '1.4.1';
 

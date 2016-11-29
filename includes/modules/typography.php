@@ -89,8 +89,10 @@ class Typography extends ModuleCore
 
 	public function arabic_typography( $content )
 	{
+		// FIXME: use <abbr> and full def
 		$content = preg_replace("/\(ع\)/i", "<sup>(ع)</sup>", $content );
 		$content = preg_replace("/\(ص\)/i", "<sup>(ص)</sup>", $content );
+		$content = preg_replace("/\(ره\)/i", "<sup>(ره)</sup>", $content );
 
 		return $content;
 	}

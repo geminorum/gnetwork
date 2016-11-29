@@ -105,22 +105,24 @@ class Lockdown extends ModuleCore
 
 	private function failed( $ip )
 	{
-		$failed = get_site_transient( $this->failed_prefix.$ip );
-		if ( $failed )
+		if ( $failed = get_site_transient( $this->failed_prefix.$ip ) )
 			return absint( $failed );
+
 		return 0;
 	}
 
 	private function clear( $ip )
 	{
-		 delete_site_transient( $this->locked_prefix.$ip );
-		 delete_site_transient( $this->failed_prefix.$ip );
+		delete_site_transient( $this->locked_prefix.$ip );
+		delete_site_transient( $this->failed_prefix.$ip );
 	}
 
 	private function fail( $ip )
 	{
 		$failed = $this->failed( $ip ) + 1;
+
 		set_site_transient( $this->failed_prefix.$ip, $failed, $this->options['failed_expiration'] * 60 );
+
 		return $failed;
 	}
 

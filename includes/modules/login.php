@@ -217,7 +217,7 @@ JS;
 		if ( ! isset( $_POST[ 'log' ] ) )
 			return $null;
 
-		$answer  = (int) $_POST['num'];
+		$answer  = (int) $_POST['num']; // FIXME: must log empty num
 		$salted  = sha1( $this->options['math_hashkey'].$answer );
 		$correct = isset( $_POST['ans'] ) ? $_POST['ans'] : FALSE;
 
