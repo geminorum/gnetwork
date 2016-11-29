@@ -4,41 +4,49 @@
 /// gNetwork Partials: Form ----------------------------------------------------
 
 .wrap {
+  input[type="text"] {
+    vertical-align: middle;
+  }
 
-	input[type="text"] {
-		vertical-align: middle;
-	}
+  input.small-text {
+    padding: 5px 5px 4px;
+  }
 
-	input.small-text {
-		padding: 5px 5px 4px;
-	}
+  input.medium-text,
+  textarea.medium-text {
+    width: 12em;
+  }
 
-	input.medium-text,
-	textarea.medium-text {
-		width: 12em;
-	}
+  input.code-text,
+  input.email-text,
+  input.ip-text,
+  input.url-text,
+  textarea.code-text {
+    direction: ltr;
+    font-family: Consolas, Monaco, monospace;
+    unicode-bidi: embed;
+    font-size: 14px;
+    background: #f9f9f9;
+    outline: none;
+  }
 
-	input.ip-text,
-	input.url-text,
-	input.email-text,
-	input.code-text,
-	textarea.code-text {
-		direction: ltr;
-		font-family: Consolas, Monaco, monospace;
-    	unicode-bidi: embed;
-		font-size: 14px;
-		background: #f9f9f9;
-		outline: none;
-	}
+  input.code-text,
+  textarea.code-text {}
 
-	input.code-text,
-	textarea.code-text {
+  input.rtl-placeholder
+  textarea.rtl-placeholder {
 
-	}
+    @include body-rtl() {
+      // not working!
+      // @SEE: https://developer.mozilla.org/en-US/docs/Web/CSS/::placeholder
+      &::placeholder {
+        text-align: right;
+        direction: rtl;
+      }
+    }
+  }
 
-	input.ip-text,
-	input.url-text,
-	input.email-text {
-
-	}
+  input.email-text,
+  input.ip-text,
+  input.url-text {}
 }

@@ -4,261 +4,273 @@
 /// RTL ADMIN ENHANCEMENTS -----------------------------------------------------
 
 body.rtl {
-	input[type="search"]::-webkit-search-cancel-button {
-		-webkit-appearance: none; // hiding non RTL cancel button
-	}
+  input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none; // hiding non RTL cancel button
+  }
 
-	input[type="checkbox"]:checked:before {
-		margin: -3px -3px 0 0;
-	}
+  input[type="checkbox"]:checked:before {
+    margin: -3px -3px 0 0;
+  }
 
-	.wrap h1 {
-		font: bold 24px arial, sans-serif !important;
-	}
+  .wrap h1 {
+    font: bold 24px arial, sans-serif !important;
+  }
 
-	span.postbox-title-action {
-		font-family: Tahoma, serif;
+  span.postbox-title-action {
+    font-family: Tahoma, serif;
 
-		a {
-			text-decoration: none;
-		}
-	}
+    a {
+      text-decoration: none;
+    }
+  }
 
-	#poststuff h2,
-	#site-title,
-	.media-frame.mode-grid .attachments-browser .no-media,
-	.mce-window .mce-window-head .mce-title,
-	.metabox-holder h3,
-	.wrap h2 {
-		font: 700 16px arial,sans-serif !important
-	}
+  #poststuff h2,
+  #site-title,
+  .mce-window .mce-window-head .mce-title,
+  .media-frame.mode-grid .attachments-browser .no-media,
+  .metabox-holder h3,
+  .wrap h2 {
+    font: 700 16px arial, sans-serif !important;
+  }
 
-	.widget-title h3,
-	.widget-title h4 {
-		font-size: 1.28em;
-		padding: 15px 15px 12px 15px;
-	}
+  .widget-title h3,
+  .widget-title h4 {
+    font-size: 1.28em;
+    padding: 15px 15px 12px;
+  }
 
-	.wrap .subtitle {
-		font-size: 15px;
-		font-weight: 700;
-		vertical-align: middle;
-	}
+  .wrap .subtitle {
+    font-size: 15px;
+    font-weight: 700;
+    vertical-align: middle;
+  }
 
-	.wrap .page-title-action {
-		font-size: 15px;
-	}
+  .wrap .page-title-action {
+    font: 700 14.5px arial, sans-serif !important;
+    padding: 5px 8px 3px;
+  }
 
-	#poststuff h2 {
-		padding: 10px 12px 5px;
-	}
+  #poststuff h2 {
+    padding: 10px 12px 5px;
+  }
 
-	.metabox-holder h3 {
-		padding: 12px 12px 7px;
-	}
+  .metabox-holder h3 {
+    padding: 12px 12px 7px;
+  }
 
-	.bp-profile-field,
-	.form-table,
-	.form-table td,
-	.form-table td p,
-	.form-table th,
-	.form-wrap label {
-		font-size: 12px;
-	}
+  .bp-profile-field,
+  .form-table,
+  .form-table td,
+  .form-table td p,
+  .form-table th,
+  .form-wrap label {
+    font-size: 12px;
+  }
 
-	.form-wrap p,
-	p.description,
-	p.help,
-	span.description {
-		font-size: 11px;
-		font-style: normal;
-	}
+  .form-wrap p,
+  p.description,
+  p.help,
+  span.description {
+    font-size: 11px;
+    font-style: normal;
+  }
 
-	.nav-tab {
-		font: bold 16px/20px arial, sans-serif !important;
-		padding-bottom: 2px;
-	}
+  .nav-tab {
+    font: 700 16px/20px arial, sans-serif !important;
+    padding-bottom: 2px;
+  }
 
-	&.debug-bar-maximized {
-		#querylist {
-			direction: ltr;
-		}
-	}
+  &.debug-bar-maximized {
+    #querylist {
+      direction: ltr;
+    }
+  }
 
-	.debug-menu-target {
-		direction: ltr !important;
-	}
+  .debug-menu-target {
+    direction: ltr !important;
+  }
 
-	#gnetwork-debugbar-panel {
-		direction: ltr !important;
-	}
+  #gnetwork-debugbar-panel {
+    direction: ltr !important;
+  }
 
-	&.options-permalink-php {
-		#permalink_structure {
-			float: right;
-			margin-top: -5px;
-		}
-	}
+  &.options-permalink-php {
+    #permalink_structure {
+      float: right;
+      margin-top: -5px;
+    }
+  }
 
-	#post-lock-dialog .post-locked-message,
-	#post-lock-dialog .post-taken-over {
-		margin: 20px;
+  #post-lock-dialog .post-locked-message,
+  #post-lock-dialog .post-taken-over {
+    margin: 20px;
 
-		p:last-child {
-			clear: both;
-		}
-	}
+    p:last-child {
+      clear: both;
+    }
+  }
 
-	#poststuff {
-		#edit-slug-box {
-			direction: ltr;
-		}
+  #poststuff {
+    #edit-slug-box {
+      direction: ltr;
+    }
 
-		#sample-permalink {
-			margin-right: 5px;
-		}
+    #sample-permalink {
+      margin-right: 5px;
+    }
 
-		input#post_name {
-			direction: ltr;
-		}
-	}
+    input#post_name {
+      direction: ltr;
+    }
 
-	.mce-menubtn.mce-fixed-width span {
-		text-align: right;
-	}
+    // added by p2p
+    .tabs-panel {
+      // border-radius: 3px 0 3px 3px;
+      border-radius: 0;
+    }
+  }
 
-	#dashboard-widgets {
-		h4 {
-			font-weight: 700 !important;
-			font-size: 15px;
-		}
+  .mce-menubtn.mce-fixed-width span {
+    text-align: right;
+  }
 
-		#dashboard_activity {
-			.subsubsub a {
-				padding: 0;
-			}
-		}
+  #dashboard-widgets {
+    h4 {
+      font-weight: 700 !important;
+      font-size: 15px;
+    }
 
-		#latest-comments #the-comment-list {
-			.comment-item {
-				p.comment-meta {
-					font-size: 0.95em;
-					margin-bottom: 0.5em;
+    #dashboard_activity {
+      .subsubsub a {
+        padding: 0;
+      }
+    }
 
-					span.approve:before {
-						@include theme-transform-flip-horizontal;
-						display: inline-block;
-					}
-				}
+    #latest-comments #the-comment-list {
+      .comment-item {
+        p.comment-meta {
+          font-size: 0.95em;
+          margin-bottom: 0.5em;
 
-				.dashboard-comment-wrap {
-					blockquote p {
-						font-size: 0.85em;
-						margin-bottom: 0.5em;
-						display: block;
-					}
-				}
+          span.approve:before {
+            @include theme-transform-flip-horizontal;
+            display: inline-block;
+          }
+        }
 
-				p.row-actions {
-					font-size: 0.85em;
-				}
-			}
-		}
-	}
+        .dashboard-comment-wrap {
+          blockquote p {
+            font-size: 0.85em;
+            margin-bottom: 0.5em;
+            display: block;
+          }
+        }
 
-	#dashboard_right_now {
-		.inside {
-			.table {
-				// <------- test this!! FIXME
+        p.row-actions {
+          font-size: 0.85em;
+        }
+      }
+    }
+  }
 
-				.sub {
-					font: bold 15px/30px arial, sans-serif !important;
+  #dashboard_right_now {
+    .inside {
+      .table {
+        // <------- test this!! FIXME
+        .sub {
+          font: bold 15px/30px arial, sans-serif !important;
 
-					p.akismet-right-now {
-						direction: ltr;
-						font-size: 0.85em;
-					}
+          p.akismet-right-now {
+            direction: ltr;
+            font-size: 0.85em;
+          }
 
-					p:last-child {
-						margin-bottom: 0;
-					}
-				}
+          p:last-child {
+            margin-bottom: 0;
+          }
+        }
 
-				td a {
-					font: bold 15px/18px arial, sans-serif !important;
-				}
+        td a {
+          font: bold 15px/18px arial, sans-serif !important;
+        }
 
-				td.b a {
-					line-height: 8px !important;
-				}
-			}
-		}
+        td.b a {
+          line-height: 8px !important;
+        }
+      }
+    }
 
-		li.storage-count {
-			font-size: 0.85em;
-			margin-bottom: 0;
-		}
-	}
+    li.storage-count {
+      font-size: 0.85em;
+      margin-bottom: 0;
+    }
+  }
 
-	#dashboard_activity {}
-	// Google Analytics Dashboard
-	#gadash-widget {
-		#ga-dash {
-			direction: ltr;
-		}
-	}
+  #dashboard_activity {}
+  // Google Analytics Dashboard
+  #gadash-widget {
+    #ga-dash {
+      direction: ltr;
+    }
+  }
 
-	.media-frame {
-		.attachment-details > h3,
-		.attachment-display-settings > h3,
-		.media-types.media-types-required-info {
-			display: none;
-		}
+  .media-frame {
+    .attachment-details > h3,
+    .attachment-display-settings > h3,
+    .media-types.media-types-required-info {
+      display: none;
+    }
 
-		.attachment-info {
-			margin-top: 10px;
-			margin-bottom: 5px;
-			padding-bottom: 5px;
-		}
+    .attachment-info {
+      margin-top: 10px;
+      margin-bottom: 5px;
+      padding-bottom: 5px;
+    }
 
-		.attachment-display-settings,
-		.compat-item {
-			float: none;
-		}
-	}
+    .attachment-display-settings,
+    .compat-item {
+      float: none;
+    }
+  }
 
-	&.edit-comments-php {
-		.fixed {
-			.column-response {
-				width: 25%;
-			}
-		}
-	}
+  &.edit-comments-php {
+    .fixed {
+      .column-response {
+        width: 25%;
+      }
+    }
+  }
 
-	&.edit-php {
-		.row-actions span,
-		td.column-categories,
-		td.column-date,
-		td.column-gn_post_id,
-		td.column-tags {
-			font-size: 0.89em;
-		}
+  &.edit-php {
+    .row-actions span,
+    td.column-categories,
+    td.column-date,
+    td.column-gn_post_id,
+    td.column-tags {
+      font-size: 0.89em;
+    }
 
-		.post-com-count span {
-			font-weight: normal;
-		}
+    .post-com-count span {
+      font-weight: normal;
+    }
 
-		#the-list td.column-title p {
-			font-size: 0.78em;
-		}
-	}
+    #the-list td.column-title p {
+      font-size: 0.78em;
+    }
+  }
 
-	.inline-edit-col input[name="slug"],
-	input#adduser-email,
-	input#email,
-	input#slug,
-	input#tag-slug,
-	input#user_login {
-		direction: ltr;
-	}
+  .inline-edit-col input[name="slug"],
+  input#adduser-email,
+  input#email,
+  input#slug,
+  input#tag-slug,
+  input#user_login {
+    direction: ltr;
+  }
+
+  // Shortcake
+  .add-shortcode-list
+  .shortcode-list-item {
+    float: right;
+  }
 }

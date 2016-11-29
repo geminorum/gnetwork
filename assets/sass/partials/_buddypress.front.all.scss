@@ -5,18 +5,18 @@
 
 .gnetwork-wrap-tos {
 
-	// we need current theme styles!
-	// @include mainwrap();
-	// @include box-reset();
+  // we need current theme styles!
+  // @include mainwrap();
+  // @include box-reset();
 
-	.-title {}
+  .-title {}
 
-	.-text {
-		width: 95% !important;
-		height: 220px !important;
-	}
+  .-text {
+    width: 95% !important;
+    height: 220px !important;
+  }
 
-	.-checkbox {
-		vertical-align: middle !important;
-	}
+  .-checkbox {
+    vertical-align: middle !important;
+  }
 }

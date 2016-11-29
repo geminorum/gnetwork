@@ -4,43 +4,42 @@
 /// gNetwork Partials: P2P -----------------------------------------------------
 
 .p2p-box {
+  .p2p-toggle-tabs {
+    margin-bottom: 0;
 
-	.p2p-toggle-tabs {
-		margin-bottom: 0;
-		a {
-			text-decoration: none;
-		}
-		a:focus {
-			box-shadow: none;
-		}
-	}
+    a {
+      text-decoration: none;
+    }
 
-	.p2p-create-connections-tabs {
-		margin-top: 1em;
-	}
+    a:focus {
+      box-shadow: none;
+    }
+  }
 
-	td.p2p-col-create .p2p-icon {
-		padding-top: 3px !important;
+  .p2p-create-connections-tabs {
+    margin-top: 1em;
+  }
 
-		@include body-rtl() {
-			float: right;
-			margin: 0 0 0 6px;
-		}
-	}
+  td.p2p-col-create .p2p-icon {
+    padding-top: 3px !important;
+    @include body-rtl() {
+      float: right;
+      margin: 0 0 0 6px;
+    }
+  }
 
-	.p2p-search input {
-		width: 100%;
+  .p2p-search input {
+    width: 100%;
+    @include body-rtl() {
+      padding-right: 5px !important;
+    }
+  }
 
-		@include body-rtl() {
-			padding-right: 5px !important;
-		}
-	}
-
-	.p2p-connections {
-		th {
-			@include body-rtl() {
-				text-align: right;
-			}
-		}
-	}
+  .p2p-connections {
+    th {
+      @include body-rtl() {
+        text-align: right;
+      }
+    }
+  }
 }

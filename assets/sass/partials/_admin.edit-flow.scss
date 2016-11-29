@@ -4,49 +4,46 @@
 /// gNetwork Partials: Edit Flow -----------------------------------------------
 
 body.rtl {
+  #dashboard-notepad {
+    .submit #dashboard-notepad-last-updated {
+      float: right;
+    }
+  }
 
-	#dashboard-notepad {
+  #ef-post_following_users_box {
+    float: right;
+    margin: 0 0 0 10px;
+  }
 
-		.submit #dashboard-notepad-last-updated {
-    		float: right;
-		}
-	}
+  #dashboard-notepad #dashboard-notepad-submit-buttons,
+  #ef-post_following_usergroups_box,
+  .ef-post_following_list li input,
+  .list-filterizer-tabs {
+    float: left;
+  }
 
-	#ef-post_following_users_box {
-	    float: right;
-	    margin:0 0 0 10px;
-	}
+  #ef-comments {
+    .comment-content {
+      margin: 0 67px 0 0;
+    }
 
-	#dashboard-notepad #dashboard-notepad-submit-buttons,
-	#ef-post_following_usergroups_box,
-	.list-filterizer-tabs,
-	.ef-post_following_list li input {
-	    float: left;
-	}
+    img.avatar {
+      float: right !important;
+      margin-left: 15px !important;
+      margin-right: 2px !important;
+    }
 
-	#ef-comments {
+    li {
+      p.row-actions {
+        text-align: left !important;
+      }
+    }
 
-		.comment-content {
-    		margin: 0 67px 0 0;
-		}
-
-		img.avatar {
-			float: right !important;
-			margin-left: 15px !important;
-			margin-right: 2px !important;
-		}
-
-		li {
-			p.row-actions {
-				text-align: left !important;
-			}
-		}
-
-		ul.children {
-			margin-left: 0 !important;
-			margin-right: 30px !important;
-		}
-	}
+    ul.children {
+      margin-left: 0 !important;
+      margin-right: 30px !important;
+    }
+  }
 }
 
 // .edit-flow-modules .edit-flow-module { float:right !important; }

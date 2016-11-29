@@ -5,68 +5,61 @@
 
 .gnetwork-admin-settings-wrap {
 
-	// FIXME: move this & tags into html class
-	table.gnetwork-sidebyside {
+  // FIXME: move this & tags into html class
+  table.gnetwork-sidebyside {
+    width: 100%;
 
-		width: 100%;
+    td {
+      padding: 0;
+      vertical-align: top;
 
-		td {
-			padding: 0;
-			vertical-align: top;
+      &.wider {
+        width: 65%;
+      }
 
-			&.wider {
-				width: 65%;
-			}
+      &.sider {}
+    }
+  }
 
-			&.sider {}
-		}
-	}
+  #gimporter_people {
+    .byline {
+      padding: 10px 5px;
+    }
+  }
 
-	#gimporter_people {
-		.byline {
-			padding: 10px 5px;
-		}
-	}
+  // COPY FROM: gEditorial Ortho
+  .ortho-input-wrap {
+    position: relative;
 
-	// COPY FROM: gEditorial Ortho
-	.ortho-input-wrap {
+    .do-ortho {
+      position: absolute;
+      left: 8px;
+      top: 5px;
+      color: #82878c;
+      opacity: 0.8;
+      text-decoration: none;
 
-		position: relative;
+      &:hover {
+        text-decoration: none;
+        color: #666;
+      }
 
-		.do-ortho {
+      &:focus {
+        box-shadow: none;
+        color: #666;
+      }
 
-			position: absolute;
-			left: 8px;
-			top: 5px;
+      .dashicons {
+        width: 18px;
+        height: 18px;
+        font-size: 18px;
+      }
+    }
 
-			color: #82878c;
-			opacity: 0.8;
+    .do-ortho-text {
+      position: relative;
+    }
 
-			text-decoration: none;
-
-			&:hover {
-				text-decoration: none;
-				color: #666;
-			}
-
-			&:focus {
-				box-shadow: none;
-				color: #666;
-			}
-
-			.dashicons {
-				width: 18px;
-	    		height: 18px;
-	    		font-size: 18px;
-			}
-		}
-
-		.do-ortho-text {
-			position: relative;
-		}
-
-		.do-ortho-html {
-
-		}
-	}
+    .do-ortho-html {}
+  }
 }

@@ -4,25 +4,25 @@
 /// gNetwork Partials: List ----------------------------------------------------
 
 ul {
-	&.base-list-code,
-	&.base-list-side {
-		width: 100%;
-	}
+  &.base-list-code,
+  &.base-list-side {
+    width: 100%;
+  }
 }
 
 ul.base-list-code {
-	margin: 1em 0 0 0;
+  margin: 1em 0 0;
 
-	li {
-		display: inline-block;
-		margin-right: 4px;
-		@include body-rtl() {
-			margin-right: 0;
-			margin-left: 4px;
-		}
+  li {
+    display: inline-block;
+    margin-right: 4px;
+    @include body-rtl() {
+      margin-right: 0;
+      margin-left: 4px;
+    }
 
-		code {
-			cursor: pointer;
-		}
-	}
+    code {
+      cursor: pointer;
+    }
+  }
 }

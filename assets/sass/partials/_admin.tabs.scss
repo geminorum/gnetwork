@@ -4,21 +4,20 @@
 /// gNetwork Partials: Tabs ----------------------------------------------------
 
 div.base-tabs-list {
-	width: 100%;
+  width: 100%;
 
-	.-wrapper {
-		margin-bottom: 0.5em;
-		.-nav {
+  .-wrapper {
+    margin-bottom: 0.5em;
 
-		}
-	}
+    .-nav {}
+  }
 
-	.-content {
-		display: none;
-		padding: 0.5em;
-	}
+  .-content {
+    display: none;
+    padding: 0.5em;
+  }
 
-	.-active {
-		display: block;
-	}
+  .-active {
+    display: block;
+  }
 }

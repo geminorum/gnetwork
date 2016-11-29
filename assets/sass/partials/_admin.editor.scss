@@ -49,6 +49,11 @@ body.rtl {
     text-align: right;
   }
 
+  .mce-toolbar .mce-btn-group .mce-btn,
+  .qt-dfw {
+    float: right;
+  }
+
   .mce-charmap,
   .mce-charmap * {
     direction: ltr !important;

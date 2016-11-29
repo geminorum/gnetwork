@@ -3,6 +3,7 @@
 @import 'partials/theme.fonts';
 
 .login {
+
   a {
     box-shadow: none;
   }
@@ -42,7 +43,10 @@
     line-height: 18px;
   }
 
-  #loginform {
+  #loginform,
+  #registerform,
+  #resetpassform,
+  #lostpasswordform {
     padding: 26px 24px;
   }
 
