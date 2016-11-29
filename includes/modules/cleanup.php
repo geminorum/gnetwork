@@ -85,6 +85,15 @@ class Cleanup extends ModuleCore
 				'default'     => _x( 'Purge Empty Contact Methods', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 				'values'      => $confirm,
 			);
+
+			$settings['_users'][] = array(
+				'field'       => 'users_last_activity',
+				'type'        => 'button',
+				'description' => _x( 'Removes BuddyPress Last Activity Back-Comp Meta Stored for Each User', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+				'default'     => _x( 'Back-Comp Last Activity', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+				'after'       => Settings::fieldAfterIcon( Settings::getMoreInfoIcon( 'http://wp.me/pLVLj-gc' ) ),
+				'values'      => $confirm,
+			);
 		}
 
 		$settings['_posts'][] = array(
@@ -166,6 +175,9 @@ class Cleanup extends ModuleCore
 
 			else if ( isset( $_POST['users_contactmethods'] ) )
 				$message = $this->users_contactmethods();
+
+			else if ( isset( $_POST['users_last_activity'] ) )
+				$message = $this->users_last_activity();
 
 			else if ( isset( $_POST['postmeta_editdata'] ) )
 				$message = $this->postmeta_editdata();
@@ -317,6 +329,23 @@ class Cleanup extends ModuleCore
 				WHERE meta_key = '%s'
 				AND meta_value = ''
 			", $key ) );
+
+		$wpdb->query( "OPTIMIZE TABLE {$wpdb->usermeta}" );
+
+		return $count ? array(
+			'message' => 'purged',
+			'count'   => $count,
+		) : 'optimized';
+	}
+
+	private function users_last_activity()
+	{
+		global $wpdb;
+
+		$count = $wpdb->query( $wpdb->prepare( "
+			DELETE FROM {$wpdb->usermeta}
+			WHERE meta_key = '%s'
+		", 'last_activity' ) );
 
 		$wpdb->query( "OPTIMIZE TABLE {$wpdb->usermeta}" );
 
