@@ -1,3 +1,6 @@
+### 3.5.1
+* module/adminbar: :warning: fix fatal
+
 ### 3.5.0
 * assets/js: passing tinymce object into mce plugins
 * core/number: internal format handling
