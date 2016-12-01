@@ -209,7 +209,7 @@ class Maintenance extends ModuleCore
 
 	public static function getTemplate()
 	{
-		if ( $override = $this->filters( 'forced_template', FALSE ) )
+		if ( $override = apply_filters( 'gnetwork_maintenance_forced_template', FALSE ) )
 			return $override;
 
 		elseif ( ! is_admin() && locate_template( '503.php' ) )
