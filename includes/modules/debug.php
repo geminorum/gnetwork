@@ -49,7 +49,7 @@ class Debug extends ModuleCore
 	{
 		if ( isset( $_POST['clear_error_log'] ) ) {
 			$this->check_referer( $sub );
-			self::redirect_referer( ( unlink( GNETWORK_DEBUG_LOG ) ? 'purged' : 'error' ) );
+			self::redirect_referer( ( @unlink( GNETWORK_DEBUG_LOG ) ? 'purged' : 'error' ) );
 		}
 	}
 
