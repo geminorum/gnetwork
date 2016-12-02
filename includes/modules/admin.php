@@ -97,9 +97,6 @@ class Admin extends ModuleCore
 
 	public static function registerMenu( $sub, $title = NULL, $callback = FALSE, $capability = 'manage_options' )
 	{
-		if ( ! is_admin() || WordPress::isAJAX() )
-			return;
-
 		gNetwork()->admin->menus[$sub] = array(
 			'title' => $title ? $title : $sub,
 			'cap'   => $capability,

@@ -23,7 +23,7 @@ class AdminBar extends ModuleCore
 
 	public function init()
 	{
-		if ( is_admin() ) {
+		if ( WordPress::mustRegisterUI() ) {
 
 			$this->filter( 'admin_body_class' );
 

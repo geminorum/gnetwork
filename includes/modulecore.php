@@ -114,25 +114,26 @@ class ModuleCore extends Base
 		$setup = $this->setup_actions();
 
 		if ( FALSE !== $setup
-			&& is_admin()
+			&& WordPress::mustRegisterUI()
 			&& method_exists( $this, 'setup_menu' ) )
 				add_action( 'gnetwork_setup_menu', array( $this, 'setup_menu' ) );
 	}
 
+	// we call 'setup_menu' action only if `WordPress::mustRegisterUI()`
 	public function register_menu( $title = NULL, $callback = FALSE, $sub = NULL, $capability = NULL )
 	{
-		if ( ! is_admin() || WordPress::isAJAX() )
-			return;
-
 		if ( is_null( $sub ) )
 			$sub = $this->key;
 
 		if ( $this->is_network() ) {
+
 			if ( is_null( $capability ) )
 				$capability = 'manage_network_options';
 
 			Network::registerMenu( $sub, $title, $callback, $capability );
+
 		} else {
+
 			if ( is_null( $capability ) )
 				$capability = 'manage_options';
 
@@ -160,10 +161,7 @@ class ModuleCore extends Base
 	// override this for non network install
 	public function is_network()
 	{
-		if ( ! is_multisite() )
-			return FALSE;
-
-		return $this->network;
+		return is_multisite() ? $this->network : FALSE;
 	}
 
 	protected function setup_actions() {}

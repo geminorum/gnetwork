@@ -89,7 +89,7 @@ class Network extends ModuleCore
 
 	public static function registerMenu( $sub, $title = NULL, $callback = FALSE, $capability = 'manage_network_options' )
 	{
-		if ( ! is_network_admin() || WordPress::isAJAX() )
+		if ( ! is_network_admin() )
 			return;
 
 		gNetwork()->network->menus[$sub] = array(

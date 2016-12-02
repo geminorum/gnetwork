@@ -5,6 +5,20 @@ defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 class WordPress extends Base
 {
 
+	public static function mustRegisterUI( $check_admin = TRUE )
+	{
+		if ( self::isAJAX()
+			|| self::isCLI()
+			|| self::isXMLRPC()
+			|| self::isIFrame() )
+				return FALSE;
+
+		if ( $check_admin && ! is_admin() )
+			return FALSE;
+
+		return TRUE;
+	}
+
 	public static function isDebug()
 	{
 		if ( WP_DEBUG && WP_DEBUG_DISPLAY && ! self::isDev() )

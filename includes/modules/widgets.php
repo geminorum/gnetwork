@@ -17,10 +17,11 @@ class Widgets extends ModuleCore
 
 		if ( count( $this->options['disabled_sidebar_widgets'] ) )
 			add_action( 'widgets_init', array( $this, 'disable_sidebar_widgets' ), 100 );
+
 		else if ( is_admin() )
 			add_action( 'widgets_init', array( $this, 'populate_widgets' ), 100 );
 
-		if ( count( $this->options['disabled_dashboard_widgets'] ) && is_admin() )
+		if ( count( $this->options['disabled_dashboard_widgets'] ) && WordPress::mustRegisterUI() )
 			add_action( 'wp_dashboard_setup', array( $this, 'disable_dashboard_widgets' ), 100 );
 	}
 

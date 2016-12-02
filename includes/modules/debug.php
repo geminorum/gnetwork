@@ -8,7 +8,7 @@ class Debug extends ModuleCore
 
 	protected function setup_actions()
 	{
-		if ( is_admin() )
+		if ( WordPress::mustRegisterUI() )
 			add_action( 'core_upgrade_preamble', array( $this, 'core_upgrade_preamble' ), 20 );
 
 		add_filter( 'debug_bar_panels', array( $this, 'debug_bar_panels' ) );
@@ -39,7 +39,7 @@ class Debug extends ModuleCore
 
 	public function setup_menu( $context )
 	{
-		Network::registerMenu( $this->key,
+		$this->register_menu(
 			_x( 'Debug Logs', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
 			array( $this, 'settings' )
 		);
