@@ -144,7 +144,7 @@ class Network extends ModuleCore
 		$sub  = Settings::sub( 'overview' );
 		$subs = $this->filters( 'settings_subs', $this->subs() );
 
-		echo '<div class="wrap gnetwork-admin-settings-wrap settings-network sub-'.$sub.'">';
+		Settings::wrapOpen( $sub, $this->base, 'settings' );
 
 			$messages = $this->filters( 'settings_messages', Settings::messages(), $sub );
 
@@ -157,7 +157,7 @@ class Network extends ModuleCore
 			else
 				$this->actions( 'settings_sub_'.$sub, $uri, $sub );
 
-		echo '<div class="clear"></div></div>';
+		Settings::wrapClose();
 	}
 
 	public static function getLogo( $wrap = FALSE, $fallback = TRUE, $logo = NULL )

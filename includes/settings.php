@@ -48,6 +48,16 @@ class Settings extends Base
 		return 'toplevel_page_'.self::base();
 	}
 
+	public static function wrapOpen( $sub = 'general', $base = 'gnetwork', $page = 'settings' )
+	{
+		echo '<div class="wrap '.$base.'-admin-wrap '.$base.'-'.$page.' '.$base.'-'.$page.'-'.$sub.' sub-'.$sub.'">';
+	}
+
+	public static function wrapClose()
+	{
+		echo '<div class="clear"></div></div>';
+	}
+
 	public static function headerTitle()
 	{
 		echo '<h1>';

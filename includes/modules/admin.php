@@ -143,7 +143,7 @@ class Admin extends ModuleCore
 		$sub  = Settings::sub( 'overview' );
 		$subs = $this->filters( 'settings_subs', $this->subs() );
 
-		echo '<div class="wrap gnetwork-admin-settings-wrap settings-admin sub-'.$sub.'">';
+		Settings::wrapOpen( $sub, $this->base, 'settings' );
 
 		if ( 'overview' == $sub
 			|| ( 'console' == $sub && is_super_admin() )
@@ -165,7 +165,7 @@ class Admin extends ModuleCore
 			Settings::cheatin();
 		}
 
-		echo '<div class="clear"></div></div>';
+		Settings::wrapClose();
 	}
 
 	public function export_wp()
