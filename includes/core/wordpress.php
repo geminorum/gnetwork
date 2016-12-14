@@ -9,7 +9,9 @@ class WordPress extends Base
 	{
 		if ( self::isAJAX()
 			|| self::isCLI()
+			|| self::isCRON()
 			|| self::isXMLRPC()
+			|| self::isREST()
 			|| self::isIFrame() )
 				return FALSE;
 
@@ -63,6 +65,11 @@ class WordPress extends Base
 	public static function isXMLRPC()
 	{
 		return defined( 'XMLRPC_REQUEST' ) && XMLRPC_REQUEST;
+	}
+
+	public static function isREST()
+	{
+		return defined( 'REST_REQUEST' ) && REST_REQUEST;
 	}
 
 	public static function isIFrame()
