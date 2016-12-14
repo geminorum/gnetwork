@@ -348,7 +348,7 @@ class Themes extends ModuleCore
 
 	public function allowed_themes( $themes )
 	{
-		if ( ! is_super_admin() )
+		if ( ! WordPress::isSuperAdmin() )
 			return $themes;
 
 		$allowed = array();

@@ -254,7 +254,7 @@ class BuddyPress extends ModuleCore
 
 	public function init()
 	{
-		if ( is_super_admin() ) {
+		if ( WordPress::isSuperAdmin() ) {
 
 			// Don't record activity by the site admins
 			// or show them as recently active

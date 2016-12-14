@@ -165,7 +165,7 @@ class WordPress extends Base
 
 	public static function superAdminOnly()
 	{
-		if ( ! is_super_admin() )
+		if ( ! self::isSuperAdmin() )
 			self::cheatin();
 	}
 
@@ -220,6 +220,14 @@ class WordPress extends Base
 			return $none;
 
 		return current_user_can( $cap );
+	}
+
+	public static function isSuperAdmin( $user_id = FALSE )
+	{
+		if ( $user_id )
+			return user_can( $user_id, 'manage_network' );
+
+		return current_user_can( 'manage_network' );
 	}
 
 	public static function cheatin( $message = NULL )

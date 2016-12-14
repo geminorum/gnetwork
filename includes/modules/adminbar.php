@@ -148,7 +148,7 @@ class AdminBar extends ModuleCore
 	{
 		global $wp_admin_bar;
 
-		if ( is_super_admin() )
+		if ( WordPress::isSuperAdmin() )
 			$this->add_nodes( $wp_admin_bar );
 
 		foreach ( $this->remove_nodes as $node )
@@ -383,7 +383,7 @@ class AdminBar extends ModuleCore
 		if ( ! is_user_logged_in() || ! is_multisite() )
 			return;
 
-		$super_admin = is_super_admin();
+		$super_admin = WordPress::isSuperAdmin();
 
 		if ( count( $wp_admin_bar->user->blogs ) < 1 && ! $super_admin )
 			return;

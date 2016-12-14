@@ -131,7 +131,7 @@ class Admin extends ModuleCore
 			if ( WordPress::cuc( $args['cap'] ) )
 				$subs[$sub] = $args['title'];
 
-		if ( is_super_admin() )
+		if ( WordPress::isSuperAdmin() )
 			$subs['console'] = _x( 'Console', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN );
 
 		return $subs;
@@ -146,7 +146,7 @@ class Admin extends ModuleCore
 		Settings::wrapOpen( $sub, $this->base, 'settings' );
 
 		if ( 'overview' == $sub
-			|| ( 'console' == $sub && is_super_admin() )
+			|| ( 'console' == $sub && WordPress::isSuperAdmin() )
 			|| ( isset( $this->menus[$sub] ) && WordPress::cuc( $this->menus[$sub]['cap'] ) ) ) {
 
 			$messages = $this->filters( 'settings_messages', Settings::messages(), $sub );

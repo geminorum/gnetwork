@@ -130,7 +130,7 @@ class Network extends ModuleCore
 		foreach ( $this->menus as $sub => $args )
 			$subs[$sub] = $args['title'];
 
-		if ( is_super_admin() ) {
+		if ( WordPress::isSuperAdmin() ) {
 			$subs['phpinfo'] = _x( 'PHP Info', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN );
 			$subs['console'] = _x( 'Console', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN );
 		}
@@ -265,9 +265,8 @@ class Network extends ModuleCore
 	{
 		// Allow the super admin to see all plugins, by adding the URL param
 		// show_all_plugins=1
-		if ( is_super_admin() && ! empty( $_GET['show_all_plugins'] ) ) {
+		if ( WordPress::isSuperAdmin() && ! empty( $_GET['show_all_plugins'] ) )
 			return $plugins;
-		}
 
 		// The following plugins are disabled
 		$disabled_plugins = array(

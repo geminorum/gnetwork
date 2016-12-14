@@ -207,7 +207,7 @@ class Users extends ModuleCore
 
 		$post_type_object = get_post_type_object( $postarr['post_type'] );
 
-		if ( is_super_admin() || current_user_can( $post_type_object->cap->edit_others_posts ) ) {
+		if ( current_user_can( $post_type_object->cap->edit_others_posts ) ) {
 
 			if ( 'auto-draft' == $postarr['post_status']
 				&& $user_ID == $postarr['post_author'] )

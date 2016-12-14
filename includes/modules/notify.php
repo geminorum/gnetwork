@@ -65,7 +65,7 @@ class Notify extends ModuleCore
 	// filter whether to bypass the welcome email after site activation.
 	public function wpmu_welcome_notification( $blog_id, $user_id, $password, $title, $meta )
 	{
-		if ( is_super_admin( $user_id ) )
+		if ( WordPress::isSuperAdmin( $user_id ) )
 			return FALSE;
 
 		return $blog_id;
