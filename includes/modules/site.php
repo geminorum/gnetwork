@@ -22,6 +22,14 @@ class Site extends ModuleCore
 				$this->action( 'before_signup_header', 0, 1 );
 		}
 
+		if ( is_multisite() ) {
+
+			$this->action( 'wpmu_new_blog', 6, 12 );
+
+			if ( GNETWORK_LARGE_NETWORK_IS )
+				$this->filter( 'wp_is_large_network', 3, 10 );
+		}
+
 		if ( $this->options['contact_methods'] )
 			$this->filter( 'user_contactmethods', 2 );
 	}
@@ -66,17 +74,19 @@ class Site extends ModuleCore
 			);
 		}
 
-		$settings['_signup'] = array(
-			array(
-				'field'       => 'page_signup',
-				'type'        => 'page',
-				'title'       => _x( 'Page for Signup', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
-				'description' => _x( 'Redirects signups into this page, if registration <strong>disabled</strong>', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
-				'default'     => '0',
-				'exclude'     => $exclude,
-				'after'       => Settings::fieldAfterIcon( Settings::getNewPostTypeLink( 'page' ) ),
-			),
-		);
+		if ( is_multisite() ) {
+			$settings['_signup'] = array(
+				array(
+					'field'       => 'page_signup',
+					'type'        => 'page',
+					'title'       => _x( 'Page for Signup', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Redirects signups into this page, if registration <strong>disabled</strong>', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+					'default'     => '0',
+					'exclude'     => $exclude,
+					'after'       => Settings::fieldAfterIcon( Settings::getNewPostTypeLink( 'page' ) ),
+				),
+			);
+		}
 
 		$settings['_users'] = array(
 			array(
@@ -124,5 +134,50 @@ class Site extends ModuleCore
 		unset( $meta['locale'] );
 
 		return $meta;
+	}
+
+	// TODO: on signup form: http://stackoverflow.com/a/10372861
+	public function wpmu_new_blog( $blog_id, $user_id, $domain, $path, $site_id, $meta )
+	{
+		switch_to_blog( $blog_id );
+
+		if ( $site_user_id = WordPress::getSiteUserID() )
+			add_user_to_blog( $blog_id, $site_user_id, GNETWORK_SITE_USER_ROLE );
+
+		$new_blog_options = $this->filters( 'new_blog_options', array(
+			'blogdescription'        => '',
+			'permalink_structure'    => '/entries/%post_id%',
+			'default_comment_status' => 'closed',
+			'default_ping_status'    => 'closed',
+			'comments_notify'        => FALSE,
+			'moderation_notify'      => FALSE,
+			'admin_email'            => get_site_option( 'admin_email' ),
+		) );
+
+		foreach ( $new_blog_options as $new_blog_option_key => $new_blog_option )
+			update_option( $new_blog_option_key, $new_blog_option );
+
+		wp_update_post( array( 'ID' => 1, 'post_status' => 'draft' ) );
+		wp_update_post( array( 'ID' => 2, 'post_status' => 'draft' ) );
+		wp_set_comment_status( 1, 'trash' );
+
+		$new_blog_plugins = $this->filters( 'new_blog_plugins', array(
+			'geditorial/geditorial.php'     => TRUE,
+			'gpersiandate/gpersiandate.php' => TRUE,
+		) );
+
+		foreach ( $new_blog_plugins as $new_blog_plugin => $new_blog_plugin_silent )
+			activate_plugin( $new_blog_plugin, '', FALSE, $new_blog_plugin_silent );
+
+		restore_current_blog();
+		refresh_blog_details( $blog_id );
+	}
+
+	public function wp_is_large_network( $is, $using, $count )
+	{
+		if ( 'users' == $using )
+			return $count > GNETWORK_LARGE_NETWORK_IS;
+
+		return $is;
 	}
 }

@@ -15,26 +15,9 @@ class Network extends ModuleCore
 			throw new Exception( 'Only on Multisite!' );
 
 		if ( is_network_admin() ) {
-
-			// add_filter( 'all_plugins', array( $this, 'all_plugins' ) );
-			// add_action( 'load-index.php', array( $this, 'load_index_php' ) ); // SPEED CAUTIONS
-
 			$this->action( 'network_admin_menu' );
 			$this->action( 'current_screen' );
 		}
-
-		add_action( 'wpmu_new_blog', array( $this, 'wpmu_new_blog' ), 12, 6 );
-
-		if ( GNETWORK_LARGE_NETWORK_IS )
-			add_filter( 'wp_is_large_network', array( $this, 'wp_is_large_network' ), 10, 3 );
-	}
-
-	public function wp_is_large_network( $is, $using, $count )
-	{
-		if ( 'users' == $using )
-			return $count > GNETWORK_LARGE_NETWORK_IS;
-
-		return $is;
 	}
 
 	public function network_admin_menu()
@@ -244,50 +227,6 @@ class Network extends ModuleCore
 		return $html;
 	}
 
-	// http://wpengineer.com/2470/hide-welcome-panel-for-wordpress-multisite/
-	public function load_index_php()
-	{
-		if ( 2 === (int) get_user_meta( get_current_user_id(), 'show_welcome_panel', TRUE ) )
-			update_user_meta( get_current_user_id(), 'show_welcome_panel', 0 );
-	}
-
-	// TODO: on signup form: http://stackoverflow.com/a/10372861
-	public function wpmu_new_blog( $blog_id, $user_id, $domain, $path, $site_id, $meta )
-	{
-		switch_to_blog( $blog_id );
-
-		if ( $site_user_id = WordPress::getSiteUserID() )
-			add_user_to_blog( $blog_id, $site_user_id, GNETWORK_SITE_USER_ROLE );
-
-		$new_blog_options = $this->filters( 'new_blog_options', array(
-			'blogdescription'        => '',
-			'permalink_structure'    => '/entries/%post_id%',
-			'default_comment_status' => 'closed',
-			'default_ping_status'    => 'closed',
-			'comments_notify'        => FALSE,
-			'moderation_notify'      => FALSE,
-			'admin_email'            => get_site_option( 'admin_email' ),
-		) );
-
-		foreach ( $new_blog_options as $new_blog_option_key => $new_blog_option )
-			update_option( $new_blog_option_key, $new_blog_option );
-
-		wp_update_post( array( 'ID' => 1, 'post_status' => 'draft' ) );
-		wp_update_post( array( 'ID' => 2, 'post_status' => 'draft' ) );
-		wp_set_comment_status( 1, 'trash' );
-
-		$new_blog_plugins = $this->filters( 'new_blog_plugins', array(
-			'geditorial/geditorial.php'     => TRUE,
-			'gpersiandate/gpersiandate.php' => TRUE,
-		) );
-
-		foreach ( $new_blog_plugins as $new_blog_plugin => $new_blog_plugin_silent )
-			activate_plugin( $new_blog_plugin, '', FALSE, $new_blog_plugin_silent );
-
-		restore_current_blog();
-		refresh_blog_details( $blog_id );
-	}
-
 	public function wpmu_blogs_columns( $columns )
 	{
 		return array_merge( $columns, array( 'gnetwork-network-id' => _x( 'ID', 'Modules: Network: Column', GNETWORK_TEXTDOMAIN ) ) );
@@ -301,45 +240,5 @@ class Network extends ModuleCore
 		echo '<div class="gnetwork-admin-wrap-column -network -id">';
 			echo esc_html( $blog_id );
 		echo '</div>';
-	}
-
-	// http://teleogistic.net/2013/02/selectively-deprecating-wordpress-plugins-from-dashboard-plugins/
-	// https://gist.github.com/boonebgorges/5057165
-	/**
-	 * Prevent specific plugins from being activated (or, in some cases, deactivated).
-	 * Plugins that are to be deprecated should be added to the $disabled_plugins array.
-	 * Plugins that should be un-deactivatable should be added to the $undeactivatable_plugins array
-	 */
-	public function all_plugins( $plugins )
-	{
-		// Allow the super admin to see all plugins, by adding the URL param
-		// show_all_plugins=1
-		if ( WordPress::isSuperAdmin() && ! empty( $_GET['show_all_plugins'] ) )
-			return $plugins;
-
-		// The following plugins are disabled
-		$disabled_plugins = array(
-			'cforms/cforms.php',
-			'wpng-calendar/wpng-calendar.php'
-		);
-
-		// By default, allow all disabled plugins to appear if they are
-		// already active on the current site. This lets administrators
-		// disable them. However, if you want a given plugin to be unlisted
-		// even when enabled, add it to this array
-		$undeactivatable_plugins = array(
-			'cforms/cforms.php',
-		);
-
-		foreach ( $disabled_plugins as $disabled_plugin ) {
-			if ( array_key_exists( $disabled_plugin, $plugins ) &&
-				 ( in_array( $disabled_plugin, $undeactivatable_plugins )
-					|| ! is_plugin_active( $disabled_plugin ) )
-			) {
-				unset( $plugins[ $disabled_plugin ] );
-			}
-		}
-
-		return $plugins;
 	}
 }
