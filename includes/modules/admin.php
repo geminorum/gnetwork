@@ -13,29 +13,15 @@ class Admin extends ModuleCore
 
 	protected function setup_actions()
 	{
-		// add_action( 'admin_init', array( $this, 'admin_init_early' ), 1 );
+		if ( ! WordPress::mustRegisterUI( FALSE ) )
+			return;
+
 		add_action( 'admin_menu', array( $this, 'admin_menu' ), 12 );
 		add_action( 'admin_menu', array( $this, 'admin_menu_late' ), 999 );
-
-		add_action( 'export_wp', array( $this, 'export_wp' ), 1 );
 
 		add_action( 'admin_print_styles', array( $this, 'admin_print_styles' ) );
 		add_filter( 'admin_footer_text', array( $this, 'admin_footer_text' ), 9999 );
 		add_filter( 'update_footer', array( $this, 'update_footer' ), 9999 );
-
-		add_filter( 'manage_pages_columns', array( $this, 'manage_pages_columns' ) );
-		add_filter( 'post_date_column_time', array( $this, 'post_date_column_time' ), 10, 4 );
-	}
-
-	// FIXME: DISABLED
-	public function admin_init_early()
-	{
-		if ( current_user_can( 'update_plugins' ) ) {
-			@ini_set( 'memory_limit', '256M' );
-			@ini_set( 'upload_max_size', '64M' );
-			@ini_set( 'post_max_size', '64M' );
-			@ini_set( 'max_execution_time', '300' );
-		}
 	}
 
 	public function admin_menu()
@@ -171,13 +157,6 @@ class Admin extends ModuleCore
 		Settings::wrapClose();
 	}
 
-	public function export_wp()
-	{
-		@set_time_limit( 0 );
-
-		defined( 'GNETWORK_IS_WP_EXPORT' ) or define( 'GNETWORK_IS_WP_EXPORT', TRUE );
-	}
-
 	public function admin_print_styles()
 	{
 		Utilities::linkStyleSheet( GNETWORK_URL.'assets/css/admin.all.css' );
@@ -206,20 +185,5 @@ class Admin extends ModuleCore
 				.'">'._x( 'CODE IS POETRY', 'Modules: Admin', GNETWORK_TEXTDOMAIN ).'</span>';
 
 		return $content;
-	}
-
-	public function manage_pages_columns( $defaults )
-	{
-		unset( $defaults['comments'] );
-		return $defaults;
-	}
-
-	public function post_date_column_time( $h_time, $post, $column_name = 'date', $mode = 'excerpt' )
-	{
-		if ( 'excerpt' !== $mode
-			&& 'future' == $post->post_status )
-				$h_time .= '<br />'.get_post_time( 'g:i a', FALSE, $post, TRUE );
-
-		return $h_time;
 	}
 }
