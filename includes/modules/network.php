@@ -14,19 +14,13 @@ class Network extends ModuleCore
 		if ( ! is_multisite() )
 			throw new Exception( 'Only on Multisite!' );
 
-		if ( is_admin() ) {
+		if ( is_network_admin() ) {
 
 			// add_filter( 'all_plugins', array( $this, 'all_plugins' ) );
 			// add_action( 'load-index.php', array( $this, 'load_index_php' ) ); // SPEED CAUTIONS
 
-			add_action( 'network_admin_menu', array( $this, 'network_admin_menu' ) );
-
-			add_filter( 'wpmu_blogs_columns', array( $this, 'wpmu_blogs_columns' ), 20 );
-			add_action( 'manage_sites_custom_column', array( $this, 'manage_sites_custom_column' ), 10, 2 );
-
-		} else {
-
-			add_filter( 'blog_redirect_404', '__return_false' ); // prevent: maybe_redirect_404()
+			$this->action( 'network_admin_menu' );
+			$this->action( 'current_screen' );
 		}
 
 		add_action( 'wpmu_new_blog', array( $this, 'wpmu_new_blog' ), 12, 6 );
@@ -158,6 +152,58 @@ class Network extends ModuleCore
 				$this->actions( 'settings_sub_'.$sub, $uri, $sub );
 
 		Settings::wrapClose();
+	}
+
+	public function current_screen( $screen )
+	{
+		if ( 'sites-network' == $screen->base ) {
+
+			$this->filter( 'wpmu_blogs_columns', 1, 20 );
+			$this->action( 'manage_sites_custom_column', 2 );
+
+			$this->filter( 'bulk_actions-'.$screen->id, 1, 10, 'bulk_actions' );
+			$this->filter( 'network_sites_updated_message_'.$this->hook( 'admin', 'email' ), 1, 10, 'updated_message' );
+			$this->action( 'wpmuadminedit' );
+		}
+	}
+
+	public function bulk_actions( $actions )
+	{
+		return array_merge( $actions, array( 'resetadminemail' => _x( 'Reset Admin Email', 'Modules: Network: Bulk Action', GNETWORK_TEXTDOMAIN ) ) );
+	}
+
+	public function wpmuadminedit()
+	{
+		if ( ( empty( $_POST['action'] ) || 'resetadminemail' != $_POST['action'] )
+			&& ( empty( $_POST['action2'] ) || 'resetadminemail' != $_POST['action2'] ) )
+				return;
+
+		check_admin_referer( 'bulk-sites' );
+
+		$blogs = self::req( 'allblogs', array() );
+
+		if ( ! count( $blogs ) )
+			return;
+
+		$email = get_site_option( 'admin_email' );
+
+		foreach ( $blogs as $blog_id ) {
+			switch_to_blog( $blog_id );
+			update_option( 'admin_email', $email );
+		}
+
+		// restore_current_blog();
+
+		self::redirect_referer( array(
+			'updated' => $this->hook( 'admin', 'email' ),
+			'count'   => count( $blogs ),
+		) );
+	}
+
+	public function updated_message( $msg )
+	{
+		$message = _x( '%s site(s) admin email reset to <code>%s</code>', 'Modules: Network: Message', GNETWORK_TEXTDOMAIN );
+		return sprintf( $message, number_format_i18n( self::req( 'count', 0 ) ), get_site_option( 'admin_email' ) );
 	}
 
 	public static function getLogo( $wrap = FALSE, $fallback = TRUE, $logo = NULL )
