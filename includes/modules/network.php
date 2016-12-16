@@ -251,7 +251,7 @@ class Network extends ModuleCore
 			update_user_meta( get_current_user_id(), 'show_welcome_panel', 0 );
 	}
 
-	// TODO: http://stackoverflow.com/a/10372861
+	// TODO: on signup form: http://stackoverflow.com/a/10372861
 	public function wpmu_new_blog( $blog_id, $user_id, $domain, $path, $site_id, $meta )
 	{
 		switch_to_blog( $blog_id );
@@ -264,6 +264,9 @@ class Network extends ModuleCore
 			'permalink_structure'    => '/entries/%post_id%',
 			'default_comment_status' => 'closed',
 			'default_ping_status'    => 'closed',
+			'comments_notify'        => FALSE,
+			'moderation_notify'      => FALSE,
+			'admin_email'            => get_site_option( 'admin_email' ),
 		) );
 
 		foreach ( $new_blog_options as $new_blog_option_key => $new_blog_option )
