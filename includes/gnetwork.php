@@ -82,7 +82,7 @@ class gNetwork
 			'modules/api'         => 'API',
 			'modules/adminbar'    => 'AdminBar',
 			'modules/dashboard'   => 'Dashboard',
-			'modules/users'       => 'Users',
+			'modules/authors'     => 'Authors',
 			'modules/tracking'    => 'Tracking',
 			'modules/maintenance' => 'Maintenance',
 			'modules/restricted'  => 'Restricted',
