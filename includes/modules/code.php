@@ -27,7 +27,7 @@ class Code extends ModuleCore
 		// add_filter( 'the_content', array( $this, 'the_content_gist_shortcode' ), 9 );
 	}
 
-	// Originally based on : GitHub README v0.1.0
+	// Originally based on : GitHub README v0.2.0
 	// by Jason Stallings : http://jason.stallin.gs
 	// https://github.com/octalmage/github-readme
 	// https://wordpress.org/plugins/github-readme/
@@ -50,7 +50,7 @@ class Code extends ModuleCore
 		$html = $content;
 		$this->github_repo = $args['repo'];
 
-		$key = 'gnetwork_code_githubreadme_'.$args['repo'].'_'.$args['type'].'_'.$args['trim'];
+		$key = $this->hash( 'githubreadme', $args );
 
 		if ( WordPress::isFlush() )
 			delete_site_transient( $key );
