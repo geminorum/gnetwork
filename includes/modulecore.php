@@ -176,6 +176,36 @@ class ModuleCore extends Base
 		add_filter( $hook, array( $this, ( $method ? $method : $hook ) ), $priority, $args );
 	}
 
+	protected function hook()
+	{
+		$suffix = '';
+
+		foreach ( func_get_args() as $arg )
+			$suffix .= '_'.$arg;
+
+		return $this->base.'_'.$this->key.$suffix;
+	}
+
+	protected function hash()
+	{
+		$suffix = '';
+
+		foreach ( func_get_args() as $arg )
+			$suffix .= maybe_serialize( $arg );
+
+		return md5( $this->base.$this->key.$suffix );
+	}
+
+	protected function hashwithsalt()
+	{
+		$suffix = '';
+
+		foreach ( func_get_args() as $arg )
+			$suffix .= maybe_serialize( $arg );
+
+		return wp_hash( $this->base.$this->key.$suffix );
+	}
+
 	protected function actions()
 	{
 		$args = func_get_args();
@@ -217,11 +247,6 @@ class ModuleCore extends Base
 	protected function options_key()
 	{
 		return $this->base.'_'.$this->key;
-	}
-
-	protected function hook( $suffix = NULL )
-	{
-		return $this->base.'_'.$this->key.( is_null( $suffix ) ? '' : '_'.$suffix );
 	}
 
 	// OVERRIDED BY CHILD PLUGINS
