@@ -117,12 +117,19 @@ class Notify extends ModuleCore
 		$hashed = time().':'.$wp_hasher->HashPassword( $key );
 		$wpdb->update( $wpdb->users, array( 'user_activation_key' => $hashed ), array( 'user_login' => $user->user_login ) );
 
+		// FIXME: `switch_to_locale()` requires WP4.7.0
+		$switched_locale = function_exists( 'switch_to_locale' ) && switch_to_locale( get_user_locale( $user ) );
+
 		$message  = sprintf( __( 'Username: %s' ), $user->user_login )."\r\n\r\n";
 		$message .= __( 'To set your password, visit the following address:' )."\r\n\r\n";
 		$message .= '<'.network_site_url( "wp-login.php?action=rp&key=$key&login=".rawurlencode( $user->user_login ), 'login' ).">\r\n\r\n";
 		$message .= wp_login_url()."\r\n";
 
 		wp_mail( $user->user_email, sprintf( __( '[%s] Your username and password info' ), $blog ), $message );
+
+		// FIXME: `restore_previous_locale()` requires WP4.7.0
+		if ( $switched_locale && function_exists( 'restore_previous_locale' ) )
+			restore_previous_locale();
 	}
 
 	// pluggable core function
