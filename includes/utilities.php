@@ -1,6 +1,7 @@
 <?php namespace geminorum\gNetwork;
 
 use Symfony\Component\Stopwatch\Stopwatch;
+use DavidePastore\Ipinfo\Ipinfo;
 
 defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
@@ -392,5 +393,26 @@ class Utilities extends Base
 		$iso = class_exists( __NAMESPACE__.'\\Locale' ) ? Locale::getISO( $locale ) : $locale;
 
 		return \URLify::downcode( $string, $iso );
+	}
+
+	public static function IPinfo()
+	{
+		global $gNetworkIPinfo;
+
+		if ( empty( $gNetworkIPinfo ) )
+			$gNetworkIPinfo = new Ipinfo();
+
+		return $gNetworkIPinfo;
+	}
+
+	// @REF: https://github.com/DavidePastore/ipinfo
+	public static function getIPinfo( $ip = NULL )
+	{
+		$ipinfp = self::IPinfo();
+
+		if ( is_null( $ip ) )
+			return $ipinfp->getYourOwnIpDetails();
+
+		return $ipinfp->getFullIpDetails( $ip );
 	}
 }

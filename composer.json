@@ -25,7 +25,8 @@
     "erusev/parsedown-extra": "^0.7.1",
     "symfony/stopwatch": "^3.2",
     "parsecsv/php-parsecsv": "^0.4.5",
-    "jbroadway/urlify": "^1.0"
+    "jbroadway/urlify": "^1.0",
+    "davidepastore/ipinfo": "^0.1.2"
   },
   "require-dev": {
     "raveren/kint": "^1.0",
