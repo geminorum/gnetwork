@@ -15,9 +15,20 @@ class Blog extends ModuleCore
 		$this->action( 'wp_loaded', 0, 99 );
 
 		if ( is_admin() ) {
+
 			$this->action( 'export_wp', 0, 1 );
+
 		} else {
+
 			$this->filter( 'frontpage_template' );
+
+			if ( $this->options['page_copyright']
+				|| $this->options['noindex_attachments']
+				|| $this->options['meta_revised'] )
+					$this->action( 'wp_head' );
+
+			if ( $this->options['page_404'] )
+				add_filter( '404_template', array( $this, 'custom_404_template' ) );
 		}
 
 		if ( ! $this->options['rest_api_enabled'] )
@@ -25,13 +36,6 @@ class Blog extends ModuleCore
 
 		if ( ! $this->options['xmlrpc_enabled'] )
 			add_filter( 'xmlrpc_enabled', '__return_false', 12 );
-
-		if ( $this->options['page_copyright']
-			|| $this->options['meta_revised'] )
-				$this->action( 'wp_head' );
-
-		if ( $this->options['page_404'] )
-			add_filter( '404_template', array( $this, 'custom_404_template' ) );
 	}
 
 	public function setup_menu( $context )
@@ -53,6 +57,7 @@ class Blog extends ModuleCore
 			'page_copyright'       => '0',
 			'page_404'             => '0',
 			'meta_revised'         => '0',
+			'noindex_attachments'  => '0',
 			'feed_json'            => '0',
 			'disable_emojis'       => GNETWORK_DISABLE_EMOJIS,
 			'ga_override'          => '',
@@ -143,6 +148,11 @@ class Blog extends ModuleCore
 					'field'       => 'meta_revised',
 					'title'       => _x( 'Meta Revised', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'HTML Revised Meta Tags for Posts', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+				),
+				array(
+					'field'       => 'noindex_attachments',
+					'title'       => _x( 'No Index Attachments', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'No Index/No Follow Meta Tags for Attachments', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 				),
 			),
 		);
@@ -321,6 +331,9 @@ class Blog extends ModuleCore
 
 		if ( $this->options['meta_revised'] && is_singular() )
 			echo "\t".'<meta name="revised" content="'.get_post_modified_time( 'D, m M Y G:i:s', TRUE ).'" />'."\n";
+
+		if ( $this->options['noindex_attachments'] && is_attachment() )
+			echo "\t".'<meta name="robots" content="noindex,nofollow" />'."\n";
 	}
 
 ////////////////////////////////////////////////////////////////////////////////
