@@ -23,6 +23,18 @@ class Text extends Base
 		return preg_replace( '/(width|height)="\d*"\s/', '', $string );
 	}
 
+	public static function has( $haystack, $needles )
+	{
+		if ( ! is_array( $needles ) )
+			return FALSE !== stripos( $haystack, $needles );
+
+		foreach ( $needles as $needle )
+			if ( FALSE !== stripos( $haystack, $needle ) )
+				return TRUE;
+
+		return FALSE;
+	}
+
 	// @SEE: `mb_convert_case()`
 	public static function strToLower( $string, $encoding = 'UTF-8' )
 	{
@@ -117,6 +129,28 @@ class Text extends Base
 		}
 
 		return $return;
+	}
+
+	// @SOURCE: http://bavotasan.com/2012/trim-characters-using-php/
+	public static function trimChars( $text, $length = 45, $append = '&hellip;' )
+	{
+		$length = (int) $length;
+		$text   = trim( strip_tags( $text ) );
+
+		if ( strlen( $text ) > $length ) {
+
+			$text  = substr( $text, 0, $length + 1 );
+			$words = preg_split( "/[\s]|&nbsp;/", $text, -1, PREG_SPLIT_NO_EMPTY );
+
+			preg_match( "/[\s]|&nbsp;/", $text, $lastchar, 0, $length );
+
+			if ( empty( $lastchar ) )
+				array_pop( $words );
+
+			$text = implode( ' ', $words ).$append;
+		}
+
+		return $text;
 	}
 
 	/*
@@ -261,7 +295,6 @@ class Text extends Base
 			' ',
 			$text );
 	}
-
 
 	public static function utf8StripBOM( $string )
 	{

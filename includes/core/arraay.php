@@ -108,4 +108,31 @@ class Arraay extends Base
 
 		return $atts;
 	}
+
+
+	// @REF: http://php.net/manual/en/function.array-splice.php#92651
+	public static function keyMoveUp( $input, $index )
+	{
+		$new = $input;
+
+		if ( ( count( $new ) > $index ) && ( $index > 0 ) ) {
+			array_splice( $new, $index - 1, 0, $input[$index] );
+			array_splice( $new, $index + 1, 1 );
+		}
+
+		return $new;
+	}
+
+	// @REF: http://php.net/manual/en/function.array-splice.php#92651
+	public static function keyMoveDown( $input, $index )
+	{
+		$new = $input;
+
+		if ( count( $new) > $index ) {
+			array_splice( $new, $index + 2, 0, $input[$index] );
+			array_splice( $new, $index, 1 );
+		}
+
+		return $new;
+	}
 }

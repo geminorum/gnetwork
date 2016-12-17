@@ -21,6 +21,6 @@ class Date extends Base
 		return HTML::tag( 'time', array(
 			'datetime' => date( 'c', ( $gmt ? $gmt : $time ) ),
 			'title'    => $title,
-		), date_i18n( $format, $time ) );
+		), date_i18n( $format, $time, is_null( $gmt ) ) );
 	}
 }

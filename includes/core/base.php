@@ -14,9 +14,10 @@ class Base
 		echo $export;
 	}
 
-	public static function kill( $var = FALSE )
+	public static function kill()
 	{
-		if ( $var ) self::dump( $var );
+		foreach ( func_get_args() as $arg )
+			self::dump( $arg );
 		echo self::stat();
 		die();
 	}
@@ -186,6 +187,8 @@ class Base
 		}
 	}
 
+	// DEPRECATED
+	// @SEE: `wp_hash()`
 	public static function genRandomKey( $salt )
 	{
 		$chr = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";

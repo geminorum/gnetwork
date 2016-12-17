@@ -5,6 +5,11 @@ defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 class HTML extends Base
 {
 
+	public static function link( $html, $link = '#', $target_blank = FALSE )
+	{
+		return self::tag( 'a', array( 'href' => $link, 'target' => ( $target_blank ? '_blank' : FALSE ) ), $html );
+	}
+
 	public static function tag( $tag, $atts = array(), $content = FALSE, $sep = '' )
 	{
 		$tag = self::sanitizeTag( $tag );
@@ -30,10 +35,10 @@ class HTML extends Base
 		foreach ( func_get_args() as $arg )
 
 			if ( is_array( $arg ) )
-				$classes += $arg;
+				$classes = array_merge( $classes, $arg );
 
 			else if ( $arg )
-				$classes += explode( ' ', $arg );
+				$classes = array_merge( $classes, explode( ' ', $arg ) );
 
 		return array_unique( array_filter( $classes, 'trim' ) );
 	}
@@ -203,7 +208,7 @@ class HTML extends Base
 		echo '<tbody>';
 
 		foreach ( (array) $array as $key => $val )
-			printf( $row, $key, ( is_bool( $val ) ? ( $val ? 'TRUE' : 'FALSE' ) : $val ) );
+			@printf( $row, $key, ( is_bool( $val ) ? ( $val ? 'TRUE' : 'FALSE' ) : $val ) );
 
 		echo '</tbody></table>';
 	}
@@ -619,6 +624,7 @@ class HTML extends Base
 	}
 
 	// @REF: https://codex.wordpress.org/Plugin_API/Action_Reference/admin_notices
+	// CLASSES: notice-error, notice-warning, notice-success, notice-info, is-dismissible
 	public static function notice( $notice, $class = 'notice-success fade', $echo = TRUE )
 	{
 		$html = sprintf( '<div class="notice %s is-dismissible"><p>%s</p></div>', $class, $notice );
