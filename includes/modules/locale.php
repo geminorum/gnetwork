@@ -200,6 +200,7 @@ class Locale extends ModuleCore
 			'exploit-scanner'            => 'page', // [Exploit Scanner](https://wordpress.org/plugins/exploit-scanner/)
 			'vip-scanner'                => 'page', // [VIP Scanner](https://wordpress.org/plugins/vip-scanner/)
 			'antivirus'                  => 'page', // [AntiVirus](https://wordpress.org/plugins/antivirus/)
+			'convert-post-types'         => 'page', // [Convert Post Types](https://wordpress.org/plugins/convert-post-types/)
 
 			// [AddThis Website Tools](https://wordpress.org/plugins/addthis-all/)
 			'addthis_registration'      => 'page',
@@ -236,6 +237,10 @@ class Locale extends ModuleCore
 			'wp-dbmanager/database-repair.php'   => 'page',
 			'wp-dbmanager/database-empty.php'    => 'page',
 			'wp-dbmanager/database-run.php'      => 'page',
+
+			// [Broken Link Checker](https://wordpress.org/plugins/broken-link-checker/)
+			'view-broken-links'     => 'page',
+			'link-checker-settings' => 'page',
 		) );
 
 		foreach ( $black_list as $val => $key )

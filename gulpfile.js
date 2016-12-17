@@ -77,7 +77,7 @@
 			// 'js': './assets/js',
 			'sourcemaps': './maps',
 			'images': './assets/images',
-			'languages': './languages',
+			'languages': './languages/'+pkg.name+'.pot',
 			'ready': './ready/',
 			'final': '..',
 		},
@@ -137,8 +137,6 @@
 		return gulp.src(input.php)
 
 		.pipe(plugins.excludeGitignore())
-
-		.pipe(plugins.sort())
 
 		.pipe(plugins.wpPot(pkg._pot))
 

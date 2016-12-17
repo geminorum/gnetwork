@@ -63,13 +63,13 @@ class Typography extends ModuleCore
 				),
 				array(
 					'field'       => 'title_titlecase',
-					'title'       => _x( 'Title in Title Case', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Titles in Title Case', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Properly-Cased Post Titles', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
 					'after'       => Settings::fieldAfterIcon( Settings::getMoreInfoIcon( 'https://gist.github.com/geminorum/fe2a9ba25db5cf2e5ad6718423d00f8a' ) ),
 				),
 				array(
 					'field'       => 'title_wordwrap',
-					'title'       => _x( 'Title Word Wrapper', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Word Wrapper for Titles', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Preventing Widows in Post Titles', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
 					'after'       => Settings::fieldAfterIcon( Settings::getMoreInfoIcon( 'https://davidwalsh.name/word-wrap-mootools-php' ) ),
 				),

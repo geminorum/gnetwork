@@ -128,7 +128,7 @@ class BuddyPress extends ModuleCore
 				'field'       => 'tos_title',
 				'type'        => 'text',
 				'title'       => _x( 'ToS Title', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
-				'description' => _x( 'Section title, Usually : Terms of Service', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Section Title, Usually : Terms of Service', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
 				'default'     => _x( 'Terms of Service', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
 				'field_class' => 'large-text',
 			),

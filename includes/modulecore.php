@@ -451,7 +451,7 @@ class ModuleCore extends Base
 	protected function settings_buttons( $sub = NULL, $wrap = '' )
 	{
 		if ( FALSE !== $wrap )
-			echo '<p class="submit gnetwork-settings-buttons '.$wrap.'">';
+			echo '<p class="submit gnetwork-wrap-buttons '.$wrap.'">';
 
 		foreach ( $this->buttons as $action => $button ) {
 			echo get_submit_button( $button['value'], $button['type'], $action, FALSE, $button['atts'] );
