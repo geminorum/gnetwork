@@ -11,64 +11,27 @@ class Blog extends ModuleCore
 
 	protected function setup_actions()
 	{
-		add_filter( 'init', array( $this, 'init_early' ), 1 );
-		add_filter( 'wp_loaded', array( $this, 'wp_loaded' ), 99 );
+		$this->action( 'init', 0, 1 );
+		$this->action( 'wp_loaded', 0, 99 );
 
-		add_filter( 'frontpage_template', array( $this, 'frontpage_template' ) );
+		if ( is_admin() ) {
+			$this->action( 'export_wp', 0, 1 );
+		} else {
+			$this->filter( 'frontpage_template' );
+		}
+
+		if ( ! $this->options['rest_api_enabled'] )
+			$this->filter( 'rest_authentication_errors', 1, 999 );
 
 		if ( ! $this->options['xmlrpc_enabled'] )
 			add_filter( 'xmlrpc_enabled', '__return_false', 12 );
 
-		if ( $this->options['linkmanager_enabled'] )
-			add_filter( 'pre_option_link_manager_enabled', '__return_true', 12 );
-
-		if ( $this->options['page_copyright'] || $this->options['meta_revised'] )
-			add_filter( 'wp_head', array( $this, 'wp_head' ) );
+		if ( $this->options['page_copyright']
+			|| $this->options['meta_revised'] )
+				$this->action( 'wp_head' );
 
 		if ( $this->options['page_404'] )
 			add_filter( '404_template', array( $this, 'custom_404_template' ) );
-
-		// @REF: http://wordpress.stackexchange.com/a/212472
-		if ( '-1' == $this->options['rest_api_support'] ) {
-
-			add_action( 'after_setup_theme', function() {
-
-				// Remove the REST API lines from the HTML Header
-				remove_action( 'wp_head', 'rest_output_link_wp_head', 10 );
-
-				// Remove the REST API endpoint.
-				remove_action( 'rest_api_init', 'wp_oembed_register_route' );
-
-				// Turn off oEmbed auto discovery.
-				add_filter( 'embed_oembed_discover', '__return_false' );
-
-				// Don't filter oEmbed results.
-				remove_filter( 'oembed_dataparse', 'wp_filter_oembed_result', 10 );
-
-				// Remove oEmbed discovery links.
-				remove_action( 'wp_head', 'wp_oembed_add_discovery_links' );
-
-				// Remove oEmbed-specific JavaScript from the front-end and back-end.
-				remove_action( 'wp_head', 'wp_oembed_add_host_js' );
-
-				// Remove all embeds rewrite rules.
-				add_filter( 'rewrite_rules_array', 'disable_embeds_rewrites' );
-			} );
-
-		} else if ( ! $this->options['rest_api_support'] ) {
-
-			// `{"code":"rest_disabled","message":"The REST API is disabled on this site."}`
-			add_action( 'after_setup_theme', function() {
-
-				// Filters for WP-API version 1.x
-				add_filter( 'json_enabled', '__return_false' );
-				add_filter( 'json_jsonp_enabled', '__return_false' );
-
-				// Filters for WP-API version 2.x
-				add_filter( 'rest_enabled', '__return_false' );
-				add_filter( 'rest_jsonp_enabled', '__return_false' );
-			} );
-		}
 	}
 
 	public function setup_menu( $context )
@@ -85,13 +48,12 @@ class Blog extends ModuleCore
 			'admin_locale'         => '',
 			'blog_redirect'        => '',
 			'blog_redirect_status' => '301',
-			'linkmanager_enabled'  => '0',
+			'rest_api_enabled'     => '0',
 			'xmlrpc_enabled'       => '0',
 			'page_copyright'       => '0',
 			'page_404'             => '0',
 			'meta_revised'         => '0',
 			'feed_json'            => '0',
-			'rest_api_support'     => '0',
 			'disable_emojis'       => GNETWORK_DISABLE_EMOJIS,
 			'ga_override'          => '',
 			'from_email'           => '',
@@ -133,24 +95,10 @@ class Blog extends ModuleCore
 					),
 				),
 				array(
-					'field'       => 'rest_api_support',
-					'type'        => 'select',
+					'field'       => 'rest_api_enabled',
 					'title'       => _x( 'Rest API', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Disable or Remove WordPress JSON Discovery API', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					// 'after'       => // TODO: get api endpoint
-					'values'      => array(
-						'0' => __( 'Disabled', GNETWORK_TEXTDOMAIN ),
-						'1' => __( 'Enabled' , GNETWORK_TEXTDOMAIN ),
-						'-1' => __( 'Removed', GNETWORK_TEXTDOMAIN ),
-					),
+					'description' => _x( 'Whether REST API Services Are Enabled on This Site', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 				),
-				// FIXME: wont work, wont enable!
-				// array(
-				// 	'field'       => 'linkmanager_enabled',
-				// 	'title'       => _x( 'Link Manager', 'Modules: Blog', GNETWORK_TEXTDOMAIN ),
-				// 	'description' => _x( 'Enables the Link Manager that existed in WordPress until version 3.5.', 'Modules: Blog', GNETWORK_TEXTDOMAIN ),
-				// 	'after'       => Settings::fieldAfterIcon( Settings::getWPCodexLink( 'Links_Manager' ) ),
-				// ),
 				array(
 					'field'       => 'xmlrpc_enabled',
 					'title'       => _x( 'XML-RPC', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
@@ -347,14 +295,23 @@ class Blog extends ModuleCore
 		), $request_uri );
 	}
 
-	// http://kaspars.net/blog/wordpress/custom-page-template-front-page
+	public function export_wp()
+	{
+		@set_time_limit( 0 );
+
+		defined( 'GNETWORK_IS_WP_EXPORT' ) or define( 'GNETWORK_IS_WP_EXPORT', TRUE );
+	}
+
+	// check if a custom template has been selected for front page
+	// @SOURCE: http://kaspars.net/blog/wordpress/custom-page-template-front-page
 	public function frontpage_template( $template )
 	{
-		// check if a custom template has been selected
-		if ( get_page_template_slug() )
-			return get_page_template();
+		return get_page_template_slug() ? get_page_template() : $template;
+	}
 
-		return $template;
+	public function rest_authentication_errors( $null )
+	{
+		new Error( 'rest_disabled', 'The REST API is disabled on this site.', array( 'status' => 503 ) );
 	}
 
 	public function wp_head()
