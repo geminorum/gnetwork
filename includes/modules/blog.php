@@ -203,7 +203,7 @@ class Blog extends ModuleCore
 		}
 	}
 
-	public function init_early()
+	public function init()
 	{
 		if ( $this->options['blog_redirect']
 			&& ! is_admin()
