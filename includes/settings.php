@@ -42,6 +42,16 @@ class Settings extends Base
 		return $relative;
 	}
 
+	public static function userURL( $full = TRUE )
+	{
+		$relative = 'admin.php?page='.self::base();
+
+		if ( $full )
+			return user_admin_url( $relative );
+
+		return $relative;
+	}
+
 	// FIXME: check for network/admin
 	public static function getScreenHook( $network = TRUE )
 	{
