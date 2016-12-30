@@ -181,7 +181,7 @@ class Login extends ModuleCore
 	{
 echo <<<JS
 <script type="text/javascript">
-	document.getElementById('rememberme').checked = true;
+	try{document.getElementById('rememberme').checked=true;}catch(e){}
 </script>
 JS;
 	}
