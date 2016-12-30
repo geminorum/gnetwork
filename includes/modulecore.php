@@ -6,7 +6,6 @@ class ModuleCore extends Base
 {
 
 	public $options = array();
-	public $buttons = array();
 
 	protected $base = 'gnetwork';
 	protected $key  = NULL;
@@ -26,7 +25,10 @@ class ModuleCore extends Base
 
 	protected $scripts_printed  = FALSE;
 	protected $scripts_nojquery = array();
-	protected $scripts          = array();
+
+	protected $scripts = array();
+	protected $buttons = array();
+	protected $errors  = array();
 
 	protected $counter = 0;
 
@@ -116,7 +118,7 @@ class ModuleCore extends Base
 		if ( FALSE !== $setup
 			&& WordPress::mustRegisterUI()
 			&& method_exists( $this, 'setup_menu' ) )
-				add_action( 'gnetwork_setup_menu', array( $this, 'setup_menu' ) );
+				add_action( $this->base.'_setup_menu', array( $this, 'setup_menu' ) );
 	}
 
 	// we call 'setup_menu' action only if `WordPress::mustRegisterUI()`
@@ -184,6 +186,16 @@ class ModuleCore extends Base
 			$suffix .= '_'.$arg;
 
 		return $this->base.'_'.$this->key.$suffix;
+	}
+
+	protected function classs()
+	{
+		$suffix = '';
+
+		foreach ( func_get_args() as $arg )
+			$suffix .= '-'.$arg;
+
+		return $this->base.'-'.$this->key.$suffix;
 	}
 
 	protected function hash()
@@ -340,7 +352,7 @@ class ModuleCore extends Base
 		if ( $this->key == $sub ) {
 			$this->settings_actions( $sub );
 			$this->settings_update( $sub );
-			add_action( 'gnetwork_'.( $this->is_network() ? 'network' : 'admin' ).'_settings_sub_'.$sub, array( $this, 'settings_form' ), 10, 2 );
+			add_action( $this->base.'_'.( $this->is_network() ? 'network' : 'admin' ).'_settings_sub_'.$sub, array( $this, 'settings_form' ), 10, 2 );
 			$this->register_settings();
 			$this->register_settings_buttons();
 			$this->register_settings_help();
@@ -378,7 +390,7 @@ class ModuleCore extends Base
 
 	protected function settings_form_before( $uri, $sub = 'general', $action = 'update', $check = TRUE )
 	{
-		$class = 'gnetwork-form';
+		$class = $this->base.'-form';
 
 		if ( $check && $sidebox = method_exists( $this, 'settings_sidebox' ) )
 			$class .= ' has-sidebox';
@@ -400,49 +412,16 @@ class ModuleCore extends Base
 		self::dumpDev( $this->options );
 	}
 
-	// FIXME: DROP THIS
-	public function settings_form_OLD( $uri, $sub = 'general' )
-	{
-		$class = 'gnetwork-form';
-
-		if ( $sidebox = method_exists( $this, 'settings_sidebox' ) )
-			$class .= ' has-sidebox';
-
-		echo '<form class="'.$class.'" method="post" action="">';
-
-			$this->settings_fields( $sub, 'update' );
-
-			if ( $sidebox ) {
-				echo '<div class="settings-sidebox settings-sidebox-'.$sub.'">';
-					$this->settings_sidebox( $sub, $uri );
-				echo '</div>';
-			}
-
-			if ( method_exists( $this, 'settings_before' ) )
-				$this->settings_before( $sub, $uri );
-
-			do_settings_sections( $this->base.'_'.$sub );
-
-			if ( method_exists( $this, 'settings_after' ) )
-				$this->settings_after( $sub, $uri );
-
-			$this->settings_buttons( $sub );
-
-		echo '</form>';
-
-		self::dumpDev( $this->options );
-	}
-
-	public function default_buttons()
+	public function default_buttons( $sub = NULL )
 	{
 		$this->register_button( 'submit', _x( 'Save Changes', 'Module Core', GNETWORK_TEXTDOMAIN ), array( 'default' => 'default' ), 'primary' );
 		$this->register_button( 'reset', _x( 'Reset Settings', 'Module Core', GNETWORK_TEXTDOMAIN ), Settings::getButtonConfirm() );
 	}
 
-	public function register_button( $key, $value, $atts = array(), $type = 'secondary' )
+	public function register_button( $key, $value = NULL, $atts = array(), $type = 'secondary' )
 	{
 		$this->buttons[$key] = array(
-			'value' => $value,
+			'value' => is_null( $value ) ? $key : $value,
 			'atts'  => $atts,
 			'type'  => $type,
 		);
@@ -451,7 +430,7 @@ class ModuleCore extends Base
 	protected function settings_buttons( $sub = NULL, $wrap = '' )
 	{
 		if ( FALSE !== $wrap )
-			echo '<p class="submit gnetwork-wrap-buttons '.$wrap.'">';
+			echo '<p class="submit '.$this->base.'-wrap-buttons '.$wrap.'">';
 
 		foreach ( $this->buttons as $action => $button ) {
 			echo get_submit_button( $button['value'], $button['type'], $action, FALSE, $button['atts'] );
@@ -460,6 +439,15 @@ class ModuleCore extends Base
 
 		if ( FALSE !== $wrap )
 			echo '</p>';
+	}
+
+	protected function submit_button( $name = '', $primary = FALSE, $text = NULL, $atts = array() )
+	{
+		if ( $primary )
+			$atts['default'] = 'default';
+
+		echo get_submit_button( $text, ( $primary ? 'primary' : 'secondary' ), $name, FALSE, $atts );
+		echo '&nbsp;&nbsp;';
 	}
 
 	protected function settings_fields( $sub, $action = 'update' )

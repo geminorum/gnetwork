@@ -26,16 +26,16 @@ class Admin extends ModuleCore
 
 	public function admin_menu()
 	{
-		do_action( 'gnetwork_setup_menu', 'admin' );
+		do_action( $this->base.'_setup_menu', 'admin' );
 
 		if ( WordPress::cuc( 'manage_options' ) ) {
 
 			$hook = add_menu_page(
-				_x( 'gNetwork Extras', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN ),
+				_x( 'Network Extras', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN ),
 				_x( 'Extras', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN ),
 				'manage_options',
 				$this->base,
-				array( $this, 'admin_settings_page' ),
+				array( $this, 'settings_page' ),
 				'dashicons-screenoptions',
 				120
 			);
@@ -46,22 +46,22 @@ class Admin extends ModuleCore
 					$args['title'],
 					$args['cap'],
 					$this->base.'&sub='.$sub,
-					array( $this, 'admin_settings_page' )
+					array( $this, 'settings_page' )
 				);
 			}
 
 		} else {
 
 			$hook = add_submenu_page( 'index.php',
-				_x( 'gNetwork Extras', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN ),
+				_x( 'Network Extras', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN ),
 				_x( 'Extras', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN ),
 				'read',
 				$this->base,
-				array( $this, 'admin_settings_page' )
+				array( $this, 'settings_page' )
 			);
 		}
 
-		add_action( 'load-'.$hook, array( $this, 'admin_settings_load' ) );
+		add_action( 'load-'.$hook, array( $this, 'settings_load' ) );
 
 		add_submenu_page( 'plugins.php',
 			_x( 'Active', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN ),
@@ -77,7 +77,7 @@ class Admin extends ModuleCore
 			_x( 'Overview', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
 			'read',
 			$this->base,
-			_x( 'gNetwork Extras', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN ),
+			_x( 'Network Extras', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN ),
 		);
 	}
 
@@ -101,20 +101,19 @@ class Admin extends ModuleCore
 			gNetwork()->editor->tinymce[$row][$plugin] = $filepath ? GNETWORK_URL.$filepath : FALSE;
 	}
 
-	public function admin_settings_load()
+	public function settings_load()
 	{
 		if ( ( $sub = isset( $_REQUEST['sub'] ) ? $_REQUEST['sub'] : NULL ) )
 			$GLOBALS['submenu_file'] = $this->base.'&sub='.$sub;
 
-		do_action( 'gnetwork_admin_settings', $sub );
+		do_action( $this->base.'_admin_settings', $sub );
 	}
 
 	private function subs()
 	{
 		$subs = array();
 
-		// if ( WordPress::cuc( 'manage_options' ) )
-			$subs['overview'] = _x( 'Overview', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN );
+		$subs['overview'] = _x( 'Overview', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN );
 
 		foreach ( $this->menus as $sub => $args )
 			if ( WordPress::cuc( $args['cap'] ) )
@@ -126,7 +125,7 @@ class Admin extends ModuleCore
 		return $subs;
 	}
 
-	public function admin_settings_page()
+	public function settings_page()
 	{
 		$uri  = Settings::adminURL( FALSE );
 		$sub  = Settings::sub( 'overview' );

@@ -22,7 +22,7 @@ class Network extends ModuleCore
 
 	public function network_admin_menu()
 	{
-		do_action( 'gnetwork_setup_menu', 'network' );
+		do_action( $this->base.'_setup_menu', 'network' );
 
 		add_submenu_page( 'plugins.php',
 			_x( 'Active', 'Modules: Network: Page Menu', GNETWORK_TEXTDOMAIN ),
@@ -39,7 +39,7 @@ class Network extends ModuleCore
 		);
 
 		$hook = add_menu_page(
-			_x( 'gNetwork Extras', 'Modules: Network: Page Menu', GNETWORK_TEXTDOMAIN ),
+			_x( 'Network Extras', 'Modules: Network: Page Menu', GNETWORK_TEXTDOMAIN ),
 			_x( 'Extras', 'Modules: Network: Page Menu', GNETWORK_TEXTDOMAIN ),
 			'manage_network_options',
 			$this->base,
@@ -48,7 +48,7 @@ class Network extends ModuleCore
 			120
 		);
 
-		add_action( 'load-'.$hook, array( $this, 'network_settings_load' ) );
+		add_action( 'load-'.$hook, array( $this, 'settings_load' ) );
 
 		foreach ( $this->menus as $sub => $args ) {
 			add_submenu_page( $this->base,
@@ -78,24 +78,12 @@ class Network extends ModuleCore
 			add_action( 'gnetwork_network_settings', $callback );
 	}
 
-	public function network_settings_load()
+	public function settings_load()
 	{
-		global $submenu_file;
+		if ( ( $sub = isset( $_REQUEST['sub'] ) ? $_REQUEST['sub'] : NULL ) )
+			$GLOBALS['submenu_file'] = $this->base.'&sub='.$sub;
 
-		if ( isset( $_REQUEST['sub'] ) ) {
-			$sub = $_REQUEST['sub'];
-			$submenu_file = $this->base.'&sub='.$sub;
-		} else {
-			$sub = NULL;
-		}
-
-		do_action( 'gnetwork_network_settings', $sub );
-
-		// ALL DEPRECATED
-		do_action( 'gnetwork_network_settings_load', $sub );
-		do_action( 'gnetwork_network_settings_save', $sub );
-		do_action( 'gnetwork_network_settings_register', $sub );
-		do_action( 'gnetwork_network_settings_help', $sub );
+		do_action( $this->base.'_network_settings', $sub );
 	}
 
 	private function subs()

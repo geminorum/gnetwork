@@ -150,7 +150,7 @@ class Cleanup extends ModuleCore
 	}
 
 	// no buttons
-	public function default_buttons() {}
+	public function default_buttons( $sub = NULL ) {}
 
 	protected function settings_update( $sub )
 	{
