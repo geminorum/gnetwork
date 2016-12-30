@@ -10,6 +10,11 @@ class HTML extends Base
 		return self::tag( 'a', array( 'href' => $link, 'target' => ( $target_blank ? '_blank' : FALSE ) ), $html );
 	}
 
+	public static function joined( $items, $before = '', $after = '', $sep = '|' )
+	{
+		return count( $items ) ? ( $before.join( $sep, $items ).$after ) : '';
+	}
+
 	public static function tag( $tag, $atts = array(), $content = FALSE, $sep = '' )
 	{
 		$tag = self::sanitizeTag( $tag );
@@ -155,6 +160,19 @@ class HTML extends Base
 	public static function sanitizePhoneNumber( $number )
 	{
 		return self::escapeURL( 'tel:'.str_replace( array( '(', ')', '-', '.', '|', ' ' ), '', $number ) );
+	}
+
+	public static function getAtts( $string, $expecting = array() )
+	{
+		foreach ( $expecting as $attr => $default ) {
+
+			preg_match( "#".$attr."=\"(.*?)\"#s", $string, $matches );
+
+			if ( isset( $matches[1] ) )
+				$expecting[$attr] = trim( $matches[1] );
+		}
+
+		return $expecting;
 	}
 
 	// DEPRECATED
@@ -563,21 +581,43 @@ class HTML extends Base
 			) );
 
 			vprintf( '<span class="-next-previous">%s %s %s</span>', array(
-				( FALSE === $args['previous'] ? '<span class="-previous -span" aria-hidden="true">'.$icons['previous'].'</span>' : HTML::tag( 'a', array(
+				( FALSE === $args['previous'] ? '<span class="-previous -span" aria-hidden="true">'.$icons['previous'].'</span>' : self::tag( 'a', array(
 					'href'  => add_query_arg( 'paged', $args['previous'] ),
 					'class' => '-previous -link',
 				), $icons['previous'] ) ),
-				HTML::tag( 'a', array(
+				self::tag( 'a', array(
 					'href'  => HTTP::currentURL(),
 					'class' => '-refresh -link',
 				), $icons['refresh'] ),
-				( FALSE === $args['next'] ? '<span class="-next -span" aria-hidden="true">'.$icons['next'].'</span>' : HTML::tag( 'a', array(
+				( FALSE === $args['next'] ? '<span class="-next -span" aria-hidden="true">'.$icons['next'].'</span>' : self::tag( 'a', array(
 					'href'  => add_query_arg( 'paged', $args['next'] ),
 					'class' => '-next -link',
 				), $icons['next'] ) ),
 			) );
 
 		echo '</div>';
+	}
+
+	public static function menu( $menu, $callback = FALSE, $list = 'ul', $children = 'children' )
+	{
+		echo '<'.$list.'>';
+
+		foreach ( $menu as $item ) {
+
+			echo '<li>';
+
+			if ( is_callable( $callback ) )
+				echo call_user_func_array( $callback, array( $item ) );
+			else
+				echo self::link( $item['title'], '#'.$item['slug'] );
+
+			if ( ! empty( $item[$children] ) )
+				self::menu( $item[$children], $callback, $list, $children );
+
+			echo '</li>';
+		}
+
+		echo '</'.$list.'>';
 	}
 
 	// FIXME: DEPRECATED
