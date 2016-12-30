@@ -79,6 +79,7 @@ class gNetwork
 			'modules/admin'       => 'Admin',
 			'modules/site'        => 'Site',
 			'modules/blog'        => 'Blog',
+			'modules/user'        => 'User',
 			'modules/api'         => 'API',
 			'modules/adminbar'    => 'AdminBar',
 			'modules/dashboard'   => 'Dashboard',

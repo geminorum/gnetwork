@@ -9,14 +9,7 @@ class Site extends ModuleCore
 
 	protected function setup_actions()
 	{
-		if ( is_admin() ) {
-
-			if ( ! $this->options['user_locale'] ) {
-				$this->filter( 'admin_body_class' );
-				$this->filter( 'insert_user_meta', 3, 8 );
-			}
-
-		} else {
+		if ( ! is_admin() ) {
 
 			if ( $this->options['page_signup'] )
 				$this->action( 'before_signup_header', 0, 1 );
@@ -29,9 +22,6 @@ class Site extends ModuleCore
 			if ( GNETWORK_LARGE_NETWORK_IS )
 				$this->filter( 'wp_is_large_network', 3, 10 );
 		}
-
-		if ( $this->options['contact_methods'] )
-			$this->filter( 'user_contactmethods', 2 );
 	}
 
 	public function setup_menu( $context )
@@ -47,8 +37,6 @@ class Site extends ModuleCore
 		return array(
 			'admin_locale'    => 'en_US',
 			'page_signup'     => '0',
-			'contact_methods' => '1',
-			'user_locale'     => '0',
 		);
 	}
 
@@ -88,21 +76,6 @@ class Site extends ModuleCore
 			);
 		}
 
-		$settings['_users'] = array(
-			array(
-				'field'       => 'contact_methods',
-				'title'       => _x( 'Contact Methods', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
-				'description' => _x( 'Adds extra contact methods to user profiles', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
-				'default'     => '1',
-			),
-			array(
-				'field'       => 'user_locale',
-				'title'       => _x( 'User Language', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
-				'description' => _x( 'User admin language switcher', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
-				'after'       => Settings::fieldAfterIcon( Settings::getMoreInfoIcon( 'https://core.trac.wordpress.org/ticket/29783' ) ),
-			),
-		);
-
 		return $settings;
 	}
 
@@ -110,30 +83,6 @@ class Site extends ModuleCore
 	{
 		if ( 'none' == get_site_option( 'registration', 'none' ) )
 			self::redirect( get_page_link( $this->options['page_signup'] ) );
-	}
-
-	public function user_contactmethods( $contactmethods, $user )
-	{
-		return array_merge( $contactmethods, array(
-			'googleplus' => _x( 'Google+ Profile', 'Modules: Site: User Contact Method', GNETWORK_TEXTDOMAIN ),
-			'twitter'    => _x( 'Twitter', 'Modules: Site: User Contact Method', GNETWORK_TEXTDOMAIN ),
-			'mobile'     => _x( 'Mobile Phone', 'Modules: Site: User Contact Method', GNETWORK_TEXTDOMAIN ),
-		) );
-	}
-
-	public function admin_body_class( $classes )
-	{
-		return $classes.' hide-userlocale-option';
-	}
-
-	public function insert_user_meta( $meta, $user, $update )
-	{
-		if ( $update )
-			delete_user_meta( $user->ID, 'locale' );
-
-		unset( $meta['locale'] );
-
-		return $meta;
 	}
 
 	// TODO: on signup form: http://stackoverflow.com/a/10372861
