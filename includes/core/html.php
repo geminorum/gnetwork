@@ -424,6 +424,8 @@ class HTML extends Base
 			return FALSE;
 		}
 
+		echo '<div class="base-table-wrap">';
+
 		if ( isset( $args['title'] ) && $args['title'] )
 			echo '<div class="base-table-title">'.$args['title'].'</div>';
 
@@ -547,7 +549,7 @@ class HTML extends Base
 		if ( isset( $args['after'] ) && is_callable( $args['after'] ) )
 			call_user_func_array( $args['after'], array( $columns, $data, $args ) );
 
-		echo '</div>';
+		echo '</div></div>';
 
 		return TRUE;
 	}

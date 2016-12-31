@@ -64,6 +64,7 @@ class gNetwork
 			'core/arraay'    => '',
 			'core/text'      => '',
 			'core/number'    => '',
+			'core/l10n'      => '',
 			'core/date'      => '',
 			'core/wordpress' => '',
 
