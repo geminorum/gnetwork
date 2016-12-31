@@ -36,23 +36,23 @@ class Utilities extends Base
 		return $filter ? apply_filters( 'gnetwork_get_feeds', $feeds ) : $feeds;
 	}
 
-	public static function humanTimeDiff( $time, $round = TRUE, $format = NULL, $now = NULL )
+	public static function humanTimeDiffRound( $local, $round = DAY_IN_SECONDS, $format = NULL, $now = NULL )
 	{
-		$ago = _x( '%s ago', 'Utilities: Human Time Diff', GNETWORK_TEXTDOMAIN );
-		$now = is_null( $now ) ? current_time( 'timestamp' ) : '';
+		$ago = _x( '%s ago', 'Utilities: Human Time Diff Round', GNETWORK_TEXTDOMAIN );
+		$now = is_null( $now ) ? current_time( 'timestamp', FALSE ) : '';
 
-		if ( ! $round )
-			return sprintf( $ago, human_time_diff( $time, $now ) );
+		if ( FALSE === $round )
+			return sprintf( $ago, human_time_diff( $local, $now ) );
 
-		$time_diff = time() - $time;
+		$diff = $now - $local;
 
-		if ( $time_diff > 0 && $time_diff < DAY_IN_SECONDS )
-			return sprintf( $ago, human_time_diff( $time, $now ) );
+		if ( $diff > 0 && $diff < $round )
+			return sprintf( $ago, human_time_diff( $local, $now ) );
 
 		if ( is_null( $format ) )
-			$format = _x( 'Y/m/d', 'Utilities: Human Time Diff', GNETWORK_TEXTDOMAIN );
+			$format = _x( 'Y/m/d', 'Utilities: Human Time Diff Round', GNETWORK_TEXTDOMAIN );
 
-		return date_i18n( $format, $time );
+		return date_i18n( $format, $local, FALSE );
 	}
 
 	// @SEE: http://www.phpformatdate.com/

@@ -414,6 +414,13 @@ class ShortCodes extends ModuleCore
 		return self::shortcodeWrap( $html, 'all-terms', $args );
 	}
 
+	/**
+	 * [last-edited format="l, F j, Y"] : 'Friday, January 11, 2012'
+	 * [last-edited format="G:i a (T)"] : '7:02 pm (EST)'
+	 * [last-edited format="l, F j, Y \a\t G:i A"] : 'Friday, January 11, 2012 at 7:02 PM'
+	 * [last-edited before="Last update:"] : 'Last update: Jan-11-2012'
+	 * [last-edited format="l, F j, Y" before="<span>This page hasn't been modified since" after="!</span>"] : '<span>This page hasn't been modified since Friday, January 11, 2012!</span>'
+	 */
 	public function shortcode_last_edited( $atts, $content = NULL, $tag = '' )
 	{
 		$args = shortcode_atts( array(
@@ -431,18 +438,21 @@ class ShortCodes extends ModuleCore
 		if ( FALSE === $args['context'] )
 			return NULL;
 
-		$gmt   = get_post_modified_time( 'U', TRUE,  $args['id'], FALSE );
-		$local = get_post_modified_time( 'U', FALSE, $args['id'], FALSE );
+		if ( ! $post = get_post( $args['id'] ) )
+			return NULL;
+
+		$gmt   = strtotime( $post->post_modified_gmt );
+		$local = strtotime( $post->post_modified );
 
 		if ( 'timeago' == $args['title'] )
-			$title = Utilities::humanTimeDiff( $local, $args['round'] );
+			$title = Utilities::humanTimeDiffRound( $local, $args['round'] );
 		else
 			$title = esc_attr( $args['title'] );
 
 		$html = Date::htmlDateTime( $local, $gmt, $args['format'], $title );
 
 		if ( $args['link'] )
-			$html = HTML::tag( 'a', array( 'href' => $args['link'] ), $html );
+			$html = HTML::link( $html, $args['link'] );
 
 		return self::shortcodeWrap( $html, 'last-edited', $args, FALSE );
 	}
