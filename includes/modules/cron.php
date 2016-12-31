@@ -94,7 +94,7 @@ class Cron extends ModuleCore
 				'title'    => _x( 'Next', 'Modules: CRON', GNETWORK_TEXTDOMAIN ),
 				'class'    => '-column-next',
 				'callback' => function( $value, $row, $column, $index ){
-					return date_i18n( 'H:i:s - D, j M, Y', $index );
+					return Utilities::getDateEditRow( $index );
 				},
 			),
 

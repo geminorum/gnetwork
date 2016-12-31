@@ -182,7 +182,7 @@ class Media extends ModuleCore
 			'date' => array(
 				'title'    => _x( 'Date', 'Modules: Media', GNETWORK_TEXTDOMAIN ),
 				'callback' => function( $value, $row, $column, $index ){
-					return date_i18n( 'j M Y', strtotime( $row->post_date ) );
+					return Utilities::humanTimeDiffRound( strtotime( $row->post_date ) );
 				},
 			),
 
