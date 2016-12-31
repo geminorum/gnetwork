@@ -397,7 +397,7 @@ class ModuleCore extends Base
 
 		echo '<form class="'.$class.'" method="post" action="">';
 
-			$this->settings_fields( $sub, 'update' );
+			$this->settings_fields( $sub, $action );
 
 			if ( $check && $sidebox ) {
 				echo '<div class="settings-sidebox settings-sidebox-'.$sub.'">';
