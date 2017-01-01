@@ -27,7 +27,7 @@ class Comments extends ModuleCore
 			add_filter( 'notify_post_author', '__return_false' );
 		}
 
-		if ( is_admin() ) {
+		if ( is_blog_admin() ) {
 
 			if ( $this->options['admin_fullcomments'] )
 				add_filter( 'comment_excerpt', array( $this, 'comment_excerpt' ) );
@@ -43,8 +43,9 @@ class Comments extends ModuleCore
 
 				// FIXME: UNFINISHED: add the row actions
 			}
+		}
 
-		} else {
+		if ( ! is_admin() ) {
 
 			if ( $this->options['blacklist_check'] )
 				add_action( 'wp_blacklist_check', array( $this, 'wp_blacklist_check' ), 10, 6 );
@@ -65,6 +66,12 @@ class Comments extends ModuleCore
 				add_action( 'comment_form', array( $this, 'comment_form_nonce' ) );
 				add_action( 'pre_comment_approved', array( $this, 'pre_comment_approved_nounce' ) );
 				add_action( 'explain_nonce_gnc-check_comments', array( $this, 'explain_nonce' ) );
+			}
+
+			if ( $this->options['strip_pings'] ) {
+				$this->filter( 'comments_template_query_args' );
+				$this->filter( 'get_comments_number', 2 );
+				$this->filter( 'the_posts' );
 			}
 		}
 
@@ -97,6 +104,7 @@ class Comments extends ModuleCore
 			'front_quicktags'       => '0',
 			'front_autogrow'        => '0',
 			'disable_notes'         => '1',
+			'strip_pings'           => '1',
 			'blacklist_check'       => '0', // FIXME: DRAFT: needs test / NO Settgins UI YET
 			'front_nonce'           => '0', // FIXME: DRAFT: working / NO Settgins UI YET / check the hooks
 			'captcha'               => '0',
@@ -107,6 +115,12 @@ class Comments extends ModuleCore
 	{
 		$settings = array(
 			'_general' => array(
+				array(
+					'field'       => 'strip_pings',
+					'title'       => _x( 'Hide Pings', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Removes trackbacks and pingbacks form comments on frontend', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
+					'default'     => '1',
+				),
 				array(
 					'field'       => 'disable_notifications',
 					'title'       => _x( 'Comment Notifications', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
@@ -514,6 +528,45 @@ class Comments extends ModuleCore
 	public function explain_nonce()
 	{
 		return _x( 'Your attempt to add this comment has failed.', 'Modules: Comments', GNETWORK_TEXTDOMAIN );
+	}
+
+	public function comments_template_query_args( $comment_args )
+	{
+		if ( ! isset( $comment_args['type'] )
+			&& ! isset( $comment_args['type__in'] )
+			&& ! isset( $comment_args['type__not_in'] ) )
+				$comment_args['type'] = 'comment';
+
+		return $comment_args;
+	}
+
+	protected function get_count( $post_id )
+	{
+		$query = new \WP_Comment_Query;
+
+		return $query->query( array(
+			'post_id' => $post_id,
+			'status'  => 1,
+			'count'   => TRUE,
+			'type'    => 'comment',
+
+			'update_comment_meta_cache' => FALSE,
+			'update_comment_post_cache' => FALSE,
+		) );
+	}
+
+	public function get_comments_number( $count, $post_id )
+	{
+		return $count ? $this->get_count( $post_id ) : $count;
+	}
+
+	public function the_posts( $posts )
+	{
+		foreach ( $posts as $id => $post )
+			if ( $post->comment_count )
+				$posts[$id]->comment_count = $this->get_count( $post->ID );
+
+		return $posts;
 	}
 
 	// DRAFT
