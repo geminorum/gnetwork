@@ -7,42 +7,42 @@
 
 jQuery(document).ready(function($) {
 
-	autosize($('#excerpt, #description, .textarea-autosize, textarea.large-text'));
+  autosize($('#excerpt, #description, .textarea-autosize, textarea.large-text'));
 
-	function populateWidgets(i, id) {
-		var p, e = $('#' + id + ' div.inside:visible').find('.widget-loading');
-		if (e.length) {
-			p = e.parent();
-			setTimeout(function() {
-				p.load(ajaxurl + '?action=gnetwork_dashboard&widget=' + id, '', function() {
-					p.hide().slideDown('normal', function() {
-						$(this).css('display', '');
-					});
-				});
-			}, i * 500);
-		}
-	}
+  function populateWidgets(i, id) {
+    var p, e = $('#' + id + ' div.inside:visible').find('.widget-loading');
+    if (e.length) {
+      p = e.parent();
+      setTimeout(function() {
+        p.load(ajaxurl + '?action=gnetwork_dashboard&widget=' + id, '', function() {
+          p.hide().slideDown('normal', function() {
+            $(this).css('display', '');
+          });
+        });
+      }, i * 500);
+    }
+  }
 
-	populateWidgets(1, 'gnetwork_dashboard_external_feed');
+  populateWidgets(1, 'gnetwork_dashboard_external_feed');
 
 });
 
 // https://gist.github.com/fishnyc22/5593693
 jQuery(function($) {
-	if (wp.media) {
-		var called = 0;
-		$(document).ajaxStop(function() {
-			if (0 === called) {
-				$('[value="uploaded"]').attr('selected', true).parent().trigger('change');
-				called = 1;
-			}
-		});
-		var oldPost = wp.media.view.MediaFrame.Post;
-		wp.media.view.MediaFrame.Post = oldPost.extend({
-			initialize: function() {
-				oldPost.prototype.initialize.apply(this, arguments);
-				this.states.get('insert').get('library').props.set('uploadedTo', wp.media.view.settings.post.id);
-			}
-		});
-	}
+  if (wp.media) {
+    var called = 0;
+    $(document).ajaxStop(function() {
+      if (0 === called) {
+        $('[value="uploaded"]').attr('selected', true).parent().trigger('change');
+        called = 1;
+      }
+    });
+    var oldPost = wp.media.view.MediaFrame.Post;
+    wp.media.view.MediaFrame.Post = oldPost.extend({
+      initialize: function() {
+        oldPost.prototype.initialize.apply(this, arguments);
+        this.states.get('insert').get('library').props.set('uploadedTo', wp.media.view.settings.post.id);
+      }
+    });
+  }
 });
