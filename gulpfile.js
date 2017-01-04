@@ -1,280 +1,280 @@
 (function() {
 
-	var
-		gulp = require('gulp'),
-		gutil = require('gulp-util'),
-		plugins = require('gulp-load-plugins')(),
-		yaml = require('js-yaml'),
-		del = require('del'),
-		fs = require('fs'),
-
-		pkg = JSON.parse(fs.readFileSync('./package.json'), 'utf8'),
-		env = {
-			tinypng: '',
-		},
-
-		banner = ['/**',
-			' * <%= pkg.name %> - <%= pkg.description %>',
-			' * @version v<%= pkg.version %>',
-			' * @link <%= pkg.homepage %>',
-			' * @license <%= pkg.license %>',
-			' */',
-			''
-		].join('\n'),
-
-		input = {
-			'php': [
-				'./**/*.php',
-				'!./assets/libs/**',
-			],
-			'sass': './assets/sass/**/*.scss',
-			'js': [
-				'./assets/js/*.js',
-				'!./assets/js/*.min.js',
-				'./assets/js/tinymce/*.js',
-				'!./assets/js/tinymce/*.min.js',
-			],
-			'svg': './assets/images/raw/**/*.svg',
-			'images': './assets/images/raw/**/*.{png,jpg,jpeg}',
-			'banner': [
-				'./assets/css/**/*.css',
-				'!./assets/css/**/*.raw.css',
-				'./assets/js/*.js',
-				'./assets/js/tinymce/*.js',
-			],
-			'ready': './ready/**/*',
-			'final': [
-				'./assets/css/**/*.css',
-				'./assets/css/**/*.html',
-				'./assets/images/**/*',
-				'./assets/js/**/*.js',
-				'./assets/js/**/*.html',
-				'./assets/libs/**/*',
-				'./assets/vendor/**/*.php',
-				'!./assets/vendor/**/test/*',
-				'!./assets/vendor/**/Tests/*',
-				'!./assets/vendor/**/tests/*',
-				'!./assets/vendor/**/scripts/*',
-				'!./assets/vendor/**/examples/*',
-				'!./assets/vendor/**/.git',
-				'./assets/index.html',
-				'./includes/**/*',
-				'./languages/**/*',
-				'!./languages/**/*.pot',
-				'!./languages/**/*.po',
-				'./locale/**/*',
-				'!./locale/**/*.pot',
-				'!./locale/**/*.po',
-				'./*.php',
-				'./*.md',
-				'./LICENSE',
-				'./index.html',
-			],
-		},
-
-		output = {
-			'css': './assets/css',
-			// 'js': './assets/js',
-			'sourcemaps': './maps',
-			'images': './assets/images',
-			'languages': './languages/'+pkg.name+'.pot',
-			'ready': './ready/',
-			'final': '..',
-		},
-
-		logs = {
-			'tinypng': './assets/images/raw/.tinypng-sigs'
-		};
-
-	try {
-		env = yaml.safeLoad(fs.readFileSync('./environment.yml', 'utf8'), {
-			'json': true
-		});
-	} catch (e) {
-		gutil.log('no environment.yml loaded!');
-	}
-
-	gulp.task('dev:tinify', function () {
-
-		return gulp.src(input.images)
-
-		.pipe(plugins.newer(output.images))
-
-		.pipe(plugins.tinypngCompress({
-			key: env.tinypng,
-			sigFile: logs.tinypng,
-			summarize: true,
-			log: true
-		}))
+  var
+    gulp = require('gulp'),
+    gutil = require('gulp-util'),
+    plugins = require('gulp-load-plugins')(),
+    yaml = require('js-yaml'),
+    del = require('del'),
+    fs = require('fs'),
+
+    pkg = JSON.parse(fs.readFileSync('./package.json'), 'utf8'),
+    env = {
+      tinypng: '',
+    },
+
+    banner = ['/**',
+      ' * <%= pkg.name %> - <%= pkg.description %>',
+      ' * @version v<%= pkg.version %>',
+      ' * @link <%= pkg.homepage %>',
+      ' * @license <%= pkg.license %>',
+      ' */',
+      ''
+    ].join('\n'),
+
+    input = {
+      'php': [
+        './**/*.php',
+        '!./assets/libs/**',
+      ],
+      'sass': './assets/sass/**/*.scss',
+      'js': [
+        './assets/js/*.js',
+        '!./assets/js/*.min.js',
+        './assets/js/tinymce/*.js',
+        '!./assets/js/tinymce/*.min.js',
+      ],
+      'svg': './assets/images/raw/**/*.svg',
+      'images': './assets/images/raw/**/*.{png,jpg,jpeg}',
+      'banner': [
+        './assets/css/**/*.css',
+        '!./assets/css/**/*.raw.css',
+        './assets/js/*.js',
+        './assets/js/tinymce/*.js',
+      ],
+      'ready': './ready/**/*',
+      'final': [
+        './assets/css/**/*.css',
+        './assets/css/**/*.html',
+        './assets/images/**/*',
+        './assets/js/**/*.js',
+        './assets/js/**/*.html',
+        './assets/libs/**/*',
+        './assets/vendor/**/*.php',
+        '!./assets/vendor/**/test/*',
+        '!./assets/vendor/**/Tests/*',
+        '!./assets/vendor/**/tests/*',
+        '!./assets/vendor/**/scripts/*',
+        '!./assets/vendor/**/examples/*',
+        '!./assets/vendor/**/.git',
+        './assets/index.html',
+        './includes/**/*',
+        './languages/**/*',
+        '!./languages/**/*.pot',
+        '!./languages/**/*.po',
+        './locale/**/*',
+        '!./locale/**/*.pot',
+        '!./locale/**/*.po',
+        './*.php',
+        './*.md',
+        './LICENSE',
+        './index.html',
+      ],
+    },
+
+    output = {
+      'css': './assets/css',
+      // 'js': './assets/js',
+      'sourcemaps': './maps',
+      'images': './assets/images',
+      'languages': './languages/'+pkg.name+'.pot',
+      'ready': './ready/',
+      'final': '..',
+    },
+
+    logs = {
+      'tinypng': './assets/images/raw/.tinypng-sigs'
+    };
+
+  try {
+    env = yaml.safeLoad(fs.readFileSync('./environment.yml', 'utf8'), {
+      'json': true
+    });
+  } catch (e) {
+    gutil.log('no environment.yml loaded!');
+  }
+
+  gulp.task('dev:tinify', function () {
+
+    return gulp.src(input.images)
+
+    .pipe(plugins.newer(output.images))
+
+    .pipe(plugins.tinypngCompress({
+      key: env.tinypng,
+      sigFile: logs.tinypng,
+      summarize: true,
+      log: true
+    }))
 
-		.pipe(gulp.dest(output.images));
-	});
+    .pipe(gulp.dest(output.images));
+  });
 
-	gulp.task('svgmin', function() {
+  gulp.task('svgmin', function() {
 
-		return gulp.src(input.svg)
+    return gulp.src(input.svg)
 
-		.pipe(plugins.newer(output.images))
+    .pipe(plugins.newer(output.images))
 
-		.pipe(plugins.svgmin()) // SEE: http://dbushell.com/2016/03/01/be-careful-with-your-viewbox/
+    .pipe(plugins.svgmin()) // SEE: http://dbushell.com/2016/03/01/be-careful-with-your-viewbox/
 
-		.pipe(gulp.dest(output.images));
-	});
+    .pipe(gulp.dest(output.images));
+  });
 
-	gulp.task('smushit', function() {
+  gulp.task('smushit', function() {
 
-		return gulp.src(input.images)
+    return gulp.src(input.images)
 
-		.pipe(plugins.newer(output.images))
+    .pipe(plugins.newer(output.images))
 
-		.pipe(plugins.smushit())
+    .pipe(plugins.smushit())
 
-		.pipe(gulp.dest(output.images));
-	});
+    .pipe(gulp.dest(output.images));
+  });
 
-	gulp.task('pot', function() {
+  gulp.task('pot', function() {
 
-		return gulp.src(input.php)
+    return gulp.src(input.php)
 
-		.pipe(plugins.excludeGitignore())
+    .pipe(plugins.excludeGitignore())
 
-		.pipe(plugins.wpPot(pkg._pot))
+    .pipe(plugins.wpPot(pkg._pot))
 
-		.pipe(gulp.dest(output.languages));
-	});
+    .pipe(gulp.dest(output.languages));
+  });
 
-	gulp.task('dev:sass', function() {
+  gulp.task('dev:sass', function() {
 
-		return gulp.src(input.sass)
+    return gulp.src(input.sass)
 
-		.pipe(plugins.newer({
-			dest: output.css,
-			ext: '.css',
-		}))
+    .pipe(plugins.newer({
+      dest: output.css,
+      ext: '.css',
+    }))
 
-		.pipe(plugins.sourcemaps.init())
+    .pipe(plugins.sourcemaps.init())
 
-		.pipe(plugins.sass().on('error', plugins.sass.logError))
+    .pipe(plugins.sass().on('error', plugins.sass.logError))
 
-		.pipe(plugins.cssnano({
-			core: false,
-			zindex: false,
-			discardComments: false,
-		}))
+    .pipe(plugins.cssnano({
+      core: false,
+      zindex: false,
+      discardComments: false,
+    }))
 
-		.pipe(plugins.sourcemaps.write(output.sourcemaps))
+    .pipe(plugins.sourcemaps.write(output.sourcemaps))
 
-		.pipe(gulp.dest(output.css)).on('error', gutil.log)
+    .pipe(gulp.dest(output.css)).on('error', gutil.log)
 
-		.pipe(plugins.livereload());
-	});
+    .pipe(plugins.livereload());
+  });
 
-	gulp.task('dev:watch', function() {
+  gulp.task('dev:watch', function() {
 
-		plugins.livereload.listen();
+    plugins.livereload.listen();
 
-		gulp.watch(input.sass, [
-			'dev:sass'
-		]);
-	});
+    gulp.watch(input.sass, [
+      'dev:sass'
+    ]);
+  });
 
-	gulp.task('dev:styles', function() {
+  gulp.task('dev:styles', function() {
 
-		return gulp.src(input.sass)
+    return gulp.src(input.sass)
 
-		.pipe(plugins.sourcemaps.init())
+    .pipe(plugins.sourcemaps.init())
 
-		.pipe(plugins.sass().on('error', plugins.sass.logError))
+    .pipe(plugins.sass().on('error', plugins.sass.logError))
 
-		.pipe(plugins.cssnano({
-			core: false,
-			zindex: false,
-			discardComments: false,
-		}))
+    .pipe(plugins.cssnano({
+      core: false,
+      zindex: false,
+      discardComments: false,
+    }))
 
-		.pipe(plugins.header(banner, {
-			pkg: pkg
-		}))
+    .pipe(plugins.header(banner, {
+      pkg: pkg
+    }))
 
-		.pipe(plugins.sourcemaps.write(output.sourcemaps))
+    .pipe(plugins.sourcemaps.write(output.sourcemaps))
 
-		.pipe(gulp.dest(output.css)).on('error', gutil.log);
-	});
+    .pipe(gulp.dest(output.css)).on('error', gutil.log);
+  });
 
-	gulp.task('build:styles', function() {
+  gulp.task('build:styles', function() {
 
-		return gulp.src(input.sass)
+    return gulp.src(input.sass)
 
-		.pipe(plugins.sass().on('error', plugins.sass.logError))
+    .pipe(plugins.sass().on('error', plugins.sass.logError))
 
-		.pipe(plugins.cssnano({
-			zindex: false,
-			discardComments: {
-				removeAll: true
-			}
-		}))
+    .pipe(plugins.cssnano({
+      zindex: false,
+      discardComments: {
+        removeAll: true
+      }
+    }))
 
-		.pipe(gulp.dest(output.css));
+    .pipe(gulp.dest(output.css));
 
-	});
+  });
 
-	gulp.task('build:scripts', function() {
+  gulp.task('build:scripts', function() {
 
-		return gulp.src(input.js)
+    return gulp.src(input.js)
 
-		.pipe(plugins.rename({
-			suffix: '.min',
-		}))
+    .pipe(plugins.rename({
+      suffix: '.min',
+    }))
 
-		.pipe(plugins.uglify())
+    .pipe(plugins.uglify())
 
-		// .pipe(gulp.dest(output.js));
-		.pipe(gulp.dest('.'));
-	});
+    // .pipe(gulp.dest(output.js));
+    .pipe(gulp.dest('.'));
+  });
 
-	gulp.task('build:banner', function() {
+  gulp.task('build:banner', function() {
 
-		return gulp.src(input.banner, {
-			'base': '.'
-		})
+    return gulp.src(input.banner, {
+      'base': '.'
+    })
 
-		.pipe(plugins.header(banner, {
-			pkg: pkg
-		}))
+    .pipe(plugins.header(banner, {
+      pkg: pkg
+    }))
 
-		.pipe(gulp.dest('.'));
-	});
+    .pipe(gulp.dest('.'));
+  });
 
-	gulp.task('build:copy', ['build:ready'], function() {
+  gulp.task('build:copy', ['build:ready'], function() {
 
-		del([output.ready]);
+    del([output.ready]);
 
-		return gulp.src(input.final, {
-			'base': '.'
-		})
+    return gulp.src(input.final, {
+      'base': '.'
+    })
 
-		.pipe(gulp.dest(output.ready + pkg.name));
-	});
+    .pipe(gulp.dest(output.ready + pkg.name));
+  });
 
-	gulp.task('build:zip', ['build:copy'], function() {
+  gulp.task('build:zip', ['build:copy'], function() {
 
-		return gulp.src(input.ready)
+    return gulp.src(input.ready)
 
-		.pipe(plugins.zip(pkg.name + '-' + pkg.version + '.zip'))
+    .pipe(plugins.zip(pkg.name + '-' + pkg.version + '.zip'))
 
-		.pipe(gulp.dest(output.final));
-	});
+    .pipe(gulp.dest(output.final));
+  });
 
-	gulp.task('build:banner', ['build:styles', 'build:scripts']);
+  gulp.task('build:banner', ['build:styles', 'build:scripts']);
 
-	gulp.task('build:ready', ['build:banner']);
+  gulp.task('build:ready', ['build:banner']);
 
-	gulp.task('build', ['build:zip']);
+  gulp.task('build', ['build:zip']);
 
-	gulp.task('default', function() {
+  gulp.task('default', function() {
 
-		gutil.log('Hi, I\'m Gulp!');
-		gutil.log("Sass is:\n"+require('node-sass').info);
-	});
+    gutil.log('Hi, I\'m Gulp!');
+    gutil.log("Sass is:\n"+require('node-sass').info);
+  });
 
 }());

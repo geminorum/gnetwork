@@ -266,7 +266,7 @@ class Utilities extends Base
 
 	// FIXME: WTF ?!
 	// http://www.webdesignerdepot.com/2012/08/wordpress-filesystem-api-the-right-way-to-operate-with-local-files/
-	//http://ottopress.com/2011/tutorial-using-the-wp_filesystem/
+	// http://ottopress.com/2011/tutorial-using-the-wp_filesystem/
 
 	/**
 	 * Initialize Filesystem object

@@ -211,6 +211,8 @@ class Mail extends ModuleCore
 
 			} else {
 				echo '<p>'._x( 'Log Folder Not Exists and/or Writable', 'Modules: Mail', GNETWORK_TEXTDOMAIN ).'</p>';
+
+				// FIXME: use : $this->submit_button()
 				submit_button( _x( 'Create Log Folder', 'Modules: Mail', GNETWORK_TEXTDOMAIN ), 'secondary', 'create_log_folder' );
 			}
 

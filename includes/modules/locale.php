@@ -201,6 +201,7 @@ class Locale extends ModuleCore
 			'vip-scanner'                => 'page', // [VIP Scanner](https://wordpress.org/plugins/vip-scanner/)
 			'antivirus'                  => 'page', // [AntiVirus](https://wordpress.org/plugins/antivirus/)
 			'convert-post-types'         => 'page', // [Convert Post Types](https://wordpress.org/plugins/convert-post-types/)
+			'mapcap'                     => 'page', // [Map Cap](https://wordpress.org/plugins/map-cap/)
 
 			// [AddThis Website Tools](https://wordpress.org/plugins/addthis-all/)
 			'addthis_registration'      => 'page',

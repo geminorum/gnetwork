@@ -94,6 +94,7 @@ class Authors extends ModuleCore
 
 			echo '&nbsp;&mdash;&nbsp;'._x( 'do', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ).'&nbsp;&mdash; &nbsp;';
 
+			// FIXME: use : $this->submit_button()
 			submit_button( _x( 'Change', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ), 'secondary', 'bulk_change_author', FALSE, Settings::getButtonConfirm() );
 
 			echo '</td></tr>';

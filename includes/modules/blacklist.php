@@ -72,6 +72,8 @@ class BlackList extends ModuleCore
 			Debug::summaryIPs( _x( 'Your IP Summary', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ) );
 		else
 			printf( _x( 'Your IP: <code title="%s">%s</code>', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ), HTTP::IP(), $_SERVER['REMOTE_ADDR'] );
+
+		// self::dump( Utilities::getIPinfo() );
 	}
 
 	private function blacklisted()
