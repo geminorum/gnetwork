@@ -8,7 +8,7 @@ class Number extends Base
 	// FIXME: use our own
 	public static function format( $number, $decimals = 0, $locale = NULL )
 	{
-		return number_format_i18n( $number, $decimals );
+		return apply_filters( 'number_format_i18n', $number );
 	}
 
 	public static $readable_suffix = array(

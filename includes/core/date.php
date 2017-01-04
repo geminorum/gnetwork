@@ -28,7 +28,8 @@ class Date extends Base
 
 	// @SOURCE: `bp_core_get_iso8601_date()`
 	// EXAMPLE: `2005-08-15T15:52:01+0000`
-	// timezone should be UTC before using this.
+	// USE WITH: https://github.com/rmm5t/jquery-timeago
+	// timezone should be UTC before using this
 	public static function getISO8601( $timestamp = '' )
 	{
 		if ( ! $timestamp )
