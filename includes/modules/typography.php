@@ -186,7 +186,7 @@ class Typography extends ModuleCore
 	// @SOURCE: http://en.wikipedia.org/wiki/Asterisk
 	public function shortcode_three_asterisks( $atts, $content = NULL, $tag = '' )
 	{
-		return self::shortcodeWrap( '&#x274b;&nbsp;&#x274b;&nbsp;&#x274b;', 'asterisks', $atts );
+		return self::shortcodeWrap( '&#x274b;&nbsp;&#x274b;&nbsp;&#x274b;', 'asterisks', array( 'wrap' => TRUE ) );
 	}
 
 	// FIXME: use entities in tel short code
