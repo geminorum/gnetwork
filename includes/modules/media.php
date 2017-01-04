@@ -19,6 +19,8 @@ class Media extends ModuleCore
 
 		if ( is_admin() ) {
 
+			$this->filter( 'post_mime_types' );
+
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 			add_filter( 'media_row_actions', array( $this, 'media_row_actions' ), 50, 3 );
 			add_action( 'admin_action_bulk_clean_attachments', array( $this, 'admin_action_bulk' ) );
@@ -754,6 +756,22 @@ class Media extends ModuleCore
 			'mpg4' => 'video/mp4',
 			'flv'  => 'video/x-flv',
 			'svg'  => 'image/svg+xml',
+		) );
+	}
+
+	public function post_mime_types( $post_mime_types )
+	{
+		return array_merge( $post_mime_types, array(
+			'text' => array(
+				_x( 'Text', 'Modules: Media: Post Mime Type', GNETWORK_TEXTDOMAIN ),
+				_x( 'Manage Texts', 'Modules: Media: Post Mime Type', GNETWORK_TEXTDOMAIN ),
+				_nx_noop( 'Text <span class="count">(%s)</span>', 'Texts <span class="count">(%s)</span>', 'Modules: Media: Post Mime Type', GNETWORK_TEXTDOMAIN ),
+			),
+			'application' => array(
+				_x( 'Application', 'Modules: Media: Post Mime Type', GNETWORK_TEXTDOMAIN ),
+				_x( 'Manage Applications', 'Modules: Media: Post Mime Type', GNETWORK_TEXTDOMAIN ),
+				_nx_noop( 'Application <span class="count">(%s)</span>', 'Applications <span class="count">(%s)</span>', 'Modules: Media: Post Mime Type', GNETWORK_TEXTDOMAIN ),
+			),
 		) );
 	}
 
