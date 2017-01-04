@@ -450,11 +450,13 @@ class ModuleCore extends Base
 		echo '&nbsp;&nbsp;';
 	}
 
-	protected function settings_fields( $sub, $action = 'update' )
+	protected function settings_fields( $sub, $action = 'update', $context = 'settings' )
 	{
-		echo '<input type="hidden" name="base" value="'.$this->base.'" />';
-		echo '<input type="hidden" name="sub" value="'.$sub.'" />';
-		echo '<input type="hidden" name="action" value="'.$action.'" />';
+		HTML::inputHidden( 'base', $this->base );
+		HTML::inputHidden( 'key', $this->key );
+		HTML::inputHidden( 'context', $context );
+		HTML::inputHidden( 'sub', $sub );
+		HTML::inputHidden( 'action', $action );
 
 		wp_nonce_field( $this->base.'_'.$sub.'-settings' );
 	}
