@@ -195,8 +195,9 @@ class Login extends ModuleCore
 			echo '&nbsp;'.Number::format( $one ).'&nbsp;+&nbsp;'.Number::format( $two ).'&nbsp;=&nbsp; ';
 
 			echo HTML::tag( 'input', array(
-				'type'  => 'number',
-				'name'  => 'num',
+				'type'         => 'number',
+				'name'         => 'num',
+				'autocomplete' => 'off',
 			) );
 
 			echo HTML::tag( 'input', array(
