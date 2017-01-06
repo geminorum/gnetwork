@@ -602,9 +602,9 @@ class HTML extends Base
 		), $pagination );
 
 		$icons = array(
-			'next'     => self::getDashicon( 'redo' ), // &rsaquo;
-			'previous' => self::getDashicon( 'undo' ), // &lsaquo;
-			'refresh'  => self::getDashicon( 'image' ),
+			'next'     => self::getDashicon( 'controls-forward' ), // &rsaquo;
+			'previous' => self::getDashicon( 'controls-back' ), // &lsaquo;
+			'refresh'  => self::getDashicon( 'controls-repeat' ),
 		);
 
 		echo '<div class="base-table-navigation">';
@@ -612,24 +612,36 @@ class HTML extends Base
 			echo '<input type="number" class="small-text -paged" name="paged" value="'.$args['paged'].'" />';
 			echo '<input type="number" class="small-text -limit" name="limit" value="'.$args['limit'].'" />';
 
+			if ( FALSE === $args['previous'] ) {
+				$previous = '<span class="-previous -span button" disabled="disabled">'.$icons['previous'].'</span>';
+			} else {
+				$previous = self::tag( 'a', array(
+					'href'  => add_query_arg( 'paged', $args['previous'] ),
+					'class' => '-previous -link button',
+				), $icons['previous'] );
+			}
+
+			if ( FALSE === $args['next'] ) {
+				$next = '<span class="-next -span button" disabled="disabled">'.$icons['next'].'</span>';
+			} else {
+				$next = self::tag( 'a', array(
+					'href'  => add_query_arg( 'paged', $args['next'] ),
+					'class' => '-next -link button',
+				), $icons['previous'] );
+			}
+
+			$refresh = self::tag( 'a', array(
+				'href'  => HTTP::currentURL(),
+				'class' => '-refresh -link button',
+			), $icons['refresh'] );
+
+			$template = is_rtl() ? '<span class="-next-previous">%3$s %1$s %2$s</span>' : '<span class="-next-previous">%2$s %1$s %3$s</span>';
+
+			vprintf( $template, array( $refresh, $previous, $next ) );
+
 			vprintf( '<span class="-total-pages">%s / %s</span>', array(
 				Number::format( $args['total'] ),
 				Number::format( $args['pages'] ),
-			) );
-
-			vprintf( '<span class="-next-previous">%s %s %s</span>', array(
-				( FALSE === $args['previous'] ? '<span class="-previous -span" aria-hidden="true">'.$icons['previous'].'</span>' : self::tag( 'a', array(
-					'href'  => add_query_arg( 'paged', $args['previous'] ),
-					'class' => '-previous -link',
-				), $icons['previous'] ) ),
-				self::tag( 'a', array(
-					'href'  => HTTP::currentURL(),
-					'class' => '-refresh -link',
-				), $icons['refresh'] ),
-				( FALSE === $args['next'] ? '<span class="-next -span" aria-hidden="true">'.$icons['next'].'</span>' : self::tag( 'a', array(
-					'href'  => add_query_arg( 'paged', $args['next'] ),
-					'class' => '-next -link',
-				), $icons['next'] ) ),
 			) );
 
 		echo '</div>';

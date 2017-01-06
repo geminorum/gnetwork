@@ -11,6 +11,12 @@ class Number extends Base
 		return apply_filters( 'number_format_i18n', $number );
 	}
 
+	// @SOURCE: WP's `zeroise()`
+	public static function zeroise( $number, $threshold, $locale = NULL )
+	{
+		return sprintf( '%0'.$threshold.'s', $number );
+	}
+
 	public static $readable_suffix = array(
 		'trillion' => '%s trillion',
 		'billion'  => '%s billion',
@@ -37,10 +43,10 @@ class Number extends Base
 			return sprintf( $suffix['billion'], round( ( $number / 1000000000 ), 1 ) );
 
 		else if ( $number > 1000000 )
-			return sprintf( $suffix['million'], round( ( $number / 1000000 ),1 ) );
+			return sprintf( $suffix['million'], round( ( $number / 1000000 ), 1 ) );
 
 		else if ( $number > 1000 )
-			return sprintf( $suffix['thousand'], round( ( $number / 1000 ),1 ) );
+			return sprintf( $suffix['thousand'], round( ( $number / 1000 ), 1 ) );
 
 		return self::format( $number );
 	}

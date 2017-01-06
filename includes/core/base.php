@@ -196,7 +196,7 @@ class Base
 		$key = '';
 
 		for ( $i = 0; $i < $len; $i++ )
-			$key .= $chr[( wp_rand( 0,( strlen( $chr ) - 1 ) ) )];
+			$key .= $chr[( wp_rand( 0, ( strlen( $chr ) - 1 ) ) )];
 
 		return md5( $salt.$key );
 	}
