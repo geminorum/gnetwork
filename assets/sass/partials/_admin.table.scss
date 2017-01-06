@@ -3,12 +3,17 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// gNetwork Partials: Table ---------------------------------------------------
 
+div.base-table-wrap {}
+
 table {
   &.base-table-code,
   &.base-table-list,
   &.base-table-side,
   &.base-table-side-wrap {
     width: 100%;
+    .sub-console & {
+      width: auto;
+    }
   }
 }
 
@@ -32,6 +37,7 @@ div.base-table-actions {
   }
 
   div.base-table-navigation {
+
     input.-limit,
     input.-paged {
       margin: 0 4px 0 0;
@@ -45,41 +51,51 @@ div.base-table-actions {
       margin: 0 0.5em;
     }
 
-    .-next,
-    .-previous,
-    .-refresh {
-      // font-size: 1.8em;
-      display: inline-block;
-      // padding: 0 1em 0.2em;
-      // padding: 0 15px 8px;
-      border: 1px solid #ccc;
-      border-radius: 1px;
-      vertical-align: middle;
-      margin-top: -4px;
-      padding: 4px 3px 2px;
+    .button {
+      padding:0 4px 1px;
+      .dashicons {
+        width: 18px;
+        height: 18px;
+        font-size: 18px;
+        vertical-align: text-top;
+      }
     }
+
+    // .-next,
+    // .-previous,
+    // .-refresh {
+    //   // font-size: 1.8em;
+    //   display: inline-block;
+    //   // padding: 0 1em 0.2em;
+    //   // padding: 0 15px 8px;
+    //   border: 1px solid #ccc;
+    //   border-radius: 1px;
+    //   vertical-align: middle;
+    //   margin-top: -4px;
+    //   padding: 4px 3px 2px;
+    // }
 
     .-refresh {}
 
     .-link {
-      text-decoration: none;
+      // text-decoration: none;
     }
 
     .-span {
-      background: #ccc;
+      // background: #ccc;
     }
   }
 }
 
 table.base-table-list {
-  > .-before {}
 
+  > .-before {}
   > .-after {}
 
   thead {
     .check-column {
       width: 2.2em;
-      // width: 6px;
+      vertical-align: middle !important;
     }
 
     .-column-slug {

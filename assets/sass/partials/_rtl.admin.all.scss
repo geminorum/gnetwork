@@ -231,6 +231,14 @@ body.rtl {
     .compat-item {
       float: none;
     }
+
+    .setting {
+
+      &[data-setting='url'] input,
+      input.link-to-custom {
+        direction: ltr;
+      }
+    }
   }
 
   &.edit-comments-php {

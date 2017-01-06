@@ -28,7 +28,7 @@
       text-align: center;
 
       &.description {
-        text-align: right;
+        text-align: left;
       }
     }
   }
@@ -81,6 +81,10 @@ body.rtl {
 
   input[type=checkbox]:checked:before {
     margin: -3px -2px 0 0 !important;
+  }
+
+  p.description {
+    text-align: right;
   }
 }
 

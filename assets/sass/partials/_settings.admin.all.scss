@@ -3,12 +3,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// gNetwork Partials: Settings Admin ALL --------------------------------------
 
-.gnetwork-admin-settings-wrap {
+.gnetwork-admin-wrap.gnetwork-settings {
   @include mainwrap();
-
-  &.settings-network {}
-
-  &.settings-admin {}
 
   .quicktags-toolbar {
     min-height: 30px;
@@ -190,7 +186,9 @@
   }
 
   .gnetwork-form {
+
     .form-table {
+
       .field-after {
         vertical-align: middle;
 
@@ -200,6 +198,10 @@
             display: inline-block;
             line-height: 22px;
             text-decoration: none;
+
+            &:hover {
+              color: #0073aa;
+            }
 
             &:focus {
               outline: none;
@@ -211,10 +213,20 @@
             width: 22px;
             height: 22px;
             font-size: 22px;
+            vertical-align: text-top;
           }
         }
       }
     }
+
+    .base-table-wrap {
+      margin-right: 10px;
+      @include body-rtl() {
+        margin-right: 0;
+        margin-left: 10px;
+      }
+    }
+
     // FIXME: must check the html
     .button.button-small {
       vertical-align: middle;
