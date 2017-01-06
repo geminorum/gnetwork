@@ -171,7 +171,6 @@ class Locale extends ModuleCore
 			'regenerate-thumbnails'      => 'page',
 			'wpsupercache'               => 'page',
 			'members-settings'           => 'page',
-			'roles'                      => 'page',
 			'regenerate-thumbnails'      => 'page',
 			'a8c_developer'              => 'page',
 			'redirection.php'            => 'page', // Redirection
@@ -202,6 +201,10 @@ class Locale extends ModuleCore
 			'antivirus'                  => 'page', // [AntiVirus](https://wordpress.org/plugins/antivirus/)
 			'convert-post-types'         => 'page', // [Convert Post Types](https://wordpress.org/plugins/convert-post-types/)
 			'mapcap'                     => 'page', // [Map Cap](https://wordpress.org/plugins/map-cap/)
+
+			// [Members](https://github.com/justintadlock/members)
+			'roles'    => 'page',
+			'role-new' => 'page',
 
 			// [AddThis Website Tools](https://wordpress.org/plugins/addthis-all/)
 			'addthis_registration'      => 'page',

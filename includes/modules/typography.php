@@ -92,7 +92,13 @@ class Typography extends ModuleCore
 		// FIXME: use <abbr> and full def
 		$content = preg_replace("/\(ع\)/i", "<sup>(ع)</sup>", $content );
 		$content = preg_replace("/\(ص\)/i", "<sup>(ص)</sup>", $content );
+		$content = preg_replace("/\(س\)/i", "<sup>(س)</sup>", $content );
 		$content = preg_replace("/\(ره\)/i", "<sup>(ره)</sup>", $content );
+		$content = preg_replace("/\(عج\)/i", "<sup>(عج)</sup>", $content );
+		$content = preg_replace("/\(علیهم السلام\)/i", "<sup>(علیهم السلام)</sup>", $content );
+		$content = preg_replace("/\(علیهم‌السلام\)/i", "<sup>(علیهم السلام)</sup>", $content );
+		$content = preg_replace("/\(علیه السلام\)/i", "<sup>(علیه السلام)</sup>", $content );
+		$content = preg_replace("/\(علیه‌السلام\)/i", "<sup>(علیه السلام)</sup>", $content );
 
 		return $content;
 	}

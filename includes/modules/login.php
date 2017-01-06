@@ -179,11 +179,7 @@ class Login extends ModuleCore
 
 	public function login_footer_remember()
 	{
-echo <<<JS
-<script type="text/javascript">
-	try{document.getElementById('rememberme').checked=true;}catch(e){}
-</script>
-JS;
+		echo '<script type="text/javascript">try{document.getElementById("rememberme").checked=true;}catch(e){};</script>';
 	}
 
 	public function login_form()
@@ -218,7 +214,7 @@ JS;
 			return $null;
 
 		$answer  = (int) $_POST['num']; // FIXME: must log empty num
-		$salted  = sha1( $this->options['math_hashkey'].$answer );
+		$salted  = sha1( $this->options['math_hashkey'].$answer ); // FIXME: use wp_hash()
 		$correct = isset( $_POST['ans'] ) ? $_POST['ans'] : FALSE;
 
 		if ( FALSE === $correct )

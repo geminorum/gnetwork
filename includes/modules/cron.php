@@ -99,11 +99,9 @@ class Cron extends ModuleCore
 			),
 
 			'tasks' => array(
-				'title' => _x( 'Tasks', 'Modules: CRON', GNETWORK_TEXTDOMAIN ),
-				'class' => '-column-tasks',
-				'args'  => array(
-					'schedules' => wp_get_schedules(),
-				),
+				'title'    => _x( 'Tasks', 'Modules: CRON', GNETWORK_TEXTDOMAIN ),
+				'class'    => '-column-tasks',
+				'args'     => array( 'schedules' => wp_get_schedules() ),
 				'callback' => function( $value, $row, $column, $index ){
 
 					$info = '';
@@ -113,7 +111,7 @@ class Cron extends ModuleCore
 
 							$info .= '<div style="line-height:1.8">';
 
-							if ( function_exists('has_action') )
+							if ( function_exists( 'has_action' ) )
 								$style = ( has_action( $action ) ) ? ' style="color:green;"' : ' style="color:red;"';
 							else
 								$style = '';

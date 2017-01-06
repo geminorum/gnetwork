@@ -189,10 +189,8 @@ class Media extends ModuleCore
 			),
 
 			'type' => array(
-				'title' => _x( 'Type', 'Modules: Media', GNETWORK_TEXTDOMAIN ),
-				'args'  => array(
-					'post_types' => WordPress::getPostTypes( 2 ),
-				),
+				'title'    => _x( 'Type', 'Modules: Media', GNETWORK_TEXTDOMAIN ),
+				'args'     => array( 'post_types' => WordPress::getPostTypes( 2 ) ),
 				'callback' => function( $value, $row, $column, $index ){
 					return isset( $column['args']['post_types'][$row->post_type] ) ? $column['args']['post_types'][$row->post_type] : $row->post_type;
 				},
@@ -205,6 +203,9 @@ class Media extends ModuleCore
 					'admin' => admin_url( 'post.php' ),
 				),
 				'callback' => function( $value, $row, $column, $index ){
+
+					// FIXME: get all taxes
+					// FIXME: better row actions
 
 					$edit = add_query_arg( array(
 						'action' => 'edit',
@@ -221,10 +222,8 @@ class Media extends ModuleCore
 			),
 
 			'media' => array(
-				'title' => _x( 'Media', 'Modules: Media', GNETWORK_TEXTDOMAIN ),
-				'args'  => array(
-					'wpuploads' => $wpuploads,
-				),
+				'title'    => _x( 'Media', 'Modules: Media', GNETWORK_TEXTDOMAIN ),
+				'args'     => array( 'wpuploads' => $wpuploads ),
 				'callback' => function( $value, $row, $column, $index ){
 
 					// TODO: check for attachment type & get the parent: use wp icons
@@ -242,10 +241,8 @@ class Media extends ModuleCore
 			),
 
 			'meta' => array(
-				'title' => _x( 'Thumbnail', 'Modules: Media', GNETWORK_TEXTDOMAIN ),
-				'args'  => array(
-					'wpuploads' => $wpuploads,
-				),
+				'title'    => _x( 'Thumbnail', 'Modules: Media', GNETWORK_TEXTDOMAIN ),
+				'args'     => array( 'wpuploads' => $wpuploads ),
 				'callback' => function( $value, $row, $column, $index ){
 
 					if ( $attachment_id = get_post_meta( $row->ID, '_thumbnail_id', TRUE ) ) {
