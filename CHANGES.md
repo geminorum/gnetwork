@@ -1,3 +1,38 @@
+### 3.5.2
+* assets/js: :up: [jacklmoore/autosize](http://jacklmoore.com/autosize) v3.0.20
+* main/modulecore: checking if must register ui hooks
+* main/modulecore: better hook/hash/hash with salt helpers
+* main/modulecore: using base prefix fo settings ui
+* main/modulecore: key/context in hidden settings fields
+* main/modulecore: :warning: fixed not passing bulk action into form fields
+* main/settings: html wrap open/close helper
+* main/settings: user dashboard url helper
+* main/settings: check for cap before version display
+* main/settings: new taxonomies field type
+* main/wordpress: helper instead of deprecated is super admin
+* main/utilities: more date helpers
+* main/utilities: api for [ipinfo.io](http://ipinfo.io/) via [DavidePastore/ipinfo](https://github.com/DavidePastore/ipinfo)
+* module/admin: check if register admin ui
+* module/admin: register menu only on blog admin
+* module/admin: context for localized strings on overview
+* module/authors: module renamed from users
+* module/blog: checking rest auth filter
+* module/blog: no index meta tag for attachments
+* module/code: better hashing the cache key
+* module/comments: :new: option to hide trackback/pingbacks from comments
+* module/debug: hiding the notice if cannot delete the log file
+* module/login: using js exception on remember me checkbox
+* module/maintenance: :warning: fixed fatal: using $this when not in object context
+* module/media: more mime types for media views
+* module/network: :new: reset site admin email in bulk
+* module/network: more default options on new site
+* module/notify: supporting switch locale based on user
+* module/login: auto complete off for number input
+* module/typography: :warning: fixed not wrapping the asterisks
+* module/user: :new: new module
+* module/site: non admin site hooks moved here
+* module/shortcodes: last edited with simpler calls
+
 ### 3.5.1
 * module/adminbar: :warning: fix fatal
 
