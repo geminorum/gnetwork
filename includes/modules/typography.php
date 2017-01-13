@@ -153,7 +153,7 @@ class Typography extends ModuleCore
 		$args = shortcode_atts( array(
 			'slug'    => NULL,
 			'lang'    => NULL,
-			'title'   => FALSE,
+			'title'   => _x( 'View Wikipedia page', 'Modules: Typography: Shortcode Defaults', GNETWORK_TEXTDOMAIN ),
 			'context' => NULL,
 			'wrap'    => TRUE,
 			'before'  => '',
@@ -183,7 +183,7 @@ class Typography extends ModuleCore
 
 		$html = '<a href="'.esc_url( $url ).'" class="wiki wikipedia"'
 				.( $args['title'] ? ' data-toggle="tooltip" title="'.esc_attr( $args['title'] ).'"' : '' )
-				.'>'.$content.'</a>';
+				.'>'.trim( $content ).'</a>';
 
 		return self::shortcodeWrap( $html, 'wikipedia', $args, FALSE );
 	}
