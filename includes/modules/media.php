@@ -17,6 +17,8 @@ class Media extends ModuleCore
 		add_filter( 'upload_mimes', array( $this, 'upload_mimes' ) );
 		// add_filter( 'sanitize_file_name', array( $this, 'sanitize_file_name' ), 12, 2 );
 
+		$this->filter( 'image_send_to_editor', 8 );
+
 		if ( is_admin() ) {
 
 			$this->filter( 'post_mime_types' );
@@ -754,6 +756,21 @@ class Media extends ModuleCore
 			'flv'  => 'video/x-flv',
 			'svg'  => 'image/svg+xml',
 		) );
+	}
+
+	public function image_send_to_editor( $html, $id, $caption, $title, $align, $url, $size, $alt )
+	{
+		if ( get_attachment_link( $id ) == $url )
+			$url = WordPress::getPostShortLink( $id );
+
+		return HTML::tag( 'a', array(
+			'href'  => $url,
+			'rel'   => TRUE === $rel ? 'attachment' : $rel,
+			'class' => '-attachment',
+			'data'  => array(
+				'id' => $id,
+			),
+		), get_image_tag( $id, $alt, '', $align, $size ) );
 	}
 
 	public function post_mime_types( $post_mime_types )
