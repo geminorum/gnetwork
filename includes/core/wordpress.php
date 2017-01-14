@@ -250,6 +250,28 @@ class WordPress extends Base
 		return get_search_link( $query );
 	}
 
+	public static function getPostEditLink( $post_id, $extra = array() )
+	{
+		return add_query_arg( array_merge( array(
+			'action' => 'edit',
+			'post'   => $post_id,
+		), $extra ), admin_url( 'post.php' ) );
+	}
+
+	public static function getPostShortLink( $post_id, $extra = array() )
+	{
+		return add_query_arg( array_merge( array(
+			'p' => $post_id,
+		), $extra ), get_bloginfo( 'url' ) );
+	}
+
+	public static function getPostNewLink( $post_type, $extra = array() )
+	{
+		return add_query_arg( array_merge( array(
+			'post_type' => $post_type,
+		), $extra ), admin_url( 'post-new.php' ) );
+	}
+
 	public static function getAttachments( $post_id, $mime_type = 'image' )
 	{
 		return get_children( array(

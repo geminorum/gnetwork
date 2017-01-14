@@ -45,6 +45,7 @@ class Arraay extends Base
 		return $new;
 	}
 
+	// USE: `array_keys()` on posted checkboxes
 	public static function getKeys( $options, $if = TRUE )
 	{
 		$keys = array();
@@ -107,6 +108,33 @@ class Arraay extends Base
 				unset( $atts[$key] );
 
 		return $atts;
+	}
+
+	// FIXME: TEST THIS!
+	// @REF: http://stackoverflow.com/a/4582659
+	// USAGE: Arraay::multiSort( $array, array( 'key_1' => SORT_ASC, 'key_2' => SORT_ASC ) );
+	public static function multiSort( $array, $sort )
+	{
+		if ( ! count( $array ) )
+			return $array;
+
+		$map = $args = array();
+
+		foreach ( $array as $key => $val )
+			foreach ( $sort as $by => $order )
+				$map[$by][$key] = $val[$by];
+
+		foreach ( $sort as $by => $order ) {
+			$args[] = $map[$by];
+			$args[] = $order;
+		}
+
+		$args[] = &$array;
+
+		call_user_func_array( 'array_multisort', $args );
+
+		// return array_pop( $args ); // @SEE: http://php.net/manual/en/function.array-multisort.php#100534
+		return $array;
 	}
 
 	// insert an array into another array before/after a certain key
