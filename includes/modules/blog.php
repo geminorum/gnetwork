@@ -194,8 +194,9 @@ class Blog extends ModuleCore
 					'type'        => 'select',
 					'title'       => _x( 'Admin Language', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Despite of the Site Language, Always Display Admin in This Locale', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+					'none_title'  => _x( 'Site Default', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+					'none_value'  => '',
 					'values'      => Arraay::sameKey( Locale::available() ),
-					'default'     => get_locale(),
 				),
 			);
 
