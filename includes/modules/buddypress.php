@@ -400,7 +400,7 @@ class BuddyPress extends ModuleCore
 	public function bp_screens()
 	{
 		if ( ! bp_loggedin_user_id() && bp_is_directory() )
-			bp_core_redirect( '', 403 );
+			bp_core_redirect( bp_get_signup_page() );
 	}
 
 	public function bp_ajax_querystring( $querystring, $object = FALSE )
