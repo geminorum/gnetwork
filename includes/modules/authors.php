@@ -183,6 +183,8 @@ class Authors extends ModuleCore
 		if ( ! is_user_logged_in() )
 			return $args['text'];
 
+		WordPress::doNotCache();
+
 		return $content;
 	}
 
@@ -196,8 +198,12 @@ class Authors extends ModuleCore
 		if ( FALSE === $args['context'] )
 			return NULL;
 
-		if ( is_user_logged_in() )
+		if ( is_user_logged_in() ) {
+
+			WordPress::doNotCache();
+
 			return $args['text'];
+		}
 
 		return $content;
 	}
