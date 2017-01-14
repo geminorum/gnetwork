@@ -20,17 +20,22 @@ class Typography extends ModuleCore
 			Admin::registerTinyMCE( 'gnetworkasterisks', 'assets/js/tinymce/asterisks', 2 );
 		}
 
+		if ( is_admin() )
+			return;
+
+		$this->filter( 'the_content' );
+
 		if ( $this->options['title_titlecase']
 			|| $this->options['title_wordwrap'] )
 				add_filter( 'the_title', array( $this, 'the_title' ) );
 
 		if ( $this->options['arabic_typography']
 			|| $this->options['persian_typography'] )
-				add_filter( 'the_content', array( $this, 'the_content' ), 1000 );
+				add_filter( 'the_content', array( $this, 'the_content_late' ), 1000 );
 
 		add_filter( $this->hook( 'arabic' ), array( $this, 'arabic_typography' ) );
 		add_filter( $this->hook( 'persian' ), array( $this, 'persian_typography' ) );
-		add_filter( $this->hook(), array( $this, 'the_content' ) );
+		add_filter( $this->hook(), array( $this, 'the_content_late' ) );
 	}
 
 	public function setup_menu( $context )
@@ -87,14 +92,15 @@ class Typography extends ModuleCore
 		);
 	}
 
+	// TODO: آیت الله العظمی // no space
+	// TODO: حجت الاسلام // no space
+	// TODO: ثقة الاسلام // with space
+	// FIXME: use <abbr> and full def
 	public function arabic_typography( $content )
 	{
-		// FIXME: use <abbr> and full def
-		$content = preg_replace("/\(ع\)/i", "<sup>(ع)</sup>", $content );
-		$content = preg_replace("/\(ص\)/i", "<sup>(ص)</sup>", $content );
-		$content = preg_replace("/\(س\)/i", "<sup>(س)</sup>", $content );
-		$content = preg_replace("/\(ره\)/i", "<sup>(ره)</sup>", $content );
-		$content = preg_replace("/\(عج\)/i", "<sup>(عج)</sup>", $content );
+		$content = preg_replace( "/[\s\t]+(?:(\(ره\)|\(س\)|\(ص\)|\(ع\)|\(عج\)))/", "$1", $content ); // clean space/tab before
+		$content = preg_replace( "/(\(ره\)|\(س\)|\(ص\)|\(ع\)|\(عج\))(?![^<]*>|[^<>]*<\/)/ix", "<sup><abbr>$1</abbr></sup>", $content ); // wrapping
+
 		$content = preg_replace("/\(علیهم السلام\)/i", "<sup>(علیهم السلام)</sup>", $content );
 		$content = preg_replace("/\(علیهم‌السلام\)/i", "<sup>(علیهم السلام)</sup>", $content );
 		$content = preg_replace("/\(علیه السلام\)/i", "<sup>(علیه السلام)</sup>", $content );
@@ -105,6 +111,9 @@ class Typography extends ModuleCore
 
 	public function persian_typography( $content )
 	{
+		$content = str_ireplace( '&#8220;', '&#xAB;', $content );
+		$content = str_ireplace( '&#8221;', '&#xBB;', $content );
+
 		return $content;
 	}
 
@@ -138,6 +147,16 @@ class Typography extends ModuleCore
 	}
 
 	public function the_content( $content )
+	{
+		$content = str_ireplace(
+			'<p style="text-align: center;">***</p>',
+			$this->shortcode_three_asterisks( array() ),
+		$content );
+
+		return $content;
+	}
+
+	public function the_content_late( $content )
 	{
 		if ( $this->options['arabic_typography'] )
 			$content = $this->filters( 'arabic', $content );
