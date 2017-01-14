@@ -15,7 +15,7 @@ class Media extends ModuleCore
 	{
 		add_action( 'init', array( $this, 'init_late' ), 999 );
 		add_filter( 'upload_mimes', array( $this, 'upload_mimes' ) );
-		// add_filter( 'sanitize_file_name', array( $this, 'sanitize_file_name' ), 12, 2 );
+		$this->filter( 'sanitize_file_name', 2, 12 );
 
 		$this->filter( 'image_send_to_editor', 8 );
 
@@ -789,10 +789,12 @@ class Media extends ModuleCore
 		) );
 	}
 
-	// FIXME: WORKING BUT DISABLED:
-	// TODO: waiting for: https://core.trac.wordpress.org/ticket/22363
+	// FIXME: waiting on: https://core.trac.wordpress.org/ticket/22363
 	public function sanitize_file_name( $filename, $filename_raw )
 	{
+		if ( ! seems_utf8( $filename ) )
+			return $filename;
+
 		$info = pathinfo( $filename );
 		$ext  = empty( $info['extension'] ) ? '' : '.'.$info['extension'];
 		$name = basename( $filename, $ext );
