@@ -9,13 +9,11 @@ class Login extends ModuleCore
 
 	protected function setup_actions()
 	{
-		add_action( 'login_init', array( $this, 'login_init' ), 1 );
+		$this->action( 'login_init', 0, 1 );
 
-		if ( $this->options['login_math']
-			&& $this->options['math_hashkey'] ) {
-
-			add_action( 'login_form', array( $this, 'login_form' ) );
-			add_filter( 'authenticate', array( $this, 'authenticate' ), 1, 3 );
+		if ( $this->options['login_math'] ) {
+			$this->action( 'login_form' );
+			$this->filter( 'authenticate', 3, 1 );
 		}
 
 		if ( $this->options['login_errors'] )
@@ -40,7 +38,6 @@ class Login extends ModuleCore
 			'login_class'       => '',
 			'login_remember'    => 0,
 			'login_math'        => 0,
-			'math_hashkey'      => '',
 			'login_errors'      => '1', // FIXME: add options
 		);
 	}
@@ -112,14 +109,6 @@ class Login extends ModuleCore
 					'title'       => _x( 'Login Math', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Puts a math problem after the login form.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 				),
-				array(
-					'field'       => 'math_hashkey',
-					'type'        => 'text',
-					'title'       => _x( 'Random Hash Key', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Will used to sign with the math answer.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'default'     => Utilities::genRandomKey( get_site_option( 'admin_email' ) ),
-					'field_class' => array( 'regular-text', 'code-text' ),
-				),
 			);
 
 		return $settings;
@@ -190,8 +179,6 @@ class Login extends ModuleCore
 	{
 		$one = wp_rand( 0, 10 );
 		$two = wp_rand( 1, 10 );
-		$sum = $one + $two;
-		$ans = sha1( $this->options['math_hashkey'].$sum );
 
 		echo '<p class="sum">';
 
@@ -207,7 +194,7 @@ class Login extends ModuleCore
 			echo HTML::tag( 'input', array(
 				'type'  => 'hidden',
 				'name'  => 'ans',
-				'value' => $ans,
+				'value' => wp_hash( $one + $two ),
 			) );
 
 		echo '</p>';
@@ -218,15 +205,24 @@ class Login extends ModuleCore
 		if ( ! isset( $_POST[ 'log' ] ) )
 			return $null;
 
-		$answer  = (int) $_POST['num']; // FIXME: must log empty num
-		$salted  = sha1( $this->options['math_hashkey'].$answer ); // FIXME: use wp_hash()
+		$salted  = isset( $_POST['num'] ) ? wp_hash( (int) $_POST['num'] ) : FALSE;
 		$correct = isset( $_POST['ans'] ) ? $_POST['ans'] : FALSE;
 
-		if ( FALSE === $correct )
+		if ( FALSE === $correct ) {
+
+			Logger::ALERT( 'LOGIN-MATH: not properly configured' );
+
 			wp_die( _x( '<strong>This site is not properly configured.</strong> Please ask this site\'s web developer to review for information on how to resolve this issue.', 'Modules: Login', GNETWORK_TEXTDOMAIN ) );
 
-		else if ( $salted != $correct )
+		} else if ( FALSE === $salted || $salted != $correct ) {
+
+			if ( FALSE === $salted )
+				Logger::WARNING( 'LOGIN-MATH: not posting answer' );
+			else
+				Logger::NOTICE( 'LOGIN-MATH: failed to correctly answer' );
+
 			wp_die( _x( '<strong>You failed to correctly answer the math problem.</strong> This is used to combat spam Please use your browser\'s back button to return to the login form, press the "refresh" button to generate a new math problem, and try to log in again.', 'Modules: Login', GNETWORK_TEXTDOMAIN ) );
+		}
 
 		return $null;
 	}
