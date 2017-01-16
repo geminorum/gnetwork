@@ -1,7 +1,6 @@
 <?php namespace geminorum\gNetwork;
 
 use Symfony\Component\Stopwatch\Stopwatch;
-use DavidePastore\Ipinfo\Ipinfo;
 
 defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
@@ -472,7 +471,7 @@ class Utilities extends Base
 		global $gNetworkIPinfo;
 
 		if ( empty( $gNetworkIPinfo ) )
-			$gNetworkIPinfo = new Ipinfo();
+			$gNetworkIPinfo = new \DavidePastore\Ipinfo\Ipinfo\Ipinfo();
 
 		return $gNetworkIPinfo;
 	}
