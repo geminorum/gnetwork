@@ -65,7 +65,7 @@ class Debug extends ModuleCore
 		$this->settings_form_after( $uri, $sub );
 	}
 
-	protected function register_settings_buttons()
+	protected function register_settings_buttons( $sub = NULL )
 	{
 		$this->register_button( 'clear_error_log', _x( 'Clear Log', 'Modules: Debug', GNETWORK_TEXTDOMAIN ), array( 'default' => 'default' ), 'primary' );
 

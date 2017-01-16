@@ -71,7 +71,7 @@ class Cron extends ModuleCore
 		$this->settings_form_after( $uri, $sub );
 	}
 
-	protected function register_settings_buttons()
+	protected function register_settings_buttons( $sub = NULL )
 	{
 		$this->register_button( 'unschedule', _x( 'Unschedule', 'Cron Module', GNETWORK_TEXTDOMAIN ), array( 'default' => 'default' ), 'primary' );
 	}

@@ -368,8 +368,8 @@ class ModuleCore extends Base
 			add_action( $this->settings_hook( $sub ), array( $this, 'settings_form' ), 10, 2 );
 
 			$this->register_settings();
-			$this->register_settings_buttons();
-			$this->register_settings_help();
+			$this->register_settings_buttons( $sub );
+			$this->register_settings_help( $sub );
 		}
 	}
 
@@ -580,11 +580,11 @@ class ModuleCore extends Base
 		add_action( 'admin_print_footer_scripts', array( $this, 'print_scripts' ), 99 );
 	}
 
-	protected function register_settings_buttons()
+	protected function register_settings_buttons( $sub = NULL )
 	{
 		if ( method_exists( $this, 'default_settings' )
 			&& count( $this->default_settings() ) )
-				$this->default_buttons();
+				$this->default_buttons( $sub );
 	}
 
 	public function add_settings_field( $atts )
@@ -621,9 +621,9 @@ class ModuleCore extends Base
 		);
 	}
 
-	public function register_settings_help()
+	public function register_settings_help( $sub = NULL )
 	{
-		$tabs = $this->settings_help_tabs();
+		$tabs = $this->settings_help_tabs( $sub );
 
 		if ( ! count( $tabs ) )
 			return;
@@ -634,7 +634,7 @@ class ModuleCore extends Base
 			$screen->add_help_tab( $tab );
 	}
 
-	public function settings_help_tabs()
+	public function settings_help_tabs( $sub = NULL )
 	{
 		return array();
 	}

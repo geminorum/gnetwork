@@ -137,7 +137,7 @@ class OpenSearch extends ModuleCore
 		);
 	}
 
-	public function settings_help_tabs()
+	public function settings_help_tabs( $sub = NULL )
 	{
 		return array(
 			 array(
