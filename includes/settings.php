@@ -244,13 +244,13 @@ class Settings extends Base
 
 	public static function fieldAfterLink( $link = '', $class = '' )
 	{
-		return
-			'<code class="field-after">'
-				.HTML::tag( 'a', array(
-					'class' => $class,
-					'href'  => $link,
-				), $link )
-			.'</code>';
+		$html = HTML::tag( 'a', array(
+			'href'   => $link,
+			'class'  => $class,
+			'target' => '_blank',
+		), $link );
+
+		return '<code class="field-after">'.$html.'</code>';
 	}
 
 	// using caps instead of roles
