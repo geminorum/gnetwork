@@ -33,6 +33,25 @@ class Utilities extends Base
 		return $filter ? apply_filters( 'gnetwork_get_feeds', $feeds ) : $feeds;
 	}
 
+	public static function highlightTime( $string, $limit = -1 )
+	{
+		$pattern = '/\[([^\]]+)\]/';
+
+		return preg_replace_callback( $pattern, function( $matches ) {
+			return '<b><span title="'.esc_attr( human_time_diff( strtotime( $matches[1] ) ) ).'">['.$matches[1].']</span></b>';
+		}, $string, $limit );
+	}
+
+	public static function highlightIP( $string, $limit = -1 )
+	{
+		// @REF: http://regexr.com/35833
+		$pattern = "/((((25[0-5])|(2[0-4]\d)|([01]?\d?\d)))\.){3}((((25[0-5])|(2[0-4]\d)|([01]?\d?\d))))/i";
+
+		return preg_replace_callback( $pattern, function( $matches ) {
+			return gnetwork_ip_lookup( $matches[0] );
+		}, $string, $limit );
+	}
+
 	public static function humanTimeDiffRound( $local, $round = DAY_IN_SECONDS, $format = NULL, $now = NULL )
 	{
 		$ago = _x( '%s ago', 'Utilities: Human Time Diff Round', GNETWORK_TEXTDOMAIN );

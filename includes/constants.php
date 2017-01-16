@@ -30,7 +30,8 @@ $gnetwork_constants = array(
 	'GNETWORK_DISABLE_CREDITS'       => FALSE,
 	'GNETWORK_HIDDEN_FEATURES'       => FALSE,
 
-	'GNETWORK_DEBUG_LOG'             => WP_CONTENT_DIR.'/debug.log',
+	'GNETWORK_DEBUG_LOG'             => WP_CONTENT_DIR.'/debug.log', // FALSE to disable
+	'GNETWORK_ANALOG_LOG'            => WP_CONTENT_DIR.'/analog.log', // FALSE to disable
 	'GNETWORK_MAIL_LOG_DIR'          => WP_CONTENT_DIR.'/emaillogs', // FALSE to disable
 
 	'GNETWORK_DL_REMOTE' => FALSE,

@@ -18,6 +18,8 @@ class Debug extends ModuleCore
 			return array( __NAMESPACE__.'\\Debug', 'wp_die_handler' );
 		} );
 
+		$this->action( 'http_api_debug', 5 );
+
 		if ( 'production' == WP_STAGE ) {
 
 			if ( ! WP_DEBUG_DISPLAY ) {
@@ -27,10 +29,6 @@ class Debug extends ModuleCore
 				add_filter( 'deprecated_argument_trigger_error', '__return_false' );
 			}
 
-			if ( WP_DEBUG_LOG ) {
-				add_action( 'http_api_debug', array( $this, 'http_api_debug' ), 10, 5 );
-			}
-
 			// akismet will log all the http_reqs!!
 			add_filter( 'akismet_debug_log', '__return_false', 20 );
 		}
@@ -38,27 +36,49 @@ class Debug extends ModuleCore
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu(
-			_x( 'Debug Logs', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			array( $this, 'settings' )
-		);
+		if ( GNETWORK_DEBUG_LOG )
+			$this->register_menu(
+				_x( 'Errors', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
+				array( $this, 'settings' ), 'errorlogs'
+			);
+
+		if ( GNETWORK_ANALOG_LOG )
+			$this->register_menu(
+				_x( 'Logs', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
+				( GNETWORK_DEBUG_LOG ? FALSE : array( $this, 'settings' ) ), 'analoglogs'
+			);
 	}
 
-	protected function settings_actions( $sub = NULL )
+	public function settings( $sub = NULL )
 	{
-		if ( isset( $_POST['clear_error_log'] ) ) {
-			$this->check_referer( $sub );
-			self::redirect_referer( ( @unlink( GNETWORK_DEBUG_LOG ) ? 'purged' : 'error' ) );
+		if ( 'errorlogs' == $sub
+			|| 'analoglogs' == $sub ) {
+
+			if ( isset( $_POST['clear_logs'] ) ) {
+
+				$this->check_referer( $sub );
+
+				if ( GNETWORK_DEBUG_LOG && 'errorlogs' == $sub )
+					WordPress::redirectReferer( ( @unlink( GNETWORK_DEBUG_LOG ) ? 'purged' : 'error' ) );
+
+				else if ( GNETWORK_ANALOG_LOG && 'analoglogs' == $sub )
+					WordPress::redirectReferer( ( @unlink( GNETWORK_ANALOG_LOG ) ? 'purged' : 'error' ) );
+			}
+
+			add_action( $this->settings_hook( $sub ), array( $this, 'settings_form' ), 10, 2 );
+
+			$this->register_settings_buttons( $sub );
+			$this->register_settings_help( $sub );
 		}
 	}
 
 	public function settings_form( $uri, $sub = 'general' )
 	{
-		$this->settings_form_before( $uri, $sub, 'bulk' );
+		$this->settings_form_before( $uri, $sub, 'bulk', FALSE );
 
 			// TODO: add limit/length input
 
-			if ( self::displayErrorLogs() )
+			if ( self::displayLogs( ( 'analoglogs' == $sub ? GNETWORK_ANALOG_LOG : GNETWORK_DEBUG_LOG ) ) )
 				$this->settings_buttons( $sub );
 
 		$this->settings_form_after( $uri, $sub );
@@ -66,58 +86,51 @@ class Debug extends ModuleCore
 
 	protected function register_settings_buttons( $sub = NULL )
 	{
-		$this->register_button( 'clear_error_log', _x( 'Clear Log', 'Modules: Debug', GNETWORK_TEXTDOMAIN ), array( 'default' => 'default' ), 'primary' );
+		$this->register_button( 'clear_logs', _x( 'Clear Logs', 'Modules: Debug', GNETWORK_TEXTDOMAIN ), array( 'default' => 'default' ), 'primary' );
 
 		// TODO: add download action/button
 		// TODO: add shortcut button to update page
 	}
 
-	private static function displayErrorLogs()
+	private static function displayLogs( $file )
 	{
-		if ( file_exists( GNETWORK_DEBUG_LOG ) ) {
+		if ( $file && file_exists( $file ) ) {
 
-			if ( ! $file_size = File::getSize( GNETWORK_DEBUG_LOG ) )
+			if ( ! $file_size = File::getSize( $file ) )
 				return FALSE;
 
-			if ( $errors = File::getLastLines( GNETWORK_DEBUG_LOG, self::limit( 100 ) ) ) {
+			if ( $errors = File::getLastLines( $file, self::limit( 100 ) ) ) {
 
 				$length = self::req( 'length', 300 );
 
 				echo '<h3 class="error-box-header">';
-					printf( _x( 'The Last %s Errors, in reverse order', 'Modules: Debug: Error Box', GNETWORK_TEXTDOMAIN ), Number::format( count( $errors ) ) );
+					printf( _x( 'The Last %s Logs, in reverse order', 'Modules: Debug: Error Box', GNETWORK_TEXTDOMAIN ), Number::format( count( $errors ) ) );
 
 				echo '</h3><div class="error-box"><ol>';
 
 				foreach ( $errors as $error ) {
 
-					$line = trim( strip_tags( $error ) );
-
-					if ( ! $line )
+					if ( ! ( $line = trim( strip_tags( $error ) ) ) )
 						continue;
 
-					echo '<li>';
+					if ( strlen( $line ) > $length )
+						$line = substr( $line, 0, $length ).' <span title="'.esc_attr( $line ).'">[&hellip;]</span>';
 
-					$line = preg_replace_callback( '/\[([^\]]+)\]/', function( $matches ){
-						return '<b><span title="'.esc_attr( human_time_diff( strtotime( $matches[1] ) ) ).'">['.$matches[1].']</span></b>';
-					}, $line, 1 );
+					$line = Utilities::highlightTime( $line, 1 );
+					$line = Utilities::highlightIP( $line );
 
-					if ( Text::strLen( $line ) > $length )
-						echo Text::subStr( $line, 0, $length ).' <span title="'.esc_attr( $line ).'">[&hellip;]</span>';
-					else
-						echo $line;
-
-					echo '</li>';
+					echo '<li>'.$line.'</li>';
 				}
 
 				echo '</ol></div><p class="error-box-footer description">'.sprintf( _x( 'File Size: %s', 'Modules: Debug: Error Box', GNETWORK_TEXTDOMAIN ), $file_size ).'</p>';
 
 			} else {
-				self::warning( _x( 'No errors currently logged.', 'Modules: Debug: Error Box', GNETWORK_TEXTDOMAIN ), TRUE );
+				self::warning( _x( 'No information currently logged.', 'Modules: Debug: Error Box', GNETWORK_TEXTDOMAIN ), TRUE );
 				return FALSE;
 			}
 
 		} else {
-			self::error( _x( 'There was a problem reading the error log file.', 'Modules: Debug: Error Box', GNETWORK_TEXTDOMAIN ), TRUE );
+			self::error( _x( 'There was a problem reading the log file.', 'Modules: Debug: Error Box', GNETWORK_TEXTDOMAIN ), TRUE );
 			return FALSE;
 		}
 
@@ -193,6 +206,7 @@ class Debug extends ModuleCore
 			'DL_DIR'        => GNETWORK_DL_DIR,
 			'DL_URL'        => GNETWORK_DL_URL,
 			'DEBUG_LOG'     => GNETWORK_DEBUG_LOG,
+			'ANALOG_LOG'    => GNETWORK_ANALOG_LOG,
 			'MAIL_LOG_DIR'  => GNETWORK_MAIL_LOG_DIR,
 			'AJAX_ENDPOINT' => GNETWORK_AJAX_ENDPOINT,
 		);
@@ -330,11 +344,11 @@ class Debug extends ModuleCore
 	public static function phpinfo()
 	{
 		if ( $phpinfo = self::get_phpinfo() ) {
-			echo '<div class="gnetwork-phpinfo-wrap">';
+			echo '<div class="-phpinfo-wrap">';
 				echo $phpinfo;
 			echo '</div>';
 		} else {
-			echo '<div class="gnetwork-phpinfo-disabled description">';
+			echo '<div class="-phpinfo-disabled description">';
 				_ex( '<code>phpinfo()</code> has been disabled.', 'Modules: Debug', GNETWORK_TEXTDOMAIN );
 			echo '</div>';
 		}
@@ -389,21 +403,32 @@ class Debug extends ModuleCore
 	public function http_api_debug( $response, $context, $class, $args, $url )
 	{
 		if ( self::isError( $response ) )
-			self::log( 'HTTP API RESPONSE: '.$class, $response->get_error_message(), $url );
+			Logger::ERROR( 'HTTP-API: '.$class.': '.$response->get_error_message().' - '.$url );
 	}
-
-	{
-			self::log( 'TEST COOCKIE', $errors->get_error_message( 'test_cookie' ) ); // FIXME: generate static message
-
 
 	public function core_upgrade_preamble()
 	{
+		if ( ! GNETWORK_DEBUG_LOG && ! GNETWORK_ANALOG_LOG )
+			return;
+
+		HTML::h2( _x( 'Extras', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+
 		echo '<p class="gnetwork-admin-wrap debug-update-core">';
 
-			echo HTML::tag( 'a', array(
-				'class' => 'button button-secondary',
-				'href'  => Settings::subURL( 'debug' ),
-			), _x( 'Check Debug Logs', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+			if ( GNETWORK_DEBUG_LOG )
+				echo HTML::tag( 'a', array(
+					'class' => 'button button-secondary',
+					'href'  => Settings::subURL( 'errorlogs' ),
+				), _x( 'Check Errors', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+
+			if ( GNETWORK_DEBUG_LOG && GNETWORK_ANALOG_LOG )
+				echo '&nbsp;&nbsp;';
+
+			if ( GNETWORK_ANALOG_LOG )
+				echo HTML::tag( 'a', array(
+					'class' => 'button button-secondary',
+					'href'  => Settings::subURL( 'analoglogs' ),
+				), _x( 'Check Logs', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
 
 		echo '</p>';
 	}
