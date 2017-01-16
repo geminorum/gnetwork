@@ -88,11 +88,11 @@ class Dev extends ModuleCore
 	{
 		global $pagenow, $wpdb, $gPeopleNetwork, $gMemberNetwork;
 
-		$log = array(
-			self::timerStop( FALSE, 3 ).'s',
-			number_format( ( memory_get_peak_usage() / 1024 / 1024 ), 1, ',', '' ).'/'.ini_get( 'memory_limit' ),
-			$wpdb->num_queries.'q',
-		);
+		$log = array();
+
+		$log[] = self::timerStop( FALSE, 3 ).'s';
+		$log[] = number_format( ( memory_get_peak_usage() / 1024 / 1024 ), 1, ',', '' ).'/'.ini_get( 'memory_limit' );
+		$log[] = $wpdb->num_queries.'q';
 
 		if ( is_network_admin() )
 			$log[] = 'NetworkAdmin';
@@ -137,11 +137,12 @@ class Dev extends ModuleCore
 			$log[] = $_SERVER['REQUEST_URI'];
 
 		if ( ! empty( $pagenow ) )
-			$log[] = 'PageNow:'.$pagenow;
+			$log[] = 'PAGE:'.$pagenow;
 
 		$prefix = 'BENCHMARK: ';
 
-		// TODO: add blog name
+		if ( is_multisite() )
+			$prefix .= WordPress::currentBlog().': ';
 
 		Logger::DEBUG( $prefix.implode( '|', $log ) );
 	}
