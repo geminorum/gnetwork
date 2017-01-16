@@ -192,9 +192,10 @@ class ProviderCore extends Base
 			$results = $client->call( $method, $params );
 
 			if ( $this->options['debug_providers'] )
-				self::logArray( '[Provider: '.$this->key.' - soap]', array(
-					'params'  => $params,
-					'results' => $results,
+				Logger::DEBUG( 'SOAP-SUCCES: {provider}: {params} - {results}', array(
+					'provider' => $this->key,
+					'params'   => $params,
+					'results'  => $results,
 				) );
 
 			return $results;
@@ -202,8 +203,9 @@ class ProviderCore extends Base
 		} catch ( \SoapFault $e ) {
 
 			if ( $this->options['debug_providers'] )
-				self::logArray( '[Provider: '.$this->key.' - soap]', array(
-					'params' => $params,
+				Logger::ERROR( 'SOAP-FAILED: {provider}: {params} - {fault}', array(
+					'provider' => $this->key,
+					'params'   => $params,
 					'fault'  => $e->faultstring,
 				) );
 
@@ -261,13 +263,13 @@ class ProviderCore extends Base
 		$httpcode = curl_getinfo( $handle, CURLINFO_HTTP_CODE );
 
 		if ( $this->options['debug_providers'] )
-			self::logArray( '[Provider: '.$this->key.' - cURL]', array(
+			Logger::DEBUG( 'CURL-CALL: {provider}: {code}::{url} - {data} - {response}', array(
+				'provider' => $this->key,
+				'code'     => $httpcode,
 				'url'      => $url,
 				'data'     => $data,
-				'code'     => $httpcode,
 				'response' => $response,
 			) );
-
 
 		return $this->curlResults( $response, $httpcode );
 	}

@@ -1,7 +1,5 @@
 <?php namespace geminorum\gNetwork;
 
-use Symfony\Component\Stopwatch\Stopwatch;
-
 defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 class Utilities extends Base
@@ -372,52 +370,6 @@ class Utilities extends Base
 		}
 
 		return $demotext;
-	}
-
-	// @link	http://symfony.com/doc/current/components/stopwatch.html
-	public static function startWatch( $name = 'testing', $category = 'gnetwork' )
-	{
-		global $gNetworkStopWatch;
-
-		if ( empty( $gNetworkStopWatch ) )
-			$gNetworkStopWatch = new Stopwatch();
-
-		return $gNetworkStopWatch->start( $name, $category );
-	}
-
-	public static function lapWatch( $name = 'testing', $category = 'gnetwork' )
-	{
-		global $gNetworkStopWatch;
-
-		if ( empty( $gNetworkStopWatch ) )
-			return FALSE;
-
-		return $gNetworkStopWatch->lap( $name, $category );
-	}
-
-	public static function stopWatch( $name = 'testing', $category = 'gnetwork' )
-	{
-		global $gNetworkStopWatch;
-
-		if ( empty( $gNetworkStopWatch ) )
-			return FALSE;
-
-		$event = $gNetworkStopWatch->stop( $name, $category );
-
-		// $event->getCategory();   // Returns the category the event was started in
-		// $event->getOrigin();     // Returns the event start time in milliseconds
-		// $event->ensureStopped(); // Stops all periods not already stopped
-		// $event->getStartTime();  // Returns the start time of the very first period
-		// $event->getEndTime();    // Returns the end time of the very last period
-		// $event->getDuration();   // Returns the event duration, including all periods
-		// $event->getMemory();     // Returns the max memory usage of all periods
-
-		$event->ensureStopped();
-
-		return array(
-			'dur' => $event->getDuration(),
-			'mem' => $event->getMemory(),
-		);
 	}
 
 	// @API: https://developers.google.com/chart/infographics/docs/qr_codes

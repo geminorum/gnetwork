@@ -73,6 +73,7 @@ class gNetwork
 			'functions'    => '',
 			'utilities'    => '',
 			'settings'     => '',
+			'logger'       => '',
 			'modulecore'   => '',
 			'providercore' => '',
 

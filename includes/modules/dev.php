@@ -139,9 +139,11 @@ class Dev extends ModuleCore
 		if ( ! empty( $pagenow ) )
 			$log[] = 'PageNow:'.$pagenow;
 
+		$prefix = 'BENCHMARK: ';
+
 		// TODO: add blog name
 
-		self::log( 'BENCHMARK', implode( '|', $log ) );
+		Logger::DEBUG( $prefix.implode( '|', $log ) );
 	}
 
 	// FIXME: WORKING: ADJUST IT

@@ -401,7 +401,7 @@ class Mail extends ModuleCore
 		$filename = current_time( 'Ymd-His' ).'-'.$to.'.json';
 
 		if ( FALSE === File::putContents( $filename, wp_json_encode( $contents ), GNETWORK_MAIL_LOG_DIR ) )
-			self::log( 'EMAIL NOT LOGGED', 'TO: '.$contents['to'] );
+			Logger::CRITICAL( 'EMAIL-LOGGER: NOT LOGGED TO: '.$contents['to'] );
 
 		return $mail;
 	}

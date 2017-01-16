@@ -163,10 +163,11 @@ class SMS extends ModuleCore
 				$results = gNetwork()->sms->providers[$provider]->smsSend( $text, $number, $atts );
 
 				if ( gNetwork()->option( 'debug_providers', 'sms' ) )
-					self::logArray( '[Provider: '.$provider.' - smsSend]', array(
-						'text'    => $text,
-						'number'  => $number,
-						'results' => $results,
+					Logger::DEBUG( 'SMS-SEND: {provider}: {number}::{text} - {results}', array(
+						'provider' => $provider,
+						'number'   => $number,
+						'text'     => $text,
+						'results'  => $results,
 					) );
 
 				return $results;
