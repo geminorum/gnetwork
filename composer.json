@@ -26,7 +26,8 @@
     "symfony/stopwatch": "^3.2",
     "parsecsv/php-parsecsv": "^0.4.5",
     "jbroadway/urlify": "^1.1",
-    "davidepastore/ipinfo": "^0.1.2"
+    "davidepastore/ipinfo": "^0.1.2",
+    "analog/analog": "dev-master"
   },
   "require-dev": {
     "raveren/kint": "^1.0",
