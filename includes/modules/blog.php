@@ -29,6 +29,9 @@ class Blog extends ModuleCore
 
 			if ( $this->options['page_404'] )
 				add_filter( '404_template', array( $this, 'custom_404_template' ) );
+
+			if ( $this->options['feed_deley'] )
+				$this->filter( 'posts_where', 2 );
 		}
 
 		if ( ! $this->options['rest_api_enabled'] )
@@ -59,6 +62,7 @@ class Blog extends ModuleCore
 			'meta_revised'         => '0',
 			'noindex_attachments'  => '0',
 			'feed_json'            => '0',
+			'feed_deley'           => '10',
 			'disable_emojis'       => GNETWORK_DISABLE_EMOJIS,
 			'ga_override'          => '',
 			'from_email'           => '',
@@ -153,6 +157,15 @@ class Blog extends ModuleCore
 					'field'       => 'noindex_attachments',
 					'title'       => _x( 'No Index Attachments', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'No Index/No Follow Meta Tags for Attachments', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+				),
+				array(
+					'field'       => 'feed_deley',
+					'type'        => 'select',
+					'title'       => _x( 'Deley Feeds', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Deley published posts on feeds', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+					'none_title'  => _x( 'No Deley', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+					'values'      => Settings::minutesOptions(),
+					'default'     => '10',
 				),
 			),
 		);
@@ -335,6 +348,23 @@ class Blog extends ModuleCore
 
 		if ( $this->options['noindex_attachments'] && is_attachment() )
 			echo "\t".'<meta name="robots" content="noindex,nofollow" />'."\n";
+	}
+
+	public function posts_where( $where, $query )
+	{
+		if ( $query->is_main_query()
+			&& $query->is_feed() ) {
+
+			global $wpdb;
+
+			$now  = gmdate( 'Y-m-d H:i:s' );
+			$wait = $this->options['feed_deley'];
+			$unit = 'MINUTE'; // MINUTE, HOUR, DAY, WEEK, MONTH, YEAR
+
+			$where .= " AND TIMESTAMPDIFF( {$unit}, {$wpdb->posts}.post_date_gmt, '{$now}' ) > {$wait} ";
+		}
+
+		return $where;
 	}
 
 ////////////////////////////////////////////////////////////////////////////////
