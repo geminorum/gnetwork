@@ -31,7 +31,7 @@ $gnetwork_constants = array(
 	'GNETWORK_HIDDEN_FEATURES'       => FALSE,
 
 	'GNETWORK_DEBUG_LOG'             => WP_CONTENT_DIR.'/debug.log',
-	'GNETWORK_MAIL_LOG_DIR'          => WP_CONTENT_DIR.'/emaillogs',
+	'GNETWORK_MAIL_LOG_DIR'          => WP_CONTENT_DIR.'/emaillogs', // FALSE to disable
 
 	'GNETWORK_DL_REMOTE' => FALSE,
 	'GNETWORK_DL_DIR'    => ABSPATH.'repo',

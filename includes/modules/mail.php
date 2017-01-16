@@ -33,7 +33,7 @@ class Mail extends ModuleCore
 			FALSE, 'testmail'
 		);
 
-		if ( $this->options['log_all'] )
+		if ( GNETWORK_MAIL_LOG_DIR && $this->options['log_all'] )
 			$this->register_menu(
 				_x( 'Email Logs', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
 				FALSE, 'emaillogs'
@@ -58,7 +58,7 @@ class Mail extends ModuleCore
 
 	public function default_settings()
 	{
-		return array(
+		$settings = array(
 			'_general' => array(
 				array(
 					'field'       => 'from_email',
@@ -130,14 +130,18 @@ class Mail extends ModuleCore
 					'field_class' => array( 'regular-text', 'code-text' ),
 				),
 			),
-			'_log' => array(
+		);
+
+		if ( GNETWORK_MAIL_LOG_DIR )
+			$settings['_log'] = array(
 				array(
 					'field'       => 'log_all',
 					'title'       => _x( 'Log All', 'Modules: Mail: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Log all outgoing emails in a secure folder', 'Modules: Mail: Settings', GNETWORK_TEXTDOMAIN ),
 				),
-			),
-		);
+			);
+
+		return $settings;
 	}
 
 	public function settings_section_smtp()
@@ -201,7 +205,11 @@ class Mail extends ModuleCore
 
 	public function settings_sidebox( $sub, $uri )
 	{
-		if ( $this->options['log_all'] ) {
+		if ( ! GNETWORK_MAIL_LOG_DIR ) {
+
+			echo '<p>'._x( 'Logging Emails Disabled by Constant', 'Modules: Mail', GNETWORK_TEXTDOMAIN ).'</p>';
+
+		} else if ( $this->options['log_all'] ) {
 
 			if ( wp_is_writable( GNETWORK_MAIL_LOG_DIR ) ) {
 				echo '<p>'.sprintf( _x( 'Log Folder Exists and Writable: <code>%s</code>', 'Modules: Mail', GNETWORK_TEXTDOMAIN ), GNETWORK_MAIL_LOG_DIR ).'</p>';
@@ -225,7 +233,8 @@ class Mail extends ModuleCore
 	{
 		if ( $this->key == $sub ) {
 
-			if ( isset( $_POST['create_log_folder'] ) ) {
+			if ( GNETWORK_MAIL_LOG_DIR
+				&& isset( $_POST['create_log_folder'] ) ) {
 
 				$this->check_referer( $sub );
 
@@ -243,7 +252,9 @@ class Mail extends ModuleCore
 
 		} else if ( 'emaillogs' == $sub ) {
 
-			if ( ! empty( $_POST ) && 'bulk' == $_POST['action'] ) {
+			if ( GNETWORK_MAIL_LOG_DIR
+				&& ! empty( $_POST )
+				&& 'bulk' == $_POST['action'] ) {
 
 				$this->check_referer( $sub );
 
@@ -369,6 +380,9 @@ class Mail extends ModuleCore
 	// $mail = array( 'to', 'subject', 'message', 'headers', 'attachments' );
 	public function wp_mail( $mail )
 	{
+		if ( ! GNETWORK_MAIL_LOG_DIR )
+			return $mail;
+
 		$contents = array_merge( array(
 			'timestamp' => current_time( 'mysql' ),
 			'blog'      => WordPress::currentBlog(),
@@ -487,12 +501,15 @@ class Mail extends ModuleCore
 	}
 
 	// @SOURCE: http://stackoverflow.com/a/14744288/4864081
-	protected static function getEmailLogs( $limit, $paged = 1, $ext = 'json', $old = NULL )
+	protected static function getEmailLogs( $limit, $paged = 1, $ext = 'json', $old = NULL, $path = GNETWORK_MAIL_LOG_DIR )
 	{
+		if ( ! $path )
+			return array( array(), array() );
+
 		$i = 0;
 		$logs = array();
 
-		$files = glob( wp_normalize_path( GNETWORK_MAIL_LOG_DIR.'/*.'.$ext ) );
+		$files = glob( wp_normalize_path( $path.'/*.'.$ext ) );
 
 		usort( $files, function( $a, $b ) {
 			return filemtime( $b ) - filemtime( $a );
@@ -540,12 +557,15 @@ class Mail extends ModuleCore
 		return array( $logs, $pagination );
 	}
 
-	protected static function deleteEmailLogs( $ext = 'json' )
+	protected static function deleteEmailLogs( $path = GNETWORK_MAIL_LOG_DIR )
 	{
+		if ( ! $path )
+			return FALSE;
+
 		try {
 
 			// @SOURCE: http://stackoverflow.com/a/4594268/4864081
-			foreach ( new \DirectoryIterator( GNETWORK_MAIL_LOG_DIR ) as $file )
+			foreach ( new \DirectoryIterator( $path ) as $file )
 				if ( ! $file->isDot() )
 					unlink( $file->getPathname() );
 
@@ -553,7 +573,7 @@ class Mail extends ModuleCore
 			// echo 'Caught exception: '.$e->getMessage().'<br/>';
 		}
 
-		return File::putHTAccessDeny( GNETWORK_MAIL_LOG_DIR, FALSE );
+		return File::putHTAccessDeny( $path, FALSE );
 	}
 
 	private static function tableEmailLogs()
