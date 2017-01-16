@@ -276,9 +276,9 @@ class AdminBar extends ModuleCore
 			'parent' => $group_id,
 			'id'     => $this->base.'-info-pagenow',
 			'title'  => 'PageNow: '.( empty( $pagenow ) ? 'EMPTY' : $pagenow ),
-			'href'   => FALSE,
+			'href'   => GNETWORK_ANALOG_LOG ? Settings::subURL( 'analoglogs' ) : FALSE,
 			'meta'   => array(
-				'title' => _x( 'Click to see Debug Logs', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+				'title' => _x( 'Click to see Logs', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 			),
 		) );
 
@@ -286,7 +286,7 @@ class AdminBar extends ModuleCore
 			'parent' => $group_id,
 			'id'     => $this->base.'-info-queries',
 			'title'  => self::stat( '%dq | %.3fs | %.2fMB' ),
-			'href'   => Settings::subURL( 'debug' ),
+			'href'   => GNETWORK_DEBUG_LOG ? Settings::subURL( 'errorlogs' ) : FALSE,
 			'meta'   => array(
 				'title' => _x( 'Queries | Timer Stop | Memory Usage', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 			),
@@ -471,6 +471,7 @@ class AdminBar extends ModuleCore
 		$blogs = $super_admin ? self::getAllBlogs() : (array) $wp_admin_bar->user->blogs;
 
 		foreach ( $blogs as $blog ) {
+
 			switch_to_blog( $blog->userblog_id );
 
 			// TODO: get class from site meta
