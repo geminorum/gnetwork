@@ -29,7 +29,6 @@ class Debug extends ModuleCore
 
 			if ( WP_DEBUG_LOG ) {
 				add_action( 'http_api_debug', array( $this, 'http_api_debug' ), 10, 5 );
-				add_filter( 'wp_login_errors', array( $this, 'wp_login_errors' ), 10, 2 );
 			}
 
 			// akismet will log all the http_reqs!!
@@ -393,13 +392,9 @@ class Debug extends ModuleCore
 			self::log( 'HTTP API RESPONSE: '.$class, $response->get_error_message(), $url );
 	}
 
-	public function wp_login_errors( $errors, $redirect_to )
 	{
-		if ( in_array( 'test_cookie', $errors->get_error_codes() ) )
 			self::log( 'TEST COOCKIE', $errors->get_error_message( 'test_cookie' ) ); // FIXME: generate static message
 
-		return $errors;
-	}
 
 	public function core_upgrade_preamble()
 	{

@@ -17,6 +17,9 @@ class Login extends ModuleCore
 			add_action( 'login_form', array( $this, 'login_form' ) );
 			add_filter( 'authenticate', array( $this, 'authenticate' ), 1, 3 );
 		}
+
+		if ( $this->options['login_errors'] )
+			$this->filter( 'wp_login_errors', 2 );
 	}
 
 	public function setup_menu( $context )
@@ -38,6 +41,7 @@ class Login extends ModuleCore
 			'login_remember'    => 0,
 			'login_math'        => 0,
 			'math_hashkey'      => '',
+			'login_errors'      => '1', // FIXME: add options
 		);
 	}
 
@@ -225,6 +229,26 @@ class Login extends ModuleCore
 			wp_die( _x( '<strong>You failed to correctly answer the math problem.</strong> This is used to combat spam Please use your browser\'s back button to return to the login form, press the "refresh" button to generate a new math problem, and try to log in again.', 'Modules: Login', GNETWORK_TEXTDOMAIN ) );
 
 		return $null;
+	}
+
+	public function wp_login_errors( $errors, $redirect_to )
+	{
+		$log = array(
+			'test_cookie',
+			'incorrect_password',
+			'invalid_username',
+			'invalid_email',
+			'invalidcombo',
+			'empty_password',
+			'empty_username',
+			'empty_email',
+		);
+
+		foreach ( $errors->get_error_codes() as $error )
+			if ( in_array( $error, $log ) )
+				Logger::WARNING( 'LOGIN-ERRORS: '.str_replace( '_', ' ', $error ) );
+
+		return $errors;
 	}
 
 	public function login_footer_badge()
