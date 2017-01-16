@@ -23,6 +23,20 @@ if ( ! function_exists( 'gnetwork_github_readme' ) ) :
 	}
 endif;
 
+if ( ! function_exists( 'gnetwork_ip_lookup' ) ) :
+	function gnetwork_ip_lookup( $ip ) {
+
+		if ( $service = gNetwork()->option( 'lookup_ip_service', 'site', 'http://freegeoip.net/?q=%s' ) )
+			return \geminorum\gNetwork\HTML::tag( 'a', array(
+				'href'   => sprintf( $service, $ip ),
+				'class'  => '-ip-lookup',
+				'target' => '_blank',
+			), $ip );
+
+		return $ip;
+	}
+endif;
+
 if ( ! function_exists( 'gnetwork_update_notice' ) ) :
 	function gnetwork_update_notice( $plugin = GNETWORK_FILE ) {
 

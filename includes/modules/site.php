@@ -35,8 +35,9 @@ class Site extends ModuleCore
 	public function default_options()
 	{
 		return array(
-			'admin_locale'    => 'en_US',
-			'page_signup'     => '0',
+			'admin_locale'      => 'en_US',
+			'page_signup'       => '0',
+			'lookup_ip_service' => 'http://freegeoip.net/?q=%s',
 		);
 	}
 
@@ -75,6 +76,18 @@ class Site extends ModuleCore
 				),
 			);
 		}
+
+		$settings['_misc'] = array(
+			array(
+				'field'       => 'lookup_ip_service',
+				'type'        => 'text',
+				'title'       => _x( 'Lookup IP URL', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'URL template to to use for looking up IP adresses. Will replace <code>%s</code> with the IP.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+				'default'     => 'http://freegeoip.net/?q=%s',
+				'dir'         => 'ltr',
+				'after'       => $this->options['lookup_ip_service'] ? Settings::fieldAfterLink( sprintf( $this->options['lookup_ip_service'], HTTP::IP() ) ) : '',
+			),
+		);
 
 		return $settings;
 	}
