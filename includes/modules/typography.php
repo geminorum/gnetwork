@@ -95,11 +95,11 @@ class Typography extends ModuleCore
 	// TODO: آیت الله العظمی // no space
 	// TODO: حجت الاسلام // no space
 	// TODO: ثقة الاسلام // with space
-	// FIXME: use <abbr> and full def
+	// FIXME: use <abbr> and full def: https://developer.mozilla.org/en/docs/Web/HTML/Element/abbr
 	public function arabic_typography( $content )
 	{
 		$content = preg_replace( "/[\s\t]+(?:(\(ره\)|\(س\)|\(ص\)|\(ع\)|\(عج\)))/", "$1", $content ); // clean space/tab before
-		$content = preg_replace( "/(\(ره\)|\(س\)|\(ص\)|\(ع\)|\(عج\))(?![^<]*>|[^<>]*<\/)/ix", "<sup><abbr>$1</abbr></sup>", $content ); // wrapping
+		$content = preg_replace( "/(\(ره\)|\(س\)|\(ص\)|\(ع\)|\(عج\))(?![^<]*>|[^<>]*<\/)/ix", "<sup><abbr>$1</abbr></sup>", $content ); // @REF: http://stackoverflow.com/a/18622606/4864081
 
 		$content = preg_replace("/\(علیهم السلام\)/i", "<sup>(علیهم السلام)</sup>", $content );
 		$content = preg_replace("/\(علیهم‌السلام\)/i", "<sup>(علیهم السلام)</sup>", $content );

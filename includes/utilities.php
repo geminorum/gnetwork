@@ -21,7 +21,7 @@ class Utilities extends Base
 		if ( ! empty( $updates[$plugin] ) )
 			self::info( sprintf(
 				_x( 'A new version of %s is available. Please update to version %s to ensure compatibility with your WordPress.', 'Utilities: Update Notice', GNETWORK_TEXTDOMAIN ),
-				HTML::tag( 'a', array( 'href' => $updates[$plugin]->PluginURI ), $updates[$plugin]->Name ),
+				HTML::link( $updates[$plugin]->Name, $updates[$plugin]->PluginURI, TRUE ),
 				$updates[$plugin]->update->new_version
 			), TRUE );
 
@@ -459,11 +459,9 @@ class Utilities extends Base
 	// @SEE: https://core.trac.wordpress.org/ticket/22363
 	// @SEE: https://core.trac.wordpress.org/ticket/35951
 	// @SEE: https://core.trac.wordpress.org/ticket/30130
+	// FIXME: check: `URLify::add_chars()`
 	public static function URLifyDownCode( $string, $locale = NULL )
 	{
-		// \URLify::add_chars( array(
-		// ) );
-
 		$iso = class_exists( __NAMESPACE__.'\\Locale' ) ? Locale::getISO( $locale ) : $locale;
 
 		return \URLify::downcode( $string, $iso );

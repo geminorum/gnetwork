@@ -58,9 +58,8 @@ class Dashboard extends ModuleCore
 	{
 		require_once ABSPATH.'wp-admin/includes/dashboard.php';
 
-		self::logArray( 'AJAX', $_GET );
-
 		$pagenow = $_GET['pagenow'];
+
 		if ( $pagenow === 'dashboard-user' || $pagenow === 'dashboard-network' || $pagenow === 'dashboard' ) {
 			set_current_screen( $pagenow );
 		}

@@ -3,7 +3,7 @@
 	$protocol = $_SERVER["SERVER_PROTOCOL"];
 	if ( 'HTTP/1.1' != $protocol && 'HTTP/1.0' != $protocol )
 		$protocol = 'HTTP/1.0';
-	header( "$protocol 403 Service Unavailable", true, 403 );
+	header( "$protocol 403 Service Unavailable", TRUE, 403 );
 
 	if ( function_exists( 'nocache_headers' ) )
 		nocache_headers();
