@@ -501,9 +501,8 @@ class RestrictedBouncer extends Base
 
 	private static function genFeedKey()
 	{
-		global $userdata;
-
-		return self::genRandomKey( $userdata->user_login );
+		$data = $GLOBALS['userdata']->user_login.wp_generate_password( 12, TRUE, TRUE );
+		return hash_hmac( 'md5', $data, wp_salt( 'auth' ) );
 	}
 
 	public function template_redirect()
