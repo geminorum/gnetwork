@@ -104,7 +104,7 @@ class Authors extends ModuleCore
 	public function settings( $sub = NULL )
 	{
 		if ( 'roles' == $sub )
-			add_action( 'gnetwork_admin_settings_sub_'.$sub, array( $this, 'settings_form_roles' ), 10, 2 );
+			add_action( $this->settings_hook( $sub, 'admin' ), array( $this, 'settings_form_roles' ), 10, 2 );
 
 		else
 			parent::settings( $sub );

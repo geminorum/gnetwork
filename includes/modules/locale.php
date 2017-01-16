@@ -38,7 +38,7 @@ class Locale extends ModuleCore
 	public function settings( $sub = NULL )
 	{
 		if ( $sub == $this->key )
-			add_action( 'gnetwork_admin_settings_sub_'.$sub, array( $this, 'settings_form' ), 10, 2 );
+			add_action( $this->settings_hook( $sub, 'admin' ), array( $this, 'settings_form' ), 10, 2 );
 	}
 
 	public function settings_form( $uri, $sub = 'general' )

@@ -346,13 +346,27 @@ class ModuleCore extends Base
 			return delete_option( $options_key );
 	}
 
+	protected function settings_hook( $sub = NULL, $force = NULL )
+	{
+		if ( is_null( $sub ) )
+			$sub = $this->key;
+
+		if ( is_null( $force ) )
+			$force = $this->is_network() ? 'network' : 'admin';
+
+		return $this->base.'_'.$force.'_settings_sub_'.$sub;
+	}
+
 	// DEFAULT METHOD: settings hook handler
 	public function settings( $sub = NULL )
 	{
 		if ( $this->key == $sub ) {
+
 			$this->settings_actions( $sub );
 			$this->settings_update( $sub );
-			add_action( $this->base.'_'.( $this->is_network() ? 'network' : 'admin' ).'_settings_sub_'.$sub, array( $this, 'settings_form' ), 10, 2 );
+
+			add_action( $this->settings_hook( $sub ), array( $this, 'settings_form' ), 10, 2 );
+
 			$this->register_settings();
 			$this->register_settings_buttons();
 			$this->register_settings_help();
