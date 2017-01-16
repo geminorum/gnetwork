@@ -314,7 +314,7 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 		if ( ! empty( $_REQUEST['s'] ) )
 			$query['s'] = $_REQUEST['s'];
 
-		self::redirect( add_query_arg( $query, $location ) );
+		WordPress::redirect( add_query_arg( $query, $location ) );
 	}
 
 	public function admin_notices()

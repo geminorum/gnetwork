@@ -82,7 +82,7 @@ class Site extends ModuleCore
 	public function before_signup_header()
 	{
 		if ( 'none' == get_site_option( 'registration', 'none' ) )
-			self::redirect( get_page_link( $this->options['page_signup'] ) );
+			WordPress::redirect( get_page_link( $this->options['page_signup'] ) );
 	}
 
 	// TODO: on signup form: http://stackoverflow.com/a/10372861

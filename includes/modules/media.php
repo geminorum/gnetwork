@@ -87,14 +87,15 @@ class Media extends ModuleCore
 						$count++;
 
 			} else {
-				self::redirect_referer( array(
+
+				WordPress::redirectReferer( array(
 					'message' => 'wrong',
 					'limit'   => self::limit(),
 					'paged'   => self::paged(),
 				) );
 			}
 
-			self::redirect_referer( array(
+			WordPress::redirectReferer( array(
 				'message' => 'cleaned',
 				'count'   => $count,
 				'limit'   => self::limit(),
@@ -644,7 +645,7 @@ class Media extends ModuleCore
 
 		check_admin_referer( 'bulk-media' );
 
-		self::redirect( $this->get_settings_url( array(
+		WordPress::redirect( $this->get_settings_url( array(
 			'action' => 'clean',
 			'type'   => 'attachment',
 			'id'     => maybe_serialize( implode( ',', array_map( 'intval', $_REQUEST['media'] ) ) ),

@@ -533,22 +533,22 @@ class RestrictedBouncer extends Base
 				return;
 
 			if ( $this->options['redirect_page'] ) {
-				self::redirect( get_page_link( $this->options['redirect_page'] ), 403 );
+				WordPress::redirect( get_page_link( $this->options['redirect_page'] ), 403 );
 			} else {
 				Utilities::getLayout( '403', TRUE, TRUE );
 				die();
 			}
 		}
 
-		$current_url = HTTP::currentURL();
+		$current_url = URL::current();
 
 		if ( ! is_front_page() && ! is_home() )
-			self::redirect_login( $current_url );
+			WordPress::redirectLogin( $current_url );
 
 		if ( $this->options['redirect_page'] )
-			self::redirect( get_page_link( $this->options['redirect_page'] ), 403 );
+			WordPress::redirect( get_page_link( $this->options['redirect_page'] ), 403 );
 
-		self::redirect_login( $current_url );
+		WordPress::redirectLogin( $current_url );
 	}
 
 	public function login_message()

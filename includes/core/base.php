@@ -106,6 +106,18 @@ class Base
 		die();
 	}
 
+	// USAGE: Base::callStack( debug_backtrace() );
+	// @REF: http://stackoverflow.com/a/8497530
+	public static function callStack( $stacktrace )
+	{
+		print str_repeat( '=', 50 )."\n";
+		$i = 1;
+		foreach ( $stacktrace as $node ) {
+			print "$i. ".basename( $node['file'] ).':'.$node['function'].'('.$node['line'].")\n";
+			$i++;
+		}
+	}
+
 	public static function stat( $format = NULL )
 	{
 		if ( is_null( $format ) )
@@ -170,52 +182,6 @@ class Base
 		return self::req( $key, $default );
 	}
 
-	public static function elog( $data )
-	{
-		error_log( print_r( compact( 'data' ), TRUE ) );
-	}
-
-	// USE: BaseCore::callStack( debug_backtrace() );
-	// http://stackoverflow.com/a/8497530
-	public static function callStack( $stacktrace )
-	{
-		print str_repeat( '=', 50 )."\n";
-		$i = 1;
-		foreach ( $stacktrace as $node ) {
-			print "$i. ".basename( $node['file'] ).':'.$node['function'].'('.$node['line'].")\n";
-			$i++;
-		}
-	}
-
-	// DEPRECATED
-	// @SEE: `wp_hash()`
-	public static function genRandomKey( $salt )
-	{
-		$chr = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-		$len = 32;
-		$key = '';
-
-		for ( $i = 0; $i < $len; $i++ )
-			$key .= $chr[( wp_rand( 0, ( strlen( $chr ) - 1 ) ) )];
-
-		return md5( $salt.$key );
-	}
-
-	// will remove trailing forward and backslashes if it exists already before adding
-	// a trailing forward slash. This prevents double slashing a string or path.
-	// ANCESTOR: trailingslashit()
-	public static function trail( $string )
-	{
-		return self::untrail( $string ).'/';
-	}
-
-	// removes trailing forward slashes and backslashes if they exist.
-	// ANCESTOR: untrailingslashit()
-	public static function untrail( $string )
-	{
-		return rtrim( $string, '/\\' );
-	}
-
 	public static function error( $message, $echo = FALSE )
 	{
 		return HTML::notice( $message, 'notice-error fade', $echo );
@@ -241,38 +207,6 @@ class Base
 	public static function info( $message, $echo = FALSE )
 	{
 		return HTML::notice( $message, 'notice-info fade', $echo );
-	}
-
-	public static function log( $error = '[Unknown]', $message = FALSE, $extra = FALSE )
-	{
-		if ( defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG )
-			error_log( self::getLogTime()
-				.$error.' '
-				.HTTP::IP( TRUE )
-				.( $message ? ' :: '.strip_tags( $message ) : '' )
-				.( $extra ? ' :: '.$extra : '' )
-				."\n", 3, GNETWORK_DEBUG_LOG );
-	}
-
-	// EXAMPLE: [03-Feb-2015 21:20:19 UTC]
-	public static function getLogTime()
-	{
-		return '['.gmdate( 'd-M-Y H:i:s e' ).'] ';
-	}
-
-	public static function logArray( $error = '[Unknown]', $data = array(), $wp_error = NULL )
-	{
-		if ( ! WP_DEBUG_LOG )
-			return;
-
-		$log = array_merge( array(
-			'error'   => $error,
-			'time'    => current_time( 'mysql' ),
-			'ip'      => HTTP::IP(),
-			'message' => ( is_null( $wp_error ) ? '[NO Error Object]' : $wp_error->get_error_message() ),
-		), $data );
-
-		error_log( print_r( $log, TRUE ) );
 	}
 
 	// ANCESTOR: shortcode_atts()
@@ -335,30 +269,6 @@ class Base
 				$r[$k] = $v;
 
 		return $r;
-	}
-
-	public static function redirect( $location = NULL, $status = 302 )
-	{
-		if ( is_null( $location ) )
-			$location = add_query_arg( wp_get_referer() );
-
-		wp_redirect( $location, $status );
-		exit();
-	}
-
-	public static function redirect_referer( $message = 'updated', $key = 'message' )
-	{
-		if ( is_array( $message ) )
-			$url = add_query_arg( $message, wp_get_referer() );
-		else
-			$url = add_query_arg( $key, $message, wp_get_referer() );
-
-		self::redirect( $url );
-	}
-
-	public static function redirect_login( $location = '', $status = 302 )
-	{
-		self::redirect( wp_login_url( $location, TRUE ), $status );
 	}
 
 	// ANCESTOR: is_wp_error()

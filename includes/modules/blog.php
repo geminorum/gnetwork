@@ -210,7 +210,7 @@ class Blog extends ModuleCore
 
 			flush_rewrite_rules();
 
-			self::redirect( $this->remove_action() );
+			WordPress::redirect( $this->remove_action() );
 		}
 	}
 
@@ -224,7 +224,7 @@ class Blog extends ModuleCore
 		if ( ( $locale = $this->is_action( 'locale', 'locale' ) )
 			&& class_exists( __NAMESPACE__.'\\Locale' )
 			&& ( $result = Locale::changeLocale( $locale ) ) )
-				self::redirect( $this->remove_action( 'locale' ) );
+				WordPress::redirect( $this->remove_action( 'locale' ) );
 
 		if ( $this->options['feed_json'] ) {
 
@@ -278,13 +278,13 @@ class Blog extends ModuleCore
 			return;
 		}
 
-		$redirect = self::untrail( $this->options['blog_redirect'] ).$_SERVER['REQUEST_URI'];
+		$redirect = URL::untrail( $this->options['blog_redirect'] ).$_SERVER['REQUEST_URI'];
 
 		if ( ! empty( $pagenow ) && 'index.php' == $pagenow && ! is_admin() )
-			self::redirect( $redirect, $this->options['blog_redirect_status'] );
+			WordPress::redirect( $redirect, $this->options['blog_redirect_status'] );
 
 		if ( FALSE === self::whiteListed() )
-			self::redirect( $redirect, $this->options['blog_redirect_status'] );
+			WordPress::redirect( $redirect, $this->options['blog_redirect_status'] );
 	}
 
 	public static function whiteListed( $request_uri = NULL )

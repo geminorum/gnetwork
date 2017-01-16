@@ -5,10 +5,66 @@ defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 class Text extends Base
 {
 
-	// @SEE: [normalize_whitespace()](https://developer.wordpress.org/reference/functions/normalize_whitespace/)
+	// like wp but without check for func_overload
+	// @SOURCE: `seems_utf8()`
+	public static function seemsUTF8( $string )
+	{
+		$length = strlen( $string );
+
+		for ( $i = 0; $i < $length; $i++ ) {
+
+			$c = ord( $string[$i] );
+
+			if ( $c < 0x80 )
+				$n = 0; // 0bbbbbbb
+
+			else if ( ( $c & 0xE0 ) == 0xC0 )
+				$n = 1; // 110bbbbb
+
+			else if ( ( $c & 0xF0 ) == 0xE0 )
+				$n = 2; // 1110bbbb
+
+			else if ( ( $c & 0xF8 ) == 0xF0 )
+				$n = 3; // 11110bbb
+
+			else if ( ( $c & 0xFC ) == 0xF8 )
+				$n = 4; // 111110bb
+
+			else if ( ( $c & 0xFE ) == 0xFC )
+				$n = 5; // 1111110b
+
+			else
+				return FALSE; // does not match any model
+
+			for ( $j = 0; $j < $n; $j++ ) // n bytes matching 10bbbbbb follow ?
+				if ( ( ++$i == $length )
+					|| ( ( ord( $string[$i] ) & 0xC0 ) != 0x80 ) )
+						return FALSE;
+		}
+
+		return TRUE;
+	}
+
+	// @SOURCE: `normalize_whitespace()`
 	public static function normalizeWhitespace( $string )
 	{
-		return trim( preg_replace( '!\s+!', ' ', $string ) );
+		// return preg_replace( '!\s+!', ' ', $string );
+		// return preg_replace( '/\s\s+/', ' ', $string );
+
+		return preg_replace(
+			array( '/\n+/', '/[ \t]+/' ),
+			array( "\n", ' ' ),
+			str_replace( "\r", "\n", trim( $string ) )
+		);
+	}
+
+	// @REF: http://stackoverflow.com/a/3226746/4864081
+	public static function normalizeWhitespaceUTF8( $string, $check = FALSE )
+	{
+		if ( $check && ! self::seemsUTF8( $string ) )
+			return self::normalizeWhitespace( $string );
+
+		return preg_replace( '/[\p{Z}\s]{2,}/u', ' ', $string );
 	}
 
 	// @REF: _cleanup_image_add_caption()
@@ -57,19 +113,6 @@ class Text extends Base
 			return mb_internal_encoding( $encoding );
 
 		return FALSE;
-	}
-
-	public static function getDomain( $string )
-	{
-		// FIXME: strip all the path
-		// SEE: http://stackoverflow.com/questions/569137/how-to-get-domain-name-from-url
-
-		if ( FALSE !== strpos( $string, '.' ) ) {
-			$domain = explode( '.', $string );
-			$domain = $domain[0];
-		}
-
-		return strtolower( $domain );
 	}
 
 	/**
@@ -303,7 +346,6 @@ class Text extends Base
 
 	// @SOURCE: [Checking UTF-8 for Well Formedness](http://www.phpwact.org/php/i18n/charsets#checking_utf-8_for_well_formedness)
 	// @SEE: http://www.php.net/manual/en/reference.pcre.pattern.modifiers.php#54805
-	// @SEE: WP core's : `seems_utf8()`
 	public static function utf8Compliant( $string )
 	{
 		if ( 0 === strlen( $string ) )
@@ -352,7 +394,7 @@ class Text extends Base
 
 			$html = self::noLineBreak( $html );
 			$html = self::stripPunctuation( $html );
-			$html = self::normalizeWhitespace( $html );
+			$html = self::normalizeWhitespaceUTF8( $html, TRUE );
 
 			$html = trim( $html );
 		}
@@ -391,10 +433,10 @@ class Text extends Base
 	// @SOURCE: http://php.net/manual/en/function.preg-replace-callback.php#96899
 	public static function hex2str( $string )
 	{
-		return preg_replace_callback('#\%[a-zA-Z0-9]{2}#', function( $hex ){
+		return preg_replace_callback( '#\%[a-zA-Z0-9]{2}#', function( $hex ) {
 			$hex = substr( $hex[0], 1 );
 			$str = '';
-			for( $i=0; $i < strlen( $hex ); $i += 2 )
+			for ( $i = 0; $i < strlen( $hex ); $i += 2 )
 				$str .= chr( hexdec( substr( $hex, $i, 2 ) ) );
 			return $str;
 		}, (string) $string );
@@ -408,5 +450,48 @@ class Text extends Base
 		return preg_replace_callback( $patterns, function( $v ) use ( $callback ) {
 			return $v[1].$callback($v[2]).$v[3];
 		}, $line );
+	}
+
+	// @SOURCE: http://snipplr.com/view/3618/
+	public static function closeHTMLTags( $html )
+	{
+		// put all opened tags into an array
+		preg_match_all( "#<([a-z]+)( .*)?(?!/)>#iU", $html, $result );
+		$openedtags = $result[1];
+
+		// put all closed tags into an array
+		preg_match_all( "#</([a-z]+)>#iU", $html, $result );
+
+		$closedtags = $result[1];
+		$len_opened = count( $openedtags );
+
+		// all tags are closed
+		if ( $len_opened == count( $closedtags ) )
+			return $html;
+
+		$openedtags = array_reverse( $openedtags );
+
+		// close tags
+		for ( $i = 0; $i < $len_opened; $i++ )
+			if ( ! in_array( $openedtags[$i], $closedtags ) )
+				$html .= '</'.$openedtags[$i].'>';
+			else
+				unset( $closedtags[array_search( $openedtags[$i], $closedtags)] );
+
+		return $html;
+	}
+
+	// OLD: `genRandomKey()`
+	// ALT: `wp_hash()`
+	public static function hash( $salt )
+	{
+		$chr = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		$len = 32;
+		$key = '';
+
+		for ( $i = 0; $i < $len; $i++ )
+			$key .= $chr[( rand( 0, ( strlen( $chr ) - 1 ) ) )];
+
+		return md5( $salt.$key );
 	}
 }

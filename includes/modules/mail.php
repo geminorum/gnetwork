@@ -231,7 +231,7 @@ class Mail extends ModuleCore
 
 				$message = FALSE === File::putHTAccessDeny( GNETWORK_MAIL_LOG_DIR, TRUE ) ? 'error' : 'created';
 
-				self::redirect_referer( $message );
+				WordPress::redirectReferer( $message );
 
 			} else {
 				parent::settings( $sub );
@@ -255,7 +255,7 @@ class Mail extends ModuleCore
 
 				if ( isset( $_POST['deletelogs_all'] ) ) {
 
-					self::redirect_referer( ( FALSE === self::deleteEmailLogs() ? 'error' : 'purged' ) );
+					WordPress::redirectReferer( ( FALSE === self::deleteEmailLogs() ? 'error' : 'purged' ) );
 
 				} else if ( isset( $_POST['deletelogs_selected'], $_POST['_cb'] ) ) {
 
@@ -265,13 +265,13 @@ class Mail extends ModuleCore
 						if ( TRUE === unlink( GNETWORK_MAIL_LOG_DIR.'/'.$log.'.json' ) )
 							$count++;
 
-					self::redirect_referer( array(
+					WordPress::redirectReferer( array(
 						'message' => 'deleted',
 						'count'   => $count,
 					) );
 
 				} else {
-					self::redirect_referer( 'wrong' );
+					WordPress::redirectReferer( 'wrong' );
 				}
 			}
 

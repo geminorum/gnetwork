@@ -160,7 +160,7 @@ class AdminBar extends ModuleCore
 	{
 		global $pagenow;
 
-		$current_url = HTTP::currentURL();
+		$current_url = URL::current();
 		// $network_url = Settings::networkURL();
 		$admin_url   = Settings::adminURL();
 
@@ -478,7 +478,7 @@ class AdminBar extends ModuleCore
 			$menu_id  = 'blog-'.$blog->userblog_id;
 
 			if ( ! $blogname = get_option( 'blogname' ) )
-				$blogname = preg_replace( '#^(https?://)?(www.)?#', '', get_home_url() );
+				$blogname = WordPress::currentBlog();
 
 			$wp_admin_bar->add_menu( array(
 				'parent'    => 'my-sites-list',

@@ -10,6 +10,16 @@ class HTML extends Base
 		return self::tag( 'a', array( 'href' => $link, 'target' => ( $target_blank ? '_blank' : FALSE ) ), $html );
 	}
 
+	public static function h2( $html, $class = FALSE )
+	{
+		echo self::tag( 'h2', array( 'class' => $class ), $html );
+	}
+
+	public static function h3( $html, $class = FALSE )
+	{
+		echo self::tag( 'h3', array( 'class' => $class ), $html );
+	}
+
 	public static function inputHidden( $name, $value = '' )
 	{
 		echo '<input type="hidden" name="'.self::escapeAttr( $name ).'" value="'.self::escapeAttr( $value ).'" />';
@@ -631,7 +641,7 @@ class HTML extends Base
 			}
 
 			$refresh = self::tag( 'a', array(
-				'href'  => HTTP::currentURL(),
+				'href'  => URL::current(),
 				'class' => '-refresh -link button',
 			), $icons['refresh'] );
 

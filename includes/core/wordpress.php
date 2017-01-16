@@ -82,6 +82,30 @@ class WordPress extends Base
 		defined( 'DONOTCACHEPAGE' ) or define( 'DONOTCACHEPAGE', TRUE );
 	}
 
+	public static function redirect( $location = NULL, $status = 302 )
+	{
+		if ( is_null( $location ) )
+			$location = add_query_arg( wp_get_referer() );
+
+		wp_redirect( $location, $status );
+		exit();
+	}
+
+	public static function redirectReferer( $message = 'updated', $key = 'message' )
+	{
+		if ( is_array( $message ) )
+			$url = add_query_arg( $message, wp_get_referer() );
+		else
+			$url = add_query_arg( $key, $message, wp_get_referer() );
+
+		self::redirect( $url );
+	}
+
+	public static function redirectLogin( $location = '', $status = 302 )
+	{
+		self::redirect( wp_login_url( $location, TRUE ), $status );
+	}
+
 	public static function registerURL( $register = FALSE )
 	{
 		if ( function_exists( 'buddypress' ) ) {
@@ -103,7 +127,7 @@ class WordPress extends Base
 		return $register;
 	}
 
-	// BETTER: `HTTP::currentURL()`
+	// BETTER: `URL::current()`
 	public static function currentURL( $trailingslashit = FALSE )
 	{
 		global $wp;
@@ -112,41 +136,34 @@ class WordPress extends Base
 		$current = home_url( $request );
 
 		if ( $trailingslashit )
-			return self::trail( $current );
+			return URL::trail( $current );
 
 		return $current;
 	}
 
-	public static function currentBlog()
+	public static function getHostName()
 	{
-		$blog = home_url();
+		return is_multisite() ? preg_replace( '#^https?://#i', '', get_option( 'home' ) ) : get_current_site()->domain;
+	}
 
-		$blog = str_ireplace( array( 'https://', 'http://' ), '', $blog );
-		$blog = str_ireplace( array( '/', '\/' ), '-', $blog );
+	public static function currentSite()
+	{
+		$blog = get_current_site();
+		return URL::untrail( $blog->domain.$blog->path );
+	}
 
-		return $blog;
+	public static function currentBlog( $slash = TRUE )
+	{
+		$blog = preg_replace( '#^(https?://)?(www.)?#', '', get_option( 'home' ) );
+		return $slash ? URL::untrail( $blog ) : str_ireplace( array( '/', '\/' ), '-', $blog );
 	}
 
 	public static function getCurrentSiteBlogID()
 	{
-		if ( ! is_multisite() )
-			return get_current_blog_id();
-
-		global $current_site;
-		return absint( $current_site->blog_id );
+		return is_multisite() ? absint( get_current_site()->blog_id ) : get_current_blog_id();
 	}
 
-	// get an appropriate hostname. varies depending on site configuration.
-	// originally from BuddyPress 2.5.0
-	public static function getHostName()
-	{
-		if ( is_multisite() )
-			return get_current_site()->domain;
-
-		return preg_replace( '#^https?://#i', '', get_option( 'home' ) );
-	}
-
-	// FIXME: add general options for on a network panel
+	// FIXME: as option on user module
 	public static function getSiteUserID( $fallback = FALSE )
 	{
 		if ( defined( 'GNETWORK_SITE_USER_ID' ) && GNETWORK_SITE_USER_ID )

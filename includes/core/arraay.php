@@ -189,4 +189,34 @@ class Arraay extends Base
 
 		return $new;
 	}
+
+	// array_column() for php < 5.5
+	// @SEE: https://github.com/ramsey/array_column/blob/master/src/array_column.php
+	// @REF: http://php.net/manual/en/function.array-column.php#118831
+	public static function column( $input, $column_key, $index_key = NULL )
+	{
+		$arr = array_map( function( $d ) use ( $column_key, $index_key ) {
+
+			if ( ! isset( $d[$column_key] ) )
+				return NULL;
+
+			if ( NULL !== $index_key )
+				return array( $d[$index_key] => $d[$column_key] );
+
+			return $d[$column_key];
+
+		}, $input );
+
+		if ( NULL !== $index_key ) {
+
+			$tmp = array();
+
+			foreach ( $arr as $ar )
+				$tmp[key($ar)] = current( $ar );
+
+			$arr = $tmp;
+		}
+
+		return $arr;
+	}
 }

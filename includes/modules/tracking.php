@@ -197,7 +197,7 @@ class Tracking extends ModuleCore
 		$args = shortcode_atts( array(
 			'server'  => 'https://ga-beacon.appspot.com/',
 			'beacon'  => $this->options['ga_beacon'],
-			'domain'  => Text::getDomain( $this->options['primary_domain'] ),
+			'domain'  => URL::domain( $this->options['primary_domain'] ),
 			'page'    => '',
 			'badge'   => 'pixel', // 'flat' / 'flat-gif'
 			'alt'     => 'Analytics',
@@ -209,7 +209,7 @@ class Tracking extends ModuleCore
 		if ( FALSE === $args['context'] || is_feed() )
 			return NULL;
 
-		$src = self::trail( $args['server'] ).$args['beacon'].'/'.$args['domain'].'/'.$args['page'];
+		$src = URL::trail( $args['server'] ).$args['beacon'].'/'.$args['domain'].'/'.$args['page'];
 
 		if ( $args['badge'] )
 			$src .= '?'. $args['badge'];

@@ -478,7 +478,7 @@ class ModuleCore extends Base
 			else
 				return FALSE;
 
-			self::redirect_referer( $message );
+			WordPress::redirectReferer( $message );
 		}
 	}
 
@@ -740,7 +740,7 @@ class ModuleCore extends Base
 	protected function remove_action( $extra = array(), $url = NULL )
 	{
 		if ( is_null( $url ) )
-			$url = HTTP::currentURL();
+			$url = URL::current();
 
 		if ( is_array( $extra ) )
 			$remove = $extra;

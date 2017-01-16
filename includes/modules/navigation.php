@@ -339,7 +339,7 @@ class Navigation extends ModuleCore
 
 	public function wp_nav_menu_items( $items, $args )
 	{
-		$current = HTTP::currentURL();
+		$current = URL::current();
 		$replace = $this->filters( 'replace_nav_menu', array(), $current );
 
 		foreach ( $replace as $pattern => $replacement )

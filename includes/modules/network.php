@@ -165,7 +165,7 @@ class Network extends ModuleCore
 
 		// restore_current_blog();
 
-		self::redirect_referer( array(
+		WordPress::redirectReferer( array(
 			'updated' => $this->hook( 'admin', 'email' ),
 			'count'   => count( $blogs ),
 		) );

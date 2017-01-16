@@ -200,7 +200,7 @@ class Cleanup extends ModuleCore
 			else
 				$message = 'huh';
 
-			self::redirect_referer( $message );
+			WordPress::redirectReferer( $message );
 		}
 	}
 

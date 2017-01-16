@@ -123,13 +123,13 @@ class Authors extends ModuleCore
 			if ( $from_user_id && $to_user_id && ( $from_user_id != $to_user_id ) ) {
 
 				if ( $count = $this->bulk_change_author( $from_user_id, $to_user_id, $on_post_type ) )
-					self::redirect_referer( array(
+					WordPress::redirectReferer( array(
 						'message' => 'changed',
 						'count'   => $count,
 					) );
 
 				else
-					self::redirect_referer( 'nochange' );
+					WordPress::redirectReferer( 'nochange' );
 			}
 		}
 	}

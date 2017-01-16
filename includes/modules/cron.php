@@ -32,10 +32,10 @@ class Cron extends ModuleCore
 						$count++;
 
 			} else {
-				self::redirect_referer( 'wrong' );
+				WordPress::redirectReferer( 'wrong' );
 			}
 
-			self::redirect_referer( array(
+			WordPress::redirectReferer( array(
 				'message' => 'deleted',
 				'count'   => $count,
 			) );

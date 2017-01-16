@@ -61,6 +61,7 @@ class gNetwork
 			'core/html'      => '',
 			'core/http'      => '',
 			'core/file'      => '',
+			'core/url'       => '',
 			'core/arraay'    => '',
 			'core/text'      => '',
 			'core/number'    => '',

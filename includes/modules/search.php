@@ -59,6 +59,6 @@ class Search extends ModuleCore
 		global $wp_query;
 
 		if ( $wp_query->is_search )
-			self::redirect( add_query_arg( GNETWORK_SEARCH_QUERYID, $wp_query->query_vars['s'], GNETWORK_SEARCH_URL ) );
+			WordPress::redirect( add_query_arg( GNETWORK_SEARCH_QUERYID, $wp_query->query_vars['s'], GNETWORK_SEARCH_URL ) );
 	}
 }
