@@ -7,6 +7,7 @@ class Dashboard extends ModuleCore
 
 	protected $key   = 'dashboard';
 	protected $front = FALSE;
+	protected $ajax  = TRUE;
 
 	protected function setup_actions()
 	{
@@ -27,7 +28,7 @@ class Dashboard extends ModuleCore
 
 		remove_meta_box( 'dashboard_primary', $screen, 'side' );
 
-		if ( has_filter( 'gnetwork_dashoboard_external_feeds' ) ) {
+		if ( has_filter( $this->hook( 'external_feeds' ) ) ) {
 			wp_add_dashboard_widget(
 				'gnetwork_dashboard_external_feed',
 				_x( 'External Feed', 'Modules: Dashboard: Widget Title', GNETWORK_TEXTDOMAIN ),
@@ -56,15 +57,10 @@ class Dashboard extends ModuleCore
 
 	public function ajax_dashboard_widgets()
 	{
-		require_once ABSPATH.'wp-admin/includes/dashboard.php';
-
-		$pagenow = $_GET['pagenow'];
-
-		if ( $pagenow === 'dashboard-user' || $pagenow === 'dashboard-network' || $pagenow === 'dashboard' ) {
-			set_current_screen( $pagenow );
-		}
+		require_once( ABSPATH.'wp-admin/includes/dashboard.php' );
 
 		switch ( $_GET['widget'] ) {
+
 			case 'gnetwork_dashboard_external_feed':
 
 				$this->widget_external_feed();
