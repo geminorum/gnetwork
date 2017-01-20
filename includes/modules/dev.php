@@ -188,9 +188,10 @@ class Dev extends ModuleCore
 
 		// Add help panel
 		$screen->add_help_tab( array(
-			'id'      => 'gnetwork-screen-help',
-			'title'   => 'Screen Information',
-			'content' => $help_content,
+			'id'       => 'gnetwork-screen-help',
+			'title'    => 'Screen Information',
+			'content'  => $help_content,
+			'priority' => 1000,
 		));
 
 		return $old_help;
