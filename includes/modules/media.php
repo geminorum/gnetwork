@@ -15,9 +15,10 @@ class Media extends ModuleCore
 	{
 		add_action( 'init', array( $this, 'init_late' ), 999 );
 		add_filter( 'upload_mimes', array( $this, 'upload_mimes' ) );
-		$this->filter( 'sanitize_file_name', 2, 12 );
 
+		$this->filter( 'sanitize_file_name', 2, 12 );
 		$this->filter( 'image_send_to_editor', 8 );
+		$this->filter( 'media_send_to_editor', 3, 12 );
 
 		if ( is_admin() ) {
 
@@ -761,8 +762,9 @@ class Media extends ModuleCore
 
 	public function image_send_to_editor( $html, $id, $caption, $title, $align, $url, $size, $alt )
 	{
-		if ( get_attachment_link( $id ) == $url )
-			$url = WordPress::getPostShortLink( $id );
+		if ( strpos( $url, 'attachment_id' )
+			|| get_attachment_link( $id ) == $url )
+				$url = WordPress::getPostShortLink( $id );
 
 		return HTML::tag( 'a', array(
 			'href'  => $url,
@@ -772,6 +774,32 @@ class Media extends ModuleCore
 				'id' => $id,
 			),
 		), get_image_tag( $id, $alt, '', $align, $size ) );
+	}
+
+	public function media_send_to_editor( $html, $id, $attachment )
+	{
+		if ( 'image' === substr( $post->post_mime_type, 0, 5 ) )
+			return $html;
+
+		if ( wp_attachment_is( 'video', $id )
+			|| wp_attachment_is( 'audio', $id ) )
+				return $html;
+
+		if ( empty( $attachment['url'] )
+			|| ( FALSE === strpos( $attachment['url'], 'attachment_id' )
+			&& get_attachment_link( $id ) != $attachment['url'] ) )
+				return $html;
+
+		$html = isset( $attachment['post_title'] ) ? $attachment['post_title'] : '';
+
+		return HTML::tag( 'a', array(
+			'href'  => WordPress::getPostShortLink( $id ),
+			'rel'   => 'attachment',
+			'class' => '-attachment',
+			'data'  => array(
+				'id' => $id,
+			),
+		), $html );
 	}
 
 	public function post_mime_types( $post_mime_types )
