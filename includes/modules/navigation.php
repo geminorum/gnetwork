@@ -20,8 +20,8 @@ class Navigation extends ModuleCore
 		if ( is_admin() ) {
 			add_action( 'load-nav-menus.php', array( $this, 'load_nav_menus_php' ) );
 		} else {
-			add_filter( 'wp_setup_nav_menu_item', array( $this, 'wp_setup_nav_menu_item' ) );
-			add_filter( 'wp_nav_menu_items', array( $this, 'wp_nav_menu_items' ), 20, 2 );
+			$this->filter( 'wp_setup_nav_menu_item' );
+			$this->filter( 'wp_nav_menu_items', 2, 20 );
 		}
 	}
 
@@ -46,15 +46,14 @@ class Navigation extends ModuleCore
 		add_action( 'admin_print_footer_scripts', array( $this, 'admin_print_footer_scripts' ) );
 	}
 
-	// Build and populate the accordion on Appearance > Menus.
+	// build and populate the accordion on Appearance > Menus
+	// @SOURCE: `bp_admin_do_wp_nav_menu_meta_box()`
 	public function nav_menu_meta_box()
 	{
 		global $nav_menu_selected_id;
 
 		$post_type_name = 'gnetworknav';
-		$args = array(
-			'walker' => new Walker_Nav_Menu_Checklist( FALSE ),
-		);
+		$args = array( 'walker' => new Walker_Nav_Menu_Checklist( FALSE ) );
 
 		$tabs = array(
 			'general' => array(
@@ -161,19 +160,19 @@ class Navigation extends ModuleCore
 		$items[] = array(
 			'name' => _x( 'Log Out', 'Modules: Navigation', GNETWORK_TEXTDOMAIN ),
 			'slug' => 'logout',
-			'link' => $this->filters( 'logout_url', wp_logout_url() ),
+			'link' => $this->get_logout_url(),
 		);
 
 		$items[] = array(
 			'name' => _x( 'Edit Profile', 'Modules: Navigation', GNETWORK_TEXTDOMAIN ),
 			'slug' => 'edit_profile',
-			'link' => get_edit_profile_url(),
+			'link' => $this->get_edit_profile_url(),
 		);
 
 		$items[] = array(
 			'name' => _x( 'Public Profile', 'Modules: Navigation', GNETWORK_TEXTDOMAIN ),
-			'slug' => 'profile',
-			'link' => $this->filters( 'public_profile_url', get_edit_profile_url() ),
+			'slug' => 'public_profile',
+			'link' => $this->get_public_profile_url(),
 		);
 
 		$items = $this->filters( 'loggedin_items', $items );
@@ -205,10 +204,10 @@ class Navigation extends ModuleCore
 		$items[] = array(
 			'name' => _x( 'Log In', 'Modules: Navigation', GNETWORK_TEXTDOMAIN ),
 			'slug' => 'login',
-			'link' => wp_login_url(),
+			'link' => $this->get_login_url(),
 		);
 
-		if ( $register_url = WordPress::registerURL() )
+		if ( $register_url = $this->get_register_url() )
 			$items[] = array(
 				'name' => _x( 'Register', 'Modules: Navigation', GNETWORK_TEXTDOMAIN ),
 				'slug' => 'register',
@@ -236,102 +235,118 @@ class Navigation extends ModuleCore
 
 	public function get_item_url( $slug )
 	{
-		$nav_item_url   = '';
-		$nav_menu_items = $this->get_loggedin_pages();
+		$items = $this->get_loggedin_pages();
 
-		if ( isset( $nav_menu_items[ $slug ] ) ) {
-			$nav_item_url = $nav_menu_items[ $slug ]->guid;
-		}
-
-		return $nav_item_url;
+		return isset( $items[$slug] ) ? $items[$slug]->guid : '';
 	}
 
+	// @SOURCE: `bp_setup_nav_menu_item()`
 	public function wp_setup_nav_menu_item( $menu_item )
 	{
 		if ( empty( $menu_item->classes ) )
 			return $menu_item;
 
-		// we use information stored in the CSS class to determine what kind of menu item this is, and how it should be treated
-		$css_target = preg_match( '/\sgnetwork-(.*)-nav/', implode( ' ', $menu_item->classes ), $matches );
+		$classes = $menu_item->classes;
+
+		if ( is_array( $classes ) )
+			$classes = implode( ' ', $menu_item->classes );
+
+		// we use information stored in the CSS class to determine
+		// what kind of menu item this is, and how it should be treated
+		$css_target = preg_match( '/\sgnetwork-(.*)-nav/', $classes, $matches );
 
 		// if this isn't our menu item, we can stop here
 		if ( empty( $matches[1] ) )
 			return $menu_item;
 
 		switch ( $matches[1] ) {
-			case 'login' :
-				if ( is_user_logged_in() ) {
+
+			case 'login':
+
+				if ( is_user_logged_in() )
 					$menu_item->_invalid = TRUE;
-					// __donot_cache_page();
-				} else {
-					// $menu_item->url = wp_login_url( wp_guess_url() );
-					$menu_item->url = wp_login_url();
+
+				else
+					$menu_item->url = $this->get_login_url();
+
+			break;
+			case 'logout':
+
+				if ( ! is_user_logged_in() )
+					$menu_item->_invalid = TRUE;
+
+				else
+					$menu_item->url = $this->get_logout_url();
+
+			break;
+			case 'register':
+
+				if ( is_user_logged_in() )
+					$menu_item->_invalid = TRUE;
+
+			break;
+			case 'edit_profile':
+
+				if ( is_user_logged_in() )
+					$menu_item->url = $this->get_edit_profile_url();
+
+				else
+					$menu_item->_invalid = TRUE;
+
+			break;
+			case 'public_profile':
+
+				if ( is_user_logged_in() )
+					$menu_item->url = $this->get_public_profile_url();
+
+				else
+					$menu_item->_invalid = TRUE;
+
+			break;
+			case 'feed':
+
+				if ( $this->restricted ) {
+					WordPress::doNotCache();
+					$menu_item->url = $this->feeds['rss2'];
 				}
 
 			break;
+			case 'comments_feed':
 
-			case 'logout' :
-				if ( ! is_user_logged_in() ) {
-					$menu_item->_invalid = TRUE;
-				} else {
-					// __donot_cache_page();
-					// $menu_item->url = wp_logout_url( wp_guess_url() );
-					$menu_item->url = $this->filters( 'logout_url', wp_logout_url() );
+				if ( $this->restricted ) {
+					WordPress::doNotCache();
+					$menu_item->url = $this->feeds['comments_rss2_url'];
 				}
 
 			break;
-
-			case 'register' :
-				if ( is_user_logged_in() ) { // Don't show the Register link to logged-in users
-					$menu_item->_invalid = TRUE;
-					// __donot_cache_page();
-				}
-			break;
-
-			case 'edit_profile' :
-				if ( is_user_logged_in() ) {
-					// __donot_cache_page();
-					$menu_item->url = get_edit_profile_url( get_current_user_id() );
-				} else {
-					$menu_item->_invalid = TRUE;
-				}
-			break;
-
-			case 'feed' :
-				if ( $this->restricted )
-					__donot_cache_page();
-				$menu_item->url = $this->feeds['rss2'];
-			break;
-
-			case 'comments_feed' :
-				if ( $this->restricted )
-					__donot_cache_page();
-				$menu_item->url = $this->feeds['comments_rss2_url'];
-			break;
-
-			// All other nav items are specific to the logged-in user,
-			// and so are not relevant to logged-out users
 			default:
-				if ( is_user_logged_in() ) {
-					// __donot_cache_page();
-					$menu_item->url = $this->get_item_url( $matches[1] );
-				} else {
-					$menu_item->_invalid = TRUE;
-				}
 
-				break;
+				// all other nav items are specific to the logged-in user,
+				// and so are not relevant to logged-out users
+
+				if ( is_user_logged_in() )
+					$menu_item->url = $this->get_item_url( $matches[1] );
+				else
+					$menu_item->_invalid = TRUE;
 		}
 
-		// If component is deactivated, make sure menu item doesn't render
 		if ( empty( $menu_item->url ) ) {
+
+			// if component is deactivated, make sure menu item doesn't render
 			$menu_item->_invalid = TRUE;
 
-		// Highlight the current page
-		} else {
-			// $current = bp_get_requested_url();
-			// if ( strpos( $current, $menu_item->url ) !== FALSE ) {
-			// 	$menu_item->classes[] = 'current_page_item';
-			// }
+		} else if ( FALSE !== strpos( URL::current(), $menu_item->url ) ) {
+
+			// highlight the current page
+			if ( is_array( $menu_item->classes ) ) {
+				$menu_item->classes[] = 'current_page_item';
+				$menu_item->classes[] = 'current-menu-item';
+			} else {
+				$menu_item->classes = array(
+					'current_page_item',
+					'current-menu-item',
+				);
+			}
 		}
 
 		return $menu_item;
@@ -340,15 +355,44 @@ class Navigation extends ModuleCore
 	public function wp_nav_menu_items( $items, $args )
 	{
 		$current = URL::current();
-		$replace = $this->filters( 'replace_nav_menu', array(), $current );
 
-		foreach ( $replace as $pattern => $replacement )
+		foreach ( $this->filters( 'replace_nav_menu', array(), $current ) as $pattern => $replacement )
 			$items = preg_replace( $pattern, sprintf( $replacement, urlencode( $current ) ), $items );
 
 		return $items;
 	}
+
+	private function get_register_url()
+	{
+		return $this->filters( 'register_url', WordPress::registerURL() );
+	}
+
+	// FIXME: check if not caching then add redirect arg
+	// @SEE: `wp_using_ext_object_cache()`
+	private function get_login_url()
+	{
+		return $this->filters( 'login_url', wp_login_url() );
+	}
+
+	// FIXME: check if not caching then add redirect arg
+	// @SEE: `wp_using_ext_object_cache()`
+	private function get_logout_url()
+	{
+		return $this->filters( 'logout_url', remove_query_arg( '_wpnonce', wp_logout_url() ) );
+	}
+
+	private function get_edit_profile_url()
+	{
+		return $this->filters( 'edit_profile_url', get_edit_profile_url() );
+	}
+
+	private function get_public_profile_url()
+	{
+		return $this->filters( 'public_profile_url', get_edit_profile_url() );
+	}
 }
 
+// @SOURCE: `BP_Walker_Nav_Menu_Checklist`
 class Walker_Nav_Menu_Checklist extends \Walker_Nav_Menu
 {
 
