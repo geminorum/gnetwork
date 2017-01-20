@@ -216,23 +216,20 @@ class Utilities extends Base
 			._x( '&ldquo;', 'Utilities: Join Items Helper', GNETWORK_TEXTDOMAIN ).'.';
 	}
 
-	public static function getLayout( $layout_name, $require_once = FALSE, $no_cache = FALSE )
+	public static function getLayout( $name, $require = FALSE, $no_cache = FALSE )
 	{
-		// FIXME: must check if it's not admin!
+		$layout = locate_template( $name );
 
-		$layout = locate_template( $layout_name );
-
-		if ( ! $layout )
-			if ( file_exists( WP_CONTENT_DIR.'/'.$layout_name.'.php' ) )
-				$layout = WP_CONTENT_DIR.'/'.$layout_name.'.php';
+		if ( ! $layout && file_exists( WP_CONTENT_DIR.'/'.$name.'.php' ) )
+			$layout = WP_CONTENT_DIR.'/'.$name.'.php';
 
 		if ( ! $layout )
-			$layout = GNETWORK_DIR.'includes/layouts/'.$layout_name.'.php';
+			$layout = GNETWORK_DIR.'includes/layouts/'.$name.'.php';
 
 		if ( $no_cache )
-			__donot_cache_page();
+			WordPress::doNotCache();
 
-		if ( $require_once && $layout )
+		if ( $require && $layout )
 			require_once( $layout );
 		else
 			return $layout;
