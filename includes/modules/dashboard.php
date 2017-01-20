@@ -17,9 +17,11 @@ class Dashboard extends ModuleCore
 			'wp_dashboard_setup',
 		) as $action )
 			add_action( $action, array( $this, 'wp_dashboard_setup' ), 20 );
+	}
 
-		// add_action( 'wp_ajax_dashboard_widgets', array( $this, 'ajax_dashboard_widgets' ), 0 );
-		add_action( 'wp_ajax_gnetwork_dashboard', array( $this, 'ajax_dashboard_widgets' ), 0 );
+	protected function setup_ajax( $request )
+	{
+		add_action( 'wp_ajax_gnetwork_dashboard', array( $this, 'ajax' ) );
 	}
 
 	public function wp_dashboard_setup()
@@ -55,7 +57,7 @@ class Dashboard extends ModuleCore
 		wp_dashboard_cached_rss_widget( 'gnetwork_feeds', 'wp_dashboard_primary_output', $feeds );
 	}
 
-	public function ajax_dashboard_widgets()
+	public function ajax()
 	{
 		require_once( ABSPATH.'wp-admin/includes/dashboard.php' );
 
