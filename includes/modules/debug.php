@@ -4,7 +4,11 @@ defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 class Debug extends ModuleCore
 {
-	protected $key = 'debug';
+
+	protected $key  = 'debug';
+	protected $ajax = TRUE;
+
+	private $http_calls = array();
 
 	protected function setup_actions()
 	{
@@ -135,6 +139,11 @@ class Debug extends ModuleCore
 		}
 
 		return TRUE;
+	}
+
+	public function get_http_calls()
+	{
+		return $this->http_calls;
 	}
 
 	public static function versions()
@@ -404,6 +413,12 @@ class Debug extends ModuleCore
 	{
 		if ( self::isError( $response ) )
 			Logger::ERROR( 'HTTP-API: '.$class.': '.$response->get_error_message().' - '.$url );
+
+		if ( WordPress::isSuperAdmin() )
+			$this->http_calls[] = array(
+				'class' => $class,
+				'url'   => $url,
+			);
 	}
 
 	public function core_upgrade_preamble()

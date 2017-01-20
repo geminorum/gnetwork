@@ -230,26 +230,36 @@ class AdminBar extends ModuleCore
 			}
 		}
 
-		/***
 		if ( class_exists( __NAMESPACE__.'\\Debug' ) ) {
 
-			$wp_admin_bar->add_node( array(
-				'parent' => $parent_id,
-				'id'     => $this->base.'-api-calls',
-				'title'  => _x( 'API Calls', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
-				'href'   => FALSE,
-			) );
+			if ( $calls = gNetwork()->debug->get_http_calls() ) {
 
-			foreach ( gNetwork()->debug->get_api_calls() as $call ) {
 				$wp_admin_bar->add_node( array(
-					'parent' => $this->base.'-api-calls',
-					'id'     => $this->base.'-api-calls-'.$call,
-					'title'  => $call,
-					'href'   => $call,
+					'parent' => $parent_id,
+					'id'     => $this->base.'-api-calls',
+					'title'  => _x( 'HTTP Calls', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 				) );
+
+				foreach (  $calls as $offset => $call ) {
+
+					$url = URL::parse( $call['url'] );
+
+					$wp_admin_bar->add_node( array(
+						'parent' => $this->base.'-api-calls',
+						'id'     => $this->base.'-api-calls-'.$offset,
+						'title'  => $call['class'].': '.$url['base'],
+						'href'   => $call['url'],
+					) );
+
+					foreach ( $url['query'] as $key => $val )
+						$wp_admin_bar->add_node( array(
+							'parent' => $this->base.'-api-calls-'.$offset,
+							'id'     => $this->base.'-api-calls-'.$offset.'-'.$key,
+							'title'  => sprintf( '%s: %s', $key, $val ),
+						) );
+				}
 			}
 		}
-		**/
 
 		$wp_admin_bar->add_group( array(
 			'parent' => $parent_id,
