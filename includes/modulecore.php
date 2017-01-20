@@ -423,7 +423,6 @@ class ModuleCore extends Base
 	protected function settings_form_after( $uri, $sub = 'general', $action = 'update', $check = TRUE )
 	{
 		echo '</form>';
-		self::dumpDev( $this->options );
 	}
 
 	public function default_buttons( $sub = NULL )
@@ -623,15 +622,28 @@ class ModuleCore extends Base
 
 	public function register_settings_help( $sub = NULL )
 	{
-		$tabs = $this->settings_help_tabs( $sub );
-
-		if ( ! count( $tabs ) )
-			return;
-
 		$screen = get_current_screen();
+		$tabs   = $this->settings_help_tabs( $sub );
 
 		foreach ( $tabs as $tab )
 			$screen->add_help_tab( $tab );
+
+		if ( $sub != $this->key )
+			return;
+
+		if ( count( $this->options ) && WordPress::isSuperAdmin() ) {
+
+			ob_start();
+				HTML::tableCode( $this->options );
+			$content = ob_get_clean();
+
+			$screen->add_help_tab( array(
+				'id'       => 'gnetwork-settings-options-overview',
+				'title'    => _x( 'Current Options', 'Module Core: Help Content Title', GNETWORK_TEXTDOMAIN ),
+				'content'  => '<p>'.$content.'</p>',
+				'priority' => 999,
+			) );
+		}
 	}
 
 	public function settings_help_tabs( $sub = NULL )
