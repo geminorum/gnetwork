@@ -11,6 +11,8 @@ class Dashboard extends ModuleCore
 
 	protected function setup_actions()
 	{
+		$this->action( 'current_screen' );
+
 		foreach ( array(
 			'wp_network_dashboard_setup',
 			'wp_user_dashboard_setup',
@@ -22,6 +24,27 @@ class Dashboard extends ModuleCore
 	protected function setup_ajax( $request )
 	{
 		add_action( 'wp_ajax_gnetwork_dashboard', array( $this, 'ajax' ) );
+	}
+
+	public function current_screen( $screen )
+	{
+		if ( 'edit' == $screen->base
+			&& $screen->post_type ) {
+
+				if ( WordPress::cuc( 'manage_options' ) ) {
+
+					ob_start();
+						HTML::tableSide( get_all_post_type_supports( $screen->post_type ), FALSE );
+					$content = ob_get_clean();
+
+					$screen->add_help_tab( array(
+						'id'       => 'gnetwork-dashboard-posttype-overview',
+						'title'    => _x( 'Post Type Supports', 'Modules: Dashboard: Help Content Title', GNETWORK_TEXTDOMAIN ),
+						'content'  => '<p>'.$content.'</p>',
+						'priority' => 99,
+					) );
+			}
+		}
 	}
 
 	public function wp_dashboard_setup()
