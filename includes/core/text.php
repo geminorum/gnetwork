@@ -482,7 +482,7 @@ class Text extends Base
 	}
 
 	// OLD: `genRandomKey()`
-	// ALT: `wp_hash()`
+	// ALT: `wp_generate_password()`
 	public static function hash( $salt )
 	{
 		$chr = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";

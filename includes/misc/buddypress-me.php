@@ -35,7 +35,7 @@ class BP_Me_Component extends \BP_Component
 		if ( ! bp_is_current_component( $this->id ) )
 			return;
 
-		__donot_cache_page();
+		WordPress::doNotCache();
 
 		$this->current_action = bp_current_action();
 		if ( empty( $this->current_action ) )

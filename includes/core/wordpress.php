@@ -128,6 +128,7 @@ class WordPress extends Base
 	}
 
 	// BETTER: `URL::current()`
+	// @SEE: `wp_guess_url()`
 	public static function currentURL( $trailingslashit = FALSE )
 	{
 		global $wp;
@@ -154,8 +155,7 @@ class WordPress extends Base
 
 	public static function currentBlog( $slash = TRUE )
 	{
-		$blog = preg_replace( '#^(https?://)?(www.)?#', '', get_option( 'home' ) );
-		return $slash ? URL::untrail( $blog ) : str_ireplace( array( '/', '\/' ), '-', $blog );
+		return URL::prepTitle( get_option( 'home' ), $slash );
 	}
 
 	public static function getCurrentSiteBlogID()

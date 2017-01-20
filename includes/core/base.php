@@ -22,12 +22,6 @@ class Base
 		die();
 	}
 
-	public static function dumpDev( $var )
-	{
-		if ( WordPress::isDev() )
-			self::dump( $var );
-	}
-
 	// INTERNAL
 	public static function __log( $log )
 	{

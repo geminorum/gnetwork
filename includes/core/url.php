@@ -23,6 +23,55 @@ class URL extends Base
 		return $trailingslashit ? self::trail( $current ) : $current;
 	}
 
+	// like twitter links
+	public static function prepTitle( $url, $slash = FALSE )
+	{
+		$title = preg_replace( '#^(https?://)?(www.)?#', '', $url );
+
+		if ( $slash )
+			$title = str_ireplace( array( '/', '\/' ), '-', $title );
+
+		return self::untrail( $title );
+	}
+
+	// @SOURCE: `add_query_arg()`
+	public static function parse( $url )
+	{
+		if ( $frag = strstr( $url, '#' ) )
+			$url = substr( $url, 0, -strlen( $frag ) );
+		else
+			$frag = '';
+
+		if ( 0 === stripos( $url, 'http://' ) ) {
+			$pro = 'http';
+			$url = substr( $url, 7 );
+		} else if ( 0 === stripos( $url, 'https://' ) ) {
+			$pro = 'https';
+			$url = substr( $url, 8 );
+		} else {
+			$pro = '';
+		}
+
+		if ( FALSE !== strpos( $url, '?' ) ) {
+			list( $base, $query ) = explode( '?', $url, 2 );
+		} else if ( $pro || FALSE === strpos( $url, '=' ) ) {
+			$base  = $url;
+			$query = '';
+		} else {
+			$base  = '';
+			$query = $url;
+		}
+
+		parse_str( $query, $args );
+
+		return array(
+			'base'     => $base,
+			'query'    => $args,
+			'protocol' => $pro,
+			'fragment' => $frag,
+		);
+	}
+
 	// will remove trailing forward and backslashes if it exists already before adding
 	// a trailing forward slash. This prevents double slashing a string or path.
 	// @SOURCE: `trailingslashit()`
