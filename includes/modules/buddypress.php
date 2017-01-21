@@ -85,11 +85,11 @@ class BuddyPress extends ModuleCore
 
 			'notification_defaults' => array(),
 
-			'avatars_thumb_width'        => defined( 'BP_AVATAR_THUMB_WIDTH' ) ? BP_AVATAR_THUMB_WIDTH : 50,
-			'avatars_thumb_height'       => defined( 'BP_AVATAR_THUMB_HEIGHT' ) ? BP_AVATAR_THUMB_HEIGHT : 50,
-			'avatars_full_width'         => defined( 'BP_AVATAR_FULL_WIDTH' ) ? BP_AVATAR_FULL_WIDTH : 150,
-			'avatars_full_height'        => defined( 'BP_AVATAR_FULL_HEIGHT' ) ? BP_AVATAR_FULL_HEIGHT : 150,
-			'avatars_original_max_width' => defined( 'BP_AVATAR_ORIGINAL_MAX_WIDTH' ) ? BP_AVATAR_ORIGINAL_MAX_WIDTH : 450,
+			'avatars_thumb_width'        => '',
+			'avatars_thumb_height'       => '',
+			'avatars_full_width'         => '',
+			'avatars_full_height'        => '',
+			'avatars_original_max_width' => '',
 		);
 	}
 
@@ -175,38 +175,39 @@ class BuddyPress extends ModuleCore
 				),
 			);
 
-		$settings['_avatars'] = array(
-			array(
-				'field'   => 'avatars_thumb_width',
-				'type'    => 'number',
-				'title'   => _x( 'Thumbnail Width', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
-				'default' => defined( 'BP_AVATAR_THUMB_WIDTH' ) ? BP_AVATAR_THUMB_WIDTH : 50,
-			),
-			array(
-				'field'   => 'avatars_thumb_height',
-				'type'    => 'number',
-				'title'   => _x( 'Thumbnail Height', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
-				'default' => defined( 'BP_AVATAR_THUMB_HEIGHT' ) ? BP_AVATAR_THUMB_HEIGHT : 50,
-			),
-			array(
-				'field'   => 'avatars_full_width',
-				'type'    => 'number',
-				'title'   => _x( 'Full Width', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
-				'default' => defined( 'BP_AVATAR_FULL_WIDTH' ) ? BP_AVATAR_FULL_WIDTH : 150,
-			),
-			array(
-				'field'   => 'avatars_full_height',
-				'type'    => 'number',
-				'title'   => _x( 'Full Height', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
-				'default' => defined( 'BP_AVATAR_FULL_HEIGHT' ) ? BP_AVATAR_FULL_HEIGHT : 150,
-			),
-			array(
-				'field'   => 'avatars_original_max_width',
-				'type'    => 'number',
-				'title'   => _x( 'Original Max Width', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
-				'default' => defined( 'BP_AVATAR_ORIGINAL_MAX_WIDTH' ) ? BP_AVATAR_ORIGINAL_MAX_WIDTH : 450,
-			),
-		);
+		if ( bp_get_option( 'show_avatars' ) )
+			$settings['_avatars'] = array(
+				array(
+					'field' => 'avatars_thumb_width',
+					'type'  => 'number',
+					'title' => _x( 'Thumbnail Width', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
+					'after' => Settings::fieldAfterConstant( 'BP_AVATAR_THUMB_WIDTH' ),
+				),
+				array(
+					'field' => 'avatars_thumb_height',
+					'type'  => 'number',
+					'title' => _x( 'Thumbnail Height', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
+					'after' => Settings::fieldAfterConstant( 'BP_AVATAR_THUMB_HEIGHT' ),
+				),
+				array(
+					'field' => 'avatars_full_width',
+					'type'  => 'number',
+					'title' => _x( 'Full Width', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
+					'after' => Settings::fieldAfterConstant( 'BP_AVATAR_FULL_WIDTH' ),
+				),
+				array(
+					'field' => 'avatars_full_height',
+					'type'  => 'number',
+					'title' => _x( 'Full Height', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
+					'after' => Settings::fieldAfterConstant( 'BP_AVATAR_FULL_HEIGHT' ),
+				),
+				array(
+					'field' => 'avatars_original_max_width',
+					'type'  => 'number',
+					'title' => _x( 'Original Max Width', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
+					'after' => Settings::fieldAfterConstant( 'BP_AVATAR_ORIGINAL_MAX_WIDTH' ),
+				),
+			);
 
 		return $settings;
 	}
@@ -231,7 +232,7 @@ class BuddyPress extends ModuleCore
 	{
 		Settings::fieldSection(
 			_x( 'Avatars Sizes', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
-			_x( 'Change the default BuddyPress Avatar values', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN )
+			_x( 'Change the default BuddyPress Avatar values. Leave empty to use BuddyPress defaults.', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN )
 		);
 	}
 
@@ -273,11 +274,20 @@ class BuddyPress extends ModuleCore
 
 	public function bp_init()
 	{
-		defined( 'BP_AVATAR_THUMB_WIDTH' ) or define( 'BP_AVATAR_THUMB_WIDTH', $this->options['avatars_thumb_width'] );
-		defined( 'BP_AVATAR_THUMB_HEIGHT' ) or define( 'BP_AVATAR_THUMB_HEIGHT', $this->options['avatars_thumb_height'] );
-		defined( 'BP_AVATAR_FULL_WIDTH' ) or define( 'BP_AVATAR_FULL_WIDTH', $this->options['avatars_full_width'] );
-		defined( 'BP_AVATAR_FULL_HEIGHT' ) or define( 'BP_AVATAR_FULL_HEIGHT', $this->options['avatars_full_height'] );
-		defined( 'BP_AVATAR_ORIGINAL_MAX_WIDTH' ) or define( 'BP_AVATAR_ORIGINAL_MAX_WIDTH', $this->options['avatars_original_max_width'] );
+		if ( '' !== $this->options['avatars_thumb_width'] && ! defined( 'BP_AVATAR_THUMB_WIDTH' ) )
+			define( 'BP_AVATAR_THUMB_WIDTH', $this->options['avatars_thumb_width'] );
+
+		if ( '' !== $this->options['avatars_thumb_height'] && ! defined( 'BP_AVATAR_THUMB_HEIGHT' ) )
+			define( 'BP_AVATAR_THUMB_HEIGHT', $this->options['avatars_thumb_height'] );
+
+		if ( '' !== $this->options['avatars_full_width'] && ! defined( 'BP_AVATAR_FULL_WIDTH' ) )
+			define( 'BP_AVATAR_FULL_WIDTH', $this->options['avatars_full_width'] );
+
+		if ( '' !== $this->options['avatars_full_height'] && ! defined( 'BP_AVATAR_FULL_HEIGHT' ) )
+			define( 'BP_AVATAR_FULL_HEIGHT', $this->options['avatars_full_height'] );
+
+		if ( '' !== $this->options['avatars_original_max_width'] && ! defined( 'BP_AVATAR_ORIGINAL_MAX_WIDTH' ) )
+			define( 'BP_AVATAR_ORIGINAL_MAX_WIDTH', $this->options['avatars_original_max_width'] );
 	}
 
 	public function check_completed()
