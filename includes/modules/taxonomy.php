@@ -220,38 +220,35 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 // https://github.com/scribu/wp-term-management-tools
 // https://wordpress.org/plugins/term-management-tools/
 // http://scribu.net/wordpress/term-management-tools
+// https://github.com/scribu/wp-term-management-tools
 
 	private function get_actions( $taxonomy )
 	{
-		$actions = $this->filters( 'bulk_actions', array(
-			'merge'        => _x( 'Merge', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN ),
-			'change_tax'   => _x( 'Change Taxonomy', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN ),
-			'empty_posts'  => _x( 'Empty Posts', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN ),
-			'empty_desc'   => _x( 'Empty Description', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN ),
-			'rewrite_slug' => _x( 'Rewrite Slug', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN ),
-			'format_i18n'  => _x( 'Format i18n', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN ),
-		), $taxonomy );
+		$actions = array();
 
-		if ( is_taxonomy_hierarchical( $taxonomy ) ) {
-			$actions = array_merge( array(
-				'set_parent' => _x( 'Set Parent', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN ),
-			), $actions );
-		}
+		if ( is_taxonomy_hierarchical( $taxonomy ) )
+			$actions['set_parent'] = _x( 'Set Parent', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN );
 
-		return $actions;
+		$actions['merge']        = _x( 'Merge', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN );
+		$actions['change_tax']   = _x( 'Change Taxonomy', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN );
+		$actions['rewrite_slug'] = _x( 'Rewrite Slug', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN );
+		$actions['format_i18n']  = _x( 'Format i18n', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN );
+		$actions['empty_posts']  = _x( 'Empty Posts', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN );
+		$actions['empty_desc']   = _x( 'Empty Description', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN );
+
+		return $this->filters( 'bulk_actions', $actions, $taxonomy );
 	}
 
 	private function term_management()
 	{
-		$defaults = array(
+		$data = self::atts( array(
 			'taxonomy'    => 'post_tag',
 			'delete_tags' => FALSE,
 			'action'      => FALSE,
 			'action2'     => FALSE,
-		);
+		), $_REQUEST );
 
-		$data = shortcode_atts( $defaults, $_REQUEST );
-		$tax  = get_taxonomy( $data['taxonomy'] );
+		$tax = get_taxonomy( $data['taxonomy'] );
 
 		if ( ! $tax )
 			return;
@@ -264,11 +261,10 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 		add_action( 'admin_footer', array( $this, 'admin_footer' ) );
 
 		$action = FALSE;
-		foreach ( array( 'action', 'action2' ) as $key ) {
-			if ( $data[$key] && '-1' != $data[$key] ) {
+
+		foreach ( array( 'action', 'action2' ) as $key )
+			if ( $data[$key] && '-1' != $data[$key] )
 				$action = $data[$key];
-			}
-		}
 
 		if ( ! $action )
 			return;
@@ -282,11 +278,16 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 			return;
 
 		foreach ( array_keys( $this->get_actions( $taxonomy ) ) as $key ) {
+
 			if ( 'bulk_'.$key == $action ) {
+
 				check_admin_referer( 'bulk-tags' );
+
 				$callback = $this->filters( 'bulk_callback', array( $this, 'handle_'.$key ), $key, $taxonomy );
+
 				if ( is_callable( $callback ) )
 					$results = call_user_func( $callback, $term_ids, $taxonomy );
+
 				break;
 			}
 		}
@@ -431,10 +432,10 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 				'force_default' => TRUE,
 			) );
 
-			if ( self::isError( $merged ) )
+			if ( ! $merged || self::isError( $merged ) )
 				continue;
 
-			do_action( 'gnetwork_taxonomy_term_merged', $taxonomy, $to_term_obj, $old_term );
+			$this->actions( 'term_merged', $taxonomy, $to_term_obj, $old_term, $old_meta );
 		}
 
 		return TRUE;
@@ -478,7 +479,7 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 			if ( ! $term || self::isError( $term ) )
 				continue;
 
-			if ( $term->parent && ! in_array( $term->parent,$term_ids ) ) {
+			if ( $term->parent && ! in_array( $term->parent, $term_ids ) ) {
 				$wpdb->update( $wpdb->term_taxonomy,
 					array( 'parent' => 0 ),
 					array( 'term_taxonomy_id' => $term->term_taxonomy_id )
@@ -501,17 +502,17 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 		$tt_ids = implode( ',', array_map( 'absint', $tt_ids ) );
 
 		$wpdb->query( $wpdb->prepare( "
-			UPDATE $wpdb->term_taxonomy SET taxonomy = %s WHERE term_taxonomy_id IN ($tt_ids)
+			UPDATE {$wpdb->term_taxonomy} SET taxonomy = %s WHERE term_taxonomy_id IN ({$tt_ids})
 		", $new_tax ) );
 
 		if ( is_taxonomy_hierarchical( $taxonomy )
 			&& ! is_taxonomy_hierarchical( $new_tax ) )
-				$wpdb->query( "UPDATE $wpdb->term_taxonomy SET parent = 0 WHERE term_taxonomy_id IN ($tt_ids)" );
+				$wpdb->query( "UPDATE {$wpdb->term_taxonomy} SET parent = 0 WHERE term_taxonomy_id IN ({$tt_ids})" );
 
 		clean_term_cache( $tt_ids, $taxonomy );
 		clean_term_cache( $tt_ids, $new_tax );
 
-		do_action( 'gnetwork_taxonomy_term_changed_taxonomy', $tt_ids, $new_tax, $taxonomy );
+		$this->actions( 'term_changed_taxonomy', $tt_ids, $new_tax, $taxonomy );
 
 		return TRUE;
 	}
@@ -547,16 +548,19 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 
 	public function input_change_tax( $taxonomy )
 	{
-		$args     = current_user_can( 'import' ) ? array() : array( 'show_ui' => TRUE );
-		$tax_list = get_taxonomies( $args, 'objects' );
+		$args = current_user_can( 'import' ) ? array() : array( 'show_ui' => TRUE );
+		$list = get_taxonomies( $args, 'objects' );
 
 		echo '<select class="postform" name="new_tax">';
-		foreach ( $tax_list as $new_tax => $tax_obj ) {
+
+		foreach ( $list as $new_tax => $tax_obj ) {
+
 			if ( $new_tax == $taxonomy )
 				continue;
 
 			echo "<option value='$new_tax'>$tax_obj->label</option>\n";
 		}
+
 		echo '</select>';
 	}
 
@@ -569,7 +573,7 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 			'orderby'          => 'name',
 			'taxonomy'         => $taxonomy,
 			'hierarchical'     => TRUE,
-			'show_option_none' => _x( 'None', 'Settings: Option', GNETWORK_TEXTDOMAIN )
+			'show_option_none' => Settings::showOptionNone(),
 		) );
 	}
 }
