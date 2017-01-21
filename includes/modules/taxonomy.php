@@ -12,11 +12,59 @@ class Taxonomy extends ModuleCore
 
 	protected function setup_actions()
 	{
-		add_action( 'admin_init', array( $this, 'admin_init' ), 20 );
-		add_action( 'load-edit-tags.php', array( $this, 'load_edit_tags_php' ) );
+		add_action( 'current_screen', array( $this, 'current_screen' ) );
 
 		add_filter( 'pre_term_name', 'normalize_whitespace', 9 );
 		add_filter( 'pre_term_description', 'normalize_whitespace', 9 );
+	}
+
+	public function setup_menu( $context )
+	{
+		Admin::registerMenu( $this->key,
+			_x( 'Taxonomy', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
+			array( $this, 'settings' )
+		);
+	}
+
+	public function default_options()
+	{
+		return array(
+			'management_tools'   => '1',
+			'description_editor' => '0',
+			'description_column' => '1',
+			'search_fields'      => '1',
+		);
+	}
+
+	public function default_settings()
+	{
+		return array(
+			'_general' => array(
+				array(
+					'field'       => 'management_tools',
+					'title'       => _x( 'Management Tools', 'Modules: Taxonomy: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Allows you to merge terms, set term parents in bulk, and swap term taxonomies', 'Modules: Taxonomy: Settings', GNETWORK_TEXTDOMAIN ),
+					'default'     => '1',
+				),
+				array(
+					'field'       => 'description_editor',
+					'title'       => _x( 'Description Editor', 'Modules: Taxonomy: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Replaces the term description editor with the WordPress TinyMCE visual editor', 'Modules: Taxonomy: Settings', GNETWORK_TEXTDOMAIN ),
+				),
+				array(
+					'field'       => 'description_column',
+					'title'       => _x( 'Description Column', 'Modules: Taxonomy: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Adds description column to term list table and quick edit', 'Modules: Taxonomy: Settings', GNETWORK_TEXTDOMAIN ),
+					'default'     => '1',
+				),
+				array(
+					'field'       => 'search_fields',
+					'title'       => _x( 'Search Fields', 'Modules: Taxonomy: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Looks for criteria in term descriptions and slugs as well as term names', 'Modules: Taxonomy: Settings', GNETWORK_TEXTDOMAIN ),
+					'default'     => '1',
+				),
+			),
+		);
 	}
 
 	protected function setup_ajax( $request )
@@ -28,97 +76,83 @@ class Taxonomy extends ModuleCore
 		}
 	}
 
-	public function admin_init()
+	public function current_screen( $screen )
 	{
-		// Originally from Visual Term Description Editor v1.4.1 - 20160506
-		// http://wordpress.org/plugins/visual-term-description-editor/
-		// https://github.com/bungeshea/visual-term-description-editor
+		if ( 'edit-tags' == $screen->base
+			|| 'term' == $screen->base ) {
 
-		if ( ! current_user_can( 'publish_posts' ) )
-			return;
+			add_filter( 'admin_body_class', function( $classes ){
+				return $classes.' gnetowrk-taxonomy';
+			} );
 
-		$taxonomies = get_taxonomies( '', 'names' );
+			if ( $this->options['description_editor']
+				&& current_user_can( 'publish_posts' ) ) {
 
-		// Remove the filters which disallow HTML in term descriptions
-		remove_filter( 'pre_term_description', 'wp_filter_kses' );
-		remove_filter( 'term_description', 'wp_kses_data' );
+				// remove the filters which disallow HTML in term descriptions
+				remove_filter( 'pre_term_description', 'wp_filter_kses' );
+				remove_filter( 'term_description', 'wp_kses_data' );
 
-		// add filters to disallow unsafe HTML tags
-		if ( ! current_user_can( 'unfiltered_html ' ) ) {
-			add_filter( 'pre_term_description', 'wp_kses_post' );
-			add_filter( 'term_description', 'wp_kses_post' );
+				// add filters to disallow unsafe HTML tags
+				if ( ! current_user_can( 'unfiltered_html' ) ) {
+					add_filter( 'pre_term_description', 'wp_kses_post' );
+					add_filter( 'term_description', 'wp_kses_post' );
+				}
+			}
+
+			if ( 'edit-tags' == $screen->base ) {
+
+				if ( $this->options['management_tools'] )
+					$this->term_management();
+
+				if ( $this->options['description_editor'] )
+					add_action( $screen->taxonomy.'_add_form_fields', array( $this, 'add_form_fields' ), 1, 1 );
+
+				if ( $this->options['description_column'] ) {
+					add_filter( 'manage_edit-'.$screen->taxonomy.'_columns', array( $this, 'manage_edit_columns' ), 5 );
+					add_filter( 'manage_'.$screen->taxonomy.'_custom_column', array( $this, 'manage_custom_column' ), 10, 3 );
+					add_action( 'quick_edit_custom_box', array( $this, 'quick_edit_custom_box' ), 10, 3 );
+				}
+
+				if ( $this->options['search_fields'] ) {
+					add_filter( 'get_terms_args', array( $this, 'get_terms_args' ), 10, 2 );
+					add_filter( 'terms_clauses', array( $this, 'terms_clauses' ), 10, 3 );
+				}
+
+			} else if ( 'term' == $screen->base ) {
+
+				if ( $this->options['description_editor'] )
+					add_action( $screen->taxonomy.'_edit_form_fields', array( $this, 'edit_form_fields' ), 1, 2 );
+			}
 		}
-
-		// add_filter( 'pre_term_description', 'wptexturize' );
-		// add_filter( 'pre_term_description', 'convert_smilies' );
-		// add_filter( 'pre_term_description', 'convert_chars' );
-		// add_filter( 'pre_term_description', 'wpautop' );
-		// add_filter( 'pre_term_description', 'shortcode_unautop' );
-		// add_filter( 'pre_term_description', 'prepend_attachment' );
-		// add_filter( 'pre_term_description', 'do_shortcode', 11 );
-		//
-		// add_filter( 'term_description', 'wptexturize' );
-		// add_filter( 'term_description', 'convert_smilies' );
-		// add_filter( 'term_description', 'convert_chars' );
-		// add_filter( 'term_description', 'wpautop' );
-		// add_filter( 'term_description', 'shortcode_unautop' );
-		// add_filter( 'term_description', 'prepend_attachment' );
-		// add_filter( 'term_description', 'do_shortcode', 11 );
-
-		foreach ( $taxonomies as $taxonomy ) {
-			add_action( $taxonomy.'_edit_form_fields', array( $this, 'edit_form_fields' ), 1, 2 );
-			add_action( $taxonomy.'_add_form_fields', array( $this, 'add_form_fields' ), 1, 1 );
-		}
-	}
-
-	public function load_edit_tags_php()
-	{
-		global $taxnow;
-
-		add_filter( 'admin_body_class', function( $classes ){
-			return $classes.' gnetowrk-taxonomy';
-		} );
-
-		add_filter( 'manage_edit-'.$taxnow.'_columns', array( $this, 'manage_edit_columns' ), 5 );
-		add_filter( 'manage_'.$taxnow.'_custom_column', array( $this, 'manage_custom_column' ), 10, 3 );
-		add_action( 'quick_edit_custom_box', array( $this, 'quick_edit_custom_box' ), 10, 3 );
-
-		add_filter( 'get_terms_args', array( $this, 'get_terms_args' ), 10, 2 );
-		add_filter( 'terms_clauses', array( $this, 'terms_clauses' ), 10, 3 );
-
-		$this->term_management();
 	}
 
 	public function manage_edit_columns( $columns )
 	{
-		$new_columns = array();
+		$new = array();
 
 		foreach ( $columns as $key => $value ) {
 
 			if ( 'description' == $key )
-				$new_columns['gnetwork_description'] = _x( 'Description', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN );
+				$new['gnetwork_description'] = _x( 'Description', 'Modules: Taxonomy: Column', GNETWORK_TEXTDOMAIN );
+
 			else
-				$new_columns[$key] = $value;
+				$new[$key] = $value;
 		}
 
-		return $new_columns;
+		return $new;
 	}
 
 	public function manage_custom_column( $empty, $column_name, $term_id )
 	{
 		if ( 'gnetwork_description' == $column_name )
 			if ( $term = get_term( intval( $term_id ) ) )
-				return $term->description;
+				return sanitize_term_field( 'description', $term->description, $term->term_id, $term->taxonomy, 'display' );
 
 		return $empty;
 	}
 
 	public function quick_edit_custom_box( $column_name, $screen, $taxonomy )
 	{
-		// no need
-		// if ( $screen !== 'edit-tags' )
-		// 	return;
-
 		if ( 'gnetwork_description' != $column_name )
 			return;
 
@@ -127,7 +161,7 @@ class Taxonomy extends ModuleCore
 
 		echo '<fieldset><div class="inline-edit-col"><label>';
 		echo '<span class="title">';
-			_ex( 'Description', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN );
+			_ex( 'Description', 'Modules: Taxonomy: Quick Edit Label', GNETWORK_TEXTDOMAIN );
 		echo '</span><span class="input-text-wrap">';
 			echo '<textarea id="inline-desc" name="gnetwork-description" rows="6" class="ptitle"></textarea>';
 		echo '</span></label></div></fieldset>';
@@ -153,6 +187,40 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 					'description' => $_POST['gnetwork-description'],
 				) );
 	}
+
+	public function get_terms_args( $args, $taxonomies )
+	{
+		if ( ! empty( $args['search'] ) ) {
+			$this->terms_search = $args['search'];
+			unset( $args['search'] );
+		}
+
+		return $args;
+	}
+
+	public function terms_clauses( $clauses, $taxonomies, $args )
+	{
+		if ( ! empty( $this->terms_search ) ) {
+
+			global $wpdb;
+
+			$like = '%'.$wpdb->esc_like( $this->terms_search ).'%';
+
+			$clauses['where'] .= $wpdb->prepare( ' AND ((t.name LIKE %s) OR (t.slug LIKE %s) OR (tt.description LIKE %s))', $like, $like, $like );
+
+			$this->terms_search = '';
+		}
+
+		return $clauses;
+	}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// Originally from Visual Term Description Editor
+/// v1.4.1 - 20160506
+// @REF: http://wordpress.org/plugins/visual-term-description-editor/
+// @REF: https://github.com/bungeshea/visual-term-description-editor
 
 	public function edit_form_fields( $tag, $taxonomy )
 	{
@@ -186,31 +254,6 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 				jQuery(function($){$( '#addtag' ).on( 'mousedown', '#submit', function(){tinyMCE.triggerSave();});});
 			</script>
 		</div><?php
-	}
-
-	public function get_terms_args( $args, $taxonomies )
-	{
-		if ( ! empty( $args['search'] ) ) {
-			$this->terms_search = $args['search'];
-			unset( $args['search'] );
-		}
-
-		return $args;
-	}
-
-	public function terms_clauses( $clauses, $taxonomies, $args )
-	{
-		if ( ! empty( $this->terms_search ) ) {
-
-			global $wpdb;
-
-			$like = '%'.$wpdb->esc_like( $this->terms_search ).'%';
-			$clauses['where'] .= $wpdb->prepare( ' AND ((t.name LIKE %s) OR (t.slug LIKE %s) OR (tt.description LIKE %s))', $like, $like, $like );
-
-			$this->terms_search = '';
-		}
-
-		return $clauses;
 	}
 
 ////////////////////////////////////////////////////////////////////////////////
