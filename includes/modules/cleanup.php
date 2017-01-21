@@ -91,7 +91,7 @@ class Cleanup extends ModuleCore
 				'type'        => 'button',
 				'description' => _x( 'Removes BuddyPress Last Activity Back-Comp Meta Stored for Each User', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 				'default'     => _x( 'Back-Comp Last Activity', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
-				'after'       => Settings::fieldAfterIcon( Settings::getMoreInfoIcon( 'http://wp.me/pLVLj-gc' ) ),
+				'after'       => Settings::fieldAfterIcon( 'http://wp.me/pLVLj-gc' ),
 				'values'      => $confirm,
 			);
 		}

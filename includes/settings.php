@@ -220,8 +220,11 @@ class Settings extends Base
 		return FALSE;
 	}
 
+	// FIXME: DEPRECATED
 	public static function getMoreInfoIcon( $url = '', $title = NULL, $icon = 'info' )
 	{
+		self::__dep( 'Settings::fieldAfterIcon()' );
+
 		return HTML::tag( 'a', array(
 			'href'   => $url,
 			'title'  => is_null( $title ) ? _x( 'See More Information', 'Settings', GNETWORK_TEXTDOMAIN ) : $title,
@@ -237,9 +240,31 @@ class Settings extends Base
 			echo '<p class="description">'.$description.'</p>';
 	}
 
-	public static function fieldAfterIcon( $text, $class = 'icon-wrap' )
+	public static function fieldAfterText( $text, $class = '-text-wrap' )
 	{
-		return $text ? HTML::tag( 'span', array( 'class' => 'field-after '.$class ), $text ) : '';
+		return $text ? HTML::tag( 'span', array( 'class' => '-field-after '.$class ), $text ) : '';
+	}
+
+	public static function fieldAfterIcon( $url = '', $title = NULL, $icon = 'info' )
+	{
+		$html = HTML::tag( 'a', array(
+			'href'   => $url,
+			'title'  => is_null( $title ) ? _x( 'See More Information', 'Settings', GNETWORK_TEXTDOMAIN ) : $title,
+			'target' => '_blank',
+		), HTML::getDashicon( $icon ) );
+
+		return '<span class="-field-after -icon-wrap">'.$html.'</span>';
+	}
+
+	public static function fieldAfterConstant( $constant, $title = NULL, $class = '-constant-wrap' )
+	{
+		if ( ! defined( $constant ) )
+			return '';
+
+		return HTML::tag( 'span', array(
+			'class' => '-field-after '.$class,
+			'title' => is_null( $title ) ? _x( 'Currently defined constant', 'Settings', GNETWORK_TEXTDOMAIN ) : $title,
+		), '<code>'.$constant.'</code> : <code>'.constant( $constant ).'</code>' );
 	}
 
 	public static function fieldAfterLink( $link = '', $class = '' )
@@ -250,7 +275,7 @@ class Settings extends Base
 			'target' => '_blank',
 		), $link );
 
-		return '<code class="field-after">'.$html.'</code>';
+		return '<code class="-field-after -link-wrap">'.$html.'</code>';
 	}
 
 	// using caps instead of roles

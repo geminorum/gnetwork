@@ -61,7 +61,7 @@ class User extends ModuleCore
 					'field'       => 'user_locale',
 					'title'       => _x( 'User Language', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'User admin language switcher', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
-					'after'       => Settings::fieldAfterIcon( Settings::getMoreInfoIcon( 'https://core.trac.wordpress.org/ticket/29783' ) ),
+					'after'       => Settings::fieldAfterIcon( 'https://core.trac.wordpress.org/ticket/29783' ),
 				),
 			),
 		);

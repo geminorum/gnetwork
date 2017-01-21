@@ -111,7 +111,7 @@ class Maintenance extends ModuleCore
 					'type'        => 'select',
 					'title'       => _x( 'Status Code', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'HTTP status header code', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
-					'after'       => Settings::fieldAfterIcon( Settings::getMoreInfoIcon( 'https://en.wikipedia.org/wiki/List_of_HTTP_status_codes' ) ),
+					'after'       => Settings::fieldAfterIcon( 'https://en.wikipedia.org/wiki/List_of_HTTP_status_codes' ),
 					'dir'         => 'ltr',
 					'default'     => '503',
 					'values'      => array(
