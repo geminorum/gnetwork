@@ -426,6 +426,7 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 				continue;
 
 			$old_term = get_term( $term_id, $taxonomy );
+			$old_meta = get_term_meta( $term_id );
 
 			$merged = wp_delete_term( $term_id, $taxonomy, array(
 				'default'       => $to_term,
@@ -434,6 +435,9 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 
 			if ( ! $merged || self::isError( $merged ) )
 				continue;
+
+			foreach ( $old_meta as $meta_key => $meta_value )
+				add_term_meta( $to_term, $meta_key, $meta_value, FALSE );
 
 			$this->actions( 'term_merged', $taxonomy, $to_term_obj, $old_term, $old_meta );
 		}
