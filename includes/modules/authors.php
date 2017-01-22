@@ -25,7 +25,7 @@ class Authors extends ModuleCore
 
 		Admin::registerMenu( 'roles',
 			_x( 'Roles', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			array( $this, 'settings' ), 'list_users'
+			FALSE, 'list_users'
 		);
 	}
 
