@@ -522,11 +522,17 @@ class ModuleCore extends Base
 
 					// multiple checkboxes
 					if ( is_array( $_POST[$options_key][$setting] ) )
-						$options[$setting] = array_keys( $_POST[$options_key][$setting] );
+						$options[$setting] = count( $_POST[$options_key][$setting] )
+							? array_keys( $_POST[$options_key][$setting] )
+							: array();
 
 					// other options
 					else
 						$options[$setting] = trim( stripslashes( $_POST[$options_key][$setting] ) );
+
+					// skip defaults
+					if ( $options[$setting] === $default )
+						unset( $options[$setting] );
 				}
 			}
 
