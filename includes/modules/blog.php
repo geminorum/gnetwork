@@ -30,7 +30,7 @@ class Blog extends ModuleCore
 			if ( $this->options['page_404'] )
 				add_filter( '404_template', array( $this, 'custom_404_template' ) );
 
-			if ( $this->options['feed_deley'] )
+			if ( $this->options['feed_delay'] )
 				$this->filter( 'posts_where', 2 );
 		}
 
@@ -62,7 +62,7 @@ class Blog extends ModuleCore
 			'meta_revised'         => '0',
 			'noindex_attachments'  => '0',
 			'feed_json'            => '0',
-			'feed_deley'           => '10',
+			'feed_delay'           => '10',
 			'disable_emojis'       => GNETWORK_DISABLE_EMOJIS,
 			'ga_override'          => '',
 			'from_email'           => '',
@@ -159,11 +159,11 @@ class Blog extends ModuleCore
 					'description' => _x( 'No Index/No Follow Meta Tags for Attachments', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 				),
 				array(
-					'field'       => 'feed_deley',
+					'field'       => 'feed_delay',
 					'type'        => 'select',
-					'title'       => _x( 'Deley Feeds', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Deley published posts on feeds', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'none_title'  => _x( 'No Deley', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Delay Feeds', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Delay published posts on feeds', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+					'none_title'  => _x( 'No Delay', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 					'values'      => Settings::minutesOptions(),
 					'default'     => '10',
 				),
@@ -358,7 +358,7 @@ class Blog extends ModuleCore
 			global $wpdb;
 
 			$now  = gmdate( 'Y-m-d H:i:s' );
-			$wait = $this->options['feed_deley'];
+			$wait = $this->options['feed_delay'];
 			$unit = 'MINUTE'; // MINUTE, HOUR, DAY, WEEK, MONTH, YEAR
 
 			$where .= " AND TIMESTAMPDIFF( {$unit}, {$wpdb->posts}.post_date_gmt, '{$now}' ) > {$wait} ";
