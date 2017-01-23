@@ -254,7 +254,7 @@ class Debug extends ModuleCore
 			'REMOTE_ADDR',
 		) as $key )
 			if ( isset( $_SERVER[$key] ) )
-				$summary[$key] = $_SERVER[$key];
+				$summary[$key] = gnetwork_ip_lookup( $_SERVER[$key] );
 
 		HTML::tableCode( $summary, FALSE, $caption );
 	}
