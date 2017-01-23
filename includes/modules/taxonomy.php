@@ -230,8 +230,8 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 		);
 
 		?><tr class="form-field term-description-wrap">
-			<th scope="row" valign="top"><label for="description"><?php _ex( 'Description', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN ); ?></label></th>
-			<td><?php wp_editor( htmlspecialchars_decode( $tag->description ), 'html-description', $settings ); ?>
+			<th scope="row" valign="top"><label for="html-tag-description"><?php _ex( 'Description', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN ); ?></label></th>
+			<td><?php wp_editor( htmlspecialchars_decode( $tag->description ), 'html-tag-description', $settings ); ?>
 			<p class="description"><?php _ex( 'The description is not prominent by default; however, some themes may show it.', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN ); ?></p></td>
 			<script type="text/javascript">jQuery( 'textarea#description' ).closest( '.form-field' ).remove();</script>
 		</tr><?php
@@ -246,9 +246,9 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 			'media_buttons' => FALSE,
 		);
 
-		?><div class="form-field term-description-wrap"><label for="tag-description"><?php _ex( 'Description', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN ); ?></label>
+		?><div class="form-field term-description-wrap"><label for="html-tag-description"><?php _ex( 'Description', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN ); ?></label>
 			<?php wp_editor( '', 'html-tag-description', $settings ); ?>
-			<p class="description"> <?php _ex( 'The description is not prominent by default; however, some themes may show it.', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN ); ?></p>
+			<p class="description"><?php _ex( 'The description is not prominent by default; however, some themes may show it.', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN ); ?></p>
 			<script type="text/javascript">
 				jQuery( 'textarea#tag-description' ).closest( '.form-field' ).remove();
 				jQuery(function($){$( '#addtag' ).on( 'mousedown', '#submit', function(){tinyMCE.triggerSave();});});
