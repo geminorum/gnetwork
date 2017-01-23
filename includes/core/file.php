@@ -170,16 +170,16 @@ class File extends Base
 	public static function formatSize( $bytes, $decimals = 0 )
 	{
 		$quant = array(
-			'TB' => TB_IN_BYTES,
-			'GB' => GB_IN_BYTES,
-			'MB' => MB_IN_BYTES,
-			'KB' => KB_IN_BYTES,
+			'TB' => 1024 * 1024 * 1024 * 1024,
+			'GB' => 1024 * 1024 * 1024,
+			'MB' => 1024 * 1024,
+			'KB' => 1024,
 			'B'  => 1,
 		);
 
 		foreach ( $quant as $unit => $mag )
 			if ( doubleval( $bytes ) >= $mag )
-				return number_format( $bytes / $mag, $decimals ).' '.$unit;
+				return number_format( $bytes / $mag, $decimals ).'&nbsp;'.$unit;
 
 		return FALSE;
 	}

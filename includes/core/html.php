@@ -208,20 +208,34 @@ class HTML extends Base
 
 	public static function listCode( $array, $row = NULL, $first = FALSE )
 	{
-		if ( count( $array ) ) {
-			echo '<ul class="base-list-code">';
+		if ( ! $array )
+			return;
 
-			if ( is_null( $row ) )
-				$row = '<code title="%2$s">%1$s</code>';
+		echo '<ul class="base-list-code">';
 
-			if ( $first )
-				echo '<li>'.$first.'</li>';
+		if ( is_null( $row ) )
+			$row = '<code title="%2$s">%1$s</code>';
 
-			foreach ( $array as $key => $val )
-				echo '<li>'.sprintf( $row, $key, $val ).'</li>';
+		if ( $first )
+			echo '<li class="-first">'.$first.'</li>';
 
-			echo '</ul>';
+		foreach ( $array as $key => $val ) {
+
+			if ( is_null( $val ) )
+				$val = 'NULL';
+
+			else if ( is_bool( $val ) )
+				$val = $val ? 'TRUE' : 'FALSE';
+
+			else if ( is_array( $val ) || is_object( $val ) )
+				$val = json_encode( $val );
+
+			echo '<li>';
+				printf( $row, $key, $val );
+			echo '</li>';
 		}
+
+		echo '</ul>';
 	}
 
 	public static function tableCode( $array, $reverse = FALSE, $caption = FALSE )
@@ -241,8 +255,19 @@ class HTML extends Base
 
 		echo '<tbody>';
 
-		foreach ( (array) $array as $key => $val )
-			@printf( $row, $key, ( is_bool( $val ) ? ( $val ? 'TRUE' : 'FALSE' ) : $val ) );
+		foreach ( (array) $array as $key => $val ) {
+
+			if ( is_null( $val ) )
+				$val = 'NULL';
+
+			else if ( is_bool( $val ) )
+				$val = $val ? 'TRUE' : 'FALSE';
+
+			else if ( is_array( $val ) || is_object( $val ) )
+				$val = json_encode( $val );
+
+			printf( $row, $key, $val );
+		}
 
 		echo '</tbody></table>';
 	}

@@ -225,7 +225,7 @@ class Base
 		if ( is_object( $args ) )
 			$r = get_object_vars( $args );
 
-		elseif ( is_array( $args ) )
+		else if ( is_array( $args ) )
 			$r = &$args;
 
 		else

@@ -11,6 +11,15 @@ class Number extends Base
 		return apply_filters( 'number_format_i18n', $number );
 	}
 
+	// FIXME: use our own
+	// converts back number chars into english
+	public static function intval( $text, $intval = TRUE )
+	{
+		$number = apply_filters( 'number_format_i18n_back', $text );
+
+		return $intval ? intval( $number ) : $number;
+	}
+
 	// @SOURCE: WP's `zeroise()`
 	public static function zeroise( $number, $threshold, $locale = NULL )
 	{
