@@ -212,13 +212,13 @@ class Maintenance extends ModuleCore
 		if ( $override = apply_filters( 'gnetwork_maintenance_forced_template', FALSE ) )
 			return $override;
 
-		elseif ( ! is_admin() && locate_template( '503.php' ) )
+		else if ( ! is_admin() && locate_template( '503.php' ) )
 			return locate_template( '503.php' );
 
-		elseif ( file_exists( WP_CONTENT_DIR.'/503.php' ) )
+		else if ( file_exists( WP_CONTENT_DIR.'/503.php' ) )
 			return WP_CONTENT_DIR.'/503.php';
 
-		elseif ( file_exists( WP_CONTENT_DIR.'/maintenance.php' ) )
+		else if ( file_exists( WP_CONTENT_DIR.'/maintenance.php' ) )
 			return WP_CONTENT_DIR.'/maintenance.php';
 
 		return FALSE;

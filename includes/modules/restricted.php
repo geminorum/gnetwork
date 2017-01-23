@@ -196,6 +196,7 @@ class Restricted extends ModuleCore
 			) );
 
 			$operations = array( 'none' => Settings::showOptionNone() );
+
 			if ( $feedkey ) {
 				$operations['reset']  = _x( 'Reset your access key', 'Modules: Restricted', GNETWORK_TEXTDOMAIN );
 				$operations['remove'] = _x( 'Remove your access key', 'Modules: Restricted', GNETWORK_TEXTDOMAIN );
@@ -476,7 +477,7 @@ class RestrictedBouncer extends Base
 		header( "Content-Type: application/xml; ".get_option( 'blog_charset' ) );
 
 		if ( $layout = Utilities::getLayout( 'feed.temp' ) )
-			require_once( $layout );
+			require_once( $layout ); // accessing $title/$desc/$link
 
 		die();
 	}

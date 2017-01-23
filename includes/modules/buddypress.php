@@ -76,7 +76,7 @@ class BuddyPress extends ModuleCore
 			'open_directories' => '0',
 			'check_completed'  => '0',
 
-			'tos_display' => 0,
+			'tos_display' => '0',
 			'tos_title'   => '',
 			'tos_link'    => '',
 			'tos_text'    => '',

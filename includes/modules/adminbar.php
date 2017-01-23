@@ -676,7 +676,7 @@ class AdminBar extends ModuleCore
 		}
 	}
 
-	public static function getIcon( $icon, $style = 'margin:2px 0 0 0;' )
+	public static function getIcon( $icon, $style = 'margin:2px 1px 0 1px;' )
 	{
 		return HTML::tag( 'span', array(
 			'class' => array(

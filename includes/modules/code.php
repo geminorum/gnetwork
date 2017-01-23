@@ -79,12 +79,12 @@ class Code extends ModuleCore
 				$regexp = "<a\s[^>]*href=(\"??)([^\" >]*?)\\1[^>]*>(.*)<\/a>";
 				$html = preg_replace_callback( "/$regexp/siU", array( $this, 'github_readme_link_cb' ), $html );
 
-				set_site_transient( $key, $html , 12 * HOUR_IN_SECONDS );
+				set_site_transient( $key, $html, 12 * HOUR_IN_SECONDS );
 			}
 		}
 
-		if ( WordPress::isDev() )
-			delete_site_transient( $key );
+		// if ( WordPress::isDev() )
+		// 	delete_site_transient( $key );
 
 		return '<div class="gnetwork-wrap-shortcode shortcode-github-readme" data-github-repo="'.$args['repo'].'">'.$html.'</div>';
 	}

@@ -174,7 +174,7 @@ class Network extends ModuleCore
 	public function updated_message( $msg )
 	{
 		$message = _x( '%s site(s) admin email reset to <code>%s</code>', 'Modules: Network: Message', GNETWORK_TEXTDOMAIN );
-		return sprintf( $message, number_format_i18n( self::req( 'count', 0 ) ), get_site_option( 'admin_email' ) );
+		return sprintf( $message, Number::format( self::req( 'count', 0 ) ), get_site_option( 'admin_email' ) );
 	}
 
 	public static function getLogo( $wrap = FALSE, $fallback = TRUE, $logo = NULL )
