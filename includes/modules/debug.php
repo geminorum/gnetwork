@@ -363,11 +363,19 @@ class Debug extends ModuleCore
 		}
 	}
 
-	public static function phpversion()
+	public static function summaryPHP()
 	{
 		echo '<p class="description">'.sprintf( _x( 'Current PHP version: <code>%s</code>', 'Modules: Debug', GNETWORK_TEXTDOMAIN ), phpversion() ).'</p>';
 
-		HTML::listCode( self::getPHPExtensions(), NULL, '<span class="description">'._x( 'Loaded Extensions', 'Modules: Debug', GNETWORK_TEXTDOMAIN ).':</span>' );
+		HTML::listCode( self::getPHPExtensions(),
+			'<code title="%2$s">%1$s</code>',
+			'<span class="description -success">'._x( 'Loaded Extensions', 'Modules: Debug', GNETWORK_TEXTDOMAIN ).':</span>'
+		);
+
+		HTML::listCode( self::getPHPMissingExtensions(),
+			'<code title="%2$s">%1$s</code>',
+			'<span class="description -danger">'._x( 'Missing Extensions', 'Modules: Debug', GNETWORK_TEXTDOMAIN ).':</span>'
+		);
 	}
 
 	public static function getPHPExtensions()
@@ -384,6 +392,23 @@ class Debug extends ModuleCore
 			else
 				$extensions[$ext] = '';
 		}
+
+		return $extensions;
+	}
+
+	public static function getPHPMissingExtensions()
+	{
+		$extensions = array(
+			'intl'     => 'Internationalization extension',
+			'zip'      => 'zip',
+			'json'     => 'json',
+			'mbstring' => 'mbstring',
+			'libxml'   => 'libxml',
+		);
+
+		foreach ( $extensions as $ext => $why )
+			if ( extension_loaded( $ext ) )
+				unset( $extensions[$ext] );
 
 		return $extensions;
 	}

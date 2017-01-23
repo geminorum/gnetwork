@@ -21,9 +21,9 @@ echo '<form method="post" action="">';
 		echo '</td></tr>';
 
 		echo '<tr class="ltr"><th scope="row">';
-			_ex( 'PHP Versions', 'Modules: Debug: Admin Overview', GNETWORK_TEXTDOMAIN );
+			_ex( 'Your PHP Summary', 'Modules: Debug: Admin Overview', GNETWORK_TEXTDOMAIN );
 		echo '</th><td>';
-			Debug::phpversion();
+			Debug::summaryPHP();
 		echo '</td></tr>';
 
 		echo '<tr class="ltr"><th scope="row">';
