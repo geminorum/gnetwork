@@ -413,6 +413,8 @@ class AdminBar extends ModuleCore
 			),
 		) );
 
+		// FIXME: rewrite this
+		// @SEE: https://core.trac.wordpress.org/ticket/39082
 		if ( $super_admin ) {
 
 			$wp_admin_bar->add_group( array(
