@@ -183,78 +183,107 @@ class Media extends ModuleCore
 
 		return HTML::tableList( array(
 			'_cb' => 'ID',
-			'ID'  => _x( 'ID', 'Modules: Media', GNETWORK_TEXTDOMAIN ),
+			'ID'  => _x( 'ID', 'Modules: Media: Column Title', GNETWORK_TEXTDOMAIN ),
 
 			'date' => array(
-				'title'    => _x( 'Date', 'Modules: Media', GNETWORK_TEXTDOMAIN ),
+				'title'    => _x( 'Date', 'Modules: Media: Column Title', GNETWORK_TEXTDOMAIN ),
 				'callback' => function( $value, $row, $column, $index ){
 					return Utilities::humanTimeDiffRound( strtotime( $row->post_date ) );
 				},
 			),
 
 			'type' => array(
-				'title'    => _x( 'Type', 'Modules: Media', GNETWORK_TEXTDOMAIN ),
+				'title'    => _x( 'Type', 'Modules: Media: Column Title', GNETWORK_TEXTDOMAIN ),
 				'args'     => array( 'post_types' => WordPress::getPostTypes( 2 ) ),
 				'callback' => function( $value, $row, $column, $index ){
 					return isset( $column['args']['post_types'][$row->post_type] ) ? $column['args']['post_types'][$row->post_type] : $row->post_type;
 				},
 			),
 
-			'post' => array(
-				'title' => _x( 'Post', 'Modules: Media', GNETWORK_TEXTDOMAIN ),
+			'title' => array(
+				'title' => _x( 'Title', 'Modules: Media: Column Title', GNETWORK_TEXTDOMAIN ),
 				'args'  => array(
 					'url'   => get_bloginfo( 'url' ),
 					'admin' => admin_url( 'post.php' ),
 				),
 				'callback' => function( $value, $row, $column, $index ){
 
-					// FIXME: get all taxes
-					// FIXME: better row actions
+					$title = apply_filters( 'the_title', $row->post_title, $row->ID );
 
-					$edit = add_query_arg( array(
-						'action' => 'edit',
-						'post'   => $row->ID,
-					), $column['args']['admin'] );
+					if ( empty( $title ) )
+						$title = '&mdash;';
 
-					$view = add_query_arg( array(
-						'p' => $row->ID,
-					), $column['args']['url'] );
+					return $title.get_the_term_list( $row->ID, 'post_tag', '<div><small>', ', ', '</small></div>' );
+				},
+				'actions' => function( $value, $row, $column, $index ){
+					return array(
 
-					$terms = get_the_term_list( $row->ID, 'post_tag', '<br />', ', ', '' );
-					return $row->post_title.' <small>( <a href="'.$edit.'" target="_blank">Edit</a> | <a href="'.$view.'" target="_blank">View</a> )</small><br /><small>'.$terms.'</small>';
+						'edit' => HTML::tag( 'a', array(
+							// 'href'   => get_edit_post_link( $row->ID ),
+							'href'   => add_query_arg( array( 'action' => 'edit', 'post' => $row->ID ), $column['args']['admin'] ),
+							'class'  => '-link -row-link -row-link-edit',
+							'target' => '_blank',
+						), _x( 'Edit', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) ),
+
+						'view' => HTML::tag( 'a', array(
+							'href'   => add_query_arg( array( 'p' => $row->ID ), $column['args']['url'] ),
+							'class'  => '-link -row-link -row-link-view',
+							'target' => '_blank',
+						), _x( 'View', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) ),
+					);
 				},
 			),
 
-			'media' => array(
-				'title'    => _x( 'Media', 'Modules: Media', GNETWORK_TEXTDOMAIN ),
+			'attached' => array(
+				'title'    => _x( 'Attached Media', 'Modules: Media: Column Title', GNETWORK_TEXTDOMAIN ),
 				'args'     => array( 'wpuploads' => $wpuploads ),
 				'callback' => function( $value, $row, $column, $index ){
 
-					// TODO: check for attachment type & get the parent: use wp icons
-					// TODO: list images in the content of the post/parent
+					// TODO: check for all attachment types, use wp icons
 
 					$links = array();
 
+					$thumbnail_id  = get_post_meta( $row->ID, '_thumbnail_id', TRUE );
+					$gtheme_images = get_post_meta( $row->ID, '_gtheme_images', TRUE );
+					$gtheme_terms  = get_post_meta( $row->ID, '_gtheme_images_terms', TRUE );
+
 					foreach ( WordPress::getAttachments( $row->ID ) as $attachment ) {
+
 						$attached = get_post_meta( $attachment->ID, '_wp_attached_file', TRUE );
-						$links[] = '<a target="_blank" href="'.$column['args']['wpuploads']['baseurl'].'/'.$attached.'">'.$attached.'</a>';
+
+						$html = HTML::link( $attached, $column['args']['wpuploads']['baseurl'].'/'.$attached, TRUE ).' &ndash; '.$attachment->ID;
+
+						if ( $thumbnail_id == $attachment->ID )
+							$html .= ' &ndash; <b>thumbnail</b>';
+
+						if ( $gtheme_images && in_array( $attachment->ID, $gtheme_images ) )
+							$html .= ' &ndash; tagged: '.array_search( $attachment->ID, $gtheme_images );
+
+						if ( $gtheme_terms && in_array( $attachment->ID, $gtheme_terms ) )
+							$html .= ' &ndash; for term: '.array_search( $attachment->ID, $gtheme_terms );
+
+						$links[] = $html;
 					}
 
-					return count( $links ) ? ( '<div dir="ltr">'.implode( '<br />', $links ).'</div>' ) : '&mdash;';
+					return '<div dir="ltr">'.( count( $links ) ? implode( '<br />', $links ) : '&mdash;' ).'</div>';
 				},
 			),
 
-			'meta' => array(
-				'title'    => _x( 'Thumbnail', 'Modules: Media', GNETWORK_TEXTDOMAIN ),
-				'args'     => array( 'wpuploads' => $wpuploads ),
+			'content' => array(
+				'title'    => _x( 'In Content', 'Modules: Media: Column Title', GNETWORK_TEXTDOMAIN ),
 				'callback' => function( $value, $row, $column, $index ){
 
-					if ( $attachment_id = get_post_meta( $row->ID, '_thumbnail_id', TRUE ) ) {
-						$attached = get_post_meta( $attachment_id, '_wp_attached_file', TRUE );
-						return '<div dir="ltr"><a target="_blank" href="'.$column['args']['wpuploads']['baseurl'].'/'.$attached.'">'.$attached.'</a></div>';
-					}
+					preg_match_all( '|<img.*?src=[\'"](.*?)[\'"].*?>|i', $row->post_content, $matches );
 
-					return '&mdash;';
+					if ( ! count( $matches[1] ) )
+						return '<div dir="ltr">&mdash;</div>';
+
+					$links = array();
+
+					foreach ( $matches[1] as $src )
+						$links[] = HTML::link( URL::prepTitle( $src ), $src, TRUE );
+
+					return '<div dir="ltr">'.( count( $links ) ? implode( '<br />', $links ) : '&mdash;' ).'</div>';
 				},
 			),
 		), $posts, array(
