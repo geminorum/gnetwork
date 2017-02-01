@@ -190,8 +190,11 @@ class Settings extends Base
 		);
 	}
 
+	// FIXME: DEPRECATED
 	public static function getNewPostTypeLink( $post_type = 'page', $text = FALSE )
 	{
+		self::__dep( 'Settings::fieldAfterNewPostType()' );
+
 		return HTML::tag( 'a', array(
 			'href'   => admin_url( '/post-new.php?post_type='.$post_type ),
 			'title'  => _x( 'Add New Post Type', 'Settings', GNETWORK_TEXTDOMAIN ),
@@ -276,6 +279,13 @@ class Settings extends Base
 		), $link );
 
 		return '<code class="-field-after -link-wrap">'.$html.'</code>';
+	}
+
+	public static function fieldAfterNewPostType( $post_type = 'page', $icon = 'welcome-add-page' )
+	{
+		return self::fieldAfterIcon(
+			add_query_arg( array( 'post_type' => $post_type ), admin_url( 'post-new.php' ) ),
+			_x( 'Add New Post Type', 'Settings', GNETWORK_TEXTDOMAIN ), $icon );
 	}
 
 	// using caps instead of roles

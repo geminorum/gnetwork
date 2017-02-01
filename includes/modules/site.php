@@ -72,7 +72,7 @@ class Site extends ModuleCore
 					'description' => _x( 'Redirects signups into this page, if registration <strong>disabled</strong>', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '0',
 					'exclude'     => $exclude,
-					'after'       => Settings::fieldAfterIcon( Settings::getNewPostTypeLink( 'page' ) ),
+					'after'       => Settings::fieldAfterNewPostType( 'page' ),
 				),
 			);
 		}

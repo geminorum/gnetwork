@@ -137,7 +137,7 @@ class Blog extends ModuleCore
 					'description' => _x( 'Set Any Page to Be Used as Copyright Page on Html Head', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '0',
 					'exclude'     => $exclude,
-					'after'       => Settings::fieldAfterIcon( Settings::getNewPostTypeLink( 'page' ) ),
+					'after'       => Settings::fieldAfterNewPostType( 'page' ),
 				),
 				array(
 					'field'       => 'page_404',
@@ -146,7 +146,7 @@ class Blog extends ModuleCore
 					'description' => _x( 'Set Any Page to Be Used as the 404 Error Page', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '0',
 					'exclude'     => $exclude,
-					'after'       => Settings::fieldAfterIcon( Settings::getNewPostTypeLink( 'page' ) ),
+					'after'       => Settings::fieldAfterNewPostType( 'page' ),
 				),
 				array(
 					'field'       => 'meta_revised',
