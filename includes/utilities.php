@@ -291,6 +291,16 @@ class Utilities extends Base
 		return self::enqueueScript( $asset, $dep, $version, $base, $path );
 	}
 
+	public static function enqueueTimeAgo()
+	{
+		$callback = array( 'gPersianDateTimeAgo', 'enqueue' );
+
+		if ( ! is_callable( $callback ) )
+			return FALSE;
+
+		return call_user_func( $callback );
+	}
+
 	public static function getTinyMceStrings( $locale )
 	{
 		$strings = apply_filters( 'gnetwork_tinymce_strings', array() );

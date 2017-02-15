@@ -444,7 +444,9 @@ class ShortCodes extends ModuleCore
 		$local = strtotime( $post->post_modified );
 
 		if ( 'timeago' == $args['title'] )
-			$title = Utilities::humanTimeDiffRound( $local, $args['round'] );
+			$title = Utilities::enqueueTimeAgo()
+				? FALSE
+				: Utilities::humanTimeDiffRound( $local, $args['round'] );
 		else
 			$title = esc_attr( $args['title'] );
 
