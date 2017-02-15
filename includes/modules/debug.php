@@ -399,11 +399,15 @@ class Debug extends ModuleCore
 	public static function getPHPMissingExtensions()
 	{
 		$extensions = array(
-			'intl'     => 'Internationalization extension',
-			'zip'      => 'zip',
-			'json'     => 'json',
-			'mbstring' => 'mbstring',
-			'libxml'   => 'libxml',
+			'intl'      => 'Internationalization',
+			'zip'       => 'Zip',
+			'json'      => 'JSON',
+			'xml'       => 'XML',
+			'libxml'    => 'libXML',
+			'openssl'   => 'OpenSSL',
+			'PDO'       => 'PDO',
+			'mbstring'  => 'Mbstring',
+			'tokenizer' => 'Tokenizer',
 		);
 
 		foreach ( $extensions as $ext => $why )
