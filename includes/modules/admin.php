@@ -16,8 +16,10 @@ class Admin extends ModuleCore
 		if ( ! WordPress::mustRegisterUI( FALSE ) )
 			return;
 
-		add_action( 'admin_menu', array( $this, 'admin_menu' ), 12 );
-		add_action( 'admin_menu', array( $this, 'admin_menu_late' ), 999 );
+		if ( is_blog_admin() ) {
+			add_action( 'admin_menu', array( $this, 'admin_menu' ), 12 );
+			add_action( 'admin_menu', array( $this, 'admin_menu_late' ), 999 );
+		}
 
 		add_action( 'admin_print_styles', array( $this, 'admin_print_styles' ) );
 		add_filter( 'admin_footer_text', array( $this, 'admin_footer_text' ), 9999 );

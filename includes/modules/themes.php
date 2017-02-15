@@ -117,6 +117,7 @@ class Themes extends ModuleCore
 			return;
 
 		// v4.8-alpha-39357-src
+		// 2/7/2017, 5:51:48 AM
 		$jquery_ver  = '1.12.4';
 		$migrate_ver = '1.4.1';
 

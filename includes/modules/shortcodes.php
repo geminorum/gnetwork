@@ -302,14 +302,16 @@ class ShortCodes extends ModuleCore
 			$post_status = array( 'publish' );
 
 		$query_args = array(
-			'tax_query'        => $tax_query,
-			'posts_per_page'   => $args['limit'],
-			'orderby'          => $args['orderby'],
-			'order'            => $args['order'],
-			'post_type'        => $args['type'],
-			'post_status'      => $post_status,
-			'suppress_filters' => TRUE,
-			'no_found_rows'    => TRUE,
+			'tax_query'              => $tax_query,
+			'posts_per_page'         => $args['limit'],
+			'orderby'                => $args['orderby'],
+			'order'                  => $args['order'],
+			'post_type'              => $args['type'],
+			'post_status'            => $post_status,
+			'suppress_filters'       => TRUE,
+			'no_found_rows'          => TRUE, // counts posts, remove if pagination required
+			'update_post_term_cache' => FALSE, // grabs terms
+			'update_post_meta_cache' => FALSE, // grabs post meta
 		);
 
 		$query = new \WP_Query;

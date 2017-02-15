@@ -531,7 +531,7 @@ class ModuleCore extends Base
 						$options[$setting] = trim( stripslashes( $_POST[$options_key][$setting] ) );
 
 					// skip defaults
-					if ( $options[$setting] === $default )
+					if ( $options[$setting] == $default )
 						unset( $options[$setting] );
 				}
 			}
@@ -687,7 +687,7 @@ class ModuleCore extends Base
 		return sprintf( $prefix, $this->key, $this->counter );
 	}
 
-	public function shortcodes( $shortcodes = array() )
+	protected function shortcodes( $shortcodes = array() )
 	{
 		foreach ( $shortcodes as $shortcode => $method ) {
 			remove_shortcode( $shortcode );
