@@ -153,23 +153,7 @@ class Media extends ModuleCore
 		$query = new \WP_Query;
 		$posts = $query->query( $args );
 
-		$pagination = array(
-			'total'    => intval( $query->found_posts ),
-			'pages'    => intval( $query->max_num_pages ),
-			'limit'    => $limit,
-			'paged'    => $paged,
-			'all'      => FALSE,
-			'next'     => FALSE,
-			'previous' => FALSE,
-		);
-
-		if ( $pagination['pages'] > 1 ) {
-			if ( $paged != 1 )
-				$pagination['previous'] = $paged - 1;
-
-			if ( $paged != $pagination['pages'] )
-				$pagination['next'] = $paged + 1;
-		}
+		$pagination = HTML::tablePagination( $query->found_posts, $query->max_num_pages, $limit, $paged );
 
 		return array( $posts, $pagination );
 	}

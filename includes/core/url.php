@@ -96,4 +96,10 @@ class URL extends Base
 		$parts = explode( '.', $path );
 		return strtolower( $parts[0] );
 	}
+
+	// @SOURCE: `wp_make_link_relative()`
+	public static function relative( $url )
+	{
+		return preg_replace( '|^(https?:)?//[^/]+(/?.*)|i', '$2', $url );
+	}
 }

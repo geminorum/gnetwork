@@ -178,7 +178,7 @@ class Debug extends ModuleCore
 			HTML::tableSide( $info[0] );
 
 		} else {
-			echo '<p class="description">'._x( 'No Instance of gPlugin found.', 'Modules: Debug', GNETWORK_TEXTDOMAIN ).'</p>';
+			HTML::desc( _x( 'No Instance of gPlugin found.', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
 		}
 	}
 
@@ -365,7 +365,7 @@ class Debug extends ModuleCore
 
 	public static function summaryPHP()
 	{
-		echo '<p class="description">'.sprintf( _x( 'Current PHP version: <code>%s</code>', 'Modules: Debug', GNETWORK_TEXTDOMAIN ), phpversion() ).'</p>';
+		HTML::desc( sprintf( _x( 'Current PHP version: <code>%s</code>', 'Modules: Debug', GNETWORK_TEXTDOMAIN ), phpversion() ) );
 
 		HTML::listCode( self::getPHPExtensions(),
 			'<code title="%2$s">%1$s</code>',

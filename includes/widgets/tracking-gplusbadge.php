@@ -43,7 +43,10 @@ class Tracking_GPlusBadge_Widget extends \WP_Widget
 			'for' => $this->get_field_id( 'override' ),
 		), _x( 'Override Publisher ID:', 'Widgets Module', GNETWORK_TEXTDOMAIN ).' '.$html );
 
-		echo '<br /><span class="description">'._x( 'Leave empty to use site Publisher ID', 'Widgets Module', GNETWORK_TEXTDOMAIN ).'</span>';
+		echo '<br />';
+
+		HTML::desc( _x( 'Leave empty to use site Publisher ID', 'Widgets Module', GNETWORK_TEXTDOMAIN ), FALSE );
+
 		echo '</p>';
 	}
 

@@ -179,7 +179,7 @@ class File extends Base
 
 		foreach ( $quant as $unit => $mag )
 			if ( doubleval( $bytes ) >= $mag )
-				return number_format( $bytes / $mag, $decimals ).'&nbsp;'.$unit;
+				return number_format( $bytes / $mag, $decimals ).' '.$unit;
 
 		return FALSE;
 	}

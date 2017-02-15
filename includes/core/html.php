@@ -7,7 +7,17 @@ class HTML extends Base
 
 	public static function link( $html, $link = '#', $target_blank = FALSE )
 	{
-		return self::tag( 'a', array( 'href' => $link, 'target' => ( $target_blank ? '_blank' : FALSE ) ), $html );
+		return self::tag( 'a', array( 'href' => $link, 'class' => '-link', 'target' => ( $target_blank ? '_blank' : FALSE ) ), $html );
+	}
+
+	public static function mailto( $email, $title = NULL )
+	{
+		return '<a class="-mailto" href="mailto:'.trim( $email ).'">'.( $title ? $title : trim( $email ) ).'</a>';
+	}
+
+	public static function scroll( $html, $to )
+	{
+		return '<a class="scroll" href="#'.$to.'">'.$html.'</a>';
 	}
 
 	public static function h2( $html, $class = FALSE )
@@ -18,6 +28,11 @@ class HTML extends Base
 	public static function h3( $html, $class = FALSE )
 	{
 		echo self::tag( 'h3', array( 'class' => $class ), $html );
+	}
+
+	public static function desc( $html, $block = TRUE, $class = '' )
+	{
+		if ( $html ) echo $block ? '<p class="description '.$class.'">'.$html.'</p>' : '<span class="description '.$class.'">'.$html.'</span>';
 	}
 
 	public static function inputHidden( $name, $value = '' )
@@ -303,19 +318,21 @@ class HTML extends Base
 				if ( is_array( $val ) || is_object( $val ) ) {
 					echo '<td class="-val -table">';
 					self::tableSide( $val, $type );
+				} else if ( is_null( $val ) ){
+					echo '<td class="-val -not-table"><code>NULL</code>';
 				} else if ( is_bool( $val ) ){
 					echo '<td class="-val -not-table"><code>'.( $val ? 'TRUE' : 'FALSE' ).'</code>';
 				} else if ( ! empty( $val ) ){
 					echo '<td class="-val -not-table"><code>'.$val.'</code>';
 				} else {
-					echo '<td class="-val -not-table"><small class="-empty">empty</small>';
+					echo '<td class="-val -not-table"><small class="-empty">EMPTY</small>';
 				}
 
 				echo '</td></tr>';
 			}
 
 		} else {
-			echo '<tr class="-row"><td class="-val -not-table"><small class="-empty">empty</small></td></tr>';
+			echo '<tr class="-row"><td class="-val -not-table"><small class="-empty">EMPTY</small></td></tr>';
 		}
 
 		echo '</table>';
@@ -606,10 +623,10 @@ class HTML extends Base
 
 	public static function tableActions( $actions )
 	{
-		$count = count( $actions );
-
-		if ( ! $actions )
+		if ( ! $actions || ! is_array( $actions ) )
 			return;
+
+		$count = count( $actions );
 
 		$i = 0;
 
@@ -631,6 +648,7 @@ class HTML extends Base
 			'pages'    => 0,
 			'limit'    => self::limit(),
 			'paged'    => self::paged(),
+			'order'    => self::order( 'asc' ),
 			'all'      => FALSE,
 			'next'     => FALSE,
 			'previous' => FALSE,
@@ -640,6 +658,7 @@ class HTML extends Base
 			'next'     => self::getDashicon( 'controls-forward' ), // &rsaquo;
 			'previous' => self::getDashicon( 'controls-back' ), // &lsaquo;
 			'refresh'  => self::getDashicon( 'controls-repeat' ),
+			'order'    => self::getDashicon( 'sort' ),
 		);
 
 		echo '<div class="base-table-navigation">';
@@ -679,11 +698,42 @@ class HTML extends Base
 				Number::format( $args['pages'] ),
 			) );
 
+			echo self::tag( 'a', array(
+				'href'  => add_query_arg( 'order', ( 'asc' == $args['order'] ? 'desc' : 'asc' ) ),
+				'class' => '-order -link button',
+			), $icons['order'] );
+
 		echo '</div>';
+	}
+
+	public static function tablePagination( $found, $max, $limit, $paged, $all = FALSE )
+	{
+		$pagination = array(
+			'total'    => intval( $found ),
+			'pages'    => intval( $max ),
+			'limit'    => intval( $limit ),
+			'paged'    => intval( $paged ),
+			'all'      => $all,
+			'next'     => FALSE,
+			'previous' => FALSE,
+		);
+
+		if ( $pagination['pages'] > 1 ) {
+			if ( $pagination['paged'] != 1 )
+				$pagination['previous'] = $pagination['paged'] - 1;
+
+			if ( $pagination['paged'] != $pagination['pages'] )
+				$pagination['next'] = $pagination['paged'] + 1;
+		}
+
+		return $pagination;
 	}
 
 	public static function menu( $menu, $callback = FALSE, $list = 'ul', $children = 'children' )
 	{
+		if ( ! $menu )
+			return;
+
 		echo '<'.$list.'>';
 
 		foreach ( $menu as $item ) {

@@ -239,8 +239,7 @@ class Settings extends Base
 	{
 		echo HTML::tag( $tag, $title );
 
-		if ( $description )
-			echo '<p class="description">'.$description.'</p>';
+		HTML::desc( $description );
 	}
 
 	public static function fieldAfterText( $text, $class = '-text-wrap' )

@@ -219,4 +219,18 @@ class Arraay extends Base
 
 		return $arr;
 	}
+
+	// @REF: http://stackoverflow.com/a/11320508/4864081
+	public static function find( $needle, &$haystack, $default = NULL )
+	{
+		$current = array_shift( $needle );
+
+		if ( ! isset( $haystack[$current] ) )
+			return $default;
+
+		if ( ! is_array( $haystack[$current] ) )
+			return $haystack[$current];
+
+		return self::find( $needle, $haystack[$current], $default );
+	}
 }

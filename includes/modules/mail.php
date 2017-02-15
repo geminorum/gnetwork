@@ -419,21 +419,18 @@ class Mail extends ModuleCore
 			echo '<tr><th scope="row"><label for="gnetwork_mail_testmail_to">';
 				_ex( 'To', 'Modules: Mail', GNETWORK_TEXTDOMAIN );
 			echo '</label></th><td><input type="text" id="gnetwork_mail_testmail_to" name="gnetwork_mail_testmail_to" value="'.$to.'" class="regular-text code" />';
-			echo '<p class="description">';
-				// _ex( 'Type an email address here and then click Send Test to generate a test email.', 'Modules: Mail', GNETWORK_TEXTDOMAIN );
-			echo '</p></td></tr>';
+				// HTML::desc( _x( 'Type an email address here and then click Send Test to generate a test email.', 'Modules: Mail', GNETWORK_TEXTDOMAIN ) );
+			echo '</td></tr>';
 			echo '<tr><th scope="row"><label for="gnetwork_mail_testmail_subject">';
 				_ex( 'Subject', 'Modules: Mail', GNETWORK_TEXTDOMAIN );
 			echo '</label></th><td><input type="text" id="gnetwork_mail_testmail_subject" name="gnetwork_mail_testmail_subject" value="'.$subject.'" class="regular-text code" />';
-			echo '<p class="description">';
-				// _ex( 'Type an email address here and then click Send Test to generate a test email.', 'Modules: Mail', GNETWORK_TEXTDOMAIN );
-			echo '</p></td></tr>';
+				// HTML::desc( _x( 'Type an email address here and then click Send Test to generate a test email.', 'Modules: Mail', GNETWORK_TEXTDOMAIN ) );
+			echo '</td></tr>';
 			echo '<tr><th scope="row"><label for="gnetwork_mail_testmail_message">';
 				_ex( 'Message:', 'Modules: Mail', GNETWORK_TEXTDOMAIN );
 			echo '</label></th><td><textarea id="gnetwork_mail_testmail_message" name="gnetwork_mail_testmail_message" cols="45" rows="5" class="large-text" >'.$message.'</textarea>';
-			echo '<p class="description">';
-				// _ex( 'Type an email address here and then click Send Test to generate a test email.', 'Modules: Mail', GNETWORK_TEXTDOMAIN );
-			echo '</p></td></tr>';
+				// HTML::desc( _x( 'Type an email address here and then click Send Test to generate a test email.', 'Modules: Mail', GNETWORK_TEXTDOMAIN ) );
+			echo '</td></tr>';
 		echo '</tbody></table>';
 	}
 
@@ -524,22 +521,7 @@ class Mail extends ModuleCore
 			$i++;
 		}
 
-		$pagination = array(
-			'total'    => count( $files ),
-			'pages'    => $pages,
-			'limit'    => $limit,
-			'paged'    => $paged,
-			'next'     => FALSE,
-			'previous' => FALSE,
-		);
-
-		if ( $pagination['pages'] > 1 ) {
-			if ( $paged != 1 )
-				$pagination['previous'] = $paged - 1;
-
-			if ( $paged != $pagination['pages'] )
-				$pagination['next'] = $paged + 1;
-		}
+		$pagination = HTML::tablePagination( count( $files ), $pages, $limit, $paged );
 
 		return array( $logs, $pagination );
 	}

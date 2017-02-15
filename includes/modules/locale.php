@@ -45,7 +45,7 @@ class Locale extends ModuleCore
 	{
 		$this->settings_form_before( $uri, $sub, 'bulk', FALSE );
 
-			Settings::fieldSection( _x( 'Loaded MO Files', 'Modules: Locale', GNETWORK_TEXTDOMAIN ) );
+			HTML::h3( _x( 'Loaded MO Files', 'Modules: Locale', GNETWORK_TEXTDOMAIN ) );
 			HTML::tableSide( $this->loaded );
 
 		$this->settings_form_after( $uri, $sub );

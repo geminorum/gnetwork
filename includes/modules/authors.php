@@ -138,7 +138,7 @@ class Authors extends ModuleCore
 	{
 		$this->settings_form_before( $uri, $sub, 'bulk', FALSE );
 
-			Settings::fieldSection( _x( 'Current User Roles and Capabilities', 'Modules: Authors', GNETWORK_TEXTDOMAIN ) );
+			HTML::h3( _x( 'Current User Roles and Capabilities', 'Modules: Authors', GNETWORK_TEXTDOMAIN ) );
 			HTML::tableSide( get_editable_roles() );
 
 		$this->settings_form_after( $uri, $sub );
