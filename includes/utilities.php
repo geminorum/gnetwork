@@ -160,6 +160,22 @@ class Utilities extends Base
 		return $date_format.$joiner.$time_format;
 	}
 
+	public static function getPostTitle( $post, $fallback = NULL )
+	{
+		$title = apply_filters( 'the_title', $post->post_title, $post->ID );
+
+		if ( ! empty( $title ) )
+			return $title;
+
+		if ( FALSE === $fallback )
+			return '';
+
+		if ( is_null( $fallback ) )
+			return _x( '(untitled)', 'Utilities: Post Title', GNETWORK_TEXTDOMAIN );
+
+		return $fallback;
+	}
+
 	// @SEE: https://github.com/bobthecow/mustache.php/wiki
 	public static function getMustache()
 	{

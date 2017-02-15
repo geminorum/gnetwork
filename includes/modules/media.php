@@ -206,13 +206,8 @@ class Media extends ModuleCore
 					'admin' => admin_url( 'post.php' ),
 				),
 				'callback' => function( $value, $row, $column, $index ){
-
-					$title = apply_filters( 'the_title', $row->post_title, $row->ID );
-
-					if ( empty( $title ) )
-						$title = '&mdash;';
-
-					return $title.get_the_term_list( $row->ID, 'post_tag', '<div><small>', ', ', '</small></div>' );
+					return Utilities::getPostTitle( $row )
+						.get_the_term_list( $row->ID, 'post_tag', '<div><small>', ', ', '</small></div>' );
 				},
 				'actions' => function( $value, $row, $column, $index ){
 					return array(
