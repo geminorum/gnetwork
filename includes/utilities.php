@@ -38,7 +38,7 @@ class Utilities extends Base
 		$pattern = '/\[([^\]]+)\]/';
 
 		return preg_replace_callback( $pattern, function( $matches ) {
-			return '<b><span title="'.esc_attr( human_time_diff( strtotime( $matches[1] ) ) ).'">['.$matches[1].']</span></b>';
+			return '<b><span title="'.esc_attr( self::humanTimeAgo( strtotime( $matches[1] ) ) ).'">['.$matches[1].']</span></b>';
 		}, $string, $limit );
 	}
 
@@ -52,18 +52,31 @@ class Utilities extends Base
 		}, $string, $limit );
 	}
 
+	public static function htmlHumanTime( $timestamp )
+	{
+		$time = strtotime( $timestamp );
+		return '<span class="-time" title="'
+			.self::humanTimeAgo( $time, current_time( 'timestamp', FALSE ) ).'">'
+			.self::humanTimeDiffRound( $time )
+		.'</span>';
+	}
+
+	public static function humanTimeAgo( $from, $to = '' )
+	{
+		return sprintf( _x( '%s ago', 'Utilities: Human Time Ago', GNETWORK_TEXTDOMAIN ), human_time_diff( $from, $to ) );
+	}
+
 	public static function humanTimeDiffRound( $local, $round = DAY_IN_SECONDS, $format = NULL, $now = NULL )
 	{
-		$ago = _x( '%s ago', 'Utilities: Human Time Diff Round', GNETWORK_TEXTDOMAIN );
 		$now = is_null( $now ) ? current_time( 'timestamp', FALSE ) : '';
 
 		if ( FALSE === $round )
-			return sprintf( $ago, human_time_diff( $local, $now ) );
+			return self::humanTimeAgo( $local, $now );
 
 		$diff = $now - $local;
 
 		if ( $diff > 0 && $diff < $round )
-			return sprintf( $ago, human_time_diff( $local, $now ) );
+			return self::humanTimeAgo( $local, $now );
 
 		if ( is_null( $format ) )
 			$format = _x( 'Y/m/d', 'Utilities: Human Time Diff Round', GNETWORK_TEXTDOMAIN );

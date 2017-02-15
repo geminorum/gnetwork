@@ -571,15 +571,10 @@ class Mail extends ModuleCore
 			'_cb' => 'file',
 
 			'info' => array(
-				'title'    => _x( 'When, Whom', 'Modules: Mail: Email Logs Table Column', GNETWORK_TEXTDOMAIN ),
+				'title'    => _x( 'Whom, When', 'Modules: Mail: Email Logs Table Column', GNETWORK_TEXTDOMAIN ),
 				'class'    => '-column-info',
 				'callback' => function( $value, $row, $column, $index ){
 					$info = '';
-
-					if ( isset( $row['timestamp'] ) )
-						$info .= '<code title="'
-							.human_time_diff( strtotime( $row['timestamp'] ) )
-							.'">'.$row['timestamp'].'</code>';
 
 					if ( isset( $row['to'] ) ) {
 						if ( is_array( $row['to'] ) ) {
@@ -592,6 +587,9 @@ class Mail extends ModuleCore
 							$info .= ' <a href="mailto:'.$row['to'].'">'.$row['to'].'</a>';
 						}
 					}
+
+					if ( isset( $row['timestamp'] ) )
+						$info .= '&ndash; '.Utilities::htmlHumanTime( $row['timestamp'] );
 
 					if ( isset( $row['headers'] ) ) {
 						$info .= '<hr />';
