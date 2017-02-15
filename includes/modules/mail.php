@@ -560,14 +560,17 @@ class Mail extends ModuleCore
 					$info = '';
 
 					if ( isset( $row['to'] ) ) {
+
 						if ( is_array( $row['to'] ) ) {
 							foreach ( $row['to'] as $to )
-								$info .= ' <a href="mailto:'.$to.'">'.$to.'</a>';
+								$info .= HTML::mailto( $to ).' ';
 
-						// FIXME: check for comma seperated list
+						} else if ( Text::has( $row['to'], ',' ) ) {
+							foreach ( explode( ',', $row['to'] ) as $to )
+								$info .= HTML::mailto( $to ).' ';
 
 						} else {
-							$info .= ' <a href="mailto:'.$row['to'].'">'.$row['to'].'</a>';
+							$info .= HTML::mailto( $row['to'] ).' ';
 						}
 					}
 
