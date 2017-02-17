@@ -9,18 +9,22 @@ class Site extends ModuleCore
 
 	protected function setup_actions()
 	{
-		if ( ! is_admin() ) {
+		if ( ! is_multisite() )
+			return FALSE;
+
+		if ( GNETWORK_LARGE_NETWORK_IS )
+			$this->filter( 'wp_is_large_network', 3, 10 );
+
+		$this->action( 'wpmu_new_blog', 6, 12 );
+
+		if ( is_admin() ) {
+
+			$this->action( 'admin_menu' );
+
+		} else {
 
 			if ( $this->options['page_signup'] )
 				$this->action( 'before_signup_header', 0, 1 );
-		}
-
-		if ( is_multisite() ) {
-
-			$this->action( 'wpmu_new_blog', 6, 12 );
-
-			if ( GNETWORK_LARGE_NETWORK_IS )
-				$this->filter( 'wp_is_large_network', 3, 10 );
 		}
 	}
 
@@ -37,6 +41,9 @@ class Site extends ModuleCore
 		return array(
 			'admin_locale'      => 'en_US',
 			'page_signup'       => '0',
+			'denied_message'    => '',
+			'denied_extra'      => '',
+			'list_sites'        => '1',
 			'lookup_ip_service' => 'http://freegeoip.net/?q=%s',
 		);
 	}
@@ -75,6 +82,31 @@ class Site extends ModuleCore
 					'after'       => Settings::fieldAfterNewPostType( 'page' ),
 				),
 			);
+
+			$settings['_denied'] = array(
+				array(
+					'field'       => 'denied_message',
+					'type'        => 'textarea-quicktags',
+					'title'       => _x( 'Denied Message', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Displays when a user tries to view a site\'s dashboard they do not have access to.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+					'default'     => _x( 'You attempted to access the &#8220;%1$s&#8221; dashboard, but you do not currently have privileges on this site. If you believe you should be able to access the &#8220;%1$s&#8221; dashboard, please contact your network administrator.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+					'field_class' => array( 'large-text', 'code-text' ),
+				),
+				array(
+					'field'       => 'denied_extra',
+					'type'        => 'textarea-quicktags',
+					'title'       => _x( 'Extra Message', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Displays before the list of sites.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+					'default'     => _x( 'If you reached this screen by accident and meant to visit one of your own sites, here are some shortcuts to help you find your way.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+					'field_class' => array( 'large-text', 'code-text' ),
+				),
+				array(
+					'field'       => 'list_sites',
+					'title'       => _x( 'List of Sites', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Displays current user list of sites after access denied message.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+					'default'     => '1',
+				),
+			);
 		}
 
 		$settings['_misc'] = array(
@@ -90,6 +122,64 @@ class Site extends ModuleCore
 		);
 
 		return $settings;
+	}
+
+	public function admin_menu()
+	{
+		remove_action( 'admin_page_access_denied', '_access_denied_splash', 99 );
+		$this->action( 'admin_page_access_denied' );
+	}
+
+	// @SOURCE: `_access_denied_splash()`
+	public function admin_page_access_denied()
+	{
+		if ( ! is_user_logged_in() || is_network_admin() )
+			return;
+
+		$blogs = get_blogs_of_user( get_current_user_id() );
+
+		if ( wp_list_filter( $blogs, array( 'userblog_id' => get_current_blog_id() ) ) )
+			return;
+
+		$output = '';
+
+		if ( $this->options['denied_message'] )
+			$output .= wpautop( sprintf( $this->options['denied_message'], get_bloginfo( 'name' ) ) );
+
+		if ( empty( $blogs ) )
+			wp_die( $output, 403 );
+
+		if ( $this->options['denied_extra'] )
+			$output .= wpautop( $this->options['denied_extra'] );
+
+		if ( $this->options['list_sites'] )
+			$output .= self::tableUserSites( $blogs );
+
+		wp_die( $output, 403 );
+	}
+
+	// FIXME: customize the list
+	public static function tableUserSites( $blogs, $title = NULL )
+	{
+		$output = '';
+
+		if ( is_null( $title ) )
+			$output .= '<h3>'._x( 'Your Sites', 'Modules: Site:‌ User Sites', GNETWORK_TEXTDOMAIN ).'</h3>';
+
+		else if ( $title )
+			$output .= $title;
+
+		$output .= '<table>';
+
+		foreach ( $blogs as $blog ) {
+			$output .= '<tr><td>'.$blog->blogname.'</td><td>';
+			$output .= HTML::link( _x( 'Visit Dashboard', 'Modules: Site:‌ User Sites', GNETWORK_TEXTDOMAIN ), get_admin_url( $blog->userblog_id ) );
+			$output .= ' | ';
+			$output .= HTML::link( _x( 'View Site', 'Modules: Site:‌ User Sites', GNETWORK_TEXTDOMAIN ), $blog->siteurl );
+			$output .= '</td></tr>';
+		}
+
+		return $output.'</table>';
 	}
 
 	public function before_signup_header()
