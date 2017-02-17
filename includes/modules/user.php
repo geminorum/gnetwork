@@ -63,6 +63,11 @@ class User extends ModuleCore
 					'description' => _x( 'User admin language switcher', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
 					'after'       => Settings::fieldAfterIcon( 'https://core.trac.wordpress.org/ticket/29783' ),
 				),
+				array(
+					'field'       => 'dashboard_sites',
+					'title'       => _x( 'Dashboard Sites', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Displays current user list of sites on the user dashboard.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
+				),
 			),
 		);
 	}

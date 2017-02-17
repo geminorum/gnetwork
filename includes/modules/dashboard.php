@@ -53,6 +53,13 @@ class Dashboard extends ModuleCore
 
 		remove_meta_box( 'dashboard_primary', $screen, 'side' );
 
+		if ( is_multisite() && is_user_admin() && gNetwork()->option( 'dashboard_sites', 'user' ) )
+			wp_add_dashboard_widget(
+				'gnetwork_dashboard_user_sites',
+				_x( 'Your Sites', 'Modules: Dashboard: Widget Title', GNETWORK_TEXTDOMAIN ),
+				array( $this, 'widget_user_sites' )
+			);
+
 		if ( has_filter( $this->hook( 'external_feeds' ) ) ) {
 			wp_add_dashboard_widget(
 				'gnetwork_dashboard_external_feed',
@@ -94,5 +101,19 @@ class Dashboard extends ModuleCore
 		}
 
 		wp_die();
+	}
+
+	public function widget_user_sites()
+	{
+		$blogs = get_blogs_of_user( get_current_user_id() );
+
+		echo '<div class="gnetwork-admin-wrap-widget -user-sites">';
+
+			if ( empty( $blogs ) )
+				HTML::desc( '<code>'.__( 'N/A', GNETWORK_TEXTDOMAIN ).'</code>' );
+			else
+				echo Site::tableUserSites( $blogs, FALSE );
+
+		echo '</div>';
 	}
 }
