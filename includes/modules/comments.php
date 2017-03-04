@@ -284,7 +284,7 @@ class Comments extends ModuleCore
 			array( 'comment_type' => $comment_type ),
 			array( 'comment_ID' => $comment_old->comment_ID ) ) )
 				return $wp_error ? new WP_Error( 'db_update_error',
-					__( 'Could not update comment status', 'Modules: Comments: DB Update Error', GNETWORK_TEXTDOMAIN ),
+					_x( 'Could not update comment status', 'Modules: Comments: DB Update Error', GNETWORK_TEXTDOMAIN ),
 					$wpdb->last_error ) : FALSE;
 
 		clean_comment_cache( $comment_old->comment_ID );
