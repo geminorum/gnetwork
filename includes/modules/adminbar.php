@@ -371,7 +371,10 @@ class AdminBar extends ModuleCore
 
 	public function wp_admin_bar_shortlink_menu( $wp_admin_bar )
 	{
-		if ( is_admin() || ! is_singular() )
+		if ( is_admin() || ! is_singular() || is_front_page() )
+			return;
+
+		if ( function_exists( 'is_buddypress' ) && is_buddypress() )
 			return;
 
 		if ( ! $short = wp_get_shortlink( 0, 'query' ) )
