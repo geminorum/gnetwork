@@ -445,22 +445,17 @@ class ModuleCore extends Base
 		if ( FALSE !== $wrap )
 			echo '<p class="submit '.$this->base.'-wrap-buttons '.$wrap.'">';
 
-		foreach ( $this->buttons as $action => $button ) {
-			echo get_submit_button( $button['value'], $button['type'], $action, FALSE, $button['atts'] );
-			echo '&nbsp;&nbsp;';
-		}
+		foreach ( $this->buttons as $action => $button )
+			Settings::submitButton( $action, $button['value'], $button['type'], $button['atts'] );
 
 		if ( FALSE !== $wrap )
 			echo '</p>';
 	}
 
+	// FIXME: DEPRICATED
 	protected function submit_button( $name = '', $primary = FALSE, $text = NULL, $atts = array() )
 	{
-		if ( $primary )
-			$atts['default'] = 'default';
-
-		echo get_submit_button( $text, ( $primary ? 'primary' : 'secondary' ), $name, FALSE, $atts );
-		echo '&nbsp;&nbsp;';
+		Settings::submitButton( $name, $text, $primary, $atts );
 	}
 
 	protected function settings_fields( $sub, $action = 'update', $context = 'settings' )

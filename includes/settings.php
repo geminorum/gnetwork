@@ -190,6 +190,34 @@ class Settings extends Base
 		);
 	}
 
+	public static function submitButton( $name = 'submit', $text = NULL, $primary = FALSE, $atts = array() )
+	{
+		$classes = array( '-button', 'button' );
+
+		if ( TRUE === $atts )
+			$atts = self::getButtonConfirm();
+
+		if ( 'primary' == $primary )
+			$primary = TRUE;
+
+		if ( TRUE === $primary )
+			$classes[] = 'button-primary';
+
+		else if ( $primary )
+			$classes[] = 'button-'.$primary;
+
+		echo HTML::tag( 'input', array_merge( $atts, array(
+			'type'    => 'submit',
+			'name'    => $name,
+			'id'      => $name,
+			'value'   => is_null( $text ) ? _x( 'Save Changes', 'Settings: Button', GNETWORK_TEXTDOMAIN ) : $text,
+			'class'   => $classes,
+			'default' => TRUE === $primary,
+		) ) );
+
+		echo '&nbsp;&nbsp;';
+	}
+
 	// FIXME: DEPRECATED
 	public static function getNewPostTypeLink( $post_type = 'page', $text = FALSE )
 	{
@@ -934,11 +962,10 @@ class Settings extends Base
 			break;
 			case 'button' :
 
-				echo get_submit_button(
+				self::submitButton(
+					$args['field'],
 					$value,
 					( empty( $args['field_class'] ) ? 'secondary' : $args['field_class'] ),
-					$args['field'], // $id,
-					FALSE,
 					$args['values']
 				);
 
