@@ -5,20 +5,14 @@ defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 echo '<form method="post" action="">';
 	echo '<table class="form-table">';
 
-	if ( class_exists( __NAMESPACE__.'\\Debug' )
-		&& current_user_can( 'manage_options' ) ) {
-
 		echo '<tr class="ltr"><th scope="row">';
 			_ex( 'Your IP Summary', 'Modules: Debug: Admin Overview', GNETWORK_TEXTDOMAIN );
 		echo '</th><td>';
 			Debug::summaryIPs();
 		echo '</td></tr>';
 
-		echo '<tr class="ltr"><th scope="row">';
-			_ex( 'Current Time', 'Modules: Debug: Admin Overview', GNETWORK_TEXTDOMAIN );
-		echo '</th><td>';
-			Debug::currentTime();
-		echo '</td></tr>';
+	if ( class_exists( __NAMESPACE__.'\\Debug' )
+		&& current_user_can( 'manage_options' ) ) {
 
 		echo '<tr class="ltr"><th scope="row">';
 			_ex( 'Your PHP Summary', 'Modules: Debug: Admin Overview', GNETWORK_TEXTDOMAIN );
@@ -30,6 +24,12 @@ echo '<form method="post" action="">';
 			_ex( 'Core Versions', 'Modules: Debug: Admin Overview', GNETWORK_TEXTDOMAIN );
 		echo '</th><td>';
 			Debug::versions();
+		echo '</td></tr>';
+
+		echo '<tr class="ltr"><th scope="row">';
+			_ex( 'Current Time', 'Modules: Debug: Admin Overview', GNETWORK_TEXTDOMAIN );
+		echo '</th><td>';
+			Debug::currentTime();
 		echo '</td></tr>';
 
 		echo '<tr class="ltr"><th scope="row">';
