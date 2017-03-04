@@ -109,6 +109,7 @@ class Cron extends ModuleCore
 					foreach ( $row as $action => $tasks ) {
 						foreach ( $tasks as $hash => $task ) {
 
+							// FIXME: move styles
 							$info .= '<div style="line-height:1.8">';
 
 							if ( function_exists( 'has_action' ) )

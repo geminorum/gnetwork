@@ -35,7 +35,7 @@
     "phelium/mysql-backup": "dev-master",
     "picqer/php-barcode-generator": "^0.2.1",
     "deviservi/nusoap": "^1.123",
-    "tinify/tinify": "^1.4",
+    "tinify/tinify": "^1.5",
     "ricardoper/twitteroauth": "2.*",
     "behat/transliterator": "^1.1"
   },

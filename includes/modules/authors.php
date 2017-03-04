@@ -82,7 +82,7 @@ class Authors extends ModuleCore
 				'default'   => WordPress::getSiteUserID(),
 			) );
 
-			echo '&nbsp;&mdash;&nbsp;'._x( 'on', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ).'&nbsp;&mdash; &nbsp;';
+			echo '&nbsp;&mdash;&nbsp;'._x( 'on', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ).'&nbsp;&mdash;&nbsp;';
 
 			$this->do_settings_field( array(
 				'type'      => 'select',
@@ -92,7 +92,7 @@ class Authors extends ModuleCore
 				'values'    => WordPress::getPostTypes(),
 			) );
 
-			echo '&nbsp;&mdash;&nbsp;'._x( 'do', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ).'&nbsp;&mdash; &nbsp;';
+			echo '&nbsp;&mdash;&nbsp;'._x( 'do', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ).'&nbsp;&mdash;&nbsp;';
 
 			Settings::submitButton( 'bulk_change_author', _x( 'Change', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ), FALSE, TRUE );
 

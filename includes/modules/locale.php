@@ -245,6 +245,14 @@ class Locale extends ModuleCore
 			// [Broken Link Checker](https://wordpress.org/plugins/broken-link-checker/)
 			'view-broken-links'     => 'page',
 			'link-checker-settings' => 'page',
+
+			// [TablePress](https://wordpress.org/plugins/tablepress/)
+			// 'tablepress'         => 'page',
+			'tablepress_add'     => 'page',
+			'tablepress_import'  => 'page',
+			'tablepress_export'  => 'page',
+			'tablepress_options' => 'page',
+			'tablepress_about'   => 'page',
 		) );
 
 		foreach ( $black_list as $val => $key )

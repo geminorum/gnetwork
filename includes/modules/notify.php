@@ -151,5 +151,6 @@ class Notify extends ModuleCore
 	public function blogname()
 	{
 		return wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
+		// return wp_specialchars_decode( get_bloginfo( 'name' ), ENT_QUOTES );
 	}
 }

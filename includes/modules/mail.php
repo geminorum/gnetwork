@@ -392,7 +392,6 @@ class Mail extends ModuleCore
 		return $mail;
 	}
 
-	// FIXME: SEE: `bp_send_email` filter
 	public function bp_send_email_success( $status, $email )
 	{
 		$mail = array(

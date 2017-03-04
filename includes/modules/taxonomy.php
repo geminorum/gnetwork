@@ -227,6 +227,7 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 		$settings = array(
 			'textarea_name' => 'description',
 			'textarea_rows' => 10,
+			'editor_class'  => 'i18n-multilingual', // qtranslate-x
 		);
 
 		?><tr class="form-field term-description-wrap">
@@ -244,6 +245,7 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 			'textarea_rows' => 7,
 			'teeny'         => TRUE,
 			'media_buttons' => FALSE,
+			'editor_class'  => 'i18n-multilingual', // qtranslate-x
 		);
 
 		?><div class="form-field term-description-wrap"><label for="html-tag-description"><?php _ex( 'Description', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN ); ?></label>

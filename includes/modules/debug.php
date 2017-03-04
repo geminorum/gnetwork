@@ -72,7 +72,6 @@ class Debug extends ModuleCore
 			add_action( $this->settings_hook( $sub ), array( $this, 'settings_form' ), 10, 2 );
 
 			$this->register_settings_buttons( $sub );
-			$this->register_settings_help( $sub );
 		}
 	}
 
@@ -164,7 +163,7 @@ class Debug extends ModuleCore
 
 		echo '<table class="base-table-code"><tbody>';
 		foreach ( $versions as $key => $val )
-			echo sprintf( '<tr><td class="-var">%1$s</td><td class="-val"><code>%2$s</code></td></tr>', $val, $$key );
+			echo sprintf( '<tr><td class="-var">%1$s</td><td class="-val"><code>%2$s</code></td></tr>', $val, ${$key} );
 		echo '</tbody></table>';
 	}
 
@@ -401,6 +400,7 @@ class Debug extends ModuleCore
 		$extensions = array(
 			'intl'      => 'Internationalization',
 			'zip'       => 'Zip',
+			'curl'      => 'cURL',
 			'json'      => 'JSON',
 			'xml'       => 'XML',
 			'libxml'    => 'libXML',

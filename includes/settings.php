@@ -1081,11 +1081,8 @@ class Settings extends Base
 		if ( $args['after'] )
 			echo '&nbsp;'.$args['after'];
 
-		if ( $args['description']
-			&& FALSE !== $args['values'] )
-				echo HTML::tag( 'p', array(
-					'class' => 'description',
-				), $args['description'] );
+		if ( FALSE !== $args['values'] )
+			HTML::desc( $args['description'] );
 
 		if ( $args['wrap'] )
 			echo '</td></tr>';

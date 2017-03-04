@@ -205,6 +205,7 @@ class AdminBar extends ModuleCore
 		) );
 
 		if ( defined( 'GNETWORK_WPLANG' )
+			&& is_blog_admin()
 			&& class_exists( __NAMESPACE__.'\\Locale' ) ) {
 
 			$wp_admin_bar->add_node( array(
