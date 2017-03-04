@@ -348,16 +348,17 @@ class Date extends Base
 		return date_i18n( $args['format_f_y'], $timestamp );
 	}
 
-	// FIXME: get i18n
-	// `date_i18n()` translates the numbers
 	public static function parts( $i18n = FALSE, $gmt = FALSE )
 	{
 		$now   = array();
 		$parts = array( 'year', 'month', 'day', 'hour', 'minute', 'second' );
 
-		// $time = $i18n ? date_i18n( 'Y-m-d H:i:s', current_time( 'timestamp', $gmt ) ) : current_time( 'mysql', $gmt );
+		if ( $i18n )
+			$time = apply_filters( 'string_format_i18n_back', date_i18n( 'Y-m-d H:i:s', FALSE, $gmt ) );
+		else
+			$time = current_time( 'mysql', $gmt );
 
-		foreach ( preg_split( '([^0-9])', current_time( 'mysql', $gmt ) ) as $offset => $part )
+		foreach ( preg_split( '([^0-9])', $time ) as $offset => $part )
 			$now[$parts[$offset]] = $part;
 
 		return $now;

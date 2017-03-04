@@ -216,6 +216,19 @@ class Text extends Base
 		return $text;
 	}
 
+	public static function firstSentence( $text )
+	{
+		// looks for three punctuation characters: . (period), ! (exclamation), or ? (question mark), followed by a space
+		$strings = preg_split( '/(\.|!|\?)\s/', strip_tags( $text ), 2, PREG_SPLIT_DELIM_CAPTURE );
+
+		// [0] is the first sentence and [1] is the punctuation character at the end
+		if ( ! empty( $strings[0] )
+			&& ! empty( $strings[1] ) )
+				$text = $strings[0] . $strings[1];
+
+		return $text;
+	}
+
 	/*
 		@REF: https://gist.github.com/geminorum/fe2a9ba25db5cf2e5ad6718423d00f8a
 

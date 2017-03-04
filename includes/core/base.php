@@ -22,6 +22,11 @@ class Base
 		die();
 	}
 
+	public static function __log_req()
+	{
+		self::__log( $_REQUEST );
+	}
+
 	// INTERNAL
 	public static function __log( $log )
 	{

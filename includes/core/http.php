@@ -41,6 +41,9 @@ class HTTP extends Base
 
 	public static function getContents( $url )
 	{
+		if ( ! extension_loaded( 'curl' ) )
+			return FALSE;
+
 		$handle = curl_init();
 
 		curl_setopt( $handle, CURLOPT_URL, $url );
@@ -60,10 +63,10 @@ class HTTP extends Base
 	public static function referer()
 	{
 		if ( ! empty( $_REQUEST['_wp_http_referer'] ) )
-			return wp_unslash( $_REQUEST['_wp_http_referer'] );
+			return self::normalizeIP( $_REQUEST['_wp_http_referer'] );
 
 		if ( ! empty( $_SERVER['HTTP_REFERER'] ) )
-			return wp_unslash( $_SERVER['HTTP_REFERER'] );
+			return self::normalizeIP( $_SERVER['HTTP_REFERER'] );
 
 		return FALSE;
 	}
@@ -90,10 +93,17 @@ class HTTP extends Base
 		else
 			$ip = getenv( 'REMOTE_ADDR' );
 
+		$ip = self::normalizeIP( $ip );
+
 		if ( $pad )
 			return str_pad( $ip, 15, ' ', STR_PAD_LEFT );
 
 		return $ip;
+	}
+
+	public static function normalizeIP( $ip )
+	{
+		return trim( preg_replace( '/[^0-9., ]/', '', stripslashes( $ip ) ) );
 	}
 
 	public static function headers( $array )
