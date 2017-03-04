@@ -335,7 +335,7 @@ class Blog extends ModuleCore
 
 	public function rest_authentication_errors( $null )
 	{
-		new Error( 'rest_disabled', 'The REST API is disabled on this site.', array( 'status' => 503 ) );
+		return new Error( 'rest_disabled', 'The REST API is disabled on this site.', array( 'status' => 503 ) );
 	}
 
 	public function wp_head()
