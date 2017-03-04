@@ -60,8 +60,12 @@ class Network extends ModuleCore
 			);
 		}
 
-		global $submenu;
-		$submenu[$this->base][0][0] = _x( 'Overview', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN );
+		$GLOBALS['submenu'][$this->base][0] = array(
+			_x( 'Overview', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
+			'manage_network_options',
+			$this->base,
+			_x( 'Network Extras', 'Modules: Network: Page Menu', GNETWORK_TEXTDOMAIN ),
+		);
 	}
 
 	public static function registerMenu( $sub, $title = NULL, $callback = FALSE, $capability = 'manage_network_options' )
