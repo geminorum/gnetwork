@@ -297,13 +297,11 @@ class Restricted extends ModuleCore
 
 	public static function get403Message( $class = 'message' )
 	{
-		global $gNetwork;
-
 		if ( gNetwork()->option( 'restricted_access', 'restricted' ) )
 			$html = self::getNotice(
-				$gNetwork->restricted->options['restricted_access'],
-				$gNetwork->restricted->options['restricted_site'],
-				$gNetwork->restricted->options['redirect_page'],
+				gNetwork()->option( 'restricted_access', 'restricted', '' ),
+				gNetwork()->option( 'restricted_site', 'restricted', 'none' ),
+				gNetwork()->option( 'redirect_page', 'restricted', '0' ),
 				FALSE );
 		else
 			$html = _x( 'You do not have sufficient access level.', 'Modules: Restricted', GNETWORK_TEXTDOMAIN );
