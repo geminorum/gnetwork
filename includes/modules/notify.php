@@ -92,33 +92,36 @@ class Notify extends ModuleCore
 		$blog = $this->blogname();
 		$user = get_userdata( $user_id );
 
-		if ( ! $this->options['disable_new_user_admin'] ) {
+		if ( ! $this->options['disable_new_user_admin']
+			&& 'user' !== $notify ) {
+
+			$switched_locale = switch_to_locale( get_locale() );
 
 			$message  = sprintf( __( 'New user registration on your site %s:' ), $blog )."\r\n\r\n";
 			$message .= sprintf( __( 'Username: %s' ), $user->user_login )."\r\n\r\n";
 			$message .= sprintf( __( 'Email: %s' ), $user->user_email )."\r\n";
 
 			@wp_mail( get_option( 'admin_email' ), sprintf( __( '[%s] New User Registration' ), $blog ), $message );
+
+			if ( $switched_locale )
+				restore_previous_locale();
 		}
 
-		if ( 'admin' === $notify || ( empty( $deprecated ) && empty( $notify ) ) ) {
-			return;
-		}
+		if ( 'admin' === $notify
+			|| ( empty( $deprecated ) && empty( $notify ) ) )
+				return;
 
 		$key = wp_generate_password( 20, FALSE );
 
 		do_action( 'retrieve_password_key', $user->user_login, $key );
 
-		if ( empty( $wp_hasher ) ) {
-			require_once ABSPATH.WPINC.'/class-phpass.php';
+		if ( empty( $wp_hasher ) )
 			$wp_hasher = new \PasswordHash( 8, TRUE );
-		}
 
 		$hashed = time().':'.$wp_hasher->HashPassword( $key );
 		$wpdb->update( $wpdb->users, array( 'user_activation_key' => $hashed ), array( 'user_login' => $user->user_login ) );
 
-		// FIXME: `switch_to_locale()` requires WP4.7.0
-		$switched_locale = function_exists( 'switch_to_locale' ) && switch_to_locale( get_user_locale( $user ) );
+		$switched_locale = switch_to_locale( get_user_locale( $user ) );
 
 		$message  = sprintf( __( 'Username: %s' ), $user->user_login )."\r\n\r\n";
 		$message .= __( 'To set your password, visit the following address:' )."\r\n\r\n";
@@ -127,8 +130,7 @@ class Notify extends ModuleCore
 
 		wp_mail( $user->user_email, sprintf( __( '[%s] Your username and password info' ), $blog ), $message );
 
-		// FIXME: `restore_previous_locale()` requires WP4.7.0
-		if ( $switched_locale && function_exists( 'restore_previous_locale' ) )
+		if ( $switched_locale )
 			restore_previous_locale();
 	}
 
