@@ -80,10 +80,7 @@ class Themes extends ModuleCore
 					'field'       => 'disable_themes',
 					'title'       => _x( 'Theme Enhancements', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Extra styles and more for suported themes', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
-					'values'      => array(
-						__( 'Enabled' , GNETWORK_TEXTDOMAIN ),
-						__( 'Disabled', GNETWORK_TEXTDOMAIN ),
-					),
+					'values'      => Settings::reverseEnabled(),
 				),
 				array(
 					'field'       => 'content_actions',

@@ -125,10 +125,7 @@ class Blog extends ModuleCore
 					'description' => _x( 'Removes the Extra Code Bloat Used to Add Support for Emoji\'s in Older Browsers', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => GNETWORK_DISABLE_EMOJIS,
 					'after'       => Settings::fieldAfterIcon( Settings::getWPCodexLink( 'Emoji' ) ),
-					'values'      => array(
-						__( 'Enabled' , GNETWORK_TEXTDOMAIN ),
-						__( 'Disabled', GNETWORK_TEXTDOMAIN ),
-					),
+					'values'      => Settings::reverseEnabled(),
 				),
 				array(
 					'field'       => 'page_copyright',

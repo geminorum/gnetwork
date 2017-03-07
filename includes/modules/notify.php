@@ -43,20 +43,14 @@ class Notify extends ModuleCore
 					'title'       => _x( 'New User', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Notify the blog admin of a newly-registered user', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '1',
-					'values'      => array(
-						__( 'Enabled' , GNETWORK_TEXTDOMAIN ),
-						__( 'Disabled', GNETWORK_TEXTDOMAIN ),
-					),
+					'values'      => Settings::reverseEnabled(),
 				),
 				array(
 					'field'       => 'disable_password_change',
 					'title'       => _x( 'Password Reset', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Notify the blog admin of a user changing password', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '1',
-					'values'      => array(
-						__( 'Enabled' , GNETWORK_TEXTDOMAIN ),
-						__( 'Disabled', GNETWORK_TEXTDOMAIN ),
-					),
+					'values'      => Settings::reverseEnabled(),
 				),
 			),
 		);

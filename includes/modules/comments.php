@@ -126,10 +126,7 @@ class Comments extends ModuleCore
 					'title'       => _x( 'Comment Notifications', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Disable all core comment notifications', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '1',
-					'values'      => array(
-						__( 'Enabled' , GNETWORK_TEXTDOMAIN ),
-						__( 'Disabled', GNETWORK_TEXTDOMAIN ),
-					),
+					'values'      => Settings::reverseEnabled(),
 				),
 				array(
 					'field'       => 'archived_comments',

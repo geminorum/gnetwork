@@ -382,6 +382,14 @@ class Settings extends Base
 		return _x( '&mdash; Select &mdash;', 'Settings: Dropdown Select Option None', GNETWORK_TEXTDOMAIN );
 	}
 
+	public static function reverseEnabled()
+	{
+		return array(
+			_x( 'Enabled', 'Settings', GNETWORK_TEXTDOMAIN ),
+			_x( 'Disabled', 'Settings', GNETWORK_TEXTDOMAIN ),
+		);
+	}
+
 	public static function fieldType( $atts = array(), &$scripts )
 	{
 		$args = self::atts( array(
