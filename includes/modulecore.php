@@ -427,16 +427,16 @@ class ModuleCore extends Base
 
 	public function default_buttons( $sub = NULL )
 	{
-		$this->register_button( 'submit', _x( 'Save Changes', 'Module Core', GNETWORK_TEXTDOMAIN ), array( 'default' => 'default' ), 'primary' );
-		$this->register_button( 'reset', _x( 'Reset Settings', 'Module Core', GNETWORK_TEXTDOMAIN ), Settings::getButtonConfirm() );
+		$this->register_button( 'submit', _x( 'Save Changes', 'Module Core', GNETWORK_TEXTDOMAIN ), TRUE );
+		$this->register_button( 'reset', _x( 'Reset Settings', 'Module Core', GNETWORK_TEXTDOMAIN ), FALSE, TRUE );
 	}
 
-	public function register_button( $key, $value = NULL, $atts = array(), $type = 'secondary' )
+	public function register_button( $key, $value = NULL, $type = 'secondary', $atts = array() )
 	{
 		$this->buttons[$key] = array(
 			'value' => is_null( $value ) ? $key : $value,
-			'atts'  => $atts,
 			'type'  => $type,
+			'atts'  => $atts,
 		);
 	}
 

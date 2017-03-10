@@ -274,8 +274,8 @@ class Mail extends ModuleCore
 
 			add_action( $this->settings_hook( $sub ), array( $this, 'settings_form_emaillogs' ), 10, 2 );
 
-			$this->register_button( 'deletelogs_selected', _x( 'Delete Selected', 'Modules: Mail', GNETWORK_TEXTDOMAIN ), array( 'default' => 'default' ), 'primary' );
-			$this->register_button( 'deletelogs_all', _x( 'Delete All', 'Modules: Mail', GNETWORK_TEXTDOMAIN ), Settings::getButtonConfirm() );
+			$this->register_button( 'deletelogs_selected', _x( 'Delete Selected', 'Modules: Mail', GNETWORK_TEXTDOMAIN ), TRUE );
+			$this->register_button( 'deletelogs_all', _x( 'Delete All', 'Modules: Mail', GNETWORK_TEXTDOMAIN ), FALSE, TRUE );
 		}
 	}
 

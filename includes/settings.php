@@ -197,6 +197,9 @@ class Settings extends Base
 		if ( TRUE === $atts )
 			$atts = self::getButtonConfirm();
 
+		else if ( ! is_array( $atts ) )
+			$atts = array();
+
 		if ( 'primary' == $primary )
 			$primary = TRUE;
 

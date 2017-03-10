@@ -122,7 +122,7 @@ class Media extends ModuleCore
 
 	protected function register_settings_buttons( $sub = NULL )
 	{
-		$this->register_button( 'clean_attachments', _x( 'Clean Attachments', 'Modules: Media', GNETWORK_TEXTDOMAIN ), array( 'default' => 'default' ), 'primary' );
+		$this->register_button( 'clean_attachments', _x( 'Clean Attachments', 'Modules: Media', GNETWORK_TEXTDOMAIN ), TRUE );
 	}
 
 	protected static function getPostArray()

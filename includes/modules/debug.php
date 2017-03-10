@@ -89,7 +89,7 @@ class Debug extends ModuleCore
 
 	protected function register_settings_buttons( $sub = NULL )
 	{
-		$this->register_button( 'clear_logs', _x( 'Clear Logs', 'Modules: Debug', GNETWORK_TEXTDOMAIN ), array( 'default' => 'default' ), 'primary' );
+		$this->register_button( 'clear_logs', _x( 'Clear Logs', 'Modules: Debug', GNETWORK_TEXTDOMAIN ), TRUE );
 
 		// TODO: add download action/button
 		// TODO: add shortcut button to update page
