@@ -194,6 +194,11 @@ class Settings extends Base
 	{
 		$classes = array( '-button', 'button' );
 
+		if ( is_null( $text ) )
+			$text = 'reset' == $name
+				? _x( 'Reset Settings', 'Settings: Button', GNETWORK_TEXTDOMAIN )
+				: _x( 'Save Changes', 'Settings: Button', GNETWORK_TEXTDOMAIN );
+
 		if ( TRUE === $atts )
 			$atts = self::getButtonConfirm();
 
@@ -213,7 +218,7 @@ class Settings extends Base
 			'type'    => 'submit',
 			'name'    => $name,
 			'id'      => $name,
-			'value'   => is_null( $text ) ? _x( 'Save Changes', 'Settings: Button', GNETWORK_TEXTDOMAIN ) : $text,
+			'value'   => $text,
 			'class'   => $classes,
 			'default' => TRUE === $primary,
 		) ) );
