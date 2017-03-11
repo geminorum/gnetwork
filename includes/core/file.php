@@ -169,4 +169,47 @@ class File extends Base
 
 		rmdir( $dir );
 	}
+
+	// @REF: http://www.paulund.co.uk/html5-download-attribute
+	public static function download( $path, $name = NULL, $mime = 'application/octet-stream' )
+	{
+		if ( ! file_exists( $path ) )
+			return FALSE;
+
+		if ( is_null( $name ) )
+			$name = basename( $path );
+
+		header( 'Content-Description: File Transfer' );
+		header( 'Pragma: public' ); // required
+		header( 'Expires: 0' ); // no cache
+		header( 'Cache-Control: must-revalidate, post-check=0, pre-check=0' );
+		header( 'Cache-Control: private', FALSE );
+		header( 'Content-Type: '.$mime );
+		header( 'Content-Length: '.filesize( $path ) );
+		header( 'Content-Disposition: attachment; filename="'.$name.'"' );
+		header( 'Content-Transfer-Encoding: binary' );
+		header( 'Connection: close' );
+
+		ob_clean();
+		flush();
+
+		readfile( $path );
+
+		exit();
+	}
+
+	public static function prepName( $suffix = NULL, $prefix = NULL )
+	{
+		$name = '';
+
+		if ( $prefix )
+			$name .= $prefix.'-';
+
+		$name .= WordPress::currentBlog().'-'.current_time( 'Y-m-d' );
+
+		if ( $suffix )
+			$name .= '-'.$suffix;
+
+		return $name;
+	}
 }

@@ -67,6 +67,16 @@ class Debug extends ModuleCore
 
 				else if ( GNETWORK_ANALOG_LOG && 'analoglogs' == $sub )
 					WordPress::redirectReferer( ( @unlink( GNETWORK_ANALOG_LOG ) ? 'purged' : 'error' ) );
+
+			} else if ( isset( $_POST['download_logs'] ) ) {
+
+				if ( GNETWORK_DEBUG_LOG && 'errorlogs' == $sub )
+					File::download( GNETWORK_DEBUG_LOG, File::prepName( 'debug.log' ) );
+
+				else if ( GNETWORK_ANALOG_LOG && 'analoglogs' == $sub )
+					File::download( GNETWORK_ANALOG_LOG, File::prepName( 'analog.log' ) );
+
+				WordPress::redirectReferer( 'wrong' );
 			}
 
 			add_action( $this->settings_hook( $sub ), array( $this, 'settings_form' ), 10, 2 );
@@ -89,10 +99,8 @@ class Debug extends ModuleCore
 
 	protected function register_settings_buttons( $sub = NULL )
 	{
-		$this->register_button( 'clear_logs', _x( 'Clear Logs', 'Modules: Debug', GNETWORK_TEXTDOMAIN ), TRUE );
-
-		// TODO: add download action/button
-		// TODO: add shortcut button to update page
+		$this->register_button( 'clear_logs', _x( 'Clear Logs', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+		$this->register_button( 'download_logs', _x( 'Download Logs', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
 	}
 
 	private static function displayLogs( $file )
