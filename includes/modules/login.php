@@ -16,8 +16,7 @@ class Login extends ModuleCore
 			$this->filter( 'authenticate', 3, 1 );
 		}
 
-		if ( $this->options['login_errors'] )
-			$this->filter( 'wp_login_errors', 2 );
+		$this->filter( 'wp_login_errors', 2 );
 	}
 
 	public function setup_menu( $context )
@@ -38,7 +37,7 @@ class Login extends ModuleCore
 			'login_class'       => '',
 			'login_remember'    => 0,
 			'login_math'        => 0,
-			'login_errors'      => '1', // FIXME: add options
+			'login_credits'     => '1',
 		);
 	}
 
@@ -99,6 +98,11 @@ class Login extends ModuleCore
 					'description' => _x( 'Additional styles to use on login page', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'field_class' => array( 'large-text', 'code-text' ),
 				),
+				array(
+					'field'   => 'login_credits',
+					'title'   => _x( 'Credits Badge', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'default' => '1',
+				),
 			),
 		);
 
@@ -138,7 +142,7 @@ class Login extends ModuleCore
 
 		add_action( 'login_head', array( $this, 'login_head' ) );
 
-		if ( ! GNETWORK_DISABLE_CREDITS )
+		if ( ! GNETWORK_DISABLE_CREDITS && $this->options['login_credits'] )
 			add_filter( 'login_footer', array( $this, 'login_footer_badge' ) );
 
 		// FIXME: no way to put this before form
