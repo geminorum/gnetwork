@@ -144,9 +144,11 @@ class SMS extends ModuleCore
 
 				} else {
 
-					echo '<h3>'.$provider->providerName().'</h3>';
+					HTML::h3( $provider->providerName() );
+
 					echo ProviderCore::dateFormat( $status['timestamp'] );
-					echo '<br/>'.$provider->providerBalance();
+					echo '<br/>';
+					echo $provider->providerBalance();
 				}
 			}
 		}

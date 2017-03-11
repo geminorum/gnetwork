@@ -100,12 +100,13 @@ class Locale extends ModuleCore
 		$this->loaded[$locale][$domain][] = wp_normalize_path( $mofile );
 
 		$tailored = wp_normalize_path( GNETWORK_DIR.'locale/'.$domain.'-'.$locale.'.mo' );
-		if ( is_readable( $tailored ) ) {
-			$this->loaded[$locale][$domain][] = $tailored;
-			return $tailored;
-		}
 
-		return $mofile;
+		if ( ! is_readable( $tailored ) )
+			return $mofile;
+
+		$this->loaded[$locale][$domain][] = $tailored;
+
+		return $tailored;
 	}
 
 	public function new_blog_options( $new_options )

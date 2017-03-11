@@ -180,10 +180,9 @@ class Debug extends ModuleCore
 
 				$length = self::req( 'length', 300 );
 
-				echo '<h3 class="error-box-header">';
-					printf( _x( 'The Last %s Logs, in reverse order', 'Modules: Debug: Error Box', GNETWORK_TEXTDOMAIN ), Number::format( count( $errors ) ) );
+				HTML::h3( sprintf( _x( 'The Last %s Logs, in reverse order', 'Modules: Debug: Error Box', GNETWORK_TEXTDOMAIN ), Number::format( count( $errors ) ) ), 'error-box-header' );
 
-				echo '</h3><div class="error-box"><ol>';
+				echo '<div class="error-box"><ol>';
 
 				foreach ( $errors as $error ) {
 
@@ -474,16 +473,18 @@ class Debug extends ModuleCore
 	public static function getPHPMissingExtensions()
 	{
 		$extensions = array(
-			'intl'      => 'Internationalization',
+			'intl'      => 'Internationalization Functions',
 			'zip'       => 'Zip',
-			'curl'      => 'cURL',
-			'json'      => 'JSON',
-			'xml'       => 'XML',
+			'curl'      => 'Client URL Library',
+			'json'      => 'JavaScript Object Notation',
+			'xml'       => 'XML Parser',
 			'libxml'    => 'libXML',
 			'openssl'   => 'OpenSSL',
-			'PDO'       => 'PDO',
-			'mbstring'  => 'Mbstring',
+			'PDO'       => 'PHP Data Objects',
+			'mbstring'  => 'Multibyte String',
 			'tokenizer' => 'Tokenizer',
+			'mcrypt'    => 'Mcrypt',
+			'pcre'      => 'Perl Compatible Regular Expressions',
 		);
 
 		foreach ( $extensions as $ext => $why )

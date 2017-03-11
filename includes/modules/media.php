@@ -14,7 +14,7 @@ class Media extends ModuleCore
 	protected function setup_actions()
 	{
 		add_action( 'init', array( $this, 'init_late' ), 999 );
-		add_filter( 'upload_mimes', array( $this, 'upload_mimes' ) );
+		$this->filter( 'upload_mimes' );
 
 		$this->filter( 'sanitize_file_name', 2, 12 );
 		$this->filter( 'image_send_to_editor', 8 );

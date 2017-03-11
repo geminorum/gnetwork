@@ -568,11 +568,6 @@ class ModuleCore extends Base
 						'page'    => $page,
 						'section' => $section,
 					) ) );
-
-			// for pre internal custom options
-			// FIXME: use $this
-			} else if ( is_callable( $fields ) ) {
-				call_user_func( $fields );
 			}
 		}
 
