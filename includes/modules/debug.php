@@ -40,22 +40,37 @@ class Debug extends ModuleCore
 
 	public function setup_menu( $context )
 	{
+		$this->register_menu(
+			_x( 'System Report', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
+			array( $this, 'settings' ), 'systemreport'
+		);
+
+		$this->register_menu(
+			_x( 'Remote Tests', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
+			FALSE, 'remotetests'
+		);
+
 		if ( GNETWORK_DEBUG_LOG )
 			$this->register_menu(
 				_x( 'Errors', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-				array( $this, 'settings' ), 'errorlogs'
+				FALSE, 'errorlogs'
 			);
 
 		if ( GNETWORK_ANALOG_LOG )
 			$this->register_menu(
 				_x( 'Logs', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-				( GNETWORK_DEBUG_LOG ? FALSE : array( $this, 'settings' ) ), 'analoglogs'
+				FALSE, 'analoglogs'
 			);
 	}
 
 	public function settings( $sub = NULL )
 	{
-		if ( 'errorlogs' == $sub
+		if ( 'systemreport' == $sub
+			|| 'remotetests' == $sub ) {
+
+			add_action( $this->settings_hook( $sub ), array( $this, 'settings_form' ), 10, 2 );
+
+		} else if ( 'errorlogs' == $sub
 			|| 'analoglogs' == $sub ) {
 
 			if ( isset( $_POST['clear_logs'] ) ) {
@@ -89,10 +104,61 @@ class Debug extends ModuleCore
 	{
 		$this->settings_form_before( $uri, $sub, 'bulk', FALSE );
 
+		if ( 'systemreport' == $sub ) {
+
+			HTML::h3( _x( 'System Report', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ) );
+
+			HTML::tabsList( array(
+				'php' => array(
+					'title'  => _x( 'PHP', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
+					'cb'     => array( __CLASS__, 'summaryPHP' ),
+					'active' => TRUE,
+				),
+				'wordpress' => array(
+					'title' => _x( 'WordPress', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
+					'cb'    => array( __CLASS__, 'versions' ),
+				),
+				'time' => array(
+					'title' => _x( 'Time', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
+					'cb'    => array( __CLASS__, 'currentTime' ),
+				),
+				'ip' => array(
+					'title' => _x( 'IP', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
+					'cb'    => array( __CLASS__, 'summaryIPs' ),
+				),
+				'constants' => array(
+					'title' => _x( 'Constants', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
+					'cb'    => array( __CLASS__, 'initialConstants' ),
+				),
+				'paths' => array(
+					'title' => _x( 'Paths', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
+					'cb'    => array( __CLASS__, 'pluginPaths' ),
+				),
+				'upload' => array(
+					'title' => _x( 'Upload', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
+					'cb'    => array( __CLASS__, 'wpUploadDIR' ),
+				),
+				'server' => array(
+					'title' => _x( 'SERVER', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
+					'cb'    => array( __CLASS__, 'dumpServer' ),
+				),
+				'gplugin' => array(
+					'title' => _x( 'gPlugin', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
+					'cb'    => array( __CLASS__, 'gPlugin' ),
+				),
+			) );
+
+		} else if ( 'remotetests' == $sub ) {
+
+			// TODO: display remote tests summary
+
+		} else {
+
 			// TODO: add limit/length input
 
 			if ( self::displayLogs( ( 'analoglogs' == $sub ? GNETWORK_ANALOG_LOG : GNETWORK_DEBUG_LOG ) ) )
 				$this->settings_buttons( $sub );
+		}
 
 		$this->settings_form_after( $uri, $sub );
 	}
@@ -230,8 +296,10 @@ class Debug extends ModuleCore
 		HTML::tableCode( $paths );
 	}
 
-	public static function currentTime( $format = 'Y-m-d H:i:s' )
+	public static function currentTime()
 	{
+		$format = 'Y-m-d H:i:s';
+
 		$times = array(
 			'date_i18n()'                     => date_i18n( $format ),
 			'date_i18n() UTC'                 => date_i18n( $format, FALSE, TRUE ),
