@@ -42,6 +42,7 @@
 
 .gnetwork-admin-wrap-metabox {}
 .gnetwork-admin-wrap-column {}
+.gnetwork-admin-wrap-widget {}
 
 textarea {
   // width: 100%;
@@ -68,9 +69,21 @@ textarea {
 #dashboard_right_now .inside .versions p,
 #dashboard_right_now .inside .versions span,
 #dashboard_right_now .inside p.musub,
-#dashboard_right_now h4.mu-storage {
+#dashboard_right_now h3.mu-storage {
   display: none !important;
 }
+
+.gnetwork-admin-wrap-widget {
+
+  &.-user-sites {
+    table {
+      width: 100%;
+    }
+  }
+
+  &.-user-tos {}
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////

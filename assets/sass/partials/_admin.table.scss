@@ -129,8 +129,6 @@ table.base-table-list {
     width: 40px;
   }
 
-  .-column-content {}
-
   .-column-info {
     width: 34%;
   }
@@ -142,16 +140,12 @@ table.base-table-list {
   }
 
   .-column-date {
-    width: 8%;
+    width: 95px;
   }
 
   .-column-type {
     width: 6%;
   }
-
-  .-column-post {}
-
-  .-column-media {}
 
   .-column-debug {
     padding: 0;
@@ -189,6 +183,7 @@ table.base-table-side {
   tr.-row {}
 
   td.-key {
+    width: 10em;
     padding: 5px;
     vertical-align: top;
     text-align: right;

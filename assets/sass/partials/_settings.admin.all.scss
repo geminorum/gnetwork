@@ -23,176 +23,182 @@
 
   &.sub-overview {}
 
-  &.sub-debug {
-    h3.error-box-header {
-      margin-bottom: 0.5em;
-    }
+  h3.error-box-header {
+    margin-bottom: 0.5em;
+  }
 
-    p.error-box-footer {
-      margin-top: 0.2em;
-    }
+  p.error-box-footer {
+    margin-top: 0.2em;
+  }
 
-    .error-box {
-      height: 100%;
-      // overflow: scroll;
-      padding: 2px;
-      background-color: #faf9f7;
-      border: 1px solid #ccc;
+  .error-box {
+    direction: ltr;
+    height: 100%;
+    // overflow: scroll;
+    padding: 2px;
+    background-color: #faf9f7;
+    border: 1px solid #ccc;
 
-      ol {
-        padding: 0;
-        margin: 0;
-        list-style: none;
+    ol {
+      padding: 0;
+      margin: 0;
+      list-style: none;
 
-        li {
-          padding: 2px 4px 6px;
-          border-bottom: 1px solid #ececec;
+      li {
+        padding: 2px 4px 6px;
+        border-bottom: 1px solid #ececec;
 
-          &:last-child {
-            border: none;
-            padding-bottom: 0;
+        &:last-child {
+          border: none;
+          padding-bottom: 0;
+        }
+
+        &.more {
+          padding: 2px;
+          // border-top: 2px solid #ccc;
+          // border-bottom: none;
+        }
+
+        b {
+          span {
+            cursor: pointer;
           }
+        }
 
-          &.more {
-            padding: 2px;
-            // border-top: 2px solid #ccc;
-            // border-bottom: none;
-          }
-
-          b {
-            span {
-              cursor: pointer;
-            }
-          }
-
-          pre {
-            display: inline;
-            margin: 0;
-          }
+        pre {
+          display: inline;
+          margin: 0;
         }
       }
     }
   }
 
-  &.sub-phpinfo {
-    .gnetwork-phpinfo-disabled {
-      padding: 1em;
+  .-phpinfo-disabled {
+    padding: 1em;
+  }
+
+  // default style from phpinfo()
+  .-phpinfo-wrap {
+    padding-top: 1em;
+    // background-color: #ffffff;
+    color: #000000;
+
+    &,
+    h1,
+    h2,
+    td,
+    th {
+      // font-family: sans-serif;
     }
-    // default style from phpinfo()
-    .gnetwork-phpinfo-wrap {
-      padding-top: 1em;
-      // background-color: #ffffff;
-      color: #000000;
 
-      &,
-      h1,
-      h2,
-      td,
-      th {
-        // font-family: sans-serif;
-      }
+    pre {
+      margin: 0;
+      font-family: monospace;
+    }
 
-      pre {
-        margin: 0;
-        font-family: monospace;
-      }
+    a:link {
+      color: #000099;
+      text-decoration: none;
+      background-color: #ffffff;
+    }
 
-      a:link {
-        color: #000099;
-        text-decoration: none;
-        background-color: #ffffff;
-      }
+    a:hover {
+      text-decoration: underline;
+    }
 
-      a:hover {
-        text-decoration: underline;
-      }
+    table {
+      border-collapse: collapse;
+    }
+
+    .center {
+      text-align: center;
 
       table {
-        border-collapse: collapse;
-      }
-
-      .center {
-        text-align: center;
-
-        table {
-          margin-left: auto;
-          margin-right: auto;
-          text-align: left;
-          direction: ltr;
-          width: 100% !important;
-        }
-
-        th {
-          text-align: center !important;
-        }
-      }
-
-      td,
-      th {
-        border: 1px solid #000000;
-        font-size: 95%;
-        vertical-align: baseline;
-      }
-
-      h1 {
-        font-size: 150%;
-      }
-
-      h2 {
-        font-size: 125%;
-      }
-
-      .p {
+        margin-left: auto;
+        margin-right: auto;
         text-align: left;
+        direction: ltr;
+        width: 100% !important;
       }
 
-      .e {
-        background-color: #ccccff;
-        font-weight: bold;
-        color: #000000;
-      }
-
-      .h {
-        background-color: #9999cc;
-        font-weight: bold;
-        color: #000000;
-      }
-
-      .v {
-        background-color: #cccccc;
-        color: #000000;
-        word-break: break-word;
-      }
-
-      .vr {
-        background-color: #cccccc;
-        text-align: right;
-        color: #000000;
-      }
-
-      img {
-        float: right;
-        border: 0;
-      }
-
-      hr {
-        width: 600px;
-        background-color: #cccccc;
-        border: 0;
-        height: 1px;
-        color: #000000;
+      th {
+        text-align: center !important;
       }
     }
+
+    td,
+    th {
+      border: 1px solid #000000;
+      font-size: 95%;
+      vertical-align: baseline;
+    }
+
+    h1 {
+      font-size: 150%;
+    }
+
+    h2 {
+      font-size: 125%;
+    }
+
+    .p {
+      text-align: left;
+    }
+
+    .e {
+      background-color: #ccccff;
+      font-weight: bold;
+      color: #000000;
+    }
+
+    .h {
+      background-color: #9999cc;
+      font-weight: bold;
+      color: #000000;
+    }
+
+    .v {
+      background-color: #cccccc;
+      color: #000000;
+      word-break: break-word;
+    }
+
+    .vr {
+      background-color: #cccccc;
+      text-align: right;
+      color: #000000;
+    }
+
+    img {
+      float: right;
+      border: 0;
+    }
+
+    hr {
+      width: 600px;
+      background-color: #cccccc;
+      border: 0;
+      height: 1px;
+      color: #000000;
+    }
   }
+
 
   .gnetwork-form {
 
     .form-table {
 
-      .field-after {
+      .-field-after {
         vertical-align: middle;
 
-        &.icon-wrap {
+        &.-text-wrap {}
+        &.-link-wrap {}
+
+        &.-constant-wrap {
+          cursor: pointer;
+        }
+
+        &.-icon-wrap {
           a {
             color: $gray-light;
             display: inline-block;

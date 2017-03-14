@@ -18,10 +18,18 @@ body.rtl {
     text-align: right;
   }
 
-  #TB_closeWindowButton,
-  .tb-close-icon {
+  #TB_caption {
+    padding: 7px 25px 10px 30px;
+    float: right;
+  }
+
+  #TB_closeWindowButton {
     left: 0;
     right: auto;
+
+    &:focus .tb-close-icon {
+      box-shadow: none;
+    }
   }
 
   #TB_window img#TB_Image {
@@ -30,5 +38,6 @@ body.rtl {
 
   #TB_closeWindow {
   	padding: 11px 0 10px 15px ! important;
+    height: auto;
   }
 }

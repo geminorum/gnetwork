@@ -32,16 +32,21 @@ h1 {
 
 #error-page {
   margin-top: 50px;
-}
 
-#error-page p {
-  font-size: 14px;
-  line-height: 1.5;
-  margin: 25px 0 20px;
-}
+  p {
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 25px 0 20px;
+  }
 
-#error-page code {
-  @include theme-fonts-core-code();
+  code {
+    @include theme-fonts-core-code();
+  }
+
+  table {
+    font-size: 0.9em;
+    width: 100%;
+  }
 }
 
 ul li {

@@ -4,9 +4,9 @@
 /// gNetwork Partials: Taxonomy Module -----------------------------------------
 
 body.edit-tags-php {
-  &:not(.gnetowrk-taxonomy) {
-    // only if taxonomy module not loading
 
+  // only if taxonomy module not loading
+  &:not(.gnetowrk-taxonomy) {
     .form-field.term-description-wrap {
       .description,
       > p {
@@ -21,19 +21,22 @@ body.edit-tags-php {
     height: auto !important;
   }
 
-  .quicktags-toolbar {
-    input {
-      width: auto; // Fix the formatting buttons on the HTML section of the visual editor from being full-width
-    }
-  }
-
-  textarea.wp-editor-area {
-    border: none;
-  }
-
+  // bulk extra input
   .gnetwork-taxonomy-input-wrap {
     input[type="text"] {
       height: 28px;
+      max-width: 200px;
+    }
+  }
+}
+
+body.term-php,
+body.edit-tags-php {
+
+  // editor html view
+  .wp-editor-wrap.html-active {
+    textarea.wp-editor-area {
+      border: none;
     }
   }
 }

@@ -14,6 +14,10 @@ body.rtl {
 
   .wrap h1 {
     font: bold 24px arial, sans-serif !important;
+    .page-title-action {
+      font: 700 14.5px arial, sans-serif !important;
+      padding: 5px 8px 3px;
+    }
   }
 
   span.postbox-title-action {
@@ -43,11 +47,6 @@ body.rtl {
     font-size: 15px;
     font-weight: 700;
     vertical-align: middle;
-  }
-
-  .wrap .page-title-action {
-    font: 700 14.5px arial, sans-serif !important;
-    padding: 5px 8px 3px;
   }
 
   #poststuff h2 {

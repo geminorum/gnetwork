@@ -1,0 +1,86 @@
+@import 'modules/all';
+@import 'partials/base';
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+.mu_register {
+  width: 90%;
+  margin: 0 auto;
+
+  form {
+    margin-top: 2em;
+  }
+
+  .error {
+    font-weight: 700;
+    padding: 10px;
+    color: #333333;
+    background: #FFEBE8;
+    border: 1px solid #CC0000;
+  }
+
+  #blog_title,
+  #blogname,
+  #user_email,
+  #user_name,
+  input[type="submit"] {
+    width: 100%;
+    font-size: 24px;
+    margin: 5px 0;
+  }
+
+  #site-language {
+    display: block;
+  }
+
+  .prefix_address,
+  .suffix_address {
+    font-size: 18px;
+    display: inline;
+  }
+
+  label {
+    font-weight: 700;
+    font-size: 15px;
+    display: block;
+    margin: 10px 0;
+  }
+
+  label.checkbox {
+    display: inline;
+  }
+
+  .mu_alert {
+    font-weight: 700;
+    padding: 10px;
+    color: #333333;
+    background: #ffffe0;
+    border: 1px solid #e6db55;
+  }
+
+  #user_email,
+  #user_name {
+    direction: ltr;
+  }
+
+  div.gnetwork-wrap-tos {
+
+    margin: 10px 0;
+
+    // we need current theme styles!
+    // @include mainwrap();
+    // @include box-reset();
+
+    .-title {}
+
+    .-text {
+      width: 100% !important;
+      height: 220px !important;
+    }
+
+    .-checkbox {
+      vertical-align: middle !important;
+    }
+  }
+}

@@ -16,13 +16,31 @@ ul.base-list-code {
   li {
     display: inline-block;
     margin-right: 4px;
+
     @include body-rtl() {
       margin-right: 0;
       margin-left: 4px;
     }
+  }
 
-    code {
-      cursor: pointer;
-    }
+  code {
+    cursor: pointer;
+  }
+
+  // FIXME: make this genearl!
+  .-info {
+    color: $brand-info;
+  }
+
+  .-success {
+    color: $brand-success;
+  }
+
+  .-warning {
+    color: $brand-warning;
+  }
+
+  .-danger {
+    color: $brand-danger;
   }
 }
