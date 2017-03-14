@@ -30,7 +30,7 @@
     "analog/analog": "dev-master"
   },
   "require-dev": {
-    "raveren/kint": "^1.0",
+    "raveren/kint": "^1.1",
     "mustache/mustache": "^2.11",
     "phelium/mysql-backup": "dev-master",
     "picqer/php-barcode-generator": "^0.2.1",
