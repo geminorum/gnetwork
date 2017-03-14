@@ -20,7 +20,7 @@
     "source": "http://geminorum.ir/wordpress/gnetwork"
   },
   "require": {
-    "php": ">=5.3",
+    "php": ">=5.4",
     "composer/installers": "^1.2",
     "erusev/parsedown-extra": "^0.7.1",
     "symfony/stopwatch": "^3.2",
