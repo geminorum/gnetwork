@@ -185,4 +185,10 @@ class gNetwork
 
 		return FALSE;
 	}
+
+	public function na( $wrap = 'code' )
+	{
+		$na = __( 'N/A', GNETWORK_TEXTDOMAIN );
+		return $wrap ? HTML::tag( $wrap, array( 'title' => __( 'Not Available', GNETWORK_TEXTDOMAIN ) ), $na ) : $na;
+	}
 }

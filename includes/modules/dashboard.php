@@ -110,7 +110,7 @@ class Dashboard extends ModuleCore
 		echo '<div class="gnetwork-admin-wrap-widget -user-sites">';
 
 			if ( empty( $blogs ) )
-				HTML::desc( '<code>'.__( 'N/A', GNETWORK_TEXTDOMAIN ).'</code>' );
+				HTML::desc( gNetwork()->na() );
 			else
 				echo Site::tableUserSites( $blogs, FALSE );
 
