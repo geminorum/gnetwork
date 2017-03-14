@@ -27,9 +27,6 @@ class BuddyPress extends ModuleCore
 			if ( ! $this->options['open_directories'] )
 				$this->action( 'bp_screens' );
 
-			if ( $this->options['tos_display'] )
-				$this->action( 'bp_before_registration_submit_buttons' );
-
 			// https://github.com/pixeljar/BuddyPress-Honeypot
 			// https://www.pixeljar.com/?p=961
 			$this->filter( 'bp_core_validate_user_signup' );
@@ -76,13 +73,6 @@ class BuddyPress extends ModuleCore
 			'open_directories' => '0',
 			'check_completed'  => '0',
 
-			'tos_display' => '0',
-			'tos_title'   => '',
-			'tos_link'    => '',
-			'tos_text'    => '',
-			'tos_label'   => '',
-			'tos_must'    => '',
-
 			'notification_defaults' => array(),
 
 			'avatars_thumb_width'        => '',
@@ -116,50 +106,6 @@ class BuddyPress extends ModuleCore
 					'title'       => _x( 'Check Completed', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Notice member for empty required fields.', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
 				),
-			),
-		);
-
-		$settings['_tos'] = array(
-			array(
-				'field' => 'tos_display',
-				'title' => _x( 'Display ToS', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
-			),
-			array(
-				'field'       => 'tos_title',
-				'type'        => 'text',
-				'title'       => _x( 'ToS Title', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
-				'description' => _x( 'Section Title, Usually : Terms of Service', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
-				'default'     => _x( 'Terms of Service', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
-				'field_class' => 'large-text',
-			),
-			array(
-				'field'       => 'tos_link',
-				'type'        => 'url',
-				'title'       => _x( 'ToS Link', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
-				'description' => _x( 'URL for section title link to actual agreement text', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
-			),
-			array(
-				'field'       => 'tos_text',
-				'type'        => 'textarea',
-				'title'       => _x( 'ToS Text', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
-				'description' => _x( 'Full text of the agreement', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
-				'field_class' => 'large-text',
-			),
-			array(
-				'field'       => 'tos_label',
-				'type'        => 'text',
-				'title'       => _x( 'ToS Label', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
-				'description' => _x( 'Label next to the mandatory checkbox, below full text', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
-				'default'     => _x( 'By checking the Terms of Service Box you have read and agree to all the Policies set forth in this site\'s Terms of Service.', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
-				'field_class' => 'large-text',
-			),
-			array(
-				'field'       => 'tos_must',
-				'type'        => 'text',
-				'title'       => _x( 'ToS Must', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
-				'description' => _x( 'Error message upon not checking the box', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
-				'default'     => _x( 'You have to accept our terms of service. Otherwise we cannot register you on our site.', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
-				'field_class' => 'large-text',
 			),
 		);
 
@@ -210,14 +156,6 @@ class BuddyPress extends ModuleCore
 			);
 
 		return $settings;
-	}
-
-	public function settings_section_tos()
-	{
-		Settings::fieldSection(
-			_x( 'Terms of Service', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
-			_x( 'ToS Settings on BuddyPress Registration Page', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN )
-		);
 	}
 
 	public function settings_section_notifications()
@@ -343,40 +281,6 @@ class BuddyPress extends ModuleCore
 			bp_core_redirect( bp_get_signup_page() );
 	}
 
-	public function bp_before_registration_submit_buttons()
-	{
-		echo '<div style="clear:both;"></div>';
-		echo '<div class="register-section register-section-tos checkbox gnetwork-wrap-tos">';
-
-		$title = empty( $this->options['tos_title'] ) ? FALSE : $this->options['tos_title'];
-
-		if ( $title && ! empty( $this->options['tos_link'] ) )
-			printf( '<h4 class="-title"><a href="%1$s" title="%2$s">%3$s</a></h4>',
-				esc_url( $this->options['tos_link'] ),
-				_x( 'Read full agreement', 'Modules: BuddyPress', GNETWORK_TEXTDOMAIN ),
-				$title
-			);
-
-		else if ( $title )
-			printf( '<h4 class="-title">%s</h4>', $title );
-
-		do_action( 'bp_gnetwork_bp_tos_errors' );
-
-		if ( ! empty( $this->options['tos_text'] ) ) {
-			echo '<textarea class="-text no-autosize" readonly="readonly">';
-				echo esc_textarea( $this->options['tos_text'] );
-			echo '</textarea>';
-		}
-
-		if ( ! empty( $this->options['tos_label'] ) )
-			echo '<label for="gnetwork-bp-tos">'
-				.'<input type="checkbox" class="-checkbox" id="gnetwork-bp-tos" name="gnetwork_bp_tos" value="accepted">&nbsp;'
-					.$this->options['tos_label']
-				.'</label>';
-
-		echo '</div>';
-	}
-
 	public function bp_after_signup_profile_fields()
 	{
 		echo '<div style="position:absolute;'.( is_rtl() ? 'right' : 'left' ).':-5000px;">';
@@ -386,18 +290,9 @@ class BuddyPress extends ModuleCore
 
 	public function bp_core_validate_user_signup( $result = array() )
 	{
-		global $bp;
-
-		if ( $this->options['tos_display'] ) {
-			if ( ! isset( $_POST['gnetwork_bp_tos'] )
-				|| 'accepted' != $_POST['gnetwork_bp_tos'] )
-					$bp->signup->errors['gnetwork_bp_tos'] = $this->options['tos_must'];
-		}
-
-		if ( isset( $_POST[$this->field_name] )
-			&& ! empty( $_POST[$this->field_name] ) )
-				$result['errors']->add( 'gnetwork_bp_honeypot',
-					_x( 'You\'re totally a spammer. Go somewhere else with your spammy ways.', 'Modules: BuddyPress', GNETWORK_TEXTDOMAIN ) );
+		if ( isset( $_POST[$this->field_name] ) && ! empty( $_POST[$this->field_name] ) )
+			$result['errors']->add( 'gnetwork_bp_honeypot',
+				_x( 'You\'re totally a spammer. Go somewhere else with your spammy ways.', 'Modules: BuddyPress', GNETWORK_TEXTDOMAIN ) );
 
 		return $result;
 	}

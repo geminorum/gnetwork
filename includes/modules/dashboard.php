@@ -67,6 +67,14 @@ class Dashboard extends ModuleCore
 				array( $this, 'widget_external_feed' )
 			);
 		}
+
+		if ( is_user_admin() && gNetwork()->option( 'tos_display', 'user' ) )
+			wp_add_dashboard_widget(
+				'gnetwork_dashboard_tos',
+				gNetwork()->option( 'tos_title', 'user',
+					_x( 'Terms of Service', 'Modules: Dashboard: Widget Title', GNETWORK_TEXTDOMAIN )
+				), array( $this, 'widget_tos' )
+			);
 	}
 
 	public function widget_external_feed()
@@ -101,6 +109,13 @@ class Dashboard extends ModuleCore
 		}
 
 		wp_die();
+	}
+
+	public function widget_tos()
+	{
+		echo '<div class="gnetwork-admin-wrap-widget -user-tos">';
+			echo wpautop( gNetwork()->option( 'tos_text', 'user', gNetwork()->na() ) );
+		echo '</div>';
 	}
 
 	public function widget_user_sites()
