@@ -162,12 +162,8 @@ class Network extends ModuleCore
 
 		$email = get_site_option( 'admin_email' );
 
-		foreach ( $blogs as $blog_id ) {
-			switch_to_blog( $blog_id );
-			update_option( 'admin_email', $email );
-		}
-
-		// restore_current_blog();
+		foreach ( $blogs as $blog_id )
+			update_blog_option( $blog_id, 'admin_email', $email );
 
 		WordPress::redirectReferer( array(
 			'updated' => $this->hook( 'admin', 'email' ),
