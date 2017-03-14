@@ -6,7 +6,10 @@ class Dev extends ModuleCore
 {
 
 	protected $key  = 'dev';
-	protected $ajax = TRUE;
+
+	protected $ajax       = TRUE;
+	protected $cron       = TRUE;
+	protected $installing = TRUE;
 
 	protected function setup_actions()
 	{
