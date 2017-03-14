@@ -60,6 +60,7 @@ class ShortCodes extends ModuleCore
 			'sms'          => 'shortcode_sms',
 			'googlegroups' => 'shortcode_googlegroups',
 			'pdf'          => 'shortcode_pdf',
+			'csv'          => 'shortcode_csv',
 			'bloginfo'     => 'shortcode_bloginfo',
 			'audio'        => 'shortcode_audio',
 			'audio-go'     => 'shortcode_audio_go',
@@ -786,6 +787,73 @@ class ShortCodes extends ModuleCore
 
 		Utilities::enqueueScriptVendor( 'pdfobject', array(), '2.0.201604172' );
 		return self::shortcodeWrap( '<div id="'.$selector.'"></div>', 'pdf', $args );
+	}
+
+	public function shortcode_csv( $atts = array(), $content = NULL, $tag = '' )
+	{
+		$args = shortcode_atts( array(
+			'id'      => FALSE,
+			'url'     => FALSE,
+			'columns' => NULL,
+			'context' => NULL,
+			'wrap'    => TRUE,
+			'before'  => '',
+			'after'   => '',
+		), $atts, $tag );
+
+		if ( FALSE === $args['context'] )
+			return NULL;
+
+		$titles = $data = array();
+
+		if ( $args['id'] ) {
+
+			if ( $file = get_attached_file( $args['id'] ) ) {
+
+				$csv = new \parseCSV();
+				$csv->auto( wp_normalize_path( $file ) );
+
+				$titles = $args['columns'] ? explode( ',', $args['columns'] ) : $csv->titles;
+				$data   = $csv->data;
+			}
+
+		} else if ( $args['url'] ) {
+
+			if ( $string = HTTP::getContents( $args['url'] ) ) {
+
+				$csv = new \parseCSV();
+				$csv->parse( $string );
+
+				$titles = $args['columns'] ? explode( ',', $args['columns'] ) : $csv->titles;
+				$data   = $csv->data;
+			}
+
+		} else {
+			return NULL;
+		}
+
+		if ( ! count( $data ) )
+			return NULL;
+
+		$html = '<table>';
+
+		if ( count( $titles ) )
+			$html .= '<thead><tr><th>'
+				.implode( '</th><th>', array_map( 'esc_html', $titles ) )
+			.'</th></tr></thead>';
+
+		$html .= '<tbody>';
+
+		foreach ( $data as $row ) {
+			$html .= '<tr>';
+			foreach ( $titles as $title )
+				$html .= '<td>'.( isset( $row[$title] ) ? esc_html( $row[$title] ) : '&nbsp;' ).'</td>';
+			$html .= '</tr>';
+		}
+
+		$html .= '</tbody></table>';
+
+		return self::shortcodeWrap( $html, 'csv', $args );
 	}
 
 	// EXAMPLE: [bloginfo key='name']
