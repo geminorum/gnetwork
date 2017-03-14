@@ -147,14 +147,12 @@ class HTML extends Base
 		return $html.'>';
 	}
 
-	// like WP core but without filter
-	// @SOURCE: `esc_attr()`
+	// @SEE: `esc_attr()`
 	public static function escapeAttr( $text )
 	{
-		$safe_text = wp_check_invalid_utf8( $text );
-		$safe_text = _wp_specialchars( $safe_text, ENT_QUOTES );
-
-		return $safe_text;
+		return Text::utf8Compliant( $text )
+			? Text::utf8SpecialChars( $text, ENT_QUOTES )
+			: '';
 	}
 
 	public static function escapeURL( $url )
@@ -164,7 +162,7 @@ class HTML extends Base
 
 	public static function escapeTextarea( $html )
 	{
-		return htmlspecialchars( $html, ENT_QUOTES, 'UTF-8' );
+		return Text::utf8SpecialChars( $html, ENT_QUOTES );
 	}
 
 	// like WP core but without filter and fallback

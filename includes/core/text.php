@@ -377,8 +377,9 @@ class Text extends Base
 		return preg_replace( '/\x{FEFF}/u', '', $string );
 	}
 
-	// @SOURCE: [Checking UTF-8 for Well Formedness](http://www.phpwact.org/php/i18n/charsets#checking_utf-8_for_well_formedness)
+	// @SOURCE: http://web.archive.org/web/20110215015142/http://www.phpwact.org/php/i18n/charsets#checking_utf-8_for_well_formedness
 	// @SEE: http://www.php.net/manual/en/reference.pcre.pattern.modifiers.php#54805
+	// @SEE: `wp_check_invalid_utf8()`
 	public static function utf8Compliant( $string )
 	{
 		if ( 0 === strlen( $string ) )
@@ -388,7 +389,24 @@ class Text extends Base
 		// modifier is used, then it's valid UTF-8. If the UTF-8 is somehow
 		// invalid, nothing at all will match, even if the string contains
 		// some valid sequences
-		return ( 1 == preg_match( '/^.{1}/us', $string, $ar ) );
+		return ( 1 === @preg_match( '/^.{1}/us', $string ) );
+	}
+
+	// @SOURCE: http://web.archive.org/web/20110215015142/http://www.phpwact.org/php/i18n/charsets#htmlspecialchars
+	// @SOURCE: `_wp_specialchars()`
+	// converts a number of special characters into their HTML entities
+	// specifically deals with: &, <, >, ", and '
+	public static function utf8SpecialChars( $string, $flags = ENT_COMPAT )
+	{
+		$string = (string) $string;
+
+		if ( 0 === strlen( $string ) )
+			return '';
+
+		if ( preg_match( '/[&<>"\']/', $string ) )
+			$string = @htmlspecialchars( $string, $flags, 'UTF-8' );
+
+		return $string;
 	}
 
 	public static function wordCountUTF8( $html, $normalize = TRUE )
@@ -528,5 +546,33 @@ class Text extends Base
 			$key .= $chr[( rand( 0, ( strlen( $chr ) - 1 ) ) )];
 
 		return md5( $salt.$key );
+	}
+
+	// @SOURCE: `_deep_replace()`
+	public static function deepStrip( $search, $string )
+	{
+		$string = (string) $string;
+
+		$count = 1;
+		while ( $count )
+			$string = str_replace( $search, '', $string, $count );
+
+		return $string;
+	}
+
+	// @REF: https://en.wikipedia.org/wiki/Control_character
+	// @REF: https://en.wikipedia.org/wiki/Unicode_control_characters
+	// @SEE: `wp_kses_no_null()`
+	public static function stripControlChars( $string )
+	{
+		// remove control chars, the first 32 ascii characters and \x7F
+		// @REF: http://stackoverflow.com/a/1497928/4864081
+		$string = preg_replace( '/[\x00-\x09\x0B\x0C\x0E-\x1F\x7F]/', '', $string );
+		// $string = preg_replace('/[\p{Cc}]/', '', $string );
+
+		// removes any instance of the '\0' string
+		$string = preg_replace( '/\\\\+0+/', '', $string );
+
+		return $string;
 	}
 }

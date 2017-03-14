@@ -401,7 +401,7 @@ class Settings extends Base
 	public static function fieldType( $atts = array(), &$scripts )
 	{
 		$args = self::atts( array(
-			'title'        => '',
+			'title'        => '&nbsp;',
 			'label_for'    => '',
 			'type'         => 'enabled',
 			'field'        => FALSE,

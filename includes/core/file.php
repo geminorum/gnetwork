@@ -176,6 +176,9 @@ class File extends Base
 		if ( ! file_exists( $path ) )
 			return FALSE;
 
+		if ( ! is_file( $path ) )
+			return FALSE;
+
 		if ( is_null( $name ) )
 			$name = basename( $path );
 
