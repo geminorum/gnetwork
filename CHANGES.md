@@ -1,3 +1,73 @@
+### 3.5.3
+* main/plugin: not available string helper
+* main/modulecore: skip saving default settings
+* main/modulecore: settings hook helper
+* main/modulecore: passing sub into settings buttons/help methods
+* main/modulecore: module current saved options as help tab
+* main/modulecore: check for wp installing
+* main/logger: :new: new main class
+* main/settings: submit button helper
+* main/settings: rethinking after helpers
+* main/settings: reverse enabled strings helper
+* main/utilities: refactor get layout helper
+* main/utilities: post title helper
+* main/utilities: better handling time ago
+* main/utilities: support for jquery time ago
+* module/adminbar: more checks for shortlink menu
+* module/authors: not caching logged in user shortcode messages
+* module/authors: not hooking settings for the second time
+* module/blog: :new: delay feed option
+* module/blog: site default as option on admin locale
+* module/blog: :warning: returning the rest disabled error!
+* module/buddypress: redirect to signup for closed directories
+* module/buddypress: default not to set avatar sizes
+* module/dashboard: :new: user site list widget
+* module/dashboard: posttype supports as help tab
+* module/dashboard: :warning: misspelled hook name
+* module/debug: new tab for analog logs
+* module/debug: disabling debug logs with constant
+* module/debug: list current http calls as adminbar submenu
+* module/debug: refactoring wp die handler
+* module/debug: list missing php ext on overview tab
+* module/debug: ip lookup service for ip summary
+* module/debug: reordering overview reports
+* module/debug: download button for logs
+* module/debug: new tabs for system report & remote tests
+* module/dev: current blog name on the benchmark logs
+* module/dev: push screen information help tab to the last
+* module/dev: shutdown logger on cron/installing
+* module/mail: disabling email logs by constant
+* module/mail: old help tab removed
+* module/mail: display multiple recipient on email logs
+* module/media: using [jbroadway/urlify](https://github.com/jbroadway/urlify) to sanitize utf filenames
+* module/media: send attachment shortlinks to the editor
+* module/media: attachments table revised
+* module/media: :warning: fixed not counting all posts
+* module/navigation: refactoring the module
+* module/network: :warning: empty admin menu notices fixed!
+* module/network: no need to manually switch while updating admin email
+* module/notify: pluggable updated
+* module/notify: utilizing the logger
+* module/login: :new: logging not correct math answers
+* module/login: using wp hash instead of sha1 for math problem
+* module/login: login error logging moved and with support for more error codes
+* module/login: option to disable credits badge
+* module/restricted: using wp hash/wp generate passwords for feed keys
+* module/redtricted: avoid using plugin global
+* module/site: :new: ip lookup service link api
+* module/site: :new: override access denied admin page on network
+* module/shortcodes: :new: `[csv]` shortcode draft
+* module/taxonomy: :new: settings tab for current functionalities
+* module/taxonomy: :new: handling meta after term merging
+* module/taxonomy: correct html selectors for desc editor
+* module/typography: more generic/arabic modifications
+* module/typography: default title attr for wiki links
+* module/user: :new: default user roles for each site, adopted from [thenbrent/multisite-user-management](https://github.com/thenbrent/multisite-user-management)
+* module/user: overwrite signup/activate page default styles
+* module/user: buddypress tos moved here
+* module/user: :new: tos as user dashboard widget
+* module/user: :new: tos on network signup page
+
 ### 3.5.2
 * assets/js: :up: [jacklmoore/autosize](http://jacklmoore.com/autosize) v3.0.20
 * main/modulecore: checking if must register ui hooks
