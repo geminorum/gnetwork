@@ -19,6 +19,9 @@ class User extends ModuleCore
 				$this->filter( 'admin_body_class' );
 				$this->filter( 'insert_user_meta', 3, 8 );
 			}
+
+		} else {
+			$this->action( 'get_header' );
 		}
 
 		if ( $this->options['contact_methods'] )
@@ -423,5 +426,25 @@ class User extends ModuleCore
 		", $regex ) );
 
 		return $users;
+	}
+
+	public function get_header( $name )
+	{
+		if ( 'wp-signup' == $name ) {
+
+			remove_action( 'wp_head', 'wpmu_signup_stylesheet' );
+
+			add_action( 'wp_head', function(){
+				Utilities::linkStyleSheet( GNETWORK_URL.'assets/css/signup.all.css' );
+			} );
+
+		} else if ( 'wp-activate' == $name ) {
+
+			remove_action( 'wp_head', 'wpmu_activate_stylesheet' );
+
+			add_action( 'wp_head', function(){
+				Utilities::linkStyleSheet( GNETWORK_URL.'assets/css/activate.all.css' );
+			} );
+		}
 	}
 }
