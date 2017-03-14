@@ -7,6 +7,8 @@ class User extends ModuleCore
 
 	protected $key = 'user';
 
+	protected $installing = TRUE;
+
 	public $menus = array();
 
 	protected function setup_actions()
@@ -29,6 +31,11 @@ class User extends ModuleCore
 			add_action( 'user_admin_menu', array( $this, 'user_admin_menu' ), 12 );
 			add_action( 'user_admin_menu', array( $this, 'user_admin_menu_late' ), 999 );
 		}
+
+		if ( $this->options['blog_roles'] ) {
+			$this->action( 'wpmu_new_user' );
+			$this->action( 'wp_login', 2 );
+		}
 	}
 
 	public function setup_menu( $context )
@@ -37,13 +44,20 @@ class User extends ModuleCore
 			_x( 'User', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
 			array( $this, 'settings' )
 		);
+
+		if ( is_multisite() && $this->options['blog_roles'] )
+			Network::registerMenu( 'roles',
+				_x( 'Roles', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN )
+			);
 	}
 
 	public function default_options()
 	{
 		return array(
+			'blog_roles'      => '0',
 			'contact_methods' => '1',
 			'user_locale'     => '0',
+			'dashboard_sites' => '0',
 		);
 	}
 
@@ -51,6 +65,11 @@ class User extends ModuleCore
 	{
 		return array(
 			'_general' => array(
+				array(
+					'field'       => 'blog_roles',
+					'title'       => _x( 'Blog Roles', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Automatically adds each user to blogs', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
+				),
 				array(
 					'field'       => 'contact_methods',
 					'title'       => _x( 'Contact Methods', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
@@ -70,6 +89,110 @@ class User extends ModuleCore
 				),
 			),
 		);
+	}
+
+	public function settings( $sub = NULL )
+	{
+		if ( $this->key == $sub ) {
+
+			parent::settings( $sub );
+
+		} else if ( 'roles' == $sub ) {
+
+			if ( ! empty( $_POST ) && 'bulk' == $_POST['action'] ) {
+
+				$this->check_referer( $sub );
+
+				$roles = array();
+
+				foreach ( $_POST['role'] as $blog_id => $role )
+					if ( $role != 'none' )
+						$new_roles[$blog_id] = $role;
+
+				if ( isset( $_POST['update_sites_roles'] ) ) {
+
+					$saved = get_site_option( $this->hook( 'roles' ), array() );
+
+					if ( ! $this->update_sites_roles( $saved, $roles ) )
+						WordPress::redirectReferer( 'wrong' );
+				}
+
+				WordPress::redirectReferer( ( update_site_option( $this->hook( 'roles' ), $roles ) ? 'updated' : 'error' ) );
+			}
+
+			add_action( $this->settings_hook( $sub ), array( $this, 'settings_form' ), 10, 2 );
+
+			$this->register_settings_buttons( $sub );
+			$this->register_settings_help( $sub );
+		}
+	}
+
+	public function settings_form( $uri, $sub = 'general' )
+	{
+		if ( $this->key == $sub ) {
+
+			parent::settings_form( $uri, $sub );
+
+		} else if ( 'roles' == $sub ) {
+
+			$this->settings_form_before( $uri, $sub, 'bulk', FALSE );
+
+				if ( $this->tableBlogRoles() )
+					$this->settings_buttons( $sub );
+
+			$this->settings_form_after( $uri, $sub );
+		}
+	}
+
+	private function tableBlogRoles()
+	{
+		$blogs = $this->get_sites();
+		$roles = get_site_option( $this->hook( 'roles' ), array() );
+
+		if ( empty( $blogs ) )
+			return HTML::desc( _x( 'No sites available.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ) );
+
+		Settings::fieldSection(
+			_x( 'Default User Roles', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
+			_x( 'New users will receive these roles when activating their account. Existing users will receive these roles only if they have the current default role or no role at all for each particular site.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN )
+		);
+
+		echo '<table class="form-table">';
+
+		foreach( $blogs as $blog ) {
+
+			switch_to_blog( $blog->blog_id );
+
+			$this->do_settings_field( array(
+				'field'      => $blog->blog_id,
+				'type'       => 'role',
+				'title'      => get_bloginfo( 'name' ),
+				'wrap'       => TRUE,
+				'options'    => $roles,
+				'name_attr'  => 'role['.$blog->blog_id.']',
+				'none_value' => 'none',
+				'after'      => Settings::fieldAfterIcon(
+					URL::untrail( $blog->domain.$blog->path ).'/wp-admin/users.php',
+					_x( 'View Users List', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
+					'admin-users'
+				),
+			) );
+
+			restore_current_blog();
+		}
+
+		echo '</table>';
+
+		HTML::desc( _x( '<b>Note:</b> only public, non-mature and non-dashboard sites appear here.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ) );
+
+		$this->do_settings_field( array(
+			'field'       => 'update_sites_roles',
+			'name_attr'   => 'update_sites_roles',
+			'type'        => 'checkbox',
+			'description' => _x( 'Also Update Current Users Roles', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
+		) );
+
+		return TRUE;
 	}
 
 	public function user_admin_menu()
@@ -200,5 +323,105 @@ class User extends ModuleCore
 		unset( $meta['locale'] );
 
 		return $meta;
+	}
+
+	private function get_sites()
+	{
+		global $wpdb;
+
+		$list = array();
+
+		$blogs = $wpdb->get_results( $wpdb->prepare( "
+			SELECT blog_id, domain, path
+			FROM {$wpdb->blogs}
+			WHERE site_id = %d
+			AND spam = '0'
+			AND deleted = '0'
+			AND archived = '0'
+			ORDER BY registered ASC
+		", $wpdb->siteid ), ARRAY_A );
+
+		foreach ( (array) $blogs as $details )
+			$list[$details['blog_id']] = (object) $details;
+
+		return $list;
+	}
+
+	public function wpmu_new_user( $user_id )
+	{
+		$roles = get_site_option( $this->hook( 'roles' ), array() );
+
+		if ( ! count( $roles ) )
+			return;
+
+		foreach ( $roles as $blog_id => $role )
+			if ( ! is_user_member_of_blog( $user_id, $blog_id ) )
+				add_user_to_blog( $blog_id, $user_id, $role );
+
+		update_user_meta( $user_id, $this->hook( 'roles' ), '1' );
+	}
+
+	public function wp_login( $user_login, $user )
+	{
+		if ( ! get_user_meta( $user->ID, $this->hook( 'roles' ), TRUE ) )
+			$this->wpmu_new_user( $user->ID );
+	}
+
+	private function update_sites_roles( $old, $new )
+	{
+		foreach ( $this->get_sites() as $blog ) {
+
+			if ( ! isset( $new[$blog->blog_id] )
+				&& ! isset( $old[$blog->blog_id] ) )
+					continue;
+
+			switch_to_blog( $blog->blog_id );
+
+			$users = isset( $old[$blog->blog_id] )
+				? $this->get_users_with_role( $old[$blog->blog_id] )
+				: wp_get_users_with_no_role();
+
+			foreach ( $users as $user_id ) {
+
+				if ( WordPress::isSuperAdmin( $user_id ) )
+					continue;
+
+				if ( $user = get_userdata( $user_id ) ) {
+
+					$user->set_role(
+						( isset( $new[$blog->blog_id] )
+							? $new[$blog->blog_id]
+							: ''
+						)
+					);
+
+					wp_cache_delete( $user_id, 'users' );
+				}
+			}
+
+			wp_cache_delete( $blog_id.'_user_count', 'blog-details' );
+			restore_current_blog();
+		}
+
+		return TRUE;
+	}
+
+	// @REF: `wp_get_users_with_no_role()`
+	private function get_users_with_role( $role )
+	{
+		global $wpdb;
+
+		$prefix = $wpdb->get_blog_prefix();
+		// $regex  = implode( '|', array_keys( wp_roles()->get_names() ) );
+		$regex  = $role;
+		$regex  = preg_replace( '/[^a-zA-Z_\|-]/', '', $regex );
+		$users  = $wpdb->get_col( $wpdb->prepare( "
+			SELECT user_id
+			FROM $wpdb->usermeta
+			WHERE meta_key = '{$prefix}capabilities'
+			AND meta_value REGEXP %s
+		", $regex ) );
+
+		return $users;
 	}
 }
