@@ -216,7 +216,7 @@ class User extends ModuleCore
 		$roles = get_site_option( $this->hook( 'roles' ), array() );
 
 		if ( empty( $blogs ) )
-			return HTML::desc( _x( 'No sites available.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ) );
+			return HTML::desc( gNetwork()->na() );
 
 		Settings::fieldSection(
 			_x( 'Default User Roles', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
