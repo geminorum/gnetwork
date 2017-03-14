@@ -15,13 +15,14 @@ class ModuleCore extends Base
 	protected $user    = NULL;
 	protected $front   = TRUE;
 
-	protected $hidden = FALSE;
-	protected $ajax   = FALSE;
-	protected $cron   = FALSE;
-	protected $cli    = NULL;
-	protected $dev    = NULL;
-	protected $xmlrpc = NULL;
-	protected $iframe = NULL;
+	protected $hidden     = FALSE;
+	protected $ajax       = FALSE;
+	protected $cron       = FALSE;
+	protected $installing = FALSE;
+	protected $cli        = NULL;
+	protected $dev        = NULL;
+	protected $xmlrpc     = NULL;
+	protected $iframe     = NULL;
 
 	protected $scripts_printed  = FALSE;
 	protected $scripts_nojquery = array();
@@ -46,7 +47,7 @@ class ModuleCore extends Base
 		if ( ! $this->cron && WordPress::isCRON() )
 			throw new Exception( 'Not on CRON Calls!' );
 
-		if ( wp_installing() )
+		if ( ! $this->installing && wp_installing() )
 			throw new Exception( 'Not while WP is Installing!' );
 
 		if ( ! is_null( $this->dev ) ) {
