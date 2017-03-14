@@ -70,6 +70,8 @@ class Notify extends ModuleCore
 	// http://codex.wordpress.org/Configuring_Automatic_Background_Updates
 	public function auto_core_update_send_email( $true, $type, $core_update, $result )
 	{
+		Logger::ALERT( sprintf( 'NOTIFY: automatic background core update: %s', $type ) );
+
 		if ( in_array( $type, array( 'fail', 'critical' ) ) )
 			return TRUE;
 
@@ -85,6 +87,8 @@ class Notify extends ModuleCore
 
 		$blog = $this->blogname();
 		$user = get_userdata( $user_id );
+
+		Logger::ALERT( sprintf( 'NOTIFY: New user registration: %s', $user->user_login ) );
 
 		if ( ! $this->options['disable_new_user_admin']
 			&& 'user' !== $notify ) {
@@ -132,6 +136,8 @@ class Notify extends ModuleCore
 	// Notify the blog admin of a user changing password, normally via email.
 	public function wp_password_change_notification( $user )
 	{
+		Logger::ALERT( sprintf( 'NOTIFY: Password changed: %s', $user->user_login ) );
+
 		if ( $this->options['disable_password_change'] )
 			return;
 
