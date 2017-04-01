@@ -623,7 +623,7 @@ class Debug extends ModuleCore
 
 			echo '<title>'.$title.'</title>';
 
-			Utilities::linkStyleSheet( GNETWORK_URL.'assets/css/die.all.css' );
+			Utilities::linkStyleSheet( 'die.all.css' );
 			Utilities::customStyleSheet( 'die.css' );
 
 			echo '</head><body id="error-page">';

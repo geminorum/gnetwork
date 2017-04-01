@@ -160,7 +160,7 @@ class Admin extends ModuleCore
 
 	public function admin_print_styles()
 	{
-		Utilities::linkStyleSheet( GNETWORK_URL.'assets/css/admin.all.css' );
+		Utilities::linkStyleSheet( 'admin.all.css' );
 		Utilities::customStyleSheet( 'admin.css' );
 
 		if ( GNETWORK_ADMIN_JS_ENHANCEMENTS )

@@ -213,7 +213,7 @@ class Themes extends ModuleCore
 			if ( $this->rtl ) {
 
 				add_action( 'wp_head', function(){
-					Utilities::linkStyleSheet( GNETWORK_URL.'assets/css/themes.p2-rtl.css' );
+					Utilities::linkStyleSheet( 'themes.p2-rtl.css' );
 					// wp_enqueue_style( 'p2-rtl', GNETWORK_URL.'assets/css/themes.p2-rtl.css', array(), GNETWORK_VERSION );
 					// wp_enqueue_style( 'p2-print-style-rtl', GNETWORK_URL.'assets/css/themes.p2-rtl-print.css', array( 'p2-rtl' ), GNETWORK_VERSION, 'print' );
 				}, 99 );
@@ -330,7 +330,7 @@ class Themes extends ModuleCore
 			&& GNETWORK_DISABLE_FRONT_STYLES )
 				return;
 
-		Utilities::linkStyleSheet( GNETWORK_URL.'assets/css/front.all.css' );
+		Utilities::linkStyleSheet( 'front.all.css' );
 	}
 
 	public function isTheme( $template, $not_stylesheet = NULL )

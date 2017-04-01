@@ -265,9 +265,9 @@ class Utilities extends Base
 	}
 
 	// override to use plugin version
-	public static function linkStyleSheet( $url, $version = GNETWORK_VERSION, $media = 'all' )
+	public static function linkStyleSheet( $css, $version = GNETWORK_VERSION, $media = 'all' )
 	{
-		HTML::linkStyleSheet( $url, $version, $media );
+		HTML::linkStyleSheet( GNETWORK_URL.'assets/css/'.$css, $version, $media );
 	}
 
 	public static function customStyleSheet( $css, $link = TRUE, $version = GNETWORK_VERSION )

@@ -498,7 +498,7 @@ class User extends ModuleCore
 			remove_action( 'wp_head', 'wpmu_signup_stylesheet' );
 
 			add_action( 'wp_head', function(){
-				Utilities::linkStyleSheet( GNETWORK_URL.'assets/css/signup.all.css' );
+				Utilities::linkStyleSheet( 'signup.all.css' );
 			} );
 
 		} else if ( 'wp-activate' == $name ) {
@@ -506,7 +506,7 @@ class User extends ModuleCore
 			remove_action( 'wp_head', 'wpmu_activate_stylesheet' );
 
 			add_action( 'wp_head', function(){
-				Utilities::linkStyleSheet( GNETWORK_URL.'assets/css/activate.all.css' );
+				Utilities::linkStyleSheet( 'activate.all.css' );
 			} );
 		}
 	}
