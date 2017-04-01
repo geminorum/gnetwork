@@ -270,10 +270,14 @@ class Utilities extends Base
 		HTML::linkStyleSheet( $url, $version, $media );
 	}
 
-	// override to use plugin version
 	public static function customStyleSheet( $css, $link = TRUE, $version = GNETWORK_VERSION )
 	{
-		return WordPress::customStyleSheet( $css, $link, $version );
+		$file = WordPress::customFile( $css, FALSE );
+
+		if ( $link && $file )
+			HTML::linkStyleSheet( $file, $version );
+
+		return $file;
 	}
 
 	public static function enqueueScript( $asset, $dep = array( 'jquery' ), $version = GNETWORK_VERSION, $base = GNETWORK_URL, $path = 'assets/js' )

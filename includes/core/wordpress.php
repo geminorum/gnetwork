@@ -384,8 +384,32 @@ class WordPress extends Base
 		return $list;
 	}
 
+	public static function customFile( $filename, $path = FALSE )
+	{
+		$stylesheet = get_stylesheet_directory();
+
+		if ( file_exists( $stylesheet.'/'.$filename ) )
+			return $path ? ( $stylesheet().'/'.$filename )
+				: get_stylesheet_directory_uri().'/'.$filename;
+
+		$template = get_template_directory();
+
+		if ( file_exists( $template.'/'.$filename ) )
+			return $path ? ( $template.'/'.$filename )
+				: get_template_directory_uri().'/'.$filename;
+
+		if ( file_exists( WP_CONTENT_DIR.'/'.$filename ) )
+			return $path ? ( WP_CONTENT_DIR.'/'.$filename )
+				: ( WP_CONTENT_URL.'/'.$filename );
+
+		return FALSE;
+	}
+
+	// FIXME: DEPRECATED
 	public static function customStyleSheet( $css, $link = TRUE, $version = NULL )
 	{
+		self::__dep( 'WordPress::customFile()' );
+
 		$url = FALSE;
 
 		if ( file_exists( get_stylesheet_directory().'/'.$css ) )
