@@ -37,7 +37,7 @@ class Login extends ModuleCore
 			'login_class'       => '',
 			'login_remember'    => 0,
 			'login_math'        => 0,
-			'login_credits'     => '1',
+			'login_credits'     => 0,
 		);
 	}
 
@@ -99,9 +99,9 @@ class Login extends ModuleCore
 					'field_class' => array( 'large-text', 'code-text' ),
 				),
 				array(
-					'field'   => 'login_credits',
-					'title'   => _x( 'Credits Badge', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'default' => '1',
+					'field'       => 'login_credits',
+					'title'       => _x( 'Credits Badge', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Displays credits badge on bottom of the login page', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 				),
 			),
 		);
@@ -259,7 +259,13 @@ class Login extends ModuleCore
 			return;
 
 		echo '<div class="gnetwork-wrap -footer">';
-			echo Utilities::creditsBadge();
+
+			if ( $credits = WordPress::customFile( 'credits-badge.png' ) )
+				echo HTML::tag( 'img', [ 'src' => $credits ] );
+
+			else
+				echo Utilities::creditsBadge();
+
 		echo '</div>';
 	}
 
