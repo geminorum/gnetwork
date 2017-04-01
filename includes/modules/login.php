@@ -151,7 +151,7 @@ class Login extends ModuleCore
 
 	public function login_head()
 	{
-		Utilities::linkStyleSheet( GNETWORK_URL.'assets/css/login.all.css' );
+		Utilities::linkStyleSheet( 'login.all.css' );
 
 		if ( $this->options['login_styles'] )
 			echo '<style>'.$this->options['login_styles'].'</style>'."\n";
