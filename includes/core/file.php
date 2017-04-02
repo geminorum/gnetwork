@@ -193,7 +193,7 @@ class File extends Base
 		header( 'Content-Transfer-Encoding: binary' );
 		header( 'Connection: close' );
 
-		ob_clean();
+		@ob_clean();
 		flush();
 
 		readfile( $path );

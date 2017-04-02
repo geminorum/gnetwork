@@ -257,9 +257,9 @@ class HTML extends Base
 			return;
 
 		if ( $reverse )
-			$row = '<tr><td class="-val"><code>%1$s</code></td><td class="-var">%2$s</td></tr>';
+			$row = '<tr><td class="-val"><code>%1$s</code></td><td class="-var" valign="top">%2$s</td></tr>';
 		else
-			$row = '<tr><td class="-var">%1$s</td><td class="-val"><code>%2$s</code></td></tr>';
+			$row = '<tr><td class="-var" valign="top">%1$s</td><td class="-val"><code>%2$s</code></td></tr>';
 
 		echo '<table class="base-table-code'.( $reverse ? ' -reverse' : '' ).'">';
 
@@ -278,6 +278,12 @@ class HTML extends Base
 
 			else if ( is_array( $val ) || is_object( $val ) )
 				$val = json_encode( $val );
+
+			else if ( empty( $val ) )
+				$val = 'EMPTY';
+
+			else
+				$val = nl2br( $val );
 
 			printf( $row, $key, $val );
 		}
