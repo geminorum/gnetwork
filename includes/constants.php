@@ -3,7 +3,7 @@
 $gnetwork_constants = array(
 
 	'GNETWORK_TEXTDOMAIN'            => 'gnetwork',
-	'GNETWORK_BASE'                  => network_home_url(),
+	'GNETWORK_BASE'                  => network_home_url( '/' ),
 	'GNETWORK_NAME'                  => ( is_multisite() ? get_site_option( 'site_name' ) : get_option( 'blogname' ) ),
 	'GNETWORK_LOGO'                  => 'login.png', // default logo image file, must be on wp-content
 	// 'GNETWORK_WPLANG'                => 'en_US', // define if necessary
