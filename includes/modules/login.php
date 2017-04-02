@@ -16,6 +16,9 @@ class Login extends ModuleCore
 			$this->filter( 'authenticate', 3, 1 );
 		}
 
+		if ( $this->options['login_log'] )
+			$this->action( 'wp_login', 2 );
+
 		$this->filter( 'wp_login_errors', 2 );
 	}
 
@@ -38,6 +41,7 @@ class Login extends ModuleCore
 			'login_remember'    => 0,
 			'login_math'        => 0,
 			'login_credits'     => 0,
+			'login_log'         => 0,
 		);
 	}
 
@@ -102,6 +106,11 @@ class Login extends ModuleCore
 					'field'       => 'login_credits',
 					'title'       => _x( 'Credits Badge', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Displays credits badge on bottom of the login page', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+				),
+				array(
+					'field'       => 'login_log',
+					'title'       => _x( 'Log Logins', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Logs user log-in events', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 				),
 			),
 		);
@@ -229,6 +238,12 @@ class Login extends ModuleCore
 		}
 
 		return $null;
+	}
+
+	// TODO: add logger to logout / has no action hook with user info!
+	public function wp_login( $user_login, $user )
+	{
+		Logger::NOTICE( sprintf( 'LOGGED-IN: %s', $user_login ) );
 	}
 
 	public function wp_login_errors( $errors, $redirect_to )
