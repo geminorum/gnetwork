@@ -67,6 +67,9 @@ class Logger
 			// format to use with `Debug::displayErrorLogs()`
 			\Analog::$format = '[%2$s] %1$s :: (%3$d) %4$s'."\n";
 			\Analog::$date_format = 'd-M-Y H:i:s e';
+
+			// overrride machine name with user ip
+			\Analog::$machine = $_SERVER['REMOTE_ADDR']; // HTTP::IP();
 		}
 
 		return $gNetworkAnalog;
