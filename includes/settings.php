@@ -278,9 +278,9 @@ class Settings extends Base
 		HTML::desc( $description );
 	}
 
-	public static function fieldAfterText( $text, $class = '-text-wrap' )
+	public static function fieldAfterText( $text, $wrap = 'span', $class = '-text-wrap' )
 	{
-		return $text ? HTML::tag( 'span', array( 'class' => '-field-after '.$class ), $text ) : '';
+		return $text ? HTML::tag( $wrap, array( 'class' => '-field-after '.$class ), $text ) : '';
 	}
 
 	public static function fieldAfterIcon( $url = '', $title = NULL, $icon = 'info' )
