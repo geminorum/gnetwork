@@ -57,6 +57,7 @@ class Blog extends ModuleCore
 			'blog_redirect_status' => '301',
 			'rest_api_enabled'     => '0',
 			'xmlrpc_enabled'       => '0',
+			'wlw_enabled'          => '0',
 			'page_copyright'       => '0',
 			'page_404'             => '0',
 			'meta_revised'         => '0',
@@ -112,6 +113,11 @@ class Blog extends ModuleCore
 					'field'       => 'xmlrpc_enabled',
 					'title'       => _x( 'XML-RPC', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Whether XML-RPC Services Are Enabled on This Site', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+				),
+				array(
+					'field'       => 'wlw_enabled',
+					'title'       => _x( 'WLW', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Whether Windows Live Writer manifest enabled for this site.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 				),
 				array(
 					'field'       => 'feed_json',
@@ -266,6 +272,13 @@ class Blog extends ModuleCore
 				return is_array( $plugins ) ? array_diff( $plugins, array( 'wpemoji' ) ) : array();
 			} );
 		}
+
+		// RSD works through xml-rpc
+		if ( ! $this->options['xmlrpc_enabled'] )
+			remove_action( 'wp_head', 'rsd_link' );
+
+		if ( ! $this->options['wlw_enabled'] )
+			remove_action( 'wp_head', 'wlwmanifest_link' );
 	}
 
 	public function init_late()
