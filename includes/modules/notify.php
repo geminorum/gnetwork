@@ -16,6 +16,15 @@ class Notify extends ModuleCore
 
 		if ( file_exists( GNETWORK_DIR.'includes/misc/notify-pluggable.php' ) )
 			require_once( GNETWORK_DIR.'includes/misc/notify-pluggable.php' );
+
+		if ( ! is_multisite() )
+			return;
+
+		if ( $this->options['signup_blog_subject'] )
+			$this->filter( 'wpmu_signup_blog_notification_email', 8, 12 );
+
+		if ( $this->options['signup_blog_message'] )
+			$this->filter( 'wpmu_signup_blog_notification_subject', 8, 12 );
 	}
 
 	public function setup_menu( $context )
@@ -31,12 +40,14 @@ class Notify extends ModuleCore
 		return array(
 			'disable_new_user_admin'  => '1',
 			'disable_password_change' => '1',
+			'signup_blog_subject'     => '',
+			'signup_blog_message'     => '',
 		);
 	}
 
 	public function default_settings()
 	{
-		return array(
+		$settings = array(
 			'_general' => array(
 				array(
 					'field'       => 'disable_new_user_admin',
@@ -54,6 +65,28 @@ class Notify extends ModuleCore
 				),
 			),
 		);
+
+		if ( is_multisite() )
+			$settings['signup'] = [
+				[
+					'field'       => 'signup_blog_subject',
+					'type'        => 'text',
+					'title'       => _x( 'New Blog Subject', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Subject of the new blog notification email. Leave empty to use defaults.', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
+					'placeholder' => _x( '[%1$s] Activate %2$s', 'New site notification email subject' ),
+					'after'       => Settings::fieldAfterText( '<code>%1$s</code>: Network name, <code>%2$s</code>: New site URL' ),
+				],
+				[
+					'field'       => 'signup_blog_message',
+					'type'        => 'textarea',
+					'title'       => _x( 'New Blog Message', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Message content of the new blog notification email. Leave empty to use defaults.', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
+					'placeholder' => __( "To activate your blog, please click the following link:\n\n%s\n\nAfter you activate, you will receive *another email* with your login.\n\nAfter you activate, you can visit your site here:\n\n%s" ),
+					'after'       => Settings::fieldAfterText( '<code>%1$s</code>: Activate URL, <code>%2$s</code>: New site URL, <code>%3$s</code>: Activation Key' ),
+				],
+			];
+
+		return $settings;
 	}
 
 	// filter whether to bypass the welcome email after site activation.
@@ -154,5 +187,15 @@ class Notify extends ModuleCore
 	{
 		return wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
 		// return wp_specialchars_decode( get_bloginfo( 'name' ), ENT_QUOTES );
+	}
+
+	public function wpmu_signup_blog_notification_subject( $subject, $domain, $path, $title, $user_login, $user_email, $key, $meta )
+	{
+		return $this->options['signup_blog_subject'];
+	}
+
+	public function wpmu_signup_blog_notification_email( $message, $domain, $path, $title, $user_login, $user_email, $key, $meta )
+	{
+		return $this->options['signup_blog_message'];
 	}
 }
