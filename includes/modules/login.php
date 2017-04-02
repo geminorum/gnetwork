@@ -214,16 +214,16 @@ class Login extends ModuleCore
 
 		if ( FALSE === $correct ) {
 
-			Logger::ALERT( 'LOGIN-MATH: not properly configured' );
+			Logger::ALERT( 'LOGIN-MATH: not properly configured'.sprintf( ': %s', self::req( 'log', '(EMPTY)' ) ) );
 
 			wp_die( _x( '<strong>This site is not properly configured.</strong> Please ask this site\'s web developer to review for information on how to resolve this issue.', 'Modules: Login', GNETWORK_TEXTDOMAIN ) );
 
 		} else if ( FALSE === $salted || $salted != $correct ) {
 
 			if ( FALSE === $salted )
-				Logger::WARNING( 'LOGIN-MATH: not posting answer' );
+				Logger::WARNING( 'LOGIN-MATH: not posting answer'.sprintf( ': %s', self::req( 'log', '(EMPTY)' ) ) );
 			else
-				Logger::NOTICE( 'LOGIN-MATH: failed to correctly answer' );
+				Logger::NOTICE( 'LOGIN-MATH: failed to correctly answer'.sprintf( ': %s', self::req( 'log', '(EMPTY)' ) ) );
 
 			wp_die( _x( '<strong>You failed to correctly answer the math problem.</strong> This is used to combat spam Please use your browser\'s back button to return to the login form, press the "refresh" button to generate a new math problem, and try to log in again.', 'Modules: Login', GNETWORK_TEXTDOMAIN ) );
 		}
@@ -246,7 +246,7 @@ class Login extends ModuleCore
 
 		foreach ( $errors->get_error_codes() as $error )
 			if ( in_array( $error, $log ) )
-				Logger::WARNING( 'LOGIN-ERRORS: '.str_replace( '_', ' ', $error ) );
+				Logger::NOTICE( 'LOGIN-ERRORS: '.str_replace( '_', ' ', $error ).sprintf( ': %s', self::req( 'log', '(EMPTY)' ) ) );
 
 		return $errors;
 	}
