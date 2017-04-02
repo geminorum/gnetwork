@@ -757,8 +757,8 @@ class ShortCodes extends ModuleCore
 			'width'    => FALSE, // default is full width
 			'height'   => FALSE, // '960px',
 			'view'     => FALSE, // 'FitV',  //'FitH',
-			'fallback' => _x( 'It appears you don\'t have Adobe Reader or PDF support in this web browser. <a href="%s">Click here to download the PDF</a>', 'Modules: ShortCodes: Defaults', GNETWORK_TEXTDOMAIN ),
-			'feedlink' => _x( '<a href="%s">Click here to download the PDF</a>', 'Modules: ShortCodes: Defaults', GNETWORK_TEXTDOMAIN ),
+			'fallback' => _x( 'It appears you don\'t have Adobe Reader or PDF support in this web browser. <a href="%s">Click here to download the PDF</a>.', 'Modules: ShortCodes: Defaults', GNETWORK_TEXTDOMAIN ),
+			'feedlink' => _x( '<a href="%s">Click here to download the PDF</a>.', 'Modules: ShortCodes: Defaults', GNETWORK_TEXTDOMAIN ),
 			'context'  => NULL,
 			'wrap'     => TRUE,
 			'before'   => '',

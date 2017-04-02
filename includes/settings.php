@@ -101,8 +101,8 @@ class Settings extends Base
 			'deleted'   => self::counted( _x( '%s deleted!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
 			'cleaned'   => self::counted( _x( '%s cleaned!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
 			'purged'    => self::success( _x( 'Data purged.', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
-			'changed'   => self::counted( _x( '%s Items(s) Changed', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
-			'nochange'  => self::warning( _x( 'No Item Changed', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
+			'changed'   => self::counted( _x( '%s items(s) changed.', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
+			'nochange'  => self::warning( _x( 'No item changed!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
 			'error'     => self::error( _x( 'Error while settings save.', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
 			'wrong'     => self::error( _x( 'Something\'s wrong!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
 			'huh'       => self::error( self::huh( empty( $_REQUEST['huh'] ) ? NULL : $_REQUEST['huh'] ) ),
@@ -242,7 +242,7 @@ class Settings extends Base
 	{
 		return HTML::tag( 'a', array(
 			'href'   => 'https://codex.wordpress.org/'.$page,
-			'title'  => sprintf( _x( 'See WordPress Codex for %s', 'Settings', GNETWORK_TEXTDOMAIN ), str_ireplace( '_', ' ', $page ) ),
+			'title'  => sprintf( _x( 'See WordPress Codex for %s.', 'Settings', GNETWORK_TEXTDOMAIN ), str_ireplace( '_', ' ', $page ) ),
 			'target' => '_blank',
 		), ( $text ? _x( 'See Codex', 'Settings', GNETWORK_TEXTDOMAIN ) : HTML::getDashicon( 'media-code' ) ) );
 	}

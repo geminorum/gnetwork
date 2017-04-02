@@ -11,7 +11,7 @@ class Logger
 		global $gNetworkStopWatch;
 
 		if ( empty( $gNetworkStopWatch ) )
-			$gNetworkStopWatch = new \Symfony\Component\Stopwatch\Stopwatch\Stopwatch();
+			$gNetworkStopWatch = new \Symfony\Component\Stopwatch\Stopwatch();
 
 		return $gNetworkStopWatch->start( $name, $category );
 	}

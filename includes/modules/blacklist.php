@@ -59,7 +59,7 @@ class BlackList extends ModuleCore
 					'type'        => 'textarea-quicktags',
 					'title'       => _x( 'Blacklisted Message', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Locked message on WordPress die page', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ),
-					'default'     => 'you\'re blacklisted!',
+					'default'     => 'you\'re blacklisted, dude!',
 					'field_class' => array( 'large-text', 'code-text' ),
 				),
 			),
@@ -85,11 +85,16 @@ class BlackList extends ModuleCore
 		$long   = ip2long( $_SERVER['REMOTE_ADDR'] );
 
 		foreach ( $groups as $group ) {
+
 			if ( FALSE === strpos( $group, '-' ) ) {
+
 				if ( $long == ip2long( trim( $group ) ) )
 					return TRUE;
+
 			} else {
+
 				$range = array_map( 'trim', explode( '-', $group ) );
+
 				if ( $long >= ip2long( $range[0] )
 					&& $long <= ip2long( $range[1] ) )
 						return TRUE;

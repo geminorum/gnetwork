@@ -482,7 +482,7 @@ class Utilities extends Base
 		global $gNetworkIPinfo;
 
 		if ( empty( $gNetworkIPinfo ) )
-			$gNetworkIPinfo = new \DavidePastore\Ipinfo\Ipinfo\Ipinfo();
+			$gNetworkIPinfo = new \DavidePastore\Ipinfo\Ipinfo();
 
 		return $gNetworkIPinfo;
 	}
