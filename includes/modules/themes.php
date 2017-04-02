@@ -27,6 +27,8 @@ class Themes extends ModuleCore
 			// FIXME: NOT WORKING : when trying to enable each theme
 			// add_filter( 'allowed_themes', array( $this, 'allowed_themes' ) );
 
+			$this->filter( 'theme_scandir_exclusions' );
+
 		} else {
 
 			add_action( 'wp_default_scripts', array( $this, 'wp_default_scripts' ), 9 );
@@ -100,6 +102,12 @@ class Themes extends ModuleCore
 		);
 
 		return $settings;
+	}
+
+	// array of excluded directories and files while scanning theme folder.
+	public function theme_scandir_exclusions( $exclusions )
+	{
+		return array_merge( $exclusions, [ 'vendor', 'bower_components', 'node_modules' ] );
 	}
 
 	public function wp_default_scripts( &$scripts )
