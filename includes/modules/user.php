@@ -370,9 +370,10 @@ class User extends ModuleCore
 	public function user_contactmethods( $contactmethods, $user )
 	{
 		return array_merge( $contactmethods, array(
-			'googleplus' => _x( 'Google+ Profile', 'Modules: User: User Contact Method', GNETWORK_TEXTDOMAIN ),
-			'twitter'    => _x( 'Twitter', 'Modules: User: User Contact Method', GNETWORK_TEXTDOMAIN ),
 			'mobile'     => _x( 'Mobile Phone', 'Modules: User: User Contact Method', GNETWORK_TEXTDOMAIN ),
+			'twitter'    => _x( 'Twitter', 'Modules: User: User Contact Method', GNETWORK_TEXTDOMAIN ),
+			'facebook'   => _x( 'Facebook', 'Modules: User: User Contact Method', GNETWORK_TEXTDOMAIN ),
+			'googleplus' => _x( 'Google+', 'Modules: User: User Contact Method', GNETWORK_TEXTDOMAIN ),
 		) );
 	}
 
