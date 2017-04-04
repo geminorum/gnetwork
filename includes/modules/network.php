@@ -123,8 +123,9 @@ class Network extends ModuleCore
 
 			if ( file_exists( GNETWORK_DIR.'includes/settings/'.$this->key.'.'.$sub.'.php' ) )
 				require_once( GNETWORK_DIR.'includes/settings/'.$this->key.'.'.$sub.'.php' );
-			else
-				$this->actions( 'settings_sub_'.$sub, $uri, $sub );
+
+			else if ( ! $this->actions( 'settings_sub_'.$sub, $uri, $sub ) )
+				Settings::cheatin();
 
 		Settings::wrapClose();
 	}
