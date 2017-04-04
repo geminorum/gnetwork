@@ -377,12 +377,19 @@ class ModuleCore extends Base
 	}
 
 	// DEFAULT METHOD: MAYBE OVERRIDED
-	// CAUTION: action method must check for nonce
+	// CAUTION: the action method responsible for checking the nonce
+	// NOT USED YET
 	protected function settings_actions( $sub = NULL )
 	{
-		if ( ! empty( $_REQUEST['action'] )
-			&& method_exists( $this, 'settings_action_'.$_REQUEST['action'] ) )
-				$this->{'settings_action_'.$_REQUEST['action']}();
+		if ( empty( $_REQUEST['action'] ) )
+			return;
+
+		$action = sanitize_key( $_REQUEST['action'] );
+
+		if ( ! method_exists( $this, 'settings_action_'.$action ) )
+			return;
+
+		call_user_func_array( [ $this, 'settings_action_'.$action ], [ $sub ] );
 	}
 
 	public function settings_help() {}
