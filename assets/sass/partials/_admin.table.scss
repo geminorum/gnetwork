@@ -171,7 +171,11 @@ table.base-table-code {
       width: 185px;
     }
 
-    &.-val {}
+    &.-val {
+      code {
+        display: inline-block;
+      }
+    }
   }
 }
 

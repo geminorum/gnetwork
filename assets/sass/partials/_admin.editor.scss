@@ -62,4 +62,8 @@ body.rtl {
   .mce-charmap td div {
     text-align: center !important;
   }
+
+  #wp-link #wp-link-url {
+    direction: ltr;
+  }
 }
