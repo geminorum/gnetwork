@@ -30,14 +30,14 @@
     "analog/analog": "dev-master"
   },
   "require-dev": {
-    "raveren/kint": "^1.1",
+    "kint-php/kint": "^1.0",
     "mustache/mustache": "^2.11",
     "phelium/mysql-backup": "dev-master",
     "picqer/php-barcode-generator": "^0.2.1",
     "deviservi/nusoap": "^1.123",
     "tinify/tinify": "^1.5",
     "ricardoper/twitteroauth": "2.*",
-    "behat/transliterator": "^1.1"
+    "behat/transliterator": "^1.2"
   },
   "config": {
     "vendor-dir": "assets/vendor",
