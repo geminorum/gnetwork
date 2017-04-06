@@ -1,3 +1,22 @@
+### 3.5.4
+* plugin/uninstall: option deletion for site & blog
+* main/constants: prevent extra redirect by trailing slash
+* main/modulecore: check if sub action exists
+* main/modulecore: sanitizing settings action key
+* main/logger: overrride machine name with user ip
+* main/settings: passing tag into after wrapper
+* main/pluggable: again include phpass
+* main/utilities: factoring css urls
+* main/utilities: better handling custom files
+* module/blog: disable rsd link/wlw manifest by default
+* module/media: :warning: fixed notice!
+* module/login: custom credits badge
+* module/login: passing username to logger
+* module/login: optional login log
+* module/notify: optional override of the new blog email
+* module/themes: filtering scandir exclusions
+* module/user: facebook url as pre configured contact method
+
 ### 3.5.3
 * main/plugin: not available string helper
 * main/modulecore: skip saving default settings
