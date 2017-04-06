@@ -2,13 +2,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Didi Lite\n"
 "POT-Creation-Date: 2016-10-04 16:58+0330\n"
-"PO-Revision-Date: 2016-10-25 08:05+0330\n"
+"PO-Revision-Date: 2017-04-06 23:49+0430\n"
 "Language-Team: geminorum <contact@geminorum.ir>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.11\n"
-"X-Poedit-Basepath: ..\n"
+"X-Generator: Poedit 2.0\n"
+"X-Poedit-Basepath: ../../../themes/didi-lite\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Poedit-KeywordsList: esc_html_e;esc_html__;esc_url;_nx;esc_html_x\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
@@ -136,11 +136,11 @@ msgstr "راه‌بری در کامنت‌ها"
 
 #: comments.php:52
 msgid "Older Comments"
-msgstr "دیدگاه‌های کهنه‌تر"
+msgstr "دیدگاه‌های قبلی"
 
 #: comments.php:53
 msgid "Newer Comments"
-msgstr "دیدگاه‌های تازه‌تر"
+msgstr "دیدگاه‌های بعدی"
 
 #: comments.php:65
 msgid "Comments are closed."
@@ -189,7 +189,7 @@ msgstr "ویرایش"
 
 #: functions.php:310
 msgid "Your comment is awaiting moderation."
-msgstr ""
+msgstr "دیدگاه شما در انتظار بررسی است."
 
 #: header.php:22
 msgid "Skip to content"
@@ -286,7 +286,7 @@ msgstr "توسط %1$s"
 #. translators: used between list items, there is a space after the comma
 #: inc/template-tags.php:83 inc/template-tags.php:89
 msgid ", "
-msgstr ""
+msgstr "، "
 
 #: inc/template-tags.php:49
 #, php-format
@@ -330,11 +330,18 @@ msgid ""
 "can help."
 msgstr "چیزی که به دنبالش بودید پیدا نشد، شاید جست‌وجوی دوباره شما را یاری کند."
 
+#: comments.php:29
+msgctxt "comments title"
+msgid "One thought on &ldquo;%2$s&rdquo;"
+msgid_plural "%1$s thoughts on &ldquo;%2$s&rdquo;"
+msgstr[0] "یک دیدگاه دربارهٔ &laquo;%2$s&raquo;"
+msgstr[1] "%1$s دیدگاه دربارهٔ &laquo;%2$s&raquo;"
+
 msgid "<span class=\"meta-nav\">Next Post</span> %title"
-msgstr "<span class=\"meta-nav\">تازه‌تر</span> %title"
+msgstr "<span class=\"meta-nav\">بعدی</span> %title"
 
 msgid "<span class=\"meta-nav\">Previous Post</span> %title"
-msgstr "<span class=\"meta-nav\">کهنه‌تر</span> %title"
+msgstr "<span class=\"meta-nav\">قبلی</span> %title"
 
 msgid "Continue reading %s <span class=\"meta-nav\">&rarr;</span>"
 msgstr "ادامه <span class=\"meta-nav\">&larr;</span>"
