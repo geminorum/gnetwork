@@ -775,7 +775,7 @@ class Media extends ModuleCore
 
 		return HTML::tag( 'a', array(
 			'href'  => $url,
-			'rel'   => TRUE === $rel ? 'attachment' : $rel,
+			'rel'   => 'attachment',
 			'class' => '-attachment',
 			'data'  => array(
 				'id' => $id,
@@ -785,7 +785,7 @@ class Media extends ModuleCore
 
 	public function media_send_to_editor( $html, $id, $attachment )
 	{
-		if ( 'image' === substr( $post->post_mime_type, 0, 5 ) )
+		if ( 'image' === substr( get_post( $id )->post_mime_type, 0, 5 ) )
 			return $html;
 
 		if ( wp_attachment_is( 'video', $id )
