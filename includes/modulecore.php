@@ -711,6 +711,9 @@ class ModuleCore extends Base
 		if ( isset( $args['context'] ) && $args['context'] )
 			$classes[] = 'context-'.$args['context'];
 
+		if ( ! empty( $args['class'] ) )
+			$classes[] = $args['class'];
+
 		if ( $after )
 			return $before.HTML::tag( $block ? 'div' : 'span', array( 'class' => $classes ), $html ).$after;
 

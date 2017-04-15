@@ -1126,9 +1126,8 @@ class ShortCodes extends ModuleCore
 			$html .= '<li>'.$item.'</span> <span class="ref-text"><span class="citation" id="citenote-'.$key.'">'.$text.'</span></span></li>';
 		}
 
-		$html = HTML::tag( ( $args['number'] ? 'ul' : 'ol' ), array(
-			'class' => $args['class'],
-		), apply_filters( 'gnetwork_cite_reflist_before', '', $args ).$html );
+		$html = HTML::tag( ( $args['number'] ? 'ul' : 'ol' ),
+			apply_filters( 'gnetwork_cite_reflist_before', '', $args ).$html );
 
 		if ( ! defined( 'GNETWORK_DISABLE_REFLIST_JS' ) || ! GNETWORK_DISABLE_REFLIST_JS )
 			Utilities::enqueueScript( 'front.cite' );
@@ -1221,7 +1220,6 @@ class ShortCodes extends ModuleCore
 		$args = shortcode_atts( array(
 			'id'      => FALSE,
 			'name'    => FALSE,
-			'class'   => 'refrence-people',
 			'context' => NULL,
 			'wrap'    => TRUE,
 			'before'  => '',
@@ -1250,7 +1248,7 @@ class ShortCodes extends ModuleCore
 				'title'       => sanitize_term_field( 'name', $term->name, $term->term_id, $term->taxonomy, 'display' ),
 				'data-toggle' => 'tooltip',
 				'class'       => array(
-					$args['class'],
+					'reference-people',
 					'person-'.$term->slug,
 					'tooltip',
 				),

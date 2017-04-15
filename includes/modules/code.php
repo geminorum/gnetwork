@@ -189,6 +189,8 @@ class Code extends ModuleCore
 			'onclick'  => $args['js'] ? 'this.focus();this.select()' : FALSE,
 		), HTML::escapeTextarea( $content ) );
 
+		unset( $args['class'] );
+
 		return self::shortcodeWrap( $html, 'textarea', $args );
 	}
 
