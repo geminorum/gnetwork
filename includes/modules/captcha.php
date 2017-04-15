@@ -144,13 +144,12 @@ JS;
 	{
 		$errors = $this->recaptcha_errors();
 
-		if ( ! isset( $_POST['recaptcha_response_field'] )
-			|| empty( $_POST['recaptcha_response_field'] ) )
-				return new Error( 'empty_captcha', $errors['empty_captcha'] );
+		if ( empty( $_POST['recaptcha_response_field'] ) )
+			return new Error( 'empty_captcha', $errors['empty_captcha'] );
 
-		if ( isset( $_POST['recaptcha_response_field'] )
-			&& 'false' == $this->recaptcha_response() )
-				return new Error( 'invalid_captcha', $errors['invalid_captcha'] );
+
+		if ( 'false' == $this->recaptcha_response() )
+			return new Error( 'invalid_captcha', $errors['invalid_captcha'] );
 
 		return $user;
 	}
@@ -191,16 +190,14 @@ JS;
 
 		$errors = $this->recaptcha_errors();
 
-		if ( ! isset( $_POST['recaptcha_response_field'] )
-			|| empty( $_POST['recaptcha_response_field'] ) )
-				wp_die( $errors['empty_captcha'] );
+		if ( empty( $_POST['recaptcha_response_field'] ) )
+			wp_die( $errors['empty_captcha'] );
 
-		if ( isset( $_POST['recaptcha_response_field'] )
-			&& 'false' == $this->recaptcha_response() )
-				wp_die( $errors['invalid_captcha'] );
+		if ( 'false' == $this->recaptcha_response() )
+			wp_die( $errors['invalid_captcha'] );
 
 		return $commentdata;
-    }
+	}
 
 	public function comment_form_after_fields()
 	{

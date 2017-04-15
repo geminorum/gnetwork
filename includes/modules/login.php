@@ -257,6 +257,8 @@ class Login extends ModuleCore
 			'empty_password',
 			'empty_username',
 			'empty_email',
+			'empty_captcha',
+			'invalid_captcha',
 		);
 
 		foreach ( $errors->get_error_codes() as $error )
