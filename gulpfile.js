@@ -74,7 +74,7 @@
 
     output = {
       'css': './assets/css',
-      // 'js': './assets/js',
+      'js': './assets/js',
       'sourcemaps': './maps',
       'images': './assets/images',
       'languages': './languages/'+pkg.name+'.pot',
@@ -95,186 +95,136 @@
   }
 
   gulp.task('dev:tinify', function () {
-
     return gulp.src(input.images)
-
     .pipe(plugins.newer(output.images))
-
     .pipe(plugins.tinypngCompress({
       key: env.tinypng,
       sigFile: logs.tinypng,
       summarize: true,
       log: true
     }))
-
     .pipe(gulp.dest(output.images));
   });
 
   gulp.task('svgmin', function() {
-
     return gulp.src(input.svg)
-
     .pipe(plugins.newer(output.images))
-
     .pipe(plugins.svgmin()) // SEE: http://dbushell.com/2016/03/01/be-careful-with-your-viewbox/
-
     .pipe(gulp.dest(output.images));
   });
 
   gulp.task('smushit', function() {
-
     return gulp.src(input.images)
-
     .pipe(plugins.newer(output.images))
-
     .pipe(plugins.smushit())
-
     .pipe(gulp.dest(output.images));
   });
 
   gulp.task('pot', function() {
-
     return gulp.src(input.php)
-
     .pipe(plugins.excludeGitignore())
-
     .pipe(plugins.wpPot(pkg._pot))
-
     .pipe(gulp.dest(output.languages));
   });
 
   gulp.task('dev:sass', function() {
-
     return gulp.src(input.sass)
-
     .pipe(plugins.newer({
       dest: output.css,
       ext: '.css',
     }))
-
     .pipe(plugins.sourcemaps.init())
-
     .pipe(plugins.sass().on('error', plugins.sass.logError))
-
     .pipe(plugins.cssnano({
       core: false,
       zindex: false,
       discardComments: false,
     }))
-
     .pipe(plugins.sourcemaps.write(output.sourcemaps))
-
     .pipe(gulp.dest(output.css)).on('error', gutil.log)
-
     .pipe(plugins.livereload());
   });
 
   gulp.task('dev:watch', function() {
-
     plugins.livereload.listen();
-
     gulp.watch(input.sass, [
       'dev:sass'
     ]);
   });
 
   gulp.task('dev:styles', function() {
-
     return gulp.src(input.sass)
-
     .pipe(plugins.sourcemaps.init())
-
     .pipe(plugins.sass().on('error', plugins.sass.logError))
-
     .pipe(plugins.cssnano({
       core: false,
       zindex: false,
       discardComments: false,
     }))
-
     .pipe(plugins.header(banner, {
       pkg: pkg
     }))
-
     .pipe(plugins.sourcemaps.write(output.sourcemaps))
-
     .pipe(gulp.dest(output.css)).on('error', gutil.log);
   });
 
   gulp.task('build:styles', function() {
-
     return gulp.src(input.sass)
-
     .pipe(plugins.sass().on('error', plugins.sass.logError))
-
     .pipe(plugins.cssnano({
       zindex: false,
       discardComments: {
         removeAll: true
       }
     }))
-
+    // .pipe(plugins.header(banner, {
+    //   pkg: pkg
+    // }))
     .pipe(gulp.dest(output.css));
-
   });
 
   gulp.task('build:scripts', function() {
-
     return gulp.src(input.js)
-
     .pipe(plugins.rename({
       suffix: '.min',
     }))
-
     .pipe(plugins.uglify())
-
-    // .pipe(gulp.dest(output.js));
-    .pipe(gulp.dest('.'));
+    // .pipe(plugins.header(banner, {
+    //   pkg: pkg
+    // }))
+    .pipe(gulp.dest(function(file) {
+      return file.base;
+    }));
   });
 
-  gulp.task('build:banner', function() {
-
+  gulp.task('build:banner', ['build:styles', 'build:scripts'], function() {
     return gulp.src(input.banner, {
       'base': '.'
     })
-
     .pipe(plugins.header(banner, {
       pkg: pkg
     }))
-
     .pipe(gulp.dest('.'));
   });
 
-  gulp.task('build:copy', ['build:ready'], function() {
-
+  gulp.task('build:copy', ['build:banner'], function() {
     del([output.ready]);
-
     return gulp.src(input.final, {
       'base': '.'
     })
-
     .pipe(gulp.dest(output.ready + pkg.name));
   });
 
   gulp.task('build:zip', ['build:copy'], function() {
-
     return gulp.src(input.ready)
-
     .pipe(plugins.zip(pkg.name + '-' + pkg.version + '.zip'))
-
     .pipe(gulp.dest(output.final));
   });
-
-  gulp.task('build:banner', ['build:styles', 'build:scripts']);
-
-  gulp.task('build:ready', ['build:banner']);
 
   gulp.task('build', ['build:zip']);
 
   gulp.task('default', function() {
-
     gutil.log('Hi, I\'m Gulp!');
     gutil.log("Sass is:\n"+require('node-sass').info);
   });
-
 }());
