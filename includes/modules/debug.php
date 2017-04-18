@@ -556,7 +556,7 @@ class Debug extends ModuleCore
 
 	public static function wp_die_handler( $message, $title = '', $args = array() )
 	{
-		$r = wp_parse_args( $args, array(
+		$r = self::args( $args, array(
 			'response' => 500,
 		) );
 

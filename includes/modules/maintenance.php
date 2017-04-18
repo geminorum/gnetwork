@@ -194,7 +194,7 @@ class Maintenance extends ModuleCore
 		} else {
 
 			if ( $template = self::getTemplate() ) {
-				require_once ( $template );
+				require_once( $template );
 
 			} else {
 

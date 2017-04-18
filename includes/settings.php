@@ -162,7 +162,7 @@ class Settings extends Base
 	public static function huh( $message = NULL )
 	{
 		if ( $message )
-			return sprintf ( _x( 'huh? %s', 'Settings: Message', GNETWORK_TEXTDOMAIN ), $message );
+			return sprintf( _x( 'huh? %s', 'Settings: Message', GNETWORK_TEXTDOMAIN ), $message );
 
 		return _x( 'huh?', 'Settings: Message', GNETWORK_TEXTDOMAIN );
 	}
@@ -812,7 +812,7 @@ class Settings extends Base
 					'exclude'     => implode( ',', $exclude ),
 					'sort_column' => 'menu_order',
 					'sort_order'  => 'asc',
-					'post_status' => 'publish,private,draft',
+					'post_status' => array( 'publish', 'future', 'draft' ),
 				), $args['extra'] );
 
 				$pages = get_pages( $query );

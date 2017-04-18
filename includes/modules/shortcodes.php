@@ -679,10 +679,7 @@ class ShortCodes extends ModuleCore
 	// FIXME: add def atts / wrap
 	public function shortcode_qrcode( $atts, $content = NULL, $tag = '' )
 	{
-		if ( $content )
-			return Utilities::getGoogleQRCode( trim( $content ), $atts );
-
-		return $content;
+		return $content ? Utilities::getGoogleQRCode( trim( $content ), $atts ) : $content;
 	}
 
 	// TODO: also [search-form] to include current theme search form
@@ -1055,7 +1052,7 @@ class ShortCodes extends ModuleCore
 
 		if ( $args['url'] )
 			$url = HTML::tag( 'a', array(
-				'class'       => 'refrence-external',
+				'class'       => 'reference-external',
 				'data-toggle' => 'tooltip',
 				'href'        => $args['url'],
 				'title'       => $args['url_title'],
