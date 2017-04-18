@@ -447,6 +447,7 @@ class Themes extends ModuleCore
 			$classes[] = trim( $this->options['body_class'] );
 
 		$classes[] = 'locale-'.sanitize_html_class( strtolower( str_replace( '_', '-', get_locale() ) ) );
+		$classes[] = 'locale-user-'.sanitize_html_class( strtolower( str_replace( '_', '-', get_user_locale() ) ) );
 
 		return $classes;
 	}
