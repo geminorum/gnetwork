@@ -14,11 +14,12 @@ class Dev extends ModuleCore
 	protected function setup_actions()
 	{
 		add_filter( 'http_request_args', array( $this, 'http_request_args' ), 12, 2 );
+
 		add_filter( 'https_local_ssl_verify', '__return_false' );
 		add_filter( 'https_ssl_verify', '__return_false' );
+		add_filter( 'jetpack_development_mode', '__return_true' );
 
 		add_action( 'pre_get_posts', array( $this, 'pre_get_posts' ), 99 );
-
 		add_action( 'shutdown', array( $this, 'shutdown' ), 99 );
 
 		if ( is_admin() )
