@@ -146,8 +146,10 @@ class Notify extends ModuleCore
 
 		do_action( 'retrieve_password_key', $user->user_login, $key );
 
-		if ( empty( $wp_hasher ) )
+		if ( empty( $wp_hasher ) ) {
+			require_once( ABSPATH.WPINC.'/class-phpass.php' );
 			$wp_hasher = new \PasswordHash( 8, TRUE );
+		}
 
 		$hashed = time().':'.$wp_hasher->HashPassword( $key );
 		$wpdb->update( $wpdb->users, array( 'user_activation_key' => $hashed ), array( 'user_login' => $user->user_login ) );
