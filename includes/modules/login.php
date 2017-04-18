@@ -90,7 +90,7 @@ class Login extends ModuleCore
 					'description' => _x( 'Select from pre designed login themes', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'after'       => Settings::fieldAfterIcon( self::getLoginStyleLink() ),
 					'none_title'  => Settings::showOptionNone(),
-					'none_value'  => 'no-class',
+					'none_value'  => '',
 					'values'      => $this->filters( 'login_class', array(
 						'webogram' => _x( 'Webogram', 'Modules: Login: Login Class', GNETWORK_TEXTDOMAIN ),
 					) ),
