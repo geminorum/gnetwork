@@ -32,7 +32,7 @@ class Authors extends ModuleCore
 	public function default_options()
 	{
 		return array(
-			'siteuser_as_default' => WordPress::getSiteUserID() ? '1' : '0',
+			'siteuser_as_default' => '0',
 		);
 	}
 
@@ -44,7 +44,6 @@ class Authors extends ModuleCore
 					'field'       => 'siteuser_as_default',
 					'title'       => _x( 'Default Author', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'The Site User as Default Author of New Posts in Admin', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
-					'default'     => WordPress::getSiteUserID() ? '1' : '0',
 				),
 			),
 		);
