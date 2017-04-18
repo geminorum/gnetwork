@@ -46,12 +46,12 @@ class Mail extends ModuleCore
 			'from_email'    => '',
 			'from_name'     => '',
 			'sender'        => 'FROM',
-			'mailer'        => ( defined( 'WPMS_MAILER' ) ? constant( 'WPMS_MAILER' ) : 'mail' ), // possible values 'smtp', 'mail', or 'sendmail'
-			'smtp_secure'   => ( defined( 'WPMS_SSL' ) ? constant( 'WPMS_SSL' ) : 'no' ), // possible values '', 'ssl', 'tls' - note TLS is not STARTTLS
-			'smtp_host'     => ( defined( 'WPMS_SMTP_HOST' ) ? constant( 'WPMS_SMTP_HOST' ) : 'localhost' ),
-			'smtp_port'     => ( defined( 'WPMS_SMTP_PORT' ) ? constant( 'WPMS_SMTP_PORT' ) : 25 ),
-			'smtp_username' => ( defined( 'WPMS_SMTP_USER' ) ? constant( 'WPMS_SMTP_USER' ) : '' ),
-			'smtp_password' => ( defined( 'WPMS_SMTP_PASS' ) ? constant( 'WPMS_SMTP_PASS' ) : '' ),
+			'mailer'        => 'mail', // possible values 'smtp', 'mail', or 'sendmail' // WPMS_MAILER
+			'smtp_secure'   => 'no', // possible values '', 'ssl', 'tls' - note TLS is not STARTTLS // WPMS_SSL
+			'smtp_host'     => 'localhost', // WPMS_SMTP_HOST
+			'smtp_port'     => '25', // WPMS_SMTP_PORT
+			'smtp_username' => '', // WPMS_SMTP_USER
+			'smtp_password' => '', // WPMS_SMTP_PASS
 			'log_all'       => '0',
 		);
 	}
@@ -98,11 +98,13 @@ class Mail extends ModuleCore
 					'type'        => 'text',
 					'title'       => _x( 'SMTP Host', 'Modules: Mail: Settings', GNETWORK_TEXTDOMAIN ),
 					'field_class' => array( 'regular-text', 'url-text' ),
+					'default'     => 'localhost',
 				),
 				array(
-					'field' => 'smtp_port',
-					'type'  => 'number',
-					'title' => _x( 'SMTP Port', 'Modules: Mail: Settings', GNETWORK_TEXTDOMAIN ),
+					'field'   => 'smtp_port',
+					'type'    => 'number',
+					'title'   => _x( 'SMTP Port', 'Modules: Mail: Settings', GNETWORK_TEXTDOMAIN ),
+					'default' => '25',
 				),
 				array(
 					'field'       => 'smtp_secure',
