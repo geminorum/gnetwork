@@ -20,8 +20,6 @@ class Blog extends ModuleCore
 
 		} else {
 
-			$this->filter( 'frontpage_template' );
-
 			if ( $this->options['page_copyright']
 				|| $this->options['noindex_attachments']
 				|| $this->options['meta_revised'] )
@@ -334,13 +332,6 @@ class Blog extends ModuleCore
 		@set_time_limit( 0 );
 
 		defined( 'GNETWORK_IS_WP_EXPORT' ) or define( 'GNETWORK_IS_WP_EXPORT', TRUE );
-	}
-
-	// check if a custom template has been selected for front page
-	// @SOURCE: http://kaspars.net/blog/wordpress/custom-page-template-front-page
-	public function frontpage_template( $template )
-	{
-		return get_page_template_slug() ? get_page_template() : $template;
 	}
 
 	public function rest_authentication_errors( $null )
