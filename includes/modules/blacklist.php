@@ -51,7 +51,7 @@ class BlackList extends ModuleCore
 					'field'       => 'blacklisted_ips',
 					'type'        => 'textarea',
 					'title'       => _x( 'IP Addresses', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Comma seperated IP\'s range or individual IP needs to block. ex: <code>1.6.0.0 - 1.7.255.255,1.8.0.0,1.8.0.1</code>', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Comma or line seperated IP\'s range or individual IP needs to block. ex: <code>1.6.0.0 - 1.7.255.255,1.8.0.0,1.8.0.1</code>', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ),
 					'field_class' => array( 'large-text', 'code-text' ),
 				),
 				array(
@@ -81,7 +81,7 @@ class BlackList extends ModuleCore
 		if ( ! trim( $this->options['blacklisted_ips'] ) )
 			return FALSE;
 
-		$groups = explode( ',', $this->options['blacklisted_ips'] );
+		$groups = explode( ',', str_replace( "\n", ',', $this->options['blacklisted_ips'] ) );
 		$long   = ip2long( $_SERVER['REMOTE_ADDR'] );
 
 		foreach ( $groups as $group ) {
