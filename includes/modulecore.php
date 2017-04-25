@@ -114,12 +114,14 @@ class ModuleCore extends Base
 		if ( WordPress::isAJAX() && method_exists( $this, 'setup_ajax' ) )
 			$this->setup_ajax( $_REQUEST );
 
-		$setup = $this->setup_actions();
+		if ( FALSE === $this->setup_actions() )
+			return;
 
-		if ( FALSE !== $setup
-			&& WordPress::mustRegisterUI()
-			&& method_exists( $this, 'setup_menu' ) )
-				add_action( $this->base.'_setup_menu', array( $this, 'setup_menu' ) );
+		if ( ! WordPress::mustRegisterUI() )
+			return;
+
+		if ( method_exists( $this, 'setup_menu' ) )
+			add_action( $this->base.'_setup_menu', [ $this, 'setup_menu' ] );
 	}
 
 	// we call 'setup_menu' action only if `WordPress::mustRegisterUI()`
