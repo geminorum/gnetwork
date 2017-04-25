@@ -26,6 +26,8 @@ class ShortCodes extends ModuleCore
 		Admin::registerTinyMCE( 'gnetworkemail', 'assets/js/tinymce/email', 2 );
 		Admin::registerTinyMCE( 'gnetworksearch', 'assets/js/tinymce/search', 2 );
 		Admin::registerTinyMCE( 'gnetworkgpeople', 'assets/js/tinymce/gpeople', 2 );
+
+		$this->action( 'register_shortcode_ui' );
 	}
 
 	public function init_early()
@@ -81,6 +83,75 @@ class ShortCodes extends ModuleCore
 		if ( ! defined( 'GNETWORK_DISABLE_REFLIST_INSERT' )
 			|| ! GNETWORK_DISABLE_REFLIST_INSERT )
 				add_action( 'gnetwork_themes_content_after', array( $this, 'content_after_reflist' ), 5 );
+	}
+
+	// @REF: https://github.com/wp-shortcake/shortcake/wiki/Registering-Shortcode-UI
+	public function register_shortcode_ui()
+	{
+		shortcode_ui_register_for_shortcode( 'ref', [
+			'label'         => esc_html_x( 'Reference', 'Modules: ShortCodes: UI: Label', GNETWORK_TEXTDOMAIN ),
+			'listItemImage' => 'dashicons-editor-quote',
+			'inner_content' => [
+				'label'       => esc_html_x( 'Reference', 'Modules: ShortCodes: UI: Label', GNETWORK_TEXTDOMAIN ),
+				'description' => esc_html_x( 'Make a reference to an external source.', 'Modules: ShortCodes: UI: Description', GNETWORK_TEXTDOMAIN ),
+			],
+			'attrs' => [
+				[
+					'label'  => esc_html_x( 'External Resource', 'Modules: ShortCodes: UI: Label', GNETWORK_TEXTDOMAIN ),
+					'attr'   => 'url',
+					'type'   => 'text',
+					'encode' => TRUE,
+					'meta'   => [
+						'placeholder' => 'http://example.com/about-this',
+						'dir'         => 'ltr',
+					],
+				],
+				[
+					'label' => esc_html_x( 'External Resource Hover', 'Modules: ShortCodes: UI: Label', GNETWORK_TEXTDOMAIN ),
+					'attr'  => 'url_title',
+					'type'  => 'text',
+					'meta'  => [
+						'placeholder' => esc_html_x( 'Read more about it', 'Modules: ShortCodes: UI: Placeholder', GNETWORK_TEXTDOMAIN ),
+					],
+				],
+			],
+		] );
+
+		shortcode_ui_register_for_shortcode( 'email', [
+			'label'         => esc_html_x( 'Email', 'Modules: ShortCodes: UI: Label', GNETWORK_TEXTDOMAIN ),
+			'listItemImage' => 'dashicons-email-alt',
+			'inner_content' => [
+				'label'       => esc_html_x( 'Email Address', 'Modules: ShortCodes: UI: Label', GNETWORK_TEXTDOMAIN ),
+				'description' => esc_html_x( 'Full email address to appear as link and cloaked against spam bots.', 'Modules: ShortCodes: UI: Description', GNETWORK_TEXTDOMAIN ),
+				'meta'        => [ 'dir' => 'ltr' ],
+			],
+			'attrs' => [
+				[
+					'label' => esc_html_x( 'Display Text', 'Modules: ShortCodes: UI: Label', GNETWORK_TEXTDOMAIN ),
+					'attr'  => 'content',
+					'type'  => 'text',
+					'meta'  => [
+						'placeholder' => esc_html_x( 'Email Me', 'Modules: ShortCodes: UI: Placeholder', GNETWORK_TEXTDOMAIN ),
+					],
+				],
+				[
+					'label' => esc_html_x( 'Email Subject', 'Modules: ShortCodes: UI: Label', GNETWORK_TEXTDOMAIN ),
+					'attr'  => 'subject',
+					'type'  => 'text',
+					'meta'  => [
+						'placeholder' => esc_html_x( 'About something important', 'Modules: ShortCodes: UI: Placeholder', GNETWORK_TEXTDOMAIN ),
+					],
+				],
+				[
+					'label' => esc_html_x( 'Link Hover', 'Modules: ShortCodes: UI: Label', GNETWORK_TEXTDOMAIN ),
+					'attr'  => 'title',
+					'type'  => 'text',
+					'meta'  => [
+						'placeholder' => esc_html_x( 'Jump right into it!', 'Modules: ShortCodes: UI: Placeholder', GNETWORK_TEXTDOMAIN ),
+					],
+				],
+			],
+		] );
 	}
 
 	public static function available()
