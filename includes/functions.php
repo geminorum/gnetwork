@@ -54,19 +54,19 @@ if ( ! function_exists( 'gnetwork_register_imagesize' ) ) :
 endif;
 
 if ( ! function_exists( 'gnetwork_powered' ) ) :
-	function gnetwork_powered( $rtl = NULL ){
+	function gnetwork_powered( $rtl = NULL ) {
 		return '<a href="http://wordpress.org/" title="WP powered"><img src="'.GNETWORK_URL.'assets/images/wpmini-grey.png" alt="wp" /></a>';
 	}
 endif;
 
 if ( ! function_exists( 'gnetwork_copyright' ) ) :
-	function gnetwork_copyright( $rtl = NULL ){
-		return _x( 'Built on <a href="http://wordpress.org/" title="Semantic Personal Publishing Platform">WordPress</a> and tea', 'Default Copyright', GNETWORK_TEXTDOMAIN );
+	function gnetwork_copyright( $rtl = NULL ) {
+		return _x( 'Built on <a href="http://wordpress.org/" title="Semantic Personal Publishing Platform">WordPress</a> and tea!', 'Default Copyright', GNETWORK_TEXTDOMAIN );
 	}
 endif;
 
 if ( ! function_exists( 'gnetwork_credits' ) ) :
-	function gnetwork_credits( $rtl = NULL, $admin = NULL ){
+	function gnetwork_credits( $rtl = NULL, $admin = NULL ) {
 		if ( is_null( $rtl ) )
 			$rtl = is_rtl();
 

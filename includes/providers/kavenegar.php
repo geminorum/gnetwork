@@ -58,10 +58,10 @@ class KavenegarProvider extends ProviderCore
 	protected function curlDefaultHeaders()
 	{
 		return array(
-            'Accept: application/json',
-            'Content-Type: application/x-www-form-urlencoded',
+			'Accept: application/json',
+			'Content-Type: application/x-www-form-urlencoded',
 			'charset: utf-8',
-        );
+		);
 	}
 
 	protected function curlResults( $response, $code )
@@ -135,7 +135,7 @@ class KavenegarProvider extends ProviderCore
 			'message'  => wp_json_encode( $text ),
 			// 'date'             => $date,
 			// 'type'             => $type,
-            // 'localid' => $localid,
+			// 'localid' => $localid,
 		), $atts );
 
 		if ( ! $args['receptor'] )

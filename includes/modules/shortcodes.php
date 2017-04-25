@@ -1436,8 +1436,8 @@ class ShortCodes extends ModuleCore
 				'title'       => sanitize_term_field( 'name', $term->name, $term->term_id, $term->taxonomy, 'display' ),
 				'data-toggle' => 'tooltip',
 				'class'       => array(
-					'reference-people',
 					'person-'.$term->slug,
+					'reference-people',
 					'tooltip',
 				),
 			), ( $content ? trim( strip_tags( $content ) ) : $term->name ) );

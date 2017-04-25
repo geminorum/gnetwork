@@ -34,7 +34,7 @@ class Debug_Bar_gNetworkMeta extends \Debug_Bar_Panel
 			foreach ( $meta as $key => $values ) {
 				HTML::h3( $key );
 				echo '<div class="group">';
-				foreach ( $values as $value ){
+				foreach ( $values as $value ) {
 					$data = maybe_unserialize( $value );
 					if ( is_array( $value ) )
 						HTML::tableSide( $data );
