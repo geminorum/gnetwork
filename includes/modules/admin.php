@@ -19,6 +19,8 @@ class Admin extends ModuleCore
 		if ( is_blog_admin() ) {
 			add_action( 'admin_menu', array( $this, 'admin_menu' ), 12 );
 			add_action( 'admin_menu', array( $this, 'admin_menu_late' ), 999 );
+
+			$this->filter( 'mce_css' );
 		}
 
 		add_action( 'admin_print_styles', array( $this, 'admin_print_styles' ) );
@@ -157,6 +159,14 @@ class Admin extends ModuleCore
 		}
 
 		Settings::wrapClose();
+	}
+
+	public function mce_css( $css )
+	{
+		if ( ! empty( $css ) )
+			$css .= ',';
+
+		return $css.GNETWORK_URL.'assets/css/admin.editor.css';
 	}
 
 	public function admin_print_styles()
