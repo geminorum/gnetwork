@@ -5,6 +5,18 @@ defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 class HTTP extends Base
 {
 
+	// if this is a POST request
+	public static function isPOST()
+	{
+		return (bool) ( 'POST' === strtoupper( $_SERVER['REQUEST_METHOD'] ) );
+	}
+
+	// if this is a GET request
+	public static function isGET()
+	{
+		return (bool) ( 'GET' === strtoupper( $_SERVER['REQUEST_METHOD'] ) );
+	}
+
 	// http://code.tutsplus.com/tutorials/a-look-at-the-wordpress-http-api-a-brief-survey-of-wp_remote_get--wp-32065
 	// http://wordpress.stackexchange.com/a/114922
 	public static function getJSON( $url, $atts = array(), $assoc = FALSE )
@@ -114,11 +126,57 @@ class HTTP extends Base
 
 	public static function headerRetryInMinutes( $minutes = '30' )
 	{
-		@header( "Retry-After: ".( absint( $minutes ) * MINUTE_IN_SECONDS ) );
+		@header( "Retry-After: ".( absint( $minutes ) * 60 ) );
 	}
 
 	public static function headerContentUTF8()
 	{
 		@header( "Content-Type: text/html; charset=utf-8" );
+	}
+
+	// @REF: https://gist.github.com/eric1234/37fd102798d99d94b0dcebde6bb29ef3
+	//
+	// Abstracts the idiocy of the CURL API for something simpler. Assumes we are
+	// downloading data (so a GET request) and we need no special request headers.
+	// Returns an IO stream which will be the data requested. The headers of the
+	// response will be stored in the $headers param reference.
+	//
+	// If the request fails for some reason FALSE is returned with the $err_msg
+	// param containing more info.
+	public static function download( $url, &$headers = array(), &$err_msg )
+	{
+		$in_out  = curl_init( $url );
+		$stream = fopen( 'php://temp', 'w+' );
+
+		curl_setopt_array( $in_out, array(
+			CURLOPT_FAILONERROR    => TRUE,
+			CURLOPT_FOLLOWLOCATION => TRUE,
+			CURLOPT_HEADER         => TRUE,
+			CURLOPT_FILE           => $stream,
+		) );
+
+		if ( FALSE === curl_exec( $in_out ) ) {
+			$err_msg << curl_error( $in_out );
+			return FALSE;
+		}
+
+		curl_close( $in_out );
+		rewind( $stream );
+
+		$line = trim( fgets( $stream ) );
+
+		if ( preg_match( '/^HTTP\/([^ ]+) (.*)/i', $line, $matches ) ) {
+			$headers['HTTP_VERSION'] = $matches[1];
+			$headers['STATUS']       = $matches[2];
+		}
+
+		while ( $line = fgets( $stream ) ) {
+			if ( preg_match( '/^\s+$/', $line ) )
+				break;
+			list( $key, $value ) = preg_split( '/\s*:\s*/', $line, 2 );
+			$headers[strtoupper( $key )] = trim( $value );
+		}
+
+		return $stream;
 	}
 }

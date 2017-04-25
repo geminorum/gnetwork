@@ -63,9 +63,11 @@ class Arraay extends Base
 	{
 		$keys = array_keys( $array );
 
-		foreach ( $keys_map as $old_key => $new_key ){
+		foreach ( $keys_map as $old_key => $new_key ) {
+
 			if ( FALSE === $index = array_search( $old_key, $keys ) )
 				continue;
+
 			$keys[$index] = $new_key;
 		}
 
@@ -108,6 +110,12 @@ class Arraay extends Base
 				unset( $atts[$key] );
 
 		return $atts;
+	}
+
+	// @REF: http://stackoverflow.com/a/11026840/4864081
+	public static function stripByValue( $array, $value )
+	{
+		return array_diff_key( $array, array_flip( array_keys( $array, $value ) ) );
 	}
 
 	// FIXME: TEST THIS!
@@ -190,11 +198,15 @@ class Arraay extends Base
 		return $new;
 	}
 
-	// array_column() for php < 5.5
+	// `array_column()` for php < 5.5
 	// @SEE: https://github.com/ramsey/array_column/blob/master/src/array_column.php
 	// @REF: http://php.net/manual/en/function.array-column.php#118831
+	// ALT: `wp_list_pluck()`
 	public static function column( $input, $column_key, $index_key = NULL )
 	{
+		if ( function_exists( 'array_column' ) )
+			return array_column( $input, $column_key, $index_key );
+
 		$arr = array_map( function( $d ) use ( $column_key, $index_key ) {
 
 			if ( ! isset( $d[$column_key] ) )
