@@ -187,6 +187,21 @@ class Themes extends ModuleCore
 				}, 5 );
 			}
 
+		} else if ( $this->isTheme( 'tribes' ) ) { // v1.06
+
+			// HOME: https://www.competethemes.com/tribes/
+			// DEMO: https://www.competethemes.com/tribes-live-demo/
+
+			if ( $this->rtl ) {
+				add_action( 'wp_head', function(){
+					Utilities::linkStyleSheet( 'themes.tribes-rtl.css' );
+				}, 20 );
+
+				add_filter( 'mce_css', function( $url ){
+					return Themes::appendMCECSS( $url, 'tribes' );
+				} );
+			}
+
 		} else if ( $this->isTheme( 'semicolon' ) ) { // v0.9
 			// HOME: https://kovshenin.com/themes/semicolon/
 			// DEMO: http://semicolon.kovshenin.com/
