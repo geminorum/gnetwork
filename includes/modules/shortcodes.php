@@ -56,6 +56,7 @@ class ShortCodes extends ModuleCore
 			'back'         => 'shortcode_back',
 			'button'       => 'shortcode_button',
 			'iframe'       => 'shortcode_iframe',
+			'thickbox'     => 'shortcode_thickbox',
 			'email'        => 'shortcode_email',
 			'tel'          => 'shortcode_tel',
 			'sms'          => 'shortcode_sms',
@@ -609,6 +610,52 @@ class ShortCodes extends ModuleCore
 		), $content );
 
 		return self::shortcodeWrap( $html, 'iframe', $args );
+	}
+
+	// @REF: https://codex.wordpress.org/Javascript_Reference/ThickBox
+	public function shortcode_thickbox( $atts, $content = NULL, $tag = '' )
+	{
+		$args = shortcode_atts( array(
+			'url'     => FALSE,
+			'title'   => NULL,
+			'width'   => NULL
+			'height'  => NULL,
+			'class'   => '',
+			'context' => NULL,
+			'wrap'    => TRUE,
+			'before'  => '',
+			'after'   => '',
+		), $atts, $tag );
+
+		if ( FALSE === $args['context'] || is_feed() )
+			return NULL;
+
+		if ( ! $args['url'] )
+			return NULL;
+
+		$query = [ 'TB_iframe' => '1' ];
+
+		if ( $args['width'] )
+			$query['width'] = $args['width'];
+
+		if ( $args['height'] )
+			$query['height'] = $args['height'];
+
+		if ( ! $content )
+			$content = _x( 'More Info', 'Modules: ShortCodes: Defaults: ThickBox', GNETWORK_TEXTDOMAIN );
+
+		$html = HTML::tag( 'a', [
+			'href'    => add_query_arg( $query, $args['url'] ),
+			'title'   => $args['title'],
+			'class'   => HTML::attrClass( 'thickbox', $args['class'] ),
+			'onclick' => 'return false;',
+		], $content );
+
+		unset( $args['class'] )
+
+		add_thickbox();
+
+		return self::shortcodeWrap( $html, 'thickbox', $args, FALSE );
 	}
 
 	// [email subject="Email Subject"]you@you.com[/email]
