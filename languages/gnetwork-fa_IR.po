@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gNetwork v3.5.5\n"
 "Report-Msgid-Bugs-To: https://github.com/geminorum/gnetwork/issues\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2017-04-25 18:02+0430\n"
+"PO-Revision-Date: 2017-04-26 00:16+0430\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: geminorum <contact@geminorum.ir>\n"
 "Language: fa_IR\n"
@@ -24,20 +24,20 @@ msgstr ""
 "ساخته شده بر نیروی <a href=\"http://wordpress.org/\" title=\"Semantic Personal "
 "Publishing Platform\">وردپرس</a> و چای!"
 
-#: includes/gnetwork.php:195
+#: includes/gnetwork.php:217
 msgid "N/A"
 msgstr ""
 
-#: includes/gnetwork.php:196
+#: includes/gnetwork.php:218
 msgid "Not Available"
 msgstr "خارج از دسترس"
 
-#: includes/modulecore.php:616
+#: includes/modulecore.php:618
 msgctxt "Module Core"
 msgid "Debug"
 msgstr "اشکال‌زدایی"
 
-#: includes/modulecore.php:648
+#: includes/modulecore.php:650
 msgctxt "Module Core: Help Content Title"
 msgid "Current Options"
 msgstr "تنظیمات کنونی"
@@ -566,46 +566,46 @@ msgctxt "Debug Module: Debug Bar Panel Title"
 msgid "Debug Extras"
 msgstr ""
 
-#: includes/modules/admin.php:38, includes/modules/admin.php:60,
-#: includes/modules/admin.php:84
+#: includes/modules/admin.php:36, includes/modules/admin.php:58,
+#: includes/modules/admin.php:82
 msgctxt "Modules: Admin: Page Menu"
 msgid "Network Extras"
 msgstr "بیشتر"
 
-#: includes/modules/admin.php:39, includes/modules/admin.php:61
+#: includes/modules/admin.php:37, includes/modules/admin.php:59
 msgctxt "Modules: Admin: Page Menu"
 msgid "Extras"
 msgstr "بیشتر"
 
-#: includes/modules/admin.php:49
+#: includes/modules/admin.php:47
 msgctxt "Modules: Admin: Page Menu"
 msgid "gNetwork Extras: %s"
 msgstr "%s"
 
-#: includes/modules/admin.php:71, includes/modules/admin.php:72
+#: includes/modules/admin.php:69, includes/modules/admin.php:70
 msgctxt "Modules: Admin: Page Menu"
 msgid "Active"
 msgstr "فعال"
 
-#: includes/modules/admin.php:81, includes/modules/admin.php:120,
+#: includes/modules/admin.php:79, includes/modules/admin.php:118,
 #: includes/modules/network.php:64, includes/modules/network.php:96,
 #: includes/modules/user.php:294, includes/modules/user.php:327
 msgctxt "Modules: Menu Name"
 msgid "Overview"
 msgstr "در یک نگاه"
 
-#: includes/modules/admin.php:127, includes/modules/network.php:104,
+#: includes/modules/admin.php:125, includes/modules/network.php:104,
 #: includes/modules/user.php:334
 msgctxt "Modules: Menu Name"
 msgid "Console"
 msgstr "پیشانه"
 
-#: includes/modules/admin.php:196
+#: includes/modules/admin.php:186
 msgctxt "Modules: Admin"
 msgid "Version %s"
 msgstr "نسخه %s"
 
-#: includes/modules/admin.php:197
+#: includes/modules/admin.php:187
 msgctxt "Modules: Admin"
 msgid "CODE IS POETRY"
 msgstr "کد نوشتن، شاعرانه است."
@@ -1910,7 +1910,7 @@ msgctxt "Modules: Menu Name"
 msgid "Dev Tools"
 msgstr "ابزارهای توسعه"
 
-#: includes/modules/dev.php:63
+#: includes/modules/dev.php:64
 msgctxt "Modules: Dev"
 msgid "Airplane Mode is enabled. oEmbed blocked for %1$s."
 msgstr ""
@@ -2491,144 +2491,144 @@ msgctxt "Modules: Maintenance: Default 503 Message"
 msgid "The site is unavailable for scheduled maintenance."
 msgstr "سایت برای انجام تعمیرات زمان‌بندی‌شده در دسترس نیست."
 
-#: includes/modules/media.php:43
+#: includes/modules/media.php:41
 msgctxt "Modules: Menu Name"
 msgid "Media"
 msgstr "رسانه"
 
-#: includes/modules/media.php:127
+#: includes/modules/media.php:125
 msgctxt "Modules: Media"
 msgid "Clean Attachments"
 msgstr "پالایش پیوست‌ها"
 
-#: includes/modules/media.php:171
+#: includes/modules/media.php:169
 msgctxt "Modules: Media: Column Title"
 msgid "ID"
 msgstr ""
 
-#: includes/modules/media.php:174
+#: includes/modules/media.php:172
 msgctxt "Modules: Media: Column Title"
 msgid "Date"
 msgstr "تاریخ"
 
-#: includes/modules/media.php:181
+#: includes/modules/media.php:179
 msgctxt "Modules: Media: Column Title"
 msgid "Type"
 msgstr "نوع"
 
-#: includes/modules/media.php:189
+#: includes/modules/media.php:187
 msgctxt "Modules: Media: Column Title"
 msgid "Title"
 msgstr "عنوان"
 
-#: includes/modules/media.php:206
+#: includes/modules/media.php:204
 msgctxt "Modules: Media: Row Action"
 msgid "Edit"
 msgstr "ویرایش"
 
-#: includes/modules/media.php:212
+#: includes/modules/media.php:210
 msgctxt "Modules: Media: Row Action"
 msgid "View"
 msgstr "نمایش"
 
-#: includes/modules/media.php:218
+#: includes/modules/media.php:216
 msgctxt "Modules: Media: Column Title"
 msgid "Attached Media"
 msgstr "پرونده‌های پیوست‌شده"
 
-#: includes/modules/media.php:253
+#: includes/modules/media.php:251
 msgctxt "Modules: Media: Column Title"
 msgid "In Content"
 msgstr "در متن"
 
-#: includes/modules/media.php:272
+#: includes/modules/media.php:270
 msgctxt "Modules: Media"
 msgid "Overview of posts with attachments"
 msgstr "مروری بر پیوست‌های نوشته‌ها"
 
-#: includes/modules/media.php:273
+#: includes/modules/media.php:271
 msgctxt "Modules: Media"
 msgid "No Posts!"
 msgstr "چیزی پیدا نشد!"
 
-#: includes/modules/media.php:383
+#: includes/modules/media.php:381
 msgctxt "Modules: Media"
 msgid "Undefined Image Size"
 msgstr "اندازه تصویر تعریف نشده"
 
-#: includes/modules/media.php:640
+#: includes/modules/media.php:638
 msgctxt "Modules: Media: Bulk Action"
 msgid "Clean Attachments"
 msgstr "پالایش پیوست‌ها"
 
-#: includes/modules/media.php:682
+#: includes/modules/media.php:680
 msgctxt "Modules: Media: Row Action"
 msgid "Clean"
 msgstr "پالایش"
 
-#: includes/modules/media.php:711
+#: includes/modules/media.php:709
 msgctxt "Modules: Media: Row Action"
 msgid "View Image URL"
 msgstr "نمایش نشانی تصویر"
 
-#: includes/modules/media.php:719
+#: includes/modules/media.php:717
 msgctxt "Modules: Media: Row Action"
 msgid "View Video URL"
 msgstr "نمایش نشانی ویدئو"
 
-#: includes/modules/media.php:724
+#: includes/modules/media.php:722
 msgctxt "Modules: Media: Row Action"
 msgid "View Data File URL"
 msgstr "نمایش نشانی پروندهٔ داده‌ها"
 
-#: includes/modules/media.php:729
+#: includes/modules/media.php:727
 msgctxt "Modules: Media: Row Action"
 msgid "View Spreadsheet URL"
 msgstr "نمایش نشانی پرونده اکسل"
 
-#: includes/modules/media.php:736
+#: includes/modules/media.php:734
 msgctxt "Modules: Media: Row Action"
 msgid "View Document URL"
 msgstr "نمایش نشانی پروندهٔ متنی"
 
-#: includes/modules/media.php:740
+#: includes/modules/media.php:738
 msgctxt "Modules: Media: Row Action"
 msgid "View HTML file URL"
 msgstr "نمایش نشانی پروندهٔ وب"
 
-#: includes/modules/media.php:744
+#: includes/modules/media.php:742
 msgctxt "Modules: Media: Row Action"
 msgid "View Item URL"
 msgstr "نمایش نشانی پرونده"
 
-#: includes/modules/media.php:818
+#: includes/modules/media.php:816
 msgctxt "Modules: Media: Post Mime Type"
 msgid "Text"
 msgstr "متن"
 
-#: includes/modules/media.php:819
+#: includes/modules/media.php:817
 msgctxt "Modules: Media: Post Mime Type"
 msgid "Manage Texts"
 msgstr "مدیریت متن‌ها"
 
-#: includes/modules/media.php:820
+#: includes/modules/media.php:818
 msgctxt "Modules: Media: Post Mime Type"
 msgid "Text <span class=\"count\">(%s)</span>"
 msgid_plural "Texts <span class=\"count\">(%s)</span>"
 msgstr[0] "متن <span class=\"count\">(%s)</span>"
 msgstr[1] "متن <span class=\"count\">(%s)</span>"
 
-#: includes/modules/media.php:823
+#: includes/modules/media.php:821
 msgctxt "Modules: Media: Post Mime Type"
 msgid "Application"
 msgstr "کاربردی"
 
-#: includes/modules/media.php:824
+#: includes/modules/media.php:822
 msgctxt "Modules: Media: Post Mime Type"
 msgid "Manage Applications"
 msgstr "مدیریت کاربردی‌ها"
 
-#: includes/modules/media.php:825
+#: includes/modules/media.php:823
 msgctxt "Modules: Media: Post Mime Type"
 msgid "Application <span class=\"count\">(%s)</span>"
 msgid_plural "Applications <span class=\"count\">(%s)</span>"

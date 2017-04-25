@@ -1,0 +1,225 @@
+# Copyright (C) 2016 Fusion Engineering and community
+# This file is distributed under the GPL v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Shortcake (Shortcode UI) 0.7.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/shortcode-"
+"ui\n"
+"POT-Creation-Date: 2017-04-25 21:05+0430\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2017-04-25 21:21+0430\n"
+"Language-Team: geminorum <contact@geminorum.ir>\n"
+"X-Generator: Poedit 2.0.1\n"
+"X-Poedit-KeywordsList: __;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;"
+"_n_noop:1,2;_nx_noop:1,2,3c;esc_attr__;esc_html__;esc_attr_e;"
+"esc_html_e;esc_attr_x:1,2c;esc_html_x:1,2c\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-Basepath: ../../shortcode-ui\n"
+"X-Textdomain-Support: yes\n"
+"Last-Translator: geminorum <contact@geminorum.ir>\n"
+"Language: fa_IR\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: dev.php:68
+msgid ""
+"Shortcode UI plugin must be active for Shortcode UI Example plugin to "
+"function."
+msgstr ""
+
+#: dev.php:119
+msgid "Shortcake With No Attributes"
+msgstr ""
+
+#: dev.php:159
+msgid "Attachment"
+msgstr "پیوست"
+
+#: dev.php:169 dev.php:170
+msgid "Select Image"
+msgstr ""
+
+#: dev.php:175
+msgid "You can select multiple images."
+msgstr ""
+
+#: dev.php:183
+msgid "Citation Source"
+msgstr ""
+
+#: dev.php:188
+msgid "Test placeholder"
+msgstr ""
+
+#: dev.php:193
+msgid "Select Page"
+msgstr ""
+
+#: dev.php:200
+msgid "Select Term"
+msgstr ""
+
+#: dev.php:207
+msgid "User Select"
+msgstr ""
+
+#: dev.php:213
+msgid "Color"
+msgstr "رنگ"
+
+#: dev.php:218
+msgid "Hex color code"
+msgstr ""
+
+#: dev.php:222
+msgid "Alignment"
+msgstr "ترازبندی"
+
+#: dev.php:223
+msgid ""
+"Whether the quotation should be displayed as pull-left, pull-right, or "
+"neither."
+msgstr ""
+
+#: dev.php:227
+msgid "None"
+msgstr "هیچ‌کدام"
+
+#: dev.php:228 dev.php:233
+msgid "Pull Left"
+msgstr ""
+
+#: dev.php:229 dev.php:234
+msgid "Pull Right"
+msgstr ""
+
+#: dev.php:240
+msgid "Year"
+msgstr "سال"
+
+#: dev.php:241
+msgid "Optional. The year the quotation is from."
+msgstr ""
+
+#: dev.php:260
+msgid "Shortcake Dev"
+msgstr ""
+
+#: dev.php:279
+msgid "Quote"
+msgstr "نقل‌قول"
+
+#: dev.php:280
+msgid "Include a statement from someone famous."
+msgstr ""
+
+#: dev.php:352
+msgid "Content:"
+msgstr "متن:"
+
+#: dev.php:356
+msgid "Source:"
+msgstr ""
+
+#: dev.php:360
+msgid "Image:"
+msgstr "تصویر:"
+
+#: dev.php:364
+msgid "Gallery:"
+msgstr ""
+
+#: dev.php:372
+msgid "Pages:"
+msgstr "صفحه‌ها:"
+
+#: dev.php:376
+msgid "Terms:"
+msgstr ""
+
+#: dev.php:380
+msgid "Users:"
+msgstr "کاربران:"
+
+#: dev.php:384
+msgid "Color:"
+msgstr "رنگ :"
+
+#: dev.php:388
+msgid "Alignment:"
+msgstr "ترازبندی:"
+
+#: dev.php:392
+msgid "Year:"
+msgstr ""
+
+#: inc/class-shortcode-ui.php:110
+msgid "Inner Content"
+msgstr "متن درونی"
+
+#: inc/class-shortcode-ui.php:249 inc/class-shortcode-ui.php:250
+msgid "Insert Post Element"
+msgstr "افزودن قطعه"
+
+#: inc/class-shortcode-ui.php:251
+msgid "%s Details"
+msgstr "%s"
+
+#: inc/class-shortcode-ui.php:252
+msgid "Insert Element"
+msgstr "جای‌گذاری قطعه"
+
+#: inc/class-shortcode-ui.php:253
+msgid "Update"
+msgstr "به‌روزرسانی"
+
+#: inc/class-shortcode-ui.php:254
+msgid "There are no attributes to configure for this Post Element."
+msgstr ""
+
+#: inc/class-shortcode-ui.php:255
+msgid "Failed to load preview"
+msgstr ""
+
+#: inc/class-shortcode-ui.php:256
+msgid "Search"
+msgstr "جست‌وجو"
+
+#: inc/class-shortcode-ui.php:257
+msgid "Insert Content"
+msgstr "جای‌گذاری متن"
+
+#: inc/class-shortcode-ui.php:297
+msgid "Add Post Element"
+msgstr "افزودن قطعه"
+
+#: inc/class-shortcode-ui.php:365
+msgid "Something's rotten in the state of Denmark"
+msgstr ""
+
+#: inc/fields/class-field-attachment.php:79
+#: inc/fields/class-field-attachment.php:80
+msgid "Select Attachment"
+msgstr ""
+
+#: inc/templates/edit-form.tpl.php:3
+msgid "Back to list"
+msgstr "بازگشت به فهرست"
+
+#. Plugin Name of the plugin/theme
+msgid "Shortcake (Shortcode UI)"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "User Interface for adding shortcodes."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Fusion Engineering and community"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://next.fusion.net/tag/shortcode-ui/"
+msgstr ""
