@@ -553,6 +553,9 @@ class ShortCodes extends ModuleCore
 		if ( ! in_array( $args['scroll'], array( 'auto', 'yes', 'no' ) ) )
 			$args['scroll'] = 'no';
 
+		if ( ! $content )
+			$content = _x( 'Loading &hellip;', 'Modules: ShortCodes: Defaults', GNETWORK_TEXTDOMAIN );
+
 		$html = HTML::tag( 'iframe', array(
 			'frameborder' => '0',
 			'src'         => $args['url'],
@@ -560,7 +563,7 @@ class ShortCodes extends ModuleCore
 			'scrolling'   => $args['scroll'],
 			'height'      => $args['height'],
 			'width'       => $args['width'],
-		), NULL );
+		), $content );
 
 		return self::shortcodeWrap( $html, 'iframe', $args );
 	}
