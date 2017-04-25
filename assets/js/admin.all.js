@@ -24,25 +24,4 @@ jQuery(document).ready(function($) {
   }
 
   populateWidgets(1, 'gnetwork_dashboard_external_feed');
-
-});
-
-// https://gist.github.com/fishnyc22/5593693
-jQuery(function($) {
-  if (wp.media) {
-    var called = 0;
-    $(document).ajaxStop(function() {
-      if (0 === called) {
-        $('[value="uploaded"]').attr('selected', true).parent().trigger('change');
-        called = 1;
-      }
-    });
-    var oldPost = wp.media.view.MediaFrame.Post;
-    wp.media.view.MediaFrame.Post = oldPost.extend({
-      initialize: function() {
-        oldPost.prototype.initialize.apply(this, arguments);
-        this.states.get('insert').get('library').props.set('uploadedTo', wp.media.view.settings.post.id);
-      }
-    });
-  }
 });

@@ -24,6 +24,9 @@ class Editor extends ModuleCore
 
 		add_filter( 'wp_link_query_args', array( $this, 'wp_link_query_args' ) );
 		add_filter( 'wp_link_query', array( $this, 'wp_link_query' ), 12, 2 );
+
+		$this->filter( 'mce_css' );
+		$this->action( 'wp_enqueue_editor' );
 	}
 
 	public function init_late()
@@ -44,6 +47,19 @@ class Editor extends ModuleCore
 			Admin::registerTinyMCE( 'table', 'assets/js/vendor/tinymce.table', 2 );
 			add_filter( 'content_save_pre', array( $this, 'content_save_pre' ), 20 );
 		}
+	}
+
+	public function mce_css( $css )
+	{
+		if ( ! empty( $css ) )
+			$css .= ',';
+
+		return $css.GNETWORK_URL.'assets/css/editor.all.css';
+	}
+
+	public function wp_enqueue_editor()
+	{
+		Utilities::enqueueScript( 'editor.all', [ 'jquery', 'media-editor' ] );
 	}
 
 	public function wp_link_query_args( $query )
