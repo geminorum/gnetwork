@@ -46,6 +46,7 @@ class Dev extends ModuleCore
 		$this->settings_form_before( $uri, $sub, 'bulk' );
 
 			self::generateCustomTax();
+			// self::generateDropinFile();
 
 		$this->settings_form_after( $uri, $sub );
 	}
@@ -207,6 +208,17 @@ class Dev extends ModuleCore
 		// Utilities::renderMustache( 'posttype-page', self::generateCustomTax_Post() );
 		// Utilities::renderMustache( 'taxonomy-tag', self::generateCustomTax_Tag() );
 		Utilities::renderMustache( 'taxonomy-cat', self::generateCustomTax_Cat() );
+	}
+
+	public static function generateDropinFile()
+	{
+		$data = [
+			'title'   => 'Database Error!',
+			'message' => 'Error establishing a database connection.',
+		];
+
+		$contents = Utilities::renderMustache( 'db-error', $data, FALSE );
+		File::putContents( 'db-error.php', $contents, WP_CONTENT_DIR );
 	}
 
 	public static function generateCustomTax_Post()

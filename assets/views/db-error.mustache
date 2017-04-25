@@ -1,0 +1,60 @@
+<?php
+
+// global $wpdb; gnetwork_dump($wpdb->last_error); die();
+
+// global $wpdb; gnetwork_dump($wpdb); die();
+
+
+/*
+Plugin Name: Database Error Helper
+*/
+
+	$protocol = $_SERVER["SERVER_PROTOCOL"];
+	if ( 'HTTP/1.1' != $protocol && 'HTTP/1.0' != $protocol )
+		$protocol = 'HTTP/1.0';
+	header( "$protocol 500 Internal server error", true, 500 );
+
+	if ( function_exists( 'nocache_headers' ) )
+		nocache_headers();
+
+	header( 'Content-Type: text/html; charset=utf-8' );
+	// header( 'Retry-After: 600' );
+
+	$network_logo = class_exists( 'gNetworkNetwork' ) ? gNetworkNetwork::getLogo( 'h1' ) : FALSE;
+
+?><!DOCTYPE html>
+<html lang="fa">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>{{ title }}</title>
+	<style>
+html, body, .vertical-container {
+  height: 100%;
+  margin: 0;
+}
+body {
+	<!-- direction: rtl; -->
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+	color: #333;
+	background: #f7f7f7;
+}
+.vertical-container {
+text-align: center;
+  display: -webkit-flex;
+  display:         flex;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+}
+	</style>
+</head><body>
+
+<div class="vertical-container"><div>
+<h1>{{ title }}</h1>
+<p>{{ message }}</p>
+</div>
+</div>
+
+</body></html>
