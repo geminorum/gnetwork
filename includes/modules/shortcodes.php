@@ -59,6 +59,7 @@ class ShortCodes extends ModuleCore
 			'tel'          => 'shortcode_tel',
 			'sms'          => 'shortcode_sms',
 			'googlegroups' => 'shortcode_googlegroups',
+			'google-form'  => 'shortcode_google_form',
 			'pdf'          => 'shortcode_pdf',
 			'csv'          => 'shortcode_csv',
 			'bloginfo'     => 'shortcode_bloginfo',
@@ -746,6 +747,33 @@ class ShortCodes extends ModuleCore
 		$html .= ' <input type="submit" name="go" value="'._x( 'Subscribe', 'Modules: ShortCodes: Google Groups Subscribe', GNETWORK_TEXTDOMAIN ).'" /></div></form>';
 
 		return $html;
+	}
+
+	public function shortcode_google_form( $atts = [], $content = NULL, $tag = '' )
+	{
+		$args = shortcode_atts( [
+			'key'      => NULL,
+			// 'template' => 'https://spreadsheets.google.com/embeddedform?formkey=%s',
+			'template' => 'https://docs.google.com/forms/d/e/%s/viewform?embedded=true',
+			'width'    => '760', // google form def
+			'height'   => '500', // google form def
+			'scroll'   => 'auto',
+			'style'    => '',
+			'context'  => NULL,
+			'wrap'     => TRUE,
+			'before'   => '',
+			'after'    => '',
+		], $atts, $tag );
+
+		if ( FALSE === $args['context'] || is_feed() )
+			return NULL;
+
+		if ( ! $args['key'] )
+			return NULL;
+
+		return self::shortcode_iframe( array_merge( $args, [
+			'url' => sprintf( $args['template'], $args['key'] ),
+		] ), $content, $tag );
 	}
 
 	// @SEE: https://github.com/pipwerks/PDFObject
