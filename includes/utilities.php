@@ -5,6 +5,8 @@ defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 class Utilities extends Base
 {
 
+	const BASE = 'gnetwork';
+
 	public static function creditsBadge()
 	{
 		return '<a href="http://geminorum.ir" title="it\'s a geminorum project"><img src="'
@@ -30,7 +32,7 @@ class Utilities extends Base
 	{
 		$feeds = array( 'rdf', 'rss', 'rss2', 'atom', 'json' );
 
-		return $filter ? apply_filters( 'gnetwork_get_feeds', $feeds ) : $feeds;
+		return $filter ? apply_filters( self::BASE.'_get_feeds', $feeds ) : $feeds;
 	}
 
 	public static function highlightTime( $string, $limit = -1 )
@@ -282,7 +284,7 @@ class Utilities extends Base
 
 	public static function enqueueScript( $asset, $dep = array( 'jquery' ), $version = GNETWORK_VERSION, $base = GNETWORK_URL, $path = 'assets/js' )
 	{
-		$handle  = strtolower( 'gnetwork-'.str_replace( '.', '-', $asset ) );
+		$handle  = strtolower( self::BASE.'-'.str_replace( '.', '-', $asset ) );
 		$variant = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
 		wp_enqueue_script( $handle, $base.$path.'/'.$asset.$variant.'.js', $dep, $version, TRUE );
@@ -307,7 +309,7 @@ class Utilities extends Base
 
 	public static function getTinyMceStrings( $locale )
 	{
-		$strings = apply_filters( 'gnetwork_tinymce_strings', array() );
+		$strings = apply_filters( self::BASE.'_tinymce_strings', array() );
 
 		return count( $strings ) ? 'tinyMCE.addI18n("'.$locale.'.gnetwork", '.wp_json_encode( $strings ).');'."\n" : '';
 	}
