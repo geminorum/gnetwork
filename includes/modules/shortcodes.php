@@ -54,6 +54,7 @@ class ShortCodes extends ModuleCore
 			'in-term'      => 'shortcode_in_term',
 			'all-terms'    => 'shortcode_all_terms',
 			'back'         => 'shortcode_back',
+			'button'       => 'shortcode_button',
 			'iframe'       => 'shortcode_iframe',
 			'email'        => 'shortcode_email',
 			'tel'          => 'shortcode_tel',
@@ -529,6 +530,47 @@ class ShortCodes extends ModuleCore
 		}
 
 		return $html ? self::shortcodeWrap( $html, 'back', $args ) : $content;
+	}
+
+	public function shortcode_button( $atts = [], $content = NULL, $tag = '' )
+	{
+		$args = shortcode_atts( [
+			'url'       => FALSE,
+			'genericon' => FALSE,
+			'class'     => '',
+			'context'   => NULL,
+			'wrap'      => TRUE,
+			'before'    => '',
+			'after'     => '',
+		], $atts, $tag );
+
+		if ( FALSE === $args['context'] )
+			return NULL;
+
+		$html = '';
+
+		$classes = HTML::attrClass( 'button', $args['class'] );
+
+		if ( $args['genericon'] )
+			$html .= HTML::getDashicon( $args['genericon'] );
+
+		if ( $content )
+			$html .= ' '.trim( $content );
+
+		if ( $args['url'] )
+			$html = HTML::tag( 'a', [
+				'href'  => $args['url'],
+				'class' => $classes,
+			], $html );
+
+		else
+			$html = HTML::tag( 'button', [
+				'class' => $classes,
+			], $html );
+
+		unset( $args['class'] );
+
+		return self::shortcodeWrap( $html, 'button', $args, FALSE );
 	}
 
 	public function shortcode_iframe( $atts, $content = NULL, $tag = '' )
