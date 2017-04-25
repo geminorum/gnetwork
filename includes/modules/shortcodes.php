@@ -689,7 +689,7 @@ class ShortCodes extends ModuleCore
 		$args = shortcode_atts( array(
 			'url'     => FALSE,
 			'title'   => NULL,
-			'width'   => NULL
+			'width'   => NULL,
 			'height'  => NULL,
 			'class'   => '',
 			'context' => NULL,
@@ -722,7 +722,7 @@ class ShortCodes extends ModuleCore
 			'onclick' => 'return false;',
 		], $content );
 
-		unset( $args['class'] )
+		unset( $args['class'] );
 
 		add_thickbox();
 
