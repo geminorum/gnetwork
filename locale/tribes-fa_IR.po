@@ -8,9 +8,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2017-02-24 22:41+0330\n"
+"PO-Revision-Date: 2017-04-18 01:57+0430\n"
 "Language-Team: \n"
-"X-Generator: Poedit 1.8.12\n"
+"X-Generator: Poedit 2.0.1\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "Language: fa_IR\n"
@@ -27,11 +27,11 @@ msgstr ""
 
 #: comments.php:12 comments.php:32 comments.php:54
 msgid "Be First to Comment"
-msgstr ""
+msgstr "‌اولین نفری باشید که برای این نوشته دیدگاهی ارسال میکند"
 
 #: comments.php:12 comments.php:32 comments.php:54
 msgid "One Comment"
-msgstr ""
+msgstr "یک دیدگاه"
 
 #: comments.php:46
 msgid ""
@@ -41,7 +41,7 @@ msgstr ""
 
 #: comments.php:68 comments.php:75
 msgid "Comments are closed."
-msgstr ""
+msgstr "دیدگاه‌ها مسدود است."
 
 #: content/comments-link.php:2
 msgid "comment icon"
@@ -49,7 +49,7 @@ msgstr ""
 
 #: content/comments-link.php:5
 msgid "Comments closed"
-msgstr ""
+msgstr "دیدگاه‌ها مسدود است"
 
 #: content/comments-link.php:5 content/comments-link.php:8
 msgid "1 Comment"
@@ -81,7 +81,7 @@ msgstr "نوشته قبلی"
 
 #: content/post-nav.php:9
 msgid "No Older Posts"
-msgstr ""
+msgstr "اولین نوشته"
 
 #: content/post-nav.php:15 content/post-nav.php:28
 msgid "Return to Blog"
@@ -93,7 +93,7 @@ msgstr "نوشته بعدی"
 
 #: content/post-nav.php:22
 msgid "No Newer Posts"
-msgstr ""
+msgstr "آخرین نوشته"
 
 #: content/post-tags.php:8
 msgid "View all posts tagged %s"
@@ -101,19 +101,19 @@ msgstr ""
 
 #: content/search-bar.php:11 searchform.php:3
 msgid "Search"
-msgstr ""
+msgstr "جست‌وجو"
 
 #: content/search-bar.php:12
 msgid "Search..."
-msgstr ""
+msgstr "جست‌وجو…"
 
 #: content/search-bar.php:13 searchform.php:5
 msgid "Search for:"
-msgstr ""
+msgstr "جست‌وجو برای:"
 
 #: content-page.php:12 content.php:13
 msgid "Pages:"
-msgstr ""
+msgstr "صفحه‌ها:"
 
 #: footer.php:11
 msgid "<a href=\"%1$s\">%2$s WordPress Theme</a> by Compete Themes."
@@ -125,7 +125,7 @@ msgstr ""
 
 #: functions.php:66
 msgid "Your comment is awaiting moderation."
-msgstr ""
+msgstr "دیدگاه شما در انتظار بررسی است."
 
 #: functions.php:90
 msgid "(optional)"
@@ -133,11 +133,11 @@ msgstr ""
 
 #: functions.php:109
 msgid "Website"
-msgstr ""
+msgstr "وب‌گاه"
 
 #: functions.php:156
 msgid "Continue reading"
-msgstr ""
+msgstr "ادامه"
 
 #: functions.php:384
 msgid "Featured"
@@ -228,7 +228,7 @@ msgstr ""
 
 #: inc/customizer.php:199
 msgid "Continue Reading"
-msgstr ""
+msgstr "ادامه"
 
 #: inc/customizer.php:204
 msgid "Read More button text"
@@ -251,7 +251,7 @@ msgstr ""
 #: inc/customizer.php:230 inc/customizer.php:246 inc/customizer.php:294
 #: inc/customizer.php:323
 msgid "Show"
-msgstr ""
+msgstr "نمای"
 
 #: inc/customizer.php:231 inc/customizer.php:247 inc/customizer.php:295
 #: inc/customizer.php:324
@@ -399,7 +399,7 @@ msgstr "ایمیل"
 #: functions.php:124
 msgctxt "noun"
 msgid "Comment"
-msgstr ""
+msgstr "دیدگاه"
 
 #: functions.php:329
 msgctxt "noun"
