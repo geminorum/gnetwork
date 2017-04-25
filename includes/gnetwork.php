@@ -22,16 +22,16 @@ class gNetwork
 
 	private function setup()
 	{
-		$modules = $this->get_modules();
+		$this->require_core();
+		$this->require_plugin();
 
-		foreach ( $modules as $module_slug => $module_class )
-			if ( file_exists( GNETWORK_DIR.'includes/'.$module_slug.'.php' ) )
-				require_once( GNETWORK_DIR.'includes/'.$module_slug.'.php' );
+		$modules = $this->get_modules();
+		$this->files( array_keys( $modules ) );
 
 		foreach ( $modules as $module_slug => $module_class ) {
 
 			$class = __NAMESPACE__.'\\'.$module_class;
-			$slug  = str_ireplace( array( 'core/', 'modules/', 'misc/' ), '', $module_slug );
+			$slug  = str_ireplace( 'modules/', '', $module_slug );
 
 			if ( $module_class && class_exists( $class ) ) {
 
@@ -46,37 +46,63 @@ class gNetwork
 			}
 		}
 
+		$this->require_after();
+
 		load_plugin_textdomain( GNETWORK_TEXTDOMAIN, FALSE, 'gnetwork/languages' );
 
 		add_action( 'bp_include', array( $this, 'bp_include' ) );
 		add_filter( 'mce_external_languages',array( $this, 'mce_external_languages' ) );
 	}
 
+	private function files( $stack )
+	{
+		foreach ( (array) $stack as $path )
+			if ( file_exists( GNETWORK_DIR.'includes/'.$path.'.php' ) )
+				require_once( GNETWORK_DIR.'includes/'.$path.'.php' );
+	}
+
+	private function require_core()
+	{
+		$this->files( [
+			'core/base',
+
+			'core/arraay',
+			'core/date',
+			'core/error',
+			'core/exception',
+			'core/file',
+			'core/html',
+			'core/http',
+			'core/l10n',
+			'core/number',
+			'core/orthography',
+			'core/text',
+			'core/url',
+			'core/wordpress',
+		] );
+	}
+
+	private function require_plugin()
+	{
+		$this->files( [
+			'constants',
+			'functions',
+			'utilities',
+			'settings',
+			'logger',
+			'modulecore',
+			'providercore',
+		] );
+	}
+
+	private function require_after()
+	{
+		$this->files( 'pluggable' );
+	}
+
 	private function get_modules()
 	{
-		$modules = array(
-			'core/base'      => '',
-			'core/error'     => '',
-			'core/exception' => '',
-			'core/html'      => '',
-			'core/http'      => '',
-			'core/file'      => '',
-			'core/url'       => '',
-			'core/arraay'    => '',
-			'core/text'      => '',
-			'core/number'    => '',
-			'core/l10n'      => '',
-			'core/date'      => '',
-			'core/wordpress' => '',
-
-			'constants'    => '',
-			'functions'    => '',
-			'utilities'    => '',
-			'settings'     => '',
-			'logger'       => '',
-			'modulecore'   => '',
-			'providercore' => '',
-
+		$modules = [
 			'modules/locale'      => 'Locale',
 			'modules/network'     => 'Network',
 			'modules/admin'       => 'Admin',
@@ -104,6 +130,7 @@ class gNetwork
 			'modules/blacklist'   => 'BlackList',
 			'modules/update'      => 'Update',
 			'modules/search'      => 'Search',
+			'modules/posttype'    => 'Posttype',
 			'modules/taxonomy'    => 'Taxonomy',
 			'modules/shortcodes'  => 'ShortCodes',
 			'modules/comments'    => 'Comments',
@@ -114,9 +141,9 @@ class gNetwork
 			'modules/debug'       => 'Debug',
 			'modules/code'        => 'Code',
 			'modules/cleanup'     => 'Cleanup',
-
-			'pluggable' => '',
-		);
+			'modules/branding'    => 'Branding',
+			'modules/api'         => 'API',
+		];
 
 		if ( defined( 'WP_STAGE' ) )
 			if ( 'production' == WP_STAGE )
