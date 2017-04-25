@@ -182,19 +182,20 @@ JS;
 
 	public function preprocess_comment( $commentdata )
 	{
-		if ( in_array( $commentdata['comment_type'], array(
-			'trackback',
-			'pingback',
-		) ) )
+		if ( in_array( $commentdata['comment_type'], [ 'trackback', 'pingback' ] ) )
 			return $commentdata;
 
 		$errors = $this->recaptcha_errors();
 
-		if ( empty( $_POST['recaptcha_response_field'] ) )
+		if ( empty( $_POST['recaptcha_response_field'] ) ) {
+			Logger::NOTICE( 'CAPTCHA-COMMENT: empty captcha' );
 			wp_die( $errors['empty_captcha'] );
+		}
 
-		if ( 'false' == $this->recaptcha_response() )
+		if ( 'false' == $this->recaptcha_response() ) {
+			Logger::NOTICE( 'CAPTCHA-COMMENT: invalid captcha' );
 			wp_die( $errors['invalid_captcha'] );
+		}
 
 		return $commentdata;
 	}
