@@ -1,3 +1,25 @@
+### 3.5.5
+* main/plugin: seperate loop for modules
+* main/modulecore: class on shortcode wrapper
+* module/admin: customized style for inside editor iframe
+* module/authors: default author now defaults to current user
+* module/blacklist: new line as sep on the list
+* module/blog: drop page template on frontpage, messes with loops
+* module/captcha: logging empty/invalid logins
+* module/captcha: logging failed comment answers
+* module/dev: jetpack dev mode
+* module/editor: default media uploader view, [props](https://wordpress.org/plugins/default-media-uploader-view/)
+* module/login: no default css class
+* module/mail: dropping wpms constants
+* module/notify: again including phpass
+* module/shortcodes: first attempt toward shortcake
+* module/shortcodes: :new: `[google-form]` shortcode
+* module/shortcodes: :new: `[button]` shortcode
+* module/shortcodes: :new: `[thickbox]` shortcode
+* module/shortcodes: loading string in iframe
+* module/themes: user locale as body class
+* module/themes: support [Tribes](https://www.competethemes.com/tribes/) theme
+
 ### 3.5.4
 * plugin/uninstall: option deletion for site & blog
 * main/constants: prevent extra redirect by trailing slash
