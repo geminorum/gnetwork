@@ -6,6 +6,7 @@
     "pdfobject": "pdfobject2#*",
     "GitHub-jQuery-Repo-Widget": "JoelSutherland/GitHub-jQuery-Repo-Widget",
     "gist-embed": "master",
-    "flexslider": "layalk/FlexSlider#rtl"
+    "flexslider": "layalk/FlexSlider#rtl",
+    "chosen": "^1.7.0"
   }
 }

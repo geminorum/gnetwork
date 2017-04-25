@@ -184,17 +184,18 @@
   });
 
   gulp.task('build:scripts', function() {
-    return gulp.src(input.js)
+    return gulp.src(input.js, {base: '.'})
+    // return gulp.src(input.js)
     .pipe(plugins.rename({
       suffix: '.min',
     }))
-    .pipe(plugins.uglify())
+    .pipe(plugins.uglify());
     // .pipe(plugins.header(banner, {
     //   pkg: pkg
     // }))
-    .pipe(gulp.dest(function(file) {
-      return file.base;
-    }));
+    // .pipe(gulp.dest(function(file) {
+    //   return file.base;
+    // }));
   });
 
   gulp.task('build:banner', ['build:styles', 'build:scripts'], function() {

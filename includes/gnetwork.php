@@ -130,7 +130,6 @@ class gNetwork
 			'modules/blacklist'   => 'BlackList',
 			'modules/update'      => 'Update',
 			'modules/search'      => 'Search',
-			'modules/posttype'    => 'Posttype',
 			'modules/taxonomy'    => 'Taxonomy',
 			'modules/shortcodes'  => 'ShortCodes',
 			'modules/comments'    => 'Comments',
