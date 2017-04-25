@@ -57,6 +57,11 @@ p.site-title {
   }
 }
 
+.comment .comment-metadata span {
+  margin: 0 0 0.75em;
+}
+
+
 .alignright {
   float: right !important;
   margin: .875em 0 .875em 1.75em !important;
@@ -83,6 +88,7 @@ p.site-title {
 *::-webkit-input-placeholder {
   font-family: $font-family-base !important;
 }
+
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -125,6 +131,15 @@ p.site-title {
       content: "\200C";
     }
   }
+
+  .singular {
+    .entry-over-title {
+      // margin: 10px 0 -10px;
+    }
+    .entry-sub-title {
+      margin-top: -0.4375em;
+    }
+  }
 }
 
 @media screen and ( min-width: 55em ) {
@@ -163,4 +178,15 @@ p.site-title {
 
 @media screen and ( min-width: 1120px ) {
 
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+// CUSTOM
+.entry-content a.button {
+  .genericon {
+    font-size: 26px;
+    vertical-align: middle;
+    text-decoration: none;
+  }
 }

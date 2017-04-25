@@ -4,13 +4,13 @@
 /// Module: Widgets ------------------------------------------------------------
 
 .gnetwork-admin-wrap-widgetform {
-	@include mainwrap();
+  @include mainwrap();
 
-	margin-bottom: 2em;
+  margin-bottom: 2em;
 
-	p {
-		select {
-			width: 100%;
-		}
-	}
+  p {
+    select {
+      width: 100%;
+    }
+  }
 }

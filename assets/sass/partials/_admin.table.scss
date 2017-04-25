@@ -161,6 +161,7 @@ table.base-table-list {
   }
 }
 
+table.base-table-raw,
 table.base-table-code {
   > caption {}
 
@@ -175,6 +176,10 @@ table.base-table-code {
       code {
         display: inline-block;
       }
+    }
+
+    select {
+      margin: 0 1px;
     }
   }
 }

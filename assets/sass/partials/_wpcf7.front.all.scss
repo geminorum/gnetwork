@@ -5,133 +5,133 @@
 
 div.wpcf7 {
 
-	margin: 0;
-	padding: 0;
+  margin: 0;
+  padding: 0;
 
-	.wpcf7-response-output {
-		margin: 2em 0.5em 1em;
-		padding: 0.4em 0.5em 0.2em;
-		text-align: center;
-	}
+  .wpcf7-response-output {
+    margin: 2em 0.5em 1em;
+    padding: 0.4em 0.5em 0.2em;
+    text-align: center;
+  }
 
-	.screen-reader-response {
-		position: absolute;
-		overflow: hidden;
-		clip: rect(1px, 1px, 1px, 1px);
-		height: 1px;
-		width: 1px;
-		margin: 0;
-		padding: 0;
-		border: 0;
-	}
+  .screen-reader-response {
+    position: absolute;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
+    height: 1px;
+    width: 1px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
 
-	.wpcf7-mail-sent-ok {
-		border: 2px solid #398f14;
-	}
+  .wpcf7-mail-sent-ok {
+    border: 2px solid #398f14;
+  }
 
-	.wpcf7-mail-sent-ng {
-		border: 2px solid #ff0000;
-	}
+  .wpcf7-mail-sent-ng {
+    border: 2px solid #ff0000;
+  }
 
-	.wpcf7-spam-blocked {
-		border: 2px solid #ffa500;
-	}
+  .wpcf7-spam-blocked {
+    border: 2px solid #ffa500;
+  }
 
-	.wpcf7-validation-errors {
-		border: 2px solid #f7e700;
-	}
+  .wpcf7-validation-errors {
+    border: 2px solid #f7e700;
+  }
 
-	.wpcf7-form-control {
+  .wpcf7-form-control {
 
-		&.wpcf7-recaptcha {
-			> div > div {
-				margin: 0 auto;
-			}
-		}
-	}
+    &.wpcf7-recaptcha {
+      > div > div {
+        margin: 0 auto;
+      }
+    }
+  }
 
-	.wpcf7-form-control-wrap {
-		position: relative;
+  .wpcf7-form-control-wrap {
+    position: relative;
 
-		select,
-		option,
-		textarea,
-		input {
-			@include box-reset();
-		}
+    select,
+    option,
+    textarea,
+    input {
+      @include box-reset();
+    }
 
-		select,
-		textarea,
-		input[type="tel"],
-		input[type="text"],
-		input[type="password"],
-		input[type="email"] {
-			width: 100%;
-		}
+    select,
+    textarea,
+    input[type="tel"],
+    input[type="text"],
+    input[type="password"],
+    input[type="email"] {
+      width: 100%;
+    }
 
-		input[type="number"] {
-			width: 33%;
-		}
+    input[type="number"] {
+      width: 33%;
+    }
 
-		input[type="tel"],
-		input[type="email"] {
-			direction: ltr !important;
-		}
-	}
+    input[type="tel"],
+    input[type="email"] {
+      direction: ltr !important;
+    }
+  }
 
-	.wpcf7-not-valid-tip {
-		color: #f00;
-		font-size: 0.89em;
-		display: block;
-		padding: 0.2em 0.5em;
-	}
+  .wpcf7-not-valid-tip {
+    color: #f00;
+    font-size: 0.89em;
+    display: block;
+    padding: 0.2em 0.5em;
+  }
 
-	.use-floating-validation-tip span.wpcf7-not-valid-tip {
-		position: absolute;
-		top: 20%;
-		left: 20%;
-		z-index: 100;
-		border: 1px solid #ff0000;
-		background: #fff;
-		padding: .2em .8em;
-	}
+  .use-floating-validation-tip span.wpcf7-not-valid-tip {
+    position: absolute;
+    top: 20%;
+    left: 20%;
+    z-index: 100;
+    border: 1px solid #ff0000;
+    background: #fff;
+    padding: .2em .8em;
+  }
 
-	span.wpcf7-list-item {
-		margin-left: 0.5em;
-	}
+  span.wpcf7-list-item {
+    margin-left: 0.5em;
+  }
 
-	.wpcf7-display-none {
-		display: none;
-	}
+  .wpcf7-display-none {
+    display: none;
+  }
 
-	img.ajax-loader {
-		border: none;
-		vertical-align: middle;
-		margin: 0 4px;
-		background: none;
-	}
+  img.ajax-loader {
+    border: none;
+    vertical-align: middle;
+    margin: 0 4px;
+    background: none;
+  }
 
-	div.ajax-error {
-		display: none;
-	}
+  div.ajax-error {
+    display: none;
+  }
 
-	.placeheld {
-		color: #888;
-	}
+  .placeheld {
+    color: #888;
+  }
 
-	@include body-rtl() {
-		span.wpcf7-not-valid-tip {
-			direction: rtl;
-		}
+  @include body-rtl() {
+    span.wpcf7-not-valid-tip {
+      direction: rtl;
+    }
 
-		.use-floating-validation-tip span.wpcf7-not-valid-tip {
-			left: auto;
-			right: 20%;
-		}
+    .use-floating-validation-tip span.wpcf7-not-valid-tip {
+      left: auto;
+      right: 20%;
+    }
 
-		span.wpcf7-list-item {
-			margin-left: 0;
-			margin-right: 0.5em;
-		}
-	}
+    span.wpcf7-list-item {
+      margin-left: 0;
+      margin-right: 0.5em;
+    }
+  }
 }

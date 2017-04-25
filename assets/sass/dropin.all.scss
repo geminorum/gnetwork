@@ -1,0 +1,28 @@
+@import 'modules/all';
+@import 'partials/base';
+@import 'partials/theme.fonts';
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+html,
+body,
+.vertical-container {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  // direction: rtl;
+  @include theme-fonts-core-native;
+  color: #333;
+  background: #f7f7f7;
+}
+
+.vertical-container {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

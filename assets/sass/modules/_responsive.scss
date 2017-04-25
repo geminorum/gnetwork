@@ -4,17 +4,17 @@
 /// MODULE: Responsive ---------------------------------------------------------
 // @SEE: http://jsfiddle.net/masau/7wrhm/
 @mixin theme-responsive-iframe() {
-	& {
-		position: relative !important;
+  & {
+    position: relative !important;
 
-		iframe {
-			position: absolute !important;
-			top: 0 !important;
-			left: 0 !important;
-			width: 100% !important;
-			height: 100% !important;
-		}
-	}
+    iframe {
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+    }
+  }
 }
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -22,31 +22,31 @@
 // From: Bootstrap 3 Sass
 // Credit: Nicolas Gallagher and SUIT CSS.
 @mixin theme-responsive-embed() {
-	position: relative;
-	display: block;
-	height: 0;
-	padding: 0;
-	overflow: hidden;
+  position: relative;
+  display: block;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
 
-	.embed-responsive-item,
-	embed,
-	iframe,
-	object,
-	video {
-		position: absolute;
-		top: 0;
-		left: 0;
-		bottom: 0;
-		height: 100%;
-		width: 100%;
-		border: 0;
-	}
-	// modifier class for 16:9 aspect ratio
-	&.embed-responsive-16by9 {
-		padding-bottom: 56.25%;
-	}
-	// modifier class for 4:3 aspect ratio
-	&.embed-responsive-4by3 {
-		padding-bottom: 75%;
-	}
+  .embed-responsive-item,
+  embed,
+  iframe,
+  object,
+  video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    border: 0;
+  }
+  // modifier class for 16:9 aspect ratio
+  &.embed-responsive-16by9 {
+    padding-bottom: 56.25%;
+  }
+  // modifier class for 4:3 aspect ratio
+  &.embed-responsive-4by3 {
+    padding-bottom: 75%;
+  }
 }

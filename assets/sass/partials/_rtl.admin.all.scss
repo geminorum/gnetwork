@@ -275,6 +275,11 @@ body.rtl {
     direction: ltr;
   }
 
+  input#adduser-email.ui-autocomplete-loading,
+  input[type="email"].ui-autocomplete-loading {
+    background-position: right center !important;
+  }
+
   // Shortcake
   .add-shortcode-list
   .shortcode-list-item {

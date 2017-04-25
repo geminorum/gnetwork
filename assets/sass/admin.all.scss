@@ -9,10 +9,10 @@
 @import 'partials/admin.list';
 @import 'partials/admin.tabs';
 @import 'partials/admin.form';
+// @import 'partials/admin.chosen';
 ////////////////////////////////////////////////////////////////////////////////
 @import 'partials/admin.edit-flow';
 @import 'partials/admin.p2p';
-@import 'partials/admin.simple-revisions-delete';
 ////////////////////////////////////////////////////////////////////////////////
 @import 'partials/adminbar.all';
 @import 'partials/debug.all';
@@ -154,10 +154,13 @@ ul.categorychecklist {
 
 #poststuff {
 
-  #pageparentdiv div.inside > p > strong,
   #pageparentdiv div.inside p:last-child,
+  #pageparentdiv .post-attributes-label-wrapper,
   #postcustom div.inside > p,
   #postexcerpt div.inside p,
+  #trackbacksdiv label[for="trackback_url"],
+  #postcustomstuff > p,
+  #commentsdiv #no-comments,
   #set-post-thumbnail-desc,
   #trackbacksdiv div.inside p:last-child {
     display: none;
@@ -190,7 +193,6 @@ ul.categorychecklist {
     }
   }
 
-  #pageparentdiv div.inside,
   #revisionsdiv div.inside {
     padding-bottom: 0;
   }

@@ -5,47 +5,47 @@
 
 .gnetwork-wrap-shortcode {
 
-	&.shortcode-asterisks {
-		margin: 20px 0;
-		text-align: center;
-	}
+  &.shortcode-asterisks {
+    margin: 20px 0;
+    text-align: center;
+  }
 
-	&.shortcode-wikipedia {
+  &.shortcode-wikipedia {
 
-	}
+  }
 }
 
 .entry-content {
 
-	blockquote {
-		&.intro-quote {
-			width: 45%;
-			font-size: 0.9em;
+  blockquote {
+    &.intro-quote {
+      width: 45%;
+      font-size: 0.9em;
 
-			cite {
-				font-size: 0.8em;
-				// font-style: italic;
-				&:before {
-					content: "— ";
-				}
-			}
-		}
-	}
+      cite {
+        font-size: 0.8em;
+        // font-style: italic;
+        &:before {
+          content: "— ";
+        }
+      }
+    }
+  }
 
-	span.typography-pad {
-		span {
-			display: inline-block;
-			margin-right: 0.5em;
-		}
-	}
+  span.typography-pad {
+    span {
+      display: inline-block;
+      margin-right: 0.5em;
+    }
+  }
 
-	div.closing {
-		width: 65%;
-		font-size: 0.9em;
-		text-align: center;
-		float: right;
-		@include body-rtl() {
-			float: left;
-		}
-	}
+  div.closing {
+    width: 65%;
+    font-size: 0.9em;
+    text-align: center;
+    float: right;
+    @include body-rtl() {
+      float: left;
+    }
+  }
 }

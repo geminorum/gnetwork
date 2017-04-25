@@ -85,9 +85,12 @@ body.rtl {
   .entry-content {
     ol,
     ul {
+      margin: 0 3em 1.5em 0;
+    }
+
+    ol {
       list-style-type: -moz-persian;
       list-style-type: persian;
-      margin: 0 3em 1.5em 0;
     }
   }
 // }

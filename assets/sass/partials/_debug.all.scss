@@ -5,39 +5,39 @@
 
 .gnetwork-admin-wrap.debugbar-panel {
 
-	@include mainwrap();
+  @include mainwrap();
 
-	direction: ltr !important;
+  direction: ltr !important;
 
-	h3 {
-		margin: 5px 0 3px 0 !important;
-	}
+  h3 {
+    margin: 5px 0 3px 0 !important;
+  }
 
-	.group {
-		pre {
-			margin: 0 !important;
-		}
-	}
+  .group {
+    pre {
+      margin: 0 !important;
+    }
+  }
 
-	.empty {
+  .empty {
 
-	}
+  }
 }
 
 .gnetwork-admin-wrap.debug-update-core {
-	// margin-top: 2em;
+  // margin-top: 2em;
 
-	a.button {
+  a.button {
 
-	}
+  }
 }
 
 // Query Monitor
 html[dir="rtl"] #qm {
-	direction: ltr !important;
+  direction: ltr !important;
 
-	.qm td,
-	.qm th {
-		text-align: left !important
-	}
+  .qm td,
+  .qm th {
+    text-align: left !important
+  }
 }

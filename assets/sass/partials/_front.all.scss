@@ -21,6 +21,16 @@
   display: none !important;
 }
 
+// text meant only for screen readers
+// @REF: https://github.com/wpaccessibility/a11ythemepatterns/
+.screen-reader-text {
+  clip: rect(1px, 1px, 1px, 1px);
+	height: 1px;
+	overflow: hidden;
+	position: absolute !important;
+	width: 1px;
+}
+
 // from wp core common styles
 .screen-reader-text,
 .screen-reader-text span,

@@ -1,0 +1,59 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// MODULE: Form ---------------------------------------------------------------
+
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+// @REF: http://stackoverflow.com/a/2610741/4864081
+// do not group these rules
+@mixin theme-form-placeholder() {
+
+  // WebKit, Blink, Edge
+  ::-webkit-input-placeholder {
+      @content;
+  }
+
+  // Mozilla Firefox 4 to 18
+  :-moz-placeholder {
+     @content;
+  }
+
+  // Mozilla Firefox 19+
+  ::-moz-placeholder {
+    @content;
+  }
+
+  // Internet Explorer 10-11
+  :-ms-input-placeholder {
+     @content;
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+// @REF: http://stackoverflow.com/a/16930313/4864081
+// do not group these rules
+@mixin theme-form-input-placeholder() {
+
+  // WebKit browsers
+  input::-webkit-input-placeholder {
+    @content;
+  }
+
+  // Mozilla Firefox 4 to 18
+  input:-moz-placeholder {
+    @content;
+  }
+
+  // Mozilla Firefox 19+
+  input::-moz-placeholder {
+    @content;
+  }
+
+  // Internet Explorer 10+
+  input:-ms-input-placeholder {
+    @content;
+  }
+}

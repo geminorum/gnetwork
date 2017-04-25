@@ -9,26 +9,22 @@
 
 @mixin clearfix() {
   &:after {
-    clear: both;
-    content: '';
+    content: "";
     display: table;
+    clear: both;
   }
 }
 
 // DEPRICATED: use @include clearfix()
 %clearfix {
   &:after {
-    clear: both;
-    content: '';
+    content: "";
     display: table;
+    clear: both;
   }
 }
 
 @mixin mainwrap() {
-  padding: 0;
-  margin: 0;
-  border: 0;
-
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -42,6 +38,9 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box;
   }
+  padding: 0;
+  margin: 0;
+  border: 0;
 }
 
 @mixin box-reset() {
@@ -94,6 +93,9 @@
     @content;
   }
 }
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 // http://www.stefanwienert.de/blog/2012/05/18/easy-css-vendor-prefix-mixin-for-sass/
 // Easy css vendor prefix mixin for SASS
 // May 18, 2012
