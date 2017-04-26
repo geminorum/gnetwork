@@ -19,7 +19,7 @@ class Themes extends \geminorum\gNetwork\ModuleCore
 	protected function setup_actions()
 	{
 		if ( ! $this->options['disable_themes'] ) {
-			add_action( 'after_setup_theme', array( $this, 'after_setup_theme' ) );
+			$this->action( 'after_setup_theme' );
 
 			if ( file_exists( GNETWORK_DIR.'includes/misc/themes-pluggable.php' ) )
 				require_once( GNETWORK_DIR.'includes/misc/themes-pluggable.php' );
@@ -28,23 +28,24 @@ class Themes extends \geminorum\gNetwork\ModuleCore
 		if ( is_admin() ) {
 
 			// FIXME: NOT WORKING : when trying to enable each theme
-			// add_filter( 'allowed_themes', array( $this, 'allowed_themes' ) );
+			// $this->filter( 'allowed_themes' );
 
 			$this->filter( 'theme_scandir_exclusions' );
 
 		} else {
 
-			add_action( 'wp_default_scripts', array( $this, 'wp_default_scripts' ), 9 );
+			$this->action( 'wp_default_scripts', 1, 9 );
 
 			if ( $this->options['content_actions'] )
-				add_filter( 'the_content', array( $this, 'the_content' ), 999 );
+				$this->filter( 'the_content', 1, 999 );
 
-			add_action( 'wp_head', array( $this, 'wp_head' ), 12 );
+			$this->action( 'wp_head', 0, 12 );
 			add_filter( 'the_generator', '__return_null', 98 );
-			add_filter( 'body_class', array( $this, 'body_class' ), 5, 2 );
-			add_filter( 'post_class', array( $this, 'post_class' ), 5, 3 );
 
-			add_action( 'bp_dtheme_credits', array( $this, 'bp_dtheme_credits' ) );
+			$this->filter( 'body_class', 2, 5 );
+			$this->filter( 'post_class', 3, 5 );
+
+			$this->action( 'bp_dtheme_credits' );
 		}
 	}
 
@@ -52,57 +53,57 @@ class Themes extends \geminorum\gNetwork\ModuleCore
 	{
 		Admin::registerMenu( $this->key,
 			_x( 'Themes', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			array( $this, 'settings' )
+			[ $this, 'settings' ]
 		);
 	}
 
 	public function default_options()
 	{
-		return array(
+		return [
 			'jquery_cdn'      => '0',
 			'jquery_bottom'   => '0',
 			'disable_themes'  => '0',
 			'content_actions' => '1',
 			'body_class'      => GNETWORK_BODY_CLASS,
-		);
+		];
 	}
 
 	public function default_settings()
 	{
-		$settings = array(
-			'_general' => array(
-				array(
+		$settings = [
+			'_general' => [
+				[
 					'field'       => 'jquery_cdn',
 					'title'       => _x( 'jQuery from CDN', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Replace WordPress jQuery with CDN', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
-				),
-				array(
+				],
+				[
 					'field'       => 'jquery_bottom',
 					'title'       => _x( 'jQuery on Bottom', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Prints jQuery in footer on front-end', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
-				),
-				array(
+				],
+				[
 					'field'       => 'disable_themes',
 					'title'       => _x( 'Theme Enhancements', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Extra styles and more for suported themes', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
 					'values'      => Settings::reverseEnabled(),
-				),
-				array(
+				],
+				[
 					'field'       => 'content_actions',
 					'title'       => _x( 'Content Actions', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Extra hooks before and after post content', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '1',
-				),
-				array(
+				],
+				[
 					'field'       => 'body_class',
 					'type'        => 'text',
 					'title'       => _x( 'Body Class', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'This will be added as HTML body class to all pages on front-end', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
-					'field_class' => array( 'regular-text', 'code-text' ),
+					'field_class' => [ 'regular-text', 'code-text' ],
 					'default'     => GNETWORK_BODY_CLASS,
-				),
-			),
-		);
+				],
+			],
+		];
 
 		return $settings;
 	}
@@ -140,7 +141,7 @@ class Themes extends \geminorum\gNetwork\ModuleCore
 		$scripts->remove( 'jquery', 'jquery-core', 'jquery-migrate' );
 		$scripts->add( 'jquery-core', $jquery_url, FALSE, $jquery_ver, $bottom );
 
-		$deps = array( 'jquery-core' );
+		$deps = [ 'jquery-core' ];
 
 		if ( ! $disable ) {
 			$scripts->add( 'jquery-migrate', $migrate_url, FALSE, $migrate_ver, $bottom );
@@ -162,7 +163,7 @@ class Themes extends \geminorum\gNetwork\ModuleCore
 			remove_action( 'publish_credits', 'publish_footer_credits' );
 			remove_filter( 'infinite_scroll_credit', 'publish_get_footer_credits' );
 
-			add_action( 'publish_credits', array( $this, 'publish_credits' ) );
+			$this->action( 'publish_credits' );
 			add_action( 'wp_enqueue_scripts', function(){
 				Themes::enqueueStyle( 'publish' );
 			}, 20 );
@@ -181,7 +182,7 @@ class Themes extends \geminorum\gNetwork\ModuleCore
 					Themes::enqueueStyle( 'hueman', TRUE );
 
 					wp_deregister_script( 'flexslider' );
-					Utilities::enqueueScriptVendor( 'jquery.flexslider-rtl', array( 'jquery' ), '2.6.1' );
+					Utilities::enqueueScriptVendor( 'jquery.flexslider-rtl', [ 'jquery' ], '2.6.1' );
 
 				}, 12 );
 
@@ -240,17 +241,17 @@ class Themes extends \geminorum\gNetwork\ModuleCore
 
 				add_action( 'wp_head', function(){
 					Utilities::linkStyleSheet( 'themes.p2-rtl.css' );
-					// wp_enqueue_style( 'p2-rtl', GNETWORK_URL.'assets/css/themes.p2-rtl.css', array(), GNETWORK_VERSION );
-					// wp_enqueue_style( 'p2-print-style-rtl', GNETWORK_URL.'assets/css/themes.p2-rtl-print.css', array( 'p2-rtl' ), GNETWORK_VERSION, 'print' );
+					// wp_enqueue_style( 'p2-rtl', GNETWORK_URL.'assets/css/themes.p2-rtl.css', [], GNETWORK_VERSION );
+					// wp_enqueue_style( 'p2-print-style-rtl', GNETWORK_URL.'assets/css/themes.p2-rtl-print.css', [ 'p2-rtl' ], GNETWORK_VERSION, 'print' );
 				}, 99 );
 			}
 
-			add_filter( 'prologue_poweredby_link', array( $this, 'prologue_poweredby_link' ) );
+			$this->filter( 'prologue_poweredby_link' );
 
 		// FALLBACK: for gP2 child theme: https://github.com/geminorum/gp2/
 		} else if ( $this->isTheme( 'p2' ) ) {
 
-			add_filter( 'prologue_poweredby_link', array( $this, 'prologue_poweredby_link' ) );
+			$this->filter( 'prologue_poweredby_link' );
 
 		} else if ( $this->isTheme( 'revera' ) ) {
 			// DEMO: http://demo.fabthemes.com/revera/
@@ -265,7 +266,7 @@ class Themes extends \geminorum\gNetwork\ModuleCore
 					Themes::enqueueStyle( 'revera', TRUE );
 
 					// wp_deregister_script( 'flexslider' );
-					// Utilities::enqueueScriptVendor( 'jquery.flexslider-rtl', array( 'jquery' ), '2.6.1' );
+					// Utilities::enqueueScriptVendor( 'jquery.flexslider-rtl', [ 'jquery' ], '2.6.1' );
 
 				}, 20 );
 
@@ -328,11 +329,11 @@ class Themes extends \geminorum\gNetwork\ModuleCore
 				} );
 			}
 
-			add_action( 'untitled_credits', array( $this, 'untitled_credits' ) );
+			$this->action( 'untitled_credits' );
 
 		} else if ( $this->isTheme( 'twentytwelve' ) ) {
 
-			add_action( 'twentytwelve_credits', array( $this, 'twentytwelve_credits' ) );
+			$this->action( 'twentytwelve_credits' );
 
 		} else if ( $this->isTheme( 'twentyfifteen' ) ) {
 
@@ -346,7 +347,7 @@ class Themes extends \geminorum\gNetwork\ModuleCore
 				} );
 			}
 
-			add_action( 'twentyfifteen_credits', array( $this, 'twentytwelve_credits' ) );
+			$this->action( 'twentyfifteen_credits' );
 		}
 	}
 
@@ -375,9 +376,10 @@ class Themes extends \geminorum\gNetwork\ModuleCore
 		if ( ! WordPress::isSuperAdmin() )
 			return $themes;
 
-		$allowed = array();
-			foreach ( wp_get_themes() as $theme )
-				$allowed[$theme->get_stylesheet()] = TRUE;
+		$allowed = [];
+
+		foreach ( wp_get_themes() as $theme )
+			$allowed[$theme->get_stylesheet()] = TRUE;
 
 		return $allowed;
 	}
@@ -417,12 +419,12 @@ class Themes extends \geminorum\gNetwork\ModuleCore
 
 	public static function continueReading()
 	{
-		return vsprintf( ' <a href="%1$s" aria-label="%3$s" class="%4$s">%2$s</a>', array(
+		return vsprintf( ' <a href="%1$s" aria-label="%3$s" class="%4$s">%2$s</a>', [
 			get_permalink(),
 			_x( 'Read more&nbsp;<span class="excerpt-link-hellip">&hellip;</span>', 'Modules: Themes', GNETWORK_TEXTDOMAIN ),
 			sprintf( _x( 'Continue reading &ldquo;%s&rdquo; &hellip;', 'Modules: Themes', GNETWORK_TEXTDOMAIN ), get_the_title() ),
 			'excerpt-link',
-		) );
+		] );
 	}
 
 	public static function getByLine( $before = '<span class="byline">', $after = '</span>' )
@@ -432,11 +434,11 @@ class Themes extends \geminorum\gNetwork\ModuleCore
 		$format = '<span class="author vcard"><a class="url fn n" href="%3$s" title="%2$s" rel="author">%1$s</a></span>';
 		$author = get_the_author();
 
-		return $before.sprintf( $text, vsprintf( $format, array(
+		return $before.sprintf( $text, vsprintf( $format, [
 			esc_html( $author ),
 			esc_attr( sprintf( $title, $author ) ),
 			esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
-		) ) ).$after;
+		] ) ).$after;
 	}
 
 	public static function postedOn( $before = '', $after = '', $byline = TRUE )
@@ -446,12 +448,12 @@ class Themes extends \geminorum\gNetwork\ModuleCore
 
 		echo $before;
 
-		vprintf( $format, array(
+		vprintf( $format, [
 			esc_url( get_permalink() ),
 			esc_attr( get_the_time() ),
 			esc_attr( get_the_date( 'c' ) ),
 			esc_html( get_the_date() ),
-		) );
+		] );
 
 		if ( $byline )
 			echo ' '.self::getByLine();
@@ -489,7 +491,7 @@ class Themes extends \geminorum\gNetwork\ModuleCore
 
 	public static function enqueueStyle( $theme, $rtl = FALSE )
 	{
-		wp_enqueue_style( 'gnetwork-themes-'.$theme, GNETWORK_URL.'assets/css/themes.'.$theme.( $rtl ? '-rtl' : '' ).'.css', array(), GNETWORK_VERSION );
+		wp_enqueue_style( 'gnetwork-themes-'.$theme, GNETWORK_URL.'assets/css/themes.'.$theme.( $rtl ? '-rtl' : '' ).'.css', [], GNETWORK_VERSION );
 	}
 
 	public function publish_credits()

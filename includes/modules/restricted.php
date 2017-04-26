@@ -20,11 +20,11 @@ class Restricted extends \geminorum\gNetwork\ModuleCore
 		if ( 'none' != $this->options['restricted_site'] )
 			$this->bouncer = new RestrictedBouncer( $this->options );
 
-		add_action( 'init', array( $this, 'init' ), 2 );
+		$this->action( 'init', 0, 2 );
 
 		if ( is_admin() ) {
-			add_action( 'load-profile.php', array( $this, 'load_profile' ) );
-			add_action( 'load-user-edit.php', array( $this, 'load_profile' ) );
+			add_action( 'load-profile.php', [ $this, 'load_profile' ] );
+			add_action( 'load-user-edit.php', [ $this, 'load_profile' ] );
 		} // TODO: else on any front profile
 	}
 
@@ -32,7 +32,7 @@ class Restricted extends \geminorum\gNetwork\ModuleCore
 	{
 		Admin::registerMenu( $this->key,
 			_x( 'Restricted', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			array( $this, 'settings' )
+			[ $this, 'settings' ]
 		);
 	}
 
@@ -68,7 +68,7 @@ class Restricted extends \geminorum\gNetwork\ModuleCore
 
 	public function default_options()
 	{
-		return array(
+		return [
 			'restricted_site'    => 'none',
 			'restricted_admin'   => 'none',
 			'restricted_profile' => 'open',
@@ -76,87 +76,87 @@ class Restricted extends \geminorum\gNetwork\ModuleCore
 			'redirect_page'      => '0',
 			'restricted_notice'  => '',
 			'restricted_access'  => '',
-		);
+		];
 	}
 
 	public function default_settings()
 	{
-		return array(
-			'_general' => array(
-				array(
+		return [
+			'_general' => [
+				[
 					'field'       => 'restricted_site',
 					'type'        => 'cap',
 					'title'       => _x( 'Site Restriction', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Selected and above can access to the site.', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => 'none',
-				),
-				array(
+				],
+				[
 					'field'       => 'restricted_admin',
 					'type'        => 'cap',
 					'title'       => _x( 'Admin Restriction', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Selected and above can access to the admin.', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => 'none',
-				),
-				array(
+				],
+				[
 					'field'       => 'restricted_profile',
 					'type'        => 'select',
 					'title'       => _x( 'Admin Profile', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Admin profile access if the site is restricted.', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => 'open',
-					'values'      => array(
+					'values'      => [
 						'open'   => _x( 'Open', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
 						'closed' => _x( 'Restricted', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
-					),
-				),
-				array(
+					],
+				],
+				[
 					'field'       => 'restricted_feed',
 					'type'        => 'select',
 					'title'       => _x( 'Feed Restriction', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Feed access if the site is restricted.', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => 'open',
-					'values'      => array(
+					'values'      => [
 						'open'   => _x( 'Open', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
 						'closed' => _x( 'Restricted', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
-					),
-				),
-				array(
+					],
+				],
+				[
 					'field'       => 'redirect_page',
 					'type'        => 'page',
 					'title'       => _x( 'Redirect Page', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Not authorized users will redirect to this page, to login page if not selected.', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
 					'none_title'  => _x( '&mdash; Login &mdash;', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
 					'none_value'  => '0',
-				),
-				array(
+				],
+				[
 					'field'       => 'restricted_notice',
 					'type'        => 'textarea-quicktags',
 					'title'       => _x( 'Restricted Notice', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'This will show on top of this site login page. <code>%1$s</code> for the role, <code>%2$s</code> for the page.', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => _x( '<p>This site is restricted to users with %1$s access level. Please visit <a href="%2$s">here</a> to request access.</p>', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
-					'field_class' => array( 'large-text', 'code-text' ),
-				),
-				array(
+					'field_class' => [ 'large-text', 'code-text' ],
+				],
+				[
 					'field'       => 'restricted_access',
 					'type'        => 'textarea-quicktags',
 					'title'       => _x( 'Restricted Access', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'This will show on 403 page for logged-in users. <code>%1$s</code> for the role, <code>%2$s</code> for the page.', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => _x( '<p>You do not have %1$s access level. Please visit <a href="%2$s">here</a> to request access.</p>', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
-					'field_class' => array( 'large-text', 'code-text' ),
-				),
-			),
-		);
+					'field_class' => [ 'large-text', 'code-text' ],
+				],
+			],
+		];
 	}
 
 	private function remove_menus()
 	{
-		AdminBar::removeMenus( array(
+		AdminBar::removeMenus( [
 			'site-name',
 			'my-sites',
 			'blog-'.$this->blog,
 			'edit',
 			'new-content',
 			'comments',
-		) );
+		] );
 	}
 
 	public function load_profile()
@@ -165,10 +165,10 @@ class Restricted extends \geminorum\gNetwork\ModuleCore
 			|| is_user_admin() )
 				return;
 
-		add_filter( 'show_user_profile', array( $this, 'edit_user_profile' ), 10, 1  );
-		add_action( 'edit_user_profile', array( $this, 'edit_user_profile' ), 10, 1  );
-		add_action( 'personal_options_update', array( $this, 'edit_user_profile_update' ), 10, 1 );
-		add_action( 'edit_user_profile_update', array( $this, 'edit_user_profile_update' ), 10, 1 );
+		add_filter( 'show_user_profile', [ $this, 'edit_user_profile' ] );
+		add_action( 'edit_user_profile', [ $this, 'edit_user_profile' ] );
+		add_action( 'personal_options_update', [ $this, 'edit_user_profile_update' ] );
+		add_action( 'edit_user_profile_update', [ $this, 'edit_user_profile_update' ] );
 	}
 
 	public function edit_user_profile( $profileuser )
@@ -188,19 +188,19 @@ class Restricted extends \geminorum\gNetwork\ModuleCore
 
 		echo '<table class="form-table">';
 
-			$this->do_settings_field( array(
+			$this->do_settings_field( [
 				'title'       => _x( 'Access Key', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
 				'type'        => 'text',
 				'cap'         => 'read',
 				'field'       => 'restricted_feed_key',
 				'default'     => $feedkey ? $feedkey : _x( 'Access key not found', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
-				'field_class' => array( 'regular-text', 'code-text', 'rtl-placeholder' ),
+				'field_class' => [ 'regular-text', 'code-text', 'rtl-placeholder' ],
 				'description' => _x( 'The key will be used on all restricted site feed URLs.', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
 				'disabled'    => TRUE,
 				'wrap'        => TRUE,
-			) );
+			] );
 
-			$operations = array( 'none' => Settings::showOptionNone() );
+			$operations = [ 'none' => Settings::showOptionNone() ];
 
 			if ( $feedkey ) {
 				$operations['reset']  = _x( 'Reset your access key', 'Modules: Restricted', GNETWORK_TEXTDOMAIN );
@@ -209,7 +209,7 @@ class Restricted extends \geminorum\gNetwork\ModuleCore
 				$operations['generate'] = _x( 'Generate new access key', 'Modules: Restricted', GNETWORK_TEXTDOMAIN );
 			}
 
-			$this->do_settings_field( array(
+			$this->do_settings_field( [
 				'field'       => 'feed_operations',
 				'type'        => 'select',
 				'cap'         => 'read',
@@ -218,27 +218,27 @@ class Restricted extends \geminorum\gNetwork\ModuleCore
 				'default'     => 'none',
 				'values'      => $operations,
 				'wrap'        => TRUE,
-			) );
+			] );
 
 			if ( $feedkey ) {
 
-				$this->do_settings_field( array(
+				$this->do_settings_field( [
 					'title'  => _x( 'Your Feed', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
 					'type'   => 'custom',
 					'cap'    => 'read',
 					'field'  => 'restricted_feed_url',
 					'values' => '<code><a href="'.$urls['rss2'].'" target="_blank">'.$urls['rss2'].'</a></code>',
 					'wrap'   => TRUE,
-				) );
+				] );
 
-				$this->do_settings_field( array(
+				$this->do_settings_field( [
 					'title'  => _x( 'Your Comments Feed', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
 					'type'   => 'custom',
 					'cap'    => 'read',
 					'field'  => 'restricted_feed_comments_url',
 					'values' => '<code><a href="'.$urls['comments_rss2_url'].'" target="_blank">'.$urls['comments_rss2_url'].'</a></code>',
 					'wrap'   => TRUE,
-				) );
+				] );
 			}
 
 		echo '</table>';
@@ -272,30 +272,30 @@ class Restricted extends \geminorum\gNetwork\ModuleCore
 		if ( ! $feed_key && $check )
 			$feed_key = RestrictedBouncer::getUserFeedKey( FALSE, FALSE );
 
-		return array(
+		return [
 			'rss2'              => ( $feed_key ? add_query_arg( 'feedkey', $feed_key, get_feed_link( 'rss2' ) ) : get_feed_link( 'rss2' ) ),
 			'comments_rss2_url' => ( $feed_key ? add_query_arg( 'feedkey', $feed_key, get_feed_link( 'comments_rss2' ) ) : get_feed_link( 'comments_rss2' ) ),
-		);
+		];
 	}
 
 	public static function get403Logout( $class = 'logout' )
 	{
-		$html = HTML::tag( 'a', array(
+		$html = HTML::tag( 'a', [
 			'href'  => GNETWORK_BASE,
 			'title' => GNETWORK_NAME,
-		), _x( 'Home Page', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ) );
+		], _x( 'Home Page', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ) );
 
 		if ( is_user_logged_in() ) {
-			$html .= ' / '.HTML::tag( 'a', array(
+			$html .= ' / '.HTML::tag( 'a', [
 				'href' => wp_logout_url(),
 				'title' => _x( 'Logout of this site', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
-			), _x( 'Log Out', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ) );
+			], _x( 'Log Out', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ) );
 		}
 
 		if ( $class )
-			$html = HTML::tag( 'div', array(
+			$html = HTML::tag( 'div', [
 				'class' => $class,
-			), $html );
+			], $html );
 
 		return $html;
 	}
@@ -312,9 +312,9 @@ class Restricted extends \geminorum\gNetwork\ModuleCore
 			$html = _x( 'You do not have sufficient access level.', 'Modules: Restricted', GNETWORK_TEXTDOMAIN );
 
 		if ( $class )
-			$html = HTML::tag( 'div', array(
+			$html = HTML::tag( 'div', [
 				'class' => $class,
-			), $html );
+			], $html );
 
 		return $html;
 	}
@@ -331,7 +331,7 @@ class Restricted extends \geminorum\gNetwork\ModuleCore
 class RestrictedBouncer extends \geminorum\gNetwork\Core\Base
 {
 
-	protected $options = array();
+	protected $options = [];
 	protected $key     = FALSE;
 	protected $valid   = FALSE;
 	protected $access  = FALSE;
@@ -340,15 +340,15 @@ class RestrictedBouncer extends \geminorum\gNetwork\Core\Base
 	{
 		$this->options = $options;
 
-		add_action( 'init', array( $this, 'init' ), 1 );
-		add_action( 'admin_init', array( $this, 'admin_init' ), 1 );
-		add_action( 'template_redirect', array( $this, 'template_redirect' ), 1 );
+		$this->action( 'init', 0, 1 );
+		$this->action( 'admin_init', 0, 1 );
+		$this->action( 'template_redirect', 1, 1 );
 
 		if ( ! empty( $options['restricted_notice'] ) )
-			add_filter( 'login_message', array( $this, 'login_message' ) );
+			$this->filter( 'login_message' );
 
 		// block search engines and robots
-		add_filter( 'robots_txt', array( $this, 'robots_txt' ) );
+		$this->filter( 'robots_txt' );
 		add_filter( 'option_blog_public', function( $option ){
 			return 0;
 		}, 20 );
@@ -365,7 +365,7 @@ class RestrictedBouncer extends \geminorum\gNetwork\Core\Base
 		$this->key = self::getUserFeedKey();
 
 		if ( $this->key && is_user_logged_in() )
-			add_filter( 'feed_link', array( $this, 'feed_link' ), 12, 2 );
+			$this->filter( 'feed_link', 2, 12 );
 
 		$feedkey = isset( $_GET['feedkey'] ) ? trim( $_GET['feedkey'] ) : FALSE;
 		if ( ! $feedkey ) {

@@ -18,31 +18,31 @@ class Dev extends \geminorum\gNetwork\ModuleCore
 
 	protected function setup_actions()
 	{
-		add_filter( 'http_request_args', array( $this, 'http_request_args' ), 12, 2 );
+		$this->filter( 'http_request_args', 2, 12 );
 
 		add_filter( 'https_local_ssl_verify', '__return_false' );
 		add_filter( 'https_ssl_verify', '__return_false' );
 		add_filter( 'jetpack_development_mode', '__return_true' );
 
-		add_action( 'pre_get_posts', array( $this, 'pre_get_posts' ), 99 );
-		add_action( 'shutdown', array( $this, 'shutdown' ), 99 );
+		$this->action( 'pre_get_posts', 1, 99 );
+		$this->action( 'shutdown', 1, 99 );
 
 		if ( is_admin() )
-			add_filter( 'contextual_help', array( $this, 'contextual_help' ), 10, 3 );
+			$this->filter( 'contextual_help', 3 );
 
-		// add_filter( 'embed_oembed_html', array( $this, 'embed_oembed_html' ), 1,  4 );
-		add_filter( 'pre_get_avatar', array( $this, 'pre_get_avatar' ), 99, 3 );
+		// $this->filter( 'embed_oembed_html', 4, 1 );
+		$this->filter( 'pre_get_avatar', 3, 99 );
 		remove_filter( 'get_avatar', 'bp_core_fetch_avatar_filter', 10, 6 );
 
-		// add_action( 'template_redirect', array( $this, 'template_redirect' ) );
-		// add_filter( 'login_url', array( $this, 'login_url' ), 10, 2 );
+		// $this->action( 'template_redirect' );
+		// $this->filter( 'login_url', 2, 10 );
 	}
 
 	public function setup_menu( $context )
 	{
 		$this->register_menu(
 			_x( 'Dev Tools', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			array( $this, 'settings' )
+			[ $this, 'settings' ]
 		);
 	}
 
@@ -73,18 +73,18 @@ class Dev extends \geminorum\gNetwork\ModuleCore
 	// it's faster than airplane-mode
 	public function pre_get_avatar( $null, $id_or_email, $args )
 	{
-		return HTML::tag( 'img', array(
+		return HTML::tag( 'img', [
 			'src'    => 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==',
 			'alt'    => $args['alt'],
 			'width'  => $args['size'],
 			'height' => $args['size'],
 			'style'  => 'background:#eee;',
-			'class'  => array(
+			'class'  => [
 				'avatar',
 				'avatar-'.$args['size'],
 				'photo',
-			),
-		) );
+			],
+		] );
 	}
 
 	// https://wordpress.org/plugins/stop-query-posts/
@@ -98,7 +98,7 @@ class Dev extends \geminorum\gNetwork\ModuleCore
 	{
 		global $pagenow, $wpdb, $gPeopleNetwork, $gMemberNetwork;
 
-		$log = array();
+		$log = [];
 
 		$log[] = self::timerStop( FALSE, 3 ).'s';
 		$log[] = number_format( ( memory_get_peak_usage() / 1024 / 1024 ), 1, ',', '' ).'/'.ini_get( 'memory_limit' );
@@ -173,13 +173,13 @@ class Dev extends \geminorum\gNetwork\ModuleCore
 			. '</ul>';
 
 		// Append global $hook_suffix to the hook stems
-		$hooks = array(
+		$hooks = [
 			"load-$hook_suffix",
 			"admin_print_styles-$hook_suffix",
 			"admin_print_scripts-$hook_suffix",
 			"admin_head-$hook_suffix",
 			"admin_footer-$hook_suffix"
-		);
+		];
 
 		// If add_meta_boxes or add_meta_boxes_{screen_id} is used, list these too
 		if ( did_action( 'add_meta_boxes_' . $screen_id ) )
@@ -197,12 +197,12 @@ class Dev extends \geminorum\gNetwork\ModuleCore
 		// $help_content .= self::dump( $screen, TRUE, FALSE );
 
 		// Add help panel
-		$screen->add_help_tab( array(
+		$screen->add_help_tab( [
 			'id'       => 'gnetwork-screen-help',
 			'title'    => 'Screen Information',
 			'content'  => $help_content,
 			'priority' => 1000,
-		));
+		] );
 
 		return $old_help;
 	}
@@ -228,7 +228,7 @@ class Dev extends \geminorum\gNetwork\ModuleCore
 
 	public static function generateCustomTax_Post()
 	{
-		return array(
+		return [
 			'name'           => 'Divisions',
 			'name_lower'     => 'divisions',
 			'singular'       => 'Division',
@@ -240,12 +240,12 @@ class Dev extends \geminorum\gNetwork\ModuleCore
 
 			'context'        => 'Divisions Module: Division CPT Labels',
 			'textdomain'     => 'GEDITORIAL_TEXTDOMAIN',
-		);
+		];
 	}
 
 	public static function generateCustomTax_Tag()
 	{
-		return array(
+		return [
 			// 'name'           => 'Publication Sizes',
 			// 'name_lower'     => 'publication sizes',
 			// 'singular'       => 'Publication Size',
@@ -258,12 +258,12 @@ class Dev extends \geminorum\gNetwork\ModuleCore
 
 			'context'        => 'Alphabet Module: Alphabet Tax Labels',
 			'textdomain'     => 'GEDITORIAL_TEXTDOMAIN',
-		);
+		];
 	}
 
 	public static function generateCustomTax_Cat()
 	{
-		return array(
+		return [
 			// 'name'           => 'Event Categories',
 			// 'name_lower'     => 'event categories',
 			// 'singular'       => 'Event Category',
@@ -286,6 +286,6 @@ class Dev extends \geminorum\gNetwork\ModuleCore
 
 			'context'        => 'Magazine Module: Section Tax Labels',
 			'textdomain'     => 'GEDITORIAL_TEXTDOMAIN',
-		);
+		];
 	}
 }

@@ -18,22 +18,22 @@ class Mail extends \geminorum\gNetwork\ModuleCore
 	protected function setup_actions()
 	{
 		if ( $this->options['log_all'] ) {
-			add_filter( 'wp_mail', array( $this, 'wp_mail' ), 99 );
-			add_action( 'bp_send_email_success', array( $this, 'bp_send_email_success' ), 99, 2 );
+			$this->filter( 'wp_mail', 1, 99 );
+			$this->action( 'bp_send_email_success', 2, 99 );
 		}
 
-		add_filter( 'wp_mail_from', array( $this, 'wp_mail_from' ), 5 );
-		add_filter( 'wp_mail_from_name', array( $this, 'wp_mail_from_name' ), 5 );
-		add_action( 'bp_email', array( $this, 'bp_email' ), 5, 2 );
+		$this->filter( 'wp_mail_from', 1, 5 );
+		$this->filter( 'wp_mail_from_name', 1, 5 );
+		$this->action( 'bp_email', 2, 5 );
 
-		add_action( 'phpmailer_init', array( $this, 'phpmailer_init' ) );
+		$this->action( 'phpmailer_init' );
 	}
 
 	public function setup_menu( $context )
 	{
 		$this->register_menu(
 			_x( 'Mail', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			array( $this, 'settings' )
+			[ $this, 'settings' ]
 		);
 
 		$this->register_menu(
@@ -50,7 +50,7 @@ class Mail extends \geminorum\gNetwork\ModuleCore
 
 	public function default_options()
 	{
-		return array(
+		return [
 			'from_email'    => '',
 			'from_name'     => '',
 			'sender'        => 'FROM',
@@ -61,95 +61,95 @@ class Mail extends \geminorum\gNetwork\ModuleCore
 			'smtp_username' => '', // WPMS_SMTP_USER
 			'smtp_password' => '', // WPMS_SMTP_PASS
 			'log_all'       => '0',
-		);
+		];
 	}
 
 	public function default_settings()
 	{
-		$settings = array(
-			'_general' => array(
-				array(
+		$settings = [
+			'_general' => [
+				[
 					'field'       => 'from_email',
 					'type'        => 'text',
 					'title'       => _x( 'From Email', 'Modules: Mail: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'You can specify the email address that emails should be sent from. Leave blank for default.', 'Modules: Mail: Settings', GNETWORK_TEXTDOMAIN ),
-					'field_class' => array( 'regular-text', 'email-text' ),
-				),
-				array(
+					'field_class' => [ 'regular-text', 'email-text' ],
+				],
+				[
 					'field'       => 'from_name',
 					'type'        => 'text',
 					'title'       => _x( 'From Name', 'Modules: Mail: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'You can specify the name that emails should be sent from. Leave blank for WordPress.', 'Modules: Mail: Settings', GNETWORK_TEXTDOMAIN ),
-				),
-				array(
+				],
+				[
 					'field'       => 'sender',
 					'type'        => 'text',
 					'title'       => _x( 'Return Path', 'Modules: Mail: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Set the return-path email address. Use <code>FROM</code> to match the From Email or Empty to disable.', 'Modules: Mail: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => 'FROM',
-					'field_class' => array( 'regular-text', 'email-text' ),
-				),
-				array(
+					'field_class' => [ 'regular-text', 'email-text' ],
+				],
+				[
 					'field'   => 'mailer',
 					'type'    => 'radio',
 					'title'   => _x( 'Mailer', 'Modules: Mail: Settings', GNETWORK_TEXTDOMAIN ),
 					'default' => 'mail',
-					'values'  => array(
+					'values'  => [
 						'mail' => _x( 'Use the PHP mail() function to send emails.', 'Modules: Mail: Settings', GNETWORK_TEXTDOMAIN ),
 						'smtp' => _x( 'Send all WordPress emails via SMTP.', 'Modules: Mail: Settings', GNETWORK_TEXTDOMAIN ),
-					),
-				),
-			),
-			'_smtp' => array(
-				array(
+					],
+				],
+			],
+			'_smtp' => [
+				[
 					'field'       => 'smtp_host',
 					'type'        => 'text',
 					'title'       => _x( 'SMTP Host', 'Modules: Mail: Settings', GNETWORK_TEXTDOMAIN ),
-					'field_class' => array( 'regular-text', 'url-text' ),
+					'field_class' => [ 'regular-text', 'url-text' ],
 					'default'     => 'localhost',
-				),
-				array(
+				],
+				[
 					'field'   => 'smtp_port',
 					'type'    => 'number',
 					'title'   => _x( 'SMTP Port', 'Modules: Mail: Settings', GNETWORK_TEXTDOMAIN ),
 					'default' => '25',
-				),
-				array(
+				],
+				[
 					'field'       => 'smtp_secure',
 					'type'        => 'radio',
 					'title'       => _x( 'Encryption', 'Modules: Mail: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'For most servers SSL is the recommended option.', 'Modules: Mail: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => 'no',
-					'values'      => array(
+					'values'      => [
 						'no'  => _x( 'No encryption.', 'Modules: Mail: Encryption Option', GNETWORK_TEXTDOMAIN ),
 						'ssl' => _x( 'Use SSL encryption.', 'Modules: Mail: Encryption Option', GNETWORK_TEXTDOMAIN ),
 						'tls' => _x( 'Use TLS encryption. This is not the same as STARTTLS.', 'Modules: Mail: Encryption Option', GNETWORK_TEXTDOMAIN ),
-					),
-				),
-				array(
+					],
+				],
+				[
 					'field'       => 'smtp_username',
 					'type'        => 'text',
 					'title'       => _x( 'Username', 'Modules: Mail: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Empty to disable Authentication.', 'Modules: Mail: Settings', GNETWORK_TEXTDOMAIN ),
-					'field_class' => array( 'regular-text', 'code-text' ),
-				),
-				array(
+					'field_class' => [ 'regular-text', 'code-text' ],
+				],
+				[
 					'field'       => 'smtp_password',
 					'type'        => 'text',
 					'title'       => _x( 'Password', 'Modules: Mail: Settings', GNETWORK_TEXTDOMAIN ),
-					'field_class' => array( 'regular-text', 'code-text' ),
-				),
-			),
-		);
+					'field_class' => [ 'regular-text', 'code-text' ],
+				],
+			],
+		];
 
 		if ( GNETWORK_MAIL_LOG_DIR )
-			$settings['_log'] = array(
-				array(
+			$settings['_log'] = [
+				[
 					'field'       => 'log_all',
 					'title'       => _x( 'Log All', 'Modules: Mail: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Log all outgoing emails in a secure folder', 'Modules: Mail: Settings', GNETWORK_TEXTDOMAIN ),
-				),
-			);
+				],
+			];
 
 		return $settings;
 	}
@@ -171,8 +171,8 @@ class Mail extends \geminorum\gNetwork\ModuleCore
 
 	public function settings_help_tabs( $sub = NULL )
 	{
-		return array(
-			array(
+		return [
+			[
 				'id'      => 'gnetwork-mail-help-gmail',
 				'title'   => _x( 'Gmail SMTP', 'Modules: Mail: Help', GNETWORK_TEXTDOMAIN ),
 				'content' => '<p><table><tbody>
@@ -183,8 +183,8 @@ class Mail extends \geminorum\gNetwork\ModuleCore
 				<tr><td>Password</td><td><em>yourpassword</em></td></tr>
 				</tbody></table><br />
 				For more information see <a href="http://www.wpbeginner.com/plugins/how-to-send-email-in-wordpress-using-the-gmail-smtp-server/" target="_blank">here</a>.</p>',
-			),
-			array(
+			],
+			[
 				'id'      => 'gnetwork-mail-help-pepipost',
 				'title'   => _x( 'Pepipost SMTP', 'Modules: Mail: Help', GNETWORK_TEXTDOMAIN ),
 				'content' => '<p><table><tbody>
@@ -196,8 +196,8 @@ class Mail extends \geminorum\gNetwork\ModuleCore
 				</tbody></table><br />
 				Get your API key from <a href="https://app1.pepipost.com/index.php/settings/index" target="_blank">here</a>.<br />
 				For more information see <a href="http://support.pepipost.com/knowledge_base/topics/smtp-docs" target="_blank">here</a>.</p>',
-			),
-		);
+			],
+		];
 	}
 
 	public function settings_sidebox( $sub, $uri )
@@ -272,17 +272,17 @@ class Mail extends \geminorum\gNetwork\ModuleCore
 						if ( TRUE === unlink( GNETWORK_MAIL_LOG_DIR.'/'.$log.'.json' ) )
 							$count++;
 
-					WordPress::redirectReferer( array(
+					WordPress::redirectReferer( [
 						'message' => 'deleted',
 						'count'   => $count,
-					) );
+					] );
 
 				} else {
 					WordPress::redirectReferer( 'wrong' );
 				}
 			}
 
-			add_action( $this->settings_hook( $sub ), array( $this, 'settings_form_emaillogs' ), 10, 2 );
+			add_action( $this->settings_hook( $sub ), [ $this, 'settings_form_emaillogs' ], 10, 2 );
 
 			$this->register_button( 'deletelogs_selected', _x( 'Delete Selected', 'Modules: Mail', GNETWORK_TEXTDOMAIN ), TRUE );
 			$this->register_button( 'deletelogs_all', _x( 'Delete All', 'Modules: Mail', GNETWORK_TEXTDOMAIN ), FALSE, TRUE );
@@ -373,24 +373,24 @@ class Mail extends \geminorum\gNetwork\ModuleCore
 		}
 	}
 
-	// $mail = array( 'to', 'subject', 'message', 'headers', 'attachments' );
+	// $mail = [ 'to', 'subject', 'message', 'headers', 'attachments' ];
 	public function wp_mail( $mail )
 	{
 		if ( ! GNETWORK_MAIL_LOG_DIR )
 			return $mail;
 
-		$contents = array_merge( array(
+		$contents = array_merge( [
 			'timestamp' => current_time( 'mysql' ),
 			'blog'      => WordPress::currentBlog(),
 			'locale'    => get_locale(),
 			// TODO: get smtp server as well
-		), Arraay::filterArray( $mail ) );
+		], Arraay::filterArray( $mail ) );
 
 		if ( is_rtl() )
 			$contents['rtl'] = 'true';
 
 		if ( is_array( $contents['to'] ) )
-			$to = array_filter( array( 'geminorum\\gNetwork\\Core\\File', 'escFilename' ), $contents['to'] );
+			$to = array_filter( [ 'geminorum\\gNetwork\\Core\\File', 'escFilename' ], $contents['to'] );
 		else
 			$to = File::escFilename( $contents['to'] );
 
@@ -404,10 +404,10 @@ class Mail extends \geminorum\gNetwork\ModuleCore
 
 	public function bp_send_email_success( $status, $email )
 	{
-		$mail = array(
+		$mail = [
 			'subject' => $email->get_subject( 'replace-tokens' ),
 			'message' => \PHPMailer::normalizeBreaks( $email->get_content_plaintext( 'replace-tokens' ) ),
-		);
+		];
 
 		foreach ( $email->get_to() as $recipient )
 			$mail['to'][] = $recipient->get_address();
@@ -497,10 +497,10 @@ class Mail extends \geminorum\gNetwork\ModuleCore
 	protected static function getEmailLogs( $limit, $paged = 1, $ext = 'json', $old = NULL, $path = GNETWORK_MAIL_LOG_DIR )
 	{
 		if ( ! $path )
-			return array( array(), array() );
+			return [ [], [] ];
 
-		$i = 0;
-		$logs = array();
+		$i    = 0;
+		$logs = [];
 
 		$files = glob( wp_normalize_path( $path.'/*.'.$ext ) );
 
@@ -521,18 +521,18 @@ class Mail extends \geminorum\gNetwork\ModuleCore
 				continue;
 
 			if ( $data = json_decode( File::getContents( $log ), TRUE ) )
-				$logs[] = array_merge( array(
+				$logs[] = array_merge( [
 					'file' => basename( $log, '.json' ),
 					'size' => filesize( $log ),
 					'date' => filemtime( $log ),
-				), $data );
+				], $data );
 
 			$i++;
 		}
 
 		$pagination = HTML::tablePagination( count( $files ), $pages, $limit, $paged );
 
-		return array( $logs, $pagination );
+		return [ $logs, $pagination ];
 	}
 
 	protected static function deleteEmailLogs( $path = GNETWORK_MAIL_LOG_DIR )
@@ -558,10 +558,10 @@ class Mail extends \geminorum\gNetwork\ModuleCore
 	{
 		list( $logs, $pagination ) = self::getEmailLogs( self::limit(), self::paged() );
 
-		return HTML::tableList( array(
+		return HTML::tableList( [
 			'_cb' => 'file',
 
-			'info' => array(
+			'info' => [
 				'title'    => _x( 'Whom, When', 'Modules: Mail: Email Logs Table Column', GNETWORK_TEXTDOMAIN ),
 				'class'    => '-column-info',
 				'callback' => function( $value, $row, $column, $index ){
@@ -606,9 +606,9 @@ class Mail extends \geminorum\gNetwork\ModuleCore
 
 					return $info;
 				},
-			),
+			],
 
-			'content' => array(
+			'content' => [
 				'title'    => _x( 'What', 'Modules: Mail: Email Logs Table Column', GNETWORK_TEXTDOMAIN ),
 				'class'    => '-column-content',
 				'callback' => function( $value, $row, $column, $index ){
@@ -625,13 +625,13 @@ class Mail extends \geminorum\gNetwork\ModuleCore
 
 					return $content;
 				},
-			),
-		), $logs, array(
+			],
+		], $logs, [
 			'navigation' => 'before',
 			'search'     => 'before',
 			'title'      => HTML::tag( 'h3', sprintf( _x( 'Total %s Email Logs', 'Modules: Mail', GNETWORK_TEXTDOMAIN ), Number::format( $pagination['total'] ) ) ),
 			'empty'      => self::warning( _x( 'No Logs!', 'Modules: Mail', GNETWORK_TEXTDOMAIN ) ),
 			'pagination' => $pagination,
-		) );
+		] );
 	}
 }

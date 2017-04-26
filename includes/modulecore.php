@@ -9,7 +9,7 @@ use geminorum\gNetwork\Core\WordPress;
 class ModuleCore extends Core\Base
 {
 
-	public $options = array();
+	public $options = [];
 
 	protected $base = 'gnetwork';
 	protected $key  = NULL;
@@ -29,11 +29,11 @@ class ModuleCore extends Core\Base
 	protected $iframe     = NULL;
 
 	protected $scripts_printed  = FALSE;
-	protected $scripts_nojquery = array();
+	protected $scripts_nojquery = [];
 
-	protected $scripts = array();
-	protected $buttons = array();
-	protected $errors  = array();
+	protected $scripts = [];
+	protected $buttons = [];
+	protected $errors  = [];
 
 	protected $counter = 0;
 
@@ -154,7 +154,7 @@ class ModuleCore extends Core\Base
 
 	public function get_settings_url( $action = FALSE, $full = FALSE )
 	{
-		$args = array( 'sub' => $this->key );
+		$args = [ 'sub' => $this->key ];
 
 		if ( is_array( $action ) )
 			$args = array_merge( $args, $action );
@@ -175,14 +175,21 @@ class ModuleCore extends Core\Base
 
 	protected function setup_actions() {}
 
-	protected function action( $hook, $args = 1, $priority = 10, $method = FALSE )
+	protected function action( $hook, $args = 1, $priority = 10, $suffix = FALSE )
 	{
-		add_action( $hook, array( $this, ( $method ? $method : $hook ) ), $priority, $args );
+		if ( $method = self::sanitize_hook( ( $suffix ? $hook.'_'.$suffix : $hook ) ) )
+			add_action( $hook, [ $this, $method ], $priority, $args );
 	}
 
-	protected function filter( $hook, $args = 1, $priority = 10, $method = FALSE )
+	protected function filter( $hook, $args = 1, $priority = 10, $suffix = FALSE )
 	{
-		add_filter( $hook, array( $this, ( $method ? $method : $hook ) ), $priority, $args );
+		if ( $method = self::sanitize_hook( ( $suffix ? $hook.'_'.$suffix : $hook ) ) )
+			add_filter( $hook, [ $this, $method ], $priority, $args );
+	}
+
+	protected static function sanitize_hook( $hook )
+	{
+		return trim( str_ireplace( [ '-', '.' ], '_', $hook ) );
 	}
 
 	protected function hook()
@@ -253,7 +260,7 @@ class ModuleCore extends Core\Base
 
 	public function default_options()
 	{
-		return array();
+		return [];
 	}
 
 	// FIXME: DEPRECATED: not used
@@ -284,15 +291,15 @@ class ModuleCore extends Core\Base
 		global ${$network}, ${$blog};
 
 		if ( empty( ${$network} ) )
-			${$network} = get_site_option( $this->base.'_site', array() );
+			${$network} = get_site_option( $this->base.'_site', [] );
 
 		if ( empty( ${$blog} ) )
-			${$blog} = get_option( $this->base.'_blog', array() );
+			${$blog} = get_option( $this->base.'_blog', [] );
 
 		if ( $this->is_network() )
-			$options = isset( ${$network}[$this->key] ) ? ${$network}[$this->key] : array();
+			$options = isset( ${$network}[$this->key] ) ? ${$network}[$this->key] : [];
 		else
-			$options = isset( ${$blog}[$this->key] ) ? ${$blog}[$this->key] : array();
+			$options = isset( ${$blog}[$this->key] ) ? ${$blog}[$this->key] : [];
 
 		return $this->settings_sanitize( $options, $this->default_options() );
 	}
@@ -323,9 +330,9 @@ class ModuleCore extends Core\Base
 			$options = $this->options;
 
 		if ( $this->is_network() )
-			$saved = get_site_option( $this->base.'_site', array() );
+			$saved = get_site_option( $this->base.'_site', [] );
 		else
-			$saved = get_option( $this->base.'_blog', array() );
+			$saved = get_option( $this->base.'_blog', [] );
 
 		if ( $reset || ! count( $options ) )
 			unset( $saved[$this->key] );
@@ -374,7 +381,7 @@ class ModuleCore extends Core\Base
 			$this->settings_actions( $sub );
 			$this->settings_update( $sub );
 
-			add_action( $this->settings_hook( $sub ), array( $this, 'settings_form' ), 10, 2 );
+			add_action( $this->settings_hook( $sub ), [ $this, 'settings_form' ], 10, 2 );
 
 			$this->register_settings();
 			$this->register_settings_buttons( $sub );
@@ -447,13 +454,13 @@ class ModuleCore extends Core\Base
 		$this->register_button( 'reset', NULL, 'reset', TRUE );
 	}
 
-	public function register_button( $key, $value = NULL, $type = FALSE, $atts = array() )
+	public function register_button( $key, $value = NULL, $type = FALSE, $atts = [] )
 	{
-		$this->buttons[$key] = array(
+		$this->buttons[$key] = [
 			'value' => $value,
 			'type'  => $type,
 			'atts'  => $atts,
-		);
+		];
 	}
 
 	protected function settings_buttons( $sub = NULL, $wrap = '' )
@@ -469,7 +476,7 @@ class ModuleCore extends Core\Base
 	}
 
 	// FIXME: DEPRICATED
-	protected function submit_button( $name = '', $primary = FALSE, $text = NULL, $atts = array() )
+	protected function submit_button( $name = '', $primary = FALSE, $text = NULL, $atts = [] )
 	{
 		Settings::submitButton( $name, $text, $primary, $atts );
 	}
@@ -535,7 +542,7 @@ class ModuleCore extends Core\Base
 					if ( is_array( $_POST[$options_key][$setting] ) )
 						$options[$setting] = count( $_POST[$options_key][$setting] )
 							? array_keys( $_POST[$options_key][$setting] )
-							: array();
+							: [];
 
 					// other options
 					else
@@ -570,7 +577,7 @@ class ModuleCore extends Core\Base
 			if ( is_array( $fields ) ) {
 
 				if ( method_exists( $this, 'settings_section'.$section_suffix ) )
-					$section_callback = array( $this, 'settings_section'.$section_suffix );
+					$section_callback = [ $this, 'settings_section'.$section_suffix ];
 				else
 					$section_callback = '__return_false';
 
@@ -580,15 +587,15 @@ class ModuleCore extends Core\Base
 				add_settings_section( $section, FALSE, $callback, $page );
 
 				foreach ( $fields as $field )
-					$this->add_settings_field( array_merge( $field, array(
+					$this->add_settings_field( array_merge( $field, [
 						'page'    => $page,
 						'section' => $section,
-					) ) );
+					] ) );
 			}
 		}
 
 		// register settings on the settings page only
-		add_action( 'admin_print_footer_scripts', array( $this, 'print_scripts' ), 99 );
+		add_action( 'admin_print_footer_scripts', [ $this, 'print_scripts' ], 99 );
 	}
 
 	protected function register_settings_buttons( $sub = NULL )
@@ -600,13 +607,13 @@ class ModuleCore extends Core\Base
 
 	public function add_settings_field( $atts )
 	{
-		$args = array_merge( array(
+		$args = array_merge( [
 			'page'     => $this->options_key(),
 			'section'  => $this->options_key().'_general',
-			'field_cb' => array( $this, 'do_settings_field' ),
+			'field_cb' => [ $this, 'do_settings_field' ],
 			'field'    => FALSE,
 			'title'    => '',
-		), $atts );
+		], $atts );
 
 		if ( ! $args['field'] )
 			return;
@@ -649,28 +656,28 @@ class ModuleCore extends Core\Base
 				HTML::tableCode( $this->options );
 			$content = ob_get_clean();
 
-			$screen->add_help_tab( array(
+			$screen->add_help_tab( [
 				'id'       => 'gnetwork-settings-options-overview',
 				'title'    => _x( 'Current Options', 'Module Core: Help Content Title', GNETWORK_TEXTDOMAIN ),
 				'content'  => '<p>'.$content.'</p>',
 				'priority' => 999,
-			) );
+			] );
 		}
 	}
 
 	public function settings_help_tabs( $sub = NULL )
 	{
-		return array();
+		return [];
 	}
 
-	public function do_settings_field( $atts = array() )
+	public function do_settings_field( $atts = [] )
 	{
-		Settings::fieldType( array_merge( array(
+		Settings::fieldType( array_merge( [
 			'defaults'     => $this->default_options(),
 			'options'      => $this->options,
 			'option_base'  => $this->base,
 			'option_group' => $this->key,
-		), $atts ), $this->scripts );
+		], $atts ), $this->scripts );
 	}
 
 	public function print_scripts()
@@ -693,15 +700,15 @@ class ModuleCore extends Core\Base
 		return sprintf( $prefix, $this->key, $this->counter );
 	}
 
-	protected function shortcodes( $shortcodes = array() )
+	protected function shortcodes( $shortcodes = [] )
 	{
 		foreach ( $shortcodes as $shortcode => $method ) {
 			remove_shortcode( $shortcode );
-			add_shortcode( $shortcode, array( $this, $method ) );
+			add_shortcode( $shortcode, [ $this, $method ] );
 		}
 	}
 
-	public static function shortcodeWrap( $html, $suffix = FALSE, $args = array(), $block = TRUE )
+	public static function shortcodeWrap( $html, $suffix = FALSE, $args = [], $block = TRUE )
 	{
 		$before = empty( $args['before'] ) ? '' : $args['before'];
 		$after  = empty( $args['after'] )  ? '' : $args['after'];
@@ -709,7 +716,7 @@ class ModuleCore extends Core\Base
 		if ( empty( $args['wrap'] ) )
 			return $before.$html.$after;
 
-		$classes = array( 'gnetwork-wrap-shortcode' );
+		$classes = [ 'gnetwork-wrap-shortcode' ];
 
 		if ( $suffix )
 			$classes[] = 'shortcode-'.$suffix;
@@ -721,43 +728,43 @@ class ModuleCore extends Core\Base
 			$classes[] = $args['class'];
 
 		if ( $after )
-			return $before.HTML::tag( $block ? 'div' : 'span', array( 'class' => $classes ), $html ).$after;
+			return $before.HTML::tag( $block ? 'div' : 'span', [ 'class' => $classes ], $html ).$after;
 
-		return HTML::tag( $block ? 'div' : 'span', array( 'class' => $classes ), $before.$html );
+		return HTML::tag( $block ? 'div' : 'span', [ 'class' => $classes ], $before.$html );
 	}
 
 	public static function shortcodeTermTitle( $atts, $term = FALSE )
 	{
-		$args = self::atts( array(
+		$args = self::atts( [
 			'title'        => NULL, // FALSE to disable
 			'title_link'   => NULL, // FALSE to disable
 			'title_title'  => '',
 			'title_tag'    => 'h3',
 			'title_anchor' => 'term-',
-		), $atts );
+		], $atts );
 
 		if ( is_null( $args['title'] ) )
 			$args['title'] = $term ? sanitize_term_field( 'name', $term->name, $term->term_id, $term->taxonomy, 'display' ) : FALSE;
 
 		if ( $args['title'] ) {
 			if ( is_null( $args['title_link'] ) && $term )
-				$args['title'] = HTML::tag( 'a', array(
+				$args['title'] = HTML::tag( 'a', [
 					'href'  => get_term_link( $term, $term->taxonomy ),
 					'title' => $args['title_title'],
-				), $args['title'] );
+				], $args['title'] );
 
 			else if ( $args['title_link'] )
-				$args['title'] = HTML::tag( 'a', array(
+				$args['title'] = HTML::tag( 'a', [
 					'href'  => $args['title_link'],
 					'title' => $args['title_title'],
-				), $args['title'] );
+				], $args['title'] );
 		}
 
 		if ( $args['title'] && $args['title_tag'] )
-			$args['title'] = HTML::tag( $args['title_tag'], array(
+			$args['title'] = HTML::tag( $args['title_tag'], [
 				'id'    => $term ? $args['title_anchor'].$term->term_id : FALSE,
 				'class' => '-title',
-			), $args['title'] );
+			], $args['title'] );
 
 		return $args['title'];
 	}
@@ -778,7 +785,7 @@ class ModuleCore extends Core\Base
 			return $default;
 	}
 
-	protected function remove_action( $extra = array(), $url = NULL )
+	protected function remove_action( $extra = [], $url = NULL )
 	{
 		if ( is_null( $url ) )
 			$url = URL::current();

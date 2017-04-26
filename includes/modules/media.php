@@ -15,11 +15,11 @@ class Media extends \geminorum\gNetwork\ModuleCore
 	protected $network = FALSE;
 	protected $ajax    = TRUE;
 
-	private $posttype_sizes = array();
+	private $posttype_sizes = [];
 
 	protected function setup_actions()
 	{
-		add_action( 'init', array( $this, 'init_late' ), 999 );
+		$this->action( 'init', 0, 999, 'late' );
 		$this->filter( 'upload_mimes' );
 
 		$this->filter( 'sanitize_file_name', 2, 12 );
@@ -30,14 +30,14 @@ class Media extends \geminorum\gNetwork\ModuleCore
 
 			$this->filter( 'post_mime_types' );
 
-			add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
-			add_filter( 'media_row_actions', array( $this, 'media_row_actions' ), 50, 3 );
-			add_action( 'admin_action_bulk_clean_attachments', array( $this, 'admin_action_bulk' ) );
-			add_action( 'admin_action_-1', array( $this, 'admin_action_bulk' ) );
+			$this->action( 'admin_enqueue_scripts' );
+			$this->filter( 'media_row_actions', 3, 50 );
+			add_action( 'admin_action_bulk_clean_attachments', [ $this, 'admin_action_bulk' ] );
+			add_action( 'admin_action_-1', [ $this, 'admin_action_bulk' ] );
 
 		} else {
 
-			add_filter( 'single_post_title', array( $this, 'single_post_title' ), 9, 2 );
+			$this->filter( 'single_post_title', 2, 9 );
 		}
 	}
 
@@ -45,7 +45,7 @@ class Media extends \geminorum\gNetwork\ModuleCore
 	{
 		Admin::registerMenu( $this->key,
 			_x( 'Media', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			array( $this, 'settings' )
+			[ $this, 'settings' ]
 		);
 	}
 
@@ -62,15 +62,15 @@ class Media extends \geminorum\gNetwork\ModuleCore
 
 			add_filter( 'intermediate_image_sizes', '__return_empty_array', 99 );
 			// add_filter( 'intermediate_image_sizes_advanced', '__return_empty_array', 99 );
-			add_filter( 'wp_generate_attachment_metadata', array( $this, 'wp_generate_attachment_metadata' ), 10, 2 );
-			add_action( 'clean_attachment_cache', array( $this, 'clean_attachment_cache' ), 10, 1 );
+			$this->filter( 'wp_generate_attachment_metadata', 2 );
+			$this->action( 'clean_attachment_cache' );
 		}
 
 		if ( $this->filters( 'thumbs_separation', GNETWORK_MEDIA_THUMBS_SEPARATION, $this->blog ) ) {
 
-			add_filter( 'wp_image_editors', array( $this, 'wp_image_editors' ), 5, 1 );
-			add_filter( 'image_downsize', array( $this, 'image_downsize' ), 5, 3 );
-			add_action( 'delete_attachment', array( $this, 'delete_attachment' ), 10, 1 );
+			$this->filter( 'wp_image_editors', 1, 5 );
+			$this->filter( 'image_downsize', 3, 5 );
+			$this->action( 'delete_attachment' );
 		}
 	}
 
@@ -95,19 +95,19 @@ class Media extends \geminorum\gNetwork\ModuleCore
 
 			} else {
 
-				WordPress::redirectReferer( array(
+				WordPress::redirectReferer( [
 					'message' => 'wrong',
 					'limit'   => self::limit(),
 					'paged'   => self::paged(),
-				) );
+				] );
 			}
 
-			WordPress::redirectReferer( array(
+			WordPress::redirectReferer( [
 				'message' => 'cleaned',
 				'count'   => $count,
 				'limit'   => self::limit(),
 				'paged'   => self::paged(),
-			) );
+			] );
 
 		} else {
 			parent::settings_actions( $sub );
@@ -137,15 +137,15 @@ class Media extends \geminorum\gNetwork\ModuleCore
 		$paged  = self::paged();
 		$offset = ( $paged - 1 ) * $limit;
 
-		$args = array(
+		$args = [
 			'posts_per_page'   => $limit,
 			'offset'           => $offset,
 			'orderby'          => self::orderby( 'ID' ),
 			'order'            => self::order( 'asc' ),
 			'post_type'        => 'any',
-			'post_status'      => array( 'publish', 'future', 'draft', 'pending' ),
+			'post_status'      => [ 'publish', 'future', 'draft', 'pending' ],
 			'suppress_filters' => TRUE,
-		);
+		];
 
 		if ( ! empty( $_REQUEST['id'] ) )
 			$args['post__in'] = explode( ',', maybe_unserialize( $_REQUEST['id'] ) );
@@ -161,7 +161,7 @@ class Media extends \geminorum\gNetwork\ModuleCore
 
 		$pagination = HTML::tablePagination( $query->found_posts, $query->max_num_pages, $limit, $paged );
 
-		return array( $posts, $pagination );
+		return [ $posts, $pagination ];
 	}
 
 	private static function tablePostInfo()
@@ -170,62 +170,62 @@ class Media extends \geminorum\gNetwork\ModuleCore
 
 		$wpuploads = wp_get_upload_dir();
 
-		return HTML::tableList( array(
+		return HTML::tableList( [
 			'_cb' => 'ID',
 			'ID'  => _x( 'ID', 'Modules: Media: Column Title', GNETWORK_TEXTDOMAIN ),
 
-			'date' => array(
+			'date' => [
 				'title'    => _x( 'Date', 'Modules: Media: Column Title', GNETWORK_TEXTDOMAIN ),
 				'callback' => function( $value, $row, $column, $index ){
 					return Utilities::humanTimeDiffRound( strtotime( $row->post_date ) );
 				},
-			),
+			],
 
-			'type' => array(
+			'type' => [
 				'title'    => _x( 'Type', 'Modules: Media: Column Title', GNETWORK_TEXTDOMAIN ),
-				'args'     => array( 'post_types' => WordPress::getPostTypes( 2 ) ),
+				'args'     => [ 'post_types' => WordPress::getPostTypes( 2 ) ],
 				'callback' => function( $value, $row, $column, $index ){
 					return isset( $column['args']['post_types'][$row->post_type] ) ? $column['args']['post_types'][$row->post_type] : $row->post_type;
 				},
-			),
+			],
 
-			'title' => array(
+			'title' => [
 				'title' => _x( 'Title', 'Modules: Media: Column Title', GNETWORK_TEXTDOMAIN ),
-				'args'  => array(
+				'args'  => [
 					'url'   => get_bloginfo( 'url' ),
 					'admin' => admin_url( 'post.php' ),
-				),
+				],
 				'callback' => function( $value, $row, $column, $index ){
 					return Utilities::getPostTitle( $row )
 						.get_the_term_list( $row->ID, 'post_tag', '<div><small>', ', ', '</small></div>' );
 				},
 				'actions' => function( $value, $row, $column, $index ){
-					return array(
+					return [
 
-						'edit' => HTML::tag( 'a', array(
+						'edit' => HTML::tag( 'a', [
 							// 'href'   => get_edit_post_link( $row->ID ),
-							'href'   => add_query_arg( array( 'action' => 'edit', 'post' => $row->ID ), $column['args']['admin'] ),
+							'href'   => add_query_arg( [ 'action' => 'edit', 'post' => $row->ID ], $column['args']['admin'] ),
 							'class'  => '-link -row-link -row-link-edit',
 							'target' => '_blank',
-						), _x( 'Edit', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) ),
+						], _x( 'Edit', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) ),
 
-						'view' => HTML::tag( 'a', array(
-							'href'   => add_query_arg( array( 'p' => $row->ID ), $column['args']['url'] ),
+						'view' => HTML::tag( 'a', [
+							'href'   => add_query_arg( [ 'p' => $row->ID ], $column['args']['url'] ),
 							'class'  => '-link -row-link -row-link-view',
 							'target' => '_blank',
-						), _x( 'View', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) ),
-					);
+						], _x( 'View', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) ),
+					];
 				},
-			),
+			],
 
-			'attached' => array(
+			'attached' => [
 				'title'    => _x( 'Attached Media', 'Modules: Media: Column Title', GNETWORK_TEXTDOMAIN ),
-				'args'     => array( 'wpuploads' => $wpuploads ),
+				'args'     => [ 'wpuploads' => $wpuploads ],
 				'callback' => function( $value, $row, $column, $index ){
 
 					// TODO: check for all attachment types, use wp icons
 
-					$links = array();
+					$links = [];
 
 					$thumbnail_id  = get_post_meta( $row->ID, '_thumbnail_id', TRUE );
 					$gtheme_images = get_post_meta( $row->ID, '_gtheme_images', TRUE );
@@ -251,9 +251,9 @@ class Media extends \geminorum\gNetwork\ModuleCore
 
 					return '<div dir="ltr">'.( count( $links ) ? implode( '<br />', $links ) : '&mdash;' ).'</div>';
 				},
-			),
+			],
 
-			'content' => array(
+			'content' => [
 				'title'    => _x( 'In Content', 'Modules: Media: Column Title', GNETWORK_TEXTDOMAIN ),
 				'callback' => function( $value, $row, $column, $index ){
 
@@ -262,21 +262,21 @@ class Media extends \geminorum\gNetwork\ModuleCore
 					if ( ! count( $matches[1] ) )
 						return '<div dir="ltr">&mdash;</div>';
 
-					$links = array();
+					$links = [];
 
 					foreach ( $matches[1] as $src )
 						$links[] = HTML::link( URL::prepTitle( $src ), $src, TRUE );
 
 					return '<div dir="ltr">'.( count( $links ) ? implode( '<br />', $links ) : '&mdash;' ).'</div>';
 				},
-			),
-		), $posts, array(
+			],
+		], $posts, [
 			'navigation' => 'before',
 			'search'     => 'before',
 			'title'      => HTML::tag( 'h3', _x( 'Overview of posts with attachments', 'Modules: Media', GNETWORK_TEXTDOMAIN ) ),
 			'empty'      => self::warning( _x( 'No Posts!', 'Modules: Media', GNETWORK_TEXTDOMAIN ) ),
 			'pagination' => $pagination,
-		) );
+		] );
 	}
 
 	public function clean_attachment_cache( $attachment_id )
@@ -334,7 +334,7 @@ class Media extends \geminorum\gNetwork\ModuleCore
 
 		global $_wp_additional_image_sizes;
 
-		$sizes = array();
+		$sizes = [];
 
 		foreach ( $_wp_additional_image_sizes as $name => $size )
 			if ( isset( $size[$key] ) && in_array( $post_type, $size[$key] ) )
@@ -365,39 +365,39 @@ class Media extends \geminorum\gNetwork\ModuleCore
 	}
 
 	// FIXME: DEPRECATED: core duplication with post_type : add_image_size()
-	public static function addImageSize( $name, $width = 0, $height = 0, $crop = FALSE, $post_type = array( 'post' ) )
+	public static function addImageSize( $name, $width = 0, $height = 0, $crop = FALSE, $post_type = [ 'post' ] )
 	{
 		self::__dep();
 
 		global $_wp_additional_image_sizes;
 
-		$_wp_additional_image_sizes[$name] = array(
+		$_wp_additional_image_sizes[$name] = [
 			'width'     => absint( $width ),
 			'height'    => absint( $height ),
 			'crop'      => $crop,
 			'post_type' => $post_type,
-		);
+		];
 	}
 
-	public static function registerImageSize( $name, $atts = array() )
+	public static function registerImageSize( $name, $atts = [] )
 	{
 		global $_wp_additional_image_sizes;
 
-		$args = self::atts( array(
+		$args = self::atts( [
 			'n' => _x( 'Undefined Image Size', 'Modules: Media', GNETWORK_TEXTDOMAIN ),
 			'w' => 0,
 			'h' => 0,
 			'c' => 0,
-			'p' => array( 'post' ),
-		), $atts );
+			'p' => [ 'post' ],
+		], $atts );
 
-		$_wp_additional_image_sizes[$name] = array(
+		$_wp_additional_image_sizes[$name] = [
 			'width'     => absint( $args['w'] ),
 			'height'    => absint( $args['h'] ),
 			'crop'      => $args['c'],
 			'post_type' => $args['p'],
 			'title'     => $args['n'],
-		);
+		];
 	}
 
 	public function delete_attachment( $attachment_id )
@@ -416,12 +416,12 @@ class Media extends \geminorum\gNetwork\ModuleCore
 			if ( GNETWORK_MEDIA_THUMBS_CHECK && file_exists( str_replace( $wpupload['baseurl'], $wpupload['basedir'], $img_url ) ) )
 				return $false;
 
-			$result = array(
+			$result = [
 				str_replace( $wpupload['baseurl'], trailingslashit( GNETWORK_MEDIA_THUMBS_URL ).$this->blog, $img_url ),
 				$data['width'],
 				$data['height'],
 				TRUE,
-			);
+			];
 
 			if ( WordPress::isDev() )
 				error_log( print_r( compact( 'size', 'data', 'path', 'img_url', 'result', 'wpupload' ), TRUE ) );
@@ -457,16 +457,16 @@ class Media extends \geminorum\gNetwork\ModuleCore
 		require_once GNETWORK_DIR.'includes/misc/media-editor-gd.php';
 		require_once GNETWORK_DIR.'includes/misc/media-editor-imagick.php';
 
-		return array(
+		return [
 			'geminorum\\gNetwork\\Misc\\Image_Editor_Imagick',
 			'geminorum\\gNetwork\\Misc\\Image_Editor_GD',
-		);
+		];
 	}
 
 	// FIXME: ALSO SEE: https://core.trac.wordpress.org/changeset/38113
 	public function get_thumbs( $attachment_id )
 	{
-		$thumbs = array();
+		$thumbs = [];
 
 		if ( $file = get_post_meta( $attachment_id, '_wp_attached_file', TRUE ) ) { // '2015/05/filename.jpg'
 
@@ -493,7 +493,7 @@ class Media extends \geminorum\gNetwork\ModuleCore
 
 	public function url_thumbs( $thumbs, $wpupload )
 	{
-		$urls = array();
+		$urls = [];
 
 		foreach ( $thumbs as $thumb )
 			$urls[] = str_replace( $wpupload['basedir'], $wpupload['baseurl'], wp_normalize_path( $thumb ) );
@@ -521,7 +521,7 @@ class Media extends \geminorum\gNetwork\ModuleCore
 		if ( ! isset( $meta['sizes'] ) )
 			return TRUE;
 
-		$meta['sizes'] = array();
+		$meta['sizes'] = [];
 
 		// FIXME: remove EXIF too!
 
@@ -553,7 +553,7 @@ class Media extends \geminorum\gNetwork\ModuleCore
 	{
 		global $wpdb;
 
-		$clean = $moved = array();
+		$clean = $moved = [];
 
 		foreach ( WordPress::getAttachments( $post_id ) as $attachment ) {
 			if ( $attached_file = get_post_meta( $attachment->ID, '_wp_attached_file', TRUE ) ) {
@@ -634,7 +634,7 @@ class Media extends \geminorum\gNetwork\ModuleCore
 
 		Utilities::enqueueScript( 'admin.media' );
 
-		add_action( 'admin_print_scripts', array( $this, 'admin_print_scripts' ), 99 );
+		$this->action( 'admin_print_scripts', 0, 99 );
 	}
 
 	public function admin_print_scripts()
@@ -659,11 +659,11 @@ class Media extends \geminorum\gNetwork\ModuleCore
 
 		check_admin_referer( 'bulk-media' );
 
-		WordPress::redirect( $this->get_settings_url( array(
+		WordPress::redirect( $this->get_settings_url( [
 			'action' => 'clean',
 			'type'   => 'attachment',
 			'id'     => maybe_serialize( implode( ',', array_map( 'intval', $_REQUEST['media'] ) ) ),
-		), TRUE ) );
+		], TRUE ) );
 	}
 
 	public function media_row_actions( $actions, $post, $detached )
@@ -671,29 +671,29 @@ class Media extends \geminorum\gNetwork\ModuleCore
 		$url = wp_get_attachment_url( $post->ID );
 
 		if ( wp_attachment_is( 'image', $post->ID ) )
-			$actions['media-clean'] = HTML::tag( 'a', array(
+			$actions['media-clean'] = HTML::tag( 'a', [
 				'target' => '_blank',
 				'class'  => 'media-clean-attachment',
-				'href'   => $this->get_settings_url( array(
+				'href'   => $this->get_settings_url( [
 					'action' => 'clean',
 					'type'   => 'attachment',
 					'id'     => $post->ID,
-				) ),
-				'data' => array(
+				] ),
+				'data' => [
 					'id'     => $post->ID,
 					'action' => 'clean_attachment',
-				),
-			), _x( 'Clean', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) );
+				],
+			], _x( 'Clean', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) );
 
-		$link = HTML::tag( 'a', array(
+		$link = HTML::tag( 'a', [
 			'target' => '_blank',
 			'class'  => 'media-url-click media-url-attachment',
 			'href'   => $url,
-			'data'   => array(
+			'data'   => [
 				'id'     => $post->ID,
 				'action' => 'get_url',
-			),
-		), $this->get_media_type_label( $post->ID ) );
+			],
+		], $this->get_media_type_label( $post->ID ) );
 
 		$link .= '<div class="media-url-box"><input type="text" class="widefat media-url-field" value="'.esc_url( $url ).'" readonly></div>';
 
@@ -753,7 +753,7 @@ class Media extends \geminorum\gNetwork\ModuleCore
 
 	public function upload_mimes( $mimes )
 	{
-		return array_merge( $mimes, array(
+		return array_merge( $mimes, [
 			'pptx' => 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
 			'ppt'  => 'application/vnd.ms-powerpoint',
 			'doc'  => 'application/msword',
@@ -770,7 +770,7 @@ class Media extends \geminorum\gNetwork\ModuleCore
 			'mpg4' => 'video/mp4',
 			'flv'  => 'video/x-flv',
 			'svg'  => 'image/svg+xml',
-		) );
+		] );
 	}
 
 	public function image_send_to_editor( $html, $id, $caption, $title, $align, $url, $size, $alt )
@@ -779,14 +779,12 @@ class Media extends \geminorum\gNetwork\ModuleCore
 			|| get_attachment_link( $id ) == $url )
 				$url = WordPress::getPostShortLink( $id );
 
-		return HTML::tag( 'a', array(
+		return HTML::tag( 'a', [
 			'href'  => $url,
 			'rel'   => 'attachment',
 			'class' => '-attachment',
-			'data'  => array(
-				'id' => $id,
-			),
-		), get_image_tag( $id, $alt, '', $align, $size ) );
+			'data'  => [ 'id' => $id ],
+		], get_image_tag( $id, $alt, '', $align, $size ) );
 	}
 
 	public function media_send_to_editor( $html, $id, $attachment )
@@ -805,30 +803,28 @@ class Media extends \geminorum\gNetwork\ModuleCore
 
 		$html = isset( $attachment['post_title'] ) ? $attachment['post_title'] : '';
 
-		return HTML::tag( 'a', array(
+		return HTML::tag( 'a', [
 			'href'  => WordPress::getPostShortLink( $id ),
 			'rel'   => 'attachment',
 			'class' => '-attachment',
-			'data'  => array(
-				'id' => $id,
-			),
-		), $html );
+			'data'  => [ 'id' => $id ],
+		], $html );
 	}
 
 	public function post_mime_types( $post_mime_types )
 	{
-		return array_merge( $post_mime_types, array(
-			'text' => array(
+		return array_merge( $post_mime_types, [
+			'text' => [
 				_x( 'Text', 'Modules: Media: Post Mime Type', GNETWORK_TEXTDOMAIN ),
 				_x( 'Manage Texts', 'Modules: Media: Post Mime Type', GNETWORK_TEXTDOMAIN ),
 				_nx_noop( 'Text <span class="count">(%s)</span>', 'Texts <span class="count">(%s)</span>', 'Modules: Media: Post Mime Type', GNETWORK_TEXTDOMAIN ),
-			),
-			'application' => array(
+			],
+			'application' => [
 				_x( 'Application', 'Modules: Media: Post Mime Type', GNETWORK_TEXTDOMAIN ),
 				_x( 'Manage Applications', 'Modules: Media: Post Mime Type', GNETWORK_TEXTDOMAIN ),
 				_nx_noop( 'Application <span class="count">(%s)</span>', 'Applications <span class="count">(%s)</span>', 'Modules: Media: Post Mime Type', GNETWORK_TEXTDOMAIN ),
-			),
-		) );
+			],
+		] );
 	}
 
 	// FIXME: waiting on: https://core.trac.wordpress.org/ticket/22363
@@ -849,7 +845,7 @@ class Media extends \geminorum\gNetwork\ModuleCore
 	// TODO: add core tiket!
 	public function wp_read_image_metadata( $meta, $file, $sourceImageType, $iptc )
 	{
-		return Arraay::stripDefaults( $meta, array(
+		return Arraay::stripDefaults( $meta, [
 			'aperture'          => 0,
 			'credit'            => '',
 			'camera'            => '',
@@ -861,7 +857,7 @@ class Media extends \geminorum\gNetwork\ModuleCore
 			'shutter_speed'     => 0,
 			'title'             => '',
 			'orientation'       => 0,
-			'keywords'          => array(),
-		) );
+			'keywords'          => [],
+		] );
 	}
 }

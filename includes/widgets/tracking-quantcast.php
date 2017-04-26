@@ -10,10 +10,11 @@ class Tracking_Quantcast_Widget extends \WP_Widget
 	{
 		parent::__construct( 'gnetwork-quantcast-widget',
 			_x( 'gNetwork Tracking: Quantcast Widget', 'Widget: Title', GNETWORK_TEXTDOMAIN ),
-			array(
+			[
 				'classname'   => 'gnetwork-wrap-widget -quantcast-widget',
 				'description' => _x( 'Simple Quantcast Data Badge', 'Widget: Description', GNETWORK_TEXTDOMAIN )
-			) );
+			]
+		);
 	}
 
 	public function widget( $args, $instance )
@@ -22,7 +23,7 @@ class Tracking_Quantcast_Widget extends \WP_Widget
 
 			echo $args['before_widget'];
 
-			echo '<div class="gnetwork-wrap-iframe">'.HTML::tag( 'iframe', array(
+			echo '<div class="gnetwork-wrap-iframe">'.HTML::tag( 'iframe', [
 				'frameborder'  => '0',
 				'marginheight' => '0',
 				'marginwidth'  => '0',
@@ -30,7 +31,7 @@ class Tracking_Quantcast_Widget extends \WP_Widget
 				'width'        => '160',
 				'scrolling'    => 'no',
 				'src'          => 'http://widget.quantcast.com/'.$domain.'/10?&timeWidth=1&daysOfData=90',
-			), NULL ).'</div>';
+			], NULL ).'</div>';
 
 			echo $args['after_widget'];
 		}

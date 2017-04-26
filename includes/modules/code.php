@@ -14,22 +14,22 @@ class Code extends \geminorum\gNetwork\ModuleCore
 
 	protected function setup_actions()
 	{
-		add_action( 'init', array( $this, 'init' ), 12 );
+		$this->action( 'init', 0, 12 );
 	}
 
 	public function init()
 	{
-		$this->shortcodes( array(
+		$this->shortcodes( [
 			'github'        => 'shortcode_github',
 			'github-readme' => 'shortcode_github_readme',
 			'github-gist'   => 'shortcode_github_gist',
 			'textarea'      => 'shortcode_textarea',
 			'shields-io'    => 'shortcode_shields_io',
-		) );
+		] );
 
 		// FIXME: NOT WORKING: gist id is now diffrent from this pattern
 		// FIXME: add option to enable this
-		// add_filter( 'the_content', array( $this, 'the_content_gist_shortcode' ), 9 );
+		// add_filter( 'the_content', [ $this, 'the_content_gist_shortcode' ], 9 );
 	}
 
 	// Originally based on : GitHub README v0.2.0
@@ -37,9 +37,9 @@ class Code extends \geminorum\gNetwork\ModuleCore
 	// https://github.com/octalmage/github-readme
 	// https://wordpress.org/plugins/github-readme/
 	// @REF: [GitHub API v3 | GitHub Developer Guide](https://developer.github.com/v3/)
-	public function shortcode_github_readme( $atts, $content = NULL, $tag = '' )
+	public function shortcode_github_readme( $atts = [], $content = NULL, $tag = '' )
 	{
-		$args = shortcode_atts( array(
+		$args = shortcode_atts( [
 			'repo'    => 'geminorum/gnetwork',
 			'trim'    => 0,
 			'type'    => 'readme', // 'readme', 'markdown', 'wiki'
@@ -47,7 +47,7 @@ class Code extends \geminorum\gNetwork\ModuleCore
 			'branch'  => 'master', // markdown branch
 			'page'    => '', // wiki page
 			'context' => NULL,
-		), $atts, $tag );
+		], $atts, $tag );
 
 		if ( FALSE === $args['context'] || is_feed() )
 			return NULL;
@@ -82,7 +82,7 @@ class Code extends \geminorum\gNetwork\ModuleCore
 
 				// @SOURCE: http://www.the-art-of-web.com/php/parse-links/
 				$regexp = "<a\s[^>]*href=(\"??)([^\" >]*?)\\1[^>]*>(.*)<\/a>";
-				$html = preg_replace_callback( "/$regexp/siU", array( $this, 'github_readme_link_cb' ), $html );
+				$html = preg_replace_callback( "/$regexp/siU", [ $this, 'github_readme_link_cb' ], $html );
 
 				$html = Text::minifyHTML( $html );
 
@@ -98,12 +98,12 @@ class Code extends \geminorum\gNetwork\ModuleCore
 
 	public function github_readme_link_cb( $matchs )
 	{
-		$files =  array(
+		$files = [
 			'contributing.md',
 			'changes.md',
 			'readme.md',
 			'readme.txt',
-		);
+		];
 
 		if ( in_array( strtolower( $matchs['2'] ), $files ) )
 			return '<a href="https://github.com/'.$this->github_repo.'/blob/master/'.$matchs[2].'">'.$matchs[3].'</a>';
@@ -112,26 +112,26 @@ class Code extends \geminorum\gNetwork\ModuleCore
 	}
 
 	// @REF: https://github.com/JoelSutherland/GitHub-jQuery-Repo-Widget
-	public function shortcode_github( $atts, $content = NULL, $tag = '' )
+	public function shortcode_github( $atts = [], $content = NULL, $tag = '' )
 	{
-		$args = shortcode_atts( array(
+		$args = shortcode_atts( [
 			'repo'    => 'geminorum/gnetwork',
 			'context' => NULL,
-		), $atts, $tag );
+		], $atts, $tag );
 
 		if ( FALSE === $args['context'] || is_feed() )
 			return NULL;
 
-		Utilities::enqueueScriptVendor( 'jquery.githubRepoWidget', array( 'jquery' ), '20150102' );
+		Utilities::enqueueScriptVendor( 'jquery.githubRepoWidget', [ 'jquery' ], '20150102' );
 
 		return '<div class="gnetwork-wrap-shortcode shortcode-github github-widget" data-repo="'.$args['repo'].'"></div>';
 	}
 
 	// https://github.com/blairvanderhoof/gist-embed
 	// http://blairvanderhoof.com/gist-embed/
-	public function shortcode_github_gist( $atts, $content = NULL, $tag = '' )
+	public function shortcode_github_gist( $atts = [], $content = NULL, $tag = '' )
 	{
-		$args = shortcode_atts( array(
+		$args = shortcode_atts( [
 			'id'                => FALSE,
 			'hide-line-numbers' => FALSE,
 			'hide-footer'       => TRUE,
@@ -140,7 +140,7 @@ class Code extends \geminorum\gNetwork\ModuleCore
 			'highlight'         => FALSE, // EXAMPLES: '2', '2-4', '1,3-4', '2,3,4'
 			'loading'           => FALSE,
 			'context'           => NULL,
-		), $atts, $tag );
+		], $atts, $tag );
 
 		if ( FALSE === $args['context'] || is_feed() )
 			return NULL;
@@ -148,8 +148,8 @@ class Code extends \geminorum\gNetwork\ModuleCore
 		if ( FALSE == $args['id'] )
 			return $content;
 
-		$html = HTML::tag( 'code', array(
-			'data' => array(
+		$html = HTML::tag( 'code', [
+			'data' => [
 				'gist-id'                => $args['id'],
 				'gist-hide-line-numbers' => $args['hide-line-numbers'] ? 'true' : FALSE,
 				'gist-hide-footer'       => $args['hide-footer'] ? 'true' : FALSE,
@@ -157,10 +157,10 @@ class Code extends \geminorum\gNetwork\ModuleCore
 				'gist-line'              => $args['line'] ? $args['line'] : FALSE,
 				'gist-highlight-line'    => $args['highlight'] ? $args['highlight'] : FALSE,
 				'gist-show-loading'      => $args['loading'] ? FALSE : 'false',
-			),
-		), NULL );
+			],
+		], NULL );
 
-		Utilities::enqueueScriptVendor( 'jquery.gist-embed', array( 'jquery' ), '2.6' );
+		Utilities::enqueueScriptVendor( 'jquery.gist-embed', [ 'jquery' ], '2.6' );
 
 		return '<div class="gnetwork-wrap-shortcode shortcode-github-gist" data-github-gist="'.$args['id'].'">'.$html.'</div>';
 	}
@@ -172,15 +172,15 @@ class Code extends \geminorum\gNetwork\ModuleCore
 		return preg_replace( '/https:\/\/gist.github.com\/([\d]+)[\.js\?]*[\#]*file[=|_]+([\w\.]+)(?![^<]*<\/a>)/i', '', $content );
 	}
 
-	public function shortcode_textarea( $atts, $content = NULL, $tag = '' )
+	public function shortcode_textarea( $atts = [], $content = NULL, $tag = '' )
 	{
-		$args = shortcode_atts( array(
+		$args = shortcode_atts( [
 			'js'       => TRUE,
 			'readonly' => TRUE,
 			'class'    => 'large-text',
 			'context'  => NULL,
 			'wrap'     => TRUE,
-		), $atts, $tag );
+		], $atts, $tag );
 
 		if ( FALSE === $args['context'] || is_feed() )
 			return NULL;
@@ -188,11 +188,11 @@ class Code extends \geminorum\gNetwork\ModuleCore
 		if ( ! $content )
 			return NULL;
 
-		$html = HTML::tag( 'textarea', array(
+		$html = HTML::tag( 'textarea', [
 			'class'    => $args['class'],
 			'readonly' => $args['readonly'],
 			'onclick'  => $args['js'] ? 'this.focus();this.select()' : FALSE,
-		), HTML::escapeTextarea( $content ) );
+		], HTML::escapeTextarea( $content ) );
 
 		unset( $args['class'] );
 
@@ -200,9 +200,9 @@ class Code extends \geminorum\gNetwork\ModuleCore
 	}
 
 	// @SEE: http://shields.io/
-	public function shortcode_shields_io( $atts, $content = NULL, $tag = '' )
+	public function shortcode_shields_io( $atts = [], $content = NULL, $tag = '' )
 	{
-		$args = shortcode_atts( array(
+		$args = shortcode_atts( [
 			'link'      => 'http://geminorum.ir',
 			'subject'   => "it's a",
 			'status'    => 'geminorum project',
@@ -212,21 +212,21 @@ class Code extends \geminorum\gNetwork\ModuleCore
 			'extension' => 'svg',
 			'context'   => NULL,
 			'wrap'      => TRUE,
-		), $atts, $tag );
+		], $atts, $tag );
 
 		if ( FALSE === $args['context'] )
 			return NULL;
 
-		$char  = array( '-', '_', ' ' );
-		$with  = array( '--', '__', '_' );
+		$char  = [ '-', '_', ' ' ];
+		$with  = [ '--', '__', '_' ];
 		$badge = str_ireplace( $char, $with, $args['subject'] ).'-'.str_ireplace( $char, $with, $args['status'] ).'-'.$args['color'];
 		$html  = '<img class="-badge" src="'.$args['provider'].$badge.'.'.$args['extension'].'?style='.$args['style'].'" />';
 
 		if ( $args['link'] )
-			$html = HTML::tag( 'a', array(
+			$html = HTML::tag( 'a', [
 				'href'  => $args['link'],
 				'title' => $args['subject'].' '.$args['status'],
-			), $html );
+			], $html );
 
 		return self::shortcodeWrap( $html, 'shields-io', $args, FALSE );
 	}

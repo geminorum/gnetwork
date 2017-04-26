@@ -14,8 +14,8 @@ class Notify extends \geminorum\gNetwork\ModuleCore
 
 	protected function setup_actions()
 	{
-		add_filter( 'wpmu_welcome_notification', array( $this, 'wpmu_welcome_notification' ), 10, 5 );
-		add_filter( 'auto_core_update_send_email', array( $this, 'auto_core_update_send_email' ), 12, 4 );
+		$this->filter( 'wpmu_welcome_notification', 5 );
+		$this->filter( 'auto_core_update_send_email', 4, 12 );
 
 		if ( file_exists( GNETWORK_DIR.'includes/misc/notify-pluggable.php' ) )
 			require_once( GNETWORK_DIR.'includes/misc/notify-pluggable.php' );
@@ -34,40 +34,40 @@ class Notify extends \geminorum\gNetwork\ModuleCore
 	{
 		$this->register_menu(
 			_x( 'Notify', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			array( $this, 'settings' )
+			[ $this, 'settings' ]
 		);
 	}
 
 	public function default_options()
 	{
-		return array(
+		return [
 			'disable_new_user_admin'  => '1',
 			'disable_password_change' => '1',
 			'signup_blog_subject'     => '',
 			'signup_blog_message'     => '',
-		);
+		];
 	}
 
 	public function default_settings()
 	{
-		$settings = array(
-			'_general' => array(
-				array(
+		$settings = [
+			'_general' => [
+				[
 					'field'       => 'disable_new_user_admin',
 					'title'       => _x( 'New User', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Notify the blog admin of a newly-registered user', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '1',
 					'values'      => Settings::reverseEnabled(),
-				),
-				array(
+				],
+				[
 					'field'       => 'disable_password_change',
 					'title'       => _x( 'Password Reset', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Notify the blog admin of a user changing password', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '1',
 					'values'      => Settings::reverseEnabled(),
-				),
-			),
-		);
+				],
+			],
+		];
 
 		if ( is_multisite() )
 			$settings['signup'] = [
@@ -108,7 +108,7 @@ class Notify extends \geminorum\gNetwork\ModuleCore
 	{
 		Logger::ALERT( sprintf( 'NOTIFY: automatic background core update: %s', $type ) );
 
-		if ( in_array( $type, array( 'fail', 'critical' ) ) )
+		if ( in_array( $type, [ 'fail', 'critical' ] ) )
 			return TRUE;
 
 		return FALSE;
@@ -155,7 +155,7 @@ class Notify extends \geminorum\gNetwork\ModuleCore
 		}
 
 		$hashed = time().':'.$wp_hasher->HashPassword( $key );
-		$wpdb->update( $wpdb->users, array( 'user_activation_key' => $hashed ), array( 'user_login' => $user->user_login ) );
+		$wpdb->update( $wpdb->users, [ 'user_activation_key' => $hashed ], [ 'user_login' => $user->user_login ] );
 
 		$switched_locale = switch_to_locale( get_user_locale( $user ) );
 

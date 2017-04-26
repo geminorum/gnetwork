@@ -13,11 +13,11 @@ class Typography extends \geminorum\gNetwork\ModuleCore
 
 	protected function setup_actions()
 	{
-		add_action( 'init', array( $this, 'init' ), 12 );
+		$this->action( 'init', 0, 12 );
 
 		if ( $this->options['editor_buttons'] ) {
 
-			add_action( 'gnetwork_tinymce_strings', array( $this, 'tinymce_strings' ) );
+			add_action( 'gnetwork_tinymce_strings', [ $this, 'tinymce_strings' ] );
 
 			Admin::registerTinyMCE( 'gnetworkquote', 'assets/js/tinymce/quote', 1 );
 			Admin::registerTinyMCE( 'gnetworkasterisks', 'assets/js/tinymce/asterisks', 2 );
@@ -30,69 +30,69 @@ class Typography extends \geminorum\gNetwork\ModuleCore
 
 		if ( $this->options['title_titlecase']
 			|| $this->options['title_wordwrap'] )
-				add_filter( 'the_title', array( $this, 'the_title' ) );
+				$this->filter( 'the_title' );
 
 		if ( $this->options['arabic_typography']
 			|| $this->options['persian_typography'] )
-				add_filter( 'the_content', array( $this, 'the_content_late' ), 1000 );
+				add_filter( 'the_content', 1, 1000, 'late' );
 
-		add_filter( $this->hook( 'arabic' ), array( $this, 'arabic_typography' ) );
-		add_filter( $this->hook( 'persian' ), array( $this, 'persian_typography' ) );
-		add_filter( $this->hook(), array( $this, 'the_content_late' ) );
+		add_filter( $this->hook( 'arabic' ), [ $this, 'arabic_typography' ] );
+		add_filter( $this->hook( 'persian' ), [ $this, 'persian_typography' ] );
+		add_filter( $this->hook(), [ $this, 'the_content_late' ] );
 	}
 
 	public function setup_menu( $context )
 	{
 		Admin::registerMenu( $this->key,
 			_x( 'Typography', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			array( $this, 'settings' )
+			[ $this, 'settings' ]
 		);
 	}
 
 	public function default_options()
 	{
-		return array(
+		return [
 			'editor_buttons'     => '0',
 			'title_titlecase'    => '0',
 			'title_wordwrap'     => '0',
 			'arabic_typography'  => '0',
 			'persian_typography' => '0',
-		);
+		];
 	}
 
 	public function default_settings()
 	{
-		return array(
-			'_general' => array(
-				array(
+		return [
+			'_general' => [
+				[
 					'field'       => 'editor_buttons',
 					'title'       => _x( 'Editor Buttons', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Extra Typography Buttons for Post Editor', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
-				),
-				array(
+				],
+				[
 					'field'       => 'title_titlecase',
 					'title'       => _x( 'Titles in Title Case', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Properly-Cased Post Titles', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
 					'after'       => Settings::fieldAfterIcon( 'https://gist.github.com/geminorum/fe2a9ba25db5cf2e5ad6718423d00f8a' ),
-				),
-				array(
+				],
+				[
 					'field'       => 'title_wordwrap',
 					'title'       => _x( 'Word Wrapper for Titles', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Preventing Widows in Post Titles', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
 					'after'       => Settings::fieldAfterIcon( 'https://davidwalsh.name/word-wrap-mootools-php' ),
-				),
-				array(
+				],
+				[
 					'field'       => 'arabic_typography',
 					'title'       => _x( 'Arabic Typography', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Apply Arabic Typography to Post Contents', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
-				),
-				array(
+				],
+				[
 					'field'       => 'persian_typography',
 					'title'       => _x( 'Persian Typography', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Apply Persian Typography to Post Contents', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
-				),
-			),
-		);
+				],
+			],
+		];
 	}
 
 	// TODO: آیت الله العظمی // no space
@@ -126,19 +126,19 @@ class Typography extends \geminorum\gNetwork\ModuleCore
 
 	public function init()
 	{
-		$this->shortcodes( array(
+		$this->shortcodes( [
 			'three-asterisks' => 'shortcode_three_asterisks',
 			'ltr'             => 'shortcode_ltr',
 			'pad'             => 'shortcode_pad',
 			'wiki'            => 'shortcode_wiki',
 			'wiki-en'         => 'shortcode_wiki',
 			'wiki-fa'         => 'shortcode_wiki',
-		) );
+		] );
 	}
 
 	public function tinymce_strings( $strings )
 	{
-		$new = array(
+		$new = [
 			'gnetworkasterisks-title' => _x( 'Asterisks', 'TinyMCE Strings: Asterisks', GNETWORK_TEXTDOMAIN ),
 
 			'gnetworkquote-title' => _x( 'Quote This', 'TinyMCE Strings: Quote', GNETWORK_TEXTDOMAIN ),
@@ -148,7 +148,7 @@ class Typography extends \geminorum\gNetwork\ModuleCore
 			'gnetworkquote-url'   => _x( 'Cite URL', 'TinyMCE Strings: Quote', GNETWORK_TEXTDOMAIN ),
 			'gnetworkquote-align' => _x( 'Quote Align', 'TinyMCE Strings: Quote', GNETWORK_TEXTDOMAIN ),
 			'gnetworkquote-intro' => _x( 'Intro Quote', 'TinyMCE Strings: Quote', GNETWORK_TEXTDOMAIN ),
-		);
+		];
 
 		return array_merge( $strings, $new );
 	}
@@ -157,7 +157,7 @@ class Typography extends \geminorum\gNetwork\ModuleCore
 	{
 		$content = str_ireplace(
 			'<p style="text-align: center;">***</p>',
-			$this->shortcode_three_asterisks( array() ),
+			$this->shortcode_three_asterisks( [] ),
 		$content );
 
 		return $content;
@@ -174,9 +174,9 @@ class Typography extends \geminorum\gNetwork\ModuleCore
 		return $content;
 	}
 
-	public function shortcode_wiki( $atts, $content = NULL, $tag = '' )
+	public function shortcode_wiki( $atts = [], $content = NULL, $tag = '' )
 	{
-		$args = shortcode_atts( array(
+		$args = shortcode_atts( [
 			'slug'    => NULL,
 			'lang'    => NULL,
 			'title'   => _x( 'View Wikipedia page', 'Modules: Typography: Shortcode Defaults', GNETWORK_TEXTDOMAIN ),
@@ -184,7 +184,7 @@ class Typography extends \geminorum\gNetwork\ModuleCore
 			'wrap'    => TRUE,
 			'before'  => '',
 			'after'   => '',
-		), $atts, $tag );
+		], $atts, $tag );
 
 		if ( FALSE === $args['context'] )
 			return NULL;
@@ -216,13 +216,13 @@ class Typography extends \geminorum\gNetwork\ModuleCore
 
 	// @SOURCE: http://writers.stackexchange.com/a/3304
 	// @SOURCE: http://en.wikipedia.org/wiki/Asterisk
-	public function shortcode_three_asterisks( $atts, $content = NULL, $tag = '' )
+	public function shortcode_three_asterisks( $atts = [], $content = NULL, $tag = '' )
 	{
-		return self::shortcodeWrap( '&#x274b;&nbsp;&#x274b;&nbsp;&#x274b;', 'asterisks', array( 'wrap' => TRUE ) );
+		return self::shortcodeWrap( '&#x274b;&nbsp;&#x274b;&nbsp;&#x274b;', 'asterisks', [ 'wrap' => TRUE ] );
 	}
 
 	// FIXME: use entities in tel short code
-	public function shortcode_ltr( $atts, $content = NULL, $tag = '' )
+	public function shortcode_ltr( $atts = [], $content = NULL, $tag = '' )
 	{
 		if ( is_null( $content ) )
 			return $content;
@@ -230,15 +230,15 @@ class Typography extends \geminorum\gNetwork\ModuleCore
 		return '<span class="ltr" dir="ltr">'.do_shortcode( $content, TRUE ).'</span>';
 	}
 
-	public function shortcode_pad( $atts, $content = NULL, $tag = '' )
+	public function shortcode_pad( $atts = [], $content = NULL, $tag = '' )
 	{
 		if ( isset( $atts['space'] ) ) {
 
-			$args = shortcode_atts( array(
+			$args = shortcode_atts( [
 				'space'   => 3,
 				'class'   => 'typography-pad',
 				'context' => NULL,
-			), $atts, $tag );
+			], $atts, $tag );
 
 			if ( FALSE === $args['context'] )
 				return NULL;
@@ -257,9 +257,9 @@ class Typography extends \geminorum\gNetwork\ModuleCore
 		for ( $i = 1; $i <= $args['space']; $i++ )
 			$html .= '<span></span>';
 
-		return HTML::tag( 'span', array(
+		return HTML::tag( 'span', [
 			'class' => $args['class'],
-		), $html );
+		], $html );
 	}
 
 	public function the_title( $title )

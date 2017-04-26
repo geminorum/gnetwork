@@ -35,7 +35,7 @@ class Utilities extends Core\Base
 
 	public static function getFeeds( $filter = TRUE )
 	{
-		$feeds = array( 'rdf', 'rss', 'rss2', 'atom', 'json' );
+		$feeds = [ 'rdf', 'rss', 'rss2', 'atom', 'json' ];
 
 		return $filter ? apply_filters( self::BASE.'_get_feeds', $feeds ) : $feeds;
 	}
@@ -96,7 +96,7 @@ class Utilities extends Core\Base
 		static $strings = NULL;
 
 		if ( is_null( $strings ) )
-			$strings = array(
+			$strings = [
 				'now'    => _x( 'Now', 'Utilities: Human Time Diff', GNETWORK_TEXTDOMAIN ),
 				'_s_ago' => _x( '%s ago', 'Utilities: Human Time Diff', GNETWORK_TEXTDOMAIN ),
 				'in__s'  => _x( 'in %s', 'Utilities: Human Time Diff', GNETWORK_TEXTDOMAIN ),
@@ -107,7 +107,7 @@ class Utilities extends Core\Base
 				'noop_weeks'   => _nx_noop( '%s week', '%s weeks', 'Utilities: Human Time Diff: Noop', GNETWORK_TEXTDOMAIN ),
 				'noop_months'  => _nx_noop( '%s month', '%s months', 'Utilities: Human Time Diff: Noop', GNETWORK_TEXTDOMAIN ),
 				'noop_years'   => _nx_noop( '%s year', '%s years', 'Utilities: Human Time Diff: Noop', GNETWORK_TEXTDOMAIN ),
-			);
+			];
 
 		if ( empty( $now ) )
 			$now = current_time( 'timestamp', FALSE );
@@ -121,7 +121,7 @@ class Utilities extends Core\Base
 		static $strings = NULL;
 
 		if ( is_null( $strings ) )
-			$strings = array(
+			$strings = [
 				'now'            => _x( 'Now', 'Utilities: Date: Moment', GNETWORK_TEXTDOMAIN ),
 				'just_now'       => _x( 'Just now', 'Utilities: Date: Moment', GNETWORK_TEXTDOMAIN ),
 				'one_minute_ago' => _x( 'One minute ago', 'Utilities: Date: Moment', GNETWORK_TEXTDOMAIN ),
@@ -143,7 +143,7 @@ class Utilities extends Core\Base
 				'next_month'     => _x( 'next month', 'Utilities: Date: Moment', GNETWORK_TEXTDOMAIN ),
 				'format_l'       => _x( 'l', 'Utilities: Date: Moment', GNETWORK_TEXTDOMAIN ),
 				'format_f_y'     => _x( 'F Y', 'Utilities: Date: Moment', GNETWORK_TEXTDOMAIN ),
-			);
+			];
 
 		if ( empty( $now ) )
 			$now = current_time( 'timestamp', FALSE );
@@ -204,7 +204,7 @@ class Utilities extends Core\Base
 		if ( ! empty( $gNetworkMustache ) )
 			return $gNetworkMustache;
 
-		$gNetworkMustache = new \Mustache_Engine(array(
+		$gNetworkMustache = new \Mustache_Engine( [
 			'template_class_prefix'  => '__MyTemplates_',
 			'cache'                  => GNETWORK_DIR.'assets/views/cache', // get_temp_dir().'mustache',
 			'cache_file_mode'        => FS_CHMOD_FILE,
@@ -214,21 +214,21 @@ class Utilities extends Core\Base
 			// 'logger'                 => new Mustache_Logger_StreamLogger('php://stderr'),
 			// 'strict_callables'       => TRUE,
 			// 'pragmas'                => [Mustache_Engine::PRAGMA_FILTERS],
-			// 'helpers' => array(
+			// 'helpers' => [
 			// 	'i18n' => function( $text ){
 			// 		// do something translatey here...
 			// 	},
-			// ),
+			// ],
 			'escape' => function( $value ) {
 				return htmlspecialchars( $value, ENT_COMPAT, 'UTF-8' );
 			},
-		));
+		] );
 
 		return $gNetworkMustache;
 	}
 
 	// @SEE: https://github.com/bobthecow/mustache.php/wiki/Mustache-Tags
-	public static function renderMustache( $part, $data = array(), $echo = TRUE )
+	public static function renderMustache( $part, $data = [], $echo = TRUE )
 	{
 		$mustache = self::getMustache();
 		$template = $mustache->loadTemplate( $part );
@@ -245,9 +245,9 @@ class Utilities extends Core\Base
 		return
 			_x( '&rdquo;', 'Utilities: Join Items Helper', GNETWORK_TEXTDOMAIN )
 			.join( _x( '&ldquo; and &rdquo;', 'Utilities: Join Items Helper', GNETWORK_TEXTDOMAIN ),
-				array_filter( array_merge( array(
+				array_filter( array_merge( [
 					join( _x( '&ldquo;, &rdquo;', 'Utilities: Join Items Helper', GNETWORK_TEXTDOMAIN ),
-					array_slice( $items, 0, -1 ) ) ),
+					array_slice( $items, 0, -1 ) ) ],
 					array_slice( $items, -1 ) ) ) )
 			._x( '&ldquo;', 'Utilities: Join Items Helper', GNETWORK_TEXTDOMAIN ).'.';
 	}
@@ -287,7 +287,7 @@ class Utilities extends Core\Base
 		return $file;
 	}
 
-	public static function enqueueScript( $asset, $dep = array( 'jquery' ), $version = GNETWORK_VERSION, $base = GNETWORK_URL, $path = 'assets/js' )
+	public static function enqueueScript( $asset, $dep = [ 'jquery' ], $version = GNETWORK_VERSION, $base = GNETWORK_URL, $path = 'assets/js' )
 	{
 		$handle  = strtolower( self::BASE.'-'.str_replace( '.', '-', $asset ) );
 		$variant = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
@@ -297,14 +297,14 @@ class Utilities extends Core\Base
 		return $handle;
 	}
 
-	public static function enqueueScriptVendor( $asset, $dep = array(), $version = GNETWORK_VERSION, $base = GNETWORK_URL, $path = 'assets/js/vendor' )
+	public static function enqueueScriptVendor( $asset, $dep = [], $version = GNETWORK_VERSION, $base = GNETWORK_URL, $path = 'assets/js/vendor' )
 	{
 		return self::enqueueScript( $asset, $dep, $version, $base, $path );
 	}
 
 	public static function enqueueTimeAgo()
 	{
-		$callback = array( 'gPersianDateTimeAgo', 'enqueue' );
+		$callback = [ 'gPersianDateTimeAgo', 'enqueue' ];
 
 		if ( ! is_callable( $callback ) )
 			return FALSE;
@@ -314,7 +314,7 @@ class Utilities extends Core\Base
 
 	public static function getTinyMceStrings( $locale )
 	{
-		$strings = apply_filters( self::BASE.'_tinymce_strings', array() );
+		$strings = apply_filters( self::BASE.'_tinymce_strings', [] );
 
 		return count( $strings ) ? 'tinyMCE.addI18n("'.$locale.'.gnetwork", '.wp_json_encode( $strings ).');'."\n" : '';
 	}
@@ -371,19 +371,19 @@ class Utilities extends Core\Base
 	{
 		global $wp_filesystem;
 
-		$args = self::atts( array(
+		$args = self::atts( [
 			'form_url' => '',
 			'referer'  => 'filesystem_demo_screen',
 			'content'  => sanitize_text_field( $_POST['demotext'] ),
 			'method'   => '', // leave this empty to perform test for 'direct' writing
 			'context'  => WP_CONTENT_DIR.'/gnetwork', // target folder
 			'filename' => 'test.txt',
-		), $atts );
+		], $atts );
 
 		check_admin_referer( 'filesystem_demo_screen' );
 
 		$demotext    = sanitize_text_field( $_POST['demotext'] ); // sanitize the input
-		$form_fields = array( 'demotext' ); // fields that should be preserved across screens
+		$form_fields = [ 'demotext' ]; // fields that should be preserved across screens
 		$method      = ''; // leave this empty to perform test for 'direct' writing
 		$context     = WP_PLUGIN_DIR.'/filesystem-demo'; // target folder
 		$form_url    = wp_nonce_url( $form_url, 'filesystem_demo_screen' ); // page url with nonce value
@@ -442,34 +442,34 @@ class Utilities extends Core\Base
 	// @EXAMPLE: https://createqrcode.appspot.com/
 	// @SEE: https://github.com/endroid/QrCode
 	// @SEE: https://github.com/aferrandini/PHPQRCode
-	public static function getGoogleQRCode( $data, $atts = array() )
+	public static function getGoogleQRCode( $data, $atts = [] )
 	{
-		$args = self::atts( array(
+		$args = self::atts( [
 			'tag'        => TRUE,
 			'size'       => 150,
 			'encoding'   => 'UTF-8',
 			'correction' => 'H', // 'L', 'M', 'Q', 'H'
 			'margin'     => 0,
 			'url'        => 'https://chart.googleapis.com/chart',
-		), $atts );
+		], $atts );
 
-		$src = add_query_arg( array(
+		$src = add_query_arg( [
 			'cht'  => 'qr',
 			'chs'  => $args['size'].'x'.$args['size'],
 			'chl'  => urlencode( $data ),
 			'chld' => $args['correction'].'|'.$args['margin'],
 			'choe' => $args['encoding'],
-		), $args['url'] );
+		], $args['url'] );
 
 		if ( ! $args['tag'] )
 			return $src;
 
-		return HTML::tag( 'img', array(
+		return HTML::tag( 'img', [
 			'src'    => $src,
 			'width'  => $args['size'],
 			'height' => $args['size'],
 			'alt'    => strip_tags( $data ),
-		) );
+		] );
 	}
 
 	// @SEE: https://core.trac.wordpress.org/ticket/24661

@@ -23,7 +23,7 @@ class Authors extends \geminorum\gNetwork\ModuleCore
 	{
 		Admin::registerMenu( $this->key,
 			_x( 'Authors', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			array( $this, 'settings' ), 'list_users'
+			[ $this, 'settings' ], 'list_users'
 		);
 
 		Admin::registerMenu( 'roles',
@@ -34,22 +34,22 @@ class Authors extends \geminorum\gNetwork\ModuleCore
 
 	public function default_options()
 	{
-		return array(
+		return [
 			'siteuser_as_default' => '0',
-		);
+		];
 	}
 
 	public function default_settings()
 	{
-		return array(
-			'_general' => array(
-				array(
+		return [
+			'_general' => [
+				[
 					'field'       => 'siteuser_as_default',
 					'title'       => _x( 'Default Author', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'The Site User as Default Author of New Posts in Admin', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
-				),
-			),
-		);
+				],
+			],
+		];
 	}
 
 	// TODO: link to user edit
@@ -69,30 +69,30 @@ class Authors extends \geminorum\gNetwork\ModuleCore
 
 			echo '<tr><th scope="row">'._x( 'Bulk Change Author', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ).'</th><td>';
 
-			$this->do_settings_field( array(
+			$this->do_settings_field( [
 				'type'      => 'user',
 				'field'     => 'from_user_id',
 				'name_attr' => 'from_user_id',
-			) );
+			] );
 
 			echo '&nbsp;&mdash;&nbsp;'._x( 'to', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ).'&nbsp;&mdash; &nbsp;';
 
-			$this->do_settings_field( array(
+			$this->do_settings_field( [
 				'type'      => 'user',
 				'field'     => 'to_user_id',
 				'name_attr' => 'to_user_id',
 				'default'   => WordPress::getSiteUserID(),
-			) );
+			] );
 
 			echo '&nbsp;&mdash;&nbsp;'._x( 'on', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ).'&nbsp;&mdash;&nbsp;';
 
-			$this->do_settings_field( array(
+			$this->do_settings_field( [
 				'type'      => 'select',
 				'field'     => 'on_post_type',
 				'name_attr' => 'on_post_type',
 				'default'   => 'post',
 				'values'    => WordPress::getPostTypes(),
-			) );
+			] );
 
 			echo '&nbsp;&mdash;&nbsp;'._x( 'do', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ).'&nbsp;&mdash;&nbsp;';
 
@@ -105,7 +105,7 @@ class Authors extends \geminorum\gNetwork\ModuleCore
 	public function settings( $sub = NULL )
 	{
 		if ( 'roles' == $sub )
-			add_action( $this->settings_hook( $sub, 'admin' ), array( $this, 'settings_form_roles' ), 10, 2 );
+			add_action( $this->settings_hook( $sub, 'admin' ), [ $this, 'settings_form_roles' ], 10, 2 );
 
 		else
 			parent::settings( $sub );
@@ -124,10 +124,10 @@ class Authors extends \geminorum\gNetwork\ModuleCore
 			if ( $from_user_id && $to_user_id && ( $from_user_id != $to_user_id ) ) {
 
 				if ( $count = $this->bulk_change_author( $from_user_id, $to_user_id, $on_post_type ) )
-					WordPress::redirectReferer( array(
+					WordPress::redirectReferer( [
 						'message' => 'changed',
 						'count'   => $count,
-					) );
+					] );
 
 				else
 					WordPress::redirectReferer( 'nochange' );
@@ -161,19 +161,19 @@ class Authors extends \geminorum\gNetwork\ModuleCore
 
 	public function init()
 	{
-		$this->shortcodes( array(
+		$this->shortcodes( [
 			'logged-in'     => 'shortcode_logged_in',
 			'not-logged-in' => 'shortcode_not_logged_in',
-		) );
+		] );
 	}
 
-	public function shortcode_logged_in( $atts = array(), $content = NULL, $tag = '' )
+	public function shortcode_logged_in( $atts = [], $content = NULL, $tag = '' )
 	{
-		$args = shortcode_atts( array(
+		$args = shortcode_atts( [
 			'text'    => NULL,
 			'cap'     => NULL,
 			'context' => NULL,
-		), $atts, $tag );
+		], $atts, $tag );
 
 		if ( FALSE === $args['context'] || is_feed() )
 			return NULL;
@@ -189,12 +189,12 @@ class Authors extends \geminorum\gNetwork\ModuleCore
 		return $content;
 	}
 
-	public function shortcode_not_logged_in( $atts = array(), $content = NULL, $tag = '' )
+	public function shortcode_not_logged_in( $atts = [], $content = NULL, $tag = '' )
 	{
-		$args = shortcode_atts( array(
+		$args = shortcode_atts( [
 			'text'    => NULL,
 			'context' => NULL,
-		), $atts, $tag );
+		], $atts, $tag );
 
 		if ( FALSE === $args['context'] )
 			return NULL;

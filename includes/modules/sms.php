@@ -13,7 +13,7 @@ class SMS extends \geminorum\gNetwork\ModuleCore
 	protected $ajax   = TRUE;
 	protected $hidden = TRUE; // FIXME
 
-	public $providers = array();
+	public $providers = [];
 
 	public function setup_actions()
 	{
@@ -25,74 +25,72 @@ class SMS extends \geminorum\gNetwork\ModuleCore
 	{
 		$this->register_menu(
 			_x( 'SMS', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			array( $this, 'settings' )
+			[ $this, 'settings' ]
 		);
 	}
 
 	public function default_options()
 	{
-		return array(
+		return [
 			'manage_providers' => 'edit_others_posts',
 			'load_providers'   => '0',
 			'debug_providers'  => '0',
 			'default_provider' => 'none',
-		);
+		];
 	}
 
 	public function default_settings()
 	{
-		$settings = array(
-			'_general' => array(
-				array(
+		$settings = [
+			'_general' => [
+				[
 					'field'       => 'load_providers',
 					'type'        => 'enabled',
 					'title'       => _x( 'Load Providers', 'Modules: SMS: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Load available sms providers', 'Modules: SMS: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '0',
-				),
-				array(
+				],
+				[
 					'field'       => 'debug_providers',
 					'type'        => 'enabled',
 					'title'       => _x( 'Debug Providers', 'Modules: SMS: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Debug available sms providers', 'Modules: SMS: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '0',
-				),
-				array(
+				],
+				[
 					'field'       => 'manage_providers',
 					'type'        => 'cap',
 					'title'       => _x( 'Access Level', 'Modules: SMS: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Selected and above can view the providers information', 'Modules: SMS: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => 'edit_others_posts',
-				),
-			),
-		);
+				],
+			],
+		];
 
 		if ( $this->options['load_providers'] )
-			$settings['_general'][] = array(
+			$settings['_general'][] = [
 				'field'   => 'default_provider',
 				'type'    => 'select',
 				'title'   => _x( 'Default Provider', 'Modules: SMS: Settings', GNETWORK_TEXTDOMAIN ),
 				'default' => 'none',
-				'values'  => gNetwork()->providers( 'sms', array(
-					'none' => Settings::showOptionNone(),
-				) ),
-			);
+				'values'  => gNetwork()->providers( 'sms', [ 'none' => Settings::showOptionNone() ] ),
+			];
 
 		return $settings;
 	}
 
 	private function init_providers()
 	{
-		$bundled = array(
-			'kavenegar' => array(
+		$bundled = [
+			'kavenegar' => [
 				'path'  => GNETWORK_DIR.'includes/providers/kavenegar.php',
 				'class' => 'geminorum\\gNetwork\\Providers\\KavenegarProvider',
-			),
-			'farapaymak' => array(
+			],
+			'farapaymak' => [
 				'path'  => GNETWORK_DIR.'includes/providers/farapaymak.php',
 				'class' => 'geminorum\\gNetwork\\Providers\\FarapaymakProvider',
-			),
-		);
+			],
+		];
 
 		foreach ( $this->filters( 'providers', $bundled ) as $provider => $args ) {
 
@@ -116,8 +114,8 @@ class SMS extends \geminorum\gNetwork\ModuleCore
 		}
 
 		if ( is_admin() ) {
-			add_action( 'wp_network_dashboard_setup', array( $this, 'wp_dashboard_setup' ), 20 );
-			add_action( 'wp_dashboard_setup', array( $this, 'wp_dashboard_setup' ), 20 );
+			add_action( 'wp_network_dashboard_setup', [ $this, 'wp_dashboard_setup' ], 20 );
+			add_action( 'wp_dashboard_setup', [ $this, 'wp_dashboard_setup' ], 20 );
 		}
 	}
 
@@ -127,7 +125,7 @@ class SMS extends \geminorum\gNetwork\ModuleCore
 			wp_add_dashboard_widget(
 				'gnetwork_sms_widget_summary',
 				_x( 'SMS Providers', 'Modules: SMS: Widget Title', GNETWORK_TEXTDOMAIN ),
-				array( $this, 'admin_widget_summary' )
+				[ $this, 'admin_widget_summary' ]
 			);
 	}
 
@@ -141,10 +139,10 @@ class SMS extends \geminorum\gNetwork\ModuleCore
 
 				if ( self::isError( $status ) ) {
 
-					self::error( vsprintf( _x( '%s: %s', 'Modules: SMS', GNETWORK_TEXTDOMAIN ), array(
+					self::error( vsprintf( _x( '%s: %s', 'Modules: SMS', GNETWORK_TEXTDOMAIN ), [
 						$provider->providerName(),
 						$status->get_error_message(),
-					) ), TRUE );
+					] ), TRUE );
 
 				} else {
 
@@ -158,7 +156,7 @@ class SMS extends \geminorum\gNetwork\ModuleCore
 		}
 	}
 
-	public static function send( $text, $number = NULL, $atts = array() )
+	public static function send( $text, $number = NULL, $atts = [] )
 	{
 		if ( gNetwork()->option( 'load_providers', 'sms' ) ) {
 
@@ -169,12 +167,12 @@ class SMS extends \geminorum\gNetwork\ModuleCore
 				$results = gNetwork()->sms->providers[$provider]->smsSend( $text, $number, $atts );
 
 				if ( gNetwork()->option( 'debug_providers', 'sms' ) )
-					Logger::DEBUG( 'SMS-SEND: {provider}: {number}::{text} - {results}', array(
+					Logger::DEBUG( 'SMS-SEND: {provider}: {number}::{text} - {results}', [
 						'provider' => $provider,
 						'number'   => $number,
 						'text'     => $text,
 						'results'  => $results,
-					) );
+					] );
 
 				return $results;
 			}

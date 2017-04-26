@@ -24,14 +24,14 @@ class Captcha extends \geminorum\gNetwork\ModuleCore
 			|| empty( $this->options['private_key'] ) )
 				return;
 
-		add_action( 'init', array( $this, 'init' ) );
+		$this->action( 'init' );
 	}
 
 	public function setup_menu( $context )
 	{
 		$this->register_menu(
 			_x( 'Captcha', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			array( $this, 'settings' )
+			[ $this, 'settings' ]
 		);
 	}
 
@@ -41,79 +41,79 @@ class Captcha extends \geminorum\gNetwork\ModuleCore
 			return;
 
 		if ( $this->options['login_captcha'] ) {
-			add_action( 'login_form', array( $this, 'login_form' ) );
-			add_action( 'wp_authenticate_user', array( $this, 'wp_authenticate_user' ), 10, 2 );
+			$this->action( 'login_form' );
+			$this->action( 'wp_authenticate_user', 2 );
 		}
 
 		if ( gNetwork()->option( 'captcha', 'comments' ) ) {
 
-			add_action( 'comment_form_after_fields', array( $this, 'comment_form_after_fields' ), 12 );
-			add_action( 'comment_form_logged_in_after', array( $this, 'comment_form_logged_in_after' ), 12, 2 );
+			$this->action( 'comment_form_after_fields', 1, 12 );
+			$this->action( 'comment_form_logged_in_after', 2, 12 );
 
-			add_action( 'preprocess_comment', array( $this, 'preprocess_comment' ), 0 );
-			// add_action( 'comment_post_redirect', array( $this, 'relative_redirect' ), 0, 2 );
+			$this->action( 'preprocess_comment', 1, 0 );
+			// add_action( 'comment_post_redirect', [ $this, 'relative_redirect' ], 0, 2 );
 		}
 	}
 
 	public function default_options()
 	{
-		return array(
+		return [
 			'login_captcha' => '0',
 			'logged_in'     => '0',
 			'public_key'    => '',
 			'private_key'   => '',
-		);
+		];
 	}
 
 	public function default_settings()
 	{
-		return array(
-			'_general' => array(
-				array(
+		return [
+			'_general' => [
+				[
 					'field'       => 'public_key',
 					'type'        => 'text',
 					'title'       => _x( 'Site Key', 'Modules: Captcha: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Key in the HTML code your site serves to users.', 'Modules: Captcha: Settings', GNETWORK_TEXTDOMAIN ),
-					'field_class' => array( 'regular-text', 'code-text' ),
-				),
-				array(
+					'field_class' => [ 'regular-text', 'code-text' ],
+				],
+				[
 					'field'       => 'private_key',
 					'type'        => 'text',
 					'title'       => _x( 'Secret Key', 'Modules: Captcha: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Key for communication between your site and Google reCAPTCHA.', 'Modules: Captcha: Settings', GNETWORK_TEXTDOMAIN ),
-					'field_class' => array( 'regular-text', 'code-text' ),
-				),
-				array(
+					'field_class' => [ 'regular-text', 'code-text' ],
+				],
+				[
 					'field'       => 'login_captcha',
 					'title'       => _x( 'Login Captcha', 'Modules: Captcha: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Display captcha field on login form', 'Modules: Captcha: Settings', GNETWORK_TEXTDOMAIN ),
-				),
-				array(
+				],
+				[
 					'field'       => 'logged_in',
 					'title'       => _x( 'Logged In', 'Modules: Captcha: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Display captcha field for logged in users', 'Modules: Captcha: Settings', GNETWORK_TEXTDOMAIN ),
-				),
-			),
-		);
+				],
+			],
+		];
 	}
 
 	public function settings_help_tabs( $sub = NULL )
 	{
-		return array(
-			array(
+		return [
+			[
 				'id'      => 'gnetwork-captcha-help',
 				'title'   => _x( 'Google reCAPTCHA', 'Modules: Captcha: Help', GNETWORK_TEXTDOMAIN ),
 				'content' => '<p><br />Register & get the keys from <a href="https://www.google.com/recaptcha/admin#createsite" target="_blank">here</a>.</p>',
-			),
-		);
+			],
+		];
 	}
 
 	private function recaptcha_errors()
 	{
-		return array(
+		return [
 			'empty_captcha'   => _x( 'CAPTCHA should not be empty', 'Modules: Captcha: ReCaptcha Error', GNETWORK_TEXTDOMAIN ),
 			'invalid_captcha' => _x( 'CAPTCHA response was incorrect', 'Modules: Captcha: ReCaptcha Error', GNETWORK_TEXTDOMAIN ),
-		);
+		];
 	}
 
 	private function recaptcha_form( $rows = '3', $cols = '40' )
@@ -160,18 +160,18 @@ JS;
 	// get the reCAPTCHA API response.
 	private function recaptcha_response()
 	{
-		return $this->recaptcha_post_request( array(
+		return $this->recaptcha_post_request( [
 			'privatekey' => $this->options['private_key'],
 			'remoteip'   => $_SERVER['REMOTE_ADDR'],
 			'challenge'  => isset( $_POST['recaptcha_challenge_field'] ) ? esc_attr( $_POST['recaptcha_challenge_field'] ) : '',
 			'response'   => isset( $_POST['recaptcha_response_field'] ) ? esc_attr( $_POST['recaptcha_response_field'] ) : '',
-		) );
+		] );
 	}
 
 	// send http post request and return the response.
 	private function recaptcha_post_request( $post )
 	{
-		$args = array( 'body' => $post );
+		$args = [ 'body' => $post ];
 		$req  = wp_remote_post( 'https://www.google.com/recaptcha/api/verify', $args );
 		$body = wp_remote_retrieve_body( $req );
 

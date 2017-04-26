@@ -10,39 +10,40 @@ class Tracking_GPlusBadge_Widget extends \WP_Widget
 	{
 		parent::__construct( 'gnetwork-gplusbadge-widget',
 			_x( 'gNetwork Tracking: Google Plus Badge', 'Widget: Title', GNETWORK_TEXTDOMAIN ),
-			array(
+			[
 				'classname'   => 'gnetwork-wrap-widget -gplusbadge-widget',
 				'description' => _x( 'Simple Google Plus Badge', 'Widget: Description', GNETWORK_TEXTDOMAIN )
-			) );
+			]
+		);
 	}
 
 	public function form( $instance )
 	{
-		$html = HTML::tag( 'input', array(
+		$html = HTML::tag( 'input', [
 			'type'  => 'number',
 			'id'    => $this->get_field_id( 'width' ),
 			'name'  => $this->get_field_name( 'width' ),
 			'value' => isset( $instance['width'] ) ? $instance['width'] : '300',
 			'class' => 'small-text',
 			'dir'   => 'ltr',
-		) );
+		] );
 
-		echo '<p>'.HTML::tag( 'label', array(
+		echo '<p>'.HTML::tag( 'label', [
 			'for' => $this->get_field_id( 'width' ),
-		), _x( 'Side bar width:', 'Widgets Module', GNETWORK_TEXTDOMAIN ).' '.$html ).'</p>';
+		], _x( 'Side bar width:', 'Widgets Module', GNETWORK_TEXTDOMAIN ).' '.$html ).'</p>';
 
-		$html = HTML::tag( 'input', array(
+		$html = HTML::tag( 'input', [
 			'type'  => 'text',
 			'id'    => $this->get_field_id( 'override' ),
 			'name'  => $this->get_field_name( 'override' ),
 			'value' => isset( $instance['override'] ) ? $instance['override'] : '',
 			'class' => 'widefat',
 			'dir'   => 'ltr',
-		) );
+		] );
 
-		echo '<p>'.HTML::tag( 'label', array(
+		echo '<p>'.HTML::tag( 'label', [
 			'for' => $this->get_field_id( 'override' ),
-		), _x( 'Override Publisher ID:', 'Widgets Module', GNETWORK_TEXTDOMAIN ).' '.$html );
+		], _x( 'Override Publisher ID:', 'Widgets Module', GNETWORK_TEXTDOMAIN ).' '.$html );
 
 		echo '<br />';
 
@@ -59,12 +60,12 @@ class Tracking_GPlusBadge_Widget extends \WP_Widget
 
 			if ( $override || gNetwork()->option( 'plus_publisher', 'tracking' ) ) {
 
-				$html = gNetwork()->tracking->shortcode_google_plus_badge( array(
+				$html = gNetwork()->tracking->shortcode_google_plus_badge( [
 					'id'      => $override,
 					'width'   => isset( $instance['width'] ) ? $instance['width'] : '300',
 					'context' => 'widget',
 					'wrap'    => FALSE,
-				) );
+				] );
 
 				if ( $html ) {
 					echo $args['before_widget'];

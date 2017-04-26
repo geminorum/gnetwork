@@ -8,9 +8,9 @@ use geminorum\gNetwork\Core\WordPress;
 class ProviderCore extends Core\Base
 {
 
-	public $options = array();
-	public $buttons = array();
-	public $scripts = array();
+	public $options = [];
+	public $buttons = [];
+	public $scripts = [];
 
 	protected $base    = 'gnetwork';
 	protected $key     = NULL;
@@ -32,7 +32,7 @@ class ProviderCore extends Core\Base
 
 	protected $soap_wsdl = FALSE;
 
-	public function __construct( $options = array(), $base = NULL, $slug = NULL )
+	public function __construct( $options = [], $base = NULL, $slug = NULL )
 	{
 		if ( is_null( $this->key ) )
 			throw new Exception( 'Key Undefined!' );
@@ -78,9 +78,9 @@ class ProviderCore extends Core\Base
 		if ( ! is_null( $base ) )
 			$this->base = $base;
 
-		add_filter( $this->base.'_'.$this->type.'_default_settings', array( $this, 'append_default_settings' ), 8, 1 );
-		add_filter( $this->base.'_'.$this->type.'_default_options', array( $this, 'append_default_options' ), 8, 1 );
-		add_filter( $this->base.'_'.$this->type.'_settings_section', array( $this, 'append_settings_section' ), 8, 2 );
+		add_filter( $this->base.'_'.$this->type.'_default_settings', [ $this, 'append_default_settings' ], 8, 1 );
+		add_filter( $this->base.'_'.$this->type.'_default_options', [ $this, 'append_default_options' ], 8, 1 );
+		add_filter( $this->base.'_'.$this->type.'_settings_section', [ $this, 'append_settings_section' ], 8, 2 );
 
 		$enabled = isset( $options[$this->key.'_enabled'] )
 			? $options[$this->key.'_enabled']
@@ -99,12 +99,12 @@ class ProviderCore extends Core\Base
 
 	public function default_options()
 	{
-		return array();
+		return [];
 	}
 
 	public function default_settings()
 	{
-		return array();
+		return [];
 	}
 
 	public function append_default_settings( $settings )
@@ -112,14 +112,14 @@ class ProviderCore extends Core\Base
 		$default_settings = $this->default_settings();
 
 		if ( count( $default_settings ) ) {
-			$settings['_provider_'.$this->key][] = array(
+			$settings['_provider_'.$this->key][] = [
 				'field'       => $this->key.'_enabled',
 				'title'       => _x( 'Provider', 'Provider Core', GNETWORK_TEXTDOMAIN ),
 				'description' => _x( 'Load this provider', 'Provider Core', GNETWORK_TEXTDOMAIN ),
-			);
+			];
 
 			foreach ( $default_settings as $field => $args )
-				$settings['_provider_'.$this->key][] = array_merge( $args, array( 'field'=> $this->key.'_'.$field ) );
+				$settings['_provider_'.$this->key][] = array_merge( $args, [ 'field'=> $this->key.'_'.$field ] );
 		}
 
 		return $settings;
@@ -139,7 +139,7 @@ class ProviderCore extends Core\Base
 	{
 		if ( '_provider_'.$this->key == $section_suffix
 			&& method_exists( $this, 'settings_section' ) )
-				return array( $this, 'settings_section' );
+				return [ $this, 'settings_section' ];
 
 		return $section_callback;
 	}
@@ -170,19 +170,19 @@ class ProviderCore extends Core\Base
 		return FALSE;
 	}
 
-	public function smsSend( $text, $atts = array() )
+	public function smsSend( $text, $atts = [] )
 	{
 		return new Error( 'mothod_undefined', 'method must be over-ridden in a sub-class.' );
 	}
 
-	public function smsBulk( $text, $atts = array() )
+	public function smsBulk( $text, $atts = [] )
 	{
 		return new Error( 'mothod_undefined', 'method must be over-ridden in a sub-class.' );
 	}
 
 	public function smsRecive() {}
 
-	protected function soapExecute( $method, $args = array() )
+	protected function soapExecute( $method, $args = [] )
 	{
 		if ( ! $this->soap_wsdl )
 			return new Error( 'soap_no_wsdl', 'NO WDSL for Soap' );
@@ -195,22 +195,22 @@ class ProviderCore extends Core\Base
 			$results = $client->call( $method, $params );
 
 			if ( $this->options['debug_providers'] )
-				Logger::DEBUG( 'SOAP-SUCCES: {provider}: {params} - {results}', array(
+				Logger::DEBUG( 'SOAP-SUCCES: {provider}: {params} - {results}', [
 					'provider' => $this->key,
 					'params'   => $params,
 					'results'  => $results,
-				) );
+				] );
 
 			return $results;
 
 		} catch ( \SoapFault $e ) {
 
 			if ( $this->options['debug_providers'] )
-				Logger::ERROR( 'SOAP-FAILED: {provider}: {params} - {fault}', array(
+				Logger::ERROR( 'SOAP-FAILED: {provider}: {params} - {fault}', [
 					'provider' => $this->key,
 					'params'   => $params,
 					'fault'  => $e->faultstring,
-				) );
+				] );
 
 			return new Error( 'soap_fault', $e->faultstring );
 		}
@@ -218,15 +218,15 @@ class ProviderCore extends Core\Base
 
 	protected function soapDefaultParams()
 	{
-		return array();
+		return [];
 	}
 
 	protected function curlDefaultHeaders()
 	{
-		return array();
+		return [];
 	}
 
-	protected function curlExecute( $url, $data = array(), $method = 'POST', $headers = array() )
+	protected function curlExecute( $url, $data = [], $method = 'POST', $headers = [] )
 	{
 		if ( ! $url )
 			return new Error( 'curl_no_endpoint', 'NO EndPoint for cURL' );
@@ -266,13 +266,13 @@ class ProviderCore extends Core\Base
 		$httpcode = curl_getinfo( $handle, CURLINFO_HTTP_CODE );
 
 		if ( $this->options['debug_providers'] )
-			Logger::DEBUG( 'CURL-CALL: {provider}: {code}::{url} - {data} - {response}', array(
+			Logger::DEBUG( 'CURL-CALL: {provider}: {code}::{url} - {data} - {response}', [
 				'provider' => $this->key,
 				'code'     => $httpcode,
 				'url'      => $url,
 				'data'     => $data,
 				'response' => $response,
-			) );
+			] );
 
 		return $this->curlResults( $response, $httpcode );
 	}
@@ -294,20 +294,20 @@ class ProviderCore extends Core\Base
 	}
 
 	// FIXME: DRAFT
-	protected function wp_remote_post( $args = array() )
+	protected function wp_remote_post( $args = [] )
 	{
-		$response = wp_remote_post( $url, array(
+		$response = wp_remote_post( $url, [
 			'method'      => 'POST',
 			'timeout'     => 45,
 			'redirection' => 5,
 			'httpversion' => '1.0',
 			'blocking'    => TRUE,
-			'headers'     => array(),
-			'cookies'     => array(),
-			'body'        => array(
+			'headers'     => [],
+			'cookies'     => [],
+			'body'        => [
 				'username' => 'bob',
 				'password' => '1234xyz',
-			),
-		) );
+			],
+		] );
 	}
 }

@@ -1,7 +1,7 @@
 <?php defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 if ( ! function_exists( 'gnetwork_github' ) ) :
-	function gnetwork_github( $atts = array(), $content = NULL ) {
+	function gnetwork_github( $atts = [], $content = NULL ) {
 
 		if ( gNetwork()->module( 'code' ) )
 			return gNetwork()->code->shortcode_github_readme( $atts, $content );
@@ -14,10 +14,10 @@ if ( ! function_exists( 'gnetwork_github_readme' ) ) :
 	function gnetwork_github_readme( $repo = 'geminorum/gnetwork', $wrap = TRUE ) {
 		if ( gNetwork()->module( 'code' ) ) {
 			echo '<div class="gnetwork-overview-wrap">';
-				echo gNetwork()->code->shortcode_github_readme( array(
+				echo gNetwork()->code->shortcode_github_readme( [
 					'context' => 'overview',
 					'repo'    => $repo,
-				) );
+				] );
 			echo '</div>';
 		}
 	}
@@ -27,11 +27,11 @@ if ( ! function_exists( 'gnetwork_ip_lookup' ) ) :
 	function gnetwork_ip_lookup( $ip ) {
 
 		if ( $service = gNetwork()->option( 'lookup_ip_service', 'site', 'http://freegeoip.net/?q=%s' ) )
-			return \geminorum\gNetwork\Core\HTML::tag( 'a', array(
+			return \geminorum\gNetwork\Core\HTML::tag( 'a', [
 				'href'   => sprintf( $service, $ip ),
 				'class'  => '-ip-lookup',
 				'target' => '_blank',
-			), $ip );
+			], $ip );
 
 		return $ip;
 	}
@@ -46,7 +46,7 @@ if ( ! function_exists( 'gnetwork_update_notice' ) ) :
 endif;
 
 if ( ! function_exists( 'gnetwork_register_imagesize' ) ) :
-	function gnetwork_register_imagesize( $name, $atts = array() ) {
+	function gnetwork_register_imagesize( $name, $atts = [] ) {
 
 		if ( class_exists( '\geminorum\gNetwork\Media' ) )
 			return \geminorum\gNetwork\Media::registerImageSize( $name, $atts );

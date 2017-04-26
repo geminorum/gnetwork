@@ -31,13 +31,13 @@ class Login extends \geminorum\gNetwork\ModuleCore
 	{
 		$this->register_menu(
 			_x( 'Login', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			array( $this, 'settings' )
+			[ $this, 'settings' ]
 		);
 	}
 
 	public function default_options()
 	{
-		return array(
+		return [
 			'login_headerurl'   => GNETWORK_BASE,
 			'login_headertitle' => GNETWORK_NAME,
 			'login_logourl'     => '',
@@ -47,48 +47,48 @@ class Login extends \geminorum\gNetwork\ModuleCore
 			'login_math'        => 0,
 			'login_credits'     => 0,
 			'login_log'         => 0,
-		);
+		];
 	}
 
 	public function default_settings()
 	{
-		$settings = array(
-			'_general' => array(
-				array(
+		$settings = [
+			'_general' => [
+				[
 					'field'       => 'login_headerurl',
 					'type'        => 'url',
 					'title'       => _x( 'Header URL', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Login page header logo link URL', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'placeholder' => GNETWORK_BASE,
 					'default'     => GNETWORK_BASE,
-					'field_class' => array( 'regular-text', 'url-text' ),
-				),
-				array(
+					'field_class' => [ 'regular-text', 'url-text' ],
+				],
+				[
 					'field'       => 'login_headertitle',
 					'type'        => 'text',
 					'title'       => _x( 'Header Title', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Login page header logo link title attribute', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => GNETWORK_NAME,
 					'placeholder' => GNETWORK_NAME,
-				),
-				array(
+				],
+				[
 					'field'       => 'login_remember',
 					'title'       => _x( 'Login Remember', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Always checked Remember Me checkbox', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'values'      => array(
+					'values'      => [
 						_x( 'Not Checked', 'Modules: Login', GNETWORK_TEXTDOMAIN ),
 						_x( 'Checked', 'Modules: Login', GNETWORK_TEXTDOMAIN ),
-					),
-				),
-				array(
+					],
+				],
+				[
 					'field'       => 'login_logourl',
 					'type'        => 'url',
 					'title'       => _x( 'Logo Image', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Full URL to the login logo image', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'field_class' => array( 'regular-text', 'url-text' ),
+					'field_class' => [ 'regular-text', 'url-text' ],
 					'after'       => Settings::fieldAfterIcon( Settings::getLoginLogoLink() ),
-				),
-				array(
+				],
+				[
 					'field'       => 'login_class',
 					'type'        => 'select',
 					'title'       => _x( 'CSS Class', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
@@ -96,38 +96,38 @@ class Login extends \geminorum\gNetwork\ModuleCore
 					'after'       => Settings::fieldAfterIcon( self::getLoginStyleLink() ),
 					'none_title'  => Settings::showOptionNone(),
 					'none_value'  => '',
-					'values'      => $this->filters( 'login_class', array(
+					'values'      => $this->filters( 'login_class', [
 						'webogram' => _x( 'Webogram', 'Modules: Login: Login Class', GNETWORK_TEXTDOMAIN ),
-					) ),
-				),
-				array(
+					] ),
+				],
+				[
 					'field'       => 'login_styles',
 					'type'        => 'textarea',
 					'title'       => _x( 'Extra CSS', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Additional styles to use on login page', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'field_class' => array( 'large-text', 'code-text' ),
-				),
-				array(
+					'field_class' => [ 'large-text', 'code-text' ],
+				],
+				[
 					'field'       => 'login_credits',
 					'title'       => _x( 'Credits Badge', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Displays credits badge on bottom of the login page', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-				),
-				array(
+				],
+				[
 					'field'       => 'login_log',
 					'title'       => _x( 'Log Logins', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Logs user log-in events', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-				),
-			),
-		);
+				],
+			],
+		];
 
 		if ( ! defined( 'BRUTEPROTECT_VERSION' ) )
-			$settings['_math'] = array(
-				array(
+			$settings['_math'] = [
+				[
 					'field'       => 'login_math',
 					'title'       => _x( 'Login Math', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Puts a math problem after the login form.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-				),
-			);
+				],
+			];
 
 		return $settings;
 	}
@@ -143,21 +143,21 @@ class Login extends \geminorum\gNetwork\ModuleCore
 	public function login_init()
 	{
 		if ( $this->options['login_headerurl'] )
-			add_filter( 'login_headerurl', array( $this, 'login_headerurl' ), 1000 );
+			$this->filter( 'login_headerurl', 1, 1000 );
 
 		if ( $this->options['login_headertitle'] )
-			add_filter( 'login_headertitle', array( $this, 'login_headertitle' ), 1000 );
+			$this->filter( 'login_headertitle', 1, 1000 );
 
 		if ( $this->options['login_remember'] )
-			add_filter( 'login_footer', array( $this, 'login_footer_remember' ), 99 );
+			$this->filter( 'login_footer', 1, 99, 'remember' );
 
 		if ( $this->options['login_class'] )
-			add_filter( 'login_body_class', array( $this, 'login_body_class' ), 99, 2 );
+			$this->filter( 'login_body_class', 2, 99 );
 
-		add_action( 'login_head', array( $this, 'login_head' ) );
+		$this->action( 'login_head' );
 
 		if ( ! GNETWORK_DISABLE_CREDITS && $this->options['login_credits'] )
-			add_filter( 'login_footer', array( $this, 'login_footer_badge' ) );
+			$this->filter( 'login_footer', 1, 10, 'badge' );
 
 		// FIXME: no way to put this before form
 		// echo '<div class="-head-placeholder"></div>';
@@ -175,7 +175,7 @@ class Login extends \geminorum\gNetwork\ModuleCore
 
 	public function login_body_class( $classes, $action )
 	{
-		return array_merge( $classes, array( $this->options['login_class'] ) );
+		return array_merge( $classes, [ $this->options['login_class'] ] );
 	}
 
 	public function login_headerurl( $login_header_url )
@@ -203,17 +203,17 @@ class Login extends \geminorum\gNetwork\ModuleCore
 			echo '<label>'._x( 'Prove your humanity:', 'Modules: Login', GNETWORK_TEXTDOMAIN ).'</label>';
 			echo '&nbsp;'.Number::format( $one ).'&nbsp;+&nbsp;'.Number::format( $two ).'&nbsp;=&nbsp; ';
 
-			echo HTML::tag( 'input', array(
+			echo HTML::tag( 'input', [
 				'type'         => 'number',
 				'name'         => 'num',
 				'autocomplete' => 'off',
-			) );
+			] );
 
-			echo HTML::tag( 'input', array(
+			echo HTML::tag( 'input', [
 				'type'  => 'hidden',
 				'name'  => 'ans',
 				'value' => wp_hash( $one + $two ),
-			) );
+			] );
 
 		echo '</p>';
 	}
@@ -253,7 +253,7 @@ class Login extends \geminorum\gNetwork\ModuleCore
 
 	public function wp_login_errors( $errors, $redirect_to )
 	{
-		$log = array(
+		$log = [
 			'test_cookie',
 			'incorrect_password',
 			'invalid_username',
@@ -264,7 +264,7 @@ class Login extends \geminorum\gNetwork\ModuleCore
 			'empty_email',
 			'empty_captcha',
 			'invalid_captcha',
-		);
+		];
 
 		foreach ( $errors->get_error_codes() as $error )
 			if ( in_array( $error, $log ) )
@@ -297,11 +297,11 @@ class Login extends \geminorum\gNetwork\ModuleCore
 			$style = Utilities::customStyleSheet( 'login.css', FALSE );
 
 		if ( $style )
-			return HTML::tag( 'a', array(
+			return HTML::tag( 'a', [
 				'href'   => $style,
 				'title'  => _x( 'Full URL to the current login style file', 'Modules: Login', GNETWORK_TEXTDOMAIN ),
 				'target' => '_blank',
-			), ( $text ? _x( 'Login Style', 'Modules: Login', GNETWORK_TEXTDOMAIN ) : HTML::getDashicon( 'admin-customizer' ) ) );
+			], ( $text ? _x( 'Login Style', 'Modules: Login', GNETWORK_TEXTDOMAIN ) : HTML::getDashicon( 'admin-customizer' ) ) );
 
 		return FALSE;
 	}

@@ -15,17 +15,17 @@ class Dashboard extends \geminorum\gNetwork\ModuleCore
 	{
 		$this->action( 'current_screen' );
 
-		foreach ( array(
+		foreach ( [
 			'wp_network_dashboard_setup',
 			'wp_user_dashboard_setup',
 			'wp_dashboard_setup',
-		) as $action )
-			add_action( $action, array( $this, 'wp_dashboard_setup' ), 20 );
+		] as $action )
+			add_action( $action, [ $this, 'wp_dashboard_setup' ], 20 );
 	}
 
 	protected function setup_ajax( $request )
 	{
-		add_action( 'wp_ajax_gnetwork_dashboard', array( $this, 'ajax' ) );
+		add_action( 'wp_ajax_gnetwork_dashboard', [ $this, 'ajax' ] );
 	}
 
 	public function current_screen( $screen )
@@ -39,12 +39,12 @@ class Dashboard extends \geminorum\gNetwork\ModuleCore
 						HTML::tableSide( get_all_post_type_supports( $screen->post_type ), FALSE );
 					$content = ob_get_clean();
 
-					$screen->add_help_tab( array(
+					$screen->add_help_tab( [
 						'id'       => 'gnetwork-dashboard-posttype-overview',
 						'title'    => _x( 'Post Type Supports', 'Modules: Dashboard: Help Content Title', GNETWORK_TEXTDOMAIN ),
 						'content'  => '<p>'.$content.'</p>',
 						'priority' => 99,
-					) );
+					] );
 			}
 		}
 	}
@@ -59,14 +59,14 @@ class Dashboard extends \geminorum\gNetwork\ModuleCore
 			wp_add_dashboard_widget(
 				'gnetwork_dashboard_user_sites',
 				_x( 'Your Sites', 'Modules: Dashboard: Widget Title', GNETWORK_TEXTDOMAIN ),
-				array( $this, 'widget_user_sites' )
+				[ $this, 'widget_user_sites' ]
 			);
 
 		if ( has_filter( $this->hook( 'external_feeds' ) ) ) {
 			wp_add_dashboard_widget(
 				'gnetwork_dashboard_external_feed',
 				_x( 'External Feed', 'Modules: Dashboard: Widget Title', GNETWORK_TEXTDOMAIN ),
-				array( $this, 'widget_external_feed' )
+				[ $this, 'widget_external_feed' ]
 			);
 		}
 
@@ -75,16 +75,16 @@ class Dashboard extends \geminorum\gNetwork\ModuleCore
 				'gnetwork_dashboard_tos',
 				gNetwork()->option( 'tos_title', 'user',
 					_x( 'Terms of Service', 'Modules: Dashboard: Widget Title', GNETWORK_TEXTDOMAIN )
-				), array( $this, 'widget_tos' )
+				), [ $this, 'widget_tos' ]
 			);
 	}
 
 	public function widget_external_feed()
 	{
-		$feeds = array();
+		$feeds = [];
 
-		foreach ( $this->filters( 'external_feeds', array() ) as $name => $feed )
-			$feeds[$name] = array_merge( array(
+		foreach ( $this->filters( 'external_feeds', [] ) as $name => $feed )
+			$feeds[$name] = array_merge( [
 				'link'         => 'http://geminorum.ir/',
 				'url'          => 'http://geminorum.ir/feed',
 				'title'        => $name,
@@ -92,7 +92,7 @@ class Dashboard extends \geminorum\gNetwork\ModuleCore
 				'show_summary' => 1,
 				'show_author'  => 0,
 				'show_date'    => 1,
-			), $feed );
+			], $feed );
 
 		wp_dashboard_cached_rss_widget( 'gnetwork_feeds', 'wp_dashboard_primary_output', $feeds );
 	}

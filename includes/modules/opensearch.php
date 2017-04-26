@@ -16,36 +16,36 @@ class OpenSearch extends \geminorum\gNetwork\ModuleCore
 		if ( ! $this->options['opensearch'] )
 			return;
 
-		add_action( 'wp_head', array( $this, 'wp_head' ) );
+		$this->action( 'wp_head' );
 
 		if ( ! constant( 'GNETWORK_SEARCH_REDIRECT' ) ) {
-			add_action( 'atom_ns', array( $this, 'rss2_ns' ) );
-			add_action( 'rss2_ns', array( $this, 'rss2_ns' ) );
-			add_action( 'atom_head', array( $this, 'wp_head' ) );
-			add_action( 'rss2_head', array( $this, 'rss2_head' ) );
+			$this->action( 'rss2_ns' );
+			add_action( 'atom_ns', [ $this, 'rss2_ns' ] );
+			$this->action( 'rss2_head' );
+			add_action( 'atom_head', [ $this, 'wp_head' ] );
 		}
 
 		// if ( $this->options['suggestions'] ) {
-		// 	add_action( 'wp_ajax_opensearch_suggestions', array( $this, 'ajax' ) );
-		// 	add_action( 'wp_ajax_nopriv_opensearch_suggestions', array( $this, 'ajax' ) );
+		// 	add_action( 'wp_ajax_opensearch_suggestions', [ $this, 'ajax' ] );
+		// 	add_action( 'wp_ajax_nopriv_opensearch_suggestions', [ $this, 'ajax' ] );
 		// }
 
-		// add_action( 'rewrite_rules_array', array( $this, 'rewrite_rules_array' ), 8 );
-		add_filter( 'redirect_canonical', array( $this, 'redirect_canonical' ), 10, 2 );
-		add_action( 'parse_request', array( $this, 'parse_request' ), 1 );
+		// $this->action( 'rewrite_rules_array', 1, 8 );
+		$this->filter( 'redirect_canonical', 2 );
+		$this->action( 'parse_request', 1, 1 );
 	}
 
 	public function setup_menu( $context )
 	{
 		Admin::registerMenu( $this->key,
 			_x( 'Open Search', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			array( $this, 'settings' )
+			[ $this, 'settings' ]
 		);
 	}
 
 	public function default_options()
 	{
-		return array(
+		return [
 			'opensearch'  => '0',
 			'suggestions' => '0',
 			'shortname'   => '',
@@ -55,94 +55,94 @@ class OpenSearch extends \geminorum\gNetwork\ModuleCore
 			'tags'        => '',
 			'attribution' => '',
 			'syndication' => 'open',
-		);
+		];
 	}
 
 	public function default_settings()
 	{
 		$name = get_bloginfo( 'name', 'display' );
 
-		return array(
-			'_general' => array(
-				array(
+		return [
+			'_general' => [
+				[
 					'field'       => 'opensearch',
 					'type'        => 'enabled',
 					'title'       => _x( 'Open Search', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'OpenSearch support for this blog.', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '0',
-				),
-				array(
+				],
+				[
 					'field'       => 'suggestions',
 					'type'        => 'enabled',
 					'title'       => _x( 'Suggestions', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'OpenSearch Suggestions support for this site.', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '0',
-				),
-				array(
+				],
+				[
 					'field'       => 'shortname',
 					'type'        => 'text',
 					'title'       => _x( 'ShortName', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'A short name for the search engine. <b>16</b> chars or less, no HTML.', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => $name,
 					'field_class' => 'medium-text',
-				),
-				array(
+				],
+				[
 					'field'       => 'longname',
 					'type'        => 'text',
 					'title'       => _x( 'LongName', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'An extended name for the search engine. <b>48</b> chars or less, no HTML.', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
-				),
-				array(
+				],
+				[
 					'field'       => 'description',
 					'type'        => 'textarea',
 					'title'       => _x( 'Description', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'A brief description of the search engine. <b>1024</b> chars or less, no HTML.', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => sprintf( _x( 'Search %s', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ), $name ),
-				),
-				array(
+				],
+				[
 					'field'       => 'attribution',
 					'type'        => 'text',
 					'title'       => _x( 'Attribution', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'A list of all sources or entities that should be credited. <b>256</b> chars or less, no HTML.', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => sprintf( _x( 'Search data copyright %s', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ), $name ),
 					'field_class' => 'large-text',
-				),
-				array(
+				],
+				[
 					'field'       => 'syndication',
 					'type'        => 'select',
 					'title'       => _x( 'Syndication Right', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Indicates the degree to which the search results provided.', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => 'open',
-					'values'      => array(
+					'values'      => [
 						'open'    => _x( 'Open', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
 						'limited' => _x( 'Limited', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
 						'private' => _x( 'Private', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
 						'closed'  => _x( 'Closed', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
-					),
-				),
-				array(
+					],
+				],
+				[
 					'field'       => 'contact',
 					'type'        => 'text',
 					'title'       => _x( 'Contact', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'An email address at which the maintainer of the search engine can be reached.', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
-					'field_class' => array( 'regular-text', 'email-text' ),
+					'field_class' => [ 'regular-text', 'email-text' ],
 					'default'     => get_site_option( 'admin_email' ),
-				),
-				array(
+				],
+				[
 					'field'       => 'tags',
 					'type'        => 'text',
 					'title'       => _x( 'Tags', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'A set of words that are used as keywords to identify and categorize this search content. Single words and are delimited by space. <b>256</b> chars or less, no HTML.', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
 					'field_class' => 'large-text',
-				),
-			),
-		);
+				],
+			],
+		];
 	}
 
 	public function settings_help_tabs( $sub = NULL )
 	{
-		return array(
-			 array(
+		return [
+			 [
 				'id'      => 'gnetwork-opensearch-help',
 				'title'   => _x( 'Open Search', 'Modules: OpenSearch: Help', GNETWORK_TEXTDOMAIN ),
 				'content' => '<p>OpenSearch is a collection of simple formats for the sharing of search results.</p>
@@ -152,8 +152,8 @@ class OpenSearch extends \geminorum\gNetwork\ModuleCore
 					<a href="https://developer.mozilla.org/en-US/docs/Adding_search_engines_from_web_pages" target="_blank">Adding search engines from web pages</a><br />
 					<a href="https://opensearch.org" target="_blank">OpenSearch.org</a><br />
 				</p>',
-			),
-		);
+			],
+		];
 	}
 
 	public function wp_head()
@@ -194,11 +194,11 @@ class OpenSearch extends \geminorum\gNetwork\ModuleCore
 	// DISABLED
 	public function rewrite_rules_array( $rules )
 	{
-		return array_merge( array(
+		return array_merge( [
 			'osd\.xml$'  => 'index.php?opensearch=1',
 			'oss\.json$' => 'index.php?opensearch_suggestions=1',
 			// 'oss\.json$' => 'wp-admin/admin-ajax.php?action=opensearch_suggestions', // NOT WORKING
-		), $rules );
+		], $rules );
 	}
 
 	public function redirect_canonical( $redirect_url, $requested_url )
@@ -232,11 +232,11 @@ class OpenSearch extends \geminorum\gNetwork\ModuleCore
 
 		echo '<script type="text/javascript">'.$script.'</script>';
 
-		echo $before.HTML::tag( 'a', array(
+		echo $before.HTML::tag( 'a', [
 			'href'    => $link,
 			'title'   => $title,
 			'onclick' => 'return AddSearchEngine()',
-		), $text ).$after;
+		], $text ).$after;
 	}
 
 	public static function url( $escape = TRUE )
@@ -274,68 +274,68 @@ class OpenSearch extends \geminorum\gNetwork\ModuleCore
 			// SEE: https://www.drupal.org/project/opensearch
 			// ALSO : http://www.opensearch.org/Documentation/Developer_how_to_guide#How_to_indicate_errors
 
-			$xml .= "\t".HTML::tag( 'Url', array(
+			$xml .= "\t".HTML::tag( 'Url', [
 				'type'     => 'application/atom+xml',
-				'template' => add_query_arg( array(
+				'template' => add_query_arg( [
 					'feed'                  => 'atom',
 					GNETWORK_SEARCH_QUERYID => '{searchTerms}',
-				), GNETWORK_SEARCH_URL ),
-			) )."\n";
+				], GNETWORK_SEARCH_URL ),
+			] )."\n";
 
-			$xml .= "\t".HTML::tag( 'Url', array(
+			$xml .= "\t".HTML::tag( 'Url', [
 				'type'     => 'application/rss+xml',
-				'template' => add_query_arg( array(
+				'template' => add_query_arg( [
 					'feed'                  => 'rss2',
 					GNETWORK_SEARCH_QUERYID => '{searchTerms}',
-				), GNETWORK_SEARCH_URL ),
-			) )."\n";
+				], GNETWORK_SEARCH_URL ),
+			] )."\n";
 
 			if ( $this->options['suggestions'] ) {
-				$xml .= "\t".HTML::tag( 'Url', array(
+				$xml .= "\t".HTML::tag( 'Url', [
 					// 'type'     => 'application/json',
 					'type'     => 'application/x-suggestions+json',
 					// 'type'     => 'application/x-moz-keywordsearch',
 					// 'method'   => 'get',
 					// 'rel'      => 'suggestions',
 					'template' => add_query_arg( 'query', '{searchTerms}', get_bloginfo( 'url', 'display' ).'/oss.json' ),
-				) )."\n";
+				] )."\n";
 
-				$url = add_query_arg( array(
+				$url = add_query_arg( [
 					GNETWORK_SEARCH_QUERYID => '{searchTerms}',
 					'prefix'                => '{suggestions:suggestionPrefix?}',
 					'index'                 => '{suggestions:suggestionIndex?}',
-				), GNETWORK_SEARCH_URL );
+				], GNETWORK_SEARCH_URL );
 			}
 		}
 
 		// TODO: add more query strings
 		// LIKE: /?s={searchTerms}&itemstart={startIndex}&itempage={startPage}&itemlimit={count}
 
-		$xml .= "\t".HTML::tag( 'Url', array(
+		$xml .= "\t".HTML::tag( 'Url', [
 			'type'     => 'text/html',
 			'method'   => 'get',
 			'template' => $url,
-		) )."\n";
+		] )."\n";
 
-		$xml .= "\t".HTML::tag( 'Url', array(
+		$xml .= "\t".HTML::tag( 'Url', [
 			'type'     => 'application/opensearchdescription+xml',
 			'rel'      => 'self',
 			'template' => self::url(),
-		) )."\n";
+		] )."\n";
 
 		if ( file_exists( ABSPATH.'favicon.ico' ) )
-			$xml .= "\t".HTML::tag( 'Image', array(
+			$xml .= "\t".HTML::tag( 'Image', [
 				'type'   => 'image/x-icon',
 				'width'  => '16',
 				'height' => '16',
-			), get_bloginfo( 'url' ).'/favicon.ico' )."\n";
+			], get_bloginfo( 'url' ).'/favicon.ico' )."\n";
 
 		if ( file_exists( ABSPATH.'favicon.png' ) )
-			$xml .= "\t".HTML::tag( 'Image', array(
+			$xml .= "\t".HTML::tag( 'Image', [
 				'type'   => 'image/png',
 				'width'  => '64',
 				'height' => '64',
-			), get_bloginfo( 'url' ).'/favicon.png' )."\n";
+			], get_bloginfo( 'url' ).'/favicon.png' )."\n";
 
 		if ( $this->options['contact'] )
 			$xml .= "\t".HTML::tag( 'Contact', $this->options['contact'] )."\n";
@@ -357,11 +357,11 @@ class OpenSearch extends \geminorum\gNetwork\ModuleCore
 		header( 'Cache-Control: max-age='.MONTH_IN_SECONDS.', must-revalidate' );
 
 		echo '<?xml version="1.0" encoding="UTF-8"?>'."\n";
-		echo HTML::tag( 'OpenSearchDescription', array(
+		echo HTML::tag( 'OpenSearchDescription', [
 			'xmlns'             => 'http://a9.com/-/spec/opensearch/1.1/',
 			'xmlns:moz'         => 'http://www.mozilla.org/2006/browser/search/',
 			'xmlns:suggestions' => $this->options['suggestions'] ? 'http://www.opensearch.org/specifications/opensearch/extensions/suggestions/1.1' : FALSE,
-		), "\n".$xml."\n" );
+		], "\n".$xml."\n" );
 
 		exit();
 	}
@@ -372,7 +372,7 @@ class OpenSearch extends \geminorum\gNetwork\ModuleCore
 	// http://www.opensearch.org/Specifications/OpenSearch/Extensions/Suggestions
 	private function suggestions()
 	{
-		$completions = $descriptions = $query_urls = array();
+		$completions = $descriptions = $query_urls = [];
 
 		// if ( WP_DEBUG_LOG )
 		// 	error_log( print_r( $_REQUEST, TRUE ) );
@@ -400,7 +400,7 @@ class OpenSearch extends \geminorum\gNetwork\ModuleCore
 			// TODO: make this query as light as possible
 			// SEE: http://code.tutsplus.com/series/mastering-wp_query--cms-818
 
-			$the_query = new \WP_Query( array(
+			$the_query = new \WP_Query( [
 				's'                      => $query_string,
 				'post_status'            => 'publish',
 				'post_type'              => 'any',
@@ -410,7 +410,7 @@ class OpenSearch extends \geminorum\gNetwork\ModuleCore
 				'no_found_rows'          => TRUE, // counts posts, remove if pagination required
 				'update_post_term_cache' => FALSE, // grabs terms
 				'update_post_meta_cache' => FALSE, // grabs post meta
-			) );
+			] );
 
 			if ( $the_query->have_posts() ) {
 				while ( $the_query->have_posts() ) {
@@ -425,21 +425,21 @@ class OpenSearch extends \geminorum\gNetwork\ModuleCore
 		}
 
 		// if ( WP_DEBUG_LOG ) {
-		// 	$results = array(
+		// 	$results = [
 		// 		$query_string,
 		// 		$completions,
 		// 		$descriptions,
 		// 		$query_urls,
-		// 	);
+		// 	];
 		// 	error_log( print_r( $results, TRUE ) );
 		// }
 
-		wp_send_json( array(
+		wp_send_json( [
 			$query_string,
 			$completions,
 			$descriptions,
 			$query_urls,
-		) );
+		] );
 	}
 
 	// FIXME: UNFINISHED

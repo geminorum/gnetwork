@@ -18,12 +18,12 @@ class Maintenance extends \geminorum\gNetwork\ModuleCore
 		if ( is_admin() ) {
 
 			if ( 'none' != $this->options['maintenance_admin'] )
-				add_action( 'admin_init', array( $this, 'admin_init' ) );
+				$this->action( 'admin_init' );
 
 		} else {
 
 			if ( 'none' != $this->options['maintenance_site'] )
-				add_action( 'init', array( $this, 'init' ), 2 );
+				$this->action( 'init', 0, 2 );
 		}
 	}
 
@@ -31,87 +31,87 @@ class Maintenance extends \geminorum\gNetwork\ModuleCore
 	{
 		Admin::registerMenu( $this->key,
 			_x( 'Maintenance', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			array( $this, 'settings' )
+			[ $this, 'settings' ]
 		);
 	}
 
 	public function init()
 	{
 		if ( ! WordPress::cuc( $this->options['maintenance_site'] ) ) {
-			add_action( 'template_redirect', array( $this, 'template_redirect' ) );
-			add_filter( 'status_header', array( $this, 'status_header' ), 10, 4 );
-			add_filter( 'login_message', array( $this, 'login_message' ) );
+			$this->action( 'template_redirect' );
+			$this->filter( 'status_header', 4 );
+			$this->filter( 'login_message' );
 
 			foreach ( Utilities::getFeeds() as $feed )
-				add_action( 'do_feed_'.$feed, array( $this, 'do_feed_feed' ), 1, 1 );
+				add_action( 'do_feed_'.$feed, [ $this, 'do_feed_feed' ], 1, 1 );
 		}
 	}
 
 	public function admin_init()
 	{
 		if ( ! WordPress::cuc( $this->options['maintenance_admin'] ) ) {
-			add_action( 'admin_init', array( $this, 'template_redirect' ) );
-			add_filter( 'status_header', array( $this, 'status_header' ), 10, 4 );
-			add_action( 'admin_notices', array( $this, 'admin_notices' ) );
+			add_action( 'admin_init', [ $this, 'template_redirect' ] );
+			$this->filter( 'status_header', 4 );
+			$this->action( 'admin_notices' );
 		}
 	}
 
 	public function default_options()
 	{
-		return array(
+		return [
 			'maintenance_site'  => 'none',
 			'maintenance_admin' => 'none',
 			'admin_notice'      => '',
 			'login_message'     => '',
 			'status_code'       => '503',
 			'retry_after'       => '10',
-		);
+		];
 	}
 
 	public function default_settings()
 	{
 		$template = self::getTemplate();
 
-		return array(
-			'_general' => array(
-				array(
+		return [
+			'_general' => [
+				[
 					'field'  => 'current_template',
 					'type'   => 'custom',
 					'title'  => _x( 'Current Template', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
 					'values' => ( $template ? '<p class="description code"><code>'. wp_normalize_path( $template ).'</code></p>' :
 						'<p class="description">'._x( 'There are no templates available. We will use an internal instead.', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ).'</p>' ),
-				),
-				array(
+				],
+				[
 					'field'       => 'maintenance_site',
 					'type'        => 'cap',
 					'title'       => _x( 'Site Maintenance', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Selected and above can access to the site.', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => 'none',
-				),
-				array(
+				],
+				[
 					'field'       => 'maintenance_admin',
 					'type'        => 'cap',
 					'title'       => _x( 'Admin Maintenance', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Selected and above can access to the admin.', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => 'none',
-				),
-				array(
+				],
+				[
 					'field'       => 'admin_notice',
 					'type'        => 'textarea-quicktags',
 					'title'       => _x( 'Admin Notice', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'The admin notice while site is on maintenance. Leave empty to disable.', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => _x( 'The Maintenance Mode is active.', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
-					'field_class' => array( 'large-text', 'code-text' ),
-				),
-				array(
+					'field_class' => [ 'large-text', 'code-text' ],
+				],
+				[
 					'field'       => 'login_message',
 					'type'        => 'textarea-quicktags',
 					'title'       => _x( 'Login Message', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'The login message while site is on maintenance. Leave empty to disable.', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => _x( 'The site is unavailable for scheduled maintenance.', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
-					'field_class' => array( 'large-text', 'code-text' ),
-				),
-				array(
+					'field_class' => [ 'large-text', 'code-text' ],
+				],
+				[
 					'field'       => 'status_code',
 					'type'        => 'select',
 					'title'       => _x( 'Status Code', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
@@ -119,7 +119,7 @@ class Maintenance extends \geminorum\gNetwork\ModuleCore
 					'after'       => Settings::fieldAfterIcon( 'https://en.wikipedia.org/wiki/List_of_HTTP_status_codes' ),
 					'dir'         => 'ltr',
 					'default'     => '503',
-					'values'      => array(
+					'values'      => [
 						'307' => '307 Temporary Redirect',
 						'403' => '403 Forbidden',
 						'404' => '404 Not Found',
@@ -129,18 +129,18 @@ class Maintenance extends \geminorum\gNetwork\ModuleCore
 						'500' => '500 Internal Server Error',
 						'501' => '501 Not Implemented',
 						'503' => '503 Service Unavailable',
-					),
-				),
-				array(
+					],
+				],
+				[
 					'field'       => 'retry_after',
 					'type'        => 'select',
 					'title'       => _x( 'Retry After', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'HTTP status header retry after', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '10',
 					'values'      => Settings::minutesOptions(),
-				),
-			),
-		);
+				],
+			],
+		];
 	}
 
 	public function do_feed_feed()
@@ -204,8 +204,8 @@ class Maintenance extends \geminorum\gNetwork\ModuleCore
 			} else {
 
 				// FIXME: probably, Not works for themes because of the fire order
-				$default_template = $this->filters( 'default_template', array( $this, 'template_503' ) );
-				call_user_func_array( $default_template, array( TRUE ) );
+				$default_template = $this->filters( 'default_template', [ $this, 'template_503' ] );
+				call_user_func_array( $default_template, [ TRUE ] );
 			}
 
 			die();
@@ -238,9 +238,9 @@ class Maintenance extends \geminorum\gNetwork\ModuleCore
 		$html = gNetwork()->option( 'login_message', 'maintenance', $fallback );
 
 		if ( $class )
-			$html = HTML::tag( 'div', array(
+			$html = HTML::tag( 'div', [
 				'class' => $class,
-			), $html );
+			], $html );
 
 		return $html;
 	}
@@ -257,14 +257,14 @@ class Maintenance extends \geminorum\gNetwork\ModuleCore
 		// header( 'Retry-After: 600' );
 
 		// http://wptip.me/wordpress-maintenance-mode-without-a-plugin
-		$headers = array(
+		$headers = [
 			'Content-Type'  => 'text/html; charset=utf-8',
 			'Retry-After'   => '600',
 			'Expires'       => 'Wed, 11 Jan 1984 05:00:00 GMT',
 			'Last-Modified' => gmdate('D, d M Y H:i:s').' GMT',
 			'Cache-Control' => 'no-cache, must-revalidate, max-age=0',
 			'Pragma'        => 'no-cache',
-		);
+		];
 
 		header( "HTTP/1.1 503 Service Unavailable", TRUE, 503 );
 		HTTP::headers( $headers );

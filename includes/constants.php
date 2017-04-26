@@ -1,6 +1,6 @@
 <?php defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
-$gnetwork_constants = array(
+$gnetwork_constants = [
 
 	'GNETWORK_TEXTDOMAIN'            => 'gnetwork',
 	'GNETWORK_BASE'                  => network_home_url( '/' ),
@@ -66,7 +66,7 @@ $gnetwork_constants = array(
 
 	// for older verions
 	'JSON_UNESCAPED_UNICODE' => 256, // http://php.net/manual/en/json.constants.php
-);
+];
 
 foreach ( $gnetwork_constants as $key => $val )
 	defined( $key ) or define( $key, $val );

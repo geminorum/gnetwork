@@ -23,39 +23,39 @@ class FarapaymakProvider extends \geminorum\gNetwork\ProviderCore
 
 	protected function soapDefaultParams()
 	{
-		return array(
+		return [
 			'username' => $this->options['farapaymak_username'],
 			'password' => $this->options['farapaymak_password'],
-		);
+		];
 	}
 
 	public function default_settings()
 	{
-		return array(
-			'wsdl' => array(
+		return [
+			'wsdl' => [
 				'type'        => 'text',
 				'title'       => _x( 'Service WSDL', 'Provider: Farapaymak', GNETWORK_TEXTDOMAIN ),
 				'default'     => 'http://87.107.121.54/post/Send.asmx?wsdl',
 				'field_class' => 'large-text',
-			),
-			'username' => array(
+			],
+			'username' => [
 				'type'  => 'text',
 				'title' => _x( 'Service Username', 'Provider: Farapaymak', GNETWORK_TEXTDOMAIN ),
-			),
-			'password' => array(
+			],
+			'password' => [
 				'type'  => 'text',
 				'title' => _x( 'Service Password', 'Provider: Farapaymak', GNETWORK_TEXTDOMAIN ),
-			),
-			'from_number' => array(
+			],
+			'from_number' => [
 				'type'  => 'text',
 				'title' => _x( 'From Number', 'Provider: Farapaymak', GNETWORK_TEXTDOMAIN ),
 				'desc'  => _x( 'You can specify the phone number that messages should be sent from. If you leave this blank, the default number will be used.', 'Provider: Farapaymak', GNETWORK_TEXTDOMAIN ),
-			),
-			'admin_numbers' => array(
+			],
+			'admin_numbers' => [
 				'type'  => 'text',
 				'title' => _x( 'Admin Numbers', 'Provider: Farapaymak', GNETWORK_TEXTDOMAIN ),
-			),
-		);
+			],
+		];
 	}
 
 	public function settings_section()
@@ -71,17 +71,17 @@ class FarapaymakProvider extends \geminorum\gNetwork\ProviderCore
 		return $this->soapExecute( 'GetCredit' );
 	}
 
-	public function smsSend( $text, $atts = array() )
+	public function smsSend( $text, $atts = [] )
 	{
-		$args = self::atts( array(
+		$args = self::atts( [
 			'to'      => $this->options['farapaymak_admin_numbers'],
 			'from'    => $this->options['farapaymak_from_number'],
 			'text'    => $text,
 			'isflash' => FALSE,
 			'udh'     => '',
-			'recId'   => array( 0 ),
+			'recId'   => [ 0 ],
 			'status'  => 0x0,
-		), $atts );
+		], $atts );
 
 		if ( ! $args['to'] )
 			return new Error( 'sms_no_reciver', 'NO SMS Reciver', $args );

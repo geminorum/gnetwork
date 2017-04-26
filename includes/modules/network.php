@@ -12,7 +12,7 @@ class Network extends \geminorum\gNetwork\ModuleCore
 
 	protected $key = 'network';
 
-	public $menus = array();
+	public $menus = [];
 
 	protected function setup_actions()
 	{
@@ -48,12 +48,12 @@ class Network extends \geminorum\gNetwork\ModuleCore
 			_x( 'Extras', 'Modules: Network: Page Menu', GNETWORK_TEXTDOMAIN ),
 			'manage_network_options',
 			$this->base,
-			array( $this, 'settings_page' ),
+			[ $this, 'settings_page' ],
 			'dashicons-screenoptions',
 			120
 		);
 
-		add_action( 'load-'.$hook, array( $this, 'settings_load' ) );
+		add_action( 'load-'.$hook, [ $this, 'settings_load' ] );
 
 		foreach ( $this->menus as $sub => $args ) {
 			add_submenu_page( $this->base,
@@ -61,16 +61,16 @@ class Network extends \geminorum\gNetwork\ModuleCore
 				$args['title'],
 				$args['cap'],
 				$this->base.'&sub='.$sub,
-				array( $this, 'settings_page' )
+				[ $this, 'settings_page' ]
 			);
 		}
 
-		$GLOBALS['submenu'][$this->base][0] = array(
+		$GLOBALS['submenu'][$this->base][0] = [
 			_x( 'Overview', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
 			'manage_network_options',
 			$this->base,
 			_x( 'Network Extras', 'Modules: Network: Page Menu', GNETWORK_TEXTDOMAIN ),
-		);
+		];
 	}
 
 	public static function registerMenu( $sub, $title = NULL, $callback = FALSE, $capability = 'manage_network_options' )
@@ -78,10 +78,10 @@ class Network extends \geminorum\gNetwork\ModuleCore
 		if ( ! is_network_admin() )
 			return;
 
-		gNetwork()->network->menus[$sub] = array(
+		gNetwork()->network->menus[$sub] = [
 			'title' => $title ? $title : $sub,
 			'cap'   => $capability,
-		);
+		];
 
 		if ( $callback ) // && is_callable( $callback ) )
 			add_action( 'gnetwork_network_settings', $callback );
@@ -97,9 +97,7 @@ class Network extends \geminorum\gNetwork\ModuleCore
 
 	private function subs()
 	{
-		$subs = array(
-			'overview' => _x( 'Overview', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-		);
+		$subs = [ 'overview' => _x( 'Overview', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) ];
 
 		foreach ( $this->menus as $sub => $args )
 			$subs[$sub] = $args['title'];
@@ -142,15 +140,15 @@ class Network extends \geminorum\gNetwork\ModuleCore
 			$this->filter( 'wpmu_blogs_columns', 1, 20 );
 			$this->action( 'manage_sites_custom_column', 2 );
 
-			$this->filter( 'bulk_actions-'.$screen->id, 1, 10, 'bulk_actions' );
-			$this->filter( 'network_sites_updated_message_'.$this->hook( 'admin', 'email' ), 1, 10, 'updated_message' );
+			add_filter( 'bulk_actions-'.$screen->id, [ $this, 'bulk_actions' ] );
+			add_filter( 'network_sites_updated_message_'.$this->hook( 'admin', 'email' ), [ $this, 'updated_message' ] );
 			$this->action( 'wpmuadminedit' );
 		}
 	}
 
 	public function bulk_actions( $actions )
 	{
-		return array_merge( $actions, array( 'resetadminemail' => _x( 'Reset Admin Email', 'Modules: Network: Bulk Action', GNETWORK_TEXTDOMAIN ) ) );
+		return array_merge( $actions, [ 'resetadminemail' => _x( 'Reset Admin Email', 'Modules: Network: Bulk Action', GNETWORK_TEXTDOMAIN ) ] );
 	}
 
 	public function wpmuadminedit()
@@ -161,7 +159,7 @@ class Network extends \geminorum\gNetwork\ModuleCore
 
 		check_admin_referer( 'bulk-sites' );
 
-		$blogs = self::req( 'allblogs', array() );
+		$blogs = self::req( 'allblogs', [] );
 
 		if ( ! count( $blogs ) )
 			return;
@@ -171,10 +169,10 @@ class Network extends \geminorum\gNetwork\ModuleCore
 		foreach ( $blogs as $blog_id )
 			update_blog_option( $blog_id, 'admin_email', $email );
 
-		WordPress::redirectReferer( array(
+		WordPress::redirectReferer( [
 			'updated' => $this->hook( 'admin', 'email' ),
 			'count'   => count( $blogs ),
-		) );
+		] );
 	}
 
 	public function updated_message( $msg )
@@ -189,17 +187,17 @@ class Network extends \geminorum\gNetwork\ModuleCore
 
 		if ( ! is_null( $logo ) ) {
 
-			$html .= HTML::tag( 'img', array(
+			$html .= HTML::tag( 'img', [
 				'src' => $logo,
 				'alt' => GNETWORK_NAME,
-			) );
+			] );
 
 		} else if ( file_exists( WP_CONTENT_DIR.'/'.GNETWORK_LOGO ) ) {
 
-			$html .= HTML::tag( 'img', array(
+			$html .= HTML::tag( 'img', [
 				'src' => WP_CONTENT_URL.'/'.GNETWORK_LOGO,
 				'alt' => GNETWORK_NAME,
-			) );
+			] );
 
 		} else if ( $fallback ) {
 			$html .= GNETWORK_NAME;
@@ -208,22 +206,22 @@ class Network extends \geminorum\gNetwork\ModuleCore
 		if ( ! $html )
 			return '';
 
-		$html = HTML::tag( 'a', array(
+		$html = HTML::tag( 'a', [
 			'href'  => GNETWORK_BASE,
 			'title' => GNETWORK_NAME,
-		), $html );
+		], $html );
 
 		if ( $wrap )
-			$html = HTML::tag( $wrap, array(
+			$html = HTML::tag( $wrap, [
 				'class' => 'logo',
-			), $html );
+			], $html );
 
 		return $html;
 	}
 
 	public function wpmu_blogs_columns( $columns )
 	{
-		return array_merge( $columns, array( 'gnetwork-network-id' => _x( 'ID', 'Modules: Network: Column', GNETWORK_TEXTDOMAIN ) ) );
+		return array_merge( $columns, [ 'gnetwork-network-id' => _x( 'ID', 'Modules: Network: Column', GNETWORK_TEXTDOMAIN ) ] );
 	}
 
 	public function manage_sites_custom_column( $column_name, $blog_id )

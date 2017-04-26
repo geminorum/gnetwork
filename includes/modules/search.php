@@ -11,11 +11,11 @@ class Search extends \geminorum\gNetwork\ModuleCore
 
 	protected function setup_actions()
 	{
-		add_action( 'template_redirect', array( $this, 'template_redirect_singlepost' ), 9 );
-		// add_action( 'template_redirect', array( $this, 'template_redirect_search_again' ), 999 );
+		$this->action( 'template_redirect', 1, 9, 'singlepost' );
+		// $this->action( 'template_redirect', 1, 999, 'search_again' );
 
 		if ( constant( 'GNETWORK_SEARCH_REDIRECT' ) )
-			add_action( 'template_redirect', array( $this, 'template_redirect_search' ), 1 );
+			$this->action( 'template_redirect', 1, 1, 'search' );
 	}
 
 	public function template_redirect_singlepost()
@@ -49,10 +49,10 @@ class Search extends \geminorum\gNetwork\ModuleCore
 		if ( ! $uri )
 			return;
 
-		$wp_the_query = $wp_query = new \WP_Query(array(
+		$wp_the_query = $wp_query = new \WP_Query( [
 			'post_type' => $this->filters( 'error_post_types', 'any' ),
 			's'         => str_replace( '/', ' ', $uri ),
-		));
+		] );
 	}
 
 	public function template_redirect_search()

@@ -12,10 +12,10 @@ class Cleanup extends \geminorum\gNetwork\ModuleCore
 
 	protected function setup_actions()
 	{
-		add_action( 'init' , array( $this, 'init_late' ), 99 );
+		$this->action( 'init', 0, 99, 'late' );
 
-		add_action( 'admin_menu', array( $this, 'admin_menu_late' ), 999 );
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), 999 );
+		$this->action( 'admin_menu', 0, 999, 'late' );
+		$this->action( 'admin_enqueue_scripts', 0, 999 );
 
 		add_filter( 'wpcf7_load_css', '__return_false', 15 );
 
@@ -27,126 +27,126 @@ class Cleanup extends \geminorum\gNetwork\ModuleCore
 	{
 		Admin::registerMenu( $this->key,
 			_x( 'Cleanup', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			array( $this, 'settings' )
+			[ $this, 'settings' ]
 		);
 	}
 
 	public function default_settings()
 	{
-		$settings = array();
+		$settings = [];
 		$confirm  = Settings::getButtonConfirm();
 
-		$settings['_transient'][] = array(
+		$settings['_transient'][] = [
 			'field'       => 'transient_purge',
 			'type'        => 'button',
 			'title'       => _x( 'Transient', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'description' => _x( 'Removes Expired Transient Data', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'default'     => _x( 'Purge Expired', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'values'      => $confirm,
-		);
+		];
 
-		$settings['_transient'][] = array(
+		$settings['_transient'][] = [
 			'field'       => 'transient_purge_all',
 			'type'        => 'button',
 			'description' => _x( 'Removes All Transient Data', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'default'     => _x( 'Purge All', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'values'      => $confirm,
-		);
+		];
 
 		if ( is_main_site() ) {
 
-			$settings['_transient'][] = array(
+			$settings['_transient'][] = [
 				'field'       => 'transient_purge_site',
 				'type'        => 'button',
 				'description' => _x( 'Removes Expired Network Transient Data', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 				'default'     => _x( 'Purge Network Expired', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 				'values'      => $confirm,
-			);
+			];
 
-			$settings['_transient'][] = array(
+			$settings['_transient'][] = [
 				'field'       => 'transient_purge_site_all',
 				'type'        => 'button',
 				'description' => _x( 'Removes All Network Transient Data', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 				'default'     => _x( 'Purge All Network', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 				'values'      => $confirm,
-			);
+			];
 
-			$settings['_users'][] = array(
+			$settings['_users'][] = [
 				'field'       => 'users_defaultmeta',
 				'type'        => 'button',
 				'title'       => _x( 'User Meta', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 				'description' => _x( 'Removes Default Meta Stored for Each User', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 				'default'     => _x( 'Purge Default Meta', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 				'values'      => $confirm,
-			);
+			];
 
-			$settings['_users'][] = array(
+			$settings['_users'][] = [
 				'field'       => 'users_contactmethods',
 				'type'        => 'button',
 				'description' => _x( 'Removes Empty Contact Methods Stored for Each User', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 				'default'     => _x( 'Purge Empty Contact Methods', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 				'values'      => $confirm,
-			);
+			];
 
-			$settings['_users'][] = array(
+			$settings['_users'][] = [
 				'field'       => 'users_last_activity',
 				'type'        => 'button',
 				'description' => _x( 'Removes BuddyPress Last Activity Back-Comp Meta Stored for Each User', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 				'default'     => _x( 'Back-Comp Last Activity', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 				'after'       => Settings::fieldAfterIcon( 'http://wp.me/pLVLj-gc' ),
 				'values'      => $confirm,
-			);
+			];
 		}
 
-		$settings['_posts'][] = array(
+		$settings['_posts'][] = [
 			'field'       => 'postmeta_editdata',
 			'type'        => 'button',
 			'title'       => _x( 'Post Meta', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'description' => _x( 'Removes Posts Last Edit User and Lock Data', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'default'     => _x( 'Purge Last User & Post Lock Metadata', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'values'      => $confirm,
-		);
+		];
 
-		$settings['_posts'][] = array(
+		$settings['_posts'][] = [
 			'field'       => 'postmeta_oldslug',
 			'type'        => 'button',
 			'description' => _x( 'Removes the Previous URL Slugs for Posts', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'default'     => _x( 'Purge Old Slug Redirect Metadata', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'values'      => $confirm,
-		);
+		];
 
-		$settings['_posts'][] = array(
+		$settings['_posts'][] = [
 			'field'       => 'thumbnail_orphanedmeta',
 			'type'        => 'button',
 			'description' => _x( 'Checks for Orphaned Thumbnail Metas', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'default'     => _x( 'Purge Orphaned Featured Image Matadata', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'values'      => $confirm,
-		);
+		];
 
-		$settings['_comments'][] = array(
+		$settings['_comments'][] = [
 			'field'       => 'comments_orphanedmeta',
 			'type'        => 'button',
 			'title'       => _x( 'Comments', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'description' => _x( 'Checks for Orphaned Comment Metas', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'default'     => _x( 'Purge Orphaned Matadata', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'values'      => $confirm,
-		);
+		];
 
-		$settings['_comments'][] = array(
+		$settings['_comments'][] = [
 			'field'       => 'comments_akismetmeta',
 			'type'        => 'button',
 			'description' => _x( 'Removes Akismet Related Metadata from Comments', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'default'     => _x( 'Purge Akismet Metadata', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'values'      => $confirm,
-		);
+		];
 
-		$settings['_comments'][] = array(
+		$settings['_comments'][] = [
 			'field'       => 'comments_agentfield',
 			'type'        => 'button',
 			'description' => _x( 'Removes User Agent Fields from Comments', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'default'     => _x( 'Purge User Agent Fields', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'values'      => $confirm,
-		);
+		];
 
 		return $settings;
 	}
@@ -209,7 +209,7 @@ class Cleanup extends \geminorum\gNetwork\ModuleCore
 	public function init_late()
 	{
 		remove_action( 'wp_head', 'se_global_head' ); // by: Search Everything / http://wordpress.org/plugins/search-everything/
-		remove_action( 'rightnow_end', array( 'Akismet_Admin', 'rightnow_stats' ) ); // by: Akismet
+		remove_action( 'rightnow_end', [ 'Akismet_Admin', 'rightnow_stats' ] ); // by: Akismet
 	}
 
 	// @SOURCE: http://justintadlock.com/archives/2011/06/13/removing-menu-pages-from-the-wordpress-admin
@@ -273,10 +273,10 @@ class Cleanup extends \geminorum\gNetwork\ModuleCore
 			}
 		}
 
-		return $count ? array(
+		return $count ? [
 			'message' => 'purged',
 			'count'   => $count,
-		) : 'nochange';
+		] : 'nochange';
 	}
 
 	private function users_defaultmeta()
@@ -285,7 +285,7 @@ class Cleanup extends \geminorum\gNetwork\ModuleCore
 
 		$count = 0;
 
-		$meta_keys = array(
+		$meta_keys = [
 			'nickname'             => '',
 			'first_name'           => '',
 			'last_name'            => '',
@@ -296,7 +296,7 @@ class Cleanup extends \geminorum\gNetwork\ModuleCore
 			'use_ssl'              => 0,
 			'show_admin_bar_front' => 'true',
 			'locale'               => '',
-		);
+		];
 
 		foreach ( $meta_keys as $key => $val )
 			$count += $wpdb->query( $wpdb->prepare( "
@@ -307,10 +307,10 @@ class Cleanup extends \geminorum\gNetwork\ModuleCore
 
 		$wpdb->query( "OPTIMIZE TABLE {$wpdb->usermeta}" );
 
-		return $count ? array(
+		return $count ? [
 			'message' => 'purged',
 			'count'   => $count,
-		) : 'optimized';
+		] : 'optimized';
 	}
 
 	private function users_contactmethods()
@@ -320,10 +320,10 @@ class Cleanup extends \geminorum\gNetwork\ModuleCore
 		$count = 0;
 
 		// old wp contact methods
-		$meta_keys = array_merge( wp_get_user_contact_methods(), array(
+		$meta_keys = array_merge( wp_get_user_contact_methods(), [
 			'yim'    => '',
 			'jabber' => '',
-		) );
+		] );
 
 		foreach ( $meta_keys as $key => $val )
 			$count += $wpdb->query( $wpdb->prepare( "
@@ -334,10 +334,10 @@ class Cleanup extends \geminorum\gNetwork\ModuleCore
 
 		$wpdb->query( "OPTIMIZE TABLE {$wpdb->usermeta}" );
 
-		return $count ? array(
+		return $count ? [
 			'message' => 'purged',
 			'count'   => $count,
-		) : 'optimized';
+		] : 'optimized';
 	}
 
 	private function users_last_activity()
@@ -351,10 +351,10 @@ class Cleanup extends \geminorum\gNetwork\ModuleCore
 
 		$wpdb->query( "OPTIMIZE TABLE {$wpdb->usermeta}" );
 
-		return $count ? array(
+		return $count ? [
 			'message' => 'purged',
 			'count'   => $count,
-		) : 'optimized';
+		] : 'optimized';
 	}
 
 	private function comments_orphanedmeta()
@@ -365,10 +365,10 @@ class Cleanup extends \geminorum\gNetwork\ModuleCore
 
 		$wpdb->query( "OPTIMIZE TABLE {$wpdb->commentmeta}" );
 
-		return $count ? array(
+		return $count ? [
 			'message' => 'purged',
 			'count'   => $count,
-		) : 'optimized';
+		] : 'optimized';
 	}
 
 	private function comments_agentfield()
@@ -379,10 +379,10 @@ class Cleanup extends \geminorum\gNetwork\ModuleCore
 
 		$wpdb->query( "OPTIMIZE TABLE {$wpdb->comments}" );
 
-		return $count ? array(
+		return $count ? [
 			'message' => 'purged',
 			'count'   => $count,
-		) : 'optimized';
+		] : 'optimized';
 	}
 
 	private function comments_akismetmeta()
@@ -394,10 +394,10 @@ class Cleanup extends \geminorum\gNetwork\ModuleCore
 
 		$wpdb->query( "OPTIMIZE TABLE {$wpdb->commentmeta}" );
 
-		return $count ? array(
+		return $count ? [
 			'message' => 'purged',
 			'count'   => $count,
-		) : 'optimized';
+		] : 'optimized';
 	}
 
 	private function postmeta_editdata()
@@ -411,10 +411,10 @@ class Cleanup extends \geminorum\gNetwork\ModuleCore
 
 		$wpdb->query( "OPTIMIZE TABLE {$wpdb->postmeta}" );
 
-		return $count ? array(
+		return $count ? [
 			'message' => 'purged',
 			'count'   => $count,
-		) : 'optimized';
+		] : 'optimized';
 	}
 
 	private function postmeta_oldslug()
@@ -425,10 +425,10 @@ class Cleanup extends \geminorum\gNetwork\ModuleCore
 
 		$wpdb->query( "OPTIMIZE TABLE {$wpdb->postmeta}" );
 
-		return $count ? array(
+		return $count ? [
 			'message' => 'purged',
 			'count'   => $count,
-		) : 'optimized';
+		] : 'optimized';
 	}
 
 	private function thumbnail_orphanedmeta()
@@ -439,9 +439,9 @@ class Cleanup extends \geminorum\gNetwork\ModuleCore
 
 		$wpdb->query( "OPTIMIZE TABLE {$wpdb->postmeta}" );
 
-		return $count ? array(
+		return $count ? [
 			'message' => 'purged',
 			'count'   => $count,
-		) : 'optimized';
+		] : 'optimized';
 	}
 }

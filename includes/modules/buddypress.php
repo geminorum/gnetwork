@@ -65,98 +65,98 @@ class BuddyPress extends \geminorum\gNetwork\ModuleCore
 	{
 		$this->register_menu(
 			_x( 'BuddyPress', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			array( $this, 'settings' )
+			[ $this, 'settings' ]
 		);
 	}
 
 	public function default_options()
 	{
-		return array(
+		return [
 			'complete_signup'  => '',
 			'open_directories' => '0',
 			'check_completed'  => '0',
 
-			'notification_defaults' => array(),
+			'notification_defaults' => [],
 
 			'avatars_thumb_width'        => '',
 			'avatars_thumb_height'       => '',
 			'avatars_full_width'         => '',
 			'avatars_full_height'        => '',
 			'avatars_original_max_width' => '',
-		);
+		];
 	}
 
 	public function default_settings()
 	{
-		$settings = array(
-			'_general' => array(
-				array(
+		$settings = [
+			'_general' => [
+				[
 					'field'       => 'open_directories',
 					'title'       => _x( 'Open Directories', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Redirect directories to homepage for not logged-in users.', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
-				),
-				array(
+				],
+				[
 					'field'       => 'complete_signup',
 					'type'        => 'url',
 					'title'       => _x( 'Complete Signup', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Redirect users after successful registration.', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
 					'placeholder' => 'http://example.com/welcome',
-				),
-			),
-			'_xprofile' => array(
-				array(
+				],
+			],
+			'_xprofile' => [
 					'field'       => 'check_completed',
+					[
 					'title'       => _x( 'Check Completed', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Notice member for empty required fields.', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
-				),
-			),
-		);
+				],
+			],
+		];
 
 		if ( bp_is_active( 'notifications' ) )
-			$settings['_notifications'] = array(
-				array(
+			$settings['_notifications'] = [
+				[
 					'field'       => 'notification_defaults',
 					'type'        => 'checkbox',
 					'title'       => _x( 'Default Settings', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Select enabled by default BuddyPress email notifications settings upon user activation', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
 					'values'      => self::defaultNotifications(),
-					'default'     => array(),
-				),
-			);
+					'default'     => [],
+				],
+			];
 
 		if ( bp_get_option( 'show_avatars' ) )
-			$settings['_avatars'] = array(
-				array(
+			$settings['_avatars'] = [
+				[
 					'field' => 'avatars_thumb_width',
 					'type'  => 'number',
 					'title' => _x( 'Thumbnail Width', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
 					'after' => Settings::fieldAfterConstant( 'BP_AVATAR_THUMB_WIDTH' ),
-				),
-				array(
+				],
+				[
 					'field' => 'avatars_thumb_height',
 					'type'  => 'number',
 					'title' => _x( 'Thumbnail Height', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
 					'after' => Settings::fieldAfterConstant( 'BP_AVATAR_THUMB_HEIGHT' ),
-				),
-				array(
+				],
+				[
 					'field' => 'avatars_full_width',
 					'type'  => 'number',
 					'title' => _x( 'Full Width', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
 					'after' => Settings::fieldAfterConstant( 'BP_AVATAR_FULL_WIDTH' ),
-				),
-				array(
+				],
+				[
 					'field' => 'avatars_full_height',
 					'type'  => 'number',
 					'title' => _x( 'Full Height', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
 					'after' => Settings::fieldAfterConstant( 'BP_AVATAR_FULL_HEIGHT' ),
-				),
-				array(
+				],
+				[
 					'field' => 'avatars_original_max_width',
 					'type'  => 'number',
 					'title' => _x( 'Original Max Width', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
 					'after' => Settings::fieldAfterConstant( 'BP_AVATAR_ORIGINAL_MAX_WIDTH' ),
-				),
-			);
+				],
+			];
 
 		return $settings;
 	}
@@ -263,11 +263,11 @@ class BuddyPress extends \geminorum\gNetwork\ModuleCore
 
 	public function bp_setup_admin_bar()
 	{
-		AdminBar::removeMenus( array(
+		AdminBar::removeMenus( [
 			'bp-about',
 			'bp-register',
 			'bp-login',
-		) );
+		] );
 	}
 
 	public function register_url( $url )
@@ -291,7 +291,7 @@ class BuddyPress extends \geminorum\gNetwork\ModuleCore
 		echo '</div>';
 	}
 
-	public function bp_core_validate_user_signup( $result = array() )
+	public function bp_core_validate_user_signup( $result = [] )
 	{
 		if ( isset( $_POST[$this->field_name] ) && ! empty( $_POST[$this->field_name] ) )
 			$result['errors']->add( 'gnetwork_bp_honeypot',
@@ -338,13 +338,13 @@ class BuddyPress extends \geminorum\gNetwork\ModuleCore
 	// block certain activity types from being added
 	public function bp_activity_before_save( &$activity )
 	{
-		$blocked = $this->filters( 'activity_blocked', array(
+		$blocked = $this->filters( 'activity_blocked', [
 			'updated_profile',
 			'new_member',
 			'new_avatar',
 			'friendship_created',
 			'joined_group'
-		) );
+		] );
 
 		// if the type is empty, it stops BP_Activity_Activity::save()
 		if ( in_array( $activity->type, $blocked ) )
@@ -393,7 +393,7 @@ class BuddyPress extends \geminorum\gNetwork\ModuleCore
 
 		do_action( 'bp_activity_before_action_delete_activity', $activity->id, $activity->user_id );
 
-		if ( ! bp_activity_delete( array( 'id' => $activity->id, 'user_id' => $activity->user_id ) ) )
+		if ( ! bp_activity_delete( [ 'id' => $activity->id, 'user_id' => $activity->user_id ] ) )
 			exit( '-1<div id="message" class="error bp-ajax-message"><p>'
 					.__( 'There was a problem when deleting. Please try again.', 'buddypress' )
 					.'</p></div>' );
@@ -404,7 +404,7 @@ class BuddyPress extends \geminorum\gNetwork\ModuleCore
 
 	public static function defaultNotifications()
 	{
-		return array(
+		return [
 			'activity_new_mention'        => _x( 'Activity: New Mention', 'Modules: BuddyPress: Notifications', GNETWORK_TEXTDOMAIN ),
 			'activity_new_reply'          => _x( 'Activity: New Reply', 'Modules: BuddyPress: Notifications', GNETWORK_TEXTDOMAIN ),
 			'friends_friendship_request'  => _x( 'Friends: Friendship Request', 'Modules: BuddyPress: Notifications', GNETWORK_TEXTDOMAIN ),
@@ -414,7 +414,7 @@ class BuddyPress extends \geminorum\gNetwork\ModuleCore
 			'groups_admin_promotion'      => _x( 'Groups: Admin Promotion', 'Modules: BuddyPress: Notifications', GNETWORK_TEXTDOMAIN ),
 			'groups_membership_request'   => _x( 'Groups: Membership Request', 'Modules: BuddyPress: Notifications', GNETWORK_TEXTDOMAIN ),
 			'messages_new_message'        => _x( 'Messages: New Message', 'Modules: BuddyPress: Notifications', GNETWORK_TEXTDOMAIN ),
-		);
+		];
 	}
 
 	public function bp_core_activated_user( $user_id )

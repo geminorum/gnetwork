@@ -15,18 +15,18 @@ class Debug extends \geminorum\gNetwork\ModuleCore
 	protected $key  = 'debug';
 	protected $ajax = TRUE;
 
-	private $http_calls = array();
+	private $http_calls = [];
 
 	protected function setup_actions()
 	{
 		if ( WordPress::mustRegisterUI() )
-			add_action( 'core_upgrade_preamble', array( $this, 'core_upgrade_preamble' ), 20 );
+			$this->action( 'core_upgrade_preamble', 1, 20 );
 
-		add_filter( 'debug_bar_panels', array( $this, 'debug_bar_panels' ) );
-		add_action( 'wp_footer', array( $this, 'wp_footer' ), 999 );
+		$this->filter( 'debug_bar_panels' );
+		$this->action( 'wp_footer', 1, 999 );
 
 		add_filter( 'wp_die_handler', function( $function ){
-			return array( __NAMESPACE__.'\\Debug', 'wp_die_handler' );
+			return [ __NAMESPACE__.'\\Debug', 'wp_die_handler' ];
 		} );
 
 		$this->action( 'http_api_debug', 5 );
@@ -49,7 +49,7 @@ class Debug extends \geminorum\gNetwork\ModuleCore
 	{
 		$this->register_menu(
 			_x( 'System Report', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			array( $this, 'settings' ), 'systemreport'
+			[ $this, 'settings' ], 'systemreport'
 		);
 
 		$this->register_menu(
@@ -75,7 +75,7 @@ class Debug extends \geminorum\gNetwork\ModuleCore
 		if ( 'systemreport' == $sub
 			|| 'remotetests' == $sub ) {
 
-			add_action( $this->settings_hook( $sub ), array( $this, 'settings_form' ), 10, 2 );
+			add_action( $this->settings_hook( $sub ), [ $this, 'settings_form' ], 10, 2 );
 
 		} else if ( 'errorlogs' == $sub
 			|| 'analoglogs' == $sub ) {
@@ -101,7 +101,7 @@ class Debug extends \geminorum\gNetwork\ModuleCore
 				WordPress::redirectReferer( 'wrong' );
 			}
 
-			add_action( $this->settings_hook( $sub ), array( $this, 'settings_form' ), 10, 2 );
+			add_action( $this->settings_hook( $sub ), [ $this, 'settings_form' ], 10, 2 );
 
 			$this->register_settings_buttons( $sub );
 		}
@@ -117,45 +117,45 @@ class Debug extends \geminorum\gNetwork\ModuleCore
 
 			Utilities::enqueueScript( 'admin.tabs' ); // FIXME: ass this into script.all
 
-			HTML::tabsList( array(
-				'php' => array(
+			HTML::tabsList( [
+				'php' => [
 					'title'  => _x( 'PHP', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
-					'cb'     => array( __CLASS__, 'summaryPHP' ),
+					'cb'     => [ __CLASS__, 'summaryPHP' ],
 					'active' => TRUE,
-				),
-				'wordpress' => array(
+				],
+				'wordpress' => [
 					'title' => _x( 'WordPress', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
-					'cb'    => array( __CLASS__, 'versions' ),
-				),
-				'time' => array(
+					'cb'    => [ __CLASS__, 'versions' ],
+				],
+				'time' => [
 					'title' => _x( 'Time', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
-					'cb'    => array( __CLASS__, 'currentTime' ),
-				),
-				'ip' => array(
+					'cb'    => [ __CLASS__, 'currentTime' ],
+				],
+				'ip' => [
 					'title' => _x( 'IP', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
-					'cb'    => array( __CLASS__, 'summaryIPs' ),
-				),
-				'constants' => array(
+					'cb'    => [ __CLASS__, 'summaryIPs' ],
+				],
+				'constants' => [
 					'title' => _x( 'Constants', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
-					'cb'    => array( __CLASS__, 'initialConstants' ),
-				),
-				'paths' => array(
+					'cb'    => [ __CLASS__, 'initialConstants' ],
+				],
+				'paths' => [
 					'title' => _x( 'Paths', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
-					'cb'    => array( __CLASS__, 'pluginPaths' ),
-				),
-				'upload' => array(
+					'cb'    => [ __CLASS__, 'pluginPaths' ],
+				],
+				'upload' => [
 					'title' => _x( 'Upload', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
-					'cb'    => array( __CLASS__, 'wpUploadDIR' ),
-				),
-				'server' => array(
+					'cb'    => [ __CLASS__, 'wpUploadDIR' ],
+				],
+				'server' => [
 					'title' => _x( 'SERVER', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
-					'cb'    => array( __CLASS__, 'dumpServer' ),
-				),
-				'gplugin' => array(
+					'cb'    => [ __CLASS__, 'dumpServer' ],
+				],
+				'gplugin' => [
 					'title' => _x( 'gPlugin', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
-					'cb'    => array( __CLASS__, 'gPlugin' ),
-				),
-			) );
+					'cb'    => [ __CLASS__, 'gPlugin' ],
+				],
+			] );
 
 		} else if ( 'remotetests' == $sub ) {
 
@@ -235,13 +235,13 @@ class Debug extends \geminorum\gNetwork\ModuleCore
 			$required_php_version,
 			$required_mysql_version;
 
-		$versions = array(
+		$versions = [
 			'wp_version'             => _x( 'WordPress', 'Modules: Debug: Version Strings', GNETWORK_TEXTDOMAIN ),
 			'wp_db_version'          => _x( 'WordPress DB revision', 'Modules: Debug: Version Strings', GNETWORK_TEXTDOMAIN ),
 			'tinymce_version'        => _x( 'TinyMCE', 'Modules: Debug: Version Strings', GNETWORK_TEXTDOMAIN ),
 			'required_php_version'   => _x( 'Required PHP', 'Modules: Debug: Version Strings', GNETWORK_TEXTDOMAIN ),
 			'required_mysql_version' => _x( 'Required MySQL', 'Modules: Debug: Version Strings', GNETWORK_TEXTDOMAIN ),
-		);
+		];
 
 		echo '<table class="base-table-code"><tbody>';
 		foreach ( $versions as $key => $val )
@@ -271,7 +271,7 @@ class Debug extends \geminorum\gNetwork\ModuleCore
 
 	public static function initialConstants()
 	{
-		$paths = array(
+		$paths = [
 			'WP_MEMORY_LIMIT'     => WP_MEMORY_LIMIT,
 			'WP_MAX_MEMORY_LIMIT' => WP_MAX_MEMORY_LIMIT,
 			'WP_DEBUG'            => WP_DEBUG,
@@ -281,14 +281,14 @@ class Debug extends \geminorum\gNetwork\ModuleCore
 			'WP_POST_REVISIONS'   => WP_POST_REVISIONS,
 			'EMPTY_TRASH_DAYS'    => EMPTY_TRASH_DAYS,
 			'AUTOSAVE_INTERVAL'   => AUTOSAVE_INTERVAL,
-		);
+		];
 
 		HTML::tableCode( $paths );
 	}
 
 	public static function pluginPaths()
 	{
-		$paths = array(
+		$paths = [
 			'ABSPATH'       => ABSPATH,
 			'DIR'           => GNETWORK_DIR,
 			'URL'           => GNETWORK_URL,
@@ -299,7 +299,7 @@ class Debug extends \geminorum\gNetwork\ModuleCore
 			'ANALOG_LOG'    => GNETWORK_ANALOG_LOG,
 			'MAIL_LOG_DIR'  => GNETWORK_MAIL_LOG_DIR,
 			'AJAX_ENDPOINT' => GNETWORK_AJAX_ENDPOINT,
-		);
+		];
 
 		HTML::tableCode( $paths );
 	}
@@ -308,7 +308,7 @@ class Debug extends \geminorum\gNetwork\ModuleCore
 	{
 		$format = 'Y-m-d H:i:s';
 
-		$times = array(
+		$times = [
 			'date_i18n()'                     => date_i18n( $format ),
 			'date_i18n() UTC'                 => date_i18n( $format, FALSE, TRUE ),
 			'date_default_timezone_get()'     => date_default_timezone_get(),
@@ -319,23 +319,23 @@ class Debug extends \geminorum\gNetwork\ModuleCore
 			'get_option(\'timezone_string\')' => get_option( 'timezone_string' ),
 			'REQUEST_TIME_FLOAT'              => date( $format, $_SERVER['REQUEST_TIME_FLOAT'] ),
 			'REQUEST_TIME'                    => date( $format, $_SERVER['REQUEST_TIME'] ),
-		);
+		];
 
 		HTML::tableCode( $times );
 	}
 
 	public static function summaryIPs( $caption = FALSE )
 	{
-		$summary = array();
+		$summary = [];
 
-		foreach ( array(
+		foreach ( [
 			'HTTP_CLIENT_IP',
 			'HTTP_X_FORWARDED_FOR',
 			'HTTP_X_FORWARDED',
 			'HTTP_FORWARDED_FOR',
 			'HTTP_FORWARDED',
 			'REMOTE_ADDR',
-		) as $key )
+		] as $key )
 			if ( isset( $_SERVER[$key] ) )
 				$summary[$key] = gnetwork_ip_lookup( $_SERVER[$key] );
 
@@ -352,11 +352,11 @@ class Debug extends \geminorum\gNetwork\ModuleCore
 	// FIXME: DRAFT
 	public static function getServer()
 	{
-		return array(
-			array(
+		return [
+			[
 				'name'  => 'server',
 				'title' => _x( 'Server', 'Modules: Debug: Server Vars Group', GNETWORK_TEXTDOMAIN ),
-				'keys'  => array(
+				'keys'  => [
 					'SERVER_SOFTWARE'  => _x( 'Software', 'Modules: Debug: Server Vars', GNETWORK_TEXTDOMAIN ),
 					'SERVER_NAME'      => _x( 'Name', 'Modules: Debug: Server Vars', GNETWORK_TEXTDOMAIN ),
 					'SERVER_ADMIN'     => _x( 'Admin', 'Modules: Debug: Server Vars', GNETWORK_TEXTDOMAIN ),
@@ -364,29 +364,29 @@ class Debug extends \geminorum\gNetwork\ModuleCore
 					'SERVER_PORT'      => _x( 'Port', 'Modules: Debug: Server Vars', GNETWORK_TEXTDOMAIN ),
 					'SERVER_SIGNATURE' => _x( 'Signature', 'Modules: Debug: Server Vars', GNETWORK_TEXTDOMAIN ),
 					'SERVER_ADDR'      => _x( 'Address', 'Modules: Debug: Server Vars', GNETWORK_TEXTDOMAIN ),
-				),
-			),
-			array(
+				],
+			],
+			[
 				'name'  => 'request',
 				'title' => _x( 'Request', 'Modules: Debug: Server Vars Group', GNETWORK_TEXTDOMAIN ),
-				'keys'  => array(
+				'keys'  => [
 					'REQUEST_TIME'       => _x( 'Time', 'Modules: Debug: Server Vars', GNETWORK_TEXTDOMAIN ),
 					'REQUEST_TIME_FLOAT' => _x( 'Time (Float)', 'Modules: Debug: Server Vars', GNETWORK_TEXTDOMAIN ),
 					'REQUEST_METHOD'     => _x( 'Method', 'Modules: Debug: Server Vars', GNETWORK_TEXTDOMAIN ),
 					'REQUEST_URI'        => _x( 'URI', 'Modules: Debug: Server Vars', GNETWORK_TEXTDOMAIN ),
-				),
-			),
-			array(
+				],
+			],
+			[
 				'name'  => 'script',
 				'title' => _x( 'Script', 'Modules: Debug: Server Vars Group', GNETWORK_TEXTDOMAIN ),
-				'keys'  => array(
+				'keys'  => [
 					'SCRIPT_NAME'     => _x( 'Name', 'Modules: Debug: Server Vars', GNETWORK_TEXTDOMAIN ),
 					'SCRIPT_FILENAME' => _x( 'Filename', 'Modules: Debug: Server Vars', GNETWORK_TEXTDOMAIN ),
 					'SCRIPT_URL'      => _x( 'URL', 'Modules: Debug: Server Vars', GNETWORK_TEXTDOMAIN ),
 					'SCRIPT_URI'      => _x( 'URI', 'Modules: Debug: Server Vars', GNETWORK_TEXTDOMAIN ),
-				),
-			),
-		);
+				],
+			],
+		];
 	}
 
 	// FIXME: it's not good
@@ -463,7 +463,7 @@ class Debug extends \geminorum\gNetwork\ModuleCore
 
 	public static function getPHPExtensions()
 	{
-		$extensions = array();
+		$extensions = [];
 
 		foreach ( get_loaded_extensions() as $ext ) {
 
@@ -481,7 +481,7 @@ class Debug extends \geminorum\gNetwork\ModuleCore
 
 	public static function getPHPMissingExtensions()
 	{
-		$extensions = array(
+		$extensions = [
 			'intl'      => 'Internationalization Functions',
 			'zip'       => 'Zip',
 			'curl'      => 'Client URL Library',
@@ -494,7 +494,7 @@ class Debug extends \geminorum\gNetwork\ModuleCore
 			'tokenizer' => 'Tokenizer',
 			'mcrypt'    => 'Mcrypt',
 			'pcre'      => 'Perl Compatible Regular Expressions',
-		);
+		];
 
 		foreach ( $extensions as $ext => $why )
 			if ( extension_loaded( $ext ) )
@@ -530,10 +530,10 @@ class Debug extends \geminorum\gNetwork\ModuleCore
 			Logger::ERROR( 'HTTP-API: '.$class.': '.$response->get_error_message().' - '.$url );
 
 		if ( WordPress::isSuperAdmin() )
-			$this->http_calls[] = array(
+			$this->http_calls[] = [
 				'class' => $class,
 				'url'   => $url,
-			);
+			];
 	}
 
 	public function core_upgrade_preamble()
@@ -546,28 +546,28 @@ class Debug extends \geminorum\gNetwork\ModuleCore
 		echo '<p class="gnetwork-admin-wrap debug-update-core">';
 
 			if ( GNETWORK_DEBUG_LOG )
-				echo HTML::tag( 'a', array(
+				echo HTML::tag( 'a', [
 					'class' => 'button button-secondary',
 					'href'  => Settings::subURL( 'errorlogs' ),
-				), _x( 'Check Errors', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+				], _x( 'Check Errors', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
 
 			if ( GNETWORK_DEBUG_LOG && GNETWORK_ANALOG_LOG )
 				echo '&nbsp;&nbsp;';
 
 			if ( GNETWORK_ANALOG_LOG )
-				echo HTML::tag( 'a', array(
+				echo HTML::tag( 'a', [
 					'class' => 'button button-secondary',
 					'href'  => Settings::subURL( 'analoglogs' ),
-				), _x( 'Check Logs', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+				], _x( 'Check Logs', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
 
 		echo '</p>';
 	}
 
-	public static function wp_die_handler( $message, $title = '', $args = array() )
+	public static function wp_die_handler( $message, $title = '', $args = [] )
 	{
-		$r = self::args( $args, array(
+		$r = self::args( $args, [
 			'response' => 500,
-		) );
+		] );
 
 		$have_gettext = function_exists( '__' );
 

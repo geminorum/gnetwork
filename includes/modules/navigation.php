@@ -12,16 +12,16 @@ class Navigation extends \geminorum\gNetwork\ModuleCore
 	protected $network = FALSE;
 
 	private $restricted = FALSE;   // restricted support
-	private $feeds      = array(); // restricted support
+	private $feeds      = []; // restricted support
 
-	private $general_pages   = array();
-	private $loggedout_pages = array();
-	private $loggedin_pages  = array();
+	private $general_pages   = [];
+	private $loggedout_pages = [];
+	private $loggedin_pages  = [];
 
 	protected function setup_actions()
 	{
 		if ( is_admin() ) {
-			add_action( 'load-nav-menus.php', array( $this, 'load_nav_menus_php' ) );
+			$this->action( 'load-nav-menus.php' );
 		} else {
 			$this->filter( 'wp_setup_nav_menu_item' );
 			$this->filter( 'wp_nav_menu_items', 2, 20 );
@@ -41,12 +41,12 @@ class Navigation extends \geminorum\gNetwork\ModuleCore
 	{
 		add_meta_box( 'add-gnetwork-nav-menu',
 			_x( 'Network', 'Modules: Navigation: Meta Box Title', GNETWORK_TEXTDOMAIN ),
-			array( $this, 'nav_menu_meta_box' ),
+			[ $this, 'nav_menu_meta_box' ],
 			'nav-menus',
 			'side',
 			'default' );
 
-		add_action( 'admin_print_footer_scripts', array( $this, 'admin_print_footer_scripts' ) );
+		$this->action( 'admin_print_footer_scripts' );
 	}
 
 	// build and populate the accordion on Appearance > Menus
@@ -56,25 +56,25 @@ class Navigation extends \geminorum\gNetwork\ModuleCore
 		global $nav_menu_selected_id;
 
 		$post_type_name = 'gnetworknav';
-		$args = array( 'walker' => new Walker_Nav_Menu_Checklist( FALSE ) );
+		$args = [ 'walker' => new Walker_Nav_Menu_Checklist( FALSE ) ];
 
-		$tabs = array(
-			'general' => array(
+		$tabs = [
+			'general' => [
 				'label'       => _x( 'General', 'Modules: Navigation: Tabs', GNETWORK_TEXTDOMAIN ),
 				'description' => _x( '<em>General</em> links are relative to the current user and are visible at any time.', 'Modules: Navigation', GNETWORK_TEXTDOMAIN ),
 				'pages'       => $this->get_general_pages(),
-			),
-			'loggedin' => array(
+			],
+			'loggedin' => [
 				'label'       => _x( 'Logged-In', 'Modules: Navigation: Tabs', GNETWORK_TEXTDOMAIN ),
 				'description' => _x( '<em>Logged-In</em> links are relative to the current user, and are not visible to visitors who are not logged in.', 'Modules: Navigation', GNETWORK_TEXTDOMAIN ),
 				'pages'       => $this->get_loggedin_pages(),
-			),
-			'loggedout' => array(
+			],
+			'loggedout' => [
 				'label'       => _x( 'Logged-Out', 'Modules: Navigation: Tabs', GNETWORK_TEXTDOMAIN ),
 				'description' => _x( '<em>Logged-Out</em> links are not visible to users who are logged in.', 'Modules: Navigation', GNETWORK_TEXTDOMAIN ),
 				'pages'       => $this->get_loggedout_pages(),
-			),
-		);
+			],
+		];
 
 		echo '<div id="gnetwork-menu" class="gnetwork-admin-wrap-metabox -navigation posttypediv">';
 
@@ -120,24 +120,24 @@ class Navigation extends \geminorum\gNetwork\ModuleCore
 		if ( count( $this->general_pages ) )
 			return $this->general_pages;
 
-		$items = array();
+		$items = [];
 
-		$items[] = array(
+		$items[] = [
 			'name' => _x( 'RSS Feed', 'Modules: Navigation', GNETWORK_TEXTDOMAIN ),
 			'slug' => 'feed',
 			'link' => get_feed_link( 'rss2' ),
-		);
+		];
 
-		$items[] = array(
+		$items[] = [
 			'name' => _x( 'RSS Comments Feed', 'Modules: Navigation', GNETWORK_TEXTDOMAIN ),
 			'slug' => 'comments_feed',
 			'link' => get_feed_link( 'comments_rss2' ),
-		);
+		];
 
 		$items = $this->filters( 'general_items', $items );
 
 		foreach ( $items as $item ) {
-			$this->general_pages[ $item['slug'] ] = (object) array(
+			$this->general_pages[ $item['slug'] ] = (object) [
 				'ID'             => -1,
 				'post_title'     => $item['name'],
 				'post_author'    => 0,
@@ -147,7 +147,7 @@ class Navigation extends \geminorum\gNetwork\ModuleCore
 				'post_status'    => 'publish',
 				'comment_status' => 'closed',
 				'guid'           => $item['link']
-			);
+			];
 		}
 
 		return $this->general_pages;
@@ -158,30 +158,30 @@ class Navigation extends \geminorum\gNetwork\ModuleCore
 		if ( count( $this->loggedin_pages ) )
 			return $this->loggedin_pages;
 
-		$items = array();
+		$items = [];
 
-		$items[] = array(
+		$items[] = [
 			'name' => _x( 'Log Out', 'Modules: Navigation', GNETWORK_TEXTDOMAIN ),
 			'slug' => 'logout',
 			'link' => $this->get_logout_url(),
-		);
+		];
 
-		$items[] = array(
+		$items[] = [
 			'name' => _x( 'Edit Profile', 'Modules: Navigation', GNETWORK_TEXTDOMAIN ),
 			'slug' => 'edit_profile',
 			'link' => $this->get_edit_profile_url(),
-		);
+		];
 
-		$items[] = array(
+		$items[] = [
 			'name' => _x( 'Public Profile', 'Modules: Navigation', GNETWORK_TEXTDOMAIN ),
 			'slug' => 'public_profile',
 			'link' => $this->get_public_profile_url(),
-		);
+		];
 
 		$items = $this->filters( 'loggedin_items', $items );
 
 		foreach ( $items as $item ) {
-			$this->loggedin_pages[ $item['slug'] ] = (object) array(
+			$this->loggedin_pages[ $item['slug'] ] = (object) [
 				'ID'             => -1,
 				'post_title'     => $item['name'],
 				'post_author'    => 0,
@@ -191,7 +191,7 @@ class Navigation extends \geminorum\gNetwork\ModuleCore
 				'post_status'    => 'publish',
 				'comment_status' => 'closed',
 				'guid'           => $item['link']
-			);
+			];
 		}
 
 		return $this->loggedin_pages;
@@ -202,25 +202,25 @@ class Navigation extends \geminorum\gNetwork\ModuleCore
 		if ( count( $this->loggedout_pages ) )
 			return $this->loggedout_pages;
 
-		$items = array();
+		$items = [];
 
-		$items[] = array(
+		$items[] = [
 			'name' => _x( 'Log In', 'Modules: Navigation', GNETWORK_TEXTDOMAIN ),
 			'slug' => 'login',
 			'link' => $this->get_login_url(),
-		);
+		];
 
 		if ( $register_url = $this->get_register_url() )
-			$items[] = array(
+			$items[] = [
 				'name' => _x( 'Register', 'Modules: Navigation', GNETWORK_TEXTDOMAIN ),
 				'slug' => 'register',
 				'link' => $register_url,
-			);
+			];
 
 		$items = $this->filters( 'loggedout_items', $items );
 
 		foreach ( $items as $item ) {
-			$this->loggedout_pages[ $item['slug'] ] = (object) array(
+			$this->loggedout_pages[ $item['slug'] ] = (object) [
 				'ID'             => -1,
 				'post_title'     => $item['name'],
 				'post_author'    => 0,
@@ -230,7 +230,7 @@ class Navigation extends \geminorum\gNetwork\ModuleCore
 				'post_status'    => 'publish',
 				'comment_status' => 'closed',
 				'guid'           => $item['link']
-			);
+			];
 		}
 
 		return $this->loggedout_pages;
@@ -345,10 +345,10 @@ class Navigation extends \geminorum\gNetwork\ModuleCore
 				$menu_item->classes[] = 'current_page_item';
 				$menu_item->classes[] = 'current-menu-item';
 			} else {
-				$menu_item->classes = array(
+				$menu_item->classes = [
 					'current_page_item',
 					'current-menu-item',
-				);
+				];
 			}
 		}
 
@@ -359,7 +359,7 @@ class Navigation extends \geminorum\gNetwork\ModuleCore
 	{
 		$current = URL::current();
 
-		foreach ( $this->filters( 'replace_nav_menu', array(), $current ) as $pattern => $replacement )
+		foreach ( $this->filters( 'replace_nav_menu', [], $current ) as $pattern => $replacement )
 			$items = preg_replace( $pattern, sprintf( $replacement, urlencode( $current ) ), $items );
 
 		return $items;
@@ -405,29 +405,29 @@ class Walker_Nav_Menu_Checklist extends \Walker_Nav_Menu
 			$this->db_fields = $fields;
 	}
 
-	public function start_lvl( &$output, $depth = 0, $args = array() )
+	public function start_lvl( &$output, $depth = 0, $args = [] )
 	{
 		$indent = str_repeat( "\t", $depth );
 		$output .= "\n$indent<ul class='children'>\n";
 	}
 
-	public function end_lvl( &$output, $depth = 0, $args = array() )
+	public function end_lvl( &$output, $depth = 0, $args = [] )
 	{
 		$indent = str_repeat( "\t", $depth );
 		$output .= "\n$indent</ul>";
 	}
 
-	public function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 )
+	public function start_el( &$output, $item, $depth = 0, $args = [], $id = 0 )
 	{
 		global $_nav_menu_placeholder;
 
-		$_nav_menu_placeholder = ( 0 > $_nav_menu_placeholder ) ? intval($_nav_menu_placeholder) - 1 : -1;
+		$_nav_menu_placeholder = ( 0 > $_nav_menu_placeholder ) ? intval( $_nav_menu_placeholder ) - 1 : -1;
 		$possible_object_id = isset( $item->post_type ) && 'nav_menu_item' == $item->post_type ? $item->object_id : $_nav_menu_placeholder;
 		$possible_db_id = ( ! empty( $item->ID ) ) && ( 0 < $possible_object_id ) ? (int) $item->ID : 0;
 
 		$indent = ( $depth ) ? str_repeat( "\t", $depth ) : '';
 
-		$output .= $indent . '<li>';
+		$output .= $indent.'<li>';
 		$output .= '<label class="menu-item-title">';
 		$output .= '<input type="checkbox" class="menu-item-checkbox';
 
@@ -435,7 +435,7 @@ class Walker_Nav_Menu_Checklist extends \Walker_Nav_Menu
 			$title = $item->label;
 		}
 
-		$output .= '" name="menu-item['.$possible_object_id.'][menu-item-object-id]" value="'. esc_attr( $item->object_id ) .'" /> ';
+		$output .= '" name="menu-item['.$possible_object_id.'][menu-item-object-id]" value="'.esc_attr( $item->object_id ).'" /> ';
 		$output .= isset( $title ) ? esc_html( $title ) : esc_html( $item->title );
 		$output .= '</label>';
 
@@ -443,21 +443,21 @@ class Walker_Nav_Menu_Checklist extends \Walker_Nav_Menu
 			$item->url = $item->guid;
 		}
 
-		if ( ! in_array( array( 'gnetwork-menu', 'gnetwork-'. $item->post_excerpt .'-nav' ), $item->classes ) ) {
+		if ( ! in_array( [ 'gnetwork-menu', 'gnetwork-'.$item->post_excerpt.'-nav' ], $item->classes ) ) {
 			$item->classes[] = 'gnetwork-menu';
 			$item->classes[] = 'gnetwork-'. $item->post_excerpt .'-nav';
 		}
 
 		// menu item hidden fields
 		$output .= '<input type="hidden" class="menu-item-db-id" name="menu-item['.$possible_object_id.'][menu-item-db-id]" value="'.$possible_db_id.'" />';
-		$output .= '<input type="hidden" class="menu-item-object" name="menu-item['.$possible_object_id.'][menu-item-object]" value="'. esc_attr( $item->object ) .'" />';
-		$output .= '<input type="hidden" class="menu-item-parent-id" name="menu-item['.$possible_object_id.'][menu-item-parent-id]" value="'. esc_attr( $item->menu_item_parent ) .'" />';
+		$output .= '<input type="hidden" class="menu-item-object" name="menu-item['.$possible_object_id.'][menu-item-object]" value="'.esc_attr( $item->object ).'" />';
+		$output .= '<input type="hidden" class="menu-item-parent-id" name="menu-item['.$possible_object_id.'][menu-item-parent-id]" value="'.esc_attr( $item->menu_item_parent ).'" />';
 		$output .= '<input type="hidden" class="menu-item-type" name="menu-item['.$possible_object_id.'][menu-item-type]" value="custom" />';
-		$output .= '<input type="hidden" class="menu-item-title" name="menu-item['.$possible_object_id.'][menu-item-title]" value="'. esc_attr( $item->title ) .'" />';
-		$output .= '<input type="hidden" class="menu-item-url" name="menu-item['.$possible_object_id.'][menu-item-url]" value="'. esc_attr( $item->url ) .'" />';
-		$output .= '<input type="hidden" class="menu-item-target" name="menu-item['.$possible_object_id.'][menu-item-target]" value="'. esc_attr( $item->target ) .'" />';
-		$output .= '<input type="hidden" class="menu-item-attr_title" name="menu-item['.$possible_object_id.'][menu-item-attr_title]" value="'. esc_attr( $item->attr_title ) .'" />';
-		$output .= '<input type="hidden" class="menu-item-classes" name="menu-item['.$possible_object_id.'][menu-item-classes]" value="'. esc_attr( implode( ' ', $item->classes ) ) .'" />';
-		$output .= '<input type="hidden" class="menu-item-xfn" name="menu-item['.$possible_object_id.'][menu-item-xfn]" value="'. esc_attr( $item->xfn ) .'" />';
+		$output .= '<input type="hidden" class="menu-item-title" name="menu-item['.$possible_object_id.'][menu-item-title]" value="'.esc_attr( $item->title ).'" />';
+		$output .= '<input type="hidden" class="menu-item-url" name="menu-item['.$possible_object_id.'][menu-item-url]" value="'.esc_attr( $item->url ).'" />';
+		$output .= '<input type="hidden" class="menu-item-target" name="menu-item['.$possible_object_id.'][menu-item-target]" value="'.esc_attr( $item->target ).'" />';
+		$output .= '<input type="hidden" class="menu-item-attr_title" name="menu-item['.$possible_object_id.'][menu-item-attr_title]" value="'.esc_attr( $item->attr_title ).'" />';
+		$output .= '<input type="hidden" class="menu-item-classes" name="menu-item['.$possible_object_id.'][menu-item-classes]" value="'.esc_attr( implode( ' ', $item->classes ) ).'" />';
+		$output .= '<input type="hidden" class="menu-item-xfn" name="menu-item['.$possible_object_id.'][menu-item-xfn]" value="'.esc_attr( $item->xfn ).'" />';
 	}
 }

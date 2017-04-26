@@ -13,7 +13,7 @@ class Comments extends \geminorum\gNetwork\ModuleCore
 	protected $ajax    = TRUE;
 	protected $cron    = TRUE;
 
-	private $textareas = array();
+	private $textareas = [];
 
 	private $type_archived = 'archived';
 
@@ -34,7 +34,7 @@ class Comments extends \geminorum\gNetwork\ModuleCore
 		if ( is_blog_admin() ) {
 
 			if ( $this->options['admin_fullcomments'] )
-				add_filter( 'comment_excerpt', array( $this, 'comment_excerpt' ) );
+				$this->filter( 'comment_excerpt' );
 
 			if ( $this->options['archived_comments'] ) {
 
@@ -42,8 +42,8 @@ class Comments extends \geminorum\gNetwork\ModuleCore
 				$this->filter( 'admin_comment_types_dropdown' );
 				$this->filter( 'comment_row_actions', 2, 15 );
 
-				$this->filter( 'bulk_actions-edit-comments', 1, 10, 'bulk_actions' );
-				$this->filter( 'handle_bulk_actions-edit-comments', 3, 10, 'handle_bulk_actions' );
+				add_filter( 'bulk_actions-edit-comments', [ $this, 'bulk_actions' ] );
+				add_filter( 'handle_bulk_actions-edit-comments', [ $this, 'handle_bulk_actions' ], 10, 3 );
 
 				// FIXME: UNFINISHED: add the row actions
 			}
@@ -52,13 +52,13 @@ class Comments extends \geminorum\gNetwork\ModuleCore
 		if ( ! is_admin() ) {
 
 			if ( $this->options['blacklist_check'] )
-				add_action( 'wp_blacklist_check', array( $this, 'wp_blacklist_check' ), 10, 6 );
+				$this->action( 'wp_blacklist_check', 6 );
 
 			if ( $this->options['front_quicktags'] )
-				add_action( 'wp_print_scripts', array( $this, 'wp_print_scripts' ) );
+				$this->action( 'wp_print_scripts' );
 
 			if ( $this->options['front_autogrow'] )
-				add_action( 'template_redirect', array( $this, 'template_redirect' ) );
+				$this->action( 'template_redirect' );
 
 			if ( $this->options['disable_notes'] )
 				add_filter( 'comment_form_defaults', function( $defaults ){
@@ -67,9 +67,9 @@ class Comments extends \geminorum\gNetwork\ModuleCore
 				}, 12 );
 
 			if ( $this->options['front_nonce'] ) {
-				add_action( 'comment_form', array( $this, 'comment_form_nonce' ) );
-				add_action( 'pre_comment_approved', array( $this, 'pre_comment_approved_nounce' ) );
-				add_action( 'explain_nonce_gnc-check_comments', array( $this, 'explain_nonce' ) );
+				$this->action( 'comment_form', 1, 10, 'nonce' );
+				$this->action( 'pre_comment_approved', 1, 10, 'nonce' );
+				add_action( 'explain_nonce_gnc-check_comments', [ $this, 'explain_nonce' ] );
 			}
 
 			if ( $this->options['strip_pings'] ) {
@@ -85,23 +85,23 @@ class Comments extends \geminorum\gNetwork\ModuleCore
 			$this->filter( 'pre_wp_update_comment_count_now', 3 );
 		}
 
-		add_filter( 'pre_comment_approved', array( $this, 'pre_comment_approved' ), 99, 2 );
-		add_filter( 'add_comment_metadata', array( $this, 'add_comment_metadata' ), 20, 5 );
+		$this->filter( 'pre_comment_approved', 2, 99 );
+		$this->filter( 'add_comment_metadata', 5, 20 );
 
-		// register_shutdown_function( array( $this, 'delete_spam_comments' ) );
+		// register_shutdown_function( [ $this, 'delete_spam_comments' ] );
 	}
 
 	public function setup_menu( $context )
 	{
 		Admin::registerMenu( $this->key,
 			_x( 'Comments', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			array( $this, 'settings' )
+			[ $this, 'settings' ]
 		);
 	}
 
 	public function default_options()
 	{
-		return array(
+		return [
 			'disable_notifications' => '1',
 			'archived_comments'     => '0',
 			'admin_fullcomments'    => '1',
@@ -112,63 +112,63 @@ class Comments extends \geminorum\gNetwork\ModuleCore
 			'blacklist_check'       => '0', // FIXME: DRAFT: needs test / NO Settgins UI YET
 			'front_nonce'           => '0', // FIXME: DRAFT: working / NO Settgins UI YET / check the hooks
 			'captcha'               => '0',
-		);
+		];
 	}
 
 	public function default_settings()
 	{
-		$settings = array(
-			'_general' => array(
-				array(
+		$settings = [
+			'_general' => [
+				[
 					'field'       => 'strip_pings',
 					'title'       => _x( 'Hide Pings', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Removes trackbacks and pingbacks form comments on frontend', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '1',
-				),
-				array(
+				],
+				[
 					'field'       => 'disable_notifications',
 					'title'       => _x( 'Comment Notifications', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Disable all core comment notifications', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '1',
 					'values'      => Settings::reverseEnabled(),
-				),
-				array(
+				],
+				[
 					'field'       => 'archived_comments',
 					'title'       => _x( 'Archived Comments', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Archived comments and hide from counts', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
-				),
-				array(
+				],
+				[
 					'field'       => 'admin_fullcomments',
 					'title'       => _x( 'Full Comments', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Full comments on dashboard', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
-				),
-				array(
+				],
+				[
 					'field'       => 'front_quicktags',
 					'title'       => _x( 'Frontend Quicktags', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Activate Quicktags for comments on frontend', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
-				),
-				array(
+				],
+				[
 					'field'       => 'front_autogrow',
 					'title'       => _x( 'Frontend Autogrow', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Makes the comment textarea expand in height automatically', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
-				),
-				array(
+				],
+				[
 					'field'       => 'disable_notes',
 					'title'       => _x( 'Form Notes', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Removes extra notes after comment form on frontend', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '1',
-				),
-			),
-		);
+				],
+			],
+		];
 
 		if ( class_exists( __NAMESPACE__.'\\Captcha' ) )
-			$settings['_captcha'] = array(
-				array(
+			$settings['_captcha'] = [
+				[
 					'field'       => 'captcha',
 					'title'       => _x( 'Captcha', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Display captcha field on comment form', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
-				),
-			);
+				],
+			];
 
 		return $settings;
 	}
@@ -180,11 +180,11 @@ class Comments extends \geminorum\gNetwork\ModuleCore
 
 	public function wp_print_scripts()
 	{
-		$default_buttons = $this->filters( 'quicktags_buttons', array(
+		$default_buttons = $this->filters( 'quicktags_buttons', [
 			'link',
 			'em',
 			'strong',
-		) );
+		] );
 
 		if ( is_singular() && comments_open() ) {
 			$this->textareas['comment']  = $default_buttons;
@@ -207,7 +207,7 @@ class Comments extends \geminorum\gNetwork\ModuleCore
 
 			$this->scripts[] = 'QTags.addButton("quote","quote","<blockquote>","</blockquote>","quote");';
 
-			add_action( 'wp_footer', array( $this, 'print_scripts' ), 99 );
+			add_action( 'wp_footer', [ $this, 'print_scripts' ], 99 );
 			wp_enqueue_script( 'quicktags' );
 		}
 	}
@@ -221,7 +221,7 @@ class Comments extends \geminorum\gNetwork\ModuleCore
 
 			$this->scripts[] = '$("#comment").growfield();';
 
-			add_action( 'wp_footer', array( $this, 'print_scripts' ), 99 );
+			add_action( 'wp_footer', [ $this, 'print_scripts' ], 99 );
 		}
 	}
 
@@ -231,19 +231,19 @@ class Comments extends \geminorum\gNetwork\ModuleCore
 
 			$nonce = esc_html( '_wpnonce='.wp_create_nonce( 'archive-comment_'.$comment->comment_ID ) );
 
-			$actions['comment_archive'] = HTML::tag( 'a', array(
+			$actions['comment_archive'] = HTML::tag( 'a', [
 				'href'       => 'comment.php?c='.$comment->comment_ID.'&action=archive&'.$nonce,
 				'aria-label' => _x( 'Move this comment to the Archives', 'Modules: Comments: Action Title Attr', GNETWORK_TEXTDOMAIN ),
-			), _x( 'Archive', 'Modules: Comments: Action', GNETWORK_TEXTDOMAIN ) );
+			], _x( 'Archive', 'Modules: Comments: Action', GNETWORK_TEXTDOMAIN ) );
 
 		} else if ( $this->type_archived == $comment->comment_type ) {
 
 			$nonce = esc_html( '_wpnonce='.wp_create_nonce( 'archive-comment_'.$comment->comment_ID ) );
 
-			$actions['comment_unarchive'] = HTML::tag( 'a', array(
+			$actions['comment_unarchive'] = HTML::tag( 'a', [
 				'href'       => 'comment.php?c='.$comment->comment_ID.'&action=unarchive&'.$nonce,
 				'aria-label' => _x( 'Move back this comment from the Archives', 'Modules: Comments: Action Title Attr', GNETWORK_TEXTDOMAIN ),
-			), _x( 'Unarchive', 'Modules: Comments: Action', GNETWORK_TEXTDOMAIN ) );
+			], _x( 'Unarchive', 'Modules: Comments: Action', GNETWORK_TEXTDOMAIN ) );
 		}
 
 		return $actions;
@@ -252,16 +252,16 @@ class Comments extends \geminorum\gNetwork\ModuleCore
 	public function bulk_actions( $actions )
 	{
 		if ( empty( $_GET['comment_type'] ) || 'archived' != $_GET['comment_type'] )
-			$new = array( 'archive' => _x( 'Move to Archives', 'Modules: Comments: Bulk Action', GNETWORK_TEXTDOMAIN ) );
+			$new = [ 'archive' => _x( 'Move to Archives', 'Modules: Comments: Bulk Action', GNETWORK_TEXTDOMAIN ) ];
 		else
-			$new = array( 'unarchive' => _x( 'Move from Archives', 'Modules: Comments: Bulk Action', GNETWORK_TEXTDOMAIN ) );
+			$new = [ 'unarchive' => _x( 'Move from Archives', 'Modules: Comments: Bulk Action', GNETWORK_TEXTDOMAIN ) ];
 
 		return array_merge( $actions, $new );
 	}
 
 	public function handle_bulk_actions( $redirect_to, $doaction, $comment_ids )
 	{
-		if ( ! in_array( $doaction, array( 'archive', 'unarchive' ) ) )
+		if ( ! in_array( $doaction, [ 'archive', 'unarchive' ] ) )
 			return $redirect_to;
 
 		$archived = 0;
@@ -282,8 +282,8 @@ class Comments extends \geminorum\gNetwork\ModuleCore
 		$comment_type = $archive ? $this->type_archived : '';
 
 		if ( ! $wpdb->update( $wpdb->comments,
-			array( 'comment_type' => $comment_type ),
-			array( 'comment_ID' => $comment_old->comment_ID ) ) )
+			[ 'comment_type' => $comment_type ],
+			[ 'comment_ID' => $comment_old->comment_ID ] ) )
 				return $wp_error ? new WP_Error( 'db_update_error',
 					_x( 'Could not update comment status', 'Modules: Comments: DB Update Error', GNETWORK_TEXTDOMAIN ),
 					$wpdb->last_error ) : FALSE;
@@ -328,20 +328,20 @@ class Comments extends \geminorum\gNetwork\ModuleCore
 			return $link;
 		}, $status_links );
 
-		return array_merge( $status_links, array(
-			$this->type_archived => HTML::tag( 'a', array(
+		return array_merge( $status_links, [
+			$this->type_archived => HTML::tag( 'a', [
 				'href'  => add_query_arg( 'comment_type', $this->type_archived, admin_url( 'edit-comments.php' ) ),
 				'class' => $this->type_archived == $GLOBALS['comment_type'] ? 'current' : FALSE,
 				'title' => _x( 'All Archived Comments', 'Modules: Comments: Status Link Title Attr', GNETWORK_TEXTDOMAIN ),
-			), _x( 'Archives', 'Modules: Comments: Status Link', GNETWORK_TEXTDOMAIN ) ),
-		) );
+			], _x( 'Archives', 'Modules: Comments: Status Link', GNETWORK_TEXTDOMAIN ) ),
+		] );
 	}
 
 	public function admin_comment_types_dropdown( $comment_types )
 	{
-		return array_merge( $comment_types, array(
+		return array_merge( $comment_types, [
 			$this->type_archived => _x( 'Archived', 'Modules: Comments', GNETWORK_TEXTDOMAIN ),
-		) );
+		] );
 	}
 
 	public function pre_get_comments( &$query )
@@ -350,7 +350,7 @@ class Comments extends \geminorum\gNetwork\ModuleCore
 			&& empty( $query->query_vars['type'] ) ) {
 
 			if ( empty( $query->query_vars['type__not_in'] ) )
-				$query->query_vars['type__not_in'] = array( $this->type_archived );
+				$query->query_vars['type__not_in'] = [ $this->type_archived ];
 
 			else if ( is_array( $query->query_vars['type__not_in'] ) )
 				$query->query_vars['type__not_in'][] = $this->type_archived;
@@ -360,7 +360,7 @@ class Comments extends \geminorum\gNetwork\ModuleCore
 		}
 	}
 
-	public function wp_count_comments( $filtered = array(), $post_id = 0 )
+	public function wp_count_comments( $filtered = [], $post_id = 0 )
 	{
 		if ( FALSE !== ( $count = wp_cache_get( "comments-{$post_id}", 'counts' ) ) )
 			return $count;
@@ -403,7 +403,7 @@ class Comments extends \geminorum\gNetwork\ModuleCore
 			GROUP BY comment_approved
 		", ARRAY_A );
 
-		$comment_count = array(
+		$comment_count = [
 			'approved'            => 0,
 			'awaiting_moderation' => 0,
 			'spam'                => 0,
@@ -411,7 +411,7 @@ class Comments extends \geminorum\gNetwork\ModuleCore
 			'post-trashed'        => 0,
 			'total_comments'      => 0,
 			'all'                 => 0,
-		);
+		];
 
 		foreach ( $totals as $row ) {
 			switch ( $row['comment_approved'] ) {
@@ -457,7 +457,7 @@ class Comments extends \geminorum\gNetwork\ModuleCore
 	// @SOURCE: http://rayofsolaris.net/blog/2012/akismet-bloat
 	public function add_comment_metadata( $check, $object_id, $meta_key, $meta_value, $unique )
 	{
-		$to_filter = array(
+		$to_filter = [
 			'akismet_result',
 			'akismet_history',
 			'akismet_user',
@@ -465,7 +465,7 @@ class Comments extends \geminorum\gNetwork\ModuleCore
 			// 'akismet_error',
 			// 'akismet_as_submitted',
 			// 'akismet_pro_tip',
-		);
+		];
 
 		if ( in_array( $meta_key, $to_filter ) )
 			return FALSE;
@@ -545,7 +545,7 @@ class Comments extends \geminorum\gNetwork\ModuleCore
 	{
 		$query = new \WP_Comment_Query;
 
-		return $query->query( array(
+		return $query->query( [
 			'post_id' => $post_id,
 			'status'  => 1,
 			'count'   => TRUE,
@@ -553,7 +553,7 @@ class Comments extends \geminorum\gNetwork\ModuleCore
 
 			'update_comment_meta_cache' => FALSE,
 			'update_comment_post_cache' => FALSE,
-		) );
+		] );
 	}
 
 	public function get_comments_number( $count, $post_id )
@@ -582,13 +582,13 @@ class Comments extends \geminorum\gNetwork\ModuleCore
 	{
 		$comments = wp_count_comments( $post_id );
 
-		$map = array(
+		$map = [
 			'moderated'      => _x( 'Comments in moderation: %s', 'Modules: Comments: Total Comments Item', GNETWORK_TEXTDOMAIN ),
 			'approved'       => _x( 'Comments approved: %s', 'Modules: Comments: Total Comments Item', GNETWORK_TEXTDOMAIN ),
 			'spam'           => _x( 'Comments in Spam: %s', 'Modules: Comments: Total Comments Item', GNETWORK_TEXTDOMAIN ),
 			'trash'          => _x( 'Comments in Trash: %s', 'Modules: Comments: Total Comments Item', GNETWORK_TEXTDOMAIN ),
 			'total_comments' => _x( 'Total Comments: %s', 'Modules: Comments: Total Comments Item', GNETWORK_TEXTDOMAIN ),
-		);
+		];
 
 		echo '<ul>';
 		foreach ( $map as $key => $string )
@@ -604,7 +604,7 @@ class Comments extends \geminorum\gNetwork\ModuleCore
 	private $group_action       = 'reject';
 	private $known_ip_action    = 'spam';
 	private $known_ip_limit     = 3;
-	private $known_sites        = array();
+	private $known_sites        = [];
 
 	// @SOURCE: https://github.com/Rarst/deny-spam
 	public function wp_blacklist_check( $author, $email, $url, $comment, $user_ip, $user_agent )
@@ -618,7 +618,7 @@ class Comments extends \geminorum\gNetwork\ModuleCore
 				wp_die( sprintf( _x( 'Comment has <strong>over %s links</strong>. Please reduce number of those.', 'Modules: Comments', GNETWORK_TEXTDOMAIN ), $this->links_limit ) );
 
 			else
-				add_filter( 'pre_comment_approved', array( $this, 'pre_comment_approved_spam' ) );
+				$this->filter( 'pre_comment_approved', 0, 10, 'spam' );
 
 			return;
 		}
@@ -631,7 +631,7 @@ class Comments extends \geminorum\gNetwork\ModuleCore
 				wp_die( _x( 'Duplicate comment content. Please rephrase.', 'Modules: Comments', GNETWORK_TEXTDOMAIN ) );
 
 			else
-				add_filter( 'pre_comment_approved', array( $this, 'pre_comment_approved_spam' ) );
+				$this->filter( 'pre_comment_approved', 0, 10, 'spam' );
 
 			return;
 		}
@@ -645,7 +645,7 @@ class Comments extends \geminorum\gNetwork\ModuleCore
 					wp_die( _x( 'Your URL or domain is in list of known spam-promoted sites. If you believe this to be an error please contact site admin.', 'Modules: Comments', GNETWORK_TEXTDOMAIN ) );
 
 				else
-					add_filter( 'pre_comment_approved', array( $this, 'pre_comment_approved_spam' ) );
+					$this->filter( 'pre_comment_approved', 0, 10, 'spam' );
 
 				return;
 			}
@@ -659,7 +659,7 @@ class Comments extends \geminorum\gNetwork\ModuleCore
 				wp_die( _x( 'Your IP is in list of known spam sources. If you believe this to be an error please contact site admin.', 'Modules: Comments', GNETWORK_TEXTDOMAIN ) );
 
 			else
-				add_filter( 'pre_comment_approved', array( $this, 'pre_comment_approved_spam' ) );
+				$this->filter( 'pre_comment_approved', 0, 10, 'spam' );
 
 			return;
 		}
@@ -675,7 +675,7 @@ class Comments extends \geminorum\gNetwork\ModuleCore
 			} else {
 
 				$wpdb->query( "UPDATE $wpdb->comments SET comment_approved='spam' WHERE comment_content = '$comment'" );
-				add_filter( 'pre_comment_approved', array( $this, 'pre_comment_approved_spam' ) );
+				$this->filter( 'pre_comment_approved', 0, 10, 'spam' );
 			}
 
 			return;

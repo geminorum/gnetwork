@@ -11,13 +11,15 @@ class Shortcode_Widget extends \WP_Widget
 	{
 		parent::__construct( 'shortcode-widget',
 			_x( 'gNetwork: Shortcode HTML', 'Widget: Title', GNETWORK_TEXTDOMAIN ),
-			array(
+			[
 				'classname'   => 'shortcode_widget',
 				'description' => _x( 'Arbitrary text or HTML or Shortcode!', 'Widget: Description', GNETWORK_TEXTDOMAIN )
-			), array(
+			],
+			[
 				'width'  => 400,
 				'height' => 350,
-			) );
+			]
+		);
 	}
 
 	public function widget( $args, $instance )
@@ -52,7 +54,7 @@ class Shortcode_Widget extends \WP_Widget
 	// EXACT COPY OF CORE
 	public function form( $instance )
 	{
-		$instance = wp_parse_args( (array) $instance, array( 'title' => '', 'text' => '' ) );
+		$instance = wp_parse_args( (array) $instance, [ 'title' => '', 'text' => '' ] );
 		$title = strip_tags($instance['title']);
 		$text = esc_textarea($instance['text']);
 ?>

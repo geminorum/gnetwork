@@ -45,10 +45,10 @@ class Logger
 
 		$event->ensureStopped();
 
-		return array(
+		return [
 			'dur' => $event->getDuration(),
 			'mem' => $event->getMemory(),
-		);
+		];
 	}
 
 	// @REF: https://github.com/jbroadway/analog
@@ -76,13 +76,13 @@ class Logger
 	}
 
 	// PSR-3
-	public static function log( $level, $message, $context = array() )
+	public static function log( $level, $message, $context = [] )
 	{
 		if ( $analog = self::getAnalog() )
 			$analog->log( $level, $message, $context );
 	}
 
-	public static function logAnalog( $message, $level = NULL, $context = array() )
+	public static function logAnalog( $message, $level = NULL, $context = [] )
 	{
 		if ( $analog = self::getAnalog() ) {
 
@@ -94,50 +94,50 @@ class Logger
 	}
 
 	// system is unusable
-	public static function URGENT( $message, $context = array() )
+	public static function URGENT( $message, $context = [] )
 	{
 		self::logAnalog( $message, \Analog::URGENT, $context );
 	}
 
 	// action must be taken immediately
-	public static function ALERT( $message, $context = array() )
+	public static function ALERT( $message, $context = [] )
 	{
 		self::logAnalog( $message, \Analog::ALERT, $context );
 	}
 
 	// critical conditions
-	public static function CRITICAL( $message, $context = array() )
+	public static function CRITICAL( $message, $context = [] )
 	{
 		self::logAnalog( $message, \Analog::CRITICAL, $context );
 	}
 
 	// runtime errors that do not require immediate action
 	// but should typically be logged and monitored
-	public static function ERROR( $message, $context = array() )
+	public static function ERROR( $message, $context = [] )
 	{
 		self::logAnalog( $message, \Analog::ERROR, $context );
 	}
 
 	// exceptional occurrences that are not errors
-	public static function WARNING( $message, $context = array() )
+	public static function WARNING( $message, $context = [] )
 	{
 		self::logAnalog( $message, \Analog::WARNING, $context );
 	}
 
 	// normal but significant events
-	public static function NOTICE( $message, $context = array() )
+	public static function NOTICE( $message, $context = [] )
 	{
 		self::logAnalog( $message, \Analog::NOTICE, $context );
 	}
 
 	// interesting events
-	public static function INFO( $message, $context = array() )
+	public static function INFO( $message, $context = [] )
 	{
 		self::logAnalog( $message, \Analog::INFO, $context );
 	}
 
 	// detailed debug information
-	public static function DEBUG( $message, $context = array() )
+	public static function DEBUG( $message, $context = [] )
 	{
 		self::logAnalog( $message, \Analog::DEBUG, $context );
 	}

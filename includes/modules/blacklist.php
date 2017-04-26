@@ -14,14 +14,14 @@ class BlackList extends \geminorum\gNetwork\ModuleCore
 	protected function setup_actions()
 	{
 		if ( ! is_admin() && $this->options['check_ip'] )
-			add_action( 'init', array( $this, 'init' ), -10 );
+			$this->action( 'init', 0, -10 );
 	}
 
 	public function setup_menu( $context )
 	{
 		$this->register_menu(
 			_x( 'Black List', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			array( $this, 'settings' )
+			[ $this, 'settings' ]
 		);
 	}
 
@@ -33,39 +33,39 @@ class BlackList extends \geminorum\gNetwork\ModuleCore
 
 	public function default_options()
 	{
-		return array(
+		return [
 			'check_ip'           => '0',
 			'blacklisted_ips'    => '',
 			'blacklisted_notice' => '',
-		);
+		];
 	}
 
 	public function default_settings()
 	{
-		return array(
-			'_general' => array(
-				array(
+		return [
+			'_general' => [
+				[
 					'field'       => 'check_ip',
 					'title'       => _x( 'Check Addresses', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Select to check logged-out visitor\'s IP againts your list of IPs', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ),
-				),
-				array(
+				],
+				[
 					'field'       => 'blacklisted_ips',
 					'type'        => 'textarea',
 					'title'       => _x( 'IP Addresses', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Comma or line seperated IP\'s range or individual IP needs to block. ex: <code>1.6.0.0 - 1.7.255.255,1.8.0.0,1.8.0.1</code>', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ),
-					'field_class' => array( 'large-text', 'code-text' ),
-				),
-				array(
+					'field_class' => [ 'large-text', 'code-text' ],
+				],
+				[
 					'field'       => 'blacklisted_notice',
 					'type'        => 'textarea-quicktags',
 					'title'       => _x( 'Blacklisted Message', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Locked message on WordPress die page', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => 'you\'re blacklisted, dude!',
-					'field_class' => array( 'large-text', 'code-text' ),
-				),
-			),
-		);
+					'field_class' => [ 'large-text', 'code-text' ],
+				],
+			],
+		];
 	}
 
 	public function settings_sidebox( $sub, $uri )

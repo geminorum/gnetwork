@@ -52,8 +52,8 @@ class gNetwork
 
 		load_plugin_textdomain( GNETWORK_TEXTDOMAIN, FALSE, 'gnetwork/languages' );
 
-		add_action( 'bp_include', array( $this, 'bp_include' ) );
-		add_filter( 'mce_external_languages',array( $this, 'mce_external_languages' ) );
+		add_action( 'bp_include', [ $this, 'bp_include' ] );
+		add_filter( 'mce_external_languages',[ $this, 'mce_external_languages' ] );
 	}
 
 	private function files( $stack )
@@ -197,7 +197,7 @@ class gNetwork
 		return $default;
 	}
 
-	public function providers( $type = 'sms', $pre = array() )
+	public function providers( $type = 'sms', $pre = [] )
 	{
 		if ( isset( $this->{$type} ) && $this->{$type}->options['load_providers'] )
 			foreach ( $this->{$type}->providers as $name => &$provider )
@@ -218,7 +218,7 @@ class gNetwork
 	{
 		$na = __( 'N/A', GNETWORK_TEXTDOMAIN );
 		return $wrap
-			? HTML::tag( $wrap, array( 'title' => __( 'Not Available', GNETWORK_TEXTDOMAIN ) ), $na )
+			? HTML::tag( $wrap, [ 'title' => __( 'Not Available', GNETWORK_TEXTDOMAIN ) ], $na )
 			: $na;
 	}
 }

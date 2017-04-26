@@ -11,11 +11,11 @@ class Locale extends \geminorum\gNetwork\ModuleCore
 	protected $key  = 'locale';
 	protected $ajax = TRUE;
 
-	public $loaded = array();
+	public $loaded = [];
 
 	protected function setup_actions()
 	{
-		add_filter( 'locale', array( $this, 'locale' ), 1, 1 );
+		$this->filter( 'locale', 1, 1 );
 
 		if ( defined( 'GNETWORK_WPLANG' ) ) {
 
@@ -24,9 +24,9 @@ class Locale extends \geminorum\gNetwork\ModuleCore
 			} );
 
 			if ( is_multisite() )
-				add_filter( 'gnetwork_network_new_blog_options', array( $this, 'new_blog_options' ) );
+				add_filter( 'gnetwork_network_new_blog_options', [ $this, 'new_blog_options' ] );
 
-			add_filter( 'load_textdomain_mofile', array( $this, 'load_textdomain_mofile' ), 12, 2 );
+			$this->filter( 'load_textdomain_mofile', 2, 12 );
 		}
 	}
 
@@ -34,14 +34,14 @@ class Locale extends \geminorum\gNetwork\ModuleCore
 	{
 		Admin::registerMenu( $this->key,
 			_x( 'Locale', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			array( $this, 'settings' )
+			[ $this, 'settings' ]
 		);
 	}
 
 	public function settings( $sub = NULL )
 	{
 		if ( $sub == $this->key )
-			add_action( $this->settings_hook( $sub, 'admin' ), array( $this, 'settings_form' ), 10, 2 );
+			add_action( $this->settings_hook( $sub, 'admin' ), [ $this, 'settings_form' ], 10, 2 );
 	}
 
 	public function settings_form( $uri, $sub = 'general' )
@@ -115,13 +115,13 @@ class Locale extends \geminorum\gNetwork\ModuleCore
 	public function new_blog_options( $new_options )
 	{
 		if ( 'fa_IR' == constant( 'GNETWORK_WPLANG' ) )
-			return array_merge( $new_options, array(
+			return array_merge( $new_options, [
 				'timezone_string' => 'Asia/Tehran',
 				'date_format'     => 'Y/n/d',
 				'time_format'     => 'H:i',
 				'start_of_week'   => 6,
 				'WPLANG'          => GNETWORK_WPLANG,
-			) );
+			] );
 
 		return $new_options;
 	}
@@ -168,7 +168,7 @@ class Locale extends \geminorum\gNetwork\ModuleCore
 		if ( 'en_US' == $locale )
 			return $gNetworkCurrentLocale = $locale;
 
-		$black_list = $this->filters( 'blacklist', array(
+		$black_list = $this->filters( 'blacklist', [
 			'deprecated_log'             => 'post_type',
 			'rewrite-rules-inspector'    => 'page',
 			'connection-types'           => 'page',
@@ -257,7 +257,7 @@ class Locale extends \geminorum\gNetwork\ModuleCore
 			'tablepress_export'  => 'page',
 			'tablepress_options' => 'page',
 			'tablepress_about'   => 'page',
-		) );
+		] );
 
 		foreach ( $black_list as $val => $key )
 			if ( isset( $_REQUEST[$key] ) && $val == trim( $_REQUEST[$key] ) )

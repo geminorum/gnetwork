@@ -14,20 +14,20 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 	protected $key     = 'shortcodes';
 	protected $network = FALSE;
 
-	private $flash_ids  = array();
-	private $ref_ids    = array();
+	private $flash_ids  = [];
+	private $ref_ids    = [];
 	private $ref_list   = FALSE;
-	private $people     = array();
+	private $people     = [];
 	private $people_tax = 'post_tag'; // 'people';
 
 	protected function setup_actions()
 	{
-		add_action( 'init', array( $this, 'init_early' ), 8 );
-		add_action( 'init', array( $this, 'init_late' ), 12 );
-		add_action( 'wp_footer', array( $this, 'wp_footer' ), 20 );
-		add_action( 'wp_footer', array( $this, 'print_scripts' ), 20 );
+		add_action( 'init', [ $this, 'init_early' ], 8 );
+		add_action( 'init', [ $this, 'init_late' ], 12 );
+		add_action( 'wp_footer', [ $this, 'wp_footer' ], 20 );
+		add_action( 'wp_footer', [ $this, 'print_scripts' ], 20 );
 
-		add_action( 'gnetwork_tinymce_strings', array( $this, 'tinymce_strings' ) );
+		add_action( 'gnetwork_tinymce_strings', [ $this, 'tinymce_strings' ] );
 		Admin::registerTinyMCE( 'gnetworkref', 'assets/js/tinymce/ref', 2 );
 		Admin::registerTinyMCE( 'gnetworkemail', 'assets/js/tinymce/email', 2 );
 		Admin::registerTinyMCE( 'gnetworksearch', 'assets/js/tinymce/search', 2 );
@@ -45,8 +45,8 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 			$this->people_tax = GNETWORK_GPEOPLE_TAXONOMY;
 
 		// fallback shortcodes
-		add_shortcode( 'book', array( $this, 'shortcode_return_content' ) );
-		add_shortcode( 'person', array( $this, 'shortcode_person' ) );
+		add_shortcode( 'book', [ $this, 'shortcode_return_content' ] );
+		add_shortcode( 'person', [ $this, 'shortcode_person' ] );
 	}
 
 	public function shortcode_return_content( $atts, $content = NULL, $tag = '' )
@@ -56,7 +56,7 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 
 	public function init_late()
 	{
-		$this->shortcodes( array(
+		$this->shortcodes( [
 			'children'     => 'shortcode_children',
 			'siblings'     => 'shortcode_siblings',
 			'in-term'      => 'shortcode_in_term',
@@ -84,11 +84,11 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 			'search'       => 'shortcode_search',
 			'last-edited'  => 'shortcode_last_edited',
 			'lastupdate'   => 'shortcode_last_edited',
-		) );
+		] );
 
 		if ( ! defined( 'GNETWORK_DISABLE_REFLIST_INSERT' )
 			|| ! GNETWORK_DISABLE_REFLIST_INSERT )
-				add_action( 'gnetwork_themes_content_after', array( $this, 'content_after_reflist' ), 5 );
+				add_action( 'gnetwork_themes_content_after', [ $this, 'content_after_reflist' ], 5 );
 	}
 
 	// @REF: https://github.com/wp-shortcake/shortcake/wiki/Registering-Shortcode-UI
@@ -169,7 +169,7 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 
 	public function tinymce_strings( $strings )
 	{
-		$new = array(
+		$new = [
 			'gnetworkref-title' => _x( 'Cite This', 'TinyMCE Strings: Ref', GNETWORK_TEXTDOMAIN ),
 			'gnetworkref-attr'  => _x( 'Cite This (Ctrl+Q)', 'TinyMCE Strings: Ref', GNETWORK_TEXTDOMAIN ),
 			'gnetworkref-text'  => _x( 'Ref Text', 'TinyMCE Strings: Ref', GNETWORK_TEXTDOMAIN ),
@@ -190,21 +190,21 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 			'gnetworkgpeople-title' => _x( 'People', 'TinyMCE Strings: People', GNETWORK_TEXTDOMAIN ),
 			'gnetworkgpeople-attr'  => _x( 'People', 'TinyMCE Strings: People', GNETWORK_TEXTDOMAIN ),
 			'gnetworkgpeople-name'  => _x( 'Name', 'TinyMCE Strings: People', GNETWORK_TEXTDOMAIN ),
-		);
+		];
 
 		return array_merge( $strings, $new );
 	}
 
-	public function shortcode_children( $atts, $content = NULL, $tag = '' )
+	public function shortcode_children( $atts = [], $content = NULL, $tag = '' )
 	{
-		$args = shortcode_atts( array(
+		$args = shortcode_atts( [
 			'id'      => get_queried_object_id(),
 			'type'    => 'page',
 			'context' => NULL,
 			'wrap'    => TRUE,
 			'before'  => '',
 			'after'   => '',
-		), $atts, $tag );
+		], $atts, $tag );
 
 		if ( FALSE === $args['context'] )
 			return NULL;
@@ -212,7 +212,7 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 		if ( ! is_singular( $args['type'] ) )
 			return $content;
 
-		$children = wp_list_pages( array(
+		$children = wp_list_pages( [
 			'child_of'     => $args['id'],
 			'post_type'    => $args['type'],
 			'echo'         => FALSE,
@@ -220,7 +220,7 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 			'title_li'     => '',
 			'item_spacing' => 'discard',
 			'sort_column'  => 'menu_order, post_title',
-		) );
+		] );
 
 		if ( ! $children )
 			return $content;
@@ -228,9 +228,9 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 		return self::shortcodeWrap( '<ul>'.$children.'</ul>', 'children', $args );
 	}
 
-	public function shortcode_siblings( $atts, $content = NULL, $tag = '' )
+	public function shortcode_siblings( $atts = [], $content = NULL, $tag = '' )
 	{
-		$args = shortcode_atts( array(
+		$args = shortcode_atts( [
 			'parent'  => NULL,
 			'type'    => 'page',
 			'ex'      => NULL,
@@ -238,7 +238,7 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 			'wrap'    => TRUE,
 			'before'  => '',
 			'after'   => '',
-		), $atts, $tag );
+		], $atts, $tag );
 
 		if ( FALSE === $args['context'] )
 			return NULL;
@@ -258,7 +258,7 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 		if ( is_null( $args['ex'] ) )
 			$args['ex'] = get_queried_object_id();
 
-		$siblings = wp_list_pages( array(
+		$siblings = wp_list_pages( [
 			'child_of'     => $args['parent'],
 			'post_type'    => $args['type'],
 			'exclude'      => $args['ex'],
@@ -267,7 +267,7 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 			'title_li'     => '',
 			'item_spacing' => 'discard',
 			'sort_column'  => 'menu_order, post_title',
-		) );
+		] );
 
 		if ( ! $siblings )
 			return $content;
@@ -275,13 +275,14 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 		return self::shortcodeWrap( '<ul>'.$siblings.'</ul>', 'siblings', $args );
 	}
 
+	// FIXME: move this into gEditorial (using api)
 	// USAGE: [in-term tax="category" slug="ungategorized" order="menu_order" /]
 	// EDITED: 4/5/2016, 5:03:30 PM
-	public function shortcode_in_term( $atts, $content = NULL, $tag = '' )
+	public function shortcode_in_term( $atts = [], $content = NULL, $tag = '' )
 	{
 		global $post;
 
-		$args = shortcode_atts( array(
+		$args = shortcode_atts( [
 			'id'            => FALSE,
 			'slug'          => FALSE,
 			'tax'           => 'category',
@@ -308,7 +309,7 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 			'wrap'          => TRUE,
 			'before'        => '',
 			'after'         => '',
-		), $atts, $tag );
+		], $atts, $tag );
 
 		if ( FALSE === $args['context'] )
 			return NULL;
@@ -331,11 +332,11 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 		if ( $args['id'] && $args['id'] ) {
 
 			if ( $term = get_term_by( 'id', $args['id'], $args['tax'] ) )
-				$tax_query = array( array(
+				$tax_query = [ [
 					'taxonomy' => $args['tax'],
 					'field'    => 'term_id',
-					'terms'    => array( $args['id'] ),
-				) );
+					'terms'    => [ $args['id'] ],
+				] ];
 
 			else
 				$error = TRUE;
@@ -343,11 +344,11 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 		} else if ( $args['slug'] && $args['slug'] ) {
 
 			if ( $term = get_term_by( 'slug', $args['slug'], $args['tax'] ) )
-				$tax_query = array( array(
+				$tax_query = [ [
 					'taxonomy' => $args['tax'],
 					'field'    => 'slug',
-					'terms'    => array( $args['slug'] ),
-				) );
+					'terms'    => [ $args['slug'] ],
+				] ];
 
 			else
 				$error = TRUE;
@@ -361,11 +362,11 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 				foreach ( $terms as $term )
 					$term_list[] = $term->term_id;
 
-				$tax_query = array( array(
+				$tax_query = [ [
 					'taxonomy' => $args['tax'],
 					'field'    => 'term_id',
 					'terms'    => $term_list,
-				) );
+				] ];
 
 			} else {
 				$error = TRUE;
@@ -378,11 +379,11 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 		$args['title'] = self::shortcodeTermTitle( $args, $term );
 
 		if ( 'on' == $args['future'] )
-			$post_status = array( 'publish', 'future', 'draft' );
+			$post_status = [ 'publish', 'future', 'draft' ];
 		else
-			$post_status = array( 'publish' );
+			$post_status = [ 'publish' ];
 
-		$query_args = array(
+		$query_args = [
 			'tax_query'              => $tax_query,
 			'posts_per_page'         => $args['limit'],
 			'orderby'                => $args['orderby'],
@@ -393,7 +394,7 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 			'no_found_rows'          => TRUE, // counts posts, remove if pagination required
 			'update_post_term_cache' => FALSE, // grabs terms
 			'update_post_meta_cache' => FALSE, // grabs post meta
-		);
+		];
 
 		$query = new \WP_Query;
 		$posts = $query->query( $query_args );
@@ -405,7 +406,7 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 				setup_postdata( $post );
 
 				if ( $args['cb'] ) {
-					$list = call_user_func_array( $args['cb'], array( $post, $args ) );
+					$list = call_user_func_array( $args['cb'], [ $post, $args ] );
 
 				} else {
 
@@ -413,29 +414,29 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 					$order = $args['order_before'] ? Number::format( $args['order_zeroise'] ? zeroise( $post->menu_order, $args['order_zeroise'] ) : $post->menu_order ).$args['order_sep'] : '';
 
 					if ( 'publish' == $post->post_status && $args['li_link'] )
-						$list = $args['li_before'].HTML::tag( 'a', array(
+						$list = $args['li_before'].HTML::tag( 'a', [
 							'href'  => get_permalink( $post->ID ),
 							'title' => $args['li_title'] ? sprintf( $args['li_title'], $title ) : FALSE,
 							'class' => '-link',
-						), $order.$title );
+						], $order.$title );
 
 					else
-						$list = $args['li_before'].HTML::tag( 'span', array(
+						$list = $args['li_before'].HTML::tag( 'span', [
 							'title' => $args['li_title'] ? sprintf( $args['li_title'], $title ) : FALSE,
 							'class' => $args['li_link'] ? '-future' : FALSE,
-						), $order.$title );
+						], $order.$title );
 
 					// TODO: add excerpt/content of the post
 					// TODO: add show/more js
 				}
 
-				$html .= HTML::tag( 'li', array(
+				$html .= HTML::tag( 'li', [
 					'id'    => $args['li_anchor'].$post->ID,
 					'class' => '-item',
-				), $list );
+				], $list );
 			}
 
-			$html = HTML::tag( $args['list'], array( 'class' => '-list' ), $html );
+			$html = HTML::tag( $args['list'], [ 'class' => '-list' ], $html );
 
 			if ( $args['title'] )
 				$html = $args['title'].$html;
@@ -453,16 +454,16 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 
 	// FIXME: working draft
 	// EDITED: 4/5/2016, 5:01:31 PM
-	public function shortcode_all_terms( $atts, $content = NULL, $tag = '' )
+	public function shortcode_all_terms( $atts = [], $content = NULL, $tag = '' )
 	{
-		$args = shortcode_atts( array(
+		$args = shortcode_atts( [
 			'id'      => get_queried_object_id(),
 			'tax'     => NULL,
 			'context' => NULL,
 			'wrap'    => TRUE,
 			'before'  => '',
 			'after'   => '',
-		), $atts, $tag );
+		], $atts, $tag );
 
 		if ( FALSE === $args['context'] )
 			return NULL;
@@ -484,10 +485,10 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 				$html .= '<h3>'.$taxonomy->label.'</h3><ul class="-tax">';
 
 				foreach ( $terms as $term )
-					$html .= vsprintf( '<li class="-term"><a href="%1$s">%2$s</a></li>', array(
+					$html .= vsprintf( '<li class="-term"><a href="%1$s">%2$s</a></li>', [
 						esc_url( get_term_link( $term->slug, $taxonomy->name ) ),
 						sanitize_term_field( 'name', $term->name, $term->term_id, $taxonomy->name, 'display' ),
-					) );
+					] );
 
 				$html .= '</ul>';
 			}
@@ -503,9 +504,9 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 	 * [last-edited before="Last update:"] : 'Last update: Jan-11-2012'
 	 * [last-edited format="l, F j, Y" before="<span>This page hasn't been modified since" after="!</span>"] : '<span>This page hasn't been modified since Friday, January 11, 2012!</span>'
 	 */
-	public function shortcode_last_edited( $atts, $content = NULL, $tag = '' )
+	public function shortcode_last_edited( $atts = [], $content = NULL, $tag = '' )
 	{
-		$args = shortcode_atts( array(
+		$args = shortcode_atts( [
 			'id'       => get_queried_object_id(),
 			'format'   => _x( 'l, F j, Y', 'Modules: ShortCodes: Defaults: Last Edited', GNETWORK_TEXTDOMAIN ),
 			'title'    => 'timeago',
@@ -515,7 +516,7 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 			'wrap'     => TRUE,
 			'before'   => '',
 			'after'    => '',
-		), $atts, $tag );
+		], $atts, $tag );
 
 		if ( FALSE === $args['context'] )
 			return NULL;
@@ -542,9 +543,9 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 	}
 
 	// TODO: more cases
-	public function shortcode_back( $atts, $content = NULL, $tag = '' )
+	public function shortcode_back( $atts = [], $content = NULL, $tag = '' )
 	{
-		$args = shortcode_atts( array(
+		$args = shortcode_atts( [
 			'id'      => get_queried_object_id(),
 			'to'      => 'parent',
 			'html'    => _x( 'Back', 'Modules: ShortCodes: Defaults', GNETWORK_TEXTDOMAIN ),
@@ -552,7 +553,7 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 			'wrap'    => TRUE,
 			'before'  => '',
 			'after'   => '',
-		), $atts, $tag );
+		], $atts, $tag );
 
 		if ( FALSE === $args['context'] )
 			return NULL;
@@ -569,21 +570,21 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 				$post = get_post( $args['id'] );
 				if ( $post ) {
 					if ( $post->post_parent ) {
-						$html = HTML::tag( 'a', array(
+						$html = HTML::tag( 'a', [
 							'href'        => get_permalink( $post->post_parent ),
 							'title'       => get_the_title( $post->post_parent ),
 							'class'       => 'parent',
 							'data-toggle' => 'tooltip',
 							'rel'         => 'parent',
-						), $args['html'] );
+						], $args['html'] );
 					} else {
-						$html = HTML::tag( 'a', array(
+						$html = HTML::tag( 'a', [
 							'href'        => home_url( '/' ),
 							'title'       => _x( 'Home', 'Modules: ShortCodes: Defaults', GNETWORK_TEXTDOMAIN ),
 							'class'       => 'home',
 							'data-toggle' => 'tooltip',
 							'rel'         => 'home',
-						), $args['html'] );
+						], $args['html'] );
 					}
 				}
 
@@ -591,13 +592,13 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 
 			case 'home' :
 
-				$html = HTML::tag( 'a', array(
+				$html = HTML::tag( 'a', [
 					'href'        => home_url( '/' ),
 					'title'       => _x( 'Home', 'Modules: ShortCodes: Defaults', GNETWORK_TEXTDOMAIN ),
 					'class'       => 'home',
 					'data-toggle' => 'tooltip',
 					'rel'         => 'home',
-				), $args['html'] );
+				], $args['html'] );
 
 			break;
 
@@ -651,9 +652,9 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 		return self::shortcodeWrap( $html, 'button', $args, FALSE );
 	}
 
-	public function shortcode_iframe( $atts, $content = NULL, $tag = '' )
+	public function shortcode_iframe( $atts = [], $content = NULL, $tag = '' )
 	{
-		$args = shortcode_atts( array(
+		$args = shortcode_atts( [
 			'url'     => FALSE,
 			'width'   => '100%',
 			'height'  => '520',
@@ -663,7 +664,7 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 			'wrap'    => TRUE,
 			'before'  => '',
 			'after'   => '',
-		), $atts, $tag );
+		], $atts, $tag );
 
 		if ( FALSE === $args['context'] || is_feed() )
 			return NULL;
@@ -671,28 +672,28 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 		if ( ! $args['url'] )
 			return NULL;
 
-		if ( ! in_array( $args['scroll'], array( 'auto', 'yes', 'no' ) ) )
+		if ( ! in_array( $args['scroll'], [ 'auto', 'yes', 'no' ] ) )
 			$args['scroll'] = 'no';
 
 		if ( ! $content )
 			$content = _x( 'Loading &hellip;', 'Modules: ShortCodes: Defaults', GNETWORK_TEXTDOMAIN );
 
-		$html = HTML::tag( 'iframe', array(
+		$html = HTML::tag( 'iframe', [
 			'frameborder' => '0',
 			'src'         => $args['url'],
 			'style'       => $args['style'],
 			'scrolling'   => $args['scroll'],
 			'height'      => $args['height'],
 			'width'       => $args['width'],
-		), $content );
+		], $content );
 
 		return self::shortcodeWrap( $html, 'iframe', $args );
 	}
 
 	// @REF: https://codex.wordpress.org/Javascript_Reference/ThickBox
-	public function shortcode_thickbox( $atts, $content = NULL, $tag = '' )
+	public function shortcode_thickbox( $atts = [], $content = NULL, $tag = '' )
 	{
-		$args = shortcode_atts( array(
+		$args = shortcode_atts( [
 			'url'     => FALSE,
 			'title'   => NULL,
 			'width'   => NULL,
@@ -702,7 +703,7 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 			'wrap'    => TRUE,
 			'before'  => '',
 			'after'   => '',
-		), $atts, $tag );
+		], $atts, $tag );
 
 		if ( FALSE === $args['context'] || is_feed() )
 			return NULL;
@@ -738,9 +739,9 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 	// [email subject="Email Subject"]you@you.com[/email]
 	// http://www.cubetoon.com/2008/how-to-enter-line-break-into-mailto-body-command/
 	// https://css-tricks.com/snippets/html/mailto-links/
-	public function shortcode_email( $atts, $content = NULL, $tag = '' )
+	public function shortcode_email( $atts = [], $content = NULL, $tag = '' )
 	{
-		$args = shortcode_atts( array(
+		$args = shortcode_atts( [
 			'subject' => FALSE,
 			'title'   => FALSE,
 			'email'   => FALSE, // override
@@ -749,7 +750,7 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 			'wrap'    => TRUE,
 			'before'  => '',
 			'after'   => '',
-		), $atts, $tag );
+		], $atts, $tag );
 
 		if ( FALSE === $args['context'] )
 			return NULL;
@@ -772,16 +773,16 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 
 	// @REF: http://stackoverflow.com/a/13662220
 	// @SEE http://code.tutsplus.com/tutorials/mobile-web-quick-tip-phone-number-links--mobile-7667
-	public function shortcode_tel( $atts, $content = NULL, $tag = '' )
+	public function shortcode_tel( $atts = [], $content = NULL, $tag = '' )
 	{
-		$args = shortcode_atts( array(
+		$args = shortcode_atts( [
 			'number'  => NULL,
 			'title'   => FALSE,
 			'context' => NULL,
 			'wrap'    => TRUE,
 			'before'  => '',
 			'after'   => '',
-		), $atts, $tag );
+		], $atts, $tag );
 
 		if ( FALSE === $args['context'] )
 			return NULL;
@@ -808,9 +809,9 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 
 	// @REF: http://stackoverflow.com/a/19126326/4864081
 	// @TEST: http://bradorego.com/test/sms.html
-	public function shortcode_sms( $atts, $content = NULL, $tag = '' )
+	public function shortcode_sms( $atts = [], $content = NULL, $tag = '' )
 	{
-		$args = shortcode_atts( array(
+		$args = shortcode_atts( [
 			'number'  => NULL,
 			'body'    => FALSE,
 			'title'   => FALSE,
@@ -818,7 +819,7 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 			'wrap'    => TRUE,
 			'before'  => '',
 			'after'   => '',
-		), $atts, $tag );
+		], $atts, $tag );
 
 		if ( FALSE === $args['context'] )
 			return NULL;
@@ -835,7 +836,7 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 		if ( ! $content )
 			$content = $number;
 
-		$html = '<a class="sms" href="sms:'.str_ireplace( array( '-', ' ' ), '', $number )
+		$html = '<a class="sms" href="sms:'.str_ireplace( [ '-', ' ' ], '', $number )
 				.( $args['body'] ? '?body='.rawurlencode( $args['body'] )
 				.'" data-sms-body="'.esc_attr( $args['body'] ) : '' )
 				.'"'.( $args['title'] ? ' data-toggle="tooltip" title="'.esc_attr( $args['title'] )
@@ -847,15 +848,15 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 
 	// WORKING DRAFT
 	// FIXME: add def atts / wrap
-	public function shortcode_qrcode( $atts, $content = NULL, $tag = '' )
+	public function shortcode_qrcode( $atts = [], $content = NULL, $tag = '' )
 	{
 		return $content ? Utilities::getGoogleQRCode( trim( $content ), $atts ) : $content;
 	}
 
 	// TODO: also [search-form] to include current theme search form
-	public function shortcode_search( $atts, $content = NULL, $tag = '' )
+	public function shortcode_search( $atts = [], $content = NULL, $tag = '' )
 	{
-		$args = shortcode_atts( array(
+		$args = shortcode_atts( [
 			'for'     => FALSE, // override
 			'url'     => FALSE, // override
 			'title'   => _x( 'Search this site for &ldquo;%s&rdquo;', 'Modules: ShortCodes: Defaults', GNETWORK_TEXTDOMAIN ),
@@ -863,7 +864,7 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 			'wrap'    => TRUE,
 			'before'  => '',
 			'after'   => '',
-		), $atts, $tag );
+		], $atts, $tag );
 
 		if ( FALSE === $args['context'] )
 			return NULL;
@@ -874,20 +875,20 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 		$text = trim( strip_tags( $content ) );
 		$for  = $args['for'] ? trim( $args['for'] ) : $text;
 
-		$html = HTML::tag( 'a', array(
+		$html = HTML::tag( 'a', [
 			'href'  => WordPress::getSearchLink( $for, $args['url'] ),
 			'title' => sprintf( $args['title'], $for ),
-		), $text );
+		], $text );
 
 		return self::shortcodeWrap( $html, 'search', $args, FALSE );
 	}
 
 	// TODO: rewrite this
-	public function shortcode_googlegroups( $atts, $content = NULL, $tag = '' )
+	public function shortcode_googlegroups( $atts = [], $content = NULL, $tag = '' )
 	{
 		self::__dep();
 
-		$args = shortcode_atts( array(
+		$args = shortcode_atts( [
 			'title_wrap' => 'h3',
 			'id'         => constant( 'GNETWORK_GOOGLE_GROUP_ID' ),
 			'logo'       => 'color',
@@ -895,7 +896,7 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 			'hl'         => constant( 'GNETWORK_GOOGLE_GROUP_HL' ),
 			'context'    => NULL,
 			'wrap'       => TRUE,
-		), $atts, $tag );
+		], $atts, $tag );
 
 		if ( FALSE === $args['context'] || is_feed() )
 			return NULL;
@@ -944,9 +945,9 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 
 	// @SEE: https://github.com/pipwerks/PDFObject
 	// TODO: download option
-	public function shortcode_pdf( $atts, $content = NULL, $tag = '' )
+	public function shortcode_pdf( $atts = [], $content = NULL, $tag = '' )
 	{
-		$args = shortcode_atts( array(
+		$args = shortcode_atts( [
 			'url'      => FALSE,
 			'width'    => FALSE, // default is full width
 			'height'   => FALSE, // '960px',
@@ -957,7 +958,7 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 			'wrap'     => TRUE,
 			'before'   => '',
 			'after'    => '',
-		), $atts, $tag );
+		], $atts, $tag );
 
 		if ( FALSE === $args['context'] )
 			return NULL;
@@ -968,24 +969,24 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 		if ( is_feed() )
 			return '<p class="-feedlink">'.sprintf( $args['feedlink'], $args['url'] ).'</p>';
 
-		$options = array(
+		$options = [
 			'fallbackLink' => '<p class="-fallback">'.sprintf( $args['fallback'], $args['url'] ).'</p>',
-		);
+		];
 
-		foreach ( array( 'width', 'height', 'view' ) as $option )
+		foreach ( [ 'width', 'height', 'view' ] as $option )
 			if ( $args[$option] )
 				$options[$option] = $args[$option];
 
 		$selector = $this->selector( 'pdfobject-%2$s' );
 		$this->scripts_nojquery[$selector] = 'PDFObject.embed("'.$args['url'].'", "#'.$selector.'",'.wp_json_encode( $options ).');';
 
-		Utilities::enqueueScriptVendor( 'pdfobject', array(), '2.0.201604172' );
+		Utilities::enqueueScriptVendor( 'pdfobject', [], '2.0.201604172' );
 		return self::shortcodeWrap( '<div id="'.$selector.'"></div>', 'pdf', $args );
 	}
 
-	public function shortcode_csv( $atts = array(), $content = NULL, $tag = '' )
+	public function shortcode_csv( $atts = [], $content = NULL, $tag = '' )
 	{
-		$args = shortcode_atts( array(
+		$args = shortcode_atts( [
 			'id'      => FALSE,
 			'url'     => FALSE,
 			'columns' => NULL,
@@ -993,12 +994,12 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 			'wrap'    => TRUE,
 			'before'  => '',
 			'after'   => '',
-		), $atts, $tag );
+		], $atts, $tag );
 
 		if ( FALSE === $args['context'] )
 			return NULL;
 
-		$titles = $data = array();
+		$titles = $data = [];
 
 		if ( $args['id'] ) {
 
@@ -1051,14 +1052,14 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 	}
 
 	// EXAMPLE: [bloginfo key='name']
-	public function shortcode_bloginfo( $atts, $content = NULL, $tag = '' )
+	public function shortcode_bloginfo( $atts = [], $content = NULL, $tag = '' )
 	{
-		$args = shortcode_atts( array(
+		$args = shortcode_atts( [
 			'key'     => '', // SEE: http://codex.wordpress.org/Template_Tags/bloginfo
 			'class'   => '', // OR: 'key-%s'
 			'context' => NULL,
 			'wrap'    => FALSE,
-		), $atts, $tag );
+		], $atts, $tag );
 
 		if ( FALSE === $args['context'] )
 			return NULL;
@@ -1076,11 +1077,11 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 
 	// http://wordpress.org/extend/plugins/kimili-flash-embed/other_notes/
 	// http://yoast.com/articles/valid-flash-embedding/
-	public function shortcode_flash( $atts, $content = NULL, $tag = '' )
+	public function shortcode_flash( $atts = [], $content = NULL, $tag = '' )
 	{
 		self::__dep();
 
-		$args = shortcode_atts( array(
+		$args = shortcode_atts( [
 			'swf'       => FALSE, // comma seperated multiple url to show multiple flash // UNFINISHED
 			'width'     => '800',
 			'height'    => '600',
@@ -1094,7 +1095,7 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 			'download'  => FALSE,
 			'context'   => NULL,
 			'wrap'      => TRUE,
-		), $atts, $tag );
+		], $atts, $tag );
 
 		if ( FALSE === $args['context'] || is_feed() )
 			return NULL;
@@ -1132,9 +1133,9 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 
 	// [audio-go to="60"]Go to 60 second mark and play[/audio-go]
 	// http://bavotasan.com/2015/working-with-wordpress-and-mediaelement-js/
-	public function shortcode_audio_go( $atts, $content = NULL, $tag = '' )
+	public function shortcode_audio_go( $atts = [], $content = NULL, $tag = '' )
 	{
-		$args = shortcode_atts( array(
+		$args = shortcode_atts( [
 			'to'       => '0',
 			'instance' => '0',
 			'title'    => _x( 'Go to %s second mark and play', 'Shortcodes Module: Defaults', GNETWORK_TEXTDOMAIN ),
@@ -1142,7 +1143,7 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 			'wrap'     => TRUE,
 			'before'   => '',
 			'after'    => '',
-		), $atts, $tag );
+		], $atts, $tag );
 
 		if ( FALSE === $args['context'] )
 			return NULL;
@@ -1160,16 +1161,16 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 	}
 
 	// wrapper for default core audio shortcode
-	public function shortcode_audio( $atts, $content = NULL, $tag = '' )
+	public function shortcode_audio( $atts = [], $content = NULL, $tag = '' )
 	{
-		$args = shortcode_atts( array(
+		$args = shortcode_atts( [
 			'download' => FALSE,
 			'filename' => FALSE, // http://davidwalsh.name/download-attribute
 			'context'  => NULL,
 			'wrap'     => TRUE,
 			'before'   => '',
 			'after'    => '',
-		), $atts, $tag );
+		], $atts, $tag );
 
 		if ( FALSE === $args['context'] || is_feed() )
 			return NULL;
@@ -1188,9 +1189,9 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 	}
 
 	// helper
-	public static function getAudioSource( $atts = array() )
+	public static function getAudioSource( $atts = [] )
 	{
-		$sources = array(
+		$sources = [
 			'src',
 			'source',
 			'mp3',
@@ -1201,7 +1202,7 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 			'wmaremote',
 			'wmv',
 			'wmvremote',
-		);
+		];
 
 		foreach ( $sources as $source )
 			if ( ! empty( $atts[$source] ) )
@@ -1221,12 +1222,12 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 	}
 
 	// http://en.wikipedia.org/wiki/Help:Footnotes
-	public function shortcode_ref( $atts, $content = NULL, $tag = '' )
+	public function shortcode_ref( $atts = [], $content = NULL, $tag = '' )
 	{
 		if ( is_null( $content ) || ! is_singular() || is_feed() )
 			return NULL;
 
-		$args = shortcode_atts( array(
+		$args = shortcode_atts( [
 			'url'           => FALSE,
 			'url_title'     => _x( 'See More', 'Shortcodes Module: Defaults', GNETWORK_TEXTDOMAIN ),
 			'url_icon'      => 'def',
@@ -1234,7 +1235,7 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 			'format_number' => TRUE,
 			'rtl'           => is_rtl(),
 			'context'       => NULL,
-		), $atts, $tag );
+		], $atts, $tag );
 
 		if ( FALSE === $args['context'] )
 			return NULL;
@@ -1248,12 +1249,12 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 			$args['url_icon'] = $args['rtl'] ? '&larr;' : '&rarr;';
 
 		if ( $args['url'] )
-			$url = HTML::tag( 'a', array(
+			$url = HTML::tag( 'a', [
 				'class'       => 'reference-external',
 				'data-toggle' => 'tooltip',
 				'href'        => $args['url'],
 				'title'       => $args['url_title'],
-			), $args['url_icon'] );
+			], $args['url_icon'] );
 
 		if ( $ref && $url )
 			$ref = $ref.'&nbsp;'.$url;
@@ -1266,18 +1267,18 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 		$key = count( $this->ref_ids ) + 1;
 		$this->ref_ids[$key] = $ref;
 
-		$html = HTML::tag( 'a', array(
+		$html = HTML::tag( 'a', [
 			'class'       => 'cite-scroll', // FIXME: add default styles
 			'data-toggle' => 'tooltip',
 			'href'        => '#citenote-'.$key,
 			'title'       => $title,
-		), '&#8207;['.( $args['format_number'] ? Number::format( $key ) : $key ).']&#8206;' );
+		], '&#8207;['.( $args['format_number'] ? Number::format( $key ) : $key ).']&#8206;' );
 
 		return '<sup class="ref reference '.$args['class'].'" id="citeref-'.$key.'">'.$html.'</sup>';
 	}
 
 	// TODO: add column : http://en.wikipedia.org/wiki/Help:Footnotes#Reference_lists:_columns
-	public function shortcode_reflist( $atts, $content = NULL, $tag = '' )
+	public function shortcode_reflist( $atts = [], $content = NULL, $tag = '' )
 	{
 		if ( $this->ref_list || is_feed() ) // FIXME: add notice in feed to read ref on the blog
 			return NULL;
@@ -1285,7 +1286,7 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 		if ( ! is_singular() || ! count( $this->ref_ids ) )
 			return NULL;
 
-		$args = shortcode_atts( array(
+		$args = shortcode_atts( [
 			'class'         => 'ref-list',
 			'number'        => TRUE,
 			'after_number'  => '.&nbsp;',
@@ -1296,7 +1297,7 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 			'wrap'          => TRUE,
 			'before'        => '',
 			'after'         => '',
-		), $atts, $tag );
+		], $atts, $tag );
 
 		if ( FALSE === $args['context'] )
 			return NULL;
@@ -1310,12 +1311,12 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 			$item  = '<span class="ref-number">';
 			$item .= ( $args['number'] ? ( $args['format_number'] ? Number::format( $key ) : $key ).$args['after_number'] : '' );
 
-			$item .= HTML::tag( 'a', array(
+			$item .= HTML::tag( 'a', [
 				'class'       => 'cite-scroll',
 				// 'data-toggle' => 'tooltip',
 				'href'        => '#citeref-'.$key,
 				'title'       => $args['back_title'],
-			), $args['back'] );
+			], $args['back'] );
 
 			$html .= '<li>'.$item.'</span> <span class="ref-text"><span class="citation" id="citenote-'.$key.'">'.$text.'</span></span></li>';
 		}
@@ -1334,11 +1335,11 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 	public function content_after_reflist( $content )
 	{
 		if ( ! $this->ref_list )
-			echo $this->shortcode_reflist( array(), NULL, 'reflist' );
+			echo $this->shortcode_reflist( [], NULL, 'reflist' );
 	}
 
 	// FIXME: check this!
-	public function shortcode_ref_manual( $atts, $content = NULL, $tag = '' )
+	public function shortcode_ref_manual( $atts = [], $content = NULL, $tag = '' )
 	{
 		if ( is_null( $content ) || ! is_singular() || is_feed() )
 			return NULL;
@@ -1346,21 +1347,23 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 		// [ref-m id="0" caption="Caption Title"]
 		// [ref-m 0 "Caption Title"]
 		if ( isset( $atts['id'] ) ) {
-			$args = shortcode_atts( array(
+
+			$args = shortcode_atts( [
 				'id'            => 0,
 				'title'         => _x( 'See the Footnote', 'Shortcodes Module: Defaults', GNETWORK_TEXTDOMAIN ),
 				'class'         => 'ref-anchor',
 				'format_number' => TRUE,
 				'context'       => NULL,
-				), $atts, $tag );
+			], $atts, $tag );
 
-				if ( FALSE === $args['context'] )
-					return NULL;
+			if ( FALSE === $args['context'] )
+				return NULL;
 
 		} else { // [ref-m 0]
-			$args['id'] = isset( $atts[0] ) ? $atts[0] : FALSE;
-			$args['title'] = isset( $atts[1] ) ? $atts[1] : _x( 'See the Footnote', 'Shortcodes Module: Defaults', GNETWORK_TEXTDOMAIN );
-			$args['class'] = isset( $atts[2] ) ? $atts[2] : 'ref-anchor';
+
+			$args['id']            = isset( $atts[0] ) ? $atts[0] : FALSE;
+			$args['title']         = isset( $atts[1] ) ? $atts[1] : _x( 'See the Footnote', 'Shortcodes Module: Defaults', GNETWORK_TEXTDOMAIN );
+			$args['class']         = isset( $atts[2] ) ? $atts[2] : 'ref-anchor';
 			$args['format_number'] = isset( $atts[3] ) ? $atts[3] : TRUE;
 		}
 
@@ -1371,7 +1374,7 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 	}
 
 	// FIXME: check this!
-	public function shortcode_reflist_manual( $atts, $content = NULL, $tag = '' )
+	public function shortcode_reflist_manual( $atts = [], $content = NULL, $tag = '' )
 	{
 		if ( is_feed() )
 			return NULL;
@@ -1379,7 +1382,8 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 		// [reflist-m id="0" caption="Caption Title"]
 		// [reflist-m 0 "Caption Title"]
 		if ( isset( $atts['id'] ) ) {
-			$args = shortcode_atts( array(
+
+			$args = shortcode_atts( [
 				'id'            => 0,
 				'title'         => _x( 'See the Footnote', 'Shortcodes Module: Defaults', GNETWORK_TEXTDOMAIN ),
 				'class'         => 'ref-anchor',
@@ -1387,7 +1391,7 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 				'back'          => is_rtl() ? '[&#8618;]' : '[&#8617;]', //'&uarr;',
 				'context'       => NULL,
 				'wrap'          => TRUE,
-			), $atts, $tag );
+			], $atts, $tag );
 
 			if ( FALSE === $args['context'] )
 				return NULL;
@@ -1409,24 +1413,26 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 				.'</a></span><span class="ref-text"><span class="citation" id="citenote-'.$args['id'].'-m">&nbsp;</span></span></span>';
 	}
 
-	public function shortcode_person( $atts, $content = NULL, $tag = '' )
+	public function shortcode_person( $atts = [], $content = NULL, $tag = '' )
 	{
-		$args = shortcode_atts( array(
+		$args = shortcode_atts( [
 			'id'      => FALSE,
 			'name'    => FALSE,
 			'context' => NULL,
 			'wrap'    => TRUE,
 			'before'  => '',
 			'after'   => '',
-		), $atts, $tag );
+		], $atts, $tag );
 
 		if ( FALSE === $args['context'] )
 			return NULL;
 
 		if ( $args['name'] )
 			$person = trim( $args['name'] );
+
 		else if ( is_null( $content ) )
 			return NULL;
+
 		else
 			$person = trim( strip_tags( $content ) );
 
@@ -1437,16 +1443,16 @@ class ShortCodes extends \geminorum\gNetwork\ModuleCore
 				return $content;
 
 			// FIXME: must cache the term, not html
-			$this->people[$person] = HTML::tag( 'a', array(
+			$this->people[$person] = HTML::tag( 'a', [
 				'href'        => get_term_link( $term, $term->taxonomy ),
 				'title'       => sanitize_term_field( 'name', $term->name, $term->term_id, $term->taxonomy, 'display' ),
 				'data-toggle' => 'tooltip',
-				'class'       => array(
+				'class'       => [
 					'person-'.$term->slug,
 					'reference-people',
 					'tooltip',
-				),
-			), ( $content ? trim( strip_tags( $content ) ) : $term->name ) );
+				],
+			], ( $content ? trim( strip_tags( $content ) ) : $term->name ) );
 		}
 
 		return self::shortcodeWrap( $this->people[$person], 'person', $args, FALSE );

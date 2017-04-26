@@ -18,7 +18,7 @@ class AdminBar extends \geminorum\gNetwork\ModuleCore
 	private $sidebar_admin = FALSE;
 	private $show_adminbar = NULL;
 
-	public $remove_nodes = array();
+	public $remove_nodes = [];
 
 	protected function setup_actions()
 	{
@@ -39,7 +39,7 @@ class AdminBar extends \geminorum\gNetwork\ModuleCore
 		} else if ( $this->show_adminbar() ) {
 
 			$this->setup_adminbar();
-			add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_style' ) );
+			add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_style' ] );
 
 		} else {
 			show_admin_bar( FALSE );
@@ -69,17 +69,17 @@ class AdminBar extends \geminorum\gNetwork\ModuleCore
 	{
 		// user related, aligned right
 		add_action( 'admin_bar_menu', 'wp_admin_bar_my_account_menu', 0 );
-		add_action( 'admin_bar_menu', array( $this, 'wp_admin_bar_search_menu' ), 4 );
+		add_action( 'admin_bar_menu', [ $this, 'wp_admin_bar_search_menu' ], 4 );
 		add_action( 'admin_bar_menu', 'wp_admin_bar_my_account_item', 7 );
 
 		// site related
 		add_action( 'admin_bar_menu', 'wp_admin_bar_sidebar_toggle', 0 );
-		add_action( 'admin_bar_menu', array( $this, 'wp_admin_bar_wp_menu' ), 10 );
+		add_action( 'admin_bar_menu', [ $this, 'wp_admin_bar_wp_menu' ], 10 );
 
 		if ( GNETWORK_NETWORK_EXTRAMENU && current_user_can( GNETWORK_NETWORK_EXTRAMENU_CAP ) )
-			add_action( 'admin_bar_menu', array( $this, 'wp_admin_bar_extra_menu' ), 10 );
+			add_action( 'admin_bar_menu', [ $this, 'wp_admin_bar_extra_menu' ], 10 );
 
-		add_action( 'admin_bar_menu', array( $this, 'wp_admin_bar_my_sites_menu' ), 25 );
+		add_action( 'admin_bar_menu', [ $this, 'wp_admin_bar_my_sites_menu' ], 25 );
 
 		add_action( 'admin_bar_menu', 'wp_admin_bar_site_menu', 30 );
 		add_action( 'admin_bar_menu', 'wp_admin_bar_customize_menu', 40 );
@@ -92,7 +92,7 @@ class AdminBar extends \geminorum\gNetwork\ModuleCore
 		}
 
 		add_action( 'admin_bar_menu', 'wp_admin_bar_edit_menu', 80 );
-		add_action( 'admin_bar_menu', array( $this, 'wp_admin_bar_shortlink_menu' ), 90 );
+		add_action( 'admin_bar_menu', [ $this, 'wp_admin_bar_shortlink_menu' ], 90 );
 
 		add_action( 'admin_bar_menu', 'wp_admin_bar_add_secondary_groups', 200 );
 	}
@@ -128,15 +128,15 @@ class AdminBar extends \geminorum\gNetwork\ModuleCore
 	public function wp_enqueue_style()
 	{
 		if ( file_exists( WP_CONTENT_DIR.'/adminbar.css' ) )
-			wp_enqueue_style( 'gnetwork-adminbar', WP_CONTENT_URL.'/adminbar.css', array( 'admin-bar' ), GNETWORK_VERSION );
+			wp_enqueue_style( 'gnetwork-adminbar', WP_CONTENT_URL.'/adminbar.css', [ 'admin-bar' ], GNETWORK_VERSION );
 	}
 
 	// fires early before the Widgets administration screen loads, after scripts are enqueued.
 	public function sidebar_admin_setup()
 	{
 		if ( $this->is_action( 'resetsidebars' ) ) {
-			update_option( 'sidebars_widgets', array() );
-			$_SERVER['REQUEST_URI'] = $this->remove_action( array(), $_SERVER['REQUEST_URI'] );
+			update_option( 'sidebars_widgets', [] );
+			$_SERVER['REQUEST_URI'] = $this->remove_action( [], $_SERVER['REQUEST_URI'] );
 		}
 
 		$this->sidebar_admin = TRUE;
@@ -171,67 +171,67 @@ class AdminBar extends \geminorum\gNetwork\ModuleCore
 		$parent_id = $this->base.'-info';
 		$group_id  = $parent_id.'-sub';
 
-		$wp_admin_bar->add_node( array(
+		$wp_admin_bar->add_node( [
 			'id'     => $parent_id,
 			'title'  => self::getIcon( 'performance' ),
 			'parent' => 'top-secondary',
 			'href'   => $admin_url,
-		) );
+		] );
 
-		$wp_admin_bar->add_node( array(
+		$wp_admin_bar->add_node( [
 			'parent' => $parent_id,
 			'id'     => $this->base.'-debug',
 			'title'  => _x( 'Display Errors', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 			'href'   => add_query_arg( 'debug', '', $current_url ),
-			'meta'   => array(
+			'meta'   => [
 				'title' => _x( 'Display debug info for the current page', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
-			),
-		) );
+			],
+		] );
 
-		$wp_admin_bar->add_node( array(
+		$wp_admin_bar->add_node( [
 			'parent' => $parent_id,
 			'id'     => $this->base.'-flush',
 			'title'  => _x( 'Flush Cached', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 			'href'   => add_query_arg( 'flush', '', $current_url ),
-			'meta'   => array(
+			'meta'   => [
 				'title' => _x( 'Flush cached data for the current page', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
-			),
-		) );
+			],
+		] );
 
-		$wp_admin_bar->add_node( array(
+		$wp_admin_bar->add_node( [
 			'parent' => $parent_id,
 			'id'     => $this->base.'-flushrewrite',
 			'title'  => _x( 'Flush Permalinks', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 			'href'   => add_query_arg( $this->base.'_action', 'flushrewrite', $current_url ),
-			'meta'   => array(
+			'meta'   => [
 				'title' => _x( 'Removes rewrite rules and then recreate rewrite rules', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
-			),
-		) );
+			],
+		] );
 
 		if ( defined( 'GNETWORK_WPLANG' )
 			&& is_blog_admin()
 			&& class_exists( __NAMESPACE__.'\\Locale' ) ) {
 
-			$wp_admin_bar->add_node( array(
+			$wp_admin_bar->add_node( [
 				'parent' => $parent_id,
 				'id'     => $this->base.'-locale',
 				'title'  => _x( 'Change Locale', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 				'href'   => Settings::subURL( 'locale', FALSE ),
-				'meta'   => array(
+				'meta'   => [
 					'title' => _x( 'Quickly change current blog language', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
-				),
-			) );
+				],
+			] );
 
 			foreach ( Locale::available() as $locale ) {
-				$wp_admin_bar->add_node( array(
+				$wp_admin_bar->add_node( [
 					'parent' => $this->base.'-locale',
 					'id'     => $this->base.'-locale-'.$locale,
 					'title'  => $locale,
-					'href'   => add_query_arg( array(
+					'href'   => add_query_arg( [
 						$this->base.'_action' => 'locale',
 						'locale'              => $locale,
-					), $current_url ),
-				) );
+					], $current_url ),
+				] );
 			}
 		}
 
@@ -239,73 +239,73 @@ class AdminBar extends \geminorum\gNetwork\ModuleCore
 
 			if ( $calls = gNetwork()->debug->get_http_calls() ) {
 
-				$wp_admin_bar->add_node( array(
+				$wp_admin_bar->add_node( [
 					'parent' => $parent_id,
 					'id'     => $this->base.'-api-calls',
 					'title'  => _x( 'HTTP Calls', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
-				) );
+				] );
 
 				foreach (  $calls as $offset => $call ) {
 
 					$url = URL::parse( $call['url'] );
 
-					$wp_admin_bar->add_node( array(
+					$wp_admin_bar->add_node( [
 						'parent' => $this->base.'-api-calls',
 						'id'     => $this->base.'-api-calls-'.$offset,
 						'title'  => $call['class'].': '.$url['base'],
 						'href'   => $call['url'],
-					) );
+					] );
 
 					foreach ( $url['query'] as $key => $val )
-						$wp_admin_bar->add_node( array(
+						$wp_admin_bar->add_node( [
 							'parent' => $this->base.'-api-calls-'.$offset,
 							'id'     => $this->base.'-api-calls-'.$offset.'-'.$key,
 							'title'  => sprintf( '%s: %s', $key, $val ),
-						) );
+						] );
 				}
 			}
 		}
 
-		$wp_admin_bar->add_group( array(
+		$wp_admin_bar->add_group( [
 			'parent' => $parent_id,
 			'id'     => $group_id,
-			'meta'   => array(
+			'meta'   => [
 				'class' => 'ab-sub-secondary',
-			),
-		) );
+			],
+		] );
 
-		do_action_ref_array( 'gnetwork_adminbar_action', array( &$wp_admin_bar, $parent_id, $group_id, $current_url ) );
+		do_action_ref_array( 'gnetwork_adminbar_action', [ &$wp_admin_bar, $parent_id, $group_id, $current_url ] );
 
 		if ( $this->sidebar_admin )
-			$wp_admin_bar->add_node( array(
+			$wp_admin_bar->add_node( [
 				'parent' => $group_id,
 				'id'     => $this->base.'-reset-sidebars',
 				'title'  => _x( 'Reset Sidebars', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 				'href'   => add_query_arg( $this->base.'_action', 'resetsidebars', $current_url ),
-				'meta'   => array(
+				'meta'   => [
 					'title' => _x( 'Delete all previous sidebar widgets, be careful!', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ) ,
-				),
-			) );
+				],
+			] );
 
-		$wp_admin_bar->add_node( array(
+		$wp_admin_bar->add_node( [
 			'parent' => $group_id,
 			'id'     => $this->base.'-info-pagenow',
 			'title'  => 'PageNow: '.( empty( $pagenow ) ? 'EMPTY' : $pagenow ),
 			'href'   => GNETWORK_ANALOG_LOG ? Settings::subURL( 'analoglogs' ) : FALSE,
-			'meta'   => array(
+			'meta'   => [
 				'title' => _x( 'Click to see Logs', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
-			),
-		) );
+			],
+		] );
 
-		$wp_admin_bar->add_node( array(
+		$wp_admin_bar->add_node( [
 			'parent' => $group_id,
 			'id'     => $this->base.'-info-queries',
 			'title'  => self::stat( '%dq | %.3fs | %.2fMB' ),
 			'href'   => GNETWORK_DEBUG_LOG ? Settings::subURL( 'errorlogs' ) : FALSE,
-			'meta'   => array(
+			'meta'   => [
 				'title' => _x( 'Queries | Timer Stop | Memory Usage', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
-			),
-		) );
+			],
+		] );
 	}
 
 	public function save_post_nav_menu_item( $post_id, $post )
@@ -342,7 +342,7 @@ class AdminBar extends \geminorum\gNetwork\ModuleCore
 				&& $term = get_term( $locations[$name], 'nav_menu' ) )
 					$nav_menu = $term->term_id;
 
-			if ( $menu = wp_get_nav_menu_items( $nav_menu, array( 'update_post_term_cache' => FALSE ) ) ) {
+			if ( $menu = wp_get_nav_menu_items( $nav_menu, [ 'update_post_term_cache' => FALSE ] ) ) {
 				update_site_option( $key, $menu );
 				return $menu;
 			}
@@ -363,15 +363,15 @@ class AdminBar extends \geminorum\gNetwork\ModuleCore
 		$form .= '<input type="submit" class="adminbar-button" value="'._x( 'Search', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ).'"/>';
 		$form .= '</form>';
 
-		$wp_admin_bar->add_menu( array(
+		$wp_admin_bar->add_menu( [
 			'parent' => 'top-secondary',
 			'id'     => 'search',
 			'title'  => $form,
-			'meta'   => array(
+			'meta'   => [
 				'class'    => 'admin-bar-search',
 				'tabindex' => -1,
-			)
-		) );
+			]
+		] );
 	}
 
 	public function wp_admin_bar_shortlink_menu( $wp_admin_bar )
@@ -385,15 +385,15 @@ class AdminBar extends \geminorum\gNetwork\ModuleCore
 		if ( ! $short = wp_get_shortlink( 0, 'query' ) )
 			return;
 
-		$wp_admin_bar->add_menu( array(
+		$wp_admin_bar->add_menu( [
 			'id'    => 'get-shortlink',
 			'title' => self::getIcon( 'admin-links' ),
 			'href'  => $short,
-			'meta'  => array(
+			'meta'  => [
 				'html'  => '<input class="shortlink-input" style="margin:2px 0 0 0;" type="text" readonly="readonly" value="'.esc_attr( $short ).'" />',
 				'title' => _x( 'Shortlink', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
-			),
-		) );
+			],
+		] );
 	}
 
 	public function wp_admin_bar_my_sites_menu( $wp_admin_bar )
@@ -412,81 +412,81 @@ class AdminBar extends \geminorum\gNetwork\ModuleCore
 			$my_sites_url = admin_url( 'my-sites.php' );
 		}
 
-		$wp_admin_bar->add_menu( array(
+		$wp_admin_bar->add_menu( [
 			'id'    => 'my-sites',
 			'title' => '',
 			'href'  => $my_sites_url,
-			'meta'  => array(
+			'meta'  => [
 				'title' => _x( 'My Sites', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
-			),
-		) );
+			],
+		] );
 
 		// FIXME: rewrite this
 		// @SEE: https://core.trac.wordpress.org/ticket/39082
 		if ( $super_admin ) {
 
-			$wp_admin_bar->add_group( array(
+			$wp_admin_bar->add_group( [
 				'parent' => 'my-sites',
 				'id'     => 'my-sites-super-admin',
-			) );
+			] );
 
-			$wp_admin_bar->add_menu( array(
+			$wp_admin_bar->add_menu( [
 				'parent' => 'my-sites-super-admin',
 				'id'     => 'network-admin',
 				'title'  => _x( 'Network Admin', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 				'href'   => network_admin_url(),
-			) );
+			] );
 
-			$wp_admin_bar->add_menu( array(
+			$wp_admin_bar->add_menu( [
 				'parent' => 'network-admin',
 				'id'     => 'network-admin-s',
 				'title'  => _x( 'Sites', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 				'href'   => network_admin_url( 'sites.php' ),
-			) );
+			] );
 
-			$wp_admin_bar->add_menu( array(
+			$wp_admin_bar->add_menu( [
 				'parent' => 'network-admin',
 				'id'     => 'network-admin-u',
 				'title'  => _x( 'Users', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 				'href'   => network_admin_url( 'users.php' ),
-			) );
+			] );
 
-			$wp_admin_bar->add_menu( array(
+			$wp_admin_bar->add_menu( [
 				'parent' => 'network-admin',
 				'id'     => 'network-admin-t',
 				'title'  => _x( 'Themes', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 				'href'   => network_admin_url( 'themes.php' ),
-			) );
+			] );
 
-			$wp_admin_bar->add_menu( array(
+			$wp_admin_bar->add_menu( [
 				'parent' => 'network-admin',
 				'id'     => 'network-admin-p',
 				'title'  => _x( 'Plugins', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 				'href'   => network_admin_url( 'plugins.php' ),
-			) );
+			] );
 
-			$wp_admin_bar->add_menu( array(
+			$wp_admin_bar->add_menu( [
 				'parent' => 'network-admin',
 				'id'     => 'network-admin-o',
 				'title'  => _x( 'Settings', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 				'href'   => network_admin_url( 'settings.php' ),
-			) );
+			] );
 
-			$wp_admin_bar->add_menu( array(
+			$wp_admin_bar->add_menu( [
 				'parent' => 'network-admin',
 				'id'     => 'network-admin-uc',
 				'title'  => _x( 'Updates', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 				'href'   => network_admin_url( 'update-core.php' ),
-			) );
+			] );
 		}
 
-		$wp_admin_bar->add_group( array(
+		$wp_admin_bar->add_group( [
 			'parent' => 'my-sites',
 			'id'     => 'my-sites-list',
-			'meta'   => array(
+			'meta'   => [
 				'class' => $super_admin ? 'ab-sub-secondary' : '',
-			),
-		) );
+			],
+		] );
 
 		$blogs = $super_admin ? self::getAllBlogs() : (array) $wp_admin_bar->user->blogs;
 
@@ -501,66 +501,66 @@ class AdminBar extends \geminorum\gNetwork\ModuleCore
 			if ( ! $blogname = get_option( 'blogname' ) )
 				$blogname = WordPress::currentBlog();
 
-			$wp_admin_bar->add_menu( array(
+			$wp_admin_bar->add_menu( [
 				'parent'    => 'my-sites-list',
 				'id'        => $menu_id,
 				'title'     => $blavatar.$blogname,
 				'href'      => admin_url(),
-			) );
+			] );
 
-			$wp_admin_bar->add_menu( array(
+			$wp_admin_bar->add_menu( [
 				'parent' => $menu_id,
 				'id'     => $menu_id.'-d',
 				'title'  => _x( 'Dashboard', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 				'href'   => admin_url(),
-			) );
+			] );
 
 			if ( $super_admin || current_user_can( get_post_type_object( 'post' )->cap->edit_posts ) )
-				$wp_admin_bar->add_menu( array(
+				$wp_admin_bar->add_menu( [
 					'parent' => $menu_id,
 					'id'     => $menu_id.'-e',
 					'title'  => _x( 'Posts', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 					'href'   => admin_url( 'edit.php' ),
-				) );
+				] );
 
 			if ( $super_admin || current_user_can( 'list_users' ) )
-				$wp_admin_bar->add_menu( array(
+				$wp_admin_bar->add_menu( [
 					'parent' => $menu_id,
 					'id'     => $menu_id.'-u',
 					'title'  => _x( 'Users', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 					'href'   => admin_url( 'users.php' ),
-				) );
+				] );
 
 			if ( $super_admin || current_user_can( 'manage_options' ) )
-				$wp_admin_bar->add_menu( array(
+				$wp_admin_bar->add_menu( [
 					'parent' => $menu_id,
 					'id'     => $menu_id.'-s',
 					'title'  => _x( 'Settings', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 					'href'   => admin_url( 'options-general.php' ),
-				) );
+				] );
 
 			if ( $super_admin ) {
-				$wp_admin_bar->add_menu( array(
+				$wp_admin_bar->add_menu( [
 					'parent' => $menu_id,
 					'id'     => $menu_id.'-e-s',
 					'title'  => _x( 'Edit Site', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 					'href'   => network_admin_url( 'site-info.php?id='.$blog->userblog_id ),
-				) );
+				] );
 
-				$wp_admin_bar->add_menu( array(
+				$wp_admin_bar->add_menu( [
 					'parent' => $menu_id,
 					'id'     => $menu_id.'-e-t',
 					'title'  => _x( 'Edit Themes', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 					'href'   => network_admin_url( 'site-themes.php?id='.$blog->userblog_id ),
-				) );
+				] );
 			}
 
-			$wp_admin_bar->add_menu( array(
+			$wp_admin_bar->add_menu( [
 				'parent' => $menu_id,
 				'id'     => $menu_id.'-v',
 				'title'  => _x( 'Visit Site', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 				'href'   => home_url( '/' ),
-			) );
+			] );
 
 			restore_current_blog();
 		}
@@ -580,10 +580,10 @@ class AdminBar extends \geminorum\gNetwork\ModuleCore
 			ORDER BY registered DESC
 		", $wpdb->siteid ) );
 
-		$blogs = array();
+		$blogs = [];
 
 		foreach ( $blog_ids as $blog_id )
-			$blogs[$blog_id] = (object) array( 'userblog_id' => $blog_id );
+			$blogs[$blog_id] = (object) [ 'userblog_id' => $blog_id ];
 
 		return $blogs;
 	}
@@ -592,7 +592,7 @@ class AdminBar extends \geminorum\gNetwork\ModuleCore
 	{
 		// custom menu by filter, it's better 'cause there are no default wp menu.
 		if ( apply_filters( 'gnetwork_adminbar_custom', FALSE ) ) {
-			call_user_func_array( $custom, array( &$wp_admin_bar ) );
+			call_user_func_array( $custom, [ &$wp_admin_bar ] );
 			return;
 		}
 
@@ -604,16 +604,16 @@ class AdminBar extends \geminorum\gNetwork\ModuleCore
 
 			foreach ( $menu as $item_id => $item ) {
 
-				$wp_admin_bar->add_menu( array(
+				$wp_admin_bar->add_menu( [
 					'parent' => ( empty( $item->target ) ? ( empty( $item->menu_item_parent ) ? 'wp-logo' : 'network-menu-'.$item->menu_item_parent ) : 'wp-logo-external' ),
 					'id'     => 'network-menu-'.$item->ID,
 					'title'  => $item->title,
 					'href'   => $item->url,
-					'meta'   => array(
+					'meta'   => [
 						'title' => $item->attr_title,
 						'class' => join( ' ', $item->classes ),
-					),
-				) );
+					],
+				] );
 			}
 		}
 
@@ -622,31 +622,31 @@ class AdminBar extends \geminorum\gNetwork\ModuleCore
 
 	public static function addMainLogo( $wp_admin_bar, $id = 'wp-logo', $title = '<span class="ab-icon"></span>' )
 	{
-		$wp_admin_bar->add_menu( array(
+		$wp_admin_bar->add_menu( [
 			'id'    => $id,
 			'title' => $title.'<span class="screen-reader-text">'.GNETWORK_NAME.'</span>',
 			'href'  => GNETWORK_BASE,
-		) );
+		] );
 	}
 
 	public static function addLoginRegister( $wp_admin_bar, $parent = 'wp-logo-external' )
 	{
 		if ( ! is_user_logged_in() ) {
 
-			$wp_admin_bar->add_menu( array(
+			$wp_admin_bar->add_menu( [
 				'parent' => $parent,
 				'id'     => 'network-login',
 				'title'  => _x( 'Log in', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 				'href'   => wp_login_url(),
-			) );
+			] );
 
 			if ( $register_url = WordPress::registerURL() )
-				$wp_admin_bar->add_menu( array(
+				$wp_admin_bar->add_menu( [
 					'parent' => $parent,
 					'id'     => 'network-register',
 					'title'  => _x( 'Register', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 					'href'   => $register_url,
-				) );
+				] );
 		}
 	}
 
@@ -658,29 +658,29 @@ class AdminBar extends \geminorum\gNetwork\ModuleCore
 
 			$parent = 'gnetwork-extramenu';
 
-			$wp_admin_bar->add_node( array(
+			$wp_admin_bar->add_node( [
 				// 'parent' => 'top-secondary', // off on the right side
 				'id'     => $parent,
 				'title'  => self::getIcon( 'menu' ),
 				'href'   => FALSE,
-			) );
+			] );
 
 			foreach ( $menu as $item_id => $item ) {
 
 				if (  ( $item->xfn ? current_user_can( $item->xfn ) : TRUE ) ) {
 
-					$wp_admin_bar->add_menu( array(
+					$wp_admin_bar->add_menu( [
 						// check target to place link on externals
 						// 'parent' => ( empty( $item->target ) ? ( empty( $item->menu_item_parent ) ? 'wp-logo' : 'network-menu-'.$item->menu_item_parent ) : 'wp-logo-external' ),
 						'parent' => $parent,
 						'id'     => 'network-extramenu-'.$item->ID,
 						'title'  => $item->title,
 						'href'   => $item->url,
-						'meta'   => array(
+						'meta'   => [
 							'title' => $item->attr_title,
 							'class' => join( ' ', $item->classes ),
-						),
-					) );
+						],
+					] );
 				}
 			}
 		}
@@ -688,14 +688,14 @@ class AdminBar extends \geminorum\gNetwork\ModuleCore
 
 	public static function getIcon( $icon, $style = 'margin:2px 1px 0 1px;' )
 	{
-		return HTML::tag( 'span', array(
-			'class' => array(
+		return HTML::tag( 'span', [
+			'class' => [
 				'ab-icon',
 				'dashicons',
 				'dashicons-'.$icon,
-			),
+			],
 			'style' => $style,
-		), NULL );
+		], NULL );
 	}
 }
 

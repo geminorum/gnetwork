@@ -30,23 +30,23 @@ class KavenegarProvider extends \geminorum\gNetwork\ProviderCore
 
 	public function default_settings()
 	{
-		return array(
-			'api_key' => array(
+		return [
+			'api_key' => [
 				'type'        => 'text',
 				'title'       => _x( 'API Key', 'Provider: Kavenegar', GNETWORK_TEXTDOMAIN ),
 				'description' => _x( 'Key for communication between your site and Kavenegar.', 'Provider: Kavenegar', GNETWORK_TEXTDOMAIN ),
 				'constant'    => 'KAVENEGAR_API_KEY',
-			),
-			'from_number' => array(
+			],
+			'from_number' => [
 				'type'  => 'text',
 				'title' => _x( 'From Number', 'Provider: Kavenegar', GNETWORK_TEXTDOMAIN ),
 				'desc'  => _x( 'You can specify the phone number that messages should be sent from. If you leave this blank, the default number will be used.', 'Provider: Kavenegar', GNETWORK_TEXTDOMAIN ),
-			),
-			'admin_numbers' => array(
+			],
+			'admin_numbers' => [
 				'type'  => 'text',
 				'title' => _x( 'Admin Numbers', 'Provider: Kavenegar', GNETWORK_TEXTDOMAIN ),
-			),
-		);
+			],
+		];
 	}
 
 	public function settings_section()
@@ -59,11 +59,11 @@ class KavenegarProvider extends \geminorum\gNetwork\ProviderCore
 
 	protected function curlDefaultHeaders()
 	{
-		return array(
+		return [
 			'Accept: application/json',
 			'Content-Type: application/x-www-form-urlencoded',
 			'charset: utf-8',
-		);
+		];
 	}
 
 	protected function curlResults( $response, $code )
@@ -87,10 +87,10 @@ class KavenegarProvider extends \geminorum\gNetwork\ProviderCore
 	{
 		$results = $this->curlExecute( $this->apiEndpoint( 'utils', 'getdate' ) );
 
-		return array(
+		return [
 			'status'    => $results['return']['status'],
 			'timestamp' => isset( $results['entries']['unixtime'] ) ? $results['entries']['unixtime'] : NULL,
-		);
+		];
 	}
 
 	public function providerBalance()
@@ -103,16 +103,16 @@ class KavenegarProvider extends \geminorum\gNetwork\ProviderCore
 		return isset( $results['entries']['remaincredit'] ) ? $results['entries']['remaincredit'] : FALSE;
 	}
 
-	public function smsSend( $text, $number = NULL, $atts = array() )
+	public function smsSend( $text, $number = NULL, $atts = [] )
 	{
-		$args = self::atts( array(
+		$args = self::atts( [
 			'receptor' => is_null( $number ) ? $this->options['kavenegar_admin_numbers'] : $number,
 			'sender'   => $this->options['kavenegar_from_number'],
 			'message'  => $text,
 			// 'date'    => $date,
 			// 'type'    => $type,
 			// 'localid' => $localid,
-		), $atts );
+		], $atts );
 
 		if ( ! $args['receptor'] )
 			return new Error( 'sms_no_reciver', 'NO SMS Reciver', $args );
@@ -129,16 +129,16 @@ class KavenegarProvider extends \geminorum\gNetwork\ProviderCore
 	}
 
 	// FIXME: UNFINISHED
-	public function smsBulk( $text, $atts = array() )
+	public function smsBulk( $text, $atts = [] )
 	{
-		$args = self::atts( array(
+		$args = self::atts( [
 			'receptor' => $this->options['kavenegar_admin_numbers'],
 			'sender'   => $this->options['kavenegar_from_number'],
 			'message'  => wp_json_encode( $text ),
 			// 'date'             => $date,
 			// 'type'             => $type,
 			// 'localid' => $localid,
-		), $atts );
+		], $atts );
 
 		if ( ! $args['receptor'] )
 			return new Error( 'sms_no_reciver', 'NO SMS Reciver', $args );

@@ -15,24 +15,24 @@ class BP_Me_Component extends \BP_Component
 		$bp->active_components[$this->id] = '1';
 
 		if ( ! is_admin() ) {
-			add_filter( 'get_edit_user_link', array( $this, 'get_edit_user_link' ), 12, 2 );
-			add_filter( 'bp_members_edit_profile_url', array( $this, 'bp_members_edit_profile_url' ), 12, 4 );
+			add_filter( 'get_edit_user_link', [ $this, 'get_edit_user_link' ], 12, 2 );
+			add_filter( 'bp_members_edit_profile_url', [ $this, 'bp_members_edit_profile_url' ], 12, 4 );
 		}
 
-		add_filter( 'gnetwork_bp_me_url', array( $this, 'url' ) );
+		add_filter( 'gnetwork_bp_me_url', [ $this, 'url' ] );
 
-		add_filter( 'gnetwork_navigation_loggedin_items', array( $this, 'navigation_loggedin_items' ) );
-		add_filter( 'gnetwork_navigation_public_profile_url', array( $this, 'navigation_public_profile_url' ), 12, 4 );
-		add_filter( 'gnetwork_navigation_logout_url', array( $this, 'navigation_logout_url' ), 12, 4 );
+		add_filter( 'gnetwork_navigation_loggedin_items', [ $this, 'navigation_loggedin_items' ] );
+		add_filter( 'gnetwork_navigation_public_profile_url', [ $this, 'navigation_public_profile_url' ], 12, 4 );
+		add_filter( 'gnetwork_navigation_logout_url', [ $this, 'navigation_logout_url' ], 12, 4 );
 	}
 
-	public function setup_globals( $args = array() )
+	public function setup_globals( $args = [] )
 	{
-		parent::setup_globals( array(
+		parent::setup_globals( [
 			'slug'          => 'me',
 			'root_slug'     => 'me',
 			'has_directory' => TRUE,
-		) );
+		] );
 
 		if ( ! bp_is_current_component( $this->id ) )
 			return;
@@ -49,18 +49,18 @@ class BP_Me_Component extends \BP_Component
 		if ( ! bp_loggedin_user_id() )
 			bp_core_redirect( wp_login_url( URL::current() ) );
 
-		$actions = apply_filters( 'gnetwork_bp_me_actions', array(
-			'profile'  => array( $this, 'me_action_profile' ),
-			'settings' => array( $this, 'me_action_settings' ),
-			'edit'     => array( $this, 'me_action_edit' ),
-			'avatar'   => array( $this, 'me_action_avatar' ),
-			'cover'    => array( $this, 'me_action_cover' ),
-			'logout'   => array( $this, 'me_action_logout' ),
-		) );
+		$actions = apply_filters( 'gnetwork_bp_me_actions', [
+			'profile'  => [ $this, 'me_action_profile' ],
+			'settings' => [ $this, 'me_action_settings' ],
+			'edit'     => [ $this, 'me_action_edit' ],
+			'avatar'   => [ $this, 'me_action_avatar' ],
+			'cover'    => [ $this, 'me_action_cover' ],
+			'logout'   => [ $this, 'me_action_logout' ],
+		] );
 
 		if ( array_key_exists( $this->current_action, $actions )
 			&& is_callable( $actions[$this->current_action] ) )
-				call_user_func_array( $actions[$this->current_action], array( bp_action_variables() ) );
+				call_user_func_array( $actions[$this->current_action], [ bp_action_variables() ] );
 
 		$this->me_action_profile();
 	}
@@ -131,25 +131,25 @@ class BP_Me_Component extends \BP_Component
 	public function navigation_loggedin_items( $items )
 	{
 		if ( bp_is_active( 'settings' ) )
-			$items[] = array(
+			$items[] = [
 				'name' => _x( 'Profile Settings', 'BuddyPress Me: Navigation Item', GNETWORK_TEXTDOMAIN ),
 				'slug' => 'settings',
 				'link' => $this->url( 'settings' ),
-			);
+			];
 
 		if ( buddypress()->avatar->show_avatars )
-			$items[] = array(
+			$items[] = [
 				'name' => _x( 'Change Avatar', 'BuddyPress Me: Navigation Item', GNETWORK_TEXTDOMAIN ),
 				'slug' => 'avatar',
 				'link' => $this->url( 'avatar' ),
-			);
+			];
 
 		if ( bp_displayed_user_use_cover_image_header() )
-			$items[] = array(
+			$items[] = [
 				'name' => _x( 'Change Cover', 'BuddyPress Me: Navigation Item', GNETWORK_TEXTDOMAIN ),
 				'slug' => 'cover',
 				'link' => $this->url( 'cover' ),
-			);
+			];
 
 		return $items;
 	}

@@ -15,7 +15,7 @@ class Cron extends \geminorum\gNetwork\ModuleCore
 	{
 		Admin::registerMenu( $this->key,
 			_x( 'CRON', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			array( $this, 'settings' )
+			[ $this, 'settings' ]
 		);
 	}
 
@@ -38,10 +38,10 @@ class Cron extends \geminorum\gNetwork\ModuleCore
 				WordPress::redirectReferer( 'wrong' );
 			}
 
-			WordPress::redirectReferer( array(
+			WordPress::redirectReferer( [
 				'message' => 'deleted',
 				'count'   => $count,
-			) );
+			] );
 		}
 	}
 
@@ -85,26 +85,26 @@ class Cron extends \geminorum\gNetwork\ModuleCore
 		if ( function_exists( '_get_cron_array' ) )
 			return _get_cron_array();
 
-		return array();
+		return [];
 	}
 
 	private static function tableCronInfo()
 	{
-		return HTML::tableList( array(
+		return HTML::tableList( [
 			'_cb' => '_index',
 
-			'next' => array(
+			'next' => [
 				'title'    => _x( 'Next', 'Modules: CRON', GNETWORK_TEXTDOMAIN ),
 				'class'    => '-column-next',
 				'callback' => function( $value, $row, $column, $index ){
 					return Utilities::getDateEditRow( $index );
 				},
-			),
+			],
 
-			'tasks' => array(
+			'tasks' => [
 				'title'    => _x( 'Tasks', 'Modules: CRON', GNETWORK_TEXTDOMAIN ),
 				'class'    => '-column-tasks',
-				'args'     => array( 'schedules' => wp_get_schedules() ),
+				'args'     => [ 'schedules' => wp_get_schedules() ],
 				'callback' => function( $value, $row, $column, $index ){
 
 					$info = '';
@@ -138,10 +138,10 @@ class Cron extends \geminorum\gNetwork\ModuleCore
 
 					return $info;
 				},
-			),
-		), self::getCronArray(), array(
+			],
+		], self::getCronArray(), [
 			'title' => HTML::tag( 'h3', _x( 'Overview of tasks scheduled for WP-Cron', 'Modules: CRON', GNETWORK_TEXTDOMAIN ) ),
 			'empty' => self::warning( _x( 'Nothing scheduled!', 'Modules: CRON', GNETWORK_TEXTDOMAIN ) ),
-		) );
+		] );
 	}
 }

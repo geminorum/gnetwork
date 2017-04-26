@@ -17,23 +17,23 @@ class Tracking extends \geminorum\gNetwork\ModuleCore
 
 	protected function setup_actions()
 	{
-		add_action( 'init', array( $this, 'init' ), 8 );
-		add_action( 'wp_head', array( $this, 'wp_head' ), 999 );
-		add_action( 'login_head', array( $this, 'login_head' ), 999 );
-		add_action( 'wp_footer', array( $this, 'wp_footer' ), 99 );
+		$this->action( 'init', 0, 8 );
+		$this->action( 'wp_head', 0, 999 );
+		$this->action( 'login_head', 0, 999 );
+		$this->action( 'wp_footer', 0, 99 );
 	}
 
 	public function setup_menu( $context )
 	{
 		$this->register_menu(
 			_x( 'Tracking', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			array( $this, 'settings' )
+			[ $this, 'settings' ]
 		);
 	}
 
 	public function default_options()
 	{
-		return array(
+		return [
 			'primary_domain' => '',
 			'ga_account'     => '',
 			'ga_beacon'      => '',
@@ -44,30 +44,30 @@ class Tracking extends \geminorum\gNetwork\ModuleCore
 			'plus_publisher' => '',
 			'twitter_site'   => '',
 			'ignore_user'    => 'edit_others_posts',
-		);
+		];
 	}
 
 	public function default_settings()
 	{
-		return array(
-			'_general' => array(
-				array(
+		return [
+			'_general' => [
+				[
 					'field'       => 'ignore_user',
 					'type'        => 'cap',
 					'title'       => _x( 'Ignore Users', 'Modules: Tracking: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Selected and above will be ignored', 'Modules: Tracking: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => 'edit_others_posts',
-				),
-				array(
+				],
+				[
 					'field'       => 'primary_domain',
 					'type'        => 'text',
 					'title'       => _x( 'Primary Domain Name', 'Modules: Tracking: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Network primary domain name', 'Modules: Tracking: Settings', GNETWORK_TEXTDOMAIN ),
-					'default'     => str_ireplace( array( 'http://', 'https://' ), '', home_url() ),
+					'default'     => str_ireplace( [ 'http://', 'https://' ], '', home_url() ),
 					'dir'         => 'ltr',
 					'placeholder' => 'example.com',
-				),
-				array(
+				],
+				[
 					'field'       => 'ga_domain',
 					'type'        => 'text',
 					'title'       => _x( 'GA Domain Name', 'Modules: Tracking: Settings', GNETWORK_TEXTDOMAIN ),
@@ -75,16 +75,16 @@ class Tracking extends \geminorum\gNetwork\ModuleCore
 					'default'     => 'auto',
 					'dir'         => 'ltr',
 					'placeholder' => 'example.com',
-				),
-				array(
+				],
+				[
 					'field'       => 'ga_account',
 					'type'        => 'text',
 					'title'       => _x( 'GA Account', 'Modules: Tracking: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Network Google Analytics account number', 'Modules: Tracking: Settings', GNETWORK_TEXTDOMAIN ),
 					'dir'         => 'ltr',
 					'placeholder' => 'UA-XXXXX-X',
-				),
-				array(
+				],
+				[
 					'field'       => 'ga_beacon',
 					'type'        => 'text',
 					'title'       => _x( 'GA Beacon', 'Modules: Tracking: Settings', GNETWORK_TEXTDOMAIN ),
@@ -92,20 +92,20 @@ class Tracking extends \geminorum\gNetwork\ModuleCore
 					'after'       => Settings::fieldAfterIcon( 'https://github.com/igrigorik/ga-beacon' ),
 					'dir'         => 'ltr',
 					'placeholder' => 'UA-XXXXX-X',
-				),
-				array(
+				],
+				[
 					'field'       => 'ga_userid',
 					'title'       => _x( 'GA Track UserID', 'Modules: Tracking: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Track usernames in Google Analytics', 'Modules: Tracking: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '1',
 					// TODO: add info link
-				),
-				array(
+				],
+				[
 					'field'       => 'ga_outbound',
 					'title'       => _x( 'GA Track Outbounds', 'Modules: Tracking: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Track outbound links in Google Analytics', 'Modules: Tracking: Settings', GNETWORK_TEXTDOMAIN ),
-				),
-				array(
+				],
+				[
 					'field'       => 'quantcast',
 					'type'        => 'text',
 					'title'       => _x( 'Quantcast', 'Modules: Tracking: Settings', GNETWORK_TEXTDOMAIN ),
@@ -113,25 +113,25 @@ class Tracking extends \geminorum\gNetwork\ModuleCore
 					'after'       => Settings::fieldAfterIcon( 'https://www.quantcast.com/' ),
 					'dir'         => 'ltr',
 					'placeholder' => 'x-XXXXXXXXXXXX-',
-				),
-				array(
+				],
+				[
 					'field'       => 'plus_publisher',
 					'type'        => 'text',
 					'title'       => _x( 'GP Publisher ID', 'Modules: Tracking: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Network Google+ publisher id', 'Modules: Tracking: Settings', GNETWORK_TEXTDOMAIN ),
 					'dir'         => 'ltr',
 					'placeholder' => 'XXXXXXXXXXXXXXXXXXXXX',
-				),
-				array(
+				],
+				[
 					'field'       => 'twitter_site',
 					'type'        => 'text',
 					'title'       => _x( 'Twitter Account', 'Modules: Tracking: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Network site twitter account', 'Modules: Tracking: Settings', GNETWORK_TEXTDOMAIN ),
 					'dir'         => 'ltr',
 					'placeholder' => 'username'
-				),
-			),
-		);
+				],
+			],
+		];
 	}
 
 	public function ignore()
@@ -152,22 +152,22 @@ class Tracking extends \geminorum\gNetwork\ModuleCore
 
 	public function init()
 	{
-		$this->shortcodes( array(
+		$this->shortcodes( [
 			'google-plus-badge' => 'shortcode_google_plus_badge',
 			'ga-beacon'         => 'shortcode_ga_beacon',
-		) );
+		] );
 	}
 
-	public function shortcode_google_plus_badge( $atts = array(), $content = NULL, $tag = '' )
+	public function shortcode_google_plus_badge( $atts = [], $content = NULL, $tag = '' )
 	{
-		$args = shortcode_atts( array(
+		$args = shortcode_atts( [
 			'id'      => FALSE,
 			'href'    => FALSE,
 			'width'   => '300',
 			'rel'     => 'publisher',
 			'context' => NULL,
 			'wrap'    => TRUE,
-		), $atts, $tag );
+		], $atts, $tag );
 
 		if ( FALSE === $args['context'] || is_feed() )
 			return NULL;
@@ -183,12 +183,12 @@ class Tracking extends \geminorum\gNetwork\ModuleCore
 
 		$this->gp_platformjs = TRUE;
 
-		$html = HTML::tag( 'div', array(
+		$html = HTML::tag( 'div', [
 			'class'      => 'g-page',
 			'data-width' => $args['width'],
 			'data-href'  => $args['href'],
 			'data-rel'   => $args['rel'],
-		), NULL );
+		], NULL );
 
 		if ( $args['wrap'] )
 			return '<div class="gnetwork-wrap-shortcode -googleplus-badge gnetwork-wrap-iframe">'.$html.'</div>';
@@ -196,9 +196,9 @@ class Tracking extends \geminorum\gNetwork\ModuleCore
 		return $html;
 	}
 
-	public function shortcode_ga_beacon( $atts, $content = NULL, $tag = '' )
+	public function shortcode_ga_beacon( $atts = [], $content = NULL, $tag = '' )
 	{
-		$args = shortcode_atts( array(
+		$args = shortcode_atts( [
 			'server'  => 'https://ga-beacon.appspot.com/',
 			'beacon'  => $this->options['ga_beacon'],
 			'domain'  => URL::domain( $this->options['primary_domain'] ),
@@ -208,7 +208,7 @@ class Tracking extends \geminorum\gNetwork\ModuleCore
 			'context' => NULL,
 			'wrap'    => FALSE,
 			'md'      => NULL, // markdown // FIXME
-		), $atts, $tag );
+		], $atts, $tag );
 
 		if ( FALSE === $args['context'] || is_feed() )
 			return NULL;
@@ -218,10 +218,10 @@ class Tracking extends \geminorum\gNetwork\ModuleCore
 		if ( $args['badge'] )
 			$src .= '?'. $args['badge'];
 
-		$html = HTML::tag( 'img', array(
+		$html = HTML::tag( 'img', [
 			'src' => $src,
 			'alt' => $args['alt'],
-		) );
+		] );
 
 		if ( $args['wrap'] )
 			return '<div class="gnetwork-wrap-shortcode -beacon">'.$html.'</div>';
@@ -364,19 +364,19 @@ qacct:"<?php echo $this->options['quantcast']; ?>"
 	public static function getContact( $class = 'contact', $fallback = FALSE )
 	{
 		if ( $twitter = gNetwork()->option( 'twitter_site', 'tracking', $fallback ) )
-			$html = HTML::tag( 'a', array(
+			$html = HTML::tag( 'a',[
 				'href'  => 'https://twitter.com/intent/user?screen_name='.$twitter,
 				'title' => _x( 'Follow Us', 'Modules: Tracking', GNETWORK_TEXTDOMAIN ),
 				'rel'   => 'follow',
 				'dir'   => 'ltr',
-			), '@'.$twitter );
+			], '@'.$twitter );
 		else
 			return '';
 
 		if ( $class )
-			$html = HTML::tag( 'div', array(
+			$html = HTML::tag( 'div', [
 				'class' => $class,
-			), $html );
+			], $html );
 
 		return $html;
 	}

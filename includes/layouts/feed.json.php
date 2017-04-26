@@ -23,13 +23,13 @@ if ( have_posts() ) {
 	// make sure query args are always in the same order
 	ksort( $query_array );
 
-	$json = array();
+	$json = [];
 
 	while ( have_posts() ) {
 
 		the_post();
 
-		$single = array(
+		$single = [
 			'id'        => $post->ID,
 			'title'     => get_the_title(),
 			'permalink' => get_permalink(),
@@ -37,8 +37,8 @@ if ( have_posts() ) {
 			'excerpt'   => get_the_excerpt(),
 			'date'      => get_the_date( 'Y-m-d H:i:s', '', '', FALSE ),
 			'author'    => get_the_author(),
-			'terms'     => array(),
-		);
+			'terms'     => [],
+		];
 
 		if ( $tumbnail = get_the_post_thumbnail_url( $post->ID ) )
 			$single['thumbnail'] = $tumbnail;

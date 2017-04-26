@@ -11,20 +11,20 @@ class Editor extends \geminorum\gNetwork\ModuleCore
 	protected $front   = FALSE;
 	protected $ajax    = TRUE;
 
-	public $tinymce = array(
-		array(), // 0: teeny_mce_buttons
-		array(), // 1: mce_buttons
-		array(), // 2: mce_buttons_2
-		array(), // 3: mce_buttons_3
-		array(), // 4: mce_buttons_4
-	);
+	public $tinymce = [
+		[], // 0: teeny_mce_buttons
+		[], // 1: mce_buttons
+		[], // 2: mce_buttons_2
+		[], // 3: mce_buttons_3
+		[], // 4: mce_buttons_4
+	];
 
 	protected function setup_actions()
 	{
-		add_action( 'init', array( $this, 'init_late' ), 999 );
+		$this->action( 'init', 0, 999, 'late' );
 
-		add_filter( 'wp_link_query_args', array( $this, 'wp_link_query_args' ) );
-		add_filter( 'wp_link_query', array( $this, 'wp_link_query' ), 12, 2 );
+		$this->filter( 'wp_link_query_args' );
+		$this->filter( 'wp_link_query', 2, 12 );
 
 		$this->filter( 'mce_css' );
 		$this->action( 'wp_enqueue_editor' );
@@ -37,16 +37,16 @@ class Editor extends \geminorum\gNetwork\ModuleCore
 
 		global $tinymce_version;
 
-		add_filter( 'teeny_mce_buttons', array( $this, 'teeny_mce_buttons' ), 10, 2 );
-		add_filter( 'mce_buttons', array( $this, 'mce_buttons' ), 10, 2 );
-		add_filter( 'mce_buttons_2', array( $this, 'mce_buttons_2' ), 10, 2 );
-		add_filter( 'mce_buttons_3', array( $this, 'mce_buttons_3' ), 10, 2 );
-		add_filter( 'mce_buttons_4', array( $this, 'mce_buttons_4' ), 10, 2 );
-		add_filter( 'mce_external_plugins', array( $this, 'mce_external_plugins' ) );
+		$this->filter( 'teeny_mce_buttons', 2 );
+		$this->filter( 'mce_buttons', 2 );
+		$this->filter( 'mce_buttons_2', 2 );
+		$this->filter( 'mce_buttons_3', 2 );
+		$this->filter( 'mce_buttons_4', 2 );
+		$this->filter( 'mce_external_plugins' );
 
 		if ( ! version_compare( $tinymce_version, '4100', '<' ) ) {
 			Admin::registerTinyMCE( 'table', 'assets/js/vendor/tinymce.table', 2 );
-			add_filter( 'content_save_pre', array( $this, 'content_save_pre' ), 20 );
+			$this->filter( 'content_save_pre', 1, 20 );
 		}
 	}
 

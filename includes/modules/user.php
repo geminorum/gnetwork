@@ -14,7 +14,7 @@ class User extends \geminorum\gNetwork\ModuleCore
 
 	protected $installing = TRUE;
 
-	public $menus = array();
+	public $menus = [];
 
 	protected function setup_actions()
 	{
@@ -41,8 +41,8 @@ class User extends \geminorum\gNetwork\ModuleCore
 			return TRUE;
 
 		if ( is_user_admin() ) {
-			add_action( 'user_admin_menu', array( $this, 'user_admin_menu' ), 12 );
-			add_action( 'user_admin_menu', array( $this, 'user_admin_menu_late' ), 999 );
+			$this->action( 'user_admin_menu', 0, 12 );
+			$this->action( 'user_admin_menu', 0, 999, 'late' );
 		}
 
 		if ( $this->options['blog_roles'] ) {
@@ -55,7 +55,7 @@ class User extends \geminorum\gNetwork\ModuleCore
 	{
 		Network::registerMenu( $this->key,
 			_x( 'User', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			array( $this, 'settings' )
+			[ $this, 'settings' ]
 		);
 
 		if ( is_multisite() && $this->options['blog_roles'] )
@@ -66,7 +66,7 @@ class User extends \geminorum\gNetwork\ModuleCore
 
 	public function default_options()
 	{
-		return array(
+		return [
 			'blog_roles'      => '0',
 			'contact_methods' => '1',
 			'user_locale'     => '0',
@@ -78,80 +78,80 @@ class User extends \geminorum\gNetwork\ModuleCore
 			'tos_text'    => '',
 			'tos_label'   => '',
 			'tos_must'    => '',
-		);
+		];
 	}
 
 	public function default_settings()
 	{
-		return array(
-			'_general' => array(
-				array(
+		return [
+			'_general' => [
+				[
 					'field'       => 'blog_roles',
 					'title'       => _x( 'Blog Roles', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Automatically adds each user to blogs', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
-				),
-				array(
+				],
+				[
 					'field'       => 'contact_methods',
 					'title'       => _x( 'Contact Methods', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Adds extra contact methods to user profiles', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '1',
-				),
-				array(
+				],
+				[
 					'field'       => 'user_locale',
 					'title'       => _x( 'User Language', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'User admin language switcher', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
 					'after'       => Settings::fieldAfterIcon( 'https://core.trac.wordpress.org/ticket/29783' ),
-				),
-				array(
+				],
+				[
 					'field'       => 'dashboard_sites',
 					'title'       => _x( 'Dashboard Sites', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Displays current user list of sites on the user dashboard.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
-				),
-			),
-			'_tos' => array(
-				array(
+				],
+			],
+			'_tos' => [
+				[
 					'field' => 'tos_display',
 					'title' => _x( 'Display ToS', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
-				),
-				array(
+				],
+				[
 					'field'       => 'tos_title',
 					'type'        => 'text',
 					'title'       => _x( 'ToS Title', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Section Title, Usually : Terms of Service', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => _x( 'Terms of Service', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
 					'field_class' => 'large-text',
-				),
-				array(
+				],
+				[
 					'field'       => 'tos_link',
 					'type'        => 'url',
 					'title'       => _x( 'ToS Link', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'URL for section title link to actual agreement text', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
-				),
-				array(
+				],
+				[
 					'field'       => 'tos_text',
 					'type'        => 'textarea',
 					'title'       => _x( 'ToS Text', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Full text of the agreement', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
 					'field_class' => 'large-text',
-				),
-				array(
+				],
+				[
 					'field'       => 'tos_label',
 					'type'        => 'text',
 					'title'       => _x( 'ToS Label', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Label next to the mandatory checkbox, below full text', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => _x( 'By checking the Terms of Service Box you have read and agree to all the Policies set forth in this site\'s Terms of Service.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
 					'field_class' => 'large-text',
-				),
-				array(
+				],
+				[
 					'field'       => 'tos_must',
 					'type'        => 'text',
 					'title'       => _x( 'ToS Must', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Error message upon not checking the box', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => _x( 'You have to accept our terms of service. Otherwise we cannot register you on our site.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
 					'field_class' => 'large-text',
-				),
-			),
-		);
+				],
+			],
+		];
 	}
 
 	public function settings_section_tos()
@@ -174,7 +174,7 @@ class User extends \geminorum\gNetwork\ModuleCore
 
 				$this->check_referer( $sub );
 
-				$roles = array();
+				$roles = [];
 
 				foreach ( $_POST['role'] as $blog_id => $role )
 					if ( $role != 'none' )
@@ -182,7 +182,7 @@ class User extends \geminorum\gNetwork\ModuleCore
 
 				if ( isset( $_POST['update_sites_roles'] ) ) {
 
-					$saved = get_site_option( $this->hook( 'roles' ), array() );
+					$saved = get_site_option( $this->hook( 'roles' ), [] );
 
 					if ( ! $this->update_sites_roles( $saved, $roles ) )
 						WordPress::redirectReferer( 'wrong' );
@@ -191,7 +191,7 @@ class User extends \geminorum\gNetwork\ModuleCore
 				WordPress::redirectReferer( ( update_site_option( $this->hook( 'roles' ), $roles ) ? 'updated' : 'error' ) );
 			}
 
-			add_action( $this->settings_hook( $sub ), array( $this, 'settings_form' ), 10, 2 );
+			add_action( $this->settings_hook( $sub ), [ $this, 'settings_form' ], 10, 2 );
 
 			$this->register_settings_buttons( $sub );
 			$this->register_settings_help( $sub );
@@ -218,7 +218,7 @@ class User extends \geminorum\gNetwork\ModuleCore
 	private function tableBlogRoles()
 	{
 		$blogs = $this->get_sites();
-		$roles = get_site_option( $this->hook( 'roles' ), array() );
+		$roles = get_site_option( $this->hook( 'roles' ), [] );
 
 		if ( empty( $blogs ) )
 			return HTML::desc( gNetwork()->na() );
@@ -234,7 +234,7 @@ class User extends \geminorum\gNetwork\ModuleCore
 
 			switch_to_blog( $blog->blog_id );
 
-			$this->do_settings_field( array(
+			$this->do_settings_field( [
 				'field'      => $blog->blog_id,
 				'type'       => 'role',
 				'title'      => get_bloginfo( 'name' ),
@@ -247,7 +247,7 @@ class User extends \geminorum\gNetwork\ModuleCore
 					_x( 'View Users List', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
 					'admin-users'
 				),
-			) );
+			] );
 
 			restore_current_blog();
 		}
@@ -256,12 +256,12 @@ class User extends \geminorum\gNetwork\ModuleCore
 
 		HTML::desc( _x( '<b>Note:</b> only public, non-mature and non-dashboard sites appear here.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ) );
 
-		$this->do_settings_field( array(
+		$this->do_settings_field( [
 			'field'       => 'update_sites_roles',
 			'name_attr'   => 'update_sites_roles',
 			'type'        => 'checkbox',
 			'description' => _x( 'Also Update Current Users Roles', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
-		) );
+		] );
 
 		return TRUE;
 	}
@@ -275,12 +275,12 @@ class User extends \geminorum\gNetwork\ModuleCore
 			_x( 'Extras', 'Modules: User: Page Menu', GNETWORK_TEXTDOMAIN ),
 			'exist',
 			$this->base,
-			array( $this, 'settings_page' ),
+			[ $this, 'settings_page' ],
 			'dashicons-screenoptions',
 			120
 		);
 
-		add_action( 'load-'.$hook, array( $this, 'settings_load' ) );
+		add_action( 'load-'.$hook, [ $this, 'settings_load' ] );
 
 		foreach ( $this->menus as $sub => $args ) {
 			add_submenu_page( $this->base,
@@ -288,19 +288,19 @@ class User extends \geminorum\gNetwork\ModuleCore
 				$args['title'],
 				$args['cap'],
 				$this->base.'&sub='.$sub,
-				array( $this, 'settings_page' )
+				[ $this, 'settings_page' ]
 			);
 		}
 	}
 
 	public function user_admin_menu_late()
 	{
-		$GLOBALS['submenu'][$this->base][0] = array(
+		$GLOBALS['submenu'][$this->base][0] = [
 			_x( 'Overview', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
 			'exist',
 			$this->base,
 			_x( 'Network Extras', 'Modules: User: Page Menu', GNETWORK_TEXTDOMAIN ),
-		);
+		];
 	}
 
 	public static function registerMenu( $sub, $title = NULL, $callback = FALSE, $capability = 'read' )
@@ -308,10 +308,10 @@ class User extends \geminorum\gNetwork\ModuleCore
 		if ( ! is_user_admin() )
 			return;
 
-		gNetwork()->user->menus[$sub] = array(
+		gNetwork()->user->menus[$sub] = [
 			'title' => $title ? $title : $sub,
 			'cap'   => $capability,
-		);
+		];
 
 		if ( $callback ) // && is_callable( $callback ) )
 			add_action( 'gnetwork_user_settings', $callback );
@@ -327,9 +327,7 @@ class User extends \geminorum\gNetwork\ModuleCore
 
 	private function subs()
 	{
-		$subs = array();
-
-		$subs['overview'] = _x( 'Overview', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN );
+		$subs = [ 'overview' => _x( 'Overview', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) ];
 
 		foreach ( $this->menus as $sub => $args )
 			if ( WordPress::cuc( $args['cap'] ) )
@@ -375,12 +373,12 @@ class User extends \geminorum\gNetwork\ModuleCore
 
 	public function user_contactmethods( $contactmethods, $user )
 	{
-		return array_merge( $contactmethods, array(
+		return array_merge( $contactmethods, [
 			'mobile'     => _x( 'Mobile Phone', 'Modules: User: User Contact Method', GNETWORK_TEXTDOMAIN ),
 			'twitter'    => _x( 'Twitter', 'Modules: User: User Contact Method', GNETWORK_TEXTDOMAIN ),
 			'facebook'   => _x( 'Facebook', 'Modules: User: User Contact Method', GNETWORK_TEXTDOMAIN ),
 			'googleplus' => _x( 'Google+', 'Modules: User: User Contact Method', GNETWORK_TEXTDOMAIN ),
-		) );
+		] );
 	}
 
 	public function admin_body_class( $classes )
@@ -402,7 +400,7 @@ class User extends \geminorum\gNetwork\ModuleCore
 	{
 		global $wpdb;
 
-		$list = array();
+		$list = [];
 
 		$blogs = $wpdb->get_results( $wpdb->prepare( "
 			SELECT blog_id, domain, path
@@ -422,7 +420,7 @@ class User extends \geminorum\gNetwork\ModuleCore
 
 	public function wpmu_new_user( $user_id )
 	{
-		$roles = get_site_option( $this->hook( 'roles' ), array() );
+		$roles = get_site_option( $this->hook( 'roles' ), [] );
 
 		if ( ! count( $roles ) )
 			return;
@@ -549,7 +547,7 @@ class User extends \geminorum\gNetwork\ModuleCore
 		return $result;
 	}
 
-	public function bp_core_validate_user_signup( $result = array() )
+	public function bp_core_validate_user_signup( $result = [] )
 	{
 		if ( ! isset( $_POST['gnetwork_tos_agreement'] )
 			|| 'accepted' != $_POST['gnetwork_tos_agreement'] )

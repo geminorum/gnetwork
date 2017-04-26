@@ -11,7 +11,7 @@ class Update extends \geminorum\gNetwork\ModuleCore
 
 	protected function setup_actions()
 	{
-		add_action( 'admin_init', array( $this, 'admin_init_late' ), 100 );
+		$this->action( 'admin_init', 0, 100 );
 
 		// add_filter( 'automatic_updater_disabled', '__return_true' );
 		// add_filter( 'auto_update_core', '__return_false' );
@@ -22,7 +22,7 @@ class Update extends \geminorum\gNetwork\ModuleCore
 		add_filter( 'auto_update_translation', '__return_false' );
 	}
 
-	public function admin_init_late()
+	public function admin_init()
 	{
 		// hide the update WordPress reminder from all users that are not assumed Administrators (cannot upgrade plugins).
 		// from : http://wordpress.org/extend/plugins/hide-update-reminder/

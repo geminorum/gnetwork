@@ -16,7 +16,7 @@ class Taxonomy extends \geminorum\gNetwork\ModuleCore
 
 	protected function setup_actions()
 	{
-		add_action( 'current_screen', array( $this, 'current_screen' ) );
+		$this->action( 'current_screen' );
 
 		add_filter( 'pre_term_name', 'normalize_whitespace', 9 );
 		add_filter( 'pre_term_description', 'normalize_whitespace', 9 );
@@ -26,57 +26,57 @@ class Taxonomy extends \geminorum\gNetwork\ModuleCore
 	{
 		Admin::registerMenu( $this->key,
 			_x( 'Taxonomy', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			array( $this, 'settings' )
+			[ $this, 'settings' ]
 		);
 	}
 
 	public function default_options()
 	{
-		return array(
+		return [
 			'management_tools'   => '1',
 			'description_editor' => '0',
 			'description_column' => '1',
 			'search_fields'      => '1',
-		);
+		];
 	}
 
 	public function default_settings()
 	{
-		return array(
-			'_general' => array(
-				array(
+		return [
+			'_general' => [
+				[
 					'field'       => 'management_tools',
 					'title'       => _x( 'Management Tools', 'Modules: Taxonomy: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Allows you to merge terms, set term parents in bulk, and swap term taxonomies', 'Modules: Taxonomy: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '1',
-				),
-				array(
+				],
+				[
 					'field'       => 'description_editor',
 					'title'       => _x( 'Description Editor', 'Modules: Taxonomy: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Replaces the term description editor with the WordPress TinyMCE visual editor', 'Modules: Taxonomy: Settings', GNETWORK_TEXTDOMAIN ),
-				),
-				array(
+				],
+				[
 					'field'       => 'description_column',
 					'title'       => _x( 'Description Column', 'Modules: Taxonomy: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Adds description column to term list table and quick edit', 'Modules: Taxonomy: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '1',
-				),
-				array(
+				],
+				[
 					'field'       => 'search_fields',
 					'title'       => _x( 'Search Fields', 'Modules: Taxonomy: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Looks for criteria in term descriptions and slugs as well as term names', 'Modules: Taxonomy: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '1',
-				),
-			),
-		);
+				],
+			],
+		];
 	}
 
 	protected function setup_ajax( $request )
 	{
 		if ( ( $taxnow = empty( $request['taxonomy'] ) ? FALSE : $request['taxonomy'] ) ) {
-			add_action( 'edited_term', array( $this, 'edited_term' ), 10, 3 );
-			add_filter( 'manage_edit-'.$taxnow.'_columns', array( $this, 'manage_edit_columns' ), 5 );
-			add_filter( 'manage_'.$taxnow.'_custom_column', array( $this, 'manage_custom_column' ), 10, 3 );
+			$this->action( 'edited_term', 3, 10 );
+			add_filter( 'manage_edit-'.$taxnow.'_columns', [ $this, 'manage_edit_columns' ], 5 );
+			add_filter( 'manage_'.$taxnow.'_custom_column', [ $this, 'manage_custom_column' ], 10, 3 );
 		}
 	}
 
@@ -109,30 +109,30 @@ class Taxonomy extends \geminorum\gNetwork\ModuleCore
 					$this->term_management();
 
 				if ( $this->options['description_editor'] )
-					add_action( $screen->taxonomy.'_add_form_fields', array( $this, 'add_form_fields' ), 1, 1 );
+					add_action( $screen->taxonomy.'_add_form_fields', [ $this, 'add_form_fields' ], 1, 1 );
 
 				if ( $this->options['description_column'] ) {
-					add_filter( 'manage_edit-'.$screen->taxonomy.'_columns', array( $this, 'manage_edit_columns' ), 5 );
-					add_filter( 'manage_'.$screen->taxonomy.'_custom_column', array( $this, 'manage_custom_column' ), 10, 3 );
-					add_action( 'quick_edit_custom_box', array( $this, 'quick_edit_custom_box' ), 10, 3 );
+					add_filter( 'manage_edit-'.$screen->taxonomy.'_columns', [ $this, 'manage_edit_columns' ], 5 );
+					add_filter( 'manage_'.$screen->taxonomy.'_custom_column', [ $this, 'manage_custom_column' ], 10, 3 );
+					add_action( 'quick_edit_custom_box', [ $this, 'quick_edit_custom_box' ], 10, 3 );
 				}
 
 				if ( $this->options['search_fields'] ) {
-					add_filter( 'get_terms_args', array( $this, 'get_terms_args' ), 10, 2 );
-					add_filter( 'terms_clauses', array( $this, 'terms_clauses' ), 10, 3 );
+					$this->filter( 'get_terms_args', 2 );
+					$this->filter( 'terms_clauses', 3 );
 				}
 
 			} else if ( 'term' == $screen->base ) {
 
 				if ( $this->options['description_editor'] )
-					add_action( $screen->taxonomy.'_edit_form_fields', array( $this, 'edit_form_fields' ), 1, 2 );
+					add_action( $screen->taxonomy.'_edit_form_fields', [ $this, 'edit_form_fields' ], 1, 2 );
 			}
 		}
 	}
 
 	public function manage_edit_columns( $columns )
 	{
-		$new = array();
+		$new = [];
 
 		foreach ( $columns as $key => $value ) {
 
@@ -183,13 +183,11 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 
 	public function edited_term( $term_id, $tt_id, $taxonomy )
 	{
-		remove_action( 'edited_term', array( $this, 'edited_term' ), 10, 3 );
+		remove_action( 'edited_term', [ $this, 'edited_term' ], 10, 3 );
 
 		if ( wp_verify_nonce( @$_REQUEST['_inline_edit'], 'taxinlineeditnonce' ) )
 			if ( isset( $_REQUEST['gnetwork-description'] ) )
-				wp_update_term( $term_id, $taxonomy, array(
-					'description' => $_POST['gnetwork-description'],
-				) );
+				wp_update_term( $term_id, $taxonomy, [ 'description' => $_POST['gnetwork-description'] ] );
 	}
 
 	public function get_terms_args( $args, $taxonomies )
@@ -228,11 +226,11 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 
 	public function edit_form_fields( $tag, $taxonomy )
 	{
-		$settings = array(
+		$settings = [
 			'textarea_name' => 'description',
 			'textarea_rows' => 10,
 			'editor_class'  => 'i18n-multilingual', // qtranslate-x
-		);
+		];
 
 		?><tr class="form-field term-description-wrap">
 			<th scope="row" valign="top"><label for="html-tag-description"><?php _ex( 'Description', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN ); ?></label></th>
@@ -244,13 +242,13 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 
 	public function add_form_fields( $taxonomy )
 	{
-		$settings = array(
+		$settings = [
 			'textarea_name' => 'description',
 			'textarea_rows' => 7,
 			'teeny'         => TRUE,
 			'media_buttons' => FALSE,
 			'editor_class'  => 'i18n-multilingual', // qtranslate-x
-		);
+		];
 
 		?><div class="form-field term-description-wrap"><label for="html-tag-description"><?php _ex( 'Description', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN ); ?></label>
 			<?php wp_editor( '', 'html-tag-description', $settings ); ?>
@@ -273,7 +271,7 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 
 	private function get_actions( $taxonomy )
 	{
-		$actions = array();
+		$actions = [];
 
 		if ( is_taxonomy_hierarchical( $taxonomy ) )
 			$actions['set_parent'] = _x( 'Set Parent', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN );
@@ -290,12 +288,12 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 
 	private function term_management()
 	{
-		$data = self::atts( array(
+		$data = self::atts( [
 			'taxonomy'    => 'post_tag',
 			'delete_tags' => FALSE,
 			'action'      => FALSE,
 			'action2'     => FALSE,
-		), $_REQUEST );
+		], $_REQUEST );
 
 		$tax = get_taxonomy( $data['taxonomy'] );
 
@@ -305,13 +303,13 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 		if ( ! current_user_can( $tax->cap->manage_terms ) )
 			return;
 
-		add_action( 'admin_notices', array( $this, 'admin_notices' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
-		add_action( 'admin_footer', array( $this, 'admin_footer' ) );
+		$this->action( 'admin_notices' );
+		$this->action( 'admin_enqueue_scripts' );
+		$this->action( 'admin_footer' );
 
 		$action = FALSE;
 
-		foreach ( array( 'action', 'action2' ) as $key )
+		foreach ( [ 'action', 'action2' ] as $key )
 			if ( $data[$key] && '-1' != $data[$key] )
 				$action = $data[$key];
 
@@ -332,7 +330,7 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 
 				check_admin_referer( 'bulk-tags' );
 
-				$callback = $this->filters( 'bulk_callback', array( $this, 'handle_'.$key ), $key, $taxonomy );
+				$callback = $this->filters( 'bulk_callback', [ $this, 'handle_'.$key ], $key, $taxonomy );
 
 				if ( is_callable( $callback ) )
 					$results = call_user_func( $callback, $term_ids, $taxonomy );
@@ -351,9 +349,7 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 			$location = add_query_arg( 'taxonomy', $taxonomy, 'edit-tags.php' );
 		}
 
-		$query = array(
-			'message' => $results ? 'gnetwork-taxonomy-updated' : 'gnetwork-taxonomy-error',
-		);
+		$query = [ 'message' => $results ? 'gnetwork-taxonomy-updated' : 'gnetwork-taxonomy-error' ];
 
 		if ( ! empty( $_REQUEST['post_type'] ) && 'post' != $_REQUEST['post_type'] )
 			$query['post_type'] = $_REQUEST['post_type'];
@@ -411,7 +407,7 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 			if ( self::isError( $term ) )
 				continue;
 
-			wp_update_term( $term_id, $taxonomy, array( 'slug' => $term->name ) );
+			wp_update_term( $term_id, $taxonomy, [ 'slug' => $term->name ] );
 		}
 
 		return TRUE;
@@ -426,7 +422,7 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 			if ( self::isError( $term ) )
 				continue;
 
-			wp_update_term( $term_id, $taxonomy, array( 'description' => '' ) );
+			wp_update_term( $term_id, $taxonomy, [ 'description' => '' ] );
 		}
 
 		return TRUE;
@@ -441,10 +437,10 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 			if ( self::isError( $term ) )
 				continue;
 
-			$args = array(
+			$args = [
 				'name'        => apply_filters( 'string_format_i18n', $term->name ),
 				'description' => apply_filters( 'html_format_i18n', $term->description ),
-			);
+			];
 
 			if ( $term->slug == sanitize_title( $term->name ) )
 				$args['slug'] = $args['name'];
@@ -477,10 +473,10 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 			$old_term = get_term( $term_id, $taxonomy );
 			$old_meta = get_term_meta( $term_id );
 
-			$merged = wp_delete_term( $term_id, $taxonomy, array(
+			$merged = wp_delete_term( $term_id, $taxonomy, [
 				'default'       => $to_term,
 				'force_default' => TRUE,
-			) );
+			] );
 
 			if ( ! $merged || self::isError( $merged ) )
 				continue;
@@ -502,7 +498,7 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 			if ( $term_id == $parent_id )
 				continue;
 
-			$ret = wp_update_term( $term_id, $taxonomy, array( 'parent' => $parent_id ) );
+			$ret = wp_update_term( $term_id, $taxonomy, [ 'parent' => $parent_id ] );
 
 			if ( self::isError( $ret ) )
 				return FALSE;
@@ -523,7 +519,7 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 		if ( $new_tax == $taxonomy )
 			return FALSE;
 
-		$tt_ids = array();
+		$tt_ids = [];
 
 		foreach ( $term_ids as $term_id ) {
 
@@ -534,8 +530,8 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 
 			if ( $term->parent && ! in_array( $term->parent, $term_ids ) ) {
 				$wpdb->update( $wpdb->term_taxonomy,
-					array( 'parent' => 0 ),
-					array( 'term_taxonomy_id' => $term->term_taxonomy_id )
+					[ 'parent' => 0 ],
+					[ 'term_taxonomy_id' => $term->term_taxonomy_id ]
 				);
 			}
 
@@ -543,10 +539,10 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 
 			if ( is_taxonomy_hierarchical( $taxonomy ) ) {
 
-				$child_terms = get_terms( $taxonomy, array(
+				$child_terms = get_terms( $taxonomy, [
 					'child_of'   => $term_id,
 					'hide_empty' => FALSE
-				) );
+				] );
 
 				$tt_ids = array_merge( $tt_ids, wp_list_pluck( $child_terms, 'term_taxonomy_id' ) );
 			}
@@ -585,7 +581,7 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 		foreach ( array_keys( $this->get_actions( $taxonomy ) ) as $key ) {
 			echo "<div id='gnetwork-taxonomy-input-$key' class='gnetwork-taxonomy-input-wrap' style='display:none'>\n";
 
-				$callback = $this->filters( 'bulk_input', array( $this, 'input_'.$key ), $key, $taxonomy );
+				$callback = $this->filters( 'bulk_input', [ $this, 'input_'.$key ], $key, $taxonomy );
 				if ( is_callable( $callback ) )
 					call_user_func( $callback, $taxonomy );
 
@@ -601,7 +597,7 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 
 	public function input_change_tax( $taxonomy )
 	{
-		$args = current_user_can( 'import' ) ? array() : array( 'show_ui' => TRUE );
+		$args = current_user_can( 'import' ) ?  [] : [ 'show_ui' => TRUE ];
 		$list = get_taxonomies( $args, 'objects' );
 
 		echo '<select class="postform" name="new_tax">';
@@ -619,7 +615,7 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 
 	public function input_set_parent( $taxonomy )
 	{
-		wp_dropdown_categories( array(
+		wp_dropdown_categories( [
 			'hide_empty'       => 0,
 			'hide_if_empty'    => FALSE,
 			'name'             => 'parent',
@@ -627,6 +623,6 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 			'taxonomy'         => $taxonomy,
 			'hierarchical'     => TRUE,
 			'show_option_none' => Settings::showOptionNone(),
-		) );
+		] );
 	}
 }

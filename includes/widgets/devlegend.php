@@ -10,10 +10,11 @@ class DevLegend_Widget extends \WP_Widget
 	{
 		parent::__construct( 'gnetwork-legend-widget',
 			_x( 'gNetwork: Development Legend', 'Widget: Title', GNETWORK_TEXTDOMAIN ),
-			array(
+			[
 				'classname'   => 'gnetwork-wrap-widget -legend-widget',
 				'description' => _x( 'Simple Changelog Legend', 'Widget: Description', GNETWORK_TEXTDOMAIN )
-			) );
+			]
+		);
 	}
 
 	public function widget( $args, $instance )
@@ -21,7 +22,7 @@ class DevLegend_Widget extends \WP_Widget
 		echo $args['before_widget'];
 			echo $args['before_title'].'legend'.$args['after_title'];
 
-			$legend = array(
+			$legend = [
 				'*' => 'security fix',
 				'#' => 'bug fix',
 				'$' => 'language fix or change',
@@ -29,7 +30,7 @@ class DevLegend_Widget extends \WP_Widget
 				'^' => 'change',
 				'-' => 'removed',
 				'!' => 'note',
-			);
+			];
 
 			HTML::tableCode( $legend, TRUE );
 

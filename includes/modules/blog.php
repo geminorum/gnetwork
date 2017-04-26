@@ -32,7 +32,7 @@ class Blog extends \geminorum\gNetwork\ModuleCore
 					$this->action( 'wp_head' );
 
 			if ( $this->options['page_404'] )
-				add_filter( '404_template', array( $this, 'custom_404_template' ) );
+				add_filter( '404_template', [ $this, 'custom_404_template' ] );
 
 			if ( $this->options['feed_delay'] )
 				$this->filter( 'posts_where', 2 );
@@ -49,13 +49,13 @@ class Blog extends \geminorum\gNetwork\ModuleCore
 	{
 		Admin::registerMenu( $this->key,
 			_x( 'General', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			array( $this, 'settings' )
+			[ $this, 'settings' ]
 		);
 	}
 
 	public function default_options()
 	{
-		return array(
+		return [
 			'admin_locale'         => '',
 			'blog_redirect'        => '',
 			'blog_redirect_status' => '301',
@@ -72,27 +72,27 @@ class Blog extends \geminorum\gNetwork\ModuleCore
 			'ga_override'          => '',
 			'from_email'           => '',
 			'from_name'            => '',
-		);
+		];
 	}
 
 	public function default_settings()
 	{
-		$exclude = array_filter( array(
+		$exclude = array_filter( [
 			get_option( 'page_on_front' ),
 			get_option( 'page_for_posts' ),
-		) );
+		] );
 
-		$settings = array(
-			'_general' => array(
-				array(
+		$settings = [
+			'_general' => [
+				[
 					'field'       => 'blog_redirect',
 					'type'        => 'url',
 					'title'       => _x( 'Redirect', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'The Site Will Redirect to This URL', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'field_class' => array( 'regular-text', 'url-text' ),
+					'field_class' => [ 'regular-text', 'url-text' ],
 					'placeholder' => 'http://example.com',
-				),
-				array(
+				],
+				[
 					'field'       => 'blog_redirect_status',
 					'type'        => 'select',
 					'title'       => _x( 'Redirect Status Code', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
@@ -100,44 +100,44 @@ class Blog extends \geminorum\gNetwork\ModuleCore
 					'after'       => Settings::fieldAfterIcon( 'https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#3xx_Redirection' ),
 					'dir'         => 'ltr',
 					'default'     => '301',
-					'values'      => array(
+					'values'      => [
 						'301' => '301 Moved Permanently',
 						'302' => '302 Found',
 						'303' => '303 See Other',
 						'307' => '307 Temporary Redirect',
 						'308' => '308 Permanent Redirect',
-					),
-				),
-				array(
+					],
+				],
+				[
 					'field'       => 'rest_api_enabled',
 					'title'       => _x( 'Rest API', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Whether REST API Services Are Enabled on This Site', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-				),
-				array(
+				],
+				[
 					'field'       => 'xmlrpc_enabled',
 					'title'       => _x( 'XML-RPC', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Whether XML-RPC Services Are Enabled on This Site', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-				),
-				array(
+				],
+				[
 					'field'       => 'wlw_enabled',
 					'title'       => _x( 'WLW', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Whether Windows Live Writer manifest enabled for this site.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-				),
-				array(
+				],
+				[
 					'field'       => 'feed_json',
 					'title'       => _x( 'JSON Feed', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Adds JSON as New Type of Feed You Can Subscribe To', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 					'after'       => $this->options['feed_json'] ? Settings::fieldAfterLink( get_feed_link( 'json' ) ) : '',
-				),
-				array(
+				],
+				[
 					'field'       => 'disable_emojis',
 					'title'       => _x( 'Emojis', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Removes the Extra Code Bloat Used to Add Support for Emoji\'s in Older Browsers', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => GNETWORK_DISABLE_EMOJIS,
 					'after'       => Settings::fieldAfterIcon( Settings::getWPCodexLink( 'Emoji' ) ),
 					'values'      => Settings::reverseEnabled(),
-				),
-				array(
+				],
+				[
 					'field'       => 'page_copyright',
 					'type'        => 'page',
 					'title'       => _x( 'Page for Copyright', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
@@ -145,8 +145,8 @@ class Blog extends \geminorum\gNetwork\ModuleCore
 					'default'     => '0',
 					'exclude'     => $exclude,
 					'after'       => Settings::fieldAfterNewPostType( 'page' ),
-				),
-				array(
+				],
+				[
 					'field'       => 'page_404',
 					'type'        => 'page',
 					'title'       => _x( 'Page for 404 Error', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
@@ -154,18 +154,18 @@ class Blog extends \geminorum\gNetwork\ModuleCore
 					'default'     => '0',
 					'exclude'     => $exclude,
 					'after'       => Settings::fieldAfterNewPostType( 'page' ),
-				),
-				array(
+				],
+				[
 					'field'       => 'meta_revised',
 					'title'       => _x( 'Meta Revised', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'HTML Revised Meta Tags for Posts', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-				),
-				array(
+				],
+				[
 					'field'       => 'noindex_attachments',
 					'title'       => _x( 'No Index Attachments', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'No Index/No Follow Meta Tags for Attachments', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-				),
-				array(
+				],
+				[
 					'field'       => 'feed_delay',
 					'type'        => 'select',
 					'title'       => _x( 'Delay Feeds', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
@@ -173,43 +173,43 @@ class Blog extends \geminorum\gNetwork\ModuleCore
 					'none_title'  => _x( 'No Delay', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 					'values'      => Settings::minutesOptions(),
 					'default'     => '10',
-				),
-			),
-		);
+				],
+			],
+		];
 
 		if ( class_exists( __NAMESPACE__.'\\Mail' ) && is_multisite() ) {
-			$settings['_email'] = array(
-				array(
+			$settings['_email'] = [
+				[
 					'field'       => 'from_email',
 					'type'        => 'text',
 					'title'       => _x( 'From Email', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'This Blog Email Address That Emails Should Be Sent From. Set to Override the Network', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'field_class' => array( 'regular-text', 'email-text' ),
-				),
-				array(
+					'field_class' => [ 'regular-text', 'email-text' ],
+				],
+				[
 					'field'       => 'from_name',
 					'type'        => 'text',
 					'title'       => _x( 'From Name', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'This Blog Email Name That Emails Should Be Sent From. Set to Override the Network', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-				),
-			);
+				],
+			];
 		}
 
 		if ( class_exists( __NAMESPACE__.'\\Tracking' ) && is_multisite() )
-			$settings['_tracking'] = array(
-				array(
+			$settings['_tracking'] = [
+				[
 					'field'       => 'ga_override',
 					'type'        => 'text',
 					'title'       => _x( 'GA Override', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'This Blog Google Analytics Account. Set to Override the Network', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 					'placeholder' => 'UA-XXXXX-X',
-					'field_class' => array( 'regular-text', 'code-text' ),
-				),
-			);
+					'field_class' => [ 'regular-text', 'code-text' ],
+				],
+			];
 
 		if ( class_exists( __NAMESPACE__.'\\Locale' ) )
-			$settings['_locale'] = array(
-				array(
+			$settings['_locale'] = [
+				[
 					'field'       => 'admin_locale',
 					'type'        => 'select',
 					'title'       => _x( 'Admin Language', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
@@ -217,8 +217,8 @@ class Blog extends \geminorum\gNetwork\ModuleCore
 					'none_title'  => _x( 'Site Default', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 					'none_value'  => '',
 					'values'      => Arraay::sameKey( Locale::available() ),
-				),
-			);
+				],
+			];
 
 		return $settings;
 	}
@@ -248,7 +248,7 @@ class Blog extends \geminorum\gNetwork\ModuleCore
 
 		if ( $this->options['feed_json'] ) {
 
-			add_feed( 'json', array( $this, 'do_feed_json' ) );
+			add_feed( 'json', [ $this, 'do_feed_json' ] );
 
 			add_filter( 'query_vars', function( $public_query_vars ){
 				$public_query_vars[] = 'callback';
@@ -256,7 +256,7 @@ class Blog extends \geminorum\gNetwork\ModuleCore
 				return $public_query_vars;
 			} );
 
-			add_filter( 'template_include', array( $this, 'feed_json_template_include' ) );
+			add_filter( 'template_include', [ $this, 'feed_json_template_include' ] );
 		}
 
 		// originally from: Disable Emojis v1.5.1
@@ -273,7 +273,7 @@ class Blog extends \geminorum\gNetwork\ModuleCore
 			remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
 
 			add_filter( 'tiny_mce_plugins', function( $plugins ) {
-				return is_array( $plugins ) ? array_diff( $plugins, array( 'wpemoji' ) ) : array();
+				return is_array( $plugins ) ? array_diff( $plugins, [ 'wpemoji' ] ) : [];
 			} );
 		}
 
@@ -300,10 +300,8 @@ class Blog extends \geminorum\gNetwork\ModuleCore
 				return;
 
 		// postpone checking in favor of WP Remote
-		if ( $check && ! empty( $_POST['wpr_verify_key'] ) ) {
-			add_filter( 'init', array( $this, 'init_late' ), 999 ); // must be over 100
-			return;
-		}
+		if ( $check && ! empty( $_POST['wpr_verify_key'] ) )
+			return $this->action( 'init', 0, 999, 'late' ); // must be over 100
 
 		$redirect = URL::untrail( $this->options['blog_redirect'] ).$_SERVER['REQUEST_URI'];
 
@@ -319,7 +317,7 @@ class Blog extends \geminorum\gNetwork\ModuleCore
 		if ( is_null( $request_uri ) )
 			$request_uri = $_SERVER['REQUEST_URI'];
 
-		return Arraay::strposArray( array(
+		return Arraay::strposArray( [
 			'wp-admin',
 			'wp-activate.php',
 			'wp-comments-post.php',
@@ -330,7 +328,7 @@ class Blog extends \geminorum\gNetwork\ModuleCore
 			'wp-signup.php',
 			'wp-trackback.php',
 			'xmlrpc.php',
-		), $request_uri );
+		], $request_uri );
 	}
 
 	public function export_wp()
@@ -342,7 +340,7 @@ class Blog extends \geminorum\gNetwork\ModuleCore
 
 	public function rest_authentication_errors( $null )
 	{
-		return new Error( 'rest_disabled', 'The REST API is disabled on this site.', array( 'status' => 503 ) );
+		return new Error( 'rest_disabled', 'The REST API is disabled on this site.', [ 'status' => 503 ] );
 	}
 
 	public function wp_head()
@@ -415,7 +413,7 @@ class Blog extends \geminorum\gNetwork\ModuleCore
 			$post = get_post( $this->options['page_404'] );
 
 			// populate the posts array with our 404 page object
-			$wp_query->posts = array( $post );
+			$wp_query->posts = [ $post ];
 
 			// set the query object to enable support for custom page templates
 			$wp_query->queried_object_id = $this->options['page_404'];

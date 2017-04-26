@@ -12,7 +12,7 @@ class Admin extends \geminorum\gNetwork\ModuleCore
 	protected $network = FALSE;
 	protected $front   = FALSE;
 
-	public $menus = array();
+	public $menus = [];
 
 	protected function setup_actions()
 	{
@@ -20,13 +20,13 @@ class Admin extends \geminorum\gNetwork\ModuleCore
 			return;
 
 		if ( is_blog_admin() ) {
-			add_action( 'admin_menu', array( $this, 'admin_menu' ), 12 );
-			add_action( 'admin_menu', array( $this, 'admin_menu_late' ), 999 );
+			$this->action( 'admin_menu', 0, 12 );
+			$this->action( 'admin_menu', 0, 999, 'late' );
 		}
 
-		add_action( 'admin_print_styles', array( $this, 'admin_print_styles' ) );
-		add_filter( 'admin_footer_text', array( $this, 'admin_footer_text' ), 9999 );
-		add_filter( 'update_footer', array( $this, 'update_footer' ), 9999 );
+		$this->action( 'admin_print_styles' );
+		$this->filter( 'admin_footer_text', 1, 9999 );
+		$this->filter( 'update_footer', 1, 9999 );
 	}
 
 	public function admin_menu()
@@ -40,7 +40,7 @@ class Admin extends \geminorum\gNetwork\ModuleCore
 				_x( 'Extras', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN ),
 				'manage_options',
 				$this->base,
-				array( $this, 'settings_page' ),
+				[ $this, 'settings_page' ],
 				'dashicons-screenoptions',
 				120
 			);
@@ -51,7 +51,7 @@ class Admin extends \geminorum\gNetwork\ModuleCore
 					$args['title'],
 					$args['cap'],
 					$this->base.'&sub='.$sub,
-					array( $this, 'settings_page' )
+					[ $this, 'settings_page' ]
 				);
 			}
 
@@ -62,11 +62,11 @@ class Admin extends \geminorum\gNetwork\ModuleCore
 				_x( 'Extras', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN ),
 				'read',
 				$this->base,
-				array( $this, 'settings_page' )
+				[ $this, 'settings_page' ]
 			);
 		}
 
-		add_action( 'load-'.$hook, array( $this, 'settings_load' ) );
+		add_action( 'load-'.$hook, [ $this, 'settings_load' ] );
 
 		add_submenu_page( 'plugins.php',
 			_x( 'Active', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN ),
@@ -78,12 +78,12 @@ class Admin extends \geminorum\gNetwork\ModuleCore
 
 	public function admin_menu_late()
 	{
-		$GLOBALS['submenu'][$this->base][0] = array(
+		$GLOBALS['submenu'][$this->base][0] = [
 			_x( 'Overview', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
 			'read',
 			$this->base,
 			_x( 'Network Extras', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN ),
-		);
+		];
 	}
 
 	public static function registerMenu( $sub, $title = NULL, $callback = FALSE, $capability = 'manage_options' )
@@ -91,10 +91,10 @@ class Admin extends \geminorum\gNetwork\ModuleCore
 		if ( ! is_blog_admin() )
 			return;
 
-		gNetwork()->admin->menus[$sub] = array(
+		gNetwork()->admin->menus[$sub] = [
 			'title' => $title ? $title : $sub,
 			'cap'   => $capability,
-		);
+		];
 
 		if ( $callback ) // && is_callable( $callback ) )
 			add_action( 'gnetwork_admin_settings', $callback );
@@ -116,7 +116,7 @@ class Admin extends \geminorum\gNetwork\ModuleCore
 
 	private function subs()
 	{
-		$subs = array();
+		$subs = [];
 
 		$subs['overview'] = _x( 'Overview', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN );
 
