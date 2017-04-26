@@ -1,8 +1,9 @@
-<?php namespace geminorum\gNetwork;
+<?php defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
-defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+namespace geminorum\gNetwork\Settings;
+use geminorum\gNetwork\Core\WordPress;
 
 WordPress::superAdminOnly();
 
-if ( class_exists( __NAMESPACE__.'\\Debug' ) )
-	Debug::phpinfo();
+if ( class_exists( 'geminorum\\gNetwork\\Modules\\Debug' ) )
+	\geminorum\gNetwork\Modules\Debug::phpinfo();

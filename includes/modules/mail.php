@@ -1,8 +1,16 @@
-<?php namespace geminorum\gNetwork;
+<?php defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
-defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+namespace geminorum\gNetwork\Modules;
+use geminorum\gNetwork\Settings;
+use geminorum\gNetwork\Utilities;
+use geminorum\gNetwork\Core\Arraay;
+use geminorum\gNetwork\Core\File;
+use geminorum\gNetwork\Core\HTML;
+use geminorum\gNetwork\Core\Number;
+use geminorum\gNetwork\Core\Text;
+use geminorum\gNetwork\Core\WordPress;
 
-class Mail extends ModuleCore
+class Mail extends \geminorum\gNetwork\ModuleCore
 {
 
 	protected $key = 'mail';
@@ -382,7 +390,7 @@ class Mail extends ModuleCore
 			$contents['rtl'] = 'true';
 
 		if ( is_array( $contents['to'] ) )
-			$to = array_filter( array( __NAMESPACE__.'\\File', 'escFilename' ), $contents['to'] );
+			$to = array_filter( array( 'geminorum\\gNetwork\\Core\\File', 'escFilename' ), $contents['to'] );
 		else
 			$to = File::escFilename( $contents['to'] );
 

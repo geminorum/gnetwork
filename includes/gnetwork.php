@@ -1,6 +1,8 @@
-<?php namespace geminorum\gNetwork;
+<?php defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
-defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+namespace geminorum\gNetwork;
+use geminorum\gNetwork\Core\Exception;
+use geminorum\gNetwork\Core\HTML;
 
 class gNetwork
 {
@@ -30,7 +32,7 @@ class gNetwork
 
 		foreach ( $modules as $module_slug => $module_class ) {
 
-			$class = __NAMESPACE__.'\\'.$module_class;
+			$class = __NAMESPACE__.'\\Modules\\'.$module_class;
 			$slug  = str_ireplace( 'modules/', '', $module_slug );
 
 			if ( $module_class && class_exists( $class ) ) {
@@ -158,7 +160,7 @@ class gNetwork
 		if ( file_exists( GNETWORK_DIR.'includes/modules/buddypress.php' ) ) {
 			require_once( GNETWORK_DIR.'includes/modules/buddypress.php' );
 			try {
-				$this->buddypress = new BuddyPress( $this->base, 'buddypress' );
+				$this->buddypress = new Modules\BuddyPress( $this->base, 'buddypress' );
 			} catch ( Exception $e ) {
 				// echo 'Caught exception: ',  $e->getMessage(), "\n";
 				// no need to do anything!
@@ -167,7 +169,7 @@ class gNetwork
 
 		if ( file_exists( GNETWORK_DIR.'includes/misc/buddypress-me.php' ) ) {
 			require_once( GNETWORK_DIR.'includes/misc/buddypress-me.php' );
-			buddypress()->me = new BP_Me_Component();
+			buddypress()->me = new Misc\BP_Me_Component();
 		}
 	}
 
@@ -215,6 +217,8 @@ class gNetwork
 	public function na( $wrap = 'code' )
 	{
 		$na = __( 'N/A', GNETWORK_TEXTDOMAIN );
-		return $wrap ? HTML::tag( $wrap, array( 'title' => __( 'Not Available', GNETWORK_TEXTDOMAIN ) ), $na ) : $na;
+		return $wrap
+			? HTML::tag( $wrap, array( 'title' => __( 'Not Available', GNETWORK_TEXTDOMAIN ) ), $na )
+			: $na;
 	}
 }

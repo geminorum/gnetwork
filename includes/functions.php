@@ -27,7 +27,7 @@ if ( ! function_exists( 'gnetwork_ip_lookup' ) ) :
 	function gnetwork_ip_lookup( $ip ) {
 
 		if ( $service = gNetwork()->option( 'lookup_ip_service', 'site', 'http://freegeoip.net/?q=%s' ) )
-			return \geminorum\gNetwork\HTML::tag( 'a', array(
+			return \geminorum\gNetwork\Core\HTML::tag( 'a', array(
 				'href'   => sprintf( $service, $ip ),
 				'class'  => '-ip-lookup',
 				'target' => '_blank',
@@ -81,7 +81,7 @@ if ( ! function_exists( 'gnetwork_credits' ) ) :
 endif;
 
 if ( ! function_exists( '__donot_cache_page' ) ) : function __donot_cache_page() {
-	\geminorum\gNetwork\WordPress::doNotCache();
+	\geminorum\gNetwork\Core\WordPress::doNotCache();
 } endif;
 
 if ( ! function_exists( '__gpersiandate_skip' ) ) : function __gpersiandate_skip() {

@@ -1,8 +1,11 @@
-<?php namespace geminorum\gNetwork;
+<?php defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
-defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+namespace geminorum\gNetwork\Modules;
+use geminorum\gNetwork\Settings;
+use geminorum\gNetwork\Core\HTML;
+use geminorum\gNetwork\Core\WordPress;
 
-class Widgets extends ModuleCore
+class Widgets extends \geminorum\gNetwork\ModuleCore
 {
 
 	protected $key     = 'widgets';
@@ -177,13 +180,13 @@ class Widgets extends ModuleCore
 	public function widgets_init()
 	{
 		$widgets = array(
-			GNETWORK_DIR.'includes/widgets/devlegend.php' => __NAMESPACE__.'\\DevLegend_Widget',
-			GNETWORK_DIR.'includes/widgets/shortcode.php' => __NAMESPACE__.'\\Shortcode_Widget',
+			GNETWORK_DIR.'includes/widgets/devlegend.php' => 'geminorum\\gNetwork\\Widgets\\DevLegend_Widget',
+			GNETWORK_DIR.'includes/widgets/shortcode.php' => 'geminorum\\gNetwork\\Widgets\\Shortcode_Widget',
 		);
 
-		if ( class_exists( __NAMESPACE__.'\\Tracking' ) ) {
-			$widgets[GNETWORK_DIR.'includes/widgets/tracking-gplusbadge.php'] = __NAMESPACE__.'\\Tracking_GPlusBadge_Widget';
-			$widgets[GNETWORK_DIR.'includes/widgets/tracking-quantcast.php']  = __NAMESPACE__.'\\Tracking_Quantcast_Widget';
+		if ( class_exists( 'geminorum\\gNetwork\\Widgets\\Tracking' ) ) {
+			$widgets[GNETWORK_DIR.'includes/widgets/tracking-gplusbadge.php'] = 'geminorum\\gNetwork\\Widgets\\Tracking_GPlusBadge_Widget';
+			$widgets[GNETWORK_DIR.'includes/widgets/tracking-quantcast.php']  = 'geminorum\\gNetwork\\Widgets\\Tracking_Quantcast_Widget';
 		}
 
 		foreach ( apply_filters( $this->hook(), $widgets ) as $path => $widget ) {

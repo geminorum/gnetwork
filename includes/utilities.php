@@ -1,8 +1,13 @@
-<?php namespace geminorum\gNetwork;
+<?php defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
-defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+namespace geminorum\gNetwork;
+use geminorum\gNetwork\Core\Date;
+use geminorum\gNetwork\Core\Error;
+use geminorum\gNetwork\Core\HTML;
+use geminorum\gNetwork\Core\HTTP;
+use geminorum\gNetwork\Core\WordPress;
 
-class Utilities extends Base
+class Utilities extends Core\Base
 {
 
 	const BASE = 'gnetwork';
@@ -474,7 +479,9 @@ class Utilities extends Base
 	// FIXME: check: `URLify::add_chars()`
 	public static function URLifyDownCode( $string, $locale = NULL )
 	{
-		$iso = class_exists( __NAMESPACE__.'\\Locale' ) ? Locale::getISO( $locale ) : $locale;
+		$iso = class_exists( 'geminorum\\gNetwork\\Modules\\Locale' )
+			? \geminorum\gNetwork\Modules\Locale::getISO( $locale )
+			: $locale;
 
 		return \URLify::downcode( $string, $iso );
 	}

@@ -1,8 +1,12 @@
-<?php namespace geminorum\gNetwork;
+<?php defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
-defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+namespace geminorum\gNetwork\Modules;
+use geminorum\gNetwork\Settings;
+use geminorum\gNetwork\Core\Arraay;
+use geminorum\gNetwork\Core\Error;
+use geminorum\gNetwork\Core\HTTP;
 
-class Lockdown extends ModuleCore
+class Lockdown extends \geminorum\gNetwork\ModuleCore
 {
 
 	protected $key = 'lockdown';

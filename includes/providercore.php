@@ -1,8 +1,11 @@
-<?php namespace geminorum\gNetwork;
+<?php defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
-defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+namespace geminorum\gNetwork;
+use geminorum\gNetwork\Core\Error;
+use geminorum\gNetwork\Core\Exception;
+use geminorum\gNetwork\Core\WordPress;
 
-class ProviderCore extends Base
+class ProviderCore extends Core\Base
 {
 
 	public $options = array();

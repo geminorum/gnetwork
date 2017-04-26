@@ -1,8 +1,14 @@
-<?php namespace geminorum\gNetwork;
+<?php defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
-defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+namespace geminorum\gNetwork\Modules;
+use geminorum\gNetwork\Utilities;
+use geminorum\gNetwork\Core\Arraay;
+use geminorum\gNetwork\Core\HTML;
+use geminorum\gNetwork\Core\Text;
+use geminorum\gNetwork\Core\URL;
+use geminorum\gNetwork\Core\WordPress;
 
-class Media extends ModuleCore
+class Media extends \geminorum\gNetwork\ModuleCore
 {
 
 	protected $key     = 'media';
@@ -452,8 +458,8 @@ class Media extends ModuleCore
 		require_once GNETWORK_DIR.'includes/misc/media-editor-imagick.php';
 
 		return array(
-			__NAMESPACE__.'\\Image_Editor_Imagick',
-			__NAMESPACE__.'\\Image_Editor_GD',
+			'geminorum\\gNetwork\\Misc\\Image_Editor_Imagick',
+			'geminorum\\gNetwork\\Misc\\Image_Editor_GD',
 		);
 	}
 

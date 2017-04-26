@@ -1,8 +1,10 @@
-<?php namespace geminorum\gNetwork;
+<?php defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
-defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+namespace geminorum\gNetwork\Providers;
+use geminorum\gNetwork\Settings;
+use geminorum\gNetwork\Core\Error;
 
-class FarapaymakProvider extends ProviderCore
+class FarapaymakProvider extends \geminorum\gNetwork\ProviderCore
 {
 
 	protected $key  = 'farapaymak';

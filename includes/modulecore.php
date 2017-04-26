@@ -1,8 +1,12 @@
-<?php namespace geminorum\gNetwork;
+<?php defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
-defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+namespace geminorum\gNetwork;
+use geminorum\gNetwork\Core\Exception;
+use geminorum\gNetwork\Core\HTML;
+use geminorum\gNetwork\Core\URL;
+use geminorum\gNetwork\Core\WordPress;
 
-class ModuleCore extends Base
+class ModuleCore extends Core\Base
 {
 
 	public $options = array();
@@ -135,14 +139,14 @@ class ModuleCore extends Base
 			if ( is_null( $capability ) )
 				$capability = 'manage_network_options';
 
-			Network::registerMenu( $sub, $title, $callback, $capability );
+			Modules\Network::registerMenu( $sub, $title, $callback, $capability );
 
 		} else {
 
 			if ( is_null( $capability ) )
 				$capability = 'manage_options';
 
-			Admin::registerMenu( $sub, $title, $callback, $capability );
+			Modules\Admin::registerMenu( $sub, $title, $callback, $capability );
 		}
 
 		// TODO : add register for user admin

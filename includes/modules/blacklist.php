@@ -1,8 +1,10 @@
-<?php namespace geminorum\gNetwork;
+<?php defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
-defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+namespace geminorum\gNetwork\Modules;
+use geminorum\gNetwork\Utilities;
+use geminorum\gNetwork\Core\HTTP;
 
-class BlackList extends ModuleCore
+class BlackList extends \geminorum\gNetwork\ModuleCore
 {
 
 	protected $key     = 'blacklist';

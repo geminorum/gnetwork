@@ -1,6 +1,6 @@
-<?php namespace geminorum\gNetwork;
+<?php defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
-defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+namespace geminorum\gNetwork\Core;
 
 class HTML extends Base
 {
@@ -485,9 +485,6 @@ class HTML extends Base
 				$args['class'],
 			),
 		), $navs.$contents );
-
-		if ( class_exists( __NAMESPACE__.'\\Utilities' ) )
-			Utilities::enqueueScript( 'admin.tabs' );
 	}
 
 	public static function tableList( $columns, $data = array(), $args = array() )

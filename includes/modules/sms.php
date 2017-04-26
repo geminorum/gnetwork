@@ -1,8 +1,12 @@
-<?php namespace geminorum\gNetwork;
+<?php defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
-defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+namespace geminorum\gNetwork\Modules;
+use geminorum\gNetwork\Logger;
+use geminorum\gNetwork\ProviderCore;
+use geminorum\gNetwork\Core\HTML;
+use geminorum\gNetwork\Core\WordPress;
 
-class SMS extends ModuleCore
+class SMS extends \geminorum\gNetwork\ModuleCore
 {
 
 	protected $key    = 'sms';
@@ -82,11 +86,11 @@ class SMS extends ModuleCore
 		$bundled = array(
 			'kavenegar' => array(
 				'path'  => GNETWORK_DIR.'includes/providers/kavenegar.php',
-				'class' => __NAMESPACE__.'\\KavenegarProvider',
+				'class' => 'geminorum\\gNetwork\\Providers\\KavenegarProvider',
 			),
 			'farapaymak' => array(
 				'path'  => GNETWORK_DIR.'includes/providers/farapaymak.php',
-				'class' => __NAMESPACE__.'\\FarapaymakProvider',
+				'class' => 'geminorum\\gNetwork\\Providers\\FarapaymakProvider',
 			),
 		);
 

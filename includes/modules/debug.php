@@ -1,8 +1,15 @@
-<?php namespace geminorum\gNetwork;
+<?php defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
-defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+namespace geminorum\gNetwork\Modules;
+use geminorum\gNetwork\Logger;
+use geminorum\gNetwork\Settings;
+use geminorum\gNetwork\Utilities;
+use geminorum\gNetwork\Core\File;
+use geminorum\gNetwork\Core\HTML;
+use geminorum\gNetwork\Core\Number;
+use geminorum\gNetwork\Core\WordPress;
 
-class Debug extends ModuleCore
+class Debug extends \geminorum\gNetwork\ModuleCore
 {
 
 	protected $key  = 'debug';
@@ -107,6 +114,8 @@ class Debug extends ModuleCore
 		if ( 'systemreport' == $sub ) {
 
 			HTML::h3( _x( 'System Report', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ) );
+
+			Utilities::enqueueScript( 'admin.tabs' ); // FIXME: ass this into script.all
 
 			HTML::tabsList( array(
 				'php' => array(
@@ -498,12 +507,12 @@ class Debug extends ModuleCore
 	{
 		if ( file_exists( GNETWORK_DIR.'includes/misc/debug-debugbar.php' ) ) {
 			require_once( GNETWORK_DIR.'includes/misc/debug-debugbar.php' );
-			$panels[] = new Debug_Bar_gNetwork();
+			$panels[] = new \geminorum\gNetwork\Misc\Debug_Bar_gNetwork();
 		}
 
 		if ( file_exists( GNETWORK_DIR.'includes/misc/debug-debugbar-meta.php' ) ) {
 			require_once( GNETWORK_DIR.'includes/misc/debug-debugbar-meta.php' );
-			$panels[] = new Debug_Bar_gNetworkMeta();
+			$panels[] = new \geminorum\gNetwork\Misc\Debug_Bar_gNetworkMeta();
 		}
 
 		return $panels;
@@ -654,7 +663,7 @@ class Debug extends ModuleCore
 				}
 			}
 
-			return apply_filters( 'wp_error_handler', false, $errno, $errstr, $errfile );
+			return apply_filters( 'wp_error_handler', FALSE, $errno, $errstr, $errfile );
 		}, $errcontext );
 	}
 }

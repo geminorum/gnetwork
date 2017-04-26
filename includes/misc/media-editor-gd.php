@@ -1,6 +1,7 @@
-<?php namespace geminorum\gNetwork;
+<?php defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
-defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+namespace geminorum\gNetwork\Misc;
+use geminorum\gNetwork\Modules\Media;
 
 class Image_Editor_GD extends \WP_Image_Editor_GD
 {

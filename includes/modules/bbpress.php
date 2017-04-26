@@ -1,8 +1,8 @@
-<?php namespace geminorum\gNetwork;
+<?php defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
-defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+namespace geminorum\gNetwork\Modules;
 
-class bbPress extends ModuleCore
+class bbPress extends \geminorum\gNetwork\ModuleCore
 {
 	protected $key     = 'bbpress';
 	protected $network = FALSE;
