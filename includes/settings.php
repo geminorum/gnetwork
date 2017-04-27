@@ -171,8 +171,11 @@ class Settings extends Core\Base
 		return _x( 'huh?', 'Settings: Message', GNETWORK_TEXTDOMAIN );
 	}
 
-	public static function message( $messages = [] )
+	public static function message( $messages = NULL )
 	{
+		if ( is_null( $messages ) )
+			$messages = self::messages();
+
 		if ( isset( $_GET['message'] ) ) {
 
 			if ( isset( $messages[$_GET['message']] ) )
@@ -180,7 +183,7 @@ class Settings extends Core\Base
 			else
 				self::warning( $_GET['message'], TRUE );
 
-			$_SERVER['REQUEST_URI'] = remove_query_arg( [ 'message', 'count', 'limit' ], $_SERVER['REQUEST_URI'] );
+			$_SERVER['REQUEST_URI'] = remove_query_arg( [ 'message', 'count' ], $_SERVER['REQUEST_URI'] );
 		}
 	}
 
