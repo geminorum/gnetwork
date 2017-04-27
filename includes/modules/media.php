@@ -5,6 +5,7 @@ use geminorum\gNetwork;
 use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\Arraay;
 use geminorum\gNetwork\Core\HTML;
+use geminorum\gNetwork\Core\HTTP;
 use geminorum\gNetwork\Core\Text;
 use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
@@ -265,8 +266,14 @@ class Media extends gNetwork\Module
 
 					$links = [];
 
-					foreach ( $matches[1] as $src )
-						$links[] = HTML::link( URL::prepTitle( $src ), $src, TRUE );
+					if ( FALSE === ( $checked = HTTP::checkURLs( $matches[1] ) ) )
+						$checked = array_fill_keys( $matches[1], NULL );
+
+					foreach (  $checked as $src => $status )
+						$links[] = ( is_null( $status ) ? '' : '<small><code style="color:'
+								.( $status > 400 ? 'red' : 'green' ).'">'
+								.$status.'</code></small>&nbsp;' )
+							.HTML::link( URL::prepTitle( $src ), $src, TRUE );
 
 					return '<div dir="ltr">'.( count( $links ) ? implode( '<br />', $links ) : '&mdash;' ).'</div>';
 				},
