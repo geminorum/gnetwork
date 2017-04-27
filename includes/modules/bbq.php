@@ -1,9 +1,10 @@
 <?php defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 namespace geminorum\gNetwork\Modules;
+use geminorum\gNetwork;
 use geminorum\gNetwork\Core\Exception;
 
-class BBQ extends \geminorum\gNetwork\ModuleCore
+class BBQ extends gNetwork\Module
 {
 
 	protected $key     = 'bbq';

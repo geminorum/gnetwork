@@ -1,6 +1,7 @@
 <?php defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 namespace geminorum\gNetwork\Modules;
+use geminorum\gNetwork;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\Arraay;
@@ -8,7 +9,7 @@ use geminorum\gNetwork\Core\Error;
 use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
 
-class Blog extends \geminorum\gNetwork\ModuleCore
+class Blog extends gNetwork\Module
 {
 
 	protected $key     = 'general';

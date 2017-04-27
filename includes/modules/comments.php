@@ -1,12 +1,13 @@
 <?php defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 namespace geminorum\gNetwork\Modules;
+use geminorum\gNetwork;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\Number;
 
-class Comments extends \geminorum\gNetwork\ModuleCore
+class Comments extends gNetwork\Module
 {
 	protected $key     = 'comments';
 	protected $network = FALSE;

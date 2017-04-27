@@ -1,6 +1,7 @@
 <?php defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 namespace geminorum\gNetwork\Modules;
+use geminorum\gNetwork;
 use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\Date;
 use geminorum\gNetwork\Core\HTML;
@@ -8,7 +9,7 @@ use geminorum\gNetwork\Core\HTTP;
 use geminorum\gNetwork\Core\Number;
 use geminorum\gNetwork\Core\WordPress;
 
-class ShortCodes extends \geminorum\gNetwork\ModuleCore
+class ShortCodes extends gNetwork\Module
 {
 
 	protected $key     = 'shortcodes';

@@ -1,11 +1,12 @@
 <?php defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 namespace geminorum\gNetwork\Modules;
+use geminorum\gNetwork;
 use geminorum\gNetwork\Logger;
 use geminorum\gNetwork\Core\Error;
 use geminorum\gNetwork\Core\Exception;
 
-class Captcha extends \geminorum\gNetwork\ModuleCore
+class Captcha extends gNetwork\Module
 {
 
 	// FIXME: move to NoCaptcha: [Using Googles NoCaptcha ReCaptcha In WordPress](https://paulund.co.uk/using-googles-nocaptcha-recaptcha-wordpress)

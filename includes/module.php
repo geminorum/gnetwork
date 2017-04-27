@@ -6,7 +6,7 @@ use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
 
-class ModuleCore extends Core\Base
+class Module extends Core\Base
 {
 
 	public $options = [];

@@ -1,8 +1,9 @@
 <?php defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 namespace geminorum\gNetwork\Modules;
+use geminorum\gNetwork;
 
-class Update extends \geminorum\gNetwork\ModuleCore
+class Update extends gNetwork\Module
 {
 
 	protected $key   = 'update';

@@ -5,7 +5,7 @@ use geminorum\gNetwork\Core\Error;
 use geminorum\gNetwork\Core\Exception;
 use geminorum\gNetwork\Core\WordPress;
 
-class ProviderCore extends Core\Base
+class Provider extends Core\Base
 {
 
 	public $options = [];

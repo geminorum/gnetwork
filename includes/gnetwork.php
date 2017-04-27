@@ -92,8 +92,8 @@ class gNetwork
 			'utilities',
 			'settings',
 			'logger',
-			'modulecore',
-			'providercore',
+			'module',
+			'provider',
 		] );
 	}
 

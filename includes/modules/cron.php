@@ -1,11 +1,12 @@
 <?php defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 namespace geminorum\gNetwork\Modules;
+use geminorum\gNetwork;
 use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\WordPress;
 
-class Cron extends \geminorum\gNetwork\ModuleCore
+class Cron extends gNetwork\Module
 {
 	protected $key     = 'cron';
 	protected $network = FALSE;

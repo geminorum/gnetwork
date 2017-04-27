@@ -1,12 +1,12 @@
 <?php defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 namespace geminorum\gNetwork\Modules;
+use geminorum\gNetwork;
 use geminorum\gNetwork\Logger;
-use geminorum\gNetwork\ProviderCore;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\WordPress;
 
-class SMS extends \geminorum\gNetwork\ModuleCore
+class SMS extends gNetwork\Module
 {
 
 	protected $key    = 'sms';
@@ -84,11 +84,11 @@ class SMS extends \geminorum\gNetwork\ModuleCore
 		$bundled = [
 			'kavenegar' => [
 				'path'  => GNETWORK_DIR.'includes/providers/kavenegar.php',
-				'class' => 'geminorum\\gNetwork\\Providers\\KavenegarProvider',
+				'class' => 'geminorum\\gNetwork\\Providers\\Kavenegar',
 			],
 			'farapaymak' => [
 				'path'  => GNETWORK_DIR.'includes/providers/farapaymak.php',
-				'class' => 'geminorum\\gNetwork\\Providers\\FarapaymakProvider',
+				'class' => 'geminorum\\gNetwork\\Providers\\Farapaymak',
 			],
 		];
 
@@ -148,7 +148,7 @@ class SMS extends \geminorum\gNetwork\ModuleCore
 
 					HTML::h3( $provider->providerName() );
 
-					echo ProviderCore::dateFormat( $status['timestamp'] );
+					echo gNetwork\Provider::dateFormat( $status['timestamp'] );
 					echo '<br/>';
 					echo $provider->providerBalance();
 				}
