@@ -1,6 +1,6 @@
-<?php defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+<?php namespace geminorum\gNetwork\Settings;
 
-namespace geminorum\gNetwork\Settings;
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 // TODO
 // add setting option for page

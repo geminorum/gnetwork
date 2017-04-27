@@ -1,6 +1,7 @@
-<?php defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+<?php namespace geminorum\gNetwork\Misc;
 
-namespace geminorum\gNetwork\Misc;
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+
 use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
 

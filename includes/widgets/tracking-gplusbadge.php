@@ -1,6 +1,7 @@
-<?php defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+<?php namespace geminorum\gNetwork\Widgets;
 
-namespace geminorum\gNetwork\Widgets;
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+
 use geminorum\gNetwork\Core\HTML;
 
 class Tracking_GPlusBadge_Widget extends \WP_Widget

@@ -1,6 +1,7 @@
-<?php defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+<?php namespace geminorum\gNetwork;
 
-namespace geminorum\gNetwork;
+defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+
 use geminorum\gNetwork\Core\Date;
 use geminorum\gNetwork\Core\Error;
 use geminorum\gNetwork\Core\HTML;
