@@ -4,8 +4,9 @@ namespace geminorum\gNetwork;
 use geminorum\gNetwork\Core\Exception;
 use geminorum\gNetwork\Core\HTML;
 
-class gNetwork
+class Plugin
 {
+
 	public $base = 'gnetwork';
 
 	public static function instance()
@@ -13,7 +14,7 @@ class gNetwork
 		static $instance = NULL;
 
 		if ( NULL === $instance ) {
-			$instance = new gNetwork;
+			$instance = new Plugin;
 			$instance->setup();
 		}
 

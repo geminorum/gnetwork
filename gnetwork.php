@@ -29,10 +29,10 @@ if ( file_exists( WP_CONTENT_DIR.'/gnetwork-custom.php' ) )
 if ( file_exists( GNETWORK_DIR.'assets/vendor/autoload.php' ) ) {
 	require_once( GNETWORK_DIR.'assets/vendor/autoload.php' );
 
-	require_once( GNETWORK_DIR.'includes/gnetwork.php' );
+	require_once( GNETWORK_DIR.'includes/plugin.php' );
 
 	function gNetwork() {
-		return \geminorum\gNetwork\gNetwork::instance();
+		return \geminorum\gNetwork\Plugin::instance();
 	}
 
 	// back comp
