@@ -17,7 +17,7 @@ class Settings extends Core\Base
 
 	public static function sub( $default = 'overview' )
 	{
-		return isset( $_REQUEST['sub'] ) ? trim( $_REQUEST['sub'] ) : $default;
+		return trim( self::req( 'sub', $default ) );
 	}
 
 	public static function subURL( $sub = 'general', $network = TRUE )

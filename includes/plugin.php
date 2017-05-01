@@ -81,6 +81,7 @@ class Plugin
 			'core/number',
 			'core/orthography',
 			'core/text',
+			'core/uri',
 			'core/url',
 			'core/wordpress',
 		] );

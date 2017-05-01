@@ -312,8 +312,7 @@ class Media extends gNetwork\Module
 
 		} else if ( is_null( $parent_type ) ) {
 
-			$parent = get_post( wp_get_post_parent_id( $attachment_id ) );
-			if ( ! $parent )
+			if ( ! $parent = get_post( wp_get_post_parent_id( $attachment_id ) ) )
 				return $metadata;
 
 			$parent_type = $parent->post_type;

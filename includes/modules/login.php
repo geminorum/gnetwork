@@ -3,6 +3,7 @@
 defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Logger;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\HTML;
@@ -261,6 +262,8 @@ class Login extends gNetwork\Module
 			'invalid_username',
 			'invalid_email',
 			'invalidcombo',
+			'invalidkey', // your password reset link appears to be invalid
+			'expiredkey', // your password reset link has expired
 			'empty_password',
 			'empty_username',
 			'empty_email',

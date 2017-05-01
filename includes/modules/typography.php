@@ -36,7 +36,7 @@ class Typography extends gNetwork\Module
 
 		if ( $this->options['arabic_typography']
 			|| $this->options['persian_typography'] )
-				add_filter( 'the_content', 1, 1000, 'late' );
+				$this->filter( 'the_content', 1, 1000, 'late' );
 
 		add_filter( $this->hook( 'arabic' ), [ $this, 'arabic_typography' ] );
 		add_filter( $this->hook( 'persian' ), [ $this, 'persian_typography' ] );
