@@ -17,26 +17,33 @@ class Debug_Bar_gNetworkMeta extends \Debug_Bar_Panel
 	{
 		echo '<div id="gnetwork-meta-debugbar-panel" class="gnetwork-admin-wrap debugbar-panel">';
 
-		if ( is_tax() && function_exists( 'get_term_custom' ) )
+		if ( is_tax() && function_exists( 'get_term_custom' ) ) {
 			$meta = get_term_custom( get_queried_object_id() );
 
-		else if ( defined( 'IS_PROFILE_PAGE' ) && IS_PROFILE_PAGE && current_user_can( 'edit_users' ) )
+		} else if ( defined( 'IS_PROFILE_PAGE' ) && IS_PROFILE_PAGE && current_user_can( 'edit_users' ) ) {
 			$meta = get_user_meta( get_current_user_id() );
 
-		else if ( ! empty( $_GET['user_id'] ) && current_user_can( 'edit_users' ) )
+		} else if ( ! empty( $_GET['user_id'] ) && current_user_can( 'edit_users' ) ) {
 			$meta = get_user_meta( $_GET['user_id'] );
 
-		else if ( ! empty( $_GET['tag_ID'] ) )
+		} else if ( ! empty( $_GET['tag_ID'] ) ) {
 			$meta = get_term_meta( $_GET['tag_ID'] );
 
-		else // is_singular()
-			$meta = get_post_meta( get_the_ID() );
-			// $meta = get_post_custom( get_the_ID() );
+		} else if ( $post = get_post() ) {
+			$meta = get_post_meta( $post->ID );
+
+			echo '<div class="-post">';
+				HTML::tableSide( $post );
+			echo '</div>';
+
+		} else {
+			$meta = FALSE;
+		}
 
 		if ( $meta ) {
 			foreach ( $meta as $key => $values ) {
-				HTML::h3( $key );
-				echo '<div class="group">';
+				HTML::h3( $key, '-title' );
+				echo '<div class="-group">';
 				foreach ( $values as $value ) {
 					$data = maybe_unserialize( $value );
 					if ( is_array( $value ) )
@@ -47,7 +54,7 @@ class Debug_Bar_gNetworkMeta extends \Debug_Bar_Panel
 				echo '</div>';
 			}
 		} else {
-			echo '<div class="empty">';
+			echo '<div class="-empty">';
 				_ex( 'No Meta Data!', 'Debug Module: Debug Bar Panel', GNETWORK_TEXTDOMAIN );
 			echo '</div>';
 		}

@@ -16,8 +16,8 @@ class Debug_Bar_gNetwork extends \Debug_Bar_Panel
 	{
 		echo '<div id="gnetwork-debugbar-panel" class="gnetwork-admin-wrap debugbar-panel">';
 		foreach ( apply_filters( 'gnetwork_debugbar_panel_groups', [] ) as $group_slug => $group_title ) {
-			HTML::h3( $group_title );
-			echo '<div class="group">';
+			HTML::h3( $group_title, '-title' );
+			echo '<div class="-group">';
 				do_action( 'gnetwork_debugbar_panel_'.$group_slug );
 			echo '</div>';
 		}
