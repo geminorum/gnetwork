@@ -5,6 +5,11 @@ defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 class HTML extends Base
 {
 
+	public static function rtl()
+	{
+		return function_exists( 'is_rtl' ) ? is_rtl() : FALSE;
+	}
+
 	public static function link( $html, $link = '#', $target_blank = FALSE )
 	{
 		return self::tag( 'a', array( 'href' => $link, 'class' => '-link', 'target' => ( $target_blank ? '_blank' : FALSE ) ), $html );
@@ -20,6 +25,11 @@ class HTML extends Base
 		return '<a class="scroll" href="#'.$to.'">'.$html.'</a>';
 	}
 
+	public static function img( $src, $class = '', $alt = '' )
+	{
+		return '<img src="'.$src.'" class="'.$class.'" alt="'.$alt.'" />';
+	}
+
 	public static function h2( $html, $class = FALSE )
 	{
 		echo self::tag( 'h2', array( 'class' => $class ), $html );
@@ -33,6 +43,11 @@ class HTML extends Base
 	public static function desc( $html, $block = TRUE, $class = '' )
 	{
 		if ( $html ) echo $block ? '<p class="description -description '.$class.'">'.$html.'</p>' : '<span class="description -description '.$class.'">'.$html.'</span>';
+	}
+
+	public static function wrap( $html, $class = '', $block = TRUE )
+	{
+		return $block ? '<div class="-wrap '.$class.'">'.$html.'</div>' : '<span class="-wrap '.$class.'">'.$html.'</span>';
 	}
 
 	public static function inputHidden( $name, $value = '' )
@@ -487,35 +502,42 @@ class HTML extends Base
 		), $navs.$contents );
 	}
 
-	public static function tableList( $columns, $data = array(), $args = array() )
+	public static function tableList( $columns, $data = array(), $atts = array() )
 	{
 		if ( ! count( $columns ) )
 			return FALSE;
 
+		$args = self::atts( array(
+			'empty'      => NULL,
+			'title'      => NULL,
+			'before'     => FALSE,
+			'after'      => FALSE,
+			'search'     => FALSE, // 'before', // 'after', // FIXME: add search box
+			'navigation' => FALSE, // 'before', // 'after',
+			'pagination' => array(),
+			'map'        => array(),
+		), $atts );
+
 		if ( ! $data || ! count( $data ) ) {
-			if ( isset( $args['empty'] ) && $args['empty'] )
-				echo '<div class="base-table-empty description">'.$args['empty'].'</div>';
+			if ( $args['empty'] )
+				echo '<div class="base-table-empty description -description">'.$args['empty'].'</div>';
 			return FALSE;
 		}
 
 		echo '<div class="base-table-wrap">';
 
-		if ( isset( $args['title'] ) && $args['title'] )
+		if ( $args['title'] )
 			echo '<div class="base-table-title">'.$args['title'].'</div>';
 
-		$pagination = isset( $args['pagination'] ) ? $args['pagination'] : array();
-
-		if ( isset( $args['before'] )
-			|| ( isset( $args['navigation'] ) && 'before' == $args['navigation'] )
-			|| ( isset( $args['search'] ) && 'before' == $args['search'] ) )
-				echo '<div class="base-table-actions base-table-list-before">';
+		if ( $args['before'] || 'before' == $args['navigation'] || 'before' == $args['search'] )
+			echo '<div class="base-table-actions base-table-list-before">';
 		else
 			echo '<div>';
 
-		if ( isset( $args['navigation'] ) && 'before' == $args['navigation'] )
-			self::tableNavigation( $pagination );
+		if ( 'before' == $args['navigation'] )
+			self::tableNavigation( $args['pagination'] );
 
-		if ( isset( $args['before'] ) && is_callable( $args['before'] ) )
+		if ( $args['before'] && is_callable( $args['before'] ) )
 			call_user_func_array( $args['before'], array( $columns, $data, $args ) );
 
 		echo '</div><table class="widefat fixed base-table-list"><thead><tr>';
@@ -530,7 +552,7 @@ class HTML extends Base
 					if ( isset( $column['class'] ) )
 						$class = self::sanitizeClass( $column['class'] );
 
-				} else if ( '_cb' == $key ) {
+				} else if ( '_cb' === $key ) {
 					$title = '<input type="checkbox" id="cb-select-all-1" class="-cb-all" />';
 					$class = ' check-column';
 					$tag   = 'td';
@@ -540,7 +562,7 @@ class HTML extends Base
 
 				echo '<'.$tag.' class="-column -column-'.self::sanitizeClass( $key ).$class.'">'.$title.'</'.$tag.'>';
 			}
-		echo '</tr></thead><tbody>';
+		echo '</tr></thead><tbody class="-list">';
 
 		$alt = TRUE;
 		foreach ( $data as $index => $row ) {
@@ -552,9 +574,10 @@ class HTML extends Base
 				$cell  = 'td';
 				$class = $callback = $actions = '';
 				$key   = $offset;
+				$value = NULL;
 
 				// override key using map
-				if ( isset( $args['map'][$offset] ) )
+				if ( array_key_exists( $offset, $args['map'] ) )
 					$key = $args['map'][$offset];
 
 				if ( is_array( $column ) ) {
@@ -575,7 +598,7 @@ class HTML extends Base
 						$key = $column['map'];
 				}
 
-				if ( '_cb' == $key ) {
+				if ( '_cb' === $key ) {
 
 					if ( '_index' == $column )
 						$value = $index;
@@ -583,10 +606,10 @@ class HTML extends Base
 					else if ( is_array( $column ) && isset( $column['value'] ) )
 						$value = call_user_func_array( $column['value'], array( NULL, $row, $column, $index ) );
 
-					else if ( is_array( $row ) && isset( $row[$column] ) )
+					else if ( is_array( $row ) && array_key_exists( $column, $row ) )
 						$value = $row[$column];
 
-					else if ( is_object( $row ) && isset( $row->{$column} ) )
+					else if ( is_object( $row ) && property_exists( $row, $column ) )
 						$value = $row->{$column};
 
 					else
@@ -596,14 +619,15 @@ class HTML extends Base
 					$class .= ' check-column';
 					$value = '<input type="checkbox" name="_cb[]" value="'.self::escapeAttr( $value ).'" class="-cb" />';
 
-				} else if ( is_array( $row ) && isset( $row[$key] ) ) {
-					$value = $row[$key];
+				} else if ( is_array( $row ) ) {
 
-				} else if ( is_object( $row ) && isset( $row->{$key} ) ) {
-					$value = $row->{$key};
+					if ( array_key_exists( $key, $row ) )
+						$value = $row[$key];
 
-				} else {
-					$value = NULL;
+				} else if ( is_object( $row ) ) {
+
+					if ( property_exists( $row, $key ) )
+						$value = $row->{$key};
 				}
 
 				echo '<'.$cell.' class="-cell -cell-'.self::sanitizeClass( $key ).$class.'">';
@@ -633,19 +657,15 @@ class HTML extends Base
 		echo '</tbody></table>';
 		echo '<div class="clear"></div>';
 
-		if ( isset( $args['after'] )
-			|| ( isset( $args['navigation'] ) && 'after' == $args['navigation'] )
-			|| ( isset( $args['search'] ) && 'after' == $args['search'] ) )
-				echo '<div class="base-table-actions base-table-list-after">';
+		if ( $args['after'] || 'after' == $args['navigation'] || 'after' == $args['search'] )
+			echo '<div class="base-table-actions base-table-list-after">';
 		else
 			echo '<div>';
 
-		if ( isset( $args['navigation'] ) && 'after' == $args['navigation'] )
-			self::tableNavigation( $pagination );
+		if ( 'after' == $args['navigation'] )
+			self::tableNavigation( $args['pagination'] );
 
-		// FIXME: add search box
-
-		if ( isset( $args['after'] ) && is_callable( $args['after'] ) )
+		if ( $args['after'] && is_callable( $args['after'] ) )
 			call_user_func_array( $args['after'], array( $columns, $data, $args ) );
 
 		echo '</div></div>';
@@ -676,6 +696,8 @@ class HTML extends Base
 	public static function tableNavigation( $pagination = array() )
 	{
 		$args = self::atts( array(
+			'before'   => array(),
+			'after'    => array(),
 			'total'    => 0,
 			'pages'    => 0,
 			'limit'    => self::limit(),
@@ -684,57 +706,107 @@ class HTML extends Base
 			'all'      => FALSE,
 			'next'     => FALSE,
 			'previous' => FALSE,
+			'rtl'      => self::rtl(),
 		), $pagination );
 
 		$icons = array(
-			'next'     => self::getDashicon( 'controls-forward' ), // &rsaquo;
-			'previous' => self::getDashicon( 'controls-back' ), // &lsaquo;
+			'filter'   => self::getDashicon( 'filter' ),
+			'last'     => self::getDashicon( $args['rtl'] ? 'controls-skipback' : 'controls-skipforward' ),
+			'first'    => self::getDashicon( $args['rtl'] ? 'controls-skipforward' : 'controls-skipback' ),
+			'next'     => self::getDashicon( $args['rtl'] ? 'controls-back' : 'controls-forward' ), // &rsaquo;
+			'previous' => self::getDashicon( $args['rtl'] ? 'controls-forward' : 'controls-back' ), // &lsaquo;
 			'refresh'  => self::getDashicon( 'controls-repeat' ),
 			'order'    => self::getDashicon( 'sort' ),
 		);
 
 		echo '<div class="base-table-navigation">';
 
-			echo '<input type="number" class="small-text -paged" name="paged" value="'.$args['paged'].'" />';
-			echo '<input type="number" class="small-text -limit" name="limit" value="'.$args['limit'].'" />';
+			foreach ( (array) $args['before'] as $before )
+				echo '<span class="-before">'.$before.'</span>&nbsp;';
 
-			if ( FALSE === $args['previous'] ) {
-				$previous = '<span class="-previous -span button" disabled="disabled">'.$icons['previous'].'</span>';
-			} else {
-				$previous = self::tag( 'a', array(
-					'href'  => add_query_arg( 'paged', $args['previous'] ),
-					'class' => '-previous -link button',
-				), $icons['previous'] );
-			}
+			echo '<input type="number" class="small-text -paged" name="paged" value="'.$args['paged'].'" />&nbsp;';
+			echo '<input type="number" class="small-text -limit" name="limit" value="'.$args['limit'].'" />&nbsp;';
+			echo '<button type="submit" name="filter_action" class="button -filter" />'.$icons['filter'].'</button>&nbsp;';
 
-			if ( FALSE === $args['next'] ) {
-				$next = '<span class="-next -span button" disabled="disabled">'.$icons['next'].'</span>';
-			} else {
-				$next = self::tag( 'a', array(
-					'href'  => add_query_arg( 'paged', $args['next'] ),
-					'class' => '-next -link button',
-				), $icons['next'] );
-			}
+			echo self::tag( 'a', array(
+				'href'  => add_query_arg( array(
+					'order' => 'asc' == $args['order'] ? 'desc' : 'asc',
+					'limit' => $args['limit'],
+				) ),
+				'class' => '-order -link button',
+			), $icons['order'] );
 
-			$refresh = self::tag( 'a', array(
-				'href'  => URL::current(),
-				'class' => '-refresh -link button',
-			), $icons['refresh'] );
+			foreach ( (array) $args['after'] as $after )
+				echo '&nbsp;<span class="-after">'.$after.'</span>';
 
-			$template = is_rtl() ? '<span class="-next-previous">%3$s %1$s %2$s</span>' : '<span class="-next-previous">%2$s %1$s %3$s</span>';
+			echo '<div class="-controls">';
 
-			vprintf( $template, array( $refresh, $previous, $next ) );
+			echo '&nbsp;';
+			echo '&nbsp;';
 
 			vprintf( '<span class="-total-pages">%s / %s</span>', array(
 				Number::format( $args['total'] ),
 				Number::format( $args['pages'] ),
 			) );
 
-			echo self::tag( 'a', array(
-				'href'  => add_query_arg( 'order', ( 'asc' == $args['order'] ? 'desc' : 'asc' ) ),
-				'class' => '-order -link button',
-			), $icons['order'] );
+			echo '&nbsp;';
+			echo '&nbsp;';
 
+			if ( FALSE === $args['previous'] ) {
+				echo '<span class="-first -span button" disabled="disabled">'.$icons['first'].'</span>';
+				echo '&nbsp;';
+				echo '<span class="-previous -span button" disabled="disabled">'.$icons['previous'].'</span>';
+			} else {
+				echo self::tag( 'a', array(
+					'href'  => add_query_arg( array(
+						'paged' => FALSE,
+						'limit' => $args['limit'],
+					) ),
+					'class' => '-first -link button',
+				), $icons['first'] );
+				echo '&nbsp;';
+				echo self::tag( 'a', array(
+					'href'  => add_query_arg( array(
+						'paged' => $args['previous'],
+						'limit' => $args['limit'],
+					) ),
+					'class' => '-previous -link button',
+				), $icons['previous'] );
+			}
+
+			echo '&nbsp;';
+			echo self::tag( 'a', array(
+				'href'  => add_query_arg( array(
+					'paged' => $args['paged'],
+					'limit' => $args['limit'],
+				) ),
+				'class' => '-refresh -link button',
+			), $icons['refresh'] );
+			echo '&nbsp;';
+
+			if ( FALSE === $args['next'] ) {
+				echo '<span class="-last -span button" disabled="disabled">'.$icons['last'].'</span>';
+				echo '&nbsp;';
+				echo '<span class="-next -span button" disabled="disabled">'.$icons['next'].'</span>';
+			} else {
+				echo self::tag( 'a', array(
+					'href'  => add_query_arg( array(
+						'paged' => $args['next'],
+						'limit' => $args['limit'],
+					) ),
+					'class' => '-next -link button',
+				), $icons['next'] );
+				echo '&nbsp;';
+				echo self::tag( 'a', array(
+					'href'  => add_query_arg( array(
+						'paged' => $args['pages'],
+						'limit' => $args['limit'],
+					) ),
+					'class' => '-last -link button',
+				), $icons['last'] );
+			}
+
+			echo '</div>';
 		echo '</div>';
 	}
 

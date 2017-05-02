@@ -145,6 +145,9 @@ class HTTP extends Base
 	// param containing more info.
 	public static function download( $url, &$headers = array(), &$err_msg )
 	{
+		if ( ! extension_loaded( 'curl' ) )
+			return FALSE;
+
 		$in_out  = curl_init( $url );
 		$stream = fopen( 'php://temp', 'w+' );
 
@@ -178,5 +181,51 @@ class HTTP extends Base
 		}
 
 		return $stream;
+	}
+
+	// @REF: http://arguments.callee.info/2010/02/21/multiple-curl-requests-with-php/
+	// @REF: http://stackoverflow.com/a/9950468/4864081
+	public static function checkURLs( $urls = array() )
+	{
+		if ( ! extension_loaded( 'curl' ) )
+			return FALSE;
+
+		if ( ! count( $urls ) )
+			return array();
+
+		$ch = $results = array();
+
+		$mh = curl_multi_init();
+
+		for ( $i = 0; $i < count( $urls ); $i++ ) {
+
+			$ch[$i] = curl_init();
+
+			curl_setopt( $ch[$i], CURLOPT_URL, $urls[$i] );
+			curl_setopt( $ch[$i], CURLOPT_RETURNTRANSFER, TRUE );
+			// curl_setopt( $ch[$i], CURLOPT_CUSTOMREQUEST, 'HEAD' );
+			curl_setopt( $ch[$i], CURLOPT_HEADER, FALSE );
+			curl_setopt( $ch[$i], CURLOPT_NOBODY, TRUE );
+			curl_setopt( $ch[$i], CURLOPT_SSL_VERIFYPEER, FALSE );
+			curl_setopt( $ch[$i], CURLOPT_FOLLOWLOCATION, FALSE );
+			curl_setopt( $ch[$i], CURLOPT_FAILONERROR, TRUE );
+
+			curl_multi_add_handle( $mh, $ch[$i] );
+		}
+
+		do { // execute all queries simultaneously, and continue when all are complete
+
+			curl_multi_exec( $mh, $running );
+
+		} while ( $running );
+
+		for ( $i = 0; $i < count( $urls ); $i++ ) {
+			$results[$urls[$i]] = curl_getinfo( $ch[$i], CURLINFO_HTTP_CODE );
+			curl_multi_remove_handle( $mh, $ch[$i] );
+		}
+
+		curl_multi_close( $mh );
+
+		return $results;
 	}
 }
