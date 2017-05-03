@@ -177,28 +177,18 @@
         removeAll: true
       }
     }))
-    // .pipe(plugins.header(banner, {
-    //   pkg: pkg
-    // }))
     .pipe(gulp.dest(output.css));
   });
 
   gulp.task('build:scripts', function() {
     return gulp.src(input.js, {base: '.'})
-    // return gulp.src(input.js)
     .pipe(plugins.rename({
       suffix: '.min',
     }))
     .pipe(plugins.uglify());
-    // .pipe(plugins.header(banner, {
-    //   pkg: pkg
-    // }))
-    // .pipe(gulp.dest(function(file) {
-    //   return file.base;
-    // }));
   });
 
-  gulp.task('build:banner', gulp.parallel('build:styles', 'build:scripts'), function() {
+  gulp.task('build:banner', function() {
     return gulp.src(input.banner, {
       'base': '.'
     })
@@ -208,21 +198,31 @@
     .pipe(gulp.dest('.'));
   });
 
-  gulp.task('build:copy', gulp.series('build:banner'), function() {
-    del([output.ready]);
+  gulp.task('build:copy', function() {
     return gulp.src(input.final, {
       'base': '.'
     })
     .pipe(gulp.dest(output.ready + pkg.name));
   });
 
-  gulp.task('build:zip', gulp.series('build:copy'), function() {
+  gulp.task('build:clean', function(done) {
+    del.sync([output.ready]);
+    done();
+  });
+
+  gulp.task('build:zip', function() {
     return gulp.src(input.ready)
     .pipe(plugins.zip(pkg.name + '-' + pkg.version + '.zip'))
     .pipe(gulp.dest(output.final));
   });
 
-  gulp.task('build', gulp.series('build:zip'));
+  gulp.task('build', gulp.series(
+    gulp.parallel('build:styles', 'build:scripts'),
+    'build:banner', 'build:clean', 'build:copy', 'build:zip',
+    function(done) {
+      gutil.log('Done!');
+      done();
+  }));
 
   gulp.task('default', function() {
     gutil.log('Hi, I\'m Gulp!');
