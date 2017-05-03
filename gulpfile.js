@@ -198,7 +198,7 @@
     // }));
   });
 
-  gulp.task('build:banner', ['build:styles', 'build:scripts'], function() {
+  gulp.task('build:banner', gulp.parallel('build:styles', 'build:scripts'), function() {
     return gulp.src(input.banner, {
       'base': '.'
     })
@@ -208,7 +208,7 @@
     .pipe(gulp.dest('.'));
   });
 
-  gulp.task('build:copy', ['build:banner'], function() {
+  gulp.task('build:copy', gulp.series('build:banner'), function() {
     del([output.ready]);
     return gulp.src(input.final, {
       'base': '.'
@@ -216,13 +216,13 @@
     .pipe(gulp.dest(output.ready + pkg.name));
   });
 
-  gulp.task('build:zip', ['build:copy'], function() {
+  gulp.task('build:zip', gulp.series('build:copy'), function() {
     return gulp.src(input.ready)
     .pipe(plugins.zip(pkg.name + '-' + pkg.version + '.zip'))
     .pipe(gulp.dest(output.final));
   });
 
-  gulp.task('build', ['build:zip']);
+  gulp.task('build', gulp.series('build:zip'));
 
   gulp.task('default', function() {
     gutil.log('Hi, I\'m Gulp!');

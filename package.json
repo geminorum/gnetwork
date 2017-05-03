@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "del": "^2.2.2",
-    "gulp": "^3.9.1",
+    "gulp": "github:gulpjs/gulp#4.0",
     "gulp-cssnano": "^2.1.2",
     "gulp-exclude-gitignore": "^1.1.1",
     "gulp-header": "^1.8.8",
