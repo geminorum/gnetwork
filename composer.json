@@ -41,6 +41,9 @@
   },
   "config": {
     "vendor-dir": "assets/vendor",
-    "vendor/bin": "assets/bin"
+    "vendor/bin": "assets/bin",
+    "platform": {
+      "php": "5.6.30"
+    }
   }
 }
