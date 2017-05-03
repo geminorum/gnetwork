@@ -135,7 +135,7 @@ class Debug extends gNetwork\Module
 				],
 				'ip' => [
 					'title' => _x( 'IP', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
-					'cb'    => [ __CLASS__, 'summaryIPs' ],
+					'cb'    => function(){ self::summaryIPs(); },
 				],
 				'constants' => [
 					'title' => _x( 'Constants', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
