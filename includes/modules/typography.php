@@ -159,7 +159,7 @@ class Typography extends gNetwork\Module
 	{
 		$content = str_ireplace(
 			'<p style="text-align: center;">***</p>',
-			$this->shortcode_three_asterisks( [] ),
+			$this->shortcode_three_asterisks(),
 		$content );
 
 		return $content;

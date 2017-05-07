@@ -186,13 +186,6 @@ class Base
 		return HTML::notice( $message, 'notice-error fade', $echo );
 	}
 
-	// FIXME: DEPRICATED: use `HTML::success()`
-	public static function updated( $message, $echo = FALSE )
-	{
-		self::__dev_dep( 'HTML::success()' );
-		return HTML::notice( $message, 'notice-success fade', $echo );
-	}
-
 	public static function success( $message, $echo = FALSE )
 	{
 		return HTML::notice( $message, 'notice-success fade', $echo );

@@ -372,21 +372,8 @@ class Media extends gNetwork\Module
 		return FALSE;
 	}
 
-	// FIXME: DEPRECATED: core duplication with post_type : add_image_size()
-	public static function addImageSize( $name, $width = 0, $height = 0, $crop = FALSE, $post_type = [ 'post' ] )
-	{
-		self::__dep();
-
-		global $_wp_additional_image_sizes;
-
-		$_wp_additional_image_sizes[$name] = [
-			'width'     => absint( $width ),
-			'height'    => absint( $height ),
-			'crop'      => $crop,
-			'post_type' => $post_type,
-		];
-	}
-
+	// core dup with posttype
+	// @REF: `add_image_size()`
 	public static function registerImageSize( $name, $atts = [] )
 	{
 		global $_wp_additional_image_sizes;

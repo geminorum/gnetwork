@@ -264,15 +264,6 @@ class Module extends Core\Base
 		return [];
 	}
 
-	// FIXME: DEPRECATED: not used
-	public function default_option( $key, $default = '' )
-	{
-		self::__dev_dep();
-
-		$options = $this->default_options();
-		return isset( $options[$key] ) ? $options[$key] : $default;
-	}
-
 	protected function options_key()
 	{
 		return $this->base.'_'.$this->key;
@@ -474,12 +465,6 @@ class Module extends Core\Base
 
 		if ( FALSE !== $wrap )
 			echo '</p>';
-	}
-
-	// FIXME: DEPRICATED
-	protected function submit_button( $name = '', $primary = FALSE, $text = NULL, $atts = [] )
-	{
-		Settings::submitButton( $name, $text, $primary, $atts );
 	}
 
 	protected function settings_fields( $sub, $action = 'update', $context = 'settings' )

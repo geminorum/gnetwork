@@ -405,28 +405,6 @@ class WordPress extends Base
 		return FALSE;
 	}
 
-	// FIXME: DEPRECATED
-	public static function customStyleSheet( $css, $link = TRUE, $version = NULL )
-	{
-		self::__dep( 'WordPress::customFile()' );
-
-		$url = FALSE;
-
-		if ( file_exists( get_stylesheet_directory().'/'.$css ) )
-			$url = get_stylesheet_directory_uri().'/'.$css;
-
-		else if ( file_exists( get_template_directory().'/'.$css ) )
-			$url = get_template_directory_uri().'/'.$css;
-
-		else if ( file_exists( WP_CONTENT_DIR.'/'.$css ) )
-			$url = WP_CONTENT_URL.'/'.$css;
-
-		if ( ! $url || ! $link )
-			return $url;
-
-		HTML::linkStyleSheet( $url, $version );
-	}
-
 	// shows all the "filters" currently attached to a hook
 	public static function filters( $hook )
 	{

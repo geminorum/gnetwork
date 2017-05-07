@@ -320,14 +320,6 @@ class Utilities extends Core\Base
 		return count( $strings ) ? 'tinyMCE.addI18n("'.$locale.'.gnetwork", '.wp_json_encode( $strings ).');'."\n" : '';
 	}
 
-	// FIXME: DROP THIS
-	// DEPRECATED: use `gnetwork_github_readme()`
-	public static function githubREADME( $repo = 'geminorum/gnetwork', $wrap = TRUE )
-	{
-		self::__dep( 'gnetwork_github_readme()' );
-		gnetwork_github_readme( $repo, $wrap );
-	}
-
 	// FIXME: WTF ?!
 	// http://www.webdesignerdepot.com/2012/08/wordpress-filesystem-api-the-right-way-to-operate-with-local-files/
 	// http://ottopress.com/2011/tutorial-using-the-wp_filesystem/

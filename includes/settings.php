@@ -232,18 +232,6 @@ class Settings extends Core\Base
 		echo '&nbsp;&nbsp;';
 	}
 
-	// FIXME: DEPRECATED
-	public static function getNewPostTypeLink( $post_type = 'page', $text = FALSE )
-	{
-		self::__dep( 'Settings::fieldAfterNewPostType()' );
-
-		return HTML::tag( 'a', [
-			'href'   => admin_url( '/post-new.php?post_type='.$post_type ),
-			'title'  => _x( 'Add New Post Type', 'Settings', GNETWORK_TEXTDOMAIN ),
-			'target' => '_blank',
-		], ( $text ? _x( 'Add New', 'Settings: Add New Post Type', GNETWORK_TEXTDOMAIN ) : HTML::getDashicon( 'welcome-add-page' ) ) );
-	}
-
 	public static function getWPCodexLink( $page = '', $text = FALSE )
 	{
 		return HTML::tag( 'a', [
@@ -263,18 +251,6 @@ class Settings extends Core\Base
 			], ( $text ? _x( 'Login Logo', 'Settings', GNETWORK_TEXTDOMAIN ) : HTML::getDashicon( 'format-image' ) ) );
 
 		return FALSE;
-	}
-
-	// FIXME: DEPRECATED
-	public static function getMoreInfoIcon( $url = '', $title = NULL, $icon = 'info' )
-	{
-		self::__dep( 'Settings::fieldAfterIcon()' );
-
-		return HTML::tag( 'a', [
-			'href'   => $url,
-			'title'  => is_null( $title ) ? _x( 'See More Information', 'Settings', GNETWORK_TEXTDOMAIN ) : $title,
-			'target' => '_blank',
-		], HTML::getDashicon( $icon ) );
 	}
 
 	public static function fieldSection( $title, $description = FALSE, $tag = 'h3' )

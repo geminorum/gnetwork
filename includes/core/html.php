@@ -406,30 +406,6 @@ class HTML extends Base
 		), $html );
 	}
 
-	// FIXME: DROP THIS
-	// DEPRICATED
-	public static function headerTabs( $tabs, $active = 'manual', $prefix = 'nav-tab-', $tag = 'h3' )
-	{
-		self::__dep( 'tabsList()' );
-
-		if ( ! count( $tabs ) )
-			return;
-
-		$html = '';
-
-		foreach ( $tabs as $tab => $title )
-			$html .= self::tag( 'a', array(
-				'class'    => 'gnetwork-nav-tab nav-tab '.$prefix.$tab.( $tab == $active ? ' nav-tab-active' : '' ),
-				'href'     => '#',
-				'data-tab' => $tab,
-				'rel'      => $tab, // back comp
-			), $title );
-
-		echo self::tag( $tag, array(
-			'class' => 'nav-tab-wrapper',
-		), $html );
-	}
-
 	public static function tabsList( $tabs, $atts = array() )
 	{
 		if ( ! count( $tabs ) )
