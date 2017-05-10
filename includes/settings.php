@@ -436,9 +436,15 @@ class Settings extends Core\Base
 		if ( ! $args['field'] )
 			return;
 
-		$html    = '';
-		$value   = $args['default'];
-		$exclude = $args['exclude'] && ! is_array( $args['exclude'] ) ? array_filter( explode( ',', $args['exclude'] ) ) : [];
+		$html  = '';
+		$value = $args['default'];
+
+		if ( is_array( $args['exclude'] ) )
+			$exclude = array_filter( $args['exclude'] );
+		else if ( $args['exclude'] )
+			$exclude = array_filter( explode( ',', $args['exclude'] ) );
+		else
+			$exclude = [];
 
 		if ( $args['id_name_cb'] ) {
 			list( $id, $name ) = call_user_func( $args['id_name_cb'], $args );
