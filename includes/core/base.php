@@ -178,7 +178,8 @@ class Base
 
 	public static function order( $default = 'desc', $key = 'order' )
 	{
-		return ( 'ASC' == strtoupper( self::req( $key, $default ) ) ? 'ASC' : 'DESC' );
+		$req = strtoupper( self::req( $key, $default ) );
+		return ( 'ASC' === $req || 'DESC' === $req ) ? $req : $default;
 	}
 
 	public static function error( $message, $echo = FALSE )
