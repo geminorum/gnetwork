@@ -93,6 +93,18 @@ class Editor extends gNetwork\Module
 		return $buttons;
 	}
 
+	// @REF: https://core.trac.wordpress.org/ticket/6331
+	private function mce_wpcode_button( $buttons )
+	{
+		if ( FALSE !== ( $pos = array_search( 'hr', $buttons, TRUE ) ) ) {
+			$extra = array_slice( $buttons, 0, $pos + 1 );
+			$extra[] = 'wp_code';
+			return array_merge( $extra, array_slice( $buttons, $pos + 1 ) );
+		}
+
+		return $buttons;
+	}
+
 	public function teeny_mce_buttons( $buttons, $editor_id )
 	{
 		if ( ! count( $this->tinymce[0] ) )
@@ -119,6 +131,8 @@ class Editor extends gNetwork\Module
 
 	public function mce_buttons_2( $buttons, $editor_id )
 	{
+		$buttons = $this->mce_wpcode_button( $buttons );
+
 		if ( ! count( $this->tinymce[2] ) )
 			return $buttons;
 
