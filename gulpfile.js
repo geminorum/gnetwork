@@ -147,9 +147,7 @@
 
   gulp.task('dev:watch', function() {
     plugins.livereload.listen();
-    gulp.watch(input.sass, [
-      'dev:sass'
-    ]);
+    gulp.watch(input.sass, gulp.series('dev:sass'));
   });
 
   gulp.task('dev:styles', function() {

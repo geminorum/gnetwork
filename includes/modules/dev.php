@@ -32,7 +32,7 @@ class Dev extends gNetwork\Module
 		if ( is_admin() )
 			$this->filter( 'contextual_help', 3 );
 
-		// $this->filter( 'embed_oembed_html', 4, 1 );
+		$this->filter( 'embed_oembed_html', 4, 1 );
 		$this->filter( 'pre_get_avatar', 3, 99 );
 		remove_filter( 'get_avatar', 'bp_core_fetch_avatar_filter', 10, 6 );
 
@@ -64,11 +64,10 @@ class Dev extends gNetwork\Module
 		return $r;
 	}
 
-	// block oEmbeds from displaying.
+	// blocks oEmbeds from displaying
 	public function embed_oembed_html( $html, $url, $attr, $post_ID )
 	{
-		return sprintf( '<div class="loading-placeholder gnetwork-dev-placeholder"><p>%s</p></div>',
-			sprintf( _x( 'Airplane Mode is enabled. oEmbed blocked for %1$s.', 'Modules: Dev', GNETWORK_TEXTDOMAIN ), esc_url( $url ) ) );
+		return '<div class="gnetwork-wrap -dev -placeholder"><p>oEmbed blocked for <code>'.esc_url( $url ).'</code></p></div>';
 	}
 
 	// replace all instances of gravatar with a local image file to remove the call to remote service.

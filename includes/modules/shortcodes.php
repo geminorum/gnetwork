@@ -1180,7 +1180,7 @@ class ShortCodes extends gNetwork\Module
 		if ( $html = wp_audio_shortcode( $atts, $content ) ) {
 
 			if ( $args['download'] && $src = self::getAudioSource( $atts ) )
-				$html .= '<div class="download"><a href="'.$src.'"'
+				$html .= '<div class="-download"><a href="'.$src.'"'
 					.( $args['filename'] ? ' download="'.$args['filename'].'"' : '' )
 					.'>'.$args['download'].'</a></div>';
 

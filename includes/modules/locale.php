@@ -259,6 +259,13 @@ class Locale extends gNetwork\Module
 			'tablepress_export'  => 'page',
 			'tablepress_options' => 'page',
 			'tablepress_about'   => 'page',
+
+			// [Read Offline](https://wordpress.org/plugins/read-offline/)
+			'read_offline_options' => 'page',
+			'read_offline_pdf'     => 'page',
+			'read_offline_epub'    => 'page',
+			'read_offline_mobi'    => 'page',
+			'read_offline_print'   => 'page',
 		] );
 
 		foreach ( $black_list as $val => $key )
