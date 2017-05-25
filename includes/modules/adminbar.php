@@ -340,9 +340,12 @@ class AdminBar extends gNetwork\Module
 			$nav_menu  = $name;
 			$locations = get_nav_menu_locations();
 
-			if ( isset( $locations[$name] )
-				&& $term = get_term( $locations[$name], 'nav_menu' ) )
+			if ( array_key_exists( $name, $locations ) ) {
+				$term = get_term( $locations[$name], 'nav_menu' );
+
+				if ( $term && ! is_wp_error( $term ) )
 					$nav_menu = $term->term_id;
+			}
 
 			if ( $menu = wp_get_nav_menu_items( $nav_menu, [ 'update_post_term_cache' => FALSE ] ) ) {
 				update_site_option( $key, $menu );
