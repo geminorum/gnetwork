@@ -3,6 +3,7 @@
 defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Core\Date;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\WordPress;
 
@@ -355,8 +356,8 @@ class OpenSearch extends gNetwork\Module
 
 		// header( 'Content-Type: text/xml; charset=utf-8' );
 		header( 'Content-Type: application/opensearchdescription+xml; charset=utf-8' );
-		header( 'Expires: '.gmdate( 'D, d M Y H:i:s', time() + MONTH_IN_SECONDS ).' GMT' );
-		header( 'Cache-Control: max-age='.MONTH_IN_SECONDS.', must-revalidate' );
+		header( 'Expires: '.gmdate( 'D, d M Y H:i:s', time() + Date::MONTH_IN_SECONDS ).' GMT' );
+		header( 'Cache-Control: max-age='.Date::MONTH_IN_SECONDS.', must-revalidate' );
 
 		echo '<?xml version="1.0" encoding="UTF-8"?>'."\n";
 		echo HTML::tag( 'OpenSearchDescription', [
