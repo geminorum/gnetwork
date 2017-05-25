@@ -83,6 +83,7 @@ class HTTP extends Base
 		return FALSE;
 	}
 
+	// @REF: `WP_Community_Events::get_unsafe_client_ip()`
 	public static function IP( $pad = FALSE )
 	{
 		$ip = '';
@@ -96,6 +97,9 @@ class HTTP extends Base
 		else if ( getenv( 'HTTP_X_FORWARDED' ) )
 			$ip = getenv( 'HTTP_X_FORWARDED' );
 
+		else if ( getenv( 'HTTP_X_CLUSTER_CLIENT_IP' ) )
+			$ip = getenv( 'HTTP_X_CLUSTER_CLIENT_IP' );
+
 		else if ( getenv( 'HTTP_FORWARDED_FOR' ) )
 			$ip = getenv( 'HTTP_FORWARDED_FOR' );
 
@@ -104,6 +108,10 @@ class HTTP extends Base
 
 		else
 			$ip = getenv( 'REMOTE_ADDR' );
+
+		// HTTP_X_FORWARDED_FOR can contain a chain of comma-separated addresses
+		$ip = explode( ',', $ip );
+		$ip = trim( $ip[0] );
 
 		$ip = self::normalizeIP( $ip );
 
