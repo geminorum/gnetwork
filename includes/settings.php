@@ -73,22 +73,22 @@ class Settings extends Core\Base
 		echo '<div class="clear"></div></div>';
 	}
 
+	// @REF: `get_admin_page_title()`
 	public static function headerTitle()
 	{
-		echo '<h1>';
-
-			// @REF: `get_admin_page_title()`
+		echo '<h1 class="wp-heading-inline settings-title">';
 			_ex( 'Network Extras', 'Settings: Header Title', GNETWORK_TEXTDOMAIN );
-
-			if ( current_user_can( 'update_plugins' ) )
-				echo ' '.HTML::tag( 'a', [
-					'href'   => 'http://geminorum.ir/wordpress/gnetwork',
-					'title'  => _x( 'Plugin Homepage', 'Settings: Header Title: Link Title Attr', GNETWORK_TEXTDOMAIN ),
-					'class'  => 'page-title-action',
-					'target' => '_blank',
-				], GNETWORK_VERSION );
-
 		echo '</h1>';
+
+		if ( current_user_can( 'update_plugins' ) )
+			echo ' '.HTML::tag( 'a', [
+				'href'   => 'http://geminorum.ir/wordpress/gnetwork',
+				'title'  => _x( 'Plugin Homepage', 'Settings: Header Title: Link Title Attr', GNETWORK_TEXTDOMAIN ),
+				'class'  => [ 'page-title-action', 'settings-title-action' ],
+				'target' => '_blank',
+			], GNETWORK_VERSION );
+
+		echo '<hr class="wp-header-end">';
 	}
 
 	public static function headerNav( $uri = '', $active = '', $subs = [], $prefix = 'nav-tab-', $tag = 'h3' )
