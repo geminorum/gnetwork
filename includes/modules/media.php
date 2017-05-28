@@ -787,14 +787,11 @@ class Media extends gNetwork\Module
 		if ( 'image' === substr( get_post( $id )->post_mime_type, 0, 5 ) )
 			return $html;
 
-		if ( wp_attachment_is( 'video', $id )
-			|| wp_attachment_is( 'audio', $id ) )
-				return $html;
+		if ( empty( $attachment['url'] ) )
+			return $html;
 
-		if ( empty( $attachment['url'] )
-			|| ( FALSE === strpos( $attachment['url'], 'attachment_id' )
-			&& get_attachment_link( $id ) != $attachment['url'] ) )
-				return $html;
+		if ( get_attachment_link( $id ) != $attachment['url'] )
+			return $html;
 
 		$html = isset( $attachment['post_title'] ) ? $attachment['post_title'] : '';
 
