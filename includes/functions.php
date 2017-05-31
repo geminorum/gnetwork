@@ -55,7 +55,7 @@ endif;
 
 if ( ! function_exists( 'gnetwork_powered' ) ) :
 	function gnetwork_powered( $rtl = NULL ) {
-		return '<a href="http://wordpress.org/" title="WP powered"><img src="'.GNETWORK_URL.'assets/images/wpmini-grey.png" alt="wp" /></a>';
+		return '<a class="-powered" href="http://wordpress.org/" title="WP powered"><span class="dashicons dashicons-wordpress-alt"></span></a>';
 	}
 endif;
 
