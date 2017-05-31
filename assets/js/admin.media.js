@@ -37,5 +37,4 @@ jQuery(document).ready(function($) {
   $('input.media-url-field').focus(function() {
     this.select();
   });
-
 });

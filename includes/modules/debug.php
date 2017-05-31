@@ -496,6 +496,8 @@ class Debug extends gNetwork\Module
 			'tokenizer' => 'Tokenizer',
 			'mcrypt'    => 'Mcrypt',
 			'pcre'      => 'Perl Compatible Regular Expressions',
+			'imagick'   => 'Image Processing (ImageMagick)',
+			'gmagick'   => 'Gmagick',
 		];
 
 		foreach ( $extensions as $ext => $why )

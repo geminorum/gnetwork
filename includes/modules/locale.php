@@ -207,6 +207,13 @@ class Locale extends gNetwork\Module
 			'antivirus'                  => 'page', // [AntiVirus](https://wordpress.org/plugins/antivirus/)
 			'convert-post-types'         => 'page', // [Convert Post Types](https://wordpress.org/plugins/convert-post-types/)
 			'mapcap'                     => 'page', // [Map Cap](https://wordpress.org/plugins/map-cap/)
+			'akismet-key-config'         => 'page', // Akismet
+
+			// [EWWW Image Optimizer](https://wordpress.org/plugins/ewww-image-optimizer/)
+			'ewww-image-optimizer/ewww-image-optimizer.php' => 'page',
+			'ewww-image-optimizer-bulk'                     => 'page',
+			'ewww-image-optimizer-dynamic-debug'            => 'page',
+			'ewww-image-optimizer-queue-debug'              => 'page',
 
 			// [Members](https://github.com/justintadlock/members)
 			'roles'    => 'page',
