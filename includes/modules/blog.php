@@ -3,6 +3,7 @@
 defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Logger;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\Arraay;
@@ -305,13 +306,15 @@ class Blog extends gNetwork\Module
 		if ( $check && ! empty( $_POST['wpr_verify_key'] ) )
 			return $this->action( 'init', 0, 999, 'late' ); // must be over 100
 
-		$redirect = URL::untrail( $this->options['blog_redirect'] ).$_SERVER['REQUEST_URI'];
+		if ( ( ! empty( $pagenow ) && 'index.php' == $pagenow && ! is_admin() )
+			|| FALSE === self::whiteListed() ) {
 
-		if ( ! empty( $pagenow ) && 'index.php' == $pagenow && ! is_admin() )
-			WordPress::redirect( $redirect, $this->options['blog_redirect_status'] );
+			$redirect = URL::untrail( $this->options['blog_redirect'] ).$_SERVER['REQUEST_URI'];
 
-		if ( FALSE === self::whiteListed() )
+			Logger::NOTICE( 'BLOG-REDIRECT: '.esc_url( $redirect ) );
+
 			WordPress::redirect( $redirect, $this->options['blog_redirect_status'] );
+		}
 	}
 
 	public static function whiteListed( $request_uri = NULL )
