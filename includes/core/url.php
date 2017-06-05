@@ -8,7 +8,7 @@ class URL extends Base
 	// @SOURCE: http://stackoverflow.com/a/8891890/4864081
 	public static function current( $trailingslashit = FALSE, $forwarded_host = FALSE )
 	{
-		$ssl  = ( ! empty( $_SERVER['HTTPS'] ) && 'on' == $_SERVER['HTTPS'] );
+		$ssl = ( ! empty( $_SERVER['HTTPS'] ) && 'on' == $_SERVER['HTTPS'] );
 
 		$protocol = strtolower( $_SERVER['SERVER_PROTOCOL'] );
 		$protocol = substr( $protocol, 0, strpos( $protocol, '/' ) ).( ( $ssl ) ? 's' : '' );
@@ -27,11 +27,8 @@ class URL extends Base
 	public static function prepTitle( $url, $slash = FALSE )
 	{
 		$title = preg_replace( '#^(https?://)?(www.)?#', '', $url );
-
-		if ( $slash )
-			$title = str_ireplace( array( '/', '\/' ), '-', $title );
-
-		return self::untrail( $title );
+		$title = self::untrail( $title );
+		return $slash ? str_ireplace( array( '/', '\/' ), '-', $title ) : $title;
 	}
 
 	// @SOURCE: `add_query_arg()`

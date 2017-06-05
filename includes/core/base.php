@@ -264,6 +264,47 @@ class Base
 		return $r;
 	}
 
+	// maps a function to all non-iterable elements of an array or an object
+	// this is similar to `array_walk_recursive()` but acts upon objects too
+	// @REF: `map_deep()`
+	public static function mapDeep( $data, $callback )
+	{
+		if ( is_array( $data ) )
+			foreach ( $data as $index => $item )
+				$data[$index] = self::mapDeep( $item, $callback );
+
+		else if ( is_object( $data ) )
+			foreach ( get_object_vars( $data ) as $name => $value )
+				$data->$name = self::mapDeep( $value, $callback );
+
+		else
+			$data = call_user_func( $callback, $data );
+
+		return $data;
+	}
+
+	// remove slashes from a string or array of strings
+	// @REF: `wp_unslash()`
+	// @REF: `stripslashes_deep()`
+	public static function unslash( $array )
+	{
+		return self::mapDeep( $array, function( $value ){
+			return is_string( $value ) ? stripslashes( $value ) : $value;
+		} );
+	}
+
+	// @REF: `wp_validate_boolean()`
+	public static function validateBoolean( $var )
+	{
+		if ( is_bool( $var ) )
+			return $var;
+
+		if ( is_string( $var ) && 'false' === strtolower( $var ) )
+			return FALSE;
+
+		return (bool) $var;
+	}
+
 	// ANCESTOR: is_wp_error()
 	public static function isError( $thing )
 	{

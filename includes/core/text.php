@@ -565,7 +565,7 @@ class Text extends Base
 			if ( ! in_array( $openedtags[$i], $closedtags ) )
 				$html .= '</'.$openedtags[$i].'>';
 			else
-				unset( $closedtags[array_search( $openedtags[$i], $closedtags)] );
+				unset( $closedtags[array_search( $openedtags[$i], $closedtags )] );
 
 		return $html;
 	}

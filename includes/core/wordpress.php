@@ -190,12 +190,18 @@ class WordPress extends Base
 	public static function getUserRoles( $user_id = FALSE )
 	{
 		$user = get_user_by( 'id', ( $user_id ? $user_id : get_current_user_id() ) );
-		return empty( $user ) ? array() : $user->roles;
+		return empty( $user ) ? array() : (array) $user->roles;
 	}
 
 	public static function userHasRole( $role, $user_id = FALSE )
 	{
-		return in_array( $role, self::getUserRoles( $user_id ) );
+		$roles = self::getUserRoles( $user_id );
+
+		foreach ( (array) $role as $name )
+			if ( in_array( $name, $roles ) )
+				return TRUE;
+
+		return FALSE;
 	}
 
 	// current user role

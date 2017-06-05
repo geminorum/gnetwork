@@ -35,12 +35,14 @@ class Arraay extends Base
 		return $list;
 	}
 
+	// OR: `array_combine( $array, $array );`
 	public static function sameKey( $old )
 	{
 		$new = array();
 
-		foreach ( $old as $key => $value )
-			$new[$value] = $value;
+		foreach ( (array) $old as $key => $value )
+			if ( FALSE !== $value && NULL !== $value )
+				$new[$value] = $value;
 
 		return $new;
 	}
@@ -224,7 +226,7 @@ class Arraay extends Base
 			$tmp = array();
 
 			foreach ( $arr as $ar )
-				$tmp[key($ar)] = current( $ar );
+				$tmp[key( $ar )] = current( $ar );
 
 			$arr = $tmp;
 		}
