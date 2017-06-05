@@ -311,7 +311,7 @@ class Blog extends gNetwork\Module
 
 			$redirect = URL::untrail( $this->options['blog_redirect'] ).$_SERVER['REQUEST_URI'];
 
-			Logger::NOTICE( 'BLOG-REDIRECT: '.esc_url( $redirect ) );
+			Logger::NOTICE( 'BLOG-REDIRECT: '.WordPress::currentBlog().': '.esc_url( $redirect ) );
 
 			WordPress::redirect( $redirect, $this->options['blog_redirect_status'] );
 		}
