@@ -704,42 +704,49 @@ class Media extends gNetwork\Module
 
 		switch ( $mime_type ) {
 
-			case 'image/jpeg' :
-			case 'image/png' :
-			case 'image/gif' :
+			case 'image/jpeg':
+			case 'image/png':
+			case 'image/gif':
+
 				$label = _x( 'View Image URL', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN );
-				break;
 
-			case 'video/mpeg' :
-			case 'video/mp4' :
-			case 'video/webm' :
-			case 'video/ogg' :
+			break;
+			case 'video/mpeg':
+			case 'video/mp4':
+			case 'video/webm':
+			case 'video/ogg':
 			case 'video/quicktime':
+
 				$label = _x( 'View Video URL', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN );
-				break;
 
-			case 'text/csv' :
-			case 'text/xml' :
+			break;
+			case 'text/csv':
+			case 'text/xml':
+
 				$label = _x( 'View Data File URL', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN );
-				break;
 
-			case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' :
-			case 'application/vnd.ms-excel' :
+			break;
+			case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+			case 'application/vnd.ms-excel':
+
 				$label = _x( 'View Spreadsheet URL', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN );
-				break;
 
-			case 'application/pdf' :
-			case 'application/rtf' :
-			case 'application/msword' :
-			case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' :
+			break;
+			case 'application/pdf':
+			case 'application/rtf':
+			case 'application/msword':
+			case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+
 				$label = _x( 'View Document URL', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN );
-				break;
 
-			case 'text/html' :
+			break;
+			case 'text/html':
+
 				$label = _x( 'View HTML file URL', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN );
-				break;
 
+			break;
 			default:
+
 				$label = _x( 'View Item URL', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN );
 		}
 

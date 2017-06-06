@@ -371,7 +371,8 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 			return;
 
 		switch ( $_GET['message'] ) {
-			case  'gnetwork-taxonomy-updated':
+
+			case 'gnetwork-taxonomy-updated':
 
 				HTML::notice( _x( 'Terms updated.', 'Settings: Message', GNETWORK_TEXTDOMAIN ) );
 
@@ -379,8 +380,6 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 			case 'gnetwork-taxonomy-error':
 
 				HTML::notice( _x( 'Terms not updated.', 'Settings: Message', GNETWORK_TEXTDOMAIN ), 'error' );
-
-			break;
 		}
 	}
 

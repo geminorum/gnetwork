@@ -484,7 +484,7 @@ class Settings extends Core\Base
 
 		switch ( $args['type'] ) {
 
-			case 'hidden' :
+			case 'hidden':
 
 				echo HTML::tag( 'input', [
 					'type'  => 'hidden',
@@ -497,7 +497,7 @@ class Settings extends Core\Base
 				$args['description'] = FALSE;
 
 			break;
-			case 'enabled' :
+			case 'enabled':
 
 				$html = HTML::tag( 'option', [
 					'value'    => '0',
@@ -520,13 +520,10 @@ class Settings extends Core\Base
 				], $html );
 
 			break;
-			case 'text' :
+			case 'text':
 
 				if ( ! $args['field_class'] )
 					$args['field_class'] = 'regular-text';
-
-				if ( ! count( $args['dir'] ) )
-					$args['data'] = [ 'accept' => 'text' ];
 
 				echo HTML::tag( 'input', [
 					'type'        => 'text',
@@ -542,17 +539,13 @@ class Settings extends Core\Base
 				] );
 
 			break;
-			case 'number' :
+			case 'number':
 
 				if ( ! $args['field_class'] )
 					$args['field_class'] = 'small-text';
 
 				if ( ! $args['dir'] )
 					$args['dir'] = 'ltr';
-
-				// FIXME: WTF?!
-				if ( ! count( $args['dir'] ) )
-					$args['data'] = [ 'accept' => 'number' ];
 
 				echo HTML::tag( 'input', [
 					'type'        => 'number',
@@ -570,17 +563,13 @@ class Settings extends Core\Base
 				] );
 
 			break;
-			case 'url' :
+			case 'url':
 
 				if ( ! $args['field_class'] )
-					$args['field_class'] = [ 'large-text', 'url-text' ];
+					$args['field_class'] = [ 'regular-text', 'url-text' ];
 
 				if ( ! $args['dir'] )
 					$args['dir'] = 'ltr';
-
-				// FIXME: WTF?!
-				if ( ! count( $args['dir'] ) )
-					$args['data'] = [ 'accept' => 'url' ];
 
 				echo HTML::tag( 'input', [
 					'type'        => 'url',
@@ -596,7 +585,7 @@ class Settings extends Core\Base
 				] );
 
 			break;
-			case 'checkbox' :
+			case 'checkbox':
 
 				if ( count( $args['values'] ) ) {
 
@@ -664,7 +653,7 @@ class Settings extends Core\Base
 				}
 
 			break;
-			case 'radio' :
+			case 'radio':
 
 				if ( count( $args['values'] ) ) {
 
@@ -711,7 +700,7 @@ class Settings extends Core\Base
 				}
 
 			break;
-			case 'select' :
+			case 'select':
 
 				if ( FALSE !== $args['values'] ) {
 
@@ -749,8 +738,8 @@ class Settings extends Core\Base
 				}
 
 			break;
-			case 'textarea' :
-			case 'textarea-quicktags' :
+			case 'textarea':
+			case 'textarea-quicktags':
 
 				if ( ! $args['field_class'] )
 					$args['field_class'] = 'large-text';
@@ -785,7 +774,7 @@ class Settings extends Core\Base
 				], $value );
 
 			break;
-			case 'page' :
+			case 'page':
 
 				if ( ! $args['values'] )
 					$args['values'] = 'page';
@@ -830,7 +819,7 @@ class Settings extends Core\Base
 				}
 
 			break;
-			case 'role' :
+			case 'role':
 
 				if ( ! $args['values'] )
 					$args['values'] = array_reverse( get_editable_roles() );
@@ -867,7 +856,7 @@ class Settings extends Core\Base
 				], $html );
 
 			break;
-			case 'cap' :
+			case 'cap':
 
 				if ( ! $args['values'] )
 					$args['values'] = self::getUserCapList( NULL, $args['none_title'], $args['none_value'] );
@@ -901,7 +890,7 @@ class Settings extends Core\Base
 				}
 
 			break;
-			case 'user' :
+			case 'user':
 
 				if ( ! $args['values'] )
 					$args['values'] = WordPress::getUsers( FALSE, FALSE, $args['extra'] );
@@ -936,7 +925,7 @@ class Settings extends Core\Base
 				], $html );
 
 			break;
-			case 'priority' :
+			case 'priority':
 
 				if ( ! $args['values'] )
 					$args['values'] = self::priorityOptions( FALSE );
@@ -966,7 +955,7 @@ class Settings extends Core\Base
 				], $html );
 
 			break;
-			case 'button' :
+			case 'button':
 
 				self::submitButton(
 					$args['field'],
@@ -976,7 +965,7 @@ class Settings extends Core\Base
 				);
 
 			break;
-			case 'file' :
+			case 'file':
 
 				echo HTML::tag( 'input', [
 					'type'     => 'file',
@@ -989,7 +978,7 @@ class Settings extends Core\Base
 				] );
 
 			break;
-			case 'posttypes' :
+			case 'posttypes':
 
 				if ( ! $args['values'] )
 					$args['values'] = WordPress::getPostTypes( 0,
@@ -1018,7 +1007,7 @@ class Settings extends Core\Base
 				}
 
 			break;
-			case 'taxonomies' :
+			case 'taxonomies':
 
 				if ( ! $args['values'] )
 					$args['values'] = WordPress::getTaxonomies( 0, $args['extra'] );
@@ -1046,7 +1035,7 @@ class Settings extends Core\Base
 				}
 
 			break;
-			case 'callback' :
+			case 'callback':
 
 				if ( is_callable( $args['callback'] ) ) {
 
@@ -1059,14 +1048,14 @@ class Settings extends Core\Base
 				}
 
 			break;
-			case 'noaccess' :
+			case 'noaccess':
 
 				echo HTML::tag( 'span', [
 					'class' => '-type-noaccess',
 				], $args['string_noaccess'] );
 
 			break;
-			case 'custom' :
+			case 'custom':
 
 				if ( ! is_array( $args['values'] ) )
 					echo $args['values'];
@@ -1074,12 +1063,12 @@ class Settings extends Core\Base
 					echo $value;
 
 			break;
-			case 'debug' :
+			case 'debug':
 
 				self::dump( $args['options'] );
 
 			break;
-			default :
+			default:
 
 				echo 'Error: setting type not defind!';
 		}

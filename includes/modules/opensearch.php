@@ -453,7 +453,7 @@ class OpenSearch extends gNetwork\Module
 			error_log( print_r( $_REQUEST, TRUE ) );
 
 		return;
-		$post = wp_unslash( $_POST );
+		$post = self::unslash( $_POST );
 		$what = isset( $post['what'] ) ? $post['what'] : 'nothing';
 	}
 }

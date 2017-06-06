@@ -567,11 +567,12 @@ class ShortCodes extends gNetwork\Module
 
 		switch ( $args['to'] ) {
 
-			case 'parent' :
+			case 'parent':
 
-				$post = get_post( $args['id'] );
-				if ( $post ) {
+				if ( $post = get_post( $args['id'] ) ) {
+
 					if ( $post->post_parent ) {
+
 						$html = HTML::tag( 'a', [
 							'href'        => get_permalink( $post->post_parent ),
 							'title'       => get_the_title( $post->post_parent ),
@@ -579,7 +580,9 @@ class ShortCodes extends gNetwork\Module
 							'data-toggle' => 'tooltip',
 							'rel'         => 'parent',
 						], $args['html'] );
+
 					} else {
+
 						$html = HTML::tag( 'a', [
 							'href'        => home_url( '/' ),
 							'title'       => _x( 'Home', 'Modules: ShortCodes: Defaults', GNETWORK_TEXTDOMAIN ),
@@ -591,8 +594,7 @@ class ShortCodes extends gNetwork\Module
 				}
 
 			break;
-
-			case 'home' :
+			case 'home':
 
 				$html = HTML::tag( 'a', [
 					'href'        => home_url( '/' ),
@@ -601,13 +603,6 @@ class ShortCodes extends gNetwork\Module
 					'data-toggle' => 'tooltip',
 					'rel'         => 'home',
 				], $args['html'] );
-
-			break;
-
-			case 'grand-parent' :
-
-			break;
-
 		}
 
 		return $html ? self::shortcodeWrap( $html, 'back', $args ) : $content;

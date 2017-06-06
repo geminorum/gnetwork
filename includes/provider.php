@@ -242,6 +242,7 @@ class Provider extends Core\Base
 		curl_setopt( $handle, CURLOPT_SSL_VERIFYPEER, FALSE );
 
 		switch ( $method ) {
+
 			case 'GET':
 
 			break;
@@ -260,8 +261,6 @@ class Provider extends Core\Base
 			case 'DELETE':
 
 				curl_setopt( $handle, CURLOPT_CUSTOMREQUEST, 'DELETE' );
-
-			break;
 		}
 
 		$response = curl_exec( $handle );

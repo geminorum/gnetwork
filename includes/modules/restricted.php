@@ -253,13 +253,16 @@ class Restricted extends gNetwork\Module
 			&& strlen( $_POST['gnetwork_restricted']['feed_operations'] ) > 0 ) {
 
 			switch ( $_POST['gnetwork_restricted']['feed_operations'] ) {
-				case 'remove' :
+
+				case 'remove':
+
 					delete_user_meta( $user_id, 'feed_key' );
+
 				break;
-				case 'reset' :
-				case 'generate' :
+				case 'reset':
+				case 'generate':
+
 					$feedkey = RestrictedBouncer::getUserFeedKey( $user_id, FALSE, TRUE );
-				break;
 			}
 		}
 	}
