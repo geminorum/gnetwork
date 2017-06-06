@@ -52,7 +52,7 @@ class Blog extends gNetwork\Module
 	{
 		Admin::registerMenu( $this->key,
 			_x( 'General', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			[ $this, 'settings' ]
+			[ $this, 'settings' ], 'manage_options', 5
 		);
 	}
 

@@ -11,6 +11,7 @@ class Module extends Core\Base
 {
 
 	public $options = [];
+	public $menus   = [];
 
 	protected $base = 'gnetwork';
 	protected $key  = NULL;
@@ -130,7 +131,7 @@ class Module extends Core\Base
 	}
 
 	// we call 'setup_menu' action only if `WordPress::mustRegisterUI()`
-	public function register_menu( $title = NULL, $callback = FALSE, $sub = NULL, $capability = NULL )
+	public function register_menu( $title = NULL, $callback = FALSE, $sub = NULL, $capability = NULL, $priority = 10 )
 	{
 		if ( is_null( $sub ) )
 			$sub = $this->key;
@@ -140,17 +141,38 @@ class Module extends Core\Base
 			if ( is_null( $capability ) )
 				$capability = 'manage_network_options';
 
-			Modules\Network::registerMenu( $sub, $title, $callback, $capability );
+			Modules\Network::registerMenu( $sub, $title, $callback, $capability, $priority );
 
 		} else {
 
 			if ( is_null( $capability ) )
 				$capability = 'manage_options';
 
-			Modules\Admin::registerMenu( $sub, $title, $callback, $capability );
+			Modules\Admin::registerMenu( $sub, $title, $callback, $capability, $priority );
 		}
 
-		// TODO : add register for user admin
+		// no need for user menu
+	}
+
+	public function menus()
+	{
+		ksort( $this->menus, SORT_NUMERIC );
+		return $this->menus;
+	}
+
+	public function cucSub( $sub )
+	{
+		if ( 'overview' == $sub )
+			return TRUE;
+
+		if ( 'console' == $sub )
+			return WordPress::isSuperAdmin();
+
+		foreach ( $this->menus as $priority => $group )
+			if ( array_key_exists( $sub, $group ) )
+				return WordPress::cuc( $group[$sub]['cap'] );
+
+		return FALSE;
 	}
 
 	public function get_settings_url( $action = FALSE, $full = FALSE )

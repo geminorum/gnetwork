@@ -14,8 +14,6 @@ class Network extends gNetwork\Module
 
 	protected $key = 'network';
 
-	public $menus = [];
-
 	protected function setup_actions()
 	{
 		if ( ! is_multisite() )
@@ -57,15 +55,15 @@ class Network extends gNetwork\Module
 
 		add_action( 'load-'.$hook, [ $this, 'settings_load' ] );
 
-		foreach ( $this->menus as $sub => $args ) {
-			add_submenu_page( $this->base,
-				sprintf( _x( 'gNetwork Extras: %s', 'Modules: Network: Page Menu', GNETWORK_TEXTDOMAIN ), $args['title'] ),
-				$args['title'],
-				$args['cap'],
-				$this->base.'&sub='.$sub,
-				[ $this, 'settings_page' ]
-			);
-		}
+		foreach ( $this->menus() as $priority => $group )
+			foreach ( $group as $sub => $args )
+				add_submenu_page( $this->base,
+					sprintf( _x( 'gNetwork Extras: %s', 'Modules: Network: Page Menu', GNETWORK_TEXTDOMAIN ), $args['title'] ),
+					$args['title'],
+					$args['cap'],
+					$this->base.'&sub='.$sub,
+					[ $this, 'settings_page' ]
+				);
 
 		$GLOBALS['submenu'][$this->base][0] = [
 			_x( 'Overview', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
@@ -75,12 +73,12 @@ class Network extends gNetwork\Module
 		];
 	}
 
-	public static function registerMenu( $sub, $title = NULL, $callback = FALSE, $capability = 'manage_network_options' )
+	public static function registerMenu( $sub, $title = NULL, $callback = FALSE, $capability = 'manage_network_options', $priority = 10 )
 	{
 		if ( ! is_network_admin() )
 			return;
 
-		gNetwork()->network->menus[$sub] = [
+		gNetwork()->network->menus[intval( $priority )][$sub] = [
 			'title' => $title ? $title : $sub,
 			'cap'   => $capability,
 		];
@@ -101,8 +99,10 @@ class Network extends gNetwork\Module
 	{
 		$subs = [ 'overview' => _x( 'Overview', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) ];
 
-		foreach ( $this->menus as $sub => $args )
-			$subs[$sub] = $args['title'];
+		foreach ( $this->menus() as $priority => $group )
+			foreach ( $group as $sub => $args )
+				if ( WordPress::cuc( $args['cap'] ) )
+					$subs[$sub] = $args['title'];
 
 		if ( WordPress::isSuperAdmin() ) {
 			$subs['phpinfo'] = _x( 'PHP Info', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN );
@@ -120,6 +120,8 @@ class Network extends gNetwork\Module
 
 		Settings::wrapOpen( $sub, $this->base, 'settings' );
 
+		if ( $this->cucSub( $sub ) ) {
+
 			$messages = $this->filters( 'settings_messages', Settings::messages(), $sub );
 
 			Settings::headerTitle();
@@ -131,6 +133,11 @@ class Network extends gNetwork\Module
 
 			else if ( ! $this->actions( 'settings_sub_'.$sub, $uri, $sub ) )
 				Settings::cheatin();
+
+		} else {
+
+			Settings::cheatin();
+		}
 
 		Settings::wrapClose();
 	}

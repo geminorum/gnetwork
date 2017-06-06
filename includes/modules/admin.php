@@ -14,8 +14,6 @@ class Admin extends gNetwork\Module
 	protected $network = FALSE;
 	protected $front   = FALSE;
 
-	public $menus = [];
-
 	protected function setup_actions()
 	{
 		if ( ! WordPress::mustRegisterUI( FALSE ) )
@@ -47,15 +45,15 @@ class Admin extends gNetwork\Module
 				120
 			);
 
-			foreach ( $this->menus as $sub => $args ) {
-				add_submenu_page( $this->base,
-					sprintf( _x( 'gNetwork Extras: %s', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN ), $args['title'] ),
-					$args['title'],
-					$args['cap'],
-					$this->base.'&sub='.$sub,
-					[ $this, 'settings_page' ]
-				);
-			}
+			foreach ( $this->menus() as $priority => $group )
+				foreach ( $group as $sub => $args )
+					add_submenu_page( $this->base,
+						sprintf( _x( 'gNetwork Extras: %s', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN ), $args['title'] ),
+						$args['title'],
+						$args['cap'],
+						$this->base.'&sub='.$sub,
+						[ $this, 'settings_page' ]
+					);
 
 		} else {
 
@@ -88,12 +86,12 @@ class Admin extends gNetwork\Module
 		];
 	}
 
-	public static function registerMenu( $sub, $title = NULL, $callback = FALSE, $capability = 'manage_options' )
+	public static function registerMenu( $sub, $title = NULL, $callback = FALSE, $capability = 'manage_options', $priority = 10 )
 	{
 		if ( ! is_blog_admin() )
 			return;
 
-		gNetwork()->admin->menus[$sub] = [
+		gNetwork()->admin->menus[intval( $priority )][$sub] = [
 			'title' => $title ? $title : $sub,
 			'cap'   => $capability,
 		];
@@ -122,9 +120,10 @@ class Admin extends gNetwork\Module
 
 		$subs['overview'] = _x( 'Overview', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN );
 
-		foreach ( $this->menus as $sub => $args )
-			if ( WordPress::cuc( $args['cap'] ) )
-				$subs[$sub] = $args['title'];
+		foreach ( $this->menus() as $priority => $group )
+			foreach ( $group as $sub => $args )
+				if ( WordPress::cuc( $args['cap'] ) )
+					$subs[$sub] = $args['title'];
 
 		if ( WordPress::isSuperAdmin() )
 			$subs['console'] = _x( 'Console', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN );
@@ -140,9 +139,7 @@ class Admin extends gNetwork\Module
 
 		Settings::wrapOpen( $sub, $this->base, 'settings' );
 
-		if ( 'overview' == $sub
-			|| ( 'console' == $sub && WordPress::isSuperAdmin() )
-			|| ( isset( $this->menus[$sub] ) && WordPress::cuc( $this->menus[$sub]['cap'] ) ) ) {
+		if ( $this->cucSub( $sub ) ) {
 
 			$messages = $this->filters( 'settings_messages', Settings::messages(), $sub );
 
