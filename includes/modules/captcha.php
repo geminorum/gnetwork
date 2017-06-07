@@ -6,16 +6,14 @@ use geminorum\gNetwork;
 use geminorum\gNetwork\Logger;
 use geminorum\gNetwork\Core\Error;
 use geminorum\gNetwork\Core\Exception;
+use geminorum\gNetwork\Core\HTTP;
 
 class Captcha extends gNetwork\Module
 {
 
-	// FIXME: move to NoCaptcha: [Using Googles NoCaptcha ReCaptcha In WordPress](https://paulund.co.uk/using-googles-nocaptcha-recaptcha-wordpress)
-
 	protected $key = 'captcha';
 
-	private $public_key;
-	private $private_key;
+	protected $enqueued = FALSE;
 
 	protected function setup_actions()
 	{
@@ -45,6 +43,14 @@ class Captcha extends gNetwork\Module
 		if ( $this->options['login_captcha'] ) {
 			$this->action( 'login_form' );
 			$this->action( 'wp_authenticate_user', 2 );
+
+			$this->action( 'lostpassword_form' );
+			$this->action( 'lostpassword_post' );
+		}
+
+		if ( $this->options['register_captcha'] ) {
+			$this->action( 'register_form' );
+			$this->filter( 'registration_errors' );
 		}
 
 		if ( gNetwork()->option( 'captcha', 'comments' ) ) {
@@ -60,10 +66,11 @@ class Captcha extends gNetwork\Module
 	public function default_options()
 	{
 		return [
-			'login_captcha' => '0',
-			'logged_in'     => '0',
-			'public_key'    => '',
-			'private_key'   => '',
+			'public_key'       => '',
+			'private_key'      => '',
+			'login_captcha'    => '0',
+			'register_captcha' => '0',
+			'logged_in'        => '0',
 		];
 	}
 
@@ -88,7 +95,12 @@ class Captcha extends gNetwork\Module
 				[
 					'field'       => 'login_captcha',
 					'title'       => _x( 'Login Captcha', 'Modules: Captcha: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Display captcha field on login form', 'Modules: Captcha: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Display captcha field on login and lost password form', 'Modules: Captcha: Settings', GNETWORK_TEXTDOMAIN ),
+				],
+				[
+					'field'       => 'register_captcha',
+					'title'       => _x( 'Register Captcha', 'Modules: Captcha: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Display captcha field on register form', 'Modules: Captcha: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
 					'field'       => 'logged_in',
@@ -105,12 +117,54 @@ class Captcha extends gNetwork\Module
 			[
 				'id'      => 'gnetwork-captcha-help',
 				'title'   => _x( 'Google reCAPTCHA', 'Modules: Captcha: Help', GNETWORK_TEXTDOMAIN ),
-				'content' => '<p><br />Register & get the keys from <a href="https://www.google.com/recaptcha/admin#createsite" target="_blank">here</a>.</p>',
+				'content' => '<p><br />Register and get the keys from <a href="https://www.google.com/recaptcha/admin" target="_blank"><i>here</i></a>.</p>',
 			],
 		];
 	}
 
-	private function recaptcha_errors()
+	// @REF: https://paulund.co.uk/using-googles-nocaptcha-recaptcha-wordpress
+	// FIXME: skip jquery: http://youmightnotneedjquery.com/
+	public function recaptcha_script()
+	{
+		if ( $this->enqueued )
+			return;
+
+		$iso = class_exists( 'geminorum\\gNetwork\\Modules\\Locale' )
+			? \geminorum\gNetwork\Modules\Locale::getISO()
+			: 'en';
+
+		echo '<script src="https://www.google.com/recaptcha/api.js?hl='.$iso.'" async defer></script>'."\n";
+		echo '<script type="text/javascript">/* <![CDATA[ */ function gnrecaptchacb(){for(var r=["#loginform #wp-submit","#lostpasswordform #wp-submit","#registerform #wp-submit","#commentform #submit"],o=0;o<=r.length;o++)jQuery(r[o]).length>0&&jQuery(r[o]).show()} /* ]]> */</script>'."\n";
+
+		wp_enqueue_script( 'jquery' );
+
+		$this->enqueued = TRUE;
+	}
+
+	public function recaptcha_form()
+	{
+		$this->recaptcha_script();
+
+		echo '<div class="g-recaptcha" data-sitekey="'.$this->options['public_key'].'" data-callback="gnrecaptchacb"></div>';
+	}
+
+	public function recaptcha_verify( $param = TRUE )
+	{
+		if ( ! isset( $_POST['g-recaptcha-response'] ) )
+			return FALSE;
+
+		$url = 'https://www.google.com/recaptcha/api/siteverify?secret='.$this->options['private_key'].'&response='.$_POST['g-recaptcha-response'];
+
+		// $response = json_decode( wp_remote_retrieve_body( wp_remote_get( $url ) ), TRUE );
+		$response = HTTP::getJSON( $url, [], TRUE );
+
+		if ( empty( $response['success'] ) )
+			return FALSE;
+
+		return $param;
+	}
+
+	public function recaptcha_errors()
 	{
 		return [
 			'empty_captcha'   => _x( 'CAPTCHA should not be empty', 'Modules: Captcha: ReCaptcha Error', GNETWORK_TEXTDOMAIN ),
@@ -118,71 +172,85 @@ class Captcha extends gNetwork\Module
 		];
 	}
 
-	private function recaptcha_form( $rows = '3', $cols = '40' )
-	{
-		?><script type="text/javascript" src="http://www.google.com/recaptcha/api/challenge?k=<?=$this->options['public_key'];?>"></script>
-		<noscript><iframe src="http://www.google.com/recaptcha/api/noscript?k=<?=$this->options['public_key'];?>" height="300" width="300" frameborder="0"></iframe>
-		<br><textarea name="recaptcha_challenge_field" rows="<?=$rows;?>" cols="<?=$cols;?>"></textarea>
-		<input type="hidden" name="recaptcha_response_field" value="manual_challenge" /></noscript><?php
-	}
-
-	// http://www.sitepoint.com/integrating-a-captcha-with-the-wordpress-login-form/
-	// https://github.com/Collizo4sky/WP-Login-Form-with-reCAPTCHA/
-	// https://developers.google.com/recaptcha/
-	// https://developers.google.com/recaptcha/old/docs/customization?hl=en
-
 	public function login_form()
 	{
-		echo <<<JS
-<script type="text/javascript">
-	var RecaptchaOptions = {
-		theme : 'white'
-	};
-</script>
-JS;
-		echo '<style>#login {width:368px !important;} #recaptcha_widget_div {direction:ltr;margin-bottom:20px;}</style>';
+		echo '<style>#login{width:350px!important}#loginform #wp-submit{display:none}div.g-recaptcha{margin:10px 0 20px}</style>';
 		$this->recaptcha_form();
 	}
 
-	// verify the captcha answer
 	public function wp_authenticate_user( $user, $password )
 	{
-		$errors = $this->recaptcha_errors();
+		$messages = $this->recaptcha_errors();
 
-		if ( empty( $_POST['recaptcha_response_field'] ) )
-			return new Error( 'empty_captcha', $errors['empty_captcha'] );
+		if ( empty( $_POST['g-recaptcha-response'] ) )
+			return new Error( 'empty_captcha', $messages['empty_captcha'] );
 
-
-		if ( 'false' == $this->recaptcha_response() )
-			return new Error( 'invalid_captcha', $errors['invalid_captcha'] );
+		if ( FALSE === $this->recaptcha_verify() )
+			return new Error( 'invalid_captcha', $messages['invalid_captcha'] );
 
 		return $user;
 	}
 
-	// get the reCAPTCHA API response.
-	private function recaptcha_response()
+	public function lostpassword_form()
 	{
-		return $this->recaptcha_post_request( [
-			'privatekey' => $this->options['private_key'],
-			'remoteip'   => $_SERVER['REMOTE_ADDR'],
-			'challenge'  => isset( $_POST['recaptcha_challenge_field'] ) ? esc_attr( $_POST['recaptcha_challenge_field'] ) : '',
-			'response'   => isset( $_POST['recaptcha_response_field'] ) ? esc_attr( $_POST['recaptcha_response_field'] ) : '',
-		] );
+		echo '<style>#login{width:350px!important}#lostpasswordform #wp-submit{display:none}div.g-recaptcha{margin:10px 0 20px}</style>';
+		$this->recaptcha_form();
 	}
 
-	// send http post request and return the response.
-	private function recaptcha_post_request( $post )
+	public function lostpassword_post( $errors )
 	{
-		$args = [ 'body' => $post ];
-		$req  = wp_remote_post( 'https://www.google.com/recaptcha/api/verify', $args );
-		$body = wp_remote_retrieve_body( $req );
+		$messages = $this->recaptcha_errors();
 
-		// explode the response body and use the request_status
-		// @see https://developers.google.com/recaptcha/docs/verify
-		$answers = explode( "\n", $body );
-		$status  = trim( $answers[0] );
+		if ( empty( $_POST['g-recaptcha-response'] ) ) {
 
-		return $status;
+			Logger::NOTICE( 'CAPTCHA-LOSTPASSWORD: empty captcha' );
+			$errors->add( 'empty_captcha', $messages['empty_captcha'] );
+
+		} else if ( FALSE === $this->recaptcha_verify() ) {
+
+			Logger::NOTICE( 'CAPTCHA-LOSTPASSWORD: invalid captcha' );
+			$errors->add( 'invalid_captcha', $messages['invalid_captcha'] );
+		}
+
+		// add_filter( 'allow_password_reset', '__return_false' );
+
+		return $errors;
+	}
+
+	public function register_form()
+	{
+		echo '<style>#registerform #wp-submit{display: none;}</style>';
+		$this->recaptcha_form();
+	}
+
+	public function registration_errors( $errors )
+	{
+		$messages = $this->recaptcha_errors();
+
+		if ( empty( $_POST['g-recaptcha-response'] ) ) {
+
+			Logger::NOTICE( 'CAPTCHA-REGISTER: empty captcha' );
+			$errors->add( 'empty_captcha', $messages['empty_captcha'] );
+
+		} else if ( FALSE === $this->recaptcha_verify() ) {
+
+			Logger::NOTICE( 'CAPTCHA-REGISTER: invalid captcha' );
+			$errors->add( 'invalid_captcha', $messages['invalid_captcha'] );
+		}
+
+		return $errors;
+	}
+
+	public function comment_form_after_fields()
+	{
+		echo '<style>#commentform #submit{display: none;}</style>';
+		$this->recaptcha_form();
+	}
+
+	public function comment_form_logged_in_after( $commenter, $user_identity )
+	{
+		echo '<style>#commentform #submit{display: none;}</style>';
+		$this->recaptcha_form();
 	}
 
 	public function preprocess_comment( $commentdata )
@@ -190,44 +258,18 @@ JS;
 		if ( in_array( $commentdata['comment_type'], [ 'trackback', 'pingback' ] ) )
 			return $commentdata;
 
-		$errors = $this->recaptcha_errors();
+		$messages = $this->recaptcha_errors();
 
-		if ( empty( $_POST['recaptcha_response_field'] ) ) {
+		if ( empty( $_POST['g-recaptcha-response'] ) ) {
 			Logger::NOTICE( 'CAPTCHA-COMMENT: empty captcha' );
-			wp_die( $errors['empty_captcha'] );
+			wp_die( $messages['empty_captcha'] );
 		}
 
-		if ( 'false' == $this->recaptcha_response() ) {
+		if ( FALSE === $this->recaptcha_verify() ) {
 			Logger::NOTICE( 'CAPTCHA-COMMENT: invalid captcha' );
-			wp_die( $errors['invalid_captcha'] );
+			wp_die( $messages['invalid_captcha'] );
 		}
 
 		return $commentdata;
-	}
-
-	public function comment_form_after_fields()
-	{
-		echo <<<JS
-<script type="text/javascript">
-	var RecaptchaOptions = {
-		theme : 'clean'
-	};
-</script>
-JS;
-		echo '<style>#recaptcha_widget_div {direction:ltr;margin-bottom:20px;}</style>';
-		$this->recaptcha_form();
-	}
-
-	public function comment_form_logged_in_after( $commenter, $user_identity )
-	{
-		echo <<<JS
-<script type="text/javascript">
-	var RecaptchaOptions = {
-		theme : 'clean'
-	};
-</script>
-JS;
-		echo '<style>#recaptcha_widget_div {direction:ltr;margin-bottom:20px;}</style>';
-		$this->recaptcha_form();
 	}
 }
