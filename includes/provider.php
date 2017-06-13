@@ -80,6 +80,9 @@ class Provider extends Core\Base
 		if ( ! is_null( $base ) )
 			$this->base = $base;
 
+		if ( ! $this->setup_checks() )
+			throw new Exception( 'Failed to pass setup checks!' );
+
 		add_filter( $this->base.'_'.$this->type.'_default_settings', [ $this, 'append_default_settings' ], 8, 1 );
 		add_filter( $this->base.'_'.$this->type.'_default_options', [ $this, 'append_default_options' ], 8, 1 );
 		add_filter( $this->base.'_'.$this->type.'_settings_section', [ $this, 'append_settings_section' ], 8, 2 );
@@ -97,7 +100,15 @@ class Provider extends Core\Base
 		$this->setup_actions();
 	}
 
-	protected function setup_actions() {}
+	protected function setup_checks()
+	{
+		return TRUE;
+	}
+
+	protected function setup_actions()
+	{
+		// WILL OVERRIDED
+	}
 
 	public function default_options()
 	{

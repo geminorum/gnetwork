@@ -114,6 +114,9 @@ class Module extends Core\Base
 
 		$this->blog = get_current_blog_id();
 
+		if ( ! $this->setup_checks() )
+			throw new Exception( 'Failed to pass setup checks!' );
+
 		if ( method_exists( $this, 'default_settings' ) )
 			$this->options = $this->init_options();
 
@@ -128,6 +131,16 @@ class Module extends Core\Base
 
 		if ( method_exists( $this, 'setup_menu' ) )
 			add_action( $this->base.'_setup_menu', [ $this, 'setup_menu' ] );
+	}
+
+	protected function setup_checks()
+	{
+		return TRUE;
+	}
+
+	protected function setup_actions()
+	{
+		// WILL OVERRIDED
 	}
 
 	// we call 'setup_menu' action only if `WordPress::mustRegisterUI()`
@@ -195,8 +208,6 @@ class Module extends Core\Base
 	{
 		return is_multisite() ? $this->network : FALSE;
 	}
-
-	protected function setup_actions() {}
 
 	protected function action( $hook, $args = 1, $priority = 10, $suffix = FALSE )
 	{
