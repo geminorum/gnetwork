@@ -32,7 +32,7 @@ class Dev extends gNetwork\Module
 		if ( is_admin() )
 			$this->filter( 'contextual_help', 3 );
 
-		$this->filter( 'embed_oembed_html', 4, 1 );
+		// $this->filter( 'embed_oembed_html', 4, 1 );
 		$this->filter( 'pre_get_avatar', 3, 99 );
 		remove_filter( 'get_avatar', 'bp_core_fetch_avatar_filter', 10, 6 );
 

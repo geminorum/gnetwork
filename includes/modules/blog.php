@@ -92,8 +92,7 @@ class Blog extends gNetwork\Module
 					'type'        => 'url',
 					'title'       => _x( 'Redirect', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'The Site Will Redirect to This URL', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'field_class' => [ 'regular-text', 'url-text' ],
-					'placeholder' => 'http://example.com',
+					'placeholder' => 'http://anothersite.com',
 				],
 				[
 					'field'       => 'blog_redirect_status',

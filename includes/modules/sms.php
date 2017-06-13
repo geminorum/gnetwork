@@ -75,8 +75,9 @@ class SMS extends gNetwork\Module
 						$this->providers[$provider] = new $class( $this->options, $this->base, $provider );
 
 					} catch ( Exception $e ) {
-						// echo 'Caught exception: ',  $e->getMessage(), "\n";
-						// no need to do anything!
+
+						// if ( $this->options['debug_providers'] )
+						// 	Logger::DEBUG( 'SMS-DEBUG: provider: '.$provider.' :: '.$e->getMessage() );
 					}
 				}
 			}

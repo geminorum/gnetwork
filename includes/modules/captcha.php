@@ -219,7 +219,7 @@ class Captcha extends gNetwork\Module
 
 	public function register_form()
 	{
-		echo '<style>#registerform #wp-submit{display: none;}</style>';
+		echo '<style>#registerform #wp-submit{display:none}</style>';
 		$this->recaptcha_form();
 	}
 
@@ -243,13 +243,13 @@ class Captcha extends gNetwork\Module
 
 	public function comment_form_after_fields()
 	{
-		echo '<style>#commentform #submit{display: none;}</style>';
+		echo '<style>#commentform #submit{display:none}div.g-recaptcha{margin:10px 0 20px}</style>';
 		$this->recaptcha_form();
 	}
 
 	public function comment_form_logged_in_after( $commenter, $user_identity )
 	{
-		echo '<style>#commentform #submit{display: none;}</style>';
+		echo '<style>#commentform #submit{display:none}div.g-recaptcha{margin:10px 0 20px}</style>';
 		$this->recaptcha_form();
 	}
 

@@ -64,7 +64,6 @@ class Login extends gNetwork\Module
 					'description' => _x( 'Login page header logo link URL', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'placeholder' => GNETWORK_BASE,
 					'default'     => GNETWORK_BASE,
-					'field_class' => [ 'regular-text', 'url-text' ],
 				],
 				[
 					'field'       => 'login_headertitle',
@@ -88,7 +87,6 @@ class Login extends gNetwork\Module
 					'type'        => 'url',
 					'title'       => _x( 'Logo Image', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Full URL to the login logo image', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'field_class' => [ 'regular-text', 'url-text' ],
 					'after'       => Settings::fieldAfterIcon( Settings::getLoginLogoLink() ),
 				],
 				[

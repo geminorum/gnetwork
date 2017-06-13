@@ -16,7 +16,7 @@ class Provider extends Core\Base
 
 	protected $base    = 'gnetwork';
 	protected $key     = NULL;
-	protected $type    = NULL; // sms / fax / payment / push
+	protected $type    = NULL; // sms / fax / payment / push / remote
 	protected $enabled = FALSE;
 
 	protected $network = TRUE;

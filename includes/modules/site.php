@@ -146,7 +146,7 @@ class Site extends gNetwork\Module
 
 		$blogs = get_blogs_of_user( get_current_user_id() );
 
-		if ( wp_list_filter( $blogs, [ 'userblog_id' => get_current_blog_id() ] ) )
+		if ( wp_list_filter( $blogs, [ 'userblog_id' => $this->blog ] ) )
 			return;
 
 		$output = '';

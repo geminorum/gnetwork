@@ -38,15 +38,18 @@ class Kavenegar extends gNetwork\Provider
 				'title'       => _x( 'API Key', 'Provider: Kavenegar', GNETWORK_TEXTDOMAIN ),
 				'description' => _x( 'Key for communication between your site and Kavenegar.', 'Provider: Kavenegar', GNETWORK_TEXTDOMAIN ),
 				'constant'    => 'KAVENEGAR_API_KEY',
+				'field_class' => [ 'regular-text', 'code' ],
 			],
 			'from_number' => [
-				'type'  => 'text',
-				'title' => _x( 'From Number', 'Provider: Kavenegar', GNETWORK_TEXTDOMAIN ),
-				'desc'  => _x( 'You can specify the phone number that messages should be sent from. If you leave this blank, the default number will be used.', 'Provider: Kavenegar', GNETWORK_TEXTDOMAIN ),
+				'type'        => 'text',
+				'title'       => _x( 'From Number', 'Provider: Kavenegar', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'You can specify the phone number that messages should be sent from. If you leave this blank, the default number will be used.', 'Provider: Kavenegar', GNETWORK_TEXTDOMAIN ),
+				'field_class' => [ 'regular-text', 'code' ],
 			],
 			'admin_numbers' => [
 				'type'  => 'text',
 				'title' => _x( 'Admin Numbers', 'Provider: Kavenegar', GNETWORK_TEXTDOMAIN ),
+				'field_class' => [ 'regular-text', 'code' ],
 			],
 		];
 	}
