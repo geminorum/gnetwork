@@ -4,6 +4,8 @@ defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
 use geminorum\gNetwork\Logger;
+use geminorum\gNetwork\Provider;
+use geminorum\gNetwork\Core\Exception;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\WordPress;
 
@@ -32,50 +34,15 @@ class SMS extends gNetwork\Module
 
 	public function default_options()
 	{
-		return [
-			'manage_providers' => 'edit_others_posts',
-			'load_providers'   => '0',
-			'debug_providers'  => '0',
-			'default_provider' => 'none',
-		];
+		return Provider::getTypeDefaultOptions( 'sms' );
 	}
 
 	public function default_settings()
 	{
-		$settings = [
-			'_general' => [
-				[
-					'field'       => 'load_providers',
-					'type'        => 'enabled',
-					'title'       => _x( 'Load Providers', 'Modules: SMS: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Load available sms providers', 'Modules: SMS: Settings', GNETWORK_TEXTDOMAIN ),
-					'default'     => '0',
-				],
-				[
-					'field'       => 'debug_providers',
-					'type'        => 'enabled',
-					'title'       => _x( 'Debug Providers', 'Modules: SMS: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Debug available sms providers', 'Modules: SMS: Settings', GNETWORK_TEXTDOMAIN ),
-					'default'     => '0',
-				],
-				[
-					'field'       => 'manage_providers',
-					'type'        => 'cap',
-					'title'       => _x( 'Access Level', 'Modules: SMS: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Selected and above can view the providers information', 'Modules: SMS: Settings', GNETWORK_TEXTDOMAIN ),
-					'default'     => 'edit_others_posts',
-				],
-			],
-		];
+		$settings = [ '_general' => Provider::getTypeGeneralSettings( 'sms' ) ];
 
 		if ( $this->options['load_providers'] )
-			$settings['_general'][] = [
-				'field'   => 'default_provider',
-				'type'    => 'select',
-				'title'   => _x( 'Default Provider', 'Modules: SMS: Settings', GNETWORK_TEXTDOMAIN ),
-				'default' => 'none',
-				'values'  => gNetwork()->providers( 'sms', [ 'none' => Settings::showOptionNone() ] ),
-			];
+			$settings['_general'][] = Provider::getSetting_default_provider( 'sms' );
 
 		return $settings;
 	}
@@ -104,7 +71,8 @@ class SMS extends gNetwork\Module
 					$class = $args['class'];
 
 					try {
-						$this->providers[$provider] = new $class( $this->options );
+
+						$this->providers[$provider] = new $class( $this->options, $this->base, $provider );
 
 					} catch ( Exception $e ) {
 						// echo 'Caught exception: ',  $e->getMessage(), "\n";

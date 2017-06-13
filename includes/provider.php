@@ -157,6 +157,54 @@ class Provider extends Core\Base
 		return $section_callback;
 	}
 
+	public static function getTypeDefaultOptions( $type )
+	{
+		return [
+			'manage_providers' => 'edit_others_posts',
+			'load_providers'   => '0',
+			'debug_providers'  => '0',
+			'default_provider' => 'none',
+		];
+	}
+
+	public static function getTypeGeneralSettings( $type )
+	{
+		return [
+			[
+				'field'       => 'load_providers',
+				'type'        => 'enabled',
+				'title'       => _x( 'Load Providers', 'Provider Core: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Load available providers', 'Provider Core: Settings', GNETWORK_TEXTDOMAIN ),
+				'default'     => '0',
+			],
+			[
+				'field'       => 'debug_providers',
+				'type'        => 'enabled',
+				'title'       => _x( 'Debug Providers', 'Provider Core: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Debug available providers', 'Provider Core: Settings', GNETWORK_TEXTDOMAIN ),
+				'default'     => '0',
+			],
+			[
+				'field'       => 'manage_providers',
+				'type'        => 'cap',
+				'title'       => _x( 'Access Level', 'Provider Core: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Selected and above can view the providers information', 'Provider Core: Settings', GNETWORK_TEXTDOMAIN ),
+				'default'     => 'edit_others_posts',
+			],
+		];
+	}
+
+	public static function getSetting_default_provider( $type )
+	{
+		return [
+			'field'   => 'default_provider',
+			'type'    => 'select',
+			'title'   => _x( 'Default Provider', 'Provider Core: Settings', GNETWORK_TEXTDOMAIN ),
+			'default' => 'none',
+			'values'  => gNetwork()->providers( $type, [ 'none' => Settings::showOptionNone() ] ),
+		];
+	}
+
 	public function providerEnabled()
 	{
 		return $this->enabled;
