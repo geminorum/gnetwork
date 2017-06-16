@@ -67,6 +67,7 @@ class Blog extends gNetwork\Module
 			'wlw_enabled'          => '0',
 			'page_copyright'       => '0',
 			'page_404'             => '0',
+			'content_width'        => '',
 			'meta_revised'         => '0',
 			'noindex_attachments'  => '0',
 			'feed_json'            => '0',
@@ -156,6 +157,13 @@ class Blog extends gNetwork\Module
 					'default'     => '0',
 					'exclude'     => $exclude,
 					'after'       => Settings::fieldAfterNewPostType( 'page' ),
+				],
+				[
+					'field'       => 'content_width',
+					'type'        => 'number',
+					'title'       => _x( 'Content Width', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Override active theme\'s content width. Leave empty for not override.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+					'after'       => $GLOBALS['content_width'] && ! $this->options['content_width'] ? Settings::fieldAfterText( sprintf( _x( 'Current is %s', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ), '<code>'.$GLOBALS['content_width'].'</code>' ) ) : FALSE,
 				],
 				[
 					'field'       => 'meta_revised',
@@ -285,6 +293,9 @@ class Blog extends gNetwork\Module
 
 		if ( ! $this->options['wlw_enabled'] )
 			remove_action( 'wp_head', 'wlwmanifest_link' );
+
+		if ( $this->options['content_width'] )
+			$this->set_content_width( $this->options['content_width'] );
 	}
 
 	public function init_late()
@@ -333,6 +344,16 @@ class Blog extends gNetwork\Module
 			'wp-trackback.php',
 			'xmlrpc.php',
 		], $request_uri );
+	}
+
+	public function set_content_width( $width )
+	{
+		global $content_width;
+
+		if ( ! $width )
+			return FALSE;
+
+		return $content_width = intval( $width );
 	}
 
 	public function export_wp()
