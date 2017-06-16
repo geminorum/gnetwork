@@ -1,3 +1,29 @@
+### 3.6.0
+* assets/js: :up: autosize 3.0.21
+* main/constants: new cache ttl `GNETWORK_CACHE_TTL`
+* main/plugin: better file loader
+* main/module: priority for menus
+* main/module: setup checks method
+* main/provider: default settings helpers
+* main/settings: not removing limit from request uri
+* main/settings: correct check if exclude is an array
+* main/settings: cpt/tax names along with labels
+* main/settings: new wp page heading structure, [ref](https://make.wordpress.org/core/?p=22141)
+* main/functions: using dashicon on footer powered
+* main/admin: override admin title
+* module/adminbar: check for error in nav menu term
+* module/blog: log redirects
+* module/blog: override content width global
+* module/captcha: :up: migrate to recaptcha v2
+* module/debug: post object on debugbar
+* module/editor: code button
+* module/embed: :new: new module
+* module/opensearch: using internal constants for seconds
+* module/media: check for images in content via curl
+* module/media: shortlink also for audio/video attachments
+* module/taxonomy: later hook for other plugins actions
+* module/tracking: tab before additional lines
+
 ### 3.5.5
 * main/plugin: seperate loop for modules
 * main/modulecore: class on shortcode wrapper
