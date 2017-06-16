@@ -9,8 +9,8 @@ License: GPLv3+
 Author: geminorum
 Author URI: http://geminorum.ir/
 Network: true
-TextDomain: gnetwork
-DomainPath: /languages
+Text Domain: gnetwork
+Domain Path: /languages
 GitHub Plugin URI: https://github.com/geminorum/gnetwork
 GitHub Branch: master
 Release Asset: true

@@ -25,7 +25,7 @@
     input = {
       'php': [
         './**/*.php',
-        '!./assets/libs/**',
+        '!./assets{,/**}',
       ],
       'sass': './assets/sass/**/*.scss',
       'js': [
@@ -150,6 +150,7 @@
     gulp.watch(input.sass, gulp.series('dev:sass'));
   });
 
+  // all styles / without livereload
   gulp.task('dev:styles', function() {
     return gulp.src(input.sass)
     .pipe(plugins.sourcemaps.init())
@@ -222,8 +223,9 @@
       done();
   }));
 
-  gulp.task('default', function() {
+  gulp.task('default', function(done) {
     gutil.log('Hi, I\'m Gulp!');
     gutil.log("Sass is:\n"+require('node-sass').info);
+    done();
   });
 }());

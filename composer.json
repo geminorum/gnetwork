@@ -5,7 +5,7 @@
   "type": "wordpress-plugin",
   "keywords": [
     "wordpress",
-    "network"
+    "multisite"
   ],
   "homepage": "http://geminorum.ir/wordpress/gnetwork",
   "authors": [{
@@ -23,7 +23,7 @@
     "php": ">=5.4",
     "composer/installers": "^1.2",
     "erusev/parsedown-extra": "^0.7.1",
-    "symfony/stopwatch": "^3.2",
+    "symfony/stopwatch": "^3.3",
     "parsecsv/php-parsecsv": "^0.4.5",
     "jbroadway/urlify": "^1.1",
     "davidepastore/ipinfo": "^0.1.2",
@@ -37,7 +37,8 @@
     "deviservi/nusoap": "^1.123",
     "tinify/tinify": "^1.5",
     "ricardoper/twitteroauth": "2.*",
-    "behat/transliterator": "^1.2"
+    "behat/transliterator": "^1.2",
+    "ziggeo/simple-box-integration": "^0.0.3"
   },
   "config": {
     "vendor-dir": "assets/vendor",
