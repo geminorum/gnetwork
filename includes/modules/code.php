@@ -88,7 +88,7 @@ class Code extends gNetwork\Module
 
 				$html = Text::minifyHTML( $html );
 
-				set_site_transient( $key, $html, 12 * HOUR_IN_SECONDS );
+				set_site_transient( $key, $html, GNETWORK_CACHE_TTL );
 			}
 		}
 

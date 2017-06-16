@@ -15,6 +15,7 @@ $gnetwork_constants = [
 	'GNETWORK_BP_EXCLUDEUSERS'       => FALSE, // comma separated ids of users whom you want to exclude
 	'GNETWORK_ADMINBAR'              => TRUE, // disable admin bar for non caps, like: 'edit_others_posts'
 	'GNETWORK_ADMIN_JS_ENHANCEMENTS' => TRUE, // autoresize textarea and more...
+	'GNETWORK_CACHE_TTL'             => 60 * 60 * 12, // 12 hours
 	'GNETWORK_GOOGLE_GROUP_ID'       => FALSE,
 	'GNETWORK_GOOGLE_GROUP_HL'       => 'en', // language
 	'GNETWORK_NETWORK_ADMINBAR'      => 'network_adminbar', // name of the menu on the main blog of the network that will be used for network admin bar
