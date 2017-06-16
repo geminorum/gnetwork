@@ -41,6 +41,12 @@ div.wpcf7 {
     border: 2px solid #f7e700;
   }
 
+  .wpcf7-form {
+    label {
+      display: inline;
+    }
+  }
+
   .wpcf7-form-control {
 
     &.wpcf7-recaptcha {

@@ -9,19 +9,21 @@
 
   direction: ltr !important;
 
-  h3 {
+  .-title {
     margin: 5px 0 3px 0 !important;
   }
 
-  .group {
+  .-post {
+    margin-bottom: 1em;
+  }
+
+  .-group {
     pre {
       margin: 0 !important;
     }
   }
 
-  .empty {
-
-  }
+  .-empty {}
 }
 
 .gnetwork-admin-wrap.debug-update-core {

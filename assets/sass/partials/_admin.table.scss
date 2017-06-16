@@ -38,18 +38,22 @@ div.base-table-actions {
 
   div.base-table-navigation {
 
-    input.-limit,
-    input.-paged {
-      margin: 0 4px 0 0;
+    // margin: 0 -1px;
+
+    div.-controls {
+      float: right;
       @include body-rtl() {
-        margin: 0 0 0 4px;
+        float: left;
       }
     }
 
-    span.-next-previous,
-    span.-total-pages {
-      margin: 0 0.5em;
-    }
+    // input.-limit,
+    // input.-paged {
+    //   margin: 0 4px 0 0;
+    //   @include body-rtl() {
+    //     margin: 0 0 0 4px;
+    //   }
+    // }
 
     .button {
       padding:0 4px 1px;
@@ -61,28 +65,24 @@ div.base-table-actions {
       }
     }
 
-    // .-next,
-    // .-previous,
-    // .-refresh {
-    //   // font-size: 1.8em;
-    //   display: inline-block;
-    //   // padding: 0 1em 0.2em;
-    //   // padding: 0 15px 8px;
-    //   border: 1px solid #ccc;
-    //   border-radius: 1px;
-    //   vertical-align: middle;
-    //   margin-top: -4px;
-    //   padding: 4px 3px 2px;
-    // }
-
-    .-refresh {}
-
-    .-link {
-      // text-decoration: none;
+    .-before,
+    .-after {
+      select {
+        margin: 1px 0;
+        height: 28px;
+        line-height: 1;
+        vertical-align: baseline;
+        max-width: 200px;
+      }
     }
 
-    .-span {
-      // background: #ccc;
+    input[type="text"],
+    input[type="number"] {
+      height: 27px;
+    }
+
+    .-total-pages {
+      line-height: 26px;
     }
   }
 }

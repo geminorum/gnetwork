@@ -1,0 +1,41 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// gNetwork Partials: Embed: Aparat -------------------------------------------
+
+.gnetwork-wrap-embed.-aparat {
+
+  > iframe {
+    display: block;
+    margin: 0 auto;
+  }
+
+  .-item {
+    clear: both;
+    margin-bottom: 1em;
+  }
+
+  .-preview {
+
+    max-width: 40%;
+    height: auto;
+
+    float: left;
+    margin-right: 5%;
+
+    @include body-rtl() {
+      float: right;
+      margin-right: 0;
+      margin-left: 5%;
+    }
+
+    iframe {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+
+  .-description {
+    overflow: hidden;
+  }
+}

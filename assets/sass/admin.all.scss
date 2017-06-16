@@ -224,3 +224,22 @@ ul.categorychecklist {
     width: 99%;
   }
 }
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+#wpfooter {
+  a.-powered {
+    text-decoration: none;
+    color: $gray-light;
+    &:hover {
+      color: $gray-dark;
+    }
+
+    .dashicons {
+      width: 16px;
+      height: 16px;
+      font-size: 16px;
+    }
+  }
+}
