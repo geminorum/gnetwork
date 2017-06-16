@@ -20,6 +20,7 @@ class Admin extends gNetwork\Module
 			return;
 
 		if ( is_blog_admin() ) {
+			$this->filter( 'admin_title', 2 );
 			$this->action( 'admin_menu', 0, 12 );
 			$this->action( 'admin_menu', 0, 999, 'late' );
 		}
@@ -27,6 +28,11 @@ class Admin extends gNetwork\Module
 		$this->action( 'admin_print_styles' );
 		$this->filter( 'admin_footer_text', 1, 9999 );
 		$this->filter( 'update_footer', 1, 9999 );
+	}
+
+	public function admin_title( $admin_title, $title )
+	{
+		return sprintf( _x( '%1$s &lsaquo; %2$s &#8212; Content Management', 'Modules: Admin: HTML Title', GNETWORK_TEXTDOMAIN ), $title, get_bloginfo( 'name' ) );
 	}
 
 	public function admin_menu()
