@@ -133,6 +133,7 @@ class Plugin
 			'modules/navigation'  => 'Navigation',
 			'modules/themes'      => 'Themes',
 			'modules/media'       => 'Media',
+			'modules/embed'       => 'Embed',
 			'modules/cron'        => 'Cron',
 			'modules/login'       => 'Login',
 			'modules/lockdown'    => 'Lockdown',
