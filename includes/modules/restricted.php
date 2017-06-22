@@ -345,15 +345,15 @@ class RestrictedBouncer extends \geminorum\gNetwork\Core\Base
 	{
 		$this->options = $options;
 
-		$this->action( 'init', 0, 1 );
-		$this->action( 'admin_init', 0, 1 );
-		$this->action( 'template_redirect', 1, 1 );
+		add_action( 'init', [ $this, 'init' ], 1 );
+		add_action( 'admin_init', [ $this, 'admin_init' ], 1 );
+		add_action( 'template_redirect', [ $this, 'template_redirect' ], 1 );
 
 		if ( ! empty( $options['restricted_notice'] ) )
-			$this->filter( 'login_message' );
+			add_filter( 'login_message', [ $this, 'login_message' ] );
 
 		// block search engines and robots
-		$this->filter( 'robots_txt' );
+		add_filter( 'robots_txt', [ $this, 'robots_txt' ] );
 		add_filter( 'option_blog_public', function( $option ){
 			return 0;
 		}, 20 );
@@ -370,7 +370,7 @@ class RestrictedBouncer extends \geminorum\gNetwork\Core\Base
 		$this->key = self::getUserFeedKey();
 
 		if ( $this->key && is_user_logged_in() )
-			$this->filter( 'feed_link', 2, 12 );
+			add_filter( 'feed_link', [ $this, 'feed_link' ], 12, 2 );
 
 		$feedkey = isset( $_GET['feedkey'] ) ? trim( $_GET['feedkey'] ) : FALSE;
 		if ( ! $feedkey ) {
