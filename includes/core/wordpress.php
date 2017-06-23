@@ -307,7 +307,6 @@ class WordPress extends Base
 		) );
 	}
 
-	// EDITED: 12/25/2016, 1:27:21 PM
 	public static function getPostTypes( $mod = 0, $args = array( 'public' => TRUE ) )
 	{
 		$list = array();
@@ -345,12 +344,16 @@ class WordPress extends Base
 		return $list;
 	}
 
-	// EDITED: 12/27/2016, 6:36:20 AM
-	public static function getTaxonomies( $mod = 0, $args = array() )
+	public static function getTaxonomies( $mod = 0, $args = array(), $object = FALSE )
 	{
 		$list = array();
 
-		foreach ( get_taxonomies( $args, 'objects' ) as $taxonomy => $taxonomy_obj ) {
+		if ( FALSE === $object )
+			$objects = get_taxonomies( $args, 'objects' );
+		else
+			$objects = get_object_taxonomies( $object, 'objects' );
+
+		foreach ( $objects as $taxonomy => $taxonomy_obj ) {
 
 			// label
 			if ( 0 === $mod )
@@ -381,7 +384,7 @@ class WordPress extends Base
 
 			// with object_type
 			else if ( 5 === $mod )
-				$list[$taxonomy] = $taxonomy_obj->labels->name.HTML::joined( $taxonomy_obj->object_type, ' (', ')' );
+				$list[$taxonomy] = $taxonomy_obj->labels->name.HTML::joined( $taxonomy_obj->object_type, ' [', ']' );
 
 			// with name
 			else if ( 6 === $mod )

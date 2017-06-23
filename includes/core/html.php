@@ -114,7 +114,7 @@ class HTML extends Base
 				$classes = array_merge( $classes, $arg );
 
 			else if ( $arg )
-				$classes = array_merge( $classes, explode( ' ', $arg ) );
+				$classes = array_merge( $classes, preg_split( '#\s+#', $arg ) );
 
 		return array_unique( array_filter( $classes, 'trim' ) );
 	}
@@ -304,6 +304,9 @@ class HTML extends Base
 
 			else if ( is_array( $val ) || is_object( $val ) )
 				$val = json_encode( $val );
+
+			else if ( is_int( $val ) )
+				$val = $val;
 
 			else if ( empty( $val ) )
 				$val = 'EMPTY';
