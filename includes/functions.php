@@ -95,3 +95,8 @@ if ( ! function_exists( 'gnetwork_dump' ) ) : function gnetwork_dump( $var, $htm
 if ( ! function_exists( 'gnetwork_trace' ) ) : function gnetwork_trace( $old = TRUE ) {
 	\geminorum\gNetwork\Utilities::trace( $old );
 } endif;
+
+if ( ! function_exists( 'get_gmeta' ) ) : function get_gmeta( $field, $args = [] ) {
+	if ( is_callable( array( 'geminorum\\gEditorial\\Templates\\Meta', 'getMetaField' ) ) )
+		return \geminorum\gEditorial\Templates\Meta::getMetaField( $field, $args );
+} endif;
