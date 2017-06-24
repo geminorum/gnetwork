@@ -34,6 +34,7 @@ class Embed extends gNetwork\Module
 	{
 		return [
 			'load_defaults' => 0,
+			'load_docs_pdf' => 0,
 			'load_aparat'   => 0,
 			'count_channel' => 10,
 		];
@@ -58,6 +59,11 @@ class Embed extends gNetwork\Module
 			],
 			'_services' => [
 				[
+					'field'       => 'load_docs_pdf',
+					'title'       => _x( 'Load PDF Embeds', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Whether to load PDF via Google Docs embed handlers on this site.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
+				],
+				[
 					'field'       => 'load_aparat',
 					'title'       => _x( 'Load Aparat Embeds', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Whether to load Aparat.com embed handlers on this site.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
@@ -69,10 +75,28 @@ class Embed extends gNetwork\Module
 
 	public function plugins_loaded()
 	{
+		if ( $this->options['load_docs_pdf'] )
+			wp_embed_register_handler( 'pdf', '#(^(https?)\:\/\/.+\.pdf$)#i', [ $this, 'handle_docs_pdf' ] );
+
 		if ( $this->options['load_aparat'] ) {
 			wp_embed_register_handler( 'aparat', '#http://(?:www)\.aparat\.com\/v\/(.*?)\/?$#i', [ $this, 'handle_aparat_video' ], 5 );
 			wp_embed_register_handler( 'aparat', '#http://(?:www)\.aparat\.com\/(.*?)\/?$#i', [ $this, 'handle_aparat_channel' ], 20 );
 		}
+	}
+
+	public function handle_docs_pdf( $matches, $attr, $url, $rawattr )
+	{
+		$html = HTML::tag( 'iframe', [
+			'src'             => sprintf( 'https://docs.google.com/viewer?url=%s&embedded=true', urlencode( $url ) ),
+			'width'           => $attr['width'],
+			'height'          => isset( $rawattr['height'] ) ? $rawattr['height'] : intval( 1.414 * $attr['width'] / 1 ), // A4 is 1:1.414
+			'style'           => 'border:none',
+			'allowfullscreen' => 'true',
+			'data'            => [ 'source' => esc_url( $url ) ],
+		], NULL );
+
+		$html = '<div class="gnetwork-wrap-embed -pdf -docs">'.$html.'</div>';
+		return $this->filters( 'docs_pdf', $html, $matches, $attr, $url, $rawattr );
 	}
 
 	public function handle_aparat_video( $matches, $attr, $url, $rawattr )
