@@ -43,6 +43,8 @@ class Blog extends gNetwork\Module
 
 		if ( $this->options['thrift_mode'] ) {
 			add_filter( 'disable_months_dropdown', '__return_true', 5 );
+			add_filter( 'media_library_show_audio_playlist', '__return_false', 5 );
+			add_filter( 'media_library_show_video_playlist', '__return_false', 5 );
 			add_filter( 'media_library_months_with_files', '__return_empty_array', 5 );
 		}
 
