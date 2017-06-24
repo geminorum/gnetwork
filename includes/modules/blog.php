@@ -41,6 +41,11 @@ class Blog extends gNetwork\Module
 				$this->filter( 'posts_where', 2 );
 		}
 
+		if ( $this->options['thrift_mode'] ) {
+			add_filter( 'disable_months_dropdown', '__return_true', 5 );
+			add_filter( 'media_library_months_with_files', '__return_empty_array', 5 );
+		}
+
 		if ( ! $this->options['rest_api_enabled'] )
 			$this->filter( 'rest_authentication_errors', 1, 999 );
 
@@ -59,6 +64,7 @@ class Blog extends gNetwork\Module
 	public function default_options()
 	{
 		return [
+			'thrift_mode'          => 0,
 			'admin_locale'         => '',
 			'blog_redirect'        => '',
 			'blog_redirect_status' => '301',
@@ -110,6 +116,11 @@ class Blog extends gNetwork\Module
 						'307' => '307 Temporary Redirect',
 						'308' => '308 Permanent Redirect',
 					],
+				],
+				[
+					'field'       => 'thrift_mode',
+					'title'       => _x( 'Thrift Mode', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Trying to make your host happy!', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
 					'field'       => 'rest_api_enabled',
