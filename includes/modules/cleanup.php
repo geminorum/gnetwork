@@ -35,8 +35,20 @@ class Cleanup extends gNetwork\Module
 
 	public function default_settings()
 	{
-		$settings = [];
-		$confirm  = Settings::getButtonConfirm();
+		$settings   = [];
+		$confirm    = Settings::getButtonConfirm();
+		$superadmin = WordPress::isSuperAdmin();
+		$multisite  = is_multisite();
+
+		if ( $multisite && $superadmin )
+			$settings['_site'][] = [
+				'field'       => 'purge_options_site',
+				'type'        => 'button',
+				'title'       => _x( 'Network', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Removes network obsolete options', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+				'default'     => _x( 'Purge Network Options', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+				'values'      => $confirm,
+			];
 
 		$settings['_transient'][] = [
 			'field'       => 'transient_purge',
@@ -57,21 +69,24 @@ class Cleanup extends gNetwork\Module
 
 		if ( is_main_site() ) {
 
-			$settings['_transient'][] = [
-				'field'       => 'transient_purge_site',
-				'type'        => 'button',
-				'description' => _x( 'Removes Expired Network Transient Data', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
-				'default'     => _x( 'Purge Network Expired', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
-				'values'      => $confirm,
-			];
+			if ( $multisite && $superadmin ) {
 
-			$settings['_transient'][] = [
-				'field'       => 'transient_purge_site_all',
-				'type'        => 'button',
-				'description' => _x( 'Removes All Network Transient Data', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
-				'default'     => _x( 'Purge All Network', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
-				'values'      => $confirm,
-			];
+				$settings['_transient'][] = [
+					'field'       => 'transient_purge_site',
+					'type'        => 'button',
+					'description' => _x( 'Removes Expired Network Transient Data', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+					'default'     => _x( 'Purge Network Expired', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+					'values'      => $confirm,
+				];
+
+				$settings['_transient'][] = [
+					'field'       => 'transient_purge_site_all',
+					'type'        => 'button',
+					'description' => _x( 'Removes All Network Transient Data', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+					'default'     => _x( 'Purge All Network', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+					'values'      => $confirm,
+				];
+			}
 
 			$settings['_users'][] = [
 				'field'       => 'users_defaultmeta',
@@ -176,6 +191,9 @@ class Cleanup extends gNetwork\Module
 
 			else if ( isset( $_POST['users_defaultmeta'] ) )
 				$message = $this->users_defaultmeta();
+
+			else if ( isset( $_POST['purge_options_site'] ) )
+				$message = $this->purge_options_site();
 
 			else if ( isset( $_POST['users_contactmethods'] ) )
 				$message = $this->users_contactmethods();
@@ -440,6 +458,23 @@ class Cleanup extends gNetwork\Module
 		$count = $wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = '_thumbnail_id' AND meta_value NOT IN (SELECT ID FROM {$wpdb->posts})" );
 
 		$wpdb->query( "OPTIMIZE TABLE {$wpdb->postmeta}" );
+
+		return $count ? [
+			'message' => 'purged',
+			'count'   => $count,
+		] : 'optimized';
+	}
+
+	private function purge_options_site()
+	{
+		global $wpdb;
+
+		$count = 0;
+
+		$count += $wpdb->query( "DELETE FROM {$wpdb->sitemeta} WHERE meta_key LIKE '%gletter_list_%'" );
+		$count += $wpdb->query( "DELETE FROM {$wpdb->sitemeta} WHERE meta_key = 'gnetwork_".GNETWORK_NETWORK_EXTRAMENU."'" );
+
+		$wpdb->query( "OPTIMIZE TABLE {$wpdb->sitemeta}" );
 
 		return $count ? [
 			'message' => 'purged',
