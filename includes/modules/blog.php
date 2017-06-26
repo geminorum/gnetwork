@@ -333,8 +333,9 @@ class Blog extends gNetwork\Module
 			|| FALSE === self::whiteListed() ) {
 
 			$redirect = URL::untrail( $this->options['blog_redirect'] ).$_SERVER['REQUEST_URI'];
+			$referer  = HTTP::referer();
 
-			Logger::NOTICE( 'BLOG-REDIRECT: '.WordPress::currentBlog().': '.esc_url( $redirect ) );
+			Logger::NOTICE( 'BLOG-REDIRECT: '.WordPress::currentBlog().': '.esc_url( $redirect ).( $referer ? ' :: '.$referer : '' ) );
 
 			WordPress::redirect( $redirect, $this->options['blog_redirect_status'] );
 		}
