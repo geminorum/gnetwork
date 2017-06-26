@@ -171,7 +171,7 @@ class Themes extends gNetwork\Module
 			}, 20 );
 
 			add_filter( 'mce_css', function( $url ){
-				return Themes::appendMCECSS( $url, 'publish' );
+				return Themes::appendMCECSS( $url, 'publish', $this->rtl );
 			} );
 
 		} else if ( $this->isTheme( 'hueman' ) ) { // v2.2.3
@@ -204,7 +204,7 @@ class Themes extends gNetwork\Module
 				}, 20 );
 
 				add_filter( 'mce_css', function( $url ){
-					return Themes::appendMCECSS( $url, 'tribes' );
+					return Themes::appendMCECSS( $url, 'tribes', $this->rtl );
 				} );
 			}
 
@@ -303,7 +303,7 @@ class Themes extends gNetwork\Module
 				}, 20 );
 
 				add_filter( 'mce_css', function( $url ){
-					return Themes::appendMCECSS( $url, 'rams' );
+					return Themes::appendMCECSS( $url, 'rams', $this->rtl );
 				} );
 			}
 
@@ -315,7 +315,7 @@ class Themes extends gNetwork\Module
 				}, 20 );
 
 				add_filter( 'mce_css', function( $url ){
-					return Themes::appendMCECSS( $url, 'didi-lite' );
+					return Themes::appendMCECSS( $url, 'didi-lite', $this->rtl );
 				} );
 			}
 
@@ -327,7 +327,7 @@ class Themes extends gNetwork\Module
 				}, 20 );
 
 				add_filter( 'mce_css', function( $url ){
-					return Themes::appendMCECSS( $url, 'untitled' );
+					return Themes::appendMCECSS( $url, 'untitled', $this->rtl );
 				} );
 			}
 
@@ -345,7 +345,7 @@ class Themes extends gNetwork\Module
 				}, 20 );
 
 				add_filter( 'mce_css', function( $url ){
-					return Themes::appendMCECSS( $url, 'twentyfifteen' );
+					return Themes::appendMCECSS( $url, 'twentyfifteen', $this->rtl );
 				} );
 			}
 
@@ -481,9 +481,9 @@ class Themes extends gNetwork\Module
 		return $classes;
 	}
 
-	public static function appendMCECSS( $url, $theme )
+	public static function appendMCECSS( $url, $theme, $rtl = FALSE )
 	{
-		$file = is_rtl() ? 'editor.'.$theme.'-rtl.css' : 'editor.'.$theme.'.css';
+		$file = $rtl ? 'editor.'.$theme.'-rtl.css' : 'editor.'.$theme.'.css';
 
 		if ( ! empty( $url ) )
 			$url .= ',';
