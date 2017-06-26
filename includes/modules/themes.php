@@ -46,8 +46,6 @@ class Themes extends gNetwork\Module
 
 			$this->filter( 'body_class', 2, 5 );
 			$this->filter( 'post_class', 3, 5 );
-
-			$this->action( 'bp_dtheme_credits' );
 		}
 	}
 
@@ -322,6 +320,7 @@ class Themes extends gNetwork\Module
 		} else if ( $this->isTheme( 'untitled' ) ) {
 
 			if ( $this->rtl ) {
+
 				add_action( 'wp_enqueue_scripts', function(){
 					Themes::enqueueStyle( 'untitled', TRUE );
 				}, 20 );
@@ -331,11 +330,30 @@ class Themes extends gNetwork\Module
 				} );
 			}
 
-			$this->action( 'untitled_credits' );
+			add_action( 'untitled_credits', [ $this, 'twentysomething_credits' ] );
 
 		} else if ( $this->isTheme( 'twentytwelve' ) ) {
 
-			$this->action( 'twentytwelve_credits' );
+			if ( $this->rtl ) {
+
+				add_action( 'wp_enqueue_scripts', function(){
+					Themes::enqueueStyle( 'twentytwelve', TRUE );
+				}, 20 );
+
+				add_filter( 'mce_css', function( $url ){
+					return Themes::appendMCECSS( $url, 'twentytwelve', $this->rtl );
+				} );
+			}
+
+			add_action( 'twentytwelve_credits', [ $this, 'twentysomething_credits' ] );
+
+		} else if ( $this->isTheme( 'twentythirteen' ) ) {
+
+			add_action( 'twentythirteen_credits', [ $this, 'twentysomething_credits' ] );
+
+		} else if ( $this->isTheme( 'twentyfourteen' ) ) {
+
+			add_action( 'twentyfourteen_credits', [ $this, 'twentysomething_credits' ] );
 
 		} else if ( $this->isTheme( 'twentyfifteen' ) ) {
 
@@ -349,7 +367,7 @@ class Themes extends gNetwork\Module
 				} );
 			}
 
-			$this->action( 'twentyfifteen_credits' );
+			add_action( 'twentyfifteen_credits', [ $this, 'twentysomething_credits' ] );
 		}
 	}
 
@@ -508,24 +526,11 @@ class Themes extends gNetwork\Module
 	}
 
 	// @REF: http://stackoverflow.com/a/15196985/4864081
-	public function untitled_credits()
+	public function twentysomething_credits()
 	{
 		echo '<style>#colophon .site-info {visibility:collapse;}</style>'
 			.'<span style="visibility:visible;">'
 				.gnetwork_credits( $this->rtl, FALSE )
 			.'</span>';
-	}
-
-	public function twentytwelve_credits()
-	{
-		echo '<style>#colophon .site-info > a {display:none;}</style><span style="display:block !important;">'
-			.gnetwork_credits( $this->rtl, FALSE ).'</span>';
-	}
-
-	public function bp_dtheme_credits()
-	{
-		echo '<p style="font: 11px/12px Tahoma,Arial,Verdana,sans-serif;margin-bottom:0px;direction:rtl;">';
-		echo gnetwork_credits( $this->rtl, FALSE );
-		echo '</p>';
 	}
 }
