@@ -27,6 +27,16 @@ class Blog extends gNetwork\Module
 
 			$this->action( 'export_wp', 0, 1 );
 
+			if ( $this->options['thrift_mode'] ) {
+
+				$this->filter( 'admin_body_class' );
+
+				add_filter( 'disable_months_dropdown', '__return_true', 5 );
+				add_filter( 'media_library_show_audio_playlist', '__return_false', 5 );
+				add_filter( 'media_library_show_video_playlist', '__return_false', 5 );
+				add_filter( 'media_library_months_with_files', '__return_empty_array', 5 );
+			}
+
 		} else {
 
 			if ( $this->options['page_copyright']
@@ -39,13 +49,6 @@ class Blog extends gNetwork\Module
 
 			if ( $this->options['feed_delay'] )
 				$this->filter( 'posts_where', 2 );
-		}
-
-		if ( $this->options['thrift_mode'] ) {
-			add_filter( 'disable_months_dropdown', '__return_true', 5 );
-			add_filter( 'media_library_show_audio_playlist', '__return_false', 5 );
-			add_filter( 'media_library_show_video_playlist', '__return_false', 5 );
-			add_filter( 'media_library_months_with_files', '__return_empty_array', 5 );
 		}
 
 		if ( ! $this->options['rest_api_enabled'] )
@@ -375,6 +378,11 @@ class Blog extends gNetwork\Module
 		@set_time_limit( 0 );
 
 		defined( 'GNETWORK_IS_WP_EXPORT' ) or define( 'GNETWORK_IS_WP_EXPORT', TRUE );
+	}
+
+	public function admin_body_class( $classes )
+	{
+		return $classes.' thrift-mode';
 	}
 
 	public function rest_authentication_errors( $null )
