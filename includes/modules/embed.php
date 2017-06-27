@@ -36,6 +36,7 @@ class Embed extends gNetwork\Module
 			'load_defaults' => 0,
 			'load_docs_pdf' => 0,
 			'load_aparat'   => 0,
+			'load_giphy'    => 0,
 			'count_channel' => 10,
 		];
 	}
@@ -69,6 +70,12 @@ class Embed extends gNetwork\Module
 					'description' => _x( 'Whether to load Aparat.com embed handlers on this site.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
 					'after'       => Settings::fieldAfterIcon( 'https://aparat.com' ),
 				],
+				[
+					'field'       => 'load_giphy',
+					'title'       => _x( 'Load GIPHY Embeds', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Whether to load GIPHY.com embed handlers on this site.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
+					'after'       => Settings::fieldAfterIcon( 'https://giphy.com/' ),
+				],
 			],
 		];
 	}
@@ -82,6 +89,9 @@ class Embed extends gNetwork\Module
 			wp_embed_register_handler( 'aparat', '#http://(?:www)\.aparat\.com\/v\/(.*?)\/?$#i', [ $this, 'handle_aparat_video' ], 5 );
 			wp_embed_register_handler( 'aparat', '#http://(?:www)\.aparat\.com\/(.*?)\/?$#i', [ $this, 'handle_aparat_channel' ], 20 );
 		}
+
+		if ( $this->options['load_giphy'] )
+			wp_embed_register_handler( 'giphy', '~https?://(?|media\.giphy\.com/media/([^ /]+)/giphy\.gif|i\.giphy\.com/([^ /]+)\.gif|giphy\.com/gifs/(?:.*-)?([^ /]+))~i', [ $this, 'handle_giphy' ] );
 	}
 
 	public function handle_docs_pdf( $matches, $attr, $url, $rawattr )
@@ -188,5 +198,21 @@ class Embed extends gNetwork\Module
 
 		$html = '<div class="gnetwork-wrap-embed -channel -aparat">'.$html.'</div>';
 		return $this->filters( 'aparat_channel', $html, $matches, $attr, $url, $rawattr );
+	}
+
+	// @REF: https://github.com/TweetPressFr/wp-giphy-oembed
+	public function handle_giphy( $matches, $attr, $url, $rawattr )
+	{
+		$html = HTML::tag( 'iframe', [
+			'src'             => add_query_arg( 'html5', TRUE, trailingslashit( 'https://giphy.com/embed/' ).$matches[1] ),
+			'width'           => $attr['width'],
+			'height'          => isset( $rawattr['height'] ) ? $rawattr['height'] : intval( 14 * $attr['width'] / 25 ), // 500/281
+			'style'           => 'border:none',
+			'allowfullscreen' => 'true',
+			'data'            => [ 'source' => esc_url( $url ) ],
+		], NULL );
+
+		$html = '<div class="gnetwork-wrap-embed -image -giphy">'.$html.'</div>';
+		return $this->filters( 'giphy', $html, $matches, $attr, $url, $rawattr );
 	}
 }
