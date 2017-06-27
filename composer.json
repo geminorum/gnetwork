@@ -26,7 +26,6 @@
     "symfony/stopwatch": "^3.3",
     "parsecsv/php-parsecsv": "^0.4.5",
     "jbroadway/urlify": "^1.1",
-    "davidepastore/ipinfo": "^0.1.2",
     "analog/analog": "dev-master"
   },
   "require-dev": {
@@ -38,6 +37,7 @@
     "tinify/tinify": "^1.5",
     "ricardoper/twitteroauth": "2.*",
     "behat/transliterator": "^1.2",
+    "davidepastore/ipinfo": "^0.1.2",
     "ziggeo/simple-box-integration": "^0.0.3"
   },
   "config": {

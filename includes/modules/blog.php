@@ -209,14 +209,14 @@ class Blog extends gNetwork\Module
 					'field'       => 'from_email',
 					'type'        => 'text',
 					'title'       => _x( 'From Email', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'This Blog Email Address That Emails Should Be Sent From. Set to Override the Network', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'This blog email address that emails should be sent from. Set to override the network.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 					'field_class' => [ 'regular-text', 'email-text' ],
 				],
 				[
 					'field'       => 'from_name',
 					'type'        => 'text',
 					'title'       => _x( 'From Name', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'This Blog Email Name That Emails Should Be Sent From. Set to Override the Network', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'This blog email name that emails should be sent from. Set to override the network.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 			];
 		}

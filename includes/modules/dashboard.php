@@ -59,14 +59,14 @@ class Dashboard extends gNetwork\Module
 
 		if ( is_multisite() && is_user_admin() && gNetwork()->option( 'dashboard_sites', 'user' ) )
 			wp_add_dashboard_widget(
-				'gnetwork_dashboard_user_sites',
+				$this->classs( 'user-sites' ),
 				_x( 'Your Sites', 'Modules: Dashboard: Widget Title', GNETWORK_TEXTDOMAIN ),
 				[ $this, 'widget_user_sites' ]
 			);
 
 		if ( has_filter( $this->hook( 'external_feeds' ) ) ) {
 			wp_add_dashboard_widget(
-				'gnetwork_dashboard_external_feed',
+				$this->classs( 'external-feed' ),
 				_x( 'External Feed', 'Modules: Dashboard: Widget Title', GNETWORK_TEXTDOMAIN ),
 				[ $this, 'widget_external_feed' ]
 			);
@@ -74,7 +74,7 @@ class Dashboard extends gNetwork\Module
 
 		if ( is_user_admin() && gNetwork()->option( 'tos_display', 'user' ) )
 			wp_add_dashboard_widget(
-				'gnetwork_dashboard_tos',
+				$this->classs( 'tos' ),
 				gNetwork()->option( 'tos_title', 'user',
 					_x( 'Terms of Service', 'Modules: Dashboard: Widget Title', GNETWORK_TEXTDOMAIN )
 				), [ $this, 'widget_tos' ]
