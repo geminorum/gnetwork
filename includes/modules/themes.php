@@ -209,17 +209,22 @@ class Themes extends gNetwork\Module
 				} );
 			}
 
-		} else if ( $this->isTheme( 'semicolon' ) ) { // v0.9
+		} else if ( $this->isTheme( 'semicolon' ) ) { // v0.9.1
 			// HOME: https://kovshenin.com/themes/semicolon/
 			// DEMO: http://semicolon.kovshenin.com/
 			// REPO: https://wordpress.org/themes/semicolon
 
 			if ( $this->rtl ) {
 				add_action( 'wp_enqueue_scripts', function(){
-					wp_deregister_style( 'semicolon' );
+					wp_dequeue_style( 'semicolon' );
+					wp_dequeue_style( 'semicolon-colors' );
+					wp_dequeue_style( 'semicolon-pt-serif' );
+					wp_dequeue_style( 'semicolon-open-sans' );
 					Themes::enqueueStyle( 'semicolon', TRUE );
 				}, 12 );
 			}
+
+			add_action( 'semicolon_credits', [ $this, 'twentysomething_credits' ] );
 
 		} else if ( $this->isTheme( 'hyde' ) ) {
 			// REPO: https://github.com/tim-online/wordpress-hyde-theme
