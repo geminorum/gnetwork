@@ -10,3 +10,5 @@
 *.woff2 binary
 *.ttf binary
 *.eot binary
+
+*.mo binary
