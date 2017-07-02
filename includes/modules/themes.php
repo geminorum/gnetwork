@@ -172,17 +172,20 @@ class Themes extends gNetwork\Module
 				return Themes::appendMCECSS( $url, 'publish', $this->rtl );
 			} );
 
-		} else if ( $this->isTheme( 'hueman' ) ) { // v2.2.3
-			// HOME: http://alxmedia.se/themes/hueman/
-			// DEMO: http://demo.alxmedia.se/hueman/
+		} else if ( $this->isTheme( 'hueman' ) ) { // v3.3.14
+			// HOME: http://presscustomizr.com/hueman/
+			// DEMO: https://demo-hueman.presscustomizr.com/
 			// REPO: https://github.com/AlxMedia/hueman
+			// WP: https://wordpress.org/themes/hueman/
 
 			if ( $this->rtl ) {
 				add_action( 'wp_enqueue_scripts', function(){
 					Themes::enqueueStyle( 'hueman', TRUE );
 
 					wp_deregister_script( 'flexslider' );
-					Utilities::enqueueScriptVendor( 'jquery.flexslider-rtl', [ 'jquery' ], '2.6.1' );
+					// we need correct handle
+					wp_enqueue_script( 'flexslider', GNETWORK_URL.'assets/js/vendor/jquery.flexslider-rtl.min.js', [ 'jquery' ], '2.6.1', TRUE );
+					// Utilities::enqueueScriptVendor( 'jquery.flexslider-rtl', [ 'jquery' ], '2.6.1' );
 
 				}, 12 );
 
