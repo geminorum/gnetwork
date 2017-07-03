@@ -1,11 +1,13 @@
 @import 'modules/all';
 @import 'partials/base';
 @import 'partials/theme.fonts';
-
-@import url(http://fonts.googleapis.com/earlyaccess/droidarabicnaskh.css);
-
-$font-family-base: "Droid Arabic Naskh", Tahoma, "Iranian Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-$font-family-head: Arial, "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+@include theme-fonts-Samim-CDN();
+@include theme-fonts-Samim-Bold-CDN();
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 
 body.rtl {
   direction: rtl;
@@ -103,6 +105,7 @@ body.rtl {
     float: right;
     margin-right: 20px;
     margin-left: 0;
+    font-style: none;
     // line-height: 95px;
   }
 
@@ -131,12 +134,13 @@ body.rtl {
     }
 
     & > span:before {
-      border-right: 7px solid transparent;
-      border-left: 7px solid #82b965;
-      border-top: 7px solid transparent;
-      border-bottom: 7px solid transparent;
+      border-right: 9px solid transparent;
+      border-left: 9px solid #efb93f;
+      border-top: 9px solid transparent;
+      border-bottom: 9px solid transparent;
+      top: 5px;
       left: auto;
-      right: -14px;
+      right: -16px;
     }
 
     i {
@@ -204,6 +208,10 @@ body.rtl {
   .widget_calendar caption:before {
     margin-left: 6px;
     margin-right: 0;
+  }
+
+  .widget_meta > ul > li a:before {
+    content: "\f0d9";
   }
 
   .post-nav li.next i {
@@ -312,7 +320,7 @@ body.rtl {
         font-size: 14px;
         left: auto;
         right: 12px;
-        top: 6px;
+        top: 2px;
       }
     }
   }

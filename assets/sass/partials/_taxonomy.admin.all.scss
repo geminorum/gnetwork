@@ -28,6 +28,12 @@ body.edit-tags-php {
       max-width: 200px;
     }
   }
+
+  .form-wrap.edit-term-notes {
+    p:nth-child(2) {
+      display: none; // core convert notice
+    }
+  }
 }
 
 body.term-php,
