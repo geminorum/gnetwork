@@ -249,9 +249,8 @@ class WordPress extends Base
 	// alt to `is_super_admin()`
 	public static function isSuperAdmin( $user_id = FALSE )
 	{
-		return $user_id
-			? user_can( $user_id, 'manage_network' )
-			: current_user_can( 'manage_network' );
+		$cap = is_multisite() ? 'manage_network' : 'manage_options';
+		return $user_id ? user_can( $user_id, $cap ) : current_user_can( $cap );
 	}
 
 	public static function cheatin( $message = NULL )

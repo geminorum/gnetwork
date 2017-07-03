@@ -15,7 +15,7 @@ class Number extends Base
 	// converts back number chars into english
 	public static function intval( $text, $intval = TRUE )
 	{
-		$number = apply_filters( 'number_format_i18n_back', $text );
+		$number = apply_filters( 'string_format_i18n_back', $text );
 
 		return $intval ? intval( $number ) : $number;
 	}
