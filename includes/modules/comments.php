@@ -227,6 +227,11 @@ class Comments extends gNetwork\Module
 		}
 	}
 
+	private function get_hidden_types()
+	{
+		return $this->filters( 'hidden_types', [ $this->type_archived ] );
+	}
+
 	public function comment_row_actions( $actions, $comment )
 	{
 		if ( ! $comment->comment_type ) {
@@ -311,9 +316,9 @@ class Comments extends gNetwork\Module
  	 	return $wpdb->get_var( $wpdb->prepare( "
 			SELECT COUNT(*) FROM $wpdb->comments
 			WHERE comment_post_ID = %d
-			AND comment_type <> '%s'
+			AND comment_type NOT IN ( '".join( "', '", esc_sql( $this->get_hidden_types() ) )."' )
 			AND comment_approved = '1'
-		", $post_id, $this->type_archived ) );
+		", $post_id ) );
 	}
 
 	public function comment_status_links( $status_links )
@@ -352,13 +357,13 @@ class Comments extends gNetwork\Module
 			&& empty( $query->query_vars['type'] ) ) {
 
 			if ( empty( $query->query_vars['type__not_in'] ) )
-				$query->query_vars['type__not_in'] = [ $this->type_archived ];
+				$query->query_vars['type__not_in'] = $this->get_hidden_types();
 
 			else if ( is_array( $query->query_vars['type__not_in'] ) )
-				$query->query_vars['type__not_in'][] = $this->type_archived;
+				$query->query_vars['type__not_in'] = array_merge( $query->query_vars['type__not_in'], $this->get_hidden_types() );
 
 			else
-				$query->query_vars['type__not_in'] .= ','.$this->type_archived;
+				$query->query_vars['type__not_in'] .= ','.join( ',', $this->get_hidden_types() );
 		}
 	}
 
@@ -384,23 +389,12 @@ class Comments extends gNetwork\Module
 
 		$post_id = (int) $post_id;
 
-		if ( $post_id > 0 ) {
-
-			$where = $wpdb->prepare( "
-				WHERE comment_type NOT IN ( %s )
-				AND comment_post_ID = %d
-			", $this->type_archived, $post_id );
-
-		} else {
-
-			$where = $wpdb->prepare( "
-				WHERE comment_type NOT IN ( %s )
-			", $this->type_archived );
-		}
+		$where = $post_id > 0 ? $wpdb->prepare( "AND comment_post_ID = %d", $post_id ) : '';
 
 		$totals = (array) $wpdb->get_results( "
 			SELECT comment_approved, COUNT( * ) AS total
 			FROM {$wpdb->comments}
+			WHERE comment_type NOT IN ( '".join( "', '", esc_sql( $this->get_hidden_types() ) )."' )
 			{$where}
 			GROUP BY comment_approved
 		", ARRAY_A );
