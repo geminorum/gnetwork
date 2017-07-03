@@ -796,11 +796,7 @@ class ShortCodes extends gNetwork\Module
 		if ( ! $content )
 			$content = $number;
 
-		$html = '<a class="tel" href="'.HTML::sanitizePhoneNumber( $number )
-				.'"'.( $args['title'] ? ' data-toggle="tooltip" title="'.esc_attr( $args['title'] ).'"' : '' )
-				.' data-tel-number="'.esc_attr( $number ).'">'
-				.'&#8206;'.apply_filters( 'string_format_i18n', $content ).'&#8207;</a>';
-
+		$html = HTML::tel( $number, $args['title'], apply_filters( 'string_format_i18n', $content ) );
 		return self::shortcodeWrap( $html, 'tel', $args, FALSE );
 	}
 

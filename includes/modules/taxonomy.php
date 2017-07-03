@@ -50,7 +50,7 @@ class Taxonomy extends gNetwork\Module
 				[
 					'field'       => 'management_tools',
 					'title'       => _x( 'Management Tools', 'Modules: Taxonomy: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Allows you to merge terms, set term parents in bulk, and swap term taxonomies', 'Modules: Taxonomy: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Allows you to merge terms, set term parents in bulk, and swap term taxonomies.', 'Modules: Taxonomy: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '1',
 				],
 				[
@@ -61,18 +61,18 @@ class Taxonomy extends gNetwork\Module
 				[
 					'field'       => 'description_editor',
 					'title'       => _x( 'Description Editor', 'Modules: Taxonomy: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Replaces the term description editor with the WordPress TinyMCE visual editor', 'Modules: Taxonomy: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Replaces the term description editor with the WordPress TinyMCE editor.', 'Modules: Taxonomy: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
 					'field'       => 'description_column',
 					'title'       => _x( 'Description Column', 'Modules: Taxonomy: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Adds description column to term list table and quick edit', 'Modules: Taxonomy: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Adds description column to term list table and quick edit.', 'Modules: Taxonomy: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '1',
 				],
 				[
 					'field'       => 'search_fields',
 					'title'       => _x( 'Search Fields', 'Modules: Taxonomy: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Looks for criteria in term descriptions and slugs as well as term names', 'Modules: Taxonomy: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Looks for criteria in term descriptions and slugs as well as term names.', 'Modules: Taxonomy: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '1',
 				],
 			],

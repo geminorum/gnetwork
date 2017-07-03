@@ -65,7 +65,7 @@ class Admin extends gNetwork\Module
 
 			$hook = add_submenu_page( 'index.php',
 				_x( 'Network Extras', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN ),
-				_x( 'Extras', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN ),
+				_x( 'My Extras', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN ),
 				'read',
 				$this->base,
 				[ $this, 'settings_page' ]

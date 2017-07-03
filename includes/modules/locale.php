@@ -140,20 +140,20 @@ class Locale extends gNetwork\Module
 		if ( ! empty( $gNetworkCurrentLocale ) )
 			return $gNetworkCurrentLocale;
 
-		if ( is_network_admin() )
-			return $gNetworkCurrentLocale = gNetwork()->option( 'admin_locale', 'site', 'en_US' );
-
 		if ( WordPress::isAJAX() ) {
 
 			$referer = HTTP::referer();
 
+			if ( FALSE !== strpos( $referer, '/wp-admin/network/' ) )
+				return $gNetworkCurrentLocale = gNetwork()->option( 'admin_locale', 'site', 'en_US' );
+
 			// frontend AJAX calls are mistakend for admin calls
 			if ( FALSE === strpos( $referer, '/wp-admin/' ) )
 				return $gNetworkCurrentLocale = $locale;
-
-			if ( FALSE !== strpos( $referer, '/wp-admin/network/' ) )
-				return $gNetworkCurrentLocale = gNetwork()->option( 'admin_locale', 'site', 'en_US' );
 		}
+
+		if ( is_network_admin() )
+			return $gNetworkCurrentLocale = gNetwork()->option( 'admin_locale', 'site', 'en_US' );
 
 		if ( is_admin() || FALSE !== strpos( $_SERVER['REQUEST_URI'], '/wp-includes/js/tinymce/' ) ) {
 
