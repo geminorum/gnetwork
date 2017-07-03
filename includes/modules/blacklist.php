@@ -55,7 +55,8 @@ class BlackList extends gNetwork\Module
 					'field'       => 'blacklisted_ips',
 					'type'        => 'textarea',
 					'title'       => _x( 'IP Addresses', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Comma or line seperated IP\'s range or individual IP needs to block. ex: <code>1.6.0.0 - 1.7.255.255,1.8.0.0,1.8.0.1</code>', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => sprintf( _x( 'Comma or line-seperated IP Ranges or individual IPs to block. ex: %s', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ),
+						'<code>1.6.0.0-1.7.255.255, 1.2.3/24, 1.2.3.4/255.255.255.0, 1.8.0.0, 1.8.0.1</code>' ),
 					'field_class' => [ 'large-text', 'code-text' ],
 				],
 				[
@@ -85,25 +86,11 @@ class BlackList extends gNetwork\Module
 		if ( ! trim( $this->options['blacklisted_ips'] ) )
 			return FALSE;
 
-		$groups = explode( ',', str_replace( "\n", ',', $this->options['blacklisted_ips'] ) );
-		$long   = ip2long( $_SERVER['REMOTE_ADDR'] );
+		$blocks = explode( ',', str_replace( "\n", ',', $this->options['blacklisted_ips'] ) );
 
-		foreach ( $groups as $group ) {
-
-			if ( FALSE === strpos( $group, '-' ) ) {
-
-				if ( $long == ip2long( trim( $group ) ) )
-					return TRUE;
-
-			} else {
-
-				$range = array_map( 'trim', explode( '-', $group ) );
-
-				if ( $long >= ip2long( $range[0] )
-					&& $long <= ip2long( $range[1] ) )
-						return TRUE;
-			}
-		}
+		foreach ( $blocks as $block )
+			if ( HTTP::IPinBlock( $_SERVER['REMOTE_ADDR'], trim( $block ) ) )
+				return TRUE;
 
 		return FALSE;
 	}
