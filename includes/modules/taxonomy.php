@@ -36,6 +36,7 @@ class Taxonomy extends gNetwork\Module
 	{
 		return [
 			'management_tools'   => '1',
+			'slug_actions'       => '0',
 			'description_editor' => '0',
 			'description_column' => '1',
 			'search_fields'      => '1',
@@ -51,6 +52,11 @@ class Taxonomy extends gNetwork\Module
 					'title'       => _x( 'Management Tools', 'Modules: Taxonomy: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Allows you to merge terms, set term parents in bulk, and swap term taxonomies', 'Modules: Taxonomy: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '1',
+				],
+				[
+					'field'       => 'slug_actions',
+					'title'       => _x( 'Slug Actions', 'Modules: Taxonomy: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Adds slug specific actions on the taxonomy management tools.', 'Modules: Taxonomy: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
 					'field'       => 'description_editor',
@@ -280,10 +286,14 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 
 		$actions['merge']        = _x( 'Merge', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN );
 		$actions['change_tax']   = _x( 'Change Taxonomy', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN );
-		$actions['rewrite_slug'] = _x( 'Rewrite Slug', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN );
 		$actions['format_i18n']  = _x( 'Format i18n', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN );
 		$actions['empty_posts']  = _x( 'Empty Posts', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN );
 		$actions['empty_desc']   = _x( 'Empty Description', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN );
+
+		if ( $this->options['slug_actions'] ) {
+			$actions['rewrite_slug'] = _x( 'Rewrite Slug', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN );
+			$actions['downcode_slug'] = _x( 'Transliterate Slug', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN );
+		}
 
 		return $this->filters( 'bulk_actions', $actions, $taxonomy );
 	}
@@ -409,6 +419,27 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 				continue;
 
 			wp_update_term( $term_id, $taxonomy, [ 'slug' => $term->name ] );
+		}
+
+		return TRUE;
+	}
+
+	public function handle_downcode_slug( $term_ids, $taxonomy )
+	{
+		foreach ( $term_ids as $term_id ) {
+
+			$term = get_term( $term_id, $taxonomy );
+
+			if ( self::isError( $term ) )
+				continue;
+
+			if ( ! seems_utf8( $term->name ) )
+				continue;
+
+			$slug = Utilities::URLifyDownCode( $term->name );
+
+			if ( $slug != $term->slug )
+				wp_update_term( $term_id, $taxonomy, [ 'slug' => $slug ] );
 		}
 
 		return TRUE;
