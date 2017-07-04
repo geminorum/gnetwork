@@ -36,6 +36,13 @@ class Debug_Bar_gNetworkMeta extends \Debug_Bar_Panel
 				HTML::tableSide( $post );
 			echo '</div>';
 
+		} else if ( ! empty( $_GET['post'] ) ) {
+			$meta = get_post_meta( $_GET['post'] );
+
+			echo '<div class="-post">';
+				HTML::tableSide( get_post( $_GET['post'] ) );
+			echo '</div>';
+
 		} else {
 			$meta = FALSE;
 		}
