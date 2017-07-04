@@ -153,7 +153,7 @@ class Locale extends gNetwork\Module
 		}
 
 		if ( is_network_admin() )
-			return $gNetworkCurrentLocale = gNetwork()->option( 'admin_locale', 'site', 'en_US' );
+			return $gNetworkCurrentLocale = $this->whiteListNetworkAdmin( $locale, gNetwork()->option( 'admin_locale', 'site', 'en_US' ) );
 
 		if ( is_admin() || FALSE !== strpos( $_SERVER['REQUEST_URI'], '/wp-includes/js/tinymce/' ) ) {
 
@@ -170,7 +170,12 @@ class Locale extends gNetwork\Module
 		if ( 'en_US' == $locale )
 			return $gNetworkCurrentLocale = $locale;
 
-		$black_list = $this->filters( 'blacklist', [
+		return $gNetworkCurrentLocale = $this->blackListAdmin( $locale );
+	}
+
+	private function blackListAdmin( $current, $base = 'en_US' )
+	{
+		$list = $this->filters( 'blacklist', [
 			'deprecated_log'             => 'post_type',
 			'rewrite-rules-inspector'    => 'page',
 			'connection-types'           => 'page',
@@ -273,12 +278,25 @@ class Locale extends gNetwork\Module
 			'read_offline_epub'    => 'page',
 			'read_offline_mobi'    => 'page',
 			'read_offline_print'   => 'page',
-		] );
+		], $current );
 
-		foreach ( $black_list as $val => $key )
-			if ( isset( $_REQUEST[$key] ) && $val == trim( $_REQUEST[$key] ) )
-				return $gNetworkCurrentLocale = 'en_US';
+		foreach ( array_unique( $list ) as $value => $key )
+			if ( isset( $list[$_REQUEST[$key]] ) && array_key_exists( $_REQUEST[$key], $list ) )
+				return $base;
 
-		return $gNetworkCurrentLocale = $locale;
+		return $current;
+	}
+
+	private function whiteListNetworkAdmin( $current, $base = 'en_US' )
+	{
+		$list = $this->filters( 'whitelist', [
+			'bp-tools' => 'page',
+		], $current );
+
+		foreach ( array_unique( $list ) as $value => $key )
+			if ( isset( $list[$_REQUEST[$key]] ) && array_key_exists( $_REQUEST[$key], $list ) )
+				return $current;
+
+		return $base;
 	}
 }
