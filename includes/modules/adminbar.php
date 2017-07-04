@@ -17,9 +17,10 @@ class AdminBar extends gNetwork\Module
 	protected $iframe  = FALSE;
 
 
-	private $sidebar_admin = FALSE;
-	private $wpcf7_admin   = FALSE;
-	private $show_adminbar = NULL;
+	private $sidebar_admin   = FALSE;
+	private $wpcf7_admin     = FALSE;
+	private $wpcf7_shortcode = FALSE;
+	private $show_adminbar   = NULL;
 
 	public $remove_nodes = [];
 
@@ -44,6 +45,8 @@ class AdminBar extends gNetwork\Module
 
 			$this->setup_adminbar();
 			add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_style' ] );
+
+			$this->filter( 'shortcode_atts_wpcf7', 4 );
 
 		} else {
 			show_admin_bar( FALSE );
@@ -168,10 +171,14 @@ class AdminBar extends gNetwork\Module
 		return $properties;
 	}
 
-	public function wpcf7_contact_form( &$wpcf7 )
+	public function shortcode_atts_wpcf7( $out, $pairs, $atts, $shortcode )
 	{
-		unset( $wpcf7->properties['messages'] );
-		// self::kill($wpcf7);
+		if ( ! empty( $atts['id'] ) && current_user_can( 'wpcf7_edit_contact_form' ) ) {
+			$this->wpcf7_shortcode = $atts['id'];
+			add_action( 'admin_bar_menu', [ $this, 'wp_admin_bar_wpcf7_shortcode' ], 90 );
+		}
+
+		return $out;
 	}
 
 	public static function removeMenus( $nodes )
@@ -438,6 +445,21 @@ class AdminBar extends gNetwork\Module
 			'meta'  => [
 				'html'  => '<input class="shortlink-input" style="margin:2px 0 0 0;" type="text" readonly="readonly" value="'.esc_attr( $short ).'" />',
 				'title' => _x( 'Shortlink', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+			],
+		] );
+	}
+
+	public function wp_admin_bar_wpcf7_shortcode( $wp_admin_bar )
+	{
+		if ( is_admin() || ! is_singular() || is_front_page() )
+			return;
+
+		$wp_admin_bar->add_menu( [
+			'id'    => 'edit-contact-form',
+			'title' => _x( 'Edit Contact Form', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+			'href'  => add_query_arg( [ 'page' => 'wpcf7', 'post' => $this->wpcf7_shortcode ], admin_url( 'admin.php' ) ),
+			'meta'  => [
+				'title' => _x( 'Edit Current embeded contact form on admin', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 			],
 		] );
 	}
