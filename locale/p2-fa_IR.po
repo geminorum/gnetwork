@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: P2 1.5.5\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/theme/p2\n"
 "POT-Creation-Date: 2015-11-02 08:54+0330\n"
-"PO-Revision-Date: 2015-11-02 09:18+0330\n"
+"PO-Revision-Date: 2017-07-04 05:16+0430\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: Hamed Agha <ponaksom@gmail.com>\n"
 "Language: fa_IR\n"
@@ -15,7 +15,7 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
 "X-Textdomain-Support: yes\n"
-"X-Generator: Poedit 1.8.6\n"
+"X-Generator: Poedit 2.0.2\n"
 "X-Poedit-SearchPath-0: .\n"
 
 # @ p2
@@ -56,7 +56,7 @@ msgstr "نمایش فایل: "
 # @ p2
 #: attachment.php:70 entry.php:79 entry.php:88 inc/template-tags.php:109
 msgid "(More ...)"
-msgstr "(ادامه...)"
+msgstr "(ادامه &hellip;)"
 
 # @ p2
 #: author.php:19
@@ -335,7 +335,7 @@ msgstr "مطلبت رفت بالا"
 # @ p2
 #: inc/js.php:139
 msgid "Loading..."
-msgstr "دارد بارگذاری می‌شود..."
+msgstr "دارد بارگذاری می‌شود &hellip;"
 
 # @ p2
 #: inc/js.php:141

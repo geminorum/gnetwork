@@ -2,10 +2,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Flamingo\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-19 00:15+0900\n"
-"PO-Revision-Date: 2015-09-25 06:34+0330\n"
-"Last-Translator: Takayuki Miyoshi <takayukister@gmail.com>\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2017-07-04 05:22+0430\n"
+"Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: geminorum <contact@geminorum.ir>\n"
+"Language: fa_IR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,340 +14,435 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_c\n"
 "X-Poedit-Basepath: ../..\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 1.8.4\n"
-"Language: fa_IR\n"
+"X-Generator: Poedit 2.0.2\n"
 "X-Poedit-SearchPath-0: flamingo\n"
 
-#: flamingo/admin/admin.php:9 flamingo/admin/admin.php:14
-#: flamingo/admin/admin.php:256
-msgid "Flamingo Address Book"
-msgstr "دفترچه تلفن"
+#. Description of the plugin/theme
+msgid "A trustworthy message storage plugin for Contact Form 7."
+msgstr ""
 
-#: flamingo/admin/admin.php:9
-msgid "Flamingo"
-msgstr "فلامینگو"
+#: admin/admin.php:659
+msgid "Meta"
+msgstr "متا"
 
-#: flamingo/admin/admin.php:14
-msgid "Address Book"
-msgstr "دفترچه تلفن"
+#. Author of the plugin/theme
+msgid "Takayuki Miyoshi"
+msgstr ""
 
-#: flamingo/admin/admin.php:20 flamingo/includes/class-inbound-message.php:24
-msgid "Flamingo Inbound Messages"
-msgstr "پیام‌های دریافتی فلامینگو"
+#: includes/class-outbound-message.php:21
+msgid "Flamingo Outbound Message"
+msgstr "فلامینگو: پیام ارسالی"
 
-#: flamingo/admin/admin.php:20 flamingo/admin/admin.php:489
-msgid "Inbound Messages"
-msgstr "پیام‌های دریافتی"
+#: includes/class-outbound-message.php:20
+msgid "Flamingo Outbound Messages"
+msgstr "فلامینگو: پیام‌های ارسالی"
 
-#: flamingo/admin/admin.php:66
-msgid "Contact updated."
-msgstr "اطلاعات تماس به‌روز شد."
+#: includes/class-inbound-message.php:195
+#: includes/class-outbound-message.php:98
+msgid "(No Title)"
+msgstr "(بدون عنوان)"
 
-#: flamingo/admin/admin.php:68
-msgid "Contact deleted."
-msgstr "اطلاعات تماس حذف شد."
+#: includes/class-inbound-message.php:44
+msgid "Flamingo Inbound Message Channel"
+msgstr "فلامینگو: کانال پیام دریافتی"
 
-#: flamingo/admin/admin.php:70
-msgid "Messages trashed."
-msgstr "پیام‌ها به زباله دان منتقل گردید."
+#: includes/class-inbound-message.php:43
+msgid "Flamingo Inbound Message Channels"
+msgstr "فلامینگو: کانال‌های پیام دریافتی"
 
-#: flamingo/admin/admin.php:72
-msgid "Messages restored."
-msgstr "پیام‌ها بازگردانی شد."
+#: includes/class-inbound-message.php:27
+msgid "Flamingo Inbound Message"
+msgstr "فلامینگو: پیام دریافتی"
 
-#: flamingo/admin/admin.php:74
-msgid "Messages deleted."
-msgstr "پیام‌ها حذف شد."
+#: includes/class-contact.php:30
+msgid "Flamingo Contact Tag"
+msgstr "فلامینگو: برچسب تماس"
 
-#: flamingo/admin/admin.php:76
-msgid "Messages got marked as spam."
-msgstr "پیام‌ها به عنوان اسپم نشانه گذاری شد."
+#: includes/class-contact.php:29
+msgid "Flamingo Contact Tags"
+msgstr "فلامینگو: برچسب‌های تماس"
 
-#: flamingo/admin/admin.php:78
-msgid "Messages got marked as not spam."
-msgstr "پیام‌ها از حالت اسپم خارج گردید."
+#: includes/class-contact.php:21
+msgid "Flamingo Contact"
+msgstr "فلامینگو: تماس"
 
-#: flamingo/admin/admin.php:105
-msgid "You are not allowed to edit this item."
-msgstr "شما اجازه ویرایش این مورد را ندارید."
+#: includes/class-contact.php:20
+msgid "Flamingo Contacts"
+msgstr "فلامینگو: تماس‌ها"
 
-#: flamingo/admin/admin.php:144 flamingo/admin/admin.php:377
-msgid "You are not allowed to delete this item."
-msgstr "شما اجازه حذف این مورد را ندارید."
+#: admin/includes/meta-boxes.php:251
+msgid "Send Message"
+msgstr "فرستادن پیام"
 
-#: flamingo/admin/admin.php:147 flamingo/admin/admin.php:380
-msgid "Error in deleting."
-msgstr "خطا در حذف."
+#: admin/includes/meta-boxes.php:215
+msgid "Save Draft"
+msgstr "ذخیره پیش‌نویس"
 
-#: flamingo/admin/admin.php:170
-#: flamingo/admin/includes/class-contacts-list-table.php:11
-msgid "Email"
-msgstr "ایمیل"
+#: admin/includes/meta-boxes.php:133
+msgid "Add Message"
+msgstr "افزودن پیام"
 
-#: flamingo/admin/admin.php:170 flamingo/admin/includes/meta-boxes.php:140
-msgid "Full name"
-msgstr "نام کامل"
+#: admin/includes/meta-boxes.php:131
+msgid "Update Message"
+msgstr "به‌روزرسانی پیام‌ها"
 
-#: flamingo/admin/admin.php:171 flamingo/admin/includes/meta-boxes.php:145
-msgid "First name"
-msgstr "نام کوچک"
+#: admin/includes/meta-boxes.php:75
+msgid "Choose from the most used tags"
+msgstr "انتخاب از میان برچسب‌های بیشتر استفاده شده"
 
-#: flamingo/admin/admin.php:171 flamingo/admin/includes/meta-boxes.php:150
-msgid "Last name"
-msgstr "نام خانوادگی"
+#: admin/includes/meta-boxes.php:72
+msgid "Separate tags with commas"
+msgstr "با ویرگول لاتین جدا کنید"
 
-#: flamingo/admin/admin.php:215 flamingo/admin/admin.php:451
-msgid "Save"
-msgstr "ذخیره"
+#: admin/includes/meta-boxes.php:25
+msgid "Add Contact"
+msgstr "افزودن تماس"
 
-#: flamingo/admin/admin.php:218
-#: flamingo/admin/includes/class-contacts-list-table.php:13
-msgid "Tags"
-msgstr "برچسب‌ها"
+#: admin/includes/meta-boxes.php:23
+msgid "Update Contact"
+msgstr "به‌روزرسانی تماس"
 
-#: flamingo/admin/admin.php:221
-#: flamingo/admin/includes/class-contacts-list-table.php:12
-msgid "Name"
-msgstr "نام"
-
-#: flamingo/admin/admin.php:234
-msgid "Contacts"
-msgstr "اطلاعات تماس"
-
-#: flamingo/admin/admin.php:260 flamingo/admin/admin.php:493
-#, php-format
-msgid "Search results for &#8220;%s&#8221;"
-msgstr "نتایج جستجو برای &#8220;%s&#8221;"
-
-#: flamingo/admin/admin.php:269
-msgid "Search Contacts"
-msgstr "جستجوی تماس ها"
-
-#: flamingo/admin/admin.php:310
-msgid "You are not allowed to move this item to the Trash."
-msgstr "شما اجازه انتقال این مورد به زباله دان را ندارید."
-
-#: flamingo/admin/admin.php:313
-msgid "Error in moving to Trash."
-msgstr "خطا در انتقال به زباله دان."
-
-#: flamingo/admin/admin.php:340
-msgid "You are not allowed to restore this item from the Trash."
-msgstr "شما اجازه بازگردانی این مورد از زباله دان را ندارید."
-
-#: flamingo/admin/admin.php:343
-msgid "Error in restoring from Trash."
-msgstr "خطا در بازگردانی از سطل زباله."
-
-#: flamingo/admin/admin.php:407
-msgid "You are not allowed to spam this item."
-msgstr "شما اجازه اسپم کردن این مورد را ندارید."
-
-#: flamingo/admin/admin.php:435
-msgid "You are not allowed to unspam this item."
-msgstr "ما اجازه تغییر وضعیت اسپم این مورد را ندارید."
-
-#: flamingo/admin/admin.php:454
-msgid "Fields"
-msgstr "فیلدها"
-
-#: flamingo/admin/admin.php:467
-msgid "Messages"
-msgstr "پیام‌ها"
-
-#: flamingo/admin/admin.php:504
-msgid "Search Messages"
-msgstr "جستجوی پیام‌ها"
-
-#: flamingo/admin/edit-contact-form.php:17
-msgid "Edit Contact"
-msgstr "ویرایش تماس"
-
-#: flamingo/admin/edit-contact-form.php:43
-msgid "Enter email here"
-msgstr "ایمیل را اینجا وارد کنید"
-
-#: flamingo/admin/edit-inbound-form.php:17
-msgid "Inbound Message"
-msgstr "پیام‌های دریافتی"
-
-#: flamingo/admin/edit-inbound-form.php:42
-#: flamingo/admin/includes/class-inbound-messages-list-table.php:14
-msgid "Date"
-msgstr "تاریخ"
-
-#: flamingo/admin/edit-inbound-form.php:47
-#: flamingo/admin/includes/class-inbound-messages-list-table.php:11
-msgid "Subject"
-msgstr "عنوان"
-
-#: flamingo/admin/edit-inbound-form.php:52
-#: flamingo/admin/includes/class-inbound-messages-list-table.php:12
-msgid "From"
-msgstr "از طرف"
-
-#: flamingo/admin/includes/class-contacts-list-table.php:14
-msgid "History"
-msgstr "تاریخچه"
-
-#: flamingo/admin/includes/class-contacts-list-table.php:15
-msgid "Last Contact"
-msgstr "آخرین تماس"
-
-#: flamingo/admin/includes/class-contacts-list-table.php:82
-#: flamingo/admin/includes/meta-boxes.php:11
-msgid "Delete"
-msgstr "حذف"
-
-#: flamingo/admin/includes/class-contacts-list-table.php:106
-msgid "View all tags"
-msgstr "مشاهده تمام برچسب‌ها"
-
-#: flamingo/admin/includes/class-contacts-list-table.php:112
-#: flamingo/admin/includes/class-inbound-messages-list-table.php:173
-msgid "Filter"
-msgstr "فیلتر"
-
-#: flamingo/admin/includes/class-contacts-list-table.php:115
-msgid "Export"
-msgstr "خروجی"
-
-#: flamingo/admin/includes/class-contacts-list-table.php:138
-#: flamingo/admin/includes/class-inbound-messages-list-table.php:207
-msgid "Edit"
-msgstr "ویرایش"
-
-#: flamingo/admin/includes/class-contacts-list-table.php:142
-#: flamingo/admin/includes/class-inbound-messages-list-table.php:227
-#, php-format
-msgid "Edit &#8220;%s&#8221;"
-msgstr "ویرایش &#8220;%s&#8221;"
-
-#: flamingo/admin/includes/class-contacts-list-table.php:154
-msgid "No Tags"
-msgstr "بدون برچسب"
-
-#: flamingo/admin/includes/class-contacts-list-table.php:183
-msgid "User"
-msgstr "کاربر"
-
-#: flamingo/admin/includes/class-contacts-list-table.php:196
-#, php-format
-msgid "Comment (%d)"
-msgstr "نظر (%d)"
-
-#: flamingo/admin/includes/class-contacts-list-table.php:235
-#: flamingo/admin/includes/class-inbound-messages-list-table.php:260
-#: flamingo/includes/class-inbound-message.php:115
-msgid "Y/m/d g:i:s A"
-msgstr "j F, Y g:i a"
-
-#: flamingo/admin/includes/class-contacts-list-table.php:242
-#: flamingo/admin/includes/class-inbound-messages-list-table.php:267
-#, php-format
-msgid "%s ago"
-msgstr "%s قبل"
-
-#: flamingo/admin/includes/class-contacts-list-table.php:244
-#: flamingo/admin/includes/class-inbound-messages-list-table.php:269
-msgid "Y/m/d"
-msgstr "j F, Y"
-
-#: flamingo/admin/includes/class-inbound-messages-list-table.php:13
-msgid "Channel"
-msgstr "کانال"
-
-#: flamingo/admin/includes/class-inbound-messages-list-table.php:131
-msgid "Restore"
-msgstr "بازگردانی"
-
-#: flamingo/admin/includes/class-inbound-messages-list-table.php:134
-#: flamingo/admin/includes/meta-boxes.php:107
-msgid "Delete Permanently"
-msgstr "حذف دائم"
-
-#: flamingo/admin/includes/class-inbound-messages-list-table.php:136
-#: flamingo/admin/includes/meta-boxes.php:109
-msgid "Move to Trash"
-msgstr "انتقال به زباله دان"
-
-#: flamingo/admin/includes/class-inbound-messages-list-table.php:167
-msgid "View all channels"
-msgstr "مشاهده همه کانال‌ها"
-
-#: flamingo/admin/includes/class-inbound-messages-list-table.php:178
-msgid "Empty Trash"
-msgstr "تخلیه زباله دان"
-
-#: flamingo/admin/includes/class-inbound-messages-list-table.php:215
-msgid "Not Spam"
-msgstr "اسپم نیست"
-
-#: flamingo/admin/includes/class-inbound-messages-list-table.php:221
-msgid "Spam"
-msgstr "اسپم"
-
-#: flamingo/admin/includes/meta-boxes.php:17
-#, php-format
+#: admin/includes/meta-boxes.php:17
 msgid ""
 "You are about to delete this contact '%s'\n"
 " 'Cancel' to stop, 'OK' to delete."
 msgstr ""
 "شما در حال حذف اطلاعات تماس '%s'\n"
-" هستید\"انصراف\" جهت توقف، \"تایید\" جهت حذف."
+" هستید\"انصراف\" جهت توقف، \"تأیید\" جهت حذف."
 
-#: flamingo/admin/includes/meta-boxes.php:22
-msgid "Update Contact"
-msgstr "به‌روزرسانی تماس"
+#: admin/includes/class-inbound-messages-list-table.php:294
+#: includes/class-inbound-message.php:34
+msgid "Spam"
+msgstr "اسپم"
 
-#: flamingo/admin/includes/meta-boxes.php:24
-msgid "Add Contact"
-msgstr "افزودن تماس"
+#: admin/includes/class-inbound-messages-list-table.php:242
+#: admin/includes/class-outbound-messages-list-table.php:172
+msgid "Empty Trash"
+msgstr "تخلیه زباله دان"
 
-#: flamingo/admin/includes/meta-boxes.php:68
-msgid "Separate tags with commas"
-msgstr "با ویرگول لاتین جدا کنید"
+#: admin/includes/class-inbound-messages-list-table.php:223
+msgid "View all channels"
+msgstr "مشاهده همه کانال‌ها"
 
-#: flamingo/admin/includes/meta-boxes.php:71
-msgid "Choose from the most used tags"
-msgstr "انتخاب از میان برچسب‌های بیشتر استفاده شده"
+#: admin/includes/class-inbound-messages-list-table.php:189
+msgid "Mark as Spam"
+msgstr "جفنگ است"
 
-#: flamingo/admin/includes/meta-boxes.php:120
-msgid "Update Message"
-msgstr "به‌روزرسانی پیام‌ها"
+#: admin/includes/class-inbound-messages-list-table.php:187
+#: admin/includes/class-inbound-messages-list-table.php:284
+msgid "Not Spam"
+msgstr "اسپم نیست"
 
-#: flamingo/admin/includes/meta-boxes.php:122
-msgid "Add Message"
-msgstr "افزودن پیام"
+#: admin/includes/class-inbound-messages-list-table.php:183
+#: admin/includes/class-outbound-messages-list-table.php:154
+#: admin/includes/meta-boxes.php:117 admin/includes/meta-boxes.php:237
+msgid "Move to Trash"
+msgstr "انتقال به زباله دان"
 
-#: flamingo/includes/class-contact.php:20
-msgid "Flamingo Contacts"
-msgstr "تماس های فلامینگو"
+#: admin/includes/class-inbound-messages-list-table.php:181
+#: admin/includes/class-outbound-messages-list-table.php:152
+#: admin/includes/meta-boxes.php:115 admin/includes/meta-boxes.php:235
+msgid "Delete Permanently"
+msgstr "حذف دائم"
 
-#: flamingo/includes/class-contact.php:21
-msgid "Flamingo Contact"
-msgstr "تماس فلامینگو"
+#: admin/includes/class-inbound-messages-list-table.php:177
+#: admin/includes/class-outbound-messages-list-table.php:148
+msgid "Restore"
+msgstr "بازگردانی"
 
-#: flamingo/includes/class-contact.php:27
-msgid "Flamingo Contact Tags"
-msgstr "برچسب‌های تماس فلامینگو"
+#: admin/includes/class-inbound-messages-list-table.php:146
+#: admin/includes/class-outbound-messages-list-table.php:117
+msgctxt "posts"
+msgid "Trash <span class=\"count\">(%s)</span>"
+msgid_plural "Trash <span class=\"count\">(%s)</span>"
+msgstr[0] "زباله‌دان <span class=\"count\">(%s)</span>"
 
-#: flamingo/includes/class-contact.php:28
-msgid "Flamingo Contact Tag"
-msgstr "برچسب تماس فلامینگو"
+#: admin/includes/class-inbound-messages-list-table.php:127
+msgctxt "posts"
+msgid "Spam <span class=\"count\">(%s)</span>"
+msgid_plural "Spam <span class=\"count\">(%s)</span>"
+msgstr[0] "جفنگ <span class=\"count\">(%s)</span>"
 
-#: flamingo/includes/class-inbound-message.php:25
-msgid "Flamingo Inbound Message"
-msgstr "پیام ورودی فلامینگو"
+#: admin/includes/class-inbound-messages-list-table.php:111
+#: admin/includes/class-outbound-messages-list-table.php:98
+msgctxt "posts"
+msgid "Inbox <span class=\"count\">(%s)</span>"
+msgid_plural "Inbox <span class=\"count\">(%s)</span>"
+msgstr[0] "دریافتی <span class=\"count\">(%s)</span>"
 
-#: flamingo/includes/class-inbound-message.php:31
-msgid "Flamingo Inbound Message Channels"
-msgstr "کانال‌های ورودی پیام فلامینگو"
+#: admin/includes/class-inbound-messages-list-table.php:17
+msgid "Channel"
+msgstr "کانال"
 
-#: flamingo/includes/class-inbound-message.php:32
-msgid "Flamingo Inbound Message Channel"
-msgstr "کانال ورودی پیام فلامینگو"
+#: admin/includes/class-contacts-list-table.php:280
+#: admin/includes/class-inbound-messages-list-table.php:370
+#: admin/includes/class-outbound-messages-list-table.php:241
+msgid "Y/m/d"
+msgstr "j F, Y"
 
-#: flamingo/includes/class-inbound-message.php:135
-msgid "(No Title)"
-msgstr "(بدون عنوان)"
+#: admin/includes/class-contacts-list-table.php:278
+#: admin/includes/class-inbound-messages-list-table.php:368
+#: admin/includes/class-outbound-messages-list-table.php:239
+msgid "%s ago"
+msgstr "%s قبل"
+
+#: admin/includes/class-contacts-list-table.php:271
+#: admin/includes/class-inbound-messages-list-table.php:361
+#: admin/includes/class-outbound-messages-list-table.php:232
+#: includes/class-inbound-message.php:156
+#: includes/class-outbound-message.php:86
+msgid "Y/m/d g:i:s A"
+msgstr "j F, Y g:i a"
+
+#: admin/includes/class-contacts-list-table.php:250
+msgctxt "contact history"
+msgid "%s (%d)"
+msgstr ""
+
+#: admin/includes/class-contacts-list-table.php:228
+msgid "Comment (%d)"
+msgstr "نظر (%d)"
+
+#: admin/includes/class-contacts-list-table.php:214
+msgid "User"
+msgstr "کاربر"
+
+#: admin/includes/class-contacts-list-table.php:181
+msgid "No Tags"
+msgstr "بدون برچسب"
+
+#: admin/includes/class-contacts-list-table.php:165
+#: admin/includes/class-inbound-messages-list-table.php:300
+#: admin/includes/class-outbound-messages-list-table.php:211
+msgid "Edit &#8220;%s&#8221;"
+msgstr "ویرایش &#8220;%s&#8221;"
+
+#: admin/includes/class-contacts-list-table.php:159
+#: admin/includes/class-inbound-messages-list-table.php:274
+#: admin/includes/class-outbound-messages-list-table.php:205
+msgid "Edit"
+msgstr "ویرایش"
+
+#: admin/includes/class-contacts-list-table.php:132
+#: admin/includes/class-inbound-messages-list-table.php:236
+msgid "Export"
+msgstr "برون‌بری"
+
+#: admin/includes/class-contacts-list-table.php:129
+#: admin/includes/class-inbound-messages-list-table.php:232
+#: admin/includes/class-outbound-messages-list-table.php:167
+msgid "Filter"
+msgstr "پالایه"
+
+#: admin/includes/class-contacts-list-table.php:122
+msgid "View all tags"
+msgstr "مشاهده تمام برچسب‌ها"
+
+#: admin/includes/class-contacts-list-table.php:96
+#: admin/includes/meta-boxes.php:11
+msgid "Delete"
+msgstr "حذف"
+
+#: admin/includes/class-contacts-list-table.php:16
+msgid "Last Contact"
+msgstr "آخرین تماس"
+
+#: admin/includes/class-contacts-list-table.php:15
+msgid "History"
+msgstr "تاریخچه"
+
+#: admin/edit-outbound-form.php:66
+msgid "Body"
+msgstr "بدنه"
+
+#: admin/edit-outbound-form.php:48
+msgid "To"
+msgstr "به"
+
+#: admin/edit-outbound-form.php:21
+msgid "Outbound Message"
+msgstr "پیام ارسالی"
+
+#: admin/edit-outbound-form.php:19
+msgid "Compose a Message"
+msgstr "نوشتن پیام"
+
+#: admin/edit-inbound-form.php:52 admin/edit-outbound-form.php:56
+#: admin/includes/class-inbound-messages-list-table.php:16
+#: admin/includes/class-outbound-messages-list-table.php:15
+msgid "From"
+msgstr "از طرف"
+
+#: admin/edit-inbound-form.php:47 admin/edit-outbound-form.php:61
+#: admin/includes/class-inbound-messages-list-table.php:15
+#: admin/includes/class-outbound-messages-list-table.php:14
+msgid "Subject"
+msgstr "عنوان"
+
+#: admin/edit-inbound-form.php:17
+msgid "Inbound Message"
+msgstr "پیام‌های دریافتی"
+
+#: admin/edit-contact-form.php:43
+msgid "Enter email here"
+msgstr "ایمیل را اینجا وارد کنید"
+
+#: admin/edit-contact-form.php:17
+msgid "Edit Contact"
+msgstr "ویرایش تماس"
+
+#: admin/admin.php:808
+msgid "Outbound Messages"
+msgstr "پیام‌های ارسالی"
+
+#: admin/admin.php:776
+msgid "Send"
+msgstr "فرستادن"
+
+#: admin/admin.php:710 admin/admin.php:827
+msgid "Search Messages"
+msgstr "جست‌وجوی پیام‌ها"
+
+#: admin/admin.php:672 admin/admin.php:789
+msgid "Messages"
+msgstr "پیام‌ها"
+
+#: admin/admin.php:656
+msgid "Fields"
+msgstr "فیلدها"
+
+#: admin/admin.php:615 admin/edit-inbound-form.php:42
+#: admin/includes/class-inbound-messages-list-table.php:18
+#: admin/includes/class-outbound-messages-list-table.php:16
+msgid "Date"
+msgstr "تاریخ"
+
+#: admin/admin.php:540
+msgid "You are not allowed to unspam this item."
+msgstr "ما اجازه تغییر وضعیت اسپم این مورد را ندارید."
+
+#: admin/admin.php:504
+msgid "You are not allowed to spam this item."
+msgstr "شما اجازه اسپم کردن این مورد را ندارید."
+
+#: admin/admin.php:424
+msgid "Error in restoring from Trash."
+msgstr "خطا در بازگردانی از سطل زباله."
+
+#: admin/admin.php:420
+msgid "You are not allowed to restore this item from the Trash."
+msgstr "شما اجازه بازگردانی این مورد از زباله دان را ندارید."
+
+#: admin/admin.php:386
+msgid "Error in moving to Trash."
+msgstr "خطا در انتقال به زباله دان."
+
+#: admin/admin.php:382
+msgid "You are not allowed to move this item to the Trash."
+msgstr "شما اجازه انتقال این مورد به زباله دان را ندارید."
+
+#: admin/admin.php:336
+msgid "Search Contacts"
+msgstr "جست‌وجوی تماس‌ها"
+
+#: admin/admin.php:325 admin/admin.php:697 admin/admin.php:814
+msgid "Search results for &#8220;%s&#8221;"
+msgstr "نتایج جست‌وجو برای &#8220;%s&#8221;"
+
+#: admin/admin.php:301
+msgid "Contacts"
+msgstr "اطلاعات تماس"
+
+#: admin/admin.php:286 admin/includes/class-contacts-list-table.php:13
+msgid "Name"
+msgstr "نام"
+
+#: admin/admin.php:283 admin/includes/class-contacts-list-table.php:14
+msgid "Tags"
+msgstr "برچسب‌ها"
+
+#: admin/admin.php:280 admin/admin.php:653 admin/includes/meta-boxes.php:210
+msgid "Save"
+msgstr "ذخیره"
+
+#: admin/admin.php:204 admin/includes/meta-boxes.php:161
+msgid "Last name"
+msgstr "نام خانوادگی"
+
+#: admin/admin.php:203 admin/includes/meta-boxes.php:156
+msgid "First name"
+msgstr "نام کوچک"
+
+#: admin/admin.php:202 admin/includes/meta-boxes.php:151
+msgid "Full name"
+msgstr "نام کامل"
+
+#: admin/admin.php:201 admin/includes/class-contacts-list-table.php:12
+msgid "Email"
+msgstr "ایمیل"
+
+#: admin/admin.php:173 admin/admin.php:471
+msgid "Error in deleting."
+msgstr "خطا در حذف."
+
+#: admin/admin.php:169 admin/admin.php:467
+msgid "You are not allowed to delete this item."
+msgstr "شما اجازه حذف این مورد را ندارید."
+
+#: admin/admin.php:124 admin/admin.php:277 admin/admin.php:650
+#: admin/admin.php:753
+msgid "You are not allowed to edit this item."
+msgstr "شما اجازه ویرایش این مورد را ندارید."
+
+#: admin/admin.php:104
+msgid "Messages updated."
+msgstr "پیام‌ها به‌روز شد."
+
+#: admin/admin.php:102
+msgid "Messages got marked as not spam."
+msgstr "پیام‌ها از حالت اسپم خارج گردید."
+
+#: admin/admin.php:100
+msgid "Messages got marked as spam."
+msgstr "پیام‌ها به عنوان اسپم نشانه گذاری شد."
+
+#: admin/admin.php:98
+msgid "Messages deleted."
+msgstr "پیام‌ها حذف شد."
+
+#: admin/admin.php:96
+msgid "Messages restored."
+msgstr "پیام‌ها بازگردانی شد."
+
+#: admin/admin.php:94
+msgid "Messages trashed."
+msgstr "پیام‌ها به زباله دان منتقل گردید."
+
+#: admin/admin.php:92
+msgid "Contact deleted."
+msgstr "اطلاعات تماس حذف شد."
+
+#: admin/admin.php:90
+msgid "Contact updated."
+msgstr "اطلاعات تماس به‌روز شد."
+
+#: admin/admin.php:29 admin/admin.php:691
+msgid "Inbound Messages"
+msgstr "پیام‌های دریافتی"
+
+#: admin/admin.php:28 includes/class-inbound-message.php:26
+msgid "Flamingo Inbound Messages"
+msgstr "پیام‌های دریافتی فلامینگو"
+
+#: admin/admin.php:21
+msgid "Address Book"
+msgstr "دفترچه نشانی‌ها"
+
+#. Plugin Name of the plugin/theme
+#: admin/admin.php:14
+msgid "Flamingo"
+msgstr "فلامینگو"
+
+#: admin/admin.php:13 admin/admin.php:20 admin/admin.php:319
+msgid "Flamingo Address Book"
+msgstr "فلامینگو: دفترچه نشانی‌ها"

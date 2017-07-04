@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DaisyChain 1.0\n"
 "POT-Creation-Date: 2017-06-30 23:25+0430\n"
-"PO-Revision-Date: 2017-06-30 23:49+0430\n"
+"PO-Revision-Date: 2017-07-04 05:17+0430\n"
 "Language-Team: Tomas Toman\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -278,7 +278,7 @@ msgstr "وب‌گاه"
 
 #: comments.php:44
 msgid "Comment..."
-msgstr "دیدگاه …"
+msgstr "دیدگاه &hellip;"
 
 #: comments.php:48
 msgid "Leave a Comment"

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Untitled\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/theme/untitled\n"
 "POT-Creation-Date: 2016-09-28 08:22+0330\n"
-"PO-Revision-Date: 2017-06-30 03:34+0430\n"
+"PO-Revision-Date: 2017-07-04 05:08+0430\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: \n"
 "Language: fa_IR\n"
@@ -19,8 +19,7 @@ msgstr "صفحه پیدا نشد!"
 
 #: 404.php:19
 msgid ""
-"It looks like nothing was found at this location. Maybe try one of the links below or a "
-"search?"
+"It looks like nothing was found at this location. Maybe try one of the links below or a search?"
 msgstr "چیزی که به دنبالش بودید پیدا نشد، شاید جست‌وجوی دوباره شما را یاری کند."
 
 #: 404.php:27
@@ -164,13 +163,13 @@ msgstr "پرش به محتوا"
 
 #: image.php:23
 msgid ""
-"Published <span class=\"entry-date\"><time class=\"entry-date\" datetime=\"%1$s\">%2$s</"
-"time></span> at <a href=\"%3$s\" title=\"Link to full-size image\">%4$s &times; %5$s</a> in "
-"<a href=\"%6$s\" title=\"Return to %7$s\" rel=\"gallery\">%8$s</a>"
+"Published <span class=\"entry-date\"><time class=\"entry-date\" datetime=\"%1$s\">%2$s</time></"
+"span> at <a href=\"%3$s\" title=\"Link to full-size image\">%4$s &times; %5$s</a> in <a href="
+"\"%6$s\" title=\"Return to %7$s\" rel=\"gallery\">%8$s</a>"
 msgstr ""
 "منتشرشده در <span class=\"entry-date\"><time class=\"entry-date\" datetime=\"%1$s\">%2$s</"
-"time></span> در <a href=\"%3$s\" title=\"پیوند به تصویر تمام‌اندازه\">%4$s &times; %5$s</a> "
-"در <a href=\"%6$s\" title=\"بازگشت به %7$s\" rel=\"gallery\">%8$s</a>"
+"time></span> در <a href=\"%3$s\" title=\"پیوند به تصویر تمام‌اندازه\">%4$s &times; %5$s</a> در "
+"<a href=\"%6$s\" title=\"بازگشت به %7$s\" rel=\"gallery\">%8$s</a>"
 
 #: image.php:38
 msgid "&larr; Previous"
@@ -183,25 +182,25 @@ msgstr "بعدی &rarr; "
 #: image.php:99
 msgid ""
 "<a class=\"comment-link\" href=\"#respond\" title=\"Post a comment\">Post a comment</a> or "
-"leave a trackback: <a class=\"trackback-link\" href=\"%s\" title=\"Trackback URL for your "
-"post\" rel=\"trackback\">Trackback URL</a>."
+"leave a trackback: <a class=\"trackback-link\" href=\"%s\" title=\"Trackback URL for your post"
+"\" rel=\"trackback\">Trackback URL</a>."
 msgstr ""
-"<a class=\"comment-link\" href=\"#respond\" title=\"Post a comment\">دیدگاهی بفرستید</a> یا "
-"یک دنبالک بگذارید: <a class=\"trackback-link\" href=\"%s\" title=\"Trackback URL for your "
-"post\" rel=\"trackback\">آدرس دنبالک</a>."
+"<a class=\"comment-link\" href=\"#respond\" title=\"Post a comment\">دیدگاهی بفرستید</a> یا یک "
+"دنبالک بگذارید: <a class=\"trackback-link\" href=\"%s\" title=\"Trackback URL for your post\" "
+"rel=\"trackback\">آدرس دنبالک</a>."
 
 #: image.php:101
 msgid ""
 "Comments are closed, but you can leave a trackback: <a class=\"trackback-link\" href=\"%s\" "
 "title=\"Trackback URL for your post\" rel=\"trackback\">Trackback URL</a>."
 msgstr ""
-"دیدگاه‌ها بسته شده‌اند، اما شما می‌توانید یک دنباله بگذارید: <a class=\"trackback-link\" href="
-"\"%s\" title=\"Trackback URL for your post\" rel=\"trackback\"> آدرس اینترنتی دنباله </a>. "
+"دیدگاه‌ها بسته شده‌اند، اما شما می‌توانید یک دنباله بگذارید: <a class=\"trackback-link\" href=\"%s"
+"\" title=\"Trackback URL for your post\" rel=\"trackback\"> آدرس اینترنتی دنباله </a>. "
 
 #: image.php:103
 msgid ""
-"Trackbacks are closed, but you can <a class=\"comment-link\" href=\"#respond\" title=\"Post "
-"a comment\">post a comment</a>."
+"Trackbacks are closed, but you can <a class=\"comment-link\" href=\"#respond\" title=\"Post a "
+"comment\">post a comment</a>."
 msgstr ""
 "دنباله‌ها بسته شده‌اند، اما شما می‌توانید <a class=\"comment-link\" href=\"#respond\" title="
 "\"Post a comment\"> دیدگاهی بیان کنید</a>."
@@ -251,13 +250,13 @@ msgstr "%1$s در %2$s"
 
 #: inc/template-tags.php:125
 msgid ""
-"<a href=\"%1$s\" title=\"%2$s\" rel=\"bookmark\"><time class=\"entry-date\" datetime=\"%3$s"
-"\">%4$s</time></a><span class=\"byline\"> by <span class=\"author vcard\"><a class=\"url fn "
-"n\" href=\"%5$s\" title=\"%6$s\" rel=\"author\">%7$s</a></span></span>"
+"<a href=\"%1$s\" title=\"%2$s\" rel=\"bookmark\"><time class=\"entry-date\" datetime=\"%3$s\">"
+"%4$s</time></a><span class=\"byline\"> by <span class=\"author vcard\"><a class=\"url fn n\" "
+"href=\"%5$s\" title=\"%6$s\" rel=\"author\">%7$s</a></span></span>"
 msgstr ""
-"<a href=\"%1$s\" title=\"%2$s\" rel=\"bookmark\"><time class=\"entry-date\" datetime=\"%3$s"
-"\">%4$s</time></a><span class=\"byline\"> بدست <span class=\"author vcard\"><a class=\"url "
-"fn n\" href=\"%5$s\" title=\"%6$s\" rel=\"author\">%7$s</a></span></span>"
+"<a href=\"%1$s\" title=\"%2$s\" rel=\"bookmark\"><time class=\"entry-date\" datetime=\"%3$s\">"
+"%4$s</time></a><span class=\"byline\"> بدست <span class=\"author vcard\"><a class=\"url fn n\" "
+"href=\"%5$s\" title=\"%6$s\" rel=\"author\">%7$s</a></span></span>"
 
 #: inc/template-tags.php:131
 msgid "View all posts by %s"
@@ -275,14 +274,12 @@ msgstr "برای انتشار اولین نوشتهٔ خودتان آماده‌
 msgid ""
 "Sorry, but nothing matched your search terms. Please try again with some different keywords."
 msgstr ""
-"متأسفیم، موردی مطابق با جستجوی شما پیدا نشد. لطفا برای جستجو از کلیدواژه‌های دیگری استفاده "
+"متأسفیم، موردی مطابق با جست‌وجوی شما پیدا نشد. لطفا برای جست‌وجو از کلیدواژه‌های دیگری استفاده "
 "کنید."
 
 #: no-results.php:28
-msgid ""
-"It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help."
-msgstr ""
-"به نظر می‌آید ما نمی‌توانیم آنچه به دنبالش هستید بیابیم. احتمالا جست‌وجو می‌تواند کمک کند."
+msgid "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help."
+msgstr "به نظر می‌آید ما نمی‌توانیم آنچه به دنبالش هستید بیابیم. احتمالا جست‌وجو می‌تواند کمک کند."
 
 #: search.php:17
 msgid "Search Results for: %s"
@@ -313,31 +310,29 @@ msgid ""
 "This entry was tagged %2$s. Bookmark the <a href=\"%3$s\" title=\"Permalink to %4$s\" rel="
 "\"bookmark\">permalink</a>."
 msgstr ""
-"این نوشته با %2$s برچسب‌گذاری شده است. این نوشته را <a href=\"%3$s\" title=\"Permalink to "
-"%4$s\" rel=\"bookmark\">نشانه‌گذاری</a> کنید."
+"این نوشته با %2$s برچسب‌گذاری شده است. این نوشته را <a href=\"%3$s\" title=\"Permalink to %4$s"
+"\" rel=\"bookmark\">نشانه‌گذاری</a> کنید."
 
 #: single.php:82
-msgid ""
-"Bookmark the <a href=\"%3$s\" title=\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
+msgid "Bookmark the <a href=\"%3$s\" title=\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
 msgstr ""
-"<a href=\"%3$s\" title=\"پایاپیوند به %4$s\" rel=\"bookmark\">پایاپیوند</a> را نشانه‌گذاری "
-"کنید."
+"<a href=\"%3$s\" title=\"پایاپیوند به %4$s\" rel=\"bookmark\">پایاپیوند</a> را نشانه‌گذاری کنید."
 
 #: single.php:88
 msgid ""
-"This entry was posted in %1$s and tagged %2$s. Bookmark the <a href=\"%3$s\" title="
-"\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
+"This entry was posted in %1$s and tagged %2$s. Bookmark the <a href=\"%3$s\" title=\"Permalink "
+"to %4$s\" rel=\"bookmark\">permalink</a>."
 msgstr ""
-"این ورودی در %1$s فرستاده شده و با %2$s برچسب خورده. <a href=\"%3$s\" title=\"پایاپیوند به "
-"%4$s\" rel=\"bookmark\">پایاپیوند</a> را نشانه‌گذاری کنید."
+"این ورودی در %1$s فرستاده شده و با %2$s برچسب خورده. <a href=\"%3$s\" title=\"پایاپیوند به %4$s"
+"\" rel=\"bookmark\">پایاپیوند</a> را نشانه‌گذاری کنید."
 
 #: single.php:90
 msgid ""
-"This entry was posted in %1$s. Bookmark the <a href=\"%3$s\" title=\"Permalink to %4$s\" "
-"rel=\"bookmark\">permalink</a>."
+"This entry was posted in %1$s. Bookmark the <a href=\"%3$s\" title=\"Permalink to %4$s\" rel="
+"\"bookmark\">permalink</a>."
 msgstr ""
-"این ورودی در %1$s فرستاده شده است. <a href=\"%3$s\" title=\"پایاپیوند به %4$s\" rel="
-"\"bookmark\">پایاپیوند</a> به آن را نشانه‌گذاری کنید."
+"این ورودی در %1$s فرستاده شده است. <a href=\"%3$s\" title=\"پایاپیوند به %4$s\" rel=\"bookmark"
+"\">پایاپیوند</a> به آن را نشانه‌گذاری کنید."
 
 #. Theme Name of the plugin/theme
 #: wp-content/themes/pub/untitled/style.css
@@ -352,11 +347,11 @@ msgstr "https://wordpress.com/themes/untitled/"
 #. Description of the plugin/theme
 #: wp-content/themes/pub/untitled/style.css
 msgid ""
-"A nice bold theme. Features full-bleed featured posts and featured images, a fixed header, "
-"and subtle CSS3 transitions."
+"A nice bold theme. Features full-bleed featured posts and featured images, a fixed header, and "
+"subtle CSS3 transitions."
 msgstr ""
-"پوسته‌ای زیبا و جسور. پشتیبانی از نوشته‌ها و تصاویر ویژه با امکان زمینه‌چینی کامل. سرایند ثابت "
-"و حرکات جزئی با کمک CSS3."
+"پوسته‌ای زیبا و جسور. پشتیبانی از نوشته‌ها و تصاویر ویژه با امکان زمینه‌چینی کامل. سرایند ثابت و "
+"حرکات جزئی با کمک CSS3."
 
 #. Author of the plugin/theme
 #: wp-content/themes/pub/untitled/style.css
