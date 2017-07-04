@@ -18,6 +18,7 @@ class AdminBar extends gNetwork\Module
 
 
 	private $sidebar_admin = FALSE;
+	private $wpcf7_admin   = FALSE;
 	private $show_adminbar = NULL;
 
 	public $remove_nodes = [];
@@ -37,6 +38,7 @@ class AdminBar extends gNetwork\Module
 			$this->wp_enqueue_style();
 
 			$this->action( 'sidebar_admin_setup' );
+			$this->action( 'load-toplevel_page_wpcf7' );
 
 		} else if ( $this->show_adminbar() ) {
 
@@ -142,6 +144,34 @@ class AdminBar extends gNetwork\Module
 		}
 
 		$this->sidebar_admin = TRUE;
+	}
+
+	public static function load_toplevel_page_wpcf7()
+	{
+		if ( ! $post_id = self::req( 'post' )
+			|| 'edit' != self::req( 'action' ) )
+				return;
+
+		if ( $this->is_action( 'resetwpcf7messages' ) ) {
+			$this->filter( 'wpcf7_contact_form_properties', 2 );
+			$_SERVER['REQUEST_URI'] = $this->remove_action( [], $_SERVER['REQUEST_URI'] );
+		}
+
+		$this->wpcf7_admin = TRUE;
+	}
+
+	public function wpcf7_contact_form_properties( $properties, $wpcf7 )
+	{
+		foreach ( wpcf7_messages() as $key => $args )
+			$properties['messages'][$key] = $args['default'];
+
+		return $properties;
+	}
+
+	public function wpcf7_contact_form( &$wpcf7 )
+	{
+		unset( $wpcf7->properties['messages'] );
+		// self::kill($wpcf7);
 	}
 
 	public static function removeMenus( $nodes )
@@ -286,6 +316,17 @@ class AdminBar extends gNetwork\Module
 				'href'   => add_query_arg( $this->base.'_action', 'resetsidebars', $current_url ),
 				'meta'   => [
 					'title' => _x( 'Delete all previous sidebar widgets, be careful!', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ) ,
+				],
+			] );
+
+		if ( $this->wpcf7_admin )
+			$wp_admin_bar->add_node( [
+				'parent' => $group_id,
+				'id'     => $this->base.'-wpcf7-messages',
+				'title'  => _x( 'Reset Messages', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+				'href'   => add_query_arg( $this->base.'_action', 'resetwpcf7messages', $current_url ),
+				'meta'   => [
+					'title' => _x( 'Reset all saved messages for this form, be careful!', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ) ,
 				],
 			] );
 
