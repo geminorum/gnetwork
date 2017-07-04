@@ -281,8 +281,10 @@ class Locale extends gNetwork\Module
 		], $current );
 
 		foreach ( array_unique( $list ) as $value => $key )
-			if ( isset( $list[$_REQUEST[$key]] ) && array_key_exists( $_REQUEST[$key], $list ) )
-				return $base;
+			if ( isset( $_REQUEST[$key] )
+				&& isset( $list[$_REQUEST[$key]] )
+					&& array_key_exists( $_REQUEST[$key], $list ) )
+						return $base;
 
 		return $current;
 	}
@@ -294,8 +296,10 @@ class Locale extends gNetwork\Module
 		], $current );
 
 		foreach ( array_unique( $list ) as $value => $key )
-			if ( isset( $list[$_REQUEST[$key]] ) && array_key_exists( $_REQUEST[$key], $list ) )
-				return $current;
+			if ( isset( $_REQUEST[$key] )
+				&& isset( $list[$_REQUEST[$key]] )
+					&& array_key_exists( $_REQUEST[$key], $list ) )
+						return $current;
 
 		return $base;
 	}
