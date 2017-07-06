@@ -279,7 +279,9 @@ class Login extends gNetwork\Module
 
 	public function login_errors( $error )
 	{
-		return _x( 'Something is wrong!', 'Modules: Login: Ambiguous Error', GNETWORK_TEXTDOMAIN );
+		return _x( 'Something is wrong!', 'Modules: Login: Ambiguous Error', GNETWORK_TEXTDOMAIN )
+			.' '.HTML::link( _x( 'Lost your password?', 'Modules: Login: Ambiguous Error', GNETWORK_TEXTDOMAIN ),
+				esc_url( wp_lostpassword_url() ) );
 	}
 
 	public function login_footer_badge()
