@@ -1,21 +1,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Contact Form 7\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: 2017-07-04 14:40+0430\n"
+"PO-Revision-Date: 2017-07-04 16:39+0430\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
-"Language-Team: geminorum <contact@geminorum.ir>\n"
 "Language: fa_IR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_c\n"
-"X-Poedit-Basepath: ../..\n"
+"X-Poedit-Basepath: ../../contact-form-7\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Poedit 2.0.2\n"
-"X-Poedit-SearchPath-0: contact-form-7\n"
+"POT-Creation-Date: \n"
+"Language-Team: \n"
 
 #: modules/really-simple-captcha.php:30
 msgid "To use CAPTCHA, you need %s plugin installed."
@@ -143,9 +140,9 @@ msgstr ""
 
 #: admin/includes/welcome-panel.php:24
 msgid ""
-"Spammers target everything; your contact forms aren&#8217;t an exception. Before you "
-"get spammed, protect your contact forms with the powerful anti-spam features Contact "
-"Form 7 provides."
+"Spammers target everything; your contact forms aren&#8217;t an exception. Before you get "
+"spammed, protect your contact forms with the powerful anti-spam features Contact Form 7 "
+"provides."
 msgstr ""
 
 #: admin/includes/welcome-panel.php:22
@@ -175,8 +172,8 @@ msgstr "سؤالات متداول درباره پیکربندی"
 
 #: admin/admin.php:607
 msgid ""
-"Misconfiguration leads to mail delivery failure or other troubles. Validate your "
-"contact forms now."
+"Misconfiguration leads to mail delivery failure or other troubles. Validate your contact "
+"forms now."
 msgstr ""
 
 #: admin/admin.php:605
@@ -526,8 +523,8 @@ msgstr ""
 
 #: modules/really-simple-captcha.php:346
 msgid ""
-"This contact form contains CAPTCHA fields, but the necessary libraries (GD and "
-"FreeType) are not available on your server."
+"This contact form contains CAPTCHA fields, but the necessary libraries (GD and FreeType) "
+"are not available on your server."
 msgstr ""
 
 #: modules/really-simple-captcha.php:340
@@ -577,8 +574,7 @@ msgid "The code that sender entered does not match the CAPTCHA"
 msgstr ""
 
 #: modules/quiz.php:206
-msgid ""
-"One pipe-separated question-answer pair (e.g. The capital of Brazil?|Rio) per line."
+msgid "One pipe-separated question-answer pair (e.g. The capital of Brazil?|Rio) per line."
 msgstr ""
 
 #: modules/quiz.php:201 modules/quiz.php:204
@@ -643,8 +639,8 @@ msgstr ""
 
 #: modules/file.php:316
 msgid ""
-"This contact form contains file uploading fields, but the temporary folder for the "
-"files (%s) does not exist or is not writable. You can create the folder or change its "
+"This contact form contains file uploading fields, but the temporary folder for the files "
+"(%s) does not exist or is not writable. You can create the folder or change its "
 "permission manually."
 msgstr ""
 
@@ -964,29 +960,29 @@ msgstr "هیچ گاه اطلاعات برای ارائه دهندگان خدما
 
 #: admin/includes/help-tabs.php:82
 msgid ""
-"You may need to first sign up for an account with the service that you plan to use. "
-"When you do so, you would need to authorize Contact Form 7 to access the service with "
-"your account."
+"You may need to first sign up for an account with the service that you plan to use. When "
+"you do so, you would need to authorize Contact Form 7 to access the service with your "
+"account."
 msgstr ""
 
 #: admin/includes/help-tabs.php:81
 msgid ""
-"On this screen, you can manage services that are available through Contact Form 7. "
-"Using API will allow you to collaborate with any services that are available."
+"On this screen, you can manage services that are available through Contact Form 7. Using "
+"API will allow you to collaborate with any services that are available."
 msgstr ""
 
 #: admin/includes/help-tabs.php:79
 msgid ""
 "There are also special mail-tags that have specific names, but don&#8217;t have "
-"corresponding form-tags. They are used to represent meta information of form "
-"submissions like the submitter&#8217;s IP address or the URL of the page."
+"corresponding form-tags. They are used to represent meta information of form submissions "
+"like the submitter&#8217;s IP address or the URL of the page."
 msgstr ""
 
 #: admin/includes/help-tabs.php:78
 msgid ""
 "A mail-tag is also a short code enclosed in square brackets that you can use in every "
-"Mail and Mail (2) field. A mail-tag represents a user input value through an input "
-"field of a corresponding form-tag."
+"Mail and Mail (2) field. A mail-tag represents a user input value through an input field "
+"of a corresponding form-tag."
 msgstr ""
 
 #: admin/includes/help-tabs.php:76
@@ -1070,8 +1066,8 @@ msgstr ""
 #: admin/includes/help-tabs.php:61
 msgid ""
 "On this screen, you can manage contact forms provided by Contact Form 7. You can manage "
-"an unlimited number of contact forms. Each contact form has a unique ID and Contact "
-"Form 7 shortcode ([contact-form-7 ...]). To insert a contact form into a post or a text "
+"an unlimited number of contact forms. Each contact form has a unique ID and Contact Form "
+"7 shortcode ([contact-form-7 ...]). To insert a contact form into a post or a text "
 "widget, insert the shortcode into the target."
 msgstr ""
 
@@ -1273,8 +1269,7 @@ msgstr "این شورت‌کد را در نوشته، برگه و یا ابزا�
 msgid "Enter title here"
 msgstr "عنوان فرم را اینجا وارد کنید"
 
-#: admin/edit-contact-form.php:26 admin/edit-contact-form.php:131
-#: modules/recaptcha.php:211
+#: admin/edit-contact-form.php:26 admin/edit-contact-form.php:131 modules/recaptcha.php:211
 msgid "Save"
 msgstr "ذخیره"
 
