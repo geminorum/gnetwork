@@ -78,6 +78,8 @@ class Blog extends gNetwork\Module
 			'admin_locale'         => '',
 			'blog_redirect'        => '',
 			'blog_redirect_status' => '301',
+			'heartbeat_mode'       => 'default',
+			'heartbeat_frequency'  => 'default',
 			'rest_api_enabled'     => '0',
 			'xmlrpc_enabled'       => '0',
 			'wlw_enabled'          => '0',
@@ -131,6 +133,36 @@ class Blog extends gNetwork\Module
 					'field'       => 'thrift_mode',
 					'title'       => _x( 'Thrift Mode', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Trying to make your host happy!', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+				],
+				[
+					'field'       => 'heartbeat_mode',
+					'type'        => 'select',
+					'title'       => _x( 'Heartbeat Mode', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Controls the Heartbeat API locations.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+					'values'      => [
+						'default'   => _x( 'Use default', 'Modules: Blog: Settings: Option', GNETWORK_TEXTDOMAIN ),
+						'disable'   => _x( 'Disable everywhere', 'Modules: Blog: Settings: Option', GNETWORK_TEXTDOMAIN ),
+						'dashboard' => _x( 'Disable on Dashboard page', 'Modules: Blog: Settings: Option', GNETWORK_TEXTDOMAIN ),
+						'postedit'  => _x( 'Allow only on Post Edit pages', 'Modules: Blog: Settings: Option', GNETWORK_TEXTDOMAIN ),
+					],
+				],
+				[
+					'field'       => 'heartbeat_frequency',
+					'type'        => 'select',
+					'title'       => _x( 'Heartbeat Frequency', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Overrides the Heartbeat API frequency.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+					'values'      => [
+						'default' => _x( 'Use default', 'Modules: Blog: Settings: Option', GNETWORK_TEXTDOMAIN ),
+						'15'      => _x( '15 seconds', 'Modules: Blog: Settings: Option', GNETWORK_TEXTDOMAIN ),
+						'20'      => _x( '20 seconds', 'Modules: Blog: Settings: Option', GNETWORK_TEXTDOMAIN ),
+						'25'      => _x( '25 seconds', 'Modules: Blog: Settings: Option', GNETWORK_TEXTDOMAIN ),
+						'30'      => _x( '30 seconds', 'Modules: Blog: Settings: Option', GNETWORK_TEXTDOMAIN ),
+						'35'      => _x( '35 seconds', 'Modules: Blog: Settings: Option', GNETWORK_TEXTDOMAIN ),
+						'40'      => _x( '40 seconds', 'Modules: Blog: Settings: Option', GNETWORK_TEXTDOMAIN ),
+						'45'      => _x( '45 seconds', 'Modules: Blog: Settings: Option', GNETWORK_TEXTDOMAIN ),
+						'50'      => _x( '50 seconds', 'Modules: Blog: Settings: Option', GNETWORK_TEXTDOMAIN ),
+						'60'      => _x( '60 seconds', 'Modules: Blog: Settings: Option', GNETWORK_TEXTDOMAIN ),
+					],
 				],
 				[
 					'field'       => 'rest_api_enabled',
@@ -317,6 +349,28 @@ class Blog extends gNetwork\Module
 
 		if ( $this->options['content_width'] )
 			$this->set_content_width( $this->options['content_width'] );
+
+
+		if ( 'disable' == $this->options['heartbeat_mode'] ) {
+
+			wp_deregister_script( 'heartbeat' );
+
+		} else if ( 'dashboard' == $this->options['heartbeat_mode'] ) {
+
+			if ( 'index.php' == $GLOBALS['pagenow'] )
+				wp_deregister_script( 'heartbeat' );
+
+		} else if ( 'postedit' == $this->options['heartbeat_mode'] ) {
+
+			if ( 'post.php' == $GLOBALS['pagenow']
+				|| 'post-new.php' == $GLOBALS['pagenow'] )
+					wp_deregister_script( 'heartbeat' );
+		}
+
+		if ( 'default' != $this->options['heartbeat_frequency'] )
+			add_filter( 'heartbeat_settings', function( $settings ){
+				return array_merge( $settings, [ 'interval' => intval( $this->options['heartbeat_frequency'] ) ] );
+			} );
 	}
 
 	public function init_late()
