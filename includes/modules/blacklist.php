@@ -38,7 +38,7 @@ class BlackList extends gNetwork\Module
 		return [
 			'check_ip'           => '0',
 			'blacklisted_ips'    => '',
-			'blacklisted_notice' => '',
+			'blacklisted_notice' => 'you\'re blacklisted, dude!',
 		];
 	}
 

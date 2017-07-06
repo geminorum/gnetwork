@@ -64,9 +64,6 @@ $gnetwork_constants = [
 
 	'FS_CHMOD_DIR'  => ( 0755 & ~ umask() ),
 	'FS_CHMOD_FILE' => ( 0644 & ~ umask() ),
-
-	// for older verions
-	'JSON_UNESCAPED_UNICODE' => 256, // http://php.net/manual/en/json.constants.php
 ];
 
 foreach ( $gnetwork_constants as $key => $val )

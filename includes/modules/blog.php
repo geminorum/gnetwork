@@ -238,7 +238,7 @@ class Blog extends gNetwork\Module
 			'field'       => 'content_width',
 			'type'        => 'number',
 			'title'       => _x( 'Content Width', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-			'description' => _x( 'Override active theme\'s content width. Leave empty for not override.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Overrides content width of the active theme. Leave empty to disable.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 			'after'       => ! empty( $GLOBALS['content_width'] ) && ! $this->options['content_width'] ? Settings::fieldAfterText( sprintf( _x( 'Current is %s', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ), '<code>'.$GLOBALS['content_width'].'</code>' ) ) : FALSE,
 		];
 
