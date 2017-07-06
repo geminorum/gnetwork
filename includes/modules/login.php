@@ -28,6 +28,7 @@ class Login extends gNetwork\Module
 			$this->action( 'wp_login', 2 );
 
 		$this->filter( 'wp_login_errors', 2 );
+		$this->filter( 'login_errors', 1, 20 );
 	}
 
 	public function setup_menu( $context )
@@ -274,6 +275,11 @@ class Login extends gNetwork\Module
 				Logger::NOTICE( 'LOGIN-ERRORS: '.str_replace( '_', ' ', $error ).sprintf( ': %s', self::req( 'log', '(EMPTY)' ) ) );
 
 		return $errors;
+	}
+
+	public function login_errors( $error )
+	{
+		return _x( 'Something is wrong!', 'Modules: Login: Ambiguous Error', GNETWORK_TEXTDOMAIN );
 	}
 
 	public function login_footer_badge()
