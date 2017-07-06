@@ -1,3 +1,28 @@
+### 3.6.1
+* main/module: :warning: cap check for phpinfo tab
+* main/functions: fallback for gmeta
+* module/adminbar: :new: wpcf7 reset messages node
+* module/adminbar: :new: edit current wpcf7 form node
+* module/blocklist: support for CIDR/wildcard
+* module/blog: :new: thrift mode
+* module/blog: :new: page/frequency for heartbeat api
+* module/blog: :new: custom autosave intervals
+* module/blog: referer on redirect logs
+* module/comments: filter hidden comment types
+* module/cleanup: :new: purge network obsolete options
+* module/debug: meta debugbar for post arg in request
+* module/embed: :new: support for docs pdf
+* module/embed: :new: support for giphy.com
+* module/locale: whitelist for network
+* module/login: ambiguous error message
+* module/restricted: :warning: fixed fatal
+* module/site: initial post content for new blogs
+* module/taxonomy: :new: transliterate slug action for terms
+* module/themes: passing rtl into mce style url generator
+* module/themes: :new: support Twenty Twelve
+* module/themes: test with hueman v3.3.14
+* module/themes: test with semicolon v0.9.1
+
 ### 3.6.0
 * assets/js: :up: autosize 3.0.21
 * main/constants: new cache ttl `GNETWORK_CACHE_TTL`
