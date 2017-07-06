@@ -89,7 +89,7 @@ class BlackList extends gNetwork\Module
 		$blocks = explode( ',', str_replace( "\n", ',', $this->options['blacklisted_ips'] ) );
 
 		foreach ( $blocks as $block )
-			if ( HTTP::IPinBlock( $_SERVER['REMOTE_ADDR'], trim( $block ) ) )
+			if ( HTTP::IPinRange( $_SERVER['REMOTE_ADDR'], trim( $block ) ) )
 				return TRUE;
 
 		return FALSE;
