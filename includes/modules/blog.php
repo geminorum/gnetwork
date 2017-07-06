@@ -18,8 +18,11 @@ class Blog extends gNetwork\Module
 	protected $network = FALSE;
 	protected $ajax    = TRUE;
 
+	private $autosave_interval = FALSE;
+
 	protected function setup_actions()
 	{
+		$this->action( 'plugins_loaded', 0, 1 );
 		$this->action( 'init', 0, 1 );
 		$this->action( 'wp_loaded', 0, 99 );
 
@@ -80,6 +83,7 @@ class Blog extends gNetwork\Module
 			'blog_redirect_status' => '301',
 			'heartbeat_mode'       => 'default',
 			'heartbeat_frequency'  => 'default',
+			'autosave_interval'    => '',
 			'rest_api_enabled'     => '0',
 			'xmlrpc_enabled'       => '0',
 			'wlw_enabled'          => '0',
@@ -99,145 +103,155 @@ class Blog extends gNetwork\Module
 
 	public function default_settings()
 	{
-		$exclude = array_filter( [
+		$settings = [];
+		$exclude  = array_filter( [
 			get_option( 'page_on_front' ),
 			get_option( 'page_for_posts' ),
 		] );
 
-		$settings = [
-			'_general' => [
+		if ( class_exists( __NAMESPACE__.'\\Locale' ) )
+			$settings['_locale'] = [
 				[
-					'field'       => 'blog_redirect',
-					'type'        => 'url',
-					'title'       => _x( 'Redirect', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'The Site Will Redirect to This URL', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'placeholder' => 'http://anothersite.com',
-				],
-				[
-					'field'       => 'blog_redirect_status',
+					'field'       => 'admin_locale',
 					'type'        => 'select',
-					'title'       => _x( 'Redirect Status Code', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'HTTP Status Header Code', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'after'       => Settings::fieldAfterIcon( 'https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#3xx_Redirection' ),
-					'dir'         => 'ltr',
-					'default'     => '301',
-					'values'      => [
-						'301' => '301 Moved Permanently',
-						'302' => '302 Found',
-						'303' => '303 See Other',
-						'307' => '307 Temporary Redirect',
-						'308' => '308 Permanent Redirect',
-					],
+					'title'       => _x( 'Admin Language', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Despite of the Site Language, Always Display Admin in This Locale', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+					'none_title'  => _x( 'Site Default', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+					'none_value'  => '',
+					'values'      => Arraay::sameKey( Locale::available() ),
 				],
-				[
-					'field'       => 'thrift_mode',
-					'title'       => _x( 'Thrift Mode', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Trying to make your host happy!', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-				],
-				[
-					'field'       => 'heartbeat_mode',
-					'type'        => 'select',
-					'title'       => _x( 'Heartbeat Mode', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Controls the Heartbeat API locations.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'values'      => [
-						'default'   => _x( 'Use default', 'Modules: Blog: Settings: Option', GNETWORK_TEXTDOMAIN ),
-						'disable'   => _x( 'Disable everywhere', 'Modules: Blog: Settings: Option', GNETWORK_TEXTDOMAIN ),
-						'dashboard' => _x( 'Disable on Dashboard page', 'Modules: Blog: Settings: Option', GNETWORK_TEXTDOMAIN ),
-						'postedit'  => _x( 'Allow only on Post Edit pages', 'Modules: Blog: Settings: Option', GNETWORK_TEXTDOMAIN ),
-					],
-				],
-				[
-					'field'       => 'heartbeat_frequency',
-					'type'        => 'select',
-					'title'       => _x( 'Heartbeat Frequency', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Overrides the Heartbeat API frequency.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'values'      => [
-						'default' => _x( 'Use default', 'Modules: Blog: Settings: Option', GNETWORK_TEXTDOMAIN ),
-						'15'      => _x( '15 seconds', 'Modules: Blog: Settings: Option', GNETWORK_TEXTDOMAIN ),
-						'20'      => _x( '20 seconds', 'Modules: Blog: Settings: Option', GNETWORK_TEXTDOMAIN ),
-						'25'      => _x( '25 seconds', 'Modules: Blog: Settings: Option', GNETWORK_TEXTDOMAIN ),
-						'30'      => _x( '30 seconds', 'Modules: Blog: Settings: Option', GNETWORK_TEXTDOMAIN ),
-						'35'      => _x( '35 seconds', 'Modules: Blog: Settings: Option', GNETWORK_TEXTDOMAIN ),
-						'40'      => _x( '40 seconds', 'Modules: Blog: Settings: Option', GNETWORK_TEXTDOMAIN ),
-						'45'      => _x( '45 seconds', 'Modules: Blog: Settings: Option', GNETWORK_TEXTDOMAIN ),
-						'50'      => _x( '50 seconds', 'Modules: Blog: Settings: Option', GNETWORK_TEXTDOMAIN ),
-						'60'      => _x( '60 seconds', 'Modules: Blog: Settings: Option', GNETWORK_TEXTDOMAIN ),
-					],
-				],
-				[
-					'field'       => 'rest_api_enabled',
-					'title'       => _x( 'Rest API', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Whether REST API Services Are Enabled on This Site', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-				],
-				[
-					'field'       => 'xmlrpc_enabled',
-					'title'       => _x( 'XML-RPC', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Whether XML-RPC Services Are Enabled on This Site', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-				],
-				[
-					'field'       => 'wlw_enabled',
-					'title'       => _x( 'WLW', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Whether Windows Live Writer manifest enabled for this site.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-				],
-				[
-					'field'       => 'feed_json',
-					'title'       => _x( 'JSON Feed', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Adds JSON as New Type of Feed You Can Subscribe To', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'after'       => $this->options['feed_json'] ? Settings::fieldAfterLink( get_feed_link( 'json' ) ) : '',
-				],
-				[
-					'field'       => 'disable_emojis',
-					'title'       => _x( 'Emojis', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Removes the Extra Code Bloat Used to Add Support for Emoji\'s in Older Browsers', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'default'     => GNETWORK_DISABLE_EMOJIS,
-					'after'       => Settings::fieldAfterIcon( Settings::getWPCodexLink( 'Emoji' ) ),
-					'values'      => Settings::reverseEnabled(),
-				],
-				[
-					'field'       => 'page_copyright',
-					'type'        => 'page',
-					'title'       => _x( 'Page for Copyright', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Set Any Page to Be Used as Copyright Page on Html Head', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'default'     => '0',
-					'exclude'     => $exclude,
-					'after'       => Settings::fieldAfterNewPostType( 'page' ),
-				],
-				[
-					'field'       => 'page_404',
-					'type'        => 'page',
-					'title'       => _x( 'Page for 404 Error', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Set Any Page to Be Used as the 404 Error Page', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'default'     => '0',
-					'exclude'     => $exclude,
-					'after'       => Settings::fieldAfterNewPostType( 'page' ),
-				],
-				[
-					'field'       => 'content_width',
-					'type'        => 'number',
-					'title'       => _x( 'Content Width', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Override active theme\'s content width. Leave empty for not override.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'after'       => ! empty( $GLOBALS['content_width'] ) && ! $this->options['content_width'] ? Settings::fieldAfterText( sprintf( _x( 'Current is %s', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ), '<code>'.$GLOBALS['content_width'].'</code>' ) ) : FALSE,
-				],
-				[
-					'field'       => 'meta_revised',
-					'title'       => _x( 'Meta Revised', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'HTML Revised Meta Tags for Posts', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-				],
-				[
-					'field'       => 'noindex_attachments',
-					'title'       => _x( 'No Index Attachments', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'No Index/No Follow Meta Tags for Attachments', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-				],
-				[
-					'field'       => 'feed_delay',
-					'type'        => 'select',
-					'title'       => _x( 'Delay Feeds', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Delay published posts on feeds', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'none_title'  => _x( 'No Delay', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'values'      => Settings::minutesOptions(),
-					'default'     => '10',
-				],
+			];
+
+		$settings['_thrift'][] = [
+			'field'       => 'thrift_mode',
+			'title'       => _x( 'Thrift Mode', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Trying to make your host happy!', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+		];
+
+		$settings['_thrift'][] = [
+			'field'       => 'heartbeat_mode',
+			'type'        => 'select',
+			'title'       => _x( 'Heartbeat Mode', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Controls the Heartbeat API locations.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'values'      => [
+				'default'   => _x( 'Use default', 'Modules: Blog: Settings: Option', GNETWORK_TEXTDOMAIN ),
+				'disable'   => _x( 'Disable everywhere', 'Modules: Blog: Settings: Option', GNETWORK_TEXTDOMAIN ),
+				'dashboard' => _x( 'Disable on Dashboard page', 'Modules: Blog: Settings: Option', GNETWORK_TEXTDOMAIN ),
+				'postedit'  => _x( 'Allow only on Post Edit pages', 'Modules: Blog: Settings: Option', GNETWORK_TEXTDOMAIN ),
 			],
+		];
+
+		$settings['_thrift'][] = [
+			'field'       => 'heartbeat_frequency',
+			'type'        => 'select',
+			'title'       => _x( 'Heartbeat Frequency', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Overrides the Heartbeat API frequency.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'values'      => [
+				'default' => _x( 'Use default', 'Modules: Blog: Settings: Option', GNETWORK_TEXTDOMAIN ),
+				'15'      => _x( '15 seconds', 'Modules: Blog: Settings: Option', GNETWORK_TEXTDOMAIN ),
+				'20'      => _x( '20 seconds', 'Modules: Blog: Settings: Option', GNETWORK_TEXTDOMAIN ),
+				'25'      => _x( '25 seconds', 'Modules: Blog: Settings: Option', GNETWORK_TEXTDOMAIN ),
+				'30'      => _x( '30 seconds', 'Modules: Blog: Settings: Option', GNETWORK_TEXTDOMAIN ),
+				'35'      => _x( '35 seconds', 'Modules: Blog: Settings: Option', GNETWORK_TEXTDOMAIN ),
+				'40'      => _x( '40 seconds', 'Modules: Blog: Settings: Option', GNETWORK_TEXTDOMAIN ),
+				'45'      => _x( '45 seconds', 'Modules: Blog: Settings: Option', GNETWORK_TEXTDOMAIN ),
+				'50'      => _x( '50 seconds', 'Modules: Blog: Settings: Option', GNETWORK_TEXTDOMAIN ),
+				'60'      => _x( '60 seconds', 'Modules: Blog: Settings: Option', GNETWORK_TEXTDOMAIN ),
+			],
+		];
+
+		if ( $this->autosave_interval )
+			$settings['_thrift'][] = [
+				'field'       => 'autosave_interval',
+				'type'        => 'number',
+				'title'       => _x( 'Autosave Interval', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => sprintf( _x( 'Time in seconds that WordPress will save the currently editing posts. default is %s seconds.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ), '<code>'.AUTOSAVE_INTERVAL.'</code>' ),
+				'min_attr'    => '20',
+				'default'     => '120',
+			];
+
+		$settings['_services'][] = [
+			'field'       => 'rest_api_enabled',
+			'title'       => _x( 'Rest API', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Whether REST API Services Are Enabled on This Site', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+		];
+
+		$settings['_services'][] = [
+			'field'       => 'xmlrpc_enabled',
+			'title'       => _x( 'XML-RPC', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Whether XML-RPC Services Are Enabled on This Site', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+		];
+
+		$settings['_services'][] = [
+			'field'       => 'wlw_enabled',
+			'title'       => _x( 'WLW', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Whether Windows Live Writer manifest enabled for this site.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+		];
+
+		$settings['_feeds'][] = [
+			'field'       => 'feed_delay',
+			'type'        => 'select',
+			'title'       => _x( 'Delay Feeds', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Delay published posts on feeds', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'none_title'  => _x( 'No Delay', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'values'      => Settings::minutesOptions(),
+			'default'     => '10',
+		];
+
+		$settings['_feeds'][] = [
+			'field'       => 'feed_json',
+			'title'       => _x( 'JSON Feed', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Adds JSON as New Type of Feed You Can Subscribe To', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'after'       => $this->options['feed_json'] ? Settings::fieldAfterLink( get_feed_link( 'json' ) ) : '',
+		];
+
+		$settings['_thrift'][] = [
+			'field'       => 'disable_emojis',
+			'title'       => _x( 'Emojis', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Removes the Extra Code Bloat Used to Add Support for Emoji\'s in Older Browsers', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'default'     => GNETWORK_DISABLE_EMOJIS,
+			'after'       => Settings::fieldAfterIcon( Settings::getWPCodexLink( 'Emoji' ) ),
+			'values'      => Settings::reverseEnabled(),
+		];
+
+		$settings['_theme'][] = [
+			'field'       => 'page_copyright',
+			'type'        => 'page',
+			'title'       => _x( 'Page for Copyright', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Set Any Page to Be Used as Copyright Page on Html Head', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'default'     => '0',
+			'exclude'     => $exclude,
+			'after'       => Settings::fieldAfterNewPostType( 'page' ),
+		];
+
+		$settings['_theme'][] = [
+			'field'       => 'page_404',
+			'type'        => 'page',
+			'title'       => _x( 'Page for 404 Error', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Set Any Page to Be Used as the 404 Error Page', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'default'     => '0',
+			'exclude'     => $exclude,
+			'after'       => Settings::fieldAfterNewPostType( 'page' ),
+		];
+
+		$settings['_theme'][] = [
+			'field'       => 'content_width',
+			'type'        => 'number',
+			'title'       => _x( 'Content Width', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Override active theme\'s content width. Leave empty for not override.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'after'       => ! empty( $GLOBALS['content_width'] ) && ! $this->options['content_width'] ? Settings::fieldAfterText( sprintf( _x( 'Current is %s', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ), '<code>'.$GLOBALS['content_width'].'</code>' ) ) : FALSE,
+		];
+
+		$settings['_theme'][] = [
+			'field'       => 'meta_revised',
+			'title'       => _x( 'Meta Revised', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'HTML Revised Meta Tags for Posts', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+		];
+
+		$settings['_theme'][] = [
+			'field'       => 'noindex_attachments',
+			'title'       => _x( 'No Index Attachments', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'No Index/No Follow Meta Tags for Attachments', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 		];
 
 		if ( class_exists( __NAMESPACE__.'\\Mail' ) && is_multisite() ) {
@@ -270,20 +284,43 @@ class Blog extends gNetwork\Module
 				],
 			];
 
-		if ( class_exists( __NAMESPACE__.'\\Locale' ) )
-			$settings['_locale'] = [
-				[
-					'field'       => 'admin_locale',
-					'type'        => 'select',
-					'title'       => _x( 'Admin Language', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Despite of the Site Language, Always Display Admin in This Locale', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'none_title'  => _x( 'Site Default', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'none_value'  => '',
-					'values'      => Arraay::sameKey( Locale::available() ),
-				],
-			];
+		$settings['_redirect'][] = [
+			'field'       => 'blog_redirect',
+			'type'        => 'url',
+			'title'       => _x( 'Redirect', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'The Site Will Redirect to This URL', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'placeholder' => 'http://anothersite.com',
+		];
+
+		$settings['_redirect'][] = [
+			'field'       => 'blog_redirect_status',
+			'type'        => 'select',
+			'title'       => _x( 'Redirect Status Code', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'HTTP Status Header Code', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'after'       => Settings::fieldAfterIcon( 'https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#3xx_Redirection' ),
+			'dir'         => 'ltr',
+			'default'     => '301',
+			'values'      => [
+				'301' => '301 Moved Permanently',
+				'302' => '302 Found',
+				'303' => '303 See Other',
+				'307' => '307 Temporary Redirect',
+				'308' => '308 Permanent Redirect',
+			],
+		];
 
 		return $settings;
+	}
+
+	public function plugins_loaded()
+	{
+		if ( ! defined( 'AUTOSAVE_INTERVAL' ) ) {
+
+			if ( $this->options['autosave_interval'] )
+				define( 'AUTOSAVE_INTERVAL', $this->options['autosave_interval'] );
+
+			$this->autosave_interval = TRUE;
+		}
 	}
 
 	public function wp_loaded()
