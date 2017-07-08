@@ -29,12 +29,6 @@ class ShortCodes extends gNetwork\Module
 		add_action( 'wp_footer', [ $this, 'wp_footer' ], 20 );
 		add_action( 'wp_footer', [ $this, 'print_scripts' ], 20 );
 
-		add_action( 'gnetwork_tinymce_strings', [ $this, 'tinymce_strings' ] );
-		Admin::registerTinyMCE( 'gnetworkref', 'assets/js/tinymce/ref', 2 );
-		Admin::registerTinyMCE( 'gnetworkemail', 'assets/js/tinymce/email', 2 );
-		Admin::registerTinyMCE( 'gnetworksearch', 'assets/js/tinymce/search', 2 );
-		Admin::registerTinyMCE( 'gnetworkgpeople', 'assets/js/tinymce/gpeople', 2 );
-
 		$this->action( 'register_shortcode_ui' );
 	}
 
@@ -58,6 +52,12 @@ class ShortCodes extends gNetwork\Module
 
 	public function init_late()
 	{
+		add_action( 'gnetwork_tinymce_strings', [ $this, 'tinymce_strings' ] );
+		Admin::registerTinyMCE( 'gnetworkref', 'assets/js/tinymce/ref', 2 );
+		Admin::registerTinyMCE( 'gnetworkemail', 'assets/js/tinymce/email', 2 );
+		Admin::registerTinyMCE( 'gnetworksearch', 'assets/js/tinymce/search', 2 );
+		Admin::registerTinyMCE( 'gnetworkgpeople', 'assets/js/tinymce/gpeople', 2 );
+
 		$this->shortcodes( [
 			'children'     => 'shortcode_children',
 			'siblings'     => 'shortcode_siblings',

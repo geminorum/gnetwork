@@ -106,10 +106,51 @@ class Admin extends gNetwork\Module
 			add_action( 'gnetwork_admin_settings', $callback );
 	}
 
-	public static function registerTinyMCE( $plugin, $filepath, $row = 1 )
+	public static function registerTinyMCE( $plugin, $filepath, $row = 1, $context = 'post' )
 	{
-		if ( isset( gNetwork()->editor ) )
-			gNetwork()->editor->tinymce[$row][$plugin] = $filepath ? GNETWORK_URL.$filepath : FALSE;
+		global $pagenow;
+
+		if ( ! isset( gNetwork()->editor ) )
+			return FALSE;
+
+		switch ( $context ) {
+
+			case 'post':
+
+				if ( ! is_admin() )
+					return FALSE;
+
+				if ( 'post.php' != $pagenow && 'post-new.php' != $pagenow )
+					return FALSE;
+
+			break;
+			case 'term':
+
+				if ( ! is_admin() )
+					return FALSE;
+
+				if ( ! array_key_exists( 'taxonomy', $_REQUEST ) )
+					return FALSE;
+
+			case 'admin':
+
+				if ( ! is_admin() )
+					return FALSE;
+
+			break;
+			case 'front':
+
+				if ( is_admin() )
+					return FALSE;
+
+			break;
+			default:
+			case 'all':
+		}
+
+		gNetwork()->editor->tinymce[$row][$plugin] = $filepath ? GNETWORK_URL.$filepath : FALSE;
+
+		return TRUE;
 	}
 
 	public function settings_load()

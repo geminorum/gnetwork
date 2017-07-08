@@ -17,14 +17,6 @@ class Typography extends gNetwork\Module
 	{
 		$this->action( 'init', 0, 12 );
 
-		if ( $this->options['editor_buttons'] ) {
-
-			add_action( 'gnetwork_tinymce_strings', [ $this, 'tinymce_strings' ] );
-
-			Admin::registerTinyMCE( 'gnetworkquote', 'assets/js/tinymce/quote', 1 );
-			Admin::registerTinyMCE( 'gnetworkasterisks', 'assets/js/tinymce/asterisks', 2 );
-		}
-
 		if ( is_admin() )
 			return;
 
@@ -128,6 +120,14 @@ class Typography extends gNetwork\Module
 
 	public function init()
 	{
+		if ( $this->options['editor_buttons'] ) {
+
+			add_action( 'gnetwork_tinymce_strings', [ $this, 'tinymce_strings' ] );
+
+			Admin::registerTinyMCE( 'gnetworkquote', 'assets/js/tinymce/quote', 1 );
+			Admin::registerTinyMCE( 'gnetworkasterisks', 'assets/js/tinymce/asterisks', 2 );
+		}
+
 		$this->shortcodes( [
 			'three-asterisks' => 'shortcode_three_asterisks',
 			'ltr'             => 'shortcode_ltr',

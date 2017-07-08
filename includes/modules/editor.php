@@ -118,7 +118,9 @@ class Editor extends gNetwork\Module
 
 	public function mce_buttons( $buttons, $editor_id )
 	{
-		$buttons = $this->mce_wppage_button( $buttons );
+		// skip adding on term description editors
+		if ( ! array_key_exists( 'taxonomy', $_REQUEST ) )
+			$buttons = $this->mce_wppage_button( $buttons );
 
 		if ( ! count( $this->tinymce[1] ) )
 			return $buttons;
@@ -131,7 +133,9 @@ class Editor extends gNetwork\Module
 
 	public function mce_buttons_2( $buttons, $editor_id )
 	{
-		$buttons = $this->mce_wpcode_button( $buttons );
+		// skip adding on term description editors
+		if ( ! array_key_exists( 'taxonomy', $_REQUEST ) )
+			$buttons = $this->mce_wpcode_button( $buttons );
 
 		if ( ! count( $this->tinymce[2] ) )
 			return $buttons;
