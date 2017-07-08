@@ -198,6 +198,7 @@ class Settings extends Core\Base
 
 	public static function submitButton( $name = 'submit', $text = NULL, $primary = FALSE, $atts = [] )
 	{
+		$link    = FALSE;
 		$classes = [ '-button', 'button' ];
 
 		if ( is_null( $text ) )
@@ -214,20 +215,30 @@ class Settings extends Core\Base
 		if ( 'primary' == $primary )
 			$primary = TRUE;
 
+		else if ( 'link' == $primary )
+			$link = TRUE;
+
 		if ( TRUE === $primary )
 			$classes[] = 'button-primary';
 
-		else if ( $primary )
+		else if ( $primary && 'link' != $primary )
 			$classes[] = 'button-'.$primary;
 
-		echo HTML::tag( 'input', array_merge( $atts, [
-			'type'    => 'submit',
-			'name'    => $name,
-			'id'      => $name,
-			'value'   => $text,
-			'class'   => $classes,
-			'default' => TRUE === $primary,
-		] ) );
+		if ( $link )
+			echo HTML::tag( 'a', array_merge( $atts, [
+				'href'  => $name,
+				'class' => $classes,
+			] ), $text );
+
+		else
+			echo HTML::tag( 'input', array_merge( $atts, [
+				'type'    => 'submit',
+				'name'    => $name,
+				'id'      => $name,
+				'value'   => $text,
+				'class'   => $classes,
+				'default' => TRUE === $primary,
+			] ) );
 
 		echo '&nbsp;&nbsp;';
 	}
