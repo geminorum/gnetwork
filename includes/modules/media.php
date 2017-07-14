@@ -296,6 +296,7 @@ class Media extends gNetwork\Module
 	// @SEE: https://github.com/syamilmj/Aqua-Resizer/blob/master/aq_resizer.php
 	public function wp_generate_attachment_metadata( $metadata, $attachment_id )
 	{
+		// only images have 'file' key
 		if ( ! isset( $metadata['file'] ) )
 			return $metadata;
 
@@ -318,7 +319,7 @@ class Media extends gNetwork\Module
 			$parent_type = $parent->post_type;
 		}
 
-		$sizes = $this->get_sizes( $parent_type );
+		$sizes = $this->get_posttype_sizes( $parent_type );
 
 		if ( ! count( $sizes ) )
 			return $metadata;
@@ -335,24 +336,33 @@ class Media extends gNetwork\Module
 		return $metadata;
 	}
 
-	private function get_sizes( $post_type = 'post', $key = 'post_type' )
+	private function get_posttype_sizes( $posttype = 'post', $fallback = 'post' )
 	{
-		if ( isset( $this->posttype_sizes[$post_type] ) )
-			return $this->posttype_sizes[$post_type];
+		if ( isset( $this->posttype_sizes[$posttype] ) )
+			return $this->posttype_sizes[$posttype];
 
 		global $_wp_additional_image_sizes;
 
 		$sizes = [];
 
-		foreach ( $_wp_additional_image_sizes as $name => $size )
-			if ( isset( $size[$key] ) && in_array( $post_type, $size[$key] ) )
-				$sizes[$name] = $size;
-			else if ( ! isset( $size[$key] ) && 'post' == $post_type )
-				$sizes[$name] = $size;
+		foreach ( (array) $_wp_additional_image_sizes as $name => $size ) {
 
-		$this->posttype_sizes[$post_type] = $sizes;
+			if ( array_key_exists( 'post_type', $size ) ) {
 
-		return $sizes;
+				if ( is_array( $size['post_type'] )
+					&& in_array( $posttype, $size['post_type'] ) )
+						$sizes[$name] = $size;
+
+				else if ( $size['post_type'] )
+					$sizes[$name] = $size;
+
+			} else if ( $fallback && $fallback == $posttype ) {
+
+				$sizes[$name] = $size;
+			}
+		}
+
+		return $this->posttype_sizes[$posttype] = $sizes;
 	}
 
 	public function attachment_is_custom( $attachment_id )
@@ -383,7 +393,7 @@ class Media extends gNetwork\Module
 			'w' => 0,
 			'h' => 0,
 			'c' => 0,
-			'p' => [ 'post' ],
+			'p' => [ 'post' ], // posttype: TRUE: all/array: posttypes/FALSE: none
 		], $atts );
 
 		$_wp_additional_image_sizes[$name] = [
