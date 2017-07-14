@@ -226,6 +226,16 @@ class Themes extends gNetwork\Module
 
 			add_action( 'semicolon_credits', [ $this, 'twentysomething_credits' ] );
 
+		} else if ( $this->isTheme( 'omega' ) ) {
+
+			if ( $this->rtl ) {
+				add_action( 'wp_enqueue_scripts', function(){
+					Themes::enqueueStyle( 'omega', TRUE );
+					remove_action( 'omega_footer', 'omega_footer_insert' );
+					add_action( 'omega_footer', [ $this, 'twentysomething_credits' ] );
+				}, 20 );
+			}
+
 		} else if ( $this->isTheme( 'hyde' ) ) {
 			// REPO: https://github.com/tim-online/wordpress-hyde-theme
 			// HOME: http://hyde.getpoole.com/
