@@ -132,6 +132,13 @@ class Admin extends gNetwork\Module
 				if ( ! array_key_exists( 'taxonomy', $_REQUEST ) )
 					return FALSE;
 
+			break;
+			case 'widget':
+
+				if ( 'widgets.php' != $pagenow )
+					return FALSE;
+
+			break;
 			case 'admin':
 
 				if ( ! is_admin() )
