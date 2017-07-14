@@ -136,6 +136,7 @@ class Media extends gNetwork\Module
 
 	protected static function getPostArray()
 	{
+		$extra  = [];
 		$limit  = self::limit();
 		$paged  = self::paged();
 		$offset = ( $paged - 1 ) * $limit;
@@ -154,7 +155,7 @@ class Media extends gNetwork\Module
 			$args['post__in'] = explode( ',', maybe_unserialize( $_REQUEST['id'] ) );
 
 		if ( ! empty( $_REQUEST['type'] ) )
-			$args['post_type'] = $_REQUEST['type'];
+			$args['post_type'] = $extra['type'] = $_REQUEST['type'];
 
 		if ( 'attachment' == $args['post_type'] )
 			$args['post_status'][] = 'inherit';
@@ -162,7 +163,7 @@ class Media extends gNetwork\Module
 		$query = new \WP_Query;
 		$posts = $query->query( $args );
 
-		$pagination = HTML::tablePagination( $query->found_posts, $query->max_num_pages, $limit, $paged );
+		$pagination = HTML::tablePagination( $query->found_posts, $query->max_num_pages, $limit, $paged, $extra );
 
 		return [ $posts, $pagination ];
 	}
@@ -389,7 +390,7 @@ class Media extends gNetwork\Module
 		global $_wp_additional_image_sizes;
 
 		$args = self::atts( [
-			'n' => _x( 'Undefined Image Size', 'Modules: Media', GNETWORK_TEXTDOMAIN ),
+			'n' => __( 'Untitled' ),
 			'w' => 0,
 			'h' => 0,
 			'c' => 0,
@@ -546,12 +547,12 @@ class Media extends gNetwork\Module
 			if ( $regenerate ) {
 				$file   = get_attached_file( $attachment_id, TRUE );
 				$meta   = wp_generate_attachment_metadata( $attachment_id, $file );
-				$update = wp_update_attachment_metadata( $attachment_id,$meta );
+				$update = wp_update_attachment_metadata( $attachment_id, $meta );
 			}
-		}
 
-		if ( WordPress::isDev() )
-			error_log( print_r( compact( 'attachment_id', 'thumbs', 'delete', 'file', 'meta', 'update' ), TRUE ) );
+			if ( WordPress::isDev() )
+				error_log( print_r( compact( 'attachment_id', 'thumbs', 'delete', 'file', 'meta', 'update' ), TRUE ) );
+		}
 	}
 
 	public function clean_attachments( $post_id )
