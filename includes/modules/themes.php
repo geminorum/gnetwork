@@ -14,6 +14,7 @@ class Themes extends gNetwork\Module
 	protected $network = FALSE;
 	protected $xmlrpc  = FALSE;
 	protected $iframe  = FALSE;
+	protected $ajax    = TRUE;
 
 	private $rtl   = NULL;
 	private $theme = NULL;
@@ -249,6 +250,25 @@ class Themes extends gNetwork\Module
 			add_action( 'wp_enqueue_scripts', function(){
 				Themes::enqueueStyle( 'houston' );
 			}, 20 );
+
+		} else if ( $this->isTheme( 'p2-breathe' ) ) {
+
+			// @HOME: https://wpcom-themes.svn.automattic.com/p2-breathe/
+			// used with: https://github.com/Automattic/o2
+
+			if ( $this->rtl ) {
+
+				// the plugin forgets!
+				load_plugin_textdomain( 'o2' );
+
+				remove_action( 'init', 'breathe_fonts' );
+
+				add_action( 'wp_enqueue_scripts', function(){
+					Themes::enqueueStyle( 'p2-breathe', TRUE );
+				}, 20 );
+			}
+
+			add_action( 'breathe_credits', [ $this, 'twentysomething_credits' ] );
 
 		} else if ( $this->isTheme( 'p2', 'gp2' ) ) {
 			// @HOME: http://p2theme.com/
