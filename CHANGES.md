@@ -1,3 +1,18 @@
+### 3.6.2
+* main/module: ajax action hook helper
+* main/settings: support for links via submit button generator
+* main/setting: new email field type
+* module/adminbar: fixed fatal for older php versions
+* module/blog: rest api enabled by default
+* module/captcha: correct locale for wpcf7 recaptcha
+* module/cron: :new: status check dashboard widget/failure email
+* module/editor: :new: context for tinymce buttons
+* module/media: support image size for all parent posttypes
+* module/media: :new: support for taxonomy image sizes
+* module/tracking: ga event for wpcf7 submit form
+* module/themes: :new: support for omega theme
+* module/themes: :new: support for p2-breath theme and o2 plugin
+
 ### 3.6.1
 * main/module: :warning: cap check for phpinfo tab
 * main/functions: fallback for gmeta
