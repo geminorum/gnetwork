@@ -20,6 +20,9 @@ class Captcha extends gNetwork\Module
 		if ( GNETWORK_DISABLE_RECAPTCHA )
 			throw new Exception( 'Captcha is diabled!' );
 
+		if ( ! is_admin() )
+			$this->action( 'wpcf7_enqueue_scripts' );
+
 		if ( empty( $this->options['public_key'] )
 			|| empty( $this->options['private_key'] ) )
 				return;
@@ -120,6 +123,26 @@ class Captcha extends gNetwork\Module
 				'content' => '<p><br />Register and get the keys from <a href="https://www.google.com/recaptcha/admin" target="_blank"><i>here</i></a>.</p>',
 			],
 		];
+	}
+
+	// @REF: http://wp.me/p6rU3h-ct
+	public function wpcf7_enqueue_scripts()
+	{
+		$iso = class_exists( 'geminorum\\gNetwork\\Modules\\Locale' )
+			? \geminorum\gNetwork\Modules\Locale::getISO()
+			: 'en';
+
+		if ( 'en' == $iso )
+			return;
+
+		$url = add_query_arg( [
+			'onload' => 'recaptchaCallback',
+			'render' => 'explicit',
+			'hl'     => $iso,
+		], 'https://www.google.com/recaptcha/api.js' );
+
+		wp_deregister_script( 'google-recaptcha' );
+		wp_register_script( 'google-recaptcha', $url, [], '2.0', TRUE );
 	}
 
 	// @REF: https://paulund.co.uk/using-googles-nocaptcha-recaptcha-wordpress
