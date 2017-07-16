@@ -65,7 +65,7 @@ class Media extends gNetwork\Module
 
 			add_filter( 'intermediate_image_sizes', '__return_empty_array', 99 );
 			// add_filter( 'intermediate_image_sizes_advanced', '__return_empty_array', 99 );
-			$this->filter( 'wp_generate_attachment_metadata', 2 );
+			$this->filter( 'wp_generate_attachment_metadata', 2, 10, 'posttype' );
 			$this->action( 'clean_attachment_cache' );
 		}
 
@@ -75,6 +75,10 @@ class Media extends gNetwork\Module
 			$this->filter( 'image_downsize', 3, 5 );
 			$this->action( 'delete_attachment' );
 		}
+
+		// support for taxonomy sizes
+		// must be after object_sizes filter: `wp_generate_attachment_metadata_posttype`
+		$this->filter( 'wp_generate_attachment_metadata', 2, 12, 'taxonomy' );
 	}
 
 	protected function settings_actions( $sub = NULL )
@@ -295,7 +299,7 @@ class Media extends gNetwork\Module
 	}
 
 	// @SEE: https://github.com/syamilmj/Aqua-Resizer/blob/master/aq_resizer.php
-	public function wp_generate_attachment_metadata( $metadata, $attachment_id )
+	public function wp_generate_attachment_metadata_posttype( $metadata, $attachment_id )
 	{
 		// only images have 'file' key
 		if ( ! isset( $metadata['file'] ) )
@@ -350,20 +354,99 @@ class Media extends gNetwork\Module
 
 			if ( array_key_exists( 'post_type', $size ) ) {
 
-				if ( is_array( $size['post_type'] )
-					&& in_array( $posttype, $size['post_type'] ) )
+				if ( is_array( $size['post_type'] ) ) {
+
+					if ( in_array( $posttype, $size['post_type'] ) )
 						$sizes[$name] = $size;
 
-				else if ( $size['post_type'] )
-					$sizes[$name] = $size;
+					else if ( $fallback && in_array( $fallback, $size['post_type'] ) )
+						$sizes[$name] = $size;
 
-			} else if ( $fallback && $fallback == $posttype ) {
+				} else if ( $size['post_type'] ) {
+					$sizes[$name] = $size;
+				}
+
+			} else if ( TRUE === $fallback ) {
 
 				$sizes[$name] = $size;
 			}
 		}
 
 		return $this->posttype_sizes[$posttype] = $sizes;
+	}
+
+	public function wp_generate_attachment_metadata_taxonomy( $metadata, $attachment_id )
+	{
+		// only images have 'file' key
+		if ( ! isset( $metadata['file'] ) )
+			return $metadata;
+
+		// only for term images
+		if ( ! $taxonomy = get_post_meta( $attachment_id, '_wp_attachment_is_term_image', TRUE ) )
+			return $metadata;
+
+		$sizes = $this->get_taxonomy_sizes( $taxonomy );
+
+		if ( ! isset( $metadata['sizes'] ) ) {
+			$metadata['sizes'] = [];
+		} else {
+
+			// no need to resize already
+			foreach( $sizes as $size => $args )
+				if ( array_key_exists( $size, $metadata['sizes'] ) )
+					unset( $sizes[$size] );
+		}
+
+		if ( ! count( $sizes ) )
+			return $metadata;
+
+		$wpupload = wp_get_upload_dir();
+		$editor   = wp_get_image_editor( path_join( $wpupload['basedir'], $metadata['file'] ) );
+
+		if ( ! self::isError( $editor ) )
+			$metadata['sizes'] = array_merge( $metadata['sizes'], $editor->multi_resize( $sizes ) );
+
+		if ( ! count( $metadata['sizes'] ) )
+			unset( $metadata['sizes'] );
+
+		if ( WordPress::isDev() )
+			error_log( print_r( compact( 'taxonomy', 'sizes', 'metadata', 'wpupload' ), TRUE ) );
+
+		return $metadata;
+	}
+
+	private function get_taxonomy_sizes( $taxonomy = 'category', $fallback = FALSE )
+	{
+		if ( isset( $this->taxonomy_sizes[$taxonomy] ) )
+			return $this->taxonomy_sizes[$taxonomy];
+
+		global $_wp_additional_image_sizes;
+
+		$sizes = [];
+
+		foreach ( (array) $_wp_additional_image_sizes as $name => $size ) {
+
+			if ( array_key_exists( 'taxonomy', $size ) ) {
+
+				if ( is_array( $size['taxonomy'] ) ) {
+
+					if ( in_array( $taxonomy, $size['taxonomy'] ) )
+						$sizes[$name] = $size;
+
+					else if ( $fallback && in_array( $fallback, $size['taxonomy'] ) )
+						$sizes[$name] = $size;
+
+				} else if ( $size['taxonomy'] ) {
+					$sizes[$name] = $size;
+				}
+
+			} else if ( TRUE === $fallback ) {
+
+				$sizes[$name] = $size;
+			}
+		}
+
+		return $this->taxonomy_sizes[$posttype] = $sizes;
 	}
 
 	public function attachment_is_custom( $attachment_id )
@@ -383,7 +466,7 @@ class Media extends gNetwork\Module
 		return FALSE;
 	}
 
-	// core dup with posttype
+	// core dup with posttype/taxonomy/title
 	// @REF: `add_image_size()`
 	public static function registerImageSize( $name, $atts = [] )
 	{
@@ -395,6 +478,7 @@ class Media extends gNetwork\Module
 			'h' => 0,
 			'c' => 0,
 			'p' => [ 'post' ], // posttype: TRUE: all/array: posttypes/FALSE: none
+			't' => FALSE, // taxonomy: TRUE: all/array: taxes/FALSE: none
 		], $atts );
 
 		$_wp_additional_image_sizes[$name] = [
@@ -402,6 +486,7 @@ class Media extends gNetwork\Module
 			'height'    => absint( $args['h'] ),
 			'crop'      => $args['c'],
 			'post_type' => $args['p'],
+			'taxonomy'  => $args['t'],
 			'title'     => $args['n'],
 		];
 	}
