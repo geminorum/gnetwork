@@ -27,7 +27,7 @@ class Dashboard extends gNetwork\Module
 
 	protected function setup_ajax( $request )
 	{
-		add_action( 'wp_ajax_gnetwork_dashboard', [ $this, 'ajax' ] );
+		$this->_hook_ajax();
 	}
 
 	public function current_screen( $screen )

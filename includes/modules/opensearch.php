@@ -28,11 +28,6 @@ class OpenSearch extends gNetwork\Module
 			add_action( 'atom_head', [ $this, 'wp_head' ] );
 		}
 
-		// if ( $this->options['suggestions'] ) {
-		// 	add_action( 'wp_ajax_opensearch_suggestions', [ $this, 'ajax' ] );
-		// 	add_action( 'wp_ajax_nopriv_opensearch_suggestions', [ $this, 'ajax' ] );
-		// }
-
 		// $this->action( 'rewrite_rules_array', 1, 8 );
 		$this->filter( 'redirect_canonical', 2 );
 		$this->action( 'parse_request', 1, 1 );
@@ -44,6 +39,12 @@ class OpenSearch extends gNetwork\Module
 			_x( 'Open Search', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
 			[ $this, 'settings' ]
 		);
+	}
+
+	protected function setup_ajax( $request )
+	{
+		// if ( $this->options['suggestions'] )
+		// 	$this->_hook_ajax( TRUE, 'opensearch_suggestions' );
 	}
 
 	public function default_options()
