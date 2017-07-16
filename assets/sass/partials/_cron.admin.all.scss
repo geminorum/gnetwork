@@ -1,0 +1,45 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// gNetwork Partials: Cron Module: Admin --------------------------------------
+
+// dashbard widget
+#gnetwork-cron-dashboard {
+
+  .spinner {
+    margin: 2px 0 0 0;
+  }
+
+  .-status {
+    display: block;
+    padding: 0.5em 1em;
+    margin-bottom: 1em;
+
+    border-left: 2px solid $brand-info;
+    @include body-rtl(){
+      border-left: none;
+      border-right: 2px solid $brand-info;
+    }
+  }
+
+  .-error {
+    border-color: $brand-danger !important;
+  }
+
+  .-notice {
+    border-color: $brand-warning !important;
+  }
+
+  .-success {
+    border-color: $brand-success !important;
+  }
+}
+
+// scheduled table
+table.base-table-list {
+  .-column-tasks {}
+
+  .-column-next {
+    width: 34%;
+  }
+}

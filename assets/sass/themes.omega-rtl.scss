@@ -1,0 +1,59 @@
+@import 'modules/all';
+@import 'partials/base';
+@import 'partials/theme.fonts';
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+@include theme-fonts-Samim-CDN();
+@include theme-fonts-Samim-Bold-CDN();
+
+body.rtl {
+  direction: rtl;
+  font-family: $font-family-base;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: bold;
+  font-family: $font-family-head;
+}
+
+.content, p.copyright { float: right; }
+.sidebar-primary, p.credit { float: left; }
+
+.omega-nav-menu li {
+  text-align: right;
+}
+
+span.post_tag::before,
+.entry-comments-link::before {
+  margin: 0 2px 0 6px;
+}
+
+.pagination .page-numbers {
+  margin: 0 0 0 5px;
+}
+
+.omega-nav-menu ul {
+  left: 0;
+  right: -9999px;
+}
+
+.omega-nav-menu li:hover > ul {
+	right: auto;
+}
+
+@media only screen and (max-width: 1023px) {
+
+  .menu-icon {
+    right: auto;
+    left: 0px;
+    &:before {
+        left: auto;
+        right: 0;
+    }
+  }
+}

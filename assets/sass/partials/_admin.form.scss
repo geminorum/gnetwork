@@ -4,16 +4,35 @@
 /// gNetwork Partials: Form ----------------------------------------------------
 
 .wrap {
+
   input[type="text"] {
     vertical-align: middle;
+  }
+
+  input[data-ortho="number"].tiny-text {
+    width: 45px;
   }
 
   input.small-text {
     padding: 5px 5px 4px;
   }
 
+  input.small-text,
+  .form-field input.small-text {
+    width: 65px;
+  }
+
+  input[data-ortho="number"].small-text {
+    width: 65px;
+  }
+
+  input[type="color"] {
+    padding: 0 1px;
+  }
+
   input.medium-text,
-  textarea.medium-text {
+  textarea.medium-text,
+  .form-field .medium-text {
     width: 12em;
   }
 
@@ -49,4 +68,8 @@
   input.email-text,
   input.ip-text,
   input.url-text {}
+
+  .wp-color-result {
+    height: 21px;
+  }
 }

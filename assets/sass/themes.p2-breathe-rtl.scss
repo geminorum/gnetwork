@@ -1,0 +1,124 @@
+@import 'modules/all';
+@import 'partials/base';
+@import 'partials/theme.fonts';
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+@include theme-fonts-Samim-CDN();
+@include theme-fonts-Samim-Bold-CDN();
+
+body.rtl {
+  direction: rtl;
+}
+
+body, button, input, select, textarea {
+  font-family: $font-family-base;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.site-header .site-title {
+  font-weight: bold;
+  font-family: $font-family-head;
+}
+
+.content-area {
+  float: right;
+  padding: 0 0 0 20px;
+}
+
+.widget-area {
+  float: left;
+}
+
+#secondary {
+  clear: left;
+}
+
+.navigation-main ul li {
+  float: right;
+}
+
+caption, th, td,
+.site-header .hgroup,
+.site-header .site-title,
+.site-header .site-description {
+  text-align: right;
+}
+
+article.post .entry-header .author-avatar,
+article#post-new .entry-header .author-avatar,
+article.page .entry-header .author-avatar {
+  float: right;
+  margin: 0 0 0 10px;
+}
+
+.o2-post-comments .o2-comment {
+  padding-left: 0;
+  padding-right: 0.8em;
+}
+
+.comment-meta {
+  margin: 0 45px 0 0;
+}
+
+.o2-comment .avatar {
+  float: right;
+  margin: 5px 3px 0 0;
+}
+
+.o2-comment .o2-editor {
+  margin: 0.8em 0 1.2em 65px;
+}
+
+.o2-post-comments .o2-comment .o2-editor {
+  margin-right: 3.5em;
+  margin-left: 1.6em;
+}
+
+.o2-post-comments .o2-comment .o2-comment-header {
+  padding-right: 0;
+  padding-left: 1.6em;
+}
+
+.navigation-main ul ul {
+  float: right;
+  left: auto;
+  right: -1px;
+}
+
+.genericon-reply:before {
+  @include theme-transform-flip-horizontal;
+}
+
+@media only screen and (min-width: 876px) {
+  .site-header {
+    float: left;
+  }
+}
+
+@media (max-width: 876px) {
+  #secondary-toggle {
+    float: right;
+    margin: 0 0 0 20px;
+  }
+  #masthead .hgroup {
+    float: right;
+  }
+  #secondary {
+    left: auto;
+    right: -100%;
+    box-shadow: 0 20px 0 0 rgba(0, 0, 0, 0.2);
+  }
+  body.responsive-show #secondary {
+    left: auto;
+    right: 0;
+  }
+  .navigation-main ul li {
+     float: none;
+    padding-left: 0 !important;
+  }
+}
