@@ -149,7 +149,7 @@ class AdminBar extends gNetwork\Module
 		$this->sidebar_admin = TRUE;
 	}
 
-	public static function load_toplevel_page_wpcf7()
+	public function load_toplevel_page_wpcf7()
 	{
 		if ( ! $post_id = self::req( 'post' )
 			|| 'edit' != self::req( 'action' ) )
