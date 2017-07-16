@@ -31,9 +31,9 @@ class HTML extends Base
 				.'&#8206;'.$content.'&#8207;</a>';
 	}
 
-	public static function scroll( $html, $to )
+	public static function scroll( $html, $to, $title = '' )
 	{
-		return '<a class="scroll" href="#'.$to.'">'.$html.'</a>';
+		return '<a class="scroll" title="'.$title.'" href="#'.$to.'">'.$html.'</a>';
 	}
 
 	public static function img( $src, $class = '', $alt = '' )
@@ -510,6 +510,7 @@ class HTML extends Base
 			'title'      => NULL,
 			'before'     => FALSE,
 			'after'      => FALSE,
+			'check'      => FALSE, // call back to check each row
 			'callback'   => FALSE, // for all cells
 			'sanitize'   => TRUE, // using sanitizeDisplay()
 			'search'     => FALSE, // 'before', // 'after', // FIXME: add search box
@@ -551,7 +552,7 @@ class HTML extends Base
 					$title = isset( $column['title'] ) ? $column['title'] : $key;
 
 					if ( isset( $column['class'] ) )
-						$class = self::sanitizeClass( $column['class'] );
+						$class = ' '.self::sanitizeClass( $column['class'] );
 
 				} else if ( '_cb' === $key ) {
 					$title = '<input type="checkbox" id="cb-select-all-1" class="-cb-all" />';
@@ -567,6 +568,9 @@ class HTML extends Base
 
 		$alt = TRUE;
 		foreach ( $data as $index => $row ) {
+
+			if ( $args['check'] && ! (bool) call_user_func_array( $args['check'], array( $row, $index, $args ) ) )
+				continue;
 
 			echo '<tr class="-row -row-'.$index.( $alt ? ' alternate' : '' ).'">';
 

@@ -8,12 +8,12 @@ class Date extends Base
 	// [Carbon - A simple PHP API extension for DateTime.](http://carbon.nesbot.com/)
 	// [Easier Date/Time in Laravel and PHP with Carbon | Scotch](https://scotch.io/tutorials/easier-datetime-in-laravel-and-php-with-carbon)
 
-	const MINUTE_IN_SECONDS =  60;                 //       60
-	const   HOUR_IN_SECONDS =  60 * 60;            //     3600
-	const    DAY_IN_SECONDS =  24 * 60 * 60;       //    86400
-	const   WEEK_IN_SECONDS =   7 * 24 * 60 * 60;  //   604800
-	const  MONTH_IN_SECONDS =  30 * 24 * 60 * 60;  //  2592000
-	const   YEAR_IN_SECONDS = 365 * 24 * 60 * 60;  // 31536000
+	const MINUTE_IN_SECONDS = 60;       //                 60
+	const   HOUR_IN_SECONDS = 3600;     //            60 * 60
+	const    DAY_IN_SECONDS = 86400;    //       24 * 60 * 60
+	const   WEEK_IN_SECONDS = 604800;   //   7 * 24 * 60 * 60
+	const  MONTH_IN_SECONDS = 2592000;  //  30 * 24 * 60 * 60
+	const   YEAR_IN_SECONDS = 31536000; // 365 * 24 * 60 * 60
 
 	public static function monthFirstAndLast( $year, $month, $format = 'Y-m-d H:i:s' )
 	{
@@ -43,6 +43,12 @@ class Date extends Base
 		}
 
 		return $date->format( \DateTime::ISO8601 );
+	}
+
+	public static function htmlCurrent( $format = 'l, F j, Y', $class = FALSE, $title = FALSE )
+	{
+		$html = self::htmlDateTime( current_time( 'timestamp' ), current_time( 'timestamp', TRUE ), $format, $title );
+		return $class ? '<span class="'.$class.'">'.$html.'</span>' : $html;
 	}
 
 	public static function htmlDateTime( $time, $gmt = NULL, $format = 'l, F j, Y', $title = FALSE )
