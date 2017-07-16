@@ -98,7 +98,6 @@ class Site extends gNetwork\Module
 					'title'       => _x( 'Denied Message', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Displays when a user tries to view a site\'s dashboard they do not have access to.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => _x( 'You attempted to access the &#8220;%1$s&#8221; dashboard, but you do not currently have privileges on this site. If you believe you should be able to access the &#8220;%1$s&#8221; dashboard, please contact your network administrator.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
-					'field_class' => [ 'large-text', 'code-text' ],
 				],
 				[
 					'field'       => 'denied_extra',
@@ -106,7 +105,6 @@ class Site extends gNetwork\Module
 					'title'       => _x( 'Extra Message', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Displays before the list of sites.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => _x( 'If you reached this screen by accident and meant to visit one of your own sites, here are some shortcuts to help you find your way.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
-					'field_class' => [ 'large-text', 'code-text' ],
 				],
 				[
 					'field'       => 'list_sites',

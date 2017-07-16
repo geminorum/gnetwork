@@ -97,7 +97,6 @@ class Cron extends gNetwork\Module
 
 			'next' => [
 				'title'    => _x( 'Next', 'Modules: CRON', GNETWORK_TEXTDOMAIN ),
-				'class'    => '-column-next',
 				'callback' => function( $value, $row, $column, $index ){
 					return Utilities::getDateEditRow( $index );
 				},
@@ -105,7 +104,6 @@ class Cron extends gNetwork\Module
 
 			'tasks' => [
 				'title'    => _x( 'Tasks', 'Modules: CRON', GNETWORK_TEXTDOMAIN ),
-				'class'    => '-column-tasks',
 				'args'     => [ 'schedules' => wp_get_schedules() ],
 				'callback' => function( $value, $row, $column, $index ){
 

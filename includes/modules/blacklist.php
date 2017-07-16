@@ -9,9 +9,8 @@ use geminorum\gNetwork\Core\HTTP;
 class BlackList extends gNetwork\Module
 {
 
-	protected $key     = 'blacklist';
-	protected $network = TRUE;
-	protected $ajax    = TRUE;
+	protected $key  = 'blacklist';
+	protected $ajax = TRUE;
 
 	protected function setup_actions()
 	{
@@ -55,9 +54,9 @@ class BlackList extends gNetwork\Module
 					'field'       => 'blacklisted_ips',
 					'type'        => 'textarea',
 					'title'       => _x( 'IP Addresses', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => sprintf( _x( 'Comma or line-seperated IP Ranges or individual IPs to block. ex: %s', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => sprintf( _x( "Comma or line-seperated IP Ranges or individual IPs to block.\nex: %s", 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ),
 						'<code>1.6.0.0-1.7.255.255, 1.2.3/24, 1.2.3.4/255.255.255.0, 1.8.0.0, 1.8.0.1</code>' ),
-					'field_class' => [ 'large-text', 'code-text' ],
+					'field_class' => [ 'regular-text', 'code-text' ],
 				],
 				[
 					'field'       => 'blacklisted_notice',
@@ -65,7 +64,6 @@ class BlackList extends gNetwork\Module
 					'title'       => _x( 'Blacklisted Message', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Locked message on WordPress die page', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => 'you\'re blacklisted, dude!',
-					'field_class' => [ 'large-text', 'code-text' ],
 				],
 			],
 		];

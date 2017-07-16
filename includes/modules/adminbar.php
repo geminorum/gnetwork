@@ -248,7 +248,7 @@ class AdminBar extends gNetwork\Module
 		] );
 
 		if ( defined( 'GNETWORK_WPLANG' )
-			&& is_blog_admin()
+			&& WordPress::isDev()
 			&& class_exists( __NAMESPACE__.'\\Locale' ) ) {
 
 			$wp_admin_bar->add_node( [

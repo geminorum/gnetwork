@@ -107,7 +107,7 @@ class Authors extends gNetwork\Module
 	public function settings( $sub = NULL )
 	{
 		if ( 'roles' == $sub )
-			add_action( $this->settings_hook( $sub, 'admin' ), [ $this, 'settings_form_roles' ], 10, 2 );
+			add_action( $this->settings_hook( $sub ), [ $this, 'settings_form_roles' ], 10, 2 );
 
 		else
 			parent::settings( $sub );

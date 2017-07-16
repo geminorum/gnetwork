@@ -331,10 +331,8 @@ class Mail extends gNetwork\Module
 
 		if ( ! empty( $this->options['from_email'] ) )
 			return $this->options['from_email'];
-		else
-			return get_site_option( 'admin_email', $email );
 
-		return $email;
+		return get_site_option( 'admin_email', $email );
 	}
 
 	public function get_from_name( $name = '' )
@@ -342,14 +340,13 @@ class Mail extends gNetwork\Module
 		if ( $blog = gNetwork()->option( 'from_name', 'blog' ) )
 			return $blog;
 
-		if ( ! empty( $this->options['from_name'] ) ) {
+		if ( ! empty( $this->options['from_name'] ) )
 			return $this->options['from_name'];
-		} else {
-			if ( is_multisite() )
-				return get_site_option( 'site_name', $name );
-			return get_option( 'blogname', $name );
-		}
-		return $name;
+
+		if ( is_multisite() )
+			return get_site_option( 'site_name', $name );
+
+		return get_option( 'blogname', $name );
 	}
 
 	// http://phpmailer.worxware.com/?pg=properties

@@ -92,9 +92,6 @@ class Code extends gNetwork\Module
 			}
 		}
 
-		// if ( WordPress::isDev() )
-		// 	delete_site_transient( $key );
-
 		return '<div class="gnetwork-wrap-shortcode shortcode-github-readme" data-github-repo="'.$args['repo'].'">'.$html.'</div>';
 	}
 

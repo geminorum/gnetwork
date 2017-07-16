@@ -5,6 +5,7 @@ defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 use geminorum\gNetwork\Core\Arraay;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\Number;
+use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
 
 class Settings extends Core\Base
@@ -300,13 +301,12 @@ class Settings extends Core\Base
 
 	public static function fieldAfterLink( $link = '', $class = '' )
 	{
-		$html = HTML::tag( 'a', [
-			'href'   => $link,
-			'class'  => $class,
-			'target' => '_blank',
-		], $link );
+		return '<code class="-field-after -link-wrap '.$class.'">'.HTML::link( URL::prepTitle( $link ), $link, TRUE ).'</code>';
+	}
 
-		return '<code class="-field-after -link-wrap">'.$html.'</code>';
+	public static function fieldAfterEmail( $email = '', $class = '' )
+	{
+		return '<code class="-field-after -email-wrap '.$class.'">'.HTML::mailto( $email ).'</code>';
 	}
 
 	public static function fieldAfterNewPostType( $post_type = 'page', $icon = 'welcome-add-page' )
@@ -775,7 +775,7 @@ class Settings extends Core\Base
 			case 'textarea-quicktags':
 
 				if ( ! $args['field_class'] )
-					$args['field_class'] = 'large-text';
+					$args['field_class'] = 'regular-text';
 
 				if ( 'textarea-quicktags' == $args['type'] ) {
 

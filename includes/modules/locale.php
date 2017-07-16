@@ -147,7 +147,7 @@ class Locale extends gNetwork\Module
 			if ( FALSE !== strpos( $referer, '/wp-admin/network/' ) )
 				return $gNetworkCurrentLocale = gNetwork()->option( 'admin_locale', 'site', 'en_US' );
 
-			// frontend AJAX calls are mistakend for admin calls
+			// frontend AJAX calls are mistaken for admin calls
 			if ( FALSE === strpos( $referer, '/wp-admin/' ) )
 				return $gNetworkCurrentLocale = $locale;
 		}

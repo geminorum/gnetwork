@@ -39,7 +39,7 @@
     "gulp-util": "^3.0.8",
     "gulp-wp-pot": "^2.0.6",
     "gulp-zip": "^4.0.0",
-    "js-yaml": "^3.8.4"
+    "js-yaml": "^3.9.0"
   },
   "readme": "ERROR: No README data found!",
   "private": true,
