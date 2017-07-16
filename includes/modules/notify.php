@@ -123,7 +123,7 @@ class Notify extends gNetwork\Module
 	{
 		global $wpdb, $wp_hasher;
 
-		$blog = $this->blogname();
+		$blog = WordPress::getBlogNameforEmail();
 		$user = get_userdata( $user_id );
 
 		Logger::ALERT( sprintf( 'NOTIFY: New user registration: %s', $user->user_login ) );
@@ -185,15 +185,7 @@ class Notify extends gNetwork\Module
 			return;
 
 		$message = sprintf( __( 'Password changed for user: %s' ), $user->user_login )."\r\n";
-		wp_mail( get_option( 'admin_email' ), sprintf( __( '[%s] Password Changed' ), $this->blogname() ), $message );
-	}
-
-	// The blogname option is escaped with esc_html on the way into the database in sanitize_option
-	// we want to reverse this for the plain text arena of emails.
-	public function blogname()
-	{
-		return wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
-		// return wp_specialchars_decode( get_bloginfo( 'name' ), ENT_QUOTES );
+		wp_mail( get_option( 'admin_email' ), sprintf( __( '[%s] Password Changed' ), WordPress::getBlogNameforEmail() ), $message );
 	}
 
 	public function wpmu_signup_blog_notification_subject( $subject, $domain, $path, $title, $user_login, $user_email, $key, $meta )
