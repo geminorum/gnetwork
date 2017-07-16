@@ -84,7 +84,7 @@ class Blog extends gNetwork\Module
 			'heartbeat_mode'       => 'default',
 			'heartbeat_frequency'  => 'default',
 			'autosave_interval'    => '',
-			'rest_api_enabled'     => '0',
+			'rest_api_enabled'     => '1',
 			'xmlrpc_enabled'       => '0',
 			'wlw_enabled'          => '0',
 			'page_copyright'       => '0',
@@ -174,6 +174,7 @@ class Blog extends gNetwork\Module
 			'field'       => 'rest_api_enabled',
 			'title'       => _x( 'Rest API', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 			'description' => _x( 'Whether REST API Services Are Enabled on This Site', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'default'     => '1',
 		];
 
 		$settings['_services'][] = [
