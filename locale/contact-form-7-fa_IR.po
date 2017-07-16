@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Contact Form 7\n"
-"PO-Revision-Date: 2017-07-04 16:39+0430\n"
+"PO-Revision-Date: 2017-07-16 04:47+0430\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language: fa_IR\n"
 "MIME-Version: 1.0\n"
@@ -440,15 +440,15 @@ msgstr ""
 
 #: modules/recaptcha.php:467
 msgid "Compact"
-msgstr ""
+msgstr "فشرده"
 
 #: modules/recaptcha.php:465
 msgid "Normal"
-msgstr ""
+msgstr "معمولی"
 
 #: modules/recaptcha.php:461 modules/recaptcha.php:464
 msgid "Size"
-msgstr ""
+msgstr "اندازه"
 
 #: modules/recaptcha.php:479
 msgid "Dark"
@@ -456,11 +456,11 @@ msgstr "تاریک"
 
 #: modules/recaptcha.php:477
 msgid "Light"
-msgstr ""
+msgstr "روشن"
 
 #: modules/recaptcha.php:473 modules/recaptcha.php:476
 msgid "Theme"
-msgstr ""
+msgstr "پوسته"
 
 #: modules/recaptcha.php:449
 msgid "Generate a form-tag for a reCAPTCHA widget. For more details, see %s."
@@ -490,15 +490,15 @@ msgstr ""
 
 #: modules/recaptcha.php:180
 msgid "Reset Keys"
-msgstr ""
+msgstr "بازنشانی کلید‌ها"
 
 #: modules/recaptcha.php:174 modules/recaptcha.php:205
 msgid "Secret Key"
-msgstr ""
+msgstr "کلید مخفی"
 
 #: modules/recaptcha.php:170 modules/recaptcha.php:201
 msgid "Site Key"
-msgstr ""
+msgstr "کلید سایت"
 
 #: modules/recaptcha.php:155
 msgid "reCAPTCHA is a free service to protect your website from spam and abuse."
@@ -506,7 +506,7 @@ msgstr ""
 
 #: modules/recaptcha.php:149
 msgid "Settings saved."
-msgstr ""
+msgstr "تنظیمات ذخیره شد."
 
 #: modules/recaptcha.php:144
 msgid "Invalid key values."

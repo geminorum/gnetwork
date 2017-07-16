@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Semicolon\n"
-"PO-Revision-Date: 2017-07-04 16:15+0430\n"
+"PO-Revision-Date: 2017-07-06 22:20+0430\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language: fa_IR\n"
 "MIME-Version: 1.0\n"
@@ -10,6 +10,8 @@ msgstr ""
 "X-Generator: Poedit 2.0.2\n"
 "X-Poedit-Basepath: ../../../themes/semicolon\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"POT-Creation-Date: \n"
+"Language-Team: \n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #. Description of the plugin/theme
@@ -237,7 +239,7 @@ msgstr "صفحه‌ها:"
 msgid ""
 "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps "
 "searching can help."
-msgstr ""
+msgstr "چیزی که به دنبالش بودید پیدا نشد، شاید جست‌وجوی دوباره شما را یاری کند."
 
 #: content-none.php:21
 msgid ""
@@ -292,6 +294,8 @@ msgid ""
 "It looks like nothing was found at this location. Maybe try one of the links "
 "below or a search?"
 msgstr ""
+"انگار اینجا چیزی برای شما نیست. شاید جست‌وجو و یا یکی از این گزینه‌ها به شما "
+"کمک کند."
 
 #: 404.php:13
 msgid "Oops! That page can&rsquo;t be found."
