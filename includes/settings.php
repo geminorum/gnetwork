@@ -596,6 +596,28 @@ class Settings extends Core\Base
 				] );
 
 			break;
+			case 'email':
+
+				if ( ! $args['field_class'] )
+					$args['field_class'] = [ 'regular-text', 'email-text' ];
+
+				if ( ! $args['dir'] )
+					$args['dir'] = 'ltr';
+
+				echo HTML::tag( 'input', [
+					'type'        => 'email',
+					'id'          => $id,
+					'name'        => $name,
+					'value'       => $value,
+					'class'       => $args['field_class'],
+					'placeholder' => $args['placeholder'],
+					'disabled'    => $args['disabled'],
+					'readonly'    => $args['readonly'],
+					'dir'         => $args['dir'],
+					'data'        => $args['data'],
+				] );
+
+			break;
 			case 'checkbox':
 
 				if ( count( $args['values'] ) ) {
