@@ -276,6 +276,10 @@ class Tracking extends gNetwork\Module
 
 		$ga .= "\t"."ga('send', 'pageview');";
 
+		// @REF: https://wp.me/p1wYQJ-5Xv
+		if ( defined( 'WPCF7_VERSION' ) )
+			$ga .= "\n\t"."document.addEventListener('wpcf7mailsent',function(e){ga('send','event','Contact Form','sent');},false);";
+
 		$this->ga_code( $ga );
 
 		if ( $this->options['ga_outbound'] ) {
