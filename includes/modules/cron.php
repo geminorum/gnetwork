@@ -19,6 +19,9 @@ class Cron extends gNetwork\Module
 
 	protected function setup_actions()
 	{
+		if ( ! is_blog_admin() )
+			return;
+
 		$this->action( 'init' );
 
 		add_action( $this->hook( 'run' ), [ $this, 'do_email_admin' ], 10, 2 );
