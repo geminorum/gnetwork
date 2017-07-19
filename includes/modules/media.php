@@ -79,6 +79,10 @@ class Media extends gNetwork\Module
 		// support for taxonomy sizes
 		// must be after object_sizes filter: `wp_generate_attachment_metadata_posttype`
 		$this->filter( 'wp_generate_attachment_metadata', 2, 12, 'taxonomy' );
+
+		// fires after images attached to terms
+		// WARNING: no prefix is not a good idea!
+		$this->action( 'clean_term_attachment_cache' );
 	}
 
 	protected function settings_actions( $sub = NULL )
@@ -373,6 +377,12 @@ class Media extends gNetwork\Module
 		}
 
 		return $this->posttype_sizes[$posttype] = $sizes;
+	}
+
+	public function clean_term_attachment_cache( $attachment_id )
+	{
+		if ( $attachment_id && get_post( $attachment_id ) )
+			$this->clean_attachment( $attachment_id, TRUE );
 	}
 
 	public function wp_generate_attachment_metadata_taxonomy( $metadata, $attachment_id )
