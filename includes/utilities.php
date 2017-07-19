@@ -152,16 +152,19 @@ class Utilities extends Core\Base
 		return Date::moment( $timestamp, $now, $strings );
 	}
 
-	public static function getDateEditRow( $mysql_time, $class = FALSE )
+	public static function getDateEditRow( $timestamp, $class = FALSE )
 	{
+		if ( ! ctype_digit( $timestamp ) )
+			$timestamp = strtotime( $timestamp );
+
 		$html = '';
 
 		$date = _x( 'm/d/Y', 'Utilities: Date Edit Row', GNETWORK_TEXTDOMAIN );
 		$time = _x( 'H:i', 'Utilities: Date Edit Row', GNETWORK_TEXTDOMAIN );
 		$full = _x( 'l, M j, Y @ H:i', 'Utilities: Date Edit Row', GNETWORK_TEXTDOMAIN );
 
-		$html .= '<span class="-date-date" title="'.esc_attr( mysql2date( $time, $mysql_time ) ).'">'.mysql2date( $date, $mysql_time ).'</span>';
-		$html .= '&nbsp;(<span class="-date-diff" title="'.esc_attr( mysql2date( $full, $mysql_time ) ).'">'.self::humanTimeDiff( $mysql_time ).'</span>)';
+		$html .= '<span class="-date-date" title="'.esc_attr( date_i18n( $time, $timestamp ) ).'" data-time="'.date( 'c', $timestamp ).'">'.date_i18n( $date, $timestamp ).'</span>';
+		$html .= '&nbsp;(<span class="-date-diff" title="'.esc_attr( date_i18n( $full, $timestamp ) ).'">'.self::humanTimeDiff( $timestamp ).'</span>)';
 
 		return $class ? '<span class="'.$class.'">'.$html.'</span>' : $html;
 	}
