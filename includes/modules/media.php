@@ -119,10 +119,11 @@ class Media extends gNetwork\Module
 				'limit'   => self::limit(),
 				'paged'   => self::paged(),
 			] );
-
-		} else {
-			parent::settings_actions( $sub );
 		}
+
+		parent::settings_actions( $sub );
+
+		add_thickbox();
 	}
 
 	public function settings_form( $uri, $sub = 'general' )
@@ -180,8 +181,6 @@ class Media extends gNetwork\Module
 	{
 		list( $posts, $pagination ) = self::getPostArray();
 
-		$wpuploads = wp_get_upload_dir();
-
 		return HTML::tableList( [
 			'_cb' => 'ID',
 			'ID'  => _x( 'ID', 'Modules: Media: Column Title', GNETWORK_TEXTDOMAIN ),
@@ -197,7 +196,9 @@ class Media extends gNetwork\Module
 				'title'    => _x( 'Type', 'Modules: Media: Column Title', GNETWORK_TEXTDOMAIN ),
 				'args'     => [ 'post_types' => WordPress::getPostTypes( 2 ) ],
 				'callback' => function( $value, $row, $column, $index ){
-					return isset( $column['args']['post_types'][$row->post_type] ) ? $column['args']['post_types'][$row->post_type] : $row->post_type;
+					return isset( $column['args']['post_types'][$row->post_type] )
+						? $column['args']['post_types'][$row->post_type]
+						: $row->post_type;
 				},
 			],
 
@@ -209,13 +210,13 @@ class Media extends gNetwork\Module
 				],
 				'callback' => function( $value, $row, $column, $index ){
 					return Utilities::getPostTitle( $row )
-						.get_the_term_list( $row->ID, 'post_tag', '<div><small>', ', ', '</small></div>' );
+						.get_the_term_list( $row->ID, 'post_tag',
+							'<div><small>', ', ', '</small></div>' );
 				},
 				'actions' => function( $value, $row, $column, $index ){
 					return [
 
 						'edit' => HTML::tag( 'a', [
-							// 'href'   => get_edit_post_link( $row->ID ),
 							'href'   => add_query_arg( [ 'action' => 'edit', 'post' => $row->ID ], $column['args']['admin'] ),
 							'class'  => '-link -row-link -row-link-edit',
 							'target' => '_blank',
@@ -232,7 +233,6 @@ class Media extends gNetwork\Module
 
 			'attached' => [
 				'title'    => _x( 'Attached Media', 'Modules: Media: Column Title', GNETWORK_TEXTDOMAIN ),
-				'args'     => [ 'wpuploads' => $wpuploads ],
 				'callback' => function( $value, $row, $column, $index ){
 
 					// TODO: check for all attachment types, use wp icons
@@ -245,9 +245,13 @@ class Media extends gNetwork\Module
 
 					foreach ( WordPress::getAttachments( $row->ID ) as $attachment ) {
 
-						$attached = get_post_meta( $attachment->ID, '_wp_attached_file', TRUE );
+						$html = HTML::tag( 'a', [
+							'href'   => wp_get_attachment_url( $attachment->ID ),
+							'class'  => 'thickbox',
+							'target' => '_blank',
+						], get_post_meta( $attachment->ID, '_wp_attached_file', TRUE ) );
 
-						$html = HTML::link( $attached, $column['args']['wpuploads']['baseurl'].'/'.$attached, TRUE ).' &ndash; '.$attachment->ID;
+						$html .= ' &ndash; '.$attachment->ID;
 
 						if ( $thumbnail_id == $attachment->ID )
 							$html .= ' &ndash; <b>thumbnail</b>';
@@ -279,11 +283,15 @@ class Media extends gNetwork\Module
 					if ( FALSE === ( $checked = HTTP::checkURLs( $matches[1] ) ) )
 						$checked = array_fill_keys( $matches[1], NULL );
 
-					foreach (  $checked as $src => $status )
+					foreach ( $checked as $src => $status )
 						$links[] = ( is_null( $status ) ? '' : '<small><code style="color:'
 								.( $status > 400 ? 'red' : 'green' ).'">'
 								.$status.'</code></small>&nbsp;' )
-							.HTML::link( URL::prepTitle( $src ), $src, TRUE );
+							.HTML::tag( 'a', [
+								'href'   => $src,
+								'class'  => 'thickbox',
+								'target' => '_blank',
+							], URL::prepTitle( $src ) );
 
 					return '<div dir="ltr">'.( count( $links ) ? implode( '<br />', $links ) : '&mdash;' ).'</div>';
 				},
