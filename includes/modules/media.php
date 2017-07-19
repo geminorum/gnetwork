@@ -48,7 +48,8 @@ class Media extends gNetwork\Module
 	{
 		Admin::registerMenu( $this->key,
 			_x( 'Media', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			[ $this, 'settings' ]
+			[ $this, 'settings' ],
+			'edit_others_posts'
 		);
 	}
 
