@@ -31,12 +31,10 @@ class Media extends gNetwork\Module
 
 		if ( is_admin() ) {
 
-			$this->filter( 'post_mime_types' );
+			if ( WordPress::mustRegisterUI( FALSE ) )
+				$this->action( 'current_screen' );
 
-			$this->action( 'admin_enqueue_scripts' );
-			$this->filter( 'media_row_actions', 3, 50 );
-			add_action( 'admin_action_bulk_clean_attachments', [ $this, 'admin_action_bulk' ] );
-			add_action( 'admin_action_-1', [ $this, 'admin_action_bulk' ] );
+			$this->filter( 'post_mime_types' );
 
 		} else {
 
@@ -84,6 +82,21 @@ class Media extends gNetwork\Module
 		// fires after images attached to terms
 		// WARNING: no prefix is not a good idea!
 		$this->action( 'clean_term_attachment_cache' );
+	}
+
+	public function current_screen( $screen )
+	{
+		if ( 'upload' == $screen->base ) {
+
+			if ( WordPress::cuc( 'edit_others_posts' ) ) {
+				add_filter( 'bulk_actions-'.$screen->id, [ $this, 'bulk_actions' ] );
+				add_filter( 'handle_bulk_actions-'.$screen->id, [ $this, 'handle_bulk_actions' ], 10, 3 );
+			}
+
+			$this->filter( 'media_row_actions', 3, 50 );
+
+			Utilities::enqueueScript( 'admin.media' );
+		}
 	}
 
 	protected function settings_actions( $sub = NULL )
@@ -736,64 +749,49 @@ class Media extends gNetwork\Module
 		return $post_title;
 	}
 
-
-	public function admin_enqueue_scripts( $hook_suffix )
+	public function bulk_actions( $actions )
 	{
-		if ( 'upload.php' != $hook_suffix )
-			return;
-
-		Utilities::enqueueScript( 'admin.media' );
-
-		$this->action( 'admin_print_scripts', 0, 99 );
+		return array_merge( $actions, [ 'cleanattachments' => _x( 'Clean Attachments', 'Modules: Media: Bulk Action', GNETWORK_TEXTDOMAIN ) ] );
 	}
 
-	public function admin_print_scripts()
+	public function handle_bulk_actions( $redirect_to, $doaction, $post_ids )
 	{
-?><script type="text/javascript">
-	jQuery(document).ready(function($){
-		$('select[name^="action"] option:last-child').before('<option value="bulk_clean_attachments"><?php echo esc_attr_x( 'Clean Attachments', 'Modules: Media: Bulk Action', GNETWORK_TEXTDOMAIN ); ?></option>');
-	});
-</script><?php
-	}
-
-	public function admin_action_bulk()
-	{
-		if ( empty( $_REQUEST['action'] )
-			|| ( 'bulk_clean_attachments' != $_REQUEST['action']
-				&& 'bulk_clean_attachments' != $_REQUEST['action2'] ) )
-					return;
-
-		if ( empty( $_REQUEST['media'] )
-			|| ! is_array( $_REQUEST['media'] ) )
-				return;
+		if ( 'cleanattachments' != $doaction )
+			return $redirect_to;
 
 		check_admin_referer( 'bulk-media' );
 
-		WordPress::redirect( $this->get_settings_url( [
-			'action' => 'clean',
-			'type'   => 'attachment',
-			'id'     => maybe_serialize( implode( ',', array_map( 'intval', $_REQUEST['media'] ) ) ),
-		], TRUE ) );
+		$parents = [];
+
+		foreach ( $post_ids as $post_id )
+			if ( $attachment = get_post( $post_id ) )
+				$parents[] = $attachment->post_parent;
+
+		if ( ! count( $parents ) )
+			return $redirect_to;
+
+		$ids = maybe_serialize( implode( ',', array_map( 'intval', array_unique( $parents ) ) ) );
+
+		return $this->get_settings_url( [ 'id' => $ids ] );
 	}
 
 	public function media_row_actions( $actions, $post, $detached )
 	{
 		$url = wp_get_attachment_url( $post->ID );
 
-		if ( wp_attachment_is( 'image', $post->ID ) )
+		if ( WordPress::cuc( 'edit_others_posts' )
+			&& wp_attachment_is( 'image', $post->ID ) ) {
+
 			$actions['media-clean'] = HTML::tag( 'a', [
 				'target' => '_blank',
-				'class'  => 'media-clean-attachment',
-				'href'   => $this->get_settings_url( [
-					'action' => 'clean',
-					'type'   => 'attachment',
+				'class'  => [ 'media-clean-attachment', ( $post->post_parent ? '' : '-disabled' ) ],
+				'href'   => $post->post_parent ? $this->get_settings_url( [ 'id' => $post->post_parent ] ) : '#',
+				'data'   => [
 					'id'     => $post->ID,
-				] ),
-				'data' => [
-					'id'     => $post->ID,
-					'action' => 'clean_attachment',
+					'parent' => $post->post_parent,
 				],
 			], _x( 'Clean', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) );
+		}
 
 		$link = HTML::tag( 'a', [
 			'target' => '_blank',
