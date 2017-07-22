@@ -440,9 +440,10 @@ class WordPress extends Base
 			return $path.'wp-config.php';
 
 		// The config file resides one level above ABSPATH but is not part of another install
-		if ( @file_exists( dirname( $path ).'/wp-config.php' )
-			&& ! @file_exists( dirname( $path ).'/wp-settings.php' ) )
-				return dirname( $path ).'/wp-config.php';
+		$above = dirname( $path );
+
+		if ( @file_exists( $above.'/wp-config.php' ) && ! @file_exists( $above.'/wp-settings.php' ) )
+			return $above.'/wp-config.php';
 
 		return FALSE;
 	}
@@ -453,8 +454,8 @@ class WordPress extends Base
 			return FALSE;
 
 		$contents = file_get_contents( $file );
-		$pattern = "define\( ?'".$constant."'";
-		$pattern = "/^$pattern.*/m";
+		$pattern  = "define\( ?'".$constant."'";
+		$pattern  = "/^$pattern.*/m";
 
 		if ( preg_match_all( $pattern, $contents, $matches ) )
 			return TRUE;

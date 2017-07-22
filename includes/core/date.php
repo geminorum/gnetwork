@@ -236,7 +236,7 @@ class Date extends Base
 			$result[$date->format( $format )] = self::moment( $date->getTimestamp() ).' :: '.( time() - $date->getTimestamp() );
 		}
 
-		HTML::tableCode( $result, TRUE, 'Moment' );
+		echo HTML::tableCode( $result, TRUE, 'Moment' );
 	}
 
 	// FIXME: correct last week : http://stackoverflow.com/a/7175802/4864081

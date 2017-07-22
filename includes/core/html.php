@@ -132,6 +132,11 @@ class HTML extends Base
 		return array_unique( array_filter( $classes, 'trim' ) );
 	}
 
+	public static function prepClass( $classes )
+	{
+		return implode( ' ', array_unique( array_filter( self::attrClass( $classes ), array( __CLASS__, 'sanitizeClass' ) ) ) );
+	}
+
 	private static function _tag_open( $tag, $atts, $content = TRUE )
 	{
 		$html = '<'.$tag;
@@ -162,7 +167,7 @@ class HTML extends Base
 					continue;
 
 				} else if ( 'class' == $key ) {
-					$att = implode( ' ', array_unique( array_filter( $att, array( __CLASS__, 'sanitizeClass' ) ) ) );
+					$att = self::prepClass( $att );
 
 				} else {
 					$att = implode( ' ', array_unique( array_filter( $att, 'trim' ) ) );
@@ -178,7 +183,7 @@ class HTML extends Base
 				continue;
 
 			if ( 'class' == $key && ! $sanitized )
-				$att = implode( ' ', array_unique( array_filter( explode( ' ', $att ), array( __CLASS__, 'sanitizeClass' ) ) ) );
+				$att = self::prepClass( $att );
 
 			else if ( 'class' == $key )
 				$att = $att;
@@ -261,56 +266,43 @@ class HTML extends Base
 	public static function listCode( $array, $row = NULL, $first = FALSE )
 	{
 		if ( ! $array )
-			return;
+			return '';
 
-		echo '<ul class="base-list-code">';
+		$html = '<ul class="base-list-code">';
 
 		if ( is_null( $row ) )
 			$row = '<code title="%2$s">%1$s</code>';
 
 		if ( $first )
-			echo '<li class="-first">'.$first.'</li>';
+			$html .= '<li class="-first">'.$first.'</li>';
 
-		foreach ( $array as $key => $val ) {
+		foreach ( (array) $array as $key => $value )
+			$html .= '<li>'.sprintf( $row, $key, self::sanitizeDisplay( $value ) ).'</li>';
 
-			if ( is_null( $val ) )
-				$val = 'NULL';
-
-			else if ( is_bool( $val ) )
-				$val = $val ? 'TRUE' : 'FALSE';
-
-			else if ( is_array( $val ) || is_object( $val ) )
-				$val = json_encode( $val );
-
-			echo '<li>';
-				printf( $row, $key, $val );
-			echo '</li>';
-		}
-
-		echo '</ul>';
+		return $html.'</ul>';
 	}
 
 	public static function tableCode( $array, $reverse = FALSE, $caption = FALSE )
 	{
 		if ( ! $array )
-			return;
+			return '';
 
 		if ( $reverse )
 			$row = '<tr><td class="-val"><code>%1$s</code></td><td class="-var" valign="top">%2$s</td></tr>';
 		else
 			$row = '<tr><td class="-var" valign="top">%1$s</td><td class="-val"><code>%2$s</code></td></tr>';
 
-		echo '<table class="base-table-code'.( $reverse ? ' -reverse' : '' ).'">';
+		$html = '<table class="base-table-code'.( $reverse ? ' -reverse' : '' ).'">';
 
 		if ( $caption )
-			echo '<caption>'.$caption.'</caption>';
+			$html .= '<caption>'.$caption.'</caption>';
 
-		echo '<tbody>';
+		$html .= '<tbody>';
 
 		foreach ( (array) $array as $key => $value )
-			printf( $row, $key, self::sanitizeDisplay( $value ) );
+			$html .= sprintf( $row, $key, self::sanitizeDisplay( $value ) );
 
-		echo '</tbody></table>';
+		return $html.'</tbody></table>';
 	}
 
 	public static function sanitizeDisplay( $value )
@@ -552,7 +544,7 @@ class HTML extends Base
 					$title = isset( $column['title'] ) ? $column['title'] : $key;
 
 					if ( isset( $column['class'] ) )
-						$class = ' '.self::sanitizeClass( $column['class'] );
+						$class = ' '.self::prepClass( $column['class'] );
 
 				} else if ( '_cb' === $key ) {
 					$title = '<input type="checkbox" id="cb-select-all-1" class="-cb-all" />';
@@ -588,7 +580,7 @@ class HTML extends Base
 				if ( is_array( $column ) ) {
 
 					if ( isset( $column['class'] ) )
-						$class .= ' '.self::sanitizeClass( $column['class'] );
+						$class .= ' '.self::prepClass( $column['class'] );
 
 					if ( isset( $column['callback'] ) )
 						$callback = $column['callback'];
