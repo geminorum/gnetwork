@@ -72,7 +72,7 @@ class Typography extends gNetwork\Module
 				[
 					'field'       => 'title_titlecase',
 					'title'       => _x( 'Titles in Title Case', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Tries to make post tiles properly-cased.', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Tries to make post titles properly-cased.', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
 					'after'       => Settings::fieldAfterIcon( 'https://gist.github.com/geminorum/fe2a9ba25db5cf2e5ad6718423d00f8a' ),
 				],
 				[

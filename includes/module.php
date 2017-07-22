@@ -670,32 +670,22 @@ class Module extends Core\Base
 		if ( $sub != $this->key )
 			return;
 
-		if ( method_exists( $this, 'get_shortcodes' ) ) {
-
-			ob_start();
-				HTML::listCode( $this->get_shortcodes(), '<code>[%1$s]</code>' );
-			$content = ob_get_clean();
-
+		if ( method_exists( $this, 'get_shortcodes' ) )
 			$screen->add_help_tab( [
 				'id'      => $this->classs( 'help-shortcodes' ),
 				'title'   => _x( 'Extra Shortcodes', 'Module Core: Help Tab Title', GNETWORK_TEXTDOMAIN ),
-				'content' => '<p>'._x( 'These are extra shortcodes provided by this module:', 'Module Core: Help Tab Content', GNETWORK_TEXTDOMAIN ).'</p><p>'.$content.'</p>',
+				'content' => '<p>'._x( 'These are extra shortcodes provided by this module:', 'Module Core: Help Tab Content', GNETWORK_TEXTDOMAIN )
+					.'</p><p>'.HTML::listCode( $this->get_shortcodes(), '<code>[%1$s]</code>' ).'</p>',
 			] );
-		}
 
-		if ( count( $this->options ) && WordPress::isSuperAdmin() ) {
-
-			ob_start();
-				HTML::tableCode( $this->options );
-			$content = ob_get_clean();
-
+		if ( count( $this->options )
+			&& WordPress::isSuperAdmin() )
 			$screen->add_help_tab( [
 				'id'       => $this->classs( 'help-options' ),
 				'title'    => _x( 'Current Options', 'Module Core: Help Tab Title', GNETWORK_TEXTDOMAIN ),
-				'content'  => '<p>'.$content.'</p>',
+				'content'  => '<p>'.HTML::tableCode( $this->options ).'</p>',
 				'priority' => 999,
 			] );
-		}
 	}
 
 	public function settings_help_tabs( $sub = NULL )

@@ -257,7 +257,7 @@ class Debug extends gNetwork\Module
 
 			$info = \gPlugin::get_info();
 
-			HTML::tableCode( $info[1], TRUE );
+			echo HTML::tableCode( $info[1], TRUE );
 			HTML::tableSide( $info[0] );
 
 		} else {
@@ -285,7 +285,7 @@ class Debug extends gNetwork\Module
 			'AUTOSAVE_INTERVAL'   => AUTOSAVE_INTERVAL,
 		];
 
-		HTML::tableCode( $paths );
+		echo HTML::tableCode( $paths );
 	}
 
 	public static function pluginPaths()
@@ -303,7 +303,7 @@ class Debug extends gNetwork\Module
 			'AJAX_ENDPOINT' => GNETWORK_AJAX_ENDPOINT,
 		];
 
-		HTML::tableCode( $paths );
+		echo HTML::tableCode( $paths );
 	}
 
 	public static function currentTime()
@@ -323,7 +323,7 @@ class Debug extends gNetwork\Module
 			'REQUEST_TIME'                    => date( $format, $_SERVER['REQUEST_TIME'] ),
 		];
 
-		HTML::tableCode( $times );
+		echo HTML::tableCode( $times );
 	}
 
 	public static function summaryIPs( $caption = FALSE )
@@ -341,14 +341,14 @@ class Debug extends gNetwork\Module
 			if ( isset( $_SERVER[$key] ) )
 				$summary[$key] = gnetwork_ip_lookup( $_SERVER[$key] );
 
-		HTML::tableCode( $summary, FALSE, $caption );
+		echo HTML::tableCode( $summary, FALSE, $caption );
 	}
 
 	public static function wpUploadDIR()
 	{
 		$upload_dir = wp_upload_dir();
 		unset( $upload_dir['error'], $upload_dir['subdir'] );
-		HTML::tableCode( $upload_dir );
+		echo HTML::tableCode( $upload_dir );
 	}
 
 	// FIXME: DRAFT
@@ -414,7 +414,7 @@ class Debug extends gNetwork\Module
 		$server['REQUEST_TIME_FLOAT'] = date( 'l, j F, Y - H:i:s T', $server['REQUEST_TIME_FLOAT'] ).' ('.$server['REQUEST_TIME_FLOAT'] .')';
 		$server['REQUEST_TIME']       = date( 'l, j F, Y - H:i:s T', $server['REQUEST_TIME'] ).' ('.$server['REQUEST_TIME'] .')';
 
-		HTML::tableCode( $server );
+		echo HTML::tableCode( $server );
 	}
 
 	private static function get_phpinfo()
@@ -452,12 +452,12 @@ class Debug extends gNetwork\Module
 	{
 		HTML::desc( sprintf( _x( 'Current PHP version: <code>%s</code>', 'Modules: Debug', GNETWORK_TEXTDOMAIN ), phpversion() ) );
 
-		HTML::listCode( self::getPHPExtensions(),
+		echo HTML::listCode( self::getPHPExtensions(),
 			'<code title="%2$s">%1$s</code>',
 			'<span class="description -success">'._x( 'Loaded Extensions', 'Modules: Debug', GNETWORK_TEXTDOMAIN ).':</span>'
 		);
 
-		HTML::listCode( self::getPHPMissingExtensions(),
+		echo HTML::listCode( self::getPHPMissingExtensions(),
 			'<code title="%2$s">%1$s</code>',
 			'<span class="description -danger">'._x( 'Missing Extensions', 'Modules: Debug', GNETWORK_TEXTDOMAIN ).':</span>'
 		);
