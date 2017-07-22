@@ -190,7 +190,6 @@ class Widgets extends gNetwork\Module
 	{
 		$widgets = [
 			GNETWORK_DIR.'includes/widgets/devlegend.php' => 'geminorum\\gNetwork\\Widgets\\DevLegend_Widget',
-			GNETWORK_DIR.'includes/widgets/shortcode.php' => 'geminorum\\gNetwork\\Widgets\\Shortcode_Widget',
 		];
 
 		if ( class_exists( 'geminorum\\gNetwork\\Widgets\\Tracking' ) ) {
