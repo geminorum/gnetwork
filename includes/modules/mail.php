@@ -177,8 +177,8 @@ class Mail extends gNetwork\Module
 	{
 		return [
 			[
-				'id'      => 'gnetwork-mail-help-gmail',
-				'title'   => _x( 'Gmail SMTP', 'Modules: Mail: Help', GNETWORK_TEXTDOMAIN ),
+				'id'      => $this->classs( 'help-gmail' ),
+				'title'   => _x( 'Gmail SMTP', 'Modules: Mail: Help Tab Title', GNETWORK_TEXTDOMAIN ),
 				'content' => '<p><table><tbody>
 				<tr><td style="width:150px">SMTP Host</td><td><code>smtp.gmail.com</code></td></tr>
 				<tr><td>SMTP Port</td><td><code>465</code></td></tr>
@@ -189,8 +189,8 @@ class Mail extends gNetwork\Module
 				For more information see <a href="http://www.wpbeginner.com/plugins/how-to-send-email-in-wordpress-using-the-gmail-smtp-server/" target="_blank">here</a>.</p>',
 			],
 			[
-				'id'      => 'gnetwork-mail-help-pepipost',
-				'title'   => _x( 'Pepipost SMTP', 'Modules: Mail: Help', GNETWORK_TEXTDOMAIN ),
+				'id'      => $this->classs( 'help-pepipost' ),
+				'title'   => _x( 'Pepipost SMTP', 'Modules: Mail: Help Tab Title', GNETWORK_TEXTDOMAIN ),
 				'content' => '<p><table><tbody>
 				<tr><td style="width:150px">SMTP Host</td><td><code>smtp.pepipost.com</code></td></tr>
 				<tr><td>SMTP Port</td><td><code>25</code> / <code>587</code> / <code>2525</code></td></tr>

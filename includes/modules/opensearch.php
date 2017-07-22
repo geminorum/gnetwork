@@ -147,8 +147,8 @@ class OpenSearch extends gNetwork\Module
 	{
 		return [
 			 [
-				'id'      => 'gnetwork-opensearch-help',
-				'title'   => _x( 'Open Search', 'Modules: OpenSearch: Help', GNETWORK_TEXTDOMAIN ),
+				'id'      => $this->classs( 'help' ),
+				'title'   => _x( 'Open Search', 'Modules: OpenSearch: Help Tab Title', GNETWORK_TEXTDOMAIN ),
 				'content' => '<p>OpenSearch is a collection of simple formats for the sharing of search results.</p>
 					<p>This blog\'s OpenSearch description file is:<br /><a href="'.self::url().'" target="_blank">'.self::url().'</a></p>
 				<p>Fore more information:<br />

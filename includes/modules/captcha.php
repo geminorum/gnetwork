@@ -118,9 +118,9 @@ class Captcha extends gNetwork\Module
 	{
 		return [
 			[
-				'id'      => 'gnetwork-captcha-help',
-				'title'   => _x( 'Google reCAPTCHA', 'Modules: Captcha: Help', GNETWORK_TEXTDOMAIN ),
-				'content' => '<p><br />Register and get the keys from <a href="https://www.google.com/recaptcha/admin" target="_blank"><i>here</i></a>.</p>',
+				'id'      => $this->classs( 'help' ),
+				'title'   => _x( 'Google reCAPTCHA', 'Modules: Captcha: Help Tab Title', GNETWORK_TEXTDOMAIN ),
+				'content' => '<p>reCAPTCHA is a free service that protects your website from spam and abuse.</p><p>Register and get the keys from <a href="https://www.google.com/recaptcha/admin" target="_blank"><i>here</i></a>.</p>',
 			],
 		];
 	}

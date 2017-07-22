@@ -673,13 +673,13 @@ class Module extends Core\Base
 		if ( method_exists( $this, 'get_shortcodes' ) ) {
 
 			ob_start();
-				HTML::listCode( $this->get_shortcodes(), '<code>%1$s</code>' );
+				HTML::listCode( $this->get_shortcodes(), '<code>[%1$s]</code>' );
 			$content = ob_get_clean();
 
 			$screen->add_help_tab( [
-				'id'       => 'gnetwork-settings-shortcodes-overview',
-				'title'    => _x( 'Extra Shortcodes', 'Module Core: Help Content Title', GNETWORK_TEXTDOMAIN ),
-				'content'  => '<p>'._x( 'These are extra shortcodes provided by this module:', 'Module Core: Help Content Title', GNETWORK_TEXTDOMAIN ).'</p><p>'.$content.'</p>',
+				'id'      => $this->classs( 'help-shortcodes' ),
+				'title'   => _x( 'Extra Shortcodes', 'Module Core: Help Tab Title', GNETWORK_TEXTDOMAIN ),
+				'content' => '<p>'._x( 'These are extra shortcodes provided by this module:', 'Module Core: Help Tab Content', GNETWORK_TEXTDOMAIN ).'</p><p>'.$content.'</p>',
 			] );
 		}
 
@@ -690,8 +690,8 @@ class Module extends Core\Base
 			$content = ob_get_clean();
 
 			$screen->add_help_tab( [
-				'id'       => 'gnetwork-settings-options-overview',
-				'title'    => _x( 'Current Options', 'Module Core: Help Content Title', GNETWORK_TEXTDOMAIN ),
+				'id'       => $this->classs( 'help-options' ),
+				'title'    => _x( 'Current Options', 'Module Core: Help Tab Title', GNETWORK_TEXTDOMAIN ),
 				'content'  => '<p>'.$content.'</p>',
 				'priority' => 999,
 			] );
