@@ -847,7 +847,6 @@ class Module extends Core\Base
 	// DEFAULT FILTER
 	public function ajax()
 	{
-		// Ajax::errorWhat();
-		wp_die();
+		Ajax::errorWhat();
 	}
 }

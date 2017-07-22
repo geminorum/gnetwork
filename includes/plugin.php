@@ -98,6 +98,7 @@ class Plugin
 			'functions',
 			'utilities',
 			'settings',
+			'ajax',
 			'logger',
 			'module',
 			'provider',
