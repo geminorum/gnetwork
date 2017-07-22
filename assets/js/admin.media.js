@@ -37,4 +37,36 @@ jQuery(document).ready(function($) {
   $('input.media-url-field').focus(function() {
     this.select();
   });
+
+  $('.wp-list-table').on( 'click', '.media-clean a', function(e){
+
+    e.preventDefault();
+
+    var link = $(this);
+
+    if (link.hasClass('-cleaned'))
+      return;
+
+    $.ajax({
+      method: 'POST',
+      url: ajaxurl,
+      data: {
+        action: 'gnetwork_media',
+        what: 'clean',
+        attachment: link.data('id'),
+        nonce: link.data('nonce'),
+      },
+      beforeSend: function(xhr) {
+        link.html(link.data('spinner'));
+      },
+      success: function(response){
+        if (response.success){
+          link.text($(response.data).text()).addClass('-cleaned');
+        } else {
+          link.text($(response.data).text());
+          console.log(response);
+        }
+      }
+    });
+  });
 });

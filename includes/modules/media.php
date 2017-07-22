@@ -3,6 +3,7 @@
 defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Ajax;
 use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\Arraay;
 use geminorum\gNetwork\Core\HTML;
@@ -49,6 +50,11 @@ class Media extends gNetwork\Module
 			[ $this, 'settings' ],
 			'edit_others_posts'
 		);
+	}
+
+	protected function setup_ajax( $request )
+	{
+		$this->_hook_ajax();
 	}
 
 	public function init_late()
@@ -669,7 +675,11 @@ class Media extends gNetwork\Module
 
 			if ( WordPress::isDev() )
 				error_log( print_r( compact( 'attachment_id', 'thumbs', 'delete', 'file', 'meta', 'update' ), TRUE ) );
+
+			return TRUE;
 		}
+
+		return FALSE;
 	}
 
 	public function clean_attachments( $post_id )
@@ -787,8 +797,10 @@ class Media extends gNetwork\Module
 				'class'  => [ 'media-clean-attachment', ( $post->post_parent ? '' : '-disabled' ) ],
 				'href'   => $post->post_parent ? $this->get_settings_url( [ 'id' => $post->post_parent ] ) : '#',
 				'data'   => [
-					'id'     => $post->ID,
-					'parent' => $post->post_parent,
+					'id'      => $post->ID,
+					'parent'  => $post->post_parent,
+					'nonce'   => wp_create_nonce( $this->hook( $post->ID ) ),
+					'spinner' => _x( 'Cleaning &hellip;', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ),
 				],
 			], _x( 'Clean', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) );
 		}
@@ -808,6 +820,31 @@ class Media extends gNetwork\Module
 		$actions['media-url'] = $link;
 
 		return $actions;
+	}
+
+	public function ajax()
+	{
+		$post = self::unslash( $_POST );
+		$what = empty( $post['what'] ) ? 'nothing': trim( $post['what'] );
+
+		switch ( $what ) {
+
+			case 'clean':
+
+				if ( empty( $post['attachment'] ) )
+					Ajax::errorMessage();
+
+				Ajax::checkReferer( $this->hook( $post['attachment'] ) );
+
+				if ( ! $this->clean_attachment( $post['attachment'] ) )
+					Ajax::errorMessage();
+
+				Ajax::successMessage( _x( 'Cleaned', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) );
+
+			break;
+		}
+
+		Ajax::errorWhat();
 	}
 
 	protected function get_media_type_label( $post_id, $mime_type = NULL )
