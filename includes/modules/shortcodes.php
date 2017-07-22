@@ -169,7 +169,7 @@ class ShortCodes extends gNetwork\Module
 
 	public static function available()
 	{
-		echo HTML::listCode( $GLOBALS['shortcode_tags'], '<code>[%1$s]</code>' );
+		echo HTML::listCode( array_keys( $GLOBALS['shortcode_tags'] ), '<code>[%2$s]</code>' );
 	}
 
 	public function tinymce_strings( $strings )
