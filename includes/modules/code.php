@@ -19,19 +19,59 @@ class Code extends gNetwork\Module
 		$this->action( 'init', 0, 12 );
 	}
 
+	public function setup_menu( $context )
+	{
+		Admin::registerMenu( $this->key,
+			_x( 'Code', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
+			[ $this, 'settings' ]
+		);
+	}
+
+	public function default_options()
+	{
+		return [
+			'register_shortcodes' => '0',
+			'editor_buttons'      => '0',
+		];
+	}
+
+	public function default_settings()
+	{
+		return [
+			'_general' => [
+				[
+					'field'       => 'register_shortcodes',
+					'title'       => _x( 'Extra Shortcodes', 'Modules: Code: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Resgisters extra coding shortcodes.', 'Modules: Code: Settings', GNETWORK_TEXTDOMAIN ),
+				],
+				[
+					'field'       => 'editor_buttons',
+					'title'       => _x( 'Editor Buttons', 'Modules: Code: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Displays extra coding buttons on post content editor.', 'Modules: Code: Settings', GNETWORK_TEXTDOMAIN ),
+				],
+			],
+		];
+	}
+
 	public function init()
 	{
-		$this->shortcodes( [
+		if ( $this->options['register_shortcodes'] )
+			$this->shortcodes( $this->get_shortcodes() );
+
+		// FIXME: NOT WORKING: gist id is now diffrent from this pattern
+		// FIXME: add option to enable this
+		// add_filter( 'the_content', [ $this, 'the_content_gist_shortcode' ], 9 );
+	}
+
+	protected function get_shortcodes()
+	{
+		return [
 			'github'        => 'shortcode_github',
 			'github-readme' => 'shortcode_github_readme',
 			'github-gist'   => 'shortcode_github_gist',
 			'textarea'      => 'shortcode_textarea',
 			'shields-io'    => 'shortcode_shields_io',
-		] );
-
-		// FIXME: NOT WORKING: gist id is now diffrent from this pattern
-		// FIXME: add option to enable this
-		// add_filter( 'the_content', [ $this, 'the_content_gist_shortcode' ], 9 );
+		];
 	}
 
 	// Originally based on : GitHub README v0.2.0

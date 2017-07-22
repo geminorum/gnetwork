@@ -58,7 +58,16 @@ class ShortCodes extends gNetwork\Module
 		Admin::registerTinyMCE( 'gnetworksearch', 'assets/js/tinymce/search', 2 );
 		Admin::registerTinyMCE( 'gnetworkgpeople', 'assets/js/tinymce/gpeople', 2 );
 
-		$this->shortcodes( [
+		$this->shortcodes( $this->get_shortcodes() );
+
+		if ( ! defined( 'GNETWORK_DISABLE_REFLIST_INSERT' )
+			|| ! GNETWORK_DISABLE_REFLIST_INSERT )
+				add_action( 'gnetwork_themes_content_after', [ $this, 'content_after_reflist' ], 5 );
+	}
+
+	private function get_shortcodes()
+	{
+		return [
 			'children'     => 'shortcode_children',
 			'siblings'     => 'shortcode_siblings',
 			'in-term'      => 'shortcode_in_term',
@@ -86,11 +95,7 @@ class ShortCodes extends gNetwork\Module
 			'search'       => 'shortcode_search',
 			'last-edited'  => 'shortcode_last_edited',
 			'lastupdate'   => 'shortcode_last_edited',
-		] );
-
-		if ( ! defined( 'GNETWORK_DISABLE_REFLIST_INSERT' )
-			|| ! GNETWORK_DISABLE_REFLIST_INSERT )
-				add_action( 'gnetwork_themes_content_after', [ $this, 'content_after_reflist' ], 5 );
+		];
 	}
 
 	// @REF: https://github.com/wp-shortcake/shortcake/wiki/Registering-Shortcode-UI

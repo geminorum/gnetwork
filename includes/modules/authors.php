@@ -37,6 +37,7 @@ class Authors extends gNetwork\Module
 	public function default_options()
 	{
 		return [
+			'register_shortcodes' => '0',
 			'siteuser_as_default' => '0',
 		];
 	}
@@ -45,6 +46,11 @@ class Authors extends gNetwork\Module
 	{
 		return [
 			'_general' => [
+				[
+					'field'       => 'register_shortcodes',
+					'title'       => _x( 'Extra Shortcodes', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Resgisters extra authoring shortcodes.', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
+				],
 				[
 					'field'       => 'siteuser_as_default',
 					'title'       => _x( 'Default Author', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
@@ -163,10 +169,16 @@ class Authors extends gNetwork\Module
 
 	public function init()
 	{
-		$this->shortcodes( [
+		if ( $this->options['register_shortcodes'] )
+			$this->shortcodes( $this->get_shortcodes() );
+	}
+
+	private function get_shortcodes()
+	{
+		return [
 			'logged-in'     => 'shortcode_logged_in',
 			'not-logged-in' => 'shortcode_not_logged_in',
-		] );
+		];
 	}
 
 	public function shortcode_logged_in( $atts = [], $content = NULL, $tag = '' )

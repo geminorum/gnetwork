@@ -46,11 +46,12 @@ class Typography extends gNetwork\Module
 	public function default_options()
 	{
 		return [
-			'editor_buttons'     => '0',
-			'title_titlecase'    => '0',
-			'title_wordwrap'     => '0',
-			'arabic_typography'  => '0',
-			'persian_typography' => '0',
+			'register_shortcodes' => '0',
+			'editor_buttons'      => '0',
+			'title_titlecase'     => '0',
+			'title_wordwrap'      => '0',
+			'arabic_typography'   => '0',
+			'persian_typography'  => '0',
 		];
 	}
 
@@ -58,6 +59,11 @@ class Typography extends gNetwork\Module
 	{
 		return [
 			'_general' => [
+				[
+					'field'       => 'register_shortcodes',
+					'title'       => _x( 'Extra Shortcodes', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Resgisters extra typography shortcodes.', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
+				],
 				[
 					'field'       => 'editor_buttons',
 					'title'       => _x( 'Editor Buttons', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
@@ -128,14 +134,20 @@ class Typography extends gNetwork\Module
 			Admin::registerTinyMCE( 'gnetworkasterisks', 'assets/js/tinymce/asterisks', 2 );
 		}
 
-		$this->shortcodes( [
+		if ( $this->options['register_shortcodes'] )
+			$this->shortcodes( $this->get_shortcodes() );
+	}
+
+	protected function get_shortcodes()
+	{
+		return [
 			'three-asterisks' => 'shortcode_three_asterisks',
 			'ltr'             => 'shortcode_ltr',
 			'pad'             => 'shortcode_pad',
 			'wiki'            => 'shortcode_wiki',
 			'wiki-en'         => 'shortcode_wiki',
 			'wiki-fa'         => 'shortcode_wiki',
-		] );
+		];
 	}
 
 	public function tinymce_strings( $strings )

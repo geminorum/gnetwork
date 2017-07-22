@@ -18,7 +18,8 @@ class Widgets extends gNetwork\Module
 
 	protected function setup_actions()
 	{
-		$this->action( 'widgets_init' );
+		if ( $this->options['register_sidebar_widgets'] )
+			$this->action( 'widgets_init' );
 
 		if ( count( $this->options['disabled_sidebar_widgets'] ) )
 			add_action( 'widgets_init', [ $this, 'disable_sidebar_widgets' ], 100 );
@@ -41,6 +42,7 @@ class Widgets extends gNetwork\Module
 	public function default_options()
 	{
 		return [
+			'register_sidebar_widgets'   => '0',
 			'disabled_sidebar_widgets'   => [],
 			'disabled_dashboard_widgets' => [],
 		];
@@ -50,6 +52,11 @@ class Widgets extends gNetwork\Module
 	{
 		return [
 			'_general' => [
+				[
+					'field'       => 'register_sidebar_widgets',
+					'title'       => _x( 'Extra Widgets', 'Modules: Widgets: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Resgisters extra sidebar widgets.', 'Modules: Widgets: Settings', GNETWORK_TEXTDOMAIN ),
+				],
 				[
 					'field'       => 'disabled_sidebar_widgets',
 					'type'        => 'callback',

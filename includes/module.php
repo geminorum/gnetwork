@@ -670,6 +670,19 @@ class Module extends Core\Base
 		if ( $sub != $this->key )
 			return;
 
+		if ( method_exists( $this, 'get_shortcodes' ) ) {
+
+			ob_start();
+				HTML::listCode( $this->get_shortcodes(), '<code>%1$s</code>' );
+			$content = ob_get_clean();
+
+			$screen->add_help_tab( [
+				'id'       => 'gnetwork-settings-shortcodes-overview',
+				'title'    => _x( 'Extra Shortcodes', 'Module Core: Help Content Title', GNETWORK_TEXTDOMAIN ),
+				'content'  => '<p>'._x( 'These are extra shortcodes provided by this module:', 'Module Core: Help Content Title', GNETWORK_TEXTDOMAIN ).'</p><p>'.$content.'</p>',
+			] );
+		}
+
 		if ( count( $this->options ) && WordPress::isSuperAdmin() ) {
 
 			ob_start();
