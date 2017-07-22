@@ -67,29 +67,29 @@ class Typography extends gNetwork\Module
 				[
 					'field'       => 'editor_buttons',
 					'title'       => _x( 'Editor Buttons', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Extra Typography Buttons for Post Editor', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Displays extra typography buttons on post content editor.', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
 					'field'       => 'title_titlecase',
 					'title'       => _x( 'Titles in Title Case', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Properly-Cased Post Titles', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Tries to make post tiles properly-cased.', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
 					'after'       => Settings::fieldAfterIcon( 'https://gist.github.com/geminorum/fe2a9ba25db5cf2e5ad6718423d00f8a' ),
 				],
 				[
 					'field'       => 'title_wordwrap',
 					'title'       => _x( 'Word Wrapper for Titles', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Preventing Widows in Post Titles', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Prevents widow words in the end of post titles.', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
 					'after'       => Settings::fieldAfterIcon( 'https://davidwalsh.name/word-wrap-mootools-php' ),
 				],
 				[
 					'field'       => 'arabic_typography',
 					'title'       => _x( 'Arabic Typography', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Apply Arabic Typography to Post Contents', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Applies Arabic typography on post contents.', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
 					'field'       => 'persian_typography',
 					'title'       => _x( 'Persian Typography', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Apply Persian Typography to Post Contents', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Applies Persian typography on post contents.', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 			],
 		];

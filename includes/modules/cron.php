@@ -66,7 +66,7 @@ class Cron extends gNetwork\Module
 				[
 					'field'       => 'dashboard_widget',
 					'title'       => _x( 'Dashboard Widget', 'Modules: CRON: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Adds dashboard widget with ability to check WP-Cron is working.', 'Modules: CRON: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Adds dashboard widget with ability to check if WP-Cron is working.', 'Modules: CRON: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
 					'field'       => 'dashboard_accesscap',
@@ -89,8 +89,8 @@ class Cron extends gNetwork\Module
 				[
 					'field'       => 'status_email_address',
 					'type'        => 'email',
-					'title'       => _x( 'Admin Email', 'Modules: CRON: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Emails send to this address. Leave empty for WordPress admin email.', 'Modules: CRON: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Email Address', 'Modules: CRON: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Failure notices will be sent to this address. Leave empty for WordPress admin email.', 'Modules: CRON: Settings', GNETWORK_TEXTDOMAIN ),
 					'after'       => empty( $this->options['status_email_address'] ) ? Settings::fieldAfterEmail( get_option( 'admin_email' ) ) : FALSE,
 				],
 			],
@@ -136,11 +136,6 @@ class Cron extends gNetwork\Module
 	public function settings_form_scheduled( $uri, $sub = 'general' )
 	{
 		$this->settings_form_before( $uri, $sub, 'bulk' );
-
-			// TODO: add info on DISABLE_WP_CRON
-			// TODO: add info on url/path to wp-cron.php
-			// TODO: adding wp-cron-multisite.php / much like emaillogs folder
-			// SEE: https://www.lucasrolff.com/wordpress/why-wp-cron-sucks/
 
 			if ( self::tableCronInfo() )
 				$this->settings_buttons( $sub );

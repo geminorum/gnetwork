@@ -18,7 +18,8 @@ class Taxonomy extends gNetwork\Module
 
 	protected function setup_actions()
 	{
-		$this->action( 'current_screen', 1, 12 );
+		if ( WordPress::mustRegisterUI() )
+			$this->action( 'current_screen', 1, 12 );
 
 		add_filter( 'pre_term_name', 'normalize_whitespace', 9 );
 		add_filter( 'pre_term_description', 'normalize_whitespace', 9 );
