@@ -65,7 +65,7 @@ class ShortCodes extends gNetwork\Module
 				add_action( 'gnetwork_themes_content_after', [ $this, 'content_after_reflist' ], 5 );
 	}
 
-	private function get_shortcodes()
+	protected function get_shortcodes()
 	{
 		return [
 			'children'     => 'shortcode_children',

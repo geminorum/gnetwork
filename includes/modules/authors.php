@@ -49,7 +49,7 @@ class Authors extends gNetwork\Module
 				[
 					'field'       => 'register_shortcodes',
 					'title'       => _x( 'Extra Shortcodes', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Resgisters extra authoring shortcodes.', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Registers extra authoring shortcodes.', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
 					'field'       => 'siteuser_as_default',
@@ -173,7 +173,7 @@ class Authors extends gNetwork\Module
 			$this->shortcodes( $this->get_shortcodes() );
 	}
 
-	private function get_shortcodes()
+	protected function get_shortcodes()
 	{
 		return [
 			'logged-in'     => 'shortcode_logged_in',

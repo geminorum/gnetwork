@@ -55,7 +55,7 @@ class Widgets extends gNetwork\Module
 				[
 					'field'       => 'register_sidebar_widgets',
 					'title'       => _x( 'Extra Widgets', 'Modules: Widgets: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Resgisters extra sidebar widgets.', 'Modules: Widgets: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Registers extra sidebar widgets.', 'Modules: Widgets: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
 					'field'       => 'disabled_sidebar_widgets',

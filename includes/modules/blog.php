@@ -174,27 +174,27 @@ class Blog extends gNetwork\Module
 		$settings['_services'][] = [
 			'field'       => 'rest_api_enabled',
 			'title'       => _x( 'Rest API', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-			'description' => _x( 'Whether REST API Services Are Enabled on This Site', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Whether REST API services are enabled on this site.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 			'default'     => '1',
 		];
 
 		$settings['_services'][] = [
 			'field'       => 'xmlrpc_enabled',
 			'title'       => _x( 'XML-RPC', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-			'description' => _x( 'Whether XML-RPC Services Are Enabled on This Site', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Whether XML-RPC services are enabled on this site.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 		];
 
 		$settings['_services'][] = [
 			'field'       => 'wlw_enabled',
 			'title'       => _x( 'WLW', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-			'description' => _x( 'Whether Windows Live Writer manifest enabled for this site.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Whether Windows Live Writer manifest enabled on this site.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 		];
 
 		$settings['_feeds'][] = [
 			'field'       => 'feed_delay',
 			'type'        => 'select',
 			'title'       => _x( 'Delay Feeds', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-			'description' => _x( 'Delay published posts on feeds', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Delays appearing published posts on the site feeds.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 			'none_title'  => _x( 'No Delay', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 			'values'      => Settings::minutesOptions(),
 			'default'     => '10',
@@ -203,14 +203,14 @@ class Blog extends gNetwork\Module
 		$settings['_feeds'][] = [
 			'field'       => 'feed_json',
 			'title'       => _x( 'JSON Feed', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-			'description' => _x( 'Adds JSON as New Type of Feed You Can Subscribe To', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Adds JSON as new type of feed that anyone can subscribe to.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 			'after'       => $this->options['feed_json'] ? Settings::fieldAfterLink( get_feed_link( 'json' ) ) : '',
 		];
 
 		$settings['_thrift'][] = [
 			'field'       => 'disable_emojis',
 			'title'       => _x( 'Emojis', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-			'description' => _x( 'Removes the Extra Code Bloat Used to Add Support for Emoji\'s in Older Browsers', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Removes the extra code bloat used to add support for Emoji\'s in older browsers.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 			'default'     => GNETWORK_DISABLE_EMOJIS,
 			'after'       => Settings::fieldAfterIcon( Settings::getWPCodexLink( 'Emoji' ) ),
 			'values'      => Settings::reverseEnabled(),
@@ -219,8 +219,8 @@ class Blog extends gNetwork\Module
 		$settings['_theme'][] = [
 			'field'       => 'page_copyright',
 			'type'        => 'page',
-			'title'       => _x( 'Page for Copyright', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-			'description' => _x( 'Set Any Page to Be Used as Copyright Page on Html Head', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'title'       => _x( 'Copyright Information', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Defines an HTML meta tag as copyright manifest page for this site.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 			'default'     => '0',
 			'exclude'     => $exclude,
 			'after'       => Settings::fieldAfterNewPostType( 'page' ),
@@ -229,8 +229,8 @@ class Blog extends gNetwork\Module
 		$settings['_theme'][] = [
 			'field'       => 'page_404',
 			'type'        => 'page',
-			'title'       => _x( 'Page for 404 Error', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-			'description' => _x( 'Set Any Page to Be Used as the 404 Error Page', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'title'       => _x( 'Custom 404 Error', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Displays the selected page as 404 Error page on this site.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 			'default'     => '0',
 			'exclude'     => $exclude,
 			'after'       => Settings::fieldAfterNewPostType( 'page' ),
@@ -247,13 +247,13 @@ class Blog extends gNetwork\Module
 		$settings['_theme'][] = [
 			'field'       => 'meta_revised',
 			'title'       => _x( 'Meta Revised', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-			'description' => _x( 'HTML Revised Meta Tags for Posts', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Defines an HTML meta tag for last modified time of each post.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 		];
 
 		$settings['_theme'][] = [
 			'field'       => 'noindex_attachments',
 			'title'       => _x( 'No Index Attachments', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-			'description' => _x( 'No Index/No Follow Meta Tags for Attachments', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Defines No Index/No Follow HTML meta tags for attachment pages.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 		];
 
 		if ( class_exists( __NAMESPACE__.'\\Mail' ) && is_multisite() ) {
@@ -262,14 +262,14 @@ class Blog extends gNetwork\Module
 					'field'       => 'from_email',
 					'type'        => 'text',
 					'title'       => _x( 'From Email', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'This blog email address that emails should be sent from. Set to override the network.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'This site email address that emails should be sent from. Set to override the network.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 					'field_class' => [ 'regular-text', 'email-text' ],
 				],
 				[
 					'field'       => 'from_name',
 					'type'        => 'text',
 					'title'       => _x( 'From Name', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'This blog email name that emails should be sent from. Set to override the network.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'This site email name that emails should be sent from. Set to override the network.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 			];
 		}
@@ -280,7 +280,7 @@ class Blog extends gNetwork\Module
 					'field'       => 'ga_override',
 					'type'        => 'text',
 					'title'       => _x( 'GA Override', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'This Blog Google Analytics Account. Set to Override the Network', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'This site Google Analytics tracking account. Set to override the network.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 					'placeholder' => 'UA-XXXXX-X',
 					'field_class' => [ 'regular-text', 'code-text' ],
 				],
@@ -289,8 +289,8 @@ class Blog extends gNetwork\Module
 		$settings['_redirect'][] = [
 			'field'       => 'blog_redirect',
 			'type'        => 'url',
-			'title'       => _x( 'Redirect', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-			'description' => _x( 'The Site Will Redirect to This URL', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'title'       => _x( 'Redirect URL', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Redirects the site to a custom URL. Leave empty to disable.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 			'placeholder' => 'http://anothersite.com',
 		];
 
@@ -298,7 +298,7 @@ class Blog extends gNetwork\Module
 			'field'       => 'blog_redirect_status',
 			'type'        => 'select',
 			'title'       => _x( 'Redirect Status Code', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-			'description' => _x( 'HTTP Status Header Code', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'HTTP status header code for redirection of this site.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 			'after'       => Settings::fieldAfterIcon( 'https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#3xx_Redirection' ),
 			'dir'         => 'ltr',
 			'default'     => '301',

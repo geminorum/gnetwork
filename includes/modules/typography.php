@@ -62,7 +62,7 @@ class Typography extends gNetwork\Module
 				[
 					'field'       => 'register_shortcodes',
 					'title'       => _x( 'Extra Shortcodes', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Resgisters extra typography shortcodes.', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Registers extra typography shortcodes.', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
 					'field'       => 'editor_buttons',
