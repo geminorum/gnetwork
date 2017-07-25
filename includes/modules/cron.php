@@ -97,6 +97,15 @@ class Cron extends gNetwork\Module
 		];
 	}
 
+	public function settings_sidebox( $sub, $uri )
+	{
+		if ( defined( 'DISABLE_WP_CRON' ) && DISABLE_WP_CRON )
+			HTML::desc( _x( 'The <code>DISABLE_WP_CRON</code> constant is set to true. WP-Cron is disabled and will not run.', 'Modules: CRON', GNETWORK_TEXTDOMAIN ) );
+
+		if ( defined( 'ALTERNATE_WP_CRON' ) && ALTERNATE_WP_CRON )
+			HTML::desc( _x( 'The <code>ALTERNATE_WP_CRON</code> constant is set to true. The module cannot determine the status of the WP-Cron system.', 'Modules: CRON', GNETWORK_TEXTDOMAIN ) );
+	}
+
 	public function settings( $sub = NULL )
 	{
 		if ( 'scheduled' == $sub ) {
@@ -220,10 +229,10 @@ class Cron extends gNetwork\Module
 	private function status_check_spawn()
 	{
 		if ( defined( 'DISABLE_WP_CRON' ) && DISABLE_WP_CRON )
-			return new Error( 'cron_disabled', sprintf( _x( 'The DISABLE_WP_CRON constant is set to true as of %s. WP-Cron is disabled and will not run.', 'Modules: CRON', GNETWORK_TEXTDOMAIN ), Utilities::htmlCurrent() ) );
+			return new Error( 'cron_disabled', sprintf( _x( 'The <code>DISABLE_WP_CRON</code> constant is set to true as of %s. WP-Cron is disabled and will not run.', 'Modules: CRON', GNETWORK_TEXTDOMAIN ), Utilities::htmlCurrent() ) );
 
 		if ( defined( 'ALTERNATE_WP_CRON' ) && ALTERNATE_WP_CRON )
-			return new Error( 'cron_alternated', sprintf( _x( 'The ALTERNATE_WP_CRON constant is set to true as of %s. We cannot determine the status of your WP-Cron system.', 'Modules: CRON', GNETWORK_TEXTDOMAIN ), Utilities::htmlCurrent() ) );
+			return new Error( 'cron_alternated', sprintf( _x( 'The <code>ALTERNATE_WP_CRON</code> constant is set to true as of %s. The module cannot determine the status of the WP-Cron system.', 'Modules: CRON', GNETWORK_TEXTDOMAIN ), Utilities::htmlCurrent() ) );
 
 		$url  = site_url( 'wp-cron.php?doing_wp_cron='.sprintf( '%.22F', microtime( TRUE ) ) );
 		$args = [ 'timeout' => 3, 'blocking' => TRUE ];

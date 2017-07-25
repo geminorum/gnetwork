@@ -103,7 +103,6 @@ class Maintenance extends gNetwork\Module
 					'title'       => _x( 'Admin Notice', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'The admin notice while site is on maintenance. Leave empty to disable.', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => _x( 'The Maintenance Mode is active.', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
-					'field_class' => [ 'large-text', 'code-text' ],
 				],
 				[
 					'field'       => 'login_message',
@@ -111,7 +110,6 @@ class Maintenance extends gNetwork\Module
 					'title'       => _x( 'Login Message', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'The login message while site is on maintenance. Leave empty to disable.', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => _x( 'The site is unavailable for scheduled maintenance.', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
-					'field_class' => [ 'large-text', 'code-text' ],
 				],
 				[
 					'field'       => 'status_code',

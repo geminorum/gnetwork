@@ -135,7 +135,6 @@ class Restricted extends gNetwork\Module
 					'title'       => _x( 'Restricted Notice', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'This will show on top of this site login page. <code>%1$s</code> for the role, <code>%2$s</code> for the page.', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => _x( '<p>This site is restricted to users with %1$s access level. Please visit <a href="%2$s">here</a> to request access.</p>', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
-					'field_class' => [ 'large-text', 'code-text' ],
 				],
 				[
 					'field'       => 'restricted_access',
@@ -143,7 +142,6 @@ class Restricted extends gNetwork\Module
 					'title'       => _x( 'Restricted Access', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'This will show on 403 page for logged-in users. <code>%1$s</code> for the role, <code>%2$s</code> for the page.', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => _x( '<p>You do not have %1$s access level. Please visit <a href="%2$s">here</a> to request access.</p>', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
-					'field_class' => [ 'large-text', 'code-text' ],
 				],
 			],
 		];

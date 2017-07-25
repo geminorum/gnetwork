@@ -64,9 +64,9 @@ class Authors extends gNetwork\Module
 	public function settings_sidebox( $sub, $uri )
 	{
 		if ( $user = WordPress::getSiteUserID() )
-			printf( _x( 'Network Site User Is %s', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ), get_userdata( $user )->display_name );
+			HTML::desc( sprintf( _x( 'Network Site User Is %s', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ), get_userdata( $user )->display_name ) );
 		else
-			_ex( 'Network Site User Is Not Defined', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN );
+			HTML::desc( _x( 'Network Site User Is Not Defined', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ) );
 	}
 
 	public function settings_before( $sub, $uri )

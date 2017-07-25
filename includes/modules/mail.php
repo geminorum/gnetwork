@@ -208,24 +208,25 @@ class Mail extends gNetwork\Module
 	{
 		if ( ! GNETWORK_MAIL_LOG_DIR ) {
 
-			echo '<p>'._x( 'Logging Emails Disabled by Constant', 'Modules: Mail', GNETWORK_TEXTDOMAIN ).'</p>';
+			HTML::desc( _x( 'Logging Emails Disabled by Constant', 'Modules: Mail', GNETWORK_TEXTDOMAIN ) );
 
 		} else if ( $this->options['log_all'] ) {
 
 			if ( wp_is_writable( GNETWORK_MAIL_LOG_DIR ) ) {
-				echo '<p>'.sprintf( _x( 'Log Folder Exists and Writable: <code>%s</code>', 'Modules: Mail', GNETWORK_TEXTDOMAIN ), GNETWORK_MAIL_LOG_DIR ).'</p>';
+
+				HTML::desc( sprintf( _x( 'Log Folder Exists and Writable: <code>%s</code>', 'Modules: Mail', GNETWORK_TEXTDOMAIN ), GNETWORK_MAIL_LOG_DIR ) );
 
 				if ( ! file_exists( GNETWORK_MAIL_LOG_DIR.'/.htaccess' ) )
-					echo '<p>'._x( 'Warning: <code>.htaccess</code> not found!', 'Modules: Mail', GNETWORK_TEXTDOMAIN ).'</p>';
+					HTML::desc( _x( 'Warning: <code>.htaccess</code> not found!', 'Modules: Mail', GNETWORK_TEXTDOMAIN ) );
 
 			} else {
-				echo '<p>'._x( 'Log Folder Not Exists and/or Writable', 'Modules: Mail', GNETWORK_TEXTDOMAIN ).'</p>';
+				HTML::desc( _x( 'Log Folder Not Exists and/or Writable', 'Modules: Mail', GNETWORK_TEXTDOMAIN ) );
 
 				Settings::submitButton( 'create_log_folder', _x( 'Create Log Folder', 'Modules: Mail', GNETWORK_TEXTDOMAIN ) );
 			}
 
 		} else {
-			echo '<p>'._x( 'Logging Emails Disabled', 'Modules: Mail', GNETWORK_TEXTDOMAIN ).'</p>';
+			HTML::desc( _x( 'Logging Emails Disabled', 'Modules: Mail', GNETWORK_TEXTDOMAIN ) );
 		}
 	}
 

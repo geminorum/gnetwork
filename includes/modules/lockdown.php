@@ -87,7 +87,6 @@ class Lockdown extends gNetwork\Module
 					'title'       => _x( 'Locked Message', 'Modules: Lockdown: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Locked message on login page.', 'Modules: Lockdown: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => _x( '<strong>LOCKED OUT</strong>: Too many login attempts from one IP address! Please take a break and try again.', 'Modules: Lockdown: Settings', GNETWORK_TEXTDOMAIN ),
-					'field_class' => 'large-text',
 				],
 			],
 		];
