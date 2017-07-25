@@ -2,7 +2,7 @@
   "name": "gnetwork",
   "private": true,
   "devDependencies": {
-    "autosize": "^3.0.20",
+    "autosize": "^4.0.0",
     "pdfobject": "pdfobject2#*",
     "GitHub-jQuery-Repo-Widget": "JoelSutherland/GitHub-jQuery-Repo-Widget",
     "gist-embed": "master",

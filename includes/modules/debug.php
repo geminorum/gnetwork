@@ -117,8 +117,6 @@ class Debug extends gNetwork\Module
 
 			HTML::h3( _x( 'System Report', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ) );
 
-			Utilities::enqueueScript( 'admin.tabs' ); // FIXME: ass this into script.all
-
 			HTML::tabsList( [
 				'php' => [
 					'title'  => _x( 'PHP', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
