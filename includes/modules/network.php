@@ -104,10 +104,8 @@ class Network extends gNetwork\Module
 				if ( WordPress::cuc( $args['cap'] ) )
 					$subs[$sub] = $args['title'];
 
-		if ( WordPress::isSuperAdmin() ) {
-			$subs['phpinfo'] = _x( 'PHP Info', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN );
+		if ( WordPress::isSuperAdmin() )
 			$subs['console'] = _x( 'Console', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN );
-		}
 
 		return $subs;
 	}

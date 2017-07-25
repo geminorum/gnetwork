@@ -163,6 +163,10 @@ class Debug extends gNetwork\Module
 					'title' => _x( 'Custom', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
 					'cb'    => [ __CLASS__, 'customSummary' ],
 				],
+				'phpinfo' => [
+					'title' => _x( 'PHP Info', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
+					'cb'    => [ __CLASS__, 'phpinfo' ],
+				],
 			] );
 
 		} else if ( 'remotetests' == $sub ) {

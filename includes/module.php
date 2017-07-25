@@ -178,7 +178,7 @@ class Module extends Core\Base
 		if ( 'overview' == $sub )
 			return TRUE;
 
-		if ( in_array( $sub, [ 'console', 'phpinfo' ] ) )
+		if ( in_array( $sub, [ 'console' ] ) )
 			return WordPress::isSuperAdmin();
 
 		foreach ( $this->menus as $priority => $group )
