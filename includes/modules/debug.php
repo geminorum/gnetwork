@@ -155,6 +155,14 @@ class Debug extends gNetwork\Module
 					'title' => _x( 'gPlugin', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
 					'cb'    => [ __CLASS__, 'gPlugin' ],
 				],
+				'htaccess' => [
+					'title' => _x( 'htaccess', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
+					'cb'    => [ __CLASS__, 'htaccessSummary' ],
+				],
+				'custom' => [
+					'title' => _x( 'Custom', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
+					'cb'    => [ __CLASS__, 'customSummary' ],
+				],
 			] );
 
 		} else if ( 'remotetests' == $sub ) {
@@ -261,6 +269,25 @@ class Debug extends gNetwork\Module
 		} else {
 			HTML::desc( _x( 'No Instance of gPlugin found.', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
 		}
+	}
+
+	public static function htaccessSummary()
+	{
+		HTML::preCode( File::getContents( trailingslashit( get_home_path() ).'.htaccess' ) );
+	}
+
+	// FIXME: DRAFT: not used
+	public static function htaccessAppend( $block, $content )
+	{
+		return insert_with_markers( trailingslashit( get_home_path() ).'.htaccess', $block, $content );
+	}
+
+	public static function customSummary()
+	{
+		if ( file_exists( WP_CONTENT_DIR.'/gnetwork-custom.php' ) )
+			HTML::preCode( File::getContents( WP_CONTENT_DIR.'/gnetwork-custom.php' ) );
+		else
+			HTML::desc( _x( 'No custom file found.', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
 	}
 
 	public static function cacheStats()
