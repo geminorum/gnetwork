@@ -103,15 +103,23 @@ class Settings extends Core\Base
 			'resetting' => self::success( _x( 'Settings reset.', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
 			'optimized' => self::success( _x( 'Tables optimized.', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
 			'updated'   => self::success( _x( 'Settings updated.', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
-			'created'   => self::success( _x( 'File/Folder created.', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
-			'deleted'   => self::counted( _x( '%s deleted!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
-			'cleaned'   => self::counted( _x( '%s cleaned!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
 			'purged'    => self::success( _x( 'Data purged.', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
-			'changed'   => self::counted( _x( '%s items(s) changed.', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
-			'nochange'  => self::warning( _x( 'No item changed!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
-			'error'     => self::error( _x( 'Error while settings save.', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
+			'maked'     => self::success( _x( 'File/Folder created.', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
+			'error'     => self::error( _x( 'Error occurred!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
 			'wrong'     => self::error( _x( 'Something\'s wrong!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
-			'huh'       => self::error( self::huh( empty( $_REQUEST['huh'] ) ? NULL : $_REQUEST['huh'] ) ),
+			'nochange'  => self::error( _x( 'No item changed!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
+			'noadded'   => self::error( _x( 'No item added!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
+			'noaccess'  => self::error( _x( 'You do not have the access!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
+			'converted' => self::counted( _x( '%s items(s) converted!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
+			'imported'  => self::counted( _x( '%s items(s) imported!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
+			'created'   => self::counted( _x( '%s items(s) created!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
+			'deleted'   => self::counted( _x( '%s items(s) deleted!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
+			'cleaned'   => self::counted( _x( '%s items(s) cleaned!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
+			'changed'   => self::counted( _x( '%s items(s) changed!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
+			'emptied'   => self::counted( _x( '%s items(s) emptied!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
+			'ordered'   => self::counted( _x( '%s items(s) re-ordered!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
+			'synced'    => self::counted( _x( '%s items(s) synced!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
+			'huh'       => HTML::error( self::huh( self::req( 'huh', NULL ) ) ),
 		];
 	}
 
@@ -120,30 +128,30 @@ class Settings extends Core\Base
 		$extra = [];
 
 		if ( isset( $_REQUEST['count'] ) )
-			$extra[] = sprintf( _x( '%s Counted!', 'Settings', GNETWORK_TEXTDOMAIN ),
+			$extra[] = sprintf( _x( '%s Counted!', 'Settings: Message', GNETWORK_TEXTDOMAIN ),
 				Number::format( $_REQUEST['count'] ) );
 
 		return count( $extra ) ? ' ('.implode( ', ', $extra ).')' : '';
 	}
 
-	public static function error( $message, $echo = FALSE )
+	public static function error( $message, $dismissible = TRUE )
 	{
-		return parent::error( $message.self::messageExtra(), $echo );
+		return HTML::error( $message.self::messageExtra(), $dismissible );
 	}
 
-	public static function success( $message, $echo = FALSE )
+	public static function success( $message, $dismissible = TRUE )
 	{
-		return parent::success( $message.self::messageExtra(), $echo );
+		return HTML::success( $message.self::messageExtra(), $dismissible );
 	}
 
-	public static function warning( $message, $echo = FALSE )
+	public static function warning( $message, $dismissible = TRUE )
 	{
-		return parent::warning( $message.self::messageExtra(), $echo );
+		return HTML::warning( $message.self::messageExtra(), $dismissible );
 	}
 
-	public static function info( $message, $echo = FALSE )
+	public static function info( $message, $dismissible = TRUE )
 	{
-		return parent::info( $message.self::messageExtra(), $echo );
+		return HTML::info( $message.self::messageExtra(), $dismissible );
 	}
 
 	public static function counted( $message = NULL, $count = NULL, $class = 'updated' )
@@ -154,15 +162,12 @@ class Settings extends Core\Base
 		if ( is_null( $count ) )
 			$count = isset( $_REQUEST['count'] ) ? $_REQUEST['count'] : 0;
 
-		return HTML::notice( sprintf( $message, Number::format( $count ) ), $class.' fade', FALSE );
+		return HTML::notice( sprintf( $message, Number::format( $count ) ), $class.' fade' );
 	}
 
 	public static function cheatin( $message = NULL )
 	{
-		if ( is_null( $message ) )
-			$message = _x( 'Cheatin&#8217; uh?', 'Settings: Message', GNETWORK_TEXTDOMAIN );
-
-		self::error( $message, TRUE );
+		echo HTML::error( is_null( $message ) ? _x( 'Cheatin&#8217; uh?', 'Settings: Message', GNETWORK_TEXTDOMAIN ) : $message );
 	}
 
 	public static function huh( $message = NULL )
@@ -183,7 +188,7 @@ class Settings extends Core\Base
 			if ( isset( $messages[$_GET['message']] ) )
 				echo $messages[$_GET['message']];
 			else
-				self::warning( $_GET['message'], TRUE );
+				echo HTML::warning( $_GET['message'] );
 
 			$_SERVER['REQUEST_URI'] = remove_query_arg( [ 'message', 'count' ], $_SERVER['REQUEST_URI'] );
 		}

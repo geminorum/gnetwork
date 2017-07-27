@@ -109,10 +109,10 @@ class SMS extends gNetwork\Module
 
 				if ( self::isError( $status ) ) {
 
-					self::error( vsprintf( _x( '%s: %s', 'Modules: SMS', GNETWORK_TEXTDOMAIN ), [
+					echo HTML::error( vsprintf( _x( '%s: %s', 'Modules: SMS', GNETWORK_TEXTDOMAIN ), [
 						$provider->providerName(),
 						$status->get_error_message(),
-					] ), TRUE );
+					] ) );
 
 				} else {
 

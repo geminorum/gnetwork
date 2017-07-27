@@ -221,15 +221,16 @@ class Debug extends gNetwork\Module
 					echo '<li>'.$line.'</li>';
 				}
 
-				echo '</ol></div><p class="error-box-footer description">'.sprintf( _x( 'File Size: %s', 'Modules: Debug: Error Box', GNETWORK_TEXTDOMAIN ), $file_size ).'</p>';
+				echo '</ol></div>';
+				HTML::desc( sprintf( _x( 'File Size: %s', 'Modules: Debug: Error Box', GNETWORK_TEXTDOMAIN ), $file_size ), TRUE, 'error-box-footer' );
 
 			} else {
-				self::warning( _x( 'No information currently logged.', 'Modules: Debug: Error Box', GNETWORK_TEXTDOMAIN ), TRUE );
+				echo gNetwork()->na();
 				return FALSE;
 			}
 
 		} else {
-			self::error( _x( 'There was a problem reading the log file.', 'Modules: Debug: Error Box', GNETWORK_TEXTDOMAIN ), TRUE );
+			echo HTML::error( _x( 'There was a problem reading the log file.', 'Modules: Debug: Error Box', GNETWORK_TEXTDOMAIN ) );
 			return FALSE;
 		}
 

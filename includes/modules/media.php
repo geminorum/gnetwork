@@ -320,7 +320,7 @@ class Media extends gNetwork\Module
 			'navigation' => 'before',
 			'search'     => 'before',
 			'title'      => HTML::tag( 'h3', _x( 'Overview of posts with attachments', 'Modules: Media', GNETWORK_TEXTDOMAIN ) ),
-			'empty'      => self::warning( _x( 'No Posts!', 'Modules: Media', GNETWORK_TEXTDOMAIN ) ),
+			'empty'      => HTML::warning( _x( 'No Posts!', 'Modules: Media', GNETWORK_TEXTDOMAIN ) ),
 			'pagination' => $pagination,
 		] );
 	}

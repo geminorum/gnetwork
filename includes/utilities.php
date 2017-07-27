@@ -24,11 +24,11 @@ class Utilities extends Core\Base
 		$updates = get_plugin_updates();
 
 		if ( ! empty( $updates[$plugin] ) )
-			self::info( sprintf(
+			echo HTML::info( sprintf(
 				_x( 'A new version of %s is available. Please update to version %s to ensure compatibility with your WordPress.', 'Utilities: Update Notice', GNETWORK_TEXTDOMAIN ),
 				HTML::link( $updates[$plugin]->Name, $updates[$plugin]->PluginURI, TRUE ),
 				$updates[$plugin]->update->new_version
-			), TRUE );
+			) );
 
 		else
 			return FALSE;

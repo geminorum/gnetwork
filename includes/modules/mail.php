@@ -239,9 +239,9 @@ class Mail extends gNetwork\Module
 
 				$this->check_referer( $sub );
 
-				$message = FALSE === File::putHTAccessDeny( GNETWORK_MAIL_LOG_DIR, TRUE ) ? 'error' : 'created';
+				$created = File::putHTAccessDeny( GNETWORK_MAIL_LOG_DIR, TRUE );
 
-				WordPress::redirectReferer( $message );
+				WordPress::redirectReferer( ( FALSE === $created ? 'wrong' : 'maked' ) );
 
 			} else {
 				parent::settings( $sub );
@@ -632,7 +632,7 @@ class Mail extends gNetwork\Module
 			'navigation' => 'before',
 			'search'     => 'before',
 			'title'      => HTML::tag( 'h3', sprintf( _x( 'Total %s Email Logs', 'Modules: Mail', GNETWORK_TEXTDOMAIN ), Number::format( $pagination['total'] ) ) ),
-			'empty'      => self::warning( _x( 'No Logs!', 'Modules: Mail', GNETWORK_TEXTDOMAIN ) ),
+			'empty'      => HTML::warning( _x( 'No Logs!', 'Modules: Mail', GNETWORK_TEXTDOMAIN ) ),
 			'pagination' => $pagination,
 		] );
 	}

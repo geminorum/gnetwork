@@ -167,14 +167,14 @@ class Maintenance extends gNetwork\Module
 	public function admin_notices()
 	{
 		if ( $this->options['admin_notice'] && ! empty( $this->options['admin_notice'] )  )
-			HTML::notice( $this->options['admin_notice'], 'error' );
+			echo HTML::warning( $this->options['admin_notice'] );
 	}
 
 	public function login_message()
 	{
 		if ( $this->options['login_message'] && ! empty( $this->options['login_message'] ) )
 			echo '<div id="login_error">'.wpautop( $this->options['login_message'] ).'</div>';
-			// HTML::notice( $this->options['login_message'], 'error' );
+			// echo HTML::warning( $this->options['login_message'] );
 	}
 
 	public function template_redirect()

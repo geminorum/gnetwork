@@ -386,12 +386,12 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 
 			case 'gnetwork-taxonomy-updated':
 
-				HTML::notice( _x( 'Terms updated.', 'Settings: Message', GNETWORK_TEXTDOMAIN ) );
+				echo HTML::success( _x( 'Terms updated.', 'Settings: Message', GNETWORK_TEXTDOMAIN ) );
 
 			break;
 			case 'gnetwork-taxonomy-error':
 
-				HTML::notice( _x( 'Terms not updated.', 'Settings: Message', GNETWORK_TEXTDOMAIN ), 'error' );
+				echo HTML::error( _x( 'Terms not updated.', 'Settings: Message', GNETWORK_TEXTDOMAIN ) );
 		}
 	}
 
