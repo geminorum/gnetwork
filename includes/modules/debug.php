@@ -161,6 +161,10 @@ class Debug extends gNetwork\Module
 					'title' => _x( 'htaccess', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
 					'cb'    => [ __CLASS__, 'htaccessSummary' ],
 				],
+				'wpconfig' => [
+					'title' => _x( 'WP Config', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
+					'cb'    => [ __CLASS__, 'wpconfigSummary' ],
+				],
 				'custom' => [
 					'title' => _x( 'Custom', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
 					'cb'    => [ __CLASS__, 'customSummary' ],
@@ -291,6 +295,15 @@ class Debug extends gNetwork\Module
 	public static function htaccessAppend( $block, $content )
 	{
 		return insert_with_markers( trailingslashit( get_home_path() ).'.htaccess', $block, $content );
+	}
+
+	public static function wpconfigSummary()
+	{
+		if ( $wpconfig = WordPress::getConfigPHP() )
+			echo '<pre class="language-php line-numbers" dir="ltr"><code class="language-php">'
+				.HTML::escapeTextarea( File::getContents( $wpconfig ) ).'</code></pre>';
+		else
+			HTML::desc( _x( 'Can not find the config file!', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
 	}
 
 	public static function customSummary()
