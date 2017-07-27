@@ -63,6 +63,13 @@ class HTML extends Base
 		return $block ? '<div class="-wrap '.$class.'">'.$html.'</div>' : '<span class="-wrap '.$class.'">'.$html.'</span>';
 	}
 
+	public static function preCode( $content, $rows = 1 )
+	{
+		echo '<textarea dir="ltr" class="textarea-autosize" rows="'.$rows.'" style="width:100%;text-align:left;direction:ltr;" readonly>';
+			echo self::escapeTextarea( $content );
+		echo '</textarea>';
+	}
+
 	public static function inputHidden( $name, $value = '' )
 	{
 		echo '<input type="hidden" name="'.self::escapeAttr( $name ).'" value="'.self::escapeAttr( $value ).'" />';
@@ -905,14 +912,29 @@ class HTML extends Base
 
 	// @REF: https://codex.wordpress.org/Plugin_API/Action_Reference/admin_notices
 	// CLASSES: notice-error, notice-warning, notice-success, notice-info, is-dismissible
-	public static function notice( $notice, $class = 'notice-success fade', $echo = TRUE )
+	public static function notice( $notice, $class = 'notice-success fade', $dismissible = TRUE )
 	{
-		$html = sprintf( '<div class="notice %s is-dismissible"><p>%s</p></div>', $class, $notice );
+		return sprintf( '<div class="notice %s%s">%s</div>', $class, ( $dismissible ? ' is-dismissible' : '' ), Text::autoP( $notice ) );
+	}
 
-		if ( ! $echo )
-			return $html;
+	public static function error( $notice, $dismissible = TRUE )
+	{
+		return self::notice( $notice, 'notice-error fade', $dismissible );
+	}
 
-		echo $html;
+	public static function success( $notice, $dismissible = TRUE )
+	{
+		return self::notice( $notice, 'notice-success fade', $dismissible );
+	}
+
+	public static function warning( $notice, $dismissible = TRUE )
+	{
+		return self::notice( $notice, 'notice-warning fade', $dismissible );
+	}
+
+	public static function info( $notice, $dismissible = TRUE )
+	{
+		return self::notice( $notice, 'notice-info fade', $dismissible );
 	}
 
 	// @REF: https://developer.wordpress.org/resource/dashicons/

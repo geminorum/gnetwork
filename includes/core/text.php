@@ -26,6 +26,30 @@ class Text extends Base
 		// return preg_replace( '/(.*)([,،;؛]) (.*)/u', '$3'.$separator.'$1', $string ); // Wrong!
 	}
 
+	// simpler version of `wpautop()`
+	// @REF: https://stackoverflow.com/a/5240825/4864081
+	// @SEE: https://stackoverflow.com/a/7409591/4864081
+	public static function autoP( $string )
+	{
+		// standardize newline characters to "\n"
+		$string = str_replace( array( "\r\n", "\r" ), "\n", $string );
+
+		// remove more than two contiguous line breaks
+		$string = preg_replace( "/\n\n+/", "\n\n", $string );
+
+		$paraphs = preg_split( "/[\n]{2,}/", $string );
+
+		foreach ( $paraphs as $key => $p )
+			$paraphs[$key] = '<p>'.str_replace( "\n", '<br />'."\n", $paraphs[$key] ).'</p>'."\n";
+
+		$string = implode( '', $paraphs );
+
+		// remove a P of entirely whitespace
+		$string = preg_replace( '|<p>\s*</p>|', '', $string );
+
+		return $string;
+	}
+
 	// like wp but without check for func_overload
 	// @SOURCE: `seems_utf8()`
 	public static function seemsUTF8( $string )

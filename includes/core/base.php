@@ -185,26 +185,6 @@ class Base
 		return ( 'ASC' === $req || 'DESC' === $req ) ? $req : $default;
 	}
 
-	public static function error( $message, $echo = FALSE )
-	{
-		return HTML::notice( $message, 'notice-error fade', $echo );
-	}
-
-	public static function success( $message, $echo = FALSE )
-	{
-		return HTML::notice( $message, 'notice-success fade', $echo );
-	}
-
-	public static function warning( $message, $echo = FALSE )
-	{
-		return HTML::notice( $message, 'notice-warning fade', $echo );
-	}
-
-	public static function info( $message, $echo = FALSE )
-	{
-		return HTML::notice( $message, 'notice-info fade', $echo );
-	}
-
 	// ANCESTOR: shortcode_atts()
 	public static function atts( $pairs, $atts )
 	{
