@@ -171,6 +171,8 @@ class Debug extends gNetwork\Module
 				],
 			] );
 
+			Utilities::enqueueScriptVendor( 'prism' );
+
 		} else if ( 'remotetests' == $sub ) {
 
 			// TODO: display remote tests summary
@@ -280,7 +282,9 @@ class Debug extends gNetwork\Module
 
 	public static function htaccessSummary()
 	{
-		HTML::preCode( File::getContents( trailingslashit( get_home_path() ).'.htaccess' ) );
+		echo '<pre class="language-apacheconf line-numbers" dir="ltr"><code class="language-apacheconf">';
+			echo HTML::escapeTextarea( File::getContents( trailingslashit( get_home_path() ).'.htaccess' ) );
+		echo '</code></pre>';
 	}
 
 	// FIXME: DRAFT: not used
@@ -292,7 +296,8 @@ class Debug extends gNetwork\Module
 	public static function customSummary()
 	{
 		if ( file_exists( WP_CONTENT_DIR.'/gnetwork-custom.php' ) )
-			HTML::preCode( File::getContents( WP_CONTENT_DIR.'/gnetwork-custom.php' ) );
+			echo '<pre class="language-php line-numbers" dir="ltr"><code class="language-php">'
+				.HTML::escapeTextarea( File::getContents( WP_CONTENT_DIR.'/gnetwork-custom.php' ) ).'</code></pre>';
 		else
 			HTML::desc( _x( 'No custom file found.', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
 	}
