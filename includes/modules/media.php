@@ -30,6 +30,8 @@ class Media extends gNetwork\Module
 		$this->filter( 'image_send_to_editor', 8 );
 		$this->filter( 'media_send_to_editor', 3, 12 );
 
+		$this->filter( 'wp_update_attachment_metadata', 2, 12 );
+
 		if ( is_admin() ) {
 
 			if ( WordPress::mustRegisterUI( FALSE ) )
@@ -958,6 +960,12 @@ class Media extends gNetwork\Module
 			'class' => '-attachment',
 			'data'  => [ 'id' => $id ],
 		], $html );
+	}
+
+	public function wp_update_attachment_metadata( $data, $post_id )
+	{
+		unset( $data['image_meta'] );
+		return $data;
 	}
 
 	public function post_mime_types( $post_mime_types )
