@@ -165,6 +165,14 @@ class Cleanup extends gNetwork\Module
 			'values'      => $confirm,
 		];
 
+		$settings['_comments'][] = [
+			'field'       => 'comments_oldposts',
+			'type'        => 'button',
+			'description' => _x( 'Disables comments and pings on posts published before <b>last month</b>.', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+			'default'     => _x( 'Close Old Posts Comment Form', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+			'values'      => $confirm,
+		];
+
 		return $settings;
 	}
 
@@ -218,6 +226,9 @@ class Cleanup extends gNetwork\Module
 
 			else if ( isset( $_POST['comments_akismetmeta'] ) )
 				$message = $this->comments_akismetmeta();
+
+			else if ( isset( $_POST['comments_oldposts'] ) )
+				$message = $this->comments_oldposts();
 
 			else
 				$message = 'huh';
@@ -478,6 +489,26 @@ class Cleanup extends gNetwork\Module
 
 		return $count ? [
 			'message' => 'purged',
+			'count'   => $count,
+		] : 'optimized';
+	}
+
+	// @REF: https://goo.gl/ZErzXR
+	private function comments_oldposts()
+	{
+		global $wpdb;
+
+		$count = 0;
+
+		$lastmonth = gmdate( 'Y-m-d H:i:s', strtotime( '-1 month' ) );
+
+		$count += $wpdb->query( "UPDATE {$wpdb->posts} SET comment_status = 'closed' WHERE post_date_gmt < '{$lastmonth}' AND post_status = 'publish'" );
+		$count += $wpdb->query( "UPDATE {$wpdb->posts} SET ping_status = 'closed' WHERE post_date_gmt < '{$lastmonth}' AND post_status = 'publish'" );
+
+		$wpdb->query( "OPTIMIZE TABLE {$wpdb->posts}" );
+
+		return $count ? [
+			'message' => 'closed',
 			'count'   => $count,
 		] : 'optimized';
 	}

@@ -117,6 +117,7 @@ class Settings extends Core\Base
 			'cleaned'   => self::counted( _x( '%s items(s) cleaned!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
 			'changed'   => self::counted( _x( '%s items(s) changed!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
 			'emptied'   => self::counted( _x( '%s items(s) emptied!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
+			'closed'    => self::counted( _x( '%s items(s) closed!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
 			'ordered'   => self::counted( _x( '%s items(s) re-ordered!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
 			'synced'    => self::counted( _x( '%s items(s) synced!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
 			'huh'       => HTML::error( self::huh( self::req( 'huh', NULL ) ) ),
