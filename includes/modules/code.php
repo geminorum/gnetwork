@@ -55,6 +55,11 @@ class Code extends gNetwork\Module
 
 	public function init()
 	{
+		if ( $this->options['editor_buttons'] ) {
+			add_action( 'gnetwork_tinymce_strings', [ $this, 'tinymce_strings' ] );
+			Admin::registerTinyMCE( 'gnetworkprismjs', 'assets/js/tinymce/prismjs', 2 );
+		}
+
 		if ( $this->options['register_shortcodes'] )
 			$this->shortcodes( $this->get_shortcodes() );
 
@@ -71,8 +76,24 @@ class Code extends gNetwork\Module
 			'github-gist'   => 'shortcode_github_gist',
 			'textarea'      => 'shortcode_textarea',
 			'shields-io'    => 'shortcode_shields_io',
+			'prismjs'       => 'shortcode_prismjs',
 		];
 	}
+
+	public function tinymce_strings( $strings )
+	{
+		$new = [
+			'gnetworkprismjs-title'  => _x( 'PrismJS', 'TinyMCE Strings: PrismJS', GNETWORK_TEXTDOMAIN ),
+			'gnetworkprismjs-window' => _x( 'PrismJS: Syntax Highlighter', 'TinyMCE Strings: PrismJS', GNETWORK_TEXTDOMAIN ),
+			'gnetworkprismjs-input'  => _x( 'The Code', 'TinyMCE Strings: PrismJS', GNETWORK_TEXTDOMAIN ),
+			'gnetworkprismjs-lang'   => _x( 'Language', 'TinyMCE Strings: PrismJS', GNETWORK_TEXTDOMAIN ),
+			'gnetworkprismjs-height' => _x( 'Max Height', 'TinyMCE Strings: PrismJS', GNETWORK_TEXTDOMAIN ),
+			'gnetworkprismjs-file'   => _x( 'File Name', 'TinyMCE Strings: PrismJS', GNETWORK_TEXTDOMAIN ),
+		];
+
+		return array_merge( $strings, $new );
+	}
+
 
 	// Originally based on : GitHub README v0.2.0
 	// by Jason Stallings : http://jason.stallin.gs
@@ -268,5 +289,31 @@ class Code extends gNetwork\Module
 			], $html );
 
 		return self::shortcodeWrap( $html, 'shields-io', $args, FALSE );
+	}
+
+	// also works with empty content
+	public function shortcode_prismjs( $atts = [], $content = NULL, $tag = '' )
+	{
+		$args = shortcode_atts( [
+			'language' => 'php',
+			'height'   => '',
+			'filename' => '',
+			'template' => '<pre data-prism="yes" class="line-numbers" data-filename="%s" style="max-height:%s"><code class="language-%s">%s</code></pre>',
+			'context'  => NULL,
+			'wrap'     => TRUE,
+		], $atts, $tag );
+
+		if ( FALSE === $args['context'] )
+			return NULL;
+
+		Utilities::enqueueScriptVendor( 'prism' );
+		Utilities::enqueueScript( 'front.prism' );
+
+		if ( ! $content )
+			return '<!-- prismjs enqueued -->';
+
+		$html = sprintf( $args['template'], $args['filename'], $args['height'], $args['language'], $content );
+
+		return self::shortcodeWrap( $html, 'prismjs', $args );
 	}
 }
