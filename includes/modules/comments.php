@@ -124,40 +124,40 @@ class Comments extends gNetwork\Module
 				[
 					'field'       => 'strip_pings',
 					'title'       => _x( 'Hide Pings', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Removes trackbacks and pingbacks form comments on frontend', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Removes trackbacks and pingbacks form comment lists on the frontend.', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '1',
 				],
 				[
 					'field'       => 'disable_notifications',
 					'title'       => _x( 'Comment Notifications', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Disable all core comment notifications', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Prevents WordPress from sending any comment related notifications.', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '1',
 					'values'      => Settings::reverseEnabled(),
 				],
 				[
 					'field'       => 'archived_comments',
 					'title'       => _x( 'Archived Comments', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Archived comments and hide from counts', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Activates archived comments functionality and hides them from comment counts.', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
 					'field'       => 'admin_fullcomments',
 					'title'       => _x( 'Full Comments', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Full comments on dashboard', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Displays full comment content on admin dashboard widget.', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
 					'field'       => 'front_quicktags',
 					'title'       => _x( 'Frontend Quicktags', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Activate Quicktags for comments on frontend', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Adds quick-tags on comment textarea on the frontend.', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
 					'field'       => 'front_autogrow',
 					'title'       => _x( 'Frontend Autogrow', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Makes the comment textarea expand in height automatically', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Makes the comment textarea expand in height automatically on the frontend.', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
 					'field'       => 'disable_notes',
 					'title'       => _x( 'Form Notes', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Removes extra notes after comment form on frontend', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Removes extra notes after comment form on the frontend.', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '1',
 				],
 			],
@@ -168,7 +168,7 @@ class Comments extends gNetwork\Module
 				[
 					'field'       => 'captcha',
 					'title'       => _x( 'Captcha', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Display captcha field on comment form', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Displays captcha field after comment form on the frontend.', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 			];
 

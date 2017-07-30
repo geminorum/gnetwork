@@ -105,7 +105,7 @@ class Embed extends gNetwork\Module
 			'data'            => [ 'source' => esc_url( $url ) ],
 		], NULL );
 
-		$html = '<div class="gnetwork-wrap-embed -pdf -docs">'.$html.'</div>';
+		$html = '<div class="gnetwork-wrap-embed -pdf -docs -responsive">'.$html.'</div>';
 		return $this->filters( 'docs_pdf', $html, $matches, $attr, $url, $rawattr );
 	}
 
@@ -120,7 +120,7 @@ class Embed extends gNetwork\Module
 			'data'            => [ 'source' => esc_url( $url ) ],
 		], NULL );
 
-		$html = '<div class="gnetwork-wrap-embed -video -aparat">'.$html.'</div>';
+		$html = '<div class="gnetwork-wrap-embed -video -aparat -responsive">'.$html.'</div>';
 		return $this->filters( 'aparat_video', $html, $matches, $attr, $url, $rawattr );
 	}
 
@@ -212,7 +212,7 @@ class Embed extends gNetwork\Module
 			'data'            => [ 'source' => esc_url( $url ) ],
 		], NULL );
 
-		$html = '<div class="gnetwork-wrap-embed -image -giphy">'.$html.'</div>';
+		$html = '<div class="gnetwork-wrap-embed -image -giphy -responsive">'.$html.'</div>';
 		return $this->filters( 'giphy', $html, $matches, $attr, $url, $rawattr );
 	}
 }
