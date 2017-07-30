@@ -513,7 +513,7 @@ class ShortCodes extends gNetwork\Module
 	{
 		$args = shortcode_atts( [
 			'id'       => get_queried_object_id(),
-			'format'   => _x( 'l, F j, Y', 'Modules: ShortCodes: Defaults: Last Edited', GNETWORK_TEXTDOMAIN ),
+			'format'   => Utilities::dateFormats( 'dateonly' ),
 			'title'    => 'timeago',
 			'round'    => FALSE,
 			'link'     => FALSE,

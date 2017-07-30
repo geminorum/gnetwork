@@ -60,12 +60,22 @@ class Utilities extends Core\Base
 		}, $string, $limit );
 	}
 
-	public static function htmlHumanTime( $timestamp )
+	public static function htmlHumanTime( $timestamp, $flip = FALSE )
 	{
-		$time = strtotime( $timestamp );
+		if ( ! ctype_digit( $timestamp ) )
+			$timestamp = strtotime( $timestamp );
+
+		$now = current_time( 'timestamp', FALSE );
+
+		if ( $flip )
+			return '<span class="-date-diff" title="'
+					.esc_attr( date_i18n( self::dateFormats( 'fulltime' ), $timestamp ) ).'">'
+					.self::humanTimeDiff( $timestamp, $now )
+				.'</span>';
+
 		return '<span class="-time" title="'
-			.self::humanTimeAgo( $time, current_time( 'timestamp', FALSE ) ).'">'
-			.self::humanTimeDiffRound( $time )
+			.esc_attr( self::humanTimeAgo( $timestamp, $now ) ).'">'
+			.self::humanTimeDiffRound( $timestamp, NULL, self::dateFormats( 'default' ), $now )
 		.'</span>';
 	}
 
@@ -74,12 +84,16 @@ class Utilities extends Core\Base
 		return sprintf( _x( '%s ago', 'Utilities: Human Time Ago', GNETWORK_TEXTDOMAIN ), human_time_diff( $from, $to ) );
 	}
 
-	public static function humanTimeDiffRound( $local, $round = DAY_IN_SECONDS, $format = NULL, $now = NULL )
+	public static function humanTimeDiffRound( $local, $round = NULL, $format = NULL, $now = NULL )
 	{
-		$now = is_null( $now ) ? current_time( 'timestamp', FALSE ) : '';
+		if ( is_null( $now ) )
+			$now = current_time( 'timestamp', FALSE );
 
 		if ( FALSE === $round )
 			return self::humanTimeAgo( $local, $now );
+
+		if ( is_null( $round ) )
+			$round = Date::DAY_IN_SECONDS;
 
 		$diff = $now - $local;
 
@@ -87,7 +101,7 @@ class Utilities extends Core\Base
 			return self::humanTimeAgo( $local, $now );
 
 		if ( is_null( $format ) )
-			$format = _x( 'Y/m/d', 'Utilities: Human Time Diff Round', GNETWORK_TEXTDOMAIN );
+			$format = self::dateFormats( 'default' );
 
 		return date_i18n( $format, $local, FALSE );
 	}
@@ -157,36 +171,43 @@ class Utilities extends Core\Base
 		if ( ! ctype_digit( $timestamp ) )
 			$timestamp = strtotime( $timestamp );
 
-		$html = '';
+		$formats = self::dateFormats( FALSE );
 
-		$date = _x( 'm/d/Y', 'Utilities: Date Edit Row', GNETWORK_TEXTDOMAIN );
-		$time = _x( 'H:i', 'Utilities: Date Edit Row', GNETWORK_TEXTDOMAIN );
-		$full = _x( 'l, M j, Y @ H:i', 'Utilities: Date Edit Row', GNETWORK_TEXTDOMAIN );
-
-		$html .= '<span class="-date-date" title="'.esc_attr( date_i18n( $time, $timestamp ) ).'" data-time="'.date( 'c', $timestamp ).'">'.date_i18n( $date, $timestamp ).'</span>';
-		$html .= '&nbsp;(<span class="-date-diff" title="'.esc_attr( date_i18n( $full, $timestamp ) ).'">'.self::humanTimeDiff( $timestamp ).'</span>)';
+		$html  = '<span class="-date-date" title="'.esc_attr( date_i18n( $formats['timeonly'], $timestamp ) ).'" data-time="'.date( 'c', $timestamp ).'">'.date_i18n( $formats['default'], $timestamp ).'</span>';
+		$html .= '&nbsp;(<span class="-date-diff" title="'.esc_attr( date_i18n( $formats['fulltime'], $timestamp ) ).'">'.self::humanTimeDiff( $timestamp ).'</span>)';
 
 		return $class ? '<span class="'.$class.'">'.$html.'</span>' : $html;
 	}
 
 	public static function htmlCurrent( $format = NULL, $class = FALSE, $title = FALSE )
 	{
-		return Date::htmlCurrent( ( is_null( $format ) ? _x( 'm/d/Y g:i:s a', 'Utilities: Date Current', GNETWORK_TEXTDOMAIN ) : $format ), $class, $title );
+		return Date::htmlCurrent( ( is_null( $format ) ? self::dateFormats( 'datetime' ) : $format ), $class, $title );
 	}
 
 	// @SEE: http://www.phpformatdate.com/
-	public static function getDateDefaultFormat( $options = FALSE, $date_format = NULL, $time_format = NULL, $joiner = ' @' )
+	public static function dateFormats( $context = 'default' )
 	{
-		if ( ! $options )
-			return _x( 'l, j F, Y - H:i:s', 'Utilities: Default Datetime Format', GNETWORK_TEXTDOMAIN );
+		static $formats;
 
-		if ( is_null( $date_format ) )
-			$date_format = get_option( 'date_format' );
+		if ( empty( $formats ) )
+			$formats = apply_filters( 'custom_date_formats', [
+				'fulltime' => _x( 'l, M j, Y @ H:i', 'Date Format', GNETWORK_TEXTDOMAIN ),
+				'datetime' => _x( 'M j, Y @ G:i', 'Date Format', GNETWORK_TEXTDOMAIN ),
+				'dateonly' => _x( 'l, F j, Y', 'Date Format', GNETWORK_TEXTDOMAIN ),
+				'timedate' => _x( 'H:i - F j, Y', 'Date Format', GNETWORK_TEXTDOMAIN ),
+				'timeampm' => _x( 'g:i a', 'Date Format', GNETWORK_TEXTDOMAIN ),
+				'timeonly' => _x( 'H:i', 'Date Format', GNETWORK_TEXTDOMAIN ),
+				'monthday' => _x( 'n/j', 'Date Format', GNETWORK_TEXTDOMAIN ),
+				'default'  => _x( 'm/d/Y', 'Date Format', GNETWORK_TEXTDOMAIN ),
+			] );
 
-		if ( is_null( $time_format ) )
-			$time_format = get_option( 'time_format' );
+		if ( FALSE === $context )
+			return $formats;
 
-		return $date_format.$joiner.$time_format;
+		if ( isset( $formats[$context] ) )
+			return $formats[$context];
+
+		return $formats['default'];
 	}
 
 	public static function getPostTitle( $post, $fallback = NULL )

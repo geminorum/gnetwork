@@ -350,7 +350,7 @@ class Provider extends Core\Base
 
 	public static function dateFormat( $timestamp = NULL )
 	{
-		return date_i18n( Utilities::getDateDefaultFormat( TRUE ), $timestamp );
+		return date_i18n( Utilities::dateFormats( 'datetime' ), $timestamp );
 	}
 
 	// FIXME: DRAFT
