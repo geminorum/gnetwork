@@ -634,23 +634,34 @@ class AdminBar extends gNetwork\Module
 		}
 	}
 
-	private static function getAllBlogs()
+	private static function getAllBlogs( $all_sites = TRUE )
 	{
 		global $wpdb;
 
-		$blog_ids = $wpdb->get_col( $wpdb->prepare( "
-			SELECT blog_id
-			FROM {$wpdb->blogs}
-			WHERE site_id = %d
-			AND spam = '0'
-			AND deleted = '0'
-			AND archived = '0'
-			ORDER BY registered DESC
-		", $wpdb->siteid ) );
+		if ( $all_sites )
+			$query = "
+				SELECT blog_id
+				FROM {$wpdb->blogs}
+				WHERE spam = '0'
+				AND deleted = '0'
+				AND archived = '0'
+				ORDER BY registered DESC
+			";
+
+		else
+			$query = $wpdb->prepare( "
+				SELECT blog_id
+				FROM {$wpdb->blogs}
+				WHERE site_id = %d
+				AND spam = '0'
+				AND deleted = '0'
+				AND archived = '0'
+				ORDER BY registered DESC
+			", $wpdb->siteid );
 
 		$blogs = [];
 
-		foreach ( $blog_ids as $blog_id )
+		foreach ( $wpdb->get_col( $query ) as $blog_id )
 			$blogs[$blog_id] = (object) [ 'userblog_id' => $blog_id ];
 
 		return $blogs;
