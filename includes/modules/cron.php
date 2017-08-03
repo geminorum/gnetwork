@@ -9,6 +9,7 @@ use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\Date;
 use geminorum\gNetwork\Core\Error;
 use geminorum\gNetwork\Core\HTML;
+use geminorum\gNetwork\Core\Text;
 use geminorum\gNetwork\Core\WordPress;
 
 class Cron extends gNetwork\Module
@@ -181,12 +182,12 @@ class Cron extends gNetwork\Module
 		wp_send_json( [ 'html' => $this->get_status() ] );
 	}
 
-	private function get_status()
+	public function get_status()
 	{
 		if ( $status = get_option( $this->hook( 'status' ) ) )
-			return $status;
+			return Text::autoP( $status );
 
-		return _x( 'WP-Cron Status Checker has not run yet.', 'Modules: CRON', GNETWORK_TEXTDOMAIN );
+		return '<p>'._x( 'WP-Cron Status Checker has not run yet.', 'Modules: CRON', GNETWORK_TEXTDOMAIN ).'</p>';
 	}
 
 	// run the check and update the status
@@ -207,10 +208,11 @@ class Cron extends gNetwork\Module
 
 			} else {
 
-				$message = sprintf( _x( '<p>While trying to spawn a call to the WP-Cron system, the following error occurred: %s</p>', 'Modules: CRON', GNETWORK_TEXTDOMAIN ),
+				$message = sprintf( _x( 'While trying to spawn a call to the WP-Cron system, the following error occurred: %s', 'Modules: CRON', GNETWORK_TEXTDOMAIN ),
 					'<br><strong>'.esc_html( $result->get_error_message() ).'</strong>' );
 
-				$message .= _x( '<p>This is a problem with your installation. If you need support, please contact your website host or post to the <a href="https://wordpress.org/support/forum/how-to-and-troubleshooting/">main WordPress support forum</a>.</p>', 'Modules: CRON', GNETWORK_TEXTDOMAIN );
+				$message .= sprintf( _x( 'This is a problem with your installation. If you need support, please contact your website host or post to the <a href="%s">main WordPress support forum</a>.', 'Modules: CRON', GNETWORK_TEXTDOMAIN ),
+					'https://wordpress.org/support/forum/how-to-and-troubleshooting/' );
 
 				update_option( $this->hook( 'status' ), '<span class="-status -error">'.$message.'</span>' );
 			}
