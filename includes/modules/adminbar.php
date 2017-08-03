@@ -299,7 +299,7 @@ class AdminBar extends gNetwork\Module
 						$wp_admin_bar->add_node( [
 							'parent' => $this->base.'-api-calls-'.$offset,
 							'id'     => $this->base.'-api-calls-'.$offset.'-'.$key,
-							'title'  => sprintf( '%s: %s', $key, $val ),
+							'title'  => sprintf( '%s: %s', (string) $key, maybe_serialize( $val ) ),
 						] );
 				}
 			}
