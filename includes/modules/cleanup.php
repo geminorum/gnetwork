@@ -40,11 +40,19 @@ class Cleanup extends gNetwork\Module
 		$superadmin = WordPress::isSuperAdmin();
 		$multisite  = is_multisite();
 
+		$settings['_options'][] = [
+			'field'       => 'purge_options_blog',
+			'type'        => 'button',
+			'title'       => _x( 'Options', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Removes blog obsolete options', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+			'default'     => _x( 'Purge Blog Options', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+			'values'      => $confirm,
+		];
+
 		if ( $multisite && $superadmin )
-			$settings['_site'][] = [
+			$settings['_options'][] = [
 				'field'       => 'purge_options_site',
 				'type'        => 'button',
-				'title'       => _x( 'Network', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 				'description' => _x( 'Removes network obsolete options', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 				'default'     => _x( 'Purge Network Options', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 				'values'      => $confirm,
@@ -202,6 +210,9 @@ class Cleanup extends gNetwork\Module
 
 			else if ( isset( $_POST['purge_options_site'] ) )
 				$message = $this->purge_options_site();
+
+			else if ( isset( $_POST['purge_options_blog'] ) )
+				$message = $this->purge_options_blog();
 
 			else if ( isset( $_POST['users_contactmethods'] ) )
 				$message = $this->users_contactmethods();
@@ -486,6 +497,23 @@ class Cleanup extends gNetwork\Module
 		$count += $wpdb->query( "DELETE FROM {$wpdb->sitemeta} WHERE meta_key = 'gnetwork_".GNETWORK_NETWORK_EXTRAMENU."'" );
 
 		$wpdb->query( "OPTIMIZE TABLE {$wpdb->sitemeta}" );
+
+		return $count ? [
+			'message' => 'purged',
+			'count'   => $count,
+		] : 'optimized';
+	}
+
+	private function purge_options_blog()
+	{
+		global $wpdb;
+
+		$count = 0;
+
+		$count += $wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '%theme_mods_%'" );
+		$count += $wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '%limit_login_%'" );
+
+		$wpdb->query( "OPTIMIZE TABLE {$wpdb->options}" );
 
 		return $count ? [
 			'message' => 'purged',
