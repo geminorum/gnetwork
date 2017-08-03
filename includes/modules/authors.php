@@ -71,6 +71,14 @@ class Authors extends gNetwork\Module
 
 	public function settings_before( $sub, $uri )
 	{
+		$users = [
+			'none' => Settings::showOptionNone(),
+			'all'  => Settings::showOptionAll(),
+		];
+
+		foreach ( WordPress::getUsers() as $user_id => $user )
+			$users[$user_id] = sprintf( '%1$s (%2$s)', $user->display_name, $user->user_login );
+
 		echo '<table class="form-table">';
 
 			// TODO: add site user to this blog ( with cap select )
@@ -78,17 +86,22 @@ class Authors extends gNetwork\Module
 			echo '<tr><th scope="row">'._x( 'Bulk Change Author', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ).'</th><td>';
 
 			$this->do_settings_field( [
-				'type'      => 'user',
+				'type'      => 'select',
 				'field'     => 'from_user_id',
 				'name_attr' => 'from_user_id',
+				'values'    => $users,
+				'default'   => 'none',
 			] );
 
 			echo '&nbsp;&mdash;&nbsp;'._x( 'to', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ).'&nbsp;&mdash; &nbsp;';
 
+			unset( $users['all'] );
+
 			$this->do_settings_field( [
-				'type'      => 'user',
+				'type'      => 'select',
 				'field'     => 'to_user_id',
 				'name_attr' => 'to_user_id',
+				'values'    => $users,
 				'default'   => WordPress::getSiteUserID(),
 			] );
 
@@ -125,21 +138,29 @@ class Authors extends gNetwork\Module
 
 			$this->check_referer( $sub );
 
-			$from_user_id = isset( $_POST['from_user_id'] ) ? intval( $_POST['from_user_id'] ) : FALSE;
-			$to_user_id   = isset( $_POST['to_user_id'] ) ? intval( $_POST['to_user_id'] ) : WordPress::getSiteUserID( TRUE );
-			$on_post_type = isset( $_POST['on_post_type'] ) ? $_POST['on_post_type'] : 'post';
+			if ( empty( $_POST['from_user_id'] ) || 'none' == $_POST['from_user_id'] )
+				return;
 
-			if ( $from_user_id && $to_user_id && ( $from_user_id != $to_user_id ) ) {
+			$to_user  = isset( $_POST['to_user_id'] ) ? intval( $_POST['to_user_id'] ) : WordPress::getSiteUserID( TRUE );
+			$posttype = isset( $_POST['on_post_type'] ) ? $_POST['on_post_type'] : 'post';
 
-				if ( $count = $this->bulk_change_author( $from_user_id, $to_user_id, $on_post_type ) )
-					WordPress::redirectReferer( [
-						'message' => 'changed',
-						'count'   => $count,
-					] );
+			if ( $_POST['from_user_id'] == $to_user )
+				return;
 
-				else
-					WordPress::redirectReferer( 'nochange' );
-			}
+			if ( 'all' == $_POST['from_user_id'] )
+				$count = $this->bulk_change_all_authors( $to_user, $posttype );
+
+			else
+				$count = $this->bulk_change_author( intval( $_POST['from_user_id'] ), $to_user, $posttype );
+
+			if ( FALSE === $count )
+				WordPress::redirectReferer( 'wrong' );
+
+			else
+				WordPress::redirectReferer( [
+					'message' => 'changed',
+					'count'   => $count,
+				] );
 		}
 	}
 
@@ -153,18 +174,32 @@ class Authors extends gNetwork\Module
 		$this->settings_form_after( $uri, $sub );
 	}
 
-	private function bulk_change_author( $from_user_id, $to_user_id, $on_post_type = 'post' )
+	private function bulk_change_author( $from_user, $to_user, $posttype = 'post' )
 	{
 		global $wpdb;
 
-		$user = get_userdata( $to_user_id );
+		$user = get_userdata( $to_user );
 
 		if ( ! $user || ! $user->exists() )
 			return FALSE;
 
 		return $wpdb->query( $wpdb->prepare( "
-			UPDATE $wpdb->posts SET post_author = %s WHERE post_author = %s AND post_type = %s
-		", $user->ID, $from_user_id, $on_post_type ) );
+			UPDATE {$wpdb->posts} SET post_author = %d WHERE post_author = %d AND post_type = %s
+		", $user->ID, $from_user, $posttype ) );
+	}
+
+	private function bulk_change_all_authors( $to_user, $posttype = 'post' )
+	{
+		global $wpdb;
+
+		$user = get_userdata( $to_user );
+
+		if ( ! $user || ! $user->exists() )
+			return FALSE;
+
+		return $wpdb->query( $wpdb->prepare( "
+			UPDATE {$wpdb->posts} SET post_author = %d WHERE post_type = %s
+		", $user->ID, $posttype ) );
 	}
 
 	public function init()
