@@ -399,9 +399,7 @@ class User extends gNetwork\Module
 	{
 		global $wpdb;
 
-		$list = [];
-
-		$blogs = $wpdb->get_results( $wpdb->prepare( "
+		$query = $wpdb->prepare( "
 			SELECT blog_id, domain, path
 			FROM {$wpdb->blogs}
 			WHERE site_id = %d
@@ -409,12 +407,14 @@ class User extends gNetwork\Module
 			AND deleted = '0'
 			AND archived = '0'
 			ORDER BY registered ASC
-		", $wpdb->siteid ), ARRAY_A );
+		", $wpdb->siteid );
 
-		foreach ( (array) $blogs as $details )
-			$list[$details['blog_id']] = (object) $details;
+		$blogs = [];
 
-		return $list;
+		foreach ( (array) $wpdb->get_results( $query, ARRAY_A ) as $blog )
+			$blogs[$blog['blog_id']] = (object) $blog;
+
+		return $blogs;
 	}
 
 	public function wpmu_new_user( $user_id )

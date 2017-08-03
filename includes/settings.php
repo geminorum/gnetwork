@@ -389,6 +389,14 @@ class Settings extends Core\Base
 		return _x( '&mdash; Select &mdash;', 'Settings: Dropdown Select Option None', GNETWORK_TEXTDOMAIN );
 	}
 
+	public static function showOptionAll( $string = NULL )
+	{
+		if ( $string )
+			return sprintf( _x( '&mdash; All %s &mdash;', 'Settings: Dropdown Select Option All', GNETWORK_TEXTDOMAIN ), $string );
+
+		return _x( '&mdash; All &mdash;', 'Settings: Dropdown Select Option All', GNETWORK_TEXTDOMAIN );
+	}
+
 	public static function reverseEnabled()
 	{
 		return [

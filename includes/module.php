@@ -292,6 +292,24 @@ class Module extends Core\Base
 		return call_user_func_array( 'apply_filters', $args );
 	}
 
+	// USAGE: add_filter( 'body_class', self::__array_append( 'foo' ) );
+	protected static function __array_append( $item )
+	{
+		return function( $array ) use ( $item ) {
+			$array[] = $item;
+			return $array;
+		};
+	}
+
+	// USAGE: add_filter( 'shortcode_atts_gallery', self::__array_set( 'columns', 4 ) );
+	protected static function __array_set( $key, $value )
+	{
+		return function( $array ) use ( $key, $value ) {
+			$array[$key] = $value;
+			return $array;
+		};
+	}
+
 	public function default_options()
 	{
 		return [];

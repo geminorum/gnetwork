@@ -621,6 +621,8 @@ class Mail extends gNetwork\Module
 						$content .= '<code>'._x( 'Subject', 'Modules: Mail: Email Logs Table Prefix', GNETWORK_TEXTDOMAIN ).'</code> <span'
 							.$direction.'>'.$row['subject'].'</span><hr />';
 
+					// FIXME: check headers for text/html and not escape!
+
 					if ( isset( $row['message'] ) )
 						$content .= '<div'.$direction.'>'
 							.wpautop( make_clickable( HTML::escapeTextarea( $row['message'] ) ) ).'</div>';

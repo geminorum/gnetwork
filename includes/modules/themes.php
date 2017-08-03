@@ -158,7 +158,7 @@ class Themes extends gNetwork\Module
 
 		if ( $this->isTheme( 'publish' ) ) {
 			// https://github.com/kovshenin/publish
-			// https://kovshenin.com/themes/publish/
+			// https://konstantin.blog/themes/publish/
 			// https://wordpress.org/themes/publish/
 
 			remove_action( 'publish_credits', 'publish_footer_credits' );
@@ -211,9 +211,10 @@ class Themes extends gNetwork\Module
 			}
 
 		} else if ( $this->isTheme( 'semicolon' ) ) { // v0.9.1
-			// HOME: https://kovshenin.com/themes/semicolon/
-			// DEMO: http://semicolon.kovshenin.com/
+			// HOME: https://konstantin.blog/themes/semicolon/
+			// DEMO: https://semicolon.kovshenin.com/
 			// REPO: https://wordpress.org/themes/semicolon
+			// REFP: https://github.com/kovshenin/semicolon
 
 			if ( $this->rtl ) {
 				add_action( 'wp_enqueue_scripts', function(){
