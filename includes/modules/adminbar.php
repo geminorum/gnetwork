@@ -344,6 +344,7 @@ class AdminBar extends gNetwork\Module
 					'parent' => $group_id,
 					'id'     => $this->base.'-cron-status',
 					'title'  => $status,
+					'href'   => Settings::subURL( 'scheduled', FALSE ),
 				] );
 		}
 
