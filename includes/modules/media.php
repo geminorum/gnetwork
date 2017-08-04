@@ -49,8 +49,12 @@ class Media extends gNetwork\Module
 	{
 		Admin::registerMenu( $this->key,
 			_x( 'Media', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			[ $this, 'settings' ],
-			'edit_others_posts'
+			[ $this, 'settings' ]
+		);
+
+		Admin::registerMenu( 'attachments',
+			_x( 'Attachments', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
+			FALSE, 'edit_others_posts'
 		);
 	}
 
@@ -107,56 +111,65 @@ class Media extends gNetwork\Module
 		}
 	}
 
-	protected function settings_actions( $sub = NULL )
+	public function settings( $sub = NULL )
 	{
-		if ( ! empty( $_POST ) && 'bulk' == $_POST['action'] ) {
+		if ( 'attachments' == $sub ) {
 
-			$this->check_referer( $sub );
+			if ( ! empty( $_POST ) && 'bulk' == $_POST['action'] ) {
 
-			if ( isset( $_POST['clean_attachments'], $_POST['_cb'] ) ) {
+				$this->check_referer( $sub );
 
-				$count = 0;
+				if ( isset( $_POST['clean_attachments'], $_POST['_cb'] ) ) {
 
-				foreach ( $_POST['_cb'] as $post_id )
+					$count = 0;
 
-					if ( wp_attachment_is_image( $post_id )
-						&& $this->clean_attachment( $post_id ) )
+					foreach ( $_POST['_cb'] as $post_id )
+
+						if ( wp_attachment_is_image( $post_id )
+							&& $this->clean_attachment( $post_id ) )
+								$count++;
+
+						else if ( $this->clean_attachments( $post_id ) )
 							$count++;
 
-					else if ( $this->clean_attachments( $post_id ) )
-						$count++;
+				} else if ( isset( $_POST['cache_in_content'], $_POST['_cb'] ) ) {
 
-			} else if ( isset( $_POST['cache_in_content'], $_POST['_cb'] ) ) {
+					$count = 0;
 
-				$count = 0;
+					foreach ( $_POST['_cb'] as $post_id )
+						if ( $this->cache_in_content( $post_id ) )
+							$count++;
 
-				foreach ( $_POST['_cb'] as $post_id )
-					if ( $this->cache_in_content( $post_id ) )
-						$count++;
+				} else {
 
-			} else {
+					WordPress::redirectReferer( [
+						'message' => 'wrong',
+						'limit'   => self::limit(),
+						'paged'   => self::paged(),
+					] );
+				}
 
 				WordPress::redirectReferer( [
-					'message' => 'wrong',
+					'message' => 'cleaned',
+					'count'   => $count,
 					'limit'   => self::limit(),
 					'paged'   => self::paged(),
 				] );
 			}
 
-			WordPress::redirectReferer( [
-				'message' => 'cleaned',
-				'count'   => $count,
-				'limit'   => self::limit(),
-				'paged'   => self::paged(),
-			] );
+			$this->register_button( 'clean_attachments', _x( 'Clean Attachments', 'Modules: Media', GNETWORK_TEXTDOMAIN ) );
+			$this->register_button( 'cache_in_content', _x( 'Cache In Content', 'Modules: Media', GNETWORK_TEXTDOMAIN ) );
+
+			add_action( $this->settings_hook( $sub ), [ $this, 'settings_form_attachments' ], 10, 2 );
+
+			add_thickbox();
+
+		} else {
+			parent::settings( $sub );
 		}
-
-		parent::settings_actions( $sub );
-
-		add_thickbox();
 	}
 
-	public function settings_form( $uri, $sub = 'general' )
+	public function settings_form_attachments( $uri, $sub = 'general' )
 	{
 		$this->settings_form_before( $uri, $sub, 'bulk' );
 
@@ -166,12 +179,6 @@ class Media extends gNetwork\Module
 			// TODO: add clean all attachments button, hence : regenerate-thumbnails
 
 		$this->settings_form_after( $uri, $sub );
-	}
-
-	protected function register_settings_buttons( $sub = NULL )
-	{
-		$this->register_button( 'clean_attachments', _x( 'Clean Attachments', 'Modules: Media', GNETWORK_TEXTDOMAIN ) );
-		$this->register_button( 'cache_in_content', _x( 'Cache In Content', 'Modules: Media', GNETWORK_TEXTDOMAIN ) );
 	}
 
 	protected static function getPostArray()
@@ -812,7 +819,7 @@ class Media extends gNetwork\Module
 
 		$ids = maybe_serialize( implode( ',', array_map( 'intval', array_unique( $parents ) ) ) );
 
-		return $this->get_settings_url( [ 'id' => $ids ] );
+		return $this->get_settings_url( [ 'sub' => 'attachments', 'id'  => $ids ] );
 	}
 
 	public function media_row_actions( $actions, $post, $detached )
@@ -825,7 +832,7 @@ class Media extends gNetwork\Module
 			$actions['media-clean'] = HTML::tag( 'a', [
 				'target' => '_blank',
 				'class'  => [ 'media-clean-attachment', ( $post->post_parent ? '' : '-disabled' ) ],
-				'href'   => $post->post_parent ? $this->get_settings_url( [ 'id' => $post->post_parent ] ) : '#',
+				'href'   => $post->post_parent ? $this->get_settings_url( [ 'sub' => 'attachments', 'id' => $post->post_parent ] ) : '#',
 				'data'   => [
 					'id'      => $post->ID,
 					'parent'  => $post->post_parent,
