@@ -126,6 +126,14 @@ class Media extends gNetwork\Module
 					else if ( $this->clean_attachments( $post_id ) )
 						$count++;
 
+			} else if ( isset( $_POST['cache_in_content'], $_POST['_cb'] ) ) {
+
+				$count = 0;
+
+				foreach ( $_POST['_cb'] as $post_id )
+					if ( $this->cache_in_content( $post_id ) )
+						$count++;
+
 			} else {
 
 				WordPress::redirectReferer( [
@@ -162,7 +170,8 @@ class Media extends gNetwork\Module
 
 	protected function register_settings_buttons( $sub = NULL )
 	{
-		$this->register_button( 'clean_attachments', _x( 'Clean Attachments', 'Modules: Media', GNETWORK_TEXTDOMAIN ), TRUE );
+		$this->register_button( 'clean_attachments', _x( 'Clean Attachments', 'Modules: Media', GNETWORK_TEXTDOMAIN ) );
+		$this->register_button( 'cache_in_content', _x( 'Cache In Content', 'Modules: Media', GNETWORK_TEXTDOMAIN ) );
 	}
 
 	protected static function getPostArray()
@@ -759,6 +768,12 @@ class Media extends gNetwork\Module
 		}
 
 		return count( $moved );
+	}
+
+	// FIXME: WTF?!
+	public function cache_in_content( $post_id )
+	{
+		return FALSE;
 	}
 
 	public function single_post_title( $post_title, $post )
