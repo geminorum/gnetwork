@@ -300,20 +300,33 @@ class Media extends gNetwork\Module
 					if ( ! count( $matches[1] ) )
 						return '<div dir="ltr">&mdash;</div>';
 
-					$links = [];
+					$links     = [];
+					$externals = URL::checkExternals( $matches[1] );
+
+					$status   = _x( 'Status Code', 'Modules: Media: Title Attr', GNETWORK_TEXTDOMAIN );
+					$external = sprintf( '<small><code title="%s">%s</code></small>&nbsp;',
+						_x( 'External Resource', 'Modules: Media: Title Attr', GNETWORK_TEXTDOMAIN ),
+						_x( 'Ex', 'Modules: Media: External Resource', GNETWORK_TEXTDOMAIN ) );
 
 					if ( FALSE === ( $checked = HTTP::checkURLs( $matches[1] ) ) )
 						$checked = array_fill_keys( $matches[1], NULL );
 
-					foreach ( $checked as $src => $status )
-						$links[] = ( is_null( $status ) ? '' : '<small><code style="color:'
-								.( $status > 400 ? 'red' : 'green' ).'">'
-								.$status.'</code></small>&nbsp;' )
-							.HTML::tag( 'a', [
+					foreach ( $checked as $src => $code ) {
+
+						$link = '';
+
+						if ( isset( $externals[$src] ) && $externals[$src] )
+							$link .= $external;
+
+						if ( ! is_null( $code ) )
+							$link .= sprintf( '<small><code title="%s" style="color:%s">%s</code></small>&nbsp;', $status, ( $code > 400 ? 'red' : 'green' ), $code );
+
+						$links[] = $link.HTML::tag( 'a', [
 								'href'   => $src,
 								'class'  => 'thickbox',
 								'target' => '_blank',
 							], URL::prepTitle( $src ) );
+					}
 
 					return '<div dir="ltr">'.( count( $links ) ? implode( '<br />', $links ) : '&mdash;' ).'</div>';
 				},
