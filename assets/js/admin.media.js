@@ -52,7 +52,7 @@ jQuery(document).ready(function($) {
       url: ajaxurl,
       data: {
         action: 'gnetwork_media',
-        what: 'clean',
+        what: 'clean_attachment',
         attachment: link.data('id'),
         nonce: link.data('nonce'),
       },
@@ -61,7 +61,7 @@ jQuery(document).ready(function($) {
       },
       success: function(response){
         if (response.success){
-          link.text($(response.data).text()).addClass('-cleaned');
+          link.text(response.data).addClass('-cleaned');
         } else {
           link.text($(response.data).text());
           console.log(response);

@@ -52,8 +52,13 @@ class Media extends gNetwork\Module
 			[ $this, 'settings' ]
 		);
 
-		Admin::registerMenu( 'attachments',
-			_x( 'Attachments', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
+		Admin::registerMenu( 'images',
+			_x( 'Images', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
+			FALSE, 'edit_others_posts'
+		);
+
+		Admin::registerMenu( 'sizes',
+			_x( 'Sizes', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
 			FALSE, 'edit_others_posts'
 		);
 	}
@@ -113,7 +118,7 @@ class Media extends gNetwork\Module
 
 	public function settings( $sub = NULL )
 	{
-		if ( 'attachments' == $sub ) {
+		if ( 'images' == $sub ) {
 
 			if ( ! empty( $_POST ) && 'bulk' == $_POST['action'] ) {
 
@@ -160,17 +165,32 @@ class Media extends gNetwork\Module
 			$this->register_button( 'clean_attachments', _x( 'Clean Attachments', 'Modules: Media', GNETWORK_TEXTDOMAIN ) );
 			$this->register_button( 'cache_in_content', _x( 'Cache In Content', 'Modules: Media', GNETWORK_TEXTDOMAIN ) );
 
-			add_action( $this->settings_hook( $sub ), [ $this, 'settings_form_attachments' ], 10, 2 );
+			add_action( $this->settings_hook( $sub ), [ $this, 'settings_form_images' ], 10, 2 );
 
 			add_thickbox();
-			Utilities::enqueueScript( 'admin.attachments' );
+			Utilities::enqueueScript( 'admin.images' );
+
+		} else if ( 'sizes' == $sub ) {
+
+			add_action( $this->settings_hook( $sub ), [ $this, 'settings_form_sizes' ], 10, 2 );
 
 		} else {
 			parent::settings( $sub );
 		}
 	}
 
-	public function settings_form_attachments( $uri, $sub = 'general' )
+	// FIXME: better UI
+	public function settings_form_sizes( $uri, $sub = 'general' )
+	{
+		$this->settings_form_before( $uri, $sub, 'bulk' );
+
+			HTML::h3( _x( 'Registered Image Sizes', 'Modules: Media', GNETWORK_TEXTDOMAIN ) );
+			HTML::tableSide( $GLOBALS['_wp_additional_image_sizes'] );
+
+		$this->settings_form_after( $uri, $sub );
+	}
+
+	public function settings_form_images( $uri, $sub = 'general' )
 	{
 		$this->settings_form_before( $uri, $sub, 'bulk' );
 
@@ -769,6 +789,7 @@ class Media extends gNetwork\Module
 			$clean_path = path_join( $wpupload['basedir'], $clean_file );
 			$moved_path = path_join( $wpupload['path'], $clean_file );
 
+			// move file to correct location
 			if ( file_exists( $clean_path ) && @rename( $clean_path, $moved_path ) ) {
 
 				$thumbs_path = $this->get_thumbs( $clean_id );
@@ -846,7 +867,7 @@ class Media extends gNetwork\Module
 
 		$ids = maybe_serialize( implode( ',', array_map( 'intval', array_unique( $parents ) ) ) );
 
-		return $this->get_settings_url( [ 'sub' => 'attachments', 'id'  => $ids ] );
+		return $this->get_settings_url( [ 'sub' => 'images', 'id'  => $ids ] );
 	}
 
 	public function media_row_actions( $actions, $post, $detached )
@@ -859,7 +880,7 @@ class Media extends gNetwork\Module
 			$actions['media-clean'] = HTML::tag( 'a', [
 				'target' => '_blank',
 				'class'  => [ 'media-clean-attachment', ( $post->post_parent ? '' : '-disabled' ) ],
-				'href'   => $post->post_parent ? $this->get_settings_url( [ 'sub' => 'attachments', 'id' => $post->post_parent ] ) : '#',
+				'href'   => $post->post_parent ? $this->get_settings_url( [ 'sub' => 'images', 'id' => $post->post_parent ] ) : '#',
 				'data'   => [
 					'id'      => $post->ID,
 					'parent'  => $post->post_parent,
