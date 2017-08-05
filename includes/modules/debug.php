@@ -173,6 +173,10 @@ class Debug extends gNetwork\Module
 					'title' => _x( 'PHP Info', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
 					'cb'    => [ __CLASS__, 'phpinfo' ],
 				],
+				'phpfuncs' => [
+					'title' => _x( 'PHP Functions', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
+					'cb'    => [ __CLASS__, 'phpFunctions' ],
+				],
 			] );
 
 			Utilities::enqueueScriptVendor( 'prism' );
@@ -555,6 +559,16 @@ class Debug extends gNetwork\Module
 				unset( $extensions[$ext] );
 
 		return $extensions;
+	}
+
+	public static function phpFunctions()
+	{
+		$list = [];
+
+		foreach ( get_loaded_extensions() as $ext )
+			$list[$ext] = get_extension_funcs( $ext );
+
+		HTML::tableSide( $list );
 	}
 
 	public function debug_bar_panels( $panels )
