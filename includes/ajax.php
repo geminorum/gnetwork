@@ -15,9 +15,19 @@ class Ajax extends Core\Base
 		check_ajax_referer( ( is_null( $action ) ? self::BASE : $action ), $key );
 	}
 
-	public static function successHTML( $html )
+	public static function success( $data = NULL, $status_code = NULL )
 	{
-		wp_send_json_success( [ 'html' => $html ] );
+		wp_send_json_success( $data, $status_code );
+	}
+
+	public static function error( $data = NULL, $status_code = NULL )
+	{
+		wp_send_json_error( $data, $status_code );
+	}
+
+	public static function successHTML( $html, $status_code = NULL )
+	{
+		self::success( [ 'html' => $html ], $status_code );
 	}
 
 	public static function successMessage( $message = NULL )
@@ -26,9 +36,9 @@ class Ajax extends Core\Base
 			$message = _x( 'Succesful!', 'Ajax: Ajax Notice', GNETWORK_TEXTDOMAIN );
 
 		if ( $message )
-			self::successHTML( HTML::success( $message ) );
+			self::success( HTML::success( $message ) );
 		else
-			wp_send_json_success();
+			self::success();
 	}
 
 	public static function errorMessage( $message = NULL )
@@ -37,9 +47,9 @@ class Ajax extends Core\Base
 			$message = _x( 'Error!', 'Ajax: Ajax Notice', GNETWORK_TEXTDOMAIN );
 
 		if ( $message )
-			wp_send_json_error( HTML::error( $message ) );
+			self::error( HTML::error( $message ) );
 		else
-			wp_send_json_error();
+			self::error();
 	}
 
 	public static function errorWhat()

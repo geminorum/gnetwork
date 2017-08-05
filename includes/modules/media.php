@@ -163,6 +163,7 @@ class Media extends gNetwork\Module
 			add_action( $this->settings_hook( $sub ), [ $this, 'settings_form_attachments' ], 10, 2 );
 
 			add_thickbox();
+			Utilities::enqueueScript( 'admin.attachments' );
 
 		} else {
 			parent::settings( $sub );
@@ -173,7 +174,7 @@ class Media extends gNetwork\Module
 	{
 		$this->settings_form_before( $uri, $sub, 'bulk' );
 
-			if ( self::tablePostInfo() )
+			if ( $this->tablePostInfo() )
 				$this->settings_buttons( $sub );
 
 			// TODO: add clean all attachments button, hence : regenerate-thumbnails
@@ -215,7 +216,7 @@ class Media extends gNetwork\Module
 		return [ $posts, $pagination ];
 	}
 
-	private static function tablePostInfo()
+	private function tablePostInfo()
 	{
 		list( $posts, $pagination ) = self::getPostArray();
 
@@ -245,6 +246,7 @@ class Media extends gNetwork\Module
 				'args'  => [
 					'url'   => get_bloginfo( 'url' ),
 					'admin' => admin_url( 'post.php' ),
+					'ajax'  => admin_url( 'admin-ajax.php' ),
 				],
 				'callback' => function( $value, $row, $column, $index ){
 					return Utilities::getPostTitle( $row )
@@ -252,6 +254,13 @@ class Media extends gNetwork\Module
 							'<div><small>', ', ', '</small></div>' );
 				},
 				'actions' => function( $value, $row, $column, $index ){
+
+					$args = [
+						'action'  => $this->hook(),
+						'post_id' => $row->ID,
+						'nonce'   => wp_create_nonce( $this->hook( $row->ID ) ),
+					];
+
 					return [
 
 						'edit' => HTML::tag( 'a', [
@@ -265,6 +274,18 @@ class Media extends gNetwork\Module
 							'class'  => '-link -row-link -row-link-view',
 							'target' => '_blank',
 						], _x( 'View', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) ),
+
+						'clean' => HTML::tag( 'a', [
+							'href'  => add_query_arg( array_merge( $args, [ 'what' => 'clean_post' ] ), $column['args']['ajax'] ),
+							'class' => '-link -row-ajax -row-ajax-clean',
+							'data'  => [ 'spinner' => _x( 'Cleaning &hellip;', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) ],
+						], _x( 'Clean', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) ),
+
+						'cache' => HTML::tag( 'a', [
+							'href'   => add_query_arg( array_merge( $args, [ 'what' => 'cache_post' ] ), $column['args']['ajax'] ),
+							'class'  => '-link -row-ajax -row-ajax-cache',
+							'data' => [ 'spinner' => _x( 'Caching &hellip;', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) ],
+						], _x( 'Cache', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) ),
 					];
 				},
 			],
@@ -290,6 +311,12 @@ class Media extends gNetwork\Module
 						], get_post_meta( $attachment->ID, '_wp_attached_file', TRUE ) );
 
 						$html .= ' &ndash; '.$attachment->ID;
+
+						if ( $meta = wp_get_attachment_metadata( $attachment->ID ) ) {
+
+							if ( isset( $meta['sizes'] ) && $count = count( $meta['sizes'] ) )
+								$html .= ' &ndash; sizes: '.$count;
+						}
 
 						if ( $thumbnail_id == $attachment->ID )
 							$html .= ' &ndash; <b>thumbnail</b>';
@@ -339,7 +366,7 @@ class Media extends gNetwork\Module
 
 						$links[] = $link.HTML::tag( 'a', [
 								'href'   => $src,
-								'class'  => 'thickbox',
+								'class'  => $code > 400 ? '-error' : 'thickbox',
 								'target' => '_blank',
 							], URL::prepTitle( $src ) );
 					}
@@ -753,7 +780,7 @@ class Media extends gNetwork\Module
 					foreach ( $matches[1] as $offset => $url ) {
 						if ( $thumb_url == $url ) {
 							$wpdb->query( $wpdb->prepare( "
-								UPDATE $wpdb->posts SET post_content = REPLACE(post_content, '%s', '%s') WHERE ID = %d
+								UPDATE {$wpdb->posts} SET post_content = REPLACE(post_content, '%s', '%s') WHERE ID = %d
 							", $url, ( $wpupload['url'].'/'.wp_basename( $url ) ), $post_id ) );
 						}
 					}
@@ -765,7 +792,7 @@ class Media extends gNetwork\Module
 				wp_update_attachment_metadata( $clean_id, $meta );
 
 				$wpdb->query( $wpdb->prepare( "
-					UPDATE $wpdb->posts SET guid = %s WHERE ID = %d
+					UPDATE {$wpdb->posts} SET guid = %s WHERE ID = %d
 				", esc_url_raw( $wpupload['url'].'/'.$clean_file ), $clean_id ) );
 
 				update_attached_file( $clean_id, $moved_path );
@@ -780,7 +807,7 @@ class Media extends gNetwork\Module
 	// FIXME: WTF?!
 	public function cache_in_content( $post_id )
 	{
-		return FALSE;
+		return TRUE;
 	}
 
 	public function single_post_title( $post_title, $post )
@@ -861,12 +888,12 @@ class Media extends gNetwork\Module
 
 	public function ajax()
 	{
-		$post = self::unslash( $_POST );
+		$post = self::unslash( $_REQUEST );
 		$what = empty( $post['what'] ) ? 'nothing': trim( $post['what'] );
 
 		switch ( $what ) {
 
-			case 'clean':
+			case 'clean_attachment':
 
 				if ( empty( $post['attachment'] ) )
 					Ajax::errorMessage();
@@ -876,9 +903,33 @@ class Media extends gNetwork\Module
 				if ( ! $this->clean_attachment( $post['attachment'] ) )
 					Ajax::errorMessage();
 
-				Ajax::successMessage( _x( 'Cleaned', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) );
+				Ajax::success( _x( 'Cleaned', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) );
 
 			break;
+			case 'clean_post':
+
+				if ( empty( $post['post_id'] ) )
+					Ajax::errorMessage();
+
+				Ajax::checkReferer( $this->hook( $post['post_id'] ) );
+
+				if ( ! $this->clean_attachments( $post['post_id'] ) )
+					Ajax::errorMessage();
+
+				Ajax::success( _x( 'Cleaned', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) );
+
+			break;
+			case 'cache_post':
+
+				if ( empty( $post['post_id'] ) )
+					Ajax::errorMessage();
+
+				Ajax::checkReferer( $this->hook( $post['post_id'] ) );
+
+				if ( ! $this->cache_in_content( $post['post_id'] ) )
+					Ajax::errorMessage();
+
+				Ajax::success( _x( 'Cached', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) );
 		}
 
 		Ajax::errorWhat();
