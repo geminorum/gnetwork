@@ -20,7 +20,7 @@ class BlackList extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( x( 'Black List', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
+		$this->register_menu( _x( 'Black List', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
 	}
 
 	public function init()
