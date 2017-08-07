@@ -34,10 +34,7 @@ class Mail extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu(
-			_x( 'Mail', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			[ $this, 'settings' ]
-		);
+		$this->register_menu( _x( 'Mail', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
 
 		$this->register_menu(
 			_x( 'Test Mail', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),

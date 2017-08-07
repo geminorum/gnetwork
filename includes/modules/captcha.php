@@ -32,10 +32,7 @@ class Captcha extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu(
-			_x( 'Captcha', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			[ $this, 'settings' ]
-		);
+		$this->register_menu( _x( 'Captcha', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
 	}
 
 	public function init()

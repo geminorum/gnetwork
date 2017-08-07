@@ -51,7 +51,7 @@ class Debug extends gNetwork\Module
 	{
 		$this->register_menu(
 			_x( 'System Report', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			[ $this, 'settings' ], 'systemreport', NULL, 5
+			NULL, 'systemreport', NULL, 5
 		);
 
 		$this->register_menu(

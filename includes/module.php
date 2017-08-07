@@ -144,10 +144,13 @@ class Module extends Core\Base
 	}
 
 	// we call 'setup_menu' action only if `WordPress::mustRegisterUI()`
-	public function register_menu( $title = NULL, $callback = FALSE, $sub = NULL, $capability = NULL, $priority = 10 )
+	public function register_menu( $title = NULL, $callback = NULL, $sub = NULL, $capability = NULL, $priority = 10 )
 	{
 		if ( is_null( $sub ) )
 			$sub = $this->key;
+
+		if ( is_null( $callback ) )
+			$callback = [ $this, 'settings' ];
 
 		if ( $this->is_network() ) {
 

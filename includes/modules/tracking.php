@@ -27,10 +27,7 @@ class Tracking extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu(
-			_x( 'Tracking', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			[ $this, 'settings' ]
-		);
+		$this->register_menu( _x( 'Tracking', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
 	}
 
 	public function default_options()
