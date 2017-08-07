@@ -47,7 +47,7 @@ class Text extends Base
 		// remove a P of entirely whitespace
 		$string = preg_replace( '|<p>\s*</p>|', '', $string );
 
-		return $string;
+		return trim( $string );
 	}
 
 	// like wp but without check for func_overload
@@ -653,6 +653,30 @@ class Text extends Base
 
 		// removes any instance of the '\0' string
 		$string = preg_replace( '/\\\\+0+/', '', $string );
+
+		return $string;
+	}
+
+	// @SOURCE: `bp_core_replace_tokens_in_text()`
+	public static function replaceTokens( $string, $tokens )
+	{
+		$unescaped = $escaped = array();
+
+		foreach ( $tokens as $token => $value ) {
+
+			if ( ! is_string( $value ) && is_callable( $value ) )
+				$value = call_user_func( $value );
+
+			// tokens could be objects or arrays
+			if ( ! is_scalar( $value ) )
+				continue;
+
+			$unescaped['{{{'.$token.'}}}'] = $value;
+			$escaped['{{'.$token.'}}'] = self::utf8SpecialChars( $value, ENT_QUOTES );
+		}
+
+		$string = strtr( $string, $unescaped );  // do first
+		$string = strtr( $string, $escaped );
 
 		return $string;
 	}

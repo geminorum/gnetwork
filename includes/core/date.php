@@ -15,6 +15,13 @@ class Date extends Base
 	const  MONTH_IN_SECONDS = 2592000;  //  30 * 24 * 60 * 60
 	const   YEAR_IN_SECONDS = 31536000; // 365 * 24 * 60 * 60
 
+	public static function isInFormat( $date, $format = 'Y-m-d' )
+	{
+		$dateTime = new \DateTime();
+		$d = $dateTime->createFromFormat( $format, $date );
+		return $d && $d->format( $format ) === $date;
+	}
+
 	public static function monthFirstAndLast( $year, $month, $format = 'Y-m-d H:i:s' )
 	{
 		$start = new \DateTime( $year.'-'.$month.'-01 00:00:00' );

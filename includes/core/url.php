@@ -99,4 +99,22 @@ class URL extends Base
 	{
 		return preg_replace( '|^(https?:)?//[^/]+(/?.*)|i', '$2', $url );
 	}
+
+	public static function checkExternals( $urls = array(), $site = NULL )
+	{
+		if ( ! count( $urls ) )
+			return array();
+
+		if ( is_null( $site ) )
+			$site = get_option( 'siteurl' );
+
+		$urls    = array_values( array_unique( $urls ) );
+		$length  = strlen( $site );
+		$results = array();
+
+		foreach ( $urls as $url )
+			$results[$url] = $site !== substr( $url, 0, $length );
+
+		return $results;
+	}
 }

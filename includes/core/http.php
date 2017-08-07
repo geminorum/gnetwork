@@ -411,7 +411,8 @@ class HTTP extends Base
 
 		$ch = $results = array();
 
-		$mh = curl_multi_init();
+		$urls = array_values( array_unique( $urls ) );
+		$mh   = curl_multi_init();
 
 		for ( $i = 0; $i < count( $urls ); $i++ ) {
 
