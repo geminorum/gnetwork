@@ -1,0 +1,27 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// gNetwork Partials: MetaBox -------------------------------------------------
+
+.postbox .hndle {
+  .postbox-title-action {
+    opacity: 0;
+    line-height: 1;
+    transition: all 0.1s ease;
+    float: right;
+    @include body-rtl() {
+      float: left;
+    }
+
+    a {
+      text-decoration: none;
+    }
+  }
+
+  &:hover {
+    .postbox-title-action {
+      opacity: 1;
+      transition: all 0.3s ease;
+    }
+  }
+}

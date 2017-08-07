@@ -1,0 +1,36 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// NOT-Module: Prism: All -----------------------------------------------------
+
+@import 'vendor/prismjs';
+
+pre[class*="language-"]:before {
+  background-color: #cfcfcf;
+  border-radius: 0 0 5px 0;
+  color: #333;
+  content: attr(data-filename);
+  display: inline-block;
+  font-size: 0.9em;
+  padding: 0 5px;
+  position: absolute;
+  text-shadow: none;
+  left: 0;
+  top: 0;
+}
+
+#externalWindow {
+  color: #cfcfcf;
+  display: inline-block;
+  font-size: 0.9em;
+  text-shadow: none;
+  text-align: center;
+  position: absolute;
+  width: 97%;
+  top: 0;
+  vertical-align: top;
+}
+
+pre.code-toolbar {
+  padding-top: 2em;
+}

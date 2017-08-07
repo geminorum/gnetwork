@@ -103,13 +103,31 @@ table.base-table-list {
     }
   }
 
-  td {
-    vertical-align: top;
-  }
-
   td,
   th {
     padding: 8px 10px;
+  }
+
+  td {
+    vertical-align: top;
+
+    &.-has-table {
+      padding: 4px 5px;
+    }
+
+    &.-has-table-ltr {
+      table {
+        direction: ltr;
+      }
+      td {
+        font-size: smaller;
+        padding: 0px 2px;
+        vertical-align: baseline;
+      }
+      code {
+        font-size: smaller;
+      }
+    }
   }
 
   .-cb-all {}
@@ -141,6 +159,10 @@ table.base-table-list {
     width: 6%;
   }
 
+  .-column-mime {
+    width: 185px;
+  }
+
   .-column-debug {
     padding: 0;
   }
@@ -163,7 +185,7 @@ table.base-table-code {
     padding: 5px 2px;
 
     &.-var {
-      width: 185px;
+      // width: 185px;
     }
 
     &.-val {

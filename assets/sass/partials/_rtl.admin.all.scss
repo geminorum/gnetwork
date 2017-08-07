@@ -7,7 +7,20 @@ body.rtl {
 
   &.locale-fa-ir,
   &.locale-fa-ir #wpadminbar *,
-  &.locale-fa-ir .press-this a.wp-switch-editor {
+  &.locale-fa-ir .press-this a.wp-switch-editor,
+  &.locale-fa-ir .media-modal,
+  &.locale-fa-ir .media-frame,
+  &.locale-fa-ir .media-frame .search,
+  &.locale-fa-ir .media-frame input[type="text"],
+  &.locale-fa-ir .media-frame input[type="password"],
+  &.locale-fa-ir .media-frame input[type="number"],
+  &.locale-fa-ir .media-frame input[type="search"],
+  &.locale-fa-ir .media-frame input[type="email"],
+  &.locale-fa-ir .media-frame input[type="url"],
+  &.locale-fa-ir .media-frame input[type="tel"],
+  &.locale-fa-ir .media-frame textarea,
+  &.locale-fa-ir .media-frame select,
+  &.locale-fa-ir span.postbox-title-action {
     @include theme-fonts-core-native;
   }
 
@@ -25,14 +38,6 @@ body.rtl {
     .page-title-action {
       font: 700 14.5px arial, sans-serif !important;
       padding: 5px 8px 3px;
-    }
-  }
-
-  span.postbox-title-action {
-    font-family: Tahoma, serif;
-
-    a {
-      text-decoration: none;
     }
   }
 
