@@ -1,3 +1,42 @@
+### 3.6.3
+* main/ajax: :new: main class
+* main/module: help tab to list module shortcodes
+* main/module: using internal helper for help tab keys
+* main/module: optional registering extra shortcodes
+* main/settings: admin notices revised
+* main/utilities: support timestamp for date edit row
+* main/utilities: internal date format api
+* module/admin: overview tabs
+* module/adminbar: all blogs for all sites for super admins
+* module/adminbar: fixed notice on api calls arrays
+* module/authors: bulk change all users into one
+* module/branding: :new: module
+* module/code: :new: prismjs shortcode/tinymce plugin
+* module/cleanup: :new: close comments/pings on posts before last month
+* module/cleanup: blog obsolete options
+* module/cleanup: post meta obsolete keys
+* module/cron: run only on blog admin
+* module/cron: status message on adminbar for super admins
+* module/debug: :new: prismjs for syntax highlight
+* module/debug: wp-config tab on system reports
+* module/debug: htaccess tab on system reports
+* module/debug: gnetwork-custom tab on system reports
+* module/debug: phpinfo moved to system reports
+* module/debug: php funcs on system reports
+* module/embed: responsive iframe
+* module/login: blog name before logs
+* module/media: action hook for cleaning term image sizes
+* module/media: thickbox for attachment summary links
+* module/media: cleanup table for editors
+* module/media: utilizing new bulk action hooks
+* module/media: ajax cleaning action row
+* module/media: skip storing image exif meta
+* module/media: check if images are external on overview
+* module/media: standalone menu for attachments
+* module/media: inline ajax actions
+* module/typography: epigraph/reverse for blockquotes
+* module/widget: removing shortcode widget
+
 ### 3.6.2
 * main/module: ajax action hook helper
 * main/settings: support for links via submit button generator
