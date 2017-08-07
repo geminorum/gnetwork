@@ -141,6 +141,14 @@ class Cleanup extends gNetwork\Module
 		];
 
 		$settings['_posts'][] = [
+			'field'       => 'postmeta_obsolete',
+			'type'        => 'button',
+			'description' => _x( 'Removes the obsolete post meta keys.', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+			'default'     => _x( 'Purge Obsolete Matadata', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+			'values'      => $confirm,
+		];
+
+		$settings['_posts'][] = [
 			'field'       => 'thumbnail_orphanedmeta',
 			'type'        => 'button',
 			'description' => _x( 'Checks for Orphaned Thumbnail Metas', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
@@ -225,6 +233,9 @@ class Cleanup extends gNetwork\Module
 
 			else if ( isset( $_POST['postmeta_oldslug'] ) )
 				$message = $this->postmeta_oldslug();
+
+			else if ( isset( $_POST['postmeta_obsolete'] ) )
+				$message = $this->postmeta_obsolete();
 
 			else if ( isset( $_POST['thumbnail_orphanedmeta'] ) )
 				$message = $this->thumbnail_orphanedmeta();
@@ -464,6 +475,25 @@ class Cleanup extends gNetwork\Module
 		global $wpdb;
 
 		$count = $wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = '_wp_old_slug'" );
+
+		$wpdb->query( "OPTIMIZE TABLE {$wpdb->postmeta}" );
+
+		return $count ? [
+			'message' => 'purged',
+			'count'   => $count,
+		] : 'optimized';
+	}
+
+	private function postmeta_obsolete()
+	{
+		global $wpdb;
+
+		$count = 0;
+
+		$count += $wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key LIKE '%_yoast_wpseo_%'" ); // Yoast SEO
+		$count += $wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key LIKE '%_ad_participant_%'" ); // Assignment Desk
+		$count += $wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key LIKE '%_ad_pitched_by_%'" ); // Assignment Desk
+		$count += $wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key LIKE '%_ad_total_%'" ); // Assignment Desk
 
 		$wpdb->query( "OPTIMIZE TABLE {$wpdb->postmeta}" );
 
