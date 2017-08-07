@@ -32,28 +32,9 @@ class Locale extends gNetwork\Module
 		}
 	}
 
-	public function setup_menu( $context )
+	public static function loadedMOs()
 	{
-		Admin::registerMenu( $this->key,
-			_x( 'Locale', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			[ $this, 'settings' ], 'manage_options', 12
-		);
-	}
-
-	public function settings( $sub = NULL )
-	{
-		if ( $sub == $this->key )
-			add_action( $this->settings_hook( $sub, 'admin' ), [ $this, 'settings_form' ], 10, 2 );
-	}
-
-	public function settings_form( $uri, $sub = 'general' )
-	{
-		$this->settings_form_before( $uri, $sub, 'bulk', FALSE );
-
-			HTML::h3( _x( 'Loaded MO Files', 'Modules: Locale', GNETWORK_TEXTDOMAIN ) );
-			HTML::tableSide( $this->loaded );
-
-		$this->settings_form_after( $uri, $sub );
+		HTML::tableSide( gNetwork()->locale->loaded );
 	}
 
 	public static function changeLocale( $locale = NULL )

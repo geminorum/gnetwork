@@ -145,10 +145,6 @@ class Debug extends gNetwork\Module
 					'title' => _x( 'Paths', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
 					'cb'    => [ __CLASS__, 'pluginPaths' ],
 				],
-				'upload' => [
-					'title' => _x( 'Upload', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
-					'cb'    => [ __CLASS__, 'wpUploadDIR' ],
-				],
 				'server' => [
 					'title' => _x( 'SERVER', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
 					'cb'    => [ __CLASS__, 'dumpServer' ],

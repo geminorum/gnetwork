@@ -5,6 +5,7 @@ defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 use geminorum\gNetwork;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
+use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\WordPress;
 
 class Admin extends gNetwork\Module
@@ -213,6 +214,53 @@ class Admin extends gNetwork\Module
 		}
 
 		Settings::wrapClose();
+	}
+
+	public static function renderOverview()
+	{
+		HTML::h3( _x( 'Current Site Overview', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ) );
+
+		HTML::desc( _x( 'Below you can find various information about current site and contents.', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ) );
+
+		$tabs = [];
+
+		if ( class_exists( __NAMESPACE__.'\\ShortCodes' )
+			&& current_user_can( 'edit_posts' ) )
+			$tabs['shortcodes'] = [
+				'title'  => _x( 'Available Shortcodes', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ),
+				'cb'     => [ __NAMESPACE__.'\\ShortCodes', 'available' ],
+				'active' => TRUE,
+			];
+
+		if ( class_exists( __NAMESPACE__.'\\Locale' )
+			&& current_user_can( 'manage_options' ) )
+			$tabs['loadedmos'] = [
+				'title' => _x( 'Loaded MO Files', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ),
+				'cb'    => [ __NAMESPACE__.'\\Locale', 'loadedMOs' ],
+			];
+
+		if ( class_exists( __NAMESPACE__.'\\Debug' )
+			&& current_user_can( 'manage_options' ) ) {
+
+			$tabs['caching'] = [
+				'title' => _x( 'Stats of the Caching', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ),
+				'cb'    => [ __NAMESPACE__.'\\Debug', 'cacheStats' ],
+			];
+
+			$tabs['upload'] = [
+				'title' => _x( 'Upload Directories', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ),
+				'cb'    => [ __NAMESPACE__.'\\Debug', 'wpUploadDIR' ],
+			];
+		}
+
+		if ( class_exists( __NAMESPACE__.'\\Media' )
+			&& current_user_can( 'edit_others_posts' ) )
+			$tabs['imagesizes'] = [
+				'title' => _x( 'Registered Image Sizes', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ),
+				'cb'    => [ __NAMESPACE__.'\\Media', 'registeredImageSizes' ],
+			];
+
+		HTML::tabsList( apply_filters( 'gnetwork_admin_overview', $tabs ) );
 	}
 
 	public function admin_print_styles()

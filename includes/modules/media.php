@@ -56,11 +56,6 @@ class Media extends gNetwork\Module
 			_x( 'Images', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
 			FALSE, 'edit_others_posts'
 		);
-
-		Admin::registerMenu( 'sizes',
-			_x( 'Sizes', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			FALSE, 'edit_others_posts'
-		);
 	}
 
 	protected function setup_ajax( $request )
@@ -170,24 +165,14 @@ class Media extends gNetwork\Module
 			add_thickbox();
 			Utilities::enqueueScript( 'admin.images' );
 
-		} else if ( 'sizes' == $sub ) {
-
-			add_action( $this->settings_hook( $sub ), [ $this, 'settings_form_sizes' ], 10, 2 );
-
 		} else {
 			parent::settings( $sub );
 		}
 	}
 
-	// FIXME: better UI
-	public function settings_form_sizes( $uri, $sub = 'general' )
+	public static function registeredImageSizes()
 	{
-		$this->settings_form_before( $uri, $sub, 'bulk' );
-
-			HTML::h3( _x( 'Registered Image Sizes', 'Modules: Media', GNETWORK_TEXTDOMAIN ) );
-			HTML::tableSide( $GLOBALS['_wp_additional_image_sizes'] );
-
-		$this->settings_form_after( $uri, $sub );
+		HTML::tableSide( $GLOBALS['_wp_additional_image_sizes'] );
 	}
 
 	public function settings_form_images( $uri, $sub = 'general' )
