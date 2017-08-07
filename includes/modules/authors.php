@@ -27,11 +27,6 @@ class Authors extends gNetwork\Module
 			_x( 'Authors', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
 			[ $this, 'settings' ], 'list_users'
 		);
-
-		Admin::registerMenu( 'roles',
-			_x( 'Roles', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			FALSE, 'list_users'
-		);
 	}
 
 	public function default_options()
@@ -123,15 +118,6 @@ class Authors extends gNetwork\Module
 		echo '</table>';
 	}
 
-	public function settings( $sub = NULL )
-	{
-		if ( 'roles' == $sub )
-			add_action( $this->settings_hook( $sub ), [ $this, 'settings_form_roles' ], 10, 2 );
-
-		else
-			parent::settings( $sub );
-	}
-
 	protected function settings_actions( $sub = NULL )
 	{
 		if ( ! empty( $_POST['bulk_change_author'] ) ) {
@@ -164,14 +150,9 @@ class Authors extends gNetwork\Module
 		}
 	}
 
-	public function settings_form_roles( $uri, $sub = 'general' )
+	public static function userRoles()
 	{
-		$this->settings_form_before( $uri, $sub, 'bulk', FALSE );
-
-			HTML::h3( _x( 'Current User Roles and Capabilities', 'Modules: Authors', GNETWORK_TEXTDOMAIN ) );
-			HTML::tableSide( get_editable_roles() );
-
-		$this->settings_form_after( $uri, $sub );
+		HTML::tableSide( get_editable_roles() );
 	}
 
 	private function bulk_change_author( $from_user, $to_user, $posttype = 'post' )

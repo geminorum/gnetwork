@@ -239,6 +239,13 @@ class Admin extends gNetwork\Module
 				'cb'    => [ __NAMESPACE__.'\\Locale', 'loadedMOs' ],
 			];
 
+		if ( class_exists( __NAMESPACE__.'\\Authors' )
+			&& current_user_can( 'list_users' ) )
+			$tabs['userroles'] = [
+				'title' => _x( 'Roles and Capabilities', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ),
+				'cb'    => [ __NAMESPACE__.'\\Authors', 'userRoles' ],
+			];
+
 		if ( class_exists( __NAMESPACE__.'\\Debug' )
 			&& current_user_can( 'manage_options' ) ) {
 
