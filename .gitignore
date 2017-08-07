@@ -21,4 +21,5 @@ npm-debug.log
 .tinypng-sigs
 
 environment.yml
+.env
 .ftpconfig

@@ -389,7 +389,7 @@ class RestrictedBouncer extends \geminorum\gNetwork\Core\Base
 
 			global $wpdb;
 
-			$founded = $wpdb->get_results( $wpdb->prepare( "SELECT user_id FROM $wpdb->usermeta WHERE meta_value = %s", $feedkey ) );
+			$founded = $wpdb->get_results( $wpdb->prepare( "SELECT user_id FROM {$wpdb->usermeta} WHERE meta_value = %s", $feedkey ) );
 
 			if ( ! empty( $founded ) ) {
 				$this->valid = TRUE;

@@ -15,9 +15,9 @@
     "role": "Developer"
   }],
   "support": {
-    "issues": "http://geminorum.ir/wordpress/gnetwork/issues",
-    "wiki": "http://geminorum.ir/wordpress/gnetwork/wiki",
-    "source": "http://geminorum.ir/wordpress/gnetwork"
+    "issues": "https://github.com/geminorum/gnetwork/issues",
+    "wiki": "https://github.com/geminorum/gnetwork/wiki",
+    "source": "https://github.com/geminorum/gnetwork"
   },
   "require": {
     "php": ">=5.4",

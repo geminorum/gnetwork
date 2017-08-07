@@ -487,7 +487,7 @@ class User extends gNetwork\Module
 		$regex  = preg_replace( '/[^a-zA-Z_\|-]/', '', $regex );
 		$users  = $wpdb->get_col( $wpdb->prepare( "
 			SELECT user_id
-			FROM $wpdb->usermeta
+			FROM {$wpdb->usermeta}
 			WHERE meta_key = '{$prefix}capabilities'
 			AND meta_value REGEXP %s
 		", $regex ) );

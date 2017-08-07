@@ -314,7 +314,7 @@ class Comments extends gNetwork\Module
 		global $wpdb;
 
  	 	return $wpdb->get_var( $wpdb->prepare( "
-			SELECT COUNT(*) FROM $wpdb->comments
+			SELECT COUNT(*) FROM {$wpdb->comments}
 			WHERE comment_post_ID = %d
 			AND comment_type NOT IN ( '".join( "', '", esc_sql( $this->get_hidden_types() ) )."' )
 			AND comment_approved = '1'

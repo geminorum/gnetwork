@@ -64,10 +64,6 @@
 
   gulp.task('dev:sass', function() {
     return gulp.src(config.input.sass)
-    .pipe(plugins.newer({
-      dest: config.output.css,
-      ext: '.css',
-    }))
     .pipe(plugins.sourcemaps.init())
     .pipe(plugins.sass.sync(config.sass).on('error', plugins.sass.logError))
     .pipe(plugins.cssnano({
@@ -77,7 +73,11 @@
     }))
     .pipe(plugins.sourcemaps.write(config.output.sourcemaps))
     .pipe(gulp.dest(config.output.css)).on('error', gutil.log)
-    .pipe(plugins.livereload());
+    .pipe(plugins.changedInPlace())
+    .pipe(plugins.debug({title: 'unicorn:'}))
+    .pipe(plugins.if( function(file){
+      if (file.extname != '.map') return true;
+    }, plugins.livereload()));
   });
 
   gulp.task('dev:watch', function() {
@@ -99,6 +99,7 @@
       pkg: pkg
     }))
     .pipe(plugins.sourcemaps.write(config.output.sourcemaps))
+    .pipe(plugins.debug({title: 'unicorn:'}))
     .pipe(gulp.dest(config.output.css)).on('error', gutil.log);
   });
 

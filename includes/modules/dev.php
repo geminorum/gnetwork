@@ -190,7 +190,7 @@ class Dev extends gNetwork\Module
 			$hooks[] = 'add_meta_boxes';
 
 		// Get List HTML for the hooks
-		$hooks = '<ul style="width:50%;float:left;"><strong>Hooks</strong><li>'.implode( '</li><li>', $hooks ).'</li></ul>';
+		$hooks = '<ul style="width:50%;float:left;"><li><strong>Hooks</strong></li><li>'.implode( '</li><li>', $hooks ).'</li></ul>';
 
 		// Combine $variables list with $hooks list.
 		$help_content = $variables . $hooks;
