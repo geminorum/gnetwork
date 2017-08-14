@@ -284,9 +284,58 @@ class Cleanup extends gNetwork\Module
 			wp_dequeue_style( 'bruteprotect-css' ); // BruteProtect global css!!
 	}
 
-	// https://core.trac.wordpress.org/ticket/20316
-	// http://wordpress.stackexchange.com/a/6652
-	private function purge_transient_data( $site = FALSE, $time = FALSE )
+	// @REF: https://core.trac.wordpress.org/ticket/20316
+	// @REF: https://core.trac.wordpress.org/changeset/25838
+	private function purge_transient_data( $site = TRUE, $time = TRUE )
+	{
+		global $wpdb;
+
+		if ( $site ) {
+
+			if ( $time ) {
+
+				$query = $wpdb->prepare( "DELETE a, b
+					FROM {$wpdb->sitemeta} a, {$wpdb->sitemeta} b
+					WHERE a.meta_key LIKE %s
+					AND a.meta_key NOT LIKE %s
+					AND b.meta_key = CONCAT( '_site_transient_timeout_', SUBSTRING( a.meta_key, 17 ) )
+					AND b.meta_value < %d
+				", $wpdb->esc_like( '_site_transient_' ).'%', $wpdb->esc_like( '_site_transient_timeout_' ).'%', time() );
+
+			} else {
+
+				$query = $wpdb->prepare( "DELETE FROM {$wpdb->sitemeta} WHERE meta_key LIKE %s", $wpdb->esc_like( '_site_transient_' ).'%' );
+			}
+
+		} else {
+
+			if ( $time ) {
+
+				$query = $wpdb->prepare( "DELETE a, b
+					FROM {$wpdb->options} a, {$wpdb->options} b
+					WHERE a.option_name LIKE %s
+					AND a.option_name NOT LIKE %s
+					AND b.option_name = CONCAT( '_transient_timeout_', SUBSTRING( a.option_name, 12 ) )
+					AND b.option_value < %d
+				", $wpdb->esc_like( '_transient_' ).'%', $wpdb->esc_like( '_transient_timeout_' ).'%', time() );
+
+			} else {
+
+				$query = $wpdb->prepare( "DELETE FROM {$wpdb->options} WHERE option_name LIKE %s", $wpdb->esc_like( '_transient_' ).'%' );
+			}
+		}
+
+		$count = $wpdb->query( $query );
+
+		return $count ? [
+			'message' => 'purged',
+			'count'   => $count,
+		] : 'nochange';
+	}
+
+	// FIXME: DROP THIS
+	// @REF: http://wordpress.stackexchange.com/a/6652
+	private function purge_transient_data_OLD( $site = FALSE, $time = FALSE )
 	{
 		if ( wp_using_ext_object_cache() )
 			return 'wrong';
