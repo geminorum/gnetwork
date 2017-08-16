@@ -396,7 +396,7 @@ class Mail extends gNetwork\Module
 		$filename = current_time( 'Ymd-His' ).'-'.$to.'.json';
 
 		if ( FALSE === File::putContents( $filename, wp_json_encode( $contents ), GNETWORK_MAIL_LOG_DIR ) )
-			Logger::CRITICAL( 'EMAIL-LOGGER: NOT LOGGED TO: '.$contents['to'] );
+			Logger::CRITICAL( 'EMAIL-LOGS: CAN NOT LOG EMAIL TO: '.$contents['to'] );
 
 		return $mail;
 	}
@@ -498,10 +498,13 @@ class Mail extends gNetwork\Module
 		if ( ! $path )
 			return [ [], [] ];
 
+		$files = glob( wp_normalize_path( $path.'/*.'.$ext ) );
+
+		if ( FALSE === $files || ! count( $files ) )
+			return [ [], [] ];
+
 		$i    = 0;
 		$logs = [];
-
-		$files = glob( wp_normalize_path( $path.'/*.'.$ext ) );
 
 		usort( $files, function( $a, $b ) {
 			return filemtime( $b ) - filemtime( $a );
@@ -556,6 +559,14 @@ class Mail extends gNetwork\Module
 	private static function tableEmailLogs()
 	{
 		list( $logs, $pagination ) = self::getEmailLogs( self::limit(), self::paged() );
+
+		if ( ! count( $logs ) ) {
+
+			if ( ! is_dir( GNETWORK_MAIL_LOG_DIR ) || ! wp_is_writable( GNETWORK_MAIL_LOG_DIR ) )
+				echo HTML::error( _x( 'Log Folder Not Exists or Writable', 'Modules: Mail', GNETWORK_TEXTDOMAIN ) );
+
+			return FALSE;
+		}
 
 		return HTML::tableList( [
 			'_cb' => 'file',
