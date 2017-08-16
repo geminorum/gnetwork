@@ -205,25 +205,28 @@ class Mail extends gNetwork\Module
 	{
 		if ( ! GNETWORK_MAIL_LOG_DIR ) {
 
-			HTML::desc( _x( 'Logging Emails Disabled by Constant', 'Modules: Mail', GNETWORK_TEXTDOMAIN ) );
+			HTML::desc( _x( 'Logging emails disabled by constant.', 'Modules: Mail', GNETWORK_TEXTDOMAIN ) );
 
 		} else if ( $this->options['log_all'] ) {
 
-			if ( wp_is_writable( GNETWORK_MAIL_LOG_DIR ) ) {
+			if ( ! is_dir( GNETWORK_MAIL_LOG_DIR ) || ! wp_is_writable( GNETWORK_MAIL_LOG_DIR ) ) {
 
-				HTML::desc( sprintf( _x( 'Log Folder Exists and Writable: <code>%s</code>', 'Modules: Mail', GNETWORK_TEXTDOMAIN ), GNETWORK_MAIL_LOG_DIR ) );
+				HTML::desc( _x( 'Log folder not exists or writable.', 'Modules: Mail', GNETWORK_TEXTDOMAIN ) );
+
+				echo '<p>';
+					Settings::submitButton( 'create_log_folder', _x( 'Create Log Folder', 'Modules: Mail', GNETWORK_TEXTDOMAIN ), 'small' );
+				echo '</p>';
+
+			} else {
+
+				HTML::desc( sprintf( _x( 'Log folder exists and writable on: <code>%s</code>', 'Modules: Mail', GNETWORK_TEXTDOMAIN ), GNETWORK_MAIL_LOG_DIR ) );
 
 				if ( ! file_exists( GNETWORK_MAIL_LOG_DIR.'/.htaccess' ) )
 					HTML::desc( _x( 'Warning: <code>.htaccess</code> not found!', 'Modules: Mail', GNETWORK_TEXTDOMAIN ) );
-
-			} else {
-				HTML::desc( _x( 'Log Folder Not Exists and/or Writable', 'Modules: Mail', GNETWORK_TEXTDOMAIN ) );
-
-				Settings::submitButton( 'create_log_folder', _x( 'Create Log Folder', 'Modules: Mail', GNETWORK_TEXTDOMAIN ) );
 			}
 
 		} else {
-			HTML::desc( _x( 'Logging Emails Disabled', 'Modules: Mail', GNETWORK_TEXTDOMAIN ) );
+			HTML::desc( _x( 'Logging emails disabled.', 'Modules: Mail', GNETWORK_TEXTDOMAIN ) );
 		}
 	}
 
@@ -563,7 +566,10 @@ class Mail extends gNetwork\Module
 		if ( ! count( $logs ) ) {
 
 			if ( ! is_dir( GNETWORK_MAIL_LOG_DIR ) || ! wp_is_writable( GNETWORK_MAIL_LOG_DIR ) )
-				echo HTML::error( _x( 'Log Folder Not Exists or Writable', 'Modules: Mail', GNETWORK_TEXTDOMAIN ) );
+				echo HTML::error( _x( 'Log folder not exists or writable.', 'Modules: Mail', GNETWORK_TEXTDOMAIN ) );
+
+			else
+				echo HTML::warning( _x( 'No Logs!', 'Modules: Mail', GNETWORK_TEXTDOMAIN ) );
 
 			return FALSE;
 		}
@@ -642,7 +648,6 @@ class Mail extends gNetwork\Module
 			'navigation' => 'before',
 			'search'     => 'before',
 			'title'      => HTML::tag( 'h3', sprintf( _x( 'Total %s Email Logs', 'Modules: Mail', GNETWORK_TEXTDOMAIN ), Number::format( $pagination['total'] ) ) ),
-			'empty'      => HTML::warning( _x( 'No Logs!', 'Modules: Mail', GNETWORK_TEXTDOMAIN ) ),
 			'pagination' => $pagination,
 		] );
 	}
