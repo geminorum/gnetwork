@@ -195,7 +195,7 @@ class Site extends gNetwork\Module
 	}
 
 	// TODO: on signup form: http://stackoverflow.com/a/10372861
-	public function wpmu_new_blog( $blog_id, $user_id, $domain, $path, $site_id, $meta )
+	public function wpmu_new_blog( $blog_id, $user_id, $domain, $path, $network_id, $meta )
 	{
 		switch_to_blog( $blog_id );
 

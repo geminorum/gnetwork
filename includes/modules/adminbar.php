@@ -668,7 +668,7 @@ class AdminBar extends gNetwork\Module
 				AND deleted = '0'
 				AND archived = '0'
 				ORDER BY registered DESC
-			", $wpdb->siteid );
+			", get_current_network_id() );
 
 		$blogs = [];
 
