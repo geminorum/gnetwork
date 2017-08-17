@@ -103,8 +103,8 @@ class BuddyPress extends gNetwork\Module
 				],
 			],
 			'_xprofile' => [
+				[
 					'field'       => 'check_completed',
-					[
 					'title'       => _x( 'Check Completed', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Notice member for empty required fields.', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
 				],
