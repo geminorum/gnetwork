@@ -3,7 +3,7 @@
   "version": "3.6.3",
   "description": "WordPress Network Helper",
   "license": "GPL-3+",
-  "homepage": "https://github.com/geminorum/gnetwork/",
+  "homepage": "https://github.com/geminorum/gnetwork",
   "author": {
     "name": "Nasser Rafie",
     "email": "contact@geminorum.ir",
@@ -26,7 +26,7 @@
     "gulp": "github:gulpjs/gulp#4.0",
     "gulp-bump": "^2.7.0",
     "gulp-changed-in-place": "^2.2.0",
-    "gulp-checktextdomain": "^1.1.1",
+    "gulp-checktextdomain": "^2.0.0",
     "gulp-cssnano": "^2.1.2",
     "gulp-debug": "^3.1.0",
     "gulp-exclude-gitignore": "^1.1.1",

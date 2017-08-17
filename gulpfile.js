@@ -105,7 +105,7 @@
 
   gulp.task('build:styles', function() {
     return gulp.src(config.input.sass)
-    .pipe(plugins.sass().on('error', plugins.sass.logError))
+    .pipe(plugins.sass(config.sass).on('error', plugins.sass.logError))
     .pipe(plugins.cssnano({
       zindex: false,
       discardComments: {
