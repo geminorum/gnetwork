@@ -317,8 +317,9 @@ class Debug extends gNetwork\Module
 
 	public static function cacheStats()
 	{
-		global $wp_object_cache;
-		$wp_object_cache->stats();
+		echo '<div class="wrap -wrap" dir="ltr">';
+			$GLOBALS['wp_object_cache']->stats();
+		echo '</div>';
 	}
 
 	public static function initialConstants()
@@ -398,7 +399,10 @@ class Debug extends gNetwork\Module
 	{
 		$upload_dir = wp_upload_dir();
 		unset( $upload_dir['error'], $upload_dir['subdir'] );
-		echo HTML::tableCode( $upload_dir );
+
+		echo '<div class="wrap -wrap" dir="ltr">';
+			echo HTML::tableCode( $upload_dir );
+		echo '</div>';
 	}
 
 	// FIXME: DRAFT
