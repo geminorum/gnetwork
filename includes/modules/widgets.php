@@ -105,7 +105,9 @@ class Widgets extends gNetwork\Module
 	{
 		global $wp_meta_boxes;
 
-		if ( ! is_array( $wp_meta_boxes['dashboard'] ) ) {
+		if ( ! isset( $wp_meta_boxes['dashboard'] )
+			|| ! is_array( $wp_meta_boxes['dashboard'] ) ) {
+
 			require_once( ABSPATH.'/wp-admin/includes/dashboard.php' );
 			set_current_screen( 'dashboard' );
 			remove_action( 'wp_dashboard_setup', [ $this, 'disable_dashboard_widgets' ], 100 );
