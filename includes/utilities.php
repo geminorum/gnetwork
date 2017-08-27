@@ -301,10 +301,9 @@ class Utilities extends Core\Base
 			return $layout;
 	}
 
-	// override to use plugin version
 	public static function linkStyleSheet( $css, $version = GNETWORK_VERSION, $media = 'all' )
 	{
-		HTML::linkStyleSheet( GNETWORK_URL.'assets/css/'.$css, $version, $media );
+		HTML::linkStyleSheet( GNETWORK_URL.'assets/css/'.$css.( is_rtl() ? '-rtl' : '' ).'.css', $version, $media );
 	}
 
 	public static function customStyleSheet( $css, $link = TRUE, $version = GNETWORK_VERSION )

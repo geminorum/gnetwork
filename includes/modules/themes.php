@@ -5,6 +5,7 @@ defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 use geminorum\gNetwork;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
+use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\WordPress;
 
 class Themes extends gNetwork\Module
@@ -202,7 +203,7 @@ class Themes extends gNetwork\Module
 
 			if ( $this->rtl ) {
 				add_action( 'wp_head', function(){
-					Utilities::linkStyleSheet( 'themes.tribes-rtl.css' );
+					Themes::linkStyleSheet( 'tribes-rtl' );
 				}, 20 );
 
 				add_filter( 'mce_css', function( $url ){
@@ -279,9 +280,9 @@ class Themes extends gNetwork\Module
 			if ( $this->rtl ) {
 
 				add_action( 'wp_head', function(){
-					Utilities::linkStyleSheet( 'themes.p2-rtl.css' );
-					// wp_enqueue_style( 'p2-rtl', GNETWORK_URL.'assets/css/themes.p2-rtl.css', [], GNETWORK_VERSION );
-					// wp_enqueue_style( 'p2-print-style-rtl', GNETWORK_URL.'assets/css/themes.p2-rtl-print.css', [ 'p2-rtl' ], GNETWORK_VERSION, 'print' );
+					Themes::linkStyleSheet( 'p2-rtl' );
+					// wp_enqueue_style( 'p2-rtl', GNETWORK_URL.'assets/css/themes/p2-rtl.css', [], GNETWORK_VERSION );
+					// wp_enqueue_style( 'p2-print-style-rtl', GNETWORK_URL.'assets/css/themes/p2-rtl-print.css', [ 'p2-rtl' ], GNETWORK_VERSION, 'print' );
 				}, 99 );
 			}
 
@@ -416,7 +417,7 @@ class Themes extends gNetwork\Module
 			&& GNETWORK_DISABLE_FRONT_STYLES )
 				return;
 
-		Utilities::linkStyleSheet( 'front.all.css' );
+		Utilities::linkStyleSheet( 'front.all' );
 	}
 
 	public function isTheme( $template, $not_stylesheet = NULL )
@@ -545,12 +546,18 @@ class Themes extends gNetwork\Module
 		if ( ! empty( $url ) )
 			$url .= ',';
 
-		return $url.GNETWORK_URL.'assets/css/'.$file;
+		return $url.GNETWORK_URL.'assets/css/themes/'.$file;
 	}
 
 	public static function enqueueStyle( $theme, $rtl = FALSE )
 	{
-		wp_enqueue_style( 'gnetwork-themes-'.$theme, GNETWORK_URL.'assets/css/themes.'.$theme.( $rtl ? '-rtl' : '' ).'.css', [], GNETWORK_VERSION );
+		wp_enqueue_style( 'gnetwork-themes-'.$theme, GNETWORK_URL.'assets/css/themes/'.$theme.( $rtl ? '-rtl' : '' ).'.css', [], GNETWORK_VERSION );
+	}
+
+	// with no RTL check
+	public static function linkStyleSheet( $css, $version = GNETWORK_VERSION, $media = 'all' )
+	{
+		HTML::linkStyleSheet( GNETWORK_URL.'assets/css/themes/'.$css.'.css', $version, $media );
 	}
 
 	public function publish_credits()

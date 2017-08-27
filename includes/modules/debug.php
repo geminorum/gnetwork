@@ -700,7 +700,7 @@ class Debug extends gNetwork\Module
 
 			echo '<title>'.$title.'</title>';
 
-			Utilities::linkStyleSheet( 'die.all.css' );
+			Utilities::linkStyleSheet( 'die.all' );
 			Utilities::customStyleSheet( 'die.css' );
 
 			echo '</head><body id="error-page">';

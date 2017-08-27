@@ -164,7 +164,7 @@ class Login extends gNetwork\Module
 
 	public function login_head()
 	{
-		Utilities::linkStyleSheet( 'login.all.css' );
+		Utilities::linkStyleSheet( 'login.all' );
 
 		if ( $this->options['login_styles'] )
 			echo '<style>'.$this->options['login_styles'].'</style>'."\n";

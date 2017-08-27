@@ -272,7 +272,7 @@ class Admin extends gNetwork\Module
 
 	public function admin_print_styles()
 	{
-		Utilities::linkStyleSheet( 'admin.all.css' );
+		Utilities::linkStyleSheet( 'admin.all' );
 		Utilities::customStyleSheet( 'admin.css' );
 
 		if ( GNETWORK_ADMIN_JS_ENHANCEMENTS )
