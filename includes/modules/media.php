@@ -108,6 +108,10 @@ class Media extends gNetwork\Module
 			$this->filter( 'media_row_actions', 3, 50 );
 
 			Utilities::enqueueScript( 'admin.media' );
+
+		} else if ( 'post' == $screen->base ) {
+
+			$this->filter( 'admin_post_thumbnail_size', 3, 9 );
 		}
 	}
 
@@ -1059,6 +1063,17 @@ class Media extends gNetwork\Module
 	{
 		unset( $data['image_meta'] );
 		return $data;
+	}
+
+	// tries to set correct size for thumbnail metabox
+	public function admin_post_thumbnail_size( $size, $thumbnail_id, $post )
+	{
+		$_wp_additional_image_sizes = wp_get_additional_image_sizes();
+
+		if ( isset( $_wp_additional_image_sizes[$post->post_type.'-thumbnail'] ) )
+			return $post->post_type.'-thumbnail';
+
+		return $size;
 	}
 
 	public function post_mime_types( $post_mime_types )
