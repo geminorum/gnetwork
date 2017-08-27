@@ -497,21 +497,25 @@ class User extends gNetwork\Module
 
 	public function get_header( $name )
 	{
+		$disable_styles = defined( 'GNETWORK_DISABLE_FRONT_STYLES' ) && GNETWORK_DISABLE_FRONT_STYLES;
+
 		if ( 'wp-signup' == $name ) {
 
 			remove_action( 'wp_head', 'wpmu_signup_stylesheet' );
 
-			add_action( 'wp_head', function(){
-				Utilities::linkStyleSheet( 'signup.all.css' );
-			} );
+			if ( ! $disable_styles )
+				add_action( 'wp_head', function(){
+					Utilities::linkStyleSheet( 'signup.all' );
+				} );
 
 		} else if ( 'wp-activate' == $name ) {
 
 			remove_action( 'wp_head', 'wpmu_activate_stylesheet' );
 
-			add_action( 'wp_head', function(){
-				Utilities::linkStyleSheet( 'activate.all.css' );
-			} );
+			if ( ! $disable_styles )
+				add_action( 'wp_head', function(){
+					Utilities::linkStyleSheet( 'activate.all' );
+				} );
 		}
 	}
 
