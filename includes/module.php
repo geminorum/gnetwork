@@ -53,7 +53,8 @@ class Module extends Core\Base
 		if ( ! $this->cron && WordPress::isCRON() )
 			throw new Exception( 'Not on CRON Calls!' );
 
-		if ( ! $this->installing && wp_installing() )
+		// @SEE: https://core.trac.wordpress.org/ticket/23197
+		if ( ! $this->installing && wp_installing() && 'wp-activate.php' !== WordPress::pageNow() )
 			throw new Exception( 'Not while WP is Installing!' );
 
 		if ( ! is_null( $this->dev ) ) {

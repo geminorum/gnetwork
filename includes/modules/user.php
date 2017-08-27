@@ -14,8 +14,6 @@ class User extends gNetwork\Module
 
 	protected $key = 'user';
 
-	protected $installing = TRUE;
-
 	protected function setup_actions()
 	{
 		if ( is_admin() ) {
