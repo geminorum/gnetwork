@@ -17,10 +17,10 @@ ul.base-list-code {
     display: inline-block;
     margin-right: 4px;
 
-    @include body-rtl() {
-      margin-right: 0;
-      margin-left: 4px;
-    }
+    // @include body-rtl() {
+    //   margin-right: 0;
+    //   margin-left: 4px;
+    // }
   }
 
   code {

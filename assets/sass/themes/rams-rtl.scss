@@ -1,0 +1,154 @@
+@import '../modules/all';
+@import '../partials/base';
+@import '../partials/theme.fonts';
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+@include theme-fonts-Samim-CDN();
+@include theme-fonts-Samim-Bold-CDN();
+
+body.rtl {
+  direction: rtl;
+  font-family: $font-family-base;
+}
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: bold;
+    font-family: $font-family-head;
+  }
+
+  .wrapper {
+    margin: 6% 300px 6% 0;
+  }
+
+  .comment-inner {
+    margin-left: 0;
+    margin-right: 80px;
+  }
+
+  .comment .avatar-container,
+  .sidebar {
+    right: 0;
+    left: auto;
+  }
+
+  .comments-subtitle {
+    left: 0;
+    right: auto;
+  }
+
+  .comments-title.fleft {
+    float: right;
+  }
+
+  .comments-subtitle.fright {
+    float: left;
+  }
+
+  address,
+  big,
+  blockquote,
+  button,
+  caption,
+  cite,
+  code,
+  em,
+  fieldset,
+  font,
+  form,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  img,
+  label,
+  legend,
+  li,
+  ol,
+  p,
+  small,
+  strike,
+  sub,
+  sup,
+  table,
+  td,
+  th,
+  tr,
+  ul {
+    text-align: right;
+  }
+
+  .blog-title,
+  .main-menu li {
+    text-align: left;
+  }
+
+  .post-meta-inner p {
+    text-align: center;
+  }
+
+  .credits {
+    left: 40px;
+    right: auto;
+  }
+
+  .entry-content,
+  .post-content {
+    font-family: $font-family-base;
+
+    blockquote {
+      padding: 30px 90px 30px 30px;
+
+      &:before {
+        content: "”";
+        right: 0;
+        left: auto;
+      }
+    }
+  }
+
+  .comment-actions p + p:before {
+    margin: 0 7px 0 10px;
+  }
+// }
+
+.sidebar .credits,
+p.no-comments {
+  display: none;
+}
+// http://stackoverflow.com/a/2610741
+*::-moz-placeholder {
+  font-family: $font-family-base !important;
+}
+
+*::-webkit-input-placeholder {
+  font-family: $font-family-base !important;
+}
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+@media (max-width: 1100px) {
+  .wrapper {
+    margin-left: 0;
+    margin-right: 250px;
+  }
+}
+@media (max-width: 930px) {
+  .wrapper {
+    margin: 7% !important;
+  }
+
+  .blog-title {
+    margin-right: 0 !important;
+    margin-left: 100px !important;
+  }
+
+  .nav-toggle {
+    right: auto !important;
+    left: 7%;
+  }
+}

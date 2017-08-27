@@ -15,9 +15,6 @@
       height: 26px;
       line-height: 24px;
       margin: 0 2px 0 0;
-      @include body-rtl() {
-        margin: 0 0 0 2px;
-      }
     }
   }
 
@@ -227,10 +224,6 @@
 
     .base-table-wrap {
       margin-right: 10px;
-      @include body-rtl() {
-        margin-right: 0;
-        margin-left: 10px;
-      }
     }
 
     // FIXME: must check the html
@@ -263,11 +256,6 @@
     textarea {
       outline: none;
     }
-    @include body-rtl() {
-      tr th .side-buttons {
-        text-align: left;
-      }
-    }
 
     &.has-sidebox {
       .form-table {
@@ -282,18 +270,9 @@
       float: right;
       color: #666;
       border-left: 1px solid #ccc;
-      padding: 5px 0 5px 15px;
-      @include body-rtl() {
-        float: left;
-        border-left: none;
-        border-right: 1px solid #ccc;
-        padding: 5px 15px 5px 0;
 
-        &.oldoptions {
-          border-color: red;
-          clear: left;
-        }
-      }
+      margin-top: 1em;
+      padding: 0.5em 0 0.5em 1em;
 
       ol,
       ul {

@@ -1,0 +1,192 @@
+@import '../modules/all';
+@import '../partials/base';
+@import '../partials/theme.fonts';
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+@include theme-fonts-Gandom-CDN();
+@include theme-fonts-Samim-Bold-CDN();
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+body.rtl {
+  direction: rtl;
+  font-family: $font-family-base;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.main-navigation {
+  font-weight: bold;
+  font-family: $font-family-head;
+}
+
+p.site-title {
+  font-family: $font-family-head;
+  margin: 0;
+}
+
+.primarymenu.alternative .main-navigation.toggled ul {
+  text-align: right;
+}
+
+.widget_search .search-submit {
+  float: left;
+}
+
+// .widget_archive a:after,
+// .widget_categories a:after {
+//   left: auto;
+//   right: 0;
+// }
+
+.entry-content {
+  ol {
+    list-style-type: -moz-persian;
+    list-style-type: persian;
+  }
+}
+
+.comments-area {
+  input[type="email"],
+  input[type="url"] {
+    direction: ltr;
+  }
+}
+
+.comment .comment-metadata span {
+  margin: 0 0 0.75em;
+}
+
+
+.alignright {
+  float: right !important;
+  margin: .875em 0 .875em 1.75em !important;
+}
+
+.alignleft {
+  float: left !important;
+  margin: .875em 1.75em .875em 0 !important;
+}
+
+.site-footer {
+  margin-bottom: 20px;
+}
+
+#colophon {
+  display: none;
+  visibility: hidden;
+}
+// http://stackoverflow.com/a/2610741
+*::-moz-placeholder {
+  font-family: $font-family-base !important;
+}
+
+*::-webkit-input-placeholder {
+  font-family: $font-family-base !important;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+@media screen and (min-width: 45em) {
+
+  .main-navigation ul {
+
+    ul {
+      padding: 0 0.875em !important;
+    }
+
+    li {
+      margin: 0 0 0 .75em;
+    }
+
+    > li.menu-item-has-children,
+    > li.page_item_has_children {
+      margin-right: 0;
+      margin-left: 1.625em;
+      > a:after {
+        right: auto;
+        left: -.75em;
+      }
+    }
+
+    ul > li.menu-item-has-children,
+    ul > li.page_item_has_children {
+      > a:after {
+        margin-top: 0;
+        right: auto;
+        left: -3em;
+      }
+    }
+  }
+
+  .single .entry-footer span {
+    margin: 0 0 0 10px !important;
+
+    &::after {
+      content: "\200C";
+    }
+  }
+
+  .singular {
+    .entry-over-title {
+      // margin: 10px 0 -10px;
+    }
+    .entry-sub-title {
+      margin-top: -0.4375em;
+    }
+  }
+}
+
+@media screen and ( min-width: 55em ) {
+  .main-navigation ul {
+    ul {
+      padding: 0 0.875em !important;
+    }
+
+    li {
+      margin: 0 0 0 .75em !important;
+    }
+
+    > li.menu-item-has-children,
+    > li.page_item_has_children {
+      margin: 0 0 0 1.625em !important;
+    }
+  }
+}
+
+@media screen and ( min-width: 70em ) {
+  .main-navigation ul {
+    ul {
+      padding: 0 0.875em !important;
+    }
+
+    li {
+      margin: 0 0 0 .75em !important;
+    }
+
+    > li.menu-item-has-children,
+    > li.page_item_has_children {
+      margin: 0 0 0 1.625em !important;
+    }
+  }
+}
+
+@media screen and ( min-width: 1120px ) {
+
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+// CUSTOM
+.entry-content a.button {
+  .genericon {
+    font-size: 26px;
+    vertical-align: middle;
+    text-decoration: none;
+  }
+}

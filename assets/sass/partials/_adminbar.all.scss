@@ -23,14 +23,17 @@
   }
 
   // MUST BE ON WP CORE!
-  @include body-rtl() {
+  body.rtl & {
+
     .menupop .menupop > .ab-item:before {
       content: "\f141" !important;
+      /*rtl:ignore*/
       left: 2px;
     }
 
     .ab-top-secondary .menupop .menupop > .ab-item:before {
       content: "\f139" !important;
+      /*rtl:ignore*/
       right: 2px;
     }
 

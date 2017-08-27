@@ -1,45 +1,97 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-/// RTL ADMIN ENHANCEMENTS -----------------------------------------------------
+/// gNetwork Partials: RTL ALL -------------------------------------------------
 
 body.rtl {
 
-  &.locale-fa-ir,
-  &.locale-fa-ir #wpadminbar *,
-  &.locale-fa-ir .press-this a.wp-switch-editor,
-  &.locale-fa-ir .media-modal,
-  &.locale-fa-ir .media-frame,
-  &.locale-fa-ir .media-frame .search,
-  &.locale-fa-ir .media-frame input[type="text"],
-  &.locale-fa-ir .media-frame input[type="password"],
-  &.locale-fa-ir .media-frame input[type="number"],
-  &.locale-fa-ir .media-frame input[type="search"],
-  &.locale-fa-ir .media-frame input[type="email"],
-  &.locale-fa-ir .media-frame input[type="url"],
-  &.locale-fa-ir .media-frame input[type="tel"],
-  &.locale-fa-ir .media-frame textarea,
-  &.locale-fa-ir .media-frame select,
-  &.locale-fa-ir span.postbox-title-action {
-    @include theme-fonts-core-native;
+  .wrap .add-new-h2,
+  .wrap .add-new-h2:active,
+  .wrap .page-title-action,
+  .wrap .page-title-action:active,
+  .mce-window .mce-window-head .mce-title,
+  #dashboard_activity .no-activity p {
+    font-family: Arial, sans-serif;
   }
 
-  #wpadminbar .ab-icon,
-  #wpadminbar .ab-item:before {
-    font-family: dashicons;
+  #dashboard-widgets h4,
+  #dashboard-widgets h3,
+  #dashboard_quick_press .drafts h2,
+  #dashboard_activity .no-activity p {
+    font-weight: 600;
+  }
+
+  .wrap > h2:first-child,
+  .wrap [class$="icon32"] + h2,
+  .postbox .inside h2,
+  .wrap h1 {
+    font-size: 19px;
+  }
+
+  .col-wrap h2,
+  #dashboard-widgets h4,
+  #dashboard-widgets h3,
+  #dashboard_quick_press .drafts h2,
+  #poststuff h3.hndle,
+  #poststuff .stuffbox > h3,
+  #poststuff h2,
+  .metabox-holder .stuffbox > h3,
+  .metabox-holder .postbox > h3,
+  .metabox-holder h3.hndle,
+  .metabox-holder h2.hndle,
+  .widget-title h3,
+  .widget-title h4,
+  .nav-tab {
+    font-size: 13px;
+  }
+
+  .nav-tab {
+    line-height: 16px;
+  }
+
+  #nav-menu-header .menu-name-label {
+    font-style: normal;
   }
 
   input[type="checkbox"]:checked:before {
-    margin: -3px -3px 0 0;
+    /*rtl:ignore*/
+    margin: -2px -3px 0 0;
   }
 
-  .wrap h1 {
-    font: bold 24px arial, sans-serif !important;
-    .page-title-action {
-      font: 700 14.5px arial, sans-serif !important;
-      padding: 5px 8px 3px;
+  #poststuff {
+
+    #edit-slug-box {
+      /*rtl:ignore*/
+      direction: ltr;
+    }
+
+    #sample-permalink {
+      /*rtl:ignore*/
+      margin-right: 5px;
+    }
+
+    #editable-post-name input {
+      /*rtl:ignore*/
+       margin: -3px 2px 0;
+    }
+
+    input#post_name {
+      /*rtl:ignore*/
+      direction: ltr;
     }
   }
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+  // .wrap h1 {
+  //   font: bold 24px arial, sans-serif !important;
+  //   .page-title-action {
+  //     font: 700 14.5px arial, sans-serif !important;
+  //     padding: 5px 8px 3px;
+  //   }
+  // }
 
   #poststuff h2,
   #site-title,
@@ -47,13 +99,13 @@ body.rtl {
   .media-frame.mode-grid .attachments-browser .no-media,
   .metabox-holder h3,
   .wrap h2 {
-    font: 700 16px arial, sans-serif !important;
+    // font: 700 16px arial, sans-serif !important;
   }
 
   .widget-title h3,
   .widget-title h4 {
-    font-size: 1.28em;
-    padding: 15px 15px 12px;
+    // font-size: 1.28em;
+    // padding: 15px 15px 12px;
   }
 
   .wrap .subtitle {
@@ -62,13 +114,13 @@ body.rtl {
     vertical-align: middle;
   }
 
-  #poststuff h2 {
-    padding: 10px 12px 5px;
-  }
+  // #poststuff h2 {
+  //   padding: 10px 12px 5px;
+  // }
 
-  .metabox-holder h3 {
-    padding: 12px 12px 7px;
-  }
+  // .metabox-holder h3 {
+  //   padding: 12px 12px 7px;
+  // }
 
   .bp-profile-field,
   .form-table,
@@ -85,11 +137,6 @@ body.rtl {
   span.description {
     font-size: 11px;
     font-style: normal;
-  }
-
-  .nav-tab {
-    font: 700 16px/20px arial, sans-serif !important;
-    padding-bottom: 2px;
   }
 
   &.debug-bar-maximized {
@@ -123,17 +170,6 @@ body.rtl {
   }
 
   #poststuff {
-    #edit-slug-box {
-      direction: ltr;
-    }
-
-    #sample-permalink {
-      margin-right: 5px;
-    }
-
-    input#post_name {
-      direction: ltr;
-    }
 
     // added by p2p
     .tabs-panel {
@@ -227,6 +263,7 @@ body.rtl {
   }
 
   .media-frame {
+
     .attachment-details > h3,
     .attachment-display-settings > h3,
     .media-types.media-types-required-info {

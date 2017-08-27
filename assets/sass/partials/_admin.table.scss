@@ -42,9 +42,6 @@ div.base-table-actions {
 
     div.-controls {
       float: right;
-      @include body-rtl() {
-        float: left;
-      }
     }
 
     // input.-limit,

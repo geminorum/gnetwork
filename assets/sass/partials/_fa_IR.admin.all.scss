@@ -1,0 +1,31 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// gNetwork Partials: fa_IR ALL -----------------------------------------------
+
+body.rtl.locale-fa-ir {
+
+  &,
+  #wpadminbar *,
+  .press-this a.wp-switch-editor,
+  .media-modal,
+  .media-frame,
+  .media-frame .search,
+  .media-frame input[type="text"],
+  .media-frame input[type="password"],
+  .media-frame input[type="number"],
+  .media-frame input[type="search"],
+  .media-frame input[type="email"],
+  .media-frame input[type="url"],
+  .media-frame input[type="tel"],
+  .media-frame textarea,
+  .media-frame select,
+  span.postbox-title-action {
+    @include theme-fonts-core-native;
+  }
+
+  #wpadminbar .ab-icon,
+  #wpadminbar .ab-item:before {
+    font-family: dashicons;
+  }
+}

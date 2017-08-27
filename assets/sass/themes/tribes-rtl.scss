@@ -1,0 +1,75 @@
+@import '../modules/all';
+@import '../partials/base';
+@import '../partials/theme.fonts';
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+@include theme-fonts-Gandom-CDN();
+@include theme-fonts-Samim-Bold-CDN();
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+body.rtl {
+  direction: rtl;
+  font-family: $font-family-base;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.site-title {
+  font-weight: bold;
+  font-family: $font-family-head;
+}
+
+.entry-content {
+  ol {
+    list-style-type: -moz-persian;
+    list-style-type: persian;
+  }
+}
+
+.comment-form {
+  input[type="email"],
+  input[type="url"] {
+    direction: ltr;
+  }
+}
+
+blockquote {
+  border-left: none;
+  padding-left: 0;
+}
+
+.more-link:after {
+  content: '\f100';
+}
+
+.post-categories a,
+.post-categories span,
+.comment-author .avatar,
+.post-tags a {
+  margin-right: 0;
+}
+
+.pagination  {
+  .prev {
+    left: auto;
+  }
+  .next {
+    right: auto;
+  }
+}
+
+@media (min-width: 50em) {
+  .pagination  {
+    .prev {
+      left: auto;
+    }
+    .next {
+      right: auto;
+    }
+  }
+}

@@ -1,7 +1,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-/// gNetwork Default Font Stuff ------------------------------------------------
+/// gNetwork Default: Fonts ----------------------------------------------------
+
+// SEE: [SASS @font-face mixin](https://gist.github.com/jonathantneal/d0460e5c2d5d7f9bc5e6)
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -44,7 +46,7 @@
   $font-family-base: "Vazir", "Tahoma", "Iranian Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif !global;
 
   $name: "Vazir";
-  $ver: "v13.0.1";
+  $ver: "v14.0.0";
   $weight: "normal";
 
   $base: "https://cdn.rawgit.com";
@@ -57,10 +59,10 @@
 
 @mixin theme-fonts-Vazir-Bold-CDN() {
 
-  $font-family-head: "Vazir", "Arial", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", "Helvetica", "Arial", sans-serif !global;
+  $font-family-head: "Vazir", "Arial", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", "Helvetica", sans-serif !global;
 
   $name: "Vazir";
-  $ver: "v13.0.1";
+  $ver: "v14.0.0";
   $weight: "bold";
 
   $base: "https://cdn.rawgit.com";
@@ -73,10 +75,10 @@
 
 @mixin theme-fonts-Vazir-Light-CDN() {
 
-  $font-family-light: "Vazir", "Arial", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", "Helvetica", "Arial", sans-serif !global;
+  $font-family-light: "Vazir", "Arial", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", "Helvetica", sans-serif !global;
 
   $name: "Vazir";
-  $ver: "v13.0.1";
+  $ver: "v14.0.0";
   $weight: "300";
 
   $base: "https://cdn.rawgit.com";
@@ -108,7 +110,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// Samim
 // https://github.com/rastikerdar/samim-font
-// http://rastikerdar.github.io/samim-font/
+// https://rastikerdar.github.io/samim-font/
 
 @mixin theme-fonts-Samim-CDN() {
 
@@ -128,7 +130,7 @@
 
 @mixin theme-fonts-Samim-Bold-CDN() {
 
-  $font-family-head: "Samim", "Arial", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", "Helvetica", "Arial", sans-serif !global;
+  $font-family-head: "Samim", "Arial", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", "Helvetica", sans-serif !global;
 
   $name: "Samim";
   $ver: "v1.0.2";
@@ -147,7 +149,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// Gandom
 // https://github.com/rastikerdar/gandom-font
-// http://rastikerdar.github.io/gandom-font/
+// https://rastikerdar.github.io/gandom-font/
 
 @mixin theme-fonts-Gandom-CDN() {
 
@@ -165,9 +167,10 @@
   @include _theme-fonts-fontface($name, $path, $weight);
 }
 
+// !! Gandom has no bold version
 @mixin theme-fonts-Gandom-Bold-CDN() {
 
-  $font-family-head: "Gandom", "Arial", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", "Helvetica", "Arial", sans-serif !global;
+  $font-family-head: "Gandom", "Arial", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", "Helvetica", sans-serif !global;
 
   $name: "Gandom";
   $ver: "v0.5.1";
@@ -176,6 +179,61 @@
   $base: "https://cdn.rawgit.com";
   $repo: "rastikerdar/gandom-font";
   $file: "dist/Gandom-Bold";
+  $path: $base + "/" + $repo + "/" + $ver + "/" + $file;
+
+  @include _theme-fonts-fontface($name, $path, $weight);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// Sahel
+// https://github.com/rastikerdar/sahel-font
+// https://rastikerdar.github.io/sahel-font/
+
+@mixin theme-fonts-Sahel-CDN() {
+
+  $font-family-base: "Sahel", "Tahoma", "Iranian Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif !global;
+
+  $name: "Sahel";
+  $ver: "v1.0.0-alpha9";
+  $weight: "normal";
+
+  $base: "https://cdn.rawgit.com";
+  $repo: "rastikerdar/sahel-font";
+  $file: "dist/Sahel";
+  $path: $base + "/" + $repo + "/" + $ver + "/" + $file;
+
+  @include _theme-fonts-fontface($name, $path, $weight);
+}
+
+@mixin theme-fonts-Sahel-Bold-CDN() {
+
+  $font-family-head: "Sahel", "Arial", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", "Helvetica", sans-serif !global;
+
+  $name: "Sahel";
+  $ver: "v1.0.0-alpha9";
+  $weight: "bold";
+
+  $base: "https://cdn.rawgit.com";
+  $repo: "rastikerdar/sahel-font";
+  $file: "dist/Sahel-Bold";
+  $path: $base + "/" + $repo + "/" + $ver + "/" + $file;
+
+  @include _theme-fonts-fontface($name, $path, $weight);
+}
+
+@mixin theme-fonts-Sahel-Black-CDN() {
+
+  $font-family-head: "Sahel", "Arial", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", "Helvetica", sans-serif !global;
+
+  $name: "Sahel";
+  $ver: "v1.0.0-alpha9";
+  $weight: "900";
+
+  $base: "https://cdn.rawgit.com";
+  $repo: "rastikerdar/sahel-font";
+  $file: "dist/Sahel-Black";
   $path: $base + "/" + $repo + "/" + $ver + "/" + $file;
 
   @include _theme-fonts-fontface($name, $path, $weight);

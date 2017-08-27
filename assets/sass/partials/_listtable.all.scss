@@ -8,8 +8,5 @@
   .column-gnetwork-network-id {
     width: 4%;
     text-align: right;
-    @include body-rtl() {
-      text-align: left;
-    }
   }
 }

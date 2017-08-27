@@ -39,13 +39,10 @@
   }
 }
 
+/*rtl:begin:ignore*/
 body.rtl {
   .mce-tooltip-inner {
     direction: rtl;
-  }
-
-  .mce-window .mce-window-head .mce-title {
-    padding-top: 12px;
   }
 
   .mce-window-body .mce-container.mce-rtl * {
@@ -71,3 +68,4 @@ body.rtl {
     direction: ltr;
   }
 }
+/*rtl:end:ignore*/

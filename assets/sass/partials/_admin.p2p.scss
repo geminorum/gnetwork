@@ -4,6 +4,7 @@
 /// gNetwork Partials: P2P -----------------------------------------------------
 
 .p2p-box {
+
   .p2p-toggle-tabs {
     margin-bottom: 0;
 
@@ -18,26 +19,34 @@
 
   .p2p-create-connections-tabs {
     margin-top: 1em;
+
+    .wp-tab-bar {
+      margin-bottom: 6px;
+    }
   }
 
   td.p2p-col-create .p2p-icon {
     padding-top: 3px !important;
-    @include body-rtl() {
+    body.rtl & {
+      /*rtl:begin:ignore*/
       float: right;
       margin: 0 0 0 6px;
+      /*rtl:end:ignore*/
     }
   }
 
   .p2p-search input {
     width: 100%;
-    @include body-rtl() {
-      padding-right: 5px !important;
+    body.rtl & {
+      /*rtl:ignore*/
+      padding-right: 5px;
     }
   }
 
   .p2p-connections {
     th {
-      @include body-rtl() {
+      body.rtl & {
+        /*rtl:ignore*/
         text-align: right;
       }
     }

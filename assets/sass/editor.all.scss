@@ -18,3 +18,14 @@ html .mce-content-body.rtl {
     right: -9999999999px !important;
   }
 }
+
+html[lang=fa-IR] .mce-content-body.rtl {
+
+  img[data-wp-more="more"] {
+    background-image: url( '../images/tinymce/more-fa-IR.png' );
+  }
+
+  img[data-wp-more="nextpage"] {
+    background-image: url( '../images/tinymce/pagebreak-fa-IR.png' );
+  }
+}
