@@ -33,16 +33,17 @@ class Tracking extends gNetwork\Module
 	public function default_options()
 	{
 		return [
-			'primary_domain' => '',
-			'ga_account'     => '',
-			'ga_beacon'      => '',
-			'ga_domain'      => 'auto',
-			'ga_userid'      => '1',
-			'ga_outbound'    => '0',
-			'quantcast'      => '',
-			'plus_publisher' => '',
-			'twitter_site'   => '',
-			'ignore_user'    => 'edit_others_posts',
+			'register_shortcodes' => '0',
+			'primary_domain'      => '',
+			'ga_account'          => '',
+			'ga_beacon'           => '',
+			'ga_domain'           => 'auto',
+			'ga_userid'           => '1',
+			'ga_outbound'         => '0',
+			'quantcast'           => '',
+			'plus_publisher'      => '',
+			'twitter_site'        => '',
+			'ignore_user'         => 'edit_others_posts',
 		];
 	}
 
@@ -129,6 +130,11 @@ class Tracking extends gNetwork\Module
 					'dir'         => 'ltr',
 					'placeholder' => 'username'
 				],
+				[
+					'field'       => 'register_shortcodes',
+					'title'       => _x( 'Extra Shortcodes', 'Modules: Tracking: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Registers extra tracking shortcodes.', 'Modules: Tracking: Settings', GNETWORK_TEXTDOMAIN ),
+				],
 			],
 		];
 	}
@@ -151,10 +157,16 @@ class Tracking extends gNetwork\Module
 
 	public function init()
 	{
-		$this->shortcodes( [
+		if ( $this->options['register_shortcodes'] )
+			$this->shortcodes( $this->get_shortcodes() );
+	}
+
+	protected function get_shortcodes()
+	{
+		return [
 			'google-plus-badge' => 'shortcode_google_plus_badge',
 			'ga-beacon'         => 'shortcode_ga_beacon',
-		] );
+		];
 	}
 
 	public function shortcode_google_plus_badge( $atts = [], $content = NULL, $tag = '' )
