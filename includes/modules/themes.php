@@ -336,7 +336,10 @@ class Themes extends gNetwork\Module
 			// DEMO: http://andersnoren.se/themes/rams/
 
 			if ( $this->rtl ) {
+
 				add_action( 'wp_enqueue_scripts', function(){
+					remove_action( 'wp_print_styles', 'rams_load_style' );
+					wp_enqueue_style( 'rams_style', get_stylesheet_uri() );
 					Themes::enqueueStyle( 'rams', TRUE );
 				}, 20 );
 

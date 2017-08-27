@@ -235,7 +235,7 @@ class Admin extends gNetwork\Module
 		if ( class_exists( __NAMESPACE__.'\\Locale' )
 			&& current_user_can( 'manage_options' ) )
 			$tabs['loadedmos'] = [
-				'title' => _x( 'Loaded MO Files', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ),
+				'title' => _x( 'Loaded Localizations', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ),
 				'cb'    => [ __NAMESPACE__.'\\Locale', 'loadedMOs' ],
 			];
 

@@ -1402,7 +1402,8 @@ class ShortCodes extends gNetwork\Module
 			$args['wrap']          = TRUE;
 		}
 
-		Utilities::enqueueScript( 'front.cite' );
+		if ( ! defined( 'GNETWORK_DISABLE_REFLIST_JS' ) || ! GNETWORK_DISABLE_REFLIST_JS )
+			Utilities::enqueueScript( 'front.cite' );
 
 		return '<span>'.( $args['format_number'] ? Number::format( $args['id'] ) : $args['id'] ).$args['after_number']
 				.'<span class="ref-backlink"><a href="#citeref-'.$args['id'].'-m" class="cite-scroll">'.$args['back']

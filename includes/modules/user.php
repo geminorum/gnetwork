@@ -483,7 +483,8 @@ class User extends gNetwork\Module
 		// $regex  = implode( '|', array_keys( wp_roles()->get_names() ) );
 		$regex  = $role;
 		$regex  = preg_replace( '/[^a-zA-Z_\|-]/', '', $regex );
-		$users  = $wpdb->get_col( $wpdb->prepare( "
+
+		$users = $wpdb->get_col( $wpdb->prepare( "
 			SELECT user_id
 			FROM {$wpdb->usermeta}
 			WHERE meta_key = '{$prefix}capabilities'

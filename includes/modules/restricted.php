@@ -194,7 +194,7 @@ class Restricted extends gNetwork\Module
 				'cap'         => 'read',
 				'field'       => 'restricted_feed_key',
 				'default'     => $feedkey ? $feedkey : _x( 'Access key not found', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
-				'field_class' => [ 'regular-text', 'code-text', 'rtl-placeholder' ],
+				'field_class' => [ 'regular-text', 'code-text' ],
 				'description' => _x( 'The key will be used on all restricted site feed URLs.', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
 				'disabled'    => TRUE,
 				'wrap'        => TRUE,

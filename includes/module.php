@@ -697,7 +697,7 @@ class Module extends Core\Base
 				'id'      => $this->classs( 'help-shortcodes' ),
 				'title'   => _x( 'Extra Shortcodes', 'Module Core: Help Tab Title', GNETWORK_TEXTDOMAIN ),
 				'content' => '<p>'._x( 'These are extra shortcodes provided by this module:', 'Module Core: Help Tab Content', GNETWORK_TEXTDOMAIN )
-					.'</p><p>'.HTML::listCode( $this->get_shortcodes(), '<code>[%1$s]</code>' ).'</p>',
+					.'</p>'.HTML::listCode( $this->get_shortcodes(), '<code>[%1$s]</code>' ),
 			] );
 
 		if ( count( $this->options )
@@ -705,7 +705,7 @@ class Module extends Core\Base
 			$screen->add_help_tab( [
 				'id'       => $this->classs( 'help-options' ),
 				'title'    => _x( 'Current Options', 'Module Core: Help Tab Title', GNETWORK_TEXTDOMAIN ),
-				'content'  => '<p>'.HTML::tableCode( $this->options ).'</p>',
+				'content'  => HTML::tableCode( $this->options ),
 				'priority' => 999,
 			] );
 	}
