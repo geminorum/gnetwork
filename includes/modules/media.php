@@ -1008,6 +1008,7 @@ class Media extends gNetwork\Module
 			'xlsx' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
 			'csv'  => 'text/csv',
 			'xml'  => 'text/xml',
+			'md'   => 'text/markdown',
 			'webm' => 'video/webm',
 			'flv'  => 'video/x-flv',
 			'ac3'  => 'audio/ac3',
