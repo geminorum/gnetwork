@@ -37,27 +37,6 @@ class Maintenance extends gNetwork\Module
 		);
 	}
 
-	public function init()
-	{
-		if ( ! WordPress::cuc( $this->options['maintenance_site'] ) ) {
-			$this->action( 'template_redirect' );
-			$this->filter( 'status_header', 4 );
-			$this->filter( 'login_message' );
-
-			foreach ( Utilities::getFeeds() as $feed )
-				add_action( 'do_feed_'.$feed, [ $this, 'do_feed_feed' ], 1, 1 );
-		}
-	}
-
-	public function admin_init()
-	{
-		if ( ! WordPress::cuc( $this->options['maintenance_admin'] ) ) {
-			add_action( 'admin_init', [ $this, 'template_redirect' ] );
-			$this->filter( 'status_header', 4 );
-			$this->action( 'admin_notices' );
-		}
-	}
-
 	public function default_options()
 	{
 		return [
@@ -143,6 +122,31 @@ class Maintenance extends gNetwork\Module
 		];
 	}
 
+	public function init()
+	{
+		if ( ! WordPress::cuc( $this->options['maintenance_site'] ) ) {
+			$this->action( 'template_redirect' );
+			$this->filter( 'status_header', 4 );
+			$this->filter( 'login_message' );
+
+			foreach ( Utilities::getFeeds() as $feed )
+				add_action( 'do_feed_'.$feed, [ $this, 'do_feed_feed' ], 1, 1 );
+		}
+	}
+
+	public function admin_init()
+	{
+		$this->action( 'admin_notices' );
+
+		if ( 'profile.php' == $GLOBALS['pagenow'] )
+			return;
+
+		if ( WordPress::cuc( $this->options['maintenance_admin'] ) )
+			return;
+
+		WordPress::redirect( get_edit_profile_url( get_current_user_id() ) );
+	}
+
 	public function do_feed_feed()
 	{
 		nocache_headers();
@@ -181,20 +185,10 @@ class Maintenance extends gNetwork\Module
 	{
 		if ( is_user_logged_in() ) {
 
-			if ( is_admin() ) {
-				global $pagenow;
-
-				if ( 'profile.php' == $pagenow )
-					return;
-
-				if ( WordPress::cuc( $this->options['maintenance_admin'] ) )
-					return;
-
-			} else if ( WordPress::cuc( $this->options['maintenance_site'] ) ) {
+			if ( WordPress::cuc( $this->options['maintenance_site'] ) )
 				return;
-			}
 
-			wp_redirect( get_edit_profile_url( get_current_user_id() ) );
+			WordPress::redirect( get_edit_profile_url( get_current_user_id() ) );
 
 		} else {
 
