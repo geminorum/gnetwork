@@ -427,6 +427,24 @@ class HTML extends Base
 		), $html );
 	}
 
+	public static function tabNav( $active = '', $subs = array(), $prefix = 'nav-tab-', $tag = 'div' )
+	{
+		if ( ! count( $subs ) )
+			return;
+
+		$html = '';
+
+		foreach ( $subs as $slug => $page )
+			$html .= self::tag( 'a', array(
+				'class' => 'nav-tab '.$prefix.$slug.( $slug == $active ? ' nav-tab-active' : '' ),
+				'href'  => '#'.$slug,
+			), $page );
+
+		echo self::tag( $tag, array(
+			'class' => 'nav-tab-wrapper',
+		), $html );
+	}
+
 	public static function tabsList( $tabs, $atts = array() )
 	{
 		if ( ! count( $tabs ) )
@@ -447,7 +465,7 @@ class HTML extends Base
 			$tab_args = self::atts( array(
 				'active'  => FALSE,
 				'title'   => $tab,
-				'link'    => '#',
+				'link'    => '#'.$tab,
 				'cb'      => FALSE,
 				'content' => '',
 			), $tab_atts );
