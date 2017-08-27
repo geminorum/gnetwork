@@ -254,16 +254,9 @@ class Tracking extends gNetwork\Module
 
 	private function ga_code( $ga )
 	{
-?><script type="text/javascript">
-/* <![CDATA[ */
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+		$analytics = "(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');";
 
-	<?php echo $ga."\n"; ?>
-/* ]]> */
-</script><?php
+		HTML::wrapScript( $analytics.$ga );
 	}
 
 	public function wp_head()
@@ -301,7 +294,7 @@ class Tracking extends gNetwork\Module
 	{
 		if ( $ga = $this->ga() ) {
 
-			$ga .= "ga('send', {hitType: 'pageview', title:'login', page: location.pathname});";
+			$ga .= "ga('send',{hitType:'pageview',title:'login',page:location.pathname});";
 
 			$this->ga_code( $ga );
 		}
@@ -312,87 +305,50 @@ class Tracking extends gNetwork\Module
 		if ( $this->ignore() )
 			return;
 
-		// http://www.sitepoint.com/track-outbound-links-google-analytics/
 		if ( $this->ga_outbound ) {
-			?><script type="text/javascript">
-/* <![CDATA[ */
-	(function($){"use strict";var baseURI=window.location.host;$("body").on("click",function(e){if(e.isDefaultPrevented()||typeof ga!=="function")return;var link=$(e.target).closest("a");if(link.length!=1||baseURI==link[0].host)return;e.preventDefault();var href=link[0].href;ga('send',{'hitType':'event','eventCategory':'outbound','eventAction':'link','eventLabel':href,'hitCallback':loadPage});setTimeout(loadPage,1000);function loadPage(){document.location=href;}});})(jQuery);
-/* ]]> */
-</script><?php
+
+			// @REF: https://www.sitepoint.com/?p=84248
+			HTML::wrapScript( '(function($){"use strict";var baseURI=window.location.host;$("body").on("click",function(e){if(e.isDefaultPrevented()||typeof ga!=="function"){return;};var link=$(e.target).closest("a");if(link.length!=1||baseURI==link[0].host){return;};e.preventDefault();var href=link[0].href;ga("send",{"hitType":"event","eventCategory":"outbound","eventAction":"link","eventLabel":href,"hitCallback":loadPage});setTimeout(loadPage,1000);function loadPage(){document.location=href;};});})(jQuery);' );
 		}
 
 		if ( ! empty( $this->options['quantcast'] ) ) {
 
-?><script type="text/javascript">
-/* <![CDATA[ */
-var _qevents = _qevents || [];
+			$quantcast = 'var _qevents=_qevents||[];(function(){var elem=document.createElement("script");elem.src=(document.location.protocol=="https:"?"https://secure":"http://edge")+".quantserve.com/quant.js";elem.async=true;elem.type="text/javascript";var scpt=document.getElementsByTagName("script")[0];scpt.parentNode.insertBefore(elem,scpt);})();';
 
-(function() {
-var elem = document.createElement('script');
-elem.src = (document.location.protocol == "https:" ? "https://secure" : "http://edge") + ".quantserve.com/quant.js";
-elem.async = true;
-elem.type = "text/javascript";
-var scpt = document.getElementsByTagName('script')[0];
-scpt.parentNode.insertBefore(elem, scpt);
-})();
+			HTML::wrapScript( $quantcast.'_qevents.push({qacct:"'.esc_js( $this->options['quantcast'] ).'"});' );
 
-_qevents.push({
-qacct:"<?php echo $this->options['quantcast']; ?>"
-});
-/* ]]> */
-</script>
-
-<noscript>
-<div style="display:none;">
-<img src="//pixel.quantserve.com/pixel/<?php echo $this->options['quantcast']; ?>.gif" border="0" height="1" width="1" alt="Quantcast"/>
-</div>
-</noscript><?php
-
+			echo '<noscript><div style="display:none;"><img src="//pixel.quantserve.com/pixel/'.$this->options['quantcast'].'.gif" border="0" height="1" width="1" alt="Quantcast"/></div></noscript>';
 		}
 
-		// SEE: https://developers.google.com/+/web/api/supported-languages
-		$iso = class_exists( __NAMESPACE__.'\\Locale' ) ? Locale::getISO() : 'en';
-
-		// FIXME: make this responsive / use jquery
-		// http://technumero.com/internet/customize-google-plus-badge-website-wordpress-blog/2773
-		// http://stackoverflow.com/a/20316430
-		// document.getElementsByClassName('g-page')[0].setAttribute('data-width', document.getElementById('google-badge').clientWidth);
-
 		if ( $this->gp_platformjs ) {
-?><script type="text/javascript">
-/* <![CDATA[ */
-	window.___gcfg = {lang: '<?php echo $iso; ?>'};
 
-	(function() {
-		var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-		po.src = 'https://apis.google.com/js/platform.js';
-		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-	})();
-/* ]]> */
-</script><?php
+			// @SEE: https://developers.google.com/+/web/api/supported-languages
+			$iso = class_exists( __NAMESPACE__.'\\Locale' ) ? Locale::getISO() : 'en';
+
+			$platform = "window.___gcfg = {lang: '".esc_js( $iso )."'};";
+			$platform .= "(function(){var po=document.createElement('script');po.type='text/javascript';po.async=true;po.src='https://apis.google.com/js/platform.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(po,s);})();";
+
+			HTML::wrapScript( $platform );
+
+			// FIXME: make this responsive / use jquery
+			// http://technumero.com/internet/customize-google-plus-badge-website-wordpress-blog/2773
+			// http://stackoverflow.com/a/20316430
+			// document.getElementsByClassName('g-page')[0].setAttribute('data-width', document.getElementById('google-badge').clientWidth);
 		}
 	}
 
-	// TODO: helper for tracking on 503/403 pages
-
-	// HELPER
 	public static function getContact( $class = 'contact', $fallback = FALSE )
 	{
-		if ( $twitter = gNetwork()->option( 'twitter_site', 'tracking', $fallback ) )
-			$html = HTML::tag( 'a',[
-				'href'  => 'https://twitter.com/intent/user?screen_name='.$twitter,
-				'title' => _x( 'Follow Us', 'Modules: Tracking', GNETWORK_TEXTDOMAIN ),
-				'rel'   => 'follow',
-				'dir'   => 'ltr',
-			], '@'.$twitter );
-		else
+		if ( ! $twitter = gNetwork()->option( 'twitter_site', 'tracking', $fallback ) )
 			return '';
 
-		if ( $class )
-			$html = HTML::tag( 'div', [
-				'class' => $class,
-			], $html );
+		$html = HTML::tag( 'a',[
+			'href'  => 'https://twitter.com/intent/user?screen_name='.$twitter,
+			'title' => _x( 'Follow Us', 'Modules: Tracking', GNETWORK_TEXTDOMAIN ),
+			'rel'   => 'follow',
+			'dir'   => 'ltr',
+		], '@'.$twitter );
 
-		return $html;
+		return $class ? HTML::wrap( $html, $class ) : $html;
 	}
 }
