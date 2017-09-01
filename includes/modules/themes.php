@@ -392,6 +392,21 @@ class Themes extends gNetwork\Module
 
 			add_action( 'untitled_credits', [ $this, 'twentysomething_credits' ] );
 
+		} else if ( $this->isTheme( 'twentyeleven' ) ) {
+
+			if ( $this->rtl ) {
+
+				add_action( 'wp_enqueue_scripts', function(){
+					Themes::enqueueStyle( 'twentyeleven', TRUE );
+				}, 20 );
+
+				add_filter( 'mce_css', function( $url ){
+					return Themes::appendMCECSS( $url, 'twentyeleven', $this->rtl );
+				} );
+			}
+
+			add_action( 'twentyeleven_credits', [ $this, 'twentysomething_credits' ] );
+
 		} else if ( $this->isTheme( 'twentytwelve' ) ) {
 
 			if ( $this->rtl ) {
