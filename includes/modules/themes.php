@@ -360,6 +360,23 @@ class Themes extends gNetwork\Module
 				} );
 			}
 
+		} else if ( $this->isTheme( 'chosen' ) ) {
+
+			if ( $this->rtl ) {
+
+				add_action( 'wp_head', function(){
+					Themes::linkStyleSheet( 'chosen-rtl' );
+				}, 20 );
+
+				add_filter( 'mce_css', function( $url ){
+					return Themes::appendMCECSS( $url, 'chosen', $this->rtl );
+				} );
+			}
+
+			add_filter( 'ct_chosen_footer_text', function( $footer_text ){
+				return gnetwork_credits( $this->rtl, FALSE );
+			} );
+
 		} else if ( $this->isTheme( 'untitled' ) ) {
 
 			if ( $this->rtl ) {
