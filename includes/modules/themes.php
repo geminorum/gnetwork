@@ -546,6 +546,12 @@ class Themes extends gNetwork\Module
 	{
 		$classes[] = 'entry';
 
+		if ( ! $post = get_post( $post_id ) )
+			return $classes;
+
+		if ( empty( trim( $post->post_title ) ) )
+			$classes[] = '-empty-title';
+
 		return $classes;
 	}
 
