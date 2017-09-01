@@ -1,0 +1,24 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// gNetwork Partials: Theme: Editorial ----------------------------------------
+
+@mixin theme-editorial-defaults() {
+
+  .post-content,
+  .entry-content {
+
+    .entry-lead {
+      p {
+        color: $gray-light;
+        font-size: 0.89em;
+        line-height: inherit;
+      }
+    }
+
+    .entry-source.-after {
+      margin-top: 1em;
+      text-align: left; // on RTL
+    }
+  }
+}

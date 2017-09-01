@@ -28,4 +28,9 @@ html[lang=fa-IR] .mce-content-body.rtl {
   img[data-wp-more="nextpage"] {
     background-image: url( '../images/tinymce/pagebreak-fa-IR.png' );
   }
+
+  ol {
+    list-style-type: -moz-persian;
+    list-style-type: persian;
+  }
 }

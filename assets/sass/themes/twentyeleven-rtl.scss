@@ -1,0 +1,71 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// gNetwork Themes: Twenty Eleven - RTL ---------------------------------------
+////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+@import '../modules/all';
+@import '../partials/base';
+@import '../partials/theme.fonts';
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+body, input, textarea {
+  font-family: Tahoma, "Iranian Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+h1, h2, h3, blockquote, #access a {
+  font-family: Arial, "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight:bold;
+}
+
+blockquote {
+  font-style: normal;
+}
+
+#site-description,
+#access a,
+section.recent-posts .other-recent-posts a[rel="bookmark"]  {
+  font: bold 16px/10px arial, sans-serif;
+}
+
+#site-generator, p.nocomments, #author-info {
+  display:none;
+}
+
+.page-template-showcase-php section.recent-posts { float:right; margin:0 !important; }
+.page-template-showcase-php section.recent-posts { float:right; margin:0 !important; width:100%; }
+section.recent-posts .other-recent-posts a[rel="bookmark"]  { line-height:25.5px; }
+section.recent-posts .other-recent-posts .comments-link > span { display:none; }
+
+#page { margin:40px auto 20px; padding-bottom:20px; -webkit-border-radius:4px; -moz-border-radius:4px; -ms-border-radius:4px; -o-border-radius:4px; border-radius:4px;}
+#branding { border-top:none; }
+#branding #searchform { top:2.8em !important; }
+#branding #s { box-shadow:none !important; width:53px;}
+.entry-content #s { box-shadow:none !important;  width:95%;  background-position: 99% 6px; }
+#site-title { padding-top:2.8em !important;}
+#site-description { margin:10px 0 37px 0 !important;}
+
+// FIXME: BUG drop down menu broken!!!
+#access { border-top:1px solid #eee; border-bottom:1px solid #eee; }
+#access, #access li:hover > a, #access a:focus  { background:none; box-shadow:none; }
+#access a {
+  color:#888;
+  // font-size:1.4em;
+  line-height:2.2em;
+  padding:0 0.79em;
+  padding-top:3px;
+}
+#access li:hover > a, #access a:focus  { background:#eee; color:#333; }
+
+.nav-previous { float:left; }
+.nav-next { float:right; }
+.entry-meta .edit-link a, .commentlist .edit-link a { line-height:2em; }
+.one-column.singular .entry-meta .edit-link a { left:0; right:auto;}
+
+.entry-title  {font-size:25.3px;}
+
+div.wpcf7 input.wpcf7-text, textarea.wpcf7-textarea { box-sizing:border-box; -moz-box-sizing:border-box; -webkit-box-sizing:border-box; width:100%; }
+div.wpcf7 input.wpcf7-email { direction:ltr; }

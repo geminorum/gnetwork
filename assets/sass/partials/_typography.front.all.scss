@@ -10,12 +10,20 @@
     text-align: center;
   }
 
-  &.shortcode-wikipedia {
-
-  }
+  &.shortcode-wikipedia {}
 }
 
+.post-content,
 .entry-content {
+
+  .numeral-section-title {
+    color: $gray-dark;
+    float: left;
+    font-size: 2.5em;
+    line-height: 1;
+    display: inline-block;
+    margin: .2em .2em 0 0;
+  }
 
   blockquote {
 
@@ -23,6 +31,12 @@
 
     &.-epigraph {
       font-size: 1em;
+
+      p:last-of-type {
+        margin-bottom: 0;
+      }
+
+      footer {}
     }
 
     // DEPRICATED

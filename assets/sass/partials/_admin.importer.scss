@@ -3,23 +3,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// gNetwork Partials: Importer ------------------------------------------------
 
-.gnetwork-admin-wrap.gnetwork-settings {
-
-  // FIXME: move this & tags into html class
-  table.gnetwork-sidebyside {
-    width: 100%;
-
-    td {
-      padding: 0;
-      vertical-align: top;
-
-      &.wider {
-        width: 65%;
-      }
-
-      &.sider {}
-    }
-  }
+.gnetwork-form.-importer {
 
   #gimporter_people {
     .byline {
@@ -33,8 +17,8 @@
 
     .do-ortho {
       position: absolute;
-      left: 8px;
-      top: 5px;
+      right: 22px;
+      top: 6px;
       color: #82878c;
       opacity: 0.8;
       text-decoration: none;
@@ -61,5 +45,25 @@
     }
 
     .do-ortho-html {}
+  }
+}
+
+
+.gnetwork-admin-wrap.gnetwork-settings {
+
+  // FIXME: move this & tags into html class
+  table.gnetwork-sidebyside {
+    width: 100%;
+
+    td {
+      padding: 0;
+      vertical-align: top;
+
+      &.wider {
+        width: 65%;
+      }
+
+      &.sider {}
+    }
   }
 }
