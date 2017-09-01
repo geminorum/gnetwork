@@ -55,14 +55,18 @@ endif;
 
 if ( ! function_exists( 'gnetwork_powered' ) ) :
 	function gnetwork_powered( $rtl = NULL ) {
-		return '<a class="-powered" href="http://wordpress.org/" title="WP powered"><span class="dashicons dashicons-wordpress-alt"></span></a>';
+		$default = '<a class="-powered" href="http://wordpress.org/" title="WP powered"><span class="dashicons dashicons-wordpress-alt"></span></a>';
+		$custom  = gNetwork()->option( 'text_powered', 'branding' );
+		return $custom ? $custom : $default;
 	}
 endif;
 
 if ( ! function_exists( 'gnetwork_copyright' ) ) :
 	function gnetwork_copyright( $rtl = NULL ) {
 		// “Time is Priceless, Tea is Not!”
-		return _x( 'Built on <a href="http://wordpress.org/" title="Semantic Personal Publishing Platform">WordPress</a> and tea!', 'Default Copyright', GNETWORK_TEXTDOMAIN );
+		$default = _x( 'Built on <a href="http://wordpress.org/" title="Semantic Personal Publishing Platform">WordPress</a> and tea!', 'Modules: Branding: Copyright Text', GNETWORK_TEXTDOMAIN );
+		$custom  = gNetwork()->option( 'text_copyright', 'branding' );
+		return $custom ? $custom : $default;
 	}
 endif;
 
