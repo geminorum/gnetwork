@@ -22,6 +22,7 @@
     "gulp": "./node_modules/gulp/bin/gulp.js"
   },
   "devDependencies": {
+    "cssnano": "^3.10.0",
     "del": "^3.0.0",
     "gulp": "github:gulpjs/gulp#4.0",
     "gulp-bump": "^2.7.0",
@@ -35,10 +36,11 @@
     "gulp-if": "^2.0.2",
     "gulp-livereload": "^3.8.1",
     "gulp-load-plugins": "^1.5.0",
+    "gulp-postcss": "^7.0.0",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^3.1.0",
     "gulp-smushit": "^1.2.0",
-    "gulp-sourcemaps": "^2.6.0",
+    "gulp-sourcemaps": "^2.6.1",
     "gulp-svgmin": "^1.2.4",
     "gulp-tinypng-compress": "^1.2.1",
     "gulp-uglify": "^3.0.0",
@@ -46,8 +48,10 @@
     "gulp-wp-pot": "^2.0.6",
     "gulp-zip": "^4.0.0",
     "js-yaml": "^3.9.1",
+    "multipipe": "^1.0.2",
     "parse-changelog": "^1.0.2",
     "prettyjson": "^1.2.1",
+    "rtlcss": "^2.2.0",
     "xtend": "^4.0.1"
   },
   "readme": "ERROR: No README data found!",

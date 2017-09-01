@@ -7,6 +7,6 @@
     "GitHub-jQuery-Repo-Widget": "JoelSutherland/GitHub-jQuery-Repo-Widget",
     "gist-embed": "master",
     "flexslider": "layalk/FlexSlider#rtl",
-    "chosen": "^1.7.0"
+    "select2": "^4.0.3"
   }
 }

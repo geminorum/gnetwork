@@ -4,6 +4,9 @@
     gulp = require('gulp'),
     gutil = require('gulp-util'),
     plugins = require('gulp-load-plugins')(),
+    multipipe = require('multipipe'),
+    cssnano = require('cssnano'),
+    rtlcss = require('rtlcss'),
     parseChangelog = require('parse-changelog'),
     prettyjson = require('prettyjson'),
     extend = require('xtend'),
@@ -63,20 +66,27 @@
   });
 
   gulp.task('dev:sass', function() {
+    var processors = [
+      cssnano(config.cssnano.dev)
+      // TODO: add prefixer
+     ];
     return gulp.src(config.input.sass)
-    .pipe(plugins.sourcemaps.init())
+    // .pipe(plugins.sourcemaps.init())
     .pipe(plugins.sass.sync(config.sass).on('error', plugins.sass.logError))
-    .pipe(plugins.cssnano({
-      core: false,
-      zindex: false,
-      discardComments: false,
-    }))
-    .pipe(plugins.sourcemaps.write(config.output.sourcemaps))
+    .pipe(plugins.postcss(processors))
+    // .pipe(plugins.sourcemaps.write(config.output.sourcemaps))
     .pipe(gulp.dest(config.output.css)).on('error', gutil.log)
+    .pipe(plugins.if( [ "*", "!./assets/css/themes/*", "!./assets/css/tinymce/*" ],
+      multipipe(
+        plugins.postcss([rtlcss()]),
+        plugins.rename({suffix: '-rtl'}),
+        gulp.dest(config.output.css)
+      )
+    ))
     .pipe(plugins.changedInPlace())
-    .pipe(plugins.debug({title: 'unicorn:'}))
-    .pipe(plugins.if( function(file){
-      if (file.extname != '.map') return true;
+    .pipe(plugins.debug({title: 'Changed'}))
+    .pipe(plugins.if(function(file){
+      if(file.extname != '.map') return true;
     }, plugins.livereload()));
   });
 
@@ -87,6 +97,30 @@
 
   // all styles / without livereload
   gulp.task('dev:styles', function() {
+    var processors = [
+      cssnano(config.cssnano.dev)
+      // TODO: add prefixer
+     ];
+    return gulp.src(config.input.sass)
+    // .pipe(plugins.sourcemaps.init())
+    .pipe(plugins.sass.sync(config.sass).on('error', plugins.sass.logError))
+    .pipe(plugins.postcss(processors))
+    .pipe(plugins.header(banner, {pkg: pkg}))
+    // .pipe(plugins.sourcemaps.write(config.output.sourcemaps))
+    .pipe(plugins.debug({title: 'Created'}))
+    .pipe(gulp.dest(config.output.css)).on('error', gutil.log)
+    .pipe(plugins.if( [ "*", "!./assets/css/themes/*", "!./assets/css/tinymce/*" ],
+      multipipe(
+        plugins.postcss([rtlcss()]),
+        plugins.rename({suffix: '-rtl'}),
+        plugins.debug({title: 'RTLed'})
+      )
+    ))
+    .pipe(gulp.dest(config.output.css)).on('error', gutil.log);
+  });
+
+  // all styles / without livereload
+  gulp.task('old:styles', function() {
     return gulp.src(config.input.sass)
     .pipe(plugins.sourcemaps.init())
     .pipe(plugins.sass.sync(config.sass).on('error', plugins.sass.logError))

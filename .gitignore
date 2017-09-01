@@ -7,6 +7,8 @@
 
 /assets/bin
 /assets/css/*.css
+/assets/css/themes/*.css
+/assets/css/tinymce/*.css
 /assets/css/maps
 /assets/components
 /assets/views/cache

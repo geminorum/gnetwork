@@ -67,6 +67,19 @@
   "sass": {
     "errLogToConsole": true
   },
+  "cssnano": {
+    "dev": {
+      "core": false,
+      "zindex": false,
+      "discardComments": false
+    },
+    "build": {
+      "zindex": false,
+      "discardComments": {
+        "removeAll": true
+      }
+    }
+  },
   "constants": {
     "version": "GNETWORK_VERSION"
   },
