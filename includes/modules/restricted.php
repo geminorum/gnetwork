@@ -55,8 +55,7 @@ class Restricted extends gNetwork\Module
 						// do nothing
 
 				} else {
-					wp_redirect( get_home_url() );
-					exit();
+					WordPress::redirect( get_home_url() );
 				}
 			}
 
@@ -425,8 +424,7 @@ class RestrictedBouncer extends \geminorum\gNetwork\Core\Base
 
 		} else if ( $this->options['redirect_page'] ) {
 
-			wp_redirect( get_page_link( $this->options['redirect_page'] ), 302 );
-			die();
+			WordPress::redirect( get_page_link( $this->options['redirect_page'] ), 302 );
 
 		} else {
 

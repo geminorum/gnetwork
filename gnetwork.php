@@ -35,10 +35,7 @@ if ( file_exists( GNETWORK_DIR.'assets/vendor/autoload.php' ) ) {
 		return \geminorum\gNetwork\Plugin::instance();
 	}
 
-	// back comp
-	global $gNetwork;
-
-	$gNetwork = gNetwork();
+	gNetwork();
 
 } else if ( is_network_admin() ) {
 

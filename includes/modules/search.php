@@ -28,7 +28,7 @@ class Search extends gNetwork\Module
 
 			// redirect to post if search results only returns single post
 			if ( $wp_query->post_count == 1 )
-				wp_redirect( get_permalink( $wp_query->posts['0']->ID ) );
+				WordPress::redirect( get_permalink( $wp_query->posts['0']->ID ) );
 
 			add_action( 'wp_head', function(){
 				// prevent search bots from indexing search results

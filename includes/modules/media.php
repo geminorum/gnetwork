@@ -584,6 +584,7 @@ class Media extends gNetwork\Module
 			'c' => 0,
 			'p' => [ 'post' ], // posttype: TRUE: all/array: posttypes/FALSE: none
 			't' => FALSE, // taxonomy: TRUE: all/array: taxes/FALSE: none
+			'f' => empty( $atts['s'] ) ? FALSE : $atts['s'], // featured
 		], $atts );
 
 		$_wp_additional_image_sizes[$name] = [
@@ -593,6 +594,7 @@ class Media extends gNetwork\Module
 			'post_type' => $args['p'],
 			'taxonomy'  => $args['t'],
 			'title'     => $args['n'],
+			'thumbnail' => $args['f'],
 		];
 	}
 

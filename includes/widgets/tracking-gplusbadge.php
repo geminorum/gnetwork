@@ -20,6 +20,8 @@ class Tracking_GPlusBadge_Widget extends \WP_Widget
 
 	public function form( $instance )
 	{
+		echo '<div class="gnetwork-admin-wrap-widgetform">';
+
 		$html = HTML::tag( 'input', [
 			'type'  => 'number',
 			'id'    => $this->get_field_id( 'width' ),
@@ -51,6 +53,7 @@ class Tracking_GPlusBadge_Widget extends \WP_Widget
 		HTML::desc( _x( 'Leave empty to use site Publisher ID', 'Widgets Module', GNETWORK_TEXTDOMAIN ), FALSE );
 
 		echo '</p>';
+		echo '</div>';
 	}
 
 	public function widget( $args, $instance )
