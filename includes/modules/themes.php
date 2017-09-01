@@ -576,12 +576,12 @@ class Themes extends gNetwork\Module
 
 	public static function appendMCECSS( $url, $theme, $rtl = FALSE )
 	{
-		$file = $rtl ? 'editor.'.$theme.'-rtl.css' : 'editor.'.$theme.'.css';
+		$file = $rtl ? $theme.'-rtl.css' : $theme.'.css';
 
 		if ( ! empty( $url ) )
 			$url .= ',';
 
-		return $url.GNETWORK_URL.'assets/css/themes/'.$file;
+		return $url.GNETWORK_URL.'assets/css/tinymce/'.$file;
 	}
 
 	public static function enqueueStyle( $theme, $rtl = FALSE )
