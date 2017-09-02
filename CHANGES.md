@@ -1,3 +1,28 @@
+### 3.6.4
+* main/module: default callback for settings
+* main/module: exclude activate page from wpinstalling
+* main/utilities: support separate rtl styles
+* module/branding: custom copyright/powered texts
+* module/cleanup: better purging transients
+* module/debug: ltr wrap for cache stats/upload dirs
+* module/embed: autolink on wrapped
+* module/mail: check for folder on empty log summary
+* module/mail: better sidebox
+* module/maintenance: better handling admin
+* module/media: whitelist uploading markdown text files
+* module/media: correct size for thumbnail metabox
+* module/navigation: refactoring
+* module/site: using current network id for site
+* module/themes: support for chosen
+* module/themes: support for twentyeleven
+* module/themes: tweaks for ari
+* module/themes: tinymce styles folder
+* module/themes: css class for posts with empty title
+* module/tracking: internal api for shortcodes
+* module/tracking: cleanup scripts
+* module/typography: skip on empty titles
+* module/user: respect constant for signup/activate styles
+
 ### 3.6.3
 * main/ajax: :new: main class
 * main/module: help tab to list module shortcodes
