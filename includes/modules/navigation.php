@@ -4,6 +4,7 @@ defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
 use geminorum\gNetwork\Settings;
+use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
 
@@ -15,10 +16,6 @@ class Navigation extends gNetwork\Module
 
 	private $restricted = FALSE;   // restricted support
 	private $feeds      = []; // restricted support
-
-	private $general_pages   = [];
-	private $loggedout_pages = [];
-	private $loggedin_pages  = [];
 
 	protected function setup_actions()
 	{
@@ -41,23 +38,22 @@ class Navigation extends gNetwork\Module
 
 	public function load_nav_menus_php()
 	{
-		add_meta_box( 'add-gnetwork-nav-menu',
+		add_meta_box( $this->classs( 'main' ),
 			_x( 'Network', 'Modules: Navigation: Meta Box Title', GNETWORK_TEXTDOMAIN ),
-			[ $this, 'nav_menu_meta_box' ],
+			[ $this, 'do_meta_box_main' ],
 			'nav-menus',
 			'side',
 			'default' );
 
-		$this->action( 'admin_print_footer_scripts' );
+		Utilities::enqueueScript( 'admin.nav-menus' );
 	}
 
 	// build and populate the accordion on Appearance > Menus
 	// @SOURCE: `bp_admin_do_wp_nav_menu_meta_box()`
-	public function nav_menu_meta_box()
+	public function do_meta_box_main()
 	{
-		global $nav_menu_selected_id;
-
-		$post_type_name = 'gnetworknav';
+		$type = 'gnetworknav';
+		$id   = 'gnetwork-menu'; // nav menu api spec
 		$args = [ 'walker' => new Walker_Nav_Menu_Checklist( FALSE ) ];
 
 		$tabs = [
@@ -78,50 +74,37 @@ class Navigation extends gNetwork\Module
 			],
 		];
 
-		echo '<div id="gnetwork-menu" class="gnetwork-admin-wrap-metabox -navigation posttypediv">';
+		echo '<div id="'.$id.'" class="gnetwork-admin-wrap-metabox -navigation posttypediv">';
 
 			foreach ( $tabs as $group => $items ) {
 
 				Settings::fieldSection( $items['label'], $items['description'], 'h4' );
 
-				echo '<div id="tabs-panel-posttype-'.$post_type_name.'-'.$group.'" class="tabs-panel tabs-panel-active">';
-					echo '<ul id="gnetwork-menu-checklist-'.$group.'" class="categorychecklist form-no-clear">';
+				echo '<div id="tabs-panel-posttype-'.$type.'-'.$group.'" class="tabs-panel tabs-panel-active">';
+					echo '<ul id="'.$id.'-checklist-'.$group.'" class="categorychecklist form-no-clear">';
 					echo walk_nav_menu_tree( array_map( 'wp_setup_nav_menu_item', $items['pages'] ), 0, (object) $args );
 				echo '</ul></div>';
 			}
 
-			echo '<p class="button-controls"><span class="add-to-menu">';
-				echo '<input type="submit"';
-					if ( function_exists( 'wp_nav_menu_disabled_check' ) )
-						wp_nav_menu_disabled_check( $nav_menu_selected_id );
-				echo ' class="button-secondary submit-add-to-menu right" value="';
-					echo esc_attr_x( 'Add to Menu', 'Modules: Navigation', GNETWORK_TEXTDOMAIN );
-				echo '" name="add-custom-menu-item" id="submit-gnetwork-menu" />';
-			echo '<span class="spinner"></span></span></p>';
+			$this->add_to_menu_button( $id );
 
 		echo '</div>';
 	}
 
-	public function admin_print_footer_scripts()
+	private function add_to_menu_button( $id )
 	{
-		?><script type="text/javascript">
-		jQuery( '#menu-to-edit').on( 'click', 'a.item-edit', function() {
-			var settings  = jQuery(this).closest( '.menu-item-bar' ).next( '.menu-item-settings' );
-			var css_class = settings.find( '.edit-menu-item-classes' );
-
-			if( css_class.val().indexOf( 'gnetwork-menu' ) === 0 ) {
-				css_class.attr( 'readonly', 'readonly' );
-				settings.find( '.field-url' ).css( 'display', 'none' );
-			}
-		});
-		</script><?php
+		echo '<p class="button-controls"><span class="add-to-menu">';
+			echo '<input type="submit"';
+				if ( function_exists( 'wp_nav_menu_disabled_check' ) )
+					wp_nav_menu_disabled_check( $GLOBALS['nav_menu_selected_id'] );
+			echo ' class="button-secondary submit-add-to-menu right" value="';
+				echo esc_attr_x( 'Add to Menu', 'Modules: Navigation', GNETWORK_TEXTDOMAIN );
+			echo '" name="add-custom-menu-item" id="submit-'.$id.'" />';
+		echo '<span class="spinner"></span></span></p>';
 	}
 
 	public function get_general_pages()
 	{
-		if ( count( $this->general_pages ) )
-			return $this->general_pages;
-
 		$items = [];
 
 		$items[] = [
@@ -136,30 +119,11 @@ class Navigation extends gNetwork\Module
 			'link' => get_feed_link( 'comments_rss2' ),
 		];
 
-		$items = $this->filters( 'general_items', $items );
-
-		foreach ( $items as $item ) {
-			$this->general_pages[ $item['slug'] ] = (object) [
-				'ID'             => -1,
-				'post_title'     => $item['name'],
-				'post_author'    => 0,
-				'post_date'      => 0,
-				'post_excerpt'   => $item['slug'],
-				'post_type'      => 'page',
-				'post_status'    => 'publish',
-				'comment_status' => 'closed',
-				'guid'           => $item['link']
-			];
-		}
-
-		return $this->general_pages;
+		return $this->decorate_items( $this->filters( 'general_items', $items ) );
 	}
 
 	public function get_loggedin_pages()
 	{
-		if ( count( $this->loggedin_pages ) )
-			return $this->loggedin_pages;
-
 		$items = [];
 
 		$items[] = [
@@ -180,30 +144,11 @@ class Navigation extends gNetwork\Module
 			'link' => $this->get_public_profile_url(),
 		];
 
-		$items = $this->filters( 'loggedin_items', $items );
-
-		foreach ( $items as $item ) {
-			$this->loggedin_pages[ $item['slug'] ] = (object) [
-				'ID'             => -1,
-				'post_title'     => $item['name'],
-				'post_author'    => 0,
-				'post_date'      => 0,
-				'post_excerpt'   => $item['slug'],
-				'post_type'      => 'page',
-				'post_status'    => 'publish',
-				'comment_status' => 'closed',
-				'guid'           => $item['link']
-			];
-		}
-
-		return $this->loggedin_pages;
+		return $this->decorate_items( $this->filters( 'loggedin_items', $items ) );
 	}
 
 	public function get_loggedout_pages()
 	{
-		if ( count( $this->loggedout_pages ) )
-			return $this->loggedout_pages;
-
 		$items = [];
 
 		$items[] = [
@@ -219,10 +164,15 @@ class Navigation extends gNetwork\Module
 				'link' => $register_url,
 			];
 
-		$items = $this->filters( 'loggedout_items', $items );
+		return $this->decorate_items( $this->filters( 'loggedout_items', $items ) );
+	}
 
-		foreach ( $items as $item ) {
-			$this->loggedout_pages[ $item['slug'] ] = (object) [
+	private function decorate_items( $items )
+	{
+		$objects = [];
+
+		foreach ( $items as $item )
+			$objects[$item['slug']] = (object) [
 				'ID'             => -1,
 				'post_title'     => $item['name'],
 				'post_author'    => 0,
@@ -233,9 +183,8 @@ class Navigation extends gNetwork\Module
 				'comment_status' => 'closed',
 				'guid'           => $item['link']
 			];
-		}
 
-		return $this->loggedout_pages;
+		return $objects;
 	}
 
 	public function get_item_url( $slug )
