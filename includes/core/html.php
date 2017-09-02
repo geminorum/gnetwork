@@ -918,13 +918,14 @@ class HTML extends Base
 		echo "\n".'/* ]]> */'."\n".'</script>';
 	}
 
+	// @REF: https://jquery.com/upgrade-guide/3.0/#deprecated-document-ready-handlers-other-than-jquery-function
 	public static function wrapjQueryReady( $script )
 	{
 		if ( ! $script )
 			return;
 
 		echo '<script type="text/javascript">'."\n".'/* <![CDATA[ */'."\n";
-			echo 'jQuery(document).ready(function($) {'."\n".$script.'});'."\n";
+			echo 'jQuery(function($){'."\n".$script.'});'."\n";
 		echo '/* ]]> */'."\n".'</script>'."\n";
 	}
 

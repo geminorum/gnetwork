@@ -225,6 +225,18 @@ class Module extends Core\Base
 			add_filter( $hook, [ $this, $method ], $priority, $args );
 	}
 
+	// @REF: https://gist.github.com/markjaquith/b752e3aa93d2421285757ada2a4869b1
+	protected function filter_once( $hook, $args = 1, $priority = 10, $suffix = FALSE )
+	{
+		if ( $method = self::sanitize_hook( ( $suffix ? $hook.'_'.$suffix : $hook ) ) )
+			add_filter( $hook, function( $first ) use( $method ) {
+				static $ran = FALSE;
+				if ( $ran ) return $first;
+				$ran = TRUE;
+				return call_user_func_array( [ $this, $method ], func_get_args() );
+			}, $priority, $args );
+	}
+
 	protected static function sanitize_hook( $hook )
 	{
 		return trim( str_ireplace( [ '-', '.' ], '_', $hook ) );
