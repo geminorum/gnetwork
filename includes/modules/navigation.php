@@ -38,9 +38,9 @@ class Navigation extends gNetwork\Module
 
 	public function load_nav_menus_php()
 	{
-		add_meta_box( $this->classs( 'main' ),
+		add_meta_box( $this->classs(),
 			_x( 'Network', 'Modules: Navigation: Meta Box Title', GNETWORK_TEXTDOMAIN ),
-			[ $this, 'do_meta_box_main' ],
+			[ $this, 'do_meta_box' ],
 			'nav-menus',
 			'side',
 			'default' );
@@ -50,7 +50,7 @@ class Navigation extends gNetwork\Module
 
 	// build and populate the accordion on Appearance > Menus
 	// @SOURCE: `bp_admin_do_wp_nav_menu_meta_box()`
-	public function do_meta_box_main()
+	public function do_meta_box()
 	{
 		$type = 'gnetworknav';
 		$id   = 'gnetwork-menu'; // nav menu api spec
