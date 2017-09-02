@@ -302,6 +302,17 @@ class Themes extends gNetwork\Module
 				}, 20 );
 			}
 
+			// ari does not work well with custom posttypes
+			add_filter( 'post_class', function( $classes ){
+				$classes[] = 'post';
+				return $classes;
+			} );
+
+			add_action( 'get_footer', function(){
+				echo '<style>#footer.clearfix {display:none;}</style>';
+				echo '<div id="footer" style="display:block;">'.gnetwork_credits( $this->rtl, FALSE ).'</div>';
+			} );
+
 		} else if ( $this->isTheme( 'easy-docs' ) ) {
 
 			add_action( 'wp_enqueue_scripts', function(){
