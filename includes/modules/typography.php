@@ -279,6 +279,9 @@ class Typography extends gNetwork\Module
 
 	public function the_title( $title )
 	{
+		if ( ! $title )
+			return $title;
+
 		if ( $this->options['title_titlecase'] )
 			$title = Text::titleCase( $title );
 
