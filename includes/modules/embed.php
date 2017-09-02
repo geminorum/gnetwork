@@ -20,6 +20,9 @@ class Embed extends gNetwork\Module
 			add_filter( 'load_default_embeds', '__return_false' );
 
 		$this->action( 'plugins_loaded' );
+
+		if ( $this->options['wrapped_links'] && ! is_admin() )
+			$this->filter( 'the_content', 1, 8 );
 	}
 
 	public function setup_menu( $context )
@@ -34,6 +37,7 @@ class Embed extends gNetwork\Module
 	{
 		return [
 			'load_defaults' => 0,
+			'wrapped_links' => 0,
 			'load_docs_pdf' => 0,
 			'load_aparat'   => 0,
 			'load_giphy'    => 0,
@@ -49,6 +53,11 @@ class Embed extends gNetwork\Module
 					'field'       => 'load_defaults',
 					'title'       => _x( 'Load Default Embeds', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Whether to load the default embed handlers on this site.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
+				],
+				[
+					'field'       => 'wrapped_links',
+					'title'       => _x( 'Wrapped Links', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Fixes wrapped embed links in paragraphs.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
 					'field'       => 'count_channel',
@@ -92,6 +101,16 @@ class Embed extends gNetwork\Module
 
 		if ( $this->options['load_giphy'] )
 			wp_embed_register_handler( 'giphy', '~https?://(?|media\.giphy\.com/media/([^ /]+)/giphy\.gif|i\.giphy\.com/([^ /]+)\.gif|giphy\.com/gifs/(?:.*-)?([^ /]+))~i', [ $this, 'handle_giphy' ] );
+	}
+
+	// fixes oEmbed auto-embedding of single-line URLs
+	// WP's normal autoembed assumes that there's no <p>'s yet because it runs
+	// before wpautop. but, when running Markdown, we have <p>'s already there,
+	// including around our single-line URLs
+	// @SOURCE: https://wordpress.org/plugins/markdown-on-save-improved/
+	public function the_content( $content )
+	{
+		return preg_replace_callback( '|^\s*<p>(https?://[^\s"]+)</p>\s*$|im', array( $GLOBALS['wp_embed'], 'autoembed_callback' ), $content );
 	}
 
 	public function handle_docs_pdf( $matches, $attr, $url, $rawattr )
