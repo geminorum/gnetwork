@@ -1,4 +1,4 @@
-jQuery(document).ready(function($) {
+jQuery(function($) {
   $('pre[data-prism="yes"]').each(function(index, el) {
     $(this).prepend("<span id='externalWindow'>Source</span>");
     $('#externalWindow').click(function() {

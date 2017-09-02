@@ -1,4 +1,4 @@
-jQuery(document).ready(function($) {
+jQuery(function($) {
   $("a.cite-scroll").click(function(event) {
     event.preventDefault();
     $('html,body').animate({

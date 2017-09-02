@@ -1,4 +1,4 @@
-jQuery(document).ready(function($) {
+jQuery(function($) {
   $('a.audio-go-to-time').click(function(e) {
     e.preventDefault();
     var instance = $(this).data('instance');

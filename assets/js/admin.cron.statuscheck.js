@@ -1,4 +1,4 @@
-jQuery(document).ready(function($) {
+jQuery(function($) {
   $("#gnetwork-cron-force-check").on('click', function(e) {
     e.preventDefault();
     var spinner = $(this).prev(".spinner");

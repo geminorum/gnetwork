@@ -1,4 +1,4 @@
-jQuery(document).ready(function($) {
+jQuery(function($) {
 
   // hide my meta fields
   $('table.media td.title div.row-actions').each(function() {
