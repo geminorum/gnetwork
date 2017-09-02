@@ -11,14 +11,11 @@
 @import '../modules/all';
 @import '../partials/base';
 @import '../partials/theme.fonts';
+@import '../partials/theme.typography';
 @import '../partials/theme.editorial';
 @import '../partials/theme.widgets';
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-// @import url(http://fonts.googleapis.com/earlyaccess/droidarabicnaskh.css);
-// $font-family-base: "Droid Arabic Naskh", Tahoma, "Iranian Sans", serif;
-// $font-family-head: Arial, "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
-
 @include theme-fonts-Vazir-CDN();
 @include theme-fonts-Vazir-Bold-CDN();
 @include theme-fonts-Vazir-Light-CDN();
@@ -30,8 +27,9 @@ body,
 button,
 input,
 select,
-textarea {
-	font-family: $font-family-base;
+textarea,
+blockquote {
+  font-family: $font-family-base;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -50,6 +48,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .site-content, .site-footer {
   float: left;
+}
+
+blockquote {
+  font-style: normal;
 }
 
 blockquote {
@@ -257,6 +259,7 @@ textarea {
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
+@include theme-typography-defaults;
 @include theme-editorial-defaults;
 @include theme-widgets-defaults;
 ////////////////////////////////////////////////////////////////////////////////
@@ -264,6 +267,10 @@ textarea {
 
 .gnetwork-wrap-actions.content-after + .page-links {
   margin-top: 1.5em;
+}
+
+.entry-content .entry-source.-after {
+  margin-bottom: 1em;
 }
 
 .gnetwork-wrap-shortcode {
