@@ -343,7 +343,7 @@ class AdminBar extends gNetwork\Module
 				$wp_admin_bar->add_node( [
 					'parent' => $group_id,
 					'id'     => $this->base.'-cron-status',
-					'title'  => $status,
+					'title'  => strip_tags( $status ),
 					'href'   => Settings::subURL( 'scheduled', FALSE ),
 				] );
 		}
