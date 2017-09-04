@@ -1,0 +1,345 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Didi Lite\n"
+"POT-Creation-Date: 2016-10-04 16:58+0330\n"
+"PO-Revision-Date: 2017-07-04 16:16+0430\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.2\n"
+"X-Poedit-Basepath: ../../../themes/didi-lite\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Last-Translator: geminorum <contact@geminorum.ir>\n"
+"Language: fa_IR\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: 404.php:15
+msgid "Oops! That page can&rsquo;t be found."
+msgstr "چیزی که به دنبالش بودید پیدا نشد!"
+
+#: 404.php:19
+msgid ""
+"It looks like nothing was found at this location. Maybe try one of the links "
+"below or a search?"
+msgstr "چیزی که به دنبالش بودید پیدا نشد، شاید جست‌وجوی دوباره شما را یاری کند."
+
+#: 404.php:27
+msgid "Most Used Categories"
+msgstr ""
+
+#. translators: %1$s: smilie
+#: 404.php:44
+#, php-format
+msgid "Try looking in the monthly archives. %1$s"
+msgstr ""
+
+#: admin/admin.php:7
+msgid "Welcome to Didi Lite"
+msgstr ""
+
+#: admin/admin.php:7
+msgid "Theme Info"
+msgstr ""
+
+#: admin/admin.php:17
+#, php-format
+msgid "Welcome to %1s %2s"
+msgstr ""
+
+#: admin/admin.php:25
+#, php-format
+msgid "Getting Started with %s"
+msgstr ""
+
+#: admin/admin.php:31 inc/customizer.php:144
+msgid "Theme Documentation"
+msgstr ""
+
+#: admin/admin.php:34
+msgid ""
+"Please check the documentation to get better overview of how the theme is "
+"structured."
+msgstr ""
+
+#: admin/admin.php:37 inc/customizer.php:143
+msgid "http://www.anarieldesign.com/documentation/didilite/"
+msgstr ""
+
+#: admin/admin.php:38
+msgid "Visit Documentation"
+msgstr ""
+
+#: admin/admin.php:44
+msgid "Theme Options"
+msgstr ""
+
+#: admin/admin.php:47
+msgid "Click \"Customize\" to open the Customizer."
+msgstr ""
+
+#: admin/admin.php:51
+msgid "Customize"
+msgstr ""
+
+#: admin/admin.php:57 inc/customizer.php:27
+msgid "Didi Pro"
+msgstr ""
+
+#: admin/admin.php:60 inc/customizer.php:30
+msgid ""
+"Full version of this theme includes additional features; additional page "
+"templates, custom widgets, additional front page widgetized areas, different "
+"blog options, different theme options, WooCommerce support, color options & "
+"premium theme support."
+msgstr ""
+
+#: admin/admin.php:63 inc/customizer.php:138
+msgid "http://www.anarieldesign.com/themes/fashion-blog-wordpress-theme/"
+msgstr ""
+
+#: admin/admin.php:64 inc/customizer.php:63
+msgid "Learn more about Didi"
+msgstr ""
+
+#: admin/admin.php:70
+msgid "Theme Screenshot"
+msgstr ""
+
+#: admin/admin.php:77
+#, php-format
+msgid "%1s is proudly brought to you by %2s. If you like %3s: %4s."
+msgstr ""
+
+#: admin/admin.php:77 inc/customizer.php:146
+msgid "Rate this theme"
+msgstr ""
+
+#: author-bio.php:11
+msgid "Published by"
+msgstr "نویسنده"
+
+#: author-bio.php:35
+#, php-format
+msgid "View all posts by %s"
+msgstr "دیدن همهٔ نوشته‌های %s"
+
+#: comments.php:29
+#, php-format
+msgid "One thought on &ldquo;%2$s&rdquo;"
+msgstr "یک دیدگاه درباره &laquo;%2$s&raquo;"
+
+#: comments.php:49
+msgid "Comment navigation"
+msgstr "راه‌بری در کامنت‌ها"
+
+#: comments.php:52
+msgid "Older Comments"
+msgstr "دیدگاه‌های قبلی"
+
+#: comments.php:53
+msgid "Newer Comments"
+msgstr "دیدگاه‌های بعدی"
+
+#: comments.php:65
+msgid "Comments are closed."
+msgstr "امکان ارسال دیدگاه وجود ندارد."
+
+#: footer.php:34
+#, php-format
+msgid "Theme: %1$s."
+msgstr ""
+
+#: functions.php:80
+msgid "Primary Menu"
+msgstr ""
+
+#: functions.php:109
+msgid "Sidebar"
+msgstr ""
+
+#: functions.php:119
+msgid "Front Page First Block"
+msgstr ""
+
+#: functions.php:129
+msgid "Footer Widgets 1"
+msgstr ""
+
+#: functions.php:139
+msgid "Footer Widgets 2"
+msgstr ""
+
+#: functions.php:149
+msgid "Footer Widgets 3"
+msgstr ""
+
+#: functions.php:171 functions.php:177
+msgid "on"
+msgstr "در"
+
+#: functions.php:259
+msgid "Continue reading &rarr;"
+msgstr "ادامه &larr;"
+
+#: functions.php:305
+msgid "Edit"
+msgstr "ویرایش"
+
+#: functions.php:310
+msgid "Your comment is awaiting moderation."
+msgstr "دیدگاه شما در انتظار بررسی است."
+
+#: header.php:22
+msgid "Skip to content"
+msgstr ""
+
+#: header.php:46
+msgid "Menu"
+msgstr "فهرست"
+
+#: inc/customizer.php:33
+msgid "Additional Features:"
+msgstr ""
+
+#: inc/customizer.php:37
+msgid "Additional Page Templates"
+msgstr ""
+
+#: inc/customizer.php:40
+msgid "Custom Widgets"
+msgstr ""
+
+#: inc/customizer.php:43
+msgid "Several additional widget areas"
+msgstr ""
+
+#: inc/customizer.php:46
+msgid "Different Blog Options & Layouts"
+msgstr ""
+
+#: inc/customizer.php:49
+msgid "Different Theme Options"
+msgstr ""
+
+#: inc/customizer.php:52
+msgid "WooCommerce Support"
+msgstr ""
+
+#: inc/customizer.php:55
+msgid "Color Options"
+msgstr ""
+
+#: inc/customizer.php:58
+msgid "Premium Theme Support"
+msgstr ""
+
+#: inc/customizer.php:72
+msgid "Pro Features"
+msgstr ""
+
+#: inc/customizer.php:139
+msgid "Upgrade to Didi Pro"
+msgstr ""
+
+#: inc/customizer.php:140
+msgid "Theme Related Links:"
+msgstr ""
+
+#: inc/customizer.php:141
+msgid "http://www.anarieldesign.com/free-fashion-wordpress-theme/"
+msgstr ""
+
+#: inc/customizer.php:142
+msgid "Theme Info Page"
+msgstr ""
+
+#: inc/customizer.php:145
+msgid "https://wordpress.org/support/view/theme-reviews/didi-lite?filter=5"
+msgstr ""
+
+#: inc/template-tags.php:21
+msgid "Leave a comment"
+msgstr "دیدگاه شما"
+
+#: inc/template-tags.php:21
+msgid "1 Comment"
+msgstr "یک دیدگاه"
+
+#: inc/template-tags.php:21
+msgid "% Comments"
+msgstr "% دیدگاه"
+
+#: inc/template-tags.php:26 inc/template-tags.php:95
+#: template-parts/content-front-page.php:31 template-parts/content-page.php:21
+#: template-parts/content-page.php:37
+#, php-format
+msgid "Edit %1$s"
+msgstr "ویرایش %1$s"
+
+#: inc/template-tags.php:58
+#, php-format
+msgid "by %1$s"
+msgstr "توسط %1$s"
+
+#. translators: used between list items, there is a space after the comma
+#: inc/template-tags.php:83 inc/template-tags.php:89
+msgid ", "
+msgstr "، "
+
+#: inc/template-tags.php:49
+#, php-format
+msgid "Posted on %1$s"
+msgstr "منتشر شده در %1$s"
+
+#: inc/template-tags.php:85
+#, php-format
+msgid "Posted in %1$s"
+msgstr "در %1$s"
+
+#: inc/template-tags.php:91
+#, php-format
+msgid "Tagged %1$s"
+msgstr "با برچسب %1$s"
+
+#: search.php:16
+#, php-format
+msgid "Search Results for: %s"
+msgstr ""
+
+#: template-parts/content-default.php:36
+#: template-parts/content-front-page.php:23 template-parts/content-page.php:29
+#: template-parts/content-single.php:34 template-parts/content.php:44
+msgid "Pages:"
+msgstr "صفحه‌ها:"
+
+#: template-parts/content-none.php:14
+msgid "Nothing Found"
+msgstr "چیزی پیدا نشد"
+
+#: template-parts/content-none.php:24
+msgid ""
+"Sorry, but nothing matched your search terms. Please try again with some "
+"different keywords."
+msgstr ""
+
+#: template-parts/content-none.php:29
+msgid ""
+"It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching "
+"can help."
+msgstr "چیزی که به دنبالش بودید پیدا نشد، شاید جست‌وجوی دوباره شما را یاری کند."
+
+#: comments.php:29
+msgctxt "comments title"
+msgid "%1$s Reply to &ldquo;%2$s&rdquo;"
+msgid_plural "%1$s Replies to &ldquo;%2$s&rdquo;"
+msgstr[0] "یک دیدگاه دربارهٔ &laquo;%2$s&raquo;"
+msgstr[1] "%1$s دیدگاه دربارهٔ &laquo;%2$s&raquo;"
+
+msgid "<span class=\"meta-nav\">Next Post</span> %title"
+msgstr "<span class=\"meta-nav\">بعدی</span> %title"
+
+msgid "<span class=\"meta-nav\">Previous Post</span> %title"
+msgstr "<span class=\"meta-nav\">قبلی</span> %title"
+
+msgid "Continue reading %s <span class=\"meta-nav\">&rarr;</span>"
+msgstr "ادامه <span class=\"meta-nav\">&larr;</span>"

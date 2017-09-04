@@ -85,7 +85,7 @@ class Locale extends gNetwork\Module
 
 		$this->loaded[$locale][$domain][] = wp_normalize_path( $mofile );
 
-		$tailored = wp_normalize_path( GNETWORK_DIR.'locale/'.$domain.'-'.$locale.'.mo' );
+		$tailored = wp_normalize_path( GNETWORK_DIR.'assets/locale/'.$domain.'-'.$locale.'.mo' );
 
 		if ( ! is_readable( $tailored ) )
 			return $mofile;

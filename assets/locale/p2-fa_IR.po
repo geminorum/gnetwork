@@ -1,0 +1,740 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: P2 1.5.5\n"
+"POT-Creation-Date: 2015-11-02 08:54+0330\n"
+"PO-Revision-Date: 2017-07-04 16:15+0430\n"
+"Last-Translator: geminorum <contact@geminorum.ir>\n"
+"Language: fa_IR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: Poedit 2.0.2\n"
+"X-Poedit-SearchPath-0: .\n"
+
+# @ p2
+#: 404.php:14 author.php:34
+msgid "Not Found"
+msgstr "پیدا نشد"
+
+# @ p2
+#: 404.php:15 search.php:32
+msgid ""
+"Apologies, but the page you requested could not be found. Perhaps searching "
+"will help."
+msgstr ""
+"شرمنده! ولی صفحه‌ای که دنبال آن هستید، پیدا نشد. شاید اگر جست‌وجو کنید، پیدا "
+"شود. "
+
+# @ p2
+#: attachment.php:45
+msgid "Full size is %s pixels"
+msgstr "سایز کامل %s پیکسل است"
+
+# @ p2
+#: attachment.php:48
+msgid "Link to full-size image"
+msgstr "پیوند به تصویر در اندازهٔ کامل"
+
+# @ p2
+#: attachment.php:54 attachment.php:72 entry.php:51 footer.php:27
+#: functions.php:388
+msgid "Edit"
+msgstr "ویرایش"
+
+# @ p2
+#: attachment.php:69
+msgid "View file:"
+msgstr "نمایش فایل: "
+
+# @ p2
+#: attachment.php:70 entry.php:79 entry.php:88 inc/template-tags.php:109
+msgid "(More ...)"
+msgstr "(ادامه &hellip;)"
+
+# @ p2
+#: author.php:19
+msgctxt "Author name"
+msgid "Updates from %s"
+msgstr "به‌روزرسانی از %s"
+
+# @ p2
+#: author.php:22 index.php:33 search.php:16 tag.php:16
+msgid "Toggle Comment Threads"
+msgstr "پنهان کردن/ نمایش‌ دادن ریسهٔ دیدگاه‌ها"
+
+# @ p2
+#: author.php:22 index.php:33 search.php:16 single.php:21 tag.php:16
+msgid "Keyboard Shortcuts"
+msgstr "کلمات میانبر"
+
+#: author.php:35
+msgid "Apologies, looks like this author does not have any posts."
+msgstr "متأسفیم، به نظر می‌رسد این نویسنده تاکنون نوشته‌ای نداشته است."
+
+# @ p2
+#: author.php:40 index.php:54 search.php:39 tag.php:39
+msgid "&larr; Older posts"
+msgstr "&rarr; مطالب پیشین"
+
+# @ p2
+#: author.php:41 index.php:55 search.php:40 tag.php:40
+msgid "Newer posts &rarr;"
+msgstr "مطالب جدیدتر &larr;"
+
+# @ p2
+#: comments.php:21
+msgid "&larr; Older Comments"
+msgstr "&rarr; دیدگاه‌های قدیمی‌تر"
+
+# @ p2
+#: comments.php:22
+msgid "Newer Comments &rarr;"
+msgstr "دیدگاه‌های جدیدتر &larr;"
+
+# @ p2
+#: entry.php:18
+msgid "Posts by %1$s ( @%2$s )"
+msgstr "نوشته‌شده توسط %1$s ( @%2$s )"
+
+# @ p2
+#: entry.php:37 functions.php:383
+msgid "Permalink"
+msgstr "پیوند یکتا"
+
+# @ p2
+#: entry.php:46 entry.php:103 entry.php:107 footer.php:26 functions.php:366
+#: functions.php:463 functions.php:574 functions.php:596
+msgid "Reply"
+msgstr "پاسخ"
+
+# @ p2
+#: entry.php:58 inc/ajax.php:151
+msgid "<br />Tags:"
+msgstr "<br />برچسب‌ها:"
+
+# @ default
+#: entry.php:100
+msgid "Required fields are marked %s"
+msgstr "گزینه‌های الزامی با علامت %s مشخص شده‌اند."
+
+# @ p2
+#: entry.php:117
+msgid "Toggle Comments"
+msgstr "نمایش/پنهان کردن دیدگاه‌ها"
+
+# @ p2
+#: entry.php:122
+msgid "Pages:"
+msgstr "برگه‌ها:"
+
+# @ p2
+#: footer.php:15
+msgid "Theme: %1$s by %2$s."
+msgstr "Theme: %1$s by %2$s."
+
+#: footer.php:23
+msgid "Compose new post"
+msgstr ""
+
+#: footer.php:24
+msgid "Next post/Next comment"
+msgstr ""
+
+#: footer.php:25
+msgid "Previous post/Previous comment"
+msgstr ""
+
+#: footer.php:28
+msgid "Show/Hide comments"
+msgstr ""
+
+#: footer.php:29
+msgid "Go to top"
+msgstr ""
+
+#: footer.php:30
+msgid "Go to login"
+msgstr ""
+
+#: footer.php:31
+msgid "Show/Hide help"
+msgstr ""
+
+#: footer.php:32
+msgid "shift + esc"
+msgstr ""
+
+# @ p2
+#: footer.php:32 inc/js.php:140
+msgid "Cancel"
+msgstr "لغو"
+
+#: functions.php:206
+msgid "Primary Menu"
+msgstr "فهرست اصلی"
+
+# @ p2
+#: functions.php:216
+msgid "Sidebar"
+msgstr "ستون کناری"
+
+# @ p2
+#: functions.php:398
+msgid "Your comment is awaiting moderation."
+msgstr "نظر شما منتظر تأیید است. "
+
+# @ p2
+#: functions.php:437
+msgid "Video Post"
+msgstr "پست ویدیویی"
+
+# @ p2
+#: functions.php:439
+msgid "Image Post"
+msgstr "پست تصویری"
+
+# @ p2
+#: functions.php:575
+msgid "Log in to Reply"
+msgstr "برای ارسال پاسخ، ابتدا وارد شوید"
+
+# @ p2
+#: functions.php:618
+msgid "http://wordpress.org/"
+msgstr "http://wordpress.org/"
+
+# @ p2
+#: functions.php:618
+msgid "Proudly powered by %s."
+msgstr "با افتخار به نیروی %s"
+
+# @ p2
+#: functions.php:717 index.php:24
+msgid "Page %s"
+msgstr "صفحه %s"
+
+# @ p2
+#: header.php:30
+msgid "Post"
+msgstr "ارسال"
+
+#: header.php:36
+msgid "Menu"
+msgstr "فهرست"
+
+#: header.php:37
+msgid "Skip to content"
+msgstr "جهش به متن"
+
+# @ p2
+#: inc/ajax-read.php:191
+msgid "Error: you must be logged in to post a comment."
+msgstr "خطا: برای ارسال کامنت باید اول وارد شوی"
+
+# @ p2
+#: inc/ajax-read.php:202
+msgid "Error: please fill the required fields (name, email)."
+msgstr "خطا: لطفا گزینه‌های ضروری را پر کن (نام، ایمیل)"
+
+# @ p2
+#: inc/ajax-read.php:204
+msgid "Error: please enter a valid email address."
+msgstr "خطا: لطفا یک ایمیل معتبر وارد کن"
+
+# @ p2
+#: inc/ajax-read.php:208
+msgid "Error: Please type a comment."
+msgstr "خطا: اصل نظر را فراموش کردی بنویسی"
+
+# @ p2
+#: inc/ajax-read.php:222
+msgid "Error: Unknown error occurred. Comment not posted."
+msgstr "خطا: خطای ناشناخته‌ای رخ داده. کامنت ارسال نشد"
+
+# @ p2
+#: inc/ajax.php:42 inc/ajax.php:86 inc/ajax.php:100 inc/ajax.php:161
+#: inc/ajax.php:193
+msgid "Error: not logged in."
+msgstr "خطا: وارد نشده‌ای!"
+
+# @ p2
+#: inc/ajax.php:47 inc/ajax.php:107
+msgid "Error: not allowed to edit post."
+msgstr "خطا: اجازهٔ ویرایش این پست را نداری!"
+
+# @ p2
+#: inc/ajax.php:169
+msgid "Error: not allowed to edit this comment."
+msgstr "خطا: اجازهٔ ویرایش این کامنت را نداری"
+
+# @ p2
+#: inc/ajax.php:198
+msgid "Error: not allowed to post."
+msgstr "خطا: اجازهٔ ارسال یادداشت نداری"
+
+# @ p2
+#: inc/ajax.php:211 inc/js.php:129 post-form.php:72 post-form.php:73
+#: post-form.php:74
+msgid "Tag it"
+msgstr "برچسب فراموش نشود!"
+
+# @ p2
+#: inc/ajax.php:215 inc/js.php:131 post-form.php:17 post-form.php:53
+#: post-form.php:54
+msgid "Post Title"
+msgstr "عنوان مطلب"
+
+# @ p2
+#: inc/js.php:128
+msgid "Tags:"
+msgstr "برچسب‌ها:"
+
+# @ p2
+#: inc/js.php:130 post-form.php:63 post-form.php:65 post-form.php:66
+#: post-form.php:67
+msgid "Citation"
+msgstr "نقل قول"
+
+# @ p2
+#: inc/js.php:132
+msgid "Go to homepage"
+msgstr "رفتن به صفحهٔ اصلی"
+
+# @ p2
+#: inc/js.php:134
+msgid "%d new update(s)"
+msgstr "%d جدید به‌روزرسانی‌(های) "
+
+# @ p2
+#: inc/js.php:135
+msgid "%d new comment(s)"
+msgstr "%d نظر جدید"
+
+# @ p2
+#: inc/js.php:136
+msgid "Jump to top"
+msgstr "بپر به بالای صفحه"
+
+# @ p2
+#: inc/js.php:137
+msgid "An error has occurred, your post was not posted"
+msgstr "یک خطایی رخ که نگذاشت یادداشت ارسال شود"
+
+# @ p2
+#: inc/js.php:138
+msgid "Your update has been posted"
+msgstr "مطلبت رفت بالا"
+
+# @ p2
+#: inc/js.php:139
+msgid "Loading..."
+msgstr "دارد بارگذاری می‌شود &hellip;"
+
+# @ p2
+#: inc/js.php:141
+msgid "Save"
+msgstr "ذخیره"
+
+# @ p2
+#: inc/js.php:142 single.php:19
+msgid "Hide threads"
+msgstr "پنهان کردن ریسه‌ها"
+
+# @ p2
+#: inc/js.php:143
+msgid "Show threads"
+msgstr "نمایش دادن ریسه‌ها"
+
+# @ p2
+#: inc/js.php:144
+msgid "Your comments or posts will be lost if you continue."
+msgstr "اگر همین طور ادامه دهی، کامنت یا یادداشتت از بین می‌رود."
+
+# @ p2
+#: inc/js.php:145 inc/template-tags.php:254
+msgid "%1$s <em>on</em> %2$s"
+msgstr "<span dir=\"rtl\">%1$s <em>@</em> %2$s</span>"
+
+# @ p2
+#: inc/js.php:150
+msgid "After typing @, type a name or username to find a member of this site"
+msgstr ""
+
+# @ p2
+#: inc/js.php:151
+msgid "No matches."
+msgstr "نتیجه‌ای پیدا نشد."
+
+# @ default
+#: inc/js.php:152
+msgid ""
+"Are you sure you would like to clear this comment? Its contents will be "
+"deleted."
+msgstr ""
+
+# @ default
+#: inc/js.php:153
+msgid "Oops! Looks like you are not logged in."
+msgstr "اووپس! انگار که شما وارد نشده‌اید."
+
+# @ default
+#: inc/js.php:154
+msgid "Please log in again"
+msgstr "لطفا دوباره وارد شوید"
+
+# @ default
+#: inc/js.php:155
+msgid ""
+"Whoops! Looks like you are not connected to the server. P2 could not connect "
+"with WordPress."
+msgstr ""
+"ووپس! انگار شما به میزبان متصل نیستید. P2 نمی‌تواند با وردپرس ارتباط برقرار "
+"کند."
+
+#: inc/js.php:156
+msgid "This field is required."
+msgstr "این فیلد الزامی است."
+
+# @ p2
+#: inc/options-page.php:16
+msgid "Theme Options"
+msgstr "پیکربندی پوسته"
+
+# @ default
+#: inc/options-page.php:68 inc/options-page.php:179
+msgid "Whatcha' up to?"
+msgstr "خب. دیگه چه خبر؟"
+
+# @ p2
+#: inc/options-page.php:95
+msgid "Options saved."
+msgstr "تنظیمات ذخیره شد."
+
+# @ p2
+#: inc/options-page.php:101
+msgid "P2 Options"
+msgstr "تنظیمات پی‌دو"
+
+# @ p2
+#: inc/options-page.php:106
+msgid "Functionality Options"
+msgstr "گزینه‌های عملکرد"
+
+# @ p2
+#: inc/options-page.php:114
+msgid "Posting Access:"
+msgstr "کسانی که می‌توانند پست ارسال کنند:"
+
+# @ p2
+#: inc/options-page.php:120
+msgid "Allow any WordPress.com member to post"
+msgstr "به هر یک از کاربران وردپرس.کام اجازه بده مطلب ارسال کنند."
+
+# @ p2
+#: inc/options-page.php:122
+msgid "Allow any registered member to post"
+msgstr " به تمام اعضای وردپرس.کام اجازه‌ٔ ارسال نوشته داده شود"
+
+# @ p2
+#: inc/options-page.php:130
+msgid "Hide Threads:"
+msgstr "پنهان کردن ریسه‌ها:"
+
+# @ p2
+#: inc/options-page.php:134
+msgid "Hide comment threads by default on all non-single views"
+msgstr ""
+
+# @ p2
+#: inc/options-page.php:144
+msgid "Design Options"
+msgstr "تنظیمات طراحی"
+
+# @ p2
+#: inc/options-page.php:150
+msgid "Custom Background Color:"
+msgstr "رنگ دلخواه برای پس‌زمینه:"
+
+# @ p2
+#: inc/options-page.php:152
+msgid "Pick a Color"
+msgstr "یک رنگ انتخاب کن"
+
+# @ p2
+#: inc/options-page.php:158
+msgid "Background Image:"
+msgstr "تصویر پس‌زمینه"
+
+# @ p2
+#: inc/options-page.php:160
+msgid "None"
+msgstr "هیچی"
+
+# @ p2
+#: inc/options-page.php:161
+msgid "Bubbles"
+msgstr "حباب‌ها"
+
+# @ p2
+#: inc/options-page.php:162
+msgid "Polka Dots"
+msgstr "نقطه‌نقطه‌ای"
+
+# @ p2
+#: inc/options-page.php:163
+msgid "Squares"
+msgstr "چهارخانه"
+
+# @ p2
+#: inc/options-page.php:164
+msgid "Plaid"
+msgstr "حاشور"
+
+# @ p2
+#: inc/options-page.php:165
+msgid "Stripes"
+msgstr "راه‌راه"
+
+#: inc/options-page.php:166
+msgid "Santa"
+msgstr ""
+
+# @ p2
+#: inc/options-page.php:170
+msgid "Sidebar display:"
+msgstr "نمایش ستون کناری:"
+
+# @ p2
+#: inc/options-page.php:173
+msgid "Hide the Sidebar"
+msgstr "مخفی کردن ستون کناری"
+
+# @ p2
+#: inc/options-page.php:177
+msgid "Post prompt:"
+msgstr "متن پیش‌فرض جعبهٔ ارسال پست:"
+
+# @ p2
+#: inc/options-page.php:180
+msgid "if empty, defaults to <strong>Whatcha up to?</strong>"
+msgstr ""
+"اگر خالی به طور پیش‌فرض این را نشان بده: <strong>خب. چه کار می‌‌خوای بکنی؟</"
+"strong>"
+
+# @ p2
+#: inc/options-page.php:184
+msgid "Post Titles:"
+msgstr "عناوین نوشته‌ها:"
+
+# @ p2
+#: inc/options-page.php:187
+msgid "Display titles"
+msgstr "نمایش عنوان‌ها"
+
+# @ p2
+#: inc/options-page.php:197
+msgid "Update Options"
+msgstr "ذخیرهٔ تنظیمات جدید"
+
+# @ p2
+#: inc/options-page.php:252
+msgid "Hide Text"
+msgstr "پنهان کردن متن"
+
+# @ p2
+#: inc/options-page.php:258
+msgid "Show Text"
+msgstr "نمایش متن"
+
+# @ p2
+#: inc/template-tags.php:80
+msgid "%1$s is discussing."
+msgstr "%1$s بحث می‌کند."
+
+# @ p2
+#: inc/template-tags.php:82
+msgid "%1$s and %2$s are discussing."
+msgstr "%1$s و %2$s بحث می‌کنند."
+
+# @ p2
+#: inc/template-tags.php:87
+msgid "%1$s, %2$s, and %3$s are discussing."
+msgstr "%1$s، %3$s و %2$s بحث می‌کنند."
+
+# @ p2
+#: inc/template-tags.php:94
+msgid "%1$s, %2$s, %3$s, and %4$d other are discussing."
+msgid_plural "%1$s, %2$s, %3$s, and %4$d others are discussing."
+msgstr[0] "%1$s، %3$s، و %4$d %2$s بحث می‌کنند."
+msgstr[1] "%1$s، %3$s، و %4$d %2$s بحث می‌کنند."
+
+# @ p2
+#: inc/template-tags.php:175
+msgid "Hi, %s. %s"
+msgstr "سلام %s؛ %s"
+
+# @ p2
+#: inc/template-tags.php:175
+msgid "Whatcha up to?"
+msgstr "دیگه چه خبر؟"
+
+# @ p2
+#: inc/widgets/recent-comments.php:10
+msgid "P2 Recent Comments"
+msgstr "آخرین‌ کامنت‌های پی‌‌دو"
+
+# @ p2
+#: inc/widgets/recent-comments.php:10
+msgid "Recent comments with avatars."
+msgstr "آخرین کامنت‌های دارای آواتار"
+
+# @ p2
+#: inc/widgets/recent-comments.php:35
+msgid "No avatar"
+msgstr "بدون آواتار"
+
+# @ p2
+#: inc/widgets/recent-comments.php:39 inc/widgets/recent-tags.php:24
+msgid "Title:"
+msgstr "عنوان:"
+
+# @ p2
+#: inc/widgets/recent-comments.php:45
+msgid "Number of comments to show:"
+msgstr "تعداد کامنت‌هایی که نشان داده می‌شوند:"
+
+# @ p2
+#: inc/widgets/recent-comments.php:51
+msgid "Avatars:"
+msgstr "آواتارها:"
+
+# @ p2
+#: inc/widgets/recent-comments.php:72
+msgid "Recent comments"
+msgstr "آخرین کامنت‌ها"
+
+# @ p2
+#: inc/widgets/recent-comments.php:135
+msgid "Anonymous"
+msgstr "ناشناس"
+
+# @ p2
+#: inc/widgets/recent-comments.php:167
+msgid "%s on <a href='%s' class='tooltip' title='%s'>%s</a>"
+msgstr "%s در  <a href='%s' class='tooltip' title='%s'>%s</a>"
+
+# @ p2
+#: inc/widgets/recent-tags.php:10
+msgid "P2 Recent Tags"
+msgstr "آخرین برچسب‌های پی‌‌دو"
+
+# @ p2
+#: inc/widgets/recent-tags.php:10
+msgid "The tags from the latest posts."
+msgstr "برچسب‌های آخرین پست‌ها."
+
+# @ p2
+#: inc/widgets/recent-tags.php:30
+msgid "Number of tags to show:"
+msgstr "تعداد برچسب‌هایی که نشان داده می‌شود:"
+
+# @ p2
+#: inc/widgets/recent-tags.php:46
+msgid "Recent tags"
+msgstr "آخرین برچسب‌ها"
+
+# @ p2
+#: index.php:24
+msgid "Recent Updates"
+msgstr "آخرین به‌روزرسانی‌ها"
+
+# @ p2
+#: index.php:28
+msgctxt "Month name"
+msgid "Updates from %s"
+msgstr "به‌روزرسانی‌هایی از %s"
+
+# @ p2
+#: index.php:47 single.php:35
+msgid "No posts yet!"
+msgstr "هنوز هیچ مطلبی نیست!"
+
+# @ p2
+#: post-form.php:32
+msgid "Status Update"
+msgstr "وضعیت"
+
+# @ p2
+#: post-form.php:33
+msgid "Blog Post"
+msgstr "مطلب"
+
+# @ p2
+#: post-form.php:34
+msgid "Quote"
+msgstr "نقل قول"
+
+# @ p2
+#: post-form.php:35
+msgid "Link"
+msgstr "پیوند"
+
+# @ p2
+#: post-form.php:75
+msgid "Post it"
+msgstr "ارسال کن"
+
+# @ p2
+#: search.php:14
+msgid "Search Results for: %s"
+msgstr "نتایج جست‌وجو برای %s"
+
+# @ p2
+#: search.php:31 tag.php:33
+msgid "No posts found!"
+msgstr "هیچی پیدا نشد!"
+
+# @ Previous post link
+#: single.php:42
+msgctxt "Previous post link"
+msgid "&larr; %title"
+msgstr "&rarr; %title"
+
+# @ Next post link
+#: single.php:43
+msgctxt "Next post link"
+msgid "%title &rarr;"
+msgstr "%title &larr;"
+
+# @ p2
+#: tag.php:14
+msgid "Tagged: %s"
+msgstr "برچسب: %s"
+
+#. Theme Name of the plugin/theme
+msgid "P2"
+msgstr ""
+
+# @ p2
+#. Theme URI of the plugin/theme
+msgid "http://p2theme.com/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Blogging at the speed of thought. P2 transforms a mild-mannered blog into a "
+"super-blog with features like inline comments, a posting form right on the "
+"homepage, inline editing of posts and comments, real-time updates, and much "
+"more."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Automattic"
+msgstr ""
+
+# @ p2
+#. Author URI of the plugin/theme
+msgid "http://theme.wordpress.com/"
+msgstr ""

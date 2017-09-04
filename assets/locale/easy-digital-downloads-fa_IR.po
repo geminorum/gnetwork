@@ -1,0 +1,5424 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Easy Digital Downloads v1.6.3\n"
+"POT-Creation-Date: 2013-06-05 14:18+0100\n"
+"PO-Revision-Date: 2017-07-04 17:33+0430\n"
+"Last-Translator: geminorum <contact@geminorum.ir>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 2.0.2\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-Basepath: ..\n"
+"Language: fa_IR\n"
+"Language-Team: \n"
+"X-Poedit-SearchPath-0: .\n"
+
+# @ edd
+#: easy-digital-downloads.php:136 easy-digital-downloads.php:148
+msgid "Cheatin&#8217; huh?"
+msgstr ""
+
+# @ edd
+#: includes/ajax-functions.php:145
+msgid "This discount code has been used already"
+msgstr "این کد تخفیف قبلاً استفاده شده است"
+
+# @ edd
+#: includes/ajax-functions.php:161 includes/process-purchase.php:224
+msgid "The discount you entered is invalid"
+msgstr "کدتخفیف واردشده اشتباه است"
+
+# @ edd
+#: includes/class-edd-api.php:201
+msgid "You must specify both a token and API key!"
+msgstr "You must specify both a token and API key!"
+
+# @ edd
+#: includes/class-edd-api.php:217
+msgid "Your request could not be authenticated!"
+msgstr "Your request could not be authenticated!"
+
+# @ edd
+#: includes/class-edd-api.php:234
+msgid "Invalid API key!"
+msgstr "کلید API نامعتبر است!"
+
+# @ edd
+#: includes/class-edd-api.php:349
+msgid "Invalid query!"
+msgstr "جست‌وجو نامعتبر است!"
+
+# @ edd
+#: includes/admin/payments/view-order-details.php:128
+#: includes/admin/reporting/class-customer-reports-table.php:172
+#: includes/admin/reporting/class-export-customers.php:125
+#: includes/admin/reporting/class-export-customers.php:141 includes/class-edd-api.php:596
+#: includes/class-edd-api.php:597 includes/class-edd-api.php:598
+#: includes/class-edd-api.php:599
+msgid "Guest"
+msgstr "مهمان"
+
+# @ edd
+#: includes/class-edd-api.php:628
+#, php-format
+msgid "Customer %s not found!"
+msgstr "مشتری %s یافت نشد!"
+
+# @ edd
+#: includes/class-edd-api.php:720 includes/class-edd-api.php:825
+#: includes/class-edd-api.php:908
+#, php-format
+msgid "Product %s not found!"
+msgstr "محصول %s یافت نشد!"
+
+# @ edd
+#: includes/class-edd-api.php:760 includes/class-edd-api.php:842
+msgid "The end date must be later than the start date!"
+msgstr "تاریخ پایان باید از تاریخ شروع جلوتر باشد!"
+
+# @ edd
+#: includes/class-edd-api.php:765 includes/class-edd-api.php:847
+msgid "Invalid or no date range specified!"
+msgstr "تاریخ اشتباه و یا اصلاً وارد نشده است!"
+
+# @ edd
+#: includes/class-edd-api.php:1055
+#, fuzzy, php-format
+msgid "Discount %s not found!"
+msgstr "محصول %s یافت نشد!"
+
+# @ edd
+#: includes/class-edd-api.php:1198
+msgid "Easy Digital Downloads API Keys"
+msgstr "کلیدهای API افزونه Easy Digital Downloads"
+
+# @ edd
+#: includes/class-edd-api.php:1203
+msgid "Generate API Key"
+msgstr "ایجاد کلید API"
+
+# @ edd
+#: includes/class-edd-api.php:1205
+msgid "Public key:"
+msgstr "کلید عمومی:"
+
+# @ edd
+#: includes/class-edd-api.php:1206
+msgid "Secret key:"
+msgstr "کلید سری:"
+
+# @ edd
+#: includes/class-edd-api.php:1207
+msgid "Token:"
+msgstr "رمز:"
+
+# @ edd
+#: includes/class-edd-api.php:1209
+msgid "Revoke API Keys"
+msgstr "ابطال کلیدهای API"
+
+# @ edd
+#: includes/class-edd-cron.php:51
+msgid "Once Weekly"
+msgstr ""
+
+# @ edd
+#: includes/class-edd-html-elements.php:42
+msgid "No products found"
+msgstr "هیچ محصولی یافت نشد"
+
+# @ edd
+#: includes/class-edd-html-elements.php:76
+msgid "No discounts found"
+msgstr "هیچ تخفیفی یافت نشد"
+
+# @ edd
+#: includes/class-edd-html-elements.php:99 includes/post-types.php:196
+msgid "All Categories"
+msgstr "همه دسته‌ها"
+
+# @ edd
+#: includes/class-edd-html-elements.php:105
+msgid "No categories found"
+msgstr "هیچ دسته‌ای پیدا نشد"
+
+# @ edd
+#: includes/admin/reporting/reports.php:36 includes/class-edd-logging.php:49
+msgid "Logs"
+msgstr "ریزگزارشات"
+
+# @ edd
+#: includes/class-edd-roles.php:45
+msgid "Shop Manager"
+msgstr "مدیر فروشگاه"
+
+# @ edd
+#: includes/class-edd-roles.php:77
+msgid "Shop Accountant"
+msgstr "حسابدار فروشگاه"
+
+# @ edd
+#: includes/class-edd-roles.php:83
+msgid "Shop Worker"
+msgstr "کارمند فروشگاه"
+
+# @ edd
+#: includes/class-edd-roles.php:90
+msgid "Shop Vendor"
+msgstr "فرشنده"
+
+# @ edd
+#: includes/download-functions.php:856
+msgid "Sorry but you have hit your download limit for this file."
+msgstr "متأسفیم ولی محدودیت&zwnj;هایی برای دانلود وجود دارد."
+
+# @ edd
+#: includes/admin/discounts/discount-actions.php:88
+#: includes/admin/discounts/edit-discount.php:16
+#: includes/admin/payments/view-order-details.php:22
+#: includes/admin/reporting/class-api-requests-logs-list-table.php:137
+#: includes/admin/reporting/class-export.php:173
+#: includes/admin/reporting/class-gateway-error-logs-list-table.php:121
+#: includes/download-functions.php:856 includes/download-functions.php:860
+#: includes/emails/template.php:408 includes/error-tracking.php:36
+#: includes/query-filters.php:52
+msgid "Error"
+msgstr "خطا"
+
+# @ edd
+#: includes/download-functions.php:860
+msgid "Sorry but your download link has expired."
+msgstr "متاسفم! ولی لینک دانلود شما منقضی شده است."
+
+# @ edd
+#: includes/install.php:52 includes/template-functions.php:106
+#: templates/widget-cart-checkout.php:2 templates/widget-cart-empty.php:3
+msgid "Checkout"
+msgstr "پرداخت"
+
+# @ edd
+#: includes/install.php:64
+msgid "Purchase Confirmation"
+msgstr "تأیید پرداخت"
+
+# @ edd
+#: includes/install.php:65
+msgid "Thank you for your purchase! [edd_receipt]"
+msgstr "از خرید شما متشکریم! [edd_receipt]"
+
+# @ edd
+#: includes/admin/upgrades/upgrade-functions.php:202 includes/install.php:76
+msgid "Transaction Failed"
+msgstr "تراکنش ناموفق"
+
+# @ edd
+#: includes/admin/upgrades/upgrade-functions.php:203 includes/install.php:77
+msgid "Your transaction failed, please try again or contact site support."
+msgstr "تراکنش شما ناموفق بود، لطفاً دوباره تلاش کنید یا با پشتیبانی سایت تماس بگیرید."
+
+# @ edd
+#: includes/install.php:89 includes/widgets.php:163
+msgid "Purchase History"
+msgstr "سوابق خرید"
+
+# @ edd
+#: includes/login-register.php:39
+msgid "Log into Your Account"
+msgstr "ورود به حساب خود"
+
+# @ edd
+#: includes/checkout/template.php:321 includes/checkout/template.php:323
+#: includes/checkout/template.php:360 includes/login-register.php:42
+#: includes/login-register.php:43
+msgid "Username"
+msgstr "نام کاربری"
+
+# @ edd
+#: includes/checkout/template.php:326 includes/checkout/template.php:328
+#: includes/checkout/template.php:364 includes/login-register.php:46
+msgid "Password"
+msgstr "رمزعبور"
+
+# @ edd
+#: includes/checkout/template.php:299 includes/login-register.php:53
+msgid "Login"
+msgstr "ورود"
+
+# @ edd
+#: includes/login-register.php:56
+msgid "Lost Password"
+msgstr "فراموشی رمزعبور"
+
+# @ edd
+#: includes/login-register.php:57
+msgid "Lost Password?"
+msgstr "آیا رمزعبورتان را فراموش کردید؟"
+
+# @ edd
+#: includes/login-register.php:65
+msgid "You are already logged in"
+msgstr "شما قبلاً وارد شده اید"
+
+# @ edd
+#: includes/login-register.php:86 includes/process-purchase.php:446
+msgid "The password you entered is incorrect"
+msgstr "رمزعبور شما نامعتبر است"
+
+# @ edd
+#: includes/login-register.php:89 includes/process-purchase.php:465
+msgid "The username you entered does not exist"
+msgstr "چنین نام کاربری وجود ندارد!"
+
+# @ edd
+#: includes/misc-functions.php:214
+msgid "US Dollars (&#36;)"
+msgstr "دلار آمریکا (&#36;)"
+
+# @ edd
+#: includes/misc-functions.php:215
+msgid "Euros (&euro;)"
+msgstr "یورو (&euro;)"
+
+# @ edd
+#: includes/misc-functions.php:216
+msgid "Pounds Sterling (&pound;)"
+msgstr "پوند استرلینگ (&pound;)"
+
+# @ edd
+#: includes/misc-functions.php:217
+msgid "Australian Dollars (&#36;)"
+msgstr "دلار استرلیا (&#36;)"
+
+# @ edd
+#: includes/misc-functions.php:218
+msgid "Brazilian Real (R&#36;)"
+msgstr "رئال برزیل (&#36;)"
+
+# @ edd
+#: includes/misc-functions.php:219
+msgid "Canadian Dollars (&#36;)"
+msgstr "دلار کانادا (&#36;)"
+
+# @ edd
+#: includes/misc-functions.php:220
+msgid "Czech Koruna"
+msgstr "کورونای چک"
+
+# @ edd
+#: includes/misc-functions.php:221
+msgid "Danish Krone"
+msgstr "کرون دانمارک"
+
+# @ edd
+#: includes/misc-functions.php:222
+msgid "Hong Kong Dollar (&#36;)"
+msgstr "دلار هنگ کنگ (&#36;)"
+
+# @ edd
+#: includes/misc-functions.php:223
+msgid "Hungarian Forint"
+msgstr "هانگاریان فورینت"
+
+# @ edd
+#: includes/misc-functions.php:224
+#, fuzzy
+msgid "Israeli Shekel (&#8362;)"
+msgstr "شکل اسرائیل"
+
+# @ edd
+#: includes/misc-functions.php:225
+msgid "Japanese Yen (&yen;)"
+msgstr "ین ژاپن (&yen;)"
+
+# @ edd
+#: includes/misc-functions.php:226
+msgid "Malaysian Ringgits"
+msgstr "رینگیت مالزی"
+
+# @ edd
+#: includes/misc-functions.php:227
+msgid "Mexican Peso (&#36;)"
+msgstr "پسکو مکزیک (&#36;)"
+
+# @ edd
+#: includes/misc-functions.php:228
+msgid "New Zealand Dollar (&#36;)"
+msgstr "دلار نیوزلند (&#36;)"
+
+# @ edd
+#: includes/misc-functions.php:229
+msgid "Norwegian Krone"
+msgstr "کرون نروژ"
+
+# @ edd
+#: includes/misc-functions.php:230
+msgid "Philippine Pesos"
+msgstr "پسوس فیلیپین"
+
+# @ edd
+#: includes/misc-functions.php:231
+msgid "Polish Zloty"
+msgstr "زلوتی لهستان"
+
+# @ edd
+#: includes/misc-functions.php:232
+msgid "Singapore Dollar (&#36;)"
+msgstr "دلار سنگاپور (&#36;)"
+
+# @ edd
+#: includes/misc-functions.php:233
+msgid "Swedish Krona"
+msgstr "کورونا سوئد"
+
+# @ edd
+#: includes/misc-functions.php:234
+msgid "Swiss Franc"
+msgstr "فرانک سوییس"
+
+# @ edd
+#: includes/misc-functions.php:235
+msgid "Taiwan New Dollars"
+msgstr "دلار تایوان"
+
+# @ edd
+#: includes/misc-functions.php:236
+#, fuzzy
+msgid "Thai Baht (&#3647;)"
+msgstr "بات تایلند"
+
+# @ edd
+#: includes/misc-functions.php:237
+#, fuzzy
+msgid "Indian Rupee (&#8377;)"
+msgstr "روپیه هند"
+
+# @ edd
+#: includes/misc-functions.php:238
+#, fuzzy
+msgid "Turkish Lira (&#8378;)"
+msgstr "لیر ترکیه"
+
+# @ edd
+#: includes/misc-functions.php:239
+#, fuzzy
+msgid "Iranian Rial (&#65020;)"
+msgstr "رئال برزیل (&#36;)"
+
+# @ edd
+#: includes/misc-functions.php:341
+#, php-format
+msgid ""
+"%1$s is <strong>deprecated</strong> since Easy Digital Downloads version %2$s! Use %3$s "
+"instead."
+msgstr ""
+"%1$s <strong>بد دانسته شده</strong> است در این نسخه از Easy Digital Downloads نسخه %2$s! "
+"از %3$s استفاده کنید."
+
+# @ edd
+#: includes/misc-functions.php:346
+#, php-format
+msgid ""
+"%1$s is <strong>deprecated</strong> since Easy Digital Downloads version %2$s with no "
+"alternative available."
+msgstr ""
+"%1$s <strong>بد دانسته شده</strong> است در این نسخه از Easy Digital Downloads نسخه %2$s. "
+"هیچ جایگزینی وجود ندارد!"
+
+# @ edd
+#: includes/plugin-compatibility.php:73
+msgid "No Caching on Checkout?"
+msgstr "کش نکردن پرداخت؟"
+
+# @ edd
+#: includes/plugin-compatibility.php:74
+msgid ""
+"Check this box in order to append a ?nocache parameter to the checkout URL to prevent "
+"caching plugins from caching the page."
+msgstr "برای اضافه شدن پارامتر ?nocache به صفحه پرداخت این گزینه را فعال کنید."
+
+# @ edd
+#: includes/admin/downloads/metabox.php:399 includes/post-types.php:30
+#: includes/post-types.php:68 includes/post-types.php:98
+msgid "Add New"
+msgstr "اضافه کردن"
+
+# @ edd
+#: includes/post-types.php:31
+#, php-format
+msgid "Add New %1$s"
+msgstr "اضافه کردن %1$s جدید"
+
+# @ edd
+#: includes/post-types.php:32
+#, php-format
+msgid "Edit %1$s"
+msgstr "ویرایش %1$s"
+
+# @ edd
+#: includes/post-types.php:33
+#, php-format
+msgid "New %1$s"
+msgstr "%1$s جدید"
+
+# @ edd
+#: includes/post-types.php:34
+#, php-format
+msgid "All %2$s"
+msgstr "همه&zwnj;ی %2$s"
+
+# @ edd
+#: includes/post-types.php:35
+#, php-format
+msgid "View %1$s"
+msgstr "مشاهده %1$s"
+
+# @ edd
+#: includes/post-types.php:36
+#, php-format
+msgid "Search %2$s"
+msgstr "جست‌وجوی %2$s"
+
+# @ edd
+#: includes/post-types.php:37
+#, php-format
+msgid "No %2$s found"
+msgstr "%2$s یافت نشد"
+
+# @ edd
+#: includes/post-types.php:38
+#, php-format
+msgid "No %2$s found in Trash"
+msgstr "%2$s در بازیافت یافت نشد."
+
+# @ edd
+#: includes/post-types.php:40
+#, php-format
+msgid "%2$s"
+msgstr "%2$s"
+
+# @ edd
+#: includes/post-types.php:66
+msgctxt "post type general name"
+msgid "Payments"
+msgstr "پرداخت‌ها"
+
+# @ edd
+#: includes/post-types.php:67
+msgctxt "post type singular name"
+msgid "Payment"
+msgstr "پرداخت"
+
+# @ edd
+#: includes/post-types.php:69
+msgid "Add New Payment"
+msgstr "ایجاد پرداخت جدید"
+
+# @ edd
+#: includes/admin/payments/edit-payment.php:19
+#: includes/admin/payments/payments-history.php:82 includes/post-types.php:70
+msgid "Edit Payment"
+msgstr "ویرایش پرداخت"
+
+# @ edd
+#: includes/post-types.php:71
+msgid "New Payment"
+msgstr "پرداخت جدید"
+
+# @ edd
+#: includes/post-types.php:72
+msgid "All Payments"
+msgstr "همه پرداخت‌ها"
+
+# @ edd
+#: includes/post-types.php:73
+msgid "View Payment"
+msgstr "مشاهده پرداخت"
+
+# @ edd
+#: includes/admin/payments/contextual-help.php:51 includes/post-types.php:74
+msgid "Search Payments"
+msgstr "جست‌وجوی پرداخت‌ها"
+
+# @ edd
+#: includes/post-types.php:75
+msgid "No Payments found"
+msgstr "هیچ پرداختی یافت نشد"
+
+# @ edd
+#: includes/post-types.php:76
+msgid "No Payments found in Trash"
+msgstr "هیچ پرداختی در سطل بازیافت یافت نشد"
+
+# @ edd
+#: includes/admin/admin-pages.php:34 includes/admin/payments/payments-history.php:37
+#: includes/post-types.php:78
+msgid "Payment History"
+msgstr "سابقه پرداخت"
+
+# @ edd
+#: includes/post-types.php:96
+msgctxt "post type general name"
+msgid "Discounts"
+msgstr "تخفیف&zwnj;ها،"
+
+# @ edd
+#: includes/post-types.php:97
+msgctxt "post type singular name"
+msgid "Discount"
+msgstr "تخفیف"
+
+# @ edd
+#: includes/admin/discounts/add-discount.php:15 includes/post-types.php:99
+msgid "Add New Discount"
+msgstr "کد تخفیف جدید"
+
+# @ edd
+#: includes/admin/discounts/edit-discount.php:25 includes/post-types.php:100
+msgid "Edit Discount"
+msgstr "ویرایش کدتخفیف"
+
+# @ edd
+#: includes/post-types.php:101
+msgid "New Discount"
+msgstr "کد تخفیف جدید"
+
+# @ edd
+#: includes/post-types.php:102
+msgid "All Discounts"
+msgstr "همه کدهای تخفیف"
+
+# @ edd
+#: includes/post-types.php:103
+msgid "View Discount"
+msgstr "مشاهده کدتخفیف"
+
+# @ edd
+#: includes/post-types.php:104
+msgid "Search Discounts"
+msgstr "جست‌وجوی تخفیف‌ها"
+
+# @ edd
+#: includes/post-types.php:105
+msgid "No Discounts found"
+msgstr "هیچ تخفیفی یافت نشد"
+
+# @ edd
+#: includes/post-types.php:106
+msgid "No Discounts found in Trash"
+msgstr "هیچ کدتخفیفی در سطل بازیافت یافت نشد"
+
+# @ edd
+#: includes/post-types.php:108
+msgid "Discounts"
+msgstr "تخفیف&zwnj;ها،"
+
+# @ edd
+#: includes/admin/reporting/class-sales-logs-list-table.php:96
+#: includes/checkout/template.php:562 includes/post-types.php:134
+msgid "Download"
+msgstr "دانلود"
+
+# @ edd
+#: includes/post-types.php:135
+msgid "Downloads"
+msgstr "دانلودها"
+
+# @ edd
+#: includes/post-types.php:174
+#, php-format
+msgid "Enter %s title here"
+msgstr "عنوان %s را وارد کنید"
+
+# @ edd
+#: includes/post-types.php:193
+#, fuzzy, php-format
+msgctxt "taxonomy general name"
+msgid "%s Categories"
+msgstr "دسته‌ها"
+
+# @ edd
+#: includes/post-types.php:194
+msgctxt "taxonomy singular name"
+msgid "Category"
+msgstr "دسته"
+
+# @ edd
+#: includes/post-types.php:195
+msgid "Search Categories"
+msgstr "جست‌وجوی دسته‌ها"
+
+# @ edd
+#: includes/post-types.php:197
+msgid "Parent Category"
+msgstr "دسته پدر"
+
+# @ edd
+#: includes/post-types.php:198
+msgid "Parent Category:"
+msgstr "دسته پدر:"
+
+# @ edd
+#: includes/post-types.php:199
+msgid "Edit Category"
+msgstr "ویرایش دسته"
+
+# @ edd
+#: includes/post-types.php:200
+msgid "Update Category"
+msgstr "بروزرسانی دسته"
+
+# @ edd
+#: includes/post-types.php:201
+msgid "Add New Category"
+msgstr "ایجاد دسته جدید"
+
+# @ edd
+#: includes/post-types.php:202
+msgid "New Category Name"
+msgstr "نام دسته جدید"
+
+# @ edd
+#: includes/admin/downloads/dashboard-columns.php:29
+#: includes/admin/reporting/pdf-reports.php:64 includes/post-types.php:203
+#: includes/widgets.php:144
+msgid "Categories"
+msgstr "دسته‌ها"
+
+# @ edd
+#: includes/post-types.php:220
+#, fuzzy, php-format
+msgctxt "taxonomy general name"
+msgid "%s Tags"
+msgstr "برچسب‌ها"
+
+# @ edd
+#: includes/post-types.php:221
+msgctxt "taxonomy singular name"
+msgid "Tag"
+msgstr "برچسب"
+
+# @ edd
+#: includes/post-types.php:222
+msgid "Search Tags"
+msgstr "جست‌وجوی برچسب‌ها"
+
+# @ edd
+#: includes/post-types.php:223
+msgid "All Tags"
+msgstr "همه برچسب‌ها"
+
+# @ edd
+#: includes/post-types.php:224
+msgid "Parent Tag"
+msgstr "برچسب پدر"
+
+# @ edd
+#: includes/post-types.php:225
+msgid "Parent Tag:"
+msgstr "برچسب پدر:"
+
+# @ edd
+#: includes/post-types.php:226
+msgid "Edit Tag"
+msgstr "ویرایش برچسب"
+
+# @ edd
+#: includes/post-types.php:227
+msgid "Update Tag"
+msgstr "بروزرسانی برچسب"
+
+# @ edd
+#: includes/post-types.php:228
+msgid "Add New Tag"
+msgstr "اضافه کردن برچسب"
+
+# @ edd
+#: includes/post-types.php:229
+msgid "New Tag Name"
+msgstr "برچسب جدید"
+
+# @ edd
+#: includes/admin/downloads/dashboard-columns.php:30
+#: includes/admin/reporting/pdf-reports.php:65 includes/post-types.php:230
+#: includes/widgets.php:145
+msgid "Tags"
+msgstr "برچسب‌ها"
+
+# @ edd
+#: includes/post-types.php:258
+msgctxt "Refunded payment status"
+msgid "Refunded"
+msgstr "مسترد"
+
+# @ edd
+#: includes/post-types.php:266
+msgctxt "Failed payment status"
+msgid "Failed"
+msgstr "ناموفق"
+
+# @ edd
+#: includes/post-types.php:274
+msgctxt "Revoked payment status"
+msgid "Revoked"
+msgstr "لغوشده"
+
+# @ edd
+#: includes/post-types.php:282
+msgctxt "Abandoned payment status"
+msgid "Abandoned"
+msgstr ""
+
+# @ edd
+#: includes/post-types.php:292
+msgctxt "Active discount code status"
+msgid "Active"
+msgstr "فعال"
+
+# @ edd
+#: includes/post-types.php:300
+msgctxt "Inactive discount code status"
+msgid "Inactive"
+msgstr "غیرفعال"
+
+# @ edd
+#: includes/post-types.php:327 includes/post-types.php:328
+#, php-format
+msgid "%2$s updated. %1$sView %2$s%3$s."
+msgstr "%2$s بروز شد. %1$sمشاهده %2$s%3$s."
+
+# @ edd
+#: includes/post-types.php:329
+#, php-format
+msgid "%2$s published. %1$sView %2$s%3$s."
+msgstr "%2$s منتشر شد. %1$sمشاهده %2$s%3$s."
+
+# @ edd
+#: includes/post-types.php:330
+#, php-format
+msgid "%2$s saved. %1$sView %2$s%3$s."
+msgstr "%2$s ذخیره شد. %1$sمشاهده %2$s%3$s."
+
+# @ edd
+#: includes/post-types.php:331
+#, php-format
+msgid "%2$s submitted. %1$sView %2$s%3$s."
+msgstr "%2$s ارسال شد. %1$sمشاهده %2$s%3$s."
+
+# @ edd
+#: includes/process-download.php:147
+msgid "You do not have permission to download this file"
+msgstr "شما اجازه لازم را برای دانلود این فایل ندارید"
+
+# @ edd
+#: includes/process-download.php:148
+msgid "Purchase Verification Failed"
+msgstr "تأیید خرید انجام نشد"
+
+# @ edd
+#: includes/process-purchase.php:29 includes/scripts.php:71
+msgid "Your cart is empty"
+msgstr "سبدخرید خالی است!"
+
+# @ edd
+#: includes/process-purchase.php:185
+msgid "The selected gateway is not active"
+msgstr "درگاه انتخاب‌شده فعال نیست"
+
+# @ edd
+#: includes/process-purchase.php:187
+msgid "No gateway has been selected"
+msgstr "هیچ درگاهی انتخاب نشده است"
+
+# @ edd
+#: includes/process-purchase.php:242
+msgid "You must agree to the terms of use"
+msgstr "شما باید قوانین را قبول داشته باشید"
+
+# @ edd
+#: includes/process-purchase.php:257
+#, fuzzy
+msgid "Please enter your first name"
+msgstr "لطفاً نام کوچک خود را وارد کنید."
+
+# @ edd
+#: includes/process-purchase.php:285
+#, fuzzy
+msgid "Please enter a valid email address"
+msgstr "لطفاً یک آدرس ایمیل معتبر وارد کنید."
+
+# @ edd
+#: includes/process-purchase.php:306
+#, fuzzy
+msgid "The user information is invalid"
+msgstr "اطلاعات کاربر نامعتبر است."
+
+# @ edd
+#: includes/process-purchase.php:354
+msgid "Username already taken"
+msgstr "این نام کاربری قبلاً استفاده شده است"
+
+# @ edd
+#: includes/process-purchase.php:359
+msgid "Invalid username. Only lowercase letters (a-z) and numbers are allowed"
+msgstr "نام کاربری اشتباه است. فقط از حروف کوچک (a-z) و اعداد استفاده کنید"
+
+# @ edd
+#: includes/process-purchase.php:361
+msgid "Invalid username"
+msgstr "نام کاربری نامعتبر است"
+
+# @ edd
+#: includes/process-purchase.php:368
+msgid "You must register or login to complete your purchase"
+msgstr "برای کامل کردن خرید باید وارد یا نام‌نویسی کنید"
+
+# @ edd
+#: includes/process-purchase.php:376 includes/process-purchase.php:498
+msgid "Invalid email"
+msgstr "ایمیل نامعتبر"
+
+# @ edd
+#: includes/process-purchase.php:379
+msgid "Email already used"
+msgstr "این ایمیل قبلاً استفاده شده است"
+
+# @ edd
+#: includes/process-purchase.php:386 includes/process-purchase.php:505
+msgid "Enter an email"
+msgstr "به یک نشانی ایمیل نیاز است."
+
+# @ edd
+#: includes/process-purchase.php:394
+msgid "Passwords don't match"
+msgstr "رمزعبورها برابر نیستند."
+
+# @ edd
+#: includes/process-purchase.php:403 includes/process-purchase.php:461
+msgid "Enter a password"
+msgstr "یک رمزعبور وارد کنید"
+
+# @ edd
+#: includes/process-purchase.php:406
+msgid "Enter the password confirmation"
+msgstr "دوباره رمزعبور را وارد کنید"
+
+# @ edd
+#: includes/process-purchase.php:429
+msgid "You must login or register to complete your purchase"
+msgstr "برای کامل کردن خرید باید وارد یا نام‌نویسی کنید"
+
+# @ edd
+#: includes/process-purchase.php:487
+#, fuzzy
+msgid "You must be logged into an account to purchase"
+msgstr "برای کامل کردن خرید باید وارد شوید یا نام نویسی کنید."
+
+# @ edd
+#: includes/process-purchase.php:634
+msgid "The zip code you entered for your credit card is invalid"
+msgstr "این کدپستی برای کارت اعتباری اشتباه است"
+
+# @ edd
+#: includes/query-filters.php:52
+msgid "You do not have permission to view this file."
+msgstr "شما مجوز کافی برای دیدن این فایل را ندارید."
+
+# @ edd
+#: includes/scripts.php:50
+msgid "Please select a payment method"
+msgstr "لطفاً یک روش پرداخت انتخاب کنید"
+
+# @ edd
+#: includes/scripts.php:51
+msgid "Please enter a discount code"
+msgstr "لطفاً یک کدتخفیف وارد کنید"
+
+# @ edd
+#: includes/checkout/template.php:441 includes/scripts.php:52
+msgid "Enter discount"
+msgstr "کد تخفیف را وارد کنید"
+
+# @ edd
+#: includes/scripts.php:53
+msgid "Discount Applied"
+msgstr "تخفیف اعمال شد!"
+
+# @ edd
+#: includes/scripts.php:54
+msgid "Please enter an email address before applying a discount code"
+msgstr "شما باید یک آدرس ایمیل برای اعمال کدتخفیف وارد کنید"
+
+# @ edd
+#: includes/scripts.php:55
+msgid "Please enter a username before applying a discount code"
+msgstr "لطفاً یک نام‌کاربری قبل از اعمال یک کدتخفیف وارد کنید"
+
+# @ edd
+#: includes/scripts.php:56
+msgid "Please Wait..."
+msgstr "لطفاً چند لحظه صبر کنید…"
+
+# @ edd
+#: includes/admin/downloads/dashboard-columns.php:61 includes/admin/thickbox.php:63
+#: includes/checkout/template.php:560 includes/scripts.php:57 includes/shortcodes.php:31
+#: includes/template-functions.php:61
+msgid "Purchase"
+msgstr "خرید"
+
+# @ edd
+#: includes/scripts.php:70
+msgid "You have already added this item to your cart"
+msgstr "شما این مورد را قبلاً به سبدخرید خودتان اضافه کردید"
+
+# @ edd
+#: includes/scripts.php:72 includes/template-functions.php:116
+msgid "Loading"
+msgstr "در حال بارگذاری"
+
+# @ edd
+#: includes/scripts.php:73
+msgid "Please select an option"
+msgstr "لطفاً یک گزینه انتخاب کنید"
+
+# @ edd
+#: includes/scripts.php:208
+msgid "Add New Download"
+msgstr "اضافه کردن دانلود"
+
+# @ edd
+#: includes/scripts.php:209
+msgid "Use This File"
+msgstr "استفاده از این فایل"
+
+# @ edd
+#: includes/scripts.php:210
+msgid "Sorry, not available for variable priced products."
+msgstr "متاسفانه برای قیمت‌گذاری متغیر دردسترس نیست."
+
+# @ edd
+#: includes/scripts.php:211
+msgid "Are you sure you wish to delete this payment?"
+msgstr "آیا مطمئنید که می‌خواهید این پرداخت را حذف کنید؟"
+
+# @ edd
+#: includes/scripts.php:212
+#, fuzzy
+msgid "Are you sure you wish to delete this note?"
+msgstr "آیا مطمئنید که می‌خواهید این پرداخت را حذف کنید؟"
+
+# @ edd
+#: includes/scripts.php:213
+#, fuzzy
+msgid "Are you sure you wish to delete this tax rate?"
+msgstr "آیا مطمئنید که می‌خواهید این پرداخت را حذف کنید؟"
+
+# @ edd
+#: includes/scripts.php:214
+msgid "You must have at least one price"
+msgstr "شما باید حداقل یک قیمت وارد کنید"
+
+# @ edd
+#: includes/scripts.php:215
+msgid "You must have at least one file"
+msgstr "شما باید حداقل یک فایل وارد کنید"
+
+# @ edd
+#: includes/scripts.php:216
+msgid "You must have at least one field"
+msgstr "شما حداقل باید یک فیلد را پرکنید"
+
+# @ edd
+#: includes/admin/payments/edit-payment.php:72
+#: includes/admin/settings/register-settings.php:1076 includes/scripts.php:220
+#: templates/checkout_cart.php:37
+msgid "Remove"
+msgstr "حذف"
+
+# @ edd
+#: includes/shortcodes.php:194
+msgid "Purchase All Items"
+msgstr "خرید همه موارد"
+
+# @ edd
+#: includes/shortcodes.php:392
+#, php-format
+msgctxt "download post type name"
+msgid "No %s found"
+msgstr "هیچ %s یافت نشد"
+
+# @ edd
+#: includes/shortcodes.php:436
+msgid "Sorry, trouble retrieving payment receipt."
+msgstr "متاسفیم، ولی مشکلی در گرفتن اطلاعات پرداخت پیش آمده است."
+
+# @ edd
+#: includes/shortcodes.php:541
+msgid "The passwords you entered do not match. Please try again."
+msgstr "رمزعبورها با هم برابر نیستند. لطفاً دوباره تلاش کنید."
+
+# @ edd
+#: includes/admin/admin-notices.php:46 includes/template-functions.php:53
+#, php-format
+msgid "No checkout page has been configured. Visit <a href=\"%s\">Settings</a> to set one."
+msgstr ""
+"هیچ برگه‌ای برای پرداخت انتخاب نشده است. برای انتخاب به <a href=\"%s\">پیکربندی</a> بروید."
+
+# @ edd
+#: includes/template-functions.php:119
+#, php-format
+msgid "Item successfully added to your %scart%s."
+msgstr "محصول با موفقیت به %sسبد خرید%s شما اضافه شد."
+
+# @ edd
+#: includes/template-functions.php:120
+msgid "Go to Checkout"
+msgstr "بریم برای پرداخت!"
+
+# @ edd
+#: includes/template-functions.php:274
+msgid "Gray"
+msgstr "خاکستری"
+
+# @ edd
+#: includes/template-functions.php:275
+msgid "Blue"
+msgstr "آبی"
+
+# @ edd
+#: includes/template-functions.php:276
+msgid "Green"
+msgstr "سبز"
+
+# @ edd
+#: includes/template-functions.php:277
+msgid "Yellow"
+msgstr "زرد"
+
+# @ edd
+#: includes/template-functions.php:278
+msgid "Dark Gray"
+msgstr "خاکستری تیره"
+
+# @ edd
+#: includes/template-functions.php:294
+msgid "Button"
+msgstr "دکمه"
+
+# @ edd
+#: includes/template-functions.php:295
+msgid "Plain Text"
+msgstr "متن معمولی"
+
+# @ edd
+#: includes/template-functions.php:318
+msgid "You have already purchased this item, but you may purchase it again."
+msgstr "شما این محصول را قبلاً خریده‌اید، شاید دلتان می‌خواهد دوباره بخرید!"
+
+# @ edd
+#: includes/template-functions.php:362
+msgid "No downloads found"
+msgstr "هیچ دانلودی یافت نشد"
+
+# @ edd
+#: includes/widgets.php:37
+msgid "Downloads Cart"
+msgstr "سبد خرید"
+
+# @ edd
+#: includes/widgets.php:37
+msgid "Display the downloads shopping cart"
+msgstr "نمایش سبد خرید"
+
+# @ edd
+#: includes/widgets.php:70 includes/widgets.php:137
+msgid "Title:"
+msgstr "عنوان:"
+
+# @ edd
+#: includes/widgets.php:90
+msgid "Downloads Categories / Tags"
+msgstr "دسته / برچسب‌های دانلودها"
+
+# @ edd
+#: includes/widgets.php:90
+msgid "Display the downloads categories or tags"
+msgstr "نمایش دسته یا برچسب‌های دانلود"
+
+# @ edd
+#: includes/widgets.php:142
+msgid "Taxonomy:"
+msgstr "طبقه بندی:"
+
+# @ edd
+#: includes/widgets.php:163
+msgid "Display a user's purchase history"
+msgstr "نمایش سوابق پرداخت کاربر"
+
+# @ edd
+#: includes/widgets.php:202 templates/history-downloads.php:49
+#: templates/shortcode-receipt.php:189
+msgid "No downloadable files found."
+msgstr "هیچ فایل قابل دانلودی پیدا نشد."
+
+# @ edd
+#: includes/widgets.php:229
+msgid "Title"
+msgstr "عنوان"
+
+# @ edd
+#: includes/admin/add-ons.php:42
+msgid "Add Ons for Easy Digital Downloads"
+msgstr "افزونه برای Easy Digital Downloads"
+
+# @ edd
+#: includes/admin/add-ons.php:43
+msgid "Browse All Extensions"
+msgstr "مرور همه افزونه‌ها"
+
+# @ edd
+#: includes/admin/add-ons.php:45
+msgid "These add-ons extend the functionality of Easy Digital Downloads."
+msgstr "این افزونه‌ها به بیشتر شدن قابلیت‌های Easy Digital Downloads کمک می‌کنند."
+
+# @ edd
+#: includes/admin/add-ons.php:69
+msgid ""
+"There was an error retrieving the extensions list from the server. Please try again "
+"later."
+msgstr "متاسفانه مشکلی در گرفتن لیست افزونه‌ها پیش آمده است. لطفاً مجدداً تلاش کنید."
+
+# @ edd
+#: includes/admin/admin-notices.php:26
+msgid "Discount code updated."
+msgstr "کد تخفیف بروزرسانی شد."
+
+# @ edd
+#: includes/admin/admin-notices.php:30
+msgid "There was a problem updating your discount code, please try again."
+msgstr "مشکلی در بروزرسانی کدتخفیف وجود دارد. لطفاً دوباره تلاش کنید."
+
+# @ edd
+#: includes/admin/admin-notices.php:34
+msgid "The payment has been deleted."
+msgstr "پرداخت حذف شده است."
+
+# @ edd
+#: includes/admin/admin-notices.php:38
+msgid "The purchase receipt has been resent."
+msgstr "سفارش خرید دوباره فرستاده شد."
+
+# @ edd
+#: includes/admin/admin-notices.php:42
+#, php-format
+msgid "Note: Test Mode is enabled, only test payments are shown below. %sSettings%s."
+msgstr ""
+"نکته: حالت آزمایشی فعال است، تنها پرداخت‌های آزمایشی نشان داده می‌شوند. %sپیکربندی%s."
+
+# @ edd
+#: includes/admin/admin-notices.php:60
+msgid "There seems to be an issue with the server. Please try again in a few minutes."
+msgstr "به نظر می‌رسد که مشکلی با سرور داریم. لطفاً چند دقیقه بعد دوباره تلاش کنید."
+
+# @ edd
+#: includes/admin/admin-pages.php:35 includes/admin/discounts/discount-codes.php:33
+msgid "Discount Codes"
+msgstr "کدهای تخفیف"
+
+# @ edd
+#: includes/admin/admin-pages.php:36
+msgid "Earnings and Sales Reports"
+msgstr "گزارشات فروش و درآمد"
+
+# @ edd
+#: includes/admin/admin-pages.php:36 includes/admin/reporting/contextual-help.php:42
+#: includes/admin/reporting/reports.php:32
+msgid "Reports"
+msgstr "گزارشات"
+
+# @ edd
+#: includes/admin/admin-pages.php:37
+msgid "Easy Digital Download Settings"
+msgstr "پیکربندی Easy Digital Download"
+
+# @ edd
+#: includes/admin/admin-pages.php:37
+msgid "Settings"
+msgstr "پیکربندی"
+
+# @ edd
+#: includes/admin/admin-pages.php:38
+msgid "Easy Digital Download System Info"
+msgstr "اطلاعات سیستم Easy Digital Downloads"
+
+# @ edd
+#: includes/admin/admin-pages.php:38
+msgid "System Info"
+msgstr "اطلاعات سیستم"
+
+# @ edd
+#: includes/admin/admin-pages.php:39
+msgid "Easy Digital Download Add Ons"
+msgstr "افزونه‌های Easy Digital Downloads"
+
+# @ edd
+#: includes/admin/admin-pages.php:39
+msgid "Add Ons"
+msgstr "افزونه&zwnj;ها"
+
+# @ edd
+#: includes/admin/admin-pages.php:40
+msgid "EDD Upgrades"
+msgstr "ارتقاء EDD"
+
+# @ edd
+#: includes/admin/dashboard-widgets.php:24
+msgid "Easy Digital Downloads Sales Summary"
+msgstr "خلاصه فروش‌ها در Easy Digital Downloads"
+
+# @ edd
+#: includes/admin/dashboard-widgets.php:57
+msgid "Current Month"
+msgstr "ماه کنونی"
+
+# @ edd
+#: includes/admin/dashboard-widgets.php:62 includes/admin/dashboard-widgets.php:77
+#: includes/admin/downloads/dashboard-columns.php:33
+#: includes/admin/reporting/class-download-reports-table.php:100
+#: includes/admin/reporting/graphing.php:207 includes/admin/reporting/pdf-reports.php:197
+#: includes/admin/reporting/reports.php:57
+msgid "Earnings"
+msgstr "درآمدها"
+
+# @ edd
+#: includes/admin/dashboard-widgets.php:67 includes/admin/dashboard-widgets.php:81
+msgid "Sale"
+msgid_plural "Sales"
+msgstr[0] "فروش"
+msgstr[1] "فروش&zwnj;ها"
+
+# @ edd
+#: includes/admin/dashboard-widgets.php:71 includes/admin/reporting/graphing.php:309
+msgid "Last Month"
+msgstr "ماه گذشته"
+
+# @ edd
+#: includes/admin/dashboard-widgets.php:85
+msgid "Totals"
+msgstr "مجموع"
+
+# @ edd
+#: includes/admin/dashboard-widgets.php:90
+msgid "Total Earnings"
+msgstr "کل درآمد"
+
+# @ edd
+#: includes/admin/dashboard-widgets.php:94
+#: includes/admin/reporting/class-gateways-reports-table.php:86
+msgid "Total Sales"
+msgstr "کل فروش"
+
+# @ edd
+#: includes/admin/dashboard-widgets.php:100
+msgid "Lifetime Best Selling"
+msgstr "فروش برای همیشه"
+
+# @ edd
+#: includes/admin/dashboard-widgets.php:118
+msgid "Recent Purchases"
+msgstr "خریدهای اخیر"
+
+# @ edd
+#: includes/admin/dashboard-widgets.php:128
+#, php-format
+msgid "Purchase Details for Payment #%s"
+msgstr "جزییات خرید برای خرید #%s"
+
+# @ edd
+#: includes/admin/dashboard-widgets.php:128
+#: includes/admin/payments/class-payments-table.php:250
+#: includes/admin/payments/payments-history.php:79
+msgid "View Order Details"
+msgstr "مشاهده جزییات خرید"
+
+# @ edd
+#: includes/admin/system-info.php:39
+msgid "System Information"
+msgstr "اطلاعات سیستم"
+
+# @ edd
+#: includes/admin/system-info.php:41
+msgid "To copy the system info, click below then press Ctrl + C (PC) or Cmd + C (Mac)."
+msgstr "برای کپی این اطلاعات، روی دکمه زیر یا Ctrl+C در PC یا Cmd + C در مک را فشار دهید."
+
+# @ edd
+#: includes/admin/system-info.php:99
+msgid "Your server supports fsockopen."
+msgstr "Your server supports fsockopen."
+
+# @ edd
+#: includes/admin/system-info.php:99
+msgid "Your server does not support fsockopen."
+msgstr "Your server does not support fsockopen."
+
+# @ edd
+#: includes/admin/system-info.php:133
+msgid "Download System Info File"
+msgstr "دانلود فایل اطلاعات سیستم"
+
+# @ edd
+#: includes/admin/thickbox.php:29 includes/admin/thickbox.php:33
+#: includes/admin/thickbox.php:127
+#, php-format
+msgid "Insert %s"
+msgstr "درج %s"
+
+# @ edd
+#: includes/admin/thickbox.php:30
+msgid "Insert Download"
+msgstr "درج دانلود"
+
+# @ edd
+#: includes/admin/thickbox.php:67
+msgid "You must choose a download"
+msgstr "شما باید یک دانلود انتخاب کنید"
+
+# @ edd
+#: includes/admin/thickbox.php:89
+#, php-format
+msgid "Use the form below to insert the short code for purchasing a %s"
+msgstr "از فرم زیر برای ایجاد کدکوتاه برای فروش %s استفاده کنید"
+
+# @ edd
+#: includes/admin/thickbox.php:92
+#, php-format
+msgid "Choose a %s"
+msgstr "یک %s انتخاب کنید"
+
+# @ edd
+#: includes/admin/thickbox.php:101
+msgid "Choose a style"
+msgstr "یک سبک انتخاب کنید"
+
+# @ edd
+#: includes/admin/thickbox.php:115
+msgid "Choose a button color"
+msgstr "یک رنگ دکمه انتخاب کنید"
+
+# @ edd
+#: includes/admin/thickbox.php:124
+msgid "Link text . . ."
+msgstr "متن لینک . . ."
+
+# @ edd
+#: includes/admin/thickbox.php:128
+msgid "Cancel"
+msgstr "انصراف"
+
+# @ edd
+#: includes/admin/welcome.php:52 includes/admin/welcome.php:53
+#: includes/admin/welcome.php:61 includes/admin/welcome.php:62
+msgid "Welcome to Easy Digital Downloads"
+msgstr "به Easy Digital Downloads خوش آمدید"
+
+# @ edd
+#: includes/admin/welcome.php:124 includes/admin/welcome.php:256
+#, php-format
+msgid "Welcome to Easy Digital Downloads %s"
+msgstr "به Easy Digital Downloads خوش آمدید %s"
+
+# @ edd
+#: includes/admin/welcome.php:125 includes/admin/welcome.php:257
+#, php-format
+msgid ""
+"Thank you for updating to the latest version! Easy Digital Downloads %s is ready to make "
+"your online store faster, safer and better!"
+msgstr ""
+"از بروزرسانی شما متشکریم! اکنون Easy Digital Downloads %s آماده است تا فروشگاه شما را "
+"سریع‌تر و امن‌تر بسازد!"
+
+# @ edd
+#: includes/admin/welcome.php:126 includes/admin/welcome.php:258
+#, php-format
+msgid "Version %s"
+msgstr "نسخه %s"
+
+# @ edd
+#: includes/admin/welcome.php:130 includes/admin/welcome.php:262
+msgid "What's New"
+msgstr "تازگی چه خبر؟"
+
+# @ edd
+#: includes/admin/welcome.php:132 includes/admin/welcome.php:264
+msgid "Credits"
+msgstr "سازندگان"
+
+# @ edd
+#: includes/admin/welcome.php:137
+#, fuzzy
+msgid "Bundled Products"
+msgstr "محصولات"
+
+# @ edd
+#: includes/admin/welcome.php:143
+msgid "Combine Multiple Products into Bundles"
+msgstr ""
+
+# @ edd
+#: includes/admin/welcome.php:144
+msgid ""
+"A bundled product is a group of other Downloads in your store that are purchased as a "
+"single item, usually at a discount."
+msgstr ""
+
+# @ edd
+#: includes/admin/welcome.php:146
+msgid "Simplify Your Admin Tasks"
+msgstr ""
+
+# @ edd
+#: includes/admin/welcome.php:147
+msgid ""
+"Prior to Bundles, you were forced to create a new product and then manually add all of "
+"the necessary files from the other Downloads to it. No longer! Bundled products "
+"automatically grab the file downloads from products included in the bundle."
+msgstr ""
+
+# @ edd
+#: includes/admin/welcome.php:153
+#, fuzzy
+msgid "Improved Order Details Interface"
+msgstr "مشاهده جزییات خرید"
+
+# @ edd
+#: includes/admin/welcome.php:159
+#, fuzzy
+msgid "Better Order Detail Display"
+msgstr "مشاهده جزییات خرید"
+
+# @ edd
+#: includes/admin/welcome.php:160
+msgid ""
+"By doing away with the View Order Details pop up, we've made it possible to present the "
+"order details in a much more clear manner."
+msgstr ""
+
+# @ edd
+#: includes/admin/welcome.php:162
+msgid "More Developer Friendly"
+msgstr ""
+
+# @ edd
+#: includes/admin/welcome.php:163
+msgid ""
+"The new Order Details display is much more developer friendly with several hooks that "
+"make it possible to easily add additional data about the order via extensions."
+msgstr ""
+
+# @ edd
+#: includes/admin/welcome.php:170
+#, fuzzy
+msgid "Multiple Tax Rates"
+msgstr "میزان مالیات"
+
+# @ edd
+#: includes/admin/welcome.php:176
+msgid "Define Rates for Specific Countries and States / Provinces"
+msgstr ""
+
+# @ edd
+#: includes/admin/welcome.php:177
+msgid ""
+"You can now setup tax rates for specific countries and states / provinces in those "
+"countries."
+msgstr ""
+
+# @ edd
+#: includes/admin/welcome.php:179
+msgid "No More Local-Tax Opt-In"
+msgstr ""
+
+# @ edd
+#: includes/admin/welcome.php:180
+msgid ""
+"Taxes are now automatically calculated based on the customer's billing address. If you "
+"have taxes enabled, billing detail fields will be automatically added to the checkout "
+"form."
+msgstr ""
+
+# @ edd
+#: includes/admin/welcome.php:186
+msgid "Improved Developer Documentation"
+msgstr ""
+
+# @ edd
+#: includes/admin/welcome.php:190
+msgid "Code Reference"
+msgstr ""
+
+# @ edd
+#: includes/admin/welcome.php:191
+msgid ""
+"A complete code reference has been made available for developers at <a href=\"https://"
+"easydigitaldownloads.com/codex/index.html\">/codex</a> on the Easy Digital Downloads "
+"website."
+msgstr ""
+
+# @ edd
+#: includes/admin/welcome.php:193
+#, fuzzy
+msgid "Action Hooks"
+msgstr "عملیات"
+
+# @ edd
+#: includes/admin/welcome.php:194
+msgid ""
+"Along with the complete code reference, we have been working to bring the <a href="
+"\"https://easydigitaldownloads.com/docs/section/actions/\">Actions reference</a> up to "
+"date with all of the action hooks available in Easy Digital Downloads."
+msgstr ""
+
+# @ edd
+#: includes/admin/welcome.php:200
+#, fuzzy
+msgid "Discounts API Endpoint"
+msgstr "تخفیف اعمال شد!"
+
+# @ edd
+#: includes/admin/welcome.php:203
+#, fuzzy
+msgid "Retrieve Available Discounts"
+msgstr "همه کدهای تخفیف"
+
+# @ edd
+#: includes/admin/welcome.php:204
+msgid ""
+"The EDD RESTful API now includes a /discounts endpoint that can be used for retrieving "
+"details about the available discounts in your store. Want to create a feed on another "
+"website of the discounts available? You can now do that."
+msgstr ""
+
+# @ edd
+#: includes/admin/welcome.php:209
+#, fuzzy
+msgid "Additional Updates"
+msgstr "تاریخ انقضاء"
+
+# @ edd
+#: includes/admin/welcome.php:213
+#, fuzzy
+msgid "EDD_Cron Class"
+msgstr "کلاس EDD_Fees"
+
+# @ edd
+#: includes/admin/welcome.php:214
+#, php-format
+msgid ""
+"The new %sEDD_Cron class%s provides a simple way to hook into routinely scheduled events "
+"in Easy Digital Downloads."
+msgstr ""
+
+# @ edd
+#: includes/admin/welcome.php:216
+msgid "Improved Country and State / Province Fields "
+msgstr ""
+
+# @ edd
+#: includes/admin/welcome.php:217
+msgid ""
+"We have added drop down fields for the states / provinces of 12 additional countries, "
+"providing customers in those countries a much better checkout experience."
+msgstr ""
+
+# @ edd
+#: includes/admin/welcome.php:221
+#, fuzzy
+msgid "More Reliable File Download Methods"
+msgstr "مشاهده گزارش دانلود فایل"
+
+# @ edd
+#: includes/admin/welcome.php:222
+msgid ""
+"EDD now supports delivering file downloads via X-Sendfile, X-Lighttpd-Sendfile, and X-"
+"Accel-Redirect depending on your server config."
+msgstr ""
+
+# @ edd
+#: includes/admin/welcome.php:224
+msgid "Lookup Previous Guest Purchases on User Registration"
+msgstr ""
+
+# @ edd
+#: includes/admin/welcome.php:225
+msgid ""
+"Anytime a new user is added, EDD will look up any purchases the user may have made as a "
+"guest and attribute them to the newly created account."
+msgstr ""
+
+# @ edd
+#: includes/admin/welcome.php:229
+#, fuzzy
+msgid "Itemized PayPal Purchases"
+msgstr "همه خریدها"
+
+# @ edd
+#: includes/admin/welcome.php:230
+msgid ""
+"Purchases made through PayPal will now show itemized details in the PayPal order summary "
+"box."
+msgstr ""
+
+# @ edd
+#: includes/admin/welcome.php:232
+msgid "SKU Support"
+msgstr ""
+
+# @ edd
+#: includes/admin/welcome.php:233
+msgid ""
+"Adding product SKUs to Downloads is now supported and can be enabled in Downloads > "
+"Settings > Misc."
+msgstr ""
+
+# @ edd
+#: includes/admin/welcome.php:239
+msgid "Go to Easy Digital Downloads Settings"
+msgstr "پیکربندی Easy Digital Download"
+
+# @ edd
+#: includes/admin/welcome.php:268
+msgid ""
+"Easy Digital Downloads is created by a worldwide team of developers who aim to provide "
+"the #1 eCommerce platform for selling digital goods through WordPress."
+msgstr ""
+"Easy Digital Downloads توسط تیمی از توسعه‌دهندگان سراسر جهان ساخته شده است. این پلاگین "
+"بهترین پلاگین برای ساخت فروشگاه محصولات دیجیتالی تحت وردپرس است."
+
+# @ edd
+#: includes/admin/welcome.php:295
+#, php-format
+msgid "View %s"
+msgstr "مشاهده %1$s"
+
+# @ edd
+#: includes/admin/discounts/add-discount.php:22
+#: includes/admin/discounts/class-discount-codes-table.php:148
+#: includes/admin/discounts/edit-discount.php:32
+#: includes/admin/downloads/dashboard-columns.php:28
+#: includes/admin/reporting/class-customer-reports-table.php:95
+#: includes/admin/reporting/class-export-customers.php:66
+#: includes/admin/reporting/class-export-customers.php:75
+#: templates/shortcode-receipt.php:111
+msgid "Name"
+msgstr "نام"
+
+# @ edd
+#: includes/admin/discounts/add-discount.php:26
+#: includes/admin/discounts/edit-discount.php:36
+msgid "The name of this discount"
+msgstr "نام این کد تخفیف"
+
+# @ edd
+#: includes/admin/discounts/add-discount.php:31
+#: includes/admin/discounts/class-discount-codes-table.php:149
+#: includes/admin/discounts/edit-discount.php:41
+msgid "Code"
+msgstr "کد"
+
+# @ edd
+#: includes/admin/discounts/add-discount.php:35
+#: includes/admin/discounts/edit-discount.php:45
+msgid "Enter a code for this discount, such as 10PERCENT"
+msgstr "یک کد به دلخواه وارد کنید، مثل Nouroz"
+
+# @ edd
+#: includes/admin/discounts/add-discount.php:40
+#: includes/admin/discounts/edit-discount.php:50
+msgid "Type"
+msgstr "نوع"
+
+# @ edd
+#: includes/admin/discounts/add-discount.php:44
+#: includes/admin/discounts/edit-discount.php:54
+msgid "Percentage"
+msgstr "درصد"
+
+# @ edd
+#: includes/admin/discounts/add-discount.php:45
+#: includes/admin/discounts/edit-discount.php:55
+msgid "Flat amount"
+msgstr "مقدار مشخص"
+
+# @ edd
+#: includes/admin/discounts/add-discount.php:47
+#: includes/admin/discounts/edit-discount.php:57
+msgid "The kind of discount to apply for this discount."
+msgstr "نوع کدتخفیفتان چه باشد؟"
+
+# @ edd
+#: includes/admin/discounts/add-discount.php:52
+#: includes/admin/discounts/class-discount-codes-table.php:150
+#: includes/admin/discounts/edit-discount.php:62
+#: includes/admin/payments/class-payments-table.php:200
+#: includes/admin/reporting/class-export-payments.php:69 templates/history-purchases.php:11
+msgid "Amount"
+msgstr "مقدار"
+
+# @ edd
+#: includes/admin/discounts/add-discount.php:56
+#: includes/admin/discounts/edit-discount.php:66
+msgid "The amount of this discount code."
+msgstr "مقدار کد تخفیف."
+
+# @ edd
+#: includes/admin/discounts/add-discount.php:61
+#: includes/admin/discounts/edit-discount.php:71
+#, php-format
+msgid "%s Requirements"
+msgstr "محصول %s نیاز است"
+
+# @ edd
+#: includes/admin/discounts/add-discount.php:66
+#: includes/admin/discounts/edit-discount.php:76
+#, php-format
+msgid "All Selected %s"
+msgstr "همه %sی انتخاب شده"
+
+# @ edd
+#: includes/admin/discounts/add-discount.php:67
+#: includes/admin/discounts/edit-discount.php:77
+#, php-format
+msgid "Any Selected %s"
+msgstr "هرگونه %s انتخاب شده"
+
+# @ edd
+#: includes/admin/discounts/add-discount.php:69
+#: includes/admin/discounts/edit-discount.php:79
+msgid "Condition"
+msgstr "شرط"
+
+# @ edd
+#: includes/admin/discounts/add-discount.php:71
+#: includes/admin/discounts/edit-discount.php:81
+#, php-format
+msgid "Choose one or more %s"
+msgstr "یکی از %s یا چند دانلود را انتخاب کنید."
+
+# @ edd
+#: includes/admin/discounts/add-discount.php:81
+#: includes/admin/discounts/edit-discount.php:91
+#, php-format
+msgid "%s required to be purchased for this discount."
+msgstr "برای استفاده از این کد تخفیف باید محصول %s را خریداری کنید."
+
+# @ edd
+#: includes/admin/discounts/add-discount.php:86
+#: includes/admin/discounts/edit-discount.php:95
+#, php-format
+msgid "Apply discount only to selected %s?"
+msgstr "اعمال تخفیف فقط به %s انتخاب شده؟"
+
+# @ edd
+#: includes/admin/discounts/add-discount.php:93
+#: includes/admin/discounts/edit-discount.php:102
+msgid "Start date"
+msgstr "تاریخ شروع"
+
+# @ edd
+#: includes/admin/discounts/add-discount.php:97
+#: includes/admin/discounts/edit-discount.php:106
+msgid ""
+"Enter the start date for this discount code in the format of mm/dd/yyyy. For no start "
+"date, leave blank. If entered, the discount can only be used after or on this date."
+msgstr ""
+"یک تاریخ شروع برای این کد وارد کنید، مثل mm/dd/yyyy. برای بدون تاریخ شروع بودن، این قسمت "
+"را خالی بگذارید. کدتخفیف پس از این تاریخ قابل استفاده خواهد بود."
+
+# @ edd
+#: includes/admin/discounts/add-discount.php:102
+#: includes/admin/discounts/edit-discount.php:111
+msgid "Expiration date"
+msgstr "تاریخ انقضاء"
+
+# @ edd
+#: includes/admin/discounts/add-discount.php:106
+#: includes/admin/discounts/edit-discount.php:115
+msgid ""
+"Enter the expiration date for this discount code in the format of mm/dd/yyyy. For no "
+"expiration, leave blank"
+msgstr ""
+"تاریخ انقضایی برای این کدتخفیف وارد کنید، مثل mm/dd/yyyy. برای منقضی نشدن، این قسمت را "
+"خالی بگذارید."
+
+# @ edd
+#: includes/admin/discounts/add-discount.php:111
+#: includes/admin/discounts/edit-discount.php:129
+msgid "Minimum Amount"
+msgstr "کمترین مقدار"
+
+# @ edd
+#: includes/admin/discounts/add-discount.php:115
+#: includes/admin/discounts/edit-discount.php:133
+msgid ""
+"The minimum amount that must be purchased before this discount can be used. Leave blank "
+"for no minimum."
+msgstr ""
+"کمترین مقداری که باید خریداری شود تا این کد تخفیف کار کند. برای انجام‌نشدن این عمل، این "
+"قسمت را خالی بگذارید."
+
+# @ edd
+#: includes/admin/discounts/add-discount.php:120
+#: includes/admin/discounts/class-discount-codes-table.php:152
+#: includes/admin/discounts/edit-discount.php:120
+msgid "Max Uses"
+msgstr "بیشترین استفاده‌"
+
+# @ edd
+#: includes/admin/discounts/add-discount.php:124
+#: includes/admin/discounts/edit-discount.php:124
+msgid "The maximum number of times this discount can be used. Leave blank for unlimited."
+msgstr ""
+"بیشترین دفعاتی که این کد می‌تواند مورد استفاده قرار بگیرد. برای نامحدود بودن، این قسمت را "
+"خالی بگذارید."
+
+# @ edd
+#: includes/admin/discounts/add-discount.php:129
+#: includes/admin/discounts/edit-discount.php:150
+msgid "Use Once Per Customer"
+msgstr "فقط برای یک بار!"
+
+# @ edd
+#: includes/admin/discounts/add-discount.php:133
+#: includes/admin/discounts/edit-discount.php:154
+msgid "Limit this discount to a single-use per customer?"
+msgstr "اگر این گزینه را تیک بزنید، این تخفیف فقط برای یک بار برای هر مشتری استفاده می‌شود"
+
+# @ edd
+#: includes/admin/discounts/add-discount.php:142
+msgid "Add Discount Code"
+msgstr "اضافه‌کردن کدتخفیف"
+
+# @ edd
+#: includes/admin/discounts/class-discount-codes-table.php:129
+#: includes/admin/payments/class-payments-table.php:175
+#: includes/admin/reporting/class-file-downloads-logs-list-table.php:290
+#: includes/admin/reporting/class-sales-logs-list-table.php:254
+msgid "All"
+msgstr "همه"
+
+# @ edd
+#: includes/admin/discounts/class-discount-codes-table.php:130
+#: includes/admin/discounts/edit-discount.php:142
+msgid "Active"
+msgstr "فعال"
+
+# @ edd
+#: includes/admin/discounts/class-discount-codes-table.php:131
+#: includes/admin/discounts/edit-discount.php:143
+msgid "Inactive"
+msgstr "غیرفعال"
+
+# @ edd
+#: includes/admin/discounts/class-discount-codes-table.php:147
+#: includes/admin/payments/class-payments-table.php:197
+#: includes/admin/reporting/class-export-payments.php:63
+#: includes/admin/reporting/class-export.php:69 templates/history-purchases.php:9
+msgid "ID"
+msgstr "شماره"
+
+# @ edd
+#: includes/admin/discounts/class-discount-codes-table.php:151
+msgid "Uses"
+msgstr "دفعات استفاده"
+
+# @ edd
+#: includes/admin/discounts/class-discount-codes-table.php:153
+msgid "Start Date"
+msgstr "تاریخ شروع"
+
+# @ edd
+#: includes/admin/discounts/class-discount-codes-table.php:154
+msgid "Expiration"
+msgstr "انقضاء"
+
+# @ edd
+#: includes/admin/discounts/class-discount-codes-table.php:155
+#: includes/admin/discounts/edit-discount.php:138
+#: includes/admin/payments/class-payments-table.php:203
+#: includes/admin/reporting/class-export-payments.php:75
+msgid "Status"
+msgstr "وضعیت"
+
+# @ edd
+#: includes/admin/discounts/class-discount-codes-table.php:206
+#: includes/admin/payments/class-payments-table.php:273
+msgid "Edit"
+msgstr "ویرایش"
+
+# @ edd
+#: includes/admin/discounts/class-discount-codes-table.php:209
+msgid "Deactive"
+msgstr "غیرفعال کردن"
+
+# @ edd
+#: includes/admin/discounts/class-discount-codes-table.php:211
+msgid "Activate"
+msgstr "فعال کردن"
+
+# @ edd
+#: includes/admin/discounts/class-discount-codes-table.php:213
+#: includes/admin/discounts/class-discount-codes-table.php:245
+#: includes/admin/payments/class-payments-table.php:278
+#: includes/admin/payments/class-payments-table.php:335
+#: includes/admin/payments/edit-payment.php:102
+msgid "Delete"
+msgstr "حذف"
+
+# @ edd
+#: includes/admin/discounts/class-discount-codes-table.php:329
+msgid "unlimited"
+msgstr "نامحدود"
+
+# @ edd
+#: includes/admin/discounts/class-discount-codes-table.php:331
+msgid "Unlimited"
+msgstr "نامحدود"
+
+# @ edd
+#: includes/admin/discounts/class-discount-codes-table.php:339
+msgid "No start date"
+msgstr "بدون تاریخ شروع"
+
+# @ edd
+#: includes/admin/discounts/class-discount-codes-table.php:343
+msgid "Expired"
+msgstr "منقضی شده"
+
+# @ edd
+#: includes/admin/discounts/class-discount-codes-table.php:345
+msgid "No expiration"
+msgstr "بدون انقضاء"
+
+# @ edd
+#: includes/admin/discounts/contextual-help.php:25
+#: includes/admin/downloads/contextual-help.php:28
+#: includes/admin/payments/contextual-help.php:29
+#: includes/admin/reporting/contextual-help.php:29
+#: includes/admin/settings/contextual-help.php:29
+msgid "For more information:"
+msgstr "برای اطلاعات بیشتر:"
+
+# @ edd
+#: includes/admin/discounts/contextual-help.php:26
+#: includes/admin/downloads/contextual-help.php:29
+#: includes/admin/payments/contextual-help.php:30
+#: includes/admin/reporting/contextual-help.php:30
+#: includes/admin/settings/contextual-help.php:30
+#, php-format
+msgid "Visit the <a href=\"%s\">documentation</a> on the Easy Digital Downloads website."
+msgstr "سری به <a href=\"%s\">مستندات</a> در سایت Easy Digital Downloads بزنید."
+
+# @ edd
+#: includes/admin/discounts/contextual-help.php:28
+#: includes/admin/downloads/contextual-help.php:31
+#: includes/admin/payments/contextual-help.php:32
+#: includes/admin/reporting/contextual-help.php:32
+#: includes/admin/settings/contextual-help.php:32
+#, php-format
+msgid ""
+"<a href=\"%s\">Post an issue</a> on <a href=\"%s\">GitHub</a>. View <a href=\"%s"
+"\">extensions</a> or <a href=\"%s\">themes</a>."
+msgstr ""
+"اگر برنامه اشکالی دارد، اشکال آن را برای ما <a href=\"%s\">بفرستید</a> تا ما آن‌را در <a "
+"href=\"%s\">GitHub</a> بررسی کنیم. سری هم به <a href=\"%s\">افزونه‌ها</a> یا <a href=\"%s"
+"\">پوسته‌ها</a> بزنید."
+
+# @ edd
+#: includes/admin/discounts/contextual-help.php:38
+#: includes/admin/settings/contextual-help.php:42
+#: includes/admin/settings/display-settings.php:33 includes/admin/settings/settings.php:34
+msgid "General"
+msgstr "عمومی"
+
+# @ edd
+#: includes/admin/discounts/contextual-help.php:40
+msgid ""
+"Discount codes allow you to offer buyers special discounts by having them enter "
+"predefined codes during checkout."
+msgstr ""
+"کدهای تخفیف به مشتریان شما اجازه می‌دهد تا تخفیف‌های ویژه‌ای روی پرداخت خودشان وارد کنند."
+
+# @ edd
+#: includes/admin/discounts/contextual-help.php:41
+msgid "Discount codes that are set to \"inactive\" cannot be redeemed."
+msgstr "کدهای تخفیفی که غیرفعال شده‌اند نمی‌توانند دوباره استفاده شوند."
+
+# @ edd
+#: includes/admin/discounts/contextual-help.php:42
+msgid ""
+"Discount codes are setup to only be used only one time by each customer. If a customer "
+"attempts to use a code a second time, they will be given an error."
+msgstr "کدهای تخفیف می‌توانند طوری تنظیم شوند که هر کاربر یک بار از آن بتواند استفاده کند."
+
+# @ edd
+#: includes/admin/discounts/contextual-help.php:47
+msgid "Adding Discounts"
+msgstr "اضافه کردن کدهای تخفیف"
+
+# @ edd
+#: includes/admin/discounts/contextual-help.php:49
+msgid "You can create any number of discount codes easily from this page."
+msgstr "شما می‌توانید هرچقدر که دلتان می‌خواهد کدتخفیف از این صفحه ایجاد کنید."
+
+# @ edd
+#: includes/admin/discounts/contextual-help.php:50
+msgid "Discount codes have several options:"
+msgstr "کدتخفیف گزینه‌های زیر را دارد:"
+
+# @ edd
+#: includes/admin/discounts/contextual-help.php:52
+msgid ""
+"<strong>Name</strong> - this is the name given to the discount. Used primarily for "
+"administrative purposes."
+msgstr "<strong>نام</strong> - نام کدتخفیف چه باشد؟"
+
+# @ edd
+#: includes/admin/discounts/contextual-help.php:53
+msgid ""
+"<strong>Code</strong> - this is the unique code that customers will enter during "
+"checkout to redeem the code."
+msgstr ""
+"<strong>کد</strong> - این کد، کدی است که به هر کدتخفیف اختصاص داده می‌شود و مشتریان از "
+"این کد برای اعمال تخفیف برای استفاده کنند."
+
+# @ edd
+#: includes/admin/discounts/contextual-help.php:54
+msgid "<strong>Type</strong> - this is the type of discount this code awards."
+msgstr "<strong>نوع</strong> - این گزینه نوع کد تخفیف را تعیین می‌کند."
+
+# @ edd
+#: includes/admin/discounts/contextual-help.php:55
+msgid ""
+"<strong>Amount</strong> - this discount amount provided by this code. For percentage "
+"based discounts, enter a number such as 70 for 70%. Do not enter a percent sign."
+msgstr ""
+"<strong>مقدار</strong> - مقداری که این کدتخفیف دارد. برای کدتخفیف بانوع درصد باید مقداری "
+"مانند 70 وارد کنید که معنی 70% می‌دهد. علامت درصد را وارد نکن."
+
+# @ edd
+#: includes/admin/discounts/contextual-help.php:56
+msgid ""
+"<strong>Requirements</strong> - This allows you to select the product(s) that are "
+"required to be purchased in order for a discount to be applied."
+msgstr ""
+"<strong>نیاز به دانلود</strong> - این گزینه اجازه این که بتوانید تخفیف را فقط روی "
+"محصولات خاصی اعمال کنید."
+
+# @ edd
+#: includes/admin/discounts/contextual-help.php:57
+msgid ""
+"- <strong>Condition</strong> - This lets you set whether all selected products must be "
+"in the cart, or just a minimum of one."
+msgstr ""
+"- <strong>شرط</strong> - این گزینه تعیین می‌کند که چه چیزهایی باید در سبدخرید باشد تا "
+"تخفیف اعمال شود."
+
+# @ edd
+#: includes/admin/discounts/contextual-help.php:58
+msgid ""
+"- <strong>Apply discount only to selected Downloads?</strong> - If this box is checked, "
+"only the prices of the required products will be discounted. If left unchecked, the "
+"discount will apply to all products in the cart."
+msgstr ""
+"- <strong>اعمال کدتخفیف فقط به یک دانلود انتخاب شده؟</strong> - اگر این قسمت را تیک "
+"بزنید کدتخفیف شما فقط به یک دانلود خاص می‌تواند اعمال شود. ولی اگر تیک نزنید، کدتخفیف به "
+"همه محصولات می‌تواند اعمال شود."
+
+# @ edd
+#: includes/admin/discounts/contextual-help.php:59
+msgid ""
+"<strong>Start Date</strong> - this is the date that this code becomes available. If a "
+"customer attempts to redeem the code prior to this date, they will be given an error. "
+"This is optional."
+msgstr ""
+"<strong>تاریخ شروع</strong> - این تاریخ تعیین می‌کند که کدتخفیف از چه زمانی شروع به کار "
+"کند. این گزینه اختیاری است."
+
+# @ edd
+#: includes/admin/discounts/contextual-help.php:60
+msgid ""
+"<strong>Expiration Date</strong> - this is the end date for the discount. After this "
+"date, the code will no longer be able to be used. This is optional."
+msgstr ""
+"<strong>تاریخ انقضاء</strong> - این تاریخ پایان کدتخفیف را تعیین می‌کند. پس از این تاریخ "
+"این کدتخفیف دیگر قابل‌استفاده نخواهد بود. این گزینه اختیاری است."
+
+# @ edd
+#: includes/admin/discounts/contextual-help.php:61
+msgid ""
+"<strong>Minimum Amount</strong> - this is the minimum purchase amount required to use "
+"this code. If a customer has less than this amount in their cart, they will be given an "
+"error. This is optional."
+msgstr ""
+"<strong>کمترین مقدار</strong> - این گزینه کمترین مقداری که یک خرید باید داشته باشد تا "
+"کدتخفیف اعمال شود را تعیین می‌کند. این گزینه اختیاری است."
+
+#  ح
+# @ edd
+#: includes/admin/discounts/contextual-help.php:62
+msgid ""
+"<strong>Max Uses</strong> - this is the maximum number of times this discount can be "
+"redeemed. Once this number is reached, no more customers will be allowed to use it."
+msgstr ""
+"<strong>بیشترین استفاده</strong> - این گزینه بیشترین دفعات استفاده از یک کدتخفیف را "
+"تعیین می‌کند."
+
+# @ edd
+#: includes/admin/discounts/discount-actions.php:88
+msgid "Trying to cheat or something?"
+msgstr "میخوای کلک بزنی؟"
+
+# @ edd
+#: includes/admin/discounts/discount-codes.php:36
+#: includes/admin/payments/payments-history.php:40 includes/admin/reporting/logs.php:52
+#: includes/admin/reporting/logs.php:102
+msgid "Search"
+msgstr "جست‌وجو"
+
+# @ edd
+#: includes/admin/discounts/edit-discount.php:16
+msgid "Something went wrong."
+msgstr "به گمانمان چیزی اشتباه است."
+
+# @ edd
+#: includes/admin/discounts/edit-discount.php:25
+#: includes/admin/payments/edit-payment.php:19
+msgid "Go Back"
+msgstr "بازگشت"
+
+# @ edd
+#: includes/admin/discounts/edit-discount.php:145
+msgid "The status of this discount code."
+msgstr "وضعیت این کد تخفیف"
+
+# @ edd
+#: includes/admin/discounts/edit-discount.php:165
+msgid "Update Discount Code"
+msgstr "بروزرسانی کد تخفیف"
+
+# @ edd
+#: includes/admin/downloads/contextual-help.php:41
+msgid "Download Configuration"
+msgstr "تنظیمات دانلود"
+
+# @ edd
+#: includes/admin/downloads/contextual-help.php:43
+msgid ""
+"<strong>Pricing Options</strong> - Either define a single fixed price, or enable "
+"variable pricing. By enabling variable pricing, multiple download options and prices can "
+"be configured."
+msgstr ""
+"<strong>تنظیمات قیمت‌گذاری</strong> - شما می‌توانید برای یک محصول قیمتی مشخص یا قیمت متغیر "
+"انتخاب کنید."
+
+# @ edd
+#: includes/admin/downloads/contextual-help.php:45
+msgid ""
+"<strong>File Downloads</strong> - Define download file names and their respsective file "
+"URL. Multiple files can be assigned to a single price, or variable prices."
+msgstr ""
+"<strong>فایل دانلودها</strong> - فایلهای قابل دانلود برای این محصول را انتخاب کنید."
+
+# @ edd
+#: includes/admin/downloads/contextual-help.php:47
+msgid ""
+"<strong>File Download Limit</strong> - Define how many times customers are allowed to "
+"download their purchased files. Leave at 0 for unlimited. Resending the purchase receipt "
+"will permit the customer one additional download if their limit has already been reached."
+msgstr ""
+"<strong>محدودیت دانلود فایل</strong> - می‌توانید برای دانلود هر فایل توسط مشتریان "
+"محدودیتی تعیین کنید. برای نامحدود بودن، مقدار 0 را قرار دهید. اگر مشتری دوباره محصول را "
+"بخرد، اجازه دانلود دوباره فایل را خواهد داشت."
+
+# @ edd
+#: includes/admin/downloads/contextual-help.php:49
+msgid ""
+"<strong>Accounting Options</strong> - If enabled, define an individual SKU or product "
+"number for this download."
+msgstr ""
+
+# @ edd
+#: includes/admin/downloads/contextual-help.php:51
+msgid ""
+"<strong>Button Options</strong> - Disable the automatic output the purchase button. If "
+"disabled, no button will be added to the download page unless the <code>[purchase_link]</"
+"code> shortcode is used."
+msgstr ""
+"<strong>تنظیمات دکمه</strong> - غیرفعال کردن خروجی خودکار دکمه خرید. اگر غیرفعال باشد، "
+"دکمه خرید بدون <code>[purchase_link]</code> نمایش داده خواهد شد."
+
+# @ edd
+#: includes/admin/downloads/contextual-help.php:56 includes/admin/downloads/metabox.php:28
+msgid "Product Notes"
+msgstr "یادداشت محصول"
+
+# @ edd
+#: includes/admin/downloads/contextual-help.php:57
+msgid ""
+"Special notes or instructions for the product. These notes will be added to the purchase "
+"receipt, and additionaly may be used by some extensions or themes on the frontend."
+msgstr ""
+"یادداشت ویژه ای درمورد این محصول دارید؟ این یادداشت‌ها به سفارش خرید اضافه شده و ممکن است "
+"توسط بعضی از پوسته‌ها نمایش داده شوند."
+
+# @ edd
+#: includes/admin/downloads/contextual-help.php:66
+msgid "Purchase Shortcode"
+msgstr "کدکوتاه خرید"
+
+# @ edd
+#: includes/admin/downloads/contextual-help.php:68
+msgid ""
+"<strong>Purchase Shortcode</strong> - If the automatic output of the purchase button has "
+"been disabled via the Download Configuration box, a shortcode can be used to output the "
+"button or link."
+msgstr ""
+"<strong>کدکوتاه خرید</strong> - اگر شما غیرفعال کردن خروجی خودکار دکمه خرید را فعال کرده "
+"باشید، می‌توانید از کدکوتاه برای دکمه یا لینک استفاده کنید."
+
+# @ edd
+#: includes/admin/downloads/contextual-help.php:71
+msgid "The ID of a specific download to purchase."
+msgstr "کدیکتا محصول برای فروش"
+
+# @ edd
+#: includes/admin/downloads/contextual-help.php:72
+msgid ""
+"Whether to show the price on the purchase button. 1 to show the price, 0 to disable it."
+msgstr ""
+"برای نمایش قیمت روی دکمه خرید، عدد 1 را وارد کنید یا برای عدم نمایش عدد 0 را وارد کنید."
+
+# @ edd
+#: includes/admin/downloads/contextual-help.php:73
+msgid "The text to be displayed on the button or link."
+msgstr "متن نمایش داده شده در دکمه یا لینک‌ها."
+
+# @ edd
+#: includes/admin/downloads/contextual-help.php:74
+msgid "<em>button</em> | <em>text</em> - The style of the purchase link."
+msgstr "<em>button</em> | <em>text</em> - سبک لینک خرید."
+
+# @ edd
+#: includes/admin/downloads/contextual-help.php:76
+msgid "One or more custom CSS classes you want applied to the button."
+msgstr "یک یا چند کلاس CSS که مایلید به دکمه‌ها اعمال شود."
+
+# @ edd
+#: includes/admin/downloads/contextual-help.php:78
+#, php-format
+msgid ""
+"For more information, see <a href=\"%s\">using Shortcodes</a> on the WordPress.org Codex "
+"or <a href=\"%s\">Easy Digital Downloads Documentation</a>"
+msgstr ""
+"برای اطلاعات بیشتر، نحوه <a href=\"%s\">استفاده از کدهای کوتاه</a> در سایت وردپرس یا <a "
+"href=\"%s\">در سایت Easy Digital Downloads</a> را ببینید"
+
+# @ edd
+#: includes/admin/downloads/dashboard-columns.php:31
+#: includes/admin/downloads/dashboard-columns.php:222
+#: includes/admin/downloads/metabox.php:249 includes/admin/reporting/pdf-reports.php:63
+#: templates/shortcode-receipt.php:115
+msgid "Price"
+msgstr "قیمت"
+
+# @ edd
+#: includes/admin/downloads/dashboard-columns.php:32
+#: includes/admin/reporting/class-download-reports-table.php:99
+#: includes/admin/reporting/graphing.php:143 includes/admin/reporting/logs.php:125
+#: includes/admin/reporting/pdf-reports.php:214
+msgid "Sales"
+msgstr "فروش"
+
+# @ edd
+#: includes/admin/downloads/dashboard-columns.php:34
+msgid "Purchase Short Code"
+msgstr "کد کوتاه خرید"
+
+# @ edd
+#: includes/admin/downloads/dashboard-columns.php:35
+#: includes/admin/payments/class-payments-table.php:201
+#: includes/admin/reporting/class-api-requests-logs-list-table.php:94
+#: includes/admin/reporting/class-export-download-history.php:64
+#: includes/admin/reporting/class-export-payments.php:73
+#: includes/admin/reporting/class-export.php:70
+#: includes/admin/reporting/class-file-downloads-logs-list-table.php:129
+#: includes/admin/reporting/class-gateway-error-logs-list-table.php:124
+#: includes/admin/reporting/class-sales-logs-list-table.php:99
+#: templates/history-purchases.php:10 templates/shortcode-receipt.php:29
+msgid "Date"
+msgstr "تاریخ"
+
+# @ edd
+#: includes/admin/downloads/dashboard-columns.php:184
+msgid "Show all categories"
+msgstr "نمایش همه&zwnj;ی دسته&zwnj;ها"
+
+# @ edd
+#: includes/admin/downloads/dashboard-columns.php:195
+msgid "Show all tags"
+msgstr "نمایش همه برچسب&zwnj;ها"
+
+# @ edd
+#: includes/admin/downloads/dashboard-columns.php:220
+#, php-format
+msgid "%s Configuration"
+msgstr "پیکربندی %1$s"
+
+# @ edd
+#: includes/admin/downloads/metabox.php:25
+#, php-format
+msgid "%1$s Configuration"
+msgstr "پیکربندی %1$s"
+
+# @ edd
+#: includes/admin/downloads/metabox.php:32
+#, php-format
+msgid "%1$s Stats"
+msgstr "آمار %1$s"
+
+# @ edd
+#: includes/admin/downloads/metabox.php:213
+msgid "Pricing Options:"
+msgstr "قیمت گذاری:"
+
+# @ edd
+#: includes/admin/downloads/metabox.php:219
+msgid "Enable variable pricing"
+msgstr "فعال&zwnj;کردن قیمت متغیر"
+
+# @ edd
+#: includes/admin/downloads/metabox.php:239
+msgid ""
+"Enable multi option purchase mode. Leave unchecked to only permit a single price option "
+"to be purchased"
+msgstr ""
+"فعال کردن خرید چندگزینه‌ای. تنها در صورتی این گزینه را غیرفعال کنید که برای محصول قیمت "
+"یکتایی در نظر گرفته باشید"
+
+# @ edd
+#: includes/admin/downloads/metabox.php:248 includes/admin/downloads/metabox.php:316
+msgid "Option Name"
+msgstr "نام گزینه"
+
+# @ edd
+#: includes/admin/downloads/metabox.php:277
+msgid "Add New Price"
+msgstr "ایجاد قیمت جدید"
+
+# @ edd
+#: includes/admin/downloads/metabox.php:342
+#, fuzzy
+msgid "Product Type Options:"
+msgstr "قیمت گذاری:"
+
+# @ edd
+#: includes/admin/downloads/metabox.php:346
+#, fuzzy
+msgid "Default"
+msgstr "درگاه پرداخت پیشفرض"
+
+# @ edd
+#: includes/admin/downloads/metabox.php:347
+msgid "Bundle"
+msgstr ""
+
+# @ edd
+#: includes/admin/downloads/metabox.php:349
+#, fuzzy
+msgid "Select a product type"
+msgstr "محصول نمونه"
+
+# @ edd
+#: includes/admin/downloads/metabox.php:369
+#, php-format
+msgid "Bundled %s:"
+msgstr ""
+
+# @ edd
+#: includes/admin/downloads/metabox.php:376
+#, php-format
+msgid "Select the %s to bundle with this %s"
+msgstr ""
+
+# @ edd
+#: includes/admin/downloads/metabox.php:455
+msgid "File Downloads:"
+msgstr "فایل دانلودها"
+
+# @ edd
+#: includes/admin/downloads/metabox.php:467 includes/admin/downloads/metabox.php:544
+msgid "File Name"
+msgstr "نام فایل"
+
+# @ edd
+#: includes/admin/downloads/metabox.php:468
+msgid "File URL"
+msgstr "آدرس فایل"
+
+# @ edd
+#: includes/admin/downloads/metabox.php:469
+msgid "Price Assignment"
+msgstr "قیمت فایل"
+
+# @ edd
+#: includes/admin/downloads/metabox.php:497
+msgid "Add New File"
+msgstr "اضافه کردن فایل"
+
+# @ edd
+#: includes/admin/downloads/metabox.php:549
+msgid "http://"
+msgstr "http://"
+
+# @ edd
+#: includes/admin/downloads/metabox.php:552
+msgid "Insert"
+msgstr "درج"
+
+# @ edd
+#: includes/admin/downloads/metabox.php:552
+msgid "Upload a File"
+msgstr "آپلود یک فایل"
+
+# @ edd
+#: includes/admin/downloads/metabox.php:559
+msgid "All Prices"
+msgstr "همه قیمت&zwnj;ها"
+
+# @ edd
+#: includes/admin/downloads/metabox.php:590
+msgid "File Download Limit:"
+msgstr "محدودیت دانلود فایل:"
+
+# @ edd
+#: includes/admin/downloads/metabox.php:593
+msgid ""
+"The maximum number of times a buyer can download each file. Leave blank or set to 0 for "
+"unlimited"
+msgstr ""
+
+# @ edd
+#: includes/admin/downloads/metabox.php:616
+#, fuzzy
+msgid "Accounting Options:"
+msgstr "قیمت گذاری:"
+
+# @ edd
+#: includes/admin/downloads/metabox.php:620
+#, php-format
+msgid "Enter an SKU for this %s."
+msgstr ""
+
+# @ edd
+#: includes/admin/downloads/metabox.php:638
+msgid "Button Options:"
+msgstr "تنظیمات دکمه:"
+
+# @ edd
+#: includes/admin/downloads/metabox.php:642
+msgid "Disable the automatic output of the purchase button"
+msgstr ""
+
+# @ edd
+#: includes/admin/downloads/metabox.php:704
+msgid ""
+"Special notes or instructions for this product. These notes will be added to the "
+"purchase receipt."
+msgstr "نکته ویژه یا دستورالعمل خاصی برای این محصول. این نکات در سفارش خرید ذکر خواهد شد."
+
+# @ edd
+#: includes/admin/downloads/metabox.php:727
+msgid "Sales:"
+msgstr "فروش:"
+
+# @ edd
+#: includes/admin/downloads/metabox.php:729
+msgid "View Sales Log"
+msgstr "مشاهده گزارش فروش"
+
+# @ edd
+#: includes/admin/downloads/metabox.php:733
+msgid "Earnings:"
+msgstr "درآمد:"
+
+# @ edd
+#: includes/admin/downloads/metabox.php:740
+msgid "View File Download Log"
+msgstr "مشاهده گزارش دانلود فایل"
+
+# @ edd
+#: includes/admin/payments/class-payments-table.php:176
+msgid "Completed"
+msgstr "موفق"
+
+# @ edd
+#: includes/admin/payments/class-payments-table.php:177 includes/payments/functions.php:391
+msgid "Pending"
+msgstr "در انتظار"
+
+# @ edd
+#: includes/admin/payments/class-payments-table.php:178 includes/payments/functions.php:393
+msgid "Refunded"
+msgstr "مسترد"
+
+# @ edd
+#: includes/admin/payments/class-payments-table.php:179 includes/payments/functions.php:396
+msgid "Revoked"
+msgstr "لغوشده"
+
+# @ edd
+#: includes/admin/payments/class-payments-table.php:180 includes/payments/functions.php:394
+msgid "Failed"
+msgstr "ناموفق"
+
+# @ edd
+#: includes/admin/payments/class-payments-table.php:181 includes/payments/functions.php:395
+msgid "Abandoned"
+msgstr ""
+
+# @ edd
+#: includes/admin/payments/class-payments-table.php:198
+#: includes/admin/reporting/class-customer-reports-table.php:96
+#: includes/admin/reporting/class-export-customers.php:67
+#: includes/admin/reporting/class-export-customers.php:78
+#: includes/admin/reporting/class-export-payments.php:64 includes/checkout/template.php:302
+#: includes/checkout/template.php:304
+msgid "Email"
+msgstr "ایمیل"
+
+# @ edd
+#: includes/admin/payments/class-payments-table.php:199 templates/history-purchases.php:12
+msgid "Details"
+msgstr "جزییات"
+
+# @ edd
+#: includes/admin/payments/class-payments-table.php:202
+#: includes/admin/reporting/class-export-payments.php:74
+#: includes/admin/reporting/class-file-downloads-logs-list-table.php:125
+#: includes/admin/reporting/class-sales-logs-list-table.php:95
+msgid "User"
+msgstr "نام کاربری"
+
+# @ edd
+#: includes/admin/payments/class-payments-table.php:276
+msgid "Resend Purchase Receipt"
+msgstr "ارسال دوباره سفارش خرید"
+
+# @ edd
+#: includes/admin/payments/class-payments-table.php:317
+#: includes/admin/payments/class-payments-table.php:319
+#: includes/admin/reporting/class-export-payments.php:173
+msgid "guest"
+msgstr "مهمان"
+
+# @ edd
+#: includes/admin/payments/contextual-help.php:42
+msgid "Overview"
+msgstr "بازنگری"
+
+# @ edd
+#: includes/admin/payments/contextual-help.php:44
+msgid "This screen provides access to all of your store's transactions."
+msgstr "در این صفحه شما می‌توانید به همه تراکنش‌های فروشگاه خود نظارت داشته باشید."
+
+# @ edd
+#: includes/admin/payments/contextual-help.php:45
+msgid ""
+"Payments can be searched by email address, user name, or filtered by status (completed, "
+"pending, etc.)"
+msgstr ""
+"پرداخت‌ها می‌توانند با آدرس ایمیل، نام کاربری یا وضعیت (کامل، درانتظار و &hellip;) جست‌وجو "
+"شوند."
+
+# @ edd
+#: includes/admin/payments/contextual-help.php:46
+msgid "You also have the option to bulk delete payment should you wish."
+msgstr "شما می‌توانید موارد پرداخت را به صورت دسته‌جمعی پاک کنید."
+
+# @ edd
+#: includes/admin/payments/contextual-help.php:53
+#, fuzzy
+msgid "The payment history can be searched in several different ways:"
+msgstr "سوابق مالی نیاز به بروزرسانی دارند. %s"
+
+# @ edd
+#: includes/admin/payments/contextual-help.php:55
+#: includes/admin/reporting/contextual-help.php:64
+#, fuzzy
+msgid "You can enter the customer's email address"
+msgstr "آدرس ایمیل خریدار."
+
+# @ edd
+#: includes/admin/payments/contextual-help.php:56
+msgid "You can enter the customer's name"
+msgstr ""
+
+# @ edd
+#: includes/admin/payments/contextual-help.php:57
+msgid "You can enter the 32-character purchase key"
+msgstr ""
+
+# @ edd
+#: includes/admin/payments/contextual-help.php:63
+#: includes/admin/payments/view-order-details.php:115
+msgid "Order Details"
+msgstr "جزییات خرید"
+
+# @ edd
+#: includes/admin/payments/contextual-help.php:65
+msgid ""
+"Each payment can be further inspected by clicking the corresponding <em>View Order "
+"Details</em> link. This will provide more information including:"
+msgstr ""
+"برای هر پرداخت شما می‌توانید جزییات بیشتری را باکلیک روی <em>مشاهده جزییات پرداخت</em> "
+"مشاهده کنید. این اطلاعات جزیی از جمله موارد زیر است:"
+
+# @ edd
+#: includes/admin/payments/contextual-help.php:68
+msgid "The file associated with the purchase."
+msgstr "فایل این خرید"
+
+# @ edd
+#: includes/admin/payments/contextual-help.php:69
+msgid "The exact date and time the payment was completed."
+msgstr "زمان و تاریخ دقیق پرداخت."
+
+# @ edd
+#: includes/admin/payments/contextual-help.php:70
+msgid "If a coupon or discount was used during the checkout process."
+msgstr "اگر کدتخفیفی در موقع پرداخت استفاده شده باشد."
+
+# @ edd
+#: includes/admin/payments/contextual-help.php:71
+msgid "The buyer's name."
+msgstr "نام خریدار"
+
+# @ edd
+#: includes/admin/payments/contextual-help.php:72
+msgid "The buyer's email address."
+msgstr "آدرس ایمیل خریدار."
+
+# @ edd
+#: includes/admin/payments/contextual-help.php:73
+msgid "Any customer-specific notes related to the payment."
+msgstr "یادداشت‌های کاربر درمورد این پرداخت."
+
+# @ edd
+#: includes/admin/payments/contextual-help.php:74
+msgid "The name of the payment gateway used to complete the payment."
+msgstr "درگاهی که برای کامل‌کردن این خرید استفاده شده است."
+
+# @ edd
+#: includes/admin/payments/contextual-help.php:75
+msgid "A unique key used to identify the payment."
+msgstr "کلید یکتا برای شناسایی این پرداخت."
+
+# @ edd
+#: includes/admin/payments/edit-payment.php:26
+msgid "Buyer's Email"
+msgstr "ایمیل خریدار"
+
+# @ edd
+#: includes/admin/payments/edit-payment.php:30
+msgid "If needed, you can update the buyer's email here."
+msgstr "اگر نیاز است، شما می‌توانید ایمیل خریداران را بروزرسانی کنید."
+
+# @ edd
+#: includes/admin/payments/edit-payment.php:35
+msgid "Buyer's User ID"
+msgstr "شماره کاربری خریدار"
+
+# @ edd
+#: includes/admin/payments/edit-payment.php:39
+msgid "If needed, you can update the buyer's WordPress user ID here."
+msgstr "اگر نیاز باشد، شما می‌توانید شماره کاربری خریدار را بروزرسانی کنید."
+
+# @ edd
+#: includes/admin/payments/edit-payment.php:44
+#, fuzzy, php-format
+msgid "Payment Amount in %s"
+msgstr "هیچ پرداختی در سطل بازیافت یافت نشد"
+
+# @ edd
+#: includes/admin/payments/edit-payment.php:48
+#, fuzzy
+msgid "If needed, you can update the purchase total here."
+msgstr "اگر نیاز است، شما می‌توانید ایمیل خریداران را بروزرسانی کنید."
+
+# @ edd
+#: includes/admin/payments/edit-payment.php:53
+msgid "Downloads Purchased"
+msgstr "دانلودها خریداری شد"
+
+# @ edd
+#: includes/admin/payments/edit-payment.php:77
+#, php-format
+msgid "Add %s to purchase"
+msgstr "اضافه کردن %s به خرید"
+
+# @ edd
+#: includes/admin/payments/edit-payment.php:82
+#: includes/admin/payments/view-order-details.php:80
+msgid "Payment Notes"
+msgstr "پرداخت‌ها"
+
+# @ edd
+#: includes/admin/payments/edit-payment.php:94
+#: includes/admin/payments/view-order-details.php:90
+msgid "EDD Bot"
+msgstr ""
+
+# @ edd
+#: includes/admin/payments/edit-payment.php:102
+#, fuzzy
+msgid "Delete this payment note"
+msgstr "هیچ یادداشتی برای پرداخت یافت نشد"
+
+# @ edd
+#: includes/admin/payments/edit-payment.php:107
+#: includes/admin/payments/view-order-details.php:102
+msgid "No payment notes"
+msgstr "هیچ یادداشتی برای پرداخت یافت نشد"
+
+# @ edd
+#: includes/admin/payments/edit-payment.php:110
+msgid "Add New Note"
+msgstr "اضافه کردن فایل"
+
+# @ edd
+#: includes/admin/payments/edit-payment.php:116 templates/shortcode-receipt.php:34
+msgid "Payment Status"
+msgstr "وضعیت پرداخت"
+
+# @ edd
+#: includes/admin/payments/edit-payment.php:132
+#, fuzzy
+msgid "Unlimited Downloads"
+msgstr "دانلود فایل‌ها"
+
+# @ edd
+#: includes/admin/payments/edit-payment.php:136
+#, fuzzy
+msgid "Check this box to enable unlimited file downloads for this purchase."
+msgstr "برای فعال کردن مالیات روی خریدها این گزینه را فعال کنید."
+
+# @ edd
+#: includes/admin/payments/edit-payment.php:141
+msgid "Send Purchase Receipt"
+msgstr "ارسال سفارش خرید"
+
+# @ edd
+#: includes/admin/payments/edit-payment.php:145
+msgid "Check this box to send the purchase receipt, including all download links."
+msgstr "برای ارسال سفارش خرید و همه لینک‌های دانلود، این گزینه را تیک بزنید."
+
+# @ edd
+#: includes/admin/payments/edit-payment.php:156
+msgid "Update Payment"
+msgstr "بروزرسانی پرداخت"
+
+# @ edd
+#: includes/admin/payments/edit-payment.php:164
+#, php-format
+msgid "Select a %s"
+msgstr "یک %s انتخاب کنید"
+
+# @ edd
+#: includes/admin/payments/edit-payment.php:175
+#, php-format
+msgid "Add Another %s"
+msgstr "اضافه کردن یک %s دیگر"
+
+# @ edd
+#: includes/admin/payments/edit-payment.php:178
+msgid "Add Selected Downloads"
+msgstr "اضافه کردن دانلودهای انتخاب شده"
+
+# @ edd
+#: includes/admin/payments/edit-payment.php:179
+msgid "Close"
+msgstr "بستن"
+
+# @ edd
+#: includes/admin/payments/payments-history.php:54
+msgid "Get the EDD Sales / Earnings tracker for iOS"
+msgstr "دانلود نرم افزار EDD برای iOS"
+
+# @ edd
+#: includes/admin/payments/view-order-details.php:22
+#, fuzzy
+msgid "Payment ID not supplied. Please try again"
+msgstr "بررسی امنیتی ناموفق بود. لطفاً دوباره تلاش کنید."
+
+# @ edd
+#: includes/admin/payments/view-order-details.php:37
+#, fuzzy, php-format
+msgid "Payment #%d"
+msgstr "پرداخت"
+
+# @ edd
+#: includes/admin/payments/view-order-details.php:37
+#, fuzzy
+msgid "Edit Order"
+msgstr "ویرایش دسته"
+
+# @ edd
+#: includes/admin/payments/view-order-details.php:45
+#, fuzzy
+msgid "Order Totals"
+msgstr "جزییات خرید"
+
+# @ edd
+#: includes/admin/payments/view-order-details.php:50
+#, fuzzy
+msgid "Discount Code"
+msgstr "کدهای تخفیف"
+
+# @ edd
+#: includes/admin/payments/view-order-details.php:50
+msgid "None"
+msgstr ""
+
+# @ edd
+#: includes/admin/payments/view-order-details.php:56
+#: includes/admin/reporting/class-export-payments.php:70 templates/checkout_cart.php:72
+#: templates/shortcode-receipt.php:63
+msgid "Tax"
+msgstr "مالیات"
+
+# @ edd
+#: includes/admin/payments/view-order-details.php:63 templates/shortcode-receipt.php:39
+msgid "Fees"
+msgstr "هزینه‌ها"
+
+# @ edd
+#: includes/admin/payments/view-order-details.php:72 templates/shortcode-receipt.php:68
+#: templates/shortcode-receipt.php:210
+msgid "Total Price"
+msgstr "قیمت"
+
+# @ edd
+#: includes/admin/payments/view-order-details.php:119
+#, fuzzy
+msgid "General Details"
+msgstr "تنظیمات عمومی"
+
+# @ edd
+#: includes/admin/payments/view-order-details.php:120
+#, fuzzy
+msgid "Status:"
+msgstr "وضعیت"
+
+# @ edd
+#: includes/admin/payments/view-order-details.php:121
+msgid "Date:"
+msgstr "تاریخ:"
+
+# @ edd
+#: includes/admin/payments/view-order-details.php:122
+msgid "Time:"
+msgstr ""
+
+# @ edd
+#: includes/admin/payments/view-order-details.php:126
+#, fuzzy
+msgid "Buyer's Personal Details"
+msgstr "اطلاعات شخصی خریدار:"
+
+# @ edd
+#: includes/admin/payments/view-order-details.php:127
+msgid "Name:"
+msgstr "نام:"
+
+# @ edd
+#: includes/admin/payments/view-order-details.php:128
+#, fuzzy
+msgid "User Status:"
+msgstr "وضعیت"
+
+# @ edd
+#: includes/admin/payments/view-order-details.php:128
+#, fuzzy
+msgid "Registered User"
+msgstr "ثبت نام"
+
+# @ edd
+#: includes/admin/payments/view-order-details.php:130
+#, fuzzy
+msgid "User ID:"
+msgstr "نام کاربری"
+
+# @ edd
+#: includes/admin/payments/view-order-details.php:132
+msgid "Email:"
+msgstr "ایمیل:"
+
+# @ edd
+#: includes/admin/payments/view-order-details.php:137
+#, fuzzy
+msgid "Payment Details"
+msgstr "وضعیت پرداخت"
+
+# @ edd
+#: includes/admin/payments/view-order-details.php:142
+#, fuzzy
+msgid "Gateway:"
+msgstr "درگاه&zwnj;های پرداخت"
+
+# @ edd
+#: includes/admin/payments/view-order-details.php:144
+#, fuzzy
+msgid "Key:"
+msgstr "کلید API:"
+
+# @ edd
+#: includes/admin/payments/view-order-details.php:154
+msgid "Purchased Files"
+msgstr "فایلهای خریداری‌شده"
+
+# @ edd
+#: includes/admin/reporting/class-api-requests-logs-list-table.php:91
+#: includes/admin/reporting/class-file-downloads-logs-list-table.php:123
+#: includes/admin/reporting/class-gateway-error-logs-list-table.php:119
+#: includes/admin/reporting/class-sales-logs-list-table.php:94
+msgid "Log ID"
+msgstr "شماره گزارش"
+
+# @ edd
+#: includes/admin/reporting/class-api-requests-logs-list-table.php:92
+msgid "Request Details"
+msgstr "جزییات درخواست"
+
+# @ edd
+#: includes/admin/reporting/class-api-requests-logs-list-table.php:93
+msgid "Request IP"
+msgstr "IP درخواست"
+
+# @ edd
+#: includes/admin/reporting/class-api-requests-logs-list-table.php:128
+msgid "View Request Details"
+msgstr "مشاهده جزییات درخواست"
+
+# @ edd
+#: includes/admin/reporting/class-api-requests-logs-list-table.php:128
+msgid "View Request"
+msgstr "مشاهده درخواست"
+
+# @ edd
+#: includes/admin/reporting/class-api-requests-logs-list-table.php:134
+msgid "API Request:"
+msgstr "درخواست API:"
+
+# @ edd
+#: includes/admin/reporting/class-api-requests-logs-list-table.php:140
+msgid "API User:"
+msgstr "کاربر API:"
+
+# @ edd
+#: includes/admin/reporting/class-api-requests-logs-list-table.php:142
+msgid "API Key:"
+msgstr "کلید API:"
+
+# @ edd
+#: includes/admin/reporting/class-api-requests-logs-list-table.php:144
+msgid "Request Date:"
+msgstr "تاریخ درخواست:"
+
+# @ edd
+#: includes/admin/reporting/class-customer-reports-table.php:49
+msgid "Customer"
+msgstr "مشتری"
+
+# @ edd
+#: includes/admin/reporting/class-customer-reports-table.php:50
+#: includes/admin/reporting/reports.php:59
+msgid "Customers"
+msgstr "مشتریان"
+
+# @ edd
+#: includes/admin/reporting/class-customer-reports-table.php:97
+msgid "Purchases"
+msgstr "خریدها"
+
+# @ edd
+#: includes/admin/reporting/class-customer-reports-table.php:98
+msgid "Total Spent"
+msgstr "کل هزینه خرج شده"
+
+# @ edd
+#: includes/admin/reporting/class-customer-reports-table.php:99
+msgid "Files Downloaded"
+msgstr "فایل دانلودها"
+
+# @ edd
+#: includes/admin/reporting/class-download-reports-table.php:101
+msgid "Monthly Average Sales"
+msgstr "میانگین فروش ماهیانه"
+
+# @ edd
+#: includes/admin/reporting/class-download-reports-table.php:102
+msgid "Monthly Average Earnings"
+msgstr "میانگین درآمد ماهیانه"
+
+# @ edd
+#: includes/admin/reporting/class-export-customers.php:68
+msgid "Date Purchased"
+msgstr "تاریخ خرید"
+
+# @ edd
+#: includes/admin/reporting/class-export-customers.php:81
+msgid "Total Purchases"
+msgstr "همه خریدها"
+
+# @ edd
+#: includes/admin/reporting/class-export-customers.php:82
+msgid "Total Purchased"
+msgstr "تمام خریده شده ها"
+
+# @ edd
+#: includes/admin/reporting/class-export-download-history.php:65
+msgid "Downloaded by"
+msgstr "دانلودشده توسط"
+
+# @ edd
+#: includes/admin/reporting/class-export-download-history.php:66
+#: includes/admin/reporting/class-file-downloads-logs-list-table.php:128
+msgid "IP Address"
+msgstr "آدرس IP"
+
+# @ edd
+#: includes/admin/reporting/class-export-download-history.php:67
+msgid "Product"
+msgstr "محصول"
+
+# @ edd
+#: includes/admin/reporting/class-export-download-history.php:68
+#: includes/admin/reporting/class-file-downloads-logs-list-table.php:127
+msgid "File"
+msgstr "فایل"
+
+# @ edd
+#: includes/admin/reporting/class-export-payments.php:65 includes/checkout/template.php:128
+#: includes/checkout/template.php:130 includes/checkout/template.php:307
+#: includes/checkout/template.php:309 templates/shortcode-profile-editor.php:20
+msgid "First Name"
+msgstr "نام"
+
+# @ edd
+#: includes/admin/reporting/class-export-payments.php:66 includes/checkout/template.php:133
+#: includes/checkout/template.php:312 templates/shortcode-profile-editor.php:23
+msgid "Last Name"
+msgstr "نام خانوادگی"
+
+# @ edd
+#: includes/admin/reporting/class-export-payments.php:67
+#: templates/shortcode-receipt.php:107
+msgid "Products"
+msgstr "محصولات"
+
+# @ edd
+#: includes/admin/reporting/class-export-payments.php:68
+msgid "SKUs"
+msgstr ""
+
+# @ edd
+#: includes/admin/reporting/class-export-payments.php:71 templates/shortcode-receipt.php:89
+msgid "Payment Method"
+msgstr "روش پرداخت"
+
+# @ edd
+#: includes/admin/reporting/class-export-payments.php:72
+msgid "Purchase Key"
+msgstr "کلید خرید"
+
+# @ edd
+#: includes/admin/reporting/class-export-payments.php:169
+msgid "none"
+msgstr "هیچ یک"
+
+# @ edd
+#: includes/admin/reporting/class-export.php:173
+msgid "You do not have permission to export data."
+msgstr "شما مجوز کافی برای برون‌بری داده‌ها را ندارید."
+
+# @ edd
+#: includes/admin/reporting/class-file-downloads-logs-list-table.php:126
+#: includes/admin/reporting/class-gateway-error-logs-list-table.php:120
+#: includes/admin/reporting/class-sales-logs-list-table.php:98
+msgid "Payment ID"
+msgstr "شماره پرداخت"
+
+# @ edd
+#: includes/admin/reporting/class-gateway-error-logs-list-table.php:69
+#: includes/gateways/manual.php:73 includes/gateways/paypal-standard.php:74
+msgid "Payment Error"
+msgstr "خطای پرداخت"
+
+# @ edd
+#: includes/admin/reporting/class-gateway-error-logs-list-table.php:85
+msgid "View Log Message"
+msgstr "مشاهده گزارش پیام"
+
+# @ edd
+#: includes/admin/reporting/class-gateway-error-logs-list-table.php:99
+msgid "<strong>Log data:</strong>"
+msgstr "<strong>داده گزارش:</strong>"
+
+# @ edd
+#: includes/admin/reporting/class-gateway-error-logs-list-table.php:122
+msgid "Error Message"
+msgstr "پیام خطا"
+
+# @ edd
+#: includes/admin/reporting/class-gateway-error-logs-list-table.php:123
+#: includes/admin/reporting/class-gateways-reports-table.php:83
+msgid "Gateway"
+msgstr "درگاه&zwnj;های پرداخت"
+
+# @ edd
+#: includes/admin/reporting/class-gateways-reports-table.php:84
+#, fuzzy
+msgid "Complete Sales"
+msgstr "کامل"
+
+# @ edd
+#: includes/admin/reporting/class-gateways-reports-table.php:85
+msgid "Pending / Failed Sales"
+msgstr ""
+
+# @ edd
+#: includes/admin/reporting/class-sales-logs-list-table.php:97
+msgid "Item Amount"
+msgstr "قیمت:"
+
+# @ edd
+#: includes/admin/reporting/contextual-help.php:43
+msgid ""
+"This screen provides you with reports for your earnings, downloads, customers and taxes."
+msgstr "در این صفحه می‌توانید گزارشاتی درباره درآمد، دانلودها و مالیات ببینید."
+
+# @ edd
+#: includes/admin/reporting/contextual-help.php:48 includes/admin/reporting/reports.php:34
+msgid "Export"
+msgstr "برون‌بری"
+
+# @ edd
+#: includes/admin/reporting/contextual-help.php:50
+msgid "This screen allows you to export your reports into a PDF or CSV format."
+msgstr "در این صفحه می‌توانید گزارشاتی از فروشگاه خود در قالب PDF یا CSV دریافت کنید."
+
+# @ edd
+#: includes/admin/reporting/contextual-help.php:51
+msgid ""
+"<strong>Sales and Earnings</strong> - This report exports all of the sales and earnings "
+"that you have made in the current year. This report includes your sales and earnings for "
+"each product as well a graphs of sales and earnings so you can compare them for each "
+"month."
+msgstr ""
+"<strong>درآمد و فروش‌ها</strong> - در این گزارش همه فروش و درآمدها در سال کنونی آورده شده "
+"است. این گزارش شامل فروش و درآمد برای هر محصول به صورت یک نمودار از فروش و درآمدها است. "
+"شما می‌توانید درآمدهای ماه‌ها را با هم مقایسه کنید."
+
+# @ edd
+#: includes/admin/reporting/contextual-help.php:52
+msgid ""
+"<strong>Payment History</strong> - This report exports all of payments you have received "
+"on your EDD store in a CSV format.  The report includes the contact details of the "
+"customer, the products they have purchased as well as any discount codes they have used "
+"and the final price they have paid."
+msgstr ""
+"<strong>سوابق پرداخت</strong> - در این گزارش، کلیه پرداخت‌های دریافت‌شده در قالب CSV قابل "
+"مشاهده است. این گزارش شامل اطلاعات مشتریان و محصولاتی که آنان خریداری کرده‌اند و مقداری "
+"که بابت آن پرداخته‌اند، است."
+
+# @ edd
+#: includes/admin/reporting/contextual-help.php:53
+msgid ""
+"<strong>Customers</strong> - This report exports all of your customers in a CSV format. "
+"It exports the customer's name and email address and the amount of products they have "
+"purchased as well as the final price of their total purchases."
+msgstr ""
+"<strong>مشتریان</strong> - این گزارش شامل اطلاعات همه مشتریان در قالب CSV است. در این "
+"گزارش نام، آدرس ایمیل و مقدار پرداخت‌شده برای هر محصول را ببینید."
+
+# @ edd
+#: includes/admin/reporting/contextual-help.php:54
+msgid ""
+"<strong>Download History</strong> - This report exports all of the downloads you have "
+"received in the current month into a CSV. It exports the date the file was downloaded, "
+"the customer it was downloaded by, their IP address, the name of the product and the "
+"file they downloaded."
+msgstr ""
+"<strong>سوابق دانلود</strong> - این گزارش شامل همه دانلودهای این ماه در قالب یک فایل CSV "
+"می‌شود. در این گزارش زمان، دانلودکننده و آدرس IP او قابل مشاهده است."
+
+# @ edd
+#: includes/admin/reporting/contextual-help.php:60
+#, fuzzy
+msgid "Search File Downloads"
+msgstr "دانلود فایل‌ها"
+
+# @ edd
+#: includes/admin/reporting/contextual-help.php:62
+msgid "The file download log can be searched in several different ways:"
+msgstr ""
+
+# @ edd
+#: includes/admin/reporting/contextual-help.php:65
+msgid "You can enter the customer's IP address"
+msgstr ""
+
+# @ edd
+#: includes/admin/reporting/contextual-help.php:66
+#, fuzzy
+msgid "You can enter the download file's name"
+msgstr "آپلود فایل&zwnj;های قابل دانلود"
+
+# @ edd
+#: includes/admin/reporting/graphing.php:280
+msgid "Earnings Over Time"
+msgstr "درآمد در هر زمان"
+
+# @ edd
+#: includes/admin/reporting/graphing.php:286
+msgid "Total earnings for period shown: "
+msgstr "درآمد کل دوره نشان داده شود:"
+
+# @ edd
+#: includes/admin/reporting/graphing.php:287
+msgid "Total sales for period shown: "
+msgstr "درآمد کل دوره نشان داده شده است:"
+
+# @ edd
+#: includes/admin/reporting/graphing.php:288
+msgid "Estimated monthly earnings: "
+msgstr "تخمین درآمد ماهیانه:"
+
+# @ edd
+#: includes/admin/reporting/graphing.php:289
+msgid "Estimated monthly sales: "
+msgstr "تخمین فروش‌های ماهیانه:"
+
+# @ edd
+#: includes/admin/reporting/graphing.php:305
+msgid "Today"
+msgstr "امروز"
+
+# @ edd
+#: includes/admin/reporting/graphing.php:306
+msgid "This Week"
+msgstr "این هفته"
+
+# @ edd
+#: includes/admin/reporting/graphing.php:307
+msgid "Last Week"
+msgstr "هفته پیش"
+
+# @ edd
+#: includes/admin/reporting/graphing.php:308
+msgid "This Month"
+msgstr "این ماه"
+
+# @ edd
+#: includes/admin/reporting/graphing.php:310
+msgid "This Quarter"
+msgstr "سه ماه کنونی"
+
+# @ edd
+#: includes/admin/reporting/graphing.php:311
+msgid "Last Quarter"
+msgstr "سه ماه گذشته"
+
+# @ edd
+#: includes/admin/reporting/graphing.php:312
+msgid "This Year"
+msgstr "امسال"
+
+# @ edd
+#: includes/admin/reporting/graphing.php:313
+msgid "Last Year"
+msgstr "سال گذشته"
+
+# @ edd
+#: includes/admin/reporting/graphing.php:314
+msgid "Custom"
+msgstr "سفارشی"
+
+# @ edd
+#: includes/admin/reporting/graphing.php:341
+msgid "From"
+msgstr "از"
+
+# @ edd
+#: includes/admin/reporting/graphing.php:347
+msgid "To"
+msgstr "به"
+
+# @ edd
+#: includes/admin/reporting/graphing.php:361
+msgid "Filter"
+msgstr "صافی"
+
+# @ edd
+#: includes/admin/reporting/logs.php:124 includes/admin/settings/register-settings.php:372
+msgid "File Downloads"
+msgstr "دانلود فایل‌ها"
+
+# @ edd
+#: includes/admin/reporting/logs.php:126
+msgid "Payment Errors"
+msgstr "خطای پرداخت"
+
+# @ edd
+#: includes/admin/reporting/logs.php:127
+msgid "API Requests"
+msgstr "درخواست‌های API"
+
+# @ edd
+#: includes/admin/reporting/logs.php:147
+msgid "Log Type"
+msgstr "نوع گزارش"
+
+# @ edd
+#: includes/admin/reporting/logs.php:159
+msgid "Apply"
+msgstr "اعمال"
+
+# @ edd
+#: includes/admin/reporting/pdf-reports.php:33
+msgid "to"
+msgstr "به"
+
+# @ edd
+#: includes/admin/reporting/pdf-reports.php:38 includes/admin/reporting/pdf-reports.php:49
+msgid "Sales and earnings reports for the current year for all products"
+msgstr "گزارشات فروش و درآمدهای سال کنونی برای همه محصولات"
+
+# @ edd
+#. translators: plugin header field 'Name'
+#: easy-digital-downloads.php:0 includes/admin/reporting/pdf-reports.php:39
+#: includes/admin/reporting/pdf-reports.php:40 languages/strings.php:15
+msgid "Easy Digital Downloads"
+msgstr "Easy Digital Downloads"
+
+# @ edd
+#: includes/admin/reporting/pdf-reports.php:54
+msgid "Date Range: "
+msgstr "محدوده تاریخ:"
+
+# @ edd
+#: includes/admin/reporting/pdf-reports.php:58
+msgid "Table View"
+msgstr "مشاهده جدول"
+
+# @ edd
+#: includes/admin/reporting/pdf-reports.php:62
+msgid "Product Name"
+msgstr "نام محصول"
+
+# @ edd
+#: includes/admin/reporting/pdf-reports.php:66
+msgid "Number of Sales"
+msgstr "فروش‌ها"
+
+# @ edd
+#: includes/admin/reporting/pdf-reports.php:67
+msgid "Earnings to Date"
+msgstr "درآمد به تاریخ"
+
+# @ edd
+#: includes/admin/reporting/pdf-reports.php:115
+#, php-format
+msgid "No %s found."
+msgstr "هیچ \"%s\" یافت نشد."
+
+# @ edd
+#: includes/admin/reporting/pdf-reports.php:122
+msgid "Graph View"
+msgstr "مشاهده گراف"
+
+# @ edd
+#: includes/admin/reporting/pdf-reports.php:218
+msgid "Sales and Earnings by Month for all Products"
+msgstr "درآمد و فروش همه ماه‌ها برای همه محصولات"
+
+# @ edd
+#: includes/admin/reporting/pdf-reports.php:229
+msgid "Jan"
+msgstr "Jan"
+
+# @ edd
+#: includes/admin/reporting/pdf-reports.php:230
+msgid "Feb"
+msgstr "Feb"
+
+# @ edd
+#: includes/admin/reporting/pdf-reports.php:231
+msgid "Mar"
+msgstr "Mar"
+
+# @ edd
+#: includes/admin/reporting/pdf-reports.php:232
+msgid "Apr"
+msgstr "Apr"
+
+# @ edd
+#: includes/admin/reporting/pdf-reports.php:233
+msgid "May"
+msgstr "May"
+
+# @ edd
+#: includes/admin/reporting/pdf-reports.php:234
+msgid "June"
+msgstr "June"
+
+# @ edd
+#: includes/admin/reporting/pdf-reports.php:235
+msgid "July"
+msgstr "July"
+
+# @ edd
+#: includes/admin/reporting/pdf-reports.php:236
+msgid "Aug"
+msgstr "Aug"
+
+# @ edd
+#: includes/admin/reporting/pdf-reports.php:237
+msgid "Sept"
+msgstr "Sept"
+
+# @ edd
+#: includes/admin/reporting/pdf-reports.php:238
+msgid "Oct"
+msgstr "Oct"
+
+# @ edd
+#: includes/admin/reporting/pdf-reports.php:239
+msgid "Nov"
+msgstr "Nov"
+
+# @ edd
+#: includes/admin/reporting/pdf-reports.php:240
+msgid "Dec"
+msgstr "Dec"
+
+# @ edd
+#: includes/admin/reporting/reports.php:60
+#, fuzzy
+msgid "Payment Methods"
+msgstr "روش پرداخت"
+
+# @ edd
+#: includes/admin/reporting/reports.php:61 includes/admin/settings/contextual-help.php:71
+#: includes/admin/settings/display-settings.php:37 includes/admin/settings/settings.php:38
+msgid "Taxes"
+msgstr "مالیات"
+
+# @ edd
+#: includes/admin/reporting/reports.php:98
+msgid "Report Type"
+msgstr "گزارشات بازدید"
+
+# @ edd
+#: includes/admin/reporting/reports.php:108
+msgid "Show"
+msgstr "نمایش"
+
+# @ edd
+#: includes/admin/reporting/reports.php:198
+msgid "Tax Report"
+msgstr "گزارش مالیات"
+
+# @ edd
+#: includes/admin/reporting/reports.php:200
+msgid "This report shows the total amount collected in sales tax for the given year."
+msgstr "در این گزارش همه مقادیر جمع‌آوری شده در مالیات‌ها را در سال داده‌شده می‌بینید."
+
+# @ edd
+#: includes/admin/reporting/reports.php:211
+msgid "Submit"
+msgstr "ارسال"
+
+# @ edd
+#: includes/admin/reporting/reports.php:235
+msgid "Export PDF of Sales and Earnings"
+msgstr "برون‌برد یک گزارش PDF از درآمد و فروش‌ها"
+
+# @ edd
+#: includes/admin/reporting/reports.php:237
+msgid "Download a PDF of Sales and Earnings reports for all products for the current year."
+msgstr "یک گزارش PDF از فروش‌ها و درآمد خود از همه محصولات در سال جاری دانلود کنید."
+
+# @ edd
+#: includes/admin/reporting/reports.php:237
+msgid "Date range reports will be coming soon."
+msgstr "محدوده تاریخ گزارشات هم بزودی اضافه خواهد شد."
+
+# @ edd
+#: includes/admin/reporting/reports.php:238
+msgid "Generate PDF"
+msgstr "ایجاد PDF"
+
+# @ edd
+#: includes/admin/reporting/reports.php:243
+msgid "Export Payment History"
+msgstr "برون‌بری سابقه پرداخت"
+
+# @ edd
+#: includes/admin/reporting/reports.php:245
+msgid "Download a CSV of all payments recorded."
+msgstr "دانلود یک CSV از همه پرداخت‌ها"
+
+# @ edd
+#: includes/admin/reporting/reports.php:251
+msgid "All Statuses"
+msgstr "همه وضعیت‌ها"
+
+# @ edd
+#: includes/admin/reporting/reports.php:260 includes/admin/reporting/reports.php:289
+#: includes/admin/reporting/reports.php:304
+msgid "Generate CSV"
+msgstr "ایجاد CSV"
+
+# @ edd
+#: includes/admin/reporting/reports.php:267
+msgid "Export Customers in CSV"
+msgstr "بروبردن گزارش مشتریان"
+
+# @ edd
+#: includes/admin/reporting/reports.php:269
+#, fuzzy
+msgid ""
+"Download a CSV of all customer emails. Optionally export only customers that have "
+"purchased a particular product. Note, if you have a large number of customers, exporting "
+"the purchase stats may fail."
+msgstr ""
+"دانلود یک گزارش CSV از ایمیل همه مشتریان. همچنین می‌توانید اینکه مشتریان چه محصولی را "
+"خریداری کرده‌اند برون‌ ببرید."
+
+# @ edd
+#: includes/admin/reporting/reports.php:273
+#, fuzzy, php-format
+msgid "All %s"
+msgstr "همه&zwnj;ی %2$s"
+
+# @ edd
+#: includes/admin/reporting/reports.php:284 includes/admin/settings/contextual-help.php:57
+#: includes/admin/settings/display-settings.php:35 includes/admin/settings/settings.php:36
+msgid "Emails"
+msgstr "ایمیل&zwnj;ها"
+
+# @ edd
+#: includes/admin/reporting/reports.php:285
+#, fuzzy
+msgid "Emails and Names"
+msgstr "آدرس ایمیل"
+
+# @ edd
+#: includes/admin/reporting/reports.php:286
+msgid "Emails, Names, and Purchase Stats"
+msgstr ""
+
+# @ edd
+#: includes/admin/reporting/reports.php:296
+msgid "Export Download History in CSV"
+msgstr "برون‌بردن سوابق دانلود در یک CSV"
+
+# @ edd
+#: includes/admin/reporting/reports.php:298
+msgid "Download a CSV of all file downloads for a specific month and year."
+msgstr "دانلود یک فایل CSV از همه دانلودهای ماه و سال مشخص شده."
+
+# @ edd
+#: includes/admin/settings/contextual-help.php:43
+msgid ""
+"This screen provides the most basic settings for configuring your store. You can set the "
+"currency, page templates, and turn <em>Test Mode</em> on and off."
+msgstr ""
+"در این صفحه می‌توانید تنظیمات اساسی فروشگاه خود را تنظیم کنید. شما می‌توانید واحد ارزی، "
+"صفحات و حالت تست را انتخاب کنید."
+
+# @ edd
+#: includes/admin/settings/contextual-help.php:48
+#: includes/admin/settings/display-settings.php:34
+#: includes/admin/settings/register-settings.php:126
+#: includes/admin/settings/settings.php:35
+msgid "Payment Gateways"
+msgstr "درگاه&zwnj;های پرداخت"
+
+# @ edd
+#: includes/admin/settings/contextual-help.php:50
+msgid ""
+"This screen provides ways to toggle payment gateways on or off, as well as configure "
+"gateway-specific settings. Any extra payment gateway extensions you have installed will "
+"appear on this page, and can be configured to suit your needs."
+msgstr ""
+"در این صفحه می‌توانید درگاه‌های پرداخت را خاموش یا روشن کنید و آن‌ها را پیکربندی کنید. تمام "
+"درگاه‌های اضافه و پیکربندی آن‌ها هم دراینجا نمایش داده می‌شود."
+
+# @ edd
+#: includes/admin/settings/contextual-help.php:51
+msgid ""
+"<strong>Test Payment</strong> - This included gateway is great for testing your store, "
+"as it requires no payment, and leads straight to product downloads. However, please "
+"remember to turn it off once your site is live!"
+msgstr "<strong>پرداخت تستی</strong> - این درگاه فقط برای تست استفاده می‌شود!"
+
+# @ edd
+#: includes/admin/settings/contextual-help.php:52
+msgid ""
+"<strong>PayPal</strong> - A PayPal payment gateway is included as standard with Easy "
+"Digital Downloads. To test the PayPal gateway, you need a Sandbox account for PayPal and "
+"the site must be placed in Test Mode from the General settings tab. Please remember to "
+"enter your PayPal account email address in order for payments to get processed."
+msgstr "<strong>پی‌پال</strong> - درگاه پی‌پال استاندارد را می‌توانید در اینجا پیکربندی کنید."
+
+# @ edd
+#: includes/admin/settings/contextual-help.php:59
+msgid ""
+"This screen allows you to customize how emails act throughout your store. You can choose "
+"a premade template, set the sender's name, email address, and subject."
+msgstr ""
+"در این صفحه می‌توانید ایمیل‌هایی که برای مشتریان فرستاده می‌شود را سفارشی‌سازی کنید. شما "
+"می‌توانید یک قالب پیش‌آماده انتخاب کنید، نام ارسال‌کننده، آدرس ایمیل و موضوع را انتخاب کنید."
+
+# @ edd
+#: includes/admin/settings/contextual-help.php:60
+msgid ""
+"A set of email tags has also been provided to allow the creation of personalized emails. "
+"A tag consists of a keyword surrounded by curly braces: <code>{tag}</code>. A "
+"description of each of these tags appear below the editor."
+msgstr ""
+"شما می‌توانید در قالب سغارشی ایمیلتان تگ‌هایی هم قرار دارید. این تگ‌ها محتوا را معنادار "
+"می‌کنند که ساختارآنها به صورت <code>{tag}</code> است. توضیحات بیشتری درمورد این تگ‌ها در "
+"پایین ویرایشگر داده شده است."
+
+# @ edd
+#: includes/admin/settings/contextual-help.php:65
+#: includes/admin/settings/display-settings.php:36 includes/admin/settings/settings.php:37
+msgid "Styles"
+msgstr "سبک&zwnj;ها"
+
+# @ edd
+#: includes/admin/settings/contextual-help.php:66
+msgid ""
+"This screen allows customization of your store's styles. For complete control, you can "
+"completely disable all styles generated by the plugin."
+msgstr ""
+"در این صفحه می‌توانید فروشگاه خودتان را سفارشی کنید تا از بقیه سایت‌ها متمایز باشد. برای "
+"کنترل کامل‌تر می‌توانید همه سبک‌ها را غیرفعال کنید."
+
+# @ edd
+#: includes/admin/settings/contextual-help.php:72
+msgid "This screen provides basic settings for adjusting how tax rules work for purchases."
+msgstr "در این صفحه تنظیمات عمومی درباره اینکه مالیات‌ها چگونه کار کنند قابل تنظیم است."
+
+# @ edd
+#: includes/admin/settings/contextual-help.php:77
+#: includes/admin/settings/display-settings.php:39
+msgid "Extensions"
+msgstr "افزونه‌ها"
+
+# @ edd
+#: includes/admin/settings/contextual-help.php:78
+msgid ""
+"This screen provides access to settings added by most Easy Digital Downloads extensions."
+msgstr "در این صفحه شما می‌توانید به افزونه‌های EDD دسترسی پیدا کنید."
+
+# @ edd
+#: includes/admin/settings/contextual-help.php:83
+msgid "Miscellaneous"
+msgstr "متفرقه"
+
+# @ edd
+#: includes/admin/settings/contextual-help.php:85
+msgid ""
+"This screen provides other miscellaneous options such as disabling jQuery, allowing "
+"guest checkout, and configuring your terms of service."
+msgstr "در این صفحه تنظیمات متفرقه را مثل غیرفعال‌کردن jQuery می‌بینید."
+
+# @ edd
+#: includes/admin/settings/contextual-help.php:86
+msgid "A description of all the options are provided beside their input boxes."
+msgstr "در کنار هر گزینه، توضیحی کوتاهی درمورد آن داده شده است."
+
+# @ edd
+#: includes/admin/settings/display-settings.php:41 includes/admin/settings/settings.php:39
+msgid "Misc"
+msgstr "متفرقه"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:43
+msgid "Test Mode"
+msgstr "حالت آزمایش"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:44
+msgid ""
+"While in test mode no live transactions are processed. To fully use test mode, you must "
+"have a sandbox (test) account for the payment gateway you are testing."
+msgstr ""
+"با فعال کردن حالت تست هیچ تراکنش واقعی صورت نمی‌گیرد. بعضی از درگاه‌های پرداخت برای "
+"استفاده از این حالت نیازمند فعال کردن حساب آزمایشی هستند."
+
+# @ edd
+#: includes/admin/settings/register-settings.php:49
+msgid "Checkout Page"
+msgstr "برگه پرداخت"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:50
+msgid ""
+"This is the checkout page where buyers will complete their purchases. The "
+"[download_checkout] short code must be on this page."
+msgstr ""
+"این صفحه ای است که مشتریان مبلغ خرید خود را پرداخت می‌کنند. کد [download_checkout] باید "
+"در این صفحه وجود داشته باشد."
+
+# @ edd
+#: includes/admin/settings/register-settings.php:56
+msgid "Success Page"
+msgstr "برگه خرید موفق"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:57
+msgid ""
+"This is the page buyers are sent to after completing their purchases. The [edd_receipt] "
+"short code should be on this page."
+msgstr ""
+"این صفحه ای است که کاربر پس از پرداخت به آن هدایت می‌شود. کد [edd_receipt] باید در این "
+"صفحه وجود داشته باشد."
+
+# @ edd
+#: includes/admin/settings/register-settings.php:63
+msgid "Failed Transaction Page"
+msgstr "برگه تراکنش ناموفق"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:64
+msgid "This is the page buyers are sent to if their transaction is cancelled or fails"
+msgstr "در صورتی که تراکنش ناموفق نباشد، مشتریان به این برگه منتقل می&zwnj;شوند."
+
+# @ edd
+#: includes/admin/settings/register-settings.php:70
+msgid "Currency Settings"
+msgstr "تنظیمات ارز"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:71
+msgid "Configure the currency options"
+msgstr "واحد ارزی خود را انتخاب کنید"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:76
+msgid "Currency"
+msgstr "واحد ارزی"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:77
+msgid "Choose your currency. Note that some payment gateways have currency restrictions."
+msgstr "واحد ارزی خود را انتخاب کنید. فارسی زبانان ریال ایران را انتخاب کنند."
+
+# @ edd
+#: includes/admin/settings/register-settings.php:83
+msgid "Currency Position"
+msgstr "موقعیت نمایش علامت واحد ارزی"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:84
+msgid "Choose the location of the currency sign."
+msgstr "موقعیت نمایش علامت واحد ارزی خود را انتخاب کنید."
+
+# @ edd
+#: includes/admin/settings/register-settings.php:87
+msgid "Before - $10"
+msgstr "قبل - $10"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:88
+msgid "After - 10$"
+msgstr "بعد - 10$"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:93
+msgid "Thousands Separator"
+msgstr "جداکننده صفرها"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:94
+msgid "The symbol (usually , or .) to separate thousands"
+msgstr "از علامت , یا . برای جدا کردن صفرها استفاده کنید."
+
+# @ edd
+#: includes/admin/settings/register-settings.php:101
+msgid "Decimal Separator"
+msgstr "جداکننده اعشار"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:102
+msgid "The symbol (usually , or .) to separate decimal points"
+msgstr "از علامت , یا . برای جداکردن اعشار استفاده کنید"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:109
+msgid "API Settings"
+msgstr "تنظیمات API"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:115
+msgid "Allow User Keys"
+msgstr "اجازه ایجاد کلید API"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:116
+msgid ""
+"Check this box to allow all users to generate API keys. Users with the "
+"'manage_shop_settings' capability are always allowed to generate keys."
+msgstr ""
+"این باکس را برای اجازه ایجاد کلید API برای همه کاربران تیک بزنید. فقط کاربرانی که "
+"Capability 'manage_shop_settings' را دارند اجازه ایجاد کلید API را دارند."
+
+# @ edd
+#: includes/admin/settings/register-settings.php:127
+msgid "Choose the payment gateways you want to enable."
+msgstr "درگاه پرداخت موردنظر را برای فعال شدن انتخاب کنید."
+
+# @ edd
+#: includes/admin/settings/register-settings.php:133
+msgid "Default Gateway"
+msgstr "درگاه پرداخت پیشفرض"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:134
+msgid "This gateway will be loaded automatically with the checkout page."
+msgstr "این درگاه به طور پیش‌فرض در صفحه پرداخت بارگذاری می‌شود."
+
+# @ edd
+#: includes/admin/settings/register-settings.php:140
+msgid "Accepted Payment Method Icons"
+msgstr "نمایش تصویر کارت&zwnj;های قابل پذیرش"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:141
+msgid "Display icons for the selected payment methods"
+msgstr "نمایش تصاویر برای روش&zwnj;های پرداخت انتخاب شده"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:141
+msgid ""
+"You will also need to configure your gateway settings if you are accepting credit cards"
+msgstr ""
+"علاوه بر تنظیم کردن این گزینه، شما باید تنظیمات مربوط به درگاه&zwnj;های پرداخت را انجام "
+"دهید"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:154
+msgid "PayPal Settings"
+msgstr "پیکربندی پی&zwnj;پال"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:155
+msgid "Configure the PayPal settings"
+msgstr "پیکربندی تنظیمات پی&zwnj;پال"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:160
+msgid "PayPal Email"
+msgstr "ایمیل پی&zwnj;پال"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:161
+msgid "Enter your PayPal account's email"
+msgstr "ایمیل حساب پی&zwnj;پال خود را وارد کنید"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:167
+msgid "PayPal Page Style"
+msgstr "سبک صفحه پی‌پال"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:168
+msgid "Enter the name of the page style to use, or leave blank for default"
+msgstr "نام سبک صفحه را وارد کنید و برای پیشفرض بودن خالی بگذارید"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:174
+msgid "Disable PayPal IPN Verification"
+msgstr "غیرفعال کردن تأیید IPN"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:175
+msgid ""
+"If payments are not getting marked as complete, then check this box. This forces the "
+"site to use a slightly less secure method of verifying purchases."
+msgstr "اگر تراکنش&zwnj;های شما ناموفق بودند این گزینه را فعال کنید."
+
+# @ edd
+#: includes/admin/settings/register-settings.php:185
+msgid "Email Template"
+msgstr "قالب ایمیل"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:186
+msgid ""
+"Choose a template. Click \"Save Changes\" then \"Preview Purchase Receipt\" to see the "
+"new template."
+msgstr ""
+"یک قالب انتخاب کنید. روی \"ذخیره&zwnj;ی تغییرات\" یا \"پیش نمایش ایمیل\" کلیک کنید."
+
+# @ edd
+#: includes/admin/settings/register-settings.php:198
+msgid "From Name"
+msgstr "نام فرستنده"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:199
+msgid ""
+"The name purchase receipts are said to come from. This should probably be your site or "
+"shop name."
+msgstr "این گزینه تعیین می&zwnj;کند که ایمیل&zwnj;های فرستاده شده از طرف چه کسی باشد."
+
+# @ edd
+#: includes/admin/settings/register-settings.php:204
+msgid "From Email"
+msgstr "ایمیل فرستنده"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:205
+msgid ""
+"Email to send purchase receipts from. This will act as the \"from\" and \"reply-to\" "
+"address."
+msgstr "آدرس ایمیلی که ایمیل&zwnj;ها از طرف آن فرستاده می&zwnj;شود."
+
+# @ edd
+#: includes/admin/settings/register-settings.php:210
+msgid "Purchase Email Subject"
+msgstr "موضوع ایمیل"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:211
+msgid "Enter the subject line for the purchase receipt email"
+msgstr "موضوع ایمیل را در یک خط بنویسید"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:216 includes/emails/functions.php:49
+#: includes/emails/functions.php:95
+msgid "Purchase Receipt"
+msgstr "سفارش خرید"
+
+# @ edd
+#: includes/emails/functions.php:209
+msgid ""
+"Enter the email that is sent to users after completing a successful purchase. HTML is "
+"accepted. Available template tags:"
+msgstr ""
+"متن ایمیلی که می&zwnj;خواهید پس از یک خرید موفق به کاربر بفرستید بنویسید. استفاده از "
+"HTML آزاد است. تگ&zwnj;های آزاد:"
+
+# @ edd
+#: includes/emails/functions.php:210
+msgid "A list of download links for each download purchased"
+msgstr "یک لیست از لینک دانلودها برای هر خرید"
+
+# @ edd
+#: includes/emails/functions.php:211
+msgid "A plain-text list of download URLs for each download purchased"
+msgstr "یک لیست از لینک دانلود برای هر محصول خریداری شده"
+
+# @ edd
+#: includes/emails/functions.php:212
+msgid "The buyer's first name"
+msgstr "نام کوچک خریدار"
+
+# @ edd
+#: includes/emails/functions.php:213
+msgid "The buyer's full name, first and last"
+msgstr "نام کامل خریدار"
+
+# @ edd
+#: includes/emails/functions.php:214
+msgid "The buyer's user name on the site, if they registered an account"
+msgstr "نام کاربری خریدار در این فروشگاه، اگر آن‌ها نام‌نویسی کرده باشند"
+
+# @ edd
+#: includes/emails/functions.php:215
+msgid "The date of the purchase"
+msgstr "تاریخ خرید"
+
+# @ edd
+#: includes/emails/functions.php:216
+msgid "The price of the purchase before taxes"
+msgstr "قیمت (بدون حساب مالیات)"
+
+# @ edd
+#: includes/emails/functions.php:217
+msgid "The taxed amount of the purchase"
+msgstr "قیمت با حساب مالیات"
+
+# @ edd
+#: includes/emails/functions.php:218
+msgid "The total price of the purchase"
+msgstr "کل هزینه خرید"
+
+# @ edd
+#: includes/emails/functions.php:219
+msgid "The unique ID number for this purchase"
+msgstr "شماره یکتا برای این خرید"
+
+# @ edd
+#: includes/emails/functions.php:220
+msgid "The unique ID number for this purchase receipt"
+msgstr "شماره یکتا برای رسید خرید"
+
+# @ edd
+#: includes/emails/functions.php:221
+msgid "The method of payment used for this purchase"
+msgstr "روش پرداخت انتخاب شده برای این خرید"
+
+# @ edd
+#: includes/emails/functions.php:222
+msgid "Your site name"
+msgstr "نام سایت شما"
+
+# @ edd
+#: includes/emails/functions.php:223
+msgid ""
+"Adds a link so users can view their receipt directly on your website if they are unable "
+"to view it in the browser correctly."
+msgstr "لینک سفارش که مشتری می‌تواند از طریق آن سفارش را در مرورگر خود ببیند."
+
+# @ edd
+#: includes/admin/settings/register-settings.php:222
+msgid "Sale Notification Emails"
+msgstr "ایمیل فروشندگان"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:223
+msgid ""
+"Enter the email address(es) that should receive a notification anytime a sale is made, "
+"one per line"
+msgstr ""
+"آدرس ایمیل افرادی که باید یک اطلاعیه مبنی بر خرید جدید دریافت کنند وارد کنید، هر ایمیل "
+"در یک خط."
+
+# @ edd
+#: includes/admin/settings/register-settings.php:229
+msgid "Disable Admin Notifications"
+msgstr "غیرفعال کردن اطلاعیه‌های مدیر"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:230
+#, fuzzy
+msgid "Check this box if you do not want to receive emails when new sales are made."
+msgstr "این گزینه را اگر می‌خواهیم ایمیلی برای هیچ فروشی دریافت نکنید، تیک بزنید."
+
+# @ edd
+#: includes/admin/settings/register-settings.php:240
+msgid "Disable Styles"
+msgstr "غیرفعال&zwnj;کردن سبک&zwnj;ها"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:241
+msgid ""
+"Check this to disable all included styling of buttons, checkout fields, and all other "
+"elements."
+msgstr "این گزینه را برای غیرفعال کردن همه سبک‌ها تیک بزنید."
+
+# @ edd
+#: includes/admin/settings/register-settings.php:246
+msgid "Buttons"
+msgstr "دکمه&zwnj;ها"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:247
+msgid "Options for add to cart and purchase buttons"
+msgstr "گزینه اضافه کردن به سبد و خرید"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:252
+msgid "Default Button Style"
+msgstr "حالت پیشفرض دکمه"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:253
+msgid "Choose the style you want to use for the buttons."
+msgstr "سبک موردنظر خود را برای دکمه&zwnj;ها مشخص کنید."
+
+# @ edd
+#: includes/admin/settings/register-settings.php:259
+msgid "Default Button Color"
+msgstr "رنگ پیشفرض دکمه"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:260
+msgid "Choose the color you want to use for the buttons."
+msgstr "رنگ موردنظر را برای دکمه&zwnj;ها انتخاب کنید."
+
+# @ edd
+#: includes/admin/settings/register-settings.php:271
+msgid "Enable Taxes"
+msgstr "فعال کردن مالیات"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:272
+msgid "Check this to enable taxes on purchases."
+msgstr "برای فعال کردن مالیات روی خریدها این گزینه را فعال کنید."
+
+# @ edd
+#: includes/admin/settings/register-settings.php:278
+#, fuzzy
+msgid "Default Tax Rate"
+msgstr "قالب پیشفرض"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:279
+msgid ""
+"Enter a percentage, such as 6.5. Customers not in a specific rate below will be charged "
+"this rate."
+msgstr ""
+
+# @ edd
+#: includes/admin/settings/register-settings.php:285
+#, fuzzy
+msgid "Base Country"
+msgstr "کشور محل حسابداری"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:286
+msgid "Where does your store operate from?"
+msgstr ""
+
+# @ edd
+#: includes/admin/settings/register-settings.php:292
+#, fuzzy
+msgid "Base State / Province"
+msgstr "استان / ایالت"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:293
+msgid "What state / provice does your store operate from?"
+msgstr ""
+
+# @ edd
+#: includes/admin/settings/register-settings.php:298
+msgid "Prices entered with tax"
+msgstr "قیمت‌های واردشده با مالیات"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:299
+msgid "This option affects how you enter prices."
+msgstr "این گزینه نوع قیمت‌گذاری را تعیین می‌کند"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:303
+msgid "Yes, I will enter prices inclusive of tax"
+msgstr "بله، من قیمت‌ها را با حساب مالیات وارد می‌کنید"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:304
+msgid "No, I will enter prices exclusive of tax"
+msgstr "خیر، من قیمت‌ها را بدون حساب مالیات وارد می‌کنم"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:309
+msgid "Display during checkout"
+msgstr "نمایش درهنگام پرداخت"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:310
+msgid "Should prices on the checkout page be shown with or without tax?"
+msgstr "آیا قیمت کل خرید با مالیات و یا بدون مالیات نمایش داده شود؟"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:314
+msgid "Including tax"
+msgstr "به همراه مالیات"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:315
+msgid "Excluding tax"
+msgstr "بدون مالیات"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:320
+msgid "Calculate Tax After Discounts?"
+msgstr "حساب کردن مالیات بعد از اعمال تخفیف؟"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:321
+msgid ""
+"Check this if you would like taxes calculated after discounts. By default taxes are "
+"calculated before discounts are applied."
+msgstr "اگر می‌خواهید مالیات‌ها پس از اعمال تخفیف به خرید اضافه شوند این گزینه را تیک بزنید."
+
+# @ edd
+#: includes/admin/settings/register-settings.php:327
+msgid "Additional Tax Rates"
+msgstr ""
+
+# @ edd
+#: includes/admin/settings/register-settings.php:328
+msgid "Specify additional tax rates for other regions."
+msgstr ""
+
+# @ edd
+#: includes/admin/settings/register-settings.php:342
+msgid "Disable Ajax"
+msgstr "غیرفعال&zwnj;کردن Ajax"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:343
+msgid "Check this to disable AJAX for the shopping cart."
+msgstr "برای غیرفعال کردن AJAX سبدخرید، این گزینه را تیک بزنید."
+
+# @ edd
+#: includes/admin/settings/register-settings.php:348
+msgid "Redirect to Checkout"
+msgstr "هدایت به صندوق"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:349
+msgid "Immediately redirect to checkout after adding an item to the cart?"
+msgstr "کاربر پس از اضافه کردن محصول به سبد خرید به صفحه پرداخت برود؟"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:354
+msgid "Disable Live Credit Card Validation"
+msgstr "غیرفعال‌کردن ارزیابی کارت اعتباری"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:355
+msgid ""
+"Live credit card validation means that that card type and number will be validated as "
+"the customer enters the number."
+msgstr ""
+"این گزینه چندان کاربری در ایران ندارد، ولی زدن چک این گزینه باعث می‌شود مشخصات کارت "
+"اعتباری به صورت زنده ارزیابی نشود."
+
+# @ edd
+#: includes/admin/settings/register-settings.php:360
+msgid "Disable Guest Checkout"
+msgstr "غیرفعال کردن پرداخت مهمانان"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:361
+msgid "Require that users be logged-in to purchase files."
+msgstr "لازم است که این کاربران وارد شوند تا بتوانند فایلی بخرند."
+
+# @ edd
+#: includes/admin/settings/register-settings.php:366
+msgid "Show Register / Login Form?"
+msgstr "نمایش فرم نام‌نویسی / ورود؟"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:367
+msgid ""
+"Display the registration and login forms on the checkout page for non-logged-in users."
+msgstr "نمایش فرم نام‌نویسی و ورود در صفحه پرداخت برای کاربران واردنشده."
+
+# @ edd
+#: includes/admin/settings/register-settings.php:378
+#, fuzzy
+msgid "Download Method"
+msgstr "گزارش دانلود"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:379
+msgid "Select the file download method. Note, not all methods work on all servers."
+msgstr ""
+
+# @ edd
+#: includes/admin/settings/register-settings.php:382
+msgid "Forced"
+msgstr ""
+
+# @ edd
+#: includes/admin/settings/register-settings.php:383
+msgid "Redirect"
+msgstr ""
+
+# @ edd
+#: includes/admin/settings/register-settings.php:388
+msgid "Symlink File Downloads?"
+msgstr "قابلیت ادامه دانلود؟"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:389
+msgid ""
+"Check this if you are delivering really large files or having problems with file "
+"downloads completing."
+msgstr ""
+"اگر در هنگام دانلود فایل محصول ممکن است کاربر با مشکل مواجه شود (برای مثال حجم زیاد "
+"باشد) این گزینه را تیک بزنید."
+
+# @ edd
+#: includes/admin/settings/register-settings.php:394
+#, fuzzy
+msgid "File Download Limit"
+msgstr "محدودیت دانلود فایل:"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:395
+#, php-format
+msgid ""
+"The maximum number of times files can be downloaded for purchases. Can be overwritten "
+"for each %s."
+msgstr ""
+
+# @ edd
+#: includes/admin/settings/register-settings.php:401
+msgid "Download Link Expiration"
+msgstr "انقضاء لینک دانلود"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:402
+msgid ""
+"How long should download links be valid for? Default is 24 hours from the time they are "
+"generated. Enter a time in hours."
+msgstr ""
+
+# @ edd
+#: includes/admin/settings/register-settings.php:408
+msgid "Disable Redownload?"
+msgstr ""
+
+# @ edd
+#: includes/admin/settings/register-settings.php:409
+msgid ""
+"Check this if you do not want to allow users to redownload items from their purchase "
+"history."
+msgstr ""
+
+# @ edd
+#: includes/admin/settings/register-settings.php:414
+#, fuzzy
+msgid "Accounting Settings"
+msgstr "پیکربندی افزونه"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:420
+msgid "Enable SKU Entry"
+msgstr ""
+
+# @ edd
+#: includes/admin/settings/register-settings.php:421
+msgid ""
+"Check this box to allow entry of product SKUs. SKUs will be shown on purchase receipt "
+"and exported purchase histories."
+msgstr ""
+
+# @ edd
+#: includes/admin/settings/register-settings.php:426
+msgid "Terms of Agreement"
+msgstr "شرایط قرارداد"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:432
+msgid "Agree to Terms"
+msgstr "قبول شرایط"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:433
+msgid ""
+"Check this to show an agree to terms on the checkout that users must agree to before "
+"purchasing."
+msgstr ""
+"برای نمایش قوانین به کاربر در صفحه پرداخت این گزینه را تیک بزنید. کاربران قبل از پرداخت "
+"باید این قوانین را قبول داشته باشند."
+
+# @ edd
+#: includes/admin/settings/register-settings.php:438
+msgid "Agree to Terms Label"
+msgstr "متن قبول شرایط قرارداد"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:439
+msgid "Label shown next to the agree to terms check box."
+msgstr "متن نشان‌داده شده برای گزینه قبول‌داشتن قوانین."
+
+# @ edd
+#: includes/admin/settings/register-settings.php:445
+msgid "Agreement Text"
+msgstr "متن قرارداد"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:446
+msgid "If Agree to Terms is checked, enter the agreement terms here."
+msgstr "اگر می‌خواهید از قوانین استفاده کنید، قوانین خرید را در زیر وارد کنید."
+
+# @ edd
+#: includes/admin/settings/register-settings.php:451
+msgid "Complete Purchase Text"
+msgstr "متن خرید موفق"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:452
+msgid "The button label for completing a purchase."
+msgstr "متن دکمه برای کامل‌کردن یک خرید."
+
+# @ edd
+#: includes/admin/settings/register-settings.php:457
+msgid "Add to Cart Text"
+msgstr "متن اضافه کردن به سبدخرید"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:458
+msgid "Text shown on the Add to Cart Buttons"
+msgstr "متن نمایش‌داده شده در دکمه اضافه‌کردن به کارت"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:495
+msgid "General Settings"
+msgstr "تنظیمات عمومی"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:521
+msgid "Payment Gateway Settings"
+msgstr "تنظیمات درگاه&zwnj;های پرداخت"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:547
+msgid "Email Settings"
+msgstr "تنظیمات ایمیل"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:573
+msgid "Style Settings"
+msgstr "تنظیمات سبک"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:599
+msgid "Tax Settings"
+msgstr "تنظیمات مالیات"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:625
+msgid "Extension Settings"
+msgstr "پیکربندی افزونه"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:651
+msgid "Misc Settings"
+msgstr "تنظیمات متفرقه"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:695
+msgid "These settings will let you configure simple tax rules for purchases."
+msgstr "شما می‌توانید با استفاده از تنظیمات زیر، مالیات ساده‌ای برای محصولات خود تعیین کنید."
+
+# @ edd
+#: includes/admin/settings/register-settings.php:913
+#, php-format
+msgid "The callback function used for the <strong>%s</strong> setting is missing."
+msgstr "تابع بازگشتی برای <strong>%s</strong> استفاده شده است. تنظیمات گم شد."
+
+# @ edd
+#: includes/admin/settings/register-settings.php:992
+msgid "Upload File"
+msgstr "آپلود فایل"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:1072
+#, fuzzy
+msgid "Country"
+msgstr "کشور محل حسابداری"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:1073 includes/checkout/template.php:253
+msgid "State / Province"
+msgstr "استان / ایالت"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:1075
+#, fuzzy
+msgid "Rate"
+msgstr "میزان مالیات"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:1098
+#: includes/admin/settings/register-settings.php:1112
+#, fuzzy
+msgid "Remove Rate"
+msgstr "حذف"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:1117
+#, fuzzy
+msgid "Add Tax Rate"
+msgstr "میزان مالیات"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:1147
+msgid "Deactivate License"
+msgstr "غیرفعال&zwnj;کردن لایسنس"
+
+# @ edd
+#: includes/admin/settings/register-settings.php:1180
+#: includes/admin/settings/register-settings.php:1200
+msgid "Settings Updated"
+msgstr "پیکربندی بروز شد!"
+
+# @ edd
+#: includes/admin/upgrades/upgrade-functions.php:38
+#, php-format
+msgid "The Payment History needs to be updated. %s"
+msgstr "سوابق مالی نیاز به بروزرسانی دارند. %s"
+
+# @ edd
+#: includes/admin/upgrades/upgrade-functions.php:38
+msgid "Click to Upgrade"
+msgstr "بروزرسانی"
+
+# @ edd
+#: includes/admin/upgrades/upgrade-functions.php:44
+#, php-format
+msgid ""
+"The Purchase and File Download History in Easy Digital Downloads needs to be upgraded, "
+"click %shere%s to start the upgrade."
+msgstr ""
+"سوابق خرید و دانلود فایل‌ها در Easy Digital Downloads نیاز به بروزرسانی دارند. روی %sاینجا"
+"%s کلیک کنید تا بروزرسانی شروع شود."
+
+# @ edd
+#: includes/admin/upgrades/upgrade-functions.php:52
+#, php-format
+msgid ""
+"Easy Digital Downloads needs to upgrade the plugin pages, click %shere%s to start the "
+"upgrade."
+msgstr ""
+"Easy Digital Downloads نیاز به بروزرسانی صفحه افزونه‌ها دارد. روی %sاینجا%s کلیک کنید تا "
+"بروزرسانی شروع شود."
+
+# @ edd
+#: includes/admin/upgrades/upgrade-functions.php:60
+#, php-format
+msgid ""
+"Easy Digital Downloads needs to upgrade the database, click %shere%s to start the "
+"upgrade."
+msgstr ""
+"Easy Digital Downloads باید پایگاه داده را بروز کنید. برای بروزرسانی %sاینجا%s را کلیک "
+"کنید."
+
+# @ edd
+#: includes/admin/upgrades/upgrades.php:24
+msgid "Easy Digital Downloads - Upgrades"
+msgstr "Easy Digital Downloads - ارتقاء"
+
+# @ edd
+#: includes/admin/upgrades/upgrades.php:27
+msgid ""
+"The upgrade process has started, please be patient. This could take several minutes. You "
+"will be automatically redirected when the upgrade is finished."
+msgstr ""
+"پروسه بروزرسانی شروع شد. لطفاً شکیبا باشد. این عمل ممکن است چند دقیقه طول بکشد. شما "
+"اتوماتیک بعد از بروزرسانی به صفحه‌ای هدایت می‌شوید."
+
+# @ edd
+#: includes/cart/functions.php:205 includes/cart/functions.php:315
+#: templates/shortcode-receipt.php:216
+msgid "(ex. tax)"
+msgstr "(بدون مالیات)"
+
+# @ edd
+#: includes/cart/functions.php:209 includes/cart/functions.php:319
+msgid "(incl. tax)"
+msgstr "(با مالیات)"
+
+# @ edd
+#: includes/cart/functions.php:468 templates/shortcode-receipt.php:74
+#: templates/shortcode-receipt.php:218
+#, php-format
+msgid "(includes %s tax)"
+msgstr "(به همراه %s مالیات)"
+
+# @ edd
+#: includes/cart/functions.php:656
+#, php-format
+msgid "You have successfully added %s to your shopping cart."
+msgstr "%s به سبدخرید شما با موفقیت اضافه شد."
+
+# @ edd
+#: includes/cart/functions.php:657
+msgid "Checkout."
+msgstr "پرداخت."
+
+# @ edd
+#: includes/cart/template.php:47
+#, fuzzy
+msgid "Number of items in cart"
+msgstr "فروش‌ها"
+
+# @ edd
+#: includes/cart/template.php:125
+msgid "Your cart is empty."
+msgstr "سبد خرید شما خالی‌ست"
+
+# @ edd
+#: includes/checkout/template.php:119
+msgid "Personal Info"
+msgstr "اطلاعات شخصی"
+
+# @ edd
+#: includes/checkout/template.php:122 templates/shortcode-profile-editor.php:43
+msgid "Email Address"
+msgstr "نشانی ایمیل"
+
+# @ edd
+#: includes/checkout/template.php:123 includes/checkout/template.php:303
+msgid "We will send the purchase receipt to this address."
+msgstr "رسید خرید شما به این نشانی، ارسال خواهد شد."
+
+# @ edd
+#: includes/checkout/template.php:124
+msgid "Email address"
+msgstr "آدرس ایمیل"
+
+# @ edd
+#: includes/checkout/template.php:129 includes/checkout/template.php:308
+msgid "We will use this to personalize your account experience."
+msgstr "برای شما، از این نام در محیط کاربری سایت استفاده خواهیم کرد."
+
+# @ edd
+#: includes/checkout/template.php:134 includes/checkout/template.php:313
+msgid "We will use this as well to personalize your account experience."
+msgstr "همچنین، از این نام."
+
+# @ edd
+#: includes/checkout/template.php:135 includes/checkout/template.php:314
+msgid "Last name"
+msgstr "نام خانوادگی"
+
+# @ edd
+#: includes/checkout/template.php:155
+msgid "Credit Card Info"
+msgstr "اطلاعات کارت اعتباری"
+
+# @ edd
+#: includes/checkout/template.php:159
+msgid "This is a secure SSL encrypted payment."
+msgstr "این یک پرداخت امن SSL است."
+
+# @ edd
+#: includes/checkout/template.php:163
+msgid "Card Number"
+msgstr "شماره کارت"
+
+# @ edd
+#: includes/checkout/template.php:164
+msgid "The (typically) 16 digits on the front of your credit card."
+msgstr "عدد 16 رقمی روی کارت اعتباری شما."
+
+# @ edd
+#: includes/checkout/template.php:165
+msgid "Card number"
+msgstr "شماره کارت"
+
+# @ edd
+#: includes/checkout/template.php:168
+msgid "CVC"
+msgstr "CVC"
+
+# @ edd
+#: includes/checkout/template.php:169
+msgid "The 3 digit (back) or 4 digit (front) value on your card."
+msgstr "عدد 3 یا 4 رقمی پشت کارت شما"
+
+# @ edd
+#: includes/checkout/template.php:170
+msgid "Security code"
+msgstr "کد امنیتی"
+
+# @ edd
+#: includes/checkout/template.php:173
+msgid "Name on the Card"
+msgstr "نام موجود در کارت"
+
+# @ edd
+#: includes/checkout/template.php:174
+msgid "The name printed on the front of your credit card."
+msgstr ".نام موجود روی کارت اعتباری شما"
+
+# @ edd
+#: includes/checkout/template.php:175
+msgid "Card name"
+msgstr "نام کارت"
+
+# @ edd
+#: includes/checkout/template.php:179
+msgid "Expiration (MM/YY)"
+msgstr "تاریخ انقضاء (MM/YY)"
+
+# @ edd
+#: includes/checkout/template.php:180
+msgid "The date your credit card expires, typically on the front of the card."
+msgstr "تاریخ انقضای کارت اعتباری شما."
+
+# @ edd
+#: includes/checkout/template.php:211
+msgid "Billing Address"
+msgstr "آدرس حسابداری"
+
+# @ edd
+#: includes/checkout/template.php:212
+msgid "The primary billing address for your credit card."
+msgstr "آدرس اصلی برای کارت اعتباری شما."
+
+# @ edd
+#: includes/checkout/template.php:213
+msgid "Address line 1"
+msgstr "آدرس 1"
+
+# @ edd
+#: includes/checkout/template.php:216
+msgid "Billing Address Line 2 (optional)"
+msgstr "آدرس دوم شما (اختیاری)"
+
+# @ edd
+#: includes/checkout/template.php:217
+msgid "The suite, apt no, PO box, etc, associated with your billing address."
+msgstr "مجموعه، واحد آپارتمان، صندوق پستی و یا هر مورد دیگر مربوط به آدرس شما"
+
+# @ edd
+#: includes/checkout/template.php:218
+msgid "Address line 2"
+msgstr "آدرس 2"
+
+# @ edd
+#: includes/checkout/template.php:221
+msgid "Billing City"
+msgstr "شهر محل حسابداری"
+
+# @ edd
+#: includes/checkout/template.php:222
+msgid "The city for your billing address."
+msgstr "شهر محل زندگی شما."
+
+# @ edd
+#: includes/checkout/template.php:223
+msgid "City"
+msgstr "شهر"
+
+# @ edd
+#: includes/checkout/template.php:226
+msgid "Billing Country"
+msgstr "کشور محل حسابداری"
+
+# @ edd
+#: includes/checkout/template.php:227
+msgid "The country for your billing address."
+msgstr "کشور محل زندگی شما."
+
+# @ edd
+#: includes/checkout/template.php:238
+msgid "Billing State / Province"
+msgstr "استان / ایالت"
+
+# @ edd
+#: includes/checkout/template.php:239
+msgid "The state or province for your billing address."
+msgstr "نام استان یا ایالت شما."
+
+# @ edd
+#: includes/checkout/template.php:257
+msgid "Billing Zip / Postal Code"
+msgstr "کد پستی"
+
+# @ edd
+#: includes/checkout/template.php:258
+msgid "The zip or postal code for your billing address."
+msgstr "کدپستی خودتان."
+
+# @ edd
+#: includes/checkout/template.php:259
+msgid "Zip / Postal code"
+msgstr "کد پستی"
+
+# @ edd
+#: includes/checkout/template.php:299
+msgid "Already have an account?"
+msgstr "شما قبلاً حسابی داشتید؟"
+
+# @ edd
+#: includes/checkout/template.php:318
+msgid "Create an account"
+msgstr "ایجاد حساب"
+
+# @ edd
+#: includes/checkout/template.php:318
+msgid "(optional)"
+msgstr "(اختیاری)"
+
+# @ edd
+#: includes/checkout/template.php:322
+msgid "The username you will use to log into your account."
+msgstr "نام کاربری شما برای ورود به حساب شما استفاده می‌شود."
+
+# @ edd
+#: includes/checkout/template.php:327
+msgid "The password used to access your account."
+msgstr "رمزعبور برای دسترسی به حساب شما استفاده می‌شود."
+
+# @ edd
+#: includes/checkout/template.php:331
+msgid "Password Again"
+msgstr "رمزعبور دوباره"
+
+# @ edd
+#: includes/checkout/template.php:332
+msgid "Confirm your password."
+msgstr "رمزعبور خود را تأیید کنید."
+
+# @ edd
+#: includes/checkout/template.php:333
+msgid "Confirm password"
+msgstr "تأیید رمزعبور"
+
+# @ edd
+#: includes/checkout/template.php:357
+msgid "Login to your account"
+msgstr "ورود به حساب"
+
+# @ edd
+#: includes/checkout/template.php:361
+msgid "Your username"
+msgstr "نام کاربری"
+
+# @ edd
+#: includes/checkout/template.php:365
+msgid "Your password"
+msgstr "رمزعبور"
+
+# @ edd
+#: includes/checkout/template.php:371
+msgid "Need to create an account?"
+msgstr "به ایجاد یک حساب نیاز دارید؟"
+
+# @ edd
+#: includes/checkout/template.php:373
+msgid "Register"
+msgstr "ثبت نام"
+
+# @ edd
+#: includes/checkout/template.php:373
+msgid "or checkout as a guest."
+msgstr "یا به عنوان یک مهمان پرداخت کنید."
+
+# @ edd
+#: includes/checkout/template.php:399
+msgid "Select Payment Method"
+msgstr "انتخاب درگاه پرداخت"
+
+# @ edd
+#: includes/checkout/template.php:437 templates/shortcode-receipt.php:82
+msgid "Discount"
+msgstr "تخفیف"
+
+# @ edd
+#: includes/checkout/template.php:440
+msgid "Enter a coupon code if you have one."
+msgstr "یک کد تخفیف (البته اگر دارید) وارد کنید."
+
+# @ edd
+#: includes/checkout/template.php:471
+msgid "Show Terms"
+msgstr "نمایش قوانین"
+
+# @ edd
+#: includes/checkout/template.php:472
+msgid "Hide Terms"
+msgstr "مخفی&zwnj;کردن قوانین"
+
+# @ edd
+#: includes/checkout/template.php:474
+msgid "Agree to Terms?"
+msgstr "قوانین را قبول دارید؟"
+
+# @ edd
+#: includes/checkout/template.php:492
+msgid "Purchase Total:"
+msgstr "مبلغ کل خرید:"
+
+# @ edd
+#: includes/checkout/template.php:519
+msgid "Go back"
+msgstr "بازگشت"
+
+# @ edd
+#: includes/checkout/template.php:541
+msgid "Next"
+msgstr "بعدی"
+
+# @ edd
+#: includes/emails/functions.php:79 includes/emails/template.php:245
+#: includes/emails/template.php:297
+msgid "Dear"
+msgstr "سلام"
+
+# @ edd
+#: includes/emails/functions.php:80 includes/emails/template.php:246
+#: includes/emails/template.php:298
+msgid ""
+"Thank you for your purchase. Please click on the link(s) below to download your files."
+msgstr "از خرید شما متشکریم! روی لینک(های) زیر برای دانلود فایل(ها) کلیک کنید."
+
+# @ edd
+#: includes/emails/functions.php:130
+msgid "New download purchase"
+msgstr "خرید جدید"
+
+# @ edd
+#: includes/emails/functions.php:132
+msgid "Hello"
+msgstr "سلام"
+
+# @ edd
+#: includes/emails/functions.php:132
+#, php-format
+msgid "A %s purchase has been made"
+msgstr "یک خرید %s ساخته شد"
+
+# @ edd
+#: includes/emails/functions.php:133
+#, php-format
+msgid "%s sold:"
+msgstr "%s فروخته شده:"
+
+# @ edd
+#: includes/emails/functions.php:154
+msgid "Purchased by: "
+msgstr "خریده&zwnj;شده توسط:"
+
+# @ edd
+#: includes/emails/functions.php:155
+msgid "Amount: "
+msgstr "قیمت:"
+
+# @ edd
+#: includes/emails/functions.php:156
+msgid "Payment Method: "
+msgstr "روش پرداخت:"
+
+# @ edd
+#: includes/emails/functions.php:157
+msgid "Thank you"
+msgstr "متشکریم"
+
+# @ edd
+#: includes/emails/template.php:24
+msgid "Default Template"
+msgstr "قالب پیشفرض"
+
+# @ edd
+#: includes/emails/template.php:25
+msgid "No template, plain text only"
+msgstr "بدون قالب، متن ساده"
+
+# @ edd
+#: includes/emails/template.php:84 templates/shortcode-receipt.php:113
+msgid "SKU"
+msgstr ""
+
+# @ edd
+#: includes/emails/template.php:161 includes/emails/template.php:218
+#, php-format
+msgid "%1$sView it in your browser.%2$s"
+msgstr "%1$sمشاهده آن در مرورگرتان%2$s"
+
+# @ edd
+#: includes/emails/template.php:180
+msgid "Sample Product Title"
+msgstr "محصول نمونه"
+
+# @ edd
+#: includes/emails/template.php:183
+msgid "Sample Download File Name"
+msgstr "نام فایل محصول نمونه"
+
+# @ edd
+#: includes/emails/template.php:183
+msgid "Optional notes about this download."
+msgstr "توضیحات دلخواه درمورد دانلود"
+
+# @ edd
+#: includes/emails/template.php:196
+msgid "These are some sample notes added to a product."
+msgstr "نمونه&zwnj;های یادداشت اضافه شده به محصول نمونه"
+
+# @ edd
+#: includes/emails/template.php:253
+msgid "Purchase Receipt Preview"
+msgstr "پیش نمایش ایمیل"
+
+# @ edd
+#: includes/emails/template.php:253
+msgid "Preview Purchase Receipt"
+msgstr "پیش نمایش ایمیل"
+
+# @ edd
+#: includes/emails/template.php:254
+msgid "This will send a demo purchase receipt to the emails listed below."
+msgstr "ما یک ایمیل تست حاوی سفارش خرید آزمایشی به ایمیل های زیر ارسال خواهیم کرد."
+
+# @ edd
+#: includes/emails/template.php:254
+msgid "Send Test Email"
+msgstr "ارسال ایمیل تست"
+
+# @ edd
+#: includes/emails/template.php:408
+msgid "Missing purchase key."
+msgstr "کلید خرید گم شده است."
+
+# @ edd
+#: includes/emails/template.php:416
+msgid "Receipt"
+msgstr "رسید"
+
+# @ edd
+#: includes/gateways/functions.php:24
+#, fuzzy
+msgid "PayPal Standard"
+msgstr "پیکربندی پی&zwnj;پال"
+
+# @ edd
+#: includes/gateways/functions.php:24
+#, fuzzy
+msgid "PayPal"
+msgstr "ایمیل پی&zwnj;پال"
+
+# @ edd
+#: includes/gateways/functions.php:25
+msgid "Test Payment"
+msgstr "پرداخت آزمایشی"
+
+# @ edd
+#: includes/gateways/functions.php:200
+msgid "You must enable a payment gateway to use Easy Digital Downloads"
+msgstr "شما باید یک درگاه برای استفاده از افزونه فعال کنید."
+
+# @ edd
+#: includes/gateways/manual.php:73
+#, php-format
+msgid ""
+"Payment creation failed while processing a manual (free or test) purchase. Payment data: "
+"%s"
+msgstr "پرداخت ایجاد نشد قبل از ارسال کاربر به PayPal. اطلاعات پرداخت: %s"
+
+# @ edd
+#: includes/gateways/paypal-standard.php:74
+#, php-format
+msgid "Payment creation failed before sending buyer to PayPal. Payment data: %s"
+msgstr "پرداخت ایجاد نشد قبل از ارسال کاربر به PayPal. اطلاعات پرداخت: %s"
+
+# @ edd
+#: includes/gateways/paypal-standard.php:285 includes/gateways/paypal-standard.php:290
+#: includes/gateways/paypal-standard.php:343 includes/gateways/paypal-standard.php:354
+#: includes/gateways/paypal-standard.php:359
+msgid "IPN Error"
+msgstr "خطای IPN"
+
+# @ edd
+#: includes/gateways/paypal-standard.php:285 includes/gateways/paypal-standard.php:290
+#, fuzzy, php-format
+msgid "Invalid IPN verification response. IPN data: %s"
+msgstr "پاسخ IPN نامعتبر است. داده IPN:"
+
+# @ edd
+#: includes/gateways/paypal-standard.php:343
+#, fuzzy, php-format
+msgid "Invalid currency in IPN response. IPN data: %s"
+msgstr "پاسخ IPN نامعتبر است. داده IPN:"
+
+# @ edd
+#: includes/gateways/paypal-standard.php:354
+#, fuzzy, php-format
+msgid "Invalid payment amount in IPN response. IPN data: %s"
+msgstr "پاسخ IPN نامعتبر است. داده IPN:"
+
+# @ edd
+#: includes/gateways/paypal-standard.php:359
+#, fuzzy, php-format
+msgid "Invalid purchase key in IPN response. IPN data: %s"
+msgstr "پاسخ IPN نامعتبر است. داده IPN:"
+
+# @ edd
+#: includes/gateways/paypal-standard.php:365
+#, php-format
+msgid "PayPal Transaction ID: %s"
+msgstr "شماره تراکنش PayPal: %s"
+
+# @ edd
+#: includes/gateways/paypal-standard.php:386
+#, php-format
+msgid "PayPal Payment #%s Refunded"
+msgstr "پرداخت #%s مسترد شد"
+
+# @ edd
+#: includes/gateways/paypal-standard.php:387
+#, php-format
+msgid "PayPal Refund Transaction ID: %s"
+msgstr "شماره تراکنش PayPal: %s"
+
+# @ edd
+#: includes/payments/actions.php:103
+#, php-format
+msgid "Status changed from %s to %s"
+msgstr "وضعیت از %s به %s تغییر یافت"
+
+# @ edd
+#: includes/payments/functions.php:392
+msgid "Complete"
+msgstr "کامل"
+
+# @ edd
+#. translators: plugin header field 'Description'
+#: easy-digital-downloads.php:0 languages/strings.php:16
+msgid "Serve Digital Downloads Through WordPress"
+msgstr "ایجاد فروشگاه فایل با وردپرس، مثل آب خوردن!"
+
+# @ edd
+#. translators: plugin header field 'Author'
+#: easy-digital-downloads.php:0 languages/strings.php:17
+msgid "Pippin Williamson"
+msgstr "پیپین ویلیامسون"
+
+# @ edd
+#: templates/checkout_cart.php:6
+msgid "Item Name"
+msgstr "نام محصول"
+
+# @ edd
+#: templates/checkout_cart.php:7
+msgid "Item Price"
+msgstr "قیمت"
+
+# @ edd
+#: templates/checkout_cart.php:8
+msgid "Actions"
+msgstr "عملیات"
+
+# @ edd
+#: templates/checkout_cart.php:63 templates/shortcode-receipt.php:56
+msgid "Subtotal"
+msgstr "کل"
+
+# @ edd
+#: templates/checkout_cart.php:90
+msgid "Total"
+msgstr "کل"
+
+# @ edd
+#: templates/history-purchases.php:30
+#, fuzzy
+msgid "View Details and Downloads"
+msgstr "مشاهده گزارش دانلود فایل"
+
+# @ edd
+#: templates/history-purchases.php:49
+msgid "You have not made any purchases"
+msgstr "شما هنوز هیچ خریدی ایجاد نکردید"
+
+# @ edd
+#: templates/shortcode-profile-editor.php:14
+msgid "Success"
+msgstr "موفقیت"
+
+# @ edd
+#: templates/shortcode-profile-editor.php:14
+msgid "Your profile has been edited successfully."
+msgstr "پروفایل شما با موفقیت ویرایش شد."
+
+# @ edd
+#: templates/shortcode-profile-editor.php:18
+msgid "Change your Name"
+msgstr "تغییر نام خود"
+
+# @ edd
+#: templates/shortcode-profile-editor.php:27
+msgid "Display Name"
+msgstr "نام نمایشی"
+
+# @ edd
+#: templates/shortcode-profile-editor.php:46
+msgid "Change your Password"
+msgstr "رمزعبور خود را عوض کنید"
+
+# @ edd
+#: templates/shortcode-profile-editor.php:48
+msgid "New Password"
+msgstr "رمزعبور جدید"
+
+# @ edd
+#: templates/shortcode-profile-editor.php:51
+msgid "Re-enter Password"
+msgstr "دوباره رمزعبور را وارد کنید"
+
+# @ edd
+#: templates/shortcode-profile-editor.php:54
+msgid "Please note after changing your password, you must log back in."
+msgstr "یادتان باشد بعد از تغییر رمزعبور، باید دوباره وارد شوید."
+
+# @ edd
+#: templates/shortcode-profile-editor.php:59
+msgid "Save Changes"
+msgstr "ذخیره تغییرات"
+
+# @ edd
+#: templates/shortcode-profile-editor.php:65
+msgid "You need to login to edit your profile."
+msgstr "برای ویرایش پروفایل باید وارد شوید."
+
+# @ edd
+#: templates/shortcode-receipt.php:19
+msgid "Payment"
+msgstr "پرداخت"
+
+# @ edd
+#: templates/shortcode-receipt.php:96
+msgid "Payment Key"
+msgstr "شماره پرداخت"
+
+# @ edd
+#: templates/shortcode-receipt.php:180
+#, fuzzy
+msgid "No downloadable files found for this bundled item."
+msgstr "هیچ فایل قابل دانلودی پیدا نشد."
+
+# @ edd
+#: templates/widget-cart-checkout.php:1 templates/widget-cart-empty.php:2
+#, fuzzy
+msgid "Subtotal:"
+msgstr "کل"
+
+# @ edd
+#: templates/widget-cart-item.php:4
+msgid "remove"
+msgstr "حذف"
+
+# @ edd
+#. translators: plugin header field 'PluginURI'
+#: easy-digital-downloads.php:0
+msgid "http://easydigitaldownloads.com"
+msgstr ""
+
+# @ edd
+#. translators: plugin header field 'AuthorURI'
+#: easy-digital-downloads.php:0
+msgid "http://pippinsplugins.com"
+msgstr ""
+
+# @ edd
+#. translators: plugin header field 'Version'
+#: easy-digital-downloads.php:0
+msgid "1.6.3"
+msgstr ""
+
+# @ edd
+#: includes/admin/settings/register-settings.php:1074
+msgid "Apply rate to whole country, regardless of state / province"
+msgstr ""
+
+# @ edd
+#: includes/admin/settings/register-settings.php:1074
+msgid "Country Wide"
+msgstr ""
+
+# @ edd
+#: includes/admin/settings/register-settings.php:1095
+#: includes/admin/settings/register-settings.php:1110
+msgid "Apply to whole country"
+msgstr ""
+
+# @ edd
+#: includes/checkout/template.php:208
+msgid "Billing Details"
+msgstr ""
+
+# @ edd
+#: includes/country-functions.php:111
+msgid "Choose"
+msgstr ""
+
+# @ edd
+#: includes/gateways/paypal.php:267
+msgid "Invalid IPN"
+msgstr ""
+
+# @ edd
+#: includes/post-types.php:263
+#, php-format
+msgid "Refunded <span class=\"count\">(%s)</span>"
+msgid_plural "Refunded <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+# @ edd
+#: includes/post-types.php:271
+#, php-format
+msgid "Failed <span class=\"count\">(%s)</span>"
+msgid_plural "Failed <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+# @ edd
+#: includes/post-types.php:279
+#, php-format
+msgid "Revoked <span class=\"count\">(%s)</span>"
+msgid_plural "Revoked <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+# @ edd
+#: includes/post-types.php:287
+#, php-format
+msgid "Abandoned <span class=\"count\">(%s)</span>"
+msgid_plural "Abandoned <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+# @ edd
+#: includes/post-types.php:297
+#, php-format
+msgid "Active <span class=\"count\">(%s)</span>"
+msgid_plural "Active <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+# @ edd
+#: includes/post-types.php:305
+#, php-format
+msgid "Inactive <span class=\"count\">(%s)</span>"
+msgid_plural "Inactive <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+# @ default
+#: templates/checkout_cart.php:45
+msgid "label"
+msgstr ""
+
+# @ edd
+#: templates/history-downloads.php:9
+msgid "Download Name"
+msgstr ""
+
+# @ edd
+#: templates/history-downloads.php:11
+msgid "Files"
+msgstr ""
+
+# @ edd
+#: templates/history-downloads.php:78
+msgid "You have not purchased any downloads"
+msgstr ""
