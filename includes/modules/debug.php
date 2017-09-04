@@ -165,6 +165,10 @@ class Debug extends gNetwork\Module
 					'title' => _x( 'Custom', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
 					'cb'    => [ __CLASS__, 'customSummary' ],
 				],
+				'bp_custom' => [
+					'title' => _x( 'BuddyPress Custom', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
+					'cb'    => [ __CLASS__, 'bpCustomSummary' ],
+				],
 				'phpinfo' => [
 					'title' => _x( 'PHP Info', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
 					'cb'    => [ __CLASS__, 'phpinfo' ],
@@ -313,6 +317,15 @@ class Debug extends gNetwork\Module
 				.HTML::escapeTextarea( File::getContents( WP_CONTENT_DIR.'/gnetwork-custom.php' ) ).'</code></pre>';
 		else
 			HTML::desc( _x( 'No custom file found.', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+	}
+
+	public static function bpCustomSummary()
+	{
+		if ( file_exists( WP_PLUGIN_DIR.'/bp-custom.php' ) )
+			echo '<pre class="language-php line-numbers" dir="ltr"><code class="language-php">'
+				.HTML::escapeTextarea( File::getContents( WP_PLUGIN_DIR.'/bp-custom.php' ) ).'</code></pre>';
+		else
+			HTML::desc( _x( 'No bp custom file found.', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
 	}
 
 	public static function cacheStats()
