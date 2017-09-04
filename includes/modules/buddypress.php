@@ -26,11 +26,20 @@ class BuddyPress extends gNetwork\Module
 
 		if ( bp_is_root_blog() ) {
 
-			if ( $this->options['complete_signup'] )
-				$this->action( 'bp_complete_signup' );
+			if ( ! is_admin() ) {
 
-			if ( ! $this->options['open_directories'] )
-				$this->action( 'bp_screens' );
+				$this->action( 'wp_enqueue_scripts' );
+
+				if ( $this->options['complete_signup'] )
+					$this->action( 'bp_complete_signup' );
+
+				if ( ! $this->options['open_directories'] )
+					$this->action( 'bp_screens' );
+
+				add_action( 'bp_before_register_page', '__donot_cache_page' );
+				add_action( 'bp_before_activation_page', '__donot_cache_page' );
+				add_action( 'bp_template_include_reset_dummy_post_data', '__gpersiandate_skip' );
+			}
 
 			// https://github.com/pixeljar/BuddyPress-Honeypot
 			// https://www.pixeljar.com/?p=961
@@ -52,10 +61,6 @@ class BuddyPress extends gNetwork\Module
 				$this->filter( 'bp_activity_user_can_delete', 2 );
 				$this->action( 'wp_ajax_delete_activity_comment', 0, 1 );
 			}
-
-			add_action( 'bp_before_register_page', '__donot_cache_page' );
-			add_action( 'bp_before_activation_page', '__donot_cache_page' );
-			add_action( 'bp_template_include_reset_dummy_post_data', '__gpersiandate_skip' );
 
 		} else {
 			remove_all_actions( 'bp_register_widgets' );
@@ -174,6 +179,12 @@ class BuddyPress extends gNetwork\Module
 			_x( 'Avatars Sizes', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
 			_x( 'Change the default BuddyPress Avatar values. Leave empty to use BuddyPress defaults.', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN )
 		);
+	}
+
+	public function wp_enqueue_scripts()
+	{
+		if ( is_buddypress() )
+			wp_enqueue_style( 'gnetwork-buddypress', GNETWORK_URL.'assets/css/buddypress.all'.( is_rtl() ? '-rtl' : '' ).'.css', [], GNETWORK_VERSION );
 	}
 
 	// cleanup!
