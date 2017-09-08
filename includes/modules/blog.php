@@ -260,10 +260,9 @@ class Blog extends gNetwork\Module
 			$settings['_email'] = [
 				[
 					'field'       => 'from_email',
-					'type'        => 'text',
+					'type'        => 'email',
 					'title'       => _x( 'From Email', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'This site email address that emails should be sent from. Set to override the network.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'field_class' => [ 'regular-text', 'email-text' ],
 				],
 				[
 					'field'       => 'from_name',

@@ -14,8 +14,10 @@ use geminorum\gNetwork\Core\WordPress;
 class Debug extends gNetwork\Module
 {
 
-	protected $key  = 'debug';
-	protected $ajax = TRUE;
+	protected $key        = 'debug';
+	protected $ajax       = TRUE;
+	protected $cron       = TRUE;
+	protected $installing = TRUE;
 
 	private $http_calls = [];
 

@@ -419,8 +419,9 @@ class Themes extends gNetwork\Module
 		} else if ( $this->isTheme( 'twentyfifteen' ) ) {
 
 			if ( $this->rtl ) {
-				add_action( 'wp_enqueue_scripts', function(){
-					Themes::enqueueStyle( 'twentyfifteen', TRUE );
+
+				add_action( 'wp_head', function(){
+					Themes::linkStyleSheet( 'twentyfifteen-rtl' );
 				}, 20 );
 
 				add_filter( 'mce_css', function( $url ){

@@ -126,10 +126,9 @@ class OpenSearch extends gNetwork\Module
 				],
 				[
 					'field'       => 'contact',
-					'type'        => 'text',
+					'type'        => 'email',
 					'title'       => _x( 'Contact', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'An email address at which the maintainer of the search engine can be reached.', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
-					'field_class' => [ 'regular-text', 'email-text' ],
 					'default'     => get_site_option( 'admin_email' ),
 				],
 				[

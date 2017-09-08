@@ -70,10 +70,9 @@ class Mail extends gNetwork\Module
 			'_general' => [
 				[
 					'field'       => 'from_email',
-					'type'        => 'text',
+					'type'        => 'email',
 					'title'       => _x( 'From Email', 'Modules: Mail: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'You can specify the email address that emails should be sent from. Leave blank for default.', 'Modules: Mail: Settings', GNETWORK_TEXTDOMAIN ),
-					'field_class' => [ 'regular-text', 'email-text' ],
 				],
 				[
 					'field'       => 'from_name',

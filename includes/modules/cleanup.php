@@ -49,15 +49,6 @@ class Cleanup extends gNetwork\Module
 			'values'      => $confirm,
 		];
 
-		if ( $multisite && $superadmin )
-			$settings['_options'][] = [
-				'field'       => 'purge_options_site',
-				'type'        => 'button',
-				'description' => _x( 'Removes network obsolete options', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
-				'default'     => _x( 'Purge Network Options', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
-				'values'      => $confirm,
-			];
-
 		$settings['_transient'][] = [
 			'field'       => 'transient_purge',
 			'type'        => 'button',
@@ -78,6 +69,14 @@ class Cleanup extends gNetwork\Module
 		if ( is_main_site() ) {
 
 			if ( $multisite && $superadmin ) {
+
+				$settings['_options'][] = [
+					'field'       => 'purge_options_site',
+					'type'        => 'button',
+					'description' => _x( 'Removes network obsolete options', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+					'default'     => _x( 'Purge Network Options', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+					'values'      => $confirm,
+				];
 
 				$settings['_transient'][] = [
 					'field'       => 'transient_purge_site',
