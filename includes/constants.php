@@ -55,7 +55,6 @@ $gnetwork_constants = [
 	'GNETWORK_MEDIA_THUMBS_URL'        => WP_CONTENT_URL.'/thumbs',
 	'GNETWORK_MEDIA_THUMBS_CHECK'      => TRUE, // check default wp dir before thumbs / make it disable for newly created sites
 	'GNETWORK_MEDIA_OBJECT_SIZES'      => FALSE, // disable all image sizes and enable for each posttypes
-	'GNETWORK_MEDIA_DISABLE_META'      => FALSE, // disable storing meta (EXIF) data of the attachments
 
 	// reset some stuff
 	'WP_STAGE'       => 'production',

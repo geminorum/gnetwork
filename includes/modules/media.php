@@ -30,7 +30,8 @@ class Media extends gNetwork\Module
 		$this->filter( 'image_send_to_editor', 8 );
 		$this->filter( 'media_send_to_editor', 3, 12 );
 
-		$this->filter( 'wp_update_attachment_metadata', 2, 12 );
+		if ( $this->options['skip_exifmeta'] )
+			$this->filter( 'wp_update_attachment_metadata', 2, 12 );
 
 		if ( is_admin() ) {
 
@@ -63,15 +64,29 @@ class Media extends gNetwork\Module
 		$this->_hook_ajax();
 	}
 
+	public function default_options()
+	{
+		return [
+			'skip_exifmeta' => '1',
+		];
+	}
+
+	public function default_settings()
+	{
+		return [
+			'_general' => [
+				[
+					'field'       => 'skip_exifmeta',
+					'title'       => _x( 'Strip EXIF', 'Modules: Media: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Skips unused EXIF metadata for image attachments.', 'Modules: Media: Settings', GNETWORK_TEXTDOMAIN ),
+					'default'     => '1',
+				],
+			],
+		];
+	}
+
 	public function init_late()
 	{
-		if ( $this->filters( 'disable_meta', GNETWORK_MEDIA_DISABLE_META, $this->blog ) ) {
-
-			add_filter( 'wp_read_image_metadata', '__return_empty_array', 12, 4 );
-		// } else {
-		// 	add_filter( 'wp_read_image_metadata', 'wp_read_image_metadata', 12, 4 );
-		}
-
 		if ( $this->filters( 'object_sizes', GNETWORK_MEDIA_OBJECT_SIZES, $this->blog ) ) {
 
 			add_filter( 'intermediate_image_sizes', '__return_empty_array', 99 );
@@ -1106,25 +1121,5 @@ class Media extends gNetwork\Module
 
 		$name = Utilities::URLifyDownCode( $name );
 		return Text::strToLower( $name ).$ext;
-	}
-
-	// FIXME: WORKING BUT DISABLED: there will be notices!
-	// TODO: add core tiket!
-	public function wp_read_image_metadata( $meta, $file, $sourceImageType, $iptc )
-	{
-		return Arraay::stripDefaults( $meta, [
-			'aperture'          => 0,
-			'credit'            => '',
-			'camera'            => '',
-			'caption'           => '',
-			'created_timestamp' => 0,
-			'copyright'         => '',
-			'focal_length'      => 0,
-			'iso'               => 0,
-			'shutter_speed'     => 0,
-			'title'             => '',
-			'orientation'       => 0,
-			'keywords'          => [],
-		] );
 	}
 }
