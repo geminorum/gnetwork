@@ -342,7 +342,7 @@ class Module extends Core\Base
 		return gNetwork()->base;
 	}
 
-	protected function init_options()
+	protected function init_options( $sanitize = TRUE )
 	{
 		$network = $this->base.'OptionsNetwork';
 		$blog    = $this->base.'OptionsBlog';
@@ -360,7 +360,7 @@ class Module extends Core\Base
 		else
 			$options = isset( ${$blog}[$this->key] ) ? ${$blog}[$this->key] : [];
 
-		return $this->settings_sanitize( $options, $this->default_options() );
+		return $sanitize ? $this->settings_sanitize( $options, $this->default_options() ) : $options;
 	}
 
 	public function settings_sanitize( $options, $defaults = NULL )
@@ -712,12 +712,11 @@ class Module extends Core\Base
 					.'</p>'.HTML::listCode( $this->get_shortcodes(), '<code>[%1$s]</code>' ),
 			] );
 
-		if ( count( $this->options )
-			&& WordPress::isSuperAdmin() )
+		if ( $options = $this->init_options( FALSE ) )
 			$screen->add_help_tab( [
 				'id'       => $this->classs( 'help-options' ),
-				'title'    => _x( 'Current Options', 'Module Core: Help Tab Title', GNETWORK_TEXTDOMAIN ),
-				'content'  => HTML::tableCode( $this->options ),
+				'title'    => _x( 'Currently Saved Options', 'Module Core: Help Tab Title', GNETWORK_TEXTDOMAIN ),
+				'content'  => HTML::tableCode( $options ),
 				'priority' => 999,
 			] );
 	}
