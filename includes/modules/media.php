@@ -191,7 +191,12 @@ class Media extends gNetwork\Module
 
 	public static function registeredImageSizes()
 	{
-		HTML::tableSide( $GLOBALS['_wp_additional_image_sizes'] );
+		global $_wp_additional_image_sizes;
+
+		if ( empty( $_wp_additional_image_sizes ) )
+			HTML::desc( _x( 'No additional image size registered.', 'Modules: Media', GNETWORK_TEXTDOMAIN ) );
+		else
+			HTML::tableSide( $_wp_additional_image_sizes );
 	}
 
 	public function settings_form_images( $uri, $sub = 'general' )
