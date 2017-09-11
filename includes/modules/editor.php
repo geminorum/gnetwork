@@ -68,7 +68,7 @@ class Editor extends gNetwork\Module
 	public function wp_link_query_args( $query )
 	{
 		if ( current_user_can( 'edit_others_posts' ) )
-			$query['post_status'] = 'any';
+			$query['post_status'] = [ 'publish', 'future', 'draft' ];
 
 		return $query;
 	}
