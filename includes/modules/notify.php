@@ -40,8 +40,8 @@ class Notify extends gNetwork\Module
 	public function default_options()
 	{
 		return [
-			'disable_new_user_admin'  => '1',
-			'disable_password_change' => '1',
+			'disable_new_user_admin'  => 0,
+			'disable_password_change' => 0,
 			'signup_blog_subject'     => '',
 			'signup_blog_message'     => '',
 		];
@@ -55,14 +55,12 @@ class Notify extends gNetwork\Module
 					'field'       => 'disable_new_user_admin',
 					'title'       => _x( 'New User', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Notify the blog admin of a newly-registered user', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
-					'default'     => '1',
 					'values'      => Settings::reverseEnabled(),
 				],
 				[
 					'field'       => 'disable_password_change',
 					'title'       => _x( 'Password Reset', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Notify the blog admin of a user changing password', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
-					'default'     => '1',
 					'values'      => Settings::reverseEnabled(),
 				],
 			],
