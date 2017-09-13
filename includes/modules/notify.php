@@ -114,7 +114,7 @@ class Notify extends gNetwork\Module
 	}
 
 	// pluggable core function
-	// Email login credentials to a newly-registered user.
+	// email login credentials to a newly-registered user
 	// CHANGED: we opt-out notifying the admin
 	public function wp_new_user_notification( $user_id, $deprecated = NULL, $notify = '' )
 	{
@@ -134,7 +134,21 @@ class Notify extends gNetwork\Module
 			$message .= sprintf( __( 'Username: %s' ), $user->user_login )."\r\n\r\n";
 			$message .= sprintf( __( 'Email: %s' ), $user->user_email )."\r\n";
 
-			@wp_mail( get_option( 'admin_email' ), sprintf( __( '[%s] New User Registration' ), $blog ), $message );
+			$mail = [
+				'to'      => get_option( 'admin_email' ),
+				'subject' => __( '[%s] New User Registration' ),
+				'message' => $message,
+				'headers' => '',
+			];
+
+			$mail = apply_filters( 'wp_new_user_notification_email_admin', $mail, $user, $blog );
+
+			@wp_mail(
+				$mail['to'],
+				wp_specialchars_decode( sprintf( $mail['subject'], $blog ) ),
+				$mail['message'],
+				$mail['headers']
+			);
 
 			if ( $switched_locale )
 				restore_previous_locale();
@@ -163,14 +177,28 @@ class Notify extends gNetwork\Module
 		$message .= '<'.network_site_url( "wp-login.php?action=rp&key=$key&login=".rawurlencode( $user->user_login ), 'login' ).">\r\n\r\n";
 		$message .= wp_login_url()."\r\n";
 
-		wp_mail( $user->user_email, sprintf( __( '[%s] Your username and password info' ), $blog ), $message );
+		$mail = [
+			'to'      => $user->user_email,
+			'subject' => __( '[%s] Your username and password info' ),
+			'message' => $message,
+			'headers' => '',
+		];
+
+		$mail = apply_filters( 'wp_new_user_notification_email', $mail, $user, $blog );
+
+		wp_mail(
+			$mail['to'],
+			wp_specialchars_decode( sprintf( $mail['subject'], $blog ) ),
+			$mail['message'],
+			$mail['headers']
+		);
 
 		if ( $switched_locale )
 			restore_previous_locale();
 	}
 
 	// pluggable core function
-	// Notify the blog admin of a user changing password, normally via email.
+	// notify the blog admin of a user changing password, normally via email
 	public function wp_password_change_notification( $user )
 	{
 		Logger::ALERT( sprintf( 'NOTIFY: Password changed: %s', $user->user_login ) );
@@ -181,8 +209,24 @@ class Notify extends gNetwork\Module
 		if ( 0 === strcasecmp( $user->user_email, get_option( 'admin_email' ) ) )
 			return;
 
-		$message = sprintf( __( 'Password changed for user: %s' ), $user->user_login )."\r\n";
-		wp_mail( get_option( 'admin_email' ), sprintf( __( '[%s] Password Changed' ), WordPress::getBlogNameforEmail() ), $message );
+		$message  = sprintf( __( 'Password changed for user: %s' ), $user->user_login )."\r\n";
+		$blogname = WordPress::getBlogNameforEmail();
+
+		$mail = [
+			'to'      => get_option( 'admin_email' ),
+			'subject' => __( '[%s] Password Changed' ),
+			'message' => $message,
+			'headers' => '',
+		];
+
+		$mail = apply_filters( 'wp_password_change_notification_email', $mail, $user, $blogname );
+
+		wp_mail(
+			$mail['to'],
+			wp_specialchars_decode( sprintf( $mail['subject'], $blogname ) ),
+			$mail['message'],
+			$mail['headers']
+		);
 	}
 
 	public function wpmu_signup_blog_notification_subject( $subject, $domain, $path, $title, $user_login, $user_email, $key, $meta )
