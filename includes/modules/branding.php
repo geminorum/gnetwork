@@ -11,7 +11,7 @@ class Branding extends gNetwork\Module
 
 	protected function setup_actions()
 	{
-		if ( is_multisite() )
+		if ( $this->options['siteicon_fallback'] && is_multisite() )
 			$this->filter( 'get_site_icon_url', 3 );
 	}
 
@@ -23,8 +23,9 @@ class Branding extends gNetwork\Module
 	public function default_options()
 	{
 		return [
-			'text_copyright' => '',
-			'text_powered'   => '',
+			'siteicon_fallback' => '0',
+			'text_copyright'    => '',
+			'text_powered'      => '',
 		];
 	}
 
@@ -32,6 +33,11 @@ class Branding extends gNetwork\Module
 	{
 		return [
 			'_general' => [
+				[
+					'field' => 'siteicon_fallback',
+					'title'       => _x( 'Network Site Icon', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Falls back into main site icon on the network.', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
+				],
 				[
 					'field'       => 'text_copyright',
 					'type'        => 'textarea-quicktags',
