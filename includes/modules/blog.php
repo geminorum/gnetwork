@@ -99,13 +99,16 @@ class Blog extends gNetwork\Module
 			'ga_override'          => '',
 			'from_email'           => '',
 			'from_name'            => '',
+			'text_copyright'       => '',
 		];
 	}
 
 	public function default_settings()
 	{
-		$settings = [];
-		$exclude  = array_filter( [
+		$settings  = [];
+		$multisite = is_multisite();
+
+		$exclude = array_filter( [
 			get_option( 'page_on_front' ),
 			get_option( 'page_for_posts' ),
 		] );
@@ -256,7 +259,7 @@ class Blog extends gNetwork\Module
 			'description' => _x( 'Defines No Index/No Follow HTML meta tags for attachment pages.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 		];
 
-		if ( class_exists( __NAMESPACE__.'\\Mail' ) && is_multisite() ) {
+		if ( $multisite && class_exists( __NAMESPACE__.'\\Mail' ) ) {
 			$settings['_email'] = [
 				[
 					'field'       => 'from_email',
@@ -273,7 +276,7 @@ class Blog extends gNetwork\Module
 			];
 		}
 
-		if ( class_exists( __NAMESPACE__.'\\Tracking' ) && is_multisite() )
+		if ( $multisite && class_exists( __NAMESPACE__.'\\Tracking' ) )
 			$settings['_tracking'] = [
 				[
 					'field'       => 'ga_override',
@@ -309,6 +312,14 @@ class Blog extends gNetwork\Module
 				'308' => '308 Permanent Redirect',
 			],
 		];
+
+		if ( $multisite )
+			$settings['_branding'][] = [
+				'field'       => 'text_copyright',
+				'type'        => 'textarea-quicktags',
+				'title'       => _x( 'Copyright Notice', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Displays as copyright notice on the footer on the front-end. Set to override the network.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			];
 
 		return $settings;
 	}

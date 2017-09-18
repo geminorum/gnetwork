@@ -63,10 +63,15 @@ endif;
 
 if ( ! function_exists( 'gnetwork_copyright' ) ) :
 	function gnetwork_copyright( $rtl = NULL ) {
+
+		if ( $blog = gNetwork()->option( 'text_copyright', 'blog' ) )
+			return $blog;
+
+		if ( $branding = gNetwork()->option( 'text_copyright', 'branding' ) )
+			return $branding;
+
 		// “Time is Priceless, Tea is Not!”
-		$default = _x( 'Built on <a href="http://wordpress.org/" title="Semantic Personal Publishing Platform">WordPress</a> and tea!', 'Modules: Branding: Copyright Text', GNETWORK_TEXTDOMAIN );
-		$custom  = gNetwork()->option( 'text_copyright', 'branding' );
-		return $custom ? $custom : $default;
+		return _x( 'Built on <a href="http://wordpress.org/" title="Semantic Personal Publishing Platform">WordPress</a> and tea!', 'Modules: Branding: Copyright Text', GNETWORK_TEXTDOMAIN );
 	}
 endif;
 
