@@ -13,6 +13,10 @@ class Branding extends gNetwork\Module
 	{
 		if ( $this->options['siteicon_fallback'] && is_multisite() )
 			$this->filter( 'get_site_icon_url', 3 );
+
+		add_action( 'network_credits', function(){
+			gnetwork_credits();
+		} );
 	}
 
 	public function setup_menu( $context )
