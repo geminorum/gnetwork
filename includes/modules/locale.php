@@ -194,6 +194,8 @@ class Locale extends gNetwork\Module
 			'convert-post-types'         => 'page', // [Convert Post Types](https://wordpress.org/plugins/convert-post-types/)
 			'mapcap'                     => 'page', // [Map Cap](https://wordpress.org/plugins/map-cap/)
 			'akismet-key-config'         => 'page', // Akismet
+			'cache-enabler'              => 'page', // [Cache Enabler](https://wordpress.org/plugins/cache-enabler/)
+			'rest_api_console'           => 'page', // [REST API Console](https://wordpress.org/plugins/rest-api-console/)
 
 			// [EWWW Image Optimizer](https://wordpress.org/plugins/ewww-image-optimizer/)
 			'ewww-image-optimizer/ewww-image-optimizer.php' => 'page',

@@ -38,7 +38,7 @@ class Branding extends gNetwork\Module
 		return [
 			'_general' => [
 				[
-					'field' => 'siteicon_fallback',
+					'field'       => 'siteicon_fallback',
 					'title'       => _x( 'Network Site Icon', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Falls back into main site icon on the network.', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
 				],

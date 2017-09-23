@@ -99,8 +99,7 @@ class Search extends gNetwork\Module
 	{
 		global $wpdb;
 
-		$sep    = '';
-		$clause = '(';
+		$clause = $sep = '';
 
 		foreach ( $this->searched() as $searched ) {
 			$escaped = $wpdb->prepare( '%s', empty( $this->query->query_vars['exact'] ) ? '%'.$searched.'%' : $searched );
@@ -108,7 +107,7 @@ class Search extends gNetwork\Module
 			$sep = ' AND ';
 		}
 
-		return $clause.')';
+		return $clause ? "( {$clause} )" : '';
 	}
 
 	// creates the list of search keywords from the 's' parameters.

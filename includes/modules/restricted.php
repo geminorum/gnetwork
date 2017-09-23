@@ -451,7 +451,7 @@ class RestrictedBouncer extends \geminorum\gNetwork\Core\Base
 
 			self::temp_feed(
 				_x( 'Key Valid but no Access', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
-				_x( 'Your Key is valid but you have no access to this site', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
+				_x( 'Your Key is valid but you have no access to this site.', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
 				( $this->options['redirect_page'] ? get_page_link( $this->options['redirect_page'] ) : FALSE ) );
 
 		} else if ( is_user_logged_in() ) {

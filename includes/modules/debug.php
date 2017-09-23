@@ -156,15 +156,15 @@ class Debug extends gNetwork\Module
 					'cb'    => [ __CLASS__, 'gPlugin' ],
 				],
 				'htaccess' => [
-					'title' => _x( 'htaccess', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
+					'title' => _x( '.htaccess', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
 					'cb'    => [ __CLASS__, 'htaccessSummary' ],
 				],
 				'wpconfig' => [
-					'title' => _x( 'WP Config', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
+					'title' => _x( 'WP-Config', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
 					'cb'    => [ __CLASS__, 'wpconfigSummary' ],
 				],
 				'custom' => [
-					'title' => _x( 'Custom', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
+					'title' => _x( 'Network Custom', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
 					'cb'    => [ __CLASS__, 'customSummary' ],
 				],
 				'bp_custom' => [
