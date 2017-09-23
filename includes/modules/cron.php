@@ -260,7 +260,7 @@ class Cron extends gNetwork\Module
 			if ( $this->options['status_email_failure'] ) {
 
 				$email   = $this->options['status_email_address'] ? $this->options['status_email_address'] : get_option( 'admin_email' );
-				$subject = sprintf( _x( '[%s] WP-Cron Failed!', 'Modules: CRON: Email Subject', GNETWORK_TEXTDOMAIN ), WordPress::getBlogNameforEmail() );
+				$subject = sprintf( _x( '[%s] WP-Cron Failed!', 'Modules: CRON: Email Subject', GNETWORK_TEXTDOMAIN ), WordPress::getSiteNameforEmail( TRUE ) );
 
 				$message = get_option( $this->hook( 'status' ) );
 				$message .= '<p>'._x( 'This message has been sent from by the gNetwork WP-Cron Status Check module.', 'Modules: CRON', GNETWORK_TEXTDOMAIN ).'</p>';

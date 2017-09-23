@@ -118,7 +118,7 @@ class Notify extends gNetwork\Module
 	{
 		global $wpdb, $wp_hasher;
 
-		$blog = WordPress::getBlogNameforEmail();
+		$site = WordPress::getSiteNameforEmail();
 		$user = get_userdata( $user_id );
 
 		Logger::ALERT( sprintf( 'NOTIFY: New user registration: %s', $user->user_login ) );
@@ -128,7 +128,7 @@ class Notify extends gNetwork\Module
 
 			$switched_locale = switch_to_locale( get_locale() );
 
-			$message  = sprintf( __( 'New user registration on your site %s:' ), $blog )."\r\n\r\n";
+			$message  = sprintf( __( 'New user registration on your site %s:' ), $site )."\r\n\r\n";
 			$message .= sprintf( __( 'Username: %s' ), $user->user_login )."\r\n\r\n";
 			$message .= sprintf( __( 'Email: %s' ), $user->user_email )."\r\n";
 
@@ -139,11 +139,11 @@ class Notify extends gNetwork\Module
 				'headers' => '',
 			];
 
-			$mail = apply_filters( 'wp_new_user_notification_email_admin', $mail, $user, $blog );
+			$mail = apply_filters( 'wp_new_user_notification_email_admin', $mail, $user, $site );
 
 			@wp_mail(
 				$mail['to'],
-				wp_specialchars_decode( sprintf( $mail['subject'], $blog ) ),
+				wp_specialchars_decode( sprintf( $mail['subject'], $site ) ),
 				$mail['message'],
 				$mail['headers']
 			);
@@ -208,7 +208,7 @@ class Notify extends gNetwork\Module
 			return;
 
 		$message  = sprintf( __( 'Password changed for user: %s' ), $user->user_login )."\r\n";
-		$blogname = WordPress::getBlogNameforEmail();
+		$sitename = WordPress::getSiteNameforEmail();
 
 		$mail = [
 			'to'      => get_option( 'admin_email' ),
@@ -217,11 +217,11 @@ class Notify extends gNetwork\Module
 			'headers' => '',
 		];
 
-		$mail = apply_filters( 'wp_password_change_notification_email', $mail, $user, $blogname );
+		$mail = apply_filters( 'wp_password_change_notification_email', $mail, $user, $sitename );
 
 		wp_mail(
 			$mail['to'],
-			wp_specialchars_decode( sprintf( $mail['subject'], $blogname ) ),
+			wp_specialchars_decode( sprintf( $mail['subject'], $sitename ) ),
 			$mail['message'],
 			$mail['headers']
 		);

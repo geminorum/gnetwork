@@ -163,10 +163,14 @@ class WordPress extends Base
 		return is_multisite() ? preg_replace( '#^https?://#i', '', get_option( 'home' ) ) : get_current_site()->domain;
 	}
 
-	// The blogname option is escaped with esc_html on the way into the database in sanitize_option
-	// we want to reverse this for the plain text arena of emails.
-	public static function getBlogNameforEmail()
+	// OLD: `getBlogNameforEmail()`
+	public static function getSiteNameforEmail( $blog = FALSE )
 	{
+		if ( ! $blog && is_multisite() )
+			return get_network()->site_name;
+
+		// The blogname option is escaped with esc_html on the way into the database
+		// in sanitize_option we want to reverse this for the plain text arena of emails.
 		return wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
 	}
 
