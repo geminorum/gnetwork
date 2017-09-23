@@ -225,6 +225,20 @@ class Module extends Core\Base
 			add_filter( $hook, [ $this, $method ], $priority, $args );
 	}
 
+	// USAGE: $this->filter_module( 'importer', 'saved', 5 );
+	protected function action_module( $hook, $args = 1, $priority = 10, $suffix = FALSE )
+	{
+		if ( $method = self::sanitize_hook( ( $suffix ? $module.'_'.$hook.'_'.$suffix : $module.'_'.$hook ) ) )
+			add_action( $this->base.'_'.$module.'_'.$hook, array( $this, $method ), $priority, $args );
+	}
+
+	// USAGE: $this->filter_module( 'importer', 'prepare', 4 );
+	protected function filter_module( $module, $hook, $args = 1, $priority = 10, $suffix = FALSE )
+	{
+		if ( $method = self::sanitize_hook( ( $suffix ? $module.'_'.$hook.'_'.$suffix : $module.'_'.$hook ) ) )
+			add_filter( $this->base.'_'.$module.'_'.$hook, array( $this, $method ), $priority, $args );
+	}
+
 	// @REF: https://gist.github.com/markjaquith/b752e3aa93d2421285757ada2a4869b1
 	protected function filter_once( $hook, $args = 1, $priority = 10, $suffix = FALSE )
 	{
@@ -235,6 +249,40 @@ class Module extends Core\Base
 				$ran = TRUE;
 				return call_user_func_array( [ $this, $method ], func_get_args() );
 			}, $priority, $args );
+	}
+
+	// USAGE: $this->filter_true( 'disable_months_dropdown' );
+	protected function filter_true( $hook, $priority = 10 )
+	{
+		add_filter( $hook, function( $first ){
+			return TRUE;
+		}, $priority, 1 );
+	}
+
+	// USAGE: $this->filter_false( 'disable_months_dropdown' );
+	protected function filter_false( $hook, $priority = 10 )
+	{
+		add_filter( $hook, function( $first ){
+			return FALSE;
+		}, $priority, 1 );
+	}
+
+	// USAGE: $this->filter_append( 'body_class', 'foo' );
+	protected function filter_append( $hook, $item, $priority = 10 )
+	{
+		add_filter( $hook, function( $first ) use( $item ){
+			$first[] = $item;
+			return $first;
+		}, $priority, 1 );
+	}
+
+	// USAGE: $this->filter_set( 'shortcode_atts_gallery', 'columns', 4 );
+	protected function filter_set( $hook, $key, $value, $priority = 10 )
+	{
+		add_filter( $hook, function( $first ) use( $key, $value ){
+			$first[$key] = $value;
+			return $first;
+		}, $priority, 1 );
 	}
 
 	protected static function sanitize_hook( $hook )

@@ -31,6 +31,11 @@ class URL extends Base
 		return $slash ? str_ireplace( array( '/', '\/' ), '-', $title ) : $title;
 	}
 
+	public static function prepTitleQuery( $string )
+	{
+		return str_ireplace( array( '_', '-' ), ' ', urldecode( $string ) );
+	}
+
 	// @SOURCE: `add_query_arg()`
 	public static function parse( $url )
 	{

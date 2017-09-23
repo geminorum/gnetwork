@@ -22,7 +22,7 @@ class Date extends Base
 		return $d && $d->format( $format ) === $date;
 	}
 
-	public static function monthFirstAndLast( $year, $month, $format = 'Y-m-d H:i:s' )
+	public static function monthFirstAndLast( $year, $month, $format = 'Y-m-d H:i:s', $calendar_type = 'gregorian' )
 	{
 		$start = new \DateTime( $year.'-'.$month.'-01 00:00:00' );
 		$end   = $start->modify( '+1 month -1 day -1 minute' );

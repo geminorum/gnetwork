@@ -50,6 +50,19 @@ class Text extends Base
 		return trim( $string );
 	}
 
+	// @REF: https://github.com/michelf/php-markdown/issues/230#issuecomment-303023862
+	public static function removeP( $string )
+	{
+		return str_replace( array(
+			"</p>\n\n<p>",
+			'<p>',
+			'</p>',
+		), array(
+			"\n\n",
+			"",
+		), $string );
+	}
+
 	// like wp but without check for func_overload
 	// @SOURCE: `seems_utf8()`
 	public static function seemsUTF8( $string )
