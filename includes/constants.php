@@ -39,11 +39,12 @@ $gnetwork_constants = [
 	'GNETWORK_DL_DIR'    => ABSPATH.'repo',
 	'GNETWORK_DL_URL'    => network_home_url( 'repo' ),
 
-	// 'GNETWORK_DISABLE_CONTENT_ACTIONS' => TRUE, // cannot set this early!
-	// 'GNETWORK_DISABLE_JQUERY_MIGRATE' => TRUE,  // cannot set this early!
-	// 'GNETWORK_DISABLE_FRONT_STYLES'   => FALSE, // cannot set this early!
-	// 'GNETWORK_DISABLE_REFLIST_JS'     => FALSE, // do not include reflist shortcode js // cannot set this early!
-	// 'GNETWORK_DISABLE_REFLIST_INSERT' => FALSE, // do not include reflist shortcode after content  // cannot set this early!
+	// 'GNETWORK_DISABLE_CONTENT_ACTIONS'   => TRUE,  // cannot set this early!
+	// 'GNETWORK_DISABLE_JQUERY_MIGRATE'    => TRUE,  // cannot set this early!
+	// 'GNETWORK_DISABLE_FRONT_STYLES'      => FALSE, // cannot set this early!
+	// 'GNETWORK_DISABLE_BUDDYPRESS_STYLES' => FALSE, // cannot set this early!
+	// 'GNETWORK_DISABLE_REFLIST_JS'        => FALSE, // do not include reflist shortcode js // cannot set this early!
+	// 'GNETWORK_DISABLE_REFLIST_INSERT'    => FALSE, // do not include reflist shortcode after content  // cannot set this early!
 
 	'GNETWORK_REDIRECT_MAP'    => FALSE,
 	// 'GNETWORK_REDIRECT_FORMAT' => '%1$s',

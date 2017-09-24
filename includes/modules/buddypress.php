@@ -183,6 +183,10 @@ class BuddyPress extends gNetwork\Module
 
 	public function wp_enqueue_scripts()
 	{
+		if ( defined( 'GNETWORK_DISABLE_BUDDYPRESS_STYLES' )
+			&& GNETWORK_DISABLE_BUDDYPRESS_STYLES )
+				return;
+
 		if ( is_buddypress() )
 			wp_enqueue_style( 'gnetwork-buddypress', GNETWORK_URL.'assets/css/buddypress.all'.( is_rtl() ? '-rtl' : '' ).'.css', [], GNETWORK_VERSION );
 	}
