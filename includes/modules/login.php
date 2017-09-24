@@ -43,7 +43,7 @@ class Login extends gNetwork\Module
 			'login_headertitle' => GNETWORK_NAME,
 			'login_logourl'     => '',
 			'login_styles'      => '',
-			'login_class'       => '',
+			'login_class'       => 'logindefault',
 			'login_remember'    => 0,
 			'login_math'        => 0,
 			'login_credits'     => 0,
@@ -94,8 +94,9 @@ class Login extends gNetwork\Module
 					'description' => _x( 'Select from pre designed login themes', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'after'       => Settings::fieldAfterIcon( self::getLoginStyleLink() ),
 					'none_title'  => Settings::showOptionNone(),
-					'none_value'  => '',
+					'none_value'  => 'logindefault',
 					'values'      => $this->filters( 'login_class', [
+						'sidelogo' => _x( 'SideLogo', 'Modules: Login: Login Class', GNETWORK_TEXTDOMAIN ),
 						'webogram' => _x( 'Webogram', 'Modules: Login: Login Class', GNETWORK_TEXTDOMAIN ),
 					] ),
 				],
@@ -150,16 +151,17 @@ class Login extends gNetwork\Module
 		if ( $this->options['login_remember'] )
 			$this->filter( 'login_footer', 1, 99, 'remember' );
 
-		if ( $this->options['login_class'] )
-			$this->filter( 'login_body_class', 2, 99 );
-
 		$this->action( 'login_head' );
+		$this->action( 'login_header', 0, 1 );
+		$this->filter( 'login_body_class', 2, 99 );
 
 		if ( ! GNETWORK_DISABLE_CREDITS && $this->options['login_credits'] )
 			$this->filter( 'login_footer', 1, 10, 'badge' );
+	}
 
-		// FIXME: no way to put this before form
-		// echo '<div class="-head-placeholder"></div>';
+	public function login_header()
+	{
+		echo '<div class="-head-placeholder"></div>';
 	}
 
 	public function login_head()
@@ -174,6 +176,9 @@ class Login extends gNetwork\Module
 
 	public function login_body_class( $classes, $action )
 	{
+		if ( wp_is_mobile() )
+			$classes[] = 'mobile';
+
 		return array_merge( $classes, [ $this->options['login_class'] ] );
 	}
 
