@@ -19,8 +19,10 @@ class Site extends gNetwork\Module
 		if ( ! is_multisite() )
 			return FALSE;
 
-		if ( GNETWORK_LARGE_NETWORK_IS )
-			$this->filter( 'wp_is_large_network', 3, 10 );
+		if ( GNETWORK_LARGE_NETWORK_IS ) {
+			$this->filter( 'wp_is_large_network', 3, 9 );
+			$this->filter( 'wp_is_large_user_count', 2, 9 );
+		}
 
 		$this->action( 'wpmu_new_blog', 6, 12 );
 
@@ -239,5 +241,11 @@ class Site extends gNetwork\Module
 			return $count > GNETWORK_LARGE_NETWORK_IS;
 
 		return $is;
+	}
+
+	// @SINCE: WP 4.9.0
+	public function wp_is_large_user_count( $large, $count )
+	{
+		return $count > GNETWORK_LARGE_NETWORK_IS;
 	}
 }
