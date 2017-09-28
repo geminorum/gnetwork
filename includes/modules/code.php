@@ -141,7 +141,10 @@ class Code extends gNetwork\Module
 				$parsedown = new \ParsedownExtra();
 				$html = $parsedown->text( $md );
 
-				$html = self::covertGitHubLinks( $html, $args['repo'], $args['branch'] );
+				if ( 'wiki' == $args['type'] )
+					$html = self::convertGitHubWikiLinks( $html, $args['repo'] );
+
+				$html = self::convertGitHubLinks( $html, $args['repo'], $args['branch'] );
 				$html = Text::minifyHTML( $html );
 
 				set_site_transient( $key, $html, GNETWORK_CACHE_TTL );
@@ -151,9 +154,26 @@ class Code extends gNetwork\Module
 		return '<div class="gnetwork-wrap-shortcode shortcode-github-readme" data-github-repo="'.$args['repo'].'">'.$html.'</div>';
 	}
 
-	// TODO: support wikilinks: `[[Wiki Page]]`
+	public static function convertGitHubWikiLinks( $html, $repo )
+	{
+		$pattern = '/\[\[(.*?)\]\]/u';
+
+		return preg_replace_callback( $pattern, function( $match ) use( $repo ){
+
+			$slug = $text = $match[1];
+
+			if ( Text::has( $text, '|' ) )
+				list( $text, $slug ) = explode( '|', $text, 2 );
+
+			$slug = preg_replace( '/\s+/', '-', $slug );
+
+			return '<a href="https://github.com/'.$repo.'/wiki/'.$slug.'" class="-github-link -github-wikilink" data-repo="'.$repo.'" target="_blank">'.$text.'</a>';
+
+		}, $html );
+	}
+
 	// @SOURCE: http://www.the-art-of-web.com/php/parse-links/
-	public static function covertGitHubLinks( $html, $repo, $branch = 'master' )
+	public static function convertGitHubLinks( $html, $repo, $branch = 'master' )
 	{
 		$pattern = "/<a\s[^>]*href=(\"??)([^\" >]*?)\\1[^>]*>(.*)<\/a>/siU";
 
