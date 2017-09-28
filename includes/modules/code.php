@@ -62,10 +62,6 @@ class Code extends gNetwork\Module
 
 		if ( $this->options['register_shortcodes'] )
 			$this->shortcodes( $this->get_shortcodes() );
-
-		// FIXME: NOT WORKING: gist id is now diffrent from this pattern
-		// FIXME: add option to enable this
-		// add_filter( 'the_content', [ $this, 'the_content_gist_shortcode' ], 9 );
 	}
 
 	protected function get_shortcodes()
@@ -94,21 +90,17 @@ class Code extends gNetwork\Module
 		return array_merge( $strings, $new );
 	}
 
-
-	// Originally based on : GitHub README v0.2.0
-	// by Jason Stallings : http://jason.stallin.gs
-	// https://github.com/octalmage/github-readme
-	// https://wordpress.org/plugins/github-readme/
-	// @REF: [GitHub API v3 | GitHub Developer Guide](https://developer.github.com/v3/)
+	// TODO: use github conversion api instead of ParsedownExtra
+	// @REF: https://developer.github.com/v3/
 	public function shortcode_github_readme( $atts = [], $content = NULL, $tag = '' )
 	{
 		$args = shortcode_atts( [
 			'repo'    => 'geminorum/gnetwork',
-			'trim'    => 0,
+			'branch'  => 'master',
 			'type'    => 'readme', // 'readme', 'markdown', 'wiki'
-			'file'    => '/readme', // markdown page
-			'branch'  => 'master', // markdown branch
-			'page'    => '', // wiki page
+			'file'    => '/readme', // markdown page without .md
+			'page'    => 'Home', // wiki page / default is `Home`
+			'trim'    => 0,
 			'context' => NULL,
 		], $atts, $tag );
 
@@ -126,27 +118,30 @@ class Code extends gNetwork\Module
 		if ( FALSE === ( $html = get_site_transient( $key ) ) ) {
 
 			switch ( $args['type'] ) {
-				default :
-				case 'readme'   : $url = 'https://api.github.com/repos/'.$args['repo'].'/readme'; break;
-				case 'markdown' : $url = 'https://raw.githubusercontent.com/'.$args['repo'].'/'.$args['branch'].'/'.$args['file']; break;
-				case 'wiki'     : $url = 'https://raw.githubusercontent.com/wiki/'.$args['repo'].'/'.$args['page'].'.md'; break;
+				case 'wiki'    : $url = 'https://raw.githubusercontent.com/wiki/'.$args['repo'].'/'.$args['page'].'.md'; break;
+				case 'markdown': $url = 'https://raw.githubusercontent.com/'.$args['repo'].'/'.$args['branch'].'/'.$args['file']; break;
+				case 'readme'  :
+				default        : $url = 'https://api.github.com/repos/'.$args['repo'].'/readme'; break;
 			}
 
-			if ( $json = HTTP::getJSON( $url ) ) {
+			if ( in_array( $args['type'], [ 'wiki', 'markdown' ] ) )
+				$md = HTTP::getHTML( $url );
 
+			else if ( $json = HTTP::getJSON( $url ) )
 				$md = base64_decode( $json->content );
+
+			else
+				$md = FALSE;
+
+			if ( $md ) {
+
 				if ( $args['trim'] )
 					$md = implode( "\n", array_slice( explode( "\n", $md ), intval( $args['trim'] ) ) );
-
-				// FIXME: use github conversion api instead of ParsedownExtra
 
 				$parsedown = new \ParsedownExtra();
 				$html = $parsedown->text( $md );
 
-				// @SOURCE: http://www.the-art-of-web.com/php/parse-links/
-				$regexp = "<a\s[^>]*href=(\"??)([^\" >]*?)\\1[^>]*>(.*)<\/a>";
-				$html = preg_replace_callback( "/$regexp/siU", [ $this, 'github_readme_link_cb' ], $html );
-
+				$html = self::covertGitHubLinks( $html, $args['repo'], $args['branch'] );
 				$html = Text::minifyHTML( $html );
 
 				set_site_transient( $key, $html, GNETWORK_CACHE_TTL );
@@ -156,8 +151,12 @@ class Code extends gNetwork\Module
 		return '<div class="gnetwork-wrap-shortcode shortcode-github-readme" data-github-repo="'.$args['repo'].'">'.$html.'</div>';
 	}
 
-	public function github_readme_link_cb( $matchs )
+	// TODO: support wikilinks: `[[Wiki Page]]`
+	// @SOURCE: http://www.the-art-of-web.com/php/parse-links/
+	public static function covertGitHubLinks( $html, $repo, $branch = 'master' )
 	{
+		$pattern = "/<a\s[^>]*href=(\"??)([^\" >]*?)\\1[^>]*>(.*)<\/a>/siU";
+
 		$files = [
 			'contributing.md',
 			'changes.md',
@@ -165,10 +164,13 @@ class Code extends gNetwork\Module
 			'readme.txt',
 		];
 
-		if ( in_array( strtolower( $matchs['2'] ), $files ) )
-			return '<a href="https://github.com/'.$this->github_repo.'/blob/master/'.$matchs[2].'">'.$matchs[3].'</a>';
+		return preg_replace_callback( $pattern, function( $matches ) use( $files, $repo, $branch ){
 
-		return $matchs[0];
+			if ( in_array( strtolower( $matches[2] ), $files ) )
+				return '<a href="https://github.com/'.$repo.'/blob/'.$branch.'/'.$matches[2].'" class="-github-link" data-repo="'.$repo.'">'.$matches[3].'</a>';
+
+			return $matches[0];
+		}, $html );
 	}
 
 	// @REF: https://github.com/JoelSutherland/GitHub-jQuery-Repo-Widget
@@ -187,8 +189,8 @@ class Code extends gNetwork\Module
 		return '<div class="gnetwork-wrap-shortcode shortcode-github github-widget" data-repo="'.$args['repo'].'"></div>';
 	}
 
-	// https://github.com/blairvanderhoof/gist-embed
-	// http://blairvanderhoof.com/gist-embed/
+	// @SOURCE: https://github.com/blairvanderhoof/gist-embed
+	// @SOURCE: http://blairvanderhoof.com/gist-embed/
 	public function shortcode_github_gist( $atts = [], $content = NULL, $tag = '' )
 	{
 		$args = shortcode_atts( [
@@ -223,13 +225,6 @@ class Code extends gNetwork\Module
 		Utilities::enqueueScriptVendor( 'jquery.gist-embed', [ 'jquery' ], '2.6' );
 
 		return '<div class="gnetwork-wrap-shortcode shortcode-github-gist" data-github-gist="'.$args['id'].'">'.$html.'</div>';
-	}
-
-	// autoreplace gist links to shortcodes
-	// [Detect Gists and Embed Them | CSS-Tricks](https://css-tricks.com/snippets/wordpress/detect-gists-and-embed-them/)
-	public function the_content_gist_shortcode( $content )
-	{
-		return preg_replace( '/https:\/\/gist.github.com\/([\d]+)[\.js\?]*[\#]*file[=|_]+([\w\.]+)(?![^<]*<\/a>)/i', '', $content );
 	}
 
 	public function shortcode_textarea( $atts = [], $content = NULL, $tag = '' )
