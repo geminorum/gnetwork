@@ -1217,32 +1217,31 @@ class ShortCodes extends gNetwork\Module
 		}
 	}
 
-	// http://en.wikipedia.org/wiki/Help:Footnotes
 	public function shortcode_ref( $atts = [], $content = NULL, $tag = '' )
 	{
-		if ( is_null( $content ) || ! is_singular() || is_feed() )
+		if ( is_null( $content ) || ! is_singular() )
 			return NULL;
 
+		if ( is_feed() ) {
+			$this->ref_ids[] = FALSE; // for the notice
+			return NULL;
+		}
+
 		$args = shortcode_atts( [
-			'url'           => FALSE,
-			'url_title'     => _x( 'See More', 'Shortcodes Module: Defaults', GNETWORK_TEXTDOMAIN ),
-			'url_icon'      => 'def',
-			'class'         => 'ref-anchor',
-			'format_number' => TRUE,
-			'rtl'           => is_rtl(),
-			'context'       => NULL,
+			'url'       => FALSE,
+			'url_text'  => is_rtl() ? '[&#8620;]' : '[&#8619;]',
+			'url_title' => _x( 'External Resource', 'Shortcodes Module: Defaults', GNETWORK_TEXTDOMAIN ),
+			'class'     => 'ref-anchor',
+			'context'   => NULL,
 		], $atts, $tag );
 
 		if ( FALSE === $args['context'] )
 			return NULL;
 
-		$ref = $title = $url = FALSE;
+		$key = $ref = $title = $url = FALSE;
 
 		if ( $content )
 			$ref = $title = trim( strip_tags( apply_filters( 'html_format_i18n', $content ) ) );
-
-		if ( 'def' == $args['url_icon'] )
-			$args['url_icon'] = $args['rtl'] ? '&larr;' : '&rarr;';
 
 		if ( $args['url'] )
 			$url = HTML::tag( 'a', [
@@ -1250,7 +1249,7 @@ class ShortCodes extends gNetwork\Module
 				'data-toggle' => 'tooltip',
 				'href'        => $args['url'],
 				'title'       => $args['url_title'],
-			], $args['url_icon'] );
+			], $args['url_text'] );
 
 		if ( $ref && $url )
 			$ref = $ref.'&nbsp;'.$url;
@@ -1260,72 +1259,94 @@ class ShortCodes extends gNetwork\Module
 		if ( ! $ref )
 			return NULL;
 
-		$key = count( $this->ref_ids ) + 1;
-		$this->ref_ids[$key] = $ref;
+		// combine identical notes
+		foreach ( $this->ref_ids as $number => $text )
+			if ( $text == $ref )
+				$key = $number;
+
+		if ( ! $key ) {
+			$key = count( $this->ref_ids ) + 1;
+			$this->ref_ids[$key] = $ref;
+		}
 
 		$html = HTML::tag( 'a', [
-			'class'       => 'cite-scroll', // FIXME: add default styles
-			'data-toggle' => 'tooltip',
 			'href'        => '#citenote-'.$key,
 			'title'       => $title,
-		], '&#8207;['.( $args['format_number'] ? Number::format( $key ) : $key ).']&#8206;' );
+			'class'       => 'cite-scroll',
+			'data-toggle' => 'tooltip',
+		], '&#8207;['.Number::format( $key ).']&#8206;' );
 
-		return '<sup class="ref reference '.$args['class'].'" id="citeref-'.$key.'">'.$html.'</sup>';
+		return '<sup class="ref reference '.$args['class'].'" id="citeref-'.$key.'" data-ref="'.$key.'">'.$html.'</sup>';
 	}
 
-	// TODO: add column : http://en.wikipedia.org/wiki/Help:Footnotes#Reference_lists:_columns
 	public function shortcode_reflist( $atts = [], $content = NULL, $tag = '' )
 	{
-		if ( $this->ref_list || is_feed() ) // FIXME: add notice in feed to read ref on the blog
+		if ( $this->ref_list )
 			return NULL;
 
 		if ( ! is_singular() || ! count( $this->ref_ids ) )
 			return NULL;
 
+		if ( is_feed() ) {
+			$this->ref_list = TRUE;
+			return '<p>'._x( 'See the footnotes on the site.', 'Shortcodes Module: Defaults', GNETWORK_TEXTDOMAIN ).'</p>';
+		}
+
 		$args = shortcode_atts( [
-			'class'         => 'ref-list',
-			'number'        => TRUE,
-			'after_number'  => '.&nbsp;',
-			'format_number' => TRUE,
-			'back'          => '[&#8617;]', // '[^]', // '[&uarr;]',
-			'back_title'    => _x( 'Back to Text', 'Shortcodes Module: Defaults', GNETWORK_TEXTDOMAIN ),
-			'context'       => NULL,
-			'wrap'          => TRUE,
-			'before'        => '',
-			'after'         => '',
+			'title'        => $this->filters( 'reflist_title', '', $atts, $content, $tag ),
+			'columns'      => FALSE, // '20em' // @REF: http://en.wikipedia.org/wiki/Help:Footnotes#Reference_lists:_columns
+			'number'       => FALSE,
+			'number_after' => '.&nbsp;',
+			'back'         => TRUE,
+			'back_text'    => is_rtl() ? '[&#8618;]' : '[&#8617;]',
+			'back_title'   => _x( 'Back to Text', 'Shortcodes Module: Defaults', GNETWORK_TEXTDOMAIN ),
+			'context'      => NULL,
+			'wrap'         => TRUE,
+			'before'       => '',
+			'after'        => '',
 		], $atts, $tag );
 
 		if ( FALSE === $args['context'] )
 			return NULL;
 
 		$html = '';
-		foreach ( $this->ref_ids as $key => $text ) {
+
+		foreach ( $this->ref_ids as $number => $text ) {
 
 			if ( ! $text )
 				continue;
 
-			$item  = '<span class="ref-number">';
-			$item .= ( $args['number'] ? ( $args['format_number'] ? Number::format( $key ) : $key ).$args['after_number'] : '' );
+			$html.= '<li data-ref="'.$number.'" id="citenote-'.$number.'" '.( $args['number'] ? '' : ' class="-anchor"' ).'>';
 
-			$item .= HTML::tag( 'a', [
-				'class'       => 'cite-scroll',
-				// 'data-toggle' => 'tooltip',
-				'href'        => '#citeref-'.$key,
-				'title'       => $args['back_title'],
-			], $args['back'] );
+			if ( $args['number'] )
+				$html.= '<span class="-number -anchor ref-number">'.Number::format( $number ).$args['number_after'].'</span>';
 
-			$html .= '<li>'.$item.'</span> <span class="ref-text"><span class="citation" id="citenote-'.$key.'">'.$text.'</span></span></li>';
+			$html.= '<span class="-text ref-text"><span class="citation">'.$text.'</span></span>';
+
+			if ( $args['back'] )
+				$html.= ' '.HTML::tag( 'a', [
+					'href'        => '#citeref-'.$number,
+					'title'       => $args['back_title'],
+					'class'       => 'cite-scroll -back',
+					'data-toggle' => 'tooltip',
+				], $args['back_text'] );
+
+			$html.= '</li>';
 		}
 
-		$html = HTML::tag( ( $args['number'] ? 'ul' : 'ol' ),
-			apply_filters( 'gnetwork_cite_reflist_before', '', $args ).$html );
+		$html = $args['title'].'<ol id="references" class="-anchor" style="'
+			.( $args['number'] ? 'list-style:none' : 'list-style-type:decimal' ).'">'.$html.'</ol>';
 
 		if ( ! defined( 'GNETWORK_DISABLE_REFLIST_JS' ) || ! GNETWORK_DISABLE_REFLIST_JS )
 			Utilities::enqueueScript( 'front.cite' );
 
 		$this->ref_list = TRUE;
 
-		return self::shortcodeWrap( $html, 'reflist', $args );
+		$extra = $args['columns'] ? [
+			'style' => '-moz-column-width: '.$args['columns'].'; -webkit-column-width: '.$args['columns'].'; column-width: '.$args['columns'].';'
+		] : [];
+
+		return self::shortcodeWrap( $html, 'reflist', $args, TRUE, $extra );
 	}
 
 	public function content_after_reflist( $content )
