@@ -192,10 +192,13 @@ class Plugin
 
 	public function module( $module, $object = FALSE )
 	{
-		if ( isset( $this->{$module} ) )
-			return $object ? $this->{$module} : TRUE;
+		if ( ! isset( $this->{$module} ) )
+			return FALSE;
 
-		return FALSE;
+		if ( ! $object )
+			return TRUE;
+
+		return $this->{$module};
 	}
 
 	public function option( $key, $module = 'network', $default = FALSE )

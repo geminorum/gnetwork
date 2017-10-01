@@ -163,12 +163,12 @@ class Dev extends gNetwork\Module
 
 		// List screen properties
 		$variables = '<ul style="width:50%;float:left;"><strong>Screen variables</strong>'
-			. sprintf( '<li>Screen id: %s</li>', $screen_id )
-			. sprintf( '<li>Screen base: %s</li>', $screen->base )
-			. sprintf( '<li>Parent base: %s</li>', $screen->parent_base )
-			. sprintf( '<li>Parent file: %s</li>', $screen->parent_file )
-			. sprintf( '<li>Hook suffix: %s</li>', $hook_suffix )
-			. '</ul>';
+			.sprintf( '<li>Screen id: %s</li>', $screen_id )
+			.sprintf( '<li>Screen base: %s</li>', $screen->base )
+			.sprintf( '<li>Parent base: %s</li>', $screen->parent_base )
+			.sprintf( '<li>Parent file: %s</li>', $screen->parent_file )
+			.sprintf( '<li>Hook suffix: %s</li>', $hook_suffix )
+			.'</ul>';
 
 		// Append global $hook_suffix to the hook stems
 		$hooks = [
@@ -186,19 +186,16 @@ class Dev extends gNetwork\Module
 		if ( did_action( 'add_meta_boxes' ) )
 			$hooks[] = 'add_meta_boxes';
 
-		// Get List HTML for the hooks
 		$hooks = '<ul style="width:50%;float:left;"><li><strong>Hooks</strong></li><li>'.implode( '</li><li>', $hooks ).'</li></ul>';
 
-		// Combine $variables list with $hooks list.
-		$help_content = $variables . $hooks;
+		$content = $variables.$hooks;
 
-		// $help_content .= self::dump( $screen, TRUE, FALSE );
+		// $content.= self::dump( $screen, TRUE, FALSE );
 
-		// Add help panel
 		$screen->add_help_tab( [
 			'id'       => 'gnetwork-screen-help',
 			'title'    => 'Screen Information',
-			'content'  => $help_content,
+			'content'  => '<div dir="ltr">'.$content.'</div>',
 			'priority' => 1000,
 		] );
 

@@ -551,9 +551,9 @@ class Blog extends gNetwork\Module
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-/// Originally Based on: [kasparsd/custom-404-page](https://github.com/kasparsd/custom-404-page)
-/// By Kaspars Dambis : http://kaspars.net/
-/// Updated on: 20150918
+/// originally based on: Custom 404 Error Page v0.2.5 - 20170925
+/// @REF: https://github.com/kasparsd/custom-404-page
+/// by Kaspars Dambis
 
 	// set WP to use page template (page.php) even when returning 404
 	public function custom_404_template( $template )
@@ -562,16 +562,18 @@ class Blog extends gNetwork\Module
 
 		if ( is_404() ) {
 
+			$page_404 = (int) $this->options['page_404'];
+
 			// get our custom 404 post object. We need to assign
 			// $post global in order to force get_post() to work
 			// during page template resolving.
-			$post = get_post( $this->options['page_404'] );
+			$post = get_post( $page_404 );
 
 			// populate the posts array with our 404 page object
 			$wp_query->posts = [ $post ];
 
 			// set the query object to enable support for custom page templates
-			$wp_query->queried_object_id = $this->options['page_404'];
+			$wp_query->queried_object_id = $page_404;
 			$wp_query->queried_object    = $post;
 
 			// set post counters to avoid loop errors
@@ -579,6 +581,7 @@ class Blog extends gNetwork\Module
 			$wp_query->found_posts   = 1;
 			$wp_query->max_num_pages = 0;
 
+			// return the page.php template instead of 404.php
 			return get_page_template();
 		}
 

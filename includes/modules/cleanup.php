@@ -423,8 +423,8 @@ class Cleanup extends gNetwork\Module
 		foreach ( $meta_keys as $key => $val )
 			$count += $wpdb->query( $wpdb->prepare( "
 				DELETE FROM {$wpdb->usermeta}
-				WHERE meta_key = '%s'
-				AND meta_value = '%s'
+				WHERE meta_key = %s
+				AND meta_value = %s
 			", $key, $val ) );
 
 		$wpdb->query( "OPTIMIZE TABLE {$wpdb->usermeta}" );
@@ -450,7 +450,7 @@ class Cleanup extends gNetwork\Module
 		foreach ( $meta_keys as $key => $val )
 			$count += $wpdb->query( $wpdb->prepare( "
 				DELETE FROM {$wpdb->usermeta}
-				WHERE meta_key = '%s'
+				WHERE meta_key = %s
 				AND meta_value = ''
 			", $key ) );
 
@@ -468,7 +468,7 @@ class Cleanup extends gNetwork\Module
 
 		$count = $wpdb->query( $wpdb->prepare( "
 			DELETE FROM {$wpdb->usermeta}
-			WHERE meta_key = '%s'
+			WHERE meta_key = %s
 		", 'last_activity' ) );
 
 		$wpdb->query( "OPTIMIZE TABLE {$wpdb->usermeta}" );

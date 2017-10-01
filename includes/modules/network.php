@@ -190,27 +190,16 @@ class Network extends gNetwork\Module
 
 	public static function getLogo( $wrap = FALSE, $fallback = TRUE, $logo = NULL )
 	{
-		$html = '';
+		if ( ! is_null( $logo ) )
+			$html = HTML::img( $logo, '-logo-img', GNETWORK_NAME );
 
-		if ( ! is_null( $logo ) ) {
+		else if ( file_exists( WP_CONTENT_DIR.'/'.GNETWORK_LOGO ) )
+			$html = HTML::img( WP_CONTENT_URL.'/'.GNETWORK_LOGO, '-logo-img', GNETWORK_NAME );
 
-			$html .= HTML::tag( 'img', [
-				'src' => $logo,
-				'alt' => GNETWORK_NAME,
-			] );
+		else if ( $fallback )
+			$html = GNETWORK_NAME;
 
-		} else if ( file_exists( WP_CONTENT_DIR.'/'.GNETWORK_LOGO ) ) {
-
-			$html .= HTML::tag( 'img', [
-				'src' => WP_CONTENT_URL.'/'.GNETWORK_LOGO,
-				'alt' => GNETWORK_NAME,
-			] );
-
-		} else if ( $fallback ) {
-			$html .= GNETWORK_NAME;
-		}
-
-		if ( ! $html )
+		else
 			return '';
 
 		$html = HTML::tag( 'a', [
@@ -218,12 +207,7 @@ class Network extends gNetwork\Module
 			'title' => GNETWORK_NAME,
 		], $html );
 
-		if ( $wrap )
-			$html = HTML::tag( $wrap, [
-				'class' => 'logo',
-			], $html );
-
-		return $html;
+		return $wrap ? HTML::tag( $wrap, [ 'class' => 'logo' ], $html ) : $html;
 	}
 
 	public function wpmu_blogs_columns( $columns )

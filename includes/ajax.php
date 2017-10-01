@@ -52,8 +52,20 @@ class Ajax extends Core\Base
 			self::error();
 	}
 
+	public static function errorUserCant()
+	{
+		self::errorMessage( _x( 'You\'re not authorized!', 'Ajax: Ajax Notice', GNETWORK_TEXTDOMAIN ) );
+	}
+
 	public static function errorWhat()
 	{
 		self::errorMessage( _x( 'What?!', 'Ajax: Ajax Notice', GNETWORK_TEXTDOMAIN ) );
+	}
+
+	public static function spinner()
+	{
+		return is_admin()
+			? '<span class="-loading spinner"></span>'
+			: '<span class="-loading '.self::BASE.'-spinner"></span>';
 	}
 }

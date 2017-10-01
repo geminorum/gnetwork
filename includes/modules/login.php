@@ -296,7 +296,7 @@ class Login extends gNetwork\Module
 		echo '<div class="gnetwork-wrap -footer">';
 
 			if ( $credits = WordPress::customFile( 'credits-badge.png' ) )
-				echo HTML::tag( 'img', [ 'src' => $credits ] );
+				echo HTML::img( $credits );
 
 			else
 				echo Utilities::creditsBadge();

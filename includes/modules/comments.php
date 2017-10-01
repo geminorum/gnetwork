@@ -517,7 +517,7 @@ class Comments extends gNetwork\Module
 		wp_nonce_field( 'gnc-check_comments', '_gnc_nonce', FALSE );
 	}
 
-	public function pre_comment_approved_nounce( $content )
+	public function pre_comment_approved_nonce( $content )
 	{
 		check_admin_referer( 'gnc-check_comments', wp_verify_nonce( $_POST['_gnc_nonce'] ) );
 	}

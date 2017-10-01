@@ -812,7 +812,7 @@ class Media extends gNetwork\Module
 					foreach ( $matches[1] as $offset => $url ) {
 						if ( $thumb_url == $url ) {
 							$wpdb->query( $wpdb->prepare( "
-								UPDATE {$wpdb->posts} SET post_content = REPLACE(post_content, '%s', '%s') WHERE ID = %d
+								UPDATE {$wpdb->posts} SET post_content = REPLACE( post_content, %s, %s ) WHERE ID = %d
 							", $url, ( $wpupload['url'].'/'.wp_basename( $url ) ), $post_id ) );
 						}
 					}

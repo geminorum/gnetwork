@@ -189,6 +189,7 @@ class Typography extends gNetwork\Module
 		return $content;
 	}
 
+	// @SEE: https://wordpress.org/plugins/wikilinker/
 	public function shortcode_wiki( $atts = [], $content = NULL, $tag = '' )
 	{
 		$args = shortcode_atts( [

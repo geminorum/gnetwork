@@ -627,7 +627,7 @@ class Module extends Core\Base
 	}
 
 	// DEFAULT METHOD
-	// CAUTION: caller must check the nounce
+	// CAUTION: caller must check the nonce
 	protected function save_settings( $options_key = NULL )
 	{
 		if ( is_null( $options_key ) )
@@ -919,5 +919,19 @@ class Module extends Core\Base
 	public function ajax()
 	{
 		Ajax::errorWhat();
+	}
+
+	protected function wrap( $html, $class = '', $block = TRUE )
+	{
+		return $block
+			? '<div class="'.$this->base.'-wrap -'.$this->key.' '.$class.'">'.$html.'</div>'
+			: '<span class="'.$this->base.'-wrap -'.$this->key.' '.$class.'">'.$html.'</span>';
+	}
+
+	protected function wrap_open( $class = '', $block = TRUE )
+	{
+		return $block
+			? '<div class="'.$this->base.'-wrap -'.$this->key.' '.$class.'">'
+			: '<span class="'.$this->base.'-wrap -'.$this->key.' '.$class.'">';
 	}
 }
