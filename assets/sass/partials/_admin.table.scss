@@ -128,10 +128,18 @@ table.base-table-list {
   }
 
   .-cb-all {}
-
   .-cb {}
-
   .-column {}
+
+  .-icon-column {
+    padding: 8px 6px;
+
+    svg, .dashicons {
+      width: 20px;
+      height: 20px;
+      size: 20px;
+    }
+  }
 
   .-column-ID,
   .-column-id,
@@ -152,6 +160,7 @@ table.base-table-list {
     width: 95px;
   }
 
+  .-column-markdown,
   .-column-type {
     width: 6%;
   }

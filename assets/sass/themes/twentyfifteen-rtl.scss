@@ -9,73 +9,77 @@
 @import '../modules/all';
 @import '../partials/base';
 @import '../partials/theme.fonts';
+@import '../partials/theme.typography';
+@import '../partials/theme.editorial';
+@import '../partials/theme.widgets';
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 @include theme-fonts-Samim-CDN();
 @include theme-fonts-Samim-Bold-CDN();
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 
-body.rtl {
-  direction: rtl;
+body,
+button,
+input,
+select,
+textarea,
+blockquote {
   font-family: $font-family-base;
 }
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-weight: bold;
-    font-family: $font-family-head;
-  }
 
-  .author-heading,
-  .comment-awaiting-moderation,
-  .comment-form label,
-  .comment-list .reply a,
-  .comment-metadata,
-  .comment-navigation,
-  .comment-notes,
-  .comment-reply-title,
-  .comments-title,
-  .entry-caption,
-  .entry-footer,
-  .form-allowed-tags,
-  .gallery-caption,
-  .image-navigation,
-  .logged-in-as,
-  .main-navigation .menu-item-description,
-  .no-comments,
-  .page-links,
-  .page-title,
-  .pagination,
-  .pingback .edit-link,
-  .post-navigation .meta-nav,
-  .post-navigation .post-title,
-  .post-password-form label,
-  .site-description,
-  .site-title,
-  .widget-title,
-  .widget_calendar caption,
-  .widget_rss .rss-date,
-  .widget_rss cite,
-  .wp-caption-text,
-  blockquote cite,
-  blockquote small,
-  button,
-  input,
-  input[type="button"],
-  input[type="reset"],
-  input[type="submit"],
-  select,
-  textarea {
-    font-family: $font-family-base;
-  }
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-family-head;
+  font-weight: bold;
+}
 
-  .widget-title,
-  .widget_calendar caption {
-    letter-spacing: normal !important;
-  }
-// }
+.author-heading,
+.comment-awaiting-moderation,
+.comment-form label,
+.comment-list .reply a,
+.comment-metadata,
+.comment-navigation,
+.comment-notes,
+.comment-reply-title,
+.comments-title,
+.entry-caption,
+.entry-footer,
+.form-allowed-tags,
+.gallery-caption,
+.image-navigation,
+.logged-in-as,
+.main-navigation .menu-item-description,
+.no-comments,
+.page-links,
+.page-title,
+.pagination,
+.pingback .edit-link,
+.post-navigation .meta-nav,
+.post-navigation .post-title,
+.post-password-form label,
+.site-description,
+.site-title,
+.widget-title,
+.widget_calendar caption,
+.widget_rss .rss-date,
+.widget_rss cite,
+.wp-caption-text,
+blockquote cite,
+blockquote small,
+button,
+input,
+input[type="button"],
+input[type="reset"],
+input[type="submit"],
+select,
+textarea {
+  font-family: $font-family-base;
+}
+
+.widget-title,
+.widget_calendar caption {
+  letter-spacing: normal !important;
+}
 
 // http://stackoverflow.com/a/2610741
 *::-moz-placeholder {
@@ -85,11 +89,18 @@ body.rtl {
 *::-webkit-input-placeholder {
   font-family: $font-family-base !important;
 }
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+@include theme-typography-defaults;
+@include theme-editorial-defaults;
+@include theme-widgets-defaults;
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
 .entry-content {
   blockquote.epigraph,
+  blockquote.-epigraph,
   blockquote.intro-quote {
     margin-top: -3.5em !important;
   }
@@ -136,11 +147,6 @@ body.rtl {
     &.-after {
       margin-top: 0.5em;
     }
-  }
-
-  ol {
-    list-style-type: -moz-persian;
-    list-style-type: persian;
   }
 }
 
@@ -211,6 +217,7 @@ body.rtl {
     }
   }
 }
+
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 // @media screen and (min-width: 77.5em) {

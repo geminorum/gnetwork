@@ -21,6 +21,7 @@
 
       // @REF: http://stackoverflow.com/a/8948741/4864081
       td > a {
+        box-sizing: border-box;
         display: block;
         height: 100%;
         width: 100%;
@@ -29,7 +30,7 @@
       caption {
         // color: $gray-dark;
         // padding: $padding-base-vertical $padding-base-horizontal;
-        text-align:center;
+        text-align: center;
       }
 
       // thead {

@@ -1,0 +1,115 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// gNetwork Partials: BuddyPress: Core ----------------------------------------
+
+body.buddypress {
+
+  &.bp-user {
+
+    .bp_members > h1,
+    .bp_members .entry-title {
+      // display: none;
+    }
+  }
+
+  #buddypress #item-header-cover-image #item-header-avatar {
+    float: left;
+  }
+
+  #buddypress div#item-header #item-header-cover-image #item-header-content {
+    float: left;
+    margin: -140px 0 0 170px;
+  }
+
+  &.single-item.groups #buddypress div#item-header #item-header-cover-image #item-header-content,
+  &.single-item.groups #buddypress div#item-header #item-header-cover-image #item-actions {
+    margin: 225px 0 0 0;
+  }
+
+  #buddypress div#item-header-cover-image .user-nicename {
+    text-align: left;
+    /*rtl:ignore*/
+    direction: ltr;
+  }
+}
+
+#buddypress {
+
+  .standard-form,
+  .standard-form#signup_form,
+  #commentform,
+  .dir-search,
+  .message-search,
+  .groups-members-search {
+
+    select,
+    option,
+    textarea,
+    input[type="text"],
+    input[type="color"],
+    input[type="date"],
+    input[type="datetime"],
+    input[type="datetime-local"],
+    input[type="email"],
+    input[type="month"],
+    input[type="number"],
+    input[type="range"],
+    input[type="search"],
+    input[type="tel"],
+    input[type="time"],
+    input[type="url"],
+    input[type="week"],
+    input[type="password"] {
+
+      box-sizing: border-box;
+      padding: 4px 6px;
+      width: 100%;
+      height: 32px;
+    }
+
+    textarea {
+      height: 180px;
+    }
+  }
+
+  .dir-search,
+  .message-search,
+  .groups-members-search {
+    input[type="text"] {
+      width: auto;
+    }
+  }
+
+  .standard-form button,
+  a.button,
+  input[type="submit"],
+  input[type="button"],
+  input[type="reset"],
+  ul.button-nav li a,
+  .generic-button a,
+  .comment-reply-link,
+  a.bp-title-button {
+    box-sizing: border-box;
+    padding: 4px 12px;
+    height: 32px;
+  }
+
+  div.message-search {
+    margin: 0 0 0 20px;
+  }
+
+  .field-visibility-settings,
+  .field-visibility-settings-toggle,
+  .field-visibility-settings-notoggle {
+    padding-top: 0.5em;
+    font-size: 0.8em;
+    font-style: normal;
+  }
+
+  a.bp-suggestions-mention {
+    display: inline-block;
+    /*rtl:ignore*/
+    direction: ltr;
+  }
+}

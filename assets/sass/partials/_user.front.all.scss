@@ -14,8 +14,12 @@ body.buddypress {
     .-title {}
 
     .-text {
-      width: 95% !important;
-      height: 220px !important;
+      // width: 95% !important;
+      // height: 220px !important;
+      box-sizing: border-box;
+      width: 100%;
+      height: 220px;
+      resize: vertical;
     }
 
     .-checkbox {

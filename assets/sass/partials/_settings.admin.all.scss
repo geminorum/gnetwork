@@ -304,9 +304,13 @@
 }
 
 .gnetwork-overview-wrap {
+
+  /*rtl:ignore*/
+  direction: ltr;
+
   .shortcode-github-readme {
     background: #fff;
-    margin: 2em 0;
-    padding: 1em 2em;
+    margin: 1em 0;
+    padding: 1em 1.5em;
   }
 }

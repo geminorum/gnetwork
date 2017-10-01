@@ -7,23 +7,32 @@
   @include mainwrap();
 
   &.shortcode-reflist {
-    ol,
-    ul {
-      padding: 0;
-      margin: 0;
+
+  ol, ul {
+
       border: 0;
-      list-style: none;
-      list-style-type: none;
+      padding: 0;
+      margin: 0 0 1em 0;
 
       li {
-        .ref-number {}
 
+        margin: 0 0 0.78em 0;
+
+        .ref-number {
+          color: $gray-dark;
+        }
+
+        .reference-external {}
         .cite-scroll {}
-
         .ref-text {}
 
         a {}
       }
+    }
+
+    ul {
+        list-style: none;
+        list-style-type: none;
     }
   }
 

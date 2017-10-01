@@ -43,16 +43,25 @@ div.wpcf7 {
 
   .wpcf7-form {
     label {
-      display: inline;
+      display: inline-block;
+      width: 100%;
+      margin: 0 0 1.5em 0;
+
+      .wpcf7-form-control-wrap {
+        display: block;
+        margin-top: 0.2em;
+      }
     }
   }
 
   .wpcf7-form-control {
 
     &.wpcf7-recaptcha {
-      > div > div {
-        margin: 0 auto;
-      }
+      margin: 0 0 1.5em 0; // same as label
+
+      // > div > div {
+      //   margin: 0 auto; // not working
+      // }
     }
   }
 
@@ -81,7 +90,12 @@ div.wpcf7 {
 
     input[type="tel"],
     input[type="email"] {
+      /*rtl:ignore*/
       direction: ltr !important;
+    }
+
+    textarea {
+      resize: vertical;
     }
   }
 

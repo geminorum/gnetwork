@@ -1,0 +1,37 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// gNetwork Partials: Login: Default ------------------------------------------
+
+body.login.logindefault {
+
+  a {
+    box-shadow: none;
+  }
+
+  h1 {
+    a {
+      background-image: none !important;
+      // height: 0;
+    }
+  }
+
+  form {
+    border-radius: 2px;
+    box-shadow: none !important;
+
+    input[type=password],
+    input[type=text] {
+      margin-top: 10px !important;
+    }
+
+    p {
+      text-align: center;
+
+      &.description {
+        text-align: left;
+      }
+    }
+  }
+
+}

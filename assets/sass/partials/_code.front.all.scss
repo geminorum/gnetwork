@@ -16,7 +16,8 @@
 
     img[src*="badge"],
     img[src*="shields.io"] {
-      display: inline;
+      display: inline-block;
+      border-radius: 0;
     }
   }
 
