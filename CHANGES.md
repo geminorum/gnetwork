@@ -1,3 +1,27 @@
+### 3.6.5
+* main/module: diff only options as help tab
+* main/module: extra attrs for shortcode wrap
+* module/adminbar: strip tags from cron status message
+* module/blog: override copyright notice
+* module/branding: site icon fallback disabled by default
+* module/branding: default action for credits
+* module/buddypress: theme style for bp pages
+* module/cleanup: disbale wpcf7 auto p
+* module/code: correct processing wiki contents
+* module/code: convert wikilinks
+* module/debug: bp custom on system reports
+* module/editor: correct statuses on link query
+* module/locale: mo folder moved to ssets
+* module/login: default class for login page
+* module/media: optional strip exif metadata
+* module/media: check if no additional image sizes
+* module/notify: add new filters
+* module/notify: not disabled by default
+* module/notify: correct site name
+* module/search: :new: include post meta in results
+* module/site: new large user count hook
+* module/shortcodes: ref overhaul
+
 ### 3.6.4
 * main/module: default callback for settings
 * main/module: exclude activate page from wpinstalling
