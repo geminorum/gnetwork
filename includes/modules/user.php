@@ -5,7 +5,9 @@ defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 use geminorum\gNetwork;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
+use geminorum\gNetwork\Core\File;
 use geminorum\gNetwork\Core\HTML;
+use geminorum\gNetwork\Core\Text;
 use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
 
@@ -160,11 +162,30 @@ class User extends gNetwork\Module
 		);
 	}
 
+	// FIXME: needs better UX
+	public function settings_sidebox( $sub, $uri )
+	{
+		echo '<p>';
+			Settings::submitButton( 'export_users_csv', _x( 'Export Users', 'Modules: User', GNETWORK_TEXTDOMAIN ), 'small' );
+			HTML::desc( _x( 'Get all users in a CSV file.', 'Modules: User', GNETWORK_TEXTDOMAIN ), FALSE );
+		echo '</p>';
+	}
+
 	public function settings( $sub = NULL )
 	{
 		if ( $this->key == $sub ) {
 
-			parent::settings( $sub );
+			if ( isset( $_POST['export_users_csv'] ) ) {
+
+				$this->check_referer( $sub );
+
+				Text::download( $this->get_csv_users(), File::prepName( 'users.csv' ) );
+
+				WordPress::redirectReferer( 'wrong' );
+
+			} else {
+				parent::settings( $sub );
+			}
 
 		} else if ( 'roles' == $sub ) {
 
@@ -596,5 +617,37 @@ class User extends gNetwork\Module
 				.'</label>';
 
 		echo '</div>';
+	}
+
+	// TODO: add support for BuddyPress fields
+	// @REF: https://gist.github.com/boonebgorges/79b5d0f628a884cb3b3b
+	private function get_csv_users()
+	{
+		global $wpdb;
+
+		$header = [
+			0 => 'Display Name',
+			1 => 'Email',
+			2 => 'Registration Date',
+			// 3 => 'Institution',
+		];
+
+		$data   = [ $header ];
+		$format = Utilities::dateFormats( 'default' );
+
+		$users = $wpdb->get_results( "SELECT ID, user_email, user_registered, display_name, user_nicename FROM {$wpdb->users} WHERE user_status = 0" );
+
+		foreach ( $users as $user ) {
+			$row = [];
+
+			$row[0] = empty( $user->display_name ) ? $user->user_nicename : $user->display_name;
+			$row[1] = $user->user_email;
+			$row[2] = date_i18n( $format, strtotime( $user->user_registered ) );
+			// $row[3] = xprofile_get_field_data( 2, $user->ID );
+
+			$data[] = $row;
+		}
+
+		return Text::toCSV( $data );
 	}
 }
