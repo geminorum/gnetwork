@@ -30,6 +30,8 @@ class Cron extends gNetwork\Module
 
 		if ( $this->options['dashboard_widget'] )
 			$this->action( 'wp_dashboard_setup' );
+		else
+			$this->action( 'activity_box_end', 0, 12 );
 	}
 
 	public function setup_menu( $context )
@@ -170,6 +172,12 @@ class Cron extends gNetwork\Module
 
 			Utilities::enqueueScript( 'admin.cron.statuscheck' );
 		}
+	}
+
+	public function activity_box_end()
+	{
+		if ( WordPress::cuc( $this->options['dashboard_accesscap'] ) )
+			echo $this->wrap( $this->get_status(), '-status-check' );
 	}
 
 	public function ajax()
