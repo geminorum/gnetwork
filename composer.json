@@ -29,7 +29,7 @@
     "analog/analog": "dev-master"
   },
   "require-dev": {
-    "kint-php/kint": "^2.1",
+    "kint-php/kint": "^2.2",
     "mustache/mustache": "^2.12",
     "phelium/mysql-backup": "dev-master",
     "picqer/php-barcode-generator": "^0.2.1",

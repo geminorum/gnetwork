@@ -138,15 +138,21 @@
   });
 
   gulp.task('build:styles', function() {
+    var processors = [
+      cssnano(config.cssnano.dev)
+      // TODO: add prefixer
+     ];
     return gulp.src(config.input.sass)
     .pipe(plugins.sass(config.sass).on('error', plugins.sass.logError))
-    .pipe(plugins.cssnano({
-      zindex: false,
-      discardComments: {
-        removeAll: true
-      }
-    }))
-    .pipe(gulp.dest(config.output.css));
+    .pipe(plugins.postcss(processors))
+    .pipe(gulp.dest(config.output.css)).on('error', gutil.log)
+    .pipe(plugins.if( [ "*", "!./assets/css/themes/*", "!./assets/css/tinymce/*" ],
+      multipipe(
+        plugins.postcss([rtlcss()]),
+        plugins.rename({suffix: '-rtl'})
+      )
+    ))
+    .pipe(gulp.dest(config.output.css)).on('error', gutil.log);
   });
 
   gulp.task('build:scripts', function() {
