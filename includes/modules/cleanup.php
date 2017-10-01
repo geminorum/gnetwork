@@ -19,8 +19,6 @@ class Cleanup extends gNetwork\Module
 		$this->action( 'admin_menu', 0, 999, 'late' );
 		$this->action( 'admin_enqueue_scripts', 0, 999 );
 
-		add_filter( 'wpcf7_load_css', '__return_false', 15 );
-
 		// SEE: http://stephanis.info/2014/08/13/on-jetpack-and-auto-activating-modules
 		add_filter( 'jetpack_get_default_modules', '__return_empty_array' );
 	}
@@ -262,6 +260,14 @@ class Cleanup extends gNetwork\Module
 	{
 		remove_action( 'wp_head', 'se_global_head' ); // by: Search Everything / http://wordpress.org/plugins/search-everything/
 		remove_action( 'rightnow_end', [ 'Akismet_Admin', 'rightnow_stats' ] ); // by: Akismet
+
+		if ( defined( 'WPCF7_VERSION' ) ) {
+
+			if ( defined( 'WPCF7_AUTOP' ) && WPCF7_AUTOP )
+				$this->filter( 'wpcf7_form_elements' );
+
+			$this->filter_false( 'wpcf7_load_css', 15 );
+		}
 	}
 
 	// @SOURCE: http://justintadlock.com/archives/2011/06/13/removing-menu-pages-from-the-wordpress-admin
@@ -281,6 +287,21 @@ class Cleanup extends gNetwork\Module
 	{
 		if ( defined( 'BRUTEPROTECT_VERSION' ) )
 			wp_dequeue_style( 'bruteprotect-css' ); // BruteProtect global css!!
+	}
+
+	// does not apply the `autop()` to the form content
+	// ADOPTED FROM: Contact Form 7 Controls - v0.4.0 - 20170926
+	// @SOURCE: https://github.com/kasparsd/contact-form-7-extras
+	public function wpcf7_form_elements( $form )
+	{
+		$instance = \WPCF7_ContactForm::get_current();
+		$manager  = \WPCF7_ShortcodeManager::get_instance();
+
+		$form = $manager->do_shortcode( get_post_meta( $instance->id(), '_form', TRUE ) );
+
+		$instance->set_properties( [ 'form' => $form ] );
+
+		return $form;
 	}
 
 	// @REF: https://core.trac.wordpress.org/ticket/20316
