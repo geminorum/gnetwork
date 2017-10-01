@@ -74,12 +74,21 @@ class Settings extends Core\Base
 		echo '<div class="clear"></div></div>';
 	}
 
-	// @REF: `get_admin_page_title()`
-	public static function headerTitle()
+	public static function wrapError( $message, $title = NULL )
 	{
-		echo '<h1 class="wp-heading-inline settings-title">';
-			_ex( 'Network Extras', 'Settings: Header Title', GNETWORK_TEXTDOMAIN );
-		echo '</h1>';
+		self::wrapOpen( 'error' );
+			self::headerTitle( $title );
+			echo $message;
+		self::wrapClose();
+	}
+
+	// @REF: `get_admin_page_title()`
+	public static function headerTitle( $title = NULL )
+	{
+		if ( is_null( $title ) )
+			$title = _x( 'Network Extras', 'Settings: Header Title', GNETWORK_TEXTDOMAIN );
+
+		echo '<h1 class="wp-heading-inline settings-title">'.$title.'</h1>';
 
 		if ( current_user_can( 'update_plugins' ) )
 			echo ' '.HTML::tag( 'a', [
