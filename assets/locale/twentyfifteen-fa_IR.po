@@ -2,14 +2,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Twenty Fifteen 1.5\n"
 "POT-Creation-Date: 2016-06-06 04:34+0430\n"
-"PO-Revision-Date: 2017-07-04 16:14+0430\n"
+"PO-Revision-Date: 2017-09-16 15:21+0430\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language: fa_IR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.2\n"
+"X-Generator: Poedit 2.0.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language-Team: \n"
 
 #: 404.php:17
 msgid "Oops! That page can&rsquo;t be found."
@@ -28,8 +29,8 @@ msgstr "برگهٔ قبلی"
 msgid "Next page"
 msgstr "برگهٔ بعدی"
 
-#: archive.php:51 content-link.php:40 content-page.php:29 content.php:42
-#: image.php:63 index.php:48 search.php:40
+#: archive.php:51 content-link.php:40 content-page.php:29 content.php:42 image.php:63
+#: index.php:48 search.php:40
 msgid "Page"
 msgstr "برگه"
 
@@ -68,26 +69,25 @@ msgstr "ویرایش"
 
 #: content-none.php:15
 msgid "Nothing Found"
-msgstr "مطلبی پیدا نشد"
+msgstr "پیدا نشد"
 
 #: content-none.php:22
 msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
 msgstr ""
-"برای انتشار اولین نوشتهٔ خودتان آماده‌اید؟ <a href=\"%1$s\">از اینجا شروع کنید</"
-"a>."
+"برای انتشار اولین نوشتهٔ خودتان آماده‌اید؟ <a href=\"%1$s\">از اینجا شروع کنید</a>."
 
 #: content-none.php:26
 msgid ""
-"Sorry, but nothing matched your search terms. Please try again with some "
-"different keywords."
+"Sorry, but nothing matched your search terms. Please try again with some different "
+"keywords."
 msgstr ""
 "متأسفیم، چیزی در مورد عبارتی که به دنبالش بودید پیدا نکردیم. از عبارت‌های دیگری "
 "برای جست‌وجو استفاده کنید."
 
 #: content-none.php:31
 msgid ""
-"It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching "
-"can help."
+"It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can "
+"help."
 msgstr "چیزی که به دنبالش بودید پیدا نشد، شاید جست‌وجوی دوباره شما را یاری کند."
 
 #. Author URI of the plugin/theme
@@ -121,7 +121,7 @@ msgstr ""
 #: functions.php:175
 msgctxt "Noto Sans font: on or off"
 msgid "on"
-msgstr ""
+msgstr "off"
 
 #. Translators: If there are characters in your language that are not supported
 #. by Noto Serif, translate this to 'off'. Do not translate into your own
@@ -129,7 +129,7 @@ msgstr ""
 #: functions.php:183
 msgctxt "Noto Serif font: on or off"
 msgid "on"
-msgstr ""
+msgstr "off"
 
 #. Translators: If there are characters in your language that are not supported
 #. by Inconsolata, translate this to 'off'. Do not translate into your own
@@ -137,7 +137,7 @@ msgstr ""
 #: functions.php:191
 msgctxt "Inconsolata font: on or off"
 msgid "on"
-msgstr ""
+msgstr "off"
 
 #. Translators: To add an additional character subset specific to your
 #. language, translate this to 'greek', 'cyrillic', 'devanagari' or
@@ -278,7 +278,7 @@ msgstr "اندازه کامل"
 #. translators: %s: post title
 #: inc/template-tags.php:123
 msgid "Leave a comment<span class=\"screen-reader-text\"> on %s</span>"
-msgstr "دیدگاه شما درباره <span class=\"screen-reader-text\">%s</span>"
+msgstr "دیدگاه شما <span class=\"screen-reader-text\">درباره %s</span>"
 
 #: search.php:18
 msgid "Search Results for: %s"
@@ -312,9 +312,9 @@ msgstr ""
 msgid ""
 "Our 2015 default theme is clean, blog-focused, and designed for clarity. Twenty "
 "Fifteen's simple, straightforward typography is readable on a wide variety of "
-"screen sizes, and suitable for multiple languages. We designed it using a "
-"mobile-first approach, meaning your content takes center-stage, regardless of "
-"whether your visitors arrive by smartphone, tablet, laptop, or desktop computer."
+"screen sizes, and suitable for multiple languages. We designed it using a mobile-"
+"first approach, meaning your content takes center-stage, regardless of whether "
+"your visitors arrive by smartphone, tablet, laptop, or desktop computer."
 msgstr ""
 
 #. Author of the plugin/theme

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: BuddyPress 2.9.0\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2017-09-05 01:13+0430\n"
+"PO-Revision-Date: 2017-09-05 04:17+0430\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: \n"
 "Language: fa_IR\n"
@@ -4301,7 +4301,7 @@ msgstr "بریدن تصویر"
 #: bp-xprofile/classes/class-bp-xprofile-field.php:1151
 #: bp-xprofile/classes/class-bp-xprofile-group.php:723
 msgid "Save"
-msgstr ""
+msgstr "ذخیره"
 
 #: bp-templates/bp-legacy/buddypress/assets/_attachments/avatars/camera.php:24
 msgid "Capture"
@@ -6466,7 +6466,7 @@ msgstr "محروم"
 
 #: bp-groups/bp-groups-admin.php:936
 msgid "Roles"
-msgstr ""
+msgstr "نقش‌ها"
 
 #: bp-groups/bp-groups-admin.php:910
 msgctxt "Group member role in group admin"
