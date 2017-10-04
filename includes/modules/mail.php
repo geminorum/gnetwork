@@ -500,7 +500,7 @@ class Mail extends gNetwork\Module
 		if ( ! $path )
 			return [ [], [] ];
 
-		$files = glob( wp_normalize_path( $path.'/*.'.$ext ) );
+		$files = glob( File::normalize( $path.'/*.'.$ext ) );
 
 		if ( FALSE === $files || ! count( $files ) )
 			return [ [], [] ];

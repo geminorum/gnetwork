@@ -5,6 +5,7 @@ defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 use geminorum\gNetwork;
 use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\Date;
+use geminorum\gNetwork\Core\File;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\HTTP;
 use geminorum\gNetwork\Core\Number;
@@ -799,7 +800,7 @@ class ShortCodes extends gNetwork\Module
 		if ( ! $content )
 			$content = $number;
 
-		$html = HTML::tel( $number, $args['title'], apply_filters( 'string_format_i18n', $content ) );
+		$html = HTML::tel( $number, $args['title'], Number::format( $content ) );
 		return self::shortcodeWrap( $html, 'tel', $args, FALSE );
 	}
 
@@ -837,7 +838,7 @@ class ShortCodes extends gNetwork\Module
 				.'" data-sms-body="'.esc_attr( $args['body'] ) : '' )
 				.'"'.( $args['title'] ? ' data-toggle="tooltip" title="'.esc_attr( $args['title'] )
 				.'"' : '' ).' data-sms-number="'.esc_attr( $number ).'">'
-				.'&#8206;'.apply_filters( 'string_format_i18n', $content ).'&#8207;</a>';
+				.'&#8206;'.Number::format( $content ).'&#8207;</a>';
 
 		return self::shortcodeWrap( $html, 'sms', $args, FALSE );
 	}
@@ -1002,7 +1003,7 @@ class ShortCodes extends gNetwork\Module
 			if ( $file = get_attached_file( $args['id'] ) ) {
 
 				$csv = new \parseCSV();
-				$csv->auto( wp_normalize_path( $file ) );
+				$csv->auto( File::normalize( $file ) );
 
 				$titles = $args['columns'] ? explode( ',', $args['columns'] ) : $csv->titles;
 				$data   = $csv->data;

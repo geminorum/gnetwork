@@ -3,6 +3,7 @@
 defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Core\File;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\HTTP;
 use geminorum\gNetwork\Core\WordPress;
@@ -83,9 +84,9 @@ class Locale extends gNetwork\Module
 		if ( 'en_US' == $locale )
 			return $mofile;
 
-		$this->loaded[$locale][$domain][] = wp_normalize_path( $mofile );
+		$this->loaded[$locale][$domain][] = File::normalize( $mofile );
 
-		$tailored = wp_normalize_path( GNETWORK_DIR.'assets/locale/'.$domain.'-'.$locale.'.mo' );
+		$tailored = File::normalize( GNETWORK_DIR.'assets/locale/'.$domain.'-'.$locale.'.mo' );
 
 		if ( ! is_readable( $tailored ) )
 			return $mofile;

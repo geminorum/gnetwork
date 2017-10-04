@@ -5,6 +5,7 @@ defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 use geminorum\gNetwork;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
+use geminorum\gNetwork\Core\Arraay;
 use geminorum\gNetwork\Core\WordPress;
 
 class BuddyPress extends gNetwork\Module
@@ -270,7 +271,7 @@ class BuddyPress extends gNetwork\Module
 			return;
 
 		$message = sprintf( _x( 'Please complete your profile: %s', 'Modules: BuddyPress', GNETWORK_TEXTDOMAIN ),
-			Utilities::joinItems( wp_list_pluck( $fields, 'name' ) ) );
+			Utilities::joinItems( Arraay::column( $fields, 'name' ) ) );
 
 		bp_core_add_message( $message, 'warning' );
 	}

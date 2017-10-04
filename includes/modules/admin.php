@@ -6,6 +6,7 @@ use geminorum\gNetwork;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\HTML;
+use geminorum\gNetwork\Core\Number;
 use geminorum\gNetwork\Core\WordPress;
 
 class Admin extends gNetwork\Module
@@ -294,7 +295,7 @@ class Admin extends gNetwork\Module
 
 		if ( ! current_user_can( 'update_core' ) )
 			$content = '<span class="gnetwork-admin-wrap footer-version" title="'
-				.sprintf( _x( 'Version %s', 'Modules: Admin', GNETWORK_TEXTDOMAIN ), apply_filters( 'string_format_i18n', $GLOBALS['wp_version'] ) )
+				.sprintf( _x( 'Version %s', 'Modules: Admin', GNETWORK_TEXTDOMAIN ), Number::format( $GLOBALS['wp_version'] ) )
 				.'">'._x( 'CODE IS POETRY', 'Modules: Admin', GNETWORK_TEXTDOMAIN ).'</span>';
 
 		return $content;
