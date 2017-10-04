@@ -222,7 +222,7 @@ class Media extends gNetwork\Module
 			'posts_per_page'   => $limit,
 			'offset'           => $offset,
 			'orderby'          => self::orderby( 'ID' ),
-			'order'            => self::order( 'asc' ),
+			'order'            => self::order( 'DESC' ),
 			'post_type'        => 'any',
 			'post_status'      => [ 'publish', 'future', 'draft', 'pending' ],
 			'suppress_filters' => TRUE,
