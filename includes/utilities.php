@@ -191,14 +191,15 @@ class Utilities extends Core\Base
 
 		if ( empty( $formats ) )
 			$formats = apply_filters( 'custom_date_formats', [
-				'fulltime' => _x( 'l, M j, Y @ H:i', 'Date Format', GNETWORK_TEXTDOMAIN ),
-				'datetime' => _x( 'M j, Y @ G:i', 'Date Format', GNETWORK_TEXTDOMAIN ),
-				'dateonly' => _x( 'l, F j, Y', 'Date Format', GNETWORK_TEXTDOMAIN ),
-				'timedate' => _x( 'H:i - F j, Y', 'Date Format', GNETWORK_TEXTDOMAIN ),
-				'timeampm' => _x( 'g:i a', 'Date Format', GNETWORK_TEXTDOMAIN ),
-				'timeonly' => _x( 'H:i', 'Date Format', GNETWORK_TEXTDOMAIN ),
-				'monthday' => _x( 'n/j', 'Date Format', GNETWORK_TEXTDOMAIN ),
-				'default'  => _x( 'm/d/Y', 'Date Format', GNETWORK_TEXTDOMAIN ),
+				'fulltime'  => _x( 'l, M j, Y @ H:i', 'Date Format', GNETWORK_TEXTDOMAIN ),
+				'datetime'  => _x( 'M j, Y @ G:i', 'Date Format', GNETWORK_TEXTDOMAIN ),
+				'dateonly'  => _x( 'l, F j, Y', 'Date Format', GNETWORK_TEXTDOMAIN ),
+				'timedate'  => _x( 'H:i - F j, Y', 'Date Format', GNETWORK_TEXTDOMAIN ),
+				'timeampm'  => _x( 'g:i a', 'Date Format', GNETWORK_TEXTDOMAIN ),
+				'timeonly'  => _x( 'H:i', 'Date Format', GNETWORK_TEXTDOMAIN ),
+				'monthday'  => _x( 'n/j', 'Date Format', GNETWORK_TEXTDOMAIN ),
+				'default'   => _x( 'm/d/Y', 'Date Format', GNETWORK_TEXTDOMAIN ),
+				'wordpress' => get_option( 'date_format' ),
 			] );
 
 		if ( FALSE === $context )
