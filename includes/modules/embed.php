@@ -4,6 +4,7 @@ defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
 use geminorum\gNetwork\Logger;
+use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\WordPress;
@@ -195,18 +196,12 @@ class Embed extends gNetwork\Module
 					'data'            => [ 'source' => $link ],
 				], NULL );
 
+				$date = date_i18n( Utilities::dateFormats( 'default' ), $item->get_date( 'U' ) );
+
 				$desc = @html_entity_decode( $item->get_description(), ENT_QUOTES, get_option( 'blog_charset' ) );
-				$desc = wp_trim_words( $desc, 55, ' [&hellip;]' ); // FIXME: use theme's
+				$desc = wp_trim_words( $desc, apply_filters( 'excerpt_length', 55 ), apply_filters( 'excerpt_more', ' &hellip;' ) );
 
-				$date = date_i18n( get_option( 'date_format' ), $item->get_date( 'U' ) );
-
-				$html .= sprintf( $layout,
-					$video,
-					$link,
-					apply_filters( 'string_format_i18n', $title ),
-					$date,
-					esc_html( apply_filters( 'html_format_i18n', $desc ) )
-				);
+				$html.= sprintf( $layout, $video, $link, Utilities::prepTitle( $title ), $date, Utilities::prepDescription( $desc ) );
 			}
 
 			$rss->__destruct();
