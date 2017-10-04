@@ -226,6 +226,30 @@ class Utilities extends Core\Base
 		return $fallback;
 	}
 
+	public static function prepTitle( $text )
+	{
+		if ( ! $text )
+			return '';
+
+		$text = apply_filters( 'the_title', $text, 0 );
+		$text = apply_filters( 'gnetwork_typography', $text );
+
+		return trim( $text );
+	}
+
+	public static function prepDescription( $text, $shortcode = TRUE )
+	{
+		if ( ! $text )
+			return '';
+
+		if ( $shortcode )
+			$text = do_shortcode( $text, TRUE );
+
+		$text = apply_filters( 'gnetwork_typography', $text );
+
+		return wpautop( $text );
+	}
+
 	// @SEE: https://github.com/bobthecow/mustache.php/wiki
 	public static function getMustache()
 	{
