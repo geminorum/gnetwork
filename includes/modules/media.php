@@ -6,6 +6,7 @@ use geminorum\gNetwork;
 use geminorum\gNetwork\Ajax;
 use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\Arraay;
+use geminorum\gNetwork\Core\File;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\HTTP;
 use geminorum\gNetwork\Core\Text;
@@ -138,7 +139,22 @@ class Media extends gNetwork\Module
 
 				$this->check_referer( $sub );
 
-				if ( isset( $_POST['clean_attachments'], $_POST['_cb'] ) ) {
+				if ( isset( $_POST['sync_attachments'], $_POST['_cb'] ) ) {
+
+					$count = 0;
+
+					foreach ( $_POST['_cb'] as $post_id )
+						if ( $this->sync_attachments( $post_id ) )
+							$count++;
+
+					WordPress::redirectReferer( [
+						'message' => 'synced',
+						'count'   => $count,
+						'limit'   => self::limit(),
+						'paged'   => self::paged(),
+					] );
+
+				} else if ( isset( $_POST['clean_attachments'], $_POST['_cb'] ) ) {
 
 					$count = 0;
 
@@ -151,6 +167,13 @@ class Media extends gNetwork\Module
 						else if ( $this->clean_attachments( $post_id ) )
 							$count++;
 
+					WordPress::redirectReferer( [
+						'message' => 'cleaned',
+						'count'   => $count,
+						'limit'   => self::limit(),
+						'paged'   => self::paged(),
+					] );
+
 				} else if ( isset( $_POST['cache_in_content'], $_POST['_cb'] ) ) {
 
 					$count = 0;
@@ -158,6 +181,13 @@ class Media extends gNetwork\Module
 					foreach ( $_POST['_cb'] as $post_id )
 						if ( $this->cache_in_content( $post_id ) )
 							$count++;
+
+					WordPress::redirectReferer( [
+						'message' => 'imported',
+						'count'   => $count,
+						'limit'   => self::limit(),
+						'paged'   => self::paged(),
+					] );
 
 				} else {
 
@@ -167,16 +197,10 @@ class Media extends gNetwork\Module
 						'paged'   => self::paged(),
 					] );
 				}
-
-				WordPress::redirectReferer( [
-					'message' => 'cleaned',
-					'count'   => $count,
-					'limit'   => self::limit(),
-					'paged'   => self::paged(),
-				] );
 			}
 
 			$this->register_button( 'clean_attachments', _x( 'Clean Attachments', 'Modules: Media', GNETWORK_TEXTDOMAIN ) );
+			$this->register_button( 'sync_attachments', _x( 'Sync Attachments', 'Modules: Media', GNETWORK_TEXTDOMAIN ) );
 			$this->register_button( 'cache_in_content', _x( 'Cache In Content', 'Modules: Media', GNETWORK_TEXTDOMAIN ) );
 
 			add_action( $this->settings_hook( $sub ), [ $this, 'settings_form_images' ], 10, 2 );
@@ -490,7 +514,7 @@ class Media extends gNetwork\Module
 			return $metadata;
 
 		$wpupload = wp_get_upload_dir();
-		$editor   = wp_get_image_editor( path_join( $wpupload['basedir'], $metadata['file'] ) );
+		$editor   = wp_get_image_editor( File::join( $wpupload['basedir'], $metadata['file'] ) );
 
 		if ( ! self::isError( $editor ) )
 			$metadata['sizes'] = $editor->multi_resize( $sizes );
@@ -567,7 +591,7 @@ class Media extends gNetwork\Module
 			return $metadata;
 
 		$wpupload = wp_get_upload_dir();
-		$editor   = wp_get_image_editor( path_join( $wpupload['basedir'], $metadata['file'] ) );
+		$editor   = wp_get_image_editor( File::join( $wpupload['basedir'], $metadata['file'] ) );
 
 		if ( ! self::isError( $editor ) )
 			$metadata['sizes'] = array_merge( $metadata['sizes'], $editor->multi_resize( $sizes ) );
@@ -670,7 +694,7 @@ class Media extends gNetwork\Module
 
 			$wpupload = wp_get_upload_dir();
 			$img_url  = wp_get_attachment_url( $post_id );
-			$img_url  = str_replace( wp_basename( $img_url ), $data['file'], $img_url );
+			$img_url  = str_replace( File::basename( $img_url ), $data['file'], $img_url );
 
 			if ( GNETWORK_MEDIA_THUMBS_CHECK && file_exists( str_replace( $wpupload['baseurl'], $wpupload['basedir'], $img_url ) ) )
 				return $false;
@@ -696,7 +720,7 @@ class Media extends gNetwork\Module
 		$wpupload = wp_get_upload_dir();
 		$info     = pathinfo( $file );
 		$folder   = str_replace( $wpupload['basedir'], '', $info['dirname'] );
-		$path     = path_join( GNETWORK_MEDIA_THUMBS_DIR, $this->blog ).$folder;
+		$path     = File::join( GNETWORK_MEDIA_THUMBS_DIR, $this->blog ).$folder;
 
 		if ( WordPress::isDev() )
 			error_log( print_r( compact( 'info', 'wpupload', 'folder', 'path' ), TRUE ) );
@@ -723,26 +747,29 @@ class Media extends gNetwork\Module
 	}
 
 	// FIXME: ALSO SEE: https://core.trac.wordpress.org/changeset/38113
-	public function get_thumbs( $attachment_id )
+	private function get_attachment_thumbs( $attachment_id, $wpupload = NULL )
 	{
+		if ( is_null( $wpupload ) )
+			$wpupload = wp_get_upload_dir();
+
 		$thumbs = [];
 
 		if ( $file = get_post_meta( $attachment_id, '_wp_attached_file', TRUE ) ) { // '2015/05/filename.jpg'
 
-			$wpupload = wp_get_upload_dir();
-			$filename = wp_basename( $file );
+			$filename = File::basename( $file );
 			$filetype = wp_check_filetype( $filename );
-			// $filepath = wp_normalize_path( str_replace( $filename, '', $file ) );
+			// $filepath = File::normalize( str_replace( $filename, '', $file ) );
 			$filepath = dirname( $file );
 
-			$pattern_gn = path_join( GNETWORK_MEDIA_THUMBS_DIR, $this->blog ).'/'.path_join( $filepath, wp_basename( $file, '.'.$filetype['ext'] ) ).'-[0-9]*x[0-9]*.'.$filetype['ext'];
-			$pattern_wp = $wpupload['basedir'].'/'.path_join( $filepath, wp_basename( $file, '.'.$filetype['ext'] ) ).'-[0-9]*x[0-9]*.'.$filetype['ext'];
+			$pattern_gn = File::join( GNETWORK_MEDIA_THUMBS_DIR, $this->blog ).'/'.File::join( $filepath, File::basename( $file, '.'.$filetype['ext'] ) ).'-[0-9]*x[0-9]*.'.$filetype['ext'];
+			$pattern_wp = $wpupload['basedir'].'/'.File::join( $filepath, File::basename( $file, '.'.$filetype['ext'] ) ).'-[0-9]*x[0-9]*.'.$filetype['ext'];
 
 			$thumbs_gn = glob( $pattern_gn );
+			$thumbs_wp = glob( $pattern_wp );
+
 			if ( is_array( $thumbs_gn ) && count( $thumbs_gn ) )
 				$thumbs += $thumbs_gn;
 
-			$thumbs_wp = glob( $pattern_wp );
 			if ( is_array( $thumbs_wp ) && count( $thumbs_wp ) )
 				$thumbs += $thumbs_wp;
 		}
@@ -750,52 +777,11 @@ class Media extends gNetwork\Module
 		return $thumbs;
 	}
 
-	public function url_thumbs( $thumbs, $wpupload )
-	{
-		$urls = [];
-
-		foreach ( $thumbs as $thumb )
-			$urls[] = str_replace( $wpupload['basedir'], $wpupload['baseurl'], wp_normalize_path( $thumb ) );
-
-		return $urls;
-	}
-
-	public function delete_thumbs( $thumbs )
-	{
-		$count = 0;
-
-		foreach ( $thumbs as $thumb )
-			if ( @unlink( wp_normalize_path( $thumb ) ) )
-				$count++;
-
-		return $count;
-	}
-
-	// FIXME: WORKING DRAFT
-	// NOTE: probably no need
-	public function reset_meta_sizes( $attachment_id )
-	{
-		$meta = wp_get_attachment_metadata( $attachment_id );
-
-		if ( ! isset( $meta['sizes'] ) )
-			return TRUE;
-
-		$meta['sizes'] = [];
-
-		// FIXME: remove EXIF too!
-
-		delete_post_meta( $attachment_id, '_wp_attachment_backup_sizes' );
-		update_post_meta( $attachment_id, '_wp_attachment_metadata', $meta );
-
-		return TRUE;
-	}
-
 	public function clean_attachment( $attachment_id, $regenerate = TRUE, $force = FALSE )
 	{
 		if ( $force || ! $this->attachment_is_custom( $attachment_id ) ) {
 
-			$thumbs = $this->get_thumbs( $attachment_id );
-			$delete = $this->delete_thumbs( $thumbs );
+			File::remove( $this->get_attachment_thumbs( $attachment_id ) );
 
 			if ( $regenerate ) {
 				$file   = get_attached_file( $attachment_id, TRUE );
@@ -803,16 +789,24 @@ class Media extends gNetwork\Module
 				$update = wp_update_attachment_metadata( $attachment_id, $meta );
 			}
 
-			if ( WordPress::isDev() )
-				error_log( print_r( compact( 'attachment_id', 'thumbs', 'delete', 'file', 'meta', 'update' ), TRUE ) );
-
 			return TRUE;
 		}
 
 		return FALSE;
 	}
 
-	public function clean_attachments( $post_id )
+	public function clean_attachments( $post_id, $force = FALSE )
+	{
+		$count = 0;
+
+		foreach ( WordPress::getAttachments( $post_id ) as $attachment )
+			if ( $this->clean_attachment( $attachment->ID, TRUE, $force ) )
+				$count++;
+
+		return $count;
+	}
+
+	public function sync_attachments( $post_id )
 	{
 		global $wpdb;
 
@@ -820,16 +814,16 @@ class Media extends gNetwork\Module
 
 		foreach ( WordPress::getAttachments( $post_id ) as $attachment ) {
 			if ( $attached_file = get_post_meta( $attachment->ID, '_wp_attached_file', TRUE ) ) {
-				if ( ! str_replace( wp_basename( $attached_file ), '', $attached_file ) ) {
+				if ( ! str_replace( File::basename( $attached_file ), '', $attached_file ) ) {
 					$clean[$attachment->ID] = $attached_file;
 				}
 			}
 		}
 
 		if ( ! count( $clean ) )
-			return FALSE;
+			return TRUE;
 
-		$post = get_post( $post_id );
+		$post     = get_post( $post_id );
 		$wpupload = wp_upload_dir( ( substr( $post->post_date, 0, 4 ) > 0 ? $post->post_date : NULL ) );
 
 		preg_match_all( '|<img.*?src=[\'"](.*?)[\'"].*?>|i', $post->post_content, $matches );
@@ -838,28 +832,32 @@ class Media extends gNetwork\Module
 
 			// $clean_upload = media_sideload_image( $wpupload['baseurl'].'/'.$clean_file, $post_id, NULL, 'src' );
 
-			$clean_path = path_join( $wpupload['basedir'], $clean_file );
-			$moved_path = path_join( $wpupload['path'], $clean_file );
+			$clean_path = File::join( $wpupload['basedir'], $clean_file );
+			$moved_path = File::join( $wpupload['path'], $clean_file );
 
 			// move file to correct location
 			if ( file_exists( $clean_path ) && @rename( $clean_path, $moved_path ) ) {
 
-				$thumbs_path = $this->get_thumbs( $clean_id );
-				$thumbs_url = $this->url_thumbs( $thumbs_path, $wpupload );
+				$paths = $this->get_attachment_thumbs( $clean_id, $wpupload );
+				$urls  = [];
 
-				$thumbs_url[] = $wpupload['baseurl'].'/'.$clean_file; // also the original
+				foreach ( $paths as $path )
+					$urls[] = str_replace( $wpupload['basedir'], $wpupload['baseurl'], File::normalize( $path ) );
 
-				foreach ( $thumbs_url as $thumb_url ) {
-					foreach ( $matches[1] as $offset => $url ) {
-						if ( $thumb_url == $url ) {
+				// also the original
+				$urls[] = $wpupload['baseurl'].'/'.$clean_file;
+
+				foreach ( $urls as $url ) {
+					foreach ( $matches[1] as $offset => $match ) {
+						if ( $url == $match ) {
 							$wpdb->query( $wpdb->prepare( "
 								UPDATE {$wpdb->posts} SET post_content = REPLACE( post_content, %s, %s ) WHERE ID = %d
-							", $url, ( $wpupload['url'].'/'.wp_basename( $url ) ), $post_id ) );
+							", $match, ( $wpupload['url'].'/'.File::basename( $match ) ), $post_id ) );
 						}
 					}
 				}
 
-				$this->delete_thumbs( $thumbs_path );
+				File::remove( $paths );
 
 				$meta = wp_generate_attachment_metadata( $clean_id, $moved_path );
 				wp_update_attachment_metadata( $clean_id, $meta );
@@ -886,6 +884,7 @@ class Media extends gNetwork\Module
 	public function single_post_title( $post_title, $post )
 	{
 		if ( 'attachment' == $post->post_type ) {
+
 			if ( $alt = get_post_meta( $post->ID, '_wp_attachment_image_alt', TRUE ) )
 				return $alt;
 
@@ -986,10 +985,15 @@ class Media extends gNetwork\Module
 
 				Ajax::checkReferer( $this->hook( $post['post_id'] ) );
 
-				if ( ! $this->clean_attachments( $post['post_id'] ) )
+				$count = $this->clean_attachments( $post['post_id'] );
+
+				if ( FALSE === $count )
 					Ajax::errorMessage();
 
-				Ajax::success( _x( 'Cleaned', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) );
+				if ( TRUE === $count || 0 === $count )
+					Ajax::success( _x( 'Already Cleaned!', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) );
+
+				Ajax::success( _x( 'Cleaned!', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) );
 
 			break;
 			case 'cache_post':
