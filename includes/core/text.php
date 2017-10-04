@@ -287,20 +287,14 @@ class Text extends Base
 		return $text;
 	}
 
-	/*
-		@REF: https://gist.github.com/geminorum/fe2a9ba25db5cf2e5ad6718423d00f8a
-
-		Original Title Case script (c) John Gruber <daringfireball.net>
-		Javascript port (c) David Gouch <individed.com>
-		PHP port of the above by Kroc Camen <camendesign.com>
-	*/
+	// @REF: https://gist.github.com/geminorum/fe2a9ba25db5cf2e5ad6718423d00f8a
 	public static function titleCase( $title )
 	{
 		// remove HTML, storing it for later
-		//       HTML elements to ignore    | tags  | entities
-		$regx = '/<(code|var)[^>]*>.*?<\/\1>|<[^>]+>|&\S+;/';
-		preg_match_all( $regx, $title, $html, PREG_OFFSET_CAPTURE );
-		$title = preg_replace( $regx, '', $title );
+		//          HTML elements to ignore    | tags  | entities
+		$pattern = '/<(code|var)[^>]*>.*?<\/\1>|<[^>]+>|&\S+;/';
+		preg_match_all( $pattern, $title, $matches, PREG_OFFSET_CAPTURE );
+		$title = preg_replace( $pattern, '', $title );
 
 		// find each word (including punctuation attached)
 		preg_match_all( '/[\w\p{L}&`\'‘’"“\.@:\/\{\(\[<>_]+-? */u', $title, $m1, PREG_OFFSET_CAPTURE );
@@ -344,7 +338,7 @@ class Text extends Base
 		}
 
 		// restore the HTML
-		foreach ( $html[0] as &$tag )
+		foreach ( $matches[0] as &$tag )
 			$title = substr_replace( $title, $tag[0], $tag[1], 0 );
 
 		return $title;
@@ -603,13 +597,13 @@ class Text extends Base
 	public static function closeHTMLTags( $html )
 	{
 		// put all opened tags into an array
-		preg_match_all( "#<([a-z]+)( .*)?(?!/)>#iU", $html, $result );
-		$openedtags = $result[1];
+		preg_match_all( "#<([a-z]+)( .*)?(?!/)>#iU", $html, $matches );
+		$openedtags = $matches[1];
 
 		// put all closed tags into an array
-		preg_match_all( "#</([a-z]+)>#iU", $html, $result );
+		preg_match_all( "#</([a-z]+)>#iU", $html, $matches );
 
-		$closedtags = $result[1];
+		$closedtags = $matches[1];
 		$len_opened = count( $openedtags );
 
 		// all tags are closed
@@ -692,5 +686,59 @@ class Text extends Base
 		$string = strtr( $string, $escaped );
 
 		return $string;
+	}
+
+	// @REF: http://php.net/manual/en/function.fputcsv.php#87120
+	public static function toCSV( $data, $delimiter = ',', $enclosure = '"', $null = FALSE )
+	{
+		$delimiter_esc = preg_quote( $delimiter, '/' );
+		$enclosure_esc = preg_quote( $enclosure, '/' );
+
+		$output = '';
+
+		foreach( $data as $fields ) {
+			fputcsv( $handle, $fields );
+
+			$row = array();
+
+			foreach ( $fields as $field ) {
+
+				if ( $null && is_null( $field ) ) {
+					$row[] = 'NULL';
+					continue;
+				}
+
+				$row[] = preg_match( "/(?:${delimiter_esc}|${enclosure_esc}|\s)/", $field )
+					? ( $enclosure.str_replace( $enclosure, $enclosure.$enclosure, $field ).$enclosure )
+					: $field;
+			}
+
+			$output.= join( $delimiter, $row )."\n";
+		}
+
+		return $output;
+	}
+
+	public static function download( $contents, $name, $mime = 'application/octet-stream' )
+	{
+		if ( ! $contents )
+			return FALSE;
+
+		header( 'Content-Description: File Transfer' );
+		header( 'Pragma: public' ); // required
+		header( 'Expires: 0' ); // no cache
+		header( 'Cache-Control: must-revalidate, post-check=0, pre-check=0' );
+		header( 'Cache-Control: private', FALSE );
+		header( 'Content-Type: '.$mime );
+		header( 'Content-Disposition: attachment; filename="'.$name.'"' );
+		header( 'Content-Transfer-Encoding: binary' );
+		header( 'Connection: close' );
+
+		@ob_clean();
+		flush();
+
+		echo $contents;
+
+		exit();
 	}
 }

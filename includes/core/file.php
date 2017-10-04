@@ -5,6 +5,58 @@ defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 class File extends Base
 {
 
+	// normalize a filesystem path
+	// on windows systems, replaces backslashes with forward slashes
+	// and forces upper-case drive letters.
+	// allows for two leading slashes for Windows network shares, but
+	// ensures that all other duplicate slashes are reduced to a single.
+	// @SOURCE: `wp_normalize_path()`
+	public static function normalize( $path )
+	{
+		$path = str_replace( '\\', '/', $path );
+		$path = preg_replace( '|(?<=.)/+|', '/', $path );
+
+		if ( ':' === substr( $path, 1, 1 ) )
+			$path = ucfirst( $path );
+
+		return $path;
+	}
+
+	// i18n friendly version of `basename()`
+	// if the filename ends in suffix this will also be cut off
+	// @SOURCE: `wp_basename()`
+	public static function basename( $path, $suffix = '' )
+	{
+		return urldecode( basename( str_replace( array( '%2F', '%5C' ), '/', urlencode( $path ) ), $suffix ) );
+	}
+
+	// join two filesystem paths together
+	// @SOURCE: `path_join()`
+	public static function join( $base, $path )
+	{
+		return self::isAbsolute( $path ) ? $path : rtrim( $base, '/' ).'/'.ltrim( $path, '/' );
+	}
+
+	// test if a give filesystem path is absolute
+	// for example, '/foo/bar', or 'c:\windows'
+	// @SOURCE: `path_is_absolute()`
+	public static function isAbsolute( $path )
+	{
+		// this is definitive if true but fails if $path does not exist or contains a symbolic link
+		if ( $path == realpath( $path ) )
+			return TRUE;
+
+		if ( 0 == strlen( $path ) || '.' == $path[0] )
+			return FALSE;
+
+		// windows allows absolute paths like this
+		if ( preg_match( '#^[a-zA-Z]:\\\\#', $path ) )
+			return TRUE;
+
+		// a path starting with / or \ is absolute; anything else is relative
+		return ( '/' == $path[0] || '\\' == $path[0] );
+	}
+
 	// http://stackoverflow.com/a/4994188
 	// core has `sanitize_file_name()` but with certain mime types
 	public static function escFilename( $path )
@@ -71,9 +123,9 @@ class File extends Base
 			return $dir;
 
 		if ( $append )
-			return file_put_contents( path_join( $dir, $filename ), $contents.PHP_EOL, FILE_APPEND );
+			return file_put_contents( self::join( $dir, $filename ), $contents.PHP_EOL, FILE_APPEND );
 
-		return file_put_contents( path_join( $dir, $filename ), $contents.PHP_EOL );
+		return file_put_contents( self::join( $dir, $filename ), $contents.PHP_EOL );
 	}
 
 	// @SOURCE: http://stackoverflow.com/a/6451391/4864081
@@ -157,6 +209,17 @@ class File extends Base
 		return FALSE;
 	}
 
+	public static function remove( $files )
+	{
+		$count = 0;
+
+		foreach ( (array) $files as $file )
+			if ( @unlink( self::normalize( $file ) ) )
+				$count++;
+
+		return $count;
+	}
+
 	// FIXME: TEST THIS
 	// @SOURCE: http://stackoverflow.com/a/11267139/4864081
 	public static function removeDir( $dir )
@@ -168,6 +231,28 @@ class File extends Base
 				unlink( $file );
 
 		rmdir( $dir );
+	}
+
+	// output up to 5MB is kept in memory, if it becomes bigger
+	// it will automatically be written to a temporary file
+	// @REF: http://php.net/manual/en/function.fputcsv.php#74118
+	public static function toCSV( $data, $maxmemory = NULL )
+	{
+		if ( is_null( $maxmemory ) )
+			$maxmemory =  5 * 1024 * 1024; // 5MB
+
+		$handle = fopen( 'php://temp/maxmemory:'.$maxmemory, 'r+' );
+
+		foreach( $data as $fields )
+			fputcsv( $handle, $fields );
+
+		rewind( $handle );
+
+		$csv = stream_get_contents( $handle );
+
+		fclose( $handle );
+
+		return $csv;
 	}
 
 	// @REF: http://www.paulund.co.uk/html5-download-attribute
@@ -206,12 +291,12 @@ class File extends Base
 		$name = '';
 
 		if ( $prefix )
-			$name .= $prefix.'-';
+			$name.= $prefix.'-';
 
-		$name .= WordPress::currentBlog().'-'.current_time( 'Y-m-d' );
+		$name.= WordPress::currentBlog().'-'.current_time( 'Y-m-d' );
 
 		if ( $suffix )
-			$name .= '-'.$suffix;
+			$name.= '-'.$suffix;
 
 		return $name;
 	}
