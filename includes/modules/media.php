@@ -321,40 +321,53 @@ class Media extends gNetwork\Module
 
 			'attached' => [
 				'title'    => _x( 'Attached Media', 'Modules: Media: Column Title', GNETWORK_TEXTDOMAIN ),
+				'args'     => [ 'wpupload' => wp_get_upload_dir() ],
 				'callback' => function( $value, $row, $column, $index ){
 
 					// TODO: check for all attachment types, use wp icons
+					// TODO: attachment title as attr
+					$attachments = $this->get_attachment_urls( $row->ID, 'image', $column['args']['wpupload'] );
 
-					$links = [];
+					if ( ! count( $attachments ) )
+						return '<div dir="ltr">&mdash;</div>';
+
+					$links   = [];
+					$status  = _x( 'Status Code', 'Modules: Media: Title Attr', GNETWORK_TEXTDOMAIN );
+					$sizes   = _x( 'Number of Sizes', 'Modules: Media: Title Attr', GNETWORK_TEXTDOMAIN );
+					$checked = HTTP::checkURLs( Arraay::column( $attachments, 'url' ) );
 
 					$thumbnail_id  = get_post_meta( $row->ID, '_thumbnail_id', TRUE );
 					$gtheme_images = get_post_meta( $row->ID, '_gtheme_images', TRUE );
 					$gtheme_terms  = get_post_meta( $row->ID, '_gtheme_images_terms', TRUE );
 
-					foreach ( WordPress::getAttachments( $row->ID ) as $attachment ) {
+					foreach ( $attachments as $attachment ) {
 
-						$html = HTML::tag( 'a', [
-							'href'   => wp_get_attachment_url( $attachment->ID ),
-							'class'  => 'thickbox',
+						$html = '';
+						$meta = wp_get_attachment_metadata( $attachment['ID'] );
+						$code = $checked && isset( $checked[$attachment['url']] ) ? $checked[$attachment['url']] : NULL;
+
+						if ( ! is_null( $code ) )
+							$html.= sprintf( '<small><code class="-status" title="%s" style="color:%s">%s</code></small>&nbsp;', $status, ( 200 === $code ? 'green' : 'red' ), $code );
+
+						$html.= HTML::tag( 'a', [
+							'href'   => $attachment['url'],
+							'class'  => 200 === $code ? 'thickbox' : '-error',
 							'target' => '_blank',
-						], get_post_meta( $attachment->ID, '_wp_attached_file', TRUE ) );
+						], $attachment['file'] );
 
-						$html .= ' &ndash; '.$attachment->ID;
+						$html.= ' &ndash;'.$attachment['ID'];
 
-						if ( $meta = wp_get_attachment_metadata( $attachment->ID ) ) {
+						if ( $thumbnail_id == $attachment['ID'] )
+							$html.= ' &ndash;<b>thumbnail</b>';
 
-							if ( isset( $meta['sizes'] ) && $count = count( $meta['sizes'] ) )
-								$html .= ' &ndash; sizes: '.$count;
-						}
+						if ( $gtheme_images && in_array( $attachment['ID'], $gtheme_images ) )
+							$html.= ' &ndash;tag:<b>'.array_search( $attachment['ID'], $gtheme_images ).'</b>';
 
-						if ( $thumbnail_id == $attachment->ID )
-							$html .= ' &ndash; <b>thumbnail</b>';
+						if ( $gtheme_terms && in_array( $attachment['ID'], $gtheme_terms ) )
+							$html.= ' &ndash;term:<b>'.array_search( $attachment['ID'], $gtheme_terms ).'</b>';
 
-						if ( $gtheme_images && in_array( $attachment->ID, $gtheme_images ) )
-							$html .= ' &ndash; tagged: '.array_search( $attachment->ID, $gtheme_images );
-
-						if ( $gtheme_terms && in_array( $attachment->ID, $gtheme_terms ) )
-							$html .= ' &ndash; for term: '.array_search( $attachment->ID, $gtheme_terms );
+						if ( $meta && isset( $meta['sizes'] ) && ( $count = count( $meta['sizes'] ) ) )
+							$html.= sprintf( ' &ndash;<span class="-sizes" title="%s">x%s</span>', $sizes, $count );
 
 						$links[] = $html;
 					}
@@ -376,7 +389,7 @@ class Media extends gNetwork\Module
 					$externals = URL::checkExternals( $matches[1] );
 
 					$status   = _x( 'Status Code', 'Modules: Media: Title Attr', GNETWORK_TEXTDOMAIN );
-					$external = sprintf( '<small><code title="%s">%s</code></small>&nbsp;',
+					$external = sprintf( '<small><code class="-external-resource" title="%s">%s</code></small>',
 						_x( 'External Resource', 'Modules: Media: Title Attr', GNETWORK_TEXTDOMAIN ),
 						_x( 'Ex', 'Modules: Media: External Resource', GNETWORK_TEXTDOMAIN ) );
 
@@ -387,17 +400,17 @@ class Media extends gNetwork\Module
 
 						$link = '';
 
-						if ( isset( $externals[$src] ) && $externals[$src] )
-							$link .= $external;
-
 						if ( ! is_null( $code ) )
-							$link .= sprintf( '<small><code title="%s" style="color:%s">%s</code></small>&nbsp;', $status, ( $code > 400 ? 'red' : 'green' ), $code );
+							$link.= sprintf( '<small><code class="-status" title="%s" style="color:%s">%s</code></small>', $status, ( 200 === $code ? 'green' : 'red' ), $code );
 
-						$links[] = $link.HTML::tag( 'a', [
-								'href'   => $src,
-								'class'  => $code > 400 ? '-error' : 'thickbox',
-								'target' => '_blank',
-							], URL::prepTitle( $src ) );
+						if ( isset( $externals[$src] ) && $externals[$src] )
+							$link.= $external;
+
+						$links[] = $link.' '.HTML::tag( 'a', [
+							'href'   => $src,
+							'class'  => 200 === $code ? 'thickbox' : '-error',
+							'target' => '_blank',
+						], URL::prepTitle( $src ) );
 					}
 
 					return '<div dir="ltr">'.( count( $links ) ? implode( '<br />', $links ) : '&mdash;' ).'</div>';
@@ -410,6 +423,34 @@ class Media extends gNetwork\Module
 			'empty'      => HTML::warning( _x( 'No Posts!', 'Modules: Media', GNETWORK_TEXTDOMAIN ) ),
 			'pagination' => $pagination,
 		] );
+	}
+
+	public function get_attachment_urls( $parent_id, $mime_type = 'image', $wpupload = NULL )
+	{
+		if ( is_null( $wpupload ) )
+			$wpupload = wp_get_upload_dir();
+
+		$list = [];
+
+		foreach ( WordPress::getAttachments( $parent_id, $mime_type ) as $attachment ) {
+
+			if ( ! $file = get_post_meta( $attachment->ID, '_wp_attached_file', TRUE ) )
+				continue;
+
+			if ( Text::has( $file, $wpupload['basedir'] ) )
+				$url = str_replace( $wpupload['basedir'], $wpupload['baseurl'], $file );
+
+			else
+				$url = $wpupload['baseurl']."/$file";
+
+			$list[] = [
+				'ID'   => $attachment->ID,
+				'file' => $file,
+				'url'  => apply_filters( 'wp_get_attachment_url', $url, $attachment->ID ),
+			];
+		}
+
+		return $list;
 	}
 
 	public function clean_attachment_cache( $attachment_id )
