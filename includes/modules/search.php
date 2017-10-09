@@ -3,6 +3,8 @@
 defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Core\HTML;
+use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
 
 class Search extends gNetwork\Module
@@ -66,6 +68,14 @@ class Search extends gNetwork\Module
 				],
 			],
 		];
+	}
+
+	public function settings_sidebox( $sub, $uri )
+	{
+		$page = WordPress::getSearchLink();
+
+		HTML::desc( sprintf( _x( 'Current Page: %s', 'Modules: Search: Settings', GNETWORK_TEXTDOMAIN ),
+			'<code>'.HTML::link( URL::relative( $page ), $page, TRUE ).'</code>' ) );
 	}
 
 	// @SOURCE: `se_search_where()`

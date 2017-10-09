@@ -8,6 +8,7 @@ use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\File;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\HTTP;
+use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
 
 class Maintenance extends gNetwork\Module
@@ -52,17 +53,8 @@ class Maintenance extends gNetwork\Module
 
 	public function default_settings()
 	{
-		$template = self::getTemplate();
-
 		return [
 			'_general' => [
-				[
-					'field'  => 'current_template',
-					'type'   => 'custom',
-					'title'  => _x( 'Current Template', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
-					'values' => ( $template ? '<p class="description code"><code>'.File::normalize( $template ).'</code></p>' :
-						'<p class="description">'._x( 'There are no templates available. We will use an internal instead.', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ).'</p>' ),
-				],
 				[
 					'field'       => 'maintenance_site',
 					'type'        => 'cap',
@@ -121,6 +113,16 @@ class Maintenance extends gNetwork\Module
 				],
 			],
 		];
+	}
+
+	public function settings_sidebox( $sub, $uri )
+	{
+		if ( $template = self::getTemplate() )
+			HTML::desc( sprintf( _x( 'Current Template: %s', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
+				'<code>'.HTML::link( File::normalize( $template ), URL::fromPath( $template ), TRUE ).'</code>' ) );
+
+		else
+			HTML::desc( _x( 'There are no templates available. We will use an internal instead.', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ) );
 	}
 
 	public function init()

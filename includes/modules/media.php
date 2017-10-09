@@ -86,6 +86,12 @@ class Media extends gNetwork\Module
 		];
 	}
 
+	// FIXME: get mime names
+	public function settings_sidebox( $sub, $uri )
+	{
+		echo HTML::tableCode( wp_count_attachments() );
+	}
+
 	public function init_late()
 	{
 		if ( $this->filters( 'object_sizes', GNETWORK_MEDIA_OBJECT_SIZES, $this->blog ) ) {
@@ -225,7 +231,7 @@ class Media extends gNetwork\Module
 
 	public function settings_form_images( $uri, $sub = 'general' )
 	{
-		$this->settings_form_before( $uri, $sub, 'bulk' );
+		$this->settings_form_before( $uri, $sub, 'bulk', FALSE );
 
 			if ( $this->tablePostInfo() )
 				$this->settings_buttons( $sub );

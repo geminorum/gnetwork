@@ -5,6 +5,7 @@ defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 use geminorum\gNetwork;
 use geminorum\gNetwork\Core\Date;
 use geminorum\gNetwork\Core\HTML;
+use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
 
 class OpenSearch extends gNetwork\Module
@@ -140,6 +141,20 @@ class OpenSearch extends gNetwork\Module
 				],
 			],
 		];
+	}
+
+	public function settings_sidebox( $sub, $uri )
+	{
+		if ( $this->options['opensearch'] ) {
+
+			$manifest = self::url( FALSE );
+
+			HTML::desc( sprintf( _x( 'Current Manifest: %s', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
+				'<code>'.HTML::link( URL::relative( $manifest ), $manifest ).'</code>' ) );
+		} else {
+
+			HTML::desc( _x( 'There are no manifest available.', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ) );
+		}
 	}
 
 	public function settings_help_tabs( $sub = NULL )

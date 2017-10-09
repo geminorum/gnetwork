@@ -177,7 +177,7 @@ class Comments extends gNetwork\Module
 
 	public function settings_sidebox( $sub, $uri )
 	{
-		$this->total_comments();
+		self::commentSummary();
 	}
 
 	public function wp_print_scripts()
@@ -574,7 +574,9 @@ class Comments extends gNetwork\Module
 		// UPDATE wp_posts SET ping_status='closed' WHERE post_status = 'publish' AND post_type = 'page';
 	}
 
-	public function total_comments( $post_id = 0 )
+	// FIXME: add to overview
+	// FIXME: add archived comments/other-types
+	public static function commentSummary( $post_id = 0 )
 	{
 		$comments = wp_count_comments( $post_id );
 

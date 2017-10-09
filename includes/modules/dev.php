@@ -47,7 +47,7 @@ class Dev extends gNetwork\Module
 
 	public function settings_form( $uri, $sub = 'general' )
 	{
-		$this->settings_form_before( $uri, $sub, 'bulk' );
+		$this->settings_form_before( $uri, $sub, 'bulk', FALSE );
 
 			self::generateCustomTax();
 			// self::generateDropinFile();

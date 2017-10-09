@@ -147,7 +147,7 @@ class Cron extends gNetwork\Module
 
 	public function settings_form_scheduled( $uri, $sub = 'general' )
 	{
-		$this->settings_form_before( $uri, $sub, 'bulk' );
+		$this->settings_form_before( $uri, $sub, 'bulk', FALSE );
 
 			if ( self::tableCronInfo() )
 				$this->settings_buttons( $sub );

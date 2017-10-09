@@ -55,11 +55,12 @@ class Authors extends gNetwork\Module
 		];
 	}
 
-	// TODO: link to user edit
 	public function settings_sidebox( $sub, $uri )
 	{
 		if ( $user = WordPress::getSiteUserID() )
-			HTML::desc( sprintf( _x( 'Network Site User Is %s', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ), get_userdata( $user )->display_name ) );
+			HTML::desc( sprintf( _x( 'Network Site User Is %s', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
+				HTML::link( get_userdata( $user )->display_name, WordPress::getUserEditLink( $user ), TRUE ) ) );
+
 		else
 			HTML::desc( _x( 'Network Site User Is Not Defined', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ) );
 	}

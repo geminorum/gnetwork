@@ -146,6 +146,14 @@ class Restricted extends gNetwork\Module
 		];
 	}
 
+	public function settings_sidebox( $sub, $uri )
+	{
+		$template = Utilities::getLayout( '403' );
+
+		HTML::desc( sprintf( _x( 'Current Template: %s', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
+			'<code>'.HTML::link( $template, URL::fromPath( $template ), TRUE ).'</code>' ) );
+	}
+
 	private function remove_menus()
 	{
 		AdminBar::removeMenus( [
