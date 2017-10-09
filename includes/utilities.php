@@ -69,7 +69,7 @@ class Utilities extends Core\Base
 
 		if ( $flip )
 			return '<span class="-date-diff" title="'
-					.esc_attr( date_i18n( self::dateFormats( 'fulltime' ), $timestamp ) ).'">'
+					.esc_attr( self::dateFormat( $timestamp, 'fulltime' ) ).'">'
 					.self::humanTimeDiff( $timestamp, $now )
 				.'</span>';
 

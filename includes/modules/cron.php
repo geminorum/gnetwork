@@ -136,7 +136,7 @@ class Cron extends gNetwork\Module
 				] );
 			}
 
-			$this->register_button( 'unschedule', _x( 'Unschedule', 'Modules: CRON: Button', GNETWORK_TEXTDOMAIN ), TRUE );
+			$this->register_button( 'unschedule', _x( 'Unschedule', 'Modules: CRON: Button', GNETWORK_TEXTDOMAIN ), 'danger' );
 
 			add_action( $this->settings_hook( $sub ), [ $this, 'settings_form_scheduled' ], 10, 2 );
 
@@ -208,7 +208,7 @@ class Cron extends gNetwork\Module
 
 		$result = $this->status_check_spawn();
 
-		if ( is_wp_error( $result ) ) {
+		if ( self::isError( $result ) ) {
 
 			if ( in_array( $result->get_error_code(), [ 'cron_disabled', 'cron_alternated' ] ) ) {
 
@@ -247,7 +247,7 @@ class Cron extends gNetwork\Module
 
 		$result = wp_remote_post( $url, $args );
 
-		if ( is_wp_error( $result ) )
+		if ( self::isError( $result ) )
 			return $result;
 
 		$response = intval( wp_remote_retrieve_response_code( $result ) );
@@ -258,10 +258,11 @@ class Cron extends gNetwork\Module
 		return TRUE;
 	}
 
+	// FIXME: add footer badge
 	// email the admin if the result is bad
 	public function do_email_admin( $result, $forced )
 	{
-		if ( ! $forced && is_wp_error( $result ) && ! in_array( $result->get_error_code(), [ 'cron_disabled', 'cron_alternated' ] ) ) {
+		if ( ! $forced && self::isError( $result ) && ! in_array( $result->get_error_code(), [ 'cron_disabled', 'cron_alternated' ] ) ) {
 
 			if ( $this->options['status_email_failure'] ) {
 
@@ -269,8 +270,7 @@ class Cron extends gNetwork\Module
 				$subject = sprintf( _x( '[%s] WP-Cron Failed!', 'Modules: CRON: Email Subject', GNETWORK_TEXTDOMAIN ), WordPress::getSiteNameforEmail( TRUE ) );
 
 				$message = get_option( $this->hook( 'status' ) );
-				$message .= '<p>'._x( 'This message has been sent from by the gNetwork WP-Cron Status Check module.', 'Modules: CRON', GNETWORK_TEXTDOMAIN ).'</p>';
-				// FIXME: add footer badge
+				$message.= '<p>'._x( 'This message has been sent from by the gNetwork WP-Cron Status Check module.', 'Modules: CRON', GNETWORK_TEXTDOMAIN ).'</p>';
 
 				$headers = [ 'Content-Type: text/html; charset=UTF-8' ];
 
@@ -335,36 +335,25 @@ class Cron extends gNetwork\Module
 				'args'     => [ 'schedules' => wp_get_schedules() ],
 				'callback' => function( $value, $row, $column, $index ){
 
-					$info = '';
+					$html = '';
 
 					foreach ( $row as $action => $tasks ) {
 						foreach ( $tasks as $hash => $task ) {
 
-							// FIXME: move styles
-							$info .= '<div style="line-height:1.8">';
+							$html.= '<div><code style="color:'.( has_action( $action ) ? 'green' : 'red' ).'">'.$action.'</code>';
 
-							if ( function_exists( 'has_action' ) )
-								$style = ( has_action( $action ) ) ? ' style="color:green;"' : ' style="color:red;"';
-							else
-								$style = '';
-
-							$info .= '<code'.$style.'>'.$action.'</code>';
-
-							if ( isset( $task['schedule'] )
-								&& $task['schedule']
-								&& isset( $column['args']['schedules'][$task['schedule']] ) ) {
-									$info .= ' <small>'.$column['args']['schedules'][$task['schedule']]['display']. '</small>';
-							}
+							if ( isset( $task['schedule'] ) && $task['schedule'] && isset( $column['args']['schedules'][$task['schedule']] ) )
+								$html.= ' <small>'.$column['args']['schedules'][$task['schedule']]['display'].'</small>';
 
 							if ( isset( $task['args'] ) && count( $task['args'] ) )
 								foreach ( $task['args'] as $arg_key => $arg_val )
-									$info .= $arg_key.': <code>'.$arg_val.'</code>';
+									$html.= ' '.$arg_key.': <code>'.$arg_val.'</code>';
 
-							$info .= '</div>';
+							$html.= '</div>';
 						}
 					}
 
-					return $info;
+					return $html;
 				},
 			],
 		], self::getCronArray(), [

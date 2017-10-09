@@ -21,7 +21,7 @@ class Site extends gNetwork\Module
 
 		if ( GNETWORK_LARGE_NETWORK_IS ) {
 			$this->filter( 'wp_is_large_network', 3, 9 );
-			$this->filter( 'wp_is_large_user_count', 2, 9 );
+			// $this->filter( 'wp_is_large_user_count', 2, 9 );
 		}
 
 		$this->action( 'wpmu_new_blog', 6, 12 );

@@ -402,7 +402,7 @@ class AdminBar extends gNetwork\Module
 			if ( array_key_exists( $name, $locations ) ) {
 				$term = get_term( $locations[$name], 'nav_menu' );
 
-				if ( $term && ! is_wp_error( $term ) )
+				if ( $term && ! self::isError( $term ) )
 					$nav_menu = $term->term_id;
 			}
 

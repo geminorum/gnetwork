@@ -362,7 +362,6 @@ class Media extends gNetwork\Module
 						return '<div dir="ltr">&mdash;</div>';
 
 					$links   = [];
-					$status  = _x( 'Status Code', 'Modules: Media: Title Attr', GNETWORK_TEXTDOMAIN );
 					$sizes   = _x( 'Number of Sizes', 'Modules: Media: Title Attr', GNETWORK_TEXTDOMAIN );
 					$checked = HTTP::checkURLs( Arraay::column( $attachments, 'url' ) );
 
@@ -372,12 +371,10 @@ class Media extends gNetwork\Module
 
 					foreach ( $attachments as $attachment ) {
 
-						$html = '';
 						$meta = wp_get_attachment_metadata( $attachment['ID'] );
 						$code = $checked && isset( $checked[$attachment['url']] ) ? $checked[$attachment['url']] : NULL;
 
-						if ( ! is_null( $code ) )
-							$html.= sprintf( '<small><code class="-status" title="%s" style="color:%s">%s</code></small>&nbsp;', $status, ( 200 === $code ? 'green' : 'red' ), $code );
+						$html = HTTP::htmlStatus( $code );
 
 						$html.= HTML::tag( 'a', [
 							'href'   => $attachment['url'],
@@ -418,7 +415,6 @@ class Media extends gNetwork\Module
 					$links     = [];
 					$externals = URL::checkExternals( $matches[1] );
 
-					$status   = _x( 'Status Code', 'Modules: Media: Title Attr', GNETWORK_TEXTDOMAIN );
 					$external = sprintf( '<small><code class="-external-resource" title="%s">%s</code></small>',
 						_x( 'External Resource', 'Modules: Media: Title Attr', GNETWORK_TEXTDOMAIN ),
 						_x( 'Ex', 'Modules: Media: External Resource', GNETWORK_TEXTDOMAIN ) );
@@ -428,10 +424,7 @@ class Media extends gNetwork\Module
 
 					foreach ( $checked as $src => $code ) {
 
-						$link = '';
-
-						if ( ! is_null( $code ) )
-							$link.= sprintf( '<small><code class="-status" title="%s" style="color:%s">%s</code></small>', $status, ( 200 === $code ? 'green' : 'red' ), $code );
+						$link = HTTP::htmlStatus( $code );
 
 						if ( isset( $externals[$src] ) && $externals[$src] )
 							$link.= $external;
@@ -1074,6 +1067,7 @@ class Media extends gNetwork\Module
 		return $this->filters( 'mime_type_label', $label, $mime_type, $post_id );
 	}
 
+	// @SEE: https://core.trac.wordpress.org/ticket/40175
 	public function upload_mimes( $mimes )
 	{
 		return array_merge( $mimes, [
@@ -1081,7 +1075,7 @@ class Media extends gNetwork\Module
 			'ppt'  => 'application/vnd.ms-powerpoint',
 			'doc'  => 'application/msword',
 			'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-			'xls'  => 'application/vnd.ms-excel',
+			'xls'  => 'application/vnd.ms-excel', // @SEE: https://core.trac.wordpress.org/ticket/39550#comment:156
 			'xlsx' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
 			'csv'  => 'text/csv',
 			'xml'  => 'text/xml',
