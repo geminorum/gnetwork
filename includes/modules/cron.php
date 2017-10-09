@@ -67,18 +67,8 @@ class Cron extends gNetwork\Module
 	{
 		return [
 			'_general' => [
-				[
-					'field'       => 'dashboard_widget',
-					'title'       => _x( 'Dashboard Widget', 'Modules: CRON: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Adds dashboard widget with ability to check if WP-Cron is working.', 'Modules: CRON: Settings', GNETWORK_TEXTDOMAIN ),
-				],
-				[
-					'field'       => 'dashboard_accesscap',
-					'type'        => 'cap',
-					'title'       => _x( 'Access Level', 'Modules: CRON: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Selected and above can view the dashboard widget.', 'Modules: CRON: Settings', GNETWORK_TEXTDOMAIN ),
-					'default'     => 'edit_theme_options',
-				],
+				'dashboard_widget',
+				'dashboard_accesscap',
 				[
 					'field'       => 'dashboard_intro',
 					'type'        => 'textarea-quicktags',

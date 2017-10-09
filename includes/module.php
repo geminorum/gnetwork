@@ -688,11 +688,25 @@ class Module extends Core\Base
 				$section = $page.$section_suffix;
 				add_settings_section( $section, FALSE, $callback, $page );
 
-				foreach ( $fields as $field )
-					$this->add_settings_field( array_merge( $field, [
+				foreach ( $fields as $field ) {
+
+					if ( FALSE === $field )
+						continue;
+
+					if ( is_array( $field ) )
+						$args = $field;
+
+					else if ( method_exists( __NAMESPACE__.'\\Settings', 'getSetting_'.$field ) )
+						$args = call_user_func( [ __NAMESPACE__.'\\Settings', 'getSetting_'.$field ] );
+
+					else
+						continue;
+
+					$this->add_settings_field( array_merge( $args, [
 						'page'    => $page,
 						'section' => $section,
 					] ) );
+				}
 			}
 		}
 

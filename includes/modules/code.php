@@ -39,16 +39,8 @@ class Code extends gNetwork\Module
 	{
 		return [
 			'_general' => [
-				[
-					'field'       => 'register_shortcodes',
-					'title'       => _x( 'Extra Shortcodes', 'Modules: Code: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Registers extra coding shortcodes.', 'Modules: Code: Settings', GNETWORK_TEXTDOMAIN ),
-				],
-				[
-					'field'       => 'editor_buttons',
-					'title'       => _x( 'Editor Buttons', 'Modules: Code: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Displays extra coding buttons on post content editor.', 'Modules: Code: Settings', GNETWORK_TEXTDOMAIN ),
-				],
+				'register_shortcodes',
+				'editor_buttons',
 			],
 		];
 	}

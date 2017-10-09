@@ -32,8 +32,8 @@ class Authors extends gNetwork\Module
 	public function default_options()
 	{
 		return [
-			'register_shortcodes' => '0',
 			'siteuser_as_default' => '0',
+			'register_shortcodes' => '0',
 		];
 	}
 
@@ -42,15 +42,11 @@ class Authors extends gNetwork\Module
 		return [
 			'_general' => [
 				[
-					'field'       => 'register_shortcodes',
-					'title'       => _x( 'Extra Shortcodes', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Registers extra authoring shortcodes.', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
-				],
-				[
 					'field'       => 'siteuser_as_default',
 					'title'       => _x( 'Default Author', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'The Site User as Default Author of New Posts in Admin', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
 				],
+				'register_shortcodes',
 			],
 		];
 	}

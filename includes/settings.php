@@ -414,6 +414,43 @@ class Settings extends Core\Base
 		];
 	}
 
+	public static function getSetting_register_shortcodes()
+	{
+		return [
+			'field'       => 'register_shortcodes',
+			'title'       => _x( 'Extra Shortcodes', 'Settings: Setting Title', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Registers this modules\'s extra shortcodes.', 'Settings: Setting Desc', GNETWORK_TEXTDOMAIN ),
+		];
+	}
+
+	public static function getSetting_editor_buttons()
+	{
+		return [
+			'field'       => 'editor_buttons',
+			'title'       => _x( 'Editor Buttons', 'Settings: Setting Title', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Displays extra buttons on post content editor.', 'Settings: Setting Desc', GNETWORK_TEXTDOMAIN ),
+		];
+	}
+
+	public static function getSetting_dashboard_widget()
+	{
+		return [
+			'field'       => 'dashboard_widget',
+			'title'       => _x( 'Dashboard Widget', 'Settings: Setting Title', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Adds a widget to this site dashboard.', 'Settings: Setting Desc', GNETWORK_TEXTDOMAIN ),
+		];
+	}
+
+	public static function getSetting_dashboard_accesscap()
+	{
+		return [
+			'field'       => 'dashboard_accesscap',
+			'type'        => 'cap',
+			'title'       => _x( 'Access Level', 'Settings: Setting Title', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Selected and above can view the dashboard widget.', 'Settings: Setting Desc', GNETWORK_TEXTDOMAIN ),
+		];
+	}
+
 	public static function fieldType( $atts = [], &$scripts )
 	{
 		$args = self::atts( [

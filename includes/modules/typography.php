@@ -60,14 +60,14 @@ class Typography extends gNetwork\Module
 		return [
 			'_general' => [
 				[
-					'field'       => 'register_shortcodes',
-					'title'       => _x( 'Extra Shortcodes', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Registers extra typography shortcodes.', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
+					'field'       => 'persian_typography',
+					'title'       => _x( 'Persian Typography', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Applies Persian typography on post contents.', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
-					'field'       => 'editor_buttons',
-					'title'       => _x( 'Editor Buttons', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Displays extra typography buttons on post content editor.', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
+					'field'       => 'arabic_typography',
+					'title'       => _x( 'Arabic Typography', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Applies Arabic typography on post contents.', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
 					'field'       => 'title_titlecase',
@@ -81,16 +81,8 @@ class Typography extends gNetwork\Module
 					'description' => _x( 'Prevents widow words in the end of post titles.', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
 					'after'       => Settings::fieldAfterIcon( 'https://davidwalsh.name/word-wrap-mootools-php' ),
 				],
-				[
-					'field'       => 'arabic_typography',
-					'title'       => _x( 'Arabic Typography', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Applies Arabic typography on post contents.', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
-				],
-				[
-					'field'       => 'persian_typography',
-					'title'       => _x( 'Persian Typography', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Applies Persian typography on post contents.', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
-				],
+				'register_shortcodes',
+				'editor_buttons',
 			],
 		];
 	}

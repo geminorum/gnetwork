@@ -130,11 +130,7 @@ class Tracking extends gNetwork\Module
 					'dir'         => 'ltr',
 					'placeholder' => 'username'
 				],
-				[
-					'field'       => 'register_shortcodes',
-					'title'       => _x( 'Extra Shortcodes', 'Modules: Tracking: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Registers extra tracking shortcodes.', 'Modules: Tracking: Settings', GNETWORK_TEXTDOMAIN ),
-				],
+				'register_shortcodes',
 			],
 		];
 	}
