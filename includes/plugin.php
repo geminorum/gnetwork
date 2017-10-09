@@ -79,6 +79,7 @@ class Plugin
 			'core/html',
 			'core/http',
 			'core/l10n',
+			'core/misc',
 			'core/number',
 			'core/orthography',
 			'core/text',

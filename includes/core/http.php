@@ -17,6 +17,128 @@ class HTTP extends Base
 		return (bool) ( 'GET' === strtoupper( $_SERVER['REQUEST_METHOD'] ) );
 	}
 
+	public static function htmlStatus( $code, $title = NULL, $template = NULL )
+	{
+		if ( ! $code )
+			return '';
+
+		if ( is_null( $title ) )
+			$title = self::getStatusDesc( $code );
+
+		if ( is_null( $template ) )
+			$template = '<small><code class="-status" title="%s" style="color:%s">%s</code></small>&nbsp;';
+
+		$code = absint( $code );
+
+		if ( 200 == $code )
+			$color = 'green';
+
+		else if ( $code >= 500 )
+			$color = 'gray';
+
+		else if ( $code >= 400 )
+			$color = 'red';
+
+		else if ( $code >= 300 )
+			$color = 'tan';
+
+		else
+			$color = 'inherit';
+
+		return sprintf( $template, $title, $color, $code );
+	}
+
+	// @REF: https://httpstatuses.com/
+	// @ALT: `get_status_header_desc()`
+	public static function getStatusDesc( $code, $fallback = '' )
+	{
+		static $data = NULL;
+
+		if ( is_null( $data ) )
+			$data = array(
+
+				// 1×× Informational
+				100 => 'Continue',
+				101 => 'Switching Protocols',
+				102 => 'Processing',
+
+				// 2×× Success
+				200 => 'OK',
+				201 => 'Created',
+				202 => 'Accepted',
+				203 => 'Non-authoritative Information',
+				204 => 'No Content',
+				205 => 'Reset Content',
+				206 => 'Partial Content',
+				207 => 'Multi-Status',
+				208 => 'Already Reported',
+				226 => 'IM Used',
+
+				// 3×× Redirection
+				300 => 'Multiple Choices',
+				301 => 'Moved Permanently',
+				302 => 'Found',
+				303 => 'See Other',
+				304 => 'Not Modified',
+				305 => 'Use Proxy',
+				307 => 'Temporary Redirect',
+				308 => 'Permanent Redirect',
+
+				// 4×× Client Error
+				400 => 'Bad Request',
+				401 => 'Unauthorized',
+				402 => 'Payment Required',
+				403 => 'Forbidden',
+				404 => 'Not Found',
+				405 => 'Method Not Allowed',
+				406 => 'Not Acceptable',
+				407 => 'Proxy Authentication Required',
+				408 => 'Request Timeout',
+				409 => 'Conflict',
+				410 => 'Gone',
+				411 => 'Length Required',
+				412 => 'Precondition Failed',
+				413 => 'Payload Too Large',
+				414 => 'Request-URI Too Long',
+				415 => 'Unsupported Media Type',
+				416 => 'Requested Range Not Satisfiable',
+				417 => 'Expectation Failed',
+				418 => 'I\'m a teapot',
+				421 => 'Misdirected Request',
+				422 => 'Unprocessable Entity',
+				423 => 'Locked',
+				424 => 'Failed Dependency',
+				426 => 'Upgrade Required',
+				428 => 'Precondition Required',
+				429 => 'Too Many Requests',
+				431 => 'Request Header Fields Too Large',
+				444 => 'Connection Closed Without Response',
+				451 => 'Unavailable For Legal Reasons',
+				499 => 'Client Closed Request',
+
+				// 5×× Server Error
+				500 => 'Internal Server Error',
+				501 => 'Not Implemented',
+				502 => 'Bad Gateway',
+				503 => 'Service Unavailable',
+				504 => 'Gateway Timeout',
+				505 => 'HTTP Version Not Supported',
+				506 => 'Variant Also Negotiates',
+				507 => 'Insufficient Storage',
+				508 => 'Loop Detected',
+				510 => 'Not Extended',
+				511 => 'Network Authentication Required',
+				599 => 'Network Connect Timeout Error',
+			);
+
+		$code = absint( $code );
+
+		if ( isset( $data[$code] ) )
+			return $data[$code];
+
+		return $fallback;
+	}
+
 	// http://code.tutsplus.com/tutorials/a-look-at-the-wordpress-http-api-a-brief-survey-of-wp_remote_get--wp-32065
 	// http://wordpress.stackexchange.com/a/114922
 	public static function getJSON( $url, $atts = array(), $assoc = FALSE )

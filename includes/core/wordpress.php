@@ -321,6 +321,13 @@ class WordPress extends Base
 		), $extra ), admin_url( 'post-new.php' ) );
 	}
 
+	public static function getUserEditLink( $user_id, $extra = array() )
+	{
+		return add_query_arg( array_merge( array(
+			'user_id' => $user_id,
+		), $extra ), admin_url( 'user-edit.php' ) );
+	}
+
 	public static function getAttachments( $post_id, $mime_type = 'image' )
 	{
 		return get_children( array(

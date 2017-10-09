@@ -22,6 +22,15 @@ class Date extends Base
 		return $d && $d->format( $format ) === $date;
 	}
 
+	// @REF: https://stackoverflow.com/a/19680778/4864081
+	public static function secondsToTime( $seconds )
+	{
+		$from = new \DateTime( '@0' );
+		$to   = new \DateTime( "@$seconds" );
+
+		return $from->diff( $to )->format( '%a days, %h hours, %i minutes and %s seconds' );
+	}
+
 	public static function monthFirstAndLast( $year, $month, $format = 'Y-m-d H:i:s', $calendar_type = 'gregorian' )
 	{
 		$start = new \DateTime( $year.'-'.$month.'-01 00:00:00' );
@@ -65,6 +74,48 @@ class Date extends Base
 			'title'    => $title,
 			'class'    => 'do-timeago', // @SEE: http://timeago.yarp.com/
 		), date_i18n( $format, $time ) );
+	}
+
+	// @REF: https://stackoverflow.com/a/43956977/4864081
+	public static function htmlFromSeconds( $seconds, $round = 2, $atts = array() )
+	{
+		$args = self::atts( array(
+			'sep' => ', ',
+
+			'noop_seconds' => L10n::getNooped( '%s second', '%s seconds' ),
+			'noop_minutes' => L10n::getNooped( '%s min', '%s mins' ),
+			'noop_hours'   => L10n::getNooped( '%s hour', '%s hours' ),
+			'noop_days'    => L10n::getNooped( '%s day', '%s days' ),
+		), $atts );
+
+		$i     = 0;
+		$html  = '';
+		$parts = array();
+
+		$parts['days'] = intval( floor( $seconds / self::DAY_IN_SECONDS ) );
+
+		$remains = $seconds % self::DAY_IN_SECONDS;
+		$parts['hours'] = intval( floor( $remains / self::HOUR_IN_SECONDS ) );
+
+		$remains = $remains % self::HOUR_IN_SECONDS;
+		$parts['minutes'] = intval( floor( $remains / self::MINUTE_IN_SECONDS ) );
+
+		$parts['seconds'] = intval( ceil( $remains % self::MINUTE_IN_SECONDS ) );
+
+		foreach( $parts as $part => $count ) {
+
+			if ( ! $count )
+				continue;
+
+			$i++;
+
+			if ( $round && $i > $round )
+				break;
+
+			$html.= L10n::sprintfNooped( $args['noop_'.$part], $count ).$args['sep'];
+		}
+
+		return trim( $html, $args['sep'] );
 	}
 
 	// @SOURCE: WP `human_time_diff()`

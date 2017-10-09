@@ -7,7 +7,7 @@ class L10n extends Base
 
 	public static function getNooped( $singular, $plural )
 	{
-		return array( 'singular' => $singular, 'plural' => $plural );
+		return array( 'singular' => $singular, 'plural' => $plural, 'context' => NULL, 'domain' => NULL );
 	}
 
 	public static function sprintfNooped( $nooped, $count )

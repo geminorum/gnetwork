@@ -139,6 +139,15 @@ class URL extends Base
 		return preg_replace( '|^(https?:)?//[^/]+(/?.*)|i', '$2', $url );
 	}
 
+	public static function fromPath( $path, $base = ABSPATH )
+	{
+		return str_ireplace(
+			File::normalize( $base ),
+			self::trail( get_option( 'siteurl' ) ),
+			File::normalize( $path )
+		);
+	}
+
 	public static function checkExternals( $urls = array(), $site = NULL )
 	{
 		if ( ! count( $urls ) )

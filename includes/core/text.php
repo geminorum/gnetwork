@@ -175,6 +175,19 @@ class Text extends Base
 		return function_exists( 'mb_substr' ) ? mb_substr( $string, $start, $length, $encoding ) : substr( $string, $start, $length );
 	}
 
+	// @SOURCE: https://github.com/alecgorge/PHP-String-Class
+	public static function strReplace( $search, $replace, $subject )
+	{
+		return preg_replace( '@'.preg_quote( $search ).'@u', $replace, $subject );
+	}
+
+	// @SOURCE: https://github.com/alecgorge/PHP-String-Class
+	public static function strSplit( $string, $length = 1 )
+	{
+		preg_match_all( '/.{1,'.$length.'}/us', $string, $matches );
+		return $matches[0];
+	}
+
 	public static function internalEncoding( $encoding = 'UTF-8' )
 	{
 		if ( function_exists( 'mb_internal_encoding' ) )
