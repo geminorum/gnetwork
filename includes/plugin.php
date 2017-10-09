@@ -150,6 +150,7 @@ class Plugin
 			'modules/cleanup'     => 'Cleanup',
 			'modules/branding'    => 'Branding',
 			'modules/api'         => 'API',
+			'modules/uptime'      => 'Uptime',
 		];
 
 		if ( defined( 'WP_STAGE' ) )
