@@ -6,6 +6,7 @@ use geminorum\gNetwork\Core\Date;
 use geminorum\gNetwork\Core\Error;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\HTTP;
+use geminorum\gNetwork\Core\Number;
 use geminorum\gNetwork\Core\WordPress;
 
 class Utilities extends Core\Base
@@ -130,6 +131,23 @@ class Utilities extends Core\Base
 		return Date::humanTimeDiff( $timestamp, $now, $strings );
 	}
 
+	public static function htmlFromSeconds( $seconds, $round = FALSE )
+	{
+		static $strings = NULL;
+
+		if ( is_null( $strings ) )
+			$strings = [
+				'sep' => _x( ', ', 'Utilities: From Seconds: Seperator', GNETWORK_TEXTDOMAIN ),
+
+				'noop_seconds' => _nx_noop( '%s second', '%s seconds', 'Utilities: From Seconds: Noop', GNETWORK_TEXTDOMAIN ),
+				'noop_minutes' => _nx_noop( '%s min', '%s mins', 'Utilities: From Seconds: Noop', GNETWORK_TEXTDOMAIN ),
+				'noop_hours'   => _nx_noop( '%s hour', '%s hours', 'Utilities: From Seconds: Noop', GNETWORK_TEXTDOMAIN ),
+				'noop_days'    => _nx_noop( '%s day', '%s days', 'Utilities: From Seconds: Noop', GNETWORK_TEXTDOMAIN ),
+			];
+
+		return Date::htmlFromSeconds( $seconds, $round, $strings );
+	}
+
 	// not used yet!
 	public static function moment( $timestamp, $now = '' )
 	{
@@ -182,6 +200,14 @@ class Utilities extends Core\Base
 	public static function htmlCurrent( $format = NULL, $class = FALSE, $title = FALSE )
 	{
 		return Date::htmlCurrent( ( is_null( $format ) ? self::dateFormats( 'datetime' ) : $format ), $class, $title );
+	}
+
+	public static function dateFormat( $timestamp, $context = 'default' )
+	{
+		if ( ! ctype_digit( $timestamp ) )
+			$timestamp = strtotime( $timestamp );
+
+		return date_i18n( self::dateFormats( $context ), $timestamp );
 	}
 
 	// @SEE: http://www.phpformatdate.com/
@@ -305,6 +331,19 @@ class Utilities extends Core\Base
 					array_slice( $items, 0, -1 ) ) ],
 					array_slice( $items, -1 ) ) ) )
 			._x( '&ldquo;', 'Utilities: Join Items Helper', GNETWORK_TEXTDOMAIN ).'.';
+	}
+
+	public static function getJoined( $items, $before = '', $after = '', $empty = '' )
+	{
+		if ( count( $items ) )
+			return $before.join( _x( ', ', 'Utilities: Item Seperator', GNETWORK_TEXTDOMAIN ), $items ).$after;
+
+		return $empty;
+	}
+
+	public static function getCounted( $count, $template = '%s' )
+	{
+		return sprintf( $template, '<span class="-count" data-count="'.$count.'">'.Number::format( $count ).'</span>' );
 	}
 
 	public static function getLayout( $name, $require = FALSE, $no_cache = FALSE )
