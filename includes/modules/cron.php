@@ -3,6 +3,7 @@
 defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Ajax;
 use geminorum\gNetwork\Logger;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
@@ -102,11 +103,29 @@ class Cron extends gNetwork\Module
 
 	public function settings_sidebox( $sub, $uri )
 	{
-		if ( defined( 'DISABLE_WP_CRON' ) && DISABLE_WP_CRON )
-			HTML::desc( _x( 'The <code>DISABLE_WP_CRON</code> constant is set to true. WP-Cron is disabled and will not run.', 'Modules: CRON', GNETWORK_TEXTDOMAIN ) );
+		$check = TRUE;
 
-		if ( defined( 'ALTERNATE_WP_CRON' ) && ALTERNATE_WP_CRON )
-			HTML::desc( _x( 'The <code>ALTERNATE_WP_CRON</code> constant is set to true. The module cannot determine the status of the WP-Cron system.', 'Modules: CRON', GNETWORK_TEXTDOMAIN ) );
+		if ( defined( 'DISABLE_WP_CRON' ) && DISABLE_WP_CRON ) {
+			HTML::desc( _x( 'The <code>DISABLE_WP_CRON</code> constant is set to true. WP-Cron is disabled and will not run.', 'Modules: CRON: Settings', GNETWORK_TEXTDOMAIN ) );
+			$check = FALSE;
+		}
+
+		if ( defined( 'ALTERNATE_WP_CRON' ) && ALTERNATE_WP_CRON ) {
+			HTML::desc( _x( 'The <code>ALTERNATE_WP_CRON</code> constant is set to true. The module cannot determine the status of the WP-Cron system.', 'Modules: CRON: Settings', GNETWORK_TEXTDOMAIN ) );
+			$check = FALSE;
+		}
+
+		if ( defined( 'WP_CRON_LOCK_TIMEOUT' ) && WP_CRON_LOCK_TIMEOUT )
+			HTML::desc( Utilities::getCounted( WP_CRON_LOCK_TIMEOUT, _x( '<code>WP_CRON_LOCK_TIMEOUT</code> is %s Seconds.', 'Modules: CRON: Settings', GNETWORK_TEXTDOMAIN ) ) );
+
+		if ( ! $check )
+			return;
+
+		echo '<hr />';
+
+		$this->status_check_box( FALSE );
+
+		Utilities::enqueueScript( 'admin.cron.statuscheck' );
 	}
 
 	public function settings( $sub = NULL )
@@ -182,12 +201,11 @@ class Cron extends gNetwork\Module
 
 	public function ajax()
 	{
-		if ( ! check_ajax_referer( $this->classs( 'status-check' ), 'nonce', FALSE ) )
-			wp_die();
+		Ajax::checkReferer( $this->classs( 'status-check' ) );
 
 		$this->do_status_check( TRUE );
 
-		wp_send_json( [ 'html' => $this->get_status() ] );
+		Ajax::success( $this->get_status() );
 	}
 
 	public function get_status()
@@ -286,13 +304,32 @@ class Cron extends gNetwork\Module
 	{
 		HTML::desc( $this->options['dashboard_intro'] );
 
+		$this->status_check_box();
+
+		HTML::desc( _x( 'The WP-Cron system will be automatically checked once every 24 hours.', 'Modules: CRON', GNETWORK_TEXTDOMAIN ) );
+	}
+
+	protected function status_check_box( $link = TRUE )
+	{
+		echo '<div id="'.$this->classs( 'status-check' ).'">';
 		echo '<div class="-status-container">'.$this->get_status().'</div>';
 
-		echo '<p><span class="spinner"></span> ';
-		echo '<button id="'.$this->classs( 'force-check' ).'" class="button button-small" data-nonce="'.wp_create_nonce( $this->classs( 'status-check' ) ).'">';
-		echo _x( 'Check Status Now', 'Modules: CRON', GNETWORK_TEXTDOMAIN ).'</button></p>';
+		echo '<p>'.Ajax::spinner();
 
-		HTML::desc( _x( 'The WP-Cron system will be automatically checked once every 24 hours. You can also check the status now by clicking the button above.', 'Modules: CRON', GNETWORK_TEXTDOMAIN ) );
+		echo HTML::tag( 'button', [
+			'id'    => $this->classs( 'force-check' ),
+			'class' => [ 'button', 'button-small' ],
+			'data'  => [ 'nonce' => wp_create_nonce( $this->classs( 'status-check' ) ) ],
+		], _x( 'Check Status Now', 'Modules: CRON', GNETWORK_TEXTDOMAIN ) );
+
+		if ( $link && WordPress::cuc( 'manage_options' ) )
+			echo '&nbsp;&nbsp;'.HTML::tag( 'a', [
+				'href'  => Settings::subURL( 'scheduled', FALSE ),
+				'title' => _x( 'View current cron scheduled tasks.', 'Modules: CRON', GNETWORK_TEXTDOMAIN ),
+				'class' => [ 'button', 'button-small' ],
+			], _x( 'View Scheduled Tasks', 'Modules: CRON', GNETWORK_TEXTDOMAIN ) );
+
+		echo '</p></div>';
 	}
 
 	protected static function getCronArray()
