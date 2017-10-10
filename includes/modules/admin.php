@@ -18,8 +18,10 @@ class Admin extends gNetwork\Module
 
 	protected function setup_actions()
 	{
-		if ( ! WordPress::mustRegisterUI( FALSE ) )
+		if ( ! WordPress::mustRegisterUI() )
 			return;
+
+		$this->filter( 'admin_body_class' );
 
 		if ( is_blog_admin() ) {
 			$this->filter( 'admin_title', 2 );
@@ -30,6 +32,23 @@ class Admin extends gNetwork\Module
 		$this->action( 'admin_print_styles' );
 		$this->filter( 'admin_footer_text', 1, 9999 );
 		$this->filter( 'update_footer', 1, 9999 );
+	}
+
+	public function admin_body_class( $classes )
+	{
+		if ( gNetwork()->option( 'thrift_mode', 'blog' ) )
+			$classes.= ' thrift-mode';
+
+		if ( ! gNetwork()->option( 'user_locale', 'user' ) )
+			$classes.= ' hide-userlocale-option';
+
+		if ( ! gNetwork()->adminbar->show_adminbar() )
+			$classes.= ' hide-adminbar-option';
+
+		if ( WordPress::isSuperAdmin() )
+			$classes.= ' current-user-superadmin';
+
+		return $classes;
 	}
 
 	public function admin_title( $admin_title, $title )

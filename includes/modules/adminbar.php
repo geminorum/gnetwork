@@ -33,8 +33,6 @@ class AdminBar extends gNetwork\Module
 	{
 		if ( WordPress::mustRegisterUI() ) {
 
-			$this->filter( 'admin_body_class' );
-
 			$this->setup_adminbar();
 			$this->wp_enqueue_style();
 
@@ -122,14 +120,6 @@ class AdminBar extends gNetwork\Module
 		}
 
 		return $this->show_adminbar = is_admin_bar_showing();
-	}
-
-	public function admin_body_class( $classes )
-	{
-		if ( ! $this->show_adminbar() )
-			$classes .= ' hide-adminbar-option';
-
-		return $classes;
 	}
 
 	public function wp_enqueue_style()

@@ -20,10 +20,8 @@ class User extends gNetwork\Module
 	{
 		if ( is_admin() ) {
 
-			if ( ! $this->options['user_locale'] ) {
-				$this->filter( 'admin_body_class' );
+			if ( ! $this->options['user_locale'] )
 				$this->filter( 'insert_user_meta', 3, 8 );
-			}
 
 		} else {
 			$this->action( 'get_header' );
@@ -397,11 +395,6 @@ class User extends gNetwork\Module
 			'facebook'   => _x( 'Facebook', 'Modules: User: User Contact Method', GNETWORK_TEXTDOMAIN ),
 			'googleplus' => _x( 'Google+', 'Modules: User: User Contact Method', GNETWORK_TEXTDOMAIN ),
 		] );
-	}
-
-	public function admin_body_class( $classes )
-	{
-		return $classes.' hide-userlocale-option';
 	}
 
 	public function insert_user_meta( $meta, $user, $update )

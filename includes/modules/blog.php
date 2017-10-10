@@ -33,8 +33,6 @@ class Blog extends gNetwork\Module
 
 			if ( $this->options['thrift_mode'] ) {
 
-				$this->filter( 'admin_body_class' );
-
 				// add_action( 'admin_init', function(){
 				// 	// when there are a lot of terms
 				// 	wp_deregister_script( 'suggest' );
@@ -486,11 +484,6 @@ class Blog extends gNetwork\Module
 		@set_time_limit( 0 );
 
 		defined( 'GNETWORK_IS_WP_EXPORT' ) or define( 'GNETWORK_IS_WP_EXPORT', TRUE );
-	}
-
-	public function admin_body_class( $classes )
-	{
-		return $classes.' thrift-mode';
 	}
 
 	public function rest_authentication_errors( $null )
