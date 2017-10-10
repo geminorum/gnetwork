@@ -28,7 +28,9 @@ class Login extends gNetwork\Module
 			$this->action( 'wp_login', 2 );
 
 		$this->filter( 'wp_login_errors', 2 );
-		$this->filter( 'login_errors', 1, 20 );
+
+		if ( $this->options['ambiguous_error'] )
+			$this->filter( 'login_errors', 1, 20 );
 	}
 
 	public function setup_menu( $context )
@@ -48,6 +50,7 @@ class Login extends gNetwork\Module
 			'login_math'        => 0,
 			'login_credits'     => 0,
 			'login_log'         => 0,
+			'ambiguous_error'   => 1,
 		];
 	}
 
@@ -116,6 +119,12 @@ class Login extends gNetwork\Module
 					'field'       => 'login_log',
 					'title'       => _x( 'Log Logins', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Logs user log-in events', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+				],
+				[
+					'field'       => 'ambiguous_error',
+					'title'       => _x( 'Ambiguous Error', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Swaps error messages with an ambiguous one.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'default'     => '1',
 				],
 			],
 		];
