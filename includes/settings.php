@@ -451,6 +451,16 @@ class Settings extends Core\Base
 		];
 	}
 
+	public static function getSetting_dashboard_intro()
+	{
+		return [
+			'field'       => 'dashboard_intro',
+			'type'        => 'textarea-quicktags',
+			'title'       => _x( 'Widget Introduction ', 'Settings: Setting Title', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Message to display before contents on admin dashbaord widget.', 'Settings: Setting Desc', GNETWORK_TEXTDOMAIN ),
+		];
+	}
+
 	public static function fieldType( $atts = [], &$scripts )
 	{
 		$args = self::atts( [

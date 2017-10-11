@@ -69,12 +69,7 @@ class Cron extends gNetwork\Module
 			'_general' => [
 				'dashboard_widget',
 				'dashboard_accesscap',
-				[
-					'field'       => 'dashboard_intro',
-					'type'        => 'textarea-quicktags',
-					'title'       => _x( 'Widget Introduction ', 'Modules: CRON: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Message to display before status check form on admin dashbaord widget.', 'Modules: CRON: Settings', GNETWORK_TEXTDOMAIN ),
-				],
+				'dashboard_intro',
 				[
 					'field'       => 'status_email_failure',
 					'title'       => _x( 'Email Failure', 'Modules: CRON: Settings', GNETWORK_TEXTDOMAIN ),
