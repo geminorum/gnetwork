@@ -248,7 +248,7 @@ class Media extends gNetwork\Module
 			add_action( $this->settings_hook( $sub ), [ $this, 'settings_form_images' ], 10, 2 );
 
 			add_thickbox();
-			Utilities::enqueueScript( 'admin.images' );
+			Utilities::enqueueScript( 'admin.media.images' );
 
 		} else {
 			parent::settings( $sub );

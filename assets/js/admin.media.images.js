@@ -12,8 +12,8 @@ jQuery(function($) {
         return;
 
       $.ajax({
-        type : 'GET',
-        url : link.attr( 'href' ),
+        type: 'GET',
+        url: link.attr( 'href' ),
         beforeSend: function(xhr) {
           link.html(link.data('spinner'));
         },
@@ -38,8 +38,8 @@ jQuery(function($) {
         return;
 
       $.ajax({
-        type : 'GET',
-        url : link.attr( 'href' ),
+        type: 'GET',
+        url: link.attr( 'href' ),
         beforeSend: function(xhr) {
           link.html(link.data('spinner'));
         },
