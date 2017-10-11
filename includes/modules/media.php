@@ -4,6 +4,7 @@ defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
 use geminorum\gNetwork\Ajax;
+use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\Arraay;
 use geminorum\gNetwork\Core\File;
@@ -36,8 +37,12 @@ class Media extends gNetwork\Module
 
 		if ( is_admin() ) {
 
-			if ( WordPress::mustRegisterUI( FALSE ) )
+			if ( WordPress::mustRegisterUI( FALSE ) ) {
 				$this->action( 'current_screen' );
+
+				if ( $this->options['dashboard_widget'] )
+					$this->action( 'wp_dashboard_setup' );
+			}
 
 			$this->filter( 'post_mime_types' );
 
@@ -68,7 +73,11 @@ class Media extends gNetwork\Module
 	public function default_options()
 	{
 		return [
-			'skip_exifmeta' => '1',
+			'skip_exifmeta'       => '1',
+			'dashboard_widget'    => '0',
+			'dashboard_accesscap' => 'edit_others_posts',
+			'dashboard_intro'     => '',
+
 		];
 	}
 
@@ -83,7 +92,20 @@ class Media extends gNetwork\Module
 					'default'     => '1',
 				],
 			],
+			'_uploader' => [
+				'dashboard_widget',
+				'dashboard_accesscap',
+				'dashboard_intro',
+			],
 		];
+	}
+
+	public function settings_section_uploader()
+	{
+		Settings::fieldSection(
+			_x( 'Large File Uploader', 'Modules: Media: Settings', GNETWORK_TEXTDOMAIN ),
+			_x( 'Simple javascript powered widget to upload large files.', 'Modules: Media: Settings', GNETWORK_TEXTDOMAIN )
+		);
 	}
 
 	// FIXME: get mime names
@@ -134,6 +156,20 @@ class Media extends gNetwork\Module
 		} else if ( 'post' == $screen->base ) {
 
 			$this->filter( 'admin_post_thumbnail_size', 3, 9 );
+		}
+	}
+
+	public function wp_dashboard_setup()
+	{
+		if ( WordPress::cuc( $this->options['dashboard_accesscap'] ) && current_user_can( 'upload_files' ) ) {
+
+			wp_add_dashboard_widget(
+				$this->classs( 'dashboard' ),
+				_x( 'Large File Uploader', 'Modules: Media: Widget Title', GNETWORK_TEXTDOMAIN ),
+				[ $this, 'widget_uploader' ]
+			);
+
+			Utilities::enqueueScript( 'admin.media.uploader' );
 		}
 	}
 
@@ -964,6 +1000,30 @@ class Media extends gNetwork\Module
 
 		switch ( $what ) {
 
+			case 'upload_chaunk':
+
+				Ajax::checkReferer( $this->classs( 'file-upload' ) );
+
+				$stored = $this->store_chaunk( $post['file'], $post['file_data'], intval( $post['chunk'] ) );
+
+				if ( TRUE === $stored )
+					Ajax::success();
+
+				Ajax::error( $stored );
+
+			break;
+			case 'upload_complete':
+
+				Ajax::checkReferer( $this->classs( 'file-upload' ) );
+
+				$completed = $this->complete_upload( $post['file'] );
+
+				if ( $completed[0] )
+					Ajax::success( $completed[1] );
+				else
+					Ajax::errorMessage( $completed[1] );
+
+			break;
 			case 'clean_attachment':
 
 				if ( empty( $post['attachment'] ) )
@@ -1011,7 +1071,108 @@ class Media extends gNetwork\Module
 		Ajax::errorWhat();
 	}
 
-	protected function get_media_type_label( $post_id, $mime_type = NULL )
+	// @REF: https://deliciousbrains.com/using-javascript-file-api-to-avoid-file-upload-limits/
+	// @REF: https://github.com/deliciousbrains/wp-dbi-file-uploader
+	public function widget_uploader()
+	{
+		HTML::desc( $this->options['dashboard_intro'] );
+
+		$html = '<form>'.Ajax::spinner();
+		$html.= '<div id="'.$this->classs( 'file-progress' ).'" class="-messages">';
+		$html.= _x( 'Please select a file and click “Upload” to continue.', 'Modules: Media', GNETWORK_TEXTDOMAIN );
+		$html.= '</div>';
+
+		$html.= '<div><label for="'.$this->classs( 'file-upload' ).'" class="button button-small">';
+		$html.= _x( 'Select File', 'Modules: Media', GNETWORK_TEXTDOMAIN ).'</label>';
+
+		$html.= HTML::tag( 'input', [
+			'id'    => $this->classs( 'file-upload' ),
+			'type'  => 'file',
+			'style' => 'display:none',
+		] );
+
+		$html.= HTML::tag( 'input', [
+			'id'    => $this->classs( 'file-submit' ),
+			'type'  => 'submit',
+			'class' => [ 'button', 'button-small', 'button-primary', 'disabled' ],
+			'value' => _x( 'Upload', 'Modules: Media', GNETWORK_TEXTDOMAIN ),
+			'data' => [
+				'nonce'    => wp_create_nonce( $this->classs( 'file-upload' ) ),
+				'locale'   => get_locale(),
+				'progress' => _x( 'Uploading File - %s%', 'Modules: Media', GNETWORK_TEXTDOMAIN ),
+				'complete' => _x( 'Upload Complete!', 'Modules: Media', GNETWORK_TEXTDOMAIN ),
+			],
+		] );
+
+		$html.= '</div><code id="'.$this->classs( 'file-name' ).'" class="-filename" style="display:none"></code></form>';
+
+		echo $this->wrap( $html, '-widget-form' );
+
+		HTML::desc( _x( 'You can access uploaded files via Media Library.', 'Modules: Media', GNETWORK_TEXTDOMAIN ) );
+	}
+
+	// @REF: `media_handle_upload()`
+	private function complete_upload( $filename, $metadata = FALSE )
+	{
+		$wpupload = wp_upload_dir();
+
+		$file = sanitize_file_name( $filename );
+		$type = wp_check_filetype( $file );
+
+		$path = File::join( $wpupload['path'], $file );
+		$url  = str_replace( $wpupload['basedir'], $wpupload['baseurl'], $file );
+
+		$ext  = pathinfo( $filename, PATHINFO_EXTENSION );
+		$name = File::basename( $filename, ".$ext" );
+		$title = sanitize_text_field( $name );
+
+		$id = wp_insert_attachment( [
+			'guid'           => $url,
+			'post_title'     => $title,
+			'post_mime_type' => $type['type'],
+		], $path, 0, TRUE );
+
+		if ( self::isError( $id ) )
+			return [ FALSE, $id->get_error_message() ];
+
+		if ( $metadata )
+			wp_update_attachment_metadata( $id, wp_generate_attachment_metadata( $id, $path ) );
+
+		return [ TRUE, HTML::link( _x( 'View Uploaded File', 'Modules: Media', GNETWORK_TEXTDOMAIN ), WordPress::getPostEditLink( $id ), TRUE ) ];
+	}
+
+	private function store_chaunk( $file, $data, $chunk = 0 )
+	{
+		if ( FALSE === ( $decoded = $this->decode_chunk( $data ) ) )
+			return _x( 'Something is wrong with data!', 'Modules: Media', GNETWORK_TEXTDOMAIN );
+
+		$wpupload = wp_upload_dir();
+
+		if ( FALSE !== $wpupload['error'] )
+			return _x( 'Can not access upload folders!', 'Modules: Media', GNETWORK_TEXTDOMAIN );
+
+		$path = File::join( $wpupload['path'], sanitize_file_name( $file ) );
+
+		if ( 0 === $chunk && file_exists( $path ) )
+			return _x( 'The file is already exists in upload folder!', 'Modules: Media', GNETWORK_TEXTDOMAIN );
+
+		if ( ! file_put_contents( $path, $decoded, FILE_APPEND ) )
+			return _x( 'Can not put contents into file!', 'Modules: Media', GNETWORK_TEXTDOMAIN );
+
+		return TRUE;
+	}
+
+	private function decode_chunk( $data )
+	{
+		$parts = explode( ';base64,', $data );
+
+		if ( ! is_array( $parts ) || ! isset( $parts[1] ) )
+			return FALSE;
+
+		return base64_decode( $parts[1] ) ?: FALSE;
+	}
+
+	private function get_media_type_label( $post_id, $mime_type = NULL )
 	{
 		if ( is_null( $mime_type ) )
 			$mime_type = get_post_mime_type( $post_id );
