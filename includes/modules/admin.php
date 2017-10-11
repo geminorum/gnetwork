@@ -53,7 +53,7 @@ class Admin extends gNetwork\Module
 
 	public function admin_title( $admin_title, $title )
 	{
-		return sprintf( _x( '%1$s &lsaquo; %2$s &#8212; Content Management', 'Modules: Admin: HTML Title', GNETWORK_TEXTDOMAIN ), $title, get_bloginfo( 'name' ) );
+		return sprintf( _x( '%1$s &lsaquo; %2$s &#8212; Content Management', 'Modules: Admin: HTML Title', GNETWORK_TEXTDOMAIN ), $title, get_bloginfo( 'name', 'display' ) );
 	}
 
 	public function admin_menu()

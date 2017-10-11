@@ -938,14 +938,14 @@ class Module extends Core\Base
 	protected function wrap( $html, $class = '', $block = TRUE )
 	{
 		return $block
-			? '<div class="'.$this->base.'-wrap -'.$this->key.' '.$class.'">'.$html.'</div>'
-			: '<span class="'.$this->base.'-wrap -'.$this->key.' '.$class.'">'.$html.'</span>';
+			? '<div class="-wrap '.$this->base.'-wrap -'.$this->key.' '.$class.'">'.$html.'</div>'
+			: '<span class="-wrap '.$this->base.'-wrap -'.$this->key.' '.$class.'">'.$html.'</span>';
 	}
 
 	protected function wrap_open( $class = '', $block = TRUE )
 	{
 		return $block
-			? '<div class="'.$this->base.'-wrap -'.$this->key.' '.$class.'">'
-			: '<span class="'.$this->base.'-wrap -'.$this->key.' '.$class.'">';
+			? '<div class="-wrap '.$this->base.'-wrap -'.$this->key.' '.$class.'">'
+			: '<span class="-wrap '.$this->base.'-wrap -'.$this->key.' '.$class.'">';
 	}
 }
