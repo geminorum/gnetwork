@@ -33,6 +33,14 @@ class Cron extends gNetwork\Module
 			$this->action( 'wp_dashboard_setup' );
 		else
 			$this->action( 'activity_box_end', 0, 12 );
+
+		if ( $this->options['schedule_revision']
+			&& WP_POST_REVISIONS ) {
+
+			$this->filter( 'cron_schedules', 1, 20 );
+
+			add_action( $this->hook( 'clean_revisions' ), [ $this, 'do_clean_revisions' ], 10, 2 );
+		}
 	}
 
 	public function setup_menu( $context )
@@ -60,13 +68,14 @@ class Cron extends gNetwork\Module
 			'dashboard_intro'      => '',
 			'status_email_failure' => '0',
 			'status_email_address' => '',
+			'schedule_revision'    => '0',
 		];
 	}
 
 	public function default_settings()
 	{
 		return [
-			'_general' => [
+			'_statuscheck' => [
 				'dashboard_widget',
 				'dashboard_accesscap',
 				'dashboard_intro',
@@ -83,7 +92,30 @@ class Cron extends gNetwork\Module
 					'after'       => empty( $this->options['status_email_address'] ) ? Settings::fieldAfterEmail( get_option( 'admin_email' ) ) : FALSE,
 				],
 			],
+			'_schedules' => [
+				[
+					'field'       => 'schedule_revision',
+					'title'       => _x( 'Clean Revisions', 'Modules: CRON: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Schedules a <b>weekly</b> task to delete post revisions.', 'Modules: CRON: Settings', GNETWORK_TEXTDOMAIN ),
+					'disabled'    => ! WP_POST_REVISIONS,
+					'after'       => WP_POST_REVISIONS ? FALSE : Settings::fieldAfterText( sprintf( _x( 'Disabled by Constant: %s', 'Modules: CRON: Settings', GNETWORK_TEXTDOMAIN ), '<code>WP_POST_REVISIONS</code>' ) ),
+				],
+			],
 		];
+	}
+
+	public function settings_section_statuscheck()
+	{
+		Settings::fieldSection(
+			_x( 'Cron Status Check', 'Modules: CRON: Settings', GNETWORK_TEXTDOMAIN )
+		);
+	}
+
+	public function settings_section_schedules()
+	{
+		Settings::fieldSection(
+			_x( 'Pre-configured Tasks', 'Modules: CRON: Settings', GNETWORK_TEXTDOMAIN )
+		);
 	}
 
 	public function settings_sidebox( $sub, $uri )
@@ -91,12 +123,12 @@ class Cron extends gNetwork\Module
 		$check = TRUE;
 
 		if ( defined( 'DISABLE_WP_CRON' ) && DISABLE_WP_CRON ) {
-			HTML::desc( _x( 'The <code>DISABLE_WP_CRON</code> constant is set to true. WP-Cron is disabled and will not run.', 'Modules: CRON: Settings', GNETWORK_TEXTDOMAIN ) );
+			HTML::desc( sprintf( _x( 'The %s is set. WP-Cron is disabled and will not run automatically.', 'Modules: CRON: Settings', GNETWORK_TEXTDOMAIN ), '<code>DISABLE_WP_CRON</code>' ) );
 			$check = FALSE;
 		}
 
 		if ( defined( 'ALTERNATE_WP_CRON' ) && ALTERNATE_WP_CRON ) {
-			HTML::desc( _x( 'The <code>ALTERNATE_WP_CRON</code> constant is set to true. The module cannot determine the status of the WP-Cron system.', 'Modules: CRON: Settings', GNETWORK_TEXTDOMAIN ) );
+			HTML::desc( sprintf( _x( 'The %s is set. Cannot determine the status of the WP-Cron.', 'Modules: CRON: Settings', GNETWORK_TEXTDOMAIN ), '<code>ALTERNATE_WP_CRON</code>' ) );
 			$check = FALSE;
 		}
 
@@ -111,6 +143,17 @@ class Cron extends gNetwork\Module
 		$this->status_check_box( FALSE );
 
 		Utilities::enqueueScript( 'admin.cron.statuscheck' );
+	}
+
+	public function settings_help_tabs( $sub = NULL )
+	{
+		return [
+			[
+				'id'      => $this->classs( 'help' ),
+				'title'   => _x( 'Schedule Intervals', 'Modules: CRON: Help Tab Title', GNETWORK_TEXTDOMAIN ),
+				'content' => HTML::tableCode( wp_get_schedules() ),
+			],
+		];
 	}
 
 	public function settings( $sub = NULL )
@@ -162,6 +205,13 @@ class Cron extends gNetwork\Module
 	public function init()
 	{
 		$this->do_status_check();
+
+		if ( $this->options['schedule_revision']
+			&& WP_POST_REVISIONS ) {
+
+			if ( ! wp_next_scheduled( $this->hook( 'clean_revisions' ) ) )
+				wp_schedule_event( time(), 'weekly', $this->hook( 'clean_revisions' ) );
+		}
 	}
 
 	public function wp_dashboard_setup()
@@ -240,10 +290,10 @@ class Cron extends gNetwork\Module
 	private function status_check_spawn()
 	{
 		if ( defined( 'DISABLE_WP_CRON' ) && DISABLE_WP_CRON )
-			return new Error( 'cron_disabled', sprintf( _x( 'The <code>DISABLE_WP_CRON</code> constant is set to true as of %s. WP-Cron is disabled and will not run.', 'Modules: CRON', GNETWORK_TEXTDOMAIN ), Utilities::htmlCurrent() ) );
+			return new Error( 'cron_disabled', sprintf( _x( 'The %s constant is set to true as of %s. WP-Cron is disabled and will not run automatically.', 'Modules: CRON', GNETWORK_TEXTDOMAIN ), '<code>DISABLE_WP_CRON</code>', Utilities::htmlCurrent() ) );
 
 		if ( defined( 'ALTERNATE_WP_CRON' ) && ALTERNATE_WP_CRON )
-			return new Error( 'cron_alternated', sprintf( _x( 'The <code>ALTERNATE_WP_CRON</code> constant is set to true as of %s. The module cannot determine the status of the WP-Cron system.', 'Modules: CRON', GNETWORK_TEXTDOMAIN ), Utilities::htmlCurrent() ) );
+			return new Error( 'cron_alternated', sprintf( _x( 'The %s constant is set to true as of %s. We cannot determine the status of the WP-Cron system.', 'Modules: CRON', GNETWORK_TEXTDOMAIN ), '<code>ALTERNATE_WP_CRON</code>', Utilities::htmlCurrent() ) );
 
 		$url  = site_url( 'wp-cron.php?doing_wp_cron='.sprintf( '%.22F', microtime( TRUE ) ) );
 		$args = [ 'timeout' => 3, 'blocking' => TRUE ];
@@ -380,7 +430,30 @@ class Cron extends gNetwork\Module
 			],
 		], self::getCronArray(), [
 			'title' => HTML::tag( 'h3', _x( 'Overview of tasks scheduled for WP-Cron', 'Modules: CRON', GNETWORK_TEXTDOMAIN ) ),
-			'empty' => HTML::warning( _x( 'Nothing scheduled!', 'Modules: CRON', GNETWORK_TEXTDOMAIN ) ),
+			'empty' => HTML::warning( _x( 'Nothing scheduled!', 'Modules: CRON', GNETWORK_TEXTDOMAIN ), FALSE ),
 		] );
+	}
+
+	// adds once weekly to the existing schedules
+	public function cron_schedules( $schedules )
+	{
+		return array_merge( $schedules, [
+			'weekly' => [
+				'interval' => Date::WEEK_IN_SECONDS,
+				'display'  => _x( 'Once Weekly', 'Modules: CRON', GNETWORK_TEXTDOMAIN ),
+			],
+		] );
+	}
+
+	public function do_clean_revisions()
+	{
+		$revisions = get_posts( [
+			'fields'      => 'ids',
+			'post_type'   => 'revision',
+			'numberposts' => -1
+		] );
+
+		foreach ( $revisions as $revision )
+			wp_delete_post( $revision );
 	}
 }
