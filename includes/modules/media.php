@@ -555,7 +555,7 @@ class Media extends gNetwork\Module
 			$metadata['sizes'] = $editor->multi_resize( $sizes );
 
 		if ( WordPress::isDev() )
-			error_log( print_r( compact( 'parent_type', 'sizes', 'metadata', 'wpupload' ), TRUE ) );
+			self::__log( print_r( compact( 'parent_type', 'metadata' ), TRUE ) );
 
 		return $metadata;
 	}
@@ -635,7 +635,7 @@ class Media extends gNetwork\Module
 			unset( $metadata['sizes'] );
 
 		if ( WordPress::isDev() )
-			error_log( print_r( compact( 'taxonomy', 'sizes', 'metadata', 'wpupload' ), TRUE ) );
+			self::__log( print_r( compact( 'taxonomy', 'metadata', 'wpupload' ), TRUE ) );
 
 		return $metadata;
 	}
@@ -745,7 +745,7 @@ class Media extends gNetwork\Module
 			];
 
 			if ( WordPress::isDev() )
-				error_log( print_r( compact( 'size', 'data', 'path', 'img_url', 'result', 'wpupload' ), TRUE ) );
+				self::__log( print_r( compact( 'size', 'data', 'path', 'img_url', 'result', 'wpupload' ), TRUE ) );
 
 			return $result;
 		}
@@ -761,7 +761,7 @@ class Media extends gNetwork\Module
 		$path     = File::join( GNETWORK_MEDIA_THUMBS_DIR, $this->blog ).$folder;
 
 		if ( WordPress::isDev() )
-			error_log( print_r( compact( 'info', 'wpupload', 'folder', 'path' ), TRUE ) );
+			self::__log( print_r( compact( 'info', 'wpupload', 'folder', 'path' ), TRUE ) );
 
 		if ( wp_mkdir_p( $path ) )
 			return $path;
@@ -844,13 +844,16 @@ class Media extends gNetwork\Module
 		return $count;
 	}
 
-	public function sync_attachments( $post_id )
+	public function sync_attachments( $post )
 	{
 		global $wpdb;
 
+		if ( ! $post = get_post( $post ) )
+			return FALSE;
+
 		$clean = $moved = [];
 
-		foreach ( WordPress::getAttachments( $post_id ) as $attachment ) {
+		foreach ( WordPress::getAttachments( $post->ID ) as $attachment ) {
 			if ( $attached_file = get_post_meta( $attachment->ID, '_wp_attached_file', TRUE ) ) {
 				if ( ! str_replace( File::basename( $attached_file ), '', $attached_file ) ) {
 					$clean[$attachment->ID] = $attached_file;
@@ -861,14 +864,13 @@ class Media extends gNetwork\Module
 		if ( ! count( $clean ) )
 			return TRUE;
 
-		$post     = get_post( $post_id );
-		$wpupload = wp_upload_dir( ( substr( $post->post_date, 0, 4 ) > 0 ? $post->post_date : NULL ) );
+		$wpupload = WordPress::upload( $post );
 
 		preg_match_all( '|<img.*?src=[\'"](.*?)[\'"].*?>|i', $post->post_content, $matches );
 
 		foreach ( $clean as $clean_id => $clean_file ) {
 
-			// $clean_upload = media_sideload_image( $wpupload['baseurl'].'/'.$clean_file, $post_id, NULL, 'src' );
+			// $clean_upload = media_sideload_image( URL::trail( $wpupload['baseurl'] ).$clean_file, $post->ID, NULL, 'src' );
 
 			$clean_path = File::join( $wpupload['basedir'], $clean_file );
 			$moved_path = File::join( $wpupload['path'], $clean_file );
@@ -883,14 +885,14 @@ class Media extends gNetwork\Module
 					$urls[] = str_replace( $wpupload['basedir'], $wpupload['baseurl'], File::normalize( $path ) );
 
 				// also the original
-				$urls[] = $wpupload['baseurl'].'/'.$clean_file;
+				$urls[] = URL::trail( $wpupload['baseurl'] ).$clean_file;
 
 				foreach ( $urls as $url ) {
-					foreach ( $matches[1] as $offset => $match ) {
-						if ( $url == $match ) {
+					foreach ( $matches[1] as $matched ) {
+						if ( $url == $matched ) {
 							$wpdb->query( $wpdb->prepare( "
 								UPDATE {$wpdb->posts} SET post_content = REPLACE( post_content, %s, %s ) WHERE ID = %d
-							", $match, ( $wpupload['url'].'/'.File::basename( $match ) ), $post_id ) );
+							", $matched, ( URL::trail( $wpupload['url'] ).File::basename( $matched ) ), $post->ID ) );
 						}
 					}
 				}
@@ -902,11 +904,11 @@ class Media extends gNetwork\Module
 
 				$wpdb->query( $wpdb->prepare( "
 					UPDATE {$wpdb->posts} SET guid = %s WHERE ID = %d
-				", esc_url_raw( $wpupload['url'].'/'.$clean_file ), $clean_id ) );
+				", esc_url_raw( URL::trail( $wpupload['url'] ).$clean_file ), $clean_id ) );
 
 				update_attached_file( $clean_id, $moved_path );
 
-				$moved[$clean_id] = $wpupload['subdir'].'/'.$clean_file;
+				$moved[$clean_id] = URL::trail( $wpupload['subdir'] ).$clean_file;
 			}
 		}
 
@@ -1117,7 +1119,7 @@ class Media extends gNetwork\Module
 	// @REF: `media_handle_upload()`
 	private function complete_upload( $filename, $metadata = FALSE )
 	{
-		$wpupload = wp_upload_dir();
+		$wpupload = WordPress::upload();
 
 		$file = sanitize_file_name( $filename );
 		$type = wp_check_filetype( $file );
@@ -1149,7 +1151,7 @@ class Media extends gNetwork\Module
 		if ( FALSE === ( $decoded = $this->decode_chunk( $data ) ) )
 			return _x( 'Something is wrong with data!', 'Modules: Media', GNETWORK_TEXTDOMAIN );
 
-		$wpupload = wp_upload_dir();
+		$wpupload = WordPress::upload();
 
 		if ( FALSE !== $wpupload['error'] )
 			return _x( 'Can not access upload folders!', 'Modules: Media', GNETWORK_TEXTDOMAIN );
