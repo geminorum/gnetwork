@@ -682,6 +682,9 @@ class Media extends gNetwork\Module
 		if ( get_post_meta( $attachment_id, '_wp_attachment_is_custom_background', TRUE ) )
 			return TRUE;
 
+		if ( 'site-icon' == get_post_meta( $attachment_id, '_wp_attachment_context', TRUE ) )
+			return TRUE;
+
 		if ( $attachment_id == get_option( 'site_icon' ) )
 			return TRUE;
 
