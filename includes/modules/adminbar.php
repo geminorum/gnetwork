@@ -70,6 +70,42 @@ class AdminBar extends gNetwork\Module
 		}
 	}
 
+	// overrided to avoid `get_blogs_of_user()`
+	public function initialize()
+	{
+		$user = new \stdClass;
+
+		if ( is_multisite() && ( $user_id = get_current_user_id() ) ) {
+			$super_admin       = WordPress::isSuperAdmin();
+			$user->blogs       = self::getAllBlogs( ( $super_admin ? FALSE : $user_id ), $super_admin );
+			$user->active_blog = get_user_meta( $user_id, 'primary_blog', TRUE );
+		} else {
+			$user->blogs       = [];
+			$user->active_blog = FALSE;
+		}
+
+		add_action( 'wp_head', 'wp_admin_bar_header' );
+		add_action( 'admin_head', 'wp_admin_bar_header' );
+
+		if ( current_theme_supports( 'admin-bar' ) ) {
+			$admin_bar_args = get_theme_support( 'admin-bar' );
+			$header_callback = $admin_bar_args[0]['callback'];
+		}
+
+		if ( empty($header_callback) )
+			$header_callback = '_admin_bar_bump_cb';
+
+		add_action( 'wp_head', $header_callback );
+
+		wp_enqueue_script( 'admin-bar' );
+		wp_enqueue_style( 'admin-bar' );
+
+		// fires after WP_Admin_Bar is initialized.
+		do_action( 'admin_bar_init' );
+
+		return $user;
+	}
+
 	public function add_menus()
 	{
 		// user related, aligned right
@@ -475,140 +511,156 @@ class AdminBar extends gNetwork\Module
 		if ( count( $wp_admin_bar->user->blogs ) < 1 && ! $super_admin )
 			return;
 
-		if ( $wp_admin_bar->user->active_blog ) {
-			$my_sites_url = get_admin_url( $wp_admin_bar->user->active_blog->blog_id, 'my-sites.php' );
-		} else {
-			$my_sites_url = admin_url( 'my-sites.php' );
-		}
+		$my_sites = admin_url( 'my-sites.php' );
+
+		if ( $wp_admin_bar->user->active_blog && isset( $wp_admin_bar->user->blogs[$wp_admin_bar->user->active_blog] ) )
+			$my_sites = $wp_admin_bar->user->blogs[$wp_admin_bar->user->active_blog]->siteurl.'/wp-admin/my-sites.php';
 
 		$wp_admin_bar->add_menu( [
 			'id'    => 'my-sites',
-			'title' => '',
-			'href'  => $my_sites_url,
-			'meta'  => [
-				'title' => _x( 'My Sites', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
-			],
+			'href'  => $my_sites,
+			'title' => '', // more minimal!
+			'meta'  => [ 'title' => _x( 'My Sites', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ) ],
 		] );
 
-		// FIXME: rewrite this
-		// @SEE: https://core.trac.wordpress.org/ticket/39082
+		$wp_admin_bar->add_group( [
+			'parent' => 'my-sites',
+			'id'     => 'my-sites-admin',
+		] );
+
+		$wp_admin_bar->add_menu( [
+			'parent' => 'my-sites-admin',
+			'id'     => 'user-admin',
+			'title'  => _x( 'Your Dashboard', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+			'href'   => user_admin_url(),
+		] );
+
 		if ( $super_admin ) {
 
-			$wp_admin_bar->add_group( [
-				'parent' => 'my-sites',
-				'id'     => 'my-sites-super-admin',
-			] );
-
 			$wp_admin_bar->add_menu( [
-				'parent' => 'my-sites-super-admin',
+				'parent' => 'my-sites-admin',
 				'id'     => 'network-admin',
 				'title'  => _x( 'Network Admin', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 				'href'   => network_admin_url(),
 			] );
 
-			$wp_admin_bar->add_menu( [
-				'parent' => 'network-admin',
-				'id'     => 'network-admin-s',
-				'title'  => _x( 'Sites', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
-				'href'   => network_admin_url( 'sites.php' ),
-			] );
+			if ( class_exists( __NAMESPACE__.'\\Debug' ) )
+				$wp_admin_bar->add_menu( [
+					'parent' => 'network-admin',
+					'id'     => 'network-admin-sr',
+					'title'  => _x( 'System Report', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+					'href'   => Settings::subURL( 'systemreport' ),
+				] );
 
-			$wp_admin_bar->add_menu( [
-				'parent' => 'network-admin',
-				'id'     => 'network-admin-u',
-				'title'  => _x( 'Users', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
-				'href'   => network_admin_url( 'users.php' ),
-			] );
+			if ( current_user_can( 'manage_sites' ) )
+				$wp_admin_bar->add_menu( [
+					'parent' => 'network-admin',
+					'id'     => 'network-admin-s',
+					'title'  => _x( 'Sites', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+					'href'   => network_admin_url( 'sites.php' ),
+				] );
 
-			$wp_admin_bar->add_menu( [
-				'parent' => 'network-admin',
-				'id'     => 'network-admin-t',
-				'title'  => _x( 'Themes', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
-				'href'   => network_admin_url( 'themes.php' ),
-			] );
+			if ( current_user_can( 'manage_network_users' ) )
+				$wp_admin_bar->add_menu( [
+					'parent' => 'network-admin',
+					'id'     => 'network-admin-u',
+					'title'  => _x( 'Users', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+					'href'   => network_admin_url( 'users.php' ),
+				] );
 
-			$wp_admin_bar->add_menu( [
-				'parent' => 'network-admin',
-				'id'     => 'network-admin-p',
-				'title'  => _x( 'Plugins', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
-				'href'   => network_admin_url( 'plugins.php' ),
-			] );
+			if ( current_user_can( 'manage_network_themes' ) )
+				$wp_admin_bar->add_menu( [
+					'parent' => 'network-admin',
+					'id'     => 'network-admin-t',
+					'title'  => _x( 'Themes', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+					'href'   => network_admin_url( 'themes.php' ),
+				] );
 
-			$wp_admin_bar->add_menu( [
-				'parent' => 'network-admin',
-				'id'     => 'network-admin-o',
-				'title'  => _x( 'Settings', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
-				'href'   => network_admin_url( 'settings.php' ),
-			] );
+			if ( current_user_can( 'manage_network_plugins' ) )
+				$wp_admin_bar->add_menu( [
+					'parent' => 'network-admin',
+					'id'     => 'network-admin-p',
+					'title'  => _x( 'Plugins', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+					'href'   => network_admin_url( 'plugins.php' ),
+				] );
 
-			$wp_admin_bar->add_menu( [
-				'parent' => 'network-admin',
-				'id'     => 'network-admin-uc',
-				'title'  => _x( 'Updates', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
-				'href'   => network_admin_url( 'update-core.php' ),
-			] );
+			if ( current_user_can( 'manage_network_options' ) ) {
+
+				$wp_admin_bar->add_menu( [
+					'parent' => 'network-admin',
+					'id'     => 'network-admin-o',
+					'title'  => _x( 'Settings', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+					'href'   => network_admin_url( 'settings.php' ),
+				] );
+
+				$wp_admin_bar->add_menu( [
+					'parent' => 'network-admin',
+					'id'     => 'network-admin-ne',
+					'title'  => _x( 'Extras', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+					'href'   => Settings::subURL(),
+				] );
+			}
+
+			if ( current_user_can( 'update_core' ) )
+				$wp_admin_bar->add_menu( [
+					'parent' => 'network-admin',
+					'id'     => 'network-admin-uc',
+					'title'  => _x( 'Updates', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+					'href'   => network_admin_url( 'update-core.php' ),
+				] );
 		}
 
 		$wp_admin_bar->add_group( [
 			'parent' => 'my-sites',
 			'id'     => 'my-sites-list',
-			'meta'   => [
-				'class' => $super_admin ? 'ab-sub-secondary' : '',
-			],
+			'meta'   => [ 'class' => 'ab-sub-secondary' ],
 		] );
 
-		$blogs = $super_admin ? self::getAllBlogs() : (array) $wp_admin_bar->user->blogs;
+		foreach ( $wp_admin_bar->user->blogs as $blog ) {
 
-		foreach ( $blogs as $blog ) {
+			// avoiding `switch_to_blog()`
 
-			switch_to_blog( $blog->userblog_id );
-
-			// TODO: get class from site meta
-			$blavatar = '<div class="blavatar"></div>';
 			$menu_id  = 'blog-'.$blog->userblog_id;
-
-			if ( ! $blogname = get_option( 'blogname' ) )
-				$blogname = WordPress::currentBlog();
+			$blavatar = '<div class="blavatar"></div>';
+			$blogname = URL::untrail( $blog->domain.$blog->path );
 
 			$wp_admin_bar->add_menu( [
 				'parent'    => 'my-sites-list',
 				'id'        => $menu_id,
 				'title'     => $blavatar.$blogname,
-				'href'      => admin_url(),
+				'href'      => $blog->siteurl.'/wp-admin/',
 			] );
 
 			$wp_admin_bar->add_menu( [
 				'parent' => $menu_id,
 				'id'     => $menu_id.'-d',
 				'title'  => _x( 'Dashboard', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
-				'href'   => admin_url(),
+				'href'      => $blog->siteurl.'/wp-admin/',
 			] );
 
-			if ( $super_admin || current_user_can( get_post_type_object( 'post' )->cap->edit_posts ) )
+			// extra links for super admins only (no cap checks)
+			if ( $super_admin ) {
 				$wp_admin_bar->add_menu( [
 					'parent' => $menu_id,
 					'id'     => $menu_id.'-e',
 					'title'  => _x( 'Posts', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
-					'href'   => admin_url( 'edit.php' ),
+					'href'   => $blog->siteurl.'/wp-admin/edit.php',
 				] );
 
-			if ( $super_admin || current_user_can( 'list_users' ) )
 				$wp_admin_bar->add_menu( [
 					'parent' => $menu_id,
 					'id'     => $menu_id.'-u',
 					'title'  => _x( 'Users', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
-					'href'   => admin_url( 'users.php' ),
+					'href'   => $blog->siteurl.'/wp-admin/users.php',
 				] );
 
-			if ( $super_admin || current_user_can( 'manage_options' ) )
 				$wp_admin_bar->add_menu( [
 					'parent' => $menu_id,
 					'id'     => $menu_id.'-s',
 					'title'  => _x( 'Settings', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
-					'href'   => admin_url( 'options-general.php' ),
+					'href'   => $blog->siteurl.'/wp-admin/options-general.php',
 				] );
 
-			if ( $super_admin ) {
 				$wp_admin_bar->add_menu( [
 					'parent' => $menu_id,
 					'id'     => $menu_id.'-e-s',
@@ -628,42 +680,53 @@ class AdminBar extends gNetwork\Module
 				'parent' => $menu_id,
 				'id'     => $menu_id.'-v',
 				'title'  => _x( 'Visit Site', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
-				'href'   => home_url( '/' ),
+				'href'   => URL::trail( $blog->siteurl ),
 			] );
-
-			restore_current_blog();
 		}
 	}
 
-	private static function getAllBlogs( $all_sites = TRUE )
+	// mocking `get_sites()` results
+	private static function getAllBlogs( $user_id = FALSE, $all_sites = TRUE )
 	{
 		global $wpdb;
 
-		if ( $all_sites )
-			$query = "
-				SELECT blog_id
-				FROM {$wpdb->blogs}
-				WHERE spam = '0'
-				AND deleted = '0'
-				AND archived = '0'
-				ORDER BY registered DESC
-			";
+		$clause_site = $clause_blog = '';
 
-		else
-			$query = $wpdb->prepare( "
-				SELECT blog_id
-				FROM {$wpdb->blogs}
-				WHERE site_id = %d
-				AND spam = '0'
-				AND deleted = '0'
-				AND archived = '0'
-				ORDER BY registered DESC
-			", get_current_network_id() );
+		if ( ! $all_sites )
+			$clause_site = $wpdb->prepare( "AND site_id = %d", get_current_network_id() );
+
+		if ( $user_id ) {
+
+			$ids = WordPress::getUserBlogs( $user_id, $wpdb->base_prefix );
+
+			// user has no blogs!
+			if ( ! $ids )
+				return [];
+
+			$clause_blog = "AND blog_id IN ( '".join( "', '", esc_sql( $ids ) )."' )";
+		}
+
+		$query = "
+			SELECT blog_id, domain, path
+			FROM {$wpdb->blogs}
+			WHERE spam = '0'
+			AND deleted = '0'
+			AND archived = '0'
+			{$clause_site}
+			{$clause_blog}
+			ORDER BY registered DESC
+		";
 
 		$blogs = [];
+		$ssl   = is_ssl();
 
-		foreach ( $wpdb->get_col( $query ) as $blog_id )
-			$blogs[$blog_id] = (object) [ 'userblog_id' => $blog_id ];
+		foreach ( $wpdb->get_results( $query, ARRAY_A ) as $blog )
+			$blogs[$blog['blog_id']] = (object) [
+				'userblog_id' => $blog['blog_id'],
+				'domain'      => $blog['domain'],
+				'path'        => $blog['path'],
+				'siteurl'     => ( $ssl ? 'https://' : 'http://' ).$blog['domain'].$blog['path'],
+			];
 
 		return $blogs;
 	}
@@ -783,6 +846,11 @@ function wp_admin_bar_class( $class ) {
 
 	class WP_Admin_Bar extends \WP_Admin_Bar
 	{
+		public function initialize()
+		{
+			$this->user = gNetwork()->adminbar->initialize();
+		}
+
 		public function add_menus()
 		{
 			gNetwork()->adminbar->add_menus();
