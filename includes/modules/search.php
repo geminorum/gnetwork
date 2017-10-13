@@ -27,6 +27,8 @@ class Search extends gNetwork\Module
 			$this->filter( 'posts_join' );
 			$this->filter( 'posts_request' );
 		}
+
+		$this->filter( 'get_search_form' );
 	}
 
 	public function setup_menu( $context )
@@ -208,5 +210,22 @@ class Search extends gNetwork\Module
 				] );
 			}
 		}
+	}
+
+	// also overrided for strings!
+	public function get_search_form( $form )
+	{
+		// bail if theme has template
+		if ( locate_template( 'searchform.php' ) )
+			return $form;
+
+		$html = '<form role="search" method="get" class="search-form" action="'.GNETWORK_SEARCH_URL.'">';
+			$html.= '<label><span class="screen-reader-text">'._x( 'Search for:', 'Modules: Search: Form: Label', GNETWORK_TEXTDOMAIN ).'</span>';
+			$html.= '<input type="search" class="search-field" placeholder="'.esc_attr_x( 'Search &hellip;', 'Modules: Search: Form: Placeholder', GNETWORK_TEXTDOMAIN );
+			$html.= '" value="'.get_search_query().'" name="'.GNETWORK_SEARCH_QUERYID.'" />';
+			$html.= '</label><input type="submit" class="search-submit" value="'.esc_attr_x( 'Search', 'Modules: Search: Form: Submit Button', GNETWORK_TEXTDOMAIN ).'" />';
+		$html.= '</form>';
+
+		return $html;
 	}
 }
