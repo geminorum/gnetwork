@@ -7,6 +7,7 @@ use geminorum\gNetwork\Logger;
 use geminorum\gNetwork\Core\Error;
 use geminorum\gNetwork\Core\Exception;
 use geminorum\gNetwork\Core\HTTP;
+use geminorum\gNetwork\Core\WordPress;
 
 class Captcha extends gNetwork\Module
 {
@@ -223,12 +224,12 @@ class Captcha extends gNetwork\Module
 
 		if ( empty( $_POST['g-recaptcha-response'] ) ) {
 
-			Logger::NOTICE( 'CAPTCHA-LOSTPASSWORD: empty captcha' );
+			Logger::NOTICE( 'CAPTCHA-LOSTPASSWORD: '.WordPress::currentBlog().': empty captcha' );
 			$errors->add( 'empty_captcha', $messages['empty_captcha'] );
 
 		} else if ( FALSE === $this->recaptcha_verify() ) {
 
-			Logger::NOTICE( 'CAPTCHA-LOSTPASSWORD: invalid captcha' );
+			Logger::NOTICE( 'CAPTCHA-LOSTPASSWORD: '.WordPress::currentBlog().': invalid captcha' );
 			$errors->add( 'invalid_captcha', $messages['invalid_captcha'] );
 		}
 
@@ -249,12 +250,12 @@ class Captcha extends gNetwork\Module
 
 		if ( empty( $_POST['g-recaptcha-response'] ) ) {
 
-			Logger::NOTICE( 'CAPTCHA-REGISTER: empty captcha' );
+			Logger::NOTICE( 'CAPTCHA-REGISTER: '.WordPress::currentBlog().': empty captcha' );
 			$errors->add( 'empty_captcha', $messages['empty_captcha'] );
 
 		} else if ( FALSE === $this->recaptcha_verify() ) {
 
-			Logger::NOTICE( 'CAPTCHA-REGISTER: invalid captcha' );
+			Logger::NOTICE( 'CAPTCHA-REGISTER: '.WordPress::currentBlog().': invalid captcha' );
 			$errors->add( 'invalid_captcha', $messages['invalid_captcha'] );
 		}
 
@@ -281,12 +282,12 @@ class Captcha extends gNetwork\Module
 		$messages = $this->recaptcha_errors();
 
 		if ( empty( $_POST['g-recaptcha-response'] ) ) {
-			Logger::NOTICE( 'CAPTCHA-COMMENT: empty captcha' );
+			Logger::NOTICE( 'CAPTCHA-COMMENT: '.WordPress::currentBlog().': empty captcha' );
 			wp_die( $messages['empty_captcha'] );
 		}
 
 		if ( FALSE === $this->recaptcha_verify() ) {
-			Logger::NOTICE( 'CAPTCHA-COMMENT: invalid captcha' );
+			Logger::NOTICE( 'CAPTCHA-COMMENT: '.WordPress::currentBlog().':invalid captcha' );
 			wp_die( $messages['invalid_captcha'] );
 		}
 

@@ -610,7 +610,7 @@ class Debug extends gNetwork\Module
 	public function http_api_debug( $response, $context, $class, $args, $url )
 	{
 		if ( self::isError( $response ) )
-			Logger::ERROR( 'HTTP-API: '.$class.': '.$response->get_error_message().' - '.$url );
+			Logger::ERROR( 'HTTP-API: '.WordPress::currentBlog().': '.$class.': '.$response->get_error_message().' - '.$url );
 
 		if ( WordPress::isSuperAdmin() )
 			$this->http_calls[] = [

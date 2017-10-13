@@ -159,7 +159,7 @@ class Embed extends gNetwork\Module
 			if ( self::isError( $rss ) ) {
 
 				foreach ( $rss->get_error_codes() as $error )
-					Logger::WARNING( 'EMBED-APARAT: ERROR LOADING CHANNEL: '.str_replace( '_', ' ', $error ).': '.esc_url( $url ) );
+					Logger::WARNING( 'EMBED-APARAT: ERROR LOADING CHANNEL: '.WordPress::currentBlog().': '.str_replace( '_', ' ', $error ).': '.esc_url( $url ) );
 
 				return $url;
 			}
