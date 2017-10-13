@@ -70,15 +70,16 @@
     var filename = $(this).val();
     if ('' != filename) {
       $(s.name).html(filename).show();
-      $(s.submit).removeClass('disabled');
+      $(s.submit).prop('disabled', false);
     } else {
       $(s.name).html('').hide();
-      $(s.submit).addClass('disabled');
+      $(s.submit).prop('disabled', true);
     }
   });
 
   $(s.submit).on('click', function(event) {
     event.preventDefault();
+    $(this).prop('disabled', true);
 
     reader = new FileReader();
     file = document.querySelector(s.file).files[0];
@@ -126,7 +127,7 @@
               upload_file(next_slice);
             } else {
               $(s.name).html('').hide();
-              $(s.submit).addClass('disabled');
+              $(s.submit).prop('disabled', true);
               u.io(s.progress,$submit.data('complete'));
               o.complete(file.name);
             }

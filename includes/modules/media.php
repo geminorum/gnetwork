@@ -1099,7 +1099,7 @@ class Media extends gNetwork\Module
 		$html.= HTML::tag( 'input', [
 			'id'    => $this->classs( 'file-submit' ),
 			'type'  => 'submit',
-			'class' => [ 'button', 'button-small', 'button-primary', 'disabled' ],
+			'class' => [ 'button', 'button-small', 'button-primary' ],
 			'value' => _x( 'Upload', 'Modules: Media', GNETWORK_TEXTDOMAIN ),
 			'data' => [
 				'nonce'    => wp_create_nonce( $this->classs( 'file-upload' ) ),
@@ -1107,6 +1107,7 @@ class Media extends gNetwork\Module
 				'progress' => _x( 'Uploading File - %s%', 'Modules: Media', GNETWORK_TEXTDOMAIN ),
 				'complete' => _x( 'Upload Complete!', 'Modules: Media', GNETWORK_TEXTDOMAIN ),
 			],
+			'disabled' => TRUE,
 		] );
 
 		$html.= '</div><code id="'.$this->classs( 'file-name' ).'" class="-filename" style="display:none"></code></form>';
