@@ -1254,6 +1254,9 @@ class Media extends gNetwork\Module
 			'mpg4' => 'video/mp4',
 			'flv'  => 'video/x-flv',
 			'svg'  => 'image/svg+xml',
+			'psd'  => 'image/vnd.adobe.photoshop',
+			'mobi' => 'application/x-mobipocket-ebook',
+			'epub' => 'application/epub+zip',
 		] );
 	}
 
