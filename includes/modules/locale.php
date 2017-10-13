@@ -164,14 +164,12 @@ class Locale extends gNetwork\Module
 			'regenerate-thumbnails'      => 'page',
 			'wpsupercache'               => 'page',
 			'members-settings'           => 'page',
-			'regenerate-thumbnails'      => 'page',
 			'a8c_developer'              => 'page',
 			'redirection.php'            => 'page', // Redirection
 			'bwp_gxs_generator'          => 'page', // BWP Google XML Sitemaps
 			'bwp_gxs_extensions'         => 'page', // BWP Google XML Sitemaps
 			'bwp_gxs_generator_advanced' => 'page', // BWP Google XML Sitemaps
 			'bwp_gxs_stats'              => 'page', // BWP Google XML Sitemaps
-			'limit-login-attempts'       => 'page',
 			'p3-profiler'                => 'page',
 			'wp_aeh_errors'              => 'page',
 			'msrtm-website.php'          => 'page', // Multisite Robots.txt Manager
@@ -197,6 +195,8 @@ class Locale extends gNetwork\Module
 			'akismet-key-config'         => 'page', // Akismet
 			'cache-enabler'              => 'page', // [Cache Enabler](https://wordpress.org/plugins/cache-enabler/)
 			'rest_api_console'           => 'page', // [REST API Console](https://wordpress.org/plugins/rest-api-console/)
+			'so-widgets-plugins'         => 'page',
+			'siteorigin_panels'          => 'page',
 
 			// [EWWW Image Optimizer](https://wordpress.org/plugins/ewww-image-optimizer/)
 			'ewww-image-optimizer/ewww-image-optimizer.php' => 'page',

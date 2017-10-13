@@ -1101,7 +1101,7 @@ class Media extends gNetwork\Module
 			'type'  => 'submit',
 			'class' => [ 'button', 'button-small', 'button-primary' ],
 			'value' => _x( 'Upload', 'Modules: Media', GNETWORK_TEXTDOMAIN ),
-			'data' => [
+			'data'  => [
 				'nonce'    => wp_create_nonce( $this->classs( 'file-upload' ) ),
 				'locale'   => get_locale(),
 				'progress' => _x( 'Uploading File - %s%', 'Modules: Media', GNETWORK_TEXTDOMAIN ),
@@ -1117,6 +1117,7 @@ class Media extends gNetwork\Module
 		HTML::desc( _x( 'You can access uploaded files via Media Library.', 'Modules: Media', GNETWORK_TEXTDOMAIN ) );
 	}
 
+	// FIXME: must check filetype for non super admins / and delete file if not allowed
 	// @REF: `media_handle_upload()`
 	private function complete_upload( $filename, $metadata = FALSE )
 	{

@@ -87,7 +87,7 @@ class Search extends gNetwork\Module
 		$this->query = &$wp_query;
 
 		$clause = $this->clause_default();
-		$clause .= $this->clause_meta();
+		$clause.= $this->clause_meta();
 
 		return $clause ? " AND ( ( {$clause} ) ) " : $search;
 	}
@@ -113,7 +113,7 @@ class Search extends gNetwork\Module
 
 		foreach ( $this->searched() as $searched ) {
 			$escaped = $wpdb->prepare( '%s', empty( $this->query->query_vars['exact'] ) ? '%'.$searched.'%' : $searched );
-			$clause .= $sep."( ( {$wpdb->posts}.post_title LIKE {$escaped} ) OR ( {$wpdb->posts}.post_content LIKE {$escaped} ) )";
+			$clause.= $sep."( ( {$wpdb->posts}.post_title LIKE {$escaped} ) OR ( {$wpdb->posts}.post_content LIKE {$escaped} ) )";
 			$sep = ' AND ';
 		}
 
@@ -150,7 +150,7 @@ class Search extends gNetwork\Module
 
 		foreach ( $this->searched() as $searched ) {
 			$escaped = $wpdb->prepare( '%s', empty( $this->query->query_vars['exact'] ) ? '%'.$searched.'%' : $searched );
-			$clause .= $sep."( m.meta_value LIKE {$escaped} )";
+			$clause.= $sep."( m.meta_value LIKE {$escaped} )";
 			$sep = ' AND ';
 		}
 
@@ -170,7 +170,7 @@ class Search extends gNetwork\Module
 		global $wpdb;
 
 		if ( ! empty( $this->query->query_vars['s'] ) )
-			$where .= " LEFT JOIN {$wpdb->postmeta} AS m ON ( {$wpdb->posts}.ID = m.post_id ) ";
+			$where.= " LEFT JOIN {$wpdb->postmeta} AS m ON ( {$wpdb->posts}.ID = m.post_id ) ";
 
 		return $where;
 	}
@@ -184,7 +184,6 @@ class Search extends gNetwork\Module
 			if ( GNETWORK_SEARCH_REDIRECT )
 				WordPress::redirect( add_query_arg( GNETWORK_SEARCH_QUERYID, $wp_query->query_vars['s'], GNETWORK_SEARCH_URL ) );
 
-			//
 			if ( $this->options['redirect_single'] && $wp_query->post_count == 1 )
 				WordPress::redirect( get_permalink( $wp_query->posts['0']->ID ) );
 
