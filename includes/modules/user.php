@@ -169,6 +169,17 @@ class User extends gNetwork\Module
 		echo '</p>';
 	}
 
+	public function settings_help_tabs( $sub = NULL )
+	{
+		return [
+			[
+				'id'      => $this->classs( 'help' ),
+				'title'   => _x( 'Contact Methods', 'Modules: User: Help Tab Title', GNETWORK_TEXTDOMAIN ),
+				'content' => HTML::tableCode( wp_get_user_contact_methods() ),
+			],
+		];
+	}
+
 	public function settings( $sub = NULL )
 	{
 		if ( $this->key == $sub ) {
