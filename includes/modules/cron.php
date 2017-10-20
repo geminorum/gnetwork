@@ -331,7 +331,7 @@ class Cron extends gNetwork\Module
 			}
 
 			foreach ( $result->get_error_codes() as $error )
-				Logger::WARNING( 'CRON-STATUS: '.WordPress::currentBlog().': '.str_replace( '_', ' ', $error ) );
+				Logger::siteWARNING( 'CRON-STATUS', str_replace( '_', ' ', $error ) );
 		}
 	}
 

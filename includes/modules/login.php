@@ -241,16 +241,16 @@ class Login extends gNetwork\Module
 
 		if ( FALSE === $correct ) {
 
-			Logger::ALERT( 'LOGIN-MATH: '.WordPress::currentBlog().': not properly configured'.sprintf( ': %s', self::req( 'log', '(EMPTY)' ) ) );
+			Logger::siteALERT( 'LOGIN-MATH', 'not properly configured'.sprintf( ': %s', self::req( 'log', '(EMPTY)' ) ) );
 
 			wp_die( _x( '<strong>This site is not properly configured.</strong> Please ask this site\'s web developer to review for information on how to resolve this issue.', 'Modules: Login', GNETWORK_TEXTDOMAIN ) );
 
 		} else if ( FALSE === $salted || $salted != $correct ) {
 
 			if ( FALSE === $salted )
-				Logger::WARNING( 'LOGIN-MATH: '.WordPress::currentBlog().': not posting answer'.sprintf( ': %s', self::req( 'log', '(EMPTY)' ) ) );
+				Logger::siteWARNING( 'LOGIN-MATH', 'not posting answer'.sprintf( ': %s', self::req( 'log', '(EMPTY)' ) ) );
 			else
-				Logger::NOTICE( 'LOGIN-MATH: '.WordPress::currentBlog().': failed to correctly answer'.sprintf( ': %s', self::req( 'log', '(EMPTY)' ) ) );
+				Logger::siteNOTICE( 'LOGIN-MATH', 'failed to correctly answer'.sprintf( ': %s', self::req( 'log', '(EMPTY)' ) ) );
 
 			wp_die( _x( '<strong>You failed to correctly answer the math problem.</strong> This is used to combat spam Please use your browser\'s back button to return to the login form, press the "refresh" button to generate a new math problem, and try to log in again.', 'Modules: Login', GNETWORK_TEXTDOMAIN ) );
 		}
@@ -261,7 +261,7 @@ class Login extends gNetwork\Module
 	// TODO: add logger to logout / has no action hook with user info!
 	public function wp_login( $user_login, $user )
 	{
-		Logger::NOTICE( 'LOGGED-IN: '.WordPress::currentBlog().': '.sprintf( '%s', $user_login ) );
+		Logger::siteNOTICE( 'LOGGED-IN', sprintf( '%s', $user_login ) );
 	}
 
 	public function wp_login_errors( $errors, $redirect_to )
@@ -283,7 +283,7 @@ class Login extends gNetwork\Module
 
 		foreach ( $errors->get_error_codes() as $error )
 			if ( in_array( $error, $log ) )
-				Logger::NOTICE( 'LOGIN-ERRORS: '.WordPress::currentBlog().': '.str_replace( '_', ' ', $error ).sprintf( ': %s', self::req( 'log', '(EMPTY)' ) ) );
+				Logger::siteNOTICE( 'LOGIN-ERRORS', str_replace( '_', ' ', $error ).sprintf( ': %s', self::req( 'log', '(EMPTY)' ) ) );
 
 		return $errors;
 	}

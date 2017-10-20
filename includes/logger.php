@@ -2,6 +2,8 @@
 
 defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
+use geminorum\gNetwork\Core\WordPress;
+
 class Logger
 {
 
@@ -140,5 +142,48 @@ class Logger
 	public static function DEBUG( $message, $context = [] )
 	{
 		self::logAnalog( $message, \Analog::DEBUG, $context );
+	}
+
+	// action must be taken immediately
+	public static function siteALERT( $prefix, $message, $context = [] )
+	{
+		self::logAnalog( $prefix.': '.WordPress::currentSiteName().': '.$message, \Analog::ALERT, $context );
+	}
+
+	// critical conditions
+	public static function siteCRITICAL( $prefix, $message, $context = [] )
+	{
+		self::logAnalog( $prefix.': '.WordPress::currentSiteName().': '.$message, \Analog::CRITICAL, $context );
+	}
+
+	// runtime errors that do not require immediate action
+	// but should typically be logged and monitored
+	public static function siteERROR( $prefix, $message, $context = [] )
+	{
+		self::logAnalog( $prefix.': '.WordPress::currentSiteName().': '.$message, \Analog::ERROR, $context );
+	}
+
+	// exceptional occurrences that are not errors
+	public static function siteWARNING( $prefix, $message, $context = [] )
+	{
+		self::logAnalog( $prefix.': '.WordPress::currentSiteName().': '.$message, \Analog::WARNING, $context );
+	}
+
+	// normal but significant events
+	public static function siteNOTICE( $prefix, $message, $context = [] )
+	{
+		self::logAnalog( $prefix.': '.WordPress::currentSiteName().': '.$message, \Analog::NOTICE, $context );
+	}
+
+	// interesting events
+	public static function siteINFO( $prefix, $message, $context = [] )
+	{
+		self::logAnalog( $prefix.': '.WordPress::currentSiteName().': '.$message, \Analog::INFO, $context );
+	}
+
+	// detailed debug information
+	public static function siteDEBUG( $prefix, $message, $context = [] )
+	{
+		self::logAnalog( $prefix.': '.WordPress::currentSiteName().': '.$message, \Analog::DEBUG, $context );
 	}
 }

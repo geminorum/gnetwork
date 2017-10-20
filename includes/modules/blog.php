@@ -444,7 +444,7 @@ class Blog extends gNetwork\Module
 			$redirect = URL::untrail( $this->options['blog_redirect'] ).$_SERVER['REQUEST_URI'];
 			$referer  = HTTP::referer();
 
-			Logger::NOTICE( 'BLOG-REDIRECT: '.WordPress::currentBlog().': '.esc_url( $redirect ).( $referer ? ' :: '.$referer : '' ) );
+			Logger::siteNOTICE( 'BLOG-REDIRECT', esc_url( $redirect ).( $referer ? ' :: '.$referer : '' ) );
 
 			WordPress::redirect( $redirect, $this->options['blog_redirect_status'] );
 		}
