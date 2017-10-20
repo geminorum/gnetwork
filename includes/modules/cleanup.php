@@ -141,7 +141,7 @@ class Cleanup extends gNetwork\Module
 			'field'       => 'postmeta_obsolete',
 			'type'        => 'button',
 			'description' => _x( 'Removes the obsolete post meta keys.', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
-			'default'     => _x( 'Purge Obsolete Matadata', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+			'default'     => _x( 'Purge Obsolete Post Matadata', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'values'      => $confirm,
 		];
 

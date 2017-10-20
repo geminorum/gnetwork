@@ -382,7 +382,7 @@ class Mail extends gNetwork\Module
 
 		$contents = array_merge( [
 			'timestamp' => current_time( 'mysql' ),
-			'blog'      => WordPress::currentBlog(),
+			'site'      => WordPress::currentSiteName(), // FIXME: display site on log summary
 			'locale'    => get_locale(),
 			// TODO: get smtp server as well
 		], Arraay::filterArray( $mail ) );

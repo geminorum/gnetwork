@@ -777,7 +777,7 @@ class Module extends Core\Base
 		if ( $options = $this->init_options( FALSE ) )
 			$screen->add_help_tab( [
 				'id'       => $this->classs( 'help-options' ),
-				'title'    => _x( 'Currently Saved Options', 'Module Core: Help Tab Title', GNETWORK_TEXTDOMAIN ),
+				'title'    => _x( 'Saved Options', 'Module Core: Help Tab Title', GNETWORK_TEXTDOMAIN ),
 				'content'  => HTML::tableCode( $options ),
 				'priority' => 999,
 			] );
@@ -834,7 +834,7 @@ class Module extends Core\Base
 		if ( empty( $args['wrap'] ) )
 			return $before.$html.$after;
 
-		$classes = [ 'gnetwork-wrap-shortcode' ];
+		$classes = [ '-wrap', 'gnetwork-wrap-shortcode' ];
 
 		if ( $suffix )
 			$classes[] = 'shortcode-'.$suffix;

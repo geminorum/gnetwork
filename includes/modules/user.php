@@ -624,6 +624,7 @@ class User extends gNetwork\Module
 	}
 
 	// TODO: add support for BuddyPress fields
+	// TODO: append contact methods
 	// @REF: https://gist.github.com/boonebgorges/79b5d0f628a884cb3b3b
 	private function get_csv_users()
 	{

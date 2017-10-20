@@ -232,7 +232,7 @@ class Site extends gNetwork\Module
 			activate_plugin( $new_blog_plugin, '', FALSE, $new_blog_plugin_silent );
 
 		restore_current_blog();
-		refresh_blog_details( $blog_id );
+		clean_blog_cache( $blog_id );
 	}
 
 	public function wp_is_large_network( $is, $using, $count )

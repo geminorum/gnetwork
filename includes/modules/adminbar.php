@@ -717,15 +717,15 @@ class AdminBar extends gNetwork\Module
 			ORDER BY registered DESC
 		";
 
-		$blogs = [];
-		$ssl   = is_ssl();
+		$blogs  = [];
+		$scheme = is_ssl() ? 'https' : 'http';
 
 		foreach ( $wpdb->get_results( $query, ARRAY_A ) as $blog )
 			$blogs[$blog['blog_id']] = (object) [
 				'userblog_id' => $blog['blog_id'],
 				'domain'      => $blog['domain'],
 				'path'        => $blog['path'],
-				'siteurl'     => ( $ssl ? 'https://' : 'http://' ).$blog['domain'].$blog['path'],
+				'siteurl'     => $scheme.'://'.$blog['domain'].$blog['path'],
 			];
 
 		return $blogs;

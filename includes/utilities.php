@@ -191,8 +191,28 @@ class Utilities extends Core\Base
 
 		$formats = self::dateFormats( FALSE );
 
-		$html  = '<span class="-date-date" title="'.esc_attr( date_i18n( $formats['timeonly'], $timestamp ) ).'" data-time="'.date( 'c', $timestamp ).'">'.date_i18n( $formats['default'], $timestamp ).'</span>';
-		$html .= '&nbsp;(<span class="-date-diff" title="'.esc_attr( date_i18n( $formats['fulltime'], $timestamp ) ).'">'.self::humanTimeDiff( $timestamp ).'</span>)';
+		$html = '<span class="-date-date" title="'.esc_attr( date_i18n( $formats['timeonly'], $timestamp ) );
+		$html.= '" data-time="'.date( 'c', $timestamp ).'">'.date_i18n( $formats['default'], $timestamp ).'</span>';
+
+		$html.= '&nbsp;(<span class="-date-diff" title="';
+		$html.= esc_attr( date_i18n( $formats['fulltime'], $timestamp ) ).'">';
+		$html.= self::humanTimeDiff( $timestamp ).'</span>)';
+
+		return $class ? '<span class="'.$class.'">'.$html.'</span>' : $html;
+	}
+
+	public static function getModifiedEditRow( $post, $class = FALSE )
+	{
+		$timestamp = strtotime( $post->post_modified );
+		$formats   = self::dateFormats( FALSE );
+
+		$html = '<span class="-date-modified" title="'.esc_attr( date_i18n( $formats['default'], $timestamp ) );
+		$html.='" data-time="'.date( 'c', $timestamp ).'">'.self::humanTimeDiff( $timestamp ).'</span>';
+
+		$edit_last = get_post_meta( $post->ID, '_edit_last', TRUE );
+
+		if ( $edit_last && $post->post_author != $edit_last )
+			$html.= '&nbsp;(<span class="-edit-last">'.WordPress::getAuthorEditHTML( $post->post_type, $edit_last ).'</span>)';
 
 		return $class ? '<span class="'.$class.'">'.$html.'</span>' : $html;
 	}
@@ -569,6 +589,15 @@ class Utilities extends Core\Base
 			: $locale;
 
 		return \URLify::downcode( $string, $iso );
+	}
+
+	public static function URLifyFilter( $string, $length = 60, $locale = NULL )
+	{
+		$iso = class_exists( 'geminorum\\gNetwork\\Modules\\Locale' )
+			? \geminorum\gNetwork\Modules\Locale::getISO( $locale )
+			: $locale;
+
+		return \URLify::filter( $string, $length, $iso, TRUE, FALSE );
 	}
 
 	public static function IPinfo()

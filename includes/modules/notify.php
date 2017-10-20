@@ -128,9 +128,9 @@ class Notify extends gNetwork\Module
 
 			$switched_locale = switch_to_locale( get_locale() );
 
-			$message  = sprintf( __( 'New user registration on your site %s:' ), $site )."\r\n\r\n";
-			$message .= sprintf( __( 'Username: %s' ), $user->user_login )."\r\n\r\n";
-			$message .= sprintf( __( 'Email: %s' ), $user->user_email )."\r\n";
+			$message = sprintf( __( 'New user registration on your site %s:' ), $site )."\r\n\r\n";
+			$message.= sprintf( __( 'Username: %s' ), $user->user_login )."\r\n\r\n";
+			$message.= sprintf( __( 'Email: %s' ), $user->user_email )."\r\n";
 
 			$mail = [
 				'to'      => get_option( 'admin_email' ),
@@ -170,10 +170,10 @@ class Notify extends gNetwork\Module
 
 		$switched_locale = switch_to_locale( get_user_locale( $user ) );
 
-		$message  = sprintf( __( 'Username: %s' ), $user->user_login )."\r\n\r\n";
-		$message .= __( 'To set your password, visit the following address:' )."\r\n\r\n";
-		$message .= '<'.network_site_url( "wp-login.php?action=rp&key=$key&login=".rawurlencode( $user->user_login ), 'login' ).">\r\n\r\n";
-		$message .= wp_login_url()."\r\n";
+		$message = sprintf( __( 'Username: %s' ), $user->user_login )."\r\n\r\n";
+		$message.= __( 'To set your password, visit the following address:' )."\r\n\r\n";
+		$message.= '<'.network_site_url( "wp-login.php?action=rp&key=$key&login=".rawurlencode( $user->user_login ), 'login' ).">\r\n\r\n";
+		$message.= wp_login_url()."\r\n";
 
 		$mail = [
 			'to'      => $user->user_email,

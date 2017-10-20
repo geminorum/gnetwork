@@ -29,7 +29,7 @@ class Admin extends gNetwork\Module
 			$this->action( 'admin_menu', 0, 999, 'late' );
 		}
 
-		$this->action( 'admin_print_styles' );
+		$this->action( 'admin_print_styles', 0, 999 );
 		$this->filter( 'admin_footer_text', 1, 9999 );
 		$this->filter( 'update_footer', 1, 9999 );
 	}

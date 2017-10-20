@@ -41,6 +41,11 @@ class Ajax extends Core\Base
 			self::success();
 	}
 
+	public static function errorHTML( $html, $status_code = NULL )
+	{
+		self::error( [ 'html' => $html ], $status_code );
+	}
+
 	public static function errorMessage( $message = NULL )
 	{
 		if ( is_null( $message ) )

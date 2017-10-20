@@ -682,7 +682,7 @@ class Media extends gNetwork\Module
 		if ( get_post_meta( $attachment_id, '_wp_attachment_is_custom_background', TRUE ) )
 			return TRUE;
 
-		if ( 'site-icon' == get_post_meta( $attachment_id, '_wp_attachment_context', TRUE ) )
+		if ( get_post_meta( $attachment_id, '_wp_attachment_context', TRUE ) )
 			return TRUE;
 
 		if ( $attachment_id == get_option( 'site_icon' ) )
@@ -1331,6 +1331,8 @@ class Media extends gNetwork\Module
 	}
 
 	// FIXME: waiting on: https://core.trac.wordpress.org/ticket/22363
+	// FIXME: use https://wordpress.org/plugins/wpartisan-filename-sanitizer/
+	// https://wpartisan.me/tutorials/rename-clean-wordpress-media-filenames
 	public function sanitize_file_name( $filename, $filename_raw )
 	{
 		if ( ! seems_utf8( $filename ) )
@@ -1340,7 +1342,9 @@ class Media extends gNetwork\Module
 		$ext  = empty( $info['extension'] ) ? '' : '.'.$info['extension'];
 		$name = basename( $filename, $ext );
 
-		$name = Utilities::URLifyDownCode( $name );
+		// $name = Utilities::URLifyDownCode( $name );
+		$name = Utilities::URLifyFilter( $name );
+
 		return Text::strToLower( $name ).$ext;
 	}
 }
