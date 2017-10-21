@@ -752,7 +752,7 @@ class AdminBar extends gNetwork\Module
 				'userblog_id' => $blog['blog_id'],
 				'domain'      => $blog['domain'],
 				'path'        => $blog['path'],
-				'siteurl'     => $scheme.'://'.$blog['domain'].$blog['path'],
+				'siteurl'     => URL::untrail( $scheme.'://'.$blog['domain'].$blog['path'] ),
 			];
 
 		return $blogs;
