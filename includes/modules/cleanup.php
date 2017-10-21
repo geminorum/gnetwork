@@ -118,6 +118,14 @@ class Cleanup extends gNetwork\Module
 				'after'       => Settings::fieldAfterIcon( 'http://wp.me/pLVLj-gc' ),
 				'values'      => $confirm,
 			];
+
+			$settings['_users'][] = [
+				'field'       => 'users_meta_obsolete',
+				'type'        => 'button',
+				'description' => _x( 'Removes the obsolete user meta keys.', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+				'default'     => _x( 'Purge Obsolete User Metadata', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+				'values'      => $confirm,
+			];
 		}
 
 		$settings['_posts'][] = [
@@ -224,6 +232,9 @@ class Cleanup extends gNetwork\Module
 
 			else if ( isset( $_POST['users_last_activity'] ) )
 				$message = $this->users_last_activity();
+
+			else if ( isset( $_POST['users_meta_obsolete'] ) )
+				$message = $this->users_meta_obsolete();
 
 			else if ( isset( $_POST['postmeta_editdata'] ) )
 				$message = $this->postmeta_editdata();
@@ -418,6 +429,8 @@ class Cleanup extends gNetwork\Module
 			'use_ssl'              => 0,
 			'show_admin_bar_front' => 'true',
 			'locale'               => '',
+			'primary_blog'         => '',
+			'source_domain'        => '',
 		];
 
 		foreach ( $meta_keys as $key => $val )
@@ -470,6 +483,22 @@ class Cleanup extends gNetwork\Module
 			DELETE FROM {$wpdb->usermeta}
 			WHERE meta_key = %s
 		", 'last_activity' ) );
+
+		$wpdb->query( "OPTIMIZE TABLE {$wpdb->usermeta}" );
+
+		return $count ? [
+			'message' => 'purged',
+			'count'   => $count,
+		] : 'optimized';
+	}
+
+	private function users_meta_obsolete()
+	{
+		global $wpdb;
+
+		$count = 0;
+
+		$count+= $wpdb->query( "DELETE FROM {$wpdb->usermeta} WHERE meta_key = 'dismissed_wp_pointers' AND meta_value = 'wp350_media,wp360_revisions,wp360_locks,wp390_widgets'" );
 
 		$wpdb->query( "OPTIMIZE TABLE {$wpdb->usermeta}" );
 
