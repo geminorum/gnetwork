@@ -160,8 +160,9 @@ class Login extends gNetwork\Module
 		if ( $this->options['login_remember'] )
 			$this->filter( 'login_footer', 1, 99, 'remember' );
 
-		$this->action( 'login_head' );
 		$this->action( 'login_header', 0, 1 );
+		$this->action( 'login_head' );
+		$this->filter( 'login_title', 2 );
 		$this->filter( 'login_body_class', 2, 99 );
 
 		if ( ! GNETWORK_DISABLE_CREDITS && $this->options['login_credits'] )
@@ -181,6 +182,11 @@ class Login extends gNetwork\Module
 			echo '<style>'.$this->options['login_styles'].'</style>'."\n";
 		else
 			Utilities::customStyleSheet( 'login.css' );
+	}
+
+	public function login_title( $login_title, $title )
+	{
+		return sprintf( _x( '%1$s &lsaquo; %2$s', 'Modules: Login: HTML Title', GNETWORK_TEXTDOMAIN ), $title, get_bloginfo( 'name', 'display' ) );
 	}
 
 	public function login_body_class( $classes, $action )
