@@ -331,6 +331,33 @@ class AdminBar extends gNetwork\Module
 			}
 		}
 
+		if ( ! is_admin() && is_singular() ) {
+
+			if ( $post = get_queried_object() ) {
+
+				$wp_admin_bar->add_node( [
+					'parent' => $parent_id,
+					'id'     => $this->base.'-current-post',
+					'title'  => _x( 'Current Post', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+					'href'   => WordPress::getPostEditLink( $post->ID ),
+				] );
+
+				$wp_admin_bar->add_node( [
+					'parent' => $this->base.'-current-post',
+					'id'     => $this->base.'-current-post-rest',
+					'title'  => _x( 'Rest Endpoint', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+					'href'   => rest_url( '/wp/v2/posts/'.$post->ID ),
+				] );
+
+				$wp_admin_bar->add_node( [
+					'parent' => $this->base.'-current-post',
+					'id'     => $this->base.'-current-post-embed',
+					'title'  => _x( 'Embed Endpoint', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+					'href'   => get_post_embed_url( $post ),
+				] );
+			}
+		}
+
 		$wp_admin_bar->add_group( [
 			'parent' => $parent_id,
 			'id'     => $group_id,
