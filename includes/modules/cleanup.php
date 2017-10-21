@@ -315,6 +315,7 @@ class Cleanup extends gNetwork\Module
 		return $form;
 	}
 
+	// @SEE: `delete_expired_transients()`
 	// @REF: https://core.trac.wordpress.org/ticket/20316
 	// @REF: https://core.trac.wordpress.org/changeset/25838
 	private function purge_transient_data( $site = TRUE, $time = TRUE )
@@ -592,6 +593,8 @@ class Cleanup extends gNetwork\Module
 		$count += $wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key LIKE '%_ad_participant_%'" ); // Assignment Desk
 		$count += $wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key LIKE '%_ad_pitched_by_%'" ); // Assignment Desk
 		$count += $wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key LIKE '%_ad_total_%'" ); // Assignment Desk
+
+		$count+= $wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = '_ge_series' AND meta_value = 'a:0:{}'" ); // gEditorial Series
 
 		$wpdb->query( "OPTIMIZE TABLE {$wpdb->postmeta}" );
 
