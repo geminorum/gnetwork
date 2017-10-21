@@ -59,9 +59,11 @@ class Dashboard extends gNetwork\Module
 		$user      = is_user_admin();
 		$screen    = get_current_screen();
 
+		remove_meta_box( 'dashboard_primary', $screen, 'side' );
 		remove_action( 'welcome_panel', 'wp_welcome_panel' );
 		remove_action( 'try_gutenberg_panel', 'wp_try_gutenberg_panel' );
-		remove_meta_box( 'dashboard_primary', $screen, 'side' );
+		remove_action( 'activity_box_end', [ 'Akismet_Admin', 'dashboard_stats' ] );
+		remove_action( 'rightnow_end', [ 'Akismet_Admin', 'rightnow_stats' ] );
 
 		if ( $blog && current_user_can( 'edit_posts' ) ) {
 

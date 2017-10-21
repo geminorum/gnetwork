@@ -270,7 +270,6 @@ class Cleanup extends gNetwork\Module
 	public function init_late()
 	{
 		remove_action( 'wp_head', 'se_global_head' ); // by: Search Everything / http://wordpress.org/plugins/search-everything/
-		remove_action( 'rightnow_end', [ 'Akismet_Admin', 'rightnow_stats' ] ); // by: Akismet
 
 		if ( defined( 'WPCF7_VERSION' ) ) {
 
