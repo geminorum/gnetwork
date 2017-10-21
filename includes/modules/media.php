@@ -1084,7 +1084,7 @@ class Media extends gNetwork\Module
 
 		$html = '<form>'.Ajax::spinner();
 		$html.= '<div id="'.$this->classs( 'file-progress' ).'" class="-messages">';
-		$html.= _x( 'Please select a file and click “Upload” to continue.', 'Modules: Media', GNETWORK_TEXTDOMAIN );
+		$html.= _x( 'Please select a file and click &#8220;Upload&#8221; to continue.', 'Modules: Media', GNETWORK_TEXTDOMAIN );
 		$html.= '</div>';
 
 		$html.= '<div><label for="'.$this->classs( 'file-upload' ).'" class="button button-small">';

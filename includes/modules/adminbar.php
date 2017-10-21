@@ -248,9 +248,7 @@ class AdminBar extends gNetwork\Module
 			'id'     => $this->base.'-debug',
 			'title'  => _x( 'Display Errors', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 			'href'   => add_query_arg( 'debug', '', $current_url ),
-			'meta'   => [
-				'title' => _x( 'Display debug info for the current page', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
-			],
+			'meta'   => [ 'title' => _x( 'Display debug info for the current page', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ) ],
 		] );
 
 		$wp_admin_bar->add_node( [
@@ -258,9 +256,7 @@ class AdminBar extends gNetwork\Module
 			'id'     => $this->base.'-flush',
 			'title'  => _x( 'Flush Cached', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 			'href'   => add_query_arg( 'flush', '', $current_url ),
-			'meta'   => [
-				'title' => _x( 'Flush cached data for the current page', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
-			],
+			'meta'   => [ 'title' => _x( 'Flush cached data for the current page', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ) ],
 		] );
 
 		$wp_admin_bar->add_node( [
@@ -268,9 +264,7 @@ class AdminBar extends gNetwork\Module
 			'id'     => $this->base.'-flushrewrite',
 			'title'  => _x( 'Flush Permalinks', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 			'href'   => add_query_arg( $this->base.'_action', 'flushrewrite', $current_url ),
-			'meta'   => [
-				'title' => _x( 'Removes rewrite rules and then recreate rewrite rules', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
-			],
+			'meta'   => [ 'title' => _x( 'Removes rewrite rules and then recreate rewrite rules', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ) ],
 		] );
 
 		if ( defined( 'GNETWORK_WPLANG' )
@@ -282,9 +276,7 @@ class AdminBar extends gNetwork\Module
 				'id'     => $this->base.'-locale',
 				'title'  => _x( 'Change Locale', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 				'href'   => Settings::subURL( 'locale', FALSE ),
-				'meta'   => [
-					'title' => _x( 'Quickly change current blog language', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
-				],
+				'meta'   => [ 'title' => _x( 'Quickly change current blog language', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ) ],
 			] );
 
 			foreach ( Locale::available() as $locale ) {
@@ -361,9 +353,7 @@ class AdminBar extends gNetwork\Module
 		$wp_admin_bar->add_group( [
 			'parent' => $parent_id,
 			'id'     => $group_id,
-			'meta'   => [
-				'class' => 'ab-sub-secondary',
-			],
+			'meta'   => [ 'class' => 'ab-sub-secondary' ],
 		] );
 
 		do_action_ref_array( 'gnetwork_adminbar_action', [ &$wp_admin_bar, $parent_id, $group_id, $current_url ] );
@@ -374,9 +364,7 @@ class AdminBar extends gNetwork\Module
 				'id'     => $this->base.'-reset-sidebars',
 				'title'  => _x( 'Reset Sidebars', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 				'href'   => add_query_arg( $this->base.'_action', 'resetsidebars', $current_url ),
-				'meta'   => [
-					'title' => _x( 'Delete all previous sidebar widgets, be careful!', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ) ,
-				],
+				'meta'   => [ 'title' => _x( 'Delete all previous sidebar widgets, be careful!', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ) ],
 			] );
 
 		if ( $this->wpcf7_admin )
@@ -385,9 +373,7 @@ class AdminBar extends gNetwork\Module
 				'id'     => $this->base.'-wpcf7-messages',
 				'title'  => _x( 'Reset Messages', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 				'href'   => add_query_arg( $this->base.'_action', 'resetwpcf7messages', $current_url ),
-				'meta'   => [
-					'title' => _x( 'Reset all saved messages for this form, be careful!', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ) ,
-				],
+				'meta'   => [ 'title' => _x( 'Reset all saved messages for this form, be careful!', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ) ],
 			] );
 
 		if ( class_exists( __NAMESPACE__.'\\Cron' ) ) {
@@ -406,9 +392,7 @@ class AdminBar extends gNetwork\Module
 			'id'     => $this->base.'-info-pagenow',
 			'title'  => 'PageNow: '.( empty( $pagenow ) ? 'EMPTY' : $pagenow ),
 			'href'   => GNETWORK_ANALOG_LOG ? Settings::subURL( 'analoglogs' ) : FALSE,
-			'meta'   => [
-				'title' => _x( 'Click to see Logs', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
-			],
+			'meta'   => [ 'title' => _x( 'Click to see Logs', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ) ],
 		] );
 
 		$wp_admin_bar->add_node( [
@@ -416,9 +400,7 @@ class AdminBar extends gNetwork\Module
 			'id'     => $this->base.'-info-queries',
 			'title'  => self::stat( '%dq | %.3fs | %.2fMB' ),
 			'href'   => GNETWORK_DEBUG_LOG ? Settings::subURL( 'errorlogs' ) : FALSE,
-			'meta'   => [
-				'title' => _x( 'Queries | Timer Stop | Memory Usage', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
-			],
+			'meta'   => [ 'title' => _x( 'Queries | Timer Stop | Memory Usage', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ) ],
 		] );
 	}
 

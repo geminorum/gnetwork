@@ -70,7 +70,7 @@ if ( ! function_exists( 'gnetwork_copyright' ) ) :
 		if ( $branding = gNetwork()->option( 'text_copyright', 'branding' ) )
 			return $branding;
 
-		// “Time is Priceless, Tea is Not!”
+		// &#8220;Time is Priceless, Tea is Not!&#8221;
 		return _x( 'Built on <a href="http://wordpress.org/" title="Semantic Personal Publishing Platform">WordPress</a> and tea!', 'Modules: Branding: Copyright Text', GNETWORK_TEXTDOMAIN );
 	}
 endif;

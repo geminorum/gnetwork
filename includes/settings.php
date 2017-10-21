@@ -21,7 +21,7 @@ class Settings extends Core\Base
 		return trim( self::req( 'sub', $default ) );
 	}
 
-	public static function subURL( $sub = 'general', $network = TRUE )
+	public static function subURL( $sub = 'overview', $network = TRUE )
 	{
 		return add_query_arg( 'sub', $sub, ( $network ? self::networkURL() : self::adminURL() ) );
 	}
