@@ -11,6 +11,7 @@ msgstr ""
 "X-Generator: Poedit 2.0.3\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Language-Team: \n"
+"X-Poedit-Basepath: ../../../buddypress-docs\n"
 
 #: bp-docs.php:277
 msgctxt "post type general name"

@@ -11,7 +11,7 @@ msgstr ""
 "X-Generator: Poedit 2.0.2\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Poedit-Basepath: ../../bbpress\n"
+"X-Poedit-Basepath: ../../../bbpress\n"
 
 #: bbpress.php:133 bbpress.php:140
 msgid "Cheatin&#8217; huh?"
