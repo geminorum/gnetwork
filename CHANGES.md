@@ -1,3 +1,35 @@
+### 3.6.6
+* main/plugin: postpone loading language till plugins loaded
+* main/module: settings sidebox review
+* main/module: internal api for custom setting
+* main/logger: site helper methods
+* main/utilities: prep title/desc helpers
+* main/utilities: include wordpress custom format
+* module/admin: unified admin body class filter
+* module/adminbar: rewrite to avoid expensive queries
+* module/adminbar: current post edit/rest/embed link nodes
+* module/cleanup: user meta obsolete
+* module/cleanup: empty geditorial series meta
+* module/cron: refactoring ajax & check status
+* module/cron: status on activity box end
+* module/cron: :new: pre-configured tasks: weekly delete revisions
+* module/dashboard: :new: right-now widget replica
+* module/embed: refactoring aparat channel items
+* module/login: optional ambiguous error
+* module/login: override html title
+* module/login: late log logged-in
+* module/media: :new: large file uploader widget, [ref](https://github.com/deliciousbrains/wp-dbi-file-uploader)
+* module/media: check headers for attachments on summary
+* module/media: reverse order on summary
+* module/media: refactoring cleanup procedures
+* module/media: check meta context for site-icon attachments
+* module/media: support uploading: psd/mobi/epub
+* module/search: override default search form
+* module/tracking: sanitize twitter handle
+* module/uptime: :new: module
+* module/user: :new: simple csv export
+* module/user: current contact mehods as help tab
+
 ### 3.6.5
 * main/module: diff only options as help tab
 * main/module: extra attrs for shortcode wrap
