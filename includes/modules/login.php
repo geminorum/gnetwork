@@ -25,7 +25,7 @@ class Login extends gNetwork\Module
 		}
 
 		if ( $this->options['login_log'] )
-			$this->action( 'wp_login', 2 );
+			$this->action( 'wp_login', 2, 99 );
 
 		$this->filter( 'wp_login_errors', 2 );
 
