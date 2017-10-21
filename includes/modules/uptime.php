@@ -98,20 +98,23 @@ class Uptime extends gNetwork\Module
 
 		foreach ( $data as $monitor ) {
 
-			HTML::h3( $monitor['friendly_name'], FALSE, $monitor['url'] );
+			// no need!
+			// HTML::h3( $monitor['friendly_name'], FALSE, $monitor['url'] );
 
-			$html = '';
+			// wrap to use core styles
+			echo '<div id="dashboard_right_now"><div class="main">';
+			echo '<table class="base-table-simple"><tbody>';
 
 			foreach ( $monitor['logs'] as $log )
-				$html.= '<tr><td>'.$this->get_uptimerobot_type( $log['type'] )
+				echo '<tr><td>'.$this->get_uptimerobot_type( $log['type'] )
 					.'</td><td>'.Utilities::htmlHumanTime( $log['datetime'], TRUE )
 					.'</td><td>'.Utilities::htmlFromSeconds( $log['duration'], 2 )
 					.'</td><td style="direction:ltr;">'.HTTP::htmlStatus( $log['reason']['code'] ).$log['reason']['detail']
 					.'</td></tr>';
 
-			echo '<table class="base-table-simple"><tbody>'.$html.'</tbody></table>';
+			echo '</tbody></table></div>';
 
-			echo '<table class="base-table-simple"><tbody><tr><td>';
+			echo '<div class="sub"><table class="base-table-simple"><tbody><tr><td>';
 				echo Utilities::getCounted( $monitor['all_time_uptime_ratio'], _x( 'Uptime Ratio: %s', 'Modules: Uptime', GNETWORK_TEXTDOMAIN ) );
 			echo '</td><td>';
 				echo Utilities::getCounted( $monitor['average_response_time'], _x( 'Response Time: %s', 'Modules: Uptime', GNETWORK_TEXTDOMAIN ) );
@@ -120,19 +123,21 @@ class Uptime extends gNetwork\Module
 			echo '</td><td>';
 				echo Utilities::getCounted( $monitor['response_times'][0]['value'], _x( 'Last Response Time: %s', 'Modules: Uptime', GNETWORK_TEXTDOMAIN ) );
 			echo '</td></tr></tbody></table>';
+
+			echo '</div></div>';
 		}
 	}
 
 	private function get_uptimerobot_type( $type )
 	{
 		switch ( $type ) {
-			case '1':  return HTML::getDashicon( 'warning', 'span', _x( 'Down', 'Modules: Uptime', GNETWORK_TEXTDOMAIN ) );
-			case '2':  return HTML::getDashicon( 'marker', 'span', _x( 'Up', 'Modules: Uptime', GNETWORK_TEXTDOMAIN ) );
+			case '1' : return HTML::getDashicon( 'warning', 'span', _x( 'Down', 'Modules: Uptime', GNETWORK_TEXTDOMAIN ) );
+			case '2' : return HTML::getDashicon( 'marker', 'span', _x( 'Up', 'Modules: Uptime', GNETWORK_TEXTDOMAIN ) );
 			case '99': return HTML::getDashicon( 'star-empty', 'span', _x( 'Paused', 'Modules: Uptime', GNETWORK_TEXTDOMAIN ) );
 			case '98': return HTML::getDashicon( 'star-filled', 'span', _x( 'Started', 'Modules: Uptime', GNETWORK_TEXTDOMAIN ) );
 		}
 
-		return HTML::getDashicon( 'info', 'span', _x( 'Unknown', 'Modules: Uptime', GNETWORK_TEXTDOMAIN ) );
+		return HTML::getDashicon( 'info', 'span', _x( 'Unknown!', 'Modules: Uptime', GNETWORK_TEXTDOMAIN ) );
 	}
 
 	// @REF: https://uptimerobot.com/api#getMonitors
@@ -182,6 +187,6 @@ class Uptime extends gNetwork\Module
 				return $data['monitors'];
 		}
 
-		return new Error( 'not_ok_status', HTTP::getStatusDesc( $status, _x( 'Uknown!', 'Modules: Uptime', GNETWORK_TEXTDOMAIN ) ) );
+		return new Error( 'not_ok_status', HTTP::getStatusDesc( $status, _x( 'Unknown!', 'Modules: Uptime', GNETWORK_TEXTDOMAIN ) ) );
 	}
 }
