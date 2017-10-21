@@ -5,6 +5,7 @@ defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 use geminorum\gNetwork;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Core\HTML;
+use geminorum\gNetwork\Core\Misc;
 use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
 
@@ -264,7 +265,7 @@ class Tracking extends gNetwork\Module
 			echo "\t".'<link href="https://plus.google.com/'.$this->options['plus_publisher'].'" rel="publisher" />'."\n";
 
 		if ( ! empty( $this->options['twitter_site'] ) )
-			echo "\t".'<meta name="twitter:site" content="@'.$this->options['twitter_site'].'" />'."\n";
+			echo "\t".'<meta name="twitter:site" content="'.Misc::getTwitter( $this->options['twitter_site'] ).'" />'."\n";
 
 		if ( ! ( $ga = $this->ga() ) )
 			return;
@@ -338,12 +339,14 @@ class Tracking extends gNetwork\Module
 		if ( ! $twitter = gNetwork()->option( 'twitter_site', 'tracking', $fallback ) )
 			return '';
 
+		$handle = Misc::getTwitter( $twitter );
+
 		$html = HTML::tag( 'a',[
-			'href'  => 'https://twitter.com/intent/user?screen_name='.$twitter,
+			'href'  => 'https://twitter.com/intent/user?screen_name='.substr( $handle, 1 ),
 			'title' => _x( 'Follow Us', 'Modules: Tracking', GNETWORK_TEXTDOMAIN ),
 			'rel'   => 'follow',
 			'dir'   => 'ltr',
-		], '@'.$twitter );
+		], $handle );
 
 		return $class ? HTML::wrap( $html, $class ) : $html;
 	}
