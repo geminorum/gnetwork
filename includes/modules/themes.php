@@ -44,10 +44,12 @@ class Themes extends gNetwork\Module
 				$this->filter( 'the_content', 1, 999 );
 
 			$this->action( 'wp_head', 0, 12 );
-			add_filter( 'the_generator', '__return_null', 98 );
+			$this->action( 'embed_head', 0, 12 );
 
 			$this->filter( 'body_class', 2, 5 );
 			$this->filter( 'post_class', 3, 5 );
+
+			add_filter( 'the_generator', '__return_null', 98 );
 		}
 	}
 
@@ -420,6 +422,8 @@ class Themes extends gNetwork\Module
 
 			if ( $this->rtl ) {
 
+				remove_action( 'embed_head', 'locale_stylesheet', 30 );
+
 				add_action( 'wp_head', function(){
 					Themes::linkStyleSheet( 'twentyfifteen-rtl' );
 				}, 20 );
@@ -440,6 +444,15 @@ class Themes extends gNetwork\Module
 				return;
 
 		Utilities::linkStyleSheet( 'front.all' );
+	}
+
+	public function embed_head()
+	{
+		if ( defined( 'GNETWORK_DISABLE_FRONT_STYLES' )
+			&& GNETWORK_DISABLE_FRONT_STYLES )
+				return;
+
+		Utilities::linkStyleSheet( 'embed.all' );
 	}
 
 	public function isTheme( $template, $not_stylesheet = NULL )
