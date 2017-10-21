@@ -1,4 +1,4 @@
-jQuery(function($) {
+(function($) {
 
   $('.base-table-list')
 
@@ -54,4 +54,5 @@ jQuery(function($) {
         }
       });
     });
-});
+
+})(jQuery);
