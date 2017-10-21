@@ -4,6 +4,20 @@ defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 class Misc extends Base
 {
+
+	// @REF: https://gist.github.com/boonebgorges/5537311
+	public static function getTwitter( $string, $url = FALSE )
+	{
+		$parts = parse_url( $string );
+
+		if ( empty( $parts['host'] ) )
+			$handle = 0 === strpos( $string, '@' ) ? substr( $string, 1 ) : $string;
+		else
+			$handle = trim( $parts['path'], '/\\' );
+
+		return $url ? URL::trail( 'https://twitter.com/'.$handle ) : '@'.$handle;
+	}
+
 	// @REF: https://developers.google.com/google-apps/calendar/
 	// @SOURCE: https://wordpress.org/plugins/gcal-events-list/
 	public static function getGoogleCalendarEvents( $atts )

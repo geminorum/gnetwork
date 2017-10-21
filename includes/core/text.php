@@ -63,6 +63,34 @@ class Text extends Base
 		), $string );
 	}
 
+	// removes empty paragraph tags, and remove broken paragraph tags from around block level elements
+	// @SOURCE: https://github.com/ninnypants/remove-empty-p
+	public static function noEmptyP( $string )
+	{
+		$string = preg_replace( array(
+			'#<p>\s*<(div|aside|section|article|header|footer)#',
+			'#</(div|aside|section|article|header|footer)>\s*</p>#',
+			'#</(div|aside|section|article|header|footer)>\s*<br ?/?>#',
+			'#<(div|aside|section|article|header|footer)(.*?)>\s*</p>#',
+			'#<p>\s*</(div|aside|section|article|header|footer)#',
+		), array(
+			'<$1',
+			'</$1>',
+			'</$1>',
+			'<$1$2>',
+			'</$1',
+		), $string );
+
+		return preg_replace( '#<p>(\s|&nbsp;)*+(<br\s*/*>)*(\s|&nbsp;)*</p>#i', '', $string );
+	}
+
+	// removes paragraph from around images
+	// @SOURCE: https://css-tricks.com/?p=15293
+	public static function noImageP( $string )
+	{
+		return preg_replace( '/<p>\s*(<a .*>)?\s*(<img .* \/>)\s*(<\/a>)?\s*<\/p>/iU', '\1\2\3', $string );
+	}
+
 	// like wp but without check for func_overload
 	// @SOURCE: `seems_utf8()`
 	public static function seemsUTF8( $string )
@@ -675,6 +703,12 @@ class Text extends Base
 		$string = preg_replace( '/\\\\+0+/', '', $string );
 
 		return $string;
+	}
+
+	// @SOURCE: https://wp.me/p1ylL1-9
+	public static function stripImages( $string )
+	{
+		return preg_replace( '/<img[^>]+./', '', $string );
 	}
 
 	// @SOURCE: `bp_core_replace_tokens_in_text()`

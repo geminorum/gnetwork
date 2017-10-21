@@ -95,7 +95,7 @@ class WordPress extends Base
 	// @REF: `wp_referer_field()`
 	public static function fieldReferer()
 	{
-		echo '<input type="hidden" name="_wp_http_referer" value="'.HTML::escapeAttr( self::unslash( $_SERVER['REQUEST_URI'] ) ).'" />';
+		HTML::inputHidden( '_wp_http_referer', self::unslash( $_SERVER['REQUEST_URI'] ) );
 	}
 
 	public static function redirect( $location = NULL, $status = 302 )
@@ -164,9 +164,9 @@ class WordPress extends Base
 	}
 
 	// OLD: `getBlogNameforEmail()`
-	public static function getSiteNameforEmail( $blog = FALSE )
+	public static function getSiteNameforEmail( $site = FALSE )
 	{
-		if ( ! $blog && is_multisite() )
+		if ( ! $site && is_multisite() )
 			return get_network()->site_name;
 
 		// The blogname option is escaped with esc_html on the way into the database
@@ -174,20 +174,19 @@ class WordPress extends Base
 		return wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
 	}
 
-	public static function currentSite()
+	// OLD: `currentSite()`
+	public static function currentNetworkURL()
 	{
-		$blog = get_current_site();
-		return URL::untrail( $blog->domain.$blog->path );
+		$network = get_current_site();
+		$scheme  = is_ssl() ? 'https' : 'http';
+
+		return URL::untrail( "$scheme://{$network->domain}{$network->path}" );
 	}
 
-	public static function currentBlog( $slash = TRUE )
+	// OLD: `currentBlog()`
+	public static function currentSiteName( $slash = TRUE )
 	{
 		return URL::prepTitle( get_option( 'home' ), $slash );
-	}
-
-	public static function getCurrentSiteBlogID()
-	{
-		return is_multisite() ? absint( get_current_site()->blog_id ) : get_current_blog_id();
 	}
 
 	// FIXME: as option on user module
@@ -279,6 +278,37 @@ class WordPress extends Base
 		return $user_id ? user_can( $user_id, $cap ) : current_user_can( $cap );
 	}
 
+	// @REF: `get_blogs_of_user()`
+	public static function getUserBlogs( $user_id, $prefix )
+	{
+		$blogs = array();
+		$keys  = get_user_meta( $user_id );
+
+		if ( empty( $keys ) )
+			return $blogs;
+
+		if ( isset( $keys[$prefix.'capabilities'] ) && defined( 'MULTISITE' ) ) {
+			$blogs[] = 1;
+			unset( $keys[$prefix.'capabilities'] );
+		}
+
+		foreach ( array_keys( $keys ) as $key ) {
+
+			if ( 'capabilities' !== substr( $key, -12 ) )
+				continue;
+
+			if ( $prefix && 0 !== strpos( $key, $prefix ) )
+				continue;
+
+			$blog = str_replace( array( $prefix, '_capabilities' ), '', $key );
+
+			if ( is_numeric( $blog ) )
+				$blogs[] = (int) $blog;
+		}
+
+		return $blogs;
+	}
+
 	public static function cheatin( $message = NULL )
 	{
 		if ( is_null( $message ) )
@@ -326,6 +356,35 @@ class WordPress extends Base
 		return add_query_arg( array_merge( array(
 			'user_id' => $user_id,
 		), $extra ), admin_url( 'user-edit.php' ) );
+	}
+
+	public static function getAuthorEditHTML( $post_type, $author, $extra = array() )
+	{
+		if ( $author_data = get_user_by( 'id', $author ) )
+			return HTML::tag( 'a', array(
+				'href' => add_query_arg( array_merge( array(
+					'post_type' => $post_type,
+					'author'    => $author,
+				), $extra ), admin_url( 'edit.php' ) ),
+				'title' => $author_data->user_login,
+				'class' => '-author',
+			), esc_html( $author_data->display_name ) );
+
+		return FALSE;
+	}
+
+	public static function upload( $post = FALSE )
+	{
+		if ( FALSE === $post )
+			return wp_upload_dir();
+
+		if ( ! $post = get_post( $post ) )
+			return wp_upload_dir();
+
+		if ( 'page' === $post->post_type )
+			return wp_upload_dir();
+
+		return wp_upload_dir( ( substr( $post->post_date, 0, 4 ) > 0 ? $post->post_date : NULL ) );
 	}
 
 	public static function getAttachments( $post_id, $mime_type = 'image' )

@@ -15,6 +15,17 @@ class Date extends Base
 	const  MONTH_IN_SECONDS = 2592000;  //  30 * 24 * 60 * 60
 	const   YEAR_IN_SECONDS = 31536000; // 365 * 24 * 60 * 60
 
+	// PHP >= 5.3
+	// @REF: https://wpartisan.me/tutorials/php-validate-check-dates
+	public static function check( $datetime, $format, $timezone )
+	{
+		$date = \DateTime::createFromFormat( $format, $datetime, new \DateTimeZone( $timezone ) );
+
+		return $date
+			&& \DateTime::getLastErrors()['warning_count'] == 0
+			&& \DateTime::getLastErrors()['error_count'] == 0;
+	}
+
 	public static function isInFormat( $date, $format = 'Y-m-d' )
 	{
 		$dateTime = new \DateTime();

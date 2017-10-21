@@ -40,7 +40,7 @@ class HTTP extends Base
 			$color = 'red';
 
 		else if ( $code >= 300 )
-			$color = 'tan';
+			$color = '#0040FF';
 
 		else
 			$color = 'inherit';
