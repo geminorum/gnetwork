@@ -47,6 +47,7 @@ h6,
 .comment-form {
   input[type="email"],
   input[type="url"] {
+    /*rtl:ignore*/
     direction: ltr;
   }
 }

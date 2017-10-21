@@ -3,8 +3,23 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// gNetwork Partials: Cron Module: Admin --------------------------------------
 
+#dashboard_right_now {
+
+  .geditorial-admin-wrap.-audit + .gnetwork-wrap.-cron,
+  .mu-storage + .gnetwork-wrap.-cron {
+    margin-top: 1em;
+  }
+
+  .gnetwork-wrap.-cron {
+    p {
+      font-size: smaller;
+      margin-bottom: 0.5em;
+    }
+  }
+}
+
 // dashbard widget
-#gnetwork-cron-dashboard {
+#gnetwork-cron-status-check {
 
   .spinner {
     margin: 2px 0 0 0;
@@ -30,11 +45,15 @@
   }
 }
 
-// scheduled table
-table.base-table-list {
+.gnetwork-admin-wrap.sub-scheduled {
+
   .-column-tasks {}
 
   .-column-next {
     width: 34%;
+  }
+
+  .-cell-tasks {
+    line-height: 1.8;
   }
 }

@@ -41,8 +41,17 @@ p.site-title {
   text-align: right;
 }
 
-.widget_search .search-submit {
-  float: left;
+.widget_search  {
+  .search-form {
+    position: relative;
+  }
+  .search-submit {
+    padding: 2px 10px 0;
+    position: absolute;
+    float: none;
+    left: 0;
+    top: 0;
+  }
 }
 
 // .widget_archive a:after,
@@ -61,6 +70,7 @@ p.site-title {
 .comments-area {
   input[type="email"],
   input[type="url"] {
+    /*rtl:ignore*/
     direction: ltr;
   }
 }

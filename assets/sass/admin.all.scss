@@ -11,7 +11,9 @@
 @import 'partials/admin.tabs';
 // @import 'partials/admin.select2';
 ////////////////////////////////////////////////////////////////////////////////
+@import 'partials/admin.wp-document-revisions';
 @import 'partials/admin.edit-flow';
+// @import 'partials/admin.siteorigin';
 @import 'partials/admin.p2p';
 ////////////////////////////////////////////////////////////////////////////////
 @import 'partials/adminbar.all';
@@ -20,6 +22,8 @@
 @import 'partials/thickbox.all';
 ////////////////////////////////////////////////////////////////////////////////
 @import 'partials/adminbar.admin.all';
+@import 'partials/dashboard.admin.all';
+@import 'partials/uptime.admin.all';
 @import 'partials/cron.admin.all';
 @import 'partials/media.admin.all';
 @import 'partials/navigation.admin.all';
@@ -67,17 +71,41 @@ body.thrift-mode {
 ////////////////////////////////////////////////////////////////////////////////
 /// DASHBOARD WIDGETS ----------------------------------------------------------
 
-#dashboard-widgets {
-  #dashboard_activity {
-    #published-posts {
-      ul {
-        margin-top: 0;
+#dashboard_right_now {
+  .main {
+    padding-bottom: 1px !important;
+  }
+}
+
+#dashboard_activity {
+  #future-posts,
+  #published-posts {
+    ul {
+      margin-top: 0;
+    }
+
+    // @REF: http://jsfiddle.net/VaSn6/5/
+    li  {
+      span {
+          float: left;
+          margin-right: 10px;
+          clear: both;
+      }
+      a {
+          margin-left: 0px;
+          overflow: auto;
+          display: block;
+          &:focus {
+            box-shadow: none;
+          }
       }
     }
   }
 }
 
-#dashboard_activity #published-posts h4,
+
+#dashboard_activity #future-posts h3,
+#dashboard_activity #published-posts h3,
 #dashboard_right_now #wp-version-message,
 #dashboard_right_now .inside .versions p,
 #dashboard_right_now .inside .versions span,
@@ -234,7 +262,17 @@ ul.categorychecklist {
   select#page_template,
   select#parent_id,
   select#post_author_override {
-    width: 99%;
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  // attachment page
+  .wp_attachment_holder {
+
+    .wp-audio-shortcode,
+    .wp-video {
+      margin: 18px auto 0;
+    }
   }
 }
 

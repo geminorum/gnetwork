@@ -3,22 +3,39 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// gNetwork Partials: MetaBox -------------------------------------------------
 
-.postbox .hndle {
-  .postbox-title-action {
-    opacity: 0;
-    line-height: 1;
-    transition: all 0.1s ease;
-    float: right;
+.postbox {
 
-    a {
-      text-decoration: none;
+  .hndle {
+
+    .postbox-title-action {
+      opacity: .4;
+      line-height: 1;
+      transition: all 0.1s ease;
+      float: right;
+
+      a {
+        text-decoration: none !important;
+        color: $gray-light;
+      }
+    }
+
+    &:hover {
+      .postbox-title-action {
+        opacity: 1;
+        transition: all 0.3s ease;
+        color: $gray-base;
+      }
     }
   }
 
-  &:hover {
-    .postbox-title-action {
-      opacity: 1;
-      transition: all 0.3s ease;
+  .inside {
+
+    .notice.inline {
+      box-shadow: none;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
   }
 }

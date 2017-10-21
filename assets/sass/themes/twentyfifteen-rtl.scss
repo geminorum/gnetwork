@@ -150,21 +150,19 @@ textarea {
   }
 }
 
-.gnetwork-wrap-shortcode {
-  &.shortcode-reflist {
-    font-size: 0.89em;
-    margin-top: 1.5em;
-    padding-top: 1.5em;
-    border-top: solid 1px #ddd;
+.-wrap.shortcode-reflist {
+  font-size: 0.89em;
+  margin-top: 1.5em;
+  padding-top: 1.5em;
+  border-top: solid 1px #ddd;
 
-    .cite-scroll {
-      color: #999;
-      text-decoration: none;
-      border-bottom: none;
+  .cite-scroll {
+    color: #999;
+    text-decoration: none;
+    border-bottom: none;
 
-      &:hover {
-        color: #222;
-      }
+    &:hover {
+      color: #222;
     }
   }
 }

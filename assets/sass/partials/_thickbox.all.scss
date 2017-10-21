@@ -6,25 +6,32 @@
 body.rtl {
 
   #TB_ajaxWindowTitle {
+    /*rtl:ignore*/
     padding: 0 10px 0 29px;
   }
 
   #TB_closeAjaxWindow {
+    /*rtl:ignore*/
     float: left;
   }
 
   #TB_ajaxContent,
   #TB_window {
+    /*rtl:ignore*/
     text-align: right;
   }
 
   #TB_caption {
-    padding: 7px 25px 10px 30px;
+    /*rtl:ignore*/
+    padding: 5px 15px 0 0;
+    /*rtl:ignore*/
     float: right;
   }
 
   #TB_closeWindowButton {
+    /*rtl:ignore*/
     left: 0;
+    /*rtl:ignore*/
     right: auto;
 
     &:focus .tb-close-icon {
@@ -33,11 +40,14 @@ body.rtl {
   }
 
   #TB_window img#TB_Image {
+    /*rtl:ignore*/
     margin: 15px 15px 0 0;
+    border: none;
   }
 
   #TB_closeWindow {
-    padding: 11px 0 10px 15px ! important;
-    height: auto;
+    /*rtl:ignore*/
+    float: left;
+    padding: 5px 15px;
   }
 }

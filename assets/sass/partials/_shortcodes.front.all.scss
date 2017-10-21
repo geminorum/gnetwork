@@ -3,10 +3,11 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// gNetwork Partials: Shortcodes Module ---------------------------------------
 
-.gnetwork-wrap-shortcode {
-  @include mainwrap();
+.-wrap {
 
   &.shortcode-reflist {
+
+  @include mainwrap();
 
   ol, ul {
 

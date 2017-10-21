@@ -4,7 +4,19 @@
 /// gNetwork Partials: Settings Admin ALL --------------------------------------
 
 .gnetwork-admin-wrap.gnetwork-settings {
+
   @include mainwrap();
+
+  padding-right: 20px;
+
+  .-wrap.-danger,
+  .-button.button-reset,
+  .-button.button-danger {
+    color: $brand-danger;
+    &:hover {
+      color: darken($brand-danger, 20%);
+    }
+  }
 
   .quicktags-toolbar {
     min-height: 30px;
@@ -29,7 +41,9 @@
   }
 
   .error-box {
+    /*rtl:ignore*/
     direction: ltr;
+
     height: 100%;
     // overflow: scroll;
     padding: 2px;
@@ -312,5 +326,18 @@
     background: #fff;
     margin: 1em 0;
     padding: 1em 1.5em;
+
+    img[src*="badge"],
+    img[src*="shields.io"] {
+      display: inline-block;
+      border-radius: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 782px) {
+
+  .gnetwork-admin-wrap.gnetwork-settings {
+    padding-right: 10px;
   }
 }

@@ -11,14 +11,17 @@
 
   &.-legend-widget {
 
+    /*rtl:ignore*/
     direction: ltr;
 
     table.base-table-code {
 
       width: 100%;
-      
+
       td {
+        /*rtl:ignore*/
         text-align: left;
+        /*rtl:ignore*/
         direction: ltr;
       }
 

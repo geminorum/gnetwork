@@ -6,6 +6,7 @@
 div.base-table-wrap {}
 
 table {
+  &.base-table-simple,
   &.base-table-code,
   &.base-table-list,
   &.base-table-side,
@@ -114,6 +115,7 @@ table.base-table-list {
 
     &.-has-table-ltr {
       table {
+        /*rtl:ignore*/
         direction: ltr;
       }
       td {
@@ -174,7 +176,6 @@ table.base-table-list {
   }
 
   .-row {}
-
   .-cell {}
 
   pre {
@@ -183,8 +184,19 @@ table.base-table-list {
   }
 }
 
+table.base-table-simple {
+
+  > tbody > tr > td {
+    padding: 5px 2px;
+  }
+}
+
 table.base-table-raw,
 table.base-table-code {
+
+  /*rtl:ignore*/
+  direction: ltr;
+
   > caption {}
 
   > tbody > tr > td {
@@ -207,7 +219,10 @@ table.base-table-code {
 }
 
 table.base-table-side {
+
+  /*rtl:ignore*/
   direction: ltr;
+
   border: 1px solid #ccc;
   border-spacing: 0;
 
@@ -242,6 +257,7 @@ table.base-table-side {
 }
 
 table.base-table-side-wrap {
+  /*rtl:ignore*/
   direction: ltr;
   border: 1px solid #ccc;
   border-width: 1px 1px 1px 0;

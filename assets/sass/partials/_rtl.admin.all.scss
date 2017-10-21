@@ -141,20 +141,24 @@ body.rtl {
 
   &.debug-bar-maximized {
     #querylist {
+      /*rtl:ignore*/
       direction: ltr;
     }
   }
 
   .debug-menu-target {
+    /*rtl:ignore*/
     direction: ltr !important;
   }
 
   #gnetwork-debugbar-panel {
+    /*rtl:ignore*/
     direction: ltr !important;
   }
 
   &.options-permalink-php {
     #permalink_structure {
+      /*rtl:ignore*/
       float: right;
       margin-top: -5px;
     }
@@ -290,6 +294,23 @@ body.rtl {
     }
   }
 
+  .media-menu > a {
+    padding: 8px 5px 8px 15px;
+  }
+
+  .edit-attachment-frame {
+    .edit-media-header {
+      .left {
+        /*rtl:ignore*/
+        left: 51px;
+      }
+      .right {
+        /*rtl:ignore*/
+        left: 102px;
+      }
+    }
+  }
+
   &.edit-comments-php {
     .fixed {
       .column-response {
@@ -316,21 +337,53 @@ body.rtl {
     }
   }
 
+  .misc-pub-section.misc-pub-dimensions > strong > span,
+  .misc-pub-section.misc-pub-codec > strong,
+  .misc-pub-section.misc-pub-filetype > strong {
+    // FIXME: make a mixin!
+    &:before { content: '\200f'; }
+    &:after { content: '\200e'; }
+  }
+
+  .misc-pub-section.misc-pub-filesize > strong,
+  .misc-pub-section.misc-pub-dimensions > strong > span {
+    // FIXME: make a mixin!
+    &:before { content: '\200e'; }
+    &:after { content: '\200f'; }
+  }
+
+  .user-mobile-wrap input#mobile,
+  .user-twitter-wrap input#twitter,
+  .user-facebook-wrap input#facebook,
+  .user-googleplus-wrap input#googleplus,
+  #nav-menu-header input#menu-name,
   .inline-edit-col input[name="slug"],
   input#adduser-email,
   input#email,
   input#slug,
   input#tag-slug,
   input#user_login {
+    /*rtl:ignore*/
     direction: ltr;
   }
 
   input#adduser-email.ui-autocomplete-loading,
   input[type="email"].ui-autocomplete-loading {
-    background-position: right center !important;
+    /*rtl:ignore*/
+    background-position: 99% center !important;
   }
 
-  // Shortcake
+  // only on user new page
+  &.user-new-php {
+    .ui-menu .ui-menu-item {
+      /*rtl:ignore*/
+      direction: ltr;
+      /*rtl:ignore*/
+      text-align: left;
+    }
+  }
+
+  // shortcake
   .add-shortcode-list
   .shortcode-list-item {
     float: right;

@@ -41,6 +41,7 @@
   input.ip-text,
   input.url-text,
   textarea.code-text {
+    /*rtl:ignore*/
     direction: ltr;
     font-family: Consolas, Monaco, monospace;
     unicode-bidi: embed;

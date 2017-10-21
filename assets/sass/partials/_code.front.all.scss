@@ -3,9 +3,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// gNetwork Partals: Module: Code Front All -----------------------------------
 
-.gnetwork-wrap-shortcode {
+.-wrap {
 
   &.shortcode-github {
+    /*rtl:ignore*/
     direction: ltr;
   }
 
@@ -22,6 +23,7 @@
   }
 
   &.shortcode-github-gist {
+    /*rtl:ignore*/
     direction: ltr !important;
 
     td {

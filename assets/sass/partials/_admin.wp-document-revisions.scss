@@ -1,0 +1,32 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// gNetwork Partials: WP Document Revisions -----------------------------------
+
+#poststuff {
+
+  #lock_override {
+    float: right;
+    text-align: right;
+    margin-top: 0;
+  }
+
+  #document-revisions {
+    text-align: left;
+  }
+
+  #workflow-state select,
+  #authordiv select {
+    float: none;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 2px;
+  }
+
+  #revision-summary {
+    #excerpt + p {
+      margin-top: 0.29em;
+      font-size: 0.89em;
+    }
+  }
+}
