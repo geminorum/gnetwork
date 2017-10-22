@@ -282,12 +282,12 @@ class Captcha extends gNetwork\Module
 
 		if ( empty( $_POST['g-recaptcha-response'] ) ) {
 			Logger::siteNOTICE( 'CAPTCHA-COMMENT', 'empty captcha' );
-			wp_die( $messages['empty_captcha'] );
+			wp_die( $messages['empty_captcha'], 406 );
 		}
 
 		if ( FALSE === $this->recaptcha_verify() ) {
 			Logger::siteNOTICE( 'CAPTCHA-COMMENT', 'invalid captcha' );
-			wp_die( $messages['invalid_captcha'] );
+			wp_die( $messages['invalid_captcha'], 406 );
 		}
 
 		return $commentdata;

@@ -3,6 +3,8 @@
 // ensure this plugin is actually being uninstalled
 defined( 'WP_UNINSTALL_PLUGIN' ) or exit();
 
+return; // working but in case of removing plugin for correct install, all options will be gone!
+
 if ( is_multisite() ) {
 
 	global $wpdb;

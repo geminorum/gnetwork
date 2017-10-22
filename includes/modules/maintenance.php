@@ -8,6 +8,7 @@ use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\File;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\HTTP;
+use geminorum\gNetwork\Core\Text;
 use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
 
@@ -180,7 +181,7 @@ class Maintenance extends gNetwork\Module
 	public function login_message()
 	{
 		if ( $this->options['login_message'] && ! empty( $this->options['login_message'] ) )
-			echo '<div id="login_error">'.wpautop( $this->options['login_message'] ).'</div>';
+			echo '<div id="login_error">'.Text::autoP( $this->options['login_message'] ).'</div>';
 			// echo HTML::warning( $this->options['login_message'] );
 	}
 

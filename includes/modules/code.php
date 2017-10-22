@@ -99,9 +99,6 @@ class Code extends gNetwork\Module
 		if ( FALSE === $args['context'] || is_feed() )
 			return NULL;
 
-		$html = $content;
-		$this->github_repo = $args['repo'];
-
 		$key = $this->hash( 'githubreadme', $args );
 
 		if ( WordPress::isFlush() )
@@ -140,10 +137,14 @@ class Code extends gNetwork\Module
 				$html = Text::minifyHTML( $html );
 
 				set_site_transient( $key, $html, GNETWORK_CACHE_TTL );
+
+			} else {
+
+				$html = $content;
 			}
 		}
 
-		return '<div class="gnetwork-wrap-shortcode shortcode-github-readme" data-github-repo="'.$args['repo'].'">'.$html.'</div>';
+		return $html ? '<div class="gnetwork-wrap-shortcode shortcode-github-readme" data-github-repo="'.$args['repo'].'">'.$html.'</div>' : NULL;
 	}
 
 	public static function convertGitHubWikiLinks( $html, $repo )

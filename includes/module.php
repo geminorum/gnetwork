@@ -15,7 +15,6 @@ class Module extends Core\Base
 
 	protected $base = 'gnetwork';
 	protected $key  = NULL;
-	protected $blog = NULL;
 
 	protected $network = TRUE;
 	protected $user    = NULL;
@@ -112,8 +111,6 @@ class Module extends Core\Base
 
 		if ( ! is_null( $base ) )
 			$this->base = $base;
-
-		$this->blog = get_current_blog_id();
 
 		if ( ! $this->setup_checks() )
 			throw new Exception( 'Failed to pass setup checks!' );
@@ -712,6 +709,11 @@ class Module extends Core\Base
 
 		// register settings on the settings page only
 		add_action( 'admin_print_footer_scripts', [ $this, 'print_scripts' ], 99 );
+	}
+
+	public function settings_section_misc()
+	{
+		Settings::fieldSection( _x( 'Miscellaneous', 'Module Core: Settings', GNETWORK_TEXTDOMAIN ) );
 	}
 
 	protected function register_settings_buttons( $sub = NULL )

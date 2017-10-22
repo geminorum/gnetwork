@@ -83,6 +83,6 @@ if ( have_posts() ) {
 
 } else {
 
-	status_header( '404' );
-	wp_die( '404 Not Found' );
+	// FIXME: must print json response
+	wp_die( '404 Not Found', 404 );
 }

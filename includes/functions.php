@@ -11,14 +11,19 @@ if ( ! function_exists( 'gnetwork_github' ) ) :
 endif;
 
 if ( ! function_exists( 'gnetwork_github_readme' ) ) :
-	function gnetwork_github_readme( $repo = 'geminorum/gnetwork', $wrap = TRUE ) {
+	function gnetwork_github_readme( $repo = 'geminorum/gnetwork', $wrap = TRUE, $fallback = NULL ) {
+
 		if ( gNetwork()->module( 'code' ) ) {
-			echo '<div class="gnetwork-overview-wrap">';
-				echo gNetwork()->code->shortcode_github_readme( [
-					'context' => 'overview',
-					'repo'    => $repo,
-				] );
-			echo '</div>';
+
+			$html = gNetwork()->code->shortcode_github_readme( [
+				'repo'    => $repo,
+				'context' => 'overview',
+			], is_null( $fallback )
+				? sprintf( 'Cannot Connect to <a href="https://github.com/%s">%s</a> on GitHub.com', $repo, $repo )
+				: $fallback
+			);
+
+			if ( $html ) echo $wrap ? '<div class="-wrap gnetwork-overview-wrap">'.$html.'</div>' : $html;
 		}
 	}
 endif;

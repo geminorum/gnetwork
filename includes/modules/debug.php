@@ -8,6 +8,8 @@ use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\File;
 use geminorum\gNetwork\Core\HTML;
+use geminorum\gNetwork\Core\HTTP;
+use geminorum\gNetwork\Core\Text;
 use geminorum\gNetwork\Core\Number;
 use geminorum\gNetwork\Core\WordPress;
 
@@ -671,13 +673,16 @@ class Debug extends gNetwork\Module
 			}
 
 		} else if ( is_string( $message ) ) {
-			$message = "<p>$message</p>";
+			$message = Text::autoP( $message );
 		}
 
 		if ( isset( $r['back_link'] ) && $r['back_link'] ) {
 			$back_text = $have_gettext ? __( '&laquo; Back' ) : '&laquo; Back';
 			$message .= "\n<p><a href='javascript:history.back()'>$back_text</a></p>";
 		}
+
+		if ( empty( $title ) )
+			$title = HTTP::getStatusDesc( $r['response'] );
 
 		if ( ! did_action( 'admin_head' ) ) {
 

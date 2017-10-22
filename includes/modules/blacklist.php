@@ -26,7 +26,7 @@ class BlackList extends gNetwork\Module
 	public function init()
 	{
 		if ( ! is_user_logged_in() && $this->blacklisted() )
-			wp_die( $this->options['blacklisted_notice'] );
+			wp_die( $this->options['blacklisted_notice'], 403 );
 	}
 
 	public function default_options()
