@@ -30,6 +30,7 @@ class Branding extends gNetwork\Module
 			'siteicon_fallback' => '0',
 			'text_copyright'    => '',
 			'text_powered'      => '',
+			'text_slogan'       => '',
 		];
 	}
 
@@ -46,15 +47,19 @@ class Branding extends gNetwork\Module
 					'field'       => 'text_copyright',
 					'type'        => 'textarea-quicktags',
 					'title'       => _x( 'Copyright Notice', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Displays as copyright notice on the footer on the front-end.', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
-					'default'     => _x( 'Built on <a href="http://wordpress.org/" title="Semantic Personal Publishing Platform">WordPress</a> and tea!', 'Modules: Branding: Copyright Text', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Displays as copyright notice on the footer on the front-end. Leave empty to use default.', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
 					'field'       => 'text_powered',
 					'type'        => 'textarea-quicktags',
 					'title'       => _x( 'Powered Notice', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Displays as powered notice on the footer of on the admin.', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
-					'default'     => '<a class="-powered" href="http://wordpress.org/" title="WP powered"><span class="dashicons dashicons-wordpress-alt"></span></a>',
+					'description' => _x( 'Displays as powered notice on the footer of on the admin. Leave empty to use default.', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
+				],
+				[
+					'field'       => 'text_slogan',
+					'type'        => 'textarea-quicktags',
+					'title'       => _x( 'Site Slogan', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Displays as site slogan on the footer of on the admin. Leave empty to use default.', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 			],
 		];

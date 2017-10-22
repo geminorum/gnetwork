@@ -312,11 +312,14 @@ class Admin extends gNetwork\Module
 		if ( isset( $_GET['noheader'] ) )
 			return '';
 
-		if ( ! current_user_can( 'update_core' ) )
-			$content = '<span class="gnetwork-admin-wrap footer-version" title="'
-				.sprintf( _x( 'Version %s', 'Modules: Admin', GNETWORK_TEXTDOMAIN ), Number::format( $GLOBALS['wp_version'] ) )
-				.'">'._x( 'CODE IS POETRY', 'Modules: Admin', GNETWORK_TEXTDOMAIN ).'</span>';
+		if ( current_user_can( 'update_core' ) )
+			return $content;
 
-		return $content;
+		$content = _x( 'CODE IS POETRY', 'Modules: Admin', GNETWORK_TEXTDOMAIN );
+
+		if ( $branding = gNetwork()->option( 'text_slogan', 'branding' ) )
+			return $content = $branding;
+
+		return HTML::wrap( $content, '-slogan', FALSE );
 	}
 }
