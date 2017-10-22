@@ -64,8 +64,11 @@ class BuddyPress extends gNetwork\Module
 			}
 
 		} else {
+
 			remove_all_actions( 'bp_register_widgets' );
-			$this->action( 'after_setup_theme' );
+
+			if ( ! is_admin() )
+				$this->action( 'after_setup_theme' );
 		}
 	}
 
@@ -195,18 +198,14 @@ class BuddyPress extends gNetwork\Module
 	// cleanup!
 	public function after_setup_theme()
 	{
-		if ( is_admin() ) {
-			remove_action( 'tool_box', 'bp_core_admin_available_tools_intro' );
-		} else {
-			remove_action( 'wp_head', 'bp_core_add_ajax_url_js' );
-			remove_action( 'wp_footer', 'bp_core_print_generation_time' );
+		remove_action( 'wp_head', 'bp_core_add_ajax_url_js' );
+		remove_action( 'wp_footer', 'bp_core_print_generation_time' );
 
-			add_filter( 'bp_use_theme_compat_with_current_theme', '__return_false' );
-			add_action( 'wp_enqueue_scripts', function(){
-				wp_dequeue_style( 'bp-parent-css' );
-				wp_dequeue_style( 'bp-child-css' );
-			}, 20 ) ;
-		}
+		add_filter( 'bp_use_theme_compat_with_current_theme', '__return_false' );
+		add_action( 'wp_enqueue_scripts', function(){
+			wp_dequeue_style( 'bp-parent-css' );
+			wp_dequeue_style( 'bp-child-css' );
+		}, 20 ) ;
 	}
 
 	public function init()
@@ -220,6 +219,10 @@ class BuddyPress extends gNetwork\Module
 			\BP_Core_User::delete_last_activity( $user_id );
 			delete_user_meta( $user_id, 'last_activity' );
 			remove_action( 'wp_head', 'bp_core_record_activity' );
+
+		} else if ( is_admin() ) {
+
+			remove_action( 'tool_box', 'bp_core_admin_available_tools_intro' );
 
 		} else {
 

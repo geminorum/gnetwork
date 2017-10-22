@@ -53,6 +53,7 @@ class Plugin
 		$this->require_after();
 
 		add_action( 'plugins_loaded', [ $this, 'plugins_loaded' ], 20 );
+		add_action( 'bp_include', [ $this, 'bp_include' ] );
 	}
 
 	private function files( $stack, $check = TRUE, $base = GNETWORK_DIR )
@@ -167,7 +168,6 @@ class Plugin
 	{
 		load_plugin_textdomain( GNETWORK_TEXTDOMAIN, FALSE, 'gnetwork/languages' );
 
-		add_action( 'bp_include', [ $this, 'bp_include' ] );
 		add_filter( 'mce_external_languages',[ $this, 'mce_external_languages' ] );
 	}
 
