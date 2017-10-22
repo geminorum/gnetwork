@@ -41,6 +41,7 @@ class User extends gNetwork\Module
 		if ( is_user_admin() ) {
 			$this->action( 'user_admin_menu', 0, 12 );
 			$this->action( 'user_admin_menu', 0, 999, 'late' );
+			$this->filter( 'contextual_help', 3, 999 );
 		}
 
 		if ( $this->options['blog_roles'] ) {
@@ -329,6 +330,13 @@ class User extends gNetwork\Module
 			$this->base,
 			_x( 'Network Extras', 'Modules: User: Page Menu', GNETWORK_TEXTDOMAIN ),
 		];
+	}
+
+	// removes help tabs on user admin
+	public function contextual_help( $old_help, $screen_id, $screen )
+	{
+		$screen->remove_help_tabs();
+		return $old_help;
 	}
 
 	public static function registerMenu( $sub, $title = NULL, $callback = FALSE, $capability = 'read', $priority = 10 )
