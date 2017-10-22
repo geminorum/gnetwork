@@ -1264,37 +1264,45 @@ class Media extends gNetwork\Module
 
 	public function image_send_to_editor( $html, $id, $caption, $title, $align, $url, $size, $alt )
 	{
-		if ( strpos( $url, 'attachment_id' )
-			|| get_attachment_link( $id ) == $url )
-				$url = WordPress::getPostShortLink( $id );
+		if ( strpos( $url, 'attachment_id' ) || $url == get_attachment_link( $id ) )
+			return WordPress::htmlAttachmentShortLink( $id,
+				get_image_tag( $id, $alt, '', $align, $size ) );
 
-		return HTML::tag( 'a', [
-			'href'  => $url,
-			'rel'   => 'attachment',
-			'class' => '-attachment',
-			'data'  => [ 'id' => $id ],
-		], get_image_tag( $id, $alt, '', $align, $size ) );
+		return $html;
 	}
 
-	public function media_send_to_editor( $html, $id, $attachment )
+	public function media_send_to_editor( $html, $id, $data )
 	{
-		if ( 'image' === substr( get_post( $id )->post_mime_type, 0, 5 ) )
+		if ( ! $attachment = get_post( $id ) )
 			return $html;
 
-		if ( empty( $attachment['url'] ) )
+		// check for shortcode supported types if no link provided
+		if ( empty( $data['url'] ) ) {
+
+			if ( 'text/csv' == $attachment->post_mime_type )
+				return '[csv id="'.$id.'"]'
+					.WordPress::htmlAttachmentShortLink( $id, $html ).'[/csv]';
+
+			if ( 'application/pdf' == $attachment->post_mime_type )
+				return '[pdf url="'.wp_get_attachment_url( $id ).'"]'
+					.WordPress::htmlAttachmentShortLink( $id, $html ).'[/pdf]';
+
+			// bail if no link
+			return $html;
+		}
+
+		// we use another hook for images
+		if ( 'image' === substr( $attachment->post_mime_type, 0, 5 ) )
 			return $html;
 
-		if ( get_attachment_link( $id ) != $attachment['url'] )
+		// bail if it's custom link
+		if ( trim( $data['url'] ) != get_attachment_link( $id ) )
 			return $html;
 
-		$html = isset( $attachment['post_title'] ) ? $attachment['post_title'] : '';
+		// core media js is failing to set title for video/audio
+		$html = isset( $data['post_title'] ) ? $data['post_title'] : strip_tags( $html );
 
-		return HTML::tag( 'a', [
-			'href'  => WordPress::getPostShortLink( $id ),
-			'rel'   => 'attachment',
-			'class' => '-attachment',
-			'data'  => [ 'id' => $id ],
-		], $html );
+		return WordPress::htmlAttachmentShortLink( $id, $html );
 	}
 
 	public function wp_update_attachment_metadata( $data, $post_id )
