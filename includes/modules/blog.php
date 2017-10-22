@@ -400,24 +400,30 @@ class Blog extends gNetwork\Module
 
 		if ( 'disable' == $this->options['heartbeat_mode'] ) {
 
-			wp_deregister_script( 'heartbeat' );
+			$this->deregister_heartbeat();
 
 		} else if ( 'dashboard' == $this->options['heartbeat_mode'] ) {
 
 			if ( 'index.php' == $GLOBALS['pagenow'] )
-				wp_deregister_script( 'heartbeat' );
+				$this->deregister_heartbeat();
 
 		} else if ( 'postedit' == $this->options['heartbeat_mode'] ) {
 
 			if ( 'post.php' == $GLOBALS['pagenow']
 				|| 'post-new.php' == $GLOBALS['pagenow'] )
-					wp_deregister_script( 'heartbeat' );
+					$this->deregister_heartbeat();
 		}
 
 		if ( 'default' != $this->options['heartbeat_frequency'] )
 			add_filter( 'heartbeat_settings', function( $settings ){
 				return array_merge( $settings, [ 'interval' => intval( $this->options['heartbeat_frequency'] ) ] );
 			} );
+	}
+
+	private function deregister_heartbeat()
+	{
+		wp_deregister_script( 'heartbeat' );
+		wp_register_script( 'heartbeat', NULL ); // for dependency
 	}
 
 	public function init_late()
