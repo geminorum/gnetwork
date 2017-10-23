@@ -9,6 +9,7 @@ use geminorum\gNetwork\Core\File;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\HTTP;
 use geminorum\gNetwork\Core\Number;
+use geminorum\gNetwork\Core\Text;
 use geminorum\gNetwork\Core\WordPress;
 
 class ShortCodes extends gNetwork\Module
@@ -984,66 +985,110 @@ class ShortCodes extends gNetwork\Module
 	public function shortcode_csv( $atts = [], $content = NULL, $tag = '' )
 	{
 		$args = shortcode_atts( [
-			'id'      => FALSE,
-			'url'     => FALSE,
-			'columns' => NULL,
-			'context' => NULL,
-			'wrap'    => TRUE,
-			'before'  => '',
-			'after'   => '',
+			'id'           => FALSE,
+			'url'          => FALSE,
+			'columns'      => NULL,
+			'string_view'  => _x( 'View Resource', 'Modules: ShortCodes: Defaults', GNETWORK_TEXTDOMAIN ), // FALSE to disable
+			'string_empty' => _x( 'Resource is empty!', 'Modules: ShortCodes: Defaults', GNETWORK_TEXTDOMAIN ), // FALSE to disable
+			'context'      => NULL,
+			'wrap'         => TRUE,
+			'before'       => '',
+			'after'        => '',
 		], $atts, $tag );
 
 		if ( FALSE === $args['context'] )
 			return NULL;
 
-		$titles = $data = [];
-
-		if ( $args['id'] ) {
-
-			if ( $file = get_attached_file( $args['id'] ) ) {
-
-				$csv = new \parseCSV();
-				$csv->auto( File::normalize( $file ) );
-
-				$titles = $args['columns'] ? explode( ',', $args['columns'] ) : $csv->titles;
-				$data   = $csv->data;
-			}
-
-		} else if ( $args['url'] ) {
-
-			if ( $string = HTTP::getContents( $args['url'] ) ) {
-
-				$csv = new \parseCSV();
-				$csv->parse( $string );
-
-				$titles = $args['columns'] ? explode( ',', $args['columns'] ) : $csv->titles;
-				$data   = $csv->data;
-			}
-
-		} else {
-			return NULL;
-		}
-
-		if ( ! count( $data ) )
+		if ( ! $args['id'] && ! $args['url'] )
 			return NULL;
 
-		$html = '<table>';
+		if ( is_feed() || WordPress::isREST() ) {
 
-		if ( count( $titles ) )
-			$html .= '<thead><tr><th>'
-				.implode( '</th><th>', array_map( 'esc_html', $titles ) )
-			.'</th></tr></thead>';
+			if ( $content )
+				return $content;
 
-		$html .= '<tbody>';
+			if ( ! $args['string_view'] )
+				return NULL;
 
-		foreach ( $data as $row ) {
-			$html .= '<tr>';
-			foreach ( $titles as $title )
-				$html .= '<td>'.( isset( $row[$title] ) ? esc_html( $row[$title] ) : '&nbsp;' ).'</td>';
-			$html .= '</tr>';
+			return $args['id']
+				? WordPress::htmlAttachmentShortLink( $args['id'], $args['string_view'] )
+				: HTML::link( $args['string_view'], $args['url'] );
 		}
 
-		$html .= '</tbody></table>';
+		$key = $this->hash( 'csv', $args );
+
+		if ( WordPress::isFlush() )
+			delete_transient( $key );
+
+		if ( FALSE === ( $html = get_transient( $key ) ) ) {
+
+			$titles = $data = [];
+
+			if ( $args['id'] ) {
+
+				if ( $file = get_attached_file( $args['id'] ) ) {
+
+					$csv = new \parseCSV();
+					$csv->auto( File::normalize( $file ) );
+
+					$titles = $args['columns'] ? explode( ',', $args['columns'] ) : $csv->titles;
+					$data   = $csv->data;
+
+				} else {
+					return $content ?: ( $args['string_view'] ? WordPress::htmlAttachmentShortLink( $args['id'], $args['string_view'] ) : NULL );
+				}
+
+			} else {
+
+				if ( $string = HTTP::getContents( $args['url'] ) ) {
+
+					$csv = new \parseCSV();
+					$csv->parse( $string );
+
+					$titles = $args['columns'] ? explode( ',', $args['columns'] ) : $csv->titles;
+					$data   = $csv->data;
+
+				} else {
+					return $content ?: ( $args['string_view'] ? HTML::link( $args['string_view'], $args['url'] ) : NULL );
+				}
+			}
+
+			if ( ! count( $data ) )
+				return $args['string_empty'] ? HTML::wrap( $args['string_empty'], '-empty' ) : NULL;
+
+			$html = '<table>';
+
+			if ( count( $titles ) ) {
+
+				$html.= '<thead><tr>';
+				foreach ( $titles as $title )
+					$html.= '<th>'.( $title ? esc_html( apply_filters( 'html_format_i18n', $title ) ) : '&nbsp;' ).'</th>';
+				$html.= '</tr></thead><tbody>';
+
+				foreach ( $data as $row ) {
+					$html.= '<tr>';
+					foreach ( $titles as $title )
+						$html.= '<td>'.( isset( $row[$title] ) ? esc_html( apply_filters( 'html_format_i18n', $row[$title] ) ) : '&nbsp;' ).'</td>';
+					$html.= '</tr>';
+				}
+
+			} else {
+
+				$html.= '<tbody>';
+
+				foreach ( $data as $row ) {
+					$html.= '<tr>';
+					foreach ( $row as $cell )
+						$html.= '<td>'.( $cell ? esc_html( apply_filters( 'html_format_i18n', $cell ) ) : '&nbsp;' ).'</td>';
+					$html.= '</tr>';
+				}
+			}
+
+			$html.= '</tbody></table>';
+			$html = Text::minifyHTML( $html );
+
+			set_transient( $key, $html, GNETWORK_CACHE_TTL );
+		}
 
 		return self::shortcodeWrap( $html, 'csv', $args );
 	}
