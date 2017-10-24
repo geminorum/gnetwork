@@ -673,16 +673,19 @@ class Debug extends gNetwork\Module
 			}
 
 		} else if ( is_string( $message ) ) {
-			$message = Text::autoP( $message );
+
+			// if it's already not wrapped
+			if ( '<' !== substr( trim( $message ), 1, 1 ) )
+				$message = Text::autoP( $message );
 		}
 
 		if ( isset( $r['back_link'] ) && $r['back_link'] ) {
 			$back_text = $have_gettext ? __( '&laquo; Back' ) : '&laquo; Back';
-			$message .= "\n<p><a href='javascript:history.back()'>$back_text</a></p>";
+			$message.= "\n<p><a href='javascript:history.back()'>$back_text</a></p>";
 		}
 
 		if ( empty( $title ) )
-			$title = HTTP::getStatusDesc( $r['response'] );
+			$title = sprintf( '%d %s', $r['response'], HTTP::getStatusDesc( $r['response'] ) );
 
 		if ( ! did_action( 'admin_head' ) ) {
 

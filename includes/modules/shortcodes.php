@@ -1507,17 +1507,19 @@ class ShortCodes extends gNetwork\Module
 			if ( ! $term )
 				return $content;
 
+			$name = sanitize_term_field( 'name', $term->name, $term->term_id, $term->taxonomy, 'display' );
+
 			// FIXME: must cache the term, not html
 			$this->people[$person] = HTML::tag( 'a', [
 				'href'        => get_term_link( $term, $term->taxonomy ),
-				'title'       => sanitize_term_field( 'name', $term->name, $term->term_id, $term->taxonomy, 'display' ),
+				'title'       => $name,
 				'data-toggle' => 'tooltip',
 				'class'       => [
 					'person-'.$term->slug,
 					'reference-people',
 					'tooltip',
 				],
-			], ( $content ? trim( strip_tags( $content ) ) : $term->name ) );
+			], ( $content ? trim( strip_tags( $content ) ) : $name ) );
 		}
 
 		return self::shortcodeWrap( $this->people[$person], 'person', $args, FALSE );

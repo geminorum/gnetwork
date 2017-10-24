@@ -83,7 +83,7 @@ class AdminBar extends gNetwork\Module
 
 		if ( is_multisite() && ( $user_id = get_current_user_id() ) ) {
 			$super_admin       = WordPress::isSuperAdmin();
-			$user->blogs       = self::getAllBlogs( ( $super_admin ? FALSE : $user_id ), $super_admin );
+			$user->blogs       = WordPress::getAllBlogs( ( $super_admin ? FALSE : $user_id ), $super_admin );
 			$user->active_blog = get_user_meta( $user_id, 'primary_blog', TRUE );
 		} else {
 			$user->blogs       = [];
@@ -711,52 +711,6 @@ class AdminBar extends gNetwork\Module
 				'href'   => URL::trail( $blog->siteurl ),
 			] );
 		}
-	}
-
-	// mocking `get_sites()` results
-	private static function getAllBlogs( $user_id = FALSE, $all_sites = TRUE )
-	{
-		global $wpdb;
-
-		$clause_site = $clause_blog = '';
-
-		if ( ! $all_sites )
-			$clause_site = $wpdb->prepare( "AND site_id = %d", get_current_network_id() );
-
-		if ( $user_id ) {
-
-			$ids = WordPress::getUserBlogs( $user_id, $wpdb->base_prefix );
-
-			// user has no blogs!
-			if ( ! $ids )
-				return [];
-
-			$clause_blog = "AND blog_id IN ( '".join( "', '", esc_sql( $ids ) )."' )";
-		}
-
-		$query = "
-			SELECT blog_id, domain, path
-			FROM {$wpdb->blogs}
-			WHERE spam = '0'
-			AND deleted = '0'
-			AND archived = '0'
-			{$clause_site}
-			{$clause_blog}
-			ORDER BY registered DESC
-		";
-
-		$blogs  = [];
-		$scheme = is_ssl() ? 'https' : 'http';
-
-		foreach ( $wpdb->get_results( $query, ARRAY_A ) as $blog )
-			$blogs[$blog['blog_id']] = (object) [
-				'userblog_id' => $blog['blog_id'],
-				'domain'      => $blog['domain'],
-				'path'        => $blog['path'],
-				'siteurl'     => URL::untrail( $scheme.'://'.$blog['domain'].$blog['path'] ),
-			];
-
-		return $blogs;
 	}
 
 	public function wp_admin_bar_wp_menu( $wp_admin_bar )

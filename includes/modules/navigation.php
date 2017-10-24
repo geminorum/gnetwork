@@ -19,12 +19,13 @@ class Navigation extends gNetwork\Module
 
 	protected function setup_actions()
 	{
-		if ( is_admin() ) {
+		$this->filter( 'wp_nav_menu_items', 2, 20 );
+
+		if ( is_admin() )
 			$this->action( 'load-nav-menus.php' );
-		} else {
+
+		else
 			$this->filter( 'wp_setup_nav_menu_item' );
-			$this->filter( 'wp_nav_menu_items', 2, 20 );
-		}
 	}
 
 	public function init()

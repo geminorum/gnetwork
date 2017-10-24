@@ -197,6 +197,7 @@ class Locale extends gNetwork\Module
 			'rest_api_console'           => 'page', // [REST API Console](https://wordpress.org/plugins/rest-api-console/)
 			'so-widgets-plugins'         => 'page',
 			'siteorigin_panels'          => 'page',
+			'php-compatibility-checker'  => 'page', // [PHP Compatibility Checker](https://wordpress.org/plugins/php-compatibility-checker/)
 
 			// [EWWW Image Optimizer](https://wordpress.org/plugins/ewww-image-optimizer/)
 			'ewww-image-optimizer/ewww-image-optimizer.php' => 'page',
@@ -262,6 +263,9 @@ class Locale extends gNetwork\Module
 			'read_offline_epub'    => 'page',
 			'read_offline_mobi'    => 'page',
 			'read_offline_print'   => 'page',
+
+			'keyring' => 'page',
+
 		], $current );
 
 		foreach ( array_unique( $list ) as $value => $key )

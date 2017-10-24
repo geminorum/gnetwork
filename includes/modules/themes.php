@@ -203,6 +203,8 @@ class Themes extends gNetwork\Module
 
 		} else if ( $this->isTheme( 'semicolon' ) ) {
 
+			remove_action( 'embed_head', 'locale_stylesheet', 30 );
+
 			if ( $this->rtl ) {
 
 				add_action( 'wp_enqueue_scripts', function(){

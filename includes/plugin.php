@@ -175,9 +175,13 @@ class Plugin
 	{
 		if ( file_exists( GNETWORK_DIR.'includes/modules/buddypress.php' ) ) {
 			require_once( GNETWORK_DIR.'includes/modules/buddypress.php' );
+
 			try {
+
 				$this->buddypress = new Modules\BuddyPress( $this->base, 'buddypress' );
+
 			} catch ( Exception $e ) {
+
 				// echo 'Caught exception: ',  $e->getMessage(), "\n";
 				// no need to do anything!
 			}
@@ -185,6 +189,7 @@ class Plugin
 
 		if ( file_exists( GNETWORK_DIR.'includes/misc/buddypress-me.php' ) ) {
 			require_once( GNETWORK_DIR.'includes/misc/buddypress-me.php' );
+
 			buddypress()->me = new Misc\BP_Me_Component();
 		}
 	}

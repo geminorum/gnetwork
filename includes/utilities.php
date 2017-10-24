@@ -279,6 +279,7 @@ class Utilities extends Core\Base
 			return '';
 
 		$text = apply_filters( 'the_title', $text, 0 );
+		$text = apply_filters( 'string_format_i18n', $text );
 		$text = apply_filters( 'gnetwork_typography', $text );
 
 		return trim( $text );
@@ -292,6 +293,7 @@ class Utilities extends Core\Base
 		if ( $shortcode )
 			$text = do_shortcode( $text, TRUE );
 
+		$text = apply_filters( 'html_format_i18n', $text );
 		$text = apply_filters( 'gnetwork_typography', $text );
 
 		return wpautop( $text );

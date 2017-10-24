@@ -227,9 +227,10 @@ class Site extends gNetwork\Module
 			'permalink_structure'    => '/entries/%post_id%',
 			'default_comment_status' => 'closed',
 			'default_ping_status'    => 'closed',
+			'use_smilies'            => FALSE,
 			'comments_notify'        => FALSE,
 			'moderation_notify'      => FALSE,
-			'admin_email'            => get_site_option( 'admin_email' ),
+			// 'admin_email'            => get_site_option( 'admin_email' ), // FIXME: only when created by super admin
 		] );
 
 		foreach ( $new_blog_options as $new_blog_option_key => $new_blog_option )

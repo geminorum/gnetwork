@@ -113,16 +113,14 @@ class Blog extends gNetwork\Module
 		] );
 
 		if ( class_exists( __NAMESPACE__.'\\Locale' ) )
-			$settings['_locale'] = [
-				[
-					'field'       => 'admin_locale',
-					'type'        => 'select',
-					'title'       => _x( 'Admin Language', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Despite of the Site Language, Always Display Admin in This Locale', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'none_title'  => _x( 'Site Default', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'none_value'  => '',
-					'values'      => Arraay::sameKey( Locale::available() ),
-				],
+			$settings['_locale'][] = [
+				'field'       => 'admin_locale',
+				'type'        => 'select',
+				'title'       => _x( 'Admin Language', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Despite of the Site Language, Always Display Admin in This Locale', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+				'none_title'  => _x( 'Site Default', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+				'none_value'  => '',
+				'values'      => Arraay::sameKey( Locale::available() ),
 			];
 
 		$settings['_enhancements'][] = [
@@ -266,32 +264,30 @@ class Blog extends gNetwork\Module
 		];
 
 		if ( $multisite && class_exists( __NAMESPACE__.'\\Mail' ) ) {
-			$settings['_email'] = [
-				[
-					'field'       => 'from_email',
-					'type'        => 'email',
-					'title'       => _x( 'From Email', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'This site email address that emails should be sent from. Set to override the network.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-				],
-				[
-					'field'       => 'from_name',
-					'type'        => 'text',
-					'title'       => _x( 'From Name', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'This site email name that emails should be sent from. Set to override the network.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-				],
+
+			$settings['_email'][] = [
+				'field'       => 'from_email',
+				'type'        => 'email',
+				'title'       => _x( 'From Email', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'This site email address that emails should be sent from. Set to override the network.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			];
+
+			$settings['_email'][] = [
+				'field'       => 'from_name',
+				'type'        => 'text',
+				'title'       => _x( 'From Name', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'This site email name that emails should be sent from. Set to override the network.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 			];
 		}
 
 		if ( $multisite && class_exists( __NAMESPACE__.'\\Tracking' ) )
-			$settings['_tracking'] = [
-				[
-					'field'       => 'ga_override',
-					'type'        => 'text',
-					'title'       => _x( 'GA Override', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'This site Google Analytics tracking account. Set to override the network.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-					'placeholder' => 'UA-XXXXX-X',
-					'field_class' => [ 'regular-text', 'code-text' ],
-				],
+			$settings['_tracking'][] = [
+				'field'       => 'ga_override',
+				'type'        => 'text',
+				'title'       => _x( 'GA Override', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'This site Google Analytics tracking account. Set to override the network.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+				'placeholder' => 'UA-XXXXX-X',
+				'field_class' => [ 'regular-text', 'code-text' ],
 			];
 
 		$settings['_redirect'][] = [
