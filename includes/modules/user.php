@@ -70,6 +70,7 @@ class User extends gNetwork\Module
 			'contact_methods' => '1',
 			'user_locale'     => '0',
 			'dashboard_sites' => '0',
+			'dashboard_menu'  => '0',
 
 			'tos_display' => '0',
 			'tos_title'   => '',
@@ -105,6 +106,11 @@ class User extends gNetwork\Module
 					'field'       => 'dashboard_sites',
 					'title'       => _x( 'Dashboard Sites', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Displays current user list of sites on the user dashboard.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
+				],
+				[
+					'field'       => 'dashboard_menu',
+					'title'       => _x( 'Dashboard User Menu', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Displays global user menu navigation on the user dashboard.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 			],
 			'_tos' => [

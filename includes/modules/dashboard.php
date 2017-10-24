@@ -102,6 +102,11 @@ class Dashboard extends gNetwork\Module
 					_x( 'Terms of Service', 'Modules: Dashboard: Widget Title', GNETWORK_TEXTDOMAIN )
 				), [ $this, 'widget_tos' ]
 			);
+
+		if ( $user && GNETWORK_NETWORK_USERMENU && gNetwork()->option( 'dashboard_menu', 'user' ) )
+			add_meta_box( $this->classs( 'usermenu' ),
+				_x( 'Your Navigation', 'Modules: Dashboard: Widget Title', GNETWORK_TEXTDOMAIN ),
+				[ $this, 'widget_usermenu' ], $screen, 'normal', 'high' );
 	}
 
 	public function widget_external_feed()
@@ -143,6 +148,18 @@ class Dashboard extends gNetwork\Module
 		echo '<div class="gnetwork-admin-wrap-widget -user-tos">';
 			echo wpautop( gNetwork()->option( 'tos_text', 'user', gNetwork()->na() ) );
 		echo '</div>';
+	}
+
+	// FIXME: needs better styling
+	public function widget_usermenu()
+	{
+		if ( $this->check_hidden_metabox( 'usermenu' ) )
+			return;
+
+		if ( $html = Adminbar::getNetworkMenu( GNETWORK_NETWORK_USERMENU, FALSE ) )
+			echo '<div class="gnetwork-admin-wrap-widget -usermenu">'.$html.'</div>';
+		else
+			HTML::desc( _x( '&#8220;Not all those who wander are lost!&#8221;', 'Modules: Dashboard: User Menu', GNETWORK_TEXTDOMAIN ), FALSE, '-empty' );
 	}
 
 	public function widget_user_sites()

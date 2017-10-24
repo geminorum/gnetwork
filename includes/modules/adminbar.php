@@ -5,6 +5,7 @@ defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 use geminorum\gNetwork;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Core\HTML;
+use geminorum\gNetwork\Core\Text;
 use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
 
@@ -58,15 +59,20 @@ class AdminBar extends gNetwork\Module
 		$this->action( 'wp_before_admin_bar_render' );
 
 		if ( is_main_site() ) {
+
 			$this->action( 'save_post_nav_menu_item', 2 );
 
 			if ( GNETWORK_NETWORK_ADMINBAR )
 				register_nav_menu( GNETWORK_NETWORK_ADMINBAR,
-					_x( 'Network Adminbar', 'Modules: AdminBar: Menu Location', GNETWORK_TEXTDOMAIN ) );
+					_x( 'Network Adminbar Navigation', 'Modules: AdminBar: Menu Location', GNETWORK_TEXTDOMAIN ) );
+
+			if ( GNETWORK_NETWORK_USERMENU )
+				register_nav_menu( GNETWORK_NETWORK_USERMENU,
+					_x( 'Network User Navigation', 'Modules: AdminBar: Menu Location', GNETWORK_TEXTDOMAIN ) );
 
 			if ( GNETWORK_NETWORK_EXTRAMENU )
 				register_nav_menu( GNETWORK_NETWORK_EXTRAMENU,
-					_x( 'Network Adminbar Extra', 'Modules: AdminBar: Menu Location', GNETWORK_TEXTDOMAIN ) );
+					_x( 'Network Extra Navigation', 'Modules: AdminBar: Menu Location', GNETWORK_TEXTDOMAIN ) );
 		}
 	}
 
@@ -409,40 +415,53 @@ class AdminBar extends gNetwork\Module
 		if ( GNETWORK_NETWORK_ADMINBAR )
 			update_site_option( 'gnetwork_'.GNETWORK_NETWORK_ADMINBAR, '' );
 
+		if ( GNETWORK_NETWORK_USERMENU )
+			update_site_option( 'gnetwork_'.GNETWORK_NETWORK_USERMENU, '' );
+
 		if ( GNETWORK_NETWORK_EXTRAMENU )
 			update_site_option( 'gnetwork_'.GNETWORK_NETWORK_EXTRAMENU, '' );
 
 		return $post_id;
 	}
 
-	public static function getNetworkMenu( $name )
+	public static function getNetworkMenu( $name, $items = TRUE )
 	{
 		if ( ! $name )
 			return FALSE;
 
 		$key = 'gnetwork_'.$name;
 
+		if ( WordPress::isFlush() )
+			update_site_option( $key, '' );
+
 		if ( $menu = get_site_option( $key, NULL ) )
 			return $menu;
 
-		// later will store false to prevent unnecessary checks
+		// bail because previously no menu found
+		// and FALSE stored to prevent unnecessary checks
 		if ( FALSE === $menu )
 			return $menu;
 
 		if ( is_main_site() ) {
 
-			$nav_menu  = $name;
+			// only saved location menus
 			$locations = get_nav_menu_locations();
 
 			if ( array_key_exists( $name, $locations ) ) {
-				$term = get_term( $locations[$name], 'nav_menu' );
 
-				if ( $term && ! self::isError( $term ) )
-					$nav_menu = $term->term_id;
+				$term = get_term( intval( $locations[$name] ), 'nav_menu' );
+
+				if ( $term && ! self::isError( $term ) ) {
+
+					if ( $items )
+						$menu = wp_get_nav_menu_items( $term->term_id, [ 'update_post_term_cache' => FALSE ] );
+					else
+						$menu = wp_nav_menu( [ 'menu' => $term->term_id, 'echo' => FALSE, 'container' => '', 'item_spacing' => 'discard', 'fallback_cb' => FALSE ] );
+				}
 			}
 
-			if ( $menu = wp_get_nav_menu_items( $nav_menu, [ 'update_post_term_cache' => FALSE ] ) ) {
-				update_site_option( $key, $menu );
+			if ( $menu ) {
+				update_site_option( $key, ( $items ? $menu : Text::minifyHTML( $menu ) ) );
 				return $menu;
 			}
 		}
