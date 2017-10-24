@@ -152,26 +152,28 @@ class Site extends gNetwork\Module
 		$this->action( 'admin_page_access_denied' );
 	}
 
-	// @SOURCE: `_access_denied_splash()`
+	// @REF: `_access_denied_splash()`
 	public function admin_page_access_denied()
 	{
-		if ( ! is_user_logged_in() || is_network_admin() )
-			return;
+		if ( ! $user_id = get_current_user_id() )
+			wp_die( $this->options['access_denied'], 403 );
 
-		$title   = _x( 'Access Denied', 'Modules: Site: Page Title', GNETWORK_TEXTDOMAIN );
-		$message = '';
-
-		$blogs = get_blogs_of_user( get_current_user_id() );
+		// getting lighter list of blogs
+		$blogs = $this->options['list_sites']
+			? get_blogs_of_user( $user_id )
+			: WordPress::getUserBlogs( $user_id, $GLOBALS['wpdb']->base_prefix );
 
 		// this will override default message
 		if ( wp_list_filter( $blogs, [ 'userblog_id' => get_current_blog_id() ] ) )
-			wp_die( $this->options['access_denied'], $title, 403 );
+			wp_die( $this->options['access_denied'], 403 );
+
+		$message = '';
 
 		if ( $this->options['denied_message'] )
 			$message.= Text::autoP( sprintf( $this->options['denied_message'], get_bloginfo( 'name' ) ) );
 
 		if ( empty( $blogs ) )
-			wp_die( $message, $title, 403 );
+			wp_die( $message, 403 );
 
 		if ( $this->options['denied_extra'] )
 			$message.= Text::autoP( $this->options['denied_extra'] );
@@ -179,7 +181,7 @@ class Site extends gNetwork\Module
 		if ( $this->options['list_sites'] )
 			$message.= self::tableUserSites( $blogs );
 
-		wp_die( $message, $title, 403 );
+		wp_die( $message, 403 );
 	}
 
 	// FIXME: customize the list
