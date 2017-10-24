@@ -68,11 +68,10 @@ class Dashboard extends gNetwork\Module
 		if ( $blog && current_user_can( 'edit_posts' ) ) {
 
 			remove_meta_box( 'dashboard_right_now', $screen, 'normal' );
-			wp_add_dashboard_widget(
-				$this->classs( 'right-now' ),
+
+			add_meta_box( $this->classs( 'right-now' ),
 				_x( 'At a Glance', 'Modules: Dashboard: Widget Title', GNETWORK_TEXTDOMAIN ),
-				[ $this, 'widget_right_now' ]
-			);
+				[ $this, 'widget_right_now' ], $screen, 'normal', 'high' );
 
 			remove_action( 'activity_box_end', 'wp_dashboard_quota' );
 
@@ -164,6 +163,9 @@ class Dashboard extends gNetwork\Module
 
 	public function widget_user_sites()
 	{
+		if ( $this->check_hidden_metabox( 'user-sites' ) )
+			return;
+
 		$blogs = get_blogs_of_user( get_current_user_id() );
 
 		echo '<div class="gnetwork-admin-wrap-widget -user-sites">';
@@ -179,8 +181,12 @@ class Dashboard extends gNetwork\Module
 	public function widget_right_now()
 	{
 		// wrap to use core styles
-		echo '<div id="dashboard_right_now">';
-		echo '<div class="main"><ul>';
+		echo '<div id="dashboard_right_now" class="-core-styles">';
+
+		if ( $this->check_hidden_metabox( 'right-now', '</div>' ) )
+			return;
+
+		$html = '';
 
 		foreach ( array( 'post', 'page' ) as $post_type ) {
 
@@ -196,16 +202,16 @@ class Dashboard extends gNetwork\Module
 				$object = get_post_type_object( $post_type );
 
 				if ( $object && current_user_can( $object->cap->edit_posts ) )
-					printf( '<li class="%1$s-count"><a href="edit.php?post_type=%1$s">%2$s</a></li>', $post_type, $text );
+					$html.= sprintf( '<li class="%1$s-count"><a href="edit.php?post_type=%1$s">%2$s</a></li>', $post_type, $text );
 
 				else
-					printf( '<li class="%1$s-count"><span>%2$s</span></li>', $post_type, $text );
+					$html.= sprintf( '<li class="%1$s-count"><span>%2$s</span></li>', $post_type, $text );
 			}
 		}
 
 		// filters the array of extra elements to list in the 'At a Glance' dashboard widget
 		if ( $elements = apply_filters( 'dashboard_glance_items', [] ) )
-			echo '<li>'.implode( '</li><li>', $elements ).'</li>';
+			$html.= '<li>'.implode( '</li><li>', $elements ).'</li>';
 
 		$num_comm = wp_count_comments();
 
@@ -213,7 +219,7 @@ class Dashboard extends gNetwork\Module
 
 			$text = sprintf( _n( '%s Comment', '%s Comments', $num_comm->approved ), number_format_i18n( $num_comm->approved ) );
 
-			echo '<li class="comment-count"><a href="edit-comments.php">'.$text.'</a></li>';
+			$html.= '<li class="comment-count"><a href="edit-comments.php">'.$text.'</a></li>';
 
 			$moderated_comments_count_i18n = number_format_i18n( $num_comm->moderated );
 
@@ -223,13 +229,15 @@ class Dashboard extends gNetwork\Module
 			/* translators: %s: number of comments in moderation */
 			$aria_label = sprintf( _nx( '%s comment in moderation', '%s comments in moderation', $num_comm->moderated, 'comments' ), $moderated_comments_count_i18n );
 
-			echo '<li class="comment-mod-count'.( $num_comm->moderated ? '' : ' hidden' ).'">';
-			echo '<a href="edit-comments.php?comment_status=moderated" aria-label="'.esc_attr__( $aria_label ).'">'.$text.'</a></li>';
+			$html.= '<li class="comment-mod-count'.( $num_comm->moderated ? '' : ' hidden' ).'">';
+			$html.= '<a href="edit-comments.php?comment_status=moderated" aria-label="'.esc_attr__( $aria_label ).'">'.$text.'</a></li>';
 		}
 
-		echo '</ul>';
+		if ( $html )
+			$html = '<ul>'.$html.'</ul>';
 
-		update_right_now_message();
+		// FIXME: add better
+		// update_right_now_message();
 
 		// check if search engines are asked not to index this site.
 		if ( current_user_can( 'manage_options' ) && '0' == get_option( 'blog_public' ) ) {
@@ -238,10 +246,13 @@ class Dashboard extends gNetwork\Module
 			$content = apply_filters( 'privacy_on_link_text', __( 'Search Engines Discouraged' ) );
 			$attr    = '' === $title ? '' : " title='$title'";
 
-			echo "<p><a href='options-reading.php'$attr>$content</a></p>";
+			$html.= "<p><a href='options-reading.php'$attr>$content</a></p>";
 		}
 
-		echo '</div>';
+		if ( $html )
+			echo '<div class="main">'.$html.'</div>';
+		else
+			HTML::desc( _x( 'No Content available!', 'Modules: Dashboard: Right Now', GNETWORK_TEXTDOMAIN ), FALSE, '-empty' );
 
 		ob_start();
 		// do_action( 'rightnow_end' ); // old hook

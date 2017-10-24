@@ -950,4 +950,20 @@ class Module extends Core\Base
 			? '<div class="-wrap '.$this->base.'-wrap -'.$this->key.' '.$class.'">'
 			: '<span class="-wrap '.$this->base.'-wrap -'.$this->key.' '.$class.'">';
 	}
+
+	// checks to bail early if metabox/widget is hidden
+	protected function check_hidden_metabox( $widget, $after = '' )
+	{
+		if ( ! in_array( $this->classs( $widget ), get_hidden_meta_boxes( get_current_screen() ) ) )
+			return FALSE;
+
+		echo HTML::tag( 'a', [
+			'href'  => add_query_arg( 'flush', '' ),
+			'class' => [ '-description', '-refresh' ],
+		], _x( 'Please refresh the page to generate the data.', 'Module Core', GNETWORK_TEXTDOMAIN ) );
+
+		echo $after;
+
+		return TRUE;
+	}
 }
