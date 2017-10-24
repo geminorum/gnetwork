@@ -9,7 +9,8 @@
       "./assets/js/*.js",
       "!./assets/js/*.min.js",
       "./assets/js/tinymce/*.js",
-      "!./assets/js/tinymce/*.min.js"
+      "!./assets/js/tinymce/*.min.js",
+      "!./assets/js/vendor/*.js"
     ],
     "svg": "./assets/images/raw/**/*.svg",
     "images": "./assets/images/raw/**/*.{png,jpg,jpeg}",
@@ -17,7 +18,8 @@
       "./assets/css/**/*.css",
       "!./assets/css/**/*.raw.css",
       "./assets/js/*.js",
-      "./assets/js/tinymce/*.js"
+      "./assets/js/tinymce/*.js",
+      "!./assets/js/vendor/*.js"
     ],
     "ready": "./ready/**/*",
     "final": [
