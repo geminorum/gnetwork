@@ -15,9 +15,7 @@ class Cleanup extends gNetwork\Module
 	protected function setup_actions()
 	{
 		$this->action( 'init', 0, 99, 'late' );
-
 		$this->action( 'admin_menu', 0, 999, 'late' );
-		$this->action( 'admin_enqueue_scripts', 0, 999 );
 
 		// SEE: http://stephanis.info/2014/08/13/on-jetpack-and-auto-activating-modules
 		add_filter( 'jetpack_get_default_modules', '__return_empty_array' );
@@ -288,15 +286,10 @@ class Cleanup extends gNetwork\Module
 			remove_submenu_page( 'themes.php', 'theme-editor.php' );
 		}
 
-		if ( defined( 'BRUTEPROTECT_VERSION' ) && is_multisite() ) {
-			remove_menu_page( 'bruteprotect-config' ); // BruteProtect notice
-		}
-	}
-
-	public function admin_enqueue_scripts()
-	{
-		if ( defined( 'BRUTEPROTECT_VERSION' ) )
-			wp_dequeue_style( 'bruteprotect-css' ); // BruteProtect global css!!
+		// FIXME: DROP THIS
+		// BruteProtect notice
+		if ( defined( 'BRUTEPROTECT_VERSION' ) && is_multisite() )
+			remove_menu_page( 'bruteprotect-config' );
 	}
 
 	// does not apply the `autop()` to the form content

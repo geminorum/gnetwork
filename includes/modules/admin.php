@@ -27,6 +27,7 @@ class Admin extends gNetwork\Module
 			$this->filter( 'admin_title', 2 );
 			$this->action( 'admin_menu', 0, 12 );
 			$this->action( 'admin_menu', 0, 999, 'late' );
+			$this->action( 'admin_enqueue_scripts', 0, 999 );
 		}
 
 		$this->action( 'admin_print_styles', 0, 999 );
@@ -36,6 +37,9 @@ class Admin extends gNetwork\Module
 
 	public function admin_body_class( $classes )
 	{
+		if ( gNetwork()->option( 'admin_chosen', 'blog' ) )
+			$classes.= ' enhancement-chosen-enabled';
+
 		if ( gNetwork()->option( 'thrift_mode', 'blog' ) )
 			$classes.= ' thrift-mode';
 
@@ -288,6 +292,27 @@ class Admin extends gNetwork\Module
 			];
 
 		HTML::tabsList( apply_filters( 'gnetwork_admin_overview', $tabs ) );
+	}
+
+	public function admin_enqueue_scripts()
+	{
+		if ( gNetwork()->option( 'admin_chosen', 'blog' ) ) {
+
+			$script = 'jQuery(function($) {
+				$("select.gnetwork-do-chosen, .postbox .inside select, .tablenav select").chosen({
+					rtl: "rtl" === $("html").attr("dir"),
+					no_results_text: "'._x( 'No results match', 'Modules: Admin: Chosen', GNETWORK_TEXTDOMAIN ).'",
+					disable_search_threshold: 10
+				});
+			});';
+
+			wp_add_inline_script( Utilities::enqueueScriptVendor( 'chosen.jquery', [ 'jquery' ], '1.8.2' ), $script );
+		}
+
+		// FIXME: DROP THIS
+		// BruteProtect global css!!
+		if ( defined( 'BRUTEPROTECT_VERSION' ) )
+			wp_dequeue_style( 'bruteprotect-css' );
 	}
 
 	public function admin_print_styles()

@@ -78,6 +78,7 @@ class Blog extends gNetwork\Module
 		return [
 			'thrift_mode'          => 0,
 			'admin_locale'         => '',
+			'admin_chosen'         => 0,
 			'blog_redirect'        => '',
 			'blog_redirect_status' => '301',
 			'heartbeat_mode'       => 'default',
@@ -123,6 +124,13 @@ class Blog extends gNetwork\Module
 					'values'      => Arraay::sameKey( Locale::available() ),
 				],
 			];
+
+		$settings['_enhancements'][] = [
+			'field'       => 'admin_chosen',
+			'title'       => _x( 'Admin Chosen', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Chosen is a jQuery plugin that makes long, unwieldy select boxes much more user-friendly.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'after'       => Settings::fieldAfterIcon( 'https://harvesthq.github.io/chosen/' ),
+		];
 
 		$settings['_thrift'][] = [
 			'field'       => 'thrift_mode',
