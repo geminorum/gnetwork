@@ -51,8 +51,8 @@ class Site extends gNetwork\Module
 		return [
 			'admin_locale'      => 'en_US',
 			'page_signup'       => '0',
-			'access_denied'     => __( 'Sorry, you are not allowed to access this page.' ),
-			'denied_message'    => __( 'You attempted to access the "%1$s" dashboard, but you do not currently have privileges on this site. If you believe you should be able to access the "%1$s" dashboard, please contact your network administrator.' ),
+			'access_denied'     => '',
+			'denied_message'    => '',
 			'denied_extra'      => '',
 			'list_sites'        => '1',
 			'lookup_ip_service' => 'http://freegeoip.net/?q=%s',
@@ -100,22 +100,19 @@ class Site extends gNetwork\Module
 					'field'       => 'access_denied',
 					'type'        => 'textarea-quicktags',
 					'title'       => _x( 'Access Denied', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Displays when access to an admin page is denied.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
-					'default'     => _x( 'Sorry, you are not allowed to access this page.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Displays when access to an admin page is denied. Leave empty to use default or <code>0</code> to disable.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
 					'field'       => 'denied_message',
 					'type'        => 'textarea-quicktags',
 					'title'       => _x( 'Denied Message', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Displays this message when a user tries to view a site\'s dashboard they do not have access to.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
-					'default'     => _x( 'You attempted to access the &#8220;%1$s&#8221; dashboard, but you do not currently have privileges on this site. If you believe you should be able to access the &#8220;%1$s&#8221; dashboard, please contact your network administrator.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Displays this message when a user tries to view a site\'s dashboard they do not have access to. Leave empty to use default or <code>0</code> to disable.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
 					'field'       => 'denied_extra',
 					'type'        => 'textarea-quicktags',
 					'title'       => _x( 'Extra Message', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Displays this message before the list of sites.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
-					'default'     => _x( 'If you reached this screen by accident and meant to visit one of your own sites, here are some shortcuts to help you find your way.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Displays this message before the list of sites. Leave empty to use default or <code>0</code> to disable.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
 					'field'       => 'list_sites',
@@ -155,8 +152,11 @@ class Site extends gNetwork\Module
 	// @REF: `_access_denied_splash()`
 	public function admin_page_access_denied()
 	{
+		$access_denied = $this->default_option( 'access_denied',
+			__( 'Sorry, you are not allowed to access this page.' ) );
+
 		if ( ! $user_id = get_current_user_id() )
-			wp_die( $this->options['access_denied'], 403 );
+			wp_die( $access_denied, 403 );
 
 		// getting lighter list of blogs
 		$blogs = $this->options['list_sites']
@@ -165,18 +165,22 @@ class Site extends gNetwork\Module
 
 		// this will override default message
 		if ( wp_list_filter( $blogs, [ 'userblog_id' => get_current_blog_id() ] ) )
-			wp_die( $this->options['access_denied'], 403 );
+			wp_die( $access_denied, 403 );
 
-		$message = '';
+		$message = $this->default_option( 'denied_message',
+			__( 'You attempted to access the "%1$s" dashboard, but you do not currently have privileges on this site. If you believe you should be able to access the "%1$s" dashboard, please contact your network administrator.' ) );
 
-		if ( $this->options['denied_message'] )
-			$message.= Text::autoP( sprintf( $this->options['denied_message'], get_bloginfo( 'name' ) ) );
+		if ( $message )
+			$message = Text::autoP( sprintf( $message, get_bloginfo( 'name' ) ) );
 
 		if ( empty( $blogs ) )
 			wp_die( $message, 403 );
 
-		if ( $this->options['denied_extra'] )
-			$message.= Text::autoP( $this->options['denied_extra'] );
+		$extra = $this->default_option( 'denied_extra',
+			__( 'If you reached this screen by accident and meant to visit one of your own sites, here are some shortcuts to help you find your way.' ) );
+
+		if ( $extra )
+			$message.= Text::autoP( $extra );
 
 		if ( $this->options['list_sites'] )
 			$message.= self::tableUserSites( $blogs );

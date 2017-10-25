@@ -427,6 +427,23 @@ class Module extends Core\Base
 		return ( isset( $this->options[$name] ) ? $this->options[$name] : $default ) ;
 	}
 
+	// check if it's '0' then $disabled
+	// otherwise returns $default
+	// use only for strings
+	public function default_option( $name, $default = FALSE, $disabled = '' )
+	{
+		if ( ! isset( $this->options[$name] ) )
+			return $default;
+
+		if ( '0' === $this->options[$name] )
+			return $disabled;
+
+		if ( empty( $this->options[$name] ) )
+			return $default;
+
+		return $this->options[$name];
+	}
+
 	// update options at once
 	public function update_options( $options = NULL, $reset = FALSE )
 	{

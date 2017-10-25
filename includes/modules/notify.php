@@ -83,6 +83,7 @@ class Notify extends gNetwork\Module
 					'description' => _x( 'Message content of the new blog notification email. Leave empty to use defaults.', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
 					'placeholder' => __( "To activate your blog, please click the following link:\n\n%s\n\nAfter you activate, you will receive *another email* with your login.\n\nAfter you activate, you can visit your site here:\n\n%s" ),
 					'after'       => Settings::fieldAfterText( '<code>%1$s</code>: Activate URL, <code>%2$s</code>: New site URL, <code>%3$s</code>: Activation Key' ),
+					'field_class' => [ 'large-text' ],
 				],
 			];
 
@@ -229,11 +230,11 @@ class Notify extends gNetwork\Module
 
 	public function wpmu_signup_blog_notification_subject( $subject, $domain, $path, $title, $user_login, $user_email, $key, $meta )
 	{
-		return $this->options['signup_blog_subject'];
+		return $this->default_option( 'signup_blog_subject', _x( '[%1$s] Activate %2$s', 'New site notification email subject' ) );
 	}
 
 	public function wpmu_signup_blog_notification_email( $message, $domain, $path, $title, $user_login, $user_email, $key, $meta )
 	{
-		return $this->options['signup_blog_message'];
+		return $this->default_option( 'signup_blog_message', __( "To activate your blog, please click the following link:\n\n%s\n\nAfter you activate, you will receive *another email* with your login.\n\nAfter you activate, you can visit your site here:\n\n%s" ) );
 	}
 }
