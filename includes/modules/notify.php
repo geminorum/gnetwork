@@ -25,11 +25,17 @@ class Notify extends gNetwork\Module
 		if ( ! is_multisite() )
 			return;
 
-		if ( $this->options['signup_blog_subject'] )
-			$this->filter( 'wpmu_signup_blog_notification_email', 8, 12 );
+		if ( $this->options['signup_user_subject'] )
+			$this->filter( 'wpmu_signup_user_notification_subject', 5, 12 );
 
-		if ( $this->options['signup_blog_message'] )
+		if ( $this->options['signup_user_email'] )
+			$this->filter( 'wpmu_signup_user_notification_email', 5, 12 );
+
+		if ( $this->options['signup_blog_subject'] )
 			$this->filter( 'wpmu_signup_blog_notification_subject', 8, 12 );
+
+		if ( $this->options['signup_blog_email'] )
+			$this->filter( 'wpmu_signup_blog_notification_email', 8, 12 );
 	}
 
 	public function setup_menu( $context )
@@ -42,8 +48,10 @@ class Notify extends gNetwork\Module
 		return [
 			'disable_new_user_admin'  => 0,
 			'disable_password_change' => 0,
+			'signup_user_subject'     => '',
+			'signup_user_email'       => '',
 			'signup_blog_subject'     => '',
-			'signup_blog_message'     => '',
+			'signup_blog_email'       => '',
 		];
 	}
 
@@ -69,6 +77,23 @@ class Notify extends gNetwork\Module
 		if ( is_multisite() )
 			$settings['signup'] = [
 				[
+					'field'       => 'signup_user_subject',
+					'type'        => 'text',
+					'title'       => _x( 'New User Subject', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Subject of the notification email of new user signup. Leave empty to use defaults.', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
+					'placeholder' => _x( '[%1$s] Activate %2$s', 'New user notification email subject' ),
+					'after'       => Settings::fieldAfterText( '<code>%1$s</code>: Network name, <code>%2$s</code>: User login name' ),
+				],
+				[
+					'field'       => 'signup_user_email',
+					'type'        => 'textarea',
+					'title'       => _x( 'New User Message', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Message content of the notification email for new user sign-up. Leave empty to use defaults.', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
+					'placeholder' => __( "To activate your user, please click the following link:\n\n%s\n\nAfter you activate, you will receive *another email* with your login." ),
+					'after'       => Settings::fieldAfterText( '<code>%1$s</code>: Activate URL' ),
+					'field_class' => [ 'large-text' ],
+				],
+				[
 					'field'       => 'signup_blog_subject',
 					'type'        => 'text',
 					'title'       => _x( 'New Blog Subject', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
@@ -77,7 +102,7 @@ class Notify extends gNetwork\Module
 					'after'       => Settings::fieldAfterText( '<code>%1$s</code>: Network name, <code>%2$s</code>: New site URL' ),
 				],
 				[
-					'field'       => 'signup_blog_message',
+					'field'       => 'signup_blog_email',
 					'type'        => 'textarea',
 					'title'       => _x( 'New Blog Message', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Message content of the new blog notification email. Leave empty to use defaults.', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
@@ -88,6 +113,68 @@ class Notify extends gNetwork\Module
 			];
 
 		return $settings;
+	}
+
+	public function settings_sidebox( $sub, $uri )
+	{
+		echo '<p>';
+
+			Settings::submitButton( 'test_signup_user', _x( 'Test Signup User Notification', 'Modules: Notify', GNETWORK_TEXTDOMAIN ), 'small', [
+				'title' => _x( 'Sends a TEST confirmation request email to a user when they sign up for a new user account.', 'Modules: Notify', GNETWORK_TEXTDOMAIN ),
+			] );
+
+			Settings::submitButton( 'test_signup_blog', _x( 'Test Signup Blog Notification', 'Modules: Notify', GNETWORK_TEXTDOMAIN ), 'small', [
+				'title' => _x( 'Sends a TEST confirmation request email to a user when they sign up for a new site.', 'Modules: Notify', GNETWORK_TEXTDOMAIN ),
+			] );
+
+		echo '</p>';
+	}
+
+	public function settings( $sub = NULL )
+	{
+		if ( $this->key == $sub ) {
+
+			if ( isset( $_POST['test_signup_user'] ) ) {
+
+				$this->check_referer( $sub );
+
+				// BuddyPress's
+				remove_filter( 'wpmu_signup_user_notification', 'bp_core_activation_signup_user_notification', 1, 4 );
+
+				$user = wp_get_current_user();
+
+				$results = wpmu_signup_user_notification(
+					$user->user_login,
+					$user->user_email, // gNetwork()->email(),
+					substr( md5( time().wp_rand().$user->user_email ), 0, 16 )
+				);
+
+				WordPress::redirectReferer( $results ? 'mailed' : 'error' );
+
+			} else if ( isset( $_POST['test_signup_blog'] ) ) {
+
+				$this->check_referer( $sub );
+
+				// BuddyPress's
+				remove_filter( 'wpmu_signup_blog_notification', 'bp_core_activation_signup_blog_notification', 1, 6 );
+
+				$user = wp_get_current_user();
+
+				$results = wpmu_signup_blog_notification(
+					'example.com',
+					'/path',
+					'New Site Title',
+					$user->user_login,
+					$user->user_email, // gNetwork()->email(),
+					substr( md5( time().wp_rand().'example.com' ), 0, 16 )
+				);
+
+				WordPress::redirectReferer( $results ? 'mailed' : 'error' );
+
+			} else {
+				parent::settings( $sub );
+			}
+		}
 	}
 
 	// filter whether to bypass the welcome email after site activation.
@@ -228,13 +315,23 @@ class Notify extends gNetwork\Module
 		);
 	}
 
+	public function wpmu_signup_user_notification_subject( $subject, $user_login, $user_email, $key, $meta )
+	{
+		return $this->options['signup_user_subject'];
+	}
+
+	public function wpmu_signup_user_notification_email( $message, $user_login, $user_email, $key, $meta )
+	{
+		return $this->options['signup_user_email'];
+	}
+
 	public function wpmu_signup_blog_notification_subject( $subject, $domain, $path, $title, $user_login, $user_email, $key, $meta )
 	{
-		return $this->default_option( 'signup_blog_subject', _x( '[%1$s] Activate %2$s', 'New site notification email subject' ) );
+		return $this->options['signup_blog_subject'];
 	}
 
 	public function wpmu_signup_blog_notification_email( $message, $domain, $path, $title, $user_login, $user_email, $key, $meta )
 	{
-		return $this->default_option( 'signup_blog_message', __( "To activate your blog, please click the following link:\n\n%s\n\nAfter you activate, you will receive *another email* with your login.\n\nAfter you activate, you can visit your site here:\n\n%s" ) );
+		return $this->options['signup_blog_email'];
 	}
 }
