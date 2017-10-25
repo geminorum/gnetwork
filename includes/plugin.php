@@ -230,12 +230,12 @@ class Plugin
 		return $pre;
 	}
 
-	public function email()
+	public function email( $fallback = FALSE )
 	{
 		if ( isset( $this->email ) )
 			return $this->email->get_from_email();
 
-		return FALSE;
+		return $fallback;
 	}
 
 	public function na( $wrap = 'code' )

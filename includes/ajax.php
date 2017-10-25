@@ -67,6 +67,8 @@ class Ajax extends Core\Base
 		self::errorMessage( _x( 'What?!', 'Ajax: Ajax Notice', GNETWORK_TEXTDOMAIN ) );
 	}
 
+	// @REF: https://make.wordpress.org/core/?p=12799
+	// @REF: https://austin.passy.co/2014/native-wordpress-loading-gifs/
 	public static function spinner()
 	{
 		return is_admin()

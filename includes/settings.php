@@ -114,6 +114,7 @@ class Settings extends Core\Base
 			'updated'   => self::success( _x( 'Settings updated.', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
 			'purged'    => self::success( _x( 'Data purged.', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
 			'maked'     => self::success( _x( 'File/Folder created.', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
+			'mailed'    => self::success( _x( 'Mail sent successfully.', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
 			'error'     => self::error( _x( 'Error occurred!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
 			'wrong'     => self::error( _x( 'Something\'s wrong!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
 			'nochange'  => self::error( _x( 'No item changed!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
@@ -850,6 +851,9 @@ class Settings extends Core\Base
 				if ( 'textarea-quicktags' == $args['type'] ) {
 
 					$args['field_class'] = HTML::attrClass( $args['field_class'], 'textarea-quicktags', 'code' );
+
+					if ( ! $args['dir'] && HTML::rtl() )
+						$args['field_class'][] = 'quicktags-rtl';
 
 					if ( ! $args['values'] )
 						$args['values'] = [

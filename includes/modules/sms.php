@@ -89,8 +89,7 @@ class SMS extends gNetwork\Module
 	public function wp_dashboard_setup()
 	{
 		if ( WordPress::cuc( $this->options['manage_providers'] ) )
-			wp_add_dashboard_widget(
-				'gnetwork_sms_widget_summary',
+			wp_add_dashboard_widget( $this->classs( 'providers-summary' ),
 				_x( 'SMS Providers', 'Modules: SMS: Widget Title', GNETWORK_TEXTDOMAIN ),
 				[ $this, 'admin_widget_summary' ]
 			);
@@ -98,6 +97,9 @@ class SMS extends gNetwork\Module
 
 	public function admin_widget_summary()
 	{
+		if ( $this->check_hidden_metabox( 'providers-summary' ) )
+			return;
+
 		foreach ( $this->providers as $name => &$provider ) {
 
 			if ( $provider->providerEnabled() ) {

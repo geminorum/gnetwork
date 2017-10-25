@@ -434,12 +434,12 @@ class AdminBar extends gNetwork\Module
 		if ( WordPress::isFlush() )
 			update_site_option( $key, '' );
 
-		if ( $menu = get_site_option( $key, NULL ) )
+		else if ( $menu = get_site_option( $key, NULL ) )
 			return $menu;
 
 		// bail because previously no menu found
-		// and FALSE stored to prevent unnecessary checks
-		if ( FALSE === $menu )
+		// and '0' stored to prevent unnecessary checks
+		if ( '0' === $menu )
 			return $menu;
 
 		if ( is_main_site() ) {
@@ -466,7 +466,7 @@ class AdminBar extends gNetwork\Module
 			}
 		}
 
-		update_site_option( $key, FALSE );
+		update_site_option( $key, '0' );
 		return FALSE;
 	}
 

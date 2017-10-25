@@ -110,6 +110,9 @@ class Dashboard extends gNetwork\Module
 
 	public function widget_external_feed()
 	{
+		if ( $this->check_hidden_metabox( 'external-feed' ) )
+			return;
+
 		$feeds = [];
 
 		foreach ( $this->filters( 'external_feeds', [] ) as $name => $feed )

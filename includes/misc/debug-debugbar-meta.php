@@ -27,9 +27,11 @@ class Debug_Bar_gNetworkMeta extends \Debug_Bar_Panel
 			$meta = get_user_meta( $_GET['user_id'] );
 
 		} else if ( ! empty( $_GET['tag_ID'] ) ) {
+
 			$meta = get_term_meta( $_GET['tag_ID'] );
 
 		} else if ( $post = get_post() ) {
+
 			$meta = get_post_meta( $post->ID );
 
 			echo '<div class="-post">';
@@ -37,6 +39,7 @@ class Debug_Bar_gNetworkMeta extends \Debug_Bar_Panel
 			echo '</div>';
 
 		} else if ( ! empty( $_GET['post'] ) ) {
+
 			$meta = get_post_meta( $_GET['post'] );
 
 			echo '<div class="-post">';
@@ -48,22 +51,26 @@ class Debug_Bar_gNetworkMeta extends \Debug_Bar_Panel
 		}
 
 		if ( $meta ) {
+
 			foreach ( $meta as $key => $values ) {
-				HTML::h3( $key, '-title' );
+
 				echo '<div class="-group">';
+				HTML::h3( $key, '-title' );
+
 				foreach ( $values as $value ) {
 					$data = maybe_unserialize( $value );
-					if ( is_array( $value ) )
+					if ( is_array( $data ) )
 						HTML::tableSide( $data );
 					else
-						Utilities::dump( $data );
+						echo '<code>'.HTML::sanitizeDisplay( $data ).'</code>';
 				}
-				echo '</div>';
+
+				echo '</div><hr />';
 			}
+
 		} else {
-			echo '<div class="-empty">';
-				_ex( 'No Meta Data!', 'Debug Module: Debug Bar Panel', GNETWORK_TEXTDOMAIN );
-			echo '</div>';
+
+			HTML::desc( _x( 'No metadata found!', 'Debug Module: Debug Bar Panel', GNETWORK_TEXTDOMAIN ), TRUE, '-empty' );
 		}
 
 		echo '</div>';

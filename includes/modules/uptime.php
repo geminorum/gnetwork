@@ -89,6 +89,9 @@ class Uptime extends gNetwork\Module
 
 	public function widget_uptimerobot()
 	{
+		if ( $this->check_hidden_metabox( 'dashboard' ) )
+			return;
+
 		$data = $this->get_monitors();
 
 		if ( self::isError( $data ) ) {

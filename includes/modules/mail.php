@@ -474,7 +474,7 @@ class Mail extends gNetwork\Module
 
 			$smtp_debug = ob_get_clean();
 
-			echo '<div id="m1essage" class="'.( FALSE === $result ? 'error' : 'updated' ).'"><p><strong>';
+			echo '<hr /><br /><div class="notice notice-'.( FALSE === $result ? 'error' : 'success' ).' fade inline"><p><strong>';
 				_ex( 'Test Message Sent', 'Modules: Mail', GNETWORK_TEXTDOMAIN );
 			echo '</strong></p><p>';
 				_ex( 'The result was:', 'Modules: Mail', GNETWORK_TEXTDOMAIN );
@@ -488,7 +488,7 @@ class Mail extends gNetwork\Module
 				_ex('The full debugging output:', 'Modules: Mail', GNETWORK_TEXTDOMAIN );
 			echo '</p>';
 				HTML::tableSide( $phpmailer );
-			echo '</div>';
+			echo '<br /></div>';
 
 			unset( $phpmailer );
 		}
