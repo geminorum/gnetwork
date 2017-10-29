@@ -7,6 +7,7 @@ use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\HTTP;
 use geminorum\gNetwork\Core\Text;
+use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
 
 class Code extends gNetwork\Module
@@ -89,8 +90,8 @@ class Code extends gNetwork\Module
 		$args = shortcode_atts( [
 			'repo'    => 'geminorum/gnetwork',
 			'branch'  => 'master',
-			'type'    => 'readme', // 'readme', 'markdown', 'wiki'
-			'file'    => '/readme', // markdown page without .md
+			'type'    => 'readme', // 'readme', 'changelog', 'markdown', 'wiki'
+			'file'    => 'readme', // markdown page without .md
 			'page'    => 'Home', // wiki page / default is `Home`
 			'trim'    => 0,
 			'context' => NULL,
@@ -106,14 +107,17 @@ class Code extends gNetwork\Module
 
 		if ( FALSE === ( $html = get_site_transient( $key ) ) ) {
 
+			$args['repo'] = str_replace( 'https://github.com/', '', URL::untrail( $args['repo'] ) );
+
 			switch ( $args['type'] ) {
-				case 'wiki'    : $url = 'https://raw.githubusercontent.com/wiki/'.$args['repo'].'/'.$args['page'].'.md'; break;
-				case 'markdown': $url = 'https://raw.githubusercontent.com/'.$args['repo'].'/'.$args['branch'].'/'.$args['file']; break;
-				case 'readme'  :
-				default        : $url = 'https://api.github.com/repos/'.$args['repo'].'/readme'; break;
+				case 'wiki'     : $url = 'https://raw.githubusercontent.com/wiki/'.$args['repo'].'/'.$args['page'].'.md'; break;
+				case 'markdown' : $url = 'https://raw.githubusercontent.com/'.$args['repo'].'/'.$args['branch'].'/'.$args['file']; break;
+				case 'changelog': $url = 'https://raw.githubusercontent.com/'.$args['repo'].'/'.$args['branch'].'/CHANGES.md'; break;
+				case 'readme'   :
+				default         : $url = 'https://api.github.com/repos/'.$args['repo'].'/readme'; break;
 			}
 
-			if ( in_array( $args['type'], [ 'wiki', 'markdown' ] ) )
+			if ( in_array( $args['type'], [ 'wiki', 'markdown', 'changelog' ] ) )
 				$md = HTTP::getHTML( $url );
 
 			else if ( $json = HTTP::getJSON( $url ) )
