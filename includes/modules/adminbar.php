@@ -83,7 +83,7 @@ class AdminBar extends gNetwork\Module
 
 		if ( is_multisite() && ( $user_id = get_current_user_id() ) ) {
 			$super_admin       = WordPress::isSuperAdmin();
-			$user->blogs       = WordPress::getAllBlogs( ( $super_admin ? FALSE : $user_id ), $super_admin );
+			$user->blogs       = WordPress::getAllBlogs( ( $super_admin ? FALSE : $user_id ), $super_admin, TRUE );
 			$user->active_blog = get_user_meta( $user_id, 'primary_blog', TRUE );
 		} else {
 			$user->blogs       = [];
@@ -247,6 +247,7 @@ class AdminBar extends gNetwork\Module
 			'title'  => self::getIcon( 'performance' ),
 			'parent' => 'top-secondary',
 			'href'   => $admin_url,
+			'meta'   => [ 'title' => sprintf( 'gNetwork v%s', GNETWORK_VERSION ) ],
 		] );
 
 		$wp_admin_bar->add_node( [
@@ -426,8 +427,10 @@ class AdminBar extends gNetwork\Module
 
 	public static function getNetworkMenu( $name, $items = TRUE )
 	{
+		$menu = FALSE;
+
 		if ( ! $name )
-			return FALSE;
+			return $menu;
 
 		$key = 'gnetwork_'.$name;
 

@@ -302,7 +302,7 @@ class Module extends Core\Base
 		$suffix = '';
 
 		foreach ( func_get_args() as $arg )
-			$suffix .= '-'.$arg;
+			$suffix.= '-'.$arg;
 
 		return $this->base.'-'.$this->key.$suffix;
 	}
@@ -312,7 +312,7 @@ class Module extends Core\Base
 		$suffix = '';
 
 		foreach ( func_get_args() as $arg )
-			$suffix .= maybe_serialize( $arg );
+			$suffix.= maybe_serialize( $arg );
 
 		return md5( $this->base.$this->key.$suffix );
 	}
@@ -322,7 +322,7 @@ class Module extends Core\Base
 		$suffix = '';
 
 		foreach ( func_get_args() as $arg )
-			$suffix .= maybe_serialize( $arg );
+			$suffix.= maybe_serialize( $arg );
 
 		return wp_hash( $this->base.$this->key.$suffix );
 	}
@@ -567,6 +567,9 @@ class Module extends Core\Base
 	protected function settings_form_after( $uri, $sub = 'general', $action = 'update', $check = TRUE )
 	{
 		echo '</form>';
+
+		if ( WordPress::isDev() )
+			self::dump( $this->options );
 	}
 
 	public function default_buttons( $sub = NULL )
@@ -588,7 +591,7 @@ class Module extends Core\Base
 	protected function settings_buttons( $sub = NULL, $wrap = '' )
 	{
 		if ( FALSE !== $wrap )
-			echo '<p class="submit '.$this->base.'-wrap-buttons '.$wrap.'">';
+			echo $this->wrap_open_buttons( $wrap );
 
 		foreach ( $this->buttons as $button )
 			Settings::submitButton( $button['key'], $button['value'], $button['type'], $button['atts'] );
@@ -847,6 +850,9 @@ class Module extends Core\Base
 
 	public static function shortcodeWrap( $html, $suffix = FALSE, $args = [], $block = TRUE, $extra = [] )
 	{
+		if ( is_null( $html ) )
+			return $html;
+
 		$before = empty( $args['before'] ) ? '' : $args['before'];
 		$after  = empty( $args['after'] )  ? '' : $args['after'];
 
@@ -966,6 +972,13 @@ class Module extends Core\Base
 		return $block
 			? '<div class="-wrap '.$this->base.'-wrap -'.$this->key.' '.$class.'">'
 			: '<span class="-wrap '.$this->base.'-wrap -'.$this->key.' '.$class.'">';
+	}
+
+	protected function wrap_open_buttons( $class = '', $block = TRUE )
+	{
+		return $block
+			? '<p class="submit '.$this->base.'-wrap -wrap-buttons -'.$this->key.' '.$class.'">'
+			: '<span class="submit '.$this->base.'-wrap -wrap-buttons -'.$this->key.' '.$class.'">';
 	}
 
 	// checks to bail early if metabox/widget is hidden

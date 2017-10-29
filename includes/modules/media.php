@@ -1350,8 +1350,8 @@ class Media extends gNetwork\Module
 		$ext  = empty( $info['extension'] ) ? '' : '.'.$info['extension'];
 		$name = basename( $filename, $ext );
 
-		// $name = Utilities::URLifyDownCode( $name );
-		$name = Utilities::URLifyFilter( $name );
+		$name = Utilities::URLifyDownCode( $name );
+		// $name = Utilities::URLifyFilter( $name );
 
 		return Text::strToLower( $name ).$ext;
 	}

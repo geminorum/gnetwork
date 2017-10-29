@@ -61,13 +61,13 @@ class Notify extends gNetwork\Module
 			'_general' => [
 				[
 					'field'       => 'disable_new_user_admin',
-					'title'       => _x( 'New User', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'New User Email', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Notify the blog admin of a newly-registered user', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
 					'values'      => Settings::reverseEnabled(),
 				],
 				[
 					'field'       => 'disable_password_change',
-					'title'       => _x( 'Password Reset', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Password Reset Email', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Notify the blog admin of a user changing password', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
 					'values'      => Settings::reverseEnabled(),
 				],
@@ -79,7 +79,7 @@ class Notify extends gNetwork\Module
 				[
 					'field'       => 'signup_user_subject',
 					'type'        => 'text',
-					'title'       => _x( 'New User Subject', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'New User Email Subject', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Subject of the notification email of new user signup. Leave empty to use defaults.', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
 					'placeholder' => _x( '[%1$s] Activate %2$s', 'New user notification email subject' ),
 					'after'       => Settings::fieldAfterText( '<code>%1$s</code>: Network name, <code>%2$s</code>: User login name' ),
@@ -87,7 +87,7 @@ class Notify extends gNetwork\Module
 				[
 					'field'       => 'signup_user_email',
 					'type'        => 'textarea',
-					'title'       => _x( 'New User Message', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'New User Email Message', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Message content of the notification email for new user sign-up. Leave empty to use defaults.', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
 					'placeholder' => __( "To activate your user, please click the following link:\n\n%s\n\nAfter you activate, you will receive *another email* with your login." ),
 					'after'       => Settings::fieldAfterText( '<code>%1$s</code>: Activate URL' ),
@@ -96,7 +96,7 @@ class Notify extends gNetwork\Module
 				[
 					'field'       => 'signup_blog_subject',
 					'type'        => 'text',
-					'title'       => _x( 'New Blog Subject', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'New Blog Email Subject', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Subject of the new blog notification email. Leave empty to use defaults.', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
 					'placeholder' => _x( '[%1$s] Activate %2$s', 'New site notification email subject' ),
 					'after'       => Settings::fieldAfterText( '<code>%1$s</code>: Network name, <code>%2$s</code>: New site URL' ),
@@ -104,7 +104,7 @@ class Notify extends gNetwork\Module
 				[
 					'field'       => 'signup_blog_email',
 					'type'        => 'textarea',
-					'title'       => _x( 'New Blog Message', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'New Blog Email Message', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Message content of the new blog notification email. Leave empty to use defaults.', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
 					'placeholder' => __( "To activate your blog, please click the following link:\n\n%s\n\nAfter you activate, you will receive *another email* with your login.\n\nAfter you activate, you can visit your site here:\n\n%s" ),
 					'after'       => Settings::fieldAfterText( '<code>%1$s</code>: Activate URL, <code>%2$s</code>: New site URL, <code>%3$s</code>: Activation Key' ),
@@ -117,13 +117,13 @@ class Notify extends gNetwork\Module
 
 	public function settings_sidebox( $sub, $uri )
 	{
-		echo '<p>';
+		echo $this->wrap_open_buttons( '-sidebox' );
 
-			Settings::submitButton( 'test_signup_user', _x( 'Test Signup User Notification', 'Modules: Notify', GNETWORK_TEXTDOMAIN ), 'small', [
+			Settings::submitButton( 'test_signup_user', _x( 'Test Signup User Email', 'Modules: Notify', GNETWORK_TEXTDOMAIN ), 'small', [
 				'title' => _x( 'Sends a TEST confirmation request email to a user when they sign up for a new user account.', 'Modules: Notify', GNETWORK_TEXTDOMAIN ),
 			] );
 
-			Settings::submitButton( 'test_signup_blog', _x( 'Test Signup Blog Notification', 'Modules: Notify', GNETWORK_TEXTDOMAIN ), 'small', [
+			Settings::submitButton( 'test_signup_blog', _x( 'Test Signup Blog Email', 'Modules: Notify', GNETWORK_TEXTDOMAIN ), 'small', [
 				'title' => _x( 'Sends a TEST confirmation request email to a user when they sign up for a new site.', 'Modules: Notify', GNETWORK_TEXTDOMAIN ),
 			] );
 

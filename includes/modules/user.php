@@ -170,9 +170,11 @@ class User extends gNetwork\Module
 	// FIXME: needs better UX
 	public function settings_sidebox( $sub, $uri )
 	{
-		echo '<p>';
+		echo $this->wrap_open_buttons( '-sidebox' );
+
 			Settings::submitButton( 'export_users_csv', _x( 'Export Users', 'Modules: User', GNETWORK_TEXTDOMAIN ), 'small' );
 			HTML::desc( _x( 'Get all users in a CSV file.', 'Modules: User', GNETWORK_TEXTDOMAIN ), FALSE );
+
 		echo '</p>';
 	}
 

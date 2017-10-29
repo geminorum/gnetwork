@@ -26,15 +26,12 @@ class Update extends gNetwork\Module
 
 	public function admin_init()
 	{
-		// hide the update WordPress reminder from all users that are not assumed Administrators (cannot upgrade plugins).
-		// from : http://wordpress.org/extend/plugins/hide-update-reminder/
 		if ( ! current_user_can( 'update_plugins' ) ) {
 			remove_action( 'admin_notices', 'update_nag', 3 );
 			remove_action( 'network_admin_notices', 'update_nag', 3 );
 		}
 
-		// remove the wordpress update notification for all users except admin
-		if ( ! current_user_can( 'manage_options' ) ) {
+		if ( ! current_user_can( 'update_core' ) ) {
 			remove_all_actions( 'wp_version_check' );
 			add_filter( 'pre_option_update_core', '__return_null' );
 			add_filter( 'pre_site_transient_update_core', '__return_null' );

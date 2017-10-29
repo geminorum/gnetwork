@@ -212,7 +212,7 @@ class Mail extends gNetwork\Module
 
 				HTML::desc( _x( 'Log folder not exists or writable.', 'Modules: Mail', GNETWORK_TEXTDOMAIN ) );
 
-				echo '<p>';
+				echo $this->wrap_open_buttons( '-sidebox' );
 					Settings::submitButton( 'create_log_folder', _x( 'Create Log Folder', 'Modules: Mail', GNETWORK_TEXTDOMAIN ), 'small' );
 				echo '</p>';
 
@@ -225,7 +225,7 @@ class Mail extends gNetwork\Module
 			}
 
 		} else {
-			HTML::desc( _x( 'Logging emails disabled.', 'Modules: Mail', GNETWORK_TEXTDOMAIN ) );
+			HTML::desc( _x( 'Email logs are disabled.', 'Modules: Mail', GNETWORK_TEXTDOMAIN ), TRUE, '-empty' );
 		}
 	}
 
@@ -372,6 +372,9 @@ class Mail extends gNetwork\Module
 				$phpmailer->Password = $this->options['smtp_password'];
 			}
 		}
+
+		if ( WordPress::isDev() )
+			$phpmailer->Encoding = 'quoted-printable';
 	}
 
 	// $mail = [ 'to', 'subject', 'message', 'headers', 'attachments' ];

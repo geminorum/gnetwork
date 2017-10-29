@@ -233,7 +233,7 @@ class Plugin
 	public function email( $fallback = FALSE )
 	{
 		if ( isset( $this->email ) )
-			return $this->email->get_from_email();
+			return $this->email->get_from_email( $fallback );
 
 		return $fallback;
 	}

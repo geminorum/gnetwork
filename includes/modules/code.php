@@ -95,6 +95,9 @@ class Code extends gNetwork\Module
 			'page'    => 'Home', // wiki page / default is `Home`
 			'trim'    => 0,
 			'context' => NULL,
+			'wrap'    => TRUE,
+			'before'  => '',
+			'after'   => '',
 		], $atts, $tag );
 
 		if ( FALSE === $args['context'] || is_feed() )
@@ -147,7 +150,7 @@ class Code extends gNetwork\Module
 			}
 		}
 
-		return $html ? '<div class="gnetwork-wrap-shortcode shortcode-github-readme" data-github-repo="'.$args['repo'].'">'.$html.'</div>' : NULL;
+		return self::shortcodeWrap( $html, 'github-readme', $args, TRUE, [ 'data-github-repo' => $args['repo'] ] );
 	}
 
 	public static function convertGitHubWikiLinks( $html, $repo )
@@ -218,6 +221,9 @@ class Code extends gNetwork\Module
 			'highlight'         => FALSE, // EXAMPLES: '2', '2-4', '1,3-4', '2,3,4'
 			'loading'           => FALSE,
 			'context'           => NULL,
+			'wrap'              => TRUE,
+			'before'            => '',
+			'after'             => '',
 		], $atts, $tag );
 
 		if ( FALSE === $args['context'] || is_feed() )
@@ -240,7 +246,7 @@ class Code extends gNetwork\Module
 
 		Utilities::enqueueScriptVendor( 'jquery.gist-embed', [ 'jquery' ], '2.6' );
 
-		return '<div class="gnetwork-wrap-shortcode shortcode-github-gist" data-github-gist="'.$args['id'].'">'.$html.'</div>';
+		return self::shortcodeWrap( $html, 'github-gist', $args, TRUE, [ 'data-github-gist' => $args['id'] ] );
 	}
 
 	public function shortcode_textarea( $atts = [], $content = NULL, $tag = '' )

@@ -508,15 +508,11 @@ class Debug extends gNetwork\Module
 
 	public static function phpinfo()
 	{
-		if ( $phpinfo = self::get_phpinfo() ) {
-			echo '<div class="-phpinfo-wrap">';
-				echo $phpinfo;
-			echo '</div>';
-		} else {
-			echo '<div class="-phpinfo-disabled description">';
-				_ex( '<code>phpinfo()</code> has been disabled.', 'Modules: Debug', GNETWORK_TEXTDOMAIN );
-			echo '</div>';
-		}
+		if ( $phpinfo = self::get_phpinfo() )
+			echo HTML::wrap( $phpinfo, '-phpinfo' );
+
+		else
+			HTML::desc( _x( '<code>phpinfo()</code> has been disabled.', 'Modules: Debug', GNETWORK_TEXTDOMAIN ), TRUE, '-empty -phpinfo' );
 	}
 
 	public static function summaryPHP()
