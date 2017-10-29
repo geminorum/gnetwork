@@ -579,6 +579,19 @@ class Utilities extends Core\Base
 		] );
 	}
 
+	public static function mdExtra( $markdown )
+	{
+		global $gNetworkParsedownExtra;
+
+		if ( ! class_exists( 'ParsedownExtra' ) )
+			return $markdown;
+
+		if ( empty( $gNetworkParsedownExtra ) )
+			$gNetworkParsedownExtra = new \ParsedownExtra();
+
+		return $gNetworkParsedownExtra->text( $markdown );
+	}
+
 	// @SEE: https://core.trac.wordpress.org/ticket/24661
 	// @SEE: https://core.trac.wordpress.org/ticket/22363
 	// @SEE: https://core.trac.wordpress.org/ticket/35951

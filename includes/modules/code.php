@@ -131,8 +131,7 @@ class Code extends gNetwork\Module
 				if ( $args['trim'] )
 					$md = implode( "\n", array_slice( explode( "\n", $md ), intval( $args['trim'] ) ) );
 
-				$parsedown = new \ParsedownExtra();
-				$html = $parsedown->text( $md );
+				$html = Utilities::mdExtra( $md );
 
 				if ( 'wiki' == $args['type'] )
 					$html = self::convertGitHubWikiLinks( $html, $args['repo'] );
