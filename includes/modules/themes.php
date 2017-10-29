@@ -436,6 +436,27 @@ class Themes extends gNetwork\Module
 			}
 
 			add_action( 'twentyfifteen_credits', [ $this, 'twentysomething_credits' ] );
+
+		} else if ( $this->isTheme( 'twentyseventeen' ) ) {
+
+			if ( $this->rtl ) {
+
+				remove_action( 'embed_head', 'locale_stylesheet', 30 );
+
+				add_action( 'wp_head', function(){
+					Themes::linkStyleSheet( 'twentyseventeen-rtl' );
+				}, 20 );
+
+				add_filter( 'mce_css', function( $url ){
+					return Themes::appendMCECSS( $url, 'twentyseventeen', $this->rtl );
+				} );
+
+				add_action( 'get_template_part_template-parts/footer/site', function(){
+					echo '<div class="site-info" style="display:block;">';
+						echo gnetwork_credits( TRUE, FALSE );
+					echo '</div>';
+				} );
+			}
 		}
 	}
 
