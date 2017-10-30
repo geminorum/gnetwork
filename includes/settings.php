@@ -505,6 +505,7 @@ class Settings extends Core\Base
 			'string_disabled' => _x( 'Disabled', 'Settings', GNETWORK_TEXTDOMAIN ),
 			'string_enabled'  => _x( 'Enabled', 'Settings', GNETWORK_TEXTDOMAIN ),
 			'string_select'   => self::showOptionNone(),
+			'string_empty'    => _x( 'No options!', 'Settings', GNETWORK_TEXTDOMAIN ),
 			'string_noaccess' => _x( 'You do not have access to change this option.', 'Settings', GNETWORK_TEXTDOMAIN ),
 		], $atts );
 
@@ -607,18 +608,52 @@ class Settings extends Core\Base
 				if ( ! $args['field_class'] )
 					$args['field_class'] = 'regular-text';
 
-				echo HTML::tag( 'input', [
-					'type'        => 'text',
-					'id'          => $id,
-					'name'        => $name,
-					'value'       => $value,
-					'class'       => $args['field_class'],
-					'placeholder' => $args['placeholder'],
-					'disabled'    => $args['disabled'],
-					'readonly'    => $args['readonly'],
-					'dir'         => $args['dir'],
-					'data'        => $args['data'],
-				] );
+				if ( FALSE === $args['values'] ) {
+
+					HTML::desc( $args['string_empty'] );
+
+				} else if ( count( $args['values'] ) ) {
+
+					foreach ( $args['values'] as $value_name => $value_title ) {
+
+						if ( in_array( $value_name, $exclude ) )
+							continue;
+
+						$html = HTML::tag( 'input', [
+							'type'        => 'text',
+							'id'          => $id.'-'.$value_name,
+							'name'        => $name.'['.$value_name.']',
+							'value'       => isset( $value[$value_name] ) ? $value[$value_name] : '',
+							'class'       => $args['field_class'],
+							'placeholder' => $args['placeholder'],
+							'disabled'    => $args['disabled'],
+							'readonly'    => $args['readonly'],
+							'dir'         => $args['dir'],
+							'data'        => $args['data'],
+						] );
+
+						$html.= '&nbsp;<span class="-field-after">'.$value_title.'</span>';
+
+						echo '<p>'.HTML::tag( 'label', [
+							'for' => $id.'-'.$value_name,
+						], $html ).'</p>';
+					}
+
+				} else {
+
+					echo HTML::tag( 'input', [
+						'type'        => 'text',
+						'id'          => $id,
+						'name'        => $name,
+						'value'       => $value,
+						'class'       => $args['field_class'],
+						'placeholder' => $args['placeholder'],
+						'disabled'    => $args['disabled'],
+						'readonly'    => $args['readonly'],
+						'dir'         => $args['dir'],
+						'data'        => $args['data'],
+					] );
+				}
 
 			break;
 			case 'number':

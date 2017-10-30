@@ -2,6 +2,7 @@
 
 defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
+use geminorum\gNetwork\Core\Arraay;
 use geminorum\gNetwork\Core\Exception;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\URL;
@@ -611,8 +612,6 @@ class Module extends Core\Base
 		wp_nonce_field( $this->base.'_'.$sub.'-settings' );
 	}
 
-	// FIXME: use filter arg for sanitize
-	// @SEE: http://codex.wordpress.org/Data_Validation#Input_Validation
 	protected function settings_update( $sub )
 	{
 		if ( ! empty( $_POST ) && 'update' == $_POST['action'] ) {
@@ -645,6 +644,8 @@ class Module extends Core\Base
 
 	// DEFAULT METHOD
 	// CAUTION: caller must check the nonce
+	// FIXME: use filter arg for sanitize
+	// @SEE: http://codex.wordpress.org/Data_Validation#Input_Validation
 	protected function save_settings( $options_key = NULL )
 	{
 		if ( is_null( $options_key ) )
@@ -652,20 +653,34 @@ class Module extends Core\Base
 
 		if ( isset( $_POST[$options_key] ) && is_array( $_POST[$options_key] ) ) {
 
-			$options = apply_filters( $options_key.'_default_options', $this->default_options() );
+			$settings = apply_filters( $options_key.'_default_settings', $this->prep_settings() );
+			$options  = apply_filters( $options_key.'_default_options', $this->default_options() );
 
 			foreach ( $options as $setting => $default ) {
+
 				if ( isset( $_POST[$options_key][$setting] ) ) {
 
-					// multiple checkboxes
-					if ( is_array( $_POST[$options_key][$setting] ) )
-						$options[$setting] = count( $_POST[$options_key][$setting] )
-							? array_keys( $_POST[$options_key][$setting] )
-							: [];
+					$type = empty( $settings[$setting]['type'] ) ? NULL : $settings[$setting]['type'];
 
-					// other options
-					else
-						$options[$setting] = trim( stripslashes( $_POST[$options_key][$setting] ) );
+					if ( is_array( $_POST[$options_key][$setting] ) ) {
+
+						if ( 'text' == $type ) {
+
+							// multiple texts
+							foreach ( $_POST[$options_key][$setting] as $key => $value )
+								if ( $string = trim( self::unslash( $value ) ) )
+									$options[$setting][sanitize_key( $key )] = $string;
+
+						} else {
+
+							// multiple checkboxes
+							$options[$setting] = array_keys( $_POST[$options_key][$setting] );
+						}
+
+					} else {
+						// other options
+						$options[$setting] = trim( self::unslash( $_POST[$options_key][$setting] ) );
+					}
 
 					// skip defaults
 					if ( $options[$setting] == $default )
@@ -678,6 +693,17 @@ class Module extends Core\Base
 		}
 
 		return FALSE;
+	}
+
+	protected function prep_settings()
+	{
+		$settings = [];
+
+		if ( method_exists( $this, 'default_settings' ) )
+			foreach ( $this->default_settings( TRUE ) as $section )
+				$settings = array_merge( $settings, Arraay::reKey( $section, 'field' ) );
+
+		return $settings;
 	}
 
 	public function register_settings()
