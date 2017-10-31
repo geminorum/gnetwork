@@ -14,6 +14,7 @@ class Embed extends gNetwork\Module
 
 	protected $key     = 'embed';
 	protected $network = FALSE;
+	protected $ajax    = TRUE;
 
 	protected function setup_actions()
 	{
