@@ -1110,7 +1110,7 @@ class ShortCodes extends gNetwork\Module
 		$info = get_bloginfo( $args['key'] );
 
 		if ( $args['wrap'] )
-			$info = '<span class="gnetwork-wrap-shortcode -bloginfo -key-'.$args['key'].' '.sprintf( $args['class'], $args['key'] ).'">'.$info.'</span>';
+			$info = '<span class="-wrap shortcode-bloginfo -key-'.$args['key'].' '.sprintf( $args['class'], $args['key'] ).'">'.$info.'</span>';
 
 		else if ( $args['class'] )
 			$info = '<span class="'.sprintf( $args['class'], $args['key'] ).'">'.$info.'</span>';

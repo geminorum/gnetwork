@@ -526,9 +526,7 @@ class AdminBar extends gNetwork\Module
 			'id'    => 'edit-contact-form',
 			'title' => _x( 'Edit Contact Form', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 			'href'  => add_query_arg( [ 'page' => 'wpcf7', 'post' => $this->wpcf7_shortcode ], admin_url( 'admin.php' ) ),
-			'meta'  => [
-				'title' => _x( 'Edit Current embeded contact form on admin', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
-			],
+			'meta'  => [ 'title' => _x( 'Edit Current embeded contact form on admin', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ) ],
 		] );
 	}
 
@@ -671,6 +669,7 @@ class AdminBar extends gNetwork\Module
 
 			// extra links for super admins only (no cap checks)
 			if ( $super_admin ) {
+
 				$wp_admin_bar->add_menu( [
 					'parent' => $menu_id,
 					'id'     => $menu_id.'-e',

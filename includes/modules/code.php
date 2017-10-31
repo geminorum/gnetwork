@@ -205,7 +205,7 @@ class Code extends gNetwork\Module
 
 		Utilities::enqueueScriptVendor( 'jquery.githubRepoWidget', [ 'jquery' ], '20150102' );
 
-		return '<div class="gnetwork-wrap-shortcode shortcode-github github-widget" data-repo="'.$args['repo'].'"></div>';
+		return '<div class="-wrap shortcode-github github-widget" data-repo="'.$args['repo'].'"></div>';
 	}
 
 	// @SOURCE: https://github.com/blairvanderhoof/gist-embed

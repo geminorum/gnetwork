@@ -5,7 +5,7 @@ defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 use geminorum\gNetwork;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\Misc;
+use geminorum\gNetwork\Core\Third;
 use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
 
@@ -199,7 +199,7 @@ class Tracking extends gNetwork\Module
 		], NULL );
 
 		if ( $args['wrap'] )
-			return '<div class="gnetwork-wrap-shortcode -googleplus-badge gnetwork-wrap-iframe">'.$html.'</div>';
+			return '<div class="-wrap shortcode-googleplus-badge gnetwork-wrap-iframe">'.$html.'</div>';
 
 		return $html;
 	}
@@ -232,7 +232,7 @@ class Tracking extends gNetwork\Module
 		] );
 
 		if ( $args['wrap'] )
-			return '<div class="gnetwork-wrap-shortcode -beacon">'.$html.'</div>';
+			return '<div class="-wrap shortcode-beacon">'.$html.'</div>';
 
 		return $html;
 	}
@@ -265,7 +265,7 @@ class Tracking extends gNetwork\Module
 			echo "\t".'<link href="https://plus.google.com/'.$this->options['plus_publisher'].'" rel="publisher" />'."\n";
 
 		if ( ! empty( $this->options['twitter_site'] ) )
-			echo "\t".'<meta name="twitter:site" content="'.Misc::getTwitter( $this->options['twitter_site'] ).'" />'."\n";
+			echo "\t".'<meta name="twitter:site" content="'.Third::getTwitter( $this->options['twitter_site'] ).'" />'."\n";
 
 		if ( ! ( $ga = $this->ga() ) )
 			return;
@@ -339,7 +339,7 @@ class Tracking extends gNetwork\Module
 		if ( ! $twitter = gNetwork()->option( 'twitter_site', 'tracking', $fallback ) )
 			return '';
 
-		$handle = Misc::getTwitter( $twitter );
+		$handle = Third::getTwitter( $twitter );
 
 		$html = HTML::tag( 'a',[
 			'href'  => 'https://twitter.com/intent/user?screen_name='.substr( $handle, 1 ),
