@@ -96,8 +96,8 @@ class Embed extends gNetwork\Module
 			wp_embed_register_handler( 'pdf', '#(^(https?)\:\/\/.+\.pdf$)#i', [ $this, 'handle_docs_pdf' ] );
 
 		if ( $this->options['load_aparat'] ) {
-			wp_embed_register_handler( 'aparat', '#http://(?:www)\.aparat\.com\/v\/(.*?)\/?$#i', [ $this, 'handle_aparat_video' ], 5 );
-			wp_embed_register_handler( 'aparat', '#http://(?:www)\.aparat\.com\/(.*?)\/?$#i', [ $this, 'handle_aparat_channel' ], 20 );
+			wp_embed_register_handler( 'aparat', '#https?://(?:www)\.aparat\.com\/v\/(.*?)\/?$#i', [ $this, 'handle_aparat_video' ], 5 );
+			wp_embed_register_handler( 'aparat', '#https?://(?:www)\.aparat\.com\/(.*?)\/?$#i', [ $this, 'handle_aparat_channel' ], 20 );
 		}
 
 		if ( $this->options['load_giphy'] )
@@ -154,7 +154,7 @@ class Embed extends gNetwork\Module
 
 		if ( FALSE === ( $html = get_site_transient( $key ) ) ) {
 
-			$rss = fetch_feed( sprintf( 'http://www.aparat.com/rss/%s', $matches[1] ) );
+			$rss = fetch_feed( sprintf( 'https://www.aparat.com/rss/%s', $matches[1] ) );
 
 			if ( self::isError( $rss ) ) {
 
@@ -185,7 +185,8 @@ class Embed extends gNetwork\Module
 				if ( empty( $title ) )
 					$title = _x( 'Untitled', 'Modules: Embed: Item With No Title', GNETWORK_TEXTDOMAIN );
 
-				preg_match( '#http://(?:www)\.aparat\.com\/v\/(.*?)\/#i', $link, $results );
+				if ( ! preg_match( '#https?://(?:www)\.aparat\.com\/v\/(.*?)\/#i', $link, $results ) )
+					continue;
 
 				$video = HTML::tag( 'iframe', [
 					'src'             => sprintf( 'https://www.aparat.com/video/video/embed/videohash/%s/vt/frame', $results[1] ),
