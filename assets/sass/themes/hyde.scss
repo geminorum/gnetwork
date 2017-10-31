@@ -55,20 +55,6 @@ body {
   }
 }
 
-.sidebar-sticky {
-  > p {
-    display: none;
-  }
-}
-
-.entry-content {}
-
-.entry-footer {
-  .edit-link {
-    display: none;
-  }
-}
-
 .wpcf7 {
   .wpcf7-response-output {
     margin: 0 !important;
@@ -107,4 +93,9 @@ body {
   a {
     text-transform: lowercase;
   }
+}
+
+.sidebar-sticky > p,
+.entry-footer .edit-link {
+  display: none;
 }

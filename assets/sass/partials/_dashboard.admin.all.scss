@@ -8,3 +8,22 @@
     padding: 0;
   }
 }
+
+#gnetwork-dashboard-usermenu {
+  ul {
+    margin: 0;
+    padding: 0;
+
+    li {
+      margin-bottom: 0.5em;
+
+      ul {
+        margin: 0.5em 0 0 1em;
+      }
+
+      &:last-of-type {
+        margin: 0;
+      }
+    }
+  }
+}

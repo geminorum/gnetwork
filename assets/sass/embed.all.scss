@@ -1,0 +1,16 @@
+@import 'modules/all';
+@import 'partials/base';
+@import 'partials/theme.fonts';
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+body {
+  @include theme-fonts-core-native;
+}
+
+// FIXME: add login logo as embed site logo / hide wordpress logo
+
+.wp-embed-share-input {
+  /*rtl:ignore*/
+  direction: ltr;
+}

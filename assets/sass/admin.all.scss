@@ -9,7 +9,6 @@
 @import 'partials/admin.importer';
 @import 'partials/admin.list';
 @import 'partials/admin.tabs';
-// @import 'partials/admin.select2';
 ////////////////////////////////////////////////////////////////////////////////
 @import 'partials/admin.wp-document-revisions';
 @import 'partials/admin.edit-flow';
@@ -34,6 +33,7 @@
 @import 'partials/widgets.admin.all';
 ////////////////////////////////////////////////////////////////////////////////
 @import 'partials/prism.all';
+@import 'partials/chosen.admin';
 ////////////////////////////////////////////////////////////////////////////////
 @import 'partials/rtl.admin.all';
 @import 'partials/fa_IR.admin.all';
@@ -135,6 +135,7 @@ body.thrift-mode {
     ul.cat-checklist {
       height: auto !important;
       max-height: 12em !important;
+      overflow-x: hidden;
 
       label {
         line-height: 1.5 !important;

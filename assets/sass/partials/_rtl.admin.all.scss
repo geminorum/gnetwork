@@ -156,11 +156,20 @@ body.rtl {
     direction: ltr !important;
   }
 
-  &.options-permalink-php {
+  .form-table.permalink-structure {
+
     #permalink_structure {
-      /*rtl:ignore*/
+      /*rtl:begin:ignore*/
       float: right;
-      margin-top: -5px;
+      margin: -4px 1px 0 0;
+      padding: 3px 5px 2px 1px;
+      border-left: none;
+      /*rtl:end:ignore*/
+    }
+
+    .available-structure-tags {
+      clear: both;
+      margin-top: 1em;
     }
   }
 
@@ -283,6 +292,10 @@ body.rtl {
     .attachment-display-settings,
     .compat-item {
       float: none;
+    }
+
+    .embed-url .spinner {
+      left: 26px;
     }
 
     .setting {

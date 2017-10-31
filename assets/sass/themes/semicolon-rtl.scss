@@ -1264,12 +1264,11 @@ textarea {
   border: solid 1px;
   line-height: 24px;
   font-size: 16px;
-  display: block;
+  // display: block;
   padding: 8px;
   margin: 0;
   box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box; }
+}
 
 input[type="text"],
 input[type="email"],

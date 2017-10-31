@@ -242,6 +242,30 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
+/// Dirooz
+// https://github.com/rastikerdar/dirooz-font
+// https://rastikerdar.github.io/dirooz-font/
+
+@mixin theme-fonts-Dirooz-CDN() {
+
+  $font-family-base: "Dirooz", "Tahoma", "Iranian Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif !global;
+  $font-family-head: "Dirooz", "Tahoma", "Iranian Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif !global;
+
+  $name: "Dirooz";
+  $ver: "v0.2.1";
+  $weight: "normal";
+
+  $base: "https://cdn.rawgit.com";
+  $repo: "rastikerdar/dirooz-font";
+  $file: "dist/Dirooz";
+  $path: $base + "/" + $repo + "/" + $ver + "/" + $file;
+
+  @include _theme-fonts-fontface($name, $path, $weight);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 /// Droid Arabic Naskh (Arabic) v7
 // http://www.google.com/webfonts/earlyaccess
 // http://openfontlibrary.org/en/font/droid-arabic-naskh

@@ -37,5 +37,31 @@
         margin-bottom: 0;
       }
     }
+
+    .-description.-refresh {
+      display: block;
+      color: $gray-dark;
+      &:hover {
+        color: $brand-success;
+      }
+      &:focus {
+        box-shadow: none;
+      }
+    }
+
+    .-description.-empty {
+      display: block;
+      color: $gray-dark;
+      &:hover {
+        color: $gray-darker;
+      }
+    }
+
+    .-core-styles {
+      .-description.-refresh,
+      .-description.-empty {
+        padding: 0 12px 12px; // core defaults for .main
+      }
+    }
   }
 }

@@ -44,6 +44,11 @@
     display: inline;
   }
 
+  .prefix_address {
+    /*rtl:ignore*/
+    float: left;
+  }
+
   label {
     font-weight: 700;
     font-size: 15px;
@@ -63,8 +68,11 @@
     border: 1px solid #e6db55;
   }
 
+  #blogname,
   #user_email,
-  #user_name {
+  #user_name,
+  .prefix_address,
+  .suffix_address {
     /*rtl:ignore*/
     direction: ltr;
   }
