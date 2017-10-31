@@ -145,6 +145,9 @@ class HTTP extends Base
 	{
 		$args = self::recursiveParseArgs( $atts, array(
 			'timeout' => 15,
+			'headers' => array(
+				'Accept' => 'application/json',
+			),
 		) );
 
 		$response = wp_remote_get( $url, $args );

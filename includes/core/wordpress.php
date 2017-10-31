@@ -5,6 +5,11 @@ defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 class WordPress extends Base
 {
 
+	public static function isMinWPv( $minimum_version )
+	{
+		return ( version_compare( get_bloginfo( 'version' ), $minimum_version ) >= 0 );
+	}
+
 	public static function mustRegisterUI( $check_admin = TRUE )
 	{
 		if ( self::isAJAX()
@@ -278,6 +283,54 @@ class WordPress extends Base
 		return $user_id ? user_can( $user_id, $cap ) : current_user_can( $cap );
 	}
 
+	// mocking `get_sites()` results
+	public static function getAllBlogs( $user_id = FALSE, $all_sites = TRUE, $orderby_site = FALSE )
+	{
+		global $wpdb;
+
+		$clause_site = $clause_blog = '';
+
+		if ( ! $all_sites )
+			$clause_site = $wpdb->prepare( "AND site_id = %d", get_current_network_id() );
+
+		if ( $user_id ) {
+
+			$ids = self::getUserBlogs( $user_id, $wpdb->base_prefix );
+
+			// user has no blogs!
+			if ( ! $ids )
+				return [];
+
+			$clause_blog = "AND blog_id IN ( '".join( "', '", esc_sql( $ids ) )."' )";
+		}
+
+		$clause_order = $orderby_site ? 'ORDER BY domain, path ASC' : 'ORDER BY registered DESC';
+
+		$query = "
+			SELECT blog_id, domain, path
+			FROM {$wpdb->blogs}
+			WHERE spam = '0'
+			AND deleted = '0'
+			AND archived = '0'
+			{$clause_site}
+			{$clause_blog}
+			{$clause_order}
+		";
+
+		$blogs  = [];
+		$scheme = is_ssl() ? 'https' : 'http';
+
+		foreach ( $wpdb->get_results( $query, ARRAY_A ) as $blog )
+			$blogs[$blog['blog_id']] = (object) [
+				'userblog_id' => $blog['blog_id'],
+				'domain'      => $blog['domain'],
+				'path'        => $blog['path'],
+				'siteurl'     => URL::untrail( $scheme.'://'.$blog['domain'].$blog['path'] ),
+			];
+
+		return $blogs;
+	}
+
 	// @REF: `get_blogs_of_user()`
 	public static function getUserBlogs( $user_id, $prefix )
 	{
@@ -396,6 +449,17 @@ class WordPress extends Base
 			'post_status'    => 'inherit',
 			'numberposts'    => -1,
 		) );
+	}
+
+	// FIXME: get title if html is empty
+	public static function htmlAttachmentShortLink( $id, $html )
+	{
+		return HTML::tag( 'a', [
+			'href'  => self::getPostShortLink( $id ),
+			'rel'   => 'attachment',
+			'class' => '-attachment',
+			'data'  => [ 'id' => $id ],
+		], $html );
 	}
 
 	public static function getPostTypes( $mod = 0, $args = array( 'public' => TRUE ) )
