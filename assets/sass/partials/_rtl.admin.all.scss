@@ -141,29 +141,37 @@ body.rtl {
 
   &.debug-bar-maximized {
     #querylist {
+
       /*rtl:ignore*/
       direction: ltr;
     }
   }
 
   .debug-menu-target {
+
     /*rtl:ignore*/
     direction: ltr !important;
   }
 
   #gnetwork-debugbar-panel {
+
     /*rtl:ignore*/
     direction: ltr !important;
   }
 
-  .form-table.permalink-structure {
+  #screen-meta-links .show-settings:after {
+    padding: 0 0 0 5px;
+  }
 
+  .form-table.permalink-structure {
     #permalink_structure {
+
       /*rtl:begin:ignore*/
       float: right;
       margin: -4px 1px 0 0;
       padding: 3px 5px 2px 1px;
       border-left: none;
+
       /*rtl:end:ignore*/
     }
 

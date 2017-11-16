@@ -14,10 +14,24 @@
 
 body.login {
 
+  @include theme-fonts-core-native;
+
+  &.interim-login {
+
+  }
+
+  h1 a {
+    background-image: none;
+    background-size: auto;
+    width: auto;
+  }
+
   #user_login,
   #user_pass {
+
     /*rtl:ignore*/
     direction: ltr;
+
     /*rtl:ignore*/
     margin-left: 0 !important;
   }
@@ -30,7 +44,7 @@ body.login {
   #registerform,
   #resetpassform,
   #lostpasswordform {
-    padding: 26px 24px;
+    padding: 16px 24px 26px;
   }
 
   #login_error {
@@ -49,10 +63,10 @@ body.login {
       vertical-align: inherit;
     }
 
-    input[type=number] {
+    input[type="number"] {
       height: 28px;
       padding: 0 2px;
-      width: 42px;
+      width: 58px;
     }
   }
 }
@@ -63,22 +77,23 @@ body.rtl {
     padding: 26px 24px;
   }
 
-  input[type=checkbox]:checked:before {
+  input[type="checkbox"]:checked:before {
+
     /*rtl:ignore*/
     margin: -2px -2px 0 0 !important;
   }
 
   p.description {
+
     /*rtl:ignore*/
     text-align: right;
   }
 }
 
 .gnetwork-wrap {
+
   &.-footer {
     margin: 2em 0 1em;
     text-align: center;
   }
 }
-
-body.interim-login {}

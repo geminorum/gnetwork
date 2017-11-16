@@ -6,7 +6,11 @@
 #wpadminbar {
   .shortlink-input {
     color: #000;
-    font-weight: bold;
+    font-weight: 600;
+    width: 300px;
+
+    /*rtl:ignore*/
+    direction: ltr;
   }
 
   .quicklinks li .blavatar:before {
@@ -24,15 +28,16 @@
 
   // MUST BE ON WP CORE!
   body.rtl & {
-
     .menupop .menupop > .ab-item:before {
       content: "\f141" !important;
+
       /*rtl:ignore*/
       left: 2px;
     }
 
     .ab-top-secondary .menupop .menupop > .ab-item:before {
       content: "\f139" !important;
+
       /*rtl:ignore*/
       right: 2px;
     }

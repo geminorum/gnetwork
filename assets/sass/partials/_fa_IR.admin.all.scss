@@ -21,6 +21,7 @@ body.rtl.locale-fa-ir {
   .media-frame textarea,
   .media-frame select,
   span.postbox-title-action {
+
     @include theme-fonts-core-native;
   }
 

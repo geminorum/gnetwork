@@ -48,9 +48,9 @@
   }
 }
 
-.gnetwork-admin-wrap-metabox {}
-.gnetwork-admin-wrap-column {}
-.gnetwork-admin-wrap-widget {}
+// .gnetwork-admin-wrap-metabox {}
+// .gnetwork-admin-wrap-column {}
+// .gnetwork-admin-wrap-widget {}
 
 textarea {
   // width: 100%;
@@ -59,10 +59,33 @@ textarea {
 }
 
 body.thrift-mode {
-
   label[for="media-attachment-date-filters"],
   #media-attachment-date-filters {
     display: none;
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// METABOX CONTROLS -----------------------------------------------------------
+
+// @REF: `#screen-options-link-wrap, #contextual-help-link-wrap`
+.gnetwork-admin-metabox-controls {
+  float: right;
+  height: 28px;
+  margin: 0 0 0 6px;
+  border: 1px solid #ddd;
+  border-top: none;
+  background: #fff;
+  box-shadow: 0 1px 1px -1px rgba(0, 0, 0, 0.1);
+}
+
+#gnetwork-admin-metabox-toggle {
+  &:after {
+    content: "\f463" !important;
+    padding: 4px 2px 0 5px !important;
+    vertical-align: top !important;
   }
 }
 
@@ -85,19 +108,21 @@ body.thrift-mode {
     }
 
     // @REF: http://jsfiddle.net/VaSn6/5/
-    li  {
+    li {
       span {
-          float: left;
-          margin-right: 10px;
-          clear: both;
+        float: left;
+        margin-right: 10px;
+        clear: both;
       }
+
       a {
-          margin-left: 0px;
-          overflow: auto;
-          display: block;
-          &:focus {
-            box-shadow: none;
-          }
+        margin-left: 0;
+        overflow: auto;
+        display: block;
+
+        &:focus {
+          box-shadow: none;
+        }
       }
     }
   }
@@ -122,7 +147,7 @@ body.thrift-mode {
     }
   }
 
-  &.-user-tos {}
+  // &.-user-tos {}
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -195,7 +220,6 @@ ul.categorychecklist {
 }
 
 #poststuff {
-
   #pageparentdiv div.inside p:last-child,
   #pageparentdiv .post-attributes-label-wrapper,
   #postcustom div.inside > p,
@@ -217,10 +241,12 @@ ul.categorychecklist {
 
   #postimagediv {
     div.inside {
-      padding: 6px 12px 6px;
+      padding: 6px 12px;
+
       p {
         margin: 0;
         text-align: center;
+
         &:last-child {
           margin-top: 1em;
         }
@@ -269,7 +295,6 @@ ul.categorychecklist {
 
   // attachment page
   .wp_attachment_holder {
-
     .wp-audio-shortcode,
     .wp-video {
       margin: 18px auto 0;
@@ -284,6 +309,7 @@ ul.categorychecklist {
   a.-powered {
     text-decoration: none;
     color: $gray-light;
+
     &:hover {
       color: $gray-dark;
     }
