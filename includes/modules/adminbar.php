@@ -286,7 +286,13 @@ class AdminBar extends gNetwork\Module
 				'meta'   => [ 'title' => _x( 'Quickly change current blog language', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ) ],
 			] );
 
+			$current_locale = get_locale();
+
 			foreach ( Locale::available() as $locale ) {
+
+				if ( $current_locale == $locale )
+					continue;
+
 				$wp_admin_bar->add_node( [
 					'parent' => $this->base.'-locale',
 					'id'     => $this->base.'-locale-'.$locale,
