@@ -185,7 +185,7 @@ class Base
 		return ( 'ASC' === $req || 'DESC' === $req ) ? $req : $default;
 	}
 
-	// ANCESTOR: shortcode_atts()
+	// @REF: `shortcode_atts()`
 	public static function atts( $pairs, $atts )
 	{
 		$atts = (array) $atts;
@@ -201,7 +201,7 @@ class Base
 		return $out;
 	}
 
-	// ANCESTOR: wp_parse_args()
+	// @REF: `wp_parse_args()`
 	public static function args( $args, $defaults = '' )
 	{
 		if ( is_object( $args ) )

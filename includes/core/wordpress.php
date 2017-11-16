@@ -448,6 +448,8 @@ class WordPress extends Base
 			'post_type'      => 'attachment',
 			'post_status'    => 'inherit',
 			'numberposts'    => -1,
+			'orderby'        => 'menu_order',
+			'order'          => 'ASC',
 		) );
 	}
 

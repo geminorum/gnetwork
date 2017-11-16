@@ -433,7 +433,7 @@ class HTML extends Base
 
 	public static function headerNav( $uri = '', $active = '', $subs = array(), $prefix = 'nav-tab-', $tag = 'h3' )
 	{
-		if ( ! count( $subs ) )
+		if ( empty( $subs ) )
 			return;
 
 		$html = '';
@@ -451,7 +451,7 @@ class HTML extends Base
 
 	public static function tabNav( $active = '', $subs = array(), $prefix = 'nav-tab-', $tag = 'div' )
 	{
-		if ( ! count( $subs ) )
+		if ( empty( $subs ) )
 			return;
 
 		$html = '';
@@ -469,7 +469,7 @@ class HTML extends Base
 
 	public static function tabsList( $tabs, $atts = array() )
 	{
-		if ( ! count( $tabs ) )
+		if ( empty( $tabs ) )
 			return FALSE;
 
 		$args = self::atts( array(
@@ -541,7 +541,7 @@ class HTML extends Base
 
 	public static function tableList( $columns, $data = array(), $atts = array() )
 	{
-		if ( ! count( $columns ) )
+		if ( empty( $columns ) )
 			return FALSE;
 
 		$args = self::atts( array(
@@ -559,9 +559,8 @@ class HTML extends Base
 			'extra'      => array(), // just passing around!
 		), $atts );
 
-		if ( ! $data || ! count( $data ) ) {
-			if ( $args['empty'] )
-				echo '<div class="base-table-empty description -description">'.$args['empty'].'</div>';
+		if ( empty( $data ) ) {
+			self::desc( $args['empty'], TRUE, 'base-table-empty' );
 			return FALSE;
 		}
 
@@ -930,25 +929,35 @@ class HTML extends Base
 		echo '</'.$list.'>';
 	}
 
-	public static function wrapScript( $script )
+	public static function wrapScript( $code, $echo = TRUE )
 	{
-		if ( ! $script )
-			return;
+		if ( ! $code )
+			return '';
 
-		echo '<script type="text/javascript">'."\n".'/* <![CDATA[ */'."\n";
-			echo $script;
-		echo "\n".'/* ]]> */'."\n".'</script>';
+		$script = '<script type="text/javascript">'."\n".'/* <![CDATA[ */';
+		$script.= "\n".$code."\n";
+		$script.= '/* ]]> */'."\n".'</script>'."\n";
+
+		if ( ! $echo )
+			return $script;
+
+		echo $script;
 	}
 
 	// @REF: https://jquery.com/upgrade-guide/3.0/#deprecated-document-ready-handlers-other-than-jquery-function
-	public static function wrapjQueryReady( $script )
+	public static function wrapjQueryReady( $code, $echo = TRUE )
 	{
-		if ( ! $script )
-			return;
+		if ( ! $code )
+			return '';
 
-		echo '<script type="text/javascript">'."\n".'/* <![CDATA[ */'."\n";
-			echo 'jQuery(function($){'."\n".$script.'});'."\n";
-		echo '/* ]]> */'."\n".'</script>'."\n";
+		$script = '<script type="text/javascript">'."\n".'/* <![CDATA[ */'."\n";
+		$script.= 'jQuery(function($){'."\n".$code.'});'."\n";
+		$script.= '/* ]]> */'."\n".'</script>'."\n";
+
+		if ( ! $echo )
+			return $script;
+
+		echo $script;
 	}
 
 	// @REF: https://codex.wordpress.org/Plugin_API/Action_Reference/admin_notices

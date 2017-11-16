@@ -163,7 +163,7 @@ class URL extends Base
 
 	public static function checkExternals( $urls = array(), $site = NULL )
 	{
-		if ( ! count( $urls ) )
+		if ( empty( $urls ) )
 			return array();
 
 		if ( is_null( $site ) )

@@ -125,7 +125,7 @@ class Arraay extends Base
 	// USAGE: Arraay::multiSort( $array, array( 'key_1' => SORT_ASC, 'key_2' => SORT_ASC ) );
 	public static function multiSort( $array, $sort )
 	{
-		if ( ! count( $array ) )
+		if ( empty( $array ) )
 			return $array;
 
 		$map = $args = array();
