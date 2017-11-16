@@ -1,0 +1,18 @@
+{
+  "extends": [
+    "stylelint-config-wordpress/scss"
+  ],
+  "rules": {
+    "block-no-empty": null,
+    "comment-empty-line-before": ["always", {
+      "ignore": ["stylelint-commands", "after-comment"]
+    }],
+    "declaration-colon-space-after": "always",
+    "rule-empty-line-before": ["always", {
+      "except": ["first-nested"],
+      "ignore": ["after-comment"]
+    }],
+    "number-leading-zero": null,
+    "indentation": 2
+  }
+}
