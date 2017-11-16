@@ -1,34 +1,36 @@
-jQuery(function($) {
+/* global jQuery, ajaxurl */
 
-  $('table.media td.title div.row-actions').each(function() {
+jQuery(function ($) {
+  $('table.media td.title div.row-actions').each(function () {
     $(this).find('div.media-url-box').hide();
   });
 
-  $('span.media-url').on('click', 'a.media-url-attachment', function(event) {
+  $('span.media-url').on('click', 'a.media-url-attachment', function (event) {
     event.preventDefault();
     event.stopPropagation();
 
-    var edit_row = $(this).next('div.media-url-box');
+    var row = $(this).next('div.media-url-box');
 
     $(this).toggleClass('media-url-open');
-    $(edit_row).addClass('media-url-visible');
-    $(edit_row).slideToggle('slow');
-    $(edit_row).find('input.media-url-field').select();
+    $(row).addClass('media-url-visible');
+    $(row).slideToggle('slow');
+    $(row).find('input.media-url-field').select();
 
-    $('div.media-url-box').not(edit_row).slideUp('slow');
+    $('div.media-url-box').not(row).slideUp('slow');
   });
 
-  $('input.media-url-field').focus(function() {
+  $('input.media-url-field').focus(function () {
     this.select();
   });
 
-  $('.wp-list-table').on( 'click', '.media-clean a', function(event){
+  $('.wp-list-table').on('click', '.media-clean a', function (event) {
     event.preventDefault();
 
     var link = $(this);
 
-    if (link.hasClass('-cleaned'))
+    if (link.hasClass('-cleaned')) {
       return;
+    }
 
     $.ajax({
       method: 'POST',
@@ -37,13 +39,13 @@ jQuery(function($) {
         action: 'gnetwork_media',
         what: 'clean_attachment',
         attachment: link.data('id'),
-        nonce: link.data('nonce'),
+        nonce: link.data('nonce')
       },
-      beforeSend: function(xhr) {
+      beforeSend: function (xhr) {
         link.html(link.data('spinner'));
       },
-      success: function(response){
-        if (response.success){
+      success: function (response) {
+        if (response.success) {
           link.text(response.data).addClass('-cleaned');
         } else {
           link.text($(response.data).text());

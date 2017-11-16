@@ -1,7 +1,9 @@
-jQuery(function($) {
+/* global jQuery, gNetworkTaxonomy */
+
+jQuery(function ($) {
   var actions = [];
 
-  $.each(gNetworkTaxonomy, function(key, title) {
+  $.each(gNetworkTaxonomy, function (key, title) {
     actions.unshift({
       action: 'bulk_' + key,
       name: title,
@@ -10,20 +12,20 @@ jQuery(function($) {
   });
 
   $('.actions select')
-    .each(function() {
+    .each(function () {
       var $option = $(this).find('option:first');
 
-      $.each(actions, function(i, actionObj) {
+      $.each(actions, function (i, actionObj) {
         $option.after($('<option>', {
           value: actionObj.action,
           html: actionObj.name
         }));
       });
     })
-    .change(function() {
+    .change(function () {
       var $select = $(this);
 
-      $.each(actions, function(i, actionObj) {
+      $.each(actions, function (i, actionObj) {
         if ($select.val() === actionObj.action) {
           actionObj.el
             .insertAfter($select)

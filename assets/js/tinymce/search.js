@@ -1,9 +1,8 @@
-(function(tinymce) {
-
-  tinymce.PluginManager.add('gnetworksearch', function(editor, url) {
+(function (tinymce) {
+  tinymce.PluginManager.add('gnetworksearch', function (editor, url) {
     editor.addShortcut('ctrl+3', editor.getLang('gnetwork.gnetworksearch-title'), 'gnetworksearch');
 
-    editor.addCommand('gnetworksearch', function() {
+    editor.addCommand('gnetworksearch', function () {
       var text = editor.selection.getContent();
       editor.insertContent('[search]' + (text ? text + '[/search]' : ''));
     });
@@ -13,8 +12,7 @@
       title: editor.getLang('gnetwork.gnetworksearch-attr'),
       icon: 'icon gnetwork-tinymce-icon icon-gnetworksearch',
 
-      onclick: function() {
-
+      onclick: function () {
         var selected = editor.selection.getContent();
 
         editor.windowManager.open({
@@ -24,12 +22,12 @@
             type: 'textbox',
             name: 'text',
             label: editor.getLang('gnetwork.gnetworksearch-text'),
-            value: selected,
+            value: selected
           }, {
             type: 'textbox',
             name: 'query',
             label: editor.getLang('gnetwork.gnetworksearch-query'),
-            autofocus: selected,
+            autofocus: selected
           }],
           buttons: [{
             text: 'Insert',
@@ -39,7 +37,7 @@
             text: 'Close',
             onclick: 'close'
           }],
-          onsubmit: function(e) {
+          onsubmit: function (e) {
             editor.insertContent((
               e.data.query ? '[search for="' + e.data.query + '"]' : '[search]'
             ) + (

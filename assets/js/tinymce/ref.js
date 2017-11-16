@@ -1,12 +1,10 @@
-(function(tinymce) {
-
-  tinymce.PluginManager.add('gnetworkref', function(editor, url) {
-
+(function (tinymce) {
+  tinymce.PluginManager.add('gnetworkref', function (editor, url) {
     editor.addShortcut('ctrl+q', editor.getLang('gnetwork.gnetworkref-title'), 'gnetworkref');
 
-    editor.addCommand('gnetworkref', function() {
+    editor.addCommand('gnetworkref', function () {
       var text = editor.selection.getContent();
-      editor.insertContent('[ref]' + (text ? text : '' ) + '[/ref]');
+      editor.insertContent('[ref]' + (text ? text : '') + '[/ref]');
     });
 
     editor.addButton('gnetworkref', {
@@ -14,8 +12,7 @@
       title: editor.getLang('gnetwork.gnetworkref-attr'),
       icon: 'icon gnetwork-tinymce-icon icon-gnetworkref',
 
-      onclick: function() {
-
+      onclick: function () {
         var selected = editor.selection.getContent();
 
         editor.windowManager.open({
@@ -27,13 +24,13 @@
             label: editor.getLang('gnetwork.gnetworkref-text'),
             value: selected,
             multiline: true,
-            minHeight: 130,
+            minHeight: 130
           }, {
             type: 'textbox',
             name: 'url',
             label: editor.getLang('gnetwork.gnetworkref-url'),
             style: 'direction:ltr;text-align:left;',
-            autofocus: selected,
+            autofocus: selected
           }],
           buttons: [{
             text: 'Insert',
@@ -43,7 +40,7 @@
             text: 'Close',
             onclick: 'close'
           }],
-          onsubmit: function(e) {
+          onsubmit: function (e) {
             editor.insertContent((
               e.data.url ? '[ref url="' + encodeURI(e.data.url) + '"]' : '[ref]'
             ) + (

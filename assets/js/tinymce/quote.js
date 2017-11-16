@@ -1,13 +1,11 @@
-(function(tinymce) {
-
-  tinymce.PluginManager.add('gnetworkquote', function(editor, url) {
+(function (tinymce) {
+  tinymce.PluginManager.add('gnetworkquote', function (editor, url) {
     editor.addButton('gnetworkquote', {
 
       title: editor.getLang('gnetwork.gnetworkquote-attr'),
       icon: 'icon gnetwork-tinymce-icon icon-gnetworkquote',
 
-      onclick: function() {
-
+      onclick: function () {
         var selected = editor.selection.getContent();
 
         editor.windowManager.open({
@@ -20,29 +18,29 @@
               label: editor.getLang('gnetwork.gnetworkquote-text'),
               value: selected,
               multiline: true,
-              minHeight: 130,
+              minHeight: 130
             },
             {
               type: 'textbox',
               name: 'cite',
               label: editor.getLang('gnetwork.gnetworkquote-cite'),
-              autofocus: selected,
+              autofocus: selected
             },
             {
               type: 'textbox',
               name: 'url',
               label: editor.getLang('gnetwork.gnetworkquote-url'),
-              style: 'direction:ltr;text-align:left;',
+              style: 'direction:ltr;text-align:left;'
             },
             {
               type: 'radio',
               name: 'epigraph',
-              label: editor.getLang('gnetwork.gnetworkquote-epigraph'),
+              label: editor.getLang('gnetwork.gnetworkquote-epigraph')
             },
             {
               type: 'radio',
               name: 'rev',
-              label: editor.getLang('gnetwork.gnetworkquote-rev'),
+              label: editor.getLang('gnetwork.gnetworkquote-rev')
             },
             {
               type: 'listbox',
@@ -79,9 +77,8 @@
               onclick: 'close'
             }
           ],
-          onsubmit: function(e) {
+          onsubmit: function (e) {
             if (e.data.text) {
-
               var classes = [];
 
               if (e.data.epigraph) {
@@ -94,12 +91,12 @@
                 classes.push('-reverse');
               }
 
-              if ('none' != e.data.align) {
+              if (e.data.align !== 'none') {
                 classes.push('align' + e.data.align);
                 classes.push('-align-' + e.data.align);
               }
 
-              var open = classes.length > 0 ? '<blockquote class="'+classes.join(' ')+'">' : '<blockquote>';
+              var open = classes.length > 0 ? '<blockquote class="' + classes.join(' ') + '">' : '<blockquote>';
 
               if (e.data.cite) {
                 if (e.data.url) {

@@ -1,13 +1,11 @@
-(function(tinymce) {
-
-  tinymce.PluginManager.add('gnetworkgpeople', function(editor, url) {
+(function (tinymce) {
+  tinymce.PluginManager.add('gnetworkgpeople', function (editor, url) {
     editor.addButton('gnetworkgpeople', {
 
       title: editor.getLang('gnetwork.gnetworkgpeople-attr'),
       icon: 'icon gnetwork-tinymce-icon icon-gnetworkgpeople',
 
-      onclick: function() {
-
+      onclick: function () {
         var selected = editor.selection.getContent();
 
         editor.windowManager.open({
@@ -17,7 +15,7 @@
             type: 'textbox',
             name: 'name',
             label: editor.getLang('gnetwork.gnetworkgpeople-name'),
-            value: selected,
+            value: selected
           }],
           buttons: [{
             text: 'Insert',
@@ -27,7 +25,7 @@
             text: 'Close',
             onclick: 'close'
           }],
-          onsubmit: function(e) {
+          onsubmit: function (e) {
             editor.insertContent((
               e.data.name ? '[person name="' + e.data.name + '"]' : '[person]'
             ) + (
