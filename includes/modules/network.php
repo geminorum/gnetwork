@@ -168,7 +168,7 @@ class Network extends gNetwork\Module
 
 		$blogs = self::req( 'allblogs', [] );
 
-		if ( ! count( $blogs ) )
+		if ( empty( $blogs ) )
 			return;
 
 		$email = get_site_option( 'admin_email' );

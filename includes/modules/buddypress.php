@@ -270,7 +270,7 @@ class BuddyPress extends gNetwork\Module
 			AND id NOT IN (SELECT field_id FROM {$bp_prefix}bp_xprofile_data WHERE user_id = %s AND `value` IS NOT NULL AND `value` != '')
 		", bp_displayed_user_id() ) );
 
-		if ( ! count( $fields ) )
+		if ( empty( $fields ) )
 			return;
 
 		$message = sprintf( _x( 'Please complete your profile: %s', 'Modules: BuddyPress', GNETWORK_TEXTDOMAIN ),

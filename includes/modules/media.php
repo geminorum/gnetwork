@@ -394,7 +394,7 @@ class Media extends gNetwork\Module
 					// TODO: attachment title as attr
 					$attachments = $this->get_attachment_urls( $row->ID, 'image', $column['args']['wpupload'] );
 
-					if ( ! count( $attachments ) )
+					if ( empty( $attachments ) )
 						return '<div dir="ltr">&mdash;</div>';
 
 					$links   = [];
@@ -445,7 +445,7 @@ class Media extends gNetwork\Module
 
 					preg_match_all( '|<img.*?src=[\'"](.*?)[\'"].*?>|i', $row->post_content, $matches );
 
-					if ( ! count( $matches[1] ) )
+					if ( empty( $matches[1] ) )
 						return '<div dir="ltr">&mdash;</div>';
 
 					$links     = [];
@@ -545,7 +545,7 @@ class Media extends gNetwork\Module
 
 		$sizes = $this->get_posttype_sizes( $parent_type );
 
-		if ( ! count( $sizes ) )
+		if ( empty( $sizes ) )
 			return $metadata;
 
 		$wpupload = wp_get_upload_dir();
@@ -622,7 +622,7 @@ class Media extends gNetwork\Module
 					unset( $sizes[$size] );
 		}
 
-		if ( ! count( $sizes ) )
+		if ( empty( $sizes ) )
 			return $metadata;
 
 		$wpupload = wp_get_upload_dir();
@@ -631,7 +631,7 @@ class Media extends gNetwork\Module
 		if ( ! self::isError( $editor ) )
 			$metadata['sizes'] = array_merge( $metadata['sizes'], $editor->multi_resize( $sizes ) );
 
-		if ( ! count( $metadata['sizes'] ) )
+		if ( empty( $metadata['sizes'] ) )
 			unset( $metadata['sizes'] );
 
 		if ( WordPress::isDev() )
@@ -671,7 +671,7 @@ class Media extends gNetwork\Module
 			}
 		}
 
-		return $this->taxonomy_sizes[$posttype] = $sizes;
+		return $this->taxonomy_sizes[$taxonomy] = $sizes;
 	}
 
 	public function attachment_is_custom( $attachment_id )
@@ -861,7 +861,7 @@ class Media extends gNetwork\Module
 			}
 		}
 
-		if ( ! count( $clean ) )
+		if ( empty( $clean ) )
 			return TRUE;
 
 		$wpupload = WordPress::upload( $post );
@@ -953,7 +953,7 @@ class Media extends gNetwork\Module
 			if ( $attachment = get_post( $post_id ) )
 				$parents[] = $attachment->post_parent;
 
-		if ( ! count( $parents ) )
+		if ( empty( $parents ) )
 			return $redirect_to;
 
 		$ids = maybe_serialize( implode( ',', array_map( 'intval', array_unique( $parents ) ) ) );

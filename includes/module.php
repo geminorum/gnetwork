@@ -456,7 +456,7 @@ class Module extends Core\Base
 		else
 			$saved = get_option( $this->base.'_blog', [] );
 
-		if ( $reset || ! count( $options ) )
+		if ( $reset || empty( $options ) )
 			unset( $saved[$this->key] );
 		else
 			$saved[$this->key] = $options;
@@ -715,7 +715,7 @@ class Module extends Core\Base
 
 		$settings = apply_filters( $page.'_default_settings', $this->default_settings() );
 
-		if ( ! count( $settings ) )
+		if ( empty( $settings ) )
 			return;
 
 		foreach ( $settings as $section_suffix => $fields ) {

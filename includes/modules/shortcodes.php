@@ -1054,7 +1054,7 @@ class ShortCodes extends gNetwork\Module
 				}
 			}
 
-			if ( ! count( $data ) )
+			if ( empty( $data ) )
 				return $args['string_empty'] ? HTML::wrap( $args['string_empty'], '-empty' ) : NULL;
 
 			$html = '<table>';
@@ -1331,7 +1331,7 @@ class ShortCodes extends gNetwork\Module
 		if ( $this->ref_list )
 			return NULL;
 
-		if ( ! is_singular() || ! count( $this->ref_ids ) )
+		if ( ! is_singular() || empty( $this->ref_ids ) )
 			return NULL;
 
 		if ( is_feed() || WordPress::isREST() ) {

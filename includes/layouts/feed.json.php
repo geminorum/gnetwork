@@ -62,7 +62,7 @@ if ( have_posts() ) {
 			}
 		}
 
-		if ( ! count( $single['terms'] ) )
+		if ( empty( $single['terms'] ) )
 			unset( $single['terms'] );
 
 		$json[] = $single;

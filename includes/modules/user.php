@@ -472,7 +472,7 @@ class User extends gNetwork\Module
 	{
 		$roles = get_site_option( $this->hook( 'roles' ), [] );
 
-		if ( ! count( $roles ) )
+		if ( empty( $roles ) )
 			return;
 
 		foreach ( $roles as $blog_id => $role )

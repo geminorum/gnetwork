@@ -505,7 +505,7 @@ class Mail extends gNetwork\Module
 
 		$files = glob( File::normalize( $path.'/*.'.$ext ) );
 
-		if ( FALSE === $files || ! count( $files ) )
+		if ( empty( $files ) )
 			return [ [], [] ];
 
 		$i    = 0;
@@ -565,7 +565,7 @@ class Mail extends gNetwork\Module
 	{
 		list( $logs, $pagination ) = self::getEmailLogs( self::limit(), self::paged() );
 
-		if ( ! count( $logs ) ) {
+		if ( empty( $logs ) ) {
 
 			if ( ! is_dir( GNETWORK_MAIL_LOG_DIR ) || ! wp_is_writable( GNETWORK_MAIL_LOG_DIR ) )
 				echo HTML::error( _x( 'Log folder not exists or writable.', 'Modules: Mail', GNETWORK_TEXTDOMAIN ) );

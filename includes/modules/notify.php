@@ -320,6 +320,8 @@ class Notify extends gNetwork\Module
 		return $this->options['signup_user_subject'];
 	}
 
+	// FIXME: it's diffrent on admin user new
+	// @SEE: `admin_created_user_email()`
 	public function wpmu_signup_user_notification_email( $message, $user_login, $user_email, $key, $meta )
 	{
 		return $this->options['signup_user_email'];

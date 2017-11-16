@@ -97,6 +97,7 @@ class Themes extends gNetwork\Module
 					'title'       => _x( 'Content Actions', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Extra hooks before and after post content', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '1',
+					'constant'    => 'GNETWORK_DISABLE_CONTENT_ACTIONS',
 				],
 				[
 					'field'       => 'body_class',

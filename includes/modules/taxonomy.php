@@ -286,14 +286,14 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 		if ( is_taxonomy_hierarchical( $taxonomy ) )
 			$actions['set_parent'] = _x( 'Set Parent', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN );
 
-		$actions['merge']        = _x( 'Merge', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN );
-		$actions['change_tax']   = _x( 'Change Taxonomy', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN );
-		$actions['format_i18n']  = _x( 'Format i18n', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN );
-		$actions['empty_posts']  = _x( 'Empty Posts', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN );
-		$actions['empty_desc']   = _x( 'Empty Description', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN );
+		$actions['merge']       = _x( 'Merge', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN );
+		$actions['change_tax']  = _x( 'Change Taxonomy', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN );
+		$actions['format_i18n'] = _x( 'Format i18n', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN );
+		$actions['empty_posts'] = _x( 'Empty Posts', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN );
+		$actions['empty_desc']  = _x( 'Empty Description', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN );
 
 		if ( $this->options['slug_actions'] ) {
-			$actions['rewrite_slug'] = _x( 'Rewrite Slug', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN );
+			$actions['rewrite_slug']  = _x( 'Rewrite Slug', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN );
 			$actions['downcode_slug'] = _x( 'Transliterate Slug', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN );
 		}
 

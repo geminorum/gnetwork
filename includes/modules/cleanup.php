@@ -40,7 +40,7 @@ class Cleanup extends gNetwork\Module
 			'field'       => 'purge_options_blog',
 			'type'        => 'button',
 			'title'       => _x( 'Options', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
-			'description' => _x( 'Removes blog obsolete options', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Removes site obsolete option data.', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'default'     => _x( 'Purge Blog Options', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'values'      => $confirm,
 		];
@@ -49,7 +49,7 @@ class Cleanup extends gNetwork\Module
 			'field'       => 'transient_purge',
 			'type'        => 'button',
 			'title'       => _x( 'Transient', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
-			'description' => _x( 'Removes Expired Transient Data', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Removes site expired transient cache.', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'default'     => _x( 'Purge Expired', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'values'      => $confirm,
 		];
@@ -57,7 +57,7 @@ class Cleanup extends gNetwork\Module
 		$settings['_transient'][] = [
 			'field'       => 'transient_purge_all',
 			'type'        => 'button',
-			'description' => _x( 'Removes All Transient Data', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Removes all site transient cache.', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'default'     => _x( 'Purge All', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'values'      => $confirm,
 		];
@@ -69,7 +69,7 @@ class Cleanup extends gNetwork\Module
 				$settings['_options'][] = [
 					'field'       => 'purge_options_site',
 					'type'        => 'button',
-					'description' => _x( 'Removes network obsolete options', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Removes network obsolete option data.', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => _x( 'Purge Network Options', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 					'values'      => $confirm,
 				];
@@ -77,7 +77,7 @@ class Cleanup extends gNetwork\Module
 				$settings['_transient'][] = [
 					'field'       => 'transient_purge_site',
 					'type'        => 'button',
-					'description' => _x( 'Removes Expired Network Transient Data', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Removes network expired transient cache.', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => _x( 'Purge Network Expired', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 					'values'      => $confirm,
 				];
@@ -85,7 +85,7 @@ class Cleanup extends gNetwork\Module
 				$settings['_transient'][] = [
 					'field'       => 'transient_purge_site_all',
 					'type'        => 'button',
-					'description' => _x( 'Removes All Network Transient Data', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Removes all network transient cache.', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => _x( 'Purge All Network', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 					'values'      => $confirm,
 				];
@@ -95,7 +95,7 @@ class Cleanup extends gNetwork\Module
 				'field'       => 'users_defaultmeta',
 				'type'        => 'button',
 				'title'       => _x( 'User Meta', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
-				'description' => _x( 'Removes Default Meta Stored for Each User', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Removes default meta stored for each user.', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 				'default'     => _x( 'Purge Default Meta', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 				'values'      => $confirm,
 			];
@@ -103,7 +103,7 @@ class Cleanup extends gNetwork\Module
 			$settings['_users'][] = [
 				'field'       => 'users_contactmethods',
 				'type'        => 'button',
-				'description' => _x( 'Removes Empty Contact Methods Stored for Each User', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Removes empty contact methods stored for each user.', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 				'default'     => _x( 'Purge Empty Contact Methods', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 				'values'      => $confirm,
 			];
@@ -111,7 +111,7 @@ class Cleanup extends gNetwork\Module
 			$settings['_users'][] = [
 				'field'       => 'users_last_activity',
 				'type'        => 'button',
-				'description' => _x( 'Removes BuddyPress Last Activity Back-Comp Meta Stored for Each User', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Removes BuddyPress last activity back-comp meta stored for each user.', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 				'default'     => _x( 'Back-Comp Last Activity', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 				'after'       => Settings::fieldAfterIcon( 'http://wp.me/pLVLj-gc' ),
 				'values'      => $confirm,
@@ -120,7 +120,7 @@ class Cleanup extends gNetwork\Module
 			$settings['_users'][] = [
 				'field'       => 'users_meta_obsolete',
 				'type'        => 'button',
-				'description' => _x( 'Removes the obsolete user meta keys.', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Removes obsolete user meta keys.', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 				'default'     => _x( 'Purge Obsolete User Metadata', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 				'values'      => $confirm,
 			];
@@ -130,7 +130,7 @@ class Cleanup extends gNetwork\Module
 			'field'       => 'postmeta_editdata',
 			'type'        => 'button',
 			'title'       => _x( 'Post Meta', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
-			'description' => _x( 'Removes Posts Last Edit User and Lock Data', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Removes last edit user and lock meta stored for each post.', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'default'     => _x( 'Purge Last User & Post Lock Metadata', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'values'      => $confirm,
 		];
@@ -138,7 +138,7 @@ class Cleanup extends gNetwork\Module
 		$settings['_posts'][] = [
 			'field'       => 'postmeta_oldslug',
 			'type'        => 'button',
-			'description' => _x( 'Removes the Previous URL Slugs for Posts', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Removes the old slug stored for each post.', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'default'     => _x( 'Purge Old Slug Redirect Metadata', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'values'      => $confirm,
 		];
@@ -146,7 +146,7 @@ class Cleanup extends gNetwork\Module
 		$settings['_posts'][] = [
 			'field'       => 'postmeta_obsolete',
 			'type'        => 'button',
-			'description' => _x( 'Removes the obsolete post meta keys.', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Removes obsolete post meta data.', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'default'     => _x( 'Purge Obsolete Post Matadata', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'values'      => $confirm,
 		];
@@ -154,7 +154,7 @@ class Cleanup extends gNetwork\Module
 		$settings['_posts'][] = [
 			'field'       => 'thumbnail_orphanedmeta',
 			'type'        => 'button',
-			'description' => _x( 'Checks for Orphaned Thumbnail Metas', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Checks for orphaned thumbnail meta data.', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'default'     => _x( 'Purge Orphaned Featured Image Matadata', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'values'      => $confirm,
 		];
@@ -163,7 +163,7 @@ class Cleanup extends gNetwork\Module
 			'field'       => 'comments_orphanedmeta',
 			'type'        => 'button',
 			'title'       => _x( 'Comments', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
-			'description' => _x( 'Checks for Orphaned Comment Metas', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Checks for orphaned comment meta data.', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'default'     => _x( 'Purge Orphaned Matadata', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'values'      => $confirm,
 		];
@@ -171,7 +171,7 @@ class Cleanup extends gNetwork\Module
 		$settings['_comments'][] = [
 			'field'       => 'comments_akismetmeta',
 			'type'        => 'button',
-			'description' => _x( 'Removes Akismet Related Metadata from Comments', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Removes Akismet related comment meta data.', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'default'     => _x( 'Purge Akismet Metadata', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'values'      => $confirm,
 		];
@@ -179,7 +179,7 @@ class Cleanup extends gNetwork\Module
 		$settings['_comments'][] = [
 			'field'       => 'comments_agentfield',
 			'type'        => 'button',
-			'description' => _x( 'Removes User Agent Fields from Comments', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Removes user agent data from comments.', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'default'     => _x( 'Purge User Agent Fields', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'values'      => $confirm,
 		];
@@ -188,7 +188,7 @@ class Cleanup extends gNetwork\Module
 			'field'       => 'comments_oldposts',
 			'type'        => 'button',
 			'description' => _x( 'Disables comments and pings on posts published before <b>last month</b>.', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
-			'default'     => _x( 'Close Old Posts Comment Form', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+			'default'     => _x( 'Close Comments on Old Posts', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'values'      => $confirm,
 		];
 

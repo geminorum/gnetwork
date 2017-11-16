@@ -107,7 +107,7 @@ class Editor extends gNetwork\Module
 
 	public function teeny_mce_buttons( $buttons, $editor_id )
 	{
-		if ( ! count( $this->tinymce[0] ) )
+		if ( empty( $this->tinymce[0] ) )
 			return $buttons;
 
 		foreach ( $this->tinymce[0] as $plugin => $filepath )
@@ -122,7 +122,7 @@ class Editor extends gNetwork\Module
 		if ( ! array_key_exists( 'taxonomy', $_REQUEST ) )
 			$buttons = $this->mce_wppage_button( $buttons );
 
-		if ( ! count( $this->tinymce[1] ) )
+		if ( empty( $this->tinymce[1] ) )
 			return $buttons;
 
 		foreach ( $this->tinymce[1] as $plugin => $filepath )
@@ -137,7 +137,7 @@ class Editor extends gNetwork\Module
 		if ( ! array_key_exists( 'taxonomy', $_REQUEST ) )
 			$buttons = $this->mce_wpcode_button( $buttons );
 
-		if ( ! count( $this->tinymce[2] ) )
+		if ( empty( $this->tinymce[2] ) )
 			return $buttons;
 
 		foreach ( $this->tinymce[2] as $plugin => $filepath )
@@ -148,7 +148,7 @@ class Editor extends gNetwork\Module
 
 	public function mce_buttons_3( $buttons, $editor_id )
 	{
-		if ( ! count( $this->tinymce[3] ) )
+		if ( empty( $this->tinymce[3] ) )
 			return $buttons;
 
 		foreach ( $this->tinymce[3] as $plugin => $filepath )
@@ -159,7 +159,7 @@ class Editor extends gNetwork\Module
 
 	public function mce_buttons_4( $buttons, $editor_id )
 	{
-		if ( ! count( $this->tinymce[4] ) )
+		if ( empty( $this->tinymce[4] ) )
 			return $buttons;
 
 		foreach ( $this->tinymce[4] as $plugin => $filepath )

@@ -247,8 +247,8 @@ class Site extends gNetwork\Module
 
 		$new_post_content = $this->filters( 'new_post_content', _x( '[ This page is being completed ]', 'Modules: Site:‌ Initial Page Content', GNETWORK_TEXTDOMAIN ) );
 
-		wp_update_post( [ 'ID' => 1, 'post_status' => 'draft', 'post_content' => $new_post_content, 'post_type' => 'page' ] );
-		wp_update_post( [ 'ID' => 2, 'post_status' => 'draft', 'post_content' => $new_post_content ] );
+		wp_update_post( [ 'ID' => 1, 'post_status' => 'draft', 'post_title' => '', 'post_name' => '', 'post_content' => $new_post_content, 'post_type' => 'page' ] );
+		wp_update_post( [ 'ID' => 2, 'post_status' => 'draft', 'post_title' => '', 'post_name' => '', 'post_content' => $new_post_content ] );
 		wp_set_comment_status( 1, 'trash' );
 
 		$new_blog_plugins = $this->filters( 'new_blog_plugins', [
