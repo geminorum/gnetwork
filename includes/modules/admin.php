@@ -303,7 +303,7 @@ class Admin extends gNetwork\Module
 					rtl: "rtl" === $("html").attr("dir"),
 					no_results_text: "'._x( 'No results match', 'Modules: Admin: Chosen', GNETWORK_TEXTDOMAIN ).'",
 					disable_search_threshold: 10
-				});
+				}).addClass("gnetwork-chosen");
 			});';
 
 			wp_add_inline_script( Utilities::enqueueScriptVendor( 'chosen.jquery', [ 'jquery' ], '1.8.2' ), $script );
@@ -321,7 +321,14 @@ class Admin extends gNetwork\Module
 		Utilities::customStyleSheet( 'admin.css' );
 
 		if ( GNETWORK_ADMIN_JS_ENHANCEMENTS )
-			Utilities::enqueueScript( 'admin.all' );
+			wp_localize_script( Utilities::enqueueScript( 'admin.all' ), 'gNetwork', $this->localize_script() );
+	}
+
+	protected function localize_script()
+	{
+		return [
+			'metabox_controls_toggle' => _x( 'Metaboxes', 'Modules: Admin: Localize Script', GNETWORK_TEXTDOMAIN ),
+		];
 	}
 
 	public function admin_footer_text()
