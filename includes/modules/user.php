@@ -48,6 +48,12 @@ class User extends gNetwork\Module
 			$this->action( 'wpmu_new_user' );
 			$this->action( 'wp_login', 2 );
 		}
+
+		if ( $this->options['admin_user_edit'] ) {
+			$this->filter( 'map_meta_cap', 4, 99 );
+			$this->filter_true( 'enable_edit_any_user_configuration' );
+		}
+
 	}
 
 	public function setup_menu( $context )
@@ -67,6 +73,7 @@ class User extends gNetwork\Module
 	{
 		return [
 			'blog_roles'      => '0',
+			'admin_user_edit' => '0',
 			'contact_methods' => '1',
 			'user_locale'     => '0',
 			'dashboard_sites' => '0',
@@ -89,6 +96,11 @@ class User extends gNetwork\Module
 					'field'       => 'blog_roles',
 					'title'       => _x( 'Blog Roles', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Automatically adds each user to blogs', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
+				],
+				[
+					'field'       => 'admin_user_edit',
+					'title'       => _x( 'Administrator User Edit', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Allows site administrators to edit users of their sites.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
 					'field'       => 'contact_methods',
@@ -670,5 +682,43 @@ class User extends gNetwork\Module
 		}
 
 		return Text::toCSV( $data );
+	}
+
+	// Adopted from: WP User Edit by John James Jacoby v0.1.0 - 2017-11-16
+	// @REF: https://github.com/stuttter/wp-user-edit
+	public function map_meta_cap( $caps = [], $cap = '', $user_id = 0, $args = [] )
+	{
+		switch ( $cap ) {
+
+			case 'edit_user':
+			case 'edit_users':
+			case 'manage_network_users':
+
+				// allow user to edit themselves
+				if ( ( 'edit_user' === $cap ) && isset( $args[0] ) && ( $user_id === $args[0] ) )
+					break;
+
+				// if previously not allowed, undo it; we'll check our own way
+				if ( FALSE !== ( $index = array_search( 'do_not_allow', $caps ) ) )
+					unset( $caps[$index] );
+
+				// FIXME: WTF?
+				// if multisite, user must be a member of the site
+				if ( is_multisite() && isset( $args[0] ) && ! is_user_member_of_blog( $args[0] ) ) {
+					$caps[] = 'do_not_allow';
+
+				// admins cannot modify super admins
+				} else if ( isset( $args[0] ) && WordPress::isSuperAdmin( $args[0] ) ) {
+					$caps[] = 'do_not_allow';
+
+				// fallback on `edit_users`
+				} else {
+					$caps[] = 'edit_users';
+				}
+
+				break;
+		}
+
+		return $caps;
 	}
 }
