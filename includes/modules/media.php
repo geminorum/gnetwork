@@ -543,7 +543,8 @@ class Media extends gNetwork\Module
 			$parent_type = $parent->post_type;
 		}
 
-		$sizes = $this->get_posttype_sizes( $parent_type );
+		$fallback = $this->filters( 'object_sizes_fallback_posttype', FALSE, $parent_type, $attachment_id, $metadata );
+		$sizes    = $this->get_posttype_sizes( $parent_type, $fallback );
 
 		if ( empty( $sizes ) )
 			return $metadata;
@@ -611,7 +612,8 @@ class Media extends gNetwork\Module
 		if ( ! $taxonomy = get_post_meta( $attachment_id, '_wp_attachment_is_term_image', TRUE ) )
 			return $metadata;
 
-		$sizes = $this->get_taxonomy_sizes( $taxonomy );
+		$fallback = $this->filters( 'object_sizes_fallback_taxonomy', FALSE, $taxonomy, $attachment_id, $metadata );
+		$sizes    = $this->get_taxonomy_sizes( $taxonomy, $fallback );
 
 		if ( ! isset( $metadata['sizes'] ) ) {
 			$metadata['sizes'] = [];
