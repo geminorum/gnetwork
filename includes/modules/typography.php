@@ -94,7 +94,7 @@ class Typography extends gNetwork\Module
 	public function arabic_typography( $content )
 	{
 		$content = preg_replace( "/[\s\t]+(?:(\(ره\)|\(س\)|\(ص\)|\(ع\)|\(عج\)))/", "$1", $content ); // clean space/tab before
-		$content = preg_replace( "/(\(ره\)|\(س\)|\(ص\)|\(ع\)|\(عج\))(?![^<]*>|[^<>]*<\/)/ix", "<sup><abbr>$1</abbr></sup>", $content ); // @REF: http://stackoverflow.com/a/18622606/4864081
+		$content = preg_replace( "/(\(ره\)|\(س\)|\(ص\)|\(ع\)|\(عج\))(?![^<]*>|[^<>]*<\/)/ix", "<sup><abbr>$1</abbr></sup>", $content ); // @REF: http://stackoverflow.com/a/18622606
 
 		$content = preg_replace( "/\(علیهم السلام\)/i", "<sup>(علیهم السلام)</sup>", $content );
 		$content = preg_replace( "/\(علیهم‌السلام\)/i", "<sup>(علیهم السلام)</sup>", $content );
@@ -102,7 +102,7 @@ class Typography extends gNetwork\Module
 		$content = preg_replace( "/\(علیه‌السلام\)/i", "<sup>(علیه السلام)</sup>", $content );
 
 		// FIXME: DRAFT for date: not tested!
-		// @REF: http://stackoverflow.com/a/3337480/4864081
+		// @REF: http://stackoverflow.com/a/3337480
 		// $content = preg_replace( "/(^| )([0-9]{1,2}\/[0-9]{1,2}\/[0-9]{2,4})( |$)/is", "<span class=\"date\">$2</span>", $content );
 
 		return $content;

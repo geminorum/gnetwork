@@ -806,7 +806,7 @@ class ShortCodes extends gNetwork\Module
 		return self::shortcodeWrap( $html, 'tel', $args, FALSE );
 	}
 
-	// @REF: http://stackoverflow.com/a/19126326/4864081
+	// @REF: http://stackoverflow.com/a/19126326
 	// @TEST: http://bradorego.com/test/sms.html
 	public function shortcode_sms( $atts = [], $content = NULL, $tag = '' )
 	{

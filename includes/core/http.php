@@ -281,7 +281,7 @@ class HTTP extends Base
 		return FALSE;
 	}
 
-	// @REF: https://stackoverflow.com/a/594134/4864081
+	// @REF: https://stackoverflow.com/a/594134
 	public static function IPinCIDR( $ip, $range )
 	{
 		list ( $subnet, $bits ) = explode( '/', $range );
@@ -525,7 +525,7 @@ class HTTP extends Base
 	}
 
 	// @REF: http://arguments.callee.info/2010/02/21/multiple-curl-requests-with-php/
-	// @REF: http://stackoverflow.com/a/9950468/4864081
+	// @REF: http://stackoverflow.com/a/9950468
 	public static function checkURLs( $urls = array() )
 	{
 		if ( ! extension_loaded( 'curl' ) )

@@ -27,8 +27,8 @@ class Text extends Base
 	}
 
 	// simpler version of `wpautop()`
-	// @REF: https://stackoverflow.com/a/5240825/4864081
-	// @SEE: https://stackoverflow.com/a/7409591/4864081
+	// @REF: https://stackoverflow.com/a/5240825
+	// @SEE: https://stackoverflow.com/a/7409591
 	public static function autoP( $string )
 	{
 		$string = (string) $string;
@@ -149,7 +149,7 @@ class Text extends Base
 		);
 	}
 
-	// @REF: http://stackoverflow.com/a/3226746/4864081
+	// @REF: http://stackoverflow.com/a/3226746
 	public static function normalizeWhitespaceUTF8( $string, $check = FALSE )
 	{
 		if ( $check && ! self::seemsUTF8( $string ) )
@@ -700,7 +700,7 @@ class Text extends Base
 	public static function stripControlChars( $string )
 	{
 		// remove control chars, the first 32 ascii characters and \x7F
-		// @REF: http://stackoverflow.com/a/1497928/4864081
+		// @REF: http://stackoverflow.com/a/1497928
 		$string = preg_replace( '/[\x00-\x09\x0B\x0C\x0E-\x1F\x7F]/', '', $string );
 		// $string = preg_replace('/[\p{Cc}]/', '', $string );
 

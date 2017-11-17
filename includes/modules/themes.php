@@ -636,7 +636,7 @@ class Themes extends gNetwork\Module
 			.gnetwork_credits( $this->rtl, FALSE ).'</span>';
 	}
 
-	// @REF: http://stackoverflow.com/a/15196985/4864081
+	// @REF: http://stackoverflow.com/a/15196985
 	public function twentysomething_credits()
 	{
 		echo '<style>#colophon .site-info {visibility:collapse;}</style>'

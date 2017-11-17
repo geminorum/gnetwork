@@ -5,7 +5,7 @@ defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 class URL extends Base
 {
 
-	// @SOURCE: http://stackoverflow.com/a/8891890/4864081
+	// @SOURCE: http://stackoverflow.com/a/8891890
 	public static function current( $trailingslashit = FALSE, $forwarded_host = FALSE )
 	{
 		$ssl = ( ! empty( $_SERVER['HTTPS'] ) && 'on' == $_SERVER['HTTPS'] );

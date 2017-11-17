@@ -59,7 +59,7 @@ class Arraay extends Base
 		return $keys;
 	}
 
-	// @SOURCE: http://stackoverflow.com/a/24436324/4864081
+	// @SOURCE: http://stackoverflow.com/a/24436324
 	// USEAGE: Arraay::replaceKeys( $array, array( 'old_key_1' => 'new_key_1', 'old_key_2' => 'new_key_2' ) );
 	public static function replaceKeys( $array, $keys_map )
 	{
@@ -114,7 +114,7 @@ class Arraay extends Base
 		return $atts;
 	}
 
-	// @REF: http://stackoverflow.com/a/11026840/4864081
+	// @REF: http://stackoverflow.com/a/11026840
 	public static function stripByValue( $array, $value )
 	{
 		return array_diff_key( $array, array_flip( array_keys( $array, $value ) ) );
@@ -234,7 +234,7 @@ class Arraay extends Base
 		return $arr;
 	}
 
-	// @REF: http://stackoverflow.com/a/11320508/4864081
+	// @REF: http://stackoverflow.com/a/11320508
 	public static function find( $needle, &$haystack, $default = NULL )
 	{
 		$current = array_shift( $needle );

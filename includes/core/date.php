@@ -34,7 +34,7 @@ class Date extends Base
 		return $d && $d->format( $format ) === $date;
 	}
 
-	// @REF: https://stackoverflow.com/a/19680778/4864081
+	// @REF: https://stackoverflow.com/a/19680778
 	public static function secondsToTime( $seconds )
 	{
 		$from = new \DateTime( '@0' );
@@ -88,7 +88,7 @@ class Date extends Base
 		), date_i18n( $format, $time ) );
 	}
 
-	// @REF: https://stackoverflow.com/a/43956977/4864081
+	// @REF: https://stackoverflow.com/a/43956977
 	public static function htmlFromSeconds( $seconds, $round = 2, $atts = array() )
 	{
 		$args = self::atts( array(
@@ -309,7 +309,7 @@ class Date extends Base
 		echo HTML::tableCode( $result, TRUE, 'Moment' );
 	}
 
-	// FIXME: correct last week : http://stackoverflow.com/a/7175802/4864081
+	// FIXME: correct last week : http://stackoverflow.com/a/7175802
 	public static function moment( $timestamp, $now = '', $atts = array() )
 	{
 		$args = self::atts( array(

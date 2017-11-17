@@ -128,7 +128,7 @@ class File extends Base
 		return file_put_contents( self::join( $dir, $filename ), $contents.PHP_EOL );
 	}
 
-	// @SOURCE: http://stackoverflow.com/a/6451391/4864081
+	// @SOURCE: http://stackoverflow.com/a/6451391
 	// read the last n lines of a file without reading through all of it
 	public static function getLastLines( $path, $count, $block_size = 512 )
 	{
@@ -180,7 +180,7 @@ class File extends Base
 		return array_slice( $lines, 0, $count );
 	}
 
-	// @SOURCE: http://stackoverflow.com/a/6674672/4864081
+	// @SOURCE: http://stackoverflow.com/a/6674672
 	// determines the file size without any acrobatics
 	public static function getSize( $path, $format = TRUE )
 	{
@@ -221,7 +221,7 @@ class File extends Base
 	}
 
 	// FIXME: TEST THIS
-	// @SOURCE: http://stackoverflow.com/a/11267139/4864081
+	// @SOURCE: http://stackoverflow.com/a/11267139
 	public static function removeDir( $dir )
 	{
 		foreach ( glob( "{$dir}/*" ) as $file )

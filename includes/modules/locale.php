@@ -63,7 +63,7 @@ class Locale extends gNetwork\Module
 		return $languages;
 	}
 
-	// @REF: http://stackoverflow.com/a/16838443/4864081
+	// @REF: http://stackoverflow.com/a/16838443
 	public static function getISO( $locale = NULL )
 	{
 		if ( is_null( $locale ) )

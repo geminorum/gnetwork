@@ -259,8 +259,8 @@ class Mail extends gNetwork\Module
 				$this->check_referer( $sub );
 
 				// TODO: add exporting to .eml files
-				// http://stackoverflow.com/a/16039103/4864081
-				// http://stackoverflow.com/a/8777197/4864081
+				// http://stackoverflow.com/a/16039103
+				// http://stackoverflow.com/a/8777197
 				// http://www.alexcasamassima.com/2013/02/send-pre-formatted-eml-file-in-php.html
 				// https://wiki.zarafa.com/index.php/Eml_vs_msg
 
@@ -497,7 +497,7 @@ class Mail extends gNetwork\Module
 		}
 	}
 
-	// @SOURCE: http://stackoverflow.com/a/14744288/4864081
+	// @SOURCE: http://stackoverflow.com/a/14744288
 	protected static function getEmailLogs( $limit, $paged = 1, $ext = 'json', $old = NULL, $path = GNETWORK_MAIL_LOG_DIR )
 	{
 		if ( ! $path )
@@ -549,7 +549,7 @@ class Mail extends gNetwork\Module
 
 		try {
 
-			// @SOURCE: http://stackoverflow.com/a/4594268/4864081
+			// @SOURCE: http://stackoverflow.com/a/4594268
 			foreach ( new \DirectoryIterator( $path ) as $file )
 				if ( ! $file->isDot() )
 					unlink( $file->getPathname() );
