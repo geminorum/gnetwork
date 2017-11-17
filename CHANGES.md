@@ -1,3 +1,37 @@
+### 3.6.7
+* main/main: incorrect install notice for non multisite
+* main/main: check for min php
+* main/module: internal api for using core strings as default
+* main/module: passing description to setting methods
+* main/logger: set remote ip if it's not the same as the server
+* main/settings: support for multiple text fields
+* main/utilities: parsdown extra as utility method
+* module/admin: :new: metabox controls: toggle boxes
+* module/adminbar: exclude current locale from switcher
+* module/branding: custom slogan on admin footer
+* module/blog: heartbeat dep as null
+* module/blog: emoji from embed head
+* module/blog: :new: [chosen](https://harvesthq.github.io/chosen/) as admin service
+* module/buddypress: tool box for super admins only
+* module/code: changelog type for github-readme shortcode
+* module/dashboard: refactoring right now widget
+* module/dashboard: remove akismet actions
+* module/embed: switch to ssl for aparat urls
+* module/embed: embed on ajax calls
+* module/media: filter fallback for object sizes
+* module/media: no default fallback for posttype sizes
+* module/media: csv/pdf shortcode for insert none from modal
+* module/notify: override signup user email
+* module/site: overwrite default admin page access denied
+* module/site: refactor access denied splash
+* module/shortcodes: refactor csv shortcode
+* module/shortcodes: check for rest
+* module/themes: default embed style
+* module/themes: support for Twenty Seventeen
+* module/user: no help tab on user admin
+* module/user: :new: global user navigation menu
+* module/user: :new: admins to edit users of their sites
+
 ### 3.6.6
 * main/plugin: postpone loading language till plugins loaded
 * main/module: settings sidebox review
@@ -528,7 +562,7 @@
 * taxonomy: unnecessary escape on redirection
 * shortcodes: new `[in-term]`
 * shortcodes: new `[all-terms]`
-* shortcodes: correct syntax for tel & sms links, [see](http://stackoverflow.com/a/19126326/4864081)
+* shortcodes: correct syntax for tel & sms links, [see](http://stackoverflow.com/a/19126326)
 * mail: email & from defaults for `bp_mail()`
 * debug: `phpversion()` & loaded extensions on overview
 * cleanup: jQuery Updated, [see](https://make.wordpress.org/core/2016/03/29/jquery-updates-in-wordpress-4-5/)
