@@ -695,6 +695,7 @@ class Module extends Core\Base
 		return FALSE;
 	}
 
+	// FIXME: must count for custom setting functions
 	protected function prep_settings()
 	{
 		$settings = [];
@@ -719,6 +720,7 @@ class Module extends Core\Base
 			return;
 
 		foreach ( $settings as $section_suffix => $fields ) {
+
 			if ( is_array( $fields ) ) {
 
 				if ( method_exists( $this, 'settings_section'.$section_suffix ) )
@@ -731,13 +733,17 @@ class Module extends Core\Base
 				$section = $page.$section_suffix;
 				add_settings_section( $section, FALSE, $callback, $page );
 
-				foreach ( $fields as $field ) {
+				foreach ( $fields as $key => $field ) {
 
 					if ( FALSE === $field )
 						continue;
 
 					if ( is_array( $field ) )
 						$args = $field;
+
+					// passing as custom description
+					else if ( is_string( $key ) && method_exists( __NAMESPACE__.'\\Settings', 'getSetting_'.$key ) )
+						$args = call_user_func_array( [ __NAMESPACE__.'\\Settings', 'getSetting_'.$key ], [ $field ] );
 
 					else if ( method_exists( __NAMESPACE__.'\\Settings', 'getSetting_'.$field ) )
 						$args = call_user_func( [ __NAMESPACE__.'\\Settings', 'getSetting_'.$field ] );
