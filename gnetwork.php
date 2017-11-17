@@ -1,4 +1,4 @@
-<?php defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+<?php defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 /*
 Plugin Name: gNetwork
@@ -22,23 +22,24 @@ define( 'GNETWORK_VERSION', '3.6.6' );
 define( 'GNETWORK_MIN_PHP', '5.4.0' );
 define( 'GNETWORK_DIR', plugin_dir_path( __FILE__ ) );
 define( 'GNETWORK_URL', plugin_dir_url( __FILE__ ) );
-define( 'GNETWORK_FILE', basename( GNETWORK_DIR ).'/'.basename( __FILE__ ) );
+define( 'GNETWORK_FILE', basename( GNETWORK_DIR ) . '/' . basename( __FILE__ ) );
 
-if ( file_exists( WP_CONTENT_DIR.'/gnetwork-custom.php' ) )
-	require_once( WP_CONTENT_DIR.'/gnetwork-custom.php' );
+if ( file_exists( WP_CONTENT_DIR . '/gnetwork-custom.php' ) ) {
+	require_once WP_CONTENT_DIR . '/gnetwork-custom.php';
+}
 
 if ( version_compare( GNETWORK_MIN_PHP, PHP_VERSION, '>=' ) ) {
 
 	echo '<div class="notice notice-warning notice-alt is-dismissible"><p dir="ltr">';
-		printf( '<b>gNetwork</b> requires PHP %s or higher. Please contact your hosting provider to update your site.', GNETWORK_MIN_PHP ) ;
+		printf( '<b>gNetwork</b> requires PHP %s or higher. Please contact your hosting provider to update your site.', GNETWORK_MIN_PHP ); // WPCS: XSS ok.
 	echo '</p></div>';
 
-	return FALSE;
+	return false;
 
-} else if ( file_exists( GNETWORK_DIR.'assets/vendor/autoload.php' ) ) {
+} elseif ( file_exists( GNETWORK_DIR . 'assets/vendor/autoload.php' ) ) {
 
-	require_once( GNETWORK_DIR.'assets/vendor/autoload.php' );
-	require_once( GNETWORK_DIR.'includes/plugin.php' );
+	require_once GNETWORK_DIR . 'assets/vendor/autoload.php';
+	// require_once GNETWORK_DIR . 'includes/plugin.php';
 
 	function gNetwork() {
 		return \geminorum\gNetwork\Plugin::instance();
@@ -48,17 +49,17 @@ if ( version_compare( GNETWORK_MIN_PHP, PHP_VERSION, '>=' ) ) {
 
 } else {
 
-	$gnetwork_notice = function(){
+	$gnetwork_notice = function() {
 		echo '<div class="notice notice-warning notice-alt is-dismissible"><p dir="ltr">';
-		printf( '<b>gNetwork</b> is not installed correctly. go grab the latest package <a href="%s" target="_blank">here</a>.', 'https://github.com/geminorum/gnetwork/releases/latest' ) ;
+		printf( '<b>gNetwork</b> is not installed correctly. go grab the latest package <a href="%s" target="_blank">here</a>.', 'https://github.com/geminorum/gnetwork/releases/latest' );
 		echo '</p></div>';
 	};
 
-	if ( ! is_multisite() )
+	if ( ! is_multisite() ) {
 		add_action( 'admin_notices', $gnetwork_notice );
-
-	else if ( is_network_admin() )
+	} elseif ( is_network_admin() ) {
 		add_action( 'network_admin_notices', $gnetwork_notice );
+	}
 
 	unset( $gnetwork_notice );
 }
