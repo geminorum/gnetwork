@@ -49,6 +49,8 @@ class Debug extends gNetwork\Module
 			// akismet will log all the http_reqs!!
 			add_filter( 'akismet_debug_log', '__return_false', 20 );
 		}
+
+		$this->action( 'shutdown', 1, 99999 );
 	}
 
 	public function setup_menu( $context )
@@ -729,6 +731,11 @@ class Debug extends gNetwork\Module
 		echo '</body></html>';
 
 		die();
+	}
+
+	public function shutdown()
+	{
+		$GLOBALS['wpdb']->close();
 	}
 
 	// DRAFT
