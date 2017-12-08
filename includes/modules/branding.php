@@ -71,8 +71,7 @@ class Branding extends gNetwork\Module
 		if ( '' !== $url )
 			return $url;
 
-		$network = get_network();
-		$site    = get_site_icon_url( $size, FALSE, $network->blog_id );
+		$site = get_site_icon_url( $size, FALSE, get_main_site_id() );
 
 		return FALSE === $site ? '' : $site;
 	}

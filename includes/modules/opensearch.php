@@ -30,8 +30,11 @@ class OpenSearch extends gNetwork\Module
 		}
 
 		// $this->action( 'rewrite_rules_array', 1, 8 );
-		$this->filter( 'redirect_canonical', 2 );
-		$this->action( 'parse_request', 1, 1 );
+
+		if ( ! is_admin() ) {
+			$this->action( 'parse_request', 1, 1 );
+			$this->filter( 'redirect_canonical', 2 );
+		}
 	}
 
 	public function setup_menu( $context )

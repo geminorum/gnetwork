@@ -266,6 +266,9 @@ class Locale extends gNetwork\Module
 
 			'keyring' => 'page',
 
+			// [Safe Redirect Manager](https://wordpress.org/plugins/safe-redirect-manager/)
+			'redirect_rule' => 'post_type',
+
 		], $current );
 
 		foreach ( array_unique( $list ) as $value => $key )

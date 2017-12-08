@@ -53,7 +53,6 @@ class User extends gNetwork\Module
 			$this->filter( 'map_meta_cap', 4, 99 );
 			$this->filter_true( 'enable_edit_any_user_configuration' );
 		}
-
 	}
 
 	public function setup_menu( $context )

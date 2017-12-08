@@ -115,6 +115,15 @@ class Admin extends gNetwork\Module
 			$this->base,
 			_x( 'Network Extras', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN ),
 		];
+
+		// @REF: http://justintadlock.com/?p=3320
+		if ( ! WordPress::cuc( 'update_plugins' ) )
+			remove_submenu_page( 'themes.php', 'theme-editor.php' );
+
+		// FIXME: DROP THIS
+		// BruteProtect notice
+		if ( defined( 'BRUTEPROTECT_VERSION' ) && is_multisite() )
+			remove_menu_page( 'bruteprotect-config' );
 	}
 
 	public static function registerMenu( $sub, $title = NULL, $callback = FALSE, $capability = 'manage_options', $priority = 10 )

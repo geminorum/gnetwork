@@ -296,7 +296,7 @@ class Debug extends gNetwork\Module
 
 	public static function htaccessSummary()
 	{
-		echo '<pre class="language-apacheconf line-numbers" dir="ltr"><code class="language-apacheconf">';
+		echo '<pre data-prism="yes" class="language-apacheconf line-numbers" dir="ltr"><code class="language-apacheconf">';
 			echo HTML::escapeTextarea( File::getContents( trailingslashit( get_home_path() ).'.htaccess' ) );
 		echo '</code></pre>';
 	}
@@ -310,7 +310,7 @@ class Debug extends gNetwork\Module
 	public static function wpconfigSummary()
 	{
 		if ( $wpconfig = WordPress::getConfigPHP() )
-			echo '<pre class="language-php line-numbers" dir="ltr"><code class="language-php">'
+			echo '<pre data-prism="yes" class="language-php line-numbers" dir="ltr"><code class="language-php">'
 				.HTML::escapeTextarea( File::getContents( $wpconfig ) ).'</code></pre>';
 		else
 			HTML::desc( _x( 'Can not find the config file!', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
@@ -319,7 +319,7 @@ class Debug extends gNetwork\Module
 	public static function customSummary()
 	{
 		if ( file_exists( WP_CONTENT_DIR.'/gnetwork-custom.php' ) )
-			echo '<pre class="language-php line-numbers" dir="ltr"><code class="language-php">'
+			echo '<pre data-prism="yes" class="language-php line-numbers" dir="ltr"><code class="language-php">'
 				.HTML::escapeTextarea( File::getContents( WP_CONTENT_DIR.'/gnetwork-custom.php' ) ).'</code></pre>';
 		else
 			HTML::desc( _x( 'No custom file found.', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
@@ -328,7 +328,7 @@ class Debug extends gNetwork\Module
 	public static function bpCustomSummary()
 	{
 		if ( file_exists( WP_PLUGIN_DIR.'/bp-custom.php' ) )
-			echo '<pre class="language-php line-numbers" dir="ltr"><code class="language-php">'
+			echo '<pre data-prism="yes" class="language-php line-numbers" dir="ltr"><code class="language-php">'
 				.HTML::escapeTextarea( File::getContents( WP_PLUGIN_DIR.'/bp-custom.php' ) ).'</code></pre>';
 		else
 			HTML::desc( _x( 'No bp custom file found.', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
@@ -730,7 +730,7 @@ class Debug extends gNetwork\Module
 		echo $message;
 		echo '</body></html>';
 
-		die();
+		die;
 	}
 
 	public function shutdown()
