@@ -25,6 +25,7 @@ class Blog extends gNetwork\Module
 	{
 		$this->action( 'plugins_loaded', 0, 1 );
 		$this->action( 'init', 0, 1 );
+		$this->action( 'init', 0, 99, 'late' );
 		$this->action( 'wp_loaded', 0, 99 );
 
 		if ( is_admin() ) {
@@ -63,6 +64,8 @@ class Blog extends gNetwork\Module
 
 		if ( ! $this->options['xmlrpc_enabled'] )
 			add_filter( 'xmlrpc_enabled', '__return_false', 12 );
+
+		add_filter( 'jetpack_get_default_modules', '__return_empty_array' );
 	}
 
 	public function setup_menu( $context )
@@ -350,10 +353,8 @@ class Blog extends gNetwork\Module
 
 	public function init()
 	{
-		if ( $this->options['blog_redirect']
-			&& ! is_admin()
-			&& ! WordPress::isAJAX() )
-				$this->blog_redirect();
+		if ( $this->options['blog_redirect'] && WordPress::mustRegisterUI() )
+			$this->blog_redirect();
 
 		if ( ( $locale = $this->is_action( 'locale', 'locale' ) )
 			&& class_exists( __NAMESPACE__.'\\Locale' )
@@ -433,21 +434,28 @@ class Blog extends gNetwork\Module
 
 	public function init_late()
 	{
-		// no need for redirect option check
-		$this->blog_redirect( FALSE );
+		// Search Everything http://wordpress.org/plugins/search-everything/
+		remove_action( 'wp_head', 'se_global_head' );
+
+		if ( defined( 'WPCF7_VERSION' ) ) {
+
+			if ( defined( 'WPCF7_AUTOP' ) && WPCF7_AUTOP )
+				$this->filter( 'wpcf7_form_elements' );
+
+			$this->filter_false( 'wpcf7_load_css', 15 );
+		}
 	}
 
 	private function blog_redirect( $check = TRUE )
 	{
 		global $pagenow;
 
-		if ( is_user_logged_in()
-			&& current_user_can( 'manage_options' ) )
-				return;
+		if ( WordPress::cuc( 'manage_options' ) )
+			return;
 
 		// postpone checking in favor of WP Remote
 		if ( $check && ! empty( $_POST['wpr_verify_key'] ) )
-			return $this->action( 'init', 0, 999, 'late' ); // must be over 100
+			return $this->action( 'init', 0, 999, 'late_check' ); // must be over 100
 
 		if ( ( ! empty( $pagenow ) && 'index.php' == $pagenow && ! is_admin() )
 			|| FALSE === self::whiteListed() ) {
@@ -459,6 +467,12 @@ class Blog extends gNetwork\Module
 
 			WordPress::redirect( $redirect, $this->options['blog_redirect_status'] );
 		}
+	}
+
+	public function init_late_check()
+	{
+		// no need for redirect option check
+		$this->blog_redirect( FALSE );
 	}
 
 	public static function whiteListed( $request_uri = NULL )
@@ -529,6 +543,21 @@ class Blog extends gNetwork\Module
 		}
 
 		return $where;
+	}
+
+	// does not apply the `autop()` to the form content
+	// ADOPTED FROM: Contact Form 7 Controls - v0.4.0 - 20170926
+	// @SOURCE: https://github.com/kasparsd/contact-form-7-extras
+	public function wpcf7_form_elements( $form )
+	{
+		$instance = \WPCF7_ContactForm::get_current();
+		$manager  = \WPCF7_ShortcodeManager::get_instance();
+
+		$form = $manager->do_shortcode( get_post_meta( $instance->id(), '_form', TRUE ) );
+
+		$instance->set_properties( [ 'form' => $form ] );
+
+		return $form;
 	}
 
 ////////////////////////////////////////////////////////////////////////////////

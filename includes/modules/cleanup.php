@@ -11,15 +11,8 @@ class Cleanup extends gNetwork\Module
 
 	protected $key     = 'cleanup';
 	protected $network = FALSE;
-
-	protected function setup_actions()
-	{
-		$this->action( 'init', 0, 99, 'late' );
-		$this->action( 'admin_menu', 0, 999, 'late' );
-
-		// SEE: http://stephanis.info/2014/08/13/on-jetpack-and-auto-activating-modules
-		add_filter( 'jetpack_get_default_modules', '__return_empty_array' );
-	}
+	protected $user    = FALSE;
+	protected $front   = FALSE;
 
 	public function setup_menu( $context )
 	{
@@ -263,48 +256,6 @@ class Cleanup extends gNetwork\Module
 
 			WordPress::redirectReferer( $message );
 		}
-	}
-
-	public function init_late()
-	{
-		remove_action( 'wp_head', 'se_global_head' ); // by: Search Everything / http://wordpress.org/plugins/search-everything/
-
-		if ( defined( 'WPCF7_VERSION' ) ) {
-
-			if ( defined( 'WPCF7_AUTOP' ) && WPCF7_AUTOP )
-				$this->filter( 'wpcf7_form_elements' );
-
-			$this->filter_false( 'wpcf7_load_css', 15 );
-		}
-	}
-
-	// @SOURCE: http://justintadlock.com/archives/2011/06/13/removing-menu-pages-from-the-wordpress-admin
-	public function admin_menu_late()
-	{
-		if ( ! WordPress::cuc( 'update_plugins' ) ) {
-			remove_menu_page( 'link-manager.php' );
-			remove_submenu_page( 'themes.php', 'theme-editor.php' );
-		}
-
-		// FIXME: DROP THIS
-		// BruteProtect notice
-		if ( defined( 'BRUTEPROTECT_VERSION' ) && is_multisite() )
-			remove_menu_page( 'bruteprotect-config' );
-	}
-
-	// does not apply the `autop()` to the form content
-	// ADOPTED FROM: Contact Form 7 Controls - v0.4.0 - 20170926
-	// @SOURCE: https://github.com/kasparsd/contact-form-7-extras
-	public function wpcf7_form_elements( $form )
-	{
-		$instance = \WPCF7_ContactForm::get_current();
-		$manager  = \WPCF7_ShortcodeManager::get_instance();
-
-		$form = $manager->do_shortcode( get_post_meta( $instance->id(), '_form', TRUE ) );
-
-		$instance->set_properties( [ 'form' => $form ] );
-
-		return $form;
 	}
 
 	// @SEE: `delete_expired_transients()`
