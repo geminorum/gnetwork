@@ -216,24 +216,29 @@ class Dashboard extends gNetwork\Module
 		if ( $elements = apply_filters( 'dashboard_glance_items', [] ) )
 			$html.= '<li>'.implode( '</li><li>', $elements ).'</li>';
 
-		$num_comm = wp_count_comments();
+		if ( $num_comm = wp_count_comments() ) {
 
-		if ( $num_comm && ( $num_comm->approved || $num_comm->moderated ) ) {
+			if ( $num_comm->approved || $num_comm->moderated ) {
 
-			$text = sprintf( _n( '%s Comment', '%s Comments', $num_comm->approved ), number_format_i18n( $num_comm->approved ) );
+				$text = sprintf( _nx( '%s Comment', '%s Comments', $num_comm->approved, 'Modules: Dashboard: Right Now', GNETWORK_TEXTDOMAIN ), number_format_i18n( $num_comm->approved ) );
 
-			$html.= '<li class="comment-count"><a href="edit-comments.php">'.$text.'</a></li>';
+				$html.= '<li class="comment-count"><a href="edit-comments.php">'.$text.'</a></li>';
 
-			$moderated_comments_count_i18n = number_format_i18n( $num_comm->moderated );
+				$moderated_comments_count_i18n = number_format_i18n( $num_comm->moderated );
 
-			/* translators: %s: number of comments in moderation */
-			$text = sprintf( _nx( '%s in moderation', '%s in moderation', $num_comm->moderated, 'comments' ), $moderated_comments_count_i18n );
+				$text = sprintf( _nx( '%s Awaiting Comment', '%s Awaiting Comments', $num_comm->moderated, 'Modules: Dashboard: Right Now', GNETWORK_TEXTDOMAIN ), $moderated_comments_count_i18n );
 
-			/* translators: %s: number of comments in moderation */
-			$aria_label = sprintf( _nx( '%s comment in moderation', '%s comments in moderation', $num_comm->moderated, 'comments' ), $moderated_comments_count_i18n );
+				/* translators: %s: number of comments in moderation */
+				$aria_label = sprintf( _nx( '%s comment in moderation', '%s comments in moderation', $num_comm->moderated, 'comments' ), $moderated_comments_count_i18n );
 
-			$html.= '<li class="comment-mod-count'.( $num_comm->moderated ? '' : ' hidden' ).'">';
-			$html.= '<a href="edit-comments.php?comment_status=moderated" aria-label="'.esc_attr__( $aria_label ).'">'.$text.'</a></li>';
+				$html.= '<li class="comment-mod-count'.( $num_comm->moderated ? '' : ' hidden' ).'">';
+				$html.= '<a href="edit-comments.php?comment_status=moderated" aria-label="'.esc_attr__( $aria_label ).'">'.$text.'</a></li>';
+			}
+
+			if ( $num_comm->spam > 0 ) {
+				$spam = sprintf( _nx( '%s Spam Comment', '%s Spam Comments', $num_comm->spam, 'Modules: Dashboard: Right Now', GNETWORK_TEXTDOMAIN ), number_format_i18n( $num_comm->spam ) );
+				$html.= '<li class="comment-spam-count"><a href="edit-comments.php?comment_status=spam">'.$spam.'</a></li>';
+			}
 		}
 
 		if ( $html )
