@@ -47,6 +47,11 @@ class Blog extends gNetwork\Module
 
 		} else {
 
+			if ( $this->options['no_found_rows'] ) {
+				$this->filter( 'pre_get_posts' );
+				$this->filter( 'posts_clauses', 2 );
+			}
+
 			if ( $this->options['page_copyright']
 				|| $this->options['noindex_attachments']
 				|| $this->options['meta_revised'] )
@@ -80,6 +85,7 @@ class Blog extends gNetwork\Module
 	{
 		return [
 			'thrift_mode'          => 0,
+			'no_found_rows'        => 0,
 			'admin_locale'         => '',
 			'admin_chosen'         => 0,
 			'blog_redirect'        => '',
@@ -137,6 +143,13 @@ class Blog extends gNetwork\Module
 			'field'       => 'thrift_mode',
 			'title'       => _x( 'Thrift Mode', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 			'description' => _x( 'Trying to make your host happy!', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+		];
+
+		$settings['_thrift'][] = [
+			'field'       => 'no_found_rows',
+			'title'       => _x( 'No Found-Rows', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Avoids query count for paginations.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'after'       => Settings::fieldAfterIcon( 'https://wpartisan.me/?p=166' ),
 		];
 
 		$settings['_thrift'][] = [
@@ -543,6 +556,40 @@ class Blog extends gNetwork\Module
 		}
 
 		return $where;
+	}
+
+	public function pre_get_posts( $wp_query )
+	{
+		$wp_query->set( 'no_found_rows', TRUE );
+	}
+
+	// uses the query parts to run a custom count(*) query against the database
+	// then constructs and sets the pagination results for this wp_query
+	// @REF: https://wpartisan.me/?p=166
+	public function posts_clauses( $clauses, $wp_query )
+	{
+		global $wpdb;
+
+		// don't proceed if it's a singular page
+		if ( $wp_query->is_singular() )
+			return $clauses;
+
+		$where = isset( $clauses[ 'where' ] )    ? $clauses[ 'where' ]    : '';
+		$join  = isset( $clauses[ 'join' ] )     ? $clauses[ 'join' ]     : '';
+		$dist  = isset( $clauses[ 'distinct' ] ) ? $clauses[ 'distinct' ] : '';
+
+		// construct and run the query. Set the result as the 'found_posts'
+		// param on the main query we want to run
+		$wp_query->found_posts = $wpdb->get_var( "SELECT {$dist} COUNT(*) FROM {$wpdb->posts} {$join} WHERE 1=1 {$where}" );
+
+		// work out how many posts per page there should be
+		$posts_per_page = empty( $wp_query->query_vars['posts_per_page'] )
+			? absint( get_option( 'posts_per_page' ) )
+			: absint( $wp_query->query_vars['posts_per_page'] );
+
+		$wp_query->max_num_pages = ceil( $wp_query->found_posts / $posts_per_page );
+
+		return $clauses;
 	}
 
 	// does not apply the `autop()` to the form content
