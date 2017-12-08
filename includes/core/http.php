@@ -61,6 +61,7 @@ class HTTP extends Base
 				100 => 'Continue',
 				101 => 'Switching Protocols',
 				102 => 'Processing',
+				103 => 'Early Hints',
 
 				// 2×× Success
 				200 => 'OK',

@@ -376,7 +376,7 @@ class HTML extends Base
 	{
 		echo '<table class="base-table-side">';
 
-		if ( count( $array ) ) {
+		if ( ! empty( $array ) ) {
 
 			foreach ( $array as $key => $val ) {
 
