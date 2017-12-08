@@ -71,8 +71,9 @@ class Logger
 			\Analog::$date_format = 'd-M-Y H:i:s e';
 
 			// overrride machine name with user ip
-			if ( $_SERVER['SERVER_ADDR'] != $_SERVER['REMOTE_ADDR'] )
-				\Analog::$machine = $_SERVER['REMOTE_ADDR']; // HTTP::IP();
+			if ( ! empty( $_SERVER['SERVER_ADDR'] )
+				&& $_SERVER['SERVER_ADDR'] != $_SERVER['REMOTE_ADDR'] )
+					\Analog::$machine = $_SERVER['REMOTE_ADDR']; // HTTP::IP();
 		}
 
 		return $gNetworkAnalog;
