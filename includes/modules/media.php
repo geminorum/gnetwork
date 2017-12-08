@@ -1268,6 +1268,7 @@ class Media extends gNetwork\Module
 			'psd'  => 'image/vnd.adobe.photoshop',
 			'mobi' => 'application/x-mobipocket-ebook',
 			'epub' => 'application/epub+zip',
+			'bib'  => 'application/x-bibtex', // 'text/plain', // @REF: http://fileformats.archiveteam.org/wiki/BibTeX
 		] );
 	}
 
