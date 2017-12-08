@@ -563,7 +563,7 @@ class Media extends gNetwork\Module
 
 	private function get_posttype_sizes( $posttype = 'post', $fallback = FALSE )
 	{
-		if ( isset( $this->posttype_sizes[$posttype] ) )
+		if ( ! $fallback && isset( $this->posttype_sizes[$posttype] ) )
 			return $this->posttype_sizes[$posttype];
 
 		global $_wp_additional_image_sizes;
@@ -593,7 +593,10 @@ class Media extends gNetwork\Module
 			}
 		}
 
-		return $this->posttype_sizes[$posttype] = $sizes;
+		if ( ! $fallback )
+			$this->posttype_sizes[$posttype] = $sizes;
+
+		return $sizes;
 	}
 
 	public function clean_term_attachment_cache( $attachment_id )
@@ -645,7 +648,7 @@ class Media extends gNetwork\Module
 
 	private function get_taxonomy_sizes( $taxonomy = 'category', $fallback = FALSE )
 	{
-		if ( isset( $this->taxonomy_sizes[$taxonomy] ) )
+		if ( ! $fallback && isset( $this->taxonomy_sizes[$taxonomy] ) )
 			return $this->taxonomy_sizes[$taxonomy];
 
 		global $_wp_additional_image_sizes;
@@ -674,7 +677,10 @@ class Media extends gNetwork\Module
 			}
 		}
 
-		return $this->taxonomy_sizes[$taxonomy] = $sizes;
+		if ( ! $fallback )
+			$this->taxonomy_sizes[$taxonomy] = $sizes;
+
+		return $sizes;
 	}
 
 	public function attachment_is_custom( $attachment_id )
