@@ -36,9 +36,12 @@ class Themes extends gNetwork\Module
 
 			$this->filter( 'theme_scandir_exclusions' );
 
+			if ( ! WordPress::isDev() )
+				$this->action( 'wp_default_scripts', 1, 12, 'admin' );
+
 		} else {
 
-			$this->action( 'wp_default_scripts', 1, 9 );
+			$this->action( 'wp_default_scripts', 1, 12 );
 
 			if ( $this->options['content_actions'] )
 				$this->filter( 'the_content', 1, 999 );
@@ -117,6 +120,14 @@ class Themes extends gNetwork\Module
 	public function theme_scandir_exclusions( $exclusions )
 	{
 		return array_merge( $exclusions, [ 'vendor', 'bower_components', 'node_modules' ] );
+	}
+
+	public function wp_default_scripts_admin( &$scripts )
+	{
+		if ( empty( $scripts->registered['jquery'] ) )
+			return;
+
+		$scripts->registered['jquery']->deps = array_diff( $scripts->registered['jquery']->deps, [ 'jquery-migrate' ] );
 	}
 
 	public function wp_default_scripts( &$scripts )
