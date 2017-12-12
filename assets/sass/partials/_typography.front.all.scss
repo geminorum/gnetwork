@@ -4,7 +4,6 @@
 /// gNetwork Partals: Module: Typography Front All -----------------------------
 
 .-wrap {
-
   &.shortcode-asterisks {
     margin: 20px 0;
     text-align: center;
@@ -15,7 +14,6 @@
 
 .post-content,
 .entry-content {
-
   .numeral-section-title {
     color: $gray-dark;
     float: left;
@@ -26,7 +24,6 @@
   }
 
   blockquote {
-
     &.-reverse {} // like BS: `.blockquote-reverse`
 
     &.-epigraph {

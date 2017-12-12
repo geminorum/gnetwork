@@ -1,9 +1,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-/// gNetwork Themes: Chosen ---------------------------------------------------
+/// gNetwork Themes: Atlantic --------------------------------------------------
 ////////////////////////////////////////////////////////////////////////////////
-// https://wordpress.org/themes/chosen/
+// http://atlantic.elevate360.com.au/
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 @import "../modules/all";
@@ -39,46 +39,38 @@ h6 {
   font-weight: 700;
 }
 
-.site-title {
-  font-family: $font-family-light;
+.edit-link {
+  float: left;
 }
 
-blockquote {
-  border-left: none;
-}
-
-.more-link,
-.post-categories a,
-.post-tags a,
-.post-categories span,
-.post-tags span {
-  margin-right: 0;
-}
-
-.comment-reply-link,
-.comment-edit-link {
-  margin-left: 0;
-}
-
-.comment-reply-link:after,
-.comment-edit-link:after {
-  left: auto;
-}
-
-@media all and (min-width: 56.25em) {
-  .blog,
-  .archive,
-  .search {
-    .entry {
-      margin-right: 0 !important;
-
-      &:nth-child(even) {
-        margin-left: 4.54203%;
-      }
-    }
+.widget-area,
+.site-footer {
+  > .container:before {
+    left: auto;
+    right: 15px;
   }
 }
 
+.comment-navigation,
+.posts-navigation,
+.post-navigation {
+  .nav-previous {
+    float: right;
+    text-align: right;
+  }
+
+  .nav-next {
+    float: left;
+    text-align: left;
+  }
+}
+
+@media (min-width: 992px) {
+  .secondary-footer-info {
+    float: right;
+    text-align: right;
+  }
+}
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 @include theme-typography-defaults;

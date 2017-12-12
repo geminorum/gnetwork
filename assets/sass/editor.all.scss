@@ -1,5 +1,5 @@
-@import 'modules/all';
-@import 'partials/base';
+@import "modules/all";
+@import "partials/base";
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 @import 'partials/embed.front.all';
@@ -14,21 +14,22 @@ html .mce-content-body.rtl {
 
   // shortcake
   .mce-offscreen-selection {
+
     /*rtl:begin:ignore*/
     left: auto !important;
     right: -9999999999px !important;
+
     /*rtl:end:ignore*/
   }
 }
 
-html[lang=fa-IR] .mce-content-body.rtl {
-
+html[lang="fa-IR"] .mce-content-body.rtl {
   img[data-wp-more="more"] {
-    background-image: url( '../images/tinymce/more-fa-IR.png' );
+    background-image: url(../images/tinymce/more-fa-IR.png);
   }
 
   img[data-wp-more="nextpage"] {
-    background-image: url( '../images/tinymce/pagebreak-fa-IR.png' );
+    background-image: url(../images/tinymce/pagebreak-fa-IR.png);
   }
 
   ol {

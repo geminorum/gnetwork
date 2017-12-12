@@ -4,15 +4,14 @@
 /// gNetwork Partials: Theme: Fonts --------------------------------------------
 
 @mixin theme-widgets-defaults() {
-
   .widget_calendar {
-
     table {
       width: 100%;
 
       a {
         // font-weight: 600;
         text-decoration: none;
+
         &:hover {
           // color: $gray !important;
           text-decoration: none;
@@ -42,7 +41,8 @@
       //   font-weight: 600;
       // }
 
-      th, td {
+      th,
+      td {
         // padding: 3px 0;
         text-align: center;
         // border: 1px solid $table-border-color;
@@ -52,7 +52,8 @@
       //   background: $table-bg-hover;
       // }
 
-      .-pad, .pad {
+      .pad,
+      .-pad {
         padding: 0 !important;
       }
     }

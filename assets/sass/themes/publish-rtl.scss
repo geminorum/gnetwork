@@ -8,12 +8,12 @@
 // https://wordpress.org/themes/publish/
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-@import '../modules/all';
-@import '../partials/base';
-@import '../partials/theme.fonts';
-@import '../partials/theme.typography';
-@import '../partials/theme.editorial';
-@import '../partials/theme.widgets';
+@import "../modules/all";
+@import "../partials/base";
+@import "../partials/theme.fonts";
+@import "../partials/theme.typography";
+@import "../partials/theme.editorial";
+@import "../partials/theme.widgets";
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 @include theme-fonts-Vazir-CDN();
@@ -32,9 +32,14 @@ blockquote {
   font-family: $font-family-base;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: $font-family-head;
-  font-weight: bold;
+  font-weight: 700;
 }
 
 .site-header {
@@ -46,7 +51,8 @@ h1, h2, h3, h4, h5, h6 {
   clear: right;
 }
 
-.site-content, .site-footer {
+.site-content,
+.site-footer {
   float: left;
 }
 
@@ -192,6 +198,7 @@ ul.children {
 
 input#email,
 input#url {
+
   /*rtl:ignore*/
   direction: ltr;
 }
@@ -220,7 +227,7 @@ input[type="text"],
 select,
 textarea {
   padding: 3px;
-  border: 1px solid #CCC;
+  border: 1px solid #ccc;
   border-radius: 3px;
 }
 

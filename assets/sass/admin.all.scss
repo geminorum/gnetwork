@@ -1,42 +1,42 @@
-@import 'modules/all';
-@import 'partials/base';
-@import 'partials/theme.fonts';
+@import "modules/all";
+@import "partials/base";
+@import "partials/theme.fonts";
 ////////////////////////////////////////////////////////////////////////////////
-@import 'admin.core';
+@import "admin.core";
 ////////////////////////////////////////////////////////////////////////////////
-@import 'partials/admin.adblock';
-@import 'partials/admin.editor';
-@import 'partials/admin.importer';
-@import 'partials/admin.list';
-@import 'partials/admin.tabs';
+@import "partials/admin.adblock";
+@import "partials/admin.editor";
+@import "partials/admin.importer";
+@import "partials/admin.list";
+@import "partials/admin.tabs";
 ////////////////////////////////////////////////////////////////////////////////
-@import 'partials/admin.wp-document-revisions';
-@import 'partials/admin.edit-flow';
-// @import 'partials/admin.siteorigin';
-@import 'partials/admin.p2p';
+@import "partials/admin.wp-document-revisions";
+@import "partials/admin.edit-flow";
+// @import "partials/admin.siteorigin";
+@import "partials/admin.p2p";
 ////////////////////////////////////////////////////////////////////////////////
-@import 'partials/adminbar.all';
-@import 'partials/debug.all';
-@import 'partials/listtable.all';
-@import 'partials/thickbox.all';
+@import "partials/adminbar.all";
+@import "partials/debug.all";
+@import "partials/listtable.all";
+@import "partials/thickbox.all";
 ////////////////////////////////////////////////////////////////////////////////
-@import 'partials/adminbar.admin.all';
-@import 'partials/dashboard.admin.all';
-@import 'partials/uptime.admin.all';
-@import 'partials/cron.admin.all';
-@import 'partials/media.admin.all';
-@import 'partials/navigation.admin.all';
-@import 'partials/settings.admin.all';
-@import 'partials/site.admin.all';
-@import 'partials/taxonomy.admin.all';
-@import 'partials/user.admin.all';
-@import 'partials/widgets.admin.all';
+@import "partials/adminbar.admin.all";
+@import "partials/dashboard.admin.all";
+@import "partials/uptime.admin.all";
+@import "partials/cron.admin.all";
+@import "partials/media.admin.all";
+@import "partials/navigation.admin.all";
+@import "partials/settings.admin.all";
+@import "partials/site.admin.all";
+@import "partials/taxonomy.admin.all";
+@import "partials/user.admin.all";
+@import "partials/widgets.admin.all";
 ////////////////////////////////////////////////////////////////////////////////
-@import 'partials/prism.all';
-@import 'partials/chosen.admin';
+@import "partials/prism.all";
+@import "partials/chosen.admin";
 ////////////////////////////////////////////////////////////////////////////////
-@import 'partials/rtl.admin.all';
-@import 'partials/fa_IR.admin.all';
+@import "partials/rtl.admin.all";
+@import "partials/fa_IR.admin.all";
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -128,7 +128,6 @@ body.thrift-mode {
   }
 }
 
-
 #dashboard_activity #future-posts h3,
 #dashboard_activity #published-posts h3,
 #dashboard_right_now #wp-version-message,
@@ -140,7 +139,6 @@ body.thrift-mode {
 }
 
 .gnetwork-admin-wrap-widget {
-
   &.-user-sites {
     table {
       width: 100%;
@@ -169,6 +167,10 @@ body.thrift-mode {
   }
 }
 
+#gnetwork-reset-filters {
+  margin: 1px 8px 0 0;
+}
+
 .inline-edit-row {
   h4 {
     margin: 0;
@@ -189,11 +191,11 @@ body.thrift-mode {
 
 body.colored {
   .status-draft {
-    background: #FCE3F2 !important;
+    background: #fce3f2 !important;
   }
 
   .status-pending {
-    background: #87C5D6 !important;
+    background: #87c5d6 !important;
   }
 
   .status-publish {
@@ -201,11 +203,11 @@ body.colored {
   }
 
   .status-future {
-    background: #C6EBF5 !important;
+    background: #c6ebf5 !important;
   }
 
   .status-private {
-    background: #F2D46F;
+    background: #f2d46f;
   }
 }
 ////////////////////////////////////////////////////////////////////////////////

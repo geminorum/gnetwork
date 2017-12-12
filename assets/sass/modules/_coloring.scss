@@ -45,7 +45,7 @@
 // @DEMO: http://codepen.io/CreativePunch/pen/piErg
 // USAGE: @include loop-shadow(10, 30px);
 @mixin loop-shadow($elements, $height) {
-   @for $i from 0 to $elements{
+  @for $i from 0 to $elements {
     $red: $i * 10 + 150;
     $green: ($i * 10 + 150) / 2;
     $blue: ($i * 10 + 150) / 2;

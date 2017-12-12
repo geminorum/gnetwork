@@ -6,12 +6,12 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-@import '../modules/all';
-@import '../partials/base';
-@import '../partials/theme.fonts';
-@import '../partials/theme.typography';
-@import '../partials/theme.editorial';
-@import '../partials/theme.widgets';
+@import "../modules/all";
+@import "../partials/base";
+@import "../partials/theme.fonts";
+@import "../partials/theme.typography";
+@import "../partials/theme.editorial";
+@import "../partials/theme.widgets";
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 @include theme-fonts-Dirooz-CDN();
@@ -20,14 +20,21 @@
 
 // needed for override
 html[lang="fa-IR"] {
-
-  body, button, input, select, textarea {
+  body,
+  button,
+  input,
+  select,
+  textarea {
     font-family: $font-family-base;
   }
 
-  h1, h2, h3, blockquote, #access a {
+  h1,
+  h2,
+  h3,
+  blockquote,
+  #access a {
     font-family: $font-family-head;
-    font-weight: bold;
+    font-weight: 700;
   }
 }
 

@@ -6,9 +6,12 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-@import '../modules/all';
-@import '../partials/base';
-@import '../partials/theme.fonts';
+@import "../modules/all";
+@import "../partials/base";
+@import "../partials/theme.fonts";
+@import "../partials/theme.typography";
+@import "../partials/theme.editorial";
+@import "../partials/theme.widgets";
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 @include theme-fonts-Gandom-CDN();
@@ -28,8 +31,8 @@ h4,
 h5,
 h6,
 .main-navigation {
-  font-weight: bold;
   font-family: $font-family-head;
+  font-weight: 700;
 }
 
 p.site-title {
@@ -41,10 +44,11 @@ p.site-title {
   text-align: right;
 }
 
-.widget_search  {
+.widget_search {
   .search-form {
     position: relative;
   }
+
   .search-submit {
     padding: 2px 10px 0;
     position: absolute;
@@ -70,6 +74,7 @@ p.site-title {
 .comments-area {
   input[type="email"],
   input[type="url"] {
+
     /*rtl:ignore*/
     direction: ltr;
   }
@@ -98,6 +103,7 @@ p.site-title {
   display: none;
   visibility: hidden;
 }
+
 // http://stackoverflow.com/a/2610741
 *::-moz-placeholder {
   font-family: $font-family-base !important;
@@ -111,9 +117,7 @@ p.site-title {
 ////////////////////////////////////////////////////////////////////////////////
 
 @media screen and (min-width: 45em) {
-
   .main-navigation ul {
-
     ul {
       padding: 0 0.875em !important;
     }
@@ -126,6 +130,7 @@ p.site-title {
     > li.page_item_has_children {
       margin-right: 0;
       margin-left: 1.625em;
+
       > a:after {
         right: auto;
         left: -.75em;
@@ -145,7 +150,7 @@ p.site-title {
   .single .entry-footer span {
     margin: 0 0 0 10px !important;
 
-    &::after {
+    &:after {
       content: "\200C";
     }
   }
@@ -154,6 +159,7 @@ p.site-title {
     .entry-over-title {
       // margin: 10px 0 -10px;
     }
+
     .entry-sub-title {
       margin-top: -0.4375em;
     }

@@ -26,6 +26,14 @@
     margin-right: 0;
   }
 
+  .quicklinks .menupop ul li .ab-item,
+  .quicklinks .menupop ul li a strong,
+  .quicklinks .menupop.hover ul li .ab-item,
+  &.nojs .quicklinks .menupop:hover ul li .ab-item,
+  .shortlink-input {
+    min-width: 210px;
+  }
+
   // MUST BE ON WP CORE!
   body.rtl & {
     .menupop .menupop > .ab-item:before {

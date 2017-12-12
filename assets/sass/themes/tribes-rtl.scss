@@ -6,9 +6,12 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-@import '../modules/all';
-@import '../partials/base';
-@import '../partials/theme.fonts';
+@import "../modules/all";
+@import "../partials/base";
+@import "../partials/theme.fonts";
+@import "../partials/theme.typography";
+@import "../partials/theme.editorial";
+@import "../partials/theme.widgets";
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 @include theme-fonts-Gandom-CDN();
@@ -33,8 +36,8 @@ h4,
 h5,
 h6,
 .site-title {
-  font-weight: bold;
   font-family: $font-family-head;
+  font-weight: 700;
 }
 
 .entry-content {
@@ -47,7 +50,6 @@ h6,
 .comment-form {
   input[type="email"],
   input[type="url"] {
-    /*rtl:ignore*/
     direction: ltr;
   }
 }
@@ -58,7 +60,7 @@ blockquote {
 }
 
 .more-link:after {
-  content: '\f100';
+  content: "\f100";
 }
 
 .post-categories a,
@@ -68,20 +70,22 @@ blockquote {
   margin-right: 0;
 }
 
-.pagination  {
+.pagination {
   .prev {
     left: auto;
   }
+
   .next {
     right: auto;
   }
 }
 
 @media (min-width: 50em) {
-  .pagination  {
+  .pagination {
     .prev {
       left: auto;
     }
+
     .next {
       right: auto;
     }

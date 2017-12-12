@@ -29,7 +29,7 @@
 //   top: -1rem; left: -1rem;
 //   width: 1rem; height: 1rem;
 // }
-@mixin pseudo($display: block, $pos: absolute, $content: ''){
+@mixin pseudo($display: block, $pos: absolute, $content: "") {
   content: $content;
   display: $display;
   position: $pos;
@@ -41,12 +41,14 @@
 // We use this for creating scalable elements
 // (usually images / background images) that maintain a ratio.
 //
-// So to use this you could write the below and your div would have a ratio commonly utilised by video.
+// So to use this you could write the below and your div would have a ratio
+// commonly utilised by video.
 // div {
 //   @include responsive-ratio(16,9);
 // }
 @mixin responsive-ratio($x, $y, $pseudo: false) {
-  $padding: unquote(( $y / $x ) * 100 + '%');
+  $padding: unquote(( $y / $x ) * 100 + "%");
+
   @if $pseudo {
     &:before {
       @include pseudo($pos: relative);
@@ -69,9 +71,11 @@
   @include pseudo($pos: $position);
   height: 0;
   width: 0;
+
   @if $round {
     border-radius: 3px;
   }
+
   @if $direction == down {
     border-left: $size solid transparent;
     border-right: $size solid transparent;
@@ -102,11 +106,23 @@
 // already included the font), set your fallback font once and you never
 // have to worry again.
 @mixin font-source-sans($size: false, $colour: false, $weight: false,  $lh: false) {
-  font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
-  @if $size { font-size: $size; }
-  @if $colour { color: $colour; }
-  @if $weight { font-weight: $weight; }
-  @if $lh { line-height: $lh; }
+  font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
+
+  @if $size {
+    font-size: $size;
+  }
+
+  @if $colour {
+    color: $colour;
+  }
+
+  @if $weight {
+    font-weight: $weight;
+  }
+
+  @if $lh {
+    line-height: $lh;
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -115,7 +131,8 @@
 // They're a pain as you have to set the style in all the separate formats,
 // this sorts it for you.
 //
-// Just in case there are people how aren't used to using @content here is a usage example:
+// Just in case there are people how aren't used to using @content here
+// is a usage example:
 // input, textarea {
 //   @include input-placeholder {
 //     color: $grey;

@@ -3,11 +3,17 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// NOT-Module: Prism: All -----------------------------------------------------
 
-@import 'vendor/prismjs';
+/*rtl:begin:ignore*/
+
+@import "vendor/prismjs";
+
+pre[data-prism="yes"] {
+  direction: ltr;
+}
 
 pre[class*="language-"]:before {
   background-color: #cfcfcf;
-  border-radius: 0 0 5px 0;
+  border-radius: 0 0 5px;
   color: #333;
   content: attr(data-filename);
   display: inline-block;
@@ -34,3 +40,5 @@ pre[class*="language-"]:before {
 pre.code-toolbar {
   padding-top: 2em;
 }
+
+/*rtl:end:ignore*/

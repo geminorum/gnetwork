@@ -1,5 +1,5 @@
-@import 'modules/all';
-@import 'partials/base';
+@import "modules/all";
+@import "partials/base";
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -19,9 +19,9 @@
   .error {
     font-weight: 700;
     padding: 10px;
-    color: #333333;
-    background: #FFEBE8;
-    border: 1px solid #CC0000;
+    color: #333;
+    background: #ffebe8;
+    border: 1px solid #c00;
   }
 
   #blog_title,
@@ -45,6 +45,7 @@
   }
 
   .prefix_address {
+
     /*rtl:ignore*/
     float: left;
   }
@@ -63,7 +64,7 @@
   .mu_alert {
     font-weight: 700;
     padding: 10px;
-    color: #333333;
+    color: #333;
     background: #ffffe0;
     border: 1px solid #e6db55;
   }
@@ -73,6 +74,7 @@
   #user_name,
   .prefix_address,
   .suffix_address {
+
     /*rtl:ignore*/
     direction: ltr;
   }

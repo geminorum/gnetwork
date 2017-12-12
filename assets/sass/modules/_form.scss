@@ -12,12 +12,12 @@
 
   // WebKit, Blink, Edge
   ::-webkit-input-placeholder {
-      @content;
+    @content;
   }
 
   // Mozilla Firefox 4 to 18
   :-moz-placeholder {
-     @content;
+    @content;
   }
 
   // Mozilla Firefox 19+
@@ -27,7 +27,7 @@
 
   // Internet Explorer 10-11
   :-ms-input-placeholder {
-     @content;
+    @content;
   }
 }
 

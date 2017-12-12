@@ -8,12 +8,12 @@
 // http://ari.elmastudio.de/allgemein/test-der-html-elemente/
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-@import '../modules/all';
-@import '../partials/base';
-@import '../partials/theme.fonts';
-@import '../partials/theme.typography';
-@import '../partials/theme.editorial';
-@import '../partials/theme.widgets';
+@import "../modules/all";
+@import "../partials/base";
+@import "../partials/theme.fonts";
+@import "../partials/theme.typography";
+@import "../partials/theme.editorial";
+@import "../partials/theme.widgets";
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 @include theme-fonts-Sahel-CDN;
@@ -31,9 +31,14 @@ textarea,
   font-family: $font-family-base;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: $font-family-head;
-  font-weight: bold;
+  font-weight: 700;
 }
 
 #content blockquote,
@@ -61,7 +66,7 @@ table#wp-calendar caption {
 
 form#commentform p.form-submit input#submit,
 #searchsubmit {
-  padding: 2px 7px 2px 7px;
+  padding: 2px 7px;
 }
 
 #content,
@@ -108,9 +113,11 @@ ul.sidebar li.widget_sociallinks a,
 }
 
 #content blockquote {
-  padding: 0px 16px 0px 0;
+  padding: 0 16px;
+
   p {
     padding-bottom: 15px !important;
+
     &:last-of-type {
       padding-bottom: 0 !important;
     }
@@ -122,7 +129,7 @@ ul.sidebar li.widget_sociallinks a,
 }
 
 #sidebar-primary ul.sidebar li.widget_text img {
-  margin: 3px 0px 0px 10px;
+  margin: 3px 0 0 10px;
 }
 
 ul.sub-menu {
@@ -148,25 +155,25 @@ ul.sub-menu {
   #content {
     padding: 0 80px 0 0;
   }
+
   #sidebar-secondary {
     float: none;
-    padding: 50px 80px 0px 0px;
+    padding: 50px 80px 0 0;
+
     ul.sidebar li.widget-container {
-      margin: 0px 0px 30px 20px;
+      margin: 0 0 30px 20px;
     }
   }
 }
 
 @media screen and (max-width: 770px) {
-
   #sidebar-secondary {
-    padding: 50px 60px 0px 0px;
+    padding: 50px 60px 0 0;
     float: none;
   }
 }
 
 @media screen and (max-width: 620px) {
-
   #main,
   #content,
   #footer,
@@ -189,7 +196,6 @@ ul.sub-menu {
 ////////////////////////////////////////////////////////////////////////////////
 
 #content {
-
   .entry.-empty-title > h2 {
     display: none;
   }
@@ -200,10 +206,10 @@ ul.sub-menu {
       font-size: 0.89em;
     }
 
-    cite::before {
+    cite:before {
       content: "\2014";
       padding-left: 5px;
-      font-weight: normal;
+      font-weight: 400;
     }
   }
 }

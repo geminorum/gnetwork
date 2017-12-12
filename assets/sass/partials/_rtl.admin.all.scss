@@ -4,7 +4,6 @@
 /// gNetwork Partials: RTL ALL -------------------------------------------------
 
 body.rtl {
-
   .wrap .add-new-h2,
   .wrap .add-new-h2:active,
   .wrap .page-title-action,
@@ -54,36 +53,40 @@ body.rtl {
   }
 
   input[type="checkbox"]:checked:before {
+
     /*rtl:ignore*/
     margin: -2px -3px 0 0;
   }
 
   #poststuff {
-
     #edit-slug-box {
+
       /*rtl:ignore*/
       direction: ltr;
     }
 
     #sample-permalink {
+
       /*rtl:ignore*/
       margin-right: 5px;
     }
 
     #editable-post-name input {
+
       /*rtl:ignore*/
-       margin: -3px 2px 0;
+      margin: -3px 2px 0;
     }
 
     input#post_name {
+
       /*rtl:ignore*/
       direction: ltr;
     }
   }
 
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////
 
   // .wrap h1 {
   //   font: bold 24px arial, sans-serif !important;
@@ -153,12 +156,6 @@ body.rtl {
     direction: ltr !important;
   }
 
-  #gnetwork-debugbar-panel {
-
-    /*rtl:ignore*/
-    direction: ltr !important;
-  }
-
   #screen-meta-links .show-settings:after {
     padding: 0 0 0 5px;
   }
@@ -200,6 +197,8 @@ body.rtl {
   }
 
   .mce-menubtn.mce-fixed-width span {
+
+    /*rtl:ignore*/
     text-align: right;
   }
 
@@ -247,7 +246,7 @@ body.rtl {
       .table {
         // <------- test this!! FIXME
         .sub {
-          font: bold 15px/30px arial, sans-serif !important;
+          font: 600 15px/30px arial, sans-serif !important;
 
           p.akismet-right-now {
             direction: ltr;
@@ -260,7 +259,7 @@ body.rtl {
         }
 
         td a {
-          font: bold 15px/18px arial, sans-serif !important;
+          font: 600 15px/18px arial, sans-serif !important;
         }
 
         td.b a {
@@ -276,6 +275,7 @@ body.rtl {
   }
 
   #dashboard_activity {}
+
   // Google Analytics Dashboard
   #gadash-widget {
     #ga-dash {
@@ -284,7 +284,6 @@ body.rtl {
   }
 
   .media-frame {
-
     .attachment-details > h3,
     .attachment-display-settings > h3,
     .media-types.media-types-required-info {
@@ -307,8 +306,7 @@ body.rtl {
     }
 
     .setting {
-
-      &[data-setting='url'] input,
+      &[data-setting="url"] input,
       input.link-to-custom {
         direction: ltr;
       }
@@ -322,10 +320,13 @@ body.rtl {
   .edit-attachment-frame {
     .edit-media-header {
       .left {
+
         /*rtl:ignore*/
         left: 51px;
       }
+
       .right {
+
         /*rtl:ignore*/
         left: 102px;
       }
@@ -350,7 +351,7 @@ body.rtl {
     }
 
     .post-com-count span {
-      font-weight: normal;
+      font-weight: 400;
     }
 
     #the-list td.column-title p {
@@ -362,17 +363,28 @@ body.rtl {
   .misc-pub-section.misc-pub-codec > strong,
   .misc-pub-section.misc-pub-filetype > strong {
     // FIXME: make a mixin!
-    &:before { content: '\200f'; }
-    &:after { content: '\200e'; }
+    &:before {
+      content: "\200f";
+    }
+
+    &:after {
+      content: "\200e";
+    }
   }
 
   .misc-pub-section.misc-pub-filesize > strong,
   .misc-pub-section.misc-pub-dimensions > strong > span {
     // FIXME: make a mixin!
-    &:before { content: '\200e'; }
-    &:after { content: '\200f'; }
+    &:before {
+      content: "\200e";
+    }
+
+    &:after {
+      content: "\200f";
+    }
   }
 
+  #qm, // Query Monitor
   .user-mobile-wrap input#mobile,
   .user-twitter-wrap input#twitter,
   .user-facebook-wrap input#facebook,
@@ -384,12 +396,23 @@ body.rtl {
   input#slug,
   input#tag-slug,
   input#user_login {
+
     /*rtl:ignore*/
     direction: ltr;
   }
 
+  html[dir="rtl"] & {
+    .qm td,
+    .qm th {
+
+      /*rtl:ignore*/
+      text-align: left !important;
+    }
+  }
+
   input#adduser-email.ui-autocomplete-loading,
   input[type="email"].ui-autocomplete-loading {
+
     /*rtl:ignore*/
     background-position: 99% center !important;
   }
@@ -397,8 +420,10 @@ body.rtl {
   // only on user new page
   &.user-new-php {
     .ui-menu .ui-menu-item {
+
       /*rtl:ignore*/
       direction: ltr;
+
       /*rtl:ignore*/
       text-align: left;
     }

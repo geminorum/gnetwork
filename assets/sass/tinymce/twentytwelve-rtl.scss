@@ -6,17 +6,28 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-@import '../modules/all';
-@import '../partials/base';
-@import '../partials/theme.fonts';
+@import "../modules/all";
+@import "../partials/base";
+@import "../partials/theme.fonts";
+@import "../partials/theme.typography";
+@import "../partials/theme.editorial";
+@import "../partials/theme.widgets";
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-html .mce-content-body.rtl {
+.mce-content-body.rtl {
   direction: rtl;
   unicode-bidi: embed;
   font-family: Tahoma, "Iranian Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   // font-family: $font-family-base !important;
+
+  h1,
+  h2,
+  h3,
+  blockquote {
+    font-family: Arial, HelveticaNeue-Light, "Helvetica Neue Light", "Helvetica Neue", Helvetica, sans-serif;
+    font-weight: 700;
+  }
 
   li {
     margin: 0 24px 0 0;

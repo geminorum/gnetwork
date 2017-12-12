@@ -4,10 +4,8 @@
 /// gNetwork Partials: Theme: Editorial ----------------------------------------
 
 @mixin theme-editorial-defaults() {
-
   .post-content,
   .entry-content {
-
     .entry-lead {
       p {
         color: $gray-light;

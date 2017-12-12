@@ -1,16 +1,17 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-/// Module: Debug ---------------------------------------------------------------
+/// Module: Debug --------------------------------------------------------------
 
 .gnetwork-admin-wrap.debugbar-panel {
 
   @include mainwrap();
 
+  /*rtl:ignore*/
   direction: ltr !important;
 
   .-title {
-    margin: 5px 0 3px 0 !important;
+    margin: 5px 0 3px !important;
   }
 
   .-post {
@@ -29,17 +30,5 @@
 .gnetwork-admin-wrap.debug-update-core {
   // margin-top: 2em;
 
-  a.button {
-
-  }
-}
-
-// Query Monitor
-html[dir="rtl"] #qm {
-  direction: ltr !important;
-
-  .qm td,
-  .qm th {
-    text-align: left !important
-  }
+  a.button {}
 }

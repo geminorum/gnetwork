@@ -13,6 +13,7 @@
   .-button.button-reset,
   .-button.button-danger {
     color: $brand-danger;
+
     &:hover {
       color: darken($brand-danger, 20%);
     }
@@ -31,6 +32,7 @@
   }
 
   .quicktags-rtl {
+
     /*rtl:ignore*/
     direction: rtl;
   }
@@ -46,6 +48,7 @@
   }
 
   .error-box {
+
     /*rtl:ignore*/
     direction: ltr;
 
@@ -97,7 +100,7 @@
   .-wrap.-phpinfo {
     padding-top: 1em;
     // background-color: #ffffff;
-    color: #000000;
+    color: #000;
 
     &,
     h1,
@@ -113,9 +116,9 @@
     }
 
     a:link {
-      color: #000099;
+      color: #009;
       text-decoration: none;
-      background-color: #ffffff;
+      background-color: #fff;
     }
 
     a:hover {
@@ -144,7 +147,7 @@
 
     td,
     th {
-      border: 1px solid #000000;
+      border: 1px solid #000;
       font-size: 95%;
       vertical-align: baseline;
     }
@@ -162,14 +165,14 @@
     }
 
     .e {
-      background-color: #ccccff;
-      font-weight: bold;
-      color: #000000;
+      background-color: #ccf;
+      font-weight: 600;
+      color: #000;
     }
 
     .h {
       background-color: #9999cc;
-      font-weight: bold;
+      font-weight: 600;
       color: #000000;
     }
 

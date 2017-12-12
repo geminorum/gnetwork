@@ -6,9 +6,12 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-@import '../modules/all';
-@import '../partials/base';
-@import '../partials/theme.fonts';
+@import "../modules/all";
+@import "../partials/base";
+@import "../partials/theme.fonts";
+@import "../partials/theme.typography";
+@import "../partials/theme.editorial";
+@import "../partials/theme.widgets";
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -19,7 +22,8 @@ html .mce-content-body.rtl {
   width: 584px;
   font-family: Tahoma, "Iranian Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
-  ul, ol {
+  ul,
+  ol {
     margin: 0 2.5em 1.625em 0;
   }
 

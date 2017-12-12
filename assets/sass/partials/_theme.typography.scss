@@ -4,15 +4,20 @@
 /// gNetwork Partials: Theme: Typography ---------------------------------------
 
 @mixin theme-typography-defaults() {
-
-  h1, h2, h3, h4, h5, h6, p, a {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  a {
     &:empty {
       display: none;
     }
   }
 
-  html[lang=fa-IR] {
-
+  html[lang="fa-IR"] {
     ol {
       list-style-type: -moz-persian !important;
       list-style-type: persian !important;

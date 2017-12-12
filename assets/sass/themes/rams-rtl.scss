@@ -6,9 +6,12 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-@import '../modules/all';
-@import '../partials/base';
-@import '../partials/theme.fonts';
+@import "../modules/all";
+@import "../partials/base";
+@import "../partials/theme.fonts";
+@import "../partials/theme.typography";
+@import "../partials/theme.editorial";
+@import "../partials/theme.widgets";
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 @include theme-fonts-Samim-CDN();
@@ -24,112 +27,112 @@ body.rtl {
   direction: rtl;
   font-family: $font-family-base;
 }
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-weight: bold;
-    font-family: $font-family-head;
-  }
 
-  .wrapper {
-    margin: 6% 300px 6% 0;
-  }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $font-family-head;
+  font-weight: 700;
+}
 
-  .comment-inner {
-    margin-left: 0;
-    margin-right: 80px;
-  }
+.wrapper {
+  margin: 6% 300px 6% 0;
+}
 
-  .comment .avatar-container,
-  .sidebar {
-    right: 0;
-    left: auto;
-  }
+.comment-inner {
+  margin-left: 0;
+  margin-right: 80px;
+}
 
-  .comments-subtitle {
-    left: 0;
-    right: auto;
-  }
+.comment .avatar-container,
+.sidebar {
+  right: 0;
+  left: auto;
+}
 
-  .comments-title.fleft {
-    float: right;
-  }
+.comments-subtitle {
+  left: 0;
+  right: auto;
+}
 
-  .comments-subtitle.fright {
-    float: left;
-  }
+.comments-title.fleft {
+  float: right;
+}
 
-  address,
-  big,
-  blockquote,
-  button,
-  caption,
-  cite,
-  code,
-  em,
-  fieldset,
-  font,
-  form,
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  img,
-  label,
-  legend,
-  li,
-  ol,
-  p,
-  small,
-  strike,
-  sub,
-  sup,
-  table,
-  td,
-  th,
-  tr,
-  ul {
-    text-align: right;
-  }
+.comments-subtitle.fright {
+  float: left;
+}
 
-  .blog-title,
-  .main-menu li {
-    text-align: left;
-  }
+address,
+big,
+blockquote,
+button,
+caption,
+cite,
+code,
+em,
+fieldset,
+font,
+form,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+img,
+label,
+legend,
+li,
+ol,
+p,
+small,
+strike,
+sub,
+sup,
+table,
+td,
+th,
+tr,
+ul {
+  text-align: right;
+}
 
-  .post-meta-inner p {
-    text-align: center;
-  }
+.blog-title,
+.main-menu li {
+  text-align: left;
+}
 
-  .credits {
-    left: 40px;
-    right: auto;
-  }
+.post-meta-inner p {
+  text-align: center;
+}
 
-  .entry-content,
-  .post-content {
-    font-family: $font-family-base;
+.credits {
+  left: 40px;
+  right: auto;
+}
 
-    blockquote {
-      padding: 30px 90px 30px 30px;
+.entry-content,
+.post-content {
+  font-family: $font-family-base;
 
-      &:before {
-        content: "”";
-        right: 0;
-        left: auto;
-      }
+  blockquote {
+    padding: 30px 90px 30px 30px;
+
+    &:before {
+      content: "”";
+      right: 0;
+      left: auto;
     }
   }
+}
 
-  .comment-actions p + p:before {
-    margin: 0 7px 0 10px;
-  }
-// }
+.comment-actions p + p:before {
+  margin: 0 7px 0 10px;
+}
 
 .sidebar .credits,
 p.no-comments {
@@ -151,6 +154,7 @@ p.no-comments {
     margin-right: 250px;
   }
 }
+
 @media (max-width: 930px) {
   .wrapper {
     margin: 7% !important;

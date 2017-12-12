@@ -4,36 +4,32 @@
 /// gNetwork Partials: Shortcodes Module ---------------------------------------
 
 .-wrap {
-
   &.shortcode-reflist {
+    @include mainwrap();
 
-  @include mainwrap();
-
-  ol, ul {
-
+    ol,
+    ul {
       border: 0;
       padding: 0;
-      margin: 0 0 1em 0;
+      margin: 0 0 1em;
 
       li {
-
-        margin: 0 0 0.78em 0;
+        margin: 0 0 0.78em;
 
         .ref-number {
           color: $gray-dark;
         }
 
-        .reference-external {}
-        .cite-scroll {}
-        .ref-text {}
-
-        a {}
+        // .reference-external {}
+        // .cite-scroll {}
+        // .ref-text {}
+        // a {}
       }
     }
 
     ul {
-        list-style: none;
-        list-style-type: none;
+      list-style: none;
+      list-style-type: none;
     }
   }
 
@@ -61,6 +57,7 @@
     color: $gray;
     font-size: 0.8em;
     line-height: inherit;
+
     time {
       cursor: help;
     }

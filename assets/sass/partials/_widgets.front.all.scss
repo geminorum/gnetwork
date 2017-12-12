@@ -19,8 +19,10 @@
       width: 100%;
 
       td {
+
         /*rtl:ignore*/
         text-align: left;
+
         /*rtl:ignore*/
         direction: ltr;
       }
@@ -33,7 +35,6 @@
   }
 
   &.-quantcast-widget {
-
     iframe {
       margin: 0 auto;
       display: block;
