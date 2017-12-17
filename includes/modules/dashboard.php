@@ -3,7 +3,9 @@
 defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\HTML;
+use geminorum\gNetwork\Core\Text;
 use geminorum\gNetwork\Core\WordPress;
 
 class Dashboard extends gNetwork\Module
@@ -106,6 +108,20 @@ class Dashboard extends gNetwork\Module
 			add_meta_box( $this->classs( 'usermenu' ),
 				_x( 'Your Navigation', 'Modules: Dashboard: Widget Title', GNETWORK_TEXTDOMAIN ),
 				[ $this, 'widget_usermenu' ], $screen, 'normal', 'high' );
+
+		if ( $network )
+			wp_add_dashboard_widget(
+				$this->classs( 'signups' ),
+				_x( 'Latest Signups', 'Modules: Dashboard: Widget Title', GNETWORK_TEXTDOMAIN ),
+				[ $this, 'widget_signups' ]
+			);
+
+		if ( $network && gNetwork()->option( 'login', 'store_lastlogin', TRUE ) )
+			wp_add_dashboard_widget(
+				$this->classs( 'logins' ),
+				_x( 'Latest Logins', 'Modules: Dashboard: Widget Title', GNETWORK_TEXTDOMAIN ),
+				[ $this, 'widget_logins' ]
+			);
 	}
 
 	public function widget_external_feed()
@@ -306,5 +322,185 @@ class Dashboard extends gNetwork\Module
 		);
 
 		echo '</li></ul></div>';
+	}
+
+	public function widget_signups()
+	{
+		if ( $this->check_hidden_metabox( 'signups' ) )
+			return;
+
+		echo '<div class="gnetwork-admin-wrap-widget -signups">';
+
+		$query = new \WP_User_Query( [
+			'blog_id' => 0,
+			'orderby' => 'registered',
+			'order'   => 'DESC',
+			'number'  => 12,
+			'fields'  => [
+				'ID',
+				'display_name',
+				'user_email',
+				'user_registered',
+				// 'user_status',
+				'user_login',
+			],
+		] );
+
+		if ( empty( $query->results ) ) {
+
+			echo gNetwork()->na();
+
+		} else {
+
+			echo '<table class="widefat -table-signup"><thead><tr>';
+			echo '<th>'._x( 'On', 'Modules: Dashboard: Signups', GNETWORK_TEXTDOMAIN ).'</th>';
+			echo '<th>'._x( 'Name', 'Modules: Dashboard: Signups', GNETWORK_TEXTDOMAIN ).'</th>';
+			echo '<th>'._x( 'E-mail', 'Modules: Dashboard: Signups', GNETWORK_TEXTDOMAIN ).'</th>';
+			echo '<th>'._x( 'IP', 'Modules: Dashboard: Signups', GNETWORK_TEXTDOMAIN ).'</th>';
+			echo '</tr></thead>';
+
+			$time = current_time( 'timestamp' );
+			$last = FALSE;
+			$alt  = TRUE;
+
+			$template = '<tr%1$s>'
+				.'<td class="-month-day" title="%5$s">%4$s</td>'
+				.'<td class="-edit-link"><a title="%8$s" href="%6$s" target="_blank">%2$s</a></td>'
+				.'<td class="-mail-link"><a title="%7$s" href="%8$s" target="_blank">%3$s</a></td>'
+				.'<td class="-ip-info"><code>%9$s</code></td>'
+			.'</tr>';
+
+			foreach ( $query->results as $user ) {
+
+				$registered = strtotime( get_date_from_gmt( $user->user_registered ) );
+				$register_ip = get_user_meta( $user->ID, 'register_ip', TRUE );
+
+				vprintf( $template, [
+					( $alt ? ' class="alternate"' : '' ),
+					esc_html( $user->display_name ),
+					esc_html( Text::truncateString( $user->user_email, 32 ) ),
+					esc_html( Utilities::dateFormat( $registered, 'monthday' ) ),
+					esc_attr( sprintf(
+						_x( '%1$s ago &mdash; %2$s', 'Modules: Dashboard: Signups', GNETWORK_TEXTDOMAIN ),
+						human_time_diff( $registered, $time ),
+						Utilities::dateFormat( $registered )
+					) ),
+					get_edit_user_link( $user->ID ),
+					'mailto:'.esc_attr( $user->user_email ),
+					$user->user_login,
+					( $register_ip ? gnetwork_ip_lookup( $register_ip ) : gNetwork()->na( FALSE ) )
+				] );
+
+				$alt = ! $alt;
+
+				if ( ! $last )
+					$last = $registered;
+			}
+
+			echo '</table>';
+			echo '<table class="-table-summary"></tbody>';
+
+				echo '<tr><td>';
+
+					printf( _x( 'Last User Registered %s ago', 'Modules: Dashboard: Signups', GNETWORK_TEXTDOMAIN ), human_time_diff( $last, $time ) );
+
+				echo '</td><td>';
+
+					if ( $spam_users = gNetwork()->user->get_spam_count() )
+						echo Utilities::getCounted( $spam_users, _nx( 'With %s Spam User', 'With %s Spam Users', $spam_users, 'Modules: Dashboard: Signups', GNETWORK_TEXTDOMAIN ) );
+					else
+						_ex( 'With No Spam User', 'Modules: Dashboard: Signups', GNETWORK_TEXTDOMAIN );
+
+				echo '</td></tr><tr><td>';
+
+					$super_admins = count( get_super_admins() );
+					echo Utilities::getCounted( $super_admins, _nx( 'And %s Super Admin', 'And %s Super Admins', $super_admins, 'Modules: Dashboard: Signups', GNETWORK_TEXTDOMAIN ) );
+
+				echo '</td><td>';
+
+					$user_count = get_user_count();
+					echo Utilities::getCounted( $user_count, _nx( 'Total of One User', 'Total of %s Users', $user_count, 'Modules: Dashboard: Signups', GNETWORK_TEXTDOMAIN ) );
+
+				echo '</td></tr>';
+
+			echo '</tbody></table>';
+		}
+
+		echo '</div>';
+	}
+
+	public function widget_logins()
+	{
+		if ( $this->check_hidden_metabox( 'logins' ) )
+			return;
+
+		echo '<div class="gnetwork-admin-wrap-widget -logins">';
+
+		$query = new \WP_User_Query( [
+			'blog_id'    => 0,
+			'meta_key'   => 'lastlogin',
+			'orderby'    => 'meta_value',
+			'order'      => 'DESC',
+			'number'     => 12,
+			'meta_query' => [ [
+				'key'     => 'lastlogin',
+				'compare' => 'EXISTS',
+			] ],
+			'fields' => [
+				'ID',
+				'display_name',
+				'user_email',
+				'user_login',
+			],
+		] );
+
+		if ( empty( $query->results ) ) {
+
+			echo gNetwork()->na();
+
+		} else {
+
+			echo '<table class="widefat -table-logins"><thead><tr>';
+			echo '<th>'._x( 'Ago', 'Modules: Dashboard: Logins', GNETWORK_TEXTDOMAIN ).'</th>';
+			echo '<th>'._x( 'Name', 'Modules: Dashboard: Logins', GNETWORK_TEXTDOMAIN ).'</th>';
+			echo '<th>'._x( 'Timestamp', 'Modules: Dashboard: Logins', GNETWORK_TEXTDOMAIN ).'</th>';
+			echo '</tr></thead>';
+
+			$time = current_time( 'timestamp' );
+			$last = FALSE;
+			$alt  = TRUE;
+
+			$template = '<tr%1$s>'
+				.'<td class="-time-ago">%3$s</td>'
+				.'<td class="-edit-link"><a title="%5$s" href="%4$s" target="_blank">%2$s</a></td>'
+				.'<td class="-time-full">%6$s</td>'
+			.'</tr>';
+
+			foreach ( $query->results as $user ) {
+
+				if ( $meta = get_user_meta( $user->ID, 'lastlogin', TRUE ) )
+					$lastlogin = strtotime( get_date_from_gmt( $meta ) );
+				else
+					continue;
+
+				vprintf( $template, [
+					( $alt ? ' class="alternate"' : '' ),
+					esc_html( $user->display_name ),
+					esc_html( human_time_diff( $lastlogin, $time ) ),
+					get_edit_user_link( $user->ID ),
+					$user->user_login,
+					esc_html( Utilities::dateFormat( $lastlogin, 'timedate' ) ),
+				] );
+
+				$alt = ! $alt;
+
+				if ( ! $last )
+					$last = $lastlogin;
+			}
+
+			echo '</table>';
+		}
+
+		echo '</div>';
 	}
 }
