@@ -24,10 +24,11 @@ class Login extends gNetwork\Module
 			$this->filter( 'authenticate', 3, 1 );
 		}
 
-		if ( $this->options['login_log'] )
-			$this->action( 'wp_login', 2, 99 );
-
+		$this->action( 'wp_login', 2, 99 );
 		$this->filter( 'wp_login_errors', 2 );
+		$this->filter( 'login_message' );
+		$this->filter( 'login_redirect', 3, 12 );
+		$this->filter( 'logout_redirect', 3, 12 );
 
 		if ( $this->options['ambiguous_error'] )
 			$this->filter( 'login_errors', 1, 20 );
@@ -50,7 +51,9 @@ class Login extends gNetwork\Module
 			'login_math'        => 0,
 			'login_credits'     => 0,
 			'login_log'         => 0,
+			'store_lastlogin'   => 1,
 			'ambiguous_error'   => 1,
+			'redirect_logout'   => '',
 		];
 	}
 
@@ -121,10 +124,22 @@ class Login extends gNetwork\Module
 					'description' => _x( 'Logs user log-in events', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
+					'field'       => 'store_lastlogin',
+					'title'       => _x( 'Last Logins', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Stores last login timestamp for each user.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'default'     => '1',
+				],
+				[
 					'field'       => 'ambiguous_error',
 					'title'       => _x( 'Ambiguous Error', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Swaps error messages with an ambiguous one.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '1',
+				],
+				[
+					'field'       => 'redirect_logout',
+					'type'        => 'url',
+					'title'       => _x( 'Logout After', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Full URL to redirect after compelete logout. Leave empty to use the home.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 			],
 		];
@@ -267,7 +282,47 @@ class Login extends gNetwork\Module
 	// TODO: add logger to logout / has no action hook with user info!
 	public function wp_login( $user_login, $user )
 	{
-		Logger::siteNOTICE( 'LOGGED-IN', sprintf( '%s', $user_login ) );
+		if ( $this->options['login_log'] )
+			Logger::siteNOTICE( 'LOGGED-IN', sprintf( '%s', $user_login ) );
+
+		if ( $this->options['store_lastlogin'] )
+			update_user_meta( $user->ID, 'lastlogin', current_time( 'mysql', TRUE ) );
+
+		if ( get_user_meta( $user->ID, 'disable_user', TRUE ) )
+			WordPress::redirect( add_query_arg( [ 'disabled' => '' ], WordPress::loginURL( '', TRUE ) ) );
+	}
+
+	// TODO: custom notice
+	public function login_message( $message )
+	{
+		if ( isset( $_GET['disabled'] ) )
+			$message.= HTML::wrap( $this->filters( 'login_disabled', _x( 'Your account is disabled by an administrator.', 'Modules: Login', GNETWORK_TEXTDOMAIN ) ), 'message -danger' );
+
+		return $message;
+	}
+
+	public function login_redirect( $redirect_to, $requested_redirect_to, $user )
+	{
+		if ( defined( 'DOING_AJAX' ) )
+			return $redirect_to;
+
+		if ( is_wp_error( $user ) )
+			return $redirect_to;
+
+		if ( empty( $requested_redirect_to ) )
+			return $user->has_cap( 'edit_posts' ) // TODO: use `cap` setting type
+				? get_admin_url()
+				: get_home_url();
+
+		return $redirect_to;
+	}
+
+	public function logout_redirect( $redirect_to, $requested_redirect_to, $user )
+	{
+		if ( ! empty( $requested_redirect_to ) )
+			return $requested_redirect_to;
+
+		return $this->options['redirect_logout'] ?: get_option( 'home' );
 	}
 
 	public function wp_login_errors( $errors, $redirect_to )
