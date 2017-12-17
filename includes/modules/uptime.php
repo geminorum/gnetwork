@@ -144,7 +144,7 @@ class Uptime extends gNetwork\Module
 	}
 
 	// @REF: https://uptimerobot.com/api#getMonitors
-	private function get_monitors()
+	private function get_monitors( $limit = 10 )
 	{
 		$endpoint = 'https://api.uptimerobot.com/v2/';
 		$method   = 'getMonitors';
@@ -152,18 +152,20 @@ class Uptime extends gNetwork\Module
 		$args = [
 			'timeout'     => 15,
 			'httpversion' => '1.1',
-			'body'        => [
-				'api_key'  => $this->api_key,
-				'format'   => 'json',
-				'timezone' => 1,
-				'logs'     => 1,
+
+			'body' => [
+				'api_key'    => $this->api_key,
+				'logs_limit' => $limit,
+				'format'     => 'json',
+				'timezone'   => 1,
+				'logs'       => 1,
 
 				'all_time_uptime_durations' => 1,
 				'all_time_uptime_ratio'     => 1,
 				'response_times'            => 1,
 				'response_times_average'    => 1,
 			],
-			'headers'     => [
+			'headers' => [
 				'cache-control' => 'no-cache',
 				'Content-Type'  => 'application/x-www-form-urlencoded;charset=UTF-8',
 			],
