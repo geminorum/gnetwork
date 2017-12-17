@@ -130,6 +130,9 @@ class Module extends Core\Base
 
 		if ( method_exists( $this, 'setup_menu' ) )
 			add_action( $this->base.'_setup_menu', [ $this, 'setup_menu' ] );
+
+		if ( method_exists( $this, 'schedule_actions' ) )
+			add_action( 'admin_init', [ $this, 'schedule_actions' ] );
 	}
 
 	protected function setup_checks()

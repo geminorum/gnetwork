@@ -19,13 +19,12 @@ class Cron extends gNetwork\Module
 	protected $network = FALSE;
 	protected $front   = FALSE;
 	protected $ajax    = TRUE;
+	protected $cron    = TRUE;
 
 	protected function setup_actions()
 	{
 		if ( ! is_blog_admin() )
-			return;
-
-		$this->action( 'init' );
+			return FALSE;
 
 		add_action( $this->hook( 'run' ), [ $this, 'do_email_admin' ], 10, 2 );
 
@@ -202,7 +201,7 @@ class Cron extends gNetwork\Module
 		$this->settings_form_after( $uri, $sub );
 	}
 
-	public function init()
+	public function schedule_actions()
 	{
 		$this->do_status_check();
 
