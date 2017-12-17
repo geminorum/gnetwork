@@ -27,15 +27,42 @@ jQuery(function ($) {
 
   // FIXME: must trigger core to store current state
   if ($('#screen-meta-links').length && $('.postbox-container .postbox').length) {
-    $('<div id="gnetwork-admin-metabox-controls" class="screen-meta-toggle gnetwork-admin-metabox-controls"><button type="button" id="gnetwork-admin-metabox-toggle" class="button show-settings">' + gNetwork.metabox_controls_toggle + '</button></div>')
+    // $('<div id="gnetwork-admin-metabox-controls" class="screen-meta-toggle gnetwork-admin-metabox-controls"><button type="button" id="gnetwork-admin-metabox-toggle" class="button show-settings">' + gNetwork.metabox_controls_toggle + '</button></div>')
+    //   .appendTo('#screen-meta-links');
+
+    $('<div class="screen-meta-toggle gnetwork-admin-metabox-controls"><button type="button" id="gnetwork-admin-metabox-collapse" class="button show-settings">' + gNetwork.metabox_controls_collapse + '</button></div>')
       .appendTo('#screen-meta-links');
 
-    $('body').on('click', '#gnetwork-admin-metabox-toggle', function (e) {
+    $('<div class="screen-meta-toggle gnetwork-admin-metabox-controls"><button type="button" id="gnetwork-admin-metabox-expand" class="button show-settings">' + gNetwork.metabox_controls_expand + '</button></div>')
+      .appendTo('#screen-meta-links');
+
+    // $('body').on('click', '#gnetwork-admin-metabox-toggle', function (e) {
+    //   e.preventDefault();
+    //   $('.postbox-container .postbox').toggleClass('closed');
+    //   // $('.postbox-container .postbox:not(.closed) .gnetwork-chosen').trigger('chosen:updated'); // FIXME: not the correct event
+    // });
+
+    $('body').on('click', '#gnetwork-admin-metabox-collapse', function (e) {
       e.preventDefault();
-      $('.postbox-container .postbox').toggleClass('closed');
+      $('.postbox-container .postbox:not(.closed)').addClass('closed');
+    });
+
+    $('body').on('click', '#gnetwork-admin-metabox-expand', function (e) {
+      e.preventDefault();
+      $('.postbox-container .postbox.closed').removeClass('closed');
       // $('.postbox-container .postbox:not(.closed) .gnetwork-chosen').trigger('chosen:updated'); // FIXME: not the correct event
     });
   }
+
+  // Adopted from: WP Reset Filters by John James Jacoby - 0.1.0 - 20171208
+  // @REF: https://wordpress.org/plugins/wp-reset-filters/
+  $('#post-query-submit').addClass('button-primary')
+    .after('<button class="button" id="gnetwork-reset-filters" ' + gNetwork.reset_button_disabled + '>' + gNetwork.reset_button_text + '</button>');
+
+  $('#gnetwork-reset-filters').on('click', function (e) {
+    e.preventDefault();
+    window.location.href = $('#adminmenu li.current a.current').attr('href');
+  });
 
   function populateWidgets (i, id) {
     var p;

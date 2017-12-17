@@ -27,7 +27,8 @@
             value: '',
             multiline: true,
             minWidth: 720,
-            minHeight: 360
+            minHeight: 360,
+            style: 'direction:ltr;text-align:left;'
           },
           {
             type: 'listbox',
@@ -53,12 +54,14 @@
             type: 'textbox',
             name: 'prismHeight',
             label: editor.getLang('gnetwork.gnetworkprismjs-height'),
+            style: 'direction:ltr;text-align:left;',
             value: '750px'
           },
           {
             type: 'textbox',
             name: 'filename',
             label: editor.getLang('gnetwork.gnetworkprismjs-file'),
+            style: 'direction:ltr;text-align:left;',
             value: ''
           }],
           onsubmit: function (e) {
