@@ -31,6 +31,9 @@ endif;
 if ( ! function_exists( 'gnetwork_ip_lookup' ) ) :
 	function gnetwork_ip_lookup( $ip ) {
 
+		if ( ! $ip )
+			return $ip;
+
 		if ( $service = gNetwork()->option( 'lookup_ip_service', 'site', 'http://freegeoip.net/?q=%s' ) )
 			return \geminorum\gNetwork\Core\HTML::tag( 'a', [
 				'href'   => sprintf( $service, $ip ),
@@ -112,6 +115,6 @@ if ( ! function_exists( 'gnetwork_trace' ) ) : function gnetwork_trace( $old = T
 } endif;
 
 if ( ! function_exists( 'get_gmeta' ) ) : function get_gmeta( $field, $args = [] ) {
-	if ( is_callable( array( 'geminorum\\gEditorial\\Templates\\Meta', 'getMetaField' ) ) )
+	if ( is_callable( [ 'geminorum\\gEditorial\\Templates\\Meta', 'getMetaField' ] ) )
 		return \geminorum\gEditorial\Templates\Meta::getMetaField( $field, $args );
 } endif;

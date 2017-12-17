@@ -191,7 +191,7 @@ class Dashboard extends gNetwork\Module
 
 		$html = '';
 
-		foreach ( array( 'post', 'page' ) as $post_type ) {
+		foreach ( [ 'post', 'page' ] as $post_type ) {
 
 			$num_posts = wp_count_posts( $post_type );
 
