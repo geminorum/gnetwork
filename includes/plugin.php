@@ -153,6 +153,7 @@ class Plugin
 			'modules/branding'    => 'Branding',
 			'modules/api'         => 'API',
 			'modules/uptime'      => 'Uptime',
+			'modules/profile'     => 'Profile',
 		];
 
 		if ( defined( 'WP_STAGE' ) )
