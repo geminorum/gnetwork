@@ -4,7 +4,6 @@
 /// gNetwork Partials: fa_IR ALL -----------------------------------------------
 
 body.rtl.locale-fa-ir {
-
   &,
   #wpadminbar *,
   .press-this a.wp-switch-editor,
@@ -21,7 +20,6 @@ body.rtl.locale-fa-ir {
   .media-frame textarea,
   .media-frame select,
   span.postbox-title-action {
-
     @include theme-fonts-core-native;
   }
 

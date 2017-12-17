@@ -4,9 +4,7 @@
 /// gNetwork Partials: BuddyPress: Core ----------------------------------------
 
 body.buddypress {
-
   &.bp-user {
-
     .bp_members > h1,
     .bp_members .entry-title {
       // display: none;
@@ -24,25 +22,24 @@ body.buddypress {
 
   &.single-item.groups #buddypress div#item-header #item-header-cover-image #item-header-content,
   &.single-item.groups #buddypress div#item-header #item-header-cover-image #item-actions {
-    margin: 225px 0 0 0;
+    margin: 225px 0 0;
   }
 
   #buddypress div#item-header-cover-image .user-nicename {
     text-align: left;
+
     /*rtl:ignore*/
     direction: ltr;
   }
 }
 
 #buddypress {
-
   .standard-form,
   .standard-form#signup_form,
   #commentform,
   .dir-search,
   .message-search,
   .groups-members-search {
-
     select,
     option,
     textarea,
@@ -109,6 +106,7 @@ body.buddypress {
 
   a.bp-suggestions-mention {
     display: inline-block;
+
     /*rtl:ignore*/
     direction: ltr;
   }

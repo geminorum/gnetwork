@@ -4,9 +4,7 @@
 /// gNetwork Partials: MetaBox -------------------------------------------------
 
 .postbox {
-
   .hndle {
-
     .postbox-title-action {
       opacity: .4;
       line-height: 1;
@@ -29,7 +27,6 @@
   }
 
   .inside {
-
     .notice.inline {
       box-shadow: none;
 
@@ -41,9 +38,11 @@
     .-description.-refresh {
       display: block;
       color: $gray-dark;
+
       &:hover {
         color: $brand-success;
       }
+
       &:focus {
         box-shadow: none;
       }
@@ -52,6 +51,7 @@
     .-description.-empty {
       display: block;
       color: $gray-dark;
+
       &:hover {
         color: $gray-darker;
       }

@@ -4,7 +4,6 @@
 /// gNetwork Partials: Settings Admin ALL --------------------------------------
 
 .gnetwork-admin-wrap.gnetwork-settings {
-
   @include mainwrap();
 
   padding-right: 20px;
@@ -171,21 +170,21 @@
     }
 
     .h {
-      background-color: #9999cc;
+      background-color: #99c;
       font-weight: 600;
-      color: #000000;
+      color: #000;
     }
 
     .v {
-      background-color: #cccccc;
-      color: #000000;
+      background-color: #ccc;
+      color: #000;
       word-break: break-word;
     }
 
     .vr {
-      background-color: #cccccc;
+      background-color: #ccc;
       text-align: right;
-      color: #000000;
+      color: #000;
     }
 
     img {
@@ -195,23 +194,21 @@
 
     hr {
       width: 600px;
-      background-color: #cccccc;
+      background-color: #ccc;
       border: 0;
       height: 1px;
-      color: #000000;
+      color: #000;
     }
   }
 
 
   .gnetwork-form {
-
     .form-table {
-
       .-field-after {
         vertical-align: middle;
 
-        &.-text-wrap {}
-        &.-link-wrap {}
+        // &.-text-wrap {}
+        // &.-link-wrap {}
 
         &.-constant-wrap {
           cursor: pointer;
@@ -267,7 +264,7 @@
 
     tr th .side-buttons {
       // margin-top: 0.8em;
-      line-height: 1em;
+      line-height: 1;
       text-align: right;
     }
 
@@ -327,7 +324,7 @@
       }
 
       &.oldoptions {
-        border-color: red;
+        border-color: $brand-danger;
         clear: right;
       }
     }
@@ -353,7 +350,6 @@
 }
 
 @media screen and (max-width: 782px) {
-
   .gnetwork-admin-wrap.gnetwork-settings {
     padding-right: 10px;
   }

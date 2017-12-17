@@ -54,7 +54,8 @@ div.base-table-actions {
     // }
 
     .button {
-      padding:0 4px 1px;
+      padding: 0 4px 1px;
+
       .dashicons {
         width: 18px;
         height: 18px;
@@ -87,8 +88,8 @@ div.base-table-actions {
 
 table.base-table-list {
 
-  > .-before {}
-  > .-after {}
+  // > .-before {}
+  // > .-after {}
 
   thead {
     .check-column {
@@ -115,28 +116,32 @@ table.base-table-list {
 
     &.-has-table-ltr {
       table {
+
         /*rtl:ignore*/
         direction: ltr;
       }
+
       td {
         font-size: smaller;
-        padding: 0px 2px;
+        padding: 0 2px;
         vertical-align: baseline;
       }
+
       code {
         font-size: smaller;
       }
     }
   }
 
-  .-cb-all {}
-  .-cb {}
-  .-column {}
+  // .-cb-all {}
+  // .-cb {}
+  // .-column {}
 
   .-icon-column {
     padding: 8px 6px;
 
-    svg, .dashicons {
+    svg,
+    .dashicons {
       width: 20px;
       height: 20px;
       size: 20px;
@@ -175,8 +180,8 @@ table.base-table-list {
     padding: 0;
   }
 
-  .-row {}
-  .-cell {}
+  // .-row {}
+  // .-cell {}
 
   pre {
     margin: 0;
@@ -185,7 +190,6 @@ table.base-table-list {
 }
 
 table.base-table-simple {
-
   > tbody > tr > td {
     padding: 5px 2px;
   }
@@ -257,6 +261,7 @@ table.base-table-side {
 }
 
 table.base-table-side-wrap {
+
   /*rtl:ignore*/
   direction: ltr;
   border: 1px solid #ccc;
@@ -275,7 +280,7 @@ table.base-table-side-wrap {
     background-color: #f7f7f7;
     color: #555;
     border-left: 1px solid #ccc;
-    font-weight: bold;
+    font-weight: 700;
     padding: 6px 15px;
   }
 

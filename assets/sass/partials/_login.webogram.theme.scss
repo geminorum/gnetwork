@@ -10,7 +10,7 @@ body.login.webogram {
 
   .-head-placeholder {
     background: #5682a3;
-    box-shadow: 0 1px 3px 0 rgba(0,0,0,0.15);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
 
     // height: 206px;
     height: 18vw;
@@ -36,6 +36,7 @@ body.login.webogram {
         background-image: none;
         background-position: center center;
         background-size: auto auto;
+
         &:focus {
           box-shadow: none;
         }
@@ -49,10 +50,10 @@ body.login.webogram {
 
     form {
       border-radius: 2px;
-      box-shadow: 0 1px 1px rgba(97,127,152,.2), 1px 0 0 rgba(97,127,152,.1), -1px 0 0 rgba(97,127,152,.1);
+      box-shadow: 0 1px 1px rgba(97, 127, 152, .2), 1px 0 0 rgba(97, 127, 152, .1), -1px 0 0 rgba(97, 127, 152, .1);
 
-      input[type=password],
-      input[type=text] {
+      input[type="password"],
+      input[type="text"] {
         margin-top: 10px !important;
       }
 

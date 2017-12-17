@@ -27,3 +27,45 @@
     }
   }
 }
+
+.gnetwork-admin-wrap-widget {
+  .-table-logins,
+  .-table-signup {
+    .-month-day,
+    .-time-ago,
+    .-time-full {
+      cursor: pointer;
+    }
+
+    // .-edit-link {}
+    // .-mail-link {}
+    // .-ip-info {}
+
+    .-month-day {
+      width: 15px;
+    }
+
+    .-time-ago {
+      width: 65px;
+    }
+  }
+
+  .-table-summary {
+    margin-top: .5em;
+    width: 100%;
+
+    td {
+      width: 50%;
+      padding: 0 0 2px;
+      font-size: 0.89em;
+      color: #666;
+    }
+  }
+
+  .-list-signup {
+    margin-left: 0.5em;
+    margin-bottom: 0;
+
+    li {}
+  }
+}

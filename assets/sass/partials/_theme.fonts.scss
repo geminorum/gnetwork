@@ -28,13 +28,14 @@
     @font-face {
       font-family: "#{$name}";
       font-weight: #{$weight};
-      src: url($path + '.eot');
-      src: url($path + '.eot?#iefix') format('embedded-opentype'),
-          // url($path + '.woff2') format('woff2'),
-          url($path + '.woff') format('woff'),
-          url($path + '.ttf') format('truetype');
+      src: url($path + ".eot");
+      src:
+        url($path + ".eot?#iefix") format("embedded-opentype"),
+        // url($path + ".woff2") format("woff2"),
+        url($path + ".woff") format("woff"),
+        url($path + ".ttf") format("truetype");
 
-      unicode-range: U+0600-06FF, U+200C-200E, U+2010-2011, U+FB50-FDFF, U+FE80-FEFC;
+      unicode-range: u+0600-06ff, u+200c-200e, u+2010-2011, u+fb50-fdff, u+fe80-fefc;
     }
   }
 }
@@ -284,11 +285,12 @@
       font-family: "#{$name}";
       font-style: normal;
       font-weight: 400;
-      src: url($path + '.eot');
-      src: url($path + '.eot?#iefix') format('embedded-opentype'),
-         url($path + '.woff2') format('woff2'),
-         url($path + '.woff') format('woff'),
-         url($path + '.ttf') format('truetype');
+      src: url($path + ".eot");
+      src:
+        url($path + ".eot?#iefix") format("embedded-opentype"),
+        url($path + ".woff2") format("woff2"),
+        url($path + ".woff") format("woff"),
+        url($path + ".ttf") format("truetype");
     }
   }
 
@@ -302,11 +304,12 @@
       font-family: "#{$name}";
       font-style: normal;
       font-weight: 700;
-      src: url($path + '.eot');
-      src: url($path + '.eot?#iefix') format('embedded-opentype'),
-         url($path + '.woff2') format('woff2'),
-         url($path + '.woff') format('woff'),
-         url($path + '.ttf') format('truetype');
+      src: url($path + ".eot");
+      src:
+        url($path + ".eot?#iefix") format("embedded-opentype"),
+        url($path + ".woff2") format("woff2"),
+        url($path + ".woff") format("woff"),
+        url($path + ".ttf") format("truetype");
     }
   }
 }
@@ -330,11 +333,12 @@
       font-family: "#{$name}";
       font-style: normal;
       font-weight: 400;
-      src: url($path + '.eot');
-      src: url($path + '.eot?#iefix') format('embedded-opentype'),
-         url($path + '.woff2') format('woff2'),
-         url($path + '.woff') format('woff'),
-         url($path + '.ttf') format('truetype');
+      src: url($path + ".eot");
+      src:
+        url($path + ".eot?#iefix") format("embedded-opentype"),
+        url($path + ".woff2") format("woff2"),
+        url($path + ".woff") format("woff"),
+        url($path + ".ttf") format("truetype");
     }
   }
 
@@ -348,11 +352,12 @@
       font-family: "#{$name}";
       font-style: normal;
       font-weight: 700;
-      src: url($path + '.eot');
-      src: url($path + '.eot?#iefix') format('embedded-opentype'),
-         url($path + '.woff2') format('woff2'),
-         url($path + '.woff') format('woff'),
-         url($path + '.ttf') format('truetype');
+      src: url($path + ".eot");
+      src:
+        url($path + ".eot?#iefix") format("embedded-opentype"),
+        url($path + ".woff2") format("woff2"),
+        url($path + ".woff") format("woff"),
+        url($path + ".ttf") format("truetype");
     }
   }
 }
@@ -375,11 +380,12 @@
       font-family: "#{$name}";
       font-style: normal;
       font-weight: 400;
-      src: url($path + '.eot');
-      src: url($path + '.eot?#iefix') format('embedded-opentype'),
-         url($path + '.woff2') format('woff2'),
-         url($path + '.woff') format('woff'),
-         url($path + '.ttf') format('truetype');
+      src: url($path + ".eot");
+      src:
+        url($path + ".eot?#iefix") format("embedded-opentype"),
+        url($path + ".woff2") format("woff2"),
+        url($path + ".woff") format("woff"),
+        url($path + ".ttf") format("truetype");
     }
   }
 
@@ -393,11 +399,12 @@
       font-family: "#{$name}";
       font-style: normal;
       font-weight: 700;
-      src: url($path + '.eot');
-      src: url($path + '.eot?#iefix') format('embedded-opentype'),
-         url($path + '.woff2') format('woff2'),
-         url($path + '.woff') format('woff'),
-         url($path + '.ttf') format('truetype');
+      src: url($path + ".eot");
+      src:
+        url($path + ".eot?#iefix") format("embedded-opentype"),
+        url($path + ".woff2") format("woff2"),
+        url($path + ".woff") format("woff"),
+        url($path + ".ttf") format("truetype");
     }
   }
 }
@@ -421,11 +428,12 @@
       font-family: "#{$name}";
       font-style: normal;
       font-weight: 400;
-      src: url($path + '.eot');
-      src: url($path + '.eot?#iefix') format('embedded-opentype'),
-          // url($path + '.woff2') format('woff2'),
-          url($path + '.woff') format('woff'),
-          url($path + '.ttf') format('truetype');
+      src: url($path + ".eot");
+      src:
+        url($path + ".eot?#iefix") format("embedded-opentype"),
+        // url($path + ".woff2") format("woff2"),
+        url($path + ".woff") format("woff"),
+        url($path + ".ttf") format("truetype");
     }
   }
 }

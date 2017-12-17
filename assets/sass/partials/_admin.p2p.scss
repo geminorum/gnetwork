@@ -4,7 +4,6 @@
 /// gNetwork Partials: P2P -----------------------------------------------------
 
 .p2p-box {
-
   .p2p-toggle-tabs {
     margin-bottom: 0;
 
@@ -27,17 +26,22 @@
 
   td.p2p-col-create .p2p-icon {
     padding-top: 3px !important;
+
     body.rtl & {
+
       /*rtl:begin:ignore*/
       float: right;
       margin: 0 0 0 6px;
+
       /*rtl:end:ignore*/
     }
   }
 
   .p2p-search input {
     width: 100%;
+
     body.rtl & {
+
       /*rtl:ignore*/
       padding-right: 5px;
     }
@@ -46,6 +50,7 @@
   .p2p-connections {
     th {
       body.rtl & {
+
         /*rtl:ignore*/
         text-align: right;
       }

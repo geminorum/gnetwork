@@ -4,9 +4,8 @@
 /// gNetwork Partials: Editor --------------------------------------------------
 
 .gnetwork-tinymce-icon {
-
   &:before {
-    font-family: "dashicons";
+    font-family: dashicons;
     content: "\f159"; // DEFAULT
   }
 
@@ -40,6 +39,7 @@
 }
 
 /*rtl:begin:ignore*/
+
 body.rtl {
   .mce-tooltip-inner {
     direction: rtl;
@@ -68,4 +68,5 @@ body.rtl {
     direction: ltr;
   }
 }
+
 /*rtl:end:ignore*/

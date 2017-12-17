@@ -4,7 +4,6 @@
 /// gNetwork Partials: Form ----------------------------------------------------
 
 .wrap {
-
   input[type="text"] {
     vertical-align: middle;
   }
@@ -41,6 +40,7 @@
   input.ip-text,
   input.url-text,
   textarea.code-text {
+
     /*rtl:ignore*/
     direction: ltr;
     font-family: Consolas, Monaco, monospace;

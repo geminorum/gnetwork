@@ -74,7 +74,7 @@
 
 // MUST DEPRECATED: use @include mainwrap()
 @mixin main-wrap() {
-   @extend %box-reset;
+  @extend %box-reset;
 
   & *,
   & *:after,

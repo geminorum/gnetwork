@@ -4,7 +4,6 @@
 /// gNetwork Partials: Media Module --------------------------------------------
 
 table.media {
-
   img[src$=".svg"].attachment-post-thumbnail,
   td.media-icon img[src$=".svg"] {
     width: 100% !important;
@@ -20,6 +19,7 @@ table.media {
   }
 
   input.media-url-field {
+
     /*rtl:ignore*/
     direction: ltr;
 
@@ -30,7 +30,6 @@ table.media {
 }
 
 .gnetwork-admin-wrap.sub-images {
-
   .-cell-attached,
   .-cell-content {
     a {
@@ -55,7 +54,6 @@ table.media {
 }
 
 .gnetwork-wrap.-media.-widget-form {
-
   form {
     background: #fafafa;
     border: 1px solid #e5e5e5;
@@ -72,17 +70,18 @@ table.media {
       text-align: center;
     }
 
-    input[type=file] {
+    input[type="file"] {
       padding: 0;
       margin: 0;
     }
 
-    input[type=submit] {
+    input[type="submit"] {
       float: right;
       // vertical-align: bottom;
     }
 
     .-filename {
+
       /*rtl:ignore*/
       direction: ltr;
       display: block;
@@ -93,7 +92,7 @@ table.media {
     }
   }
 
-  & + .-description {
+  + .-description {
     margin: -0.2em 0 0 0;
     text-align: right;
   }

@@ -47,12 +47,23 @@ body.login {
     padding: 16px 24px 26px;
   }
 
+  .message,
   #login_error {
     box-shadow: none !important;
   }
 
   .message {
-    box-shadow: none !important;
+    &.-danger {
+      border-left: 4px solid $brand-danger;
+    }
+
+    &.-warning {
+      border-left: 4px solid $brand-warning;
+    }
+
+    &.-success {
+      border-left: 4px solid $brand-success;
+    }
   }
 
   p.sum {

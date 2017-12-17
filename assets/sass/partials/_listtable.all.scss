@@ -4,9 +4,28 @@
 /// gNetwork Partials: List Table ALL ------------------------------------------
 
 .fixed {
-
   .column-gnetwork-network-id {
     width: 4%;
     text-align: right;
+  }
+
+  &.users-network {
+    td.timestamps {
+      table td {
+        padding: 0 0 2px;
+
+        code {
+          cursor: pointer;
+        }
+      }
+    }
+
+    th.column-email {
+      width: 14%;
+    }
+
+    th.column-timestamps {
+      width: 220px;
+    }
   }
 }

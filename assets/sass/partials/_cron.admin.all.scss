@@ -4,7 +4,6 @@
 /// gNetwork Partials: Cron Module: Admin --------------------------------------
 
 #dashboard_right_now {
-
   .geditorial-admin-wrap.-audit + .gnetwork-wrap.-cron,
   .mu-storage + .gnetwork-wrap.-cron {
     margin-top: 1em;
@@ -20,9 +19,8 @@
 
 // dashbard widget
 #gnetwork-cron-status-check {
-
   .spinner {
-    margin: 2px 0 0 0;
+    margin: 2px 0 0;
   }
 
   .-status {
@@ -47,7 +45,7 @@
 
 .gnetwork-admin-wrap.sub-scheduled {
 
-  .-column-tasks {}
+  // .-column-tasks {}
 
   .-column-next {
     width: 34%;
