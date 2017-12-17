@@ -540,10 +540,6 @@ class Themes extends gNetwork\Module
 				$after = '<div class="gnetwork-wrap-actions content-after">'.$after.'</div>';
 		}
 
-		// global $pages, $page;
-		// $after .= 'page:'.$page;
-		// $after .= self::dump( $pages, TRUE, FALSE );
-
 		return $before.$content.$after;
 	}
 
@@ -622,7 +618,7 @@ class Themes extends gNetwork\Module
 		$file = $rtl ? $theme.'-rtl.css' : $theme.'.css';
 
 		if ( ! empty( $url ) )
-			$url .= ',';
+			$url.= ',';
 
 		return $url.GNETWORK_URL.'assets/css/tinymce/'.$file;
 	}

@@ -24,7 +24,6 @@ class User extends gNetwork\Module
 				$this->filter( 'insert_user_meta', 3, 8 );
 
 		} else {
-			$this->action( 'get_header' );
 
 			if ( $this->options['tos_display'] ) {
 				$this->action( 'before_signup_header' ); // multisite signup
@@ -544,30 +543,6 @@ class User extends gNetwork\Module
 		", $regex ) );
 
 		return $users;
-	}
-
-	public function get_header( $name )
-	{
-		$disable_styles = defined( 'GNETWORK_DISABLE_FRONT_STYLES' ) && GNETWORK_DISABLE_FRONT_STYLES;
-
-		if ( 'wp-signup' == $name ) {
-
-			remove_action( 'wp_head', 'wpmu_signup_stylesheet' );
-
-			if ( ! $disable_styles )
-				add_action( 'wp_head', function(){
-					Utilities::linkStyleSheet( 'signup.all' );
-				} );
-
-		} else if ( 'wp-activate' == $name ) {
-
-			remove_action( 'wp_head', 'wpmu_activate_stylesheet' );
-
-			if ( ! $disable_styles )
-				add_action( 'wp_head', function(){
-					Utilities::linkStyleSheet( 'activate.all' );
-				} );
-		}
 	}
 
 	public function before_signup_header()

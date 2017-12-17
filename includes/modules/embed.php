@@ -112,7 +112,7 @@ class Embed extends gNetwork\Module
 	// @SOURCE: https://wordpress.org/plugins/markdown-on-save-improved/
 	public function the_content( $content )
 	{
-		return preg_replace_callback( '|^\s*<p>(https?://[^\s"]+)</p>\s*$|im', array( $GLOBALS['wp_embed'], 'autoembed_callback' ), $content );
+		return preg_replace_callback( '|^\s*<p>(https?://[^\s"]+)</p>\s*$|im', [ $GLOBALS['wp_embed'], 'autoembed_callback' ], $content );
 	}
 
 	public function handle_docs_pdf( $matches, $attr, $url, $rawattr )

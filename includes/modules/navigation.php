@@ -326,14 +326,14 @@ class Navigation extends gNetwork\Module
 	// @SEE: `wp_using_ext_object_cache()`
 	private function get_login_url()
 	{
-		return $this->filters( 'login_url', wp_login_url() );
+		return $this->filters( 'login_url', WordPress::loginURL() );
 	}
 
 	// FIXME: check if not caching then add redirect arg
 	// @SEE: `wp_using_ext_object_cache()`
 	private function get_logout_url()
 	{
-		return $this->filters( 'logout_url', remove_query_arg( '_wpnonce', wp_logout_url() ) );
+		return $this->filters( 'logout_url', WordPress::loginURL( '', TRUE ) );
 	}
 
 	private function get_edit_profile_url()

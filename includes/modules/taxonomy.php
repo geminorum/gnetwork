@@ -218,7 +218,7 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 
 			$like = '%'.$wpdb->esc_like( $this->terms_search ).'%';
 
-			$clauses['where'] .= $wpdb->prepare( ' AND ((t.name LIKE %s) OR (t.slug LIKE %s) OR (tt.description LIKE %s))', $like, $like, $like );
+			$clauses['where'].= $wpdb->prepare( ' AND ((t.name LIKE %s) OR (t.slug LIKE %s) OR (tt.description LIKE %s))', $like, $like, $like );
 
 			$this->terms_search = '';
 		}

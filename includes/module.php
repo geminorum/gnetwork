@@ -214,30 +214,32 @@ class Module extends Core\Base
 		return is_multisite() ? $this->network : FALSE;
 	}
 
-	protected function action( $hook, $args = 1, $priority = 10, $suffix = FALSE )
+	protected function action( $hooks, $args = 1, $priority = 10, $suffix = FALSE )
 	{
-		if ( $method = self::sanitize_hook( ( $suffix ? $hook.'_'.$suffix : $hook ) ) )
-			add_action( $hook, [ $this, $method ], $priority, $args );
+		foreach ( (array) $hooks as $hook )
+			if ( $method = self::sanitize_hook( ( $suffix ? $hook.'_'.$suffix : $hook ) ) )
+				add_action( $hook, [ $this, $method ], $priority, $args );
 	}
 
-	protected function filter( $hook, $args = 1, $priority = 10, $suffix = FALSE )
+	protected function filter( $hooks, $args = 1, $priority = 10, $suffix = FALSE )
 	{
-		if ( $method = self::sanitize_hook( ( $suffix ? $hook.'_'.$suffix : $hook ) ) )
-			add_filter( $hook, [ $this, $method ], $priority, $args );
+		foreach ( (array) $hooks as $hook )
+			if ( $method = self::sanitize_hook( ( $suffix ? $hook.'_'.$suffix : $hook ) ) )
+				add_filter( $hook, [ $this, $method ], $priority, $args );
 	}
 
 	// USAGE: $this->filter_module( 'importer', 'saved', 5 );
 	protected function action_module( $hook, $args = 1, $priority = 10, $suffix = FALSE )
 	{
 		if ( $method = self::sanitize_hook( ( $suffix ? $module.'_'.$hook.'_'.$suffix : $module.'_'.$hook ) ) )
-			add_action( $this->base.'_'.$module.'_'.$hook, array( $this, $method ), $priority, $args );
+			add_action( $this->base.'_'.$module.'_'.$hook, [ $this, $method ], $priority, $args );
 	}
 
 	// USAGE: $this->filter_module( 'importer', 'prepare', 4 );
 	protected function filter_module( $module, $hook, $args = 1, $priority = 10, $suffix = FALSE )
 	{
 		if ( $method = self::sanitize_hook( ( $suffix ? $module.'_'.$hook.'_'.$suffix : $module.'_'.$hook ) ) )
-			add_filter( $this->base.'_'.$module.'_'.$hook, array( $this, $method ), $priority, $args );
+			add_filter( $this->base.'_'.$module.'_'.$hook, [ $this, $method ], $priority, $args );
 	}
 
 	// @REF: https://gist.github.com/markjaquith/b752e3aa93d2421285757ada2a4869b1
@@ -296,7 +298,7 @@ class Module extends Core\Base
 		$suffix = '';
 
 		foreach ( func_get_args() as $arg )
-			$suffix .= '_'.$arg;
+			$suffix.= '_'.$arg;
 
 		return $this->base.'_'.$this->key.$suffix;
 	}
@@ -555,7 +557,7 @@ class Module extends Core\Base
 		$class = $this->base.'-form';
 
 		if ( $check && $sidebox = method_exists( $this, 'settings_sidebox' ) )
-			$class .= ' has-sidebox';
+			$class.= ' has-sidebox';
 
 		echo '<form class="'.$class.'" method="post" action="">';
 

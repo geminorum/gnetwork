@@ -770,7 +770,7 @@ class AdminBar extends gNetwork\Module
 				'parent' => $parent,
 				'id'     => 'network-login',
 				'title'  => _x( 'Log in', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
-				'href'   => wp_login_url(),
+				'href'   => WordPress::loginURL(),
 			] );
 
 			if ( $register_url = WordPress::registerURL() )

@@ -552,7 +552,7 @@ class Blog extends gNetwork\Module
 			$wait = $this->options['feed_delay'];
 			$unit = 'MINUTE'; // MINUTE, HOUR, DAY, WEEK, MONTH, YEAR
 
-			$where .= " AND TIMESTAMPDIFF( {$unit}, {$wpdb->posts}.post_date_gmt, '{$now}' ) > {$wait} ";
+			$where.= " AND TIMESTAMPDIFF( {$unit}, {$wpdb->posts}.post_date_gmt, '{$now}' ) > {$wait} ";
 		}
 
 		return $where;

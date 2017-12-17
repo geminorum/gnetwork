@@ -346,7 +346,7 @@ class BuddyPress extends gNetwork\Module
 				return $querystring;
 
 		if ( ! empty( $args['exclude'] ) )
-			$args['exclude'] .= ','.GNETWORK_BP_EXCLUDEUSERS;
+			$args['exclude'].= ','.GNETWORK_BP_EXCLUDEUSERS;
 		else
 			$args['exclude'] = GNETWORK_BP_EXCLUDEUSERS;
 

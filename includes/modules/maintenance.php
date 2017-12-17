@@ -131,7 +131,9 @@ class Maintenance extends gNetwork\Module
 		if ( ! WordPress::cuc( $this->options['maintenance_site'] ) ) {
 			$this->action( 'template_redirect' );
 			$this->filter( 'status_header', 4 );
-			$this->filter( 'login_message' );
+
+			if ( $this->options['login_message'] )
+				$this->filter( 'login_message' );
 
 			foreach ( Utilities::getFeeds() as $feed )
 				add_action( 'do_feed_'.$feed, [ $this, 'do_feed_feed' ], 1, 1 );
@@ -178,11 +180,9 @@ class Maintenance extends gNetwork\Module
 			echo HTML::warning( $this->options['admin_notice'] );
 	}
 
-	public function login_message()
+	public function login_message( $message )
 	{
-		if ( $this->options['login_message'] && ! empty( $this->options['login_message'] ) )
-			echo '<div id="login_error">'.Text::autoP( $this->options['login_message'] ).'</div>';
-			// echo HTML::warning( $this->options['login_message'] );
+		return HTML::wrap( Text::autoP( $this->options['login_message'] ), 'message -warning' ).$message;
 	}
 
 	public function template_redirect()

@@ -363,7 +363,7 @@ class Comments extends gNetwork\Module
 				$query->query_vars['type__not_in'] = array_merge( $query->query_vars['type__not_in'], $this->get_hidden_types() );
 
 			else
-				$query->query_vars['type__not_in'] .= ','.join( ',', $this->get_hidden_types() );
+				$query->query_vars['type__not_in'].= ','.join( ',', $this->get_hidden_types() );
 		}
 	}
 

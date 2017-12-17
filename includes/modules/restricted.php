@@ -296,7 +296,7 @@ class Restricted extends gNetwork\Module
 		], _x( 'Home Page', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ) );
 
 		if ( is_user_logged_in() ) {
-			$html .= ' / '.HTML::tag( 'a', [
+			$html.= ' / '.HTML::tag( 'a', [
 				'href' => wp_logout_url(),
 				'title' => _x( 'Logout of this site', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
 			], _x( 'Log Out', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ) );

@@ -22,6 +22,9 @@ class Notify extends gNetwork\Module
 		if ( file_exists( GNETWORK_DIR.'includes/misc/notify-pluggable.php' ) )
 			require_once( GNETWORK_DIR.'includes/misc/notify-pluggable.php' );
 
+		if ( $this->options['disable_new_user_admin'] )
+			add_filter( 'bp_core_send_user_registration_admin_notification', '__return_false' );
+
 		if ( ! is_multisite() )
 			return;
 
@@ -261,7 +264,7 @@ class Notify extends gNetwork\Module
 		$message = sprintf( __( 'Username: %s' ), $user->user_login )."\r\n\r\n";
 		$message.= __( 'To set your password, visit the following address:' )."\r\n\r\n";
 		$message.= '<'.network_site_url( "wp-login.php?action=rp&key=$key&login=".rawurlencode( $user->user_login ), 'login' ).">\r\n\r\n";
-		$message.= wp_login_url()."\r\n";
+		$message.= WordPress::loginURL()."\r\n";
 
 		$mail = [
 			'to'      => $user->user_email,

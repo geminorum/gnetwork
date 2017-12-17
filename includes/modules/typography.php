@@ -263,7 +263,7 @@ class Typography extends gNetwork\Module
 		$html = '';
 
 		for ( $i = 1; $i <= $args['space']; $i++ )
-			$html .= '<span></span>';
+			$html.= '<span></span>';
 
 		return HTML::tag( 'span', [
 			'class' => $args['class'],

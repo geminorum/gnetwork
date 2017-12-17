@@ -335,7 +335,7 @@ class Cleanup extends gNetwork\Module
 
 		if ( $time ) {
 			$timestamp = isset( $_SERVER['REQUEST_TIME'] ) ? intval( $_SERVER['REQUEST_TIME'] ) : time();
-			$query .= " AND {$val} < {$timestamp};";
+			$query.= " AND {$val} < {$timestamp};";
 		}
 
 		foreach ( $wpdb->get_col( $query ) as $transient ) {

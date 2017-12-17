@@ -120,6 +120,11 @@ class Code extends gNetwork\Module
 				default         : $url = 'https://api.github.com/repos/'.$args['repo'].'/readme'; break;
 			}
 
+			// $headers = [
+			// 	'Authorization' => 'token '.$token,
+			// 	'Accept'        => 'application/vnd.github.v3.raw',
+			// ];
+
 			if ( in_array( $args['type'], [ 'wiki', 'markdown', 'changelog' ] ) )
 				$md = HTTP::getHTML( $url );
 

@@ -150,7 +150,7 @@ class Dev extends gNetwork\Module
 		$prefix = 'BENCHMARK: ';
 
 		if ( is_multisite() )
-			$prefix .= WordPress::currentSiteName().': ';
+			$prefix.= WordPress::currentSiteName().': ';
 
 		Logger::DEBUG( $prefix.implode( '|', $log ) );
 	}

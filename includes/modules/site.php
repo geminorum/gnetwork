@@ -4,6 +4,7 @@ defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
 use geminorum\gNetwork\Settings;
+use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\Arraay;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\HTTP;
@@ -33,8 +34,7 @@ class Site extends gNetwork\Module
 
 		} else {
 
-			if ( $this->options['page_signup'] )
-				$this->action( 'before_signup_header', 0, 1 );
+			$this->action( 'get_header' );
 		}
 	}
 
@@ -50,7 +50,6 @@ class Site extends gNetwork\Module
 	{
 		return [
 			'admin_locale'      => 'en_US',
-			'page_signup'       => '0',
 			'access_denied'     => '',
 			'denied_message'    => '',
 			'denied_extra'      => '',
@@ -61,11 +60,6 @@ class Site extends gNetwork\Module
 
 	public function default_settings()
 	{
-		$exclude = array_filter( [
-			get_option( 'page_on_front' ),
-			get_option( 'page_for_posts' ),
-		] );
-
 		$settings = [];
 
 		if ( class_exists( __NAMESPACE__.'\\Locale' ) ) {
@@ -82,18 +76,6 @@ class Site extends gNetwork\Module
 		}
 
 		if ( is_multisite() ) {
-
-			$settings['_signup'] = [
-				[
-					'field'       => 'page_signup',
-					'type'        => 'page',
-					'title'       => _x( 'Page for Signup', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Redirects network signup page into this page, if registration have been <b>disabled</b>.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
-					'default'     => '0',
-					'exclude'     => $exclude,
-					'after'       => Settings::fieldAfterNewPostType( 'page' ),
-				],
-			];
 
 			$settings['_denied'] = [
 				[
@@ -217,12 +199,6 @@ class Site extends gNetwork\Module
 		return $html.'</table>';
 	}
 
-	public function before_signup_header()
-	{
-		if ( 'none' == get_site_option( 'registration', 'none' ) )
-			WordPress::redirect( get_page_link( $this->options['page_signup'] ) );
-	}
-
 	// TODO: on signup form: http://stackoverflow.com/a/10372861
 	public function wpmu_new_blog( $blog_id, $user_id, $domain, $path, $network_id, $meta )
 	{
@@ -275,5 +251,29 @@ class Site extends gNetwork\Module
 	public function wp_is_large_user_count( $large, $count )
 	{
 		return $count > GNETWORK_LARGE_NETWORK_IS;
+	}
+
+	public function get_header( $name )
+	{
+		$disable_styles = defined( 'GNETWORK_DISABLE_FRONT_STYLES' ) && GNETWORK_DISABLE_FRONT_STYLES;
+
+		if ( 'wp-signup' == $name ) {
+
+			remove_action( 'wp_head', 'wpmu_signup_stylesheet' );
+
+			if ( ! $disable_styles )
+				add_action( 'wp_head', function(){
+					Utilities::linkStyleSheet( 'signup.all' );
+				} );
+
+		} else if ( 'wp-activate' == $name ) {
+
+			remove_action( 'wp_head', 'wpmu_activate_stylesheet' );
+
+			if ( ! $disable_styles )
+				add_action( 'wp_head', function(){
+					Utilities::linkStyleSheet( 'activate.all' );
+				} );
+		}
 	}
 }
