@@ -125,7 +125,7 @@ class WordPress extends Base
 
 	public static function redirectLogin( $location = '', $status = 302 )
 	{
-		self::redirect( wp_login_url( $location, TRUE ), $status );
+		self::redirect( self::loginURL( $location, TRUE ), $status );
 	}
 
 	public static function registerURL( $register = FALSE )
@@ -147,6 +147,22 @@ class WordPress extends Base
 		}
 
 		return $register;
+	}
+
+	// @REF: `wp_login_url()`
+	public static function loginURL( $redirect = '', $force_reauth = FALSE )
+	{
+		// working, but disabled due to problem with redirects on wp networks
+		// $login_url = get_blog_option( get_main_site_id(), 'siteurl' ).'/wp-login.php';
+		$login_url = site_url( 'wp-login.php', 'login' );
+
+		if ( ! empty( $redirect ) )
+			$login_url = add_query_arg( 'redirect_to', urlencode( $redirect ), $login_url );
+
+		if ( $force_reauth )
+			$login_url = add_query_arg( 'reauth', '1', $login_url );
+
+		return apply_filters( 'login_url', $login_url, $redirect, $force_reauth );
 	}
 
 	// BETTER: `URL::current()`

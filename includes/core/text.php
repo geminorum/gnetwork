@@ -320,6 +320,12 @@ class Text extends Base
 		return $text;
 	}
 
+	// http://stackoverflow.com/a/3161830
+	public static function truncateString( $string, $length = 15, $dots = '&hellip;' )
+	{
+		return ( strlen( $string ) > $length ) ? substr( $string, 0, $length - strlen( $dots ) ).$dots : $string;
+	}
+
 	public static function firstSentence( $text )
 	{
 		// looks for three punctuation characters: . (period), ! (exclamation), or ? (question mark), followed by a space
