@@ -14,7 +14,8 @@ use geminorum\gNetwork\Core\WordPress;
 class User extends gNetwork\Module
 {
 
-	protected $key = 'user';
+	protected $key  = 'user';
+	protected $cron = TRUE;
 
 	protected function setup_actions()
 	{
@@ -52,6 +53,20 @@ class User extends gNetwork\Module
 			$this->filter( 'map_meta_cap', 4, 99 );
 			$this->filter_true( 'enable_edit_any_user_configuration' );
 		}
+
+		if ( is_network_admin() ) {
+
+			$this->filter( 'views_users-network' );
+			$this->filter( 'users_list_table_query_args' );
+
+			$this->filter( 'wpmu_users_columns' );
+			$this->filter( 'manage_users_custom_column', 3 );
+
+			$this->filter( 'manage_users-network_sortable_columns' );
+		}
+
+		// cron hook / executes only on the mainsite
+		$this->action( 'update_network_counts' );
 	}
 
 	public function setup_menu( $context )
@@ -694,5 +709,112 @@ class User extends gNetwork\Module
 		}
 
 		return $caps;
+	}
+
+	public function update_network_counts( $network_id = NULL )
+	{
+		global $wpdb;
+
+		update_site_option( $this->hook( 'spam_count' ), $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->users} WHERE spam = '1' AND deleted = '0'" ) );
+	}
+
+	public function get_spam_count()
+	{
+		return get_site_option( $this->hook( 'spam_count' ) );
+	}
+
+	public function views_users_network( $views )
+	{
+		// FIXME: remove current class from other views
+		$class = isset( $_GET['spam'] ) ? ' class="current"' : '';
+
+		$view = '<a href="'.network_admin_url( 'users.php?spam' ).'"'.$class.'>';
+
+		if ( $spams = $this->get_spam_count() )
+			$view.= Utilities::getCounted( $spams, _nx( 'Marked as Spam <span class="count">(%s)</span>', 'Marked as Spams <span class="count">(%s)</span>', $spams, 'Modules: User', GNETWORK_TEXTDOMAIN ) ).'</a>';
+		else
+			$view.= _x( 'Marked as Spam', 'Modules: User', GNETWORK_TEXTDOMAIN ).'</a>';
+
+		return array_merge( $views, [ 'spam' => $view ] );
+	}
+
+	public function users_list_table_query_args( $args )
+	{
+		if ( isset( $_GET['spam'] ) )
+			$this->action( 'pre_user_query' );
+
+		// default sorting
+		if ( empty( $args['orderby'] ) ) {
+			$args['orderby'] = 'user_registered';
+			if ( empty( $args['order'] ) )
+				$args['order'] = 'DESC';
+		}
+
+		return $args;
+	}
+
+	public function pre_user_query( &$user_query )
+	{
+		global $wpdb;
+		$user_query->query_where.= " AND {$wpdb->users}.spam = '1'";
+	}
+
+	// defaults: 'cb', 'username', 'name', 'email', 'registered', 'blogs'
+	public function wpmu_users_columns( $users_columns )
+	{
+		unset( $users_columns['registered'] );
+		return array_merge( $users_columns, [ 'timestamps' => _x( 'Timestamps', 'Modules: User', GNETWORK_TEXTDOMAIN ) ] );
+	}
+
+	public function manage_users_custom_column( $empty, $column_name, $user_id )
+	{
+		if ( 'timestamps' != $column_name )
+			return $empty;
+
+		$html = '';
+		$mode = empty( $_REQUEST['mode'] ) ? 'list' : $_REQUEST['mode'];
+
+		$user        = get_user_by( 'id', $user_id );
+		$lastlogin   = get_user_meta( $user_id, 'lastlogin', TRUE );
+		$register_ip = get_user_meta( $user_id, 'register_ip', TRUE );
+
+		$registered = strtotime( get_date_from_gmt( $user->user_registered ) );
+		$lastlogged = $lastlogin ? strtotime( get_date_from_gmt( $lastlogin ) ) : NULL;
+
+		$html.= '<table></tbody>';
+
+		$html.= '<tr><td>'._x( 'Registered', 'Modules: User', GNETWORK_TEXTDOMAIN ).'</td><td><code title="'
+			.Utilities::dateFormat( $registered, 'timeampm' ).'">'
+			.Utilities::dateFormat( $registered ).'</code></td></tr>';
+
+		$html.= '<tr><td>'._x( 'Last Login', 'Modules: User', GNETWORK_TEXTDOMAIN ).'</td><td>'
+			.( $lastlogin ? '<code title="'.Utilities::dateFormat( $lastlogged, 'timeampm' ).'">'
+				.Utilities::dateFormat( $lastlogged ).'</code>'
+			: gNetwork()->na() ).'</td></tr>';
+
+		if ( function_exists( 'bp_get_user_last_activity' ) ) {
+
+			if ( $lastactivity = bp_get_user_last_activity( $user_id ) )
+				$lastactive = strtotime( get_date_from_gmt( $lastactivity ) );
+
+			$html.= '<tr><td>'._x( 'Last Activity', 'Modules: User', GNETWORK_TEXTDOMAIN ).'</td><td>'
+				.( $lastactivity
+					? '<code title="'.bp_core_time_since( $lastactivity ).'">'
+						.Utilities::dateFormat( $lastactive )
+					: '<code>'.gNetwork()->na( FALSE ) )
+				.'</code></td></tr>';
+		}
+
+		$html.= '<tr><td>'._x( 'Register IP', 'Modules: User', GNETWORK_TEXTDOMAIN ).'</td><td><code>'
+			.( $register_ip ? gnetwork_ip_lookup( $register_ip ) : gNetwork()->na( FALSE ) ).'</code></td></tr>';
+
+		$html.= '</tbody></table>';
+
+		echo $html;
+	}
+
+	public function manage_users_network_sortable_columns( $sortable_columns )
+	{
+		return array_merge( $sortable_columns, [ 'timestamps' => 'user_registered' ] );
 	}
 }
