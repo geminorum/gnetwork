@@ -362,6 +362,19 @@ class Themes extends gNetwork\Module
 				} );
 			}
 
+		} else if ( $this->isTheme( 'atlantic' ) ) {
+
+			if ( $this->rtl ) {
+
+				add_action( 'wp_head', function(){
+					Themes::linkStyleSheet( 'atlantic-rtl' );
+				}, 20 );
+
+				add_filter( 'mce_css', function( $url ){
+					return Themes::appendMCECSS( $url, 'atlantic', $this->rtl );
+				} );
+			}
+
 		} else if ( $this->isTheme( 'chosen' ) ) {
 
 			if ( $this->rtl ) {

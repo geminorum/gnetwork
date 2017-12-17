@@ -65,7 +65,7 @@ class Login extends gNetwork\Module
 					'field'       => 'login_headerurl',
 					'type'        => 'url',
 					'title'       => _x( 'Header URL', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Login page header logo link URL', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Login page header logo link URL.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'placeholder' => GNETWORK_BASE,
 					'default'     => GNETWORK_BASE,
 				],
@@ -73,14 +73,14 @@ class Login extends gNetwork\Module
 					'field'       => 'login_headertitle',
 					'type'        => 'text',
 					'title'       => _x( 'Header Title', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Login page header logo link title attribute', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Login page header logo link title attribute.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => GNETWORK_NAME,
 					'placeholder' => GNETWORK_NAME,
 				],
 				[
 					'field'       => 'login_remember',
 					'title'       => _x( 'Login Remember', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Always checked Remember Me checkbox', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Always checked “Remember Me” checkbox.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'values'      => [
 						_x( 'Not Checked', 'Modules: Login', GNETWORK_TEXTDOMAIN ),
 						_x( 'Checked', 'Modules: Login', GNETWORK_TEXTDOMAIN ),
@@ -90,14 +90,14 @@ class Login extends gNetwork\Module
 					'field'       => 'login_logourl',
 					'type'        => 'url',
 					'title'       => _x( 'Logo Image', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Full URL to the login logo image', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Full URL to the login logo image.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'after'       => Settings::fieldAfterIcon( Settings::getLoginLogoLink() ),
 				],
 				[
 					'field'       => 'login_class',
 					'type'        => 'select',
 					'title'       => _x( 'CSS Class', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Select from pre designed login themes', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Select styles from pre-configured login themes.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'after'       => Settings::fieldAfterIcon( self::getLoginStyleLink() ),
 					'none_title'  => Settings::showOptionNone(),
 					'none_value'  => 'logindefault',
@@ -110,18 +110,18 @@ class Login extends gNetwork\Module
 					'field'       => 'login_styles',
 					'type'        => 'textarea',
 					'title'       => _x( 'Extra CSS', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Additional styles to use on login page', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Additional CSS styles to use on default login page.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'field_class' => [ 'large-text', 'code-text' ],
 				],
 				[
 					'field'       => 'login_credits',
 					'title'       => _x( 'Credits Badge', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Displays credits badge on bottom of the login page', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Displays credits badge on the bottom of default login page.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
 					'field'       => 'login_log',
 					'title'       => _x( 'Log Logins', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Logs user log-in events', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Logs user log-in events in the log system.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
 					'field'       => 'store_lastlogin',
@@ -264,7 +264,7 @@ class Login extends gNetwork\Module
 
 			Logger::siteALERT( 'LOGIN-MATH', 'not properly configured'.sprintf( ': %s', self::req( 'log', '(EMPTY)' ) ) );
 
-			wp_die( _x( '<strong>This site is not properly configured.</strong> Please ask this site\'s web developer to review for information on how to resolve this issue.', 'Modules: Login', GNETWORK_TEXTDOMAIN ) );
+			wp_die( _x( '<strong>This site is not properly configured.</strong> Please ask this site\'s administrator to review for information on how to resolve this issue.', 'Modules: Login', GNETWORK_TEXTDOMAIN ) );
 
 		} else if ( FALSE === $salted || $salted != $correct ) {
 
@@ -273,7 +273,7 @@ class Login extends gNetwork\Module
 			else
 				Logger::siteNOTICE( 'LOGIN-MATH', 'failed to correctly answer'.sprintf( ': %s', self::req( 'log', '(EMPTY)' ) ) );
 
-			wp_die( _x( '<strong>You failed to correctly answer the math problem.</strong> This is used to combat spam Please use your browser\'s back button to return to the login form, press the "refresh" button to generate a new math problem, and try to log in again.', 'Modules: Login', GNETWORK_TEXTDOMAIN ) );
+			wp_die( _x( '<strong>You failed to correctly answer the math problem.</strong> This is used to combat spam. Please use your browser\'s back button to return to the login form, press the "refresh" button to generate a new math problem, and try to log in again.', 'Modules: Login', GNETWORK_TEXTDOMAIN ) );
 		}
 
 		return $null;
