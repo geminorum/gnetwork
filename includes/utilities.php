@@ -47,7 +47,7 @@ class Utilities extends Core\Base
 		$pattern = '/\[([^\]]+)\]/';
 
 		return preg_replace_callback( $pattern, function( $matches ) {
-			return '<b><span title="'.esc_attr( self::humanTimeAgo( strtotime( $matches[1] ) ) ).'">['.$matches[1].']</span></b>';
+			return '<b><span title="'.HTML::escape( self::humanTimeAgo( strtotime( $matches[1] ) ) ).'">['.$matches[1].']</span></b>';
 		}, $string, $limit );
 	}
 
@@ -70,12 +70,12 @@ class Utilities extends Core\Base
 
 		if ( $flip )
 			return '<span class="-date-diff" title="'
-					.esc_attr( self::dateFormat( $timestamp, 'fulltime' ) ).'">'
+					.HTML::escape( self::dateFormat( $timestamp, 'fulltime' ) ).'">'
 					.self::humanTimeDiff( $timestamp, $now )
 				.'</span>';
 
 		return '<span class="-time" title="'
-			.esc_attr( self::humanTimeAgo( $timestamp, $now ) ).'">'
+			.HTML::escape( self::humanTimeAgo( $timestamp, $now ) ).'">'
 			.self::humanTimeDiffRound( $timestamp, NULL, self::dateFormats( 'default' ), $now )
 		.'</span>';
 	}
@@ -191,11 +191,11 @@ class Utilities extends Core\Base
 
 		$formats = self::dateFormats( FALSE );
 
-		$html = '<span class="-date-date" title="'.esc_attr( date_i18n( $formats['timeonly'], $timestamp ) );
+		$html = '<span class="-date-date" title="'.HTML::escape( date_i18n( $formats['timeonly'], $timestamp ) );
 		$html.= '" data-time="'.date( 'c', $timestamp ).'">'.date_i18n( $formats['default'], $timestamp ).'</span>';
 
 		$html.= '&nbsp;(<span class="-date-diff" title="';
-		$html.= esc_attr( date_i18n( $formats['fulltime'], $timestamp ) ).'">';
+		$html.= HTML::escape( date_i18n( $formats['fulltime'], $timestamp ) ).'">';
 		$html.= self::humanTimeDiff( $timestamp ).'</span>)';
 
 		return $class ? '<span class="'.$class.'">'.$html.'</span>' : $html;
@@ -206,7 +206,7 @@ class Utilities extends Core\Base
 		$timestamp = strtotime( $post->post_modified );
 		$formats   = self::dateFormats( FALSE );
 
-		$html = '<span class="-date-modified" title="'.esc_attr( date_i18n( $formats['default'], $timestamp ) );
+		$html = '<span class="-date-modified" title="'.HTML::escape( date_i18n( $formats['default'], $timestamp ) );
 		$html.='" data-time="'.date( 'c', $timestamp ).'">'.self::humanTimeDiff( $timestamp ).'</span>';
 
 		$edit_last = get_post_meta( $post->ID, '_edit_last', TRUE );
@@ -376,7 +376,7 @@ class Utilities extends Core\Base
 
 	public static function trimChars( $text, $length = 45, $append = '&nbsp;&hellip;' )
 	{
-		$append = '<span title="'.HTML::escapeAttr( $text ).'">'.$append.'</span>';
+		$append = '<span title="'.HTML::escape( $text ).'">'.$append.'</span>';
 
 		return Text::trimChars( $text, $length, $append );
 	}

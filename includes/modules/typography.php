@@ -216,7 +216,7 @@ class Typography extends gNetwork\Module
 		$url = 'https://'.$lang.'wikipedia.org/wiki/'.urlencode( str_ireplace( ' ', '_', $slug ) );
 
 		$html = '<a href="'.esc_url( $url ).'" class="wiki wikipedia"'
-				.( $args['title'] ? ' data-toggle="tooltip" title="'.esc_attr( $args['title'] ).'"' : '' )
+				.( $args['title'] ? ' data-toggle="tooltip" title="'.HTML::escape( $args['title'] ).'"' : '' )
 				.'>'.trim( $content ).'</a>';
 
 		return self::shortcodeWrap( $html, 'wikipedia', $args, FALSE );

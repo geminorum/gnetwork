@@ -441,7 +441,7 @@ class WordPress extends Base
 				), $extra ), admin_url( 'edit.php' ) ),
 				'title' => $author_data->user_login,
 				'class' => '-author',
-			), esc_html( $author_data->display_name ) );
+			), HTML::escape( $author_data->display_name ) );
 
 		return FALSE;
 	}

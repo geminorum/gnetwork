@@ -574,8 +574,8 @@ class Themes extends gNetwork\Module
 		$author = get_the_author();
 
 		return $before.sprintf( $text, vsprintf( $format, [
-			esc_html( $author ),
-			esc_attr( sprintf( $title, $author ) ),
+			HTML::escape( $author ),
+			HTML::escape( sprintf( $title, $author ) ),
 			esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
 		] ) ).$after;
 	}
@@ -589,9 +589,9 @@ class Themes extends gNetwork\Module
 
 		vprintf( $format, [
 			esc_url( get_permalink() ),
-			esc_attr( get_the_time() ),
-			esc_attr( get_the_date( 'c' ) ),
-			esc_html( get_the_date() ),
+			HTML::escape( get_the_time() ),
+			HTML::escape( get_the_date( 'c' ) ),
+			HTML::escape( get_the_date() ),
 		] );
 
 		if ( $byline )

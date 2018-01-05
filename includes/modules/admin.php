@@ -336,9 +336,9 @@ class Admin extends gNetwork\Module
 	protected function localize_script()
 	{
 		return [
-			'metabox_controls_collapse' => esc_html_x( 'Collapse All', 'Modules: Admin: Localize Script', GNETWORK_TEXTDOMAIN ),
-			'metabox_controls_expand'   => esc_html_x( 'Expand All', 'Modules: Admin: Localize Script', GNETWORK_TEXTDOMAIN ),
-			'reset_button_text'         => esc_html_x( 'Reset', 'Modules: Admin: Localize Script', GNETWORK_TEXTDOMAIN ),
+			'metabox_controls_collapse' => HTML::escape( _x( 'Collapse All', 'Modules: Admin: Localize Script', GNETWORK_TEXTDOMAIN ) ),
+			'metabox_controls_expand'   => HTML::escape( _x( 'Expand All', 'Modules: Admin: Localize Script', GNETWORK_TEXTDOMAIN ) ),
+			'reset_button_text'         => HTML::escape( _x( 'Reset', 'Modules: Admin: Localize Script', GNETWORK_TEXTDOMAIN ) ),
 			'reset_button_disabled'     => isset( $_GET['filter_action'] ) ? '' : 'disabled',
 		];
 	}

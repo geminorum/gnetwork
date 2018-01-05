@@ -377,16 +377,16 @@ class Dashboard extends gNetwork\Module
 
 				vprintf( $template, [
 					( $alt ? ' class="alternate"' : '' ),
-					esc_html( $user->display_name ),
-					esc_html( Text::truncateString( $user->user_email, 32 ) ),
-					esc_html( Utilities::dateFormat( $registered, 'monthday' ) ),
-					esc_attr( sprintf(
+					HTML::escape( $user->display_name ),
+					HTML::escape( Text::truncateString( $user->user_email, 32 ) ),
+					HTML::escape( Utilities::dateFormat( $registered, 'monthday' ) ),
+					HTML::escape( sprintf(
 						_x( '%1$s ago &mdash; %2$s', 'Modules: Dashboard: Signups', GNETWORK_TEXTDOMAIN ),
 						human_time_diff( $registered, $time ),
 						Utilities::dateFormat( $registered )
 					) ),
 					get_edit_user_link( $user->ID ),
-					'mailto:'.esc_attr( $user->user_email ),
+					'mailto:'.HTML::escape( $user->user_email ),
 					$user->user_login,
 					( $register_ip ? gnetwork_ip_lookup( $register_ip ) : gNetwork()->na( FALSE ) )
 				] );
@@ -485,11 +485,11 @@ class Dashboard extends gNetwork\Module
 
 				vprintf( $template, [
 					( $alt ? ' class="alternate"' : '' ),
-					esc_html( $user->display_name ),
-					esc_html( human_time_diff( $lastlogin, $time ) ),
+					HTML::escape( $user->display_name ),
+					HTML::escape( human_time_diff( $lastlogin, $time ) ),
 					get_edit_user_link( $user->ID ),
 					$user->user_login,
-					esc_html( Utilities::dateFormat( $lastlogin, 'timedate' ) ),
+					HTML::escape( Utilities::dateFormat( $lastlogin, 'timedate' ) ),
 				] );
 
 				$alt = ! $alt;

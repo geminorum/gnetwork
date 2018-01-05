@@ -104,15 +104,15 @@ class ShortCodes extends gNetwork\Module
 	public function register_shortcode_ui()
 	{
 		shortcode_ui_register_for_shortcode( 'ref', [
-			'label'         => esc_html_x( 'Reference', 'Modules: ShortCodes: UI: Label', GNETWORK_TEXTDOMAIN ),
+			'label'         => HTML::escape( _x( 'Reference', 'Modules: ShortCodes: UI: Label', GNETWORK_TEXTDOMAIN ) ),
 			'listItemImage' => 'dashicons-editor-quote',
 			'inner_content' => [
-				'label'       => esc_html_x( 'Reference', 'Modules: ShortCodes: UI: Label', GNETWORK_TEXTDOMAIN ),
-				'description' => esc_html_x( 'Make a reference to an external source.', 'Modules: ShortCodes: UI: Description', GNETWORK_TEXTDOMAIN ),
+				'label'       => HTML::escape( _x( 'Reference', 'Modules: ShortCodes: UI: Label', GNETWORK_TEXTDOMAIN ) ),
+				'description' => HTML::escape( _x( 'Make a reference to an external source.', 'Modules: ShortCodes: UI: Description', GNETWORK_TEXTDOMAIN ) ),
 			],
 			'attrs' => [
 				[
-					'label'  => esc_html_x( 'External Resource', 'Modules: ShortCodes: UI: Label', GNETWORK_TEXTDOMAIN ),
+					'label'  => HTML::escape( _x( 'External Resource', 'Modules: ShortCodes: UI: Label', GNETWORK_TEXTDOMAIN ) ),
 					'attr'   => 'url',
 					'type'   => 'text',
 					'encode' => TRUE,
@@ -122,48 +122,42 @@ class ShortCodes extends gNetwork\Module
 					],
 				],
 				[
-					'label' => esc_html_x( 'External Resource Hover', 'Modules: ShortCodes: UI: Label', GNETWORK_TEXTDOMAIN ),
+					'label' => HTML::escape( _x( 'External Resource Hover', 'Modules: ShortCodes: UI: Label', GNETWORK_TEXTDOMAIN ) ),
 					'attr'  => 'url_title',
 					'type'  => 'text',
 					'meta'  => [
-						'placeholder' => esc_html_x( 'Read more about it', 'Modules: ShortCodes: UI: Placeholder', GNETWORK_TEXTDOMAIN ),
+						'placeholder' => HTML::escape( _x( 'Read more about it', 'Modules: ShortCodes: UI: Placeholder', GNETWORK_TEXTDOMAIN ) ),
 					],
 				],
 			],
 		] );
 
 		shortcode_ui_register_for_shortcode( 'email', [
-			'label'         => esc_html_x( 'Email', 'Modules: ShortCodes: UI: Label', GNETWORK_TEXTDOMAIN ),
+			'label'         => HTML::escape( _x( 'Email', 'Modules: ShortCodes: UI: Label', GNETWORK_TEXTDOMAIN ) ),
 			'listItemImage' => 'dashicons-email-alt',
 			'inner_content' => [
-				'label'       => esc_html_x( 'Email Address', 'Modules: ShortCodes: UI: Label', GNETWORK_TEXTDOMAIN ),
-				'description' => esc_html_x( 'Full email address to appear as link and cloaked against spam bots.', 'Modules: ShortCodes: UI: Description', GNETWORK_TEXTDOMAIN ),
+				'label'       => HTML::escape( _x( 'Email Address', 'Modules: ShortCodes: UI: Label', GNETWORK_TEXTDOMAIN ) ),
+				'description' => HTML::escape( _x( 'Full email address to appear as link and cloaked against spam bots.', 'Modules: ShortCodes: UI: Description', GNETWORK_TEXTDOMAIN ) ),
 				'meta'        => [ 'dir' => 'ltr' ],
 			],
 			'attrs' => [
 				[
-					'label' => esc_html_x( 'Display Text', 'Modules: ShortCodes: UI: Label', GNETWORK_TEXTDOMAIN ),
+					'label' => HTML::escape( _x( 'Display Text', 'Modules: ShortCodes: UI: Label', GNETWORK_TEXTDOMAIN ) ),
 					'attr'  => 'content',
 					'type'  => 'text',
-					'meta'  => [
-						'placeholder' => esc_html_x( 'Email Me', 'Modules: ShortCodes: UI: Placeholder', GNETWORK_TEXTDOMAIN ),
-					],
+					'meta'  => [ 'placeholder' => HTML::escape( _x( 'Email Me', 'Modules: ShortCodes: UI: Placeholder', GNETWORK_TEXTDOMAIN ) ) ],
 				],
 				[
-					'label' => esc_html_x( 'Email Subject', 'Modules: ShortCodes: UI: Label', GNETWORK_TEXTDOMAIN ),
+					'label' => HTML::escape( _x( 'Email Subject', 'Modules: ShortCodes: UI: Label', GNETWORK_TEXTDOMAIN ) ),
 					'attr'  => 'subject',
 					'type'  => 'text',
-					'meta'  => [
-						'placeholder' => esc_html_x( 'About something important', 'Modules: ShortCodes: UI: Placeholder', GNETWORK_TEXTDOMAIN ),
-					],
+					'meta'  => [ 'placeholder' => HTML::escape( _x( 'About something important', 'Modules: ShortCodes: UI: Placeholder', GNETWORK_TEXTDOMAIN ) ) ],
 				],
 				[
-					'label' => esc_html_x( 'Link Hover', 'Modules: ShortCodes: UI: Label', GNETWORK_TEXTDOMAIN ),
+					'label' => HTML::escape( _x( 'Link Hover', 'Modules: ShortCodes: UI: Label', GNETWORK_TEXTDOMAIN ) ),
 					'attr'  => 'title',
 					'type'  => 'text',
-					'meta'  => [
-						'placeholder' => esc_html_x( 'Jump right into it!', 'Modules: ShortCodes: UI: Placeholder', GNETWORK_TEXTDOMAIN ),
-					],
+					'meta'  => [ 'placeholder' => HTML::escape( _x( 'Jump right into it!', 'Modules: ShortCodes: UI: Placeholder', GNETWORK_TEXTDOMAIN ) ) ],
 				],
 			],
 		] );
@@ -539,7 +533,7 @@ class ShortCodes extends gNetwork\Module
 				? FALSE
 				: Utilities::humanTimeDiffRound( $local, $args['round'] );
 		else
-			$title = esc_attr( $args['title'] );
+			$title = $args['title'];
 
 		$html = Date::htmlDateTime( $local, $gmt, $args['format'], $title );
 
@@ -768,7 +762,7 @@ class ShortCodes extends gNetwork\Module
 			return $text;
 
 		$html = '<a class="email" href="'.antispambot( "mailto:".$email.( $args['subject'] ? '?subject='.urlencode( $args['subject'] ) : '' ) )
-				.'"'.( $args['title'] ? ' data-toggle="tooltip" title="'.esc_attr( $args['title'] ).'"' : '' ).'>'
+				.'"'.( $args['title'] ? ' data-toggle="tooltip" title="'.HTML::escape( $args['title'] ).'"' : '' ).'>'
 				.( $email == $text ? antispambot( $email ) : $text ).'</a>';
 
 		return self::shortcodeWrap( $html, 'email', $args, FALSE );
@@ -837,9 +831,9 @@ class ShortCodes extends gNetwork\Module
 
 		$html = '<a class="sms" href="sms:'.str_ireplace( [ '-', ' ' ], '', $number )
 				.( $args['body'] ? '?body='.rawurlencode( $args['body'] )
-				.'" data-sms-body="'.esc_attr( $args['body'] ) : '' )
-				.'"'.( $args['title'] ? ' data-toggle="tooltip" title="'.esc_attr( $args['title'] )
-				.'"' : '' ).' data-sms-number="'.esc_attr( $number ).'">'
+				.'" data-sms-body="'.HTML::escape( $args['body'] ) : '' )
+				.'"'.( $args['title'] ? ' data-toggle="tooltip" title="'.HTML::escape( $args['title'] )
+				.'"' : '' ).' data-sms-number="'.HTML::escape( $number ).'">'
 				.'&#8206;'.Number::format( $content ).'&#8207;</a>';
 
 		return self::shortcodeWrap( $html, 'sms', $args, FALSE );
@@ -1063,13 +1057,13 @@ class ShortCodes extends gNetwork\Module
 
 				$html.= '<thead><tr>';
 				foreach ( $titles as $title )
-					$html.= '<th>'.( $title ? esc_html( apply_filters( 'html_format_i18n', $title ) ) : '&nbsp;' ).'</th>';
+					$html.= '<th>'.( $title ? HTML::escape( apply_filters( 'html_format_i18n', $title ) ) : '&nbsp;' ).'</th>';
 				$html.= '</tr></thead><tbody>';
 
 				foreach ( $data as $row ) {
 					$html.= '<tr>';
 					foreach ( $titles as $title )
-						$html.= '<td>'.( isset( $row[$title] ) ? esc_html( apply_filters( 'html_format_i18n', $row[$title] ) ) : '&nbsp;' ).'</td>';
+						$html.= '<td>'.( isset( $row[$title] ) ? HTML::escape( apply_filters( 'html_format_i18n', $row[$title] ) ) : '&nbsp;' ).'</td>';
 					$html.= '</tr>';
 				}
 
@@ -1080,7 +1074,7 @@ class ShortCodes extends gNetwork\Module
 				foreach ( $data as $row ) {
 					$html.= '<tr>';
 					foreach ( $row as $cell )
-						$html.= '<td>'.( $cell ? esc_html( apply_filters( 'html_format_i18n', $cell ) ) : '&nbsp;' ).'</td>';
+						$html.= '<td>'.( $cell ? HTML::escape( apply_filters( 'html_format_i18n', $cell ) ) : '&nbsp;' ).'</td>';
 					$html.= '</tr>';
 				}
 			}
@@ -1196,7 +1190,7 @@ class ShortCodes extends gNetwork\Module
 
 		$title = sprintf( $args['title'], $args['to'] );
 		$html  = $content ? trim( $content ) : $title;
-		$html  = '<a href="#" class="audio-go-to-time" title="'.esc_attr( $title ).'" data-time="'.$args['to'].'" data-instance="'.$args['instance'].'">'.$html.'</a>';
+		$html  = '<a href="#" class="audio-go-to-time" title="'.HTML::escape( $title ).'" data-time="'.$args['to'].'" data-instance="'.$args['instance'].'">'.$html.'</a>';
 
 		Utilities::enqueueScript( 'front.audio-go' );
 

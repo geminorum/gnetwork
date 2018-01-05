@@ -97,7 +97,7 @@ class Widgets extends gNetwork\Module
 
 			echo '<p>'.HTML::tag( 'label', [
 				'for' => $id.'-'.$value_name,
-			], $html.'&nbsp;'.esc_html( $value_title ).' <code>'.$value_name.'</code>' ).'</p>';
+			], $html.'&nbsp;'.HTML::escape( $value_title ).' <code>'.$value_name.'</code>' ).'</p>';
 		}
 	}
 
@@ -154,7 +154,7 @@ class Widgets extends gNetwork\Module
 
 					echo '<p>'.HTML::tag( 'label', [
 						'for' => $id.'-'.$context.'-'.$value_name,
-					], $html.'&nbsp;'.esc_html( wp_strip_all_tags( $widget['title'] ) ).' <code>'.$value_name.'</code>' ).'</p>';
+					], $html.'&nbsp;'.HTML::escape( wp_strip_all_tags( $widget['title'] ) ).' <code>'.$value_name.'</code>' ).'</p>';
 				}
 			}
 		}

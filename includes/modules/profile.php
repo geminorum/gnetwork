@@ -5,6 +5,7 @@ defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 use geminorum\gNetwork;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
+use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\HTTP;
 use geminorum\gNetwork\Core\WordPress;
 
@@ -290,7 +291,7 @@ class Profile extends gNetwork\Module
 
 			echo '<tr><th><label for="gmember-slug">'._x( 'Slug', 'Modules: Profile', GNETWORK_TEXTDOMAIN )
 				.'</label></th><td><input type="text" name="gmember_slug" id="gmember_slug" value="'
-				.esc_attr( $nicename ).'" class="regular-text" dir="ltr" /><p class="description">'.
+				.HTML::escape( $nicename ).'" class="regular-text" dir="ltr" /><p class="description">'.
 					_x( 'This will be used in the URL of the user\'s page.', 'Modules: Profile', GNETWORK_TEXTDOMAIN )
 				.'</p></td></tr>';
 
@@ -378,7 +379,7 @@ class Profile extends gNetwork\Module
 			echo '<tr><th><label for="custom_display_name">'
 				._x( 'Nickname for this site', 'Modules: Profile', GNETWORK_TEXTDOMAIN )
 				.'</label></th><td><input type="text" name="custom_display_name" id="custom_display_name" value="'
-				.( $name ? esc_attr( $name ) : '' )
+				.( $name ? HTML::escape( $name ) : '' )
 				.'" class="regular-text" /><p class="description">'
 					._x( 'This will be displayed as your name in this site only.', 'Modules: Profile', GNETWORK_TEXTDOMAIN )
 				.'</p></td></tr>';

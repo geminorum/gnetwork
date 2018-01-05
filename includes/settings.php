@@ -210,7 +210,7 @@ class Settings extends Core\Base
 		if ( is_null( $message ) )
 			$message = _x( 'Are you sure? This operation can not be undone.', 'Settings: Confirm', GNETWORK_TEXTDOMAIN );
 
-		return [ 'onclick' => sprintf( 'return confirm(\'%s\')', esc_attr( $message ) ) ];
+		return [ 'onclick' => sprintf( 'return confirm(\'%s\')', HTML::escape( $message ) ) ];
 	}
 
 	public static function submitButton( $name = 'submit', $text = NULL, $primary = FALSE, $atts = [] )
@@ -511,7 +511,7 @@ class Settings extends Core\Base
 
 		if ( $args['wrap'] ) {
 			if ( ! empty( $args['label_for'] ) )
-				echo '<tr class="'.$args['class'].'"><th scope="row"><label for="'.esc_attr( $args['label_for'] ).'">'.$args['title'].'</label></th><td>';
+				echo '<tr class="'.$args['class'].'"><th scope="row"><label for="'.HTML::escape( $args['label_for'] ).'">'.$args['title'].'</label></th><td>';
 			else
 				echo '<tr class="'.$args['class'].'"><th scope="row">'.$args['title'].'</th><td>';
 		}
@@ -532,8 +532,8 @@ class Settings extends Core\Base
 		if ( $args['id_name_cb'] ) {
 			list( $id, $name ) = call_user_func( $args['id_name_cb'], $args );
 		} else {
-			$id   = $args['id_attr'] ? $args['id_attr'] : ( $args['option_base'] ? $args['option_base'].'-' : '' ).$args['option_group'].'-'.esc_attr( $args['field'] );
-			$name = $args['name_attr'] ? $args['name_attr'] : ( $args['option_base'] ? $args['option_base'].'_' : '' ).$args['option_group'].'['.esc_attr( $args['field'] ).']';
+			$id   = $args['id_attr'] ? $args['id_attr'] : ( $args['option_base'] ? $args['option_base'].'-' : '' ).$args['option_group'].'-'.HTML::escape( $args['field'] );
+			$name = $args['name_attr'] ? $args['name_attr'] : ( $args['option_base'] ? $args['option_base'].'_' : '' ).$args['option_group'].'['.HTML::escape( $args['field'] ).']';
 		}
 
 		if ( isset( $args['options'][$args['field']] ) ) {
@@ -585,12 +585,12 @@ class Settings extends Core\Base
 				$html = HTML::tag( 'option', [
 					'value'    => '0',
 					'selected' => '0' == $value,
-				], esc_html( empty( $args['values'][0] ) ? $args['string_disabled'] : $args['values'][0] ) );
+				], HTML::escape( empty( $args['values'][0] ) ? $args['string_disabled'] : $args['values'][0] ) );
 
-				$html .= HTML::tag( 'option', [
+				$html.= HTML::tag( 'option', [
 					'value'    => '1',
 					'selected' => '1' == $value,
-				], esc_html( empty( $args['values'][1] ) ? $args['string_enabled'] : $args['values'][1] ) );
+				], HTML::escape( empty( $args['values'][1] ) ? $args['string_enabled'] : $args['values'][1] ) );
 
 				echo HTML::tag( 'select', [
 					'id'       => $id,
@@ -744,7 +744,7 @@ class Settings extends Core\Base
 
 						echo '<p>'.HTML::tag( 'label', [
 							'for' => $id.( is_null( $args['none_value'] ) ? '' : '-'.$args['none_value'] ),
-						], $html.'&nbsp;'.esc_html( $args['none_title'] ) ).'</p>';
+						], $html.'&nbsp;'.HTML::escape( $args['none_title'] ) ).'</p>';
 					}
 
 					foreach ( $args['values'] as $value_name => $value_title ) {
@@ -812,7 +812,7 @@ class Settings extends Core\Base
 
 						echo '<p>'.HTML::tag( 'label', [
 							'for' => $id.( is_null( $args['none_value'] ) ? '' : '-'.$args['none_value'] ),
-						], $html.'&nbsp;'.esc_html( $args['none_title'] ) ).'</p>';
+						], $html.'&nbsp;'.HTML::escape( $args['none_title'] ) ).'</p>';
 					}
 
 					foreach ( $args['values'] as $value_name => $value_title ) {
@@ -848,10 +848,10 @@ class Settings extends Core\Base
 						if ( is_null( $args['none_value'] ) )
 							$args['none_value'] = '0';
 
-						$html .= HTML::tag( 'option', [
+						$html.= HTML::tag( 'option', [
 							'value'    => $args['none_value'],
 							'selected' => $value == $args['none_value'],
-						], esc_html( $args['none_title'] ) );
+						], HTML::escape( $args['none_title'] ) );
 					}
 
 					foreach ( $args['values'] as $value_name => $value_title ) {
@@ -859,10 +859,10 @@ class Settings extends Core\Base
 						if ( in_array( $value_name, $exclude ) )
 							continue;
 
-						$html .= HTML::tag( 'option', [
+						$html.= HTML::tag( 'option', [
 							'value'    => $value_name,
 							'selected' => $value == $value_name,
-						], esc_html( $value_title ) );
+						], HTML::escape( $value_title ) );
 					}
 
 					echo HTML::tag( 'select', [
@@ -940,9 +940,9 @@ class Settings extends Core\Base
 
 				if ( ! empty( $pages ) ) {
 
-					$html .= HTML::tag( 'option', [
+					$html.= HTML::tag( 'option', [
 						'value' => $args['none_value'],
-					], esc_html( $args['none_title'] ) );
+					], HTML::escape( $args['none_title'] ) );
 
 					$html .= walk_page_dropdown_tree( $pages, ( isset( $query['depth'] ) ? $query['depth'] : 0 ), $query );
 
@@ -972,19 +972,19 @@ class Settings extends Core\Base
 				if ( is_null( $args['none_value'] ) )
 					$args['none_value'] = '0';
 
-				$html .= HTML::tag( 'option', [
+				$html.= HTML::tag( 'option', [
 					'value' => $args['none_value'],
-				], esc_html( $args['none_title'] ) );
+				], HTML::escape( $args['none_title'] ) );
 
 				foreach ( $args['values'] as $value_name => $value_title ) {
 
 					if ( in_array( $value_name, $exclude ) )
 						continue;
 
-					$html .= HTML::tag( 'option', [
+					$html.= HTML::tag( 'option', [
 						'value'    => $value_name,
 						'selected' => $value == $value_name,
-					], esc_html( translate_user_role( $value_title['name'] ) ) );
+					], HTML::escape( translate_user_role( $value_title['name'] ) ) );
 				}
 
 				echo HTML::tag( 'select', [
@@ -1010,10 +1010,10 @@ class Settings extends Core\Base
 						if ( in_array( $value_name, $exclude ) )
 							continue;
 
-						$html .= HTML::tag( 'option', [
+						$html.= HTML::tag( 'option', [
 							'value'    => $value_name,
 							'selected' => $value === $value_name,
-						], esc_html( $value_title ) );
+						], HTML::escape( $value_title ) );
 					}
 
 					echo HTML::tag( 'select', [
@@ -1039,10 +1039,10 @@ class Settings extends Core\Base
 
 				if ( ! is_null( $args['none_title'] ) ) {
 
-					$html .= HTML::tag( 'option', [
+					$html.= HTML::tag( 'option', [
 						'value'    => is_null( $args['none_value'] ) ? FALSE : $args['none_value'],
 						'selected' => $value == $args['none_value'],
-					], esc_html( $args['none_title'] ) );
+					], HTML::escape( $args['none_title'] ) );
 				}
 
 				foreach ( $args['values'] as $value_name => $value_title ) {
@@ -1050,10 +1050,10 @@ class Settings extends Core\Base
 					if ( in_array( $value_name, $exclude ) )
 						continue;
 
-					$html .= HTML::tag( 'option', [
+					$html.= HTML::tag( 'option', [
 						'value'    => $value_name,
 						'selected' => $value == $value_name,
-					], esc_html( sprintf( '%1$s (%2$s)', $value_title->display_name, $value_title->user_login ) ) );
+					], HTML::escape( sprintf( '%1$s (%2$s)', $value_title->display_name, $value_title->user_login ) ) );
 				}
 
 				echo HTML::tag( 'select', [
@@ -1080,10 +1080,10 @@ class Settings extends Core\Base
 					if ( in_array( $value_name, $exclude ) )
 						continue;
 
-					$html .= HTML::tag( 'option', [
+					$html.= HTML::tag( 'option', [
 						'value'    => $value_name,
 						'selected' => $value == $value_name,
-					], esc_html( $value_title ) );
+					], HTML::escape( $value_title ) );
 				}
 
 				echo HTML::tag( 'select', [
@@ -1145,7 +1145,7 @@ class Settings extends Core\Base
 
 					echo '<p>'.HTML::tag( 'label', [
 						'for' => $id.'-'.$value_name,
-					], $html.'&nbsp;'.esc_html( $value_title ) ).' &mdash; <code>'.$value_name.'</code>'.'</p>';
+					], $html.'&nbsp;'.HTML::escape( $value_title ) ).' &mdash; <code>'.$value_name.'</code>'.'</p>';
 				}
 
 			break;
@@ -1173,7 +1173,7 @@ class Settings extends Core\Base
 
 					echo '<p>'.HTML::tag( 'label', [
 						'for' => $id.'-'.$value_name,
-					], $html.'&nbsp;'.esc_html( $value_title ) ).' &mdash; <code>'.$value_name.'</code>'.'</p>';
+					], $html.'&nbsp;'.HTML::escape( $value_title ) ).' &mdash; <code>'.$value_name.'</code>'.'</p>';
 				}
 
 			break;

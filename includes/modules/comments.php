@@ -236,7 +236,7 @@ class Comments extends gNetwork\Module
 	{
 		if ( ! $comment->comment_type ) {
 
-			$nonce = esc_html( '_wpnonce='.wp_create_nonce( 'archive-comment_'.$comment->comment_ID ) );
+			$nonce = HTML::escape( '_wpnonce='.wp_create_nonce( 'archive-comment_'.$comment->comment_ID ) );
 
 			$actions['comment_archive'] = HTML::tag( 'a', [
 				'href'       => 'comment.php?c='.$comment->comment_ID.'&action=archive&'.$nonce,
@@ -245,7 +245,7 @@ class Comments extends gNetwork\Module
 
 		} else if ( $this->type_archived == $comment->comment_type ) {
 
-			$nonce = esc_html( '_wpnonce='.wp_create_nonce( 'archive-comment_'.$comment->comment_ID ) );
+			$nonce = HTML::escape( '_wpnonce='.wp_create_nonce( 'archive-comment_'.$comment->comment_ID ) );
 
 			$actions['comment_unarchive'] = HTML::tag( 'a', [
 				'href'       => 'comment.php?c='.$comment->comment_ID.'&action=unarchive&'.$nonce,

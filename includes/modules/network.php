@@ -221,7 +221,7 @@ class Network extends gNetwork\Module
 			return;
 
 		echo '<div class="gnetwork-admin-wrap-column -network -id">';
-			echo esc_html( $blog_id );
+			echo HTML::escape( $blog_id );
 		echo '</div>';
 	}
 }

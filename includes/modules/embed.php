@@ -181,7 +181,7 @@ class Embed extends gNetwork\Module
 			foreach ( $rss->get_items( 0, $count ) as $item ) {
 
 				$link  = esc_url( $item->get_link() );
-				$title = esc_html( trim( strip_tags( str_replace( [ "&amp;", "&laquo;", "&raquo;" ], [ "&", "«", "»" ], $item->get_title() ) ) ) );
+				$title = HTML::escape( trim( strip_tags( str_replace( [ "&amp;", "&laquo;", "&raquo;" ], [ "&", "«", "»" ], $item->get_title() ) ) ) );
 
 				if ( empty( $title ) )
 					$title = _x( 'Untitled', 'Modules: Embed: Item With No Title', GNETWORK_TEXTDOMAIN );

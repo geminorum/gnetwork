@@ -269,7 +269,7 @@ class Cron extends gNetwork\Module
 			} else {
 
 				$message = _x( 'While trying to spawn a call to the WP-Cron system, the following error occurred:', 'Modules: CRON', GNETWORK_TEXTDOMAIN );
-				$message.= '<br><br><strong>'.esc_html( $result->get_error_message() ).'</strong><br><br>';
+				$message.= '<br><br><strong>'.HTML::escape( $result->get_error_message() ).'</strong><br><br>';
 				$message.= _x( 'This is a problem with your installation.', 'Modules: CRON', GNETWORK_TEXTDOMAIN );
 
 				update_option( $this->hook( 'status' ), '<span class="-status -error">'.$message.'</span>' );

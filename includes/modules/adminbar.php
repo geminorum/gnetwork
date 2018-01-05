@@ -517,7 +517,7 @@ class AdminBar extends gNetwork\Module
 			'title' => self::getIcon( 'admin-links' ),
 			'href'  => $short,
 			'meta'  => [
-				'html'  => '<input class="shortlink-input" style="margin:2px 0 0 0;" type="text" readonly="readonly" value="'.esc_attr( $short ).'" />',
+				'html'  => '<input class="shortlink-input" style="margin:2px 0 0 0;" type="text" readonly="readonly" value="'.HTML::escape( $short ).'" />',
 				'title' => _x( 'Shortlink', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 			],
 		] );

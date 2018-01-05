@@ -229,7 +229,7 @@ class Debug extends gNetwork\Module
 						continue;
 
 					if ( strlen( $line ) > $length )
-						$line = substr( $line, 0, $length ).' <span title="'.esc_attr( $line ).'">[&hellip;]</span>';
+						$line = substr( $line, 0, $length ).' <span title="'.HTML::escape( $line ).'">[&hellip;]</span>';
 
 					$line = Utilities::highlightTime( $line, 1 );
 					$line = Utilities::highlightIP( $line );
@@ -542,7 +542,7 @@ class Debug extends gNetwork\Module
 				continue;
 
 			if ( $ver = phpversion( $ext ) )
-				$extensions[$ext] = 'v'.esc_attr( $ver );
+				$extensions[$ext] = 'v'.HTML::escape( $ver );
 			else
 				$extensions[$ext] = '';
 		}
