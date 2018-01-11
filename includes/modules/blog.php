@@ -7,6 +7,7 @@ use geminorum\gNetwork\Logger;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\Arraay;
+use geminorum\gNetwork\Core\Crypto;
 use geminorum\gNetwork\Core\Error;
 use geminorum\gNetwork\Core\HTTP;
 use geminorum\gNetwork\Core\URL;
@@ -46,6 +47,11 @@ class Blog extends gNetwork\Module
 			}
 
 		} else {
+
+			if ( $this->options['shortlink_numeric'] ) {
+				$this->action( 'template_redirect', 0, 5 );
+				$this->filter( 'pre_get_shortlink', 4 );
+			}
 
 			if ( $this->options['no_found_rows'] ) {
 				$this->filter( 'pre_get_posts' );
@@ -108,6 +114,8 @@ class Blog extends gNetwork\Module
 			'from_email'           => '',
 			'from_name'            => '',
 			'text_copyright'       => '',
+			'shortlink_numeric'    => '0',
+			'shortlink_type'       => 'numeric',
 		];
 	}
 
@@ -328,6 +336,23 @@ class Blog extends gNetwork\Module
 				'303' => '303 See Other',
 				'307' => '307 Temporary Redirect',
 				'308' => '308 Permanent Redirect',
+			],
+		];
+
+		$settings['_shortlinks'][] = [
+			'field'       => 'shortlink_numeric',
+			'title'       => _x( 'Numeric Shortlinks', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Adds support for numeric/alpha-numeric shortlinks.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+		];
+
+		$settings['_shortlinks'][] = [
+			'field'   => 'shortlink_type',
+			'type'    => 'select',
+			'title'   => _x( 'Shortlink Type', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'default' => 'numeric',
+			'values'  => [
+				'numeric'   => sprintf( _x( 'Numeric (%s)', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ), 'example.com/123' ),
+				'bijection' => sprintf( _x( 'Alpha-Numeric (%s)', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ), 'example.com/d3E' ),
 			],
 		];
 
@@ -605,6 +630,52 @@ class Blog extends gNetwork\Module
 		$instance->set_properties( [ 'form' => $form ] );
 
 		return $form;
+	}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// adopted from: Numeric Shortlinks v1.6.5 - 2018-01-11
+/// by Kaspars Dambis : http://kaspars.net
+/// @SOURCE: https://github.com/kasparsd/numeric-shortlinks
+
+	public function template_redirect()
+	{
+		global $wp;
+
+		if ( ! is_404() )
+			return;
+
+		// make sure that this is not a paginatad request
+		if ( 1 !== count( explode( '/', $wp->request ) ) )
+			return;
+
+		// get the trailing part of the request URL
+		$request = basename( $wp->request );
+
+		// get the trailing part of the URI
+		if ( 'bijection' == $this->options['shortlink_type'] )
+			$maybe_post_id = (int) Crypto::decodeBijection( $request );
+		else
+			$maybe_post_id = (int) $request;
+
+		// check if it is a valid post ID
+		if ( empty( $maybe_post_id ) || ! is_numeric( $maybe_post_id ) )
+			return;
+
+		if ( $permalink = get_permalink( $maybe_post_id ) )
+			WordPress::redirect( $permalink, 301 );
+	}
+
+	public function pre_get_shortlink( $return, $id, $context, $slugs )
+	{
+		if ( empty( $id ) && is_singular() )
+			$id = get_queried_object_id();
+
+		if ( 'bijection' == $this->options['shortlink_type'] )
+			$id = Crypto::encodeBijection( $id );
+
+		return empty( $id ) ? $return : home_url( '/'.$id );
 	}
 
 ////////////////////////////////////////////////////////////////////////////////
