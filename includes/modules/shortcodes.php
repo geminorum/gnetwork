@@ -1505,13 +1505,12 @@ class ShortCodes extends gNetwork\Module
 
 			// FIXME: must cache the term, not html
 			$this->people[$person] = HTML::tag( 'a', [
-				'href'        => get_term_link( $term, $term->taxonomy ),
-				'title'       => $name,
-				'data-toggle' => 'tooltip',
-				'class'       => [
-					'person-'.$term->slug,
-					'reference-people',
-					'tooltip',
+				'href'  => get_term_link( $term, $term->taxonomy ),
+				'title' => $content == $name ? FALSE : $name,
+				'class' => 'reference-people',
+				'data'  => [
+					'person' => $term->term_id,
+					'toggle' => 'tooltip',
 				],
 			], ( $content ? trim( strip_tags( $content ) ) : $name ) );
 		}
