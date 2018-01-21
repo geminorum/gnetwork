@@ -10,7 +10,7 @@ msgstr ""
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
 "Language-Team: geminorum\n"
-"X-Generator: Poedit 2.0.4\n"
+"X-Generator: Poedit 2.0.6\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language: fa_IR\n"
 "X-Poedit-Bookmarks: 109,-1,-1,-1,-1,-1,-1,-1,-1,-1\n"
@@ -23,11 +23,11 @@ msgstr "سند به‌روز شد. <a href=\"%s\">دریافت سند</a>"
 
 #: includes/class-wp-document-revisions-admin.php:138
 msgid "Custom field updated."
-msgstr ""
+msgstr "زمینه‌های دل‌خواه به‌روز شد."
 
 #: includes/class-wp-document-revisions-admin.php:139
 msgid "Custom field deleted."
-msgstr ""
+msgstr "زمینه‌های دل‌خواه حذف شد."
 
 #: includes/class-wp-document-revisions-admin.php:140
 msgid "Document updated."
@@ -46,8 +46,7 @@ msgid "Document saved."
 msgstr "سند ذخیره شد."
 
 #: includes/class-wp-document-revisions-admin.php:147
-msgid ""
-"Document submitted. <a target=\"_blank\" href=\"%s\">Download document</a>"
+msgid "Document submitted. <a target=\"_blank\" href=\"%s\">Download document</a>"
 msgstr ""
 
 #: includes/class-wp-document-revisions-admin.php:149
@@ -120,10 +119,10 @@ msgstr "انتشار اسناد"
 
 #: includes/class-wp-document-revisions-admin.php:211
 msgid ""
-"By default, uploaded documents are only accessible to logged in users. "
-"Documents can be published, thus making them accessible to the world, by "
-"toggling their visibility in the \"Publish\" box in the top right corner. Any "
-"document marked as published will be accessible to anyone with the proper URL."
+"By default, uploaded documents are only accessible to logged in users. Documents "
+"can be published, thus making them accessible to the world, by toggling their "
+"visibility in the \"Publish\" box in the top right corner. Any document marked "
+"as published will be accessible to anyone with the proper URL."
 msgstr ""
 
 #: includes/class-wp-document-revisions-admin.php:214,
@@ -139,8 +138,7 @@ msgstr ""
 
 #: includes/class-wp-document-revisions-admin.php:216
 msgid ""
-"To add a new document, click <strong>Add Document</strong> on the left-hand "
-"side."
+"To add a new document, click <strong>Add Document</strong> on the left-hand side."
 msgstr ""
 
 #: includes/class-wp-document-revisions-admin.php:217
@@ -191,11 +189,11 @@ msgstr "دریافت"
 
 #: includes/class-wp-document-revisions-admin.php:372
 msgid ""
-"Checked in <abbr class=\"timestamp\" title=\"%1$s\" id=\"%2$s\">%3$s</abbr> "
-"ago by %4$s"
+"Checked in <abbr class=\"timestamp\" title=\"%1$s\" id=\"%2$s\">%3$s</abbr> ago "
+"by %4$s"
 msgstr ""
-"خروج از مخزن در <abbr class=\"timestamp\" title=\"%1$s\" id=\"%2$s\">%3$s</"
-"abbr> پیش، توسط %4$s"
+"بارگذاری شده در <abbr class=\"timestamp\" title=\"%1$s\" id=\"%2$s\">%3$s</abbr> "
+"پیش، توسط %4$s"
 
 #: includes/class-wp-document-revisions-admin.php:392
 msgid ""
@@ -203,7 +201,7 @@ msgid ""
 "allow other users to quickly and easily see what changes you made without "
 "needing to open the actual file."
 msgstr ""
-"چکیده رونوشت، یادداشت‌هایی برای ذخیره به همراه هر رونوشت است و به کاربران دیگر "
+"چکیده رونوشت، یادداشت‌هایی برای ذخیره به همراه هر رونوشت است که به دیگر کاربران "
 "این امکان را می‌دهد تا بدون بازکردن فایل، به سرعت از تغییرات اعمال شده توسط شما "
 "آگاه شوند."
 
@@ -243,8 +241,8 @@ msgstr "نامک سند"
 
 #: includes/class-wp-document-revisions-admin.php:526
 msgid ""
-"Document upload directory changed, but existing uploads may need to be moved "
-"to the new folder to ensure they remain accessible."
+"Document upload directory changed, but existing uploads may need to be moved to "
+"the new folder to ensure they remain accessible."
 msgstr ""
 
 #: includes/class-wp-document-revisions-admin.php:553
@@ -266,14 +264,14 @@ msgstr ""
 msgid ""
 "Directory in which to store uploaded documents. The default is in your "
 "<code>wp_content/uploads</code> folder (or another default uploads folder "
-"defined elsewhere), but it may be moved to a folder outside of the "
-"<code>htdocs</code> or <code>public_html</code> folder for added security."
+"defined elsewhere), but it may be moved to a folder outside of the <code>htdocs</"
+"code> or <code>public_html</code> folder for added security."
 msgstr ""
 
 #: includes/class-wp-document-revisions-admin.php:688
 msgid ""
-"You may optionally include the string <code>%site_id%</code> within the path "
-"to separate files by site."
+"You may optionally include the string <code>%site_id%</code> within the path to "
+"separate files by site."
 msgstr ""
 
 #: includes/class-wp-document-revisions-admin.php:701
@@ -282,8 +280,8 @@ msgstr "عنوان-آزمایشی-سند"
 
 #: includes/class-wp-document-revisions-admin.php:702
 msgid ""
-"\"Slug\" with which to prefix all URLs for documents (and the document "
-"archive). Default is <code>documents</code>."
+"\"Slug\" with which to prefix all URLs for documents (and the document archive). "
+"Default is <code>documents</code>."
 msgstr ""
 
 #: includes/class-wp-document-revisions-admin.php:785
@@ -291,8 +289,8 @@ msgid ""
 "You currently have this file checked out. No other user can edit this document "
 "so long as you remain on this page."
 msgstr ""
-"شما در حال حاضر این پرونده را از مخزن خارج کرده‌اید. تا زمانی که این برگه را "
-"باز نگه دارید، کاربر دیگری نمی‌تواند این سند را ویرایش کند."
+"شما در حال حاضر این پرونده را از مخزن خارج کرده‌اید. تا زمانی که این برگه را باز "
+"نگه دارید، کاربران دیگر امکان ویرایش این سند را ندارند."
 
 #: includes/class-wp-document-revisions-admin.php:800
 msgid "Feed Privacy"
@@ -356,8 +354,7 @@ msgid ""
 msgstr ""
 
 #: includes/class-wp-document-revisions-admin.php:1170
-msgid ""
-"Your lock on the document %s has been overridden. Any changes will be lost."
+msgid "Your lock on the document %s has been overridden. Any changes will be lost."
 msgstr ""
 
 #: includes/class-wp-document-revisions-admin.php:1171
@@ -550,7 +547,7 @@ msgstr "–رونوشت–"
 
 #: includes/class-wp-document-revisions.php:778
 msgid "You are not authorized to access that file."
-msgstr ""
+msgstr "شما اجازه لازم برای دسترسی به این پرونده را ندارید."
 
 #: includes/class-wp-document-revisions.php:1237
 msgid "Sorry, this is a private feed."

@@ -1,0 +1,446 @@
+# <!=Copyright (C) 2017 Elevate360
+# This file is distributed under the GNU General Public License v2 or later.=!>
+msgid ""
+msgstr ""
+"Project-Id-Version: Atlantic 1.2.0\n"
+"Report-Msgid-Bugs-To: https://github.com/elevate360/caspian/issues\n"
+"POT-Creation-Date: 2017-09-17 09:33:00+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2018-01-22 01:39+0330\n"
+"Language-Team: geminorum <contact@geminorum.ir>\n"
+"X-Generator: Poedit 2.0.6\n"
+"Last-Translator: geminorum <contact@geminorum.ir>\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Language: fa_IR\n"
+
+#: 404.php:17
+msgid "Oops! That page can&rsquo;t be found."
+msgstr ""
+
+#: 404.php:21
+msgid ""
+"It looks like nothing was found at this location. Maybe try one of the links "
+"below or a search?"
+msgstr ""
+
+#. translators: 1: title.
+#: comments.php:34
+msgid "One thought on &ldquo;%1$s&rdquo;"
+msgstr ""
+
+#: comments.php:50 comments.php:67
+msgid "&larr; Older comments"
+msgstr ""
+
+#: comments.php:51 comments.php:68
+msgid "Newer comments &rarr;"
+msgstr ""
+
+#: comments.php:73
+msgid "Comments are closed."
+msgstr ""
+
+#: footer.php:21
+msgid "Footer Social Links Menu"
+msgstr ""
+
+#: functions.php:75
+msgid "Primary"
+msgstr ""
+
+#: functions.php:76
+msgid "Social Link"
+msgstr ""
+
+#: functions.php:154
+msgid "Sidebar"
+msgstr ""
+
+#: functions.php:156 functions.php:166
+msgid "Add widgets here."
+msgstr ""
+
+#: functions.php:164
+msgid "Sidebar Shop"
+msgstr ""
+
+#: functions.php:261
+msgid "Sub Navigation"
+msgstr ""
+
+#: header.php:53
+msgid "Navigation"
+msgstr ""
+
+#: image.php:27
+msgid "&larr; previous image"
+msgstr ""
+
+#: image.php:30
+msgid "next image &rarr;"
+msgstr ""
+
+#: inc/back-compact.php:37 inc/back-compact.php:49 inc/back-compact.php:64
+msgid ""
+"Atlantic requires at least WordPress version 4.7. You are running version "
+"%s. Please upgrade and try again."
+msgstr ""
+
+#: inc/customizer/settings.php:19
+msgid "Theme Settings"
+msgstr ""
+
+#: inc/customizer/settings.php:44
+msgid "Primary Text Color"
+msgstr ""
+
+#: inc/customizer/settings.php:61
+msgid "Secondary Text Color"
+msgstr ""
+
+#: inc/customizer/settings.php:78
+msgid "Link Color"
+msgstr ""
+
+#: inc/customizer/settings.php:79
+msgid "Used for link, button, selection."
+msgstr ""
+
+#: inc/customizer/settings.php:96
+msgid "Hover Color"
+msgstr ""
+
+#: inc/customizer/settings.php:97
+msgid "Used for link:hover, button:hover."
+msgstr ""
+
+#: inc/customizer/settings.php:107
+msgid "Blog Setting"
+msgstr ""
+
+#: inc/customizer/settings.php:122
+msgid "Blog Layout"
+msgstr ""
+
+#: inc/customizer/settings.php:127
+msgid "1 Column"
+msgstr ""
+
+#: inc/customizer/settings.php:128 inc/customizer/settings.php:374
+msgid "2 Columns"
+msgstr ""
+
+#: inc/customizer/settings.php:142
+msgid "Max gallery item slideshow"
+msgstr ""
+
+#: inc/customizer/settings.php:143
+msgid "Post format gallery slideshow at archive page."
+msgstr ""
+
+#: inc/customizer/settings.php:164
+msgid "Excerpt length"
+msgstr ""
+
+#: inc/customizer/settings.php:185
+msgid "Posts Navigation"
+msgstr ""
+
+#: inc/customizer/settings.php:190
+msgid "Prev / Next"
+msgstr ""
+
+#: inc/customizer/settings.php:191
+msgid "Numeric"
+msgstr ""
+
+#: inc/customizer/settings.php:206
+msgid "Display Post Date"
+msgstr ""
+
+#: inc/customizer/settings.php:224
+msgid "Display Post Author"
+msgstr ""
+
+#: inc/customizer/settings.php:242
+msgid "Display Post Category"
+msgstr ""
+
+#: inc/customizer/settings.php:260
+msgid "Display Post Tag"
+msgstr ""
+
+#: inc/customizer/settings.php:278
+msgid "Display comments count"
+msgstr ""
+
+#: inc/customizer/settings.php:296
+msgid "Display Author biography at single post"
+msgstr ""
+
+#: inc/customizer/settings.php:307
+msgid "Footer"
+msgstr ""
+
+#: inc/customizer/settings.php:323
+msgid "Footer copyright"
+msgstr ""
+
+#: inc/customizer/settings.php:324
+msgid "Use [YEAR] for dynamic current year. Use [SITE] to render site link."
+msgstr ""
+
+#: inc/customizer/settings.php:342
+msgid "Enable return to top link"
+msgstr ""
+
+#: inc/customizer/settings.php:354
+msgid "WooCommerce"
+msgstr ""
+
+#: inc/customizer/settings.php:369
+msgid "Products columns"
+msgstr ""
+
+#: inc/customizer/settings.php:375
+msgid "3 Columns"
+msgstr ""
+
+#: inc/customizer/settings.php:376
+msgid "4 Columns"
+msgstr ""
+
+#: inc/customizer/settings.php:390
+msgid "Number of products per page"
+msgstr ""
+
+#: inc/customizer/settings.php:412
+msgid "WooCommerce Price Color"
+msgstr ""
+
+#: inc/customizer/settings.php:429
+msgid "WooCommerce Sale Color"
+msgstr ""
+
+#: inc/customizer/settings.php:446
+msgid "WooCommerce Stars/Rating Color"
+msgstr ""
+
+#: inc/icon-functions.php:37
+msgid "Please define default parameters in the form of an array."
+msgstr ""
+
+#: inc/icon-functions.php:42
+msgid "Please define an SVG icon filename."
+msgstr ""
+
+#: inc/template-functions.php:72
+msgid "Cancel reply"
+msgstr ""
+
+#. Translators: Used as a placeholder for untitled posts on non-singular views.
+#: inc/template-functions.php:131
+msgid "(Untitled)"
+msgstr "(بدون عنوان)"
+
+#. translators: %s: Name of current post
+#: inc/template-functions.php:161
+msgid ""
+"Continue reading<span class=\"screen-reader-text\"> \"%s\"</span> &rarr;"
+msgstr "ادامه<span class=\"screen-reader-text\"> \"%s\"</span> &rarr;"
+
+#. translators: %s: Name of current post. Only visible to screen readers
+#: inc/template-tags.php:72 template-parts/content-page.php:38
+#: template-parts/content-quote.php:64
+msgid "Edit <span class=\"screen-reader-text\">%s</span>"
+msgstr "ویرایش<span class=\"screen-reader-text\"> %s</span>"
+
+#. translators: used between list items, there is a space after the comma
+#: inc/template-tags.php:96
+msgid ", "
+msgstr ""
+
+#. translators: 1: list of categories.
+#: inc/template-tags.php:99
+msgid "Posted in"
+msgstr ""
+
+#. translators: 1: list of tags.
+#: inc/template-tags.php:108
+msgid "Tagged"
+msgstr ""
+
+#. translators: %s: post title
+#: inc/template-tags.php:121
+msgid "Leave a Comment<span class=\"screen-reader-text\"> on %s</span>"
+msgstr ""
+
+#: inc/template-tags.php:178
+msgid "&larr; Older posts"
+msgstr ""
+
+#: inc/template-tags.php:179
+msgid "Newer posts &rarr;"
+msgstr ""
+
+#: inc/template-tags.php:183
+msgid "Previous Page"
+msgstr ""
+
+#: inc/template-tags.php:184
+msgid "Next Page"
+msgstr ""
+
+#: inc/template-tags.php:185
+msgid "Page"
+msgstr ""
+
+#: inc/template-tags.php:198
+msgid "Copyright &copy; %1$s %2$s. Proudly powered by %3$s."
+msgstr ""
+
+#: inc/template-tags.php:199 inc/template-tags.php:208
+msgid "Y"
+msgstr ""
+
+#: inc/template-tags.php:226
+msgid "Theme design by %s."
+msgstr ""
+
+#. translators: %s: search query.
+#: search.php:21
+msgid "Search Results for: %s"
+msgstr ""
+
+#: single.php:25
+msgid "<span>&larr; previous post</span> %title"
+msgstr ""
+
+#: single.php:26
+msgid "<span>next post &rarr;</span> %title"
+msgstr ""
+
+#: single.php:27
+msgid "Continue Reading"
+msgstr "ادامه"
+
+#: template-parts/biography.php:11
+msgid "About The Author"
+msgstr ""
+
+#. translators: %s: Name of current post. Only visible to screen readers
+#: template-parts/content-audio.php:44 template-parts/content-gallery.php:64
+#: template-parts/content-link.php:36 template-parts/content-quote.php:32
+#: template-parts/content-quote.php:80 template-parts/content-video.php:44
+#: template-parts/content.php:37
+msgid "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
+msgstr "ادامه<span class=\"screen-reader-text\"> \"%s\"</span>"
+
+#: template-parts/content-audio.php:55 template-parts/content-gallery.php:75
+#: template-parts/content-image.php:32 template-parts/content-link.php:47
+#: template-parts/content-page.php:25 template-parts/content-quote.php:43
+#: template-parts/content-quote.php:91 template-parts/content-video.php:55
+#: template-parts/content.php:48
+msgid "Pages:"
+msgstr ""
+
+#: template-parts/content-none.php:14
+msgid "Nothing Found"
+msgstr ""
+
+#. translators: 1: link to WP admin new post page.
+#: template-parts/content-none.php:25
+msgid ""
+"Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+msgstr ""
+
+#: template-parts/content-none.php:38
+msgid ""
+"Sorry, but nothing matched your search terms. Please try again with some "
+"different keywords."
+msgstr ""
+
+#: template-parts/content-none.php:44
+msgid ""
+"It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps "
+"searching can help."
+msgstr ""
+
+#: template-parts/skip-links.php:10
+msgid "Skip to navigation"
+msgstr ""
+
+#: template-parts/skip-links.php:13
+msgid "Skip to content"
+msgstr ""
+
+#: template-parts/skip-links.php:16
+msgid "Skip to Footer"
+msgstr ""
+
+#. Theme Name of the plugin/theme
+msgid "Atlantic"
+msgstr ""
+
+#. Theme URI of the plugin/theme
+msgid "http://atlantic.elevate360.com.au/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Atlantic is for the creatives out there looking to give their creations the "
+"platform they deserve. Photographers, bloggers, videographers and artists "
+"alike will find Atlantic can not only mimic the style of their content but "
+"contribute to the design aesthetic you have in mind. Atlantic is a free high "
+"res photography blog theme for WordPress which understands the importance of "
+"presentation, offering a pixel perfect platform for your content. Atlantic "
+"serves as a digital frame for your photos. This theme compliments images "
+"that are large in scope, detailed in their display and ambitious in their "
+"composition. Each image is given its opportunity to shine unambiguously with "
+"Atlantic. This customizable theme can be changed to suit the individual "
+"style of each collection. Atlantic gives control to the user with domain "
+"over image and video sizes; selectable colours and fonts; as well as further "
+"customization opportunities with CSS."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Elevate360"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://elevate360.com.au"
+msgstr ""
+
+#. Template Name of the plugin/theme
+msgid "Canvas"
+msgstr ""
+
+#. translators: 1: comment count number, 2: title.
+#: comments.php:40
+msgctxt "comments title"
+msgid "%1$s thought on &ldquo;%2$s&rdquo;"
+msgid_plural "%1$s thoughts on &ldquo;%2$s&rdquo;"
+msgstr[0] ""
+msgstr[1] ""
+
+#. Translators: If there are characters in your language that are not supported
+#. by Source Code Pro, translate this to 'off'. Do not translate into your own
+#. language.
+#: functions.php:187
+msgctxt "Source Code Pro font: on or off"
+msgid "on"
+msgstr ""
+
+#. translators: %s: post author.
+#: inc/template-tags.php:62
+msgctxt "post author"
+msgid "by %s"
+msgstr ""
+
+#. translators: used between list items, there is a space after the comma
+#: inc/template-tags.php:105
+msgctxt "list item separator"
+msgid ", "
+msgstr ""

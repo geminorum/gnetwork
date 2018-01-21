@@ -1,12 +1,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Google Analytics Dashboard for WP\n"
-"PO-Revision-Date: 2017-07-12 00:31+0430\n"
+"PO-Revision-Date: 2018-01-22 01:38+0330\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 2.0.2\n"
+"X-Generator: Poedit 2.0.6\n"
 "Language: fa_IR\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "POT-Creation-Date: \n"
@@ -568,7 +568,7 @@ msgstr "محل"
 #: admin/setup.php:171 admin/setup.php:189 admin/setup.php:273
 #: admin/setup.php:289 front/setup.php:81 front/setup.php:97 tools/gapi.php:356
 msgid "Bounce Rate"
-msgstr "نواخت بازگشت"
+msgstr "نرخ پرش"
 
 #: admin/setup.php:170 admin/setup.php:188 admin/setup.php:272
 #: admin/setup.php:288 front/setup.php:80 front/setup.php:96 tools/gapi.php:353
