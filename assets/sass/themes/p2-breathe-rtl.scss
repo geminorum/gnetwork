@@ -6,9 +6,8 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-@import '../modules/all';
-@import '../partials/base';
-@import '../partials/theme.fonts';
+@import "../modules/all";
+@import "../partials/base";
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 @include theme-fonts-Samim-CDN();
@@ -18,8 +17,12 @@ body.rtl {
   direction: rtl;
 }
 
-body, button, input, select, textarea {
-  font-family: $font-family-base;
+body,
+button,
+input,
+select,
+textarea {
+  font-family: $font-family-normal;
 }
 
 h1,
@@ -29,8 +32,8 @@ h4,
 h5,
 h6,
 .site-header .site-title {
-  font-weight: bold;
-  font-family: $font-family-head;
+  font-family: $font-family-bold;
+  font-weight: 600;
 }
 
 .content-area {
@@ -50,7 +53,9 @@ h6,
   float: right;
 }
 
-caption, th, td,
+caption,
+th,
+td,
 .site-header .hgroup,
 .site-header .site-title,
 .site-header .site-description {
@@ -113,20 +118,24 @@ article.page .entry-header .author-avatar {
     float: right;
     margin: 0 0 0 20px;
   }
+
   #masthead .hgroup {
     float: right;
   }
+
   #secondary {
     left: auto;
     right: -100%;
     box-shadow: 0 20px 0 0 rgba(0, 0, 0, 0.2);
   }
+
   body.responsive-show #secondary {
     left: auto;
     right: 0;
   }
+
   .navigation-main ul li {
-     float: none;
+    float: none;
     padding-left: 0 !important;
   }
 }

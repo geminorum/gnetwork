@@ -8,7 +8,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 @import "../modules/all";
 @import "../partials/base";
-@import "../partials/theme.fonts";
+////////////////////////////////////////////////////////////////////////////////
 @import "../partials/theme.typography";
 @import "../partials/theme.editorial";
 @import "../partials/theme.widgets";
@@ -21,7 +21,7 @@
 
 body.rtl {
   direction: rtl;
-  font-family: $font-family-base;
+  font-family: $font-family-normal;
 }
 
 h1,
@@ -31,12 +31,12 @@ h4,
 h5,
 h6,
 .main-navigation {
-  font-family: $font-family-head;
+  font-family: $font-family-bold;
   font-weight: 700;
 }
 
 p.site-title {
-  font-family: $font-family-head;
+  font-family: $font-family-bold;
   margin: 0;
 }
 
@@ -106,11 +106,11 @@ p.site-title {
 
 // http://stackoverflow.com/a/2610741
 *::-moz-placeholder {
-  font-family: $font-family-base !important;
+  font-family: $font-family-normal !important;
 }
 
 *::-webkit-input-placeholder {
-  font-family: $font-family-base !important;
+  font-family: $font-family-normal !important;
 }
 
 ////////////////////////////////////////////////////////////////////////////////

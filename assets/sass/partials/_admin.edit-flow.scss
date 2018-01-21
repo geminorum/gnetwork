@@ -3,6 +3,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// gNetwork Partials: Edit Flow -----------------------------------------------
 
+/*rtl:begin:ignore*/
+
 body.rtl {
   #dashboard-notepad {
     .submit #dashboard-notepad-last-updated {
@@ -46,22 +48,33 @@ body.rtl {
   }
 }
 
+/*rtl:end:ignore*/
+
 // .edit-flow-modules .edit-flow-module { float:right !important; }
 // .edit-flow-module .float-right { float:left;
 //   // margin-left:10px;
 //   }
 // .edit-flow-module-actions .enable-disable-edit-flow-module { float:left;}
 // .edit-flow-admin .credits { direction:ltr;}
-// .edit-flow-admin a.cancel-settings-link { margin-left:0 !important; margin-right:10px !important; }
+// .edit-flow-admin a.cancel-settings-link { margin-left:0 !important;
+// margin-right:10px !important; }
 //
 // #ef_editorial_meta h3 .postbox-title-action {
 //   right:75% !important;
 //   //left:30px !important;
 //   }
 // // #edit-flow-editorial-comments h3, #ef_editorial_meta h3
-// // { background-position: 99.5% 5px !important; padding-right:25px !important; padding-left:0 !important; }
+// // { background-position: 99.5% 5px !important;
+// padding-right:25px !important; padding-left:0 !important; }
 //
-// #ef_editorial_meta_meta_box div.ef_editorial_meta_date label:first-child { background-position:98% 2px !important; padding-right:20px !important; padding-left:0 !important; }
-// div#side-sortables .ef_editorial_meta_checkbox label span.description { float:left !important; }
-// div#side-sortables .ef_editorial_meta_checkbox input { margin-left:0 !important; margin-right: 4px !important; }
-// #ef_editorial_meta_meta_box div.ef_editorial_meta_location label:first-child, #ef_editorial_meta_meta_box div.ef_editorial_meta_date label:first-child { margin-left:0 !important; margin-right:2px !important; padding-left:0 !important; padding-right: 20px !important; }
+// #ef_editorial_meta_meta_box div.ef_editorial_meta_date label:first-child {
+// background-position:98% 2px !important; padding-right:20px !important;
+// padding-left:0 !important; }
+// div#side-sortables .ef_editorial_meta_checkbox label span.description {
+// float:left !important; }
+// div#side-sortables .ef_editorial_meta_checkbox input {
+// margin-left:0 !important; margin-right: 4px !important; }
+// #ef_editorial_meta_meta_box div.ef_editorial_meta_location label:first-child,
+// #ef_editorial_meta_meta_box div.ef_editorial_meta_date label:first-child {
+// margin-left:0 !important; margin-right:2px !important;
+// padding-left:0 !important; padding-right: 20px !important; }

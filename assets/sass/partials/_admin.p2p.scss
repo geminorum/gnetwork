@@ -27,14 +27,13 @@
   td.p2p-col-create .p2p-icon {
     padding-top: 3px !important;
 
+    /*rtl:begin:ignore*/
     body.rtl & {
-
-      /*rtl:begin:ignore*/
       float: right;
       margin: 0 0 0 6px;
-
-      /*rtl:end:ignore*/
     }
+
+    /*rtl:end:ignore*/
   }
 
   .p2p-search input {

@@ -7,6 +7,19 @@
   .inside {
     padding: 0;
   }
+
+  .-privacy-notice {
+    margin-bottom: 1em !important;
+    font-size: smaller;
+
+    a {
+      color: $gray-dark;
+
+      &:hover {
+        color: $gray-darker;
+      }
+    }
+  }
 }
 
 #gnetwork-dashboard-usermenu {

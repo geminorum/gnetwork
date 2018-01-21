@@ -8,7 +8,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 @import "../modules/all";
 @import "../partials/base";
-@import "../partials/theme.fonts";
+////////////////////////////////////////////////////////////////////////////////
 @import "../partials/theme.typography";
 @import "../partials/theme.editorial";
 @import "../partials/theme.widgets";
@@ -591,7 +591,7 @@ object {
 body {
   background: white;
   // font-family: "Open Sans", Arial, sans-serif;
-  font-family: $font-family-base;
+  font-family: $font-family-normal;
   font-size: 16px;
   line-height: 24px;
   font-weight: 400;
@@ -601,7 +601,7 @@ h1, h2, h3, .site-title, .grid .page-title, .grid article .entry-title, .js.grid
   font-size: 52px;
   line-height: 72px;
   // font-family: "PT Serif", Georgia, "Times New Roman", serif;
-  font-family: $font-family-head;
+  font-family: $font-family-bold;
   // font-weight: 300;
   font-weight: 700;
   margin-top: 24px;
@@ -614,7 +614,7 @@ h2, h3, .site-title, .grid .page-title, .grid article .entry-title, .js.grid art
 
 h3 {
   // font-family: "Open Sans", Arial, sans-serif;
-  font-family: $font-family-base;
+  font-family: $font-family-normal;
   font-weight: 700;
   font-size: 18px;
   line-height: 24px;
@@ -641,7 +641,7 @@ a, a:visited, a:link {
 
 .site-description {
   // font-family: "Open Sans", Arial, sans-serif;
-  font-family: $font-family-base;
+  font-family: $font-family-normal;
   font-size: 14px;
   line-height: 24px;
   margin: 0;
@@ -1007,7 +1007,7 @@ blockquote:before {
   margin-right: -40px;
   margin-top: 26px;
   // font-family: "PT Serif", Georgia, "Times New Roman", serif;
-  font-family: $font-family-head;
+  font-family: $font-family-bold;
   font-size: 64px;
   line-height: 16px; }
 
@@ -1093,7 +1093,7 @@ blockquote:before {
   .single .author time {
     font-size: 13px;
     // font-family: "Open Sans", Arial, sans-serif;
-    font-family: $font-family-base;
+    font-family: $font-family-normal;
     font-weight: normal; }
     .single .author time::before {
       content: ' / '; }
@@ -1251,7 +1251,7 @@ a.button,
 a.button-secondary {
   border: none;
   // font-family: "Open Sans", Arial, sans-serif;
-  font-family: $font-family-base;
+  font-family: $font-family-normal;
   font-size: 16px;
   padding: 12px 20px;
   cursor: pointer;
@@ -1424,7 +1424,7 @@ body.admin-bar .semicolon-anchor {
     .main-navigation .menu-toggle {
       display: block;
       // font-family: "Open Sans", Arial, sans-serif;
-      font-family: $font-family-base;
+      font-family: $font-family-normal;
       font-size: 16px;
       line-height: 52px;
       height: 60px;

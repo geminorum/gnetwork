@@ -8,7 +8,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 @import "../modules/all";
 @import "../partials/base";
-@import "../partials/theme.fonts";
+////////////////////////////////////////////////////////////////////////////////
 @import "../partials/theme.typography";
 @import "../partials/theme.editorial";
 @import "../partials/theme.widgets";
@@ -26,7 +26,7 @@ button,
 input,
 select,
 textarea {
-  font-family: $font-family-base;
+  font-family: $font-family-normal;
 }
 
 h1,
@@ -35,7 +35,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: $font-family-head;
+  font-family: $font-family-bold;
   font-weight: 700;
 }
 

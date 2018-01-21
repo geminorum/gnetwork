@@ -8,7 +8,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 @import "../modules/all";
 @import "../partials/base";
-@import "../partials/theme.fonts";
+////////////////////////////////////////////////////////////////////////////////
 @import "../partials/theme.typography";
 @import "../partials/theme.editorial";
 @import "../partials/theme.widgets";
@@ -17,9 +17,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-$font-family-base: "Noto Naskh Arabic", Tahoma, "Iranian Sans", serif;
-// $font-family-head: Arial, "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, sans-serif;
-$font-family-head: "Noto Naskh Arabic", Helvetica, sans-serif;
+$font-family-normal: "Noto Naskh Arabic", Tahoma, "Iranian Sans", serif;
+// $font-family-bold: Arial, "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, sans-serif;
+$font-family-bold: "Noto Naskh Arabic", Helvetica, sans-serif;
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -33,7 +33,7 @@ $font-family-head: "Noto Naskh Arabic", Helvetica, sans-serif;
 
 body {
   direction: rtl;
-  font-family: $font-family-base;
+  font-family: $font-family-normal;
   font-size: 14px;
   line-height: 1.6;
 }
@@ -44,7 +44,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: $font-family-head;
+  font-family: $font-family-bold;
   font-weight: 700;
 }
 
@@ -54,10 +54,10 @@ h6 {
 
 
 // body, form *, #respond #cancel-comment-reply-link {
-//   font-family: $font-family-base;
+//   font-family: $font-family-normal;
 // }
 // h1, h2, h3, #postbox label, #help dd, #main .postcontent h2 {
-//   font-family:$font-family-head;
+//   font-family:$font-family-bold;
 //   font-weight: 400;
 // }
 
@@ -122,7 +122,7 @@ h6 {
       font-weight: 700;
 
       a {
-        font:bold 12px/21px $font-family-base !important;
+        font:bold 12px/21px $font-family-normal !important;
       }
     }
 
@@ -181,7 +181,7 @@ h6 {
         width:98%;
       }
       option {
-        font: normal 14px/23px $font-family-base;
+        font: normal 14px/23px $font-family-normal;
       }
     }
   }
@@ -218,24 +218,24 @@ h6 {
 #header div small, #main h2, #main .postcontent h2,
 #postbox input#submit, #main button, #main input[type="submit"], #postbox input[type="submit"], #postbox button,
 #sidebar ul li h2, #searchform #searchsubmit
-{ font:bold 16px/10px $font-family-head; }
+{ font:bold 16px/10px $font-family-bold; }
 
 .main-navigation .menu li a {
-  font: bold 16px/34px $font-family-head;
+  font: bold 16px/34px $font-family-bold;
   // line-height: 35px;
 }
 
 #main .controls
-{ font: bold 14.6px/10px $font-family-head; left:5px; }
+{ font: bold 14.6px/10px $font-family-bold; left:5px; }
 
 #posttext_error {
-  font: normal 14px/23px $font-family-base !important;
+  font: normal 14px/23px $font-family-normal !important;
   // margin-top:-30px;
   // z-index:100;
 }
 
 .widget_categories select
-{ font:normal 14px/23px $font-family-base; }
+{ font:normal 14px/23px $font-family-normal; }
 
 #postbox div.avatar { float:right; margin-top:32px; }
 #postbox label#post-prompt { font-size:1.4em; padding: 5px; font-weight:bold; float:right;}
@@ -257,7 +257,7 @@ h6 {
 .commentcontent ul,
 .commentcontent ol { margin: 10px 25px 10px 0 !important; }
 
-.category-quote blockquote p, .format-quote blockquote p { font: bold 16px/26px $font-family-head !important; padding: 15px 20px 15px 10px; margin-bottom:0 !important;}
+.category-quote blockquote p, .format-quote blockquote p { font: bold 16px/26px $font-family-bold !important; padding: 15px 20px 15px 10px; margin-bottom:0 !important;}
 .category-quote blockquote cite, .format-quote blockquote cite { margin-left:10px; }
 .category-link .postcontent p, .format-link .postcontent p { text-align:left; direction:ltr; font-size:0.87em !important; }
 
@@ -279,7 +279,7 @@ h2 a.rsswidget img {vertical-align:middle; margin-left:5px; margin-top:-5px;}
 #searchform #searchsubmit { width: 35%; }
 #searchform #s { width: 52%; margin-left:5px;}
 
-.widget_tag_cloud .tagcloud { font-family: $font-family-head; font-weight:bold; font-size: 1.3em; }
+.widget_tag_cloud .tagcloud { font-family: $font-family-bold; font-weight:bold; font-size: 1.3em; }
 .widget_tag_cloud .tagcloud a { vertical-align: middle; }
 
 .widget_categories {}
@@ -307,7 +307,7 @@ h2 a.rsswidget img {vertical-align:middle; margin-left:5px; margin-top:-5px;}
 a:hover { border-bottom:none; }
 td.text {vertical-align:top;}
 
-.category-quote blockquote p { font:bold 16px/24px $font-family-head !important; padding:10px 15px; margin-left:5px;}
+.category-quote blockquote p { font:bold 16px/24px $font-family-bold !important; padding:10px 15px; margin-left:5px;}
 .category-quote blockquote cite { margin-left:10px; }
 
 .discussion p img {vertical-align:middle !important;}

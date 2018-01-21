@@ -8,7 +8,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 @import "../modules/all";
 @import "../partials/base";
-@import "../partials/theme.fonts";
+////////////////////////////////////////////////////////////////////////////////
 @import "../partials/theme.typography";
 @import "../partials/theme.editorial";
 @import "../partials/theme.widgets";
@@ -28,7 +28,7 @@ html .mce-content-body.rtl {
   max-width: 525px;
 
   * {
-    font-family: $font-family-base;
+    font-family: $font-family-normal;
     color: inherit;
     font-style: inherit;
     font-weight: inherit;
@@ -42,7 +42,7 @@ html .mce-content-body.rtl {
   h4,
   h5,
   h6 {
-    font-family: $font-family-head;
+    font-family: $font-family-bold;
   }
 
   ol,

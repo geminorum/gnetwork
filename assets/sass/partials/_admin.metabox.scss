@@ -7,7 +7,7 @@
   .hndle {
     .postbox-title-action {
       opacity: .4;
-      line-height: 1;
+      // line-height: 1;
       transition: all 0.1s ease;
       float: right;
 
@@ -17,8 +17,22 @@
       }
     }
 
+    .postbox-title-info {
+      cursor: help;
+      opacity: .6;
+      transition: all 0.1s ease;
+      color: $gray-light;
+
+      > span {
+        width: 16px;
+        height: 16px;
+        font-size: 16px;
+      }
+    }
+
     &:hover {
-      .postbox-title-action {
+      .postbox-title-action,
+      .postbox-title-info {
         opacity: 1;
         transition: all 0.3s ease;
         color: $gray-base;

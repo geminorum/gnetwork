@@ -3,6 +3,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// gNetwork Partials: RTL ALL -------------------------------------------------
 
+/*rtl:begin:ignore*/
+
 body.rtl {
   .wrap .add-new-h2,
   .wrap .add-new-h2:active,
@@ -53,33 +55,23 @@ body.rtl {
   }
 
   input[type="checkbox"]:checked:before {
-
-    /*rtl:ignore*/
     margin: -2px -3px 0 0;
   }
 
   #poststuff {
     #edit-slug-box {
-
-      /*rtl:ignore*/
       direction: ltr;
     }
 
     #sample-permalink {
-
-      /*rtl:ignore*/
       margin-right: 5px;
     }
 
     #editable-post-name input {
-
-      /*rtl:ignore*/
       margin: -3px 2px 0;
     }
 
     input#post_name {
-
-      /*rtl:ignore*/
       direction: ltr;
     }
   }
@@ -144,15 +136,11 @@ body.rtl {
 
   &.debug-bar-maximized {
     #querylist {
-
-      /*rtl:ignore*/
       direction: ltr;
     }
   }
 
   .debug-menu-target {
-
-    /*rtl:ignore*/
     direction: ltr !important;
   }
 
@@ -162,14 +150,10 @@ body.rtl {
 
   .form-table.permalink-structure {
     #permalink_structure {
-
-      /*rtl:begin:ignore*/
       float: right;
       margin: -4px 1px 0 0;
       padding: 3px 5px 2px 1px;
       border-left: none;
-
-      /*rtl:end:ignore*/
     }
 
     .available-structure-tags {
@@ -197,8 +181,6 @@ body.rtl {
   }
 
   .mce-menubtn.mce-fixed-width span {
-
-    /*rtl:ignore*/
     text-align: right;
   }
 
@@ -317,17 +299,30 @@ body.rtl {
     padding: 8px 5px 8px 15px;
   }
 
+  .imgedit-settings .imgedit-scale .nowrap,
+  .imgedit-settings .imgedit-crop-sel .nowrap,
+  .imgedit-settings .imgedit-crop-ratio .nowrap {
+    direction: ltr;
+    text-align: right;
+
+    // span.imgedit-scale-warn,
+    input[type="button"] {
+      float: left;
+    }
+  }
+
+  .imgedit-help p {
+    font-style: normal;
+    font-size: 0.89em;
+  }
+
   .edit-attachment-frame {
     .edit-media-header {
       .left {
-
-        /*rtl:ignore*/
         left: 51px;
       }
 
       .right {
-
-        /*rtl:ignore*/
         left: 102px;
       }
     }
@@ -372,6 +367,7 @@ body.rtl {
     }
   }
 
+  .imgedit-group-top > p > span,
   .misc-pub-section.misc-pub-filesize > strong,
   .misc-pub-section.misc-pub-dimensions > strong > span {
     // FIXME: make a mixin!
@@ -396,35 +392,25 @@ body.rtl {
   input#slug,
   input#tag-slug,
   input#user_login {
-
-    /*rtl:ignore*/
     direction: ltr;
   }
 
   html[dir="rtl"] & {
     .qm td,
     .qm th {
-
-      /*rtl:ignore*/
       text-align: left !important;
     }
   }
 
   input#adduser-email.ui-autocomplete-loading,
   input[type="email"].ui-autocomplete-loading {
-
-    /*rtl:ignore*/
     background-position: 99% center !important;
   }
 
   // only on user new page
   &.user-new-php {
     .ui-menu .ui-menu-item {
-
-      /*rtl:ignore*/
       direction: ltr;
-
-      /*rtl:ignore*/
       text-align: left;
     }
   }
@@ -435,3 +421,5 @@ body.rtl {
     float: right;
   }
 }
+
+/*rtl:end:ignore*/

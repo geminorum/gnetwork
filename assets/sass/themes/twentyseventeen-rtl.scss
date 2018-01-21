@@ -8,7 +8,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 @import "../modules/all";
 @import "../partials/base";
-@import "../partials/theme.fonts";
+////////////////////////////////////////////////////////////////////////////////
 @import "../partials/theme.typography";
 @import "../partials/theme.editorial";
 @import "../partials/theme.widgets";
@@ -25,7 +25,7 @@ html[lang="fa-IR"] {
   input,
   select,
   textarea {
-    font-family: $font-family-base;
+    font-family: $font-family-normal;
   }
 
   h1,
@@ -33,7 +33,7 @@ html[lang="fa-IR"] {
   h3,
   blockquote,
   #access a {
-    font-family: $font-family-head;
+    font-family: $font-family-bold;
     font-weight: 700;
   }
 }

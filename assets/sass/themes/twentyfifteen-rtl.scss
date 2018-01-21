@@ -8,7 +8,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 @import "../modules/all";
 @import "../partials/base";
-@import "../partials/theme.fonts";
+////////////////////////////////////////////////////////////////////////////////
 @import "../partials/theme.typography";
 @import "../partials/theme.editorial";
 @import "../partials/theme.widgets";
@@ -25,7 +25,7 @@ input,
 select,
 textarea,
 blockquote {
-  font-family: $font-family-base;
+  font-family: $font-family-normal;
 }
 
 h1,
@@ -34,7 +34,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: $font-family-head;
+  font-family: $font-family-bold;
   font-weight: 700;
 }
 
@@ -78,7 +78,7 @@ input[type="reset"],
 input[type="submit"],
 select,
 textarea {
-  font-family: $font-family-base;
+  font-family: $font-family-normal;
 }
 
 .widget-title,
@@ -88,11 +88,11 @@ textarea {
 
 // http://stackoverflow.com/a/2610741
 *::-moz-placeholder {
-  font-family: $font-family-base !important;
+  font-family: $font-family-normal !important;
 }
 
 *::-webkit-input-placeholder {
-  font-family: $font-family-base !important;
+  font-family: $font-family-normal !important;
 }
 
 ////////////////////////////////////////////////////////////////////////////////

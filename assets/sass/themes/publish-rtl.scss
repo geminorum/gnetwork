@@ -10,7 +10,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 @import "../modules/all";
 @import "../partials/base";
-@import "../partials/theme.fonts";
+////////////////////////////////////////////////////////////////////////////////
 @import "../partials/theme.typography";
 @import "../partials/theme.editorial";
 @import "../partials/theme.widgets";
@@ -29,7 +29,7 @@ input,
 select,
 textarea,
 blockquote {
-  font-family: $font-family-base;
+  font-family: $font-family-normal;
 }
 
 h1,
@@ -38,7 +38,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: $font-family-head;
+  font-family: $font-family-bold;
   font-weight: 700;
 }
 
@@ -69,22 +69,22 @@ blockquote {
 
 
 .site-title {
-  // font: bold 30px/35px $font-family-head;
+  // font: bold 30px/35px $font-family-bold;
 }
 
 .entry-title {
-  // font: bold 16.2px/21px $font-family-head;
+  // font: bold 16.2px/21px $font-family-bold;
 }
 
 .widget-area {
   .widget-title {
-    // font: bold 14.2px/18px $font-family-head;
+    // font: bold 14.2px/18px $font-family-bold;
   }
 }
 
 .entry-content {
   p {
-    // font: normal 14.4px/25.2px $font-family-base;
+    // font: normal 14.4px/25.2px $font-family-normal;
   }
 }
 
@@ -104,13 +104,13 @@ input[type="tel"],
 input[type="text"],
 select,
 textarea {
-  // font-family: $font-family-base;
-  // font: normal 12.3px $font-family-base;
+  // font-family: $font-family-normal;
+  // font: normal 12.3px $font-family-normal;
 }
 //{ font:normal 12.3px/14.8px "Droid Arabic Naskh", Tahoma, "Iranian Sans", verdana; }
 .entry-meta,
 .entry-meta a {
-  // font: normal 11.1px/16px $font-family-base;
+  // font: normal 11.1px/16px $font-family-normal;
 }
 
 .site-header a.site-logo {
