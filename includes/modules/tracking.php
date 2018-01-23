@@ -224,7 +224,7 @@ class Tracking extends gNetwork\Module
 		$src = URL::trail( $args['server'] ).$args['beacon'].'/'.$args['domain'].'/'.$args['page'];
 
 		if ( $args['badge'] )
-			$src .= '?'. $args['badge'];
+			$src.= '?'. $args['badge'];
 
 		$html = HTML::tag( 'img', [
 			'src' => $src,
@@ -273,11 +273,11 @@ class Tracking extends gNetwork\Module
 		if ( $this->options['ga_userid'] && is_user_logged_in() )
 			$ga .= "\t"."ga('set', '&uid', '".esc_js( wp_get_current_user()->user_login )."');"."\n";
 
-		$ga .= "\t"."ga('send', 'pageview');";
+		$ga.= "\t"."ga('send', 'pageview');";
 
 		// @REF: https://wp.me/p1wYQJ-5Xv
 		if ( defined( 'WPCF7_VERSION' ) )
-			$ga .= "\n\t"."document.addEventListener('wpcf7mailsent',function(e){ga('send','event','Contact Form','sent');},false);";
+			$ga.= "\n\t"."document.addEventListener('wpcf7mailsent',function(e){ga('send','event','Contact Form','sent');},false);";
 
 		$this->ga_code( $ga );
 
@@ -291,7 +291,7 @@ class Tracking extends gNetwork\Module
 	{
 		if ( $ga = $this->ga() ) {
 
-			$ga .= "ga('send',{hitType:'pageview',title:'login',page:location.pathname});";
+			$ga.= "ga('send',{hitType:'pageview',title:'login',page:location.pathname});";
 
 			$this->ga_code( $ga );
 		}
@@ -323,7 +323,7 @@ class Tracking extends gNetwork\Module
 			$iso = class_exists( __NAMESPACE__.'\\Locale' ) ? Locale::getISO() : 'en';
 
 			$platform = "window.___gcfg = {lang: '".esc_js( $iso )."'};";
-			$platform .= "(function(){var po=document.createElement('script');po.type='text/javascript';po.async=true;po.src='https://apis.google.com/js/platform.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(po,s);})();";
+			$platform.= "(function(){var po=document.createElement('script');po.type='text/javascript';po.async=true;po.src='https://apis.google.com/js/platform.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(po,s);})();";
 
 			HTML::wrapScript( $platform );
 

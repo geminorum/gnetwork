@@ -769,6 +769,10 @@ class Settings extends Core\Base
 						], $html.'&nbsp;'.$value_title ).'</p>';
 					}
 
+				} else if ( is_array( $args['values'] ) ) {
+
+					$args['description'] = $args['string_empty'];
+
 				} else {
 
 					$html = HTML::tag( 'input', [
@@ -851,7 +855,7 @@ class Settings extends Core\Base
 						$html.= HTML::tag( 'option', [
 							'value'    => $args['none_value'],
 							'selected' => $value == $args['none_value'],
-						], HTML::escape( $args['none_title'] ) );
+						], $args['none_title'] );
 					}
 
 					foreach ( $args['values'] as $value_name => $value_title ) {

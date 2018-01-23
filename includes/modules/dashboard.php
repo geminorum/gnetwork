@@ -270,7 +270,7 @@ class Dashboard extends gNetwork\Module
 			$content = apply_filters( 'privacy_on_link_text', __( 'Search Engines Discouraged' ) );
 			$attr    = '' === $title ? '' : " title='$title'";
 
-			$html.= "<p><a href='options-reading.php'$attr>$content</a></p>";
+			$html.= "<p class='-privacy-notice'><a href='options-reading.php'$attr>$content</a></p>";
 		}
 
 		if ( $html )

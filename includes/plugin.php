@@ -73,6 +73,7 @@ class Plugin
 			'core/base',
 
 			'core/arraay',
+			'core/crypto',
 			'core/date',
 			'core/error',
 			'core/exception',
