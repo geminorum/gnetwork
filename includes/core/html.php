@@ -26,8 +26,8 @@ class HTML extends Base
 			$content = Number::format( $number );
 
 		return '<a class="-tel" href="'.self::sanitizePhoneNumber( $number )
-				.'"'.( $title ? ' data-toggle="tooltip" title="'.self::escapeAttr( $title ).'"' : '' )
-				.' data-tel-number="'.self::escapeAttr( $number ).'">'
+				.'"'.( $title ? ' data-toggle="tooltip" title="'.self::escape( $title ).'"' : '' )
+				.' data-tel-number="'.self::escape( $number ).'">'
 				.'&#8206;'.$content.'&#8207;</a>';
 	}
 
@@ -94,7 +94,7 @@ class HTML extends Base
 
 	public static function inputHidden( $name, $value = '' )
 	{
-		echo '<input type="hidden" name="'.self::escapeAttr( $name ).'" value="'.self::escapeAttr( $value ).'" />';
+		echo '<input type="hidden" name="'.self::escape( $name ).'" value="'.self::escape( $value ).'" />';
 	}
 
 	// @REF: https://gist.github.com/eric1234/5802030
@@ -184,13 +184,13 @@ class HTML extends Base
 					foreach ( $att as $data_key => $data_val ) {
 
 						if ( is_array( $data_val ) )
-							$html .= ' data-'.$data_key.'=\''.wp_json_encode( $data_val ).'\'';
+							$html.= ' data-'.$data_key.'=\''.wp_json_encode( $data_val ).'\'';
 
 						else if ( FALSE === $data_val )
 							continue;
 
 						else
-							$html .= ' data-'.$data_key.'="'.self::escapeAttr( $data_val ).'"';
+							$html.= ' data-'.$data_key.'="'.self::escape( $data_val ).'"';
 					}
 
 					continue;
@@ -224,9 +224,9 @@ class HTML extends Base
 				$att = self::escapeURL( $att );
 
 			else
-				$att = self::escapeAttr( $att );
+				$att = self::escape( $att );
 
-			$html .= ' '.$key.'="'.trim( $att ).'"';
+			$html.= ' '.$key.'="'.trim( $att ).'"';
 		}
 
 		if ( FALSE === $content )
@@ -235,12 +235,18 @@ class HTML extends Base
 		return $html.'>';
 	}
 
-	// @SEE: `esc_attr()`
-	public static function escapeAttr( $text )
+	// @ref: `esc_html()`, `esc_attr()`
+	public static function escape( $text )
 	{
 		return Text::utf8Compliant( $text )
 			? Text::utf8SpecialChars( $text, ENT_QUOTES )
 			: '';
+	}
+
+	// FIXME: DEPRICIATED
+	public static function escapeAttr( $text )
+	{
+		return self::escape( $text );
 	}
 
 	public static function escapeURL( $url )
@@ -303,10 +309,10 @@ class HTML extends Base
 			$row = '<code title="%2$s">%1$s</code>';
 
 		if ( $first )
-			$html .= '<li class="-first">'.$first.'</li>';
+			$html.= '<li class="-first">'.$first.'</li>';
 
 		foreach ( (array) $array as $key => $value )
-			$html .= '<li>'.sprintf( $row, $key, self::sanitizeDisplay( $value ) ).'</li>';
+			$html.= '<li>'.sprintf( $row, $key, self::sanitizeDisplay( $value ) ).'</li>';
 
 		return $html.'</ul>';
 	}
@@ -324,12 +330,12 @@ class HTML extends Base
 		$html = '<table class="base-table-code'.( $reverse ? ' -reverse' : '' ).'">';
 
 		if ( FALSE !== $caption )
-			$html .= '<caption>'.$caption.'</caption>';
+			$html.= '<caption>'.$caption.'</caption>';
 
-		$html .= '<tbody>';
+		$html.= '<tbody>';
 
 		foreach ( (array) $array as $key => $value )
-			$html .= sprintf( $row, $key, self::sanitizeDisplay( $value ) );
+			$html.= sprintf( $row, $key, self::sanitizeDisplay( $value ) );
 
 		return $html.'</tbody></table>';
 	}
@@ -439,7 +445,7 @@ class HTML extends Base
 		$html = '';
 
 		foreach ( $subs as $slug => $page )
-			$html .= self::tag( 'a', array(
+			$html.= self::tag( 'a', array(
 				'class' => 'nav-tab '.$prefix.$slug.( $slug == $active ? ' nav-tab-active' : '' ),
 				'href'  => add_query_arg( 'sub', $slug, $uri ),
 			), $page );
@@ -457,7 +463,7 @@ class HTML extends Base
 		$html = '';
 
 		foreach ( $subs as $slug => $page )
-			$html .= self::tag( 'a', array(
+			$html.= self::tag( 'a', array(
 				'class' => 'nav-tab '.$prefix.$slug.( $slug == $active ? ' nav-tab-active' : '' ),
 				'href'  => '#'.$slug,
 			), $page );
@@ -492,7 +498,7 @@ class HTML extends Base
 				'content' => '',
 			), $tab_atts );
 
-			$navs .= self::tag( 'a', array(
+			$navs.= self::tag( 'a', array(
 				'href'  => $tab_args['link'],
 				'class' => $args['prefix'].' -nav'.( $tab_args['active'] ? ' '.$args['prefix'].'-active -active' : '' ),
 				'data'  => array(
@@ -507,14 +513,14 @@ class HTML extends Base
 
 				ob_start();
 					call_user_func_array( $tab_args['cb'], array( $tab, $tab_args, $args ) );
-				$content .= ob_get_clean();
+				$content.= ob_get_clean();
 
 			} else if ( $tab_args['content'] ) {
 				$content = $tab_args['content'];
 			}
 
 			if ( $content )
-				$contents .= self::tag( 'div', array(
+				$contents.= self::tag( 'div', array(
 					'class' => $args['prefix'].'-content'.( $tab_args['active'] ? ' '.$args['prefix'].'-content-active -active' : '' ).' -content',
 					'data'  => array(
 						'tab' => $tab,
@@ -626,14 +632,14 @@ class HTML extends Base
 				if ( is_array( $column ) ) {
 
 					if ( isset( $column['class'] ) )
-						$class .= ' '.self::prepClass( $column['class'] );
+						$class.= ' '.self::prepClass( $column['class'] );
 
 					if ( isset( $column['callback'] ) )
 						$callback = $column['callback'];
 
 					if ( isset( $column['actions'] ) ) {
 						$actions = $column['actions'];
-						$class .= ' has-row-actions';
+						$class.= ' has-row-actions';
 					}
 
 					// again override key using map
@@ -658,9 +664,9 @@ class HTML extends Base
 					else
 						$value = '';
 
-					$cell = 'th';
-					$class .= ' check-column';
-					$value = '<input type="checkbox" name="_cb[]" value="'.self::escapeAttr( $value ).'" class="-cb" />';
+					$cell  = 'th';
+					$class.= ' check-column';
+					$value = '<input type="checkbox" name="_cb[]" value="'.self::escape( $value ).'" class="-cb" />';
 
 				} else if ( is_array( $row ) ) {
 
@@ -737,10 +743,10 @@ class HTML extends Base
 			foreach ( $actions as $name => $action ) {
 				++$i;
 				$sep = $i == $count ? '' : ' | ';
-				$html .= '<span class="-action-'.$name.' '.$name.'">'.$action.$sep.'</span>';
+				$html.= '<span class="-action-'.$name.' '.$name.'">'.$action.$sep.'</span>';
 			}
 
-		$html .= '</div>';
+		$html.= '</div>';
 
 		if ( ! $echo )
 			return $html;
@@ -748,6 +754,7 @@ class HTML extends Base
 		echo $html;
 	}
 
+	// FIXME: must use internal `add_query_arg()` and remove `message`/`count` args
 	public static function tableNavigation( $pagination = array() )
 	{
 		$args = self::atts( array(
@@ -1022,7 +1029,7 @@ class HTML extends Base
 			return $html;
 
 		if ( ! is_null( $args['none_title'] ) )
-			$html .= self::tag( 'option', array(
+			$html.= self::tag( 'option', array(
 				'value'    => $args['none_value'],
 				'selected' => $args['selected'] == $args['none_value'],
 			), $args['none_title'] );
@@ -1044,7 +1051,7 @@ class HTML extends Base
 			else
 				$title = $value;
 
-			$html .= self::tag( 'option', array(
+			$html.= self::tag( 'option', array(
 				'value'    => $key,
 				'selected' => $args['selected'] == $key,
 			), $title );

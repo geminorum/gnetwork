@@ -26,6 +26,13 @@ class Text extends Base
 		// return preg_replace( '/(.*)([,،;؛]) (.*)/u', '$3'.$separator.'$1', $string ); // Wrong!
 	}
 
+	// @REF: http://php.net/manual/en/function.htmlspecialchars-decode.php#68962
+	// @REF: `htmlspecialchars_decode()`
+	public static function decodeHTML( $string )
+	{
+		return strtr( $string, array_flip( get_html_translation_table() ) );
+	}
+
 	// simpler version of `wpautop()`
 	// @REF: https://stackoverflow.com/a/5240825
 	// @SEE: https://stackoverflow.com/a/7409591
