@@ -47,6 +47,9 @@ class BuddyPress extends gNetwork\Module
 			$this->filter( 'bp_core_validate_user_signup' );
 			$this->action( 'bp_after_signup_profile_fields' );
 
+			$this->filter( 'bp_displayed_user_fullname', 1, 9 );
+			$this->filter( 'bp_get_member_name', 1, 9 );
+
 			if ( GNETWORK_BP_EXCLUDEUSERS )
 				$this->action( 'bp_ajax_querystring', 2, 20 );
 
@@ -82,6 +85,7 @@ class BuddyPress extends gNetwork\Module
 		return [
 			'complete_signup'  => '',
 			'open_directories' => '0',
+			'display_name'     => 'default',
 			'check_completed'  => '0',
 
 			'notification_defaults' => [],
@@ -112,6 +116,21 @@ class BuddyPress extends gNetwork\Module
 				],
 			],
 			'_xprofile' => [
+				[
+					'field'       => 'display_name',
+					'type'        => 'select',
+					'title'       => _x( 'Display Name', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Universal sidewide display name of the user.', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
+					'default'     => 'default',
+					'values'      => [
+						'default'         => _x( '&mdash; Default &mdash;', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
+						'first_last_name' => _x( 'First and Last Name', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
+						'username'        => _x( 'Username', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
+						'nickname'        => _x( 'Nickname', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
+						'first_name'      => _x( 'First Name', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
+						'last_name'       => _x( 'Last Name', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
+					],
+				],
 				[
 					'field'       => 'check_completed',
 					'title'       => _x( 'Check Completed', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
@@ -441,5 +460,67 @@ class BuddyPress extends gNetwork\Module
 			$preference = in_array( $setting, $this->options['notification_defaults'] ) ? 'yes' : 'no';
 			bp_update_user_meta( $user_id, 'notification_'.$setting, $preference );
 		}
+	}
+
+	public function bp_displayed_user_fullname( $default )
+	{
+		if ( ! buddypress()->displayed_user->userdata )
+			return $default;
+
+		buddypress()->displayed_user->userdata->id = buddypress()->displayed_user->userdata->ID;
+
+		return $this->display_name( buddypress()->displayed_user->userdata, $default );
+	}
+
+	public function bp_get_member_name( $fullname )
+	{
+		global $members_template;
+
+		if ( isset( $members_template->member ) )
+			return $this->display_name( $members_template->member, $fullname );
+
+		return $fullname;
+	}
+
+	private function display_name( $userdata, $fallback )
+	{
+		$name = NULL;
+
+		switch ( $this->options['display_name'] ) {
+
+			case 'default':
+
+				$name = $fallback;
+
+			break;
+			case 'first_last_name':
+
+				$name = sprintf( ' %s %s',
+					get_user_meta( $userdata->id, 'first_name', TRUE ),
+					get_user_meta( $userdata->id, 'last_name' , TRUE ) );
+
+			break;
+			case 'username':
+
+				$name = $user->user_login;
+
+			break;
+			case 'first_name':
+
+				$name = get_user_meta( $userdata->id, 'first_name', TRUE );
+
+			break;
+			case 'last_name':
+
+				$name = get_user_meta( $userdata->id, 'last_name', TRUE );
+
+			break;
+			case 'nickname':
+			default:
+
+				$name = get_user_meta( $userdata->id, 'nickname', TRUE );
+		}
+
+		return $name ?: $fallback;
 	}
 }
