@@ -414,13 +414,23 @@ class Debug extends gNetwork\Module
 		echo HTML::tableCode( $summary, FALSE, $caption );
 	}
 
-	public static function wpUploadDIR()
+	public static function summaryUpload()
 	{
-		$upload_dir = wp_upload_dir();
-		unset( $upload_dir['error'], $upload_dir['subdir'] );
+		$info = [
+			'wp_max_upload_size()'     => File::formatSize( wp_max_upload_size() ).' = '.wp_max_upload_size(),
+			'option: max_file_size'    => get_option( 'max_file_size' ),
+			'ini: upload_max_filesize' => ini_get( 'upload_max_filesize' ).' = '.wp_convert_hr_to_bytes( ini_get( 'upload_max_filesize' ) ),
+			'ini: post_max_size'       => ini_get( 'post_max_size' ).' = '.wp_convert_hr_to_bytes( ini_get( 'post_max_size' ) ),
+		];
+
+		$upload = wp_upload_dir();
+		unset( $upload['error'], $upload['subdir'] );
+
+		foreach ( $upload as $key => $val )
+			$info['wp_upload: '.$key] = $val;
 
 		echo '<div class="wrap -wrap" dir="ltr">';
-			echo HTML::tableCode( $upload_dir );
+			echo HTML::tableCode( $info );
 		echo '</div>';
 	}
 

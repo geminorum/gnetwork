@@ -288,8 +288,8 @@ class Admin extends gNetwork\Module
 			];
 
 			$tabs['upload'] = [
-				'title' => _x( 'Upload Directories', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ),
-				'cb'    => [ __NAMESPACE__.'\\Debug', 'wpUploadDIR' ],
+				'title' => _x( 'Post & Uploads', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ),
+				'cb'    => [ __NAMESPACE__.'\\Debug', 'summaryUpload' ],
 			];
 		}
 
