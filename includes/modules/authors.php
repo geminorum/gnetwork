@@ -17,7 +17,7 @@ class Authors extends gNetwork\Module
 	{
 		$this->action( 'init', 0, 8 );
 
-		if ( WordPress::getSiteUserID() && $this->options['siteuser_as_default'] && is_admin() )
+		if ( gNetwork()->user() && $this->options['siteuser_as_default'] && is_admin() )
 			$this->filter( 'wp_insert_post_data', 2, 9 );
 	}
 
@@ -53,7 +53,7 @@ class Authors extends gNetwork\Module
 
 	public function settings_sidebox( $sub, $uri )
 	{
-		if ( $user = WordPress::getSiteUserID() )
+		if ( $user = gNetwork()->user() )
 			HTML::desc( sprintf( _x( 'Network Site User Is %s', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
 				HTML::link( get_userdata( $user )->display_name, WordPress::getUserEditLink( $user ), TRUE ) ) );
 
@@ -94,7 +94,7 @@ class Authors extends gNetwork\Module
 				'field'     => 'to_user_id',
 				'name_attr' => 'to_user_id',
 				'values'    => $users,
-				'default'   => WordPress::getSiteUserID(),
+				'default'   => gNetwork()->user(),
 			] );
 
 			echo '&nbsp;&mdash;&nbsp;'._x( 'on', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ).'&nbsp;&mdash;&nbsp;';
@@ -124,7 +124,7 @@ class Authors extends gNetwork\Module
 			if ( empty( $_POST['from_user_id'] ) || 'none' == $_POST['from_user_id'] )
 				return;
 
-			$to_user  = isset( $_POST['to_user_id'] ) ? intval( $_POST['to_user_id'] ) : WordPress::getSiteUserID( TRUE );
+			$to_user  = isset( $_POST['to_user_id'] ) ? intval( $_POST['to_user_id'] ) : gNetwork()->user( TRUE );
 			$posttype = isset( $_POST['on_post_type'] ) ? $_POST['on_post_type'] : 'post';
 
 			if ( $_POST['from_user_id'] == $to_user )
@@ -246,7 +246,7 @@ class Authors extends gNetwork\Module
 
 			if ( 'auto-draft' == $postarr['post_status']
 				&& $user_ID == $postarr['post_author'] )
-					$data['post_author'] = WordPress::getSiteUserID();
+					$data['post_author'] = gNetwork()->user();
 		}
 
 		return $data;

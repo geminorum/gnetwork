@@ -211,21 +211,11 @@ class WordPress extends Base
 		return URL::prepTitle( get_option( 'home' ), $slash );
 	}
 
-	// FIXME: as option on user module
+	// DEPRECATED
 	public static function getSiteUserID( $fallback = FALSE )
 	{
-		if ( defined( 'GNETWORK_SITE_USER_ID' ) && GNETWORK_SITE_USER_ID )
-			return intval( GNETWORK_SITE_USER_ID );
-
-		if ( function_exists( 'gtheme_get_option' ) ) {
-			if ( $gtheme_user = gtheme_get_option( 'default_user', 0 ) )
-				return intval( $gtheme_user );
-		}
-
-		if ( $fallback )
-			return intval( get_current_user_id() );
-
-		return 0;
+		self::__dep();
+		return gNetwork()->user( $fallback );
 	}
 
 	public static function superAdminOnly()

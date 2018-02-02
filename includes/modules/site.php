@@ -204,8 +204,8 @@ class Site extends gNetwork\Module
 	{
 		switch_to_blog( $blog_id );
 
-		if ( $site_user_id = WordPress::getSiteUserID() )
-			add_user_to_blog( $blog_id, $site_user_id, GNETWORK_SITE_USER_ROLE );
+		if ( $site_user_id = gNetwork()->user() )
+			add_user_to_blog( $blog_id, $site_user_id, gNetwork()->option( 'site_user_role', 'user', 'editor' ) );
 
 		$new_blog_options = $this->filters( 'new_blog_options', [
 			'blogdescription'        => '',

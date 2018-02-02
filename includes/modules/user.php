@@ -85,6 +85,8 @@ class User extends gNetwork\Module
 	public function default_options()
 	{
 		return [
+			'site_user_id'    => '0', // GNETWORK_SITE_USER_ID
+			'site_user_role'  => 'editor', // GNETWORK_SITE_USER_ROLE
 			'blog_roles'      => '0',
 			'admin_user_edit' => '0',
 			'contact_methods' => '1',
@@ -105,6 +107,27 @@ class User extends gNetwork\Module
 	{
 		return [
 			'_general' => [
+				[
+					'field'       => 'site_user_id',
+					'type'        => 'number',
+					'title'       => _x( 'Site User ID', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'ID of site user for the network.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
+					'after'       => Settings::fieldAfterIcon( network_admin_url( 'user-edit.php?user_id='.$this->options['site_user_id'], FALSE, 'admin-users' ) ),
+				],
+				[
+					'field'       => 'site_user_role',
+					'type'        => 'select',
+					'title'       => _x( 'Site User Role', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Default site user role for new sites on the network.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
+					'default'     => 'editor',
+					'values'      => [
+						'administrator' => _x( 'Administrator', 'User role' ),
+						'editor'        => _x( 'Editor', 'User role' ),
+						'author'        => _x( 'Author', 'User role' ),
+						'contributor'   => _x( 'Contributor', 'User role' ),
+						'subscriber'    => _x( 'Subscriber', 'User role' ),
+					],
+				],
 				[
 					'field'       => 'blog_roles',
 					'title'       => _x( 'Blog Roles', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
