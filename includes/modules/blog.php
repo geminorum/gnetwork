@@ -48,6 +48,9 @@ class Blog extends gNetwork\Module
 
 		} else {
 
+			$this->action( 'wp_head', 0, 12 );
+			$this->action( 'embed_head', 0, 12 );
+
 			if ( $this->options['shortlink_numeric'] ) {
 				$this->action( 'template_redirect', 0, 5 );
 				$this->filter( 'pre_get_shortlink', 4 );
@@ -57,11 +60,6 @@ class Blog extends gNetwork\Module
 				$this->filter( 'pre_get_posts' );
 				$this->filter( 'posts_clauses', 2 );
 			}
-
-			if ( $this->options['page_copyright']
-				|| $this->options['noindex_attachments']
-				|| $this->options['meta_revised'] )
-					$this->action( 'wp_head' );
 
 			if ( $this->options['page_404'] )
 				add_filter( '404_template', [ $this, 'custom_404_template' ] );
@@ -557,13 +555,32 @@ class Blog extends gNetwork\Module
 	public function wp_head()
 	{
 		if ( $this->options['page_copyright'] )
-			echo "\t".'<link rel="copyright" href="'.get_page_link( $this->options['page_copyright'] ).'" />'."\n";
+			echo '<link rel="copyright" href="'.get_page_link( $this->options['page_copyright'] ).'" />'."\n";
 
 		if ( $this->options['meta_revised'] && is_singular() )
-			echo "\t".'<meta name="revised" content="'.get_post_modified_time( 'D, m M Y G:i:s', TRUE ).'" />'."\n";
+			echo '<meta name="revised" content="'.get_post_modified_time( 'D, m M Y G:i:s', TRUE ).'" />'."\n";
 
 		if ( $this->options['noindex_attachments'] && is_attachment() )
-			echo "\t".'<meta name="robots" content="noindex,nofollow" />'."\n";
+			echo '<meta name="robots" content="noindex,nofollow" />'."\n";
+
+		// @REF: http://universaleditbutton.org/WordPress_plugin
+		if ( is_singular() && ( $edit = get_edit_post_link() ) )
+			echo '<link rel="alternate" type="application/x-wiki" title="'._x( 'Edit this page', 'Modules: Blog', GNETWORK_TEXTDOMAIN ).'" href="'.HTML::escapeURL( $edit ).'" />'."\n";
+
+		if ( defined( 'GNETWORK_DISABLE_FRONT_STYLES' )
+			&& GNETWORK_DISABLE_FRONT_STYLES )
+				return;
+
+		Utilities::linkStyleSheet( 'front.all' );
+	}
+
+	public function embed_head()
+	{
+		if ( defined( 'GNETWORK_DISABLE_FRONT_STYLES' )
+			&& GNETWORK_DISABLE_FRONT_STYLES )
+				return;
+
+		Utilities::linkStyleSheet( 'embed.all' );
 	}
 
 	public function posts_where( $where, $query )

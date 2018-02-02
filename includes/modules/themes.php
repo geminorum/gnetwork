@@ -46,9 +46,6 @@ class Themes extends gNetwork\Module
 			if ( $this->options['content_actions'] )
 				$this->filter( 'the_content', 1, 999 );
 
-			$this->action( 'wp_head', 0, 12 );
-			$this->action( 'embed_head', 0, 12 );
-
 			$this->filter( 'body_class', 2, 5 );
 			$this->filter( 'post_class', 3, 5 );
 
@@ -483,24 +480,6 @@ class Themes extends gNetwork\Module
 				} );
 			}
 		}
-	}
-
-	public function wp_head()
-	{
-		if ( defined( 'GNETWORK_DISABLE_FRONT_STYLES' )
-			&& GNETWORK_DISABLE_FRONT_STYLES )
-				return;
-
-		Utilities::linkStyleSheet( 'front.all' );
-	}
-
-	public function embed_head()
-	{
-		if ( defined( 'GNETWORK_DISABLE_FRONT_STYLES' )
-			&& GNETWORK_DISABLE_FRONT_STYLES )
-				return;
-
-		Utilities::linkStyleSheet( 'embed.all' );
 	}
 
 	public function isTheme( $template, $not_stylesheet = NULL )
