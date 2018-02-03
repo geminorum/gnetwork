@@ -21,9 +21,9 @@
   },
   "require": {
     "php": ">=5.4",
-    "composer/installers": "^1.4",
+    "composer/installers": "^1.5",
     "erusev/parsedown-extra": "^0.7.1",
-    "symfony/stopwatch": "^3.3",
+    "symfony/stopwatch": "^3.4",
     "parsecsv/php-parsecsv": "^0.4.5",
     "jbroadway/urlify": "^1.1",
     "analog/analog": "dev-master"
@@ -32,7 +32,7 @@
     "kint-php/kint": "^2.2",
     "mustache/mustache": "^2.12",
     "phelium/mysql-backup": "dev-master",
-    "picqer/php-barcode-generator": "^0.2.1",
+    "picqer/php-barcode-generator": "^0.2.2",
     "deviservi/nusoap": "^1.123",
     "tinify/tinify": "^1.5",
     "ricardoper/twitteroauth": "2.*",
@@ -44,7 +44,7 @@
     "vendor-dir": "assets/vendor",
     "vendor/bin": "assets/bin",
     "platform": {
-      "php": "5.6.31"
+      "php": "5.6.33"
     }
   }
 }
