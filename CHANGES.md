@@ -1,3 +1,28 @@
+### 3.7.0
+* main/logger: check for server address
+* main/module: default method for cron events
+* module/authors: check for edit user cap on sidebox info
+* module/blog: :new: optional no found rows setting
+* module/blog: :new: support for numeric shortlinks
+* module/blog: :new: support for universal edit button
+* module/buddypress: customized display name (from gMember)
+* module/cleanup: fewer hooks to avoid loading on front
+* module/dashboard: network signups/logins widgets (from gMember)
+* module/dashboard: spam count on right now widget
+* module/debug: closing db connection on shutdown
+* module/debug: more info on uploads
+* module/media: bypass cache on fallbacks
+* module/media: BibTeX mime
+* module/profile: new module (from gMember)
+* module/login: last logins/redirect logout/disabled notice (from gMember)
+* module/shortcodes: correct atts for people shortcode
+* module/themes: check for logged in user locale
+* module/themes: disable jquery migrate on admin
+* module/update: :new: first attempt on remote updates
+* module/uptime: limit logs on the widget
+* module/user: spam count/timestamps on admin listtable (from gMember)
+* module/user: setting ui for site user id/role
+
 ### 3.6.7
 * main/main: incorrect install notice for non multisite
 * main/main: check for min php
