@@ -866,7 +866,7 @@ class Settings extends Core\Base
 						$html.= HTML::tag( 'option', [
 							'value'    => $value_name,
 							'selected' => $value == $value_name,
-						], HTML::escape( $value_title ) );
+						], $value_title );
 					}
 
 					echo HTML::tag( 'select', [

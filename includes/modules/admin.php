@@ -288,7 +288,7 @@ class Admin extends gNetwork\Module
 			];
 
 			$tabs['upload'] = [
-				'title' => _x( 'Post & Uploads', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ),
+				'title' => _x( 'File & Upload', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ),
 				'cb'    => [ __NAMESPACE__.'\\Debug', 'summaryUpload' ],
 			];
 		}

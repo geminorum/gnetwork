@@ -9,6 +9,7 @@ use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\Arraay;
 use geminorum\gNetwork\Core\Crypto;
 use geminorum\gNetwork\Core\Error;
+use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\HTTP;
 use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
