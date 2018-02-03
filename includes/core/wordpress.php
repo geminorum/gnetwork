@@ -416,9 +416,12 @@ class WordPress extends Base
 
 	public static function getUserEditLink( $user_id, $extra = array() )
 	{
-		return add_query_arg( array_merge( array(
-			'user_id' => $user_id,
-		), $extra ), admin_url( 'user-edit.php' ) );
+		if ( current_user_can( 'edit_user', $user_id ) )
+			return add_query_arg( array_merge( array(
+				'user_id' => $user_id,
+			), $extra ), admin_url( 'user-edit.php' ) );
+
+		return FALSE;
 	}
 
 	public static function getAuthorEditHTML( $post_type, $author, $extra = array() )
