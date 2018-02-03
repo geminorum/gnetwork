@@ -39,7 +39,7 @@ if ( version_compare( GNETWORK_MIN_PHP, PHP_VERSION, '>=' ) ) {
 } elseif ( file_exists( GNETWORK_DIR . 'assets/vendor/autoload.php' ) ) {
 
 	require_once GNETWORK_DIR . 'assets/vendor/autoload.php';
-	// require_once GNETWORK_DIR . 'includes/plugin.php';
+	require_once GNETWORK_DIR . 'includes/plugin.php';
 
 	function gNetwork() {
 		return \geminorum\gNetwork\Plugin::instance();
