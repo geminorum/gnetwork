@@ -28,6 +28,9 @@ class Admin extends gNetwork\Module
 			$this->action( 'admin_menu', 0, 12 );
 			$this->action( 'admin_menu', 0, 999, 'late' );
 			$this->action( 'admin_enqueue_scripts', 0, 999 );
+
+			// hides network-active plugins alongside plugins active for the current site
+			$this->filter_false( 'show_network_active_plugins' );
 		}
 
 		$this->action( 'admin_print_styles', 0, 999 );
