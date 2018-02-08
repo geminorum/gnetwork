@@ -81,11 +81,10 @@ class Comments extends gNetwork\Module
 			}
 		}
 
-		if ( $this->options['archived_comments'] ) {
-			$this->action( 'pre_get_comments' );
-			$this->filter( 'wp_count_comments', 2, 1 );
-			$this->filter( 'pre_wp_update_comment_count_now', 3 );
-		}
+		// support for hidden types
+		$this->action( 'pre_get_comments' );
+		$this->filter( 'wp_count_comments', 2, 1 );
+		$this->filter( 'pre_wp_update_comment_count_now', 3 );
 
 		$this->filter( 'pre_comment_approved', 2, 99 );
 		$this->filter( 'add_comment_metadata', 5, 20 );
