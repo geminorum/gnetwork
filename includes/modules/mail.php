@@ -297,7 +297,7 @@ class Mail extends gNetwork\Module
 	{
 		$this->settings_form_before( $uri, $sub, 'bulk', FALSE );
 
-			if ( self::tableEmailLogs() )
+			if ( $this->tableEmailLogs() )
 				$this->settings_buttons( $sub );
 
 		$this->settings_form_after( $uri, $sub );
@@ -561,7 +561,7 @@ class Mail extends gNetwork\Module
 		return File::putHTAccessDeny( $path, FALSE );
 	}
 
-	private static function tableEmailLogs()
+	private function tableEmailLogs()
 	{
 		list( $logs, $pagination ) = self::getEmailLogs( self::limit(), self::paged() );
 
@@ -631,19 +631,24 @@ class Mail extends gNetwork\Module
 				'class'    => '-column-content',
 				'callback' => function( $value, $row, $column, $index ){
 					$content   = '';
-					$direction = isset( $row['rtl'] ) ? ' dir="rtl"' : '';
+					$direction = empty( $row['rtl'] ) ? '' : ' dir="rtl"';
 
-					if ( isset( $row['subject'] ) )
-						$content .= '<code>'._x( 'Subject', 'Modules: Mail: Email Logs Table Prefix', GNETWORK_TEXTDOMAIN ).'</code> <span'
+					if ( ! empty( $row['subject'] ) )
+						$content.= '<code>'._x( 'Subject', 'Modules: Mail: Email Logs Table Prefix', GNETWORK_TEXTDOMAIN ).'</code> <span'
 							.$direction.'>'.$row['subject'].'</span><hr />';
 
-					// FIXME: check headers for text/html and not escape!
+					if ( ! empty( $row['message'] ) ) {
 
-					if ( isset( $row['message'] ) )
-						$content .= '<div'.$direction.'>'
-							.wpautop( make_clickable( HTML::escapeTextarea( $row['message'] ) ) ).'</div>';
+						if ( $this->hasHeader( $row, 'Content-Type: text/html' ) )
+							$content.= '<div'.$direction.'>'.$row['message'].'</div>';
+						else
+							$content.= '<div'.$direction.'>'
+								.Text::autoP( make_clickable(
+									HTML::escapeTextarea( $row['message'] ) ) )
+								.'</div>';
+					}
 
-					return $content;
+					return $content ?: '&mdash;';
 				},
 			],
 		], $logs, [
@@ -652,5 +657,17 @@ class Mail extends gNetwork\Module
 			'title'      => HTML::tag( 'h3', sprintf( _x( 'Total %s Email Logs', 'Modules: Mail', GNETWORK_TEXTDOMAIN ), Number::format( $pagination['total'] ) ) ),
 			'pagination' => $pagination,
 		] );
+	}
+
+	private function hasHeader( $mail, $needle )
+	{
+		if ( empty( $mail['headers'] ) )
+			return FALSE;
+
+		foreach ( (array) $mail['headers'] as $header )
+			if ( Text::has( $header, $needle ) )
+				return TRUE;
+
+		return FALSE;
 	}
 }
