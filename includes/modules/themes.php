@@ -599,7 +599,9 @@ class Themes extends gNetwork\Module
 		if ( ! $post = get_post( $post_id ) )
 			return $classes;
 
-		if ( empty( trim( $post->post_title ) ) )
+		$title = trim( $post->post_title );
+
+		if ( empty( $title ) )
 			$classes[] = '-empty-title';
 
 		return $classes;
