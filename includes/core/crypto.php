@@ -12,10 +12,13 @@ class Crypto extends Base
 	public function encodeBijection( $id )
 	{
 		$slug = array();
+		$dic  = static::BIJECTION_DIC;
 
 		while ( $id > 0 ) {
 
-			$slug[] = static::BIJECTION_DIC[$id % static::BIJECTION_BASE];
+			$key = $id % static::BIJECTION_BASE;
+
+			$slug[] = $dic[$key];
 
 			$id = floor( $id / static::BIJECTION_BASE );
 		}
