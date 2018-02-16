@@ -484,11 +484,11 @@ class AdminBar extends gNetwork\Module
 		if ( is_admin() )
 			return;
 
-		$form  = '<form action="'.GNETWORK_SEARCH_URL.'" method="get" id="adminbarsearch">';
-		$form .= '<input class="adminbar-input" name="'.GNETWORK_SEARCH_QUERYID.'" id="adminbar-search" type="text" value="" maxlength="150" />';
-		$form .= '<label for="adminbar-search" class="screen-reader-text">'._x( 'Search', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ).'</label>';
-		$form .= '<input type="submit" class="adminbar-button" value="'._x( 'Search', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ).'"/>';
-		$form .= '</form>';
+		$form = '<form action="'.GNETWORK_SEARCH_URL.'" method="get" id="adminbarsearch">';
+		$form.= '<input class="adminbar-input" name="'.GNETWORK_SEARCH_QUERYID.'" id="adminbar-search" type="text" value="" maxlength="150" />';
+		$form.= '<label for="adminbar-search" class="screen-reader-text">'._x( 'Search', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ).'</label>';
+		$form.= '<input type="submit" class="adminbar-button" value="'._x( 'Search', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ).'"/>';
+		$form.= '</form>';
 
 		$wp_admin_bar->add_menu( [
 			'parent' => 'top-secondary',

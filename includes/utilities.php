@@ -659,13 +659,11 @@ class Utilities extends Core\Base
 		if ( ! $path )
 			return;
 
-		$log = '';
-
-		$log .= '['.gmdate( 'd-M-Y H:i:s e' ).'] '; // [03-Feb-2015 21:20:19 UTC]
-		$log .= $error.' ';
-		$log .= HTTP::IP( TRUE );
-		$log .= $message ? ' :: '.strip_tags( $message ) : '';
-		$log .= $extra ? ' :: '.$extra : '';
+		$log = '['.gmdate( 'd-M-Y H:i:s e' ).'] '; // [03-Feb-2015 21:20:19 UTC]
+		$log.= $error.' ';
+		$log.= HTTP::IP( TRUE );
+		$log.= $message ? ' :: '.strip_tags( $message ) : '';
+		$log.= $extra ? ' :: '.$extra : '';
 
 		error_log( $log."\n", 3, $path );
 	}

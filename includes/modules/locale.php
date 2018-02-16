@@ -215,11 +215,11 @@ class Locale extends gNetwork\Module
 			'addthis_advanced_settings' => 'page',
 
 			// [Google Analytics Dashboard for WP](https://wordpress.org/plugins/google-analytics-dashboard-for-wp/)
-			'gadash_settings'          => 'page',
-			'gadash_backend_settings'  => 'page',
-			'gadash_frontend_settings' => 'page',
-			'gadash_tracking_settings' => 'page',
-			'gadash_errors_debugging'  => 'page',
+			'gadwp_settings'          => 'page',
+			'gadwp_backend_settings'  => 'page',
+			'gadwp_frontend_settings' => 'page',
+			'gadwp_tracking_settings' => 'page',
+			'gadwp_errors_debugging'  => 'page',
 
 			// [bonny/WordPress-Simple-History: Track user changes in WordPress admin](https://github.com/bonny/WordPress-Simple-History)
 			// [See admin changes on your WordPress site with Simple History](https://simple-history.com/)

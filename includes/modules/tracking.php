@@ -271,7 +271,7 @@ class Tracking extends gNetwork\Module
 			return;
 
 		if ( $this->options['ga_userid'] && is_user_logged_in() )
-			$ga .= "\t"."ga('set', '&uid', '".esc_js( wp_get_current_user()->user_login )."');"."\n";
+			$ga.= "\t"."ga('set', '&uid', '".esc_js( wp_get_current_user()->user_login )."');"."\n";
 
 		$ga.= "\t"."ga('send', 'pageview');";
 

@@ -583,46 +583,52 @@ class Mail extends gNetwork\Module
 				'title'    => _x( 'Whom, When', 'Modules: Mail: Email Logs Table Column', GNETWORK_TEXTDOMAIN ),
 				'class'    => '-column-info',
 				'callback' => function( $value, $row, $column, $index ){
-					$info = '';
+					$html = '';
 
 					if ( isset( $row['to'] ) ) {
-
 						if ( is_array( $row['to'] ) ) {
+
 							foreach ( $row['to'] as $to )
-								$info .= HTML::mailto( $to ).' ';
+								$html.= HTML::mailto( $to ).' ';
 
 						} else if ( Text::has( $row['to'], ',' ) ) {
+
 							foreach ( explode( ',', $row['to'] ) as $to )
-								$info .= HTML::mailto( $to ).' ';
+								$html.= HTML::mailto( $to ).' ';
 
 						} else {
-							$info .= HTML::mailto( $row['to'] ).' ';
+
+							$html.= HTML::mailto( $row['to'] ).' ';
 						}
 					}
 
 					if ( isset( $row['timestamp'] ) )
-						$info .= '&ndash; '.Utilities::htmlHumanTime( $row['timestamp'] );
+						$html.= '&ndash; '.Utilities::htmlHumanTime( $row['timestamp'] );
 
 					if ( isset( $row['headers'] ) ) {
-						$info .= '<hr />';
+						$html.= '<hr />';
+
 						if ( ! is_array( $row['headers'] ) )
 							$row['headers'] = explode( "\n", $row['headers']  );
 
 						foreach ( array_filter( $row['headers'] ) as $header )
-							$info .= '<code>'.HTML::escapeTextarea( $header ).'</code><br />';
+							$html.= '<code>'.HTML::escapeTextarea( $header ).'</code><br />';
 					}
 
 					if ( isset( $row['attachments'] ) ) {
-						$info .= '<hr />';
+						$html.= '<hr />';
+
 						if ( is_array( $row['attachments'] ) ) {
+
 							foreach ( array_filter( $row['attachments'] ) as $attachment )
-								$info .= '<code>'.$attachment.'</code><br />';
+								$html.= '<code>'.$attachment.'</code><br />';
+
 						} else if ( $row['attachments'] ) {
-							$info .= '<code>'.$row['attachments'].'</code><br />';
+							$html.= '<code>'.$row['attachments'].'</code><br />';
 						}
 					}
 
-					return $info;
+					return $html;
 				},
 			],
 

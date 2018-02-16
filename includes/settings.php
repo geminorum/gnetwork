@@ -585,12 +585,12 @@ class Settings extends Core\Base
 				$html = HTML::tag( 'option', [
 					'value'    => '0',
 					'selected' => '0' == $value,
-				], HTML::escape( empty( $args['values'][0] ) ? $args['string_disabled'] : $args['values'][0] ) );
+				], empty( $args['values'][0] ) ? $args['string_disabled'] : $args['values'][0] );
 
 				$html.= HTML::tag( 'option', [
 					'value'    => '1',
 					'selected' => '1' == $value,
-				], HTML::escape( empty( $args['values'][1] ) ? $args['string_enabled'] : $args['values'][1] ) );
+				], empty( $args['values'][1] ) ? $args['string_enabled'] : $args['values'][1] );
 
 				echo HTML::tag( 'select', [
 					'id'       => $id,
@@ -668,9 +668,9 @@ class Settings extends Core\Base
 					'type'        => 'number',
 					'id'          => $id,
 					'name'        => $name,
-					'value'       => $value,
-					'step'        => $args['step_attr'],
-					'min'         => $args['min_attr'],
+					'value'       => intval( $value ),
+					'step'        => intval( $args['step_attr'] ),
+					'min'         => intval( $args['min_attr'] ),
 					'class'       => HTML::attrClass( $args['field_class'], '-type-number' ),
 					'placeholder' => $args['placeholder'],
 					'disabled'    => $args['disabled'],
@@ -793,6 +793,61 @@ class Settings extends Core\Base
 					], $html.'&nbsp;'.$args['description'] ).'</p>';
 
 					$args['description'] = FALSE;
+				}
+
+			break;
+			case 'checkbox-panel':
+
+				if ( count( $args['values'] ) ) {
+
+					echo '<div class="wp-tab-panel"><ul>';
+
+					if ( ! is_null( $args['none_title'] ) ) {
+
+						$html = HTML::tag( 'input', [
+							'type'     => 'checkbox',
+							'id'       => $id.( is_null( $args['none_value'] ) ? '' : '-'.$args['none_value'] ),
+							'name'     => $name.( is_null( $args['none_value'] ) ? '' : '-'.$args['none_value'] ),
+							'value'    => is_null( $args['none_value'] ) ? '1' : $args['none_value'],
+							'checked'  => in_array( $args['none_value'], (array) $value ),
+							'class'    => HTML::attrClass( $args['field_class'], '-type-checkbox', '-option-none' ),
+							'disabled' => $args['disabled'],
+							'readonly' => $args['readonly'],
+							'dir'      => $args['dir'],
+						] );
+
+						echo '<li>'.HTML::tag( 'label', [
+							'for' => $id.( is_null( $args['none_value'] ) ? '' : '-'.$args['none_value'] ),
+						], $html.'&nbsp;'.HTML::escape( $args['none_title'] ) ).'</li>';
+					}
+
+					foreach ( $args['values'] as $value_name => $value_title ) {
+
+						if ( in_array( $value_name, $exclude ) )
+							continue;
+
+						$html = HTML::tag( 'input', [
+							'type'     => 'checkbox',
+							'id'       => $id.'-'.$value_name,
+							'name'     => $name.'['.$value_name.']',
+							'value'    => '1',
+							'checked'  => in_array( $value_name, (array) $value ),
+							'class'    => $args['field_class'],
+							'disabled' => $args['disabled'],
+							'readonly' => $args['readonly'],
+							'dir'      => $args['dir'],
+						] );
+
+						echo '<li>'.HTML::tag( 'label', [
+							'for' => $id.'-'.$value_name,
+						], $html.'&nbsp;'.$value_title ).'</li>';
+					}
+
+					echo '</ul></div>';
+
+				} else if ( is_array( $args['values'] ) ) {
+
+					$args['description'] = $args['string_empty'];
 				}
 
 			break;
@@ -946,9 +1001,9 @@ class Settings extends Core\Base
 
 					$html.= HTML::tag( 'option', [
 						'value' => $args['none_value'],
-					], HTML::escape( $args['none_title'] ) );
+					], $args['none_title'] );
 
-					$html .= walk_page_dropdown_tree( $pages, ( isset( $query['depth'] ) ? $query['depth'] : 0 ), $query );
+					$html.= walk_page_dropdown_tree( $pages, ( isset( $query['depth'] ) ? $query['depth'] : 0 ), $query );
 
 					echo HTML::tag( 'select', [
 						'id'       => $id,
@@ -1017,7 +1072,7 @@ class Settings extends Core\Base
 						$html.= HTML::tag( 'option', [
 							'value'    => $value_name,
 							'selected' => $value === $value_name,
-						], HTML::escape( $value_title ) );
+						], $value_title );
 					}
 
 					echo HTML::tag( 'select', [

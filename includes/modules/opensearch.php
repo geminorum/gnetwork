@@ -277,16 +277,16 @@ class OpenSearch extends gNetwork\Module
 		$xml = "\t".HTML::tag( 'ShortName', trim( $this->options['shortname'] ) )."\n";
 
 		if ( $this->options['longname'] )
-			$xml .= "\t".HTML::tag( 'LongName', $this->options['longname'] )."\n";
+			$xml.= "\t".HTML::tag( 'LongName', $this->options['longname'] )."\n";
 
-		$xml .= "\t".HTML::tag( 'Description', $this->options['description'] )."\n";
-		$xml .= "\t".HTML::tag( 'InputEncoding', get_bloginfo( 'charset' ) )."\n";
-		$xml .= "\t".HTML::tag( 'OutputEncoding', get_bloginfo( 'charset' ) )."\n";
-		$xml .= "\t".HTML::tag( 'Language', get_bloginfo( 'language' ) )."\n";
+		$xml.= "\t".HTML::tag( 'Description', $this->options['description'] )."\n";
+		$xml.= "\t".HTML::tag( 'InputEncoding', get_bloginfo( 'charset' ) )."\n";
+		$xml.= "\t".HTML::tag( 'OutputEncoding', get_bloginfo( 'charset' ) )."\n";
+		$xml.= "\t".HTML::tag( 'Language', get_bloginfo( 'language' ) )."\n";
 
 		if ( GNETWORK_SEARCH_REDIRECT ) {
 
-			$xml .= "\t".HTML::tag( 'moz:SearchForm', GNETWORK_SEARCH_URL )."\n";
+			$xml.= "\t".HTML::tag( 'moz:SearchForm', GNETWORK_SEARCH_URL )."\n";
 
 		} else {
 
@@ -295,7 +295,7 @@ class OpenSearch extends gNetwork\Module
 			// SEE: https://www.drupal.org/project/opensearch
 			// ALSO : http://www.opensearch.org/Documentation/Developer_how_to_guide#How_to_indicate_errors
 
-			$xml .= "\t".HTML::tag( 'Url', [
+			$xml.= "\t".HTML::tag( 'Url', [
 				'type'     => 'application/atom+xml',
 				'template' => add_query_arg( [
 					'feed'                  => 'atom',
@@ -303,7 +303,7 @@ class OpenSearch extends gNetwork\Module
 				], GNETWORK_SEARCH_URL ),
 			] )."\n";
 
-			$xml .= "\t".HTML::tag( 'Url', [
+			$xml.= "\t".HTML::tag( 'Url', [
 				'type'     => 'application/rss+xml',
 				'template' => add_query_arg( [
 					'feed'                  => 'rss2',
@@ -312,7 +312,7 @@ class OpenSearch extends gNetwork\Module
 			] )."\n";
 
 			if ( $this->options['suggestions'] ) {
-				$xml .= "\t".HTML::tag( 'Url', [
+				$xml.= "\t".HTML::tag( 'Url', [
 					// 'type'     => 'application/json',
 					'type'     => 'application/x-suggestions+json',
 					// 'type'     => 'application/x-moz-keywordsearch',
@@ -332,45 +332,45 @@ class OpenSearch extends gNetwork\Module
 		// TODO: add more query strings
 		// LIKE: /?s={searchTerms}&itemstart={startIndex}&itempage={startPage}&itemlimit={count}
 
-		$xml .= "\t".HTML::tag( 'Url', [
+		$xml.= "\t".HTML::tag( 'Url', [
 			'type'     => 'text/html',
 			'method'   => 'get',
 			'template' => $url,
 		] )."\n";
 
-		$xml .= "\t".HTML::tag( 'Url', [
+		$xml.= "\t".HTML::tag( 'Url', [
 			'type'     => 'application/opensearchdescription+xml',
 			'rel'      => 'self',
 			'template' => self::url(),
 		] )."\n";
 
 		if ( file_exists( ABSPATH.'favicon.ico' ) )
-			$xml .= "\t".HTML::tag( 'Image', [
+			$xml.= "\t".HTML::tag( 'Image', [
 				'type'   => 'image/x-icon',
 				'width'  => '16',
 				'height' => '16',
 			], get_bloginfo( 'url' ).'/favicon.ico' )."\n";
 
 		if ( file_exists( ABSPATH.'favicon.png' ) )
-			$xml .= "\t".HTML::tag( 'Image', [
+			$xml.= "\t".HTML::tag( 'Image', [
 				'type'   => 'image/png',
 				'width'  => '64',
 				'height' => '64',
 			], get_bloginfo( 'url' ).'/favicon.png' )."\n";
 
 		if ( $this->options['contact'] )
-			$xml .= "\t".HTML::tag( 'Contact', $this->options['contact'] )."\n";
+			$xml.= "\t".HTML::tag( 'Contact', $this->options['contact'] )."\n";
 
 		if ( $this->options['tags'] )
-			$xml .= "\t".HTML::tag( 'Tags', $this->options['tags'] )."\n";
+			$xml.= "\t".HTML::tag( 'Tags', $this->options['tags'] )."\n";
 
 		if ( $this->options['attribution'] )
-			$xml .= "\t".HTML::tag( 'Attribution', $this->options['attribution'] )."\n";
+			$xml.= "\t".HTML::tag( 'Attribution', $this->options['attribution'] )."\n";
 
-		$xml .= "\t".HTML::tag( 'SyndicationRight', $this->options['syndication'] )."\n";
+		$xml.= "\t".HTML::tag( 'SyndicationRight', $this->options['syndication'] )."\n";
 
-		$xml .= "\t".'<Query role="example" searchTerms="tag" />'."\n";
-		$xml .= "\t".'<AdultContent>false</AdultContent>';
+		$xml.= "\t".'<Query role="example" searchTerms="tag" />'."\n";
+		$xml.= "\t".'<AdultContent>false</AdultContent>';
 
 		// header( 'Content-Type: text/xml; charset=utf-8' );
 		header( 'Content-Type: application/opensearchdescription+xml; charset=utf-8' );

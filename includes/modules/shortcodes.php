@@ -431,7 +431,7 @@ class ShortCodes extends gNetwork\Module
 					// TODO: add show/more js
 				}
 
-				$html .= HTML::tag( 'li', [
+				$html.= HTML::tag( 'li', [
 					'id'    => $args['li_anchor'].$post->ID,
 					'class' => '-item',
 				], $list );
@@ -483,15 +483,15 @@ class ShortCodes extends gNetwork\Module
 
 			if ( $terms = get_the_terms( $post->ID, $taxonomy->name ) ) {
 
-				$html .= '<h3>'.$taxonomy->label.'</h3><ul class="-tax">';
+				$html.= '<h3>'.$taxonomy->label.'</h3><ul class="-tax">';
 
 				foreach ( $terms as $term )
-					$html .= vsprintf( '<li class="-term"><a href="%1$s">%2$s</a></li>', [
+					$html.= vsprintf( '<li class="-term"><a href="%1$s">%2$s</a></li>', [
 						esc_url( get_term_link( $term->slug, $taxonomy->name ) ),
 						sanitize_term_field( 'name', $term->name, $term->term_id, $taxonomy->name, 'display' ),
 					] );
 
-				$html .= '</ul>';
+				$html.= '</ul>';
 			}
 		}
 
@@ -627,10 +627,10 @@ class ShortCodes extends gNetwork\Module
 		$classes = HTML::attrClass( 'button', $args['class'] );
 
 		if ( $args['genericon'] )
-			$html .= HTML::getDashicon( $args['genericon'] );
+			$html.= HTML::getDashicon( $args['genericon'] );
 
 		if ( $content )
-			$html .= ' '.trim( $content );
+			$html.= ' '.trim( $content );
 
 		if ( $args['url'] )
 			$html = HTML::tag( 'a', [
@@ -899,12 +899,12 @@ class ShortCodes extends gNetwork\Module
 
 		// form from : http://socket.io/
 		$html = '<form action="http://groups.google.com/group/'.$args['id'].'/boxsubscribe?hl='.$args['hl'].'" id="google-subscribe">';
-		$html .= '<a href="http://groups.google.com/group/'.$args['id'].'?hl='.$args['hl'].'"><img src="'.GNETWORK_URL.'assets/images/google_groups_'.$args['logo'].'.png" style="'.$args['logo_style'].'" alt="Google Groups"></a>';
+		$html.= '<a href="http://groups.google.com/group/'.$args['id'].'?hl='.$args['hl'].'"><img src="'.GNETWORK_URL.'assets/images/google_groups_'.$args['logo'].'.png" style="'.$args['logo_style'].'" alt="Google Groups"></a>';
 		// <span id="google-members-count">(4889 members)</span>
-		$html .= '<div id="google-subscribe-input">'._x( 'Email:', 'Modules: ShortCodes: Google Groups Subscribe', GNETWORK_TEXTDOMAIN );
-		$html .= ' <input type="text" name="email" id="google-subscribe-email" data-cip-id="google-subscribe-email" />';
-		$html .= ' <input type="hidden" name="hl" value="'.$args['hl'].'" />';
-		$html .= ' <input type="submit" name="go" value="'._x( 'Subscribe', 'Modules: ShortCodes: Google Groups Subscribe', GNETWORK_TEXTDOMAIN ).'" /></div></form>';
+		$html.= '<div id="google-subscribe-input">'._x( 'Email:', 'Modules: ShortCodes: Google Groups Subscribe', GNETWORK_TEXTDOMAIN );
+		$html.= ' <input type="text" name="email" id="google-subscribe-email" data-cip-id="google-subscribe-email" />';
+		$html.= ' <input type="hidden" name="hl" value="'.$args['hl'].'" />';
+		$html.= ' <input type="submit" name="go" value="'._x( 'Subscribe', 'Modules: ShortCodes: Google Groups Subscribe', GNETWORK_TEXTDOMAIN ).'" /></div></form>';
 
 		return $html;
 	}
@@ -1215,7 +1215,7 @@ class ShortCodes extends gNetwork\Module
 		if ( $html = wp_audio_shortcode( $atts, $content ) ) {
 
 			if ( $args['download'] && $src = self::getAudioSource( $atts ) )
-				$html .= '<div class="-download"><a href="'.$src.'"'
+				$html.= '<div class="-download"><a href="'.$src.'"'
 					.( $args['filename'] ? ' download="'.$args['filename'].'"' : '' )
 					.'>'.$args['download'].'</a></div>';
 

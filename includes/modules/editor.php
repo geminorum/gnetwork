@@ -55,7 +55,7 @@ class Editor extends gNetwork\Module
 	public function mce_css( $css )
 	{
 		if ( ! empty( $css ) )
-			$css .= ',';
+			$css.= ',';
 
 		return $css.GNETWORK_URL.'assets/css/editor.all.css';
 	}
@@ -197,7 +197,7 @@ class Editor extends gNetwork\Module
 
 			// make sure there's space around the table
 			if ( substr( $content, -8 ) == '</table>' )
-				$content .= "\n<br />";
+				$content.= "\n<br />";
 		}
 
 		return $content;

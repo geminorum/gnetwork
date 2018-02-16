@@ -77,7 +77,6 @@ class Media extends gNetwork\Module
 			'dashboard_widget'    => '0',
 			'dashboard_accesscap' => 'edit_others_posts',
 			'dashboard_intro'     => '',
-
 		];
 	}
 
@@ -271,8 +270,6 @@ class Media extends gNetwork\Module
 
 			if ( $this->tablePostInfo() )
 				$this->settings_buttons( $sub );
-
-			// TODO: add clean all attachments button, hence : regenerate-thumbnails
 
 		$this->settings_form_after( $uri, $sub );
 	}
@@ -1000,7 +997,7 @@ class Media extends gNetwork\Module
 			],
 		], $this->get_media_type_label( $post->ID ) );
 
-		$link .= '<div class="media-url-box"><input type="text" class="widefat media-url-field" value="'.esc_url( $url ).'" readonly></div>';
+		$link.= '<div class="media-url-box"><input type="text" class="widefat media-url-field" value="'.esc_url( $url ).'" readonly></div>';
 
 		$actions['media-url'] = $link;
 

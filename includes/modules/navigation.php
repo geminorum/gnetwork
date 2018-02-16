@@ -360,13 +360,13 @@ class Walker_Nav_Menu_Checklist extends \Walker_Nav_Menu
 	public function start_lvl( &$output, $depth = 0, $args = [] )
 	{
 		$indent = str_repeat( "\t", $depth );
-		$output .= "\n$indent<ul class='children'>\n";
+		$output.= "\n$indent<ul class='children'>\n";
 	}
 
 	public function end_lvl( &$output, $depth = 0, $args = [] )
 	{
 		$indent = str_repeat( "\t", $depth );
-		$output .= "\n$indent</ul>";
+		$output.= "\n$indent</ul>";
 	}
 
 	public function start_el( &$output, $item, $depth = 0, $args = [], $id = 0 )
@@ -379,17 +379,17 @@ class Walker_Nav_Menu_Checklist extends \Walker_Nav_Menu
 
 		$indent = ( $depth ) ? str_repeat( "\t", $depth ) : '';
 
-		$output .= $indent.'<li>';
-		$output .= '<label class="menu-item-title">';
-		$output .= '<input type="checkbox" class="menu-item-checkbox';
+		$output.= $indent.'<li>';
+		$output.= '<label class="menu-item-title">';
+		$output.= '<input type="checkbox" class="menu-item-checkbox';
 
 		if ( property_exists( $item, 'label' ) ) {
 			$title = $item->label;
 		}
 
-		$output .= '" name="menu-item['.$possible_object_id.'][menu-item-object-id]" value="'.esc_attr( $item->object_id ).'" /> ';
-		$output .= isset( $title ) ? esc_html( $title ) : esc_html( $item->title );
-		$output .= '</label>';
+		$output.= '" name="menu-item['.$possible_object_id.'][menu-item-object-id]" value="'.esc_attr( $item->object_id ).'" /> ';
+		$output.= isset( $title ) ? esc_html( $title ) : esc_html( $item->title );
+		$output.= '</label>';
 
 		if ( empty( $item->url ) ) {
 			$item->url = $item->guid;
@@ -401,15 +401,15 @@ class Walker_Nav_Menu_Checklist extends \Walker_Nav_Menu
 		}
 
 		// menu item hidden fields
-		$output .= '<input type="hidden" class="menu-item-db-id" name="menu-item['.$possible_object_id.'][menu-item-db-id]" value="'.$possible_db_id.'" />';
-		$output .= '<input type="hidden" class="menu-item-object" name="menu-item['.$possible_object_id.'][menu-item-object]" value="'.esc_attr( $item->object ).'" />';
-		$output .= '<input type="hidden" class="menu-item-parent-id" name="menu-item['.$possible_object_id.'][menu-item-parent-id]" value="'.esc_attr( $item->menu_item_parent ).'" />';
-		$output .= '<input type="hidden" class="menu-item-type" name="menu-item['.$possible_object_id.'][menu-item-type]" value="custom" />';
-		$output .= '<input type="hidden" class="menu-item-title" name="menu-item['.$possible_object_id.'][menu-item-title]" value="'.esc_attr( $item->title ).'" />';
-		$output .= '<input type="hidden" class="menu-item-url" name="menu-item['.$possible_object_id.'][menu-item-url]" value="'.esc_attr( $item->url ).'" />';
-		$output .= '<input type="hidden" class="menu-item-target" name="menu-item['.$possible_object_id.'][menu-item-target]" value="'.esc_attr( $item->target ).'" />';
-		$output .= '<input type="hidden" class="menu-item-attr_title" name="menu-item['.$possible_object_id.'][menu-item-attr_title]" value="'.esc_attr( $item->attr_title ).'" />';
-		$output .= '<input type="hidden" class="menu-item-classes" name="menu-item['.$possible_object_id.'][menu-item-classes]" value="'.esc_attr( implode( ' ', $item->classes ) ).'" />';
-		$output .= '<input type="hidden" class="menu-item-xfn" name="menu-item['.$possible_object_id.'][menu-item-xfn]" value="'.esc_attr( $item->xfn ).'" />';
+		$output.= '<input type="hidden" class="menu-item-db-id" name="menu-item['.$possible_object_id.'][menu-item-db-id]" value="'.$possible_db_id.'" />';
+		$output.= '<input type="hidden" class="menu-item-object" name="menu-item['.$possible_object_id.'][menu-item-object]" value="'.esc_attr( $item->object ).'" />';
+		$output.= '<input type="hidden" class="menu-item-parent-id" name="menu-item['.$possible_object_id.'][menu-item-parent-id]" value="'.esc_attr( $item->menu_item_parent ).'" />';
+		$output.= '<input type="hidden" class="menu-item-type" name="menu-item['.$possible_object_id.'][menu-item-type]" value="custom" />';
+		$output.= '<input type="hidden" class="menu-item-title" name="menu-item['.$possible_object_id.'][menu-item-title]" value="'.esc_attr( $item->title ).'" />';
+		$output.= '<input type="hidden" class="menu-item-url" name="menu-item['.$possible_object_id.'][menu-item-url]" value="'.esc_attr( $item->url ).'" />';
+		$output.= '<input type="hidden" class="menu-item-target" name="menu-item['.$possible_object_id.'][menu-item-target]" value="'.esc_attr( $item->target ).'" />';
+		$output.= '<input type="hidden" class="menu-item-attr_title" name="menu-item['.$possible_object_id.'][menu-item-attr_title]" value="'.esc_attr( $item->attr_title ).'" />';
+		$output.= '<input type="hidden" class="menu-item-classes" name="menu-item['.$possible_object_id.'][menu-item-classes]" value="'.esc_attr( implode( ' ', $item->classes ) ).'" />';
+		$output.= '<input type="hidden" class="menu-item-xfn" name="menu-item['.$possible_object_id.'][menu-item-xfn]" value="'.esc_attr( $item->xfn ).'" />';
 	}
 }
