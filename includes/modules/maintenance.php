@@ -5,6 +5,7 @@ defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 use geminorum\gNetwork;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
+use geminorum\gNetwork\Core\Error;
 use geminorum\gNetwork\Core\File;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\HTTP;
@@ -137,6 +138,8 @@ class Maintenance extends gNetwork\Module
 
 			foreach ( Utilities::getFeeds() as $feed )
 				add_action( 'do_feed_'.$feed, [ $this, 'do_feed_feed' ], 1, 1 );
+
+			$this->filter( 'rest_authentication_errors', 1, 999 );
 		}
 	}
 
@@ -183,6 +186,11 @@ class Maintenance extends gNetwork\Module
 	public function login_message( $message )
 	{
 		return HTML::wrap( Text::autoP( $this->options['login_message'] ), 'message -warning' ).$message;
+	}
+
+	public function rest_authentication_errors( $null )
+	{
+		return new Error( 'maintenance', $this->options['login_message'], [ 'status' => $this->options['status_code'] ] );
 	}
 
 	public function template_redirect()
