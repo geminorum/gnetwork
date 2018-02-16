@@ -5,6 +5,7 @@ defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 use geminorum\gNetwork;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
+use geminorum\gNetwork\Core\Error;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
@@ -362,6 +363,8 @@ class RestrictedBouncer extends \geminorum\gNetwork\Core\Base
 		add_filter( 'option_blog_public', function( $option ){
 			return 0;
 		}, 20 );
+
+		add_filter( 'rest_authentication_errors', [ $this, 'rest_authentication_errors' ], 999 );
 	}
 
 	public function init()
@@ -580,5 +583,16 @@ class RestrictedBouncer extends \geminorum\gNetwork\Core\Base
 	public function robots_txt( $output )
 	{
 		return $output.'Disallow: /'."\n";
+	}
+
+	public function rest_authentication_errors( $null )
+	{
+		if ( current_user_can( $this->options['restricted_site'] ) )
+			return $null;
+
+		return new Error( 'restricted', Restricted::getNotice(
+			$this->options['restricted_notice'],
+			$this->options['restricted_site'],
+			$this->options['redirect_page'] ), [ 'status' => 403 ] );
 	}
 }
