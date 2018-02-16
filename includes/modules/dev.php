@@ -126,6 +126,9 @@ class Dev extends gNetwork\Module
 		if ( WordPress::isAJAX() )
 			$log[] = 'AJAX';
 
+		if ( WordPress::isREST() )
+			$log[] = 'REST';
+
 		if ( function_exists( 'gNetwork' ) )
 			$log[] = 'gN:'.File::formatSize( self::size( gNetwork() ) );
 
@@ -144,7 +147,7 @@ class Dev extends gNetwork\Module
 		if ( $_SERVER['REQUEST_URI'] )
 			$log[] = $_SERVER['REQUEST_URI'];
 
-		if ( ! empty( $pagenow ) )
+		if ( ! empty( $pagenow ) && ! WordPress::isREST() )
 			$log[] = 'PAGE:'.$pagenow;
 
 		$prefix = 'BENCHMARK: ';
