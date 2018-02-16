@@ -440,15 +440,25 @@ class HTML extends Base
 	public static function headerNav( $uri = '', $active = '', $subs = array(), $prefix = 'nav-tab-', $tag = 'h3' )
 	{
 		if ( empty( $subs ) )
-			return;
+			return '';
 
 		$html = '';
 
-		foreach ( $subs as $slug => $page )
+		foreach ( $subs as $slug => $page ) {
+
+			if ( is_array( $page ) ) {
+				$title = empty( $page['title'] ) ? $slug : $page['title'];
+				$args  = empty( $page['args'] ) ? array( 'sub' => $slug ) : $page['args'];
+			} else {
+				$title = $page;
+				$args  = array( 'sub' => $slug );
+			}
+
 			$html.= self::tag( 'a', array(
 				'class' => 'nav-tab '.$prefix.$slug.( $slug == $active ? ' nav-tab-active' : '' ),
-				'href'  => add_query_arg( 'sub', $slug, $uri ),
-			), $page );
+				'href'  => add_query_arg( $args, $uri ),
+			), $title );
+		}
 
 		echo self::tag( $tag, array(
 			'class' => 'nav-tab-wrapper',

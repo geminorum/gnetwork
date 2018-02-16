@@ -53,25 +53,30 @@ class Base
 		$log = $prefix;
 
 		if ( isset( $trace[$offset]['object'] ) )
-			$log .= get_class( $trace[$offset]['object'] ).'::';
-		else if ( isset( $trace[$offset]['class'] ) )
-			$log .= $trace[$offset]['class'].'::';
+			$log.= get_class( $trace[$offset]['object'] ).'::';
 
-		$log .= $trace[$offset]['function'].'()';
+		else if ( isset( $trace[$offset]['class'] ) )
+			$log.= $trace[$offset]['class'].'::';
+
+		$log.= $trace[$offset]['function'].'()';
 
 		$offset++;
 
 		if ( isset( $trace[$offset]['function'] ) ) {
-			$log .= '|FROM: ';
+
+			$log.= '|FROM: ';
+
 			if ( isset( $trace[$offset]['object'] ) )
-				$log .= get_class( $trace[$offset]['object'] ).'::';
+				$log.= get_class( $trace[$offset]['object'] ).'::';
+
 			else if ( isset( $trace[$offset]['class'] ) )
-				$log .= $trace[$offset]['class'].'::';
-			$log .= $trace[$offset]['function'].'()';
+				$log.= $trace[$offset]['class'].'::';
+
+			$log.= $trace[$offset]['function'].'()';
 		}
 
 		if ( $note )
-			$log .= '|'.$note;
+			$log.= '|'.$note;
 
 		error_log( $log );
 	}

@@ -296,7 +296,7 @@ class Text extends Base
 			$arr = explode( ' ', trim( $text ) );
 
 			if ( count( $arr ) >= $min ) {
-				$arr[count( $arr ) - 2] .= '&nbsp;'.$arr[count( $arr ) - 1];
+				$arr[count( $arr ) - 2].= '&nbsp;'.$arr[count( $arr ) - 1];
 				array_pop( $arr );
 				$return = implode( ' ', $arr );
 			}
@@ -637,7 +637,7 @@ class Text extends Base
 			$hex = substr( $hex[0], 1 );
 			$str = '';
 			for ( $i = 0; $i < strlen( $hex ); $i += 2 )
-				$str .= chr( hexdec( substr( $hex, $i, 2 ) ) );
+				$str.= chr( hexdec( substr( $hex, $i, 2 ) ) );
 			return $str;
 		}, (string) $string );
 	}
@@ -674,7 +674,7 @@ class Text extends Base
 		// close tags
 		for ( $i = 0; $i < $len_opened; $i++ )
 			if ( ! in_array( $openedtags[$i], $closedtags ) )
-				$html .= '</'.$openedtags[$i].'>';
+				$html.= '</'.$openedtags[$i].'>';
 			else
 				unset( $closedtags[array_search( $openedtags[$i], $closedtags )] );
 
@@ -690,7 +690,7 @@ class Text extends Base
 		$key = '';
 
 		for ( $i = 0; $i < $len; $i++ )
-			$key .= $chr[( rand( 0, ( strlen( $chr ) - 1 ) ) )];
+			$key.= $chr[( rand( 0, ( strlen( $chr ) - 1 ) ) )];
 
 		return md5( $salt.$key );
 	}

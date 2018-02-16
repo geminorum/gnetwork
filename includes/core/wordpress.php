@@ -60,16 +60,16 @@ class WordPress extends Base
 		return FALSE;
 	}
 
-	// @SEE: `wp_doing_ajax()` since 4.7.0
 	public static function isAJAX()
 	{
-		return defined( 'DOING_AJAX' ) && DOING_AJAX;
+		// return defined( 'DOING_AJAX' ) && DOING_AJAX;
+		return wp_doing_ajax(); // @since WP 4.7.0
 	}
 
-	// @SEE: `wp_doing_cron()` since 4.8.0
 	public static function isCRON()
 	{
-		return defined( 'DOING_CRON' ) && DOING_CRON;
+		// return defined( 'DOING_CRON' ) && DOING_CRON;
+		return wp_doing_cron(); // @since WP 4.8.0
 	}
 
 	public static function isCLI()
@@ -375,7 +375,7 @@ class WordPress extends Base
 	public static function cheatin( $message = NULL )
 	{
 		if ( is_null( $message ) )
-			$message = __( 'Cheatin&#8217; uh?' );
+			$message = __( 'You don&#8217;t have permission to do this.' );
 
 		wp_die( $message, 403 );
 	}

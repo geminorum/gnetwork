@@ -156,7 +156,7 @@ class File extends Base
 			// back to where we were.
 			fseek( $fh, -$can_read, SEEK_CUR );
 			$data = fread( $fh, $can_read );
-			$data .= $leftover;
+			$data.= $leftover;
 			fseek( $fh, -$can_read, SEEK_CUR );
 
 			// split lines by \n. Then reverse them,
@@ -201,6 +201,9 @@ class File extends Base
 			'KB' => 1024,
 			'B'  => 1,
 		);
+
+		if ( 0 === $bytes )
+			return number_format( 0, $decimals ).' B';
 
 		foreach ( $quant as $unit => $mag )
 			if ( doubleval( $bytes ) >= $mag )

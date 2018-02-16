@@ -247,4 +247,31 @@ class Arraay extends Base
 
 		return self::find( $needle, $haystack[$current], $default );
 	}
+
+	// @REF: https://stackoverflow.com/a/173479
+	public static function isAssoc( $array )
+	{
+		if ( $array === array() )
+			return FALSE;
+
+		return array_keys( $array ) !== range( 0, count( $array ) - 1 );
+	}
+
+	// @REF: https://stackoverflow.com/a/4254008
+	public static function hasStringKeys( $array )
+	{
+		return count( array_filter( array_keys( $array ), 'is_string' ) ) > 0;
+	}
+
+	// @REF: `wp_array_slice_assoc()`
+	public static function sliceKeys( $array, $keys )
+	{
+		$slice = array();
+
+		foreach ( $keys as $key )
+			if ( isset( $array[$key] ) )
+				$slice[$key] = $array[$key];
+
+		return $slice;
+	}
 }

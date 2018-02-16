@@ -997,25 +997,25 @@ class Module extends Core\Base
 		Ajax::errorWhat();
 	}
 
-	protected function wrap( $html, $class = '', $block = TRUE )
+	protected function wrap( $html, $class = '', $block = TRUE, $id = FALSE, $hide = FALSE )
 	{
 		return $block
-			? '<div class="-wrap '.$this->base.'-wrap -'.$this->key.' '.$class.'">'.$html.'</div>'
-			: '<span class="-wrap '.$this->base.'-wrap -'.$this->key.' '.$class.'">'.$html.'</span>';
+			? '<div class="-wrap '.$this->base.'-wrap -'.$this->key.' '.$class.'"'.( $id ? ' id="'.$id.'"' : '' ).( $hide ? ' style="display:none"' : '' ).'>'.$html.'</div>'
+			: '<span class="-wrap '.$this->base.'-wrap -'.$this->key.' '.$class.'"'.( $id ? ' id="'.$id.'"' : '' ).( $hide ? ' style="display:none"' : '' ).'>'.$html.'</span>';
 	}
 
-	protected function wrap_open( $class = '', $block = TRUE )
+	protected function wrap_open( $class = '', $block = TRUE, $id = FALSE, $hide = FALSE )
 	{
 		return $block
-			? '<div class="-wrap '.$this->base.'-wrap -'.$this->key.' '.$class.'">'
-			: '<span class="-wrap '.$this->base.'-wrap -'.$this->key.' '.$class.'">';
+			? '<div class="-wrap '.$this->base.'-wrap -'.$this->key.' '.$class.'"'.( $id ? ' id="'.$id.'"' : '' ).( $hide ? ' style="display:none"' : '' ).'>'
+			: '<span class="-wrap '.$this->base.'-wrap -'.$this->key.' '.$class.'"'.( $id ? ' id="'.$id.'"' : '' ).( $hide ? ' style="display:none"' : '' ).'>';
 	}
 
-	protected function wrap_open_buttons( $class = '', $block = TRUE )
+	protected function wrap_open_buttons( $class = '', $block = TRUE, $id = FALSE, $hide = FALSE )
 	{
 		return $block
-			? '<p class="submit '.$this->base.'-wrap -wrap-buttons -'.$this->key.' '.$class.'">'
-			: '<span class="submit '.$this->base.'-wrap -wrap-buttons -'.$this->key.' '.$class.'">';
+			? '<p class="submit '.$this->base.'-wrap -wrap-buttons -'.$this->key.' '.$class.'"'.( $id ? ' id="'.$id.'"' : '' ).( $hide ? ' style="display:none"' : '' ).'>'
+			: '<span class="submit '.$this->base.'-wrap -wrap-buttons -'.$this->key.' '.$class.'"'.( $id ? ' id="'.$id.'"' : '' ).( $hide ? ' style="display:none"' : '' ).'>';
 	}
 
 	// checks to bail early if metabox/widget is hidden

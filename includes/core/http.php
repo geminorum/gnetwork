@@ -308,7 +308,7 @@ class HTTP extends Base
 	public static function ip_is_in_range( $ip, $range )
 	{
 		if ( FALSE === strpos( $range, '/' ) )
-			$range .= '/32';
+			$range.= '/32';
 
 		// $range is in IP/CIDR format eg 127.0.0.1/24
 		list( $range, $netmask ) = explode( '/', $range, 2 );
