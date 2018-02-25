@@ -21,6 +21,7 @@ class Login extends gNetwork\Module
 
 		if ( $this->options['login_math'] ) {
 			$this->action( 'login_form' );
+			$this->filter( 'login_form_middle', 2, 1 );
 			$this->filter( 'authenticate', 3, 1 );
 		}
 
@@ -229,27 +230,37 @@ class Login extends gNetwork\Module
 
 	public function login_form()
 	{
+		echo $this->get_html_math();
+	}
+
+	public function login_form_middle( $content, $args )
+	{
+		return $content.$this->get_html_math();
+	}
+
+	public function get_html_math()
+	{
 		$one = wp_rand( 0, 10 );
 		$two = wp_rand( 1, 10 );
 
-		echo '<p class="sum">';
+		$html = '<p class="login-sum">';
 
-			echo '<label>'._x( 'Prove your humanity:', 'Modules: Login', GNETWORK_TEXTDOMAIN ).'</label>';
-			echo '&nbsp;'.Number::format( $one ).'&nbsp;+&nbsp;'.Number::format( $two ).'&nbsp;=&nbsp; ';
+			$html.= '<label>'._x( 'Prove your humanity:', 'Modules: Login', GNETWORK_TEXTDOMAIN ).'</label>';
+			$html.= '&nbsp;'.Number::format( $one ).'&nbsp;+&nbsp;'.Number::format( $two ).'&nbsp;=&nbsp; ';
 
-			echo HTML::tag( 'input', [
+			$html.= HTML::tag( 'input', [
 				'type'         => 'number',
 				'name'         => 'num',
 				'autocomplete' => 'off',
 			] );
 
-			echo HTML::tag( 'input', [
+			$html.= HTML::tag( 'input', [
 				'type'  => 'hidden',
 				'name'  => 'ans',
 				'value' => wp_hash( $one + $two ),
 			] );
 
-		echo '</p>';
+		return $html.'</p>';
 	}
 
 	public function authenticate( $null, $username, $password )
