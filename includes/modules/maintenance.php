@@ -26,6 +26,9 @@ class Maintenance extends gNetwork\Module
 			if ( 'none' != $this->options['maintenance_admin'] )
 				$this->action( 'admin_init' );
 
+			if ( 'none' != $this->options['maintenance_site'] )
+				$this->action( 'activity_box_end', 0, 12 );
+
 		} else {
 
 			if ( 'none' != $this->options['maintenance_site'] )
@@ -76,14 +79,14 @@ class Maintenance extends gNetwork\Module
 					'type'        => 'textarea-quicktags',
 					'title'       => _x( 'Admin Notice', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Displays as admin notice while site is on maintenance mode.', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
-					'default'     => _x( 'The Maintenance Mode is active.', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
+					'default'     => _x( 'The Maintenance Mode is active.', 'Modules: Maintenance', GNETWORK_TEXTDOMAIN ),
 				],
 				[
 					'field'       => 'login_message',
 					'type'        => 'textarea-quicktags',
 					'title'       => _x( 'Login Message', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Displays as login message while site is on maintenance mode.', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
-					'default'     => _x( 'The site is unavailable for scheduled maintenance.', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
+					'default'     => _x( 'The site is unavailable for scheduled maintenance.', 'Modules: Maintenance', GNETWORK_TEXTDOMAIN ),
 				],
 				[
 					'field'       => 'status_code',
@@ -181,6 +184,11 @@ class Maintenance extends gNetwork\Module
 	{
 		if ( $this->options['admin_notice'] && ! empty( $this->options['admin_notice'] )  )
 			echo HTML::warning( $this->options['admin_notice'] );
+	}
+
+	public function activity_box_end()
+	{
+		echo $this->wrap( '<p>'._x( 'The Maintenance Mode is active.', 'Modules: Maintenance', GNETWORK_TEXTDOMAIN ).'</p>', '-maintenance-mode' );
 	}
 
 	public function login_message( $message )
