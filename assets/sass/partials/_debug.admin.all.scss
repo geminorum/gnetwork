@@ -1,0 +1,116 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// gNetwork Partials: Debug Module --------------------------------------------
+
+/*rtl:begin:ignore*/
+.wrap.gnetwork-settings {
+  .-wrap.-phpinfo {
+    // default style from phpinfo()
+
+    padding-top: 1em;
+    // background-color: #ffffff;
+    color: #000;
+
+    &,
+    h1,
+    h2,
+    td,
+    th {
+      // font-family: sans-serif;
+    }
+
+    pre {
+      margin: 0;
+      font-family: monospace;
+    }
+
+    a:link {
+      color: #009;
+      text-decoration: none;
+      background-color: #fff;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    table {
+      border-collapse: collapse;
+    }
+
+    .center {
+      text-align: center;
+
+      table {
+        direction: ltr;
+        text-align: left;
+        margin-right: auto;
+        margin-left: auto;
+        width: 100% !important;
+      }
+
+      th {
+        text-align: center !important;
+      }
+    }
+
+    td,
+    th {
+      border: 1px solid #000;
+      font-size: 95%;
+      vertical-align: baseline;
+    }
+
+    h1 {
+      font-size: 150%;
+    }
+
+    h2 {
+      font-size: 125%;
+    }
+
+    .p {
+      text-align: left;
+    }
+
+    .e {
+      background-color: #ccf;
+      font-weight: 600;
+      color: #000;
+    }
+
+    .h {
+      background-color: #99c;
+      font-weight: 600;
+      color: #000;
+    }
+
+    .v {
+      background-color: #ccc;
+      color: #000;
+      word-break: break-word;
+    }
+
+    .vr {
+      text-align: right;
+      background-color: #ccc;
+      color: #000;
+    }
+
+    img {
+      float: right;
+      border: 0;
+    }
+
+    hr {
+      width: 600px;
+      background-color: #ccc;
+      border: 0;
+      height: 1px;
+      color: #000;
+    }
+  }
+}
+
+/*rtl:end:ignore*/

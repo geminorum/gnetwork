@@ -12,6 +12,7 @@ table {
   &.base-table-side,
   &.base-table-side-wrap {
     width: 100%;
+
     .sub-console & {
       width: auto;
     }
@@ -241,7 +242,7 @@ table.base-table-side {
     strong {}
 
     small {
-      color: gray;
+      color: $gray-dark;
     }
   }
 

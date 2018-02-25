@@ -3,10 +3,13 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// gNetwork Partials: Settings Admin ALL --------------------------------------
 
-.gnetwork-admin-wrap.gnetwork-settings {
-  @include mainwrap();
+.wrap.gnetwork-settings {
+  &.sub-overview {}
+}
 
-  padding-right: 20px;
+.gnetwork-admin-wrap.gnetwork-settings {
+  // @include mainwrap();
+  // padding-right: 20px;
 
   .-wrap.-danger,
   .-button.button-reset,
@@ -17,26 +20,6 @@
       color: darken($brand-danger, 20%);
     }
   }
-
-  .quicktags-toolbar {
-    min-height: 30px;
-    position: relative;
-
-    input.button.button-small {
-      font-size: 12px;
-      height: 26px;
-      line-height: 24px;
-      margin: 0 2px 0 0;
-    }
-  }
-
-  .quicktags-rtl {
-
-    /*rtl:ignore*/
-    direction: rtl;
-  }
-
-  &.sub-overview {}
 
   h3.error-box-header {
     margin-bottom: 0.5em;
@@ -94,113 +77,6 @@
   .-empty.-phpinfo {
     padding: 1em;
   }
-
-  // default style from phpinfo()
-  .-wrap.-phpinfo {
-    padding-top: 1em;
-    // background-color: #ffffff;
-    color: #000;
-
-    &,
-    h1,
-    h2,
-    td,
-    th {
-      // font-family: sans-serif;
-    }
-
-    pre {
-      margin: 0;
-      font-family: monospace;
-    }
-
-    a:link {
-      color: #009;
-      text-decoration: none;
-      background-color: #fff;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    table {
-      border-collapse: collapse;
-    }
-
-    .center {
-      text-align: center;
-
-      table {
-        margin-left: auto;
-        margin-right: auto;
-        text-align: left;
-        direction: ltr;
-        width: 100% !important;
-      }
-
-      th {
-        text-align: center !important;
-      }
-    }
-
-    td,
-    th {
-      border: 1px solid #000;
-      font-size: 95%;
-      vertical-align: baseline;
-    }
-
-    h1 {
-      font-size: 150%;
-    }
-
-    h2 {
-      font-size: 125%;
-    }
-
-    .p {
-      text-align: left;
-    }
-
-    .e {
-      background-color: #ccf;
-      font-weight: 600;
-      color: #000;
-    }
-
-    .h {
-      background-color: #99c;
-      font-weight: 600;
-      color: #000;
-    }
-
-    .v {
-      background-color: #ccc;
-      color: #000;
-      word-break: break-word;
-    }
-
-    .vr {
-      background-color: #ccc;
-      text-align: right;
-      color: #000;
-    }
-
-    img {
-      float: right;
-      border: 0;
-    }
-
-    hr {
-      width: 600px;
-      background-color: #ccc;
-      border: 0;
-      height: 1px;
-      color: #000;
-    }
-  }
-
 
   .gnetwork-form {
     .form-table {
@@ -274,59 +150,6 @@
 
     textarea {
       outline: none;
-    }
-
-    &.has-sidebox {
-      .form-table {
-        width: 75%;
-        clear: none;
-      }
-    }
-
-    .settings-sidebox {
-      @include mainwrap();
-      width: 25%;
-      float: right;
-      color: #666;
-      border-left: 1px solid #ccc;
-
-      margin-top: 0.5em;
-      padding: 0.5em 0 0.5em 1em;
-
-      ol,
-      ul {
-        margin: 0;
-      }
-
-      p {
-        margin-top: 0;
-
-        &.submit {
-          padding: 0;
-          margin-bottom: .5em;
-        }
-
-        &:last-of-type {
-          margin-bottom: 0;
-        }
-
-        .button {
-          margin-bottom: .5em;
-        }
-      }
-
-      code {
-        word-wrap: break-word;
-      }
-
-      table caption {
-        text-align: inherit;
-      }
-
-      &.oldoptions {
-        border-color: $brand-danger;
-        clear: right;
-      }
     }
   }
 }

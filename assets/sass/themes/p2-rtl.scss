@@ -96,10 +96,10 @@ h6 {
     // height:48px;
   }
 
-  .postcontent  {
+  .postcontent {
     p {
       text-indent: 5px;
-      margin: 0 0 1em 0;
+      margin: 0 0 1em;
     }
 
     h2 {
@@ -122,33 +122,33 @@ h6 {
       font-weight: 700;
 
       a {
-        font:bold 12px/21px $font-family-normal !important;
+        font: 600 12px/21px $font-family-normal !important;
       }
     }
 
     h5 {
-      margin:20px 2px 10px 0;
-      line-height:36px;
-      font-size:16px;
+      margin: 20px 2px 10px 0;
+      line-height: 36px;
+      font-size: 16px;
       font-weight: 700;
     }
 
     h6 {
-      margin:10px 2px 10px 0;
-      line-height:36px;
-      font-size:13px;
+      margin: 10px 2px 10px 0;
+      line-height: 36px;
+      font-size: 13px;
       font-weight: 700;
     }
 
     h1 + h2 {
-      margin-top:-10px;
-      line-height:19px;
+      margin-top: -10px;
+      line-height: 19px;
     }
 
     h2 + h3,
     h2 + h4 {
-      margin-top:-10px;
-      line-height:19px;
+      margin-top: -10px;
+      line-height: 19px;
     }
 
     h3 + h4,

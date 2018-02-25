@@ -6,7 +6,7 @@
 
 .wp-signup-container {
   width: 90%;
-  margin: 0 auto;
+  margin: 2em auto;
 
   > h2 {
     // display: none;
@@ -32,6 +32,10 @@
     width: 100%;
     font-size: 24px;
     margin: 5px 0;
+  }
+
+  #signup-welcome {
+
   }
 
   #site-language {
@@ -67,6 +71,7 @@
     color: #333;
     background: #ffffe0;
     border: 1px solid #e6db55;
+    margin: 10px 0;
   }
 
   #blogname,

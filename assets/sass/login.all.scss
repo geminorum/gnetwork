@@ -10,7 +10,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 body.login {
-
   @include theme-fonts-core-native;
 
   &.interim-login {
@@ -63,7 +62,7 @@ body.login {
     }
   }
 
-  p.sum {
+  p.login-sum {
     margin: 0;
     padding: 20px 0 46px;
 
