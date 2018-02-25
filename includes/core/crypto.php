@@ -9,7 +9,7 @@ class Crypto extends Base
 	const BIJECTION_DIC  = 'abcdefghijklmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ123456789';
 	const BIJECTION_BASE = 57; // strlen( BIJECTION_DIC )
 
-	public function encodeBijection( $id )
+	public static function encodeBijection( $id )
 	{
 		$slug = array();
 		$dic  = static::BIJECTION_DIC;
@@ -26,7 +26,7 @@ class Crypto extends Base
 		return implode( '', array_reverse( $slug ) );
 	}
 
-	public function decodeBijection( $slug )
+	public static function decodeBijection( $slug )
 	{
 		$id = 0;
 
