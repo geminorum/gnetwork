@@ -293,12 +293,17 @@ class Module extends Core\Base
 		return trim( str_ireplace( [ '-', '.' ], '_', $hook ) );
 	}
 
+	protected static function sanitize_base( $hook )
+	{
+		return trim( str_ireplace( [ '_', '.' ], '-', $hook ) );
+	}
+
 	protected function hook()
 	{
 		$suffix = '';
 
 		foreach ( func_get_args() as $arg )
-			$suffix.= '_'.$arg;
+			$suffix.= '_'.strtolower( self::sanitize_hook( $arg ) );
 
 		return $this->base.'_'.$this->key.$suffix;
 	}
@@ -308,9 +313,9 @@ class Module extends Core\Base
 		$suffix = '';
 
 		foreach ( func_get_args() as $arg )
-			$suffix.= '-'.$arg;
+			$suffix.= '-'.strtolower( self::sanitize_base( $arg ) );
 
-		return $this->base.'-'.$this->key.$suffix;
+		return $this->base.'-'.self::sanitize_base( $this->key ).$suffix;
 	}
 
 	protected function hash()
@@ -552,25 +557,25 @@ class Module extends Core\Base
 		$this->settings_form_after( $uri, $sub );
 	}
 
-	protected function settings_form_before( $uri, $sub = 'general', $action = 'update', $check = TRUE )
+	protected function settings_form_before( $uri, $sub = 'general', $action = 'update', $context = 'settings', $check = TRUE )
 	{
-		$class = $this->base.'-form';
+		$class = $this->base.'-form -form';
 
 		if ( $check && $sidebox = method_exists( $this, 'settings_sidebox' ) )
 			$class.= ' has-sidebox';
 
 		echo '<form class="'.$class.'" method="post" action="">';
 
-			$this->settings_fields( $sub, $action );
+			$this->settings_fields( $sub, $action, $context );
 
 			if ( $check && $sidebox ) {
-				echo '<div class="settings-sidebox settings-sidebox-'.$sub.'">';
-					$this->settings_sidebox( $sub, $uri );
+				echo '<div class="-sidebox -sidebox-'.$sub.'">';
+					$this->settings_sidebox( $sub, $uri, $context );
 				echo '</div>';
 			}
 	}
 
-	protected function settings_form_after( $uri, $sub = 'general', $action = 'update', $check = TRUE )
+	protected function settings_form_after( $uri, $sub = 'general', $action = 'update', $context = 'settings', $check = TRUE )
 	{
 		echo '</form>';
 

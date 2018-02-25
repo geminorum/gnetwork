@@ -218,7 +218,7 @@ class User extends gNetwork\Module
 	// FIXME: needs better UX
 	public function settings_sidebox( $sub, $uri )
 	{
-		echo $this->wrap_open_buttons( '-sidebox' );
+		echo $this->wrap_open_buttons();
 
 			Settings::submitButton( 'export_users_csv', _x( 'Export Users', 'Modules: User', GNETWORK_TEXTDOMAIN ), 'small' );
 			HTML::desc( _x( 'Get all users in a CSV file.', 'Modules: User', GNETWORK_TEXTDOMAIN ), FALSE );
@@ -291,7 +291,7 @@ class User extends gNetwork\Module
 
 		} else if ( 'roles' == $sub ) {
 
-			$this->settings_form_before( $uri, $sub, 'bulk', FALSE );
+			$this->settings_form_before( $uri, $sub, 'bulk', 'custom', FALSE );
 
 				if ( $this->tableBlogRoles() )
 					$this->settings_buttons( $sub );

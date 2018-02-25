@@ -212,7 +212,7 @@ class Mail extends gNetwork\Module
 
 				HTML::desc( _x( 'Log folder not exists or writable.', 'Modules: Mail', GNETWORK_TEXTDOMAIN ) );
 
-				echo $this->wrap_open_buttons( '-sidebox' );
+				echo $this->wrap_open_buttons();
 					Settings::submitButton( 'create_log_folder', _x( 'Create Log Folder', 'Modules: Mail', GNETWORK_TEXTDOMAIN ), 'small' );
 				echo '</p>';
 
@@ -295,7 +295,7 @@ class Mail extends gNetwork\Module
 
 	public function settings_form_emaillogs( $uri, $sub = 'general' )
 	{
-		$this->settings_form_before( $uri, $sub, 'bulk', FALSE );
+		$this->settings_form_before( $uri, $sub, 'bulk', 'custom', FALSE );
 
 			if ( $this->tableEmailLogs() )
 				$this->settings_buttons( $sub );

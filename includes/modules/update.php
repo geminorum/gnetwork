@@ -137,7 +137,7 @@ class Update extends gNetwork\Module
 
 	public function settings_sidebox( $sub, $uri )
 	{
-		echo $this->wrap_open_buttons( '-sidebox' );
+		echo $this->wrap_open_buttons();
 
 			if ( $this->options['remote_updates'] ) {
 

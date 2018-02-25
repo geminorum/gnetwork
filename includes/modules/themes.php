@@ -138,8 +138,8 @@ class Themes extends gNetwork\Module
 		if ( ! $bottom && ! $disable )
 			return;
 
-		// v4.8-beta1-40663-src
-		// 5/19/2017, 6:59:08 PM
+		// v5.0-alpha-42125-src
+		// 2/12/2018, 1:16:08 PM
 		$jquery_ver  = '1.12.4';
 		$migrate_ver = '1.4.1';
 

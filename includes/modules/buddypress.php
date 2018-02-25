@@ -6,6 +6,7 @@ use geminorum\gNetwork;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\Arraay;
+use geminorum\gNetwork\Core\HTTP;
 use geminorum\gNetwork\Core\WordPress;
 
 class BuddyPress extends gNetwork\Module
@@ -411,7 +412,7 @@ class BuddyPress extends gNetwork\Module
 
 	public function wp_ajax_delete_activity_comment()
 	{
-		if ( 'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ) )
+		if ( ! HTTP::isPOST() )
 			return;
 
 		check_admin_referer( 'bp_activity_delete_link' );

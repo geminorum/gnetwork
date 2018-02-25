@@ -265,6 +265,13 @@ class Locale extends gNetwork\Module
 			'read_offline_mobi'    => 'page',
 			'read_offline_print'   => 'page',
 
+			// [Profile Builder](https://wordpress.org/plugins/profile-builder/)
+			'profile-builder-basic-info'         => 'page',
+			'profile-builder-general-settings'   => 'page',
+			'profile-builder-admin-bar-settings' => 'page',
+			'manage-fields'                      => 'page',
+			'profile-builder-add-ons'            => 'page',
+
 			'keyring' => 'page',
 
 			// [Safe Redirect Manager](https://wordpress.org/plugins/safe-redirect-manager/)

@@ -66,7 +66,7 @@ class Settings extends Core\Base
 
 	public static function wrapOpen( $sub = 'general', $base = 'gnetwork', $page = 'settings' )
 	{
-		echo '<div class="wrap '.$base.'-admin-wrap '.$base.'-'.$page.' '.$base.'-'.$page.'-'.$sub.' sub-'.$sub.'">';
+		echo '<div id="'.$base.'-'.$page.'" class="wrap '.$base.'-admin-wrap '.$base.'-'.$page.' '.$base.'-'.$page.'-'.$sub.' sub-'.$sub.'">';
 	}
 
 	public static function wrapClose()

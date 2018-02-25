@@ -266,7 +266,7 @@ class Media extends gNetwork\Module
 
 	public function settings_form_images( $uri, $sub = 'general' )
 	{
-		$this->settings_form_before( $uri, $sub, 'bulk', FALSE );
+		$this->settings_form_before( $uri, $sub, 'bulk', 'custom', FALSE );
 
 			if ( $this->tablePostInfo() )
 				$this->settings_buttons( $sub );

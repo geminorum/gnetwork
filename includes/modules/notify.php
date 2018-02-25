@@ -120,7 +120,7 @@ class Notify extends gNetwork\Module
 
 	public function settings_sidebox( $sub, $uri )
 	{
-		echo $this->wrap_open_buttons( '-sidebox' );
+		echo $this->wrap_open_buttons();
 
 			Settings::submitButton( 'test_signup_user', _x( 'Test Signup User Email', 'Modules: Notify', GNETWORK_TEXTDOMAIN ), 'small', [
 				'title' => _x( 'Sends a TEST confirmation request email to a user when they sign up for a new user account.', 'Modules: Notify', GNETWORK_TEXTDOMAIN ),
