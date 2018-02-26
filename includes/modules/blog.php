@@ -113,6 +113,7 @@ class Blog extends gNetwork\Module
 			'from_email'           => '',
 			'from_name'            => '',
 			'text_copyright'       => '',
+			'theme_color'          => '',
 			'shortlink_numeric'    => '0',
 			'shortlink_type'       => 'numeric',
 		];
@@ -286,6 +287,13 @@ class Blog extends gNetwork\Module
 			'description' => _x( 'Defines No Index/No Follow HTML meta tags for attachment pages.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 		];
 
+		$settings['_theme'][] = [
+			'field'       => 'theme_color',
+			'type'        => 'color',
+			'title'       => _x( 'Theme Color', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Defines color of the mobile browser address bar. Set to override the network.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+		];
+
 		if ( $multisite && class_exists( __NAMESPACE__.'\\Mail' ) ) {
 
 			$settings['_email'][] = [
@@ -364,6 +372,12 @@ class Blog extends gNetwork\Module
 			];
 
 		return $settings;
+	}
+
+	protected function settings_setup( $sub = NULL )
+	{
+		wp_enqueue_script( 'wp-color-picker' );
+		wp_enqueue_style( 'wp-color-picker' );
 	}
 
 	public function plugins_loaded()
@@ -555,6 +569,13 @@ class Blog extends gNetwork\Module
 
 	public function wp_head()
 	{
+		if ( $color = gNetwork()->option( 'theme_color', 'branding', $this->options['theme_color'] ) ) {
+			echo '<meta name="theme-color" content="'.$color.'" />'."\n";
+			echo '<meta name="msapplication-navbutton-color" content="'.$color.'">'."\n";
+			echo '<meta name="apple-mobile-web-app-capable" content="yes">'."\n";
+			echo '<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">'."\n";
+		}
+
 		if ( $this->options['page_copyright'] )
 			echo '<link rel="copyright" href="'.get_page_link( $this->options['page_copyright'] ).'" />'."\n";
 

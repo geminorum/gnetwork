@@ -702,6 +702,31 @@ class Settings extends Core\Base
 				] );
 
 			break;
+			case 'color':
+
+				if ( ! $args['field_class'] )
+					$args['field_class'] = [ 'small-text', 'color-text' ];
+
+				if ( ! $args['dir'] )
+					$args['dir'] = 'ltr';
+
+				echo HTML::tag( 'input', [
+					'type'        => 'text', // it's better to be `text`
+					'id'          => $id,
+					'name'        => $name,
+					'value'       => $value,
+					'class'       => $args['field_class'],
+					'placeholder' => $args['placeholder'],
+					'disabled'    => $args['disabled'],
+					'readonly'    => $args['readonly'],
+					'dir'         => $args['dir'],
+					'data'        => $args['data'],
+				] );
+
+				// CAUTION: module must enqueue `wp-color-picker` styles/scripts
+				$scripts[] = '$("#'.$id.'").wpColorPicker();';
+
+			break;
 			case 'email':
 
 				if ( ! $args['field_class'] )

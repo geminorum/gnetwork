@@ -27,6 +27,7 @@ class Branding extends gNetwork\Module
 	public function default_options()
 	{
 		return [
+			'theme_color'       => '',
 			'siteicon_fallback' => '0',
 			'text_copyright'    => '',
 			'text_powered'      => '',
@@ -38,6 +39,12 @@ class Branding extends gNetwork\Module
 	{
 		return [
 			'_general' => [
+				[
+					'field'       => 'theme_color',
+					'type'        => 'color',
+					'title'       => _x( 'Theme Color', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Defines color of the mobile browser address bar. Leave empty to disable.', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
+				],
 				[
 					'field'       => 'siteicon_fallback',
 					'title'       => _x( 'Network Site Icon', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
@@ -63,6 +70,12 @@ class Branding extends gNetwork\Module
 				],
 			],
 		];
+	}
+
+	protected function settings_setup( $sub = NULL )
+	{
+		wp_enqueue_script( 'wp-color-picker' );
+		wp_enqueue_style( 'wp-color-picker' );
 	}
 
 	// @SOURCE: https://github.com/kraftbj/default-site-icon

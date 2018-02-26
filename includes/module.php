@@ -518,8 +518,13 @@ class Module extends Core\Base
 			$this->register_settings();
 			$this->register_settings_buttons( $sub );
 			$this->register_settings_help( $sub );
+
+			$this->settings_setup( $sub ); // must be after `register_settings()`
 		}
 	}
+
+	// DEFAULT METHOD: used for settings page only hooks
+	protected function settings_setup( $sub = NULL ) {}
 
 	// DEFAULT METHOD: MAYBE OVERRIDED
 	// CAUTION: the action method responsible for checking the nonce
