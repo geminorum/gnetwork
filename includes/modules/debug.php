@@ -127,8 +127,8 @@ class Debug extends gNetwork\Module
 
 			HTML::tabsList( [
 				'php' => [
-					'title'  => _x( 'PHP', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
-					'cb'     => [ __CLASS__, 'summaryPHP' ],
+					'title'  => _x( 'PHP / MySQL', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
+					'cb'     => [ __CLASS__, 'summaryPHPMySQL' ],
 					'active' => TRUE,
 				],
 				'wordpress' => [
@@ -527,7 +527,7 @@ class Debug extends gNetwork\Module
 			HTML::desc( _x( '<code>phpinfo()</code> has been disabled.', 'Modules: Debug', GNETWORK_TEXTDOMAIN ), TRUE, '-empty -phpinfo' );
 	}
 
-	public static function summaryPHP()
+	public static function summaryPHPMySQL()
 	{
 		HTML::desc( sprintf( _x( 'Current PHP version: <code>%s</code>', 'Modules: Debug', GNETWORK_TEXTDOMAIN ), phpversion() ) );
 
@@ -540,6 +540,10 @@ class Debug extends gNetwork\Module
 			'<code title="%2$s">%1$s</code>',
 			'<span class="description -danger">'._x( 'Missing Extensions', 'Modules: Debug', GNETWORK_TEXTDOMAIN ).':</span>'
 		);
+
+		echo '<hr />';
+
+		HTML::desc( sprintf( _x( 'Current MySQL version: <code>%s</code>', 'Modules: Debug', GNETWORK_TEXTDOMAIN ), $GLOBALS['wpdb']->db_version() ) );
 	}
 
 	public static function getPHPExtensions()
