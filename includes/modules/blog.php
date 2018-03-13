@@ -72,8 +72,10 @@ class Blog extends gNetwork\Module
 		if ( ! $this->options['rest_api_enabled'] )
 			$this->filter( 'rest_authentication_errors', 1, 999 );
 
-		if ( ! $this->options['xmlrpc_enabled'] )
-			add_filter( 'xmlrpc_enabled', '__return_false', 12 );
+		if ( ! $this->options['xmlrpc_enabled'] ) {
+			$this->filter( 'wp_headers' );
+			$this->filter_false( 'xmlrpc_enabled', 12 );
+		}
 
 		add_filter( 'jetpack_get_default_modules', '__return_empty_array' );
 	}
@@ -565,6 +567,12 @@ class Blog extends gNetwork\Module
 	public function rest_authentication_errors( $null )
 	{
 		return new Error( 'rest_disabled', 'The REST API is disabled on this site.', [ 'status' => 503 ] );
+	}
+
+	public function wp_headers( $headers )
+	{
+		unset( $headers['X-Pingback'] );
+		return $headers;
 	}
 
 	public function wp_head()
