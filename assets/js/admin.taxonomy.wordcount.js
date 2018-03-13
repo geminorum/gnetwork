@@ -10,30 +10,43 @@
     var contentEditor;
 
     function update () {
-      var text, chars, words;
+      var text, chars, words, lang;
 
       if (!contentEditor || contentEditor.isHidden()) {
         text = $content.val();
+        lang = $('html').attr('lang');
       } else {
         text = contentEditor.getContent({format: 'raw'});
+        lang = contentEditor.settings.wp_lang_attr;
       }
 
       chars = counter.count(text, 'characters_including_spaces');
       words = counter.count(text, 'words');
 
       if (chars !== prevChars) {
-        $chars.text(chars);
+        $chars.text((lang === 'fa-IR' ? toPersian(chars) : chars));
       }
 
       if (words !== prevWords) {
-        $words.text(words);
+        $words.text((lang === 'fa-IR' ? toPersian(words) : words));
       }
 
       prevChars = chars;
       prevWords = words;
     }
 
+    function toPersian (n) {
+      var p = '۰'.charCodeAt(0);
+      return n.toString().replace(/\d+/g, function (m) {
+        return m.split('').map(function (n) {
+          return String.fromCharCode(p + parseInt(n));
+        }).join('');
+      });
+    }
+
     $(document).on('tinymce-editor-init', function (event, editor) {
+      // $(editor.targetElm).hasClass('editor-status-counts')
+
       if (editor.id !== 'html-tag-description') {
         return;
       }

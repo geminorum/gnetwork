@@ -111,7 +111,7 @@ class Taxonomy extends gNetwork\Module
 					add_filter( 'term_description', 'wp_kses_post' );
 				}
 
-				Utilities::enqueueScript( 'admin.taxonomy.wordcount', [ 'jquery', 'word-count' ] );
+				Utilities::enqueueScript( 'admin.taxonomy.wordcount', [ 'jquery', 'word-count', 'underscore' ] );
 			}
 
 			if ( 'edit-tags' == $screen->base ) {
@@ -239,16 +239,16 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 	public function edit_form_fields( $tag, $taxonomy )
 	{
 		$settings = [
-			'textarea_name' => 'description',
-			'textarea_rows' => 10,
-			'editor_class'  => 'i18n-multilingual', // qtranslate-x
-			'tinymce'       => [
+			'textarea_name'  => 'description',
+			'textarea_rows'  => 10,
+			'default_editor' => 'html',
+			'editor_class'   => 'editor-status-counts i18n-multilingual', // qtranslate-x
+			'quicktags'      => [ 'buttons' => 'link,em,strong,li,ul,ol,code' ],
+			'tinymce'        => [
 				'toolbar1' => 'bold,italic,alignleft,aligncenter,alignright,link,undo,redo',
 				'toolbar2' => '',
 				'toolbar3' => '',
-			],
-			'quicktags' => [
-				'buttons' => 'link,em,strong,li,ul,ol,code',
+				'toolbar4' => '',
 			],
 		];
 
@@ -270,18 +270,18 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 	public function add_form_fields( $taxonomy )
 	{
 		$settings = [
-			'textarea_name' => 'description',
-			'textarea_rows' => 7,
-			'teeny'         => TRUE,
-			'media_buttons' => FALSE,
-			'editor_class'  => 'i18n-multilingual', // qtranslate-x
-			'tinymce'       => [
+			'textarea_name'  => 'description',
+			'textarea_rows'  => 7,
+			'teeny'          => TRUE,
+			'media_buttons'  => FALSE,
+			'default_editor' => 'html',
+			'editor_class'   => 'editor-status-counts i18n-multilingual', // qtranslate-x
+			'quicktags'      => [ 'buttons' => 'link,em,strong,li,ul,ol,code' ],
+			'tinymce'        => [
 				'toolbar1' => 'bold,italic,alignleft,aligncenter,alignright,link,undo,redo',
 				'toolbar2' => '',
 				'toolbar3' => '',
-			],
-			'quicktags' => [
-				'buttons' => 'link,em,strong,li,ul,ol,code',
+				'toolbar4' => '',
 			],
 		];
 
