@@ -1023,7 +1023,7 @@ class ShortCodes extends gNetwork\Module
 
 				if ( $file = get_attached_file( $args['id'] ) ) {
 
-					$csv = new \parseCSV();
+					$csv = new \ParseCsv\Csv();
 					$csv->auto( File::normalize( $file ) );
 
 					$titles = $args['columns'] ? explode( ',', $args['columns'] ) : $csv->titles;
@@ -1037,7 +1037,7 @@ class ShortCodes extends gNetwork\Module
 
 				if ( $string = HTTP::getContents( $args['url'] ) ) {
 
-					$csv = new \parseCSV();
+					$csv = new \ParseCsv\Csv();
 					$csv->parse( $string );
 
 					$titles = $args['columns'] ? explode( ',', $args['columns'] ) : $csv->titles;
