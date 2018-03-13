@@ -1,9 +1,9 @@
-/* global jQuery, gNetworkTaxonomy */
+/* global jQuery, gNetworkTaxonomyActions */
 
 jQuery(function ($) {
   var actions = [];
 
-  $.each(gNetworkTaxonomy, function (key, title) {
+  $.each(gNetworkTaxonomyActions, function (key, title) {
     actions.unshift({
       action: 'bulk_' + key,
       name: title,

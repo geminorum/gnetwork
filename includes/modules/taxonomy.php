@@ -110,6 +110,8 @@ class Taxonomy extends gNetwork\Module
 					add_filter( 'pre_term_description', 'wp_kses_post' );
 					add_filter( 'term_description', 'wp_kses_post' );
 				}
+
+				Utilities::enqueueScript( 'admin.taxonomy.wordcount', [ 'jquery', 'word-count' ] );
 			}
 
 			if ( 'edit-tags' == $screen->base ) {
@@ -240,14 +242,29 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 			'textarea_name' => 'description',
 			'textarea_rows' => 10,
 			'editor_class'  => 'i18n-multilingual', // qtranslate-x
+			'tinymce'       => [
+				'toolbar1' => 'bold,italic,alignleft,aligncenter,alignright,link,undo,redo',
+				'toolbar2' => '',
+				'toolbar3' => '',
+			],
+			'quicktags' => [
+				'buttons' => 'link,em,strong,li,ul,ol,code',
+			],
 		];
 
-		?><tr class="form-field term-description-wrap">
-			<th scope="row" valign="top"><label for="html-tag-description"><?php _ex( 'Description', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN ); ?></label></th>
-			<td><?php wp_editor( htmlspecialchars_decode( $tag->description ), 'html-tag-description', $settings ); ?>
-			<p class="description"><?php _ex( 'The description is not prominent by default; however, some themes may show it.', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN ); ?></p></td>
-			<script type="text/javascript">jQuery( 'textarea#description' ).closest( '.form-field' ).remove();</script>
-		</tr><?php
+		echo '<tr class="form-field term-description-wrap">';
+			echo '<th scope="row" valign="top"><label for="html-tag-description">';
+				_ex( 'Description', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN );
+			echo '</label></th><td>';
+
+			wp_editor( htmlspecialchars_decode( $tag->description ), 'html-tag-description', $settings );
+
+			$this->editor_status_info();
+
+			HTML::desc( _x( 'The description is not prominent by default; however, some themes may show it.', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN ) );
+			HTML::wrapScript( 'jQuery("textarea#description").closest(".form-field").remove();' );
+
+		echo '</tr>';
 	}
 
 	public function add_form_fields( $taxonomy )
@@ -258,16 +275,43 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 			'teeny'         => TRUE,
 			'media_buttons' => FALSE,
 			'editor_class'  => 'i18n-multilingual', // qtranslate-x
+			'tinymce'       => [
+				'toolbar1' => 'bold,italic,alignleft,aligncenter,alignright,link,undo,redo',
+				'toolbar2' => '',
+				'toolbar3' => '',
+			],
+			'quicktags' => [
+				'buttons' => 'link,em,strong,li,ul,ol,code',
+			],
 		];
 
-		?><div class="form-field term-description-wrap"><label for="html-tag-description"><?php _ex( 'Description', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN ); ?></label>
-			<?php wp_editor( '', 'html-tag-description', $settings ); ?>
-			<p class="description"><?php _ex( 'The description is not prominent by default; however, some themes may show it.', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN ); ?></p>
-			<script type="text/javascript">
-				jQuery( 'textarea#tag-description' ).closest( '.form-field' ).remove();
-				jQuery(function($){$( '#addtag' ).on( 'mousedown', '#submit', function(){tinyMCE.triggerSave();});});
-			</script>
-		</div><?php
+		echo '<div class="form-field term-description-wrap">';
+
+			echo '<label for="html-tag-description">';
+				_ex( 'Description', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN );
+			echo '</label>';
+
+			wp_editor( '', 'html-tag-description', $settings );
+
+			$this->editor_status_info();
+
+			HTML::desc( _x( 'The description is not prominent by default; however, some themes may show it.', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN ) );
+
+			HTML::wrapScript( 'jQuery("textarea#tag-description").closest(".form-field").remove();' );
+			HTML::wrapjQueryReady( '$("#addtag").on("mousedown","#submit",function(){tinyMCE.triggerSave();});' );
+
+		echo '</div>';
+	}
+
+	private function editor_status_info()
+	{
+		$html = '<div id="description-editor-counts" class="-wordcount hide-if-no-js">';
+		$html.= sprintf( _x( 'Characters: %s', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN ), '<span class="char-count">0</span>' );
+		$html.= ' | ';
+		$html.= sprintf( _x( 'Words: %s', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN ), '<span class="word-count">0</span>' );
+		$html.= '</div>';
+
+		echo HTML::wrap( $html, '-editor-status-info' );
 	}
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -604,8 +648,8 @@ jQuery('#the-list').on('click', 'a.editinline', function(){
 	{
 		global $taxonomy;
 
-		wp_localize_script( Utilities::enqueueScript( 'admin.taxonomy' ),
-			'gNetworkTaxonomy', $this->get_actions( $taxonomy ) );
+		wp_localize_script( Utilities::enqueueScript( 'admin.taxonomy.actions' ),
+			'gNetworkTaxonomyActions', $this->get_actions( $taxonomy ) );
 	}
 
 	public function admin_footer()
