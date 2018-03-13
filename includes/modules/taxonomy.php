@@ -159,11 +159,11 @@ class Taxonomy extends gNetwork\Module
 
 	public function manage_custom_column( $empty, $column_name, $term_id )
 	{
-		if ( 'gnetwork_description' == $column_name )
-			if ( $term = get_term( intval( $term_id ) ) )
-				return sanitize_term_field( 'description', $term->description, $term->term_id, $term->taxonomy, 'display' );
+		if ( 'gnetwork_description' !== $column_name )
+			return $empty;
 
-		return $empty;
+		if ( $term = get_term( intval( $term_id ) ) )
+			echo sanitize_term_field( 'description', $term->description, $term->term_id, $term->taxonomy, 'display' );
 	}
 
 	public function quick_edit_custom_box( $column_name, $screen, $taxonomy )
@@ -181,15 +181,7 @@ class Taxonomy extends gNetwork\Module
 			echo '<textarea id="inline-desc" name="gnetwork-description" rows="6" class="ptitle"></textarea>';
 		echo '</span></label></div></fieldset>';
 
-		?><script>
-jQuery('#the-list').on('click', 'a.editinline', function(){
-	var now = jQuery(this).closest('tr').find('td.gnetwork_description').text();
-	jQuery('#inline-desc').text( now );
-	// if (typeof autosize !== 'undefined' && jQuery.isFunction(autosize)) {
-	// 	autosize(jQuery('#inline-desc'));
-	// }
-});
-</script><?php
+		HTML::wrapjQueryReady( '$("#the-list").on("click",".editinline",function(){var now=$(this).closest("tr").find("td.gnetwork_description").text();$("#inline-desc").text(now);});' );
 	}
 
 	// WTF: must be `edited_term` not `edit_term`
