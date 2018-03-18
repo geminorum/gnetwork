@@ -62,9 +62,13 @@ class ShortCodes extends gNetwork\Module
 
 		$this->shortcodes( $this->get_shortcodes() );
 
-		if ( ! defined( 'GNETWORK_DISABLE_REFLIST_INSERT' )
-			|| ! GNETWORK_DISABLE_REFLIST_INSERT )
-				add_action( 'gnetwork_themes_content_after', [ $this, 'content_after_reflist' ], 5 );
+		if ( ! defined( 'GNETWORK_DISABLE_REFLIST_INSERT' ) || ! GNETWORK_DISABLE_REFLIST_INSERT ) {
+
+			add_action( 'gnetwork_themes_content_after', [ $this, 'content_after_reflist' ], 5 );
+
+			$this->filter( 'amp_post_article_footer_meta', 1, 9 );
+			$this->filter( 'amp_post_template_file', 3 );
+		}
 	}
 
 	protected function get_shortcodes()
@@ -1394,6 +1398,22 @@ class ShortCodes extends gNetwork\Module
 	{
 		if ( ! $this->ref_list )
 			echo $this->shortcode_reflist( [], NULL, 'reflist' );
+	}
+
+	public function amp_post_article_footer_meta( $parts )
+	{
+		return array_merge( [ $this->classs( 'reference' ) ], $parts );
+	}
+
+	public function amp_post_template_file( $file, $type, $post )
+	{
+		if ( $this->classs( 'reference' ) !== $type )
+			return $file;
+
+		if ( $this->ref_list )
+			return $file;
+
+		return Utilities::getLayout( 'amp.reference' );
 	}
 
 	// FIXME: check this!
