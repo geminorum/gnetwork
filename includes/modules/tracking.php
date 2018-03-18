@@ -24,6 +24,8 @@ class Tracking extends gNetwork\Module
 		$this->action( 'wp_head', 0, 999 );
 		$this->action( 'login_head', 0, 999 );
 		$this->action( 'wp_footer', 0, 99 );
+
+		$this->filter( 'amp_post_template_analytics' );
 	}
 
 	public function setup_menu( $context )
@@ -332,6 +334,29 @@ class Tracking extends gNetwork\Module
 			// http://stackoverflow.com/a/20316430
 			// document.getElementsByClassName('g-page')[0].setAttribute('data-width', document.getElementById('google-badge').clientWidth);
 		}
+	}
+
+	// @REF: https://github.com/Automattic/amp-wp/wiki/Analytics
+	public function amp_post_template_analytics( $analytics )
+	{
+		if ( ! $account = gNetwork()->option( 'ga_override', 'blog', $this->options['ga_account'] ) )
+			return $analytics;
+
+		$analytics[$this->base.'-googleanalytics'] = [
+			'type'        => 'googleanalytics',
+			'attributes'  => [],
+			'config_data' => [
+				'vars'     => [ 'account' => $account ],
+				'triggers' => [
+					'trackPageview' => [
+						'on'      => 'visible',
+						'request' => 'pageview',
+					],
+				],
+			],
+		];
+
+		return $analytics;
 	}
 
 	public static function getContact( $class = 'contact', $fallback = FALSE )
