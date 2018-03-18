@@ -41,6 +41,9 @@ class Themes extends gNetwork\Module
 
 		} else {
 
+			$this->filter( 'amp_post_template_data', 2 );
+			$this->action( 'amp_post_template_css' );
+
 			$this->action( 'wp_default_scripts', 1, 12 );
 
 			if ( $this->options['content_actions'] )
@@ -162,6 +165,34 @@ class Themes extends gNetwork\Module
 		}
 
 		$scripts->add( 'jquery', FALSE, $deps, $jquery_ver, $bottom );
+	}
+
+	public function amp_post_template_data( $data, $post )
+	{
+		$data['font_urls'] = []; // unset default font
+
+		return $data;
+	}
+
+	public function amp_post_template_css( $amp_template )
+	{
+		?>
+		body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Tahoma, Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif; }
+		footer ol#references { margin: 16px 16px 0; padding-top: 16px; border-top: 1px solid #c2c2c2; }
+		.-wrap.shortcode-asterisks { margin: 16px 0; text-align: center; }
+		.amp-wp-article-header .overtitle, .amp-wp-article-header .subtitle { margin: 8px 0; }
+		.amp-wp-article-content .-lead { font-size: .89em; color: gray; }
+		<?php
+
+		if ( ! is_rtl() )
+			return;
+		?>
+		.amp-wp-article-header .amp-wp-meta:last-of-type { text-align: left; }
+		.amp-wp-article-header .amp-wp-meta:first-of-type { text-align: right; }
+		.back-to-top { left: 16px; right: auto; }
+		.amp-wp-footer p { margin: 0 0 0 85px; }
+		blockquote { border-right: 2px solid gray; border-left: none; }
+		<?php
 	}
 
 	public function after_setup_theme()
