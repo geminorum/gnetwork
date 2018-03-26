@@ -134,6 +134,7 @@ class Typography extends gNetwork\Module
 	{
 		return [
 			'three-asterisks' => 'shortcode_three_asterisks',
+			'nst'             => 'shortcode_numeral_section_title',
 			'ltr'             => 'shortcode_ltr',
 			'pad'             => 'shortcode_pad',
 			'wiki'            => 'shortcode_wiki',
@@ -227,6 +228,11 @@ class Typography extends gNetwork\Module
 	public function shortcode_three_asterisks( $atts = [], $content = NULL, $tag = '' )
 	{
 		return self::shortcodeWrap( '&#x274b;&nbsp;&#x274b;&nbsp;&#x274b;', 'asterisks', [ 'wrap' => TRUE ] );
+	}
+
+	public function shortcode_numeral_section_title( $atts = [], $content = NULL, $tag = '' )
+	{
+		return '<h3 class="numeral-section-title">'.$content.'</h3>';
 	}
 
 	// FIXME: use entities in tel short code

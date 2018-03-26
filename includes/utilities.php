@@ -654,6 +654,19 @@ class Utilities extends Core\Base
 		return $ipinfp->getFullIpDetails( $ip );
 	}
 
+	// FIXME: TEST THIS!
+	// @REF: https://github.com/hbattat/verifyEmail
+	public static function verifyEmail( $email = NULL, $from = NULL, $port = 25 )
+	{
+		$verifier = new \hbattat\VerifyEmail( $email, $from, $port );
+		$results  = $verifier->verify();
+
+		if ( WordPress::isDev() )
+			self::__log( $verifier->get_debug() );
+
+		return $results;
+	}
+
 	public static function log( $error = '[Unknown]', $message = FALSE, $extra = FALSE, $path = GNETWORK_DEBUG_LOG )
 	{
 		if ( ! $path )

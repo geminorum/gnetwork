@@ -6,6 +6,7 @@ use geminorum\gNetwork;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\HTML;
+use geminorum\gNetwork\Core\Number;
 use geminorum\gNetwork\Core\WordPress;
 
 class Taxonomy extends gNetwork\Module
@@ -220,14 +221,6 @@ class Taxonomy extends gNetwork\Module
 		return $clauses;
 	}
 
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-/// Originally from Visual Term Description Editor
-/// v1.4.1 - 20160506
-// @REF: http://wordpress.org/plugins/visual-term-description-editor/
-// @REF: https://github.com/bungeshea/visual-term-description-editor
-
 	public function edit_form_fields( $tag, $taxonomy )
 	{
 		$settings = [
@@ -244,7 +237,7 @@ class Taxonomy extends gNetwork\Module
 			],
 		];
 
-		echo '<tr class="form-field term-description-wrap">';
+		echo '<tr class="form-field term-description-wrap -wordcount-wrap">';
 			echo '<th scope="row" valign="top"><label for="html-tag-description">';
 				_ex( 'Description', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN );
 			echo '</label></th><td>';
@@ -277,7 +270,7 @@ class Taxonomy extends gNetwork\Module
 			],
 		];
 
-		echo '<div class="form-field term-description-wrap">';
+		echo '<div class="form-field term-description-wrap -wordcount-wrap">';
 
 			echo '<label for="html-tag-description">';
 				_ex( 'Description', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN );
@@ -295,12 +288,12 @@ class Taxonomy extends gNetwork\Module
 		echo '</div>';
 	}
 
-	private function editor_status_info()
+	private function editor_status_info( $target = 'html-tag-description' )
 	{
-		$html = '<div id="description-editor-counts" class="-wordcount hide-if-no-js">';
-		$html.= sprintf( _x( 'Characters: %s', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN ), '<span class="char-count">0</span>' );
+		$html = '<div id="description-editor-counts" class="-wordcount hide-if-no-js" data-target="'.$target.'">';
+		$html.= sprintf( _x( 'Words: %s', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN ), '<span class="word-count">'.Number::format( '0' ).'</span>' );
 		$html.= ' | ';
-		$html.= sprintf( _x( 'Words: %s', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN ), '<span class="word-count">0</span>' );
+		$html.= sprintf( _x( 'Chars: %s', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN ), '<span class="char-count">'.Number::format( '0' ).'</span>' );
 		$html.= '</div>';
 
 		echo HTML::wrap( $html, '-editor-status-info' );
@@ -310,10 +303,8 @@ class Taxonomy extends gNetwork\Module
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 /// Originally adapted from : Term Management Tools by scribu v1.1.4
-// https://github.com/scribu/wp-term-management-tools
-// https://wordpress.org/plugins/term-management-tools/
-// http://scribu.net/wordpress/term-management-tools
-// https://github.com/scribu/wp-term-management-tools
+// @REF: https://github.com/scribu/wp-term-management-tools
+// @REF: https://wordpress.org/plugins/term-management-tools/
 
 	private function get_actions( $taxonomy )
 	{

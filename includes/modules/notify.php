@@ -273,11 +273,11 @@ class Notify extends gNetwork\Module
 			'headers' => '',
 		];
 
-		$mail = apply_filters( 'wp_new_user_notification_email', $mail, $user, $blog );
+		$mail = apply_filters( 'wp_new_user_notification_email', $mail, $user, $site );
 
 		wp_mail(
 			$mail['to'],
-			wp_specialchars_decode( sprintf( $mail['subject'], $blog ) ),
+			wp_specialchars_decode( sprintf( $mail['subject'], $site ) ),
 			$mail['message'],
 			$mail['headers']
 		);

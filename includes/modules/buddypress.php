@@ -144,7 +144,7 @@ class BuddyPress extends gNetwork\Module
 			$settings['_notifications'] = [
 				[
 					'field'       => 'notification_defaults',
-					'type'        => 'checkbox',
+					'type'        => 'checkboxes',
 					'title'       => _x( 'Default Settings', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Select enabled by default BuddyPress email notifications settings upon user activation', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
 					'values'      => self::defaultNotifications(),

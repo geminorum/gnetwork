@@ -624,7 +624,7 @@ class Settings extends Core\Base
 							'id'          => $id.'-'.$value_name,
 							'name'        => $name.'['.$value_name.']',
 							'value'       => isset( $value[$value_name] ) ? $value[$value_name] : '',
-							'class'       => $args['field_class'],
+							'class'       => HTML::attrClass( $args['field_class'], '-type-text' ),
 							'placeholder' => $args['placeholder'],
 							'disabled'    => $args['disabled'],
 							'readonly'    => $args['readonly'],
@@ -646,7 +646,7 @@ class Settings extends Core\Base
 						'id'          => $id,
 						'name'        => $name,
 						'value'       => $value,
-						'class'       => $args['field_class'],
+						'class'       => HTML::attrClass( $args['field_class'], '-type-text' ),
 						'placeholder' => $args['placeholder'],
 						'disabled'    => $args['disabled'],
 						'readonly'    => $args['readonly'],
@@ -693,7 +693,7 @@ class Settings extends Core\Base
 					'id'          => $id,
 					'name'        => $name,
 					'value'       => $value,
-					'class'       => $args['field_class'],
+					'class'       => HTML::attrClass( $args['field_class'], '-type-url' ),
 					'placeholder' => $args['placeholder'],
 					'disabled'    => $args['disabled'],
 					'readonly'    => $args['readonly'],
@@ -715,7 +715,7 @@ class Settings extends Core\Base
 					'id'          => $id,
 					'name'        => $name,
 					'value'       => $value,
-					'class'       => $args['field_class'],
+					'class'       => HTML::attrClass( $args['field_class'], '-type-color' ),
 					'placeholder' => $args['placeholder'],
 					'disabled'    => $args['disabled'],
 					'readonly'    => $args['readonly'],
@@ -740,7 +740,7 @@ class Settings extends Core\Base
 					'id'          => $id,
 					'name'        => $name,
 					'value'       => $value,
-					'class'       => $args['field_class'],
+					'class'       => HTML::attrClass( $args['field_class'], '-type-email' ),
 					'placeholder' => $args['placeholder'],
 					'disabled'    => $args['disabled'],
 					'readonly'    => $args['readonly'],
@@ -750,6 +750,28 @@ class Settings extends Core\Base
 
 			break;
 			case 'checkbox':
+
+				$html = HTML::tag( 'input', [
+					'type'     => 'checkbox',
+					'id'       => $id,
+					'name'     => $name,
+					'value'    => '1',
+					'checked'  => $value,
+					'class'    => HTML::attrClass( $args['field_class'], '-type-checkbox' ),
+					'disabled' => $args['disabled'],
+					'readonly' => $args['readonly'],
+					'dir'      => $args['dir'],
+					'data'     => $args['data'],
+				] );
+
+				echo '<p>'.HTML::tag( 'label', [
+					'for' => $id,
+				], $html.'&nbsp;'.$args['description'] ).'</p>';
+
+				$args['description'] = FALSE;
+
+			break;
+			case 'checkboxes':
 
 				if ( count( $args['values'] ) ) {
 
@@ -783,7 +805,7 @@ class Settings extends Core\Base
 							'name'     => $name.'['.$value_name.']',
 							'value'    => '1',
 							'checked'  => in_array( $value_name, (array) $value ),
-							'class'    => $args['field_class'],
+							'class'    => HTML::attrClass( $args['field_class'], '-type-checkbox' ),
 							'disabled' => $args['disabled'],
 							'readonly' => $args['readonly'],
 							'dir'      => $args['dir'],
@@ -797,27 +819,6 @@ class Settings extends Core\Base
 				} else if ( is_array( $args['values'] ) ) {
 
 					$args['description'] = $args['string_empty'];
-
-				} else {
-
-					$html = HTML::tag( 'input', [
-						'type'     => 'checkbox',
-						'id'       => $id,
-						'name'     => $name,
-						'value'    => '1',
-						'checked'  => $value,
-						'class'    => $args['field_class'],
-						'disabled' => $args['disabled'],
-						'readonly' => $args['readonly'],
-						'dir'      => $args['dir'],
-						'data'     => $args['data'],
-					] );
-
-					echo '<p>'.HTML::tag( 'label', [
-						'for' => $id,
-					], $html.'&nbsp;'.$args['description'] ).'</p>';
-
-					$args['description'] = FALSE;
 				}
 
 			break;
@@ -857,7 +858,7 @@ class Settings extends Core\Base
 							'name'     => $name.'['.$value_name.']',
 							'value'    => '1',
 							'checked'  => in_array( $value_name, (array) $value ),
-							'class'    => $args['field_class'],
+							'class'    => HTML::attrClass( $args['field_class'], '-type-checkbox' ),
 							'disabled' => $args['disabled'],
 							'readonly' => $args['readonly'],
 							'dir'      => $args['dir'],
@@ -1197,7 +1198,7 @@ class Settings extends Core\Base
 					'type'     => 'file',
 					'id'       => $id,
 					'name'     => $id,
-					'class'    => $args['field_class'],
+					'class'    => HTML::attrClass( $args['field_class'], '-type-file' ),
 					'disabled' => $args['disabled'],
 					'dir'      => $args['dir'],
 					'data'     => $args['data'],
