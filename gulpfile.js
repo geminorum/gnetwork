@@ -1,6 +1,5 @@
 (function () {
   var gulp = require('gulp');
-  var gutil = require('gulp-util');
   var plugins = require('gulp-load-plugins')();
   var multipipe = require('multipipe');
   var cssnano = require('cssnano');
@@ -9,6 +8,7 @@
   var prettyjson = require('prettyjson');
   var extend = require('xtend');
   var yaml = require('js-yaml');
+  var log = require('fancy-log');
   var del = require('del');
   var fs = require('fs');
 
@@ -21,42 +21,42 @@
   try {
     env = extend(config.env, yaml.safeLoad(fs.readFileSync('./environment.yml', {encoding: 'utf-8'}), {'json': true}));
   } catch (e) {
-    gutil.log('no environment.yml loaded!');
+    log.warn('no environment.yml loaded!');
   }
 
   gulp.task('dev:tinify', function () {
     return gulp.src(config.input.images)
-    .pipe(plugins.newer(config.output.images))
-    .pipe(plugins.tinypngExtended({
-      key: env.tinypng,
-      sigFile: config.logs.tinypng,
-      summarize: true,
-      keepMetadata: false,
-      keepOriginal: true,
-      log: true
-    }))
-    .pipe(gulp.dest(config.output.images));
+      .pipe(plugins.newer(config.output.images))
+      .pipe(plugins.tinypngExtended({
+        key: env.tinypng,
+        sigFile: config.logs.tinypng,
+        summarize: true,
+        keepMetadata: false,
+        keepOriginal: true,
+        log: true
+      }))
+      .pipe(gulp.dest(config.output.images));
   });
 
   gulp.task('svgmin', function () {
     return gulp.src(config.input.svg)
-    .pipe(plugins.newer(config.output.images))
-    .pipe(plugins.svgmin()) // SEE: http://dbushell.com/2016/03/01/be-careful-with-your-viewbox/
-    .pipe(gulp.dest(config.output.images));
+      .pipe(plugins.newer(config.output.images))
+      .pipe(plugins.svgmin()) // SEE: http://dbushell.com/2016/03/01/be-careful-with-your-viewbox/
+      .pipe(gulp.dest(config.output.images));
   });
 
   gulp.task('smushit', function () {
     return gulp.src(config.input.images)
-    .pipe(plugins.newer(config.output.images))
-    .pipe(plugins.smushit())
-    .pipe(gulp.dest(config.output.images));
+      .pipe(plugins.newer(config.output.images))
+      .pipe(plugins.smushit())
+      .pipe(gulp.dest(config.output.images));
   });
 
   gulp.task('pot', function () {
     return gulp.src(config.input.php)
-    .pipe(plugins.excludeGitignore())
-    .pipe(plugins.wpPot(config.pot))
-    .pipe(gulp.dest(config.output.languages));
+      .pipe(plugins.excludeGitignore())
+      .pipe(plugins.wpPot(config.pot))
+      .pipe(gulp.dest(config.output.languages));
   });
 
   gulp.task('textdomain', function () {
@@ -71,23 +71,23 @@
       // TODO: add prefixer
     ];
     return gulp.src(config.input.sass)
-    // .pipe(plugins.sourcemaps.init())
-    .pipe(plugins.sass.sync(config.sass).on('error', plugins.sass.logError))
-    .pipe(plugins.postcss(processors))
-    // .pipe(plugins.sourcemaps.write(config.output.sourcemaps))
-    .pipe(gulp.dest(config.output.css)).on('error', gutil.log)
-    .pipe(plugins.if([ '*', '!./assets/css/themes/*', '!./assets/css/tinymce/*' ],
-      multipipe(
-        plugins.postcss([rtlcss()]),
-        plugins.rename({suffix: '-rtl'}),
-        gulp.dest(config.output.css)
-      )
-    ))
-    .pipe(plugins.changedInPlace())
-    .pipe(plugins.debug({title: 'Changed'}))
-    .pipe(plugins.if(function (file) {
-      if (file.extname !== '.map') return true;
-    }, plugins.livereload()));
+      // .pipe(plugins.sourcemaps.init())
+      .pipe(plugins.sass.sync(config.sass).on('error', plugins.sass.logError))
+      .pipe(plugins.postcss(processors))
+      // .pipe(plugins.sourcemaps.write(config.output.sourcemaps))
+      .pipe(gulp.dest(config.output.css)).on('error', log.error)
+      .pipe(plugins.if([ '*', '!./assets/css/themes/*', '!./assets/css/tinymce/*' ],
+        multipipe(
+          plugins.postcss([rtlcss()]),
+          plugins.rename({suffix: '-rtl'}),
+          gulp.dest(config.output.css)
+        )
+      ))
+      .pipe(plugins.changedInPlace())
+      .pipe(plugins.debug({title: 'Changed'}))
+      .pipe(plugins.if(function (file) {
+        if (file.extname !== '.map') return true;
+      }, plugins.livereload()));
   });
 
   gulp.task('dev:watch', function () {
@@ -102,39 +102,39 @@
       // TODO: add prefixer
     ];
     return gulp.src(config.input.sass)
-    // .pipe(plugins.sourcemaps.init())
-    .pipe(plugins.sass.sync(config.sass).on('error', plugins.sass.logError))
-    .pipe(plugins.postcss(processors))
-    .pipe(plugins.header(banner, {pkg: pkg}))
-    // .pipe(plugins.sourcemaps.write(config.output.sourcemaps))
-    .pipe(plugins.debug({title: 'Created'}))
-    .pipe(gulp.dest(config.output.css)).on('error', gutil.log)
-    .pipe(plugins.if([ '*', '!./assets/css/themes/*', '!./assets/css/tinymce/*' ],
-      multipipe(
-        plugins.postcss([rtlcss()]),
-        plugins.rename({suffix: '-rtl'}),
-        plugins.debug({title: 'RTLed'})
-      )
-    ))
-    .pipe(gulp.dest(config.output.css)).on('error', gutil.log);
+      // .pipe(plugins.sourcemaps.init())
+      .pipe(plugins.sass.sync(config.sass).on('error', plugins.sass.logError))
+      .pipe(plugins.postcss(processors))
+      .pipe(plugins.header(banner, {pkg: pkg}))
+      // .pipe(plugins.sourcemaps.write(config.output.sourcemaps))
+      .pipe(plugins.debug({title: 'Created'}))
+      .pipe(gulp.dest(config.output.css)).on('error', log.error)
+      .pipe(plugins.if([ '*', '!./assets/css/themes/*', '!./assets/css/tinymce/*' ],
+        multipipe(
+          plugins.postcss([rtlcss()]),
+          plugins.rename({suffix: '-rtl'}),
+          plugins.debug({title: 'RTLed'})
+        )
+      ))
+      .pipe(gulp.dest(config.output.css)).on('error', log.error);
   });
 
   // all styles / without livereload
   gulp.task('old:styles', function () {
     return gulp.src(config.input.sass)
-    .pipe(plugins.sourcemaps.init())
-    .pipe(plugins.sass.sync(config.sass).on('error', plugins.sass.logError))
-    .pipe(plugins.cssnano({
-      core: false,
-      zindex: false,
-      discardComments: false
-    }))
-    .pipe(plugins.header(banner, {
-      pkg: pkg
-    }))
-    .pipe(plugins.sourcemaps.write(config.output.sourcemaps))
-    .pipe(plugins.debug({title: 'unicorn:'}))
-    .pipe(gulp.dest(config.output.css)).on('error', gutil.log);
+      .pipe(plugins.sourcemaps.init())
+      .pipe(plugins.sass.sync(config.sass).on('error', plugins.sass.logError))
+      .pipe(plugins.cssnano({
+        core: false,
+        zindex: false,
+        discardComments: false
+      }))
+      .pipe(plugins.header(banner, {
+        pkg: pkg
+      }))
+      .pipe(plugins.sourcemaps.write(config.output.sourcemaps))
+      .pipe(plugins.debug({title: 'unicorn:'}))
+      .pipe(gulp.dest(config.output.css)).on('error', log.error);
   });
 
   gulp.task('build:styles', function () {
@@ -143,37 +143,37 @@
       // TODO: add prefixer
     ];
     return gulp.src(config.input.sass)
-    .pipe(plugins.sass(config.sass).on('error', plugins.sass.logError))
-    .pipe(plugins.postcss(processors))
-    .pipe(gulp.dest(config.output.css)).on('error', gutil.log)
-    .pipe(plugins.if([ '*', '!./assets/css/themes/*', '!./assets/css/tinymce/*' ],
-      multipipe(
-        plugins.postcss([rtlcss()]),
-        plugins.rename({suffix: '-rtl'})
-      )
-    ))
-    .pipe(gulp.dest(config.output.css)).on('error', gutil.log);
+      .pipe(plugins.sass(config.sass).on('error', plugins.sass.logError))
+      .pipe(plugins.postcss(processors))
+      .pipe(gulp.dest(config.output.css)).on('error', log.error)
+      .pipe(plugins.if([ '*', '!./assets/css/themes/*', '!./assets/css/tinymce/*' ],
+        multipipe(
+          plugins.postcss([rtlcss()]),
+          plugins.rename({suffix: '-rtl'})
+        )
+      ))
+      .pipe(gulp.dest(config.output.css)).on('error', log.error);
   });
 
   gulp.task('build:scripts', function () {
     return gulp.src(config.input.js, {base: '.'})
-    .pipe(plugins.rename({
-      suffix: '.min'
-    }))
-    .pipe(plugins.uglify());
+      .pipe(plugins.rename({
+        suffix: '.min'
+      }))
+      .pipe(plugins.uglify());
   });
 
   gulp.task('build:banner', function () {
     return gulp.src(config.input.banner, {'base': '.'})
-    .pipe(plugins.header(banner, {
-      pkg: pkg
-    }))
-    .pipe(gulp.dest('.'));
+      .pipe(plugins.header(banner, {
+        pkg: pkg
+      }))
+      .pipe(gulp.dest('.'));
   });
 
   gulp.task('build:copy', function () {
     return gulp.src(config.input.final, {'base': '.'})
-    .pipe(gulp.dest(config.output.ready + pkg.name));
+      .pipe(gulp.dest(config.output.ready + pkg.name));
   });
 
   gulp.task('build:clean', function (done) {
@@ -183,8 +183,8 @@
 
   gulp.task('build:zip', function () {
     return gulp.src(config.input.ready)
-    .pipe(plugins.zip(pkg.name + '-' + pkg.version + '.zip'))
-    .pipe(gulp.dest(config.output.final));
+      .pipe(plugins.zip(pkg.name + '-' + pkg.version + '.zip'))
+      .pipe(gulp.dest(config.output.final));
   });
 
   gulp.task('build', gulp.series(
@@ -194,7 +194,7 @@
     'build:copy',
     'build:zip',
     function (done) {
-      gutil.log('Done!');
+      log('Done!');
       done();
     }
   ));
@@ -214,23 +214,23 @@
 
   gulp.task('bump:package', function () {
     return gulp.src('./package.json')
-    .pipe(plugins.bump().on('error', gutil.log))
-    .pipe(gulp.dest('.'));
+      .pipe(plugins.bump().on('error', log.error))
+      .pipe(gulp.dest('.'));
   });
 
   gulp.task('bump:plugin', function () {
     return gulp.src(config.pot.metadataFile)
-    .pipe(plugins.bump().on('error', gutil.log))
-    .pipe(gulp.dest('.'));
+      .pipe(plugins.bump().on('error', log.error))
+      .pipe(gulp.dest('.'));
   });
 
   gulp.task('bump:constant', function () {
     return gulp.src(config.pot.metadataFile)
-    .pipe(plugins.bump({
-      // regex: new RegExp("([<|\'|\"]?" + config.constants.version + "[>|\'|\"]?[ ]*[:=,]?[ ]*[\'|\"]?[a-z]?)(\\d+\\.\\d+\\.\\d+)(-[0-9A-Za-z\.-]+)?([\'|\"|<]?)", "i")
-      regex: new RegExp("([<|'|\"]?" + config.constants.version + "[>|'|\"]?[ ]*[:=,]?[ ]*['|\"]?[a-z]?)(\\d+\\.\\d+\\.\\d+)(-[0-9A-Za-z.-]+)?(['|\"|<]?)", 'i')
-    }).on('error', gutil.log))
-    .pipe(gulp.dest('.'));
+      .pipe(plugins.bump({
+        // regex: new RegExp("([<|\'|\"]?" + config.constants.version + "[>|\'|\"]?[ ]*[:=,]?[ ]*[\'|\"]?[a-z]?)(\\d+\\.\\d+\\.\\d+)(-[0-9A-Za-z\.-]+)?([\'|\"|<]?)", "i")
+        regex: new RegExp("([<|'|\"]?" + config.constants.version + "[>|'|\"]?[ ]*[:=,]?[ ]*['|\"]?[a-z]?)(\\d+\\.\\d+\\.\\d+)(-[0-9A-Za-z.-]+)?(['|\"|<]?)", 'i')
+      }).on('error', log.error))
+      .pipe(gulp.dest('.'));
   });
 
   gulp.task('bump', gulp.series(
@@ -238,17 +238,17 @@
     'bump:plugin',
     'bump:constant',
     function (done) {
-      gutil.log('Bumped!');
+      log('Bumped!');
       done();
     }
   ));
 
   gulp.task('default', function (done) {
-    gutil.log('Hi, I\'m Gulp!');
-    gutil.log('Sass is:\n' + require('node-sass').info);
-    gutil.log('\n');
+    log.info('Hi, I\'m Gulp!');
+    log.info('Sass is:\n' + require('node-sass').info);
+    log.info('\n');
     console.log(prettyjson.render(pkg));
-    gutil.log('\n');
+    log.info('\n');
     console.log(prettyjson.render(config));
     done();
   });
