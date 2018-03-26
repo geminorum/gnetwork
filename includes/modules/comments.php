@@ -17,8 +17,6 @@ class Comments extends gNetwork\Module
 
 	private $textareas = [];
 
-	private $type_archived = 'archived';
-
 	protected function setup_actions()
 	{
 		if ( $this->options['disable_notifications'] ) {
@@ -37,18 +35,6 @@ class Comments extends gNetwork\Module
 
 			if ( $this->options['admin_fullcomments'] )
 				$this->filter( 'comment_excerpt' );
-
-			if ( $this->options['archived_comments'] ) {
-
-				$this->filter( 'comment_status_links', 2, 1 );
-				$this->filter( 'admin_comment_types_dropdown' );
-				$this->filter( 'comment_row_actions', 2, 15 );
-
-				add_filter( 'bulk_actions-edit-comments', [ $this, 'bulk_actions' ] );
-				add_filter( 'handle_bulk_actions-edit-comments', [ $this, 'handle_bulk_actions' ], 10, 3 );
-
-				// FIXME: UNFINISHED: add the row actions
-			}
 		}
 
 		if ( ! is_admin() ) {
@@ -81,11 +67,6 @@ class Comments extends gNetwork\Module
 			}
 		}
 
-		// support for hidden types
-		$this->action( 'pre_get_comments' );
-		$this->filter( 'wp_count_comments', 2, 1 );
-		$this->filter( 'pre_wp_update_comment_count_now', 3 );
-
 		$this->filter( 'pre_comment_approved', 2, 99 );
 		$this->filter( 'add_comment_metadata', 5, 20 );
 
@@ -104,7 +85,6 @@ class Comments extends gNetwork\Module
 	{
 		return [
 			'disable_notifications' => '1',
-			'archived_comments'     => '0',
 			'admin_fullcomments'    => '1',
 			'front_quicktags'       => '0',
 			'front_autogrow'        => '0',
@@ -132,11 +112,6 @@ class Comments extends gNetwork\Module
 					'description' => _x( 'Prevents WordPress from sending any comment related notifications.', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '1',
 					'values'      => Settings::reverseEnabled(),
-				],
-				[
-					'field'       => 'archived_comments',
-					'title'       => _x( 'Archived Comments', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Activates archived comments functionality and hides them from comment counts.', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
 					'field'       => 'admin_fullcomments',
@@ -215,227 +190,16 @@ class Comments extends gNetwork\Module
 
 	public function template_redirect()
 	{
-		if ( is_singular()
-			&& 'open' == $GLOBALS['wp_query']->post->comment_status ) {
+		if ( ! is_singular() )
+			return;
 
-			Utilities::enqueueScriptVendor( 'jquery.growfield' );
+		if ( 'open' != $GLOBALS['wp_query']->post->comment_status )
+			return;
 
-			$this->scripts[] = '$("#comment").growfield();';
+		$this->scripts[] = '$("#comment").growfield();';
+		add_action( 'wp_footer', [ $this, 'print_scripts' ], 99 );
 
-			add_action( 'wp_footer', [ $this, 'print_scripts' ], 99 );
-		}
-	}
-
-	private function get_hidden_types()
-	{
-		return $this->filters( 'hidden_types', [ $this->type_archived ] );
-	}
-
-	public function comment_row_actions( $actions, $comment )
-	{
-		if ( ! $comment->comment_type ) {
-
-			$nonce = HTML::escape( '_wpnonce='.wp_create_nonce( 'archive-comment_'.$comment->comment_ID ) );
-
-			$actions['comment_archive'] = HTML::tag( 'a', [
-				'href'       => 'comment.php?c='.$comment->comment_ID.'&action=archive&'.$nonce,
-				'aria-label' => _x( 'Move this comment to the Archives', 'Modules: Comments: Action Title Attr', GNETWORK_TEXTDOMAIN ),
-			], _x( 'Archive', 'Modules: Comments: Action', GNETWORK_TEXTDOMAIN ) );
-
-		} else if ( $this->type_archived == $comment->comment_type ) {
-
-			$nonce = HTML::escape( '_wpnonce='.wp_create_nonce( 'archive-comment_'.$comment->comment_ID ) );
-
-			$actions['comment_unarchive'] = HTML::tag( 'a', [
-				'href'       => 'comment.php?c='.$comment->comment_ID.'&action=unarchive&'.$nonce,
-				'aria-label' => _x( 'Move back this comment from the Archives', 'Modules: Comments: Action Title Attr', GNETWORK_TEXTDOMAIN ),
-			], _x( 'Unarchive', 'Modules: Comments: Action', GNETWORK_TEXTDOMAIN ) );
-		}
-
-		return $actions;
-	}
-
-	public function bulk_actions( $actions )
-	{
-		if ( empty( $_GET['comment_type'] ) || 'archived' != $_GET['comment_type'] )
-			$new = [ 'archive' => _x( 'Move to Archives', 'Modules: Comments: Bulk Action', GNETWORK_TEXTDOMAIN ) ];
-		else
-			$new = [ 'unarchive' => _x( 'Move from Archives', 'Modules: Comments: Bulk Action', GNETWORK_TEXTDOMAIN ) ];
-
-		return array_merge( $actions, $new );
-	}
-
-	public function handle_bulk_actions( $redirect_to, $doaction, $comment_ids )
-	{
-		if ( ! in_array( $doaction, [ 'archive', 'unarchive' ] ) )
-			return $redirect_to;
-
-		$archived = 0;
-
-		foreach ( $comment_ids as $comment_id )
-			if ( $this->comment_archive( $comment_id, ( $doaction == 'archive' ? TRUE : FALSE ) ) )
-				$archived++;
-
-		return add_query_arg( 'archived', $archived, $redirect_to );
-	}
-
-	// @REF: wp_set_comment_status()
-	protected function comment_archive( $comment_id, $archive = TRUE, $wp_error = FALSE )
-	{
-		global $wpdb;
-
-		$comment_old  = clone get_comment( $comment_id );
-		$comment_type = $archive ? $this->type_archived : '';
-
-		if ( ! $wpdb->update( $wpdb->comments,
-			[ 'comment_type' => $comment_type ],
-			[ 'comment_ID' => $comment_old->comment_ID ] ) )
-				return $wp_error ? new WP_Error( 'db_update_error',
-					_x( 'Could not update comment status', 'Modules: Comments: DB Update Error', GNETWORK_TEXTDOMAIN ),
-					$wpdb->last_error ) : FALSE;
-
-		clean_comment_cache( $comment_old->comment_ID );
-
-		$status  = $archive ? 'archive' : 'unarchive';
-		$comment = get_comment( $comment_old->comment_ID );
-
-		do_action( 'wp_set_comment_status', $comment->comment_ID, $status );
-
-		wp_transition_comment_status( $status, ( $this->type_archived == $comment_old->comment_type ? 'archive' : 'unarchive' ), $comment );
-
-		wp_update_comment_count( $comment->comment_post_ID );
-
-		return TRUE;
-	}
-
-	public function pre_wp_update_comment_count_now( $new, $old, $post_id )
-	{
-		global $wpdb;
-
- 	 	return $wpdb->get_var( $wpdb->prepare( "
-			SELECT COUNT(*) FROM {$wpdb->comments}
-			WHERE comment_post_ID = %d
-			AND comment_type NOT IN ( '".join( "', '", esc_sql( $this->get_hidden_types() ) )."' )
-			AND comment_approved = '1'
-		", $post_id ) );
-	}
-
-	public function comment_status_links( $status_links )
-	{
-		$status_links = array_map( function( $link ){
-
-			if ( $this->type_archived == $GLOBALS['comment_type'] )
-				$link = str_ireplace( ' class="current"', '', $link );
-
-			$link = str_ireplace( '?comment_type='.$this->type_archived.'&', '?', $link );
-			$link = str_ireplace( '?comment_type='.$this->type_archived, '', $link );
-			$link = str_ireplace( '&comment_type='.$this->type_archived, '', $link );
-
-			return $link;
-		}, $status_links );
-
-		return array_merge( $status_links, [
-			$this->type_archived => HTML::tag( 'a', [
-				'href'  => add_query_arg( 'comment_type', $this->type_archived, admin_url( 'edit-comments.php' ) ),
-				'class' => $this->type_archived == $GLOBALS['comment_type'] ? 'current' : FALSE,
-				'title' => _x( 'All Archived Comments', 'Modules: Comments: Status Link Title Attr', GNETWORK_TEXTDOMAIN ),
-			], _x( 'Archives', 'Modules: Comments: Status Link', GNETWORK_TEXTDOMAIN ) ),
-		] );
-	}
-
-	public function admin_comment_types_dropdown( $comment_types )
-	{
-		return array_merge( $comment_types, [
-			$this->type_archived => _x( 'Archived', 'Modules: Comments', GNETWORK_TEXTDOMAIN ),
-		] );
-	}
-
-	public function pre_get_comments( &$query )
-	{
-		if ( empty( $query->query_vars['type__in'] )
-			&& empty( $query->query_vars['type'] ) ) {
-
-			if ( empty( $query->query_vars['type__not_in'] ) )
-				$query->query_vars['type__not_in'] = $this->get_hidden_types();
-
-			else if ( is_array( $query->query_vars['type__not_in'] ) )
-				$query->query_vars['type__not_in'] = array_merge( $query->query_vars['type__not_in'], $this->get_hidden_types() );
-
-			else
-				$query->query_vars['type__not_in'].= ','.join( ',', $this->get_hidden_types() );
-		}
-	}
-
-	public function wp_count_comments( $filtered = [], $post_id = 0 )
-	{
-		if ( FALSE !== ( $count = wp_cache_get( "comments-{$post_id}", 'counts' ) ) )
-			return $count;
-
-		$stats = $this->get_comment_count( $post_id );
-
-		$stats['moderated'] = $stats['awaiting_moderation'];
-		unset( $stats['awaiting_moderation'] );
-
-		$stats_object = (object) $stats;
-		wp_cache_set( "comments-{$post_id}", $stats_object, 'counts' );
-
-		return $stats_object;
-	}
-
-	protected function get_comment_count( $post_id = 0 )
-	{
-		global $wpdb;
-
-		$post_id = (int) $post_id;
-
-		$where = $post_id > 0 ? $wpdb->prepare( "AND comment_post_ID = %d", $post_id ) : '';
-
-		$totals = (array) $wpdb->get_results( "
-			SELECT comment_approved, COUNT( * ) AS total
-			FROM {$wpdb->comments}
-			WHERE comment_type NOT IN ( '".join( "', '", esc_sql( $this->get_hidden_types() ) )."' )
-			{$where}
-			GROUP BY comment_approved
-		", ARRAY_A );
-
-		$comment_count = [
-			'approved'            => 0,
-			'awaiting_moderation' => 0,
-			'spam'                => 0,
-			'trash'               => 0,
-			'post-trashed'        => 0,
-			'total_comments'      => 0,
-			'all'                 => 0,
-		];
-
-		foreach ( $totals as $row ) {
-			switch ( $row['comment_approved'] ) {
-				case 'trash':
-					$comment_count['trash'] = $row['total'];
-					break;
-				case 'post-trashed':
-					$comment_count['post-trashed'] = $row['total'];
-					break;
-				case 'spam':
-					$comment_count['spam'] = $row['total'];
-					$comment_count['total_comments'] += $row['total'];
-					break;
-				case '1':
-					$comment_count['approved'] = $row['total'];
-					$comment_count['total_comments'] += $row['total'];
-					$comment_count['all'] += $row['total'];
-					break;
-				case '0':
-					$comment_count['awaiting_moderation'] = $row['total'];
-					$comment_count['total_comments'] += $row['total'];
-					$comment_count['all'] += $row['total'];
-					break;
-				default:
-					break;
-			}
-		}
-
-		return $comment_count;
+		Utilities::enqueueScriptVendor( 'jquery.growfield' );
 	}
 
 	public function comment_excerpt( $excerpt )
