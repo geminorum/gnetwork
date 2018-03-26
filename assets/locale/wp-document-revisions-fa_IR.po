@@ -1,336 +1,359 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WP Document Revisions v3.0.1\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: geminorum <contact@geminorum.ir>\n"
+"Language-Team: geminorum\n"
+"Language: fa_IR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Basepath: ../../../wp-document-revisions\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
-"Language-Team: geminorum\n"
 "X-Generator: Poedit 2.0.6\n"
-"Last-Translator: geminorum <contact@geminorum.ir>\n"
-"Language: fa_IR\n"
 "X-Poedit-Bookmarks: 109,-1,-1,-1,-1,-1,-1,-1,-1,-1\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: includes/class-wp-document-revisions-admin.php:137
-msgid "Document updated. <a href=\"%s\">Download document</a>"
-msgstr "سند به‌روز شد. <a href=\"%s\">دریافت سند</a>"
-
-#: includes/class-wp-document-revisions-admin.php:138
-msgid "Custom field updated."
-msgstr "زمینه‌های دل‌خواه به‌روز شد."
-
-#: includes/class-wp-document-revisions-admin.php:139
-msgid "Custom field deleted."
-msgstr "زمینه‌های دل‌خواه حذف شد."
-
-#: includes/class-wp-document-revisions-admin.php:140
-msgid "Document updated."
-msgstr "سند به‌روز شد."
-
-#: includes/class-wp-document-revisions-admin.php:142
-msgid "Document restored to revision from %s"
-msgstr "سند بر اساس رونوشت %s بازنشانی شد."
-
-#: includes/class-wp-document-revisions-admin.php:144
-msgid "Document published. <a href=\"%s\">Download document</a>"
+#. Author URI of the plugin/theme
+msgid "http://ben.balter.com"
 msgstr ""
 
-#: includes/class-wp-document-revisions-admin.php:145
-msgid "Document saved."
-msgstr "سند ذخیره شد."
-
-#: includes/class-wp-document-revisions-admin.php:147
-msgid "Document submitted. <a target=\"_blank\" href=\"%s\">Download document</a>"
+#. Author of the plugin/theme
+msgid "Ben Balter"
 msgstr ""
 
-#: includes/class-wp-document-revisions-admin.php:149
+#. Description of the plugin/theme
 msgid ""
-"Document scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
-"\">Preview document</a>"
+"A document management and version control plugin for WordPress that allows "
+"teams of any size to collaboratively edit files and manage their workflow."
 msgstr ""
 
-#: includes/class-wp-document-revisions-admin.php:151
+#. Plugin URI of the plugin/theme
 msgid ""
-"Document draft updated. <a target=\"_blank\" href=\"%s\">Download document</a>"
+"http://ben.balter.com/2011/08/29/wp-document-revisions-document-management-"
+"version-control-wordpress/"
 msgstr ""
 
-#: includes/class-wp-document-revisions-admin.php:201
-msgid "Basic Usage"
+#. Plugin Name of the plugin/theme
+msgid "WP Document Revisions"
 msgstr ""
 
-#: includes/class-wp-document-revisions-admin.php:202
-msgid ""
-"This screen allows users to collaboratively edit documents and track their "
-"revision history. To begin, enter a title for the document, click <code>Upload "
-"New Version</code> and select the file from your computer."
+#. translators: %1$s is the document title, %2$d is the revision ID
+#: includes/class-wp-document-revisions.php:1580
+msgid "%1$s - Revision %2$d"
 msgstr ""
 
-#: includes/class-wp-document-revisions-admin.php:203
-msgid ""
-"Once successfully uploaded, you can enter a revision log message, assign the "
-"document an author, and describe its current workflow state."
+#. translators: %s is the document title
+#: includes/class-wp-document-revisions.php:1563
+msgid "%s - Latest Revision"
 msgstr ""
 
-#: includes/class-wp-document-revisions-admin.php:204
-msgid "When done, simply click <code>Update</code> to save your changes"
+#. translators: %s is the blog name
+#: includes/class-wp-document-revisions.php:1393
+msgid "- The %s Team"
 msgstr ""
 
-#: includes/class-wp-document-revisions-admin.php:205
-msgid "Revision Log"
-msgstr "شرح رونوشت‌ها"
-
-#: includes/class-wp-document-revisions-admin.php:206
-msgid ""
-"The revision log provides a short summary of the changes reflected in a "
-"particular revision. Used widely in the open-source community, it provides a "
-"comprehensive history of the document at a glance."
+#: includes/class-wp-document-revisions.php:1391
+msgid "Any changes you have made will be lost."
 msgstr ""
 
-#: includes/class-wp-document-revisions-admin.php:207
-msgid ""
-"You can download and view previous versions of the document by clicking the "
-"timestamp in the revision log. You can also restore revisions by clicking the "
-"<code>restore</code> button beside the revision."
+#. translators: %1$s is the overriding user, %2$s is the user's email, %3$s is
+#. the document title, %4$s is the document URL
+#: includes/class-wp-document-revisions.php:1390
+msgid "%1$s (%2$s), has overridden your lock on the document %3$s (%4$s)."
 msgstr ""
 
-#: includes/class-wp-document-revisions-admin.php:208,
-#: includes/class-wp-document-revisions-admin.php:256,
-#: includes/class-wp-document-revisions-admin.php:961
+#. translators: %s is the user's name
+#: includes/class-wp-document-revisions.php:1388
+msgid "Dear %s:"
+msgstr "%s، سلام"
+
+#. translators: %1$s is the blog name, %2$s is the overriding user, %3$s is the
+#. document title
+#: includes/class-wp-document-revisions.php:1383
+msgid "%1$s: %2$s has overridden your lock on %3$s"
+msgstr ""
+
+#: includes/class-wp-document-revisions.php:1284
+msgid "Sorry, this is a private feed."
+msgstr "متأسفیم، این خوراک خصوصی است."
+
+#: includes/class-wp-document-revisions.php:790
+msgid "You are not authorized to access that file."
+msgstr "شما اجازه لازم برای دسترسی به این پرونده را ندارید."
+
+#: includes/class-wp-document-revisions.php:501
+#: includes/class-wp-document-revisions.php:804
+msgid "-revision-"
+msgstr "–رونوشت–"
+
+#: includes/class-wp-document-revisions.php:445
+msgid "revision"
+msgstr ""
+
+#: includes/class-wp-document-revisions.php:345
+msgid "Somebody"
+msgstr ""
+
+#: includes/class-wp-document-revisions.php:249
+msgid "Document is in its final form"
+msgstr ""
+
+#: includes/class-wp-document-revisions.php:249
+msgid "Final"
+msgstr "نهایی"
+
+#: includes/class-wp-document-revisions.php:248
+msgid "Document is pending final review"
+msgstr ""
+
+#: includes/class-wp-document-revisions.php:248
+msgid "Under Review"
+msgstr "در حال بازبینی"
+
+#: includes/class-wp-document-revisions.php:247
+msgid "Document is being edited and refined"
+msgstr ""
+
+#: includes/class-wp-document-revisions.php:247
+msgid "Initial Draft"
+msgstr "پیش‌نویس اولیه"
+
+#: includes/class-wp-document-revisions.php:246
+msgid "Document is in the process of being written"
+msgstr ""
+
+#: includes/class-wp-document-revisions.php:246
+msgid "In Progress"
+msgstr "در حال پیشرفت"
+
+#: includes/class-wp-document-revisions.php:209
+msgid "Workflow States"
+msgstr "وضعیت‌های سند"
+
+#: includes/class-wp-document-revisions.php:208
+msgid "New Workflow State Name"
+msgstr "وضعیت گردش تازه"
+
+#: includes/class-wp-document-revisions.php:207
+msgid "Add New Workflow State"
+msgstr "افزودن وضعیت سند تازه"
+
+#: includes/class-wp-document-revisions.php:206
+msgid "Update Workflow State"
+msgstr "به‌روزرسانی وضعیت سند"
+
+#: includes/class-wp-document-revisions.php:205
+msgid "Edit Workflow State"
+msgstr "ویرایش وضعیت گردشی"
+
+#: includes/class-wp-document-revisions.php:204
+msgid "Parent Workflow State:"
+msgstr ""
+
+#: includes/class-wp-document-revisions.php:203
+msgid "Parent Workflow State"
+msgstr ""
+
+#: includes/class-wp-document-revisions.php:202
+msgid "All Workflow States"
+msgstr ""
+
+#: includes/class-wp-document-revisions.php:201
+msgid "Search Workflow States"
+msgstr "جست‌وجوی وضعیت‌های گردشی"
+
+#: includes/class-wp-document-revisions.php:200
+msgctxt "taxonomy singular name"
 msgid "Workflow State"
 msgstr "وضعیت سند"
 
-#: includes/class-wp-document-revisions-admin.php:209
-msgid ""
-"The workflow state field can be used to help team members understand at what "
-"stage a document sits within a particular organization&quot;s workflow. The "
-"field is optional, and can be customized or queried by clicking <code>Workflow "
-"States</code> on the left-hand side."
+#: includes/class-wp-document-revisions.php:199
+msgctxt "taxonomy general name"
+msgid "Workflow States"
+msgstr "وضعیت‌های سند"
+
+#: includes/class-wp-document-revisions.php:165
+msgid "All Documents"
+msgstr "همه اسناد"
+
+#: includes/class-wp-document-revisions.php:162
+msgid "No documents found in Trash"
 msgstr ""
 
-#: includes/class-wp-document-revisions-admin.php:210
-msgid "Publishing Documents"
-msgstr "انتشار اسناد"
+#: includes/class-wp-document-revisions.php:161
+msgid "No documents found"
+msgstr "سندی پیدا نشد"
 
-#: includes/class-wp-document-revisions-admin.php:211
-msgid ""
-"By default, uploaded documents are only accessible to logged in users. Documents "
-"can be published, thus making them accessible to the world, by toggling their "
-"visibility in the \"Publish\" box in the top right corner. Any document marked "
-"as published will be accessible to anyone with the proper URL."
-msgstr ""
+#: includes/class-wp-document-revisions.php:160
+msgid "Search Documents"
+msgstr "جست‌وجوی اسناد"
 
-#: includes/class-wp-document-revisions-admin.php:214,
-#: includes/class-wp-document-revisions.php:164
-msgid "Documents"
-msgstr "اسناد"
+#: includes/class-wp-document-revisions.php:159
+msgid "View Document"
+msgstr "نمایش سند"
 
-#: includes/class-wp-document-revisions-admin.php:215
-msgid ""
-"Below is a list of all documents to which you have access. Click the document "
-"title to edit the document or download the latest version."
-msgstr ""
+#: includes/class-wp-document-revisions.php:158
+msgid "New Document"
+msgstr "سند تازه"
 
-#: includes/class-wp-document-revisions-admin.php:216
-msgid ""
-"To add a new document, click <strong>Add Document</strong> on the left-hand side."
-msgstr ""
+#: includes/class-wp-document-revisions.php:157
+msgid "Edit Document"
+msgstr "ویرایش سند"
 
-#: includes/class-wp-document-revisions-admin.php:217
-msgid ""
-"To view all documents at a particular workflow state, click <strong>Workflow "
-"States</strong> in the menu on the left."
-msgstr ""
+#: includes/class-wp-document-revisions.php:156
+msgid "Add New Document"
+msgstr "افزودن سند تازه"
 
-#: includes/class-wp-document-revisions-admin.php:248
-msgid "Revision Summary"
-msgstr "چکیده رونوشت"
+#: includes/class-wp-document-revisions.php:155
+msgctxt "document"
+msgid "Add Document"
+msgstr "افزودن سند"
 
-#: includes/class-wp-document-revisions-admin.php:249
+#: includes/class-wp-document-revisions.php:154
+msgctxt "post type singular name"
 msgid "Document"
 msgstr "سند"
 
-#: includes/class-wp-document-revisions-admin.php:264,
-#: includes/class-wp-document-revisions-admin.php:941,
-#: includes/class-wp-document-revisions-admin.php:1129
-msgid "Owner"
-msgstr "صاحب سند"
+#: includes/class-wp-document-revisions.php:153
+msgctxt "post type general name"
+msgid "Documents"
+msgstr "اسناد"
 
-#: includes/class-wp-document-revisions-admin.php:349
-msgid "%s has prevented other users from making changes."
+#: includes/class-wp-document-revisions-front-end.php:398
+#: includes/front-end.php:287
+msgid "Yes"
 msgstr ""
 
-#: includes/class-wp-document-revisions-admin.php:354
+#: includes/class-wp-document-revisions-front-end.php:397
+#: includes/front-end.php:286
+msgid "Display Document Author:"
+msgstr ""
+
+#: includes/class-wp-document-revisions-front-end.php:390
+#: includes/front-end.php:279
+msgid "Posts to Show:"
+msgstr ""
+
+#: includes/class-wp-document-revisions-front-end.php:386
+#: includes/front-end.php:275
+msgid "Number of Posts:"
+msgstr ""
+
+#: includes/class-wp-document-revisions-front-end.php:382
+#: includes/front-end.php:271
+msgid "Title:"
+msgstr "عنوان:"
+
+#: includes/class-wp-document-revisions-front-end.php:354
+#: includes/front-end.php:248
+msgid "%1$s ago"
+msgstr "%1$s پیش"
+
+#. translators: %1$s is the time ago in words, %2$s is the author
+#: includes/class-wp-document-revisions-front-end.php:354
+#: includes/front-end.php:248
+msgid "%1$s ago by %2$s"
+msgstr "%1$s پیش توسط %2$s"
+
+#: includes/class-wp-document-revisions-front-end.php:305
+#: includes/class-wp-document-revisions-front-end.php:308
+#: includes/front-end.php:209 includes/front-end.php:212
+msgid "Recently Revised Documents"
+msgstr "اسنادی که به‌تازگی بازبینی شده‌اند"
+
+#: includes/class-wp-document-revisions-front-end.php:122
+#: includes/front-end.php:95
 msgid ""
-"<br />If you believe this is in error you can <a href=\"#\" id=\"override_link"
-"\">override the lock</a>, but their changes will be lost."
+"<a href=\"%1$s\" title=\"%2$s\" id=\"%3$s\" class=\"timestamp\">%4$s</a> "
+"<span class=\"agoby\">ago by</a> <span class=\"author\">%5$s</a>"
+msgstr ""
+"<a href=\"%1$s\" title=\"%2$s\" id=\"%3$s\" class=\"timestamp\">%4$s</a> "
+"<span class=\"agoby\">پیش توسط</a> <span class=\"author\">%5$s</a>"
+
+#. translators: %1$s is the time ago in words, %2$s is the author, %3$s is the
+#. post status
+#: includes/class-wp-document-revisions-admin.php:1421
+msgid "%1$s ago by %2$s [%3$s]"
+msgstr "%1$s پیش توسط %2$s [%3$s]"
+
+#. translators: %d is the numeric days, when plural
+#: includes/admin.php:1125 includes/class-wp-document-revisions-admin.php:1188
+msgid "%d days"
 msgstr ""
 
-#: includes/class-wp-document-revisions-admin.php:362
-msgid "Upload Document"
-msgstr "بارگذاری سند"
+#. translators: %d is the numeric day, when singular
+#: includes/admin.php:1124 includes/class-wp-document-revisions-admin.php:1186
+msgid "%d day"
+msgstr ""
 
-#: includes/class-wp-document-revisions-admin.php:363
-msgid "Upload New Version"
-msgstr "بارگذاری نسخه تازه"
+#. translators: %d is the numeric hour, when plural
+#: includes/admin.php:1123 includes/class-wp-document-revisions-admin.php:1184
+msgid "%d hours"
+msgstr ""
 
-#: includes/class-wp-document-revisions-admin.php:370
-msgid "Latest Version of the Document"
-msgstr "آخرین نسخه این سند"
+#. translators: %d is the numeric hour, when singular
+#: includes/admin.php:1122 includes/class-wp-document-revisions-admin.php:1182
+msgid "%d hour"
+msgstr ""
 
-#: includes/class-wp-document-revisions-admin.php:371
-msgid "Download"
-msgstr "دریافت"
+#. translators: %d is the numeric minutes, when singular
+#. translators: %d is the numeric minutes, when plural
+#: includes/admin.php:1120 includes/admin.php:1121
+#: includes/class-wp-document-revisions-admin.php:1178
+#: includes/class-wp-document-revisions-admin.php:1180
+msgid "%d mins"
+msgstr ""
 
-#: includes/class-wp-document-revisions-admin.php:372
+#: includes/admin.php:1118 includes/class-wp-document-revisions-admin.php:1175
+msgid "Lost Document Lock"
+msgstr ""
+
+#: includes/admin.php:1117 includes/class-wp-document-revisions-admin.php:1174
+msgid "An error has occurred, please try reloading the page."
+msgstr ""
+
+#. translators: %s is the title of the document
+#: includes/admin.php:1116 includes/class-wp-document-revisions-admin.php:1173
 msgid ""
-"Checked in <abbr class=\"timestamp\" title=\"%1$s\" id=\"%2$s\">%3$s</abbr> ago "
-"by %4$s"
+"Your lock on the document %s has been overridden. Any changes will be lost."
 msgstr ""
-"بارگذاری شده در <abbr class=\"timestamp\" title=\"%1$s\" id=\"%2$s\">%3$s</abbr> "
-"پیش، توسط %4$s"
 
-#: includes/class-wp-document-revisions-admin.php:392
+#: includes/admin.php:1115
 msgid ""
-"Revision summaries are optional notes to store along with this revision that "
-"allow other users to quickly and easily see what changes you made without "
-"needing to open the actual file."
+"Sorry, desktop editing not supported by this browser or your current Office "
+"software. Please use the <strong>Upload</strong> option."
 msgstr ""
-"چکیده رونوشت، یادداشت‌هایی برای ذخیره به همراه هر رونوشت است که به دیگر کاربران "
-"این امکان را می‌دهد تا بدون بازکردن فایل، به سرعت از تغییرات اعمال شده توسط شما "
-"آگاه شوند."
 
-#: includes/class-wp-document-revisions-admin.php:411
-msgid "Modified"
-msgstr "تغییر در"
-
-#: includes/class-wp-document-revisions-admin.php:412
-msgid "User"
-msgstr "کاربر"
-
-#: includes/class-wp-document-revisions-admin.php:413
-msgid "Summary"
-msgstr "چکیده"
-
-#: includes/class-wp-document-revisions-admin.php:417
-msgid "Actions"
-msgstr "گزینه‌ها"
-
-#: includes/class-wp-document-revisions-admin.php:455
-msgid "Restore"
-msgstr "بازنشانی"
-
-#: includes/class-wp-document-revisions-admin.php:462
-msgid "RSS Feed"
-msgstr "خوراک RSS"
-
-#: includes/class-wp-document-revisions-admin.php:493,
-#: includes/class-wp-document-revisions-admin.php:569
-msgid "Document Upload Directory"
-msgstr "پوشه بارگذاری سند"
-
-#: includes/class-wp-document-revisions-admin.php:494,
-#: includes/class-wp-document-revisions-admin.php:576
-msgid "Document Slug"
-msgstr "نامک سند"
-
-#: includes/class-wp-document-revisions-admin.php:526
+#: includes/admin.php:1114
 msgid ""
-"Document upload directory changed, but existing uploads may need to be moved to "
-"the new folder to ensure they remain accessible."
+"There was an error launching your Office software. You can try to <a href=\"#"
+"\" onClick=\"location.reload();\">reload this page</a> to see if this fixes "
+"the issue, or use the <strong>Upload</strong> option."
 msgstr ""
 
-#: includes/class-wp-document-revisions-admin.php:553
+#: includes/admin.php:1113 includes/class-wp-document-revisions-admin.php:1171
 msgid ""
-"Document slug changed, but some previously published URLs may now be broken."
+"After you have saved your document in your office software, <a href=\"#\" "
+"onClick=\"location.reload();\">reload this page</a> to see your changes."
 msgstr ""
 
-#: includes/class-wp-document-revisions-admin.php:566
-msgid "Document Settings"
-msgstr "تنظیمات سند"
-
-#: includes/class-wp-document-revisions-admin.php:600,
-#: includes/class-wp-document-revisions-admin.php:628,
-#: includes/class-wp-document-revisions.php:1288
-msgid "Not authorized"
-msgstr ""
-
-#: includes/class-wp-document-revisions-admin.php:683
+#: includes/admin.php:1112 includes/class-wp-document-revisions-admin.php:1170
 msgid ""
-"Directory in which to store uploaded documents. The default is in your "
-"<code>wp_content/uploads</code> folder (or another default uploads folder "
-"defined elsewhere), but it may be moved to a folder outside of the <code>htdocs</"
-"code> or <code>public_html</code> folder for added security."
+"File uploaded successfully. Add a revision summary below (optional) or press "
+"<strong>Update</strong> to save your changes."
+msgstr ""
+"پرونده با موفقیت بارگذاری شد. همچنین می‌توانید چکیده‌ای برای این رونوشت اضافه "
+"کنید. برای ذخیره تغییرات <strong>به‌روزرسانی</strong> را کلیک کنید."
+
+#: includes/admin.php:1111 includes/class-wp-document-revisions-admin.php:1169
+msgid "is currently editing this"
 msgstr ""
 
-#: includes/class-wp-document-revisions-admin.php:688
-msgid ""
-"You may optionally include the string <code>%site_id%</code> within the path to "
-"separate files by site."
-msgstr ""
-
-#: includes/class-wp-document-revisions-admin.php:701
-msgid "example-document-title"
-msgstr "عنوان-آزمایشی-سند"
-
-#: includes/class-wp-document-revisions-admin.php:702
-msgid ""
-"\"Slug\" with which to prefix all URLs for documents (and the document archive). "
-"Default is <code>documents</code>."
-msgstr ""
-
-#: includes/class-wp-document-revisions-admin.php:785
-msgid ""
-"You currently have this file checked out. No other user can edit this document "
-"so long as you remain on this page."
-msgstr ""
-"شما در حال حاضر این پرونده را از مخزن خارج کرده‌اید. تا زمانی که این برگه را باز "
-"نگه دارید، کاربران دیگر امکان ویرایش این سند را ندارند."
-
-#: includes/class-wp-document-revisions-admin.php:800
-msgid "Feed Privacy"
-msgstr "حریم خوراک"
-
-#: includes/class-wp-document-revisions-admin.php:803
-msgid "Secret Feed Key"
-msgstr "کلید سری خوراک"
-
-#: includes/class-wp-document-revisions-admin.php:806
-msgid ""
-"To protect your privacy, you need to append a key to feeds for use in feed "
-"readers."
-msgstr ""
-
-#: includes/class-wp-document-revisions-admin.php:808
-msgid "Generate New Key"
-msgstr ""
-
-#: includes/class-wp-document-revisions-admin.php:883
-msgid "All workflow states"
-msgstr "همه وضعیت‌های سند"
-
-#: includes/class-wp-document-revisions-admin.php:902
-msgid "All owners"
-msgstr "همه صاحبان اسناد"
-
-#: includes/class-wp-document-revisions-admin.php:1009
-msgid "Currently Editing"
-msgstr "در حال ویرایش"
-
-#: includes/class-wp-document-revisions-admin.php:1056
-msgid "Current State"
-msgstr "وضعیت کنونی"
-
-#: includes/class-wp-document-revisions-admin.php:1130
-msgid "Document Owner"
-msgstr "صاحب سند"
-
-#: includes/class-wp-document-revisions-admin.php:1165
+#: includes/admin.php:1110 includes/class-wp-document-revisions-admin.php:1168
 msgid ""
 "Are you sure you want to restore this revision? If you do, no history will be "
 "lost. This revision will be copied and become the most recent revision."
@@ -339,249 +362,341 @@ msgstr ""
 "نخواهد رفت؛ یک نسخه از این رونوشت نمونه‌برداری و به عنوان آخرین رونوشت استفاده "
 "خواهد شد."
 
-#: includes/class-wp-document-revisions-admin.php:1167
+#: includes/admin.php:1078 includes/class-wp-document-revisions-admin.php:1133
+msgid "Document Owner"
+msgstr "صاحب سند"
+
+#: includes/admin.php:1013 includes/class-wp-document-revisions-admin.php:1059
+msgid "Current State"
+msgstr "وضعیت کنونی"
+
+#: includes/admin.php:973 includes/class-wp-document-revisions-admin.php:1012
+msgid "Currently Editing"
+msgstr "در حال ویرایش"
+
+#: includes/admin.php:873 includes/class-wp-document-revisions-admin.php:905
+msgid "All owners"
+msgstr "همه صاحبان اسناد"
+
+#: includes/admin.php:854 includes/class-wp-document-revisions-admin.php:886
+msgid "All workflow states"
+msgstr "همه وضعیت‌های سند"
+
+#: includes/admin.php:785 includes/class-wp-document-revisions-admin.php:811
+msgid "Generate New Key"
+msgstr ""
+
+#: includes/admin.php:783 includes/class-wp-document-revisions-admin.php:809
 msgid ""
-"File uploaded successfully. Add a revision summary below (optional) or press "
-"<strong>Update</strong> to save your changes."
+"To protect your privacy, you need to append a key to feeds for use in feed "
+"readers."
 msgstr ""
-"پرونده با موفقیت بارگذاری شد. همچنین می‌توانید چکیده‌ای برای این رونوشت اضافه "
-"کنید. برای ذخیره تغییرات <strong>به‌روزرسانی</strong> را کلیک کنید."
 
-#: includes/class-wp-document-revisions-admin.php:1168
+#: includes/admin.php:780 includes/class-wp-document-revisions-admin.php:806
+msgid "Secret Feed Key"
+msgstr "کلید سری خوراک"
+
+#: includes/admin.php:777 includes/class-wp-document-revisions-admin.php:803
+msgid "Feed Privacy"
+msgstr "حریم خوراک"
+
+#: includes/admin.php:764 includes/class-wp-document-revisions-admin.php:788
 msgid ""
-"After you have saved your document in your office software, <a href=\"#\" "
-"onClick=\"location.reload();\">reload this page</a> to see your changes."
+"You currently have this file checked out. No other user can edit this "
+"document so long as you remain on this page."
 msgstr ""
+"شما در حال حاضر این پرونده را از مخزن خارج کرده‌اید. تا زمانی که این برگه را "
+"باز نگه دارید، کاربران دیگر امکان ویرایش این سند را ندارند."
 
-#: includes/class-wp-document-revisions-admin.php:1170
-msgid "Your lock on the document %s has been overridden. Any changes will be lost."
-msgstr ""
-
-#: includes/class-wp-document-revisions-admin.php:1171
-msgid "An error has occurred, please try reloading the page."
-msgstr ""
-
-#: includes/class-wp-document-revisions-admin.php:1172
-msgid "Lost Document Lock"
-msgstr ""
-
-#: includes/class-wp-document-revisions-admin.php:1175,
-#: includes/class-wp-document-revisions-admin.php:1177
-msgid "%d mins"
-msgstr ""
-
-#: includes/class-wp-document-revisions-admin.php:1179
-msgid "%d hour"
-msgstr ""
-
-#: includes/class-wp-document-revisions-admin.php:1181
-msgid "%d hours"
-msgstr ""
-
-#: includes/class-wp-document-revisions-admin.php:1183
-msgid "%d day"
-msgstr ""
-
-#: includes/class-wp-document-revisions-admin.php:1185
-msgid "%d days"
-msgstr ""
-
-#: includes/class-wp-document-revisions-front-end.php:122
+#: includes/admin.php:636 includes/class-wp-document-revisions-admin.php:705
 msgid ""
-"<a href=\"%1$s\" title=\"%2$s\" id=\"%3$s\" class=\"timestamp\">%4$s</a> <span "
-"class=\"agoby\">ago by</a> <span class=\"author\">%5$s</a>"
+"\"Slug\" with which to prefix all URLs for documents (and the document "
+"archive). Default is <code>documents</code>."
 msgstr ""
 
-#: includes/class-wp-document-revisions-front-end.php:257,
-#: includes/class-wp-document-revisions-front-end.php:260
-msgid "Recently Revised Documents"
-msgstr "اسنادی که به‌تازگی بازبینی شده‌اند"
+#: includes/admin.php:635 includes/class-wp-document-revisions-admin.php:704
+msgid "example-document-title"
+msgstr "عنوان-آزمایشی-سند"
 
-#. translators: %1$s is the time ago in words, %2$s is the author
-#: includes/class-wp-document-revisions-front-end.php:306
-msgid "%1$s ago by %2$s"
+#. translators: %site_id% is not interpolated and should not be translated
+#: includes/admin.php:626 includes/class-wp-document-revisions-admin.php:691
+msgid ""
+"You may optionally include the string <code>%site_id%</code> within the path "
+"to separate files by site."
 msgstr ""
 
-#. translators: %1$s is the time ago in words, %2$s is the author
-#: includes/class-wp-document-revisions-front-end.php:306
-msgid "%1$s ago"
+#: includes/admin.php:624 includes/class-wp-document-revisions-admin.php:686
+msgid ""
+"Directory in which to store uploaded documents. The default is in your "
+"<code>wp_content/uploads</code> folder (or another default uploads folder "
+"defined elsewhere), but it may be moved to a folder outside of the "
+"<code>htdocs</code> or <code>public_html</code> folder for added security."
 msgstr ""
 
-#: includes/class-wp-document-revisions-front-end.php:333
-msgid "Title:"
-msgstr "عنوان:"
-
-#: includes/class-wp-document-revisions-front-end.php:337
-msgid "Number of Posts:"
+#: includes/admin.php:551 includes/admin.php:576
+#: includes/class-wp-document-revisions-admin.php:603
+#: includes/class-wp-document-revisions-admin.php:631
+#: includes/class-wp-document-revisions.php:1335
+msgid "Not authorized"
 msgstr ""
 
-#: includes/class-wp-document-revisions.php:153
-msgctxt "post type general name"
-msgid "Documents"
-msgstr "اسناد"
+#: includes/admin.php:520 includes/class-wp-document-revisions-admin.php:569
+msgid "Document Settings"
+msgstr "تنظیمات سند"
 
-#: includes/class-wp-document-revisions.php:154
-msgctxt "post type singular name"
+#: includes/admin.php:509 includes/class-wp-document-revisions-admin.php:556
+msgid ""
+"Document slug changed, but some previously published URLs may now be broken."
+msgstr ""
+
+#: includes/admin.php:485 includes/class-wp-document-revisions-admin.php:529
+msgid ""
+"Document upload directory changed, but existing uploads may need to be moved "
+"to the new folder to ensure they remain accessible."
+msgstr ""
+
+#: includes/admin.php:457 includes/admin.php:530
+#: includes/class-wp-document-revisions-admin.php:497
+#: includes/class-wp-document-revisions-admin.php:579
+msgid "Document Slug"
+msgstr "نامک سند"
+
+#: includes/admin.php:456 includes/admin.php:523
+#: includes/class-wp-document-revisions-admin.php:496
+#: includes/class-wp-document-revisions-admin.php:572
+msgid "Document Upload Directory"
+msgstr "پوشه بارگذاری سند"
+
+#: includes/admin.php:428 includes/class-wp-document-revisions-admin.php:465
+msgid "RSS Feed"
+msgstr "خوراک RSS"
+
+#: includes/admin.php:421 includes/class-wp-document-revisions-admin.php:458
+msgid "Restore"
+msgstr "بازنشانی"
+
+#: includes/admin.php:399 includes/class-wp-document-revisions-admin.php:420
+msgid "Actions"
+msgstr "گزینه‌ها"
+
+#: includes/admin.php:398 includes/class-wp-document-revisions-admin.php:416
+msgid "Summary"
+msgstr "چکیده"
+
+#: includes/admin.php:397 includes/class-wp-document-revisions-admin.php:415
+msgid "User"
+msgstr "کاربر"
+
+#: includes/admin.php:396 includes/class-wp-document-revisions-admin.php:414
+msgid "Modified"
+msgstr "تغییر در"
+
+#: includes/admin.php:379 includes/class-wp-document-revisions-admin.php:395
+msgid ""
+"Revision summaries are optional notes to store along with this revision that "
+"allow other users to quickly and easily see what changes you made without "
+"needing to open the actual file."
+msgstr ""
+"چکیده رونوشت، یادداشت‌هایی برای ذخیره به همراه هر رونوشت است که به دیگر "
+"کاربران این امکان را می‌دهد تا بدون بازکردن فایل، به سرعت از تغییرات اعمال شده "
+"توسط شما آگاه شوند."
+
+#: includes/admin.php:364 includes/class-wp-document-revisions-admin.php:375
+msgid ""
+"Checked in <abbr class=\"timestamp\" title=\"%1$s\" id=\"%2$s\">%3$s</abbr> "
+"ago by %4$s"
+msgstr ""
+"بارگذاری شده در <abbr class=\"timestamp\" title=\"%1$s\" id=\"%2$s\">%3$s</"
+"abbr> پیش، توسط %4$s"
+
+#: includes/admin.php:363 includes/class-wp-document-revisions-admin.php:374
+msgid "Download"
+msgstr "دریافت"
+
+#: includes/admin.php:362 includes/class-wp-document-revisions-admin.php:373
+msgid "Latest Version of the Document"
+msgstr "آخرین نسخه این سند"
+
+#: includes/admin.php:356 includes/class-wp-document-revisions-admin.php:366
+msgid "Upload New Version"
+msgstr "بارگذاری نسخه تازه"
+
+#: includes/admin.php:355 includes/class-wp-document-revisions-admin.php:365
+msgid "Upload Document"
+msgstr "بارگذاری سند"
+
+#: includes/admin.php:351 includes/admin.php:352
+msgid "Edit on Desktop"
+msgstr ""
+
+#: includes/admin.php:344 includes/class-wp-document-revisions-admin.php:357
+msgid ""
+"<br />If you believe this is in error you can <a href=\"#\" id=\"override_link"
+"\">override the lock</a>, but their changes will be lost."
+msgstr ""
+
+#. translators: %s is the user that holds the document lock
+#: includes/admin.php:342 includes/class-wp-document-revisions-admin.php:352
+msgid "%s has prevented other users from making changes."
+msgstr ""
+
+#: includes/admin.php:272 includes/admin.php:909 includes/admin.php:1077
+#: includes/class-wp-document-revisions-admin.php:267
+#: includes/class-wp-document-revisions-admin.php:944
+#: includes/class-wp-document-revisions-admin.php:1132
+msgid "Owner"
+msgstr "صاحب سند"
+
+#: includes/admin.php:258 includes/class-wp-document-revisions-admin.php:252
 msgid "Document"
 msgstr "سند"
 
-#: includes/class-wp-document-revisions.php:155
-msgctxt "document"
-msgid "Add Document"
-msgstr "افزودن سند"
+#: includes/admin.php:257 includes/admin.php:377
+#: includes/class-wp-document-revisions-admin.php:251
+#: includes/class-wp-document-revisions-admin.php:393
+msgid "Revision Summary"
+msgstr "چکیده رونوشت"
 
-#: includes/class-wp-document-revisions.php:156
-msgid "Add New Document"
-msgstr "افزودن سند تازه"
-
-#: includes/class-wp-document-revisions.php:157
-msgid "Edit Document"
-msgstr "ویرایش سند"
-
-#: includes/class-wp-document-revisions.php:158
-msgid "New Document"
-msgstr "سند تازه"
-
-#: includes/class-wp-document-revisions.php:159
-msgid "View Document"
-msgstr "نمایش سند"
-
-#: includes/class-wp-document-revisions.php:160
-msgid "Search Documents"
-msgstr "جست‌وجوی اسناد"
-
-#: includes/class-wp-document-revisions.php:161
-msgid "No documents found"
-msgstr "سندی پیدا نشد"
-
-#: includes/class-wp-document-revisions.php:162
-msgid "No documents found in Trash"
+#: includes/admin.php:202 includes/class-wp-document-revisions-admin.php:220
+msgid ""
+"To view all documents at a particular workflow state, click <strong>Workflow "
+"States</strong> in the menu on the left."
 msgstr ""
 
-#: includes/class-wp-document-revisions.php:165
-msgid "All Documents"
-msgstr "همه اسناد"
+#: includes/admin.php:201 includes/class-wp-document-revisions-admin.php:219
+msgid ""
+"To add a new document, click <strong>Add Document</strong> on the left-hand "
+"side."
+msgstr ""
 
-#: includes/class-wp-document-revisions.php:199
-msgctxt "taxonomy general name"
-msgid "Workflow States"
-msgstr "وضعیت‌های سند"
+#: includes/admin.php:200 includes/class-wp-document-revisions-admin.php:218
+msgid ""
+"Below is a list of all documents to which you have access. Click the document "
+"title to edit the document or download the latest version."
+msgstr ""
 
-#: includes/class-wp-document-revisions.php:200
-msgctxt "taxonomy singular name"
+#: includes/admin.php:199 includes/class-wp-document-revisions-admin.php:217
+#: includes/class-wp-document-revisions.php:164
+msgid "Documents"
+msgstr "اسناد"
+
+#: includes/admin.php:196 includes/class-wp-document-revisions-admin.php:214
+msgid ""
+"By default, uploaded documents are only accessible to logged in users. "
+"Documents can be published, thus making them accessible to the world, by "
+"toggling their visibility in the \"Publish\" box in the top right corner. Any "
+"document marked as published will be accessible to anyone with the proper URL."
+msgstr ""
+
+#: includes/admin.php:195 includes/class-wp-document-revisions-admin.php:213
+msgid "Publishing Documents"
+msgstr "انتشار اسناد"
+
+#: includes/admin.php:194 includes/class-wp-document-revisions-admin.php:212
+msgid ""
+"The workflow state field can be used to help team members understand at what "
+"stage a document sits within a particular organization&quot;s workflow. The "
+"field is optional, and can be customized or queried by clicking "
+"<code>Workflow States</code> on the left-hand side."
+msgstr ""
+
+#: includes/admin.php:193 includes/admin.php:264 includes/admin.php:927
+#: includes/class-wp-document-revisions-admin.php:211
+#: includes/class-wp-document-revisions-admin.php:259
+#: includes/class-wp-document-revisions-admin.php:964
 msgid "Workflow State"
 msgstr "وضعیت سند"
 
-#: includes/class-wp-document-revisions.php:201
-msgid "Search Workflow States"
-msgstr "جست‌وجوی وضعیت‌های گردشی"
-
-#: includes/class-wp-document-revisions.php:202
-msgid "All Workflow States"
+#: includes/admin.php:192 includes/class-wp-document-revisions-admin.php:210
+msgid ""
+"You can download and view previous versions of the document by clicking the "
+"timestamp in the revision log. You can also restore revisions by clicking the "
+"<code>restore</code> button beside the revision."
 msgstr ""
 
-#: includes/class-wp-document-revisions.php:203
-msgid "Parent Workflow State"
+#: includes/admin.php:191 includes/class-wp-document-revisions-admin.php:209
+msgid ""
+"The revision log provides a short summary of the changes reflected in a "
+"particular revision. Used widely in the open-source community, it provides a "
+"comprehensive history of the document at a glance."
 msgstr ""
 
-#: includes/class-wp-document-revisions.php:204
-msgid "Parent Workflow State:"
+#: includes/admin.php:190 includes/class-wp-document-revisions-admin.php:208
+msgid "Revision Log"
+msgstr "شرح رونوشت‌ها"
+
+#: includes/admin.php:189 includes/class-wp-document-revisions-admin.php:207
+msgid "When done, simply click <code>Update</code> to save your changes"
 msgstr ""
 
-#: includes/class-wp-document-revisions.php:205
-msgid "Edit Workflow State"
-msgstr "ویرایش وضعیت گردشی"
-
-#: includes/class-wp-document-revisions.php:206
-msgid "Update Workflow State"
-msgstr "به‌روزرسانی وضعیت سند"
-
-#: includes/class-wp-document-revisions.php:207
-msgid "Add New Workflow State"
-msgstr "افزودن وضعیت سند تازه"
-
-#: includes/class-wp-document-revisions.php:208
-msgid "New Workflow State Name"
-msgstr "وضعیت گردش تازه"
-
-#: includes/class-wp-document-revisions.php:209
-msgid "Workflow States"
-msgstr "وضعیت‌های سند"
-
-#: includes/class-wp-document-revisions.php:246
-msgid "In Progress"
-msgstr "در حال پیشرفت"
-
-#: includes/class-wp-document-revisions.php:246
-msgid "Document is in the process of being written"
+#: includes/admin.php:188 includes/class-wp-document-revisions-admin.php:206
+msgid ""
+"Once successfully uploaded, you can enter a revision log message, assign the "
+"document an author, and describe its current workflow state."
 msgstr ""
 
-#: includes/class-wp-document-revisions.php:247
-msgid "Initial Draft"
-msgstr "پیش‌نویس اولیه"
-
-#: includes/class-wp-document-revisions.php:247
-msgid "Document is being edited and refined"
+#: includes/admin.php:187 includes/class-wp-document-revisions-admin.php:205
+msgid ""
+"This screen allows users to collaboratively edit documents and track their "
+"revision history. To begin, enter a title for the document, click "
+"<code>Upload New Version</code> and select the file from your computer."
 msgstr ""
 
-#: includes/class-wp-document-revisions.php:248
-msgid "Under Review"
-msgstr "در حال بازبینی"
-
-#: includes/class-wp-document-revisions.php:248
-msgid "Document is pending final review"
+#: includes/admin.php:186 includes/class-wp-document-revisions-admin.php:204
+msgid "Basic Usage"
 msgstr ""
 
-#: includes/class-wp-document-revisions.php:249
-msgid "Final"
-msgstr "نهایی"
-
-#: includes/class-wp-document-revisions.php:249
-msgid "Document is in its final form"
+#. translators: %s is the link to download the document
+#: includes/admin.php:137 includes/class-wp-document-revisions-admin.php:154
+msgid ""
+"Document draft updated. <a target=\"_blank\" href=\"%s\">Download document</a>"
 msgstr ""
 
-#: includes/class-wp-document-revisions.php:499,
-#: includes/class-wp-document-revisions.php:804
-msgid "-revision-"
-msgstr "–رونوشت–"
-
-#: includes/class-wp-document-revisions.php:778
-msgid "You are not authorized to access that file."
-msgstr "شما اجازه لازم برای دسترسی به این پرونده را ندارید."
-
-#: includes/class-wp-document-revisions.php:1237
-msgid "Sorry, this is a private feed."
-msgstr "متأسفیم، این خوراک خصوصی است."
-
-#. translators: %1$s is the blog name, %2$s is the overriding user, %3$s is the document title
-#: includes/class-wp-document-revisions.php:1336
-msgid "%1$s: %2$s has overridden your lock on %3$s"
+#: includes/admin.php:136 includes/class-wp-document-revisions-admin.php:152
+msgctxt "%1$s: date; %2$s: time"
+msgid "%1$s @ %2$s"
 msgstr ""
 
-#. translators: %s is the user's name
-#: includes/class-wp-document-revisions.php:1341
-msgid "Dear %s:"
-msgstr "%s، سلام"
-
-#. translators: %1$s is the overriding user, %2$s is the user's email, %3$s is the document title, %4$s is the document URL
-#: includes/class-wp-document-revisions.php:1343
-msgid "%1$s (%2$s), has overridden your lock on the document %3$s (%4$s)."
+#. translators: %1$s is the date, %2$s is the preview link
+#: includes/admin.php:136 includes/class-wp-document-revisions-admin.php:152
+msgid ""
+"Document scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href="
+"\"%2$s\">Preview document</a>"
 msgstr ""
 
-#: includes/class-wp-document-revisions.php:1344
-msgid "Any changes you have made will be lost."
+#. translators: %s is the download link
+#: includes/admin.php:135 includes/class-wp-document-revisions-admin.php:150
+msgid ""
+"Document submitted. <a target=\"_blank\" href=\"%s\">Download document</a>"
 msgstr ""
 
-#. translators: %s is the blog name
-#: includes/class-wp-document-revisions.php:1346
-msgid "- The %s Team"
+#: includes/admin.php:134 includes/class-wp-document-revisions-admin.php:148
+msgid "Document saved."
+msgstr "سند ذخیره شد."
+
+#. translators: %s is the download link
+#: includes/admin.php:133 includes/class-wp-document-revisions-admin.php:147
+msgid "Document published. <a href=\"%s\">Download document</a>"
 msgstr ""
 
-#. translators: %s is the document title
-#: includes/class-wp-document-revisions.php:1508
-msgid "%s - Latest Revision"
-msgstr ""
+#. translators: %s is the revision ID
+#: includes/admin.php:132 includes/class-wp-document-revisions-admin.php:145
+msgid "Document restored to revision from %s"
+msgstr "سند بر اساس رونوشت %s بازنشانی شد."
 
-#: includes/class-wp-document-revisions.php:1525
-msgid "%1$s - Revision %2$d"
-msgstr ""
+#: includes/admin.php:131 includes/class-wp-document-revisions-admin.php:143
+msgid "Document updated."
+msgstr "سند به‌روز شد."
+
+#: includes/admin.php:130 includes/class-wp-document-revisions-admin.php:142
+msgid "Custom field deleted."
+msgstr "زمینه‌های دل‌خواه حذف شد."
+
+#: includes/admin.php:129 includes/class-wp-document-revisions-admin.php:141
+msgid "Custom field updated."
+msgstr "زمینه‌های دل‌خواه به‌روز شد."
+
+#. translators: %s is the download link
+#: includes/admin.php:128 includes/class-wp-document-revisions-admin.php:140
+msgid "Document updated. <a href=\"%s\">Download document</a>"
+msgstr "سند به‌روز شد. <a href=\"%s\">دریافت سند</a>"
