@@ -29,6 +29,7 @@ body.rtl {
     font-size: 19px;
   }
 
+  #qni-introduction,
   .col-wrap h2,
   #dashboard-widgets h4,
   #dashboard-widgets h3,
@@ -54,7 +55,7 @@ body.rtl {
     font-style: normal;
   }
 
-  input[type="checkbox"]:checked:before {
+  input[type="checkbox"]:checked::before {
     margin: -2px -3px 0 0;
   }
 

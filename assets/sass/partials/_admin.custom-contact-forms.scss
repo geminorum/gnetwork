@@ -1,0 +1,33 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// gNetwork Partials: Custom Contact Forms ------------------------------------
+
+/*rtl:begin:ignore*/
+
+body.rtl {
+  #ccf-at-a-glance .inside {
+    #major-publishing-actions {
+      .export-button {
+        float: left;
+      }
+    }
+
+    .has-icon::before {
+      padding: 0 0 0 5px;
+    }
+  }
+
+  .ccf-open-form-manager::before {
+    padding: 0 0 0 4px;
+  }
+
+  .ccf-main-modal {
+    .close-icon {
+      right: auto;
+      left: 16px;
+    }
+  }
+}
+
+/*rtl:end:ignore*/

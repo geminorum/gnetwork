@@ -5,15 +5,15 @@
 @import "partials/settings.admin.all";
 ////////////////////////////////////////////////////////////////////////////////
 @import "partials/admin.adblock";
-@import "partials/admin.editor";
 @import "partials/admin.importer";
-@import "partials/admin.list";
-@import "partials/admin.tabs";
 ////////////////////////////////////////////////////////////////////////////////
 @import "partials/admin.wp-document-revisions";
+@import "partials/admin.custom-contact-forms";
+@import "partials/admin.quick-navigation-interface";
 @import "partials/admin.edit-flow";
 // @import "partials/admin.siteorigin";
 @import "partials/admin.p2p";
+@import "partials/admin.amp";
 ////////////////////////////////////////////////////////////////////////////////
 @import "partials/adminbar.all";
 @import "partials/debug.all";
@@ -37,6 +37,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 @import "partials/rtl.admin.all";
 @import "partials/fa_IR.admin.all";
+////////////////////////////////////////////////////////////////////////////////
+@import "admin.mediaqueries";
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -64,35 +66,6 @@ body.thrift-mode {
     display: none;
   }
 }
-
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-/// METABOX CONTROLS -----------------------------------------------------------
-
-// @REF: `#screen-options-link-wrap`, `#contextual-help-link-wrap`
-.gnetwork-admin-metabox-controls {
-  float: right;
-  height: 28px;
-  margin: 0 0 0 6px;
-  border: 1px solid #ddd;
-  border-top: none;
-  background: #fff;
-  box-shadow: 0 1px 1px -1px rgba(0, 0, 0, 0.1);
-
-  button:after {
-    padding: 4px 2px 0 5px !important;
-    vertical-align: top !important;
-  }
-}
-
-#gnetwork-admin-metabox-collapse:after {
-  content: "\f142" !important;
-}
-
-// #gnetwork-admin-metabox-expand:after {
-//   // content: "\f142" !important;
-// }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -235,6 +208,7 @@ ul.categorychecklist {
   #pageparentdiv .post-attributes-label-wrapper,
   #postcustom div.inside > p,
   #postexcerpt div.inside textarea + p,
+  #postexcerpt div.inside .ortho-input-wrap + p,
   #trackbacksdiv label[for="trackback_url"],
   #postcustomstuff > p,
   #commentsdiv #no-comments,

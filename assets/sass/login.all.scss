@@ -83,7 +83,7 @@ body.rtl {
     padding: 26px 24px;
   }
 
-  input[type="checkbox"]:checked:before {
+  input[type="checkbox"]:checked::before {
 
     /*rtl:ignore*/
     margin: -2px -2px 0 0 !important;

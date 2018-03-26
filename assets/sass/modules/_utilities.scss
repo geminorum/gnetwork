@@ -3,44 +3,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// MODULE: UTILITIES ----------------------------------------------------------
 
-%dir_rtl {
-  direction: rtl !important;
-}
-
 @mixin clearfix() {
-  &:after {
+  &::after {
     content: "";
     display: table;
     clear: both;
   }
-}
-
-// DEPRECATED: use @include clearfix()
-%clearfix {
-  &:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
-}
-
-@mixin mainwrap() {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-
-  & *,
-  & *:after,
-  & *:before,
-  &:after,
-  &:before {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-  }
-  padding: 0;
-  margin: 0;
-  border: 0;
 }
 
 @mixin box-reset() {
@@ -49,40 +17,19 @@
   box-sizing: border-box;
 }
 
-// DEPRECATED: use @include box-reset()
-%box-reset {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
+@mixin mainwrap() {
+  @include box-reset;
 
-// DEPRECATED: use @include mainwrap()
-%main_wrap {
-  @extend %box-reset;
-
-  & *,
-  & *:after,
-  & *:before,
-  &:after,
-  &:before {
-    @extend %box-reset;
+  *,
+  *::after,
+  *::before,
+  &::after,
+  &::before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
   }
-  padding: 0;
-  margin: 0;
-  border: 0;
-}
 
-// MUST DEPRECATED: use @include mainwrap()
-@mixin main-wrap() {
-  @extend %box-reset;
-
-  & *,
-  & *:after,
-  & *:before,
-  &:after,
-  &:before {
-    @extend %box-reset;
-  }
   padding: 0;
   margin: 0;
   border: 0;
@@ -96,10 +43,9 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-// http://www.stefanwienert.de/blog/2012/05/18/easy-css-vendor-prefix-mixin-for-sass/
-// Easy css vendor prefix mixin for SASS
-// May 18, 2012
-//p { @include vendor-prefix(hyphens, auto)}
+
+// @REF: https://is.gd/dKY3LN
+// @include vendor-prefix(hyphens, auto);
 @mixin vendor-prefix($name, $argument) {
   -webkit-#{$name}: #{$argument};
   -ms-#{$name}: #{$argument};

@@ -3,6 +3,25 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// gNetwork Partials: Editor --------------------------------------------------
 
+// custom status panel
+// @REF: `#post-status-info`
+.-wrap.-editor-status-info {
+  box-sizing: border-box;
+  width: 100%;
+  border-spacing: 0;
+  border: 1px solid #e5e5e5;
+  border-top: none;
+  background-color: #f7f7f7;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+  z-index: 999;
+
+  font-size: 0.89em;
+
+  .-wordcount {
+    padding: 3px 6px;
+  }
+}
+
 .gnetwork-tinymce-icon {
   &:before {
     font-family: dashicons;

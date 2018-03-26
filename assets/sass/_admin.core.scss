@@ -1,11 +1,14 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-// gNetwork: Admin: Core -------------------------------------------------------
+/// gNetwork: Admin: Core ------------------------------------------------------
 //
 // we also use this on other plugins that have the same core html
 //
 
 @import "partials/admin.wrap";
 @import "partials/admin.table";
+@import "partials/admin.list";
+@import "partials/admin.tabs";
 @import "partials/admin.form";
 @import "partials/admin.metabox";
+@import "partials/admin.editor";

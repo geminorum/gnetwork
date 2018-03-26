@@ -79,3 +79,32 @@
     }
   }
 }
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// METABOX CONTROLS -----------------------------------------------------------
+
+// @REF: `#screen-options-link-wrap`, `#contextual-help-link-wrap`
+.gnetwork-admin-metabox-controls {
+  float: right;
+  height: 28px;
+  margin: 0 0 0 6px;
+  border: 1px solid #ddd;
+  border-top: none;
+  background: #fff;
+  box-shadow: 0 1px 1px -1px rgba(0, 0, 0, 0.1);
+
+  button::after {
+    padding: 4px 2px 0 5px !important;
+    vertical-align: top !important;
+  }
+}
+
+#gnetwork-admin-metabox-collapse::after {
+  content: "\f142" !important;
+}
+
+// #gnetwork-admin-metabox-expand::after {
+//   // content: "\f142" !important;
+// }

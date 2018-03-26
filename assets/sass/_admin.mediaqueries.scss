@@ -1,0 +1,24 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// gNetwork: Admin: Media Queries ---------------------------------------------
+
+@media screen and (max-width: 782px) {
+  #wpadminbar {
+    li#wp-admin-bar-gtheme-flush {
+      display: block !important;
+      position: static;
+    }
+  }
+
+  .gnetwork-admin-wrap.gnetwork-settings {
+    padding-right: 10px;
+  }
+
+  .gnetwork-admin-metabox-controls button {
+    padding: 3px 3px 2px !important;
+
+    > span {
+      display: none;
+    }
+  }
+}

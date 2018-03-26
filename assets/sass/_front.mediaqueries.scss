@@ -1,0 +1,12 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// gNetwork: Front: Media Queries ---------------------------------------------
+
+@media screen and (max-width: 782px) {
+  #wpadminbar {
+    li#wp-admin-bar-gtheme-flush {
+      display: block !important;
+      position: static;
+    }
+  }
+}
