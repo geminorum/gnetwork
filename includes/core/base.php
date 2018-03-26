@@ -252,6 +252,35 @@ class Base
 		return $r;
 	}
 
+	// @SOURCE: https://github.com/kallookoo/wp_parse_args_recursive
+	public static function recursiveParseArgsALT( $args, $defaults, $preserve_type = TRUE, $preserve_integer_keys = FALSE )
+	{
+		$output = array();
+
+		foreach ( array( $defaults, $args ) as $list ) {
+
+			foreach ( (array) $list as $key => $value ) {
+
+				if ( is_integer( $key ) && ! $preserve_integer_keys ) {
+
+					$output[] = $value;
+
+				} else if ( isset( $output[$key] )
+					&& ( is_array( $output[$key] ) || is_object( $output[$key] ) )
+					&& ( is_array( $value ) || is_object( $value ) ) ) {
+
+					$output[$key] = self::recursiveParseArgsALT( $value, $output[$key], $preserve_type, $preserve_integer_keys );
+
+				} else {
+
+					$output[$key] = $value;
+				}
+			}
+		}
+
+		return ( $preserve_type && ( is_object( $args ) || is_object( $defaults ) ) ) ? (object) $output : $output;
+	}
+
 	// maps a function to all non-iterable elements of an array or an object
 	// this is similar to `array_walk_recursive()` but acts upon objects too
 	// @REF: `map_deep()`
