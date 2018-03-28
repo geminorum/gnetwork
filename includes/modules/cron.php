@@ -417,8 +417,7 @@ class Cron extends gNetwork\Module
 								$html.= ' <small>'.$column['args']['schedules'][$task['schedule']]['display'].'</small>';
 
 							if ( isset( $task['args'] ) && count( $task['args'] ) )
-								foreach ( $task['args'] as $arg_key => $arg_val )
-									$html.= ' '.$arg_key.': <code>'.$arg_val.'</code>';
+								$html.= ' '.HTML::tableCode( $task['args'] );
 
 							$html.= '</div>';
 						}

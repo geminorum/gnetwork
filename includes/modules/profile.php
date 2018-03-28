@@ -124,10 +124,13 @@ class Profile extends gNetwork\Module
 			],
 			'_signup' => [
 				[
-					'field'       => 'store_signup_ip',
-					'title'       => _x( 'IP Address', 'Modules: Profile: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Stores user\'s IP address upon registration.', 'Modules: Profile: Settings', GNETWORK_TEXTDOMAIN ),
-					'default'     => '1',
+					'field'       => 'page_signup_disabled',
+					'type'        => 'page',
+					'title'       => _x( 'Disabled Page', 'Modules: Profile: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Redirects network sign-up into this page, if registration have been <b>disabled</b>.', 'Modules: Profile: Settings', GNETWORK_TEXTDOMAIN ),
+					'default'     => '0',
+					'exclude'     => $exclude,
+					'after'       => Settings::fieldAfterNewPostType( 'page' ),
 				],
 				[
 					'field'       => 'redirect_signup_url',
@@ -142,13 +145,10 @@ class Profile extends gNetwork\Module
 					'description' => _x( 'Redirects into this URL after a successful registraion.', 'Modules: Profile: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
-					'field'       => 'page_signup_disabled',
-					'type'        => 'page',
-					'title'       => _x( 'Disabled Page', 'Modules: Profile: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Redirects network sign-up into this page, if registration have been <b>disabled</b>.', 'Modules: Profile: Settings', GNETWORK_TEXTDOMAIN ),
-					'default'     => '0',
-					'exclude'     => $exclude,
-					'after'       => Settings::fieldAfterNewPostType( 'page' ),
+					'field'       => 'store_signup_ip',
+					'title'       => _x( 'IP Address', 'Modules: Profile: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Stores user\'s IP address upon registration.', 'Modules: Profile: Settings', GNETWORK_TEXTDOMAIN ),
+					'default'     => '1',
 				],
 				[
 					'field'       => 'default_colorscheme',
@@ -168,6 +168,14 @@ class Profile extends gNetwork\Module
 				],
 			],
 		];
+	}
+
+	public function settings_section_signup()
+	{
+		Settings::fieldSection(
+			_x( 'Sign-up', 'Modules: Profile: Settings', GNETWORK_TEXTDOMAIN ),
+			_x( 'Control the aspects of user registeration on this network.', 'Modules: Profile: Settings', GNETWORK_TEXTDOMAIN )
+		);
 	}
 
 	public function user_register( $user_id )

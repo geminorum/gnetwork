@@ -198,7 +198,9 @@ class Locale extends gNetwork\Module
 			'rest-oauth1-apps'           => 'page',
 			'so-widgets-plugins'         => 'page',
 			'siteorigin_panels'          => 'page',
+			'custom-contact-forms'       => 'page', // https://github.com/tlovett1/custom-contact-forms
 			'php-compatibility-checker'  => 'page', // [PHP Compatibility Checker](https://wordpress.org/plugins/php-compatibility-checker/)
+			'rlrsssl_really_simple_ssl'  => 'page', // [Really Simple SSL](https://wordpress.org/plugins/really-simple-ssl/)
 
 			// [EWWW Image Optimizer](https://wordpress.org/plugins/ewww-image-optimizer/)
 			'ewww-image-optimizer/ewww-image-optimizer.php' => 'page',
@@ -276,6 +278,9 @@ class Locale extends gNetwork\Module
 
 			// [Safe Redirect Manager](https://wordpress.org/plugins/safe-redirect-manager/)
 			'redirect_rule' => 'post_type',
+
+			'amp-options'           => 'page',
+			'amp-analytics-options' => 'page',
 
 		], $current );
 

@@ -194,8 +194,8 @@ class Mail extends gNetwork\Module
 				<tr><td>Username</td><td><em>your.pepipost.username</em></td></tr>
 				<tr><td>Password</td><td><em>your smtp password</em></td></tr>
 				</tbody></table><br />
-				Get your API key from <a href="https://app1.pepipost.com/index.php/settings/index" target="_blank">here</a>.<br />
-				For more information see <a href="http://support.pepipost.com/knowledge_base/topics/smtp-docs" target="_blank">here</a>.</p>',
+				Get your API key from <a href="https://app.pepipost.com" target="_blank">here</a>.<br />
+				For more information see <a href="https://docs.pepipost.com/documentation/smtp-integration/" target="_blank">here</a>.</p>',
 			],
 		];
 	}
