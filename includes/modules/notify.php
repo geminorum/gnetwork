@@ -18,6 +18,9 @@ class Notify extends gNetwork\Module
 	{
 		$this->filter( 'wpmu_welcome_notification', 5 );
 		$this->filter( 'auto_core_update_send_email', 4, 12 );
+		$this->filter( 'send_site_admin_email_change_email', 3, 12 );
+		$this->filter( 'send_password_change_email', 3, 12 );
+		$this->filter( 'send_email_change_email', 3, 12 );
 
 		if ( file_exists( GNETWORK_DIR.'includes/misc/notify-pluggable.php' ) )
 			require_once( GNETWORK_DIR.'includes/misc/notify-pluggable.php' );
@@ -49,36 +52,60 @@ class Notify extends gNetwork\Module
 	public function default_options()
 	{
 		return [
-			'disable_new_user_admin'  => 0,
-			'disable_password_change' => 0,
-			'signup_user_subject'     => '',
-			'signup_user_email'       => '',
-			'signup_blog_subject'     => '',
-			'signup_blog_email'       => '',
+			'disable_new_user_admin'       => 0,
+			'disable_user_password_change' => 0,
+			'disable_password_change'      => 0,
+			'disable_email_change'         => 0,
+			'disable_admin_email_change'   => 1,
+			'signup_user_subject'          => '',
+			'signup_user_email'            => '',
+			'signup_blog_subject'          => '',
+			'signup_blog_email'            => '',
 		];
 	}
 
 	public function default_settings()
 	{
+		$reversed = Settings::reverseEnabled();
+
 		$settings = [
 			'_general' => [
 				[
 					'field'       => 'disable_new_user_admin',
 					'title'       => _x( 'New User Email', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Notify the blog admin of a newly-registered user', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
-					'values'      => Settings::reverseEnabled(),
+					'description' => _x( 'Notifies the blog admin of a newly-registered user.', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
+					'values'      => $reversed,
+				],
+				[
+					'field'       => 'disable_user_password_change',
+					'title'       => _x( 'Password Reset Email', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Notifies the blog admin of a user changed password.', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
+					'values'      => $reversed,
 				],
 				[
 					'field'       => 'disable_password_change',
-					'title'       => _x( 'Password Reset Email', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Notify the blog admin of a user changing password', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
-					'values'      => Settings::reverseEnabled(),
+					'title'       => _x( 'User Password Changes', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Notifies the user of his password changed.', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
+					'values'      => $reversed,
+				],
+				[
+					'field'       => 'disable_email_change',
+					'title'       => _x( 'User Email Changes', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Notifies the user of his email address changed.', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
+					'values'      => $reversed,
+				],
+				[
+					'field'       => 'disable_admin_email_change',
+					'title'       => _x( 'Admin Email Changes', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Notifies the old site admin of the site admin email address changed.', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
+					'values'      => $reversed,
+					'default'     => 1,
 				],
 			],
 		];
 
 		if ( is_multisite() )
-			$settings['signup'] = [
+			$settings['_signup'] = [
 				[
 					'field'       => 'signup_user_subject',
 					'type'        => 'text',
@@ -116,6 +143,13 @@ class Notify extends gNetwork\Module
 			];
 
 		return $settings;
+	}
+
+	public function settings_section_signup()
+	{
+		Settings::fieldSection(
+			_x( 'Sign-up', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN )
+		);
 	}
 
 	public function settings_sidebox( $sub, $uri )
@@ -189,17 +223,40 @@ class Notify extends gNetwork\Module
 		return $blog_id;
 	}
 
-	// FIXME: apparently not working!
 	// filter whether to send an email following an automatic background core update.
-	// http://codex.wordpress.org/Configuring_Automatic_Background_Updates
+	// @REF: http://codex.wordpress.org/Configuring_Automatic_Background_Updates
 	public function auto_core_update_send_email( $true, $type, $core_update, $result )
 	{
-		Logger::ALERT( sprintf( 'NOTIFY: automatic background core update: %s', $type ) );
+		Logger::INFO( sprintf( 'NOTIFY: automatic background core update: %s', $type ) );
 
 		if ( in_array( $type, [ 'fail', 'critical' ] ) )
 			return TRUE;
 
 		return FALSE;
+	}
+
+	public function send_password_change_email( $true, $user, $userdata )
+	{
+		Logger::INFO( sprintf( 'NOTIFY: password changed for: %s',
+			$user['user_nicename'] ) );
+
+		return $this->options['disable_password_change'] ? FALSE: $true;
+	}
+
+	public function send_email_change_email( $true, $user, $userdata )
+	{
+		Logger::INFO( sprintf( 'NOTIFY: email changed user %s from: %S to: %s',
+			$user['user_nicename'], $user['user_email'], $userdata['user_email'] ) );
+
+		return $this->options['disable_email_change'] ? FALSE: $true;
+	}
+
+	public function send_site_admin_email_change_email( $send, $old_email, $new_email )
+	{
+		Logger::siteINFO( sprintf( 'NOTIFY: admin email changed from: %s to: %s',
+			$old_email, $new_email ) );
+
+		return $this->options['disable_admin_email_change'] ? FALSE: $send;
 	}
 
 	// pluggable core function
@@ -290,9 +347,9 @@ class Notify extends gNetwork\Module
 	// notify the blog admin of a user changing password, normally via email
 	public function wp_password_change_notification( $user )
 	{
-		Logger::ALERT( sprintf( 'NOTIFY: Password changed: %s', $user->user_login ) );
+		Logger::siteALERT( sprintf( 'NOTIFY: Password changed: %s', $user->user_login ) );
 
-		if ( $this->options['disable_password_change'] )
+		if ( $this->options['disable_user_password_change'] )
 			return;
 
 		if ( 0 === strcasecmp( $user->user_email, get_option( 'admin_email' ) ) )
