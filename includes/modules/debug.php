@@ -127,8 +127,8 @@ class Debug extends gNetwork\Module
 
 			HTML::tabsList( [
 				'php' => [
-					'title'  => _x( 'PHP / MySQL', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
-					'cb'     => [ __CLASS__, 'summaryPHPMySQL' ],
+					'title'  => _x( 'Currents', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
+					'cb'     => [ __CLASS__, 'summaryCurrents' ],
 					'active' => TRUE,
 				],
 				'wordpress' => [
@@ -527,7 +527,7 @@ class Debug extends gNetwork\Module
 			HTML::desc( _x( '<code>phpinfo()</code> has been disabled.', 'Modules: Debug', GNETWORK_TEXTDOMAIN ), TRUE, '-empty -phpinfo' );
 	}
 
-	public static function summaryPHPMySQL()
+	public static function summaryCurrents()
 	{
 		HTML::desc( sprintf( _x( 'Current PHP version: <code>%s</code>', 'Modules: Debug', GNETWORK_TEXTDOMAIN ), phpversion() ) );
 
@@ -544,6 +544,19 @@ class Debug extends gNetwork\Module
 		echo '<hr />';
 
 		HTML::desc( sprintf( _x( 'Current MySQL version: <code>%s</code>', 'Modules: Debug', GNETWORK_TEXTDOMAIN ), $GLOBALS['wpdb']->db_version() ) );
+
+		echo '<hr />';
+
+		HTML::desc( _x( 'Current Image Tools:', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+
+		$path      = '/usr/local/bin/';
+		$tools     = [ 'optipng', 'pngquant', 'cwebp', 'jpegoptim' ];
+		$available = [];
+
+		foreach ( $tools as $tool )
+			$available[strtoupper($tool)] = file_exists( $path.$tool ) ? $path.$tool : FALSE;
+
+		echo HTML::tableCode( $available );
 	}
 
 	public static function getPHPExtensions()
