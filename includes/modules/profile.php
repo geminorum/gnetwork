@@ -297,31 +297,35 @@ class Profile extends gNetwork\Module
 				? $this->sanitizeSlug( $profileuser->display_name )
 				: $profileuser->user_nicename;
 
-			echo '<tr><th><label for="gmember-slug">'._x( 'Slug', 'Modules: Profile', GNETWORK_TEXTDOMAIN )
-				.'</label></th><td><input type="text" name="gmember_slug" id="gmember_slug" value="'
+			$name_nicename = $this->hook( 'nicename' );
+			echo '<tr><th><label for="'.$name_nicename.'">'._x( 'Slug', 'Modules: Profile', GNETWORK_TEXTDOMAIN )
+				.'</label></th><td><input type="text" name="'.$name_nicename.'" id="'.$name_nicename.'" value="'
 				.HTML::escape( $nicename ).'" class="regular-text" dir="ltr" /><p class="description">'.
 					_x( 'This will be used in the URL of the user\'s page.', 'Modules: Profile', GNETWORK_TEXTDOMAIN )
 				.'</p></td></tr>';
 
+			// prevent lockin himself out!
 			if ( ! IS_PROFILE_PAGE ) {
-				// prevent lockin out himself!
+
+				$name_disable = $this->hook( 'disable_user' );
 				echo '<tr><th>'._x( 'Account Login', 'Modules: Profile', GNETWORK_TEXTDOMAIN )
-					.'</th><td><label for="gmember_disable_user">'
-					.'<input type="checkbox" name="gmember_disable_user" id="gmember_disable_user" value="1"';
+					.'</th><td><label for="'.$name_disable.'">'
+					.'<input type="checkbox" name="'.$name_disable.'" id="'.$name_disable.'" value="1"';
 						checked( 1, get_the_author_meta( 'disable_user', $profileuser->ID ) );
 				echo ' /> '._x( 'Disable user login with this account', 'Modules: Profile', GNETWORK_TEXTDOMAIN )
 					.'</label></td></tr>';
 			}
 
+			$name_reset = $this->hook( 'password_reset' );
 			echo '<tr><th>'._x( 'Password Reset', 'Modules: Profile', GNETWORK_TEXTDOMAIN )
-				.'</th><td><label for="gmember_password_reset">'
-				.'<input type="checkbox" name="gmember_password_reset" id="gmember_password_reset" value="1"';
+				.'</th><td><label for="'.$name_reset.'">'
+				.'<input type="checkbox" name="'.$name_reset.'" id="'.$name_reset.'" value="1"';
 					checked( 1, get_the_author_meta( 'disable_password_reset', $profileuser->ID ) );
 			echo ' /> '._x( 'Disable this account password reset via default login page', 'Modules: Profile', GNETWORK_TEXTDOMAIN )
 				.'</label></td></tr>';
 		}
 
-		echo '</table'; // it's correct, checkout the hook!
+		echo '</table'; // yes, this is correct, check the hook!
 	}
 
 	protected function sanitizeSlug( $string )
@@ -332,12 +336,15 @@ class Profile extends gNetwork\Module
 
 	public function edit_user_profile_update( $user_id )
 	{
-		if ( $slug = self::req( $this->hook( 'slug' ) ) ) {
+		if ( $nicename = self::req( $this->hook( 'nicename' ) ) ) {
 
-			$sanitized = $this->sanitizeSlug( $slug );
+			$user = get_user_by( 'id', $user_id );
 
-			if ( ! username_exists( $sanitized ) )
-				wp_update_user( [ 'ID' => $user_id, 'user_nicename' => $sanitized ] );
+			if ( $nicename == $user->user_login )
+				$nicename = $this->sanitizeSlug( $nicename );
+
+			if ( ! username_exists( $nicename ) )
+				wp_update_user( [ 'ID' => $user_id, 'user_nicename' => $nicename ] );
 		}
 
 		if ( current_user_can( 'edit_users' ) ) {
