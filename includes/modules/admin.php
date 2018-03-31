@@ -46,7 +46,7 @@ class Admin extends gNetwork\Module
 		if ( gNetwork()->option( 'thrift_mode', 'blog' ) )
 			$classes.= ' thrift-mode';
 
-		if ( ! gNetwork()->option( 'user_locale', 'user' ) )
+		if ( ! gNetwork()->option( 'user_locale', 'profile' ) )
 			$classes.= ' hide-userlocale-option';
 
 		if ( ! gNetwork()->adminbar->show_adminbar() )

@@ -5,8 +5,11 @@ defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 use geminorum\gNetwork;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
+use geminorum\gNetwork\Core\Email;
+use geminorum\gNetwork\Core\File;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\HTTP;
+use geminorum\gNetwork\Core\Text;
 use geminorum\gNetwork\Core\WordPress;
 
 class Profile extends gNetwork\Module
@@ -67,6 +70,8 @@ class Profile extends gNetwork\Module
 		if ( $this->options['disable_password_reset'] )
 			$this->filter( 'allow_password_reset', 2 );
 
+		if ( $this->options['contact_methods'] )
+			$this->filter( 'user_contactmethods', 2 );
 
 		$this->filter( 'update_user_metadata', 5, 12 );
 		$this->filter( 'get_user_metadata', 4, 12 );
@@ -92,6 +97,8 @@ class Profile extends gNetwork\Module
 			'default_colorscheme'    => '0',
 			'disable_colorschemes'   => '0',
 			'disable_password_reset' => '0',
+			'contact_methods'        => '1',
+			'user_locale'            => '0',
 		];
 	}
 
@@ -120,6 +127,18 @@ class Profile extends gNetwork\Module
 					'title'       => _x( 'Color Schemes', 'Modules: Profile: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Controls whether to allow a selection of admin color scheme.', 'Modules: Profile: Settings', GNETWORK_TEXTDOMAIN ),
 					'values'      => Settings::reverseEnabled(),
+				],
+				[
+					'field'       => 'contact_methods',
+					'title'       => _x( 'Contact Methods', 'Modules: Profile: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Adds extra contact methods to user profiles', 'Modules: Profile: Settings', GNETWORK_TEXTDOMAIN ),
+					'default'     => '1',
+				],
+				[
+					'field'       => 'user_locale',
+					'title'       => _x( 'User Language', 'Modules: Profile: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'User admin language switcher', 'Modules: Profile: Settings', GNETWORK_TEXTDOMAIN ),
+					'after'       => Settings::fieldAfterIcon( 'https://core.trac.wordpress.org/ticket/29783' ),
 				],
 			],
 			'_signup' => [
@@ -176,6 +195,149 @@ class Profile extends gNetwork\Module
 			_x( 'Sign-up', 'Modules: Profile: Settings', GNETWORK_TEXTDOMAIN ),
 			_x( 'Control the aspects of user registeration on this network.', 'Modules: Profile: Settings', GNETWORK_TEXTDOMAIN )
 		);
+	}
+
+	public function settings_sidebox( $sub, $uri )
+	{
+		$wpupload = WordPress::upload();
+
+		if ( ! empty( $wpupload['error'] ) ) {
+
+			echo HTML::error( sprintf( _x( 'Before you can upload a file, you will need to fix the following error: %s', 'Modules: Profile', GNETWORK_TEXTDOMAIN ), '<b>'.$wpupload['error'].'</b>' ), FALSE );
+
+		} else {
+
+			echo $this->wrap_open_buttons();
+
+				$this->do_settings_field( [
+					'type'      => 'file',
+					'field'     => 'import_users_file',
+					'name_attr' => 'import',
+					'values'    => [ '.csv' ],
+				] );
+
+				echo '<br />';
+
+				$size = File::formatSize( apply_filters( 'import_upload_size_limit', wp_max_upload_size() ) );
+				Settings::submitButton( 'import_users_csv', _x( 'Import Users', 'Modules: Profile', GNETWORK_TEXTDOMAIN ), 'small' );
+				HTML::desc( sprintf( _x( 'Upload a list of users in a CSV format. Maximum size: <b>%s</b>', 'Modules: Profile', GNETWORK_TEXTDOMAIN ), $size ), FALSE );
+
+			echo '</p>';
+			echo '<hr />';
+		}
+
+		echo $this->wrap_open_buttons();
+
+			Settings::submitButton( 'export_users_csv', _x( 'Export Users', 'Modules: Profile', GNETWORK_TEXTDOMAIN ), 'small' );
+			HTML::desc( _x( 'Click to get all registered users in CSV format.', 'Modules: Profile', GNETWORK_TEXTDOMAIN ), FALSE );
+
+		echo '</p>';
+	}
+
+	public function settings_help_tabs( $sub = NULL )
+	{
+		return [
+			[
+				'id'      => $this->classs( 'help' ),
+				'title'   => _x( 'Contact Methods', 'Modules: Profile: Help Tab Title', GNETWORK_TEXTDOMAIN ),
+				'content' => HTML::tableCode( wp_get_user_contact_methods() ),
+			],
+		];
+	}
+
+	public function settings( $sub = NULL )
+	{
+		if ( $this->key == $sub ) {
+
+			if ( isset( $_POST['import_users_csv'] ) ) {
+
+				$this->check_referer( $sub );
+
+				$file = wp_import_handle_upload();
+
+				if ( isset( $file['error'] ) || empty( $file['file'] ) )
+					WordPress::redirectReferer( 'wrong' );
+
+				$count = 0;
+				$role  = get_option( 'default_role' );
+
+				$this->options['store_signup_ip'] = FALSE; // HACK: skip ip on the imported
+
+				$csv = new \ParseCsv\Csv();
+				$csv->auto( File::normalize( $file['file'] ) );
+
+				foreach ( $csv->data as $offset => $row ) {
+
+					$data = self::args( (array) $row, [
+						'user_email' => FALSE,
+						'user_login' => FALSE,
+						'role'       => $role,
+					] );
+
+					if ( empty( $data['user_email'] ) || ! is_email( $data['user_email'] ) )
+						continue;
+
+					if ( empty( $data['user_login'] ) )
+						$data['user_login'] = Email::toUsername( $data['user_email'] );
+
+					if ( empty( $data['user_login'] ) || ! validate_username( $data['user_login'] ) )
+						continue;
+
+					if ( username_exists( $data['user_login'] ) )
+						continue;
+
+					if ( email_exists( $data['user_email'] ) )
+						continue;
+
+					if ( ! empty( $data['display_name'] ) )
+						$data['display_name'] = apply_filters( 'string_format_i18n', $data['display_name'] );
+
+					if ( ! empty( $data['nickname'] ) )
+						$data['nickname'] = apply_filters( 'string_format_i18n', $data['nickname'] );
+
+					if ( $data['user_nicename'] == $data['user_login']
+						&& ! empty( $data['display_name'] )
+						&& $data['user_login'] != $data['display_name'] ) {
+
+						$data['user_nicename'] = $this->sanitizeSlug( $data['display_name'] );
+					}
+
+					if ( empty( $data['nickname'] ) && ! empty( $data['display_name'] ) )
+						$data['nickname'] = $data['display_name'];
+
+					unset( $data['ID'], $data['id'] );
+
+					$data['user_pass'] = wp_generate_password( 12, FALSE );
+
+					$user_id = wp_insert_user( $data );
+
+					if ( ! $user_id || is_wp_error( $user_id ) )
+						continue;
+
+					update_user_option( $user_id, 'default_password_nag', TRUE, TRUE );
+
+					$count++;
+				}
+
+				WordPress::redirectReferer( [
+					'message'    => 'imported',
+					'count'      => $count,
+					'attachment' => $file['id'],
+				] );
+
+			} else if ( isset( $_POST['export_users_csv'] ) ) {
+
+				$this->check_referer( $sub );
+
+				Text::download( $this->get_csv_users(), File::prepName( 'users.csv' ) );
+
+				WordPress::redirectReferer( 'wrong' );
+
+			} else {
+
+				parent::settings( $sub );
+			}
+		}
 	}
 
 	public function user_register( $user_id )
@@ -237,6 +399,17 @@ class Profile extends gNetwork\Module
 			return FALSE;
 
 		return $allow;
+	}
+
+	public function user_contactmethods( $contactmethods, $user )
+	{
+		return array_merge( $contactmethods, [
+			'mobile'     => _x( 'Mobile Phone', 'Modules: Profile: User Contact Method', GNETWORK_TEXTDOMAIN ),
+			'twitter'    => _x( 'Twitter', 'Modules: Profile: User Contact Method', GNETWORK_TEXTDOMAIN ),
+			'telegram'   => _x( 'Telegram', 'Modules: Profile: User Contact Method', GNETWORK_TEXTDOMAIN ),
+			'facebook'   => _x( 'Facebook', 'Modules: Profile: User Contact Method', GNETWORK_TEXTDOMAIN ),
+			'googleplus' => _x( 'Google+', 'Modules: Profile: User Contact Method', GNETWORK_TEXTDOMAIN ),
+		] );
 	}
 
 	public function user_edit_form_tag()
@@ -506,6 +679,14 @@ class Profile extends gNetwork\Module
 			}
 		}
 
+		if ( ! $this->options['user_locale'] ) {
+
+			if ( $update )
+				delete_user_meta( $user->ID, 'locale' );
+
+			unset( $meta['locale'] );
+		}
+
 		return $meta;
 	}
 
@@ -534,5 +715,37 @@ class Profile extends gNetwork\Module
 		}
 
 		return $result;
+	}
+
+	// TODO: append contact methods
+	// TODO: add support for BuddyPress: `xprofile_get_field_data()`
+	// @REF: https://gist.github.com/boonebgorges/79b5d0f628a884cb3b3b
+	private function get_csv_users()
+	{
+		global $wpdb;
+
+		$headers = [
+			'ID',
+			'user_login',
+			'user_nicename',
+			'user_email',
+			'user_url',
+			'user_registered',
+			'display_name',
+		];
+
+		$data  = [ $headers ];
+		$users = $wpdb->get_results( "SELECT * FROM {$wpdb->users} WHERE user_status = 0" );
+
+		foreach ( $users as $user ) {
+			$row = [];
+
+			foreach ( $headers as $header )
+				$row[] = $user->{$header};
+
+			$data[] = $row;
+		}
+
+		return Text::toCSV( $data );
 	}
 }

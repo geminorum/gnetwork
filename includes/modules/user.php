@@ -5,9 +5,7 @@ defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 use geminorum\gNetwork;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
-use geminorum\gNetwork\Core\File;
 use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\Text;
 use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
 
@@ -19,21 +17,13 @@ class User extends gNetwork\Module
 
 	protected function setup_actions()
 	{
-		if ( is_admin() ) {
-
-			if ( ! $this->options['user_locale'] )
-				$this->filter( 'insert_user_meta', 3, 8 );
-
-		} else {
+		if ( ! is_admin() ) {
 
 			if ( $this->options['tos_display'] ) {
 				$this->action( 'before_signup_header' ); // multisite signup
 				$this->action( 'bp_init' ); // buddypress
 			}
 		}
-
-		if ( $this->options['contact_methods'] )
-			$this->filter( 'user_contactmethods', 2 );
 
 		if ( ! is_multisite() )
 			return TRUE;
@@ -89,8 +79,6 @@ class User extends gNetwork\Module
 			'site_user_role'  => 'editor', // GNETWORK_SITE_USER_ROLE
 			'blog_roles'      => '0',
 			'admin_user_edit' => '0',
-			'contact_methods' => '1',
-			'user_locale'     => '0',
 			'dashboard_sites' => '0',
 			'dashboard_menu'  => '0',
 
@@ -137,18 +125,6 @@ class User extends gNetwork\Module
 					'field'       => 'admin_user_edit',
 					'title'       => _x( 'Administrator User Edit', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Allows site administrators to edit users of their sites.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
-				],
-				[
-					'field'       => 'contact_methods',
-					'title'       => _x( 'Contact Methods', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Adds extra contact methods to user profiles', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
-					'default'     => '1',
-				],
-				[
-					'field'       => 'user_locale',
-					'title'       => _x( 'User Language', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'User admin language switcher', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
-					'after'       => Settings::fieldAfterIcon( 'https://core.trac.wordpress.org/ticket/29783' ),
 				],
 				[
 					'field'       => 'dashboard_sites',
@@ -215,43 +191,11 @@ class User extends gNetwork\Module
 		);
 	}
 
-	// FIXME: needs better UX
-	public function settings_sidebox( $sub, $uri )
-	{
-		echo $this->wrap_open_buttons();
-
-			Settings::submitButton( 'export_users_csv', _x( 'Export Users', 'Modules: User', GNETWORK_TEXTDOMAIN ), 'small' );
-			HTML::desc( _x( 'Get all users in a CSV file.', 'Modules: User', GNETWORK_TEXTDOMAIN ), FALSE );
-
-		echo '</p>';
-	}
-
-	public function settings_help_tabs( $sub = NULL )
-	{
-		return [
-			[
-				'id'      => $this->classs( 'help' ),
-				'title'   => _x( 'Contact Methods', 'Modules: User: Help Tab Title', GNETWORK_TEXTDOMAIN ),
-				'content' => HTML::tableCode( wp_get_user_contact_methods() ),
-			],
-		];
-	}
-
 	public function settings( $sub = NULL )
 	{
 		if ( $this->key == $sub ) {
 
-			if ( isset( $_POST['export_users_csv'] ) ) {
-
-				$this->check_referer( $sub );
-
-				Text::download( $this->get_csv_users(), File::prepName( 'users.csv' ) );
-
-				WordPress::redirectReferer( 'wrong' );
-
-			} else {
-				parent::settings( $sub );
-			}
+			parent::settings( $sub );
 
 		} else if ( 'roles' == $sub ) {
 
@@ -462,26 +406,6 @@ class User extends gNetwork\Module
 		Settings::wrapClose();
 	}
 
-	public function user_contactmethods( $contactmethods, $user )
-	{
-		return array_merge( $contactmethods, [
-			'mobile'     => _x( 'Mobile Phone', 'Modules: User: User Contact Method', GNETWORK_TEXTDOMAIN ),
-			'twitter'    => _x( 'Twitter', 'Modules: User: User Contact Method', GNETWORK_TEXTDOMAIN ),
-			'facebook'   => _x( 'Facebook', 'Modules: User: User Contact Method', GNETWORK_TEXTDOMAIN ),
-			'googleplus' => _x( 'Google+', 'Modules: User: User Contact Method', GNETWORK_TEXTDOMAIN ),
-		] );
-	}
-
-	public function insert_user_meta( $meta, $user, $update )
-	{
-		if ( $update )
-			delete_user_meta( $user->ID, 'locale' );
-
-		unset( $meta['locale'] );
-
-		return $meta;
-	}
-
 	private function get_sites()
 	{
 		global $wpdb;
@@ -661,39 +585,6 @@ class User extends gNetwork\Module
 				.'</label>';
 
 		echo '</div>';
-	}
-
-	// TODO: add support for BuddyPress fields
-	// TODO: append contact methods
-	// @REF: https://gist.github.com/boonebgorges/79b5d0f628a884cb3b3b
-	private function get_csv_users()
-	{
-		global $wpdb;
-
-		$header = [
-			0 => 'Display Name',
-			1 => 'Email',
-			2 => 'Registration Date',
-			// 3 => 'Institution',
-		];
-
-		$data   = [ $header ];
-		$format = Utilities::dateFormats( 'default' );
-
-		$users = $wpdb->get_results( "SELECT ID, user_email, user_registered, display_name, user_nicename FROM {$wpdb->users} WHERE user_status = 0" );
-
-		foreach ( $users as $user ) {
-			$row = [];
-
-			$row[0] = empty( $user->display_name ) ? $user->user_nicename : $user->display_name;
-			$row[1] = $user->user_email;
-			$row[2] = date_i18n( $format, strtotime( $user->user_registered ) );
-			// $row[3] = xprofile_get_field_data( 2, $user->ID );
-
-			$data[] = $row;
-		}
-
-		return Text::toCSV( $data );
 	}
 
 	// Adopted from: WP User Edit by John James Jacoby v0.1.0 - 2017-11-16
