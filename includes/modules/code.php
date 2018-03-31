@@ -285,12 +285,12 @@ class Code extends gNetwork\Module
 	public function shortcode_shields_io( $atts = [], $content = NULL, $tag = '' )
 	{
 		$args = shortcode_atts( [
-			'link'      => 'http://geminorum.ir',
+			'link'      => 'https://geminorum.ir',
 			'subject'   => "it's a",
 			'status'    => 'geminorum project',
 			'color'     => 'lightgrey',
 			'style'     => 'flat-square', // 'plastic', 'flat', 'flat-square', 'social'
-			'provider'  => 'http://img.shields.io/badge/',
+			'provider'  => 'https://img.shields.io/badge/',
 			'extension' => 'svg',
 			'context'   => NULL,
 			'wrap'      => TRUE,

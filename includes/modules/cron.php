@@ -414,10 +414,10 @@ class Cron extends gNetwork\Module
 							$html.= '<div><code style="color:'.( has_action( $action ) ? 'green' : 'red' ).'">'.$action.'</code>';
 
 							if ( isset( $task['schedule'] ) && $task['schedule'] && isset( $column['args']['schedules'][$task['schedule']] ) )
-								$html.= ' <small>'.$column['args']['schedules'][$task['schedule']]['display'].'</small>';
+								$html.= ' <small>('.$column['args']['schedules'][$task['schedule']]['display'].')</small>';
 
 							if ( isset( $task['args'] ) && count( $task['args'] ) )
-								$html.= ' '.HTML::tableCode( $task['args'] );
+								$html.= ': <small>'.HTML::sanitizeDisplay( $task['args'] ).'</small>';
 
 							$html.= '</div>';
 						}

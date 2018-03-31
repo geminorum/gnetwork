@@ -133,8 +133,8 @@ class Dashboard extends gNetwork\Module
 
 		foreach ( $this->filters( 'external_feeds', [] ) as $name => $feed )
 			$feeds[$name] = array_merge( [
-				'link'         => 'http://geminorum.ir/',
-				'url'          => 'http://geminorum.ir/feed',
+				'link'         => 'https://geminorum.ir/',
+				'url'          => 'https://geminorum.ir/feed',
 				'title'        => $name,
 				'items'        => 3,
 				'show_summary' => 1,

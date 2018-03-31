@@ -91,7 +91,7 @@ class Authors extends gNetwork\Module
 				'default'   => 'none',
 			] );
 
-			echo '&nbsp;&mdash;&nbsp;'._x( 'to', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ).'&nbsp;&mdash; &nbsp;';
+			echo '&nbsp;&mdash;&nbsp;'._x( 'to', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ).'&nbsp;&ndash;&nbsp;';
 
 			unset( $users['all'] );
 
@@ -103,7 +103,7 @@ class Authors extends gNetwork\Module
 				'default'   => gNetwork()->user(),
 			] );
 
-			echo '&nbsp;&mdash;&nbsp;'._x( 'on', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ).'&nbsp;&mdash;&nbsp;';
+			echo '&nbsp;&mdash;&nbsp;'._x( 'on', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ).'&nbsp;&ndash;&nbsp;';
 
 			$this->do_settings_field( [
 				'type'      => 'select',
@@ -113,7 +113,7 @@ class Authors extends gNetwork\Module
 				'values'    => WordPress::getPostTypes(),
 			] );
 
-			echo '&nbsp;&mdash;&nbsp;'._x( 'do', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ).'&nbsp;&mdash;&nbsp;';
+			echo '&nbsp;&mdash;&nbsp;'._x( 'do', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ).'&nbsp;&ndash;&nbsp;';
 
 			Settings::submitButton( 'bulk_change_author', _x( 'Change', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ), FALSE, TRUE );
 

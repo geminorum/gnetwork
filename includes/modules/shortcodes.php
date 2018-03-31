@@ -10,6 +10,7 @@ use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\HTTP;
 use geminorum\gNetwork\Core\Number;
 use geminorum\gNetwork\Core\Text;
+use geminorum\gNetwork\Core\Third;
 use geminorum\gNetwork\Core\WordPress;
 
 class ShortCodes extends gNetwork\Module
@@ -847,7 +848,7 @@ class ShortCodes extends gNetwork\Module
 	// FIXME: add def atts / wrap
 	public function shortcode_qrcode( $atts = [], $content = NULL, $tag = '' )
 	{
-		return $content ? Utilities::getGoogleQRCode( trim( $content ), $atts ) : $content;
+		return $content ? Third::getGoogleQRCode( trim( $content ), $atts ) : $content;
 	}
 
 	// TODO: also [search-form] to include current theme search form
@@ -1096,7 +1097,7 @@ class ShortCodes extends gNetwork\Module
 	public function shortcode_bloginfo( $atts = [], $content = NULL, $tag = '' )
 	{
 		$args = shortcode_atts( [
-			'key'     => '', // SEE: http://codex.wordpress.org/Template_Tags/bloginfo
+			'key'     => '', // SEE: https://codex.wordpress.org/Template_Tags/bloginfo
 			'class'   => '', // OR: 'key-%s'
 			'context' => NULL,
 			'wrap'    => FALSE,

@@ -22,9 +22,9 @@ class Dev extends gNetwork\Module
 	{
 		$this->filter( 'http_request_args', 2, 12 );
 
-		add_filter( 'https_local_ssl_verify', '__return_false' );
-		add_filter( 'https_ssl_verify', '__return_false' );
-		add_filter( 'jetpack_development_mode', '__return_true' );
+		$this->filter_false( 'https_ssl_verify' );
+		$this->filter_false( 'https_local_ssl_verify' );
+		$this->filter_true( 'jetpack_development_mode' );
 
 		$this->action( 'pre_get_posts', 1, 99 );
 		$this->action( 'shutdown', 1, 99 );

@@ -112,7 +112,7 @@ class Uptime extends gNetwork\Module
 				echo '<tr><td>'.$this->get_uptimerobot_type( $log['type'] )
 					.'</td><td>'.Utilities::htmlHumanTime( $log['datetime'], TRUE )
 					.'</td><td>'.Utilities::htmlFromSeconds( $log['duration'], 2 )
-					.'</td><td style="direction:ltr;">'.HTTP::htmlStatus( $log['reason']['code'] ).$log['reason']['detail']
+					.'</td><td style="direction:ltr;">'.( $log['reason']['code'] < 600 ? HTTP::htmlStatus( $log['reason']['code'] ) : '' ).$log['reason']['detail']
 					.'</td></tr>';
 
 			echo '</tbody></table></div>';

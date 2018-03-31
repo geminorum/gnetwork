@@ -569,7 +569,7 @@ class Module extends Core\Base
 		if ( $check && $sidebox = method_exists( $this, 'settings_sidebox' ) )
 			$class.= ' has-sidebox';
 
-		echo '<form class="'.$class.'" method="post" action="">';
+		echo '<form enctype="multipart/form-data" class="'.$class.'" method="post" action="">';
 
 			$this->settings_fields( $sub, $action, $context );
 

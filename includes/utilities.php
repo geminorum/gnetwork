@@ -16,7 +16,7 @@ class Utilities extends Core\Base
 
 	public static function creditsBadge()
 	{
-		return '<a href="http://geminorum.ir" title="it\'s a geminorum project"><img src="'
+		return '<a href="https://geminorum.ir" title="it\'s a geminorum project"><img src="'
 			.GNETWORK_URL.'assets/images/itsageminorumproject-lightgrey.svg" alt="" /></a>';
 	}
 
@@ -561,40 +561,6 @@ class Utilities extends Core\Base
 		}
 
 		return $demotext;
-	}
-
-	// @API: https://developers.google.com/chart/infographics/docs/qr_codes
-	// @EXAMPLE: https://createqrcode.appspot.com/
-	// @SEE: https://github.com/endroid/QrCode
-	// @SEE: https://github.com/aferrandini/PHPQRCode
-	public static function getGoogleQRCode( $data, $atts = [] )
-	{
-		$args = self::atts( [
-			'tag'        => TRUE,
-			'size'       => 150,
-			'encoding'   => 'UTF-8',
-			'correction' => 'H', // 'L', 'M', 'Q', 'H'
-			'margin'     => 0,
-			'url'        => 'https://chart.googleapis.com/chart',
-		], $atts );
-
-		$src = add_query_arg( [
-			'cht'  => 'qr',
-			'chs'  => $args['size'].'x'.$args['size'],
-			'chl'  => urlencode( $data ),
-			'chld' => $args['correction'].'|'.$args['margin'],
-			'choe' => $args['encoding'],
-		], $args['url'] );
-
-		if ( ! $args['tag'] )
-			return $src;
-
-		return HTML::tag( 'img', [
-			'src'    => $src,
-			'width'  => $args['size'],
-			'height' => $args['size'],
-			'alt'    => strip_tags( $data ),
-		] );
 	}
 
 	public static function mdExtra( $markdown )

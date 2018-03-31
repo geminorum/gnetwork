@@ -20,8 +20,6 @@ class OpenSearch extends gNetwork\Module
 		if ( ! $this->options['opensearch'] )
 			return;
 
-		$this->action( 'wp_head' );
-
 		if ( ! constant( 'GNETWORK_SEARCH_REDIRECT' ) ) {
 			$this->action( 'rss2_ns' );
 			add_action( 'atom_ns', [ $this, 'rss2_ns' ] );
@@ -32,6 +30,7 @@ class OpenSearch extends gNetwork\Module
 		// $this->action( 'rewrite_rules_array', 1, 8 );
 
 		if ( ! is_admin() ) {
+			$this->action( 'wp_head' );
 			$this->action( 'parse_request', 1, 1 );
 			$this->filter( 'redirect_canonical', 2 );
 		}
@@ -179,7 +178,7 @@ class OpenSearch extends gNetwork\Module
 
 	public function wp_head()
 	{
-		echo "\t".'<link rel="search" type="application/opensearchdescription+xml" href="'
+		echo '<link rel="search" type="application/opensearchdescription+xml" href="'
 			.self::url().'" title="'.$this->options['shortname'].'" />'."\n";
 	}
 

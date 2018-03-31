@@ -2,12 +2,12 @@
 
 /*
 Plugin Name: gNetwork
-Plugin URI: http://gmeinorum.ir/wordpress/gnetwork
+Plugin URI: https://gmeinorum.ir/wordpress/gnetwork
 Description: Network Helper
 Version: 3.7.0
 License: GPLv3+
 Author: geminorum
-Author URI: http://geminorum.ir/
+Author URI: https://geminorum.ir/
 Network: true
 Text Domain: gnetwork
 Domain Path: /languages

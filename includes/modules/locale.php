@@ -201,6 +201,7 @@ class Locale extends gNetwork\Module
 			'custom-contact-forms'       => 'page', // https://github.com/tlovett1/custom-contact-forms
 			'php-compatibility-checker'  => 'page', // [PHP Compatibility Checker](https://wordpress.org/plugins/php-compatibility-checker/)
 			'rlrsssl_really_simple_ssl'  => 'page', // [Really Simple SSL](https://wordpress.org/plugins/really-simple-ssl/)
+			'onesignal-push'             => 'page', // [OneSignal](https://wordpress.org/plugins/onesignal-free-web-push-notifications/)
 
 			// [EWWW Image Optimizer](https://wordpress.org/plugins/ewww-image-optimizer/)
 			'ewww-image-optimizer/ewww-image-optimizer.php' => 'page',
