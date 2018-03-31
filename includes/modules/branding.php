@@ -3,6 +3,7 @@
 defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Settings;
 
 class Branding extends gNetwork\Module
 {
@@ -13,6 +14,12 @@ class Branding extends gNetwork\Module
 	{
 		if ( $this->options['siteicon_fallback'] && is_multisite() )
 			$this->filter( 'get_site_icon_url', 3 );
+
+		if ( $this->options['webapp_manifest'] && ! is_admin() ) {
+			$this->action( 'wp_head' );
+			$this->action( 'parse_request', 1, 1 );
+			$this->filter( 'redirect_canonical', 2 );
+		}
 
 		add_action( 'network_credits', function(){
 			gnetwork_credits();
@@ -29,6 +36,9 @@ class Branding extends gNetwork\Module
 		return [
 			'theme_color'       => '',
 			'siteicon_fallback' => '0',
+			'webapp_manifest'   => '0',
+			'webapp_shortname'  => '',
+			'webapp_longname'   => '',
 			'text_copyright'    => '',
 			'text_powered'      => '',
 			'text_slogan'       => '',
@@ -37,6 +47,8 @@ class Branding extends gNetwork\Module
 
 	public function default_settings()
 	{
+		$name = get_bloginfo( 'name', 'display' );
+
 		return [
 			'_general' => [
 				[
@@ -50,6 +62,30 @@ class Branding extends gNetwork\Module
 					'title'       => _x( 'Network Site Icon', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Falls back into main site icon on the network.', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
 				],
+			],
+			'_manifest' => [
+				[
+					'field'       => 'webapp_manifest',
+					'title'       => _x( 'Web App Manifest', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Provides the ability to save a site bookmark to a device\'s home screen.', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
+					'after'       => Settings::fieldAfterIcon( 'https://developers.google.com/web/fundamentals/web-app-manifest/' ),
+				],
+				[
+					'field'       => 'webapp_shortname',
+					'type'        => 'text',
+					'title'       => _x( 'Web App Short Name', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'A short name for use as the text on the users home screen.', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
+					'default'     => $name,
+					'field_class' => 'medium-text',
+				],
+				[
+					'field'       => 'webapp_longname',
+					'type'        => 'text',
+					'title'       => _x( 'Web App Name', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'A name for use in the Web App Install banner.', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
+				],
+			],
+			'_texts' => [
 				[
 					'field'       => 'text_copyright',
 					'type'        => 'textarea-quicktags',
@@ -76,6 +112,48 @@ class Branding extends gNetwork\Module
 	{
 		wp_enqueue_script( 'wp-color-picker' );
 		wp_enqueue_style( 'wp-color-picker' );
+	}
+
+	public function wp_head()
+	{
+		echo '<link rel="manifest" href="'.$this->url_manifest().'" />'."\n";
+	}
+
+	public function parse_request( $request )
+	{
+		if ( 'manifest.json' == $request->request )
+			$this->render_manifest();
+	}
+
+	public function redirect_canonical( $redirect_url, $requested_url )
+	{
+		if ( 'manifest.json' == substr( $requested_url, -7 ) )
+			return FALSE;
+
+		return $redirect_url;
+	}
+
+	public function url_manifest( $escape = TRUE )
+	{
+		$url = get_bloginfo( 'url', 'display' ).'/manifest.json';
+		return $escape ? esc_url( $url ) : $url;
+	}
+
+	private function render_manifest()
+	{
+		$data = [
+			'start_url'   => get_bloginfo( 'url' ),
+			'short_name'  => $this->options['webapp_shortname'],
+			'name'        => $this->options['webapp_longname'],
+			'theme_color' => $this->options['theme_color'],
+		];
+
+		nocache_headers();
+
+		header( 'Content-Type: application/json; charset='.get_option( 'charset' ) );
+		echo wp_json_encode( $data, JSON_UNESCAPED_UNICODE );
+
+		exit();
 	}
 
 	// @SOURCE: https://github.com/kraftbj/default-site-icon
