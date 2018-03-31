@@ -165,18 +165,6 @@ class Text extends Base
 		return preg_replace( '/[\p{Z}\s]{2,}/u', ' ', $string );
 	}
 
-	// @REF: _cleanup_image_add_caption()
-	// remove any line breaks from inside the tags
-	public static function noLineBreak( $string )
-	{
-		return preg_replace( '/[\r\n\t]+/', ' ', $string );
-	}
-
-	public static function stripWidthHeight( $string )
-	{
-		return preg_replace( '/(width|height)="\d*"\s/', '', $string );
-	}
-
 	public static function has( $haystack, $needles, $operator = 'OR' )
 	{
 		if ( ! is_array( $needles ) )
@@ -609,7 +597,22 @@ class Text extends Base
 		return count( preg_split( '~[^\p{L}\p{N}\']+~u', $html ) );
 	}
 
-	// @SEE: [wp_strip_all_tags()](https://developer.wordpress.org/reference/functions/wp_strip_all_tags/)
+	public static function noLineBreak( $string )
+	{
+		return preg_replace( '/[\r\n\t ]+/', ' ', $string );
+	}
+
+	public static function stripWidthHeight( $string )
+	{
+		return preg_replace( '/(width|height)="\d*"\s/', '', $string );
+	}
+
+	// @SOURCE: `wp_strip_all_tags()`
+	public static function stripTags( $string )
+	{
+		return trim( strip_tags( preg_replace( '@<(script|style)[^>]*?>.*?</\\1>@si', '', $string ) ) );
+	}
+
 	public static function stripHTMLforEmail( $html )
 	{
 		$html = preg_replace( array(
@@ -762,7 +765,6 @@ class Text extends Base
 		$output = '';
 
 		foreach( $data as $fields ) {
-			fputcsv( $handle, $fields );
 
 			$row = array();
 

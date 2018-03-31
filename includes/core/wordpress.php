@@ -263,7 +263,7 @@ class WordPress extends Base
 		return $roles;
 	}
 
-	public static function getUsers( $all_fields = FALSE, $network = FALSE, $extra = array() )
+	public static function getUsers( $all_fields = FALSE, $network = FALSE, $extra = array(), $rekey = 'ID' )
 	{
 		$users = get_users( array_merge( array(
 			'blog_id' => ( $network ? '' : $GLOBALS['blog_id'] ),
@@ -271,7 +271,7 @@ class WordPress extends Base
 			'fields'  => ( $all_fields ? 'all_with_meta' : 'all' ),
 		), $extra ) );
 
-		return Arraay::reKey( $users, 'ID' );
+		return Arraay::reKey( $users, $rekey );
 	}
 
 	// current user can

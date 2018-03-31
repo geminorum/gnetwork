@@ -5,6 +5,11 @@ defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 class Email extends Base
 {
 
+	public static function toUsername( $email, $strict = TRUE )
+	{
+		return preg_replace( '/\s+/', '', sanitize_user( preg_replace( '/([^@]*).*/', '$1', $email ), $strict ) );
+	}
+
 	// @REF: https://github.com/hbattat/verifyEmail
 	// @REF: https://ctrlq.org/code/20152-validate-email-address
 	public static function verify( $toemail, $fromemail, $getdetails = FALSE )
