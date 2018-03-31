@@ -18,7 +18,7 @@ See [assets/libs](https://github.com/geminorum/gnetwork/tree/master/assets/libs)
 ### Installation
 Grab the latest release from [here](https://github.com/geminorum/gnetwork/releases).
 
-See [Installing Plugins](http://codex.wordpress.org/Managing_Plugins#Installing_Plugins).
+See [Installing Plugins](https://codex.wordpress.org/Managing_Plugins#Installing_Plugins).
 
 ### Changelog
 See [CHANGES.md](CHANGES.md).
@@ -28,5 +28,5 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 Please log issues [here](https://github.com/geminorum/gnetwork/issues).
 
-[![it's a geminorum project](http://img.shields.io/badge/it's_a-geminorum_project-lightgrey.svg?style=flat-square)](http://geminorum.ir/)
+[![it's a geminorum project](https://img.shields.io/badge/it's_a-geminorum_project-lightgrey.svg?style=flat-square)](https://geminorum.ir/)
 [![Analytics](https://ga-beacon.appspot.com/UA-865830-4/gnetwork/readme?pixel)](https://github.com/geminorum/gnetwork)

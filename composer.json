@@ -7,11 +7,11 @@
     "wordpress",
     "multisite"
   ],
-  "homepage": "http://geminorum.ir/wordpress/gnetwork",
+  "homepage": "https://geminorum.ir/wordpress/gnetwork",
   "authors": [{
     "name": "Nasser Rafie",
     "email": "contact@geminorum.ir",
-    "homepage": "http://geminorum.ir",
+    "homepage": "https://geminorum.ir",
     "role": "Developer"
   }],
   "support": {
