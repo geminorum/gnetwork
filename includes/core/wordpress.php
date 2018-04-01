@@ -72,6 +72,11 @@ class WordPress extends Base
 		return wp_doing_cron(); // @since WP 4.8.0
 	}
 
+	public static function isSSL()
+	{
+		return is_ssl();
+	}
+
 	public static function isCLI()
 	{
 		return defined( 'WP_CLI' ) && WP_CLI;
@@ -200,7 +205,7 @@ class WordPress extends Base
 	public static function currentNetworkURL()
 	{
 		$network = get_current_site();
-		$scheme  = is_ssl() ? 'https' : 'http';
+		$scheme  = self::isSSL() ? 'https' : 'http';
 
 		return URL::untrail( "$scheme://{$network->domain}{$network->path}" );
 	}
@@ -328,7 +333,7 @@ class WordPress extends Base
 		";
 
 		$blogs  = [];
-		$scheme = is_ssl() ? 'https' : 'http';
+		$scheme = self::isSSL() ? 'https' : 'http';
 
 		foreach ( $wpdb->get_results( $query, ARRAY_A ) as $blog )
 			$blogs[$blog['blog_id']] = (object) [
