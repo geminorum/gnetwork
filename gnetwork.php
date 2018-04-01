@@ -30,9 +30,11 @@ if ( file_exists( WP_CONTENT_DIR . '/gnetwork-custom.php' ) ) {
 
 if ( version_compare( GNETWORK_MIN_PHP, PHP_VERSION, '>=' ) ) {
 
-	echo '<div class="notice notice-warning notice-alt is-dismissible"><p dir="ltr">';
-		printf( '<b>gNetwork</b> requires PHP %s or higher. Please contact your hosting provider to update your site.', GNETWORK_MIN_PHP ); // WPCS: XSS ok.
-	echo '</p></div>';
+	if ( is_admin() ) {
+		echo '<div class="notice notice-warning notice-alt is-dismissible"><p dir="ltr">';
+			printf( '<b>gNetwork</b> requires PHP %s or higher. Please contact your hosting provider to update your site.', GNETWORK_MIN_PHP ); // WPCS: XSS ok.
+		echo '</p></div>';
+	}
 
 	return false;
 

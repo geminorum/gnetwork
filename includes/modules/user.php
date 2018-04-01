@@ -148,7 +148,6 @@ class User extends gNetwork\Module
 					'title'       => _x( 'ToS Title', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Section Title, Usually : Terms of Service', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => _x( 'Terms of Service', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
-					'field_class' => 'large-text',
 				],
 				[
 					'field'       => 'tos_link',
