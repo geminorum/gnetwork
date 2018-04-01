@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gNetwork\n"
 "Report-Msgid-Bugs-To: https://github.com/geminorum/gnetwork/issues\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2017-11-17 20:59+0330\n"
+"PO-Revision-Date: 2018-04-01 21:30+0430\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: \n"
 "Language: fa_IR\n"
@@ -12,21 +12,29 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Basepath: ..\n"
-"X-Generator: Poedit 2.0.4\n"
+"X-Generator: Poedit 2.0.6\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-Bookmarks: 210,-1,-1,-1,-1,-1,-1,-1,-1,-1\n"
 
-#: gnetwork.php:2
+#: gnetwork.php:3
 msgid "gNetwork"
 msgstr "شبکه"
 
-#: gnetwork.php:5
-msgid "3.6.7"
+#: gnetwork.php:4
+msgid "https://gmeinorum.ir/wordpress/gnetwork"
 msgstr ""
 
-#: gnetwork.php:7
+#: gnetwork.php:5
+msgid "Network Helper"
+msgstr "هم‌دست شبکه"
+
+#: gnetwork.php:8
 msgid "geminorum"
 msgstr "ژمای‌نوروم"
+
+#: gnetwork.php:9
+msgid "https://geminorum.ir/"
+msgstr ""
 
 #: includes/ajax.php:36
 msgctxt "Ajax: Ajax Notice"
@@ -48,7 +56,7 @@ msgctxt "Ajax: Ajax Notice"
 msgid "What?!"
 msgstr "هان؟!"
 
-#: includes/functions.php:79
+#: includes/functions.php:82
 msgid ""
 "Built on <a href=\"http://wordpress.org/\" title=\"Semantic Personal Publishing "
 "Platform\">WordPress</a> and tea!"
@@ -56,41 +64,41 @@ msgstr ""
 "ساخته شده بر نیروی <a href=\"http://wordpress.org/\" title=\"Semantic Personal "
 "Publishing Platform\">وردپرس</a> و چای!"
 
-#: includes/module.php:762
+#: includes/module.php:783
 msgctxt "Module Core: Settings"
 msgid "Miscellaneous"
-msgstr ""
+msgstr "متفرقه"
 
-#: includes/module.php:793
+#: includes/module.php:814
 msgctxt "Module Core"
 msgid "Debug"
 msgstr "اشکال‌زدایی"
 
-#: includes/module.php:820
+#: includes/module.php:841
 msgctxt "Module Core: Help Tab Title"
 msgid "Extra Shortcodes"
 msgstr "شورت‌کدهای افزوده"
 
-#: includes/module.php:821
+#: includes/module.php:842
 msgctxt "Module Core: Help Tab Content"
 msgid "These are extra shortcodes provided by this module:"
 msgstr "شورت‌کدهایی که این ماژول ارائه می‌کند:"
 
-#: includes/module.php:828
+#: includes/module.php:849
 msgctxt "Module Core: Help Tab Title"
 msgid "Saved Options"
-msgstr ""
+msgstr "تنظیمات کنونی"
 
-#: includes/module.php:1019
+#: includes/module.php:1040
 msgctxt "Module Core"
 msgid "Please refresh the page to generate the data."
-msgstr ""
+msgstr "برای بازسازی داده‌ها صفحه را دوباره بارگذاری کنید."
 
-#: includes/plugin.php:253
+#: includes/plugin.php:275
 msgid "N/A"
 msgstr "خ/د"
 
-#: includes/plugin.php:255
+#: includes/plugin.php:277
 msgid "Not Available"
 msgstr "خارج از دسترس"
 
@@ -102,27 +110,27 @@ msgstr "ارائه‌دهنده"
 #: includes/provider.php:131
 msgctxt "Provider Core"
 msgid "Load this provider"
-msgstr "بارگذاری این ارائه‌دهنده"
+msgstr "بارگیری این ارائه‌دهنده"
 
 #: includes/provider.php:176
 msgctxt "Provider Core: Settings"
 msgid "Load Providers"
-msgstr ""
+msgstr "بارگیری ارائه‌دهنده‌ها"
 
 #: includes/provider.php:177
 msgctxt "Provider Core: Settings"
 msgid "Load available providers"
-msgstr ""
+msgstr "بارگیری ارائه‌دهنده‌های در دسترس"
 
 #: includes/provider.php:183
 msgctxt "Provider Core: Settings"
 msgid "Debug Providers"
-msgstr ""
+msgstr "اشکال‌زدایی ارائه‌دهنده‌ها"
 
 #: includes/provider.php:184
 msgctxt "Provider Core: Settings"
 msgid "Debug available providers"
-msgstr ""
+msgstr "اشکال‌زدایی ارائه‌دهنده‌های در دسترس"
 
 #: includes/provider.php:190
 msgctxt "Provider Core: Settings"
@@ -137,7 +145,7 @@ msgstr ""
 #: includes/provider.php:202
 msgctxt "Provider Core: Settings"
 msgid "Default Provider"
-msgstr ""
+msgstr "ارائه‌دهنده پیش‌فرض"
 
 #: includes/settings.php:89
 msgctxt "Settings: Header Title"
@@ -502,7 +510,7 @@ msgstr "پیامی که قبل از متن ابزارک پیشخوان نمای�
 #: includes/settings.php:508
 msgctxt "Settings"
 msgid "No options!"
-msgstr ""
+msgstr "بدون گزینه!"
 
 #: includes/settings.php:509
 msgctxt "Settings"
@@ -515,6 +523,8 @@ msgid ""
 "A new version of %s is available. Please update to version %s to ensure "
 "compatibility with your WordPress."
 msgstr ""
+"نسخه تازه‌تری از %s در دسترس است. برای اطمینان بیشتر از سازگاری با وردپرس شما، "
+"بهتر است از نسخه %s استفاده کنید."
 
 #: includes/utilities.php:85
 msgctxt "Utilities: Human Time Ago"
@@ -784,7 +794,7 @@ msgstr "&raquo;"
 #: includes/utilities.php:361
 msgctxt "Utilities: Item Seperator"
 msgid ", "
-msgstr ""
+msgstr "،"
 
 #: includes/misc/buddypress-me.php:15
 msgctxt "BuddyPress Me: Component Name"
@@ -821,101 +831,111 @@ msgctxt "Debug Module: Debug Bar Panel Title"
 msgid "Debug Extras"
 msgstr ""
 
-#: includes/modules/admin.php:60
+#: includes/modules/admin.php:63
 msgctxt "Modules: Admin: HTML Title"
 msgid "%1$s &lsaquo; %2$s &#8212; Content Management"
 msgstr "%1$s &lsaquo; %2$s &#8212; مدیریت محتوا"
 
-#: includes/modules/admin.php:70, includes/modules/admin.php:92,
-#: includes/modules/admin.php:116
+#: includes/modules/admin.php:73, includes/modules/admin.php:95,
+#: includes/modules/admin.php:119
 msgctxt "Modules: Admin: Page Menu"
 msgid "Network Extras"
 msgstr "افزوده‌های شبکه"
 
-#: includes/modules/admin.php:71
+#: includes/modules/admin.php:74
 msgctxt "Modules: Admin: Page Menu"
 msgid "Extras"
 msgstr "افزوده‌ها"
 
-#: includes/modules/admin.php:82
+#: includes/modules/admin.php:85
 msgctxt "Modules: Admin: Page Menu"
 msgid "gNetwork Extras: %s"
 msgstr "%s"
 
-#: includes/modules/admin.php:93
+#: includes/modules/admin.php:96
 msgctxt "Modules: Admin: Page Menu"
 msgid "My Extras"
 msgstr "افزوده‌های من"
 
-#: includes/modules/admin.php:103, includes/modules/admin.php:104
+#: includes/modules/admin.php:106, includes/modules/admin.php:107
 msgctxt "Modules: Admin: Page Menu"
 msgid "Active"
 msgstr "فعال"
 
-#: includes/modules/admin.php:113, includes/modules/admin.php:200,
+#: includes/modules/admin.php:116, includes/modules/admin.php:212,
 #: includes/modules/network.php:69, includes/modules/network.php:100,
-#: includes/modules/user.php:348, includes/modules/user.php:386
+#: includes/modules/user.php:327, includes/modules/user.php:365
 msgctxt "Modules: Menu Name"
 msgid "Overview"
 msgstr "در یک نگاه"
 
-#: includes/modules/admin.php:208, includes/modules/network.php:108,
-#: includes/modules/user.php:394
+#: includes/modules/admin.php:220, includes/modules/network.php:108,
+#: includes/modules/user.php:373
 msgctxt "Modules: Menu Name"
 msgid "Console"
 msgstr "پیشانه"
 
-#: includes/modules/admin.php:245
+#: includes/modules/admin.php:257
 msgctxt "Modules: Admin: Site Overview"
 msgid "Current Site Overview"
 msgstr "سایت در یک نگاه"
 
-#: includes/modules/admin.php:247
+#: includes/modules/admin.php:259
 msgctxt "Modules: Admin: Site Overview"
 msgid "Below you can find various information about current site and contents."
-msgstr ""
+msgstr "در این بخش میتوانید اطلاعات متنوعی درباره سایت و محتوای آن را بررسی کنید."
 
-#: includes/modules/admin.php:254
+#: includes/modules/admin.php:266
 msgctxt "Modules: Admin: Site Overview"
 msgid "Available Shortcodes"
 msgstr "شورت‌کدهای قابل استفاده"
 
-#: includes/modules/admin.php:262
+#: includes/modules/admin.php:274
 msgctxt "Modules: Admin: Site Overview"
 msgid "Loaded Localizations"
-msgstr "محلی‌سازی‌های بارگذاری‌شده"
+msgstr "محلی‌سازی‌های بارگیری‌شده"
 
-#: includes/modules/admin.php:269
+#: includes/modules/admin.php:281
 msgctxt "Modules: Admin: Site Overview"
 msgid "Roles and Capabilities"
 msgstr "نقش‌ها و دسترسی‌ها"
 
-#: includes/modules/admin.php:277
+#: includes/modules/admin.php:289
 msgctxt "Modules: Admin: Site Overview"
 msgid "Stats of the Caching"
 msgstr "وضعیت انباشت"
 
-#: includes/modules/admin.php:282
+#: includes/modules/admin.php:294
 msgctxt "Modules: Admin: Site Overview"
-msgid "Upload Directories"
-msgstr "پوشه‌های بارگذاری"
+msgid "File & Upload"
+msgstr "پرونده و بارگذاری"
 
-#: includes/modules/admin.php:290
+#: includes/modules/admin.php:302
 msgctxt "Modules: Admin: Site Overview"
 msgid "Registered Image Sizes"
 msgstr "اندازه‌های تصاویر"
 
-#: includes/modules/admin.php:304
+#: includes/modules/admin.php:316
 msgctxt "Modules: Admin: Chosen"
 msgid "No results match"
 msgstr "بدون نتیجه برای"
 
-#: includes/modules/admin.php:330
+#: includes/modules/admin.php:342
 msgctxt "Modules: Admin: Localize Script"
-msgid "Metaboxes"
-msgstr "جعبه‌ها"
+msgid "Collapse All"
+msgstr "فروکاهش همه"
 
-#: includes/modules/admin.php:350
+#: includes/modules/admin.php:343
+msgctxt "Modules: Admin: Localize Script"
+msgid "Expand All"
+msgstr "گستردن همه"
+
+#: includes/modules/admin.php:344
+msgctxt "Modules: Admin: Localize Script"
+msgid "Reset"
+msgstr "بازنشانی"
+
+#: includes/modules/admin.php:365
 msgctxt "Modules: Admin"
 msgid "CODE IS POETRY"
 msgstr "کد نوشتن، شاعرانه است."
@@ -923,17 +943,17 @@ msgstr "کد نوشتن، شاعرانه است."
 #: includes/modules/adminbar.php:67
 msgctxt "Modules: AdminBar: Menu Location"
 msgid "Network Adminbar Navigation"
-msgstr ""
+msgstr "راه‌بری نوارابزار شبکه"
 
 #: includes/modules/adminbar.php:71
 msgctxt "Modules: AdminBar: Menu Location"
 msgid "Network User Navigation"
-msgstr ""
+msgstr "راه‌بری کاربر شبکه"
 
 #: includes/modules/adminbar.php:75
 msgctxt "Modules: AdminBar: Menu Location"
 msgid "Network Extra Navigation"
-msgstr ""
+msgstr "راه‌بری افزوده شبکه"
 
 #: includes/modules/adminbar.php:256
 msgctxt "Modules: AdminBar: Nodes"
@@ -1150,37 +1170,37 @@ msgctxt "Modules: Authors: Settings"
 msgid "The Site User as Default Author of New Posts in Admin"
 msgstr "حساب کاربری سایت، به عنوان نویسنده پیش‌فرض نوشته‌ها استفاده شود."
 
-#: includes/modules/authors.php:57
+#: includes/modules/authors.php:61
 msgctxt "Modules: Authors: Settings"
 msgid "Network Site User Is %s"
 msgstr "حساب کاربری سایت در شبکه: %s"
 
-#: includes/modules/authors.php:61
+#: includes/modules/authors.php:66
 msgctxt "Modules: Authors: Settings"
 msgid "Network Site User Is Not Defined"
 msgstr "حساب کاربری سایت در شبکه تعریف نشده است."
 
-#: includes/modules/authors.php:78
+#: includes/modules/authors.php:84
 msgctxt "Modules: Authors: Settings"
 msgid "Bulk Change Author"
 msgstr "تغییر جمعی نویسندگان"
 
-#: includes/modules/authors.php:88
+#: includes/modules/authors.php:94
 msgctxt "Modules: Authors: Settings"
 msgid "to"
 msgstr "به"
 
-#: includes/modules/authors.php:100
+#: includes/modules/authors.php:106
 msgctxt "Modules: Authors: Settings"
 msgid "on"
 msgstr "بر"
 
-#: includes/modules/authors.php:110
+#: includes/modules/authors.php:116
 msgctxt "Modules: Authors: Settings"
 msgid "do"
 msgstr "اعمال"
 
-#: includes/modules/authors.php:112
+#: includes/modules/authors.php:118
 msgctxt "Modules: Authors: Settings"
 msgid "Change"
 msgstr "تغییر"
@@ -1193,7 +1213,7 @@ msgstr "فهرست سیاه"
 #: includes/modules/blacklist.php:47
 msgctxt "Modules: BlackList: Settings"
 msgid "Check Addresses"
-msgstr ""
+msgstr "بررسی نشانی‌ها"
 
 #: includes/modules/blacklist.php:48
 msgctxt "Modules: BlackList: Settings"
@@ -1232,533 +1252,701 @@ msgctxt "Modules: BlackList: Settings"
 msgid "Your IP: <code title=\"%s\">%s</code>"
 msgstr ""
 
-#: includes/modules/blog.php:71
+#: includes/modules/blog.php:86
 msgctxt "Modules: Menu Name"
 msgid "General"
 msgstr "همگانی"
 
-#: includes/modules/blog.php:119
+#: includes/modules/blog.php:138
 msgctxt "Modules: Blog: Settings"
 msgid "Admin Language"
 msgstr "زبان مدیریت"
 
-#: includes/modules/blog.php:120
+#: includes/modules/blog.php:139
 msgctxt "Modules: Blog: Settings"
 msgid "Despite of the Site Language, Always Display Admin in This Locale"
 msgstr "جدای از زبان سایت، زبان بخش مدیریت را تنظیم کنید."
 
-#: includes/modules/blog.php:121
+#: includes/modules/blog.php:140
 msgctxt "Modules: Blog: Settings"
 msgid "Site Default"
 msgstr "پیش‌فرض سایت"
 
-#: includes/modules/blog.php:128
+#: includes/modules/blog.php:147
 msgctxt "Modules: Blog: Settings"
 msgid "Admin Chosen"
-msgstr ""
+msgstr "چوزن برای مدیریت"
 
-#: includes/modules/blog.php:129
+#: includes/modules/blog.php:148
 msgctxt "Modules: Blog: Settings"
 msgid ""
 "Chosen is a jQuery plugin that makes long, unwieldy select boxes much more user-"
 "friendly."
 msgstr ""
 
-#: includes/modules/blog.php:135
+#: includes/modules/blog.php:154
 msgctxt "Modules: Blog: Settings"
 msgid "Thrift Mode"
 msgstr "حالت صرفه‌جویی"
 
-#: includes/modules/blog.php:136
+#: includes/modules/blog.php:155
 msgctxt "Modules: Blog: Settings"
 msgid "Trying to make your host happy!"
 msgstr "تلاش برای راضی نگه‌داشتن میزبان شما!"
 
-#: includes/modules/blog.php:142
+#: includes/modules/blog.php:160
+msgctxt "Modules: Blog: Settings"
+msgid "No Found-Rows"
+msgstr "بدون شمارش ردیف‌ها"
+
+#: includes/modules/blog.php:161
+msgctxt "Modules: Blog: Settings"
+msgid "Avoids query count for paginations."
+msgstr ""
+
+#: includes/modules/blog.php:168
 msgctxt "Modules: Blog: Settings"
 msgid "Heartbeat Mode"
 msgstr "حالت هارت‌بیت"
 
-#: includes/modules/blog.php:143
+#: includes/modules/blog.php:169
 msgctxt "Modules: Blog: Settings"
 msgid "Controls the Heartbeat API locations."
 msgstr "محل اجرای سامانه هارت‌بیت را کنترل می‌کند."
 
-#: includes/modules/blog.php:145, includes/modules/blog.php:158
+#: includes/modules/blog.php:171, includes/modules/blog.php:184
 msgctxt "Modules: Blog: Settings: Option"
 msgid "Use default"
 msgstr "پیش‌فرض"
 
-#: includes/modules/blog.php:146
+#: includes/modules/blog.php:172
 msgctxt "Modules: Blog: Settings: Option"
 msgid "Disable everywhere"
 msgstr "غیرفعال در همه‌جا"
 
-#: includes/modules/blog.php:147
+#: includes/modules/blog.php:173
 msgctxt "Modules: Blog: Settings: Option"
 msgid "Disable on Dashboard page"
 msgstr "غیرفعال در پیشخوان"
 
-#: includes/modules/blog.php:148
+#: includes/modules/blog.php:174
 msgctxt "Modules: Blog: Settings: Option"
 msgid "Allow only on Post Edit pages"
 msgstr "فقط در هنگام ویرایش نوشته‌ها"
 
-#: includes/modules/blog.php:155
+#: includes/modules/blog.php:181
 msgctxt "Modules: Blog: Settings"
 msgid "Heartbeat Frequency"
 msgstr "بسامد هارت‌بیت"
 
-#: includes/modules/blog.php:156
+#: includes/modules/blog.php:182
 msgctxt "Modules: Blog: Settings"
 msgid "Overrides the Heartbeat API frequency."
 msgstr "بسامد سامانه هارت‌بیت را رونویسی می‌کند."
 
-#: includes/modules/blog.php:159
+#: includes/modules/blog.php:185
 msgctxt "Modules: Blog: Settings: Option"
 msgid "15 seconds"
 msgstr "۱۵ ثانیه"
 
-#: includes/modules/blog.php:160
+#: includes/modules/blog.php:186
 msgctxt "Modules: Blog: Settings: Option"
 msgid "20 seconds"
 msgstr "۲۰ ثانیه"
 
-#: includes/modules/blog.php:161
+#: includes/modules/blog.php:187
 msgctxt "Modules: Blog: Settings: Option"
 msgid "25 seconds"
 msgstr "۲۵ ثانیه"
 
-#: includes/modules/blog.php:162
+#: includes/modules/blog.php:188
 msgctxt "Modules: Blog: Settings: Option"
 msgid "30 seconds"
 msgstr "۳۰ ثانیه"
 
-#: includes/modules/blog.php:163
+#: includes/modules/blog.php:189
 msgctxt "Modules: Blog: Settings: Option"
 msgid "35 seconds"
 msgstr "۳۵ ثانیه"
 
-#: includes/modules/blog.php:164
+#: includes/modules/blog.php:190
 msgctxt "Modules: Blog: Settings: Option"
 msgid "40 seconds"
 msgstr "۴۰ ثانیه"
 
-#: includes/modules/blog.php:165
+#: includes/modules/blog.php:191
 msgctxt "Modules: Blog: Settings: Option"
 msgid "45 seconds"
 msgstr "۴۵ ثانیه"
 
-#: includes/modules/blog.php:166
+#: includes/modules/blog.php:192
 msgctxt "Modules: Blog: Settings: Option"
 msgid "50 seconds"
 msgstr "۵۰ ثانیه"
 
-#: includes/modules/blog.php:167
+#: includes/modules/blog.php:193
 msgctxt "Modules: Blog: Settings: Option"
 msgid "60 seconds"
 msgstr "۶۰ ثانیه"
 
-#: includes/modules/blog.php:175
+#: includes/modules/blog.php:201
 msgctxt "Modules: Blog: Settings"
 msgid "Autosave Interval"
 msgstr "فاصله ذخیره‌های خودکار"
 
-#: includes/modules/blog.php:176
+#: includes/modules/blog.php:202
 msgctxt "Modules: Blog: Settings"
 msgid ""
 "Time in seconds that WordPress will save the currently editing posts. default "
 "is %s seconds."
 msgstr ""
 
-#: includes/modules/blog.php:183
+#: includes/modules/blog.php:209
 msgctxt "Modules: Blog: Settings"
 msgid "Rest API"
 msgstr "سامانه رست"
 
-#: includes/modules/blog.php:184
+#: includes/modules/blog.php:210
 msgctxt "Modules: Blog: Settings"
 msgid "Whether REST API services are enabled on this site."
 msgstr ""
 
-#: includes/modules/blog.php:190
+#: includes/modules/blog.php:216
 msgctxt "Modules: Blog: Settings"
 msgid "XML-RPC"
 msgstr "ایکس‌ام‌ال–آرپی‌سی"
 
-#: includes/modules/blog.php:191
+#: includes/modules/blog.php:217
 msgctxt "Modules: Blog: Settings"
 msgid "Whether XML-RPC services are enabled on this site."
 msgstr ""
 
-#: includes/modules/blog.php:196
+#: includes/modules/blog.php:222
 msgctxt "Modules: Blog: Settings"
 msgid "WLW"
 msgstr "ویندوز لایو رایتر"
 
-#: includes/modules/blog.php:197
+#: includes/modules/blog.php:223
 msgctxt "Modules: Blog: Settings"
 msgid "Whether Windows Live Writer manifest enabled on this site."
 msgstr ""
 
-#: includes/modules/blog.php:203
+#: includes/modules/blog.php:229
 msgctxt "Modules: Blog: Settings"
 msgid "Delay Feeds"
 msgstr "تأخیر خوراک‌ها"
 
-#: includes/modules/blog.php:204
+#: includes/modules/blog.php:230
 msgctxt "Modules: Blog: Settings"
 msgid "Delays appearing published posts on the site feeds."
 msgstr ""
 
-#: includes/modules/blog.php:205
+#: includes/modules/blog.php:231
 msgctxt "Modules: Blog: Settings"
 msgid "No Delay"
 msgstr "بدون تأخیر"
 
-#: includes/modules/blog.php:212
+#: includes/modules/blog.php:238
 msgctxt "Modules: Blog: Settings"
 msgid "JSON Feed"
 msgstr "خوراک JSON"
 
-#: includes/modules/blog.php:213
+#: includes/modules/blog.php:239
 msgctxt "Modules: Blog: Settings"
 msgid "Adds JSON as new type of feed that anyone can subscribe to."
 msgstr ""
 
-#: includes/modules/blog.php:219
+#: includes/modules/blog.php:245
 msgctxt "Modules: Blog: Settings"
 msgid "Emojis"
 msgstr "ایموجی‌ها"
 
-#: includes/modules/blog.php:220
+#: includes/modules/blog.php:246
 msgctxt "Modules: Blog: Settings"
 msgid ""
 "Removes the extra code bloat used to add support for Emoji's in older browsers."
 msgstr ""
 
-#: includes/modules/blog.php:229
+#: includes/modules/blog.php:255
 msgctxt "Modules: Blog: Settings"
 msgid "Copyright Information"
 msgstr "اطلاعات کپی‌رایت"
 
-#: includes/modules/blog.php:230
+#: includes/modules/blog.php:256
 msgctxt "Modules: Blog: Settings"
 msgid "Defines an HTML meta tag as copyright manifest page for this site."
 msgstr ""
 
-#: includes/modules/blog.php:239
+#: includes/modules/blog.php:265
 msgctxt "Modules: Blog: Settings"
 msgid "Custom 404 Error"
 msgstr "خطای ۴۰۴ سفارشی"
 
-#: includes/modules/blog.php:240
+#: includes/modules/blog.php:266
 msgctxt "Modules: Blog: Settings"
 msgid "Displays the selected page as 404 Error page on this site."
 msgstr ""
 
-#: includes/modules/blog.php:249
+#: includes/modules/blog.php:275
 msgctxt "Modules: Blog: Settings"
 msgid "Content Width"
 msgstr "عرض محتوا"
 
-#: includes/modules/blog.php:250
+#: includes/modules/blog.php:276
 msgctxt "Modules: Blog: Settings"
 msgid "Overrides content width of the active theme. Leave empty to disable."
 msgstr ""
 
-#: includes/modules/blog.php:251
+#: includes/modules/blog.php:277
 msgctxt "Modules: Blog: Settings"
 msgid "Current is %s"
 msgstr "فعلی: %s"
 
-#: includes/modules/blog.php:256
+#: includes/modules/blog.php:282
 msgctxt "Modules: Blog: Settings"
 msgid "Meta Revised"
 msgstr "اطلاعات بازبینی"
 
-#: includes/modules/blog.php:257
+#: includes/modules/blog.php:283
 msgctxt "Modules: Blog: Settings"
 msgid "Defines an HTML meta tag for last modified time of each post."
 msgstr ""
 
-#: includes/modules/blog.php:262
+#: includes/modules/blog.php:288
 msgctxt "Modules: Blog: Settings"
 msgid "No Index Attachments"
 msgstr "فهرست‌نشدن پیوست‌ها"
 
-#: includes/modules/blog.php:263
+#: includes/modules/blog.php:289
 msgctxt "Modules: Blog: Settings"
 msgid "Defines No Index/No Follow HTML meta tags for attachment pages."
 msgstr ""
 
-#: includes/modules/blog.php:271
+#: includes/modules/blog.php:295
+msgctxt "Modules: Blog: Settings"
+msgid "Theme Color"
+msgstr "رنگ پوسته"
+
+#: includes/modules/blog.php:296
+msgctxt "Modules: Blog: Settings"
+msgid ""
+"Defines color of the mobile browser address bar. Set to override the network."
+msgstr ""
+
+#: includes/modules/blog.php:304
 msgctxt "Modules: Blog: Settings"
 msgid "From Email"
 msgstr "ارسال ایمیل با نشانی"
 
-#: includes/modules/blog.php:272
+#: includes/modules/blog.php:305
 msgctxt "Modules: Blog: Settings"
 msgid ""
 "This site email address that emails should be sent from. Set to override the "
 "network."
 msgstr ""
 
-#: includes/modules/blog.php:278
+#: includes/modules/blog.php:311
 msgctxt "Modules: Blog: Settings"
 msgid "From Name"
 msgstr "ارسال ایمیل با نام"
 
-#: includes/modules/blog.php:279
+#: includes/modules/blog.php:312
 msgctxt "Modules: Blog: Settings"
 msgid ""
 "This site email name that emails should be sent from. Set to override the "
 "network."
 msgstr ""
 
-#: includes/modules/blog.php:287
+#: includes/modules/blog.php:320
 msgctxt "Modules: Blog: Settings"
 msgid "GA Override"
 msgstr "بازنویسی آنالیتیک"
 
-#: includes/modules/blog.php:288
+#: includes/modules/blog.php:321
 msgctxt "Modules: Blog: Settings"
 msgid "This site Google Analytics tracking account. Set to override the network."
 msgstr ""
 
-#: includes/modules/blog.php:296
+#: includes/modules/blog.php:329
 msgctxt "Modules: Blog: Settings"
 msgid "Redirect URL"
 msgstr "هدایت دوباره"
 
-#: includes/modules/blog.php:297
+#: includes/modules/blog.php:330
 msgctxt "Modules: Blog: Settings"
 msgid "Redirects the site to a custom URL. Leave empty to disable."
 msgstr ""
 
-#: includes/modules/blog.php:304
+#: includes/modules/blog.php:337
 msgctxt "Modules: Blog: Settings"
 msgid "Redirect Status Code"
 msgstr "کد وضعیت هدر HTTP"
 
-#: includes/modules/blog.php:305
+#: includes/modules/blog.php:338
 msgctxt "Modules: Blog: Settings"
 msgid "HTTP status header code for redirection of this site."
 msgstr ""
 
-#: includes/modules/blog.php:322
+#: includes/modules/blog.php:353
+msgctxt "Modules: Blog: Settings"
+msgid "Numeric Shortlinks"
+msgstr "پیوند‌های کوتاه عددی"
+
+#: includes/modules/blog.php:354
+msgctxt "Modules: Blog: Settings"
+msgid "Adds support for numeric/alpha-numeric shortlinks."
+msgstr ""
+
+#: includes/modules/blog.php:360
+msgctxt "Modules: Blog: Settings"
+msgid "Shortlink Type"
+msgstr "نوع پیوند کوتاه"
+
+#: includes/modules/blog.php:363
+msgctxt "Modules: Blog: Settings"
+msgid "Numeric (%s)"
+msgstr "عدد (%s)"
+
+#: includes/modules/blog.php:364
+msgctxt "Modules: Blog: Settings"
+msgid "Alpha-Numeric (%s)"
+msgstr "حروف و عدد (%s)"
+
+#: includes/modules/blog.php:372
 msgctxt "Modules: Blog: Settings"
 msgid "Copyright Notice"
 msgstr "توضیحات کپی‌رایت"
 
-#: includes/modules/blog.php:323
+#: includes/modules/blog.php:373
 msgctxt "Modules: Blog: Settings"
 msgid ""
 "Displays as copyright notice on the footer on the front-end. Set to override "
 "the network."
 msgstr ""
 
-#: includes/modules/bot.php:33
+#: includes/modules/blog.php:600
+msgctxt "Modules: Blog"
+msgid "Edit this page"
+msgstr ""
+
+#: includes/modules/bot.php:32
 msgctxt "Modules: Menu Name"
 msgid "Bot"
 msgstr "بات"
 
-#: includes/modules/branding.php:24
+#: includes/modules/branding.php:33
 msgctxt "Modules: Menu Name"
 msgid "Branding"
 msgstr "برندینگ"
 
-#: includes/modules/branding.php:43
+#: includes/modules/branding.php:63
+msgctxt "Modules: Branding: Settings"
+msgid "Theme Color"
+msgstr "رنگ پوسته"
+
+#: includes/modules/branding.php:64
+msgctxt "Modules: Branding: Settings"
+msgid "Defines color of the mobile browser address bar. Leave empty to disable."
+msgstr ""
+
+#: includes/modules/branding.php:70
 msgctxt "Modules: Branding: Settings"
 msgid "Network Site Icon"
 msgstr "نماد سایت شبکه"
 
-#: includes/modules/branding.php:44
+#: includes/modules/branding.php:71
 msgctxt "Modules: Branding: Settings"
 msgid "Falls back into main site icon on the network."
 msgstr ""
 
-#: includes/modules/branding.php:49
+#: includes/modules/branding.php:81
+msgctxt "Modules: Branding: Settings"
+msgid "Manifest"
+msgstr ""
+
+#: includes/modules/branding.php:82
+msgctxt "Modules: Branding: Settings"
+msgid "Provides the ability to save a site bookmark to a device's home screen."
+msgstr ""
+
+#: includes/modules/branding.php:88
+msgctxt "Modules: Branding: Settings"
+msgid "Short Name"
+msgstr ""
+
+#: includes/modules/branding.php:89
+msgctxt "Modules: Branding: Settings"
+msgid "A short name for use as the text on the users home screen."
+msgstr ""
+
+#: includes/modules/branding.php:96
+msgctxt "Modules: Branding: Settings"
+msgid "Name"
+msgstr ""
+
+#: includes/modules/branding.php:97
+msgctxt "Modules: Branding: Settings"
+msgid "A name for use in the Web App Install banner."
+msgstr ""
+
+#: includes/modules/branding.php:102
+msgctxt "Modules: Branding: Settings"
+msgid "Description"
+msgstr ""
+
+#: includes/modules/branding.php:103
+msgctxt "Modules: Branding: Settings"
+msgid "A description for use in the Web App Manifest."
+msgstr ""
+
+#: includes/modules/branding.php:113
 msgctxt "Modules: Branding: Settings"
 msgid "Copyright Notice"
 msgstr "توضیحات کپی‌رایت"
 
-#: includes/modules/branding.php:50
+#: includes/modules/branding.php:114
 msgctxt "Modules: Branding: Settings"
 msgid ""
 "Displays as copyright notice on the footer on the front-end. Leave empty to use "
 "default."
 msgstr ""
 
-#: includes/modules/branding.php:55
+#: includes/modules/branding.php:119
 msgctxt "Modules: Branding: Settings"
 msgid "Powered Notice"
 msgstr "توضیحات نرم‌افزار"
 
-#: includes/modules/branding.php:56
+#: includes/modules/branding.php:120
 msgctxt "Modules: Branding: Settings"
 msgid ""
 "Displays as powered notice on the footer of on the admin. Leave empty to use "
 "default."
 msgstr ""
 
-#: includes/modules/branding.php:61
+#: includes/modules/branding.php:125
 msgctxt "Modules: Branding: Settings"
 msgid "Site Slogan"
-msgstr ""
+msgstr "شعار سایت"
 
-#: includes/modules/branding.php:62
+#: includes/modules/branding.php:126
 msgctxt "Modules: Branding: Settings"
 msgid ""
 "Displays as site slogan on the footer of on the admin. Leave empty to use "
 "default."
 msgstr ""
 
-#: includes/modules/buddypress.php:77
+#: includes/modules/branding.php:136
+msgctxt "Modules: Branding: Settings"
+msgid "Web App"
+msgstr ""
+
+#: includes/modules/branding.php:137
+msgctxt "Modules: Branding: Settings"
+msgid ""
+"Web app manifests provide the ability to save a site bookmark to a device's "
+"home screen. <a href=\"%s\">Read More</a>"
+msgstr ""
+
+#: includes/modules/branding.php:145
+msgctxt "Modules: Branding: Settings"
+msgid "Notices"
+msgstr ""
+
+#: includes/modules/branding.php:162
+msgctxt "Modules: Branding"
+msgid "Main Site Logo"
+msgstr ""
+
+#: includes/modules/branding.php:167
+msgctxt "Modules: Branding"
+msgid "Main Site Icon"
+msgstr ""
+
+#: includes/modules/buddypress.php:81
 msgctxt "Modules: Menu Name"
 msgid "BuddyPress"
 msgstr "بادی‌پرس"
 
-#: includes/modules/buddypress.php:103
+#: includes/modules/buddypress.php:108
 msgctxt "Modules: BuddyPress: Settings"
 msgid "Open Directories"
 msgstr ""
 
-#: includes/modules/buddypress.php:104
+#: includes/modules/buddypress.php:109
 msgctxt "Modules: BuddyPress: Settings"
 msgid "Redirect directories to homepage for not logged-in users."
 msgstr ""
 
-#: includes/modules/buddypress.php:109
+#: includes/modules/buddypress.php:114
 msgctxt "Modules: BuddyPress: Settings"
 msgid "Complete Signup"
 msgstr ""
 
-#: includes/modules/buddypress.php:110
+#: includes/modules/buddypress.php:115
 msgctxt "Modules: BuddyPress: Settings"
 msgid "Redirect users after successful registration."
 msgstr ""
 
-#: includes/modules/buddypress.php:117
+#: includes/modules/buddypress.php:123
 msgctxt "Modules: BuddyPress: Settings"
-msgid "Check Completed"
+msgid "Display Name"
 msgstr ""
 
-#: includes/modules/buddypress.php:118
+#: includes/modules/buddypress.php:124
 msgctxt "Modules: BuddyPress: Settings"
-msgid "Notice member for empty required fields."
+msgid "Universal sidewide display name of the user."
+msgstr ""
+
+#: includes/modules/buddypress.php:127
+msgctxt "Modules: BuddyPress: Settings"
+msgid "&mdash; Default &mdash;"
 msgstr ""
 
 #: includes/modules/buddypress.php:128
 msgctxt "Modules: BuddyPress: Settings"
-msgid "Default Settings"
+msgid "First and Last Name"
 msgstr ""
 
 #: includes/modules/buddypress.php:129
+msgctxt "Modules: BuddyPress: Settings"
+msgid "Username"
+msgstr ""
+
+#: includes/modules/buddypress.php:130
+msgctxt "Modules: BuddyPress: Settings"
+msgid "Nickname"
+msgstr ""
+
+#: includes/modules/buddypress.php:131
+msgctxt "Modules: BuddyPress: Settings"
+msgid "First Name"
+msgstr ""
+
+#: includes/modules/buddypress.php:132
+msgctxt "Modules: BuddyPress: Settings"
+msgid "Last Name"
+msgstr ""
+
+#: includes/modules/buddypress.php:137
+msgctxt "Modules: BuddyPress: Settings"
+msgid "Check Completed"
+msgstr ""
+
+#: includes/modules/buddypress.php:138
+msgctxt "Modules: BuddyPress: Settings"
+msgid "Notice member for empty required fields."
+msgstr ""
+
+#: includes/modules/buddypress.php:148
+msgctxt "Modules: BuddyPress: Settings"
+msgid "Default Settings"
+msgstr ""
+
+#: includes/modules/buddypress.php:149
 msgctxt "Modules: BuddyPress: Settings"
 msgid ""
 "Select enabled by default BuddyPress email notifications settings upon user "
 "activation"
 msgstr ""
 
-#: includes/modules/buddypress.php:140
+#: includes/modules/buddypress.php:160
 msgctxt "Modules: BuddyPress: Settings"
 msgid "Thumbnail Width"
 msgstr ""
 
-#: includes/modules/buddypress.php:146
+#: includes/modules/buddypress.php:166
 msgctxt "Modules: BuddyPress: Settings"
 msgid "Thumbnail Height"
 msgstr ""
 
-#: includes/modules/buddypress.php:152
+#: includes/modules/buddypress.php:172
 msgctxt "Modules: BuddyPress: Settings"
 msgid "Full Width"
 msgstr ""
 
-#: includes/modules/buddypress.php:158
+#: includes/modules/buddypress.php:178
 msgctxt "Modules: BuddyPress: Settings"
 msgid "Full Height"
 msgstr ""
 
-#: includes/modules/buddypress.php:164
+#: includes/modules/buddypress.php:184
 msgctxt "Modules: BuddyPress: Settings"
 msgid "Original Max Width"
 msgstr ""
 
-#: includes/modules/buddypress.php:175
+#: includes/modules/buddypress.php:195
 msgctxt "Modules: BuddyPress: Settings"
 msgid "Email Notifications"
 msgstr ""
 
-#: includes/modules/buddypress.php:176
+#: includes/modules/buddypress.php:196
 msgctxt "Modules: BuddyPress: Settings"
 msgid "Control the default email preference for users after activation"
 msgstr ""
 
-#: includes/modules/buddypress.php:183
+#: includes/modules/buddypress.php:203
 msgctxt "Modules: BuddyPress: Settings"
 msgid "Avatars Sizes"
 msgstr ""
 
-#: includes/modules/buddypress.php:184
+#: includes/modules/buddypress.php:204
 msgctxt "Modules: BuddyPress: Settings"
 msgid ""
 "Change the default BuddyPress Avatar values. Leave empty to use BuddyPress "
 "defaults."
 msgstr ""
 
-#: includes/modules/buddypress.php:276
+#: includes/modules/buddypress.php:296
 msgctxt "Modules: BuddyPress"
 msgid "Please complete your profile: %s"
 msgstr "نمایه خود را کامل کنید: %s"
 
-#: includes/modules/buddypress.php:316
+#: includes/modules/buddypress.php:336
 msgctxt "Modules: BuddyPress"
 msgid "You're totally a spammer. Go somewhere else with your spammy ways."
 msgstr ""
 
-#: includes/modules/buddypress.php:426
+#: includes/modules/buddypress.php:446
 msgctxt "Modules: BuddyPress: Notifications"
 msgid "Activity: New Mention"
 msgstr ""
 
-#: includes/modules/buddypress.php:427
+#: includes/modules/buddypress.php:447
 msgctxt "Modules: BuddyPress: Notifications"
 msgid "Activity: New Reply"
 msgstr ""
 
-#: includes/modules/buddypress.php:428
+#: includes/modules/buddypress.php:448
 msgctxt "Modules: BuddyPress: Notifications"
 msgid "Friends: Friendship Request"
 msgstr ""
 
-#: includes/modules/buddypress.php:429
+#: includes/modules/buddypress.php:449
 msgctxt "Modules: BuddyPress: Notifications"
 msgid "Friends: Friendship Accepted"
 msgstr ""
 
-#: includes/modules/buddypress.php:430
+#: includes/modules/buddypress.php:450
 msgctxt "Modules: BuddyPress: Notifications"
 msgid "Groups: Invite"
 msgstr ""
 
-#: includes/modules/buddypress.php:431
+#: includes/modules/buddypress.php:451
 msgctxt "Modules: BuddyPress: Notifications"
 msgid "Groups: Group Updated"
 msgstr ""
 
-#: includes/modules/buddypress.php:432
+#: includes/modules/buddypress.php:452
 msgctxt "Modules: BuddyPress: Notifications"
 msgid "Groups: Admin Promotion"
 msgstr ""
 
-#: includes/modules/buddypress.php:433
+#: includes/modules/buddypress.php:453
 msgctxt "Modules: BuddyPress: Notifications"
 msgid "Groups: Membership Request"
 msgstr ""
 
-#: includes/modules/buddypress.php:434
+#: includes/modules/buddypress.php:454
 msgctxt "Modules: BuddyPress: Notifications"
 msgid "Messages: New Message"
 msgstr ""
@@ -1833,212 +2021,212 @@ msgctxt "Modules: Captcha: ReCaptcha Error"
 msgid "CAPTCHA response was incorrect"
 msgstr "پاسخ کپچا صحیح نیست!"
 
-#: includes/modules/cleanup.php:27
+#: includes/modules/cleanup.php:20
 msgctxt "Modules: Menu Name"
 msgid "Cleanup"
 msgstr "پالایش"
 
-#: includes/modules/cleanup.php:42
+#: includes/modules/cleanup.php:35
 msgctxt "Modules: Cleanup: Settings"
 msgid "Options"
 msgstr "تنظیمات"
 
-#: includes/modules/cleanup.php:43
+#: includes/modules/cleanup.php:36
 msgctxt "Modules: Cleanup: Settings"
 msgid "Removes site obsolete option data."
 msgstr ""
 
-#: includes/modules/cleanup.php:44
+#: includes/modules/cleanup.php:37
 msgctxt "Modules: Cleanup: Settings"
 msgid "Purge Blog Options"
 msgstr "پاک‌سازی تنظیمات سایت"
 
-#: includes/modules/cleanup.php:51
+#: includes/modules/cleanup.php:44
 msgctxt "Modules: Cleanup: Settings"
 msgid "Transient"
 msgstr "ترنزینت"
 
-#: includes/modules/cleanup.php:52
+#: includes/modules/cleanup.php:45
 msgctxt "Modules: Cleanup: Settings"
 msgid "Removes site expired transient cache."
 msgstr ""
 
-#: includes/modules/cleanup.php:53
+#: includes/modules/cleanup.php:46
 msgctxt "Modules: Cleanup: Settings"
 msgid "Purge Expired"
 msgstr "پاک‌سازی به‌پایان‌رسیده‌ها"
 
-#: includes/modules/cleanup.php:60
+#: includes/modules/cleanup.php:53
 msgctxt "Modules: Cleanup: Settings"
 msgid "Removes all site transient cache."
 msgstr ""
 
-#: includes/modules/cleanup.php:61
+#: includes/modules/cleanup.php:54
 msgctxt "Modules: Cleanup: Settings"
 msgid "Purge All"
 msgstr "پاک‌سازی همه"
 
-#: includes/modules/cleanup.php:72
+#: includes/modules/cleanup.php:65
 msgctxt "Modules: Cleanup: Settings"
 msgid "Removes network obsolete option data."
 msgstr ""
 
-#: includes/modules/cleanup.php:73
+#: includes/modules/cleanup.php:66
 msgctxt "Modules: Cleanup: Settings"
 msgid "Purge Network Options"
 msgstr "پاک‌سازی تنظیمات شبکه"
 
-#: includes/modules/cleanup.php:80
+#: includes/modules/cleanup.php:73
 msgctxt "Modules: Cleanup: Settings"
 msgid "Removes network expired transient cache."
 msgstr ""
 
-#: includes/modules/cleanup.php:81
+#: includes/modules/cleanup.php:74
 msgctxt "Modules: Cleanup: Settings"
 msgid "Purge Network Expired"
 msgstr "پاک‌سازی به‌پایان‌رسیده‌های شبکه"
 
-#: includes/modules/cleanup.php:88
+#: includes/modules/cleanup.php:81
 msgctxt "Modules: Cleanup: Settings"
 msgid "Removes all network transient cache."
 msgstr ""
 
-#: includes/modules/cleanup.php:89
+#: includes/modules/cleanup.php:82
 msgctxt "Modules: Cleanup: Settings"
 msgid "Purge All Network"
 msgstr "پاک‌سازی همه در شبکه"
 
-#: includes/modules/cleanup.php:97
+#: includes/modules/cleanup.php:90
 msgctxt "Modules: Cleanup: Settings"
 msgid "User Meta"
 msgstr "متای کاربری"
 
-#: includes/modules/cleanup.php:98
+#: includes/modules/cleanup.php:91
 msgctxt "Modules: Cleanup: Settings"
 msgid "Removes default meta stored for each user."
 msgstr ""
 
-#: includes/modules/cleanup.php:99
+#: includes/modules/cleanup.php:92
 msgctxt "Modules: Cleanup: Settings"
 msgid "Purge Default Meta"
 msgstr "پاک‌سازی متای پیش‌فرض"
 
-#: includes/modules/cleanup.php:106
+#: includes/modules/cleanup.php:99
 msgctxt "Modules: Cleanup: Settings"
 msgid "Removes empty contact methods stored for each user."
 msgstr ""
 
-#: includes/modules/cleanup.php:107
+#: includes/modules/cleanup.php:100
 msgctxt "Modules: Cleanup: Settings"
 msgid "Purge Empty Contact Methods"
 msgstr "پاک‌سازی راه‌های ارتباطی خالی"
 
-#: includes/modules/cleanup.php:114
+#: includes/modules/cleanup.php:107
 msgctxt "Modules: Cleanup: Settings"
 msgid "Removes BuddyPress last activity back-comp meta stored for each user."
 msgstr ""
 
-#: includes/modules/cleanup.php:115
+#: includes/modules/cleanup.php:108
 msgctxt "Modules: Cleanup: Settings"
 msgid "Back-Comp Last Activity"
 msgstr ""
 
-#: includes/modules/cleanup.php:123
+#: includes/modules/cleanup.php:116
 msgctxt "Modules: Cleanup: Settings"
 msgid "Removes obsolete user meta keys."
 msgstr ""
 
-#: includes/modules/cleanup.php:124
+#: includes/modules/cleanup.php:117
 msgctxt "Modules: Cleanup: Settings"
 msgid "Purge Obsolete User Metadata"
 msgstr ""
 
-#: includes/modules/cleanup.php:132
+#: includes/modules/cleanup.php:125
 msgctxt "Modules: Cleanup: Settings"
 msgid "Post Meta"
 msgstr "پست متا"
 
-#: includes/modules/cleanup.php:133
+#: includes/modules/cleanup.php:126
 msgctxt "Modules: Cleanup: Settings"
 msgid "Removes last edit user and lock meta stored for each post."
 msgstr ""
 
-#: includes/modules/cleanup.php:134
+#: includes/modules/cleanup.php:127
 msgctxt "Modules: Cleanup: Settings"
 msgid "Purge Last User & Post Lock Metadata"
 msgstr ""
 
-#: includes/modules/cleanup.php:141
+#: includes/modules/cleanup.php:134
 msgctxt "Modules: Cleanup: Settings"
 msgid "Removes the old slug stored for each post."
 msgstr ""
 
-#: includes/modules/cleanup.php:142
+#: includes/modules/cleanup.php:135
 msgctxt "Modules: Cleanup: Settings"
 msgid "Purge Old Slug Redirect Metadata"
 msgstr ""
 
-#: includes/modules/cleanup.php:149
+#: includes/modules/cleanup.php:142
 msgctxt "Modules: Cleanup: Settings"
 msgid "Removes obsolete post meta data."
 msgstr ""
 
-#: includes/modules/cleanup.php:150
+#: includes/modules/cleanup.php:143
 msgctxt "Modules: Cleanup: Settings"
 msgid "Purge Obsolete Post Matadata"
 msgstr ""
 
-#: includes/modules/cleanup.php:157
+#: includes/modules/cleanup.php:150
 msgctxt "Modules: Cleanup: Settings"
 msgid "Checks for orphaned thumbnail meta data."
 msgstr ""
 
-#: includes/modules/cleanup.php:158
+#: includes/modules/cleanup.php:151
 msgctxt "Modules: Cleanup: Settings"
 msgid "Purge Orphaned Featured Image Matadata"
 msgstr ""
 
-#: includes/modules/cleanup.php:165
+#: includes/modules/cleanup.php:158
 msgctxt "Modules: Cleanup: Settings"
 msgid "Comments"
 msgstr "دیدگاه‌ها"
 
-#: includes/modules/cleanup.php:166
+#: includes/modules/cleanup.php:159
 msgctxt "Modules: Cleanup: Settings"
 msgid "Checks for orphaned comment meta data."
 msgstr ""
 
-#: includes/modules/cleanup.php:167
+#: includes/modules/cleanup.php:160
 msgctxt "Modules: Cleanup: Settings"
 msgid "Purge Orphaned Matadata"
 msgstr ""
 
-#: includes/modules/cleanup.php:174
+#: includes/modules/cleanup.php:167
 msgctxt "Modules: Cleanup: Settings"
 msgid "Removes Akismet related comment meta data."
 msgstr ""
 
-#: includes/modules/cleanup.php:175
+#: includes/modules/cleanup.php:168
 msgctxt "Modules: Cleanup: Settings"
 msgid "Purge Akismet Metadata"
 msgstr "پاک‌سازی متای اکیسمت"
 
-#: includes/modules/cleanup.php:182
+#: includes/modules/cleanup.php:175
 msgctxt "Modules: Cleanup: Settings"
 msgid "Removes user agent data from comments."
 msgstr ""
 
-#: includes/modules/cleanup.php:183
+#: includes/modules/cleanup.php:176
 msgctxt "Modules: Cleanup: Settings"
 msgid "Purge User Agent Fields"
 msgstr ""
 
-#: includes/modules/cleanup.php:190
+#: includes/modules/cleanup.php:183
 msgctxt "Modules: Cleanup: Settings"
 msgid "Disables comments and pings on posts published before <b>last month</b>."
 msgstr ""
 
-#: includes/modules/cleanup.php:191
+#: includes/modules/cleanup.php:184
 msgctxt "Modules: Cleanup: Settings"
 msgid "Close Comments on Old Posts"
 msgstr ""
@@ -2056,7 +2244,7 @@ msgstr "پریسم جی‌اس"
 #: includes/modules/code.php:76
 msgctxt "TinyMCE Strings: PrismJS"
 msgid "PrismJS: Syntax Highlighter"
-msgstr "پریسم جی‌اس: سینتکس های‌لاتر"
+msgstr "پریسم جی‌اس: سینتکس های‌لایتر"
 
 #: includes/modules/code.php:77
 msgctxt "TinyMCE Strings: PrismJS"
@@ -2078,424 +2266,465 @@ msgctxt "TinyMCE Strings: PrismJS"
 msgid "File Name"
 msgstr "نام پرونده"
 
-#: includes/modules/comments.php:99
+#: includes/modules/comments.php:79
 msgctxt "Modules: Menu Name"
 msgid "Comments"
 msgstr "دیدگاه‌ها"
 
-#: includes/modules/comments.php:126
+#: includes/modules/comments.php:105
 msgctxt "Modules: Comments: Settings"
 msgid "Hide Pings"
 msgstr "پنهان‌سازی بازتاب‌ها"
 
-#: includes/modules/comments.php:127
+#: includes/modules/comments.php:106
 msgctxt "Modules: Comments: Settings"
 msgid "Removes trackbacks and pingbacks form comment lists on the frontend."
 msgstr ""
 
-#: includes/modules/comments.php:132
+#: includes/modules/comments.php:111
 msgctxt "Modules: Comments: Settings"
 msgid "Comment Notifications"
 msgstr "آگاه‌سازی از دیدگاه‌ها"
 
-#: includes/modules/comments.php:133
+#: includes/modules/comments.php:112
 msgctxt "Modules: Comments: Settings"
 msgid "Prevents WordPress from sending any comment related notifications."
 msgstr ""
 
-#: includes/modules/comments.php:139
-msgctxt "Modules: Comments: Settings"
-msgid "Archived Comments"
-msgstr "بایگانی برای دیدگاه‌ها"
-
-#: includes/modules/comments.php:140
-msgctxt "Modules: Comments: Settings"
-msgid ""
-"Activates archived comments functionality and hides them from comment counts."
-msgstr ""
-
-#: includes/modules/comments.php:144
+#: includes/modules/comments.php:118
 msgctxt "Modules: Comments: Settings"
 msgid "Full Comments"
 msgstr "متن کامل دیدگاه"
 
-#: includes/modules/comments.php:145
+#: includes/modules/comments.php:119
 msgctxt "Modules: Comments: Settings"
 msgid "Displays full comment content on admin dashboard widget."
 msgstr ""
 
-#: includes/modules/comments.php:149
+#: includes/modules/comments.php:123
 msgctxt "Modules: Comments: Settings"
 msgid "Frontend Quicktags"
 msgstr "کوییک‌تگ برای فرم دیدگاه"
 
-#: includes/modules/comments.php:150
+#: includes/modules/comments.php:124
 msgctxt "Modules: Comments: Settings"
 msgid "Adds quick-tags on comment textarea on the frontend."
 msgstr ""
 
-#: includes/modules/comments.php:154
+#: includes/modules/comments.php:128
 msgctxt "Modules: Comments: Settings"
 msgid "Frontend Autogrow"
 msgstr "گسترش فرم دیدگاه"
 
-#: includes/modules/comments.php:155
+#: includes/modules/comments.php:129
 msgctxt "Modules: Comments: Settings"
 msgid "Makes the comment textarea expand in height automatically on the frontend."
 msgstr ""
 
-#: includes/modules/comments.php:159
+#: includes/modules/comments.php:133
 msgctxt "Modules: Comments: Settings"
 msgid "Form Notes"
 msgstr "نکته‌های فرم دیدگاه"
 
-#: includes/modules/comments.php:160
+#: includes/modules/comments.php:134
 msgctxt "Modules: Comments: Settings"
 msgid "Removes extra notes after comment form on the frontend."
 msgstr ""
 
-#: includes/modules/comments.php:170
+#: includes/modules/comments.php:144
 msgctxt "Modules: Comments: Settings"
 msgid "Captcha"
 msgstr "کپچا"
 
-#: includes/modules/comments.php:171
+#: includes/modules/comments.php:145
 msgctxt "Modules: Comments: Settings"
 msgid "Displays captcha field after comment form on the frontend."
 msgstr ""
 
-#: includes/modules/comments.php:243
-msgctxt "Modules: Comments: Action Title Attr"
-msgid "Move this comment to the Archives"
-msgstr "جابه‌جایی این دیدگاه به بایگانی"
-
-#: includes/modules/comments.php:244
-msgctxt "Modules: Comments: Action"
-msgid "Archive"
-msgstr "بایگانی"
-
-#: includes/modules/comments.php:252
-msgctxt "Modules: Comments: Action Title Attr"
-msgid "Move back this comment from the Archives"
-msgstr "بازگردانی این دیدگاه از بایگانی"
-
-#: includes/modules/comments.php:253
-msgctxt "Modules: Comments: Action"
-msgid "Unarchive"
-msgstr "نابایگانی"
-
-#: includes/modules/comments.php:262
-msgctxt "Modules: Comments: Bulk Action"
-msgid "Move to Archives"
-msgstr "ارسال به بایگانی"
-
-#: includes/modules/comments.php:264
-msgctxt "Modules: Comments: Bulk Action"
-msgid "Move from Archives"
-msgstr "خروج از بایگانی"
-
-#: includes/modules/comments.php:295
-msgctxt "Modules: Comments: DB Update Error"
-msgid "Could not update comment status"
-msgstr ""
-
-#: includes/modules/comments.php:342
-msgctxt "Modules: Comments: Status Link Title Attr"
-msgid "All Archived Comments"
-msgstr "همه‌ی دیدگاه‌های بایگانی‌شده"
-
-#: includes/modules/comments.php:343
-msgctxt "Modules: Comments: Status Link"
-msgid "Archives"
-msgstr "بایگانی"
-
-#: includes/modules/comments.php:350
-msgctxt "Modules: Comments"
-msgid "Archived"
-msgstr "بایگانی‌شده"
-
-#: includes/modules/comments.php:527
+#: includes/modules/comments.php:290
 msgctxt "Modules: Comments"
 msgid "Your attempt to add this comment has failed."
 msgstr ""
 
-#: includes/modules/comments.php:584
+#: includes/modules/comments.php:347
 msgctxt "Modules: Comments: Total Comments Item"
 msgid "Comments in moderation: %s"
 msgstr "دیدگاه‌های در انتظار تأیید: %s"
 
-#: includes/modules/comments.php:585
+#: includes/modules/comments.php:348
 msgctxt "Modules: Comments: Total Comments Item"
 msgid "Comments approved: %s"
 msgstr "دیدگاه‌های تأییدشده: %s"
 
-#: includes/modules/comments.php:586
+#: includes/modules/comments.php:349
 msgctxt "Modules: Comments: Total Comments Item"
 msgid "Comments in Spam: %s"
 msgstr "دیدگاه‌های جفنگ: %s"
 
-#: includes/modules/comments.php:587
+#: includes/modules/comments.php:350
 msgctxt "Modules: Comments: Total Comments Item"
 msgid "Comments in Trash: %s"
 msgstr "دیدگاه‌ها در زباله‌دان: %s"
 
-#: includes/modules/comments.php:588
+#: includes/modules/comments.php:351
 msgctxt "Modules: Comments: Total Comments Item"
 msgid "Total Comments: %s"
 msgstr "مجموع دیدگاه‌ها: %s"
 
-#: includes/modules/comments.php:616
+#: includes/modules/comments.php:379
 msgctxt "Modules: Comments"
 msgid "Comment has <strong>over %s links</strong>. Please reduce number of those."
 msgstr ""
 
-#: includes/modules/comments.php:629, includes/modules/comments.php:671
+#: includes/modules/comments.php:392, includes/modules/comments.php:434
 msgctxt "Modules: Comments"
 msgid "Duplicate comment content. Please rephrase."
 msgstr ""
 
-#: includes/modules/comments.php:643
+#: includes/modules/comments.php:406
 msgctxt "Modules: Comments"
 msgid ""
 "Your URL or domain is in list of known spam-promoted sites. If you believe this "
 "to be an error please contact site admin."
 msgstr ""
 
-#: includes/modules/comments.php:657
+#: includes/modules/comments.php:420
 msgctxt "Modules: Comments"
 msgid ""
 "Your IP is in list of known spam sources. If you believe this to be an error "
 "please contact site admin."
 msgstr ""
 
-#: includes/modules/cron.php:49
+#: includes/modules/cron.php:48
 msgctxt "Modules: Menu Name"
 msgid "CRON"
 msgstr "کرون"
 
-#: includes/modules/cron.php:54
+#: includes/modules/cron.php:53
 msgctxt "Modules: Menu Name"
 msgid "Scheduled"
 msgstr "زمان‌بندی‌شده"
 
-#: includes/modules/cron.php:84
+#: includes/modules/cron.php:83
 msgctxt "Modules: CRON: Settings"
 msgid "Email Failure"
 msgstr "ایمیل اخطار"
 
-#: includes/modules/cron.php:85
+#: includes/modules/cron.php:84
 msgctxt "Modules: CRON: Settings"
 msgid "Notifies the administrator status check failure via email."
 msgstr ""
 
-#: includes/modules/cron.php:90
+#: includes/modules/cron.php:89
 msgctxt "Modules: CRON: Settings"
 msgid "Email Address"
 msgstr "نشانی ایمیل"
 
-#: includes/modules/cron.php:91
+#: includes/modules/cron.php:90
 msgctxt "Modules: CRON: Settings"
 msgid ""
 "Failure notices will be sent to this address. Leave empty for WordPress admin "
 "email."
 msgstr ""
 
-#: includes/modules/cron.php:98
+#: includes/modules/cron.php:97
 msgctxt "Modules: CRON: Settings"
 msgid "Clean Revisions"
 msgstr "پاک‌سازی رونوشت‌ها"
 
-#: includes/modules/cron.php:99
+#: includes/modules/cron.php:98
 msgctxt "Modules: CRON: Settings"
 msgid "Schedules a <b>weekly</b> task to delete post revisions."
 msgstr ""
 
-#: includes/modules/cron.php:101
+#: includes/modules/cron.php:100
 msgctxt "Modules: CRON: Settings"
 msgid "Disabled by Constant: %s"
 msgstr "غیرفعال توسط: %s"
 
-#: includes/modules/cron.php:110
+#: includes/modules/cron.php:109
 msgctxt "Modules: CRON: Settings"
 msgid "Cron Status Check"
 msgstr "بررسی وضعیت کرون"
 
-#: includes/modules/cron.php:117
+#: includes/modules/cron.php:116
 msgctxt "Modules: CRON: Settings"
 msgid "Pre-configured Tasks"
 msgstr "تکالیف پیش‌ساخته"
 
-#: includes/modules/cron.php:126
+#: includes/modules/cron.php:125
 msgctxt "Modules: CRON: Settings"
 msgid "The %s is set. WP-Cron is disabled and will not run automatically."
 msgstr ""
 
-#: includes/modules/cron.php:131
+#: includes/modules/cron.php:130
 msgctxt "Modules: CRON: Settings"
 msgid "The %s is set. Cannot determine the status of the WP-Cron."
 msgstr ""
 
-#: includes/modules/cron.php:136
+#: includes/modules/cron.php:135
 msgctxt "Modules: CRON: Settings"
 msgid "<code>WP_CRON_LOCK_TIMEOUT</code> is %s Seconds."
 msgstr ""
 
-#: includes/modules/cron.php:153
+#: includes/modules/cron.php:152
 msgctxt "Modules: CRON: Help Tab Title"
 msgid "Schedule Intervals"
 msgstr ""
 
-#: includes/modules/cron.php:186
+#: includes/modules/cron.php:185
 msgctxt "Modules: CRON: Button"
 msgid "Unschedule"
 msgstr "حذف زمان‌بندی"
 
-#: includes/modules/cron.php:223
+#: includes/modules/cron.php:222
 msgctxt "Modules: CRON: Widget Title"
 msgid "WP-Cron Status Check"
 msgstr "بررسی کرون وردپرس"
 
-#: includes/modules/cron.php:251
+#: includes/modules/cron.php:250
 msgctxt "Modules: CRON"
 msgid "WP-Cron Status Checker has not run yet."
 msgstr "بررسی‌کننده کرون وردپرس تا به حال اجرا نشده است."
 
-#: includes/modules/cron.php:272
+#: includes/modules/cron.php:271
 msgctxt "Modules: CRON"
 msgid ""
 "While trying to spawn a call to the WP-Cron system, the following error "
 "occurred:"
 msgstr ""
 
-#: includes/modules/cron.php:274
+#: includes/modules/cron.php:273
 msgctxt "Modules: CRON"
 msgid "This is a problem with your installation."
 msgstr ""
 
-#: includes/modules/cron.php:281
+#: includes/modules/cron.php:280
 msgctxt "Modules: CRON"
 msgid "WP-Cron is working as of %s"
 msgstr "سامانه کرون تا %s فعال بوده است."
 
-#: includes/modules/cron.php:293
+#: includes/modules/cron.php:292
 msgctxt "Modules: CRON"
 msgid ""
 "The %s constant is set to true as of %s. WP-Cron is disabled and will not run "
 "automatically."
 msgstr ""
 
-#: includes/modules/cron.php:296
+#: includes/modules/cron.php:295
 msgctxt "Modules: CRON"
 msgid ""
 "The %s constant is set to true as of %s. We cannot determine the status of the "
 "WP-Cron system."
 msgstr ""
 
-#: includes/modules/cron.php:309
+#: includes/modules/cron.php:308
 msgctxt "Modules: CRON"
 msgid "Unexpected HTTP response code: %s"
 msgstr ""
 
-#: includes/modules/cron.php:323
+#: includes/modules/cron.php:322
 msgctxt "Modules: CRON: Email Subject"
 msgid "[%s] WP-Cron Failed!"
 msgstr "[%s] کرون وردپرس انجام نمی‌شود!"
 
-#: includes/modules/cron.php:326
+#: includes/modules/cron.php:325
 msgctxt "Modules: CRON"
 msgid ""
 "This message has been sent from by the gNetwork WP-Cron Status Check module."
 msgstr ""
 
-#: includes/modules/cron.php:344
+#: includes/modules/cron.php:343
 msgctxt "Modules: CRON"
 msgid "The WP-Cron system will be automatically checked once every 24 hours."
 msgstr "وضعیت سامانه کرون وردپرس هر ۲۴ ساعت به صورت خودکار بررسی خواهد شد."
 
-#: includes/modules/cron.php:358
+#: includes/modules/cron.php:357
 msgctxt "Modules: CRON"
 msgid "Check Status Now"
 msgstr "همین حالا بررسی کن"
 
-#: includes/modules/cron.php:363
+#: includes/modules/cron.php:362
 msgctxt "Modules: CRON"
 msgid "View current cron scheduled tasks."
 msgstr ""
 
-#: includes/modules/cron.php:365
+#: includes/modules/cron.php:364
 msgctxt "Modules: CRON"
 msgid "View Scheduled Tasks"
 msgstr "بازبینی تکالیف زمان‌بندی‌شده"
 
-#: includes/modules/cron.php:399
+#: includes/modules/cron.php:398
 msgctxt "Modules: CRON"
 msgid "Next"
 msgstr "بعدی"
 
-#: includes/modules/cron.php:406
+#: includes/modules/cron.php:405
 msgctxt "Modules: CRON"
 msgid "Tasks"
 msgstr "تکالیف"
 
-#: includes/modules/cron.php:432
+#: includes/modules/cron.php:430
 msgctxt "Modules: CRON"
 msgid "Overview of tasks scheduled for WP-Cron"
 msgstr "بازبینی تکالیف زمان‌بندی‌شده برای اجرا توسط کرون وردپرس"
 
-#: includes/modules/cron.php:433
+#: includes/modules/cron.php:431
 msgctxt "Modules: CRON"
 msgid "Nothing scheduled!"
 msgstr "تکلیفی مشخص نشده است!"
 
-#: includes/modules/cron.php:443
+#: includes/modules/cron.php:441
 msgctxt "Modules: CRON"
 msgid "Once Weekly"
 msgstr ""
 
-#: includes/modules/dashboard.php:46
+#: includes/modules/dashboard.php:48
 msgctxt "Modules: Dashboard: Help Content Title"
 msgid "Post Type Supports"
 msgstr "امکانات نوع‌نوشته"
 
-#: includes/modules/dashboard.php:73
+#: includes/modules/dashboard.php:75
 msgctxt "Modules: Dashboard: Widget Title"
 msgid "At a Glance"
 msgstr "در یک نگاه"
 
-#: includes/modules/dashboard.php:85
+#: includes/modules/dashboard.php:87
 msgctxt "Modules: Dashboard: Widget Title"
 msgid "Your Sites"
 msgstr "سایت‌های شما"
 
-#: includes/modules/dashboard.php:92
+#: includes/modules/dashboard.php:94
 msgctxt "Modules: Dashboard: Widget Title"
 msgid "External Feed"
 msgstr "خوراک بیرونی"
 
-#: includes/modules/dashboard.php:101
+#: includes/modules/dashboard.php:103
 msgctxt "Modules: Dashboard: Widget Title"
 msgid "Terms of Service"
 msgstr "شرایط و قوانین"
 
-#: includes/modules/dashboard.php:107
+#: includes/modules/dashboard.php:109
 msgctxt "Modules: Dashboard: Widget Title"
 msgid "Your Navigation"
 msgstr "راه‌بری شما"
 
-#: includes/modules/dashboard.php:164
+#: includes/modules/dashboard.php:115
+msgctxt "Modules: Dashboard: Widget Title"
+msgid "Latest Signups"
+msgstr ""
+
+#: includes/modules/dashboard.php:122
+msgctxt "Modules: Dashboard: Widget Title"
+msgid "Latest Logins"
+msgstr ""
+
+#: includes/modules/dashboard.php:180
 msgctxt "Modules: Dashboard: User Menu"
 msgid "&#8220;Not all those who wander are lost!&#8221;"
 msgstr ""
 
-#: includes/modules/dashboard.php:258
+#: includes/modules/dashboard.php:239
+msgctxt "Modules: Dashboard: Right Now"
+msgid "%s Comment"
+msgid_plural "%s Comments"
+msgstr[0] "%s دیدگاه"
+msgstr[1] "%s دیدگاه"
+
+#: includes/modules/dashboard.php:245
+msgctxt "Modules: Dashboard: Right Now"
+msgid "%s Awaiting Comment"
+msgid_plural "%s Awaiting Comments"
+msgstr[0] "%s دیدگاه در انتظار"
+msgstr[1] "%s دیدگاه در انتظار"
+
+#: includes/modules/dashboard.php:255
+msgctxt "Modules: Dashboard: Right Now"
+msgid "%s Spam Comment"
+msgid_plural "%s Spam Comments"
+msgstr[0] "%s دیدگاه جفنگ"
+msgstr[1] "%s دیدگاه جفنگ"
+
+#: includes/modules/dashboard.php:279
 msgctxt "Modules: Dashboard: Right Now"
 msgid "No Content available!"
 msgstr "محتوایی وجود ندارد!"
 
-#: includes/modules/dashboard.php:294
+#: includes/modules/dashboard.php:315
 msgctxt "Modules: Dashboard: Space Quota"
 msgid "%s Space Used"
 msgstr "%s از فضا استفاده شده"
+
+#: includes/modules/dashboard.php:356
+msgctxt "Modules: Dashboard: Signups"
+msgid "On"
+msgstr ""
+
+#: includes/modules/dashboard.php:357
+msgctxt "Modules: Dashboard: Signups"
+msgid "Name"
+msgstr "نام"
+
+#: includes/modules/dashboard.php:358
+msgctxt "Modules: Dashboard: Signups"
+msgid "E-mail"
+msgstr "ایمیل"
+
+#: includes/modules/dashboard.php:359
+msgctxt "Modules: Dashboard: Signups"
+msgid "IP"
+msgstr "آی‌پی"
+
+#: includes/modules/dashboard.php:384
+msgctxt "Modules: Dashboard: Signups"
+msgid "%1$s ago &mdash; %2$s"
+msgstr "%1$s پیش &mdash; %2$s"
+
+#: includes/modules/dashboard.php:405
+msgctxt "Modules: Dashboard: Signups"
+msgid "Last User Registered %s ago"
+msgstr "آخرین نام‌نویسی در %s پیش"
+
+#: includes/modules/dashboard.php:410
+msgctxt "Modules: Dashboard: Signups"
+msgid "With %s Spam User"
+msgid_plural "With %s Spam Users"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/modules/dashboard.php:412
+msgctxt "Modules: Dashboard: Signups"
+msgid "With No Spam User"
+msgstr ""
+
+#: includes/modules/dashboard.php:417
+msgctxt "Modules: Dashboard: Signups"
+msgid "And %s Super Admin"
+msgid_plural "And %s Super Admins"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/modules/dashboard.php:422
+msgctxt "Modules: Dashboard: Signups"
+msgid "Total of One User"
+msgid_plural "Total of %s Users"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/modules/dashboard.php:464
+msgctxt "Modules: Dashboard: Logins"
+msgid "Ago"
+msgstr "پیش"
+
+#: includes/modules/dashboard.php:465
+msgctxt "Modules: Dashboard: Logins"
+msgid "Name"
+msgstr "نام"
+
+#: includes/modules/dashboard.php:466
+msgctxt "Modules: Dashboard: Logins"
+msgid "Timestamp"
+msgstr "زمان"
 
 #: includes/modules/db.php:20
 msgctxt "Modules: Menu Name"
@@ -2522,289 +2751,300 @@ msgctxt "Modules: DB"
 msgid "Overview of Table Indexes"
 msgstr ""
 
-#: includes/modules/debug.php:57
+#: includes/modules/debug.php:59
 msgctxt "Modules: Menu Name"
 msgid "System Report"
 msgstr "گزارشات"
 
-#: includes/modules/debug.php:62
+#: includes/modules/debug.php:64
 msgctxt "Modules: Menu Name"
 msgid "Remote Tests"
 msgstr "آزمایشات دورانه"
 
-#: includes/modules/debug.php:68
+#: includes/modules/debug.php:70
 msgctxt "Modules: Menu Name"
 msgid "Errors"
 msgstr "خطاها"
 
-#: includes/modules/debug.php:74
+#: includes/modules/debug.php:76
 msgctxt "Modules: Menu Name"
 msgid "Logs"
 msgstr "لاگ‌ها"
 
-#: includes/modules/debug.php:122
+#: includes/modules/debug.php:124
 msgctxt "Modules: Debug: System Report"
 msgid "System Report"
-msgstr ""
+msgstr "گزارش سیستم"
 
-#: includes/modules/debug.php:124
+#: includes/modules/debug.php:126
 msgctxt "Modules: Debug: System Report"
 msgid ""
 "Below you can find various raw information about current server and WordPress "
 "installation."
 msgstr ""
+"در زیر میتوانید اطلاعات اولیه در مورد سرور فعلی و وردپرس نصب شده را پیدا کنید."
 
-#: includes/modules/debug.php:128
+#: includes/modules/debug.php:130
 msgctxt "Modules: Debug: System Report"
-msgid "PHP"
+msgid "Currents"
 msgstr ""
 
-#: includes/modules/debug.php:133
+#: includes/modules/debug.php:135
 msgctxt "Modules: Debug: System Report"
 msgid "WordPress"
 msgstr ""
 
-#: includes/modules/debug.php:137
+#: includes/modules/debug.php:139
 msgctxt "Modules: Debug: System Report"
 msgid "Time"
 msgstr ""
 
-#: includes/modules/debug.php:141
+#: includes/modules/debug.php:143
 msgctxt "Modules: Debug: System Report"
 msgid "IP"
 msgstr ""
 
-#: includes/modules/debug.php:145
+#: includes/modules/debug.php:147
 msgctxt "Modules: Debug: System Report"
 msgid "Constants"
 msgstr ""
 
-#: includes/modules/debug.php:149
+#: includes/modules/debug.php:151
 msgctxt "Modules: Debug: System Report"
 msgid "Paths"
 msgstr ""
 
-#: includes/modules/debug.php:153
+#: includes/modules/debug.php:155
 msgctxt "Modules: Debug: System Report"
 msgid "SERVER"
 msgstr ""
 
-#: includes/modules/debug.php:157
+#: includes/modules/debug.php:159
 msgctxt "Modules: Debug: System Report"
 msgid "gPlugin"
 msgstr ""
 
-#: includes/modules/debug.php:161
+#: includes/modules/debug.php:163
 msgctxt "Modules: Debug: System Report"
 msgid ".htaccess"
 msgstr ""
 
-#: includes/modules/debug.php:165
+#: includes/modules/debug.php:167
 msgctxt "Modules: Debug: System Report"
 msgid "WP-Config"
 msgstr ""
 
-#: includes/modules/debug.php:169
+#: includes/modules/debug.php:171
 msgctxt "Modules: Debug: System Report"
 msgid "Network Custom"
 msgstr ""
 
-#: includes/modules/debug.php:173
+#: includes/modules/debug.php:175
 msgctxt "Modules: Debug: System Report"
 msgid "BuddyPress Custom"
 msgstr ""
 
-#: includes/modules/debug.php:177
+#: includes/modules/debug.php:179
 msgctxt "Modules: Debug: System Report"
 msgid "PHP Info"
 msgstr ""
 
-#: includes/modules/debug.php:181
+#: includes/modules/debug.php:183
 msgctxt "Modules: Debug: System Report"
 msgid "PHP Functions"
 msgstr ""
 
-#: includes/modules/debug.php:205
+#: includes/modules/debug.php:207
 msgctxt "Modules: Debug"
 msgid "Clear Logs"
 msgstr "پاک‌سازی لاگ‌ها"
 
-#: includes/modules/debug.php:206
+#: includes/modules/debug.php:208
 msgctxt "Modules: Debug"
 msgid "Download Logs"
 msgstr "دریافت لاگ‌ها"
 
-#: includes/modules/debug.php:220
+#: includes/modules/debug.php:222
 msgctxt "Modules: Debug: Error Box"
 msgid "The Last %s Logs, in reverse order"
 msgstr ""
 
-#: includes/modules/debug.php:239
+#: includes/modules/debug.php:241
 msgctxt "Modules: Debug: Error Box"
 msgid "File Size: %s"
 msgstr ""
 
-#: includes/modules/debug.php:247
+#: includes/modules/debug.php:249
 msgctxt "Modules: Debug: Error Box"
 msgid "There was a problem reading the log file."
 msgstr ""
 
-#: includes/modules/debug.php:268
+#: includes/modules/debug.php:270
 msgctxt "Modules: Debug: Version Strings"
 msgid "WordPress"
 msgstr ""
 
-#: includes/modules/debug.php:269
+#: includes/modules/debug.php:271
 msgctxt "Modules: Debug: Version Strings"
 msgid "WordPress DB revision"
 msgstr ""
 
-#: includes/modules/debug.php:270
+#: includes/modules/debug.php:272
 msgctxt "Modules: Debug: Version Strings"
 msgid "TinyMCE"
 msgstr ""
 
-#: includes/modules/debug.php:271
+#: includes/modules/debug.php:273
 msgctxt "Modules: Debug: Version Strings"
 msgid "Required PHP"
 msgstr ""
 
-#: includes/modules/debug.php:272
+#: includes/modules/debug.php:274
 msgctxt "Modules: Debug: Version Strings"
 msgid "Required MySQL"
 msgstr ""
 
-#: includes/modules/debug.php:291
+#: includes/modules/debug.php:293
 msgctxt "Modules: Debug"
 msgid "No Instance of gPlugin found."
 msgstr ""
 
-#: includes/modules/debug.php:314
+#: includes/modules/debug.php:316
 msgctxt "Modules: Debug"
 msgid "Can not find the config file!"
 msgstr ""
 
-#: includes/modules/debug.php:323
+#: includes/modules/debug.php:325
 msgctxt "Modules: Debug"
 msgid "No custom file found."
 msgstr ""
 
-#: includes/modules/debug.php:332
+#: includes/modules/debug.php:334
 msgctxt "Modules: Debug"
 msgid "No bp custom file found."
 msgstr ""
 
-#: includes/modules/debug.php:431
+#: includes/modules/debug.php:443
 msgctxt "Modules: Debug: Server Vars Group"
 msgid "Server"
 msgstr ""
 
-#: includes/modules/debug.php:433
+#: includes/modules/debug.php:445
 msgctxt "Modules: Debug: Server Vars"
 msgid "Software"
 msgstr ""
 
-#: includes/modules/debug.php:434, includes/modules/debug.php:456
+#: includes/modules/debug.php:446, includes/modules/debug.php:468
 msgctxt "Modules: Debug: Server Vars"
 msgid "Name"
 msgstr ""
 
-#: includes/modules/debug.php:435
+#: includes/modules/debug.php:447
 msgctxt "Modules: Debug: Server Vars"
 msgid "Admin"
 msgstr ""
 
-#: includes/modules/debug.php:436
+#: includes/modules/debug.php:448
 msgctxt "Modules: Debug: Server Vars"
 msgid "Protocol"
 msgstr ""
 
-#: includes/modules/debug.php:437
+#: includes/modules/debug.php:449
 msgctxt "Modules: Debug: Server Vars"
 msgid "Port"
 msgstr ""
 
-#: includes/modules/debug.php:438
+#: includes/modules/debug.php:450
 msgctxt "Modules: Debug: Server Vars"
 msgid "Signature"
 msgstr ""
 
-#: includes/modules/debug.php:439
+#: includes/modules/debug.php:451
 msgctxt "Modules: Debug: Server Vars"
 msgid "Address"
 msgstr ""
 
-#: includes/modules/debug.php:444
+#: includes/modules/debug.php:456
 msgctxt "Modules: Debug: Server Vars Group"
 msgid "Request"
 msgstr ""
 
-#: includes/modules/debug.php:446
+#: includes/modules/debug.php:458
 msgctxt "Modules: Debug: Server Vars"
 msgid "Time"
 msgstr ""
 
-#: includes/modules/debug.php:447
+#: includes/modules/debug.php:459
 msgctxt "Modules: Debug: Server Vars"
 msgid "Time (Float)"
 msgstr ""
 
-#: includes/modules/debug.php:448
+#: includes/modules/debug.php:460
 msgctxt "Modules: Debug: Server Vars"
 msgid "Method"
 msgstr ""
 
-#: includes/modules/debug.php:449, includes/modules/debug.php:459
+#: includes/modules/debug.php:461, includes/modules/debug.php:471
 msgctxt "Modules: Debug: Server Vars"
 msgid "URI"
 msgstr ""
 
-#: includes/modules/debug.php:454
+#: includes/modules/debug.php:466
 msgctxt "Modules: Debug: Server Vars Group"
 msgid "Script"
 msgstr ""
 
-#: includes/modules/debug.php:457
+#: includes/modules/debug.php:469
 msgctxt "Modules: Debug: Server Vars"
 msgid "Filename"
 msgstr ""
 
-#: includes/modules/debug.php:458
+#: includes/modules/debug.php:470
 msgctxt "Modules: Debug: Server Vars"
 msgid "URL"
 msgstr ""
 
-#: includes/modules/debug.php:515
+#: includes/modules/debug.php:527
 msgctxt "Modules: Debug"
 msgid "<code>phpinfo()</code> has been disabled."
 msgstr "<code>phpinfo()</code> غیرفعال شده است."
 
-#: includes/modules/debug.php:520
+#: includes/modules/debug.php:532
 msgctxt "Modules: Debug"
 msgid "Current PHP version: <code>%s</code>"
 msgstr "نسخه PHP کنونی: <code>%s</code>"
 
-#: includes/modules/debug.php:524
+#: includes/modules/debug.php:536
 msgctxt "Modules: Debug"
 msgid "Loaded Extensions"
-msgstr "اکستنژن‌های بارگذاری‌شده"
+msgstr "اکستنژن‌های بارگیری‌شده"
 
-#: includes/modules/debug.php:529
+#: includes/modules/debug.php:541
 msgctxt "Modules: Debug"
 msgid "Missing Extensions"
 msgstr "اکستنژن‌های غایب"
 
-#: includes/modules/debug.php:625
+#: includes/modules/debug.php:546
+msgctxt "Modules: Debug"
+msgid "Current MySQL version: <code>%s</code>"
+msgstr ""
+
+#: includes/modules/debug.php:550
+msgctxt "Modules: Debug"
+msgid "Current Image Tools:"
+msgstr ""
+
+#: includes/modules/debug.php:654
 msgctxt "Modules: Debug"
 msgid "Extras"
 msgstr "افزوده‌ها"
 
-#: includes/modules/debug.php:633
+#: includes/modules/debug.php:662
 msgctxt "Modules: Debug"
 msgid "Check Errors"
 msgstr "بررسی خطاها"
 
-#: includes/modules/debug.php:642
+#: includes/modules/debug.php:671
 msgctxt "Modules: Debug"
 msgid "Check Logs"
 msgstr "بررسی لاگ‌ها"
@@ -2822,7 +3062,7 @@ msgstr "جاسازی"
 #: includes/modules/embed.php:56
 msgctxt "Modules: Embed: Settings"
 msgid "Load Default Embeds"
-msgstr "بارگذاری جاسازهای پیش‌فرض"
+msgstr "بارگیری جاسازهای پیش‌فرض"
 
 #: includes/modules/embed.php:57
 msgctxt "Modules: Embed: Settings"
@@ -2852,7 +3092,7 @@ msgstr ""
 #: includes/modules/embed.php:75
 msgctxt "Modules: Embed: Settings"
 msgid "Load PDF Embeds"
-msgstr "بارگذاری جاسازهای PDF"
+msgstr "بارگیری جاسازهای PDF"
 
 #: includes/modules/embed.php:76
 msgctxt "Modules: Embed: Settings"
@@ -2862,7 +3102,7 @@ msgstr ""
 #: includes/modules/embed.php:80
 msgctxt "Modules: Embed: Settings"
 msgid "Load Aparat Embeds"
-msgstr "بارگذاری جاسازهای آپارات"
+msgstr "بارگیری جاسازهای آپارات"
 
 #: includes/modules/embed.php:81
 msgctxt "Modules: Embed: Settings"
@@ -2872,7 +3112,7 @@ msgstr ""
 #: includes/modules/embed.php:86
 msgctxt "Modules: Embed: Settings"
 msgid "Load GIPHY Embeds"
-msgstr "بارگذاری جاساز‌های گیفی"
+msgstr "بارگیری جاساز‌های گیفی"
 
 #: includes/modules/embed.php:87
 msgctxt "Modules: Embed: Settings"
@@ -2882,7 +3122,7 @@ msgstr ""
 #: includes/modules/embed.php:173
 msgctxt "Modules: Embed"
 msgid "Error while loading the content."
-msgstr "خطایی در هنگام بارگذاری محتوا اتفاق افتاده است."
+msgstr "خطایی در هنگام بارگیری محتوا اتفاق افتاده است."
 
 #: includes/modules/embed.php:187
 msgctxt "Modules: Embed: Item With No Title"
@@ -2951,190 +3191,221 @@ msgid ""
 "Please take a break and try again."
 msgstr ""
 
-#: includes/modules/login.php:44
+#: includes/modules/login.php:46
 msgctxt "Modules: Menu Name"
 msgid "Login"
 msgstr "ورود"
 
-#: includes/modules/login.php:71
+#: includes/modules/login.php:75
 msgctxt "Modules: Login: Settings"
 msgid "Header URL"
 msgstr ""
 
-#: includes/modules/login.php:72
+#: includes/modules/login.php:76
 msgctxt "Modules: Login: Settings"
-msgid "Login page header logo link URL"
+msgid "Login page header logo link URL."
 msgstr ""
 
-#: includes/modules/login.php:79
+#: includes/modules/login.php:83
 msgctxt "Modules: Login: Settings"
 msgid "Header Title"
 msgstr ""
 
-#: includes/modules/login.php:80
+#: includes/modules/login.php:84
 msgctxt "Modules: Login: Settings"
-msgid "Login page header logo link title attribute"
+msgid "Login page header logo link title attribute."
 msgstr ""
 
-#: includes/modules/login.php:86
+#: includes/modules/login.php:90
 msgctxt "Modules: Login: Settings"
 msgid "Login Remember"
 msgstr ""
 
-#: includes/modules/login.php:87
+#: includes/modules/login.php:91
 msgctxt "Modules: Login: Settings"
-msgid "Always checked Remember Me checkbox"
+msgid "Always checked “Remember Me” checkbox."
 msgstr ""
 
-#: includes/modules/login.php:89
+#: includes/modules/login.php:93
 msgctxt "Modules: Login"
 msgid "Not Checked"
-msgstr ""
+msgstr "غیرفعال"
 
-#: includes/modules/login.php:90
+#: includes/modules/login.php:94
 msgctxt "Modules: Login"
 msgid "Checked"
-msgstr ""
+msgstr "فعال"
 
-#: includes/modules/login.php:96
+#: includes/modules/login.php:100
 msgctxt "Modules: Login: Settings"
 msgid "Logo Image"
 msgstr ""
 
-#: includes/modules/login.php:97
+#: includes/modules/login.php:101
 msgctxt "Modules: Login: Settings"
-msgid "Full URL to the login logo image"
+msgid "Full URL to the login logo image."
 msgstr ""
 
-#: includes/modules/login.php:103
+#: includes/modules/login.php:107
 msgctxt "Modules: Login: Settings"
 msgid "CSS Class"
 msgstr ""
 
-#: includes/modules/login.php:104
+#: includes/modules/login.php:108
 msgctxt "Modules: Login: Settings"
-msgid "Select from pre designed login themes"
+msgid "Select styles from pre-configured login themes."
 msgstr ""
 
-#: includes/modules/login.php:109
+#: includes/modules/login.php:113
 msgctxt "Modules: Login: Login Class"
 msgid "SideLogo"
 msgstr ""
 
-#: includes/modules/login.php:110
+#: includes/modules/login.php:114
 msgctxt "Modules: Login: Login Class"
 msgid "Webogram"
 msgstr ""
 
-#: includes/modules/login.php:117
+#: includes/modules/login.php:121
 msgctxt "Modules: Login: Settings"
 msgid "Extra CSS"
 msgstr ""
 
-#: includes/modules/login.php:118
+#: includes/modules/login.php:122
 msgctxt "Modules: Login: Settings"
-msgid "Additional styles to use on login page"
+msgid "Additional CSS styles to use on default login page."
 msgstr ""
 
-#: includes/modules/login.php:123
+#: includes/modules/login.php:127
 msgctxt "Modules: Login: Settings"
 msgid "Credits Badge"
 msgstr ""
 
-#: includes/modules/login.php:124
+#: includes/modules/login.php:128
 msgctxt "Modules: Login: Settings"
-msgid "Displays credits badge on bottom of the login page"
+msgid "Displays credits badge on the bottom of default login page."
 msgstr ""
 
-#: includes/modules/login.php:128
+#: includes/modules/login.php:132
 msgctxt "Modules: Login: Settings"
 msgid "Log Logins"
 msgstr ""
 
-#: includes/modules/login.php:129
+#: includes/modules/login.php:133
 msgctxt "Modules: Login: Settings"
-msgid "Logs user log-in events"
+msgid "Logs user log-in events in the log system."
 msgstr ""
 
-#: includes/modules/login.php:133
+#: includes/modules/login.php:137
+msgctxt "Modules: Login: Settings"
+msgid "Last Logins"
+msgstr ""
+
+#: includes/modules/login.php:138
+msgctxt "Modules: Login: Settings"
+msgid "Stores last login timestamp for each user."
+msgstr ""
+
+#: includes/modules/login.php:143
 msgctxt "Modules: Login: Settings"
 msgid "Ambiguous Error"
 msgstr ""
 
-#: includes/modules/login.php:134
+#: includes/modules/login.php:144
 msgctxt "Modules: Login: Settings"
 msgid "Swaps error messages with an ambiguous one."
 msgstr ""
 
-#: includes/modules/login.php:144
+#: includes/modules/login.php:150
+msgctxt "Modules: Login: Settings"
+msgid "Logout After"
+msgstr ""
+
+#: includes/modules/login.php:151
+msgctxt "Modules: Login: Settings"
+msgid "Full URL to redirect after compelete logout. Leave empty to use the home."
+msgstr ""
+
+#: includes/modules/login.php:160
 msgctxt "Modules: Login: Settings"
 msgid "Login Math"
 msgstr ""
 
-#: includes/modules/login.php:145
+#: includes/modules/login.php:161
 msgctxt "Modules: Login: Settings"
 msgid "Puts a math problem after the login form."
 msgstr ""
 
-#: includes/modules/login.php:155
+#: includes/modules/login.php:171
 msgctxt "Modules: Login: Settings"
 msgid "Math Settings"
 msgstr ""
 
-#: includes/modules/login.php:156
+#: includes/modules/login.php:172
 msgctxt "Modules: Login: Settings"
 msgid ""
 "Blocks Spam by Math. Verifies that a user answered the math problem correctly "
 "while loggin in."
 msgstr ""
 
-#: includes/modules/login.php:165, includes/modules/login.php:188
+#: includes/modules/login.php:181, includes/modules/login.php:204
 msgctxt "Modules: Login"
 msgid "Move along, nothing to see here!"
 msgstr "اینجا خبری نیست!"
 
-#: includes/modules/login.php:309
+#: includes/modules/login.php:325
 msgctxt "Modules: Login: HTML Title"
 msgid "%1$s &lsaquo; %2$s"
 msgstr ""
 
-#: includes/modules/login.php:342
+#: includes/modules/login.php:368
 msgctxt "Modules: Login"
 msgid "Prove your humanity:"
 msgstr "اگر قصد دارید وارد شوید:"
 
-#: includes/modules/login.php:372
+#: includes/modules/login.php:398
 msgctxt "Modules: Login"
 msgid ""
 "<strong>This site is not properly configured.</strong> Please ask this site's "
-"web developer to review for information on how to resolve this issue."
+"administrator to review for information on how to resolve this issue."
 msgstr ""
+"<strong>این سایت به درستی پیکربندی نشده است.</strong> لطفا از سرپرست سایت "
+"بخواهید تا چگونگی حل این مسئله را بررسی کند."
 
-#: includes/modules/login.php:381
+#: includes/modules/login.php:407
 msgctxt "Modules: Login"
 msgid ""
 "<strong>You failed to correctly answer the math problem.</strong> This is used "
-"to combat spam Please use your browser's back button to return to the login "
+"to combat spam. Please use your browser's back button to return to the login "
 "form, press the \"refresh\" button to generate a new math problem, and try to "
 "log in again."
 msgstr ""
+"<strong>شما موفق به درستی پاسخ به مسئله ریاضی نشدید.</strong> از این ابزار برای "
+"مبارزه با هرزنامه استفاده می‌شود. لطفا از دکمه برگشت مرورگر خود برای بازگشت به "
+"فرم ورود استفاده کنید، دکمه \"refresh\" را فشار دهید تا یک مسئله ریاضی جدید "
+"ایجاد شود. سپس برای ورود دوباره تلاش کنید."
 
-#: includes/modules/login.php:419
+#: includes/modules/login.php:430
+msgctxt "Modules: Login"
+msgid "Your account is disabled by an administrator."
+msgstr ""
+
+#: includes/modules/login.php:485
 msgctxt "Modules: Login: Ambiguous Error"
 msgid "Something is wrong!"
 msgstr "چیزی اشتباه است!"
 
-#: includes/modules/login.php:420
+#: includes/modules/login.php:486
 msgctxt "Modules: Login: Ambiguous Error"
 msgid "Lost your password?"
 msgstr "رمزتان را فراموش کرده‌اید؟"
 
-#: includes/modules/login.php:450
+#: includes/modules/login.php:516
 msgctxt "Modules: Login"
 msgid "Full URL to the current login style file"
 msgstr ""
 
-#: includes/modules/login.php:452
+#: includes/modules/login.php:518
 msgctxt "Modules: Login"
 msgid "Login Style"
 msgstr ""
@@ -3385,110 +3656,110 @@ msgctxt "Modules: Mail: Email Logs Table Column"
 msgid "Whom, When"
 msgstr ""
 
-#: includes/modules/mail.php:630
+#: includes/modules/mail.php:636
 msgctxt "Modules: Mail: Email Logs Table Column"
 msgid "What"
 msgstr ""
 
-#: includes/modules/mail.php:637
+#: includes/modules/mail.php:643
 msgctxt "Modules: Mail: Email Logs Table Prefix"
 msgid "Subject"
 msgstr ""
 
-#: includes/modules/mail.php:652
+#: includes/modules/mail.php:663
 msgctxt "Modules: Mail"
 msgid "Total %s Email Logs"
 msgstr ""
 
-#: includes/modules/maintenance.php:38
+#: includes/modules/maintenance.php:42
 msgctxt "Modules: Menu Name"
 msgid "Maintenance"
 msgstr "نگه‌داشت"
 
-#: includes/modules/maintenance.php:62
+#: includes/modules/maintenance.php:66
 msgctxt "Modules: Maintenance: Settings"
 msgid "Site Maintenance"
 msgstr "نگه‌داشت سایت"
 
-#: includes/modules/maintenance.php:63
+#: includes/modules/maintenance.php:67
 msgctxt "Modules: Maintenance: Settings"
 msgid "Only this role and above can access to the site."
 msgstr ""
 
-#: includes/modules/maintenance.php:69
+#: includes/modules/maintenance.php:73
 msgctxt "Modules: Maintenance: Settings"
 msgid "Admin Maintenance"
 msgstr "نگه‌داشت مدیریت"
 
-#: includes/modules/maintenance.php:70
+#: includes/modules/maintenance.php:74
 msgctxt "Modules: Maintenance: Settings"
 msgid "Only this role and above can access to the site's admin pages."
 msgstr ""
 
-#: includes/modules/maintenance.php:76
+#: includes/modules/maintenance.php:80
 msgctxt "Modules: Maintenance: Settings"
 msgid "Admin Notice"
 msgstr "آگاه‌سازی مدیریت"
 
-#: includes/modules/maintenance.php:77
+#: includes/modules/maintenance.php:81
 msgctxt "Modules: Maintenance: Settings"
 msgid "Displays as admin notice while site is on maintenance mode."
 msgstr ""
 
-#: includes/modules/maintenance.php:78
-msgctxt "Modules: Maintenance: Settings"
+#: includes/modules/maintenance.php:82, includes/modules/maintenance.php:191
+msgctxt "Modules: Maintenance"
 msgid "The Maintenance Mode is active."
 msgstr "حالت نگه‌داشت فعال است."
 
-#: includes/modules/maintenance.php:83
+#: includes/modules/maintenance.php:87
 msgctxt "Modules: Maintenance: Settings"
 msgid "Login Message"
 msgstr "پیام صفحه ورود"
 
-#: includes/modules/maintenance.php:84
+#: includes/modules/maintenance.php:88
 msgctxt "Modules: Maintenance: Settings"
 msgid "Displays as login message while site is on maintenance mode."
 msgstr ""
 
-#: includes/modules/maintenance.php:85
-msgctxt "Modules: Maintenance: Settings"
+#: includes/modules/maintenance.php:89
+msgctxt "Modules: Maintenance"
 msgid "The site is unavailable for scheduled maintenance."
-msgstr "سایت برای انجام تعمیرات زمان‌بندی‌شده در دسترس نیست."
+msgstr "سایت برای اجرای تعمیرات در دسترس نیست."
 
-#: includes/modules/maintenance.php:90
+#: includes/modules/maintenance.php:94
 msgctxt "Modules: Maintenance: Settings"
 msgid "Status Code"
 msgstr "کد وضعیت"
 
-#: includes/modules/maintenance.php:91
+#: includes/modules/maintenance.php:95
 msgctxt "Modules: Maintenance: Settings"
 msgid "Defines HTTP status header code while the site is in maintenance mode."
 msgstr ""
 
-#: includes/modules/maintenance.php:110
+#: includes/modules/maintenance.php:114
 msgctxt "Modules: Maintenance: Settings"
 msgid "Retry After"
 msgstr "تلاش دوباره بعد از"
 
-#: includes/modules/maintenance.php:111
+#: includes/modules/maintenance.php:115
 msgctxt "Modules: Maintenance: Settings"
 msgid "Defines HTTP status header retry after."
 msgstr ""
 
-#: includes/modules/maintenance.php:122
+#: includes/modules/maintenance.php:126
 msgctxt "Modules: Maintenance: Settings"
 msgid "Current Template: %s"
 msgstr "الگوی کنونی: %s"
 
-#: includes/modules/maintenance.php:126
+#: includes/modules/maintenance.php:130
 msgctxt "Modules: Maintenance: Settings"
 msgid "There are no templates available. We will use an internal instead."
 msgstr "الگوی اختصاصی پیدا نشد، از الگو‌های پیش‌فرض استفاده خواهد شد."
 
-#: includes/modules/maintenance.php:233
+#: includes/modules/maintenance.php:249
 msgctxt "Modules: Maintenance: Default 503 Message"
 msgid "The site is unavailable for scheduled maintenance."
-msgstr "سایت برای انجام تعمیرات زمان‌بندی‌شده در دسترس نیست."
+msgstr "سایت برای اجرای تعمیرات در دسترس نیست."
 
 #: includes/modules/media.php:58
 msgctxt "Modules: Menu Name"
@@ -3500,280 +3771,300 @@ msgctxt "Modules: Menu Name"
 msgid "Images"
 msgstr "تصویرها"
 
-#: includes/modules/media.php:90
+#: includes/modules/media.php:89
 msgctxt "Modules: Media: Settings"
 msgid "Strip EXIF"
 msgstr "پاک‌سازی EXIF"
 
-#: includes/modules/media.php:91
+#: includes/modules/media.php:90
 msgctxt "Modules: Media: Settings"
 msgid "Skips unused EXIF metadata for image attachments."
-msgstr ""
+msgstr "ابرداده‌های EXIF استفاده‌نشده در پیوست‌های تصویری نادیده گرفته شود."
 
-#: includes/modules/media.php:106
+#: includes/modules/media.php:105
 msgctxt "Modules: Media: Settings"
 msgid "Large File Uploader"
 msgstr "بارگذاری پرونده‌های بزرگ"
 
-#: includes/modules/media.php:107
+#: includes/modules/media.php:106
 msgctxt "Modules: Media: Settings"
 msgid "Simple javascript powered widget to upload large files."
-msgstr ""
+msgstr "ابزارک ساده برای بارگذاری پرونده‌های بزرگ به کمک جاوااسکریپت."
 
-#: includes/modules/media.php:168
+#: includes/modules/media.php:167
 msgctxt "Modules: Media: Widget Title"
 msgid "Large File Uploader"
 msgstr "بارگذاری پرونده‌های بزرگ"
 
-#: includes/modules/media.php:244
+#: includes/modules/media.php:243
 msgctxt "Modules: Media"
 msgid "Clean Attachments"
 msgstr "پالایش پیوست‌ها"
 
-#: includes/modules/media.php:245
+#: includes/modules/media.php:244
 msgctxt "Modules: Media"
 msgid "Sync Attachments"
 msgstr "همگام‌سازی پیوست‌ها"
 
-#: includes/modules/media.php:246
+#: includes/modules/media.php:245
 msgctxt "Modules: Media"
 msgid "Cache In Content"
 msgstr "انباشت درون‌متن"
 
-#: includes/modules/media.php:263
+#: includes/modules/media.php:262
 msgctxt "Modules: Media"
 msgid "No additional image size registered."
 msgstr ""
 
-#: includes/modules/media.php:320
+#: includes/modules/media.php:317
 msgctxt "Modules: Media: Column Title"
 msgid "ID"
 msgstr "نـ"
 
-#: includes/modules/media.php:323
+#: includes/modules/media.php:320
 msgctxt "Modules: Media: Column Title"
 msgid "Date"
 msgstr "تاریخ"
 
-#: includes/modules/media.php:330
+#: includes/modules/media.php:327
 msgctxt "Modules: Media: Column Title"
 msgid "Type"
 msgstr "نوع"
 
-#: includes/modules/media.php:340
+#: includes/modules/media.php:337
 msgctxt "Modules: Media: Column Title"
 msgid "Title"
 msgstr "عنوان"
 
-#: includes/modules/media.php:365
+#: includes/modules/media.php:362
 msgctxt "Modules: Media: Row Action"
 msgid "Edit"
 msgstr "ویرایش"
 
-#: includes/modules/media.php:371
+#: includes/modules/media.php:368
 msgctxt "Modules: Media: Row Action"
 msgid "View"
 msgstr "نمایش"
 
-#: includes/modules/media.php:376, includes/modules/media.php:992
+#: includes/modules/media.php:373, includes/modules/media.php:1001
 msgctxt "Modules: Media: Row Action"
 msgid "Cleaning &hellip;"
 msgstr "پالایش &hellip;"
 
-#: includes/modules/media.php:377, includes/modules/media.php:994
+#: includes/modules/media.php:374, includes/modules/media.php:1003
 msgctxt "Modules: Media: Row Action"
 msgid "Clean"
 msgstr "پالایش"
 
-#: includes/modules/media.php:382
+#: includes/modules/media.php:379
+msgctxt "Modules: Media: Row Action"
+msgid "Syncing &hellip;"
+msgstr ""
+
+#: includes/modules/media.php:380
+msgctxt "Modules: Media: Row Action"
+msgid "Sync"
+msgstr ""
+
+#: includes/modules/media.php:385
 msgctxt "Modules: Media: Row Action"
 msgid "Caching &hellip;"
 msgstr "انباشت  &hellip;"
 
-#: includes/modules/media.php:383
+#: includes/modules/media.php:386
 msgctxt "Modules: Media: Row Action"
 msgid "Cache"
 msgstr "انباشت"
 
-#: includes/modules/media.php:389
+#: includes/modules/media.php:392
 msgctxt "Modules: Media: Column Title"
 msgid "Attached Media"
 msgstr "پیوست‌شده"
 
-#: includes/modules/media.php:401
+#: includes/modules/media.php:404
 msgctxt "Modules: Media: Title Attr"
 msgid "Number of Sizes"
-msgstr ""
+msgstr "تعداد اندازه‌ها"
 
-#: includes/modules/media.php:443
+#: includes/modules/media.php:446
 msgctxt "Modules: Media: Column Title"
 msgid "In Content"
 msgstr "درون متن"
 
-#: includes/modules/media.php:455
+#: includes/modules/media.php:458
 msgctxt "Modules: Media: Title Attr"
 msgid "External Resource"
 msgstr "منبع بیرونی"
 
-#: includes/modules/media.php:456
+#: includes/modules/media.php:459
 msgctxt "Modules: Media: External Resource"
 msgid "Ex"
 msgstr ""
 
-#: includes/modules/media.php:481
+#: includes/modules/media.php:484
 msgctxt "Modules: Media"
 msgid "Overview of posts with attachments"
 msgstr "مروری بر پیوست‌های نوشته‌ها"
 
-#: includes/modules/media.php:482
+#: includes/modules/media.php:485
 msgctxt "Modules: Media"
 msgid "No Posts!"
 msgstr "چیزی پیدا نشد!"
 
-#: includes/modules/media.php:953
+#: includes/modules/media.php:962
 msgctxt "Modules: Media: Bulk Action"
 msgid "Clean Attachments"
 msgstr "پالایش پیوست‌ها"
 
-#: includes/modules/media.php:1055
+#: includes/modules/media.php:1064
 msgctxt "Modules: Media: Row Action"
 msgid "Cleaned"
 msgstr "پالایش شد"
 
-#: includes/modules/media.php:1071
+#: includes/modules/media.php:1080
 msgctxt "Modules: Media: Row Action"
 msgid "Already Cleaned!"
 msgstr "پالایش شده!"
 
-#: includes/modules/media.php:1073
+#: includes/modules/media.php:1082
 msgctxt "Modules: Media: Row Action"
 msgid "Cleaned!"
 msgstr "پالایش شد!"
 
-#: includes/modules/media.php:1086
+#: includes/modules/media.php:1098
+msgctxt "Modules: Media: Row Action"
+msgid "Already Synced!"
+msgstr ""
+
+#: includes/modules/media.php:1100
+msgctxt "Modules: Media: Row Action"
+msgid "Synced!"
+msgstr ""
+
+#: includes/modules/media.php:1113
 msgctxt "Modules: Media: Row Action"
 msgid "Cached"
 msgstr "انباشت شد"
 
-#: includes/modules/media.php:1100
+#: includes/modules/media.php:1127
 msgctxt "Modules: Media"
 msgid "Please select a file and click &#8220;Upload&#8221; to continue."
 msgstr "یک پرونده را انتخاب و «بارگذاری» را کلیک کنید."
 
-#: includes/modules/media.php:1104
+#: includes/modules/media.php:1131
 msgctxt "Modules: Media"
 msgid "Select File"
 msgstr "انتخاب پرونده"
 
-#: includes/modules/media.php:1116
+#: includes/modules/media.php:1143
 msgctxt "Modules: Media"
 msgid "Upload"
 msgstr "بارگذاری"
 
-#: includes/modules/media.php:1120
+#: includes/modules/media.php:1147
 msgctxt "Modules: Media"
 msgid "Uploading File - %s%"
 msgstr "بارگذاری پرونده - ٪%s"
 
-#: includes/modules/media.php:1121
+#: includes/modules/media.php:1148
 msgctxt "Modules: Media"
 msgid "Upload Complete!"
 msgstr "بارگذاری انجام شد!"
 
-#: includes/modules/media.php:1130
+#: includes/modules/media.php:1157
 msgctxt "Modules: Media"
 msgid "You can access uploaded files via Media Library."
 msgstr ""
 "برای دسترسی به محتوای بارگذاری شده، کتابخانه پرونده‌های چندرسانه‌ای را ببینید."
 
-#: includes/modules/media.php:1161
+#: includes/modules/media.php:1188
 msgctxt "Modules: Media"
 msgid "View Uploaded File"
 msgstr "دیدن پرونده بارگذاری‌شده"
 
-#: includes/modules/media.php:1167
+#: includes/modules/media.php:1194
 msgctxt "Modules: Media"
 msgid "Something is wrong with data!"
 msgstr "انگار چیزی اشتباه است!"
 
-#: includes/modules/media.php:1172
+#: includes/modules/media.php:1199
 msgctxt "Modules: Media"
 msgid "Can not access upload folders!"
 msgstr ""
 
-#: includes/modules/media.php:1177
+#: includes/modules/media.php:1204
 msgctxt "Modules: Media"
 msgid "The file is already exists in upload folder!"
 msgstr "این پرونده قبلاً بارگذاری شده است!"
 
-#: includes/modules/media.php:1180
+#: includes/modules/media.php:1207
 msgctxt "Modules: Media"
 msgid "Can not put contents into file!"
 msgstr ""
 
-#: includes/modules/media.php:1206
+#: includes/modules/media.php:1233
 msgctxt "Modules: Media: Row Action"
 msgid "View Image URL"
 msgstr "نمایش نشانی تصویر"
 
-#: includes/modules/media.php:1215
+#: includes/modules/media.php:1242
 msgctxt "Modules: Media: Row Action"
 msgid "View Video URL"
 msgstr "نمایش نشانی ویدئو"
 
-#: includes/modules/media.php:1221
+#: includes/modules/media.php:1248
 msgctxt "Modules: Media: Row Action"
 msgid "View Data File URL"
 msgstr "نمایش نشانی پروندهٔ داده‌ها"
 
-#: includes/modules/media.php:1227
+#: includes/modules/media.php:1254
 msgctxt "Modules: Media: Row Action"
 msgid "View Spreadsheet URL"
 msgstr "نمایش نشانی پرونده اکسل"
 
-#: includes/modules/media.php:1235
+#: includes/modules/media.php:1262
 msgctxt "Modules: Media: Row Action"
 msgid "View Document URL"
 msgstr "نمایش نشانی پروندهٔ متنی"
 
-#: includes/modules/media.php:1240
+#: includes/modules/media.php:1267
 msgctxt "Modules: Media: Row Action"
 msgid "View HTML file URL"
 msgstr "نمایش نشانی پروندهٔ وب"
 
-#: includes/modules/media.php:1245
+#: includes/modules/media.php:1272
 msgctxt "Modules: Media: Row Action"
 msgid "View Item URL"
 msgstr "نمایش نشانی پرونده"
 
-#: includes/modules/media.php:1342
+#: includes/modules/media.php:1370
 msgctxt "Modules: Media: Post Mime Type"
 msgid "Text"
 msgstr "متن"
 
-#: includes/modules/media.php:1343
+#: includes/modules/media.php:1371
 msgctxt "Modules: Media: Post Mime Type"
 msgid "Manage Texts"
 msgstr "مدیریت متن‌ها"
 
-#: includes/modules/media.php:1344
+#: includes/modules/media.php:1372
 msgctxt "Modules: Media: Post Mime Type"
 msgid "Text <span class=\"count\">(%s)</span>"
 msgid_plural "Texts <span class=\"count\">(%s)</span>"
 msgstr[0] "متن <span class=\"count\">(%s)</span>"
 msgstr[1] "متن <span class=\"count\">(%s)</span>"
 
-#: includes/modules/media.php:1347
+#: includes/modules/media.php:1375
 msgctxt "Modules: Media: Post Mime Type"
 msgid "Application"
 msgstr "کاربردی"
 
-#: includes/modules/media.php:1348
+#: includes/modules/media.php:1376
 msgctxt "Modules: Media: Post Mime Type"
 msgid "Manage Applications"
 msgstr "مدیریت کاربردی‌ها"
 
-#: includes/modules/media.php:1349
+#: includes/modules/media.php:1377
 msgctxt "Modules: Media: Post Mime Type"
 msgid "Application <span class=\"count\">(%s)</span>"
 msgid_plural "Applications <span class=\"count\">(%s)</span>"
@@ -3902,225 +4193,260 @@ msgctxt "Modules: Network: Column"
 msgid "ID"
 msgstr "نهاد"
 
-#: includes/modules/notify.php:43
+#: includes/modules/notify.php:49
 msgctxt "Modules: Menu Name"
 msgid "Notify"
 msgstr "آگاه‌سازی"
 
-#: includes/modules/notify.php:64
+#: includes/modules/notify.php:75
 msgctxt "Modules: Notify: Settings"
 msgid "New User Email"
 msgstr ""
 
-#: includes/modules/notify.php:65
+#: includes/modules/notify.php:76
 msgctxt "Modules: Notify: Settings"
-msgid "Notify the blog admin of a newly-registered user"
+msgid "Notifies the blog admin of a newly-registered user."
 msgstr ""
 
-#: includes/modules/notify.php:70
+#: includes/modules/notify.php:81
 msgctxt "Modules: Notify: Settings"
 msgid "Password Reset Email"
 msgstr ""
 
-#: includes/modules/notify.php:71
+#: includes/modules/notify.php:82
 msgctxt "Modules: Notify: Settings"
-msgid "Notify the blog admin of a user changing password"
+msgid "Notifies the blog admin of a user changed password."
 msgstr ""
 
-#: includes/modules/notify.php:82
+#: includes/modules/notify.php:87
+msgctxt "Modules: Notify: Settings"
+msgid "User Password Changes"
+msgstr ""
+
+#: includes/modules/notify.php:88
+msgctxt "Modules: Notify: Settings"
+msgid "Notifies the user of his password changed."
+msgstr ""
+
+#: includes/modules/notify.php:93
+msgctxt "Modules: Notify: Settings"
+msgid "User Email Changes"
+msgstr ""
+
+#: includes/modules/notify.php:94
+msgctxt "Modules: Notify: Settings"
+msgid "Notifies the user of his email address changed."
+msgstr ""
+
+#: includes/modules/notify.php:99
+msgctxt "Modules: Notify: Settings"
+msgid "Admin Email Changes"
+msgstr ""
+
+#: includes/modules/notify.php:100
+msgctxt "Modules: Notify: Settings"
+msgid "Notifies the old site admin of the site admin email address changed."
+msgstr ""
+
+#: includes/modules/notify.php:112
 msgctxt "Modules: Notify: Settings"
 msgid "New User Email Subject"
 msgstr ""
 
-#: includes/modules/notify.php:83
+#: includes/modules/notify.php:113
 msgctxt "Modules: Notify: Settings"
 msgid ""
 "Subject of the notification email of new user signup. Leave empty to use "
 "defaults."
 msgstr ""
 
-#: includes/modules/notify.php:90
+#: includes/modules/notify.php:120
 msgctxt "Modules: Notify: Settings"
 msgid "New User Email Message"
 msgstr ""
 
-#: includes/modules/notify.php:91
+#: includes/modules/notify.php:121
 msgctxt "Modules: Notify: Settings"
 msgid ""
 "Message content of the notification email for new user sign-up. Leave empty to "
 "use defaults."
 msgstr ""
 
-#: includes/modules/notify.php:99
+#: includes/modules/notify.php:129
 msgctxt "Modules: Notify: Settings"
 msgid "New Blog Email Subject"
 msgstr ""
 
-#: includes/modules/notify.php:100
+#: includes/modules/notify.php:130
 msgctxt "Modules: Notify: Settings"
 msgid "Subject of the new blog notification email. Leave empty to use defaults."
 msgstr ""
 
-#: includes/modules/notify.php:107
+#: includes/modules/notify.php:137
 msgctxt "Modules: Notify: Settings"
 msgid "New Blog Email Message"
 msgstr ""
 
-#: includes/modules/notify.php:108
+#: includes/modules/notify.php:138
 msgctxt "Modules: Notify: Settings"
 msgid ""
 "Message content of the new blog notification email. Leave empty to use defaults."
 msgstr ""
 
-#: includes/modules/notify.php:122
+#: includes/modules/notify.php:151
+msgctxt "Modules: Notify: Settings"
+msgid "Sign-up"
+msgstr ""
+
+#: includes/modules/notify.php:159
 msgctxt "Modules: Notify"
 msgid "Test Signup User Email"
 msgstr ""
 
-#: includes/modules/notify.php:123
+#: includes/modules/notify.php:160
 msgctxt "Modules: Notify"
 msgid ""
 "Sends a TEST confirmation request email to a user when they sign up for a new "
 "user account."
 msgstr ""
 
-#: includes/modules/notify.php:126
+#: includes/modules/notify.php:163
 msgctxt "Modules: Notify"
 msgid "Test Signup Blog Email"
 msgstr ""
 
-#: includes/modules/notify.php:127
+#: includes/modules/notify.php:164
 msgctxt "Modules: Notify"
 msgid ""
 "Sends a TEST confirmation request email to a user when they sign up for a new "
 "site."
 msgstr ""
 
-#: includes/modules/opensearch.php:40
+#: includes/modules/opensearch.php:42
 msgctxt "Modules: Menu Name"
 msgid "Open Search"
 msgstr "اوپن سرچ"
 
-#: includes/modules/opensearch.php:75
+#: includes/modules/opensearch.php:77
 msgctxt "Modules: OpenSearch: Settings"
 msgid "Open Search"
 msgstr "اوپن سرچ"
 
-#: includes/modules/opensearch.php:76
+#: includes/modules/opensearch.php:78
 msgctxt "Modules: OpenSearch: Settings"
 msgid "OpenSearch support for this blog."
 msgstr ""
 
-#: includes/modules/opensearch.php:82
+#: includes/modules/opensearch.php:84
 msgctxt "Modules: OpenSearch: Settings"
 msgid "Suggestions"
 msgstr "پیشنهادات"
 
-#: includes/modules/opensearch.php:83
+#: includes/modules/opensearch.php:85
 msgctxt "Modules: OpenSearch: Settings"
 msgid "OpenSearch Suggestions support for this site."
 msgstr ""
 
-#: includes/modules/opensearch.php:89
+#: includes/modules/opensearch.php:91
 msgctxt "Modules: OpenSearch: Settings"
 msgid "ShortName"
 msgstr "عنوان کوتاه"
 
-#: includes/modules/opensearch.php:90
+#: includes/modules/opensearch.php:92
 msgctxt "Modules: OpenSearch: Settings"
 msgid "A short name for the search engine. <b>16</b> chars or less, no HTML."
 msgstr ""
 
-#: includes/modules/opensearch.php:97
+#: includes/modules/opensearch.php:99
 msgctxt "Modules: OpenSearch: Settings"
 msgid "LongName"
 msgstr "عنوان کامل"
 
-#: includes/modules/opensearch.php:98
+#: includes/modules/opensearch.php:100
 msgctxt "Modules: OpenSearch: Settings"
 msgid "An extended name for the search engine. <b>48</b> chars or less, no HTML."
 msgstr ""
 
-#: includes/modules/opensearch.php:103
+#: includes/modules/opensearch.php:105
 msgctxt "Modules: OpenSearch: Settings"
 msgid "Description"
 msgstr "توضیحات"
 
-#: includes/modules/opensearch.php:104
+#: includes/modules/opensearch.php:106
 msgctxt "Modules: OpenSearch: Settings"
 msgid ""
 "A brief description of the search engine. <b>1024</b> chars or less, no HTML."
 msgstr ""
 
-#: includes/modules/opensearch.php:105
+#: includes/modules/opensearch.php:107
 msgctxt "Modules: OpenSearch: Settings"
 msgid "Search %s"
 msgstr "جست‌وجو در %s"
 
-#: includes/modules/opensearch.php:110
+#: includes/modules/opensearch.php:112
 msgctxt "Modules: OpenSearch: Settings"
 msgid "Attribution"
 msgstr ""
 
-#: includes/modules/opensearch.php:111
+#: includes/modules/opensearch.php:113
 msgctxt "Modules: OpenSearch: Settings"
 msgid ""
 "A list of all sources or entities that should be credited. <b>256</b> chars or "
 "less, no HTML."
 msgstr ""
 
-#: includes/modules/opensearch.php:112
+#: includes/modules/opensearch.php:114
 msgctxt "Modules: OpenSearch: Settings"
 msgid "Search data copyright %s"
 msgstr "تمامی حقوق برای %s محفوظ است."
 
-#: includes/modules/opensearch.php:118
+#: includes/modules/opensearch.php:120
 msgctxt "Modules: OpenSearch: Settings"
 msgid "Syndication Right"
 msgstr ""
 
-#: includes/modules/opensearch.php:119
+#: includes/modules/opensearch.php:121
 msgctxt "Modules: OpenSearch: Settings"
 msgid "Indicates the degree to which the search results provided."
 msgstr ""
 
-#: includes/modules/opensearch.php:122
+#: includes/modules/opensearch.php:124
 msgctxt "Modules: OpenSearch: Settings"
 msgid "Open"
 msgstr "باز"
 
-#: includes/modules/opensearch.php:123
+#: includes/modules/opensearch.php:125
 msgctxt "Modules: OpenSearch: Settings"
 msgid "Limited"
 msgstr "محدود شده"
 
-#: includes/modules/opensearch.php:124
+#: includes/modules/opensearch.php:126
 msgctxt "Modules: OpenSearch: Settings"
 msgid "Private"
 msgstr "خصوصی"
 
-#: includes/modules/opensearch.php:125
+#: includes/modules/opensearch.php:127
 msgctxt "Modules: OpenSearch: Settings"
 msgid "Closed"
 msgstr "بسته"
 
-#: includes/modules/opensearch.php:131
+#: includes/modules/opensearch.php:133
 msgctxt "Modules: OpenSearch: Settings"
 msgid "Contact"
 msgstr "ارتباط"
 
-#: includes/modules/opensearch.php:132
+#: includes/modules/opensearch.php:134
 msgctxt "Modules: OpenSearch: Settings"
 msgid ""
 "An email address at which the maintainer of the search engine can be reached."
 msgstr ""
 
-#: includes/modules/opensearch.php:138
+#: includes/modules/opensearch.php:140
 msgctxt "Modules: OpenSearch: Settings"
 msgid "Tags"
 msgstr "برچسب‌ها"
 
-#: includes/modules/opensearch.php:139
+#: includes/modules/opensearch.php:141
 msgctxt "Modules: OpenSearch: Settings"
 msgid ""
 "A set of words that are used as keywords to identify and categorize this search "
@@ -4128,35 +4454,322 @@ msgid ""
 "HTML."
 msgstr ""
 
-#: includes/modules/opensearch.php:152
+#: includes/modules/opensearch.php:154
 msgctxt "Modules: OpenSearch: Settings"
 msgid "Current Manifest: %s"
 msgstr ""
 
-#: includes/modules/opensearch.php:156
+#: includes/modules/opensearch.php:158
 msgctxt "Modules: OpenSearch: Settings"
 msgid "There are no manifest available."
 msgstr ""
 
-#: includes/modules/opensearch.php:165
+#: includes/modules/opensearch.php:167
 msgctxt "Modules: OpenSearch: Help Tab Title"
 msgid "Open Search"
 msgstr ""
 
-#: includes/modules/opensearch.php:241
+#: includes/modules/opensearch.php:243
 msgctxt "Modules: OpenSearch"
 msgid "Search Engine"
 msgstr ""
 
-#: includes/modules/opensearch.php:244
+#: includes/modules/opensearch.php:246
 msgctxt "Modules: OpenSearch"
 msgid "Add this site search engine plugin to your browser."
 msgstr ""
 
-#: includes/modules/opensearch.php:248
+#: includes/modules/opensearch.php:250
 msgctxt "Modules: OpenSearch"
 msgid "Your browser does not support the AddSearchProvider method!"
 msgstr ""
+
+#: includes/modules/profile.php:86
+msgctxt "Modules: Menu Name"
+msgid "Profile"
+msgstr "نمایه"
+
+#: includes/modules/profile.php:116
+msgctxt "Modules: Profile: Settings"
+msgid "Custom Display Name"
+msgstr ""
+
+#: includes/modules/profile.php:117
+msgctxt "Modules: Profile: Settings"
+msgid "Enables custom display name per-site for each user."
+msgstr ""
+
+#: includes/modules/profile.php:121
+msgctxt "Modules: Profile: Settings"
+msgid "Password Reset"
+msgstr ""
+
+#: includes/modules/profile.php:122
+msgctxt "Modules: Profile: Settings"
+msgid "Controls whether to allow a password to be reset."
+msgstr ""
+
+#: includes/modules/profile.php:127
+msgctxt "Modules: Profile: Settings"
+msgid "Color Schemes"
+msgstr ""
+
+#: includes/modules/profile.php:128
+msgctxt "Modules: Profile: Settings"
+msgid "Controls whether to allow a selection of admin color scheme."
+msgstr ""
+
+#: includes/modules/profile.php:133
+msgctxt "Modules: Profile: Settings"
+msgid "Contact Methods"
+msgstr ""
+
+#: includes/modules/profile.php:134
+msgctxt "Modules: Profile: Settings"
+msgid "Adds extra contact methods to user profiles"
+msgstr ""
+
+#: includes/modules/profile.php:139
+msgctxt "Modules: Profile: Settings"
+msgid "User Language"
+msgstr ""
+
+#: includes/modules/profile.php:140
+msgctxt "Modules: Profile: Settings"
+msgid "User admin language switcher"
+msgstr ""
+
+#: includes/modules/profile.php:148
+msgctxt "Modules: Profile: Settings"
+msgid "Disabled Page"
+msgstr ""
+
+#: includes/modules/profile.php:149
+msgctxt "Modules: Profile: Settings"
+msgid ""
+"Redirects network sign-up into this page, if registration have been "
+"<b>disabled</b>."
+msgstr ""
+
+#: includes/modules/profile.php:157
+msgctxt "Modules: Profile: Settings"
+msgid "Custom Location"
+msgstr ""
+
+#: includes/modules/profile.php:158
+msgctxt "Modules: Profile: Settings"
+msgid "Full URL to the custom sign-up page."
+msgstr ""
+
+#: includes/modules/profile.php:163
+msgctxt "Modules: Profile: Settings"
+msgid "Location After"
+msgstr ""
+
+#: includes/modules/profile.php:164
+msgctxt "Modules: Profile: Settings"
+msgid "Redirects into this URL after a successful registraion."
+msgstr ""
+
+#: includes/modules/profile.php:168
+msgctxt "Modules: Profile: Settings"
+msgid "IP Address"
+msgstr ""
+
+#: includes/modules/profile.php:169
+msgctxt "Modules: Profile: Settings"
+msgid "Stores user's IP address upon registration."
+msgstr ""
+
+#: includes/modules/profile.php:175
+msgctxt "Modules: Profile: Settings"
+msgid "Default Color Scheme"
+msgstr ""
+
+#: includes/modules/profile.php:176
+msgctxt "Modules: Profile: Settings"
+msgid "Sets as default upon each user registeration."
+msgstr ""
+
+#: includes/modules/profile.php:178
+msgctxt "Modules: Profile: Settings: Color Scheme"
+msgid "Default"
+msgstr "پیش‌فرض"
+
+#: includes/modules/profile.php:179
+msgctxt "Modules: Profile: Settings: Color Scheme"
+msgid "Light"
+msgstr "روشن"
+
+#: includes/modules/profile.php:180
+msgctxt "Modules: Profile: Settings: Color Scheme"
+msgid "Blue"
+msgstr "آبی"
+
+#: includes/modules/profile.php:181
+msgctxt "Modules: Profile: Settings: Color Scheme"
+msgid "Coffee"
+msgstr "قهوه"
+
+#: includes/modules/profile.php:182
+msgctxt "Modules: Profile: Settings: Color Scheme"
+msgid "Ectoplasm"
+msgstr "اثیری"
+
+#: includes/modules/profile.php:183
+msgctxt "Modules: Profile: Settings: Color Scheme"
+msgid "Midnight"
+msgstr "نیمه‌شب"
+
+#: includes/modules/profile.php:184
+msgctxt "Modules: Profile: Settings: Color Scheme"
+msgid "Ocean"
+msgstr "اقیانوس"
+
+#: includes/modules/profile.php:185
+msgctxt "Modules: Profile: Settings: Color Scheme"
+msgid "Sunrise"
+msgstr "طلوع"
+
+#: includes/modules/profile.php:195
+msgctxt "Modules: Profile: Settings"
+msgid "Sign-up"
+msgstr ""
+
+#: includes/modules/profile.php:196
+msgctxt "Modules: Profile: Settings"
+msgid "Control the aspects of user registeration on this network."
+msgstr ""
+
+#: includes/modules/profile.php:206
+msgctxt "Modules: Profile"
+msgid "Before you can upload a file, you will need to fix the following error: %s"
+msgstr ""
+
+#: includes/modules/profile.php:222
+msgctxt "Modules: Profile"
+msgid "Import Users"
+msgstr ""
+
+#: includes/modules/profile.php:223
+msgctxt "Modules: Profile"
+msgid "Upload a list of users in a CSV format. Maximum size: <b>%s</b>"
+msgstr ""
+
+#: includes/modules/profile.php:231
+msgctxt "Modules: Profile"
+msgid "Export Users"
+msgstr ""
+
+#: includes/modules/profile.php:232
+msgctxt "Modules: Profile"
+msgid "Click to get all registered users in CSV format."
+msgstr ""
+
+#: includes/modules/profile.php:242
+msgctxt "Modules: Profile: Help Tab Title"
+msgid "Contact Methods"
+msgstr ""
+
+#: includes/modules/profile.php:407
+msgctxt "Modules: Profile: User Contact Method"
+msgid "Mobile Phone"
+msgstr "تلفن همراه"
+
+#: includes/modules/profile.php:408
+msgctxt "Modules: Profile: User Contact Method"
+msgid "Twitter"
+msgstr "توییتر"
+
+#: includes/modules/profile.php:409
+msgctxt "Modules: Profile: User Contact Method"
+msgid "Telegram"
+msgstr ""
+
+#: includes/modules/profile.php:410
+msgctxt "Modules: Profile: User Contact Method"
+msgid "Facebook"
+msgstr "فیس‌بوک"
+
+#: includes/modules/profile.php:411
+msgctxt "Modules: Profile: User Contact Method"
+msgid "Google+"
+msgstr "گوگل+"
+
+#: includes/modules/profile.php:422
+msgctxt "Modules: Profile"
+msgid "Account Information"
+msgstr "اطلاعات حساب کاربری"
+
+#: includes/modules/profile.php:431
+msgctxt "Modules: Profile"
+msgid "Registration IP"
+msgstr "نام‌نویسی از"
+
+#: includes/modules/profile.php:441
+msgctxt "Modules: Profile"
+msgid "Registration on"
+msgstr "نام‌نویسی در"
+
+#: includes/modules/profile.php:457
+msgctxt "Modules: Profile"
+msgid "Last Login"
+msgstr "آخرین ورود"
+
+#: includes/modules/profile.php:460
+msgctxt "Modules: Profile"
+msgid "Last Logins are Disabled."
+msgstr "آمارگیری از آخرین ورود‌ غیرفعال است."
+
+#: includes/modules/profile.php:466
+msgctxt "Modules: Profile"
+msgid "Administrative Options"
+msgstr "تنظیمات مدیریت"
+
+#: includes/modules/profile.php:474
+msgctxt "Modules: Profile"
+msgid "Slug"
+msgstr "نامک"
+
+#: includes/modules/profile.php:477
+msgctxt "Modules: Profile"
+msgid "This will be used in the URL of the user's page."
+msgstr ""
+
+#: includes/modules/profile.php:484
+msgctxt "Modules: Profile"
+msgid "Account Login"
+msgstr "ورود به حساب کاربری"
+
+#: includes/modules/profile.php:488
+msgctxt "Modules: Profile"
+msgid "Disable user login with this account"
+msgstr "ورود به سایت با این حساب کاربری غیرفعال شود"
+
+#: includes/modules/profile.php:493
+msgctxt "Modules: Profile"
+msgid "Password Reset"
+msgstr "بازنشانی رمز"
+
+#: includes/modules/profile.php:497
+msgctxt "Modules: Profile"
+msgid "Disable this account password reset via default login page"
+msgstr ""
+
+#: includes/modules/profile.php:561
+msgctxt "Modules: Profile"
+msgid "Blog Options"
+msgstr "تنظیمات سایت"
+
+#: includes/modules/profile.php:568
+msgctxt "Modules: Profile"
+msgid "Nickname for this site"
+msgstr "عنوان برای این سایت"
+
+#: includes/modules/profile.php:572
+msgctxt "Modules: Profile"
+msgid "This will be displayed as your name in this site only."
+msgstr "فقط در این سایت، به عنوان نام شما استفاده خواهد شد."
 
 #: includes/modules/remote.php:29
 msgctxt "Modules: Menu Name"
@@ -4178,91 +4791,91 @@ msgctxt "Modules: Remote: Settings"
 msgid "Sync Now"
 msgstr ""
 
-#: includes/modules/restricted.php:36
+#: includes/modules/restricted.php:37
 msgctxt "Modules: Menu Name"
 msgid "Restricted"
 msgstr "محدودیت"
 
-#: includes/modules/restricted.php:90
+#: includes/modules/restricted.php:91
 msgctxt "Modules: Restricted: Settings"
 msgid "Site Restriction"
 msgstr "محدودیت سایت"
 
-#: includes/modules/restricted.php:91
+#: includes/modules/restricted.php:92
 msgctxt "Modules: Restricted: Settings"
 msgid "Only this role and above can access to the site."
 msgstr ""
 
-#: includes/modules/restricted.php:97
+#: includes/modules/restricted.php:98
 msgctxt "Modules: Restricted: Settings"
 msgid "Admin Restriction"
 msgstr "محدودیت مدیریت"
 
-#: includes/modules/restricted.php:98
+#: includes/modules/restricted.php:99
 msgctxt "Modules: Restricted: Settings"
 msgid "Only this role and above can access to the site's admin pages."
 msgstr ""
 
-#: includes/modules/restricted.php:104
+#: includes/modules/restricted.php:105
 msgctxt "Modules: Restricted: Settings"
 msgid "Admin Profile"
 msgstr "نمایه مدیریت"
 
-#: includes/modules/restricted.php:105
+#: includes/modules/restricted.php:106
 msgctxt "Modules: Restricted: Settings"
 msgid "Whether admin profile can be accessed if the site is in restricted mode."
 msgstr ""
 
-#: includes/modules/restricted.php:108, includes/modules/restricted.php:119
+#: includes/modules/restricted.php:109, includes/modules/restricted.php:120
 msgctxt "Modules: Restricted: Settings"
 msgid "Open"
 msgstr "باز"
 
-#: includes/modules/restricted.php:109, includes/modules/restricted.php:120
+#: includes/modules/restricted.php:110, includes/modules/restricted.php:121
 msgctxt "Modules: Restricted: Settings"
 msgid "Restricted"
 msgstr "محدود شده"
 
-#: includes/modules/restricted.php:115
+#: includes/modules/restricted.php:116
 msgctxt "Modules: Restricted: Settings"
 msgid "Feed Restriction"
 msgstr "محدودیت خوراک"
 
-#: includes/modules/restricted.php:116
+#: includes/modules/restricted.php:117
 msgctxt "Modules: Restricted: Settings"
 msgid "Whether default feeds available if the site is in restricted mode."
 msgstr ""
 
-#: includes/modules/restricted.php:126
+#: includes/modules/restricted.php:127
 msgctxt "Modules: Restricted: Settings"
 msgid "Restricted Page"
 msgstr "برگه محدودیت"
 
-#: includes/modules/restricted.php:127
+#: includes/modules/restricted.php:128
 msgctxt "Modules: Restricted: Settings"
 msgid ""
 "Redirects not authorized users to this page. If not selected will redirect to "
 "the login page."
 msgstr ""
 
-#: includes/modules/restricted.php:128
+#: includes/modules/restricted.php:129
 msgctxt "Modules: Restricted: Settings"
 msgid "&mdash; Login Page &mdash;"
 msgstr ""
 
-#: includes/modules/restricted.php:134
+#: includes/modules/restricted.php:135
 msgctxt "Modules: Restricted: Settings"
 msgid "Restricted Notice"
 msgstr "اطلاعیه محدودیت"
 
-#: includes/modules/restricted.php:135
+#: includes/modules/restricted.php:136
 msgctxt "Modules: Restricted: Settings"
 msgid ""
 "Displays on top of the site login page. Use <code>%1$s</code> for the role, and "
 "<code>%2$s</code> for the page."
 msgstr ""
 
-#: includes/modules/restricted.php:136
+#: includes/modules/restricted.php:137
 msgctxt "Modules: Restricted: Settings"
 msgid ""
 "<p>This site is restricted to users with %1$s access level. Please visit <a "
@@ -4271,19 +4884,19 @@ msgstr ""
 "<p>دسترسی به این سایت محدود شده است. برای اطلاعات بیشتر به <a href=\"%2$s"
 "\">اینجا</a> مراجعه کنید.</p>"
 
-#: includes/modules/restricted.php:141
+#: includes/modules/restricted.php:142
 msgctxt "Modules: Restricted: Settings"
 msgid "Restricted Access"
 msgstr "محدودیت دسترسی"
 
-#: includes/modules/restricted.php:142
+#: includes/modules/restricted.php:143
 msgctxt "Modules: Restricted: Settings"
 msgid ""
 "Displays on 403 error page for logged-in users. Use <code>%1$s</code> for the "
 "role, and <code>%2$s</code> for the page."
 msgstr ""
 
-#: includes/modules/restricted.php:143
+#: includes/modules/restricted.php:144
 msgctxt "Modules: Restricted: Settings"
 msgid ""
 "<p>You do not have %1$s access level. Please visit <a href=\"%2$s\">here</a> to "
@@ -4292,117 +4905,117 @@ msgstr ""
 "<p>حساب کاربری شما، اجازه دسترسی به محتوای این سایت را ندارد. برای اطلاعات "
 "بیشتر به <a href=\"%2$s\">اینجا</a> مراجعه کنید.</p>"
 
-#: includes/modules/restricted.php:153
+#: includes/modules/restricted.php:154
 msgctxt "Modules: Restricted: Settings"
 msgid "Current Template: %s"
 msgstr "الگوی کنونی: %s"
 
-#: includes/modules/restricted.php:191
+#: includes/modules/restricted.php:192
 msgctxt "Modules: Restricted"
 msgid "Private Feeds"
 msgstr "خوراک‌های خصوصی"
 
-#: includes/modules/restricted.php:192
+#: includes/modules/restricted.php:193
 msgctxt "Modules: Restricted"
 msgid "Used to access restricted site feeds."
 msgstr "از این پیوندها برای دسترسی به خوراک‌های محدودشده سایت استفاده کنید."
 
-#: includes/modules/restricted.php:199
+#: includes/modules/restricted.php:200
 msgctxt "Modules: Restricted"
 msgid "Access Key"
 msgstr "کلید دسترسی"
 
-#: includes/modules/restricted.php:203
+#: includes/modules/restricted.php:204
 msgctxt "Modules: Restricted"
 msgid "Access key not found"
 msgstr "کلید دسترسی تولید نشده است"
 
-#: includes/modules/restricted.php:205
+#: includes/modules/restricted.php:206
 msgctxt "Modules: Restricted"
 msgid "The key will be used on all restricted site feed URLs."
 msgstr "از این کلید هنگام استفاده از خوراک سایت‌های محدود شده استفاده خواهد شد."
 
-#: includes/modules/restricted.php:213
+#: includes/modules/restricted.php:214
 msgctxt "Modules: Restricted"
 msgid "Reset your access key"
 msgstr "بازنشانی کلید دسترسی"
 
-#: includes/modules/restricted.php:214
+#: includes/modules/restricted.php:215
 msgctxt "Modules: Restricted"
 msgid "Remove your access key"
 msgstr "حذف کلید دسترسی"
 
-#: includes/modules/restricted.php:216
+#: includes/modules/restricted.php:217
 msgctxt "Modules: Restricted"
 msgid "Generate new access key"
 msgstr "تولید کلید دسترسی"
 
-#: includes/modules/restricted.php:223
+#: includes/modules/restricted.php:224
 msgctxt "Modules: Restricted"
 msgid "Key Operations"
 msgstr "گزینه‌های کلید"
 
-#: includes/modules/restricted.php:224
+#: includes/modules/restricted.php:225
 msgctxt "Modules: Restricted"
 msgid "Select an operation to work with your private feed access key."
 msgstr "برای تغیر کلید دسترسی یکی از این گزینه‌ها را انتخاب کنید."
 
-#: includes/modules/restricted.php:233
+#: includes/modules/restricted.php:234
 msgctxt "Modules: Restricted"
 msgid "Your Feed"
 msgstr "خوراک شما"
 
-#: includes/modules/restricted.php:242
+#: includes/modules/restricted.php:243
 msgctxt "Modules: Restricted"
 msgid "Your Comments Feed"
 msgstr "خوراک دیدگاه‌های شما"
 
-#: includes/modules/restricted.php:296
+#: includes/modules/restricted.php:297
 msgctxt "Modules: Restricted"
 msgid "Home Page"
 msgstr "صفحه اصلی"
 
-#: includes/modules/restricted.php:301
+#: includes/modules/restricted.php:302
 msgctxt "Modules: Restricted"
 msgid "Logout of this site"
 msgstr "خروج از این سایت"
 
-#: includes/modules/restricted.php:302
+#: includes/modules/restricted.php:303
 msgctxt "Modules: Restricted"
 msgid "Log Out"
 msgstr "خارج شوید"
 
-#: includes/modules/restricted.php:322
+#: includes/modules/restricted.php:323
 msgctxt "Modules: Restricted"
 msgid "You do not have sufficient access level."
 msgstr "محتوای این صفحه برای شما قابل دسترسی نیست."
 
-#: includes/modules/restricted.php:416
+#: includes/modules/restricted.php:419
 msgctxt "Modules: Restricted: At a Glance"
 msgid "Your site is restricted to public"
 msgstr "این سایت برای عموم قابل دسترس نیست"
 
-#: includes/modules/restricted.php:420
+#: includes/modules/restricted.php:423
 msgctxt "Modules: Restricted: At a Glance"
 msgid "Public Access Discouraged"
 msgstr "دسترسی عمومی ناممکن است"
 
-#: includes/modules/restricted.php:461
+#: includes/modules/restricted.php:464
 msgctxt "Modules: Restricted"
 msgid "Key Valid but no Access"
 msgstr "کلید دسترسی شما درست است، اما متاسفانه دسترسی به این سایت ندارید."
 
-#: includes/modules/restricted.php:462
+#: includes/modules/restricted.php:465
 msgctxt "Modules: Restricted"
 msgid "Your Key is valid but you have no access to this site."
 msgstr "کلید دسترسی شما درست است، اما متاسفانه دسترسی به این سایت ندارید."
 
-#: includes/modules/restricted.php:478
+#: includes/modules/restricted.php:481
 msgctxt "Modules: Restricted"
 msgid "No key, no Access"
 msgstr "بدون کلید، بدون دسترسی!"
 
-#: includes/modules/restricted.php:479
+#: includes/modules/restricted.php:482
 msgctxt "Modules: Restricted"
 msgid "You have to have a key to access this site's feed"
 msgstr "برای دسترسی به خراک این سایت، احتیاج به کلید دسترسی دارید."
@@ -4462,69 +5075,69 @@ msgctxt "Modules: Search: Form: Submit Button"
 msgid "Search"
 msgstr "جست‌وجو"
 
-#: includes/modules/shortcodes.php:107, includes/modules/shortcodes.php:110
+#: includes/modules/shortcodes.php:112, includes/modules/shortcodes.php:115
 msgctxt "Modules: ShortCodes: UI: Label"
 msgid "Reference"
 msgstr "منبع"
 
-#: includes/modules/shortcodes.php:111
+#: includes/modules/shortcodes.php:116
 msgctxt "Modules: ShortCodes: UI: Description"
 msgid "Make a reference to an external source."
 msgstr "به یک منبع بیرونی ارجاع دهید."
 
-#: includes/modules/shortcodes.php:115
+#: includes/modules/shortcodes.php:120
 msgctxt "Modules: ShortCodes: UI: Label"
 msgid "External Resource"
 msgstr "منبع بیرونی"
 
-#: includes/modules/shortcodes.php:125
+#: includes/modules/shortcodes.php:130
 msgctxt "Modules: ShortCodes: UI: Label"
 msgid "External Resource Hover"
 msgstr "منبع بیرونی (عنوان)"
 
-#: includes/modules/shortcodes.php:129
+#: includes/modules/shortcodes.php:134
 msgctxt "Modules: ShortCodes: UI: Placeholder"
 msgid "Read more about it"
 msgstr ""
 
-#: includes/modules/shortcodes.php:136
+#: includes/modules/shortcodes.php:141
 msgctxt "Modules: ShortCodes: UI: Label"
 msgid "Email"
 msgstr "ایمیل"
 
-#: includes/modules/shortcodes.php:139
+#: includes/modules/shortcodes.php:144
 msgctxt "Modules: ShortCodes: UI: Label"
 msgid "Email Address"
 msgstr "نشانی ایمیل"
 
-#: includes/modules/shortcodes.php:140
+#: includes/modules/shortcodes.php:145
 msgctxt "Modules: ShortCodes: UI: Description"
 msgid "Full email address to appear as link and cloaked against spam bots."
 msgstr ""
 "نشانی کامل ایمیل تا به عنوان پیوند استفاده شود و از دید موتورهای جفنگ پنهان "
 "بماند."
 
-#: includes/modules/shortcodes.php:145
+#: includes/modules/shortcodes.php:150
 msgctxt "Modules: ShortCodes: UI: Label"
 msgid "Display Text"
 msgstr "متن ایمیل"
 
-#: includes/modules/shortcodes.php:149
+#: includes/modules/shortcodes.php:153
 msgctxt "Modules: ShortCodes: UI: Placeholder"
 msgid "Email Me"
 msgstr "ایمیل بزن"
 
-#: includes/modules/shortcodes.php:153
+#: includes/modules/shortcodes.php:156
 msgctxt "Modules: ShortCodes: UI: Label"
 msgid "Email Subject"
 msgstr "موضوع ایمیل"
 
-#: includes/modules/shortcodes.php:157
+#: includes/modules/shortcodes.php:159
 msgctxt "Modules: ShortCodes: UI: Placeholder"
 msgid "About something important"
 msgstr "یک موضوع مهم"
 
-#: includes/modules/shortcodes.php:161
+#: includes/modules/shortcodes.php:162
 msgctxt "Modules: ShortCodes: UI: Label"
 msgid "Link Hover"
 msgstr "عنوان پیوند"
@@ -4534,122 +5147,122 @@ msgctxt "Modules: ShortCodes: UI: Placeholder"
 msgid "Jump right into it!"
 msgstr "همین حالا ببین!"
 
-#: includes/modules/shortcodes.php:180
+#: includes/modules/shortcodes.php:179
 msgctxt "TinyMCE Strings: Ref"
 msgid "Cite This"
 msgstr "پانویس کن"
 
-#: includes/modules/shortcodes.php:181
+#: includes/modules/shortcodes.php:180
 msgctxt "TinyMCE Strings: Ref"
 msgid "Cite This (Ctrl+Q)"
 msgstr "پانویس کن (Ctrl+Q)"
 
-#: includes/modules/shortcodes.php:182
+#: includes/modules/shortcodes.php:181
 msgctxt "TinyMCE Strings: Ref"
 msgid "Ref Text"
 msgstr "متن ارجاع"
 
-#: includes/modules/shortcodes.php:183
+#: includes/modules/shortcodes.php:182
 msgctxt "TinyMCE Strings: Ref"
 msgid "Ref URL"
 msgstr "نشانی ارجاع"
 
-#: includes/modules/shortcodes.php:185
+#: includes/modules/shortcodes.php:184
 msgctxt "TinyMCE Strings: Email"
 msgid "Email"
 msgstr "ایمیل"
 
-#: includes/modules/shortcodes.php:186
+#: includes/modules/shortcodes.php:185
 msgctxt "TinyMCE Strings: Email"
 msgid "Email (Ctrl+E)"
 msgstr "ایمیل (Ctrl+E)"
 
-#: includes/modules/shortcodes.php:187
+#: includes/modules/shortcodes.php:186
 msgctxt "TinyMCE Strings: Email"
 msgid "Full Email"
 msgstr "نشانی کامل ایمیل"
 
-#: includes/modules/shortcodes.php:188
+#: includes/modules/shortcodes.php:187
 msgctxt "TinyMCE Strings: Email"
 msgid "Display Text"
 msgstr "متن ایمیل"
 
-#: includes/modules/shortcodes.php:189
+#: includes/modules/shortcodes.php:188
 msgctxt "TinyMCE Strings: Email"
 msgid "Email Subject"
 msgstr "موضوع ایمیل"
 
-#: includes/modules/shortcodes.php:190
+#: includes/modules/shortcodes.php:189
 msgctxt "TinyMCE Strings: Email"
 msgid "Link Hover"
 msgstr "توضیحات پیوند"
 
-#: includes/modules/shortcodes.php:192
+#: includes/modules/shortcodes.php:191
 msgctxt "TinyMCE Strings: Search"
 msgid "Search"
 msgstr "جست‌وجو"
 
-#: includes/modules/shortcodes.php:193
+#: includes/modules/shortcodes.php:192
 msgctxt "TinyMCE Strings: Search"
 msgid "Search (Ctrl+3)"
 msgstr "جست‌وجو (Ctrl+3)"
 
-#: includes/modules/shortcodes.php:194
+#: includes/modules/shortcodes.php:193
 msgctxt "TinyMCE Strings: Search"
 msgid "Display Text"
 msgstr "متن جست‌وجو"
 
-#: includes/modules/shortcodes.php:195
+#: includes/modules/shortcodes.php:194
 msgctxt "TinyMCE Strings: Search"
 msgid "Override Criteria"
 msgstr "رونویسی عبارت"
 
-#: includes/modules/shortcodes.php:197, includes/modules/shortcodes.php:198
+#: includes/modules/shortcodes.php:196, includes/modules/shortcodes.php:197
 msgctxt "TinyMCE Strings: People"
 msgid "People"
 msgstr "افراد"
 
-#: includes/modules/shortcodes.php:199
+#: includes/modules/shortcodes.php:198
 msgctxt "TinyMCE Strings: People"
 msgid "Name"
 msgstr "عنوان"
 
-#: includes/modules/shortcodes.php:558
+#: includes/modules/shortcodes.php:557
 msgctxt "Modules: ShortCodes: Defaults"
 msgid "Back"
 msgstr "بازگشت"
 
-#: includes/modules/shortcodes.php:593, includes/modules/shortcodes.php:606
+#: includes/modules/shortcodes.php:592, includes/modules/shortcodes.php:605
 msgctxt "Modules: ShortCodes: Defaults"
 msgid "Home"
 msgstr "خانه"
 
-#: includes/modules/shortcodes.php:681
+#: includes/modules/shortcodes.php:680
 msgctxt "Modules: ShortCodes: Defaults"
 msgid "Loading &hellip;"
-msgstr "بارگذاری &hellip;"
+msgstr "بارگیری &hellip;"
 
-#: includes/modules/shortcodes.php:725
+#: includes/modules/shortcodes.php:724
 msgctxt "Modules: ShortCodes: Defaults: ThickBox"
 msgid "More Info"
 msgstr "اطلاعات بیشتر"
 
-#: includes/modules/shortcodes.php:861
+#: includes/modules/shortcodes.php:860
 msgctxt "Modules: ShortCodes: Defaults"
 msgid "Search this site for &ldquo;%s&rdquo;"
 msgstr "جست‌وجوی این سایت برای &rdquo;%s&ldquo;"
 
-#: includes/modules/shortcodes.php:910
+#: includes/modules/shortcodes.php:909
 msgctxt "Modules: ShortCodes: Google Groups Subscribe"
 msgid "Email:"
 msgstr "ایمیل:"
 
-#: includes/modules/shortcodes.php:913
+#: includes/modules/shortcodes.php:912
 msgctxt "Modules: ShortCodes: Google Groups Subscribe"
 msgid "Subscribe"
 msgstr "نام‌نویسی"
 
-#: includes/modules/shortcodes.php:954
+#: includes/modules/shortcodes.php:953
 msgctxt "Modules: ShortCodes: Defaults"
 msgid ""
 "It appears you don't have Adobe Reader or PDF support in this web browser. <a "
@@ -4658,43 +5271,43 @@ msgstr ""
 "به‌نظر می‌رسد مرورگر شما قابلیت نمایش پرونده‌های PDF را ندارد. <a href=\"%s\">برای "
 "دریافت پرونده PDF کلیک کنید</a>."
 
-#: includes/modules/shortcodes.php:955
+#: includes/modules/shortcodes.php:954
 msgctxt "Modules: ShortCodes: Defaults"
 msgid "<a href=\"%s\">Click here to download the PDF</a>."
 msgstr "<a href=\"%s\">برای دریافت پرونده PDF کلیک کنید</a>."
 
-#: includes/modules/shortcodes.php:992
+#: includes/modules/shortcodes.php:991
 msgctxt "Modules: ShortCodes: Defaults"
 msgid "View Resource"
 msgstr ""
 
-#: includes/modules/shortcodes.php:993
+#: includes/modules/shortcodes.php:992
 msgctxt "Modules: ShortCodes: Defaults"
 msgid "Resource is empty!"
 msgstr ""
 
-#: includes/modules/shortcodes.php:1184
+#: includes/modules/shortcodes.php:1183
 msgctxt "Shortcodes Module: Defaults"
 msgid "Go to %s second mark and play"
 msgstr "به ثانیه %s برو و پخش کن"
 
-#: includes/modules/shortcodes.php:1280
+#: includes/modules/shortcodes.php:1279
 msgctxt "Shortcodes Module: Defaults"
 msgid "External Resource"
 msgstr "منبع بیرونی"
 
-#: includes/modules/shortcodes.php:1339
+#: includes/modules/shortcodes.php:1338
 msgctxt "Shortcodes Module: Defaults"
 msgid "See the footnotes on the site."
 msgstr "پانوشت‌ها را در سایت ببینید."
 
-#: includes/modules/shortcodes.php:1349
+#: includes/modules/shortcodes.php:1348
 msgctxt "Shortcodes Module: Defaults"
 msgid "Back to Text"
 msgstr "بازگشت به متن"
 
-#: includes/modules/shortcodes.php:1417, includes/modules/shortcodes.php:1429,
-#: includes/modules/shortcodes.php:1452, includes/modules/shortcodes.php:1465
+#: includes/modules/shortcodes.php:1432, includes/modules/shortcodes.php:1444,
+#: includes/modules/shortcodes.php:1467, includes/modules/shortcodes.php:1480
 msgctxt "Shortcodes Module: Defaults"
 msgid "See the Footnote"
 msgstr "به پانوشت نگاه کنید"
@@ -4704,107 +5317,95 @@ msgctxt "Modules: Menu Name"
 msgid "Global"
 msgstr "همگانی"
 
-#: includes/modules/site.php:76
+#: includes/modules/site.php:70
 msgctxt "Modules: Site: Settings"
 msgid "Network Locale"
-msgstr ""
+msgstr "زبان شبکه"
 
-#: includes/modules/site.php:77
+#: includes/modules/site.php:71
 msgctxt "Modules: Site: Settings"
 msgid "Overrides network admin language, despite of the main site locale."
 msgstr ""
 
-#: includes/modules/site.php:90
-msgctxt "Modules: Site: Settings"
-msgid "Page for Signup"
-msgstr "برگه نام‌نویسی"
-
-#: includes/modules/site.php:91
-msgctxt "Modules: Site: Settings"
-msgid ""
-"Redirects network signup page into this page, if registration have been "
-"<b>disabled</b>."
-msgstr ""
-
-#: includes/modules/site.php:102
+#: includes/modules/site.php:84
 msgctxt "Modules: Site: Settings"
 msgid "Access Denied"
-msgstr ""
+msgstr "دسترسی محدود شده است"
 
-#: includes/modules/site.php:103
+#: includes/modules/site.php:85
 msgctxt "Modules: Site: Settings"
 msgid ""
 "Displays when access to an admin page is denied. Leave empty to use default or "
 "<code>0</code> to disable."
 msgstr ""
 
-#: includes/modules/site.php:109
+#: includes/modules/site.php:91
 msgctxt "Modules: Site: Settings"
 msgid "Denied Message"
-msgstr ""
+msgstr "پیام محدودیت"
 
-#: includes/modules/site.php:110
+#: includes/modules/site.php:92
 msgctxt "Modules: Site: Settings"
 msgid ""
 "Displays this message when a user tries to view a site's dashboard they do not "
 "have access to. Leave empty to use default or <code>0</code> to disable."
 msgstr ""
 
-#: includes/modules/site.php:118
+#: includes/modules/site.php:100
 msgctxt "Modules: Site: Settings"
 msgid "Extra Message"
-msgstr ""
+msgstr "اطلاعات بیشتر"
 
-#: includes/modules/site.php:119
+#: includes/modules/site.php:101
 msgctxt "Modules: Site: Settings"
 msgid ""
 "Displays this message before the list of sites. Leave empty to use default or "
 "<code>0</code> to disable."
 msgstr ""
 
-#: includes/modules/site.php:124
+#: includes/modules/site.php:106
 msgctxt "Modules: Site: Settings"
 msgid "List of Sites"
-msgstr ""
+msgstr "فهرست سایت‌ها"
 
-#: includes/modules/site.php:125
+#: includes/modules/site.php:107
 msgctxt "Modules: Site: Settings"
 msgid "Displays the current user list of sites after access denied message."
 msgstr ""
 
-#: includes/modules/site.php:135
+#: includes/modules/site.php:117
 msgctxt "Modules: Site: Settings"
 msgid "Lookup IP URL"
 msgstr ""
 
-#: includes/modules/site.php:136
+#: includes/modules/site.php:118
 msgctxt "Modules: Site: Settings"
 msgid ""
 "URL template to to use for looking up IP adresses. Will replace <code>%s</code> "
 "with the IP."
 msgstr ""
 
-#: includes/modules/site.php:148
+#: includes/modules/site.php:130
 msgctxt "Modules: Site: Settings"
 msgid "Dashboard Access"
-msgstr ""
+msgstr "دسترسی پیشخوان"
 
-#: includes/modules/site.php:202
+#: includes/modules/site.php:184
 msgctxt "Modules: Site:‌ User Sites"
 msgid "Your Sites"
 msgstr "سایت‌های شما"
 
-#: includes/modules/site.php:211
+#: includes/modules/site.php:193
 msgctxt "Modules: Site:‌ User Sites"
 msgid "Visit Dashboard"
 msgstr "دیدن پیشخوان"
 
-#: includes/modules/site.php:213
+#: includes/modules/site.php:195
 msgctxt "Modules: Site:‌ User Sites"
 msgid "View Site"
 msgstr "نمایش سایت"
 
-#: includes/modules/site.php:248
+#: includes/modules/site.php:224
 msgctxt "Modules: Site:‌ Initial Page Content"
 msgid "[ This page is being completed ]"
 msgstr "[این صفحه در حال آماده‌سازی است.]"
@@ -4884,78 +5485,78 @@ msgctxt "Modules: Support"
 msgid "In order to change that please visit your profile page."
 msgstr ""
 
-#: includes/modules/taxonomy.php:31
+#: includes/modules/taxonomy.php:32
 msgctxt "Modules: Menu Name"
 msgid "Taxonomy"
 msgstr "رده‌بندی"
 
-#: includes/modules/taxonomy.php:53
+#: includes/modules/taxonomy.php:54
 msgctxt "Modules: Taxonomy: Settings"
 msgid "Management Tools"
 msgstr "ابزارهای مدیریت"
 
-#: includes/modules/taxonomy.php:54
+#: includes/modules/taxonomy.php:55
 msgctxt "Modules: Taxonomy: Settings"
 msgid ""
 "Allows you to merge terms, set term parents in bulk, and swap term taxonomies."
 msgstr ""
 
-#: includes/modules/taxonomy.php:59
+#: includes/modules/taxonomy.php:60
 msgctxt "Modules: Taxonomy: Settings"
 msgid "Slug Actions"
 msgstr "گزینه‌های نامک"
 
-#: includes/modules/taxonomy.php:60
+#: includes/modules/taxonomy.php:61
 msgctxt "Modules: Taxonomy: Settings"
 msgid "Adds slug specific actions on the taxonomy management tools."
 msgstr ""
 
-#: includes/modules/taxonomy.php:64
+#: includes/modules/taxonomy.php:65
 msgctxt "Modules: Taxonomy: Settings"
 msgid "Description Editor"
 msgstr "ویرایشگر توضیحات"
 
-#: includes/modules/taxonomy.php:65
+#: includes/modules/taxonomy.php:66
 msgctxt "Modules: Taxonomy: Settings"
 msgid "Replaces the term description editor with the WordPress TinyMCE editor."
 msgstr ""
 
-#: includes/modules/taxonomy.php:69
+#: includes/modules/taxonomy.php:70
 msgctxt "Modules: Taxonomy: Settings"
 msgid "Description Column"
 msgstr "ستون توضیحات"
 
-#: includes/modules/taxonomy.php:70
+#: includes/modules/taxonomy.php:71
 msgctxt "Modules: Taxonomy: Settings"
 msgid "Adds description column to term list table and quick edit."
 msgstr ""
 
-#: includes/modules/taxonomy.php:75
+#: includes/modules/taxonomy.php:76
 msgctxt "Modules: Taxonomy: Settings"
 msgid "Search Fields"
 msgstr "جست‌وجو در فیلد‌ها"
 
-#: includes/modules/taxonomy.php:76
+#: includes/modules/taxonomy.php:77
 msgctxt "Modules: Taxonomy: Settings"
 msgid "Looks for criteria in term descriptions and slugs as well as term names."
 msgstr ""
 
-#: includes/modules/taxonomy.php:149
+#: includes/modules/taxonomy.php:152
 msgctxt "Modules: Taxonomy: Column"
 msgid "Description"
 msgstr "توضیحات"
 
-#: includes/modules/taxonomy.php:177
+#: includes/modules/taxonomy.php:180
 msgctxt "Modules: Taxonomy: Quick Edit Label"
 msgid "Description"
 msgstr "توضیحات"
 
-#: includes/modules/taxonomy.php:246, includes/modules/taxonomy.php:263
+#: includes/modules/taxonomy.php:242, includes/modules/taxonomy.php:276
 msgctxt "Modules: Taxonomy"
 msgid "Description"
 msgstr "توضیحات"
 
-#: includes/modules/taxonomy.php:248, includes/modules/taxonomy.php:265
+#: includes/modules/taxonomy.php:249, includes/modules/taxonomy.php:283
 msgctxt "Modules: Taxonomy"
 msgid ""
 "The description is not prominent by default; however, some themes may show it."
@@ -4963,242 +5564,252 @@ msgstr ""
 "توضیحات به صورت پیش فرض مهم نیستند، با این حال برخی از پوسته‌ها ممکن است آنها را "
 "نمایش دهند."
 
-#: includes/modules/taxonomy.php:287
+#: includes/modules/taxonomy.php:294
+msgctxt "Modules: Taxonomy"
+msgid "Words: %s"
+msgstr "واژه‌ها: %s"
+
+#: includes/modules/taxonomy.php:296
+msgctxt "Modules: Taxonomy"
+msgid "Chars: %s"
+msgstr "نویسه‌ها: %s"
+
+#: includes/modules/taxonomy.php:314
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Set Parent"
 msgstr "تغییر مادر"
 
-#: includes/modules/taxonomy.php:289
+#: includes/modules/taxonomy.php:316
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Merge"
 msgstr "ترکیب رده‌بندی"
 
-#: includes/modules/taxonomy.php:290
+#: includes/modules/taxonomy.php:317
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Change Taxonomy"
 msgstr "تغییر رده‌بندی"
 
-#: includes/modules/taxonomy.php:291
+#: includes/modules/taxonomy.php:318
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Format i18n"
 msgstr "اصلاح نویسه‌ها"
 
-#: includes/modules/taxonomy.php:292
+#: includes/modules/taxonomy.php:319
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Empty Posts"
 msgstr "خالی کردن نوشته‌ها"
 
-#: includes/modules/taxonomy.php:293
+#: includes/modules/taxonomy.php:320
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Empty Description"
 msgstr "خالی کردن توضیحات"
 
-#: includes/modules/taxonomy.php:296
+#: includes/modules/taxonomy.php:323
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Rewrite Slug"
 msgstr "بازنویسی نامک"
 
-#: includes/modules/taxonomy.php:297
+#: includes/modules/taxonomy.php:324
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Transliterate Slug"
 msgstr "نویسه‌گردانی نامک"
 
-#: includes/modules/taxonomy.php:389
+#: includes/modules/taxonomy.php:416
 msgctxt "Settings: Message"
 msgid "Terms updated."
 msgstr "رده‌بندی‌ها به‌روز شدند."
 
-#: includes/modules/taxonomy.php:394
+#: includes/modules/taxonomy.php:421
 msgctxt "Settings: Message"
 msgid "Terms not updated."
 msgstr "رده‌بندی‌ها به‌روز نشده‌اند."
 
-#: includes/modules/taxonomy.php:628
+#: includes/modules/taxonomy.php:655
 msgctxt "Modules: Taxonomy"
 msgid "into: %s"
 msgstr "در: %s"
 
-#: includes/modules/themes.php:59
+#: includes/modules/themes.php:62
 msgctxt "Modules: Menu Name"
 msgid "Themes"
 msgstr "پوسته‌ها"
 
-#: includes/modules/themes.php:81
+#: includes/modules/themes.php:84
 msgctxt "Modules: Themes: Settings"
 msgid "jQuery from CDN"
 msgstr "جی‌کوئری از CDN"
 
-#: includes/modules/themes.php:82
+#: includes/modules/themes.php:85
 msgctxt "Modules: Themes: Settings"
 msgid "Replace WordPress jQuery with CDN"
 msgstr "جایگزینی جی‌کوئری داخلی وردپرس با پیوند‌ی از CDN"
 
-#: includes/modules/themes.php:86
+#: includes/modules/themes.php:89
 msgctxt "Modules: Themes: Settings"
 msgid "jQuery on Bottom"
 msgstr "جی‌کوئری در پایین صفحه"
 
-#: includes/modules/themes.php:87
+#: includes/modules/themes.php:90
 msgctxt "Modules: Themes: Settings"
 msgid "Prints jQuery in footer on front-end"
 msgstr "درخواست جی‌کوئری در انتهای صفحه HTML"
 
-#: includes/modules/themes.php:91
+#: includes/modules/themes.php:94
 msgctxt "Modules: Themes: Settings"
 msgid "Theme Enhancements"
 msgstr "بهینه‌سازی پوسته‌ها"
 
-#: includes/modules/themes.php:92
+#: includes/modules/themes.php:95
 msgctxt "Modules: Themes: Settings"
 msgid "Extra styles and more for suported themes"
 msgstr ""
 
-#: includes/modules/themes.php:97
+#: includes/modules/themes.php:100
 msgctxt "Modules: Themes: Settings"
 msgid "Content Actions"
 msgstr ""
 
-#: includes/modules/themes.php:98
+#: includes/modules/themes.php:101
 msgctxt "Modules: Themes: Settings"
 msgid "Extra hooks before and after post content"
 msgstr ""
 
-#: includes/modules/themes.php:105
+#: includes/modules/themes.php:108
 msgctxt "Modules: Themes: Settings"
 msgid "Body Class"
 msgstr "کلاس CSS برای Body"
 
-#: includes/modules/themes.php:106
+#: includes/modules/themes.php:109
 msgctxt "Modules: Themes: Settings"
 msgid "This will be added as HTML body class to all pages on front-end"
 msgstr ""
 
-#: includes/modules/themes.php:543
+#: includes/modules/themes.php:573
 msgctxt "Modules: Themes"
 msgid "Read more&nbsp;<span class=\"excerpt-link-hellip\">&hellip;</span>"
 msgstr "ادامه&nbsp;<span class=\"excerpt-link-hellip\">&hellip;</span>"
 
-#: includes/modules/themes.php:544
+#: includes/modules/themes.php:574
 msgctxt "Modules: Themes"
 msgid "Continue reading &ldquo;%s&rdquo; &hellip;"
 msgstr "ادامهٔ &raquo;%s&laquo; را مطالعه کنید &hellip;"
 
-#: includes/modules/themes.php:551
+#: includes/modules/themes.php:581
 msgctxt "Modules: Themes"
 msgid "by %s"
 msgstr "%s"
 
-#: includes/modules/themes.php:552
+#: includes/modules/themes.php:582
 msgctxt "Modules: Themes"
 msgid "View all posts by %s"
 msgstr "دیدن همه‌ی نوشته‌های %s"
 
-#: includes/modules/tracking.php:31
+#: includes/modules/tracking.php:33
 msgctxt "Modules: Menu Name"
 msgid "Tracking"
 msgstr "پیگردی"
 
-#: includes/modules/tracking.php:58
+#: includes/modules/tracking.php:60
 msgctxt "Modules: Tracking: Settings"
 msgid "Ignore Users"
 msgstr ""
 
-#: includes/modules/tracking.php:59
+#: includes/modules/tracking.php:61
 msgctxt "Modules: Tracking: Settings"
 msgid "Selected and above will be ignored"
 msgstr ""
 
-#: includes/modules/tracking.php:65
+#: includes/modules/tracking.php:67
 msgctxt "Modules: Tracking: Settings"
 msgid "Primary Domain Name"
 msgstr ""
 
-#: includes/modules/tracking.php:66
+#: includes/modules/tracking.php:68
 msgctxt "Modules: Tracking: Settings"
 msgid "Network primary domain name"
 msgstr ""
 
-#: includes/modules/tracking.php:74
+#: includes/modules/tracking.php:76
 msgctxt "Modules: Tracking: Settings"
 msgid "GA Domain Name"
 msgstr ""
 
-#: includes/modules/tracking.php:75
+#: includes/modules/tracking.php:77
 msgctxt "Modules: Tracking: Settings"
 msgid "Network Google Analytics domain name or just <code>auto</code>"
 msgstr ""
 
-#: includes/modules/tracking.php:83
+#: includes/modules/tracking.php:85
 msgctxt "Modules: Tracking: Settings"
 msgid "GA Account"
 msgstr ""
 
-#: includes/modules/tracking.php:84
+#: includes/modules/tracking.php:86
 msgctxt "Modules: Tracking: Settings"
 msgid "Network Google Analytics account number"
 msgstr ""
 
-#: includes/modules/tracking.php:91
+#: includes/modules/tracking.php:93
 msgctxt "Modules: Tracking: Settings"
 msgid "GA Beacon"
 msgstr ""
 
-#: includes/modules/tracking.php:92
+#: includes/modules/tracking.php:94
 msgctxt "Modules: Tracking: Settings"
 msgid "Network Google Analytics Beacon account number"
 msgstr ""
 
-#: includes/modules/tracking.php:99
+#: includes/modules/tracking.php:101
 msgctxt "Modules: Tracking: Settings"
 msgid "GA Track UserID"
 msgstr ""
 
-#: includes/modules/tracking.php:100
+#: includes/modules/tracking.php:102
 msgctxt "Modules: Tracking: Settings"
 msgid "Track usernames in Google Analytics"
 msgstr ""
 
-#: includes/modules/tracking.php:106
+#: includes/modules/tracking.php:108
 msgctxt "Modules: Tracking: Settings"
 msgid "GA Track Outbounds"
 msgstr ""
 
-#: includes/modules/tracking.php:107
+#: includes/modules/tracking.php:109
 msgctxt "Modules: Tracking: Settings"
 msgid "Track outbound links in Google Analytics"
 msgstr ""
 
-#: includes/modules/tracking.php:112
+#: includes/modules/tracking.php:114
 msgctxt "Modules: Tracking: Settings"
 msgid "Quantcast"
 msgstr ""
 
-#: includes/modules/tracking.php:113
+#: includes/modules/tracking.php:115
 msgctxt "Modules: Tracking: Settings"
 msgid "Network Quantcast P-Code"
 msgstr ""
 
-#: includes/modules/tracking.php:121
+#: includes/modules/tracking.php:123
 msgctxt "Modules: Tracking: Settings"
 msgid "GP Publisher ID"
 msgstr ""
 
-#: includes/modules/tracking.php:122
+#: includes/modules/tracking.php:124
 msgctxt "Modules: Tracking: Settings"
 msgid "Network Google+ publisher id"
 msgstr ""
 
-#: includes/modules/tracking.php:129
+#: includes/modules/tracking.php:131
 msgctxt "Modules: Tracking: Settings"
 msgid "Twitter Account"
 msgstr "حساب توییتر"
 
-#: includes/modules/tracking.php:130
+#: includes/modules/tracking.php:132
 msgctxt "Modules: Tracking: Settings"
 msgid "Network site twitter account"
 msgstr ""
 
-#: includes/modules/tracking.php:346
+#: includes/modules/tracking.php:371
 msgctxt "Modules: Tracking"
 msgid "Follow Us"
 msgstr "دنبال کنید"
@@ -5248,107 +5859,137 @@ msgctxt "Modules: Typography: Settings"
 msgid "Prevents widow words in the end of post titles."
 msgstr ""
 
-#: includes/modules/typography.php:148
+#: includes/modules/typography.php:149
 msgctxt "TinyMCE Strings: Asterisks"
 msgid "Asterisks"
 msgstr "ستاره‌ها"
 
-#: includes/modules/typography.php:150, includes/modules/typography.php:151
+#: includes/modules/typography.php:151, includes/modules/typography.php:152
 msgctxt "TinyMCE Strings: Quote"
 msgid "Quote This"
 msgstr "نقل کن"
 
-#: includes/modules/typography.php:152
+#: includes/modules/typography.php:153
 msgctxt "TinyMCE Strings: Quote"
 msgid "Quote Text"
 msgstr "متن نقل"
 
-#: includes/modules/typography.php:153
+#: includes/modules/typography.php:154
 msgctxt "TinyMCE Strings: Quote"
 msgid "Cite Text"
 msgstr "عنوان منبع"
 
-#: includes/modules/typography.php:154
+#: includes/modules/typography.php:155
 msgctxt "TinyMCE Strings: Quote"
 msgid "Cite URL"
 msgstr "نشانی منبع"
 
-#: includes/modules/typography.php:155
+#: includes/modules/typography.php:156
 msgctxt "TinyMCE Strings: Quote"
 msgid "Quote Align"
 msgstr "تراز متن"
 
-#: includes/modules/typography.php:156
+#: includes/modules/typography.php:157
 msgctxt "TinyMCE Strings: Quote"
 msgid "Epigraph"
 msgstr "سرلوحه (اپیگراف)"
 
-#: includes/modules/typography.php:157
+#: includes/modules/typography.php:158
 msgctxt "TinyMCE Strings: Quote"
 msgid "Reverse"
 msgstr "معکوس"
 
-#: includes/modules/typography.php:190
+#: includes/modules/typography.php:191
 msgctxt "Modules: Typography: Shortcode Defaults"
 msgid "View Wikipedia page"
 msgstr "دیدن صفحه ویکی‌پدیا"
 
-#: includes/modules/update.php:53
+#: includes/modules/update.php:55
 msgctxt "Modules: Menu Name"
 msgid "Update"
+msgstr "به‌روزرسانی"
+
+#: includes/modules/update.php:77
+msgctxt "Modules: Update: Settings"
+msgid "Auto Update Core"
 msgstr ""
 
 #: includes/modules/update.php:78
 msgctxt "Modules: Update: Settings"
-msgid "Remote Updates"
+msgid "Disables automatic updates of the WordPress core."
 msgstr ""
 
-#: includes/modules/update.php:79
+#: includes/modules/update.php:83
 msgctxt "Modules: Update: Settings"
-msgid "Enables to check for updates on Github and Gitlab."
+msgid "Auto and Async Translations"
 msgstr ""
 
 #: includes/modules/update.php:84
 msgctxt "Modules: Update: Settings"
+msgid "Disables asynchronous and automatic background translation updates."
+msgstr ""
+
+#: includes/modules/update.php:92
+msgctxt "Modules: Update: Settings"
+msgid "Remote Updates"
+msgstr ""
+
+#: includes/modules/update.php:93
+msgctxt "Modules: Update: Settings"
+msgid "Enables to check for updates on Github and Gitlab."
+msgstr ""
+
+#: includes/modules/update.php:109
+msgctxt "Modules: Update: Settings"
 msgid "Service Tokens"
 msgstr ""
 
-#: includes/modules/update.php:85
+#: includes/modules/update.php:110
 msgctxt "Modules: Update: Settings"
 msgid "Tokens to access external services."
 msgstr ""
 
-#: includes/modules/update.php:88
+#: includes/modules/update.php:113
 msgctxt "Modules: Update: Settings"
 msgid "Github"
 msgstr ""
 
-#: includes/modules/update.php:89
+#: includes/modules/update.php:114
 msgctxt "Modules: Update: Settings"
 msgid "Gitlab"
 msgstr ""
 
-#: includes/modules/update.php:95
+#: includes/modules/update.php:121
 msgctxt "Modules: Update: Settings"
 msgid "Package Tokens"
 msgstr ""
 
-#: includes/modules/update.php:96
+#: includes/modules/update.php:122
 msgctxt "Modules: Update: Settings"
 msgid "Tokens to access specefic packages."
 msgstr ""
 
-#: includes/modules/update.php:110
+#: includes/modules/update.php:133
+msgctxt "Modules: Update: Settings"
+msgid "Remote"
+msgstr ""
+
+#: includes/modules/update.php:134
+msgctxt "Modules: Update: Settings"
+msgid "Updates themes and plugins from a remote repository."
+msgstr ""
+
+#: includes/modules/update.php:144
 msgctxt "Modules: Update"
 msgid "Refresh Packages"
 msgstr ""
 
-#: includes/modules/update.php:111
+#: includes/modules/update.php:145
 msgctxt "Modules: Update"
 msgid "Regenerates package informations."
 msgstr ""
 
-#: includes/modules/update.php:115
+#: includes/modules/update.php:149
 msgctxt "Modules: Update"
 msgid "Remote updates are disabled."
 msgstr ""
@@ -5418,191 +6059,176 @@ msgctxt "Modules: Uptime"
 msgid "Started"
 msgstr "آغاز شده"
 
-#: includes/modules/uptime.php:143, includes/modules/uptime.php:193
+#: includes/modules/uptime.php:143, includes/modules/uptime.php:195
 msgctxt "Modules: Uptime"
 msgid "Unknown!"
 msgstr "ناشناخته!"
 
-#: includes/modules/uptime.php:184
+#: includes/modules/uptime.php:186
 msgctxt "Modules: Uptime"
 msgid "Something is wrong with UptimeRobot.com API!"
 msgstr ""
 
-#: includes/modules/uptime.php:187
+#: includes/modules/uptime.php:189
 msgctxt "Modules: Uptime"
 msgid "UptimeRobot.com API: %s"
 msgstr ""
 
-#: includes/modules/user.php:62
+#: includes/modules/user.php:65
 msgctxt "Modules: Menu Name"
 msgid "User"
 msgstr "کاربر"
 
-#: includes/modules/user.php:68
+#: includes/modules/user.php:71
 msgctxt "Modules: Menu Name"
 msgid "Roles"
 msgstr "نقش‌ها"
 
-#: includes/modules/user.php:97
+#: includes/modules/user.php:101
 msgctxt "Modules: User: Settings"
-msgid "Blog Roles"
-msgstr ""
-
-#: includes/modules/user.php:98
-msgctxt "Modules: User: Settings"
-msgid "Automatically adds each user to blogs"
+msgid "Site User ID"
 msgstr ""
 
 #: includes/modules/user.php:102
 msgctxt "Modules: User: Settings"
-msgid "Administrator User Edit"
-msgstr ""
-
-#: includes/modules/user.php:103
-msgctxt "Modules: User: Settings"
-msgid "Allows site administrators to edit users of their sites."
-msgstr ""
-
-#: includes/modules/user.php:107
-msgctxt "Modules: User: Settings"
-msgid "Contact Methods"
+msgid "ID of site user for the network."
 msgstr ""
 
 #: includes/modules/user.php:108
 msgctxt "Modules: User: Settings"
-msgid "Adds extra contact methods to user profiles"
+msgid "Site User Role"
 msgstr ""
 
-#: includes/modules/user.php:113
+#: includes/modules/user.php:109
 msgctxt "Modules: User: Settings"
-msgid "User Language"
-msgstr "زبان کاربر"
-
-#: includes/modules/user.php:114
-msgctxt "Modules: User: Settings"
-msgid "User admin language switcher"
+msgid "Default site user role for new sites on the network."
 msgstr ""
 
-#: includes/modules/user.php:119
+#: includes/modules/user.php:121
 msgctxt "Modules: User: Settings"
-msgid "Dashboard Sites"
+msgid "Blog Roles"
 msgstr ""
 
-#: includes/modules/user.php:120
+#: includes/modules/user.php:122
 msgctxt "Modules: User: Settings"
-msgid "Displays current user list of sites on the user dashboard."
+msgid "Automatically adds each user to blogs"
 msgstr ""
 
-#: includes/modules/user.php:124
+#: includes/modules/user.php:126
 msgctxt "Modules: User: Settings"
-msgid "Dashboard User Menu"
+msgid "Administrator User Edit"
 msgstr ""
 
-#: includes/modules/user.php:125
+#: includes/modules/user.php:127
 msgctxt "Modules: User: Settings"
-msgid "Displays global user menu navigation on the user dashboard."
+msgid "Allows site administrators to edit users of their sites."
 msgstr ""
 
 #: includes/modules/user.php:131
 msgctxt "Modules: User: Settings"
-msgid "Display ToS"
+msgid "Dashboard Sites"
+msgstr ""
+
+#: includes/modules/user.php:132
+msgctxt "Modules: User: Settings"
+msgid "Displays current user list of sites on the user dashboard."
 msgstr ""
 
 #: includes/modules/user.php:136
 msgctxt "Modules: User: Settings"
-msgid "ToS Title"
+msgid "Dashboard User Menu"
 msgstr ""
 
 #: includes/modules/user.php:137
 msgctxt "Modules: User: Settings"
+msgid "Displays global user menu navigation on the user dashboard."
+msgstr ""
+
+#: includes/modules/user.php:143
+msgctxt "Modules: User: Settings"
+msgid "Display ToS"
+msgstr ""
+
+#: includes/modules/user.php:148
+msgctxt "Modules: User: Settings"
+msgid "ToS Title"
+msgstr ""
+
+#: includes/modules/user.php:149
+msgctxt "Modules: User: Settings"
 msgid "Section Title, Usually : Terms of Service"
 msgstr ""
 
-#: includes/modules/user.php:138, includes/modules/user.php:177
+#: includes/modules/user.php:150, includes/modules/user.php:188
 msgctxt "Modules: User: Settings"
 msgid "Terms of Service"
 msgstr ""
 
-#: includes/modules/user.php:144
+#: includes/modules/user.php:155
 msgctxt "Modules: User: Settings"
 msgid "ToS Link"
 msgstr ""
 
-#: includes/modules/user.php:145
+#: includes/modules/user.php:156
 msgctxt "Modules: User: Settings"
 msgid "URL for section title link to actual agreement text"
 msgstr ""
 
-#: includes/modules/user.php:150
+#: includes/modules/user.php:161
 msgctxt "Modules: User: Settings"
 msgid "ToS Text"
 msgstr ""
 
-#: includes/modules/user.php:151
+#: includes/modules/user.php:162
 msgctxt "Modules: User: Settings"
 msgid "Full text of the agreement"
 msgstr ""
 
-#: includes/modules/user.php:157
+#: includes/modules/user.php:168
 msgctxt "Modules: User: Settings"
 msgid "ToS Label"
 msgstr ""
 
-#: includes/modules/user.php:158
+#: includes/modules/user.php:169
 msgctxt "Modules: User: Settings"
 msgid "Label next to the mandatory checkbox, below full text"
 msgstr ""
 
-#: includes/modules/user.php:159
+#: includes/modules/user.php:170
 msgctxt "Modules: User: Settings"
 msgid ""
 "By checking the Terms of Service Box you have read and agree to all the "
 "Policies set forth in this site's Terms of Service."
 msgstr ""
 
-#: includes/modules/user.php:165
+#: includes/modules/user.php:176
 msgctxt "Modules: User: Settings"
 msgid "ToS Must"
 msgstr ""
 
-#: includes/modules/user.php:166
+#: includes/modules/user.php:177
 msgctxt "Modules: User: Settings"
 msgid "Error message upon not checking the box"
 msgstr ""
 
-#: includes/modules/user.php:167
+#: includes/modules/user.php:178
 msgctxt "Modules: User: Settings"
 msgid ""
 "You have to accept our terms of service. Otherwise we cannot register you on "
 "our site."
 msgstr ""
 
-#: includes/modules/user.php:178
+#: includes/modules/user.php:189
 msgctxt "Modules: User: Settings"
 msgid "ToS Settings on Registration Page"
 msgstr ""
 
-#: includes/modules/user.php:187
-msgctxt "Modules: User"
-msgid "Export Users"
-msgstr "برون‌بری کاربران"
-
-#: includes/modules/user.php:188
-msgctxt "Modules: User"
-msgid "Get all users in a CSV file."
-msgstr "دریافت فهرست همه کاربران در یک پرونده CSV."
-
-#: includes/modules/user.php:198
-msgctxt "Modules: User: Help Tab Title"
-msgid "Contact Methods"
-msgstr "راه‌های ارتباطی"
-
-#: includes/modules/user.php:276
+#: includes/modules/user.php:255
 msgctxt "Modules: User: Settings"
 msgid "Default User Roles"
 msgstr ""
 
-#: includes/modules/user.php:277
+#: includes/modules/user.php:256
 msgctxt "Modules: User: Settings"
 msgid ""
 "New users will receive these roles when activating their account. Existing "
@@ -5610,60 +6236,77 @@ msgid ""
 "role at all for each particular site."
 msgstr ""
 
-#: includes/modules/user.php:296
+#: includes/modules/user.php:275
 msgctxt "Modules: User: Settings"
 msgid "View Users List"
 msgstr ""
 
-#: includes/modules/user.php:306
+#: includes/modules/user.php:285
 msgctxt "Modules: User: Settings"
 msgid "<b>Note:</b> only public, non-mature and non-dashboard sites appear here."
 msgstr ""
 
-#: includes/modules/user.php:312
+#: includes/modules/user.php:291
 msgctxt "Modules: User: Settings"
 msgid "Also Update Current Users Roles"
 msgstr ""
 
-#: includes/modules/user.php:323, includes/modules/user.php:351
+#: includes/modules/user.php:302, includes/modules/user.php:330
 msgctxt "Modules: User: Page Menu"
 msgid "Network Extras"
 msgstr "افزوده‌های شبکه"
 
-#: includes/modules/user.php:324
+#: includes/modules/user.php:303
 msgctxt "Modules: User: Page Menu"
 msgid "Extras"
 msgstr "افزوده‌ها"
 
-#: includes/modules/user.php:337
+#: includes/modules/user.php:316
 msgctxt "Modules: User: Page Menu"
 msgid "gNetwork Extras: %s"
 msgstr "%s"
 
-#: includes/modules/user.php:432
-msgctxt "Modules: User: User Contact Method"
-msgid "Mobile Phone"
-msgstr "تلفن همراه"
-
-#: includes/modules/user.php:433
-msgctxt "Modules: User: User Contact Method"
-msgid "Twitter"
-msgstr "توییتر"
-
-#: includes/modules/user.php:434
-msgctxt "Modules: User: User Contact Method"
-msgid "Facebook"
-msgstr "فیس‌بوک"
-
-#: includes/modules/user.php:435
-msgctxt "Modules: User: User Contact Method"
-msgid "Google+"
-msgstr "گوگل+"
-
-#: includes/modules/user.php:625
+#: includes/modules/user.php:560
 msgctxt "Modules: User"
 msgid "Read the full agreement"
 msgstr "متن کامل را مطالعه کنید"
+
+#: includes/modules/user.php:647
+msgctxt "Modules: User"
+msgid "Marked as Spam <span class=\"count\">(%s)</span>"
+msgid_plural "Marked as Spams <span class=\"count\">(%s)</span>"
+msgstr[0] "جفنگ <span class=\"count\">(%s)</span>"
+msgstr[1] ""
+
+#: includes/modules/user.php:649
+msgctxt "Modules: User"
+msgid "Marked as Spam"
+msgstr "نشان‌گذاری به عنوان جفنگ"
+
+#: includes/modules/user.php:679
+msgctxt "Modules: User"
+msgid "Timestamps"
+msgstr ""
+
+#: includes/modules/user.php:699
+msgctxt "Modules: User"
+msgid "Registered"
+msgstr "نام‌نویسی"
+
+#: includes/modules/user.php:703
+msgctxt "Modules: User"
+msgid "Last Login"
+msgstr "آخرین ورود"
+
+#: includes/modules/user.php:713
+msgctxt "Modules: User"
+msgid "Last Activity"
+msgstr "آخرین فعالیت"
+
+#: includes/modules/user.php:721
+msgctxt "Modules: User"
+msgid "Register IP"
+msgstr "آی‌پی نام‌نویسی"
 
 #: includes/modules/widgets.php:37
 msgctxt "Modules: Menu Name"
@@ -5687,7 +6330,7 @@ msgstr "ابزارک‌های ستون‌کناری"
 
 #: includes/modules/widgets.php:64
 msgctxt "Modules: Widgets: Settings"
-msgid "Choose the Sidebar Widgets You Would Like to Disable"
+msgid "Choose the sidebar widgets you would like to <b>disable</b>."
 msgstr ""
 
 #: includes/modules/widgets.php:70
@@ -5697,7 +6340,7 @@ msgstr "ابزارک‌های پیشخوان"
 
 #: includes/modules/widgets.php:71
 msgctxt "Modules: Widgets: Settings"
-msgid "Choose the Dashboard Widgets You Would Like to Disable"
+msgid "Choose the dashboard widgets you would like to <b>disable</b>."
 msgstr ""
 
 #: includes/providers/box.php:26
@@ -5708,7 +6351,7 @@ msgstr ""
 #: includes/providers/box.php:43
 msgctxt "Provider: Box"
 msgid "API Key"
-msgstr ""
+msgstr "کلید API"
 
 #: includes/providers/box.php:44
 msgctxt "Provider: Box"
@@ -5933,6 +6576,86 @@ msgstr "پیگیری: کوانت‌کست"
 msgctxt "Widget: Description"
 msgid "Simple Quantcast Data Badge"
 msgstr "نشان ساده داده‌های کوانت‌کست"
+
+#~ msgctxt "Modules: User: Settings"
+#~ msgid "User Language"
+#~ msgstr "زبان کاربر"
+
+#~ msgctxt "Modules: User"
+#~ msgid "Export Users"
+#~ msgstr "برون‌بری کاربران"
+
+#~ msgctxt "Modules: User"
+#~ msgid "Get all users in a CSV file."
+#~ msgstr "دریافت فهرست همه کاربران در یک پرونده CSV."
+
+#~ msgctxt "Modules: User: Help Tab Title"
+#~ msgid "Contact Methods"
+#~ msgstr "راه‌های ارتباطی"
+
+#~ msgctxt "Modules: Comments: Settings"
+#~ msgid "Archived Comments"
+#~ msgstr "بایگانی برای دیدگاه‌ها"
+
+#~ msgctxt "Modules: Comments: Bulk Action"
+#~ msgid "Move from Archives"
+#~ msgstr "خروج از بایگانی"
+
+#~ msgctxt "Modules: Comments: Bulk Action"
+#~ msgid "Move to Archives"
+#~ msgstr "ارسال به بایگانی"
+
+#~ msgctxt "Modules: Taxonomy"
+#~ msgid "Characters: %s"
+#~ msgstr "نویسه‌ها: %s"
+
+#~ msgctxt "Modules: Comments: Action Title Attr"
+#~ msgid "Move this comment to the Archives"
+#~ msgstr "جابه‌جایی این دیدگاه به بایگانی"
+
+#~ msgctxt "Modules: Comments: Action"
+#~ msgid "Archive"
+#~ msgstr "بایگانی"
+
+#~ msgctxt "Modules: Comments: Action Title Attr"
+#~ msgid "Move back this comment from the Archives"
+#~ msgstr "بازگردانی این دیدگاه از بایگانی"
+
+#~ msgctxt "Modules: Comments: Action"
+#~ msgid "Unarchive"
+#~ msgstr "نابایگانی"
+
+#~ msgctxt "Modules: Comments: Status Link Title Attr"
+#~ msgid "All Archived Comments"
+#~ msgstr "همه‌ی دیدگاه‌های بایگانی‌شده"
+
+#~ msgctxt "Modules: Comments: Status Link"
+#~ msgid "Archives"
+#~ msgstr "بایگانی"
+
+#~ msgctxt "Modules: Comments"
+#~ msgid "Archived"
+#~ msgstr "بایگانی‌شده"
+
+#~ msgctxt "Modules: Maintenance: Settings"
+#~ msgid "The Maintenance Mode is active."
+#~ msgstr "حالت نگه‌داشت فعال است."
+
+#~ msgctxt "Modules: Maintenance: Settings"
+#~ msgid "The site is unavailable for scheduled maintenance."
+#~ msgstr "سایت برای اجرای تعمیرات در دسترس نیست."
+
+#~ msgctxt "Modules: Admin: Site Overview"
+#~ msgid "Upload Directories"
+#~ msgstr "پوشه‌های بارگذاری"
+
+#~ msgctxt "Modules: Admin: Localize Script"
+#~ msgid "Metaboxes"
+#~ msgstr "جعبه‌ها"
+
+#~ msgctxt "Modules: Site: Settings"
+#~ msgid "Page for Signup"
+#~ msgstr "برگه نام‌نویسی"
 
 #~ msgctxt "Modules: Notify: Settings"
 #~ msgid "New User"
