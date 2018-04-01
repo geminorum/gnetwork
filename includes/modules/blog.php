@@ -577,6 +577,9 @@ class Blog extends gNetwork\Module
 
 	public function wp_head()
 	{
+		$mainsite = is_main_site();
+		$singular = is_singular();
+
 		if ( $color = gNetwork()->option( 'theme_color', 'branding', $this->options['theme_color'] ) ) {
 			echo '<meta name="theme-color" content="'.$color.'" />'."\n";
 			echo '<meta name="msapplication-navbutton-color" content="'.$color.'">'."\n";
@@ -584,17 +587,23 @@ class Blog extends gNetwork\Module
 			echo '<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">'."\n";
 		}
 
+		if ( gNetwork()->option( 'opensearch', 'opensearch' ) )
+			gNetwork()->opensearch->do_link_tag();
+
+		if ( $mainsite && gNetwork()->option( 'webapp_manifest', 'branding' ) )
+			gNetwork()->branding->do_link_tag();
+
 		if ( $this->options['page_copyright'] )
 			echo '<link rel="copyright" href="'.get_page_link( $this->options['page_copyright'] ).'" />'."\n";
 
-		if ( $this->options['meta_revised'] && is_singular() )
+		if ( $this->options['meta_revised'] && $singular )
 			echo '<meta name="revised" content="'.get_post_modified_time( 'D, m M Y G:i:s', TRUE ).'" />'."\n";
 
 		if ( $this->options['noindex_attachments'] && is_attachment() )
 			echo '<meta name="robots" content="noindex,nofollow" />'."\n";
 
 		// @REF: http://universaleditbutton.org/WordPress_plugin
-		if ( is_singular() && ( $edit = get_edit_post_link() ) )
+		if ( $singular && ( $edit = get_edit_post_link() ) )
 			echo '<link rel="alternate" type="application/x-wiki" title="'._x( 'Edit this page', 'Modules: Blog', GNETWORK_TEXTDOMAIN ).'" href="'.HTML::escapeURL( $edit ).'" />'."\n";
 
 		if ( defined( 'GNETWORK_DISABLE_FRONT_STYLES' )

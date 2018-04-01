@@ -18,7 +18,6 @@ class Branding extends gNetwork\Module
 			$this->filter( 'get_site_icon_url', 3 );
 
 		if ( $this->options['webapp_manifest'] && ! is_admin() && is_main_site() ) {
-			$this->action( 'wp_head' );
 			$this->action( 'parse_request', 1, 1 );
 			$this->filter( 'redirect_canonical', 2 );
 		}
@@ -168,9 +167,11 @@ class Branding extends gNetwork\Module
 		}
 	}
 
-	public function wp_head()
+	public function do_link_tag()
 	{
-		echo '<link rel="manifest" href="'.$this->url_manifest().'" />'."\n";
+		// opensignal will include the tag
+		if ( ! defined( 'ONESIGNAL_PLUGIN_URL' ) )
+			echo '<link rel="manifest" href="'.$this->url_manifest().'" />'."\n";
 	}
 
 	public function parse_request( $request )
