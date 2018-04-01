@@ -75,6 +75,21 @@ body.rtl {
     input#post_name {
       direction: ltr;
     }
+
+    // added by p2p
+    .tabs-panel {
+      border-radius: 0;
+    }
+  }
+
+  .timestamp-wrap {
+    #jj,
+    #aa,
+    #hh,
+    #mn {
+      direction: ltr;
+      text-align: center;
+    }
   }
 
   //////////////////////////////////////////////////////////////////////////////
@@ -172,15 +187,6 @@ body.rtl {
     }
   }
 
-  #poststuff {
-
-    // added by p2p
-    .tabs-panel {
-      // border-radius: 3px 0 3px 3px;
-      border-radius: 0;
-    }
-  }
-
   .mce-menubtn.mce-fixed-width span {
     text-align: right;
   }
@@ -203,7 +209,7 @@ body.rtl {
           font-size: 0.95em;
           margin-bottom: 0.5em;
 
-          span.approve:before {
+          span.approve::before {
             @include theme-transform-flip-horizontal;
             display: inline-block;
           }
@@ -257,7 +263,7 @@ body.rtl {
     }
   }
 
-  #dashboard_activity {}
+  // #dashboard_activity {}
 
   // Google Analytics Dashboard
   #gadash-widget {
@@ -359,11 +365,11 @@ body.rtl {
   .misc-pub-section.misc-pub-codec > strong,
   .misc-pub-section.misc-pub-filetype > strong {
     // FIXME: make a mixin!
-    &:before {
+    &::before {
       content: "\200f";
     }
 
-    &:after {
+    &::after {
       content: "\200e";
     }
   }
@@ -372,11 +378,11 @@ body.rtl {
   .misc-pub-section.misc-pub-filesize > strong,
   .misc-pub-section.misc-pub-dimensions > strong > span {
     // FIXME: make a mixin!
-    &:before {
+    &::before {
       content: "\200e";
     }
 
-    &:after {
+    &::after {
       content: "\200f";
     }
   }

@@ -10,6 +10,14 @@
     }
   }
 
+  .gnetwork-sidebyside {
+    textarea {
+
+      /*rtl:ignore*/
+      direction: rtl;
+    }
+  }
+
   // COPY FROM: gEditorial Ortho
   .ortho-input-wrap {
     position: relative;

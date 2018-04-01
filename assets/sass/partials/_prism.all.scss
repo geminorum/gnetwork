@@ -11,7 +11,7 @@ pre[data-prism="yes"] {
   direction: ltr;
 }
 
-pre[class*="language-"]:before {
+pre[class*="language-"]::before {
   background-color: #cfcfcf;
   border-radius: 0 0 5px;
   color: #333;

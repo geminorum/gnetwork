@@ -1,21 +1,45 @@
-/* http://prismjs.com/download.html?themes=prism&languages=markup+css+clike+javascript+apacheconf+css-extras+http+ini+json+latex+php+php-extras+sass+scss+sql+wiki+yaml&plugins=line-numbers+show-invisibles+toolbar+normalize-whitespace+copy-to-clipboard */
-/**
- * prism.js default theme for JavaScript, CSS and HTML
- * Based on dabblet (http://dabblet.com)
- * @author Lea Verou
- */
+/* PrismJS 1.13.0
+http://prismjs.com/download.html?#themes=prism-solarizedlight&languages=markup+css+clike+javascript+apacheconf+css-extras+http+ini+json+latex+php+php-extras+sql+sass+scss+wiki+yaml&plugins=line-numbers+show-invisibles+toolbar+normalize-whitespace+copy-to-clipboard */
+/*
+ Solarized Color Schemes originally by Ethan Schoonover
+ http://ethanschoonover.com/solarized
+
+ Ported for PrismJS by Hector Matos
+ Website: https://krakendev.io
+ Twitter Handle: https://twitter.com/allonsykraken)
+*/
+
+/*
+SOLARIZED HEX
+--------- -------
+base03    #002b36
+base02    #073642
+base01    #586e75
+base00    #657b83
+base0     #839496
+base1     #93a1a1
+base2     #eee8d5
+base3     #fdf6e3
+yellow    #b58900
+orange    #cb4b16
+red       #dc322f
+magenta   #d33682
+violet    #6c71c4
+blue      #268bd2
+cyan      #2aa198
+green     #859900
+*/
 
 code[class*="language-"],
 pre[class*="language-"] {
-  color: black;
-  background: none;
-  text-shadow: 0 1px white;
+  color: #657b83; /* base00 */
   font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
   text-align: left;
   white-space: pre;
   word-spacing: normal;
   word-break: normal;
   word-wrap: normal;
+
   line-height: 1.5;
 
   -moz-tab-size: 4;
@@ -28,23 +52,18 @@ pre[class*="language-"] {
   hyphens: none;
 }
 
-pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
-code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
-  text-shadow: none;
-  background: #b3d4fc;
+pre[class*="language-"]::-moz-selection,
+pre[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection,
+code[class*="language-"] ::-moz-selection {
+  background: #073642; /* base02 */
 }
 
-pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
-code[class*="language-"]::selection, code[class*="language-"] ::selection {
-  text-shadow: none;
-  background: #b3d4fc;
-}
-
-@media print {
-  code[class*="language-"],
-  pre[class*="language-"] {
-    text-shadow: none;
-  }
+pre[class*="language-"]::selection,
+pre[class*="language-"] ::selection,
+code[class*="language-"]::selection,
+code[class*="language-"] ::selection {
+  background: #073642; /* base02 */
 }
 
 /* Code blocks */
@@ -52,29 +71,29 @@ pre[class*="language-"] {
   padding: 1em;
   margin: .5em 0;
   overflow: auto;
+  border-radius: 0.3em;
 }
 
 :not(pre) > code[class*="language-"],
 pre[class*="language-"] {
-  background: #f5f2f0;
+  background-color: #fdf6e3; /* base3 */
 }
 
 /* Inline code */
 :not(pre) > code[class*="language-"] {
   padding: .1em;
   border-radius: .3em;
-  white-space: normal;
 }
 
 .token.comment,
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: slategray;
+  color: #93a1a1; /* base1 */
 }
 
 .token.punctuation {
-  color: #999;
+  color: #586e75; /* base01 */
 }
 
 .namespace {
@@ -88,7 +107,7 @@ pre[class*="language-"] {
 .token.constant,
 .token.symbol,
 .token.deleted {
-  color: #905;
+  color: #268bd2; /* blue */
 }
 
 .token.selector,
@@ -96,33 +115,30 @@ pre[class*="language-"] {
 .token.string,
 .token.char,
 .token.builtin,
+.token.url,
 .token.inserted {
-  color: #690;
+  color: #2aa198; /* cyan */
 }
 
-.token.operator,
-.token.entity,
-.token.url,
-.language-css .token.string,
-.style .token.string {
-  color: #a67f59;
-  background: hsla(0, 0%, 100%, .5);
+.token.entity {
+  color: #657b83; /* base00 */
+  background: #eee8d5; /* base2 */
 }
 
 .token.atrule,
 .token.attr-value,
 .token.keyword {
-  color: #07a;
+  color: #859900; /* green */
 }
 
 .token.function {
-  color: #DD4A68;
+  color: #b58900; /* yellow */
 }
 
 .token.regex,
 .token.important,
 .token.variable {
-  color: #e90;
+  color: #cb4b16; /* orange */
 }
 
 .token.important,
@@ -136,7 +152,6 @@ pre[class*="language-"] {
 .token.entity {
   cursor: help;
 }
-
 pre.line-numbers {
   position: relative;
   padding-left: 3.8em;
@@ -145,6 +160,7 @@ pre.line-numbers {
 
 pre.line-numbers > code {
   position: relative;
+    white-space: inherit;
 }
 
 .line-numbers .line-numbers-rows {
@@ -210,11 +226,11 @@ pre.line-numbers > code {
 .token.space:before {
   content: '\00B7';
 }
-pre.code-toolbar {
+div.code-toolbar {
   position: relative;
 }
 
-pre.code-toolbar > .toolbar {
+div.code-toolbar > .toolbar {
   position: absolute;
   top: .3em;
   right: .2em;
@@ -222,19 +238,19 @@ pre.code-toolbar > .toolbar {
   opacity: 0;
 }
 
-pre.code-toolbar:hover > .toolbar {
+div.code-toolbar:hover > .toolbar {
   opacity: 1;
 }
 
-pre.code-toolbar > .toolbar .toolbar-item {
+div.code-toolbar > .toolbar .toolbar-item {
   display: inline-block;
 }
 
-pre.code-toolbar > .toolbar a {
+div.code-toolbar > .toolbar a {
   cursor: pointer;
 }
 
-pre.code-toolbar > .toolbar button {
+div.code-toolbar > .toolbar button {
   background: none;
   border: 0;
   color: inherit;
@@ -247,9 +263,9 @@ pre.code-toolbar > .toolbar button {
   -ms-user-select: none;
 }
 
-pre.code-toolbar > .toolbar a,
-pre.code-toolbar > .toolbar button,
-pre.code-toolbar > .toolbar span {
+div.code-toolbar > .toolbar a,
+div.code-toolbar > .toolbar button,
+div.code-toolbar > .toolbar span {
   color: #bbb;
   font-size: .8em;
   padding: 0 .5em;
@@ -259,12 +275,12 @@ pre.code-toolbar > .toolbar span {
   border-radius: .5em;
 }
 
-pre.code-toolbar > .toolbar a:hover,
-pre.code-toolbar > .toolbar a:focus,
-pre.code-toolbar > .toolbar button:hover,
-pre.code-toolbar > .toolbar button:focus,
-pre.code-toolbar > .toolbar span:hover,
-pre.code-toolbar > .toolbar span:focus {
+div.code-toolbar > .toolbar a:hover,
+div.code-toolbar > .toolbar a:focus,
+div.code-toolbar > .toolbar button:hover,
+div.code-toolbar > .toolbar button:focus,
+div.code-toolbar > .toolbar span:hover,
+div.code-toolbar > .toolbar span:focus {
   color: inherit;
   text-decoration: none;
 }

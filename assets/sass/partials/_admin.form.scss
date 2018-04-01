@@ -29,6 +29,16 @@
     padding: 0 1px;
   }
 
+  // @REF: `.wp-upload-form`
+  input.-type-file {
+    background: #fafafa;
+    border: 1px solid #e5e5e5;
+    padding: 1em;
+    max-width: 380px;
+    margin: 0 0 1em 0;
+    box-sizing: border-box;
+  }
+
   input.medium-text,
   textarea.medium-text,
   .form-field .medium-text {
