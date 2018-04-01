@@ -4,6 +4,7 @@ defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
 use geminorum\gNetwork\Settings;
+use geminorum\gNetwork\Core\HTML;
 
 class Branding extends gNetwork\Module
 {
@@ -34,14 +35,15 @@ class Branding extends gNetwork\Module
 	public function default_options()
 	{
 		return [
-			'theme_color'       => '',
-			'siteicon_fallback' => '0',
-			'webapp_manifest'   => '0',
-			'webapp_shortname'  => '',
-			'webapp_longname'   => '',
-			'text_copyright'    => '',
-			'text_powered'      => '',
-			'text_slogan'       => '',
+			'theme_color'        => '',
+			'siteicon_fallback'  => '0',
+			'webapp_manifest'    => '0',
+			'webapp_shortname'   => '',
+			'webapp_longname'    => '',
+			'webapp_description' => '',
+			'text_copyright'     => '',
+			'text_powered'       => '',
+			'text_slogan'        => '',
 		];
 	}
 
@@ -63,17 +65,17 @@ class Branding extends gNetwork\Module
 					'description' => _x( 'Falls back into main site icon on the network.', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 			],
-			'_manifest' => [
+			'_webapp' => [
 				[
 					'field'       => 'webapp_manifest',
-					'title'       => _x( 'Web App Manifest', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Manifest', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Provides the ability to save a site bookmark to a device\'s home screen.', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
-					'after'       => Settings::fieldAfterIcon( 'https://developers.google.com/web/fundamentals/web-app-manifest/' ),
+					'after'       => Settings::fieldAfterIcon( $this->url_manifest( FALSE ), NULL, 'external' ),
 				],
 				[
 					'field'       => 'webapp_shortname',
 					'type'        => 'text',
-					'title'       => _x( 'Web App Short Name', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Short Name', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'A short name for use as the text on the users home screen.', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => $name,
 					'field_class' => 'medium-text',
@@ -81,8 +83,15 @@ class Branding extends gNetwork\Module
 				[
 					'field'       => 'webapp_longname',
 					'type'        => 'text',
-					'title'       => _x( 'Web App Name', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Name', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'A name for use in the Web App Install banner.', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
+				],
+				[
+					'field'       => 'webapp_description',
+					'type'        => 'text',
+					'title'       => _x( 'Description', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'A description for use in the Web App Manifest.', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
+					'field_class' => 'large-text',
 				],
 			],
 			'_texts' => [
@@ -108,10 +117,42 @@ class Branding extends gNetwork\Module
 		];
 	}
 
+	public function settings_section_webapp()
+	{
+		Settings::fieldSection(
+			_x( 'Web App', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
+			sprintf( _x( 'Web app manifests provide the ability to save a site bookmark to a device\'s home screen. <a href="%s">Read More</a>', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
+				'https://developer.mozilla.org/en-US/docs/Web/Manifest' )
+		);
+	}
+
+	public function settings_section_texts()
+	{
+		Settings::fieldSection(
+			_x( 'Notices', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN )
+		);
+	}
+
 	protected function settings_setup( $sub = NULL )
 	{
 		wp_enqueue_script( 'wp-color-picker' );
 		wp_enqueue_style( 'wp-color-picker' );
+	}
+
+	public function settings_sidebox( $sub, $uri )
+	{
+		$logo = get_custom_logo();
+		$icon = get_site_icon_url( 64 );
+
+		if ( $logo ) {
+			echo $logo;
+			HTML::desc( _x( 'Main Site Logo', 'Modules: Branding', GNETWORK_TEXTDOMAIN ) );
+		}
+
+		if ( $icon ) {
+			echo HTML::img( $icon );
+			HTML::desc( _x( 'Main Site Icon', 'Modules: Branding', GNETWORK_TEXTDOMAIN ) );
+		}
 	}
 
 	public function wp_head()
@@ -143,15 +184,46 @@ class Branding extends gNetwork\Module
 	{
 		$data = [
 			'start_url'   => get_bloginfo( 'url' ),
+			'display'     => 'minimal-ui', // FIXME: add radio select
 			'short_name'  => $this->options['webapp_shortname'],
 			'name'        => $this->options['webapp_longname'],
 			'theme_color' => $this->options['theme_color'],
 		];
 
+		if ( $this->options['webapp_description'] )
+			$data['description'] = $this->options['webapp_description'];
+
+		if ( is_rtl() )
+			$data['dir'] = 'rtl';
+
+		$iso = class_exists( 'geminorum\\gNetwork\\Modules\\Locale' )
+			? \geminorum\gNetwork\Modules\Locale::getISO()
+			: 'en';
+
+		if ( 'en' != $iso )
+			$data['lang'] = $iso;
+
+		if ( $icon = get_option( 'site_icon' ) ) {
+
+			$type = get_post_mime_type( $icon );
+
+			// $sizes = [ 48, 96, 192 ]; // Google
+			$sizes = [ 32, 192, 180, 270, 512 ]; // WordPress
+
+			foreach( $sizes as $size ) {
+
+				$data['icons'][] = [
+					'src'   => wp_get_attachment_image_url( $icon, [ $size, $size ] ),
+					'type'  => $type,
+					'sizes' => sprintf( '%sx%s', $size, $size ),
+				];
+			}
+		}
+
 		nocache_headers();
 
-		header( 'Content-Type: application/json; charset='.get_option( 'charset' ) );
-		echo wp_json_encode( $data, JSON_UNESCAPED_UNICODE );
+		header( 'Content-Type: application/manifest+json; charset='.get_option( 'charset' ) );
+		echo wp_json_encode( $data );
 
 		exit();
 	}
