@@ -5,6 +5,7 @@ defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 use geminorum\gNetwork;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Core\HTML;
+use geminorum\gNetwork\Core\WordPress;
 
 class Branding extends gNetwork\Module
 {
@@ -16,7 +17,7 @@ class Branding extends gNetwork\Module
 		if ( $this->options['siteicon_fallback'] && is_multisite() )
 			$this->filter( 'get_site_icon_url', 3 );
 
-		if ( $this->options['webapp_manifest'] && ! is_admin() ) {
+		if ( $this->options['webapp_manifest'] && ! is_admin() && is_main_site() ) {
 			$this->action( 'wp_head' );
 			$this->action( 'parse_request', 1, 1 );
 			$this->filter( 'redirect_canonical', 2 );
@@ -49,23 +50,32 @@ class Branding extends gNetwork\Module
 
 	public function default_settings()
 	{
+		$settings = [];
+
 		$name = get_bloginfo( 'name', 'display' );
 
-		return [
-			'_general' => [
-				[
-					'field'       => 'theme_color',
-					'type'        => 'color',
-					'title'       => _x( 'Theme Color', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Defines color of the mobile browser address bar. Leave empty to disable.', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
-				],
-				[
-					'field'       => 'siteicon_fallback',
-					'title'       => _x( 'Network Site Icon', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Falls back into main site icon on the network.', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
-				],
-			],
-			'_webapp' => [
+		if ( is_multisite() ) {
+
+			// will use blog setting if no multisite
+			$settings['_general'][] = [
+				'field'       => 'theme_color',
+				'type'        => 'color',
+				'title'       => _x( 'Theme Color', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Defines color of the mobile browser address bar. Leave empty to disable.', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
+			];
+
+			// no use when no multisite!
+			$settings['_general'][] = [
+				'field'       => 'siteicon_fallback',
+				'title'       => _x( 'Network Site Icon', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Falls back into main site icon on the network.', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
+			];
+		}
+
+		// only works if SSL enabled
+		if ( WordPress::isSSL() || WordPress::isDev() ) {
+
+			$settings['_webapp'] = [
 				[
 					'field'       => 'webapp_manifest',
 					'title'       => _x( 'Manifest', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
@@ -93,28 +103,31 @@ class Branding extends gNetwork\Module
 					'description' => _x( 'A description for use in the Web App Manifest.', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
 					'field_class' => 'large-text',
 				],
+			];
+		}
+
+		$settings['_texts'] = [
+			[
+				'field'       => 'text_copyright',
+				'type'        => 'textarea-quicktags',
+				'title'       => _x( 'Copyright Notice', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Displays as copyright notice on the footer on the front-end. Leave empty to use default.', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
 			],
-			'_texts' => [
-				[
-					'field'       => 'text_copyright',
-					'type'        => 'textarea-quicktags',
-					'title'       => _x( 'Copyright Notice', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Displays as copyright notice on the footer on the front-end. Leave empty to use default.', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
-				],
-				[
-					'field'       => 'text_powered',
-					'type'        => 'textarea-quicktags',
-					'title'       => _x( 'Powered Notice', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Displays as powered notice on the footer of on the admin. Leave empty to use default.', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
-				],
-				[
-					'field'       => 'text_slogan',
-					'type'        => 'textarea-quicktags',
-					'title'       => _x( 'Site Slogan', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Displays as site slogan on the footer of on the admin. Leave empty to use default.', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
-				],
+			[
+				'field'       => 'text_powered',
+				'type'        => 'textarea-quicktags',
+				'title'       => _x( 'Powered Notice', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Displays as powered notice on the footer of on the admin. Leave empty to use default.', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
+			],
+			[
+				'field'       => 'text_slogan',
+				'type'        => 'textarea-quicktags',
+				'title'       => _x( 'Site Slogan', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Displays as site slogan on the footer of on the admin. Leave empty to use default.', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
 			],
 		];
+
+		return $settings;
 	}
 
 	public function settings_section_webapp()
