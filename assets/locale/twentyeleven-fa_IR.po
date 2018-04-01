@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gTwentyEleven v2.6\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2017-08-31 07:04+0430\n"
+"PO-Revision-Date: 2018-03-31 17:15+0430\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: \n"
 "Language: fa_IR\n"
@@ -15,7 +15,7 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
 "X-Textdomain-Support: yes\n"
-"X-Generator: Poedit 2.0.3\n"
+"X-Generator: Poedit 2.0.6\n"
 "X-Poedit-SearchPath-0: .\n"
 
 #. Description of the plugin/theme
@@ -194,6 +194,11 @@ msgstr "روشن"
 #: inc/theme-options.php:128
 msgid "Overview"
 msgstr "نمای کلی"
+
+#: inc/theme-options.php:121
+msgid ""
+"<a href=\"https://wordpress.org/support/\" target=\"_blank\">Support Forums</a>"
+msgstr ""
 
 #: inc/theme-options.php:120
 msgid ""
@@ -441,15 +446,15 @@ msgstr "صفحه شطرنج"
 
 # @ twentyeleven
 #. translators: header image description
-#: functions.php:196
-msgid "Trolley"
-msgstr "واگن"
-
-# @ twentyeleven
-#. translators: header image description
 #: functions.php:202
 msgid "Pine Cone"
 msgstr "میوه کاج"
+
+# @ twentyeleven
+#. translators: header image description
+#: functions.php:196
+msgid "Trolley"
+msgstr "واگن"
 
 # @ twentyeleven
 #. translators: header image description
@@ -803,23 +808,6 @@ msgstr ""
 msgid "the WordPress team"
 msgstr ""
 
-# @ twentyeleven
-#~ msgid ""
-#~ "<a href=\"http://codex.wordpress.org/Appearance_Theme_Options_Screen\" target="
-#~ "\"_blank\">Documentation on Theme Options</a>"
-#~ msgstr ""
-#~ "<a href=\"http://codex.wordpress.org/Appearance_Theme_Options_Screen\" target="
-#~ "\"_blank\">مستندات درباره‌ی تنظیمات پوسته</a>"
-
-# @ twentyeleven
-#~ msgid ""
-#~ "<a href=\"http://wordpress.org/support/\" target=\"_blank\">Support Forums</a>"
-#~ msgstr "<a href=\"http://forum.wp-persian.com\">انجمن‌های پشتیبانی</a>"
-
-# @ twentyeleven
-#~ msgid "http://wordpress.org/"
-#~ msgstr "http://wp-persian.com/"
-
-# @ twentyeleven
-#~ msgid "Link to %s"
-#~ msgstr "پیوند به %s"
+#. Theme URI of the plugin/theme
+msgid "https://wordpress.org/themes/twentyeleven/"
+msgstr ""
