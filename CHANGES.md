@@ -1,3 +1,29 @@
+### 3.7.1
+* module/admin: hide network-active plugins
+* module/blog: disable xml-rpc headers
+* module/branding: support theme color
+* module/branding: support web app manifest
+* module/branding: multisite awareness
+* module/comments: removed archives draft
+* module/debug: current mysql version report
+* module/debug: current image tools report
+* module/dev: support wp rest
+* module/maintenance: support wp rest
+* module/maintenance: activity box notice
+* module/mail: correct display of html mail logs
+* module/notify: more control over change emails
+* module/profile: :new: import users from csv file
+* module/profile: :warning: fixed not saving profile settings
+* module/login: support math on wp login form helper
+* module/restricted: support wp rest
+* module/shortcodes: csv lib namespace changes
+* module/shortcodes: initial support for amp
+* module/taxonomy: char/word counter for desc editor
+* module/taxonomy: localize count numbers
+* module/taxonomy: avoid a tags on quick edit
+* module/tracking: initial support for amp
+* module/themes: initial support for amp
+
 ### 3.7.0
 * main/logger: check for server address
 * main/module: default method for cron events
