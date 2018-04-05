@@ -178,7 +178,8 @@ class Notify extends gNetwork\Module
 				// BuddyPress's
 				remove_filter( 'wpmu_signup_user_notification', 'bp_core_activation_signup_user_notification', 1, 4 );
 
-				$user = wp_get_current_user();
+				$user   = wp_get_current_user();
+				$locale = switch_to_locale( get_site_option( 'WPLANG' ) );
 
 				$results = wpmu_signup_user_notification(
 					$user->user_login,
@@ -195,7 +196,8 @@ class Notify extends gNetwork\Module
 				// BuddyPress's
 				remove_filter( 'wpmu_signup_blog_notification', 'bp_core_activation_signup_blog_notification', 1, 6 );
 
-				$user = wp_get_current_user();
+				$user   = wp_get_current_user();
+				$locale = switch_to_locale( get_site_option( 'WPLANG' ) );
 
 				$results = wpmu_signup_blog_notification(
 					'example.com',

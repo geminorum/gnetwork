@@ -274,8 +274,14 @@ class Profile extends gNetwork\Module
 						'role'       => $role,
 					] );
 
+					if ( $data['user_email'] )
+						$data['user_email'] = strtolower( $data['user_email'] );
+
 					if ( empty( $data['user_email'] ) || ! is_email( $data['user_email'] ) )
 						continue;
+
+					if ( $data['user_login'] )
+						$data['user_login'] = strtolower( $data['user_login'] );
 
 					if ( empty( $data['user_login'] ) )
 						$data['user_login'] = Email::toUsername( $data['user_email'] );

@@ -2,7 +2,7 @@
 
 /*
 Plugin Name: gNetwork
-Plugin URI: https://gmeinorum.ir/wordpress/gnetwork
+Plugin URI: https://geminorum.ir/wordpress/gnetwork
 Description: Network Helper
 Version: 3.7.1
 License: GPLv3+

@@ -182,6 +182,7 @@ class Themes extends gNetwork\Module
 		.-wrap.shortcode-asterisks { margin: 16px 0; text-align: center; }
 		.amp-wp-article-header .overtitle, .amp-wp-article-header .subtitle { margin: 8px 0; }
 		.amp-wp-article-content .-lead { font-size: .89em; color: gray; }
+		.amp-wp-article-header + .amp-wp-article-header { margin-top: 0; }
 		<?php
 
 		if ( ! is_rtl() )

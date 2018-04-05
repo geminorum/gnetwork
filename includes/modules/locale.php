@@ -158,7 +158,6 @@ class Locale extends gNetwork\Module
 	private function blackListAdmin( $current, $base = 'en_US' )
 	{
 		$list = $this->filters( 'blacklist', [
-			'deprecated_log'             => 'post_type',
 			'rewrite-rules-inspector'    => 'page',
 			'connection-types'           => 'page',
 			'regenerate-thumbnails'      => 'page',
@@ -183,14 +182,11 @@ class Locale extends gNetwork\Module
 			'wp-db-backup'               => 'page', // WP-DB-Backup // https://wordpress.org/plugins/wp-db-backup/
 			'odb_settings_page'          => 'page', // Optimize Database after Deleting Revisions // https://wordpress.org/plugins/rvg-optimize-database/
 			'rvg-optimize-database'      => 'page', // Optimize Database after Deleting Revisions // https://wordpress.org/plugins/rvg-optimize-database/
-			'github-updater'             => 'page', // [GitHub Updater](https://github.com/afragen/github-updater)
 			'extend_search'              => 'page', // [Search Everything](https://wordpress.org/plugins/search-everything/)
-			'revision-control'           => 'page', // [Revision Control](https://wordpress.org/plugins/revision-control/)
 			'export-user-data'           => 'page', // [Export User Data](https://wordpress.org/plugins/export-user-data/)
 			'exploit-scanner'            => 'page', // [Exploit Scanner](https://wordpress.org/plugins/exploit-scanner/)
 			'vip-scanner'                => 'page', // [VIP Scanner](https://wordpress.org/plugins/vip-scanner/)
 			'antivirus'                  => 'page', // [AntiVirus](https://wordpress.org/plugins/antivirus/)
-			'convert-post-types'         => 'page', // [Convert Post Types](https://wordpress.org/plugins/convert-post-types/)
 			'mapcap'                     => 'page', // [Map Cap](https://wordpress.org/plugins/map-cap/)
 			'akismet-key-config'         => 'page', // Akismet
 			'cache-enabler'              => 'page', // [Cache Enabler](https://wordpress.org/plugins/cache-enabler/)
@@ -202,6 +198,8 @@ class Locale extends gNetwork\Module
 			'php-compatibility-checker'  => 'page', // [PHP Compatibility Checker](https://wordpress.org/plugins/php-compatibility-checker/)
 			'rlrsssl_really_simple_ssl'  => 'page', // [Really Simple SSL](https://wordpress.org/plugins/really-simple-ssl/)
 			'onesignal-push'             => 'page', // [OneSignal](https://wordpress.org/plugins/onesignal-free-web-push-notifications/)
+
+			'user-submitted-posts/user-submitted-posts.php' => 'page', // [User Submitted Posts](https://wordpress.org/plugins/user-submitted-posts/)
 
 			// [EWWW Image Optimizer](https://wordpress.org/plugins/ewww-image-optimizer/)
 			'ewww-image-optimizer/ewww-image-optimizer.php' => 'page',

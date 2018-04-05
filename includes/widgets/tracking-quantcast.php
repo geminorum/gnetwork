@@ -31,7 +31,7 @@ class Tracking_Quantcast_Widget extends \WP_Widget
 				'height'       => '120',
 				'width'        => '160',
 				'scrolling'    => 'no',
-				'src'          => 'http://widget.quantcast.com/'.$domain.'/10?&timeWidth=1&daysOfData=90',
+				'src'          => 'https://widget.quantcast.com/'.$domain.'/10?&timeWidth=1&daysOfData=90',
 			], NULL ).'</div>';
 
 			echo $args['after_widget'];

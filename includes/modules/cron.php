@@ -411,7 +411,7 @@ class Cron extends gNetwork\Module
 					foreach ( $row as $action => $tasks ) {
 						foreach ( $tasks as $hash => $task ) {
 
-							$html.= '<div><code style="color:'.( has_action( $action ) ? 'green' : 'red' ).'">'.$action.'</code>';
+							$html.= '<div dir="ltr"><code style="color:'.( has_action( $action ) ? 'green' : 'red' ).'">'.$action.'</code>';
 
 							if ( isset( $task['schedule'] ) && $task['schedule'] && isset( $column['args']['schedules'][$task['schedule']] ) )
 								$html.= ' <small>('.$column['args']['schedules'][$task['schedule']]['display'].')</small>';

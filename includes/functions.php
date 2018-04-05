@@ -63,7 +63,7 @@ endif;
 
 if ( ! function_exists( 'gnetwork_powered' ) ) :
 	function gnetwork_powered( $rtl = NULL ) {
-		$default = '<a class="-powered" href="http://wordpress.org/" title="WP powered"><span class="dashicons dashicons-wordpress-alt"></span></a>';
+		$default = '<a class="-powered" href="https://wordpress.org/" title="WP powered"><span class="dashicons dashicons-wordpress-alt"></span></a>';
 		$custom  = gNetwork()->option( 'text_powered', 'branding' );
 		return $custom ? $custom : $default;
 	}
