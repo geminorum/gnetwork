@@ -255,7 +255,7 @@ class Notify extends gNetwork\Module
 
 	public function send_site_admin_email_change_email( $send, $old_email, $new_email )
 	{
-		Logger::siteINFO( sprintf( 'NOTIFY: admin email changed from: %s to: %s',
+		Logger::siteINFO( 'NOTIFY', sprintf( 'admin email changed from: %s to: %s',
 			$old_email, $new_email ) );
 
 		return $this->options['disable_admin_email_change'] ? FALSE: $send;
@@ -349,7 +349,7 @@ class Notify extends gNetwork\Module
 	// notify the blog admin of a user changing password, normally via email
 	public function wp_password_change_notification( $user )
 	{
-		Logger::siteALERT( sprintf( 'NOTIFY: Password changed: %s', $user->user_login ) );
+		Logger::siteALERT( 'NOTIFY', sprintf( 'Password changed: %s', $user->user_login ) );
 
 		if ( $this->options['disable_user_password_change'] )
 			return;
