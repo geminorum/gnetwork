@@ -7,8 +7,8 @@
   &.shortcode-reflist {
     @include mainwrap();
 
-    ol,
-    ul {
+    ol {
+      list-style: none; // using inline style if numbered
       border: 0;
       padding: 0;
       margin: 0 0 1em;
@@ -27,10 +27,10 @@
       }
     }
 
-    ul {
-      list-style: none;
-      list-style-type: none;
-    }
+    // ul {
+    //   list-style: none;
+    //   list-style-type: none;
+    // }
   }
 
   &.shortcode-children {

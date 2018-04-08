@@ -130,7 +130,7 @@ h6 {
   margin-right: 0;
   margin-left: 6px;
 
-  &:before {
+  &::before {
     content: "\f0a5";
   }
 }
@@ -151,7 +151,7 @@ h6 {
     padding-right: 0;
   }
 
-  > span:before {
+  > span::before {
     border-right: 9px solid transparent;
     border-left: 9px solid #efb93f;
     border-top: 9px solid transparent;
@@ -221,15 +221,15 @@ h6 {
   }
 }
 
-.widget > ul li:before,
-.widget > ul li a:before,
-.widget > div > ul li a:before,
-.widget_calendar caption:before {
+.widget > ul li::before,
+.widget > ul li a::before,
+.widget > div > ul li a::before,
+.widget_calendar caption::before {
   margin-left: 6px;
   margin-right: 0;
 }
 
-.widget_meta > ul > li a:before {
+.widget_meta > ul > li a::before {
   content: "\f0d9";
 }
 
@@ -237,7 +237,7 @@ h6 {
   right: auto;
   left: 10px;
 
-  &:before {
+  &::before {
     content: "\f053";
   }
 }
@@ -246,7 +246,7 @@ h6 {
   left: auto;
   right: 10px;
 
-  &:before {
+  &::before {
     content: "\f054";
   }
 }
@@ -339,7 +339,7 @@ h6 {
       padding-right: 32px;
     }
 
-    div:after {
+    div::after {
       line-height: 32px;
       font-size: 14px;
       left: auto;
@@ -350,12 +350,12 @@ h6 {
 }
 
 .notebox {
-  &:before {
+  &::before {
     left: auto;
     right: 13px;
   }
 
-  &:after {
+  &::after {
     left: auto;
     right: 15px;
   }
@@ -405,7 +405,7 @@ h6 {
     padding-right: 50px;
     padding-left: 0;
 
-    &:before {
+    &::before {
       right: 0;
       left: auto;
 
@@ -463,13 +463,13 @@ h6 {
     }
   }
 
-  .nav li > a:after {
+  .nav li > a::after {
     float: left;
 
     @include theme-transform-flip-horizontal();
   }
 
-  .nav > li > a:after {
+  .nav > li > a::after {
     margin-left: 0;
     margin-right: 6px;
   }
