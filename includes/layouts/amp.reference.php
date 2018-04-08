@@ -2,5 +2,5 @@
 
 echo gNetwork()->shortcodes->shortcode_reflist( [
 	'wrap'   => FALSE,
-	'number' => TRUE,
+	'number' => TRUE, // amp not allows inline styles
 ], NULL, 'reflist' );

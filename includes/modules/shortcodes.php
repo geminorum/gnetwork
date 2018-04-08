@@ -1380,8 +1380,8 @@ class ShortCodes extends gNetwork\Module
 			$html.= '</li>';
 		}
 
-		$html = $args['title'].'<ol id="references" class="-anchor" style="'
-			.( $args['number'] ? 'list-style:none' : 'list-style-type:decimal' ).'">'.$html.'</ol>';
+		$html = $args['title'].'<ol id="references" class="-anchor"'
+			.( $args['number'] ? '' : ' style="list-style-type:decimal"' ).'>'.$html.'</ol>';
 
 		if ( ! defined( 'GNETWORK_DISABLE_REFLIST_JS' ) || ! GNETWORK_DISABLE_REFLIST_JS )
 			Utilities::enqueueScript( 'front.cite' );
