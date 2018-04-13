@@ -4,6 +4,7 @@ defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
 use geminorum\gNetwork\Settings;
+use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\Third;
 use geminorum\gNetwork\Core\URL;
@@ -322,9 +323,7 @@ class Tracking extends gNetwork\Module
 		if ( $this->gp_platformjs ) {
 
 			// @SEE: https://developers.google.com/+/web/api/supported-languages
-			$iso = class_exists( __NAMESPACE__.'\\Locale' ) ? Locale::getISO() : 'en';
-
-			$platform = "window.___gcfg = {lang: '".esc_js( $iso )."'};";
+			$platform = "window.___gcfg = {lang: '".esc_js( Utilities::getISO639() )."'};";
 			$platform.= "(function(){var po=document.createElement('script');po.type='text/javascript';po.async=true;po.src='https://apis.google.com/js/platform.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(po,s);})();";
 
 			HTML::wrapScript( $platform );

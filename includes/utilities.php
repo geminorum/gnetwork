@@ -583,20 +583,12 @@ class Utilities extends Core\Base
 	// FIXME: check: `URLify::add_chars()`
 	public static function URLifyDownCode( $string, $locale = NULL )
 	{
-		$iso = class_exists( 'geminorum\\gNetwork\\Modules\\Locale' )
-			? \geminorum\gNetwork\Modules\Locale::getISO( $locale )
-			: $locale;
-
-		return \URLify::downcode( $string, $iso );
+		return \URLify::downcode( $string, self::getISO639( $locale ) );
 	}
 
 	public static function URLifyFilter( $string, $length = 60, $locale = NULL )
 	{
-		$iso = class_exists( 'geminorum\\gNetwork\\Modules\\Locale' )
-			? \geminorum\gNetwork\Modules\Locale::getISO( $locale )
-			: $locale;
-
-		return \URLify::filter( $string, $length, $iso, TRUE, FALSE );
+		return \URLify::filter( $string, $length, self::getISO639( $locale ), TRUE, FALSE );
 	}
 
 	public static function IPinfo()
@@ -645,5 +637,20 @@ class Utilities extends Core\Base
 		$log.= $extra ? ' :: '.$extra : '';
 
 		error_log( $log."\n", 3, $path );
+	}
+
+	// @REF: http://stackoverflow.com/a/16838443
+	// @REF: https://en.wikipedia.org/wiki/ISO_639
+	public static function getISO639( $locale = NULL )
+	{
+		if ( is_null( $locale ) )
+			$locale = get_locale();
+
+		if ( ! $locale )
+			return 'en';
+
+		$lang = explode( '_', $locale );
+
+		return strtolower( $lang[0] );
 	}
 }

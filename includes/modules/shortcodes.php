@@ -891,7 +891,7 @@ class ShortCodes extends gNetwork\Module
 			'id'         => constant( 'GNETWORK_GOOGLE_GROUP_ID' ),
 			'logo'       => 'color',
 			'logo_style' => 'border:none;box-shadow:none;',
-			'hl'         => constant( 'GNETWORK_GOOGLE_GROUP_HL' ), // FIXME: USE: `Locale::getISO()`
+			'hl'         => Utilities::getISO639(),
 			'context'    => NULL,
 			'wrap'       => TRUE,
 		], $atts, $tag );

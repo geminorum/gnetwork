@@ -4,6 +4,7 @@ defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
 use geminorum\gNetwork\Settings;
+use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\WordPress;
 
@@ -210,9 +211,7 @@ class Branding extends gNetwork\Module
 		if ( is_rtl() )
 			$data['dir'] = 'rtl';
 
-		$iso = class_exists( 'geminorum\\gNetwork\\Modules\\Locale' )
-			? \geminorum\gNetwork\Modules\Locale::getISO()
-			: 'en';
+		$iso = Utilities::getISO639();
 
 		if ( 'en' != $iso )
 			$data['lang'] = $iso;

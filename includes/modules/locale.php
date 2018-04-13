@@ -63,20 +63,6 @@ class Locale extends gNetwork\Module
 		return $languages;
 	}
 
-	// @REF: http://stackoverflow.com/a/16838443
-	public static function getISO( $locale = NULL )
-	{
-		if ( is_null( $locale ) )
-			$locale = get_locale();
-
-		if ( ! $locale )
-			return 'en';
-
-		$lang = explode( '_', $locale );
-
-		return strtolower( $lang[0] );
-	}
-
 	public function load_textdomain_mofile( $mofile, $domain )
 	{
 		$locale = get_locale();
