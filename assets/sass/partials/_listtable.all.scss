@@ -12,10 +12,11 @@
   &.users-network {
     td.timestamps {
       table td {
-        padding: 0 0 2px;
+        padding: 0 0 2px !important;
 
         code {
           cursor: pointer;
+          display: inline !important;
         }
       }
     }
