@@ -22,8 +22,8 @@ class Notify extends gNetwork\Module
 		$this->filter( 'send_password_change_email', 3, 12 );
 		$this->filter( 'send_email_change_email', 3, 12 );
 
-		if ( file_exists( GNETWORK_DIR.'includes/misc/notify-pluggable.php' ) )
-			require_once( GNETWORK_DIR.'includes/misc/notify-pluggable.php' );
+		if ( file_exists( GNETWORK_DIR.'includes/Misc/NotifyPluggable.php' ) )
+			require_once( GNETWORK_DIR.'includes/Misc/NotifyPluggable.php' );
 
 		if ( $this->options['disable_new_user_admin'] )
 			add_filter( 'bp_core_send_user_registration_admin_notification', '__return_false' );

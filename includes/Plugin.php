@@ -263,17 +263,17 @@ class Plugin
 			}
 		}
 
-		if ( file_exists( GNETWORK_DIR.'includes/misc/buddypress-me.php' ) ) {
-			require_once( GNETWORK_DIR.'includes/misc/buddypress-me.php' );
+		if ( file_exists( GNETWORK_DIR.'includes/misc/BuddyPressMe.php' ) ) {
+			// require_once( GNETWORK_DIR.'includes/Misc/BuddyPressMe.php' );
 
-			buddypress()->me = new Misc\BP_Me_Component();
+			buddypress()->me = new Misc\BuddyPressMe();
 		}
 	}
 
 	public function mce_external_languages( $languages )
 	{
-		if ( file_exists( GNETWORK_DIR.'includes/misc/editor-languages.php' ) )
-			$languages['gnetwork'] = GNETWORK_DIR.'includes/misc/editor-languages.php';
+		if ( file_exists( GNETWORK_DIR.'includes/Misc/TinyMceStrings.php' ) )
+			$languages['gnetwork'] = GNETWORK_DIR.'includes/Misc/TinyMceStrings.php';
 
 		return $languages;
 	}

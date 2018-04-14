@@ -787,12 +787,12 @@ class Media extends gNetwork\Module
 		require_once ABSPATH.WPINC.'/class-wp-image-editor-gd.php';
 		require_once ABSPATH.WPINC.'/class-wp-image-editor-imagick.php';
 
-		require_once GNETWORK_DIR.'includes/misc/media-editor-gd.php';
-		require_once GNETWORK_DIR.'includes/misc/media-editor-imagick.php';
+		require_once GNETWORK_DIR.'includes/Misc/MediaEditorImagick.php';
+		require_once GNETWORK_DIR.'includes/Misc/MediaEditorGD.php';
 
 		return [
-			'geminorum\\gNetwork\\Misc\\Image_Editor_Imagick',
-			'geminorum\\gNetwork\\Misc\\Image_Editor_GD',
+			'geminorum\\gNetwork\\Misc\\MediaEditorImagick',
+			'geminorum\\gNetwork\\Misc\\MediaEditorGD',
 		];
 	}
 
