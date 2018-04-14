@@ -10,7 +10,7 @@ class CodeLegend extends \WP_Widget
 	public function __construct()
 	{
 		parent::__construct( 'gnetwork-legend-widget',
-			_x( 'gNetwork: Code Legend', 'Widget: Title', GNETWORK_TEXTDOMAIN ),
+			_x( 'gNetwork Code: Legend', 'Widget: Title', GNETWORK_TEXTDOMAIN ),
 			[
 				'classname'   => 'gnetwork-wrap-widget -legend-widget',
 				'description' => _x( 'Simple Changelog Legend', 'Widget: Description', GNETWORK_TEXTDOMAIN )

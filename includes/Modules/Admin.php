@@ -238,7 +238,7 @@ class Admin extends gNetwork\Module
 			if ( 'overview' == $sub )
 				$this->settings_overview( $uri );
 
-			if ( 'console' == $sub && WordPress::isSuperAdmin() )
+			else if ( 'console' == $sub && WordPress::isSuperAdmin() )
 				@require_once( GNETWORK_DIR.'includes/Layouts/console.'.$this->key.'.php' );
 
 			else if ( ! $this->actions( 'settings_sub_'.$sub, $uri, $sub ) )
