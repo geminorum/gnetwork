@@ -8,12 +8,17 @@ use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\Number;
+use geminorum\gNetwork\Core\Text;
+use geminorum\gNetwork\Core\URI;
+use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
 
 class Login extends gNetwork\Module
 {
 
 	protected $key = 'login';
+
+	private $is_login_page = FALSE;
 
 	protected function setup_actions()
 	{
@@ -33,6 +38,12 @@ class Login extends gNetwork\Module
 
 		if ( $this->options['ambiguous_error'] )
 			$this->filter( 'login_errors', 1, 20 );
+
+		if ( $this->options['login_hide'] ) {
+			$this->action( 'plugins_loaded', 0, 9 );
+			$this->action( 'wp_loaded', 0, 9 );
+			remove_action( 'template_redirect', 'wp_redirect_admin_locations', 1000 );
+		}
 	}
 
 	public function setup_menu( $context )
@@ -55,6 +66,8 @@ class Login extends gNetwork\Module
 			'store_lastlogin'   => 1,
 			'ambiguous_error'   => 1,
 			'redirect_logout'   => '',
+			'login_hide'        => 0,
+			'login_slug'        => 'login',
 		];
 	}
 
@@ -62,6 +75,18 @@ class Login extends gNetwork\Module
 	{
 		$settings = [
 			'_general' => [
+				[
+					'field'       => 'login_hide',
+					'title'       => _x( 'Hidden Login Page', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Protects logins by changing the URL and preventing access to admin while not logged-in.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+				],
+				[
+					'field'       => 'login_slug',
+					'type'        => 'text',
+					'title'       => _x( 'Hidden Login Slug', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Custom slug for the hidden login page.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'default'     => 'login',
+				],
 				[
 					'field'       => 'login_headerurl',
 					'type'        => 'url',
@@ -163,6 +188,116 @@ class Login extends gNetwork\Module
 			_x( 'Math Settings', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 			_x( 'Blocks Spam by Math. Verifies that a user answered the math problem correctly while loggin in.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN )
 		);
+	}
+
+	public function plugins_loaded()
+	{
+		if ( ! is_multisite() && Text::has( $_SERVER['REQUEST_URI'], [ 'wp-signup', 'wp-activate' ] ) )
+			wp_die( _x( 'Move along, nothing to see here!', 'Modules: Login', GNETWORK_TEXTDOMAIN ) );
+
+		$request = URI::parse( $_SERVER['REQUEST_URI'] );
+
+		if ( ! is_admin() && ( Text::has( $_SERVER['REQUEST_URI'], 'wp-login.php' )
+			|| URL::untrail( $request['path'] ) === site_url( 'wp-login', 'relative' ) ) ) {
+
+			$this->is_login_page = TRUE;
+			$_SERVER['REQUEST_URI'] = self::trailingSlash( '/'.str_repeat( '-/', 10 ) );
+			$GLOBALS['pagenow'] = 'index.php';
+
+		} else if ( URL::untrail( $request['path'] ) === home_url( $this->options['login_slug'], 'relative' )
+			|| ( ! get_option( 'permalink_structure' )
+				&& isset( $_GET[$this->options['login_slug']] )
+				&& empty( $_GET[$this->options['login_slug']] ) ) ) {
+
+			$GLOBALS['pagenow'] = 'wp-login.php';
+		}
+	}
+
+	public function wp_loaded()
+	{
+		if ( is_admin() && ! is_user_logged_in() && ! WordPress::isAJAX() && $GLOBALS['pagenow'] !== 'admin-post.php' )
+			wp_die( _x( 'Move along, nothing to see here!', 'Modules: Login', GNETWORK_TEXTDOMAIN ), 403 );
+
+		$request = URI::parse( $_SERVER['REQUEST_URI'] );
+
+		if ( 'wp-login.php' === $GLOBALS['pagenow']
+			&& $request['path'] !== self::trailingSlash( $request['path'] )
+				&& get_option( 'permalink_structure' ) ) {
+
+			wp_safe_redirect( self::trailingSlash( $this->custom_login_url() )
+				.( empty( $_SERVER['QUERY_STRING'] ) ? '' : '?'.$_SERVER['QUERY_STRING'] ) );
+
+			die();
+
+		} else if ( $this->is_login_page ) {
+
+			if ( ( $referer = wp_get_referer() )
+				&& Text::has( $referer, 'wp-activate.php' )
+				&& ( $referer = parse_url( $referer ) )
+				&& ! empty( $referer['query'] ) ) {
+
+				parse_str( $referer['query'], $referer );
+
+				if ( ! empty( $referer['key'] )
+					&& ( $result = wpmu_activate_signup( $referer['key'] ) )
+					&& self::isError( $result )
+					&& ( $result->get_error_code() === 'already_active'
+						|| $result->get_error_code() === 'blog_taken' ) ) {
+
+					wp_safe_redirect( $this->custom_login_url()
+						.( empty( $_SERVER['QUERY_STRING'] ) ? '' : '?'.$_SERVER['QUERY_STRING'] ) );
+
+					die();
+				}
+			}
+
+			$this->template_loader();
+
+		} else if ( $GLOBALS['pagenow'] === 'wp-login.php' ) {
+
+			global $pagenow, $error, $interim_login, $action, $user_login;
+
+			@require_once ABSPATH.'wp-login.php';
+
+			die();
+		}
+	}
+
+	// OLD: `wp_template_loader()`
+	private function template_loader()
+	{
+		$GLOBALS['pagenow'] = 'index.php';
+
+		defined( 'WP_USE_THEMES' ) or define( 'WP_USE_THEMES', TRUE );
+
+		wp();
+
+		if ( $_SERVER['REQUEST_URI'] === self::trailingSlash( str_repeat( '-/', 10 ) ) )
+			$_SERVER['REQUEST_URI'] = self::trailingSlash( '/wp-login-php/' );
+
+		require_once( ABSPATH.WPINC.'/template-loader.php' );
+
+		die();
+	}
+
+	// OLD: `new_login_url()`
+	private function custom_login_url( $scheme = NULL )
+	{
+		return get_option( 'permalink_structure' )
+			? self::trailingSlash( home_url( '/', $scheme ).$this->options['login_slug'] )
+			: add_query_arg( $this->options['login_slug'], '', home_url( '/', $scheme ) );
+	}
+
+	// OLD: `use_trailing_slashes()`
+	private static function hasTrailingSlashes()
+	{
+		return '/' === substr( get_option( 'permalink_structure' ), -1, 1 );
+	}
+
+	// OLD: `user_trailingslashit()`
+	private static function trailingSlash( $string )
+	{
+		return self::hasTrailingSlashes() ? URL::trail( $string ) : URL::untrail( $string );
 	}
 
 	public function login_init()
