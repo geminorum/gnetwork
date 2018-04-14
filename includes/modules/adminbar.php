@@ -317,7 +317,7 @@ class AdminBar extends gNetwork\Module
 
 				foreach (  $calls as $offset => $call ) {
 
-					$url = URL::parse_OLD( $call['url'] );
+					$url = URL::parse( $call['url'] );
 
 					$wp_admin_bar->add_node( [
 						'parent' => $this->base.'-api-calls',

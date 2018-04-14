@@ -218,13 +218,9 @@ class URI extends Base
 		//
 		// For that reason we take any non-ascii characters from the uri and
 		// uriencode them first.
-		$uri = preg_replace_callback(
-			'/[^[:ascii:]]/u',
-			function( $matches ) {
-				return rawurlencode( $matches[0] );
-			},
-			$uri
-		);
+		$uri = preg_replace_callback( '/[^[:ascii:]]/u', function( $matches ) {
+			return rawurlencode( $matches[0] );
+		}, $uri );
 
 		if ( ! $result = parse_url( $uri ) )
 			$result = self::_parse_fallback( $uri );
@@ -332,22 +328,18 @@ class URI extends Base
 		//
 		// For that reason we take any non-ascii characters from the uri and
 		// uriencode them first.
-		$uri = preg_replace_callback(
-			'/[^[:ascii:]]/u',
-			function( $matches ) {
-				return rawurlencode( $matches[0] );
-			},
-			$uri
-		);
+		$uri = preg_replace_callback( '/[^[:ascii:]]/u', function( $matches ) {
+			return rawurlencode( $matches[0] );
+		}, $uri );
 
 		$result = [
 			'scheme'   => NULL,
 			'host'     => NULL,
+			'path'     => NULL,
 			'port'     => NULL,
 			'user'     => NULL,
-			'path'     => NULL,
-			'fragment' => NULL,
 			'query'    => NULL,
+			'fragment' => NULL,
 		];
 
 		if ( preg_match( '% ^([A-Za-z][A-Za-z0-9+-\.]+): %x', $uri, $matches ) ) {
