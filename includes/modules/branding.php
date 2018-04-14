@@ -36,6 +36,8 @@ class Branding extends gNetwork\Module
 	public function default_options()
 	{
 		return [
+			'network_sitelogo'   => '',
+			'network_siteicon'   => '',
 			'theme_color'        => '',
 			'siteicon_fallback'  => '0',
 			'webapp_manifest'    => '0',
@@ -53,6 +55,20 @@ class Branding extends gNetwork\Module
 		$settings = [];
 
 		$name = get_bloginfo( 'name', 'display' );
+
+		$settings['_general'][] = [
+			'field'       => 'network_sitelogo',
+			'type'        => 'url',
+			'title'       => _x( 'SVG Network Logo', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Displays as network wide site logo. Leave empty to disable.', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
+		];
+
+		$settings['_general'][] = [
+			'field'       => 'network_siteicon',
+			'type'        => 'url',
+			'title'       => _x( 'SVG Network Icon', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Displays as network wide site icon. Leave empty to disable.', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
+		];
 
 		if ( is_multisite() ) {
 
@@ -154,15 +170,24 @@ class Branding extends gNetwork\Module
 
 	public function settings_sidebox( $sub, $uri )
 	{
-		$logo = get_custom_logo();
-		$icon = get_site_icon_url( 64 );
+		if ( $this->options['network_sitelogo'] ) {
 
-		if ( $logo ) {
+			echo HTML::img( $this->options['network_sitelogo'] );
+			HTML::desc( _x( 'Main Site Logo', 'Modules: Branding', GNETWORK_TEXTDOMAIN ) );
+
+		} else if ( $logo = get_custom_logo() ) {
+
 			echo $logo;
 			HTML::desc( _x( 'Main Site Logo', 'Modules: Branding', GNETWORK_TEXTDOMAIN ) );
 		}
 
-		if ( $icon ) {
+		if ( $this->options['network_siteicon'] ) {
+
+			echo HTML::img( $this->options['network_siteicon'] );
+			HTML::desc( _x( 'Main Site Icon', 'Modules: Branding', GNETWORK_TEXTDOMAIN ) );
+
+		} else if ( $icon = get_site_icon_url( 64 ) ) {
+
 			echo HTML::img( $icon );
 			HTML::desc( _x( 'Main Site Icon', 'Modules: Branding', GNETWORK_TEXTDOMAIN ) );
 		}
@@ -216,21 +241,28 @@ class Branding extends gNetwork\Module
 		if ( 'en' != $iso )
 			$data['lang'] = $iso;
 
-		if ( $icon = get_option( 'site_icon' ) ) {
+		// $sizes = [ 48, 96, 192 ]; // Google
+		$sizes = [ 32, 192, 180, 270, 512 ]; // WordPress
+
+		if ( $this->options['network_siteicon'] ) {
+
+			foreach( $sizes as $size )
+				$data['icons'][] = [
+					'src'   => $this->options['network_siteicon'],
+					'type'  => 'image/svg+xml',
+					'sizes' => sprintf( '%sx%s', $size, $size ),
+				];
+
+		} else if ( $icon = get_option( 'site_icon' ) ) {
 
 			$type = get_post_mime_type( $icon );
 
-			// $sizes = [ 48, 96, 192 ]; // Google
-			$sizes = [ 32, 192, 180, 270, 512 ]; // WordPress
-
-			foreach( $sizes as $size ) {
-
+			foreach( $sizes as $size )
 				$data['icons'][] = [
 					'src'   => wp_get_attachment_image_url( $icon, [ $size, $size ] ),
 					'type'  => $type,
 					'sizes' => sprintf( '%sx%s', $size, $size ),
 				];
-			}
 		}
 
 		nocache_headers();
