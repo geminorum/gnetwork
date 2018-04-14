@@ -47,5 +47,10 @@
     "platform": {
       "php": "5.6.35"
     }
+  },
+  "autoload": {
+    "psr-4": {
+      "geminorum\\gNetwork\\": "includes/"
+    }
   }
 }
