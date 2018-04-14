@@ -191,12 +191,12 @@ class Widgets extends gNetwork\Module
 	public function widgets_init()
 	{
 		$widgets = [
-			GNETWORK_DIR.'includes/widgets/devlegend.php' => 'geminorum\\gNetwork\\Widgets\\DevLegend_Widget',
+			GNETWORK_DIR.'includes/Widgets/CodeLegend.php' => 'geminorum\\gNetwork\\Widgets\\CodeLegend',
 		];
 
 		if ( class_exists( 'geminorum\\gNetwork\\Widgets\\Tracking' ) ) {
-			$widgets[GNETWORK_DIR.'includes/widgets/tracking-gplusbadge.php'] = 'geminorum\\gNetwork\\Widgets\\Tracking_GPlusBadge_Widget';
-			$widgets[GNETWORK_DIR.'includes/widgets/tracking-quantcast.php']  = 'geminorum\\gNetwork\\Widgets\\Tracking_Quantcast_Widget';
+			$widgets[GNETWORK_DIR.'includes/Widgets/TrackingGPlusBadge.php'] = 'geminorum\\gNetwork\\Widgets\\TrackingGPlusBadge';
+			$widgets[GNETWORK_DIR.'includes/Widgets/TrackingQuantcast.php']  = 'geminorum\\gNetwork\\Widgets\\TrackingQuantcast';
 		}
 
 		foreach ( apply_filters( $this->hook(), $widgets ) as $path => $widget ) {
