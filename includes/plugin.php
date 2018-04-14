@@ -53,8 +53,6 @@ class Plugin
 			}
 		}
 
-		$this->require_after();
-
 		add_action( 'plugins_loaded', [ $this, 'plugins_loaded' ], 20 );
 		add_action( 'bp_include', [ $this, 'bp_include' ] );
 	}
@@ -167,7 +165,6 @@ class Plugin
 	private function require_plugin()
 	{
 		$this->files( [
-			'functions',
 			'utilities',
 			'settings',
 			'ajax',
@@ -175,11 +172,6 @@ class Plugin
 			'module',
 			'provider',
 		] );
-	}
-
-	private function require_after()
-	{
-		$this->files( 'pluggable' );
 	}
 
 	private function get_modules()
@@ -240,6 +232,8 @@ class Plugin
 
 	public function plugins_loaded()
 	{
+		$this->files( [ 'pluggable', 'functions' ] );
+
 		load_plugin_textdomain( GNETWORK_TEXTDOMAIN, FALSE, 'gnetwork/languages' );
 
 		add_filter( 'mce_external_languages',[ $this, 'mce_external_languages' ] );
