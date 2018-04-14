@@ -660,7 +660,7 @@ class Mail extends gNetwork\Module
 		], $logs, [
 			'navigation' => 'before',
 			'search'     => 'before',
-			'title'      => HTML::tag( 'h3', sprintf( _x( 'Total %s Email Logs', 'Modules: Mail', GNETWORK_TEXTDOMAIN ), Number::format( $pagination['total'] ) ) ),
+			'title'      => '<br />',
 			'pagination' => $pagination,
 		] );
 	}

@@ -1082,7 +1082,7 @@ class Media extends gNetwork\Module
 		Ajax::errorWhat();
 	}
 
-	// @REF: https://deliciousbrains.com/using-javascript-file-api-to-avoid-file-upload-limits/
+	// @REF: https://deliciousbrains.com/?p=26646
 	// @REF: https://github.com/deliciousbrains/wp-dbi-file-uploader
 	public function widget_uploader()
 	{

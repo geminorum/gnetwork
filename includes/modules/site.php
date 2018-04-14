@@ -54,7 +54,7 @@ class Site extends gNetwork\Module
 			'denied_message'    => '',
 			'denied_extra'      => '',
 			'list_sites'        => '1',
-			'lookup_ip_service' => 'http://freegeoip.net/?q=%s',
+			'lookup_ip_service' => 'https://redirect.li/map/?ip=%s',
 		];
 	}
 
@@ -116,7 +116,7 @@ class Site extends gNetwork\Module
 				'type'        => 'text',
 				'title'       => _x( 'Lookup IP URL', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
 				'description' => _x( 'URL template to to use for looking up IP adresses. Will replace <code>%s</code> with the IP.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
-				'default'     => 'http://freegeoip.net/?q=%s',
+				'default'     => 'https://redirect.li/map/?ip=%s',
 				'dir'         => 'ltr',
 				'after'       => $this->options['lookup_ip_service'] ? Settings::fieldAfterLink( sprintf( $this->options['lookup_ip_service'], HTTP::IP() ) ) : '',
 			],
