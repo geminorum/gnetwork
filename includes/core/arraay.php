@@ -274,4 +274,22 @@ class Arraay extends Base
 
 		return $slice;
 	}
+
+	// splits a list into sets, grouped by the result of running each value through $callback
+	// @SOURCE: `scb_list_group_by()`
+	public static function groupBy( $list, $callback )
+	{
+		$groups = array();
+
+		foreach ( $list as $item ) {
+			$key = call_user_func( $callback, $item );
+
+			if ( NULL === $key )
+				continue;
+
+			$groups[$key][] = $item;
+		}
+
+		return $groups;
+	}
 }

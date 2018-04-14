@@ -15,9 +15,11 @@ class HTML extends Base
 		return self::tag( 'a', array( 'href' => $link, 'class' => '-link', 'target' => ( $target_blank ? '_blank' : FALSE ) ), $html );
 	}
 
-	public static function mailto( $email, $title = NULL )
+	public static function mailto( $email, $title = NULL, $wrap = 'code' )
 	{
-		return '<a class="-mailto" href="mailto:'.trim( $email ).'">'.( $title ? $title : trim( $email ) ).'</a>';
+		$title = $title ? $title : trim( $email );
+		$link  = '<a class="-mailto" href="mailto:'.trim( $email ).'">'.$title.'</a>';
+		return $wrap ? self::tag( $wrap, $link ) : $link;
 	}
 
 	public static function tel( $number, $title = FALSE, $content = NULL )
