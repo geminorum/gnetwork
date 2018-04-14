@@ -48,11 +48,11 @@ class SMS extends gNetwork\Module
 	{
 		$bundled = [
 			'kavenegar' => [
-				'path'  => GNETWORK_DIR.'includes/providers/kavenegar.php',
+				'path'  => GNETWORK_DIR.'includes/Providers/Kavenegar.php',
 				'class' => 'geminorum\\gNetwork\\Providers\\Kavenegar',
 			],
 			'farapaymak' => [
-				'path'  => GNETWORK_DIR.'includes/providers/farapaymak.php',
+				'path'  => GNETWORK_DIR.'includes/Providers/Farapaymak.php',
 				'class' => 'geminorum\\gNetwork\\Providers\\Farapaymak',
 			],
 		];
