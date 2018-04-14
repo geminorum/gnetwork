@@ -177,63 +177,63 @@ class Plugin
 	private function get_modules()
 	{
 		$modules = [
-			'modules/locale'      => 'Locale',
-			'modules/network'     => 'Network',
-			'modules/admin'       => 'Admin',
-			'modules/site'        => 'Site',
-			'modules/blog'        => 'Blog',
-			'modules/user'        => 'User',
-			'modules/api'         => 'API',
-			'modules/adminbar'    => 'AdminBar',
-			'modules/dashboard'   => 'Dashboard',
-			'modules/authors'     => 'Authors',
-			'modules/tracking'    => 'Tracking',
-			'modules/maintenance' => 'Maintenance',
-			'modules/restricted'  => 'Restricted',
-			'modules/editor'      => 'Editor',
-			'modules/captcha'     => 'Captcha',
-			'modules/opensearch'  => 'OpenSearch',
-			'modules/support'     => 'Support',
-			'modules/mail'        => 'Mail',
-			'modules/sms'         => 'SMS',
-			'modules/bot'         => 'Bot',
-			'modules/remote'      => 'Remote',
-			'modules/navigation'  => 'Navigation',
-			'modules/themes'      => 'Themes',
-			'modules/extend'      => 'Extend',
-			'modules/db'          => 'DB',
-			'modules/media'       => 'Media',
-			'modules/embed'       => 'Embed',
-			'modules/cron'        => 'Cron',
-			'modules/login'       => 'Login',
-			'modules/lockdown'    => 'Lockdown',
-			'modules/blacklist'   => 'BlackList',
-			'modules/update'      => 'Update',
-			'modules/search'      => 'Search',
-			'modules/contact'     => 'Contact',
-			'modules/taxonomy'    => 'Taxonomy',
-			'modules/shortcodes'  => 'ShortCodes',
-			'modules/comments'    => 'Comments',
-			'modules/widgets'     => 'Widgets',
-			'modules/bbpress'     => 'bbPress',
-			'modules/notify'      => 'Notify',
-			'modules/typography'  => 'Typography',
-			'modules/debug'       => 'Debug',
-			'modules/code'        => 'Code',
-			'modules/cleanup'     => 'Cleanup',
-			'modules/social'      => 'Social',
-			'modules/branding'    => 'Branding',
-			'modules/api'         => 'API',
-			'modules/uptime'      => 'Uptime',
-			'modules/profile'     => 'Profile',
-			'modules/roles'       => 'Roles',
+			'Modules/Locale'      => 'Locale',
+			'Modules/Network'     => 'Network',
+			'Modules/Admin'       => 'Admin',
+			'Modules/Site'        => 'Site',
+			'Modules/Blog'        => 'Blog',
+			'Modules/User'        => 'User',
+			'Modules/API'         => 'API',
+			'Modules/AdminBar'    => 'AdminBar',
+			'Modules/Dashboard'   => 'Dashboard',
+			'Modules/Authors'     => 'Authors',
+			'Modules/Tracking'    => 'Tracking',
+			'Modules/Maintenance' => 'Maintenance',
+			'Modules/Restricted'  => 'Restricted',
+			'Modules/Editor'      => 'Editor',
+			'Modules/Captcha'     => 'Captcha',
+			'Modules/OpenSearch'  => 'OpenSearch',
+			'Modules/Support'     => 'Support',
+			'Modules/Mail'        => 'Mail',
+			'Modules/SMS'         => 'SMS',
+			'Modules/Bot'         => 'Bot',
+			'Modules/Remote'      => 'Remote',
+			'Modules/Navigation'  => 'Navigation',
+			'Modules/Themes'      => 'Themes',
+			'Modules/Extend'      => 'Extend',
+			'Modules/DB'          => 'DB',
+			'Modules/Media'       => 'Media',
+			'Modules/Embed'       => 'Embed',
+			'Modules/Cron'        => 'Cron',
+			'Modules/Login'       => 'Login',
+			'Modules/Lockdown'    => 'Lockdown',
+			'Modules/BlackList'   => 'BlackList',
+			'Modules/Update'      => 'Update',
+			'Modules/Search'      => 'Search',
+			'Modules/Contact'     => 'Contact',
+			'Modules/Taxonomy'    => 'Taxonomy',
+			'Modules/ShortCodes'  => 'ShortCodes',
+			'Modules/Comments'    => 'Comments',
+			'Modules/Widgets'     => 'Widgets',
+			'Modules/bbPress'     => 'bbPress',
+			'Modules/Notify'      => 'Notify',
+			'Modules/Typography'  => 'Typography',
+			'Modules/Debug'       => 'Debug',
+			'Modules/Code'        => 'Code',
+			'Modules/Cleanup'     => 'Cleanup',
+			'Modules/Social'      => 'Social',
+			'Modules/Branding'    => 'Branding',
+			'Modules/API'         => 'API',
+			'Modules/Uptime'      => 'Uptime',
+			'Modules/Profile'     => 'Profile',
+			'Modules/Roles'       => 'Roles',
 		];
 
 		if ( defined( 'WP_STAGE' ) )
 			if ( 'production' == WP_STAGE )
-				$modules['modules/bbq'] = 'BBQ';
+				$modules['Modules/BBQ'] = 'BBQ';
 			else if ( 'development' == WP_STAGE )
-				$modules['modules/dev'] = 'Dev';
+				$modules['Modules/Dev'] = 'Dev';
 
 		return $modules;
 	}
@@ -249,8 +249,8 @@ class Plugin
 
 	public function bp_include()
 	{
-		if ( file_exists( GNETWORK_DIR.'includes/modules/buddypress.php' ) ) {
-			require_once( GNETWORK_DIR.'includes/modules/buddypress.php' );
+		if ( file_exists( GNETWORK_DIR.'includes/Modules/BuddyPress.php' ) ) {
+			require_once( GNETWORK_DIR.'includes/Modules/BuddyPress.php' );
 
 			try {
 
