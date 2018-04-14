@@ -354,7 +354,9 @@ class User extends gNetwork\Module
 
 	public function settings_load()
 	{
-		if ( ( $sub = isset( $_REQUEST['sub'] ) ? $_REQUEST['sub'] : NULL ) )
+		$sub = Settings::sub( 'overview' );
+
+		if ( 'overview' !== $sub )
 			$GLOBALS['submenu_file'] = $this->base.'&sub='.$sub;
 
 		do_action( $this->base.'_user_settings', $sub );
@@ -391,8 +393,11 @@ class User extends gNetwork\Module
 			Settings::headerNav( $uri, $sub, $subs );
 			Settings::message( $messages );
 
-			if ( file_exists( GNETWORK_DIR.'includes/settings/'.$this->key.'.'.$sub.'.php' ) )
-				require_once( GNETWORK_DIR.'includes/settings/'.$this->key.'.'.$sub.'.php' );
+			if ( 'overview' == $sub )
+				$this->settings_overview( $uri );
+
+			if ( 'console' == $sub && WordPress::isSuperAdmin() )
+				@require_once( GNETWORK_DIR.'includes/Layouts/console.'.$this->key.'.php' );
 
 			else if ( ! $this->actions( 'settings_sub_'.$sub, $uri, $sub ) )
 				Settings::cheatin();
@@ -403,6 +408,13 @@ class User extends gNetwork\Module
 		}
 
 		Settings::wrapClose();
+	}
+
+	protected function settings_overview( $uri )
+	{
+		// TODO
+		// add setting option for page
+		// display page content as over view
 	}
 
 	private function get_sites()

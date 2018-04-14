@@ -526,6 +526,9 @@ class Module extends Core\Base
 	// DEFAULT METHOD: used for settings page only hooks
 	protected function settings_setup( $sub = NULL ) {}
 
+	// DEFAULT METHOD: used for settings overview sub only
+	protected function settings_overview( $uri ) {}
+
 	// DEFAULT METHOD: MAYBE OVERRIDED
 	// CAUTION: the action method responsible for checking the nonce
 	// NOT USED YET

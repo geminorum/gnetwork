@@ -122,11 +122,6 @@ class Admin extends gNetwork\Module
 		// @REF: http://justintadlock.com/?p=3320
 		if ( ! WordPress::cuc( 'update_plugins' ) )
 			remove_submenu_page( 'themes.php', 'theme-editor.php' );
-
-		// FIXME: DROP THIS
-		// BruteProtect notice
-		if ( defined( 'BRUTEPROTECT_VERSION' ) && is_multisite() )
-			remove_menu_page( 'bruteprotect-config' );
 	}
 
 	public static function registerMenu( $sub, $title = NULL, $callback = FALSE, $capability = 'manage_options', $priority = 10 )
@@ -199,7 +194,9 @@ class Admin extends gNetwork\Module
 
 	public function settings_load()
 	{
-		if ( ( $sub = isset( $_REQUEST['sub'] ) ? $_REQUEST['sub'] : NULL ) )
+		$sub = Settings::sub( 'overview' );
+
+		if ( 'overview' !== $sub )
 			$GLOBALS['submenu_file'] = $this->base.'&sub='.$sub;
 
 		do_action( $this->base.'_admin_settings', $sub );
@@ -238,8 +235,11 @@ class Admin extends gNetwork\Module
 			Settings::headerNav( $uri, $sub, $subs );
 			Settings::message( $messages );
 
-			if ( file_exists( GNETWORK_DIR.'includes/settings/'.$this->key.'.'.$sub.'.php' ) )
-				require_once( GNETWORK_DIR.'includes/settings/'.$this->key.'.'.$sub.'.php' );
+			if ( 'overview' == $sub )
+				$this->settings_overview( $uri );
+
+			if ( 'console' == $sub && WordPress::isSuperAdmin() )
+				@require_once( GNETWORK_DIR.'includes/Layouts/console.'.$this->key.'.php' );
 
 			else if ( ! $this->actions( 'settings_sub_'.$sub, $uri, $sub ) )
 				Settings::cheatin();
@@ -252,7 +252,7 @@ class Admin extends gNetwork\Module
 		Settings::wrapClose();
 	}
 
-	public static function renderOverview()
+	protected function settings_overview( $uri )
 	{
 		HTML::h3( _x( 'Current Site Overview', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ) );
 
