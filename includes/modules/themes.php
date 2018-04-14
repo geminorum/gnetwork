@@ -22,7 +22,10 @@ class Themes extends gNetwork\Module
 
 	protected function setup_actions()
 	{
-		if ( ! $this->options['disable_themes'] ) {
+		if ( ! $this->options['disable_themes']
+			&& ! is_network_admin()
+			&& ! is_user_admin() ) {
+
 			$this->action( 'after_setup_theme' );
 
 			if ( file_exists( GNETWORK_DIR.'includes/misc/themes-pluggable.php' ) )
@@ -69,7 +72,7 @@ class Themes extends gNetwork\Module
 		return [
 			'jquery_cdn'      => '0',
 			'jquery_bottom'   => '0',
-			'disable_themes'  => '0',
+			'disable_themes'  => '1',
 			'content_actions' => '1',
 			'body_class'      => GNETWORK_BODY_CLASS,
 		];
@@ -93,6 +96,7 @@ class Themes extends gNetwork\Module
 					'field'       => 'disable_themes',
 					'title'       => _x( 'Theme Enhancements', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Extra styles and more for suported themes', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
+					'default'     => '1',
 					'values'      => Settings::reverseEnabled(),
 				],
 				[
