@@ -394,7 +394,7 @@ class Utilities extends Core\Base
 			$layout = WP_CONTENT_DIR.'/'.$name.'.php';
 
 		if ( ! $layout )
-			$layout = GNETWORK_DIR.'includes/layouts/'.$name.'.php';
+			$layout = GNETWORK_DIR.'includes/Layouts/'.$name.'.php';
 
 		if ( $no_cache )
 			WordPress::doNotCache();
