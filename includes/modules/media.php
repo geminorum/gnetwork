@@ -373,6 +373,12 @@ class Media extends gNetwork\Module
 							'data'  => [ 'spinner' => _x( 'Cleaning &hellip;', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) ],
 						], _x( 'Clean', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) ),
 
+						'sync' => HTML::tag( 'a', [
+							'href'  => add_query_arg( array_merge( $args, [ 'what' => 'sync_post' ] ), $column['args']['ajax'] ),
+							'class' => '-link -row-ajax -row-ajax-sync',
+							'data'  => [ 'spinner' => _x( 'Syncing &hellip;', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) ],
+						], _x( 'Sync', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) ),
+
 						'cache' => HTML::tag( 'a', [
 							'href'   => add_query_arg( array_merge( $args, [ 'what' => 'cache_post' ] ), $column['args']['ajax'] ),
 							'class'  => '-link -row-ajax -row-ajax-cache',
@@ -1064,6 +1070,24 @@ class Media extends gNetwork\Module
 					Ajax::success( _x( 'Already Cleaned!', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) );
 
 				Ajax::success( _x( 'Cleaned!', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) );
+
+			break;
+			case 'sync_post':
+
+				if ( empty( $post['post_id'] ) )
+					Ajax::errorMessage();
+
+				Ajax::checkReferer( $this->hook( $post['post_id'] ) );
+
+				$count = $this->sync_attachments( $post['post_id'] );
+
+				if ( FALSE === $count )
+					Ajax::errorMessage();
+
+				if ( TRUE === $count || 0 === $count )
+					Ajax::success( _x( 'Already Synced!', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) );
+
+				Ajax::success( _x( 'Synced!', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) );
 
 			break;
 			case 'cache_post':
