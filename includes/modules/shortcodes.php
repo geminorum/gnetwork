@@ -86,7 +86,6 @@ class ShortCodes extends gNetwork\Module
 			'email'        => 'shortcode_email',
 			'tel'          => 'shortcode_tel',
 			'sms'          => 'shortcode_sms',
-			'googlegroups' => 'shortcode_googlegroups',
 			'google-form'  => 'shortcode_google_form',
 			'pdf'          => 'shortcode_pdf',
 			'csv'          => 'shortcode_csv',
@@ -879,39 +878,6 @@ class ShortCodes extends gNetwork\Module
 		], $text );
 
 		return self::shortcodeWrap( $html, 'search', $args, FALSE );
-	}
-
-	// TODO: rewrite this
-	public function shortcode_googlegroups( $atts = [], $content = NULL, $tag = '' )
-	{
-		self::__dep();
-
-		$args = shortcode_atts( [
-			'title_wrap' => 'h3',
-			'id'         => constant( 'GNETWORK_GOOGLE_GROUP_ID' ),
-			'logo'       => 'color',
-			'logo_style' => 'border:none;box-shadow:none;',
-			'hl'         => Utilities::getISO639(),
-			'context'    => NULL,
-			'wrap'       => TRUE,
-		], $atts, $tag );
-
-		if ( FALSE === $args['context'] || is_feed() || WordPress::isREST() )
-			return NULL;
-
-		if ( FALSE == $args['id'] )
-			return NULL;
-
-		// form from : http://socket.io/
-		$html = '<form action="http://groups.google.com/group/'.$args['id'].'/boxsubscribe?hl='.$args['hl'].'" id="google-subscribe">';
-		$html.= '<a href="http://groups.google.com/group/'.$args['id'].'?hl='.$args['hl'].'"><img src="'.GNETWORK_URL.'assets/images/google_groups_'.$args['logo'].'.png" style="'.$args['logo_style'].'" alt="Google Groups"></a>';
-		// <span id="google-members-count">(4889 members)</span>
-		$html.= '<div id="google-subscribe-input">'._x( 'Email:', 'Modules: ShortCodes: Google Groups Subscribe', GNETWORK_TEXTDOMAIN );
-		$html.= ' <input type="text" name="email" id="google-subscribe-email" data-cip-id="google-subscribe-email" />';
-		$html.= ' <input type="hidden" name="hl" value="'.$args['hl'].'" />';
-		$html.= ' <input type="submit" name="go" value="'._x( 'Subscribe', 'Modules: ShortCodes: Google Groups Subscribe', GNETWORK_TEXTDOMAIN ).'" /></div></form>';
-
-		return $html;
 	}
 
 	public function shortcode_google_form( $atts = [], $content = NULL, $tag = '' )
