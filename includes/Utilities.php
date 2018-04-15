@@ -501,7 +501,6 @@ class Utilities extends Core\Base
 		return $ipinfp->getFullIpDetails( $ip );
 	}
 
-	// FIXME: TEST THIS!
 	// @REF: https://github.com/hbattat/verifyEmail
 	public static function verifyEmail( $email = NULL, $from = NULL, $port = 25 )
 	{

@@ -213,7 +213,6 @@ class Plugin
 			'Modules/BlackList'   => 'BlackList',
 			'Modules/Update'      => 'Update',
 			'Modules/Search'      => 'Search',
-			'Modules/Contact'     => 'Contact',
 			'Modules/Taxonomy'    => 'Taxonomy',
 			'Modules/ShortCodes'  => 'ShortCodes',
 			'Modules/Comments'    => 'Comments',
