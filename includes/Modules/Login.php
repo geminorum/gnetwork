@@ -43,6 +43,10 @@ class Login extends gNetwork\Module
 			$this->action( 'plugins_loaded', 0, 9 );
 			$this->action( 'wp_loaded', 0, 9 );
 			remove_action( 'template_redirect', 'wp_redirect_admin_locations', 1000 );
+
+			$this->filter( 'site_url', 4 );
+			$this->filter( 'network_site_url', 3 );
+			$this->filter( 'wp_redirect', 2 );
 		}
 	}
 
@@ -298,6 +302,40 @@ class Login extends gNetwork\Module
 	private static function trailingSlash( $string )
 	{
 		return self::hasTrailingSlashes() ? URL::trail( $string ) : URL::untrail( $string );
+	}
+
+	// OLD: `filter_wp_login_php()`
+	private function check_login( $url, $scheme = NULL )
+	{
+		if ( ! Text::has( $url, 'wp-login.php' ) )
+			return $url;
+
+		if ( is_ssl() )
+			$scheme = 'https';
+
+		$args = explode( '?', $url );
+
+		if ( isset( $args[1] ) ) {
+			parse_str( $args[1], $args );
+			return add_query_arg( $args, $this->custom_login_url( $scheme ) );
+		}
+
+		return $this->custom_login_url( $scheme );
+	}
+
+	public function site_url( $url, $path, $scheme, $blog_id )
+	{
+		return $this->check_login( $url, $scheme );
+	}
+
+	public function network_site_url( $url, $path, $scheme )
+	{
+		return $this->check_login( $url, $scheme );
+	}
+
+	public function wp_redirect( $location, $status )
+	{
+		return $this->check_login( $location );
 	}
 
 	public function login_init()
