@@ -53,7 +53,7 @@ class Network extends gNetwork\Module
 			120
 		);
 
-		$tools = add_submenu_page( 'network-tools',
+		$tools = add_submenu_page( 'index.php',
 			_x( 'Network Tools', 'Modules: Network: Page Menu', GNETWORK_TEXTDOMAIN ),
 			_x( 'Extras', 'Modules: Network: Page Menu', GNETWORK_TEXTDOMAIN ),
 			'manage_network_options',
@@ -85,7 +85,7 @@ class Network extends gNetwork\Module
 	public static function menuURL( $full = TRUE, $context = 'settings' )
 	{
 		if ( 'tools' == $context )
-			$relative = 'admin.php?page='.static::BASE.'-tools';
+			$relative = 'index.php?page='.static::BASE.'-tools';
 		else
 			$relative = 'admin.php?page='.static::BASE;
 
