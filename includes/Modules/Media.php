@@ -244,7 +244,7 @@ class Media extends gNetwork\Module
 			$this->register_button( 'sync_attachments', _x( 'Sync Attachments', 'Modules: Media', GNETWORK_TEXTDOMAIN ) );
 			$this->register_button( 'cache_in_content', _x( 'Cache In Content', 'Modules: Media', GNETWORK_TEXTDOMAIN ) );
 
-			add_action( $this->settings_hook( $sub ), [ $this, 'settings_form_images' ], 10, 2 );
+			add_action( $this->menu_hook( $sub ), [ $this, 'settings_form_images' ], 10, 2 );
 
 			add_thickbox();
 			Utilities::enqueueScript( 'admin.media.images' );
@@ -266,12 +266,12 @@ class Media extends gNetwork\Module
 
 	public function settings_form_images( $uri, $sub = 'general' )
 	{
-		$this->settings_form_before( $uri, $sub, 'bulk', 'custom', FALSE );
+		$this->render_form_start( $uri, $sub, 'bulk', 'custom', FALSE );
 
 			if ( $this->tablePostInfo() )
 				$this->settings_buttons( $sub );
 
-		$this->settings_form_after( $uri, $sub );
+		$this->render_form_end( $uri, $sub );
 	}
 
 	protected static function getPostArray()

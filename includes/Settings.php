@@ -11,62 +11,22 @@ use geminorum\gNetwork\Core\WordPress;
 class Settings extends Core\Base
 {
 
-	public static function base()
-	{
-		return gNetwork()->base;
-	}
+	const BASE = 'gnetwork';
 
 	public static function sub( $default = 'overview' )
 	{
 		return trim( self::req( 'sub', $default ) );
 	}
 
-	public static function subURL( $sub = 'overview', $network = TRUE )
-	{
-		return add_query_arg( 'sub', $sub, ( $network ? self::networkURL() : self::adminURL() ) );
-	}
-
-	public static function adminURL( $full = TRUE )
-	{
-		$base = self::base();
-
-		$relative = WordPress::cuc( 'manage_options' ) ? 'admin.php?page='.$base : 'index.php?page='.$base;
-
-		if ( $full )
-			return get_admin_url( NULL, $relative );
-
-		return $relative;
-	}
-
-	public static function networkURL( $full = TRUE )
-	{
-		$relative = 'admin.php?page='.self::base();
-
-		if ( $full )
-			return network_admin_url( $relative );
-
-		return $relative;
-	}
-
-	public static function userURL( $full = TRUE )
-	{
-		$relative = 'admin.php?page='.self::base();
-
-		if ( $full )
-			return user_admin_url( $relative );
-
-		return $relative;
-	}
-
 	// FIXME: check for network/admin
 	public static function getScreenHook( $network = TRUE )
 	{
-		return 'toplevel_page_'.self::base();
+		return 'toplevel_page_'.static::BASE;
 	}
 
-	public static function wrapOpen( $sub = 'general', $base = 'gnetwork', $page = 'settings' )
+	public static function wrapOpen( $sub, $context = 'settings' )
 	{
-		echo '<div id="'.$base.'-'.$page.'" class="wrap '.$base.'-admin-wrap '.$base.'-'.$page.' '.$base.'-'.$page.'-'.$sub.' sub-'.$sub.'">';
+		echo '<div id="'.static::BASE.'-'.$context.'" class="wrap '.static::BASE.'-admin-wrap '.static::BASE.'-'.$context.' '.static::BASE.'-'.$context.'-'.$sub.' sub-'.$sub.'">';
 	}
 
 	public static function wrapClose()
@@ -486,7 +446,7 @@ class Settings extends Core\Base
 			'field_class'  => '', // formally just class!
 			'class'        => '', // now used on wrapper
 			'option_group' => 'general',
-			'option_base'  => self::base(),
+			'option_base'  => static::BASE,
 			'options'      => [], // saved options
 			'id_name_cb'   => FALSE, // id/name generator callback
 			'id_attr'      => FALSE, // override

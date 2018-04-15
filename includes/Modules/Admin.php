@@ -79,7 +79,7 @@ class Admin extends gNetwork\Module
 				120
 			);
 
-			foreach ( $this->menus() as $priority => $group )
+			foreach ( $this->get_menus() as $priority => $group )
 				foreach ( $group as $sub => $args )
 					add_submenu_page( $this->base,
 						sprintf( _x( 'gNetwork Extras: %s', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN ), $args['title'] ),
@@ -88,6 +88,14 @@ class Admin extends gNetwork\Module
 						$this->base.'&sub='.$sub,
 						[ $this, 'settings_page' ]
 					);
+
+			$tools = add_submenu_page( 'tools.php',
+				_x( 'Network Tools', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN ),
+				_x( 'Extras', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN ),
+				'edit_others_posts',
+				$this->base.'-tools',
+				[ $this, 'tools_page' ]
+			);
 
 		} else {
 
@@ -98,9 +106,18 @@ class Admin extends gNetwork\Module
 				$this->base,
 				[ $this, 'settings_page' ]
 			);
+
+			$tools = add_submenu_page( 'tools.php',
+				_x( 'Network Tools', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN ),
+				_x( 'Extras', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN ),
+				'edit_others_posts',
+				$this->base.'-tools',
+				[ $this, 'tools_page' ]
+			);
 		}
 
 		add_action( 'load-'.$hook, [ $this, 'settings_load' ] );
+		add_action( 'load-'.$tools, [ $this, 'tools_load' ] );
 
 		add_submenu_page( 'plugins.php',
 			_x( 'Active', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN ),
@@ -124,18 +141,44 @@ class Admin extends gNetwork\Module
 			remove_submenu_page( 'themes.php', 'theme-editor.php' );
 	}
 
+	public static function menuURL( $full = TRUE, $context = 'settings' )
+	{
+		if ( 'tools' == $context )
+			$relative = 'tools.php?page='.static::BASE.'-tools';
+		else
+			$relative = WordPress::cuc( 'manage_options' )
+				? 'admin.php?page='.static::BASE
+				: 'index.php?page='.static::BASE;
+
+		return $full ? get_admin_url( NULL, $relative ) : $relative;
+	}
+
 	public static function registerMenu( $sub, $title = NULL, $callback = FALSE, $capability = 'manage_options', $priority = 10 )
 	{
 		if ( ! is_blog_admin() )
 			return;
 
-		gNetwork()->admin->menus[intval( $priority )][$sub] = [
+		gNetwork()->admin->menus['settings'][intval( $priority )][$sub] = [
 			'title' => $title ? $title : $sub,
 			'cap'   => $capability,
 		];
 
-		if ( $callback ) // && is_callable( $callback ) )
+		if ( $callback )
 			add_action( 'gnetwork_admin_settings', $callback );
+	}
+
+	public static function registerTool( $sub, $title = NULL, $callback = FALSE, $capability = 'manage_options', $priority = 10 )
+	{
+		if ( ! is_blog_admin() )
+			return;
+
+		gNetwork()->admin->menus['tools'][intval( $priority )][$sub] = [
+			'title' => $title ? $title : $sub,
+			'cap'   => $capability,
+		];
+
+		if ( $callback )
+			add_action( 'gnetwork_admin_tools', $callback );
 	}
 
 	public static function registerTinyMCE( $plugin, $filepath, $row = 1, $context = 'post' )
@@ -202,30 +245,18 @@ class Admin extends gNetwork\Module
 		do_action( $this->base.'_admin_settings', $sub );
 	}
 
-	private function subs()
+	public function tools_load()
 	{
-		$subs = [];
-
-		$subs['overview'] = _x( 'Overview', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN );
-
-		foreach ( $this->menus() as $priority => $group )
-			foreach ( $group as $sub => $args )
-				if ( WordPress::cuc( $args['cap'] ) )
-					$subs[$sub] = $args['title'];
-
-		if ( WordPress::isSuperAdmin() )
-			$subs['console'] = _x( 'Console', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN );
-
-		return $subs;
+		do_action( $this->base.'_admin_tools', Settings::sub( 'overview' ) );
 	}
 
 	public function settings_page()
 	{
-		$uri  = Settings::adminURL( FALSE );
+		$uri  = self::menuURL( FALSE );
 		$sub  = Settings::sub( 'overview' );
-		$subs = $this->filters( 'settings_subs', $this->subs() );
+		$subs = $this->filters( 'settings_subs', $this->get_subs() );
 
-		Settings::wrapOpen( $sub, $this->base, 'settings' );
+		Settings::wrapOpen( $sub );
 
 		if ( $this->cucSub( $sub ) ) {
 
@@ -238,10 +269,40 @@ class Admin extends gNetwork\Module
 			if ( 'overview' == $sub )
 				$this->settings_overview( $uri );
 
-			else if ( 'console' == $sub && WordPress::isSuperAdmin() )
+			else if ( 'console' == $sub )
 				@require_once( GNETWORK_DIR.'includes/Layouts/console.'.$this->key.'.php' );
 
 			else if ( ! $this->actions( 'settings_sub_'.$sub, $uri, $sub ) )
+				Settings::cheatin();
+
+		} else {
+
+			Settings::cheatin();
+		}
+
+		Settings::wrapClose();
+	}
+
+	public function tools_page()
+	{
+		$uri  = self::menuURL( FALSE, 'tools' );
+		$sub  = Settings::sub( 'overview' );
+		$subs = $this->filters( 'tools_subs', $this->get_subs( 'tools' ) );
+
+		Settings::wrapOpen( $sub, 'tools' );
+
+		if ( $this->cucSub( $sub, 'tools' ) ) {
+
+			$messages = $this->filters( 'tools_messages', Settings::messages(), $sub );
+
+			Settings::headerTitle();
+			Settings::headerNav( $uri, $sub, $subs );
+			Settings::message( $messages );
+
+			if ( 'overview' == $sub )
+				$this->tools_overview( $uri );
+
+			else if ( ! $this->actions( 'tools_sub_'.$sub, $uri, $sub ) )
 				Settings::cheatin();
 
 		} else {

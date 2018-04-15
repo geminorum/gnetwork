@@ -11,8 +11,14 @@ use geminorum\gNetwork\Core\WordPress;
 class Module extends Core\Base
 {
 
+	const BASE   = 'gnetwork';
+	const MODULE = FALSE;
+
 	public $options = [];
-	public $menus   = [];
+	public $menus   = [
+		'settings' => [],
+		'tools'    => [],
+	];
 
 	protected $base = 'gnetwork';
 	protected $key  = NULL;
@@ -145,6 +151,23 @@ class Module extends Core\Base
 		// WILL OVERRIDED
 	}
 
+	public function get_menu_url( $sub = NULL, $admin = 'admin', $context = 'settings' )
+	{
+		if ( is_null( $sub ) )
+			$sub = $this->key;
+
+		if ( is_null( $admin ) )
+			$admin = $this->is_network() ? 'network' : 'admin';
+
+		switch ( $admin ) {
+			case 'admin'  : $url = Modules\Admin::menuURL( TRUE, $context ); break;
+			case 'network': $url = Modules\Network::menuURL( TRUE, $context ); break;
+			case 'user'   : $url = Modules\User::menuURL( TRUE, $context ); break;
+		}
+
+		return add_query_arg( [ 'sub' => $sub ], $url );
+	}
+
 	// we call 'setup_menu' action only if `WordPress::mustRegisterUI()`
 	public function register_menu( $title = NULL, $callback = NULL, $sub = NULL, $capability = NULL, $priority = 10 )
 	{
@@ -172,13 +195,57 @@ class Module extends Core\Base
 		// no need for user menu
 	}
 
-	public function menus()
+	public function register_tool( $title = NULL, $callback = NULL, $sub = NULL, $capability = NULL, $priority = 10 )
 	{
-		ksort( $this->menus, SORT_NUMERIC );
-		return $this->menus;
+		if ( is_null( $sub ) )
+			$sub = $this->key;
+
+		if ( is_null( $callback ) )
+			$callback = [ $this, 'tools' ];
+
+		if ( $this->is_network() ) {
+
+			if ( is_null( $capability ) )
+				$capability = 'manage_network_options';
+
+			Modules\Network::registerTool( $sub, $title, $callback, $capability, $priority );
+
+		} else {
+
+			if ( is_null( $capability ) )
+				$capability = 'manage_options';
+
+			Modules\Admin::registerTool( $sub, $title, $callback, $capability, $priority );
+		}
+
+		// no need for user menu
 	}
 
-	public function cucSub( $sub )
+	protected function get_menus( $context = 'settings' )
+	{
+		$menus = $this->menus[$context];
+		ksort( $menus, SORT_NUMERIC );
+		return $menus;
+	}
+
+	protected function get_subs( $context = 'settings' )
+	{
+		$subs = [];
+
+		$subs['overview'] = _x( 'Overview', 'Module Core: Menu Name', GNETWORK_TEXTDOMAIN );
+
+		foreach ( $this->get_menus( $context ) as $priority => $group )
+			foreach ( $group as $sub => $args )
+				if ( WordPress::cuc( $args['cap'] ) )
+					$subs[$sub] = $args['title'];
+
+		if ( 'settings' == $context && WordPress::isSuperAdmin() )
+			$subs['console'] = _x( 'Console', 'Module Core: Menu Name', GNETWORK_TEXTDOMAIN );
+
+		return $subs;
+	}
+
+	public function cucSub( $sub, $context = 'settings' )
 	{
 		if ( 'overview' == $sub )
 			return TRUE;
@@ -186,13 +253,14 @@ class Module extends Core\Base
 		if ( in_array( $sub, [ 'console' ] ) )
 			return WordPress::isSuperAdmin();
 
-		foreach ( $this->menus as $priority => $group )
+		foreach ( $this->menus[$context] as $priority => $group )
 			if ( array_key_exists( $sub, $group ) )
 				return WordPress::cuc( $group[$sub]['cap'] );
 
 		return FALSE;
 	}
 
+	// FIXME
 	public function get_settings_url( $action = FALSE, $full = FALSE )
 	{
 		$args = [ 'sub' => $this->key ];
@@ -203,7 +271,7 @@ class Module extends Core\Base
 		else if ( FALSE !== $action )
 			$args['action'] = $action;
 
-		$url = $this->is_network() ? Settings::networkURL( $full ) : Settings::adminURL( $full );
+		$url = $this->is_network() ? Modules\Network::menuURL( $full ) : Modules\Admin::menuURL( $full );
 
 		return add_query_arg( $args, $url );
 	}
@@ -494,15 +562,15 @@ class Module extends Core\Base
 			return delete_option( $options_key );
 	}
 
-	protected function settings_hook( $sub = NULL, $force = NULL )
+	protected function menu_hook( $sub = NULL, $context = 'settings', $admin = NULL )
 	{
 		if ( is_null( $sub ) )
 			$sub = $this->key;
 
-		if ( is_null( $force ) )
-			$force = $this->is_network() ? 'network' : 'admin';
+		if ( is_null( $admin ) )
+			$admin = $this->is_network() ? 'network' : 'admin';
 
-		return $this->base.'_'.$force.'_settings_sub_'.$sub;
+		return $this->base.'_'.$admin.'_'.$context.'_sub_'.$sub;
 	}
 
 	// DEFAULT METHOD: settings hook handler
@@ -513,7 +581,7 @@ class Module extends Core\Base
 			$this->settings_actions( $sub );
 			$this->settings_update( $sub );
 
-			add_action( $this->settings_hook( $sub ), [ $this, 'settings_form' ], 10, 2 );
+			add_action( $this->menu_hook( $sub ), [ $this, 'render_settings' ], 10, 2 );
 
 			$this->register_settings();
 			$this->register_settings_buttons( $sub );
@@ -523,11 +591,30 @@ class Module extends Core\Base
 		}
 	}
 
+	// DEFAULT METHOD: tools hook handler
+	public function tools( $sub = NULL )
+	{
+		if ( $this->key == $sub ) {
+
+			$this->tools_actions( $sub );
+
+			add_action( $this->menu_hook( $sub, 'tools' ), [ $this, 'render_tools' ], 10, 2 );
+
+			$this->tools_setup( $sub );
+		}
+	}
+
 	// DEFAULT METHOD: used for settings page only hooks
 	protected function settings_setup( $sub = NULL ) {}
 
+	// DEFAULT METHOD: used for tools page only hooks
+	protected function tools_setup( $sub = NULL ) {}
+
 	// DEFAULT METHOD: used for settings overview sub only
 	protected function settings_overview( $uri ) {}
+
+	// DEFAULT METHOD: used for tools overview sub only
+	protected function tools_overview( $uri ) {}
 
 	// DEFAULT METHOD: MAYBE OVERRIDED
 	// CAUTION: the action method responsible for checking the nonce
@@ -545,12 +632,15 @@ class Module extends Core\Base
 		call_user_func_array( [ $this, 'settings_action_'.$action ], [ $sub ] );
 	}
 
+	// DEFAULT METHOD
+	protected function tools_actions( $sub = NULL ) {}
+
 	public function settings_help() {}
 
 	// DEFAULT METHOD: setting sub html
-	public function settings_form( $uri, $sub = 'general' )
+	public function render_settings( $uri, $sub = 'general' )
 	{
-		$this->settings_form_before( $uri, $sub );
+		$this->render_form_start( $uri, $sub );
 
 		if ( method_exists( $this, 'settings_before' ) )
 			$this->settings_before( $sub, $uri );
@@ -562,10 +652,20 @@ class Module extends Core\Base
 
 		$this->settings_buttons( $sub );
 
-		$this->settings_form_after( $uri, $sub );
+		$this->render_form_end( $uri, $sub );
 	}
 
-	protected function settings_form_before( $uri, $sub = 'general', $action = 'update', $context = 'settings', $check = TRUE )
+	// DEFAULT METHOD: tools sub html
+	public function render_tools( $uri, $sub = 'general' )
+	{
+		$this->render_form_start( $uri, $sub, 'bulk', 'tools', FALSE );
+
+			// do the tools!
+
+		$this->render_form_end( $uri, $sub, 'bulk', 'tools' );
+	}
+
+	protected function render_form_start( $uri, $sub = 'general', $action = 'update', $context = 'settings', $check = TRUE )
 	{
 		$class = $this->base.'-form -form';
 
@@ -583,7 +683,7 @@ class Module extends Core\Base
 			}
 	}
 
-	protected function settings_form_after( $uri, $sub = 'general', $action = 'update', $context = 'settings', $check = TRUE )
+	protected function render_form_end( $uri, $sub = 'general', $action = 'update', $context = 'settings', $check = TRUE )
 	{
 		echo '</form>';
 

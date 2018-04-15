@@ -25,7 +25,12 @@ class Authors extends gNetwork\Module
 	{
 		Admin::registerMenu( $this->key,
 			_x( 'Authors', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			[ $this, 'settings' ], 'list_users'
+			[ $this, 'settings' ]
+		);
+
+		Admin::registerTool( $this->key,
+			_x( 'Authors', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
+			[ $this, 'tools' ], 'list_users'
 		);
 	}
 
@@ -53,21 +58,11 @@ class Authors extends gNetwork\Module
 
 	public function settings_sidebox( $sub, $uri )
 	{
-		if ( $user = gNetwork()->user() ) {
-
-			$name = get_userdata( $user )->display_name;
-			$edit = WordPress::getUserEditLink( $user );
-
-			HTML::desc( sprintf( _x( 'Network Site User Is %s', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
-				$edit ? HTML::link( $name, $edit, TRUE ) : $name ) );
-
-		} else {
-
-			HTML::desc( _x( 'Network Site User Is Not Defined', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ) );
-		}
+		self::summarySiteUser();
 	}
 
-	public function settings_before( $sub, $uri )
+	// TODO: add site user to this blog ( with cap select )
+	public function render_tools( $uri, $sub = 'general' )
 	{
 		$users = [
 			'none' => Settings::showOptionNone(),
@@ -77,9 +72,13 @@ class Authors extends gNetwork\Module
 		foreach ( WordPress::getUsers() as $user_id => $user )
 			$users[$user_id] = sprintf( '%1$s (%2$s)', $user->display_name, $user->user_login );
 
+		$this->render_form_start( $uri, $sub, 'bulk', 'tools', FALSE );
+
 		echo '<table class="form-table">';
 
-			// TODO: add site user to this blog ( with cap select )
+			echo '<tr><th>&nbsp;</th><td>';
+				self::summarySiteUser();
+			echo '</td></tr>';
 
 			echo '<tr><th scope="row">'._x( 'Bulk Change Author', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ).'</th><td>';
 
@@ -119,9 +118,11 @@ class Authors extends gNetwork\Module
 
 			echo '</td></tr>';
 		echo '</table>';
+
+		$this->render_form_end( $uri, $sub, 'bulk', 'tools' );
 	}
 
-	protected function settings_actions( $sub = NULL )
+	protected function tools_actions( $sub = NULL )
 	{
 		if ( ! empty( $_POST['bulk_change_author'] ) ) {
 
@@ -156,6 +157,22 @@ class Authors extends gNetwork\Module
 	public static function userRoles()
 	{
 		HTML::tableSide( get_editable_roles() );
+	}
+
+	public static function summarySiteUser()
+	{
+		if ( $user = gNetwork()->user() ) {
+
+			$name = get_userdata( $user )->display_name;
+			$edit = WordPress::getUserEditLink( $user );
+
+			HTML::desc( sprintf( _x( 'Network Site User Is %s', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
+				$edit ? HTML::link( $name, $edit, TRUE ) : $name ) );
+
+		} else {
+
+			HTML::desc( _x( 'Network Site User Is Not Defined', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ) );
+		}
 	}
 
 	private function bulk_change_author( $from_user, $to_user, $posttype = 'post' )

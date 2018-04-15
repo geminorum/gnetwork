@@ -53,9 +53,18 @@ class Network extends gNetwork\Module
 			120
 		);
 
-		add_action( 'load-'.$hook, [ $this, 'settings_load' ] );
+		$tools = add_submenu_page( 'network-tools',
+			_x( 'Network Tools', 'Modules: Network: Page Menu', GNETWORK_TEXTDOMAIN ),
+			_x( 'Extras', 'Modules: Network: Page Menu', GNETWORK_TEXTDOMAIN ),
+			'manage_network_options',
+			$this->base.'-tools',
+			[ $this, 'tools_page' ]
+		);
 
-		foreach ( $this->menus() as $priority => $group )
+		add_action( 'load-'.$hook, [ $this, 'settings_load' ] );
+		add_action( 'load-'.$tools, [ $this, 'tools_load' ] );
+
+		foreach ( $this->get_menus() as $priority => $group )
 			foreach ( $group as $sub => $args )
 				add_submenu_page( $this->base,
 					sprintf( _x( 'gNetwork Extras: %s', 'Modules: Network: Page Menu', GNETWORK_TEXTDOMAIN ), $args['title'] ),
@@ -73,18 +82,42 @@ class Network extends gNetwork\Module
 		];
 	}
 
+	public static function menuURL( $full = TRUE, $context = 'settings' )
+	{
+		if ( 'tools' == $context )
+			$relative = 'admin.php?page='.static::BASE.'-tools';
+		else
+			$relative = 'admin.php?page='.static::BASE;
+
+		return $full ? network_admin_url( $relative ) : $relative;
+	}
+
 	public static function registerMenu( $sub, $title = NULL, $callback = FALSE, $capability = 'manage_network_options', $priority = 10 )
 	{
 		if ( ! is_network_admin() )
 			return;
 
-		gNetwork()->network->menus[intval( $priority )][$sub] = [
+		gNetwork()->network->menus['settings'][intval( $priority )][$sub] = [
 			'title' => $title ? $title : $sub,
 			'cap'   => $capability,
 		];
 
-		if ( $callback ) // && is_callable( $callback ) )
+		if ( $callback )
 			add_action( 'gnetwork_network_settings', $callback );
+	}
+
+	public static function registerTool( $sub, $title = NULL, $callback = FALSE, $capability = 'manage_network_options', $priority = 10 )
+	{
+		if ( ! is_network_admin() )
+			return;
+
+		gNetwork()->network->menus['tools'][intval( $priority )][$sub] = [
+			'title' => $title ? $title : $sub,
+			'cap'   => $capability,
+		];
+
+		if ( $callback )
+			add_action( 'gnetwork_network_tools', $callback );
 	}
 
 	public function settings_load()
@@ -97,28 +130,18 @@ class Network extends gNetwork\Module
 		do_action( $this->base.'_network_settings', $sub );
 	}
 
-	private function subs()
+	public function tools_load()
 	{
-		$subs = [ 'overview' => _x( 'Overview', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) ];
-
-		foreach ( $this->menus() as $priority => $group )
-			foreach ( $group as $sub => $args )
-				if ( WordPress::cuc( $args['cap'] ) )
-					$subs[$sub] = $args['title'];
-
-		if ( WordPress::isSuperAdmin() )
-			$subs['console'] = _x( 'Console', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN );
-
-		return $subs;
+		do_action( $this->base.'_network_tools', Settings::sub( 'overview' ) );
 	}
 
 	public function settings_page()
 	{
-		$uri  = Settings::networkURL( FALSE );
+		$uri  = self::menuURL( FALSE );
 		$sub  = Settings::sub( 'overview' );
-		$subs = $this->filters( 'settings_subs', $this->subs() );
+		$subs = $this->filters( 'settings_subs', $this->get_subs() );
 
-		Settings::wrapOpen( $sub, $this->base, 'settings' );
+		Settings::wrapOpen( $sub );
 
 		if ( $this->cucSub( $sub ) ) {
 
@@ -131,10 +154,40 @@ class Network extends gNetwork\Module
 			if ( 'overview' == $sub )
 				$this->settings_overview( $uri );
 
-			else if ( 'console' == $sub && WordPress::isSuperAdmin() )
+			else if ( 'console' == $sub )
 				@require_once( GNETWORK_DIR.'includes/Layouts/console.'.$this->key.'.php' );
 
 			else if ( ! $this->actions( 'settings_sub_'.$sub, $uri, $sub ) )
+				Settings::cheatin();
+
+		} else {
+
+			Settings::cheatin();
+		}
+
+		Settings::wrapClose();
+	}
+
+	public function tools_page()
+	{
+		$uri  = self::menuURL( FALSE, 'tools' );
+		$sub  = Settings::sub( 'overview' );
+		$subs = $this->filters( 'tools_subs', $this->get_subs( 'tools' ) );
+
+		Settings::wrapOpen( $sub, 'tools' );
+
+		if ( $this->cucSub( $sub, 'tools' ) ) {
+
+			$messages = $this->filters( 'tools_messages', Settings::messages(), $sub );
+
+			Settings::headerTitle();
+			Settings::headerNav( $uri, $sub, $subs );
+			Settings::message( $messages );
+
+			if ( 'overview' == $sub )
+				$this->tools_overview( $uri );
+
+			else if ( ! $this->actions( 'tools_sub_'.$sub, $uri, $sub ) )
 				Settings::cheatin();
 
 		} else {

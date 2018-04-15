@@ -184,7 +184,7 @@ class Cron extends gNetwork\Module
 
 			$this->register_button( 'unschedule', _x( 'Unschedule', 'Modules: CRON: Button', GNETWORK_TEXTDOMAIN ), 'danger' );
 
-			add_action( $this->settings_hook( $sub ), [ $this, 'settings_form_scheduled' ], 10, 2 );
+			add_action( $this->menu_hook( $sub ), [ $this, 'settings_form_scheduled' ], 10, 2 );
 
 		} else {
 			parent::settings( $sub );
@@ -193,12 +193,12 @@ class Cron extends gNetwork\Module
 
 	public function settings_form_scheduled( $uri, $sub = 'general' )
 	{
-		$this->settings_form_before( $uri, $sub, 'bulk', 'custom', FALSE );
+		$this->render_form_start( $uri, $sub, 'bulk', 'custom', FALSE );
 
 			if ( self::tableCronInfo() )
 				$this->settings_buttons( $sub );
 
-		$this->settings_form_after( $uri, $sub );
+		$this->render_form_end( $uri, $sub );
 	}
 
 	public function schedule_actions()
@@ -358,7 +358,7 @@ class Cron extends gNetwork\Module
 
 		if ( $link && WordPress::cuc( 'manage_options' ) )
 			echo '&nbsp;&nbsp;'.HTML::tag( 'a', [
-				'href'  => Settings::subURL( 'scheduled', FALSE ),
+				'href'  => $this->get_menu_url( 'scheduled' ),
 				'title' => _x( 'View current cron scheduled tasks.', 'Modules: CRON', GNETWORK_TEXTDOMAIN ),
 				'class' => [ 'button', 'button-small' ],
 			], _x( 'View Scheduled Tasks', 'Modules: CRON', GNETWORK_TEXTDOMAIN ) );

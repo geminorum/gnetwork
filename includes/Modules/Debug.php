@@ -83,7 +83,7 @@ class Debug extends gNetwork\Module
 		if ( 'systemreport' == $sub
 			|| 'remotetests' == $sub ) {
 
-			add_action( $this->settings_hook( $sub ), [ $this, 'settings_form' ], 10, 2 );
+			add_action( $this->menu_hook( $sub ), [ $this, 'render_settings' ], 10, 2 );
 
 		} else if ( 'errorlogs' == $sub
 			|| 'analoglogs' == $sub ) {
@@ -109,15 +109,15 @@ class Debug extends gNetwork\Module
 				WordPress::redirectReferer( 'wrong' );
 			}
 
-			add_action( $this->settings_hook( $sub ), [ $this, 'settings_form' ], 10, 2 );
+			add_action( $this->menu_hook( $sub ), [ $this, 'render_settings' ], 10, 2 );
 
 			$this->register_settings_buttons( $sub );
 		}
 	}
 
-	public function settings_form( $uri, $sub = 'general' )
+	public function render_settings( $uri, $sub = 'general' )
 	{
-		$this->settings_form_before( $uri, $sub, 'bulk', 'custom', FALSE );
+		$this->render_form_start( $uri, $sub, 'bulk', 'custom', FALSE );
 
 		if ( 'systemreport' == $sub ) {
 
@@ -199,7 +199,7 @@ class Debug extends gNetwork\Module
 				$this->settings_buttons( $sub );
 		}
 
-		$this->settings_form_after( $uri, $sub );
+		$this->render_form_end( $uri, $sub );
 	}
 
 	protected function register_settings_buttons( $sub = NULL )
@@ -658,7 +658,7 @@ class Debug extends gNetwork\Module
 			if ( GNETWORK_DEBUG_LOG )
 				echo HTML::tag( 'a', [
 					'class' => 'button button-secondary',
-					'href'  => Settings::subURL( 'errorlogs' ),
+					'href'  => $this->get_menu_url( 'errorlogs', NULL ),
 				], _x( 'Check Errors', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
 
 			if ( GNETWORK_DEBUG_LOG && GNETWORK_ANALOG_LOG )
@@ -667,7 +667,7 @@ class Debug extends gNetwork\Module
 			if ( GNETWORK_ANALOG_LOG )
 				echo HTML::tag( 'a', [
 					'class' => 'button button-secondary',
-					'href'  => Settings::subURL( 'analoglogs' ),
+					'href'  => $this->get_menu_url( 'analoglogs', NULL ),
 				], _x( 'Check Logs', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
 
 		echo '</p>';

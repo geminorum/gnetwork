@@ -236,8 +236,8 @@ class AdminBar extends gNetwork\Module
 		global $pagenow;
 
 		$current_url = URL::current();
-		// $network_url = Settings::networkURL();
-		$admin_url   = Settings::adminURL();
+		// $network_url = Network::menuURL();
+		$admin_url   = Admin::menuURL();
 
 		$parent_id = $this->base.'-info';
 		$group_id  = $parent_id.'-sub';
@@ -282,7 +282,7 @@ class AdminBar extends gNetwork\Module
 				'parent' => $parent_id,
 				'id'     => $this->base.'-locale',
 				'title'  => _x( 'Change Locale', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
-				'href'   => Settings::subURL( 'locale', FALSE ),
+				'href'   => FALSE, // $this->get_menu_url( 'locale' ),
 				'meta'   => [ 'title' => _x( 'Quickly change current blog language', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ) ],
 			] );
 
@@ -396,7 +396,7 @@ class AdminBar extends gNetwork\Module
 					'parent' => $group_id,
 					'id'     => $this->base.'-cron-status',
 					'title'  => strip_tags( $status ),
-					'href'   => Settings::subURL( 'scheduled', FALSE ),
+					'href'   => $this->get_menu_url( 'scheduled' ),
 				] );
 		}
 
@@ -404,7 +404,7 @@ class AdminBar extends gNetwork\Module
 			'parent' => $group_id,
 			'id'     => $this->base.'-info-pagenow',
 			'title'  => 'PageNow: '.( empty( $pagenow ) ? 'EMPTY' : $pagenow ),
-			'href'   => GNETWORK_ANALOG_LOG ? Settings::subURL( 'analoglogs' ) : FALSE,
+			'href'   => GNETWORK_ANALOG_LOG ? $this->get_menu_url( 'analoglogs', 'network' ) : FALSE,
 			'meta'   => [ 'title' => _x( 'Click to see Logs', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ) ],
 		] );
 
@@ -412,7 +412,7 @@ class AdminBar extends gNetwork\Module
 			'parent' => $group_id,
 			'id'     => $this->base.'-info-queries',
 			'title'  => self::stat( '%dq | %.3fs | %.2fMB' ),
-			'href'   => GNETWORK_DEBUG_LOG ? Settings::subURL( 'errorlogs' ) : FALSE,
+			'href'   => GNETWORK_DEBUG_LOG ? $this->get_menu_url( 'errorlogs', 'network' ) : FALSE,
 			'meta'   => [ 'title' => _x( 'Queries | Timer Stop | Memory Usage', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ) ],
 		] );
 	}
@@ -584,7 +584,7 @@ class AdminBar extends gNetwork\Module
 					'parent' => 'network-admin',
 					'id'     => 'network-admin-sr',
 					'title'  => _x( 'System Report', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
-					'href'   => Settings::subURL( 'systemreport' ),
+					'href'   => $this->get_menu_url( 'systemreport', 'network' ),
 				] );
 
 			if ( current_user_can( 'manage_sites' ) )
@@ -632,7 +632,7 @@ class AdminBar extends gNetwork\Module
 					'parent' => 'network-admin',
 					'id'     => 'network-admin-ne',
 					'title'  => _x( 'Extras', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
-					'href'   => Settings::subURL(),
+					'href'   => $this->get_menu_url( FALSE, 'network' ),
 				] );
 			}
 

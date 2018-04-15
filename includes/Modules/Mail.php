@@ -248,7 +248,7 @@ class Mail extends gNetwork\Module
 
 		} else if ( 'testmail' == $sub ) {
 
-			add_action( $this->settings_hook( $sub ), [ $this, 'settings_form_testmail' ], 10, 2 );
+			add_action( $this->menu_hook( $sub ), [ $this, 'settings_form_testmail' ], 10, 2 );
 			$this->register_button( 'send_testmail', _x( 'Send Test Mail', 'Modules: Mail', GNETWORK_TEXTDOMAIN ), TRUE );
 
 		} else if ( 'emaillogs' == $sub ) {
@@ -287,7 +287,7 @@ class Mail extends gNetwork\Module
 				}
 			}
 
-			add_action( $this->settings_hook( $sub ), [ $this, 'settings_form_emaillogs' ], 10, 2 );
+			add_action( $this->menu_hook( $sub ), [ $this, 'settings_form_emaillogs' ], 10, 2 );
 
 			$this->register_button( 'deletelogs_selected', _x( 'Delete Selected', 'Modules: Mail', GNETWORK_TEXTDOMAIN ), TRUE );
 			$this->register_button( 'deletelogs_all', _x( 'Delete All', 'Modules: Mail', GNETWORK_TEXTDOMAIN ), FALSE, TRUE );
@@ -296,22 +296,22 @@ class Mail extends gNetwork\Module
 
 	public function settings_form_testmail( $uri, $sub = 'general' )
 	{
-		$this->settings_form_before( $uri, $sub, 'bulk', 'custom', FALSE );
+		$this->render_form_start( $uri, $sub, 'bulk', 'custom', FALSE );
 
 			if ( $this->tableTestMail() )
 				$this->settings_buttons( $sub );
 
-		$this->settings_form_after( $uri, $sub );
+		$this->render_form_end( $uri, $sub );
 	}
 
 	public function settings_form_emaillogs( $uri, $sub = 'general' )
 	{
-		$this->settings_form_before( $uri, $sub, 'bulk', 'custom', FALSE );
+		$this->render_form_start( $uri, $sub, 'bulk', 'custom', FALSE );
 
 			if ( $this->tableEmailLogs() )
 				$this->settings_buttons( $sub );
 
-		$this->settings_form_after( $uri, $sub );
+		$this->render_form_end( $uri, $sub );
 	}
 
 	public function wp_mail_from( $email )

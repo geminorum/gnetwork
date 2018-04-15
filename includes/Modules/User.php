@@ -219,27 +219,27 @@ class User extends gNetwork\Module
 				WordPress::redirectReferer( ( update_site_option( $this->hook( 'roles' ), $roles ) ? 'updated' : 'error' ) );
 			}
 
-			add_action( $this->settings_hook( $sub ), [ $this, 'settings_form' ], 10, 2 );
+			add_action( $this->menu_hook( $sub ), [ $this, 'render_settings' ], 10, 2 );
 
 			$this->register_settings_buttons( $sub );
 			$this->register_settings_help( $sub );
 		}
 	}
 
-	public function settings_form( $uri, $sub = 'general' )
+	public function render_settings( $uri, $sub = 'general' )
 	{
 		if ( $this->key == $sub ) {
 
-			parent::settings_form( $uri, $sub );
+			parent::render_settings( $uri, $sub );
 
 		} else if ( 'roles' == $sub ) {
 
-			$this->settings_form_before( $uri, $sub, 'bulk', 'custom', FALSE );
+			$this->render_form_start( $uri, $sub, 'bulk', 'custom', FALSE );
 
 				if ( $this->tableBlogRoles() )
 					$this->settings_buttons( $sub );
 
-			$this->settings_form_after( $uri, $sub );
+			$this->render_form_end( $uri, $sub );
 		}
 	}
 
@@ -310,7 +310,7 @@ class User extends gNetwork\Module
 
 		add_action( 'load-'.$hook, [ $this, 'settings_load' ] );
 
-		foreach ( $this->menus() as $priority => $group )
+		foreach ( $this->get_menus() as $priority => $group )
 			foreach ( $group as $sub => $args )
 				add_submenu_page( $this->base,
 					sprintf( _x( 'gNetwork Extras: %s', 'Modules: User: Page Menu', GNETWORK_TEXTDOMAIN ), $args['title'] ),
@@ -338,12 +338,18 @@ class User extends gNetwork\Module
 		return $old_help;
 	}
 
+	public static function menuURL( $full = TRUE, $context = 'settings' )
+	{
+		$relative = 'admin.php?page='.static::BASE;
+		return $full ? user_admin_url( $relative ) : $relative;
+	}
+
 	public static function registerMenu( $sub, $title = NULL, $callback = FALSE, $capability = 'read', $priority = 10 )
 	{
 		if ( ! is_user_admin() )
 			return;
 
-		gNetwork()->user->menus[intval( $priority )][$sub] = [
+		gNetwork()->user->menus['settings'][intval( $priority )][$sub] = [
 			'title' => $title ? $title : $sub,
 			'cap'   => $capability,
 		];
@@ -362,28 +368,13 @@ class User extends gNetwork\Module
 		do_action( $this->base.'_user_settings', $sub );
 	}
 
-	private function subs()
-	{
-		$subs = [ 'overview' => _x( 'Overview', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) ];
-
-		foreach ( $this->menus() as $priority => $group )
-			foreach ( $group as $sub => $args )
-				if ( WordPress::cuc( $args['cap'] ) )
-					$subs[$sub] = $args['title'];
-
-		if ( WordPress::isSuperAdmin() )
-			$subs['console'] = _x( 'Console', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN );
-
-		return $subs;
-	}
-
 	public function settings_page()
 	{
-		$uri  = Settings::userURL( FALSE );
+		$uri  = self::menuURL( FALSE );
 		$sub  = Settings::sub( 'overview' );
-		$subs = $this->filters( 'settings_subs', $this->subs() );
+		$subs = $this->filters( 'settings_subs', $this->get_subs() );
 
-		Settings::wrapOpen( $sub, $this->base, 'settings' );
+		Settings::wrapOpen( $sub );
 
 		if ( $this->cucSub( $sub ) ) {
 
@@ -396,7 +387,7 @@ class User extends gNetwork\Module
 			if ( 'overview' == $sub )
 				$this->settings_overview( $uri );
 
-			else if ( 'console' == $sub && WordPress::isSuperAdmin() )
+			else if ( 'console' == $sub )
 				@require_once( GNETWORK_DIR.'includes/Layouts/console.'.$this->key.'.php' );
 
 			else if ( ! $this->actions( 'settings_sub_'.$sub, $uri, $sub ) )

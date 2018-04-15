@@ -42,17 +42,13 @@ class Dev extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Dev Tools', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
+		$this->register_tool( _x( 'Dev Tools', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
 	}
 
-	public function settings_form( $uri, $sub = 'general' )
+	public function render_tools( $uri, $sub = 'general' )
 	{
-		$this->settings_form_before( $uri, $sub, 'bulk', 'custom', FALSE );
-
-			self::generateCustomTax();
-			// self::generateDropinFile();
-
-		$this->settings_form_after( $uri, $sub );
+		self::generateCustomTax();
+		// self::generateDropinFile();
 	}
 
 	public function http_request_args( $r, $url )
