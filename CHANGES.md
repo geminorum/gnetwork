@@ -1,3 +1,16 @@
+### 3.7.2
+* main/main: using psr-4 autoload
+* main/plugin: moved constants
+* main/plugin: delay pluggables to plugins loaded
+* main/module: drop settings folder
+* main/utilities: general iso639 helper
+* module/branding: custom network logo/icon
+* module/mail: moved test mail form into module
+* module/media: sync ajax actions
+* module/login: :new: hide login page
+* module/shortcodes: drop google groups subscription shortcode
+* module/themes: enhancements disabled by default
+
 ### 3.7.1
 * module/admin: hide network-active plugins
 * module/blog: disable xml-rpc headers
