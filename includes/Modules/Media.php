@@ -269,7 +269,7 @@ class Media extends gNetwork\Module
 		$this->render_form_start( $uri, $sub, 'bulk', 'custom', FALSE );
 
 			if ( $this->tablePostInfo() )
-				$this->settings_buttons( $sub );
+				$this->render_buttons( $sub );
 
 		$this->render_form_end( $uri, $sub );
 	}

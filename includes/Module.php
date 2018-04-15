@@ -584,9 +584,9 @@ class Module extends Core\Base
 			add_action( $this->menu_hook( $sub ), [ $this, 'render_settings' ], 10, 2 );
 
 			$this->register_settings();
-			$this->register_settings_buttons( $sub );
-			$this->register_settings_help( $sub );
+			$this->settings_buttons( $sub );
 
+			$this->settings_help( $sub );
 			$this->settings_setup( $sub ); // must be after `register_settings()`
 		}
 	}
@@ -600,6 +600,7 @@ class Module extends Core\Base
 
 			add_action( $this->menu_hook( $sub, 'tools' ), [ $this, 'render_tools' ], 10, 2 );
 
+			$this->tools_buttons( $sub );
 			$this->tools_setup( $sub );
 		}
 	}
@@ -635,8 +636,6 @@ class Module extends Core\Base
 	// DEFAULT METHOD
 	protected function tools_actions( $sub = NULL ) {}
 
-	public function settings_help() {}
-
 	// DEFAULT METHOD: setting sub html
 	public function render_settings( $uri, $sub = 'general' )
 	{
@@ -650,7 +649,7 @@ class Module extends Core\Base
 		if ( method_exists( $this, 'settings_after' ) )
 			$this->settings_after( $sub, $uri );
 
-		$this->settings_buttons( $sub );
+		$this->render_buttons( $sub );
 
 		$this->render_form_end( $uri, $sub );
 	}
@@ -687,14 +686,8 @@ class Module extends Core\Base
 	{
 		echo '</form>';
 
-		if ( WordPress::isDev() )
+		if ( 'settings' == $context && WordPress::isDev() )
 			self::dump( $this->options );
-	}
-
-	public function default_buttons( $sub = NULL )
-	{
-		$this->register_button( 'submit', NULL, TRUE );
-		$this->register_button( 'reset', NULL, 'reset', TRUE );
 	}
 
 	public function register_button( $key, $value = NULL, $type = FALSE, $atts = [] )
@@ -707,7 +700,7 @@ class Module extends Core\Base
 		];
 	}
 
-	protected function settings_buttons( $sub = NULL, $wrap = '' )
+	protected function render_buttons( $sub = NULL, $wrap = '' )
 	{
 		if ( FALSE !== $wrap )
 			echo $this->wrap_open_buttons( $wrap );
@@ -886,12 +879,13 @@ class Module extends Core\Base
 		Settings::fieldSection( _x( 'Miscellaneous', 'Module Core: Settings', GNETWORK_TEXTDOMAIN ) );
 	}
 
-	protected function register_settings_buttons( $sub = NULL )
+	protected function settings_buttons( $sub = NULL )
 	{
-		if ( method_exists( $this, 'default_settings' )
-			&& count( $this->default_settings() ) )
-				$this->default_buttons( $sub );
+		$this->register_button( 'submit', NULL, TRUE );
+		$this->register_button( 'reset', NULL, 'reset', TRUE );
 	}
+
+	protected function tools_buttons( $sub = NULL ) {}
 
 	public function add_settings_field( $atts )
 	{
@@ -927,7 +921,7 @@ class Module extends Core\Base
 		);
 	}
 
-	public function register_settings_help( $sub = NULL )
+	public function settings_help( $sub = NULL )
 	{
 		$screen = get_current_screen();
 		$tabs   = $this->settings_help_tabs( $sub );

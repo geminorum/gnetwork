@@ -189,7 +189,7 @@ class Cleanup extends gNetwork\Module
 	}
 
 	// no buttons
-	public function default_buttons( $sub = NULL ) {}
+	protected function settings_buttons( $sub = NULL ) {}
 
 	protected function settings_update( $sub )
 	{

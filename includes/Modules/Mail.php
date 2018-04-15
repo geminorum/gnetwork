@@ -299,7 +299,7 @@ class Mail extends gNetwork\Module
 		$this->render_form_start( $uri, $sub, 'bulk', 'custom', FALSE );
 
 			if ( $this->tableTestMail() )
-				$this->settings_buttons( $sub );
+				$this->render_buttons( $sub );
 
 		$this->render_form_end( $uri, $sub );
 	}
@@ -309,7 +309,7 @@ class Mail extends gNetwork\Module
 		$this->render_form_start( $uri, $sub, 'bulk', 'custom', FALSE );
 
 			if ( $this->tableEmailLogs() )
-				$this->settings_buttons( $sub );
+				$this->render_buttons( $sub );
 
 		$this->render_form_end( $uri, $sub );
 	}

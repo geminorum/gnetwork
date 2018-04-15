@@ -221,8 +221,8 @@ class User extends gNetwork\Module
 
 			add_action( $this->menu_hook( $sub ), [ $this, 'render_settings' ], 10, 2 );
 
-			$this->register_settings_buttons( $sub );
-			$this->register_settings_help( $sub );
+			$this->settings_buttons( $sub );
+			$this->settings_help( $sub );
 		}
 	}
 
@@ -237,7 +237,7 @@ class User extends gNetwork\Module
 			$this->render_form_start( $uri, $sub, 'bulk', 'custom', FALSE );
 
 				if ( $this->tableBlogRoles() )
-					$this->settings_buttons( $sub );
+					$this->render_buttons( $sub );
 
 			$this->render_form_end( $uri, $sub );
 		}

@@ -111,7 +111,7 @@ class Debug extends gNetwork\Module
 
 			add_action( $this->menu_hook( $sub ), [ $this, 'render_settings' ], 10, 2 );
 
-			$this->register_settings_buttons( $sub );
+			$this->settings_buttons( $sub );
 		}
 	}
 
@@ -196,13 +196,13 @@ class Debug extends gNetwork\Module
 			// TODO: add limit/length input
 
 			if ( self::displayLogs( ( 'analoglogs' == $sub ? GNETWORK_ANALOG_LOG : GNETWORK_DEBUG_LOG ) ) )
-				$this->settings_buttons( $sub );
+				$this->render_buttons( $sub );
 		}
 
 		$this->render_form_end( $uri, $sub );
 	}
 
-	protected function register_settings_buttons( $sub = NULL )
+	protected function settings_buttons( $sub = NULL )
 	{
 		$this->register_button( 'clear_logs', _x( 'Clear Logs', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
 		$this->register_button( 'download_logs', _x( 'Download Logs', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
