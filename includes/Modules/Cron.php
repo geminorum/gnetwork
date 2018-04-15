@@ -49,8 +49,9 @@ class Cron extends gNetwork\Module
 			[ $this, 'settings' ]
 		);
 
-		Admin::registerMenu( 'scheduled',
-			_x( 'Scheduled', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN )
+		Admin::registerTool( $this->key,
+			_x( 'CRON', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
+			[ $this, 'tools' ]
 		);
 	}
 
@@ -155,9 +156,9 @@ class Cron extends gNetwork\Module
 		];
 	}
 
-	public function settings( $sub = NULL )
+	public function tools( $sub = NULL )
 	{
-		if ( 'scheduled' == $sub ) {
+		if ( $this->key == $sub ) {
 
 			if ( ! empty( $_POST ) && 'bulk' == $_POST['action'] ) {
 
@@ -184,21 +185,18 @@ class Cron extends gNetwork\Module
 
 			$this->register_button( 'unschedule', _x( 'Unschedule', 'Modules: CRON: Button', GNETWORK_TEXTDOMAIN ), 'danger' );
 
-			add_action( $this->menu_hook( $sub ), [ $this, 'settings_form_scheduled' ], 10, 2 );
-
-		} else {
-			parent::settings( $sub );
+			add_action( $this->menu_hook( $sub, 'tools' ), [ $this, 'render_tools' ], 10, 2 );
 		}
 	}
 
-	public function settings_form_scheduled( $uri, $sub = 'general' )
+	public function render_tools( $uri, $sub = 'general' )
 	{
-		$this->render_form_start( $uri, $sub, 'bulk', 'custom', FALSE );
+		$this->render_form_start( $uri, $sub, 'bulk', 'tools', FALSE );
 
 			if ( self::tableCronInfo() )
 				$this->settings_buttons( $sub );
 
-		$this->render_form_end( $uri, $sub );
+		$this->render_form_end( $uri, $sub, 'bulk', 'tools' );
 	}
 
 	public function schedule_actions()
