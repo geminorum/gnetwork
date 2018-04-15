@@ -156,37 +156,35 @@ class Cron extends gNetwork\Module
 		];
 	}
 
-	public function tools( $sub = NULL )
+	protected function tools_actions( $sub = NULL )
 	{
-		if ( $this->key == $sub ) {
+		if ( ! empty( $_POST ) && 'bulk' == $_POST['action'] ) {
 
-			if ( ! empty( $_POST ) && 'bulk' == $_POST['action'] ) {
+			$this->check_referer( $sub );
 
-				$this->check_referer( $sub );
+			if ( isset( $_POST['unschedule'], $_POST['_cb'] ) ) {
 
-				if ( isset( $_POST['unschedule'], $_POST['_cb'] ) ) {
+				$count = 0;
+				$cron = self::getCronArray();
 
-					$count = 0;
-					$cron = self::getCronArray();
+				foreach ( $_POST['_cb'] as $event )
+					if ( self::unschedule( intval( $event ), $cron ) )
+						$count++;
 
-					foreach ( $_POST['_cb'] as $event )
-						if ( self::unschedule( intval( $event ), $cron ) )
-							$count++;
-
-				} else {
-					WordPress::redirectReferer( 'wrong' );
-				}
-
-				WordPress::redirectReferer( [
-					'message' => 'deleted',
-					'count'   => $count,
-				] );
+			} else {
+				WordPress::redirectReferer( 'wrong' );
 			}
 
-			$this->register_button( 'unschedule', _x( 'Unschedule', 'Modules: CRON: Button', GNETWORK_TEXTDOMAIN ), 'danger' );
-
-			add_action( $this->menu_hook( $sub, 'tools' ), [ $this, 'render_tools' ], 10, 2 );
+			WordPress::redirectReferer( [
+				'message' => 'deleted',
+				'count'   => $count,
+			] );
 		}
+	}
+
+	protected function tools_buttons( $sub = NULL )
+	{
+		$this->register_button( 'unschedule', _x( 'Unschedule', 'Modules: CRON: Button', GNETWORK_TEXTDOMAIN ), 'danger' );
 	}
 
 	public function render_tools( $uri, $sub = 'general' )
