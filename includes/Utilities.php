@@ -541,4 +541,14 @@ class Utilities extends Core\Base
 
 		return strtolower( $lang[0] );
 	}
+
+	public static function redirect404()
+	{
+		if ( $custom = gNetwork()->option( 'page_404', 'blog' ) )
+			$location = get_page_link( $custom );
+		else
+			$location = home_url( '/404' );
+
+		WordPress::redirect( $location, 404 );
+	}
 }
