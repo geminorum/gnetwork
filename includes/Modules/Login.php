@@ -47,6 +47,8 @@ class Login extends gNetwork\Module
 			$this->filter( 'site_url', 4 );
 			$this->filter( 'network_site_url', 3 );
 			$this->filter( 'wp_redirect', 2 );
+
+			$this->filter( 'site_option_welcome_email', 3, 12 );
 		}
 	}
 
@@ -197,7 +199,7 @@ class Login extends gNetwork\Module
 	public function plugins_loaded()
 	{
 		if ( ! is_multisite() && Text::has( $_SERVER['REQUEST_URI'], [ 'wp-signup', 'wp-activate' ] ) )
-			wp_die( _x( 'Move along, nothing to see here!', 'Modules: Login', GNETWORK_TEXTDOMAIN ) );
+			wp_die( _x( 'Move along, nothing to see here!', 'Modules: Login', GNETWORK_TEXTDOMAIN ), 403 );
 
 		$request = URI::parse( $_SERVER['REQUEST_URI'] );
 
@@ -219,14 +221,20 @@ class Login extends gNetwork\Module
 
 	public function wp_loaded()
 	{
-		if ( is_admin() && ! is_user_logged_in() && ! WordPress::isAJAX() && $GLOBALS['pagenow'] !== 'admin-post.php' )
-			wp_die( _x( 'Move along, nothing to see here!', 'Modules: Login', GNETWORK_TEXTDOMAIN ), 403 );
-
 		$request = URI::parse( $_SERVER['REQUEST_URI'] );
+
+		if ( is_admin()
+			&& ! is_user_logged_in()
+			&& ! WordPress::isAJAX()
+			&& 'admin-post.php' !== $GLOBALS['pagenow']
+			&& ( isset( $_GET )
+			&& empty( $_GET['adminhash'] )
+			&& '/wp-admin/options.php' !== $request['path'] ) )
+				Utilities::redirect404();
 
 		if ( 'wp-login.php' === $GLOBALS['pagenow']
 			&& $request['path'] !== self::trailingSlash( $request['path'] )
-				&& get_option( 'permalink_structure' ) ) {
+			&& get_option( 'permalink_structure' ) ) {
 
 			wp_safe_redirect( self::trailingSlash( $this->custom_login_url() )
 				.( empty( $_SERVER['QUERY_STRING'] ) ? '' : '?'.$_SERVER['QUERY_STRING'] ) );
@@ -279,7 +287,7 @@ class Login extends gNetwork\Module
 		if ( $_SERVER['REQUEST_URI'] === self::trailingSlash( str_repeat( '-/', 10 ) ) )
 			$_SERVER['REQUEST_URI'] = self::trailingSlash( '/wp-login-php/' );
 
-		require_once( ABSPATH.WPINC.'/template-loader.php' );
+		require_once ABSPATH.WPINC.'/template-loader.php';
 
 		die();
 	}
@@ -336,6 +344,11 @@ class Login extends gNetwork\Module
 	public function wp_redirect( $location, $status )
 	{
 		return $this->check_login( $location );
+	}
+
+	public function site_option_welcome_email( $value, $option, $network_id )
+	{
+		return str_replace( 'wp-login.php', self::trailingSlash( $this->options['login_slug'] ), $value );
 	}
 
 	public function login_init()
@@ -457,7 +470,7 @@ class Login extends gNetwork\Module
 			else
 				Logger::siteNOTICE( 'LOGIN-MATH', 'failed to correctly answer'.sprintf( ': %s', self::req( 'log', '(EMPTY)' ) ) );
 
-			wp_die( _x( '<strong>You failed to correctly answer the math problem.</strong> This is used to combat spam. Please use your browser\'s back button to return to the login form, press the "refresh" button to generate a new math problem, and try to log in again.', 'Modules: Login', GNETWORK_TEXTDOMAIN ) );
+			wp_die( _x( '<strong>You failed to correctly answer the math problem.</strong> This is used to combat spam. Please use your browser\'s back button to return to the login form, press the "refresh" button to generate a new math problem, and try to log in again.', 'Modules: Login', GNETWORK_TEXTDOMAIN ), 403 );
 		}
 
 		return $null;
