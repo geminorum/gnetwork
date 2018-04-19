@@ -700,7 +700,7 @@ class Debug extends gNetwork\Module
 		} else if ( is_string( $message ) ) {
 
 			// if it's already not wrapped
-			if ( '<' !== substr( trim( $message ), 1, 1 ) )
+			if ( '<' !== Text::subStr( trim( $message ), 0, 1 ) )
 				$message = Text::autoP( $message );
 		}
 
