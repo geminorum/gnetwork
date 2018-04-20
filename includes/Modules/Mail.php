@@ -299,7 +299,7 @@ class Mail extends gNetwork\Module
 		$this->render_form_start( $uri, $sub, 'bulk', 'custom', FALSE );
 
 			if ( $this->tableTestMail() )
-				$this->render_buttons( $sub );
+				$this->render_form_buttons( $sub );
 
 		$this->render_form_end( $uri, $sub );
 	}
@@ -309,7 +309,7 @@ class Mail extends gNetwork\Module
 		$this->render_form_start( $uri, $sub, 'bulk', 'custom', FALSE );
 
 			if ( $this->tableEmailLogs() )
-				$this->render_buttons( $sub );
+				$this->render_form_buttons( $sub );
 
 		$this->render_form_end( $uri, $sub );
 	}
@@ -601,16 +601,16 @@ class Mail extends gNetwork\Module
 						if ( is_array( $row['to'] ) ) {
 
 							foreach ( $row['to'] as $to )
-								$html.= HTML::mailto( $to ).' ';
+								$html.= HTML::mailto( $to, NULL, 'code' ).' ';
 
 						} else if ( Text::has( $row['to'], ',' ) ) {
 
 							foreach ( explode( ',', $row['to'] ) as $to )
-								$html.= HTML::mailto( $to ).' ';
+								$html.= HTML::mailto( $to, NULL, 'code' ).' ';
 
 						} else {
 
-							$html.= HTML::mailto( $row['to'] ).' ';
+							$html.= HTML::mailto( $row['to'], NULL, 'code' ).' ';
 						}
 					}
 

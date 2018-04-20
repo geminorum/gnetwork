@@ -649,7 +649,7 @@ class Module extends Core\Base
 		if ( method_exists( $this, 'settings_after' ) )
 			$this->settings_after( $sub, $uri );
 
-		$this->render_buttons( $sub );
+		$this->render_form_buttons( $sub );
 
 		$this->render_form_end( $uri, $sub );
 	}
@@ -673,7 +673,7 @@ class Module extends Core\Base
 
 		echo '<form enctype="multipart/form-data" class="'.$class.'" method="post" action="">';
 
-			$this->settings_fields( $sub, $action, $context );
+			$this->render_form_fields( $sub, $action, $context );
 
 			if ( $check && $sidebox ) {
 				echo '<div class="-sidebox -sidebox-'.$sub.'">';
@@ -700,7 +700,7 @@ class Module extends Core\Base
 		];
 	}
 
-	protected function render_buttons( $sub = NULL, $wrap = '' )
+	protected function render_form_buttons( $sub = NULL, $wrap = '' )
 	{
 		if ( FALSE !== $wrap )
 			echo $this->wrap_open_buttons( $wrap );
@@ -712,7 +712,7 @@ class Module extends Core\Base
 			echo '</p>';
 	}
 
-	protected function settings_fields( $sub, $action = 'update', $context = 'settings' )
+	protected function render_form_fields( $sub, $action = 'update', $context = 'settings' )
 	{
 		HTML::inputHidden( 'base', $this->base );
 		HTML::inputHidden( 'key', $this->key );
@@ -877,6 +877,11 @@ class Module extends Core\Base
 	public function settings_section_misc()
 	{
 		Settings::fieldSection( _x( 'Miscellaneous', 'Module Core: Settings', GNETWORK_TEXTDOMAIN ) );
+	}
+
+	public function settings_section_styling()
+	{
+		Settings::fieldSection( _x( 'Styling', 'Module Core: Settings', GNETWORK_TEXTDOMAIN ) );
 	}
 
 	protected function settings_buttons( $sub = NULL )

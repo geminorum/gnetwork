@@ -82,75 +82,6 @@ class Login extends gNetwork\Module
 		$settings = [
 			'_general' => [
 				[
-					'field'       => 'login_hide',
-					'title'       => _x( 'Hidden Login Page', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Protects logins by changing the URL and preventing access to admin while not logged-in.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-				],
-				[
-					'field'       => 'login_slug',
-					'type'        => 'text',
-					'title'       => _x( 'Hidden Login Slug', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Custom slug for the hidden login page.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'default'     => 'login',
-				],
-				[
-					'field'       => 'login_headerurl',
-					'type'        => 'url',
-					'title'       => _x( 'Header URL', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Login page header logo link URL.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'placeholder' => GNETWORK_BASE,
-					'default'     => GNETWORK_BASE,
-				],
-				[
-					'field'       => 'login_headertitle',
-					'type'        => 'text',
-					'title'       => _x( 'Header Title', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Login page header logo link title attribute.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'default'     => GNETWORK_NAME,
-					'placeholder' => GNETWORK_NAME,
-				],
-				[
-					'field'       => 'login_remember',
-					'title'       => _x( 'Login Remember', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Always checked “Remember Me” checkbox.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'values'      => [
-						_x( 'Not Checked', 'Modules: Login', GNETWORK_TEXTDOMAIN ),
-						_x( 'Checked', 'Modules: Login', GNETWORK_TEXTDOMAIN ),
-					],
-				],
-				[
-					'field'       => 'login_logourl',
-					'type'        => 'url',
-					'title'       => _x( 'Logo Image', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Full URL to the login logo image.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'after'       => Settings::fieldAfterIcon( Settings::getLoginLogoLink() ),
-				],
-				[
-					'field'       => 'login_class',
-					'type'        => 'select',
-					'title'       => _x( 'CSS Class', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Select styles from pre-configured login themes.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'after'       => Settings::fieldAfterIcon( self::getLoginStyleLink() ),
-					'none_title'  => Settings::showOptionNone(),
-					'none_value'  => 'logindefault',
-					'values'      => $this->filters( 'login_class', [
-						'sidelogo' => _x( 'SideLogo', 'Modules: Login: Login Class', GNETWORK_TEXTDOMAIN ),
-						'webogram' => _x( 'Webogram', 'Modules: Login: Login Class', GNETWORK_TEXTDOMAIN ),
-					] ),
-				],
-				[
-					'field'       => 'login_styles',
-					'type'        => 'textarea',
-					'title'       => _x( 'Extra CSS', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Additional CSS styles to use on default login page.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'field_class' => [ 'large-text', 'code-text' ],
-				],
-				[
-					'field'       => 'login_credits',
-					'title'       => _x( 'Credits Badge', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Displays credits badge on the bottom of default login page.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-				],
-				[
 					'field'       => 'login_log',
 					'title'       => _x( 'Log Logins', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Logs user log-in events in the log system.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
@@ -174,24 +105,100 @@ class Login extends gNetwork\Module
 					'description' => _x( 'Full URL to redirect after compelete logout. Leave empty to use the home.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 			],
-		];
-
-		if ( ! defined( 'BRUTEPROTECT_VERSION' ) )
-			$settings['_math'] = [
+			'_hidden' => [
+				[
+					'field' => 'login_hide',
+					'title' => _x( 'Hidden Login Page', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+				],
+				[
+					'field'       => 'login_slug',
+					'type'        => 'text',
+					'title'       => _x( 'Hidden Login Slug', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Custom slug for the hidden login page.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'default'     => 'login',
+				],
+			],
+			'_math' => [
 				[
 					'field'       => 'login_math',
 					'title'       => _x( 'Login Math', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Puts a math problem after the login form.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 				],
-			];
+			],
+			'_styling' => [
+				[
+					'field'       => 'login_headerurl',
+					'type'        => 'url',
+					'title'       => _x( 'Header URL', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Login page header logo link URL.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'default'     => GNETWORK_BASE,
+				],
+				[
+					'field'       => 'login_headertitle',
+					'type'        => 'text',
+					'title'       => _x( 'Header Title', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Login page header logo link title attribute.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'default'     => GNETWORK_NAME,
+				],
+				[
+					'field'       => 'login_remember',
+					'title'       => _x( 'Login Remember', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Always checked “Remember Me” checkbox.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'values'      => [
+						_x( 'Not Checked', 'Modules: Login', GNETWORK_TEXTDOMAIN ),
+						_x( 'Checked', 'Modules: Login', GNETWORK_TEXTDOMAIN ),
+					],
+				],
+				[
+					'field'       => 'login_credits',
+					'title'       => _x( 'Credits Badge', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Displays credits badge on the bottom of default login page.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+				],
+				[
+					'field'       => 'login_class',
+					'type'        => 'select',
+					'title'       => _x( 'CSS Class', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Select styles from pre-configured login themes.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'after'       => Settings::fieldAfterIcon( self::getLoginStyleLink() ),
+					'none_title'  => Settings::showOptionNone(),
+					'none_value'  => 'logindefault',
+					'values'      => $this->filters( 'login_class', [
+						'sidelogo' => _x( 'SideLogo', 'Modules: Login: Login Class', GNETWORK_TEXTDOMAIN ),
+						'webogram' => _x( 'Webogram', 'Modules: Login: Login Class', GNETWORK_TEXTDOMAIN ),
+					] ),
+				],
+				[
+					'field'       => 'login_styles',
+					'type'        => 'textarea',
+					'title'       => _x( 'Extra CSS', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Additional CSS styles to use on default login page.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'field_class' => [ 'large-text', 'code-text' ],
+				],
+				[
+					'field'       => 'login_logourl',
+					'type'        => 'url',
+					'title'       => _x( 'Logo Image', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Full URL to the login logo image.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'after'       => Settings::fieldAfterIcon( Settings::getLoginLogoLink() ),
+				],
+			],
+		];
 
 		return $settings;
+	}
+
+	public function settings_section_hidden()
+	{
+		Settings::fieldSection(
+			_x( 'Hidden', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+			_x( 'Protects logins by changing the URL and preventing access to admin while not logged-in.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN )
+		);
 	}
 
 	public function settings_section_math()
 	{
 		Settings::fieldSection(
-			_x( 'Math Settings', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+			_x( 'Math', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 			_x( 'Blocks Spam by Math. Verifies that a user answered the math problem correctly while loggin in.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN )
 		);
 	}
@@ -309,7 +316,9 @@ class Login extends gNetwork\Module
 	// OLD: `user_trailingslashit()`
 	private static function trailingSlash( $string )
 	{
-		return self::hasTrailingSlashes() ? URL::trail( $string ) : URL::untrail( $string );
+		return self::hasTrailingSlashes()
+			? URL::trail( $string )
+			: URL::untrail( $string );
 	}
 
 	// OLD: `filter_wp_login_php()`

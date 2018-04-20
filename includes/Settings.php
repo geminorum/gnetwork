@@ -241,7 +241,7 @@ class Settings extends Core\Base
 		return FALSE;
 	}
 
-	public static function fieldSection( $title, $description = FALSE, $tag = 'h3' )
+	public static function fieldSection( $title, $description = FALSE, $tag = 'h2' )
 	{
 		echo HTML::tag( $tag, $title );
 

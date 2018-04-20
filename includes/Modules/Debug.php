@@ -196,7 +196,7 @@ class Debug extends gNetwork\Module
 			// TODO: add limit/length input
 
 			if ( self::displayLogs( ( 'analoglogs' == $sub ? GNETWORK_ANALOG_LOG : GNETWORK_DEBUG_LOG ) ) )
-				$this->render_buttons( $sub );
+				$this->render_form_buttons( $sub );
 		}
 
 		$this->render_form_end( $uri, $sub );

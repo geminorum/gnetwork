@@ -192,7 +192,7 @@ class Cron extends gNetwork\Module
 		$this->render_form_start( $uri, $sub, 'bulk', 'tools', FALSE );
 
 			if ( self::tableCronInfo() )
-				$this->render_buttons( $sub );
+				$this->render_form_buttons( $sub );
 
 		$this->render_form_end( $uri, $sub, 'bulk', 'tools' );
 	}

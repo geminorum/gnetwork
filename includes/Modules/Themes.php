@@ -408,6 +408,19 @@ class Themes extends gNetwork\Module
 				} );
 			}
 
+		} else if ( $this->isTheme( 'aster' ) ) {
+
+			if ( $this->rtl ) {
+
+				add_action( 'wp_head', function(){
+					Themes::linkStyleSheet( 'aster-rtl' );
+				}, 20 );
+
+				add_filter( 'mce_css', function( $url ){
+					return Themes::appendMCECSS( $url, 'aster', $this->rtl );
+				} );
+			}
+
 		} else if ( $this->isTheme( 'chosen' ) ) {
 
 			if ( $this->rtl ) {
