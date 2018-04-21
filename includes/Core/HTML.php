@@ -15,7 +15,7 @@ class HTML extends Base
 		return self::tag( 'a', array( 'href' => $link, 'class' => '-link', 'target' => ( $target_blank ? '_blank' : FALSE ) ), $html );
 	}
 
-	public static function mailto( $email, $title = NULL, $wrap = 'code' )
+	public static function mailto( $email, $title = NULL, $wrap = FALSE )
 	{
 		$title = $title ? $title : trim( $email );
 		$link  = '<a class="-mailto" href="mailto:'.trim( $email ).'">'.$title.'</a>';

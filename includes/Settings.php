@@ -255,6 +255,9 @@ class Settings extends Core\Base
 
 	public static function fieldAfterIcon( $url = '', $title = NULL, $icon = 'info' )
 	{
+		if ( ! $url )
+			return '';
+
 		$html = HTML::tag( 'a', [
 			'href'   => $url,
 			'title'  => is_null( $title ) ? _x( 'See More Information', 'Settings', GNETWORK_TEXTDOMAIN ) : $title,

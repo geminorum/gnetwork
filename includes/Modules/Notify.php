@@ -230,7 +230,7 @@ class Notify extends gNetwork\Module
 	public function auto_core_update_send_email( $true, $type, $core_update, $result )
 	{
 		if ( 'success' === $type )
-			$version = $core_update->current
+			$version = $core_update->current;
 
 		else if ( $next = get_preferred_from_update_core() )
 			$version = $next->current;
