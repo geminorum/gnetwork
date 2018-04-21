@@ -73,7 +73,7 @@ class Themes extends gNetwork\Module
 			'jquery_cdn'      => '0',
 			'jquery_bottom'   => '0',
 			'disable_themes'  => '1',
-			'content_actions' => '1',
+			'content_actions' => '0',
 			'body_class'      => GNETWORK_BODY_CLASS,
 		];
 	}
@@ -103,7 +103,6 @@ class Themes extends gNetwork\Module
 					'field'       => 'content_actions',
 					'title'       => _x( 'Content Actions', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Extra hooks before and after post content', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
-					'default'     => '1',
 					'constant'    => 'GNETWORK_DISABLE_CONTENT_ACTIONS',
 				],
 				[
