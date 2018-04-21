@@ -229,7 +229,16 @@ class Notify extends gNetwork\Module
 	// @REF: http://codex.wordpress.org/Configuring_Automatic_Background_Updates
 	public function auto_core_update_send_email( $true, $type, $core_update, $result )
 	{
-		Logger::INFO( sprintf( 'NOTIFY: automatic background core update: %s', $type ) );
+		if ( 'success' === $type )
+			$version = $core_update->current
+
+		else if ( $next = get_preferred_from_update_core() )
+			$version = $next->current;
+
+		else
+			$version = 'UNKNOWN';
+
+		Logger::INFO( sprintf( 'NOTIFY: automatic background core update: %s, v%s', $type, $version ) );
 
 		if ( in_array( $type, [ 'fail', 'critical' ] ) )
 			return TRUE;
