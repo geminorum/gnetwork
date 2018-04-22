@@ -63,18 +63,27 @@ class Cron extends gNetwork\Module
 	public function default_options()
 	{
 		return [
+			'schedule_revision'    => '0',
 			'dashboard_widget'     => '0',
 			'dashboard_accesscap'  => 'edit_theme_options',
 			'dashboard_intro'      => '',
 			'status_email_failure' => '0',
 			'status_email_address' => '',
-			'schedule_revision'    => '0',
 		];
 	}
 
 	public function default_settings()
 	{
 		return [
+			'_general' => [
+				[
+					'field'       => 'schedule_revision',
+					'title'       => _x( 'Clean Revisions', 'Modules: CRON: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Schedules a <b>weekly</b> task to delete post revisions.', 'Modules: CRON: Settings', GNETWORK_TEXTDOMAIN ),
+					'disabled'    => ! WP_POST_REVISIONS,
+					'after'       => WP_POST_REVISIONS ? FALSE : Settings::fieldAfterText( sprintf( _x( 'Disabled by Constant: %s', 'Modules: CRON: Settings', GNETWORK_TEXTDOMAIN ), '<code>WP_POST_REVISIONS</code>' ) ),
+				],
+			],
 			'_statuscheck' => [
 				'dashboard_widget',
 				'dashboard_accesscap',
@@ -92,29 +101,13 @@ class Cron extends gNetwork\Module
 					'after'       => empty( $this->options['status_email_address'] ) ? Settings::fieldAfterEmail( get_option( 'admin_email' ) ) : FALSE,
 				],
 			],
-			'_schedules' => [
-				[
-					'field'       => 'schedule_revision',
-					'title'       => _x( 'Clean Revisions', 'Modules: CRON: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Schedules a <b>weekly</b> task to delete post revisions.', 'Modules: CRON: Settings', GNETWORK_TEXTDOMAIN ),
-					'disabled'    => ! WP_POST_REVISIONS,
-					'after'       => WP_POST_REVISIONS ? FALSE : Settings::fieldAfterText( sprintf( _x( 'Disabled by Constant: %s', 'Modules: CRON: Settings', GNETWORK_TEXTDOMAIN ), '<code>WP_POST_REVISIONS</code>' ) ),
-				],
-			],
 		];
 	}
 
 	public function settings_section_statuscheck()
 	{
 		Settings::fieldSection(
-			_x( 'Cron Status Check', 'Modules: CRON: Settings', GNETWORK_TEXTDOMAIN )
-		);
-	}
-
-	public function settings_section_schedules()
-	{
-		Settings::fieldSection(
-			_x( 'Pre-configured Tasks', 'Modules: CRON: Settings', GNETWORK_TEXTDOMAIN )
+			_x( 'Status Check', 'Modules: CRON: Settings', GNETWORK_TEXTDOMAIN )
 		);
 	}
 

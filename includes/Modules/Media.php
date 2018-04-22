@@ -87,7 +87,7 @@ class Media extends gNetwork\Module
 				[
 					'field'       => 'skip_exifmeta',
 					'title'       => _x( 'Strip EXIF', 'Modules: Media: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Skips unused EXIF metadata for image attachments.', 'Modules: Media: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Skips storing unused EXIF metadata for image attachments.', 'Modules: Media: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '1',
 				],
 			],

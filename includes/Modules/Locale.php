@@ -267,6 +267,13 @@ class Locale extends gNetwork\Module
 			'amp-options'           => 'page',
 			'amp-analytics-options' => 'page',
 
+			// [Gravity Forms](https://github.com/wp-premium/gravityforms)
+			'gf_settings'      => 'page',
+			'gf_export'        => 'page',
+			'gf_addons'        => 'page',
+			'gf_system_status' => 'page',
+			'gf_help'          => 'page',
+
 		], $current );
 
 		foreach ( array_unique( $list ) as $value => $key )

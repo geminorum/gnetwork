@@ -121,8 +121,6 @@ class Debug extends gNetwork\Module
 
 		if ( 'systemreport' == $sub ) {
 
-			HTML::h3( _x( 'System Report', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ) );
-
 			HTML::desc( _x( 'Below you can find various raw information about current server and WordPress installation.', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ) );
 
 			HTML::tabsList( [

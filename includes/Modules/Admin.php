@@ -312,7 +312,7 @@ class Admin extends gNetwork\Module
 
 	protected function settings_overview( $uri )
 	{
-		HTML::h3( _x( 'Current Site Overview', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ) );
+		HTML::h2( _x( 'Current Site Overview', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ) );
 
 		HTML::desc( _x( 'Below you can find various information about current site and contents.', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ) );
 

@@ -686,8 +686,8 @@ class Module extends Core\Base
 	{
 		echo '</form>';
 
-		if ( 'settings' == $context && WordPress::isDev() )
-			self::dump( $this->options );
+		// if ( 'settings' == $context && WordPress::isDev() )
+		// 	self::dump( $this->options );
 	}
 
 	public function register_button( $key, $value = NULL, $type = FALSE, $atts = [] )

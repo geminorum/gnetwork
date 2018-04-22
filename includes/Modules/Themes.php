@@ -70,11 +70,11 @@ class Themes extends gNetwork\Module
 	public function default_options()
 	{
 		return [
-			'jquery_cdn'      => '0',
-			'jquery_bottom'   => '0',
 			'disable_themes'  => '1',
 			'content_actions' => '0',
 			'body_class'      => GNETWORK_BODY_CLASS,
+			'jquery_cdn'      => '0',
+			'jquery_bottom'   => '0',
 		];
 	}
 
@@ -82,16 +82,6 @@ class Themes extends gNetwork\Module
 	{
 		$settings = [
 			'_general' => [
-				[
-					'field'       => 'jquery_cdn',
-					'title'       => _x( 'jQuery from CDN', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Replace WordPress jQuery with CDN', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
-				],
-				[
-					'field'       => 'jquery_bottom',
-					'title'       => _x( 'jQuery on Bottom', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Prints jQuery in footer on front-end', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
-				],
 				[
 					'field'       => 'disable_themes',
 					'title'       => _x( 'Theme Enhancements', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
@@ -112,6 +102,18 @@ class Themes extends gNetwork\Module
 					'description' => _x( 'This will be added as HTML body class to all pages on front-end', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
 					'field_class' => [ 'regular-text', 'code-text' ],
 					'default'     => GNETWORK_BODY_CLASS,
+				],
+			],
+			'_scripts' => [
+				[
+					'field'       => 'jquery_cdn',
+					'title'       => _x( 'jQuery from CDN', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Replace WordPress jQuery with CDN', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
+				],
+				[
+					'field'       => 'jquery_bottom',
+					'title'       => _x( 'jQuery on Bottom', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Prints jQuery in footer on front-end', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 			],
 		];
@@ -506,6 +508,21 @@ class Themes extends gNetwork\Module
 			}
 
 			add_action( 'twentyfifteen_credits', [ $this, 'twentysomething_credits' ] );
+
+		} else if ( $this->isTheme( 'twentysixteen' ) ) {
+
+			if ( $this->rtl ) {
+
+				add_action( 'wp_head', function(){
+					Themes::linkStyleSheet( 'twentysixteen-rtl' );
+				}, 20 );
+
+				add_filter( 'mce_css', function( $url ){
+					return Themes::appendMCECSS( $url, 'twentysixteen', $this->rtl );
+				} );
+			}
+
+			add_action( 'twentysixteen_credits', [ $this, 'twentysomething_credits' ] );
 
 		} else if ( $this->isTheme( 'twentyseventeen' ) ) {
 

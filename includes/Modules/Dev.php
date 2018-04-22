@@ -20,10 +20,10 @@ class Dev extends gNetwork\Module
 
 	protected function setup_actions()
 	{
-		$this->filter( 'http_request_args', 2, 12 );
+		// $this->filter( 'http_request_args', 2, 12 );
 
-		$this->filter_false( 'https_ssl_verify' );
-		$this->filter_false( 'https_local_ssl_verify' );
+		// $this->filter_false( 'https_ssl_verify' );
+		// $this->filter_false( 'https_local_ssl_verify' );
 		$this->filter_true( 'jetpack_development_mode' );
 
 		$this->action( 'pre_get_posts', 1, 99 );
