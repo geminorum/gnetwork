@@ -378,11 +378,8 @@ class User extends gNetwork\Module
 
 		if ( $this->cucSub( $sub ) ) {
 
-			$messages = $this->filters( 'settings_messages', Settings::messages(), $sub );
-
-			Settings::headerTitle();
-			Settings::headerNav( $uri, $sub, $subs );
-			Settings::message( $messages );
+			Settings::sideOpen( NULL, $uri, $sub, $subs );
+			Settings::message( $this->filters( 'settings_messages', Settings::messages(), $sub ) );
 
 			if ( 'overview' == $sub )
 				$this->settings_overview( $uri );
@@ -392,6 +389,8 @@ class User extends gNetwork\Module
 
 			else if ( ! $this->actions( 'settings_sub_'.$sub, $uri, $sub ) )
 				Settings::cheatin();
+
+			Settings::sideClose();
 
 		} else {
 

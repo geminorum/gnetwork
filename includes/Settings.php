@@ -61,9 +61,38 @@ class Settings extends Core\Base
 		echo '<hr class="wp-header-end">';
 	}
 
-	public static function headerNav( $uri = '', $active = '', $subs = [], $prefix = 'nav-tab-', $tag = 'h3' )
+	public static function sideOpen( $title = NULL, $uri = '', $active = '', $subs = [] )
 	{
-		HTML::headerNav( $uri, $active, $subs, $prefix, $tag );
+		if ( is_null( $title ) )
+			$title = _x( 'Network Extras', 'Settings: Header Title', GNETWORK_TEXTDOMAIN );
+
+		echo '<div class="side-nav-wrap">';
+
+		echo HTML::tag( 'h1', [ 'class' => '-title' ], $title );
+
+		HTML::headerNav( $uri, $active, $subs, 'side-nav', 'ul', 'li' );
+
+		echo '<div class="side-nav-content">';
+
+		if ( 'overview' == $active )
+			return;
+
+		if ( ! empty( $subs[$active]['title'] ) )
+			$subtitle = $subs[$active]['title'];
+
+		else if ( ! empty( $subs[$active] ) )
+			$subtitle = $subs[$active];
+
+		else
+			return;
+
+		HTML::h2( $subtitle, 'wp-heading-inline settings-title' );
+		echo '<hr class="wp-header-end">';
+	}
+
+	public static function sideClose()
+	{
+		echo '</div><div class="clear"></div></div>';
 	}
 
 	public static function messages()

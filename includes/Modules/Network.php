@@ -145,11 +145,8 @@ class Network extends gNetwork\Module
 
 		if ( $this->cucSub( $sub ) ) {
 
-			$messages = $this->filters( 'settings_messages', Settings::messages(), $sub );
-
-			Settings::headerTitle();
-			Settings::headerNav( $uri, $sub, $subs );
-			Settings::message( $messages );
+			Settings::sideOpen( NULL, $uri, $sub, $subs );
+			Settings::message( $this->filters( 'settings_messages', Settings::messages(), $sub ) );
 
 			if ( 'overview' == $sub )
 				$this->settings_overview( $uri );
@@ -159,6 +156,8 @@ class Network extends gNetwork\Module
 
 			else if ( ! $this->actions( 'settings_sub_'.$sub, $uri, $sub ) )
 				Settings::cheatin();
+
+			Settings::sideClose();
 
 		} else {
 
@@ -178,11 +177,9 @@ class Network extends gNetwork\Module
 
 		if ( $this->cucSub( $sub, 'tools' ) ) {
 
-			$messages = $this->filters( 'tools_messages', Settings::messages(), $sub );
-
 			Settings::headerTitle();
-			Settings::headerNav( $uri, $sub, $subs );
-			Settings::message( $messages );
+			HTML::headerNav( $uri, $sub, $subs );
+			Settings::message( $this->filters( 'tools_messages', Settings::messages(), $sub ) );
 
 			if ( 'overview' == $sub )
 				$this->tools_overview( $uri );
