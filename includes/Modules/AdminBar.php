@@ -404,7 +404,7 @@ class AdminBar extends gNetwork\Module
 			'parent' => $group_id,
 			'id'     => $this->base.'-info-pagenow',
 			'title'  => 'PageNow: '.( empty( $pagenow ) ? 'EMPTY' : $pagenow ),
-			'href'   => GNETWORK_ANALOG_LOG ? $this->get_menu_url( 'analoglogs', 'network' ) : FALSE,
+			'href'   => GNETWORK_ANALOG_LOG ? $this->get_menu_url( 'analoglogs', 'network', 'tools' ) : FALSE,
 			'meta'   => [ 'title' => _x( 'Click to see Logs', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ) ],
 		] );
 
@@ -412,7 +412,7 @@ class AdminBar extends gNetwork\Module
 			'parent' => $group_id,
 			'id'     => $this->base.'-info-queries',
 			'title'  => self::stat( '%dq | %.3fs | %.2fMB' ),
-			'href'   => GNETWORK_DEBUG_LOG ? $this->get_menu_url( 'errorlogs', 'network' ) : FALSE,
+			'href'   => GNETWORK_DEBUG_LOG ? $this->get_menu_url( 'errorlogs', 'network', 'tools' ) : FALSE,
 			'meta'   => [ 'title' => _x( 'Queries | Timer Stop | Memory Usage', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ) ],
 		] );
 	}
@@ -584,7 +584,7 @@ class AdminBar extends gNetwork\Module
 					'parent' => 'network-admin',
 					'id'     => 'network-admin-sr',
 					'title'  => _x( 'System Report', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
-					'href'   => $this->get_menu_url( 'systemreport', 'network' ),
+					'href'   => $this->get_menu_url( 'overview', 'network', 'tools' ),
 				] );
 
 			if ( current_user_can( 'manage_sites' ) )

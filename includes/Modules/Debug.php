@@ -55,143 +55,86 @@ class Debug extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu(
-			_x( 'System Report', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			NULL, 'systemreport', NULL, 5
+		$this->register_tool(
+			_x( 'Remote Tests', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
+			NULL, 'remotetests'
 		);
 
-		$this->register_menu(
-			_x( 'Remote Tests', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			FALSE, 'remotetests'
-		);
+		if ( ! is_multisite() )
+			Admin::registerTool( 'systemreport', _x( 'System Report', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
 
 		if ( GNETWORK_DEBUG_LOG )
-			$this->register_menu(
+			$this->register_tool(
 				_x( 'Errors', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
 				FALSE, 'errorlogs', NULL, 20
 			);
 
 		if ( GNETWORK_ANALOG_LOG )
-			$this->register_menu(
+			$this->register_tool(
 				_x( 'Logs', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
 				FALSE, 'analoglogs', NULL, 20
 			);
 	}
 
-	public function settings( $sub = NULL )
+	public function tools( $sub = NULL )
 	{
-		if ( 'systemreport' == $sub
-			|| 'remotetests' == $sub ) {
+		if ( in_array( $sub, [ 'systemreport', 'remotetests', 'errorlogs', 'analoglogs' ] ) ) {
 
-			add_action( $this->menu_hook( $sub ), [ $this, 'render_settings' ], 10, 2 );
+			$this->tools_actions( $sub );
 
-		} else if ( 'errorlogs' == $sub
-			|| 'analoglogs' == $sub ) {
+			add_action( $this->menu_hook( $sub, 'tools' ), [ $this, 'render_tools' ], 10, 2 );
 
-			if ( isset( $_POST['clear_logs'] ) ) {
-
-				$this->check_referer( $sub );
-
-				if ( GNETWORK_DEBUG_LOG && 'errorlogs' == $sub )
-					WordPress::redirectReferer( ( @unlink( GNETWORK_DEBUG_LOG ) ? 'purged' : 'error' ) );
-
-				else if ( GNETWORK_ANALOG_LOG && 'analoglogs' == $sub )
-					WordPress::redirectReferer( ( @unlink( GNETWORK_ANALOG_LOG ) ? 'purged' : 'error' ) );
-
-			} else if ( isset( $_POST['download_logs'] ) ) {
-
-				if ( GNETWORK_DEBUG_LOG && 'errorlogs' == $sub )
-					File::download( GNETWORK_DEBUG_LOG, File::prepName( 'debug.log' ) );
-
-				else if ( GNETWORK_ANALOG_LOG && 'analoglogs' == $sub )
-					File::download( GNETWORK_ANALOG_LOG, File::prepName( 'analog.log' ) );
-
-				WordPress::redirectReferer( 'wrong' );
-			}
-
-			add_action( $this->menu_hook( $sub ), [ $this, 'render_settings' ], 10, 2 );
-
-			$this->settings_buttons( $sub );
+			$this->tools_buttons( $sub );
+			$this->tools_setup( $sub );
 		}
 	}
 
-	public function render_settings( $uri, $sub = 'general' )
+	protected function tools_buttons( $sub = NULL )
 	{
-		$this->render_form_start( $uri, $sub, 'bulk', 'custom', FALSE );
+		if ( 'errorlogs' == $sub || 'analoglogs' == $sub ) {
+			$this->register_button( 'clear_logs', _x( 'Clear Logs', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+			$this->register_button( 'download_logs', _x( 'Download Logs', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+		}
+	}
+
+	protected function tools_actions( $sub = NULL )
+	{
+		if ( isset( $_POST['clear_logs'] ) ) {
+
+			$this->check_referer( $sub );
+
+			if ( GNETWORK_DEBUG_LOG && 'errorlogs' == $sub )
+				WordPress::redirectReferer( ( @unlink( GNETWORK_DEBUG_LOG ) ? 'purged' : 'error' ) );
+
+			else if ( GNETWORK_ANALOG_LOG && 'analoglogs' == $sub )
+				WordPress::redirectReferer( ( @unlink( GNETWORK_ANALOG_LOG ) ? 'purged' : 'error' ) );
+
+		} else if ( isset( $_POST['download_logs'] ) ) {
+
+			if ( GNETWORK_DEBUG_LOG && 'errorlogs' == $sub )
+				File::download( GNETWORK_DEBUG_LOG, File::prepName( 'debug.log' ) );
+
+			else if ( GNETWORK_ANALOG_LOG && 'analoglogs' == $sub )
+				File::download( GNETWORK_ANALOG_LOG, File::prepName( 'analog.log' ) );
+
+			WordPress::redirectReferer( 'wrong' );
+		}
+	}
+
+	public function render_tools( $uri, $sub = 'general' )
+	{
+		$this->render_form_start( $uri, $sub, 'bulk', 'tools', FALSE );
 
 		if ( 'systemreport' == $sub ) {
 
-			HTML::desc( _x( 'Below you can find various raw information about current server and WordPress installation.', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ) );
-
-			HTML::tabsList( [
-				'php' => [
-					'title'  => _x( 'Currents', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
-					'cb'     => [ __CLASS__, 'summaryCurrents' ],
-					'active' => TRUE,
-				],
-				'wordpress' => [
-					'title' => _x( 'WordPress', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
-					'cb'    => [ __CLASS__, 'versions' ],
-				],
-				'time' => [
-					'title' => _x( 'Time', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
-					'cb'    => [ __CLASS__, 'currentTime' ],
-				],
-				'ip' => [
-					'title' => _x( 'IP', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
-					'cb'    => function(){ self::summaryIPs(); },
-				],
-				'constants' => [
-					'title' => _x( 'Constants', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
-					'cb'    => [ __CLASS__, 'initialConstants' ],
-				],
-				'paths' => [
-					'title' => _x( 'Paths', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
-					'cb'    => [ __CLASS__, 'pluginPaths' ],
-				],
-				'server' => [
-					'title' => _x( 'SERVER', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
-					'cb'    => [ __CLASS__, 'dumpServer' ],
-				],
-				'gplugin' => [
-					'title' => _x( 'gPlugin', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
-					'cb'    => [ __CLASS__, 'gPlugin' ],
-				],
-				'htaccess' => [
-					'title' => _x( '.htaccess', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
-					'cb'    => [ __CLASS__, 'htaccessSummary' ],
-				],
-				'wpconfig' => [
-					'title' => _x( 'WP-Config', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
-					'cb'    => [ __CLASS__, 'wpconfigSummary' ],
-				],
-				'custom' => [
-					'title' => _x( 'Network Custom', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
-					'cb'    => [ __CLASS__, 'customSummary' ],
-				],
-				'bp_custom' => [
-					'title' => _x( 'BuddyPress Custom', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
-					'cb'    => [ __CLASS__, 'bpCustomSummary' ],
-				],
-				'phpinfo' => [
-					'title' => _x( 'PHP Info', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
-					'cb'    => [ __CLASS__, 'phpinfo' ],
-				],
-				'phpfuncs' => [
-					'title' => _x( 'PHP Functions', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
-					'cb'    => [ __CLASS__, 'phpFunctions' ],
-				],
-			] );
-
-			Utilities::enqueueScriptVendor( 'prism' );
+			self::displayReport();
 
 		} else if ( 'remotetests' == $sub ) {
 
-			// TODO: display remote tests summary
+			if ( self::displayTests() )
+				$this->render_form_buttons( $sub );
 
 		} else {
-
-			// TODO: add limit/length input
 
 			if ( self::displayLogs( ( 'analoglogs' == $sub ? GNETWORK_ANALOG_LOG : GNETWORK_DEBUG_LOG ) ) )
 				$this->render_form_buttons( $sub );
@@ -200,12 +143,81 @@ class Debug extends gNetwork\Module
 		$this->render_form_end( $uri, $sub );
 	}
 
-	protected function settings_buttons( $sub = NULL )
+	public static function displayReport()
 	{
-		$this->register_button( 'clear_logs', _x( 'Clear Logs', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
-		$this->register_button( 'download_logs', _x( 'Download Logs', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+		HTML::desc( _x( 'Below you can find various raw information about current server and WordPress installation.', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ) );
+
+		HTML::tabsList( [
+			'php' => [
+				'title'  => _x( 'Currents', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
+				'cb'     => [ __CLASS__, 'summaryCurrents' ],
+				'active' => TRUE,
+			],
+			'wordpress' => [
+				'title' => _x( 'WordPress', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
+				'cb'    => [ __CLASS__, 'versions' ],
+			],
+			'time' => [
+				'title' => _x( 'Time', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
+				'cb'    => [ __CLASS__, 'currentTime' ],
+			],
+			'ip' => [
+				'title' => _x( 'IP', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
+				'cb'    => function(){ self::summaryIPs(); },
+			],
+			'constants' => [
+				'title' => _x( 'Constants', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
+				'cb'    => [ __CLASS__, 'initialConstants' ],
+			],
+			'paths' => [
+				'title' => _x( 'Paths', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
+				'cb'    => [ __CLASS__, 'pluginPaths' ],
+			],
+			'server' => [
+				'title' => _x( 'SERVER', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
+				'cb'    => [ __CLASS__, 'dumpServer' ],
+			],
+			'gplugin' => [
+				'title' => _x( 'gPlugin', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
+				'cb'    => [ __CLASS__, 'gPlugin' ],
+			],
+			'htaccess' => [
+				'title' => _x( '.htaccess', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
+				'cb'    => [ __CLASS__, 'htaccessSummary' ],
+			],
+			'wpconfig' => [
+				'title' => _x( 'WP-Config', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
+				'cb'    => [ __CLASS__, 'wpconfigSummary' ],
+			],
+			'custom' => [
+				'title' => _x( 'Network Custom', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
+				'cb'    => [ __CLASS__, 'customSummary' ],
+			],
+			'bp_custom' => [
+				'title' => _x( 'BuddyPress Custom', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
+				'cb'    => [ __CLASS__, 'bpCustomSummary' ],
+			],
+			'phpinfo' => [
+				'title' => _x( 'PHP Info', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
+				'cb'    => [ __CLASS__, 'phpinfo' ],
+			],
+			'phpfuncs' => [
+				'title' => _x( 'PHP Functions', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
+				'cb'    => [ __CLASS__, 'phpFunctions' ],
+			],
+		] );
+
+		Utilities::enqueueScriptVendor( 'prism' );
 	}
 
+	// FIXME!
+	private static function displayTests()
+	{
+		HTML::h3( _x( 'Website Remote Tests', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+		HTML::desc( _x( 'No tests available, yet!', 'Modules: Debug', GNETWORK_TEXTDOMAIN ), TRUE, '-empty' );
+	}
+
+	// TODO: add limit/length input
 	private static function displayLogs( $file )
 	{
 		if ( $file && file_exists( $file ) ) {
@@ -213,17 +225,17 @@ class Debug extends gNetwork\Module
 			if ( ! $file_size = File::getSize( $file ) )
 				return FALSE;
 
-			if ( $errors = File::getLastLines( $file, self::limit( 100 ) ) ) {
+			if ( $logs = File::getLastLines( $file, self::limit( 100 ) ) ) {
 
 				$length = self::req( 'length', 300 );
 
-				HTML::h3( sprintf( _x( 'The Last %s Logs, in reverse order', 'Modules: Debug: Error Box', GNETWORK_TEXTDOMAIN ), Number::format( count( $errors ) ) ), 'error-box-header' );
+				HTML::h3( sprintf( _x( 'The Last %s Logs, in reverse order', 'Modules: Debug: Log Box', GNETWORK_TEXTDOMAIN ), Number::format( count( $logs ) ) ), 'log-box-header' );
 
-				echo '<div class="error-box"><ol>';
+				echo '<div class="log-box"><ol>';
 
-				foreach ( $errors as $error ) {
+				foreach ( $logs as $log ) {
 
-					if ( ! ( $line = trim( strip_tags( $error ) ) ) )
+					if ( ! ( $line = trim( strip_tags( $log ) ) ) )
 						continue;
 
 					if ( strlen( $line ) > $length )
@@ -236,7 +248,7 @@ class Debug extends gNetwork\Module
 				}
 
 				echo '</ol></div>';
-				HTML::desc( sprintf( _x( 'File Size: %s', 'Modules: Debug: Error Box', GNETWORK_TEXTDOMAIN ), $file_size ), TRUE, 'error-box-footer' );
+				HTML::desc( sprintf( _x( 'File Size: %s', 'Modules: Debug: Log Box', GNETWORK_TEXTDOMAIN ), $file_size ), TRUE, 'log-box-footer' );
 
 			} else {
 				echo gNetwork()->na();
@@ -244,7 +256,7 @@ class Debug extends gNetwork\Module
 			}
 
 		} else {
-			echo HTML::error( _x( 'There was a problem reading the log file.', 'Modules: Debug: Error Box', GNETWORK_TEXTDOMAIN ) );
+			echo HTML::error( _x( 'There was a problem reading the logs.', 'Modules: Debug: Log Box', GNETWORK_TEXTDOMAIN ) );
 			return FALSE;
 		}
 

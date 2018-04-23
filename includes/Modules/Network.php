@@ -202,6 +202,14 @@ class Network extends gNetwork\Module
 		gnetwork_github_readme();
 	}
 
+	protected function tools_overview( $uri )
+	{
+		if ( class_exists( __NAMESPACE__.'\\Debug' ) ) {
+			HTML::h3( _x( 'System Report', 'Modules: Network', GNETWORK_TEXTDOMAIN ) );
+			Debug::displayReport();
+		}
+	}
+
 	public function current_screen( $screen )
 	{
 		if ( 'sites-network' == $screen->base ) {
