@@ -396,7 +396,7 @@ class AdminBar extends gNetwork\Module
 					'parent' => $group_id,
 					'id'     => $this->base.'-cron-status',
 					'title'  => strip_tags( $status ),
-					'href'   => $this->get_menu_url( 'scheduled' ),
+					'href'   => $this->get_menu_url( 'cron', 'admin', 'tools' ),
 				] );
 		}
 

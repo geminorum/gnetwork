@@ -347,7 +347,7 @@ class Cron extends gNetwork\Module
 
 		if ( $link && WordPress::cuc( 'manage_options' ) )
 			echo '&nbsp;&nbsp;'.HTML::tag( 'a', [
-				'href'  => $this->get_menu_url( 'scheduled' ),
+				'href'  => $this->get_menu_url( 'cron', 'admin', 'tools' ),
 				'title' => _x( 'View current cron scheduled tasks.', 'Modules: CRON', GNETWORK_TEXTDOMAIN ),
 				'class' => [ 'button', 'button-small' ],
 			], _x( 'View Scheduled Tasks', 'Modules: CRON', GNETWORK_TEXTDOMAIN ) );
