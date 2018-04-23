@@ -23,36 +23,36 @@
 }
 
 .gnetwork-tinymce-icon {
-  &:before {
+  &::before {
     font-family: dashicons;
     content: "\f159"; // DEFAULT
   }
 
-  &.icon-gnetworkref:before {
+  &.icon-gnetworkref::before {
     content: "\f473";
   }
 
-  &.icon-gnetworkgpeople:before {
+  &.icon-gnetworkgpeople::before {
     content: "\f307";
   }
 
-  &.icon-gnetworkemail:before {
+  &.icon-gnetworkemail::before {
     content: "\f466";
   }
 
-  &.icon-gnetworksearch:before {
+  &.icon-gnetworksearch::before {
     content: "\f179";
   }
 
-  &.icon-gnetworkasterisks:before {
+  &.icon-gnetworkasterisks::before {
     content: "\f155";
   }
 
-  &.icon-gnetworkquote:before {
+  &.icon-gnetworkquote::before {
     content: "\f122";
   }
 
-  &.icon-gnetworkprismjs:before {
+  &.icon-gnetworkprismjs::before {
     content: "\f499";
   }
 }

@@ -1,0 +1,57 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// gNetwork Partials: Nav -----------------------------------------------------
+
+.side-nav-wrap {
+  position: relative;
+  margin-top: 30px;
+
+  .side-nav-content {
+    margin-left: 165px;
+    margin-top: 0;
+    padding: 1px 0 0 20px;
+    min-height: 370px;
+    border-left: 1px solid #ccc;
+  }
+
+  > .-title {
+    position: absolute;
+    top: -25px;
+    margin: 0;
+    padding-left: 5px;
+  }
+
+  > ul {
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 165px;
+
+    li {
+      a {
+        padding: 6px 10px;
+        text-decoration: none;
+        display: block;
+        border: 1px solid #ccc;
+        border-right: none;
+        font-size: 14px;
+        color: #555;
+        background: #e5e5e5;
+      }
+
+      &.-active {
+        a {
+          line-height: 18px;
+          z-index: 50 !important;
+          border: 1px solid #ccc;
+          border-right-color: #f1f1f1;
+          margin: 0 -1px 0 0;
+          width: 155px;
+          padding: 6px 0 6px 10px !important;
+          background: #f1f1f1;
+        }
+      }
+    }
+  }
+}

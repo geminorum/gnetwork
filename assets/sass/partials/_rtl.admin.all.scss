@@ -191,6 +191,19 @@ body.rtl {
     text-align: right;
   }
 
+  .mce-container-body {
+    .mce-resizehandle {
+      right: auto;
+      left: 0;
+      margin-left: 0;
+      margin-right: 2px;
+
+      i.mce-i-resize {
+        transform: scale(-1, 1);
+      }
+    }
+  }
+
   #dashboard-widgets {
     h4 {
       font-weight: 700 !important;
@@ -387,7 +400,7 @@ body.rtl {
     }
   }
 
-  #qm, // Query Monitor
+  // #qm, // Query Monitor
   .user-mobile-wrap input#mobile,
   .user-twitter-wrap input#twitter,
   .user-telegram-wrap input#telegram,
@@ -403,12 +416,12 @@ body.rtl {
     direction: ltr;
   }
 
-  html[dir="rtl"] & {
-    .qm td,
-    .qm th {
-      text-align: left !important;
-    }
-  }
+  // html[dir="rtl"] & {
+  //   .qm td,
+  //   .qm th {
+  //     text-align: left !important;
+  //   }
+  // }
 
   input#adduser-email.ui-autocomplete-loading,
   input[type="email"].ui-autocomplete-loading {

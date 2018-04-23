@@ -4,10 +4,13 @@
 /// gNetwork Partials: Debug Module --------------------------------------------
 
 /*rtl:begin:ignore*/
-.wrap.gnetwork-settings {
-  .-wrap.-phpinfo {
-    // default style from phpinfo()
+.wrap.gnetwork-tools {
+  .-empty.-phpinfo {
+    padding: 1em;
+  }
 
+  // default style from phpinfo()
+  .-wrap.-phpinfo {
     padding-top: 1em;
     // background-color: #ffffff;
     color: #000;
