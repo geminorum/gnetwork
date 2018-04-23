@@ -1,0 +1,299 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Aster\n"
+"POT-Creation-Date: 2018-04-20 20:18+0430\n"
+"PO-Revision-Date: 2018-04-20 20:21+0430\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.6\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_x;esc_html__;esc_html_e;esc_html_x;esc_attr__;"
+"esc_attr_e;esc_attr_x\n"
+"Last-Translator: geminorum <contact@geminorum.ir>\n"
+"Language: fa_IR\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../404.php:7
+msgid "404"
+msgstr ""
+
+#: ../404.php:8
+msgid "Sorry, we could not found the page you are looking for!"
+msgstr ""
+
+#: ../archive.php:27 ../index.php:17 ../search.php:23
+msgid ""
+"<div class=\"text-left\"><i class=\"fa fa-angle-left\"></i> Older posts</div>"
+msgstr ""
+
+#: ../archive.php:28 ../index.php:18 ../search.php:24
+msgid ""
+"<div class=\"text-right\">Newer posts <i class=\"fa fa-angle-right\"></i></"
+"div>"
+msgstr ""
+
+#: ../comments.php:10
+msgid "No Comment"
+msgstr ""
+
+#: ../comments.php:10
+msgid "One Comments"
+msgstr ""
+
+#: ../comments.php:10
+msgid "% Comments"
+msgstr ""
+
+#: ../comments.php:31
+msgid "Comment navigation"
+msgstr ""
+
+#: ../comments.php:32
+msgid "&larr; Older Comments"
+msgstr ""
+
+#: ../comments.php:33
+msgid "Newer Comments &rarr;"
+msgstr ""
+
+#: ../comments.php:38
+msgid "Comments are closed."
+msgstr ""
+
+#: ../comments.php:48
+msgid "Name *"
+msgstr ""
+
+#: ../comments.php:49
+msgid "Email *"
+msgstr ""
+
+#: ../comments.php:50
+msgid "Website"
+msgstr ""
+
+#: ../comments.php:57
+msgid "Write your comment..."
+msgstr ""
+
+#: ../comments.php:58
+msgid "Post Comment"
+msgstr ""
+
+#: ../content-none.php:4
+msgid "Nothing Found"
+msgstr "چیزی پیدا نشد"
+
+#: ../content-none.php:10
+#, php-format
+msgid ""
+"Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+msgstr ""
+"برای انتشار اولین نوشتهٔ خودتان آماده‌اید؟ <a href=\"%1$s\">از اینجا شروع "
+"کنید</a>."
+
+#: ../content-none.php:15
+msgid ""
+"Sorry, but nothing matched your search terms. Please try again with some "
+"different keywords\n"
+"\t\t\t."
+msgstr ""
+
+#: ../content-none.php:21
+msgid ""
+"It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps "
+"searching can help."
+msgstr ""
+
+#: ../content-page.php:17 ../content-post.php:27
+msgid "Pages:"
+msgstr ""
+
+#: ../content-page.php:24 ../functions.php:220
+msgid "Edit"
+msgstr ""
+
+#: ../footer.php:7
+#, php-format
+msgid ""
+"Copyright &copy; %s %s. All rights reserved.<br>Powered by %s. Developed by "
+"%s"
+msgstr ""
+
+#: ../footer.php:8
+msgid "Y"
+msgstr ""
+
+#: ../functions.php:32
+msgid "Primary Menu"
+msgstr "فهرست اصلی"
+
+#: ../functions.php:69
+msgid "Sidebar"
+msgstr ""
+
+#: ../functions.php:87
+msgid "on"
+msgstr ""
+
+#: ../functions.php:187
+msgid "Pingback:"
+msgstr ""
+
+#: ../functions.php:187
+msgid "(Edit)"
+msgstr "(ویرایش)"
+
+#: ../functions.php:212
+msgid "Your comment is awaiting moderation."
+msgstr ""
+
+#: ../functions.php:223
+msgid "Reply"
+msgstr ""
+
+#: ../inc/template-tags.php:9
+msgid ", "
+msgstr "،"
+
+#: ../inc/template-tags.php:11
+#, php-format
+msgid "Tagged %1$s"
+msgstr ""
+
+#: ../inc/template-tags.php:23
+msgid "By "
+msgstr ""
+
+#: ../inc/template-tags.php:71
+msgid "<i class=\"fa fa-angle-left\"></i> Previous Post"
+msgstr ""
+
+#: ../inc/template-tags.php:76
+msgid "Next Post <i class=\"fa fa-angle-right\"></i>"
+msgstr ""
+
+#: ../inc/widgets/about_widget.php:17
+msgid ""
+"A widget that displays an About\r\n"
+"\t\twidget"
+msgstr ""
+
+#: ../inc/widgets/about_widget.php:24
+msgid "Aster About Me"
+msgstr ""
+
+#: ../inc/widgets/about_widget.php:83
+msgid "About Me"
+msgstr ""
+
+#: ../inc/widgets/about_widget.php:88
+msgid "Title:"
+msgstr ""
+
+#: ../inc/widgets/about_widget.php:94
+msgid "Image URL:"
+msgstr ""
+
+#: ../inc/widgets/about_widget.php:96
+msgid ""
+"Insert your image URL. Your image should be at least 300px wide for best "
+"result."
+msgstr ""
+
+#: ../inc/widgets/about_widget.php:101
+msgid "About me text:"
+msgstr ""
+
+#: ../inc/widgets/blog-posts.php:12
+msgid "Aster Recent Posts"
+msgstr ""
+
+#: ../inc/widgets/blog-posts.php:12
+msgid "Aster Recent posts widget to display recent posts"
+msgstr ""
+
+#: ../inc/widgets/blog-posts.php:110
+msgid "Latest Posts"
+msgstr ""
+
+#: ../inc/widgets/blog-posts.php:117
+msgid "Widget Title"
+msgstr ""
+
+#: ../inc/widgets/blog-posts.php:123
+msgid "Ordered By"
+msgstr ""
+
+#: ../inc/widgets/blog-posts.php:126
+msgid "Popular"
+msgstr ""
+
+#: ../inc/widgets/blog-posts.php:127
+msgid "Latest"
+msgstr ""
+
+#: ../inc/widgets/blog-posts.php:128
+msgid "Most Commented"
+msgstr ""
+
+#: ../inc/widgets/blog-posts.php:149
+msgid "Count"
+msgstr ""
+
+#: ../inc/widgets/social-icons.php:13
+msgid "Aster Social Icons"
+msgstr ""
+
+#: ../inc/widgets/social-icons.php:14
+msgid "Displaying social icons"
+msgstr ""
+
+#: ../inc/widgets/social-icons.php:32
+msgid "Title :"
+msgstr ""
+
+#: ../inc/widgets/social-icons.php:37
+msgid "Enter facebook URL:"
+msgstr ""
+
+#: ../inc/widgets/social-icons.php:42
+msgid "Enter twitter URL:"
+msgstr ""
+
+#: ../inc/widgets/social-icons.php:46
+msgid "Enter google URL:"
+msgstr ""
+
+#: ../inc/widgets/social-icons.php:50
+msgid "Enter pinterest URL:"
+msgstr ""
+
+#: ../inc/widgets/social-icons.php:54
+msgid "Enter dribbble URL:"
+msgstr ""
+
+#: ../inc/widgets/social-icons.php:58
+msgid "Enter behance URL:"
+msgstr ""
+
+#: ../inc/widgets/social-icons.php:62
+msgid "Enter youtube URL:"
+msgstr ""
+
+#: ../inc/widgets/social-icons.php:86
+msgid "Social Icons"
+msgstr ""
+
+#: ../search.php:9
+#, php-format
+msgid "Search Results: <span>%s</span>"
+msgstr ""
+
+#: ../searchform.php:3
+msgid "Search and hit enter..."
+msgstr ""
