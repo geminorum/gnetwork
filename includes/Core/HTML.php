@@ -439,7 +439,7 @@ class HTML extends Base
 		) )."\n";
 	}
 
-	public static function headerNav( $uri = '', $active = '', $subs = array(), $prefix = 'nav-tab-', $tag = 'h3' )
+	public static function headerNav( $uri = '', $active = '', $subs = array(), $prefix = 'nav-tab', $wrap = 'h3', $item = FALSE )
 	{
 		if ( empty( $subs ) )
 			return '';
@@ -456,15 +456,22 @@ class HTML extends Base
 				$args  = array( 'sub' => $slug );
 			}
 
-			$html.= self::tag( 'a', array(
-				'class' => 'nav-tab '.$prefix.$slug.( $slug == $active ? ' nav-tab-active' : '' ),
-				'href'  => add_query_arg( $args, $uri ),
-			), $title );
+			$url   = add_query_arg( $args, $uri );
+			$class = $prefix.' '.$prefix.'-'.$slug.( $slug == $active ? ' '.$prefix.'-active -active' : '' );
+
+			if ( $item )
+				$html.= self::tag( $item, array( 'class' => $class ), self::link( $title, $url ) );
+			else
+				$html.= self::tag( 'a', array( 'class' => $class, 'href' => $url ), $title );
 		}
 
-		echo self::tag( $tag, array(
-			'class' => 'nav-tab-wrapper',
-		), $html );
+		if ( $wrap )
+			echo self::tag( $wrap, array(
+				'class' => $prefix.'-wrapper',
+			), $html );
+
+		else
+			echo $html;
 	}
 
 	public static function tabNav( $active = '', $subs = array(), $prefix = 'nav-tab-', $tag = 'div' )

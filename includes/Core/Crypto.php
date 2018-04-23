@@ -28,11 +28,14 @@ class Crypto extends Base
 
 	public static function decodeBijection( $slug )
 	{
-		$id = 0;
+		$id  = 0;
+		$dic = static::BIJECTION_DIC;
 
-		foreach ( str_split( $slug ) as $char ) {
+		foreach ( str_split( trim( $slug ) ) as $char ) {
 
-			if ( FALSE === ( $pos = strpos( static::BIJECTION_DIC, $char ) ) )
+			$pos = strpos( $dic, $char );
+
+			if ( FALSE === $pos )
 				return $slug;
 
 			$id = $id * static::BIJECTION_BASE + $pos;
