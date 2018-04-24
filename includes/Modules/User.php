@@ -222,7 +222,7 @@ class User extends gNetwork\Module
 			add_action( $this->menu_hook( $sub ), [ $this, 'render_settings' ], 10, 2 );
 
 			$this->settings_buttons( $sub );
-			$this->settings_help( $sub );
+			$this->register_help( $sub );
 		}
 	}
 

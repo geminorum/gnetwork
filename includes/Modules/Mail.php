@@ -169,7 +169,17 @@ class Mail extends gNetwork\Module
 		);
 	}
 
-	public function settings_help_tabs( $sub = NULL )
+	protected function register_help_sidebar( $sub = NULL, $context = 'settings' )
+	{
+		return [
+			[
+				'title' => 'Troubleshooting PHPMailer',
+				'url'   => 'https://github.com/PHPMailer/PHPMailer/wiki/Troubleshooting',
+			]
+		];
+	}
+
+	protected function register_help_tabs( $sub = NULL, $context = 'settings' )
 	{
 		return [
 			[

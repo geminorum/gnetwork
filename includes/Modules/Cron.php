@@ -138,7 +138,7 @@ class Cron extends gNetwork\Module
 		Utilities::enqueueScript( 'admin.cron.statuscheck' );
 	}
 
-	public function settings_help_tabs( $sub = NULL )
+	protected function register_help_tabs( $sub = NULL, $context = 'settings' )
 	{
 		return [
 			[

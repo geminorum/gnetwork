@@ -112,7 +112,7 @@ class Captcha extends gNetwork\Module
 		];
 	}
 
-	public function settings_help_tabs( $sub = NULL )
+	protected function register_help_tabs( $sub = NULL, $context = 'settings' )
 	{
 		return [
 			[

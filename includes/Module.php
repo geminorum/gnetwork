@@ -585,9 +585,9 @@ class Module extends Core\Base
 
 			$this->register_settings();
 			$this->settings_buttons( $sub );
-
-			$this->settings_help( $sub );
 			$this->settings_setup( $sub ); // must be after `register_settings()`
+
+			$this->register_help( $sub );
 		}
 	}
 
@@ -602,6 +602,8 @@ class Module extends Core\Base
 
 			$this->tools_buttons( $sub );
 			$this->tools_setup( $sub );
+
+			$this->register_help( $sub, 'tools' );
 		}
 	}
 
@@ -926,13 +928,18 @@ class Module extends Core\Base
 		);
 	}
 
-	public function settings_help( $sub = NULL )
+	public function register_help( $sub = NULL, $context = 'settings' )
 	{
 		$screen = get_current_screen();
-		$tabs   = $this->settings_help_tabs( $sub );
 
-		foreach ( $tabs as $tab )
+		foreach ( $this->register_help_tabs( $sub, $context ) as $tab )
 			$screen->add_help_tab( $tab );
+
+		if ( $sidebar = $this->register_help_sidebar( $sub, $context ) )
+			$screen->set_help_sidebar( Settings::helpSidebar( $sidebar ) );
+
+		if ( 'settings' != $context )
+			return;
 
 		if ( $sub != $this->key )
 			return;
@@ -954,7 +961,12 @@ class Module extends Core\Base
 			] );
 	}
 
-	public function settings_help_tabs( $sub = NULL )
+	protected function register_help_tabs( $sub = NULL, $context = 'settings' )
+	{
+		return [];
+	}
+
+	protected function register_help_sidebar( $sub = NULL, $context = 'settings' )
 	{
 		return [];
 	}

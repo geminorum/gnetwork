@@ -454,6 +454,19 @@ class Settings extends Core\Base
 		];
 	}
 
+	public static function helpSidebar( $list )
+	{
+		if ( ! is_array( $list ) )
+			return $list;
+
+		$html = '';
+
+		foreach ( $list as $link )
+			$html.= '<li>'.HTML::link( $link['title'], $link['url'], TRUE ).'</li>';
+
+		return $html ? HTML::wrap( '<ul>'.$html.'</ul>', '-help-sidebar' ) : FALSE;
+	}
+
 	public static function fieldType( $atts = [], &$scripts )
 	{
 		$args = self::atts( [
