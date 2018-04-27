@@ -764,23 +764,26 @@ class AdminBar extends gNetwork\Module
 
 	public static function addLoginRegister( $wp_admin_bar, $parent = 'wp-logo-external' )
 	{
-		if ( ! is_user_logged_in() ) {
+		if ( ! GNETWORK_ADMINBAR_LOGIN )
+			return;
 
+		if ( is_user_logged_in() )
+			return;
+
+		$wp_admin_bar->add_menu( [
+			'parent' => $parent,
+			'id'     => 'network-login',
+			'title'  => _x( 'Log in', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+			'href'   => WordPress::loginURL(),
+		] );
+
+		if ( $register_url = WordPress::registerURL() )
 			$wp_admin_bar->add_menu( [
 				'parent' => $parent,
-				'id'     => 'network-login',
-				'title'  => _x( 'Log in', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
-				'href'   => WordPress::loginURL(),
+				'id'     => 'network-register',
+				'title'  => _x( 'Register', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+				'href'   => $register_url,
 			] );
-
-			if ( $register_url = WordPress::registerURL() )
-				$wp_admin_bar->add_menu( [
-					'parent' => $parent,
-					'id'     => 'network-register',
-					'title'  => _x( 'Register', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
-					'href'   => $register_url,
-				] );
-		}
 	}
 
 	public function wp_admin_bar_extra_menu( $wp_admin_bar )

@@ -86,6 +86,7 @@ class Plugin
 			'GNETWORK_SEARCH_QUERYID'        => 's',
 			'GNETWORK_BP_EXCLUDEUSERS'       => FALSE, // comma separated ids of users whom you want to exclude
 			'GNETWORK_ADMINBAR'              => TRUE, // disable admin bar for non caps, like: 'edit_others_posts'
+			'GNETWORK_ADMINBAR_LOGIN'        => TRUE, // disable admin bar login/register nodes
 			'GNETWORK_ADMIN_JS_ENHANCEMENTS' => TRUE, // autoresize textarea and more...
 			'GNETWORK_CACHE_TTL'             => 60 * 60 * 12, // 12 hours
 
