@@ -29,17 +29,8 @@ class Plugin
 		foreach ( $this->constants() as $key => $val )
 			defined( $key ) or define( $key, $val );
 
-		// $this->require_core();
-		// $this->require_plugin();
-
-		// $modules = $this->get_modules();
-		// $this->files( array_keys( $modules ) );
-
-		// foreach ( $modules as $module_slug => $module_class ) {
 		foreach ( $this->get_modules() as $module ) {
 
-			// $class = __NAMESPACE__.'\\Modules\\'.$module_class;
-			// $slug  = str_ireplace( 'modules/', '', $module_slug );
 			$class = __NAMESPACE__.'\\Modules\\'.$module;
 			$slug  = strtolower( $module );
 
@@ -253,7 +244,6 @@ class Plugin
 	public function bp_include()
 	{
 		if ( file_exists( GNETWORK_DIR.'includes/Modules/BuddyPress.php' ) ) {
-			// require_once( GNETWORK_DIR.'includes/Modules/BuddyPress.php' );
 
 			try {
 

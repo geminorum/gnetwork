@@ -60,18 +60,18 @@ class Login extends gNetwork\Module
 	public function default_options()
 	{
 		return [
+			'login_math'        => 0,
+			'ambiguous_error'   => 1,
+			'login_log'         => 0,
+			'store_lastlogin'   => 1,
+			'redirect_logout'   => '',
 			'login_headerurl'   => GNETWORK_BASE,
 			'login_headertitle' => GNETWORK_NAME,
 			'login_logourl'     => '',
 			'login_styles'      => '',
 			'login_class'       => 'logindefault',
 			'login_remember'    => 0,
-			'login_math'        => 0,
 			'login_credits'     => 0,
-			'login_log'         => 0,
-			'store_lastlogin'   => 1,
-			'ambiguous_error'   => 1,
-			'redirect_logout'   => '',
 			'login_hide'        => 0,
 			'login_slug'        => 'login',
 		];
@@ -82,6 +82,17 @@ class Login extends gNetwork\Module
 		$settings = [
 			'_general' => [
 				[
+					'field'       => 'login_math',
+					'title'       => _x( 'Login Math', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Puts a math problem after the login form.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+				],
+				[
+					'field'       => 'ambiguous_error',
+					'title'       => _x( 'Ambiguous Error', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Swaps error messages with an ambiguous one.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'default'     => '1',
+				],
+				[
 					'field'       => 'login_log',
 					'title'       => _x( 'Log Logins', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Logs user log-in events in the log system.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
@@ -90,12 +101,6 @@ class Login extends gNetwork\Module
 					'field'       => 'store_lastlogin',
 					'title'       => _x( 'Last Logins', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Stores last login timestamp for each user.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'default'     => '1',
-				],
-				[
-					'field'       => 'ambiguous_error',
-					'title'       => _x( 'Ambiguous Error', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Swaps error messages with an ambiguous one.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '1',
 				],
 				[
@@ -116,13 +121,6 @@ class Login extends gNetwork\Module
 					'title'       => _x( 'Hidden Login Slug', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Custom slug for the hidden login page.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => 'login',
-				],
-			],
-			'_math' => [
-				[
-					'field'       => 'login_math',
-					'title'       => _x( 'Login Math', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Puts a math problem after the login form.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 			],
 			'_styling' => [
@@ -192,14 +190,6 @@ class Login extends gNetwork\Module
 		Settings::fieldSection(
 			_x( 'Hidden', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 			_x( 'Protects logins by changing the URL and preventing access to admin while not logged-in.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN )
-		);
-	}
-
-	public function settings_section_math()
-	{
-		Settings::fieldSection(
-			_x( 'Math', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-			_x( 'Blocks Spam by Math. Verifies that a user answered the math problem correctly while loggin in.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN )
 		);
 	}
 
