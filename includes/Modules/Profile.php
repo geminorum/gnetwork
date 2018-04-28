@@ -723,7 +723,6 @@ class Profile extends gNetwork\Module
 		return $result;
 	}
 
-	// TODO: append contact methods
 	// TODO: add support for BuddyPress: `xprofile_get_field_data()`
 	// @REF: https://gist.github.com/boonebgorges/79b5d0f628a884cb3b3b
 	private function get_csv_users()
@@ -740,14 +739,31 @@ class Profile extends gNetwork\Module
 			'display_name',
 		];
 
-		$data  = [ $headers ];
-		$users = $wpdb->get_results( "SELECT * FROM {$wpdb->users} WHERE user_status = 0" );
+		$metas = [
+			'nickname',
+			'first_name',
+			'last_name',
+			'description',
+		];
+
+		$contacts = array_keys( wp_get_user_contact_methods() );
+
+		$data  = [ array_merge( $headers, $metas, $contacts ) ];
+		$users = $wpdb->get_results( "SELECT * FROM {$wpdb->users} WHERE user_status = 0 ORDER BY ID ASC" );
 
 		foreach ( $users as $user ) {
 			$row = [];
 
 			foreach ( $headers as $header )
 				$row[] = $user->{$header};
+
+			$meta = get_user_meta( $user->ID );
+
+			foreach ( $metas as $saved )
+				$row[] = empty( $meta[$saved][0] ) ? '' : $meta[$saved][0];
+
+			foreach ( $contacts as $saved )
+				$row[] = empty( $meta[$saved][0] ) ? '' : $meta[$saved][0];
 
 			$data[] = $row;
 		}
