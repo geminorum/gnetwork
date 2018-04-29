@@ -41,8 +41,8 @@
             editor.insertContent((
               e.data.query ? '[search for="' + e.data.query + '"]' : '[search]'
             ) + (
-              e.data.text ? e.data.text + '[/search]' : ''
-            ));
+                e.data.text ? e.data.text + '[/search]' : ''
+              ));
           }
         });
       }

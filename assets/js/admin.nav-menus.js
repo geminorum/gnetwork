@@ -1,5 +1,3 @@
-/* global jQuery */
-
 jQuery(function ($) {
   $('#menu-to-edit').on('click', 'a.item-edit', function () {
     var settings = $(this).closest('.menu-item-bar').next('.menu-item-settings');

@@ -29,8 +29,8 @@
             editor.insertContent((
               e.data.name ? '[person name="' + e.data.name + '"]' : '[person]'
             ) + (
-              selected ? selected + '[/person]' : ''
-            ));
+                selected ? selected + '[/person]' : ''
+              ));
           }
         });
       }

@@ -1,4 +1,4 @@
-/* global jQuery, wp, _ */
+/* global wp, _ */
 
 (function ($, counter) {
   $(function () {

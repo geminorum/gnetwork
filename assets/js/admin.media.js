@@ -1,5 +1,3 @@
-/* global jQuery, ajaxurl */
-
 jQuery(function ($) {
   $('table.media td.title div.row-actions').each(function () {
     $(this).find('div.media-url-box').hide();

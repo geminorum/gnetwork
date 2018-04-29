@@ -1,4 +1,4 @@
-/* global jQuery, ajaxurl, FileReader */
+/* global FileReader */
 
 (function ($) {
   var reader = {};

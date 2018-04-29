@@ -1,5 +1,3 @@
-/* global jQuery */
-
 jQuery(function ($) {
   $('a.cite-scroll').click(function (event) {
     event.preventDefault();

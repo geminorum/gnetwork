@@ -1,4 +1,4 @@
-/* global jQuery, gNetworkTaxonomyActions */
+/* global gNetworkTaxonomyActions */
 
 jQuery(function ($) {
   var actions = [];

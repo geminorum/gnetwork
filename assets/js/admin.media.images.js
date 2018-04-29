@@ -1,5 +1,3 @@
-/* global jQuery */
-
 (function ($) {
   $('.base-table-list')
 

@@ -44,8 +44,8 @@
             editor.insertContent((
               e.data.url ? '[ref url="' + encodeURI(e.data.url) + '"]' : '[ref]'
             ) + (
-              e.data.text ? e.data.text + '[/ref]' : '[/ref]'
-            ));
+                e.data.text ? e.data.text + '[/ref]' : '[/ref]'
+              ));
           }
         });
       }

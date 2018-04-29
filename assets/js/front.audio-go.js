@@ -1,5 +1,3 @@
-/* global jQuery */
-
 jQuery(function ($) {
   $('a.audio-go-to-time').click(function (e) {
     e.preventDefault();

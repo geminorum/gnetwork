@@ -1,4 +1,4 @@
-/* global jQuery, ajaxurl, autosize, gNetwork */
+/* global autosize */
 
 /**
   Autosize 4.0.0 - 2017-07-25
