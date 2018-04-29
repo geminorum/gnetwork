@@ -220,7 +220,7 @@ class Profile extends gNetwork\Module
 
 				$size = File::formatSize( apply_filters( 'import_upload_size_limit', wp_max_upload_size() ) );
 				Settings::submitButton( 'import_users_csv', _x( 'Import Users', 'Modules: Profile', GNETWORK_TEXTDOMAIN ), 'small' );
-				HTML::desc( sprintf( _x( 'Upload a list of users in a CSV format. Maximum size: <b>%s</b>', 'Modules: Profile', GNETWORK_TEXTDOMAIN ), $size ), FALSE );
+				HTML::desc( sprintf( _x( 'Upload a list of users in CSV. Maximum size: <b>%s</b>', 'Modules: Profile', GNETWORK_TEXTDOMAIN ), $size ), FALSE );
 
 			echo '</p>';
 			echo '<hr />';
@@ -229,7 +229,7 @@ class Profile extends gNetwork\Module
 		echo $this->wrap_open_buttons();
 
 			Settings::submitButton( 'export_users_csv', _x( 'Export Users', 'Modules: Profile', GNETWORK_TEXTDOMAIN ), 'small' );
-			HTML::desc( _x( 'Click to get all registered users in CSV format.', 'Modules: Profile', GNETWORK_TEXTDOMAIN ), FALSE );
+			HTML::desc( _x( 'Click to get all registered users in CSV.', 'Modules: Profile', GNETWORK_TEXTDOMAIN ), FALSE );
 
 		echo '</p>';
 	}

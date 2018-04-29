@@ -89,10 +89,8 @@ class Site extends gNetwork\Module
 					'field'       => 'denied_message',
 					'type'        => 'textarea-quicktags',
 					'title'       => _x( 'Denied Message', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Displays this message when a user tries to view a site\'s dashboard they do not have access to. Leave empty to use default or <code>0</code> to disable.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Displays this message when a user tries to view a site\'s dashboard they do not have access to. Leave empty to use default or <code>0</code> to disable. <code>%1$s</code>: Blog Name', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
 					'placeholder' => __( 'You attempted to access the "%1$s" dashboard, but you do not currently have privileges on this site. If you believe you should be able to access the "%1$s" dashboard, please contact your network administrator.' ),
-					'after'       => Settings::fieldAfterText( '<code>%1$s</code>: Blog Name' ),
-					'field_class' => [ 'large-text' ],
 				],
 				[
 					'field'       => 'denied_extra',
