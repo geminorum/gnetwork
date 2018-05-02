@@ -62,8 +62,10 @@ class Blog extends gNetwork\Module
 				$this->filter( 'posts_clauses', 2 );
 			}
 
-			if ( $this->options['page_404'] )
+			if ( $this->options['page_404'] ) {
 				add_filter( '404_template', [ $this, 'custom_404_template' ] );
+				$this->filter( 'template_include', 1, 99, 'custom_404' );
+			}
 
 			if ( $this->options['feed_delay'] )
 				$this->filter( 'posts_where', 2 );
@@ -790,6 +792,17 @@ class Blog extends gNetwork\Module
 
 			// return the page.php template instead of 404.php
 			return get_page_template();
+		}
+
+		return $template;
+	}
+
+	// @REF: https://bbpress.trac.wordpress.org/ticket/1973
+	public function template_include_custom_404( $template )
+	{
+		if ( is_page( (int) $this->options['page_404'] ) ) {
+			status_header( 404 );
+			nocache_headers();
 		}
 
 		return $template;
