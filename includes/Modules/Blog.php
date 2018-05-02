@@ -793,9 +793,15 @@ class Blog extends gNetwork\Module
 	// @REF: https://bbpress.trac.wordpress.org/ticket/1973
 	public function template_include_custom_404( $template )
 	{
-		if ( is_page( (int) $this->options['page_404'] ) ) {
+		$page_id = (int) $this->options['page_404'];
+
+		if ( is_page( $page_id ) ) {
+
 			status_header( 404 );
 			nocache_headers();
+
+			defined( 'GNETWORK_IS_CUSTOM_404' )
+				or define( 'GNETWORK_IS_CUSTOM_404', $page_id );
 		}
 
 		return $template;

@@ -503,6 +503,9 @@ class AdminBar extends gNetwork\Module
 
 	public function wp_admin_bar_shortlink_menu( $wp_admin_bar )
 	{
+		if ( defined( 'GNETWORK_IS_CUSTOM_404' ) && GNETWORK_IS_CUSTOM_404 )
+			return;
+
 		if ( is_admin() || ! is_singular() || is_front_page() )
 			return;
 
