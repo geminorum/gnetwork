@@ -147,7 +147,7 @@ class Themes extends gNetwork\Module
 			return;
 
 		// v5.0-alpha-42970-src
-		// 4/14/2018, 11:24:30 AM
+		// 5/2/2018, 12:52:25 PM
 		$jquery_ver  = '1.12.4';
 		$migrate_ver = '1.4.1';
 
@@ -159,7 +159,7 @@ class Themes extends gNetwork\Module
 			? '//code.jquery.com/jquery-migrate-'.$migrate_ver.'.min.js'
 			: '/wp-includes/js/jquery/jquery-migrate.min.js';
 
-		$scripts->remove( 'jquery', 'jquery-core', 'jquery-migrate' );
+		$scripts->remove( [ 'jquery', 'jquery-core', 'jquery-migrate' ] );
 		$scripts->add( 'jquery-core', $jquery_url, FALSE, $jquery_ver, $bottom );
 
 		$deps = [ 'jquery-core' ];
