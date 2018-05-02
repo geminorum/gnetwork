@@ -134,10 +134,10 @@ class Uptime extends gNetwork\Module
 	private function get_uptimerobot_type( $type )
 	{
 		switch ( $type ) {
-			case '1' : return HTML::getDashicon( 'warning', 'span', _x( 'Down', 'Modules: Uptime', GNETWORK_TEXTDOMAIN ) );
-			case '2' : return HTML::getDashicon( 'marker', 'span', _x( 'Up', 'Modules: Uptime', GNETWORK_TEXTDOMAIN ) );
-			case '99': return HTML::getDashicon( 'star-empty', 'span', _x( 'Paused', 'Modules: Uptime', GNETWORK_TEXTDOMAIN ) );
-			case '98': return HTML::getDashicon( 'star-filled', 'span', _x( 'Started', 'Modules: Uptime', GNETWORK_TEXTDOMAIN ) );
+			case '1' : return HTML::getDashicon( 'warning', _x( 'Down', 'Modules: Uptime', GNETWORK_TEXTDOMAIN ) );
+			case '2' : return HTML::getDashicon( 'marker', _x( 'Up', 'Modules: Uptime', GNETWORK_TEXTDOMAIN ) );
+			case '99': return HTML::getDashicon( 'star-empty', _x( 'Paused', 'Modules: Uptime', GNETWORK_TEXTDOMAIN ) );
+			case '98': return HTML::getDashicon( 'star-filled', _x( 'Started', 'Modules: Uptime', GNETWORK_TEXTDOMAIN ) );
 		}
 
 		return HTML::getDashicon( 'info', 'span', _x( 'Unknown!', 'Modules: Uptime', GNETWORK_TEXTDOMAIN ) );

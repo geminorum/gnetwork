@@ -53,7 +53,7 @@ class Blog extends gNetwork\Module
 			$this->action( 'embed_head', 0, 12 );
 
 			if ( $this->options['shortlink_numeric'] ) {
-				$this->action( 'template_redirect', 0, 5 );
+				$this->action( 'template_redirect', 0, 5, 'shortlink' );
 				$this->filter( 'pre_get_shortlink', 4 );
 			}
 
@@ -417,16 +417,9 @@ class Blog extends gNetwork\Module
 				WordPress::redirect( $this->remove_action( 'locale' ) );
 
 		if ( $this->options['feed_json'] ) {
-
 			add_feed( 'json', [ $this, 'do_feed_json' ] );
-
-			add_filter( 'query_vars', function( $public_query_vars ){
-				$public_query_vars[] = 'callback';
-				$public_query_vars[] = 'limit';
-				return $public_query_vars;
-			} );
-
-			add_filter( 'template_include', [ $this, 'feed_json_template_include' ] );
+			$this->filter( 'template_include', 1, 9, 'feed_json' );
+			$this->filter_append( 'query_vars', [ 'callback', 'limit' ] );
 		}
 
 		// originally from: Disable Emojis v1.5.1
@@ -697,7 +690,7 @@ class Blog extends gNetwork\Module
 /// by Kaspars Dambis : http://kaspars.net
 /// @SOURCE: https://github.com/kasparsd/numeric-shortlinks
 
-	public function template_redirect()
+	public function template_redirect_shortlink()
 	{
 		global $wp;
 
@@ -748,7 +741,7 @@ class Blog extends gNetwork\Module
 		Utilities::getLayout( 'feed.json', TRUE );
 	}
 
-	public function feed_json_template_include( $template )
+	public function template_include_feed_json( $template )
 	{
 		if ( 'json' === get_query_var( 'feed' )
 			&& $layout = Utilities::getLayout( 'feed.json' ) )

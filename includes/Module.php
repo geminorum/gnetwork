@@ -339,19 +339,21 @@ class Module extends Core\Base
 	}
 
 	// USAGE: $this->filter_append( 'body_class', 'foo' );
-	protected function filter_append( $hook, $item, $priority = 10 )
+	protected function filter_append( $hook, $items, $priority = 10 )
 	{
 		add_filter( $hook, function( $first ) use( $item ){
-			$first[] = $item;
+			foreach ( (array) $items as $value )
+				$first[] = $value;
 			return $first;
 		}, $priority, 1 );
 	}
 
-	// USAGE: $this->filter_set( 'shortcode_atts_gallery', 'columns', 4 );
-	protected function filter_set( $hook, $key, $value, $priority = 10 )
+	// USAGE: $this->filter_set( 'shortcode_atts_gallery', [ 'columns' => 4 ] );
+	protected function filter_set( $hook, $items, $priority = 10 )
 	{
-		add_filter( $hook, function( $first ) use( $key, $value ){
-			$first[$key] = $value;
+		add_filter( $hook, function( $first ) use( $items ){
+			foreach ( $items as $key => $value )
+				$first[$key] = $value;
 			return $first;
 		}, $priority, 1 );
 	}
