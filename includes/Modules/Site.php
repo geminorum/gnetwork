@@ -27,6 +27,7 @@ class Site extends gNetwork\Module
 		}
 
 		$this->action( 'wpmu_new_blog', 6, 12 );
+		$this->action( 'ms_site_not_found', 3, 12 );
 
 		if ( is_admin() ) {
 
@@ -55,12 +56,22 @@ class Site extends gNetwork\Module
 			'denied_extra'      => '',
 			'list_sites'        => '1',
 			'lookup_ip_service' => 'https://redirect.li/map/?ip=%s',
+			'redirect_notfound' => '',
 		];
 	}
 
 	public function default_settings()
 	{
-		$settings = [];
+		$settings = [
+			'_general' => [
+				[
+					'field'       => 'redirect_notfound',
+					'type'        => 'url',
+					'title'       => _x( 'Site Not Found', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Redirects when the network can be determined but a site cannot.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+				],
+			],
+		];
 
 		if ( class_exists( __NAMESPACE__.'\\Locale' ) ) {
 			$settings['_locale'] = [
@@ -235,6 +246,16 @@ class Site extends gNetwork\Module
 
 		restore_current_blog();
 		clean_blog_cache( $blog_id );
+	}
+
+	// alternative to `NOBLOGREDIRECT`
+	// @SEE: https://core.trac.wordpress.org/ticket/21573
+	public function ms_site_not_found( $current_site, $domain, $path )
+	{
+		if ( $this->options['redirect_notfound'] )
+			WordPress::redirect( $this->options['redirect_notfound'], 303 );
+
+		Utilities::redirect404();
 	}
 
 	public function wp_is_large_network( $is, $using, $count )

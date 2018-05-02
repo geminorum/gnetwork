@@ -372,10 +372,10 @@ class Profile extends gNetwork\Module
 	public function before_signup_header()
 	{
 		if ( $this->options['page_signup_disabled'] && 'none' == get_site_option( 'registration', 'none' ) )
-			WordPress::redirect( get_page_link( $this->options['page_signup_disabled'] ) );
+			WordPress::redirect( get_page_link( $this->options['page_signup_disabled'] ), 303 );
 
 		if ( $this->options['redirect_signup_url'] )
-			WordPress::redirect( $this->options['redirect_signup_url'] );
+			WordPress::redirect( $this->options['redirect_signup_url'], 303 );
 	}
 
 	public function wp_signup_location( $url )

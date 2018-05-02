@@ -122,7 +122,7 @@ class Plugin
 
 			// reset some stuff
 			'WP_STAGE'       => 'production',
-			'NOBLOGREDIRECT' => '%siteurl%',
+			// 'NOBLOGREDIRECT' => '%siteurl%', // @SEE: https://core.trac.wordpress.org/ticket/21573
 			'SAVEQUERIES'    => FALSE,
 			'ERRORLOGFILE'   => WP_CONTENT_DIR.'/dberror.log',
 
