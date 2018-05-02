@@ -17,6 +17,9 @@ class Search extends gNetwork\Module
 
 	protected function setup_actions()
 	{
+		if ( $this->options['register_shortcodes'] )
+			$this->action( 'init', 0, 12 );
+
 		if ( is_admin() )
 			return;
 
@@ -42,9 +45,10 @@ class Search extends gNetwork\Module
 	public function default_options()
 	{
 		return [
-			'redirect_single'  => '1',
-			'search_again_uri' => '0',
-			'include_meta'     => '0',
+			'redirect_single'     => '1',
+			'search_again_uri'    => '0',
+			'include_meta'        => '0',
+			'register_shortcodes' => '0',
 		];
 	}
 
@@ -68,6 +72,7 @@ class Search extends gNetwork\Module
 					'title'       => _x( 'Include Metadata', 'Modules: Search: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Expands search results into post metadata.', 'Modules: Search: Settings', GNETWORK_TEXTDOMAIN ),
 				],
+				'register_shortcodes',
 			],
 		];
 	}
@@ -78,6 +83,19 @@ class Search extends gNetwork\Module
 
 		HTML::desc( sprintf( _x( 'Current Page: %s', 'Modules: Search: Settings', GNETWORK_TEXTDOMAIN ),
 			'<code>'.HTML::link( URL::relative( $page ), $page, TRUE ).'</code>' ) );
+	}
+
+	public function init()
+	{
+		if ( $this->options['register_shortcodes'] )
+			$this->shortcodes( $this->get_shortcodes() );
+	}
+
+	protected function get_shortcodes()
+	{
+		return [
+			'search-form' => 'shortcode_search_form',
+		];
 	}
 
 	// @SOURCE: `se_search_where()`
@@ -212,13 +230,18 @@ class Search extends gNetwork\Module
 		}
 	}
 
-	// also overrided for strings!
 	public function get_search_form( $form )
 	{
 		// bail if theme has template
 		if ( locate_template( 'searchform.php' ) )
 			return $form;
 
+		return $this->search_form();
+	}
+
+	// also overrided for strings!
+	public function search_form()
+	{
 		$html = '<form role="search" method="get" class="search-form" action="'.GNETWORK_SEARCH_URL.'">';
 			$html.= '<label><span class="screen-reader-text">'._x( 'Search for:', 'Modules: Search: Form: Label', GNETWORK_TEXTDOMAIN ).'</span>';
 			$html.= '<input type="search" class="search-field" placeholder="'.esc_attr_x( 'Search &hellip;', 'Modules: Search: Form: Placeholder', GNETWORK_TEXTDOMAIN );
@@ -227,5 +250,23 @@ class Search extends gNetwork\Module
 		$html.= '</form>';
 
 		return $html;
+	}
+
+	public function shortcode_search_form( $atts = [], $content = NULL, $tag = '' )
+	{
+		$args = shortcode_atts( [
+			'theme'   => FALSE,
+			'context' => NULL,
+		], $atts, $tag );
+
+		if ( FALSE === $args['context'] || is_feed() )
+			return NULL;
+
+		if ( $args['theme'] )
+			$html = get_search_form( FALSE );
+		else
+			$html = $this->search_form();
+
+		return self::shortcodeWrap( $html, 'search-form', $args );
 	}
 }
