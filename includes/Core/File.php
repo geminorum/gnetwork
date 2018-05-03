@@ -270,6 +270,12 @@ class File extends Base
 		if ( is_null( $name ) )
 			$name = basename( $path );
 
+		@ini_set( 'zlib.output_compression', 'Off' );
+		@ini_set( 'zlib.output_handler', '' );
+		@ini_set( 'output_buffering', 'Off' );
+		@ini_set( 'output_handler', '' );
+		@apache_setenv( 'no-gzip', 1 );
+
 		header( 'Content-Description: File Transfer' );
 		header( 'Pragma: public' ); // required
 		header( 'Expires: 0' ); // no cache

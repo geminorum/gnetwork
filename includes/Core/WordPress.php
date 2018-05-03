@@ -113,9 +113,10 @@ class WordPress extends Base
 		if ( is_null( $location ) )
 			$location = add_query_arg( wp_get_referer() );
 
-		wp_redirect( $location, $status );
+		if ( wp_redirect( $location, $status ) )
+			exit;
 
-		die;
+		wp_die(); // something's wrong!
 	}
 
 	public static function redirectReferer( $message = 'updated', $key = 'message' )
@@ -187,7 +188,9 @@ class WordPress extends Base
 
 	public static function getHostName()
 	{
-		return is_multisite() ? preg_replace( '#^https?://#i', '', get_option( 'home' ) ) : get_current_site()->domain;
+		return is_multisite()
+			? get_current_site()->domain
+			: preg_replace( '#^https?://#i', '', get_option( 'home' ) );
 	}
 
 	// OLD: `getBlogNameforEmail()`
@@ -204,6 +207,9 @@ class WordPress extends Base
 	// OLD: `currentSite()`
 	public static function currentNetworkURL()
 	{
+		if ( ! is_multisite() )
+			return get_option( 'siteurl' );
+
 		$network = get_current_site();
 		$scheme  = self::isSSL() ? 'https' : 'http';
 
@@ -322,7 +328,7 @@ class WordPress extends Base
 		$clause_order = $orderby_site ? 'ORDER BY domain, path ASC' : 'ORDER BY registered DESC';
 
 		$query = "
-			SELECT blog_id, domain, path
+			SELECT blog_id, site_id, domain, path
 			FROM {$wpdb->blogs}
 			WHERE spam = '0'
 			AND deleted = '0'
@@ -338,6 +344,7 @@ class WordPress extends Base
 		foreach ( $wpdb->get_results( $query, ARRAY_A ) as $blog )
 			$blogs[$blog['blog_id']] = (object) [
 				'userblog_id' => $blog['blog_id'],
+				'network_id'  => $blog['site_id'],
 				'domain'      => $blog['domain'],
 				'path'        => $blog['path'],
 				'siteurl'     => URL::untrail( $scheme.'://'.$blog['domain'].$blog['path'] ),

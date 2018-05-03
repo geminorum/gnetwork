@@ -1014,15 +1014,12 @@ class HTML extends Base
 	}
 
 	// @REF: https://developer.wordpress.org/resource/dashicons/
-	public static function getDashicon( $icon = 'wordpress-alt', $tag = 'span', $title = FALSE )
+	public static function getDashicon( $icon = 'wordpress-alt', $title = FALSE, $class = '' )
 	{
-		return self::tag( $tag, array(
+		return self::tag( 'span', array(
 			'data-icon' => 'dashicons',
 			'title'     => $title,
-			'class'     => array(
-				'dashicons',
-				'dashicons-'.$icon,
-			),
+			'class'     => self::attrClass( [ 'dashicons', 'dashicons-'.$icon ], $class ),
 		), NULL );
 	}
 

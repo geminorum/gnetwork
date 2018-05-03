@@ -113,4 +113,16 @@ class Third extends Base
 			'alt'    => strip_tags( $data ),
 		] );
 	}
+
+	// FIXME: hex color sanitize
+	public static function htmlThemeColor( $color )
+	{
+		if ( ! $color )
+			return;
+
+		echo '<meta name="theme-color" content="'.$color.'" />'."\n";
+		echo '<meta name="msapplication-navbutton-color" content="'.$color.'">'."\n";
+		echo '<meta name="apple-mobile-web-app-capable" content="yes">'."\n";
+		echo '<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">'."\n";
+	}
 }

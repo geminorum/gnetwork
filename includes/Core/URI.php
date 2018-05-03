@@ -222,8 +222,25 @@ class URI extends Base
 			return rawurlencode( $matches[0] );
 		}, $uri );
 
-		if ( ! $result = parse_url( $uri ) )
+		$result = parse_url( $uri );
+
+		if ( ! $result ) {
+
 			$result = self::_parse_fallback( $uri );
+
+		} else {
+
+			// Add empty host and trailing slash to windows file paths (file:///C:/path)
+			// @REF: https://github.com/sabre-io/uri/pull/25
+			if ( isset( $result['scheme'] )
+				&& 'file' === $result['scheme']
+				&& isset( $result['path'] )
+				&& preg_match( '/^(?<windows_path> [a-zA-Z]:(\/(?![\/])|\\\\)[^?]*)$/x', $result['path'] ) ) {
+
+				$result['path'] = '/'.$result['path'];
+				$result['host'] = '';
+			}
+		}
 
 		return $result + [
 			'scheme'   => NULL,
@@ -369,15 +386,13 @@ class URI extends Base
 		// Uris that have an authority part.
 		} else if ( '//' === substr( $uri, 0, 2 ) ) {
 
-			$pattern = '
-			%^
+			$pattern = '%^
 				//
 				(?: (?<user> [^:@]+) (: (?<pass> [^@]+)) @)?
 				(?<host> ( [^:/]* | \[ [^\]]+ \] ))
 				(?: : (?<port> [0-9]+))?
 				(?<path> / .*)?
-			$%x
-			';
+			$%x';
 
 			if ( ! preg_match( $pattern, $uri, $matches ) )
 				throw new Exception( 'Invalid, or could not parse URI' );
