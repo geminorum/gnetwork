@@ -1,3 +1,25 @@
+### 3.7.3
+* main/module: tools page for admin/network
+* main/module: better handling buttons
+* main/module: help tab/sidebar tweaks
+* main/settings: new side navigation
+* main/utilities: 404 redirect helper
+* module/adminbar: login node constant
+* module/blog: is custom 404 constant
+* module/blog: correct status for custom 404 page itself
+* module/cron: moved summary into tools
+* module/debug: moved menus into tools
+* module/debug: correct check for html in die message
+* module/notify: log updated version
+* module/search: :new: `[search-form]` shortcode
+* module/site: :new: initial support for ssl
+* module/site: :warning: alternative to `NOBLOGREDIRECT`
+* module/profile: also export meta/contacts
+* module/login: :warning: missing filters for hide login
+* module/login: skip redirect on admin email hash
+* module/themes: content actions disabled by default
+* module/themes: :warning: fixed not removing core scripts
+
 ### 3.7.2
 * main/main: using psr-4 autoload
 * main/plugin: moved constants
