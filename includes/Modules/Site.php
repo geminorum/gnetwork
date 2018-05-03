@@ -50,13 +50,14 @@ class Site extends gNetwork\Module
 	public function default_options()
 	{
 		return [
+			'ssl_support'       => 0,
+			'redirect_notfound' => '',
 			'admin_locale'      => 'en_US',
 			'access_denied'     => '',
 			'denied_message'    => '',
 			'denied_extra'      => '',
 			'list_sites'        => '1',
 			'lookup_ip_service' => 'https://redirect.li/map/?ip=%s',
-			'redirect_notfound' => '',
 		];
 	}
 
@@ -64,6 +65,11 @@ class Site extends gNetwork\Module
 	{
 		$settings = [
 			'_general' => [
+				[
+					'field'       => 'ssl_support',
+					'title'       => _x( 'SSL', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Enables SSL tools to support the network sites.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+				],
 				[
 					'field'       => 'redirect_notfound',
 					'type'        => 'url',

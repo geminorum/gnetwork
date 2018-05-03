@@ -11,6 +11,7 @@ use geminorum\gNetwork\Core\Crypto;
 use geminorum\gNetwork\Core\Error;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\HTTP;
+use geminorum\gNetwork\Core\Third;
 use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
 
@@ -22,6 +23,7 @@ class Blog extends gNetwork\Module
 	protected $ajax    = TRUE;
 
 	private $autosave_interval = FALSE;
+	private $ssl_support       = FALSE;
 
 	protected function setup_actions()
 	{
@@ -93,6 +95,7 @@ class Blog extends gNetwork\Module
 	public function default_options()
 	{
 		return [
+			'ssl_support'          => 0,
 			'thrift_mode'          => 0,
 			'no_found_rows'        => 0,
 			'admin_locale'         => '',
@@ -132,6 +135,13 @@ class Blog extends gNetwork\Module
 			get_option( 'page_on_front' ),
 			get_option( 'page_for_posts' ),
 		] );
+
+		if ( ! $multisite )
+			$settings['_general'][] = [
+				'field'       => 'ssl_support',
+				'title'       => _x( 'SSL', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Enables SSL tools to support the network sites.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			];
 
 		if ( class_exists( __NAMESPACE__.'\\Locale' ) )
 			$settings['_locale'][] = [
@@ -416,6 +426,14 @@ class Blog extends gNetwork\Module
 			&& ( $result = Locale::changeLocale( $locale ) ) )
 				WordPress::redirect( $this->remove_action( 'locale' ) );
 
+		$this->ssl_support = gNetwork()->option( 'ssl_support', 'site', $this->options['ssl_support'] );
+
+		if ( $this->ssl_support ) {
+			$this->action( 'rest_api_init', 0 , -999 );
+			$this->action( 'wp', 0, 40 );
+			$this->action( 'wp_print_scripts' );
+		}
+
 		if ( $this->options['feed_json'] ) {
 			add_feed( 'json', [ $this, 'do_feed_json' ] );
 			$this->filter( 'template_include', 1, 9, 'feed_json' );
@@ -611,6 +629,23 @@ class Blog extends gNetwork\Module
 				return;
 
 		Utilities::linkStyleSheet( 'embed.all' );
+	}
+
+	public function rest_api_init( $wp_rest_server )
+	{
+		if ( ! WordPress::isSSL() )
+			WordPress::redirect( 'https://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'], 301 );
+	}
+
+	public function wp()
+	{
+		if ( ! WordPress::isSSL() )
+			WordPress::redirect( 'https://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'], 301 );
+	}
+
+	public function wp_print_scripts()
+	{
+		echo "<script>if(document.location.protocol!='https:'){document.location=document.URL.replace(/^http:/i,'https:');}</script>";
 	}
 
 	public function posts_where( $where, $query )

@@ -4,15 +4,20 @@ defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
 use geminorum\gNetwork\Settings;
+use geminorum\gNetwork\Utilities;
+use geminorum\gNetwork\Core\Arraay;
 use geminorum\gNetwork\Core\Exception;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\Number;
+use geminorum\gNetwork\Core\Text;
 use geminorum\gNetwork\Core\WordPress;
 
 class Network extends gNetwork\Module
 {
 
 	protected $key = 'network';
+
+	private $ssl_support = FALSE;
 
 	protected function setup_actions()
 	{
@@ -214,25 +219,48 @@ class Network extends gNetwork\Module
 	{
 		if ( 'sites-network' == $screen->base ) {
 
+			$this->ssl_support = gNetwork()->option( 'ssl_support', 'site', FALSE );
+
 			$this->filter( 'wpmu_blogs_columns', 1, 20 );
 			$this->action( 'manage_sites_custom_column', 2 );
 
-			add_filter( 'bulk_actions-'.$screen->id, [ $this, 'bulk_actions' ] );
-			add_filter( 'network_sites_updated_message_'.$this->hook( 'admin', 'email' ), [ $this, 'updated_message' ] );
 			$this->action( 'wpmuadminedit' );
+
+			add_filter( 'bulk_actions-'.$screen->id, [ $this, 'bulk_actions' ] );
+			add_filter( 'network_sites_updated_message_resetadminemail', [ $this, 'updated_message_resetadminemail' ] );
+
+			if ( $this->ssl_support ) {
+				add_filter( 'network_sites_updated_message_enablesitessl', [ $this, 'updated_message_enable' ] );
+				add_filter( 'network_sites_updated_message_disablesitessl', [ $this, 'updated_message_disable' ] );
+			}
 		}
 	}
 
 	public function bulk_actions( $actions )
 	{
-		return array_merge( $actions, [ 'resetadminemail' => _x( 'Reset Admin Email', 'Modules: Network: Bulk Action', GNETWORK_TEXTDOMAIN ) ] );
+		$new = [ 'resetadminemail' => _x( 'Reset Admin Email', 'Modules: Network: Bulk Action', GNETWORK_TEXTDOMAIN ) ];
+
+		if ( $this->ssl_support ) {
+			$new['enablesitessl']  = _x( 'Enable SSL', 'Modules: Network: Bulk Action', GNETWORK_TEXTDOMAIN );
+			$new['disablesitessl'] = _x( 'Disable SSL', 'Modules: Network: Bulk Action', GNETWORK_TEXTDOMAIN );
+		}
+
+		return array_merge( $actions, $new );
 	}
 
 	public function wpmuadminedit()
 	{
-		if ( ( empty( $_POST['action'] ) || 'resetadminemail' != $_POST['action'] )
-			&& ( empty( $_POST['action2'] ) || 'resetadminemail' != $_POST['action2'] ) )
-				return;
+		if ( ! empty( $_POST['action'] ) )
+			$action = $_POST['action'];
+
+		else if ( ! empty( $_POST['action2'] ) )
+			$action = $_POST['action2'];
+
+		else
+			return;
+
+		if ( ! in_array( $action, [ 'resetadminemail', 'enablesitessl', 'disablesitessl' ] ) )
+			return;
 
 		check_admin_referer( 'bulk-sites' );
 
@@ -241,58 +269,83 @@ class Network extends gNetwork\Module
 		if ( empty( $blogs ) )
 			return;
 
-		$email = get_site_option( 'admin_email' );
+		$count = 0;
 
-		foreach ( $blogs as $blog_id )
-			update_blog_option( $blog_id, 'admin_email', $email );
+		if ( 'resetadminemail' == $action ) {
+			$email = get_site_option( 'admin_email' );
+
+			foreach ( $blogs as $blog_id )
+				if ( update_blog_option( $blog_id, 'admin_email', $email ) )
+					$count++;
+
+		} else if ( $this->ssl_support ) {
+
+			$switch = 'enablesitessl' == $action
+				? [ 'http://', 'https://' ]
+				: [ 'https://', 'http://' ];
+
+			foreach ( $blogs as $blog_id ) {
+
+				switch_to_blog( $blog_id );
+
+				update_option( 'siteurl', str_replace( $switch[0], $switch[1], get_option( 'siteurl' ) ) );
+				update_option( 'home', str_replace( $switch[0], $switch[1], get_option( 'home' ) ) );
+
+				$count++;
+			}
+
+			restore_current_blog();
+		}
 
 		WordPress::redirectReferer( [
-			'updated' => $this->hook( 'admin', 'email' ),
-			'count'   => count( $blogs ),
+			'updated' => $action,
+			'count'   => $count,
 		] );
 	}
 
-	public function updated_message( $msg )
+	public function updated_message_resetadminemail( $msg )
 	{
 		$_SERVER['REQUEST_URI'] = remove_query_arg( 'count', $_SERVER['REQUEST_URI'] );
 		$message = _x( '%s site(s) admin email reset to <code>%s</code>', 'Modules: Network: Message', GNETWORK_TEXTDOMAIN );
 		return sprintf( $message, Number::format( self::req( 'count', 0 ) ), get_site_option( 'admin_email' ) );
 	}
 
-	public static function getLogo( $wrap = FALSE, $fallback = TRUE, $logo = NULL )
+	public function updated_message_enable( $msg )
 	{
-		if ( ! is_null( $logo ) )
-			$html = HTML::img( $logo, '-logo-img', GNETWORK_NAME );
+		$_SERVER['REQUEST_URI'] = remove_query_arg( 'count', $_SERVER['REQUEST_URI'] );
+		return Utilities::getCounted( self::req( 'count', 0 ), _x( '%s site(s) SSL Enabled', 'Modules: Network: Message', GNETWORK_TEXTDOMAIN ) );
+	}
 
-		else if ( file_exists( WP_CONTENT_DIR.'/'.GNETWORK_LOGO ) )
-			$html = HTML::img( WP_CONTENT_URL.'/'.GNETWORK_LOGO, '-logo-img', GNETWORK_NAME );
-
-		else if ( $fallback )
-			$html = GNETWORK_NAME;
-
-		else
-			return '';
-
-		$html = HTML::tag( 'a', [
-			'href'  => GNETWORK_BASE,
-			'title' => GNETWORK_NAME,
-		], $html );
-
-		return $wrap ? HTML::tag( $wrap, [ 'class' => 'logo' ], $html ) : $html;
+	public function updated_message_disable( $msg )
+	{
+		$_SERVER['REQUEST_URI'] = remove_query_arg( 'count', $_SERVER['REQUEST_URI'] );
+		return Utilities::getCounted( self::req( 'count', 0 ), _x( '%s site(s) SSL Disabled', 'Modules: Network: Message', GNETWORK_TEXTDOMAIN ) );
 	}
 
 	public function wpmu_blogs_columns( $columns )
 	{
-		return array_merge( $columns, [ 'gnetwork-network-id' => _x( 'ID', 'Modules: Network: Column', GNETWORK_TEXTDOMAIN ) ] );
+		$columns = Arraay::insert( $columns, [
+			$this->classs( 'ssl' ) => _x( 'SSL', 'Modules: Network: Column', GNETWORK_TEXTDOMAIN ),
+		], 'blogname', 'before' );
+
+		return array_merge( $columns, [ $this->classs( 'id' ) => _x( 'ID', 'Modules: Network: Column', GNETWORK_TEXTDOMAIN ) ] );
 	}
 
 	public function manage_sites_custom_column( $column_name, $blog_id )
 	{
-		if ( 'gnetwork-network-id' != $column_name )
-			return;
+		if ( $this->classs( 'ssl' ) == $column_name ) {
 
-		echo '<div class="gnetwork-admin-wrap-column -network -id">';
-			echo HTML::escape( $blog_id );
-		echo '</div>';
+			$url = get_blog_option( $blog_id, 'siteurl' );
+
+			if ( Text::has( $url, 'https://' ) )
+				echo HTML::getDashicon( 'lock', _x( 'SSL Enabled', 'Modules: Network: Title', GNETWORK_TEXTDOMAIN ), '-success' );
+			else
+				echo HTML::getDashicon( 'unlock', _x( 'SSL Disabled', 'Modules: Network: Title', GNETWORK_TEXTDOMAIN ), '-danger' );
+
+		} else if ( $this->classs( 'id' ) == $column_name ) {
+			echo '<div class="'.static::BASE.'-admin-wrap-column -network -id">';
+				echo HTML::escape( $blog_id );
+			echo '</div>';
+		}
 	}
 }
