@@ -20,7 +20,7 @@ Plugin Name: Database Error Helper
 	header( 'Content-Type: text/html; charset=utf-8' );
 	// header( 'Retry-After: 600' );
 
-	$network_logo = class_exists( 'gNetworkNetwork' ) ? gNetworkNetwork::getLogo( 'h1' ) : FALSE;
+	$network_logo = class_exists( 'Branding' ) ? Branding::getLogo( 'h1' ) : FALSE;
 
 ?><!DOCTYPE html>
 <html lang="fa">
