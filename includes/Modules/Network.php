@@ -103,7 +103,7 @@ class Network extends gNetwork\Module
 		];
 
 		if ( $callback )
-			add_action( 'gnetwork_network_settings', $callback );
+			add_action( static::BASE.'_network_settings', $callback );
 	}
 
 	public static function registerTool( $sub, $title = NULL, $callback = FALSE, $capability = 'manage_network_options', $priority = 10 )
@@ -117,7 +117,7 @@ class Network extends gNetwork\Module
 		];
 
 		if ( $callback )
-			add_action( 'gnetwork_network_tools', $callback );
+			add_action( static::BASE.'_network_tools', $callback );
 	}
 
 	public function settings_load()

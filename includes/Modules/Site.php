@@ -68,67 +68,60 @@ class Site extends gNetwork\Module
 					'field'       => 'redirect_notfound',
 					'type'        => 'url',
 					'title'       => _x( 'Site Not Found', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Redirects when the network can be determined but a site cannot.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Redirects to when the network can be determined but a site cannot.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 			],
 		];
 
 		if ( class_exists( __NAMESPACE__.'\\Locale' ) ) {
-			$settings['_locale'] = [
-				[
-					'field'       => 'admin_locale',
-					'type'        => 'select',
-					'title'       => _x( 'Network Locale', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Overrides network admin language, despite of the main site locale.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
-					'default'     => 'en_US',
-					'values'      => Arraay::sameKey( Locale::available() ),
-				],
+			$settings['_general'][] = [
+				'field'       => 'admin_locale',
+				'type'        => 'select',
+				'title'       => _x( 'Network Locale', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Overrides network admin language, despite of the main site locale.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+				'default'     => 'en_US',
+				'values'      => Arraay::sameKey( Locale::available() ),
 			];
 		}
 
-		if ( is_multisite() ) {
-
-			$settings['_denied'] = [
-				[
-					'field'       => 'access_denied',
-					'type'        => 'textarea-quicktags',
-					'title'       => _x( 'Access Denied', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Displays when access to an admin page is denied. Leave empty to use default or <code>0</code> to disable.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
-					'placeholder' => __( 'Sorry, you are not allowed to access this page.' ),
-				],
-				[
-					'field'       => 'denied_message',
-					'type'        => 'textarea-quicktags',
-					'title'       => _x( 'Denied Message', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Displays this message when a user tries to view a site\'s dashboard they do not have access to. Leave empty to use default or <code>0</code> to disable. <code>%1$s</code>: Blog Name', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
-					'placeholder' => __( 'You attempted to access the "%1$s" dashboard, but you do not currently have privileges on this site. If you believe you should be able to access the "%1$s" dashboard, please contact your network administrator.' ),
-				],
-				[
-					'field'       => 'denied_extra',
-					'type'        => 'textarea-quicktags',
-					'title'       => _x( 'Extra Message', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Displays this message before the list of sites. Leave empty to use default or <code>0</code> to disable.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
-					'placeholder' => __( 'If you reached this screen by accident and meant to visit one of your own sites, here are some shortcuts to help you find your way.' ),
-				],
-				[
-					'field'       => 'list_sites',
-					'title'       => _x( 'List of Sites', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Displays the current user list of sites after access denied message.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
-					'default'     => '1',
-				],
-			];
-		}
-
-		$settings['_misc'] = [
+		$settings['_denied'] = [
 			[
-				'field'       => 'lookup_ip_service',
-				'type'        => 'text',
-				'title'       => _x( 'Lookup IP URL', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
-				'description' => _x( 'URL template to to use for looking up IP adresses. Will replace <code>%s</code> with the IP.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
-				'default'     => 'https://redirect.li/map/?ip=%s',
-				'dir'         => 'ltr',
-				'after'       => $this->options['lookup_ip_service'] ? Settings::fieldAfterLink( sprintf( $this->options['lookup_ip_service'], HTTP::IP() ) ) : '',
+				'field'       => 'access_denied',
+				'type'        => 'textarea-quicktags',
+				'title'       => _x( 'Access Denied', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Displays when access to an admin page is denied. Leave empty to use default or <code>0</code> to disable.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+				'placeholder' => __( 'Sorry, you are not allowed to access this page.' ),
 			],
+			[
+				'field'       => 'denied_message',
+				'type'        => 'textarea-quicktags',
+				'title'       => _x( 'Denied Message', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Displays this message when a user tries to view a site\'s dashboard they do not have access to. Leave empty to use default or <code>0</code> to disable. <code>%1$s</code>: Blog Name', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+				'placeholder' => __( 'You attempted to access the "%1$s" dashboard, but you do not currently have privileges on this site. If you believe you should be able to access the "%1$s" dashboard, please contact your network administrator.' ),
+			],
+			[
+				'field'       => 'denied_extra',
+				'type'        => 'textarea-quicktags',
+				'title'       => _x( 'Extra Message', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Displays this message before the list of sites. Leave empty to use default or <code>0</code> to disable.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+				'placeholder' => __( 'If you reached this screen by accident and meant to visit one of your own sites, here are some shortcuts to help you find your way.' ),
+			],
+			[
+				'field'       => 'list_sites',
+				'title'       => _x( 'List of Sites', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Displays the current user list of sites after access denied message.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+				'default'     => '1',
+			],
+		];
+
+		$settings['_misc'][] = [
+			'field'       => 'lookup_ip_service',
+			'type'        => 'text',
+			'title'       => _x( 'Lookup IP URL', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'URL template to to use for looking up IP adresses. Will replace <code>%s</code> with the IP.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+			'default'     => 'https://redirect.li/map/?ip=%s',
+			'dir'         => 'ltr',
+			'after'       => $this->options['lookup_ip_service'] ? Settings::fieldAfterLink( sprintf( $this->options['lookup_ip_service'], HTTP::IP() ) ) : '',
 		];
 
 		return $settings;

@@ -50,6 +50,9 @@ class Debug extends gNetwork\Module
 			add_filter( 'akismet_debug_log', '__return_false', 20 );
 		}
 
+		// @REF: https://core.trac.wordpress.org/ticket/22430#comment:4
+		remove_action( 'shutdown', 'wp_ob_end_flush_all', 1 );
+
 		$this->action( 'shutdown', 1, 99999 );
 	}
 

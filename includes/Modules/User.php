@@ -354,8 +354,8 @@ class User extends gNetwork\Module
 			'cap'   => $capability,
 		];
 
-		if ( $callback ) // && is_callable( $callback ) )
-			add_action( 'gnetwork_user_settings', $callback );
+		if ( $callback )
+			add_action( static::BASE.'_user_settings', $callback );
 	}
 
 	public function settings_load()

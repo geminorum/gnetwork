@@ -276,7 +276,7 @@ class Module extends Core\Base
 		return add_query_arg( $args, $url );
 	}
 
-	// override this for non network install
+	// fallback if no network
 	public function is_network()
 	{
 		return is_multisite() ? $this->network : FALSE;

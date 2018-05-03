@@ -164,7 +164,7 @@ class Admin extends gNetwork\Module
 		];
 
 		if ( $callback )
-			add_action( 'gnetwork_admin_settings', $callback );
+			add_action( static::BASE.'_admin_settings', $callback );
 	}
 
 	public static function registerTool( $sub, $title = NULL, $callback = FALSE, $capability = 'manage_options', $priority = 10 )
@@ -178,7 +178,7 @@ class Admin extends gNetwork\Module
 		];
 
 		if ( $callback )
-			add_action( 'gnetwork_admin_tools', $callback );
+			add_action( static::BASE.'_admin_tools', $callback );
 	}
 
 	public static function registerTinyMCE( $plugin, $filepath, $row = 1, $context = 'post' )
@@ -361,7 +361,7 @@ class Admin extends gNetwork\Module
 				'cb'    => [ __NAMESPACE__.'\\Media', 'registeredImageSizes' ],
 			];
 
-		HTML::tabsList( apply_filters( 'gnetwork_admin_overview', $tabs ) );
+		HTML::tabsList( $this->filters( 'overview', $tabs ) );
 	}
 
 	public function admin_enqueue_scripts()

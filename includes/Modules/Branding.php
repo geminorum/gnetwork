@@ -283,4 +283,27 @@ class Branding extends gNetwork\Module
 
 		return FALSE === $site ? '' : $site;
 	}
+
+	// FIXME: get from site logo / not used yet
+	public static function getLogo( $wrap = FALSE, $fallback = TRUE, $logo = NULL )
+	{
+		if ( ! is_null( $logo ) )
+			$html = HTML::img( $logo, '-logo-img', GNETWORK_NAME );
+
+		else if ( file_exists( WP_CONTENT_DIR.'/'.GNETWORK_LOGO ) )
+			$html = HTML::img( WP_CONTENT_URL.'/'.GNETWORK_LOGO, '-logo-img', GNETWORK_NAME );
+
+		else if ( $fallback )
+			$html = GNETWORK_NAME;
+
+		else
+			return '';
+
+		$html = HTML::tag( 'a', [
+			'href'  => GNETWORK_BASE,
+			'title' => GNETWORK_NAME,
+		], $html );
+
+		return $wrap ? HTML::tag( $wrap, [ 'class' => 'logo' ], $html ) : $html;
+	}
 }

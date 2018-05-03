@@ -556,7 +556,8 @@ class Blog extends gNetwork\Module
 	{
 		@set_time_limit( 0 );
 
-		defined( 'GNETWORK_IS_WP_EXPORT' ) or define( 'GNETWORK_IS_WP_EXPORT', TRUE );
+		defined( 'GNETWORK_IS_WP_EXPORT' )
+			or define( 'GNETWORK_IS_WP_EXPORT', TRUE );
 	}
 
 	public function rest_authentication_errors( $null )
@@ -575,12 +576,7 @@ class Blog extends gNetwork\Module
 		$mainsite = is_main_site();
 		$singular = is_singular();
 
-		if ( $color = gNetwork()->option( 'theme_color', 'branding', $this->options['theme_color'] ) ) {
-			echo '<meta name="theme-color" content="'.$color.'" />'."\n";
-			echo '<meta name="msapplication-navbutton-color" content="'.$color.'">'."\n";
-			echo '<meta name="apple-mobile-web-app-capable" content="yes">'."\n";
-			echo '<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">'."\n";
-		}
+		Third::htmlThemeColor( $this->options['theme_color'] ?: gNetwork()->option( 'theme_color', 'branding' ) );
 
 		if ( gNetwork()->option( 'opensearch', 'opensearch' ) )
 			gNetwork()->opensearch->do_link_tag();
