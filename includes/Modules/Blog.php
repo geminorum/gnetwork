@@ -428,7 +428,7 @@ class Blog extends gNetwork\Module
 
 		$this->ssl_support = gNetwork()->option( 'ssl_support', 'site', $this->options['ssl_support'] );
 
-		if ( $this->ssl_support ) {
+		if ( $this->ssl_support && ! GNETWORK_DISABLE_SSL ) {
 			$this->action( 'rest_api_init', 0 , -999 );
 			$this->action( 'wp', 0, 40 );
 			$this->action( 'wp_print_scripts' );
