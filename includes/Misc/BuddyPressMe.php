@@ -10,10 +10,9 @@ class BuddyPressMe extends \BP_Component
 
 	public function __construct()
 	{
-		global $bp;
-
 		parent::start( 'me', _x( 'gNetwork Me', 'BuddyPress Me: Component Name', GNETWORK_TEXTDOMAIN ) );
-		$bp->active_components[$this->id] = '1';
+
+		buddypress()->active_components[$this->id] = '1';
 
 		if ( ! is_admin() ) {
 			add_filter( 'get_edit_user_link', [ $this, 'get_edit_user_link' ], 12, 2 );

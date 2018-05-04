@@ -48,6 +48,7 @@ class Plugin
 		}
 
 		add_action( 'plugins_loaded', [ $this, 'plugins_loaded' ], 20 );
+		add_action( 'bp_setup_components', [ $this, 'bp_setup_components' ] );
 		add_action( 'bp_include', [ $this, 'bp_include' ] );
 	}
 
@@ -257,8 +258,11 @@ class Plugin
 			}
 		}
 
-		if ( file_exists( GNETWORK_DIR.'includes/misc/BuddyPressMe.php' ) ) {
-			// require_once( GNETWORK_DIR.'includes/Misc/BuddyPressMe.php' );
+	}
+
+	public function bp_setup_components()
+	{
+		if ( file_exists( GNETWORK_DIR.'includes/Misc/BuddyPressMe.php' ) ) {
 
 			buddypress()->me = new Misc\BuddyPressMe();
 		}
