@@ -29,6 +29,9 @@ class Captcha extends gNetwork\Module
 				return;
 
 		$this->action( 'init' );
+
+		if ( ! is_admin() && $this->options['bp_captcha'] )
+			$this->action( 'bp_init' );
 	}
 
 	public function setup_menu( $context )
@@ -71,6 +74,7 @@ class Captcha extends gNetwork\Module
 			'private_key'      => '',
 			'login_captcha'    => '0',
 			'register_captcha' => '0',
+			'bp_captcha'       => '0',
 			'logged_in'        => '0',
 		];
 	}
@@ -104,6 +108,12 @@ class Captcha extends gNetwork\Module
 					'description' => _x( 'Displays captcha field on register form.', 'Modules: Captcha: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
+					'field'       => 'bp_captcha',
+					'title'       => _x( 'BuddyPress Captcha', 'Modules: Captcha: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Displays captcha field on BuddyPress forms.', 'Modules: Captcha: Settings', GNETWORK_TEXTDOMAIN ),
+					'disabled'    => ! function_exists( 'buddypress' ),
+				],
+				[
 					'field'       => 'logged_in',
 					'title'       => _x( 'Logged In', 'Modules: Captcha: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Displays captcha field also for logged-in users.', 'Modules: Captcha: Settings', GNETWORK_TEXTDOMAIN ),
@@ -121,6 +131,12 @@ class Captcha extends gNetwork\Module
 				'content' => '<p>reCAPTCHA is a free service that protects your website from spam and abuse.</p><p>Register and get the keys from <a href="https://www.google.com/recaptcha/admin" target="_blank"><i>here</i></a>.</p>',
 			],
 		];
+	}
+
+	public function bp_init()
+	{
+		$this->action( 'bp_before_registration_submit_buttons', 0, 12 );
+		$this->filter( 'bp_core_validate_user_signup' );
 	}
 
 	// @REF: http://wp.me/p6rU3h-ct
@@ -170,7 +186,6 @@ class Captcha extends gNetwork\Module
 
 		$url = 'https://www.google.com/recaptcha/api/siteverify?secret='.$this->options['private_key'].'&response='.$_POST['g-recaptcha-response'];
 
-		// $response = json_decode( wp_remote_retrieve_body( wp_remote_get( $url ) ), TRUE );
 		$response = HTTP::getJSON( $url, [], TRUE );
 
 		if ( empty( $response['success'] ) )
@@ -286,5 +301,31 @@ class Captcha extends gNetwork\Module
 		}
 
 		return $commentdata;
+	}
+
+	public function bp_before_registration_submit_buttons()
+	{
+		do_action( 'bp_'.$this->hook().'_errors' );
+
+		echo '<style>#buddypress #signup_submit{display:none}div.g-recaptcha{margin:10px 0 20px}</style>';
+		$this->recaptcha_form();
+	}
+
+	public function bp_core_validate_user_signup( $result = [] )
+	{
+		$messages = $this->recaptcha_errors();
+
+		if ( empty( $_POST['g-recaptcha-response'] ) ) {
+
+			Logger::siteNOTICE( 'CAPTCHA-BUDDYPRESS', 'empty captcha' );
+			$GLOBALS['bp']->signup->errors[$this->hook()] = $messages['empty_captcha'];
+
+		} else if ( FALSE === $this->recaptcha_verify() ) {
+
+			Logger::siteNOTICE( 'CAPTCHA-BUDDYPRESS', 'invalid captcha' );
+			$GLOBALS['bp']->signup->errors[$this->hook()] = $messages['invalid_captcha'];
+		}
+
+		return $result;
 	}
 }
