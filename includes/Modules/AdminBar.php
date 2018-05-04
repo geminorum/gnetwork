@@ -340,6 +340,8 @@ class AdminBar extends gNetwork\Module
 
 			if ( $post = get_queried_object() ) {
 
+				$object = get_post_type_object( $post->post_type );
+
 				$wp_admin_bar->add_node( [
 					'parent' => $parent_id,
 					'id'     => $this->base.'-current-post',
@@ -351,7 +353,7 @@ class AdminBar extends gNetwork\Module
 					'parent' => $this->base.'-current-post',
 					'id'     => $this->base.'-current-post-rest',
 					'title'  => _x( 'Rest Endpoint', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
-					'href'   => rest_url( '/wp/v2/posts/'.$post->ID ),
+					'href'   => rest_url( sprintf( '/wp/v2/%s/%d', $object->rest_base, $post->ID ) ),
 				] );
 
 				$wp_admin_bar->add_node( [
