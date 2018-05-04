@@ -152,11 +152,11 @@ class Themes extends gNetwork\Module
 		$migrate_ver = '1.4.1';
 
 		$jquery_url = $this->options['jquery_cdn']
-			? '//code.jquery.com/jquery-'.$jquery_ver.'.min.js'
+			? 'https://code.jquery.com/jquery-'.$jquery_ver.'.min.js'
 			: '/wp-includes/js/jquery/jquery.js';
 
 		$migrate_url = $this->options['jquery_cdn']
-			? '//code.jquery.com/jquery-migrate-'.$migrate_ver.'.min.js'
+			? 'https://code.jquery.com/jquery-migrate-'.$migrate_ver.'.min.js'
 			: '/wp-includes/js/jquery/jquery-migrate.min.js';
 
 		$scripts->remove( [ 'jquery', 'jquery-core', 'jquery-migrate' ] );
