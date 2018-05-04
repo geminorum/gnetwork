@@ -138,6 +138,54 @@ class Site extends gNetwork\Module
 		Settings::fieldSection( _x( 'Dashboard Access', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ) );
 	}
 
+	public function settings_sidebox( $sub, $uri )
+	{
+		if ( $this->options['ssl_support'] ) {
+
+			echo $this->wrap_open_buttons();
+
+			$ssl = Utilities::htmlSSLfromURL( $url = get_option( 'siteurl' ) );
+
+			echo ' <code>'.$url.'</code> ';
+
+			if ( $ssl )
+				Settings::submitButton( 'disable_site_ssl', _x( 'Disable SSL', 'Modules: Site', GNETWORK_TEXTDOMAIN ), 'small' );
+
+			else
+				Settings::submitButton( 'enable_site_ssl', _x( 'Enable SSL', 'Modules: Site', GNETWORK_TEXTDOMAIN ), 'small' );
+
+			echo '</p>';
+
+		} else {
+
+			HTML::desc( _x( 'SSL support disabled.', 'Modules: Site', GNETWORK_TEXTDOMAIN ), TRUE, '-empty' );
+		}
+	}
+
+	public function settings( $sub = NULL )
+	{
+		if ( $this->key == $sub ) {
+
+			if ( isset( $_POST['disable_site_ssl'] )
+		 		|| isset( $_POST['enable_site_ssl'] ) ) {
+
+				$this->check_referer( $sub );
+
+				$switch = isset( $_POST['enable_site_ssl'] )
+					? [ 'http://', 'https://' ]
+					: [ 'https://', 'http://' ];
+
+				update_option( 'siteurl', str_replace( $switch[0], $switch[1], get_option( 'siteurl' ) ) );
+				update_option( 'home', str_replace( $switch[0], $switch[1], get_option( 'home' ) ) );
+
+				WordPress::redirectReferer();
+
+			} else {
+				parent::settings( $sub );
+			}
+		}
+	}
+
 	public function admin_menu()
 	{
 		remove_action( 'admin_page_access_denied', '_access_denied_splash', 99 );

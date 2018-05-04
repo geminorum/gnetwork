@@ -7,6 +7,7 @@ use geminorum\gNetwork\Core\Error;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\HTTP;
 use geminorum\gNetwork\Core\Number;
+use geminorum\gNetwork\Core\Text;
 use geminorum\gNetwork\Core\WordPress;
 
 class Utilities extends Core\Base
@@ -543,5 +544,16 @@ class Utilities extends Core\Base
 			$location = home_url( '/not-found' );
 
 		WordPress::redirect( $location, 303 );
+	}
+
+	public static function htmlSSLfromURL( $url )
+	{
+		if ( Text::has( $url, 'https://' ) ) {
+			echo HTML::getDashicon( 'lock', _x( 'SSL Enabled', 'Utilities: Title', GNETWORK_TEXTDOMAIN ), '-success' );
+			return TRUE;
+		}
+
+		echo HTML::getDashicon( 'unlock', _x( 'SSL Disabled', 'Utilities: Title', GNETWORK_TEXTDOMAIN ), '-danger' );
+		return FALSE;
 	}
 }

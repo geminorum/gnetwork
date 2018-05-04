@@ -9,7 +9,6 @@ use geminorum\gNetwork\Core\Arraay;
 use geminorum\gNetwork\Core\Exception;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\Number;
-use geminorum\gNetwork\Core\Text;
 use geminorum\gNetwork\Core\WordPress;
 
 class Network extends gNetwork\Module
@@ -335,14 +334,10 @@ class Network extends gNetwork\Module
 	{
 		if ( $this->classs( 'ssl' ) == $column_name ) {
 
-			$url = get_blog_option( $blog_id, 'siteurl' );
-
-			if ( Text::has( $url, 'https://' ) )
-				echo HTML::getDashicon( 'lock', _x( 'SSL Enabled', 'Modules: Network: Title', GNETWORK_TEXTDOMAIN ), '-success' );
-			else
-				echo HTML::getDashicon( 'unlock', _x( 'SSL Disabled', 'Modules: Network: Title', GNETWORK_TEXTDOMAIN ), '-danger' );
+			Utilities::htmlSSLfromURL( get_blog_option( $blog_id, 'siteurl' ) );
 
 		} else if ( $this->classs( 'id' ) == $column_name ) {
+
 			echo '<div class="'.static::BASE.'-admin-wrap-column -network -id">';
 				echo HTML::escape( $blog_id );
 			echo '</div>';
