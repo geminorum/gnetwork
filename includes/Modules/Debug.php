@@ -168,6 +168,10 @@ class Debug extends gNetwork\Module
 				'title' => _x( 'IP', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
 				'cb'    => function(){ self::summaryIPs(); },
 			],
+			'ssl' => [
+				'title' => _x( 'SSL', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
+				'cb'    => [ __CLASS__, 'summarySSL' ],
+			],
 			'constants' => [
 				'title' => _x( 'Constants', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
 				'cb'    => [ __CLASS__, 'initialConstants' ],
@@ -425,6 +429,25 @@ class Debug extends gNetwork\Module
 				$summary[$key] = gnetwork_ip_lookup( $_SERVER[$key] );
 
 		echo HTML::tableCode( $summary, FALSE, $caption );
+	}
+
+	public static function summarySSL()
+	{
+		$summary = [];
+		$keys    = [
+			'HTTPS',
+			'SERVER_PORT',
+			'HTTP_CLOUDFRONT_FORWARDED_PROTO',
+			'HTTP_CF_VISITOR',
+			'HTTP_X_FORWARDED_PROTO',
+			'HTTP_X_FORWARDED_SSL',
+		];
+
+		foreach ( $keys as $key )
+			if ( isset( $_SERVER[$key] ) )
+				$summary[$key] = HTML::escape( $_SERVER[$key] );
+
+		echo HTML::tableCode( $summary );
 	}
 
 	public static function summaryUpload()
