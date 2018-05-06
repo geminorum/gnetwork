@@ -274,7 +274,6 @@ class File extends Base
 		@ini_set( 'zlib.output_handler', '' );
 		@ini_set( 'output_buffering', 'Off' );
 		@ini_set( 'output_handler', '' );
-		@apache_setenv( 'no-gzip', 1 );
 
 		header( 'Content-Description: File Transfer' );
 		header( 'Pragma: public' ); // required

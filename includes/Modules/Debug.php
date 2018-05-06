@@ -416,15 +416,16 @@ class Debug extends gNetwork\Module
 	public static function summaryIPs( $caption = FALSE )
 	{
 		$summary = [];
-
-		foreach ( [
+		$keys    = [
 			'HTTP_CLIENT_IP',
 			'HTTP_X_FORWARDED_FOR',
 			'HTTP_X_FORWARDED',
 			'HTTP_FORWARDED_FOR',
 			'HTTP_FORWARDED',
 			'REMOTE_ADDR',
-		] as $key )
+		];
+
+		foreach ( $keys as $key )
 			if ( isset( $_SERVER[$key] ) )
 				$summary[$key] = gnetwork_ip_lookup( $_SERVER[$key] );
 
@@ -465,12 +466,9 @@ class Debug extends gNetwork\Module
 		foreach ( $upload as $key => $val )
 			$info['wp_upload: '.$key] = $val;
 
-		echo '<div class="wrap -wrap" dir="ltr">';
-			echo HTML::tableCode( $info );
-		echo '</div>';
+		echo HTML::tableCode( $info );
 	}
 
-	// FIXME: DRAFT
 	public static function getServer()
 	{
 		return [

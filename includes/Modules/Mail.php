@@ -235,6 +235,7 @@ class Mail extends gNetwork\Module
 			}
 
 		} else {
+
 			HTML::desc( _x( 'Email logs are disabled.', 'Modules: Mail', GNETWORK_TEXTDOMAIN ), TRUE, '-empty' );
 		}
 	}

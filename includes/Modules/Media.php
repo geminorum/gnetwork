@@ -1159,8 +1159,8 @@ class Media extends gNetwork\Module
 		$path = File::join( $wpupload['path'], $file );
 		$url  = str_replace( $wpupload['basedir'], $wpupload['baseurl'], $file );
 
-		$ext  = pathinfo( $filename, PATHINFO_EXTENSION );
-		$name = File::basename( $filename, ".$ext" );
+		$ext   = pathinfo( $filename, PATHINFO_EXTENSION );
+		$name  = File::basename( $filename, ".$ext" );
 		$title = sanitize_text_field( $name );
 
 		$id = wp_insert_attachment( [
