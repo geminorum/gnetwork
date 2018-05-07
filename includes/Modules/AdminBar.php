@@ -581,9 +581,18 @@ class AdminBar extends gNetwork\Module
 
 			// avoiding `switch_to_blog()`
 
+			$blogname = FALSE;
 			$menu_id  = 'blog-'.$blog->userblog_id;
 			$blavatar = '<div class="blavatar"></div>';
-			$blogname = URL::untrail( $blog->domain.$blog->path );
+
+			if ( function_exists( 'bp_blogs_get_blogmeta' ) )
+				$blogname = bp_blogs_get_blogmeta( $blog->userblog_id, 'name', TRUE );
+
+			if ( ! $blogname && function_exists( 'get_site_meta' ) )
+				$blogname = get_site_meta( $blog->userblog_id, 'blogname', TRUE );
+
+			if ( ! $blogname )
+				$blogname = URL::untrail( $blog->domain.$blog->path );
 
 			$wp_admin_bar->add_menu( [
 				'parent'    => 'my-sites-list',

@@ -9,6 +9,7 @@ use geminorum\gNetwork\Core\Arraay;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\HTTP;
 use geminorum\gNetwork\Core\Text;
+use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
 
 class Site extends gNetwork\Module
@@ -37,6 +38,9 @@ class Site extends gNetwork\Module
 
 			$this->action( 'get_header' );
 		}
+
+		if ( $this->options['resync_sitemeta'] )
+			$this->setup_meta_sync();
 	}
 
 	public function setup_menu( $context )
@@ -51,6 +55,7 @@ class Site extends gNetwork\Module
 	{
 		return [
 			'ssl_support'       => 0,
+			'resync_sitemeta'   => 0,
 			'redirect_notfound' => '',
 			'admin_locale'      => 'en_US',
 			'access_denied'     => '',
@@ -63,20 +68,26 @@ class Site extends gNetwork\Module
 
 	public function default_settings()
 	{
-		$settings = [
-			'_general' => [
-				[
-					'field'       => 'ssl_support',
-					'title'       => _x( 'SSL', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Enables SSL tools to support the network sites.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
-				],
-				[
-					'field'       => 'redirect_notfound',
-					'type'        => 'url',
-					'title'       => _x( 'Site Not Found', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Redirects to when the network can be determined but a site cannot.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
-				],
-			],
+		$settings = [];
+
+		$settings['_general'][] = [
+			'field'       => 'ssl_support',
+			'title'       => _x( 'SSL', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Enables SSL tools to support the network sites.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+		];
+
+		if ( function_exists( 'is_site_meta_supported' ) )
+			$settings['_general'][] = [
+				'field'       => 'resync_sitemeta',
+				'title'       => _x( 'Sync Metadata', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Re-syncs the site meta network-wide automatically.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+			];
+
+		$settings['_general'][] = [
+			'field'       => 'redirect_notfound',
+			'type'        => 'url',
+			'title'       => _x( 'Site Not Found', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Redirects to when the network can be determined but a site cannot.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
 		];
 
 		if ( class_exists( __NAMESPACE__.'\\Locale' ) ) {
@@ -140,6 +151,8 @@ class Site extends gNetwork\Module
 
 	public function settings_sidebox( $sub, $uri )
 	{
+		$sitemeta = function_exists( 'is_site_meta_supported' ) && is_site_meta_supported();
+
 		if ( $this->options['ssl_support'] ) {
 
 			echo $this->wrap_open_buttons();
@@ -156,9 +169,18 @@ class Site extends gNetwork\Module
 
 			echo '</p>';
 
+			if ( $sitemeta )
+				echo '<hr />';
+
 		} else {
 
-			HTML::desc( _x( 'SSL support disabled.', 'Modules: Site', GNETWORK_TEXTDOMAIN ), TRUE, '-empty' );
+			if ( ! $sitemeta )
+				HTML::desc( _x( 'SSL support disabled.', 'Modules: Site', GNETWORK_TEXTDOMAIN ), TRUE, '-empty' );
+		}
+
+		if ( $sitemeta ) {
+			Settings::submitButton( 'resync_sitemeta', _x( 'Re-sync Sites Meta', 'Modules: Site', GNETWORK_TEXTDOMAIN ), 'small' );
+			HTML::desc( _x( 'Regenerates sites metadata.', 'Modules: Site', GNETWORK_TEXTDOMAIN ), FALSE );
 		}
 	}
 
@@ -179,6 +201,17 @@ class Site extends gNetwork\Module
 				update_option( 'home', str_replace( $switch[0], $switch[1], get_option( 'home' ) ) );
 
 				WordPress::redirectReferer();
+
+			} else if ( isset( $_POST['resync_sitemeta'] ) ) {
+
+				$this->check_referer( $sub );
+
+				$count = $this->do_resync_sitemeta();
+
+				WordPress::redirectReferer( FALSE === $count ? 'wrong' : [
+					'message' => 'synced',
+					'count'   => $count,
+				] );
 
 			} else {
 				parent::settings( $sub );
@@ -341,5 +374,187 @@ class Site extends gNetwork\Module
 					Utilities::linkStyleSheet( 'activate.all' );
 				} );
 		}
+	}
+
+	protected $filters = [
+		'stylesheet',
+		'blog_charset',
+		'template',
+		'WPLANG',
+		'blogname',
+		'siteurl',
+		'post_count',
+		'home',
+		'allowedthemes',
+		'blog_public',
+		'WPLANG',
+		'blogdescription',
+		'db_version',
+		'db_upgraded',
+		'active_plugins',
+		'users_can_register',
+		'admin_email',
+		'wp_user_roles',
+	];
+
+	private function setup_meta_sync()
+	{
+		if ( ! is_site_meta_supported() )
+			return;
+
+		$this->action( 'wpmu_new_blog', 1, 10, 'sync' );
+		$this->action( 'wp_upgrade' );
+
+		$this->action( 'updated_option', 3 );
+		$this->action( 'added_option', 2 );
+		$this->action( 'delete_option' );
+
+		// WORKING but DISABLED
+		// this will bypass blog options to use site meta table
+		// foreach ( $this->get_filters() as $filter )
+		// 	add_filter( 'pre_option_'.$filter, [ $this, 'pre_get_option' ], 1, 2 );
+		// $this->action( 'switch_blog' );
+		// $this->filter( 'the_sites' );
+		// $this->filter( 'sites_clauses', 2 );
+	}
+
+	public function pre_get_option( $value, $option )
+	{
+		$meta = get_site_meta( get_current_blog_id(), $option, TRUE );
+
+		if ( FALSE !== $meta ) {
+
+			$value = maybe_unserialize( $meta );
+
+			if ( in_array( $option, [ 'siteurl', 'home', 'category_base', 'tag_base' ] ) )
+				$value = URL::untrail( $value );
+
+		} else {
+
+			add_filter( 'option_'.$option, [ $this, 'update_sitemeta' ], 1, 2 );
+		}
+
+		return $value;
+	}
+
+	public function update_sitemeta( $value, $option )
+	{
+		if ( ! $this->check_option( $option ) || FALSE == $value )
+			return $value;
+
+		update_site_meta( get_current_blog_id(), $option, maybe_serialize( $value ) );
+
+		return $value;
+	}
+
+	public function updated_option( $option, $old_value, $value )
+	{
+		if ( ! $this->check_option( $option ) )
+			return;
+
+		update_site_meta( get_current_blog_id(), $option, $value, maybe_serialize( $old_value ) );
+	}
+
+	public function added_option( $option, $value )
+	{
+		if ( ! $this->check_option( $option ) )
+			return;
+
+		add_site_meta( get_current_blog_id(), $option, $value, TRUE );
+	}
+
+	public function delete_option( $option )
+	{
+		if ( ! $this->check_option( $option ) )
+			return;
+
+		delete_site_meta( get_current_blog_id(), $option );
+	}
+
+	public function wp_upgrade( $wp_db_version )
+	{
+		update_site_meta( get_current_blog_id(), 'wp_db_version', $wp_db_version );
+	}
+
+	public function wpmu_new_blog_sync( $blog_id )
+	{
+		switch_to_blog( $blog_id );
+
+		$this->migrate_options();
+
+		restore_current_blog();
+	}
+
+	public function migrate_options()
+	{
+		$all_option = wp_load_alloptions();
+		$blog_id    = get_current_blog_id();
+
+		foreach ( $this->get_filters() as $filter )
+			if ( ! empty( $all_option[$filter] ) )
+				update_site_meta( $blog_id, $filter, $all_option[$filter] );
+	}
+
+	public function switch_blog( $blog_id )
+	{
+		if ( $blog_id == 1 )
+			return;
+
+		$filter = $GLOBALS['wpdb']->get_blog_prefix( $blog_id ).'user_roles';
+
+		if ( ! in_array( $filter, $this->get_filters( ) ) ) {
+			add_filter( 'pre_option_'.$filter, [ $this, 'pre_get_option' ], 1, 2 );
+			$this->filters[] = $filter;
+		}
+	}
+
+	public function the_sites( $sites )
+	{
+		foreach ( wp_list_pluck( $sites, 'id' ) as $blog_id )
+			$this->switch_blog( $blog_id );
+
+		return $sites;
+	}
+
+	public function sites_clauses( $clauses, &$wp_site )
+	{
+		global $wpdb;
+
+		if ( strlen( $wp_site->query_vars['search'] ) ) {
+			$clauses['join']   .= " LEFT JOIN {$wpdb->blogmeta} AS sq1 ON ( {$wpdb->blogs}.blog_id = sq1.blog_id AND sq1.meta_key = 'blogname' )";
+			$clauses['groupby'] = "{$wpdb->blogs}.blog_id";
+			$clauses['fields']  = "{$wpdb->blogs}.blog_id";
+			$clauses['where']   = str_replace( "(domain LIKE", "(sq1.meta_value LIKE '%{$wp_site->query_vars['search']}%' OR domain LIKE", $clauses['where'] );
+		}
+
+		return $clauses;
+	}
+
+	private function do_resync_sitemeta()
+	{
+		$count = 0;
+
+		foreach ( get_sites( [ 'fields' => 'ids', 'number' => FALSE ] ) as $site_id ) {
+
+			switch_to_blog( $site_id );
+
+			$this->migrate_options();
+
+			restore_current_blog();
+
+			$count++;
+		}
+
+		return $count;
+	}
+
+	private function get_filters()
+	{
+		return $this->filters( 'meta_filters', $this->filters );
+	}
+
+	private function check_option( $option )
+	{
+		return in_array( $option, $this->get_filters( ) );
 	}
 }
