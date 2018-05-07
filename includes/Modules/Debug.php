@@ -692,7 +692,7 @@ class Debug extends gNetwork\Module
 			if ( GNETWORK_DEBUG_LOG )
 				echo HTML::tag( 'a', [
 					'class' => 'button button-secondary',
-					'href'  => $this->get_menu_url( 'errorlogs', NULL ),
+					'href'  => $this->get_menu_url( 'errorlogs', 'network', 'tools' ),
 				], _x( 'Check Errors', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
 
 			if ( GNETWORK_DEBUG_LOG && GNETWORK_ANALOG_LOG )
@@ -701,7 +701,7 @@ class Debug extends gNetwork\Module
 			if ( GNETWORK_ANALOG_LOG )
 				echo HTML::tag( 'a', [
 					'class' => 'button button-secondary',
-					'href'  => $this->get_menu_url( 'analoglogs', NULL ),
+					'href'  => $this->get_menu_url( 'analoglogs', 'network', 'tools' ),
 				], _x( 'Check Logs', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
 
 		echo '</p>';

@@ -304,7 +304,7 @@ class Site extends gNetwork\Module
 			'use_smilies'            => FALSE,
 			'comments_notify'        => FALSE,
 			'moderation_notify'      => FALSE,
-			// 'admin_email'            => get_site_option( 'admin_email' ), // FIXME: only when created by super admin
+			// 'admin_email'            => get_network_option( NULL, 'admin_email' ), // FIXME: only when created by super admin
 		] );
 
 		foreach ( $new_blog_options as $new_blog_option_key => $new_blog_option )
