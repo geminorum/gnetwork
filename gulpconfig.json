@@ -28,7 +28,6 @@
       "./assets/images/**/*",
       "./assets/js/**/*.js",
       "./assets/js/**/*.html",
-      "./assets/libs/**/*",
       "./assets/locale/**/*",
       "!./assets/locale/**/*.pot",
       "!./assets/locale/**/*.po",
@@ -39,6 +38,7 @@
       "!./assets/vendor/**/scripts/*",
       "!./assets/vendor/**/examples/*",
       "!./assets/vendor/**/.git",
+      "./assets/views/**/*",
       "./assets/index.html",
       "./includes/**/*",
       "./languages/**/*",
@@ -80,6 +80,25 @@
       "discardComments": {
         "removeAll": true
       }
+    }
+  },
+  "autoprefixer": {
+    "dev": {
+      "browsers": [
+        "last 2 versions",
+        "ie >= 9",
+        "Android >= 2.3",
+        "ios >= 7"
+      ]
+    },
+    "build": {
+      "browsers": [
+        "last 2 versions",
+        "ie >= 9",
+        "Android >= 2.3",
+        "ios >= 7"
+      ],
+      "cascade": false
     }
   },
   "constants": {

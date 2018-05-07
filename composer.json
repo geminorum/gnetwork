@@ -39,7 +39,9 @@
     "ricardoper/twitteroauth": "2.*",
     "behat/transliterator": "^1.2",
     "davidepastore/ipinfo": "^0.1.3",
-    "ziggeo/simple-box-integration": "^0.0.3"
+    "ziggeo/simple-box-integration": "^0.0.3",
+    "knplabs/github-api": "^2.8",
+    "php-http/guzzle6-adapter": "^1.1"
   },
   "config": {
     "vendor-dir": "assets/vendor",

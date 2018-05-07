@@ -6,9 +6,9 @@ ECHO GIT -----------------------------------------------------------------------
 CALL git clone https://github.com/geminorum/gnetwork .
 ECHO COMPOSER ------------------------------------------------------------------
 CALL composer install --no-dev --optimize-autoloader --prefer-dist -v
-ECHO NPM -----------------------------------------------------------------------
-CALL npm install
+ECHO Yarn ----------------------------------------------------------------------
+CALL yarn install
 ECHO BUILD ---------------------------------------------------------------------
-CALL npm run build
+CALL yarn run build
 ECHO FINISHED ------------------------------------------------------------------
 cd ..
