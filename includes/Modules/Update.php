@@ -175,7 +175,7 @@ class Update extends gNetwork\Module
 
 	public function reset_settings( $options_key = NULL )
 	{
-		delete_site_option( $this->hook( 'packages' ) );
+		delete_network_option( NULL, $this->hook( 'packages' ) );
 		return parent::reset_settings( $options_key );
 	}
 
@@ -234,14 +234,14 @@ class Update extends gNetwork\Module
 			}
 		}
 
-		return update_site_option( $this->hook( 'packages' ), $packages )
+		return update_network_option( NULL, $this->hook( 'packages' ), $packages )
 			? count( $packages )
 			: FALSE;
 	}
 
 	private function get_packages( $lite = FALSE )
 	{
-		$packages = get_site_option( $this->hook( 'packages' ), [] );
+		$packages = get_network_option( NULL, $this->hook( 'packages' ), [] );
 		return $lite ? Arraay::column( $packages, 'name', 'slug' ) : $packages;
 	}
 

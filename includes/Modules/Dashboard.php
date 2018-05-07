@@ -295,7 +295,7 @@ class Dashboard extends gNetwork\Module
 
 	public function dashboard_quota()
 	{
-		if ( get_site_option( 'upload_space_check_disabled' )  )
+		if ( get_network_option( NULL, 'upload_space_check_disabled' )  )
 			return;
 
 		$quota = get_space_allowed();

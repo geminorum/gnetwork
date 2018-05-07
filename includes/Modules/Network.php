@@ -271,7 +271,7 @@ class Network extends gNetwork\Module
 		$count = 0;
 
 		if ( 'resetadminemail' == $action ) {
-			$email = get_site_option( 'admin_email' );
+			$email = get_network_option( NULL, 'admin_email' );
 
 			foreach ( $blogs as $blog_id )
 				if ( update_blog_option( $blog_id, 'admin_email', $email ) )
@@ -306,7 +306,7 @@ class Network extends gNetwork\Module
 	{
 		$_SERVER['REQUEST_URI'] = remove_query_arg( 'count', $_SERVER['REQUEST_URI'] );
 		$message = _x( '%s site(s) admin email reset to <code>%s</code>', 'Modules: Network: Message', GNETWORK_TEXTDOMAIN );
-		return sprintf( $message, Number::format( self::req( 'count', 0 ) ), get_site_option( 'admin_email' ) );
+		return sprintf( $message, Number::format( self::req( 'count', 0 ) ), get_network_option( NULL, 'admin_email' ) );
 	}
 
 	public function updated_message_enable( $msg )

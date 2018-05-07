@@ -23,4 +23,4 @@ if ( is_multisite() ) {
 	delete_option( 'gnetwork_blog' );
 }
 
-delete_site_option( 'gnetwork_site' );
+delete_network_option( NULL, 'gnetwork_site' );

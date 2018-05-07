@@ -210,13 +210,15 @@ class User extends gNetwork\Module
 
 				if ( isset( $_POST['update_sites_roles'] ) ) {
 
-					$saved = get_site_option( $this->hook( 'roles' ), [] );
+					$saved = get_network_option( NULL, $this->hook( 'roles' ), [] );
 
 					if ( ! $this->update_sites_roles( $saved, $roles ) )
 						WordPress::redirectReferer( 'wrong' );
 				}
 
-				WordPress::redirectReferer( ( update_site_option( $this->hook( 'roles' ), $roles ) ? 'updated' : 'error' ) );
+				$result = update_network_option( NULL, $this->hook( 'roles' ), $roles );
+
+				WordPress::redirectReferer( $result ? 'updated' : 'error' );
 			}
 
 			add_action( $this->menu_hook( $sub ), [ $this, 'render_settings' ], 10, 2 );
@@ -246,7 +248,7 @@ class User extends gNetwork\Module
 	private function tableBlogRoles()
 	{
 		$blogs = $this->get_sites();
-		$roles = get_site_option( $this->hook( 'roles' ), [] );
+		$roles = get_network_option( NULL, $this->hook( 'roles' ), [] );
 
 		if ( empty( $blogs ) )
 			return HTML::desc( gNetwork()->na() );
@@ -431,7 +433,7 @@ class User extends gNetwork\Module
 
 	public function wpmu_new_user( $user_id )
 	{
-		$roles = get_site_option( $this->hook( 'roles' ), [] );
+		$roles = get_network_option( NULL, $this->hook( 'roles' ), [] );
 
 		if ( empty( $roles ) )
 			return;
@@ -630,12 +632,12 @@ class User extends gNetwork\Module
 	{
 		global $wpdb;
 
-		update_site_option( $this->hook( 'spam_count' ), $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->users} WHERE spam = '1' AND deleted = '0'" ) );
+		update_network_option( NULL, $this->hook( 'spam_count' ), $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->users} WHERE spam = '1' AND deleted = '0'" ) );
 	}
 
 	public function get_spam_count()
 	{
-		return get_site_option( $this->hook( 'spam_count' ) );
+		return get_network_option( NULL, $this->hook( 'spam_count' ) );
 	}
 
 	public function views_users_network( $views )

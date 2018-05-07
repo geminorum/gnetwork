@@ -236,15 +236,15 @@ class Comments extends gNetwork\Module
 	// Delete spam comments from every site on a WordPress network, slowly but surely
 	public function delete_spam_comments()
 	{
-		$in_progress = (bool) get_site_option( 'gnc_delete_in_progress' );
+		$in_progress = (bool) get_network_option( NULL, 'gnc_delete_in_progress' );
 
 		if ( ! $in_progress ) {
 			global $wpdb;
 
-			update_site_option( 'gnc_delete_in_progress', '1' );
+			update_network_option( NULL, 'gnc_delete_in_progress', '1' );
 
 			// 4980
-			$next = (int) get_site_option( 'gnc_delete_next_blog' );
+			$next = (int) get_network_option( NULL, 'gnc_delete_next_blog' );
 
 			if ( empty( $next ) )
 				$next = 1;
@@ -258,7 +258,7 @@ class Comments extends gNetwork\Module
 
 			if ( empty( $spams ) ) {
 				$next++;
-				update_site_option( 'gnc_delete_next_blog', $next );
+				update_network_option( NULL, 'gnc_delete_next_blog', $next );
 			} else {
 				foreach ( $spams as $spam ) {
 					wp_delete_comment( $spam, TRUE );
@@ -271,7 +271,7 @@ class Comments extends gNetwork\Module
 			$wpdb->query( "OPTIMIZE TABLE {$wpdb->commentmeta}" );
 
 			restore_current_blog();
-			delete_site_option( 'gnc_delete_in_progress' );
+			delete_network_option( NULL, 'gnc_delete_in_progress' );
 		}
 	}
 

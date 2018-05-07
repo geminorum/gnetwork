@@ -69,7 +69,7 @@ class Navigation extends gNetwork\Module
 	public function save_post_nav_menu_item( $post_id, $post )
 	{
 		foreach ( $this->get_global_menus() as $constant => $desc )
-			update_site_option( static::BASE.'_'.constant( $constant ), '' );
+			update_network_option( NULL, static::BASE.'_'.constant( $constant ), '' );
 
 		return $post_id;
 	}
@@ -393,9 +393,9 @@ class Navigation extends gNetwork\Module
 		$key = static::BASE.'_'.$name.( $items ? '' : '_html' );
 
 		if ( WordPress::isFlush() )
-			update_site_option( $key, '' );
+			update_network_option( NULL, $key, '' );
 
-		else if ( $menu = get_site_option( $key, NULL ) )
+		else if ( $menu = get_network_option( NULL, $key, NULL ) )
 			return $menu;
 
 		// bail because previously no menu found
@@ -422,12 +422,12 @@ class Navigation extends gNetwork\Module
 			}
 
 			if ( $menu ) {
-				update_site_option( $key, ( $items ? $menu : Text::minifyHTML( $menu ) ) );
+				update_network_option( NULL, $key, ( $items ? $menu : Text::minifyHTML( $menu ) ) );
 				return $menu;
 			}
 		}
 
-		update_site_option( $key, '0' );
+		update_network_option( NULL, $key, '0' );
 		return FALSE;
 	}
 }

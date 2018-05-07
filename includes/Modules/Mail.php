@@ -354,7 +354,7 @@ class Mail extends gNetwork\Module
 		if ( ! empty( $this->options['from_email'] ) )
 			return $this->options['from_email'];
 
-		return get_site_option( 'admin_email', $email );
+		return get_network_option( NULL, 'admin_email', $email );
 	}
 
 	public function get_from_name( $name = '' )
@@ -366,7 +366,7 @@ class Mail extends gNetwork\Module
 			return $this->options['from_name'];
 
 		if ( is_multisite() )
-			return get_site_option( 'site_name', $name );
+			return get_network_option( NULL, 'site_name', $name );
 
 		return get_option( 'blogname', $name );
 	}

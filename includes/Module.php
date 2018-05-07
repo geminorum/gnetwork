@@ -476,7 +476,7 @@ class Module extends Core\Base
 		global ${$network}, ${$blog};
 
 		if ( empty( ${$network} ) )
-			${$network} = get_site_option( $this->base.'_site', [] );
+			${$network} = get_network_option( NULL, $this->base.'_site', [] );
 
 		if ( empty( ${$blog} ) )
 			${$blog} = get_option( $this->base.'_blog', [] );
@@ -532,7 +532,7 @@ class Module extends Core\Base
 			$options = $this->options;
 
 		if ( $this->is_network() )
-			$saved = get_site_option( $this->base.'_site', [] );
+			$saved = get_network_option( NULL, $this->base.'_site', [] );
 		else
 			$saved = get_option( $this->base.'_blog', [] );
 
@@ -542,7 +542,7 @@ class Module extends Core\Base
 			$saved[$this->key] = $options;
 
 		if ( $this->is_network() )
-			return update_site_option( $this->base.'_site', $saved ); // FIXME: https://core.trac.wordpress.org/ticket/28290
+			return update_network_option( NULL, $this->base.'_site', $saved );
 		else
 			return update_option( $this->base.'_blog', $saved, TRUE );
 	}
@@ -559,7 +559,7 @@ class Module extends Core\Base
 			$options_key = $this->options_key();
 
 		if ( $this->is_network() )
-			return delete_site_option( $options_key );
+			return delete_network_option( NULL, $options_key );
 		else
 			return delete_option( $options_key );
 	}
