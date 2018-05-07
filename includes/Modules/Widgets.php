@@ -194,7 +194,10 @@ class Widgets extends gNetwork\Module
 			GNETWORK_DIR.'includes/Widgets/CodeLegend.php' => 'geminorum\\gNetwork\\Widgets\\CodeLegend',
 		];
 
-		if ( class_exists( 'geminorum\\gNetwork\\Widgets\\Tracking' ) ) {
+		if ( class_exists( __NAMESPACE__.'\\Navigation' ) )
+			$widgets[GNETWORK_DIR.'includes/Widgets/NavigationMenu.php'] = 'geminorum\\gNetwork\\Widgets\\NavigationMenu';
+
+		if ( class_exists( __NAMESPACE__.'\\Tracking' ) ) {
 			$widgets[GNETWORK_DIR.'includes/Widgets/TrackingGPlusBadge.php'] = 'geminorum\\gNetwork\\Widgets\\TrackingGPlusBadge';
 			$widgets[GNETWORK_DIR.'includes/Widgets/TrackingQuantcast.php']  = 'geminorum\\gNetwork\\Widgets\\TrackingQuantcast';
 		}

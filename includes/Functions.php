@@ -45,6 +45,23 @@ if ( ! function_exists( 'gnetwork_ip_lookup' ) ) :
 	}
 endif;
 
+if ( ! function_exists( 'gnetwork_navigation' ) ) :
+	function gnetwork_navigation( $before = '', $after = '', $menu = GNETWORK_NETWORK_NAVIGATION ) {
+
+		if ( ! class_exists( '\geminorum\gNetwork\Modules\Navigation' ) )
+			return FALSE;
+
+		$html = \geminorum\gNetwork\Modules\Navigation::getGlobalMenu( $menu, FALSE );
+
+		if ( ! $html )
+			return FALSE;
+
+		echo $before.$html.$after;
+
+		return TRUE;
+	}
+endif;
+
 if ( ! function_exists( 'gnetwork_update_notice' ) ) :
 	function gnetwork_update_notice( $plugin = GNETWORK_FILE ) {
 

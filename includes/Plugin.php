@@ -82,6 +82,7 @@ class Plugin
 			'GNETWORK_ADMIN_JS_ENHANCEMENTS' => TRUE, // autoresize textarea and more...
 			'GNETWORK_CACHE_TTL'             => 60 * 60 * 12, // 12 hours
 
+			'GNETWORK_NETWORK_NAVIGATION'    => 'network_navigation', // menu on the main site for network navigation
 			'GNETWORK_NETWORK_ADMINBAR'      => 'network_adminbar', // menu on the main site for adminbar navigation
 			'GNETWORK_NETWORK_USERMENU'      => 'network_usermenu', // menu on the main site for user navigation
 			'GNETWORK_NETWORK_EXTRAMENU'     => 'network_extramenu', // menu on the main site for extra navigation

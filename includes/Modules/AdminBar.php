@@ -57,23 +57,6 @@ class AdminBar extends gNetwork\Module
 		add_filter( 'wp_admin_bar_class', __NAMESPACE__.'\\wp_admin_bar_class' );
 
 		$this->action( 'wp_before_admin_bar_render' );
-
-		if ( is_main_site() ) {
-
-			$this->action( 'save_post_nav_menu_item', 2 );
-
-			if ( GNETWORK_NETWORK_ADMINBAR )
-				register_nav_menu( GNETWORK_NETWORK_ADMINBAR,
-					_x( 'Network Adminbar Navigation', 'Modules: AdminBar: Menu Location', GNETWORK_TEXTDOMAIN ) );
-
-			if ( GNETWORK_NETWORK_USERMENU )
-				register_nav_menu( GNETWORK_NETWORK_USERMENU,
-					_x( 'Network User Navigation', 'Modules: AdminBar: Menu Location', GNETWORK_TEXTDOMAIN ) );
-
-			if ( GNETWORK_NETWORK_EXTRAMENU )
-				register_nav_menu( GNETWORK_NETWORK_EXTRAMENU,
-					_x( 'Network Extra Navigation', 'Modules: AdminBar: Menu Location', GNETWORK_TEXTDOMAIN ) );
-		}
 	}
 
 	// overrided to avoid `get_blogs_of_user()`
@@ -419,68 +402,6 @@ class AdminBar extends gNetwork\Module
 		] );
 	}
 
-	public function save_post_nav_menu_item( $post_id, $post )
-	{
-		if ( GNETWORK_NETWORK_ADMINBAR )
-			update_site_option( static::BASE.'_'.GNETWORK_NETWORK_ADMINBAR, '' );
-
-		if ( GNETWORK_NETWORK_USERMENU )
-			update_site_option( static::BASE.'_'.GNETWORK_NETWORK_USERMENU, '' );
-
-		if ( GNETWORK_NETWORK_EXTRAMENU )
-			update_site_option( static::BASE.'_'.GNETWORK_NETWORK_EXTRAMENU, '' );
-
-		return $post_id;
-	}
-
-	public static function getNetworkMenu( $name, $items = TRUE )
-	{
-		$menu = FALSE;
-
-		if ( ! $name )
-			return $menu;
-
-		$key = static::BASE.'_'.$name;
-
-		if ( WordPress::isFlush() )
-			update_site_option( $key, '' );
-
-		else if ( $menu = get_site_option( $key, NULL ) )
-			return $menu;
-
-		// bail because previously no menu found
-		// and '0' stored to prevent unnecessary checks
-		if ( '0' === $menu )
-			return $menu;
-
-		if ( is_main_site() ) {
-
-			// only saved location menus
-			$locations = get_nav_menu_locations();
-
-			if ( array_key_exists( $name, $locations ) ) {
-
-				$term = get_term( intval( $locations[$name] ), 'nav_menu' );
-
-				if ( $term && ! self::isError( $term ) ) {
-
-					if ( $items )
-						$menu = wp_get_nav_menu_items( $term->term_id, [ 'update_post_term_cache' => FALSE ] );
-					else
-						$menu = wp_nav_menu( [ 'menu' => $term->term_id, 'echo' => FALSE, 'container' => '', 'item_spacing' => 'discard', 'fallback_cb' => FALSE ] );
-				}
-			}
-
-			if ( $menu ) {
-				update_site_option( $key, ( $items ? $menu : Text::minifyHTML( $menu ) ) );
-				return $menu;
-			}
-		}
-
-		update_site_option( $key, '0' );
-		return FALSE;
-	}
-
 	public function wp_admin_bar_search_menu( $wp_admin_bar )
 	{
 		if ( is_admin() )
@@ -736,7 +657,9 @@ class AdminBar extends gNetwork\Module
 
 		self::addMainLogo( $wp_admin_bar );
 
-		$menu = self::getNetworkMenu( GNETWORK_NETWORK_ADMINBAR );
+		$menu = class_exists( __NAMESPACE__.'\\Navigation' )
+			? Navigation::getGlobalMenu( GNETWORK_NETWORK_ADMINBAR )
+			: FALSE;
 
 		if ( $menu && is_array( $menu ) ) {
 
@@ -793,7 +716,10 @@ class AdminBar extends gNetwork\Module
 
 	public function wp_admin_bar_extra_menu( $wp_admin_bar )
 	{
-		$menu = self::getNetworkMenu( GNETWORK_NETWORK_EXTRAMENU );
+		if ( ! class_exists( __NAMESPACE__.'\\Navigation' ) )
+			return;
+
+		$menu = Navigation::getGlobalMenu( GNETWORK_NETWORK_EXTRAMENU );
 
 		if ( $menu && is_array( $menu ) ) {
 

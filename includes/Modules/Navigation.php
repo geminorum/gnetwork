@@ -11,8 +11,8 @@ use geminorum\gNetwork\Core\WordPress;
 class Navigation extends gNetwork\Module
 {
 
-	protected $key     = 'navigation';
-	protected $network = FALSE;
+	protected $key  = 'navigation';
+	protected $ajax = TRUE;
 
 	private $restricted = FALSE;   // restricted support
 	private $feeds      = []; // restricted support
@@ -26,6 +26,12 @@ class Navigation extends gNetwork\Module
 
 		else
 			$this->filter( 'wp_setup_nav_menu_item' );
+
+		if ( ! is_main_site() )
+			return;
+
+		$this->action( 'after_setup_theme' );
+		$this->action( 'save_post_nav_menu_item', 2 );
 	}
 
 	public function init()
@@ -35,6 +41,37 @@ class Navigation extends gNetwork\Module
 			$this->restricted = Restricted::is();
 			$this->feeds      = Restricted::getFeeds( FALSE, $this->restricted );
 		}
+	}
+
+	public function get_global_menus()
+	{
+		$list  = [];
+		$menus = [
+			'GNETWORK_NETWORK_NAVIGATION' => _x( 'Network Global Navigation', 'Modules: Navigation: Global Menu', GNETWORK_TEXTDOMAIN ),
+			'GNETWORK_NETWORK_ADMINBAR'   => _x( 'Network Adminbar Navigation', 'Modules: Navigation: Global Menu', GNETWORK_TEXTDOMAIN ),
+			'GNETWORK_NETWORK_USERMENU'   => _x( 'Network User Navigation', 'Modules: Navigation: Global Menu', GNETWORK_TEXTDOMAIN ),
+			'GNETWORK_NETWORK_EXTRAMENU'  => _x( 'Network Extra Navigation', 'Modules: Navigation: Global Menu', GNETWORK_TEXTDOMAIN ),
+		];
+
+		foreach ( $menus as $constant => $desc )
+			if ( constant( $constant ) )
+				$list[$constant] = $desc;
+
+		return $list;
+	}
+
+	public function after_setup_theme()
+	{
+		foreach ( $this->get_global_menus() as $constant => $desc )
+			register_nav_menu( constant( $constant ), $desc );
+	}
+
+	public function save_post_nav_menu_item( $post_id, $post )
+	{
+		foreach ( $this->get_global_menus() as $constant => $desc )
+			update_site_option( static::BASE.'_'.constant( $constant ), '' );
+
+		return $post_id;
 	}
 
 	public function load_nav_menus_php()
@@ -344,6 +381,54 @@ class Navigation extends gNetwork\Module
 	private function get_public_profile_url()
 	{
 		return $this->filters( 'public_profile_url', get_edit_profile_url() );
+	}
+
+	public static function getGlobalMenu( $name, $items = TRUE )
+	{
+		$menu = FALSE;
+
+		if ( ! $name )
+			return $menu;
+
+		$key = static::BASE.'_'.$name.( $items ? '' : '_html' );
+
+		if ( WordPress::isFlush() )
+			update_site_option( $key, '' );
+
+		else if ( $menu = get_site_option( $key, NULL ) )
+			return $menu;
+
+		// bail because previously no menu found
+		// and '0' stored to prevent unnecessary checks
+		if ( '0' === $menu )
+			return $menu;
+
+		if ( is_main_site() ) {
+
+			// only saved location menus
+			$locations = get_nav_menu_locations();
+
+			if ( array_key_exists( $name, $locations ) ) {
+
+				$term = get_term( intval( $locations[$name] ), 'nav_menu' );
+
+				if ( $term && ! self::isError( $term ) ) {
+
+					if ( $items )
+						$menu = wp_get_nav_menu_items( $term->term_id, [ 'update_post_term_cache' => FALSE ] );
+					else
+						$menu = wp_nav_menu( [ 'menu' => $term->term_id, 'echo' => FALSE, 'container' => '', 'item_spacing' => 'discard', 'fallback_cb' => FALSE ] );
+				}
+			}
+
+			if ( $menu ) {
+				update_site_option( $key, ( $items ? $menu : Text::minifyHTML( $menu ) ) );
+				return $menu;
+			}
+		}
+
+		update_site_option( $key, '0' );
+		return FALSE;
 	}
 }
 

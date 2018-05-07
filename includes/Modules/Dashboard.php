@@ -174,8 +174,12 @@ class Dashboard extends gNetwork\Module
 		if ( $this->check_hidden_metabox( 'usermenu' ) )
 			return;
 
-		if ( $html = Adminbar::getNetworkMenu( GNETWORK_NETWORK_USERMENU, FALSE ) )
+		if ( ! class_exists( __NAMESPACE__.'\\Navigation' ) )
+			return;
+
+		else if ( $html = Navigation::getGlobalMenu( GNETWORK_NETWORK_USERMENU, FALSE ) )
 			echo '<div class="gnetwork-admin-wrap-widget -usermenu">'.$html.'</div>';
+
 		else
 			HTML::desc( _x( '&#8220;Not all those who wander are lost!&#8221;', 'Modules: Dashboard: User Menu', GNETWORK_TEXTDOMAIN ), FALSE, '-empty' );
 	}
