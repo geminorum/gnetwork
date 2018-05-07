@@ -111,6 +111,11 @@ class Navigation extends gNetwork\Module
 				'description' => _x( '<em>Logged-Out</em> links are not visible to users who are logged in.', 'Modules: Navigation', GNETWORK_TEXTDOMAIN ),
 				'pages'       => $this->get_loggedout_pages(),
 			],
+			'sites' => [
+				'label'       => _x( 'Sites', 'Modules: Navigation: Tabs', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( '<em>Sites</em> on this network within your access.', 'Modules: Navigation', GNETWORK_TEXTDOMAIN ),
+				'pages'       => $this->get_sites_pages(),
+			],
 		];
 
 		echo '<div id="'.$id.'" class="gnetwork-admin-wrap-metabox -navigation posttypediv">';
@@ -204,6 +209,27 @@ class Navigation extends gNetwork\Module
 			];
 
 		return $this->decorate_items( $this->filters( 'loggedout_items', $items ) );
+	}
+
+	public function get_sites_pages()
+	{
+		$items = [];
+		$admin = WordPress::isSuperAdmin();
+		$sites = WordPress::getAllSites( ( $admin ? FALSE : get_current_user_id() ), $admin, TRUE );
+
+		foreach ( $sites as $site ) {
+
+			if ( ! $name = WordPress::getSiteName( $site->userblog_id ) )
+				$name = URL::untrail( $site->domain.$site->path );
+
+			$items[] = [
+				'name' => $name,
+				'slug' => 'site-'.$site->userblog_id,
+				'link' => URL::trail( $site->siteurl ),
+			];
+		}
+
+		return $this->decorate_items( $this->filters( 'sites_items', $items ) );
 	}
 
 	private function decorate_items( $items )
@@ -313,6 +339,10 @@ class Navigation extends gNetwork\Module
 
 			break;
 			default:
+
+				// network sites
+				if ( $menu_item->url && Text::has( $matches[1], 'site-' ) )
+					break;
 
 				// all other nav items are specific to the logged-in user,
 				// and so are not relevant to logged-out users
