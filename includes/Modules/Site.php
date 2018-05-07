@@ -237,7 +237,7 @@ class Site extends gNetwork\Module
 		// getting lighter list of blogs
 		$blogs = $this->options['list_sites']
 			? get_blogs_of_user( $user_id )
-			: WordPress::getUserBlogs( $user_id, $GLOBALS['wpdb']->base_prefix );
+			: WordPress::getUserSites( $user_id, $GLOBALS['wpdb']->base_prefix );
 
 		// this will override default message
 		if ( wp_list_filter( $blogs, [ 'userblog_id' => get_current_blog_id() ] ) )

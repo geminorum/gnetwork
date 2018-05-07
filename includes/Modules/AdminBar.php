@@ -66,7 +66,7 @@ class AdminBar extends gNetwork\Module
 
 		if ( is_multisite() && ( $user_id = get_current_user_id() ) ) {
 			$super_admin       = WordPress::isSuperAdmin();
-			$user->blogs       = WordPress::getAllBlogs( ( $super_admin ? FALSE : $user_id ), $super_admin, TRUE );
+			$user->blogs       = WordPress::getAllSites( ( $super_admin ? FALSE : $user_id ), $super_admin, TRUE );
 			$user->active_blog = get_user_meta( $user_id, 'primary_blog', TRUE );
 		} else {
 			$user->blogs       = [];
@@ -581,15 +581,9 @@ class AdminBar extends gNetwork\Module
 
 			// avoiding `switch_to_blog()`
 
-			$blogname = FALSE;
 			$menu_id  = 'blog-'.$blog->userblog_id;
 			$blavatar = '<div class="blavatar"></div>';
-
-			if ( function_exists( 'bp_blogs_get_blogmeta' ) )
-				$blogname = bp_blogs_get_blogmeta( $blog->userblog_id, 'name', TRUE );
-
-			if ( ! $blogname && function_exists( 'get_site_meta' ) )
-				$blogname = get_site_meta( $blog->userblog_id, 'blogname', TRUE );
+			$blogname = WordPress::getSiteName( $blog->userblog_id );
 
 			if ( ! $blogname )
 				$blogname = URL::untrail( $blog->domain.$blog->path );

@@ -304,8 +304,31 @@ class WordPress extends Base
 		return $user_id ? user_can( $user_id, $cap ) : current_user_can( $cap );
 	}
 
+	public static function getSiteName( $blog_id, $switch = FALSE )
+	{
+		$name = FALSE;
+
+		if ( function_exists( 'bp_blogs_get_blogmeta' ) )
+			$name = bp_blogs_get_blogmeta( $blog_id, 'name', TRUE );
+
+		if ( ! $name && function_exists( 'get_site_meta' ) )
+			$name = get_site_meta( $blog_id, 'blogname', TRUE );
+
+		if ( ! $name && $blog_id == get_current_blog_id() )
+			return get_option( 'blogname' );
+
+		if ( ! $name && $switch ) {
+
+			switch_to_blog( $site_id );
+			$name = get_option( 'blogname' );
+			restore_current_blog();
+		}
+
+		return $name;
+	}
+
 	// mocking `get_sites()` results
-	public static function getAllBlogs( $user_id = FALSE, $all_sites = TRUE, $orderby_site = FALSE )
+	public static function getAllSites( $user_id = FALSE, $all_sites = TRUE, $orderby_site = FALSE )
 	{
 		global $wpdb;
 
@@ -316,7 +339,7 @@ class WordPress extends Base
 
 		if ( $user_id ) {
 
-			$ids = self::getUserBlogs( $user_id, $wpdb->base_prefix );
+			$ids = self::getUserSites( $user_id, $wpdb->base_prefix );
 
 			// user has no blogs!
 			if ( ! $ids )
@@ -354,7 +377,7 @@ class WordPress extends Base
 	}
 
 	// @REF: `get_blogs_of_user()`
-	public static function getUserBlogs( $user_id, $prefix )
+	public static function getUserSites( $user_id, $prefix )
 	{
 		$blogs = array();
 		$keys  = get_user_meta( $user_id );
