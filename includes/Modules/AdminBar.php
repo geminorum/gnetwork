@@ -60,6 +60,7 @@ class AdminBar extends gNetwork\Module
 	}
 
 	// overrided to avoid `get_blogs_of_user()`
+	// overrided to avoid core styles
 	public function initialize()
 	{
 		$user = new \stdClass;
@@ -73,18 +74,12 @@ class AdminBar extends gNetwork\Module
 			$user->active_blog = FALSE;
 		}
 
-		add_action( 'wp_head', 'wp_admin_bar_header' );
-		add_action( 'admin_head', 'wp_admin_bar_header' );
-
 		if ( current_theme_supports( 'admin-bar' ) ) {
 			$admin_bar_args = get_theme_support( 'admin-bar' );
-			$header_callback = $admin_bar_args[0]['callback'];
+
+			if ( ! empty( $admin_bar_args[0]['callback'] ) )
+				add_action( 'wp_head',  $admin_bar_args[0]['callback'] );
 		}
-
-		if ( empty( $header_callback ) )
-			$header_callback = '_admin_bar_bump_cb';
-
-		add_action( 'wp_head', $header_callback );
 
 		wp_enqueue_script( 'admin-bar' );
 		wp_enqueue_style( 'admin-bar' );
