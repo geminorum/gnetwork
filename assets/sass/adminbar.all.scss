@@ -1,0 +1,38 @@
+@import "modules/all";
+@import "partials/base";
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+@import "partials/adminbar.all";
+
+// except wp-admin/gtheme
+html:not(.wp-toolbar):not(.html-admin-bar) {
+  margin-top: 32px;
+}
+
+* html body {
+  // margin-top: 32px !important;
+}
+
+@media screen and (max-width: 782px) {
+  html:not(.wp-toolbar):not(.html-admin-bar) {
+    margin-top: 46px;
+  }
+
+  * html body {
+    // margin-top: 46px !important;
+  }
+
+  #wpadminbar {
+    li#wp-admin-bar-gtheme-flush {
+      display: block !important;
+      position: static;
+    }
+  }
+}
+
+@media print {
+  #wpadminbar {
+    display: none;
+  }
+}

@@ -13,15 +13,15 @@
     direction: ltr;
   }
 
-  .quicklinks li .blavatar:before {
+  .quicklinks li .blavatar::before {
     content: "\f319" !important;
   }
 
-  #wp-admin-bar-wp-logo.menupop > .ab-item .ab-icon:before {
+  #wp-admin-bar-wp-logo.menupop > .ab-item .ab-icon::before {
     content: "\f319";
   }
 
-  #wp-admin-bar-my-sites a.ab-item:before {
+  #wp-admin-bar-my-sites a.ab-item::before {
     margin-left: 0;
     margin-right: 0;
   }
@@ -36,14 +36,14 @@
 
   // MUST BE ON WP CORE!
   body.rtl & {
-    .menupop .menupop > .ab-item:before {
+    .menupop .menupop > .ab-item::before {
       content: "\f141" !important;
 
       /*rtl:ignore*/
       left: 2px;
     }
 
-    .ab-top-secondary .menupop .menupop > .ab-item:before {
+    .ab-top-secondary .menupop .menupop > .ab-item::before {
       content: "\f139" !important;
 
       /*rtl:ignore*/

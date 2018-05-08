@@ -71,7 +71,7 @@ div.wpcf7 {
     option,
     textarea,
     input {
-      @include box-reset();
+      box-sizing: border-box;
     }
 
     select,

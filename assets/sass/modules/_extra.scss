@@ -50,7 +50,7 @@
   $padding: unquote(( $y / $x ) * 100 + "%");
 
   @if $pseudo {
-    &:before {
+    &::before {
       @include pseudo($pos: relative);
       padding-top: $padding;
       width: 100%;
@@ -127,27 +127,6 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-/// Placeholders
-// They're a pain as you have to set the style in all the separate formats,
-// this sorts it for you.
-//
-// Just in case there are people how aren't used to using @content here
-// is a usage example:
-// input, textarea {
-//   @include input-placeholder {
-//     color: $grey;
-//   }
-// }
-@mixin input-placeholder {
-  &.placeholder { @content; }
-  &:-moz-placeholder { @content; }
-  &::-moz-placeholder { @content; }
-  &:-ms-input-placeholder { @content; }
-  &::-webkit-input-placeholder { @content; }
-}
-
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
 /// Media queries
 // A massive time saver! You can just use pixel values but we have some
 // default breakpoints setup that work too, another time saver while
@@ -177,9 +156,11 @@ $breakpoints: (
 @mixin mq($width, $type: min) {
   @if map_has_key($breakpoints, $width) {
     $width: map_get($breakpoints, $width);
+
     @if $type == max {
       $width: $width - 1px;
     }
+
     @media only screen and (#{$type}-width: $width) {
       @content;
     }
@@ -205,7 +186,7 @@ $breakpoints: (
 // }
 @function z($name) {
   @if index($z-indexes, $name) {
-  @return (length($z-indexes) - index($z-indexes, $name)) + 1;
+    @return (length($z-indexes) - index($z-indexes, $name)) + 1;
   } @else {
     @warn 'There is no item "#{$name}" in this list; choose one of: #{$z-indexes}';
     @return null;
