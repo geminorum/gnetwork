@@ -583,7 +583,7 @@ class User extends gNetwork\Module
 
 		if ( ! empty( $this->options['tos_label'] ) )
 			echo '<label for="gnetwork-bp-tos">'
-				.'<input type="checkbox" class="-checkbox" name="gnetwork_tos_agreement" value="accepted">&nbsp;'
+				.'<input type="checkbox" class="-checkbox" name="gnetwork_tos_agreement" id="gnetwork-bp-tos" value="accepted">&nbsp;'
 					.$this->options['tos_label']
 				.'</label>';
 

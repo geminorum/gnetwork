@@ -469,7 +469,6 @@ class Blog extends gNetwork\Module
 		if ( $this->options['content_width'] )
 			$this->set_content_width( $this->options['content_width'] );
 
-
 		if ( 'disable' == $this->options['heartbeat_mode'] ) {
 
 			$this->deregister_heartbeat();

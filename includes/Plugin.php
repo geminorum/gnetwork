@@ -134,44 +134,6 @@ class Plugin
 		];
 	}
 
-	private function require_core()
-	{
-		$this->files( [
-			'Core/Base',
-
-			'Core/Arraay',
-			'Core/Crypto',
-			'Core/Date',
-			'Core/Email',
-			'Core/Error',
-			'Core/Exception',
-			'Core/File',
-			'Core/HTML',
-			'Core/HTTP',
-			'Core/Image',
-			'Core/L10n',
-			'Core/Number',
-			'Core/Orthography',
-			'Core/Text',
-			'Core/Third',
-			'Core/URI',
-			'Core/URL',
-			'Core/WordPress',
-		] );
-	}
-
-	private function require_plugin()
-	{
-		$this->files( [
-			'Utilities',
-			'Settings',
-			'Ajax',
-			'Logger',
-			'Module',
-			'Provider',
-		] );
-	}
-
 	private function get_modules()
 	{
 		$modules = [
