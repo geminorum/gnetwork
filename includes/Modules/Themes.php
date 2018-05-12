@@ -275,6 +275,7 @@ class Themes extends gNetwork\Module
 		} else if ( $this->isTheme( 'hyde' ) ) {
 
 			add_action( 'wp_enqueue_scripts', function(){
+				wp_deregister_style( 'hyde-google-fonts' );
 				Themes::enqueueStyle( 'hyde' );
 			}, 20 );
 
