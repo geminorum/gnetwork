@@ -521,8 +521,9 @@ class Utilities extends Core\Base
 		error_log( $log."\n", 3, $path );
 	}
 
-	// @REF: http://stackoverflow.com/a/16838443
 	// @REF: https://en.wikipedia.org/wiki/ISO_639
+	// @REF: http://stackoverflow.com/a/16838443
+	// @REF: `bp_core_register_common_scripts()`
 	public static function getISO639( $locale = NULL )
 	{
 		if ( is_null( $locale ) )
@@ -531,9 +532,8 @@ class Utilities extends Core\Base
 		if ( ! $locale )
 			return 'en';
 
-		$lang = explode( '_', $locale );
-
-		return strtolower( $lang[0] );
+		$ISO639 = str_replace( '_', '-', strtolower( $locale ) );
+		return substr( $ISO639, 0, strpos( $ISO639, '-' ) );
 	}
 
 	public static function redirect404()
