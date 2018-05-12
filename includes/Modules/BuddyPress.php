@@ -212,7 +212,7 @@ class BuddyPress extends gNetwork\Module
 				return;
 
 		if ( is_buddypress() )
-			wp_enqueue_style( 'gnetwork-buddypress', GNETWORK_URL.'assets/css/buddypress.all'.( is_rtl() ? '-rtl' : '' ).'.css', [], GNETWORK_VERSION );
+			wp_enqueue_style( static::BASE.'-buddypress', GNETWORK_URL.'assets/css/buddypress.all'.( is_rtl() ? '-rtl' : '' ).'.css', [], GNETWORK_VERSION );
 	}
 
 	// cleanup!
@@ -332,7 +332,7 @@ class BuddyPress extends gNetwork\Module
 	public function bp_core_validate_user_signup( $result = [] )
 	{
 		if ( isset( $_POST[$this->field_name] ) && ! empty( $_POST[$this->field_name] ) )
-			$result['errors']->add( 'gnetwork_bp_honeypot',
+			$result['errors']->add( static::BASE.'_bp_honeypot',
 				_x( 'You\'re totally a spammer. Go somewhere else with your spammy ways.', 'Modules: BuddyPress', GNETWORK_TEXTDOMAIN ) );
 
 		return $result;

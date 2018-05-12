@@ -49,10 +49,7 @@ class Comments extends gNetwork\Module
 				$this->action( 'template_redirect' );
 
 			if ( $this->options['disable_notes'] )
-				add_filter( 'comment_form_defaults', function( $defaults ){
-					$defaults['comment_notes_after'] = '';
-					return $defaults;
-				}, 12 );
+				$this->filter_set( 'comment_form_defaults', [ 'comment_notes_after' => '' ], 12 );
 
 			if ( $this->options['front_nonce'] ) {
 				$this->action( 'comment_form', 1, 10, 'nonce' );

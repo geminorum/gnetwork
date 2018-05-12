@@ -360,9 +360,7 @@ class RestrictedBouncer extends \geminorum\gNetwork\Core\Base
 
 		// block search engines and robots
 		add_filter( 'robots_txt', [ $this, 'robots_txt' ] );
-		add_filter( 'option_blog_public', function( $option ){
-			return 0;
-		}, 20 );
+		add_filter( 'option_blog_public', '__return_zero', 20 );
 
 		add_filter( 'rest_authentication_errors', [ $this, 'rest_authentication_errors' ], 999 );
 	}
