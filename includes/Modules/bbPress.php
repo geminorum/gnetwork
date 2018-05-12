@@ -11,9 +11,21 @@ class bbPress extends gNetwork\Module
 
 	protected function setup_actions()
 	{
-		add_filter( 'bbp_after_get_the_content_parse_args', function( $args ){
-			$args['media_buttons'] = TRUE;
-			return $args;
-		} );
+		$this->filter_set( 'bbp_after_get_the_content_parse_args', [ 'media_buttons' => TRUE ] );
+
+		if ( ! is_admin() ) {
+
+			$this->action( 'wp_enqueue_scripts' );
+		}
+	}
+
+	public function wp_enqueue_scripts()
+	{
+		if ( defined( 'GNETWORK_DISABLE_BBPRESS_STYLES' )
+			&& GNETWORK_DISABLE_BBPRESS_STYLES )
+				return;
+
+		if ( is_bbpress() )
+			wp_enqueue_style( static::BASE.'-bbpress', GNETWORK_URL.'assets/css/bbpress.all'.( is_rtl() ? '-rtl' : '' ).'.css', [], GNETWORK_VERSION );
 	}
 }

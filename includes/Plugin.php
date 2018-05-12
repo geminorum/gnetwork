@@ -112,6 +112,7 @@ class Plugin
 			// 'GNETWORK_DISABLE_JQUERY_MIGRATE'    => TRUE,  // cannot set this early!
 			// 'GNETWORK_DISABLE_FRONT_STYLES'      => FALSE, // cannot set this early!
 			// 'GNETWORK_DISABLE_BUDDYPRESS_STYLES' => FALSE, // cannot set this early!
+			// 'GNETWORK_DISABLE_BBPRESS_STYLES'    => FALSE, // cannot set this early!
 			// 'GNETWORK_DISABLE_REFLIST_JS'        => FALSE, // do not include reflist shortcode js // cannot set this early!
 			// 'GNETWORK_DISABLE_REFLIST_INSERT'    => FALSE, // do not include reflist shortcode after content  // cannot set this early!
 
