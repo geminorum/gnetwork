@@ -234,7 +234,7 @@ class Debug extends gNetwork\Module
 
 			if ( $logs = File::getLastLines( $file, self::limit( 100 ) ) ) {
 
-				$length = self::req( 'length', 300 );
+				$length = self::req( 'length', FALSE );
 
 				HTML::h3( sprintf( _x( 'The Last %s Logs, in reverse order', 'Modules: Debug: Log Box', GNETWORK_TEXTDOMAIN ), Number::format( count( $logs ) ) ), 'log-box-header' );
 
@@ -245,8 +245,8 @@ class Debug extends gNetwork\Module
 					if ( ! ( $line = trim( strip_tags( $log ) ) ) )
 						continue;
 
-					if ( strlen( $line ) > $length )
-						$line = substr( $line, 0, $length ).' <span title="'.HTML::escape( $line ).'">[&hellip;]</span>';
+					if ( $length && Text::strLen( $line ) > $length )
+						$line = Text::subStr( $line, 0, $length ).' <span title="'.HTML::escape( $line ).'">[&hellip;]</span>';
 
 					$line = Utilities::highlightTime( $line, 1 );
 					$line = Utilities::highlightIP( $line );
