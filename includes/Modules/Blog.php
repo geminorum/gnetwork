@@ -737,13 +737,15 @@ class Blog extends gNetwork\Module
 		// get the trailing part of the request URL
 		$request = basename( $wp->request );
 
-		// get the trailing part of the URI
+		// check if request not encoded
+		if ( $request != urldecode( $request ) )
+			return;
+
 		if ( 'bijection' == $this->options['shortlink_type'] )
 			$maybe_post_id = (int) Crypto::decodeBijection( $request );
 		else
 			$maybe_post_id = (int) $request;
 
-		// check if it is a valid post ID
 		if ( empty( $maybe_post_id ) || ! is_numeric( $maybe_post_id ) )
 			return;
 
