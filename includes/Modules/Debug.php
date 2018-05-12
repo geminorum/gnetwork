@@ -251,7 +251,7 @@ class Debug extends gNetwork\Module
 					$line = Utilities::highlightTime( $line, 1 );
 					$line = Utilities::highlightIP( $line );
 
-					echo '<li>'.$line.'</li>';
+					echo HTML::tag( 'li', $line );
 				}
 
 				echo '</ol></div>';
@@ -277,12 +277,6 @@ class Debug extends gNetwork\Module
 
 	public static function versions()
 	{
-		global $wp_version,
-			$wp_db_version,
-			$tinymce_version,
-			$required_php_version,
-			$required_mysql_version;
-
 		$versions = [
 			'wp_version'             => _x( 'WordPress', 'Modules: Debug: Version Strings', GNETWORK_TEXTDOMAIN ),
 			'wp_db_version'          => _x( 'WordPress DB revision', 'Modules: Debug: Version Strings', GNETWORK_TEXTDOMAIN ),
@@ -293,7 +287,7 @@ class Debug extends gNetwork\Module
 
 		echo '<table class="base-table-code"><tbody>';
 		foreach ( $versions as $key => $val )
-			echo sprintf( '<tr><td class="-var">%1$s</td><td class="-val"><code>%2$s</code></td></tr>', $val, ${$key} );
+			echo sprintf( '<tr><td class="-var">%1$s</td><td class="-val"><code>%2$s</code></td></tr>', $val, $GLOBALS[$key] );
 		echo '</tbody></table>';
 	}
 

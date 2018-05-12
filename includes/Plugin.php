@@ -188,11 +188,11 @@ class Plugin
 			// 'Modules/Roles'       => 'Roles',
 		];
 
-		if ( defined( 'WP_STAGE' ) )
-			if ( 'production' == WP_STAGE )
-				$modules['Modules/BBQ'] = 'BBQ';
-			else if ( 'development' == WP_STAGE )
-				$modules['Modules/Dev'] = 'Dev';
+		if ( 'production' == WP_STAGE )
+			$modules['Modules/BBQ'] = 'BBQ';
+
+		else if ( 'development' == WP_STAGE )
+			$modules['Modules/Dev'] = 'Dev';
 
 		return $modules;
 	}

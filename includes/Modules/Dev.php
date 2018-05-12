@@ -38,6 +38,9 @@ class Dev extends gNetwork\Module
 
 		// $this->action( 'template_redirect' );
 		// $this->filter( 'login_url', 2, 10 );
+
+		// the plugin gracefully forgets!
+		load_plugin_textdomain( 'monster-widget' );
 	}
 
 	public function setup_menu( $context )
