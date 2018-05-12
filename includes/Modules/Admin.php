@@ -388,6 +388,10 @@ class Admin extends gNetwork\Module
 	public function admin_print_styles()
 	{
 		Utilities::linkStyleSheet( 'admin.all' );
+
+		if ( is_rtl() )
+			HTML::linkStyleSheet( GNETWORK_URL.'assets/css/rtl.all.css', GNETWORK_VERSION );
+
 		Utilities::customStyleSheet( 'admin.css' );
 
 		if ( is_admin_bar_showing() )
