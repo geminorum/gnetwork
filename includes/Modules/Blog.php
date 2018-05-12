@@ -141,6 +141,7 @@ class Blog extends gNetwork\Module
 				'field'       => 'ssl_support',
 				'title'       => _x( 'SSL', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 				'description' => _x( 'Enables SSL tools to support the network sites.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+				'disabled'    => defined( 'GNETWORK_DISABLE_SSL' ) && GNETWORK_DISABLE_SSL,
 			];
 
 		if ( class_exists( __NAMESPACE__.'\\Locale' ) )

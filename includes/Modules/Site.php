@@ -155,6 +155,11 @@ class Site extends gNetwork\Module
 
 		if ( $this->options['ssl_support'] ) {
 
+			if ( defined( 'GNETWORK_DISABLE_SSL' ) && GNETWORK_DISABLE_SSL ) {
+				HTML::desc( sprintf( _x( 'The %s is set. The site will not redirect to HTTPS automatically.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ), '<code>GNETWORK_DISABLE_SSL</code>' ) );
+				echo '<hr />';
+			}
+
 			echo $this->wrap_open_buttons();
 
 			$ssl = Utilities::htmlSSLfromURL( $url = get_option( 'siteurl' ) );
