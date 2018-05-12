@@ -50,6 +50,7 @@ class Plugin
 		add_action( 'plugins_loaded', [ $this, 'plugins_loaded' ], 20 );
 		add_action( 'bp_setup_components', [ $this, 'bp_setup_components' ] );
 		add_action( 'bp_include', [ $this, 'bp_include' ] );
+		add_action( 'bbp_includes', [ $this, 'bbp_includes' ] );
 	}
 
 	private function files( $stack, $check = TRUE, $base = GNETWORK_DIR )
@@ -175,7 +176,6 @@ class Plugin
 			'Modules/ShortCodes'  => 'ShortCodes',
 			'Modules/Comments'    => 'Comments',
 			'Modules/Widgets'     => 'Widgets',
-			'Modules/bbPress'     => 'bbPress',
 			'Modules/Notify'      => 'Notify',
 			'Modules/Typography'  => 'Typography',
 			'Modules/Debug'       => 'Debug',
@@ -221,7 +221,22 @@ class Plugin
 				// no need to do anything!
 			}
 		}
+	}
 
+	public function bbp_includes()
+	{
+		if ( file_exists( GNETWORK_DIR.'includes/Modules/bbPress.php' ) ) {
+
+			try {
+
+				$this->bbpress = new Modules\bbPress( $this->base, 'bbpress' );
+
+			} catch ( Exception $e ) {
+
+				// echo 'Caught exception: ',  $e->getMessage(), "\n";
+				// no need to do anything!
+			}
+		}
 	}
 
 	public function bp_setup_components()
