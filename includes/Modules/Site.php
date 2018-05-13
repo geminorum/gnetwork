@@ -535,13 +535,22 @@ class Site extends gNetwork\Module
 		return $clauses;
 	}
 
-	private function do_resync_sitemeta()
+	// FIXME: use `WordPress::getAllSites()`
+	private function do_resync_sitemeta( $network = NULL )
 	{
+		if ( is_null( $network ) )
+			$network = get_current_network_id();
+
 		$count = 0;
+ 		$sites = get_sites( [
+			'network_id' => $network,
+			'fields'     => 'ids',
+			'number'     => FALSE,
+		] );
 
-		foreach ( get_sites( [ 'fields' => 'ids', 'number' => FALSE ] ) as $site_id ) {
+		foreach ( $sites as $site ) {
 
-			switch_to_blog( $site_id );
+			switch_to_blog( $site );
 
 			$this->migrate_options();
 
