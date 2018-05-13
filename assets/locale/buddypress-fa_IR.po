@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: BuddyPress 3.0.0-beta2\n"
 "Report-Msgid-Bugs-To: https://buddypress.trac.wordpress.org\n"
 "POT-Creation-Date: 2018-04-17 15:57:46+00:00\n"
-"PO-Revision-Date: 2018-05-07 21:08+0430\n"
+"PO-Revision-Date: 2018-05-12 19:40+0430\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: \n"
 "Language: fa_IR\n"
@@ -96,8 +96,7 @@ msgstr "%1$s | %2$s | علاقه‌مندی‌ها"
 msgid "Activity feed of %s's favorites."
 msgstr ""
 
-#: bp-activity/actions/post.php:60
-#: bp-templates/bp-legacy/buddypress-functions.php:946
+#: bp-activity/actions/post.php:60 bp-templates/bp-legacy/buddypress-functions.php:946
 #: bp-templates/bp-nouveau/includes/activity/ajax.php:468
 msgid "Please enter some content to post."
 msgstr "لطفاً چیزی برای فرستادن بنویسید."
@@ -143,8 +142,7 @@ msgstr ""
 
 #: bp-activity/bp-activity-admin.php:93
 msgid ""
-"ERROR: The item you are trying to reply to cannot be found, or it has been "
-"deleted."
+"ERROR: The item you are trying to reply to cannot be found, or it has been deleted."
 msgstr ""
 
 #: bp-activity/bp-activity-admin.php:223 bp-activity/bp-activity-admin.php:277
@@ -152,32 +150,31 @@ msgstr ""
 #: bp-core/admin/bp-core-admin-functions.php:484
 #: bp-core/admin/bp-core-admin-functions.php:503
 #: bp-core/admin/bp-core-admin-functions.php:522 bp-groups/bp-groups-admin.php:115
-#: bp-groups/bp-groups-admin.php:168
-#: bp-members/classes/class-bp-members-admin.php:774
+#: bp-groups/bp-groups-admin.php:168 bp-members/classes/class-bp-members-admin.php:774
 #: bp-members/classes/class-bp-members-admin.php:1521
 msgid "Overview"
 msgstr "در یک نگاه"
 
 #: bp-activity/bp-activity-admin.php:225
 msgid ""
-"You edit activities made on your site similar to the way you edit a comment. "
-"This is useful if you need to change which page the activity links to, or when "
-"you notice that the author has made a typographical error."
+"You edit activities made on your site similar to the way you edit a comment. This "
+"is useful if you need to change which page the activity links to, or when you "
+"notice that the author has made a typographical error."
 msgstr ""
 
 #: bp-activity/bp-activity-admin.php:226
 msgid ""
-"The two big editing areas for the activity title and content are fixed in "
-"place, but you can reposition all the other boxes using drag and drop, and can "
-"minimize or expand them by clicking the title bar of each box. Use the Screen "
-"Options tab to unhide more boxes (Primary Item/Secondary Item, Link, Type, "
-"Author ID) or to choose a 1- or 2-column layout for this screen."
+"The two big editing areas for the activity title and content are fixed in place, "
+"but you can reposition all the other boxes using drag and drop, and can minimize or "
+"expand them by clicking the title bar of each box. Use the Screen Options tab to "
+"unhide more boxes (Primary Item/Secondary Item, Link, Type, Author ID) or to choose "
+"a 1- or 2-column layout for this screen."
 msgstr ""
 
 #: bp-activity/bp-activity-admin.php:227
 msgid ""
-"You can also moderate the activity from this screen using the Status box, where "
-"you can also change the timestamp of the activity."
+"You can also moderate the activity from this screen using the Status box, where you "
+"can also change the timestamp of the activity."
 msgstr ""
 
 #: bp-activity/bp-activity-admin.php:232
@@ -187,15 +184,14 @@ msgstr ""
 #: bp-activity/bp-activity-admin.php:234
 msgid ""
 "<strong>Primary Item/Secondary Item</strong> - These identify the object that "
-"created the activity. For example, the fields could reference a comment left on "
-"a specific site. Some types of activity may only use one, or none, of these "
-"fields."
+"created the activity. For example, the fields could reference a comment left on a "
+"specific site. Some types of activity may only use one, or none, of these fields."
 msgstr ""
 
 #: bp-activity/bp-activity-admin.php:235
 msgid ""
-"<strong>Link</strong> - Used by some types of activity (blog posts and "
-"comments) to store a link back to the original content."
+"<strong>Link</strong> - Used by some types of activity (blog posts and comments) to "
+"store a link back to the original content."
 msgstr ""
 
 #: bp-activity/bp-activity-admin.php:236
@@ -207,8 +203,8 @@ msgstr ""
 
 #: bp-activity/bp-activity-admin.php:237
 msgid ""
-"For information about when and how BuddyPress uses all of these settings, see "
-"the Managing Activity link in the panel to the side."
+"For information about when and how BuddyPress uses all of these settings, see the "
+"Managing Activity link in the panel to the side."
 msgstr ""
 
 #: bp-activity/bp-activity-admin.php:242 bp-activity/bp-activity-admin.php:294
@@ -216,8 +212,7 @@ msgstr ""
 #: bp-core/admin/bp-core-admin-functions.php:490
 #: bp-core/admin/bp-core-admin-functions.php:509
 #: bp-core/admin/bp-core-admin-functions.php:528 bp-groups/bp-groups-admin.php:123
-#: bp-groups/bp-groups-admin.php:184
-#: bp-members/classes/class-bp-members-admin.php:783
+#: bp-groups/bp-groups-admin.php:184 bp-members/classes/class-bp-members-admin.php:783
 #: bp-members/classes/class-bp-members-admin.php:1542
 msgid "For more information:"
 msgstr ""
@@ -236,22 +231,22 @@ msgstr ""
 #: bp-members/classes/class-bp-members-admin.php:785
 #: bp-members/classes/class-bp-members-admin.php:1543
 msgid "<a href=\"https://buddypress.org/support/\">Support Forums</a>"
-msgstr ""
+msgstr "<a href=\"https://buddypress.org/support/\">تالارهای پشتیبانی</a>"
 
 #: bp-activity/bp-activity-admin.php:279
 msgid ""
-"You can manage activities made on your site similar to the way you manage "
-"comments and other content. This screen is customizable in the same ways as "
-"other management screens, and you can act on activities using the on-hover "
-"action links or the Bulk Actions."
+"You can manage activities made on your site similar to the way you manage comments "
+"and other content. This screen is customizable in the same ways as other management "
+"screens, and you can act on activities using the on-hover action links or the Bulk "
+"Actions."
 msgstr ""
 
 #: bp-activity/bp-activity-admin.php:280
 msgid ""
-"There are many different types of activities. Some are generated automatically "
-"by BuddyPress and other plugins, and some are entered directly by a user in the "
-"form of status update. To help manage the different activity types, use the "
-"filter dropdown box to switch between them."
+"There are many different types of activities. Some are generated automatically by "
+"BuddyPress and other plugins, and some are entered directly by a user in the form "
+"of status update. To help manage the different activity types, use the filter "
+"dropdown box to switch between them."
 msgstr ""
 
 #: bp-activity/bp-activity-admin.php:286
@@ -261,20 +256,20 @@ msgstr "بازبینی فعالیت‌ها"
 #: bp-activity/bp-activity-admin.php:288
 msgid ""
 "In the <strong>Activity</strong> column, above each activity it says &#8220;"
-"Submitted on,&#8221; followed by the date and time the activity item was "
-"generated on your site. Clicking on the date/time link will take you to that "
-"activity on your live site. Hovering over any activity gives you options to "
-"reply, edit, spam mark, or delete that activity."
+"Submitted on,&#8221; followed by the date and time the activity item was generated "
+"on your site. Clicking on the date/time link will take you to that activity on your "
+"live site. Hovering over any activity gives you options to reply, edit, spam mark, "
+"or delete that activity."
 msgstr ""
 
 #: bp-activity/bp-activity-admin.php:289
 msgid ""
 "In the <strong>In Response To</strong> column, if the activity was in reply to "
-"another activity, it shows that activity's author's picture and name, and a "
-"link to that activity on your live site. If there is a small bubble, the number "
-"in it shows how many other activities are related to this one; these are "
-"usually comments. Clicking the bubble will filter the activity screen to show "
-"only related activity items."
+"another activity, it shows that activity's author's picture and name, and a link to "
+"that activity on your live site. If there is a small bubble, the number in it shows "
+"how many other activities are related to this one; these are usually comments. "
+"Clicking the bubble will filter the activity screen to show only related activity "
+"items."
 msgstr ""
 
 #. translators: accessibility text
@@ -364,8 +359,8 @@ msgstr "پیوند"
 
 #: bp-activity/bp-activity-admin.php:802
 msgid ""
-"Activity generated by posts and comments uses the link field for a permalink "
-"back to the content item."
+"Activity generated by posts and comments uses the link field for a permalink back "
+"to the content item."
 msgstr ""
 
 #. translators: accessibility text
@@ -394,8 +389,8 @@ msgstr ""
 
 #: bp-activity/bp-activity-admin.php:925
 msgid ""
-"These identify the object that created this activity. For example, the fields "
-"could reference a pair of site and comment IDs."
+"These identify the object that created this activity. For example, the fields could "
+"reference a pair of site and comment IDs."
 msgstr ""
 
 #: bp-activity/bp-activity-admin.php:964
@@ -587,12 +582,10 @@ msgid_plural "Viewing %1$s - %2$s of %3$s items"
 msgstr[0] "در حال دیدن %1$s تا %2$s از همهٔ %3$s مورد"
 msgstr[1] "در حال دیدن %1$s تا %2$s از همهٔ %3$s مورد"
 
-#: bp-activity/bp-activity-template.php:1037
-#: bp-activity/bp-activity-template.php:1206
+#: bp-activity/bp-activity-template.php:1037 bp-activity/bp-activity-template.php:1206
 #: bp-activity/bp-activity-template.php:1217
 #: bp-activity/classes/class-bp-activity-component.php:418
-#: bp-blogs/classes/class-bp-blogs-component.php:332
-#: bp-core/deprecated/2.1.php:459
+#: bp-blogs/classes/class-bp-blogs-component.php:332 bp-core/deprecated/2.1.php:459
 #: bp-friends/classes/class-bp-friends-component.php:304
 #: bp-groups/bp-groups-template.php:1631 bp-groups/bp-groups-template.php:1663
 #: bp-groups/bp-groups-template.php:2273 bp-groups/bp-groups-template.php:2289
@@ -661,8 +654,7 @@ msgstr "حذف"
 
 #: bp-activity/bp-activity-template.php:2747
 #: bp-core/admin/bp-core-admin-functions.php:1017
-#: bp-core/admin/bp-core-admin-slugs.php:148
-#: bp-core/admin/bp-core-admin-slugs.php:219
+#: bp-core/admin/bp-core-admin-slugs.php:148 bp-core/admin/bp-core-admin-slugs.php:219
 #: bp-groups/classes/class-bp-groups-list-table.php:533
 #: bp-members/bp-members-template.php:1048
 #: bp-templates/bp-legacy/buddypress-functions.php:304
@@ -785,8 +777,7 @@ msgid "Replies disabled"
 msgstr ""
 
 #: bp-activity/classes/class-bp-activity-list-table.php:609
-#: bp-core/bp-core-cssjs.php:165
-#: bp-templates/bp-nouveau/buddypress-functions.php:376
+#: bp-core/bp-core-cssjs.php:165 bp-templates/bp-nouveau/buddypress-functions.php:376
 msgid "Are you sure?"
 msgstr "آیا اطمینان دارید؟"
 
@@ -884,10 +875,8 @@ msgid "A member mentions you in an update using \"@%s\""
 msgstr "یکی از اعضاء در یک به‌روزرسانی با استفاده از «@%s» به شما اشاره کند"
 
 #. translators: accessibility text
-#: bp-activity/screens/settings-email.php:48
-#: bp-activity/screens/settings-email.php:62
-#: bp-friends/screens/settings-email.php:39
-#: bp-friends/screens/settings-email.php:51
+#: bp-activity/screens/settings-email.php:48 bp-activity/screens/settings-email.php:62
+#: bp-friends/screens/settings-email.php:39 bp-friends/screens/settings-email.php:51
 #: bp-groups/screens/user/settings-email.php:50
 #: bp-groups/screens/user/settings-email.php:62
 #: bp-groups/screens/user/settings-email.php:74
@@ -898,10 +887,8 @@ msgid "Yes, send email"
 msgstr "بله، ایمیل ارسال شود"
 
 #. translators: accessibility text
-#: bp-activity/screens/settings-email.php:52
-#: bp-activity/screens/settings-email.php:66
-#: bp-friends/screens/settings-email.php:43
-#: bp-friends/screens/settings-email.php:55
+#: bp-activity/screens/settings-email.php:52 bp-activity/screens/settings-email.php:66
+#: bp-friends/screens/settings-email.php:43 bp-friends/screens/settings-email.php:55
 #: bp-groups/screens/user/settings-email.php:54
 #: bp-groups/screens/user/settings-email.php:66
 #: bp-groups/screens/user/settings-email.php:78
@@ -1009,17 +996,17 @@ msgstr "خطایی رخ داده است، فرم را تصحیح کرده و د�
 
 #: bp-blogs/bp-blogs-template.php:1029
 msgid ""
-"By filling out the form below, you can <strong>add a site to your account</"
-"strong>. There is no limit to the number of sites that you can have, so create "
-"to your heart's content, but blog responsibly!"
+"By filling out the form below, you can <strong>add a site to your account</strong>. "
+"There is no limit to the number of sites that you can have, so create to your "
+"heart's content, but blog responsibly!"
 msgstr ""
-"به کمک فرم زیر می‌توانید <strong>سایت جدیدی را به حساب خودتان</strong> "
-"بیافزایید. محدودیتی برای تعداد سایت‌های شما وجود ندارد."
+"به کمک فرم زیر می‌توانید <strong>سایت جدیدی را به حساب خودتان</strong> بیافزایید. "
+"محدودیتی برای تعداد سایت‌های شما وجود ندارد."
 
 #: bp-blogs/bp-blogs-template.php:1031
 msgid ""
-"If you&#8217;re not going to use a great domain, leave it for a new user. Now "
-"have at it!"
+"If you&#8217;re not going to use a great domain, leave it for a new user. Now have "
+"at it!"
 msgstr ""
 
 #: bp-blogs/bp-blogs-template.php:1047
@@ -1048,11 +1035,11 @@ msgstr "دامنه."
 
 #: bp-blogs/bp-blogs-template.php:1093
 msgid ""
-"Must be at least 4 characters, letters and numbers only. It cannot be changed "
-"so choose carefully!)"
+"Must be at least 4 characters, letters and numbers only. It cannot be changed so "
+"choose carefully!)"
 msgstr ""
-"باید حداقل دارای ۴ نویسه باشد، تنها حروف و اعداد پذیرفته می‌شوند. بهتر است با "
-"دقت انتخاب کنید که قابل تغییر نیست!"
+"باید حداقل دارای ۴ نویسه باشد، تنها حروف و اعداد پذیرفته می‌شوند. بهتر است با دقت "
+"انتخاب کنید که قابل تغییر نیست!"
 
 #: bp-blogs/bp-blogs-template.php:1099
 msgid "Site Title:"
@@ -1060,8 +1047,8 @@ msgstr "عنوان سایت:"
 
 #: bp-blogs/bp-blogs-template.php:1110
 msgid ""
-"Privacy: I would like my site to appear in search engines, and in public "
-"listings around this network"
+"Privacy: I would like my site to appear in search engines, and in public listings "
+"around this network"
 msgstr ""
 
 #: bp-blogs/bp-blogs-template.php:1222
@@ -1185,40 +1172,35 @@ msgstr "کامپوننت‌ها"
 msgid "Save Settings"
 msgstr "ذخیره تنظیمات"
 
-#: bp-core/admin/bp-core-admin-components.php:67
-#: bp-core/bp-core-functions.php:2464
+#: bp-core/admin/bp-core-admin-components.php:67 bp-core/bp-core-functions.php:2464
 msgid "Extended Profiles"
 msgstr "نمایه‌ها"
 
-#: bp-core/admin/bp-core-admin-components.php:68
-#: bp-core/bp-core-functions.php:2465
+#: bp-core/admin/bp-core-admin-components.php:68 bp-core/bp-core-functions.php:2465
 msgid ""
-"Customize your community with fully editable profile fields that allow your "
-"users to describe themselves."
+"Customize your community with fully editable profile fields that allow your users "
+"to describe themselves."
 msgstr ""
 
-#: bp-core/admin/bp-core-admin-components.php:71
-#: bp-core/bp-core-functions.php:2468
+#: bp-core/admin/bp-core-admin-components.php:71 bp-core/bp-core-functions.php:2468
 msgid "Account Settings"
 msgstr "تنظیمات حساب کاربری"
 
-#: bp-core/admin/bp-core-admin-components.php:72
-#: bp-core/bp-core-functions.php:2469
+#: bp-core/admin/bp-core-admin-components.php:72 bp-core/bp-core-functions.php:2469
 msgid ""
-"Allow your users to modify their account and notification settings directly "
-"from within their profiles."
+"Allow your users to modify their account and notification settings directly from "
+"within their profiles."
 msgstr ""
 
 #. translators: accessibility text
-#: bp-core/admin/bp-core-admin-components.php:75
-#: bp-core/bp-core-functions.php:2484 bp-core/deprecated/2.1.php:530
+#: bp-core/admin/bp-core-admin-components.php:75 bp-core/bp-core-functions.php:2484
+#: bp-core/deprecated/2.1.php:530
 #: bp-notifications/classes/class-bp-notifications-component.php:288
 #: bp-templates/bp-legacy/buddypress/members/single/notifications/read.php:15
 msgid "Notifications"
 msgstr "آگاه‌سازی‌ها"
 
-#: bp-core/admin/bp-core-admin-components.php:76
-#: bp-core/bp-core-functions.php:2485
+#: bp-core/admin/bp-core-admin-components.php:76 bp-core/bp-core-functions.php:2485
 msgid ""
 "Notify members of relevant activity with a toolbar bubble and/or via email, and "
 "allow them to customize their notification settings."
@@ -1289,22 +1271,22 @@ msgstr ""
 
 #: bp-core/admin/bp-core-admin-functions.php:108
 msgid ""
-"Don't worry! We've moved the BuddyPress options into more convenient and easier "
-"to find locations. You're seeing this page because you are running a legacy "
-"BuddyPress plugin which has not been updated."
+"Don't worry! We've moved the BuddyPress options into more convenient and easier to "
+"find locations. You're seeing this page because you are running a legacy BuddyPress "
+"plugin which has not been updated."
 msgstr ""
 
 #: bp-core/admin/bp-core-admin-functions.php:109
 msgid ""
-"Components, Pages, Settings, and Forums, have been moved to <a href=\"%s"
-"\">Settings &gt; BuddyPress</a>. Profile Fields has been moved into the <a href="
-"\"%s\">Users</a> menu."
+"Components, Pages, Settings, and Forums, have been moved to <a href=\"%s\">Settings "
+"&gt; BuddyPress</a>. Profile Fields has been moved into the <a href=\"%s\">Users</"
+"a> menu."
 msgstr ""
 
 #: bp-core/admin/bp-core-admin-functions.php:243
 msgid ""
-"<strong>BuddyPress is almost ready</strong>. You must <a href=\"%s\">update "
-"your permalink structure</a> to something other than the default for it to work."
+"<strong>BuddyPress is almost ready</strong>. You must <a href=\"%s\">update your "
+"permalink structure</a> to something other than the default for it to work."
 msgstr ""
 
 #: bp-core/admin/bp-core-admin-functions.php:270
@@ -1326,8 +1308,8 @@ msgstr "نام‌نویسی"
 
 #: bp-core/admin/bp-core-admin-functions.php:296
 msgid ""
-"The following active BuddyPress Components do not have associated WordPress "
-"Pages: %s."
+"The following active BuddyPress Components do not have associated WordPress Pages: "
+"%s."
 msgstr "این کامپوننت‌های فعال بادی‌پرس، با برگه‌ای در وردپرس مرتبط نشده‌اند: %s"
 
 #: bp-core/admin/bp-core-admin-functions.php:300
@@ -1378,29 +1360,28 @@ msgstr ""
 #: bp-core/admin/bp-core-admin-functions.php:553
 msgid ""
 "By default, all but four of the BuddyPress components are enabled. You can "
-"selectively enable or disable any of the components by using the form below. "
-"Your BuddyPress installation will continue to function. However, the features "
-"of the disabled components will no longer be accessible to anyone using the "
-"site."
+"selectively enable or disable any of the components by using the form below. Your "
+"BuddyPress installation will continue to function. However, the features of the "
+"disabled components will no longer be accessible to anyone using the site."
 msgstr ""
 
 #: bp-core/admin/bp-core-admin-functions.php:557
 msgid ""
-"BuddyPress Components use WordPress Pages for their root directory/archive "
-"pages. You can change the page associations for each active component by using "
-"the form below."
+"BuddyPress Components use WordPress Pages for their root directory/archive pages. "
+"You can change the page associations for each active component by using the form "
+"below."
 msgstr ""
 
 #: bp-core/admin/bp-core-admin-functions.php:561
 msgid ""
-"Extra configuration settings are provided and activated. You can selectively "
-"enable or disable any setting by using the form on this screen."
+"Extra configuration settings are provided and activated. You can selectively enable "
+"or disable any setting by using the form on this screen."
 msgstr ""
 
 #: bp-core/admin/bp-core-admin-functions.php:565
 msgid ""
-"Your users will distinguish themselves through their profile page. Create "
-"relevant profile fields that will show on each users profile."
+"Your users will distinguish themselves through their profile page. Create relevant "
+"profile fields that will show on each users profile."
 msgstr ""
 
 #: bp-core/admin/bp-core-admin-functions.php:565
@@ -1423,8 +1404,8 @@ msgstr "وارد نشده"
 
 #: bp-core/admin/bp-core-admin-functions.php:768
 msgid ""
-"<em>Logged-In</em> links are relative to the current user, and are not visible "
-"to visitors who are not logged in."
+"<em>Logged-In</em> links are relative to the current user, and are not visible to "
+"visitors who are not logged in."
 msgstr ""
 
 #: bp-core/admin/bp-core-admin-functions.php:777
@@ -1447,12 +1428,11 @@ msgstr ""
 
 #: bp-core/admin/bp-core-admin-functions.php:864
 msgid ""
-"Phrases wrapped in braces <code>{{ }}</code> are email tokens. <a href=\"%s"
-"\">Learn about tokens on the BuddyPress Codex</a>."
+"Phrases wrapped in braces <code>{{ }}</code> are email tokens. <a href=\"%s\">Learn "
+"about tokens on the BuddyPress Codex</a>."
 msgstr ""
-"عبارات محصور در آکولاد <code>{{ }}</code> اختصاص به نشانه‌های ایمیل دارند. <a "
-"href=\"%s\">برای اطلاعات بیشتر در مورد نشانه‌ها، مستندات بادی‌پرس را مرور کنید</"
-"a>."
+"عبارات محصور در آکولاد <code>{{ }}</code> اختصاص به نشانه‌های ایمیل دارند. <a href="
+"\"%s\">برای اطلاعات بیشتر در مورد نشانه‌ها، مستندات بادی‌پرس را مرور کنید</a>."
 
 #: bp-core/admin/bp-core-admin-functions.php:907
 msgid "Choose when this email will be sent."
@@ -1466,16 +1446,16 @@ msgstr "متن خام ایمیل"
 
 #: bp-core/admin/bp-core-admin-functions.php:941
 msgid ""
-"Most email clients support HTML email. However, some people prefer to receive "
-"plain text email. Enter a plain text alternative version of your email here."
+"Most email clients support HTML email. However, some people prefer to receive plain "
+"text email. Enter a plain text alternative version of your email here."
 msgstr ""
 
 #: bp-core/admin/bp-core-admin-functions.php:1069 bp-core/deprecated/3.0.php:136
 #: bp-members/classes/class-bp-members-admin.php:365
 msgid "User marked as spammer. Spam users are visible only to site admins."
 msgstr ""
-"کاربر به عنوان هرز نویس شناخته شد. کاربران هرزنویس تنها برای مدیران سایت قابل "
-"رویت هستند."
+"کاربر به عنوان هرز نویس شناخته شد. کاربران هرزنویس تنها برای مدیران سایت قابل رویت "
+"هستند."
 
 #: bp-core/admin/bp-core-admin-functions.php:1071
 msgid "User removed from spam."
@@ -1523,7 +1503,7 @@ msgstr ""
 
 #: bp-core/admin/bp-core-admin-settings.php:220
 msgid "Enable group creation for all users"
-msgstr ""
+msgstr "فعال کردن ایجاد گروه برای همه کاربران"
 
 #: bp-core/admin/bp-core-admin-settings.php:221
 msgid "Administrators can always create groups, regardless of this setting."
@@ -1544,11 +1524,9 @@ msgstr "دایرکتوری‌ها"
 #: bp-core/admin/bp-core-admin-slugs.php:123
 msgid "Associate a WordPress Page with each BuddyPress component directory."
 msgstr ""
-"برگه‌های وردپرس را برای ارتباط با دایرکتوری هر یک از کامپوننت‌های بادی‌پرس انتخاب "
-"کنید."
+"برگه‌های وردپرس را برای ارتباط با دایرکتوری هر یک از کامپوننت‌های بادی‌پرس انتخاب کنید."
 
-#: bp-core/admin/bp-core-admin-slugs.php:142
-#: bp-core/admin/bp-core-admin-slugs.php:213
+#: bp-core/admin/bp-core-admin-slugs.php:142 bp-core/admin/bp-core-admin-slugs.php:213
 msgid "- None -"
 msgstr "&ndash; هیچ‌کدام &ndash;"
 
@@ -1557,29 +1535,26 @@ msgid "Registration"
 msgstr "نام‌نویسی"
 
 #: bp-core/admin/bp-core-admin-slugs.php:187
-msgid ""
-"Associate WordPress Pages with the following BuddyPress Registration pages."
+msgid "Associate WordPress Pages with the following BuddyPress Registration pages."
 msgstr "برگه‌های وردپرس را برای ارتباط با صفحات نام‌نویسی بادی‌پرس انتخاب کنید."
 
 #: bp-core/admin/bp-core-admin-slugs.php:190
 msgid ""
-"Registration is currently disabled.  Before associating a page is allowed, "
-"please enable registration by selecting either the \"User accounts may be "
-"registered\" or \"Both sites and user accounts can be registered\" option on <a "
-"href=\"%s\">this page</a>."
+"Registration is currently disabled.  Before associating a page is allowed, please "
+"enable registration by selecting either the \"User accounts may be registered\" or "
+"\"Both sites and user accounts can be registered\" option on <a href=\"%s\">this "
+"page</a>."
 msgstr ""
 
 #: bp-core/admin/bp-core-admin-slugs.php:192
 msgid ""
-"Registration is currently disabled.  Before associating a page is allowed, "
-"please enable registration by clicking on the \"Anyone can register\" checkbox "
-"on <a href=\"%s\">this page</a>."
+"Registration is currently disabled.  Before associating a page is allowed, please "
+"enable registration by clicking on the \"Anyone can register\" checkbox on <a href="
+"\"%s\">this page</a>."
 msgstr ""
 
-#: bp-core/admin/bp-core-admin-tools.php:22
-#: bp-core/admin/bp-core-admin-tools.php:407
-#: bp-core/admin/bp-core-admin-tools.php:410
-#: bp-core/classes/class-bp-admin.php:296
+#: bp-core/admin/bp-core-admin-tools.php:22 bp-core/admin/bp-core-admin-tools.php:407
+#: bp-core/admin/bp-core-admin-tools.php:410 bp-core/classes/class-bp-admin.php:296
 msgid "BuddyPress Tools"
 msgstr "ابزارهای بادی‌پرس"
 
@@ -1596,8 +1571,8 @@ msgstr ""
 
 #: bp-core/admin/bp-core-admin-tools.php:27
 msgid ""
-"Some of these tools create substantial database overhead. Avoid running more "
-"than one repair job at a time."
+"Some of these tools create substantial database overhead. Avoid running more than "
+"one repair job at a time."
 msgstr ""
 
 #: bp-core/admin/bp-core-admin-tools.php:32
@@ -1636,16 +1611,13 @@ msgstr "بازسازی ایمیل‌ها (حذف و بازنشانی از پیش
 msgid "Counting the number of friends for each user&hellip; %s"
 msgstr ""
 
-#: bp-core/admin/bp-core-admin-tools.php:177
-#: bp-core/admin/bp-core-admin-tools.php:235
+#: bp-core/admin/bp-core-admin-tools.php:177 bp-core/admin/bp-core-admin-tools.php:235
 #: bp-core/admin/bp-core-admin-tools.php:280
 msgid "Failed!"
 msgstr "ناموفق!"
 
-#: bp-core/admin/bp-core-admin-tools.php:217
-#: bp-core/admin/bp-core-admin-tools.php:264
-#: bp-core/admin/bp-core-admin-tools.php:292
-#: bp-core/admin/bp-core-admin-tools.php:308
+#: bp-core/admin/bp-core-admin-tools.php:217 bp-core/admin/bp-core-admin-tools.php:264
+#: bp-core/admin/bp-core-admin-tools.php:292 bp-core/admin/bp-core-admin-tools.php:308
 #: bp-core/admin/bp-core-admin-tools.php:321
 msgid "Complete!"
 msgstr "تمام!"
@@ -1666,16 +1638,16 @@ msgstr ""
 msgid "Determining last activity dates for each user&hellip; %s"
 msgstr ""
 
-#: bp-core/admin/bp-core-admin-tools.php:378
-#: bp-core/classes/class-bp-admin.php:273 bp-core/classes/class-bp-admin.php:274
+#: bp-core/admin/bp-core-admin-tools.php:378 bp-core/classes/class-bp-admin.php:273
+#: bp-core/classes/class-bp-admin.php:274
 msgid "Tools"
 msgstr "ابزارها"
 
 #: bp-core/admin/bp-core-admin-tools.php:409
 msgid ""
-"BuddyPress keeps track of various relationships between users, groups, and "
-"activity items. Occasionally these relationships become out of sync, most often "
-"after an import, update, or migration."
+"BuddyPress keeps track of various relationships between users, groups, and activity "
+"items. Occasionally these relationships become out of sync, most often after an "
+"import, update, or migration."
 msgstr ""
 
 #: bp-core/admin/bp-core-admin-tools.php:468
@@ -1723,8 +1695,7 @@ msgstr[1] ""
 #. translators: 1: BuddyPress version number, 2: plural number of bugs.
 #. Singular security issue.
 #: bp-core/bp-core-admin.php:44
-msgid ""
-"<strong>Version %1$s</strong> addressed a security issue and fixed %2$s bug."
+msgid "<strong>Version %1$s</strong> addressed a security issue and fixed %2$s bug."
 msgid_plural ""
 "<strong>Version %1$s</strong> addressed a security issue and fixed %2$s bugs."
 msgstr[0] ""
@@ -1736,8 +1707,7 @@ msgstr[1] ""
 msgid ""
 "<strong>Version %1$s</strong> addressed some security issues and fixed %2$s bug."
 msgid_plural ""
-"<strong>Version %1$s</strong> addressed some security issues and fixed %2$s "
-"bugs."
+"<strong>Version %1$s</strong> addressed some security issues and fixed %2$s bugs."
 msgstr[0] ""
 msgstr[1] ""
 
@@ -1809,8 +1779,8 @@ msgstr ""
 
 #: bp-core/bp-core-attachments.php:663
 msgid ""
-"%s exceeds the maximum upload size for the multi-file uploader when used in "
-"your browser."
+"%s exceeds the maximum upload size for the multi-file uploader when used in your "
+"browser."
 msgstr ""
 
 #: bp-core/bp-core-attachments.php:664
@@ -1847,8 +1817,8 @@ msgstr ""
 
 #: bp-core/bp-core-attachments.php:672
 msgid ""
-"If you&#39;d like to delete the existing profile photo but not upload a new "
-"one, please use the delete tab."
+"If you&#39;d like to delete the existing profile photo but not upload a new one, "
+"please use the delete tab."
 msgstr ""
 
 #: bp-core/bp-core-attachments.php:774
@@ -1873,8 +1843,8 @@ msgstr "دوربین آماده است. برای ذخیره تصویر روی د
 
 #: bp-core/bp-core-attachments.php:789
 msgid ""
-"It looks like you do not have a webcam or we were unable to get permission to "
-"use your webcam. Please upload a photo instead."
+"It looks like you do not have a webcam or we were unable to get permission to use "
+"your webcam. Please upload a photo instead."
 msgstr ""
 
 #: bp-core/bp-core-attachments.php:790
@@ -1886,8 +1856,7 @@ msgid "Video error. Please upload a photo instead."
 msgstr ""
 
 #: bp-core/bp-core-attachments.php:792
-msgid ""
-"Your profile photo is ready. Click on the \"Save\" button to use this photo."
+msgid "Your profile photo is ready. Click on the \"Save\" button to use this photo."
 msgstr ""
 
 #: bp-core/bp-core-attachments.php:793
@@ -1896,11 +1865,11 @@ msgstr ""
 
 #: bp-core/bp-core-attachments.php:840
 msgid ""
-"For better results, make sure to upload an image that is larger than %1$spx "
-"wide, and %2$spx tall."
+"For better results, make sure to upload an image that is larger than %1$spx wide, "
+"and %2$spx tall."
 msgstr ""
-"بهتر است پرونده‌ای که بارگذاری می‌کنید، عرضی بیشتر از %1$s پیکسل و طولی بیشتر از "
-"%2$s پیکسل داشته باشد."
+"بهتر است پرونده‌ای که بارگذاری می‌کنید، عرضی بیشتر از %1$s پیکسل و طولی بیشتر از %2$s "
+"پیکسل داشته باشد."
 
 #: bp-core/bp-core-attachments.php:1342 bp-core/bp-core-avatars.php:902
 msgid "Upload Failed! Error was: %s"
@@ -1966,20 +1935,17 @@ msgstr ""
 msgid "Highlight color"
 msgstr ""
 
-#: bp-core/bp-core-customizer-email.php:293
-#: bp-core/bp-core-customizer-email.php:322
+#: bp-core/bp-core-customizer-email.php:293 bp-core/bp-core-customizer-email.php:322
 #: bp-core/bp-core-customizer-email.php:359
 msgid "Text color"
 msgstr ""
 
-#: bp-core/bp-core-customizer-email.php:300
-#: bp-core/bp-core-customizer-email.php:329
+#: bp-core/bp-core-customizer-email.php:300 bp-core/bp-core-customizer-email.php:329
 #: bp-core/bp-core-customizer-email.php:366
 msgid "Text size"
 msgstr ""
 
-#: bp-core/bp-core-customizer-email.php:314
-#: bp-core/bp-core-customizer-email.php:352
+#: bp-core/bp-core-customizer-email.php:314 bp-core/bp-core-customizer-email.php:352
 msgid "Background color"
 msgstr ""
 
@@ -2079,8 +2045,8 @@ msgstr "ارتباطات دوستانه"
 
 #: bp-core/bp-core-functions.php:2473
 msgid ""
-"Let your users make connections so they can track the activity of others and "
-"focus on the people they care about the most."
+"Let your users make connections so they can track the activity of others and focus "
+"on the people they care about the most."
 msgstr ""
 
 #: bp-core/bp-core-functions.php:2476
@@ -2089,16 +2055,15 @@ msgstr "پیام خصوصی"
 
 #: bp-core/bp-core-functions.php:2477
 msgid ""
-"Allow your users to talk to each other directly and in private. Not just "
-"limited to one-on-one discussions, messages can be sent between any number of "
-"members."
+"Allow your users to talk to each other directly and in private. Not just limited to "
+"one-on-one discussions, messages can be sent between any number of members."
 msgstr ""
 
 #: bp-core/bp-core-functions.php:2481
 msgid ""
 "Global, personal, and group activity streams with threaded commenting, direct "
-"posting, favoriting, and @mentions, all with full RSS feed and email "
-"notification support."
+"posting, favoriting, and @mentions, all with full RSS feed and email notification "
+"support."
 msgstr ""
 
 #: bp-core/bp-core-functions.php:2488
@@ -2124,15 +2089,13 @@ msgid "Record activity for new sites, posts, and comments across your network."
 msgstr ""
 
 #: bp-core/bp-core-functions.php:2563
-#: bp-core/classes/class-bp-core-login-widget.php:84
-#: bp-core/deprecated/1.5.php:313 bp-core/deprecated/2.1.php:258
-#: bp-members/bp-members-template.php:1366
+#: bp-core/classes/class-bp-core-login-widget.php:84 bp-core/deprecated/1.5.php:313
+#: bp-core/deprecated/2.1.php:258 bp-members/bp-members-template.php:1366
 msgid "Log Out"
 msgstr "خروج"
 
 #: bp-core/bp-core-functions.php:2628
-#: bp-core/classes/class-bp-core-login-widget.php:116
-#: bp-core/deprecated/2.1.php:190
+#: bp-core/classes/class-bp-core-login-widget.php:116 bp-core/deprecated/2.1.php:190
 msgid "Log In"
 msgstr "ورود"
 
@@ -2148,8 +2111,8 @@ msgid ""
 "\n"
 "<blockquote>&quot;{{usermessage}}&quot;</blockquote>\n"
 "\n"
-"<a href=\"{{{thread.url}}}\">Go to the discussion</a> to reply or catch up on "
-"the conversation."
+"<a href=\"{{{thread.url}}}\">Go to the discussion</a> to reply or catch up on the "
+"conversation."
 msgstr ""
 
 #. translators: do not remove {} brackets or translate its contents.
@@ -2174,8 +2137,8 @@ msgid ""
 "\n"
 "<blockquote>&quot;{{usermessage}}&quot;</blockquote>\n"
 "\n"
-"<a href=\"{{{thread.url}}}\">Go to the discussion</a> to reply or catch up on "
-"the conversation."
+"<a href=\"{{{thread.url}}}\">Go to the discussion</a> to reply or catch up on the "
+"conversation."
 msgstr ""
 
 #. translators: do not remove {} brackets or translate its contents.
@@ -2191,8 +2154,7 @@ msgstr ""
 #. translators: do not remove {} brackets or translate its contents.
 #: bp-core/bp-core-functions.php:3370
 msgid "[{{{site.name}}}] {{poster.name}} mentioned you in a status update"
-msgstr ""
-"[{{{site.name}}}] {{poster.name}} به نام شما در یک به‌روزرسانی وضعیت اشاره کرد"
+msgstr "[{{{site.name}}}] {{poster.name}} به نام شما در یک به‌روزرسانی وضعیت اشاره کرد"
 
 #. translators: do not remove {} brackets or translate its contents.
 #: bp-core/bp-core-functions.php:3372
@@ -2201,8 +2163,8 @@ msgid ""
 "\n"
 "<blockquote>&quot;{{usermessage}}&quot;</blockquote>\n"
 "\n"
-"<a href=\"{{{mentioned.url}}}\">Go to the discussion</a> to reply or catch up "
-"on the conversation."
+"<a href=\"{{{mentioned.url}}}\">Go to the discussion</a> to reply or catch up on "
+"the conversation."
 msgstr ""
 
 #. translators: do not remove {} brackets or translate its contents.
@@ -2212,8 +2174,7 @@ msgid ""
 "\n"
 "\"{{usermessage}}\"\n"
 "\n"
-"Go to the discussion to reply or catch up on the conversation: {{{mentioned."
-"url}}}"
+"Go to the discussion to reply or catch up on the conversation: {{{mentioned.url}}}"
 msgstr ""
 
 #. translators: do not remove {} brackets or translate its contents.
@@ -2228,8 +2189,8 @@ msgid ""
 "\n"
 "<blockquote>&quot;{{usermessage}}&quot;</blockquote>\n"
 "\n"
-"<a href=\"{{{mentioned.url}}}\">Go to the discussion</a> to reply or catch up "
-"on the conversation."
+"<a href=\"{{{mentioned.url}}}\">Go to the discussion</a> to reply or catch up on "
+"the conversation."
 msgstr ""
 
 #. translators: do not remove {} brackets or translate its contents.
@@ -2239,8 +2200,7 @@ msgid ""
 "\n"
 "\"{{usermessage}}\"\n"
 "\n"
-"Go to the discussion to reply or catch up on the conversation: {{{mentioned."
-"url}}}"
+"Go to the discussion to reply or catch up on the conversation: {{{mentioned.url}}}"
 msgstr ""
 
 #. translators: do not remove {} brackets or translate its contents.
@@ -2256,8 +2216,8 @@ msgid ""
 "To complete the activation of your account, go to the following link: <a href="
 "\"{{{activate.url}}}\">{{{activate.url}}}</a>"
 msgstr ""
-"عضویت شما را در سایت تبریک می‌گوییم. لطفاً برای فعال‌سازی حساب کاربری خود روی "
-"پیوند زیر کلیک کنید.\n"
+"عضویت شما را در سایت تبریک می‌گوییم. لطفاً برای فعال‌سازی حساب کاربری خود روی پیوند "
+"زیر کلیک کنید.\n"
 "\n"
 "<a href=\"{{{activate.url}}}\">{{{activate.url}}}</a>"
 
@@ -2266,11 +2226,11 @@ msgstr ""
 msgid ""
 "Thanks for registering!\n"
 "\n"
-"To complete the activation of your account, go to the following link: "
-"{{{activate.url}}}"
+"To complete the activation of your account, go to the following link: {{{activate."
+"url}}}"
 msgstr ""
-"عضویت شما را در سایت تبریک می‌گوییم. لطفاً برای فعال‌سازی حساب کاربری خود روی "
-"پیوند زیر کلیک کنید.\n"
+"عضویت شما را در سایت تبریک می‌گوییم. لطفاً برای فعال‌سازی حساب کاربری خود روی پیوند "
+"زیر کلیک کنید.\n"
 "\n"
 "{{{activate.url}}}"
 
@@ -2284,8 +2244,8 @@ msgstr "[{{{site.name}}}] فعال‌سازی {{{user-site.url}}}"
 msgid ""
 "Thanks for registering!\n"
 "\n"
-"To complete the activation of your account and site, go to the following link: "
-"<a href=\"{{{activate-site.url}}}\">{{{activate-site.url}}}</a>.\n"
+"To complete the activation of your account and site, go to the following link: <a "
+"href=\"{{{activate-site.url}}}\">{{{activate-site.url}}}</a>.\n"
 "\n"
 "After you activate, you can visit your site at <a href=\"{{{user-site."
 "url}}}\">{{{user-site.url}}}</a>."
@@ -2322,8 +2282,8 @@ msgstr ""
 msgid ""
 "{{initiator.name}} wants to add you as a friend.\n"
 "\n"
-"To accept this request and manage all of your pending requests, visit: "
-"{{{friend-requests.url}}}\n"
+"To accept this request and manage all of your pending requests, visit: {{{friend-"
+"requests.url}}}\n"
 "\n"
 "To view {{initiator.name}}'s profile, visit: {{{initiator.url}}}"
 msgstr ""
@@ -2336,11 +2296,9 @@ msgstr "[{{{site.name}}}] {{poster.name}} با درخواست دوستی شما 
 #. translators: do not remove {} brackets or translate its contents.
 #: bp-core/bp-core-functions.php:3418
 msgid ""
-"<a href=\"{{{friendship.url}}}\">{{friend.name}}</a> accepted your friend "
-"request."
+"<a href=\"{{{friendship.url}}}\">{{friend.name}}</a> accepted your friend request."
 msgstr ""
-"<a href=\"{{{friendship.url}}}\">{{friend.name}}</a> درخواست دوستی شما را "
-"پذیرفت."
+"<a href=\"{{{friendship.url}}}\">{{friend.name}}</a> درخواست دوستی شما را پذیرفت."
 
 #. translators: do not remove {} brackets or translate its contents.
 #: bp-core/bp-core-functions.php:3420
@@ -2434,9 +2392,9 @@ msgstr "[{{{site.name}}}] درخواست پیوستن به گروه «{{group.na
 #. translators: do not remove {} brackets or translate its contents.
 #: bp-core/bp-core-functions.php:3450
 msgid ""
-"<a href=\"{{{profile.url}}}\">{{requesting-user.name}}</a> wants to join the "
-"group &quot;{{group.name}}&quot;. As you are an administrator of this group, "
-"you must either accept or reject the membership request.\n"
+"<a href=\"{{{profile.url}}}\">{{requesting-user.name}}</a> wants to join the group "
+"&quot;{{group.name}}&quot;. As you are an administrator of this group, you must "
+"either accept or reject the membership request.\n"
 "\n"
 "<a href=\"{{{group-requests.url}}}\">Go here to manage this</a> and all other "
 "pending requests."
@@ -2445,9 +2403,9 @@ msgstr ""
 #. translators: do not remove {} brackets or translate its contents.
 #: bp-core/bp-core-functions.php:3452
 msgid ""
-"{{requesting-user.name}} wants to join the group \"{{group.name}}\". As you are "
-"the administrator of this group, you must either accept or reject the "
-"membership request.\n"
+"{{requesting-user.name}} wants to join the group \"{{group.name}}\". As you are the "
+"administrator of this group, you must either accept or reject the membership "
+"request.\n"
 "\n"
 "To manage this and all other pending requests, visit: {{{group-requests.url}}}\n"
 "\n"
@@ -2466,15 +2424,14 @@ msgid ""
 "\n"
 "<blockquote>&quot;{{usermessage}}&quot;</blockquote>\n"
 "\n"
-"<a href=\"{{{message.url}}}\">Go to the discussion</a> to reply or catch up on "
-"the conversation."
+"<a href=\"{{{message.url}}}\">Go to the discussion</a> to reply or catch up on the "
+"conversation."
 msgstr ""
 "{{sender.name}} برای شما پیام تازه فرستاده است: &quot;{{usersubject}}&quot;\n"
 "\n"
 "<blockquote>&quot;{{usermessage}}&quot;</blockquote>\n"
 "\n"
-"برای یادآوری و یا ادامه این گفت‌وگو به <a href=\"{{{message.url}}}\">اینجا</a> "
-"بروید."
+"برای یادآوری و یا ادامه این گفت‌وگو به <a href=\"{{{message.url}}}\">اینجا</a> بروید."
 
 #. translators: do not remove {} brackets or translate its contents.
 #: bp-core/bp-core-functions.php:3460
@@ -2500,8 +2457,8 @@ msgstr "[{{{site.name}}}] نشانی تازه ایمیل خودتان را تأ�
 #: bp-core/bp-core-functions.php:3466
 msgid ""
 "You recently changed the email address associated with your account on {{site."
-"name}} to {{user.email}}. If this is correct, <a href=\"{{{verify.url}}}\">go "
-"here to confirm the change</a>.\n"
+"name}} to {{user.email}}. If this is correct, <a href=\"{{{verify.url}}}\">go here "
+"to confirm the change</a>.\n"
 "\n"
 "Otherwise, you can safely ignore and delete this email if you have changed your "
 "mind, or if you think you have received this email in error."
@@ -2511,8 +2468,8 @@ msgstr ""
 #: bp-core/bp-core-functions.php:3468
 msgid ""
 "You recently changed the email address associated with your account on {{site."
-"name}} to {{user.email}}. If this is correct, go to the following link to "
-"confirm the change: {{{verify.url}}}\n"
+"name}} to {{user.email}}. If this is correct, go to the following link to confirm "
+"the change: {{{verify.url}}}\n"
 "\n"
 "Otherwise, you can safely ignore and delete this email if you have changed your "
 "mind, or if you think you have received this email in error."
@@ -2521,8 +2478,7 @@ msgstr ""
 #. translators: do not remove {} brackets or translate its contents.
 #: bp-core/bp-core-functions.php:3472
 msgid "[{{{site.name}}}] Membership request for group \"{{group.name}}\" accepted"
-msgstr ""
-"[{{{site.name}}}] با درخواست پیوستن شما به گروه «{{group.name}}» موافقت شد"
+msgstr "[{{{site.name}}}] با درخواست پیوستن شما به گروه «{{group.name}}» موافقت شد"
 
 #. translators: do not remove {} brackets or translate its contents.
 #: bp-core/bp-core-functions.php:3474
@@ -2542,8 +2498,7 @@ msgstr ""
 #. translators: do not remove {} brackets or translate its contents.
 #: bp-core/bp-core-functions.php:3480
 msgid "[{{{site.name}}}] Membership request for group \"{{group.name}}\" rejected"
-msgstr ""
-"[{{{site.name}}}] با درخواست پیوستن شما به گروه «{{group.name}}» مخالفت شد"
+msgstr "[{{{site.name}}}] با درخواست پیوستن شما به گروه «{{group.name}}» مخالفت شد"
 
 #. translators: do not remove {} brackets or translate its contents.
 #: bp-core/bp-core-functions.php:3482
@@ -2566,14 +2521,13 @@ msgstr "یکی از اعضاء به فعالیتی پاسخ داده، که گی
 
 #: bp-core/bp-core-functions.php:3512 bp-core/bp-core-functions.php:3520
 msgid ""
-"You will no longer receive emails when someone replies to an update or comment "
-"you posted."
+"You will no longer receive emails when someone replies to an update or comment you "
+"posted."
 msgstr ""
 
 #: bp-core/bp-core-functions.php:3517
 msgid ""
-"A member has replied to a comment on an activity update that the recipient "
-"posted."
+"A member has replied to a comment on an activity update that the recipient posted."
 msgstr "یکی از اعضاء به دیدگاه فعالیتی پاسخ داده، که گیرنده آن را نوشته است."
 
 #: bp-core/bp-core-functions.php:3525
@@ -2679,8 +2633,7 @@ msgid "Something has gone wrong."
 msgstr ""
 
 #: bp-core/bp-core-functions.php:3669 bp-core/bp-core-functions.php:3675
-msgid ""
-"Please log in and go to your settings to unsubscribe from notification emails."
+msgid "Please log in and go to your settings to unsubscribe from notification emails."
 msgstr ""
 
 #: bp-core/bp-core-functions.php:3680
@@ -2898,15 +2851,15 @@ msgstr "جامعه و پشتیبانی"
 
 #: bp-core/classes/class-bp-admin.php:591
 msgid ""
-"Looking for help? The <a href=\"https://codex.buddypress.org/\">BuddyPress "
-"Codex</a> has you covered."
+"Looking for help? The <a href=\"https://codex.buddypress.org/\">BuddyPress Codex</"
+"a> has you covered."
 msgstr ""
 
 #: bp-core/classes/class-bp-admin.php:592
 msgid ""
-"Can&#8217;t find what you need? Stop by <a href=\"https://buddypress.org/"
-"support/\">our support forums</a>, where active BuddyPress users and developers "
-"are waiting to share tips and more."
+"Can&#8217;t find what you need? Stop by <a href=\"https://buddypress.org/support/"
+"\">our support forums</a>, where active BuddyPress users and developers are waiting "
+"to share tips and more."
 msgstr ""
 
 #: bp-core/classes/class-bp-admin.php:602
@@ -2919,9 +2872,9 @@ msgstr ""
 
 #: bp-core/classes/class-bp-admin.php:607
 msgid ""
-"Allow administrators to change group names and permalinks. Navigate to the "
-"Groups screen in the wp-admin dashboard, click on the Edit link under the Group "
-"name, and adjust as needed."
+"Allow administrators to change group names and permalinks. Navigate to the Groups "
+"screen in the wp-admin dashboard, click on the Edit link under the Group name, and "
+"adjust as needed."
 msgstr ""
 
 #: bp-core/classes/class-bp-admin.php:612
@@ -2940,8 +2893,8 @@ msgstr ""
 
 #: bp-core/classes/class-bp-admin.php:619
 msgid ""
-"Prevent duplicate group invitations from being sent to a user by double-"
-"checking if a group invitation has already been sent to that user."
+"Prevent duplicate group invitations from being sent to a user by double-checking if "
+"a group invitation has already been sent to that user."
 msgstr ""
 
 #: bp-core/classes/class-bp-admin.php:624
@@ -2950,9 +2903,8 @@ msgstr ""
 
 #: bp-core/classes/class-bp-admin.php:626
 msgid ""
-"Replaced HTML title attributes with tooltips which provide additional "
-"information and visual cues where needed on mouse hover and keyboard focus "
-"events."
+"Replaced HTML title attributes with tooltips which provide additional information "
+"and visual cues where needed on mouse hover and keyboard focus events."
 msgstr ""
 
 #: bp-core/classes/class-bp-admin.php:634
@@ -2965,8 +2917,8 @@ msgstr ""
 
 #: bp-core/classes/class-bp-admin.php:638
 msgid ""
-"Redirect non-authenticated users to the login screen and authenticated users to "
-"the message linked."
+"Redirect non-authenticated users to the login screen and authenticated users to the "
+"message linked."
 msgstr ""
 
 #: bp-core/classes/class-bp-admin.php:641
@@ -2975,8 +2927,8 @@ msgstr ""
 
 #: bp-core/classes/class-bp-admin.php:642
 msgid ""
-"Removed issues with BuddyPress-generated content being hidden in the Groups "
-"loop and Activity comments in Bootstrap themes."
+"Removed issues with BuddyPress-generated content being hidden in the Groups loop "
+"and Activity comments in Bootstrap themes."
 msgstr ""
 
 #: bp-core/classes/class-bp-admin.php:646
@@ -3072,14 +3024,13 @@ msgstr ""
 #: bp-core/classes/class-bp-admin.php:888
 msgid ""
 "Thank you for installing BuddyPress! BuddyPress adds community features to "
-"WordPress. Member Profiles, Activity Streams, Direct Messaging, Notifications, "
-"and more!"
+"WordPress. Member Profiles, Activity Streams, Direct Messaging, Notifications, and "
+"more!"
 msgstr ""
 
 #: bp-core/classes/class-bp-admin.php:889
 msgid ""
-"Thank you for updating! BuddyPress %s has many new improvements that you will "
-"enjoy."
+"Thank you for updating! BuddyPress %s has many new improvements that you will enjoy."
 msgstr ""
 
 #: bp-core/classes/class-bp-admin.php:893
@@ -3130,8 +3081,7 @@ msgstr "تصویر نمایه شما با موفقیت حذف شد!"
 msgid "There was a problem cropping the group profile photo."
 msgstr ""
 
-#: bp-core/classes/class-bp-attachment-avatar.php:397
-#: bp-groups/actions/create.php:285
+#: bp-core/classes/class-bp-attachment-avatar.php:397 bp-groups/actions/create.php:285
 msgid "The group profile photo was uploaded successfully."
 msgstr "تصویر نمایه گروه با موفقیت بارگذاری شد."
 
@@ -3420,8 +3370,7 @@ msgstr "ویرایش اطلاعات"
 msgid "Group Settings"
 msgstr "تنظیمات گروه"
 
-#: bp-core/deprecated/2.1.php:373
-#: bp-groups/classes/class-bp-groups-component.php:886
+#: bp-core/deprecated/2.1.php:373 bp-groups/classes/class-bp-groups-component.php:886
 msgid "Group Profile Photo"
 msgstr "تصویر نمایه گروه"
 
@@ -3483,12 +3432,11 @@ msgstr ""
 
 #: bp-core/deprecated/2.8.php:198
 msgid ""
-"Your site is currently running PHP version %s, while BuddyPress 2.8 will "
-"require version 5.3+."
+"Your site is currently running PHP version %s, while BuddyPress 2.8 will require "
+"version 5.3+."
 msgstr ""
 
-#: bp-core/deprecated/3.0.php:138
-#: bp-members/classes/class-bp-members-admin.php:359
+#: bp-core/deprecated/3.0.php:138 bp-members/classes/class-bp-members-admin.php:359
 msgid "User removed as spammer."
 msgstr "عنوان هرزنویس از کاربر برداشته شد."
 
@@ -3750,11 +3698,9 @@ msgid "There was an error removing the invite"
 msgstr ""
 
 #: bp-groups/actions/create.php:272
-msgid ""
-"There was an error saving the group profile photo, please try uploading again."
+msgid "There was an error saving the group profile photo, please try uploading again."
 msgstr ""
-"خطایی در هنگام ذخیره‌سازی تصویر نمایه گروه رخ داد، برای بارگذاری دوباره تلاش "
-"کنید."
+"خطایی در هنگام ذخیره‌سازی تصویر نمایه گروه رخ داد، برای بارگذاری دوباره تلاش کنید."
 
 #: bp-groups/actions/feed.php:39
 msgid "Activity feed for the group, %s."
@@ -3842,20 +3788,20 @@ msgstr ""
 #: bp-groups/bp-groups-admin.php:118
 msgid ""
 "The Name and Description box is fixed in place, but you can reposition all the "
-"other boxes using drag and drop, and can minimize or expand them by clicking "
-"the title bar of each box. Use the Screen Options tab to hide or unhide, or to "
-"choose a 1- or 2-column layout for this screen."
+"other boxes using drag and drop, and can minimize or expand them by clicking the "
+"title bar of each box. Use the Screen Options tab to hide or unhide, or to choose a "
+"1- or 2-column layout for this screen."
 msgstr ""
 
 #: bp-groups/bp-groups-admin.php:124
 msgid "Support Forums"
-msgstr ""
+msgstr "تالارهای پشتیبانی"
 
 #: bp-groups/bp-groups-admin.php:170
 msgid ""
 "You can manage groups much like you can manage comments and other content. This "
-"screen is customizable in the same ways as other management screens, and you "
-"can act on groups by using the on-hover action links or the Bulk Actions."
+"screen is customizable in the same ways as other management screens, and you can "
+"act on groups by using the on-hover action links or the Bulk Actions."
 msgstr ""
 
 #: bp-groups/bp-groups-admin.php:175
@@ -3864,22 +3810,22 @@ msgstr "کارهای گروه"
 
 #: bp-groups/bp-groups-admin.php:177
 msgid ""
-"Clicking \"Visit\" will take you to the group&#8217;s public page. Use this "
-"link to see what the group looks like on the front end of your site."
+"Clicking \"Visit\" will take you to the group&#8217;s public page. Use this link to "
+"see what the group looks like on the front end of your site."
 msgstr ""
 
 #: bp-groups/bp-groups-admin.php:178
 msgid ""
-"Clicking \"Edit\" will take you to a Dashboard panel where you can manage "
-"various details about the group, such as its name and description, its members, "
-"and other settings."
+"Clicking \"Edit\" will take you to a Dashboard panel where you can manage various "
+"details about the group, such as its name and description, its members, and other "
+"settings."
 msgstr ""
 
 #: bp-groups/bp-groups-admin.php:179
 msgid ""
-"If you click \"Delete\" under a specific group, or select a number of groups "
-"and then choose Delete from the Bulk Actions menu, you will be led to a page "
-"where you&#8217;ll be asked to confirm the permanent deletion of the group(s)."
+"If you click \"Delete\" under a specific group, or select a number of groups and "
+"then choose Delete from the Bulk Actions menu, you will be led to a page where "
+"you&#8217;ll be asked to confirm the permanent deletion of the group(s)."
 msgstr ""
 
 #. translators: accessibility text
@@ -3996,7 +3942,7 @@ msgstr "جست‌وجو در تمامی گروه‌ها"
 
 #: bp-groups/bp-groups-admin.php:829
 msgid "Enable discussion forum"
-msgstr ""
+msgstr "فعال کردن تالار گفت‌وگو"
 
 #: bp-groups/bp-groups-admin.php:835
 msgid "Privacy"
@@ -4094,8 +4040,7 @@ msgstr "مدیر"
 msgid "Moderator"
 msgstr "ناظم "
 
-#: bp-groups/bp-groups-admin.php:979
-#: bp-members/classes/class-bp-members-admin.php:819
+#: bp-groups/bp-groups-admin.php:979 bp-members/classes/class-bp-members-admin.php:819
 msgid "Member"
 msgstr "اعضاء"
 
@@ -4339,8 +4284,8 @@ msgstr "این گروه هیچ ناظمی ندارد"
 
 #: bp-groups/bp-groups-template.php:2746
 msgid ""
-"This action should not be used directly. Please use the BuddyPress Group "
-"Extension API to generate Manage tabs."
+"This action should not be used directly. Please use the BuddyPress Group Extension "
+"API to generate Manage tabs."
 msgstr ""
 
 #: bp-groups/bp-groups-template.php:3277
@@ -4374,8 +4319,7 @@ msgstr ""
 
 #: bp-groups/bp-groups-template.php:3502
 msgid ""
-"You must accept your pending invitation before you can access this private "
-"group."
+"You must accept your pending invitation before you can access this private group."
 msgstr ""
 
 #: bp-groups/bp-groups-template.php:3504
@@ -4385,11 +4329,11 @@ msgstr "این یک گروه خصوصی است و برای پیوستن به آ�
 
 #: bp-groups/bp-groups-template.php:3507
 msgid ""
-"This is a private group. To join you must be a registered site member and "
-"request group membership."
+"This is a private group. To join you must be a registered site member and request "
+"group membership."
 msgstr ""
-"این یک گروه خصوصی است. برای پیوستن می‌بایست پس از نام‌نویسی در سایت، درخواست "
-"عضویت به این گروه ارسال کنید."
+"این یک گروه خصوصی است. برای پیوستن می‌بایست پس از نام‌نویسی در سایت، درخواست عضویت به "
+"این گروه ارسال کنید."
 
 #: bp-groups/bp-groups-template.php:3510
 msgid ""
@@ -4513,8 +4457,7 @@ msgid_plural "%s groups"
 msgstr[0] "%s گروه"
 msgstr[1] "%s گروه"
 
-#: bp-groups/bp-groups-widgets.php:68
-#: bp-groups/classes/class-bp-groups-widget.php:143
+#: bp-groups/bp-groups-widgets.php:68 bp-groups/classes/class-bp-groups-widget.php:143
 msgid "created %s"
 msgstr ""
 
@@ -4733,18 +4676,16 @@ msgid "There was an error accepting the group invitation. Please try again."
 msgstr ""
 
 #: bp-groups/screens/single/request-membership.php:42
-msgid ""
-"There was an error sending your group membership request. Please try again."
-msgstr ""
-"خطایی در هنگام فرستادن درخواست عضویت شما در گروه رخ داد، دوباره تلاش کنید."
+msgid "There was an error sending your group membership request. Please try again."
+msgstr "خطایی در هنگام فرستادن درخواست عضویت شما در گروه رخ داد، دوباره تلاش کنید."
 
 #: bp-groups/screens/single/request-membership.php:44
 msgid ""
-"Your membership request was sent to the group administrator successfully. You "
-"will be notified when the group administrator responds to your request."
+"Your membership request was sent to the group administrator successfully. You will "
+"be notified when the group administrator responds to your request."
 msgstr ""
-"درخواست عضویت شما با موفقیت برای مدیر گروه ارسال شد. در صورت پاسخ مدیر گروه، "
-"آگاه خواهید شد."
+"درخواست عضویت شما با موفقیت برای مدیر گروه ارسال شد. در صورت پاسخ مدیر گروه، آگاه "
+"خواهید شد."
 
 #: bp-groups/screens/single/send-invites.php:35
 msgid "Group invites sent."
@@ -4783,8 +4724,8 @@ msgstr ""
 #. translators: 1: current PHP version, 2: required PHP version
 #: bp-loader.php:64
 msgid ""
-"Your site is currently running PHP version %1$s, while BuddyPress requires "
-"version %2$s or greater."
+"Your site is currently running PHP version %1$s, while BuddyPress requires version "
+"%2$s or greater."
 msgstr ""
 
 #: bp-loader.php:65
@@ -4854,8 +4795,7 @@ msgid ""
 "bp_update_user_last_activity() instead."
 msgstr ""
 
-#: bp-members/bp-members-functions.php:1289
-#: bp-members/bp-members-functions.php:2377
+#: bp-members/bp-members-functions.php:1289 bp-members/bp-members-functions.php:2377
 msgid "<strong>ERROR</strong>: Your account has been marked as a spammer."
 msgstr ""
 
@@ -4863,8 +4803,7 @@ msgstr ""
 msgid "Please check your email address."
 msgstr "لطفاً نشانی ایمیل خودتان را دوباره بررسی کنید."
 
-#: bp-members/bp-members-functions.php:1526
-#: bp-members/bp-members-functions.php:1530
+#: bp-members/bp-members-functions.php:1526 bp-members/bp-members-functions.php:1530
 msgid "Sorry, that email address is not allowed!"
 msgstr "متأسفیم، این ایمیل قابل پذیرش نیست!"
 
@@ -4900,8 +4839,7 @@ msgstr "متأسفیم، شناسه کاربری باید شامل حروف هم
 msgid "Sorry, that username already exists!"
 msgstr "متأسفیم، شناسه از قبل وجود دارد!"
 
-#: bp-members/bp-members-functions.php:1828
-#: bp-members/bp-members-functions.php:1855
+#: bp-members/bp-members-functions.php:1828 bp-members/bp-members-functions.php:1855
 msgid "Invalid activation key."
 msgstr "کد فعال سازی نامعتبر است."
 
@@ -4923,17 +4861,16 @@ msgstr "این شناسه کاربری هم‌اکنون فعال است."
 
 #: bp-members/bp-members-functions.php:2240
 msgid ""
-"If you have not received an email yet, <a href=\"%s\">click here to resend it</"
-"a>."
+"If you have not received an email yet, <a href=\"%s\">click here to resend it</a>."
 msgstr ""
 
 #: bp-members/bp-members-functions.php:2242
 msgid ""
-"<strong>ERROR</strong>: Your account has not been activated. Check your email "
-"for the activation link."
+"<strong>ERROR</strong>: Your account has not been activated. Check your email for "
+"the activation link."
 msgstr ""
-"<strong>خطا</strong>: حساب کاربری شما هنوز فعال نشده است. ایمیل خود را برای "
-"پیوند فعال سازی چک کنید."
+"<strong>خطا</strong>: حساب کاربری شما هنوز فعال نشده است. ایمیل خود را برای پیوند "
+"فعال سازی چک کنید."
 
 #: bp-members/bp-members-functions.php:2273
 msgid "<strong>ERROR</strong>: Your account has already been activated."
@@ -5061,20 +4998,18 @@ msgstr ""
 msgid "An error occurred while trying to update the profile."
 msgstr ""
 
-#: bp-members/classes/class-bp-members-admin.php:407
-#: bp-xprofile/screens/edit.php:65
+#: bp-members/classes/class-bp-members-admin.php:407 bp-xprofile/screens/edit.php:65
 msgid ""
-"Your changes have not been saved. Please fill in all required fields, and save "
-"your changes again."
+"Your changes have not been saved. Please fill in all required fields, and save your "
+"changes again."
 msgstr ""
 
-#: bp-members/classes/class-bp-members-admin.php:413
-#: bp-xprofile/screens/edit.php:131
+#: bp-members/classes/class-bp-members-admin.php:413 bp-xprofile/screens/edit.php:131
 msgid ""
 "There was a problem updating some of your profile information. Please try again."
 msgstr ""
-"خطایی در هنگام به‌روزرسانی بعضی از اطلاعات نمایه شما اتفاق افتاده است. دوباره "
-"تلاش کنید."
+"خطایی در هنگام به‌روزرسانی بعضی از اطلاعات نمایه شما اتفاق افتاده است. دوباره تلاش "
+"کنید."
 
 #: bp-members/classes/class-bp-members-admin.php:485
 #: bp-members/classes/class-bp-members-admin.php:486
@@ -5105,8 +5040,8 @@ msgstr ""
 
 #: bp-members/classes/class-bp-members-admin.php:778
 msgid ""
-"In the right-hand column, you can update the user&#39;s status, delete the "
-"user&#39;s avatar, and view recent statistics."
+"In the right-hand column, you can update the user&#39;s status, delete the user&#39;"
+"s avatar, and view recent statistics."
 msgstr ""
 
 #: bp-members/classes/class-bp-members-admin.php:784
@@ -5150,8 +5085,8 @@ msgstr "به‌روزرسانی نمایه"
 #: bp-members/classes/class-bp-members-admin.php:1123
 #: bp-xprofile/classes/class-bp-xprofile-user-admin.php:433
 msgid ""
-"%s has been marked as a spammer. All BuddyPress data associated with the user "
-"has been removed"
+"%s has been marked as a spammer. All BuddyPress data associated with the user has "
+"been removed"
 msgstr ""
 
 #: bp-members/classes/class-bp-members-admin.php:1154
@@ -5182,8 +5117,8 @@ msgstr ""
 
 #: bp-members/classes/class-bp-members-admin.php:1524
 msgid ""
-"From the screen options, you can customize the displayed columns and the "
-"pagination of this screen."
+"From the screen options, you can customize the displayed columns and the pagination "
+"of this screen."
 msgstr ""
 
 #: bp-members/classes/class-bp-members-admin.php:1525
@@ -5194,8 +5129,8 @@ msgstr ""
 
 #: bp-members/classes/class-bp-members-admin.php:1526
 msgid ""
-"Using the search form, you can find pending accounts more easily. The Username "
-"and Email fields will be included in the search."
+"Using the search form, you can find pending accounts more easily. The Username and "
+"Email fields will be included in the search."
 msgstr ""
 
 #: bp-members/classes/class-bp-members-admin.php:1533
@@ -5207,20 +5142,20 @@ msgstr ""
 #: bp-members/classes/class-bp-members-admin.php:1534
 msgid ""
 "\"Email\" takes you to the confirmation screen before being able to send the "
-"activation link to the desired pending account. You can only send the "
-"activation email once per day."
+"activation link to the desired pending account. You can only send the activation "
+"email once per day."
 msgstr ""
 
 #: bp-members/classes/class-bp-members-admin.php:1535
 msgid ""
-"\"Delete\" allows you to delete a pending account from your site. You will be "
-"asked to confirm this deletion."
+"\"Delete\" allows you to delete a pending account from your site. You will be asked "
+"to confirm this deletion."
 msgstr ""
 
 #: bp-members/classes/class-bp-members-admin.php:1536
 msgid ""
-"By clicking on a Username you will be able to activate a pending account from "
-"the confirmation screen."
+"By clicking on a Username you will be able to activate a pending account from the "
+"confirmation screen."
 msgstr ""
 
 #: bp-members/classes/class-bp-members-admin.php:1537
@@ -5546,8 +5481,8 @@ msgstr "بدون موضوع"
 
 #: bp-messages/bp-messages-functions.php:165
 msgid ""
-"Message could not be sent because you have entered an invalid username. Please "
-"try again."
+"Message could not be sent because you have entered an invalid username. Please try "
+"again."
 msgstr ""
 
 #: bp-messages/bp-messages-functions.php:185
@@ -5714,8 +5649,7 @@ msgstr "پیام خصوصی"
 msgid "%s recipients"
 msgstr "%s دریافت‌کننده"
 
-#: bp-messages/bp-messages-template.php:1728
-#: bp-messages/bp-messages-template.php:1984
+#: bp-messages/bp-messages-template.php:1728 bp-messages/bp-messages-template.php:1984
 #: bp-messages/classes/class-bp-messages-thread.php:861
 msgid "Deleted User"
 msgstr "کاربر را پاک کرد"
@@ -6005,8 +5939,8 @@ msgstr ""
 
 #: bp-settings/bp-settings-template.php:94
 msgid ""
-"Check your email (%1$s) for the verification link, or <a href=\"%2$s\">cancel "
-"the pending change</a>."
+"Check your email (%1$s) for the verification link, or <a href=\"%2$s\">cancel the "
+"pending change</a>."
 msgstr ""
 
 #: bp-settings/classes/class-bp-settings-component.php:151
@@ -6204,8 +6138,8 @@ msgstr "بریدن تصویر"
 #: bp-templates/bp-nouveau/buddypress/assets/_attachments/avatars/index.php:34
 #: bp-templates/bp-nouveau/buddypress/members/single/profile/change-avatar.php:35
 msgid ""
-"If you'd like to delete your current profile photo but not upload a new one, "
-"please use the delete profile photo button."
+"If you'd like to delete your current profile photo but not upload a new one, please "
+"use the delete profile photo button."
 msgstr ""
 "اگر دوست داشتید که تصویر نمایه فعلی را پاک کنید ولی تصویر جدیدی بارگذاری نکنید، "
 "لطفاً از دکمه پاک‌کردن تصویر نمایه استفاده کنید."
@@ -6222,8 +6156,8 @@ msgstr "حذف تصویر نمایه من"
 #: bp-templates/bp-nouveau/buddypress/groups/single/admin/group-avatar.php:49
 #: bp-templates/bp-nouveau/includes/functions.php:972
 msgid ""
-"If you'd like to remove the existing group profile photo but not upload a new "
-"one, please use the delete group profile photo button."
+"If you'd like to remove the existing group profile photo but not upload a new one, "
+"please use the delete group profile photo button."
 msgstr ""
 "اگر دوست داشتید که تصویر نمایه فعلی را پاک کنید ولی تصویر جدیدی بارگذاری نکنید، "
 "لطفاً از دکمه پاک‌کردن تصویر نمایه استفاده کنید."
@@ -6239,8 +6173,8 @@ msgstr "پاک‌کردن تصویر نمایه گروه"
 #: bp-templates/bp-legacy/buddypress/assets/_attachments/cover-images/index.php:26
 #: bp-templates/bp-nouveau/buddypress/assets/_attachments/cover-images/index.php:23
 msgid ""
-"If you'd like to delete your current cover image but not upload a new one, "
-"please use the delete Cover Image button."
+"If you'd like to delete your current cover image but not upload a new one, please "
+"use the delete Cover Image button."
 msgstr "اگر می‌خواهید تصویر سربرگ خود را پاک کنید، از دکمه زیر استفاده کنید."
 
 #: bp-templates/bp-legacy/buddypress/assets/_attachments/cover-images/index.php:27
@@ -6251,8 +6185,8 @@ msgstr "پاک‌کردن تصویر سربرگ"
 #: bp-templates/bp-legacy/buddypress/assets/_attachments/cover-images/index.php:29
 #: bp-templates/bp-nouveau/buddypress/assets/_attachments/cover-images/index.php:26
 msgid ""
-"If you'd like to remove the existing group cover image but not upload a new "
-"one, please use the delete group cover image button."
+"If you'd like to remove the existing group cover image but not upload a new one, "
+"please use the delete group cover image button."
 msgstr ""
 
 #: bp-templates/bp-legacy/buddypress/assets/_attachments/cover-images/index.php:30
@@ -6455,11 +6389,11 @@ msgstr "آواتار گروه"
 #: bp-templates/bp-legacy/buddypress/groups/single/admin/group-avatar.php:15
 #: bp-templates/bp-nouveau/buddypress/groups/single/admin/group-avatar.php:34
 msgid ""
-"Upload an image to use as a profile photo for this group. The image will be "
-"shown on the main group page, and in search results."
+"Upload an image to use as a profile photo for this group. The image will be shown "
+"on the main group page, and in search results."
 msgstr ""
-"تصویری را به عنوان تصویر نمایه برای این گروه بارگذاری کنید. این تصویر در صفحه "
-"اصلی گروه و نتایج جستحو نمایش داده خواهد شد."
+"تصویری را به عنوان تصویر نمایه برای این گروه بارگذاری کنید. این تصویر در صفحه اصلی "
+"گروه و نتایج جستحو نمایش داده خواهد شد."
 
 #. translators: accessibility text
 #: bp-templates/bp-legacy/buddypress/groups/create.php:236
@@ -6480,8 +6414,7 @@ msgstr "بارگذاری تصویر"
 
 #: bp-templates/bp-legacy/buddypress/groups/create.php:243
 #: bp-templates/bp-nouveau/buddypress/groups/single/admin/group-avatar.php:44
-msgid ""
-"To skip the group profile photo upload process, hit the \"Next Step\" button."
+msgid "To skip the group profile photo upload process, hit the \"Next Step\" button."
 msgstr "برای صرف نظر از بارگذاری تصویر نمایه گروه، بر روی «گام بعدی» کلیک کنید."
 
 #: bp-templates/bp-legacy/buddypress/groups/create.php:258
@@ -6529,11 +6462,10 @@ msgstr "پاک‌کردن دعوت"
 
 #: bp-templates/bp-legacy/buddypress/groups/create.php:395
 msgid ""
-"Once you have built up friend connections you will be able to invite others to "
-"your group."
+"Once you have built up friend connections you will be able to invite others to your "
+"group."
 msgstr ""
-"بعد از برقراری ارتباط دوستانه با اعضاء، می‌توانید دوستان را به گروه خودتان دعوت "
-"کنید."
+"بعد از برقراری ارتباط دوستانه با اعضاء، می‌توانید دوستان را به گروه خودتان دعوت کنید."
 
 #: bp-templates/bp-legacy/buddypress/groups/create.php:440
 #: bp-templates/bp-nouveau/includes/groups/template-tags.php:378
@@ -6591,11 +6523,11 @@ msgstr ""
 #: bp-templates/bp-legacy/buddypress/groups/single/admin/delete-group.php:23
 #: bp-templates/bp-nouveau/includes/functions.php:968
 msgid ""
-"WARNING: Deleting this group will completely remove ALL content associated with "
-"it. There is no way back, please be careful with this option."
+"WARNING: Deleting this group will completely remove ALL content associated with it. "
+"There is no way back, please be careful with this option."
 msgstr ""
-"<strong>هشدار</strong>: پاک‌کردن این گروه سبب از بین رفتن همه محتویات مربوط به "
-"آن می شود. با احتیاط از این گزینه استفاده کنید، هیچ راه برگشتی وجود ندارد."
+"<strong>هشدار</strong>: پاک‌کردن این گروه سبب از بین رفتن همه محتویات مربوط به آن می "
+"شود. با احتیاط از این گزینه استفاده کنید، هیچ راه برگشتی وجود ندارد."
 
 #: bp-templates/bp-legacy/buddypress/groups/single/admin/delete-group.php:26
 #: bp-templates/bp-nouveau/buddypress/groups/single/admin/delete-group.php:17
@@ -6742,8 +6674,8 @@ msgstr "دعوت به گروه، محدود به دایره دوستان شما�
 
 #: bp-templates/bp-legacy/buddypress/groups/single/send-invites.php:46
 msgid ""
-"Once you've made some friendships, you'll be able to invite those members to "
-"this group."
+"Once you've made some friendships, you'll be able to invite those members to this "
+"group."
 msgstr ""
 "بعد از برقراری ارتباط دوستانه با اعضاء، می‌توانید دوستان خود را به این گروه دعوت "
 "کنید."
@@ -6755,20 +6687,20 @@ msgstr "همه دوستان شما که هم‌اکنون عضو این گروه
 #: bp-templates/bp-legacy/buddypress/members/activate.php:44
 #: bp-templates/bp-nouveau/buddypress/members/activate.php:19
 msgid ""
-"Your account was activated successfully! Your account details have been sent to "
-"you in a separate email."
+"Your account was activated successfully! Your account details have been sent to you "
+"in a separate email."
 msgstr ""
-"حساب شما با موفقیت فعال شده است! اطلاعات حساب شما در ایمیل جداگانه‌ای برایتان "
-"ارسال شد."
+"حساب شما با موفقیت فعال شده است! اطلاعات حساب شما در ایمیل جداگانه‌ای برایتان ارسال "
+"شد."
 
 #: bp-templates/bp-legacy/buddypress/members/activate.php:46
 #: bp-templates/bp-nouveau/buddypress/members/activate.php:21
 msgid ""
-"Your account was activated successfully! You can now <a href=\"%s\">log in</a> "
-"with the username and password you provided when you signed up."
+"Your account was activated successfully! You can now <a href=\"%s\">log in</a> with "
+"the username and password you provided when you signed up."
 msgstr ""
-"حساب شما با موفقیت فعال شد. همین حالا می‌توانید با شناسه و رمزی که هنگام "
-"نام‌نویسی انتخاب کرده بودید، <a href=\"%s\">وارد شوید</a>."
+"حساب شما با موفقیت فعال شد. همین حالا می‌توانید با شناسه و رمزی که هنگام نام‌نویسی "
+"انتخاب کرده بودید، <a href=\"%s\">وارد شوید</a>."
 
 #: bp-templates/bp-legacy/buddypress/members/activate.php:51
 #: bp-templates/bp-nouveau/buddypress/members/activate.php:26
@@ -6797,7 +6729,7 @@ msgstr "تازه‌ترین نام‌نویسی‌ها"
 #. translators: accessibility text
 #: bp-templates/bp-legacy/buddypress/members/index.php:115
 msgid "Members directory"
-msgstr ""
+msgstr "دایرکتوری اعضاء"
 
 #: bp-templates/bp-legacy/buddypress/members/register.php:45
 #: bp-templates/bp-nouveau/includes/functions.php:890
@@ -6807,11 +6739,11 @@ msgstr "هم‌اکنون نام‌نویسی امکان‌پذیر نیست."
 #: bp-templates/bp-legacy/buddypress/members/register.php:67
 #: bp-templates/bp-nouveau/includes/functions.php:896
 msgid ""
-"Registering for this site is easy. Just fill in the fields below, and we'll get "
-"a new account set up for you in no time."
+"Registering for this site is easy. Just fill in the fields below, and we'll get a "
+"new account set up for you in no time."
 msgstr ""
-"نام‌نویسی در این سایت بسیار آسان است. کافی‌ست فرم زیر را تکمیل کنید تا در کمترین "
-"زمان ممکن حساب کاربری‌تان ایجاد شود."
+"نام‌نویسی در این سایت بسیار آسان است. کافی‌ست فرم زیر را تکمیل کنید تا در کمترین زمان "
+"ممکن حساب کاربری‌تان ایجاد شود."
 
 #: bp-templates/bp-legacy/buddypress/members/register.php:82
 #: bp-templates/bp-nouveau/buddypress/members/register.php:30
@@ -6890,8 +6822,8 @@ msgstr "عنوان سایت"
 
 #: bp-templates/bp-legacy/buddypress/members/register.php:307
 msgid ""
-"Privacy: I would like my site to appear in search engines, and in public "
-"listings around this network."
+"Privacy: I would like my site to appear in search engines, and in public listings "
+"around this network."
 msgstr ""
 
 #: bp-templates/bp-legacy/buddypress/members/register.php:355
@@ -6902,8 +6834,8 @@ msgstr "تکمیل نام‌نویسی"
 #: bp-templates/bp-legacy/buddypress/members/register.php:392
 #: bp-templates/bp-nouveau/includes/functions.php:1040
 msgid ""
-"You have successfully created your account! To begin using this site you will "
-"need to activate your account via the email we have just sent to your address."
+"You have successfully created your account! To begin using this site you will need "
+"to activate your account via the email we have just sent to your address."
 msgstr ""
 "حساب کاربری شما با موفقیت ساخته شد. برای فعال‌سازی آن به ایمیلی که لحظاتی قبل به "
 "نشانی شما ارسال کردیم مراجعه کنید."
@@ -6911,11 +6843,11 @@ msgstr ""
 #: bp-templates/bp-legacy/buddypress/members/register.php:394
 #: bp-templates/bp-nouveau/includes/functions.php:902
 msgid ""
-"You have successfully created your account! Please log in using the username "
-"and password you have just created."
+"You have successfully created your account! Please log in using the username and "
+"password you have just created."
 msgstr ""
-"حساب کاربری شما با موفقیت ساخته شد. همین حالا می‌توانید با شناسه و رمز خودتان "
-"وارد شوید."
+"حساب کاربری شما با موفقیت ساخته شد. همین حالا می‌توانید با شناسه و رمز خودتان وارد "
+"شوید."
 
 #: bp-templates/bp-legacy/buddypress/members/single/activity.php:11
 #: bp-templates/bp-legacy/buddypress/members/single/blogs.php:11
@@ -7138,23 +7070,23 @@ msgstr "تغییر تصویر نمایه"
 
 #: bp-templates/bp-legacy/buddypress/members/single/profile/change-avatar.php:24
 msgid ""
-"Your profile photo will be used on your profile and throughout the site. If "
-"there is a <a href=\"http://gravatar.com\">Gravatar</a> associated with your "
-"account email we will use that, or you can upload an image from your computer."
+"Your profile photo will be used on your profile and throughout the site. If there "
+"is a <a href=\"http://gravatar.com\">Gravatar</a> associated with your account "
+"email we will use that, or you can upload an image from your computer."
 msgstr ""
-"تصویر نمایه شما در نمایه شما و سراسر سایت استفاده خواهد شد. اگر <a href="
-"\"https://fa.gravatar.com\">گراواتار</a> مرتبط با ایمیل حساب شما وجود داشته "
-"باشد، از آن استفاده خواهیم کرد؛ همچنین می‌توانید از روی رایانه تصویر دلخواه "
-"خودتان را بارگذاری کنید."
+"تصویر نمایه شما در نمایه شما و سراسر سایت استفاده خواهد شد. اگر <a href=\"https://"
+"fa.gravatar.com\">گراواتار</a> مرتبط با ایمیل حساب شما وجود داشته باشد، از آن "
+"استفاده خواهیم کرد؛ همچنین می‌توانید از روی رایانه تصویر دلخواه خودتان را بارگذاری "
+"کنید."
 
 #: bp-templates/bp-legacy/buddypress/members/single/profile/change-avatar.php:31
 #: bp-templates/bp-nouveau/buddypress/members/single/profile/change-avatar.php:25
 msgid ""
-"Click below to select a JPG, GIF or PNG format photo from your computer and "
-"then click 'Upload Image' to proceed."
+"Click below to select a JPG, GIF or PNG format photo from your computer and then "
+"click 'Upload Image' to proceed."
 msgstr ""
-"تصویری با قالب JPG، GIF یا PNG از رایانه خودتان انتخاب و روی «بارگذاری تصویر» "
-"کلیک کنید."
+"تصویری با قالب JPG، GIF یا PNG از رایانه خودتان انتخاب و روی «بارگذاری تصویر» کلیک "
+"کنید."
 
 #: bp-templates/bp-legacy/buddypress/members/single/profile/change-avatar.php:52
 #: bp-templates/bp-nouveau/buddypress/members/single/profile/change-avatar.php:43
@@ -7164,10 +7096,9 @@ msgstr "اندازه تصویر نمایه تازه خودتان را تغییر
 #: bp-templates/bp-legacy/buddypress/members/single/profile/change-avatar.php:84
 #: bp-templates/bp-nouveau/buddypress/members/single/profile/change-avatar.php:76
 msgid ""
-"Your profile photo will be used on your profile and throughout the site. To "
-"change your profile photo, please create an account with <a href=\"https://"
-"gravatar.com\">Gravatar</a> using the same email address as you used to "
-"register with this site."
+"Your profile photo will be used on your profile and throughout the site. To change "
+"your profile photo, please create an account with <a href=\"https://gravatar.com"
+"\">Gravatar</a> using the same email address as you used to register with this site."
 msgstr ""
 "تصویر نمایه شما، در برگهٔ نمایه و در سراسر سایت استفاده خواهد شد. برای تغییر این "
 "تصویر، می‌توانید با استفاده از ایمیلی که در این سایت وارد کرده‌اید در <a href="
@@ -7207,8 +7138,8 @@ msgstr "این کاربر هرزنامه منتشر می‌کند."
 #: bp-templates/bp-legacy/buddypress/members/single/settings/delete-account.php:16
 #: bp-templates/bp-nouveau/includes/functions.php:1056
 msgid ""
-"Deleting your account will delete all of the content you have created. It will "
-"be completely irrecoverable."
+"Deleting your account will delete all of the content you have created. It will be "
+"completely irrecoverable."
 msgstr ""
 "حذف حساب کاربری شما، باعث از بین رفتن همه اطلاعات و محتویات ایجاد شده توسط شما "
 "خواهد شد و به هیچ وجه قابل بازیابی نخواهد بود."
@@ -7234,11 +7165,9 @@ msgstr "تنظیمات حساب کاربری"
 #: bp-templates/bp-legacy/buddypress/members/single/settings/general.php:21
 #: bp-templates/bp-nouveau/buddypress/members/single/settings/general.php:22
 msgid ""
-"Current Password <span>(required to update email or change current password)</"
-"span>"
+"Current Password <span>(required to update email or change current password)</span>"
 msgstr ""
-"رمز فعلی <span>(ورود آن برای به‌روزرسانی نشانی ایمیل یا تغییر رمز لازم است.)</"
-"span>"
+"رمز فعلی <span>(ورود آن برای به‌روزرسانی نشانی ایمیل یا تغییر رمز لازم است.)</span>"
 
 #: bp-templates/bp-legacy/buddypress/members/single/settings/general.php:22
 #: bp-templates/bp-nouveau/buddypress/members/single/settings/general.php:23
@@ -7326,8 +7255,7 @@ msgstr ""
 #: bp-templates/bp-legacy/buddypress-functions.php:303
 #: bp-templates/bp-nouveau/buddypress-functions.php:382
 msgid ""
-"Your profile has unsaved changes. If you leave the page, the changes will be "
-"lost."
+"Your profile has unsaved changes. If you leave the page, the changes will be lost."
 msgstr ""
 
 #: bp-templates/bp-legacy/buddypress-functions.php:982
@@ -7534,8 +7462,8 @@ msgstr ""
 
 #: bp-templates/bp-nouveau/buddypress/groups/single/admin/group-avatar.php:14
 msgid ""
-"Add an image to use as a profile photo for this group. The image will be shown "
-"on the main group page, and in search results."
+"Add an image to use as a profile photo for this group. The image will be shown on "
+"the main group page, and in search results."
 msgstr ""
 
 #: bp-templates/bp-nouveau/buddypress/groups/single/admin/group-avatar.php:16
@@ -7609,17 +7537,17 @@ msgstr "فهرست کاربر"
 #: bp-templates/bp-nouveau/buddypress/members/single/parts/profile-visibility.php:19
 #: bp-templates/bp-nouveau/buddypress/members/single/parts/profile-visibility.php:42
 msgid "This field may be seen by: %s"
-msgstr ""
+msgstr "این فیلد برای %s قابل مشاهده است."
 
 #: bp-templates/bp-nouveau/buddypress/members/single/parts/profile-visibility.php:29
 msgid "Who is allowed to see this field?"
-msgstr ""
+msgstr "چه کسانی اجازه دیدن این فیلد را دارند؟"
 
 #: bp-templates/bp-nouveau/buddypress/members/single/profile/change-avatar.php:17
 msgid ""
-"Your profile photo will be used on your profile and throughout the site. If "
-"there is a <a href=\"https://gravatar.com\">Gravatar</a> associated with your "
-"account email we will use that, or you can upload an image from your computer."
+"Your profile photo will be used on your profile and throughout the site. If there "
+"is a <a href=\"https://gravatar.com\">Gravatar</a> associated with your account "
+"email we will use that, or you can upload an image from your computer."
 msgstr ""
 
 #: bp-templates/bp-nouveau/buddypress/members/single/profile.php:9
@@ -7628,7 +7556,7 @@ msgstr ""
 
 #: bp-templates/bp-nouveau/buddypress/members/single/settings/capabilities.php:11
 msgid "Members Capabilities"
-msgstr ""
+msgstr "دسترسی‌های اعضاء"
 
 #: bp-templates/bp-nouveau/buddypress/members/single/settings/general.php:11
 msgid "Email & Password"
@@ -7738,8 +7666,8 @@ msgstr ""
 #: bp-templates/bp-nouveau/includes/activity/template-tags.php:653
 msgid ""
 "<a href=\"%1$s\">%2$s</a> replied <a href=\"%3$s\" class=\"activity-time-since"
-"\"><time class=\"time-since\" datetime=\"%4$s\" data-bp-timestamp=\"%5$d\">"
-"%6$s</time></a>"
+"\"><time class=\"time-since\" datetime=\"%4$s\" data-bp-timestamp=\"%5$d\">%6$s</"
+"time></a>"
 msgstr ""
 
 #: bp-templates/bp-nouveau/includes/activity/widgets.php:26
@@ -7778,8 +7706,8 @@ msgstr ""
 
 #: bp-templates/bp-nouveau/includes/classes.php:193
 msgid ""
-"Displays BuddyPress primary nav in the sidebar of your site. Make sure to use "
-"it as the first widget of the sidebar and only once."
+"Displays BuddyPress primary nav in the sidebar of your site. Make sure to use it as "
+"the first widget of the sidebar and only once."
 msgstr ""
 
 #: bp-templates/bp-nouveau/includes/classes.php:199
@@ -7792,14 +7720,13 @@ msgstr ""
 
 #: bp-templates/bp-nouveau/includes/customizer-controls.php:39
 msgid ""
-"Customizing the Groups navigation order needs you create at least one group "
-"first."
+"Customizing the Groups navigation order needs you create at least one group first."
 msgstr ""
 
 #: bp-templates/bp-nouveau/includes/customizer-controls.php:57
 msgid ""
-"All the possible group nav items are listed below, in some groups some of these "
-"nav items might not be active."
+"All the possible group nav items are listed below, in some groups some of these nav "
+"items might not be active."
 msgstr ""
 
 #: bp-templates/bp-nouveau/includes/customizer.php:25
@@ -7828,8 +7755,8 @@ msgstr "راه‌بری کاربر"
 
 #: bp-templates/bp-nouveau/includes/customizer.php:47
 msgid ""
-"Customize the members primary navigations. Navigate to any random member's "
-"profile to live preview your changes."
+"Customize the members primary navigations. Navigate to any random member's profile "
+"to live preview your changes."
 msgstr ""
 
 #: bp-templates/bp-nouveau/includes/customizer.php:50
@@ -7955,8 +7882,7 @@ msgid "BuddyPress User's Home"
 msgstr "خانه کاربر بادی‌پرس"
 
 #: bp-templates/bp-nouveau/includes/functions.php:320
-msgid ""
-"Add widgets here to appear in the front page of each member of your community."
+msgid "Add widgets here to appear in the front page of each member of your community."
 msgstr ""
 
 #: bp-templates/bp-nouveau/includes/functions.php:330
@@ -7964,8 +7890,7 @@ msgid "BuddyPress Group's Home"
 msgstr "خانه گروه بادی‌پرس"
 
 #: bp-templates/bp-nouveau/includes/functions.php:332
-msgid ""
-"Add widgets here to appear in the front page of each group of your community."
+msgid "Add widgets here to appear in the front page of each group of your community."
 msgstr ""
 
 #: bp-templates/bp-nouveau/includes/functions.php:660
@@ -8068,15 +7993,15 @@ msgstr "بارگذاری آگاه‌سازی‌ها، لطفاً صبر کنید
 
 #: bp-templates/bp-nouveau/includes/functions.php:1024
 msgid ""
-"Currently every member of the community can invite you to join their groups. If "
-"you are not comfortable with it, you can always restrict group invites to your "
-"friends only."
+"Currently every member of the community can invite you to join their groups. If you "
+"are not comfortable with it, you can always restrict group invites to your friends "
+"only."
 msgstr ""
 
 #: bp-templates/bp-nouveau/includes/functions.php:1028
 msgid ""
-"Currently only your friends can invite you to groups, uncheck the box to allow "
-"any member to send invites."
+"Currently only your friends can invite you to groups, uncheck the box to allow any "
+"member to send invites."
 msgstr ""
 
 #: bp-templates/bp-nouveau/includes/functions.php:1058
@@ -8125,14 +8050,14 @@ msgstr ""
 
 #: bp-templates/bp-nouveau/includes/groups/ajax.php:284
 msgid ""
-"You can invite members using the + button, a new nav will appear to let you "
-"send your invites"
+"You can invite members using the + button, a new nav will appear to let you send "
+"your invites"
 msgstr ""
 
 #: bp-templates/bp-nouveau/includes/groups/ajax.php:289
 msgid ""
-"You can invite friends using the + button, a new nav will appear to let you "
-"send your invites"
+"You can invite friends using the + button, a new nav will appear to let you send "
+"your invites"
 msgstr ""
 
 #: bp-templates/bp-nouveau/includes/groups/ajax.php:296
@@ -8149,8 +8074,8 @@ msgstr ""
 
 #: bp-templates/bp-nouveau/includes/groups/ajax.php:316
 msgid ""
-"All your friends are already members of this group or already received an "
-"invite to join this group or requested to join it."
+"All your friends are already members of this group or already received an invite to "
+"join this group or requested to join it."
 msgstr ""
 
 #: bp-templates/bp-nouveau/includes/groups/ajax.php:322
@@ -8205,8 +8130,7 @@ msgstr ""
 
 #: bp-templates/bp-nouveau/includes/groups/functions.php:132
 msgid ""
-"Invites cleared, please use one of the available tabs to select members to "
-"invite."
+"Invites cleared, please use one of the available tabs to select members to invite."
 msgstr ""
 
 #: bp-templates/bp-nouveau/includes/groups/functions.php:133
@@ -8249,8 +8173,8 @@ msgstr "صفحه اول پیش‌فرض برای گروه‌ها فعال شود
 
 #: bp-templates/bp-nouveau/includes/groups/functions.php:767
 msgid ""
-"Enable widget region for groups homepage - allows widgets to be added to a "
-"sidebar in widgets screen."
+"Enable widget region for groups homepage - allows widgets to be added to a sidebar "
+"in widgets screen."
 msgstr ""
 
 #: bp-templates/bp-nouveau/includes/groups/functions.php:773
@@ -8433,8 +8357,7 @@ msgstr "تصاویر نمایه به‌روزشده"
 msgid "Updated Profile"
 msgstr "نمایه بروز شده"
 
-#: bp-xprofile/bp-xprofile-activity.php:39
-#: bp-xprofile/bp-xprofile-activity.php:339
+#: bp-xprofile/bp-xprofile-activity.php:39 bp-xprofile/bp-xprofile-activity.php:339
 msgid "Profile Updates"
 msgstr "به‌روزرسانی نمایه‌ها"
 
@@ -8639,7 +8562,7 @@ msgstr "شروع:"
 #: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:523
 #: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:552
 msgid "End:"
-msgstr ""
+msgstr "پایان:"
 
 #: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:532
 msgid "Relative"
@@ -8814,8 +8737,8 @@ msgstr "پیوند خودکار"
 
 #: bp-xprofile/classes/class-bp-xprofile-field.php:1549
 msgid ""
-"On user profiles, link this field to a search of the Members directory, using "
-"the field value as a search term."
+"On user profiles, link this field to a search of the Members directory, using the "
+"field value as a search term."
 msgstr ""
 
 #. translators: accessibility text
@@ -8873,8 +8796,8 @@ msgstr ""
 
 #. Description of the plugin/theme
 msgid ""
-"BuddyPress adds community features to WordPress. Member Profiles, Activity "
-"Streams, Direct Messaging, Notifications, and more!"
+"BuddyPress adds community features to WordPress. Member Profiles, Activity Streams, "
+"Direct Messaging, Notifications, and more!"
 msgstr ""
 
 #. Author of the plugin/theme
@@ -10316,22 +10239,22 @@ msgstr "بادی‌پرس نووو"
 #: bp-templates/bp-nouveau/includes/functions.php:1104
 msgctxt "signup field label"
 msgid "Username%s"
-msgstr ""
+msgstr "شناسه کاربری%s"
 
 #: bp-templates/bp-nouveau/includes/functions.php:1112
 msgctxt "signup field label"
 msgid "Email Address%s"
-msgstr ""
+msgstr "نشانی ایمیل%s"
 
 #: bp-templates/bp-nouveau/includes/functions.php:1120
 msgctxt "signup field label"
 msgid "Choose a Password%s"
-msgstr ""
+msgstr "رمز ورود%s"
 
 #: bp-templates/bp-nouveau/includes/functions.php:1128
 msgctxt "signup field label"
 msgid "Confirm Password%s"
-msgstr ""
+msgstr "تکرار رمز%s"
 
 #: bp-templates/bp-nouveau/includes/functions.php:1138
 msgctxt "signup field label"
@@ -10361,7 +10284,7 @@ msgstr "نمایه"
 #: bp-templates/bp-nouveau/includes/template-tags.php:2099
 msgctxt "signup required field"
 msgid "(required)"
-msgstr ""
+msgstr "(ضروری)"
 
 #: bp-xprofile/bp-xprofile-admin.php:28
 msgctxt "xProfile admin page title"
@@ -10678,8 +10601,7 @@ msgstr "تصویر نمایه"
 #~ msgstr "ارسال پاسخ به این موضوع:"
 
 #~ msgid "You will auto join this group when you reply to this topic."
-#~ msgstr ""
-#~ "وقتی به این موضوع پاسخ می‌دهید، بصورت اتوماتیک عضو این گروه هم خواهید شد."
+#~ msgstr "وقتی به این موضوع پاسخ می‌دهید، بصورت اتوماتیک عضو این گروه هم خواهید شد."
 
 #~ msgid "Permanent link to this post"
 #~ msgstr "پیوند ثابت به این نوشته"
@@ -10688,8 +10610,7 @@ msgstr "تصویر نمایه"
 #~ msgstr "این موضوع وجود ندارد."
 
 #~ msgid "You will auto join this group when you start a new topic."
-#~ msgstr ""
-#~ "وقتی موضوع جدیدی را شروع کنید، بصورت اتوماتیک عضو این گروه هم خواهید شد."
+#~ msgstr "وقتی موضوع جدیدی را شروع کنید، بصورت اتوماتیک عضو این گروه هم خواهید شد."
 
 #~ msgid "Delete Avatar"
 #~ msgstr "حذف آواتار"
@@ -10708,16 +10629,16 @@ msgstr "تصویر نمایه"
 #~ msgstr "بیشتر نوشته‌ها"
 
 #~ msgid ""
-#~ "You are not a member of any groups so you don't have any group forums you "
-#~ "can post in. To start posting, first find a group that matches the topic "
-#~ "subject you'd like to start. If this group does not exist, why not <a "
-#~ "href='%s'>create a new group</a>? Once you have joined or created the group "
-#~ "you can post your topic in that group's forum."
+#~ "You are not a member of any groups so you don't have any group forums you can "
+#~ "post in. To start posting, first find a group that matches the topic subject "
+#~ "you'd like to start. If this group does not exist, why not <a href='%s'>create a "
+#~ "new group</a>? Once you have joined or created the group you can post your topic "
+#~ "in that group's forum."
 #~ msgstr ""
-#~ "شما عضو هیچ گروهی نیستید و بنابراین در هیچ انجمن گروهی نمی توانید چیزی "
-#~ "بنویسید.برای شروع نوشتن، ابتدا موضوعی را که دوست دارید پیدا کنید. اگر این "
-#~ "گروه وجود نداشت، چرا <a href='%s'>یک گروه جدید نسازید</a>؟ هر گاه گروهی "
-#~ "ساختید یا به آن پیوستید می توانید موضوع خود را در انجمن آن گروه درج کنید."
+#~ "شما عضو هیچ گروهی نیستید و بنابراین در هیچ انجمن گروهی نمی توانید چیزی بنویسید."
+#~ "برای شروع نوشتن، ابتدا موضوعی را که دوست دارید پیدا کنید. اگر این گروه وجود "
+#~ "نداشت، چرا <a href='%s'>یک گروه جدید نسازید</a>؟ هر گاه گروهی ساختید یا به آن "
+#~ "پیوستید می توانید موضوع خود را در انجمن آن گروه درج کنید."
 
 #~ msgid "Post Topic"
 #~ msgstr "ارسال موضوع"
@@ -10765,8 +10686,8 @@ msgstr "تصویر نمایه"
 #~ msgstr "انجمن‌ها"
 
 #~ msgid ""
-#~ "Are your emails in the wrong language? Go to <a href=\"%s\">BuddyPress Tools "
-#~ "and run the \"reinstall emails\"</a> tool."
+#~ "Are your emails in the wrong language? Go to <a href=\"%s\">BuddyPress Tools and "
+#~ "run the \"reinstall emails\"</a> tool."
 #~ msgstr ""
 #~ "زبان ایمیل‌ها نادرست است؟ به <a href=\"%s\">ابزارهای بادی‌پرس بروید و از ابزار "
 #~ "«بازسازی ایمیل‌ها»</a> استفاده کنید."
@@ -10948,12 +10869,12 @@ msgstr "تصویر نمایه"
 #~ msgid ""
 #~ "Your profile photo will be used on your profile and throughout the site. To "
 #~ "change your profile photo, please create an account with <a href=\"http://"
-#~ "gravatar.com\">Gravatar</a> using the same email address as you used to "
-#~ "register with this site."
+#~ "gravatar.com\">Gravatar</a> using the same email address as you used to register "
+#~ "with this site."
 #~ msgstr ""
-#~ "تصویر نمایه شما، در برگهٔ نمایه و در سراسر سایت استفاده خواهد شد. برای تغییر "
-#~ "این تصویر، می‌توانید با استفاده از ایمیلی که در این سایت وارد کرده‌اید در <a "
-#~ "href=\"http://fa.gravatar.com\">گراواتار</a> نام‌نویسی کنید."
+#~ "تصویر نمایه شما، در برگهٔ نمایه و در سراسر سایت استفاده خواهد شد. برای تغییر این "
+#~ "تصویر، می‌توانید با استفاده از ایمیلی که در این سایت وارد کرده‌اید در <a href="
+#~ "\"http://fa.gravatar.com\">گراواتار</a> نام‌نویسی کنید."
 
 #~ msgid "Group Membership Requests"
 #~ msgstr "درخواست های عضویت گروه"

@@ -1,0 +1,142 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Monster Widget 0.3\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Language-Team: \n"
+"X-Generator: Poedit 2.0.7\n"
+"Last-Translator: geminorum <contact@geminorum.ir>\n"
+"Language: fa_IR\n"
+
+#: monster-widget.php:51
+msgid "Monster"
+msgstr "هیولا"
+
+#: monster-widget.php:53
+msgid "Test multiple widgets at the same time."
+msgstr "چندین ابزارک را در یک زمان آزمایش کنید."
+
+#: monster-widget.php:114
+msgid "Archives List"
+msgstr "فهرست بایگانی"
+
+#: monster-widget.php:119
+msgid "Archives Dropdown"
+msgstr "افتادنی بایگانی"
+
+#: monster-widget.php:124
+msgid "Calendar"
+msgstr "تقویم"
+
+#: monster-widget.php:127
+msgid "Categories List"
+msgstr "فهرست دسته‌ها"
+
+#: monster-widget.php:133
+msgid "Categories Dropdown"
+msgstr "افتادنی دسته‌ها"
+
+#: monster-widget.php:139
+msgid "Pages"
+msgstr "برگه‌ها"
+
+#: monster-widget.php:144
+msgid "Meta"
+msgstr "متا"
+
+#: monster-widget.php:147
+msgid "Recent Comments"
+msgstr "آخرین دیدگاه‌ها"
+
+#: monster-widget.php:151
+msgid "Recent Posts"
+msgstr "آخرین نوشته‌ها"
+
+#: monster-widget.php:155
+msgid "RSS"
+msgstr ""
+
+#: monster-widget.php:163
+msgid "Search"
+msgstr "جست‌وجو"
+
+#: monster-widget.php:166
+msgid "Text"
+msgstr "متن"
+
+#: monster-widget.php:171
+msgid "Tag Cloud"
+msgstr "ابر برچسب"
+
+#: monster-widget.php:178
+msgid "Nav Menu"
+msgstr "فهرست راه‌بری"
+
+#: monster-widget.php:187
+msgid "Links"
+msgstr "پیوندها"
+
+#: monster-widget.php:263
+msgid "Large image: Hand Coded"
+msgstr "تصویر بزرگ: با کد دستی"
+
+#: monster-widget.php:266
+msgid "Large image: linked in a caption"
+msgstr "تصویر بزرگ: با پیوند در توضیحات"
+
+#: monster-widget.php:267
+msgid "This image is 960 by 720 pixels."
+msgstr "تصویر ۹۶۰ در ۷۲۰ پیکسل است."
+
+#: monster-widget.php:269
+msgid "Meat!"
+msgstr "قلابی!"
+
+#: monster-widget.php:270
+msgid ""
+"Hamburger fatback andouille, ball tip bacon t-bone turkey tenderloin. Ball "
+"tip shank pig, t-bone turducken prosciutto ground round rump bacon pork chop "
+"short loin turkey. Pancetta ball tip salami, hamburger t-bone capicola "
+"turkey ham hock pork belly tri-tip. Biltong bresaola tail, shoulder sausage "
+"turkey cow pork chop fatback. Turkey pork pig bacon short loin meatloaf, "
+"chicken ham hock flank andouille tenderloin shank rump filet mignon. "
+"Shoulder frankfurter shankle pancetta. Jowl andouille short ribs swine "
+"venison, pork loin pork chop meatball jerky filet mignon shoulder tenderloin "
+"chicken pork."
+msgstr ""
+"لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از "
+"طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که "
+"لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود "
+"ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده "
+"شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را "
+"برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی "
+"ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه "
+"راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی "
+"دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد "
+"استفاده قرار گیرد."
+
+#: monster-widget.php:272
+msgid "Smile!"
+msgstr "لبخند!"
+
+#: monster-widget.php:275
+msgid "Select Element with long value"
+msgstr "گزینه متن طولانی را انتخاب کن"
+
+#: monster-widget.php:279
+msgid "First"
+msgstr "اول"
+
+#: monster-widget.php:280
+msgid "Second"
+msgstr "دوم"
+
+#: monster-widget.php:281
+msgid "Third"
+msgstr "سوم"
