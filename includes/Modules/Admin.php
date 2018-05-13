@@ -361,6 +361,16 @@ class Admin extends gNetwork\Module
 				'cb'    => [ __NAMESPACE__.'\\Media', 'registeredImageSizes' ],
 			];
 
+		$sitemeta = function_exists( 'is_site_meta_supported' ) && is_site_meta_supported();
+
+		if ( $sitemeta && WordPress::isSuperAdmin() )
+			$tabs['blogmate'] = [
+				'title' => _x( 'Site Meta', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ),
+				'cb'    => function() {
+					HTML::tableSide( get_metadata( 'blog', get_current_blog_id() ) );
+				},
+			];
+
 		HTML::tabsList( $this->filters( 'overview', $tabs ) );
 	}
 
