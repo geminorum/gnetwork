@@ -36,8 +36,7 @@
       footer {}
     }
 
-    // DEPRECATED
-    // FOR BACK COMP ONLY
+    // FIXME: DEPRECATED - back-compat
     &.intro-quote {
 
       font-size: 0.9em;
@@ -45,7 +44,7 @@
       p > cite {
         font-size: 0.8em;
         // font-style: italic;
-        &:before {
+        &::before {
           content: "\2014 \00A0";
         }
       }

@@ -3,7 +3,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// gNetwork Partials: fa_IR ALL -----------------------------------------------
 
-body.rtl.locale-fa-ir {
+body.locale-fa-ir {
   &,
   #wpadminbar *,
   .press-this a.wp-switch-editor,
@@ -24,7 +24,7 @@ body.rtl.locale-fa-ir {
   }
 
   #wpadminbar .ab-icon,
-  #wpadminbar .ab-item:before {
-    font-family: dashicons;
+  #wpadminbar .ab-item::before {
+    font-family: dashicons, sans-serif;
   }
 }

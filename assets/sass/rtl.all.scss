@@ -1,12 +1,10 @@
+@import "modules/all";
+@import "partials/base";
 ////////////////////////////////////////////////////////////////////////////////
+@import "partials/admin.rtl";
+@import "partials/thickbox.rtl";
 ////////////////////////////////////////////////////////////////////////////////
+@import "partials/amp.admin.rtl";
+@import "partials/custom-contact-forms.admin.rtl";
 ////////////////////////////////////////////////////////////////////////////////
-/// gNetwork Partials: Embed: Front All ----------------------------------------
-
-.gnetwork-wrap-embed {
-  &.-responsive {
-    @include theme-responsive-embed;
-  }
-}
-
-@import "embed.aparat.all";
+@import "partials/fa_IR.admin.all";

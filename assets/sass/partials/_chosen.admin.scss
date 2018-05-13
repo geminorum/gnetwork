@@ -23,17 +23,45 @@
   font-size: 14px;
 
   .chosen-results li.highlighted {
+    .admin-color-fresh & {
+      background-color: #00a0d2;
+    }
 
-    .admin-color-fresh     & { background-color: #00a0d2; }
-    .admin-color-blue      & { background-color: #096484; }
-    .admin-color-coffee    & { background-color: #096484; }
-    .admin-color-ectoplasm & { background-color: #a3b745; }
-    .admin-color-midnight  & { background-color: #26292c; }
-    .admin-color-ocean     & { background-color: #627c83; }
-    .admin-color-sunrise   & { background-color: #be3631; }
-    .admin-color-light     & { background-color: #888888; }
-    .admin-color-evergreen & { background-color: #36533f; }
-    .admin-color-mint      & { background-color: #4f6d59; }
+    .admin-color-blue & {
+      background-color: #096484;
+    }
+
+    .admin-color-coffee & {
+      background-color: #096484;
+    }
+
+    .admin-color-ectoplasm & {
+      background-color: #a3b745;
+    }
+
+    .admin-color-midnight & {
+      background-color: #26292c;
+    }
+
+    .admin-color-ocean & {
+      background-color: #627c83;
+    }
+
+    .admin-color-sunrise & {
+      background-color: #be3631;
+    }
+
+    .admin-color-light & {
+      background-color: #888;
+    }
+
+    .admin-color-evergreen & {
+      background-color: #36533f;
+    }
+
+    .admin-color-mint & {
+      background-color: #4f6d59;
+    }
   }
 }
 
@@ -50,14 +78,14 @@
     line-height: 28px;
     height: 28px;
 
-    div b:before {
+    div b::before {
       display: block;
       width: 17px;
       height: 17px;
       position: absolute;
       right: 2px;
       top: 0;
-      font-family: dashicons;
+      font-family: dashicons, sans-serif;
       font-size: 15px;
       content: "\f140";
       color: #555;
@@ -66,15 +94,15 @@
   }
 
   .chosen-search {
-    input[type="text"]:before {
+    input[type="text"]::before {
       display: block;
       width: 20px;
       height: 20px;
-      font-family: dashicons;
+      font-family: dashicons, sans-serif;
       content: "\f140";
     }
 
-    &:after {
+    &::after {
       display: block;
       width: 17px;
       height: 17px;
@@ -82,7 +110,7 @@
       right: 9px;
       top: 9px;
       color: #aaa;
-      font-family: dashicons;
+      font-family: dashicons, sans-serif;
       font-size: 17px;
       content: "\f179";
     }

@@ -49,19 +49,17 @@
 // NOT WORKING
 // @SEE: http://jsfiddle.net/masau/7wrhm/
 @mixin theme-responsive-iframe() {
-  & {
-    position: relative !important;
-    height: 100%;
-    margin: 0 auto;
+  position: relative !important;
+  height: 100%;
+  margin: 0 auto;
 
-    iframe {
-      position: absolute !important;
-      top: 0 !important;
-      left: 0 !important;
-      right: 0 !important;
-      bottom: 0 !important;
-      width: 100% !important;
-      height: 100% !important;
-    }
+  iframe {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
   }
 }

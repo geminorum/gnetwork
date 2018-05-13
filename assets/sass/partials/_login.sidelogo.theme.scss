@@ -3,9 +3,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// gNetwork Partials: Login: Default ------------------------------------------
 
-body.login.sidelogo {
 // body.login.sidelogo:not(.mobile) {
-
+body.login.sidelogo {
   @include mainwrap();
 
   padding-top: 5%;
@@ -79,7 +78,5 @@ body.login.sidelogo {
       // margin-bottom: 0;
       display: none;
     }
-
-    p#backtoblog {}
   }
 }

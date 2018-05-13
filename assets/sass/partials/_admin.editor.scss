@@ -24,7 +24,7 @@
 
 .gnetwork-tinymce-icon {
   &::before {
-    font-family: dashicons;
+    font-family: dashicons, sans-serif;
     content: "\f159"; // DEFAULT
   }
 
