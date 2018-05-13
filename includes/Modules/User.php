@@ -409,6 +409,7 @@ class User extends gNetwork\Module
 		// display page content as over view
 	}
 
+	// FIXME: use `WordPress::getAllSites()`
 	private function get_sites()
 	{
 		global $wpdb;

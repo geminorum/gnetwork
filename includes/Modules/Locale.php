@@ -187,6 +187,9 @@ class Locale extends gNetwork\Module
 
 			'user-submitted-posts/user-submitted-posts.php' => 'page', // [User Submitted Posts](https://wordpress.org/plugins/user-submitted-posts/)
 
+			'ssl-insecure-content-fixer'       => 'page',
+			'ssl-insecure-content-fixer-tests' => 'page',
+
 			// [EWWW Image Optimizer](https://wordpress.org/plugins/ewww-image-optimizer/)
 			'ewww-image-optimizer/ewww-image-optimizer.php' => 'page',
 			'ewww-image-optimizer-bulk'                     => 'page',

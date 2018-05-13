@@ -158,7 +158,7 @@ class Debug extends gNetwork\Module
 			],
 			'wordpress' => [
 				'title' => _x( 'WordPress', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
-				'cb'    => [ __CLASS__, 'versions' ],
+				'cb'    => [ __CLASS__, 'summaryWordPress' ],
 			],
 			'time' => [
 				'title' => _x( 'Time', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
@@ -275,7 +275,7 @@ class Debug extends gNetwork\Module
 		return $this->http_calls;
 	}
 
-	public static function versions()
+	public static function summaryWordPress()
 	{
 		$versions = [
 			'wp_version'             => _x( 'WordPress', 'Modules: Debug: Version Strings', GNETWORK_TEXTDOMAIN ),
@@ -452,6 +452,9 @@ class Debug extends gNetwork\Module
 			'option: max_file_size'    => get_option( 'max_file_size' ),
 			'ini: upload_max_filesize' => ini_get( 'upload_max_filesize' ).' = '.wp_convert_hr_to_bytes( ini_get( 'upload_max_filesize' ) ),
 			'ini: post_max_size'       => ini_get( 'post_max_size' ).' = '.wp_convert_hr_to_bytes( ini_get( 'post_max_size' ) ),
+			'ms_files_rewriting'       => get_option( 'ms_files_rewriting' ),
+			'option: upload_path'      => get_option( 'upload_path' ),
+			'option: upload_url_path'  => get_site_option( 'upload_url_path' ),
 		];
 
 		$upload = wp_upload_dir();

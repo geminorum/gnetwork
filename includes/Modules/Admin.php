@@ -313,7 +313,6 @@ class Admin extends gNetwork\Module
 	protected function settings_overview( $uri )
 	{
 		HTML::h2( _x( 'Current Site Overview', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ) );
-
 		HTML::desc( _x( 'Below you can find various information about current site and contents.', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ) );
 
 		$tabs = [];
@@ -388,11 +387,6 @@ class Admin extends gNetwork\Module
 
 			wp_add_inline_script( Utilities::enqueueScriptVendor( 'chosen.jquery', [ 'jquery' ], '1.8.2' ), $script );
 		}
-
-		// FIXME: DROP THIS
-		// BruteProtect global css!!
-		if ( defined( 'BRUTEPROTECT_VERSION' ) )
-			wp_dequeue_style( 'bruteprotect-css' );
 	}
 
 	public function admin_print_styles()
