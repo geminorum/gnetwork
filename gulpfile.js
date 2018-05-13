@@ -76,7 +76,7 @@
       ]))
       // .pipe(plugins.sourcemaps.write(config.output.sourcemaps))
       .pipe(gulp.dest(config.output.css)).on('error', log.error)
-      .pipe(plugins.if([ '*', '!./assets/css/themes/*', '!./assets/css/tinymce/*' ],
+      .pipe(plugins.if(config.input.rtl,
         multipipe(
           plugins.postcss([rtlcss()]),
           plugins.rename({suffix: '-rtl'}),
@@ -108,7 +108,7 @@
       // .pipe(plugins.sourcemaps.write(config.output.sourcemaps))
       .pipe(plugins.debug({title: 'Created'}))
       .pipe(gulp.dest(config.output.css)).on('error', log.error)
-      .pipe(plugins.if([ '*', '!./assets/css/themes/*', '!./assets/css/tinymce/*' ],
+      .pipe(plugins.if(config.input.rtl,
         multipipe(
           plugins.postcss([rtlcss()]),
           plugins.rename({suffix: '-rtl'}),
@@ -144,7 +144,7 @@
         autoprefixer(config.autoprefixer.build)
       ]))
       .pipe(gulp.dest(config.output.css)).on('error', log.error)
-      .pipe(plugins.if([ '*', '!./assets/css/themes/*', '!./assets/css/tinymce/*' ],
+      .pipe(plugins.if(config.input.rtl,
         multipipe(
           plugins.postcss([rtlcss()]),
           plugins.rename({suffix: '-rtl'})
