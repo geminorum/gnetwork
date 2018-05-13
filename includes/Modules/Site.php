@@ -447,7 +447,7 @@ class Site extends gNetwork\Module
 		if ( ! $this->check_option( $option ) || FALSE == $value )
 			return $value;
 
-		update_site_meta( get_current_blog_id(), $option, maybe_serialize( $value ) );
+		update_site_meta( get_current_blog_id(), $option, maybe_unserialize( $value ) );
 
 		return $value;
 	}
@@ -457,7 +457,7 @@ class Site extends gNetwork\Module
 		if ( ! $this->check_option( $option ) )
 			return;
 
-		update_site_meta( get_current_blog_id(), $option, $value, maybe_serialize( $old_value ) );
+		update_site_meta( get_current_blog_id(), $option, $value, maybe_unserialize( $old_value ) );
 	}
 
 	public function added_option( $option, $value )
@@ -497,7 +497,7 @@ class Site extends gNetwork\Module
 
 		foreach ( $this->get_filters() as $filter )
 			if ( ! empty( $all_option[$filter] ) )
-				update_site_meta( $blog_id, $filter, $all_option[$filter] );
+				update_site_meta( $blog_id, $filter, maybe_unserialize( $all_option[$filter] ) );
 	}
 
 	public function switch_blog( $blog_id )
