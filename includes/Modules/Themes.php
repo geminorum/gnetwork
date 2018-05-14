@@ -34,6 +34,10 @@ class Themes extends gNetwork\Module
 
 		if ( is_admin() ) {
 
+			if ( $this->options['hidden_title']
+				&& WordPress::mustRegisterUI() )
+					$this->action( 'current_screen' );
+
 			// FIXME: NOT WORKING : when trying to enable each theme
 			// $this->filter( 'allowed_themes' );
 
@@ -72,6 +76,7 @@ class Themes extends gNetwork\Module
 		return [
 			'disable_themes'  => '1',
 			'content_actions' => '0',
+			'hidden_title'    => '0',
 			'body_class'      => GNETWORK_BODY_CLASS,
 			'jquery_cdn'      => '0',
 			'jquery_bottom'   => '0',
@@ -94,6 +99,11 @@ class Themes extends gNetwork\Module
 					'title'       => _x( 'Content Actions', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Extra hooks before and after post content', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
 					'constant'    => 'GNETWORK_DISABLE_CONTENT_ACTIONS',
+				],
+				[
+					'field'       => 'hidden_title',
+					'title'       => _x( 'Hidden Title', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Supports hidden titles on the front-end.', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
 					'field'       => 'body_class',
@@ -119,6 +129,46 @@ class Themes extends gNetwork\Module
 		];
 
 		return $settings;
+	}
+
+	public function current_screen( $screen )
+	{
+		if ( 'post' == $screen->base
+			&& post_type_supports( $screen->post_type, 'title' ) ) {
+
+			$this->action( 'save_post', 3, 20 );
+			$this->action( 'page_attributes_misc_attributes', 1, 12 );
+		}
+	}
+
+	public function save_post( $post_id, $post, $update )
+	{
+		if ( empty( $_POST[$this->classs( 'hidden-title-present' )] ) )
+			return;
+
+		if ( wp_is_post_autosave( $post ) || wp_is_post_revision( $post ) )
+			return;
+
+		if ( empty( $_POST[$this->classs( 'hidden-title' )] ) )
+			delete_post_meta( $post_id, '_hidden_title' );
+		else
+			update_post_meta( $post_id, '_hidden_title', TRUE );
+	}
+
+	public function page_attributes_misc_attributes( $post )
+	{
+		$name = $this->classs( 'hidden-title' );
+
+		echo '<div class="-wrap field-wrap -checkbox">';
+
+			echo '<input name="'.$name.'-present" type="hidden" value="1" />';
+
+			echo '<label for="'.$name.'" class="selectit">';
+			echo '<input name="'.$name.'" type="checkbox" id="'.$name.'" ';
+			checked( get_post_meta( $post->ID, '_hidden_title', TRUE ) );
+			echo ' /> '._x( 'Hide Title on Front-end', 'Modules: Themes', GNETWORK_TEXTDOMAIN );
+
+		echo '</label></div>';
 	}
 
 	// array of excluded directories and files while scanning theme folder.
@@ -664,6 +714,10 @@ class Themes extends gNetwork\Module
 
 		if ( ! $post = get_post( $post_id ) )
 			return $classes;
+
+		if ( $this->options['hidden_title']
+			&& get_post_meta( $post_id, '_hidden_title', TRUE ) )
+				$classes[] = '-hidden-title';
 
 		if ( ! trim( $post->post_title ) )
 			$classes[] = '-empty-title';
