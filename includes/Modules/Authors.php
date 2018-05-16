@@ -17,7 +17,8 @@ class Authors extends gNetwork\Module
 	{
 		$this->action( 'init', 0, 8 );
 
-		if ( gNetwork()->user() && $this->options['siteuser_as_default'] && is_admin() )
+		if ( $this->options['siteuser_as_default']
+			&& is_admin() && gNetwork()->user() )
 			$this->filter( 'wp_insert_post_data', 2, 9 );
 	}
 
@@ -49,7 +50,7 @@ class Authors extends gNetwork\Module
 				[
 					'field'       => 'siteuser_as_default',
 					'title'       => _x( 'Default Author', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'The Site User as Default Author of New Posts in Admin', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Uses site user as default author of new posts in admin.', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				'register_shortcodes',
 			],

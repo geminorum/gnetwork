@@ -13,7 +13,7 @@ class NavigationMenu extends \WP_Widget
 			_x( 'gNetwork Navigation: Menu', 'Widget: Title', GNETWORK_TEXTDOMAIN ),
 			[
 				'classname'   => 'gnetwork-wrap-widget -navmenu-widget',
-				'description' => _x( 'Global Navigation Menus', 'Widget: Description', GNETWORK_TEXTDOMAIN )
+				'description' => _x( 'Global Navigation Menus', 'Widget: Description', GNETWORK_TEXTDOMAIN ),
 			]
 		);
 	}

@@ -13,7 +13,7 @@ class TrackingGPlusBadge extends \WP_Widget
 			_x( 'gNetwork Tracking: Google Plus Badge', 'Widget: Title', GNETWORK_TEXTDOMAIN ),
 			[
 				'classname'   => 'gnetwork-wrap-widget -gplusbadge-widget',
-				'description' => _x( 'Simple Google Plus Badge', 'Widget: Description', GNETWORK_TEXTDOMAIN )
+				'description' => _x( 'Simple Google Plus Badge', 'Widget: Description', GNETWORK_TEXTDOMAIN ),
 			]
 		);
 	}

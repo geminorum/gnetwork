@@ -13,7 +13,7 @@ class TrackingQuantcast extends \WP_Widget
 			_x( 'gNetwork Tracking: Quantcast Widget', 'Widget: Title', GNETWORK_TEXTDOMAIN ),
 			[
 				'classname'   => 'gnetwork-wrap-widget -quantcast-widget',
-				'description' => _x( 'Simple Quantcast Data Badge', 'Widget: Description', GNETWORK_TEXTDOMAIN )
+				'description' => _x( 'Simple Quantcast Data Badge', 'Widget: Description', GNETWORK_TEXTDOMAIN ),
 			]
 		);
 	}

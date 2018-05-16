@@ -9,7 +9,7 @@ class DebugExtrasPanel extends \Debug_Bar_Panel
 
 	public function init()
 	{
-		$this->title( _x( 'Debug Extras', 'Debug Module: Debug Bar Panel Title', GNETWORK_TEXTDOMAIN ) );
+		$this->title( _x( 'Debug Extras', 'Modules: Debug: Debug Bar Panel Title', GNETWORK_TEXTDOMAIN ) );
 	}
 
 	public function render()

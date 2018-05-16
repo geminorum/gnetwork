@@ -10,7 +10,7 @@ class DebugMetaPanel extends \Debug_Bar_Panel
 
 	public function init()
 	{
-		$this->title( _x( 'Meta Data', 'Debug Module: Debug Bar Panel Title', GNETWORK_TEXTDOMAIN ) );
+		$this->title( _x( 'Meta Data', 'Modules: Debug: Debug Bar Panel Title', GNETWORK_TEXTDOMAIN ) );
 	}
 
 	public function render()
@@ -70,7 +70,7 @@ class DebugMetaPanel extends \Debug_Bar_Panel
 
 		} else {
 
-			HTML::desc( _x( 'No metadata found!', 'Debug Module: Debug Bar Panel', GNETWORK_TEXTDOMAIN ), TRUE, '-empty' );
+			HTML::desc( _x( 'No metadata found!', 'Modules: Debug: Debug Bar Panel', GNETWORK_TEXTDOMAIN ), TRUE, '-empty' );
 		}
 
 		echo '</div>';
