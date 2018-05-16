@@ -15,7 +15,7 @@ jQuery(function ($) {
       success: function (response) {
         $spinner.removeClass('is-active');
         if (response.success) {
-          $('#gnetwork-cron-status-check .-status-container').html(response.html);
+          $('#gnetwork-cron-status-check .-status-container').html(response.data);
         } else {
           $('#gnetwork-cron-status-check .-status').html('There was a problem getting the status of WP Cron.');
           console.log(response);
