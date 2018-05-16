@@ -18,8 +18,10 @@ class Widgets extends gNetwork\Module
 
 	protected function setup_actions()
 	{
-		if ( $this->options['register_sidebar_widgets'] )
+		if ( $this->options['register_sidebar_widgets'] ) {
 			$this->action( 'widgets_init' );
+			$this->action( 'customize_register', 1, 12 );
+		}
 
 		if ( count( $this->options['disabled_sidebar_widgets'] ) )
 			add_action( 'widgets_init', [ $this, 'disable_sidebar_widgets' ], 100 );
@@ -192,6 +194,7 @@ class Widgets extends gNetwork\Module
 	{
 		$widgets = [
 			GNETWORK_DIR.'includes/Widgets/CodeLegend.php' => 'geminorum\\gNetwork\\Widgets\\CodeLegend',
+			GNETWORK_DIR.'includes/Widgets/SiteIcon.php'   => 'geminorum\\gNetwork\\Widgets\\SiteIcon',
 		];
 
 		if ( class_exists( __NAMESPACE__.'\\Navigation' ) )
@@ -211,5 +214,10 @@ class Widgets extends gNetwork\Module
 					register_widget( $widget );
 			}
 		}
+	}
+
+	public function customize_register( $wp_customize )
+	{
+		$wp_customize->get_setting( 'site_icon' )->transport = 'refresh';
 	}
 }
