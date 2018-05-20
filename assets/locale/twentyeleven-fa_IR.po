@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gTwentyEleven v2.6\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2018-03-31 17:15+0430\n"
+"PO-Revision-Date: 2018-05-18 05:09+0430\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: \n"
 "Language: fa_IR\n"
@@ -11,26 +11,22 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-Basepath: ../../../../themes/twentyeleven\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
-"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
-"X-Textdomain-Support: yes\n"
-"X-Generator: Poedit 2.0.6\n"
-"X-Poedit-SearchPath-0: .\n"
+"X-Generator: Poedit 2.0.7\n"
 
 #. Description of the plugin/theme
 msgid ""
-"The 2011 theme for WordPress is sophisticated, lightweight, and adaptable. Make "
-"it yours with a custom menu, header image, and background -- then go further "
-"with available theme options for light or dark color scheme, custom link colors, "
-"and three layout choices. Twenty Eleven comes equipped with a Showcase page "
-"template that transforms your front page into a showcase to show off your best "
-"content, widget support galore (sidebar, three footer areas, and a Showcase page "
-"widget area), and a custom \"Ephemera\" widget to display your Aside, Link, "
-"Quote, or Status posts. Included are styles for print and for the admin editor, "
-"support for featured images (as custom header images on posts and pages and as "
-"large images on featured \"sticky\" posts), and special styles for six different "
-"post formats."
+"The 2011 theme for WordPress is sophisticated, lightweight, and adaptable. Make it yours "
+"with a custom menu, header image, and background -- then go further with available theme "
+"options for light or dark color scheme, custom link colors, and three layout choices. "
+"Twenty Eleven comes equipped with a Showcase page template that transforms your front page "
+"into a showcase to show off your best content, widget support galore (sidebar, three footer "
+"areas, and a Showcase page widget area), and a custom \"Ephemera\" widget to display your "
+"Aside, Link, Quote, or Status posts. Included are styles for print and for the admin "
+"editor, support for featured images (as custom header images on posts and pages and as "
+"large images on featured \"sticky\" posts), and special styles for six different post "
+"formats."
 msgstr ""
 
 #. Theme Name of the plugin/theme
@@ -93,10 +89,9 @@ msgstr "جست‌وجو"
 # @ twentyeleven
 #: search.php:48
 msgid ""
-"Sorry, but nothing matched your search criteria. Please try again with some "
-"different keywords."
-msgstr ""
-"متاسفانه جستجوی شما نتیجه‌ای در بر نداشت. لطفاً با کلیدواژه‌های دیگری جستجو کنید."
+"Sorry, but nothing matched your search criteria. Please try again with some different "
+"keywords."
+msgstr "متاسفانه جستجوی شما نتیجه‌ای در بر نداشت. لطفاً با کلیدواژه‌های دیگری جستجو کنید."
 
 # @ twentyeleven
 #: search.php:18
@@ -142,8 +137,8 @@ msgstr "در جریان دو هزار و یازده"
 #: inc/widgets.php:23
 msgid "Use this widget to list your recent Aside, Status, Quote, and Link posts"
 msgstr ""
-"برای فهرست کردن تازه‌ترین حاشیه‌ها، وضعیت‌ها، نقل‌قول و پیوندهای نوشته‌ای از این "
-"ابزارک استفاده کنید"
+"برای فهرست کردن تازه‌ترین حاشیه‌ها، وضعیت‌ها، نقل‌قول و پیوندهای نوشته‌ای از این ابزارک استفاده "
+"کنید"
 
 # @ twentyeleven
 #: inc/theme-options.php:566
@@ -196,14 +191,13 @@ msgid "Overview"
 msgstr "نمای کلی"
 
 #: inc/theme-options.php:121
-msgid ""
-"<a href=\"https://wordpress.org/support/\" target=\"_blank\">Support Forums</a>"
+msgid "<a href=\"https://wordpress.org/support/\" target=\"_blank\">Support Forums</a>"
 msgstr ""
 
 #: inc/theme-options.php:120
 msgid ""
-"<a href=\"https://codex.wordpress.org/Appearance_Theme_Options_Screen\" target="
-"\"_blank\">Documentation on Theme Options</a>"
+"<a href=\"https://codex.wordpress.org/Appearance_Theme_Options_Screen\" target=\"_blank"
+"\">Documentation on Theme Options</a>"
 msgstr ""
 
 # @ twentyeleven
@@ -214,52 +208,48 @@ msgstr "برای اطلاعات بیشتر:"
 # @ twentyeleven
 #: inc/theme-options.php:117
 msgid ""
-"Remember to click \"Save Changes\" to save any changes you have made to the "
-"theme options."
+"Remember to click \"Save Changes\" to save any changes you have made to the theme options."
 msgstr "به‌یاد داشته باشید که پس از انجام تغییرات، «ذخیره تغییرات» را کلیک کنید."
 
 # @ twentyeleven
 #: inc/theme-options.php:115
 msgid ""
-"<strong>Default Layout</strong>: You can choose if you want your site&#8217;s "
-"default layout to have a sidebar on the left, the right, or not at all."
+"<strong>Default Layout</strong>: You can choose if you want your site&#8217;s default "
+"layout to have a sidebar on the left, the right, or not at all."
 msgstr ""
-"<strong>طرح پیش‌فرض</strong>: می‌توانید انتخاب کنید که سایت‌تان یک نوارکناری در "
-"راست، یا چپ داشته باشد، یا اصلا نوارکناری نداشته باشد."
+"<strong>طرح پیش‌فرض</strong>: می‌توانید انتخاب کنید که سایت‌تان یک نوارکناری در راست، یا چپ "
+"داشته باشد، یا اصلا نوارکناری نداشته باشد."
 
 # @ twentyeleven
 #: inc/theme-options.php:114
 msgid ""
-"<strong>Link Color</strong>: You can choose the color used for text links on "
-"your site. You can enter the HTML color or hex code, or you can choose visually "
-"by clicking the \"Select a Color\" button to pick from a color wheel."
+"<strong>Link Color</strong>: You can choose the color used for text links on your site. You "
+"can enter the HTML color or hex code, or you can choose visually by clicking the \"Select a "
+"Color\" button to pick from a color wheel."
 msgstr ""
-"<strong>رنگ پیوند</strong>: می‌توانید رنگ پیوندهای موجود در وبلاگ خود را در این "
-"قسمت انتخاب کنید. می‌توانید کد رنگ موردنظر خود را وارد کنید یا با کلیک بروی "
-"«گزینش رنگ» از دایره‌ی رنگ‌های موجود، رنگ موردنظر خود را انتخاب کنید."
+"<strong>رنگ پیوند</strong>: می‌توانید رنگ پیوندهای موجود در وبلاگ خود را در این قسمت انتخاب "
+"کنید. می‌توانید کد رنگ موردنظر خود را وارد کنید یا با کلیک بروی «گزینش رنگ» از دایره‌ی رنگ‌های "
+"موجود، رنگ موردنظر خود را انتخاب کنید."
 
 # @ twentyeleven
 #: inc/theme-options.php:113
 msgid ""
-"<strong>Color Scheme</strong>: You can choose a color palette of \"Light"
-"\" (light background with dark text) or \"Dark\" (dark background with light "
-"text) for your site."
+"<strong>Color Scheme</strong>: You can choose a color palette of \"Light\" (light "
+"background with dark text) or \"Dark\" (dark background with light text) for your site."
 msgstr ""
-"<strong>رنگبندی</strong>: می‌توانید برای سایت خود رنگبندی روشن (پس‌زمینه سفید و "
-"متن تیره) یا رنگبندی تیره (پس‌زمینه تیره و متن روشن) انتخاب کنید."
+"<strong>رنگبندی</strong>: می‌توانید برای سایت خود رنگبندی روشن (پس‌زمینه سفید و متن تیره) یا "
+"رنگبندی تیره (پس‌زمینه تیره و متن روشن) انتخاب کنید."
 
 # @ twentyeleven
 #: inc/theme-options.php:111
 msgid ""
-"Some themes provide customization options that are grouped together on a Theme "
-"Options screen. If you change themes, options may change or disappear, as they "
-"are theme-specific. Your current theme, Twenty Eleven, provides the following "
-"Theme Options:"
+"Some themes provide customization options that are grouped together on a Theme Options "
+"screen. If you change themes, options may change or disappear, as they are theme-specific. "
+"Your current theme, Twenty Eleven, provides the following Theme Options:"
 msgstr ""
-"برخی پوسته‌ها، یک سری تنظیمات را در بخش تنظیمات پوسته در اختیار کاربران قرار "
-"می‌دهند. اگر پوسته را تغییر دهید ممکن است این تنظیمات ناپدید شوند زیر تنها متعلق "
-"به همین پوسته هستند. پوسته‌ِ فعلی شما، دو هزار و یازده، تنظیمات زیر را در اختیار "
-"شما قرار می‌دهد:"
+"برخی پوسته‌ها، یک سری تنظیمات را در بخش تنظیمات پوسته در اختیار کاربران قرار می‌دهند. اگر "
+"پوسته را تغییر دهید ممکن است این تنظیمات ناپدید شوند زیر تنها متعلق به همین پوسته هستند. "
+"پوسته‌ِ فعلی شما، دو هزار و یازده، تنظیمات زیر را در اختیار شما قرار می‌دهد:"
 
 # @ twentyeleven
 #: inc/theme-options.php:95 inc/theme-options.php:96
@@ -284,15 +274,15 @@ msgstr "رنگبندی"
 # @ twentyeleven
 #: image.php:30
 msgid ""
-"<span class=\"meta-prep meta-prep-entry-date\">Published </span> <span class="
-"\"entry-date\"><abbr class=\"published\" title=\"%1$s\">%2$s</abbr></span> at <a "
-"href=\"%3$s\" title=\"Link to full-size image\">%4$s &times; %5$s</a> in <a href="
-"\"%6$s\" title=\"Return to %7$s\" rel=\"gallery\">%8$s</a>"
+"<span class=\"meta-prep meta-prep-entry-date\">Published </span> <span class=\"entry-date"
+"\"><abbr class=\"published\" title=\"%1$s\">%2$s</abbr></span> at <a href=\"%3$s\" title="
+"\"Link to full-size image\">%4$s &times; %5$s</a> in <a href=\"%6$s\" title=\"Return to %7$s"
+"\" rel=\"gallery\">%8$s</a>"
 msgstr ""
-"<span class=\"meta-prep meta-prep-entry-date\">منتشر شده </span> <span class="
-"\"entry-date\"><abbr class=\"published\" title=\"%1$s\">%2$s</abbr></span> در <a "
-"href=\"%3$s\" title=\"پیوند به تصویر تمام‌اندازه\">%4$s &times; %5$s</a> در <a "
-"href=\"%6$s\" title=\"بازگشت به %7$s\" rel=\"gallery\">%8$s</a>"
+"<span class=\"meta-prep meta-prep-entry-date\">منتشر شده </span> <span class=\"entry-date"
+"\"><abbr class=\"published\" title=\"%1$s\">%2$s</abbr></span> در <a href=\"%3$s\" title="
+"\"پیوند به تصویر تمام‌اندازه\">%4$s &times; %5$s</a> در <a href=\"%6$s\" title=\"بازگشت به "
+"%7$s\" rel=\"gallery\">%8$s</a>"
 
 # @ twentyeleven
 #: image.php:20
@@ -332,16 +322,15 @@ msgstr "صفحه %s"
 # @ twentyeleven
 #: functions.php:672
 msgid ""
-"<span class=\"sep\">Posted on </span><a href=\"%1$s\" title=\"%2$s\" rel="
-"\"bookmark\"><time class=\"entry-date\" datetime=\"%3$s\">%4$s</time></a><span "
-"class=\"by-author\"> <span class=\"sep\"> by </span> <span class=\"author vcard"
-"\"><a class=\"url fn n\" href=\"%5$s\" title=\"%6$s\" rel=\"author\">%7$s</a></"
-"span></span>"
+"<span class=\"sep\">Posted on </span><a href=\"%1$s\" title=\"%2$s\" rel=\"bookmark\"><time "
+"class=\"entry-date\" datetime=\"%3$s\">%4$s</time></a><span class=\"by-author\"> <span "
+"class=\"sep\"> by </span> <span class=\"author vcard\"><a class=\"url fn n\" href=\"%5$s\" "
+"title=\"%6$s\" rel=\"author\">%7$s</a></span></span>"
 msgstr ""
-"<span class=\"sep\"></span><a href=\"%1$s\" title=\"%2$s\" rel=\"bookmark"
-"\"><time class=\"entry-date\" datetime=\"%3$s\">%4$s</time></a><span class=\"by-"
-"author\"> <span class=\"sep\"> by </span> <span class=\"author vcard\"><a class="
-"\"url fn n\" href=\"%5$s\" title=\"%6$s\" rel=\"author\">%7$s</a></span></span>"
+"<span class=\"sep\"></span><a href=\"%1$s\" title=\"%2$s\" rel=\"bookmark\"><time class="
+"\"entry-date\" datetime=\"%3$s\">%4$s</time></a><span class=\"by-author\"> <span class=\"sep"
+"\"> by </span> <span class=\"author vcard\"><a class=\"url fn n\" href=\"%5$s\" title=\"%6$s"
+"\" rel=\"author\">%7$s</a></span></span>"
 
 # @ twentyeleven
 #: functions.php:653
@@ -501,31 +490,29 @@ msgstr "نمایش همه‌ی نوشته‌های %s <span class=\"meta-nav\">&
 # @ twentyeleven
 #: content-single.php:39
 msgid ""
-"This entry was posted by <a href=\"%6$s\">%5$s</a>. Bookmark the <a href=\"%3$s"
-"\" title=\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
+"This entry was posted by <a href=\"%6$s\">%5$s</a>. Bookmark the <a href=\"%3$s\" title="
+"\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
 msgstr ""
-"نوشته شده توسط  <a href=\"%6$s\">%5$s</a>. افزودن <a href=\"%3$s\" title=\"پیوند "
-"یکتا به %4$s\" rel=\"bookmark\">پیوند یکتا</a> به علاقمندی‌ها."
+"نوشته شده توسط  <a href=\"%6$s\">%5$s</a>. افزودن <a href=\"%3$s\" title=\"پیوند یکتا به "
+"%4$s\" rel=\"bookmark\">پیوند یکتا</a> به علاقمندی‌ها."
 
 # @ twentyeleven
 #: content-single.php:37
 msgid ""
-"This entry was posted in %1$s by <a href=\"%6$s\">%5$s</a>. Bookmark the <a href="
-"\"%3$s\" title=\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
+"This entry was posted in %1$s by <a href=\"%6$s\">%5$s</a>. Bookmark the <a href=\"%3$s\" "
+"title=\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
 msgstr ""
-"نوشته شده در %1$s توسط <a href=\"%6$s\">%5$s</a>.  افزودن <a href=\"%3$s\" title="
-"\"پیوند یکتا به %4$s\" rel=\"bookmark\">پیوند یکتا</a> به علاقمندی‌ها."
+"نوشته شده در %1$s توسط <a href=\"%6$s\">%5$s</a>.  افزودن <a href=\"%3$s\" title=\"پیوند "
+"یکتا به %4$s\" rel=\"bookmark\">پیوند یکتا</a> به علاقمندی‌ها."
 
 # @ twentyeleven
 #: content-single.php:35
 msgid ""
-"This entry was posted in %1$s and tagged %2$s by <a href=\"%6$s\">%5$s</a>. "
-"Bookmark the <a href=\"%3$s\" title=\"Permalink to %4$s\" rel=\"bookmark"
-"\">permalink</a>."
+"This entry was posted in %1$s and tagged %2$s by <a href=\"%6$s\">%5$s</a>. Bookmark the <a "
+"href=\"%3$s\" title=\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
 msgstr ""
-"نوشته شده در %1$s با برچسب %2$s توسط <a href=\"%6$s\">%5$s</a>. افزودن <a href="
-"\"%3$s\" title=\"پیوند یکتا به %4$s\" rel=\"bookmark\">پیوند یکتا</a> به "
-"علاقمندی‌ها."
+"نوشته شده در %1$s با برچسب %2$s توسط <a href=\"%6$s\">%5$s</a>. افزودن <a href=\"%3$s\" "
+"title=\"پیوند یکتا به %4$s\" rel=\"bookmark\">پیوند یکتا</a> به علاقمندی‌ها."
 
 # @ twentyeleven
 #: content-quote.php:15
@@ -545,10 +532,9 @@ msgstr "نمایش ‌همه‌ی نوشته‌های %s"
 # @ twentyeleven
 #: content-image.php:36
 msgid ""
-"<a href=\"%1$s\" rel=\"bookmark\"><time class=\"entry-date\" datetime=\"%2$s\">"
-"%3$s</time></a><span class=\"by-author\"> <span class=\"sep\"> by </span> <span "
-"class=\"author vcard\"><a class=\"url fn n\" href=\"%4$s\" title=\"%5$s\" rel="
-"\"author\">%6$s</a></span></span>"
+"<a href=\"%1$s\" rel=\"bookmark\"><time class=\"entry-date\" datetime=\"%2$s\">%3$s</time></"
+"a><span class=\"by-author\"> <span class=\"sep\"> by </span> <span class=\"author vcard"
+"\"><a class=\"url fn n\" href=\"%4$s\" title=\"%5$s\" rel=\"author\">%6$s</a></span></span>"
 msgstr ""
 
 # @ twentyeleven
@@ -586,92 +572,86 @@ msgstr "گالری"
 # @ twentyeleven
 #: content-featured.php:33
 msgid ""
-"This entry was posted in %1$s. Bookmark the <a href=\"%3$s\" title=\"Permalink "
-"to %4$s\" rel=\"bookmark\">permalink</a>."
+"This entry was posted in %1$s. Bookmark the <a href=\"%3$s\" title=\"Permalink to %4$s\" "
+"rel=\"bookmark\">permalink</a>."
 msgstr ""
-"نوشته شده در %1$s. افزودن <a href=\"%3$s\" title=\"پیوند یکتا به %4$s\" rel="
-"\"bookmark\">پیوند یکتا</a> به علاقمندی‌ها."
+"نوشته شده در %1$s. افزودن <a href=\"%3$s\" title=\"پیوند یکتا به %4$s\" rel=\"bookmark"
+"\">پیوند یکتا</a> به علاقمندی‌ها."
 
 # @ twentyeleven
 #: content-featured.php:31
 msgid ""
-"This entry was posted in %1$s and tagged %2$s. Bookmark the <a href=\"%3$s\" "
-"title=\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
+"This entry was posted in %1$s and tagged %2$s. Bookmark the <a href=\"%3$s\" title="
+"\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
 msgstr ""
-"نوشته شده در %1$s با برچسب %2$s. افزودن <a href=\"%3$s\" title=\"پیوند یکتا به "
-"%4$s\" rel=\"bookmark\">پیوند یکتا</a> به علاقمندی‌ها."
+"نوشته شده در %1$s با برچسب %2$s. افزودن <a href=\"%3$s\" title=\"پیوند یکتا به %4$s\" rel="
+"\"bookmark\">پیوند یکتا</a> به علاقمندی‌ها."
 
 # @ twentyeleven
 #. translators: used between list items, there is a space after the comma
 #: content-featured.php:29 content-featured.php:38 content-gallery.php:60
-#: content-gallery.php:70 content-image.php:49 content-image.php:58
-#: content-quote.php:44 content-quote.php:54 content-single.php:30
-#: content-single.php:33 content.php:51 content.php:63
+#: content-gallery.php:70 content-image.php:49 content-image.php:58 content-quote.php:44
+#: content-quote.php:54 content-single.php:30 content-single.php:33 content.php:51
+#: content.php:63
 msgid ", "
-msgstr "٬"
+msgstr "، "
 
 # @ twentyeleven
-#: content-aside.php:46 content-featured.php:45 content-gallery.php:88
-#: content-image.php:70 content-intro.php:19 content-link.php:46
-#: content-page.php:21 content-quote.php:72 content-single.php:52
-#: content-status.php:59 content.php:82 functions.php:612 functions.php:640
-#: image.php:41
+#: content-aside.php:46 content-featured.php:45 content-gallery.php:88 content-image.php:70
+#: content-intro.php:19 content-link.php:46 content-page.php:21 content-quote.php:72
+#: content-single.php:52 content-status.php:59 content.php:82 functions.php:612
+#: functions.php:640 image.php:41
 msgid "Edit"
 msgstr "ویرایش"
 
 # @ twentyeleven
-#: content-aside.php:44 content-gallery.php:85 content-image.php:66
-#: content-link.php:44 content-quote.php:69 content-status.php:57 content.php:79
-#: showcase.php:202
+#: content-aside.php:44 content-gallery.php:85 content-image.php:66 content-link.php:44
+#: content-quote.php:69 content-status.php:57 content.php:79 showcase.php:202
 msgid "<b>%</b> Replies"
 msgstr "<b>%</b> پاسخ"
 
 # @ twentyeleven
-#: content-aside.php:44 content-gallery.php:85 content-image.php:66
-#: content-link.php:44 content-quote.php:69 content-status.php:57 content.php:79
-#: showcase.php:202
+#: content-aside.php:44 content-gallery.php:85 content-image.php:66 content-link.php:44
+#: content-quote.php:69 content-status.php:57 content.php:79 showcase.php:202
 msgid "<b>1</b> Reply"
 msgstr "<b>۱</b> پاسخ"
 
 # @ twentyeleven
-#: content-aside.php:44 content-gallery.php:85 content-image.php:66
-#: content-link.php:44 content-quote.php:69 content-status.php:57 content.php:79
-#: showcase.php:202
+#: content-aside.php:44 content-gallery.php:85 content-image.php:66 content-link.php:44
+#: content-quote.php:69 content-status.php:57 content.php:79 showcase.php:202
 msgid "Leave a reply"
 msgstr "پاسخ دهید"
 
 # @ twentyeleven
-#: content-aside.php:36 content-featured.php:23 content-gallery.php:52
-#: content-image.php:30 content-intro.php:18 content-link.php:36
-#: content-page.php:18 content-quote.php:36 content-single.php:24
-#: content-status.php:49 content.php:42 image.php:98
+#: content-aside.php:36 content-featured.php:23 content-gallery.php:52 content-image.php:30
+#: content-intro.php:18 content-link.php:36 content-page.php:18 content-quote.php:36
+#: content-single.php:24 content-status.php:49 content.php:42 image.php:98
 msgid "Pages:"
 msgstr "برگه‌ها:"
 
 # @ twentyeleven
-#: content-aside.php:35 content-gallery.php:34 content-image.php:29
-#: content-link.php:35 content-quote.php:35 content-status.php:48 content.php:41
-#: functions.php:378
+#: content-aside.php:35 content-gallery.php:34 content-image.php:29 content-link.php:35
+#: content-quote.php:35 content-status.php:48 content.php:41 functions.php:378
 msgid "Continue reading <span class=\"meta-nav\">&rarr;</span>"
 msgstr "ادامه <span class=\"meta-nav\">&larr;</span>"
 
 # @ twentyeleven
-#: content-aside.php:24 content-image.php:23 content-link.php:24
-#: content-quote.php:24 content-status.php:24 content.php:30
+#: content-aside.php:24 content-image.php:23 content-link.php:24 content-quote.php:24
+#: content-status.php:24 content.php:30
 msgctxt "comments number"
 msgid "%"
 msgstr "%"
 
 # @ twentyeleven
-#: content-aside.php:24 content-image.php:23 content-link.php:24
-#: content-quote.php:24 content-status.php:24 content.php:30
+#: content-aside.php:24 content-image.php:23 content-link.php:24 content-quote.php:24
+#: content-status.php:24 content.php:30
 msgctxt "comments number"
 msgid "1"
 msgstr "۱"
 
 # @ twentyeleven
-#: content-aside.php:24 content-image.php:23 content-link.php:24
-#: content-quote.php:24 content-status.php:24 content.php:30
+#: content-aside.php:24 content-image.php:23 content-link.php:24 content-quote.php:24
+#: content-status.php:24 content.php:30
 msgid "Reply"
 msgstr "پاسخ دادن"
 
@@ -730,15 +710,12 @@ msgstr "بایگانی نویسنده: %s"
 # @ twentyeleven
 #: archive.php:61 author.php:90 category.php:63 index.php:41 tag.php:64
 msgid ""
-"Apologies, but no results were found for the requested archive. Perhaps "
-"searching will help find a related post."
-msgstr ""
-"با عرض پوزش، بایگانی مورد درخواست شما موجود نیست. شاید جستجو بتواند به شما کمک "
-"کند."
+"Apologies, but no results were found for the requested archive. Perhaps searching will help "
+"find a related post."
+msgstr "با عرض پوزش، بایگانی مورد درخواست شما موجود نیست. شاید جستجو بتواند به شما کمک کند."
 
 # @ twentyeleven
-#: archive.php:57 author.php:86 category.php:59 index.php:37 search.php:44
-#: tag.php:60
+#: archive.php:57 author.php:86 category.php:59 index.php:37 search.php:44 tag.php:60
 msgid "Nothing Found"
 msgstr "موردی پیدا نشد."
 
@@ -751,7 +728,7 @@ msgstr "بایگانی وبلاگ"
 #: archive.php:29
 msgctxt "yearly archives date format"
 msgid "Y"
-msgstr "Y"
+msgstr ""
 
 # @ twentyeleven
 #: archive.php:29
@@ -762,7 +739,7 @@ msgstr "بایگانی سالیانه: %s"
 #: archive.php:27
 msgctxt "monthly archives date format"
 msgid "F Y"
-msgstr "F Y"
+msgstr ""
 
 # @ twentyeleven
 #: archive.php:27
@@ -788,11 +765,11 @@ msgstr "دسته‌های بیشتر استفاده شده"
 # @ twentyeleven
 #: 404.php:21
 msgid ""
-"It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching, "
-"or one of the links below, can help."
+"It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching, or one of "
+"the links below, can help."
 msgstr ""
-"گویا ما نمی‌توانیم چیزی که شما به‌دنبالش بودید را بیابیم. شاید جستجوی بیشتر یا یکی "
-"از پیوندهای زیر بتواند به شما کمک کند."
+"گویا ما نمی‌توانیم چیزی که شما به‌دنبالش بودید را بیابیم. شاید جستجوی بیشتر یا یکی از "
+"پیوندهای زیر بتواند به شما کمک کند."
 
 # @ twentyeleven
 #: 404.php:17
