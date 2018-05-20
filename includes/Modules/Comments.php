@@ -21,14 +21,17 @@ class Comments extends gNetwork\Module
 	{
 		if ( $this->options['disable_notifications'] ) {
 
-			// filter the list of email addresses to receive a comment notification.
-			add_filter( 'comment_notification_recipients', '__return_empty_array' );
+			// filter the list of email addresses to receive a comment notification
+			add_filter( 'comment_notification_recipients', '__return_empty_array', 12 );
 
-			// filter whether to send the site moderator email notifications, overriding the site setting.
-			add_filter( 'notify_moderator', '__return_false' );
+			// filters whether to notify comment authors of their comments on their own posts
+			add_filter( 'comment_notification_notify_author', '__return_false', 12 );
 
-			// whether to send the post author new comment notification emails, overriding the site setting.
-			add_filter( 'notify_post_author', '__return_false' );
+			// filter whether to send the site moderator email notifications, overriding the site setting
+			add_filter( 'notify_moderator', '__return_false', 12 );
+
+			// whether to send the post author new comment notification emails, overriding the site setting
+			add_filter( 'notify_post_author', '__return_false', 12 );
 		}
 
 		if ( is_blog_admin() ) {
