@@ -1,3 +1,32 @@
+### 3.7.4
+* main/plugin: using bbp hook for bbpress module
+* main/module: moving away from `*_site_option` for clarity, (see)[https://core.trac.wordpress.org/ticket/28290]
+* main/utilities: better iso639 locale
+* module/admin: rtl only styles
+* module/admin: summary of site meta
+* module/adminbar: :warning: correct rest base
+* module/adminbar: get site name helper
+* module/adminbar: separate styles
+* module/bbpress: custom styles
+* module/blog: ssl disabled constant
+* module/blog: check if request not encoded for shortlinks
+* module/captcha: recaptcha for buddypress register
+* module/comments: block notify author
+* module/cron: correct prop for status check callback
+* module/debug: ssl constant summary on overview
+* module/debug: log line not trimmed by default
+* module/navigation: :new: global nav menu
+* module/navigation: :new: sites section on metabox
+* module/site: :new: sync site meta
+* module/site: only sync current network
+* module/site: store unserialized meta
+* module/site: ssl enable/disable for main site
+* module/themes: jquery cdn on ssl
+* module/themes: hyde: remove unsecure font link
+* module/themes: :new: hidden title for posttypes
+* module/widgets: :new: widget for site icon
+* misc/buddypress-me: hook to bp setup componnet
+
 ### 3.7.3
 * main/module: tools page for admin/network
 * main/module: better handling buttons
