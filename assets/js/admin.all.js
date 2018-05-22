@@ -25,6 +25,8 @@ jQuery(function ($) {
     autosize.update($target.find('#excerpt, #description, .textarea-autosize, textarea.large-text'));
   });
 
+  $('a[data-tab="' + window.location.hash.slice(1) + '"]', '.-base').trigger('click');
+
   // FIXME: must trigger core to store current state
   if ($('#screen-meta-links').length && $('.postbox-container .postbox').length) {
     // $('<div id="gnetwork-admin-metabox-controls" class="screen-meta-toggle gnetwork-admin-metabox-controls"><button type="button" id="gnetwork-admin-metabox-toggle" class="button show-settings">' + gNetwork.metabox_controls_toggle + '</button></div>')
