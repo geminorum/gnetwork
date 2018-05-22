@@ -65,7 +65,7 @@ class Locale extends gNetwork\Module
 
 	public function load_textdomain_mofile( $mofile, $domain )
 	{
-		$locale = get_locale();
+		$locale = get_user_locale();
 
 		if ( 'en_US' == $locale )
 			return $mofile;

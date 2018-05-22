@@ -1133,7 +1133,7 @@ class Media extends gNetwork\Module
 			'value' => _x( 'Upload', 'Modules: Media', GNETWORK_TEXTDOMAIN ),
 			'data'  => [
 				'nonce'    => wp_create_nonce( $this->classs( 'file-upload' ) ),
-				'locale'   => get_locale(),
+				'locale'   => get_user_locale(),
 				'progress' => _x( 'Uploading File - %s%', 'Modules: Media', GNETWORK_TEXTDOMAIN ),
 				'complete' => _x( 'Upload Complete!', 'Modules: Media', GNETWORK_TEXTDOMAIN ),
 			],
