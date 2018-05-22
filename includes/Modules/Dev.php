@@ -29,9 +29,6 @@ class Dev extends gNetwork\Module
 		$this->action( 'pre_get_posts', 1, 99 );
 		$this->action( 'shutdown', 1, 99 );
 
-		if ( is_admin() )
-			$this->filter( 'contextual_help', 3 );
-
 		// $this->filter( 'embed_oembed_html', 4, 1 );
 		// $this->filter( 'pre_get_avatar', 3, 99 );
 		// remove_filter( 'get_avatar', 'bp_core_fetch_avatar_filter', 10, 6 );
@@ -157,53 +154,6 @@ class Dev extends gNetwork\Module
 			$prefix.= WordPress::currentSiteName().': ';
 
 		Logger::DEBUG( $prefix.implode( '|', $log ) );
-	}
-
-	// FIXME: WORKING: ADJUST IT
-	// @SOURCE: http://code.tutsplus.com/articles/quick-tip-get-the-current-screens-hooks--wp-26891
-	public function contextual_help( $old_help, $screen_id, $screen )
-	{
-		global $hook_suffix;
-
-		// List screen properties
-		$variables = '<ul style="width:50%;float:left;"><strong>Screen variables</strong>'
-			.sprintf( '<li>Screen id: %s</li>', $screen_id )
-			.sprintf( '<li>Screen base: %s</li>', $screen->base )
-			.sprintf( '<li>Parent base: %s</li>', $screen->parent_base )
-			.sprintf( '<li>Parent file: %s</li>', $screen->parent_file )
-			.sprintf( '<li>Hook suffix: %s</li>', $hook_suffix )
-			.'</ul>';
-
-		// Append global $hook_suffix to the hook stems
-		$hooks = [
-			"load-$hook_suffix",
-			"admin_print_styles-$hook_suffix",
-			"admin_print_scripts-$hook_suffix",
-			"admin_head-$hook_suffix",
-			"admin_footer-$hook_suffix"
-		];
-
-		// If add_meta_boxes or add_meta_boxes_{screen_id} is used, list these too
-		if ( did_action( 'add_meta_boxes_' . $screen_id ) )
-			$hooks[] = 'add_meta_boxes_' . $screen_id;
-
-		if ( did_action( 'add_meta_boxes' ) )
-			$hooks[] = 'add_meta_boxes';
-
-		$hooks = '<ul style="width:50%;float:left;"><li><strong>Hooks</strong></li><li>'.implode( '</li><li>', $hooks ).'</li></ul>';
-
-		$content = $variables.$hooks;
-
-		// $content.= self::dump( $screen, TRUE, FALSE );
-
-		$screen->add_help_tab( [
-			'id'       => 'gnetwork-screen-help',
-			'title'    => 'Screen Information',
-			'content'  => '<div dir="ltr">'.$content.'</div>',
-			'priority' => 1000,
-		] );
-
-		return $old_help;
 	}
 
 	public static function generateCustomTax()
