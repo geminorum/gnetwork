@@ -184,6 +184,7 @@ class Locale extends gNetwork\Module
 			'php-compatibility-checker'  => 'page', // [PHP Compatibility Checker](https://wordpress.org/plugins/php-compatibility-checker/)
 			'rlrsssl_really_simple_ssl'  => 'page', // [Really Simple SSL](https://wordpress.org/plugins/really-simple-ssl/)
 			'onesignal-push'             => 'page', // [OneSignal](https://wordpress.org/plugins/onesignal-free-web-push-notifications/)
+			'icit-profiler'              => 'page', // [WP Performance Profiler](https://github.com/khromov/wp-performance-profiler)
 
 			'user-submitted-posts/user-submitted-posts.php' => 'page', // [User Submitted Posts](https://wordpress.org/plugins/user-submitted-posts/)
 

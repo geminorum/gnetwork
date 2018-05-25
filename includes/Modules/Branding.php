@@ -246,7 +246,7 @@ class Branding extends gNetwork\Module
 
 		if ( $this->options['network_siteicon'] ) {
 
-			foreach( $sizes as $size )
+			foreach ( $sizes as $size )
 				$data['icons'][] = [
 					'src'   => $this->options['network_siteicon'],
 					'type'  => 'image/svg+xml',
@@ -257,7 +257,7 @@ class Branding extends gNetwork\Module
 
 			$type = get_post_mime_type( $icon );
 
-			foreach( $sizes as $size )
+			foreach ( $sizes as $size )
 				$data['icons'][] = [
 					'src'   => wp_get_attachment_image_url( $icon, [ $size, $size ] ),
 					'type'  => $type,

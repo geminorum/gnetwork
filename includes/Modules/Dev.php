@@ -33,9 +33,6 @@ class Dev extends gNetwork\Module
 		// $this->filter( 'pre_get_avatar', 3, 99 );
 		// remove_filter( 'get_avatar', 'bp_core_fetch_avatar_filter', 10, 6 );
 
-		// $this->action( 'template_redirect' );
-		// $this->filter( 'login_url', 2, 10 );
-
 		// the plugin gracefully forgets!
 		load_plugin_textdomain( 'monster-widget' );
 	}

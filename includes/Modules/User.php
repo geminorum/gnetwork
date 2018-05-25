@@ -260,7 +260,7 @@ class User extends gNetwork\Module
 
 		echo '<table class="form-table">';
 
-		foreach( $blogs as $blog ) {
+		foreach ( $blogs as $blog ) {
 
 			switch_to_blog( $blog->blog_id );
 

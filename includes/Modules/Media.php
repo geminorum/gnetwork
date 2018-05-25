@@ -626,7 +626,7 @@ class Media extends gNetwork\Module
 		} else {
 
 			// no need to resize already
-			foreach( $sizes as $size => $args )
+			foreach ( $sizes as $size => $args )
 				if ( array_key_exists( $size, $metadata['sizes'] ) )
 					unset( $sizes[$size] );
 		}
