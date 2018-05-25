@@ -178,6 +178,7 @@ class Cron extends gNetwork\Module
 	protected function tools_buttons( $sub = NULL )
 	{
 		$this->register_button( 'unschedule', _x( 'Unschedule', 'Modules: CRON: Button', GNETWORK_TEXTDOMAIN ), 'danger' );
+		$this->register_button( $this->get_cron_url(), _x( 'Trigger Manually', 'Modules: CRON', GNETWORK_TEXTDOMAIN ), 'link', [ 'target' => '_blank' ] );
 	}
 
 	public function render_tools( $uri, $sub = 'general' )
@@ -279,6 +280,11 @@ class Cron extends gNetwork\Module
 		update_option( $this->hook( 'timeout' ), time() + Date::DAY_IN_SECONDS, TRUE );
 	}
 
+	private function get_cron_url()
+	{
+		return site_url( 'wp-cron.php?doing_wp_cron='.sprintf( '%.22F', microtime( TRUE ) ) );
+	}
+
 	// gets the status of WP-Cron functionality on the site by performing a test spawn
 	private function status_check_spawn()
 	{
@@ -288,10 +294,12 @@ class Cron extends gNetwork\Module
 		if ( defined( 'ALTERNATE_WP_CRON' ) && ALTERNATE_WP_CRON )
 			return new Error( 'cron_alternated', sprintf( _x( 'The %s constant is set to true as of %s. We cannot determine the status of the WP-Cron system.', 'Modules: CRON', GNETWORK_TEXTDOMAIN ), '<code>ALTERNATE_WP_CRON</code>', Utilities::htmlCurrent() ) );
 
-		$url  = site_url( 'wp-cron.php?doing_wp_cron='.sprintf( '%.22F', microtime( TRUE ) ) );
-		$args = [ 'timeout' => 3, 'blocking' => TRUE ];
+		$args = [
+			'timeout'  => 3,
+			'blocking' => TRUE,
+		];
 
-		$result = wp_remote_post( $url, $args );
+		$result = wp_remote_post( $this->get_cron_url(), $args );
 
 		if ( self::isError( $result ) )
 			return $result;
@@ -358,11 +366,19 @@ class Cron extends gNetwork\Module
 			'data'  => [ 'nonce' => wp_create_nonce( $this->classs( 'status-check' ) ) ],
 		], _x( 'Check Status Now', 'Modules: CRON', GNETWORK_TEXTDOMAIN ) );
 
-		if ( $link && WordPress::cuc( 'manage_options' ) )
+		if ( $link && WordPress::cuc( 'manage_options' ) ) {
+
 			echo '&nbsp;&nbsp;'.HTML::tag( 'a', [
 				'href'  => $this->get_menu_url( 'cron', 'admin', 'tools' ),
 				'class' => [ 'button', 'button-small' ],
 			], _x( 'View Scheduled Tasks', 'Modules: CRON', GNETWORK_TEXTDOMAIN ) );
+
+			echo '&nbsp;&nbsp;'.HTML::tag( 'a', [
+				'href'   => $this->get_cron_url(),
+				'class'  => [ 'button', 'button-small' ],
+				'target' => '_blank',
+			], _x( 'Trigger Manually', 'Modules: CRON', GNETWORK_TEXTDOMAIN ) );
+		}
 
 		echo '</p></div>';
 	}
