@@ -242,10 +242,13 @@ class Cron extends gNetwork\Module
 	// run the check and update the status
 	private function do_status_check( $forced = FALSE )
 	{
-		if ( ! $forced && get_transient( $this->classs( 'status' ) ) )
-			return;
+		if ( ! $forced ) {
 
-		set_transient( $this->classs( 'status' ), current_time( 'mysql' ), Date::DAY_IN_SECONDS );
+			$timeout = get_option( $this->hook( 'timeout' ) );
+
+			if ( FALSE !== $timeout && $timeout > time() )
+				return;
+		}
 
 		$result = $this->status_check_spawn();
 
@@ -253,7 +256,7 @@ class Cron extends gNetwork\Module
 
 			if ( in_array( $result->get_error_code(), [ 'cron_disabled', 'cron_alternated' ] ) ) {
 
-				update_option( $this->hook( 'status' ), '<span class="-status -notice">'.$result->get_error_message().'</span>' );
+				update_option( $this->hook( 'status' ), '<span class="-status -notice">'.$result->get_error_message().'</span>', TRUE );
 
 			} else {
 
@@ -261,17 +264,19 @@ class Cron extends gNetwork\Module
 				$message.= '<br><br><strong>'.HTML::escape( $result->get_error_message() ).'</strong><br><br>';
 				$message.= _x( 'This is a problem with your installation.', 'Modules: CRON', GNETWORK_TEXTDOMAIN );
 
-				update_option( $this->hook( 'status' ), '<span class="-status -error">'.$message.'</span>' );
+				update_option( $this->hook( 'status' ), '<span class="-status -error">'.$message.'</span>', TRUE );
 			}
 
 		} else {
 
 			$message = sprintf( _x( 'WP-Cron is working as of %s', 'Modules: CRON', GNETWORK_TEXTDOMAIN ), Utilities::htmlCurrent() );
 
-			update_option( $this->hook( 'status' ), '<span class="-status -success">'.$message.'</span>', FALSE );
+			update_option( $this->hook( 'status' ), '<span class="-status -success">'.$message.'</span>', TRUE );
 		}
 
 		do_action( $this->hook( 'run' ), $result, $forced );
+
+		update_option( $this->hook( 'timeout' ), time() + Date::DAY_IN_SECONDS, TRUE );
 	}
 
 	// gets the status of WP-Cron functionality on the site by performing a test spawn
