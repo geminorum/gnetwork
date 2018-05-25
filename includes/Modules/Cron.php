@@ -26,7 +26,7 @@ class Cron extends gNetwork\Module
 		if ( ! is_blog_admin() )
 			return FALSE;
 
-		add_action( $this->hook( 'run' ), [ $this, 'do_email_admin' ], 10, 2 );
+		$this->action_module( 'cron', 'status_check', 2 );
 
 		if ( $this->options['dashboard_widget'] )
 			$this->action( 'wp_dashboard_setup' );
@@ -274,7 +274,7 @@ class Cron extends gNetwork\Module
 			update_option( $this->hook( 'status' ), '<span class="-status -success">'.$message.'</span>', TRUE );
 		}
 
-		do_action( $this->hook( 'run' ), $result, $forced );
+		do_action( $this->hook( 'status_check' ), $result, $forced );
 
 		update_option( $this->hook( 'timeout' ), time() + Date::DAY_IN_SECONDS, TRUE );
 	}
@@ -306,26 +306,34 @@ class Cron extends gNetwork\Module
 
 	// FIXME: add footer badge
 	// email the admin if the result is bad
-	public function do_email_admin( $result, $forced )
+	public function cron_status_check( $result, $forced )
 	{
-		if ( ! $forced && self::isError( $result ) && ! in_array( $result->get_error_code(), [ 'cron_disabled', 'cron_alternated' ] ) ) {
+		if ( $forced || ! self::isError( $result ) )
+			return;
 
-			if ( $this->options['status_email_failure'] ) {
+		if ( in_array( $result->get_error_code(), [ 'cron_disabled', 'cron_alternated' ] ) )
+			return;
 
-				$email   = $this->options['status_email_address'] ? $this->options['status_email_address'] : get_option( 'admin_email' );
-				$subject = sprintf( _x( '[%s] WP-Cron Failed!', 'Modules: CRON: Email Subject', GNETWORK_TEXTDOMAIN ), WordPress::getSiteNameforEmail( TRUE ) );
+		if ( $this->options['status_email_failure'] )
+			$this->do_email_failure( $this->options['status_email_address'] );
 
-				$message = get_option( $this->hook( 'status' ) );
-				$message.= '<p>'._x( 'This message has been sent from by the gNetwork WP-Cron Status Check module.', 'Modules: CRON', GNETWORK_TEXTDOMAIN ).'</p>';
+		foreach ( $result->get_error_codes() as $error )
+			Logger::siteWARNING( 'CRON-STATUS', str_replace( '_', ' ', $error ) );
+	}
 
-				$headers = [ 'Content-Type: text/html; charset=UTF-8' ];
+	private function do_email_failure( $email = NULL )
+	{
+		if ( ! $email )
+			$email = get_option( 'admin_email' );
 
-				wp_mail( $email, $subject, $message, $headers );
-			}
+		$subject = sprintf( _x( '[%s] WP-Cron Failed!', 'Modules: CRON: Email Subject', GNETWORK_TEXTDOMAIN ), WordPress::getSiteNameforEmail( TRUE ) );
 
-			foreach ( $result->get_error_codes() as $error )
-				Logger::siteWARNING( 'CRON-STATUS', str_replace( '_', ' ', $error ) );
-		}
+		$message = get_option( $this->hook( 'status' ) );
+		$message.= '<p>'.HTML::link( _x( 'Go here to view the current cron scheduled tasks', 'Modules: CRON', GNETWORK_TEXTDOMAIN ), $this->get_menu_url( 'cron', 'admin', 'tools' ) ).'</p>';
+
+		$headers = [ 'Content-Type: text/html; charset=UTF-8' ];
+
+		@wp_mail( $email, $subject, $message, $headers );
 	}
 
 	public function widget_status_check()
@@ -353,7 +361,6 @@ class Cron extends gNetwork\Module
 		if ( $link && WordPress::cuc( 'manage_options' ) )
 			echo '&nbsp;&nbsp;'.HTML::tag( 'a', [
 				'href'  => $this->get_menu_url( 'cron', 'admin', 'tools' ),
-				'title' => _x( 'View current cron scheduled tasks.', 'Modules: CRON', GNETWORK_TEXTDOMAIN ),
 				'class' => [ 'button', 'button-small' ],
 			], _x( 'View Scheduled Tasks', 'Modules: CRON', GNETWORK_TEXTDOMAIN ) );
 
