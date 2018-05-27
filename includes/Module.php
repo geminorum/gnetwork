@@ -151,7 +151,7 @@ class Module extends Core\Base
 		// WILL OVERRIDED
 	}
 
-	public function get_menu_url( $sub = NULL, $admin = 'admin', $context = 'settings' )
+	public function get_menu_url( $sub = NULL, $admin = 'admin', $context = 'settings', $scheme = 'admin' )
 	{
 		if ( is_null( $sub ) )
 			$sub = $this->key;
@@ -160,9 +160,9 @@ class Module extends Core\Base
 			$admin = $this->is_network() ? 'network' : 'admin';
 
 		switch ( $admin ) {
-			case 'admin'  : $url = Modules\Admin::menuURL( TRUE, $context ); break;
-			case 'network': $url = Modules\Network::menuURL( TRUE, $context ); break;
-			case 'user'   : $url = Modules\User::menuURL( TRUE, $context ); break;
+			case 'admin'  : $url = Modules\Admin::menuURL( TRUE, $context, $scheme ); break;
+			case 'network': $url = Modules\Network::menuURL( TRUE, $context, $scheme ); break;
+			case 'user'   : $url = Modules\User::menuURL( TRUE, $context, $scheme ); break;
 		}
 
 		return add_query_arg( [ 'sub' => $sub ], $url );

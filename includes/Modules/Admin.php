@@ -141,7 +141,7 @@ class Admin extends gNetwork\Module
 			remove_submenu_page( 'themes.php', 'theme-editor.php' );
 	}
 
-	public static function menuURL( $full = TRUE, $context = 'settings' )
+	public static function menuURL( $full = TRUE, $context = 'settings', $scheme = 'admin' )
 	{
 		if ( 'tools' == $context )
 			$relative = 'tools.php?page='.static::BASE.'-tools';
@@ -150,7 +150,9 @@ class Admin extends gNetwork\Module
 				? 'admin.php?page='.static::BASE
 				: 'index.php?page='.static::BASE;
 
-		return $full ? get_admin_url( NULL, $relative ) : $relative;
+		return $full
+			? get_admin_url( NULL, $relative, $scheme )
+			: $relative;
 	}
 
 	public static function registerMenu( $sub, $title = NULL, $callback = FALSE, $capability = 'manage_options', $priority = 10 )

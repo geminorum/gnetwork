@@ -340,10 +340,13 @@ class User extends gNetwork\Module
 		return $old_help;
 	}
 
-	public static function menuURL( $full = TRUE, $context = 'settings' )
+	public static function menuURL( $full = TRUE, $context = 'settings', $scheme = 'admin' )
 	{
 		$relative = 'admin.php?page='.static::BASE;
-		return $full ? user_admin_url( $relative ) : $relative;
+
+		return $full
+			? user_admin_url( $relative, $scheme )
+			: $relative;
 	}
 
 	public static function registerMenu( $sub, $title = NULL, $callback = FALSE, $capability = 'read', $priority = 10 )

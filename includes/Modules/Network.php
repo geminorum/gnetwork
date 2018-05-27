@@ -86,14 +86,23 @@ class Network extends gNetwork\Module
 		];
 	}
 
-	public static function menuURL( $full = TRUE, $context = 'settings' )
+	public static function menuURL( $full = TRUE, $context = 'settings', $scheme = 'admin' )
 	{
+		$multisite = is_multisite();
+
 		if ( 'tools' == $context )
-			$relative = 'index.php?page='.static::BASE.'-tools';
+			$relative = $multisite
+				? 'index.php?page='.static::BASE.'-tools'
+				: 'tools.php?page='.static::BASE.'-tools';
+
 		else
 			$relative = 'admin.php?page='.static::BASE;
 
-		return $full ? network_admin_url( $relative ) : $relative;
+		return $full
+			? ( $multisite
+				? network_admin_url( $relative, $scheme )
+				: get_admin_url( NULL, $relative, $scheme ) )
+			: $relative;
 	}
 
 	public static function registerMenu( $sub, $title = NULL, $callback = FALSE, $capability = 'manage_network_options', $priority = 10 )
