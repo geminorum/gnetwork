@@ -380,14 +380,14 @@ class Admin extends gNetwork\Module
 		if ( gNetwork()->option( 'admin_chosen', 'blog' ) ) {
 
 			$script = 'jQuery(function($) {
-				$("select.gnetwork-do-chosen, .postbox:not(#submitdiv) .inside select, .tablenav select").chosen({
+				$("select.gnetwork-do-chosen, .postbox:not(#submitdiv) .inside select:not(.no-chosen), .tablenav select").chosen({
 					rtl: "rtl" === $("html").attr("dir"),
 					no_results_text: "'._x( 'No results match', 'Modules: Admin: Chosen', GNETWORK_TEXTDOMAIN ).'",
 					disable_search_threshold: 10
 				}).addClass("gnetwork-chosen");
 			});';
 
-			wp_add_inline_script( Utilities::enqueueScriptVendor( 'chosen.jquery', [ 'jquery' ], '1.8.2' ), $script );
+			wp_add_inline_script( Utilities::enqueueScriptVendor( 'chosen.jquery', [ 'jquery' ], '1.8.5' ), $script );
 		}
 	}
 

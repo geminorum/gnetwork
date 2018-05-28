@@ -253,6 +253,7 @@ class AdminBar extends gNetwork\Module
 		] );
 
 		if ( defined( 'GNETWORK_WPLANG' )
+			&& ! is_network_admin()
 			&& WordPress::isDev()
 			&& class_exists( __NAMESPACE__.'\\Locale' ) ) {
 

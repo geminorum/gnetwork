@@ -23,7 +23,7 @@ if ( ! function_exists( 'gnetwork_github_readme' ) ) :
 				: $fallback
 			);
 
-			if ( $html ) echo $wrap ? '<div class="-wrap gnetwork-overview-wrap">'.$html.'</div>' : $html;
+			if ( $html ) echo $wrap ? '<div class="-wrap gnetwork-github-readme">'.$html.'</div>' : $html;
 		}
 	}
 endif;
@@ -134,4 +134,22 @@ if ( ! function_exists( 'gnetwork_trace' ) ) : function gnetwork_trace( $old = T
 if ( ! function_exists( 'get_gmeta' ) ) : function get_gmeta( $field, $args = [] ) {
 	if ( is_callable( [ 'geminorum\\gEditorial\\Templates\\Meta', 'getMetaField' ] ) )
 		return \geminorum\gEditorial\Templates\Meta::getMetaField( $field, $args );
+} endif;
+
+// polyfill for `is_countable()` function added in PHP 7.3
+// FIXME: DROP FOR: WP4.9.6
+if ( ! function_exists( 'is_countable' ) ) : function is_countable( $var ) {
+	return ( is_array( $var )
+		|| $var instanceof \Countable
+		|| $var instanceof \SimpleXMLElement
+		|| $var instanceof \ResourceBundle
+	);
+} endif;
+
+// polyfill for `is_iterable()` function added in PHP 7.1
+// FIXME: DROP FOR: WP4.9.6
+if ( ! function_exists( 'is_iterable' ) ) : function is_iterable( $var ) {
+	return ( is_array( $var )
+		|| $var instanceof \Traversable
+	);
 } endif;

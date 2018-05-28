@@ -18,12 +18,15 @@ class DebugMetaPanel extends \Debug_Bar_Panel
 		echo '<div id="gnetwork-meta-debugbar-panel" class="gnetwork-admin-wrap debugbar-panel">';
 
 		if ( is_tax() && function_exists( 'get_term_custom' ) ) {
+
 			$meta = get_term_custom( get_queried_object_id() );
 
 		} else if ( defined( 'IS_PROFILE_PAGE' ) && IS_PROFILE_PAGE && current_user_can( 'edit_users' ) ) {
+
 			$meta = get_user_meta( get_current_user_id() );
 
 		} else if ( ! empty( $_GET['user_id'] ) && current_user_can( 'edit_users' ) ) {
+
 			$meta = get_user_meta( $_GET['user_id'] );
 
 		} else if ( ! empty( $_GET['tag_ID'] ) ) {
@@ -47,6 +50,7 @@ class DebugMetaPanel extends \Debug_Bar_Panel
 			echo '</div>';
 
 		} else {
+
 			$meta = FALSE;
 		}
 
