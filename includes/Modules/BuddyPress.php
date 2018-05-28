@@ -230,25 +230,25 @@ class BuddyPress extends gNetwork\Module
 
 	public function init()
 	{
-		if ( WordPress::isSuperAdmin() ) {
+		$super = WordPress::isSuperAdmin();
+		$admin = is_admin();
+
+		if ( $super && ! $admin ) {
 
 			// Don't record activity by the site admins
 			// or show them as recently active
 			// REF: http://wp.me/pLVLj-gc
 			$user_id = bp_loggedin_user_id();
 			\BP_Core_User::delete_last_activity( $user_id );
-			delete_user_meta( $user_id, 'last_activity' );
+			// delete_user_meta( $user_id, 'last_activity' );
 			remove_action( 'wp_head', 'bp_core_record_activity' );
+		}
 
-		} else if ( is_admin() ) {
-
+		if ( ! $super && $admin )
 			remove_action( 'tool_box', 'bp_core_admin_available_tools_intro' );
 
-		} else {
-
-			if ( $this->options['check_completed'] )
-				$this->check_completed();
-		}
+		if ( ! $super && ! $admin && $this->options['check_completed'] )
+			$this->check_completed();
 	}
 
 	public function bp_init()
@@ -271,13 +271,21 @@ class BuddyPress extends gNetwork\Module
 
 	public function check_completed()
 	{
-		if ( is_admin()
-			|| ! is_user_logged_in()
-			|| ! bp_is_root_blog()
-			|| ! bp_is_active( 'xprofile' )
-			// || bp_current_user_can( 'bp_moderate' )
-			|| bp_loggedin_user_id() != bp_displayed_user_id() )
-				return;
+		if ( ! is_user_logged_in() )
+			return;
+
+		if ( ! bp_is_root_blog() )
+			return;
+
+		if ( ! bp_is_active( 'xprofile' ) )
+			return;
+
+		if ( ! $displayed = bp_displayed_user_id() )
+			return;
+
+		// bp_current_user_can( 'bp_moderate' )
+		if ( $displayed != bp_loggedin_user_id() )
+			return;
 
 		global $wpdb;
 
@@ -288,7 +296,7 @@ class BuddyPress extends gNetwork\Module
 			WHERE parent_id = 0
 			AND is_required = 1
 			AND id NOT IN (SELECT field_id FROM {$bp_prefix}bp_xprofile_data WHERE user_id = %s AND `value` IS NOT NULL AND `value` != '')
-		", bp_displayed_user_id() ) );
+		", $displayed ) );
 
 		if ( empty( $fields ) )
 			return;
