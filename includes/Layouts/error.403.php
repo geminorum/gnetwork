@@ -16,7 +16,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <style type="text/css">
-*,*:after,*:before {-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;padding:0;margin:0;border:0;}
+*,*::after,*::before {box-sizing:border-box;padding:0;margin:0;border:0;}
 .clearfix:before,.clearfix:after{content:" ";display:table;}.clearfix:after{clear:both;}.clearfix{*zoom:1;}
 html,body {height:100%; background-color: #fff;color: gray;}
 html * { -webkit-font-smoothing: antialiased; }

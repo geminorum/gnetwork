@@ -23,7 +23,7 @@ if ( ! function_exists( 'gnetwork_github_readme' ) ) :
 				: $fallback
 			);
 
-			if ( $html ) echo $wrap ? '<div class="-wrap gnetwork-github-readme">'.$html.'</div>' : $html;
+			if ( $html ) echo $wrap ? '<div class="-wrap gnetwork-github-readme" dir="ltr">'.$html.'</div>' : $html;
 		}
 	}
 endif;

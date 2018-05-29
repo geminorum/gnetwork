@@ -151,7 +151,7 @@ class Debug extends gNetwork\Module
 		HTML::desc( _x( 'Below you can find various raw information about current server and WordPress installation.', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ) );
 
 		HTML::tabsList( [
-			'php' => [
+			'currents' => [
 				'title'  => _x( 'Currents', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
 				'cb'     => [ __CLASS__, 'summaryCurrents' ],
 				'active' => TRUE,
@@ -189,7 +189,7 @@ class Debug extends gNetwork\Module
 				'cb'    => [ __CLASS__, 'gPlugin' ],
 			],
 			'htaccess' => [
-				'title' => _x( '.htaccess', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
+				'title' => _x( 'htaccess', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
 				'cb'    => [ __CLASS__, 'htaccessSummary' ],
 			],
 			'wpconfig' => [
@@ -560,6 +560,8 @@ class Debug extends gNetwork\Module
 
 	public static function summaryCurrents()
 	{
+		echo '<div class="-wrap -currents" dir="ltr">';
+
 		HTML::desc( sprintf( _x( 'Current PHP version: <code>%s</code>', 'Modules: Debug', GNETWORK_TEXTDOMAIN ), phpversion() ) );
 
 		echo HTML::listCode( self::getPHPExtensions(),
@@ -588,6 +590,8 @@ class Debug extends gNetwork\Module
 			$available[strtoupper($tool)] = file_exists( $path.$tool ) ? $path.$tool : FALSE;
 
 		echo HTML::tableCode( $available );
+
+		echo '</div>';
 	}
 
 	public static function getPHPExtensions()
