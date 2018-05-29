@@ -3,11 +3,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// gNetwork Partials: Settings Admin ALL --------------------------------------
 
-.wrap.gnetwork-settings {
-  &.sub-overview {}
-}
-
-.gnetwork-admin-wrap.gnetwork-settings {
+.wrap.gnetwork-admin-wrap {
   // @include mainwrap();
   // padding-right: 20px;
 
@@ -93,24 +89,6 @@
 
     textarea {
       outline: none;
-    }
-  }
-}
-
-.gnetwork-overview-wrap {
-
-  /*rtl:ignore*/
-  direction: ltr;
-
-  .shortcode-github-readme {
-    background: #fff;
-    margin: 1em 0;
-    padding: 1em 1.5em;
-
-    img[src*="badge"],
-    img[src*="shields.io"] {
-      display: inline-block;
-      border-radius: 0;
     }
   }
 }

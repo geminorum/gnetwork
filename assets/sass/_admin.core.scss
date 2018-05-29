@@ -15,3 +15,22 @@
 @import "partials/admin.editor";
 @import "partials/admin.logs";
 @import "partials/admin.icon";
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+.-wrap.gnetwork-github-readme {
+
+  /*rtl:ignore*/
+  direction: ltr;
+
+  background: #fff;
+  margin: 1em 0;
+  padding: 1em 1.5em;
+
+  img[src*="badge"],
+  img[src*="shields.io"] {
+    display: inline-block;
+    border-radius: 0;
+  }
+}

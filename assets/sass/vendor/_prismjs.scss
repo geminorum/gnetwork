@@ -158,12 +158,7 @@ pre.line-numbers > code {
   width: 3em; /* works for line-numbers below 1000 lines */
   letter-spacing: -1px;
   border-right: 1px solid #999;
-
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
-
 }
 
 .line-numbers-rows > span {
@@ -247,9 +242,7 @@ div.code-toolbar > .toolbar button {
   line-height: normal;
   overflow: visible;
   padding: 0;
-  -webkit-user-select: none; /* for button */
-  -moz-user-select: none;
-  -ms-user-select: none;
+  user-select: none;
 }
 
 div.code-toolbar > .toolbar a,
