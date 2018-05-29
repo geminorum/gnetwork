@@ -764,7 +764,7 @@ class Text extends Base
 
 		$output = '';
 
-		foreach( $data as $fields ) {
+		foreach ( $data as $fields ) {
 
 			$row = array();
 

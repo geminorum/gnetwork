@@ -203,11 +203,11 @@ class File extends Base
 		);
 
 		if ( 0 === $bytes )
-			return number_format( 0, $decimals ).' B';
+			return '&#8206;'.number_format( 0, $decimals ).' B&#8207;';
 
 		foreach ( $quant as $unit => $mag )
 			if ( doubleval( $bytes ) >= $mag )
-				return number_format( $bytes / $mag, $decimals ).' '.$unit;
+				return '&#8206;'.number_format( $bytes / $mag, $decimals ).' '.$unit.'&#8207;';
 
 		return FALSE;
 	}
@@ -246,7 +246,7 @@ class File extends Base
 
 		$handle = fopen( 'php://temp/maxmemory:'.$maxmemory, 'r+' );
 
-		foreach( $data as $fields )
+		foreach ( $data as $fields )
 			fputcsv( $handle, $fields );
 
 		rewind( $handle );
@@ -258,7 +258,7 @@ class File extends Base
 		return $csv;
 	}
 
-	// @REF: http://www.paulund.co.uk/html5-download-attribute
+	// @REF: https://paulund.co.uk/html5-download-attribute
 	public static function download( $path, $name = NULL, $mime = 'application/octet-stream' )
 	{
 		if ( ! file_exists( $path ) )
@@ -270,10 +270,10 @@ class File extends Base
 		if ( is_null( $name ) )
 			$name = basename( $path );
 
-		@ini_set( 'zlib.output_compression', 'Off' );
-		@ini_set( 'zlib.output_handler', '' );
-		@ini_set( 'output_buffering', 'Off' );
-		@ini_set( 'output_handler', '' );
+		// @ini_set( 'zlib.output_compression', 'Off' );
+		// @ini_set( 'zlib.output_handler', '' );
+		// @ini_set( 'output_buffering', 'Off' );
+		// @ini_set( 'output_handler', '' );
 
 		header( 'Content-Description: File Transfer' );
 		header( 'Pragma: public' ); // required
@@ -286,8 +286,8 @@ class File extends Base
 		header( 'Content-Transfer-Encoding: binary' );
 		header( 'Connection: close' );
 
-		@ob_clean();
-		flush();
+		// @ob_clean();
+		// @flush();
 
 		readfile( $path );
 

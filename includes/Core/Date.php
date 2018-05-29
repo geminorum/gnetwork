@@ -165,7 +165,7 @@ class Date extends Base
 
 		$parts['seconds'] = intval( ceil( $remains % self::MINUTE_IN_SECONDS ) );
 
-		foreach( $parts as $part => $count ) {
+		foreach ( $parts as $part => $count ) {
 
 			if ( ! $count )
 				continue;

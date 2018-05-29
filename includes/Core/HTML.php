@@ -116,7 +116,7 @@ class HTML extends Base
 
 		} else {
 
-			foreach( $array as $item ) {
+			foreach ( $array as $item ) {
 				if ( is_array( $item ) )
 					self::inputHiddenArray( $item, $prefix.'[]' );
 				else
