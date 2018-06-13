@@ -26,6 +26,8 @@ class BuddyPressMe extends \BP_Component
 		add_filter( 'gnetwork_navigation_logout_url', [ $this, 'navigation_logout_url' ], 12, 4 );
 	}
 
+	// @REF: https://buddypress.trac.wordpress.org/ticket/6325
+	// @REF: https://gist.github.com/geminorum/c22dc0a07c1db6031cdc39d7f76292eb
 	public function setup_globals( $args = [] )
 	{
 		parent::setup_globals( [

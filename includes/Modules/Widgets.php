@@ -97,9 +97,7 @@ class Widgets extends gNetwork\Module
 				'dir'      => $args['dir'],
 			] );
 
-			echo '<p>'.HTML::tag( 'label', [
-				'for' => $id.'-'.$value_name,
-			], $html.'&nbsp;'.HTML::escape( $value_title ).' <code>'.$value_name.'</code>' ).'</p>';
+			HTML::label( $html.'&nbsp;'.HTML::escape( $value_title ).' <code>'.$value_name.'</code>', $id.'-'.$value_name );
 		}
 	}
 
@@ -132,9 +130,7 @@ class Widgets extends gNetwork\Module
 			'checked' => in_array( 'core::dashboard_welcome_panel', (array) $value ),
 		] );
 
-		echo '<p>'.HTML::tag( 'label', [
-			'for' => $id.'-core-dashboard_welcome_panel',
-		], $html.'&nbsp;'.__( 'Welcome to WordPress!' ).' <code>dashboard_welcome_panel</code>' ).'</p>';
+		HTML::label( $html.'&nbsp;'.__( 'Welcome to WordPress!' ).' <code>dashboard_welcome_panel</code>', $id.'-core-dashboard_welcome_panel' );
 
 		foreach ( $wp_meta_boxes['dashboard'] as $context => $priority ) {
 
@@ -154,9 +150,10 @@ class Widgets extends gNetwork\Module
 						'checked' => in_array( $context.'::'.$value_name, (array) $value ),
 					] );
 
-					echo '<p>'.HTML::tag( 'label', [
-						'for' => $id.'-'.$context.'-'.$value_name,
-					], $html.'&nbsp;'.HTML::escape( wp_strip_all_tags( $widget['title'] ) ).' <code>'.$value_name.'</code>' ).'</p>';
+					$html.= '&nbsp;'.HTML::escape( strip_tags( $widget['title'] ) );
+					$html.= ' <code>'.$value_name.'</code>';
+
+					HTML::label( $html, $id.'-'.$context.'-'.$value_name );
 				}
 			}
 		}

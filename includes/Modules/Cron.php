@@ -337,7 +337,7 @@ class Cron extends gNetwork\Module
 		$subject = sprintf( _x( '[%s] WP-Cron Failed!', 'Modules: CRON: Email Subject', GNETWORK_TEXTDOMAIN ), WordPress::getSiteNameforEmail( TRUE ) );
 
 		$message = get_option( $this->hook( 'status' ) );
-		$message.= '<p>'.HTML::link( _x( 'Go here to view the current cron scheduled tasks', 'Modules: CRON', GNETWORK_TEXTDOMAIN ), $this->get_menu_url( 'cron', 'admin', 'tools' ) ).'</p>';
+		$message.= '<p>'.HTML::link( _x( 'View the current cron scheduled tasks', 'Modules: CRON', GNETWORK_TEXTDOMAIN ), $this->get_menu_url( 'cron', 'admin', 'tools' ) ).'</p>';
 
 		$headers = [ 'Content-Type: text/html; charset=UTF-8' ];
 

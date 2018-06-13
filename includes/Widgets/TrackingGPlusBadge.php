@@ -31,9 +31,7 @@ class TrackingGPlusBadge extends \WP_Widget
 			'dir'   => 'ltr',
 		] );
 
-		echo '<p>'.HTML::tag( 'label', [
-			'for' => $this->get_field_id( 'width' ),
-		], _x( 'Side bar width:', 'Modules: Widgets', GNETWORK_TEXTDOMAIN ).' '.$html ).'</p>';
+		HTML::label( _x( 'Side bar width:', 'Modules: Widgets', GNETWORK_TEXTDOMAIN ).' '.$html, $this->get_field_id( 'width' ) );
 
 		$html = HTML::tag( 'input', [
 			'type'  => 'text',
@@ -44,9 +42,9 @@ class TrackingGPlusBadge extends \WP_Widget
 			'dir'   => 'ltr',
 		] );
 
-		echo '<p>'.HTML::tag( 'label', [
-			'for' => $this->get_field_id( 'override' ),
-		], _x( 'Override Publisher ID:', 'Modules: Widgets', GNETWORK_TEXTDOMAIN ).' '.$html );
+		echo '<p>';
+
+		HTML::label( _x( 'Override Publisher ID:', 'Modules: Widgets', GNETWORK_TEXTDOMAIN ).' '.$html, $this->get_field_id( 'override' ), FALSE );
 
 		echo '<br />';
 

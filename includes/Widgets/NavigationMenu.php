@@ -42,9 +42,7 @@ class NavigationMenu extends \WP_Widget
 					'checked' => $location == $current,
 				] );
 
-				echo '<p>'.HTML::tag( 'label', [
-					'for' => $this->get_field_id( 'location' ).'-'.$location,
-				], $html.'&nbsp;'.$desc ).'</p>';
+				HTML::label( $html.'&nbsp;'.$desc, $this->get_field_id( 'location' ).'-'.$location );
 			}
 
 		} else {

@@ -185,6 +185,7 @@ class Locale extends gNetwork\Module
 			'rlrsssl_really_simple_ssl'  => 'page', // [Really Simple SSL](https://wordpress.org/plugins/really-simple-ssl/)
 			'onesignal-push'             => 'page', // [OneSignal](https://wordpress.org/plugins/onesignal-free-web-push-notifications/)
 			'icit-profiler'              => 'page', // [WP Performance Profiler](https://github.com/khromov/wp-performance-profiler)
+			'simpleWpSitemapSettings'    => 'page', // [Simple Wp Sitemap](https://wordpress.org/plugins/simple-wp-sitemap/)
 
 			'user-submitted-posts/user-submitted-posts.php' => 'page', // [User Submitted Posts](https://wordpress.org/plugins/user-submitted-posts/)
 
