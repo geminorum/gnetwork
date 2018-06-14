@@ -36,7 +36,7 @@ class BuddyPress extends gNetwork\Module
 					$this->action( 'bp_complete_signup' );
 
 				if ( ! $this->options['open_directories'] )
-					$this->action( 'bp_screens' );
+					$this->action( 'bp_screens', 0, 99 );
 
 				add_action( 'bp_before_register_page', '__donot_cache_page' );
 				add_action( 'bp_before_activation_page', '__donot_cache_page' );
@@ -351,10 +351,19 @@ class BuddyPress extends gNetwork\Module
 		bp_core_redirect( $this->options['complete_signup'] );
 	}
 
+	// check for open directories
 	public function bp_screens()
 	{
-		if ( ! bp_loggedin_user_id() && bp_is_directory() )
+		if ( bp_loggedin_user_id() )
+			return;
+
+		if ( ! bp_is_directory() )
+			return;
+
+		if ( bp_get_signup_allowed() )
 			bp_core_redirect( bp_get_signup_page() );
+
+		bp_core_redirect( bp_get_root_domain() );
 	}
 
 	public function bp_ajax_querystring( $querystring, $object = FALSE )
