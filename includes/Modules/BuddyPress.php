@@ -19,7 +19,6 @@ class BuddyPress extends gNetwork\Module
 
 	protected function setup_actions()
 	{
-		$this->action( 'init' );
 		$this->action( 'bp_init', 0, 1 );
 		$this->action( 'bp_setup_admin_bar', 0, 20 );
 
@@ -27,6 +26,8 @@ class BuddyPress extends gNetwork\Module
 		$this->action( 'before_signup_header' );
 
 		if ( bp_is_root_blog() ) {
+
+			$this->action( 'init' );
 
 			if ( ! is_admin() ) {
 
@@ -246,6 +247,9 @@ class BuddyPress extends gNetwork\Module
 
 		if ( ! $super && $admin )
 			remove_action( 'tool_box', 'bp_core_admin_available_tools_intro' );
+
+		if ( $admin )
+			remove_action( 'admin_head-edit.php', 'bp_admin_email_maybe_add_translation_notice' );
 
 		if ( ! $super && ! $admin && $this->options['check_completed'] )
 			$this->check_completed();
