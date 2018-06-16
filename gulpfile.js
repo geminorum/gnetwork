@@ -206,6 +206,7 @@
         tag: pkg.version,
         notes: changes.versions[0].rawNote,
         manifest: pkg,
+        skipIfPublished: true,
         draft: true
       }));
   });

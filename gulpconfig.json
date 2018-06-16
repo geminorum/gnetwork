@@ -7,7 +7,7 @@
     "sass": "./assets/sass/**/*.scss",
     "rtl": [
       "*",
-      "!rtl.all.css",
+      "!admin.rtl.css",
       "!./assets/css/themes/*",
       "!./assets/css/tinymce/*"
     ],
