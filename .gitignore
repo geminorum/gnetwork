@@ -18,6 +18,7 @@
 
 composer.lock
 npm-debug.log
+yarn-error.log
 .tinypng-sigs
 
 environment.yml

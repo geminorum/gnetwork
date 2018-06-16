@@ -1,6 +1,6 @@
 ### 3.7.4
 * main/plugin: using bbp hook for bbpress module
-* main/module: moving away from `*_site_option` for clarity, (see)[https://core.trac.wordpress.org/ticket/28290]
+* main/module: moving away from `*_site_option` for clarity, [see](https://core.trac.wordpress.org/ticket/28290)
 * main/utilities: better iso639 locale
 * module/admin: rtl only styles
 * module/admin: summary of site meta
