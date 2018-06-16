@@ -1,0 +1,41 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// gNetwork Partials: BuddyPress: RTL -----------------------------------------
+
+.bp-new-notice-panel {
+  label {
+    margin-right: 0;
+  }
+
+  .button-primary {
+    margin-left: 0;
+    float: right;
+  }
+}
+
+body.post-type-bp-email {
+  .categorydiv {
+    ul li {
+      margin-bottom: .5em;
+      font-size: smaller;
+      border-bottom: solid 1px #ddd;
+      padding-bottom: .5em;
+
+      &:last-of-type {
+        border: none;
+        padding-bottom: 0;
+      }
+    }
+
+    label {
+      padding-left: 0;
+      float: none;
+    }
+
+    > p {
+      margin: .5em 0 0;
+      font-size: smaller;
+    }
+  }
+}
