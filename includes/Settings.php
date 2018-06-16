@@ -823,7 +823,7 @@ class Settings extends Core\Base
 							'dir'      => $args['dir'],
 						] );
 
-						$html.= '&nbsp;'.HTML::escape( $value_title );
+						$html.= '&nbsp;'.$value_title;
 
 						if ( 'checkboxes-values' == $args['type'] )
 							$html.= ' &mdash; <code>'.$value_name.'</code>';

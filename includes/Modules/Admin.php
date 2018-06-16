@@ -327,6 +327,15 @@ class Admin extends gNetwork\Module
 				'active' => TRUE,
 			];
 
+		if ( class_exists( __NAMESPACE__.'\\Comments' )
+			&& current_user_can( 'moderate_comments' ) )
+			$tabs['comments'] = [
+				'title' => _x( 'Comment Counts', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ),
+				'cb'    => function() {
+					Comments::commentSummary();
+				},
+			];
+
 		if ( class_exists( __NAMESPACE__.'\\Locale' )
 			&& current_user_can( 'manage_options' ) )
 			$tabs['loadedmos'] = [

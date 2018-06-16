@@ -218,10 +218,9 @@ class Tracking extends gNetwork\Module
 			'alt'     => 'Analytics',
 			'context' => NULL,
 			'wrap'    => FALSE,
-			'md'      => NULL, // markdown // FIXME
 		], $atts, $tag );
 
-		if ( FALSE === $args['context'] || is_feed() )
+		if ( FALSE === $args['context'] )
 			return NULL;
 
 		$src = URL::trail( $args['server'] ).$args['beacon'].'/'.$args['domain'].'/'.$args['page'];
@@ -235,7 +234,7 @@ class Tracking extends gNetwork\Module
 		] );
 
 		if ( $args['wrap'] )
-			return '<div class="-wrap shortcode-beacon">'.$html.'</div>';
+			return '<span class="-wrap shortcode-beacon">'.$html.'</span>';
 
 		return $html;
 	}

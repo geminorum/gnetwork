@@ -261,7 +261,8 @@ class Profile extends gNetwork\Module
 				$count = 0;
 				$role  = get_option( 'default_role' );
 
-				$this->options['store_signup_ip'] = FALSE; // HACK: skip ip on the imported
+				// skiping ip on the imported
+				$this->options['store_signup_ip'] = FALSE;
 
 				$csv = new \ParseCsv\Csv();
 				$csv->auto( File::normalize( $file['file'] ) );

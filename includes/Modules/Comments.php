@@ -90,8 +90,8 @@ class Comments extends gNetwork\Module
 			'front_autogrow'        => '0',
 			'disable_notes'         => '1',
 			'strip_pings'           => '1',
-			'blacklist_check'       => '0', // FIXME: DRAFT: needs test / NO Settgins UI YET
-			'front_nonce'           => '0', // FIXME: DRAFT: working / NO Settgins UI YET / check the hooks
+			'blacklist_check'       => '0', // FIXME: DRAFT: needs test / NO settings UI YET
+			'front_nonce'           => '0', // FIXME: DRAFT: working / NO settings UI YET / check the hooks
 			'captcha'               => '0',
 		];
 	}
@@ -337,8 +337,7 @@ class Comments extends gNetwork\Module
 		// UPDATE wp_posts SET ping_status='closed' WHERE post_status = 'publish' AND post_type = 'page';
 	}
 
-	// FIXME: add to overview
-	// FIXME: add archived comments/other-types
+	// TODO: pie-chart
 	public static function commentSummary( $post_id = 0 )
 	{
 		$comments = wp_count_comments( $post_id );
