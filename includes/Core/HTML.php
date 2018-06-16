@@ -60,6 +60,12 @@ class HTML extends Base
 		echo $block ? '<p class="description -description '.$class.'">'.$html.'</p>' : '<span class="description -description '.$class.'">'.$html.'</span>';
 	}
 
+	public static function label( $input, $for = FALSE, $wrap = 'p' )
+	{
+		$html = self::tag( 'label', [ 'for' => $for ], $input );
+		echo $wrap ? self::tag( $wrap, $html ) : $html;
+	}
+
 	public static function button( $html, $link = '#', $title = FALSE, $icon = FALSE, $data = array() )
 	{
 		$classes = array(
