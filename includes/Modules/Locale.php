@@ -272,6 +272,8 @@ class Locale extends gNetwork\Module
 			'amp-options'           => 'page',
 			'amp-analytics-options' => 'page',
 
+			'bps_form' => 'post_type',
+
 			// [Gravity Forms](https://github.com/wp-premium/gravityforms)
 			'gf_settings'      => 'page',
 			'gf_export'        => 'page',

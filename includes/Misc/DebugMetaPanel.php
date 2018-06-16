@@ -56,21 +56,7 @@ class DebugMetaPanel extends \Debug_Bar_Panel
 
 		if ( $meta ) {
 
-			foreach ( $meta as $key => $values ) {
-
-				echo '<div class="-group">';
-				HTML::h3( $key, '-title' );
-
-				foreach ( $values as $value ) {
-					$data = maybe_unserialize( $value );
-					if ( is_array( $data ) )
-						HTML::tableSide( $data );
-					else
-						echo '<code>'.HTML::sanitizeDisplay( $data ).'</code>';
-				}
-
-				echo '</div><hr />';
-			}
+			HTML::tableSide( $meta );
 
 		} else {
 

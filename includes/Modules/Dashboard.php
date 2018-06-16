@@ -63,7 +63,7 @@ class Dashboard extends gNetwork\Module
 
 		remove_meta_box( 'dashboard_primary', $screen, 'side' );
 		remove_action( 'welcome_panel', 'wp_welcome_panel' );
-		remove_action( 'try_gutenberg_panel', 'wp_try_gutenberg_panel' );
+		remove_filter( 'try_gutenberg_panel', 'wp_try_gutenberg_panel' ); // @REF: https://core.trac.wordpress.org/ticket/41316
 		remove_action( 'activity_box_end', [ 'Akismet_Admin', 'dashboard_stats' ] );
 		remove_action( 'rightnow_end', [ 'Akismet_Admin', 'rightnow_stats' ] );
 

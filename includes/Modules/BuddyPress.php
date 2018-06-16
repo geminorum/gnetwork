@@ -355,7 +355,7 @@ class BuddyPress extends gNetwork\Module
 		bp_core_redirect( $this->options['complete_signup'] );
 	}
 
-	// check for open directories
+	// checks for open directories
 	public function bp_screens()
 	{
 		if ( bp_loggedin_user_id() )

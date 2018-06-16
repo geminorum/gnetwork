@@ -248,8 +248,8 @@ class Update extends gNetwork\Module
 	public function admin_init()
 	{
 		if ( ! current_user_can( 'update_plugins' ) ) {
-			remove_action( 'admin_notices', 'update_nag', 3 );
-			remove_action( 'network_admin_notices', 'update_nag', 3 );
+			remove_filter( 'admin_notices', 'update_nag', 3 );
+			remove_filter( 'network_admin_notices', 'update_nag', 3 );
 		}
 
 		if ( ! current_user_can( 'update_core' ) ) {
