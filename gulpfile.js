@@ -66,6 +66,11 @@
       .pipe(plugins.checktextdomain(config.textdomain));
   });
 
+  gulp.task('dev:clean', function (done) {
+    del.sync([config.output.clean]);
+    done();
+  });
+
   gulp.task('dev:sass', function () {
     return gulp.src(config.input.sass)
       // .pipe(plugins.sourcemaps.init())
@@ -76,7 +81,7 @@
       ]))
       // .pipe(plugins.sourcemaps.write(config.output.sourcemaps))
       .pipe(gulp.dest(config.output.css)).on('error', log.error)
-      .pipe(plugins.if(config.input.rtl,
+      .pipe(plugins.if(config.input.rtldev,
         multipipe(
           plugins.postcss([rtlcss()]),
           plugins.rename({suffix: '-rtl'}),
@@ -108,7 +113,7 @@
       // .pipe(plugins.sourcemaps.write(config.output.sourcemaps))
       .pipe(plugins.debug({title: 'Created'}))
       .pipe(gulp.dest(config.output.css)).on('error', log.error)
-      .pipe(plugins.if(config.input.rtl,
+      .pipe(plugins.if(config.input.rtldev,
         multipipe(
           plugins.postcss([rtlcss()]),
           plugins.rename({suffix: '-rtl'}),
@@ -136,7 +141,7 @@
       .pipe(gulp.dest(config.output.css)).on('error', log.error);
   });
 
-  gulp.task('build:styles', function () {
+  gulp.task('build:styles:old', function () {
     return gulp.src(config.input.sass)
       .pipe(plugins.sass(config.sass).on('error', plugins.sass.logError))
       .pipe(plugins.postcss([
@@ -144,12 +149,35 @@
         autoprefixer(config.autoprefixer.build)
       ]))
       .pipe(gulp.dest(config.output.css)).on('error', log.error)
-      .pipe(plugins.if(config.input.rtl,
+      .pipe(plugins.if(config.input.rtldev,
         multipipe(
           plugins.postcss([rtlcss()]),
           plugins.rename({suffix: '-rtl'})
         )
       ))
+      .pipe(gulp.dest(config.output.css)).on('error', log.error);
+  });
+
+  gulp.task('build:styles', function () {
+    return gulp.src(config.input.sass)
+      .pipe(plugins.sass(config.sass).on('error', plugins.sass.logError))
+      .pipe(plugins.postcss([
+        cssnano(config.cssnano.build),
+        autoprefixer(config.autoprefixer.build)
+      ]))
+      .pipe(gulp.dest(config.output.css)).on('error', log.error);
+  });
+
+  // seperated because of stripping rtl directives in compression
+  gulp.task('build:rtl', function () {
+    return gulp.src(config.input.rtl)
+      .pipe(plugins.sass(config.sass).on('error', plugins.sass.logError))
+      .pipe(plugins.postcss([
+        rtlcss(),
+        cssnano(config.cssnano.build),
+        autoprefixer(config.autoprefixer.build)
+      ]))
+      .pipe(plugins.rename({suffix: '-rtl'}))
       .pipe(gulp.dest(config.output.css)).on('error', log.error);
   });
 
@@ -186,7 +214,7 @@
   });
 
   gulp.task('build', gulp.series(
-    gulp.parallel('build:styles', 'build:scripts'),
+    gulp.parallel('build:styles', 'build:rtl', 'build:scripts'),
     'build:banner',
     'build:clean',
     'build:copy',

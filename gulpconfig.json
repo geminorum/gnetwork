@@ -5,11 +5,17 @@
       "!./assets{,/**}"
     ],
     "sass": "./assets/sass/**/*.scss",
-    "rtl": [
+    "rtldev": [
       "*",
       "!admin.rtl.css",
       "!./assets/css/themes/*",
       "!./assets/css/tinymce/*"
+    ],
+    "rtl": [
+      "./assets/sass/**/*.scss",
+      "!./assets/sass/admin.rtl.scss",
+      "!./assets/sass/themes/*.scss",
+      "!./assets/sass/tinymce/*.scss"
     ],
     "js": [
       "./assets/js/*.js",
@@ -57,6 +63,7 @@
     ]
   },
   "output": {
+    "clean": "./assets/css/**/*.css",
     "css": "./assets/css",
     "js": "./assets/js",
     "sourcemaps": "./maps",
