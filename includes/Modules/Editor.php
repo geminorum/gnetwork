@@ -46,9 +46,10 @@ class Editor extends gNetwork\Module
 		$this->filter( 'mce_buttons_4', 2 );
 		$this->filter( 'mce_external_plugins' );
 
-		if ( ! version_compare( $tinymce_version, '4100', '<' ) ) {
+		if ( ! version_compare( $tinymce_version, '4700', '<' ) ) {
 			Admin::registerTinyMCE( 'table', 'assets/js/vendor/tinymce.table', 2 );
 			$this->filter( 'content_save_pre', 1, 20 );
+			$this->filter( 'tiny_mce_before_init', 2 );
 		}
 	}
 
@@ -183,7 +184,7 @@ class Editor extends gNetwork\Module
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-// Originally based on : MCE Table Buttons v3.2
+// Originally based on : MCE Table Buttons v3.3 - 2018-06-20
 // by Jake Goldman http://10up.com
 // http://10up.com/plugins-modules/wordpress-mce-table-buttons/
 // @SOURCE: https://wordpress.org/plugins/mce-table-buttons/
@@ -192,8 +193,9 @@ class Editor extends gNetwork\Module
 	public function content_save_pre( $content )
 	{
 		if ( FALSE !== strpos( $content, '<table' ) ) {
+
 			// paragraphed content inside of a td requires first paragraph to have extra line breaks (or else autop breaks)
-			$content  = preg_replace( "/<td([^>]*)>(.+\r?\n\r?\n)/m", "<td$1>\n\n$2", $content );
+			$content = preg_replace( "/<td([^>]*)>(.+\r?\n\r?\n)/m", "<td$1>\n\n$2", $content );
 
 			// make sure there's space around the table
 			if ( substr( $content, -8 ) == '</table>' )
@@ -201,5 +203,13 @@ class Editor extends gNetwork\Module
 		}
 
 		return $content;
+	}
+
+	// removes the table toolbar introduced in TinyMCE 4.3.0
+	public function tiny_mce_before_init( $mceInit, $editor_id )
+	{
+		$mceInit['table_toolbar'] = '';
+
+		return $mceInit;
 	}
 }
