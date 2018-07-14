@@ -3,14 +3,14 @@ msgstr ""
 "Project-Id-Version: Members\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/members\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2018-04-20 20:21+0430\n"
+"PO-Revision-Date: 2018-07-07 20:21+0430\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: \n"
 "Language: fa_IR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 2.0.8\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-Basepath: ../../../members\n"
 
@@ -266,11 +266,11 @@ msgstr ""
 
 #: inc/functions-capabilities.php:60
 msgid "Import"
-msgstr ""
+msgstr "درون‌ریزی"
 
 #: inc/functions-capabilities.php:59
 msgid "Export"
-msgstr ""
+msgstr "برون‌بری"
 
 #: inc/functions-capabilities.php:58
 msgid "Edit Files"
@@ -714,7 +714,7 @@ msgstr ""
 
 #: inc/functions-cap-groups.php:112
 msgid "Plugins"
-msgstr ""
+msgstr "افزونه‌ها"
 
 #: inc/functions-cap-groups.php:103
 msgid "Appearance"
@@ -726,7 +726,7 @@ msgstr ""
 
 #: admin/functions-settings.php:35 inc/functions-cap-groups.php:42
 msgid "General"
-msgstr ""
+msgstr "همگانی"
 
 #: admin/class-cap-tabs.php:165
 msgid "All"
@@ -872,7 +872,7 @@ msgstr ""
 #: admin/class-meta-box-content-permissions.php:180
 #: admin/views/class-view-general.php:76
 msgid "Error Message"
-msgstr ""
+msgstr "پیام خطا"
 
 #: admin/views/class-view-general.php:75
 msgid "Enable Permissions"
@@ -1152,7 +1152,7 @@ msgstr ""
 #: admin/class-meta-box-content-permissions.php:115
 #: admin/views/class-view-general.php:63 admin/views/class-view-general.php:363
 msgid "Content Permissions"
-msgstr ""
+msgstr "مجوزهای محتوا"
 
 #: admin/class-manage-roles.php:89 admin/class-role-edit.php:298
 msgid "Edit Role"
