@@ -439,6 +439,16 @@ class Utilities extends Core\Base
 		return call_user_func( $callback );
 	}
 
+	public static function pkgAutosize( $ver = '4.0.2' )
+	{
+		$handle = static::BASE.'-autosize';
+
+		wp_enqueue_script( $handle, '//cdn.jsdelivr.net/npm/autosize@'.$ver.'/dist/autosize.min.js', [], NULL, TRUE );
+		wp_add_inline_script( $handle, "autosize(document.querySelectorAll('textarea'));" );
+
+		return $handle;
+	}
+
 	// @REF: https://github.com/blairvanderhoof/gist-embed
 	public static function pkgGistEmbed( $ver = '2.7.1' )
 	{

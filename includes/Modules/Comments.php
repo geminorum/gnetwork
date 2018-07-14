@@ -48,7 +48,7 @@ class Comments extends gNetwork\Module
 			if ( $this->options['front_quicktags'] )
 				$this->action( 'wp_print_scripts' );
 
-			if ( $this->options['front_autogrow'] )
+			if ( $this->options['front_autosize'] )
 				$this->action( 'template_redirect' );
 
 			if ( $this->options['disable_notes'] )
@@ -87,7 +87,7 @@ class Comments extends gNetwork\Module
 			'disable_notifications' => '1',
 			'admin_fullcomments'    => '1',
 			'front_quicktags'       => '0',
-			'front_autogrow'        => '0',
+			'front_autosize'        => '0',
 			'disable_notes'         => '1',
 			'strip_pings'           => '1',
 			'blacklist_check'       => '0', // FIXME: DRAFT: needs test / NO settings UI YET
@@ -124,8 +124,8 @@ class Comments extends gNetwork\Module
 					'description' => _x( 'Adds quick-tags on comment textarea on the frontend.', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
-					'field'       => 'front_autogrow',
-					'title'       => _x( 'Frontend Autogrow', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
+					'field'       => 'front_autosize',
+					'title'       => _x( 'Frontend Autosize', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Makes the comment textarea expand in height automatically on the frontend.', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
@@ -190,16 +190,8 @@ class Comments extends gNetwork\Module
 
 	public function template_redirect()
 	{
-		if ( ! is_singular() )
-			return;
-
-		if ( 'open' != $GLOBALS['wp_query']->post->comment_status )
-			return;
-
-		$this->scripts[] = '$("#comment").growfield();';
-		add_action( 'wp_footer', [ $this, 'print_scripts' ], 99 );
-
-		Utilities::enqueueScriptVendor( 'jquery.growfield' );
+		if ( is_singular() && 'open' == $GLOBALS['wp_query']->post->comment_status )
+			Utilities::pkgAutosize();
 	}
 
 	public function comment_excerpt( $excerpt )
