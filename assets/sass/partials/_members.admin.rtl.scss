@@ -1,0 +1,28 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// gNetwork Partials: Members: RTL --------------------------------------------
+
+.members-tabs,
+.members-cap-tabs {
+  width: 100%;
+
+  .members-tab-nav {
+    float: right;
+    border-right: none;
+    border-left: 1px solid #eee;
+  }
+
+  .members-tab-wrap {
+    float: right;
+    margin-left: 0;
+    margin-right: -1px;
+  }
+}
+
+#members-cp {
+  .members-tab-content {
+    border-left: none;
+    border-right: 1px solid #e5e5e5;
+  }
+}

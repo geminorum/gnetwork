@@ -8,6 +8,7 @@
 .wrap .page-title-action,
 .wrap .page-title-action:active,
 .mce-window .mce-window-head .mce-title,
+.media-menu > a,
 #dashboard_activity .no-activity p {
   font-family: Arial, sans-serif;
 }
@@ -44,6 +45,7 @@
   font-size: 13px;
 }
 
+.media-menu > a,
 .nav-tab {
   line-height: 16px;
 }
@@ -310,10 +312,6 @@ body.debug-bar-maximized {
       direction: ltr;
     }
   }
-}
-
-.media-menu > a {
-  padding: 8px 5px 8px 15px;
 }
 
 .imgedit-settings .imgedit-scale .nowrap,
