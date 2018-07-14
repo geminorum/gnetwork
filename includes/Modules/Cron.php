@@ -369,15 +369,15 @@ class Cron extends gNetwork\Module
 		if ( $link && WordPress::cuc( 'manage_options' ) ) {
 
 			echo '&nbsp;&nbsp;'.HTML::tag( 'a', [
-				'href'  => $this->get_menu_url( 'cron', 'admin', 'tools' ),
-				'class' => [ 'button', 'button-small' ],
-			], _x( 'View Scheduled Tasks', 'Modules: CRON', GNETWORK_TEXTDOMAIN ) );
-
-			echo '&nbsp;&nbsp;'.HTML::tag( 'a', [
 				'href'   => $this->get_cron_url(),
 				'class'  => [ 'button', 'button-small' ],
 				'target' => '_blank',
 			], _x( 'Trigger Manually', 'Modules: CRON', GNETWORK_TEXTDOMAIN ) );
+
+			echo '&nbsp;&nbsp;'.HTML::tag( 'a', [
+				'href'  => $this->get_menu_url( 'cron', 'admin', 'tools' ),
+				'class' => [ 'button', 'button-small' ],
+			], _x( 'View Scheduled Tasks', 'Modules: CRON', GNETWORK_TEXTDOMAIN ) );
 		}
 
 		echo '</p></div>';
@@ -430,11 +430,11 @@ class Cron extends gNetwork\Module
 
 							$html.= '<div dir="ltr"><code style="color:'.( has_action( $action ) ? 'green' : 'red' ).'">'.$action.'</code>';
 
-							if ( isset( $task['schedule'] ) && $task['schedule'] && isset( $column['args']['schedules'][$task['schedule']] ) )
+							if ( ! empty( $task['schedule'] ) && isset( $column['args']['schedules'][$task['schedule']] ) )
 								$html.= ' <small>('.$column['args']['schedules'][$task['schedule']]['display'].')</small>';
 
-							if ( isset( $task['args'] ) && count( $task['args'] ) )
-								$html.= ': <small>'.HTML::sanitizeDisplay( $task['args'] ).'</small>';
+							if ( ! empty( $task['args'] ) )
+								$html.= ': <code>'.wp_json_encode( $task['args'], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ).'</code>';
 
 							$html.= '</div>';
 						}

@@ -348,6 +348,7 @@ class Dashboard extends gNetwork\Module
 				// 'user_status',
 				'user_login',
 			],
+			'count_total' => FALSE,
 		] );
 
 		if ( empty( $query->results ) ) {
@@ -376,7 +377,7 @@ class Dashboard extends gNetwork\Module
 
 			foreach ( $query->results as $user ) {
 
-				$registered = strtotime( get_date_from_gmt( $user->user_registered ) );
+				$registered  = strtotime( get_date_from_gmt( $user->user_registered ) );
 				$register_ip = get_user_meta( $user->ID, 'register_ip', TRUE );
 
 				vprintf( $template, [
@@ -456,6 +457,7 @@ class Dashboard extends gNetwork\Module
 				'user_email',
 				'user_login',
 			],
+			'count_total' => FALSE,
 		] );
 
 		if ( empty( $query->results ) ) {
