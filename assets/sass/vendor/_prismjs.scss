@@ -1,5 +1,5 @@
-/* PrismJS 1.14.0
-http://prismjs.com/download.html?#themes=prism&languages=markup+css+clike+javascript+apacheconf+css-extras+markup-templating+http+ini+json+latex+sql+sass+scss+wiki+yaml&plugins=line-numbers+show-invisibles+toolbar+normalize-whitespace+copy-to-clipboard */
+/* PrismJS 1.15.0
+https://prismjs.com/download.html?#themes=prism&languages=markup+css+clike+javascript+apacheconf+css-extras+markup-templating+http+ini+json+latex+php+php-extras+sql+sass+scss+yaml+wiki&plugins=line-numbers+show-invisibles+toolbar+normalize-whitespace+copy-to-clipboard */
 
 /**
  * prism.js default theme for JavaScript, CSS and HTML
@@ -69,7 +69,7 @@ pre[class*="language-"] {
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: slategray;
+  color: #708090;
 }
 
 .token.punctuation {
@@ -138,13 +138,13 @@ pre[class*="language-"] {
   cursor: help;
 }
 
-pre.line-numbers {
+pre[class*="language-"].line-numbers {
   position: relative;
   padding-left: 3.8em;
   counter-reset: linenumber;
 }
 
-pre.line-numbers > code {
+pre[class*="language-"].line-numbers > code {
   position: relative;
   white-space: inherit;
 }
