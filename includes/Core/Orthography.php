@@ -539,10 +539,10 @@ class Orthography extends Base
 			),
 			array(
 				array(
-					'ڂ',
-					'څ',
-					'ݗ',
-					'ﺥ',
+					"\xDA\x82", // 'ڂ', // Arabic Letter Hah with Two Dots Vertical Above U+0682
+					"\xDA\x85", // 'څ', // Arabic Letter Hah with Three Dots Above U+0685
+					"\xDD\x97", // 'ݗ', // Arabic Letter Hah with Two Dots Above U+0757
+					"\xEF\xBA\xA5", // 'ﺥ', // Arabic Letter Khah Isolated Form U+FEA5
 					'ﺦ',
 					'ﺧ',
 					'ﺨ',
@@ -776,125 +776,125 @@ class Orthography extends Base
 			),
 			array(
 				array(
-					'؋',
-					'ڡ',
-					'ڢ',
-					'ڣ',
-					'ڤ',
-					'ڥ',
-					'ڦ',
-					'ݠ',
-					'ݡ',
-					'ﭪ',
-					'ﭫ',
-					'ﭬ',
-					'ﭭ',
-					'ﭮ',
-					'ﭯ',
-					'ﭰ',
-					'ﭱ',
-					'ﻑ',
-					'ﻒ',
-					'ﻓ',
-					'ﻔ',
-					'𞸐',
-					'𞸞',
-					'𞸰',
-					'𞹰',
-					'𞹾',
-					'𞺐',
-					'𞺰',
+					"\xD8\x8B", // '؋', // Afghani Sign U+060B
+					"\xDA\xA1", // 'ڡ', // Arabic Letter Dotless Feh U+06A1
+					"\xDA\xA2", // 'ڢ', // Arabic Letter Feh with Dot Moved Below U+06A2
+					"\xDA\xA3", // 'ڣ', // Arabic Letter Feh with Dot Below U+06A3
+					"\xDA\xA4", // 'ڤ', // Arabic Letter Veh U+06A4
+					"\xDA\xA5", // 'ڥ', // Arabic Letter Feh with Three Dots Below U+06A5
+					"\xDA\xA6", // 'ڦ', // Arabic Letter Peheh U+06A6
+					"\xDD\xA0", // 'ݠ', // Arabic Letter Feh with Two Dots Below U+0760
+					"\xDD\xA1", // 'ݡ', // Arabic Letter Feh with Three Dots Pointing Upwards Below U+0761
+					"\xEF\xAD\xAA", // 'ﭪ', // Arabic Letter Veh Isolated Form U+FB6A
+					"\xEF\xAD\xAB", // 'ﭫ', // Arabic Letter Veh Final Form U+FB6B
+					"\xEF\xAD\xAC", // 'ﭬ', // Arabic Letter Veh Initial Form U+FB6C
+					"\xEF\xAD\xAD", // 'ﭭ', // Arabic Letter Veh Medial Form U+FB6D
+					"\xEF\xAD\xAE", // 'ﭮ', // Arabic Letter Peheh Isolated Form U+FB6E
+					"\xEF\xAD\xAF", // 'ﭯ', // Arabic Letter Peheh Final Form U+FB6F
+					"\xEF\xAD\xB0", // 'ﭰ', // Arabic Letter Peheh Initial Form U+FB70
+					"\xEF\xAD\xB1", // 'ﭱ', // Arabic Letter Peheh Medial Form U+FB71
+					"\xEF\xBB\x91", // 'ﻑ', // Arabic Letter Feh Isolated Form U+FED1
+					"\xEF\xBB\x92", // 'ﻒ', // Arabic Letter Feh Final Form U+FED2
+					"\xEF\xBB\x93", // 'ﻓ', // Arabic Letter Feh Initial Form U+FED3
+					"\xEF\xBB\x94", // 'ﻔ', // Arabic Letter Feh Medial Form U+FED4
+					"\xF0\x9E\xB8\x90", // '𞸐', // Arabic Mathematical Feh U+1EE10
+					"\xF0\x9E\xB8\x9E", // '𞸞', // Arabic Mathematical Dotless Feh U+1EE1E
+					"\xF0\x9E\xB8\xB0", // '𞸰', // Arabic Mathematical Initial Feh U+1EE30
+					"\xF0\x9E\xB9\xB0", // '𞹰', // Arabic Mathematical Stretched Feh U+1EE70
+					"\xF0\x9E\xB9\xBE", // '𞹾', // Arabic Mathematical Stretched Dotless Feh U+1EE7E
+					"\xF0\x9E\xBA\x90", // '𞺐', // Arabic Mathematical Looped Feh U+1EE90
+					"\xF0\x9E\xBA\xB0", // '𞺰', // Arabic Mathematical Double-Struck Feh U+1EEB0
 				),
 				"\xD9\x81", // 'ف', // Arabic Letter Feh U+0641
 			),
 			array(
 				array(
-					'ٯ',
-					'ڧ',
-					'ڨ',
-					'ﻕ',
-					'ﻖ',
-					'ﻗ',
-					'ﻘ',
-					'𞸒',
-					'𞸟',
-					'𞸲',
-					'𞹒',
-					'𞹟',
-					'𞹲',
-					'𞺒',
-					'𞺲',
-					'؈',
+					"\xD9\xAF", // 'ٯ', // Arabic Letter Dotless Qaf U+066F
+					"\xDA\xA7", // 'ڧ', // Arabic Letter Qaf with Dot Above U+06A7
+					"\xDA\xA8", // 'ڨ', // Arabic Letter Qaf with Three Dots Above U+06A8
+					"\xEF\xBB\x95", // 'ﻕ', // Arabic Letter Qaf Isolated Form U+FED5
+					"\xEF\xBB\x96", // 'ﻖ', // Arabic Letter Qaf Final Form U+FED6
+					"\xEF\xBB\x97", // 'ﻗ', // Arabic Letter Qaf Initial Form U+FED7
+					"\xEF\xBB\x98", // 'ﻘ', // Arabic Letter Qaf Medial Form U+FED8
+					"\xF0\x9E\xB8\x92", // '𞸒', // Arabic Mathematical Qaf U+1EE12
+					"\xF0\x9E\xB8\x9F", // '𞸟', // Arabic Mathematical Dotless Qaf U+1EE1F
+					"\xF0\x9E\xB8\xB2", // '𞸲', // Arabic Mathematical Initial Qaf U+1EE32
+					"\xF0\x9E\xB9\x92", // '𞹒', // Arabic Mathematical Tailed Qaf U+1EE52
+					"\xF0\x9E\xB9\x9F", // '𞹟', // Arabic Mathematical Tailed Dotless Qaf U+1EE5F
+					"\xF0\x9E\xB9\xB2", // '𞹲', // Arabic Mathematical Stretched Qaf U+1EE72
+					"\xF0\x9E\xBA\x92", // '𞺒', // Arabic Mathematical Looped Qaf U+1EE92
+					"\xF0\x9E\xBA\xB2", // '𞺲', // Arabic Mathematical Double-Struck Qaf U+1EEB2
+					"\xD8\x88", // '؈', // Arabic Ray U+0608
 				),
 				"\xD9\x82", // 'ق', // Arabic Letter Qaf U+0642
 			),
 			array(
 				array(
-					'ػ',
-					'ؼ',
-					'ك',
-					'ڪ',
-					'ګ',
-					'ڬ',
-					'ڭ',
-					'ڮ',
-					'ݢ',
-					'ݣ',
-					'ݤ',
-					'ݿ',
-					'ﮎ',
-					'ﮏ',
-					'ﮐ',
-					'ﮑ',
-					'ﯓ',
-					'ﯔ',
-					'ﯕ',
-					'ﯖ',
-					'ﻙ',
-					'ﻚ',
-					'ﻛ',
-					'ﻜ',
-					'𞸊',
-					'𞸪',
-					'𞹪',
+					"\xD8\xBB", // 'ػ', // Arabic Letter Keheh with Two Dots Above U+063B
+					"\xD8\xBC", // 'ؼ', // Arabic Letter Keheh with Three Dots Below U+063C
+					"\xD9\x83", // 'ك', // Arabic Letter Kaf U+0643
+					"\xDA\xAA", // 'ڪ', // Arabic Letter Swash Kaf U+06AA
+					"\xDA\xAB", // 'ګ', // Arabic Letter Kaf with Ring U+06AB
+					"\xDA\xAC", // 'ڬ', // Arabic Letter Kaf with Dot Above U+06AC
+					"\xDA\xAD", // 'ڭ', // Arabic Letter Ng U+06AD
+					"\xDA\xAE", // 'ڮ', // Arabic Letter Kaf with Three Dots Below U+06AE
+					"\xDD\xA2", // 'ݢ', // Arabic Letter Keheh with Dot Above U+0762
+					"\xDD\xA3", // 'ݣ', // Arabic Letter Keheh with Three Dots Above U+0763
+					"\xDD\xA4", // 'ݤ', // Arabic Letter Keheh with Three Dots Pointing Upwards Below U+0764
+					"\xDD\xBF", // 'ݿ', // Arabic Letter Kaf with Two Dots Above U+077F
+					"\xEF\xAE\x8E", // 'ﮎ', // Arabic Letter Keheh Isolated Form U+FB8E
+					"\xEF\xAE\x8F", // 'ﮏ', // Arabic Letter Keheh Final Form U+FB8F
+					"\xEF\xAE\x90", // 'ﮐ', // Arabic Letter Keheh Initial Form U+FB90
+					"\xEF\xAE\x91", // 'ﮑ', // Arabic Letter Keheh Medial Form U+FB91
+					"\xEF\xAF\x93", // 'ﯓ', // Arabic Letter Ng Isolated Form U+FBD3
+					"\xEF\xAF\x94", // 'ﯔ', // Arabic Letter Ng Final Form U+FBD4
+					"\xEF\xAF\x95", // 'ﯕ', // Arabic Letter Ng Initial Form U+FBD5
+					"\xEF\xAF\x96", // 'ﯖ', // Arabic Letter Ng Medial Form U+FBD6
+					"\xEF\xBB\x99", // 'ﻙ', // Arabic Letter Kaf Isolated Form U+FED9
+					"\xEF\xBB\x9A", // 'ﻚ', // Arabic Letter Kaf Final Form U+FEDA
+					"\xEF\xBB\x9B", // 'ﻛ', // Arabic Letter Kaf Initial Form U+FEDB
+					"\xEF\xBB\x9C", // 'ﻜ', // Arabic Letter Kaf Medial Form U+FEDC
+					"\xF0\x9E\xB8\x8A", // '𞸊', // Arabic Mathematical Kaf U+1EE0A
+					"\xF0\x9E\xB8\xAA", // '𞸪', // Arabic Mathematical Initial Kaf U+1EE2A
+					"\xF0\x9E\xB9\xAA", // '𞹪', // Arabic Mathematical Stretched Kaf U+1EE6A
 				),
 				"\xDA\xA9", // 'ک', // Arabic Letter Keheh U+06A9
 			),
 			array(
 				array(
-					'ڰ',
-					'ڱ',
-					'ڲ',
-					'ڳ',
-					'ڴ',
-					'ﮒ',
-					'ﮓ',
-					'ﮔ',
-					'ﮕ',
-					'ﮖ',
-					'ﮗ',
-					'ﮘ',
-					'ﮙ',
-					'ﮚ',
-					'ﮛ',
-					'ﮜ',
-					'ﮝ',
+					"\xDA\xB0", // 'ڰ', // Arabic Letter Gaf with Ring U+06B0
+					"\xDA\xB1", // 'ڱ', // Arabic Letter Ngoeh U+06B1
+					"\xDA\xB2", // 'ڲ', // Arabic Letter Gaf with Two Dots Below U+06B2
+					"\xDA\xB3", // 'ڳ', // Arabic Letter Gueh U+06B3
+					"\xDA\xB4", // 'ڴ', // Arabic Letter Gaf with Three Dots Above U+06B4
+					"\xEF\xAE\x92", // 'ﮒ', // Arabic Letter Gaf Isolated Form U+FB92
+					"\xEF\xAE\x93", // 'ﮓ', // Arabic Letter Gaf Final Form U+FB93
+					"\xEF\xAE\x94", // 'ﮔ', // Arabic Letter Gaf Initial Form U+FB94
+					"\xEF\xAE\x95", // 'ﮕ', // Arabic Letter Gaf Medial Form U+FB95
+					"\xEF\xAE\x96", // 'ﮖ', // Arabic Letter Gueh Isolated Form U+FB96
+					"\xEF\xAE\x97", // 'ﮗ', // Arabic Letter Gueh Final Form U+FB97
+					"\xEF\xAE\x98", // 'ﮘ', // Arabic Letter Gueh Initial Form U+FB98
+					"\xEF\xAE\x99", // 'ﮙ', // Arabic Letter Gueh Medial Form U+FB99
+					"\xEF\xAE\x9A", // 'ﮚ', // Arabic Letter Ngoeh Isolated Form U+FB9A
+					"\xEF\xAE\x9B", // 'ﮛ', // Arabic Letter Ngoeh Final Form U+FB9B
+					"\xEF\xAE\x9C", // 'ﮜ', // Arabic Letter Ngoeh Initial Form U+FB9C
+					"\xEF\xAE\x9D", // 'ﮝ', // Arabic Letter Ngoeh Medial Form U+FB9D
 				),
 				"\xDA\xAF", // 'گ', // Arabic Letter Gaf U+06AF
 			),
 			array(
 				array(
-					'ڵ',
-					'ڶ',
-					'ڷ',
-					'ڸ',
-					'ݪ',
-					'ﻝ',
-					'ﻞ',
-					'ﻟ',
-					'ﻠ',
-					'𞸋',
-					'𞸫',
+					"\xDA\xB5", // 'ڵ', // Arabic Letter Lam with Small V U+06B5
+					"\xDA\xB6", // 'ڶ', // Arabic Letter Lam with Dot Above U+06B6
+					"\xDA\xB7", // 'ڷ', // Arabic Letter Lam with Three Dots Above U+06B7
+					"\xDA\xB8", // 'ڸ', // Arabic Letter Lam with Three Dots Below U+06B8
+					"\xDD\xAA", // 'ݪ', // Arabic Letter Lam with Bar U+076A
+					"\xEF\xBB\x9D", // 'ﻝ', // Arabic Letter Lam Isolated Form U+FEDD
+					"\xEF\xBB\x9E", // 'ﻞ', // Arabic Letter Lam Final Form U+FEDE
+					"\xEF\xBB\x9F", // 'ﻟ', // Arabic Letter Lam Initial Form U+FEDF
+					"\xEF\xBB\xA0", // 'ﻠ', // Arabic Letter Lam Medial Form U+FEE0
+					"\xF0\x9E\xB8\x8B", // '𞸋', // Arabic Mathematical Lam U+1EE0B
+					"\xF0\x9E\xB8\xAB", // '𞸫', // Arabic Mathematical Initial Lam U+1EE2B
 					"\xF0\x9E\xB9\x8B", // '𞹋', // Arabic Mathematical Tailed Lam U+1EE4B
 					"\xF0\x9E\xBA\x8B", // '𞺋', // Arabic Mathematical Looped Lam U+1EE8B
 					"\xF0\x9E\xBA\xAB", // '𞺫', // Arabic Mathematical Double-Struck Lam U+1EEAB

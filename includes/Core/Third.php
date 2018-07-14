@@ -114,7 +114,7 @@ class Third extends Base
 		] );
 	}
 
-	// FIXME: hex color sanitize
+	// TODO: hex color sanitize
 	public static function htmlThemeColor( $color )
 	{
 		if ( ! $color )

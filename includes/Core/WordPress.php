@@ -501,7 +501,7 @@ class WordPress extends Base
 		) );
 	}
 
-	// FIXME: get title if html is empty
+	// TODO: get title if html is empty
 	public static function htmlAttachmentShortLink( $id, $html )
 	{
 		return HTML::tag( 'a', [

@@ -360,7 +360,7 @@ class HTML extends Base
 			$value = self::joined( $value, '[', ']', ',', 'EMPTY ARRAY' );
 
 		else if ( is_object( $value ) )
-			$value = json_encode( $value );
+			$value = json_encode( $value, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES );
 
 		else if ( is_int( $value ) )
 			$value = $value;
