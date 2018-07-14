@@ -60,7 +60,6 @@ class Code extends gNetwork\Module
 	protected function get_shortcodes()
 	{
 		return [
-			'github'        => 'shortcode_github',
 			'github-readme' => 'shortcode_github_readme',
 			'github-gist'   => 'shortcode_github_gist',
 			'textarea'      => 'shortcode_textarea',
@@ -195,22 +194,6 @@ class Code extends gNetwork\Module
 
 			return $matches[0];
 		}, $html );
-	}
-
-	// @REF: https://github.com/JoelSutherland/GitHub-jQuery-Repo-Widget
-	public function shortcode_github( $atts = [], $content = NULL, $tag = '' )
-	{
-		$args = shortcode_atts( [
-			'repo'    => 'geminorum/gnetwork',
-			'context' => NULL,
-		], $atts, $tag );
-
-		if ( FALSE === $args['context'] || is_feed() )
-			return NULL;
-
-		Utilities::enqueueScriptVendor( 'jquery.githubRepoWidget', [ 'jquery' ], '20150102' );
-
-		return '<div class="-wrap shortcode-github github-widget" data-repo="'.$args['repo'].'"></div>';
 	}
 
 	// @SOURCE: https://github.com/blairvanderhoof/gist-embed
