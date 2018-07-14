@@ -439,6 +439,16 @@ class Utilities extends Core\Base
 		return call_user_func( $callback );
 	}
 
+	// @REF: https://github.com/blairvanderhoof/gist-embed
+	public static function pkgGistEmbed( $ver = '2.7.1' )
+	{
+		$handle = static::BASE.'-gist-embed';
+
+		wp_enqueue_script( $handle, 'https://cdnjs.cloudflare.com/ajax/libs/gist-embed/'.$ver.'/gist-embed.min.js', [], NULL, TRUE );
+
+		return $handle;
+	}
+
 	public static function getTinyMceStrings( $locale )
 	{
 		$strings = apply_filters( self::BASE.'_tinymce_strings', [] );

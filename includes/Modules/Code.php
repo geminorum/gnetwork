@@ -232,7 +232,7 @@ class Code extends gNetwork\Module
 			],
 		], NULL );
 
-		Utilities::enqueueScriptVendor( 'jquery.gist-embed', [ 'jquery' ], '2.6' );
+		Utilities::pkgGistEmbed();
 
 		return self::shortcodeWrap( $html, 'github-gist', $args, TRUE, [ 'data-github-gist' => $args['id'] ] );
 	}
