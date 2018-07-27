@@ -20,7 +20,7 @@ class Mail extends gNetwork\Module
 
 	protected function setup_actions()
 	{
-		if ( $this->options['log_all'] ) {
+		if ( GNETWORK_MAIL_LOG_DIR && $this->options['log_all'] ) {
 			$this->filter( 'wp_mail', 1, 99 );
 			$this->action( 'bp_send_email_success', 2, 99 );
 		}
@@ -408,9 +408,6 @@ class Mail extends gNetwork\Module
 	// $mail = [ 'to', 'subject', 'message', 'headers', 'attachments' ];
 	public function wp_mail( $mail )
 	{
-		if ( ! GNETWORK_MAIL_LOG_DIR )
-			return $mail;
-
 		$contents = array_merge( [
 			'timestamp' => current_time( 'mysql' ),
 			'site'      => WordPress::currentSiteName(), // FIXME: display site on log summary
