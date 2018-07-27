@@ -30,6 +30,7 @@ class Mail extends gNetwork\Module
 		$this->action( 'bp_email', 2, 5 );
 
 		$this->action( 'phpmailer_init' );
+		$this->action( 'wp_mail_failed' );
 	}
 
 	public function setup_menu( $context )
@@ -397,6 +398,11 @@ class Mail extends gNetwork\Module
 
 		if ( WordPress::isDev() )
 			$phpmailer->Encoding = 'quoted-printable';
+	}
+
+	public function wp_mail_failed( $error )
+	{
+		Logger::CRITICAL( 'EMAIL-FAILED', $error->get_error_message() );
 	}
 
 	// $mail = [ 'to', 'subject', 'message', 'headers', 'attachments' ];
