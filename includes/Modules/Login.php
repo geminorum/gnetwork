@@ -28,6 +28,9 @@ class Login extends gNetwork\Module
 			$this->action( 'login_form' );
 			$this->filter( 'login_form_middle', 2, 1 );
 			$this->filter( 'authenticate', 3, 1 );
+
+			$this->action( 'lostpassword_form' );
+			$this->action( 'lostpassword_post' );
 		}
 
 		$this->action( 'wp_login', 2, 99 );
@@ -423,14 +426,22 @@ class Login extends gNetwork\Module
 		return $content.$this->get_html_math();
 	}
 
-	public function get_html_math()
+	public function lostpassword_form()
 	{
+		echo $this->get_html_math();
+	}
+
+	public function get_html_math( $label = NULL )
+	{
+		if ( is_null( $label ) )
+			$label = _x( 'Prove your humanity:', 'Modules: Login', GNETWORK_TEXTDOMAIN );
+
 		$one = wp_rand( 0, 10 );
 		$two = wp_rand( 1, 10 );
 
 		$html = '<p class="login-sum">';
 
-			$html.= '<label>'._x( 'Prove your humanity:', 'Modules: Login', GNETWORK_TEXTDOMAIN ).'</label>';
+			$html.= '<label>'.$label.'</label>';
 			$html.= '&nbsp;'.Number::format( $one ).'&nbsp;+&nbsp;'.Number::format( $two ).'&nbsp;=&nbsp; ';
 
 			$html.= HTML::tag( 'input', [
@@ -448,11 +459,8 @@ class Login extends gNetwork\Module
 		return $html.'</p>';
 	}
 
-	public function authenticate( $null, $username, $password )
+	private function check_math()
 	{
-		if ( ! isset( $_POST[ 'log' ] ) )
-			return $null;
-
 		$salted  = isset( $_POST['num'] ) ? wp_hash( (int) $_POST['num'] ) : FALSE;
 		$correct = isset( $_POST['ans'] ) ? $_POST['ans'] : FALSE;
 
@@ -472,7 +480,25 @@ class Login extends gNetwork\Module
 			wp_die( _x( '<strong>You failed to correctly answer the math problem.</strong> This is used to combat spam. Please use your browser\'s back button to return to the login form, press the "refresh" button to generate a new math problem, and try to log in again.', 'Modules: Login', GNETWORK_TEXTDOMAIN ), 403 );
 		}
 
+		return TRUE;
+	}
+
+	public function authenticate( $null, $username, $password )
+	{
+		if ( ! isset( $_POST[ 'log' ] ) )
+			return $null;
+
+		$this->check_math();
+
 		return $null;
+	}
+
+	public function lostpassword_post( $errors )
+	{
+		if ( ! isset( $_POST[ 'user_login' ] ) )
+			return;
+
+		$this->check_math();
 	}
 
 	// TODO: add logger to logout / has no action hook with user info!
