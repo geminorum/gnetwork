@@ -839,7 +839,7 @@ class ShortCodes extends gNetwork\Module
 				.'" data-sms-body="'.HTML::escape( $args['body'] ) : '' )
 				.'"'.( $args['title'] ? ' data-toggle="tooltip" title="'.HTML::escape( $args['title'] )
 				.'"' : '' ).' data-sms-number="'.HTML::escape( $number ).'">'
-				.'&#8206;'.Number::format( $content ).'&#8207;</a>';
+				.HTML::wrapLTR( Number::format( $content ) ).'</a>';
 
 		return self::shortcodeWrap( $html, 'sms', $args, FALSE );
 	}

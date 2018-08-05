@@ -45,6 +45,7 @@ if ( have_posts() ) {
 
 		foreach ( get_object_taxonomies( $post->post_type, 'objects' ) as $taxonomy ) {
 
+			// TODO: use `is_taxonomy_viewable()` since WP 5.0.0
 			if ( ! $taxonomy->public )
 				continue;
 

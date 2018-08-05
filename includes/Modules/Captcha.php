@@ -243,8 +243,6 @@ class Captcha extends gNetwork\Module
 		}
 
 		// add_filter( 'allow_password_reset', '__return_false' );
-
-		return $errors;
 	}
 
 	public function register_form()
