@@ -258,16 +258,21 @@ class Settings extends Core\Base
 		], ( $text ? _x( 'See Codex', 'Settings', GNETWORK_TEXTDOMAIN ) : HTML::getDashicon( 'media-code' ) ) );
 	}
 
-	public static function getLoginLogoLink( $image = GNETWORK_LOGO, $text = FALSE )
+	public static function getLoginLogoLink( $text = FALSE, $filename = GNETWORK_LOGO )
 	{
-		if ( file_exists( WP_CONTENT_DIR.'/'.$image ) )
-			return HTML::tag( 'a', [
-				'href'   => WP_CONTENT_URL.'/'.$image,
-				'title'  => _x( 'Full URL to the current login logo image', 'Settings', GNETWORK_TEXTDOMAIN ),
-				'target' => '_blank',
-			], ( $text ? _x( 'Login Logo', 'Settings', GNETWORK_TEXTDOMAIN ) : HTML::getDashicon( 'format-image' ) ) );
+		$logo = gNetwork()->option( 'network_sitelogo', 'branding' );
 
-		return FALSE;
+		if ( ! $logo && file_exists( WP_CONTENT_DIR.'/'.$filename ) )
+			$logo = WP_CONTENT_URL.'/'.$filename;
+
+		if ( ! $logo )
+			return FALSE;
+
+		return HTML::tag( 'a', [
+			'href'   => $logo,
+			'title'  => _x( 'Full URL to the current login logo image', 'Settings', GNETWORK_TEXTDOMAIN ),
+			'target' => '_blank',
+		], ( $text ? _x( 'Login Logo', 'Settings', GNETWORK_TEXTDOMAIN ) : HTML::getDashicon( 'format-image' ) ) );
 	}
 
 	public static function fieldSection( $title, $description = FALSE, $tag = 'h2' )
