@@ -31,6 +31,9 @@ class Login extends gNetwork\Module
 
 			$this->action( 'lostpassword_form' );
 			$this->action( 'lostpassword_post' );
+
+			$this->action( 'register_form' );
+			$this->filter( 'register_post', 3, 1 );
 		}
 
 		$this->action( 'wp_login', 2, 99 );
@@ -431,6 +434,11 @@ class Login extends gNetwork\Module
 		echo $this->get_html_math();
 	}
 
+	public function register_form()
+	{
+		echo $this->get_html_math();
+	}
+
 	public function get_html_math( $label = NULL )
 	{
 		if ( is_null( $label ) )
@@ -496,6 +504,14 @@ class Login extends gNetwork\Module
 	public function lostpassword_post( $errors )
 	{
 		if ( ! isset( $_POST[ 'user_login' ] ) )
+			return;
+
+		$this->check_math();
+	}
+
+	public function register_post( $sanitized_user_login, $user_email, $errors )
+	{
+		if ( ! isset( $_POST[ 'user_email' ] ) )
 			return;
 
 		$this->check_math();
