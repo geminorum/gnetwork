@@ -203,11 +203,11 @@ class File extends Base
 		);
 
 		if ( 0 === $bytes )
-			return '&#8206;'.number_format( 0, $decimals ).' B&#8207;';
+			return number_format( 0, $decimals ).' B';
 
 		foreach ( $quant as $unit => $mag )
 			if ( doubleval( $bytes ) >= $mag )
-				return '&#8206;'.number_format( $bytes / $mag, $decimals ).' '.$unit.'&#8207;';
+				return number_format( $bytes / $mag, $decimals ).' '.$unit;
 
 		return FALSE;
 	}

@@ -661,4 +661,14 @@ class WordPress extends Base
 
 		return FALSE;
 	}
+
+	// @REF: https://pippinsplugins.com/retrieve-attachment-id-from-image-url/
+	public static function getAttachmentByURL( $url )
+	{
+		global $wpdb;
+
+		$attachment = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE guid='%s';", $url ) );
+
+		return empty( $attachment ) ? NULL : $attachment[0];
+	}
 }

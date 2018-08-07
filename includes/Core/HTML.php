@@ -30,7 +30,7 @@ class HTML extends Base
 		return '<a class="-tel" href="'.self::sanitizePhoneNumber( $number )
 				.'"'.( $title ? ' data-toggle="tooltip" title="'.self::escape( $title ).'"' : '' )
 				.' data-tel-number="'.self::escape( $number ).'">'
-				.'&#8206;'.$content.'&#8207;</a>';
+				.self::wrapLTR( $content ).'</a>';
 	}
 
 	public static function scroll( $html, $to, $title = '' )
@@ -91,6 +91,11 @@ class HTML extends Base
 	public static function wrap( $html, $class = '', $block = TRUE )
 	{
 		return $block ? '<div class="-wrap '.$class.'">'.$html.'</div>' : '<span class="-wrap '.$class.'">'.$html.'</span>';
+	}
+
+	public static function wrapLTR( $content )
+	{
+		return '&#8206;'.$content.'&#8207;';
 	}
 
 	public static function preCode( $content, $rows = 1 )
