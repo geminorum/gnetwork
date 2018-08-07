@@ -1,3 +1,27 @@
+### 3.7.5
+* assets/js: :up: chosen 1.8.7
+* assets/js: :up: prismjs 1.15.0
+* assets/js: focus tab based on location hash
+* main/module: scheme for menu url
+* main/module: using user locale
+* main/settings: branding logo on login logo link
+* module/blog: skip local ssl verify if no ssl
+* module/buddypress: better handling init
+* module/buddypress: late check for open directories
+* module/buddypress: remove translation notice
+* module/code: cdn for gist embed shortcode
+* module/code: drop github repo widget shortcode
+* module/comments: moved to autosize from growfield
+* module/cron: better handling status reporting
+* module/cron: manual trigger buttons
+* module/cron: using option autoload instead of transient
+* module/dev: drop current screen info
+* module/editor: :up: table plugin
+* module/login: math problem on lost password form
+* module/login: math problem on register form
+* module/mail: check for log constant before filters
+* module/mail: log failed emails
+
 ### 3.7.4
 * main/plugin: using bbp hook for bbpress module
 * main/module: moving away from `*_site_option` for clarity, [see](https://core.trac.wordpress.org/ticket/28290)
