@@ -682,8 +682,8 @@ class Debug extends gNetwork\Module
 
 		if ( WordPress::isSuperAdmin() )
 			$this->http_calls[] = [
-				'class' => $class,
-				'url'   => $url,
+				'url'    => $url,
+				'method' => empty( $args['method'] ) ? 'UNKNOWN' : $args['method'],
 			];
 	}
 

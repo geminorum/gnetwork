@@ -301,7 +301,7 @@ class AdminBar extends gNetwork\Module
 					$wp_admin_bar->add_node( [
 						'parent' => static::BASE.'-api-calls',
 						'id'     => static::BASE.'-api-calls-'.$offset,
-						'title'  => $call['class'].': '.$url['base'],
+						'title'  => $call['method'].': '.$url['base'],
 						'href'   => $call['url'],
 					] );
 
