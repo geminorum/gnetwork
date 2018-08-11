@@ -166,10 +166,11 @@ class Search extends gNetwork\Module
 	{
 		global $wpdb;
 
-		$clause = $sep = '';
+		$searched = $this->searched();
+		$clause   = $sep = '';
 
-		foreach ( $this->searched() as $searched ) {
-			$escaped = $wpdb->prepare( '%s', empty( $this->query->query_vars['exact'] ) ? '%'.$searched.'%' : $searched );
+		foreach ( $searched as $term ) {
+			$escaped = $wpdb->prepare( '%s', empty( $this->query->query_vars['exact'] ) ? '%'.$term.'%' : $term );
 			$clause.= $sep."( m.meta_value LIKE {$escaped} )";
 			$sep = ' AND ';
 		}
