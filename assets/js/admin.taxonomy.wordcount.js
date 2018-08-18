@@ -1,6 +1,6 @@
 /* global wp, _ */
 
-(function ($, counter) {
+(function ($, _, counter) {
   $(function () {
     var $content = $('#html-tag-description');
     var $chars = $('#description-editor-counts').find('.char-count');
@@ -60,4 +60,4 @@
 
     update();
   });
-})(jQuery, new wp.utils.WordCounter());
+})(jQuery, _, new wp.utils.WordCounter());
