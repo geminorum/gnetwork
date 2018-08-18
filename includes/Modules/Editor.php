@@ -63,7 +63,7 @@ class Editor extends gNetwork\Module
 
 	public function wp_enqueue_editor()
 	{
-		Utilities::enqueueScript( 'editor.all', [ 'jquery', 'media-editor' ] );
+		Utilities::enqueueScript( 'editor.all', [ 'jquery', 'media-editor', 'underscore' ] );
 	}
 
 	public function wp_link_query_args( $query )
