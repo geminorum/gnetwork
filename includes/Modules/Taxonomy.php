@@ -283,7 +283,7 @@ class Taxonomy extends gNetwork\Module
 			HTML::desc( _x( 'The description is not prominent by default; however, some themes may show it.', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN ) );
 
 			HTML::wrapScript( 'jQuery("textarea#tag-description").closest(".form-field").remove();' );
-			HTML::wrapjQueryReady( '$("#addtag").on("mousedown","#submit",function(){tinyMCE.triggerSave();});' );
+			HTML::wrapjQueryReady( '$("#addtag").on("mousedown","#submit",function(){tinyMCE.triggerSave();$(document).bind("ajaxSuccess.gnetwork_add_term",function(){tinyMCE.activeEditor.setContent("");$(document).unbind("ajaxSuccess.gnetwork_add_term",false);});});' );
 
 		echo '</div>';
 	}
