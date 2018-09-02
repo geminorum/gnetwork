@@ -289,10 +289,10 @@ class Cron extends gNetwork\Module
 	private function status_check_spawn()
 	{
 		if ( defined( 'DISABLE_WP_CRON' ) && DISABLE_WP_CRON )
-			return new Error( 'cron_disabled', sprintf( _x( 'The %s constant is set to true as of %s. WP-Cron is disabled and will not run automatically.', 'Modules: CRON', GNETWORK_TEXTDOMAIN ), '<code>DISABLE_WP_CRON</code>', Utilities::htmlCurrent() ) );
+			return new Error( 'cron_disabled', sprintf( _x( 'The %1$s constant is set to true as of %2$s. WP-Cron is disabled and will not run automatically.', 'Modules: CRON', GNETWORK_TEXTDOMAIN ), '<code>DISABLE_WP_CRON</code>', Utilities::htmlCurrent() ) );
 
 		if ( defined( 'ALTERNATE_WP_CRON' ) && ALTERNATE_WP_CRON )
-			return new Error( 'cron_alternated', sprintf( _x( 'The %s constant is set to true as of %s. We cannot determine the status of the WP-Cron system.', 'Modules: CRON', GNETWORK_TEXTDOMAIN ), '<code>ALTERNATE_WP_CRON</code>', Utilities::htmlCurrent() ) );
+			return new Error( 'cron_alternated', sprintf( _x( 'The %1$s constant is set to true as of %2$s. We cannot determine the status of the WP-Cron system.', 'Modules: CRON', GNETWORK_TEXTDOMAIN ), '<code>ALTERNATE_WP_CRON</code>', Utilities::htmlCurrent() ) );
 
 		$args = [
 			'timeout'  => 3,

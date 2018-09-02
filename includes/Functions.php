@@ -137,7 +137,6 @@ if ( ! function_exists( 'get_gmeta' ) ) : function get_gmeta( $field, $args = []
 } endif;
 
 // polyfill for `is_countable()` function added in PHP 7.3
-// FIXME: DROP FOR: WP4.9.6
 if ( ! function_exists( 'is_countable' ) ) : function is_countable( $var ) {
 	return ( is_array( $var )
 		|| $var instanceof \Countable
@@ -147,9 +146,14 @@ if ( ! function_exists( 'is_countable' ) ) : function is_countable( $var ) {
 } endif;
 
 // polyfill for `is_iterable()` function added in PHP 7.1
-// FIXME: DROP FOR: WP4.9.6
+
 if ( ! function_exists( 'is_iterable' ) ) : function is_iterable( $var ) {
 	return ( is_array( $var )
 		|| $var instanceof \Traversable
 	);
+} endif;
+
+// convert a value to non-negative integer
+if ( ! function_exists( 'absint' ) ) : function absint( $maybeint ) {
+	return abs( intval( $maybeint ) );
 } endif;

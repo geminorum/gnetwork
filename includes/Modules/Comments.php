@@ -180,8 +180,10 @@ class Comments extends gNetwork\Module
 
 			foreach ( $textareas as $textarea => $buttons )
 				$this->scripts[] = 'quicktags({id:"'.$textarea.'",buttons:"'.implode( ',', $buttons ).'"});';
+				// $this->scripts[] = 'window.quicktags({id:"'.$textarea.'",buttons:"'.implode( ',', $buttons ).'"});';
 
 			$this->scripts[] = 'QTags.addButton("quote","quote","<blockquote>","</blockquote>","quote");';
+			// $this->scripts[] = 'window.edButton("quote","quote","<blockquote>","</blockquote>","quote");';
 
 			add_action( 'wp_footer', [ $this, 'print_scripts' ], 99 );
 			wp_enqueue_script( 'quicktags' );
