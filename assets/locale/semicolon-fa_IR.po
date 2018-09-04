@@ -1,13 +1,13 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Semicolon\n"
-"PO-Revision-Date: 2018-01-20 04:43+0330\n"
+"PO-Revision-Date: 2018-09-04 06:12+0430\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language: fa_IR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 2.1.1\n"
 "X-Poedit-Basepath: ../../../themes/semicolon\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "POT-Creation-Date: \n"
@@ -54,8 +54,8 @@ msgstr ""
 
 #: functions.php:158
 msgid ""
-"Pageviews is a simple and lightweight views counter for your WordPress posts "
-"and pages."
+"Pageviews is a simple and lightweight views counter for your WordPress posts and "
+"pages."
 msgstr ""
 
 #: functions.php:152
@@ -250,8 +250,7 @@ msgstr ""
 #: content-none.php:17
 msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
 msgstr ""
-"برای انتشار اولین نوشتهٔ خودتان آماده‌اید؟ <a href=\"%1$s\">از اینجا شروع کنید</"
-"a>."
+"برای انتشار اولین نوشتهٔ خودتان آماده‌اید؟ <a href=\"%1$s\">از اینجا شروع کنید</a>."
 
 #: content-none.php:11
 msgid "Nothing Found"

@@ -3,15 +3,15 @@ msgstr ""
 "Project-Id-Version: Members\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/members\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2018-07-07 20:21+0430\n"
+"PO-Revision-Date: 2018-09-04 06:14+0430\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: \n"
 "Language: fa_IR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.8\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 2.1.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Poedit-Basepath: ../../../members\n"
 
 #: members.php:323
@@ -629,6 +629,7 @@ msgstr ""
 msgid "WordPress %s"
 msgid_plural "WordPress %s"
 msgstr[0] ""
+msgstr[1] ""
 
 #: inc/functions-role-groups.php:42
 msgid "WordPress"
@@ -638,26 +639,31 @@ msgstr ""
 msgid "Uneditable %s"
 msgid_plural "Uneditable %s"
 msgstr[0] ""
+msgstr[1] ""
 
 #: admin/class-role-list-table.php:424
 msgid "Editable %s"
 msgid_plural "Editable %s"
 msgstr[0] ""
+msgstr[1] ""
 
 #: admin/class-role-list-table.php:419
 msgid "No Users %s"
 msgid_plural "No Users %s"
 msgstr[0] ""
+msgstr[1] ""
 
 #: admin/class-role-list-table.php:414
 msgid "Has Users %s"
 msgid_plural "Has Users %s"
 msgstr[0] ""
+msgstr[1] ""
 
 #: admin/class-role-list-table.php:409
 msgid "Mine %s"
 msgid_plural "Mine %s"
 msgstr[0] ""
+msgstr[1] ""
 
 #: admin/functions-help.php:168
 msgid ""
@@ -1035,6 +1041,7 @@ msgstr "افزودن نقش تازه"
 msgid "All %s"
 msgid_plural "All %s"
 msgstr[0] ""
+msgstr[1] ""
 
 #: admin/class-role-list-table.php:364 admin/class-roles.php:69
 #: inc/class-widget-users.php:59 inc/functions-cap-groups.php:121

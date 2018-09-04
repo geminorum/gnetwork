@@ -1,0 +1,455 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Twenty Fourteen\n"
+"PO-Revision-Date: 2018-09-04 05:58+0430\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fa_IR\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-Basepath: ../../../../themes/twentyfourteen\n"
+"POT-Creation-Date: \n"
+"Last-Translator: geminorum <contact@geminorum.ir>\n"
+"Language-Team: \n"
+"X-Generator: Poedit 2.1.1\n"
+
+#. Description of the plugin/theme
+msgid "In 2014, our default theme lets you create a responsive magazine website with a sleek, modern design. Feature your favorite homepage content in either a grid or a slider. Use the three widget areas to customize your website, and change your content's layout with a full-width page template and a contributor page to show off your authors. Creating a magazine website with WordPress has never been easier."
+msgstr "در 2014، پوسته پیشفرض ما، شما می‌توانید یک سایت مجله‌ای واکنشگرا (Responsive) با یک طراحی جذاب و مدرن بسازید. با استفاده از نمایش مختصاتی یا اسلایدر مطالب دلخواه صفحه اول سایتتان را برجسته کنید. از سه ناحیه ابزارک برای شخصی سازی سایتتان کمک بگیرید و شکل قرار گرفتن مطالب را با یک نمونه تمام صفحه به کل عوض کنید. همچنین با استفاده از صفحه \"مشارکت کننده\" نویسندگان سایت خود را معرفی کنید. ساختن یک سایت مجله‌ای با وردپرس هیچ وقت تا این اندازه آسان نبوده است!!!"
+
+#. translators: 1: number of comments, 2: post title
+#: comments.php:34
+msgctxt "comments title"
+msgid "%1$s thought on &ldquo;%2$s&rdquo;"
+msgid_plural "%1$s thoughts on &ldquo;%2$s&rdquo;"
+msgstr[0] "%1$s دیدگاه در &ldquo;%2$s&rdquo;"
+msgstr[1] ""
+
+#. translators: %s: post title
+#: comments.php:30
+msgctxt "comments title"
+msgid "One thought on &ldquo;%s&rdquo;"
+msgstr "یک دیدگاه در &ldquo;%s&rdquo;"
+
+#. Template Name of the plugin/theme
+msgid "Full Width Page"
+msgstr "برگه تمام صفحه"
+
+#. Template Name of the plugin/theme
+msgid "Contributor Page"
+msgstr "برگه مشارکت کننده"
+
+#: tag.php:22
+msgid "Tag Archives: %s"
+msgstr "بایگانی برچسب: s%"
+
+#: search.php:18
+msgid "Search Results for: %s"
+msgstr "نتایج جست‌وجوی: %s"
+
+#: inc/widgets.php:283
+msgid "Post format to show:"
+msgstr "قالب نوشته برای نمایش:"
+
+#: inc/widgets.php:280
+msgid "Number of posts to show:"
+msgstr "تعداد نوشته‌هایی که نمایش داده می‌شود:"
+
+#: inc/widgets.php:277
+msgid "Title:"
+msgstr "نام:"
+
+#. translators: used with More archives link
+#: inc/widgets.php:228
+msgid "%s <span class=\"meta-nav\">&rarr;</span>"
+msgstr "%s <span class=\"meta-nav\">&larr;</span>"
+
+#: inc/widgets.php:184
+msgid "This gallery contains <a href=\"%1$s\" rel=\"bookmark\">%2$s photo</a>."
+msgid_plural "This gallery contains <a href=\"%1$s\" rel=\"bookmark\">%2$s photos</a>."
+msgstr[0] "این گالری شامل <a href=\"%1$s\" rel=\"bookmark\">%2$s عکس است</a>."
+msgstr[1] ""
+
+#: inc/widgets.php:149 inc/widgets.php:194
+msgid "Continue reading <span class=\"meta-nav\">&rarr;</span>"
+msgstr "ادامه‌ی خواندن<span class=\"meta-nav\">&rarr;</span>"
+
+#: inc/widgets.php:102
+msgid "More asides"
+msgstr "حاشیه‌های بیشتر"
+
+#: inc/widgets.php:101 taxonomy-post_format.php:30
+msgid "Asides"
+msgstr "کلمات قصار"
+
+#: inc/widgets.php:97
+msgid "More galleries"
+msgstr "گالری‌های بیشتر"
+
+#: inc/widgets.php:96 taxonomy-post_format.php:48
+msgid "Galleries"
+msgstr "گالری ها"
+
+#: inc/widgets.php:93
+msgid "More links"
+msgstr "پیوندهای بیشتر"
+
+#: inc/widgets.php:92 taxonomy-post_format.php:45
+msgid "Links"
+msgstr "پیوندها"
+
+#: inc/widgets.php:89
+msgid "More quotes"
+msgstr "نقل‌قول‌های بیشتر"
+
+#: inc/widgets.php:88 taxonomy-post_format.php:42
+msgid "Quotes"
+msgstr "نقل قول ها"
+
+#: inc/widgets.php:85
+msgid "More audio"
+msgstr "صداهای بیشتر"
+
+#: inc/widgets.php:84 taxonomy-post_format.php:39
+msgid "Audio"
+msgstr "صدا"
+
+#: inc/widgets.php:81
+msgid "More videos"
+msgstr "ویدیوهای بیشتر"
+
+#: inc/widgets.php:80 taxonomy-post_format.php:36
+msgid "Videos"
+msgstr "ویدیوها"
+
+#: inc/widgets.php:77
+msgid "More images"
+msgstr "تصاویر بیشتر"
+
+#: inc/widgets.php:76 taxonomy-post_format.php:33
+msgid "Images"
+msgstr "تصویرها"
+
+#: inc/widgets.php:36
+msgid "Use this widget to list your recent Aside, Quote, Video, Audio, Image, Gallery, and Link posts."
+msgstr "از این ابزارک برای فهرست کردن تازه‌ترین حاشیه، نقل‌قول، ویدیو، صدا، تصویر، گالری و پیوندها استفاده کنید."
+
+#: inc/widgets.php:34
+msgid "Twenty Fourteen Ephemera"
+msgstr "دو هزار و چهارده Ephemera"
+
+#: inc/template-tags.php:109
+msgid "Sticky"
+msgstr "سنجاق‌شده"
+
+#: inc/template-tags.php:92
+msgid "<span class=\"meta-nav\">Next Post</span>%title"
+msgstr "<span class=\"meta-nav\">نوشته پسین</span>%title"
+
+#: inc/template-tags.php:91
+msgid "<span class=\"meta-nav\">Previous Post</span>%title"
+msgstr "<span class=\"meta-nav\">نوشته پیشین</span>%title"
+
+#: inc/template-tags.php:89
+msgid "<span class=\"meta-nav\">Published In</span>%title"
+msgstr "<span class=\"meta-nav\">منتشر شده در</span>%title"
+
+#: inc/template-tags.php:85
+msgid "Post navigation"
+msgstr "ناوبری نوشته"
+
+#: inc/template-tags.php:58
+msgid "Posts navigation"
+msgstr "پیمایش نوشته‌ها"
+
+#: inc/template-tags.php:51
+msgid "Next &rarr;"
+msgstr "بعدی &larr;"
+
+#: inc/template-tags.php:50
+msgid "&larr; Previous"
+msgstr "&rarr; قبلی"
+
+#: inc/featured-content.php:431
+msgid "Don&rsquo;t display tag on front end."
+msgstr "برچسب‌ها را در نمایش نهایی نشان نده."
+
+#: inc/featured-content.php:426
+msgid "Tag Name"
+msgstr "نام برچسب"
+
+#: inc/customizer.php:147
+msgid "For an in-depth tutorial, and more tips and tricks, visit the <a href=\"%s\">Twenty Fourteen documentation</a>."
+msgstr "برای یک آموزش عمیق و راهنمایی‌ها و ترفند‌های بیشتر <a href=\"%s\">راهنمای دو هزار و چهارده</a> را ببینید."
+
+#: inc/customizer.php:146
+msgid "Enhance your site design by using <a href=\"%s\">Featured Images</a> for posts you&rsquo;d like to stand out (also known as post thumbnails). This allows you to associate an image with your post without inserting it. Twenty Fourteen uses featured images for posts and pages&mdash;above the title&mdash;and in the Featured Content area on the home page."
+msgstr "با استفاده از <a href=\"%s\">تصاویر شاخص</a> برای نوشته هایی که می‌خواهید عالی به نظر برسند، طراحی سایت خود را افزایش دهید. این به شما اجازه می‌دهد که یک عکس را به یک نوشته وصل کنید بدون اینکه مجبور باشید تصویر را وارد نوشته کنید. دوهزار و چهارده از تصاویر شاخص برای نوشته‌ها و برگه ها، در بالای عناوین و در قسمت مطالب ویژه صفحه‌ی خانه استفاده می‌کند."
+
+#: inc/customizer.php:145
+msgid "The home page features your choice of up to 6 posts prominently displayed in a grid or slider, controlled by a <a href=\"%1$s\">tag</a>; you can change the tag and layout in <a href=\"%2$s\">Appearance &rarr; Customize</a>. If no posts match the tag, <a href=\"%3$s\">sticky posts</a> will be displayed instead."
+msgstr "این قابلیت به شما امکان می‌دهد تا ۶ نوشته را برای نمایش دائمی در برگه نخست سایت انتخاب کنید، این انتخاب براساس یک <a href=\"%1$s\">برچسب</a> انجام می‌شود که می‌توانید برچسب و لایه موردنظر را در بخش <a href=\"%2$s\">نمایش &larr; شخصی‌سازی</a> ویرایش کنید. اگر نوشته‌ای با برچسب همخوانی نداشت، <a href=\"%3$s\">نوشته‌های سنجاق‌شده</a> به‌جای آن به نمایش درمی‌آیند."
+
+#. Theme Name of the plugin/theme
+#: inc/customizer.php:142
+msgid "Twenty Fourteen"
+msgstr "دو هزار و چهارده"
+
+#: inc/customizer.php:74
+msgid "Slider"
+msgstr "اسلایدر"
+
+#: inc/customizer.php:73
+msgid "Grid"
+msgstr "دستگاه مختصات"
+
+#: inc/customizer.php:69
+msgid "Layout"
+msgstr "طرح"
+
+#: inc/customizer.php:55 inc/customizer.php:145 inc/featured-content.php:405
+#: inc/featured-content.php:414 inc/featured-content.php:474
+msgctxt "featured content default tag slug"
+msgid "featured"
+msgstr "شاخص"
+
+#: inc/customizer.php:54 inc/featured-content.php:404
+msgid "Use a <a href=\"%1$s\">tag</a> to feature your posts. If no posts match the tag, <a href=\"%2$s\">sticky posts</a> will be displayed instead."
+msgstr "از یک <a href=\"%1$s\">برچسب</a> برای ویژه کردن مطالب خود استفاده کنید. اگر هیچ نوشته‌ای با برچسب هماهنگ نشود، <a href=\"%2$s\">نوشته‌های سنجاق شده</a> به جای آن نمایش داده می‌شود."
+
+#: inc/customizer.php:53 inc/featured-content.php:403
+msgid "Featured Content"
+msgstr "مطالب ویژه"
+
+#: inc/customizer.php:47 inc/customizer.php:48
+msgid "Background may only be visible on wide screens."
+msgstr "تصویر پس زمینه ممکن است فقط در نمایشگرهای عریض قابل مشاهده باشد."
+
+#: inc/customizer.php:44 inc/customizer.php:45
+msgid "May only be visible on wide screens."
+msgstr "ممکن است فقط روی نمایشگرهای عریض نمایش داده شود"
+
+#: inc/customizer.php:40
+msgid "Display Site Title &amp; Tagline"
+msgstr "نمایش عنوان و توضیحات سایت"
+
+#: inc/customizer.php:37
+msgid "Site Title Color"
+msgstr "رنگ عنوان سایت"
+
+#: inc/back-compat.php:37 inc/back-compat.php:47 inc/back-compat.php:60
+msgid "Twenty Fourteen requires at least WordPress version 3.6. You are running version %s. Please upgrade and try again."
+msgstr "دو هزار و چهارده حداقل به نسخه 3.6 وردپرس نیاز دارد. شما در حال استفاده از نسخه %s هستید. لطفا وردپرس خود را به ارتقا دهید و دوباره امتحان کنید."
+
+#: image.php:66
+msgid "Next Image"
+msgstr "عکس بعدی"
+
+#: image.php:65
+msgid "Previous Image"
+msgstr "عکس پیشین"
+
+#: header.php:53
+msgid "Skip to content"
+msgstr "رفتن به نوشته‌ها"
+
+#: header.php:52
+msgid "Primary Menu"
+msgstr "فهرست اصلی"
+
+#: header.php:48
+msgid "Search"
+msgstr "جست‌وجو"
+
+#: functions.php:523
+msgid "Page %s"
+msgstr "برگه %s"
+
+#: functions.php:404
+msgid "%d Article"
+msgid_plural "%d Articles"
+msgstr[0] "%d مقاله"
+msgstr[1] ""
+
+#: functions.php:262
+msgid "Next"
+msgstr "بعد"
+
+#: functions.php:261
+msgid "Previous"
+msgstr "پیشین"
+
+#. Translators: If there are characters in your language that are not supported
+#. by Lato, translate this to 'off'. Do not translate into your own language.
+#: functions.php:216
+msgctxt "Lato font: on or off"
+msgid "on"
+msgstr "off"
+
+#: functions.php:194
+msgid "Appears in the footer section of the site."
+msgstr "در بخش پایین سایت نشان داده می‌شود."
+
+#: functions.php:192
+msgid "Footer Widget Area"
+msgstr "ناحیه ابزارک‌های پایین صفحه"
+
+#: functions.php:185
+msgid "Additional sidebar that appears on the right."
+msgstr "نوار کناری اضافی که در سمت راست نمایان می‌شود."
+
+#: functions.php:183
+msgid "Content Sidebar"
+msgstr "نوار کناری مطالب"
+
+#: functions.php:176
+msgid "Main sidebar that appears on the left."
+msgstr "نوار کناری اصلی که سمت چپ نمایان می‌شود"
+
+#: functions.php:174
+msgid "Primary Sidebar"
+msgstr "نوار کناری اصلی"
+
+#: functions.php:84
+msgid "Secondary menu in left sidebar"
+msgstr "فهرست فرعی در نوار کناری سمت چپ"
+
+#: functions.php:83
+msgid "Top primary menu"
+msgstr "فهرست اصلی بالایی"
+
+#: footer.php:21
+msgid "Proudly powered by %s"
+msgstr "با افتخار نیرو گرفته از %s"
+
+#: content-none.php:27
+msgid "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help."
+msgstr "این‌طور به‌نظر می‌رسد که ما نمی‌توانیم چیزی که شما به‌دنبالش هستید پیدا کنیم. شاید جست‌وجو کردن راه بهتری باشد."
+
+#: content-none.php:22
+msgid "Sorry, but nothing matched your search terms. Please try again with some different keywords."
+msgstr "بدبختانه جست‌وجوی شما نتیجه‌ای در بر نداشت. با واژگانی دیگر جست‌وجو کنید."
+
+#: content-none.php:18
+msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+msgstr "میخواهید اولین نوشته‌ی خود را منتشر کنید؟ <a href=\"%1$s\">از اینجا آغاز کنید</a>. "
+
+#: content-none.php:12
+msgid "Nothing Found"
+msgstr "چیزی پیدا نشد"
+
+#: content-aside.php:53 content-audio.php:53 content-gallery.php:53
+#: content-image.php:53 content-link.php:53 content-page.php:22
+#: content-quote.php:53 content-video.php:53 content.php:61 image.php:54
+msgid "Pages:"
+msgstr "برگه‌ها :"
+
+#. translators: %s: Name of current post
+#: content-aside.php:48 content-audio.php:48 content-gallery.php:48
+#: content-image.php:48 content-link.php:48 content-quote.php:48
+#: content-video.php:48 content.php:56 inc/template-tags.php:222
+msgid "Continue reading %s <span class=\"meta-nav\">&rarr;</span>"
+msgstr "ادامه خواندن %s <span class=\"meta-nav\">&larr;</span>"
+
+#: content-aside.php:40 content-audio.php:40 content-gallery.php:40
+#: content-image.php:40 content-link.php:40 content-page.php:28
+#: content-quote.php:40 content-video.php:40 content.php:42 image.php:34
+#: page-templates/contributors.php:35
+msgid "Edit"
+msgstr "ویرایش"
+
+#: content-aside.php:37 content-audio.php:37 content-gallery.php:37
+#: content-image.php:37 content-link.php:37 content-quote.php:37
+#: content-video.php:37 content.php:38 inc/widgets.php:216
+msgid "% Comments"
+msgstr "% دیدگاه"
+
+#: content-aside.php:37 content-audio.php:37 content-gallery.php:37
+#: content-image.php:37 content-link.php:37 content-quote.php:37
+#: content-video.php:37 content.php:38 inc/widgets.php:216
+msgid "1 Comment"
+msgstr "۱ دیدگاه"
+
+#: content-aside.php:37 content-audio.php:37 content-gallery.php:37
+#: content-image.php:37 content-link.php:37 content-quote.php:37
+#: content-video.php:37 content.php:38 inc/widgets.php:216
+msgid "Leave a comment"
+msgstr "دیدگاه‌تان را بنویسید:"
+
+#: content-aside.php:17 content-audio.php:17 content-featured-post.php:28
+#: content-gallery.php:17 content-image.php:17 content-link.php:17
+#: content-quote.php:17 content-video.php:17 content.php:19
+msgctxt "Used between list items, there is a space after the comma."
+msgid ", "
+msgstr ", "
+
+#: comments.php:75
+msgid "Comments are closed."
+msgstr "دیدگاه‌ها غیرفعال هستند."
+
+#: comments.php:52 comments.php:70
+msgid "Newer Comments &rarr;"
+msgstr "دیدگاه‌های تازه‌تر &larr;"
+
+#: comments.php:51 comments.php:69
+msgid "&larr; Older Comments"
+msgstr "&rarr; دیدگاه‌های کهنه‌تر"
+
+#: comments.php:50 comments.php:68
+msgid "Comment navigation"
+msgstr "ناوبری دیدگاه"
+
+#: category.php:20
+msgid "Category Archives: %s"
+msgstr "بایگانی دسته: %s"
+
+#: author.php:31
+msgid "All posts by %s"
+msgstr "همه‌ی نوشته‌های %s"
+
+#: archive.php:40 taxonomy-post_format.php:51
+msgid "Archives"
+msgstr "بایگانی"
+
+#: archive.php:37
+msgctxt "yearly archives date format"
+msgid "Y"
+msgstr "Y"
+
+#: archive.php:37
+msgid "Yearly Archives: %s"
+msgstr "بایگانی سالیانه: %s"
+
+#: archive.php:34
+msgctxt "monthly archives date format"
+msgid "F Y"
+msgstr "F Y"
+
+#: archive.php:34
+msgid "Monthly Archives: %s"
+msgstr "بایگانی ماهیانه: %s"
+
+#: archive.php:31
+msgid "Daily Archives: %s"
+msgstr "بایگانی روزانه: %s"
+
+#: 404.php:21
+msgid "It looks like nothing was found at this location. Maybe try a search?"
+msgstr "به نظر می‌رسد که چیزی که میخواهید در اینجا پیدا نشد. می‌خواهید جست‌وجو کنید؟"
+
+#: 404.php:17
+msgid "Not Found"
+msgstr "پیدا نشد"
+
+#. Author URI of the plugin/theme
+#: footer.php:21
+msgid "https://wordpress.org/"
+msgstr "http://wp-persian.com/"
+
+#. Author of the plugin/theme
+msgid "the WordPress team"
+msgstr "گروه وردپرس فارسی"
+
+#. Theme URI of the plugin/theme
+msgid "https://wordpress.org/themes/twentyfourteen/"
+msgstr "https://wordpress.org/themes/twentyfourteen/"

@@ -1,15 +1,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: TablePress - 1.8\n"
-"PO-Revision-Date: 2017-07-04 16:14+0430\n"
+"PO-Revision-Date: 2018-09-04 06:11+0430\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language: fa_IR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.0.2\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 2.1.1\n"
 "X-Poedit-Basepath: ../../tablepress\n"
+"POT-Creation-Date: \n"
+"Language-Team: \n"
 
 #: views/view-import.php:269
 msgid "(recommended)"
@@ -361,6 +363,7 @@ msgstr ""
 msgid "The table was deleted successfully."
 msgid_plural "The tables were deleted successfully."
 msgstr[0] ""
+msgstr[1] ""
 
 #: views/view-list.php:91
 msgid ""
@@ -409,6 +412,7 @@ msgid_plural ""
 "If everything works and you are satisfied with the results of managing your "
 "%s tables, isn&#8217;t that worth a coffee or two?"
 msgstr[0] ""
+msgstr[1] ""
 
 #: views/view-list.php:76
 msgid ""
@@ -1412,11 +1416,13 @@ msgstr ""
 msgid "Do you really want to delete the selected column?"
 msgid_plural "Do you really want to delete the selected columns?"
 msgstr[0] ""
+msgstr[1] ""
 
 #: views/view-edit.php:114 views/view-edit.php:115
 msgid "Do you really want to delete the selected row?"
 msgid_plural "Do you really want to delete the selected rows?"
 msgstr[0] ""
+msgstr[1] ""
 
 #: views/view-edit.php:113
 msgid "The value for the number of columns is invalid!"
@@ -1476,6 +1482,7 @@ msgstr ""
 msgid "The table was copied successfully."
 msgid_plural "The tables were copied successfully."
 msgstr[0] ""
+msgstr[1] ""
 
 #: views/view-edit.php:49
 msgid "The table was added successfully."
@@ -1952,6 +1959,7 @@ msgstr "جدول‌پرس"
 msgid "Do you really want to delete this table?"
 msgid_plural "Do you really want to delete these tables?"
 msgstr[0] ""
+msgstr[1] ""
 
 #: classes/class-view.php:147 controllers/controller-admin.php:142
 #: views/view-editor_button_thickbox.php:68

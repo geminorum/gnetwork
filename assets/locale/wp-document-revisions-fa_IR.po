@@ -1,8 +1,6 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WP Document Revisions v3.0.1\n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: geminorum\n"
 "Language: fa_IR\n"
@@ -13,9 +11,6 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Poedit 2.0.6\n"
-"X-Poedit-Bookmarks: 109,-1,-1,-1,-1,-1,-1,-1,-1,-1\n"
-"X-Poedit-SearchPath-0: .\n"
-"X-Poedit-SearchPathExcluded-0: *.js\n"
 
 #. Author URI of the plugin/theme
 msgid "http://ben.balter.com"

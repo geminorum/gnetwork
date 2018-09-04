@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Flamingo\n"
-"PO-Revision-Date: 2017-07-04 16:15+0430\n"
+"PO-Revision-Date: 2018-09-04 06:14+0430\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language: fa_IR\n"
 "MIME-Version: 1.0\n"
@@ -9,8 +9,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-Basepath: ../../flamingo\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.0.2\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 2.1.1\n"
+"POT-Creation-Date: \n"
+"Language-Team: \n"
 
 #. Description of the plugin/theme
 msgid "A trustworthy message storage plugin for Contact Form 7."
@@ -151,12 +153,14 @@ msgctxt "posts"
 msgid "Trash <span class=\"count\">(%s)</span>"
 msgid_plural "Trash <span class=\"count\">(%s)</span>"
 msgstr[0] "زباله‌دان <span class=\"count\">(%s)</span>"
+msgstr[1] ""
 
 #: admin/includes/class-inbound-messages-list-table.php:127
 msgctxt "posts"
 msgid "Spam <span class=\"count\">(%s)</span>"
 msgid_plural "Spam <span class=\"count\">(%s)</span>"
 msgstr[0] "جفنگ <span class=\"count\">(%s)</span>"
+msgstr[1] ""
 
 #: admin/includes/class-inbound-messages-list-table.php:111
 #: admin/includes/class-outbound-messages-list-table.php:98
@@ -164,6 +168,7 @@ msgctxt "posts"
 msgid "Inbox <span class=\"count\">(%s)</span>"
 msgid_plural "Inbox <span class=\"count\">(%s)</span>"
 msgstr[0] "دریافتی <span class=\"count\">(%s)</span>"
+msgstr[1] ""
 
 #: admin/includes/class-inbound-messages-list-table.php:17
 msgid "Channel"

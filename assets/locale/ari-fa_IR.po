@@ -1,19 +1,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Ari v1.2\n"
-"PO-Revision-Date: 2017-09-01 23:25+0430\n"
+"PO-Revision-Date: 2018-09-04 06:16+0430\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 2.0.3\n"
+"X-Generator: Poedit 2.1.1\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-Basepath: ../../../../themes/ari\n"
 "Language: fa_IR\n"
 "POT-Creation-Date: \n"
 "Language-Team: \n"
-"X-Poedit-SearchPath-0: .\n"
 
 # @ ari
 #: 404.php:7 loop.php:3

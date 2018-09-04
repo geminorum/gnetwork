@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Contact Form 7\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2018-02-25 05:53+0330\n"
+"PO-Revision-Date: 2018-09-04 06:15+0430\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: \n"
 "Language: fa_IR\n"
@@ -12,7 +12,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-Basepath: ../../../contact-form-7\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 2.1.1\n"
 
 #: admin/includes/editor.php:211
 msgid ""
@@ -74,8 +74,7 @@ msgstr ""
 
 #. translators: %s: link labeled 'making a donation'
 #: admin/includes/welcome-panel.php:35
-msgid ""
-"If you enjoy using Contact Form 7 and find it useful, please consider %s."
+msgid "If you enjoy using Contact Form 7 and find it useful, please consider %s."
 msgstr ""
 
 #: admin/includes/welcome-panel.php:33
@@ -191,15 +190,15 @@ msgstr ""
 #: admin/includes/welcome-panel.php:45
 msgid ""
 "Install a message storage plugin before this happens to you. %s saves all "
-"messages through contact forms into the database. Flamingo is a free "
-"WordPress plugin created by the same author as Contact Form 7."
+"messages through contact forms into the database. Flamingo is a free WordPress "
+"plugin created by the same author as Contact Form 7."
 msgstr ""
 
 #: admin/includes/welcome-panel.php:43
 msgid ""
-"Contact Form 7 doesn&#8217;t store submitted messages anywhere. Therefore, "
-"you may lose important messages forever if your mail server has issues or you "
-"make a mistake in mail configuration."
+"Contact Form 7 doesn&#8217;t store submitted messages anywhere. Therefore, you "
+"may lose important messages forever if your mail server has issues or you make "
+"a mistake in mail configuration."
 msgstr ""
 
 #: admin/includes/welcome-panel.php:41
@@ -226,8 +225,8 @@ msgstr ""
 #: admin/includes/welcome-panel.php:24
 msgid ""
 "Spammers target everything; your contact forms aren&#8217;t an exception. "
-"Before you get spammed, protect your contact forms with the powerful anti-"
-"spam features Contact Form 7 provides."
+"Before you get spammed, protect your contact forms with the powerful anti-spam "
+"features Contact Form 7 provides."
 msgstr ""
 
 #: admin/includes/welcome-panel.php:22
@@ -412,8 +411,8 @@ msgstr "تولید فرم-برچسب برای ری-کپچا. برای اطلاع
 
 #: modules/recaptcha.php:441
 msgid ""
-"To use reCAPTCHA, first you need to install an API key pair. For more "
-"details, see %s."
+"To use reCAPTCHA, first you need to install an API key pair. For more details, "
+"see %s."
 msgstr ""
 
 #: admin/includes/welcome-panel.php:26 modules/recaptcha.php:189
@@ -638,8 +637,7 @@ msgid "https://contactform7.com/quiz/"
 msgstr ""
 
 #: modules/quiz.php:185
-msgid ""
-"Generate a form-tag for a question-answer pair. For more details, see %s."
+msgid "Generate a form-tag for a question-answer pair. For more details, see %s."
 msgstr ""
 "تولید فرم-برچسب برای ورودی جفتی سوال و جواب . برای اطلاعات بیشتر %s را ببینید."
 
@@ -669,8 +667,8 @@ msgstr ""
 
 #: modules/number.php:151
 msgid ""
-"Generate a form-tag for a field for numeric value input. For more details, "
-"see %s."
+"Generate a form-tag for a field for numeric value input. For more details, see "
+"%s."
 msgstr "تولید فرم-برچسب برای ورودی عددی. برای اطلاعات بیشتر %s را ببینید."
 
 #: modules/number.php:143
@@ -691,16 +689,15 @@ msgstr ""
 
 #: modules/file.php:301
 msgid ""
-"This contact form contains file uploading fields, but the temporary folder "
-"for the files (%s) does not exist or is not writable. You can create the "
-"folder or change its permission manually."
+"This contact form contains file uploading fields, but the temporary folder for "
+"the files (%s) does not exist or is not writable. You can create the folder or "
+"change its permission manually."
 msgstr ""
 
 #: modules/file.php:275
 msgid ""
-"To attach the file uploaded through this field to mail, you need to insert "
-"the corresponding mail-tag (%s) into the File Attachments field on the Mail "
-"tab."
+"To attach the file uploaded through this field to mail, you need to insert the "
+"corresponding mail-tag (%s) into the File Attachments field on the Mail tab."
 msgstr ""
 "برای پیوست فایل ارسال شده از طریق این قسمت به پست الکترونیکی شما درج مربوطه "
 "پست-برچسب (%s) را در قسمت فایل پیوست در زبانه پست نیاز به."
@@ -722,8 +719,7 @@ msgid "https://contactform7.com/file-uploading-and-attachment/"
 msgstr ""
 
 #: modules/file.php:215
-msgid ""
-"Generate a form-tag for a file uploading field. For more details, see %s."
+msgid "Generate a form-tag for a file uploading field. For more details, see %s."
 msgstr ""
 "تولید فرم-برچسب برای ورودی بارگذاری پرونده. برای اطلاعات بیشتر %s را ببینید."
 
@@ -862,8 +858,8 @@ msgstr ""
 
 #: modules/really-simple-captcha.php:360
 msgid ""
-"This contact form contains CAPTCHA fields, but the necessary libraries (GD "
-"and FreeType) are not available on your server."
+"This contact form contains CAPTCHA fields, but the necessary libraries (GD and "
+"FreeType) are not available on your server."
 msgstr ""
 
 #: modules/really-simple-captcha.php:353
@@ -887,8 +883,8 @@ msgstr ""
 
 #: modules/really-simple-captcha.php:268
 msgid ""
-"Generate form-tags for a CAPTCHA image and corresponding response input "
-"field. For more details, see %s."
+"Generate form-tags for a CAPTCHA image and corresponding response input field. "
+"For more details, see %s."
 msgstr ""
 "تولید فرم-برچسب برای تصویر کپچا و ورودی کد اختصاصی. برای اطلاعات بیشتر %s را "
 "ببینید."
@@ -943,9 +939,8 @@ msgstr "کار معکوس"
 msgid "Make this checkbox checked by default"
 msgstr "این چک باکس طور پیش فرض علامت خورده باشد"
 
-#: modules/acceptance.php:243 modules/acceptance.php:246
-#: modules/checkbox.php:323 modules/checkbox.php:326 modules/select.php:212
-#: modules/select.php:215
+#: modules/acceptance.php:243 modules/acceptance.php:246 modules/checkbox.php:323
+#: modules/checkbox.php:326 modules/select.php:212 modules/select.php:215
 msgid "Options"
 msgstr "تنظیمات"
 
@@ -965,8 +960,7 @@ msgid "https://contactform7.com/acceptance-checkbox/"
 msgstr ""
 
 #: modules/acceptance.php:221
-msgid ""
-"Generate a form-tag for an acceptance checkbox. For more details, see %s."
+msgid "Generate a form-tag for an acceptance checkbox. For more details, see %s."
 msgstr "تولید فرم-برچسب برای چک‌باکس پذیرش. برای اطلاعات بیشتر %s را ببینید."
 
 #: modules/acceptance.php:213
@@ -1077,9 +1071,9 @@ msgstr "هیچ گاه اطلاعات برای ارائه دهندگان خدما
 
 #: admin/includes/help-tabs.php:82
 msgid ""
-"You may need to first sign up for an account with the service that you plan "
-"to use. When you do so, you would need to authorize Contact Form 7 to access "
-"the service with your account."
+"You may need to first sign up for an account with the service that you plan to "
+"use. When you do so, you would need to authorize Contact Form 7 to access the "
+"service with your account."
 msgstr ""
 
 #: admin/includes/help-tabs.php:81
@@ -1112,12 +1106,12 @@ msgstr ""
 
 #: admin/includes/help-tabs.php:75
 msgid ""
-"A form-tag is a short code enclosed in square brackets used in a form "
-"content. A form-tag generally represents an input field, and its components "
-"can be separated into four parts: type, name, options, and values. Contact "
-"Form 7 supports several types of form-tags including text fields, number "
-"fields, date fields, checkboxes, radio buttons, menus, file-uploading fields, "
-"CAPTCHAs, and quiz fields."
+"A form-tag is a short code enclosed in square brackets used in a form content. "
+"A form-tag generally represents an input field, and its components can be "
+"separated into four parts: type, name, options, and values. Contact Form 7 "
+"supports several types of form-tags including text fields, number fields, date "
+"fields, checkboxes, radio buttons, menus, file-uploading fields, CAPTCHAs, and "
+"quiz fields."
 msgstr ""
 
 #: admin/includes/help-tabs.php:73
@@ -1135,9 +1129,9 @@ msgstr ""
 
 #: admin/includes/help-tabs.php:71
 msgid ""
-"<strong>Mail (2)</strong> is an additional mail template that works similar "
-"to Mail. Mail (2) is different in that it is sent only when Mail has been "
-"sent successfully."
+"<strong>Mail (2)</strong> is an additional mail template that works similar to "
+"Mail. Mail (2) is different in that it is sent only when Mail has been sent "
+"successfully."
 msgstr ""
 
 #: admin/includes/help-tabs.php:70
@@ -1156,8 +1150,8 @@ msgstr ""
 
 #: admin/includes/help-tabs.php:68
 msgid ""
-"<strong>Title</strong> is the title of a contact form. This title is only "
-"used for labeling a contact form, and can be edited."
+"<strong>Title</strong> is the title of a contact form. This title is only used "
+"for labeling a contact form, and can be edited."
 msgstr ""
 
 #: admin/includes/help-tabs.php:67
@@ -1174,8 +1168,8 @@ msgstr ""
 
 #: admin/includes/help-tabs.php:64
 msgid ""
-"<strong>Edit</strong> - Navigates to the editing screen for that contact "
-"form. You can also reach that screen by clicking on the contact form title."
+"<strong>Edit</strong> - Navigates to the editing screen for that contact form. "
+"You can also reach that screen by clicking on the contact form title."
 msgstr ""
 
 #: admin/includes/help-tabs.php:63
@@ -1431,8 +1425,8 @@ msgstr "بستن"
 #. translators: 1: version of Contact Form 7, 2: version of WordPress, 3: URL
 #: admin/admin.php:574
 msgid ""
-"<strong>Contact Form 7 %1$s requires WordPress %2$s or higher.</strong> "
-"Please <a href=\"%3$s\">update WordPress</a> first."
+"<strong>Contact Form 7 %1$s requires WordPress %2$s or higher.</strong> Please "
+"<a href=\"%3$s\">update WordPress</a> first."
 msgstr ""
 
 #: admin/admin.php:554

@@ -2,16 +2,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Independent Publisher\n"
 "POT-Creation-Date: 2014-08-21 10:36-0500\n"
-"PO-Revision-Date: 2017-07-04 16:15+0430\n"
+"PO-Revision-Date: 2018-09-04 06:14+0430\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.2\n"
+"X-Generator: Poedit 2.1.1\n"
 "X-Poedit-Basepath: ../../../themes/independent-publisher\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language: fa_IR\n"
+"Language-Team: \n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #: ../404.php:16
@@ -78,6 +79,7 @@ msgstr ""
 msgid "1 Comment"
 msgid_plural "%1$s Comments"
 msgstr[0] ""
+msgstr[1] ""
 
 #: ../comments.php:49 ../comments.php:70
 msgid "Comment navigation"
@@ -491,45 +493,53 @@ msgstr ""
 msgid "Found one search result for <strong>%2$s</strong>."
 msgid_plural "Found %1$s search results for <strong>%2$s</strong>"
 msgstr[0] ""
+msgstr[1] ""
 
 #: ../inc/template-tags.php:640
 #, php-format
 msgid "There is one post filed in <strong>%2$s</strong>."
 msgid_plural "There are %1$s posts filed in <strong>%2$s</strong>"
 msgstr[0] ""
+msgstr[1] ""
 
 #: ../inc/template-tags.php:642
 #, php-format
 msgid "There is one post tagged <strong>%2$s</strong>."
 msgid_plural "There are %1$s posts tagged <strong>%2$s</strong>"
 msgstr[0] ""
+msgstr[1] ""
 
 #: ../inc/template-tags.php:673
 #, php-format
 msgid "There was one post published in %2$s."
 msgid_plural "There were %1$s posts published in %2$s"
 msgstr[0] ""
+msgstr[1] ""
 
 #: ../inc/template-tags.php:675
 #, php-format
 msgid "There is one post published in %2$s."
 msgid_plural "There are %1$s posts published in %2$s"
 msgstr[0] ""
+msgstr[1] ""
 
 #: ../inc/template-tags.php:678
 #, php-format
 msgid "There was one post published on %2$s."
 msgid_plural "There were %1$s posts published on %2$s"
 msgstr[0] ""
+msgstr[1] ""
 
 #: ../inc/template-tags.php:685
 #, php-format
 msgid "There was one post published in the month of %2$s."
 msgid_plural "There were %1$s posts published in %2$s"
 msgstr[0] ""
+msgstr[1] ""
 
 #: ../inc/template-tags.php:690
 #, php-format
 msgid "There was one post published in %2$s %3$s."
 msgid_plural "There were %1$s posts published in %2$s %3$s"
 msgstr[0] ""
+msgstr[1] ""
