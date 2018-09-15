@@ -203,6 +203,8 @@ class Site extends gNetwork\Module
 				update_option( 'siteurl', str_replace( $switch[0], $switch[1], get_option( 'siteurl' ) ) );
 				update_option( 'home', str_replace( $switch[0], $switch[1], get_option( 'home' ) ) );
 
+				Logger::siteINFO( 'SSL', sprintf( 'switched to: %s', str_replace( '://', '', $switch[1] ) ) );
+
 				WordPress::redirectReferer();
 
 			} else if ( isset( $_POST['resync_sitemeta'] ) ) {
