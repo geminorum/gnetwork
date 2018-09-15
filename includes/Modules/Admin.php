@@ -16,6 +16,8 @@ class Admin extends gNetwork\Module
 	protected $network = FALSE;
 	protected $front   = FALSE;
 
+	private $dark_mode = 0;
+
 	protected function setup_actions()
 	{
 		if ( ! WordPress::mustRegisterUI() )
@@ -33,6 +35,7 @@ class Admin extends gNetwork\Module
 			$this->filter_false( 'show_network_active_plugins' );
 		}
 
+		$this->action( 'doing_dark_mode' );
 		$this->action( 'admin_print_styles', 0, 999 );
 		$this->filter( 'admin_footer_text', 1, 9999 );
 		$this->filter( 'update_footer', 1, 9999 );
@@ -400,12 +403,21 @@ class Admin extends gNetwork\Module
 		}
 	}
 
+	// @REF: https://github.com/danieltj27/Dark-Mode/wiki/Help:-Plugin-Compatibility-Guide
+	public function doing_dark_mode( $user_id )
+	{
+		$this->dark_mode = $user_id;
+	}
+
 	public function admin_print_styles()
 	{
 		Utilities::linkStyleSheet( 'admin.all' );
 
 		if ( is_rtl() )
 			HTML::linkStyleSheet( GNETWORK_URL.'assets/css/admin.rtl.css', GNETWORK_VERSION );
+
+		if ( $this->dark_mode )
+			HTML::linkStyleSheet( GNETWORK_URL.'assets/css/admin.darkmode.css', GNETWORK_VERSION );
 
 		Utilities::customStyleSheet( 'admin.css' );
 
