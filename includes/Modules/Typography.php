@@ -232,6 +232,9 @@ class Typography extends gNetwork\Module
 
 	public function shortcode_numeral_section_title( $atts = [], $content = NULL, $tag = '' )
 	{
+		if ( is_null( $content ) || ! is_singular() )
+			return NULL;
+
 		return '<h3 class="numeral-section-title">'.$content.'</h3>';
 	}
 
