@@ -49,6 +49,11 @@ class Blog extends gNetwork\Module
 				add_filter( 'media_library_months_with_files', '__return_empty_array', 5 );
 			}
 
+			if ( $this->options['disable_pointers'] )
+				add_action( 'admin_init', function(){
+					remove_action( 'admin_enqueue_scripts', [ 'WP_Internal_Pointers', 'enqueue_scripts' ] );
+				} );
+
 		} else {
 
 			$this->action( 'wp_head', 0, 12 );
@@ -116,6 +121,7 @@ class Blog extends gNetwork\Module
 			'feed_json'            => '0',
 			'feed_delay'           => '10',
 			'disable_emojis'       => '1',
+			'disable_pointers'     => '1',
 			'ga_override'          => '',
 			'from_email'           => '',
 			'from_name'            => '',
@@ -259,6 +265,14 @@ class Blog extends gNetwork\Module
 			'title'       => _x( 'Emojis', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 			'description' => _x( 'Removes the extra code bloat used to add support for Emoji\'s in older browsers.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 			'after'       => Settings::fieldAfterIcon( Settings::getWPCodexLink( 'Emoji' ) ),
+			'default'     => '1',
+		];
+
+		$settings['_admin'][] = [
+			'field'       => 'disable_pointers',
+			'type'        => 'disabled',
+			'title'       => _x( 'Admin Pointers', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Removes all admin pointer tooltips.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 			'default'     => '1',
 		];
 
