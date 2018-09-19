@@ -74,15 +74,15 @@ class Update extends gNetwork\Module
 			'_general' => [
 				[
 					'field'       => 'disable_autoupdates',
+					'type'        => 'disabled',
 					'title'       => _x( 'Auto Update Core', 'Modules: Update: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Disables automatic updates of the WordPress core.', 'Modules: Update: Settings', GNETWORK_TEXTDOMAIN ),
-					'values'      => Settings::reverseEnabled(),
 				],
 				[
 					'field'       => 'disable_translations',
+					'type'        => 'disabled',
 					'title'       => _x( 'Auto and Async Translations', 'Modules: Update: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Disables asynchronous and automatic background translation updates.', 'Modules: Update: Settings', GNETWORK_TEXTDOMAIN ),
-					'values'      => Settings::reverseEnabled(),
 					'after'       => Settings::fieldAfterIcon( 'https://make.wordpress.org/core/?p=10922' ),
 				],
 			],

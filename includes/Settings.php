@@ -623,6 +623,29 @@ class Settings extends Core\Base
 				], $html );
 
 			break;
+			case 'disabled':
+
+				$html = HTML::tag( 'option', [
+					'value'    => '0',
+					'selected' => '0' == $value,
+				], empty( $args['values'][0] ) ? $args['string_enabled'] : $args['values'][0] );
+
+				$html.= HTML::tag( 'option', [
+					'value'    => '1',
+					'selected' => '1' == $value,
+				], empty( $args['values'][1] ) ? $args['string_disabled'] : $args['values'][1] );
+
+				echo HTML::tag( 'select', [
+					'id'       => $id,
+					'name'     => $name,
+					'class'    => HTML::attrClass( $args['field_class'], '-type-disabled' ),
+					'disabled' => $args['disabled'],
+					'readonly' => $args['readonly'],
+					'dir'      => $args['dir'],
+					'data'     => $args['data'],
+				], $html );
+
+			break;
 			case 'text':
 
 				if ( ! $args['field_class'] )

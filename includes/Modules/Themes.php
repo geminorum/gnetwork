@@ -89,10 +89,10 @@ class Themes extends gNetwork\Module
 			'_general' => [
 				[
 					'field'       => 'disable_themes',
+					'type'        => 'disabled',
 					'title'       => _x( 'Theme Enhancements', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Extra styles and more for suported themes', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '1',
-					'values'      => Settings::reverseEnabled(),
 				],
 				[
 					'field'       => 'content_actions',

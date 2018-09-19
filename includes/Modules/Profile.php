@@ -118,15 +118,15 @@ class Profile extends gNetwork\Module
 				],
 				[
 					'field'       => 'disable_password_reset',
+					'type'        => 'disabled',
 					'title'       => _x( 'Password Reset', 'Modules: Profile: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Controls whether to allow a password to be reset.', 'Modules: Profile: Settings', GNETWORK_TEXTDOMAIN ),
-					'values'      => Settings::reverseEnabled(),
 				],
 				[
 					'field'       => 'disable_colorschemes',
+					'type'        => 'disabled',
 					'title'       => _x( 'Color Schemes', 'Modules: Profile: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Controls whether to allow a selection of admin color scheme.', 'Modules: Profile: Settings', GNETWORK_TEXTDOMAIN ),
-					'values'      => Settings::reverseEnabled(),
 				],
 				[
 					'field'       => 'contact_methods',

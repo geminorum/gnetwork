@@ -108,10 +108,10 @@ class Comments extends gNetwork\Module
 				],
 				[
 					'field'       => 'disable_notifications',
+					'type'        => 'disabled',
 					'title'       => _x( 'Comment Notifications', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Prevents WordPress from sending any comment related notifications.', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '1',
-					'values'      => Settings::reverseEnabled(),
 				],
 				[
 					'field'       => 'admin_fullcomments',

@@ -66,40 +66,38 @@ class Notify extends gNetwork\Module
 
 	public function default_settings()
 	{
-		$reversed = Settings::reverseEnabled();
-
 		$settings = [
 			'_general' => [
 				[
 					'field'       => 'disable_new_user_admin',
+					'type'        => 'disabled',
 					'title'       => _x( 'New User Email', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Notifies the blog admin of a newly-registered user.', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
-					'values'      => $reversed,
 				],
 				[
 					'field'       => 'disable_user_password_change',
+					'type'        => 'disabled',
 					'title'       => _x( 'Password Reset Email', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Notifies the blog admin of a user changed password.', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
-					'values'      => $reversed,
 				],
 				[
 					'field'       => 'disable_password_change',
+					'type'        => 'disabled',
 					'title'       => _x( 'User Password Changes', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Notifies the user of his password changed.', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
-					'values'      => $reversed,
 				],
 				[
 					'field'       => 'disable_email_change',
+					'type'        => 'disabled',
 					'title'       => _x( 'User Email Changes', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Notifies the user of his email address changed.', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
-					'values'      => $reversed,
 				],
 				[
 					'field'       => 'disable_admin_email_change',
+					'type'        => 'disabled',
 					'title'       => _x( 'Admin Email Changes', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Notifies the old site admin of the site admin email address changed.', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
-					'values'      => $reversed,
-					'default'     => 1,
+					'default'     => '1',
 				],
 			],
 		];

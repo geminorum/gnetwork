@@ -73,7 +73,7 @@ class Blog extends gNetwork\Module
 				$this->filter( 'posts_where', 2 );
 		}
 
-		if ( ! $this->options['rest_api_enabled'] )
+		if ( $this->options['disable_rest_api'] )
 			$this->filter( 'rest_authentication_errors', 1, 999 );
 
 		if ( ! $this->options['xmlrpc_enabled'] ) {
@@ -105,7 +105,7 @@ class Blog extends gNetwork\Module
 			'heartbeat_mode'       => 'default',
 			'heartbeat_frequency'  => 'default',
 			'autosave_interval'    => '',
-			'rest_api_enabled'     => '1',
+			'disable_rest_api'     => 0,
 			'xmlrpc_enabled'       => '0',
 			'wlw_enabled'          => '0',
 			'page_copyright'       => '0',
@@ -218,10 +218,10 @@ class Blog extends gNetwork\Module
 			];
 
 		$settings['_services'][] = [
-			'field'       => 'rest_api_enabled',
+			'field'       => 'disable_rest_api',
+			'type'        => 'disabled',
 			'title'       => _x( 'Rest API', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 			'description' => _x( 'Whether REST API services are enabled on this site.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-			'default'     => '1',
 		];
 
 		$settings['_services'][] = [
@@ -255,11 +255,11 @@ class Blog extends gNetwork\Module
 
 		$settings['_thrift'][] = [
 			'field'       => 'disable_emojis',
+			'type'        => 'disabled',
 			'title'       => _x( 'Emojis', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 			'description' => _x( 'Removes the extra code bloat used to add support for Emoji\'s in older browsers.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 			'default'     => GNETWORK_DISABLE_EMOJIS,
 			'after'       => Settings::fieldAfterIcon( Settings::getWPCodexLink( 'Emoji' ) ),
-			'values'      => Settings::reverseEnabled(),
 		];
 
 		$settings['_theme'][] = [
