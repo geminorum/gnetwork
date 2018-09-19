@@ -115,7 +115,7 @@ class Blog extends gNetwork\Module
 			'noindex_attachments'  => '0',
 			'feed_json'            => '0',
 			'feed_delay'           => '10',
-			'disable_emojis'       => GNETWORK_DISABLE_EMOJIS,
+			'disable_emojis'       => '1',
 			'ga_override'          => '',
 			'from_email'           => '',
 			'from_name'            => '',
@@ -258,8 +258,8 @@ class Blog extends gNetwork\Module
 			'type'        => 'disabled',
 			'title'       => _x( 'Emojis', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 			'description' => _x( 'Removes the extra code bloat used to add support for Emoji\'s in older browsers.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-			'default'     => GNETWORK_DISABLE_EMOJIS,
 			'after'       => Settings::fieldAfterIcon( Settings::getWPCodexLink( 'Emoji' ) ),
+			'default'     => '1',
 		];
 
 		$settings['_theme'][] = [
