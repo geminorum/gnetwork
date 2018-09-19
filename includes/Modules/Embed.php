@@ -18,6 +18,9 @@ class Embed extends gNetwork\Module
 
 	protected function setup_actions()
 	{
+		if ( $this->options['disable_oembed'] )
+			$this->filter_false( 'embed_oembed_discover' );
+
 		if ( $this->options['load_defaults'] )
 			add_filter( 'load_default_embeds', '__return_false' );
 
@@ -40,13 +43,14 @@ class Embed extends gNetwork\Module
 	public function default_options()
 	{
 		return [
-			'load_defaults' => 0,
-			'wrapped_links' => 0,
-			'load_docs_pdf' => 0,
-			'load_aparat'   => 0,
-			'load_kavimo'   => 0,
-			'load_giphy'    => 0,
-			'count_channel' => 10,
+			'disable_oembed' => 0,
+			'load_defaults'  => 0,
+			'wrapped_links'  => 0,
+			'load_docs_pdf'  => 0,
+			'load_aparat'    => 0,
+			'load_kavimo'    => 0,
+			'load_giphy'     => 0,
+			'count_channel'  => 10,
 		];
 	}
 
@@ -54,6 +58,13 @@ class Embed extends gNetwork\Module
 	{
 		return [
 			'_general' => [
+				[
+					'field'       => 'disable_oembed',
+					'type'        => 'disabled',
+					'title'       => _x( 'oEmbed Discovery', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Whether to inspect the given URL for discoverable link tags.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
+					'after'       => Settings::fieldAfterIcon( 'https://oembed.com' ),
+				],
 				[
 					'field'       => 'load_defaults',
 					'title'       => _x( 'Load Default Embeds', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
