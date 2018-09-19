@@ -151,7 +151,7 @@ class Blog extends gNetwork\Module
 			];
 
 		if ( class_exists( __NAMESPACE__.'\\Locale' ) )
-			$settings['_locale'][] = [
+			$settings['_admin'][] = [
 				'field'       => 'admin_locale',
 				'type'        => 'select',
 				'title'       => _x( 'Admin Language', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
@@ -161,27 +161,27 @@ class Blog extends gNetwork\Module
 				'values'      => Arraay::sameKey( Locale::available() ),
 			];
 
-		$settings['_enhancements'][] = [
+		$settings['_admin'][] = [
 			'field'       => 'admin_chosen',
 			'title'       => _x( 'Admin Chosen', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 			'description' => _x( 'Chosen is a jQuery plugin that makes long, unwieldy select boxes much more user-friendly.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 			'after'       => Settings::fieldAfterIcon( 'https://harvesthq.github.io/chosen/' ),
 		];
 
-		$settings['_thrift'][] = [
+		$settings['_economics'][] = [
 			'field'       => 'thrift_mode',
 			'title'       => _x( 'Thrift Mode', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 			'description' => _x( 'Trying to make your host happy!', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 		];
 
-		$settings['_thrift'][] = [
+		$settings['_economics'][] = [
 			'field'       => 'no_found_rows',
 			'title'       => _x( 'No Found-Rows', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 			'description' => _x( 'Avoids query count for paginations.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 			'after'       => Settings::fieldAfterIcon( 'https://wpartisan.me/?p=166' ),
 		];
 
-		$settings['_thrift'][] = [
+		$settings['_economics'][] = [
 			'field'       => 'heartbeat_mode',
 			'type'        => 'select',
 			'title'       => _x( 'Heartbeat Mode', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
@@ -194,7 +194,7 @@ class Blog extends gNetwork\Module
 			],
 		];
 
-		$settings['_thrift'][] = [
+		$settings['_economics'][] = [
 			'field'       => 'heartbeat_frequency',
 			'type'        => 'select',
 			'title'       => _x( 'Heartbeat Frequency', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
@@ -214,7 +214,7 @@ class Blog extends gNetwork\Module
 		];
 
 		if ( $this->autosave_interval )
-			$settings['_thrift'][] = [
+			$settings['_economics'][] = [
 				'field'       => 'autosave_interval',
 				'type'        => 'number',
 				'title'       => _x( 'Autosave Interval', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
@@ -242,7 +242,7 @@ class Blog extends gNetwork\Module
 			'description' => _x( 'Whether Windows Live Writer manifest enabled on this site.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 		];
 
-		$settings['_feeds'][] = [
+		$settings['_front'][] = [
 			'field'       => 'feed_delay',
 			'type'        => 'select',
 			'title'       => _x( 'Delay Feeds', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
@@ -252,14 +252,14 @@ class Blog extends gNetwork\Module
 			'default'     => '10',
 		];
 
-		$settings['_feeds'][] = [
+		$settings['_misc'][] = [
 			'field'       => 'feed_json',
 			'title'       => _x( 'JSON Feed', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 			'description' => _x( 'Adds JSON as new type of feed that anyone can subscribe to.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 			'after'       => $this->options['feed_json'] ? Settings::fieldAfterLink( get_feed_link( 'json' ) ) : '',
 		];
 
-		$settings['_thrift'][] = [
+		$settings['_services'][] = [
 			'field'       => 'disable_emojis',
 			'type'        => 'disabled',
 			'title'       => _x( 'Emojis', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
@@ -276,7 +276,7 @@ class Blog extends gNetwork\Module
 			'default'     => '1',
 		];
 
-		$settings['_theme'][] = [
+		$settings['_front'][] = [
 			'field'       => 'page_copyright',
 			'type'        => 'page',
 			'title'       => _x( 'Copyright Information', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
@@ -286,7 +286,7 @@ class Blog extends gNetwork\Module
 			'after'       => Settings::fieldAfterNewPostType( 'page' ),
 		];
 
-		$settings['_theme'][] = [
+		$settings['_front'][] = [
 			'field'       => 'page_404',
 			'type'        => 'page',
 			'title'       => _x( 'Custom 404 Error', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
@@ -296,7 +296,7 @@ class Blog extends gNetwork\Module
 			'after'       => Settings::fieldAfterNewPostType( 'page' ),
 		];
 
-		$settings['_theme'][] = [
+		$settings['_front'][] = [
 			'field'       => 'content_width',
 			'type'        => 'number',
 			'title'       => _x( 'Content Width', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
@@ -304,19 +304,19 @@ class Blog extends gNetwork\Module
 			'after'       => ! empty( $GLOBALS['content_width'] ) && ! $this->options['content_width'] ? Settings::fieldAfterText( sprintf( _x( 'Current is %s', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ), '<code>'.$GLOBALS['content_width'].'</code>' ) ) : FALSE,
 		];
 
-		$settings['_theme'][] = [
+		$settings['_front'][] = [
 			'field'       => 'meta_revised',
 			'title'       => _x( 'Meta Revised', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 			'description' => _x( 'Defines an HTML meta tag for last modified time of each post.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 		];
 
-		$settings['_theme'][] = [
+		$settings['_front'][] = [
 			'field'       => 'noindex_attachments',
 			'title'       => _x( 'No Index Attachments', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 			'description' => _x( 'Defines No Index/No Follow HTML meta tags for attachment pages.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 		];
 
-		$settings['_theme'][] = [
+		$settings['_front'][] = [
 			'field'       => 'theme_color',
 			'type'        => 'color',
 			'title'       => _x( 'Theme Color', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
@@ -325,14 +325,14 @@ class Blog extends gNetwork\Module
 
 		if ( $multisite && class_exists( __NAMESPACE__.'\\Mail' ) ) {
 
-			$settings['_email'][] = [
+			$settings['_overrides'][] = [
 				'field'       => 'from_email',
 				'type'        => 'email',
 				'title'       => _x( 'From Email', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 				'description' => _x( 'This site email address that emails should be sent from. Set to override the network.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 			];
 
-			$settings['_email'][] = [
+			$settings['_overrides'][] = [
 				'field'       => 'from_name',
 				'type'        => 'text',
 				'title'       => _x( 'From Name', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
@@ -341,7 +341,7 @@ class Blog extends gNetwork\Module
 		}
 
 		if ( $multisite && class_exists( __NAMESPACE__.'\\Tracking' ) )
-			$settings['_tracking'][] = [
+			$settings['_overrides'][] = [
 				'field'       => 'ga_override',
 				'type'        => 'text',
 				'title'       => _x( 'GA Override', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
@@ -350,7 +350,7 @@ class Blog extends gNetwork\Module
 				'field_class' => [ 'regular-text', 'code-text' ],
 			];
 
-		$settings['_redirect'][] = [
+		$settings['_misc'][] = [
 			'field'       => 'blog_redirect',
 			'type'        => 'url',
 			'title'       => _x( 'Redirect URL', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
@@ -358,7 +358,7 @@ class Blog extends gNetwork\Module
 			'placeholder' => 'http://anothersite.com',
 		];
 
-		$settings['_redirect'][] = [
+		$settings['_misc'][] = [
 			'field'       => 'blog_redirect_status',
 			'type'        => 'select',
 			'title'       => _x( 'Redirect Status Code', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
@@ -375,13 +375,13 @@ class Blog extends gNetwork\Module
 			],
 		];
 
-		$settings['_shortlinks'][] = [
+		$settings['_misc'][] = [
 			'field'       => 'shortlink_numeric',
 			'title'       => _x( 'Numeric Shortlinks', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 			'description' => _x( 'Adds support for numeric/alpha-numeric shortlinks.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 		];
 
-		$settings['_shortlinks'][] = [
+		$settings['_misc'][] = [
 			'field'   => 'shortlink_type',
 			'type'    => 'select',
 			'title'   => _x( 'Shortlink Type', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
@@ -393,7 +393,7 @@ class Blog extends gNetwork\Module
 		];
 
 		if ( $multisite )
-			$settings['_branding'][] = [
+			$settings['_overrides'][] = [
 				'field'       => 'text_copyright',
 				'type'        => 'textarea-quicktags',
 				'title'       => _x( 'Copyright Notice', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),

@@ -888,6 +888,31 @@ class Module extends Core\Base
 		Settings::fieldSection( _x( 'Styling', 'Module Core: Settings', GNETWORK_TEXTDOMAIN ) );
 	}
 
+	public function settings_section_admin()
+	{
+		Settings::fieldSection( _x( 'Administration', 'Module Core: Settings', GNETWORK_TEXTDOMAIN ) );
+	}
+
+	public function settings_section_front()
+	{
+		Settings::fieldSection( _x( 'Front-end', 'Module Core: Settings', GNETWORK_TEXTDOMAIN ) );
+	}
+
+	public function settings_section_overrides()
+	{
+		Settings::fieldSection( _x( 'Overrides', 'Module Core: Settings', GNETWORK_TEXTDOMAIN ) );
+	}
+
+	public function settings_section_services()
+	{
+		Settings::fieldSection( _x( 'Services', 'Module Core: Settings', GNETWORK_TEXTDOMAIN ) );
+	}
+
+	public function settings_section_economics()
+	{
+		Settings::fieldSection( _x( 'Economics', 'Module Core: Settings', GNETWORK_TEXTDOMAIN ) );
+	}
+
 	protected function settings_buttons( $sub = NULL )
 	{
 		$this->register_button( 'submit', NULL, TRUE );

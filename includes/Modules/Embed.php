@@ -22,7 +22,7 @@ class Embed extends gNetwork\Module
 			$this->filter_false( 'embed_oembed_discover' );
 
 		if ( $this->options['load_defaults'] )
-			add_filter( 'load_default_embeds', '__return_false' );
+			$this->filter_false( 'load_default_embeds' );
 
 		$this->action( 'plugins_loaded' );
 
