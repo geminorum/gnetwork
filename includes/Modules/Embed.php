@@ -25,6 +25,8 @@ class Embed extends gNetwork\Module
 
 		if ( $this->options['wrapped_links'] && ! is_admin() )
 			$this->filter( 'the_content', 1, 8 );
+
+		$this->filter( 'embed_oembed_html', 4, 99 );
 	}
 
 	public function setup_menu( $context )
@@ -123,6 +125,11 @@ class Embed extends gNetwork\Module
 	public function the_content( $content )
 	{
 		return preg_replace_callback( '|^\s*<p>(https?://[^\s"]+)</p>\s*$|im', [ $GLOBALS['wp_embed'], 'autoembed_callback' ], $content );
+	}
+
+	public function embed_oembed_html( $html, $url, $attr, $post_ID )
+	{
+		return $this->wrap( $html );
 	}
 
 	public function handle_docs_pdf( $matches, $attr, $url, $rawattr )
