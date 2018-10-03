@@ -11,6 +11,7 @@ use geminorum\gNetwork\Core\Crypto;
 use geminorum\gNetwork\Core\Error;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\HTTP;
+use geminorum\gNetwork\Core\Text;
 use geminorum\gNetwork\Core\Third;
 use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
@@ -460,7 +461,7 @@ class Blog extends gNetwork\Module
 			$this->filter_append( 'query_vars', [ 'callback', 'limit' ] );
 		}
 
-		// originally from: Disable Emojis v1.5.1
+		// originally from: Disable Emojis v1.7.2 - 2018-10-03
 		// @SOURCE: https://wordpress.org/plugins/disable-emojis/
 		if ( $this->options['disable_emojis'] ) {
 
@@ -477,6 +478,19 @@ class Blog extends gNetwork\Module
 			add_filter( 'tiny_mce_plugins', function( $plugins ) {
 				return is_array( $plugins ) ? array_diff( $plugins, [ 'wpemoji' ] ) : [];
 			} );
+
+			// strip out any URLs referencing the WordPress.org emoji location
+			add_filter( 'wp_resource_hints', function( $urls, $relation_type ) {
+
+				if ( 'dns-prefetch' != $relation_type )
+					return $urls;
+
+				foreach ( $urls as $key => $url )
+					if ( Text::has( $url, 'https://s.w.org/images/core/emoji/' ) )
+						unset( $urls[$key] );
+
+				return $urls;
+			}, 10, 2 );
 		}
 
 		// RSD works through xml-rpc
