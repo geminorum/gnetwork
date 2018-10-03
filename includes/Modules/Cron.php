@@ -339,6 +339,9 @@ class Cron extends gNetwork\Module
 		$message = get_option( $this->hook( 'status' ) );
 		$message.= '<p>'.HTML::link( _x( 'View the current cron scheduled tasks', 'Modules: CRON', GNETWORK_TEXTDOMAIN ), $this->get_menu_url( 'cron', 'admin', 'tools' ) ).'</p>';
 
+		if ( HTML::rtl() )
+			$message = '<div dir="rtl">'.$message.'</div>';
+
 		$headers = [ 'Content-Type: text/html; charset=UTF-8' ];
 
 		@wp_mail( $email, $subject, $message, $headers );
