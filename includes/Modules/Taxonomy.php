@@ -17,11 +17,10 @@ class Taxonomy extends gNetwork\Module
 	protected $front   = FALSE;
 	protected $ajax    = TRUE;
 
+	protected $priority_current_screen = 12;
+
 	protected function setup_actions()
 	{
-		if ( WordPress::mustRegisterUI() )
-			$this->action( 'current_screen', 1, 12 );
-
 		add_filter( 'pre_term_name', 'normalize_whitespace', 9 );
 		// add_filter( 'pre_term_description', 'normalize_whitespace', 9 ); // FIXME: drops double \n
 	}

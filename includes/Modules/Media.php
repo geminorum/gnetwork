@@ -37,12 +37,8 @@ class Media extends gNetwork\Module
 
 		if ( is_admin() ) {
 
-			if ( WordPress::mustRegisterUI( FALSE ) ) {
-				$this->action( 'current_screen' );
-
-				if ( $this->options['dashboard_widget'] )
-					$this->action( 'wp_dashboard_setup' );
-			}
+			if ( $this->options['dashboard_widget'] )
+				$this->action( 'wp_dashboard_setup' );
 
 			$this->filter( 'post_mime_types' );
 

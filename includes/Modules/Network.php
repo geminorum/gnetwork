@@ -23,10 +23,10 @@ class Network extends gNetwork\Module
 		if ( ! is_multisite() )
 			throw new Exception( 'Only on Multisite!' );
 
-		if ( is_network_admin() ) {
-			$this->action( 'network_admin_menu' );
-			$this->action( 'current_screen' );
-		}
+		if ( ! is_network_admin() )
+			return FALSE;
+
+		$this->action( 'network_admin_menu' );
 	}
 
 	public function network_admin_menu()

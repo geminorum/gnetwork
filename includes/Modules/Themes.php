@@ -34,10 +34,6 @@ class Themes extends gNetwork\Module
 
 		if ( is_admin() ) {
 
-			if ( $this->options['hidden_title']
-				&& WordPress::mustRegisterUI() )
-					$this->action( 'current_screen' );
-
 			// FIXME: NOT WORKING : when trying to enable each theme
 			// $this->filter( 'allowed_themes' );
 
@@ -133,7 +129,8 @@ class Themes extends gNetwork\Module
 
 	public function current_screen( $screen )
 	{
-		if ( 'post' == $screen->base
+		if ( $this->options['hidden_title']
+			&& 'post' == $screen->base
 			&& post_type_supports( $screen->post_type, 'title' ) ) {
 
 			$this->action( 'save_post', 3, 20 );

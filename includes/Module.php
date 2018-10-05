@@ -36,6 +36,8 @@ class Module extends Core\Base
 	protected $xmlrpc     = NULL;
 	protected $iframe     = NULL;
 
+	protected $priority_current_screen = 10;
+
 	protected $scripts_printed  = FALSE;
 	protected $scripts_nojquery = [];
 
@@ -136,6 +138,9 @@ class Module extends Core\Base
 
 		if ( method_exists( $this, 'setup_menu' ) )
 			add_action( $this->base.'_setup_menu', [ $this, 'setup_menu' ] );
+
+		if ( method_exists( $this, 'current_screen' ) )
+			add_action( 'current_screen', [ $this, 'current_screen' ], $this->priority_current_screen );
 
 		if ( method_exists( $this, 'schedule_actions' ) )
 			add_action( 'admin_init', [ $this, 'schedule_actions' ] );
