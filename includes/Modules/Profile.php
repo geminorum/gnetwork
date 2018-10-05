@@ -24,11 +24,6 @@ class Profile extends gNetwork\Module
 
 		if ( is_admin() ) {
 
-			$this->action( 'user_edit_form_tag', 0, 99 );
-
-			$this->action( 'edit_user_profile_update' );
-			add_action( 'personal_options_update', [ $this, 'edit_user_profile_update' ], 10, 1 );
-
 			if ( $this->options['disable_colorschemes'] )
 				add_action( 'admin_init', function() {
 					remove_all_actions( 'admin_color_scheme_picker' );
@@ -348,6 +343,16 @@ class Profile extends gNetwork\Module
 		}
 	}
 
+	public function current_screen( $screen )
+	{
+		if ( ! in_array( $screen->base, [ 'profile-user', 'profile-network', 'user-edit-network', 'profile', 'user-edit' ] ) )
+			return;
+
+		$this->action( 'personal_options_update' );
+		$this->action( 'edit_user_profile_update' );
+		$this->action( 'user_edit_form_tag', 0, 99 );
+	}
+
 	public function user_register( $user_id )
 	{
 		if ( $this->options['store_signup_ip']
@@ -513,6 +518,11 @@ class Profile extends gNetwork\Module
 	{
 		// return sanitize_title( $string );
 		return Utilities::URLifyFilter( $string );
+	}
+
+	public function personal_options_update( $user_id )
+	{
+		$this->edit_user_profile_update( $user_id );
 	}
 
 	public function edit_user_profile_update( $user_id )
