@@ -15,18 +15,6 @@ class Dashboard extends gNetwork\Module
 	protected $front = FALSE;
 	protected $ajax  = TRUE;
 
-	protected function setup_actions()
-	{
-		$this->action( 'current_screen' );
-
-		foreach ( [
-			'wp_network_dashboard_setup',
-			'wp_user_dashboard_setup',
-			'wp_dashboard_setup',
-		] as $action )
-			add_action( $action, [ $this, 'wp_dashboard_setup' ], 20 );
-	}
-
 	protected function setup_ajax( $request )
 	{
 		$this->_hook_ajax();
@@ -34,8 +22,19 @@ class Dashboard extends gNetwork\Module
 
 	public function current_screen( $screen )
 	{
-		if ( 'edit' == $screen->base
-			&& $screen->post_type ) {
+		if ( 'dashboard' == $screen->base ) {
+
+			$this->action( 'wp_dashboard_setup', 0, 20 );
+
+		} else if ( 'dashboard-user' == $screen->base ) {
+
+			$this->action( 'wp_user_dashboard_setup', 0, 20 );
+
+		} else if ( 'dashboard-network' == $screen->base ) {
+
+			$this->action( 'wp_network_dashboard_setup', 0, 20 );
+
+		} else if ( 'edit' == $screen->base && $screen->post_type ) {
 
 				if ( WordPress::cuc( 'manage_options' ) ) {
 
@@ -55,11 +54,7 @@ class Dashboard extends gNetwork\Module
 
 	public function wp_dashboard_setup()
 	{
-		$multisite = is_multisite();
-		$network   = is_network_admin();
-		$blog      = is_blog_admin();
-		$user      = is_user_admin();
-		$screen    = get_current_screen();
+		$screen = get_current_screen();
 
 		remove_meta_box( 'dashboard_primary', $screen, 'side' );
 		remove_action( 'welcome_panel', 'wp_welcome_panel' );
@@ -67,28 +62,16 @@ class Dashboard extends gNetwork\Module
 		remove_action( 'activity_box_end', [ 'Akismet_Admin', 'dashboard_stats' ] );
 		remove_action( 'rightnow_end', [ 'Akismet_Admin', 'rightnow_stats' ] );
 
-		if ( $blog && current_user_can( 'edit_posts' ) ) {
+		if ( current_user_can( 'edit_posts' ) ) {
 
 			remove_meta_box( 'dashboard_right_now', $screen, 'normal' );
 
 			add_meta_box( $this->classs( 'right-now' ),
 				_x( 'At a Glance', 'Modules: Dashboard: Widget Title', GNETWORK_TEXTDOMAIN ),
 				[ $this, 'widget_right_now' ], $screen, 'normal', 'high' );
-
-			remove_action( 'activity_box_end', 'wp_dashboard_quota' );
-
-			if ( $multisite && current_user_can( 'upload_files' ) )
-				add_action( 'activity_box_end', [ $this, 'dashboard_quota' ] );
 		}
 
-		if ( $user && gNetwork()->option( 'dashboard_sites', 'user' ) )
-			wp_add_dashboard_widget(
-				$this->classs( 'user-sites' ),
-				_x( 'Your Sites', 'Modules: Dashboard: Widget Title', GNETWORK_TEXTDOMAIN ),
-				[ $this, 'widget_user_sites' ]
-			);
-
-		if ( $blog && has_filter( $this->hook( 'external_feeds' ) ) ) {
+		if ( has_filter( $this->hook( 'external_feeds' ) ) ) {
 			wp_add_dashboard_widget(
 				$this->classs( 'external-feed' ),
 				_x( 'External Feed', 'Modules: Dashboard: Widget Title', GNETWORK_TEXTDOMAIN ),
@@ -96,7 +79,29 @@ class Dashboard extends gNetwork\Module
 			);
 		}
 
-		if ( $user && gNetwork()->option( 'tos_display', 'user' ) )
+		if ( ! is_multisite() )
+			return;
+
+		if ( current_user_can( 'upload_files' ) ) {
+
+			remove_action( 'activity_box_end', 'wp_dashboard_quota' );
+
+			add_action( 'activity_box_end', [ $this, 'dashboard_quota' ] );
+		}
+	}
+
+	public function wp_user_dashboard_setup()
+	{
+		remove_meta_box( 'dashboard_primary', NULL, 'side' );
+
+		if ( gNetwork()->option( 'dashboard_sites', 'user' ) )
+			wp_add_dashboard_widget(
+				$this->classs( 'user-sites' ),
+				_x( 'Your Sites', 'Modules: Dashboard: Widget Title', GNETWORK_TEXTDOMAIN ),
+				[ $this, 'widget_user_sites' ]
+			);
+
+		if ( gNetwork()->option( 'tos_display', 'user' ) )
 			wp_add_dashboard_widget(
 				$this->classs( 'tos' ),
 				gNetwork()->option( 'tos_title', 'user',
@@ -104,19 +109,23 @@ class Dashboard extends gNetwork\Module
 				), [ $this, 'widget_tos' ]
 			);
 
-		if ( $user && GNETWORK_NETWORK_USERMENU && gNetwork()->option( 'dashboard_menu', 'user' ) )
+		if ( GNETWORK_NETWORK_USERMENU && gNetwork()->option( 'dashboard_menu', 'user' ) )
 			add_meta_box( $this->classs( 'usermenu' ),
 				_x( 'Your Navigation', 'Modules: Dashboard: Widget Title', GNETWORK_TEXTDOMAIN ),
-				[ $this, 'widget_usermenu' ], $screen, 'normal', 'high' );
+				[ $this, 'widget_usermenu' ], NULL, 'normal', 'high' );
+	}
 
-		if ( $network )
-			wp_add_dashboard_widget(
-				$this->classs( 'signups' ),
-				_x( 'Latest Signups', 'Modules: Dashboard: Widget Title', GNETWORK_TEXTDOMAIN ),
-				[ $this, 'widget_signups' ]
-			);
+	public function wp_network_dashboard_setup()
+	{
+		remove_meta_box( 'dashboard_primary', NULL, 'side' );
 
-		if ( $network && gNetwork()->option( 'login', 'store_lastlogin', TRUE ) )
+		wp_add_dashboard_widget(
+			$this->classs( 'signups' ),
+			_x( 'Latest Signups', 'Modules: Dashboard: Widget Title', GNETWORK_TEXTDOMAIN ),
+			[ $this, 'widget_signups' ]
+		);
+
+		if ( gNetwork()->option( 'login', 'store_lastlogin', TRUE ) )
 			wp_add_dashboard_widget(
 				$this->classs( 'logins' ),
 				_x( 'Latest Logins', 'Modules: Dashboard: Widget Title', GNETWORK_TEXTDOMAIN ),
