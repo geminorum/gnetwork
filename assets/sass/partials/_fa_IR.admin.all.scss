@@ -27,4 +27,9 @@ body.locale-fa-ir {
   #wpadminbar .ab-item::before {
     font-family: dashicons, sans-serif;
   }
+
+  ol {
+    // list-style-type: -moz-persian !important;
+    list-style-type: persian !important;
+  }
 }

@@ -163,18 +163,16 @@ body.debug-bar-maximized {
   padding: 0 0 0 5px;
 }
 
-.form-table.permalink-structure {
-  #permalink_structure {
-    float: right;
-    margin: -4px 1px 0 0;
-    padding: 3px 5px 2px 1px;
-    border-left: none;
-  }
+.form-table.permalink-structure #permalink_structure {
+  float: right;
+  margin: -4px 1px 0 0;
+  padding: 3px 5px 2px 1px;
+  border-left: none;
+}
 
-  .available-structure-tags {
-    clear: both;
-    margin-top: 1em;
-  }
+// Simple Post Type Permalinks
+body.options-permalink-php .form-table .sptp-fieldset {
+  direction: ltr;
 }
 
 #post-lock-dialog .post-locked-message,

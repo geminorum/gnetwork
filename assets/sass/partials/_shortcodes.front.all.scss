@@ -13,6 +13,10 @@
       padding: 0;
       margin: 0 0 1em;
 
+      html[lang="fa-IR"] & {
+        list-style-type: persian !important;
+      }
+
       li {
         margin: 0 0 0.78em;
 
