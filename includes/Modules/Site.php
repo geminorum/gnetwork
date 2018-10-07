@@ -301,6 +301,7 @@ class Site extends gNetwork\Module
 		return $html.'</table>';
 	}
 
+	// FIXME: DEPRECATED: @SEE: https://core.trac.wordpress.org/ticket/41333
 	// TODO: on signup form: http://stackoverflow.com/a/10372861
 	public function wpmu_new_blog( $blog_id, $user_id, $domain, $path, $network_id, $meta )
 	{
