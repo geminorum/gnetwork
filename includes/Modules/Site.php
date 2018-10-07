@@ -182,8 +182,16 @@ class Site extends gNetwork\Module
 		}
 
 		if ( $sitemeta ) {
-			Settings::submitButton( 'resync_sitemeta', _x( 'Re-sync Sites Meta', 'Modules: Site', GNETWORK_TEXTDOMAIN ), 'small' );
-			HTML::desc( _x( 'Regenerates sites metadata.', 'Modules: Site', GNETWORK_TEXTDOMAIN ), FALSE );
+
+			if ( $this->options['resync_sitemeta'] ) {
+
+				Settings::submitButton( 'resync_sitemeta', _x( 'Re-sync Sites Meta', 'Modules: Site', GNETWORK_TEXTDOMAIN ), 'small' );
+				HTML::desc( _x( 'Regenerates sites metadata.', 'Modules: Site', GNETWORK_TEXTDOMAIN ), FALSE );
+
+			} else {
+
+				HTML::desc( _x( 'Sync Metadata disabled.', 'Modules: Site', GNETWORK_TEXTDOMAIN ), TRUE, '-empty' );
+			}
 		}
 	}
 
