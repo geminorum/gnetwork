@@ -702,6 +702,12 @@ class Themes extends gNetwork\Module
 		if ( is_user_logged_in() )
 			$classes[] = 'locale-user-'.HTML::sanitizeClass( strtolower( str_replace( '_', '-', get_user_locale() ) ) );
 
+		if ( is_singular() && ( $post = get_post() ) ) {
+
+			if ( ! trim( $post->post_title ) )
+				$classes[] = '-singular-empty-title';
+		}
+
 		return $classes;
 	}
 
