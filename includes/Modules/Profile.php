@@ -710,7 +710,7 @@ class Profile extends gNetwork\Module
 
 	private function get_default_user_meta()
 	{
-		return array(
+		return [
 			'nickname'             => '',
 			'first_name'           => '',
 			'last_name'            => '',
@@ -721,7 +721,7 @@ class Profile extends gNetwork\Module
 			'use_ssl'              => 0,
 			'show_admin_bar_front' => 'true',
 			'locale'               => '',
-		);
+		];
 	}
 
 	public function get_user_option_option( $result, $option, $user )

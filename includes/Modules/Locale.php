@@ -187,6 +187,12 @@ class Locale extends gNetwork\Module
 			'icit-profiler'              => 'page', // [WP Performance Profiler](https://github.com/khromov/wp-performance-profiler)
 			'simpleWpSitemapSettings'    => 'page', // [Simple Wp Sitemap](https://wordpress.org/plugins/simple-wp-sitemap/)
 
+			// [Official MailerLite Sign Up Forms](https://wordpress.org/plugins/official-mailerlite-sign-up-forms/)
+			'mailerlite_main'     => 'page',
+			'mailerlite_settings' => 'page',
+
+			'tinymce-custom-styles/tinymce-custom-styles.php' => 'page', // [TinyMCE Custom Styles](https://wordpress.org/plugins/tinymce-custom-styles/)
+
 			'user-submitted-posts/user-submitted-posts.php' => 'page', // [User Submitted Posts](https://wordpress.org/plugins/user-submitted-posts/)
 
 			'ssl-insecure-content-fixer'       => 'page',

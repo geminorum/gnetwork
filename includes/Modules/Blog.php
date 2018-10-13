@@ -156,7 +156,7 @@ class Blog extends gNetwork\Module
 				'field'       => 'admin_locale',
 				'type'        => 'select',
 				'title'       => _x( 'Admin Language', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-				'description' => _x( 'Despite of the Site Language, Always Display Admin in This Locale', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Despite of the site language, always display admin in this locale.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 				'none_title'  => _x( 'Site Default', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 				'none_value'  => '',
 				'values'      => Arraay::sameKey( Locale::available() ),

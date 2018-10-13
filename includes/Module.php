@@ -346,7 +346,7 @@ class Module extends Core\Base
 	// USAGE: $this->filter_append( 'body_class', 'foo' );
 	protected function filter_append( $hook, $items, $priority = 10 )
 	{
-		add_filter( $hook, function( $first ) use( $item ){
+		add_filter( $hook, function( $first ) use( $items ){
 			foreach ( (array) $items as $value )
 				$first[] = $value;
 			return $first;

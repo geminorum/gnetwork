@@ -21,7 +21,7 @@ class Embed extends gNetwork\Module
 		if ( $this->options['disable_oembed'] )
 			$this->filter_false( 'embed_oembed_discover' );
 
-		if ( $this->options['load_defaults'] )
+		if ( ! $this->options['load_defaults'] )
 			$this->filter_false( 'load_default_embeds' );
 
 		$this->action( 'plugins_loaded' );

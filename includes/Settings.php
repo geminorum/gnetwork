@@ -287,15 +287,17 @@ class Settings extends Core\Base
 		return $text ? HTML::tag( $wrap, [ 'class' => '-field-after '.$class ], $text ) : '';
 	}
 
-	public static function fieldAfterIcon( $url = '', $title = NULL, $icon = 'info' )
+	public static function fieldAfterIcon( $url = '', $title = NULL, $icon = 'info', $tooltip = FALSE )
 	{
 		if ( ! $url )
 			return '';
 
 		$html = HTML::tag( 'a', [
-			'href'   => $url,
-			'title'  => is_null( $title ) ? _x( 'See More Information', 'Settings', GNETWORK_TEXTDOMAIN ) : $title,
-			'target' => '_blank',
+			'href'         => $url,
+			'title'        => is_null( $title ) ? _x( 'See More Information', 'Settings', GNETWORK_TEXTDOMAIN ) : $title,
+			'target'       => '_blank',
+			'data-tooltip' => $tooltip,
+			'class'        => $tooltip ? ( HTML::rtl() ? 'tooltip-right' : 'tooltip-left' ) : FALSE,
 		], HTML::getDashicon( $icon ) );
 
 		return '<span class="-field-after -icon-wrap">'.$html.'</span>';
