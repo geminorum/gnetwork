@@ -21,10 +21,10 @@
   },
   "require": {
     "php": ">=5.5",
-    "composer/installers": "^1.5",
+    "composer/installers": "^1.6",
     "erusev/parsedown-extra": "^0.7.1",
     "symfony/stopwatch": "^3.4",
-    "parsecsv/php-parsecsv": "^1.0",
+    "parsecsv/php-parsecsv": "^1.1",
     "jbroadway/urlify": "^1.1",
     "analog/analog": "dev-master",
     "hbattat/verifyemail": "^1.0"
@@ -40,7 +40,7 @@
     "behat/transliterator": "^1.2",
     "davidepastore/ipinfo": "^0.1.3",
     "ziggeo/simple-box-integration": "^0.0.3",
-    "knplabs/github-api": "^2.9",
+    "knplabs/github-api": "^2.10",
     "php-http/guzzle6-adapter": "^1.1"
   },
   "config": {

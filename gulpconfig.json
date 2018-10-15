@@ -8,12 +8,14 @@
     "rtldev": [
       "*",
       "!admin.rtl.css",
+      "!admin.darkmode.css",
       "!./assets/css/themes/*",
       "!./assets/css/tinymce/*"
     ],
     "rtl": [
       "./assets/sass/**/*.scss",
       "!./assets/sass/admin.rtl.scss",
+      "!./assets/sass/admin.darkmode.scss",
       "!./assets/sass/themes/*.scss",
       "!./assets/sass/tinymce/*.scss"
     ],
@@ -87,6 +89,7 @@
       "preset": [
         "default", {
           "zindex": false,
+          "normalizeWhitespace": false,
           "discardComments": false
         }
       ]
