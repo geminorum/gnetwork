@@ -262,66 +262,62 @@ class Maintenance extends gNetwork\Module
 	// FIXME: use self::get503Message()
 	public function template_503( $logged_in = FALSE )
 	{
-		$protocol = $_SERVER["SERVER_PROTOCOL"];
-		if ( 'HTTP/1.1' != $protocol && 'HTTP/1.0' != $protocol )
-			$protocol = 'HTTP/1.0';
+		$title   = '503';
+		$retry   = '30'; // minutes
+		$message = self::get503Message( FALSE );
+		$rtl     = is_rtl();
 
-		// header( "$protocol 503 Service Unavailable", TRUE, 503 );
-		// header( 'Content-Type: text/html; charset=utf-8' );
-		// header( 'Retry-After: 600' );
+		if ( function_exists( 'nocache_headers' ) )
+			nocache_headers();
 
-		// http://wptip.me/wordpress-maintenance-mode-without-a-plugin
-		$headers = [
-			'Content-Type'  => 'text/html; charset=utf-8',
-			'Retry-After'   => '600',
-			'Expires'       => 'Wed, 11 Jan 1984 05:00:00 GMT',
-			'Last-Modified' => gmdate('D, d M Y H:i:s').' GMT',
-			'Cache-Control' => 'no-cache, must-revalidate, max-age=0',
-			'Pragma'        => 'no-cache',
-		];
+		if ( function_exists( 'status_header' ) )
+			status_header( 503 );
 
-		header( "HTTP/1.1 503 Service Unavailable", TRUE, 503 );
-		HTTP::headers( $headers );
+		@header( "Content-Type: text/html; charset=utf-8" );
+		@header( "Retry-After: ".( $retry * 60 ) );
 
-		?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fa">
-<head><title>503 Service Unavailable</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+?><!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title><?php echo $title; ?></title>
 <style type="text/css">
+:root {
+  font-size: calc(1vw + 1vh + .5vmin);
+}
+html, body, .wrap {
+  height: 100%;
+  margin: 0;
+}
 body {
-	background-color: #fff;
-	color: gray;
-	direction: rtl;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Tahoma, Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+	color: #333;
+	background: #f7f7f7;
 }
-
-.bo {
-	position: absolute;
-	margin: -150px 0pt 0pt -300px;
-	width: 600px;
-	height: 300px;
-	top: 50%;
-	left: 50%;
-	font: 0.9em tahoma,courier new,monospace;
+.wrap {
 	text-align: center;
-	b1order:solid 1px gray;
-	b1order-radius:2px;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-align-items: center;
+	align-items: center;
+	-webkit-justify-content: center;
+	justify-content: center;
 }
-
-a {
-	text-decoration: none;
-}
+h1 { color: #d9534f; }
+h1, h3 { margin: 0; }
 </style>
 </head><body>
-<div class="bo">
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<h3 dir="ltr">503 Service Unavailable</h3>
-</div>
-</body></html> <?php
+<div class="wrap"><div>
+
+<h1>503</h1>
+<h3>Service Unavailable</h3>
+
+<?php echo $rtl ? '<div dir="rtl">' : '<div>';
+echo Text::autoP( $message ); ?>
+
+</div></div></div>
+</body></html><?php
 	}
 }
