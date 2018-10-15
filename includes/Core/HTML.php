@@ -176,6 +176,9 @@ class HTML extends Base
 
 	public static function prepClass( $classes )
 	{
+		if ( TRUE === $classes )
+			return '';
+
 		return implode( ' ', array_unique( array_filter( self::attrClass( $classes ), array( __CLASS__, 'sanitizeClass' ) ) ) );
 	}
 
@@ -256,7 +259,7 @@ class HTML extends Base
 			: '';
 	}
 
-	// FIXME: DEPRICIATED
+	// FIXME: DEPRECATED
 	public static function escapeAttr( $text )
 	{
 		return self::escape( $text );
