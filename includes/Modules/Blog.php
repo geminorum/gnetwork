@@ -736,14 +736,14 @@ class Blog extends gNetwork\Module
 	}
 
 	// does not apply the `autop()` to the form content
-	// ADOPTED FROM: Contact Form 7 Controls - v0.4.0 - 20170926
+	// ADOPTED FROM: Contact Form 7 Controls - v0.6.1 - 2018-10-15
 	// @SOURCE: https://github.com/kasparsd/contact-form-7-extras
 	public function wpcf7_form_elements( $form )
 	{
 		$instance = \WPCF7_ContactForm::get_current();
-		$manager  = \WPCF7_ShortcodeManager::get_instance();
+		$manager  = \WPCF7_FormTagsManager::get_instance();
 
-		$form = $manager->do_shortcode( get_post_meta( $instance->id(), '_form', TRUE ) );
+		$form = $manager->replace_all( get_post_meta( $instance->id(), '_form', TRUE ) );
 
 		$instance->set_properties( [ 'form' => $form ] );
 
