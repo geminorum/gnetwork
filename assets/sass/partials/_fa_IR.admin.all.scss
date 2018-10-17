@@ -19,6 +19,7 @@ body.locale-fa-ir {
   .media-frame input[type="tel"],
   .media-frame textarea,
   .media-frame select,
+  .wp-editor-area,
   span.postbox-title-action {
     @include theme-fonts-core-native;
   }
