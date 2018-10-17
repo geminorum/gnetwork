@@ -89,162 +89,187 @@ msgctxt "Modules: Debug: Debug Bar Panel"
 msgid "No metadata found!"
 msgstr ""
 
-#: includes/Module.php:235
+#: includes/Module.php:240
 msgctxt "Module Core: Menu Name"
 msgid "Overview"
 msgstr ""
 
-#: includes/Module.php:243
+#: includes/Module.php:248
 msgctxt "Module Core: Menu Name"
 msgid "Console"
 msgstr ""
 
-#: includes/Module.php:883
+#: includes/Module.php:888
 msgctxt "Module Core: Settings"
 msgid "Miscellaneous"
 msgstr ""
 
-#: includes/Module.php:888
+#: includes/Module.php:893
 msgctxt "Module Core: Settings"
 msgid "Styling"
 msgstr ""
 
-#: includes/Module.php:920
+#: includes/Module.php:898
+msgctxt "Module Core: Settings"
+msgid "Administration"
+msgstr ""
+
+#: includes/Module.php:903
+msgctxt "Module Core: Settings"
+msgid "Front-end"
+msgstr ""
+
+#: includes/Module.php:908
+msgctxt "Module Core: Settings"
+msgid "Overrides"
+msgstr ""
+
+#: includes/Module.php:913
+msgctxt "Module Core: Settings"
+msgid "Services"
+msgstr ""
+
+#: includes/Module.php:918
+msgctxt "Module Core: Settings"
+msgid "Economics"
+msgstr ""
+
+#: includes/Module.php:950
 msgctxt "Module Core"
 msgid "Debug"
 msgstr ""
 
-#: includes/Module.php:952
+#: includes/Module.php:982
 msgctxt "Module Core: Help Tab Title"
 msgid "Extra Shortcodes"
 msgstr ""
 
-#: includes/Module.php:953
+#: includes/Module.php:983
 msgctxt "Module Core: Help Tab Content"
 msgid "These are extra shortcodes provided by this module:"
 msgstr ""
 
-#: includes/Module.php:960
+#: includes/Module.php:990
 msgctxt "Module Core: Help Tab Title"
 msgid "Saved Options"
 msgstr ""
 
-#: includes/Module.php:1156
+#: includes/Module.php:1186
 msgctxt "Module Core"
 msgid "Please refresh the page to generate the data."
 msgstr ""
 
-#: includes/Modules/Admin.php:63
+#: includes/Modules/Admin.php:66
 msgctxt "Modules: Admin: HTML Title"
 msgid "%1$s &lsaquo; %2$s &#8212; Content Management"
 msgstr ""
 
-#: includes/Modules/Admin.php:73, includes/Modules/Admin.php:103, includes/Modules/Admin.php:136
+#: includes/Modules/Admin.php:76, includes/Modules/Admin.php:106, includes/Modules/Admin.php:139
 msgctxt "Modules: Admin: Page Menu"
 msgid "Network Extras"
 msgstr ""
 
-#: includes/Modules/Admin.php:74, includes/Modules/Admin.php:94, includes/Modules/Admin.php:112
+#: includes/Modules/Admin.php:77, includes/Modules/Admin.php:97, includes/Modules/Admin.php:115
 msgctxt "Modules: Admin: Page Menu"
 msgid "Extras"
 msgstr ""
 
-#: includes/Modules/Admin.php:85
+#: includes/Modules/Admin.php:88
 msgctxt "Modules: Admin: Page Menu"
 msgid "gNetwork Extras: %s"
 msgstr ""
 
-#: includes/Modules/Admin.php:93, includes/Modules/Admin.php:111
+#: includes/Modules/Admin.php:96, includes/Modules/Admin.php:114
 msgctxt "Modules: Admin: Page Menu"
 msgid "Network Tools"
 msgstr ""
 
-#: includes/Modules/Admin.php:104
+#: includes/Modules/Admin.php:107
 msgctxt "Modules: Admin: Page Menu"
 msgid "My Extras"
 msgstr ""
 
-#: includes/Modules/Admin.php:123, includes/Modules/Admin.php:124
+#: includes/Modules/Admin.php:126, includes/Modules/Admin.php:127
 msgctxt "Modules: Admin: Page Menu"
 msgid "Active"
 msgstr ""
 
-#: includes/Modules/Admin.php:133, includes/Modules/Network.php:82, includes/Modules/User.php:329
+#: includes/Modules/Admin.php:136, includes/Modules/Network.php:82, includes/Modules/User.php:329
 msgctxt "Modules: Menu Name"
 msgid "Overview"
 msgstr ""
 
-#: includes/Modules/Admin.php:317
+#: includes/Modules/Admin.php:320
 msgctxt "Modules: Admin: Site Overview"
 msgid "Current Site Overview"
 msgstr ""
 
-#: includes/Modules/Admin.php:318
+#: includes/Modules/Admin.php:321
 msgctxt "Modules: Admin: Site Overview"
 msgid "Below you can find various information about current site and contents."
 msgstr ""
 
-#: includes/Modules/Admin.php:325
+#: includes/Modules/Admin.php:328
 msgctxt "Modules: Admin: Site Overview"
 msgid "Available Shortcodes"
 msgstr ""
 
-#: includes/Modules/Admin.php:333
+#: includes/Modules/Admin.php:336
 msgctxt "Modules: Admin: Site Overview"
 msgid "Comment Counts"
 msgstr ""
 
-#: includes/Modules/Admin.php:342
+#: includes/Modules/Admin.php:345
 msgctxt "Modules: Admin: Site Overview"
 msgid "Loaded Localizations"
 msgstr ""
 
-#: includes/Modules/Admin.php:349
+#: includes/Modules/Admin.php:352
 msgctxt "Modules: Admin: Site Overview"
 msgid "Roles and Capabilities"
 msgstr ""
 
-#: includes/Modules/Admin.php:357
+#: includes/Modules/Admin.php:360
 msgctxt "Modules: Admin: Site Overview"
 msgid "Stats of the Caching"
 msgstr ""
 
-#: includes/Modules/Admin.php:362
+#: includes/Modules/Admin.php:365
 msgctxt "Modules: Admin: Site Overview"
 msgid "File & Upload"
 msgstr ""
 
-#: includes/Modules/Admin.php:370
+#: includes/Modules/Admin.php:373
 msgctxt "Modules: Admin: Site Overview"
 msgid "Registered Image Sizes"
 msgstr ""
 
-#: includes/Modules/Admin.php:378
+#: includes/Modules/Admin.php:381
 msgctxt "Modules: Admin: Site Overview"
 msgid "Site Meta"
 msgstr ""
 
-#: includes/Modules/Admin.php:394
+#: includes/Modules/Admin.php:397
 msgctxt "Modules: Admin: Chosen"
 msgid "No results match"
 msgstr ""
 
-#: includes/Modules/Admin.php:422
+#: includes/Modules/Admin.php:434
 msgctxt "Modules: Admin: Localize Script"
 msgid "Collapse All"
 msgstr ""
 
-#: includes/Modules/Admin.php:423
+#: includes/Modules/Admin.php:435
 msgctxt "Modules: Admin: Localize Script"
 msgid "Expand All"
 msgstr ""
 
-#: includes/Modules/Admin.php:424
+#: includes/Modules/Admin.php:436
 msgctxt "Modules: Admin: Localize Script"
 msgid "Reset"
 msgstr ""
 
-#: includes/Modules/Admin.php:445
+#: includes/Modules/Admin.php:457
 msgctxt "Modules: Admin"
 msgid "CODE IS POETRY"
 msgstr ""
@@ -546,377 +571,387 @@ msgctxt "Modules: BlackList: Settings"
 msgid "Your IP: <code title=\"%s\">%s</code>"
 msgstr ""
 
-#: includes/Modules/Blog.php:90
+#: includes/Modules/Blog.php:96
 msgctxt "Modules: Menu Name"
 msgid "General"
 msgstr ""
 
-#: includes/Modules/Blog.php:142
+#: includes/Modules/Blog.php:149
 msgctxt "Modules: Blog: Settings"
 msgid "SSL"
 msgstr ""
 
-#: includes/Modules/Blog.php:143
+#: includes/Modules/Blog.php:150
 msgctxt "Modules: Blog: Settings"
 msgid "Enables SSL tools to support the network sites."
 msgstr ""
 
-#: includes/Modules/Blog.php:151
+#: includes/Modules/Blog.php:158
 msgctxt "Modules: Blog: Settings"
 msgid "Admin Language"
 msgstr ""
 
-#: includes/Modules/Blog.php:152
+#: includes/Modules/Blog.php:159
 msgctxt "Modules: Blog: Settings"
-msgid "Despite of the Site Language, Always Display Admin in This Locale"
-msgstr ""
-
-#: includes/Modules/Blog.php:153
-msgctxt "Modules: Blog: Settings"
-msgid "Site Default"
+msgid "Despite of the site language, always display admin in this locale."
 msgstr ""
 
 #: includes/Modules/Blog.php:160
 msgctxt "Modules: Blog: Settings"
-msgid "Admin Chosen"
-msgstr ""
-
-#: includes/Modules/Blog.php:161
-msgctxt "Modules: Blog: Settings"
-msgid "Chosen is a jQuery plugin that makes long, unwieldy select boxes much more user-friendly."
+msgid "Site Default"
 msgstr ""
 
 #: includes/Modules/Blog.php:167
 msgctxt "Modules: Blog: Settings"
-msgid "Thrift Mode"
+msgid "Admin Chosen"
 msgstr ""
 
 #: includes/Modules/Blog.php:168
 msgctxt "Modules: Blog: Settings"
-msgid "Trying to make your host happy!"
-msgstr ""
-
-#: includes/Modules/Blog.php:173
-msgctxt "Modules: Blog: Settings"
-msgid "No Found-Rows"
+msgid "Chosen is a jQuery plugin that makes long, unwieldy select boxes much more user-friendly."
 msgstr ""
 
 #: includes/Modules/Blog.php:174
 msgctxt "Modules: Blog: Settings"
-msgid "Avoids query count for paginations."
+msgid "Thrift Mode"
+msgstr ""
+
+#: includes/Modules/Blog.php:175
+msgctxt "Modules: Blog: Settings"
+msgid "Trying to make your host happy!"
+msgstr ""
+
+#: includes/Modules/Blog.php:180
+msgctxt "Modules: Blog: Settings"
+msgid "No Found-Rows"
 msgstr ""
 
 #: includes/Modules/Blog.php:181
 msgctxt "Modules: Blog: Settings"
+msgid "Avoids query count for paginations."
+msgstr ""
+
+#: includes/Modules/Blog.php:188
+msgctxt "Modules: Blog: Settings"
 msgid "Heartbeat Mode"
 msgstr ""
 
-#: includes/Modules/Blog.php:182
+#: includes/Modules/Blog.php:189
 msgctxt "Modules: Blog: Settings"
 msgid "Controls the Heartbeat API locations."
 msgstr ""
 
-#: includes/Modules/Blog.php:184, includes/Modules/Blog.php:197
+#: includes/Modules/Blog.php:191, includes/Modules/Blog.php:204
 msgctxt "Modules: Blog: Settings: Option"
 msgid "Use default"
 msgstr ""
 
-#: includes/Modules/Blog.php:185
+#: includes/Modules/Blog.php:192
 msgctxt "Modules: Blog: Settings: Option"
 msgid "Disable everywhere"
 msgstr ""
 
-#: includes/Modules/Blog.php:186
+#: includes/Modules/Blog.php:193
 msgctxt "Modules: Blog: Settings: Option"
 msgid "Disable on Dashboard page"
 msgstr ""
 
-#: includes/Modules/Blog.php:187
+#: includes/Modules/Blog.php:194
 msgctxt "Modules: Blog: Settings: Option"
 msgid "Allow only on Post Edit pages"
 msgstr ""
 
-#: includes/Modules/Blog.php:194
+#: includes/Modules/Blog.php:201
 msgctxt "Modules: Blog: Settings"
 msgid "Heartbeat Frequency"
 msgstr ""
 
-#: includes/Modules/Blog.php:195
+#: includes/Modules/Blog.php:202
 msgctxt "Modules: Blog: Settings"
 msgid "Overrides the Heartbeat API frequency."
 msgstr ""
 
-#: includes/Modules/Blog.php:198
+#: includes/Modules/Blog.php:205
 msgctxt "Modules: Blog: Settings: Option"
 msgid "15 seconds"
 msgstr ""
 
-#: includes/Modules/Blog.php:199
+#: includes/Modules/Blog.php:206
 msgctxt "Modules: Blog: Settings: Option"
 msgid "20 seconds"
 msgstr ""
 
-#: includes/Modules/Blog.php:200
+#: includes/Modules/Blog.php:207
 msgctxt "Modules: Blog: Settings: Option"
 msgid "25 seconds"
 msgstr ""
 
-#: includes/Modules/Blog.php:201
+#: includes/Modules/Blog.php:208
 msgctxt "Modules: Blog: Settings: Option"
 msgid "30 seconds"
 msgstr ""
 
-#: includes/Modules/Blog.php:202
+#: includes/Modules/Blog.php:209
 msgctxt "Modules: Blog: Settings: Option"
 msgid "35 seconds"
 msgstr ""
 
-#: includes/Modules/Blog.php:203
+#: includes/Modules/Blog.php:210
 msgctxt "Modules: Blog: Settings: Option"
 msgid "40 seconds"
 msgstr ""
 
-#: includes/Modules/Blog.php:204
+#: includes/Modules/Blog.php:211
 msgctxt "Modules: Blog: Settings: Option"
 msgid "45 seconds"
 msgstr ""
 
-#: includes/Modules/Blog.php:205
+#: includes/Modules/Blog.php:212
 msgctxt "Modules: Blog: Settings: Option"
 msgid "50 seconds"
 msgstr ""
 
-#: includes/Modules/Blog.php:206
+#: includes/Modules/Blog.php:213
 msgctxt "Modules: Blog: Settings: Option"
 msgid "60 seconds"
 msgstr ""
 
-#: includes/Modules/Blog.php:214
+#: includes/Modules/Blog.php:221
 msgctxt "Modules: Blog: Settings"
 msgid "Autosave Interval"
 msgstr ""
 
-#: includes/Modules/Blog.php:215
+#: includes/Modules/Blog.php:222
 msgctxt "Modules: Blog: Settings"
 msgid "Time in seconds that WordPress will save the currently editing posts. default is %s seconds."
 msgstr ""
 
-#: includes/Modules/Blog.php:222
+#: includes/Modules/Blog.php:230
 msgctxt "Modules: Blog: Settings"
 msgid "Rest API"
 msgstr ""
 
-#: includes/Modules/Blog.php:223
+#: includes/Modules/Blog.php:231
 msgctxt "Modules: Blog: Settings"
 msgid "Whether REST API services are enabled on this site."
 msgstr ""
 
-#: includes/Modules/Blog.php:229
+#: includes/Modules/Blog.php:236
 msgctxt "Modules: Blog: Settings"
 msgid "XML-RPC"
 msgstr ""
 
-#: includes/Modules/Blog.php:230
+#: includes/Modules/Blog.php:237
 msgctxt "Modules: Blog: Settings"
 msgid "Whether XML-RPC services are enabled on this site."
 msgstr ""
 
-#: includes/Modules/Blog.php:235
+#: includes/Modules/Blog.php:242
 msgctxt "Modules: Blog: Settings"
 msgid "WLW"
 msgstr ""
 
-#: includes/Modules/Blog.php:236
+#: includes/Modules/Blog.php:243
 msgctxt "Modules: Blog: Settings"
 msgid "Whether Windows Live Writer manifest enabled on this site."
 msgstr ""
 
-#: includes/Modules/Blog.php:242
+#: includes/Modules/Blog.php:249
 msgctxt "Modules: Blog: Settings"
 msgid "Delay Feeds"
 msgstr ""
 
-#: includes/Modules/Blog.php:243
+#: includes/Modules/Blog.php:250
 msgctxt "Modules: Blog: Settings"
 msgid "Delays appearing published posts on the site feeds."
 msgstr ""
 
-#: includes/Modules/Blog.php:244
+#: includes/Modules/Blog.php:251
 msgctxt "Modules: Blog: Settings"
 msgid "No Delay"
 msgstr ""
 
-#: includes/Modules/Blog.php:251
+#: includes/Modules/Blog.php:258
 msgctxt "Modules: Blog: Settings"
 msgid "JSON Feed"
 msgstr ""
 
-#: includes/Modules/Blog.php:252
+#: includes/Modules/Blog.php:259
 msgctxt "Modules: Blog: Settings"
 msgid "Adds JSON as new type of feed that anyone can subscribe to."
 msgstr ""
 
-#: includes/Modules/Blog.php:258
+#: includes/Modules/Blog.php:266
 msgctxt "Modules: Blog: Settings"
 msgid "Emojis"
 msgstr ""
 
-#: includes/Modules/Blog.php:259
+#: includes/Modules/Blog.php:267
 msgctxt "Modules: Blog: Settings"
 msgid "Removes the extra code bloat used to add support for Emoji's in older browsers."
 msgstr ""
 
-#: includes/Modules/Blog.php:268
+#: includes/Modules/Blog.php:275
+msgctxt "Modules: Blog: Settings"
+msgid "Admin Pointers"
+msgstr ""
+
+#: includes/Modules/Blog.php:276
+msgctxt "Modules: Blog: Settings"
+msgid "Removes all admin pointer tooltips."
+msgstr ""
+
+#: includes/Modules/Blog.php:283
 msgctxt "Modules: Blog: Settings"
 msgid "Copyright Information"
 msgstr ""
 
-#: includes/Modules/Blog.php:269
+#: includes/Modules/Blog.php:284
 msgctxt "Modules: Blog: Settings"
 msgid "Defines an HTML meta tag as copyright manifest page for this site."
 msgstr ""
 
-#: includes/Modules/Blog.php:278
+#: includes/Modules/Blog.php:293
 msgctxt "Modules: Blog: Settings"
 msgid "Custom 404 Error"
 msgstr ""
 
-#: includes/Modules/Blog.php:279
+#: includes/Modules/Blog.php:294
 msgctxt "Modules: Blog: Settings"
 msgid "Displays the selected page as 404 Error page on this site."
 msgstr ""
 
-#: includes/Modules/Blog.php:288
+#: includes/Modules/Blog.php:303
 msgctxt "Modules: Blog: Settings"
 msgid "Content Width"
 msgstr ""
 
-#: includes/Modules/Blog.php:289
+#: includes/Modules/Blog.php:304
 msgctxt "Modules: Blog: Settings"
 msgid "Overrides content width of the active theme. Leave empty to disable."
 msgstr ""
 
-#: includes/Modules/Blog.php:290
+#: includes/Modules/Blog.php:305
 msgctxt "Modules: Blog: Settings"
 msgid "Current is %s"
 msgstr ""
 
-#: includes/Modules/Blog.php:295
+#: includes/Modules/Blog.php:310
 msgctxt "Modules: Blog: Settings"
 msgid "Meta Revised"
 msgstr ""
 
-#: includes/Modules/Blog.php:296
+#: includes/Modules/Blog.php:311
 msgctxt "Modules: Blog: Settings"
 msgid "Defines an HTML meta tag for last modified time of each post."
 msgstr ""
 
-#: includes/Modules/Blog.php:301
+#: includes/Modules/Blog.php:316
 msgctxt "Modules: Blog: Settings"
 msgid "No Index Attachments"
 msgstr ""
 
-#: includes/Modules/Blog.php:302
+#: includes/Modules/Blog.php:317
 msgctxt "Modules: Blog: Settings"
 msgid "Defines No Index/No Follow HTML meta tags for attachment pages."
 msgstr ""
 
-#: includes/Modules/Blog.php:308
+#: includes/Modules/Blog.php:323
 msgctxt "Modules: Blog: Settings"
 msgid "Theme Color"
 msgstr ""
 
-#: includes/Modules/Blog.php:309
+#: includes/Modules/Blog.php:324
 msgctxt "Modules: Blog: Settings"
 msgid "Defines color of the mobile browser address bar. Set to override the network."
 msgstr ""
 
-#: includes/Modules/Blog.php:317
+#: includes/Modules/Blog.php:332
 msgctxt "Modules: Blog: Settings"
 msgid "From Email"
 msgstr ""
 
-#: includes/Modules/Blog.php:318
+#: includes/Modules/Blog.php:333
 msgctxt "Modules: Blog: Settings"
 msgid "This site email address that emails should be sent from. Set to override the network."
 msgstr ""
 
-#: includes/Modules/Blog.php:324
+#: includes/Modules/Blog.php:339
 msgctxt "Modules: Blog: Settings"
 msgid "From Name"
 msgstr ""
 
-#: includes/Modules/Blog.php:325
+#: includes/Modules/Blog.php:340
 msgctxt "Modules: Blog: Settings"
 msgid "This site email name that emails should be sent from. Set to override the network."
 msgstr ""
 
-#: includes/Modules/Blog.php:333
+#: includes/Modules/Blog.php:348
 msgctxt "Modules: Blog: Settings"
 msgid "GA Override"
 msgstr ""
 
-#: includes/Modules/Blog.php:334
+#: includes/Modules/Blog.php:349
 msgctxt "Modules: Blog: Settings"
 msgid "This site Google Analytics tracking account. Set to override the network."
 msgstr ""
 
-#: includes/Modules/Blog.php:342
+#: includes/Modules/Blog.php:357
 msgctxt "Modules: Blog: Settings"
 msgid "Redirect URL"
 msgstr ""
 
-#: includes/Modules/Blog.php:343
+#: includes/Modules/Blog.php:358
 msgctxt "Modules: Blog: Settings"
 msgid "Redirects the site to a custom URL. Leave empty to disable."
 msgstr ""
 
-#: includes/Modules/Blog.php:350
+#: includes/Modules/Blog.php:365
 msgctxt "Modules: Blog: Settings"
 msgid "Redirect Status Code"
 msgstr ""
 
-#: includes/Modules/Blog.php:351
+#: includes/Modules/Blog.php:366
 msgctxt "Modules: Blog: Settings"
 msgid "HTTP status header code for redirection of this site."
 msgstr ""
 
-#: includes/Modules/Blog.php:366
+#: includes/Modules/Blog.php:381
 msgctxt "Modules: Blog: Settings"
 msgid "Numeric Shortlinks"
 msgstr ""
 
-#: includes/Modules/Blog.php:367
+#: includes/Modules/Blog.php:382
 msgctxt "Modules: Blog: Settings"
 msgid "Adds support for numeric/alpha-numeric shortlinks."
 msgstr ""
 
-#: includes/Modules/Blog.php:373
+#: includes/Modules/Blog.php:388
 msgctxt "Modules: Blog: Settings"
 msgid "Shortlink Type"
 msgstr ""
 
-#: includes/Modules/Blog.php:376
+#: includes/Modules/Blog.php:391
 msgctxt "Modules: Blog: Settings"
 msgid "Numeric (%s)"
 msgstr ""
 
-#: includes/Modules/Blog.php:377
+#: includes/Modules/Blog.php:392
 msgctxt "Modules: Blog: Settings"
 msgid "Alpha-Numeric (%s)"
 msgstr ""
 
-#: includes/Modules/Blog.php:385
+#: includes/Modules/Blog.php:400
 msgctxt "Modules: Blog: Settings"
 msgid "Copyright Notice"
 msgstr ""
 
-#: includes/Modules/Blog.php:386
+#: includes/Modules/Blog.php:401
 msgctxt "Modules: Blog: Settings"
 msgid "Displays as copyright notice on the footer on the front-end. Set to override the network."
 msgstr ""
 
-#: includes/Modules/Blog.php:621
+#: includes/Modules/Blog.php:649
 msgctxt "Modules: Blog"
 msgid "Edit this page"
 msgstr ""
@@ -1591,12 +1626,12 @@ msgctxt "Modules: Comments: Settings"
 msgid "Removes trackbacks and pingbacks form comment lists on the frontend."
 msgstr ""
 
-#: includes/Modules/Comments.php:111
+#: includes/Modules/Comments.php:112
 msgctxt "Modules: Comments: Settings"
 msgid "Comment Notifications"
 msgstr ""
 
-#: includes/Modules/Comments.php:112
+#: includes/Modules/Comments.php:113
 msgctxt "Modules: Comments: Settings"
 msgid "Prevents WordPress from sending any comment related notifications."
 msgstr ""
@@ -1651,52 +1686,52 @@ msgctxt "Modules: Comments: Settings"
 msgid "Displays captcha field after comment form on the frontend."
 msgstr ""
 
-#: includes/Modules/Comments.php:282
+#: includes/Modules/Comments.php:284
 msgctxt "Modules: Comments"
 msgid "Your attempt to add this comment has failed."
 msgstr ""
 
-#: includes/Modules/Comments.php:338
+#: includes/Modules/Comments.php:340
 msgctxt "Modules: Comments: Total Comments Item"
 msgid "Comments in moderation: %s"
 msgstr ""
 
-#: includes/Modules/Comments.php:339
+#: includes/Modules/Comments.php:341
 msgctxt "Modules: Comments: Total Comments Item"
 msgid "Comments approved: %s"
 msgstr ""
 
-#: includes/Modules/Comments.php:340
+#: includes/Modules/Comments.php:342
 msgctxt "Modules: Comments: Total Comments Item"
 msgid "Comments in Spam: %s"
 msgstr ""
 
-#: includes/Modules/Comments.php:341
+#: includes/Modules/Comments.php:343
 msgctxt "Modules: Comments: Total Comments Item"
 msgid "Comments in Trash: %s"
 msgstr ""
 
-#: includes/Modules/Comments.php:342
+#: includes/Modules/Comments.php:344
 msgctxt "Modules: Comments: Total Comments Item"
 msgid "Total Comments: %s"
 msgstr ""
 
-#: includes/Modules/Comments.php:370
+#: includes/Modules/Comments.php:372
 msgctxt "Modules: Comments"
 msgid "Comment has <strong>over %s links</strong>. Please reduce number of those."
 msgstr ""
 
-#: includes/Modules/Comments.php:383, includes/Modules/Comments.php:425
+#: includes/Modules/Comments.php:385, includes/Modules/Comments.php:427
 msgctxt "Modules: Comments"
 msgid "Duplicate comment content. Please rephrase."
 msgstr ""
 
-#: includes/Modules/Comments.php:397
+#: includes/Modules/Comments.php:399
 msgctxt "Modules: Comments"
 msgid "Your URL or domain is in list of known spam-promoted sites. If you believe this to be an error please contact site admin."
 msgstr ""
 
-#: includes/Modules/Comments.php:411
+#: includes/Modules/Comments.php:413
 msgctxt "Modules: Comments"
 msgid "Your IP is in list of known spam sources. If you believe this to be an error please contact site admin."
 msgstr ""
@@ -1771,7 +1806,7 @@ msgctxt "Modules: CRON: Button"
 msgid "Unschedule"
 msgstr ""
 
-#: includes/Modules/Cron.php:181, includes/Modules/Cron.php:375
+#: includes/Modules/Cron.php:181, includes/Modules/Cron.php:378
 msgctxt "Modules: CRON"
 msgid "Trigger Manually"
 msgstr ""
@@ -1803,12 +1838,12 @@ msgstr ""
 
 #: includes/Modules/Cron.php:292
 msgctxt "Modules: CRON"
-msgid "The %s constant is set to true as of %s. WP-Cron is disabled and will not run automatically."
+msgid "The %1$s constant is set to true as of %2$s. WP-Cron is disabled and will not run automatically."
 msgstr ""
 
 #: includes/Modules/Cron.php:295
 msgctxt "Modules: CRON"
-msgid "The %s constant is set to true as of %s. We cannot determine the status of the WP-Cron system."
+msgid "The %1$s constant is set to true as of %2$s. We cannot determine the status of the WP-Cron system."
 msgstr ""
 
 #: includes/Modules/Cron.php:310
@@ -1826,189 +1861,189 @@ msgctxt "Modules: CRON"
 msgid "View the current cron scheduled tasks"
 msgstr ""
 
-#: includes/Modules/Cron.php:353
+#: includes/Modules/Cron.php:356
 msgctxt "Modules: CRON"
 msgid "The WP-Cron system will be automatically checked once every 24 hours."
 msgstr ""
 
-#: includes/Modules/Cron.php:367
+#: includes/Modules/Cron.php:370
 msgctxt "Modules: CRON"
 msgid "Check Status Now"
 msgstr ""
 
-#: includes/Modules/Cron.php:380
+#: includes/Modules/Cron.php:383
 msgctxt "Modules: CRON"
 msgid "View Scheduled Tasks"
 msgstr ""
 
-#: includes/Modules/Cron.php:415
+#: includes/Modules/Cron.php:418
 msgctxt "Modules: CRON"
 msgid "Next"
 msgstr ""
 
-#: includes/Modules/Cron.php:422
+#: includes/Modules/Cron.php:425
 msgctxt "Modules: CRON"
 msgid "Tasks"
 msgstr ""
 
-#: includes/Modules/Cron.php:447
+#: includes/Modules/Cron.php:450
 msgctxt "Modules: CRON"
 msgid "Overview of tasks scheduled for WP-Cron"
 msgstr ""
 
-#: includes/Modules/Cron.php:448
+#: includes/Modules/Cron.php:451
 msgctxt "Modules: CRON"
 msgid "Nothing scheduled!"
 msgstr ""
 
-#: includes/Modules/Cron.php:458
+#: includes/Modules/Cron.php:461
 msgctxt "Modules: CRON"
 msgid "Once Weekly"
 msgstr ""
 
-#: includes/Modules/Dashboard.php:48
+#: includes/Modules/Dashboard.php:47
 msgctxt "Modules: Dashboard: Help Content Title"
 msgid "Post Type Supports"
 msgstr ""
 
-#: includes/Modules/Dashboard.php:75
+#: includes/Modules/Dashboard.php:70
 msgctxt "Modules: Dashboard: Widget Title"
 msgid "At a Glance"
 msgstr ""
 
-#: includes/Modules/Dashboard.php:87
-msgctxt "Modules: Dashboard: Widget Title"
-msgid "Your Sites"
-msgstr ""
-
-#: includes/Modules/Dashboard.php:94
+#: includes/Modules/Dashboard.php:77
 msgctxt "Modules: Dashboard: Widget Title"
 msgid "External Feed"
 msgstr ""
 
-#: includes/Modules/Dashboard.php:103
+#: includes/Modules/Dashboard.php:100
+msgctxt "Modules: Dashboard: Widget Title"
+msgid "Your Sites"
+msgstr ""
+
+#: includes/Modules/Dashboard.php:108
 msgctxt "Modules: Dashboard: Widget Title"
 msgid "Terms of Service"
 msgstr ""
 
-#: includes/Modules/Dashboard.php:109
+#: includes/Modules/Dashboard.php:114
 msgctxt "Modules: Dashboard: Widget Title"
 msgid "Your Navigation"
 msgstr ""
 
-#: includes/Modules/Dashboard.php:115
+#: includes/Modules/Dashboard.php:124
 msgctxt "Modules: Dashboard: Widget Title"
 msgid "Latest Signups"
 msgstr ""
 
-#: includes/Modules/Dashboard.php:122
+#: includes/Modules/Dashboard.php:131
 msgctxt "Modules: Dashboard: Widget Title"
 msgid "Latest Logins"
 msgstr ""
 
-#: includes/Modules/Dashboard.php:184
+#: includes/Modules/Dashboard.php:193
 msgctxt "Modules: Dashboard: User Menu"
 msgid "&#8220;Not all those who wander are lost!&#8221;"
 msgstr ""
 
-#: includes/Modules/Dashboard.php:243
+#: includes/Modules/Dashboard.php:252
 msgctxt "Modules: Dashboard: Right Now"
 msgid "%s Comment"
 msgid_plural "%s Comments"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/Modules/Dashboard.php:249
+#: includes/Modules/Dashboard.php:258
 msgctxt "Modules: Dashboard: Right Now"
 msgid "%s Awaiting Comment"
 msgid_plural "%s Awaiting Comments"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/Modules/Dashboard.php:259
+#: includes/Modules/Dashboard.php:268
 msgctxt "Modules: Dashboard: Right Now"
 msgid "%s Spam Comment"
 msgid_plural "%s Spam Comments"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/Modules/Dashboard.php:283
+#: includes/Modules/Dashboard.php:292
 msgctxt "Modules: Dashboard: Right Now"
 msgid "No Content available!"
 msgstr ""
 
-#: includes/Modules/Dashboard.php:319
+#: includes/Modules/Dashboard.php:328
 msgctxt "Modules: Dashboard: Space Quota"
 msgid "%s Space Used"
 msgstr ""
 
-#: includes/Modules/Dashboard.php:361
+#: includes/Modules/Dashboard.php:370
 msgctxt "Modules: Dashboard: Signups"
 msgid "On"
 msgstr ""
 
-#: includes/Modules/Dashboard.php:362
+#: includes/Modules/Dashboard.php:371
 msgctxt "Modules: Dashboard: Signups"
 msgid "Name"
 msgstr ""
 
-#: includes/Modules/Dashboard.php:363
+#: includes/Modules/Dashboard.php:372
 msgctxt "Modules: Dashboard: Signups"
 msgid "E-mail"
 msgstr ""
 
-#: includes/Modules/Dashboard.php:364
+#: includes/Modules/Dashboard.php:373
 msgctxt "Modules: Dashboard: Signups"
 msgid "IP"
 msgstr ""
 
-#: includes/Modules/Dashboard.php:389
+#: includes/Modules/Dashboard.php:398
 msgctxt "Modules: Dashboard: Signups"
 msgid "%1$s ago &mdash; %2$s"
 msgstr ""
 
-#: includes/Modules/Dashboard.php:410
+#: includes/Modules/Dashboard.php:419
 msgctxt "Modules: Dashboard: Signups"
 msgid "Last User Registered %s ago"
 msgstr ""
 
-#: includes/Modules/Dashboard.php:415
+#: includes/Modules/Dashboard.php:424
 msgctxt "Modules: Dashboard: Signups"
 msgid "With %s Spam User"
 msgid_plural "With %s Spam Users"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/Modules/Dashboard.php:417
+#: includes/Modules/Dashboard.php:426
 msgctxt "Modules: Dashboard: Signups"
 msgid "With No Spam User"
 msgstr ""
 
-#: includes/Modules/Dashboard.php:422
+#: includes/Modules/Dashboard.php:431
 msgctxt "Modules: Dashboard: Signups"
 msgid "And %s Super Admin"
 msgid_plural "And %s Super Admins"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/Modules/Dashboard.php:427
+#: includes/Modules/Dashboard.php:436
 msgctxt "Modules: Dashboard: Signups"
 msgid "Total of One User"
 msgid_plural "Total of %s Users"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/Modules/Dashboard.php:470
+#: includes/Modules/Dashboard.php:479
 msgctxt "Modules: Dashboard: Logins"
 msgid "Ago"
 msgstr ""
 
-#: includes/Modules/Dashboard.php:471
+#: includes/Modules/Dashboard.php:480
 msgctxt "Modules: Dashboard: Logins"
 msgid "Name"
 msgstr ""
 
-#: includes/Modules/Dashboard.php:472
+#: includes/Modules/Dashboard.php:481
 msgctxt "Modules: Dashboard: Logins"
 msgid "Timestamp"
 msgstr ""
@@ -2348,77 +2383,97 @@ msgctxt "Modules: Menu Name"
 msgid "Dev Tools"
 msgstr ""
 
-#: includes/Modules/Embed.php:33
+#: includes/Modules/Embed.php:38
 msgctxt "Modules: Menu Name"
 msgid "Embed"
 msgstr ""
 
-#: includes/Modules/Embed.php:56
+#: includes/Modules/Embed.php:64
+msgctxt "Modules: Embed: Settings"
+msgid "oEmbed Discovery"
+msgstr ""
+
+#: includes/Modules/Embed.php:65
+msgctxt "Modules: Embed: Settings"
+msgid "Whether to inspect the given URL for discoverable link tags."
+msgstr ""
+
+#: includes/Modules/Embed.php:70
 msgctxt "Modules: Embed: Settings"
 msgid "Load Default Embeds"
 msgstr ""
 
-#: includes/Modules/Embed.php:57
+#: includes/Modules/Embed.php:71
 msgctxt "Modules: Embed: Settings"
 msgid "Whether to load the default embed handlers on this site."
 msgstr ""
 
-#: includes/Modules/Embed.php:61
+#: includes/Modules/Embed.php:75
 msgctxt "Modules: Embed: Settings"
 msgid "Wrapped Links"
 msgstr ""
 
-#: includes/Modules/Embed.php:62
+#: includes/Modules/Embed.php:76
 msgctxt "Modules: Embed: Settings"
 msgid "Fixes wrapped embed links in paragraphs."
 msgstr ""
 
-#: includes/Modules/Embed.php:67
+#: includes/Modules/Embed.php:81
 msgctxt "Modules: Embed: Settings"
 msgid "Default Count"
 msgstr ""
 
-#: includes/Modules/Embed.php:68
+#: includes/Modules/Embed.php:82
 msgctxt "Modules: Embed: Settings"
 msgid "Number of items on a channel embed."
 msgstr ""
 
-#: includes/Modules/Embed.php:75
+#: includes/Modules/Embed.php:89
 msgctxt "Modules: Embed: Settings"
 msgid "Load PDF Embeds"
 msgstr ""
 
-#: includes/Modules/Embed.php:76
+#: includes/Modules/Embed.php:90
 msgctxt "Modules: Embed: Settings"
 msgid "Whether to load PDF via Google Docs embed handlers on this site."
 msgstr ""
 
-#: includes/Modules/Embed.php:80
+#: includes/Modules/Embed.php:94
 msgctxt "Modules: Embed: Settings"
 msgid "Load Aparat Embeds"
 msgstr ""
 
-#: includes/Modules/Embed.php:81
+#: includes/Modules/Embed.php:95
 msgctxt "Modules: Embed: Settings"
 msgid "Whether to load Aparat.com embed handlers on this site."
 msgstr ""
 
-#: includes/Modules/Embed.php:86
+#: includes/Modules/Embed.php:100
+msgctxt "Modules: Embed: Settings"
+msgid "Load Kavimo oEmbeds"
+msgstr ""
+
+#: includes/Modules/Embed.php:101
+msgctxt "Modules: Embed: Settings"
+msgid "Whether to load Kavimo.com embed handlers on this site."
+msgstr ""
+
+#: includes/Modules/Embed.php:106
 msgctxt "Modules: Embed: Settings"
 msgid "Load GIPHY Embeds"
 msgstr ""
 
-#: includes/Modules/Embed.php:87
+#: includes/Modules/Embed.php:107
 msgctxt "Modules: Embed: Settings"
 msgid "Whether to load GIPHY.com embed handlers on this site."
 msgstr ""
 
-#: includes/Modules/Embed.php:173
+#: includes/Modules/Embed.php:201
 msgctxt "Modules: Embed"
 msgid "Error while loading the content."
 msgstr ""
 
-#: includes/Modules/Embed.php:187
+#: includes/Modules/Embed.php:215
 msgctxt "Modules: Embed: Item With No Title"
 msgid "Untitled"
 msgstr ""
@@ -2483,477 +2538,477 @@ msgctxt "Modules: Lockdown: Settings"
 msgid "<strong>LOCKED OUT</strong>: Too many login attempts from one IP address! Please take a break and try again."
 msgstr ""
 
-#: includes/Modules/Login.php:57
+#: includes/Modules/Login.php:63
 msgctxt "Modules: Menu Name"
 msgid "Login"
 msgstr ""
 
-#: includes/Modules/Login.php:86
+#: includes/Modules/Login.php:92
 msgctxt "Modules: Login: Settings"
 msgid "Login Math"
 msgstr ""
 
-#: includes/Modules/Login.php:87
+#: includes/Modules/Login.php:93
 msgctxt "Modules: Login: Settings"
 msgid "Puts a math problem after the login form."
 msgstr ""
 
-#: includes/Modules/Login.php:91
+#: includes/Modules/Login.php:97
 msgctxt "Modules: Login: Settings"
 msgid "Ambiguous Error"
 msgstr ""
 
-#: includes/Modules/Login.php:92
+#: includes/Modules/Login.php:98
 msgctxt "Modules: Login: Settings"
 msgid "Swaps error messages with an ambiguous one."
 msgstr ""
 
-#: includes/Modules/Login.php:97
+#: includes/Modules/Login.php:103
 msgctxt "Modules: Login: Settings"
 msgid "Log Logins"
 msgstr ""
 
-#: includes/Modules/Login.php:98
+#: includes/Modules/Login.php:104
 msgctxt "Modules: Login: Settings"
 msgid "Logs user log-in events in the log system."
 msgstr ""
 
-#: includes/Modules/Login.php:102
+#: includes/Modules/Login.php:108
 msgctxt "Modules: Login: Settings"
 msgid "Last Logins"
 msgstr ""
 
-#: includes/Modules/Login.php:103
+#: includes/Modules/Login.php:109
 msgctxt "Modules: Login: Settings"
 msgid "Stores last login timestamp for each user."
 msgstr ""
 
-#: includes/Modules/Login.php:109
+#: includes/Modules/Login.php:115
 msgctxt "Modules: Login: Settings"
 msgid "Logout After"
 msgstr ""
 
-#: includes/Modules/Login.php:110
+#: includes/Modules/Login.php:116
 msgctxt "Modules: Login: Settings"
 msgid "Full URL to redirect after compelete logout. Leave empty to use the home."
 msgstr ""
 
-#: includes/Modules/Login.php:116
+#: includes/Modules/Login.php:122
 msgctxt "Modules: Login: Settings"
 msgid "Hidden Login Page"
 msgstr ""
 
-#: includes/Modules/Login.php:121
+#: includes/Modules/Login.php:127
 msgctxt "Modules: Login: Settings"
 msgid "Hidden Login Slug"
 msgstr ""
 
-#: includes/Modules/Login.php:122
+#: includes/Modules/Login.php:128
 msgctxt "Modules: Login: Settings"
 msgid "Custom slug for the hidden login page."
 msgstr ""
 
-#: includes/Modules/Login.php:130
+#: includes/Modules/Login.php:136
 msgctxt "Modules: Login: Settings"
 msgid "Header URL"
 msgstr ""
 
-#: includes/Modules/Login.php:131
+#: includes/Modules/Login.php:137
 msgctxt "Modules: Login: Settings"
 msgid "Login page header logo link URL."
 msgstr ""
 
-#: includes/Modules/Login.php:137
+#: includes/Modules/Login.php:143
 msgctxt "Modules: Login: Settings"
 msgid "Header Title"
 msgstr ""
 
-#: includes/Modules/Login.php:138
+#: includes/Modules/Login.php:144
 msgctxt "Modules: Login: Settings"
 msgid "Login page header logo link title attribute."
 msgstr ""
 
-#: includes/Modules/Login.php:143
+#: includes/Modules/Login.php:149
 msgctxt "Modules: Login: Settings"
 msgid "Login Remember"
 msgstr ""
 
-#: includes/Modules/Login.php:144
+#: includes/Modules/Login.php:150
 msgctxt "Modules: Login: Settings"
 msgid "Always checked “Remember Me” checkbox."
 msgstr ""
 
-#: includes/Modules/Login.php:146
+#: includes/Modules/Login.php:152
 msgctxt "Modules: Login"
 msgid "Not Checked"
 msgstr ""
 
-#: includes/Modules/Login.php:147
+#: includes/Modules/Login.php:153
 msgctxt "Modules: Login"
 msgid "Checked"
 msgstr ""
 
-#: includes/Modules/Login.php:152
+#: includes/Modules/Login.php:158
 msgctxt "Modules: Login: Settings"
 msgid "Credits Badge"
 msgstr ""
 
-#: includes/Modules/Login.php:153
+#: includes/Modules/Login.php:159
 msgctxt "Modules: Login: Settings"
 msgid "Displays credits badge on the bottom of default login page."
 msgstr ""
 
-#: includes/Modules/Login.php:158
+#: includes/Modules/Login.php:164
 msgctxt "Modules: Login: Settings"
 msgid "CSS Class"
 msgstr ""
 
-#: includes/Modules/Login.php:159
+#: includes/Modules/Login.php:165
 msgctxt "Modules: Login: Settings"
 msgid "Select styles from pre-configured login themes."
 msgstr ""
 
-#: includes/Modules/Login.php:164
+#: includes/Modules/Login.php:170
 msgctxt "Modules: Login: Login Class"
 msgid "SideLogo"
 msgstr ""
 
-#: includes/Modules/Login.php:165
+#: includes/Modules/Login.php:171
 msgctxt "Modules: Login: Login Class"
 msgid "Webogram"
 msgstr ""
 
-#: includes/Modules/Login.php:171
+#: includes/Modules/Login.php:177
 msgctxt "Modules: Login: Settings"
 msgid "Extra CSS"
 msgstr ""
 
-#: includes/Modules/Login.php:172
+#: includes/Modules/Login.php:178
 msgctxt "Modules: Login: Settings"
 msgid "Additional CSS styles to use on default login page."
 msgstr ""
 
-#: includes/Modules/Login.php:178
+#: includes/Modules/Login.php:184
 msgctxt "Modules: Login: Settings"
 msgid "Logo Image"
 msgstr ""
 
-#: includes/Modules/Login.php:179
+#: includes/Modules/Login.php:185
 msgctxt "Modules: Login: Settings"
 msgid "Full URL to the login logo image."
 msgstr ""
 
-#: includes/Modules/Login.php:191
+#: includes/Modules/Login.php:197
 msgctxt "Modules: Login: Settings"
 msgid "Hidden"
 msgstr ""
 
-#: includes/Modules/Login.php:192
+#: includes/Modules/Login.php:198
 msgctxt "Modules: Login: Settings"
 msgid "Protects logins by changing the URL and preventing access to admin while not logged-in."
 msgstr ""
 
-#: includes/Modules/Login.php:199
+#: includes/Modules/Login.php:205
 msgctxt "Modules: Login"
 msgid "Move along, nothing to see here!"
 msgstr ""
 
-#: includes/Modules/Login.php:390
+#: includes/Modules/Login.php:396
 msgctxt "Modules: Login: HTML Title"
 msgid "%1$s &lsaquo; %2$s"
 msgstr ""
 
-#: includes/Modules/Login.php:433
+#: includes/Modules/Login.php:445
 msgctxt "Modules: Login"
 msgid "Prove your humanity:"
 msgstr ""
 
-#: includes/Modules/Login.php:463
+#: includes/Modules/Login.php:479
 msgctxt "Modules: Login"
 msgid "<strong>This site is not properly configured.</strong> Please ask this site's administrator to review for information on how to resolve this issue."
 msgstr ""
 
-#: includes/Modules/Login.php:472
+#: includes/Modules/Login.php:488
 msgctxt "Modules: Login"
 msgid "<strong>You failed to correctly answer the math problem.</strong> This is used to combat spam. Please use your browser's back button to return to the login form, press the \"refresh\" button to generate a new math problem, and try to log in again."
 msgstr ""
 
-#: includes/Modules/Login.php:495
+#: includes/Modules/Login.php:537
 msgctxt "Modules: Login"
 msgid "Your account is disabled by an administrator."
 msgstr ""
 
-#: includes/Modules/Login.php:550
+#: includes/Modules/Login.php:592
 msgctxt "Modules: Login: Ambiguous Error"
 msgid "Something is wrong!"
 msgstr ""
 
-#: includes/Modules/Login.php:551
+#: includes/Modules/Login.php:593
 msgctxt "Modules: Login: Ambiguous Error"
 msgid "Lost your password?"
 msgstr ""
 
-#: includes/Modules/Login.php:581
+#: includes/Modules/Login.php:623
 msgctxt "Modules: Login"
 msgid "Full URL to the current login style file"
 msgstr ""
 
-#: includes/Modules/Login.php:583
+#: includes/Modules/Login.php:625
 msgctxt "Modules: Login"
 msgid "Login Style"
 msgstr ""
 
-#: includes/Modules/Mail.php:37
+#: includes/Modules/Mail.php:38
 msgctxt "Modules: Menu Name"
 msgid "Mail"
 msgstr ""
 
-#: includes/Modules/Mail.php:40
+#: includes/Modules/Mail.php:41
 msgctxt "Modules: Menu Name"
 msgid "Test Mail"
 msgstr ""
 
-#: includes/Modules/Mail.php:46
+#: includes/Modules/Mail.php:47
 msgctxt "Modules: Menu Name"
 msgid "Email Logs"
 msgstr ""
 
-#: includes/Modules/Mail.php:74
+#: includes/Modules/Mail.php:75
 msgctxt "Modules: Mail: Settings"
 msgid "From Email"
 msgstr ""
 
-#: includes/Modules/Mail.php:75
+#: includes/Modules/Mail.php:76
 msgctxt "Modules: Mail: Settings"
 msgid "You can specify the email address that emails should be sent from. Leave blank for default."
 msgstr ""
 
-#: includes/Modules/Mail.php:80
+#: includes/Modules/Mail.php:81
 msgctxt "Modules: Mail: Settings"
 msgid "From Name"
 msgstr ""
 
-#: includes/Modules/Mail.php:81
+#: includes/Modules/Mail.php:82
 msgctxt "Modules: Mail: Settings"
 msgid "You can specify the name that emails should be sent from. Leave blank for WordPress."
 msgstr ""
 
-#: includes/Modules/Mail.php:86
+#: includes/Modules/Mail.php:87
 msgctxt "Modules: Mail: Settings"
 msgid "Return Path"
 msgstr ""
 
-#: includes/Modules/Mail.php:87
+#: includes/Modules/Mail.php:88
 msgctxt "Modules: Mail: Settings"
 msgid "Set the return-path email address. Use <code>FROM</code> to match the From Email or Empty to disable."
 msgstr ""
 
-#: includes/Modules/Mail.php:94
+#: includes/Modules/Mail.php:95
 msgctxt "Modules: Mail: Settings"
 msgid "Mailer"
 msgstr ""
 
-#: includes/Modules/Mail.php:97
+#: includes/Modules/Mail.php:98
 msgctxt "Modules: Mail: Settings"
 msgid "Use the PHP mail() function to send emails."
 msgstr ""
 
-#: includes/Modules/Mail.php:98
+#: includes/Modules/Mail.php:99
 msgctxt "Modules: Mail: Settings"
 msgid "Send all WordPress emails via SMTP."
 msgstr ""
 
-#: includes/Modules/Mail.php:106
+#: includes/Modules/Mail.php:107
 msgctxt "Modules: Mail: Settings"
 msgid "SMTP Host"
 msgstr ""
 
-#: includes/Modules/Mail.php:113
+#: includes/Modules/Mail.php:114
 msgctxt "Modules: Mail: Settings"
 msgid "SMTP Port"
 msgstr ""
 
-#: includes/Modules/Mail.php:120
+#: includes/Modules/Mail.php:121
 msgctxt "Modules: Mail: Settings"
 msgid "Encryption"
 msgstr ""
 
-#: includes/Modules/Mail.php:121
+#: includes/Modules/Mail.php:122
 msgctxt "Modules: Mail: Settings"
 msgid "For most servers SSL is the recommended option."
 msgstr ""
 
-#: includes/Modules/Mail.php:124
+#: includes/Modules/Mail.php:125
 msgctxt "Modules: Mail: Encryption Option"
 msgid "No encryption."
 msgstr ""
 
-#: includes/Modules/Mail.php:125
+#: includes/Modules/Mail.php:126
 msgctxt "Modules: Mail: Encryption Option"
 msgid "Use SSL encryption."
 msgstr ""
 
-#: includes/Modules/Mail.php:126
+#: includes/Modules/Mail.php:127
 msgctxt "Modules: Mail: Encryption Option"
 msgid "Use TLS encryption. This is not the same as STARTTLS."
 msgstr ""
 
-#: includes/Modules/Mail.php:132
+#: includes/Modules/Mail.php:133
 msgctxt "Modules: Mail: Settings"
 msgid "Username"
 msgstr ""
 
-#: includes/Modules/Mail.php:133
+#: includes/Modules/Mail.php:134
 msgctxt "Modules: Mail: Settings"
 msgid "Empty to disable Authentication."
 msgstr ""
 
-#: includes/Modules/Mail.php:139, includes/Providers/FTP.php:50
+#: includes/Modules/Mail.php:140, includes/Providers/FTP.php:50
 msgctxt "Modules: Mail: Settings"
 msgid "Password"
 msgstr ""
 
-#: includes/Modules/Mail.php:149
+#: includes/Modules/Mail.php:150
 msgctxt "Modules: Mail: Settings"
 msgid "Log All"
 msgstr ""
 
-#: includes/Modules/Mail.php:150
+#: includes/Modules/Mail.php:151
 msgctxt "Modules: Mail: Settings"
 msgid "Log all outgoing emails in a secure folder"
 msgstr ""
 
-#: includes/Modules/Mail.php:160
+#: includes/Modules/Mail.php:161
 msgctxt "Modules: Mail: Settings"
 msgid "SMTP Settings"
 msgstr ""
 
-#: includes/Modules/Mail.php:161
+#: includes/Modules/Mail.php:162
 msgctxt "Modules: Mail: Settings"
 msgid "These options only apply if you have chosen to send mail by SMTP above."
 msgstr ""
 
-#: includes/Modules/Mail.php:168
+#: includes/Modules/Mail.php:169
 msgctxt "Modules: Mail: Settings"
 msgid "Log Settings"
 msgstr ""
 
-#: includes/Modules/Mail.php:187
+#: includes/Modules/Mail.php:188
 msgctxt "Modules: Mail: Help Tab Title"
 msgid "Gmail SMTP"
 msgstr ""
 
-#: includes/Modules/Mail.php:199
+#: includes/Modules/Mail.php:200
 msgctxt "Modules: Mail: Help Tab Title"
 msgid "Pepipost SMTP"
 msgstr ""
 
-#: includes/Modules/Mail.php:217
+#: includes/Modules/Mail.php:218
 msgctxt "Modules: Mail"
 msgid "Logging emails disabled by constant."
 msgstr ""
 
-#: includes/Modules/Mail.php:223, includes/Modules/Mail.php:594
+#: includes/Modules/Mail.php:224, includes/Modules/Mail.php:597
 msgctxt "Modules: Mail"
 msgid "Log folder not exists or writable."
 msgstr ""
 
-#: includes/Modules/Mail.php:226
+#: includes/Modules/Mail.php:227
 msgctxt "Modules: Mail"
 msgid "Create Log Folder"
 msgstr ""
 
-#: includes/Modules/Mail.php:231
+#: includes/Modules/Mail.php:232
 msgctxt "Modules: Mail"
 msgid "Log folder exists and writable on: <code>%s</code>"
 msgstr ""
 
-#: includes/Modules/Mail.php:234
+#: includes/Modules/Mail.php:235
 msgctxt "Modules: Mail"
 msgid "Warning: <code>.htaccess</code> not found!"
 msgstr ""
 
-#: includes/Modules/Mail.php:239
+#: includes/Modules/Mail.php:240
 msgctxt "Modules: Mail"
 msgid "Email logs are disabled."
 msgstr ""
 
-#: includes/Modules/Mail.php:263
+#: includes/Modules/Mail.php:264
 msgctxt "Modules: Mail"
 msgid "Send Test Mail"
 msgstr ""
 
-#: includes/Modules/Mail.php:303
+#: includes/Modules/Mail.php:304
 msgctxt "Modules: Mail"
 msgid "Delete Selected"
 msgstr ""
 
-#: includes/Modules/Mail.php:304
+#: includes/Modules/Mail.php:305
 msgctxt "Modules: Mail"
 msgid "Delete All"
 msgstr ""
 
-#: includes/Modules/Mail.php:450
+#: includes/Modules/Mail.php:453
 msgctxt "Modules: Mail"
 msgid "Test mail to "
 msgstr ""
 
-#: includes/Modules/Mail.php:451
+#: includes/Modules/Mail.php:454
 msgctxt "Modules: Mail"
 msgid "This is a test email generated by the gNetwork Mail plugin."
 msgstr ""
 
-#: includes/Modules/Mail.php:455
+#: includes/Modules/Mail.php:458
 msgctxt "Modules: Mail"
 msgid "To"
 msgstr ""
 
-#: includes/Modules/Mail.php:459
+#: includes/Modules/Mail.php:462
 msgctxt "Modules: Mail"
 msgid "Subject"
 msgstr ""
 
-#: includes/Modules/Mail.php:463
+#: includes/Modules/Mail.php:466
 msgctxt "Modules: Mail"
 msgid "Message:"
 msgstr ""
 
-#: includes/Modules/Mail.php:504
+#: includes/Modules/Mail.php:507
 msgctxt "Modules: Mail"
 msgid "Test Message Sent"
 msgstr ""
 
-#: includes/Modules/Mail.php:506
+#: includes/Modules/Mail.php:509
 msgctxt "Modules: Mail"
 msgid "The result was:"
 msgstr ""
 
-#: includes/Modules/Mail.php:510
+#: includes/Modules/Mail.php:513
 msgctxt "Modules: Mail"
 msgid "The SMTP debugging output:"
 msgstr ""
 
-#: includes/Modules/Mail.php:514
+#: includes/Modules/Mail.php:517
 msgctxt "Modules: Mail"
 msgid "The full debugging output:"
 msgstr ""
 
-#: includes/Modules/Mail.php:597
+#: includes/Modules/Mail.php:600
 msgctxt "Modules: Mail"
 msgid "No Logs!"
 msgstr ""
 
-#: includes/Modules/Mail.php:606
+#: includes/Modules/Mail.php:609
 msgctxt "Modules: Mail: Email Logs Table Column"
 msgid "Whom, When"
 msgstr ""
 
-#: includes/Modules/Mail.php:659
+#: includes/Modules/Mail.php:662
 msgctxt "Modules: Mail: Email Logs Table Column"
 msgid "What"
 msgstr ""
 
-#: includes/Modules/Mail.php:666
+#: includes/Modules/Mail.php:669
 msgctxt "Modules: Mail: Email Logs Table Prefix"
 msgid "Subject"
 msgstr ""
@@ -3048,309 +3103,309 @@ msgctxt "Modules: Maintenance: Default 503 Message"
 msgid "The site is unavailable for scheduled maintenance."
 msgstr ""
 
-#: includes/Modules/Media.php:58
+#: includes/Modules/Media.php:54
 msgctxt "Modules: Menu Name"
 msgid "Media"
 msgstr ""
 
-#: includes/Modules/Media.php:63
+#: includes/Modules/Media.php:59
 msgctxt "Modules: Menu Name"
 msgid "Images"
 msgstr ""
 
-#: includes/Modules/Media.php:89
+#: includes/Modules/Media.php:85
 msgctxt "Modules: Media: Settings"
 msgid "Strip EXIF"
 msgstr ""
 
-#: includes/Modules/Media.php:90
+#: includes/Modules/Media.php:86
 msgctxt "Modules: Media: Settings"
 msgid "Skips storing unused EXIF metadata for image attachments."
 msgstr ""
 
-#: includes/Modules/Media.php:105
+#: includes/Modules/Media.php:101
 msgctxt "Modules: Media: Settings"
 msgid "Large File Uploader"
 msgstr ""
 
-#: includes/Modules/Media.php:106
+#: includes/Modules/Media.php:102
 msgctxt "Modules: Media: Settings"
 msgid "Simple javascript powered widget to upload large files."
 msgstr ""
 
-#: includes/Modules/Media.php:167
+#: includes/Modules/Media.php:163
 msgctxt "Modules: Media: Widget Title"
 msgid "Large File Uploader"
 msgstr ""
 
-#: includes/Modules/Media.php:243
+#: includes/Modules/Media.php:239
 msgctxt "Modules: Media"
 msgid "Clean Attachments"
 msgstr ""
 
-#: includes/Modules/Media.php:244
+#: includes/Modules/Media.php:240
 msgctxt "Modules: Media"
 msgid "Sync Attachments"
 msgstr ""
 
-#: includes/Modules/Media.php:245
+#: includes/Modules/Media.php:241
 msgctxt "Modules: Media"
 msgid "Cache In Content"
 msgstr ""
 
-#: includes/Modules/Media.php:262
+#: includes/Modules/Media.php:258
 msgctxt "Modules: Media"
 msgid "No additional image size registered."
 msgstr ""
 
-#: includes/Modules/Media.php:317
+#: includes/Modules/Media.php:313
 msgctxt "Modules: Media: Column Title"
 msgid "ID"
 msgstr ""
 
-#: includes/Modules/Media.php:320
+#: includes/Modules/Media.php:316
 msgctxt "Modules: Media: Column Title"
 msgid "Date"
 msgstr ""
 
-#: includes/Modules/Media.php:327
+#: includes/Modules/Media.php:323
 msgctxt "Modules: Media: Column Title"
 msgid "Type"
 msgstr ""
 
-#: includes/Modules/Media.php:337
+#: includes/Modules/Media.php:333
 msgctxt "Modules: Media: Column Title"
 msgid "Title"
 msgstr ""
 
-#: includes/Modules/Media.php:362
+#: includes/Modules/Media.php:358
 msgctxt "Modules: Media: Row Action"
 msgid "Edit"
 msgstr ""
 
-#: includes/Modules/Media.php:368
+#: includes/Modules/Media.php:364
 msgctxt "Modules: Media: Row Action"
 msgid "View"
 msgstr ""
 
-#: includes/Modules/Media.php:373, includes/Modules/Media.php:991
+#: includes/Modules/Media.php:369, includes/Modules/Media.php:987
 msgctxt "Modules: Media: Row Action"
 msgid "Cleaning &hellip;"
 msgstr ""
 
-#: includes/Modules/Media.php:374, includes/Modules/Media.php:993
+#: includes/Modules/Media.php:370, includes/Modules/Media.php:989
 msgctxt "Modules: Media: Row Action"
 msgid "Clean"
 msgstr ""
 
-#: includes/Modules/Media.php:379
+#: includes/Modules/Media.php:375
 msgctxt "Modules: Media: Row Action"
 msgid "Syncing &hellip;"
 msgstr ""
 
-#: includes/Modules/Media.php:380
+#: includes/Modules/Media.php:376
 msgctxt "Modules: Media: Row Action"
 msgid "Sync"
 msgstr ""
 
-#: includes/Modules/Media.php:385
+#: includes/Modules/Media.php:381
 msgctxt "Modules: Media: Row Action"
 msgid "Caching &hellip;"
 msgstr ""
 
-#: includes/Modules/Media.php:386
+#: includes/Modules/Media.php:382
 msgctxt "Modules: Media: Row Action"
 msgid "Cache"
 msgstr ""
 
-#: includes/Modules/Media.php:392
+#: includes/Modules/Media.php:388
 msgctxt "Modules: Media: Column Title"
 msgid "Attached Media"
 msgstr ""
 
-#: includes/Modules/Media.php:404
+#: includes/Modules/Media.php:400
 msgctxt "Modules: Media: Title Attr"
 msgid "Number of Sizes"
 msgstr ""
 
-#: includes/Modules/Media.php:446
+#: includes/Modules/Media.php:442
 msgctxt "Modules: Media: Column Title"
 msgid "In Content"
 msgstr ""
 
-#: includes/Modules/Media.php:458
+#: includes/Modules/Media.php:454
 msgctxt "Modules: Media: Title Attr"
 msgid "External Resource"
 msgstr ""
 
-#: includes/Modules/Media.php:459
+#: includes/Modules/Media.php:455
 msgctxt "Modules: Media: External Resource"
 msgid "Ex"
 msgstr ""
 
-#: includes/Modules/Media.php:484
+#: includes/Modules/Media.php:480
 msgctxt "Modules: Media"
 msgid "Overview of posts with attachments"
 msgstr ""
 
-#: includes/Modules/Media.php:485
+#: includes/Modules/Media.php:481
 msgctxt "Modules: Media"
 msgid "No Posts!"
 msgstr ""
 
-#: includes/Modules/Media.php:952
+#: includes/Modules/Media.php:948
 msgctxt "Modules: Media: Bulk Action"
 msgid "Clean Attachments"
 msgstr ""
 
-#: includes/Modules/Media.php:1054
+#: includes/Modules/Media.php:1050
 msgctxt "Modules: Media: Row Action"
 msgid "Cleaned"
 msgstr ""
 
-#: includes/Modules/Media.php:1070
+#: includes/Modules/Media.php:1066
 msgctxt "Modules: Media: Row Action"
 msgid "Already Cleaned!"
 msgstr ""
 
-#: includes/Modules/Media.php:1072
+#: includes/Modules/Media.php:1068
 msgctxt "Modules: Media: Row Action"
 msgid "Cleaned!"
 msgstr ""
 
-#: includes/Modules/Media.php:1088
+#: includes/Modules/Media.php:1084
 msgctxt "Modules: Media: Row Action"
 msgid "Already Synced!"
 msgstr ""
 
-#: includes/Modules/Media.php:1090
+#: includes/Modules/Media.php:1086
 msgctxt "Modules: Media: Row Action"
 msgid "Synced!"
 msgstr ""
 
-#: includes/Modules/Media.php:1103
+#: includes/Modules/Media.php:1099
 msgctxt "Modules: Media: Row Action"
 msgid "Cached"
 msgstr ""
 
-#: includes/Modules/Media.php:1117
+#: includes/Modules/Media.php:1113
 msgctxt "Modules: Media"
 msgid "Please select a file and click &#8220;Upload&#8221; to continue."
 msgstr ""
 
-#: includes/Modules/Media.php:1121
+#: includes/Modules/Media.php:1117
 msgctxt "Modules: Media"
 msgid "Select File"
 msgstr ""
 
-#: includes/Modules/Media.php:1133
+#: includes/Modules/Media.php:1129
 msgctxt "Modules: Media"
 msgid "Upload"
 msgstr ""
 
-#: includes/Modules/Media.php:1137
+#: includes/Modules/Media.php:1133
 msgctxt "Modules: Media"
 msgid "Uploading File - %s%"
 msgstr ""
 
-#: includes/Modules/Media.php:1138
+#: includes/Modules/Media.php:1134
 msgctxt "Modules: Media"
 msgid "Upload Complete!"
 msgstr ""
 
-#: includes/Modules/Media.php:1147
+#: includes/Modules/Media.php:1143
 msgctxt "Modules: Media"
 msgid "You can access uploaded files via Media Library."
 msgstr ""
 
-#: includes/Modules/Media.php:1178
+#: includes/Modules/Media.php:1174
 msgctxt "Modules: Media"
 msgid "View Uploaded File"
 msgstr ""
 
-#: includes/Modules/Media.php:1184
+#: includes/Modules/Media.php:1180
 msgctxt "Modules: Media"
 msgid "Something is wrong with data!"
 msgstr ""
 
-#: includes/Modules/Media.php:1189
+#: includes/Modules/Media.php:1185
 msgctxt "Modules: Media"
 msgid "Can not access upload folders!"
 msgstr ""
 
-#: includes/Modules/Media.php:1194
+#: includes/Modules/Media.php:1190
 msgctxt "Modules: Media"
 msgid "The file is already exists in upload folder!"
 msgstr ""
 
-#: includes/Modules/Media.php:1197
+#: includes/Modules/Media.php:1193
 msgctxt "Modules: Media"
 msgid "Can not put contents into file!"
 msgstr ""
 
-#: includes/Modules/Media.php:1223
+#: includes/Modules/Media.php:1219
 msgctxt "Modules: Media: Row Action"
 msgid "View Image URL"
 msgstr ""
 
-#: includes/Modules/Media.php:1232
+#: includes/Modules/Media.php:1228
 msgctxt "Modules: Media: Row Action"
 msgid "View Video URL"
 msgstr ""
 
-#: includes/Modules/Media.php:1238
+#: includes/Modules/Media.php:1234
 msgctxt "Modules: Media: Row Action"
 msgid "View Data File URL"
 msgstr ""
 
-#: includes/Modules/Media.php:1244
+#: includes/Modules/Media.php:1240
 msgctxt "Modules: Media: Row Action"
 msgid "View Spreadsheet URL"
 msgstr ""
 
-#: includes/Modules/Media.php:1252
+#: includes/Modules/Media.php:1248
 msgctxt "Modules: Media: Row Action"
 msgid "View Document URL"
 msgstr ""
 
-#: includes/Modules/Media.php:1257
+#: includes/Modules/Media.php:1253
 msgctxt "Modules: Media: Row Action"
 msgid "View HTML file URL"
 msgstr ""
 
-#: includes/Modules/Media.php:1262
+#: includes/Modules/Media.php:1258
 msgctxt "Modules: Media: Row Action"
 msgid "View Item URL"
 msgstr ""
 
-#: includes/Modules/Media.php:1360
+#: includes/Modules/Media.php:1356
 msgctxt "Modules: Media: Post Mime Type"
 msgid "Text"
 msgstr ""
 
-#: includes/Modules/Media.php:1361
+#: includes/Modules/Media.php:1357
 msgctxt "Modules: Media: Post Mime Type"
 msgid "Manage Texts"
 msgstr ""
 
-#: includes/Modules/Media.php:1362
+#: includes/Modules/Media.php:1358
 msgctxt "Modules: Media: Post Mime Type"
 msgid "Text <span class=\"count\">(%s)</span>"
 msgid_plural "Texts <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/Modules/Media.php:1365
+#: includes/Modules/Media.php:1361
 msgctxt "Modules: Media: Post Mime Type"
 msgid "Application"
 msgstr ""
 
-#: includes/Modules/Media.php:1366
+#: includes/Modules/Media.php:1362
 msgctxt "Modules: Media: Post Mime Type"
 msgid "Manage Applications"
 msgstr ""
 
-#: includes/Modules/Media.php:1367
+#: includes/Modules/Media.php:1363
 msgctxt "Modules: Media: Post Mime Type"
 msgid "Application <span class=\"count\">(%s)</span>"
 msgid_plural "Applications <span class=\"count\">(%s)</span>"
@@ -3512,27 +3567,27 @@ msgctxt "Modules: Network: Bulk Action"
 msgid "Disable SSL"
 msgstr ""
 
-#: includes/Modules/Network.php:317
+#: includes/Modules/Network.php:319
 msgctxt "Modules: Network: Message"
 msgid "%s site(s) admin email reset to <code>%s</code>"
 msgstr ""
 
-#: includes/Modules/Network.php:324
+#: includes/Modules/Network.php:326
 msgctxt "Modules: Network: Message"
 msgid "%s site(s) SSL Enabled"
 msgstr ""
 
-#: includes/Modules/Network.php:330
+#: includes/Modules/Network.php:332
 msgctxt "Modules: Network: Message"
 msgid "%s site(s) SSL Disabled"
 msgstr ""
 
-#: includes/Modules/Network.php:336
+#: includes/Modules/Network.php:338
 msgctxt "Modules: Network: Column"
 msgid "SSL"
 msgstr ""
 
-#: includes/Modules/Network.php:339
+#: includes/Modules/Network.php:341
 msgctxt "Modules: Network: Column"
 msgid "ID"
 msgstr ""
@@ -3542,117 +3597,117 @@ msgctxt "Modules: Menu Name"
 msgid "Notify"
 msgstr ""
 
-#: includes/Modules/Notify.php:75
+#: includes/Modules/Notify.php:74
 msgctxt "Modules: Notify: Settings"
 msgid "New User Email"
 msgstr ""
 
-#: includes/Modules/Notify.php:76
+#: includes/Modules/Notify.php:75
 msgctxt "Modules: Notify: Settings"
 msgid "Notifies the blog admin of a newly-registered user."
 msgstr ""
 
-#: includes/Modules/Notify.php:81
+#: includes/Modules/Notify.php:80
 msgctxt "Modules: Notify: Settings"
 msgid "Password Reset Email"
 msgstr ""
 
-#: includes/Modules/Notify.php:82
+#: includes/Modules/Notify.php:81
 msgctxt "Modules: Notify: Settings"
 msgid "Notifies the blog admin of a user changed password."
 msgstr ""
 
-#: includes/Modules/Notify.php:87
+#: includes/Modules/Notify.php:86
 msgctxt "Modules: Notify: Settings"
 msgid "User Password Changes"
 msgstr ""
 
-#: includes/Modules/Notify.php:88
+#: includes/Modules/Notify.php:87
 msgctxt "Modules: Notify: Settings"
 msgid "Notifies the user of his password changed."
 msgstr ""
 
-#: includes/Modules/Notify.php:93
+#: includes/Modules/Notify.php:92
 msgctxt "Modules: Notify: Settings"
 msgid "User Email Changes"
 msgstr ""
 
-#: includes/Modules/Notify.php:94
+#: includes/Modules/Notify.php:93
 msgctxt "Modules: Notify: Settings"
 msgid "Notifies the user of his email address changed."
 msgstr ""
 
-#: includes/Modules/Notify.php:99
+#: includes/Modules/Notify.php:98
 msgctxt "Modules: Notify: Settings"
 msgid "Admin Email Changes"
 msgstr ""
 
-#: includes/Modules/Notify.php:100
+#: includes/Modules/Notify.php:99
 msgctxt "Modules: Notify: Settings"
 msgid "Notifies the old site admin of the site admin email address changed."
 msgstr ""
 
-#: includes/Modules/Notify.php:112
+#: includes/Modules/Notify.php:110
 msgctxt "Modules: Notify: Settings"
 msgid "New User Email Subject"
 msgstr ""
 
-#: includes/Modules/Notify.php:113
+#: includes/Modules/Notify.php:111
 msgctxt "Modules: Notify: Settings"
 msgid "Subject of the notification email of new user signup. Leave empty to use defaults."
 msgstr ""
 
-#: includes/Modules/Notify.php:120
+#: includes/Modules/Notify.php:118
 msgctxt "Modules: Notify: Settings"
 msgid "New User Email Message"
 msgstr ""
 
-#: includes/Modules/Notify.php:121
+#: includes/Modules/Notify.php:119
 msgctxt "Modules: Notify: Settings"
 msgid "Message content of the notification email for new user sign-up. Leave empty to use defaults."
 msgstr ""
 
-#: includes/Modules/Notify.php:129
+#: includes/Modules/Notify.php:127
 msgctxt "Modules: Notify: Settings"
 msgid "New Blog Email Subject"
 msgstr ""
 
-#: includes/Modules/Notify.php:130
+#: includes/Modules/Notify.php:128
 msgctxt "Modules: Notify: Settings"
 msgid "Subject of the new blog notification email. Leave empty to use defaults."
 msgstr ""
 
-#: includes/Modules/Notify.php:137
+#: includes/Modules/Notify.php:135
 msgctxt "Modules: Notify: Settings"
 msgid "New Blog Email Message"
 msgstr ""
 
-#: includes/Modules/Notify.php:138
+#: includes/Modules/Notify.php:136
 msgctxt "Modules: Notify: Settings"
 msgid "Message content of the new blog notification email. Leave empty to use defaults."
 msgstr ""
 
-#: includes/Modules/Notify.php:151
+#: includes/Modules/Notify.php:149
 msgctxt "Modules: Notify: Settings"
 msgid "Sign-up"
 msgstr ""
 
-#: includes/Modules/Notify.php:159
+#: includes/Modules/Notify.php:157
 msgctxt "Modules: Notify"
 msgid "Test Signup User Email"
 msgstr ""
 
-#: includes/Modules/Notify.php:160
+#: includes/Modules/Notify.php:158
 msgctxt "Modules: Notify"
 msgid "Sends a TEST confirmation request email to a user when they sign up for a new user account."
 msgstr ""
 
-#: includes/Modules/Notify.php:163
+#: includes/Modules/Notify.php:161
 msgctxt "Modules: Notify"
 msgid "Test Signup Blog Email"
 msgstr ""
 
-#: includes/Modules/Notify.php:164
+#: includes/Modules/Notify.php:162
 msgctxt "Modules: Notify"
 msgid "Sends a TEST confirmation request email to a user when they sign up for a new site."
 msgstr ""
@@ -3812,287 +3867,287 @@ msgctxt "Modules: OpenSearch"
 msgid "Your browser does not support the AddSearchProvider method!"
 msgstr ""
 
-#: includes/Modules/Profile.php:86
+#: includes/Modules/Profile.php:81
 msgctxt "Modules: Menu Name"
 msgid "Profile"
 msgstr ""
 
-#: includes/Modules/Profile.php:116
+#: includes/Modules/Profile.php:111
 msgctxt "Modules: Profile: Settings"
 msgid "Custom Display Name"
 msgstr ""
 
-#: includes/Modules/Profile.php:117
+#: includes/Modules/Profile.php:112
 msgctxt "Modules: Profile: Settings"
 msgid "Enables custom display name per-site for each user."
 msgstr ""
 
-#: includes/Modules/Profile.php:121
+#: includes/Modules/Profile.php:117
 msgctxt "Modules: Profile: Settings"
 msgid "Password Reset"
 msgstr ""
 
-#: includes/Modules/Profile.php:122
+#: includes/Modules/Profile.php:118
 msgctxt "Modules: Profile: Settings"
 msgid "Controls whether to allow a password to be reset."
 msgstr ""
 
-#: includes/Modules/Profile.php:127
+#: includes/Modules/Profile.php:123
 msgctxt "Modules: Profile: Settings"
 msgid "Color Schemes"
 msgstr ""
 
-#: includes/Modules/Profile.php:128
+#: includes/Modules/Profile.php:124
 msgctxt "Modules: Profile: Settings"
 msgid "Controls whether to allow a selection of admin color scheme."
 msgstr ""
 
-#: includes/Modules/Profile.php:133
+#: includes/Modules/Profile.php:128
 msgctxt "Modules: Profile: Settings"
 msgid "Contact Methods"
 msgstr ""
 
-#: includes/Modules/Profile.php:134
+#: includes/Modules/Profile.php:129
 msgctxt "Modules: Profile: Settings"
 msgid "Adds extra contact methods to user profiles"
 msgstr ""
 
-#: includes/Modules/Profile.php:139
+#: includes/Modules/Profile.php:134
 msgctxt "Modules: Profile: Settings"
 msgid "User Language"
 msgstr ""
 
-#: includes/Modules/Profile.php:140
+#: includes/Modules/Profile.php:135
 msgctxt "Modules: Profile: Settings"
 msgid "User admin language switcher"
 msgstr ""
 
-#: includes/Modules/Profile.php:148
+#: includes/Modules/Profile.php:143
 msgctxt "Modules: Profile: Settings"
 msgid "Disabled Page"
 msgstr ""
 
-#: includes/Modules/Profile.php:149
+#: includes/Modules/Profile.php:144
 msgctxt "Modules: Profile: Settings"
 msgid "Redirects network sign-up into this page, if registration have been <b>disabled</b>."
 msgstr ""
 
-#: includes/Modules/Profile.php:157
+#: includes/Modules/Profile.php:152
 msgctxt "Modules: Profile: Settings"
 msgid "Custom Location"
 msgstr ""
 
-#: includes/Modules/Profile.php:158
+#: includes/Modules/Profile.php:153
 msgctxt "Modules: Profile: Settings"
 msgid "Full URL to the custom sign-up page."
 msgstr ""
 
-#: includes/Modules/Profile.php:163
+#: includes/Modules/Profile.php:158
 msgctxt "Modules: Profile: Settings"
 msgid "Location After"
 msgstr ""
 
-#: includes/Modules/Profile.php:164
+#: includes/Modules/Profile.php:159
 msgctxt "Modules: Profile: Settings"
 msgid "Redirects into this URL after a successful registraion."
 msgstr ""
 
-#: includes/Modules/Profile.php:168
+#: includes/Modules/Profile.php:163
 msgctxt "Modules: Profile: Settings"
 msgid "IP Address"
 msgstr ""
 
-#: includes/Modules/Profile.php:169
+#: includes/Modules/Profile.php:164
 msgctxt "Modules: Profile: Settings"
 msgid "Stores user's IP address upon registration."
 msgstr ""
 
-#: includes/Modules/Profile.php:175
+#: includes/Modules/Profile.php:170
 msgctxt "Modules: Profile: Settings"
 msgid "Default Color Scheme"
 msgstr ""
 
-#: includes/Modules/Profile.php:176
+#: includes/Modules/Profile.php:171
 msgctxt "Modules: Profile: Settings"
 msgid "Sets as default upon each user registeration."
 msgstr ""
 
-#: includes/Modules/Profile.php:178
+#: includes/Modules/Profile.php:173
 msgctxt "Modules: Profile: Settings: Color Scheme"
 msgid "Default"
 msgstr ""
 
-#: includes/Modules/Profile.php:179
+#: includes/Modules/Profile.php:174
 msgctxt "Modules: Profile: Settings: Color Scheme"
 msgid "Light"
 msgstr ""
 
-#: includes/Modules/Profile.php:180
+#: includes/Modules/Profile.php:175
 msgctxt "Modules: Profile: Settings: Color Scheme"
 msgid "Blue"
 msgstr ""
 
-#: includes/Modules/Profile.php:181
+#: includes/Modules/Profile.php:176
 msgctxt "Modules: Profile: Settings: Color Scheme"
 msgid "Coffee"
 msgstr ""
 
-#: includes/Modules/Profile.php:182
+#: includes/Modules/Profile.php:177
 msgctxt "Modules: Profile: Settings: Color Scheme"
 msgid "Ectoplasm"
 msgstr ""
 
-#: includes/Modules/Profile.php:183
+#: includes/Modules/Profile.php:178
 msgctxt "Modules: Profile: Settings: Color Scheme"
 msgid "Midnight"
 msgstr ""
 
-#: includes/Modules/Profile.php:184
+#: includes/Modules/Profile.php:179
 msgctxt "Modules: Profile: Settings: Color Scheme"
 msgid "Ocean"
 msgstr ""
 
-#: includes/Modules/Profile.php:185
+#: includes/Modules/Profile.php:180
 msgctxt "Modules: Profile: Settings: Color Scheme"
 msgid "Sunrise"
 msgstr ""
 
-#: includes/Modules/Profile.php:195
+#: includes/Modules/Profile.php:190
 msgctxt "Modules: Profile: Settings"
 msgid "Sign-up"
 msgstr ""
 
-#: includes/Modules/Profile.php:196
+#: includes/Modules/Profile.php:191
 msgctxt "Modules: Profile: Settings"
 msgid "Control the aspects of user registeration on this network."
 msgstr ""
 
-#: includes/Modules/Profile.php:206
+#: includes/Modules/Profile.php:201
 msgctxt "Modules: Profile"
 msgid "Before you can upload a file, you will need to fix the following error: %s"
 msgstr ""
 
-#: includes/Modules/Profile.php:222
+#: includes/Modules/Profile.php:218
 msgctxt "Modules: Profile"
 msgid "Import Users"
 msgstr ""
 
-#: includes/Modules/Profile.php:223
+#: includes/Modules/Profile.php:219
 msgctxt "Modules: Profile"
 msgid "Upload a list of users in CSV. Maximum size: <b>%s</b>"
 msgstr ""
 
-#: includes/Modules/Profile.php:231
+#: includes/Modules/Profile.php:227
 msgctxt "Modules: Profile"
 msgid "Export Users"
 msgstr ""
 
-#: includes/Modules/Profile.php:232
+#: includes/Modules/Profile.php:228
 msgctxt "Modules: Profile"
 msgid "Click to get all registered users in CSV."
 msgstr ""
 
-#: includes/Modules/Profile.php:242
+#: includes/Modules/Profile.php:238
 msgctxt "Modules: Profile: Help Tab Title"
 msgid "Contact Methods"
 msgstr ""
 
-#: includes/Modules/Profile.php:414
+#: includes/Modules/Profile.php:420
 msgctxt "Modules: Profile: User Contact Method"
 msgid "Mobile Phone"
 msgstr ""
 
-#: includes/Modules/Profile.php:415
+#: includes/Modules/Profile.php:421
 msgctxt "Modules: Profile: User Contact Method"
 msgid "Twitter"
 msgstr ""
 
-#: includes/Modules/Profile.php:416
+#: includes/Modules/Profile.php:422
 msgctxt "Modules: Profile: User Contact Method"
 msgid "Telegram"
 msgstr ""
 
-#: includes/Modules/Profile.php:417
+#: includes/Modules/Profile.php:423
 msgctxt "Modules: Profile: User Contact Method"
 msgid "Facebook"
 msgstr ""
 
-#: includes/Modules/Profile.php:418
+#: includes/Modules/Profile.php:424
 msgctxt "Modules: Profile: User Contact Method"
 msgid "Google+"
 msgstr ""
 
-#: includes/Modules/Profile.php:429
+#: includes/Modules/Profile.php:435
 msgctxt "Modules: Profile"
 msgid "Account Information"
 msgstr ""
 
-#: includes/Modules/Profile.php:438
+#: includes/Modules/Profile.php:444
 msgctxt "Modules: Profile"
 msgid "Registration IP"
 msgstr ""
 
-#: includes/Modules/Profile.php:448
+#: includes/Modules/Profile.php:454
 msgctxt "Modules: Profile"
 msgid "Registration on"
 msgstr ""
 
-#: includes/Modules/Profile.php:464
+#: includes/Modules/Profile.php:470
 msgctxt "Modules: Profile"
 msgid "Last Login"
 msgstr ""
 
-#: includes/Modules/Profile.php:467
+#: includes/Modules/Profile.php:473
 msgctxt "Modules: Profile"
 msgid "Last Logins are Disabled."
 msgstr ""
 
-#: includes/Modules/Profile.php:473
+#: includes/Modules/Profile.php:479
 msgctxt "Modules: Profile"
 msgid "Administrative Options"
 msgstr ""
 
-#: includes/Modules/Profile.php:481
+#: includes/Modules/Profile.php:487
 msgctxt "Modules: Profile"
 msgid "Slug"
 msgstr ""
 
-#: includes/Modules/Profile.php:484
+#: includes/Modules/Profile.php:490
 msgctxt "Modules: Profile"
 msgid "This will be used in the URL of the user's page."
 msgstr ""
 
-#: includes/Modules/Profile.php:491
+#: includes/Modules/Profile.php:497
 msgctxt "Modules: Profile"
 msgid "Account Login"
 msgstr ""
 
-#: includes/Modules/Profile.php:495
+#: includes/Modules/Profile.php:501
 msgctxt "Modules: Profile"
 msgid "Disable user login with this account"
 msgstr ""
 
-#: includes/Modules/Profile.php:500
+#: includes/Modules/Profile.php:506
 msgctxt "Modules: Profile"
 msgid "Password Reset"
 msgstr ""
 
-#: includes/Modules/Profile.php:504
+#: includes/Modules/Profile.php:510
 msgctxt "Modules: Profile"
 msgid "Disable this account password reset via default login page"
 msgstr ""
 
-#: includes/Modules/Profile.php:568
+#: includes/Modules/Profile.php:579
 msgctxt "Modules: Profile"
 msgid "Blog Options"
 msgstr ""
 
-#: includes/Modules/Profile.php:575
+#: includes/Modules/Profile.php:586
 msgctxt "Modules: Profile"
 msgid "Nickname for this site"
 msgstr ""
 
-#: includes/Modules/Profile.php:579
+#: includes/Modules/Profile.php:590
 msgctxt "Modules: Profile"
 msgid "This will be displayed as your name in this site only."
 msgstr ""
@@ -4372,17 +4427,17 @@ msgctxt "Modules: Search: Settings"
 msgid "Current Page: %s"
 msgstr ""
 
-#: includes/Modules/Search.php:246
+#: includes/Modules/Search.php:247
 msgctxt "Modules: Search: Form: Label"
 msgid "Search for:"
 msgstr ""
 
-#: includes/Modules/Search.php:247
+#: includes/Modules/Search.php:248
 msgctxt "Modules: Search: Form: Placeholder"
 msgid "Search &hellip;"
 msgstr ""
 
-#: includes/Modules/Search.php:249
+#: includes/Modules/Search.php:250
 msgctxt "Modules: Search: Form: Submit Button"
 msgid "Search"
 msgstr ""
@@ -4607,152 +4662,157 @@ msgctxt "Shortcodes Module: Defaults"
 msgid "See the Footnote"
 msgstr ""
 
-#: includes/Modules/Site.php:49
+#: includes/Modules/Site.php:47
 msgctxt "Modules: Menu Name"
 msgid "Global"
 msgstr ""
 
-#: includes/Modules/Site.php:75
+#: includes/Modules/Site.php:73
 msgctxt "Modules: Site: Settings"
 msgid "SSL"
 msgstr ""
 
-#: includes/Modules/Site.php:76
+#: includes/Modules/Site.php:74
 msgctxt "Modules: Site: Settings"
 msgid "Enables SSL tools to support the network sites."
 msgstr ""
 
-#: includes/Modules/Site.php:82
+#: includes/Modules/Site.php:80
 msgctxt "Modules: Site: Settings"
 msgid "Sync Metadata"
 msgstr ""
 
-#: includes/Modules/Site.php:83
+#: includes/Modules/Site.php:81
 msgctxt "Modules: Site: Settings"
 msgid "Re-syncs the site meta network-wide automatically."
 msgstr ""
 
-#: includes/Modules/Site.php:89
+#: includes/Modules/Site.php:87
 msgctxt "Modules: Site: Settings"
 msgid "Site Not Found"
 msgstr ""
 
-#: includes/Modules/Site.php:90
+#: includes/Modules/Site.php:88
 msgctxt "Modules: Site: Settings"
 msgid "Redirects to when the network can be determined but a site cannot."
 msgstr ""
 
-#: includes/Modules/Site.php:97
+#: includes/Modules/Site.php:95
 msgctxt "Modules: Site: Settings"
 msgid "Network Locale"
 msgstr ""
 
-#: includes/Modules/Site.php:98
+#: includes/Modules/Site.php:96
 msgctxt "Modules: Site: Settings"
 msgid "Overrides network admin language, despite of the main site locale."
 msgstr ""
 
-#: includes/Modules/Site.php:108
+#: includes/Modules/Site.php:106
 msgctxt "Modules: Site: Settings"
 msgid "Access Denied"
 msgstr ""
 
-#: includes/Modules/Site.php:109
+#: includes/Modules/Site.php:107
 msgctxt "Modules: Site: Settings"
 msgid "Displays when access to an admin page is denied. Leave empty to use default or <code>0</code> to disable."
 msgstr ""
 
-#: includes/Modules/Site.php:115
+#: includes/Modules/Site.php:113
 msgctxt "Modules: Site: Settings"
 msgid "Denied Message"
 msgstr ""
 
-#: includes/Modules/Site.php:116
+#: includes/Modules/Site.php:114
 msgctxt "Modules: Site: Settings"
 msgid "Displays this message when a user tries to view a site's dashboard they do not have access to. Leave empty to use default or <code>0</code> to disable. <code>%1$s</code>: Blog Name"
 msgstr ""
 
-#: includes/Modules/Site.php:122
+#: includes/Modules/Site.php:120
 msgctxt "Modules: Site: Settings"
 msgid "Extra Message"
 msgstr ""
 
-#: includes/Modules/Site.php:123
+#: includes/Modules/Site.php:121
 msgctxt "Modules: Site: Settings"
 msgid "Displays this message before the list of sites. Leave empty to use default or <code>0</code> to disable."
 msgstr ""
 
-#: includes/Modules/Site.php:128
+#: includes/Modules/Site.php:126
 msgctxt "Modules: Site: Settings"
 msgid "List of Sites"
 msgstr ""
 
-#: includes/Modules/Site.php:129
+#: includes/Modules/Site.php:127
 msgctxt "Modules: Site: Settings"
 msgid "Displays the current user list of sites after access denied message."
 msgstr ""
 
-#: includes/Modules/Site.php:137
+#: includes/Modules/Site.php:135
 msgctxt "Modules: Site: Settings"
 msgid "Lookup IP URL"
 msgstr ""
 
-#: includes/Modules/Site.php:138
+#: includes/Modules/Site.php:136
 msgctxt "Modules: Site: Settings"
 msgid "URL template to to use for looking up IP adresses. Will replace <code>%s</code> with the IP."
 msgstr ""
 
-#: includes/Modules/Site.php:149
+#: includes/Modules/Site.php:147
 msgctxt "Modules: Site: Settings"
 msgid "Dashboard Access"
 msgstr ""
 
-#: includes/Modules/Site.php:159
+#: includes/Modules/Site.php:157
 msgctxt "Modules: Site: Settings"
 msgid "The %s is set. The site will not redirect to HTTPS automatically."
 msgstr ""
 
-#: includes/Modules/Site.php:170
+#: includes/Modules/Site.php:168
 msgctxt "Modules: Site"
 msgid "Disable SSL"
 msgstr ""
 
-#: includes/Modules/Site.php:173
+#: includes/Modules/Site.php:171
 msgctxt "Modules: Site"
 msgid "Enable SSL"
 msgstr ""
 
-#: includes/Modules/Site.php:183
+#: includes/Modules/Site.php:181
 msgctxt "Modules: Site"
 msgid "SSL support disabled."
 msgstr ""
 
-#: includes/Modules/Site.php:187
+#: includes/Modules/Site.php:188
 msgctxt "Modules: Site"
 msgid "Re-sync Sites Meta"
 msgstr ""
 
-#: includes/Modules/Site.php:188
+#: includes/Modules/Site.php:189
 msgctxt "Modules: Site"
 msgid "Regenerates sites metadata."
 msgstr ""
 
-#: includes/Modules/Site.php:278
+#: includes/Modules/Site.php:193
+msgctxt "Modules: Site"
+msgid "Sync Metadata disabled."
+msgstr ""
+
+#: includes/Modules/Site.php:286
 msgctxt "Modules: Site:‌ User Sites"
 msgid "Your Sites"
 msgstr ""
 
-#: includes/Modules/Site.php:287
+#: includes/Modules/Site.php:295
 msgctxt "Modules: Site:‌ User Sites"
 msgid "Visit Dashboard"
 msgstr ""
 
-#: includes/Modules/Site.php:289
+#: includes/Modules/Site.php:297
 msgctxt "Modules: Site:‌ User Sites"
 msgid "View Site"
 msgstr ""
 
-#: includes/Modules/Site.php:318
+#: includes/Modules/Site.php:327
 msgctxt "Modules: Site:‌ Initial Page Content"
 msgid "[ This page is being completed ]"
 msgstr ""
@@ -4812,247 +4872,257 @@ msgctxt "Modules: Support: Widget Title"
 msgid "Technical Support"
 msgstr ""
 
-#: includes/Modules/Support.php:138
+#: includes/Modules/Support.php:137
 msgctxt "Modules: Support"
 msgid "Please use this form to report encountered bugs, issues and other support requests directly to %1$s."
 msgstr ""
 
-#: includes/Modules/Support.php:141
+#: includes/Modules/Support.php:140
 msgctxt "Modules: Support"
 msgid "Note that a response e-mail will be sent to the address associated with your profile %2$s."
 msgstr ""
 
-#: includes/Modules/Support.php:144
+#: includes/Modules/Support.php:143
 msgctxt "Modules: Support"
 msgid "In order to change that please visit your profile page."
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:32
+#: includes/Modules/Taxonomy.php:31
 msgctxt "Modules: Menu Name"
 msgid "Taxonomy"
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:54
+#: includes/Modules/Taxonomy.php:53
 msgctxt "Modules: Taxonomy: Settings"
 msgid "Management Tools"
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:55
+#: includes/Modules/Taxonomy.php:54
 msgctxt "Modules: Taxonomy: Settings"
 msgid "Allows you to merge terms, set term parents in bulk, and swap term taxonomies."
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:60
+#: includes/Modules/Taxonomy.php:59
 msgctxt "Modules: Taxonomy: Settings"
 msgid "Slug Actions"
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:61
+#: includes/Modules/Taxonomy.php:60
 msgctxt "Modules: Taxonomy: Settings"
 msgid "Adds slug specific actions on the taxonomy management tools."
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:65
+#: includes/Modules/Taxonomy.php:64
 msgctxt "Modules: Taxonomy: Settings"
 msgid "Description Editor"
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:66
+#: includes/Modules/Taxonomy.php:65
 msgctxt "Modules: Taxonomy: Settings"
 msgid "Replaces the term description editor with the WordPress TinyMCE editor."
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:70
+#: includes/Modules/Taxonomy.php:69
 msgctxt "Modules: Taxonomy: Settings"
 msgid "Description Column"
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:71
+#: includes/Modules/Taxonomy.php:70
 msgctxt "Modules: Taxonomy: Settings"
 msgid "Adds description column to term list table and quick edit."
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:76
+#: includes/Modules/Taxonomy.php:75
 msgctxt "Modules: Taxonomy: Settings"
 msgid "Search Fields"
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:77
+#: includes/Modules/Taxonomy.php:76
 msgctxt "Modules: Taxonomy: Settings"
 msgid "Looks for criteria in term descriptions and slugs as well as term names."
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:152
+#: includes/Modules/Taxonomy.php:151
 msgctxt "Modules: Taxonomy: Column"
 msgid "Description"
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:180
+#: includes/Modules/Taxonomy.php:179
 msgctxt "Modules: Taxonomy: Quick Edit Label"
 msgid "Description"
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:242, includes/Modules/Taxonomy.php:276
+#: includes/Modules/Taxonomy.php:241, includes/Modules/Taxonomy.php:275
 msgctxt "Modules: Taxonomy"
 msgid "Description"
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:249, includes/Modules/Taxonomy.php:283
+#: includes/Modules/Taxonomy.php:248, includes/Modules/Taxonomy.php:282
 msgctxt "Modules: Taxonomy"
 msgid "The description is not prominent by default; however, some themes may show it."
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:294
+#: includes/Modules/Taxonomy.php:293
 msgctxt "Modules: Taxonomy"
 msgid "Words: %s"
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:296
+#: includes/Modules/Taxonomy.php:295
 msgctxt "Modules: Taxonomy"
 msgid "Chars: %s"
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:314
+#: includes/Modules/Taxonomy.php:313
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Set Parent"
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:316
+#: includes/Modules/Taxonomy.php:315
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Merge"
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:317
+#: includes/Modules/Taxonomy.php:316
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Change Taxonomy"
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:318
+#: includes/Modules/Taxonomy.php:317
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Format i18n"
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:319
+#: includes/Modules/Taxonomy.php:318
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Empty Posts"
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:320
+#: includes/Modules/Taxonomy.php:319
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Empty Description"
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:323
+#: includes/Modules/Taxonomy.php:322
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Rewrite Slug"
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:324
+#: includes/Modules/Taxonomy.php:323
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Transliterate Slug"
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:416
+#: includes/Modules/Taxonomy.php:415
 msgctxt "Settings: Message"
 msgid "Terms updated."
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:421
+#: includes/Modules/Taxonomy.php:420
 msgctxt "Settings: Message"
 msgid "Terms not updated."
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:655
+#: includes/Modules/Taxonomy.php:654
 msgctxt "Modules: Taxonomy"
 msgid "into: %s"
 msgstr ""
 
-#: includes/Modules/Themes.php:69
+#: includes/Modules/Themes.php:65
 msgctxt "Modules: Menu Name"
 msgid "Themes"
 msgstr ""
 
-#: includes/Modules/Themes.php:92
+#: includes/Modules/Themes.php:90
 msgctxt "Modules: Themes: Settings"
 msgid "Theme Enhancements"
 msgstr ""
 
-#: includes/Modules/Themes.php:93
+#: includes/Modules/Themes.php:91
 msgctxt "Modules: Themes: Settings"
 msgid "Extra styles and more for suported themes"
 msgstr ""
 
-#: includes/Modules/Themes.php:99
+#: includes/Modules/Themes.php:96
 msgctxt "Modules: Themes: Settings"
 msgid "Content Actions"
 msgstr ""
 
-#: includes/Modules/Themes.php:100
+#: includes/Modules/Themes.php:97
 msgctxt "Modules: Themes: Settings"
 msgid "Extra hooks before and after post content"
 msgstr ""
 
-#: includes/Modules/Themes.php:105
+#: includes/Modules/Themes.php:102
 msgctxt "Modules: Themes: Settings"
 msgid "Hidden Title"
 msgstr ""
 
-#: includes/Modules/Themes.php:106
+#: includes/Modules/Themes.php:103
 msgctxt "Modules: Themes: Settings"
 msgid "Supports hidden titles on the front-end."
 msgstr ""
 
-#: includes/Modules/Themes.php:111
+#: includes/Modules/Themes.php:108
 msgctxt "Modules: Themes: Settings"
 msgid "Body Class"
 msgstr ""
 
-#: includes/Modules/Themes.php:112
+#: includes/Modules/Themes.php:109
 msgctxt "Modules: Themes: Settings"
 msgid "This will be added as HTML body class to all pages on front-end"
 msgstr ""
 
-#: includes/Modules/Themes.php:120
+#: includes/Modules/Themes.php:117
 msgctxt "Modules: Themes: Settings"
 msgid "jQuery from CDN"
 msgstr ""
 
-#: includes/Modules/Themes.php:121
+#: includes/Modules/Themes.php:118
 msgctxt "Modules: Themes: Settings"
-msgid "Replace WordPress jQuery with CDN"
+msgid "Replace WordPress jQuery with CDN."
 msgstr ""
 
-#: includes/Modules/Themes.php:125
+#: includes/Modules/Themes.php:122
+msgctxt "Modules: Themes: Settings"
+msgid "jQuery Latest"
+msgstr ""
+
+#: includes/Modules/Themes.php:123
+msgctxt "Modules: Themes: Settings"
+msgid "Replace WordPress jQuery with the latest version from CDN."
+msgstr ""
+
+#: includes/Modules/Themes.php:127
 msgctxt "Modules: Themes: Settings"
 msgid "jQuery on Bottom"
 msgstr ""
 
-#: includes/Modules/Themes.php:126
+#: includes/Modules/Themes.php:128
 msgctxt "Modules: Themes: Settings"
-msgid "Prints jQuery in footer on front-end"
+msgid "Prints jQuery in footer on front-end."
 msgstr ""
 
-#: includes/Modules/Themes.php:169
+#: includes/Modules/Themes.php:172
 msgctxt "Modules: Themes"
 msgid "Hide Title on Front-end"
 msgstr ""
 
-#: includes/Modules/Themes.php:658
+#: includes/Modules/Themes.php:671
 msgctxt "Modules: Themes"
 msgid "Read more&nbsp;<span class=\"excerpt-link-hellip\">&hellip;</span>"
 msgstr ""
 
-#: includes/Modules/Themes.php:659
+#: includes/Modules/Themes.php:672
 msgctxt "Modules: Themes"
 msgid "Continue reading &ldquo;%s&rdquo; &hellip;"
 msgstr ""
 
-#: includes/Modules/Themes.php:666
+#: includes/Modules/Themes.php:679
 msgctxt "Modules: Themes"
 msgid "by %s"
 msgstr ""
 
-#: includes/Modules/Themes.php:667
+#: includes/Modules/Themes.php:680
 msgctxt "Modules: Themes"
 msgid "View all posts by %s"
 msgstr ""
@@ -5262,22 +5332,22 @@ msgctxt "Modules: Menu Name"
 msgid "Update"
 msgstr ""
 
-#: includes/Modules/Update.php:77
+#: includes/Modules/Update.php:78
 msgctxt "Modules: Update: Settings"
 msgid "Auto Update Core"
 msgstr ""
 
-#: includes/Modules/Update.php:78
+#: includes/Modules/Update.php:79
 msgctxt "Modules: Update: Settings"
 msgid "Disables automatic updates of the WordPress core."
 msgstr ""
 
-#: includes/Modules/Update.php:83
+#: includes/Modules/Update.php:84
 msgctxt "Modules: Update: Settings"
 msgid "Auto and Async Translations"
 msgstr ""
 
-#: includes/Modules/Update.php:84
+#: includes/Modules/Update.php:85
 msgctxt "Modules: Update: Settings"
 msgid "Disables asynchronous and automatic background translation updates."
 msgstr ""
@@ -5689,11 +5759,11 @@ msgctxt "Modules: Widgets: Settings"
 msgid "Choose the dashboard widgets you would like to <b>disable</b>."
 msgstr ""
 
-#: includes/Plugin.php:316
+#: includes/Plugin.php:315
 msgid "Not Available"
 msgstr ""
 
-#: includes/Plugin.php:316, includes/Plugin.php:317
+#: includes/Plugin.php:315, includes/Plugin.php:316
 msgid "N/A"
 msgstr ""
 
@@ -6082,207 +6152,207 @@ msgctxt "Settings"
 msgid "See Codex"
 msgstr ""
 
-#: includes/Settings.php:266
+#: includes/Settings.php:273
 msgctxt "Settings"
 msgid "Full URL to the current login logo image"
 msgstr ""
 
-#: includes/Settings.php:268
+#: includes/Settings.php:275
 msgctxt "Settings"
 msgid "Login Logo"
 msgstr ""
 
-#: includes/Settings.php:292
+#: includes/Settings.php:297
 msgctxt "Settings"
 msgid "See More Information"
 msgstr ""
 
-#: includes/Settings.php:306
+#: includes/Settings.php:313
 msgctxt "Settings"
 msgid "Currently defined constant"
 msgstr ""
 
-#: includes/Settings.php:324
+#: includes/Settings.php:331
 msgctxt "Settings"
 msgid "Add New Post Type"
 msgstr ""
 
-#: includes/Settings.php:331
+#: includes/Settings.php:338
 msgctxt "Utilities: Dropdown: Get User Roles"
 msgid "Administrators"
 msgstr ""
 
-#: includes/Settings.php:332
+#: includes/Settings.php:339
 msgctxt "Utilities: Dropdown: Get User Roles"
 msgid "Editors"
 msgstr ""
 
-#: includes/Settings.php:333
+#: includes/Settings.php:340
 msgctxt "Utilities: Dropdown: Get User Roles"
 msgid "Authors"
 msgstr ""
 
-#: includes/Settings.php:334
+#: includes/Settings.php:341
 msgctxt "Utilities: Dropdown: Get User Roles"
 msgid "Contributors"
 msgstr ""
 
-#: includes/Settings.php:335
+#: includes/Settings.php:342
 msgctxt "Utilities: Dropdown: Get User Roles"
 msgid "Subscribers"
 msgstr ""
 
-#: includes/Settings.php:340
+#: includes/Settings.php:347
 msgctxt "Utilities: Dropdown: Get User Roles"
 msgid "Super Admins"
 msgstr ""
 
-#: includes/Settings.php:342
+#: includes/Settings.php:349
 msgctxt "Utilities: Dropdown: Get User Roles"
 msgid "Network Users"
 msgstr ""
 
-#: includes/Settings.php:347
+#: includes/Settings.php:354
 msgctxt "Utilities: Dropdown: Get User Roles"
 msgid "&mdash; No One &mdash;"
 msgstr ""
 
-#: includes/Settings.php:373
+#: includes/Settings.php:380
 msgctxt "Settings: Option: Time in Minutes"
 msgid "5 Minutes"
 msgstr ""
 
-#: includes/Settings.php:374
+#: includes/Settings.php:381
 msgctxt "Settings: Option: Time in Minutes"
 msgid "10 Minutes"
 msgstr ""
 
-#: includes/Settings.php:375
+#: includes/Settings.php:382
 msgctxt "Settings: Option: Time in Minutes"
 msgid "15 Minutes"
 msgstr ""
 
-#: includes/Settings.php:376
+#: includes/Settings.php:383
 msgctxt "Settings: Option: Time in Minutes"
 msgid "30 Minutes"
 msgstr ""
 
-#: includes/Settings.php:377
+#: includes/Settings.php:384
 msgctxt "Settings: Option: Time in Minutes"
 msgid "60 Minutes"
 msgstr ""
 
-#: includes/Settings.php:378
+#: includes/Settings.php:385
 msgctxt "Settings: Option: Time in Minutes"
 msgid "2 Hours"
 msgstr ""
 
-#: includes/Settings.php:379
+#: includes/Settings.php:386
 msgctxt "Settings: Option: Time in Minutes"
 msgid "3 Hours"
 msgstr ""
 
-#: includes/Settings.php:380
+#: includes/Settings.php:387
 msgctxt "Settings: Option: Time in Minutes"
 msgid "4 Hours"
 msgstr ""
 
-#: includes/Settings.php:381
+#: includes/Settings.php:388
 msgctxt "Settings: Option: Time in Minutes"
 msgid "8 Hours"
 msgstr ""
 
-#: includes/Settings.php:382
+#: includes/Settings.php:389
 msgctxt "Settings: Option: Time in Minutes"
 msgid "24 Hours"
 msgstr ""
 
-#: includes/Settings.php:389
+#: includes/Settings.php:396
 msgctxt "Settings: Dropdown Select Option None"
 msgid "&mdash; Select %s &mdash;"
 msgstr ""
 
-#: includes/Settings.php:391
+#: includes/Settings.php:398
 msgctxt "Settings: Dropdown Select Option None"
 msgid "&mdash; Select &mdash;"
 msgstr ""
 
-#: includes/Settings.php:397
+#: includes/Settings.php:404
 msgctxt "Settings: Dropdown Select Option All"
 msgid "&mdash; All %s &mdash;"
 msgstr ""
 
-#: includes/Settings.php:399
+#: includes/Settings.php:406
 msgctxt "Settings: Dropdown Select Option All"
 msgid "&mdash; All &mdash;"
 msgstr ""
 
-#: includes/Settings.php:405, includes/Settings.php:511
+#: includes/Settings.php:412, includes/Settings.php:518
 msgctxt "Settings"
 msgid "Enabled"
 msgstr ""
 
-#: includes/Settings.php:406, includes/Settings.php:510
+#: includes/Settings.php:413, includes/Settings.php:517
 msgctxt "Settings"
 msgid "Disabled"
 msgstr ""
 
-#: includes/Settings.php:414
+#: includes/Settings.php:421
 msgctxt "Settings: Setting Title"
 msgid "Extra Shortcodes"
 msgstr ""
 
-#: includes/Settings.php:415
+#: includes/Settings.php:422
 msgctxt "Settings: Setting Desc"
 msgid "Registers this modules's extra shortcodes."
 msgstr ""
 
-#: includes/Settings.php:423
+#: includes/Settings.php:430
 msgctxt "Settings: Setting Title"
 msgid "Editor Buttons"
 msgstr ""
 
-#: includes/Settings.php:424
+#: includes/Settings.php:431
 msgctxt "Settings: Setting Desc"
 msgid "Displays extra buttons on post content editor."
 msgstr ""
 
-#: includes/Settings.php:432
+#: includes/Settings.php:439
 msgctxt "Settings: Setting Title"
 msgid "Dashboard Widget"
 msgstr ""
 
-#: includes/Settings.php:433
+#: includes/Settings.php:440
 msgctxt "Settings: Setting Desc"
 msgid "Adds a widget to this site dashboard."
 msgstr ""
 
-#: includes/Settings.php:442
+#: includes/Settings.php:449
 msgctxt "Settings: Setting Title"
 msgid "Access Level"
 msgstr ""
 
-#: includes/Settings.php:443
+#: includes/Settings.php:450
 msgctxt "Settings: Setting Desc"
 msgid "Selected and above can view the dashboard widget."
 msgstr ""
 
-#: includes/Settings.php:452
+#: includes/Settings.php:459
 msgctxt "Settings: Setting Title"
 msgid "Widget Introduction "
 msgstr ""
 
-#: includes/Settings.php:453
+#: includes/Settings.php:460
 msgctxt "Settings: Setting Desc"
 msgid "Message to display before contents on admin dashbaord widget."
 msgstr ""
 
-#: includes/Settings.php:513
+#: includes/Settings.php:520
 msgctxt "Settings"
 msgid "No options!"
 msgstr ""
 
-#: includes/Settings.php:514
+#: includes/Settings.php:521
 msgctxt "Settings"
 msgid "You do not have access to change this option."
 msgstr ""
