@@ -1,3 +1,29 @@
+### 3.7.6
+* main/module: auto hook current screen actions
+* main/settings: disabled field type
+* module/admin: initial support for dark mode
+* module/adminbar: methods on http calls
+* module/blog: deprecated methods updated for wpcf7
+* module/blog: disable admin pointers
+* module/blog: disable emojies constant dropped
+* module/blog: disable resource hints for emojis
+* module/cron: rtl wrapper for notification email
+* module/dashboard: distribute screen logics
+* module/editor: enqueue underscore as dependency
+* module/embed: add support for kavimo
+* module/embed: disable oembed discovery
+* module/embed: wrapping oembed html
+* module/maintenance: new default layout for 503
+* module/profile: restrict fields to core pages
+* module/search: fixed search terms notice
+* module/site: check options before sync meta button
+* module/site: log ssl switch
+* module/taxonomy: empty editor after adding new term
+* module/taxonomy: enqueue underscore as dependency
+* module/themes: body class for empty title posts
+* module/themes: jquery latest from cdn
+* module/typography: hide section titles on non single
+
 ### 3.7.5
 * assets/js: :up: chosen 1.8.7
 * assets/js: :up: prismjs 1.15.0
