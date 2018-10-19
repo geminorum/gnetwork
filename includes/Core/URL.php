@@ -145,4 +145,69 @@ class URL extends Base
 
 		return $results;
 	}
+
+	/// FOLLOW A SINGLE REDIRECT
+	// This makes a single request and reads the "Location" header to determine
+	// the destination. It doesn't check if that location is valid or not.
+	// @SOURCE: https://gist.github.com/davejamesmiller/dbefa0ff167cc5c08d6d
+	public static function getRedirectTargetSingle( $url )
+	{
+		$ch = curl_init( $url );
+
+		curl_setopt( $ch, CURLOPT_HEADER, 1 );
+		curl_setopt( $ch, CURLOPT_NOBODY, 1 );
+		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
+
+		$headers = curl_exec( $ch );
+
+		curl_close( $ch );
+
+		// Check if there's a Location: header (redirect)
+		if ( preg_match( '/^Location: (.+)$/im', $headers, $matches ) )
+			return trim( $matches[1] );
+
+		// If not, there was no redirect so return the original URL
+		// (Alternatively change this to return false)
+		return $url;
+	}
+
+	/// FOLLOW ALL REDIRECTS
+	// This makes multiple requests, following each redirect until it reaches
+	// the final destination.
+	// @SOURCE: https://gist.github.com/davejamesmiller/dbefa0ff167cc5c08d6d
+	public static function getRedirectTargetFinal( $url )
+	{
+		$ch = curl_init($url);
+
+		curl_setopt( $ch, CURLOPT_NOBODY, 1 );
+		curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 1 ); // follow redirects
+		curl_setopt( $ch, CURLOPT_AUTOREFERER, 1 ); // set referer on redirect
+
+		curl_exec( $ch );
+
+		$target = curl_getinfo( $ch, CURLINFO_EFFECTIVE_URL );
+
+		curl_close( $ch );
+
+		return $target ?: FALSE;
+	}
+
+	// converts a URL to just the domain
+	// @SOURCE: https://gist.github.com/davejamesmiller/1965937
+	public static function getDomain( $url )
+	{
+		$host = @parse_url( $url, PHP_URL_HOST );
+
+		// If the URL can't be parsed, use the original URL
+		// Change to "return false" if you don't want that
+		if ( ! $host )
+			$host = $url;
+
+		// The "www." prefix isn't really needed if you're just using
+		// this to display the domain to the user
+		if ( 'www.' == substr( $host, 0, 4 ) )
+			$host = substr( $host, 4 );
+
+		return $host;
+	}
 }
