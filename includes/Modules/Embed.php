@@ -18,11 +18,24 @@ class Embed extends gNetwork\Module
 
 	protected function setup_actions()
 	{
-		if ( $this->options['disable_oembed'] )
-			$this->filter_false( 'embed_oembed_discover' );
-
 		if ( ! $this->options['load_defaults'] )
 			$this->filter_false( 'load_default_embeds' );
+
+		if ( ! $this->options['autoembed_urls'] ) {
+			remove_filter( 'the_content', [ $GLOBALS['wp_embed'], 'autoembed' ], 8 );
+			remove_filter( 'widget_text_content', [ $GLOBALS['wp_embed'], 'autoembed' ], 8 );
+		}
+
+		if ( ! $this->options['oembed_providers'] )
+			add_filter( 'oembed_providers', '__return_empty_array', 12 );
+
+		if ( ! $this->options['oembed_discover'] ) {
+			$this->filter_false( 'embed_oembed_discover' );
+
+			// it's only applies to un-trusted and we've disabled them!
+			remove_action( 'wp_head', 'wp_oembed_add_host_js' );
+			remove_filter( 'oembed_dataparse', 'wp_filter_oembed_result', 10 );
+		}
 
 		$this->action( 'plugins_loaded' );
 
@@ -43,14 +56,16 @@ class Embed extends gNetwork\Module
 	public function default_options()
 	{
 		return [
-			'disable_oembed' => 0,
-			'load_defaults'  => 0,
-			'wrapped_links'  => 0,
-			'load_docs_pdf'  => 0,
-			'load_aparat'    => 0,
-			'load_kavimo'    => 0,
-			'load_giphy'     => 0,
-			'count_channel'  => 10,
+			'load_defaults'    => 0,
+			'autoembed_urls'   => 0,
+			'oembed_providers' => 0,
+			'oembed_discover'  => 0,
+			'wrapped_links'    => 0,
+			'load_docs_pdf'    => 0,
+			'load_aparat'      => 0,
+			'load_kavimo'      => 0,
+			'load_giphy'       => 0,
+			'count_channel'    => 10,
 		];
 	}
 
@@ -59,28 +74,25 @@ class Embed extends gNetwork\Module
 		return [
 			'_general' => [
 				[
-					'field'       => 'disable_oembed',
-					'type'        => 'disabled',
-					'title'       => _x( 'oEmbed Discovery', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Whether to inspect the given URL for discoverable link tags.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
-					'after'       => Settings::fieldAfterIcon( 'https://oembed.com' ),
-				],
-				[
 					'field'       => 'load_defaults',
 					'title'       => _x( 'Load Default Embeds', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Whether to load the default embed handlers on this site.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Whether to load the default embed handlers for Audio/Video URLs or Youtube.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
-					'field'       => 'wrapped_links',
-					'title'       => _x( 'Wrapped Links', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Fixes wrapped embed links in paragraphs.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
+					'field'       => 'autoembed_urls',
+					'title'       => _x( 'Auto-Embeds URLs', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Whether to attempt to embed all URLs in posts and widgets.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
-					'field'       => 'count_channel',
-					'type'        => 'number',
-					'title'       => _x( 'Default Count', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Number of items on a channel embed.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
-					'default'     => 10,
+					'field'       => 'oembed_providers',
+					'title'       => _x( 'oEmbed Providers', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Whether to load the list of whitelisted oEmbed providers.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
+					'after'       => Settings::fieldAfterCodex( 'Embeds' ),
+				],
+				[
+					'field'       => 'oembed_discover',
+					'title'       => _x( 'oEmbed Discovery', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Whether to inspect the given URL for discoverable link tags.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 			],
 			'_services' => [
@@ -106,6 +118,20 @@ class Embed extends gNetwork\Module
 					'title'       => _x( 'Load GIPHY Embeds', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Whether to load GIPHY.com embed handlers on this site.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
 					'after'       => Settings::fieldAfterIcon( 'https://giphy.com/' ),
+				],
+			],
+			'_misc' => [
+				[
+					'field'       => 'wrapped_links',
+					'title'       => _x( 'Wrapped Links', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Fixes wrapped embed links in paragraphs.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
+				],
+				[
+					'field'       => 'count_channel',
+					'type'        => 'number',
+					'title'       => _x( 'Default Count', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Number of items on a list embed.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
+					'default'     => 10,
 				],
 			],
 		];
