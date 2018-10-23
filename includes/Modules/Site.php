@@ -407,6 +407,9 @@ class Site extends gNetwork\Module
 
 	private function setup_meta_sync()
 	{
+		if ( ! function_exists( 'is_site_meta_supported' ) )
+			return;
+
 		if ( ! is_site_meta_supported() )
 			return;
 

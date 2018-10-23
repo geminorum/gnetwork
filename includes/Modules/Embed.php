@@ -93,6 +93,7 @@ class Embed extends gNetwork\Module
 					'field'       => 'oembed_discover',
 					'title'       => _x( 'oEmbed Discovery', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Whether to inspect the given URL for discoverable link tags.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
+					'after'       => Settings::fieldAfterIcon( 'https://oembed.com/' ),
 				],
 			],
 			'_services' => [

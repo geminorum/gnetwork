@@ -249,13 +249,17 @@ class Settings extends Core\Base
 		echo '&nbsp;&nbsp;';
 	}
 
-	public static function getWPCodexLink( $page = '', $text = FALSE )
+	public static function fieldAfterCodex( $page = '', $text = FALSE )
 	{
-		return HTML::tag( 'a', [
+		$html = HTML::tag( 'a', [
 			'href'   => 'https://codex.wordpress.org/'.$page,
 			'title'  => sprintf( _x( 'See WordPress Codex for %s.', 'Settings', GNETWORK_TEXTDOMAIN ), str_ireplace( '_', ' ', $page ) ),
 			'target' => '_blank',
 		], ( $text ? _x( 'See Codex', 'Settings', GNETWORK_TEXTDOMAIN ) : HTML::getDashicon( 'media-code' ) ) );
+
+		return $text
+			? '<code class="-field-after -link-wrap">'.$html.'</span>'
+			: '<span class="-field-after -icon-wrap">'.$html.'</span>';
 	}
 
 	public static function getLoginLogoLink( $text = FALSE, $filename = GNETWORK_LOGO )
