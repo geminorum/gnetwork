@@ -82,6 +82,7 @@ class Plugin
 			'GNETWORK_ADMINBAR_LOGIN'        => TRUE, // disable admin bar login/register nodes
 			'GNETWORK_ADMIN_JS_ENHANCEMENTS' => TRUE, // autoresize textarea and more...
 			'GNETWORK_CACHE_TTL'             => 60 * 60 * 12, // 12 hours
+			'GNETWORK_REDIRECT_404_URL'      => home_url( '/not-found' ),
 
 			'GNETWORK_NETWORK_NAVIGATION'    => 'network_navigation', // menu on the main site for network navigation
 			'GNETWORK_NETWORK_ADMINBAR'      => 'network_adminbar', // menu on the main site for adminbar navigation

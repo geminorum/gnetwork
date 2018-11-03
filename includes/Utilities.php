@@ -561,7 +561,7 @@ class Utilities extends Core\Base
 		if ( $custom = gNetwork()->option( 'page_404', 'blog' ) )
 			$location = get_page_link( $custom );
 		else
-			$location = home_url( '/not-found' );
+			$location = GNETWORK_REDIRECT_404_URL;
 
 		WordPress::redirect( $location, 303 );
 	}
