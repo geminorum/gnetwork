@@ -386,7 +386,8 @@ class Login extends gNetwork\Module
 		Utilities::linkStyleSheet( 'login.all' );
 
 		if ( $this->options['login_styles'] )
-			echo '<style>'.$this->options['login_styles'].'</style>'."\n";
+			printf( "<style>\n%s\n</style>\n", $this->options['login_styles'] );
+
 		else
 			Utilities::customStyleSheet( 'login.css' );
 	}

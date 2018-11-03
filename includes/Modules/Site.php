@@ -234,8 +234,7 @@ class Site extends gNetwork\Module
 
 	public function admin_menu()
 	{
-		remove_action( 'admin_page_access_denied', '_access_denied_splash', 99 );
-		$this->action( 'admin_page_access_denied' );
+		$this->action( 'admin_page_access_denied', 0, 98 ); // core's is on 99
 	}
 
 	// @REF: `_access_denied_splash()`

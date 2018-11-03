@@ -100,7 +100,7 @@ class User extends gNetwork\Module
 					'type'        => 'number',
 					'title'       => _x( 'Site User ID', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'ID of site user for the network.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
-					'after'       => Settings::fieldAfterIcon( network_admin_url( 'user-edit.php?user_id='.$this->options['site_user_id'], FALSE, 'admin-users' ) ),
+					'after'       => Settings::fieldAfterIcon( WordPress::getUserEditLink( $this->options['site_user_id'], [], TRUE, FALSE ) ),
 				],
 				[
 					'field'       => 'site_user_role',
