@@ -19,7 +19,6 @@ class ShortCodes extends gNetwork\Module
 	protected $key     = 'shortcodes';
 	protected $network = FALSE;
 
-	private $flash_ids  = [];
 	private $ref_ids    = [];
 	private $ref_list   = FALSE;
 	private $people     = [];
@@ -29,7 +28,6 @@ class ShortCodes extends gNetwork\Module
 	{
 		add_action( 'init', [ $this, 'init_early' ], 8 );
 		add_action( 'init', [ $this, 'init_late' ], 12 );
-		add_action( 'wp_footer', [ $this, 'wp_footer' ], 20 );
 		add_action( 'wp_footer', [ $this, 'print_scripts' ], 20 );
 
 		$this->action( 'register_shortcode_ui' );
@@ -92,7 +90,6 @@ class ShortCodes extends gNetwork\Module
 			'bloginfo'     => 'shortcode_bloginfo',
 			'audio'        => 'shortcode_audio',
 			'audio-go'     => 'shortcode_audio_go',
-			'flash'        => 'shortcode_flash',
 			'ref'          => 'shortcode_ref',
 			'reflist'      => 'shortcode_reflist',
 			'ref-m'        => 'shortcode_ref_manual',
@@ -1084,62 +1081,6 @@ class ShortCodes extends gNetwork\Module
 		return $info;
 	}
 
-	// http://wordpress.org/extend/plugins/kimili-flash-embed/other_notes/
-	// http://yoast.com/articles/valid-flash-embedding/
-	public function shortcode_flash( $atts = [], $content = NULL, $tag = '' )
-	{
-		self::__dep();
-
-		$args = shortcode_atts( [
-			'swf'       => FALSE, // comma seperated multiple url to show multiple flash // UNFINISHED
-			'width'     => '800',
-			'height'    => '600',
-			'rand'      => FALSE, // if multiple url then use random
-			'loop'      => 'no',
-			'autostart' => 'no',
-			'titles'    => '',
-			'artists'   => '',
-			'duration'  => '',
-			'rtl'       => ( is_rtl() ? 'yes' : 'no' ),
-			'download'  => FALSE,
-			'context'   => NULL,
-			'wrap'      => TRUE,
-		], $atts, $tag );
-
-		if ( FALSE === $args['context'] || is_feed() || WordPress::isREST() )
-			return NULL;
-
-		if ( ! $args['swf'] )
-			return NULL;
-
-		if ( $args['rand'] && FALSE !== strpos( $args['swf'], ',' ) ) {
-			$swf = explode( ',', $args['swf'] );
-			$key = rand( 0, ( count( $swf ) - 1 ) );
-			$args['swf'] = $swf[$key];
-		}
-
-		$key = count( $this->flash_ids ) + 1;
-		$id  = 'flash-object-'.$key;
-
-		$this->flash_ids[$key] = $id;
-
-		wp_enqueue_script( 'swfobject' );
-
-		return '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="'.$args['width'].'" height="'.$args['height'].'" id="'.$id.'">
-<param name="movie" value="'.$args['swf'].'" />
-<param name="quality" value="high" />
-<!--[if !IE]>-->
-<object type="application/x-shockwave-flash" data="'.$args['swf'].'" width="'.$args['width'].'" height="'.$args['height'].'">
-<!--<![endif]-->
-	<center><a href="'.GNETWORK_GETFLASHPLAYER_URL.'">
-		<img src="'.GNETWORK_URL.'assets/images/get_flash_player.gif" alt="Get Adobe Flash player" />
-	</a></center>
-<!--[if !IE]>-->
-</object>
-<!--<![endif]-->
-</object>';
-	}
-
 	// [audio-go to="60"]Go to 60 second mark and play[/audio-go]
 	// http://bavotasan.com/2015/working-with-wordpress-and-mediaelement-js/
 	public function shortcode_audio_go( $atts = [], $content = NULL, $tag = '' )
@@ -1218,16 +1159,6 @@ class ShortCodes extends gNetwork\Module
 				return $atts[$source];
 
 		return FALSE;
-	}
-
-	public function wp_footer()
-	{
-		if ( count( $this->flash_ids ) ) {
-			echo '<script type="text/javascript">'."\n".'/* <![CDATA[ */'."\n";
-			foreach ( $this->flash_ids as $id )
-				echo 'swfobject.registerObject("'.$id.'", "9.0.0");'."\n";
-			echo "\n".'/* ]]> */'."\n".'</script>';
-		}
 	}
 
 	public function shortcode_ref( $atts = [], $content = NULL, $tag = '' )

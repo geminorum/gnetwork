@@ -73,7 +73,7 @@ class Plugin
 			'GNETWORK_LOGO'                  => 'login.png', // default logo image file, must be on wp-content
 			// 'GNETWORK_WPLANG'                => 'en_US', // define if necessary
 			// 'GNETWORK_WPLANG_ADMIN'          => FALSE, // define if necessary
-			'GNETWORK_GETFLASHPLAYER_URL'    => 'http://get.adobe.com/flashplayer/',
+
 			'GNETWORK_SEARCH_REDIRECT'       => FALSE, // set TRUE to redirect all searches to the network search url
 			'GNETWORK_SEARCH_URL'            => esc_url( home_url( '/' ) ),
 			'GNETWORK_SEARCH_QUERYID'        => 's',
