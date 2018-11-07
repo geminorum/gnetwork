@@ -32,7 +32,8 @@ class Admin extends gNetwork\Module
 			$this->action( 'admin_enqueue_scripts', 0, 999 );
 
 			// hides network-active plugins alongside plugins active for the current site
-			$this->filter_false( 'show_network_active_plugins' );
+			if ( 'active' != self::req( 'plugin_status' ) )
+				$this->filter_false( 'show_network_active_plugins' );
 		}
 
 		$this->action( 'doing_dark_mode' );
