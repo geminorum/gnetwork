@@ -445,7 +445,7 @@ class HTML extends Base
 		echo '</table>';
 	}
 
-	public static function linkStyleSheet( $url, $version = NULL, $media = 'all' )
+	public static function linkStyleSheet( $url, $version = NULL, $media = 'all', $echo = TRUE )
 	{
 		if ( is_array( $version ) )
 			$url = add_query_arg( $version, $url );
@@ -453,12 +453,17 @@ class HTML extends Base
 		else if ( $version )
 			$url = add_query_arg( array( 'ver' => $version ), $url );
 
-		echo self::tag( 'link', array(
+		$html = self::tag( 'link', array(
 			'rel'   => 'stylesheet',
 			'href'  => $url,
 			'type'  => 'text/css',
 			'media' => $media,
 		) )."\n";
+
+		if ( ! $echo )
+			return $html;
+
+		echo $html;
 	}
 
 	public static function headerNav( $uri = '', $active = '', $subs = array(), $prefix = 'nav-tab', $wrap = 'h3', $item = FALSE )
