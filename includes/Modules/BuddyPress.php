@@ -39,9 +39,9 @@ class BuddyPress extends gNetwork\Module
 				if ( ! $this->options['open_directories'] )
 					$this->action( 'bp_screens', 0, 99 );
 
-				add_action( 'bp_before_register_page', '__donot_cache_page' );
-				add_action( 'bp_before_activation_page', '__donot_cache_page' );
-				add_action( 'bp_template_include_reset_dummy_post_data', '__gpersiandate_skip' );
+				add_action( 'bp_before_register_page', '_donot_cache_page' );
+				add_action( 'bp_before_activation_page', '_donot_cache_page' );
+				add_action( 'bp_template_include_reset_dummy_post_data', '_gpersiandate_skip' );
 			}
 
 			// https://github.com/pixeljar/BuddyPress-Honeypot

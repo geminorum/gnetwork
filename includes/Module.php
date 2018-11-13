@@ -439,8 +439,8 @@ class Module extends Core\Base
 		return call_user_func_array( 'apply_filters', $args );
 	}
 
-	// USAGE: add_filter( 'body_class', self::__array_append( 'foo' ) );
-	protected static function __array_append( $item )
+	// USAGE: add_filter( 'body_class', self::_array_append( 'foo' ) );
+	protected static function _array_append( $item )
 	{
 		return function( $array ) use ( $item ) {
 			$array[] = $item;
@@ -448,8 +448,8 @@ class Module extends Core\Base
 		};
 	}
 
-	// USAGE: add_filter( 'shortcode_atts_gallery', self::__array_set( 'columns', 4 ) );
-	protected static function __array_set( $key, $value )
+	// USAGE: add_filter( 'shortcode_atts_gallery', self::_array_set( 'columns', 4 ) );
+	protected static function _array_set( $key, $value )
 	{
 		return function( $array ) use ( $key, $value ) {
 			$array[$key] = $value;
@@ -681,12 +681,12 @@ class Module extends Core\Base
 		if ( $check && $sidebox = method_exists( $this, 'settings_sidebox' ) )
 			$class.= ' has-sidebox';
 
-		echo '<form enctype="multipart/form-data" class="'.$class.'" method="post" action="">';
+		echo '<form enctype="multipart/form-data" class="'.$class.'" method="post" action="">'; // WPCS: XSS ok;
 
 			$this->render_form_fields( $sub, $action, $context );
 
 			if ( $check && $sidebox ) {
-				echo '<div class="-sidebox -sidebox-'.$sub.'">';
+				echo '<div class="-sidebox -sidebox-'.HTML::escape( $sub ).'">'; // WPCS: XSS ok;
 					$this->settings_sidebox( $sub, $uri, $context );
 				echo '</div>';
 			}
@@ -1186,7 +1186,7 @@ class Module extends Core\Base
 			'class' => [ '-description', '-refresh' ],
 		], _x( 'Please refresh the page to generate the data.', 'Module Core', GNETWORK_TEXTDOMAIN ) );
 
-		echo $after;
+		echo $after; // WPCS: XSS ok;
 
 		return TRUE;
 	}

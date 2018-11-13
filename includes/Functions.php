@@ -115,11 +115,11 @@ if ( ! function_exists( 'gnetwork_credits' ) ) :
 	}
 endif;
 
-if ( ! function_exists( '__donot_cache_page' ) ) : function __donot_cache_page() {
+if ( ! function_exists( '_donot_cache_page' ) ) : function _donot_cache_page() {
 	\geminorum\gNetwork\Core\WordPress::doNotCache();
 } endif;
 
-if ( ! function_exists( '__gpersiandate_skip' ) ) : function __gpersiandate_skip() {
+if ( ! function_exists( '_gpersiandate_skip' ) ) : function _gpersiandate_skip() {
 	defined( 'GPERSIANDATE_SKIP' ) or define( 'GPERSIANDATE_SKIP', TRUE );
 } endif;
 

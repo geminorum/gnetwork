@@ -522,7 +522,7 @@ class Utilities extends Core\Base
 		$results  = $verifier->verify();
 
 		if ( WordPress::isDev() )
-			self::__log( $verifier->get_debug() );
+			self::_log( $verifier->get_debug() );
 
 		return $results;
 	}

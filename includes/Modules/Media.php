@@ -554,8 +554,9 @@ class Media extends gNetwork\Module
 		if ( ! self::isError( $editor ) )
 			$metadata['sizes'] = $editor->multi_resize( $sizes );
 
-		if ( WordPress::isDev() )
-			self::__log( print_r( compact( 'parent_type', 'metadata' ), TRUE ) );
+		if ( WordPress::isDev() ) {
+			self::_log( $parent_type, $metadata );
+		}
 
 		return $metadata;
 	}
@@ -639,8 +640,9 @@ class Media extends gNetwork\Module
 		if ( empty( $metadata['sizes'] ) )
 			unset( $metadata['sizes'] );
 
-		if ( WordPress::isDev() )
-			self::__log( print_r( compact( 'taxonomy', 'metadata', 'wpupload' ), TRUE ) );
+		if ( WordPress::isDev() ) {
+			self::_log( $taxonomy, $metadata, $wpupload );
+		}
 
 		return $metadata;
 	}
@@ -752,8 +754,9 @@ class Media extends gNetwork\Module
 				TRUE,
 			];
 
-			if ( WordPress::isDev() )
-				self::__log( print_r( compact( 'size', 'data', 'path', 'img_url', 'result', 'wpupload' ), TRUE ) );
+			if ( WordPress::isDev() ) {
+				self::_log( $size, $data, $path, $img_url, $result, $wpupload );
+			}
 
 			return $result;
 		}
@@ -768,8 +771,9 @@ class Media extends gNetwork\Module
 		$folder   = str_replace( $wpupload['basedir'], '', $info['dirname'] );
 		$path     = File::join( GNETWORK_MEDIA_THUMBS_DIR, get_current_blog_id() ).$folder;
 
-		if ( WordPress::isDev() )
-			self::__log( print_r( compact( 'info', 'wpupload', 'folder', 'path' ), TRUE ) );
+		if ( WordPress::isDev() ) {
+			self::_log( $info, $wpupload, $folder, $path );
+		}
 
 		if ( wp_mkdir_p( $path ) )
 			return $path;

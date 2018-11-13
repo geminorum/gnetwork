@@ -268,7 +268,7 @@ class OpenSearch extends gNetwork\Module
 	// https://developer.mozilla.org/en-US/Add-ons/Creating_OpenSearch_plugins_for_Firefox
 	private function xml()
 	{
-		// __donot_cache_page();
+		// _donot_cache_page();
 
 		$url = add_query_arg( GNETWORK_SEARCH_QUERYID, '{searchTerms}', GNETWORK_SEARCH_URL );
 
