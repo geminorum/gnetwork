@@ -154,7 +154,7 @@ $theme-fonts-base: "https://rawcdn.githack.com" !default;
   $font-family-code: "Vazir Code", "monospaced" !global;
 
   $name: "Vazir Code";
-  $ver: "v1.0.3";
+  $ver: "v1.1.1";
   $weight: "normal";
 
   $base: $theme-fonts-base;
@@ -333,6 +333,8 @@ $theme-fonts-base: "https://rawcdn.githack.com" !default;
 
 @mixin theme-fonts-DroidArabicNaskh($base: "../fonts") {
 
+  $font-family-normal: "Droid Arabic Naskh", "Tahoma", "Iranian Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif !global;
+
   $name: "Droid Arabic Naskh";
   $folder: "droidarabicnaskh";
   $file: "DroidNaskh-Regular";
@@ -351,6 +353,8 @@ $theme-fonts-base: "https://rawcdn.githack.com" !default;
         url($path + ".ttf") format("truetype");
     }
   }
+
+  $font-family-bold: "Droid Arabic Naskh", "Arial", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", "Helvetica", sans-serif !global;
 
   $name: "Droid Arabic Naskh";
   $folder: "droidarabicnaskh";
