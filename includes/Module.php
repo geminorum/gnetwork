@@ -473,23 +473,24 @@ class Module extends Core\Base
 		return gNetwork()->base;
 	}
 
-	protected function init_options( $sanitize = TRUE )
-	{
-		$network = $this->base.'OptionsNetwork';
-		$blog    = $this->base.'OptionsBlog';
+	protected function init_options( $sanitize = true ) {
 
-		global ${$network}, ${$blog};
+		$network = $this->base . 'OptionsNetwork';
+		$blog    = $this->base . 'OptionsBlog';
 
-		if ( empty( ${$network} ) )
-			${$network} = get_network_option( NULL, $this->base.'_site', [] );
+		if ( empty( $GLOBALS[$network] ) ) {
+			$GLOBALS[$network] = get_network_option( null, $this->base . '_site', [] );
+		}
 
-		if ( empty( ${$blog} ) )
-			${$blog} = get_option( $this->base.'_blog', [] );
+		if ( empty( $GLOBALS[$blog] ) ) {
+			$GLOBALS[$blog] = get_option( $this->base . '_blog', [] );
+		}
 
-		if ( $this->is_network() )
-			$options = isset( ${$network}[$this->key] ) ? ${$network}[$this->key] : [];
-		else
-			$options = isset( ${$blog}[$this->key] ) ? ${$blog}[$this->key] : [];
+		if ( $this->is_network() ) {
+			$options = isset( $GLOBALS[$network][$this->key] ) ? $GLOBALS[$network][$this->key] : [];
+		} else {
+			$options = isset( $GLOBALS[$blog][$this->key] ) ? $GLOBALS[$blog][$this->key] : [];
+		}
 
 		return $sanitize ? $this->settings_sanitize( $options, $this->default_options() ) : $options;
 	}
