@@ -1,6 +1,6 @@
 <?php namespace geminorum\gNetwork\Core;
 
-defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 // @REF: http://sabre.io/uri/usage/
 // @SOURCE: https://github.com/fruux/sabre-uri/blob/1.x/lib/functions.php

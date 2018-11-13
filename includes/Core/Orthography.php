@@ -1,6 +1,6 @@
 <?php namespace geminorum\gNetwork\Core;
 
-defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 class Orthography extends Base
 {
@@ -1139,9 +1139,9 @@ class Orthography extends Base
 	{
 		$word = trim( $word );
 
-		$word = str_replace( array( 'َ','ُ','ِ','ّ','ً','ٌ','ٍ','ـ','ْ' ), '', $word );
-		$word = str_replace( array( 'گ','چ','پ','ژ','ة','آ' ), array( 'ک','ج','ب','ز','ه','ا' ), $word );
-		$word = str_replace( array( ')','(','+','$','!','~','#','%','^','&','*','-',' ','/','`','«','»','ء' ), '', $word );
+		$word = str_replace( array( 'َ', 'ُ', 'ِ', 'ّ', 'ً', 'ٌ', 'ٍ', 'ـ', 'ْ' ), '', $word );
+		$word = str_replace( array( 'گ', 'چ', 'پ', 'ژ', 'ة', 'آ' ), array( 'ک', 'ج', 'ب', 'ز', 'ه', 'ا' ), $word );
+		$word = str_replace( array( ')', '(', '+', '$', '!', '~', '#', '%', '^', '&', '*', '-', ' ', '/', '`', '«', '»', 'ء' ), '', $word );
 
 		$letter = array(
 			'ا',

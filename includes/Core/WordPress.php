@@ -1,6 +1,6 @@
 <?php namespace geminorum\gNetwork\Core;
 
-defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 class WordPress extends Base
 {
@@ -225,7 +225,7 @@ class WordPress extends Base
 	// DEPRECATED
 	public static function getSiteUserID( $fallback = FALSE )
 	{
-		self::__dep();
+		self::_dep();
 		return gNetwork()->user( $fallback );
 	}
 
