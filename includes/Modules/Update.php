@@ -284,7 +284,7 @@ class Update extends gNetwork\Module
 		if ( WordPress::isFlush() )
 			delete_site_transient( $key );
 
-		if ( FALSE === ( $response = get_site_transient( $key ) ) ) {
+		if ( FALSE === ( $data = get_site_transient( $key ) ) ) {
 
 			if ( is_null( $endpoint ) )
 				$endpoint = $this->endpoint( $package );
@@ -292,11 +292,31 @@ class Update extends gNetwork\Module
 			if ( ! $response = HTTP::getJSON( $endpoint, [ 'headers' => $this->endpoint_headers( $package ) ], TRUE ) )
 				return FALSE;
 
-			// FIXME: cleanup usless info
+			$data = $this->cleanup_package_date( $response, $package );
 
-			unset( $response['author'] );
+			set_site_transient( $key, $data, GNETWORK_CACHE_TTL );
+		}
 
-			set_site_transient( $key, $response, GNETWORK_CACHE_TTL );
+		return $data;
+	}
+
+	private function cleanup_package_date( $response, $package )
+	{
+		if ( 'github_plugin' == $package['type']
+			|| 'github_theme' == $package['type'] ) {
+
+			return self::atts( [
+				'tag_name'     => '',
+				'published_at' => '',
+				'zipball_url'  => '',
+				'body'         => '',
+				'assets'       => [],
+			], $response );
+
+		} else if ( 'gitlab_plugin' == $package['type']
+			|| 'gitlab_theme' == $package['type'] ) {
+
+			// FIXME: add gitlab
 		}
 
 		return $response;
