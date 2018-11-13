@@ -23,13 +23,17 @@
     "php": ">=5.5",
     "composer/installers": "^1.6",
     "erusev/parsedown-extra": "^0.7.1",
-    "symfony/stopwatch": "^3.4",
     "parsecsv/php-parsecsv": "^1.1",
     "jbroadway/urlify": "^1.1",
     "analog/analog": "dev-master",
     "hbattat/verifyemail": "^1.0"
   },
   "require-dev": {
+    "phpcompatibility/phpcompatibility-wp": "*",
+    "roave/security-advisories": "dev-master",
+    "wp-coding-standards/wpcs": "*",
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
+    "symfony/stopwatch": "^3.4",
     "kint-php/kint": "^2.2",
     "mustache/mustache": "^2.12",
     "phelium/mysql-backup": "dev-master",
@@ -38,7 +42,7 @@
     "tinify/tinify": "^1.5",
     "ricardoper/twitteroauth": "2.*",
     "behat/transliterator": "^1.2",
-    "davidepastore/ipinfo": "^0.1.3",
+    "davidepastore/ipinfo": "^0.3.0",
     "ziggeo/simple-box-integration": "^0.0.3",
     "knplabs/github-api": "^2.10",
     "php-http/guzzle6-adapter": "^1.1"
@@ -54,5 +58,6 @@
     "psr-4": {
       "geminorum\\gNetwork\\": "includes/"
     }
-  }
+  },
+  "prefer-stable" : true
 }

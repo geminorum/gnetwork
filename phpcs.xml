@@ -1,35 +1,35 @@
 <?xml version="1.0"?>
 <!-- https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/wiki/Customizable-sniff-properties -->
 <!-- https://github.com/squizlabs/PHP_CodeSniffer/wiki/Annotated-ruleset.xml -->
+<!-- https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/blob/develop/phpcs.xml.dist.sample -->
+<!-- https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/wiki/Customizable-sniff-properties -->
 <ruleset name="gNetwork">
 	<description>A custom coding standard</description>
 
-	<exclude-pattern>/assets/</exclude-pattern>
+	<exclude-pattern>/assets/*</exclude-pattern>
+	<exclude-pattern>/node_modules/*</exclude-pattern>
+	<exclude-pattern>*.min.js</exclude-pattern>
 
-	<rule ref="WordPress-Extra"/>
-	<rule ref="WordPress-Docs"/>
+	<config name="testVersion" value="5.5-"/>
+	<rule ref="PHPCompatibilityWP"/>
 
-	<rule ref="WordPress.XSS.EscapeOutput">
+	<!-- <rule ref="WordPress-Extra"/> -->
+	<!-- <rule ref="WordPress-Docs"/> -->
+
+	<!-- <rule ref="Generic.CodeAnalysis.UnusedFunctionParameter"/> -->
+	<rule ref="Generic.Commenting.Todo"/>
+
+	<config name="minimum_supported_wp_version" value="4.9"/>
+
+	<!-- <rule ref="WordPress.Security.EscapeOutput">
 		<properties>
-			<property name="customAutoEscapedFunctions" value="header" type="array"/>
+			<property name="customAutoEscapedFunctions" type="array">
+				<element value="header"/>
+				<element value="HTML::tag"/>
+			</property>
+			<property name="customEscapingFunctions" type="array">
+				<element value="HTML::escape"/>
+			</property>
 		</properties>
-	</rule>
-
-	<rule ref="WordPress.WP.DeprecatedClasses">
-		<properties>
-			<property name="minimum_supported_version" value="4.7"/>
-		</properties>
-	</rule>
-
-	<rule ref="WordPress.WP.DeprecatedFunctions">
-		<properties>
-			<property name="minimum_supported_version" value="4.7"/>
-		</properties>
-	</rule>
-
-	<rule ref="WordPress.WP.DeprecatedParameters">
-		<properties>
-			<property name="minimum_supported_version" value="4.7"/>
-		</properties>
-	</rule>
+	</rule> -->
 </ruleset>

@@ -14,7 +14,7 @@
   var fs = require('fs');
 
   var pkg = require('./package.json');
-  var config = require('./gulpconfig.json');
+  var config = require('./gulp.config.json');
 
   var env = config.env;
   var banner = config.banner.join('\n');
@@ -71,15 +71,16 @@
     done();
   });
 
-  gulp.task('dev:sass', function () {
+  gulp.task('dev:rtl', function () {
     return gulp.src(config.input.sass)
-      // .pipe(plugins.sourcemaps.init())
+      .pipe(plugins.sourcemaps.init())
       .pipe(plugins.sass.sync(config.sass).on('error', plugins.sass.logError))
       .pipe(plugins.postcss([
         cssnano(config.cssnano.dev),
         autoprefixer(config.autoprefixer.dev)
       ]))
-      // .pipe(plugins.sourcemaps.write(config.output.sourcemaps))
+      .pipe(plugins.sourcemaps.write(config.output.sourcemaps))
+      .pipe(plugins.size({title: 'CSS:', showFiles: true}))
       .pipe(gulp.dest(config.output.css)).on('error', log.error)
       .pipe(plugins.if(config.input.rtldev,
         multipipe(
@@ -89,70 +90,38 @@
         )
       ))
       .pipe(plugins.changedInPlace())
+      .pipe(plugins.size({title: 'RTL:', showFiles: true}))
       .pipe(plugins.debug({title: 'Changed'}))
       .pipe(plugins.if(function (file) {
         if (file.extname !== '.map') return true;
       }, plugins.livereload()));
   });
 
-  gulp.task('dev:watch', function () {
+  gulp.task('watch:styles', function () {
     plugins.livereload.listen();
-    gulp.watch(config.input.sass, gulp.series('dev:sass'));
+    gulp.watch(config.input.sass, gulp.series('dev:rtl'));
   });
 
   // all styles / without livereload
   gulp.task('dev:styles', function () {
     return gulp.src(config.input.sass)
-      // .pipe(plugins.sourcemaps.init())
+      .pipe(plugins.sourcemaps.init())
       .pipe(plugins.sass.sync(config.sass).on('error', plugins.sass.logError))
       .pipe(plugins.postcss([
         cssnano(config.cssnano.dev),
         autoprefixer(config.autoprefixer.dev)
       ]))
       .pipe(plugins.header(banner, {pkg: pkg}))
-      // .pipe(plugins.sourcemaps.write(config.output.sourcemaps))
+      .pipe(plugins.sourcemaps.write(config.output.sourcemaps))
+      .pipe(plugins.size({title: 'CSS:', showFiles: true}))
       .pipe(plugins.debug({title: 'Created'}))
       .pipe(gulp.dest(config.output.css)).on('error', log.error)
       .pipe(plugins.if(config.input.rtldev,
         multipipe(
           plugins.postcss([rtlcss()]),
           plugins.rename({suffix: '-rtl'}),
+          plugins.size({title: 'RTL:', showFiles: true}),
           plugins.debug({title: 'RTLed'})
-        )
-      ))
-      .pipe(gulp.dest(config.output.css)).on('error', log.error);
-  });
-
-  // all styles / without livereload
-  gulp.task('old:styles', function () {
-    return gulp.src(config.input.sass)
-      .pipe(plugins.sourcemaps.init())
-      .pipe(plugins.sass.sync(config.sass).on('error', plugins.sass.logError))
-      .pipe(plugins.cssnano({
-        core: false,
-        zindex: false,
-        discardComments: false
-      }))
-      .pipe(plugins.header(banner, {
-        pkg: pkg
-      }))
-      .pipe(plugins.sourcemaps.write(config.output.sourcemaps))
-      .pipe(plugins.debug({title: 'unicorn:'}))
-      .pipe(gulp.dest(config.output.css)).on('error', log.error);
-  });
-
-  gulp.task('build:styles:old', function () {
-    return gulp.src(config.input.sass)
-      .pipe(plugins.sass(config.sass).on('error', plugins.sass.logError))
-      .pipe(plugins.postcss([
-        cssnano(config.cssnano.build),
-        autoprefixer(config.autoprefixer.build)
-      ]))
-      .pipe(gulp.dest(config.output.css)).on('error', log.error)
-      .pipe(plugins.if(config.input.rtldev,
-        multipipe(
-          plugins.postcss([rtlcss()]),
-          plugins.rename({suffix: '-rtl'})
         )
       ))
       .pipe(gulp.dest(config.output.css)).on('error', log.error);
@@ -165,6 +134,7 @@
         cssnano(config.cssnano.build),
         autoprefixer(config.autoprefixer.build)
       ]))
+      .pipe(plugins.size({title: 'CSS:', showFiles: true}))
       .pipe(gulp.dest(config.output.css)).on('error', log.error);
   });
 
@@ -178,6 +148,7 @@
         autoprefixer(config.autoprefixer.build)
       ]))
       .pipe(plugins.rename({suffix: '-rtl'}))
+      .pipe(plugins.size({title: 'RTL:', showFiles: true}))
       .pipe(gulp.dest(config.output.css)).on('error', log.error);
   });
 
@@ -186,7 +157,8 @@
       .pipe(plugins.rename({
         suffix: '.min'
       }))
-      .pipe(plugins.uglify());
+      .pipe(plugins.uglify())
+      .pipe(plugins.size({title: 'JS:', showFiles: true}));
   });
 
   gulp.task('build:banner', function () {
@@ -225,18 +197,19 @@
     }
   ));
 
-  gulp.task('release', function () {
+  gulp.task('github:package', function () {
     var changes = parseChangelog(fs.readFileSync('CHANGES.md', {encoding: 'utf-8'}), {title: false});
+    var options = {
+      token: env.github,
+      tag: pkg.version,
+      notes: changes.versions[0].rawNote,
+      manifest: pkg,
+      skipIfPublished: true,
+      draft: true
+    };
 
     return gulp.src(pkg.name + '-' + pkg.version + '.zip')
-      .pipe(plugins.githubRelease({
-        token: env.github,
-        tag: pkg.version,
-        notes: changes.versions[0].rawNote,
-        manifest: pkg,
-        skipIfPublished: true,
-        draft: true
-      }));
+      .pipe(plugins.githubRelease(options));
   });
 
   gulp.task('bump:package', function () {
@@ -269,6 +242,11 @@
       done();
     }
   ));
+
+  gulp.task('ready', function (done) {
+    log.info('Must build the release!');
+    done();
+  });
 
   gulp.task('default', function (done) {
     log.info('Hi, I\'m Gulp!');

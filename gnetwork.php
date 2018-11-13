@@ -11,6 +11,7 @@ Author URI: https://geminorum.ir/
 Network: true
 Text Domain: gnetwork
 Domain Path: /languages
+GitHub URI: https://github.com/geminorum/gnetwork
 GitHub Plugin URI: https://github.com/geminorum/gnetwork
 GitHub Branch: master
 Release Asset: true
