@@ -1175,6 +1175,7 @@ class ShortCodes extends gNetwork\Module
 			'url'       => FALSE,
 			'url_text'  => is_rtl() ? '[&#8620;]' : '[&#8619;]',
 			'url_title' => _x( 'External Resource', 'Shortcodes Module: Defaults', GNETWORK_TEXTDOMAIN ),
+			'template'  => '&#8207;[%s]&#8206;',
 			'class'     => 'ref-anchor',
 			'context'   => NULL,
 		], $atts, $tag );
@@ -1218,7 +1219,7 @@ class ShortCodes extends gNetwork\Module
 			'title'       => $title,
 			'class'       => 'cite-scroll',
 			'data-toggle' => 'tooltip',
-		], '&#8207;['.Number::format( $key ).']&#8206;' );
+		], sprintf( $args['template'], Number::format( $key ) ) );
 
 		return '<sup class="ref reference '.$args['class'].'" id="citeref-'.$key.'" data-ref="'.$key.'">'.$html.'</sup>';
 	}
