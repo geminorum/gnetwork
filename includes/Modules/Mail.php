@@ -418,8 +418,12 @@ class Mail extends gNetwork\Module
 		if ( is_rtl() )
 			$contents['rtl'] = 'true';
 
-		if ( is_array( $contents['to'] ) )
+		if ( empty( $contents['to'] ) )
+			$to = 'UNKNOWN';
+
+		else if ( is_array( $contents['to'] ) )
 			$to = array_filter( [ 'geminorum\\gNetwork\\Core\\File', 'escFilename' ], $contents['to'] );
+
 		else
 			$to = File::escFilename( $contents['to'] );
 
