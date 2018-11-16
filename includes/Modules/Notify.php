@@ -246,8 +246,7 @@ class Notify extends gNetwork\Module
 
 	public function send_password_change_email( $true, $user, $userdata )
 	{
-		Logger::INFO( sprintf( 'NOTIFY: password changed for: %s',
-			$user['user_nicename'] ) );
+		Logger::INFO( sprintf( 'NOTIFY: password changed for: %s', $user['user_nicename'] ) );
 
 		return $this->options['disable_password_change'] ? FALSE: $true;
 	}
@@ -262,8 +261,7 @@ class Notify extends gNetwork\Module
 
 	public function send_site_admin_email_change_email( $send, $old_email, $new_email )
 	{
-		Logger::siteINFO( 'NOTIFY', sprintf( 'admin email changed from: %s to: %s',
-			$old_email, $new_email ) );
+		Logger::siteINFO( 'NOTIFY', sprintf( 'admin email changed from: %s to: %s', $old_email, $new_email ) );
 
 		return $this->options['disable_admin_email_change'] ? FALSE: $send;
 	}

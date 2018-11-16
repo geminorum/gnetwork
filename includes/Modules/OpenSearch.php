@@ -393,9 +393,6 @@ class OpenSearch extends gNetwork\Module
 	{
 		$completions = $descriptions = $query_urls = [];
 
-		// if ( WP_DEBUG_LOG )
-		// 	error_log( print_r( $_REQUEST, TRUE ) );
-
 		if ( isset( $_REQUEST['query'] ) )
 			$query_string = $_REQUEST['query'];
 
@@ -442,16 +439,6 @@ class OpenSearch extends gNetwork\Module
 				}
 			}
 		}
-
-		// if ( WP_DEBUG_LOG ) {
-		// 	$results = [
-		// 		$query_string,
-		// 		$completions,
-		// 		$descriptions,
-		// 		$query_urls,
-		// 	];
-		// 	error_log( print_r( $results, TRUE ) );
-		// }
 
 		wp_send_json( [
 			$query_string,

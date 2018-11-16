@@ -17,6 +17,7 @@ class BuddyPress extends gNetwork\Module
 
 	private $field_name = 'vJD6QVKIjiWbjuxhLqJjVIuZ';
 
+	// runs after bp so plugins are loaded!
 	protected function setup_actions()
 	{
 		$this->action( 'bp_init', 0, 1 );
