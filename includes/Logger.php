@@ -93,7 +93,7 @@ class Logger
 			if ( is_null( $level ) )
 				$level = \Analog::$default_level;
 
-			$analog->log( $analog->convert_log_level( $level, TRUE ), $message, $context );
+			$analog->log( $analog->convert_log_level( $level, TRUE ), $message, (array) $context );
 		}
 	}
 
