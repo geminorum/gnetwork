@@ -77,14 +77,30 @@ class Navigation extends gNetwork\Module
 
 	public function load_nav_menus_php()
 	{
+		$screen = get_current_screen();
+
+		$screen->add_help_tab( [
+			'id'       => $this->classs( 'help-placeholders' ),
+			'title'    => _x( 'Placeholders', 'Modules: Navigation: Help Tab Title', GNETWORK_TEXTDOMAIN ),
+			'callback' => [ $this, 'help_tab_placeholders' ],
+		] );
+
 		add_meta_box( $this->classs(),
 			_x( 'Network', 'Modules: Navigation: Meta Box Title', GNETWORK_TEXTDOMAIN ),
 			[ $this, 'do_meta_box' ],
-			'nav-menus',
+			$screen,
 			'side',
 			'default' );
 
 		Utilities::enqueueScript( 'admin.nav-menus' );
+	}
+
+	public function help_tab_placeholders( $screen, $tab )
+	{
+		echo '<ul class="base-list-code">';
+			if ( ! $actions = $this->actions( 'help_placeholders', '<li>', '</li>', $screen, $tab ) )
+				echo gNetwork()->na();
+		echo '</ul>';
 	}
 
 	// build and populate the accordion on Appearance > Menus
