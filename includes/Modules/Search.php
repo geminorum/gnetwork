@@ -46,7 +46,6 @@ class Search extends gNetwork\Module
 	{
 		return [
 			'redirect_single'     => '1',
-			'search_again_uri'    => '0',
 			'include_meta'        => '0',
 			'register_shortcodes' => '0',
 		];
@@ -61,11 +60,6 @@ class Search extends gNetwork\Module
 					'title'       => _x( 'Redirect Single Result', 'Modules: Search: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Redirects to the post if search results only returns single post.', 'Modules: Search: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '1',
-				],
-				[
-					'field'       => 'search_again_uri',
-					'title'       => _x( 'Redirect 404 to URI', 'Modules: Search: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Redirects 404 pages to a search for the request URI.', 'Modules: Search: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
 					'field'       => 'include_meta',
@@ -212,22 +206,6 @@ class Search extends gNetwork\Module
 				// prevent search bots from indexing search results
 				echo "\t".'<meta name="robots" content="noindex, nofollow" />'."\n";
 			}, 1 );
-
-		} else if ( is_404() ) {
-
-			// @SOURCE: https://gist.github.com/chrisguitarguy/4477015
-			if ( $this->options['search_again_uri'] ) {
-
-				$uri = isset( $_SERVER['REQUEST_URI'] ) ? trim( $_SERVER['REQUEST_URI'], '/' ) : FALSE;
-
-				if ( ! $uri )
-					return;
-
-				$wp_the_query = $wp_query = new \WP_Query( [
-					'post_type' => $this->filters( '404_posttypes', 'any' ),
-					's'         => str_replace( '/', ' ', $uri ),
-				] );
-			}
 		}
 	}
 
