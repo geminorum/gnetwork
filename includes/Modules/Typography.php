@@ -20,7 +20,7 @@ class Typography extends gNetwork\Module
 		if ( is_admin() )
 			return;
 
-		$this->filter( 'the_content' );
+		$this->filter( 'the_content', 1, 1, 'early' );
 
 		if ( $this->options['title_titlecase']
 			|| $this->options['title_wordwrap'] )
@@ -161,12 +161,14 @@ class Typography extends gNetwork\Module
 		return array_merge( $strings, $new );
 	}
 
-	public function the_content( $content )
+	public function the_content_early( $content )
 	{
 		$content = str_ireplace(
 			'<p style="text-align: center;">***</p>',
 			$this->shortcode_three_asterisks(),
 		$content );
+
+		$content = str_ireplace( ' [ref', '[ref', $content );
 
 		return $content;
 	}
