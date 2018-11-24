@@ -31,7 +31,7 @@ class Crypto extends Base
 		$id  = 0;
 		$dic = static::BIJECTION_DIC;
 
-		foreach ( str_split( trim( $slug ) ) as $char ) {
+		foreach ( Text::strSplit( trim( $slug ) ) as $char ) {
 
 			$pos = strpos( $dic, $char );
 

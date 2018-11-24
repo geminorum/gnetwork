@@ -99,7 +99,7 @@ class Navigation extends gNetwork\Module
 	{
 		echo '<ul class="base-list-code">';
 			if ( ! $actions = $this->actions( 'help_placeholders', '<li>', '</li>', $screen, $tab ) )
-				echo gNetwork()->na();
+				echo '<li>'.gNetwork()->na().'</li>';
 		echo '</ul>';
 	}
 

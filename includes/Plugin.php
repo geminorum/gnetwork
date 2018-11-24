@@ -189,6 +189,7 @@ class Plugin
 			'Modules/Uptime'      => 'Uptime',
 			'Modules/Profile'     => 'Profile',
 			// 'Modules/Roles'       => 'Roles',
+			// 'Modules/Rewrite'     => 'Rewrite',
 		];
 
 		if ( 'production' == WP_STAGE )
