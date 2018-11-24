@@ -12,10 +12,12 @@ class Typography extends gNetwork\Module
 
 	protected $key     = 'typography';
 	protected $network = FALSE;
+	protected $ajax    = TRUE;
 
 	protected function setup_actions()
 	{
 		$this->action( 'init', 0, 12 );
+		$this->filter( 'sanitize_title', 3, 8 );
 
 		if ( is_admin() )
 			return;
@@ -159,6 +161,32 @@ class Typography extends gNetwork\Module
 		];
 
 		return array_merge( $strings, $new );
+	}
+
+	public function sanitize_title( $title, $raw_title, $context )
+	{
+		if ( 'save' != $context )
+			return $title;
+
+		if ( seems_utf8( $title ) ) {
+
+			// remove more than one ZWNJs
+			$title = preg_replace( "/(\x{200C})+/iu", "\xE2\x80\x8C", $title );
+
+			$title = str_ireplace( [
+				"\xD8\x8C",
+				"\xC2\xAB",
+				"\xC2\xBB",
+				"\xD9\x94",
+			], '', $title );
+
+			$title = str_ireplace( [
+				"\xE2\x80\x8C\x20", // zwnj + space
+				"\x20\xE2\x80\x8C", // space + znwj
+			], ' ', $title );
+		}
+
+		return Text::stripPunctuation( $title );
 	}
 
 	public function the_content_early( $content )
