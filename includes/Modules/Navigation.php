@@ -439,7 +439,7 @@ class Navigation extends gNetwork\Module
 
 		$key = static::BASE.'_'.$name.( $items ? '' : '_html' );
 
-		if ( WordPress::isFlush() )
+		if ( WordPress::isFlush() && is_main_site() )
 			update_network_option( NULL, $key, '' );
 
 		else if ( $menu = get_network_option( NULL, $key, NULL ) )
