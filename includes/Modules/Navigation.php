@@ -464,7 +464,15 @@ class Navigation extends gNetwork\Module
 					if ( $items )
 						$menu = wp_get_nav_menu_items( $term->term_id, [ 'update_post_term_cache' => FALSE ] );
 					else
-						$menu = wp_nav_menu( [ 'menu' => $term->term_id, 'echo' => FALSE, 'container' => '', 'item_spacing' => 'discard', 'fallback_cb' => FALSE ] );
+						$menu = wp_nav_menu( [
+							'menu'         => $term->term_id,
+							'menu_id'      => $name,
+							'menu_class'   => 'menu network-menu -print-hide',
+							'container'    => '',
+							'item_spacing' => 'discard',
+							'fallback_cb'  => FALSE,
+							'echo'         => FALSE,
+						] );
 				}
 			}
 
