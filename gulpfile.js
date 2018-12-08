@@ -20,7 +20,7 @@
   var banner = config.banner.join('\n');
 
   try {
-    env = extend(config.env, yaml.safeLoad(fs.readFileSync('./environment.yml', {encoding: 'utf-8'}), {'json': true}));
+    env = extend(config.env, yaml.safeLoad(fs.readFileSync('./environment.yml', { encoding: 'utf-8' }), { 'json': true }));
   } catch (e) {
     log.warn('no environment.yml loaded!');
   }
@@ -80,18 +80,18 @@
         autoprefixer(config.autoprefixer.dev)
       ]))
       .pipe(plugins.sourcemaps.write(config.output.sourcemaps))
-      .pipe(plugins.size({title: 'CSS:', showFiles: true}))
+      .pipe(plugins.size({ title: 'CSS:', showFiles: true }))
       .pipe(gulp.dest(config.output.css)).on('error', log.error)
       .pipe(plugins.if(config.input.rtldev,
         multipipe(
           plugins.postcss([rtlcss()]),
-          plugins.rename({suffix: '-rtl'}),
+          plugins.rename({ suffix: '-rtl' }),
           gulp.dest(config.output.css)
         )
       ))
       .pipe(plugins.changedInPlace())
-      .pipe(plugins.size({title: 'RTL:', showFiles: true}))
-      .pipe(plugins.debug({title: 'Changed'}))
+      .pipe(plugins.size({ title: 'RTL:', showFiles: true }))
+      .pipe(plugins.debug({ title: 'Changed' }))
       .pipe(plugins.if(function (file) {
         if (file.extname !== '.map') return true;
       }, plugins.livereload()));
@@ -111,17 +111,17 @@
         cssnano(config.cssnano.dev),
         autoprefixer(config.autoprefixer.dev)
       ]))
-      .pipe(plugins.header(banner, {pkg: pkg}))
+      .pipe(plugins.header(banner, { pkg: pkg }))
       .pipe(plugins.sourcemaps.write(config.output.sourcemaps))
-      .pipe(plugins.size({title: 'CSS:', showFiles: true}))
-      .pipe(plugins.debug({title: 'Created'}))
+      .pipe(plugins.size({ title: 'CSS:', showFiles: true }))
+      .pipe(plugins.debug({ title: 'Created' }))
       .pipe(gulp.dest(config.output.css)).on('error', log.error)
       .pipe(plugins.if(config.input.rtldev,
         multipipe(
           plugins.postcss([rtlcss()]),
-          plugins.rename({suffix: '-rtl'}),
-          plugins.size({title: 'RTL:', showFiles: true}),
-          plugins.debug({title: 'RTLed'})
+          plugins.rename({ suffix: '-rtl' }),
+          plugins.size({ title: 'RTL:', showFiles: true }),
+          plugins.debug({ title: 'RTLed' })
         )
       ))
       .pipe(gulp.dest(config.output.css)).on('error', log.error);
@@ -134,7 +134,7 @@
         cssnano(config.cssnano.build),
         autoprefixer(config.autoprefixer.build)
       ]))
-      .pipe(plugins.size({title: 'CSS:', showFiles: true}))
+      .pipe(plugins.size({ title: 'CSS:', showFiles: true }))
       .pipe(gulp.dest(config.output.css)).on('error', log.error);
   });
 
@@ -147,22 +147,22 @@
         cssnano(config.cssnano.build),
         autoprefixer(config.autoprefixer.build)
       ]))
-      .pipe(plugins.rename({suffix: '-rtl'}))
-      .pipe(plugins.size({title: 'RTL:', showFiles: true}))
+      .pipe(plugins.rename({ suffix: '-rtl' }))
+      .pipe(plugins.size({ title: 'RTL:', showFiles: true }))
       .pipe(gulp.dest(config.output.css)).on('error', log.error);
   });
 
   gulp.task('build:scripts', function () {
-    return gulp.src(config.input.js, {base: '.'})
+    return gulp.src(config.input.js, { base: '.' })
       .pipe(plugins.rename({
         suffix: '.min'
       }))
       .pipe(plugins.uglify())
-      .pipe(plugins.size({title: 'JS:', showFiles: true}));
+      .pipe(plugins.size({ title: 'JS:', showFiles: true }));
   });
 
   gulp.task('build:banner', function () {
-    return gulp.src(config.input.banner, {'base': '.'})
+    return gulp.src(config.input.banner, { 'base': '.' })
       .pipe(plugins.header(banner, {
         pkg: pkg
       }))
@@ -170,7 +170,7 @@
   });
 
   gulp.task('build:copy', function () {
-    return gulp.src(config.input.final, {'base': '.'})
+    return gulp.src(config.input.final, { 'base': '.' })
       .pipe(gulp.dest(config.output.ready + pkg.name));
   });
 
@@ -198,7 +198,7 @@
   ));
 
   gulp.task('github:package', function () {
-    var changes = parseChangelog(fs.readFileSync('CHANGES.md', {encoding: 'utf-8'}), {title: false});
+    var changes = parseChangelog(fs.readFileSync('CHANGES.md', { encoding: 'utf-8' }), { title: false });
     var options = {
       token: env.github,
       tag: pkg.version,
