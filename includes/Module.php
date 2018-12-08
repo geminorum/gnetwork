@@ -816,14 +816,19 @@ class Module extends Core\Base
 		return FALSE;
 	}
 
-	// FIXME: must count for custom setting functions
 	protected function prep_settings()
 	{
 		$settings = [];
 
-		if ( method_exists( $this, 'default_settings' ) )
-			foreach ( $this->default_settings( TRUE ) as $section )
-				$settings = array_merge( $settings, Arraay::reKey( $section, 'field' ) );
+		if ( method_exists( $this, 'default_settings' ) ) {
+			foreach ( $this->default_settings( TRUE ) as $section ) {
+				foreach ( $section as $key => $field ) {
+					if ( $args = $this->get_settings_field( $key, $field ) ) {
+						$settings[$key] = $args;
+					}
+				}
+			}
+		}
 
 		return $settings;
 	}
@@ -856,20 +861,9 @@ class Module extends Core\Base
 
 				foreach ( $fields as $key => $field ) {
 
-					if ( FALSE === $field )
-						continue;
+					$args = $this->get_settings_field( $key, $field );
 
-					if ( is_array( $field ) )
-						$args = $field;
-
-					// passing as custom description
-					else if ( is_string( $key ) && method_exists( __NAMESPACE__.'\\Settings', 'getSetting_'.$key ) )
-						$args = call_user_func_array( [ __NAMESPACE__.'\\Settings', 'getSetting_'.$key ], [ $field ] );
-
-					else if ( method_exists( __NAMESPACE__.'\\Settings', 'getSetting_'.$field ) )
-						$args = call_user_func( [ __NAMESPACE__.'\\Settings', 'getSetting_'.$field ] );
-
-					else
+					if ( FALSE === $args )
 						continue;
 
 					$this->add_settings_field( array_merge( $args, [
@@ -882,6 +876,26 @@ class Module extends Core\Base
 
 		// register settings on the settings page only
 		add_action( 'admin_print_footer_scripts', [ $this, 'print_scripts' ], 99 );
+	}
+
+	protected function get_settings_field( $key, $field )
+	{
+		if ( FALSE === $field )
+			return FALSE;
+
+		if ( is_array( $field ) )
+			return $field;
+
+		$settings = __NAMESPACE__.'\\Settings';
+
+		// passing as custom description
+		if ( is_string( $key ) && method_exists( $settings, 'getSetting_'.$key ) )
+			return call_user_func_array( [ $settings, 'getSetting_'.$key ], [ $field ] );
+
+		if ( method_exists( $settings, 'getSetting_'.$field ) )
+			return call_user_func( [ $settings, 'getSetting_'.$field ] );
+
+		return FALSE;
 	}
 
 	public function settings_section_misc()
