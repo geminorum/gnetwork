@@ -6,8 +6,11 @@
 #wpadminbar {
   .shortlink-input {
     color: #000;
-    font-weight: 600;
+    font-weight: 400;
     width: 260px;
+    padding: 4px 6px;
+    box-shadow: none;
+    border: none;
 
     /*rtl:ignore*/
     direction: ltr;
@@ -26,6 +29,20 @@
     margin-right: 0;
   }
 
+  #wp-admin-bar-gnetwork-cron-status {
+    max-width: 210px; // default min-width;
+
+    border-bottom: 1px solid lighten(#464b50, 10%);
+    padding-bottom: 6px; // ul padding
+
+    a.ab-item {
+      height: auto;
+      white-space: normal;
+      line-height: 1.6;
+      font-size: smaller;
+    }
+  }
+
   // .quicklinks .menupop ul li .ab-item,
   // .quicklinks .menupop ul li a strong,
   // .quicklinks .menupop.hover ul li .ab-item,
@@ -35,6 +52,10 @@
 
   // MUST BE ON WP CORE!
   body.rtl & {
+    * {
+      @include theme-fonts-core-native;
+    }
+
     .menupop .menupop > .ab-item::before {
       content: "\f141" !important;
 

@@ -21,6 +21,9 @@
 //   display: none !important;
 // }
 
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// Text meant only for screen readers
 // @REF: https://github.com/wpaccessibility/a11ythemepatterns/
 // @REF: https://core.trac.wordpress.org/ticket/40970
 // hide visually but not from screen readers
@@ -34,7 +37,7 @@
   margin: -1px;
   overflow: hidden;
   padding: 0;
-  position: absolute;
+  position: absolute !important;
   width: 1px;
-  word-wrap: normal !important; // many screen reader and browser combinations announce broken words as they would appear visually
+  word-wrap: normal !important;
 }
