@@ -1,3 +1,23 @@
+### 3.7.7
+* main/module: prep pre-custom setting fields
+* main/module: safer assign options into globals
+* main/utilities: constant for redirect 404 url
+* module/admin: network enabled plugins on active view
+* module/embed: disable embeds by default
+* module/mail: check for recipient email before logging
+* module/navigation: default menu id/class
+* module/navigation: flush menu only on main site
+* module/navigation: help tab summary of nav placeholders
+* module/search: search again uri removed
+* module/shortcodes: drop flash shortcode
+* module/shortcodes: non breakable non space before ref
+* module/shortcodes: template for ref numbers
+* module/typography: non breakable non space before sup
+* module/typography: remove space before ref
+* module/typography: sanitize more chars on titles
+* module/update: cleanup response data before transient
+* assets/js :up: PDFObject 2.1.1
+
 ### 3.7.6
 * main/module: auto hook current screen actions
 * main/settings: disabled field type
