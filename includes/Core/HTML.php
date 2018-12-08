@@ -301,7 +301,15 @@ class HTML extends Base
 		return self::escapeURL( 'tel:'.str_replace( array( '(', ')', '-', '.', '|', ' ' ), '', $number ) );
 	}
 
+	// FIXME: DEPRECATED
 	public static function getAtts( $string, $expecting = array() )
+	{
+		self::_dev_dep( 'HTML::parseAtts()' );
+
+		return self::parseAtts( $string, $expecting );
+	}
+
+	public static function parseAtts( $string, $expecting = array() )
 	{
 		foreach ( $expecting as $attr => $default ) {
 
