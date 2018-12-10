@@ -186,6 +186,7 @@ class Locale extends gNetwork\Module
 			'onesignal-push'             => 'page', // [OneSignal](https://wordpress.org/plugins/onesignal-free-web-push-notifications/)
 			'icit-profiler'              => 'page', // [WP Performance Profiler](https://github.com/khromov/wp-performance-profiler)
 			'simpleWpSitemapSettings'    => 'page', // [Simple Wp Sitemap](https://wordpress.org/plugins/simple-wp-sitemap/)
+			'health-check'               => 'page', // [Health Check & Troubleshooting](https://wordpress.org/plugins/health-check/)
 
 			// [Official MailerLite Sign Up Forms](https://wordpress.org/plugins/official-mailerlite-sign-up-forms/)
 			'mailerlite_main'     => 'page',
@@ -286,6 +287,10 @@ class Locale extends gNetwork\Module
 			'gf_addons'        => 'page',
 			'gf_system_status' => 'page',
 			'gf_help'          => 'page',
+
+			// [PublishPress](https://publishpress.com/)
+			'pp-modules-settings' => 'page',
+			'pp-addons'           => 'page',
 
 		], $current );
 
