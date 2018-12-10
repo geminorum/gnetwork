@@ -16,7 +16,7 @@
 * module/typography: remove space before ref
 * module/typography: sanitize more chars on titles
 * module/update: cleanup response data before transient
-* assets/js :up: PDFObject 2.1.1
+* assets/js: :up: PDFObject 2.1.1
 
 ### 3.7.6
 * main/module: auto hook current screen actions
