@@ -446,7 +446,9 @@ class Taxonomy extends gNetwork\Module
 			if ( self::isError( $term ) )
 				continue;
 
-			wp_update_term( $term_id, $taxonomy, [ 'slug' => $term->name ] );
+			$slug = $this->filters( 'term_rewrite_slug', $term->name, $term, $taxonomy );
+
+			wp_update_term( $term_id, $taxonomy, [ 'slug' => $slug ] );
 		}
 
 		return TRUE;
