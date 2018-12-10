@@ -659,9 +659,10 @@ class WordPress extends Base
 		if ( ! $file = self::getConfigPHP() )
 			return FALSE;
 
-		$contents = file_get_contents( $file );
-		$pattern  = "define\( ?'".$constant."'";
-		$pattern  = "/^$pattern.*/m";
+		$pattern = "define\( ?'".$constant."'";
+		$pattern = "/^$pattern.*/m";
+
+		$contents = File::getContents( $file );
 
 		if ( preg_match_all( $pattern, $contents, $matches ) )
 			return TRUE;

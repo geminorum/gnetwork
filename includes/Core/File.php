@@ -97,6 +97,7 @@ class File extends Base
 	}
 
 	// wrapper for file_get_contents()
+	// @REF: https://github.com/markjaquith/feedback/issues/33
 	public static function getContents( $filename )
 	{
 		return @file_get_contents( $filename );
