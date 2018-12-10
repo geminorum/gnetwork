@@ -1,3 +1,8 @@
+### 3.7.8
+* module/taxonomy: filter for term rewrite slug
+* module/typography: :warning: disabling sanitize title filter
+* module/update: check for empty response on assets
+
 ### 3.7.7
 * main/module: prep pre-custom setting fields
 * main/module: safer assign options into globals
