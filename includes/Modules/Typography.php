@@ -17,7 +17,7 @@ class Typography extends gNetwork\Module
 	protected function setup_actions()
 	{
 		$this->action( 'init', 0, 12 );
-		$this->filter( 'sanitize_title', 3, 8 );
+		// $this->filter( 'sanitize_title', 3, 8 );
 
 		if ( is_admin() )
 			return;
