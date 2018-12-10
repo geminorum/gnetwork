@@ -571,7 +571,7 @@ class Update extends gNetwork\Module
 
 					$response = wp_remote_get( $this->add_token( $asset['url'], $package ), [ 'headers' => [ 'Accept' => 'application/octet-stream' ] ] );
 
-					if ( self::isError( $response ) )
+					if ( ! $response || self::isError( $response ) )
 						return FALSE;
 
 					return $response->history[0]->headers->getValues( 'location' );
