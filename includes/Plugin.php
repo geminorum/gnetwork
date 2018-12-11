@@ -164,7 +164,7 @@ class Plugin
 			// 'Modules/Remote'      => 'Remote',
 			'Modules/Navigation'  => 'Navigation',
 			'Modules/Themes'      => 'Themes',
-			// 'Modules/Extend'      => 'Extend',
+			'Modules/Extend'      => 'Extend',
 			// 'Modules/DB'          => 'DB',
 			'Modules/Media'       => 'Media',
 			'Modules/Embed'       => 'Embed',
