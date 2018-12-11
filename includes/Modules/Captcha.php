@@ -181,14 +181,21 @@ class Captcha extends gNetwork\Module
 		echo '<div class="g-recaptcha" data-sitekey="'.$this->options['public_key'].'" data-callback="gnrecaptchacb"></div>';
 	}
 
+	// @REF: https://developers.google.com/recaptcha/docs/verify
 	public function recaptcha_verify( $param = TRUE )
 	{
 		if ( ! isset( $_POST['g-recaptcha-response'] ) )
 			return FALSE;
 
-		$url = 'https://www.google.com/recaptcha/api/siteverify?secret='.$this->options['private_key'].'&response='.$_POST['g-recaptcha-response'];
+		$request = vsprintf( 'https://www.google.com/recaptcha/api/siteverify?secret=%s&response=%s', [
+			$this->options['private_key'],
+			$_POST['g-recaptcha-response'],
+		] );
 
-		$response = HTTP::getJSON( $url, [], TRUE );
+		$response = HTTP::getJSON( $request, [], TRUE );
+
+		if ( ! empty( $response['error-codes'] ) )
+			Logger::siteWARNING( 'CAPTCHA-VERIFY', join( ', ', (array) $response['error-codes'] ) );
 
 		if ( empty( $response['success'] ) )
 			return FALSE;
