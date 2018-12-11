@@ -167,7 +167,7 @@ class Captcha extends gNetwork\Module
 			return;
 
 		echo '<script src="https://www.google.com/recaptcha/api.js?hl='.Utilities::getISO639().'" async defer></script>'."\n";
-		echo '<script type="text/javascript">/* <![CDATA[ */ function gnrecaptchacb(){for(var r=["#loginform #wp-submit","#lostpasswordform #wp-submit","#registerform #wp-submit","#commentform #submit"],o=0;o<=r.length;o++)jQuery(r[o]).length>0&&jQuery(r[o]).show()} /* ]]> */</script>'."\n";
+		HTML::wrapScript( 'function gnrecaptchacb(){for(var r=["#loginform #wp-submit","#lostpasswordform #wp-submit","#registerform #wp-submit","#commentform #submit"],o=0;o<=r.length;o++)jQuery(r[o]).length>0&&jQuery(r[o]).show()}' );
 
 		wp_enqueue_script( 'jquery' );
 
