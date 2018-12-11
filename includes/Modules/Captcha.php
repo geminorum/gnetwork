@@ -21,8 +21,9 @@ class Captcha extends gNetwork\Module
 		if ( GNETWORK_DISABLE_RECAPTCHA )
 			throw new Exception( 'Captcha is diabled!' );
 
-		if ( ! is_admin() )
-			$this->action( 'wpcf7_enqueue_scripts' );
+		// NO NEED: after WPCF7 v5.1
+		// if ( ! is_admin() )
+		// 	$this->action( 'wpcf7_enqueue_scripts' );
 
 		if ( empty( $this->options['public_key'] )
 			|| empty( $this->options['private_key'] ) )
@@ -139,6 +140,7 @@ class Captcha extends gNetwork\Module
 		$this->filter( 'bp_core_validate_user_signup' );
 	}
 
+	// FIXME: DROP THIS
 	// @REF: http://wp.me/p6rU3h-ct
 	public function wpcf7_enqueue_scripts()
 	{
