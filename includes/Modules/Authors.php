@@ -63,7 +63,7 @@ class Authors extends gNetwork\Module
 	}
 
 	// TODO: add site user to this blog ( with cap select )
-	public function render_tools( $uri, $sub = 'general' )
+	protected function render_tools_html( $uri, $sub = 'general' )
 	{
 		$users = [
 			'none' => Settings::showOptionNone(),
@@ -72,8 +72,6 @@ class Authors extends gNetwork\Module
 
 		foreach ( WordPress::getUsers() as $user_id => $user )
 			$users[$user_id] = sprintf( '%1$s (%2$s)', $user->display_name, $user->user_login );
-
-		$this->render_form_start( $uri, $sub, 'bulk', 'tools', FALSE );
 
 		echo '<table class="form-table">';
 
@@ -119,8 +117,6 @@ class Authors extends gNetwork\Module
 
 			echo '</td></tr>';
 		echo '</table>';
-
-		$this->render_form_end( $uri, $sub, 'bulk', 'tools' );
 	}
 
 	protected function tools_actions( $sub = NULL )
