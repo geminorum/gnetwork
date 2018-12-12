@@ -156,7 +156,7 @@ class Module extends Core\Base
 		// WILL OVERRIDED
 	}
 
-	public function get_menu_url( $sub = NULL, $admin = 'admin', $context = 'settings', $scheme = 'admin' )
+	public function get_menu_url( $sub = NULL, $admin = 'admin', $context = 'settings', $extra = [], $scheme = 'admin' )
 	{
 		if ( is_null( $sub ) )
 			$sub = $this->key;
@@ -170,7 +170,7 @@ class Module extends Core\Base
 			case 'user'   : $url = Modules\User::menuURL( TRUE, $context, $scheme ); break;
 		}
 
-		return add_query_arg( [ 'sub' => $sub ], $url );
+		return add_query_arg( array_merge( [ 'sub' => $sub ], $extra ), $url );
 	}
 
 	// we call 'setup_menu' action only if `WordPress::mustRegisterUI()`
@@ -263,22 +263,6 @@ class Module extends Core\Base
 				return WordPress::cuc( $group[$sub]['cap'] );
 
 		return FALSE;
-	}
-
-	// FIXME
-	public function get_settings_url( $action = FALSE, $full = FALSE )
-	{
-		$args = [ 'sub' => $this->key ];
-
-		if ( is_array( $action ) )
-			$args = array_merge( $args, $action );
-
-		else if ( FALSE !== $action )
-			$args['action'] = $action;
-
-		$url = $this->is_network() ? Modules\Network::menuURL( $full ) : Modules\Admin::menuURL( $full );
-
-		return add_query_arg( $args, $url );
 	}
 
 	// fallback if no network
@@ -633,9 +617,8 @@ class Module extends Core\Base
 	// DEFAULT METHOD: used for tools overview sub only
 	protected function tools_overview( $uri ) {}
 
-	// DEFAULT METHOD: MAYBE OVERRIDED
+	// DEFAULT METHOD
 	// CAUTION: the action method responsible for checking the nonce
-	// NOT USED YET
 	protected function settings_actions( $sub = NULL )
 	{
 		if ( empty( $_REQUEST['action'] ) )
