@@ -152,24 +152,18 @@ class Update extends gNetwork\Module
 		echo '</p>';
 	}
 
-	public function settings( $sub = NULL, $key = NULL )
+	protected function settings_actions( $sub = NULL )
 	{
-		if ( $this->key == $sub ) {
+		if ( isset( $_POST['refresh_packages'] ) ) {
 
-			if ( isset( $_POST['refresh_packages'] ) ) {
+			$this->check_referer( $sub );
 
-				$this->check_referer( $sub );
+			$count = $this->refresh_packages();
 
-				$count = $this->refresh_packages();
-
-				WordPress::redirectReferer( FALSE === $count ? 'wrong' : [
-					'message' => 'synced',
-					'count'   => $count,
-				] );
-
-			} else {
-				parent::settings( $sub );
-			}
+			WordPress::redirectReferer( FALSE === $count ? 'wrong' : [
+				'message' => 'synced',
+				'count'   => $count,
+			] );
 		}
 	}
 
