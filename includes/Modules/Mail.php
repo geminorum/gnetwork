@@ -672,11 +672,11 @@ class Mail extends gNetwork\Module
 				'class'    => '-column-content',
 				'callback' => function( $value, $row, $column, $index ){
 					$content   = '';
-					$direction = empty( $row['rtl'] ) ? '' : ' dir="rtl"';
+					$direction = empty( $row['rtl'] ) ? '' : ' style="direction:rtl"';
 
 					if ( ! empty( $row['subject'] ) )
-						$content.= '<code>'._x( 'Subject', 'Modules: Mail: Email Logs Table Prefix', GNETWORK_TEXTDOMAIN ).'</code> <span'
-							.$direction.'>'.$row['subject'].'</span><hr />';
+						$content.= _x( 'Subject', 'Modules: Mail: Email Logs Table Prefix', GNETWORK_TEXTDOMAIN ).': <code'
+							.$direction.'>'.$row['subject'].'</code><hr />';
 
 					if ( ! empty( $row['message'] ) ) {
 
