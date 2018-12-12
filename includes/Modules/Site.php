@@ -196,40 +196,34 @@ class Site extends gNetwork\Module
 		}
 	}
 
-	public function settings( $sub = NULL, $key = NULL )
+	protected function settings_actions( $sub = NULL )
 	{
-		if ( $this->key == $sub ) {
+		if ( isset( $_POST['disable_site_ssl'] )
+			|| isset( $_POST['enable_site_ssl'] ) ) {
 
-			if ( isset( $_POST['disable_site_ssl'] )
-		 		|| isset( $_POST['enable_site_ssl'] ) ) {
+			$this->check_referer( $sub );
 
-				$this->check_referer( $sub );
+			$switch = isset( $_POST['enable_site_ssl'] )
+				? [ 'http://', 'https://' ]
+				: [ 'https://', 'http://' ];
 
-				$switch = isset( $_POST['enable_site_ssl'] )
-					? [ 'http://', 'https://' ]
-					: [ 'https://', 'http://' ];
+			update_option( 'siteurl', str_replace( $switch[0], $switch[1], get_option( 'siteurl' ) ) );
+			update_option( 'home', str_replace( $switch[0], $switch[1], get_option( 'home' ) ) );
 
-				update_option( 'siteurl', str_replace( $switch[0], $switch[1], get_option( 'siteurl' ) ) );
-				update_option( 'home', str_replace( $switch[0], $switch[1], get_option( 'home' ) ) );
+			Logger::siteINFO( 'SSL', sprintf( 'switched to: %s', str_replace( '://', '', $switch[1] ) ) );
 
-				Logger::siteINFO( 'SSL', sprintf( 'switched to: %s', str_replace( '://', '', $switch[1] ) ) );
+			WordPress::redirectReferer();
 
-				WordPress::redirectReferer();
+		} else if ( isset( $_POST['resync_sitemeta'] ) ) {
 
-			} else if ( isset( $_POST['resync_sitemeta'] ) ) {
+			$this->check_referer( $sub );
 
-				$this->check_referer( $sub );
+			$count = $this->do_resync_sitemeta();
 
-				$count = $this->do_resync_sitemeta();
-
-				WordPress::redirectReferer( FALSE === $count ? 'wrong' : [
-					'message' => 'synced',
-					'count'   => $count,
-				] );
-
-			} else {
-				parent::settings( $sub );
-			}
+			WordPress::redirectReferer( FALSE === $count ? 'wrong' : [
+				'message' => 'synced',
+				'count'   => $count,
+			] );
 		}
 	}
 
