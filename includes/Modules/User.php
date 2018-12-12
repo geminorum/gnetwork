@@ -67,8 +67,9 @@ class User extends gNetwork\Module
 		);
 
 		if ( is_multisite() && $this->options['blog_roles'] )
-			Network::registerMenu( 'roles',
-				_x( 'Roles', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN )
+			Network::registerTool( 'roles',
+				_x( 'Roles', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
+				[ $this, 'tools' ]
 			);
 	}
 
@@ -190,13 +191,19 @@ class User extends gNetwork\Module
 		);
 	}
 
-	public function settings( $sub = NULL, $key = NULL )
+	public function tools( $sub = NULL, $key = NULL )
 	{
-		if ( $this->key == $sub ) {
+		parent::tools( $sub, 'roles' );
+	}
 
-			parent::settings( $sub );
+	protected function tools_buttons( $sub = NULL )
+	{
+		$this->settings_buttons( $sub );
+	}
 
-		} else if ( 'roles' == $sub ) {
+	protected function tools_actions( $sub = NULL )
+	{
+		if ( 'roles' == $sub ) {
 
 			if ( ! empty( $_POST ) && 'bulk' == $_POST['action'] ) {
 
@@ -220,32 +227,10 @@ class User extends gNetwork\Module
 
 				WordPress::redirectReferer( $result ? 'updated' : 'error' );
 			}
-
-			add_action( $this->menu_hook( $sub ), [ $this, 'render_settings' ], 10, 2 );
-
-			$this->settings_buttons( $sub );
-			$this->register_help( $sub );
 		}
 	}
 
-	public function render_settings( $uri, $sub = 'general' )
-	{
-		if ( $this->key == $sub ) {
-
-			parent::render_settings( $uri, $sub );
-
-		} else if ( 'roles' == $sub ) {
-
-			$this->render_form_start( $uri, $sub, 'bulk', 'custom', FALSE );
-
-				if ( $this->tableBlogRoles() )
-					$this->render_form_buttons( $sub );
-
-			$this->render_form_end( $uri, $sub );
-		}
-	}
-
-	private function tableBlogRoles()
+	protected function render_tools_html( $uri, $sub = 'general' )
 	{
 		$blogs = $this->get_sites();
 		$roles = get_network_option( NULL, $this->hook( 'roles' ), [] );
