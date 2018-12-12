@@ -241,106 +241,105 @@ class Profile extends gNetwork\Module
 		];
 	}
 
-	public function settings( $sub = NULL, $key = NULL )
+	protected function settings_actions( $sub = NULL )
 	{
-		if ( $this->key == $sub ) {
+		if ( isset( $_POST['import_users_csv'] ) ) {
 
-			if ( isset( $_POST['import_users_csv'] ) ) {
+			$this->check_referer( $sub );
 
-				$this->check_referer( $sub );
+			$file = wp_import_handle_upload();
 
-				$file = wp_import_handle_upload();
-
-				if ( isset( $file['error'] ) || empty( $file['file'] ) )
-					WordPress::redirectReferer( 'wrong' );
-
-				$count = 0;
-				$role  = get_option( 'default_role' );
-
-				// skiping ip on the imported
-				$this->options['store_signup_ip'] = FALSE;
-
-				$csv = new \ParseCsv\Csv();
-				$csv->auto( File::normalize( $file['file'] ) );
-
-				foreach ( $csv->data as $offset => $row ) {
-
-					$data = self::args( (array) $row, [
-						'user_email' => FALSE,
-						'user_login' => FALSE,
-						'role'       => $role,
-					] );
-
-					if ( $data['user_email'] )
-						$data['user_email'] = strtolower( $data['user_email'] );
-
-					if ( empty( $data['user_email'] ) || ! is_email( $data['user_email'] ) )
-						continue;
-
-					if ( $data['user_login'] )
-						$data['user_login'] = strtolower( $data['user_login'] );
-
-					if ( empty( $data['user_login'] ) )
-						$data['user_login'] = Email::toUsername( $data['user_email'] );
-
-					if ( empty( $data['user_login'] ) || ! validate_username( $data['user_login'] ) )
-						continue;
-
-					if ( username_exists( $data['user_login'] ) )
-						continue;
-
-					if ( email_exists( $data['user_email'] ) )
-						continue;
-
-					if ( ! empty( $data['display_name'] ) )
-						$data['display_name'] = apply_filters( 'string_format_i18n', $data['display_name'] );
-
-					if ( ! empty( $data['nickname'] ) )
-						$data['nickname'] = apply_filters( 'string_format_i18n', $data['nickname'] );
-
-					if ( $data['user_nicename'] == $data['user_login']
-						&& ! empty( $data['display_name'] )
-						&& $data['user_login'] != $data['display_name'] ) {
-
-						$data['user_nicename'] = $this->sanitizeSlug( $data['display_name'] );
-					}
-
-					if ( empty( $data['nickname'] ) && ! empty( $data['display_name'] ) )
-						$data['nickname'] = $data['display_name'];
-
-					unset( $data['ID'], $data['id'] );
-
-					$data['user_pass'] = wp_generate_password( 12, FALSE );
-
-					$user_id = wp_insert_user( $data );
-
-					if ( ! $user_id || is_wp_error( $user_id ) )
-						continue;
-
-					update_user_option( $user_id, 'default_password_nag', TRUE, TRUE );
-
-					$count++;
-				}
-
-				WordPress::redirectReferer( [
-					'message'    => 'imported',
-					'count'      => $count,
-					'attachment' => $file['id'],
-				] );
-
-			} else if ( isset( $_POST['export_users_csv'] ) ) {
-
-				$this->check_referer( $sub );
-
-				Text::download( $this->get_csv_users(), File::prepName( 'users.csv' ) );
-
+			if ( isset( $file['error'] ) || empty( $file['file'] ) )
 				WordPress::redirectReferer( 'wrong' );
 
-			} else {
+			$count = $this->import_users_csv( $file, get_option( 'default_role' ) );
 
-				parent::settings( $sub );
-			}
+			WordPress::redirectReferer( [
+				'message'    => 'imported',
+				'count'      => $count,
+				'attachment' => $file['id'],
+			] );
+
+		} else if ( isset( $_POST['export_users_csv'] ) ) {
+
+			$this->check_referer( $sub );
+
+			Text::download( $this->get_csv_users(), File::prepName( 'users.csv' ) );
+
+			WordPress::redirectReferer( 'wrong' );
 		}
+	}
+
+	private function import_users_csv( $file, $role )
+	{
+		$count = 0;
+
+		// skiping ip on the imported
+		$this->options['store_signup_ip'] = FALSE;
+
+		$csv = new \ParseCsv\Csv();
+		$csv->auto( File::normalize( $file['file'] ) );
+
+		foreach ( $csv->data as $offset => $row ) {
+
+			$data = self::args( (array) $row, [
+				'user_email' => FALSE,
+				'user_login' => FALSE,
+				'role'       => $role,
+			] );
+
+			if ( $data['user_email'] )
+				$data['user_email'] = strtolower( $data['user_email'] );
+
+			if ( empty( $data['user_email'] ) || ! is_email( $data['user_email'] ) )
+				continue;
+
+			if ( $data['user_login'] )
+				$data['user_login'] = strtolower( $data['user_login'] );
+
+			if ( empty( $data['user_login'] ) )
+				$data['user_login'] = Email::toUsername( $data['user_email'] );
+
+			if ( empty( $data['user_login'] ) || ! validate_username( $data['user_login'] ) )
+				continue;
+
+			if ( username_exists( $data['user_login'] ) )
+				continue;
+
+			if ( email_exists( $data['user_email'] ) )
+				continue;
+
+			if ( ! empty( $data['display_name'] ) )
+				$data['display_name'] = apply_filters( 'string_format_i18n', $data['display_name'] );
+
+			if ( ! empty( $data['nickname'] ) )
+				$data['nickname'] = apply_filters( 'string_format_i18n', $data['nickname'] );
+
+			if ( $data['user_nicename'] == $data['user_login']
+				&& ! empty( $data['display_name'] )
+				&& $data['user_login'] != $data['display_name'] ) {
+
+				$data['user_nicename'] = $this->sanitizeSlug( $data['display_name'] );
+			}
+
+			if ( empty( $data['nickname'] ) && ! empty( $data['display_name'] ) )
+				$data['nickname'] = $data['display_name'];
+
+			unset( $data['ID'], $data['id'] );
+
+			$data['user_pass'] = wp_generate_password( 12, FALSE );
+
+			$user_id = wp_insert_user( $data );
+
+			if ( ! $user_id || is_wp_error( $user_id ) )
+				continue;
+
+			update_user_option( $user_id, 'default_password_nag', TRUE, TRUE );
+
+			$count++;
+		}
+
+		return $count;
 	}
 
 	public function current_screen( $screen )
