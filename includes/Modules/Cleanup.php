@@ -16,9 +16,9 @@ class Cleanup extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		Admin::registerMenu( $this->key,
+		Admin::registerTool( $this->key,
 			_x( 'Cleanup', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			[ $this, 'settings' ]
+			[ $this, 'tools' ]
 		);
 	}
 
@@ -188,10 +188,17 @@ class Cleanup extends gNetwork\Module
 		return $settings;
 	}
 
-	// no buttons
-	protected function settings_buttons( $sub = NULL ) {}
+	protected function tools_setup( $sub = NULL )
+	{
+		$this->register_settings();
+	}
 
-	protected function settings_update( $sub )
+	public function render_tools( $uri, $sub = 'general' )
+	{
+		$this->render_settings( $uri, $sub );
+	}
+
+	protected function tools_actions( $sub = NULL )
 	{
 		if ( ! empty( $_POST ) && 'update' == $_POST['action'] ) {
 
