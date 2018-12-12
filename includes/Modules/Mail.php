@@ -37,15 +37,15 @@ class Mail extends gNetwork\Module
 	{
 		$this->register_menu( _x( 'Mail', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
 
-		$this->register_menu(
+		$this->register_tool(
 			_x( 'Test Mail', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			FALSE, 'testmail'
+			NULL, 'testmail', NULL, 16
 		);
 
 		if ( GNETWORK_MAIL_LOG_DIR && $this->options['log_all'] )
-			$this->register_menu(
+			$this->register_tool(
 				_x( 'Email Logs', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-				FALSE, 'emaillogs'
+				FALSE, 'emaillogs', NULL, 15
 			);
 	}
 
@@ -257,13 +257,31 @@ class Mail extends gNetwork\Module
 			} else {
 				parent::settings( $sub );
 			}
+		}
+	}
 
-		} else if ( 'testmail' == $sub ) {
+	public function tools( $sub = NULL, $key = NULL )
+	{
+		if ( in_array( $sub, [ 'testmail', 'emaillogs' ] ) )
+			parent::tools( $sub, TRUE );
+	}
 
-			add_action( $this->menu_hook( $sub ), [ $this, 'settings_form_testmail' ], 10, 2 );
+	protected function tools_buttons( $sub = NULL )
+	{
+		if ( 'testmail' == $sub ) {
+
 			$this->register_button( 'send_testmail', _x( 'Send Test Mail', 'Modules: Mail', GNETWORK_TEXTDOMAIN ), TRUE );
 
 		} else if ( 'emaillogs' == $sub ) {
+
+			$this->register_button( 'deletelogs_selected', _x( 'Delete Selected', 'Modules: Mail', GNETWORK_TEXTDOMAIN ), TRUE );
+			$this->register_button( 'deletelogs_all', _x( 'Delete All', 'Modules: Mail', GNETWORK_TEXTDOMAIN ), FALSE, TRUE );
+		}
+	}
+
+	protected function tools_actions( $sub = NULL )
+	{
+		if ( 'emaillogs' == $sub ) {
 
 			if ( GNETWORK_MAIL_LOG_DIR
 				&& ! empty( $_POST )
@@ -298,30 +316,23 @@ class Mail extends gNetwork\Module
 					WordPress::redirectReferer( 'wrong' );
 				}
 			}
-
-			add_action( $this->menu_hook( $sub ), [ $this, 'settings_form_emaillogs' ], 10, 2 );
-
-			$this->register_button( 'deletelogs_selected', _x( 'Delete Selected', 'Modules: Mail', GNETWORK_TEXTDOMAIN ), TRUE );
-			$this->register_button( 'deletelogs_all', _x( 'Delete All', 'Modules: Mail', GNETWORK_TEXTDOMAIN ), FALSE, TRUE );
 		}
 	}
 
-	public function settings_form_testmail( $uri, $sub = 'general' )
+	public function render_tools( $uri, $sub = 'general' )
 	{
 		$this->render_form_start( $uri, $sub, 'bulk', 'custom', FALSE );
+
+		if ( 'testmail' == $sub ) {
 
 			if ( $this->tableTestMail() )
 				$this->render_form_buttons( $sub );
 
-		$this->render_form_end( $uri, $sub );
-	}
-
-	public function settings_form_emaillogs( $uri, $sub = 'general' )
-	{
-		$this->render_form_start( $uri, $sub, 'bulk', 'custom', FALSE );
+		} else if ( 'emaillogs' == $sub ) {
 
 			if ( $this->tableEmailLogs() )
 				$this->render_form_buttons( $sub );
+		}
 
 		$this->render_form_end( $uri, $sub );
 	}
