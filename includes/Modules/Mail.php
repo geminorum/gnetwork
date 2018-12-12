@@ -429,7 +429,7 @@ class Mail extends gNetwork\Module
 
 		$filename = current_time( 'Ymd-His' ).'-'.$to.'.json';
 
-		if ( FALSE === File::putContents( $filename, wp_json_encode( $contents ), GNETWORK_MAIL_LOG_DIR ) )
+		if ( FALSE === File::putContents( $filename, wp_json_encode( $contents, JSON_UNESCAPED_UNICODE ), GNETWORK_MAIL_LOG_DIR ) )
 			Logger::CRITICAL( 'EMAIL-LOGS: CAN NOT LOG EMAIL TO: '.$contents['to'] );
 
 		return $mail;
