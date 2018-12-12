@@ -196,7 +196,7 @@ class Site extends gNetwork\Module
 		}
 	}
 
-	public function settings( $sub = NULL )
+	public function settings( $sub = NULL, $key = NULL )
 	{
 		if ( $this->key == $sub ) {
 

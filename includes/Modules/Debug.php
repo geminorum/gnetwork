@@ -79,17 +79,10 @@ class Debug extends gNetwork\Module
 			);
 	}
 
-	public function tools( $sub = NULL )
+	public function tools( $sub = NULL, $key = NULL )
 	{
-		if ( in_array( $sub, [ 'systemreport', 'remotetests', 'errorlogs', 'analoglogs' ] ) ) {
-
-			$this->tools_actions( $sub );
-
-			add_action( $this->menu_hook( $sub, 'tools' ), [ $this, 'render_tools' ], 10, 2 );
-
-			$this->tools_buttons( $sub );
-			$this->tools_setup( $sub );
-		}
+		if ( in_array( $sub, [ 'systemreport', 'remotetests', 'errorlogs', 'analoglogs' ] ) )
+			parent::tools( $sub, TRUE );
 	}
 
 	protected function tools_buttons( $sub = NULL )

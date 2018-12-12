@@ -582,9 +582,12 @@ class Module extends Core\Base
 	}
 
 	// DEFAULT METHOD: settings hook handler
-	public function settings( $sub = NULL )
+	public function settings( $sub = NULL, $key = NULL )
 	{
-		if ( $this->key == $sub ) {
+		if ( is_null( $key ) )
+			$key = $this->key;
+
+		if ( TRUE === $key || $key == $sub ) {
 
 			$this->settings_actions( $sub );
 			$this->settings_update( $sub );
@@ -600,9 +603,12 @@ class Module extends Core\Base
 	}
 
 	// DEFAULT METHOD: tools hook handler
-	public function tools( $sub = NULL )
+	public function tools( $sub = NULL, $key = NULL )
 	{
-		if ( $this->key == $sub ) {
+		if ( is_null( $key ) )
+			$key = $this->key;
+
+		if ( TRUE === $key || $key == $sub ) {
 
 			$this->tools_actions( $sub );
 
