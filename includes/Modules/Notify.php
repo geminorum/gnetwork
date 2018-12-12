@@ -165,52 +165,46 @@ class Notify extends gNetwork\Module
 		echo '</p>';
 	}
 
-	public function settings( $sub = NULL, $key = NULL )
+	protected function settings_actions( $sub = NULL )
 	{
-		if ( $this->key == $sub ) {
+		if ( isset( $_POST['test_signup_user'] ) ) {
 
-			if ( isset( $_POST['test_signup_user'] ) ) {
+			$this->check_referer( $sub );
 
-				$this->check_referer( $sub );
+			// BuddyPress's
+			remove_filter( 'wpmu_signup_user_notification', 'bp_core_activation_signup_user_notification', 1, 4 );
 
-				// BuddyPress's
-				remove_filter( 'wpmu_signup_user_notification', 'bp_core_activation_signup_user_notification', 1, 4 );
+			$user   = wp_get_current_user();
+			$locale = switch_to_locale( get_network_option( NULL, 'WPLANG' ) );
 
-				$user   = wp_get_current_user();
-				$locale = switch_to_locale( get_network_option( NULL, 'WPLANG' ) );
+			$results = wpmu_signup_user_notification(
+				$user->user_login,
+				$user->user_email, // gNetwork()->email(),
+				substr( md5( time().wp_rand().$user->user_email ), 0, 16 )
+			);
 
-				$results = wpmu_signup_user_notification(
-					$user->user_login,
-					$user->user_email, // gNetwork()->email(),
-					substr( md5( time().wp_rand().$user->user_email ), 0, 16 )
-				);
+			WordPress::redirectReferer( $results ? 'mailed' : 'error' );
 
-				WordPress::redirectReferer( $results ? 'mailed' : 'error' );
+		} else if ( isset( $_POST['test_signup_blog'] ) ) {
 
-			} else if ( isset( $_POST['test_signup_blog'] ) ) {
+			$this->check_referer( $sub );
 
-				$this->check_referer( $sub );
+			// BuddyPress's
+			remove_filter( 'wpmu_signup_blog_notification', 'bp_core_activation_signup_blog_notification', 1, 6 );
 
-				// BuddyPress's
-				remove_filter( 'wpmu_signup_blog_notification', 'bp_core_activation_signup_blog_notification', 1, 6 );
+			$user   = wp_get_current_user();
+			$locale = switch_to_locale( get_network_option( NULL, 'WPLANG' ) );
 
-				$user   = wp_get_current_user();
-				$locale = switch_to_locale( get_network_option( NULL, 'WPLANG' ) );
+			$results = wpmu_signup_blog_notification(
+				'example.com',
+				'/path',
+				'New Site Title',
+				$user->user_login,
+				$user->user_email, // gNetwork()->email(),
+				substr( md5( time().wp_rand().'example.com' ), 0, 16 )
+			);
 
-				$results = wpmu_signup_blog_notification(
-					'example.com',
-					'/path',
-					'New Site Title',
-					$user->user_login,
-					$user->user_email, // gNetwork()->email(),
-					substr( md5( time().wp_rand().'example.com' ), 0, 16 )
-				);
-
-				WordPress::redirectReferer( $results ? 'mailed' : 'error' );
-
-			} else {
-				parent::settings( $sub );
-			}
+			WordPress::redirectReferer( $results ? 'mailed' : 'error' );
 		}
 	}
 
