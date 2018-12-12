@@ -415,7 +415,7 @@ class Mail extends gNetwork\Module
 	{
 		$contents = array_merge( [
 			'timestamp' => current_time( 'mysql' ),
-			'site'      => WordPress::currentSiteName(), // FIXME: display site on log summary
+			'site'      => WordPress::currentSiteName(),
 			'locale'    => get_locale(),
 			// TODO: get smtp server as well
 		], Arraay::filterArray( $mail ) );
@@ -639,6 +639,12 @@ class Mail extends gNetwork\Module
 
 					if ( isset( $row['timestamp'] ) )
 						$html.= '&ndash; '.Utilities::htmlHumanTime( $row['timestamp'] );
+
+					if ( isset( $row['site'] ) )
+						$html.= '<hr />'._x( 'Site', 'Modules: Mail: Email Logs Table Prefix', GNETWORK_TEXTDOMAIN )
+							.': <code>'.$row['site'].'</code>';
+
+					// TODO: add smtp info here
 
 					if ( isset( $row['headers'] ) ) {
 						$html.= '<hr />';
