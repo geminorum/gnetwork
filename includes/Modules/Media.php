@@ -55,9 +55,9 @@ class Media extends gNetwork\Module
 			[ $this, 'settings' ]
 		);
 
-		Admin::registerMenu( 'images',
+		Admin::registerTool( 'images',
 			_x( 'Images', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			FALSE, 'edit_others_posts'
+			[ $this, 'tools' ], 'edit_others_posts'
 		);
 	}
 
@@ -168,7 +168,19 @@ class Media extends gNetwork\Module
 		}
 	}
 
-	public function settings( $sub = NULL, $key = NULL )
+	public function tools( $sub = NULL, $key = NULL )
+	{
+		parent::tools( $sub, 'images' );
+	}
+
+	protected function tools_buttons( $sub = NULL )
+	{
+		$this->register_button( 'clean_attachments', _x( 'Clean Attachments', 'Modules: Media', GNETWORK_TEXTDOMAIN ) );
+		$this->register_button( 'sync_attachments', _x( 'Sync Attachments', 'Modules: Media', GNETWORK_TEXTDOMAIN ) );
+		$this->register_button( 'cache_in_content', _x( 'Cache In Content', 'Modules: Media', GNETWORK_TEXTDOMAIN ) );
+	}
+
+	protected function tools_actions( $sub = NULL )
 	{
 		if ( 'images' == $sub ) {
 
@@ -236,17 +248,8 @@ class Media extends gNetwork\Module
 				}
 			}
 
-			$this->register_button( 'clean_attachments', _x( 'Clean Attachments', 'Modules: Media', GNETWORK_TEXTDOMAIN ) );
-			$this->register_button( 'sync_attachments', _x( 'Sync Attachments', 'Modules: Media', GNETWORK_TEXTDOMAIN ) );
-			$this->register_button( 'cache_in_content', _x( 'Cache In Content', 'Modules: Media', GNETWORK_TEXTDOMAIN ) );
-
-			add_action( $this->menu_hook( $sub ), [ $this, 'settings_form_images' ], 10, 2 );
-
 			add_thickbox();
 			Utilities::enqueueScript( 'admin.media.images' );
-
-		} else {
-			parent::settings( $sub );
 		}
 	}
 
@@ -258,16 +261,6 @@ class Media extends gNetwork\Module
 			HTML::desc( _x( 'No additional image size registered.', 'Modules: Media', GNETWORK_TEXTDOMAIN ) );
 		else
 			HTML::tableSide( $_wp_additional_image_sizes );
-	}
-
-	public function settings_form_images( $uri, $sub = 'general' )
-	{
-		$this->render_form_start( $uri, $sub, 'bulk', 'custom', FALSE );
-
-			if ( $this->tablePostInfo() )
-				$this->render_form_buttons( $sub );
-
-		$this->render_form_end( $uri, $sub );
 	}
 
 	protected static function getPostArray()
@@ -304,7 +297,7 @@ class Media extends gNetwork\Module
 		return [ $posts, $pagination ];
 	}
 
-	private function tablePostInfo()
+	protected function render_tools_html( $uri, $sub = 'general' )
 	{
 		list( $posts, $pagination ) = self::getPostArray();
 
@@ -970,7 +963,7 @@ class Media extends gNetwork\Module
 
 		$ids = maybe_serialize( implode( ',', array_map( 'intval', array_unique( $parents ) ) ) );
 
-		return $this->get_settings_url( [ 'sub' => 'images', 'id'  => $ids ] );
+		return $this->get_menu_url( 'images', NULL, 'tools', [ 'id' => $ids ] );
 	}
 
 	public function media_row_actions( $actions, $post, $detached )
@@ -983,7 +976,7 @@ class Media extends gNetwork\Module
 			$actions['media-clean'] = HTML::tag( 'a', [
 				'target' => '_blank',
 				'class'  => [ 'media-clean-attachment', ( $post->post_parent ? '' : '-disabled' ) ],
-				'href'   => $post->post_parent ? $this->get_settings_url( [ 'sub' => 'images', 'id' => $post->post_parent ] ) : '#',
+				'href'   => $post->post_parent ? $this->get_menu_url( 'images', NULL, 'tools', [ 'id' => $post->post_parent ] ) : '#',
 				'data'   => [
 					'id'      => $post->ID,
 					'parent'  => $post->post_parent,
