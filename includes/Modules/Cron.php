@@ -181,16 +181,6 @@ class Cron extends gNetwork\Module
 		$this->register_button( $this->get_cron_url(), _x( 'Trigger Manually', 'Modules: CRON', GNETWORK_TEXTDOMAIN ), 'link', [ 'target' => '_blank' ] );
 	}
 
-	public function render_tools( $uri, $sub = 'general' )
-	{
-		$this->render_form_start( $uri, $sub, 'bulk', 'tools', FALSE );
-
-			if ( self::tableCronInfo() )
-				$this->render_form_buttons( $sub );
-
-		$this->render_form_end( $uri, $sub, 'bulk', 'tools' );
-	}
-
 	public function schedule_actions()
 	{
 		$this->do_status_check();
@@ -409,7 +399,7 @@ class Cron extends gNetwork\Module
 		return FALSE;
 	}
 
-	private static function tableCronInfo()
+	protected function render_tools_html( $uri, $sub = 'general' )
 	{
 		return HTML::tableList( [
 			'_cb' => '_index',
