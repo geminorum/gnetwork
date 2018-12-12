@@ -265,7 +265,7 @@ class Module extends Core\Base
 		return FALSE;
 	}
 
-	// fallback if no network
+	// falls back if no network
 	public function is_network()
 	{
 		return is_multisite() ? $this->network : FALSE;

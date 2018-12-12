@@ -163,6 +163,7 @@ class Typography extends gNetwork\Module
 		return array_merge( $strings, $new );
 	}
 
+	// @SEE: https://wordpress.stackexchange.com/a/51809
 	public function sanitize_title( $title, $raw_title, $context )
 	{
 		if ( 'save' != $context )
