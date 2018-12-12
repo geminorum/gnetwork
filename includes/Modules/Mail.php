@@ -241,22 +241,16 @@ class Mail extends gNetwork\Module
 		}
 	}
 
-	public function settings( $sub = NULL, $key = NULL )
+	protected function settings_actions( $sub = NULL )
 	{
-		if ( $this->key == $sub ) {
+		if ( GNETWORK_MAIL_LOG_DIR
+			&& isset( $_POST['create_log_folder'] ) ) {
 
-			if ( GNETWORK_MAIL_LOG_DIR
-				&& isset( $_POST['create_log_folder'] ) ) {
+			$this->check_referer( $sub );
 
-				$this->check_referer( $sub );
+			$created = File::putHTAccessDeny( GNETWORK_MAIL_LOG_DIR, TRUE );
 
-				$created = File::putHTAccessDeny( GNETWORK_MAIL_LOG_DIR, TRUE );
-
-				WordPress::redirectReferer( ( FALSE === $created ? 'wrong' : 'maked' ) );
-
-			} else {
-				parent::settings( $sub );
-			}
+			WordPress::redirectReferer( ( FALSE === $created ? 'wrong' : 'maked' ) );
 		}
 	}
 
