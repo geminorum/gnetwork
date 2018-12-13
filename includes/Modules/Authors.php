@@ -153,6 +153,13 @@ class Authors extends gNetwork\Module
 
 	public static function userRoles()
 	{
+		self::summarySiteUser();
+
+		HTML::desc( sprintf( _x( 'Site Default Role is %s', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
+			'<code>'.get_option( 'default_role' ).'</code>' ) );
+
+		echo '<hr />';
+
 		HTML::tableSide( get_editable_roles() );
 	}
 
