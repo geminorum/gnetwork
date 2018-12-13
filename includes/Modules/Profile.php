@@ -294,6 +294,9 @@ class Profile extends gNetwork\Module
 			if ( empty( $data['user_email'] ) || ! is_email( $data['user_email'] ) )
 				continue;
 
+			if ( email_exists( $data['user_email'] ) )
+				continue;
+
 			if ( $data['user_login'] )
 				$data['user_login'] = strtolower( $data['user_login'] );
 
@@ -304,9 +307,6 @@ class Profile extends gNetwork\Module
 				continue;
 
 			if ( username_exists( $data['user_login'] ) )
-				continue;
-
-			if ( email_exists( $data['user_email'] ) )
 				continue;
 
 			if ( ! empty( $data['display_name'] ) )
