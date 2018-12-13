@@ -357,6 +357,11 @@ class Admin extends gNetwork\Module
 		if ( class_exists( __NAMESPACE__.'\\Debug' )
 			&& current_user_can( 'manage_options' ) ) {
 
+			$tabs['time'] = [
+				'title' => _x( 'Time', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ),
+				'cb'    => [ __NAMESPACE__.'\\Debug', 'currentTime' ],
+			];
+
 			$tabs['caching'] = [
 				'title' => _x( 'Stats of the Caching', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ),
 				'cb'    => [ __NAMESPACE__.'\\Debug', 'cacheStats' ],

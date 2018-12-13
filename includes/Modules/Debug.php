@@ -153,10 +153,6 @@ class Debug extends gNetwork\Module
 				'title' => _x( 'WordPress', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
 				'cb'    => [ __CLASS__, 'summaryWordPress' ],
 			],
-			'time' => [
-				'title' => _x( 'Time', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
-				'cb'    => [ __CLASS__, 'currentTime' ],
-			],
 			'ip' => [
 				'title' => _x( 'IP', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
 				'cb'    => function(){ self::summaryIPs(); },
