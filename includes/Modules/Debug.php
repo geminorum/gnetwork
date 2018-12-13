@@ -557,6 +557,10 @@ class Debug extends gNetwork\Module
 	{
 		echo '<div class="-wrap -currents" dir="ltr">';
 
+		HTML::desc( sprintf( _x( 'Current MySQL version: <code>%s</code>', 'Modules: Debug', GNETWORK_TEXTDOMAIN ), $GLOBALS['wpdb']->db_version() ) );
+
+		echo '<hr />';
+
 		HTML::desc( sprintf( _x( 'Current PHP version: <code>%s</code>', 'Modules: Debug', GNETWORK_TEXTDOMAIN ), phpversion() ) );
 
 		echo HTML::listCode( self::getPHPExtensions(),
@@ -569,22 +573,18 @@ class Debug extends gNetwork\Module
 			'<span class="description -danger">'._x( 'Missing Extensions', 'Modules: Debug', GNETWORK_TEXTDOMAIN ).':</span>'
 		);
 
-		echo '<hr />';
-
-		HTML::desc( sprintf( _x( 'Current MySQL version: <code>%s</code>', 'Modules: Debug', GNETWORK_TEXTDOMAIN ), $GLOBALS['wpdb']->db_version() ) );
-
-		echo '<hr />';
-
-		HTML::desc( _x( 'Current Image Tools:', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
-
-		$path      = '/usr/local/bin/';
-		$tools     = [ 'optipng', 'pngquant', 'cwebp', 'jpegoptim' ];
-		$available = [];
-
-		foreach ( $tools as $tool )
-			$available[strtoupper($tool)] = file_exists( $path.$tool ) ? $path.$tool : FALSE;
-
-		echo HTML::tableCode( $available );
+		// echo '<hr />';
+		//
+		// HTML::desc( _x( 'Current Image Tools:', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+		//
+		// $path      = '/usr/local/bin/';
+		// $tools     = [ 'optipng', 'pngquant', 'cwebp', 'jpegoptim' ];
+		// $available = [];
+		//
+		// foreach ( $tools as $tool )
+		// 	$available[strtoupper($tool)] = file_exists( $path.$tool ) ? $path.$tool : FALSE;
+		//
+		// echo HTML::tableCode( $available );
 
 		echo '</div>';
 	}
