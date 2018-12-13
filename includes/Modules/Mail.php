@@ -466,6 +466,7 @@ class Mail extends gNetwork\Module
 			echo '<tr><th scope="row"><label for="send_testmail_to">';
 				_ex( 'To', 'Modules: Mail', GNETWORK_TEXTDOMAIN );
 			echo '</label></th><td><input type="text" id="send_testmail_to" name="send_testmail_to" value="'.$to.'" class="regular-text code" />';
+			echo '<span class="-field-after -icon-wrap"><a href="https://www.mail-tester.com/" target="_blank"><span data-icon="dashicons" class="dashicons dashicons-info"></span></a></span>';
 			echo '</td></tr>';
 			echo '<tr><th scope="row"><label for="send_testmail_subject">';
 				_ex( 'Subject', 'Modules: Mail', GNETWORK_TEXTDOMAIN );
