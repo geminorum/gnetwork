@@ -1,6 +1,6 @@
 <?php namespace geminorum\gNetwork;
 
-defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork\Core\Exception;
 use geminorum\gNetwork\Core\HTML;
@@ -27,7 +27,7 @@ class Plugin
 	private function setup()
 	{
 		foreach ( $this->constants() as $key => $val )
-			defined( $key ) or define( $key, $val );
+			defined( $key ) || define( $key, $val );
 
 		foreach ( $this->get_modules() as $module ) {
 

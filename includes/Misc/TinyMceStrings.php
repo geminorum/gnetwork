@@ -1,4 +1,4 @@
-<?php defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+<?php defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 // https://www.gavick.com/blog/wordpress-tinymce-custom-buttons#tc2-section1
 

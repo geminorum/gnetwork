@@ -1,4 +1,4 @@
-<?php defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+<?php defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 if ( ! function_exists( 'wp_new_user_notification' ) ) :
 function wp_new_user_notification( $user_id, $deprecated = NULL, $notify = '' ) {

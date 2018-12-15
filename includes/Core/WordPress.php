@@ -99,7 +99,7 @@ class WordPress extends Base
 
 	public static function doNotCache()
 	{
-		defined( 'DONOTCACHEPAGE' ) or define( 'DONOTCACHEPAGE', TRUE );
+		defined( 'DONOTCACHEPAGE' ) || define( 'DONOTCACHEPAGE', TRUE );
 	}
 
 	// @REF: `wp_referer_field()`

@@ -1,6 +1,6 @@
 <?php namespace geminorum\gNetwork\Modules;
 
-defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
 use geminorum\gNetwork\Logger;
@@ -283,7 +283,7 @@ class Login extends gNetwork\Module
 	{
 		$GLOBALS['pagenow'] = 'index.php';
 
-		defined( 'WP_USE_THEMES' ) or define( 'WP_USE_THEMES', TRUE );
+		defined( 'WP_USE_THEMES' ) || define( 'WP_USE_THEMES', TRUE );
 
 		wp();
 

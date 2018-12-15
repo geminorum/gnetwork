@@ -1,4 +1,4 @@
-<?php defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+<?php defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 // allow WordPress to use bcrypt for passwords.
 // @REF: https://gist.github.com/chrisguitarguy/4122483

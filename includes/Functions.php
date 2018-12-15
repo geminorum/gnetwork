@@ -1,4 +1,4 @@
-<?php defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+<?php defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 if ( ! function_exists( 'gnetwork_github' ) ) :
 	function gnetwork_github( $atts = [], $content = NULL ) {
@@ -120,7 +120,7 @@ if ( ! function_exists( '_donot_cache_page' ) ) : function _donot_cache_page() {
 } endif;
 
 if ( ! function_exists( '_gpersiandate_skip' ) ) : function _gpersiandate_skip() {
-	defined( 'GPERSIANDATE_SKIP' ) or define( 'GPERSIANDATE_SKIP', TRUE );
+	defined( 'GPERSIANDATE_SKIP' ) || define( 'GPERSIANDATE_SKIP', TRUE );
 } endif;
 
 if ( ! function_exists( 'gnetwork_dump' ) ) : function gnetwork_dump( $var, $htmlSafe = TRUE ) {

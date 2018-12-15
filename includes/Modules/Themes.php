@@ -1,6 +1,6 @@
 <?php namespace geminorum\gNetwork\Modules;
 
-defined( 'ABSPATH' ) or die( header( 'HTTP/1.0 403 Forbidden' ) );
+defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
 use geminorum\gNetwork\Settings;
@@ -390,7 +390,8 @@ class Themes extends gNetwork\Module
 
 		} else if ( $this->isTheme( 'revera' ) ) {
 
-			defined( 'GNETWORK_DISABLE_JQUERY_MIGRATE' ) or define( 'GNETWORK_DISABLE_JQUERY_MIGRATE', FALSE );
+			defined( 'GNETWORK_DISABLE_JQUERY_MIGRATE' )
+				|| define( 'GNETWORK_DISABLE_JQUERY_MIGRATE', FALSE );
 
 			if ( $this->rtl ) {
 				add_theme_support( 'post-thumbnails' );
