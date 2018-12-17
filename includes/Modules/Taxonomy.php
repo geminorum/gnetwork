@@ -94,7 +94,7 @@ class Taxonomy extends gNetwork\Module
 		if ( 'edit-tags' == $screen->base
 			|| 'term' == $screen->base ) {
 
-			add_filter( 'admin_body_class', function( $classes ){
+			add_filter( 'admin_body_class', function( $classes ) {
 				return $classes.' gnetowrk-taxonomy';
 			} );
 
@@ -350,7 +350,7 @@ class Taxonomy extends gNetwork\Module
 		$screen->add_help_tab( [
 			'id'      => $this->classs( 'help-bulk-actions' ),
 			'title'   => _x( 'Bulk Actions', 'Modules: Taxonomy: Help Tab Title', GNETWORK_TEXTDOMAIN ),
-			'content' => '<p>'._x( 'These are bulk actions provided for this taxonomy:', 'Module Taxonomy: Help Tab Content', GNETWORK_TEXTDOMAIN )
+			'content' => '<p>'._x( 'These are bulk actions provided for this taxonomy:', 'Modules: Taxonomy: Help Tab Content', GNETWORK_TEXTDOMAIN )
 				.'</p>'.HTML::listCode( $this->get_actions( $data['taxonomy'] ), '<code>%2$s</code>' ), //
 		] );
 

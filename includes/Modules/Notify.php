@@ -230,7 +230,7 @@ class Notify extends gNetwork\Module
 		else
 			$version = 'UNKNOWN';
 
-		Logger::INFO( sprintf( 'NOTIFY: automatic background core update: %s, v%s', $type, $version ) );
+		Logger::INFO( sprintf( 'NOTIFY: automatic background core update: %s [v%s]', $type, $version ) );
 
 		if ( in_array( $type, [ 'fail', 'critical' ] ) )
 			return TRUE;
