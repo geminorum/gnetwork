@@ -117,7 +117,7 @@ class Taxonomy extends gNetwork\Module
 			if ( 'edit-tags' == $screen->base ) {
 
 				if ( $this->options['management_tools'] )
-					$this->term_management();
+					$this->term_management( $screen );
 
 				if ( $this->options['description_editor'] )
 					add_action( $screen->taxonomy.'_add_form_fields', [ $this, 'add_form_fields' ], 1, 1 );
@@ -326,7 +326,7 @@ class Taxonomy extends gNetwork\Module
 		return $this->filters( 'bulk_actions', $actions, $taxonomy );
 	}
 
-	private function term_management()
+	private function term_management( $screen )
 	{
 		$data = self::atts( [
 			'taxonomy'    => 'post_tag',
@@ -346,6 +346,13 @@ class Taxonomy extends gNetwork\Module
 		$this->action( 'admin_notices' );
 		$this->action( 'admin_enqueue_scripts' );
 		$this->action( 'admin_footer' );
+
+		$screen->add_help_tab( [
+			'id'      => $this->classs( 'help-bulk-actions' ),
+			'title'   => _x( 'Bulk Actions', 'Modules: Taxonomy: Help Tab Title', GNETWORK_TEXTDOMAIN ),
+			'content' => '<p>'._x( 'These are bulk actions provided for this taxonomy:', 'Module Taxonomy: Help Tab Content', GNETWORK_TEXTDOMAIN )
+				.'</p>'.HTML::listCode( $this->get_actions( $data['taxonomy'] ), '<code>%2$s</code>' ), //
+		] );
 
 		$action = FALSE;
 
