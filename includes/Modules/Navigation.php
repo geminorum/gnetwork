@@ -461,10 +461,29 @@ class Navigation extends gNetwork\Module
 
 				if ( $term && ! self::isError( $term ) ) {
 
-					if ( $items )
-						$menu = wp_get_nav_menu_items( $term->term_id, [ 'update_post_term_cache' => FALSE ] );
-					else
-						$menu = wp_nav_menu( [
+					if ( $items ) {
+
+						$results = [];
+						$objects = wp_get_nav_menu_items( $term->term_id, [ 'update_post_term_cache' => FALSE ] );
+
+						// stripping non-essentials
+						foreach ( $objects as $object ) {
+							$results[] = (object) self::atts( [
+								'ID'               => NULL,
+								'target'           => NULL,
+								'menu_item_parent' => NULL,
+								'title'            => '',
+								'url'              => '',
+								'attr_title'       => '',
+								'classes'          => [],
+							], get_object_vars( $object ) );
+						}
+
+						$menu = count( $results ) ? $results : FALSE;
+
+					} else {
+
+						$results = wp_nav_menu( [
 							'menu'         => $term->term_id,
 							'menu_id'      => $name,
 							'menu_class'   => 'menu network-menu -print-hide',
@@ -473,11 +492,14 @@ class Navigation extends gNetwork\Module
 							'fallback_cb'  => FALSE,
 							'echo'         => FALSE,
 						] );
+
+						$menu = $results ? Text::minifyHTML( $results ) : FALSE;
+					}
 				}
 			}
 
 			if ( $menu ) {
-				update_network_option( NULL, $key, ( $items ? $menu : Text::minifyHTML( $menu ) ) );
+				update_network_option( NULL, $key, $menu );
 				return $menu;
 			}
 		}
