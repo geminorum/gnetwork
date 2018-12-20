@@ -11,6 +11,10 @@
 
   .column-gnetwork-network-ssl {
     width: 22px;
+
+    span[data-icon] {
+      cursor: help;
+    }
   }
 
   &.users-network {
