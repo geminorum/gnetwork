@@ -1,28 +1,94 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WP Multi Network\n"
-"PO-Revision-Date: 2018-03-17 15:43+0330\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2018-12-19 07:22+0330\n"
+"Last-Translator: geminorum <contact@geminorum.ir>\n"
+"Language-Team: \n"
+"Language: fa_IR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 2.0.6\n"
-"Language: fa_IR\n"
-"Last-Translator: geminorum <contact@geminorum.ir>\n"
+"X-Generator: Poedit 2.2\n"
 "X-Poedit-Basepath: ../../wp-multi-network/wp-multi-network\n"
-"POT-Creation-Date: \n"
-"Language-Team: \n"
 
-#: includes/functions.php:490
+#. Author URI of the plugin/theme
+msgid "https://jjj.blog"
+msgstr ""
+
+#: wp-multi-network/includes/metaboxes/edit-network.php:107
+msgid "Network Subsites"
+msgstr ""
+
+#: wp-multi-network/includes/functions.php:444
+msgid "New Network Site"
+msgstr ""
+
+#. translators: %s: network title
+#: wp-multi-network/includes/classes/class-wp-ms-networks-list-table.php:317
+msgid "&#8220;%s&#8221; (Edit)"
+msgstr ""
+
+#: wp-multi-network/includes/classes/class-wp-ms-networks-list-table.php:285
+msgid "Select %s"
+msgstr ""
+
+#: wp-multi-network/includes/classes/class-wp-ms-networks-list-table.php:236
+msgid "Primary"
+msgstr ""
+
+#: wp-multi-network/includes/classes/class-wp-ms-networks-cli.php:278
+msgid "Network %s doesn't exist."
+msgstr ""
+
+#: wp-multi-network/includes/classes/class-wp-ms-networks-cli.php:229
+msgid "%s is not a supported action."
+msgstr ""
+
+#: wp-multi-network/includes/classes/class-wp-ms-networks-cli.php:61
+msgid "Super user does not exist."
+msgstr ""
+
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:641
+msgid "Please confirm that you still want to delete these networks"
+msgstr ""
+
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:637
+msgid ""
+"One or more of these networks have sites. Deleting these networks will "
+"permanently delete their sites."
+msgstr ""
+
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:636
+msgid ""
+"One or more of these networks have sites. Deleting these networks will "
+"orphan their sites."
+msgstr ""
+
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin-bar.php:135
+msgid "Settings"
+msgstr ""
+
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin-bar.php:129
+msgid "Plugins"
+msgstr ""
+
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin-bar.php:123
+msgid "Themes"
+msgstr ""
+
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin-bar.php:117
+msgid "Users"
+msgstr ""
+
+#: wp-multi-network/includes/functions.php:650
 msgid "The site \"%s\" is invalid, not available, or already exists."
 msgstr ""
 
 #. Tags of the plugin/theme
-msgid "blog, domain, mapping, multisite, network, networks, path, site, subdomain"
-msgstr ""
-
-#. Author URI of the plugin/theme
-msgid "http://jjj.me"
+msgid ""
+"blog, domain, mapping, multisite, network, networks, path, site, subdomain"
 msgstr ""
 
 #. Author of the plugin/theme
@@ -30,7 +96,8 @@ msgid "johnjamesjacoby, ddean, BrianLayman, rmccue"
 msgstr ""
 
 #. Description of the plugin/theme
-msgid "A Network Management UI for global administrators in WordPress Multisite"
+msgid ""
+"A Network Management UI for global administrators in WordPress Multisite"
 msgstr ""
 
 #. Plugin URI of the plugin/theme
@@ -41,414 +108,393 @@ msgstr ""
 msgid "WP Multi-Network"
 msgstr ""
 
-#: includes/metaboxes/move-site.php:77
+#: wp-multi-network/includes/metaboxes/move-site.php:76
 msgid "Path: <strong>%1$s</strong>"
 msgstr ""
 
-#: includes/metaboxes/move-site.php:74
+#: wp-multi-network/includes/metaboxes/move-site.php:73
 msgid "Domain: <strong>%1$s</strong>"
 msgstr ""
 
-#: includes/metaboxes/move-site.php:71
+#: wp-multi-network/includes/metaboxes/move-site.php:70
 msgid "Created: <strong>%1$s</strong>"
 msgstr ""
 
-#: includes/metaboxes/move-site.php:33
+#: wp-multi-network/includes/metaboxes/move-site.php:31
 msgid "&mdash; No Network &mdash;"
 msgstr ""
 
-#: includes/metaboxes/edit-network.php:217
+#: wp-multi-network/includes/metaboxes/edit-network.php:200
 msgid "Creating a network with 1 new site."
 msgstr ""
 
-#: includes/metaboxes/edit-network.php:207
+#: wp-multi-network/includes/metaboxes/edit-network.php:194
 msgid "Sites: <strong>%1$s</strong>"
 msgstr ""
 
-#: includes/metaboxes/edit-network.php:204
+#: wp-multi-network/includes/metaboxes/edit-network.php:191
 msgid "Name: <strong>%1$s</strong>"
 msgstr ""
 
-#: includes/metaboxes/edit-network.php:182
+#: wp-multi-network/includes/metaboxes/edit-network.php:172
 msgid "Update"
 msgstr "به‌روزرسانی"
 
-#: includes/metaboxes/edit-network.php:181
+#: wp-multi-network/includes/metaboxes/edit-network.php:171
 msgid "Create"
 msgstr "ساختن"
 
-#: includes/metaboxes/edit-network.php:142
-msgid "Only subsites of this network can be reassigned."
+#: wp-multi-network/includes/metaboxes/edit-network.php:105
+msgid "Available Subsites"
 msgstr ""
 
-#: includes/metaboxes/edit-network.php:120
-msgid "Subsites in other networks & orphaned sites without networks."
-msgstr ""
-
-#: includes/metaboxes/edit-network.php:115
-msgid "Network Sites"
-msgstr ""
-
-#: includes/metaboxes/edit-network.php:113
-msgid "Available Sites"
-msgstr ""
-
-#: includes/metaboxes/edit-network.php:78
+#: wp-multi-network/includes/metaboxes/edit-network.php:72
 msgid "A new site needs to be created at the root of this network."
 msgstr ""
 
-#: includes/metaboxes/edit-network.php:74
+#: wp-multi-network/includes/metaboxes/edit-network.php:68
 msgid "Site Name"
 msgstr ""
 
-#: includes/metaboxes/edit-network.php:51
+#: wp-multi-network/includes/metaboxes/edit-network.php:49
 msgid "Use \"/\" if you are unsure."
 msgstr ""
 
-#: includes/deprecated.php:56 includes/deprecated.php:80
-#: includes/deprecated.php:104 includes/deprecated.php:127
+#: wp-multi-network/includes/deprecated.php:56
+#: wp-multi-network/includes/deprecated.php:80
+#: wp-multi-network/includes/deprecated.php:104
+#: wp-multi-network/includes/deprecated.php:127
 msgid "Network does not exist"
 msgstr ""
 
-#: includes/functions.php:737
+#: wp-multi-network/includes/functions.php:909
 msgid "Content of welcome email"
 msgstr ""
 
-#: includes/functions.php:736
+#: wp-multi-network/includes/functions.php:908
 msgid "List of allowed file types for uploads"
 msgstr ""
 
-#: includes/functions.php:735
+#: wp-multi-network/includes/functions.php:907
 msgid "List of network admin usernames"
 msgstr ""
 
-#: includes/functions.php:734
+#: wp-multi-network/includes/functions.php:906
 msgid "Uploaded file handling"
 msgstr ""
 
-#: includes/functions.php:733
+#: wp-multi-network/includes/functions.php:905
 msgid "Permitted email domains"
 msgstr ""
 
-#: includes/functions.php:732
+#: wp-multi-network/includes/functions.php:904
 msgid "Content of first post on a new blog"
 msgstr ""
 
-#: includes/functions.php:731
+#: wp-multi-network/includes/functions.php:903
 msgid "Banned email domains"
 msgstr ""
 
-#: includes/functions.php:730
+#: wp-multi-network/includes/functions.php:902
 msgid "List of allowed themes"
 msgstr ""
 
-#: includes/functions.php:729
+#: wp-multi-network/includes/functions.php:901
 msgid "OLD List of allowed themes - deprecated"
 msgstr ""
 
-#: includes/functions.php:728
+#: wp-multi-network/includes/functions.php:900
 msgid "Admin user ID - deprecated"
 msgstr ""
 
-#: includes/functions.php:727
+#: wp-multi-network/includes/functions.php:899
 msgid "Network admin email"
 msgstr ""
 
-#: includes/functions.php:675
+#: wp-multi-network/includes/functions.php:845
 msgid "Site could not be moved."
 msgstr ""
 
-#: includes/functions.php:652
+#: wp-multi-network/includes/functions.php:822
 msgid "Site does not exist."
 msgstr ""
 
-#: includes/functions.php:606
+#: wp-multi-network/includes/functions.php:775
 msgid "Cannot delete network with sites."
 msgstr ""
 
-#: includes/functions.php:505
+#: wp-multi-network/includes/functions.php:665
 msgid "Network could not be updated."
 msgstr ""
 
-#: includes/functions.php:481 includes/functions.php:596
+#: wp-multi-network/includes/functions.php:641
+#: wp-multi-network/includes/functions.php:762
 msgid "Network does not exist."
 msgstr ""
 
-#: includes/functions.php:343
+#: wp-multi-network/includes/functions.php:479
 msgid "Network already exists."
 msgstr ""
 
-#: includes/functions.php:330
+#: wp-multi-network/includes/functions.php:458
+#: wp-multi-network/includes/functions.php:463
 msgid "User does not exist."
 msgstr ""
 
-#: includes/functions.php:321
+#: wp-multi-network/includes/functions.php:449
+#: wp-multi-network/includes/metaboxes/move-site.php:26
 msgid "New Network"
 msgstr ""
 
-#: includes/functions.php:294
-msgid "Arguments passed to %1$s should be in an associative array. See the inline documentation at %2$s for more details."
+#: wp-multi-network/includes/functions.php:399
+msgid ""
+"Arguments passed to %1$s should be in an associative array. See the inline "
+"documentation at %2$s for more details."
 msgstr ""
 
-#: includes/classes/class-wp-ms-networks-list-table.php:379
-msgid "Sites on this network"
-msgstr ""
-
-#: includes/classes/class-wp-ms-networks-list-table.php:352
+#: wp-multi-network/includes/classes/class-wp-ms-networks-list-table.php:462
 msgid "Edit"
 msgstr "ویرایش"
 
-#: includes/classes/class-wp-ms-networks-list-table.php:198
+#: wp-multi-network/includes/classes/class-wp-ms-networks-list-table.php:138
 msgid "Network Admins"
 msgstr "مدیران شبکه"
 
-#: includes/classes/class-wp-ms-networks-list-table.php:197
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin-bar.php:111
+#: wp-multi-network/includes/classes/class-wp-ms-networks-list-table.php:137
 msgid "Sites"
 msgstr "سایت‌ها"
 
-#: includes/classes/class-wp-ms-networks-list-table.php:196
-#: includes/metaboxes/edit-network.php:47
+#: wp-multi-network/includes/classes/class-wp-ms-networks-list-table.php:136
+#: wp-multi-network/includes/metaboxes/edit-network.php:45
 msgid "Path"
 msgstr ""
 
-#: includes/classes/class-wp-ms-networks-list-table.php:195
-#: includes/metaboxes/edit-network.php:36
+#: wp-multi-network/includes/classes/class-wp-ms-networks-list-table.php:135
+#: wp-multi-network/includes/metaboxes/edit-network.php:34
 msgid "Domain"
 msgstr "دامنه"
 
-#: includes/classes/class-wp-ms-networks-list-table.php:194
+#: wp-multi-network/includes/classes/class-wp-ms-networks-list-table.php:134
 msgid "Network Title"
 msgstr "عنوان شبکه"
 
-#: includes/classes/class-wp-ms-networks-list-table.php:171
-#: includes/classes/class-wp-ms-networks-list-table.php:365
+#: wp-multi-network/includes/classes/class-wp-ms-networks-list-table.php:102
+#: wp-multi-network/includes/classes/class-wp-ms-networks-list-table.php:475
 msgid "Delete"
 msgstr "پاک کردن"
 
-#: includes/classes/class-wp-ms-networks-list-table.php:159
+#: wp-multi-network/includes/classes/class-wp-ms-networks-list-table.php:90
 msgid "No networks found."
 msgstr ""
 
-#: includes/classes/class-wp-ms-networks-cli.php:151
+#: wp-multi-network/includes/classes/class-wp-ms-networks-cli.php:175
 msgid "Blog %d has moved to network %d."
 msgstr ""
 
-#: includes/classes/class-wp-ms-networks-cli.php:127
+#: wp-multi-network/includes/classes/class-wp-ms-networks-cli.php:151
 msgid "Deleted network %d."
 msgstr ""
 
-#: includes/classes/class-wp-ms-networks-cli.php:100
+#: wp-multi-network/includes/classes/class-wp-ms-networks-cli.php:124
 msgid "Updated network %d."
 msgstr ""
 
-#: includes/classes/class-wp-ms-networks-cli.php:71
+#: wp-multi-network/includes/classes/class-wp-ms-networks-cli.php:95
 msgid "Created network %d."
 msgstr ""
 
-#: includes/classes/class-wp-ms-networks-cli.php:50
+#: wp-multi-network/includes/classes/class-wp-ms-networks-cli.php:72
 msgid "Clone network %s doesn't exist."
 msgstr ""
 
-#: includes/classes/class-wp-ms-networks-admin.php:684
-#: includes/classes/class-wp-ms-networks-list-table.php:357
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin-bar.php:105
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:728
+#: wp-multi-network/includes/classes/class-wp-ms-networks-list-table.php:467
 msgid "Dashboard"
 msgstr "پیشخوان"
 
-#: includes/classes/class-wp-ms-networks-admin.php:684
-#: includes/classes/class-wp-ms-networks-list-table.php:361
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:728
+#: wp-multi-network/includes/classes/class-wp-ms-networks-list-table.php:471
 msgid "Visit"
 msgstr "بازدید"
 
-#: includes/classes/class-wp-ms-networks-admin.php:627
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:668
 msgid "Delete Networks"
 msgstr "پاک کردن شبکه‌ها"
 
-#: includes/classes/class-wp-ms-networks-admin.php:626
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:663
 msgid "Are you sure you want to delete these networks?"
 msgstr ""
 
-#: includes/classes/class-wp-ms-networks-admin.php:607
-msgid "There are blogs associated with one or more of these networks. Deleting them will delete those blogs as well."
-msgstr ""
-
-#: includes/classes/class-wp-ms-networks-admin.php:595
-#: includes/classes/class-wp-ms-networks-admin.php:608
-msgid "If you still want to delete these networks, check the following box"
-msgstr ""
-
-#: includes/classes/class-wp-ms-networks-admin.php:594
-msgid "There are blogs associated with one or more of these networks. Deleting them will move these blogs to the holding network."
-msgstr ""
-
-#: includes/classes/class-wp-ms-networks-admin.php:588
-#: includes/classes/class-wp-ms-networks-admin.php:601
-#: includes/classes/class-wp-ms-networks-admin.php:617
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:626
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:649
 msgid "You have selected the following networks for deletion"
 msgstr ""
 
-#: includes/classes/class-wp-ms-networks-admin.php:581
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:621
 msgid "Delete Multiple Networks"
 msgstr ""
 
-#: includes/classes/class-wp-ms-networks-admin.php:574
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:604
 msgid "You have selected an invalid network or networks for deletion"
 msgstr ""
 
-#: includes/classes/class-wp-ms-networks-admin.php:557
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:610
 msgid "You have selected an invalid network for deletion."
 msgstr ""
 
-#: includes/classes/class-wp-ms-networks-admin.php:537
-#: includes/classes/class-wp-ms-networks-admin.php:628
-#: includes/metaboxes/edit-network.php:228 includes/metaboxes/move-site.php:85
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:574
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:670
+#: wp-multi-network/includes/metaboxes/edit-network.php:211
+#: wp-multi-network/includes/metaboxes/move-site.php:84
 msgid "Cancel"
 msgstr "لغو"
 
-#: includes/classes/class-wp-ms-networks-admin.php:525
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:561
 msgid "Delete these sites"
 msgstr ""
 
-#: includes/classes/class-wp-ms-networks-admin.php:507
-#: includes/classes/class-wp-ms-networks-admin.php:529
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:566
 msgid "Are you sure you want to delete the entire \"%s\" network?"
 msgstr ""
 
-#: includes/classes/class-wp-ms-networks-admin.php:503
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:560
 msgid "Rescue these sites"
 msgstr ""
 
-#: includes/classes/class-wp-ms-networks-admin.php:490
-#: includes/classes/class-wp-ms-networks-admin.php:512
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:544
 msgid "The following sites are associated with this network:"
 msgstr ""
 
-#: includes/classes/class-wp-ms-networks-admin.php:472
-#: includes/classes/class-wp-ms-networks-admin.php:536
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:526
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:572
 msgid "Delete Network"
 msgstr "پاک کردن شبکه"
 
-#: includes/classes/class-wp-ms-networks-admin.php:465
-#: includes/classes/class-wp-ms-networks-admin.php:794
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:515
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:845
 msgid "Invalid network id."
 msgstr ""
 
-#: includes/classes/class-wp-ms-networks-admin.php:423
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:466
 msgid "Site"
 msgstr "سایت"
 
-#: includes/classes/class-wp-ms-networks-admin.php:422
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:465
 msgid "Assign Network"
 msgstr ""
 
-#: includes/classes/class-wp-ms-networks-admin.php:392
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:394
 msgid "Enter network title here"
 msgstr ""
 
-#: includes/classes/class-wp-ms-networks-admin.php:382
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:384
 msgid "Add New Network"
 msgstr "افزودن شبکه تازه"
 
-#: includes/classes/class-wp-ms-networks-admin.php:372
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:373
 msgid "Edit Network"
 msgstr "ویرایش شبکه"
 
-#: includes/classes/class-wp-ms-networks-admin.php:364
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:365
 msgid "Site Assignment"
 msgstr ""
 
-#: includes/classes/class-wp-ms-networks-admin.php:353
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:361
 msgid "Root Site"
 msgstr ""
 
-#: includes/classes/class-wp-ms-networks-admin.php:347
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:355
 msgid "Network"
 msgstr "شبکه"
 
-#: includes/classes/class-wp-ms-networks-admin.php:346
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:354
 msgid "Details"
 msgstr ""
 
-#: includes/classes/class-wp-ms-networks-admin.php:321
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:443
 msgid "Search Networks"
 msgstr "جست‌وجوی شبکه‌ها"
 
-#: includes/classes/class-wp-ms-networks-admin.php:317
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:439
 msgid "Search results for &#8220;%s&#8221;"
 msgstr "نتایج جست‌وجو برای &#xAB;%s&#xBB;"
 
-#: includes/classes/class-wp-ms-networks-admin.php:311
-#: includes/classes/class-wp-ms-networks-admin.php:376
-#: includes/classes/class-wp-ms-networks-admin.php:430
-#: includes/classes/class-wp-ms-networks-admin.php:476
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:378
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:433
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:477
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:531
 msgctxt "network"
 msgid "Add New"
 msgstr "افزودن"
 
-#: includes/classes/class-wp-ms-networks-admin.php:238
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:253
 msgid "You do not have permission to access this page."
 msgstr ""
 
-#: includes/classes/class-wp-ms-networks-admin.php:185
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:235
 msgid "Dismiss this notice"
 msgstr ""
 
-#: includes/classes/class-wp-ms-networks-admin.php:182
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:232
 msgid "Back to Networks."
 msgstr "بازگشت به شبکه‌ها."
 
-#: includes/classes/class-wp-ms-networks-admin.php:168
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:198
 msgid "Site not moved."
 msgstr ""
 
-#: includes/classes/class-wp-ms-networks-admin.php:167
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:197
 msgid "Site moved."
 msgstr ""
 
-#: includes/classes/class-wp-ms-networks-admin.php:164
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:194
 msgid "Network not deleted."
 msgstr ""
 
-#: includes/classes/class-wp-ms-networks-admin.php:163
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:193
 msgid "Network deleted."
 msgstr ""
 
-#: includes/classes/class-wp-ms-networks-admin.php:160
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:190
 msgid "Network not created."
 msgstr ""
 
-#: includes/classes/class-wp-ms-networks-admin.php:159
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:189
 msgid "Network created."
 msgstr ""
 
-#: includes/classes/class-wp-ms-networks-admin.php:156
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:186
 msgid "Network not updated."
 msgstr ""
 
-#: includes/classes/class-wp-ms-networks-admin.php:155
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:185
 msgid "Network updated."
 msgstr ""
 
-#: includes/classes/class-wp-ms-networks-admin.php:113
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:115
 msgid "Add New"
 msgstr "افزودن"
 
-#: includes/classes/class-wp-ms-networks-admin.php:112
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:114
 msgid "All Networks"
 msgstr "همهٔ شبکه‌ها"
 
-#: includes/classes/class-wp-ms-networks-admin.php:110
-#: includes/classes/class-wp-ms-networks-admin.php:306
-#: includes/classes/class-wp-ms-networks-admin.php:426
-#: includes/classes/class-wp-ms-networks-admin.php:580
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:112
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:428
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:472
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:620
 msgid "Networks"
 msgstr "شبکه‌ها"
 
-#: includes/classes/class-wp-ms-networks-admin.php:100
-#: includes/classes/class-wp-ms-networks-admin.php:642
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin-bar.php:77
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:102
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:686
 msgid "My Networks"
 msgstr "شبکه‌های من"
 
-#: includes/classes/class-wp-ms-networks-admin.php:79
-#: includes/metaboxes/move-site.php:87
+#: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:79
+#: wp-multi-network/includes/metaboxes/move-site.php:90
 msgid "Move"
 msgstr ""

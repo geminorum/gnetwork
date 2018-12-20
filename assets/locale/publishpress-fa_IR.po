@@ -1,0 +1,3213 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PublishPress\n"
+"POT-Creation-Date: 2018-11-08 16:29-0200\n"
+"PO-Revision-Date: 2018-12-08 16:45+0330\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 2.2\n"
+"X-Poedit-Basepath: ../../../publishpress\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Last-Translator: geminorum <contact@geminorum.ir>\n"
+"Language: fa_IR\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: common/php/class-module.php:89
+#, fuzzy
+msgid "Post"
+msgstr "نوشته"
+
+#: common/php/class-module.php:90
+#, fuzzy
+msgid "Page"
+msgstr "برگه"
+
+#: common/php/class-module.php:193 common/php/class-module.php:269
+#: libraries/Notifications/Traits/PublishPress_Module.php:63
+#: modules/custom-status/custom-status.php:187
+#, fuzzy
+msgid "Draft"
+msgstr "پیش‌نویس"
+
+#: common/php/class-module.php:199 common/php/class-module.php:272
+#: libraries/Notifications/Traits/PublishPress_Module.php:69
+#: modules/custom-status/custom-status.php:197
+#, fuzzy
+msgid "Pending Review"
+msgstr "در انتظار بازبینی"
+
+#: common/php/class-module.php:205 common/php/class-module.php:268
+#: libraries/Notifications/Traits/PublishPress_Module.php:75
+#: modules/calendar/calendar.php:1535 modules/calendar/calendar.php:2478
+#: modules/custom-status/custom-status.php:787
+#, fuzzy
+msgid "Published"
+msgstr "متشرشده در"
+
+#: common/php/class-module.php:270 modules/calendar/calendar.php:1530
+#: modules/calendar/calendar.php:2473 modules/custom-status/custom-status.php:821
+#, fuzzy
+msgid "Scheduled"
+msgstr "زمان‌بندی شده"
+
+#: common/php/class-module.php:271
+#, fuzzy
+msgid "Private"
+msgstr "خصوصی"
+
+#: common/php/class-module.php:273 modules/calendar/calendar.php:1423
+#: modules/content-overview/content-overview.php:958
+#, fuzzy
+msgid "Trash"
+msgstr "زباله‌دان"
+
+#: common/php/class-module.php:319
+msgid "M dd yy"
+msgstr ""
+
+#: common/php/class-module.php:481
+#, fuzzy
+msgid "Invalid Taxonomy"
+msgstr "رده‌بندی"
+
+#: common/php/class-module.php:644
+#: libraries/Notifications/Workflow/Step/Receiver/Role.php:30
+#: modules/roles/roles.php:79 modules/roles/roles.php:770
+#: modules/roles/roles.php:787 modules/roles/roles.php:788
+#, fuzzy
+msgid "Roles"
+msgstr "نقش‌ها"
+
+#: common/php/class-module.php:647
+#, fuzzy
+msgid "Role"
+msgstr "نقش"
+
+#: common/php/class-module.php:652
+#: libraries/Notifications/Workflow/Step/Receiver/User.php:26
+#: modules/roles/roles.php:877
+#, fuzzy
+msgid "Users"
+msgstr "کاربران"
+
+#: common/php/util.php:46
+#, fuzzy
+msgid "(no title)"
+msgstr "(بدون عنوان)"
+
+#: libraries/Notifications/Plugin.php:78
+#: modules/improved-notifications/improved-notifications.php:547
+#, fuzzy
+msgid "When to notify?"
+msgstr "آگاه‌سازی"
+
+#: libraries/Notifications/Plugin.php:79
+#, fuzzy
+msgid "Filter the content?"
+msgstr "بدون متن"
+
+#: libraries/Notifications/Plugin.php:80
+#: modules/improved-notifications/improved-notifications.php:567
+#, fuzzy
+msgid "Who to notify?"
+msgstr "آگاه‌سازی"
+
+#: libraries/Notifications/Plugin.php:120
+#, fuzzy
+msgid "M j, Y @ H:i"
+msgstr "j M Y @ H:i"
+
+#: libraries/Notifications/Plugin.php:122 libraries/Notifications/Plugin.php:123
+#, fuzzy
+msgid "Notification workflow updated."
+msgstr "آگاه‌سازی‌ها"
+
+#: libraries/Notifications/Plugin.php:124
+#, fuzzy
+msgid "Notification workflow published."
+msgstr "آگاه‌سازی‌ها"
+
+#: libraries/Notifications/Plugin.php:125
+#, fuzzy
+msgid "Notification workflow saved."
+msgstr "آگاه‌سازی‌ها"
+
+#: libraries/Notifications/Plugin.php:126
+#, fuzzy
+msgid "Notification workflow submitted."
+msgstr "آگاه‌سازی‌ها"
+
+#: libraries/Notifications/Plugin.php:127
+#, fuzzy, php-format
+msgid "Notification workflow scheduled for: %s."
+msgstr "%2$s برای انتشار در %5$s زمان‌بندی شد."
+
+#: libraries/Notifications/Plugin.php:129
+#, fuzzy
+msgid "Notification workflow draft updated."
+msgstr "پیش‌نویس تالار به‌روز شد."
+
+#: libraries/Notifications/Plugin.php:151
+#, fuzzy, php-format
+msgid "%s notification workflow updated."
+msgid_plural "%s notification workflows updated."
+msgstr[0] "%2$s به‌روز شد."
+msgstr[1] "%2$s به‌روز شد."
+
+#: libraries/Notifications/Plugin.php:153
+msgid "1 notification workflow not updated, somebody is editing it."
+msgstr ""
+
+#: libraries/Notifications/Plugin.php:154
+#, fuzzy, php-format
+msgid "%s notification workflow not updated, somebody is editing it."
+msgid_plural "%s notification workflows not updated, somebody is editing them."
+msgstr[0] "%5$s %4$s به‌روزرسانی نشد. فردی دیگری در حال ویرایش است."
+msgstr[1] "%s جستار به‌روزرسانی نشد، کاربر دیگری در حال ویرایش آن است."
+
+#: libraries/Notifications/Plugin.php:156
+#, fuzzy, php-format
+msgid "%s notification workflow permanently deleted."
+msgid_plural "%s notification workflows permanently deleted."
+msgstr[0] "%s گروه برای همیشه حذف شد."
+msgstr[1] "%s گروه برای همیشه حذف شد."
+
+#: libraries/Notifications/Plugin.php:158
+#, fuzzy, php-format
+msgid "%s notification workflow moved to the Trash."
+msgid_plural "%s notification workflows moved to the Trash."
+msgstr[0] "%5$s %4$s به زباله‌دان منتقل شد."
+msgstr[1] "%5$s %4$s به زباله‌دان منتقل شد."
+
+#: libraries/Notifications/Plugin.php:160
+#, fuzzy, php-format
+msgid "%s notification workflow restored from the Trash."
+msgid_plural "%s notification workflows restored from the Trash."
+msgstr[0] "%5$s %4$s صفحه از زباله‌دان بازگردانده شد."
+msgstr[1] "%5$s %4$s صفحه از زباله‌دان بازگردانده شد."
+
+#: libraries/Notifications/Plugin.php:190
+#, fuzzy
+msgid "Please select at least one event"
+msgstr "لطفا حداقل یک نقش کاربری انتخاب کنید \n"
+
+#: libraries/Notifications/Plugin.php:221
+#, fuzzy
+msgid "Not filtered"
+msgstr "الفبای پالایش شدهٔ کنونی"
+
+#: libraries/Notifications/Reviews.php:41
+#, php-format
+msgid ""
+"Hey, I noticed you have been using %sPublishPress%s for a few weeks - that's "
+"awesome! May I ask you to give it a %s5-star%s rating on WordPress? Just to "
+"help us spread the word and boost our motivation."
+msgstr ""
+
+#: libraries/Notifications/Table/Base.php:182
+#, fuzzy
+msgid "List View"
+msgstr "نمایش فهرست"
+
+#: libraries/Notifications/Table/Base.php:183
+#, fuzzy
+msgid "Excerpt View"
+msgstr "نمایش چکیده"
+
+#: libraries/Notifications/Table/Base.php:630
+#, fuzzy
+msgid "Select bulk action"
+msgstr "انتخاب کنید"
+
+#: libraries/Notifications/Table/Base.php:632
+#, fuzzy
+msgid "Bulk Actions"
+msgstr "کارهای دسته‌جمعی"
+
+#: libraries/Notifications/Table/Base.php:642
+msgid "Apply"
+msgstr "اعمال"
+
+#: libraries/Notifications/Table/Base.php:697
+#: libraries/Notifications/Table/Base.php:1158
+#, fuzzy, php-format
+msgid "%s item"
+msgid_plural "%s items"
+msgstr[0] "%s عنوان مرتبط"
+msgstr[1] "%s عنوان مرتبط"
+
+#: libraries/Notifications/Table/Base.php:735
+#, fuzzy
+msgid "First page"
+msgstr "برو به صفحه اول"
+
+#: libraries/Notifications/Table/Base.php:746
+#, fuzzy
+msgid "Previous page"
+msgstr "برگهٔ قبلی"
+
+#: libraries/Notifications/Table/Base.php:753
+#: libraries/Notifications/Table/Base.php:757
+#, fuzzy
+msgid "Current Page"
+msgstr "صفحه حاضر"
+
+#: libraries/Notifications/Table/Base.php:763
+#, php-format
+msgctxt "paging"
+msgid "%1$s of %2$s"
+msgstr "%1$s از %2$s"
+
+#: libraries/Notifications/Table/Base.php:772
+#, fuzzy
+msgid "Next page"
+msgstr "برگهٔ بعدی"
+
+#: libraries/Notifications/Table/Base.php:783
+#, fuzzy
+msgid "Last page"
+msgstr "برو به آخرین صفحه"
+
+#: libraries/Notifications/Table/Base.php:848
+#, fuzzy
+msgid "Select All"
+msgstr "انتخاب همه"
+
+#: libraries/Notifications/Table/Base.php:1020
+#: libraries/Notifications/Table/Base.php:1278
+#, fuzzy
+msgid "Show more details"
+msgstr "نمایش فعالیت‌های بیشتر"
+
+#: libraries/Notifications/Table/Base.php:1132
+#, fuzzy
+msgid "No items found."
+msgstr "بخشی یافت نشد."
+
+#: libraries/Notifications/Table/Base.php:1342
+#, fuzzy
+msgid "Filter by date"
+msgstr "پالایه بر اساس تاریخ"
+
+#: libraries/Notifications/Table/Base.php:1344
+#, fuzzy
+msgid "All dates"
+msgstr "همه‌ی تاریخ‌ها"
+
+#: libraries/Notifications/Table/Base.php:1359
+#, fuzzy, php-format
+msgid "%1$s %2$d"
+msgstr "%1$s %2$d"
+
+#: libraries/Notifications/Table/Base.php:1412
+#, fuzzy, php-format
+msgid "%s comment"
+msgid_plural "%s comments"
+msgstr[0] "%s دیدگاه"
+msgstr[1] "%s دیدگاه"
+
+#: libraries/Notifications/Table/Base.php:1413
+#, fuzzy, php-format
+msgid "%s approved comment"
+msgid_plural "%s approved comments"
+msgstr[0] "تأیید شده"
+msgstr[1] "دیدگاه‌های تأییدشده: %s"
+
+#: libraries/Notifications/Table/Base.php:1415
+#, fuzzy, php-format
+msgid "%s pending comment"
+msgid_plural "%s pending comments"
+msgstr[0] "%s درخواست معلق"
+msgstr[1] "%s درخواست معلق"
+
+#: libraries/Notifications/Table/Base.php:1422
+#: libraries/Notifications/Table/Base.php:1437
+#: libraries/Notifications/Table/Base.php:1453
+#, fuzzy
+msgid "No comments"
+msgstr "% نظر"
+
+#: libraries/Notifications/Table/Base.php:1437
+#, fuzzy
+msgid "No approved comments"
+msgstr "دیدگاه‌های تأییدشده: %s"
+
+#: libraries/Notifications/Table/Base.php:1453
+#, fuzzy
+msgid "No pending comments"
+msgstr "در انتظار"
+
+#: libraries/Notifications/Table/Notifications.php:57
+#: libraries/Notifications/Table/Workflows.php:57
+#, fuzzy
+msgid "Undefined"
+msgstr "اندازه تصویر تعریف نشده"
+
+#: libraries/Notifications/Table/Notifications.php:60
+#: libraries/Notifications/Table/Workflows.php:60
+#, fuzzy
+msgid "Y/m/d g:i:s a"
+msgstr "Y/m/d g:i:s A"
+
+#: libraries/Notifications/Table/Notifications.php:67
+#: libraries/Notifications/Table/Workflows.php:67
+#, fuzzy, php-format
+msgid "%s ago"
+msgstr "%s پیش"
+
+#: libraries/Notifications/Table/Notifications.php:69
+#: libraries/Notifications/Table/Workflows.php:69
+#, fuzzy
+msgid "Y/m/d"
+msgstr "j F, Y"
+
+#: libraries/Notifications/Table/Notifications.php:86
+#: libraries/Notifications/Table/Workflows.php:86
+#: modules/calendar/calendar.php:1180
+#: modules/content-overview/content-overview.php:355
+#, fuzzy
+msgid "Title"
+msgstr "عنوان"
+
+#: libraries/Notifications/Table/Notifications.php:87
+#, fuzzy
+msgid "Message"
+msgstr "پیام"
+
+#: libraries/Notifications/Table/Notifications.php:88
+#: modules/editorial-metadata/editorial-metadata.php:241
+#, fuzzy
+msgid "Date"
+msgstr "تاریخ"
+
+#: libraries/Notifications/Table/Notifications.php:89
+#: libraries/Notifications/Table/Workflows.php:87
+#, fuzzy
+msgid "ID"
+msgstr "نهاد"
+
+#: libraries/Notifications/Table/Notifications.php:218
+#: libraries/Notifications/Table/Workflows.php:205
+#, fuzzy, php-format
+msgid "Select %s"
+msgstr "انتخاب %s"
+
+#: libraries/Notifications/Table/Notifications.php:231
+#, fuzzy
+msgid "You don't have any notifications"
+msgstr "آگاه‌سازی خوانده نشده‌ای وجود ندارد."
+
+#: libraries/Notifications/Table/Workflows.php:218
+#, fuzzy
+msgid "No workflows found."
+msgstr "(پیدا نشد)"
+
+#: libraries/Notifications/Workflow/Step/Channel/Email.php:26
+#, fuzzy
+msgid "Email"
+msgstr "E-postadress"
+
+#: libraries/Notifications/Workflow/Step/Content/Main.php:28
+#: modules/calendar/calendar.php:1184
+#: modules/improved-notifications/improved-notifications.php:605
+#, fuzzy
+msgid "Content"
+msgstr "محتوا"
+
+#: libraries/Notifications/Workflow/Step/Content/Main.php:52
+#, fuzzy
+msgid "Subject"
+msgstr "موضوع"
+
+#: libraries/Notifications/Workflow/Step/Content/Main.php:53
+#, fuzzy
+msgid "Body"
+msgstr "بدنه"
+
+#: libraries/Notifications/Workflow/Step/Event/Editorial_Comment.php:26
+#, fuzzy
+msgid "When an editorial comment is added"
+msgstr ""
+"کاربران یا گروه‌های کاربری را برای آگاه‌سازی از تغییر وضعیت نوشته و یا دیدگاه "
+"تحریریه جدید انتخاب کنید."
+
+#: libraries/Notifications/Workflow/Step/Event/Filter/Post_Status.php:34
+#, fuzzy
+msgid "When the status is changed"
+msgstr "وضعیت از %s به %s تغییر یافت"
+
+#: libraries/Notifications/Workflow/Step/Event/Filter/Post_Status.php:35
+#, fuzzy
+msgid "Previous status"
+msgstr "قبلی"
+
+#: libraries/Notifications/Workflow/Step/Event/Filter/Post_Status.php:36
+#, fuzzy
+msgid "New status"
+msgstr "وضعیت"
+
+#: libraries/Notifications/Workflow/Step/Event/Filter/Post_Status.php:37
+#, fuzzy
+msgid "- any status -"
+msgstr "وضعیت"
+
+#: libraries/Notifications/Workflow/Step/Event/Filter/Post_Status.php:59
+#, fuzzy
+msgid "\"New\""
+msgstr "تازه"
+
+#: libraries/Notifications/Workflow/Step/Event/Post_Save.php:26
+msgid "When the content is moved to a new status"
+msgstr ""
+
+#: libraries/Notifications/Workflow/Step/Event_Content/Category.php:24
+#, fuzzy
+msgid "Category"
+msgstr "دسته"
+
+#: libraries/Notifications/Workflow/Step/Event_Content/Filter/Category.php:34
+#, fuzzy
+msgid "Categories"
+msgstr "دسته‌بندی‌ها"
+
+#: libraries/Notifications/Workflow/Step/Event_Content/Filter/Post_Type.php:34
+#, fuzzy
+msgid "Post Types"
+msgstr "فهرست الفبایی برای نوشته‌ها، رده‌بندی‌ها و کاربران"
+
+#: libraries/Notifications/Workflow/Step/Event_Content/Filter/Term.php:34
+#, fuzzy
+msgid "Terms"
+msgstr "رده‌ها"
+
+#: libraries/Notifications/Workflow/Step/Event_Content/Post_Type.php:24
+#, fuzzy
+msgid "Post type"
+msgstr "نوع نوشته:"
+
+#: libraries/Notifications/Workflow/Step/Event_Content/Taxonomy.php:24
+#, fuzzy
+msgid "Taxonomy"
+msgstr "رده‌بندی"
+
+#: libraries/Notifications/Workflow/Step/Receiver/Author.php:26
+#, fuzzy
+msgid "Authors of the content"
+msgstr "نویسندگان"
+
+#: libraries/Notifications/Workflow/Step/Receiver/Author.php:72
+#, fuzzy
+msgid "Authors"
+msgstr "نویسندگان"
+
+#: libraries/Notifications/Workflow/Step/Receiver/Follower.php:26
+msgid "Users who selected \"Notify me\" for the content"
+msgstr ""
+
+#: libraries/Notifications/Workflow/Step/Receiver/Follower.php:153
+#, fuzzy
+msgid "\"Notify me\""
+msgstr "با ارسال ایمیل، من را از پاسخ‌های بعدی به این جستار آگاه کن"
+
+#: libraries/Notifications/Workflow/Step/Receiver/Role.php:175
+#, fuzzy, php-format
+msgid "%d Role"
+msgid_plural "%d Roles"
+msgstr[0] "نقش"
+msgstr[1] "نقش‌ها"
+
+#: libraries/Notifications/Workflow/Step/Receiver/Site_Admin.php:24
+#: libraries/Notifications/Workflow/Step/Receiver/Site_Admin.php:69
+#, fuzzy
+msgid "Site Administrator"
+msgstr ""
+"<strong>این سایت به درستی پیکربندی نشده است.</strong> لطفا از سرپرست سایت "
+"بخواهید تا چگونگی حل این مسئله را بررسی کند."
+
+#: libraries/Notifications/Workflow/Step/Receiver/User.php:167
+#, fuzzy, php-format
+msgid "%d User"
+msgid_plural "%d Users"
+msgstr[0] "به تفکیک کاربر"
+msgstr[1] "کاربران:"
+
+#: modules/addons/addons.php:72
+#, fuzzy
+msgid "Add-ons for PublishPress"
+msgstr "افزونه&zwnj;ها"
+
+#: modules/addons/addons.php:144 modules/addons/addons.php:161
+#: modules/addons/addons.php:162
+#, fuzzy
+msgid "Add-ons"
+msgstr "افزونه&zwnj;ها"
+
+#: modules/addons/addons.php:204
+#, fuzzy
+msgid "Content Checklist"
+msgstr "سیاهه درختی"
+
+#: modules/addons/addons.php:206
+msgid ""
+"Allows PublishPress teams to define tasks that must be complete before content "
+"is published."
+msgstr ""
+
+#: modules/addons/addons.php:214
+#, fuzzy
+msgid "Slack support"
+msgstr "پشتیبانی"
+
+#: modules/addons/addons.php:216
+msgid ""
+"PublishPress with Slack, so you can get comment and status change "
+"notifications directly on Slack."
+msgstr ""
+
+#: modules/addons/addons.php:224
+#, fuzzy
+msgid "Permissions"
+msgstr "مجوزهای محتوا"
+
+#: modules/addons/addons.php:226
+msgid ""
+"Allows you to control which users can complete certain tasks, such as "
+"publishing content."
+msgstr ""
+
+#: modules/addons/addons.php:234
+#, fuzzy
+msgid "WooCommerce Checklist"
+msgstr "سیاهه درختی"
+
+#: modules/addons/addons.php:236
+msgid ""
+"This add-on allows WooCommerce teams to define tasks that must be complete "
+"before products are published."
+msgstr ""
+
+#: modules/addons/addons.php:244
+#, fuzzy
+msgid "Multiple authors support"
+msgstr "پشتیبانی"
+
+#: modules/addons/addons.php:246
+msgid ""
+"Allows you choose multiple authors for a single post. This add-on is ideal for "
+"teams who write collaboratively."
+msgstr ""
+
+#: modules/addons/addons.php:254
+msgid "Reminders"
+msgstr ""
+
+#: modules/addons/addons.php:256
+msgid ""
+"Automatically send notifications before or after content is published. "
+"Reminders are very useful for making sure your team meets its deadlines."
+msgstr ""
+
+#: modules/async-notifications/async-notifications.php:77
+#, fuzzy
+msgid "Async Notifications"
+msgstr "ترجمه‌های خودکار و ناهمگام"
+
+#: modules/calendar/calendar.php:135 modules/calendar/calendar.php:339
+#: modules/calendar/calendar.php:356 modules/calendar/calendar.php:357
+#: modules/calendar/calendar.php:886
+#, fuzzy
+msgid "Calendar"
+msgstr "تقویم"
+
+#: modules/calendar/calendar.php:149
+#, fuzzy
+msgid "Post date updated."
+msgstr "این نوشته آخرین بار ویرایش شده است در"
+
+#: modules/calendar/calendar.php:150
+#, fuzzy
+msgid "There was an error updating the post. Please try again."
+msgstr "خطایی در هنگام ذخیره‌سازی اطلاعات گروه رخ داد، دوباره تلاش کنید."
+
+#: modules/calendar/calendar.php:152
+#, php-format
+msgid ""
+"Updating the post date dynamically doesn't work for published content. Please "
+"<a href='%s'>edit the post</a>."
+msgstr ""
+
+#: modules/calendar/calendar.php:154
+msgid ""
+"iCal secret key regenerated. Please inform all users they will need to "
+"resubscribe."
+msgstr ""
+
+#: modules/calendar/calendar.php:160 modules/custom-status/custom-status.php:90
+#: modules/editorial-comments/editorial-comments.php:66
+#: modules/editorial-metadata/editorial-metadata.php:97
+#: modules/notifications/notifications.php:82
+#: modules/user-groups/user-groups.php:96
+#, fuzzy
+msgid "Overview"
+msgstr "در یک نگاه"
+
+#: modules/calendar/calendar.php:161
+msgid ""
+"<p>The calendar is a convenient week-by-week or month-by-month view into your "
+"content. Quickly see which stories are on track to being published on time, "
+"and which will need extra effort.</p>"
+msgstr ""
+
+#: modules/calendar/calendar.php:164
+msgid ""
+"<p><strong>For more information:</strong></p><p><a href=\"https://publishpress."
+"com/features/calendar/\">Calendar Documentation</a></p><p><a href=\"https://"
+"github.com/ostraining/PublishPress\">PublishPress on Github</a></p>"
+msgstr ""
+
+#: modules/calendar/calendar.php:497
+msgid "Something is wrong with the format for the new date."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+#. Author of the plugin/theme
+#: modules/calendar/calendar.php:911 modules/settings/settings.php:59
+#: modules/settings/settings.php:270 publishpress.php:365
+msgid "PublishPress"
+msgstr "تحریریه"
+
+#: modules/calendar/calendar.php:912
+#, fuzzy
+msgid "Subscribe in iCal or Google Calendar"
+msgstr "ابزارک تحریریه: تقویم گوگل"
+
+#: modules/calendar/calendar.php:916
+#, fuzzy
+msgid "Start date"
+msgstr "تاریخ شروع"
+
+#: modules/calendar/calendar.php:919
+#, fuzzy
+msgid "Current week"
+msgstr "این هفته"
+
+#: modules/calendar/calendar.php:920
+#, fuzzy
+msgid "One month ago"
+msgstr "یک دقیقه پیش"
+
+#: modules/calendar/calendar.php:921
+#, fuzzy
+msgid "Two months ago"
+msgstr "دو ستونه"
+
+#: modules/calendar/calendar.php:922
+#, fuzzy
+msgid "Three months ago"
+msgstr "ماه"
+
+#: modules/calendar/calendar.php:923
+#, fuzzy
+msgid "Four months ago"
+msgstr "ماه"
+
+#: modules/calendar/calendar.php:924
+#, fuzzy
+msgid "Five months ago"
+msgstr "ماه"
+
+#: modules/calendar/calendar.php:925
+#, fuzzy
+msgid "Six months ago"
+msgstr "ماه"
+
+#: modules/calendar/calendar.php:930
+#, fuzzy
+msgid "End date"
+msgstr ""
+"<strong>تاریخ انقضاء</strong> - این تاریخ پایان کدتخفیف را تعیین می‌کند. پس از "
+"این تاریخ این کدتخفیف دیگر قابل‌استفاده نخواهد بود. این گزینه اختیاری است."
+
+#: modules/calendar/calendar.php:932
+#, fuzzy
+msgid "Weeks"
+msgstr "هفته"
+
+#: modules/calendar/calendar.php:933
+#, fuzzy
+msgid "One week"
+msgstr "این هفته"
+
+#: modules/calendar/calendar.php:934
+#, fuzzy
+msgid "Two weeks"
+msgstr "دو ستونه"
+
+#: modules/calendar/calendar.php:935
+#, fuzzy
+msgid "Three weeks"
+msgstr "هفته"
+
+#: modules/calendar/calendar.php:936
+#, fuzzy
+msgid "Four weeks"
+msgstr "هفته"
+
+#: modules/calendar/calendar.php:939
+#, fuzzy
+msgid "Months"
+msgstr "ماه"
+
+#: modules/calendar/calendar.php:940
+#, fuzzy
+msgid "One month"
+msgstr "این ماه"
+
+#: modules/calendar/calendar.php:942
+#, fuzzy
+msgid "Two months"
+msgstr "دو ستونه"
+
+#: modules/calendar/calendar.php:943
+#, fuzzy
+msgid "Three months"
+msgstr "ماه"
+
+#: modules/calendar/calendar.php:944
+#, fuzzy
+msgid "Four months"
+msgstr "ماه"
+
+#: modules/calendar/calendar.php:945
+#, fuzzy
+msgid "Five months"
+msgstr "ماه"
+
+#: modules/calendar/calendar.php:946
+#, fuzzy
+msgid "Six months"
+msgstr "ماه"
+
+#: modules/calendar/calendar.php:947
+#, fuzzy
+msgid "Seven months"
+msgstr "ماه"
+
+#: modules/calendar/calendar.php:948
+#, fuzzy
+msgid "Eight months"
+msgstr "ماه"
+
+#: modules/calendar/calendar.php:949
+#, fuzzy
+msgid "Nine months"
+msgstr "ماه"
+
+#: modules/calendar/calendar.php:950
+#, fuzzy
+msgid "Ten months"
+msgstr "دوهزار و ده"
+
+#: modules/calendar/calendar.php:951
+#, fuzzy
+msgid "Eleven months"
+msgstr "دو هزار و یازده"
+
+#: modules/calendar/calendar.php:952
+#, fuzzy
+msgid "Twelve months"
+msgstr "دوهزار و دوازده"
+
+#: modules/calendar/calendar.php:962
+#, fuzzy
+msgid "Download .ics file"
+msgstr "محدودیت دریافت فایل:"
+
+#: modules/calendar/calendar.php:967
+#, fuzzy
+msgid "Copy to the clipboard"
+msgstr "&copy; %s %s"
+
+#: modules/calendar/calendar.php:972
+msgid "Click here to Subscribe in iCal or Google Calendar"
+msgstr ""
+
+#: modules/calendar/calendar.php:987
+#, php-format
+msgid "Post moved to the trash."
+msgid_plural "%d posts moved to the trash."
+msgstr[0] ""
+msgstr[1] ""
+
+#: modules/calendar/calendar.php:993
+#: modules/content-overview/content-overview.php:597
+msgid "Undo"
+msgstr ""
+
+#: modules/calendar/calendar.php:998
+#, php-format
+msgid "Post restored from the Trash."
+msgid_plural "%d posts restored from the Trash."
+msgstr[0] ""
+msgstr[1] ""
+
+#: modules/calendar/calendar.php:1115
+#, fuzzy
+msgid "Click to create"
+msgstr "برای تغییر وضعیت کلیک کنید"
+
+#: modules/calendar/calendar.php:1136
+#, fuzzy, php-format
+msgid "Show %d more"
+msgstr "نمایش فعالیت‌های بیشتر"
+
+#: modules/calendar/calendar.php:1148
+#, fuzzy, php-format
+msgid "Schedule a %1$s for %2$s"
+msgstr "%2$s، %1$s"
+
+#: modules/calendar/calendar.php:1159
+#, fuzzy, php-format
+msgid "Schedule content for %1$s"
+msgstr "زیرِ محتوا ۱"
+
+#: modules/calendar/calendar.php:1163
+#: modules/editorial-metadata/editorial-metadata.php:1599
+#: modules/editorial-metadata/editorial-metadata.php:1680
+#, fuzzy
+msgid "Type"
+msgstr "نوع"
+
+#: modules/calendar/calendar.php:1193
+#, fuzzy
+msgid "Create"
+msgstr "ساختن"
+
+#: modules/calendar/calendar.php:1197 modules/calendar/calendar.php:1419
+#: modules/content-overview/content-overview.php:952
+#: modules/custom-status/custom-status.php:2111
+#: modules/custom-status/custom-status.php:2427
+#: modules/editorial-metadata/editorial-metadata.php:1864
+#: modules/roles/lib/list_table.php:139 modules/user-groups/user-groups.php:747
+#, fuzzy
+msgid "Edit"
+msgstr "ویرایش"
+
+#: modules/calendar/calendar.php:1406
+#, fuzzy
+msgid "None"
+msgstr "هیچ‌کدام"
+
+#: modules/calendar/calendar.php:1419
+#, fuzzy
+msgid "Edit this item"
+msgstr "ویرایش این مورد"
+
+#: modules/calendar/calendar.php:1422
+#, fuzzy
+msgid "Trash this item"
+msgstr "زباله‌دان"
+
+#: modules/calendar/calendar.php:1428
+#: modules/content-overview/content-overview.php:969
+#: modules/custom-status/custom-status.php:2190
+#, fuzzy, php-format
+msgid "Preview &#8220;%s&#8221;"
+msgstr "نتایج جست‌وجو برای &#xAB;%s&#xBB;"
+
+#: modules/calendar/calendar.php:1429
+#: modules/content-overview/content-overview.php:970
+#: modules/custom-status/custom-status.php:2191
+#, fuzzy
+msgid "Preview"
+msgstr "پیش‌نمایش"
+
+#: modules/calendar/calendar.php:1431
+#: modules/content-overview/content-overview.php:964
+#, fuzzy, php-format
+msgid "View &#8220;%s&#8221;"
+msgstr "ویرایش &#8220;%s&#8221;"
+
+#: modules/calendar/calendar.php:1432
+#: modules/content-overview/content-overview.php:965
+#, fuzzy
+msgid "View"
+msgstr "نمایش"
+
+#: modules/calendar/calendar.php:1436
+#, fuzzy, php-format
+msgid "Save &#8220;%s&#8221;"
+msgstr "ویرایش &#8220;%s&#8221;"
+
+#: modules/calendar/calendar.php:1437 modules/custom-status/custom-status.php:903
+#, fuzzy
+msgid "Save"
+msgstr "ذخیره"
+
+#: modules/calendar/calendar.php:1514
+#: modules/content-overview/content-overview.php:357
+#, fuzzy
+msgid "Author"
+msgstr "مؤلف"
+
+#: modules/calendar/calendar.php:1522
+#, fuzzy
+msgid "Post Type"
+msgstr "نوع نوشته"
+
+#: modules/calendar/calendar.php:1634
+#: modules/content-overview/content-overview.php:636
+#, fuzzy
+msgid "Reset"
+msgstr "بازنشانی"
+
+#: modules/calendar/calendar.php:1640
+#, fuzzy
+msgid "Forward 1 week"
+msgstr "این هفته"
+
+#: modules/calendar/calendar.php:1642
+#, fuzzy
+msgid "&rsaquo;"
+msgstr "&lsaquo;"
+
+#: modules/calendar/calendar.php:1644
+#, fuzzy, php-format
+msgid "Forward %d weeks"
+msgstr "%s هفته"
+
+#: modules/calendar/calendar.php:1646
+#, fuzzy
+msgid "&raquo;"
+msgstr "&laquo;"
+
+#: modules/calendar/calendar.php:1650
+#, fuzzy, php-format
+msgid "Today is %s"
+msgstr "امروز"
+
+#: modules/calendar/calendar.php:1652
+#, fuzzy
+msgid "Today"
+msgstr "امروز"
+
+#: modules/calendar/calendar.php:1657
+#, php-format
+msgid "Back %d weeks"
+msgstr "بازگشت به %s هفته قبل"
+
+#: modules/calendar/calendar.php:1659
+#, fuzzy
+msgid "&laquo;"
+msgstr "&raquo;"
+
+#: modules/calendar/calendar.php:1661
+#, fuzzy
+msgid "Back 1 week"
+msgstr "این هفته"
+
+#: modules/calendar/calendar.php:1663
+#, fuzzy
+msgid "&lsaquo;"
+msgstr "&rsaquo;"
+
+#: modules/calendar/calendar.php:1885
+#, fuzzy, php-format
+msgid "for %1$s through %2$s"
+msgstr "%2$s، %1$s"
+
+#: modules/calendar/calendar.php:1935
+#, fuzzy
+msgid "Post types to show"
+msgstr "فعال برای این نوع‌نوشته‌ها"
+
+#: modules/calendar/calendar.php:1938
+#, fuzzy
+msgid "Subscription in iCal or Google Calendar"
+msgstr "ابزارک تحریریه: تقویم گوگل"
+
+#: modules/calendar/calendar.php:1955
+msgid "At least one post type must be selected"
+msgstr ""
+
+#: modules/calendar/calendar.php:1970
+msgid ""
+"The number of weeks shown on the calendar can be changed on a user-by-user "
+"basis using the calendar's screen options."
+msgstr ""
+
+#: modules/calendar/calendar.php:1982
+#: modules/custom-status/custom-status.php:1671
+#: modules/dashboard/dashboard.php:308 modules/dashboard/dashboard.php:329
+#: modules/dashboard/dashboard.php:359
+#, fuzzy
+msgid "Disabled"
+msgstr "غیرفعال"
+
+#: modules/calendar/calendar.php:1983
+#: modules/custom-status/custom-status.php:1672
+#: modules/dashboard/dashboard.php:309 modules/dashboard/dashboard.php:330
+#: modules/dashboard/dashboard.php:360
+#, fuzzy
+msgid "Enabled"
+msgstr "فعال"
+
+#: modules/calendar/calendar.php:1996
+#, fuzzy
+msgid "Regenerate calendar feed secret"
+msgstr "کلید سری خوراک"
+
+#: modules/calendar/calendar.php:2089
+#, fuzzy
+msgid "No date supplied."
+msgstr "تاریخ:"
+
+#: modules/calendar/calendar.php:2100
+msgid "Please change Quick Create to use a post type viewable on the calendar."
+msgstr ""
+
+#: modules/calendar/calendar.php:2108
+#, fuzzy
+msgid "Untitled"
+msgstr "بدون عنوان"
+
+#: modules/calendar/calendar.php:2152
+#, fuzzy
+msgid "Post could not be created"
+msgstr "ساخته‌شده در:"
+
+#: modules/calendar/calendar.php:2268
+#, fuzzy
+msgid "Invalid metadata type"
+msgstr "متا"
+
+#: modules/calendar/calendar.php:2277
+#, fuzzy
+msgid "Metadata could not be updated."
+msgstr "پشتیبانی از فراداده‌ها"
+
+#: modules/calendar/calendar.php:2356
+#, fuzzy
+msgid "All statuses"
+msgstr "همه وضعیت‌ها"
+
+#: modules/calendar/calendar.php:2370
+#, fuzzy
+msgid "All categories"
+msgstr "همه دسته‌ها"
+
+#: modules/calendar/calendar.php:2383
+#, fuzzy
+msgid "All tags"
+msgstr "همه برچسب‌ها"
+
+#: modules/calendar/calendar.php:2397
+#, fuzzy
+msgid "All users"
+msgstr "همهٔ کاربران"
+
+#: modules/calendar/calendar.php:2410
+#, fuzzy
+msgid "All types"
+msgstr "همه‌ی انواع کاربری"
+
+#: modules/calendar/calendar.php:2429
+#, fuzzy, php-format
+msgid "%s week"
+msgid_plural "%s weeks"
+msgstr[0] "%s هفته"
+msgstr[1] "%s هفته"
+
+#: modules/calendar/calendar.php:2471
+#, fuzzy
+msgid "Missed schedule"
+msgstr "زمان‌بندی از دست رفته"
+
+#: modules/calendar/calendar.php:2481
+#, fuzzy
+msgid "Publish on"
+msgstr "نشر در:"
+
+#: modules/content-overview/content-overview.php:121
+#: modules/content-overview/content-overview.php:283
+#: modules/content-overview/content-overview.php:300
+#: modules/content-overview/content-overview.php:301
+#: modules/content-overview/content-overview.php:446
+#, fuzzy
+msgid "Content Overview"
+msgstr "بازنگری"
+
+#: modules/content-overview/content-overview.php:180
+#, fuzzy
+msgid "Screen Layout"
+msgstr "طرح"
+
+#: modules/content-overview/content-overview.php:356
+#: modules/custom-status/custom-status.php:1238
+#, fuzzy
+msgid "Status"
+msgstr "وضعیت"
+
+#: modules/content-overview/content-overview.php:358
+#, fuzzy
+msgid "Post Date"
+msgstr "تاریخ نوشته"
+
+#: modules/content-overview/content-overview.php:359
+#, fuzzy
+msgid "Last Modified"
+msgstr "آخرین تغییر در"
+
+#: modules/content-overview/content-overview.php:408
+#, fuzzy
+msgid "Number of Columns: "
+msgstr "مدیریت ستون‌های فهرست"
+
+#: modules/content-overview/content-overview.php:566
+#, php-format
+msgctxt "%1$s = start date, %2$s = number of days, %3$s = translation of 'Days'"
+msgid "starting %1$s showing %2$s %3$s"
+msgstr ""
+
+#: modules/content-overview/content-overview.php:569
+#, fuzzy
+msgid "day"
+msgid_plural "days"
+msgstr[0] "یک روز"
+msgstr[1] "روز"
+
+#: modules/content-overview/content-overview.php:572
+#: modules/content-overview/content-overview.php:575
+#: vendor/alledia/wordpress-plugin-framework/src/library/Module/Addons.php:179
+#: vendor/alledia/wordpress-plugin-framework/src/library/Module/Assets.php:109
+#, fuzzy
+msgid "Change"
+msgstr "تغییر"
+
+#: modules/content-overview/content-overview.php:574
+#: modules/custom-status/custom-status.php:1788
+#: modules/editorial-comments/editorial-comments.php:248
+#: modules/editorial-metadata/editorial-metadata.php:1625
+#, fuzzy
+msgid "Cancel"
+msgstr "لغو"
+
+#: modules/content-overview/content-overview.php:593
+#, fuzzy, php-format
+msgid "Item moved to the trash."
+msgid_plural "%d items moved to the trash."
+msgstr[0] "شما اجازه انتقال این مورد به زباله دان را ندارید."
+msgstr[1] "%5$s %4$s به زباله‌دان منتقل شد."
+
+#: modules/content-overview/content-overview.php:602
+#, fuzzy, php-format
+msgid "Item restored from the Trash."
+msgid_plural "%d items restored from the Trash."
+msgstr[0] "شما اجازه بازگردانی این مورد از زباله دان را ندارید."
+msgstr[1] "%5$s %4$s صفحه از زباله‌دان بازگردانده شد."
+
+#: modules/content-overview/content-overview.php:643
+#, fuzzy
+msgid "Print"
+msgstr "چاپ"
+
+#: modules/content-overview/content-overview.php:668
+#, fuzzy
+msgid "View all statuses"
+msgstr "همه وضعیت‌ها"
+
+#: modules/content-overview/content-overview.php:682
+#, fuzzy
+msgid "View all categories"
+msgstr "دیدن همه"
+
+#: modules/content-overview/content-overview.php:694
+#, fuzzy
+msgid "View all users"
+msgstr "دیدن همه"
+
+#: modules/content-overview/content-overview.php:724
+#, fuzzy
+msgid "Click to toggle"
+msgstr "برای تغییر وضعیت کلیک کنید"
+
+#: modules/content-overview/content-overview.php:749
+msgid "There are no posts for this term in the range or filter specified."
+msgstr ""
+
+#: modules/content-overview/content-overview.php:951
+#: modules/dashboard/dashboard.php:267
+#, fuzzy
+msgid "Edit this post"
+msgstr "ویرایش این نوشته"
+
+#: modules/content-overview/content-overview.php:957
+#, fuzzy
+msgid "Move this item to the Trash"
+msgstr "شما اجازه انتقال این مورد به زباله دان را ندارید."
+
+#: modules/custom-status/custom-status.php:60
+#, fuzzy
+msgid "Statuses"
+msgstr "وضعیت‌ها"
+
+#: modules/custom-status/custom-status.php:77
+#, fuzzy
+msgid "Edit Statuses"
+msgstr "ویرایش وضعیت‌ها"
+
+#: modules/custom-status/custom-status.php:79
+#, fuzzy
+msgid "Post status created."
+msgstr "وضعیت نوشته؛"
+
+#: modules/custom-status/custom-status.php:80
+#: modules/custom-status/custom-status.php:83
+#, fuzzy
+msgid "Post status updated."
+msgstr "وضعیت نوشته؛"
+
+#: modules/custom-status/custom-status.php:81
+#, fuzzy
+msgid "Post status doesn't exist."
+msgstr "وضعیت نوشته؛"
+
+#: modules/custom-status/custom-status.php:82
+msgid "Default post status has been changed."
+msgstr ""
+
+#: modules/custom-status/custom-status.php:84
+#, fuzzy
+msgid "Post status deleted."
+msgstr "وضعیت نوشته؛"
+
+#: modules/custom-status/custom-status.php:85
+#, fuzzy
+msgid "Status order updated."
+msgstr "وضعیت"
+
+#: modules/custom-status/custom-status.php:91
+msgid ""
+"<p>PublishPress’s custom statuses allow you to define the most important "
+"stages of your editorial workflow. Out of the box, WordPress only offers "
+"“Draft” and “Pending Review” as post states. With custom statuses, you can "
+"create your own post states like “In Progress”, “Pitch”, or “Waiting for Edit” "
+"and keep or delete the originals. You can also drag and drop statuses to set "
+"the best order for your workflow.</p><p>Custom statuses are fully integrated "
+"into the rest of PublishPress and the WordPress admin. On the calendar and "
+"content overview, you can filter your view to see only posts of a specific "
+"post state. Furthermore, email notifications can be sent to a specific group "
+"of users when a post changes state.</p>"
+msgstr ""
+
+#: modules/custom-status/custom-status.php:94
+msgid ""
+"<p><strong>For more information:</strong></p><p><a href=\"https://publishpress."
+"com/features/custom-statuses/\">Custom Status Documentation</a></p><p><a href="
+"\"https://github.com/ostraining/PublishPress\">PublishPress on Github</a></p>"
+msgstr ""
+
+#: modules/custom-status/custom-status.php:157
+msgid "Pitch"
+msgstr ""
+
+#: modules/custom-status/custom-status.php:160
+msgid "Idea proposed; waiting for acceptance."
+msgstr ""
+
+#: modules/custom-status/custom-status.php:167
+#, fuzzy
+msgid "Assigned"
+msgstr "{taxonomy}: رده {name} مرتبط شد."
+
+#: modules/custom-status/custom-status.php:170
+msgid "Post idea assigned to writer."
+msgstr ""
+
+#: modules/custom-status/custom-status.php:177
+#, fuzzy
+msgid "In Progress"
+msgstr "در حال پیشرفت"
+
+#: modules/custom-status/custom-status.php:180
+#, fuzzy
+msgid "Writer is working on the post."
+msgstr "سامانه کرون تا %s فعال بوده است."
+
+#: modules/custom-status/custom-status.php:190
+msgid "Post is a draft; not ready for review or publication."
+msgstr ""
+
+#: modules/custom-status/custom-status.php:200
+#, fuzzy
+msgid "Post needs to be reviewed by an editor."
+msgstr "دکمه های اضافی تایپوگرافی برای ویرایشگر نوشته‌ها"
+
+#: modules/custom-status/custom-status.php:404
+msgid ""
+"Are you sure you want to delete the post status? All posts with this status "
+"will be assigned to the default status."
+msgstr ""
+
+#: modules/custom-status/custom-status.php:441
+msgid ""
+"<strong>Note:</strong> Your browser does not support JavaScript or has "
+"JavaScript disabled. You will not be able to access or change the post status."
+msgstr ""
+
+#: modules/custom-status/custom-status.php:804
+#, fuzzy
+msgid "Privately Published"
+msgstr "انتشار خصوصی"
+
+#: modules/custom-status/custom-status.php:902
+#, fuzzy
+msgid "&mdash; No Change &mdash;"
+msgstr "&mdash; بدون مادر &mdash;"
+
+#: modules/custom-status/custom-status.php:970
+#, fuzzy
+msgid "Custom status doesn't exist."
+msgstr "وضعیت"
+
+#: modules/custom-status/custom-status.php:1023
+msgid "Cannot reassign to the status you want to delete"
+msgstr ""
+
+#: modules/custom-status/custom-status.php:1048
+#, fuzzy
+msgid "Restricted status "
+msgstr "وضعیت"
+
+#: modules/custom-status/custom-status.php:1321
+#: modules/custom-status/custom-status.php:1412
+#, fuzzy
+msgid "Please enter a name for the status"
+msgstr "لطفا شناسه کاربری خود را به درستی وارد نمایید."
+
+#: modules/custom-status/custom-status.php:1325
+#: modules/custom-status/custom-status.php:1416
+msgid "Please enter a valid, non-numeric name for the status."
+msgstr ""
+
+#: modules/custom-status/custom-status.php:1330
+#: modules/custom-status/custom-status.php:1421
+msgid "Status name cannot exceed 20 characters. Please try a shorter name."
+msgstr ""
+
+#: modules/custom-status/custom-status.php:1335
+#: modules/custom-status/custom-status.php:1433
+msgid "Status name conflicts with existing term. Please choose another."
+msgstr ""
+
+#: modules/custom-status/custom-status.php:1340
+#: modules/custom-status/custom-status.php:1445
+msgid "Status name is restricted. Please choose another name."
+msgstr ""
+
+#: modules/custom-status/custom-status.php:1360
+#, fuzzy
+msgid "Could not add status: "
+msgstr "وضعیت"
+
+#: modules/custom-status/custom-status.php:1440
+msgid "Status name conflicts with existing status. Please choose another."
+msgstr ""
+
+#: modules/custom-status/custom-status.php:1466
+#, fuzzy
+msgid "Error updating post status."
+msgstr "وضعیت نوشته؛"
+
+#: modules/custom-status/custom-status.php:1500
+#: modules/custom-status/custom-status.php:1537
+#, fuzzy
+msgid "Invalid nonce for submission."
+msgstr "ارسال به عنوان هرزنامه ثبت شد."
+
+#: modules/custom-status/custom-status.php:1505
+#: modules/custom-status/custom-status.php:1542
+msgid "Sorry, you do not have permission to edit custom statuses."
+msgstr ""
+
+#: modules/custom-status/custom-status.php:1517
+msgid "Status doesn&#39;t exist."
+msgstr ""
+
+#: modules/custom-status/custom-status.php:1549
+#, fuzzy
+msgid "Status does not exist."
+msgstr "این موضوع وجود ندارد."
+
+#: modules/custom-status/custom-status.php:1554
+#, fuzzy
+msgid "Cannot delete default status."
+msgstr "وضعیت پیش‌فرض"
+
+#: modules/custom-status/custom-status.php:1559
+#, fuzzy
+msgid "Could not delete the status: "
+msgstr "حذف"
+
+#: modules/custom-status/custom-status.php:1617
+#: modules/editorial-metadata/editorial-metadata.php:1430
+#, fuzzy
+msgid "Terms not set."
+msgstr "رده‌ها"
+
+#: modules/custom-status/custom-status.php:1643
+#, fuzzy
+msgid "Use on these post types:"
+msgstr "فعال برای این نوع‌نوشته‌ها"
+
+#: modules/custom-status/custom-status.php:1647
+msgid "Show the status dropdown menu on the post editing screen:"
+msgstr ""
+
+#: modules/custom-status/custom-status.php:1741
+#, fuzzy
+msgid "Custom Status"
+msgstr "وضعیت"
+
+#: modules/custom-status/custom-status.php:1744
+#: modules/custom-status/custom-status.php:1833
+msgid "The name is used to identify the status. (Max: 20 characters)"
+msgstr ""
+
+#: modules/custom-status/custom-status.php:1748
+#: modules/editorial-metadata/editorial-metadata.php:1585
+#: modules/editorial-metadata/editorial-metadata.php:1666
+#, fuzzy
+msgid "Slug"
+msgstr "نامک"
+
+#: modules/custom-status/custom-status.php:1752
+msgid ""
+"The slug is the unique ID for the status and is changed when the name is "
+"changed."
+msgstr ""
+
+#: modules/custom-status/custom-status.php:1756
+#: modules/custom-status/custom-status.php:1836
+#: modules/custom-status/custom-status.php:2294
+#: modules/editorial-metadata/editorial-metadata.php:1592
+#: modules/editorial-metadata/editorial-metadata.php:1673
+#: modules/editorial-metadata/editorial-metadata.php:1768
+#: modules/user-groups/user-groups.php:714
+#, fuzzy
+msgid "Description"
+msgstr "توضیحات"
+
+#: modules/custom-status/custom-status.php:1760
+#: modules/custom-status/custom-status.php:1840
+msgid ""
+"The description is primarily for administrative use, to give you some context "
+"on what the custom status is to be used for."
+msgstr ""
+
+#: modules/custom-status/custom-status.php:1764
+#: modules/custom-status/custom-status.php:1843
+#, fuzzy
+msgid "Color"
+msgstr "رنگ"
+
+#: modules/custom-status/custom-status.php:1769
+#: modules/custom-status/custom-status.php:1849
+#, fuzzy
+msgid "The color is used to identify the status."
+msgstr "کلید یکتا برای شناسایی این پرداخت."
+
+#: modules/custom-status/custom-status.php:1773
+#: modules/custom-status/custom-status.php:1852
+#: modules/custom-status/custom-status.php:2295
+#, fuzzy
+msgid "Icon"
+msgstr "SVG برای نمادک شبکه"
+
+#: modules/custom-status/custom-status.php:1782
+#: modules/custom-status/custom-status.php:1863
+msgid "The icon is used to visually represent the status."
+msgstr ""
+
+#: modules/custom-status/custom-status.php:1787
+#, fuzzy
+msgid "Update Status"
+msgstr "وضعیت"
+
+#: modules/custom-status/custom-status.php:1809
+#: modules/editorial-metadata/editorial-metadata.php:1637
+#, fuzzy
+msgid "Add New"
+msgstr "افزودن %2$s"
+
+#: modules/custom-status/custom-status.php:1812
+#: modules/editorial-metadata/editorial-metadata.php:1640
+#, fuzzy
+msgid "Options"
+msgstr "تنظیمات"
+
+#: modules/custom-status/custom-status.php:1817
+msgid ""
+"Please note that checking a box will apply all statuses to that post type."
+msgstr ""
+
+#: modules/custom-status/custom-status.php:1829
+#: modules/custom-status/custom-status.php:2293
+#: modules/editorial-metadata/editorial-metadata.php:1580
+#: modules/editorial-metadata/editorial-metadata.php:1659
+#: modules/editorial-metadata/editorial-metadata.php:1766
+#: modules/user-groups/user-groups.php:713
+#, fuzzy
+msgid "Name"
+msgstr "نام"
+
+#: modules/custom-status/custom-status.php:1867
+#, fuzzy
+msgid "Add New Status"
+msgstr "افزودن فرم تماس"
+
+#: modules/custom-status/custom-status.php:2077
+#: modules/custom-status/custom-status.php:2108
+#, fuzzy
+msgid "Permalink:"
+msgstr "پیوند پایدار:"
+
+#: modules/custom-status/custom-status.php:2088
+#, fuzzy
+msgid "Change Permalinks"
+msgstr "بازسازی پایاپیوندها"
+
+#: modules/custom-status/custom-status.php:2111
+#, fuzzy
+msgid "Edit permalink"
+msgstr "پیوند یکتا"
+
+#: modules/custom-status/custom-status.php:2292
+#: modules/editorial-metadata/editorial-metadata.php:1765
+#, fuzzy
+msgid "Position"
+msgstr "موقعیت نمایش علامت واحد ارزی"
+
+#: modules/custom-status/custom-status.php:2317
+#, fuzzy
+msgid "No custom statuses found."
+msgstr "ویرایش وضعیت‌ها"
+
+#: modules/custom-status/custom-status.php:2414
+#, fuzzy
+msgid "Default"
+msgstr "پیشفرض"
+
+#: modules/custom-status/custom-status.php:2429
+#, fuzzy
+msgid "Make&nbsp;Default"
+msgstr "پیشفرض"
+
+#: modules/custom-status/custom-status.php:2434
+#: modules/editorial-metadata/editorial-metadata.php:1870
+#: modules/roles/lib/list_table.php:143 modules/user-groups/user-groups.php:752
+#, fuzzy
+msgid "Delete"
+msgstr "حذف"
+
+#: modules/dashboard/dashboard.php:56
+#, fuzzy
+msgid "Dashboard"
+msgstr "پیشخوان"
+
+#: modules/dashboard/dashboard.php:70
+#, fuzzy
+msgid "Widget Options"
+msgstr "پیکربندی ابزارک"
+
+#: modules/dashboard/dashboard.php:155
+#, fuzzy
+msgid "Unpublished Content"
+msgstr "مطالب منتشرنشده"
+
+#: modules/dashboard/dashboard.php:161 modules/dashboard/dashboard.php:295
+#, fuzzy
+msgid "Notepad"
+msgstr "یادداشت"
+
+#: modules/dashboard/dashboard.php:167 modules/dashboard/dashboard.php:292
+#, fuzzy
+msgid "My Content Notifications"
+msgstr "آگاه‌سازی‌ها"
+
+#: modules/dashboard/dashboard.php:190
+#, fuzzy
+msgid "Posts at a Glance"
+msgstr "نوشته‌ها در یک نگاه"
+
+#: modules/dashboard/dashboard.php:268
+#, fuzzy
+msgid "This post was last updated on"
+msgstr "این نوشته آخرین بار ویرایش شده است در"
+
+#: modules/dashboard/dashboard.php:273
+#, fuzzy
+msgid "Sorry! You're not subscribed to any posts!"
+msgstr "متأسفانه، نوشته‌ای را دنبال نمی‌کنید!"
+
+#: modules/dashboard/dashboard.php:289
+#, fuzzy
+msgid "Post Status Widget"
+msgstr "وضعیت نوشته؛"
+
+#: modules/dashboard/dashboard.php:346
+msgid ""
+"The notifications module will need to be enabled for this widget to display."
+msgstr ""
+
+#: modules/dashboard/widgets/dashboard-notepad.php:50
+#, fuzzy
+msgid "Dashboard Note"
+msgstr "پیشخوان"
+
+#: modules/dashboard/widgets/dashboard-notepad.php:119
+#, fuzzy, php-format
+msgid "%1$s last updated on %2$s"
+msgstr "آخرین تغییر در %2$s توسط %1$s"
+
+#: modules/dashboard/widgets/dashboard-notepad.php:137
+#, fuzzy
+msgid "Update Note"
+msgstr "ذخیره تغییرات"
+
+#: modules/debug/debug.php:63
+#, fuzzy
+msgid "Debug"
+msgstr "اشکال‌زدایی"
+
+#: modules/debug/debug.php:170 modules/debug/debug.php:225
+#, fuzzy
+msgid "PublishPress Debug Log"
+msgstr "ورود"
+
+#: modules/debug/debug.php:182 modules/debug/debug.php:183
+#, fuzzy
+msgid "Debug Log"
+msgstr "اشکال‌زدایی"
+
+#: modules/debug/debug.php:226
+#, fuzzy
+msgid "File info"
+msgstr "دانلود فایل اطلاعات سیستم"
+
+#: modules/debug/debug.php:227
+#, fuzzy
+msgid "Path"
+msgstr "مسیر"
+
+#: modules/debug/debug.php:228
+#, fuzzy
+msgid "Log content"
+msgstr "بدون متن"
+
+#: modules/debug/debug.php:229
+#, fuzzy
+msgid "Size"
+msgstr "قطع"
+
+#: modules/debug/debug.php:230
+#, fuzzy
+msgid "Created on"
+msgstr "ساخته‌شده در:"
+
+#: modules/debug/debug.php:231
+#, fuzzy
+msgid "Modified on"
+msgstr "تغییر در"
+
+#: modules/debug/debug.php:232
+#, fuzzy
+msgid "Delete file"
+msgstr "پاک"
+
+#: modules/debug/debug.php:233
+#, fuzzy
+msgid "Debug data"
+msgstr "اشکال‌زدایی"
+
+#: modules/debug/debug.php:234
+#, fuzzy
+msgid "Log File"
+msgstr "مشاهده گزارش دریافت فایل"
+
+#: modules/debug/debug.php:237
+#, fuzzy
+msgid "Log file not found."
+msgstr "مشاهده گزارش دریافت فایل"
+
+#: modules/debug/debug.php:239
+msgid ""
+"If you see any error or look for information regarding PublishPress, please "
+"don't hesitate to contact the support team. E-mail us:"
+msgstr ""
+
+#: modules/debug/debug.php:243
+msgid ""
+"Click to delete the log file. Be careful, this operation can not be undone. "
+msgstr ""
+
+#: modules/debug/debug.php:286
+#, fuzzy
+msgid "Action nonce not found."
+msgstr "[عمل ناشناخته!]"
+
+#: modules/debug/debug.php:293
+#, fuzzy
+msgid "Invalid action nonce."
+msgstr "گزینه‌ها"
+
+#: modules/editorial-comments/editorial-comments.php:48
+#: modules/editorial-comments/editorial-comments.php:153
+#, fuzzy
+msgid "Editorial Comments"
+msgstr "دیدگاه‌های تحریریه"
+
+#: modules/editorial-comments/editorial-comments.php:62
+#, fuzzy
+msgid "Choose Post Types"
+msgstr "فعال برای این نوع‌نوشته‌ها"
+
+#: modules/editorial-comments/editorial-comments.php:67
+msgid ""
+"<p>Editorial comments help you cut down on email overload and keep the "
+"conversation close to where it matters: your content. Threaded commenting in "
+"the admin, similar to what you find at the end of a blog post, allows writers "
+"and editors to privately leave feedback and discuss what needs to be changed "
+"before publication.</p><p>Anyone with access to view the story in progress "
+"will also have the ability to comment on it. If you have notifications "
+"enabled, those following the post will receive an email every time a comment "
+"is left.</p>"
+msgstr ""
+
+#: modules/editorial-comments/editorial-comments.php:70
+msgid ""
+"<p><strong>For more information:</strong></p><p><a href=\"https://publishpress."
+"com/features/editorial-comments/\">Editorial Comments Documentation</a></"
+"p><p><a href=\"https://github.com/ostraining/PublishPress\">PublishPress on "
+"Github</a></p>"
+msgstr ""
+
+#: modules/editorial-comments/editorial-comments.php:217
+#, fuzzy
+msgid ""
+"You can add editorial comments to a post once you've saved it for the first "
+"time."
+msgstr "بعد از ذخیرهٔ اولیه، می‌توانید برای تحریریه دیدگاه اضافه کنید."
+
+#: modules/editorial-comments/editorial-comments.php:234
+#: modules/editorial-comments/editorial-comments.php:235
+#, fuzzy
+msgid "Add an editorial comment"
+msgstr "افزودن دیدگاه"
+
+#: modules/editorial-comments/editorial-comments.php:245
+#, fuzzy
+msgid "Add Comment"
+msgstr "افزودن دیدگاه"
+
+#: modules/editorial-comments/editorial-comments.php:288
+#, fuzzy
+msgid "Reply to this comment"
+msgstr "پاسخ به این دیدگاه"
+
+#: modules/editorial-comments/editorial-comments.php:289
+#, fuzzy
+msgid "Reply"
+msgstr "پاسخ"
+
+#: modules/editorial-comments/editorial-comments.php:314
+#, fuzzy, php-format
+msgid ""
+"<span class=\"comment-author\">%1$s</span><span class=\"meta\"> said on %2$s "
+"at %3$s</span>"
+msgstr ""
+" <span class=\"meta\">در %2$s ساعت %3$s </span><span class=\"comment-author\">"
+"%1$s</span>"
+
+#: modules/editorial-comments/editorial-comments.php:339
+msgid ""
+"Nonce check failed. Please ensure you're supposed to be adding editorial "
+"comments."
+msgstr ""
+
+#: modules/editorial-comments/editorial-comments.php:353
+msgid ""
+"Sorry, you don't have the privileges to add editorial comments. Please talk to "
+"your Administrator."
+msgstr ""
+
+#: modules/editorial-comments/editorial-comments.php:360
+#, fuzzy
+msgid "Please enter a comment."
+msgstr "دیدگاه تحریریه را اینجا وارد کنید"
+
+#: modules/editorial-comments/editorial-comments.php:426
+msgid ""
+"There was a problem of some sort. Try again or contact your administrator."
+msgstr ""
+
+#: modules/editorial-comments/editorial-comments.php:440
+#, fuzzy
+msgid "Enable for these post types:"
+msgstr "فعال برای این نوع‌نوشته‌ها"
+
+#: modules/editorial-metadata/editorial-metadata.php:73
+#: modules/editorial-metadata/editorial-metadata.php:378
+#, fuzzy
+msgid "Metadata"
+msgstr "متا"
+
+#: modules/editorial-metadata/editorial-metadata.php:87
+#, fuzzy
+msgid "Metadata term added."
+msgstr "افزوده شد."
+
+#: modules/editorial-metadata/editorial-metadata.php:88
+#, fuzzy
+msgid "Metadata term updated."
+msgstr "بدون رده"
+
+#: modules/editorial-metadata/editorial-metadata.php:89
+msgid "Metadata term doesn't exist."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:90
+#, fuzzy
+msgid "Metadata term deleted."
+msgstr "حذف شد"
+
+#: modules/editorial-metadata/editorial-metadata.php:91
+#, fuzzy
+msgid "Term order updated."
+msgstr "چیدمان رده"
+
+#: modules/editorial-metadata/editorial-metadata.php:92
+#, fuzzy
+msgid "Term visibility changed."
+msgstr "نمایانی این فیلد قابل تغییر نیست."
+
+#: modules/editorial-metadata/editorial-metadata.php:98
+msgid ""
+"<p>Keep track of important details about your content with editorial metadata. "
+"This feature allows you to create as many date, text, number, etc. fields as "
+"you like, and then use them to store information like contact details or the "
+"location of an interview.</p><p>Once you’ve set your fields up, editorial "
+"metadata integrates with both the calendar and the content overview. Make an "
+"editorial metadata item visible to have it appear to the rest of your team. "
+"Keep it hidden to restrict the information between the writer and their editor."
+"</p>"
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:100
+msgid ""
+"<p><strong>For more information:</strong></p><p><a href=\"https://publishpress."
+"com/features/editorial-metadata/\">Editorial Metadata Documentation</a></"
+"p><p><a href=\"https://github.com/ostraining/PublishPress\">PublishPress on "
+"Github</a></p>"
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:164
+#, fuzzy
+msgid "First Draft Date"
+msgstr "اول"
+
+#: modules/editorial-metadata/editorial-metadata.php:167
+msgid "When the first draft needs to be ready."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:170
+#, fuzzy
+msgid "Assignment"
+msgstr "قیمت فایل"
+
+#: modules/editorial-metadata/editorial-metadata.php:173
+msgid "What the post needs to cover."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:240
+#, fuzzy
+msgid "Checkbox"
+msgstr "جعبه‌های انتخاب"
+
+#: modules/editorial-metadata/editorial-metadata.php:242
+#, fuzzy
+msgid "Location"
+msgstr "محل"
+
+#: modules/editorial-metadata/editorial-metadata.php:243
+#, fuzzy
+msgid "Number"
+msgstr "شماره"
+
+#: modules/editorial-metadata/editorial-metadata.php:244
+msgid "Paragraph"
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:245
+#, fuzzy
+msgid "Text"
+msgstr "متن"
+
+#: modules/editorial-metadata/editorial-metadata.php:246
+#, fuzzy
+msgid "User"
+msgstr "کاربر"
+
+#: modules/editorial-metadata/editorial-metadata.php:333
+msgid ""
+"Are you sure you want to delete this term? Any metadata for this term will "
+"remain but will not be visible unless this term is re-added."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:354
+msgctxt "taxonomy general name"
+msgid "Metadata"
+msgstr "متا"
+
+#: modules/editorial-metadata/editorial-metadata.php:355
+msgctxt "taxonomy singular name"
+msgid "Metadata"
+msgstr "متا"
+
+#: modules/editorial-metadata/editorial-metadata.php:356
+#, fuzzy
+msgid "Search Editorial Metadata"
+msgstr "جست‌جو در اطلاعات اختصاصی تحریریه"
+
+#: modules/editorial-metadata/editorial-metadata.php:357
+#, fuzzy
+msgid "Popular Editorial Metadata"
+msgstr "اختصاصی تحریریه"
+
+#: modules/editorial-metadata/editorial-metadata.php:358
+#, fuzzy
+msgid "All Editorial Metadata"
+msgstr "اختصاصی تحریریه"
+
+#: modules/editorial-metadata/editorial-metadata.php:359
+#, fuzzy
+msgid "Edit Editorial Metadata"
+msgstr "اختصاصی تحریریه"
+
+#: modules/editorial-metadata/editorial-metadata.php:360
+#, fuzzy
+msgid "Update Editorial Metadata"
+msgstr "اختصاصی تحریریه"
+
+#: modules/editorial-metadata/editorial-metadata.php:361
+#, fuzzy
+msgid "Add New Editorial Metadata"
+msgstr "اختصاصی تحریریه"
+
+#: modules/editorial-metadata/editorial-metadata.php:362
+#, fuzzy
+msgid "New Editorial Metadata"
+msgstr "اختصاصی تحریریه"
+
+#: modules/editorial-metadata/editorial-metadata.php:383 publishpress.php:446
+#, fuzzy
+msgid "Configure"
+msgstr "پیکربندی"
+
+#: modules/editorial-metadata/editorial-metadata.php:395
+#, fuzzy
+msgid "Not set"
+msgstr "تغییر مادر"
+
+#: modules/editorial-metadata/editorial-metadata.php:412
+#, fuzzy
+msgid "No editorial metadata available."
+msgstr "جست‌جو در اطلاعات اختصاصی تحریریه"
+
+#: modules/editorial-metadata/editorial-metadata.php:414
+#, php-format
+msgid " <a href=\"%s\">Add fields to get started</a>."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:416
+msgid ""
+" Encourage your site administrator to configure your editorial workflow by "
+"adding editorial metadata."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:456
+#: modules/editorial-metadata/editorial-metadata.php:513
+#, php-format
+msgid "View &#8220;%s&#8221; on Google Maps"
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:474
+#, fuzzy
+msgid "-- Select a user --"
+msgstr "-- انتخاب کاربر --"
+
+#: modules/editorial-metadata/editorial-metadata.php:486
+#: modules/editorial-metadata/editorial-metadata.php:563
+msgid "This editorial metadata type is not yet supported."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:537
+#: modules/editorial-metadata/editorial-metadata.php:1022
+#: modules/editorial-metadata/editorial-metadata.php:1610
+#: modules/editorial-metadata/editorial-metadata.php:1696
+#: modules/editorial-metadata/editorial-metadata.php:1814
+msgid "No"
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:538
+#: modules/editorial-metadata/editorial-metadata.php:1020
+#: modules/editorial-metadata/editorial-metadata.php:1611
+#: modules/editorial-metadata/editorial-metadata.php:1697
+#: modules/editorial-metadata/editorial-metadata.php:1812
+#, fuzzy
+msgid "Yes"
+msgstr "بلی"
+
+#: modules/editorial-metadata/editorial-metadata.php:586
+#: modules/editorial-metadata/editorial-metadata.php:636
+#, fuzzy
+msgid "M d Y"
+msgstr "Y/m/d"
+
+#: modules/editorial-metadata/editorial-metadata.php:588
+#: modules/editorial-metadata/editorial-metadata.php:641
+#, fuzzy
+msgid "M d Y H:i"
+msgstr "l، j M Y - H:i:s"
+
+#: modules/editorial-metadata/editorial-metadata.php:1006
+#: modules/notifications/notifications.php:1449
+#, fuzzy, php-format
+msgid "%1$s at %2$s"
+msgstr "%2$s، %1$s"
+
+#: modules/editorial-metadata/editorial-metadata.php:1220
+msgid "Please enter a name for the editorial metadata."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:1224
+msgid "Please enter a slug for the editorial metadata."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:1227
+msgid "Name conflicts with existing term. Please choose another."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:1231
+#: modules/editorial-metadata/editorial-metadata.php:1331
+#: modules/roles/roles.php:933
+msgid "Name already in use. Please choose another."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:1235
+msgid "Slug already in use. Please choose another."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:1240
+#: modules/editorial-metadata/editorial-metadata.php:1341
+msgid "Name cannot exceed 200 characters. Please try a shorter name."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:1245
+msgid "Please select a valid metadata type."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:1269
+#, fuzzy
+msgid "Error adding term."
+msgstr "اضافه کردن کدهای تخفیف"
+
+#: modules/editorial-metadata/editorial-metadata.php:1314
+msgid "Please enter a name for the editorial metadata"
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:1319
+msgid "Please enter a valid, non-numeric name for the editorial metadata."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:1325
+msgid "Metadata name conflicts with existing term. Please choose another."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:1336
+msgid "Name conflicts with slug for another term. Please choose something else."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:1363
+#: modules/editorial-metadata/editorial-metadata.php:1405
+msgid "Error updating term."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:1469
+#, fuzzy
+msgid "Error deleting term."
+msgstr "اشکال در روند حذف‌کردن."
+
+#: modules/editorial-metadata/editorial-metadata.php:1487
+#: modules/user-groups/user-groups.php:246
+#, fuzzy
+msgid "Add to these post types:"
+msgstr "فعال برای این نوع‌نوشته‌ها"
+
+#: modules/editorial-metadata/editorial-metadata.php:1582
+#: modules/editorial-metadata/editorial-metadata.php:1663
+#, fuzzy
+msgid "The name is for labeling the metadata field."
+msgstr "به عنوان نویسنده اکیسمت استفاده شود"
+
+#: modules/editorial-metadata/editorial-metadata.php:1588
+msgid "The slug cannot be changed once the term has been created."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:1595
+#: modules/editorial-metadata/editorial-metadata.php:1677
+msgid ""
+"The description can be used to communicate with your team about what the "
+"metadata is for."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:1602
+msgid "The metadata type cannot be changed once created."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:1606
+#: modules/editorial-metadata/editorial-metadata.php:1693
+#: modules/editorial-metadata/editorial-metadata.php:1769
+#, fuzzy
+msgid "Viewable"
+msgstr "نمایانی"
+
+#: modules/editorial-metadata/editorial-metadata.php:1618
+#: modules/editorial-metadata/editorial-metadata.php:1705
+#: modules/editorial-metadata/editorial-metadata.php:1868
+msgid ""
+"When viewable, metadata can be seen on views other than the edit post view (e."
+"g. calendar, manage posts, content overview, etc.)"
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:1624
+#, fuzzy
+msgid "Update Metadata Term"
+msgstr "متا"
+
+#: modules/editorial-metadata/editorial-metadata.php:1647
+msgid ""
+"Please note that checking a box will apply all metadata to that post type."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:1670
+#, fuzzy
+msgid ""
+"The \"slug\" is the URL-friendly version of the name. It is usually all "
+"lowercase and contains only letters, numbers, and hyphens."
+msgstr ""
+"نامک نسخه لاتین واژه است که در نشانی (URL)‌هااستفاده می‌شود. برای نامگذاری فقط "
+"از حروف،‌ ارقام و خط تیره استفاده کنید. نمایش فقط با حروف کوچک خواهد بود."
+
+#: modules/editorial-metadata/editorial-metadata.php:1690
+#, fuzzy
+msgid "Indicate the type of editorial metadata."
+msgstr "جست‌جو در اطلاعات اختصاصی تحریریه"
+
+#: modules/editorial-metadata/editorial-metadata.php:1710
+#, fuzzy
+msgid "Add New Metadata Term"
+msgstr "افزودن فرم تماس"
+
+#: modules/editorial-metadata/editorial-metadata.php:1767
+#, fuzzy
+msgid "Metadata Type"
+msgstr "متا"
+
+#: modules/editorial-metadata/editorial-metadata.php:1845
+#, fuzzy
+msgid "No editorial metadata found."
+msgstr "اختصاصی تحریریه"
+
+#: modules/editorial-metadata/editorial-metadata.php:1866
+msgid "Hidden metadata can only be viewed on the edit post view."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:1866
+#, fuzzy
+msgid "Make Hidden"
+msgstr "مخفی کن"
+
+#: modules/editorial-metadata/editorial-metadata.php:1868
+#, fuzzy
+msgid "Make Viewable"
+msgstr "نمایان کن"
+
+#: modules/efmigration/efmigration.php:67
+#, fuzzy
+msgid "Edit Flow Migration"
+msgstr "بازگشت به «ادیت فلو»"
+
+#: modules/efmigration/efmigration.php:68
+msgid "Migrate data from Edit Flow into PublishPress"
+msgstr ""
+
+#: modules/efmigration/efmigration.php:149
+msgid "This migration will import all of your data and settings from Edit Flow."
+msgstr ""
+
+#: modules/efmigration/efmigration.php:151
+msgid ""
+"Heads up! Importing data from EditFlow will overwrite any current data in "
+"PublishPress."
+msgstr ""
+
+#: modules/efmigration/efmigration.php:153
+#, fuzzy
+msgid "Start"
+msgstr "شروع"
+
+#: modules/efmigration/efmigration.php:154
+#, fuzzy
+msgid "Plugin and Modules Options"
+msgstr "ماژول های قدرتمند (**)"
+
+#: modules/efmigration/efmigration.php:155
+#, fuzzy
+msgid "User Meta-data"
+msgstr "متای کاربری"
+
+#: modules/efmigration/efmigration.php:156
+#, fuzzy
+msgid "Finished!"
+msgstr ""
+"پروسه بروزرسانی شروع شد. لطفاً شکیبا باشد. این عمل ممکن است چند دقیقه طول بکشد. "
+"شما اتوماتیک بعد از بروزرسانی به صفحه‌ای هدایت می‌شوید."
+
+#: modules/efmigration/efmigration.php:157
+msgid "Please, wait while we migrate your legacy data..."
+msgstr ""
+
+#: modules/efmigration/efmigration.php:159
+#, fuzzy
+msgid "Error"
+msgstr "خطایی رخ داده است"
+
+#: modules/efmigration/efmigration.php:160
+msgid "If needed, feel free to"
+msgstr ""
+
+#: modules/efmigration/efmigration.php:161
+#, fuzzy
+msgid "contact the support team"
+msgstr "گروهه"
+
+#: modules/efmigration/efmigration.php:162
+msgid "Back to PublishPress"
+msgstr "بازگشت به تحریریه"
+
+#: modules/efmigration/efmigration.php:191
+#: modules/efmigration/efmigration.php:386
+#: modules/efmigration/efmigration.php:388
+#, fuzzy
+msgid "Access Denied"
+msgstr "دسترسی محدود شده است"
+
+#: modules/efmigration/efmigration.php:243
+#, php-format
+msgid ""
+"We have found Edit Flow and its data! Would you like to import the data into "
+"PublishPress? <a href=\"%1$s\">Yes, import the data</a> | <a href=\"%2$s"
+"\">Dismiss</a>"
+msgstr ""
+
+#: modules/efmigration/efmigration.php:300
+#, fuzzy
+msgid "Unknown step"
+msgstr "ناشناخته!"
+
+#: modules/efmigration/efmigration.php:306
+#, fuzzy
+msgid "Undefined migration method"
+msgstr "اندازه نامشخص"
+
+#: modules/improved-notifications/improved-notifications.php:87
+#: publishpress.php:742
+#, fuzzy
+msgid "Notification Workflows"
+msgstr "آگاه‌سازی‌ها"
+
+#: modules/improved-notifications/improved-notifications.php:233
+msgid "Notify when content is published"
+msgstr ""
+
+#: modules/improved-notifications/improved-notifications.php:266
+#, fuzzy
+msgid "Notify on editorial comments"
+msgstr "آگاه‌سازی"
+
+#: modules/improved-notifications/improved-notifications.php:518
+#, fuzzy
+msgid "Workflow Settings"
+msgstr "گردش کار"
+
+#: modules/improved-notifications/improved-notifications.php:527
+#, fuzzy
+msgid "Help"
+msgstr "راهنمای بادی‌پرس"
+
+#: modules/improved-notifications/improved-notifications.php:557
+#, fuzzy
+msgid "For which content?"
+msgstr "بدون متن"
+
+#: modules/improved-notifications/improved-notifications.php:577
+#, fuzzy
+msgid "What to say?"
+msgstr "چه چیزی"
+
+#: modules/improved-notifications/improved-notifications.php:602
+msgid "Select at least one option for each section."
+msgstr ""
+
+#: modules/improved-notifications/improved-notifications.php:603
+msgid ""
+"You can add dynamic information to the Subject or Body text using the "
+"following shortcodes:"
+msgstr ""
+
+#: modules/improved-notifications/improved-notifications.php:606
+#, fuzzy
+msgid "Editorial Comment"
+msgstr ""
+"کاربران یا گروه‌های کاربری را برای آگاه‌سازی از تغییر وضعیت نوشته و یا دیدگاه "
+"تحریریه جدید انتخاب کنید."
+
+#: modules/improved-notifications/improved-notifications.php:607
+#, fuzzy
+msgid "User making changes or comments"
+msgstr "ستون کاربر در دیدگاه‌ها"
+
+#: modules/improved-notifications/improved-notifications.php:608
+#, fuzzy
+msgid "Workflow"
+msgstr "گردش کار"
+
+#: modules/improved-notifications/improved-notifications.php:609
+#, fuzzy
+msgid "Format"
+msgstr "قالب"
+
+#: modules/improved-notifications/improved-notifications.php:610
+#, fuzzy
+msgid "shortcode"
+msgstr "کدکوتاه"
+
+#: modules/improved-notifications/improved-notifications.php:611
+#, fuzzy
+msgid "field"
+msgstr "فیلد"
+
+#: modules/improved-notifications/improved-notifications.php:612
+msgid ""
+"On each shortcode, you can select one or more fields. If more than one, they "
+"will be displayed separated by \", \"."
+msgstr ""
+
+#: modules/improved-notifications/improved-notifications.php:614
+#, fuzzy
+msgid "Available fields"
+msgstr "خارج از دسترس"
+
+#: modules/improved-notifications/improved-notifications.php:615
+msgid "Click here to read more about shortcode options..."
+msgstr ""
+
+#: modules/improved-notifications/improved-notifications.php:747
+#: modules/improved-notifications/improved-notifications.php:762
+msgid "Muted"
+msgstr ""
+
+#: modules/improved-notifications/improved-notifications.php:759
+#, fuzzy
+msgid "Editorial Notifications"
+msgstr "آگاه‌سازی‌ها"
+
+#: modules/improved-notifications/improved-notifications.php:760
+msgid "Choose the channels where each workflow will send notifications to:"
+msgstr ""
+
+#: modules/improved-notifications/improved-notifications.php:763
+msgid "Workflows"
+msgstr ""
+
+#: modules/improved-notifications/improved-notifications.php:764
+#, fuzzy
+msgid "Channels"
+msgstr "کانال‌ها"
+
+#: modules/modules-settings/modules-settings.php:49
+#, fuzzy
+msgid "General"
+msgstr "همگانی"
+
+#: modules/modules-settings/modules-settings.php:99
+#, fuzzy
+msgid "Display PublishPress branding:"
+msgstr "برندینگ"
+
+#: modules/modules-settings/modules-settings.php:205
+#, fuzzy
+msgid "Features"
+msgstr "امکانات تالار"
+
+#: modules/modules-settings/modules-settings.php:206
+msgid "Feel free to select only the features you need."
+msgstr ""
+
+#: modules/modules-settings/modules-settings.php:211
+#, fuzzy
+msgid "Enabled features"
+msgstr "فعال"
+
+#: modules/notifications/notifications.php:62
+#, fuzzy
+msgid "Default Notifications"
+msgstr "آگاه‌سازی‌ها"
+
+#: modules/notifications/notifications.php:84
+msgid ""
+"<p>Notifications ensure you keep up to date with progress your most important "
+"content. Users can be subscribed to notifications on a post one by one or by "
+"selecting roles.</p><p>When enabled, notifications can be sent when a post "
+"changes status or an editorial comment is left by a writer or an editor.</p>"
+msgstr ""
+
+#: modules/notifications/notifications.php:89
+msgid ""
+"<p><strong>For more information:</strong></p><p><a href=\"https://publishpress."
+"com/features/notifications/\">Notifications Documentation</a></p><p><a href="
+"\"https://github.com/ostraining/PublishPress\">PublishPress on Github</a></p>"
+msgstr ""
+
+#: modules/notifications/notifications.php:397
+msgid "Click to stop being notified on updates for this post"
+msgstr ""
+
+#: modules/notifications/notifications.php:398
+#, fuzzy
+msgid "Stop notifying me"
+msgstr "مرا به خاطر بسپار"
+
+#: modules/notifications/notifications.php:401
+msgid "Click to start being notified on updates for this post"
+msgstr ""
+
+#: modules/notifications/notifications.php:402
+#, fuzzy
+msgid "Notify me"
+msgstr "با ارسال ایمیل، من را از پاسخ‌های بعدی به این جستار آگاه کن"
+
+#: modules/notifications/notifications.php:428
+#, fuzzy
+msgid "Notify"
+msgstr "آگاه‌سازی"
+
+#: modules/notifications/notifications.php:450
+msgid ""
+"Select the users and roles that should receive notifications from workflows."
+msgstr ""
+
+#: modules/notifications/notifications.php:472
+#, fuzzy
+msgid "Click to read more about notifications"
+msgstr "اطلاعات بیشتر"
+
+#: modules/notifications/notifications.php:747
+#, php-format
+msgid "You are receiving this email because you are subscribed to \"%s\"."
+msgstr ""
+
+#: modules/notifications/notifications.php:751
+#, fuzzy, php-format
+msgid "This email was sent %s."
+msgstr "شرایط ارسال این ایمیل را مشخص کنید."
+
+#: modules/notifications/notifications.php:1257
+msgid ""
+"Show the \"Notify me\" and \"Stop notifying me\" links for these post types:"
+msgstr ""
+
+#: modules/notifications/notifications.php:1265
+#, fuzzy
+msgid "Email from:"
+msgstr "ارسال ایمیل با نشانی"
+
+#: modules/notifications/notifications.php:1273
+msgid "Always notify the author of the content:"
+msgstr ""
+
+#: modules/notifications/notifications.php:1281
+msgid "Always notify users who have edited the content:"
+msgstr ""
+
+#: modules/notifications/notifications.php:1476
+#, fuzzy
+msgid "WordPress Scheduler"
+msgstr "گروه وردپرس فارسی"
+
+#: modules/notifications/notifications.php:1485
+#, fuzzy, php-format
+msgid "[%1$s] New %2$s Created: \"%3$s\""
+msgstr "نوشتهٔ جدیدی از %1$s در سایت %3$s، با عنوان %2$s"
+
+#: modules/notifications/notifications.php:1492
+#, php-format
+msgid "A new %1$s (#%2$s \"%3$s\" ) was created by %4$s %5$s"
+msgstr ""
+
+#: modules/notifications/notifications.php:1502
+#, fuzzy, php-format
+msgid "[%1$s] %2$s Trashed: \"%3$s\""
+msgstr "%1$s پیش توسط %2$s [%3$s]"
+
+#: modules/notifications/notifications.php:1509
+#, php-format
+msgid "%1$s #%2$s \"%3$s\" was moved to the trash by %4$s %5$s"
+msgstr ""
+
+#: modules/notifications/notifications.php:1519
+#, fuzzy, php-format
+msgid "[%1$s] %2$s Restored (from Trash ): \"%3$s\""
+msgstr "%5$s %3$s صفحه از زباله‌دان بازگردانده شد."
+
+#: modules/notifications/notifications.php:1526
+#, php-format
+msgid "%1$s #%2$s \"%3$s\" was restored from trash by %4$s %5$s"
+msgstr ""
+
+#: modules/notifications/notifications.php:1535
+#, fuzzy, php-format
+msgid "[%1$s] %2$s Scheduled: \"%3$s\""
+msgstr "%1$s پیش توسط %2$s [%3$s]"
+
+#: modules/notifications/notifications.php:1538
+#, php-format
+msgid ""
+"%1$s #%2$s \"%3$s\" was scheduled by %4$s %5$s.  It will be published on %6$s"
+msgstr ""
+
+#: modules/notifications/notifications.php:1549
+#, fuzzy, php-format
+msgid "[%1$s] %2$s Published: \"%3$s\""
+msgstr "%1$s منتشر شد. <a href=\"%3$s\">دیدن %2$s</a>"
+
+#: modules/notifications/notifications.php:1556
+#, fuzzy, php-format
+msgid "%1$s #%2$s \"%3$s\" was published by %4$s %5$s"
+msgstr "%2$s منتشر شد. %1$sمشاهده %2$s%3$s."
+
+#: modules/notifications/notifications.php:1566
+#, fuzzy, php-format
+msgid "[%1$s] %2$s Unpublished: \"%3$s\""
+msgstr "%1$s، %3$s و %2$s بحث می‌کنند."
+
+#: modules/notifications/notifications.php:1573
+#, fuzzy, php-format
+msgid "%1$s #%2$s \"%3$s\" was unpublished by %4$s %5$s"
+msgstr "%1$s، %3$s، و %4$d %2$s بحث می‌کنند."
+
+#: modules/notifications/notifications.php:1583
+#, fuzzy, php-format
+msgid "[%1$s] %2$s Status Changed for \"%3$s\""
+msgstr "%1$s، %3$s و %2$s بحث می‌کنند."
+
+#: modules/notifications/notifications.php:1590
+#, php-format
+msgid "Status was changed for %1$s #%2$s \"%3$s\" by %4$s %5$s"
+msgstr ""
+
+#: modules/notifications/notifications.php:1601
+#, fuzzy, php-format
+msgid "This action was taken on %1$s at %2$s %3$s"
+msgstr "%2$s بروز شد. %1$sمشاهده %2$s%3$s."
+
+#: modules/notifications/notifications.php:1614
+#, fuzzy, php-format
+msgid "%1$s => %2$s"
+msgstr "نوشته‌شده توسط %1$s ( @%2$s )"
+
+#: modules/notifications/notifications.php:1622
+#, fuzzy, php-format
+msgid "== %s Details =="
+msgstr "جزئیات %s"
+
+#: modules/notifications/notifications.php:1623
+#, fuzzy, php-format
+msgid "Title: %s"
+msgstr "%s در  <a href='%s' class='tooltip' title='%s'>%s</a>"
+
+#: modules/notifications/notifications.php:1627
+#, fuzzy, php-format
+msgid "Author: %1$s (%2$s )"
+msgstr "%1$s از %2$s"
+
+#: modules/notifications/notifications.php:1641
+#: modules/notifications/notifications.php:1694
+#, fuzzy
+msgid "== Actions =="
+msgstr "عملیات"
+
+#: modules/notifications/notifications.php:1643
+#: modules/notifications/notifications.php:1700
+#, fuzzy, php-format
+msgid "Add editorial comment: %s"
+msgstr "تحریریه: %s"
+
+#: modules/notifications/notifications.php:1646
+#: modules/notifications/notifications.php:1703
+#, fuzzy, php-format
+msgid "Edit: %s"
+msgstr "ویرایش نمایه %s"
+
+#: modules/notifications/notifications.php:1647
+#: modules/notifications/notifications.php:1704
+#, fuzzy, php-format
+msgid "View: %s"
+msgstr "مشاهده %1$s"
+
+#: modules/notifications/notifications.php:1658
+#, fuzzy, php-format
+msgid "[%1$s] New Editorial Comment: \"%2$s\""
+msgstr "نوشتهٔ جدید از %1$s با عنوان %2$s"
+
+#: modules/notifications/notifications.php:1665
+#, php-format
+msgid "A new editorial comment was added to %3$s #%1$s \"%2$s\""
+msgstr ""
+
+#: modules/notifications/notifications.php:1672
+#, fuzzy, php-format
+msgid "%1$s (%2$s ) said on %3$s at %4$s:"
+msgstr "%1$s در %2$s <span class=\"says\">گفت:</span>"
+
+#: modules/notifications/notifications.php:1696
+#, fuzzy, php-format
+msgid "Reply: %s"
+msgstr "پاسخ به %s"
+
+#: modules/notifications/notifications.php:1707
+#, php-format
+msgid "You can see all editorial comments on this %s here: "
+msgstr ""
+
+#: modules/roles/lib/list_table.php:101
+#, fuzzy
+msgid "No roles found."
+msgstr "نقش‌هایی که از روی آن‌ها نقش‌های تحریریه ساخته شود."
+
+#: modules/roles/lib/list_table.php:112
+#, fuzzy
+msgid "Display Name"
+msgstr "نام نمایشی"
+
+#: modules/roles/lib/list_table.php:113
+#, fuzzy
+msgid "Users in this role"
+msgstr "نقش به کاربران انتخاب شده افزوده شد."
+
+#: modules/roles/roles.php:87
+msgid "Role created. Feel free to add users to the role."
+msgstr ""
+
+#: modules/roles/roles.php:88
+#, fuzzy
+msgid "Role updated."
+msgstr "به‌روزرسانی"
+
+#: modules/roles/roles.php:89
+#, fuzzy
+msgid "Role doesn't exist."
+msgstr "نقش"
+
+#: modules/roles/roles.php:90
+#, fuzzy
+msgid "Role deleted."
+msgstr "حذف شد"
+
+#: modules/roles/roles.php:277
+msgid ""
+"PublishPress detected legacy data which needs to be migrated. This task should "
+"run in the background in the next few minutes."
+msgstr ""
+
+#: modules/roles/roles.php:290
+msgid "PublishPress finished migrating the legacy data."
+msgstr ""
+
+#: modules/roles/roles.php:868
+#, fuzzy
+msgid "Add New Role"
+msgstr "افزودن نقش تازه"
+
+#: modules/roles/roles.php:869
+#, fuzzy
+msgid "Edit Role"
+msgstr "نقش"
+
+#: modules/roles/roles.php:870
+#, fuzzy
+msgid "Display name"
+msgstr "نام نمایشی"
+
+#: modules/roles/roles.php:871
+#, fuzzy
+msgid "This is the name that users will see."
+msgstr "کاربران:"
+
+#: modules/roles/roles.php:872
+#, fuzzy
+msgid "Developer Name (ID)"
+msgstr "شماره"
+
+#: modules/roles/roles.php:874
+msgid ""
+"This is the name that developers can use to interact with this role. Only use "
+"A-Z letters and the \"-\" sign."
+msgstr ""
+
+#: modules/roles/roles.php:878
+#, fuzzy
+msgid "Add users to this role."
+msgstr "نقش به کاربران انتخاب شده افزوده شد."
+
+#: modules/roles/roles.php:927
+#, fuzzy
+msgid "Please enter a name for the role."
+msgstr "عنوان نقش برای %s"
+
+#: modules/roles/roles.php:938
+msgid "Role name cannot exceed 40 characters. Please try a shorter name."
+msgstr ""
+
+#: modules/roles/roles.php:945 modules/roles/roles.php:1024
+msgid "Please enter a display name for the role."
+msgstr ""
+
+#: modules/roles/roles.php:952 modules/roles/roles.php:1029
+msgid ""
+"Role's display name cannot exceed 40 characters. Please try a shorter name."
+msgstr ""
+
+#: modules/roles/roles.php:967
+#, fuzzy
+msgid "Error adding role."
+msgstr "نقش"
+
+#: modules/roles/roles.php:1044
+#, fuzzy
+msgid "Error loading role."
+msgstr "خطایی در هنگام بارگیری محتوا اتفاق افتاده است."
+
+#: modules/roles/roles.php:1048 modules/roles/roles.php:1123
+msgid "Role not found. Can't edit."
+msgstr ""
+
+#: modules/roles/roles.php:1116
+msgid "You can't delete the administrator role."
+msgstr ""
+
+#: modules/settings/settings.php:120
+#, fuzzy
+msgid "settings"
+msgstr "پیکربندی"
+
+#: modules/settings/settings.php:137
+#, fuzzy
+msgid "PublishPress Settings"
+msgstr "پیکربندی"
+
+#: modules/settings/settings.php:138
+#, fuzzy
+msgid "Settings"
+msgstr "تنظیمات"
+
+#: modules/settings/settings.php:273
+#, php-format
+msgid "If you like %s please leave us a %s rating. Thank you!"
+msgstr ""
+
+#: modules/settings/settings.php:289
+#, fuzzy
+msgid "There are no PublishPress modules registered"
+msgstr "ماژول تحریریه‌ای ثبت نشده است!"
+
+#: modules/settings/settings.php:355
+#, fuzzy
+msgid "Posts"
+msgstr "ارسال‌ها"
+
+#: modules/settings/settings.php:356
+#, fuzzy
+msgid "Pages"
+msgstr "صفحه‌بندی"
+
+#: modules/settings/settings.php:378
+#, php-format
+msgid ""
+"Disabled because add_post_type_support('%1$s', '%2$s') is included in a loaded "
+"file."
+msgstr ""
+
+#: modules/settings/settings.php:407 publishpress.php:450
+#, fuzzy
+msgid "Cheatin&#8217; uh?"
+msgstr "کلک میزنی؟!"
+
+#: modules/user-groups/user-groups.php:71
+#, fuzzy
+msgid "User Groups"
+msgstr "گروه‌بندی کاربران"
+
+#: modules/user-groups/user-groups.php:85
+msgid "User group created. Feel free to add users to the usergroup."
+msgstr ""
+
+#: modules/user-groups/user-groups.php:87
+#, fuzzy
+msgid "User group updated."
+msgstr "[{{{site.name}}}] اطلاعات گروه به‌روزرسانی شده است"
+
+#: modules/user-groups/user-groups.php:88 modules/user-groups/user-groups.php:463
+#, fuzzy
+msgid "User group doesn't exist."
+msgstr "گروه کاربران"
+
+#: modules/user-groups/user-groups.php:89
+#, fuzzy
+msgid "User group deleted."
+msgstr "کاربر حذف‌شده"
+
+#: modules/user-groups/user-groups.php:92
+#, fuzzy
+msgid "Manage User Groups"
+msgstr "مدیریت نام‌نویسی کاربران"
+
+#: modules/user-groups/user-groups.php:97
+msgid ""
+"<p>For those with many people involved in the publishing process, user groups "
+"helps you keep them organized.</p><p>Currently, user groups are primarily used "
+"for subscribing a set of users to a post for notifications.</p>"
+msgstr ""
+
+#: modules/user-groups/user-groups.php:100
+msgid ""
+"<p><strong>For more information:</strong></p><p><a href=\"https://publishpress."
+"com/features/user-groups/\">User Groups Documentation</a></p><p><a href="
+"\"https://github.com/ostraining/PublishPress\">PublishPress on Github</a></p>"
+msgstr ""
+
+#: modules/user-groups/user-groups.php:138
+#, fuzzy
+msgid "Copy Editors"
+msgstr "ویرایشگرها"
+
+#: modules/user-groups/user-groups.php:139
+msgid "Making sure the quality is top-notch."
+msgstr ""
+
+#: modules/user-groups/user-groups.php:142
+msgid "Photographers"
+msgstr ""
+
+#: modules/user-groups/user-groups.php:143
+#, fuzzy
+msgid "Capturing the story visually."
+msgstr "مطلب قبلی"
+
+#: modules/user-groups/user-groups.php:146
+msgid "Reporters"
+msgstr ""
+
+#: modules/user-groups/user-groups.php:147
+msgid "Out in the field, writing stories."
+msgstr ""
+
+#: modules/user-groups/user-groups.php:150
+#, fuzzy
+msgid "Section Editors"
+msgstr "بخش"
+
+#: modules/user-groups/user-groups.php:151
+msgid "Providing feedback and direction."
+msgstr ""
+
+#: modules/user-groups/user-groups.php:292
+#, fuzzy
+msgid "The User Groups module is deprecated"
+msgstr "همه‌ی گروه‌های کاربری"
+
+#: modules/user-groups/user-groups.php:417
+msgid "New user groups must have a name"
+msgstr ""
+
+#: modules/user-groups/user-groups.php:511
+msgid "Invalid users variable. Should be array."
+msgstr ""
+
+#: modules/user-groups/user-groups.php:702
+#, fuzzy
+msgid "No user groups found."
+msgstr "گروه‌بندی کاربران"
+
+#: modules/user-groups/user-groups.php:715
+#, fuzzy
+msgid "Users in Group"
+msgstr "کاربران"
+
+#: publishpress.php:449
+#, fuzzy
+msgid "Please correct your form errors below and try again."
+msgstr "خطایی رخ داده است، فرم را تصحیح کرده و دوباره تلاش کنید."
+
+#: publishpress.php:451
+#, fuzzy
+msgid "You do not have necessary permissions to complete this action."
+msgstr "با عرض پوزش، شما مجوزهای مورد نیاز جهت انجام این عمل را ندارید"
+
+#: publishpress.php:453
+#, fuzzy
+msgid "Post does not exist"
+msgstr "کلاس (%s) پالایش کننده (Sanitizer) وجود ندارد"
+
+#: publishpress.php:692
+msgid ""
+"Edit Flow was deactivated by PublishPress. If you want to activate it, "
+"deactive PublishPress first."
+msgstr ""
+
+#: publishpress.php:743 publishpress.php:748
+#, fuzzy
+msgid "Notification Workflow"
+msgstr "آگاه‌سازی‌ها"
+
+#: publishpress.php:744
+#, fuzzy
+msgid "Add New Notification Workflow"
+msgstr "افزودن وضعیت سند تازه"
+
+#: publishpress.php:745
+#, fuzzy
+msgid "Edit Notification Workflow"
+msgstr "ویرایش وضعیت گردشی"
+
+#: publishpress.php:746
+#, fuzzy
+msgid "Search Workflows"
+msgstr "Поиск"
+
+#: publishpress.php:747
+#, fuzzy
+msgid "Notifications"
+msgstr "آگاه‌سازی‌ها"
+
+#: publishpress.php:749 publishpress.php:750
+#, fuzzy
+msgid "No Workflow found"
+msgstr "گردش کار"
+
+#: vendor/alledia/wordpress-plugin-framework/src/library/Module/Addons.php:174
+#: vendor/alledia/wordpress-plugin-framework/src/library/Module/Assets.php:104
+#, fuzzy
+msgid "Installed Extensions"
+msgstr "افزونه‌ها"
+
+#: vendor/alledia/wordpress-plugin-framework/src/library/Module/Addons.php:175
+#: vendor/alledia/wordpress-plugin-framework/src/library/Module/Assets.php:105
+#, fuzzy
+msgid "Browse More Extensions"
+msgstr "مرور همه افزونه‌ها"
+
+#: vendor/alledia/wordpress-plugin-framework/src/library/Module/Addons.php:176
+#: vendor/alledia/wordpress-plugin-framework/src/library/Module/Assets.php:106
+#, fuzzy
+msgid "Enter your license key"
+msgstr "کلید API شما:"
+
+#: vendor/alledia/wordpress-plugin-framework/src/library/Module/Addons.php:177
+#: vendor/alledia/wordpress-plugin-framework/src/library/Module/Assets.php:107
+#, fuzzy
+msgid "Activate"
+msgstr "فعال کردن"
+
+#: vendor/alledia/wordpress-plugin-framework/src/library/Module/Addons.php:178
+#: vendor/alledia/wordpress-plugin-framework/src/library/Module/Assets.php:108
+#, fuzzy
+msgid "License Key"
+msgstr ""
+"<p>شماره سریال <strong>Profile Builder</strong> شما غیر معتبر یا گم شده است. "
+"<br/> لطفا برای دریافت بروزرسانی خودکار و پشتیبانی  %1$sکپی خود را ثبت کنید"
+"%2$s . به کلید لایسنس نیاز دارید؟ %3$sهمین الان یکی بخرید%4$s</p>"
+
+#: vendor/alledia/wordpress-plugin-framework/src/library/Module/Addons.php:180
+#: vendor/alledia/wordpress-plugin-framework/src/library/Module/Assets.php:110
+#, fuzzy
+msgid "Get Pro Add-ons!"
+msgstr "افزونه&zwnj;ها"
+
+#: vendor/alledia/wordpress-plugin-framework/src/library/Module/Addons.php:313
+#: vendor/alledia/wordpress-plugin-framework/src/library/Module/Addons.php:321
+#, fuzzy
+msgid "You're not allowed to do this."
+msgstr "اعمال"
+
+#: vendor/alledia/wordpress-plugin-framework/src/library/Module/Addons.php:317
+#, fuzzy
+msgid "Invalid request."
+msgstr "ایمیل نامعتبر"
+
+#: vendor/alledia/wordpress-plugin-framework/src/library/Module/Addons.php:326
+#, fuzzy
+msgid "Invalid plugin name."
+msgstr "شناسه کاربری اشتباه است."
+
+#: vendor/alledia/wordpress-plugin-framework/src/library/Module/Addons.php:331
+#: vendor/alledia/wordpress-plugin-framework/src/library/Module/Addons.php:362
+#, fuzzy
+msgid "Invalid addon name."
+msgstr "نام"
+
+#: vendor/alledia/wordpress-plugin-framework/src/library/Module/Addons.php:336
+msgid "Invalid addon EDD ID."
+msgstr ""
+
+#: vendor/alledia/wordpress-plugin-framework/src/library/Module/Addons.php:341
+#, fuzzy
+msgid "Invalid license key."
+msgstr "کلید فعال‌سازی نامعتبر!"
+
+#: vendor/alledia/wordpress-plugin-framework/src/library/Module/Addons.php:358
+#, fuzzy
+msgid "Invalid add-on."
+msgstr "ایمیل نامعتبر"
+
+#: vendor/alledia/wordpress-plugin-framework/src/library/Module/Addons.php:390
+#: vendor/alledia/wordpress-plugin-framework/src/library/Module/Addons.php:402
+msgid "An error occurred. Please, try again or contact the support team."
+msgstr ""
+
+#: vendor/alledia/wordpress-plugin-framework/src/library/Module/Assets.php:111
+#, fuzzy
+msgid "Please, wait..."
+msgstr "لطفاً چند لحظه صبر کنید…"
+
+#: vendor/alledia/wordpress-plugin-framework/src/library/Module/Assets.php:112
+#, fuzzy
+msgid "Please, enter a license key."
+msgstr "\n"
+
+#: vendor/alledia/wordpress-plugin-framework/src/library/Module/Assets.php:113
+msgid "If the error persists, please contact the support team."
+msgstr ""
+
+#: vendor/alledia/wordpress-plugin-framework/src/library/Module/Assets.php:115
+msgid ""
+"Awesome, it seems like you have all the add-ons installed. Thank you for "
+"supporting us."
+msgstr ""
+
+#: vendor/alledia/wordpress-plugin-framework/src/library/Module/Assets.php:116
+#, fuzzy
+msgid "Invalid license"
+msgstr "غیرفعال کردن لایسنس"
+
+#: vendor/alledia/wordpress-plugin-framework/src/library/Module/Assets.php:117
+#, fuzzy
+msgid "Activated"
+msgstr "این شناسه کاربری از قبل فعال بوده است!"
+
+#: vendor/alledia/wordpress-plugin-framework/src/library/Module/Assets.php:118
+#, fuzzy
+msgid "This license key was not found."
+msgstr "کلید دسترسی تولید نشده است"
+
+#: vendor/alledia/wordpress-plugin-framework/src/library/Module/Assets.php:119
+#, fuzzy
+msgid "This license key is disabled."
+msgstr "غیرفعال کردن لایسنس"
+
+#: vendor/alledia/wordpress-plugin-framework/src/library/Module/Assets.php:120
+#, fuzzy
+msgid "This license key has expired."
+msgstr "متاسفم! ولی لینک دریافت شما منقضی شده است."
+
+#: vendor/alledia/wordpress-plugin-framework/src/library/Module/Assets.php:121
+msgid ""
+"This license key has no activations left. Please, consider upgrading your plan."
+msgstr ""
+
+#: vendor/alledia/wordpress-plugin-framework/src/library/Module/Reviews.php:224
+#, fuzzy
+msgid "Ok, you deserved it"
+msgstr "تأیید"
+
+#: vendor/alledia/wordpress-plugin-framework/src/library/Module/Reviews.php:225
+msgid "I already did"
+msgstr ""
+
+#: vendor/alledia/wordpress-plugin-framework/src/library/Module/Reviews.php:226
+#, fuzzy
+msgid "No, not good enough for now"
+msgstr "چند لحظه پیش"
+
+#: vendor/alledia/wordpress-plugin-framework/src/library/Module/Upgrade.php:88
+#, fuzzy
+msgid "Upgrade"
+msgstr "ارتقاء تنظیمات قدیمی"
+
+#: vendor/alledia/wordpress-plugin-framework/src/library/Module/Upgrade.php:148
+#, php-format
+msgid "Get %d%% off the %s extensions"
+msgstr ""
+
+#: vendor/alledia/wordpress-plugin-framework/src/library/Module/Upgrade.php:151
+#, php-format
+msgid ""
+"Thanks for using %1$s! Enter your details and we'll send you a coupon for %2$d"
+"%% off the %1$s extensions."
+msgstr ""
+
+#: vendor/alledia/wordpress-plugin-framework/src/library/Module/Upgrade.php:153
+#, fuzzy
+msgid "Email Address"
+msgstr "نشانی ایمیل"
+
+#: vendor/alledia/wordpress-plugin-framework/src/library/Module/Upgrade.php:154
+#, fuzzy
+msgid "First Name"
+msgstr "نام"
+
+#: vendor/alledia/wordpress-plugin-framework/src/library/Module/Upgrade.php:155
+#, fuzzy
+msgid "Last Name"
+msgstr "نام خانوادگی"
+
+#: vendor/alledia/wordpress-plugin-framework/src/library/Module/Upgrade.php:156
+#, fuzzy
+msgid "Yes! Send me the coupon"
+msgstr "بله، ایمیل ارسال شود"
+
+#. Plugin URI of the plugin/theme
+msgid "https://publishpress.com/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "The essential plugin for any WordPress site with multiple writers"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://publishpress.com"
+msgstr ""
