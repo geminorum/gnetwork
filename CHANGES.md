@@ -1,3 +1,33 @@
+### 3.7.9
+* main/module: default method for tools subs
+* main/module: extra args on getting menu url
+* main/module: multiple subs on settings/tools
+* module/admin: time moved from system report
+* module/authors: correct method for rendering tools
+* module/authors: more info on site overview
+* module/captcha: disable locale for wpcf7
+* module/captcha: logging verify errors
+* module/captcha: using wrap script helper
+* module/cleanup: moved into tools
+* module/cron: correct method for rendering tools
+* module/debug: disable current image tools
+* module/extend: :new: module
+* module/mail: correct subject wrapping for display
+* module/mail: display missing sites on logs
+* module/mail: link to mail-tester.com
+* module/mail: test/logs subs moved into tools
+* module/mail: unescaped unicode on json logs
+* module/mail: using correct method for settings actions
+* module/media: images sub moved into tools
+* module/navigation: stripping non-essentials from menu items
+* module/notify: using correct method for settings actions
+* module/profile: earlier check for user email on import
+* module/profile: using correct method for settings actions
+* module/site: using correct method for settings actions
+* module/taxonomy: list bulk actions as help tab
+* module/update: using correct method for refresh packages
+* module/user: roles sub moved into tools
+
 ### 3.7.8
 * module/taxonomy: filter for term rewrite slug
 * module/typography: :warning: disabling sanitize title filter
