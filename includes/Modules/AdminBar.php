@@ -372,7 +372,8 @@ class AdminBar extends gNetwork\Module
 
 		if ( class_exists( __NAMESPACE__.'\\Cron' ) ) {
 
-			if ( is_blog_admin() && $status = gNetwork()->cron->get_status() )
+			// cron module is admin only
+			if ( is_admin() && $status = gNetwork()->cron->get_status() )
 				$wp_admin_bar->add_node( [
 					'parent' => $group_id,
 					'id'     => static::BASE.'-cron-status',
