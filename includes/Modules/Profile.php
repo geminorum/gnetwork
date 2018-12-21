@@ -404,7 +404,7 @@ class Profile extends gNetwork\Module
 		return $this->options['redirect_signup_after'];
 	}
 
-	// filter whether to allow a password to be reset.
+	// filters whether to allow a password to be reset
 	public function allow_password_reset( $allow, $user_id )
 	{
 		if ( get_user_meta( $user_id, 'disable_password_reset', TRUE ) )
@@ -489,7 +489,7 @@ class Profile extends gNetwork\Module
 					_x( 'This will be used in the URL of the user\'s page.', 'Modules: Profile', GNETWORK_TEXTDOMAIN )
 				.'</p></td></tr>';
 
-			// prevent lockin himself out!
+			// prevents lockin himself out!
 			if ( ! IS_PROFILE_PAGE ) {
 
 				$name_disable = $this->hook( 'disable_user' );
@@ -510,7 +510,7 @@ class Profile extends gNetwork\Module
 				.'</label></td></tr>';
 		}
 
-		echo '</table'; // yes, this is correct, check the hook!
+		echo '</table'; // YES, this is correct, check the hook!
 	}
 
 	protected function sanitizeSlug( $string )
@@ -593,7 +593,7 @@ class Profile extends gNetwork\Module
 		}
 	}
 
-	// fire order changed since WP 4.7.0
+	// hook fire order changed since WP 4.7.0
 	// @SEE: https://make.wordpress.org/core/?p=20592
 	public function set_current_user()
 	{
@@ -654,7 +654,8 @@ class Profile extends gNetwork\Module
 
 	public function update_user_metadata( $null, $object_id, $meta_key, $meta_value, $prev_value )
 	{
-		// prevent BP last activity back-comp, SEE: http://wp.me/pLVLj-gc
+		// prevents BP last activity back-comp
+		// @SEE: http://wp.me/pLVLj-gc
 		if ( function_exists( 'buddypress' ) && 'last_activity' === $meta_key )
 			return TRUE;
 
@@ -679,18 +680,21 @@ class Profile extends gNetwork\Module
 		return $null;
 	}
 
-	// TODO: add bulk actions to remove existing empty default user metas
 	public function insert_user_meta( $meta, $user, $update )
 	{
 		if ( ! $update && isset( $meta['nickname'] ) && $user->user_login == $meta['nickname'] ) {
-			// TODO: get default from plugin options
-			if ( isset( $meta['last_name'] ) && $meta['last_name'] )
+
+			// TODO: get default field from settings
+			if ( ! empty ( $meta['last_name'] ) )
 				$meta['nickname'] = $meta['last_name'];
 		}
 
 		foreach ( $this->get_default_user_meta() as $key => $value ) {
+
 			if ( isset( $meta[$key] ) && $value == $meta[$key] ) {
+
 				unset( $meta[$key] );
+
 				if ( $update )
 					delete_user_meta( $user->ID, $key );
 			}

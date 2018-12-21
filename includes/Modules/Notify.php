@@ -247,7 +247,7 @@ class Notify extends gNetwork\Module
 
 	public function send_email_change_email( $true, $user, $userdata )
 	{
-		Logger::INFO( sprintf( 'NOTIFY: email changed user %s from: %S to: %s',
+		Logger::INFO( sprintf( 'NOTIFY: email changed user %s from <%s> to <%s>',
 			$user['user_nicename'], $user['user_email'], $userdata['user_email'] ) );
 
 		return $this->options['disable_email_change'] ? FALSE: $true;
@@ -255,7 +255,7 @@ class Notify extends gNetwork\Module
 
 	public function send_site_admin_email_change_email( $send, $old_email, $new_email )
 	{
-		Logger::siteINFO( 'NOTIFY', sprintf( 'admin email changed from: %s to: %s', $old_email, $new_email ) );
+		Logger::siteINFO( 'NOTIFY', sprintf( 'admin email changed from <%s> to <%s>', $old_email, $new_email ) );
 
 		return $this->options['disable_admin_email_change'] ? FALSE: $send;
 	}
