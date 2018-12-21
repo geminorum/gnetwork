@@ -35,6 +35,15 @@ class WordPress extends Base
 		return 'index.php';
 	}
 
+	// admin only
+	public static function isBlockEditor()
+	{
+		if ( function_exists( 'get_current_screen' ) )
+			return (bool) get_current_screen()->is_block_editor();
+
+		return FALSE;
+	}
+
 	public static function isDebug()
 	{
 		if ( WP_DEBUG && WP_DEBUG_DISPLAY && ! self::isDev() )
