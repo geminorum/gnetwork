@@ -4,6 +4,7 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
 use geminorum\gNetwork\Utilities;
+use geminorum\gNetwork\Core\WordPress;
 
 class Editor extends gNetwork\Module
 {
@@ -108,6 +109,9 @@ class Editor extends gNetwork\Module
 
 	public function teeny_mce_buttons( $buttons, $editor_id )
 	{
+		if ( WordPress::isBlockEditor() )
+			return $buttons;
+
 		if ( empty( $this->tinymce[0] ) )
 			return $buttons;
 
@@ -119,6 +123,9 @@ class Editor extends gNetwork\Module
 
 	public function mce_buttons( $buttons, $editor_id )
 	{
+		if ( WordPress::isBlockEditor() )
+			return $buttons;
+
 		// skip adding on term description editors
 		if ( ! array_key_exists( 'taxonomy', $_REQUEST ) )
 			$buttons = $this->mce_wppage_button( $buttons );
@@ -134,6 +141,9 @@ class Editor extends gNetwork\Module
 
 	public function mce_buttons_2( $buttons, $editor_id )
 	{
+		if ( WordPress::isBlockEditor() )
+			return $buttons;
+
 		// skip adding on term description editors
 		if ( ! array_key_exists( 'taxonomy', $_REQUEST ) )
 			$buttons = $this->mce_wpcode_button( $buttons );
@@ -149,6 +159,9 @@ class Editor extends gNetwork\Module
 
 	public function mce_buttons_3( $buttons, $editor_id )
 	{
+		if ( WordPress::isBlockEditor() )
+			return $buttons;
+
 		if ( empty( $this->tinymce[3] ) )
 			return $buttons;
 
@@ -160,6 +173,9 @@ class Editor extends gNetwork\Module
 
 	public function mce_buttons_4( $buttons, $editor_id )
 	{
+		if ( WordPress::isBlockEditor() )
+			return $buttons;
+
 		if ( empty( $this->tinymce[4] ) )
 			return $buttons;
 
