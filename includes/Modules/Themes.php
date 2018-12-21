@@ -317,10 +317,7 @@ class Themes extends gNetwork\Module
 			if ( $this->rtl ) {
 
 				add_action( 'wp_enqueue_scripts', function(){
-					wp_dequeue_style( 'semicolon' );
-					wp_dequeue_style( 'semicolon-colors' );
-					wp_dequeue_style( 'semicolon-pt-serif' );
-					wp_dequeue_style( 'semicolon-open-sans' );
+					wp_dequeue_style( [ 'semicolon', 'semicolon-colors', 'semicolon-pt-serif', 'semicolon-open-sans' ] );
 					Themes::enqueueStyle( 'semicolon', TRUE );
 				}, 12 );
 			}
