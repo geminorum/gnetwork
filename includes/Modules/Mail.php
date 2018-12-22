@@ -213,6 +213,25 @@ class Mail extends gNetwork\Module
 
 	public function settings_sidebox( $sub, $uri )
 	{
+		echo $this->wrap_open_buttons();
+
+		echo HTML::tag( 'a', [
+			'class' => 'button button-secondary button-small',
+			'href'  => $this->get_menu_url( 'testmail', NULL, 'tools' ),
+		], _x( 'Test Mail', 'Modules: Mail', GNETWORK_TEXTDOMAIN ) );
+
+		if ( GNETWORK_MAIL_LOG_DIR && $this->options['log_all'] ) {
+
+			echo '&nbsp;&nbsp;';
+
+			echo HTML::tag( 'a', [
+				'class' => 'button button-secondary button-small',
+				'href'  => $this->get_menu_url( 'emaillogs', NULL, 'tools' ),
+			], _x( 'Email Logs', 'Modules: Mail', GNETWORK_TEXTDOMAIN ) );
+		}
+
+		echo '</p>';
+
 		if ( ! GNETWORK_MAIL_LOG_DIR ) {
 
 			HTML::desc( _x( 'Logging emails disabled by constant.', 'Modules: Mail', GNETWORK_TEXTDOMAIN ) );
