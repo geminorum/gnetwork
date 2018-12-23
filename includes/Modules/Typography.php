@@ -28,6 +28,9 @@ class Typography extends gNetwork\Module
 			|| $this->options['title_wordwrap'] )
 				$this->filter( 'the_title' );
 
+		if ( $this->options['widget_wordwrap'] )
+			$this->filter( 'widget_title' );
+
 		if ( $this->options['arabic_typography']
 			|| $this->options['persian_typography'] )
 				$this->filter( 'the_content', 1, 1000, 'late' );
@@ -52,6 +55,7 @@ class Typography extends gNetwork\Module
 			'editor_buttons'      => '0',
 			'title_titlecase'     => '0',
 			'title_wordwrap'      => '0',
+			'widget_wordwrap'     => '0',
 			'arabic_typography'   => '0',
 			'persian_typography'  => '0',
 		];
@@ -79,9 +83,14 @@ class Typography extends gNetwork\Module
 				],
 				[
 					'field'       => 'title_wordwrap',
-					'title'       => _x( 'Word Wrapper for Titles', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Word Wrapper for Post Titles', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Prevents widow words in the end of post titles.', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
 					'after'       => Settings::fieldAfterIcon( 'https://davidwalsh.name/word-wrap-mootools-php' ),
+				],
+				[
+					'field'       => 'widget_wordwrap',
+					'title'       => _x( 'Word Wrapper for Widget Titles', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Prevents widow words in the end of widget titles.', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				'register_shortcodes',
 				'editor_buttons',
@@ -322,5 +331,10 @@ class Typography extends gNetwork\Module
 			$title = Text::wordWrap( $title );
 
 		return $title;
+	}
+
+	public function widget_title( $title )
+	{
+		return empty( $title ) ? $title : Text::wordWrap( $title );
 	}
 }
