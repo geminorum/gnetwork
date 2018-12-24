@@ -98,6 +98,7 @@ class ShortCodes extends gNetwork\Module
 			'search'      => 'shortcode_search',
 			'last-edited' => 'shortcode_last_edited',
 			'lastupdate'  => 'shortcode_last_edited',
+			'redirect'    => 'shortcode_redirect',
 			'menu'        => 'shortcode_menu',
 		];
 	}
@@ -1091,6 +1092,30 @@ class ShortCodes extends gNetwork\Module
 		}
 
 		return self::shortcodeWrap( $html, 'csv', $args );
+	}
+
+	public function shortcode_redirect( $atts = [], $content = NULL, $tag = '' )
+	{
+		$args = shortcode_atts( [
+			'duration' => '',
+			'location' => '',
+			'message'  => _x( 'Please wait while you are redirected. Or <a href="%s">click here</a> if you do not want to wait.', 'Modules: ShortCodes: Defaults', GNETWORK_TEXTDOMAIN ),
+			'context'  => NULL,
+			'wrap'     => TRUE,
+			'before'   => '',
+			'after'    => '',
+		], $atts, $tag );
+
+		if ( FALSE === $args['context'] )
+			return NULL;
+
+		if ( empty( $args['location'] ) )
+			return $content;
+
+		$html = '<meta http-equiv="refresh" content="'.$args['duration'].';url='.esc_url( $args['location'] ).'">';
+		$html.= sprintf( $args['message'], esc_url( $args['location'] ) );
+
+		return self::shortcodeWrap( $html, 'redirect', $args );
 	}
 
 	// EXAMPLE: [bloginfo key='name']
