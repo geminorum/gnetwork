@@ -73,31 +73,32 @@ class ShortCodes extends gNetwork\Module
 	protected function get_shortcodes()
 	{
 		return [
-			'children'     => 'shortcode_children',
-			'siblings'     => 'shortcode_siblings',
-			'in-term'      => 'shortcode_in_term',
-			'all-terms'    => 'shortcode_all_terms',
-			'back'         => 'shortcode_back',
-			'button'       => 'shortcode_button',
-			'iframe'       => 'shortcode_iframe',
-			'thickbox'     => 'shortcode_thickbox',
-			'email'        => 'shortcode_email',
-			'tel'          => 'shortcode_tel',
-			'sms'          => 'shortcode_sms',
-			'google-form'  => 'shortcode_google_form',
-			'pdf'          => 'shortcode_pdf',
-			'csv'          => 'shortcode_csv',
-			'bloginfo'     => 'shortcode_bloginfo',
-			'audio'        => 'shortcode_audio',
-			'audio-go'     => 'shortcode_audio_go',
-			'ref'          => 'shortcode_ref',
-			'reflist'      => 'shortcode_reflist',
-			'ref-m'        => 'shortcode_ref_manual',
-			'reflist-m'    => 'shortcode_reflist_manual',
-			'qrcode'       => 'shortcode_qrcode',
-			'search'       => 'shortcode_search',
-			'last-edited'  => 'shortcode_last_edited',
-			'lastupdate'   => 'shortcode_last_edited',
+			'children'    => 'shortcode_children',
+			'siblings'    => 'shortcode_siblings',
+			'in-term'     => 'shortcode_in_term',
+			'all-terms'   => 'shortcode_all_terms',
+			'back'        => 'shortcode_back',
+			'button'      => 'shortcode_button',
+			'iframe'      => 'shortcode_iframe',
+			'thickbox'    => 'shortcode_thickbox',
+			'email'       => 'shortcode_email',
+			'tel'         => 'shortcode_tel',
+			'sms'         => 'shortcode_sms',
+			'google-form' => 'shortcode_google_form',
+			'pdf'         => 'shortcode_pdf',
+			'csv'         => 'shortcode_csv',
+			'bloginfo'    => 'shortcode_bloginfo',
+			'audio'       => 'shortcode_audio',
+			'audio-go'    => 'shortcode_audio_go',
+			'ref'         => 'shortcode_ref',
+			'reflist'     => 'shortcode_reflist',
+			'ref-m'       => 'shortcode_ref_manual',
+			'reflist-m'   => 'shortcode_reflist_manual',
+			'qrcode'      => 'shortcode_qrcode',
+			'search'      => 'shortcode_search',
+			'last-edited' => 'shortcode_last_edited',
+			'lastupdate'  => 'shortcode_last_edited',
+			'menu'        => 'shortcode_menu',
 		];
 	}
 
@@ -543,6 +544,41 @@ class ShortCodes extends gNetwork\Module
 			$html = HTML::link( $html, $args['link'] );
 
 		return self::shortcodeWrap( $html, 'last-edited', $args, FALSE );
+	}
+
+	public function shortcode_menu( $atts = [], $content = NULL, $tag = '' )
+	{
+		$args = shortcode_atts( [
+			'menu'            => '',
+			'container'       => '',
+			'container_class' => '',
+			'container_id'    => '',
+			'menu_class'      => 'menu',
+			'menu_id'         => '',
+			'link_before'     => '',
+			'link_after'      => '',
+			'depth'           => 0,
+			'walker'          => '',
+			'theme_location'  => '',
+
+			'context'  => NULL,
+			'wrap'     => TRUE,
+			'before'   => '',
+			'after'    => '',
+		], $atts, $tag );
+
+		if ( FALSE === $args['context'] )
+			return NULL;
+
+		$menu = array_merge( $args, [
+			'echo'         => FALSE,
+			'fallback_cb'  => FALSE,
+			'item_spacing' => 'discard',
+			'before'       => '',
+			'after'        => '',
+		] );
+
+		return self::shortcodeWrap( wp_nav_menu( $menu ), 'menu', $args );
 	}
 
 	// TODO: more cases
