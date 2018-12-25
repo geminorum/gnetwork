@@ -31,10 +31,12 @@ class Typography extends gNetwork\Module
 		if ( $this->options['widget_wordwrap'] )
 			$this->filter( 'widget_title' );
 
-		if ( $this->options['arabic_typography']
+		if ( $this->options['general_typography']
+			|| $this->options['arabic_typography']
 			|| $this->options['persian_typography'] )
 				$this->filter( 'the_content', 1, 1000, 'late' );
 
+		add_filter( $this->hook( 'general' ), [ $this, 'general_typography' ] );
 		add_filter( $this->hook( 'arabic' ), [ $this, 'arabic_typography' ] );
 		add_filter( $this->hook( 'persian' ), [ $this, 'persian_typography' ] );
 		add_filter( $this->hook(), [ $this, 'the_content_late' ] );
@@ -56,6 +58,7 @@ class Typography extends gNetwork\Module
 			'title_titlecase'     => '0',
 			'title_wordwrap'      => '0',
 			'widget_wordwrap'     => '0',
+			'general_typography'  => '0',
 			'arabic_typography'   => '0',
 			'persian_typography'  => '0',
 		];
@@ -74,6 +77,11 @@ class Typography extends gNetwork\Module
 					'field'       => 'arabic_typography',
 					'title'       => _x( 'Arabic Typography', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Applies Arabic typography on post contents.', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
+				],
+				[
+					'field'       => 'general_typography',
+					'title'       => _x( 'General Typography', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Applies general typography on post contents.', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
 					'field'       => 'title_titlecase',
@@ -96,6 +104,16 @@ class Typography extends gNetwork\Module
 				'editor_buttons',
 			],
 		];
+	}
+
+	public function general_typography( $content )
+	{
+		$content = str_ireplace( [
+			'<p>***</p>',
+			'<p style="text-align:center">***</p>',
+		], $this->shortcode_three_asterisks(), $content );
+
+		return $content;
 	}
 
 	// TODO: آیت الله العظمی // no space
@@ -213,6 +231,9 @@ class Typography extends gNetwork\Module
 
 	public function the_content_late( $content )
 	{
+		if ( $this->options['general_typography'] )
+			$content = $this->filters( 'general', $content );
+
 		if ( $this->options['arabic_typography'] )
 			$content = $this->filters( 'arabic', $content );
 
