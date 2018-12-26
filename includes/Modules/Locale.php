@@ -188,6 +188,7 @@ class Locale extends gNetwork\Module
 			'simpleWpSitemapSettings'    => 'page', // [Simple Wp Sitemap](https://wordpress.org/plugins/simple-wp-sitemap/)
 			'health-check'               => 'page', // [Health Check & Troubleshooting](https://wordpress.org/plugins/health-check/)
 			'wpcf7-integration'          => 'page', // [Contact Form 7](https://contactform7.com/)
+			'wp-htaccess-editor'         => 'page', // [Htaccess Editor](https://wordpress.org/plugins/wp-htaccess-editor/)
 
 			// [Official MailerLite Sign Up Forms](https://wordpress.org/plugins/official-mailerlite-sign-up-forms/)
 			'mailerlite_main'     => 'page',

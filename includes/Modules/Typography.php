@@ -36,10 +36,10 @@ class Typography extends gNetwork\Module
 			|| $this->options['persian_typography'] )
 				$this->filter( 'the_content', 1, 1000, 'late' );
 
-		add_filter( $this->hook( 'general' ), [ $this, 'general_typography' ] );
-		add_filter( $this->hook( 'arabic' ), [ $this, 'arabic_typography' ] );
-		add_filter( $this->hook( 'persian' ), [ $this, 'persian_typography' ] );
-		add_filter( $this->hook(), [ $this, 'the_content_late' ] );
+		add_filter( $this->hook( 'general' ), [ $this, 'general_typography' ] ); // force apply
+		add_filter( $this->hook( 'arabic' ), [ $this, 'arabic_typography' ] ); // force apply
+		add_filter( $this->hook( 'persian' ), [ $this, 'persian_typography' ] ); // force apply
+		add_filter( $this->hook(), [ $this, 'the_content_late' ] ); // only applies enabled
 	}
 
 	public function setup_menu( $context )
@@ -106,11 +106,14 @@ class Typography extends gNetwork\Module
 		];
 	}
 
+	// TODO: wordwrap headings in content / lookout for link in titles!
 	public function general_typography( $content )
 	{
 		$content = str_ireplace( [
 			'<p>***</p>',
+			'<p><strong>***</strong></p>',
 			'<p style="text-align:center">***</p>',
+			'<p style="text-align:center"><strong>***</strong></p>',
 		], $this->shortcode_three_asterisks(), $content );
 
 		return $content;
