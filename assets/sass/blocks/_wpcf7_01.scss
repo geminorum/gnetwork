@@ -1,10 +1,11 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-/// NOT-Module: wpcf7 ----------------------------------------------------------
+/// gNetwork Blocks: Contact-Form-7 01 - 2018-12-24
+// -----------------------------------------------------------------------------
 
+////////////////////////////////////////////////////////////////////////////////
 div.wpcf7 {
-
   margin: 0;
   padding: 0;
 
@@ -12,33 +13,27 @@ div.wpcf7 {
     margin: 2em 0.5em 1em;
     padding: 0.4em 0.5em 0.2em;
     text-align: center;
+    border-radius: 2px;
   }
 
   .screen-reader-response {
-    position: absolute;
-    overflow: hidden;
-    clip: rect(1px, 1px, 1px, 1px);
-    height: 1px;
-    width: 1px;
-    margin: 0;
-    padding: 0;
-    border: 0;
+    @extend .screen-reader-text;
   }
 
   .wpcf7-mail-sent-ok {
-    border: 2px solid #398f14;
+    border: 1px solid $brand-success;
   }
 
   .wpcf7-mail-sent-ng {
-    border: 2px solid #f00;
+    border: 1px solid $brand-danger;
   }
 
   .wpcf7-spam-blocked {
-    border: 2px solid #ffa500;
+    border: 1px solid #ffa500;
   }
 
   .wpcf7-validation-errors {
-    border: 2px solid #f7e700;
+    border: 1px solid $brand-warning;
   }
 
   .wpcf7-form {
@@ -94,6 +89,11 @@ div.wpcf7 {
 
       /*rtl:ignore*/
       direction: ltr !important;
+
+      &::placeholder {
+        direction: ltr; // must not be ignored by RTLCSS
+        text-align: left; // for firefox
+      }
     }
 
     textarea {
@@ -102,7 +102,7 @@ div.wpcf7 {
   }
 
   .wpcf7-not-valid-tip {
-    color: #f00;
+    color: $brand-danger;
     font-size: 0.89em;
     display: block;
     padding: 0.2em 0.5em;
@@ -113,8 +113,8 @@ div.wpcf7 {
     top: 20%;
     left: 20%;
     z-index: 100;
-    border: 1px solid #f00;
-    background: #fff;
+    border: 1px solid $brand-danger;
+    background: $gray-lighter;
     padding: .2em .8em;
   }
 
@@ -138,22 +138,6 @@ div.wpcf7 {
   }
 
   .placeheld {
-    color: #888;
+    color: $gray-light;
   }
-
-  // @include body-rtl() {
-  //   span.wpcf7-not-valid-tip {
-  //     direction: rtl;
-  //   }
-  //
-  //   .use-floating-validation-tip span.wpcf7-not-valid-tip {
-  //     left: auto;
-  //     right: 20%;
-  //   }
-  //
-  //   span.wpcf7-list-item {
-  //     margin-left: 0;
-  //     margin-right: 0.5em;
-  //   }
-  // }
 }
