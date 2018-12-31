@@ -141,8 +141,7 @@ class Blog extends gNetwork\Module
 
 	public function default_settings()
 	{
-		$sections  = [ '_general', '_admin', '_economics', '_services', '_front', '_login', '_overrides', '_misc' ];
-		$settings  = array_fill_keys( $sections, [] );
+		$settings  = array_fill_keys( [ '_general', '_admin', '_economics', '_services', '_front', '_login', '_overrides', '_misc' ], [] );
 		$multisite = is_multisite();
 
 		$exclude = array_filter( [
