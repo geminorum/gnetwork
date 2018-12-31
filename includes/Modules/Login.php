@@ -205,15 +205,16 @@ class Login extends gNetwork\Module
 			wp_die( _x( 'Move along, nothing to see here!', 'Modules: Login', GNETWORK_TEXTDOMAIN ), 403 );
 
 		$request = URI::parse( $_SERVER['REQUEST_URI'] );
+		$path    = URL::untrail( $request['path'] );
 
 		if ( ! is_admin() && ( Text::has( $_SERVER['REQUEST_URI'], 'wp-login.php' )
-			|| URL::untrail( $request['path'] ) === site_url( 'wp-login', 'relative' ) ) ) {
+			|| $path === site_url( 'wp-login', 'relative' ) ) ) {
 
 			$this->is_login_page = TRUE;
 			$_SERVER['REQUEST_URI'] = self::trailingSlash( '/'.str_repeat( '-/', 10 ) );
 			$GLOBALS['pagenow'] = 'index.php';
 
-		} else if ( URL::untrail( $request['path'] ) === home_url( $this->options['login_slug'], 'relative' )
+		} else if ( $path === home_url( $this->options['login_slug'], 'relative' )
 			|| ( ! get_option( 'permalink_structure' )
 				&& isset( $_GET[$this->options['login_slug']] )
 				&& empty( $_GET[$this->options['login_slug']] ) ) ) {
@@ -224,51 +225,25 @@ class Login extends gNetwork\Module
 
 	public function wp_loaded()
 	{
+		global $pagenow;
+
 		$request = URI::parse( $_SERVER['REQUEST_URI'] );
 
-		if ( is_admin()
-			&& ! is_user_logged_in()
-			&& ! WordPress::isAJAX()
-			&& 'admin-post.php' !== $GLOBALS['pagenow']
-			&& ( isset( $_GET )
-			&& empty( $_GET['adminhash'] )
-			&& '/wp-admin/options.php' !== $request['path'] ) )
-				Utilities::redirect404();
+		$this->check_admin_page( $request, $pagenow );
 
-		if ( 'wp-login.php' === $GLOBALS['pagenow']
-			&& $request['path'] !== self::trailingSlash( $request['path'] )
-			&& get_option( 'permalink_structure' ) ) {
+		if ( 'wp-login.php' === $pagenow
+			&& get_option( 'permalink_structure' )
+			&& $request['path'] !== self::trailingSlash( $request['path'] ) ) {
 
-			wp_safe_redirect( self::trailingSlash( $this->custom_login_url() )
-				.( empty( $_SERVER['QUERY_STRING'] ) ? '' : '?'.$_SERVER['QUERY_STRING'] ) );
-
-			die();
+			$this->redirect_custom_login( TRUE );
 
 		} else if ( $this->is_login_page ) {
 
-			if ( ( $referer = wp_get_referer() )
-				&& Text::has( $referer, 'wp-activate.php' )
-				&& ( $referer = parse_url( $referer ) )
-				&& ! empty( $referer['query'] ) ) {
-
-				parse_str( $referer['query'], $referer );
-
-				if ( ! empty( $referer['key'] )
-					&& ( $result = wpmu_activate_signup( $referer['key'] ) )
-					&& self::isError( $result )
-					&& ( $result->get_error_code() === 'already_active'
-						|| $result->get_error_code() === 'blog_taken' ) ) {
-
-					wp_safe_redirect( $this->custom_login_url()
-						.( empty( $_SERVER['QUERY_STRING'] ) ? '' : '?'.$_SERVER['QUERY_STRING'] ) );
-
-					die();
-				}
-			}
+			$this->check_login_page();
 
 			$this->template_loader();
 
-		} else if ( $GLOBALS['pagenow'] === 'wp-login.php' ) {
+		} else if ( 'wp-login.php' === $pagenow ) {
 
 			global $pagenow, $error, $interim_login, $action, $user_login;
 
@@ -276,6 +251,66 @@ class Login extends gNetwork\Module
 
 			die();
 		}
+	}
+
+	private function check_admin_page( $request, $pagenow )
+	{
+		if ( ! is_admin() )
+			return;
+
+		if ( WordPress::isAJAX() )
+			return;
+
+		if ( is_user_logged_in() )
+			return;
+
+		// if ( 'admin-post.php' === $pagenow )
+		// 	return;
+
+		if ( ! empty( $_GET['adminhash'] )
+			&& '/wp-admin/options.php' === $request['path'] )
+				return;
+
+		Utilities::redirect404();
+	}
+
+	private function check_login_page()
+	{
+		if ( ! $referer = wp_get_referer() )
+			return;
+
+		if ( ! Text::has( $referer, 'wp-activate.php' ) )
+			return;
+
+		$parsed = URL::parse( $referer );
+
+		if ( empty( $parsed['query']['key'] ) )
+			return;
+
+		$activated = wpmu_activate_signup( $parsed['query']['key'] );
+
+		if ( ! self::isError( $activated ) )
+			return;
+
+		if ( ! in_array( $activated->get_error_code(), [ 'already_active', 'blog_taken' ] ) )
+			return;
+
+		$this->redirect_custom_login();
+	}
+
+	private function redirect_custom_login( $slash = FALSE )
+	{
+		$redirect = $this->custom_login_url();
+
+		if ( $slash )
+			$redirect = self::trailingSlash( $redirect );
+
+		if ( ! empty( $_SERVER['QUERY_STRING'] ) )
+			$redirect.= '?'.$_SERVER['QUERY_STRING'];
+
+		wp_safe_redirect( $redirect );
+
+		die();
 	}
 
 	// OLD: `wp_template_loader()`
