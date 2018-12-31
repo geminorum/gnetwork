@@ -926,6 +926,16 @@ class Module extends Core\Base
 		Settings::fieldSection( _x( 'Economics', 'Module Core: Settings', GNETWORK_TEXTDOMAIN ) );
 	}
 
+	public function settings_section_redirects()
+	{
+		Settings::fieldSection( _x( 'Redirects', 'Module Core: Settings', GNETWORK_TEXTDOMAIN ) );
+	}
+
+	public function settings_section_login()
+	{
+		Settings::fieldSection( _x( 'Login', 'Module Core: Settings', GNETWORK_TEXTDOMAIN ) );
+	}
+
 	protected function settings_buttons( $sub = NULL )
 	{
 		$this->register_button( 'submit', NULL, TRUE );

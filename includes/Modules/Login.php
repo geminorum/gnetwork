@@ -39,8 +39,6 @@ class Login extends gNetwork\Module
 		$this->action( 'wp_login', 2, 99 );
 		$this->filter( 'wp_login_errors', 2 );
 		$this->filter( 'login_message' );
-		$this->filter( 'login_redirect', 3, 12 );
-		$this->filter( 'logout_redirect', 3, 12 );
 
 		if ( $this->options['ambiguous_error'] )
 			$this->filter( 'login_errors', 1, 20 );
@@ -70,6 +68,7 @@ class Login extends gNetwork\Module
 			'ambiguous_error'   => 1,
 			'login_log'         => 0,
 			'store_lastlogin'   => 1,
+			'redirect_login'    => '',
 			'redirect_logout'   => '',
 			'login_headerurl'   => GNETWORK_BASE,
 			'login_headertitle' => GNETWORK_NAME,
@@ -109,11 +108,19 @@ class Login extends gNetwork\Module
 					'description' => _x( 'Stores last login timestamp for each user.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '1',
 				],
+			],
+			'_redirects' => [
+				[
+					'field'       => 'redirect_login',
+					'type'        => 'url',
+					'title'       => _x( 'Log-in After', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Full URL to redirect after successful log-in. Leave empty to fall-back on site settings.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+				],
 				[
 					'field'       => 'redirect_logout',
 					'type'        => 'url',
-					'title'       => _x( 'Logout After', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Full URL to redirect after compelete logout. Leave empty to use the home.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Log-out After', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Full URL to redirect after compelete log-out. Leave empty to fall-back on site settings.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 			],
 			'_hidden' => [
@@ -573,30 +580,6 @@ class Login extends gNetwork\Module
 			$message.= HTML::wrap( $this->filters( 'login_disabled', _x( 'Your account is disabled by an administrator.', 'Modules: Login', GNETWORK_TEXTDOMAIN ) ), 'message -danger' );
 
 		return $message;
-	}
-
-	public function login_redirect( $redirect_to, $requested_redirect_to, $user )
-	{
-		if ( defined( 'DOING_AJAX' ) )
-			return $redirect_to;
-
-		if ( is_wp_error( $user ) )
-			return $redirect_to;
-
-		if ( empty( $requested_redirect_to ) )
-			return $user->has_cap( 'edit_posts' ) // TODO: use `cap` setting type
-				? get_admin_url()
-				: get_home_url();
-
-		return $redirect_to;
-	}
-
-	public function logout_redirect( $redirect_to, $requested_redirect_to, $user )
-	{
-		if ( ! empty( $requested_redirect_to ) )
-			return $requested_redirect_to;
-
-		return $this->options['redirect_logout'] ?: get_option( 'home' );
 	}
 
 	public function wp_login_errors( $errors, $redirect_to )

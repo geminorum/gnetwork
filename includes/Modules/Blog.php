@@ -33,6 +33,9 @@ class Blog extends gNetwork\Module
 		$this->action( 'init', 0, 99, 'late' );
 		$this->action( 'wp_loaded', 0, 99 );
 
+		$this->filter( 'login_redirect', 3, 12 );
+		$this->filter( 'logout_redirect', 3, 12 );
+
 		if ( is_admin() ) {
 
 			$this->action( 'export_wp', 0, 1 );
@@ -130,12 +133,16 @@ class Blog extends gNetwork\Module
 			'theme_color'          => '',
 			'shortlink_numeric'    => '0',
 			'shortlink_type'       => 'numeric',
+			'login_after_cap'      => 'edit_posts',
+			'redirect_login'       => '',
+			'redirect_logout'      => '',
 		];
 	}
 
 	public function default_settings()
 	{
-		$settings  = [];
+		$sections  = [ '_general', '_admin', '_economics', '_services', '_front', '_login', '_overrides', '_misc' ];
+		$settings  = array_fill_keys( $sections, [] );
 		$multisite = is_multisite();
 
 		$exclude = array_filter( [
@@ -393,13 +400,37 @@ class Blog extends gNetwork\Module
 			],
 		];
 
-		if ( $multisite )
+		$settings['_login'][] = [
+			'field'       => 'login_after_cap',
+			'type'        => 'cap',
+			'title'       => _x( 'Log-in to Admin', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Selected and above will redirect after successful log-in to admin.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			'default'     => 'edit_posts',
+		];
+
+		if ( $multisite ) {
+
 			$settings['_overrides'][] = [
 				'field'       => 'text_copyright',
 				'type'        => 'textarea-quicktags',
 				'title'       => _x( 'Copyright Notice', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 				'description' => _x( 'Displays as copyright notice on the footer on the front-end. Set to override the network.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 			];
+
+			$settings['_login'][] = [
+				'field'       => 'redirect_login',
+				'type'        => 'url',
+				'title'       => _x( 'Log-in After', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Full URL to redirect after successful log-in. Leave empty to use the home. Set to override the network.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			];
+
+			$settings['_login'][] = [
+				'field'       => 'redirect_logout',
+				'type'        => 'url',
+				'title'       => _x( 'Log-out After', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Full URL to redirect after compelete log-out. Leave empty to use the home. Set to override the network.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
+			];
+		}
 
 		return $settings;
 	}
@@ -591,6 +622,43 @@ class Blog extends gNetwork\Module
 			'wp-trackback.php',
 			'xmlrpc.php',
 		], $request_uri );
+	}
+
+	public function login_redirect( $redirect_to, $requested_redirect_to, $user )
+	{
+		if ( WordPress::isAJAX() )
+			return $redirect_to;
+
+		if ( self::isError( $user ) )
+			return $redirect_to;
+
+		if ( ! empty( $requested_redirect_to ) )
+			return $redirect_to;
+
+		if ( $user->has_cap( $this->options['login_after_cap'] ) )
+			return get_admin_url();
+
+		if ( $this->options['redirect_login'] )
+			return $this->options['redirect_login'];
+
+		if ( $custom = gNetwork()->option( 'redirect_login', 'login' ) )
+			return $custom;
+
+		return get_home_url();
+	}
+
+	public function logout_redirect( $redirect_to, $requested_redirect_to, $user )
+	{
+		if ( ! empty( $requested_redirect_to ) )
+			return $requested_redirect_to;
+
+		if ( $this->options['redirect_logout'] )
+			return $this->options['redirect_logout'];
+
+		if ( $custom = gNetwork()->option( 'redirect_logout', 'login' ) )
+			return $custom;
+
+		return get_home_url();
 	}
 
 	public function set_content_width( $width )
