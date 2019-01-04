@@ -104,8 +104,6 @@ class AdminBar extends gNetwork\Module
 		if ( GNETWORK_NETWORK_EXTRAMENU && current_user_can( GNETWORK_NETWORK_EXTRAMENU_CAP ) )
 			add_action( 'admin_bar_menu', [ $this, 'wp_admin_bar_extra_menu' ], 10 );
 
-		add_action( 'admin_bar_menu', [ $this, 'wp_admin_bar_my_sites_menu' ], 25 );
-
 		add_action( 'admin_bar_menu', 'wp_admin_bar_site_menu', 30 );
 		add_action( 'admin_bar_menu', 'wp_admin_bar_customize_menu', 40 );
 		add_action( 'admin_bar_menu', 'wp_admin_bar_updates_menu', 50 );
@@ -120,6 +118,14 @@ class AdminBar extends gNetwork\Module
 		add_action( 'admin_bar_menu', [ $this, 'wp_admin_bar_shortlink_menu' ], 90 );
 
 		add_action( 'admin_bar_menu', 'wp_admin_bar_add_secondary_groups', 200 );
+
+		if ( ! is_multisite() )
+			return;
+
+		if ( ! function_exists( 'user_has_networks' ) )
+			add_action( 'admin_bar_menu', [ $this, 'wp_admin_bar_my_sites_menu' ], 25 );
+		else
+			add_action( 'admin_bar_menu', [ $this, 'wp_admin_bar_my_network_menu' ], 25 );
 	}
 
 	public function show_adminbar()
@@ -222,7 +228,7 @@ class AdminBar extends gNetwork\Module
 
 		$wp_admin_bar->add_node( [
 			'id'     => $parent_id,
-			'title'  => self::getIcon( 'performance' ),
+			'title'  => self::getIcon( 'admin-generic' ),
 			'parent' => 'top-secondary',
 			'href'   => $admin_url,
 			'meta'   => [ 'title' => sprintf( 'gNetwork v%s', GNETWORK_VERSION ) ],
@@ -459,9 +465,10 @@ class AdminBar extends gNetwork\Module
 		] );
 	}
 
+	// TODO: merge with multi-network
 	public function wp_admin_bar_my_sites_menu( $wp_admin_bar )
 	{
-		if ( ! is_user_logged_in() || ! is_multisite() )
+		if ( ! is_user_logged_in() )
 			return;
 
 		$super_admin = WordPress::isSuperAdmin();
@@ -476,8 +483,8 @@ class AdminBar extends gNetwork\Module
 
 		$wp_admin_bar->add_menu( [
 			'id'    => 'my-sites',
-			'href'  => $my_sites,
 			'title' => '', // more minimal!
+			'href'  => $my_sites,
 			'meta'  => [ 'title' => _x( 'My Sites', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ) ],
 		] );
 
@@ -489,7 +496,7 @@ class AdminBar extends gNetwork\Module
 		$wp_admin_bar->add_menu( [
 			'parent' => 'my-sites-admin',
 			'id'     => 'user-admin',
-			'title'  => _x( 'Your Dashboard', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+			'title'  => '<div class="blavatar -user"></div>'._x( 'My Dashboard', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 			'href'   => user_admin_url(),
 		] );
 
@@ -498,7 +505,7 @@ class AdminBar extends gNetwork\Module
 			$wp_admin_bar->add_menu( [
 				'parent' => 'my-sites-admin',
 				'id'     => 'network-admin',
-				'title'  => _x( 'Network Admin', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+				'title'  => '<div class="blavatar -network"></div>'._x( 'Network Admin', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 				'href'   => network_admin_url(),
 			] );
 
@@ -510,37 +517,45 @@ class AdminBar extends gNetwork\Module
 					'href'   => $this->get_menu_url( 'overview', 'network', 'tools' ),
 				] );
 
-			if ( current_user_can( 'manage_sites' ) )
+			if ( current_user_can( 'manage_sites' ) ) {
+
 				$wp_admin_bar->add_menu( [
 					'parent' => 'network-admin',
 					'id'     => 'network-admin-s',
 					'title'  => _x( 'Sites', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 					'href'   => network_admin_url( 'sites.php' ),
 				] );
+			}
 
-			if ( current_user_can( 'manage_network_users' ) )
+			if ( current_user_can( 'manage_network_users' ) ) {
+
 				$wp_admin_bar->add_menu( [
 					'parent' => 'network-admin',
 					'id'     => 'network-admin-u',
 					'title'  => _x( 'Users', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 					'href'   => network_admin_url( 'users.php' ),
 				] );
+			}
 
-			if ( current_user_can( 'manage_network_themes' ) )
+			if ( current_user_can( 'manage_network_themes' ) ) {
+
 				$wp_admin_bar->add_menu( [
 					'parent' => 'network-admin',
 					'id'     => 'network-admin-t',
 					'title'  => _x( 'Themes', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 					'href'   => network_admin_url( 'themes.php' ),
 				] );
+			}
 
-			if ( current_user_can( 'manage_network_plugins' ) )
+			if ( current_user_can( 'manage_network_plugins' ) ) {
+
 				$wp_admin_bar->add_menu( [
 					'parent' => 'network-admin',
 					'id'     => 'network-admin-p',
 					'title'  => _x( 'Plugins', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 					'href'   => network_admin_url( 'plugins.php' ),
 				] );
+			}
 
 			if ( current_user_can( 'manage_network_options' ) ) {
 
@@ -579,7 +594,6 @@ class AdminBar extends gNetwork\Module
 			// avoiding `switch_to_blog()`
 
 			$menu_id  = 'blog-'.$blog->userblog_id;
-			$blavatar = '<div class="blavatar"></div>';
 			$blogname = WordPress::getSiteName( $blog->userblog_id );
 
 			if ( ! $blogname )
@@ -588,7 +602,7 @@ class AdminBar extends gNetwork\Module
 			$wp_admin_bar->add_menu( [
 				'parent'    => 'my-sites-list',
 				'id'        => $menu_id,
-				'title'     => $blavatar.$blogname,
+				'title'     => '<div class="blavatar"></div>'.$blogname,
 				'href'      => $blog->siteurl.'/wp-admin/',
 			] );
 
@@ -635,6 +649,212 @@ class AdminBar extends gNetwork\Module
 					'id'     => $menu_id.'-e-t',
 					'title'  => _x( 'Edit Themes', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 					'href'   => network_admin_url( 'site-themes.php?id='.$blog->userblog_id ),
+				] );
+			}
+
+			$wp_admin_bar->add_menu( [
+				'parent' => $menu_id,
+				'id'     => $menu_id.'-v',
+				'title'  => _x( 'Visit Site', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+				'href'   => URL::trail( $blog->siteurl ),
+			] );
+		}
+	}
+
+	public function wp_admin_bar_my_network_menu( $wp_admin_bar )
+	{
+		if ( ! is_user_logged_in() )
+			return;
+
+		// fallback
+		if ( ! $networks = user_has_networks() )
+			return $this->wp_admin_bar_my_sites_menu( $wp_admin_bar );
+
+		// assumed the list from `user_has_networks()` have privileges!
+		$super_admin  = WordPress::isSuperAdmin();
+		$main_network = get_main_network_id();
+
+		foreach ( $networks as $network_id ) {
+
+			// has internal cache!
+			if ( ! $network = get_network( $network_id ) )
+				continue;
+
+			$wp_admin_bar->add_menu( [
+				'id'    => 'network-'.$network->id,
+				'title' => self::getIcon( 'networking' ) // TODO: get icon from branding
+					.'<span class="screen-reader-text">'.$network->site_name.'</span>',
+				'href'  => WordPress::networkSiteURL( $network ),
+			] );
+
+			$wp_admin_bar->add_group( [
+				'parent' => 'network-'.$network->id,
+				'id'     => 'network-links-'.$network->id,
+			] );
+
+			$wp_admin_bar->add_menu( [
+				'parent' => 'network-links-'.$network->id,
+				'id'     => 'network-info-'.$network->id,
+				'title'  => '<div class="blavatar -site"></div>'.$network->site_name,
+				'href'   => $this->get_menu_url( 'overview', 'network', 'tools', [], 'admin', $network ),
+				'meta'   => [ 'class' => $this->classs( 'network-title' ) ],
+			] );
+
+			$wp_admin_bar->add_menu( [
+				'parent' => 'network-links-'.$network->id,
+				'id'     => 'user-admin-'.$network->id,
+				'title'  => '<div class="blavatar -user"></div>'._x( 'My Dashboard', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+				'href'   => WordPress::userAdminURL( $network ),
+			] );
+
+			if ( $super_admin ) {
+
+				$wp_admin_bar->add_menu( [
+					'parent' => 'network-links-'.$network->id,
+					'id'     => 'network-admin-'.$network->id,
+					'title'  => '<div class="blavatar -network"></div>'._x( 'Network Admin', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+					'href'   => WordPress::networkAdminURL( $network ),
+				] );
+
+				if ( current_user_can( 'manage_sites' ) ) {
+
+					$wp_admin_bar->add_menu( [
+						'parent' => 'network-admin-'.$network->id,
+						'id'     => 'network-admin-s-'.$network->id,
+						'title'  => _x( 'Sites', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+						'href'   => WordPress::networkAdminURL( $network, 'sites.php' ),
+					] );
+				}
+
+				if ( current_user_can( 'manage_network_users' ) ) {
+
+					$wp_admin_bar->add_menu( [
+						'parent' => 'network-admin-'.$network->id,
+						'id'     => 'network-admin-u-'.$network->id,
+						'title'  => _x( 'Users', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+						'href'   => WordPress::networkAdminURL( $network, 'users.php' ),
+					] );
+				}
+
+				if ( current_user_can( 'manage_network_themes' ) ) {
+
+					$wp_admin_bar->add_menu( [
+						'parent' => 'network-admin-'.$network->id,
+						'id'     => 'network-admin-t-'.$network->id,
+						'title'  => _x( 'Themes', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+						'href'   => WordPress::networkAdminURL( $network, 'themes.php' ),
+					] );
+				}
+
+				if ( current_user_can( 'manage_network_plugins' ) ) {
+
+					$wp_admin_bar->add_menu( [
+						'parent' => 'network-admin-'.$network->id,
+						'id'     => 'network-admin-p-'.$network->id,
+						'title'  => _x( 'Plugins', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+						'href'   => WordPress::networkAdminURL( $network, 'plugins.php' ),
+					] );
+				}
+
+				if ( current_user_can( 'manage_network_options' ) ) {
+
+					$wp_admin_bar->add_menu( [
+						'parent' => 'network-admin-'.$network->id,
+						'id'     => 'network-admin-o-'.$network->id,
+						'title'  => _x( 'Settings', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+						'href'   => WordPress::networkAdminURL( $network, 'settings.php' ),
+					] );
+
+					$wp_admin_bar->add_menu( [
+						'parent' => 'network-admin-'.$network->id,
+						'id'     => 'network-admin-ne-'.$network->id,
+						'title'  => _x( 'Extras', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+						'href'   => $this->get_menu_url( FALSE, 'network', 'admin', [], 'admin', $network ),
+					] );
+				}
+
+			 	if ( $network->id == $main_network
+					&& current_user_can( 'update_core' ) ) {
+
+					$wp_admin_bar->add_menu( [
+						'parent' => 'network-admin-'.$network->id,
+						'id'     => 'network-admin-uc-'.$network->id,
+						'title'  => _x( 'Updates', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+						'href'   => WordPress::networkAdminURL( $network, 'update-core.php' ),
+					] );
+				}
+			}
+
+			$wp_admin_bar->add_group( [
+				'parent' => 'network-'.$network->id,
+				'id'     => 'network-list-'.$network->id,
+				'meta'   => [ 'class' => 'ab-sub-secondary' ],
+			] );
+		}
+
+		foreach ( $wp_admin_bar->user->blogs as $blog ) {
+
+			// avoiding `switch_to_blog()`
+
+			if ( ! $network = get_network( $blog->network_id ) )
+				continue;
+
+			$menu_id  = 'blog-'.$blog->userblog_id;
+			$blogname = WordPress::getSiteName( $blog->userblog_id );
+
+			if ( ! $blogname )
+				$blogname = URL::untrail( $blog->domain.$blog->path );
+
+			$wp_admin_bar->add_menu( [
+				'parent'    => 'network-list-'.$network->id,
+				'id'        => $menu_id,
+				'title'     => '<div class="blavatar"></div>'.$blogname,
+				'href'      => $blog->siteurl.'/wp-admin/',
+			] );
+
+			$wp_admin_bar->add_menu( [
+				'parent' => $menu_id,
+				'id'     => $menu_id.'-d',
+				'title'  => _x( 'Dashboard', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+				'href'      => $blog->siteurl.'/wp-admin/',
+			] );
+
+			// extra links for super admins only (no cap checks)
+			if ( $super_admin ) {
+
+				$wp_admin_bar->add_menu( [
+					'parent' => $menu_id,
+					'id'     => $menu_id.'-e',
+					'title'  => _x( 'Posts', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+					'href'   => $blog->siteurl.'/wp-admin/edit.php',
+				] );
+
+				$wp_admin_bar->add_menu( [
+					'parent' => $menu_id,
+					'id'     => $menu_id.'-u',
+					'title'  => _x( 'Users', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+					'href'   => $blog->siteurl.'/wp-admin/users.php',
+				] );
+
+				$wp_admin_bar->add_menu( [
+					'parent' => $menu_id,
+					'id'     => $menu_id.'-s',
+					'title'  => _x( 'Settings', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+					'href'   => $blog->siteurl.'/wp-admin/options-general.php',
+				] );
+
+				$wp_admin_bar->add_menu( [
+					'parent' => $menu_id,
+					'id'     => $menu_id.'-e-s',
+					'title'  => _x( 'Edit Site', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+					'href'   => WordPress::networkAdminURL( $network, 'site-info.php?id='.$blog->userblog_id ),
+				] );
+
+				$wp_admin_bar->add_menu( [
+					'parent' => $menu_id,
+					'id'     => $menu_id.'-e-t',
+					'title'  => _x( 'Edit Themes', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+					'href'   => WordPress::networkAdminURL( $network, 'site-themes.php?id='.$blog->userblog_id ),
 				] );
 			}
 
