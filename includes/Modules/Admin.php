@@ -53,7 +53,7 @@ class Admin extends gNetwork\Module
 		if ( ! gNetwork()->option( 'user_locale', 'profile' ) )
 			$classes.= ' hide-userlocale-option';
 
-		if ( ! gNetwork()->adminbar->show_adminbar() )
+		if ( gNetwork()->module( 'adminbar' ) && ! gNetwork()->adminbar->show_adminbar() )
 			$classes.= ' hide-adminbar-option';
 
 		if ( WordPress::isSuperAdmin() )
