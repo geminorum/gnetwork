@@ -27,6 +27,7 @@ class Media extends gNetwork\Module
 	{
 		$this->action( 'init', 0, 999, 'late' );
 		$this->filter( 'upload_mimes' );
+		// $this->filter( 'wp_check_filetype_and_ext', 4, 12 );
 
 		$this->filter( 'sanitize_file_name', 2, 12 );
 		$this->filter( 'image_send_to_editor', 8 );
@@ -1284,6 +1285,41 @@ class Media extends gNetwork\Module
 			'epub' => 'application/epub+zip',
 			'bib'  => 'application/x-bibtex', // 'text/plain', // @REF: http://fileformats.archiveteam.org/wiki/BibTeX
 		] );
+	}
+
+	// @REF: https://gist.github.com/rmpel/e1e2452ca06ab621fe061e0fde7ae150
+	// @SEE: https://core.trac.wordpress.org/ticket/45615
+	// @SEE: https://make.wordpress.org/core/2018/12/13/backwards-compatibility-breaks-in-5-0-1/
+	// WORKING but DISABLED
+	public function wp_check_filetype_and_ext( $data, $file, $filename, $mimes )
+	{
+		if ( extension_loaded( 'fileinfo' ) ) {
+
+			// with the php-extension, a CSV file is issues type text/plain
+			// so we fix that back to text/csv by trusting the file extension
+			$finfo     = finfo_open( FILEINFO_MIME_TYPE );
+			$real_mime = finfo_file( $finfo, $file );
+			finfo_close( $finfo );
+
+			if ( 'text/plain' === $real_mime
+				&& preg_match( '/\.(csv)$/i', $filename ) ) {
+
+				$data['ext']  = 'csv';
+				$data['type'] = 'text/csv';
+			}
+
+		} else {
+
+			// without the php-extension, we probably don't have the issue
+			// at all, but just to be sure
+			if ( preg_match( '/\.(csv)$/i', $filename ) ) {
+
+				$data['ext']  = 'csv';
+				$data['type'] = 'text/csv';
+			}
+		}
+
+		return $data;
 	}
 
 	public function image_send_to_editor( $html, $id, $caption, $title, $align, $url, $size, $alt )
