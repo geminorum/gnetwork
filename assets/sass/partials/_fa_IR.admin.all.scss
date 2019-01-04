@@ -5,6 +5,7 @@
 
 // html:lang(fa-ir) {}
 
+////////////////////////////////////////////////////////////////////////////////
 body.locale-fa-ir {
   &,
   #wpadminbar *,
@@ -26,13 +27,7 @@ body.locale-fa-ir {
     @include theme-fonts-core-native;
   }
 
-  #wpadminbar .ab-icon,
-  #wpadminbar .ab-item::before {
-    font-family: dashicons, sans-serif;
-  }
-
   ol {
-    // list-style-type: -moz-persian !important;
     list-style-type: persian !important;
   }
 }

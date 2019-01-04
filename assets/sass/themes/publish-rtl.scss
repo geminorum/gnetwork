@@ -58,9 +58,6 @@ h6 {
 
 blockquote {
   font-style: normal;
-}
-
-blockquote {
   margin-bottom: 1.5em;
 }
 
@@ -76,15 +73,42 @@ blockquote {
   // font: bold 16.2px/21px $font-family-bold;
 }
 
-.widget-area {
-  .widget-title {
-    // font: bold 14.2px/18px $font-family-bold;
-  }
-}
+// .widget-area {
+//   .widget-title {
+//     // font: bold 14.2px/18px $font-family-bold;
+//   }
+// }
 
 .entry-content {
   p {
     // font: normal 14.4px/25.2px $font-family-normal;
+  }
+
+  ol,
+  ul {
+    margin: 0 1.5em 1.5em 0;
+
+    li {
+      margin-bottom: 0.5em;
+    }
+  }
+
+  ol {
+    margin: 0 3em 1.5em 0;
+    list-style-type: persian;
+  }
+
+  sup.ref-anchor {
+    bottom: 0.5ex;
+
+    a {
+      color: #999;
+      text-decoration: none;
+
+      &:hover {
+        color: #222;
+      }
+    }
   }
 }
 
@@ -107,7 +131,7 @@ textarea {
   // font-family: $font-family-normal;
   // font: normal 12.3px $font-family-normal;
 }
-//{ font:normal 12.3px/14.8px "Droid Arabic Naskh", Tahoma, "Iranian Sans", verdana; }
+
 .entry-meta,
 .entry-meta a {
   // font: normal 11.1px/16px $font-family-normal;
@@ -118,7 +142,7 @@ textarea {
   display: block;
   outline: none;
 
-  & + hgroup {
+  + hgroup {
     text-align: center;
   }
 }
@@ -145,23 +169,6 @@ textarea {
 
   .wp-caption-text {
     margin: 5px;
-  }
-}
-
-.entry-content {
-  ol,
-  ul {
-    margin: 0 1.5em 1.5em 0;
-
-    li {
-      margin-bottom: 0.5em;
-    }
-  }
-
-  ol {
-    margin: 0 3em 1.5em 0;
-    list-style-type: -moz-persian;
-    list-style-type: persian;
   }
 }
 
@@ -234,7 +241,7 @@ textarea {
 
 @media only screen and (max-width: 900px) {
   body.rtl {
-    .main-small-navigation .menu-toggle:before {
+    .main-small-navigation .menu-toggle::before {
       margin-left: 10px;
       margin-right: -20px;
     }
@@ -293,21 +300,6 @@ textarea {
 
     &:hover {
       color: #222;
-    }
-  }
-}
-
-.entry-content {
-  sup.ref-anchor {
-    bottom: 0.5ex;
-
-    a {
-      color: #999;
-      text-decoration: none;
-
-      &:hover {
-        color: #222;
-      }
     }
   }
 }

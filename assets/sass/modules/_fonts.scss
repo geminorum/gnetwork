@@ -24,6 +24,10 @@ $theme-fonts-repo: "../fonts" !default;
   font-family: Consolas, Monaco, monospace;
 }
 
+@mixin theme-fonts-core-dashicons() {
+  font-family: dashicons; /* stylelint-disable-line font-family-no-missing-generic-family-keyword */
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 
 @mixin theme-fonts-unicoderange-Persian() {

@@ -42,7 +42,6 @@ h6,
 
 .entry-content {
   ol {
-    list-style-type: -moz-persian;
     list-style-type: persian;
   }
 }
@@ -59,7 +58,7 @@ blockquote {
   padding-left: 0;
 }
 
-.more-link:after {
+.more-link::after {
   content: "\f100";
 }
 

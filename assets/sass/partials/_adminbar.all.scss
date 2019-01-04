@@ -16,8 +16,26 @@
     direction: ltr;
   }
 
-  .quicklinks li .blavatar::before {
-    content: "\f319" !important;
+  .quicklinks li .blavatar {
+    &::before {
+      content: "\f319" !important; // globe
+    }
+
+    &.-site::before {
+      content: "\f541" !important;
+    }
+
+    &.-network::before {
+      content: "\f111" !important;
+    }
+
+    &.-user::before {
+      content: "\f110" !important;
+    }
+
+    &.-update::before {
+      content: "\f325" !important;
+    }
   }
 
   #wp-admin-bar-wp-logo.menupop > .ab-item .ab-icon::before {
@@ -27,6 +45,12 @@
   #wp-admin-bar-my-sites a.ab-item::before {
     margin-left: 0;
     margin-right: 0;
+  }
+
+  .gnetwork-adminbar-network-title {
+    .ab-item {
+      font-weight: 600;
+    }
   }
 
   #wp-admin-bar-gnetwork-cron-status {
@@ -50,37 +74,28 @@
   //   min-width: 210px;
   // }
 
-  // MUST BE ON WP CORE!
   body.rtl & {
     * {
       @include theme-fonts-core-native;
     }
 
-    .menupop .menupop > .ab-item::before {
-      content: "\f141" !important;
-
-      /*rtl:ignore*/
-      left: 2px;
+    > #wp-toolbar > #wp-admin-bar-root-default .ab-icon,
+    .ab-icon,
+    .ab-item::before {
+      @include theme-fonts-core-dashicons;
     }
 
-    .ab-top-secondary .menupop .menupop > .ab-item::before {
-      content: "\f139" !important;
-
-      /*rtl:ignore*/
+    .menupop .menupop > .ab-item::before {
       right: 2px;
     }
 
-    // #wp-admin-bar-airplane-mode-toggle span.airplane-toggle-icon {
-    //   margin-right:0;
-    //   margin-left:7px;
-    // }
+    .ab-top-secondary .menupop .menupop > .ab-item::before {
+      left: 2px;
+    }
+
+    #wp-admin-bar-airplane-mode-toggle .ab-icon {
+      margin-right: 0 !important;
+      margin-top: 1px;
+    }
   }
 }
-
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-/// BUDDYPRESS ADMIN BAR-------------------------------------------------------
-// not quite what i excpected
-// SEE: https://github.com/sass/sass/issues/556
-// @import '../../../buddypress/bp-core/css/admin-bar-rtl.css';
