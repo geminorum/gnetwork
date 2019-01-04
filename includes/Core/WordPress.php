@@ -707,4 +707,54 @@ class WordPress extends Base
 
 		return FALSE;
 	}
+
+	// @REF: `network_admin_url()`
+	// like core's but with custom network
+	public static function networkAdminURL( $network = NULL, $path = '', $scheme = 'admin' )
+	{
+		if ( ! is_multisite() )
+			return admin_url( $path, $scheme );
+
+		$url = self::networkSiteURL( $network, 'wp-admin/network/', $scheme );
+
+		if ( $path && is_string( $path ) )
+			$url.= ltrim( $path, '/' );
+
+		return apply_filters( 'network_admin_url', $url, $path );
+	}
+
+	// @REF: `user_admin_url()`
+	// like core's but with custom network
+	public static function userAdminURL( $network = NULL, $path = '', $scheme = 'admin' )
+	{
+		$url = self::networkSiteURL( $network, 'wp-admin/user/', $scheme );
+
+		if ( $path && is_string( $path ) )
+			$url.= ltrim( $path, '/' );
+
+		return apply_filters( 'user_admin_url', $url, $path );
+	}
+
+	// @REF: `network_site_url()`
+	// like core's but with custom network
+	public static function networkSiteURL( $network = NULL, $path = '', $scheme = NULL )
+	{
+		if ( ! is_multisite() )
+			return site_url( $path, $scheme );
+
+		if ( ! $network )
+			$network = get_network();
+
+		if ( 'relative' == $scheme )
+			$url = $network->path;
+
+		else
+			$url = set_url_scheme( 'http://'.$network->domain.$network->path, $scheme );
+
+
+		if ( $path && is_string( $path ) )
+			$url.= ltrim( $path, '/' );
+
+		return apply_filters( 'network_site_url', $url, $path, $scheme );
+	}
 }

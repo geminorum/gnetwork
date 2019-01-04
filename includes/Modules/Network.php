@@ -86,7 +86,7 @@ class Network extends gNetwork\Module
 		];
 	}
 
-	public static function menuURL( $full = TRUE, $context = 'settings', $scheme = 'admin' )
+	public static function menuURL( $full = TRUE, $context = 'settings', $scheme = 'admin', $network = NULL )
 	{
 		$multisite = is_multisite();
 
@@ -100,7 +100,7 @@ class Network extends gNetwork\Module
 
 		return $full
 			? ( $multisite
-				? network_admin_url( $relative, $scheme )
+				? WordPress::networkAdminURL( $network, $relative, $scheme )
 				: get_admin_url( NULL, $relative, $scheme ) )
 			: $relative;
 	}

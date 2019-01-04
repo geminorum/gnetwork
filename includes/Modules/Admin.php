@@ -145,7 +145,7 @@ class Admin extends gNetwork\Module
 			remove_submenu_page( 'themes.php', 'theme-editor.php' );
 	}
 
-	public static function menuURL( $full = TRUE, $context = 'settings', $scheme = 'admin' )
+	public static function menuURL( $full = TRUE, $context = 'settings', $scheme = 'admin', $network = NULL )
 	{
 		if ( 'tools' == $context )
 			$relative = 'tools.php?page='.static::BASE.'-tools';

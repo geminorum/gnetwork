@@ -325,12 +325,12 @@ class User extends gNetwork\Module
 		return $old_help;
 	}
 
-	public static function menuURL( $full = TRUE, $context = 'settings', $scheme = 'admin' )
+	public static function menuURL( $full = TRUE, $context = 'settings', $scheme = 'admin', $network = NULL )
 	{
 		$relative = 'admin.php?page='.static::BASE;
 
 		return $full
-			? user_admin_url( $relative, $scheme )
+			? WordPress::userAdminURL( $network, $relative, $scheme )
 			: $relative;
 	}
 
