@@ -715,8 +715,10 @@ class Blog extends gNetwork\Module
 		if ( $singular && ( $edit = get_edit_post_link() ) )
 			echo '<link rel="alternate" type="application/x-wiki" title="'._x( 'Edit this page', 'Modules: Blog', GNETWORK_TEXTDOMAIN ).'" href="'.HTML::escapeURL( $edit ).'" />'."\n";
 
-		if ( is_admin_bar_showing() )
+		if ( is_admin_bar_showing() ) {
 			Utilities::linkStyleSheet( 'adminbar.all' );
+			Utilities::customStyleSheet( 'adminbar.css' );
+		}
 
 		if ( defined( 'GNETWORK_DISABLE_FRONT_STYLES' )
 			&& GNETWORK_DISABLE_FRONT_STYLES )

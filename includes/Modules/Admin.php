@@ -433,8 +433,10 @@ class Admin extends gNetwork\Module
 
 		Utilities::customStyleSheet( 'admin.css' );
 
-		if ( is_admin_bar_showing() )
+		if ( is_admin_bar_showing() ) {
 			Utilities::linkStyleSheet( 'adminbar.all' );
+			Utilities::customStyleSheet( 'adminbar.css' );
+		}
 
 		if ( GNETWORK_ADMIN_JS_ENHANCEMENTS )
 			wp_localize_script( Utilities::enqueueScript( 'admin.all' ), 'gNetwork', $this->localize_script() );
