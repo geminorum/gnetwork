@@ -186,19 +186,19 @@ class WordPress extends Base
 	{
 		global $wp;
 
-		$request = $wp->request ? add_query_arg( array(), $wp->request ) : add_query_arg( array() );
+		$request = $wp->request
+			? add_query_arg( array(), $wp->request )
+			: add_query_arg( array() );
+
 		$current = home_url( $request );
 
-		if ( $trailingslashit )
-			return URL::trail( $current );
-
-		return $current;
+		return $trailingslashit ? URL::trail( $current ) : $current;
 	}
 
 	public static function getHostName()
 	{
 		return is_multisite()
-			? get_current_site()->domain
+			? get_network()->domain
 			: preg_replace( '#^https?://#i', '', get_option( 'home' ) );
 	}
 
@@ -211,18 +211,6 @@ class WordPress extends Base
 		// The blogname option is escaped with esc_html on the way into the database
 		// in sanitize_option we want to reverse this for the plain text arena of emails.
 		return wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
-	}
-
-	// OLD: `currentSite()`
-	public static function currentNetworkURL()
-	{
-		if ( ! is_multisite() )
-			return get_option( 'siteurl' );
-
-		$network = get_current_site();
-		$scheme  = self::isSSL() ? 'https' : 'http';
-
-		return URL::untrail( "$scheme://{$network->domain}{$network->path}" );
 	}
 
 	// OLD: `currentBlog()`
