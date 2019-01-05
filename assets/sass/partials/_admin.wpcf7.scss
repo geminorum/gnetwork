@@ -1,0 +1,35 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// gNetwork Partials: WPCF7 ---------------------------------------------------
+
+.tag-generator-panel {
+  .screen-reader-text {
+    width: 1px !important;
+  }
+
+  .control-box {
+    input.oneline {
+      width: 100%;
+    }
+
+    input[type="checkbox"],
+    input[type="radio"] {
+      margin: 0;
+    }
+
+    input.tg-name,
+    input.idvalue,
+    input.classvalue {
+
+      /*rtl:ignore*/
+      direction: ltr;
+    }
+  }
+
+  .insert-box {
+    box-sizing: border-box;
+    height: auto;
+    width: auto;
+  }
+}

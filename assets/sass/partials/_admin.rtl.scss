@@ -289,6 +289,14 @@ body.options-permalink-php .form-table .sptp-fieldset {
     display: none;
   }
 
+  .media-toolbar-primary {
+    width: 44%; // default is 33%
+  }
+
+  select.attachment-filters {
+    width: auto;
+  }
+
   .attachment-info {
     margin-top: 10px;
     margin-bottom: 5px;
