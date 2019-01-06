@@ -100,6 +100,7 @@ class ShortCodes extends gNetwork\Module
 			'lastupdate'  => 'shortcode_last_edited',
 			'redirect'    => 'shortcode_redirect',
 			'menu'        => 'shortcode_menu',
+			'post-title'  => 'shortcode_post_title',
 		];
 	}
 
@@ -580,6 +581,34 @@ class ShortCodes extends gNetwork\Module
 		] );
 
 		return self::shortcodeWrap( wp_nav_menu( $menu ), 'menu', $args );
+	}
+
+	public function shortcode_post_title( $atts = [], $content = NULL, $tag = '' )
+	{
+		$args = shortcode_atts( [
+			'post'    => NULL,
+			'tag'     => FALSE,
+			'context' => NULL,
+			'wrap'    => TRUE,
+			'before'  => '',
+			'after'   => '',
+		], $atts, $tag );
+
+		if ( FALSE === $args['context'] )
+			return NULL;
+
+		if ( ! $post = get_post( $args['post'] ) )
+			return NULL;
+
+		if ( empty( $post->post_title ) )
+			return NULL;
+
+		$html = Utilities::prepTitle( $post->post_title, $post->ID );
+
+		if ( $args['tag'] )
+			$html = HTML::tag( $args['tag'], $html );
+
+		return self::shortcodeWrap( $html, 'post-title', $args, FALSE );
 	}
 
 	// TODO: more cases
