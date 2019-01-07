@@ -680,15 +680,17 @@ class AdminBar extends gNetwork\Module
 			if ( ! $network = get_network( $network_id ) )
 				continue;
 
+			$node = 'network-'.URL::prepTitle( str_replace( '.', '-', $network->domain ) );
+
 			$wp_admin_bar->add_menu( [
-				'id'    => 'network-'.$network->id,
-				'title' => self::getIcon( 'networking' ) // TODO: get icon from branding
-					.'<span class="screen-reader-text">'.$network->site_name.'</span>',
+				'id'    => $node,
+				'title' => self::getIcon( 'networking' ).'<span class="screen-reader-text">'.$network->site_name.'</span>',
 				'href'  => WordPress::networkSiteURL( $network ),
+				'meta'  => [ 'class' => $this->classs( 'network-node' ) ],
 			] );
 
 			$wp_admin_bar->add_group( [
-				'parent' => 'network-'.$network->id,
+				'parent' => $node,
 				'id'     => 'network-links-'.$network->id,
 			] );
 
@@ -786,7 +788,7 @@ class AdminBar extends gNetwork\Module
 			}
 
 			$wp_admin_bar->add_group( [
-				'parent' => 'network-'.$network->id,
+				'parent' => $node,
 				'id'     => 'network-list-'.$network->id,
 				'meta'   => [ 'class' => 'ab-sub-secondary' ],
 			] );
