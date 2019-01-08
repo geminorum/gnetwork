@@ -187,6 +187,9 @@ class Utilities extends Core\Base
 
 	public static function getDateEditRow( $timestamp, $class = FALSE )
 	{
+		if ( empty( $timestamp ) )
+			return '<span class="-empty">&mdash;</span>';
+
 		if ( ! ctype_digit( $timestamp ) )
 			$timestamp = strtotime( $timestamp );
 

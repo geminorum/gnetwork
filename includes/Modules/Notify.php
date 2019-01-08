@@ -143,13 +143,6 @@ class Notify extends gNetwork\Module
 		return $settings;
 	}
 
-	public function settings_section_signup()
-	{
-		Settings::fieldSection(
-			_x( 'Sign-up', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN )
-		);
-	}
-
 	public function settings_sidebox( $sub, $uri )
 	{
 		echo $this->wrap_open_buttons();

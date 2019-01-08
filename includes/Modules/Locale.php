@@ -294,6 +294,10 @@ class Locale extends gNetwork\Module
 			'pp-modules-settings' => 'page',
 			'pp-addons'           => 'page',
 
+			// [WooCommerce](https://woocommerce.com/)
+			'wc-status' => 'page',
+			'wc-addons' => 'page',
+
 		], $current );
 
 		foreach ( array_unique( $list ) as $value => $key )

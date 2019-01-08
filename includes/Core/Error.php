@@ -8,4 +8,10 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 class Error extends \WP_Error
 {
 
+	// @REF: https://github.com/norcross/airplane-mode/
+	public function __tostring()
+	{
+		$data = $this->get_error_data();
+		return $data['return'];
+	}
 }

@@ -936,6 +936,11 @@ class Module extends Core\Base
 		Settings::fieldSection( _x( 'Login', 'Module Core: Settings', GNETWORK_TEXTDOMAIN ) );
 	}
 
+	public function settings_section_signup()
+	{
+		Settings::fieldSection( _x( 'Sign-up', 'Module Core: Settings', GNETWORK_TEXTDOMAIN ) );
+	}
+
 	protected function settings_buttons( $sub = NULL )
 	{
 		$this->register_button( 'submit', NULL, TRUE );

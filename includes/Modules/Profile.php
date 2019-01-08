@@ -126,13 +126,13 @@ class Profile extends gNetwork\Module
 				[
 					'field'       => 'contact_methods',
 					'title'       => _x( 'Contact Methods', 'Modules: Profile: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Adds extra contact methods to user profiles', 'Modules: Profile: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Adds extra contact methods to user profiles.', 'Modules: Profile: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '1',
 				],
 				[
 					'field'       => 'user_locale',
 					'title'       => _x( 'User Language', 'Modules: Profile: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'User admin language switcher', 'Modules: Profile: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Enables admin language switcher for each user.', 'Modules: Profile: Settings', GNETWORK_TEXTDOMAIN ),
 					'after'       => Settings::fieldAfterIcon( 'https://core.trac.wordpress.org/ticket/29783' ),
 				],
 			],
@@ -182,14 +182,6 @@ class Profile extends gNetwork\Module
 				],
 			],
 		];
-	}
-
-	public function settings_section_signup()
-	{
-		Settings::fieldSection(
-			_x( 'Sign-up', 'Modules: Profile: Settings', GNETWORK_TEXTDOMAIN ),
-			_x( 'Control the aspects of user registeration on this network.', 'Modules: Profile: Settings', GNETWORK_TEXTDOMAIN )
-		);
 	}
 
 	public function settings_sidebox( $sub, $uri )

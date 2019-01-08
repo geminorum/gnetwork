@@ -3,7 +3,7 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
-use geminorum\gNetwork\Utilities;
+use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\HTTP;
 
 class BlackList extends gNetwork\Module
@@ -45,7 +45,7 @@ class BlackList extends gNetwork\Module
 				[
 					'field'       => 'check_ip',
 					'title'       => _x( 'Check Addresses', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Select to check logged-out visitor\'s IP againts your list of IPs', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Enables checking logged-out visitor\'s IP against your blacklist.', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
 					'field'       => 'blacklisted_ips',
@@ -59,7 +59,7 @@ class BlackList extends gNetwork\Module
 					'field'       => 'blacklisted_notice',
 					'type'        => 'textarea-quicktags',
 					'title'       => _x( 'Blacklisted Message', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Locked message on WordPress die page', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Displays on the dead page for the blacklisted addresses.', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => 'you\'re blacklisted, dude!',
 				],
 			],
@@ -72,8 +72,6 @@ class BlackList extends gNetwork\Module
 			Debug::summaryIPs( _x( 'Your IP Summary', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ) );
 		else
 			HTML::desc( sprintf( _x( 'Your IP: <code title="%s">%s</code>', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ), HTTP::IP(), $_SERVER['REMOTE_ADDR'] ) );
-
-		// self::dump( Utilities::getIPinfo() );
 	}
 
 	private function blacklisted()
