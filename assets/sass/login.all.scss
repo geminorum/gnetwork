@@ -13,7 +13,9 @@ body.login {
   @include theme-fonts-core-native;
 
   &.interim-login {
-
+    h1 {
+      display: none;
+    }
   }
 
   h1 a {

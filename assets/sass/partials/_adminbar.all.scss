@@ -38,6 +38,10 @@
     }
   }
 
+  li#wp-admin-bar-wp-logo {
+    display: block !important; // on small screen core hides this
+  }
+
   #wp-admin-bar-wp-logo.menupop > .ab-item .ab-icon::before {
     content: "\f319";
   }

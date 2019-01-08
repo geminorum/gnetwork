@@ -3,6 +3,35 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// gNetwork Partials: RTL ALL -------------------------------------------------
 
+////////////////////////////////////////////////////////////////////////////////
+body.debug-bar-maximized #querylist,
+body.options-permalink-php .form-table .sptp-fieldset, // Simple Post Type Permalinks
+.fixed.users-network td.column-email,
+.fixed.users-network td.column-blogs,
+#gadash-widget #ga-dash, // Google Analytics Dashboard
+#poststuff #edit-slug-box,
+#poststuff input#post_name,
+// #qm, // Query Monitor
+.user-mobile-wrap input#mobile,
+.user-twitter-wrap input#twitter,
+.user-telegram-wrap input#telegram,
+.user-facebook-wrap input#facebook,
+.user-googleplus-wrap input#googleplus,
+#nav-menu-header input#menu-name,
+.inline-edit-col input[name="slug"],
+input#adduser-email,
+input#email,
+input#slug,
+input#tag-slug,
+input#user_login {
+  direction: ltr;
+}
+
+.debug-menu-target {
+  direction: ltr !important;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 .wrap .add-new-h2,
 .wrap .add-new-h2:active,
 .wrap .page-title-action,
@@ -59,20 +88,12 @@ input[type="checkbox"]:checked::before {
 }
 
 #poststuff {
-  #edit-slug-box {
-    direction: ltr;
-  }
-
   #sample-permalink {
     margin-right: 5px;
   }
 
   #editable-post-name input {
     margin: -3px 2px 0;
-  }
-
-  input#post_name {
-    direction: ltr;
   }
 
   // added by p2p
@@ -149,16 +170,6 @@ span.description {
   font-style: normal;
 }
 
-body.debug-bar-maximized {
-  #querylist {
-    direction: ltr;
-  }
-}
-
-.debug-menu-target {
-  direction: ltr !important;
-}
-
 #screen-meta-links .show-settings::after {
   padding: 0 0 0 5px;
 }
@@ -168,11 +179,6 @@ body.debug-bar-maximized {
   margin: -4px 1px 0 0;
   padding: 3px 5px 2px 1px;
   border-left: none;
-}
-
-// Simple Post Type Permalinks
-body.options-permalink-php .form-table .sptp-fieldset {
-  direction: ltr;
 }
 
 #post-lock-dialog .post-locked-message,
@@ -270,15 +276,6 @@ body.options-permalink-php .form-table .sptp-fieldset {
   li.storage-count {
     font-size: 0.85em;
     margin-bottom: 0;
-  }
-}
-
-// #dashboard_activity {}
-
-// Google Analytics Dashboard
-#gadash-widget {
-  #ga-dash {
-    direction: ltr;
   }
 }
 
@@ -399,22 +396,6 @@ body.edit-php {
   &::after {
     content: "\200f";
   }
-}
-
-// #qm, // Query Monitor
-.user-mobile-wrap input#mobile,
-.user-twitter-wrap input#twitter,
-.user-telegram-wrap input#telegram,
-.user-facebook-wrap input#facebook,
-.user-googleplus-wrap input#googleplus,
-#nav-menu-header input#menu-name,
-.inline-edit-col input[name="slug"],
-input#adduser-email,
-input#email,
-input#slug,
-input#tag-slug,
-input#user_login {
-  direction: ltr;
 }
 
 input#adduser-email.ui-autocomplete-loading,
