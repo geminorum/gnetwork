@@ -252,6 +252,8 @@ class Typography extends gNetwork\Module
 		$args = shortcode_atts( [
 			'slug'    => NULL,
 			'lang'    => NULL,
+			'domain'  => 'wikipedia.org/wiki',
+			'scheme'  => 'https',
 			'title'   => _x( 'View Wikipedia page', 'Modules: Typography: Shortcode Defaults', GNETWORK_TEXTDOMAIN ),
 			'context' => NULL,
 			'wrap'    => TRUE,
@@ -278,7 +280,7 @@ class Typography extends gNetwork\Module
 		else
 			$lang = '';
 
-		$url = 'https://'.$lang.'wikipedia.org/wiki/'.urlencode( str_ireplace( ' ', '_', $slug ) );
+		$url = $args['scheme'].'://'.$lang.$args['domain'].'/'.urlencode( str_ireplace( ' ', '_', $slug ) );
 
 		$html = '<a href="'.esc_url( $url ).'" class="wiki wikipedia"'
 				.( $args['title'] ? ' data-toggle="tooltip" title="'.HTML::escape( $args['title'] ).'"' : '' )
