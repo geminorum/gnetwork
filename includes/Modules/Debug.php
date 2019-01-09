@@ -244,7 +244,7 @@ class Debug extends gNetwork\Module
 				}
 
 				echo '</ol></div>';
-				HTML::desc( sprintf( _x( 'File Size: %s', 'Modules: Debug: Log Box', GNETWORK_TEXTDOMAIN ), $file_size ), TRUE, 'log-box-footer' );
+				HTML::desc( sprintf( _x( 'File Size: %s', 'Modules: Debug: Log Box', GNETWORK_TEXTDOMAIN ), '<span dir="ltr">'.$file_size.'</code>' ), TRUE, 'log-box-footer' );
 
 			} else {
 				echo gNetwork()->na();

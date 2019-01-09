@@ -367,10 +367,10 @@ class Dashboard extends gNetwork\Module
 		} else {
 
 			echo '<table class="widefat -table-signup"><thead><tr>';
-			echo '<th>'._x( 'On', 'Modules: Dashboard: Signups', GNETWORK_TEXTDOMAIN ).'</th>';
-			echo '<th>'._x( 'Name', 'Modules: Dashboard: Signups', GNETWORK_TEXTDOMAIN ).'</th>';
-			echo '<th>'._x( 'E-mail', 'Modules: Dashboard: Signups', GNETWORK_TEXTDOMAIN ).'</th>';
-			echo '<th>'._x( 'IP', 'Modules: Dashboard: Signups', GNETWORK_TEXTDOMAIN ).'</th>';
+			echo '<th class="-month-day">'._x( 'On', 'Modules: Dashboard: Signups', GNETWORK_TEXTDOMAIN ).'</th>';
+			echo '<th class="-edit-link">'._x( 'Name', 'Modules: Dashboard: Signups', GNETWORK_TEXTDOMAIN ).'</th>';
+			echo '<th class="-mail-link">'._x( 'E-mail', 'Modules: Dashboard: Signups', GNETWORK_TEXTDOMAIN ).'</th>';
+			echo '<th class="-ip-info">'._x( 'IP', 'Modules: Dashboard: Signups', GNETWORK_TEXTDOMAIN ).'</th>';
 			echo '</tr></thead>';
 
 			$time = current_time( 'timestamp' );
@@ -476,9 +476,9 @@ class Dashboard extends gNetwork\Module
 		} else {
 
 			echo '<table class="widefat -table-logins"><thead><tr>';
-			echo '<th>'._x( 'Ago', 'Modules: Dashboard: Logins', GNETWORK_TEXTDOMAIN ).'</th>';
-			echo '<th>'._x( 'Name', 'Modules: Dashboard: Logins', GNETWORK_TEXTDOMAIN ).'</th>';
-			echo '<th>'._x( 'Timestamp', 'Modules: Dashboard: Logins', GNETWORK_TEXTDOMAIN ).'</th>';
+			echo '<th class="-time-ago">'._x( 'Ago', 'Modules: Dashboard: Logins', GNETWORK_TEXTDOMAIN ).'</th>';
+			echo '<th class="-edit-link">'._x( 'Name', 'Modules: Dashboard: Logins', GNETWORK_TEXTDOMAIN ).'</th>';
+			echo '<th class="-time-full">'._x( 'Timestamp', 'Modules: Dashboard: Logins', GNETWORK_TEXTDOMAIN ).'</th>';
 			echo '</tr></thead>';
 
 			$time = current_time( 'timestamp' );
