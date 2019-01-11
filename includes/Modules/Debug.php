@@ -77,17 +77,23 @@ class Debug extends gNetwork\Module
 				_x( 'Logs', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
 				FALSE, 'analoglogs', NULL, 20
 			);
+
+		if ( GNETWORK_FAILED_LOG )
+			$this->register_tool(
+				_x( 'Failed', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
+				FALSE, 'failedlogs', NULL, 20
+			);
 	}
 
 	public function tools( $sub = NULL, $key = NULL )
 	{
-		if ( in_array( $sub, [ 'systemreport', 'remotetests', 'errorlogs', 'analoglogs' ] ) )
+		if ( in_array( $sub, [ 'systemreport', 'remotetests', 'errorlogs', 'analoglogs', 'failedlogs' ] ) )
 			parent::tools( $sub, TRUE );
 	}
 
 	protected function tools_buttons( $sub = NULL )
 	{
-		if ( 'errorlogs' == $sub || 'analoglogs' == $sub ) {
+		if ( in_array( $sub, [ 'errorlogs', 'analoglogs', 'failedlogs' ] ) ) {
 			$this->register_button( 'clear_logs', _x( 'Clear Logs', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
 			$this->register_button( 'download_logs', _x( 'Download Logs', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
 		}
@@ -105,6 +111,9 @@ class Debug extends gNetwork\Module
 			else if ( GNETWORK_ANALOG_LOG && 'analoglogs' == $sub )
 				WordPress::redirectReferer( ( @unlink( GNETWORK_ANALOG_LOG ) ? 'purged' : 'error' ) );
 
+			else if ( GNETWORK_FAILED_LOG && 'failedlogs' == $sub )
+				WordPress::redirectReferer( ( @unlink( GNETWORK_FAILED_LOG ) ? 'purged' : 'error' ) );
+
 		} else if ( isset( $_POST['download_logs'] ) ) {
 
 			if ( GNETWORK_DEBUG_LOG && 'errorlogs' == $sub )
@@ -112,6 +121,9 @@ class Debug extends gNetwork\Module
 
 			else if ( GNETWORK_ANALOG_LOG && 'analoglogs' == $sub )
 				File::download( GNETWORK_ANALOG_LOG, File::prepName( 'analog.log' ) );
+
+			else if ( GNETWORK_FAILED_LOG && 'failedlogs' == $sub )
+				File::download( GNETWORK_FAILED_LOG, File::prepName( 'failed.log' ) );
 
 			WordPress::redirectReferer( 'wrong' );
 		}
@@ -132,7 +144,13 @@ class Debug extends gNetwork\Module
 
 		} else {
 
-			if ( self::displayLogs( ( 'analoglogs' == $sub ? GNETWORK_ANALOG_LOG : GNETWORK_DEBUG_LOG ) ) )
+			$map = [
+				'errorlogs'  => GNETWORK_DEBUG_LOG,
+				'analoglogs' => GNETWORK_ANALOG_LOG,
+				'failedlogs' => GNETWORK_FAILED_LOG,
+			];
+
+			if ( self::displayLogs( $map[$sub] ) )
 				$this->render_form_buttons( $sub );
 		}
 
@@ -375,6 +393,7 @@ class Debug extends gNetwork\Module
 			'DL_URL'        => GNETWORK_DL_URL,
 			'DEBUG_LOG'     => GNETWORK_DEBUG_LOG,
 			'ANALOG_LOG'    => GNETWORK_ANALOG_LOG,
+			'FAILED_LOG'    => GNETWORK_FAILED_LOG,
 			'MAIL_LOG_DIR'  => GNETWORK_MAIL_LOG_DIR,
 			'AJAX_ENDPOINT' => GNETWORK_AJAX_ENDPOINT,
 		];
@@ -678,7 +697,7 @@ class Debug extends gNetwork\Module
 
 	public function core_upgrade_preamble()
 	{
-		if ( ! GNETWORK_DEBUG_LOG && ! GNETWORK_ANALOG_LOG )
+		if ( ! GNETWORK_DEBUG_LOG && ! GNETWORK_ANALOG_LOG && ! GNETWORK_FAILED_LOG )
 			return;
 
 		HTML::h2( _x( 'Extras', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
@@ -699,6 +718,15 @@ class Debug extends gNetwork\Module
 					'class' => 'button button-secondary',
 					'href'  => $this->get_menu_url( 'analoglogs', 'network', 'tools' ),
 				], _x( 'Check Logs', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+
+			if ( GNETWORK_ANALOG_LOG && GNETWORK_FAILED_LOG )
+				echo '&nbsp;&nbsp;';
+
+			if ( GNETWORK_FAILED_LOG )
+				echo HTML::tag( 'a', [
+					'class' => 'button button-secondary',
+					'href'  => $this->get_menu_url( 'failedlogs', 'network', 'tools' ),
+				], _x( 'Check Failed', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
 
 		echo '</p>';
 	}

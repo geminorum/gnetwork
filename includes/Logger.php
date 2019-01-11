@@ -61,10 +61,13 @@ class Logger
 
 		global $gNetworkAnalog;
 
-		if ( empty( $gNetworkAnalog ) ) {
+		if ( empty( $gNetworkAnalog[$path] ) ) {
 
-			$gNetworkAnalog = new \Analog\Logger;
-			$gNetworkAnalog->handler( \Analog\Handler\File::init( $path ) );
+			if ( empty( $gNetworkAnalog ) )
+				$gNetworkAnalog = [];
+
+			$gNetworkAnalog[$path] = new \Analog\Logger;
+			$gNetworkAnalog[$path]->handler( \Analog\Handler\File::init( $path ) );
 
 			// format to use with `Debug::displayErrorLogs()`
 			\Analog::$format = '[%2$s] %1$s :: (%3$d) %4$s'."\n";
@@ -76,7 +79,7 @@ class Logger
 					\Analog::$machine = $_SERVER['REMOTE_ADDR']; // HTTP::IP();
 		}
 
-		return $gNetworkAnalog;
+		return $gNetworkAnalog[$path];
 	}
 
 	// PSR-3
@@ -86,9 +89,12 @@ class Logger
 			$analog->log( $level, $message, $context );
 	}
 
-	public static function logAnalog( $message, $level = NULL, $context = [] )
+	public static function logAnalog( $message, $level = NULL, $context = [], $path = NULL )
 	{
-		if ( $analog = self::getAnalog() ) {
+		if ( is_null( $path ) )
+			$path = GNETWORK_ANALOG_LOG;
+
+		if ( $analog = self::getAnalog( $path ) ) {
 
 			if ( is_null( $level ) )
 				$level = \Analog::$default_level;
@@ -98,52 +104,52 @@ class Logger
 	}
 
 	// system is unusable
-	public static function URGENT( $message, $context = [] )
+	public static function URGENT( $message, $context = [], $path = NULL )
 	{
-		self::logAnalog( $message, \Analog::URGENT, $context );
+		self::logAnalog( $message, \Analog::URGENT, $context, $path );
 	}
 
 	// action must be taken immediately
-	public static function ALERT( $message, $context = [] )
+	public static function ALERT( $message, $context = [], $path = NULL )
 	{
-		self::logAnalog( $message, \Analog::ALERT, $context );
+		self::logAnalog( $message, \Analog::ALERT, $context, $path );
 	}
 
 	// critical conditions
-	public static function CRITICAL( $message, $context = [] )
+	public static function CRITICAL( $message, $context = [], $path = NULL )
 	{
-		self::logAnalog( $message, \Analog::CRITICAL, $context );
+		self::logAnalog( $message, \Analog::CRITICAL, $context, $path );
 	}
 
 	// runtime errors that do not require immediate action
 	// but should typically be logged and monitored
-	public static function ERROR( $message, $context = [] )
+	public static function ERROR( $message, $context = [], $path = NULL )
 	{
-		self::logAnalog( $message, \Analog::ERROR, $context );
+		self::logAnalog( $message, \Analog::ERROR, $context, $path );
 	}
 
 	// exceptional occurrences that are not errors
-	public static function WARNING( $message, $context = [] )
+	public static function WARNING( $message, $context = [], $path = NULL )
 	{
-		self::logAnalog( $message, \Analog::WARNING, $context );
+		self::logAnalog( $message, \Analog::WARNING, $context, $path );
 	}
 
 	// normal but significant events
-	public static function NOTICE( $message, $context = [] )
+	public static function NOTICE( $message, $context = [], $path = NULL )
 	{
-		self::logAnalog( $message, \Analog::NOTICE, $context );
+		self::logAnalog( $message, \Analog::NOTICE, $context, $path );
 	}
 
 	// interesting events
-	public static function INFO( $message, $context = [] )
+	public static function INFO( $message, $context = [], $path = NULL )
 	{
-		self::logAnalog( $message, \Analog::INFO, $context );
+		self::logAnalog( $message, \Analog::INFO, $context, $path );
 	}
 
 	// detailed debug information
-	public static function DEBUG( $message, $context = [] )
+	public static function DEBUG( $message, $context = [], $path = NULL )
 	{
-		self::logAnalog( $message, \Analog::DEBUG, $context );
+		self::logAnalog( $message, \Analog::DEBUG, $context, $path );
 	}
 
 	// action must be taken immediately
@@ -187,5 +193,10 @@ class Logger
 	public static function siteDEBUG( $prefix, $message, $context = [] )
 	{
 		self::logAnalog( $prefix.': '.WordPress::currentSiteName().': '.$message, \Analog::DEBUG, $context );
+	}
+
+	public static function siteFAILED( $prefix, $message, $context = [] )
+	{
+		self::logAnalog( $prefix.': '.WordPress::currentSiteName().': '.$message, \Analog::NOTICE, $context, GNETWORK_FAILED_LOG );
 	}
 }

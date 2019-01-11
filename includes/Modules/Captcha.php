@@ -242,7 +242,7 @@ class Captcha extends gNetwork\Module
 
 		if ( empty( $_POST['g-recaptcha-response'] ) ) {
 
-			Logger::siteNOTICE( 'CAPTCHA-LOSTPASSWORD', 'empty captcha' );
+			Logger::siteFAILED( 'CAPTCHA-LOSTPASSWORD', 'empty captcha' );
 			$errors->add( 'empty_captcha', $messages['empty_captcha'] );
 
 		} else if ( FALSE === $this->recaptcha_verify() ) {
@@ -266,7 +266,7 @@ class Captcha extends gNetwork\Module
 
 		if ( empty( $_POST['g-recaptcha-response'] ) ) {
 
-			Logger::siteNOTICE( 'CAPTCHA-REGISTER', 'empty captcha' );
+			Logger::siteFAILED( 'CAPTCHA-REGISTER', 'empty captcha' );
 			$errors->add( 'empty_captcha', $messages['empty_captcha'] );
 
 		} else if ( FALSE === $this->recaptcha_verify() ) {
@@ -298,7 +298,7 @@ class Captcha extends gNetwork\Module
 		$messages = $this->recaptcha_errors();
 
 		if ( empty( $_POST['g-recaptcha-response'] ) ) {
-			Logger::siteNOTICE( 'CAPTCHA-COMMENT', 'empty captcha' );
+			Logger::siteFAILED( 'CAPTCHA-COMMENT', 'empty captcha' );
 			wp_die( $messages['empty_captcha'], 406 );
 		}
 
@@ -324,7 +324,7 @@ class Captcha extends gNetwork\Module
 
 		if ( empty( $_POST['g-recaptcha-response'] ) ) {
 
-			Logger::siteNOTICE( 'CAPTCHA-BUDDYPRESS', 'empty captcha' );
+			Logger::siteFAILED( 'CAPTCHA-BUDDYPRESS', 'empty captcha' );
 			$GLOBALS['bp']->signup->errors[$this->hook()] = $messages['empty_captcha'];
 
 		} else if ( FALSE === $this->recaptcha_verify() ) {
