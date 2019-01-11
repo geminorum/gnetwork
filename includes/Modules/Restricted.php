@@ -197,13 +197,14 @@ class Restricted extends gNetwork\Module
 		echo '<table class="form-table">';
 
 			$this->do_settings_field( [
-				'title'       => _x( 'Access Key', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
+				'field'       => 'restricted_feed_key',
 				'type'        => 'text',
 				'cap'         => 'read',
-				'field'       => 'restricted_feed_key',
-				'default'     => $feedkey ? $feedkey : _x( 'Access key not found', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
-				'field_class' => [ 'regular-text', 'code-text' ],
+				'title'       => _x( 'Access Key', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
 				'description' => _x( 'The key will be used on all restricted site feed URLs.', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
+				'placeholder' => _x( 'Access key not found', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
+				'field_class' => [ 'regular-text', 'code-text' ],
+				'default'     => $feedkey ?: '',
 				'disabled'    => TRUE,
 				'wrap'        => TRUE,
 			] );
@@ -231,19 +232,19 @@ class Restricted extends gNetwork\Module
 			if ( $feedkey ) {
 
 				$this->do_settings_field( [
-					'title'  => _x( 'Your Feed', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
+					'field'  => 'restricted_feed_url',
 					'type'   => 'custom',
 					'cap'    => 'read',
-					'field'  => 'restricted_feed_url',
+					'title'  => _x( 'Your Feed', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
 					'values' => '<code><a href="'.$urls['rss2'].'" target="_blank">'.$urls['rss2'].'</a></code>',
 					'wrap'   => TRUE,
 				] );
 
 				$this->do_settings_field( [
-					'title'  => _x( 'Your Comments Feed', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
+					'field'  => 'restricted_feed_comments_url',
 					'type'   => 'custom',
 					'cap'    => 'read',
-					'field'  => 'restricted_feed_comments_url',
+					'title'  => _x( 'Your Comments Feed', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
 					'values' => '<code><a href="'.$urls['comments_rss2_url'].'" target="_blank">'.$urls['comments_rss2_url'].'</a></code>',
 					'wrap'   => TRUE,
 				] );

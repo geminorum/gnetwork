@@ -30,7 +30,7 @@ class Dev extends gNetwork\Module
 		$this->action( 'shutdown', 1, 99 );
 
 		// $this->filter( 'embed_oembed_html', 4, 1 );
-		// $this->filter( 'pre_get_avatar', 3, 99 );
+		$this->filter( 'pre_get_avatar', 3, 99 );
 		// remove_filter( 'get_avatar', 'bp_core_fetch_avatar_filter', 10, 6 );
 
 		// the plugin gracefully forgets!
