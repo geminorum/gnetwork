@@ -971,11 +971,12 @@ class ShortCodes extends gNetwork\Module
 		] ), $content, $tag );
 	}
 
-	// @SEE: https://github.com/pipwerks/PDFObject
 	// TODO: download option
+	// @REF: https://github.com/pipwerks/PDFObject
 	public function shortcode_pdf( $atts = [], $content = NULL, $tag = '' )
 	{
 		$args = shortcode_atts( [
+			'id'       => FALSE,
 			'url'      => FALSE,
 			'width'    => FALSE, // default is full width
 			'height'   => FALSE, // '960px',
@@ -991,15 +992,24 @@ class ShortCodes extends gNetwork\Module
 		if ( FALSE === $args['context'] )
 			return NULL;
 
-		if ( ! $args['url'] )
+		if ( ! $args['id'] && ! $args['url'] )
 			return NULL;
 
-		if ( is_feed() || WordPress::isREST() )
-			return '<p class="-feedlink">'.sprintf( $args['feedlink'], $args['url'] ).'</p>';
+		if ( ! $args['url'] && $args['id'] )
+			$args['url'] = wp_get_attachment_url( $args['id'] );
 
-		$options = [
-			'fallbackLink' => '<p class="-fallback">'.sprintf( $args['fallback'], $args['url'] ).'</p>',
-		];
+		if ( is_feed() || WordPress::isREST() ) {
+
+			if ( $content )
+				return $content;
+
+			if ( ! $args['feedlink'] )
+				return NULL;
+
+			return '<p class="-feedlink">'.sprintf( $args['feedlink'], $args['url'] ).'</p>';
+		}
+
+		$options = [ 'fallbackLink' => '<p class="-fallback">'.sprintf( $args['fallback'], $args['url'] ).'</p>' ];
 
 		foreach ( [ 'width', 'height', 'view' ] as $option )
 			if ( $args[$option] )
