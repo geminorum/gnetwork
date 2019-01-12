@@ -47,6 +47,11 @@ class Update extends gNetwork\Module
 
 			$this->filter( 'plugins_api', 3, 20 );
 		}
+
+		if ( get_current_network_id() == get_main_network_id() )
+			return;
+
+		$this->filter( 'map_meta_cap', 2, 9 );
 	}
 
 	public function setup_menu( $context )
@@ -680,5 +685,13 @@ class Update extends gNetwork\Module
 		foreach ( $this->get_packages() as $package )
 			if ( $options['type'] == $package['package'] )
 				delete_site_transient( $this->hash( 'package', $package, NULL ) );
+	}
+
+	public function map_meta_cap( $caps, $cap )
+	{
+		if ( in_array( $cap, [ 'update_plugins', 'update_themes', 'update_core' ] ) )
+			$caps[] = 'do_not_allow';
+
+		return $caps;
 	}
 }
