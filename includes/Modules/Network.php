@@ -17,8 +17,6 @@ class Network extends gNetwork\Module
 
 	protected $key = 'network';
 
-	private $ssl_support = FALSE;
-
 	protected function setup_actions()
 	{
 		if ( ! is_multisite() )
@@ -228,8 +226,6 @@ class Network extends gNetwork\Module
 	{
 		if ( 'sites-network' == $screen->base ) {
 
-			$this->ssl_support = gNetwork()->option( 'ssl_support', 'site', FALSE );
-
 			$this->filter( 'wpmu_blogs_columns', 1, 20 );
 			$this->action( 'manage_sites_custom_column', 2 );
 
@@ -238,7 +234,7 @@ class Network extends gNetwork\Module
 			add_filter( 'bulk_actions-'.$screen->id, [ $this, 'bulk_actions' ] );
 			add_filter( 'network_sites_updated_message_resetadminemail', [ $this, 'updated_message_resetadminemail' ] );
 
-			if ( $this->ssl_support ) {
+			if ( gNetwork()->ssl() ) {
 				add_filter( 'network_sites_updated_message_enablesitessl', [ $this, 'updated_message_enable' ] );
 				add_filter( 'network_sites_updated_message_disablesitessl', [ $this, 'updated_message_disable' ] );
 			}
@@ -249,7 +245,7 @@ class Network extends gNetwork\Module
 	{
 		$new = [ 'resetadminemail' => _x( 'Reset Admin Email', 'Modules: Network: Bulk Action', GNETWORK_TEXTDOMAIN ) ];
 
-		if ( $this->ssl_support ) {
+		if ( gNetwork()->ssl() ) {
 			$new['enablesitessl']  = _x( 'Enable SSL', 'Modules: Network: Bulk Action', GNETWORK_TEXTDOMAIN );
 			$new['disablesitessl'] = _x( 'Disable SSL', 'Modules: Network: Bulk Action', GNETWORK_TEXTDOMAIN );
 		}
@@ -287,7 +283,7 @@ class Network extends gNetwork\Module
 				if ( update_blog_option( $blog_id, 'admin_email', $email ) )
 					$count++;
 
-		} else if ( $this->ssl_support ) {
+		} else if ( gNetwork()->ssl() ) {
 
 			$switch = 'enablesitessl' == $action
 				? [ 'http://', 'https://' ]

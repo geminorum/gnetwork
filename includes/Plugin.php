@@ -287,6 +287,20 @@ class Plugin
 		return $pre;
 	}
 
+	public function ssl()
+	{
+		if ( GNETWORK_DISABLE_SSL )
+			return FALSE;
+
+		if ( $this->option( 'ssl_support', 'blog' ) )
+			return TRUE;
+
+		if ( $this->option( 'ssl_support', 'site' ) )
+			return TRUE;
+
+		return FALSE;
+	}
+
 	public function email( $fallback = FALSE )
 	{
 		if ( isset( $this->email ) )

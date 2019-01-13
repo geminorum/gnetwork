@@ -24,7 +24,6 @@ class Blog extends gNetwork\Module
 	protected $ajax    = TRUE;
 
 	private $autosave_interval = FALSE;
-	private $ssl_support       = FALSE;
 
 	protected function setup_actions()
 	{
@@ -104,7 +103,7 @@ class Blog extends gNetwork\Module
 	public function default_options()
 	{
 		return [
-			'ssl_support'          => 0,
+			'ssl_support'          => 0, // for non-multisite only
 			'thrift_mode'          => 0,
 			'no_found_rows'        => 0,
 			'admin_locale'         => '',
@@ -154,7 +153,7 @@ class Blog extends gNetwork\Module
 				'field'       => 'ssl_support',
 				'title'       => _x( 'SSL', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 				'description' => _x( 'Enables SSL tools to support the network sites.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-				'disabled'    => defined( 'GNETWORK_DISABLE_SSL' ) && GNETWORK_DISABLE_SSL,
+				'disabled'    => GNETWORK_DISABLE_SSL,
 			];
 
 		if ( class_exists( __NAMESPACE__.'\\Locale' ) )
@@ -472,9 +471,7 @@ class Blog extends gNetwork\Module
 			&& ( $result = Locale::changeLocale( $locale ) ) )
 				WordPress::redirect( $this->remove_action( 'locale' ) );
 
-		$this->ssl_support = gNetwork()->option( 'ssl_support', 'site', $this->options['ssl_support'] );
-
-		if ( $this->ssl_support && ! GNETWORK_DISABLE_SSL ) {
+		if ( gNetwork()->ssl() ) {
 
 			$this->action( 'wp', 0, 40 );
 			$this->action( 'wp_print_scripts' );
