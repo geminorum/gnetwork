@@ -476,6 +476,7 @@ class Blog extends gNetwork\Module
 			$this->action( 'wp', 0, 40 );
 			$this->action( 'wp_print_scripts' );
 			$this->action( 'rest_api_init', 0, -999 );
+			$this->filter( 'wp_get_attachment_url', 2, -999 );
 
 		} else {
 
@@ -748,6 +749,11 @@ class Blog extends gNetwork\Module
 	public function wp_print_scripts()
 	{
 		echo "<script>if(document.location.protocol!='https:'){document.location=document.URL.replace(/^http:/i,'https:');}</script>";
+	}
+
+	public function wp_get_attachment_url( $url, $post_ID )
+	{
+		return str_replace( 'http://', 'https://', $url );
 	}
 
 	public function posts_where( $where, $query )
