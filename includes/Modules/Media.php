@@ -188,6 +188,7 @@ class Media extends gNetwork\Module
 		$this->register_button( 'clean_attachments', _x( 'Clean Attachments', 'Modules: Media', GNETWORK_TEXTDOMAIN ) );
 		$this->register_button( 'sync_attachments', _x( 'Sync Attachments', 'Modules: Media', GNETWORK_TEXTDOMAIN ) );
 		$this->register_button( 'cache_in_content', _x( 'Cache In Content', 'Modules: Media', GNETWORK_TEXTDOMAIN ) );
+		$this->register_button( 'ssl_correction', _x( 'Correct SSL', 'Modules: Media', GNETWORK_TEXTDOMAIN ) );
 	}
 
 	protected function tools_actions( $sub = NULL )
@@ -243,6 +244,21 @@ class Media extends gNetwork\Module
 
 					WordPress::redirectReferer( [
 						'message' => 'imported',
+						'count'   => $count,
+						'limit'   => self::limit(),
+						'paged'   => self::paged(),
+					] );
+
+				} else if ( isset( $_POST['ssl_correction'], $_POST['_cb'] ) ) {
+
+					$count = 0;
+
+					foreach ( $_POST['_cb'] as $post_id )
+						if ( $this->ssl_correction( $post_id ) )
+							$count++;
+
+					WordPress::redirectReferer( [
+						'message' => 'converted',
 						'count'   => $count,
 						'limit'   => self::limit(),
 						'paged'   => self::paged(),
@@ -379,10 +395,16 @@ class Media extends gNetwork\Module
 						], _x( 'Sync', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) ),
 
 						'cache' => HTML::tag( 'a', [
-							'href'   => add_query_arg( array_merge( $args, [ 'what' => 'cache_post' ] ), $column['args']['ajax'] ),
-							'class'  => '-link -row-ajax -row-ajax-cache',
-							'data' => [ 'spinner' => _x( 'Caching &hellip;', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) ],
+							'href'  => add_query_arg( array_merge( $args, [ 'what' => 'cache_post' ] ), $column['args']['ajax'] ),
+							'class' => '-link -row-ajax -row-ajax-cache',
+							'data'  => [ 'spinner' => _x( 'Caching &hellip;', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) ],
 						], _x( 'Cache', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) ),
+
+						'correct' => HTML::tag( 'a', [
+							'href'  => add_query_arg( array_merge( $args, [ 'what' => 'correct_post' ] ), $column['args']['ajax'] ),
+							'class' => '-link -row-ajax -row-ajax-correct',
+							'data'  => [ 'spinner' => _x( 'Correcting SSL &hellip;', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) ],
+						], _x( 'Correct SSL', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) ),
 					];
 				},
 			],
@@ -936,6 +958,12 @@ class Media extends gNetwork\Module
 		return TRUE;
 	}
 
+	// FIXME: WTF?!
+	public function ssl_correction( $post_id )
+	{
+		return TRUE;
+	}
+
 	public function single_post_title( $post_title, $post )
 	{
 		if ( 'attachment' == $post->post_type ) {
@@ -1104,6 +1132,19 @@ class Media extends gNetwork\Module
 					Ajax::errorMessage();
 
 				Ajax::success( _x( 'Cached', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) );
+
+			break;
+			case 'correct_post':
+
+				if ( empty( $post['post_id'] ) )
+					Ajax::errorMessage();
+
+				Ajax::checkReferer( $this->hook( $post['post_id'] ) );
+
+				if ( ! $this->ssl_correction( $post['post_id'] ) )
+					Ajax::errorMessage();
+
+				Ajax::success( _x( 'SSL Corrected', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) );
 		}
 
 		Ajax::errorWhat();
