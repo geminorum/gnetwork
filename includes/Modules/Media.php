@@ -58,7 +58,7 @@ class Media extends gNetwork\Module
 
 		Admin::registerTool( 'images',
 			_x( 'Images', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			[ $this, 'tools' ], 'edit_others_posts'
+			[ $this, 'tools' ], $this->options['tools_accesscap']
 		);
 	}
 
@@ -70,6 +70,7 @@ class Media extends gNetwork\Module
 	public function default_options()
 	{
 		return [
+			'tools_accesscap'     => 'edit_others_posts',
 			'skip_exifmeta'       => '1',
 			'dashboard_widget'    => '0',
 			'dashboard_accesscap' => 'edit_others_posts',
@@ -81,6 +82,13 @@ class Media extends gNetwork\Module
 	{
 		return [
 			'_general' => [
+				[
+					'field'       => 'tools_accesscap',
+					'type'        => 'cap',
+					'title'       => _x( 'Tools Access', 'Modules: Media: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Selected and above can view the image tools.', 'Modules: Media: Settings', GNETWORK_TEXTDOMAIN ),
+					'default'     => 'edit_others_posts',
+				],
 				[
 					'field'       => 'skip_exifmeta',
 					'title'       => _x( 'Strip EXIF', 'Modules: Media: Settings', GNETWORK_TEXTDOMAIN ),
@@ -140,7 +148,7 @@ class Media extends gNetwork\Module
 	{
 		if ( 'upload' == $screen->base ) {
 
-			if ( WordPress::cuc( 'edit_others_posts' ) ) {
+			if ( WordPress::cuc( $this->options['tools_accesscap'] ) ) {
 				add_filter( 'bulk_actions-'.$screen->id, [ $this, 'bulk_actions' ] );
 				add_filter( 'handle_bulk_actions-'.$screen->id, [ $this, 'handle_bulk_actions' ], 10, 3 );
 			}
@@ -157,7 +165,8 @@ class Media extends gNetwork\Module
 
 	public function wp_dashboard_setup()
 	{
-		if ( WordPress::cuc( $this->options['dashboard_accesscap'] ) && current_user_can( 'upload_files' ) ) {
+		if ( WordPress::cuc( $this->options['dashboard_accesscap'] )
+			&& current_user_can( 'upload_files' ) ) {
 
 			wp_add_dashboard_widget(
 				$this->classs( 'dashboard' ),
@@ -971,7 +980,7 @@ class Media extends gNetwork\Module
 	{
 		$url = wp_get_attachment_url( $post->ID );
 
-		if ( WordPress::cuc( 'edit_others_posts' )
+		if ( WordPress::cuc( $this->options['tools_accesscap'] )
 			&& wp_attachment_is( 'image', $post->ID ) ) {
 
 			$actions['media-clean'] = HTML::tag( 'a', [
