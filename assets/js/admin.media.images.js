@@ -77,5 +77,31 @@
           }
         }
       });
+    })
+
+    .on('click', 'a.-row-ajax-correct', function (e) {
+      e.preventDefault();
+
+      var link = $(this);
+
+      if (link.hasClass('-corrected')) {
+        return;
+      }
+
+      $.ajax({
+        type: 'GET',
+        url: link.attr('href'),
+        beforeSend: function (xhr) {
+          link.html(link.data('spinner'));
+        },
+        success: function (response) {
+          if (response.success) {
+            link.text(response.data).addClass('-corrected');
+          } else {
+            link.text($(response.data).text());
+            console.log(response);
+          }
+        }
+      });
     });
 })(jQuery);
