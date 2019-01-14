@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP Multi Network\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2018-12-19 07:22+0330\n"
+"PO-Revision-Date: 2019-01-09 00:28+0330\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: \n"
 "Language: fa_IR\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: wp-multi-network/includes/metaboxes/edit-network.php:107
 msgid "Network Subsites"
-msgstr ""
+msgstr "زیرسایت‌های شبکه"
 
 #: wp-multi-network/includes/functions.php:444
 msgid "New Network Site"
@@ -36,7 +36,7 @@ msgstr ""
 
 #: wp-multi-network/includes/classes/class-wp-ms-networks-list-table.php:236
 msgid "Primary"
-msgstr ""
+msgstr "اصلی"
 
 #: wp-multi-network/includes/classes/class-wp-ms-networks-cli.php:278
 msgid "Network %s doesn't exist."
@@ -106,35 +106,35 @@ msgstr ""
 
 #. Plugin Name of the plugin/theme
 msgid "WP Multi-Network"
-msgstr ""
+msgstr "وردپرس چندشبکه‌ای"
 
 #: wp-multi-network/includes/metaboxes/move-site.php:76
 msgid "Path: <strong>%1$s</strong>"
-msgstr ""
+msgstr "مسیر: <strong>%1$s</strong>"
 
 #: wp-multi-network/includes/metaboxes/move-site.php:73
 msgid "Domain: <strong>%1$s</strong>"
-msgstr ""
+msgstr "دامنه: <strong>%1$s</strong>"
 
 #: wp-multi-network/includes/metaboxes/move-site.php:70
 msgid "Created: <strong>%1$s</strong>"
-msgstr ""
+msgstr "ایجاد: <strong>%1$s</strong>"
 
 #: wp-multi-network/includes/metaboxes/move-site.php:31
 msgid "&mdash; No Network &mdash;"
-msgstr ""
+msgstr "&mdash; بدون شبکه &mdash;"
 
 #: wp-multi-network/includes/metaboxes/edit-network.php:200
 msgid "Creating a network with 1 new site."
-msgstr ""
+msgstr "ایجاد شبکه با یک سایت تازه."
 
 #: wp-multi-network/includes/metaboxes/edit-network.php:194
 msgid "Sites: <strong>%1$s</strong>"
-msgstr ""
+msgstr "سایت‌ها: <strong>%1$s</strong>"
 
 #: wp-multi-network/includes/metaboxes/edit-network.php:191
 msgid "Name: <strong>%1$s</strong>"
-msgstr ""
+msgstr "نام: <strong>%1$s</strong>"
 
 #: wp-multi-network/includes/metaboxes/edit-network.php:172
 msgid "Update"
@@ -146,19 +146,19 @@ msgstr "ساختن"
 
 #: wp-multi-network/includes/metaboxes/edit-network.php:105
 msgid "Available Subsites"
-msgstr ""
+msgstr "زیرسایت‌های در دسترس"
 
 #: wp-multi-network/includes/metaboxes/edit-network.php:72
 msgid "A new site needs to be created at the root of this network."
-msgstr ""
+msgstr "باید یک سایت تازه در پایه این شبکه ایجاد شود."
 
 #: wp-multi-network/includes/metaboxes/edit-network.php:68
 msgid "Site Name"
-msgstr ""
+msgstr "نام سایت"
 
 #: wp-multi-network/includes/metaboxes/edit-network.php:49
 msgid "Use \"/\" if you are unsure."
-msgstr ""
+msgstr "اگر مطمئن نیستید، از \"/\" استفاده کنید."
 
 #: wp-multi-network/includes/deprecated.php:56
 #: wp-multi-network/includes/deprecated.php:80
@@ -268,7 +268,7 @@ msgstr "سایت‌ها"
 #: wp-multi-network/includes/classes/class-wp-ms-networks-list-table.php:136
 #: wp-multi-network/includes/metaboxes/edit-network.php:45
 msgid "Path"
-msgstr ""
+msgstr "مسیر"
 
 #: wp-multi-network/includes/classes/class-wp-ms-networks-list-table.php:135
 #: wp-multi-network/includes/metaboxes/edit-network.php:34
@@ -383,11 +383,11 @@ msgstr "سایت"
 
 #: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:465
 msgid "Assign Network"
-msgstr ""
+msgstr "تخصیص شبکه"
 
 #: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:394
 msgid "Enter network title here"
-msgstr ""
+msgstr "نام شبکه را اینجا وارد کنید"
 
 #: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:384
 msgid "Add New Network"
@@ -399,11 +399,11 @@ msgstr "ویرایش شبکه"
 
 #: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:365
 msgid "Site Assignment"
-msgstr ""
+msgstr "تخصیص سایت"
 
 #: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:361
 msgid "Root Site"
-msgstr ""
+msgstr "سایت اولیه"
 
 #: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:355
 msgid "Network"
@@ -411,7 +411,7 @@ msgstr "شبکه"
 
 #: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:354
 msgid "Details"
-msgstr ""
+msgstr "جزئیات"
 
 #: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:443
 msgid "Search Networks"
@@ -431,11 +431,11 @@ msgstr "افزودن"
 
 #: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:253
 msgid "You do not have permission to access this page."
-msgstr ""
+msgstr "شما مجوز دسترسی به این صفحه را ندارید."
 
 #: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:235
 msgid "Dismiss this notice"
-msgstr ""
+msgstr "بستن این آگاه‌سازی"
 
 #: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:232
 msgid "Back to Networks."
@@ -443,35 +443,35 @@ msgstr "بازگشت به شبکه‌ها."
 
 #: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:198
 msgid "Site not moved."
-msgstr ""
+msgstr "سایت جابه‌جا نشد."
 
 #: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:197
 msgid "Site moved."
-msgstr ""
+msgstr "سایت جابه‌جا شد."
 
 #: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:194
 msgid "Network not deleted."
-msgstr ""
+msgstr "شبکه حذف نشد."
 
 #: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:193
 msgid "Network deleted."
-msgstr ""
+msgstr "شبکه حذف شد."
 
 #: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:190
 msgid "Network not created."
-msgstr ""
+msgstr "شبکه ایجاد نشد."
 
 #: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:189
 msgid "Network created."
-msgstr ""
+msgstr "شبکه ایجاد شد."
 
 #: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:186
 msgid "Network not updated."
-msgstr ""
+msgstr "شبکه به‌روز نشد."
 
 #: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:185
 msgid "Network updated."
-msgstr ""
+msgstr "شبکه به‌روز شد."
 
 #: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:115
 msgid "Add New"

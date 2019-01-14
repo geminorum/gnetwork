@@ -706,7 +706,7 @@ class Debug extends gNetwork\Module
 
 			if ( GNETWORK_DEBUG_LOG )
 				echo HTML::tag( 'a', [
-					'class' => 'button button-secondary',
+					'class' => 'button button-secondary button-small',
 					'href'  => $this->get_menu_url( 'errorlogs', 'network', 'tools' ),
 				], _x( 'Check Errors', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
 
@@ -715,7 +715,7 @@ class Debug extends gNetwork\Module
 
 			if ( GNETWORK_ANALOG_LOG )
 				echo HTML::tag( 'a', [
-					'class' => 'button button-secondary',
+					'class' => 'button button-secondary button-small',
 					'href'  => $this->get_menu_url( 'analoglogs', 'network', 'tools' ),
 				], _x( 'Check Logs', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
 
@@ -724,7 +724,7 @@ class Debug extends gNetwork\Module
 
 			if ( GNETWORK_FAILED_LOG )
 				echo HTML::tag( 'a', [
-					'class' => 'button button-secondary',
+					'class' => 'button button-secondary button-small',
 					'href'  => $this->get_menu_url( 'failedlogs', 'network', 'tools' ),
 				], _x( 'Check Failed', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
 
