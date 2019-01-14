@@ -65,8 +65,8 @@ class Farapaymak extends gNetwork\Provider
 	public function settings_section()
 	{
 		Settings::fieldSection(
-			_x( 'Farapaymak', 'Provider: Farapaymak: Settings Section Title', GNETWORK_TEXTDOMAIN ),
-			_x( 'Farapaymak is a Persian SMS Provider', 'Provider: Farapaymak: Settings Section Description', GNETWORK_TEXTDOMAIN )
+			_x( 'Farapaymak', 'Provider: Farapaymak: Settings', GNETWORK_TEXTDOMAIN ),
+			_x( 'Farapaymak is a Persian SMS Provider', 'Provider: Farapaymak: Settings', GNETWORK_TEXTDOMAIN )
 		);
 	}
 

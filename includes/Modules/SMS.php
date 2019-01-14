@@ -12,8 +12,9 @@ use geminorum\gNetwork\Core\WordPress;
 class SMS extends gNetwork\Module
 {
 
-	protected $key    = 'sms';
-	protected $ajax   = TRUE;
+	protected $key  = 'sms';
+	protected $ajax = TRUE;
+
 	protected $hidden = TRUE; // FIXME
 
 	public $providers = [];
@@ -21,7 +22,7 @@ class SMS extends gNetwork\Module
 	public function setup_actions()
 	{
 		if ( $this->options['load_providers'] )
-			$this->init_providers();
+			$this->setup_providers();
 	}
 
 	public function setup_menu( $context )
@@ -44,7 +45,7 @@ class SMS extends gNetwork\Module
 		return $settings;
 	}
 
-	private function init_providers()
+	private function setup_providers()
 	{
 		$bundled = [
 			'kavenegar' => [
