@@ -1,0 +1,59 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// gNetwork Partials: WP Multi Network: RTL -----------------------------------
+
+.fixed.networks .current th.check-column {
+  border-left: none;
+  border-right: 4px solid #00a0d2;
+}
+
+table.edit-network {
+  label span.scheme {
+    float: left;
+    direction: ltr;
+    padding: 7px 2px 0 0;
+  }
+
+  .form-field #path,
+  .form-field #domain {
+    float: left;
+    direction: ltr;
+  }
+
+  .form-field #path + p {
+    float: left;
+    clear: left;
+  }
+}
+
+table.assign-sites {
+  td.column-available {
+    direction: ltr;
+    padding-left: 0;
+    padding-right: 10px;
+  }
+
+  td.column-assigned {
+    direction: ltr;
+    padding-right: 0;
+    padding-left: 10px;
+  }
+
+  td.column-actions {
+    .assign {
+      float: right;
+      // content: "\f340";
+    }
+
+    .unassign {
+      float: left;
+      // content: "\f341";
+    }
+  }
+}
+
+#misc-publishing-actions #network::before,
+#misc-publishing-actions #sites::before {
+  padding: 0 0 0 2px;
+}

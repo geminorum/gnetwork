@@ -32,6 +32,14 @@ input#user_login {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+#gnetwork-restricted-restricted_feed_key {
+  &::placeholder {
+    direction: rtl;
+    text-align: right;
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
 .wrap .add-new-h2,
 .wrap .add-new-h2:active,
 .wrap .page-title-action,

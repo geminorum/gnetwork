@@ -51,8 +51,14 @@
     }
 
     // .-edit-link {}
-    // .-mail-link {}
-    // .-ip-info {}
+
+    .-mail-link,
+    .-ip-info {
+      /*rtl:begin:ignore*/
+      direction: ltr;
+      text-align: left;
+      /*rtl:end:ignore*/
+    }
 
     .-month-day {
       width: 15px;
