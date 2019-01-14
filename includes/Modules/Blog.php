@@ -441,6 +441,8 @@ class Blog extends gNetwork\Module
 
 	public function plugins_loaded()
 	{
+		force_ssl_admin( gNetwork()->ssl() );
+
 		if ( ! defined( 'AUTOSAVE_INTERVAL' ) ) {
 
 			if ( $this->options['autosave_interval'] )
