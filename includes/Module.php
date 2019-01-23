@@ -1236,6 +1236,7 @@ class Module extends Core\Base
 				$items[] = HTML::tag( 'a', [
 					'href'  => $menu,
 					'title' => $provider->providerName(),
+					'class' => $provider->providerWorking() ? 'working' : 'warning',
 					'data'  => [ 'name' => $name, 'module' => $this->key ],
 				], $provider->providerStatus() );
 

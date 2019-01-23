@@ -210,7 +210,11 @@ class Provider extends Core\Base
 		return $this->enabled;
 	}
 
-	public function providerWorking() {}
+	public function providerWorking()
+	{
+		return TRUE;
+	}
+
 	public function providerBalance() {}
 
 	public function providerName()
