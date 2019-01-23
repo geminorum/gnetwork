@@ -231,17 +231,20 @@ class Provider extends Core\Base
 		return FALSE;
 	}
 
-	public function smsSend( $text, $atts = [] )
+	public function smsSend( $message, $target = NULL, $atts = [] )
 	{
 		return new Error( 'mothod_undefined', 'method must be over-ridden in a sub-class.' );
 	}
 
-	public function smsBulk( $text, $atts = [] )
+	public function smsBulk( $message, $target = NULL, $atts = [] )
 	{
 		return new Error( 'mothod_undefined', 'method must be over-ridden in a sub-class.' );
 	}
 
-	public function smsRecive() {}
+	public function smsRecive()
+	{
+		return new Error( 'mothod_undefined', 'method must be over-ridden in a sub-class.' );
+	}
 
 	protected function soapExecute( $method, $args = [] )
 	{
