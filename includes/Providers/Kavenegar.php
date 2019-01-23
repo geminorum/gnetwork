@@ -5,6 +5,7 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 use geminorum\gNetwork;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Core\Error;
+use geminorum\gNetwork\Core\Number;
 
 class Kavenegar extends gNetwork\Provider
 {
@@ -92,22 +93,35 @@ class Kavenegar extends gNetwork\Provider
 
 	public function providerStatus()
 	{
-		$results = $this->curlExecute( $this->apiEndpoint( 'utils', 'getdate' ) );
+		$balance = $this->providerBalance();
 
-		return [
-			'status'    => $results['return']['status'],
-			'timestamp' => isset( $results['entries']['unixtime'] ) ? $results['entries']['unixtime'] : NULL,
-		];
+		return $balance
+			? sprintf( _x( '%s Rials for SMS', 'Provider: Kavenegar', GNETWORK_TEXTDOMAIN ), Number::format( $balance ) )
+			: _x( 'Charge SMS Credits!', 'Provider: Kavenegar', GNETWORK_TEXTDOMAIN );
+	}
+
+	public function providerWorking()
+	{
+		return (bool) $this->providerBalance();
 	}
 
 	public function providerBalance()
 	{
+		static $balance = NULL;
+
+		if ( ! is_null( $balance ) )
+			return $balance;
+
 		$results = $this->curlExecute( $this->apiEndpoint( 'account', 'info' ) );
 
 		if ( ! $this->isResults( $results ) )
 			return FALSE;
 
-		return isset( $results['entries']['remaincredit'] ) ? $results['entries']['remaincredit'] : FALSE;
+		$balance = isset( $results['entries']['remaincredit'] )
+			? $results['entries']['remaincredit']
+			: FALSE;
+
+		return $balance;
 	}
 
 	public function smsSend( $message, $target = NULL, $atts = [] )
