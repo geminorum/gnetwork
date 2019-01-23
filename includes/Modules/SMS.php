@@ -73,49 +73,7 @@ class SMS extends gNetwork\Module
 			}
 		}
 
-		if ( is_admin() ) {
-			add_action( 'wp_network_dashboard_setup', [ $this, 'wp_dashboard_setup' ], 20 );
-			add_action( 'wp_dashboard_setup', [ $this, 'wp_dashboard_setup' ], 20 );
-		}
-	}
-
-	public function wp_dashboard_setup()
-	{
-		if ( WordPress::cuc( $this->options['manage_providers'] ) )
-			wp_add_dashboard_widget( $this->classs( 'providers-summary' ),
-				_x( 'SMS Providers', 'Modules: SMS: Widget Title', GNETWORK_TEXTDOMAIN ),
-				[ $this, 'admin_widget_summary' ]
-			);
-	}
-
-	public function admin_widget_summary()
-	{
-		if ( $this->check_hidden_metabox( 'providers-summary' ) )
-			return;
-
-		foreach ( $this->providers as $name => &$provider ) {
-
-			if ( $provider->providerEnabled() ) {
-
-				$status = $provider->providerStatus();
-
-				if ( self::isError( $status ) ) {
-
-					echo HTML::error( vsprintf( _x( '%s: %s', 'Modules: SMS', GNETWORK_TEXTDOMAIN ), [
-						$provider->providerName(),
-						$status->get_error_message(),
-					] ) );
-
-				} else {
-
-					HTML::h3( $provider->providerName() );
-
-					echo gNetwork\Provider::dateFormat( $status['timestamp'] );
-					echo '<br/>';
-					echo $provider->providerBalance();
-				}
-			}
-		}
+		$this->filter_module( 'dashboard', 'pointers', 1, 10, 'providers' );
 	}
 
 	public static function send( $message, $target = NULL, $atts = [] )

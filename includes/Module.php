@@ -1222,4 +1222,23 @@ class Module extends Core\Base
 
 		return TRUE;
 	}
+
+	// DEFAULT FILTER
+	public function dashboard_pointers_providers( $items )
+	{
+		if ( ! WordPress::cuc( $this->options['manage_providers'] ) )
+			return $items;
+
+		$menu = $this->get_menu_url( $this->key, NULL );
+
+		foreach ( $this->providers as $name => &$provider )
+			if ( $provider->providerEnabled() )
+				$items[] = HTML::tag( 'a', [
+					'href'  => $menu,
+					'title' => $provider->providerName(),
+					'data'  => [ 'name' => $name, 'module' => $this->key ],
+				], $provider->providerStatus() );
+
+		return $items;
+	}
 }
