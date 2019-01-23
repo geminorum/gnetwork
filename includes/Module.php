@@ -14,8 +14,10 @@ class Module extends Core\Base
 	const BASE   = 'gnetwork';
 	const MODULE = FALSE;
 
-	public $options = [];
-	public $menus   = [
+	public $options   = [];
+	public $providers = [];
+
+	public $menus = [
 		'settings' => [],
 		'tools'    => [],
 	];
@@ -133,6 +135,9 @@ class Module extends Core\Base
 		if ( FALSE === $this->setup_actions() )
 			return;
 
+		if ( ! empty( $this->options['load_providers'] ) )
+			$this->setup_providers();
+
 		if ( ! WordPress::mustRegisterUI() )
 			return;
 
@@ -153,7 +158,12 @@ class Module extends Core\Base
 
 	protected function setup_actions()
 	{
-		// WILL OVERRIDED
+		// WILL BE OVERRIDDEN
+	}
+
+	protected function setup_providers()
+	{
+		// WILL BE OVERRIDDEN
 	}
 
 	public function get_menu_url( $sub = NULL, $admin = 'admin', $context = 'settings', $extra = [], $scheme = 'admin', $network = NULL )

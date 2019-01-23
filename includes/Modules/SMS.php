@@ -17,14 +17,6 @@ class SMS extends gNetwork\Module
 
 	protected $hidden = TRUE; // FIXME
 
-	public $providers = [];
-
-	public function setup_actions()
-	{
-		if ( $this->options['load_providers'] )
-			$this->setup_providers();
-	}
-
 	public function setup_menu( $context )
 	{
 		$this->register_menu( _x( 'SMS', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
@@ -45,7 +37,7 @@ class SMS extends gNetwork\Module
 		return $settings;
 	}
 
-	private function setup_providers()
+	protected function setup_providers()
 	{
 		$bundled = [
 			'kavenegar' => [
