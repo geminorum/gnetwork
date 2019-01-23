@@ -111,12 +111,12 @@ class Kavenegar extends gNetwork\Provider
 		return isset( $results['entries']['remaincredit'] ) ? $results['entries']['remaincredit'] : FALSE;
 	}
 
-	public function smsSend( $text, $number = NULL, $atts = [] )
+	public function smsSend( $message, $target = NULL, $atts = [] )
 	{
 		$args = self::atts( [
-			'receptor' => is_null( $number ) ? $this->options['kavenegar_admin_numbers'] : $number,
+			'receptor' => $target ?: $this->options['kavenegar_admin_numbers'],
 			'sender'   => $this->options['kavenegar_from_number'],
-			'message'  => $text,
+			'message'  => $message,
 			// 'date'    => $date,
 			// 'type'    => $type,
 			// 'localid' => $localid,
@@ -137,12 +137,12 @@ class Kavenegar extends gNetwork\Provider
 	}
 
 	// FIXME: UNFINISHED
-	public function smsBulk( $text, $atts = [] )
+	public function smsBulk( $message, $target = NULL, $atts = [] )
 	{
 		$args = self::atts( [
-			'receptor' => $this->options['kavenegar_admin_numbers'],
+			'receptor' => $target ?: $this->options['kavenegar_admin_numbers'],
 			'sender'   => $this->options['kavenegar_from_number'],
-			'message'  => wp_json_encode( $text ),
+			'message'  => wp_json_encode( $message ),
 			// 'date'             => $date,
 			// 'type'             => $type,
 			// 'localid' => $localid,

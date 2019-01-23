@@ -75,12 +75,12 @@ class Farapaymak extends gNetwork\Provider
 		return $this->soapExecute( 'GetCredit' );
 	}
 
-	public function smsSend( $text, $atts = [] )
+	public function smsSend( $message, $target = NULL, $atts = [] )
 	{
 		$args = self::atts( [
-			'to'      => $this->options['farapaymak_admin_numbers'],
+			'to'      => $target ?: $this->options['farapaymak_admin_numbers'],
 			'from'    => $this->options['farapaymak_from_number'],
-			'text'    => $text,
+			'text'    => $message,
 			'isflash' => FALSE,
 			'udh'     => '',
 			'recId'   => [ 0 ],

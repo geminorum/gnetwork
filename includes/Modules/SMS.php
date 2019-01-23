@@ -118,7 +118,7 @@ class SMS extends gNetwork\Module
 		}
 	}
 
-	public static function send( $text, $number = NULL, $atts = [] )
+	public static function send( $message, $target = NULL, $atts = [] )
 	{
 		if ( gNetwork()->option( 'load_providers', 'sms' ) ) {
 
@@ -126,13 +126,13 @@ class SMS extends gNetwork\Module
 
 			if ( isset( gNetwork()->sms->providers[$provider] ) ) {
 
-				$results = gNetwork()->sms->providers[$provider]->smsSend( $text, $number, $atts );
+				$results = gNetwork()->sms->providers[$provider]->smsSend( $message, $target, $atts );
 
 				if ( gNetwork()->option( 'debug_providers', 'sms' ) )
-					Logger::DEBUG( 'SMS-SEND: {provider}: {number}::{text} - {results}', [
+					Logger::DEBUG( 'SMS-SEND: {provider}: {target}::{message} - {results}', [
 						'provider' => $provider,
-						'number'   => $number,
-						'text'     => $text,
+						'target'   => $target,
+						'message'  => $message,
 						'results'  => $results,
 					] );
 
