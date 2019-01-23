@@ -5,6 +5,7 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 use geminorum\gNetwork;
 use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\HTML;
+use geminorum\gNetwork\Core\Number;
 use geminorum\gNetwork\Core\Text;
 use geminorum\gNetwork\Core\WordPress;
 
@@ -79,14 +80,14 @@ class Dashboard extends gNetwork\Module
 			);
 		}
 
+		$this->action( 'activity_box_end', 0, 4 );
+
 		if ( ! is_multisite() )
 			return;
 
 		if ( current_user_can( 'upload_files' ) ) {
-
 			remove_action( 'activity_box_end', 'wp_dashboard_quota' );
-
-			add_action( 'activity_box_end', [ $this, 'dashboard_quota' ], 5 );
+			$this->filter_module( 'dashboard', 'pointers', 1, 5, 'quota' );
 		}
 	}
 
@@ -302,41 +303,6 @@ class Dashboard extends gNetwork\Module
 		echo '</div>';
 	}
 
-	public function dashboard_quota()
-	{
-		if ( get_network_option( NULL, 'upload_space_check_disabled' )  )
-			return;
-
-		$quota = get_space_allowed();
-		$used  = get_space_used();
-
-		$percent = $used > $quota ? '100' : ( ( $used / $quota ) * 100 );
-		$class   = $percent >= 70 ? ' warning' : '';
-
-		HTML::h3( __( 'Storage Space' ), 'mu-storage' );
-
-		echo '<div class="mu-storage"><ul><li class="storage-count">';
-
-		printf( '<a href="%1$s">%2$s <span class="screen-reader-text">(%3$s)</span></a>',
-			esc_url( admin_url( 'upload.php' ) ),
-			sprintf( __( '%s MB Space Allowed' ), number_format_i18n( $quota ) ),
-			__( 'Manage Uploads' )
-		);
-
-		echo '</li><li class="storage-count '.$class.'">';
-
-		$template = sprintf( _x( '%s Space Used', 'Modules: Dashboard: Space Quota', GNETWORK_TEXTDOMAIN ),
-			'<span title="&lrm;%s MB&rlm;">%s'.( is_rtl() ? '&#1642;' : '&#37;' ).'</span>' );
-
-		printf( '<a href="%1$s" class="musublink">%2$s <span class="screen-reader-text">(%3$s)</span></a>',
-			esc_url( admin_url( 'upload.php' ) ),
-			sprintf( $template, number_format_i18n( round( $used, 2 ), 2 ), number_format_i18n( $percent ) ),
-			__( 'Manage Uploads' )
-		);
-
-		echo '</li></ul></div>';
-	}
-
 	public function widget_signups()
 	{
 		if ( $this->check_hidden_metabox( 'signups' ) )
@@ -517,5 +483,33 @@ class Dashboard extends gNetwork\Module
 		}
 
 		echo '</div>';
+	}
+
+	public function dashboard_pointers_quota( $items )
+	{
+		if ( get_network_option( NULL, 'upload_space_check_disabled' )  )
+			return $items;
+
+		$quota   = get_space_allowed();
+		$used    = get_space_used();
+		$percent = number_format( ( $used / $quota ) * 100 );
+
+		$items[] = HTML::tag( 'a', [
+			'href'  => admin_url( 'upload.php' ),
+			'title' => sprintf( '%s MB/%s MB', Number::format( number_format( round( $used, 2 ), 2 ) ), Number::format( $quota ) ),
+			'class' => 'storage'.( $percent >= 70 ? ' warning' : '' ),
+		], sprintf( _x( '%s Space Used', 'Modules: Dashboard: Space Quota', GNETWORK_TEXTDOMAIN ), Number::format( $percent.'%' ) ) );
+
+		return $items;
+	}
+
+	public function activity_box_end()
+	{
+		if ( empty( $items = $this->filters( 'pointers', [] ) ) )
+			return;
+
+		echo '<ul class="-pointers">';
+			echo '<li>'.implode( '</li><li>', $items ).'</li>';
+		echo '</ul>';
 	}
 }
