@@ -12,9 +12,8 @@ class Kavenegar extends gNetwork\Provider
 	protected $key  = 'kavenegar';
 	protected $type = 'sms';
 
-	protected $api_uri    = 'http://api.kavenegar.com/v1/%s/';
+	protected $api_uri    = 'https://api.kavenegar.com/v1/%s/';
 	protected $api_suffix = '.json';
-	protected $api_key    = '';
 
 	public function providerName()
 	{

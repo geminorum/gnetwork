@@ -107,7 +107,7 @@ class Provider extends Core\Base
 
 	protected function setup_actions()
 	{
-		// WILL OVERRIDED
+		// WILL BE OVERRIDDEN
 	}
 
 	public function default_options()
@@ -220,13 +220,14 @@ class Provider extends Core\Base
 
 	public function providerStatus()
 	{
-		return new Error( 'mothod_undefined', 'method must be over-ridden in a sub-class.' );
+		return '<span>[UKNOWN]</span>';
 	}
 
 	protected function apiEndpoint()
 	{
 		if ( $this->api_uri )
-			return sprintf( $this->api_uri, $this->api_key ).implode( '/', func_get_args() ).$this->api_suffix;
+			return sprintf( $this->api_uri, $this->api_key )
+				.implode( '/', func_get_args() ).$this->api_suffix;
 
 		return FALSE;
 	}

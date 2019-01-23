@@ -86,7 +86,7 @@ class Dashboard extends gNetwork\Module
 
 			remove_action( 'activity_box_end', 'wp_dashboard_quota' );
 
-			add_action( 'activity_box_end', [ $this, 'dashboard_quota' ] );
+			add_action( 'activity_box_end', [ $this, 'dashboard_quota' ], 5 );
 		}
 	}
 
