@@ -260,6 +260,9 @@ class Notify extends gNetwork\Module
 	{
 		global $wpdb, $wp_hasher;
 
+		if ( ! in_array( $notify, array( 'user', 'admin', 'both', '' ), TRUE ) )
+			return;
+
 		$site = WordPress::getSiteNameforEmail();
 		$user = get_userdata( $user_id );
 
