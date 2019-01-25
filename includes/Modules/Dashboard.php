@@ -496,7 +496,7 @@ class Dashboard extends gNetwork\Module
 
 		$items[] = HTML::tag( 'a', [
 			'href'  => admin_url( 'upload.php' ),
-			'title' => sprintf( '%s MB/%s MB', Number::format( number_format( round( $used, 2 ), 2 ) ), Number::format( $quota ) ),
+			'title' => sprintf( HTML::wrapLTR( '%s MB/%s MB' ), Number::format( number_format( round( $used, 2 ), 2 ) ), Number::format( $quota ) ),
 			'class' => 'storage'.( $percent >= 70 ? ' warning' : '' ),
 		], sprintf( _x( '%s Space Used', 'Modules: Dashboard: Space Quota', GNETWORK_TEXTDOMAIN ), Number::format( $percent.'%' ) ) );
 

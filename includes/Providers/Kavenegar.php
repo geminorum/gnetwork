@@ -61,7 +61,7 @@ class Kavenegar extends gNetwork\Provider
 	{
 		Settings::fieldSection(
 			_x( 'Kavenegar', 'Provider: Kavenegar: Settings', GNETWORK_TEXTDOMAIN ),
-			_x( 'Kavenegar is a Persian SMS Provider', 'Provider: Kavenegar: Settings', GNETWORK_TEXTDOMAIN )
+			_x( 'Kavenegar is a Persian SMS Provider.', 'Provider: Kavenegar: Settings', GNETWORK_TEXTDOMAIN )
 		);
 	}
 

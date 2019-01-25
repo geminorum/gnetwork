@@ -120,13 +120,15 @@ class User extends gNetwork\Module
 				[
 					'field'       => 'blog_roles',
 					'title'       => _x( 'Blog Roles', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Automatically adds each user to blogs', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Tries to automatically add each user to the network sites.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
 					'field'       => 'admin_user_edit',
 					'title'       => _x( 'Administrator User Edit', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Allows site administrators to edit users of their sites.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
 				],
+			],
+			'_dashboard' => [
 				[
 					'field'       => 'dashboard_sites',
 					'title'       => _x( 'Dashboard Sites', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
@@ -147,35 +149,35 @@ class User extends gNetwork\Module
 					'field'       => 'tos_title',
 					'type'        => 'text',
 					'title'       => _x( 'ToS Title', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Section Title, Usually : Terms of Service', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Displays as section title, usually &#8220;Terms of Service&#8221;.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => _x( 'Terms of Service', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
 					'field'       => 'tos_link',
 					'type'        => 'url',
-					'title'       => _x( 'ToS Link', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'URL for section title link to actual agreement text', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'ToS URL', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Links section title to to the page with detailed information about the agreement.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
 					'field'       => 'tos_text',
 					'type'        => 'textarea',
 					'title'       => _x( 'ToS Text', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Full text of the agreement', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Displays as full text of the agreement.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
 					'field_class' => 'large-text',
 				],
 				[
 					'field'       => 'tos_label',
 					'type'        => 'text',
 					'title'       => _x( 'ToS Label', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Label next to the mandatory checkbox, below full text', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
-					'default'     => _x( 'By checking the Terms of Service Box you have read and agree to all the Policies set forth in this site\'s Terms of Service.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Displays as label next to the mandatory checkbox, below the full text.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
+					'default'     => _x( 'By checking the Terms of Service box you have read and agree to all the policies set forth in this site\'s terms of service.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
 					'field_class' => 'large-text',
 				],
 				[
 					'field'       => 'tos_must',
 					'type'        => 'text',
 					'title'       => _x( 'ToS Must', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Error message upon not checking the box', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Displays as error message upon the user not checking the box.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => _x( 'You have to accept our terms of service. Otherwise we cannot register you on our site.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
 					'field_class' => 'large-text',
 				],
@@ -187,7 +189,7 @@ class User extends gNetwork\Module
 	{
 		Settings::fieldSection(
 			_x( 'Terms of Service', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
-			_x( 'ToS Settings on Registration Page', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN )
+			_x( 'Details about terms of service section on registration pages.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN )
 		);
 	}
 
