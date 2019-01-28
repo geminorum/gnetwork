@@ -27,7 +27,7 @@ class Maintenance extends gNetwork\Module
 				$this->action( 'admin_init' );
 
 			if ( 'none' != $this->options['maintenance_site'] )
-				$this->action( 'activity_box_end', 0, 12 );
+				$this->filter_module( 'dashboard', 'pointers' );
 
 		} else {
 
@@ -186,9 +186,17 @@ class Maintenance extends gNetwork\Module
 			echo HTML::warning( $this->options['admin_notice'] );
 	}
 
-	public function activity_box_end()
+	public function dashboard_pointers( $items )
 	{
-		echo $this->wrap( '<p>'._x( 'The Maintenance Mode is active.', 'Modules: Maintenance', GNETWORK_TEXTDOMAIN ).'</p>', '-maintenance-mode' );
+		$can = WordPress::cuc( 'manage_options' );
+
+		$items[] = HTML::tag( $can ? 'a' : 'span', [
+			'href'  => $can ? $this->get_menu_url( 'maintenance' ) : FALSE,
+			'title' => _x( 'The Maintenance Mode is active.', 'Modules: Maintenance', GNETWORK_TEXTDOMAIN ),
+			'class' => '-maintenance',
+		], _x( 'In Maintenance!', 'Modules: Maintenance', GNETWORK_TEXTDOMAIN ) );
+
+		return $items;
 	}
 
 	public function login_message( $message )
