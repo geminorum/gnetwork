@@ -25,10 +25,15 @@ class Restricted extends gNetwork\Module
 
 		$this->action( 'init', 0, 2 );
 
-		if ( is_admin() ) {
-			add_action( 'load-profile.php', [ $this, 'load_profile' ] );
-			add_action( 'load-user-edit.php', [ $this, 'load_profile' ] );
-		} // TODO: else on any front profile
+		if ( ! is_admin() )
+			return;
+
+		if ( 'none' != $this->options['restricted_site'] )
+			$this->filter_module( 'dashboard', 'pointers' );
+
+		// TODO: support front-end profile
+		add_action( 'load-profile.php', [ $this, 'load_profile' ] );
+		add_action( 'load-user-edit.php', [ $this, 'load_profile' ] );
 	}
 
 	public function setup_menu( $context )
@@ -165,6 +170,19 @@ class Restricted extends gNetwork\Module
 			'new-content',
 			'comments',
 		] );
+	}
+
+	public function dashboard_pointers( $items )
+	{
+		$can = WordPress::cuc( 'manage_options' );
+
+		$items[] = HTML::tag( $can ? 'a' : 'span', [
+			'href'  => $can ? $this->get_menu_url( 'maintenance' ) : FALSE,
+			'title' => sprintf( _x( 'This site is restricted to users with %1$s access level.', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ), Settings::getUserCapList( $this->options['restricted_site'] ) ),
+			'class' => '-restricted',
+		], _x( 'Site is Restricted', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ) );
+
+		return $items;
 	}
 
 	public function load_profile()
