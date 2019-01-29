@@ -21,7 +21,7 @@ class Extend extends gNetwork\Module
 	public function setup_menu( $context )
 	{
 		Network::registerTool( $this->key,
-			_x( 'Themes', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
+			_x( 'Extend', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
 			[ $this, 'tools' ]
 		);
 	}
@@ -41,6 +41,7 @@ class Extend extends gNetwork\Module
 				'blogname'   => get_option( 'blogname' ),
 				'stylesheet' => get_option( 'stylesheet' ),
 				'template'   => get_option( 'template' ),
+				'plugins'    => get_option( 'active_plugins' ),
 			];
 
 			if ( isset( $themes[$_site['stylesheet']] ) )
@@ -67,8 +68,25 @@ class Extend extends gNetwork\Module
 			'stylesheet' => [ 'title' => _x( 'Theme', 'Modules: Extend', GNETWORK_TEXTDOMAIN ) ],
 			'template'   => [ 'title' => _x( 'Template', 'Modules: Extend', GNETWORK_TEXTDOMAIN ) ],
 
+			'plugins' => [
+				'title'    => _x( 'Plugins', 'Modules: Extend', GNETWORK_TEXTDOMAIN ),
+				'callback' => function( $value, $row, $column, $index ) {
+					$html = '';
+
+					foreach ( (array) $value as $path ) {
+						$plugin = explode( '/', $path );
+						$html.= '<code>'.$plugin[0].'</code><br />';
+					}
+
+					if ( ! $html )
+						return '<div dir="ltr">&mdash;</div>';
+
+					return $html;
+				},
+			],
+
 		], $data, [
-			'title' => HTML::tag( 'h3', _x( 'Overview of Current Active Themes', 'Modules: Extend', GNETWORK_TEXTDOMAIN ) ),
+			'title' => HTML::tag( 'h3', _x( 'Overview of Current Active Theme and Plugins', 'Modules: Extend', GNETWORK_TEXTDOMAIN ) ),
 			'empty' => HTML::warning( _x( 'No site found!', 'Modules: Extend', GNETWORK_TEXTDOMAIN ), FALSE ),
 		] );
 	}
