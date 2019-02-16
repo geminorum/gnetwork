@@ -48,7 +48,7 @@ class Update extends gNetwork\Module
 			$this->filter( 'plugins_api', 3, 20 );
 		}
 
-		if ( get_current_network_id() == get_main_network_id() )
+		if ( ! GNETWORK_MAIN_NETWORK || GNETWORK_MAIN_NETWORK == get_current_network_id() )
 			return;
 
 		$this->filter( 'map_meta_cap', 2, 9 );
