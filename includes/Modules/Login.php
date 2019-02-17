@@ -36,6 +36,7 @@ class Login extends gNetwork\Module
 			$this->filter( 'register_post', 3, 1 );
 		}
 
+		$this->action( 'wp_logout' );
 		$this->action( 'wp_login', 2, 99 );
 		$this->filter( 'wp_login_errors', 2 );
 		$this->filter( 'login_message' );
@@ -100,7 +101,7 @@ class Login extends gNetwork\Module
 				[
 					'field'       => 'login_log',
 					'title'       => _x( 'Log Logins', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Logs user log-in events in the log system.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Logs user log-in/log-out events in the log system.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
 					'field'       => 'store_lastlogin',
@@ -562,7 +563,12 @@ class Login extends gNetwork\Module
 		$this->check_math();
 	}
 
-	// TODO: add logger to logout / has no action hook with user info!
+	public function wp_logout()
+	{
+		if ( $this->options['login_log'] )
+			Logger::siteNOTICE( 'LOGGED-OUT', sprintf( '%s', wp_get_current_user()->user_login ) );
+	}
+
 	public function wp_login( $user_login, $user )
 	{
 		if ( $this->options['login_log'] )
