@@ -266,6 +266,9 @@ class Branding extends gNetwork\Module
 				];
 		}
 
+		// @REF: https://github.com/SayHelloGmbH/progressive-wordpress#manifest
+		$data = apply_filters( 'web_app_manifest', $data );
+
 		nocache_headers();
 
 		header( 'Content-Type: application/manifest+json; charset='.get_option( 'charset' ) );
