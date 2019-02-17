@@ -146,12 +146,28 @@ class HTTP extends Base
 	{
 		$args = self::recursiveParseArgs( $atts, array(
 			'timeout' => 15,
-			'headers' => array(
-				'Accept' => 'application/json',
-			),
+			'headers' => array( 'Accept' => 'application/json' ),
 		) );
 
 		$response = wp_remote_get( $url, $args );
+
+		if ( ! self::isError( $response )
+			&& 200 == wp_remote_retrieve_response_code( $response ) ) {
+				return json_decode( wp_remote_retrieve_body( $response ), $assoc );
+		}
+
+		return FALSE;
+	}
+
+	public static function postJSON( $body, $url, $atts = array(), $assoc = FALSE )
+	{
+		$args = self::recursiveParseArgs( $atts, array(
+			'body'    => $body,
+			'timeout' => 15,
+			'headers' => array( 'Accept' => 'application/json' ),
+		) );
+
+		$response = wp_remote_post( $url, $args );
 
 		if ( ! self::isError( $response )
 			&& 200 == wp_remote_retrieve_response_code( $response ) ) {

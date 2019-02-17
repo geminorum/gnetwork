@@ -143,6 +143,9 @@ class HTML extends Base
 
 	public static function tag( $tag, $atts = array(), $content = FALSE, $sep = '' )
 	{
+		if ( FALSE === $tag && ! is_array( $atts ) )
+			return $atts;
+
 		$tag = self::sanitizeTag( $tag );
 
 		if ( is_array( $atts ) )
@@ -230,7 +233,7 @@ class HTML extends Base
 			if ( 'class' == $key && ! $sanitized )
 				$att = self::prepClass( $att );
 
-			else if ( 'class' == $key )
+			else if ( 'class' == $key || 'title' == $key )
 				$att = $att;
 
 			else if ( 'href' == $key && '#' != $att )
@@ -1115,5 +1118,10 @@ class HTML extends Base
 			'disabled' => $args['disabled'],
 			'dir'      => $args['dir'],
 		), $html );
+	}
+
+	public static function list( $items, $keys = FALSE, $list = 'ul' )
+	{
+		return self::tag( $list, '<li>'.implode( '</li><li>', $keys ? array_keys( $items ) : $items ).'</li>' );
 	}
 }

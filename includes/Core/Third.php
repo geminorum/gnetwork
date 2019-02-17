@@ -43,7 +43,7 @@ class Third extends Base
 	 */
 	public static function getTwitter( $string, $url = FALSE, $base = 'https://twitter.com/' )
 	{
-		$parts = parse_url( $string );
+		$parts = wp_parse_url( $string );
 
 		if ( empty( $parts['host'] ) )
 			$handle = 0 === strpos( $string, '@' ) ? substr( $string, 1 ) : $string;

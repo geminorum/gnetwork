@@ -118,13 +118,13 @@ class URL extends Base
 	// check whether the given URL belongs to this site
 	public static function isLocal( $url, $domain = NULL )
 	{
-		return parse_url( $url, PHP_URL_HOST ) === parse_url( ( is_null( $domain ) ? home_url() : $domain ), PHP_URL_HOST );
+		return wp_parse_url( $url, PHP_URL_HOST ) === wp_parse_url( ( is_null( $domain ) ? home_url() : $domain ), PHP_URL_HOST );
 	}
 
 	// check whether the given URL is relative or not
 	public static function isRelative( $url )
 	{
-		$parsed = parse_url( $url );
+		$parsed = wp_parse_url( $url );
 		return empty( $parsed['host'] ) && empty( $parsed['scheme'] );
 	}
 
@@ -196,15 +196,11 @@ class URL extends Base
 	// @SOURCE: https://gist.github.com/davejamesmiller/1965937
 	public static function getDomain( $url )
 	{
-		$host = @parse_url( $url, PHP_URL_HOST );
+		$host = wp_parse_url( $url, PHP_URL_HOST );
 
-		// If the URL can't be parsed, use the original URL
-		// Change to "return false" if you don't want that
 		if ( ! $host )
 			$host = $url;
 
-		// The "www." prefix isn't really needed if you're just using
-		// this to display the domain to the user
 		if ( 'www.' == substr( $host, 0, 4 ) )
 			$host = substr( $host, 4 );
 
