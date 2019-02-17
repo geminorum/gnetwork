@@ -43,7 +43,6 @@ class Dashboard extends gNetwork\Module
 
 		remove_meta_box( 'dashboard_primary', $screen, 'side' );
 		remove_action( 'welcome_panel', 'wp_welcome_panel' );
-		remove_filter( 'try_gutenberg_panel', 'wp_try_gutenberg_panel' ); // @REF: https://core.trac.wordpress.org/ticket/41316
 		remove_action( 'activity_box_end', [ 'Akismet_Admin', 'dashboard_stats' ] );
 		remove_action( 'rightnow_end', [ 'Akismet_Admin', 'rightnow_stats' ] );
 
@@ -228,7 +227,7 @@ class Dashboard extends gNetwork\Module
 
 		// filters the array of extra elements to list in the 'At a Glance' dashboard widget
 		if ( $elements = apply_filters( 'dashboard_glance_items', [] ) )
-			$html.= '<li>'.implode( '</li><li>', $elements ).'</li>';
+			$html.= HTML::list( $elements, FALSE, FALSE );
 
 		if ( $num_comm = wp_count_comments() ) {
 
@@ -493,7 +492,7 @@ class Dashboard extends gNetwork\Module
 			return;
 
 		echo '<ul class="-pointers">';
-			echo '<li>'.implode( '</li><li>', $items ).'</li>';
+			echo HTML::list( $items, FALSE, FALSE );
 		echo '</ul>';
 	}
 }

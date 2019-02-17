@@ -189,6 +189,7 @@ class Locale extends gNetwork\Module
 			'health-check'               => 'page', // [Health Check & Troubleshooting](https://wordpress.org/plugins/health-check/)
 			'wpcf7-integration'          => 'page', // [Contact Form 7](https://contactform7.com/)
 			'wp-htaccess-editor'         => 'page', // [Htaccess Editor](https://wordpress.org/plugins/wp-htaccess-editor/)
+			'add-from-server'            => 'page', // [Add From Server](https://wordpress.org/plugins/add-from-server/)
 
 			// [Official MailerLite Sign Up Forms](https://wordpress.org/plugins/official-mailerlite-sign-up-forms/)
 			'mailerlite_main'     => 'page',
