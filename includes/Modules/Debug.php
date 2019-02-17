@@ -664,14 +664,14 @@ class Debug extends gNetwork\Module
 
 	public function debug_bar_panels( $panels )
 	{
-		if ( file_exists( GNETWORK_DIR.'includes/Misc/DebugExtrasPanel.php' ) ) {
-			require_once( GNETWORK_DIR.'includes/Misc/DebugExtrasPanel.php' );
-			$panels[] = new \geminorum\gNetwork\Misc\DebugExtrasPanel();
-		}
-
 		if ( file_exists( GNETWORK_DIR.'includes/Misc/DebugMetaPanel.php' ) ) {
 			require_once( GNETWORK_DIR.'includes/Misc/DebugMetaPanel.php' );
 			$panels[] = new \geminorum\gNetwork\Misc\DebugMetaPanel();
+		}
+
+		if ( file_exists( GNETWORK_DIR.'includes/Misc/DebugExtrasPanel.php' ) ) {
+			require_once( GNETWORK_DIR.'includes/Misc/DebugExtrasPanel.php' );
+			$panels[] = new \geminorum\gNetwork\Misc\DebugExtrasPanel();
 		}
 
 		return $panels;

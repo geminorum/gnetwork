@@ -34,22 +34,6 @@ class Dashboard extends gNetwork\Module
 		} else if ( 'dashboard-network' == $screen->base ) {
 
 			$this->action( 'wp_network_dashboard_setup', 0, 20 );
-
-		} else if ( 'edit' == $screen->base && $screen->post_type ) {
-
-				if ( WordPress::cuc( 'manage_options' ) ) {
-
-					ob_start();
-						HTML::tableSide( get_all_post_type_supports( $screen->post_type ), FALSE );
-					$content = ob_get_clean();
-
-					$screen->add_help_tab( [
-						'id'       => 'gnetwork-dashboard-posttype-overview',
-						'title'    => _x( 'Post Type Supports', 'Modules: Dashboard: Help Content Title', GNETWORK_TEXTDOMAIN ),
-						'content'  => '<p>'.$content.'</p>',
-						'priority' => 99,
-					] );
-			}
 		}
 	}
 
