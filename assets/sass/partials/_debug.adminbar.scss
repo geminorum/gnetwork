@@ -4,8 +4,6 @@
 /// Module: Debug --------------------------------------------------------------
 
 .gnetwork-admin-wrap.debugbar-panel {
-  @include mainwrap();
-
   /*rtl:ignore*/
   direction: ltr !important;
 
@@ -13,8 +11,17 @@
     margin: 5px 0 3px !important;
   }
 
-  .-post {
+  .-post,
+  .-meta {
     margin-bottom: 1em;
+
+    > table {
+      margin-top: 0 !important;
+    }
+  }
+
+  .-post + .-meta {
+    margin-top: -1em;
   }
 
   .-group {
@@ -22,12 +29,6 @@
       margin: 0 !important;
     }
   }
-
-  .-empty {}
 }
 
-.gnetwork-admin-wrap.debug-update-core {
-  // margin-top: 2em;
-
-  a.button {}
-}
+.gnetwork-admin-wrap.debug-update-core {}

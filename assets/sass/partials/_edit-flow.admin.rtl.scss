@@ -1,0 +1,95 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// gNetwork Partials: Edit Flow: RTL ------------------------------------------
+
+////////////////////////////////////////////////////////////////////////////////
+.edit-flow-admin {
+  // .credits {
+  //   text-align: left;
+  // }
+
+  a.cancel-settings-link {
+    margin-left: 0;
+    margin-right: 10px;
+  }
+}
+
+.edit-flow-modules {
+  .edit-flow-module {
+    float: right;
+    margin-right: 0;
+    margin-left: 15px;
+
+    .float-right {
+      float: left;
+    }
+
+    .button-primary.configure-edit-flow-module {
+      float: left;
+    }
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+.list-filterizer-tabs {
+  float: left;
+
+  li {
+    float: right;
+    margin-right: 0;
+    margin-left: 4px;
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+.ef-calendar-navigation {
+  li.ajax-actions,
+  li.date-change {
+    float: left;
+  }
+
+  li.ajax-actions,
+  li.previous-week,
+  li.today {
+    margin-right: 0;
+    margin-left: 15px;
+  }
+}
+
+
+table#ef-calendar-view {
+  .day-unit {
+    .day-unit-label {
+      float: left;
+      padding-right: 0;
+      padding-left: 3px;
+    }
+
+    .schedule-new-post-button {
+      float: right;
+      border-left: 1px solid rgb(180, 180, 180);
+      border-right: none;
+    }
+
+    ul {
+      li {
+        .item-status {
+          float: left;
+          text-align: left;
+        }
+
+        .inner {
+          margin-right: 0;
+          margin-left: 57px;
+          padding-left: 0;
+          padding-right: 3px;
+        }
+      }
+    }
+  }
+
+}
+
+
+////////////////////////////////////////////////////////////////////////////////

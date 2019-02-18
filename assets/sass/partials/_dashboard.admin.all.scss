@@ -3,45 +3,101 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// gNetwork Partials: Dashboard Module: Admin ---------------------------------
 
-#gnetwork-dashboard-right-now {
-  .inside {
-    padding: 0;
+////////////////////////////////////////////////////////////////////////////////
+#gnetwork-dashboard-right-now .inside {
+  padding: 0;
+}
+
+#network_dashboard_right_now .inside {
+  form:last-of-type {
+    margin-bottom: -1em;
   }
 
-  .-privacy-notice {
-    margin-bottom: 1em !important;
-    font-size: smaller;
-
-    a {
-      color: $gray-dark;
-
-      &:hover {
-        color: $gray-darker;
-      }
-    }
+  .subsubsub {
+    margin: 0;
   }
 }
 
-#gnetwork-dashboard-usermenu {
-  ul {
-    margin: 0;
-    padding: 0;
+////////////////////////////////////////////////////////////////////////////////
+.postbox {
+  .inside {
+    ul.-pointers {
+      margin-bottom: -5px !important;
+
+      li {
+        font-size: smaller; // 0.85em;
+        margin-bottom: 5px !important;
+      }
+    }
 
     li {
-      margin-bottom: 0.5em;
-
-      ul {
-        margin: 0.5em 0 0 1em;
+      a.warning::before {
+        color: $brand-warning !important;
       }
 
-      &:last-of-type {
-        margin: 0;
+      .-maintenance::before {
+        color: $brand-danger !important;
+        content: "\f534" !important;
+      }
+
+      .-restricted::before {
+        color: $brand-warning !important;
+        content: "\f530" !important;
+      }
+
+      a.storage::before {
+        content: "\f104" !important;
+      }
+
+      a[data-module="sms"]::before {
+        content: "\f473" !important;
+      }
+
+      a[data-module="bot"]::before {
+        content: "\f470" !important;
+      }
+
+      a[data-module="remote"]::before {
+        content: "\f504" !important;
+      }
+    }
+
+    .-privacy-notice {
+      margin-bottom: 1em !important;
+      font-size: smaller;
+
+      a {
+        color: $gray-dark;
+
+        &:hover {
+          color: $gray-darker;
+        }
       }
     }
   }
 }
 
+////////////////////////////////////////////////////////////////////////////////
 .gnetwork-admin-wrap-widget {
+  &.-usermenu {
+    ul {
+      margin: 0;
+      padding: 0;
+
+      li {
+        margin-bottom: 0.5em;
+
+        ul {
+          margin: 0.5em 0 0 1em;
+        }
+
+        &:last-of-type {
+          margin: 0;
+        }
+      }
+    }
+  }
+
   .-table-logins,
   .-table-signup {
     .-month-day,
@@ -84,7 +140,5 @@
   .-list-signup {
     margin-left: 0.5em;
     margin-bottom: 0;
-
-    li {}
   }
 }
