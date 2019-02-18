@@ -292,7 +292,7 @@ class Site extends gNetwork\Module
 		$html = '';
 
 		if ( is_null( $title ) )
-			$html.= '<h3>'._x( 'Your Sites', 'Modules: Site:‌ User Sites', GNETWORK_TEXTDOMAIN ).'</h3>';
+			$html.= '<h3>'._x( 'Your Sites', 'Modules: Site: User Sites', GNETWORK_TEXTDOMAIN ).'</h3>';
 
 		else if ( $title )
 			$html.= $title;
@@ -301,9 +301,9 @@ class Site extends gNetwork\Module
 
 		foreach ( $blogs as $blog ) {
 			$html.= '<tr><td>'.$blog->blogname.'</td><td>';
-			$html.= HTML::link( _x( 'Visit Dashboard', 'Modules: Site:‌ User Sites', GNETWORK_TEXTDOMAIN ), get_admin_url( $blog->userblog_id ) );
+			$html.= HTML::link( _x( 'Visit Dashboard', 'Modules: Site: User Sites', GNETWORK_TEXTDOMAIN ), get_admin_url( $blog->userblog_id ) );
 			$html.= ' | ';
-			$html.= HTML::link( _x( 'View Site', 'Modules: Site:‌ User Sites', GNETWORK_TEXTDOMAIN ), $blog->siteurl );
+			$html.= HTML::link( _x( 'View Site', 'Modules: Site: User Sites', GNETWORK_TEXTDOMAIN ), $blog->siteurl );
 			$html.= '</td></tr>';
 		}
 
@@ -333,7 +333,7 @@ class Site extends gNetwork\Module
 		foreach ( $new_blog_options as $new_blog_option_key => $new_blog_option )
 			update_option( $new_blog_option_key, $new_blog_option );
 
-		$new_post_content = $this->filters( 'new_post_content', _x( '[ This page is being completed ]', 'Modules: Site:‌ Initial Page Content', GNETWORK_TEXTDOMAIN ) );
+		$new_post_content = $this->filters( 'new_post_content', _x( '[ This page is being completed ]', 'Modules: Site: Initial Page Content', GNETWORK_TEXTDOMAIN ) );
 
 		wp_update_post( [ 'ID' => 1, 'post_status' => 'draft', 'post_title' => '', 'post_name' => '', 'post_content' => $new_post_content, 'post_type' => 'page' ] );
 		wp_update_post( [ 'ID' => 2, 'post_status' => 'draft', 'post_title' => '', 'post_name' => '', 'post_content' => $new_post_content ] );
