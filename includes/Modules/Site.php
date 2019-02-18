@@ -394,24 +394,22 @@ class Site extends gNetwork\Module
 	}
 
 	protected $filters = [
-		'stylesheet',
-		'blog_charset',
-		'template',
-		'WPLANG',
-		'blogname',
-		'siteurl',
-		'post_count',
 		'home',
-		'allowedthemes',
-		'blog_public',
-		'WPLANG',
+		'siteurl',
+		'blogname',
 		'blogdescription',
-		'db_version',
-		'db_upgraded',
-		'active_plugins',
-		'users_can_register',
 		'admin_email',
-		'wp_user_roles',
+		'WPLANG',
+		'template',
+		'stylesheet',
+		'active_plugins',
+		'post_count',
+		// 'blog_charset',
+		// 'blog_public',
+		// 'db_version',
+		// 'db_upgraded',
+		// 'users_can_register',
+		// 'wp_user_roles',
 	];
 
 	private function setup_meta_sync()
@@ -513,6 +511,9 @@ class Site extends gNetwork\Module
 		foreach ( $this->get_filters() as $filter )
 			if ( ! empty( $all_option[$filter] ) )
 				update_site_meta( $blog_id, $filter, maybe_unserialize( $all_option[$filter] ) );
+
+		// extras!
+		update_site_meta( $blog_id, 'site_icon_url', get_site_icon_url() );
 	}
 
 	public function switch_blog( $blog_id )
