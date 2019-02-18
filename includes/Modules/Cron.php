@@ -28,6 +28,9 @@ class Cron extends gNetwork\Module
 
 		$this->action_module( 'cron', 'status_check', 2 );
 
+		if ( function_exists( 'wp_get_ready_cron_jobs' ) )
+			$this->filter_module( 'dashboard', 'pointers' );
+
 		if ( $this->options['dashboard_widget'] )
 			$this->action( 'wp_dashboard_setup' );
 		else
@@ -337,6 +340,25 @@ class Cron extends gNetwork\Module
 		@wp_mail( $email, $subject, $message, $headers );
 	}
 
+	public function dashboard_pointers( $items )
+	{
+		$can = WordPress::cuc( 'manage_options' );
+
+		if ( $ready = count( self::getCronReady() ) )
+			$title = Utilities::getCounted( $ready, _nx( '%s Ready Cron-job', '%s Ready Cron-jobs', $ready, 'Modules: CRON', GNETWORK_TEXTDOMAIN ) );
+
+		else
+			$title = _x( 'Cron-jobs Done!', 'Modules: CRON', GNETWORK_TEXTDOMAIN );
+
+		$items[] = HTML::tag( $can ? 'a' : 'span', [
+			'href'  => $can ? $this->get_menu_url( 'cron', 'admin', 'tools' ) : FALSE,
+			'title' => _x( 'Cron-jobs ready to be run.', 'Modules: CRON', GNETWORK_TEXTDOMAIN ),
+			'class' => $ready ? '-corn-ready' : '-corn-done',
+		], $title );
+
+		return $items;
+	}
+
 	public function widget_status_check()
 	{
 		HTML::desc( $this->options['dashboard_intro'] );
@@ -374,6 +396,15 @@ class Cron extends gNetwork\Module
 		}
 
 		echo '</p></div>';
+	}
+
+	protected static function getCronReady()
+	{
+		// @SINCE: WP 5.1
+		if ( function_exists( 'wp_get_ready_cron_jobs' ) )
+			return wp_get_ready_cron_jobs();
+
+		return [];
 	}
 
 	protected static function getCronArray()
@@ -439,7 +470,13 @@ class Cron extends gNetwork\Module
 		], self::getCronArray(), [
 			'title' => HTML::tag( 'h3', _x( 'Overview of tasks scheduled for WP-Cron', 'Modules: CRON', GNETWORK_TEXTDOMAIN ) ),
 			'empty' => HTML::warning( _x( 'Nothing scheduled!', 'Modules: CRON', GNETWORK_TEXTDOMAIN ), FALSE ),
+			'after' => [ $this, 'table_list_after' ],
 		] );
+	}
+
+	public function table_list_after()
+	{
+		HTML::desc( Utilities::getCounted( count( self::getCronReady() ), _x( 'With %s event(s) ready to be run.', 'Modules: CRON', GNETWORK_TEXTDOMAIN ) ) );
 	}
 
 	// adds once weekly to the existing schedules
