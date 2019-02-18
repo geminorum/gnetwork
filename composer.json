@@ -44,7 +44,7 @@
     "behat/transliterator": "^1.2",
     "davidepastore/ipinfo": "^0.3.0",
     "ziggeo/simple-box-integration": "^0.0.3",
-    "knplabs/github-api": "^2.10",
+    "knplabs/github-api": "^2.11",
     "php-http/guzzle6-adapter": "^1.1"
   },
   "config": {
