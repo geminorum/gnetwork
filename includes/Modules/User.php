@@ -234,10 +234,10 @@ class User extends gNetwork\Module
 
 	protected function render_tools_html( $uri, $sub = 'general' )
 	{
-		$blogs = $this->get_sites();
+		$sites = WordPress::getAllSites();
 		$roles = get_network_option( NULL, $this->hook( 'roles' ), [] );
 
-		if ( empty( $blogs ) )
+		if ( empty( $sites ) )
 			return HTML::desc( gNetwork()->na() );
 
 		Settings::fieldSection(
@@ -247,26 +247,25 @@ class User extends gNetwork\Module
 
 		echo '<table class="form-table">';
 
-		foreach ( $blogs as $blog ) {
+		foreach ( $sites as $site_id => $site ) {
 
-			switch_to_blog( $blog->blog_id );
+			if ( ! $name = WordPress::getSiteName( $site_id ) )
+				$name = URL::untrail( $site->domain.$site->path );
 
 			$this->do_settings_field( [
-				'field'      => $blog->blog_id,
+				'field'      => $site_id,
 				'type'       => 'role',
-				'title'      => get_bloginfo( 'name' ),
+				'title'      => $name,
 				'wrap'       => TRUE,
 				'options'    => $roles,
-				'name_attr'  => 'role['.$blog->blog_id.']',
+				'name_attr'  => 'role['.$site_id.']',
 				'none_value' => 'none',
 				'after'      => Settings::fieldAfterIcon(
-					URL::untrail( $blog->domain.$blog->path ).'/wp-admin/users.php',
+					$site->siteurl.'/wp-admin/users.php',
 					_x( 'View Users List', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
 					'admin-users'
 				),
 			] );
-
-			restore_current_blog();
 		}
 
 		echo '</table>';
@@ -399,29 +398,6 @@ class User extends gNetwork\Module
 		// display page content as over view
 	}
 
-	// FIXME: use `WordPress::getAllSites()`
-	private function get_sites()
-	{
-		global $wpdb;
-
-		$query = $wpdb->prepare( "
-			SELECT blog_id, domain, path
-			FROM {$wpdb->blogs}
-			WHERE site_id = %d
-			AND spam = '0'
-			AND deleted = '0'
-			AND archived = '0'
-			ORDER BY registered ASC
-		", get_current_network_id() );
-
-		$blogs = [];
-
-		foreach ( (array) $wpdb->get_results( $query, ARRAY_A ) as $blog )
-			$blogs[$blog['blog_id']] = (object) $blog;
-
-		return $blogs;
-	}
-
 	public function wpmu_new_user( $user_id )
 	{
 		$roles = get_network_option( NULL, $this->hook( 'roles' ), [] );
@@ -444,39 +420,34 @@ class User extends gNetwork\Module
 
 	private function update_sites_roles( $old, $new )
 	{
-		foreach ( $this->get_sites() as $blog ) {
+		foreach ( WordPress::getAllSites() as $site_id => $site ) {
 
-			if ( ! isset( $new[$blog->blog_id] )
-				&& ! isset( $old[$blog->blog_id] ) )
-					continue;
+			if ( empty( $new[$site_id] ) && empty( $old[$site_id] ) )
+				continue;
 
-			switch_to_blog( $blog->blog_id );
+			switch_to_blog( $site_id );
 
-			$users = isset( $old[$blog->blog_id] )
-				? $this->get_users_with_role( $old[$blog->blog_id] )
-				: wp_get_users_with_no_role();
+			$users = empty( $old[$site_id] )
+				? wp_get_users_with_no_role()
+				: $this->get_users_with_role( $old[$site_id] );
 
 			foreach ( $users as $user_id ) {
 
 				if ( WordPress::isSuperAdmin( $user_id ) )
 					continue;
 
-				if ( $user = get_userdata( $user_id ) ) {
+				if ( ! $user = get_userdata( $user_id ) )
+					continue;
 
-					$user->set_role(
-						( isset( $new[$blog->blog_id] )
-							? $new[$blog->blog_id]
-							: ''
-						)
-					);
+				$user->set_role( empty( $new[$site_id] ) ? '' : $new[$site_id] );
 
-					wp_cache_delete( $user_id, 'users' );
-				}
+				wp_cache_delete( $user_id, 'users' );
 			}
 
-			wp_cache_delete( $blog_id.'_user_count', 'blog-details' );
-			restore_current_blog();
+			wp_cache_delete( $site_id.'_user_count', 'blog-details' );
 		}
+
+		restore_current_blog();
 
 		return TRUE;
 	}
