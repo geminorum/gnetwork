@@ -190,8 +190,15 @@ class Site extends gNetwork\Module
 
 			if ( $this->options['resync_sitemeta'] ) {
 
+				echo $this->wrap_open_buttons();
+
 				Settings::submitButton( 'resync_sitemeta', _x( 'Re-sync Sites Meta', 'Modules: Site', GNETWORK_TEXTDOMAIN ), 'small' );
-				HTML::desc( _x( 'Regenerates sites metadata.', 'Modules: Site', GNETWORK_TEXTDOMAIN ), FALSE );
+
+				echo '&nbsp;';
+
+				Settings::submitButton( 'delete_sitemeta', _x( 'Delete Sites Meta', 'Modules: Site', GNETWORK_TEXTDOMAIN ), 'small button-danger' );
+
+				echo '</p>';
 
 			} else {
 
@@ -226,6 +233,17 @@ class Site extends gNetwork\Module
 
 			WordPress::redirectReferer( FALSE === $count ? 'wrong' : [
 				'message' => 'synced',
+				'count'   => $count,
+			] );
+
+		} else if ( isset( $_POST['delete_sitemeta'] ) ) {
+
+			$this->check_referer( $sub );
+
+			$count = $this->network_delete_sitemeta();
+
+			WordPress::redirectReferer( FALSE === $count ? 'wrong' : [
+				'message' => 'deleted',
 				'count'   => $count,
 			] );
 		}
@@ -503,6 +521,23 @@ class Site extends gNetwork\Module
 		restore_current_blog();
 	}
 
+	public function delete_sitemeta( $site_id = NULL )
+	{
+		if ( is_null( $site_id ) )
+			$site_id = get_current_blog_id();
+
+		$count = 0;
+
+		foreach ( $this->get_filters() as $filter )
+			if ( delete_site_meta( $site_id, $filter ) )
+				$count++;
+
+		if ( delete_site_meta( $site_id, 'site_icon_url' ) )
+			$count++;
+
+		return $count;
+	}
+
 	public function resync_sitemeta()
 	{
 		$all_option = wp_load_alloptions();
@@ -551,29 +586,30 @@ class Site extends gNetwork\Module
 		return $clauses;
 	}
 
-	// FIXME: use `WordPress::getAllSites()`
-	private function network_resync_sitemeta( $network = NULL )
+	public function network_resync_sitemeta( $network = NULL )
 	{
-		if ( is_null( $network ) )
-			$network = get_current_network_id();
-
 		$count = 0;
- 		$sites = get_sites( [
-			'network_id' => $network,
-			'fields'     => 'ids',
-			'number'     => FALSE,
-		] );
+		$sites = WordPress::getAllSites( FALSE, $network, FALSE );
 
-		foreach ( $sites as $site ) {
-
-			switch_to_blog( $site );
-
+		foreach ( $sites as $site_id => $site ) {
+			switch_to_blog( $site_id );
 			$this->resync_sitemeta();
-
-			restore_current_blog();
-
 			$count++;
 		}
+
+		restore_current_blog();
+
+		return $count;
+	}
+
+	public function network_delete_sitemeta( $network = NULL )
+	{
+		$count = 0;
+		$sites = WordPress::getAllSites( FALSE, $network, FALSE );
+
+		foreach ( $sites as $site_id => $site )
+			if ( $this->delete_sitemeta( $site_id ) )
+				$count++;
 
 		return $count;
 	}
