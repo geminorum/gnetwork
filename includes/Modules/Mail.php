@@ -222,7 +222,7 @@ class Mail extends gNetwork\Module
 
 		if ( GNETWORK_MAIL_LOG_DIR && $this->options['log_all'] ) {
 
-			echo '&nbsp;&nbsp;';
+			echo '&nbsp;';
 
 			echo HTML::tag( 'a', [
 				'class' => 'button button-secondary button-small',

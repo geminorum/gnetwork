@@ -231,7 +231,7 @@ class Navigation extends gNetwork\Module
 	{
 		$items = [];
 		$admin = WordPress::isSuperAdmin();
-		$sites = WordPress::getAllSites( ( $admin ? FALSE : get_current_user_id() ), $admin, TRUE );
+		$sites = WordPress::getAllSites( ( $admin ? FALSE : get_current_user_id() ), $admin );
 
 		foreach ( $sites as $site ) {
 

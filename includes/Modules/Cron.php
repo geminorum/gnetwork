@@ -33,8 +33,7 @@ class Cron extends gNetwork\Module
 		else
 			$this->action( 'activity_box_end', 0, 12 );
 
-		if ( $this->options['schedule_revision']
-			&& WP_POST_REVISIONS ) {
+		if ( $this->options['schedule_revision'] && WP_POST_REVISIONS ) {
 
 			$this->filter( 'cron_schedules', 1, 20 );
 
@@ -185,11 +184,12 @@ class Cron extends gNetwork\Module
 	{
 		$this->do_status_check();
 
-		if ( $this->options['schedule_revision']
-			&& WP_POST_REVISIONS ) {
+		if ( $this->options['schedule_revision'] && WP_POST_REVISIONS ) {
 
-			if ( ! wp_next_scheduled( $this->hook( 'clean_revisions' ) ) )
-				wp_schedule_event( time(), 'weekly', $this->hook( 'clean_revisions' ) );
+			$hook = $this->hook( 'clean_revisions' );
+
+			if ( ! wp_next_scheduled( $hook ) )
+				wp_schedule_event( time(), 'weekly', $hook );
 		}
 	}
 

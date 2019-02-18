@@ -67,7 +67,7 @@ class AdminBar extends gNetwork\Module
 
 		if ( is_multisite() && ( $user_id = get_current_user_id() ) ) {
 			$super_admin       = WordPress::isSuperAdmin();
-			$user->blogs       = WordPress::getAllSites( ( $super_admin ? FALSE : $user_id ), $super_admin, TRUE );
+			$user->blogs       = WordPress::getAllSites( ( $super_admin ? FALSE : $user_id ), $super_admin );
 			$user->active_blog = get_user_meta( $user_id, 'primary_blog', TRUE );
 		} else {
 			$user->blogs       = [];
