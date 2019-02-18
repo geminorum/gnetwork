@@ -298,15 +298,18 @@ class WordPress extends Base
 	public static function isSuperAdmin( $user_id = FALSE )
 	{
 		$cap = is_multisite() ? 'manage_network' : 'manage_options';
-		return $user_id ? user_can( $user_id, $cap ) : current_user_can( $cap );
+		$can = $user_id ? user_can( $user_id, $cap ) : current_user_can( $cap );
+
+		return (bool) $can;
 	}
 
 	public static function getSiteName( $blog_id, $switch = FALSE )
 	{
 		$name = FALSE;
 
-		if ( function_exists( 'bp_blogs_get_blogmeta' ) )
-			$name = bp_blogs_get_blogmeta( $blog_id, 'name', TRUE );
+		// WORKING BUT DISABLED!
+		// if ( function_exists( 'bp_blogs_get_blogmeta' ) )
+		// 	$name = bp_blogs_get_blogmeta( $blog_id, 'name', TRUE );
 
 		if ( ! $name && function_exists( 'get_site_meta' ) )
 			$name = get_site_meta( $blog_id, 'blogname', TRUE );
@@ -324,28 +327,54 @@ class WordPress extends Base
 		return $name;
 	}
 
+	public static function getSiteURL( $blog_id, $switch = FALSE )
+	{
+		$url = FALSE;
+
+		// WORKING BUT DISABLED!
+		// if ( function_exists( 'bp_blogs_get_blogmeta' ) )
+		// 	$url = bp_blogs_get_blogmeta( $blog_id, 'url', TRUE );
+
+		if ( ! $url && function_exists( 'get_site_meta' ) )
+			$url = get_site_meta( $blog_id, 'siteurl', TRUE );
+
+		if ( ! $url && $blog_id == get_current_blog_id() )
+			return get_option( 'siteurl' );
+
+		if ( ! $url && $switch ) {
+
+			switch_to_blog( $site_id );
+			$url = get_option( 'siteurl' );
+			restore_current_blog();
+		}
+
+		return $url;
+	}
+
 	// mocking `get_sites()` results
-	public static function getAllSites( $user_id = FALSE, $all_sites = TRUE, $orderby_site = FALSE )
+	public static function getAllSites( $user_id = FALSE, $network = NULL, $generate_url = TRUE, $orderby_path = FALSE )
 	{
 		global $wpdb;
 
-		$clause_site = $clause_blog = '';
-
-		if ( ! $all_sites )
-			$clause_site = $wpdb->prepare( "AND site_id = %d", get_current_network_id() );
+		$clause_site = $clause_network = '';
 
 		if ( $user_id ) {
 
 			$ids = self::getUserSites( $user_id, $wpdb->base_prefix );
 
-			// user has no blogs!
+			// user has no sites!
 			if ( ! $ids )
 				return [];
 
-			$clause_blog = "AND blog_id IN ( '".join( "', '", esc_sql( $ids ) )."' )";
+			$clause_site = "AND blog_id IN ( '".join( "', '", esc_sql( $ids ) )."' )";
 		}
 
-		$clause_order = $orderby_site ? 'ORDER BY domain, path ASC' : 'ORDER BY registered DESC';
+		if ( TRUE !== $network )
+			$clause_network = $wpdb->prepare( "AND site_id = %d", $network ?: get_current_network_id() );
+
+		$clause_order = $orderby_path
+			? 'ORDER BY domain, path ASC'
+			: 'ORDER BY registered DESC';
 
 		$query = "
 			SELECT blog_id, site_id, domain, path
@@ -353,22 +382,29 @@ class WordPress extends Base
 			WHERE spam = '0'
 			AND deleted = '0'
 			AND archived = '0'
+			{$clause_network}
 			{$clause_site}
-			{$clause_blog}
 			{$clause_order}
 		";
 
 		$blogs  = [];
 		$scheme = self::isSSL() ? 'https' : 'http';
 
-		foreach ( $wpdb->get_results( $query, ARRAY_A ) as $blog )
+		foreach ( $wpdb->get_results( $query, ARRAY_A ) as $blog ) {
+
+			if ( $generate_url )
+				$siteurl = self::getSiteURL( $blog['blog_id'] ) ?: URL::untrail( $scheme.'://'.$blog['domain'].$blog['path'] );
+			else
+				$siteurl = NULL;
+
 			$blogs[$blog['blog_id']] = (object) [
 				'userblog_id' => $blog['blog_id'],
 				'network_id'  => $blog['site_id'],
 				'domain'      => $blog['domain'],
 				'path'        => $blog['path'],
-				'siteurl'     => URL::untrail( $scheme.'://'.$blog['domain'].$blog['path'] ),
+				'siteurl'     => $siteurl,
 			];
+		}
 
 		return $blogs;
 	}
@@ -738,7 +774,6 @@ class WordPress extends Base
 
 		else
 			$url = set_url_scheme( 'http://'.$network->domain.$network->path, $scheme );
-
 
 		if ( $path && is_string( $path ) )
 			$url.= ltrim( $path, '/' );
