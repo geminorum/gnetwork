@@ -38,8 +38,12 @@ class Site extends gNetwork\Module
 			$this->action( 'get_header' );
 		}
 
-		if ( $this->options['resync_sitemeta'] )
+		if ( $this->options['resync_sitemeta'] ) {
+
 			$this->setup_meta_sync();
+
+			add_action( $this->hook( 'resync_sitemeta' ), [ $this, 'resync_sitemeta' ] );
+		}
 	}
 
 	public function setup_menu( $context )
@@ -218,12 +222,23 @@ class Site extends gNetwork\Module
 
 			$this->check_referer( $sub );
 
-			$count = $this->do_resync_sitemeta();
+			$count = $this->network_resync_sitemeta();
 
 			WordPress::redirectReferer( FALSE === $count ? 'wrong' : [
 				'message' => 'synced',
 				'count'   => $count,
 			] );
+		}
+	}
+
+	public function schedule_actions()
+	{
+		if ( $this->options['resync_sitemeta'] ) {
+
+			$hook = $this->hook( 'resync_sitemeta' );
+
+			if ( ! wp_next_scheduled( $hook ) )
+				wp_schedule_event( time(), 'daily', $hook );
 		}
 	}
 
@@ -485,12 +500,12 @@ class Site extends gNetwork\Module
 	{
 		switch_to_blog( $blog_id );
 
-		$this->migrate_options();
+		$this->resync_sitemeta();
 
 		restore_current_blog();
 	}
 
-	public function migrate_options()
+	public function resync_sitemeta()
 	{
 		$all_option = wp_load_alloptions();
 		$blog_id    = get_current_blog_id();
@@ -536,7 +551,7 @@ class Site extends gNetwork\Module
 	}
 
 	// FIXME: use `WordPress::getAllSites()`
-	private function do_resync_sitemeta( $network = NULL )
+	private function network_resync_sitemeta( $network = NULL )
 	{
 		if ( is_null( $network ) )
 			$network = get_current_network_id();
@@ -552,7 +567,7 @@ class Site extends gNetwork\Module
 
 			switch_to_blog( $site );
 
-			$this->migrate_options();
+			$this->resync_sitemeta();
 
 			restore_current_blog();
 
