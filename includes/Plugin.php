@@ -67,12 +67,7 @@ class Plugin
 	private function constants()
 	{
 		return [
-			'GNETWORK_TEXTDOMAIN' => $this->base,
-
-			'GNETWORK_BASE' => network_home_url( '/' ),
-			'GNETWORK_NAME' => is_multisite() ? get_network_option( NULL, 'site_name' ) : get_option( 'blogname' ),
-			'GNETWORK_LOGO' => 'login.png', // default logo image file, must be on wp-content
-
+			'GNETWORK_TEXTDOMAIN'   => $this->base,
 			'GNETWORK_MAIN_NETWORK' => get_main_network_id(), // set FALSE to disable multi-network enhancements
 
 			// 'GNETWORK_WPLANG'       => 'en_US', // define if necessary
@@ -141,6 +136,15 @@ class Plugin
 		];
 	}
 
+	private function constants_late()
+	{
+		return [
+			'GNETWORK_BASE' => network_home_url( '/', $this->ssl() ? 'https' : 'http' ),
+			'GNETWORK_NAME' => is_multisite() ? get_network_option( NULL, 'site_name' ) : get_option( 'blogname' ),
+			'GNETWORK_LOGO' => 'login.png', // default logo image file, must relative to wp-content
+		];
+	}
+
 	private function get_modules()
 	{
 		$modules = [
@@ -206,6 +210,9 @@ class Plugin
 
 	public function plugins_loaded()
 	{
+		foreach ( $this->constants_late() as $key => $val )
+			defined( $key ) || define( $key, $val );
+
 		$this->files( [ 'Pluggable', 'Functions' ] );
 
 		load_plugin_textdomain( GNETWORK_TEXTDOMAIN, FALSE, 'gnetwork/languages' );
