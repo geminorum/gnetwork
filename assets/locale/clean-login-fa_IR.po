@@ -1,0 +1,524 @@
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2019-02-01 20:52+0330\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.1\n"
+"Language: fa\n"
+"Project-Id-Version: Clean Login\n"
+"POT-Creation-Date: \n"
+"Last-Translator: geminorum <contact@geminorum.ir>\n"
+"Language-Team: \n"
+"X-Poedit-Basepath: ../../../clean-login\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#: clean-login.php:140
+msgid "There is already a user registered with this email. Login with this existing account. If you do not remember your password, you will find a recuperation link at the login form."
+msgstr "در حال حاضر یک کاربر با این ایمیل ثبت نام کرده. اگر رمز عبور خود را ندارید از بخش فراموشی رمز عبور اقدام کنید."
+
+#: clean-login.php:982
+msgid "Google reCaptcha Secret Key"
+msgstr "کلید امنیتی کپچای گوگل"
+
+#: clean-login.php:978
+msgid "Google reCaptcha Site Key"
+msgstr "کلید سایت کپچای گوگل"
+
+#: clean-login.php:976
+msgid "Google reCaptcha site key and secret key must not be empty"
+msgstr "کلید امنیتی و سایت کپچای گوگل باید پر باشند"
+
+#: clean-login.php:975
+msgid "Enable Google reCaptcha?"
+msgstr "فعال سازی کپچای گوگل؟"
+
+#. Author URI of the plugin
+msgid "https://codection.com"
+msgstr "https://codection.com"
+
+#. Author of the plugin
+msgid "codection"
+msgstr "codection"
+
+#. Description of the plugin
+msgid "Responsive Frontend Login and Registration plugin. A plugin for displaying login, register, editor and restore password forms through shortcodes. [clean-login] [clean-login-edit] [clean-login-register] [clean-login-restore]"
+msgstr "افزونه تعاملی ورود و نام‌نویسی روی سایت. افزونه‌ای برای نمایش فرم ورود، نام‌نویسی، ویرایش و بازسازی رمز عبور، به کمک کد‌های کوتاه. &rlm;[clean-login] [clean-login-edit] [clean-login-register] [clean-login-restore]"
+
+#. Plugin URI of the plugin
+msgid "http://cleanlogin.codection.com"
+msgstr "http://cleanlogin.codection.com"
+
+#. Plugin Name of the plugin
+msgid "Clean Login"
+msgstr "ورود پاکیزه"
+
+#: content/restore-new.php:12
+msgid "Your new password is"
+msgstr "رمز عبور تازه شما:"
+
+#: content/restore-form.php:22
+msgid "Restore password"
+msgstr "بازسازی رمز عبور"
+
+#: content/restore-form.php:11
+msgid "Username (or E-mail)"
+msgstr "نام کاربری (یا ایمیل)"
+
+#: content/register-form.php:59
+msgid "Choose your role:"
+msgstr "نقش خود را انتخاب کنید:"
+
+#: content/register-form.php:45
+msgid "Type the text above"
+msgstr "متن بالا را تایپ کنید"
+
+#: content/login-preview.php:13
+msgid "Log out"
+msgstr "خروج"
+
+#: content/login-form.php:27
+msgid "Remember?"
+msgstr "به یاد داشته باش؟"
+
+#: content/login-form.php:17
+msgid "Password"
+msgstr "رمز عبور"
+
+#: content/register-form.php:19 content/login-form.php:13
+msgid "Username"
+msgstr "نام کاربری"
+
+#: content/login-edit.php:49
+msgid "Update profile"
+msgstr "به‌روزرسانی شناسنامه"
+
+#: content/register-form.php:38 content/login-edit.php:42
+msgid "Confirm password"
+msgstr "تکرار رمز عبور"
+
+#: content/register-form.php:33 content/login-edit.php:37
+msgid "New password"
+msgstr "رمز عبور تازه"
+
+#: content/login-edit.php:32
+msgid "If you would like to change the password type a new one. Otherwise leave this blank."
+msgstr "در صورت نیاز به تغییر، رمز عبور تازه‌ای وارد کنید. در غیر این صورت آن را خالی بگذارید."
+
+#: content/login-edit.php:30
+msgid "Change password"
+msgstr "تغییر رمز عبور"
+
+#: content/register-form.php:24 content/login-edit.php:24
+msgid "E-mail"
+msgstr "ایمیل"
+
+#: content/register-form.php:13 content/login-edit.php:19
+msgid "Last name"
+msgstr "نام خانوادگی"
+
+#: content/register-form.php:10 content/login-edit.php:14
+msgid "First name"
+msgstr "نام"
+
+#: content/login-edit.php:9
+msgid "General information"
+msgstr "اطلاعات عمومی"
+
+#: clean-login.php:1329
+msgid "Settings"
+msgstr "تنظیمات"
+
+#: clean-login.php:1303
+msgid "Title:"
+msgstr "عنوان:"
+
+#: clean-login.php:1299
+msgid "User login status"
+msgstr "وضعیت ورود کاربر"
+
+#: content/login-form.php:36 clean-login.php:1286
+msgid "Lost password?"
+msgstr "رمز عبور را فراموش کرده‌اید؟"
+
+#: content/register-form.php:85 content/login-form.php:40 clean-login.php:1285
+msgid "Register"
+msgstr "نام‌نویسی"
+
+#: content/restore-new.php:21 content/login-form.php:22 clean-login.php:1284
+msgid "Log in"
+msgstr "ورود"
+
+#: clean-login.php:1278
+msgid "Logout"
+msgstr "خروج"
+
+#: content/login-preview.php:15 clean-login.php:1275
+msgid "Edit my profile"
+msgstr "ویرایش شناسنامه من"
+
+#: clean-login.php:1245
+msgid "Use this widget to show the user login status and Clean Login links."
+msgstr "از این ابزارک برای نمایش وضعیت ورود کاربر و پیوند‌های ورود پاکیزه استفاده نمایید."
+
+#: clean-login.php:1078
+msgid "Save Changes"
+msgstr "ذخیره تغییرات"
+
+#: clean-login.php:1068
+msgid "URL after logout (if blank then homepage)"
+msgstr "نشانی بعد از خروج (برای صفحه اصلی خالی بگذارید)"
+
+#: clean-login.php:1066
+msgid "Redirect after log out?"
+msgstr "بعد از خروج تغییر مسیر داشته باشد؟"
+
+#: clean-login.php:1062
+msgid "URL after login (if blank then homepage)"
+msgstr "نشانی بعد از ورود (برای صفحه اصلی خالی بگذارید)"
+
+#: clean-login.php:1060
+msgid "Redirect after log in?"
+msgstr "بعد از ورود تغییر مسیر داشته باشد؟"
+
+#: clean-login.php:1058
+msgid "Redirections"
+msgstr "تغییر مسیرها"
+
+#: clean-login.php:1054
+msgid "This feature cannot be used with the automatic login after registration"
+msgstr "این ویژگی به همراه ورود خودکار پس از نام‌نویسی قابل استفاده نیست."
+
+#: clean-login.php:1053
+msgid "Validate user registration through an email?"
+msgstr "نام‌نویسی کاربر از راه ایمیل اعتبارسنجی شود؟"
+
+#: clean-login.php:1051
+msgid "Add name and surname?"
+msgstr "نام و نام خانوادگی اضافه شود؟"
+
+#: clean-login.php:1047
+msgid "URL after registration (if blank then homepage)"
+msgstr "نشانی بعد از نام‌نویسی (برای صفحه اصلی خالی بگذارید)"
+
+#: clean-login.php:1045
+msgid "Automatically Login after registration?"
+msgstr "ورود خودکار بعد از نام‌نویسی"
+
+#: clean-login.php:1043
+msgid "Registration"
+msgstr "نام‌نویسی"
+
+#: clean-login.php:1039
+msgid "Only ask for password once on registration form?"
+msgstr "رمز عبور تنها یکبار در هنگام نام‌نویسی درخواست شود؟"
+
+#: clean-login.php:1037
+msgid "Single Password"
+msgstr "یک‌بار رمز عبور"
+
+#: clean-login.php:1033
+msgid "Allow user to use email as username? If you want to use both, WP Email Login plugin will help you"
+msgstr "اجازه می‌دهید کاربر از ایمیل به عنوان نام کاربری استفاده کند؟ اگر می‌خواهید از هر دو استفاده کنید، افزونه WP Email Login به شما کمک خواهد کرد"
+
+#: clean-login.php:1031
+msgid "Use Email as Username"
+msgstr "ایمیل به عنوان نام کاربری"
+
+#: clean-login.php:1027
+msgid "Target URL"
+msgstr "آدرس هدف"
+
+#: clean-login.php:1026
+msgid "Terms and conditions message"
+msgstr "پیام شرایط و مقررات"
+
+#: clean-login.php:1025
+msgid "Accept terms / conditions in the registration form?"
+msgstr "شرایط و مقررات در فرم نام‌نویسی پذیرفته شوند؟"
+
+#: clean-login.php:1023
+msgid "Terms and conditions"
+msgstr "شرایط و مقررات"
+
+#: clean-login.php:1019
+msgid "Please use HMTL tags for all formatting. And also you can use:"
+msgstr "لطفاً از برچسب‌های HTML برای تمام ساختارها استفاده کنید. همچنین می‌توانید از این‌ها استفاده کنید:"
+
+#: clean-login.php:1018
+msgid "Enable email notification for new registered users?"
+msgstr "آگاه‌سازی از نام‌نویسی کاربران تازه، با ایمیل فعال شود؟"
+
+#: clean-login.php:1016
+msgid "Email notification"
+msgstr "آگاه‌سازی با ایمیل"
+
+#: clean-login.php:1011
+msgid "Enable password complexity?"
+msgstr "پیچیدگی رمز عبور فعال شود؟"
+
+#: clean-login.php:1009
+msgid "Password complexity"
+msgstr "پیچدگی رمز عبور"
+
+#: clean-login.php:1005
+msgid "Hide username from the preview form."
+msgstr "نام کاربری در فرم پیش‌نمایش مخفی شود."
+
+#: clean-login.php:1004
+msgid "Hide username?"
+msgstr "نام کاربری مخفی شود؟"
+
+#: clean-login.php:1002
+msgid "Hide username"
+msgstr "مخفی‌شدن نام کاربری"
+
+#: clean-login.php:994
+msgid "This feature allows you to choose the role from the frontend, with the selected roles you want to show. You can also define an standard predefined role through a shortcode parameter, e.g. [clean-login-register role=\"contributor\"]. Anyway, you need to choose only the role(s) you want to accept to avoid security/infiltration issues."
+msgstr "این قابلیت به شما اجازه می‌دهد نقش کاربر از میان گزینه‌های شما در روی سایت انتخاب شود. همچنین می‌توانید نقش پیش‌فرض را به کمک پارامتر کدکوتاه تعریف کنید، برای مثال &rlm;[\"clean-login-register role=\"contributor\"] با این‌حال در نظر داشته باشید که از میان گزینه‌ها، نقش‌های مناسب را انتخاب کنید تا از مشکلات نفوذ/امنیتی جلوگیری شود."
+
+#: clean-login.php:993
+msgid "Choose the role(s) in the registration form?"
+msgstr "نقش کاربری در فرم نام‌نویسی انتخاب شود؟"
+
+#: clean-login.php:991
+msgid "Standby role disables all the capabilities for new users, until the administrator changes. It usefull for site with restricted components."
+msgstr "نقش آماده به کار تمام قابلیت‌های سایت را برای کاربران جدید غیرفعال می‌کند تا زمانی که مدیر این نقش را تغییر دهد. این نقش در سایت‌هایی با امکانات محدود شده کاربرد مفیدی دارد."
+
+#: clean-login.php:990
+msgid "Enable Standby role?"
+msgstr "نقش کاربر آماده به کار فعال گردد؟"
+
+#: clean-login.php:988
+msgid "User role"
+msgstr "نقش کاربر"
+
+#: clean-login.php:969
+msgid "For captcha usage the PHP-GD library needs to be enabled in your server/hosting."
+msgstr "جهت استفاده از کپچا لازم است کتابخانه‌ی PHP-GD در هاست یا سرور شما فعال باشد."
+
+#: clean-login.php:968
+msgid "Honeypot antispam detection is enabled by default."
+msgstr "ضد هرزنامه‌ی Honeypot به طور پیش فرض فعال است."
+
+#: clean-login.php:967
+msgid "Enable captcha?"
+msgstr "کپچا فعال گردد؟"
+
+#: clean-login.php:965 clean-login.php:973
+msgid "Antispam protection"
+msgstr "جلوگیری از هرزنامه‌ها"
+
+#: clean-login.php:961
+msgid "Please note that you can only log in through <strong>wp-login.php</strong> and this plugin. <strong>wp-admin</strong> permalink will be inaccessible."
+msgstr "لطفاً توجه داشته باشید که شما تنها از طریق <strong>wp-login.php</strong> و این افزونه می‌توانید وارد شوید و پیوند یکتای <strong>wp-admin</strong> غیرقابل دسترسی خواهد شد."
+
+#: clean-login.php:960
+msgid "Disable dashboard access for non-admin users?"
+msgstr "دسترسی به پیشخوان برای کاربران غیر مدیر غیرفعال شود؟"
+
+#: clean-login.php:958
+msgid "Dashboard access"
+msgstr "دسترسی به پیشخوان"
+
+#: clean-login.php:954
+msgid "Hide admin bar for non-admin users?"
+msgstr "نوارابزار مدیریت برای کاربران غیر مدیر مخفی شود؟"
+
+#: clean-login.php:952
+msgid "Admin bar"
+msgstr "نوارابزار مدیریت"
+
+#: clean-login.php:916
+msgid "Settings saved."
+msgstr "تنظیمات ذخیره شدند."
+
+#: clean-login.php:878
+msgid "Options"
+msgstr "گزینه‌ها"
+
+#: clean-login.php:873
+msgid "This shortcode contains the restore (lost password?) form. If you include in a page/post a link will appear on your login form."
+msgstr "این کد کوتاه حاوی فرم بازسازی رمز عبور است. اگر شامل یک پیوند به نوشته/برگه باشد، در فرم ورود شما نمایش داده خواهد شد."
+
+#: clean-login.php:864
+msgid "This shortcode contains the register form. If you include in a page/post a link will appear on your login form."
+msgstr "این کد کوتاه حاوی فرم نام‌نویسی است.  اگر شامل یک پیوند به نوشته/برگه باشد، در فرم ورود شما نمایش داده خواهد شد."
+
+#: clean-login.php:855
+msgid "This shortcode contains the profile editor. If you include in a page/post a link will appear on your login preview."
+msgstr "این کد کوتاه حاوی ویرایشگر شناسنامه است. اگر شامل یک پیوند به نوشته/برگه باشد، در پیش‌نمایش ورود شما نمایش داده خواهد شد."
+
+#: clean-login.php:846
+msgid "This shortcode contains login form and login information."
+msgstr "این کد کوتاه حاوی فرم ورود و اطلاعات آن است."
+
+#: clean-login.php:844 clean-login.php:853 clean-login.php:862
+#: clean-login.php:871
+msgid "Used <a href=\"%s\">here</a>"
+msgstr "<a href=\"%s\">اینجا</a> استفاده شده"
+
+#: clean-login.php:842 clean-login.php:851 clean-login.php:860
+#: clean-login.php:869
+msgid "Currently not used"
+msgstr "درحال‌حاضر استفاده نشده"
+
+#: clean-login.php:834
+msgid "Below you can check the plugin status regarding the shortcodes usage and the pages/posts which contain  it."
+msgstr "در زیر می‌توانید وضعیت افزونه، درباره استفاده از کدهای کوتاه و نوشته/برگه‌های حاوی آن‌ها را بررسی کنید."
+
+#: clean-login.php:832
+msgid "Clean Login status"
+msgstr "وضعیت ورود پاکیزه"
+
+#: clean-login.php:817
+msgid "Do you like it?"
+msgstr "آیا خوش‌تان آمد؟"
+
+#: clean-login.php:804
+msgid "Admin area"
+msgstr "بخش مدیریت"
+
+#: clean-login.php:775
+msgid "Donate"
+msgstr "اهدا کنید"
+
+#: clean-login.php:588
+msgid "Restore your password"
+msgstr "بازسازی رمز عبور شما"
+
+#: clean-login.php:586
+msgid "Use the following link to restore your password: <a href='%s'>restore your password</a> <br/><br/>%s<br/>"
+msgstr "برای بازسازی رمز عبور خود از این پیوند استفاده کنید: <a href='%s'>بازسازی رمز عبور</a><br/><br/>%s<br/>"
+
+#: clean-login.php:502
+msgid "New user"
+msgstr "کاربر تازه"
+
+#: clean-login.php:500
+msgid "New user registered: %s <br/>"
+msgstr "کاربر جدید عضو شد: %s <br/>"
+
+#: clean-login.php:498
+msgid "New user registered: %s <br/><br/>Please change the role from 'Stand By' to 'Subscriber' or higher to allow full site access"
+msgstr "نام‌نویسی کاربر تازه:%s <br/><br/>لطفاً برای دسترسی کامل به سایت، نقش کاربر را از «آماده به کار» به «مشارکت کننده» یا بالاتر تغییر دهید."
+
+#: clean-login.php:471
+msgid "Activate your account"
+msgstr "حساب کاربری خود را فعال نمایید"
+
+#: clean-login.php:469
+msgid "Use the following link to activate your account: <a href='%s'>activate your account</a>.<br/><br/>%s<br/>"
+msgstr "برای فعال کردن حساب کاربری خود از این پیوند استفاده کنید: <a href='%s'>فعال‌سازی</a>.<br/><br/>%s<br/> "
+
+#: clean-login.php:190
+msgid "You are now logged in. It makes no sense to restore your account"
+msgstr "هم‌اکنون وارد شده‌اید، دیگر بازسازی حساب کاربری معنایی ندارد."
+
+#: clean-login.php:179
+msgid "An error has ocurred sending the email"
+msgstr "در ارسال ایمیل، خطایی رخ داده است"
+
+#: clean-login.php:177
+msgid "You may receive an email with the activation link"
+msgstr "ممکن است یک ایمیل با پیوند فعال‌سازی دریافت کنید"
+
+#: clean-login.php:175
+msgid "You will receive an email with the activation link"
+msgstr "شما یک ایمیل با پیوند فعال‌سازی دریافت خواهید کرد"
+
+#: clean-login.php:152
+msgid "You are now logged in. It makes no sense to register a new user"
+msgstr "هم‌اکنون وارد شده‌اید، دیگر نام‌نویسی کاربر تازه معنایی ندارد."
+
+#: clean-login.php:146
+msgid "must be checked"
+msgstr "باید انتخاب شده باشد"
+
+#: clean-login.php:144
+msgid "Something strange has ocurred while created the new user"
+msgstr "خطاهای غیرمنتظره‌ای حین فرآیند ایجاد حساب کاربری جدید رخ داده است."
+
+#: clean-login.php:142
+msgid "CAPTCHA is not valid, please try again"
+msgstr "کپچای وارد شده معتبر نیست، لطفاً مجدداً سعی نمایید."
+
+#: clean-login.php:138
+msgid "Email is not valid"
+msgstr "ایمیل نامعتبر است"
+
+#: clean-login.php:136
+msgid "Passwords must be identical and filled"
+msgstr "رمز‌های عبور باید کامل و یکسان باشند"
+
+#: clean-login.php:134
+msgid "Last name is not valid"
+msgstr "نام خانوادگی نامعتبر است"
+
+#: clean-login.php:132
+msgid "First name is not valid"
+msgstr "نام نامعتبر است"
+
+#: clean-login.php:130 clean-login.php:181
+msgid "Username is not valid"
+msgstr "نام کاربری معتبر نیست"
+
+#: clean-login.php:126
+msgid "New user created"
+msgstr "حساب کاربری جدیدی ایجاد شد"
+
+#: clean-login.php:124
+msgid "Please confirm your account, you will receive an email"
+msgstr "لطفاً حساب کاربری خود را تأیید کنید، ایمیلی برای شما ارسال خواهد شد"
+
+#: clean-login.php:122 clean-login.php:124
+msgid "User created"
+msgstr "حساب کاربری ایجاد شد"
+
+#: clean-login.php:94
+msgid "You need to be logged in to edit your profile"
+msgstr "برای ویرایش شناسنامه خود باید وارد شوید"
+
+#: clean-login.php:88
+msgid "Something strange has ocurred"
+msgstr "خطای غیرمنتظره‌ای رخ داده است"
+
+#: clean-login.php:86
+msgid "Error updating email"
+msgstr "خطا در به‌روزرسانی ایمیل"
+
+#: clean-login.php:84
+msgid "Passwords must be identical"
+msgstr "رمزهای عبور باید یکسان باشند"
+
+#: clean-login.php:82 clean-login.php:128 clean-login.php:1012
+msgid "Passwords must be eight characters including one upper/lowercase letter, one special/symbol character and alphanumeric characters. Passwords should not contain the user's username, email, or first/last name."
+msgstr "رمز عبور باید هشت حرف شامل یک حرف بزرگ/کوچک، یک نویسه خاص/نماد و حروف الفبا و عددی باشد. رمز عبور نباید شامل نام کاربری، ایمیل یا نام و نام خانوادگی کاربر باشد."
+
+#: clean-login.php:80
+msgid "Information updated"
+msgstr "اطلاعات به‌روزرسانی شد."
+
+#: clean-login.php:52
+msgid "Successfully activated"
+msgstr "با موفقیت فعال شد"
+
+#: clean-login.php:50
+msgid "Your account is currently disabled"
+msgstr "هم‌اکنون حساب کاربری شما غیرفعال است"
+
+#: clean-login.php:48
+msgid "Something went wrong while activating your user"
+msgstr "در فعال‌سازی کاربر، خطایی رخ داده است"
+
+#: clean-login.php:46
+msgid "Successfully logged out!"
+msgstr "با موفقیت خارج شدید!"
+
+#: clean-login.php:44
+msgid "Wrong credentials"
+msgstr "ورودی‌ها نامعتبر است"
+
+#: clean-login.php:42
+msgid "Successfully logged in!"
+msgstr "با موفقیت وارد شدید!"

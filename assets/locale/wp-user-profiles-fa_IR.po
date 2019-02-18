@@ -1,0 +1,542 @@
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2019-02-03 02:56+0330\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 2.2.1\n"
+"Language: fa\n"
+"Project-Id-Version: WP User Profiles\n"
+"POT-Creation-Date: \n"
+"Last-Translator: geminorum <contact@geminorum.ir>\n"
+"Language-Team: \n"
+"X-Poedit-Basepath: ../../../wp-user-profiles\n"
+
+#: wp-user-profiles/includes/sections.php:89
+msgid "Other"
+msgstr "متفرقه"
+
+#: wp-user-profiles/includes/sections/other.php:69
+msgid "Fields without explicit sections"
+msgstr "زمینه‌هایی که بخش مشخصی ندارند"
+
+#: wp-user-profiles/includes/sections/other.php:68
+msgid "Plugins using legacy actions"
+msgstr "افزونه‌هایی که از ساختار قدیمی استفاده می‌کنند"
+
+#: wp-user-profiles/includes/sections/other.php:67
+msgid "This is where any additional information can be found."
+msgstr "هرگونه اطلاعات افزوده در اینجا قابل مشاهده است."
+
+#: wp-user-profiles/includes/sections/other.php:35
+msgctxt "users user-admin edit screen"
+msgid "Additional"
+msgstr "افزوده‌ها"
+
+#: wp-user-profiles/includes/capabilities.php:98
+msgid "Sorry, you are not allowed to edit this user."
+msgstr "با عرض پوزش، شما اجازه ویرایش این کاربر را ندارید."
+
+#. Author URI of the plugin/theme
+msgid "https://profiles.wordpress.org/johnjamesjacoby/"
+msgstr "https://profiles.wordpress.org/johnjamesjacoby/"
+
+#. Author of the plugin/theme
+msgid "John James Jacoby"
+msgstr "John James Jacoby"
+
+#. Description of the plugin/theme
+msgid "A sophisticated way to edit users in WordPress"
+msgstr "راه‌کاری ماهرانه برای ویرایش کاربران در وردپرس"
+
+#. Plugin URI of the plugin/theme
+msgid "https://wordpress.org/plugins/wp-user-profiles/"
+msgstr "https://fa.wordpress.org/plugins/wp-user-profiles/"
+
+#. Plugin Name of the plugin/theme
+msgid "WP User Profiles"
+msgstr "نمایه‌های کاربری وردپرس"
+
+#: wp-user-profiles/includes/sections.php:126
+msgid "Sites"
+msgstr "سایت‌ها"
+
+#: wp-user-profiles/includes/sections.php:107
+msgid "Permissions"
+msgstr "دسترسی‌ها"
+
+#: wp-user-profiles/includes/sections.php:59
+msgid "Options"
+msgstr "گزینه‌ها"
+
+#: wp-user-profiles/includes/sections.php:41
+msgid "Account"
+msgstr "حساب کاربری"
+
+#: wp-user-profiles/includes/sections/sites.php:90
+msgid "You may be able to take action on these sites"
+msgstr "شما ممکن است اجازه فعالیت در این سایت‌ها را داشته باشید"
+
+#: wp-user-profiles/includes/sections/sites.php:89
+msgid "You may be able to navigate between these sites"
+msgstr "شما ممکن است اجازه جابه‌جایی بین این سایت‌ها را داشته باشید"
+
+#: wp-user-profiles/includes/sections/sites.php:88
+msgid "Your sites are determined by having a role on each one"
+msgstr "سایت‌های شما بر اساس نقش شما در هر کدام مشخص می‌شود"
+
+#: wp-user-profiles/includes/sections/sites.php:87
+msgid "This is where sites & the primary set setting can be found."
+msgstr "سایت‌ها و تنظیمات سایت اصلی در اینجا قابل مشاهده است."
+
+#: wp-user-profiles/includes/sections/sites.php:46
+msgctxt "users user-admin edit screen"
+msgid "Sites"
+msgstr "سایت‌ها"
+
+#: wp-user-profiles/includes/sections/sites.php:35
+msgctxt "users user-admin edit screen"
+msgid "Primary Site"
+msgstr "سایت اصلی"
+
+#: wp-user-profiles/includes/sections/profile.php:181
+msgid "Website and Biography"
+msgstr "وب‌سایت و زندگی‌نامه"
+
+#: wp-user-profiles/includes/sections/profile.php:180
+msgid "Nickname and Display Name"
+msgstr "نام مستعار و عمومی"
+
+#: wp-user-profiles/includes/sections/profile.php:179
+msgid "First and Last Name"
+msgstr "نام و نام خانوادگی"
+
+#: wp-user-profiles/includes/sections/profile.php:178
+msgid "This is where most biographical information can be found."
+msgstr "بیشتر اطلاعات زندگی‌نامه‌ای در اینجا قابل مشاهده است."
+
+#: wp-user-profiles/includes/sections/profile.php:122
+msgid "<strong>ERROR</strong>: Please enter a nickname."
+msgstr "<strong>خطا</strong>: لطفاً نام مستعار را وارد کنید."
+
+#: wp-user-profiles/includes/sections/profile.php:95
+msgid "<strong>ERROR</strong>: Please enter a username."
+msgstr "<strong>خطا</strong>: لطفاً نام کاربری را وارد کنید."
+
+#: wp-user-profiles/includes/sections/profile.php:90
+msgid "<strong>ERROR</strong>: This username is already registered. Please choose another one."
+msgstr "<strong>خطا</strong>: این نام کاربری پیش از این ثبت شده است. لطفاً نام دیگری را انتخاب کنید."
+
+#: wp-user-profiles/includes/sections/profile.php:85
+msgid "<strong>ERROR</strong>: This username is invalid because it uses illegal characters. Please enter a valid username."
+msgstr "<strong>خطا</strong>: به دلیل وجود حروف غیرمجاز، این نام کاربری نامعتبر است. لطفاً نام کاربری معتبری وارد کنید."
+
+#: wp-user-profiles/includes/sections/profile.php:58
+msgctxt "users user-admin edit screen"
+msgid "Contact"
+msgstr "تماس"
+
+#: wp-user-profiles/includes/sections/profile.php:46
+msgctxt "users user-admin edit screen"
+msgid "About"
+msgstr "درباره"
+
+#: wp-user-profiles/includes/sections/profile.php:35
+msgctxt "users user-admin edit screen"
+msgid "Name"
+msgstr "نام"
+
+#: wp-user-profiles/includes/sections/permissions.php:105
+msgid "Some capabilities may be uniquely granted"
+msgstr "بعضی از قابلیت‌ها ممکن است به صورت خاص اعطا شوند"
+
+#: wp-user-profiles/includes/sections/permissions.php:104
+msgid "In some cases, you may have more than one role"
+msgstr "در بعضی موارد، ممکن است شما بیش از یک نقش داشته باشید"
+
+#: wp-user-profiles/includes/sections/permissions.php:103
+msgid "Your role determines what you are able to do"
+msgstr "نقش شما مشخص می‌کند که قادر به انجام چه کاری هستید"
+
+#: wp-user-profiles/includes/sections/permissions.php:102
+msgid "This is where role & capability settings can be found."
+msgstr "تنظیمات نقش‌ها و قابلیت‌ها در اینجا قابل مشاهده است."
+
+#: wp-user-profiles/includes/sections/permissions.php:46
+msgctxt "users user-admin edit screen"
+msgid "Additional Capabilities"
+msgstr "قابلیت‌های افزوده"
+
+#: wp-user-profiles/includes/sections/permissions.php:35
+msgctxt "users user-admin edit screen"
+msgid "Roles"
+msgstr "نقش‌ها"
+
+#: wp-user-profiles/includes/sections/options.php:108
+msgid "Comment Moderation Shortcuts"
+msgstr "میانبرهای صفحه‌کلید مدیریت دیدگاه‌ها"
+
+#: wp-user-profiles/includes/sections/options.php:106
+msgid "Color Schemes"
+msgstr "شمای رنگی"
+
+#: wp-user-profiles/includes/sections/options.php:105
+msgid "This is where most options & site preferences can be found."
+msgstr "گزینه‌ها و اولویت‌های سایت در اینجا قابل مشاهده است."
+
+#: wp-user-profiles/includes/sections/options.php:48
+msgctxt "users user-admin edit screen"
+msgid "Personal Options"
+msgstr "گزینه‌های شخصی"
+
+#: wp-user-profiles/includes/sections/options.php:36
+msgctxt "users user-admin edit screen"
+msgid "Color Scheme"
+msgstr "شمای رنگی"
+
+#: wp-user-profiles/includes/sections/account.php:162
+msgid "Sessions are logged from each device you login from"
+msgstr "نشست‌ها از راه هر کدام از وسیله‌هایی که به کمک آن وارد شده‌اید، ثبت می‌شوند"
+
+#: wp-user-profiles/includes/sections/account.php:161
+msgid "The language you pick will be used wherever it is supported."
+msgstr "زبان انتخابی شما در هر جایی که پشتیبانی شود، استفاده خواهد شد."
+
+#: wp-user-profiles/includes/sections/account.php:160
+msgid "Passwords should be lengthy and complex to help keep your account secure"
+msgstr "برای کمک به ایمن بودن حساب کاربری شما، رمز عبور باید پیچیده و طولانی باشد."
+
+#: wp-user-profiles/includes/sections/account.php:159
+msgid "Your email address is used for receiving notifications from this site"
+msgstr "نشانی ایمیل شما برای دریافت آگاه‌سازی‌های این سایت، استفاده خواهد شد"
+
+#: wp-user-profiles/includes/sections/account.php:158
+msgid "This is where important account information can be found."
+msgstr "اطلاعات مهم حساب کاربری در اینجا قابل مشاهده است."
+
+#: wp-user-profiles/includes/sections/account.php:135
+msgid "<strong>ERROR</strong>: This email is already in use."
+msgstr "<strong>خطا</strong>: این ایمیل پیش از این استفاده شده است."
+
+#: wp-user-profiles/includes/sections/account.php:131
+msgid "<strong>ERROR</strong>: The email address is not correct."
+msgstr "<strong>خطا</strong>: نشانی ایمیل غلط است."
+
+#: wp-user-profiles/includes/sections/account.php:127
+msgid "<strong>ERROR</strong>: Please enter an email address."
+msgstr "<strong>خطا</strong>: لطفاً نشانی یک ایمیل را وارد کنید."
+
+#: wp-user-profiles/includes/sections/account.php:106
+msgid "<strong>ERROR</strong>: Please enter the same password in both password fields."
+msgstr "<strong>خطا</strong>: لطفاً در هر دو زمینه، رمز عبور یکسان وارد کنید."
+
+#: wp-user-profiles/includes/sections/account.php:101
+msgid "<strong>ERROR</strong>: Passwords may not contain the character \"\\\"."
+msgstr "<strong>خطا</strong>: رمز عبور نباید حاوی حرف \"\\\" باشد."
+
+#: wp-user-profiles/includes/sections/account.php:68
+msgctxt "users user-admin edit screen"
+msgid "Sessions"
+msgstr "نشست‌ها"
+
+#: wp-user-profiles/includes/sections/account.php:57
+msgctxt "users user-admin edit screen"
+msgid "Language"
+msgstr "زبان"
+
+#: wp-user-profiles/includes/sections/account.php:46
+msgctxt "users user-admin edit screen"
+msgid "Password"
+msgstr "رمز عبور"
+
+#: wp-user-profiles/includes/sections/account.php:35
+msgctxt "users user-admin edit screen"
+msgid "Email"
+msgstr "ایمیل"
+
+#: wp-user-profiles/includes/metaboxes.php:46
+msgctxt "users user-admin edit screen"
+msgid "Status"
+msgstr "وضعیت"
+
+#: wp-user-profiles/includes/capabilities.php:76
+msgid "Invalid user ID."
+msgstr "شناسه کاربر نامعتبر است."
+
+#: wp-user-profiles/includes/metaboxes/sites-primary.php:59
+msgid "This user is not a member of any sites."
+msgstr "این کاربر عضو هیچ سایتی نیست."
+
+#: wp-user-profiles/includes/metaboxes/sites-primary.php:58
+msgid "You are not a member of any sites."
+msgstr "شما عضو هیچ سایتی نیستید."
+
+#: wp-user-profiles/includes/metaboxes/sites-primary.php:39
+msgid "Primary Site"
+msgstr "سایت اصلی"
+
+#: wp-user-profiles/includes/metaboxes/profile-name.php:63
+msgid "Display name publicly as"
+msgstr "نمایش عمومی نام"
+
+#: wp-user-profiles/includes/metaboxes/profile-name.php:55
+msgid "Nickname"
+msgstr "نام مستعار"
+
+#: wp-user-profiles/includes/metaboxes/profile-name.php:49
+msgid "Last Name"
+msgstr "نام خانوادگی"
+
+#: wp-user-profiles/includes/metaboxes/profile-name.php:44
+msgid "First Name"
+msgstr "نام"
+
+#: wp-user-profiles/includes/metaboxes/profile-name.php:38
+msgid "Usernames cannot be changed."
+msgstr "نام کاربری نمی‌تواند عوض شود."
+
+#: wp-user-profiles/includes/metaboxes/profile-name.php:36
+msgid "Username"
+msgstr "نام کاربری"
+
+#: wp-user-profiles/includes/metaboxes/profile-about.php:37
+msgid "Share a little biographical information to fill out your profile. This may be shown publicly."
+msgstr "زندگی‌نامه‌ای کوتاه برای بخش شناسنامه خودتان بنویسید. این متن ممکن است برای همه نمایش داده شود."
+
+#: wp-user-profiles/includes/metaboxes/profile-about.php:33
+msgid "Biographical Info"
+msgstr "اطلاعات زندگی‌نامه‌ای"
+
+#: wp-user-profiles/includes/metaboxes/profile-about.php:29
+msgid "Website"
+msgstr "وب‌سایت"
+
+#: wp-user-profiles/includes/metaboxes/permissions-roles.php:94
+#: wp-user-profiles/includes/metaboxes/permissions-roles.php:98
+msgid "&mdash; No role for this site &mdash;"
+msgstr "&mdash; بدون نقش در این سایت &mdash;"
+
+#: wp-user-profiles/includes/metaboxes/permissions-roles.php:51
+msgid "This user has no role on any sites"
+msgstr "این کاربر هیچ نقشی در هیچ کدام از سایت‌ها ندارد."
+
+#: wp-user-profiles/includes/metaboxes/permissions-roles.php:50
+msgid "You have no role on any sites."
+msgstr "شما هیچ نقشی در هیچ کدام از سایت‌ها ندارید."
+
+#: wp-user-profiles/includes/metaboxes/permissions-roles.php:44
+msgid "No Sites"
+msgstr "بدون سایت"
+
+#: wp-user-profiles/includes/metaboxes/permissions-capabilities.php:71
+msgid "No additional capabilities"
+msgstr "بدون قابلیت افزوده"
+
+#: wp-user-profiles/includes/metaboxes/permissions-capabilities.php:64
+msgid "Denied: %s"
+msgstr "بدون اجازه‌ها: %s"
+
+#: wp-user-profiles/includes/metaboxes/permissions-capabilities.php:63
+msgid "Allowed: %s"
+msgstr "اجازه‌ها: %s"
+
+#: wp-user-profiles/includes/metaboxes/permissions-capabilities.php:52
+msgid "Capabilities"
+msgstr "قابلیت‌ها"
+
+#: wp-user-profiles/includes/metaboxes/permissions-capabilities.php:42
+msgid "Super admin privileges cannot be removed because this user has the network admin email."
+msgstr "دسترسی مدیریت کل قابل حذف نیست، چون این کاربر ایمیل مدیریت شبکه را در اختیار دارد."
+
+#: wp-user-profiles/includes/metaboxes/permissions-capabilities.php:36
+msgid "Grant this user super admin privileges for the Network."
+msgstr "به این کاربر دسترسی مدیریت کل شبکه داده شود."
+
+#: wp-user-profiles/includes/metaboxes/permissions-capabilities.php:28
+msgid "Super Admin"
+msgstr "مدیر کل"
+
+#: wp-user-profiles/includes/metaboxes/options-personal.php:59
+msgid "Show Toolbar when viewing site"
+msgstr "نشان دادن نوارابزار هنگام نمایش سایت"
+
+#: wp-user-profiles/includes/metaboxes/options-personal.php:53
+#: wp-user-profiles/includes/metaboxes/options-personal.php:56
+msgid "Toolbar"
+msgstr "نوارابزار"
+
+#: wp-user-profiles/includes/metaboxes/options-personal.php:42
+msgid "Enable keyboard shortcuts for comment moderation."
+msgstr "میانبرهای صفحه‌کلید برای مدیریت دیدگاه‌ها فعال شود."
+
+#: wp-user-profiles/includes/metaboxes/options-personal.php:39
+msgid "Keyboard Shortcuts"
+msgstr "میانبرهای صفحه‌کلید"
+
+#: wp-user-profiles/includes/metaboxes/options-personal.php:30
+msgid "Disable the visual editor when writing"
+msgstr "غیرفعال کردن ویرایشگر دیداری هنگام نوشتن"
+
+#: wp-user-profiles/includes/metaboxes/options-personal.php:27
+#: wp-user-profiles/includes/sections/options.php:107
+msgid "Visual Editor"
+msgstr "ویرایشگر دیداری"
+
+#: wp-user-profiles/includes/metaboxes/options-color-scheme.php:24
+msgid "Admin Color Scheme"
+msgstr "شمای رنگ مدیریت"
+
+#: wp-user-profiles/includes/metaboxes/all-status.php:58
+msgid "Update"
+msgstr "به‌روزرسانی"
+
+#: wp-user-profiles/includes/metaboxes/all-status.php:57
+msgid "View User"
+msgstr "نمایش کاربر"
+
+#: wp-user-profiles/includes/metaboxes/all-status.php:48
+msgid "Registered on: %1$s"
+msgstr "نام‌نویسی در: %1$s"
+
+#: wp-user-profiles/includes/metaboxes/all-status.php:37
+msgid "Spammer"
+msgstr "هرزنویس"
+
+#: wp-user-profiles/includes/metaboxes/all-status.php:35
+msgid "Active"
+msgstr "فعال"
+
+#. translators: 1: User's display name.
+#: wp-user-profiles/includes/metaboxes/account-sessions.php:74
+msgid "%s has not logged in yet."
+msgstr "%s هنوز وارد نشده است."
+
+#: wp-user-profiles/includes/metaboxes/account-sessions.php:69
+#: wp-user-profiles/includes/metaboxes/all-status.php:36
+msgid "Inactive"
+msgstr "غیرفعال"
+
+#. translators: 1: User's display name.
+#: wp-user-profiles/includes/metaboxes/account-sessions.php:60
+msgid "Log %s out of all locations."
+msgstr "%s در همه‌جا خارج شود."
+
+#: wp-user-profiles/includes/metaboxes/account-sessions.php:56
+msgid "Log Out Everywhere"
+msgstr "در همه‌جا خارج شوید"
+
+#: wp-user-profiles/includes/metaboxes/account-sessions.php:46
+msgid "Did you lose your phone or leave your account logged in at a public computer? You can log out everywhere else, and stay logged in here."
+msgstr "آیا گوشی خود را از گم کرده‌اید، یا از رایانه عمومی به حساب کاربری خود وارد شده‌اید؟ می‌توانید از جاهای دیگر خارج و در این جا وارد بمانید."
+
+#: wp-user-profiles/includes/metaboxes/account-sessions.php:34
+msgid "You are only logged in at this location."
+msgstr "شما فقط در اینجا وارد شده‌اید."
+
+#: wp-user-profiles/includes/metaboxes/account-sessions.php:32
+#: wp-user-profiles/includes/metaboxes/account-sessions.php:44
+msgid "Log Out Everywhere Else"
+msgstr "از جاهای دیگر خارج شوید."
+
+#: wp-user-profiles/includes/metaboxes/account-sessions.php:30
+#: wp-user-profiles/includes/metaboxes/account-sessions.php:42
+#: wp-user-profiles/includes/metaboxes/account-sessions.php:54
+msgid "Sessions"
+msgstr "نشست‌ها"
+
+#: wp-user-profiles/includes/metaboxes/account-password.php:55
+msgid "Confirm use of weak password"
+msgstr "تأیید رمز عبور ضعیف"
+
+#: wp-user-profiles/includes/metaboxes/account-password.php:51
+msgid "Confirm Password"
+msgstr "تأیید رمز عبور"
+
+#: wp-user-profiles/includes/metaboxes/account-password.php:47
+msgid "Type your new password again."
+msgstr "رمز عبور تازه را دوباره وارد کنید."
+
+#: wp-user-profiles/includes/metaboxes/account-password.php:44
+msgid "Repeat New Password"
+msgstr "تکرار رمز تازه"
+
+#: wp-user-profiles/includes/metaboxes/account-password.php:37
+msgid "Cancel"
+msgstr "لغو"
+
+#: wp-user-profiles/includes/metaboxes/account-password.php:36
+msgid "Cancel password change"
+msgstr "لغو تغییر رمز عبور"
+
+#: wp-user-profiles/includes/metaboxes/account-password.php:34
+msgid "Hide"
+msgstr "مخفی شود"
+
+#: wp-user-profiles/includes/metaboxes/account-password.php:32
+msgid "Hide password"
+msgstr "رمز عبور مخفی شود"
+
+#: wp-user-profiles/includes/metaboxes/account-password.php:27
+msgid "Generate Password"
+msgstr "ساختن رمز عبور"
+
+#: wp-user-profiles/includes/metaboxes/account-password.php:24
+msgid "New Password"
+msgstr "رمز عبور تازه"
+
+#: wp-user-profiles/includes/metaboxes/account-language.php:40
+msgid "Language"
+msgstr "زبان"
+
+#: wp-user-profiles/includes/metaboxes/account-email.php:38
+msgid "There is a pending change of your email to %1$s. <a href=\"%2$s\">Cancel</a>"
+msgstr "ایمیل شما در انتظار تغییر به %1$s است. <a href=\"%2$s\">لغو</a>"
+
+#: wp-user-profiles/includes/metaboxes/account-email.php:27
+#: wp-user-profiles/includes/metaboxes/profile-name.php:56
+msgid "(required)"
+msgstr "(ضروری)"
+
+#: wp-user-profiles/includes/metaboxes/account-email.php:26
+msgid "Email"
+msgstr "ایمیل"
+
+#: wp-user-profiles/includes/help.php:22
+msgid "Always use a strong password, and never give your login information to anyone."
+msgstr "همیشه از یک رمز عبور قوی استفاده کنید و هرگز اطلاعات ورود را در اختیار هیچکس قرار ندهید."
+
+#: wp-user-profiles/includes/help.php:21
+msgid "Some information may be displayed publicly on the site."
+msgstr "برخی از اطلاعات، ممکن است به صورت عمومی در سایت نمایش داده شوند."
+
+#: wp-user-profiles/includes/common.php:408
+msgid "User updated."
+msgstr "کاربر به‌روز شد."
+
+#: wp-user-profiles/includes/admin.php:249
+msgctxt "user"
+msgid "Add Existing"
+msgstr "افزودن کاربر موجود"
+
+#: wp-user-profiles/includes/admin.php:245
+msgctxt "user"
+msgid "Add New"
+msgstr "افزودن کاربر تازه"
+
+#: wp-user-profiles/includes/admin.php:161
+msgid "Dismiss this notice."
+msgstr "این اخطار را ببند."
+
+#: wp-user-profiles/includes/admin.php:154
+msgid "&larr; Back to Users"
+msgstr "&rarr; بازگشت به کاربران"
+
+#: wp-user-profiles/includes/admin.php:78
+#: wp-user-profiles/includes/sections.php:23
+msgid "Profile"
+msgstr "نمایه"
+
+#: wp-user-profiles/includes/admin.php:62
+msgid "Your Profile"
+msgstr "نمایه شما"

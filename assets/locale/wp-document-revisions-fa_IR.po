@@ -10,7 +10,9 @@ msgstr ""
 "X-Poedit-Basepath: ../../../wp-document-revisions\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 2.2.1\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
 
 #. Author URI of the plugin/theme
 msgid "http://ben.balter.com"
@@ -263,11 +265,11 @@ msgstr "اسنادی که به‌تازگی بازبینی شده‌اند"
 #: includes/class-wp-document-revisions-front-end.php:122
 #: includes/front-end.php:95
 msgid ""
-"<a href=\"%1$s\" title=\"%2$s\" id=\"%3$s\" class=\"timestamp\">%4$s</a> "
-"<span class=\"agoby\">ago by</a> <span class=\"author\">%5$s</a>"
+"<a href=\"%1$s\" title=\"%2$s\" id=\"%3$s\" class=\"timestamp\">%4$s</a> <span "
+"class=\"agoby\">ago by</a> <span class=\"author\">%5$s</a>"
 msgstr ""
-"<a href=\"%1$s\" title=\"%2$s\" id=\"%3$s\" class=\"timestamp\">%4$s</a> "
-"<span class=\"agoby\">پیش توسط</a> <span class=\"author\">%5$s</a>"
+"<a href=\"%1$s\" title=\"%2$s\" id=\"%3$s\" class=\"timestamp\">%4$s</a> <span "
+"class=\"agoby\">پیش توسط</a> <span class=\"author\">%5$s</a>"
 
 #. translators: %1$s is the time ago in words, %2$s is the author, %3$s is the
 #. post status
@@ -397,8 +399,8 @@ msgstr "حریم خوراک"
 
 #: includes/admin.php:764 includes/class-wp-document-revisions-admin.php:788
 msgid ""
-"You currently have this file checked out. No other user can edit this "
-"document so long as you remain on this page."
+"You currently have this file checked out. No other user can edit this document "
+"so long as you remain on this page."
 msgstr ""
 "شما در حال حاضر این پرونده را از مخزن خارج کرده‌اید. تا زمانی که این برگه را "
 "باز نگه دارید، کاربران دیگر امکان ویرایش این سند را ندارند."
@@ -492,9 +494,9 @@ msgid ""
 "allow other users to quickly and easily see what changes you made without "
 "needing to open the actual file."
 msgstr ""
-"چکیده رونوشت، یادداشت‌هایی برای ذخیره به همراه هر رونوشت است که به دیگر "
-"کاربران این امکان را می‌دهد تا بدون بازکردن فایل، به سرعت از تغییرات اعمال شده "
-"توسط شما آگاه شوند."
+"چکیده رونوشت، یادداشت‌هایی برای ذخیره به همراه هر رونوشت است که به دیگر کاربران "
+"این امکان را می‌دهد تا بدون بازکردن فایل، به سرعت از تغییرات اعمال شده توسط شما "
+"آگاه شوند."
 
 #: includes/admin.php:364 includes/class-wp-document-revisions-admin.php:375
 msgid ""
@@ -591,8 +593,8 @@ msgstr "انتشار اسناد"
 msgid ""
 "The workflow state field can be used to help team members understand at what "
 "stage a document sits within a particular organization&quot;s workflow. The "
-"field is optional, and can be customized or queried by clicking "
-"<code>Workflow States</code> on the left-hand side."
+"field is optional, and can be customized or queried by clicking <code>Workflow "
+"States</code> on the left-hand side."
 msgstr ""
 
 #: includes/admin.php:193 includes/admin.php:264 includes/admin.php:927
@@ -633,8 +635,8 @@ msgstr ""
 #: includes/admin.php:187 includes/class-wp-document-revisions-admin.php:205
 msgid ""
 "This screen allows users to collaboratively edit documents and track their "
-"revision history. To begin, enter a title for the document, click "
-"<code>Upload New Version</code> and select the file from your computer."
+"revision history. To begin, enter a title for the document, click <code>Upload "
+"New Version</code> and select the file from your computer."
 msgstr ""
 
 #: includes/admin.php:186 includes/class-wp-document-revisions-admin.php:204
@@ -655,8 +657,8 @@ msgstr ""
 #. translators: %1$s is the date, %2$s is the preview link
 #: includes/admin.php:136 includes/class-wp-document-revisions-admin.php:152
 msgid ""
-"Document scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href="
-"\"%2$s\">Preview document</a>"
+"Document scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
+"\">Preview document</a>"
 msgstr ""
 
 #. translators: %s is the download link
