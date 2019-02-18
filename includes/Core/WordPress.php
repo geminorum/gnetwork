@@ -352,7 +352,7 @@ class WordPress extends Base
 	}
 
 	// mocking `get_sites()` results
-	public static function getAllSites( $user_id = FALSE, $network = NULL, $generate_url = TRUE, $orderby_path = FALSE )
+	public static function getAllSites( $user_id = FALSE, $network = NULL, $retrieve_url = TRUE, $orderby_path = FALSE )
 	{
 		global $wpdb;
 
@@ -392,17 +392,20 @@ class WordPress extends Base
 
 		foreach ( $wpdb->get_results( $query, ARRAY_A ) as $blog ) {
 
-			if ( $generate_url )
-				$siteurl = self::getSiteURL( $blog['blog_id'] ) ?: URL::untrail( $scheme.'://'.$blog['domain'].$blog['path'] );
-			else
-				$siteurl = NULL;
+			$siteurl = FALSE;
+
+			if ( $retrieve_url )
+				$siteurl = self::getSiteURL( $blog['blog_id'] );
+
+			if ( ! $siteurl )
+				$siteurl = $scheme.'://'.$blog['domain'].$blog['path'];
 
 			$blogs[$blog['blog_id']] = (object) [
 				'userblog_id' => $blog['blog_id'],
 				'network_id'  => $blog['site_id'],
 				'domain'      => $blog['domain'],
 				'path'        => $blog['path'],
-				'siteurl'     => $siteurl,
+				'siteurl'     => URL::untrail( $siteurl ),
 			];
 		}
 
