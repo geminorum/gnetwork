@@ -71,8 +71,8 @@ class Login extends gNetwork\Module
 			'store_lastlogin'   => 1,
 			'redirect_login'    => '',
 			'redirect_logout'   => '',
-			'login_headerurl'   => GNETWORK_BASE,
-			'login_headertitle' => GNETWORK_NAME,
+			'login_headerurl'   => '',
+			'login_headertitle' => '',
 			'login_logourl'     => '',
 			'login_styles'      => '',
 			'login_class'       => 'logindefault',
@@ -143,14 +143,14 @@ class Login extends gNetwork\Module
 					'type'        => 'url',
 					'title'       => _x( 'Header URL', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Login page header logo link URL.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'default'     => GNETWORK_BASE,
+					'placeholder' => GNETWORK_BASE,
 				],
 				[
 					'field'       => 'login_headertitle',
 					'type'        => 'text',
 					'title'       => _x( 'Header Title', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Login page header logo link title attribute.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'default'     => GNETWORK_NAME,
+					'placeholder' => GNETWORK_NAME,
 				],
 				[
 					'field'       => 'login_remember',
@@ -401,11 +401,8 @@ class Login extends gNetwork\Module
 
 	public function login_init()
 	{
-		if ( $this->options['login_headerurl'] )
-			$this->filter( 'login_headerurl', 1, 1000 );
-
-		if ( $this->options['login_headertitle'] )
-			$this->filter( 'login_headertitle', 1, 1000 );
+		$this->filter( 'login_headerurl', 1, 1000 );
+		$this->filter( 'login_headertitle', 1, 1000 );
 
 		if ( $this->options['login_remember'] )
 			$this->filter( 'login_footer', 1, 99, 'remember' );
@@ -452,12 +449,12 @@ class Login extends gNetwork\Module
 
 	public function login_headerurl( $login_header_url )
 	{
-		return $this->options['login_headerurl'];
+		return $this->options['login_headerurl'] ?: GNETWORK_BASE;
 	}
 
 	public function login_headertitle( $login_header_title )
 	{
-		return $this->options['login_headertitle'];
+		return $this->options['login_headertitle'] ?: GNETWORK_NAME;
 	}
 
 	public function login_footer_remember()
