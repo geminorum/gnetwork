@@ -745,4 +745,31 @@ class WordPress extends Base
 
 		return apply_filters( 'network_site_url', $url, $path, $scheme );
 	}
+
+	// @REF: `network_home_url()`
+	// like core's but with custom network
+	public static function networkHomeURL( $network = NULL, $path = '', $scheme = NULL )
+	{
+		if ( ! is_multisite() )
+			return home_url( $path, $scheme );
+
+		if ( ! $network )
+			$network = get_network();
+
+		$original_scheme = $scheme;
+
+		if ( ! in_array( $scheme, array( 'http', 'https', 'relative' ) ) )
+			$scheme = is_ssl() && ! is_admin() ? 'https' : 'http';
+
+		if ( 'relative' == $scheme )
+			$url = $network->path;
+
+		else
+			$url = set_url_scheme( 'http://'.$network->domain.$network->path, $scheme );
+
+		if ( $path && is_string( $path ) )
+			$url.= ltrim( $path, '/' );
+
+		return apply_filters( 'network_home_url', $url, $path, $original_scheme );
+	}
 }
