@@ -28,6 +28,7 @@ class Cleanup extends gNetwork\Module
 		$confirm    = Settings::getButtonConfirm();
 		$superadmin = WordPress::isSuperAdmin();
 		$multisite  = is_multisite();
+		$sitemeta   = function_exists( 'is_site_meta_supported' ) && is_site_meta_supported();
 
 		$settings['_options'][] = [
 			'field'       => 'purge_options_blog',
@@ -54,6 +55,16 @@ class Cleanup extends gNetwork\Module
 			'default'     => _x( 'Purge All', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'values'      => $confirm,
 		];
+
+		if ( $multisite && $sitemeta )
+			$settings['_sitemeta'][] = [
+				'field'       => 'purge_sitemeta',
+				'type'        => 'button',
+				'title'       => _x( 'Site Meta', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Removes cached site meta data.', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+				'default'     => _x( 'Purge Site Meta', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+				'values'      => $confirm,
+			];
 
 		if ( is_main_site() ) {
 
@@ -82,6 +93,15 @@ class Cleanup extends gNetwork\Module
 					'default'     => _x( 'Purge All Network', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 					'values'      => $confirm,
 				];
+
+				if ( $sitemeta )
+					$settings['_sitemeta'][] = [
+						'field'       => 'purge_sitemeta_all',
+						'type'        => 'button',
+						'description' => _x( 'Removes all cached site meta data.', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+						'default'     => _x( 'Purge All Site Meta', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+						'values'      => $confirm,
+					];
 			}
 
 			$settings['_users'][] = [
@@ -215,6 +235,12 @@ class Cleanup extends gNetwork\Module
 
 			else if ( isset( $_POST['transient_purge_site_all'] ) )
 				$message = $this->purge_transient_data( TRUE, FALSE );
+
+			else if ( isset( $_POST['purge_sitemeta'] ) )
+				$message = $this->purge_sitemeta();
+
+			else if ( isset( $_POST['purge_sitemeta_all'] ) )
+				$message = $this->purge_sitemeta( TRUE );
 
 			else if ( isset( $_POST['users_defaultmeta'] ) )
 				$message = $this->users_defaultmeta();
@@ -356,6 +382,18 @@ class Cleanup extends gNetwork\Module
 					$count++;
 			}
 		}
+
+		return $count ? [
+			'message' => 'purged',
+			'count'   => $count,
+		] : 'nochange';
+	}
+
+	private function purge_sitemeta( $all = FALSE )
+	{
+		$count = $all
+			? gNetwork()->site->network_delete_sitemeta()
+			: gNetwork()->site->delete_sitemeta();
 
 		return $count ? [
 			'message' => 'purged',
