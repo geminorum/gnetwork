@@ -141,8 +141,8 @@ class Plugin
 	private function constants_late()
 	{
 		return [
-			'GNETWORK_BASE' => network_home_url( '/', $this->ssl() ? 'https' : 'http' ),
-			'GNETWORK_NAME' => is_multisite() ? get_network_option( NULL, 'site_name' ) : get_option( 'blogname' ),
+			'GNETWORK_BASE' => network_home_url( '/', $this->ssl() ? 'https' : 'http' ), // comes handy on multi-network
+			'GNETWORK_NAME' => is_multisite() ? get_network_option( NULL, 'site_name' ) : get_option( 'blogname' ), // comes handy on multi-network
 			'GNETWORK_LOGO' => 'login.png', // default logo image file, must relative to wp-content
 		];
 	}

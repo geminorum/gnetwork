@@ -93,11 +93,11 @@ class Extend extends gNetwork\Module
 
 	public function activated_plugin( $plugin, $network_wide )
 	{
-		Logger::siteNOTICE( 'PLUGIN-ACTIVATED', $plugin.( $network_wide ? '|NETWORK-WIDE' : '' ) );
+		Logger::siteNOTICE( 'PLUGIN-ACTIVATED-'.( $network_wide ? 'NETWORK' : 'SITE' ), $plugin );
 	}
 
 	public function deactivated_plugin( $plugin, $network_deactivating )
 	{
-		Logger::siteNOTICE( 'PLUGIN-DEACTIVATED', $plugin.( $network_deactivating ? '|NETWORK-WIDE' : '' ) );
+		Logger::siteNOTICE( 'PLUGIN-DEACTIVATED'.( $network_deactivating ? 'NETWORK' : 'SITE' ), $plugin );
 	}
 }

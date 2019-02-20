@@ -27,7 +27,7 @@ class DebugMetaPanel extends \Debug_Bar_Panel
 
 				// no screen!
 
-			} else if ( 'post' == $screen->base ) {
+			} else if ( 'post' == $screen->base && ! empty( $_GET['post'] ) ) {
 
 				$meta = $this->render_post( $_GET['post'] );
 

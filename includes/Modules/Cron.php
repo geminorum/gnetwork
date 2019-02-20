@@ -29,7 +29,7 @@ class Cron extends gNetwork\Module
 		$this->action_module( 'cron', 'status_check', 2 );
 
 		if ( function_exists( 'wp_get_ready_cron_jobs' ) )
-			$this->filter_module( 'dashboard', 'pointers' );
+			$this->filter_module( 'dashboard', 'pointers', 1, 4 );
 
 		if ( $this->options['dashboard_widget'] )
 			$this->action( 'wp_dashboard_setup' );

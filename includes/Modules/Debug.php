@@ -388,6 +388,7 @@ class Debug extends gNetwork\Module
 			'ABSPATH'       => ABSPATH,
 			'DIR'           => GNETWORK_DIR,
 			'URL'           => GNETWORK_URL,
+			'BASE'          => GNETWORK_BASE,
 			'FILE'          => GNETWORK_FILE,
 			'DL_DIR'        => GNETWORK_DL_DIR,
 			'DL_URL'        => GNETWORK_DL_URL,

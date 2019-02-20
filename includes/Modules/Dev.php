@@ -35,6 +35,11 @@ class Dev extends gNetwork\Module
 
 		// the plugin gracefully forgets!
 		load_plugin_textdomain( 'monster-widget' );
+
+		// Query Monitor
+		add_filter( 'qm/output/file_link_format', function( $format ) {
+			return 'atom://open/?url=file://%f&line=%l';
+		} );
 	}
 
 	public function setup_menu( $context )
