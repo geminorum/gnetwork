@@ -79,6 +79,7 @@ class Tracking extends gNetwork\Module
 					'default'     => 'auto',
 					'dir'         => 'ltr',
 					'placeholder' => 'example.com',
+					'disabled'    => defined( 'GNETWORK_TRACKING_GA_ACCOUNT' ),
 				],
 				[
 					'field'       => 'ga_account',
@@ -87,6 +88,7 @@ class Tracking extends gNetwork\Module
 					'description' => _x( 'Network Google Analytics account number', 'Modules: Tracking: Settings', GNETWORK_TEXTDOMAIN ),
 					'dir'         => 'ltr',
 					'placeholder' => 'UA-XXXXX-X',
+					'constant'    => 'GNETWORK_TRACKING_GA_ACCOUNT',
 				],
 				[
 					'field'       => 'ga_beacon',
@@ -239,16 +241,32 @@ class Tracking extends gNetwork\Module
 		return $html;
 	}
 
+	private function get_ga_account()
+	{
+		if ( ! $blog = gNetwork()->option( 'ga_override', 'blog' ) )
+			return trim( $blog );
+
+		if ( defined( 'GNETWORK_TRACKING_GA_ACCOUNT' ) )
+			return GNETWORK_TRACKING_GA_ACCOUNT;
+
+		if ( ! empty( $this->options['ga_account'] ) )
+			return trim( $this->options['ga_account'] );
+
+		return FALSE;
+	}
+
 	private function ga()
 	{
-		if ( empty( $this->options['ga_domain'] )
-			|| empty( $this->options['ga_account'] ) )
-				return FALSE;
+		if ( ! $account = $this->get_ga_account() )
+			return FALSE;
 
-		if ( ! $account = gNetwork()->option( 'ga_override', 'blog' ) )
-			$account = $this->options['ga_account'];
+		if ( defined( 'GNETWORK_TRACKING_GA_ACCOUNT' )
+			|| empty( $this->options['ga_domain'] ) )
+				$domain = 'auto';
+		else
+			$domain = esc_js( $this->options['ga_domain'] );
 
-		return "ga('create', '".esc_js( $account )."', '".esc_js( $this->options['ga_domain'] )."');"."\n";
+		return "ga('create', '".esc_js( $account )."', '".$domain."');"."\n";
 	}
 
 	private function ga_code( $ga )
@@ -337,7 +355,7 @@ class Tracking extends gNetwork\Module
 	// @REF: https://github.com/Automattic/amp-wp/wiki/Analytics
 	public function amp_post_template_analytics( $analytics )
 	{
-		if ( ! $account = gNetwork()->option( 'ga_override', 'blog', $this->options['ga_account'] ) )
+		if ( ! $account = $this->get_ga_account() )
 			return $analytics;
 
 		$analytics[$this->base.'-googleanalytics'] = [

@@ -73,6 +73,8 @@ class Plugin
 			// 'GNETWORK_WPLANG'       => 'en_US', // define if necessary
 			// 'GNETWORK_WPLANG_ADMIN' => FALSE, // define if necessary
 
+			// 'GNETWORK_TRACKING_GA_ACCOUNT' => FALSE, // define if necessary
+
 			'GNETWORK_SEARCH_REDIRECT'       => FALSE, // set TRUE to redirect all searches to the network search url
 			'GNETWORK_SEARCH_URL'            => esc_url( home_url( '/' ) ),
 			'GNETWORK_SEARCH_QUERYID'        => 's',
