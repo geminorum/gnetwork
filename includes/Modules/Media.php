@@ -1331,8 +1331,8 @@ class Media extends gNetwork\Module
 			'flv'  => 'video/x-flv',
 			'svg'  => 'image/svg+xml',
 			'psd'  => 'image/vnd.adobe.photoshop',
-			'mobi' => 'application/x-mobipocket-ebook',
-			'epub' => 'application/epub+zip',
+			'mobi' => 'application/x-mobipocket-ebook', // 'application/octet-stream'
+			'epub' => 'application/epub+zip', // 'application/octet-stream'
 			'bib'  => 'application/x-bibtex', // 'text/plain', // @REF: http://fileformats.archiveteam.org/wiki/BibTeX
 		] );
 	}

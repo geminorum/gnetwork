@@ -31,7 +31,7 @@ class Cleanup extends gNetwork\Module
 		$sitemeta   = function_exists( 'is_site_meta_supported' ) && is_site_meta_supported();
 
 		$settings['_options'][] = [
-			'field'       => 'purge_options_blog',
+			'field'       => 'purge_options_site',
 			'type'        => 'button',
 			'title'       => _x( 'Options', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'description' => _x( 'Removes site obsolete option data.', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
@@ -40,7 +40,7 @@ class Cleanup extends gNetwork\Module
 		];
 
 		$settings['_transient'][] = [
-			'field'       => 'transient_purge',
+			'field'       => 'transient_purge_site',
 			'type'        => 'button',
 			'title'       => _x( 'Transient', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'description' => _x( 'Removes site expired transient cache.', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
@@ -49,7 +49,7 @@ class Cleanup extends gNetwork\Module
 		];
 
 		$settings['_transient'][] = [
-			'field'       => 'transient_purge_all',
+			'field'       => 'transient_purge_site_all',
 			'type'        => 'button',
 			'description' => _x( 'Removes all site transient cache.', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 			'default'     => _x( 'Purge All', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
@@ -71,7 +71,7 @@ class Cleanup extends gNetwork\Module
 			if ( $multisite && $superadmin ) {
 
 				$settings['_options'][] = [
-					'field'       => 'purge_options_site',
+					'field'       => 'purge_options_network',
 					'type'        => 'button',
 					'description' => _x( 'Removes network obsolete option data.', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => _x( 'Purge Network Options', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
@@ -79,7 +79,7 @@ class Cleanup extends gNetwork\Module
 				];
 
 				$settings['_transient'][] = [
-					'field'       => 'transient_purge_site',
+					'field'       => 'transient_purge_network',
 					'type'        => 'button',
 					'description' => _x( 'Removes network expired transient cache.', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => _x( 'Purge Network Expired', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
@@ -87,7 +87,7 @@ class Cleanup extends gNetwork\Module
 				];
 
 				$settings['_transient'][] = [
-					'field'       => 'transient_purge_site_all',
+					'field'       => 'transient_purge_network_all',
 					'type'        => 'button',
 					'description' => _x( 'Removes all network transient cache.', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => _x( 'Purge All Network', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
@@ -224,16 +224,16 @@ class Cleanup extends gNetwork\Module
 
 			$this->check_referer( $sub );
 
-			if ( isset( $_POST['transient_purge'] ) )
+			if ( isset( $_POST['transient_purge_site'] ) )
 				$message = $this->purge_transient_data( FALSE, TRUE );
 
-			else if ( isset( $_POST['transient_purge_all'] ) )
+			else if ( isset( $_POST['transient_purge_site_all'] ) )
 				$message = $this->purge_transient_data( FALSE, FALSE );
 
-			else if ( isset( $_POST['transient_purge_site'] ) )
+			else if ( isset( $_POST['transient_purge_network'] ) )
 				$message = $this->purge_transient_data( TRUE, TRUE );
 
-			else if ( isset( $_POST['transient_purge_site_all'] ) )
+			else if ( isset( $_POST['transient_purge_network_all'] ) )
 				$message = $this->purge_transient_data( TRUE, FALSE );
 
 			else if ( isset( $_POST['purge_sitemeta'] ) )
@@ -245,11 +245,11 @@ class Cleanup extends gNetwork\Module
 			else if ( isset( $_POST['users_defaultmeta'] ) )
 				$message = $this->users_defaultmeta();
 
+			else if ( isset( $_POST['purge_options_network'] ) )
+				$message = $this->purge_options_network();
+
 			else if ( isset( $_POST['purge_options_site'] ) )
 				$message = $this->purge_options_site();
-
-			else if ( isset( $_POST['purge_options_blog'] ) )
-				$message = $this->purge_options_blog();
 
 			else if ( isset( $_POST['users_contactmethods'] ) )
 				$message = $this->users_contactmethods();
@@ -294,11 +294,11 @@ class Cleanup extends gNetwork\Module
 	// @SEE: `delete_expired_transients()`
 	// @REF: https://core.trac.wordpress.org/ticket/20316
 	// @REF: https://core.trac.wordpress.org/changeset/25838
-	private function purge_transient_data( $site = TRUE, $time = TRUE )
+	private function purge_transient_data( $network = TRUE, $time = TRUE )
 	{
 		global $wpdb;
 
-		if ( $site ) {
+		if ( $network ) {
 
 			if ( $time ) {
 
@@ -334,54 +334,6 @@ class Cleanup extends gNetwork\Module
 		}
 
 		$count = $wpdb->query( $query );
-
-		return $count ? [
-			'message' => 'purged',
-			'count'   => $count,
-		] : 'nochange';
-	}
-
-	// FIXME: DROP THIS
-	// @REF: http://wordpress.stackexchange.com/a/6652
-	private function purge_transient_data_OLD( $site = FALSE, $time = FALSE )
-	{
-		if ( wp_using_ext_object_cache() )
-			return 'wrong';
-
-		global $wpdb;
-
-		$count = 0;
-
-		if ( $site ) {
-			$table = $wpdb->sitemeta;
-			$key   = 'meta_key';
-			$val   = 'meta_value';
-			$like  = '%_site_transient_timeout_%';
-		} else {
-			$table = $wpdb->options;
-			$key   = 'option_name';
-			$val   = 'option_value';
-			$like  = '%_transient_timeout_%';
-		}
-
-		$query = "SELECT {$key} FROM {$table} WHERE {$key} LIKE '{$like}'";
-
-		if ( $time ) {
-			$timestamp = isset( $_SERVER['REQUEST_TIME'] ) ? intval( $_SERVER['REQUEST_TIME'] ) : time();
-			$query.= " AND {$val} < {$timestamp};";
-		}
-
-		foreach ( $wpdb->get_col( $query ) as $transient ) {
-			if ( $site ) {
-
-				if ( delete_site_transient( str_replace( '_site_transient_timeout_', '', $transient ) ) )
-					$count++;
-			} else {
-
-				if ( delete_transient( str_replace( '_transient_timeout_', '', $transient ) ) )
-					$count++;
-			}
-		}
 
 		return $count ? [
 			'message' => 'purged',
@@ -607,7 +559,7 @@ class Cleanup extends gNetwork\Module
 		] : 'optimized';
 	}
 
-	private function purge_options_site()
+	private function purge_options_network()
 	{
 		global $wpdb;
 
@@ -624,7 +576,7 @@ class Cleanup extends gNetwork\Module
 		] : 'optimized';
 	}
 
-	private function purge_options_blog()
+	private function purge_options_site()
 	{
 		global $wpdb;
 

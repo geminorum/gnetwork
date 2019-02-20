@@ -103,7 +103,7 @@ class Tracking extends gNetwork\Module
 					'title'       => _x( 'GA Track UserID', 'Modules: Tracking: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Track usernames in Google Analytics', 'Modules: Tracking: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '1',
-					// TODO: add info link
+					'after'       => Settings::fieldAfterIcon( 'https://support.google.com/analytics/topic/6009743' ),
 				],
 				[
 					'field'       => 'ga_outbound',
