@@ -197,10 +197,8 @@ class Widgets extends gNetwork\Module
 		if ( class_exists( __NAMESPACE__.'\\Navigation' ) )
 			$widgets[GNETWORK_DIR.'includes/Widgets/NavigationMenu.php'] = 'geminorum\\gNetwork\\Widgets\\NavigationMenu';
 
-		if ( class_exists( __NAMESPACE__.'\\Tracking' ) ) {
-			$widgets[GNETWORK_DIR.'includes/Widgets/TrackingGPlusBadge.php'] = 'geminorum\\gNetwork\\Widgets\\TrackingGPlusBadge';
+		if ( class_exists( __NAMESPACE__.'\\Tracking' ) )
 			$widgets[GNETWORK_DIR.'includes/Widgets/TrackingQuantcast.php']  = 'geminorum\\gNetwork\\Widgets\\TrackingQuantcast';
-		}
 
 		foreach ( apply_filters( $this->hook(), $widgets ) as $path => $widget ) {
 

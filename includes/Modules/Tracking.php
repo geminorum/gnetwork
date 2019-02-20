@@ -45,7 +45,6 @@ class Tracking extends gNetwork\Module
 			'ga_userid'           => '1',
 			'ga_outbound'         => '0',
 			'quantcast'           => '',
-			'plus_publisher'      => '',
 			'twitter_site'        => '',
 			'ignore_user'         => 'edit_others_posts',
 		];
@@ -121,14 +120,6 @@ class Tracking extends gNetwork\Module
 					'placeholder' => 'x-XXXXXXXXXXXX-',
 				],
 				[
-					'field'       => 'plus_publisher',
-					'type'        => 'text',
-					'title'       => _x( 'GP Publisher ID', 'Modules: Tracking: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Network Google+ publisher id', 'Modules: Tracking: Settings', GNETWORK_TEXTDOMAIN ),
-					'dir'         => 'ltr',
-					'placeholder' => 'XXXXXXXXXXXXXXXXXXXXX',
-				],
-				[
 					'field'       => 'twitter_site',
 					'type'        => 'text',
 					'title'       => _x( 'Twitter Account', 'Modules: Tracking: Settings', GNETWORK_TEXTDOMAIN ),
@@ -166,47 +157,8 @@ class Tracking extends gNetwork\Module
 	protected function get_shortcodes()
 	{
 		return [
-			'google-plus-badge' => 'shortcode_google_plus_badge',
-			'ga-beacon'         => 'shortcode_ga_beacon',
+			'ga-beacon' => 'shortcode_ga_beacon',
 		];
-	}
-
-	public function shortcode_google_plus_badge( $atts = [], $content = NULL, $tag = '' )
-	{
-		$args = shortcode_atts( [
-			'id'      => FALSE,
-			'href'    => FALSE,
-			'width'   => '300',
-			'rel'     => 'publisher',
-			'context' => NULL,
-			'wrap'    => TRUE,
-		], $atts, $tag );
-
-		if ( FALSE === $args['context'] || is_feed() )
-			return NULL;
-
-		if ( ! $args['id'] && ! empty( $this->options['plus_publisher'] ) )
-			$args['id'] = $this->options['plus_publisher'];
-
-		if ( $args['id'] )
-			$args['href'] = sprintf( 'https://plus.google.com/%s', $args['id'] );
-
-		if ( ! $args['href'] )
-			return $content;
-
-		$this->gp_platformjs = TRUE;
-
-		$html = HTML::tag( 'div', [
-			'class'      => 'g-page',
-			'data-width' => $args['width'],
-			'data-href'  => $args['href'],
-			'data-rel'   => $args['rel'],
-		], NULL );
-
-		if ( $args['wrap'] )
-			return '<div class="-wrap shortcode-googleplus-badge gnetwork-wrap-iframe">'.$html.'</div>';
-
-		return $html;
 	}
 
 	public function shortcode_ga_beacon( $atts = [], $content = NULL, $tag = '' )

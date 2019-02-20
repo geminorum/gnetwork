@@ -408,11 +408,10 @@ class Profile extends gNetwork\Module
 	public function user_contactmethods( $contactmethods, $user )
 	{
 		return array_merge( $contactmethods, [
-			'mobile'     => _x( 'Mobile Phone', 'Modules: Profile: User Contact Method', GNETWORK_TEXTDOMAIN ),
-			'twitter'    => _x( 'Twitter', 'Modules: Profile: User Contact Method', GNETWORK_TEXTDOMAIN ),
-			'telegram'   => _x( 'Telegram', 'Modules: Profile: User Contact Method', GNETWORK_TEXTDOMAIN ),
-			'facebook'   => _x( 'Facebook', 'Modules: Profile: User Contact Method', GNETWORK_TEXTDOMAIN ),
-			'googleplus' => _x( 'Google+', 'Modules: Profile: User Contact Method', GNETWORK_TEXTDOMAIN ),
+			'mobile'   => _x( 'Mobile Phone', 'Modules: Profile: User Contact Method', GNETWORK_TEXTDOMAIN ),
+			'twitter'  => _x( 'Twitter', 'Modules: Profile: User Contact Method', GNETWORK_TEXTDOMAIN ),
+			'telegram' => _x( 'Telegram', 'Modules: Profile: User Contact Method', GNETWORK_TEXTDOMAIN ),
+			'facebook' => _x( 'Facebook', 'Modules: Profile: User Contact Method', GNETWORK_TEXTDOMAIN ),
 		] );
 	}
 

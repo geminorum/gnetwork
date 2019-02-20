@@ -437,6 +437,7 @@ class Cleanup extends gNetwork\Module
 		] : 'optimized';
 	}
 
+	// FIXME: remove `googleplus`
 	private function users_contactmethods()
 	{
 		global $wpdb;
