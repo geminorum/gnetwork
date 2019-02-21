@@ -1120,7 +1120,7 @@ class HTML extends Base
 		), $html );
 	}
 
-	public static function list( $items, $keys = FALSE, $list = 'ul' )
+	public static function renderList( $items, $keys = FALSE, $list = 'ul' )
 	{
 		return self::tag( $list, '<li>'.implode( '</li><li>', $keys ? array_keys( $items ) : $items ).'</li>' );
 	}

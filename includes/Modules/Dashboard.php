@@ -227,7 +227,7 @@ class Dashboard extends gNetwork\Module
 
 		// filters the array of extra elements to list in the 'At a Glance' dashboard widget
 		if ( $elements = apply_filters( 'dashboard_glance_items', [] ) )
-			$html.= HTML::list( $elements, FALSE, FALSE );
+			$html.= HTML::renderList( $elements, FALSE, FALSE );
 
 		if ( $num_comm = wp_count_comments() ) {
 
@@ -492,7 +492,7 @@ class Dashboard extends gNetwork\Module
 			return;
 
 		echo '<ul class="-pointers">';
-			echo HTML::list( $items, FALSE, FALSE );
+			echo HTML::renderList( $items, FALSE, FALSE );
 		echo '</ul>';
 	}
 }

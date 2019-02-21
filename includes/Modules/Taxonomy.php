@@ -351,7 +351,7 @@ class Taxonomy extends gNetwork\Module
 			'id'      => $this->classs( 'help-bulk-actions' ),
 			'title'   => _x( 'Bulk Actions', 'Modules: Taxonomy: Help Tab Title', GNETWORK_TEXTDOMAIN ),
 			'content' => '<p>'._x( 'These are bulk actions provided for this taxonomy:', 'Modules: Taxonomy: Help Tab Content', GNETWORK_TEXTDOMAIN )
-				.'</p>'.HTML::list( $this->get_actions( $data['taxonomy'] ) ),
+				.'</p>'.HTML::renderList( $this->get_actions( $data['taxonomy'] ) ),
 		] );
 
 		$action = FALSE;
