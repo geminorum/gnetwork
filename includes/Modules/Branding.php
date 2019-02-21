@@ -44,6 +44,7 @@ class Branding extends gNetwork\Module
 			'webapp_shortname'   => '',
 			'webapp_longname'    => '',
 			'webapp_description' => '',
+			'webapp_color'       => '',
 			'text_copyright'     => '',
 			'text_powered'       => '',
 			'text_slogan'        => '',
@@ -118,6 +119,12 @@ class Branding extends gNetwork\Module
 					'title'       => _x( 'Description', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'A description for use in the Web App Manifest.', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
 					'field_class' => 'large-text',
+				],
+				[
+					'field'       => 'webapp_color',
+					'type'        => 'color',
+					'title'       => _x( 'Background Color', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Defines the expected &ldquo;background color&rdquo; for the website. Leave empty to use theme color.', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 			];
 		}
@@ -228,7 +235,7 @@ class Branding extends gNetwork\Module
 			'short_name'       => $this->options['webapp_shortname'],
 			'name'             => $this->options['webapp_longname'],
 			'theme_color'      => $this->options['theme_color'],
-			'background_color' => $this->options['theme_color'],
+			'background_color' => $this->options['webapp_color'] ?: $this->options['theme_color'],
 		];
 
 		if ( $this->options['webapp_description'] )
