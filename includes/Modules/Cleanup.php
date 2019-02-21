@@ -483,7 +483,7 @@ class Cleanup extends gNetwork\Module
 		global $wpdb;
 
 		// $count = $wpdb->query( "DELETE FROM {$wpdb->commentmeta} WHERE 'meta_key' IN ( 'akismet_result', 'akismet_history', 'akismet_user', 'akismet_user_result' ) " );
-		$count = $wpdb->query( "DELETE FROM {$wpdb->commentmeta} WHERE meta_key LIKE '%akismet%'" );
+		$count = $wpdb->query( "DELETE FROM {$wpdb->commentmeta} WHERE meta_key LIKE 'akismet%'" );
 
 		$wpdb->query( "OPTIMIZE TABLE {$wpdb->commentmeta}" );
 
@@ -530,12 +530,29 @@ class Cleanup extends gNetwork\Module
 
 		$count = 0;
 
-		$count += $wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key LIKE '%_yoast_wpseo_%'" ); // Yoast SEO
-		$count += $wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key LIKE '%_ad_participant_%'" ); // Assignment Desk
-		$count += $wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key LIKE '%_ad_pitched_by_%'" ); // Assignment Desk
-		$count += $wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key LIKE '%_ad_total_%'" ); // Assignment Desk
+		$meta_keys = [
+			'_gmeta'     => 'a:1:{i:0;s:0:\"\";}',
+			'_ge_series' => 'a:0:{}',
+		];
 
-		$count+= $wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = '_ge_series' AND meta_value = 'a:0:{}'" ); // gEditorial Series
+		foreach ( $meta_keys as $key => $val )
+			$count += $wpdb->query( $wpdb->prepare( "
+				DELETE FROM {$wpdb->postmeta}
+				WHERE meta_key = %s
+				AND meta_value = %s
+			", $key, $val ) );
+
+		$count+= $wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = '_gmeta' AND meta_value = ''" ); // with diffrent value
+
+		$likes = [
+			'%_yoast_wpseo_%', // Yoast SEO
+			'%_ad_participant_%', // Assignment Desk
+			'%_ad_pitched_by_%', // Assignment Desk
+			'%_ad_total_%', // Assignment Desk
+		];
+
+		foreach ( $likes as $like )
+			$count += $wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key LIKE '{$like}'" );
 
 		$wpdb->query( "OPTIMIZE TABLE {$wpdb->postmeta}" );
 
@@ -582,8 +599,35 @@ class Cleanup extends gNetwork\Module
 
 		$count = 0;
 
-		$count += $wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '%theme_mods_%'" );
-		$count += $wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '%limit_login_%'" );
+		$options = [
+			'1_log-viewer_settings',
+
+			'gletter_components',
+			'gnetwork_redirect',
+			'widget_gnetwork-gplusbadge-widget',
+
+			'theme_mods_',
+			'theme_mods_gtwentyeleven',
+			'theme_mods_gtwentytwelve',
+		];
+
+		foreach ( $options as $option )
+			$count += $wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name = '{$option}'" );
+
+		$likes = [
+			// 'theme\_mods\_%',
+			'limit\_login\_%',
+			'wpb2d\-%',
+			'gmember\_%',
+			'widget\_gmember\_%',
+			'wpsupercache\_%',
+			'bwp\_gxs\_%',
+			'\_transient\_feed\_%',
+			'widget\_bp\_core\_%',
+		];
+
+		foreach ( $likes as $like )
+			$count += $wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '{$like}'" );
 
 		$wpdb->query( "OPTIMIZE TABLE {$wpdb->options}" );
 
