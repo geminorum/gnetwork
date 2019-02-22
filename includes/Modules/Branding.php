@@ -230,13 +230,20 @@ class Branding extends gNetwork\Module
 	private function render_manifest()
 	{
 		$data = [
-			'start_url'        => get_bloginfo( 'url' ),
-			'display'          => 'minimal-ui', // FIXME: add radio select
-			'short_name'       => $this->options['webapp_shortname'],
-			'name'             => $this->options['webapp_longname'],
-			'theme_color'      => $this->options['theme_color'],
-			'background_color' => $this->options['webapp_color'] ?: $this->options['theme_color'],
+			'start_url'  => get_bloginfo( 'url' ),
+			'display'    => 'minimal-ui', // FIXME: add radio select
+			'short_name' => $this->options['webapp_shortname'],
+			'name'       => $this->options['webapp_longname'],
 		];
+
+		if ( $this->options['theme_color'] )
+			$data['theme_color'] = $this->options['theme_color'];
+
+		if ( $this->options['webapp_color'] )
+			$data['background_color'] = $this->options['webapp_color'];
+
+		else if ( $this->options['theme_color'] )
+			$data['background_color'] = $this->options['theme_color'];
 
 		if ( $this->options['webapp_description'] )
 			$data['description'] = $this->options['webapp_description'];
