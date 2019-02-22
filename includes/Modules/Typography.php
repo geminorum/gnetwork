@@ -17,7 +17,9 @@ class Typography extends gNetwork\Module
 	protected function setup_actions()
 	{
 		$this->action( 'init', 0, 12 );
-		// $this->filter( 'sanitize_title', 3, 8 );
+
+		if ( $this->options['title_sanitize'] )
+			$this->filter( 'sanitize_title', 3, 1 );
 
 		if ( is_admin() )
 			return;
@@ -55,6 +57,7 @@ class Typography extends gNetwork\Module
 		return [
 			'register_shortcodes' => '0',
 			'editor_buttons'      => '0',
+			'title_sanitize'      => '0',
 			'title_titlecase'     => '0',
 			'title_wordwrap'      => '0',
 			'widget_wordwrap'     => '0',
@@ -82,6 +85,11 @@ class Typography extends gNetwork\Module
 					'field'       => 'general_typography',
 					'title'       => _x( 'General Typography', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Applies general typography on post contents.', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
+				],
+				[
+					'field'       => 'title_sanitize',
+					'title'       => _x( 'Extra Title Sanitization', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Tries to additional sanitization checks on slugs from titles.', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
 					'field'       => 'title_titlecase',
@@ -199,25 +207,32 @@ class Typography extends gNetwork\Module
 		if ( 'save' != $context )
 			return $title;
 
-		if ( seems_utf8( $title ) ) {
+		if ( seems_utf8( $raw_title ) ) {
+
+			$new_title = trim( $raw_title );
 
 			// remove more than one ZWNJs
-			$title = preg_replace( "/(\x{200C})+/iu", "\xE2\x80\x8C", $title );
+			$new_title = preg_replace( "/(\x{200C})+/iu", "\xE2\x80\x8C", $new_title );
 
-			$title = str_ireplace( [
-				"\xD8\x8C",
-				"\xC2\xAB",
-				"\xC2\xBB",
-				"\xD9\x94",
-			], '', $title );
+			$new_title = str_ireplace( [
+				"\xD8\x8C", // `،`
+				"\xC2\xAB", // `«`
+				"\xC2\xBB", // `»`
+				"\xD9\x94", // `ٔ`
+			], '', $new_title );
 
-			$title = str_ireplace( [
+			$new_title = str_ireplace( [
 				"\xE2\x80\x8C\x20", // zwnj + space
 				"\x20\xE2\x80\x8C", // space + znwj
-			], ' ', $title );
+			], ' ', $new_title );
+
+			$title = remove_accents( $new_title );
 		}
 
-		return Text::stripPunctuation( $title );
+		// messes with zwnj
+		// $title = Text::stripPunctuation( $title );
+
+		return $title;
 	}
 
 	public function the_content_early( $content )
