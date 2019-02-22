@@ -1458,7 +1458,7 @@ class Media extends gNetwork\Module
 
 		$info = pathinfo( $filename );
 		$ext  = empty( $info['extension'] ) ? '' : '.'.$info['extension'];
-		$name = basename( $filename, $ext );
+		$name = trim( File::basename( $filename, $ext ) );
 
 		$name = Utilities::URLifyDownCode( $name );
 		// $name = Utilities::URLifyFilter( $name );
