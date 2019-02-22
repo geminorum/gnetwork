@@ -827,7 +827,7 @@ class Module extends Core\Base
 			foreach ( $this->default_settings( TRUE ) as $section ) {
 				foreach ( $section as $key => $field ) {
 					if ( $args = $this->get_settings_field( $key, $field ) ) {
-						$settings[$key] = $args;
+						$settings[$args['field']] = $args;
 					}
 				}
 			}
