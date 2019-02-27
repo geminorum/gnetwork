@@ -111,6 +111,7 @@ class Plugin
 			'GNETWORK_DL_DIR'    => ABSPATH.'repo',
 			'GNETWORK_DL_URL'    => network_home_url( 'repo' ),
 
+			// 'GNETWORK_DISABLE_LOCALE_OVERRIDES'  => TRUE,  // cannot set this early!
 			// 'GNETWORK_DISABLE_CONTENT_ACTIONS'   => TRUE,  // cannot set this early!
 			// 'GNETWORK_DISABLE_JQUERY_MIGRATE'    => TRUE,  // cannot set this early!
 			// 'GNETWORK_DISABLE_FRONT_STYLES'      => FALSE, // cannot set this early!

@@ -29,7 +29,8 @@ class Locale extends gNetwork\Module
 			if ( is_multisite() )
 				add_filter( 'gnetwork_network_new_blog_options', [ $this, 'new_blog_options' ] );
 
-			$this->filter( 'load_textdomain_mofile', 2, 12 );
+			if ( ! defined( 'GNETWORK_DISABLE_LOCALE_OVERRIDES' ) )
+				$this->filter( 'load_textdomain_mofile', 2, 12 );
 		}
 	}
 
