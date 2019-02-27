@@ -4,7 +4,6 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
 use geminorum\gNetwork\Settings;
-use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\Third;
 use geminorum\gNetwork\Core\URL;
@@ -15,9 +14,8 @@ class Tracking extends gNetwork\Module
 
 	protected $key = 'tracking';
 
-	private $ga_outbound   = FALSE;
-	private $gp_platformjs = FALSE;
-	private $ignore        = NULL;
+	private $ga_outbound = FALSE;
+	private $ignore      = NULL;
 
 	protected function setup_actions()
 	{
@@ -233,9 +231,6 @@ class Tracking extends gNetwork\Module
 		if ( $this->ignore() )
 			return;
 
-		if ( ! empty( $this->options['plus_publisher'] ) )
-			echo "\t".'<link href="https://plus.google.com/'.$this->options['plus_publisher'].'" rel="publisher" />'."\n";
-
 		if ( ! empty( $this->options['twitter_site'] ) )
 			echo "\t".'<meta name="twitter:site" content="'.Third::getTwitter( $this->options['twitter_site'] ).'" />'."\n";
 
@@ -287,20 +282,6 @@ class Tracking extends gNetwork\Module
 			HTML::wrapScript( $quantcast.'_qevents.push({qacct:"'.esc_js( $this->options['quantcast'] ).'"});' );
 
 			echo '<noscript><div style="display:none;"><img src="//pixel.quantserve.com/pixel/'.$this->options['quantcast'].'.gif" border="0" height="1" width="1" alt="Quantcast"/></div></noscript>';
-		}
-
-		if ( $this->gp_platformjs ) {
-
-			// @SEE: https://developers.google.com/+/web/api/supported-languages
-			$platform = "window.___gcfg = {lang: '".esc_js( Utilities::getISO639() )."'};";
-			$platform.= "(function(){var po=document.createElement('script');po.type='text/javascript';po.async=true;po.src='https://apis.google.com/js/platform.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(po,s);})();";
-
-			HTML::wrapScript( $platform );
-
-			// FIXME: make this responsive / use jquery
-			// http://technumero.com/internet/customize-google-plus-badge-website-wordpress-blog/2773
-			// http://stackoverflow.com/a/20316430
-			// document.getElementsByClassName('g-page')[0].setAttribute('data-width', document.getElementById('google-badge').clientWidth);
 		}
 	}
 
