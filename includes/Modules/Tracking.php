@@ -228,11 +228,11 @@ class Tracking extends gNetwork\Module
 
 	public function wp_head()
 	{
-		if ( $this->ignore() )
-			return;
-
 		if ( ! empty( $this->options['twitter_site'] ) )
 			echo "\t".'<meta name="twitter:site" content="'.Third::getTwitter( $this->options['twitter_site'] ).'" />'."\n";
+
+		if ( $this->ignore() )
+			return;
 
 		if ( ! ( $ga = $this->ga() ) )
 			return;
