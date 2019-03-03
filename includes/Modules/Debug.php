@@ -835,7 +835,7 @@ class Debug extends gNetwork\Module
 				$errcontext = E_WARNING;
 
 		set_error_handler( function( $errno, $errstr, $errfile ) {
-			if ( 'wp-db.php' !== basename( $errfile ) ) {
+			if ( 'wp-db.php' !== File::basename( $errfile ) ) {
 				if ( preg_match( '/^(mysql_[a-zA-Z0-9_]+)/', $errstr, $matches ) ) {
 					_doing_it_wrong( $matches[1], __( 'Please talk to the database using $wpdb' ), '3.7' );
 

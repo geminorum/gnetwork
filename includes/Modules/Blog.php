@@ -9,6 +9,7 @@ use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\Arraay;
 use geminorum\gNetwork\Core\Crypto;
 use geminorum\gNetwork\Core\Error;
+use geminorum\gNetwork\Core\File;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\HTTP;
 use geminorum\gNetwork\Core\Text;
@@ -843,7 +844,7 @@ class Blog extends gNetwork\Module
 			return;
 
 		// get the trailing part of the request URL
-		$request = basename( $wp->request );
+		$request = File::basename( $wp->request );
 
 		// check if request not encoded
 		if ( $request != urldecode( $request ) )

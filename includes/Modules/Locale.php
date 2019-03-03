@@ -149,7 +149,6 @@ class Locale extends gNetwork\Module
 			'connection-types'           => 'page',
 			'regenerate-thumbnails'      => 'page',
 			'wpsupercache'               => 'page',
-			'members-settings'           => 'page',
 			'a8c_developer'              => 'page',
 			'redirection.php'            => 'page', // Redirection
 			'bwp_gxs_generator'          => 'page', // BWP Google XML Sitemaps
@@ -210,8 +209,9 @@ class Locale extends gNetwork\Module
 			'ewww-image-optimizer-queue-debug'              => 'page',
 
 			// [Members](https://github.com/justintadlock/members)
-			'roles'    => 'page',
-			'role-new' => 'page',
+			// 'members-settings' => 'page',
+			// 'roles'            => 'page',
+			// 'role-new'         => 'page',
 
 			// [AddThis Website Tools](https://wordpress.org/plugins/addthis-all/)
 			'addthis_registration'      => 'page',

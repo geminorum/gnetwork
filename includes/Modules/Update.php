@@ -513,6 +513,8 @@ class Update extends gNetwork\Module
 		return '0.0.0';
 	}
 
+	// must be usable with `strtotime()`
+	// current api: "2019-03-02 1:08pm GMT"
 	private function get_data_published( $package, $data )
 	{
 		if ( 'github_plugin' == $package['type']
@@ -642,6 +644,8 @@ class Update extends gNetwork\Module
 		return '0.0.0';
 	}
 
+	// https://api.wordpress.org/plugins/info/1.0/{slug}.json
+	// https://api.wordpress.org/plugins/info/1.2/?action=plugin_information&request%5Bslug%5D={slug}
 	public function plugins_api( $result, $action, $args )
 	{
 		if ( $action !== 'plugin_information' )
