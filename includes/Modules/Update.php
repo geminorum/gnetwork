@@ -568,12 +568,16 @@ class Update extends gNetwork\Module
 			foreach ( $data['assets'] as $asset ) {
 				if ( 'application/zip' == $asset['content_type'] && $filename == $asset['name'] ) {
 
-					$response = wp_remote_get( $this->add_token( $asset['url'], $package ), [ 'headers' => [ 'Accept' => 'application/octet-stream' ] ] );
+					// the old way!
+					// FIXME: DROP THIS
+					// $response = wp_remote_get( $this->add_token( $asset['url'], $package ), [ 'headers' => [ 'Accept' => 'application/octet-stream' ] ] );
+					//
+					// if ( ! $response || self::isError( $response ) )
+					// 	return FALSE;
+					//
+					// return $response->history[0]->headers->getValues( 'location' );
 
-					if ( ! $response || self::isError( $response ) )
-						return FALSE;
-
-					return $response->history[0]->headers->getValues( 'location' );
+					return $asset['browser_download_url'];
 				}
 			}
 
