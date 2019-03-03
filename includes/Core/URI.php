@@ -226,7 +226,16 @@ class URI extends Base
 
 		if ( ! $result ) {
 
-			$result = self::_parse_fallback( $uri );
+			try {
+
+				$result = self::_parse_fallback( $uri );
+
+			} catch ( Exception $e ) {
+
+				self::_log( $e->getMessage().': '.sprintf( '%s', $uri ) );
+
+				$result = [];
+			}
 
 		} else {
 
@@ -397,19 +406,19 @@ class URI extends Base
 			if ( ! preg_match( $pattern, $uri, $matches ) )
 				throw new Exception( 'Invalid, or could not parse URI' );
 
-			if ( $matches['host'] )
+			if ( ! empty( $matches['host'] ) )
 				$result['host'] = $matches['host'];
 
-			if ( $matches['port'] )
+			if ( ! empty( $matches['port'] ) )
 				$result['port'] = (int) $matches['port'];
 
-			if ( isset( $matches['path'] ) )
+			if ( ! empty( $matches['path'] ) )
 				$result['path'] = $matches['path'];
 
-			if ( $matches['user'] )
+			if ( ! empty( $matches['user'] ) )
 				$result['user'] = $matches['user'];
 
-			if ( $matches['pass'] )
+			if ( ! empty( $matches['pass'] ) )
 				$result['pass'] = $matches['pass'];
 
 		} else {
