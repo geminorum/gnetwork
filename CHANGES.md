@@ -1,3 +1,6 @@
+### 3.8.1
+* module/admin: prior 5 check for block editor
+
 ### 3.8.0
 * main/module: auto setup providers
 * main/module: field as key on settings prep
