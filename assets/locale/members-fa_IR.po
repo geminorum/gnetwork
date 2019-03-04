@@ -1,252 +1,245 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Members\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/members\n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: 2018-09-04 06:14+0430\n"
-"Last-Translator: geminorum <contact@geminorum.ir>\n"
-"Language-Team: \n"
-"Language: fa_IR\n"
+"PO-Revision-Date: 2019-02-25 05:01+0330\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.1.1\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 2.2.1\n"
+"Language: fa\n"
 "X-Poedit-Basepath: ../../../members\n"
+"Last-Translator: geminorum <contact@geminorum.ir>\n"
+"POT-Creation-Date: \n"
+"Language-Team: \n"
 
 #: members.php:323
-msgid ""
-"Members requires PHP version %1$s. You are running version %2$s. Please "
-"upgrade and try again."
-msgstr ""
+msgid "Members requires PHP version %1$s. You are running version %2$s. Please upgrade and try again."
+msgstr "این افزونه به php نسخه %1$s نیاز دارد. شما از نسخه %2$s استفاده می‌کنید. لطفاً پس از ارتقا دوباره تلاش کنید."
 
 #: inc/functions-private-site.php:198
-msgid ""
-"If you reached this page by accident and meant to visit one of your own "
-"sites, try one of the following links."
-msgstr ""
+msgid "If you reached this page by accident and meant to visit one of your own sites, try one of the following links."
+msgstr "اگر به صورت تصادفی به این صفحه رسیدید و می‌خواستید یکی از سایت‌های خودتان را بازدید کنید، یکی از پیوند‌های زیر را امتحان کنید."
 
 #: inc/functions-private-site.php:191
-msgid ""
-"You do not currently have access to the \"%s\" site. If you believe you "
-"should have access, please contact your network administrator."
-msgstr ""
+msgid "You do not currently have access to the \"%s\" site. If you believe you should have access, please contact your network administrator."
+msgstr "در حال‌حاضر شما به سایت «%s» دسترسی ندارید. اگر فکر می‌کنید باید دسترسی شما فراهم باشد، لطفاً با مدیر شبکه تماس بگیرید."
 
 #: inc/functions-private-site.php:167
 msgid "You are not currently logged in."
-msgstr ""
+msgstr "درحال‌حاضر شما وارد نشده‌اید."
 
 #: inc/functions-capabilities.php:147
 msgid "Manage Post Tags"
-msgstr ""
+msgstr "مدیریت برچسب‌های نوشته"
 
 #: inc/functions-capabilities.php:146
 msgid "Delete Post Tags"
-msgstr ""
+msgstr "حذف برچسب‌های نوشته"
 
 #: inc/functions-capabilities.php:145
 msgid "Edit Post Tags"
-msgstr ""
+msgstr "ویرایش برچسب‌های نوشته"
 
 #: inc/functions-capabilities.php:144
 msgid "Assign Post Tags"
-msgstr ""
+msgstr "انتصاب برچسب‌های نوشته"
 
 #: inc/functions-capabilities.php:143
 msgid "Delete Categories"
-msgstr ""
+msgstr "حذف دسته‌ها"
 
 #: inc/functions-capabilities.php:142
 msgid "Edit Categories"
-msgstr ""
+msgstr "ویرایش دسته‌ها"
 
 #: inc/functions-capabilities.php:141
 msgid "Assign Categories"
-msgstr ""
+msgstr "انتصاب دسته‌ها"
 
 #: inc/functions-capabilities.php:126
 msgid "Restrict Content"
-msgstr ""
+msgstr "محدود کردن محتوا"
 
 #: inc/functions-capabilities.php:123
 msgid "Remove Users"
-msgstr "زدودن کاربران"
+msgstr "حذف کاربران"
 
 #: inc/functions-capabilities.php:122
 msgid "Promote Users"
-msgstr ""
+msgstr "ارتقا کاربران"
 
 #: inc/functions-capabilities.php:121
 msgid "List Users"
-msgstr ""
+msgstr "فهرست کردن کاربران"
 
 #: inc/functions-capabilities.php:120
 msgid "List Roles"
-msgstr "فهرست نقش‌ها"
+msgstr "فهرست کردن نقش‌ها"
 
 #: inc/functions-capabilities.php:119
 msgid "Edit Users"
-msgstr ""
+msgstr "ویرایش کاربران"
 
 #: inc/functions-capabilities.php:118
 msgid "Edit Roles"
-msgstr ""
+msgstr "ویرایش نقش‌ها"
 
 #: inc/functions-capabilities.php:117
 msgid "Delete Users"
-msgstr ""
+msgstr "حذف کاربران"
 
 #: inc/functions-capabilities.php:116
 msgid "Delete Roles"
-msgstr ""
+msgstr "حذف نقش‌ها"
 
 #: inc/functions-capabilities.php:115
 msgid "Create Users"
-msgstr ""
+msgstr "ایجاد کاربران"
 
 #: inc/functions-capabilities.php:114
 msgid "Create Roles"
-msgstr ""
+msgstr "ایجاد نقش‌ها"
 
 #: inc/functions-capabilities.php:111
 msgid "Update Plugins"
-msgstr ""
+msgstr "به‌روزرسانی افزونه‌ها"
 
 #: inc/functions-capabilities.php:110
 msgid "Install Plugins"
-msgstr ""
+msgstr "نصب افزونه‌ها"
 
 #: inc/functions-capabilities.php:109
 msgid "Edit Plugins"
-msgstr ""
+msgstr "ویرایش افزونه‌ها"
 
 #: inc/functions-capabilities.php:108
 msgid "Delete Plugins"
-msgstr ""
+msgstr "حذف افزونه‌ها"
 
 #: inc/functions-capabilities.php:107
 msgid "Activate Plugins"
-msgstr ""
+msgstr "فعالسازی افزونه‌ها"
 
 #: inc/functions-capabilities.php:104
 msgid "Update Themes"
-msgstr ""
+msgstr "به‌روزرسانی پوسته‌ها"
 
 #: inc/functions-capabilities.php:103
 msgid "Switch Themes"
-msgstr ""
+msgstr "تغییر پوسته‌ها"
 
 #: inc/functions-capabilities.php:102
 msgid "Install Themes"
-msgstr ""
+msgstr "نصب پوسته‌ها"
 
 #: inc/functions-capabilities.php:101
 msgid "Edit Themes"
-msgstr ""
+msgstr "ویرایش پوسته‌ها"
 
 #: inc/functions-capabilities.php:100
 msgid "Edit Theme Options"
-msgstr ""
+msgstr "ویرایش تنظیمات پوسته"
 
 #: inc/functions-capabilities.php:99
 msgid "Delete Themes"
-msgstr ""
+msgstr "حذف پوسته‌ها"
 
 #: inc/functions-capabilities.php:96
 msgid "Manage Categories"
-msgstr ""
+msgstr "مدیریت دسته‌ها"
 
 #: inc/functions-capabilities.php:93
 msgid "Upload Files"
-msgstr ""
+msgstr "بارگذاری پرونده‌ها"
 
 #: inc/functions-capabilities.php:90
 msgid "Read Private Pages"
-msgstr ""
+msgstr "خواندن برگه‌های خصوصی"
 
 #: inc/functions-capabilities.php:89
 msgid "Publish Pages"
-msgstr ""
+msgstr "انتشار برگه‌ها"
 
 #: inc/functions-capabilities.php:88
 msgid "Edit Published Pages"
-msgstr ""
+msgstr "ویرایش برگه‌های منتشر شده"
 
 #: inc/functions-capabilities.php:87
 msgid "Edit Private Pages"
-msgstr ""
+msgstr "ویرایش برگه‌های خصوصی"
 
 #: inc/functions-capabilities.php:86
 msgid "Edit Pages"
-msgstr ""
+msgstr "ویرایش برگه‌ها "
 
 #: inc/functions-capabilities.php:85
 msgid "Edit Others' Pages"
-msgstr ""
+msgstr "ویرایش برگه‌های دیگران"
 
 #: inc/functions-capabilities.php:84
 msgid "Delete Published Pages"
-msgstr ""
+msgstr "ویرایش برگه‌های منتشر شده"
 
 #: inc/functions-capabilities.php:83
 msgid "Delete Private Pages"
-msgstr ""
+msgstr "حذف برگه‌های خصوصی"
 
 #: inc/functions-capabilities.php:82
 msgid "Delete Pages"
-msgstr ""
+msgstr "حذف برگه‌ها"
 
 #: inc/functions-capabilities.php:81
 msgid "Delete Others' Pages"
-msgstr ""
+msgstr "حذف برگه‌های دیگران"
 
 #: inc/functions-capabilities.php:78
 msgid "Read Private Posts"
-msgstr ""
+msgstr "خواندن نوشته‌های خصوصی"
 
 #: inc/functions-capabilities.php:77
 msgid "Publish Posts"
-msgstr ""
+msgstr "انتشار نوشته‌ها"
 
 #: inc/functions-capabilities.php:76
 msgid "Edit Published Posts"
-msgstr ""
+msgstr "ویرایش نوشته‌های منتشر شده"
 
 #: inc/functions-capabilities.php:75
 msgid "Edit Private Posts"
-msgstr ""
+msgstr "ویرایش نوشته‌های خصوصی"
 
 #: inc/functions-capabilities.php:74
 msgid "Edit Posts"
-msgstr ""
+msgstr "ویرایش نوشته‌ها"
 
 #: inc/functions-capabilities.php:73
 msgid "Edit Others' Posts"
-msgstr ""
+msgstr "ویرایش نوشته‌های دیگران"
 
 #: inc/functions-capabilities.php:72
 msgid "Delete Published Posts"
-msgstr ""
+msgstr "حذف نوشته‌های منتشر شده"
 
 #: inc/functions-capabilities.php:71
 msgid "Delete Private Posts"
-msgstr ""
+msgstr "حذف نوشته‌های خصوصی"
 
 #: inc/functions-capabilities.php:70
 msgid "Delete Posts"
-msgstr ""
+msgstr "حذف نوشته‌ها"
 
 #: inc/functions-capabilities.php:69
 msgid "Delete Others' Posts"
-msgstr ""
+msgstr "حذف نوشته‌های دیگران"
 
 #: inc/functions-capabilities.php:66
 msgid "Update Core"
-msgstr ""
+msgstr "به‌روزرسانی هسته"
 
 #: inc/functions-capabilities.php:65
 msgid "Unfiltered HTML"
-msgstr ""
+msgstr "HTML فیلتر نشده"
 
 #: inc/functions-capabilities.php:64
 msgid "Read"
@@ -254,15 +247,15 @@ msgstr "خواندن"
 
 #: inc/functions-capabilities.php:63
 msgid "Moderate Comments"
-msgstr ""
+msgstr "نظرات بر دیدگاه‌ها"
 
 #: inc/functions-capabilities.php:62
 msgid "Manage Options"
-msgstr ""
+msgstr "مدیریت گزینه‌ها"
 
 #: inc/functions-capabilities.php:61
 msgid "Manage Links"
-msgstr ""
+msgstr "مدیریت پیوند‌ها"
 
 #: inc/functions-capabilities.php:60
 msgid "Import"
@@ -274,104 +267,90 @@ msgstr "برون‌بری"
 
 #: inc/functions-capabilities.php:58
 msgid "Edit Files"
-msgstr ""
+msgstr "ویرایش پرونده‌ها"
 
 #: inc/functions-capabilities.php:57
 msgid "Edit Dashboard"
-msgstr ""
+msgstr "ویرایش پیشخوان"
 
 #: admin/views/class-view-general.php:412
-msgid ""
-"Tick the checkbox to show human-readable capabilities when possible. Note "
-"that custom capabilities and capabilities from third-party plugins will show "
-"the machine-readable capability name unless they are registered."
-msgstr ""
+msgid "Tick the checkbox to show human-readable capabilities when possible. Note that custom capabilities and capabilities from third-party plugins will show the machine-readable capability name unless they are registered."
+msgstr "برای امکان نمایش عنوان توانایی که قابل خواندن توسط انسان باشد، انتخاب کنید. توجه داشته باشید که توانایی‌های سفارشی و توانایی‌های افزونه‌های دیگر به همان صورت ماشین‌خوان نمایش داده خواهند شد، مگر این که ثبت شده باشند."
 
 #: admin/views/class-view-general.php:282
 msgid "Require authentication for access to the REST API."
-msgstr ""
+msgstr "تأیید هویت برای دسترسی به REST API الزامی باشد."
 
 #: admin/views/class-view-general.php:169
 msgid "Show human-readable capabilities when possible."
-msgstr ""
+msgstr "در صورت امکان، توانایی‌ها را به صورت نوشتاری که قابل خواندن توسط انسان باشد؛ نمایش بده."
 
 #: admin/views/class-view-general.php:84
 msgid "REST API"
-msgstr ""
+msgstr "REST API"
 
 #: admin/views/class-view-addons.php:241
-msgid ""
-"Some add-ons may require purchase before downloading them. Clicking the "
-"purchase button will take you off-site to view the add-on in more detail."
-msgstr ""
+msgid "Some add-ons may require purchase before downloading them. Clicking the purchase button will take you off-site to view the add-on in more detail."
+msgstr "بعضی از افزونه‌ها ممکن است قبل از دریافت، نیازمند خرید باشند. کلیک روی دکمه خرید، شما را به مکان دیگری برای نمایش جزئیات بیشتر درباره افزونه، راهنمایی می‌کند."
 
 #: admin/views/class-view-addons.php:227
-msgid ""
-"Some plugins may be available for direct download. In such cases, you can "
-"click the download button to get a ZIP file of the plugin."
-msgstr ""
+msgid "Some plugins may be available for direct download. In such cases, you can click the download button to get a ZIP file of the plugin."
+msgstr "بعضی از افزونه‌ها ممکن است برای دریافت مستقیم در دسترس باشند. در چنین شرایطی، شما می‌توانید با کلیک روی دکمه دریافت، پرونده فشرده افزونه را بگیرید."
 
 #: admin/views/class-view-addons.php:213
-msgid ""
-"The Add-Ons screen allows you to view available add-ons for the Members "
-"plugin. You can download some plugins directly. Others may be available to "
-"purchase."
-msgstr ""
+msgid "The Add-Ons screen allows you to view available add-ons for the Members plugin. You can download some plugins directly. Others may be available to purchase."
+msgstr "صفحه افزودنی‌ها به شما اجازه می‌دهد تا افزودنی‌های در دسترس برای افزونه اعضا را مشاهده کنید. شما می‌توانید بعضی از افزونه‌ها را به صورت مستقیم دریافت کنید. بعضی دیگر ممکن است برای فروش باشند."
 
 #: admin/views/class-view-addons.php:145
 msgid "%s+ Active Installs"
-msgstr ""
+msgstr "%s+ نصب فعال"
 
 #: admin/views/class-view-addons.php:121
 msgid "By %s"
-msgstr ""
+msgstr "بدست %s"
 
 #: admin/views/class-view-addons.php:103 admin/views/class-view-addons.php:107
 #: admin/views/class-view-addons.php:185
 msgid "Download"
-msgstr ""
+msgstr "دریافت"
 
 #: admin/views/class-view-addons.php:99 admin/views/class-view-addons.php:194
 msgid "Purchase"
-msgstr ""
+msgstr "خرید"
 
 #: admin/views/class-view-addons.php:53
 msgid "There are currently no add-ons to show. Please try again later."
-msgstr ""
+msgstr "درحال‌حاضر افزودنی برای نمایش وجود ندارد. لطفاً در زمان دیگری دوباره تلاش کنید."
 
 #: admin/functions-settings.php:46
 msgid "Add-Ons"
-msgstr ""
+msgstr "افزودنی‌ها"
 
 #: admin/functions-help.php:114
-msgid ""
-"Visit the %s page in the WordPress Codex to see a complete list of roles, "
-"capabilities, and their definitions."
-msgstr ""
+msgid "Visit the %s page in the WordPress Codex to see a complete list of roles, capabilities, and their definitions."
+msgstr "برای فهرست کامل نقش‌ها، توانایی‌ها و تعریف آن‌ها، برگه %s را در مستندات وردپرس مشاهده نمایید."
 
 #: admin/class-role-edit.php:301 admin/class-roles.php:173
 msgctxt "role"
 msgid "Add New"
-msgstr "افزودن"
+msgstr "افزودن نقش تازه"
 
 #: admin/class-role-edit.php:234
-msgid ""
-"The %s role is typically the most important role on the site. Please take "
-"extreme caution that you do not inadvertently remove necessary capabilities."
-msgstr ""
+msgid "The %s role is typically the most important role on the site. Please take extreme caution that you do not inadvertently remove necessary capabilities."
+msgstr "نقش %s معمولاً مهم‌ترین نقش در سایت است. بهتر است احتیاط کنید تا به صورت تصادفی، توانایی‌های الزامی را حذف نکنید."
 
 #: admin/class-meta-box-custom-cap.php:90
 msgctxt "capability"
 msgid "Add New"
-msgstr "افزودن"
+msgstr "افزودن توانایی تازه"
 
 #: admin/class-manage-users.php:345
 msgid "Remove"
-msgstr "زدودن"
+msgstr "حذف"
 
 #: admin/class-manage-users.php:337 admin/class-manage-users.php:341
 msgid "Remove role&hellip;"
-msgstr "زدودن نقش &hellip;"
+msgstr "حذف نقش&hellip;"
 
 #: admin/class-manage-users.php:334
 msgid "Add"
@@ -379,23 +358,23 @@ msgstr "افزودن"
 
 #: admin/class-manage-users.php:326 admin/class-manage-users.php:330
 msgid "Add role&hellip;"
-msgstr "افزودن نقش &hellip;"
+msgstr "افزودن نقش&hellip;"
 
 #: admin/class-manage-users.php:162 admin/class-manage-users.php:237
 msgid "One of the selected users is not a member of this site."
-msgstr ""
+msgstr "یکی از کاربران انتخاب شده، از اعضای این سایت نیست."
 
 #: admin/class-manage-users.php:107
 msgid "Role removed from other selected users."
-msgstr ""
+msgstr "نقش از دیگر کاربران انتخاب شده حذف شد."
 
 #: admin/class-manage-users.php:106
 msgid "The current user&#8217;s role must have user editing capabilities."
-msgstr ""
+msgstr "نقش کاربر فعلی باید توانایی‌های ویرایش کاربران را داشته باشد."
 
 #: admin/class-manage-users.php:102
 msgid "Role removed from selected users."
-msgstr "نقش از کاربران انتخاب شده زدوده شد."
+msgstr "نقش از کاربران انتخاب شده حذف شد."
 
 #: admin/class-manage-users.php:97
 msgid "Role added to selected users."
@@ -403,63 +382,59 @@ msgstr "نقش به کاربران انتخاب شده افزوده شد."
 
 #. Author URI of the plugin/theme
 msgid "https://themehybrid.com"
-msgstr ""
+msgstr "https://themehybrid.com"
 
 #. Author of the plugin/theme
 msgid "Justin Tadlock"
-msgstr ""
+msgstr "جاستین تادلاک"
 
 #. Description of the plugin/theme
-msgid ""
-"A user and role management plugin that puts you in full control of your "
-"site's permissions. This plugin allows you to edit your roles and their "
-"capabilities, clone existing roles, assign multiple roles per user, block "
-"post content, or even make your site completely private."
-msgstr ""
+msgid "A user and role management plugin that puts you in full control of your site's permissions. This plugin allows you to edit your roles and their capabilities, clone existing roles, assign multiple roles per user, block post content, or even make your site completely private."
+msgstr "افزونه مدیریت کاربران و نقش‌ها که دسترسی کامل مجوزهای سایت را در اختیار شما قرار می‌دهد. این افزونه به شما اجازه ویرایش نقش‌ها و دسترسی‌های آن، ایجاد کپی از نقش های موجود، انتصاب چندین نقش به یک کاربر، قدغن کردن دسترسی به محتوا یا حتی خصوصی کردن کل سایت را میدهد."
 
 #. Plugin URI of the plugin/theme
 msgid "https://themehybrid.com/plugins/members"
-msgstr ""
+msgstr "https://fa.wordpress.org/plugins/members/"
 
 #. Plugin Name of the plugin/theme
 msgid "Members"
-msgstr "اعضاء"
+msgstr "اعضا"
 
 #: members.php:151
 msgid "Method does not exist."
-msgstr ""
+msgstr "متد مورد نظر وجود ندارد."
 
 #: inc/functions-options.php:135
 msgid "You must be logged into the site to view this content."
-msgstr ""
+msgstr "برای مشاهده این محتوا، شما باید وارد سایت شوید."
 
 #: inc/functions-options.php:134
 msgid "Sorry, but you do not have permission to view this content."
-msgstr ""
+msgstr "با عرض پوزش، شما مجوز مشاهده این محتوا را ندارید."
 
 #: inc/class-widget-users.php:269
 msgid "Meta Value:"
-msgstr ""
+msgstr "مقدار متا:"
 
 #: inc/class-widget-users.php:261
 msgid "Meta Key:"
-msgstr ""
+msgstr "کلید متا:"
 
 #: inc/class-widget-users.php:257
 msgid "Search:"
-msgstr "جست‌وجو:"
+msgstr "جستجو:"
 
 #: inc/class-widget-users.php:253
 msgid "Exclude:"
-msgstr ""
+msgstr "استثنا:"
 
 #: inc/class-widget-users.php:249
 msgid "Include:"
-msgstr ""
+msgstr "شامل:"
 
 #: inc/class-widget-users.php:241
 msgid "Offset:"
-msgstr ""
+msgstr "رد کردن:"
 
 #: inc/class-widget-users.php:237
 msgid "Limit:"
@@ -467,11 +442,11 @@ msgstr "محدودیت:"
 
 #: inc/class-widget-users.php:220
 msgid "Order:"
-msgstr ""
+msgstr "مرتب‌سازی:"
 
 #: inc/class-widget-users.php:212
 msgid "Order By:"
-msgstr ""
+msgstr "مرتب‌سازی بر اساس:"
 
 #: inc/class-widget-users.php:197
 msgid "Login"
@@ -479,115 +454,115 @@ msgstr "ورود"
 
 #: inc/class-widget-users.php:196
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: inc/class-widget-users.php:195
 msgid "Registered"
-msgstr "نام‌نویسی‌شده"
+msgstr "عضو شده"
 
 #: inc/class-widget-users.php:194
 msgid "Post Count"
-msgstr ""
+msgstr "شمارش نوشته‌ها"
 
 #: inc/class-widget-users.php:193
 msgid "Nice Name"
-msgstr ""
+msgstr "نام"
 
 #: inc/class-widget-users.php:192
 msgid "ID"
-msgstr ""
+msgstr "شناسه"
 
 #: inc/class-widget-users.php:191
 msgid "Email"
-msgstr ""
+msgstr "ایمیل"
 
 #: inc/class-widget-users.php:190
 msgid "Display Name"
-msgstr ""
+msgstr "نام نمایشی"
 
 #: inc/class-widget-users.php:186
 msgid "Descending"
-msgstr ""
+msgstr "نزولی"
 
 #: inc/class-widget-users.php:185
 msgid "Ascending"
-msgstr ""
+msgstr "صعودی"
 
 #: inc/class-widget-users.php:55
 msgid "Members: Users"
-msgstr "اعضاء: کاربران"
+msgstr "اعضا: کاربران"
 
 #: inc/class-widget-users.php:44
 msgid "Provides the ability to list the users of the site."
-msgstr ""
+msgstr "امکان فهرست کردن کاربران سایت را فراهم می‌کند."
 
 #: inc/class-widget-login.php:281
 msgid "Logged in text:"
-msgstr ""
+msgstr "متن ورود به حساب کاربری:"
 
 #: inc/class-widget-login.php:276
 msgid "Logged out text:"
-msgstr ""
+msgstr "متن خروج از حساب کاربری:"
 
 #: inc/class-widget-login.php:272
 msgid "Display avatar?"
-msgstr ""
+msgstr "نمایش آواتار؟"
 
 #: inc/class-widget-login.php:266
 msgid "Check \"remember me\"?"
-msgstr ""
+msgstr "تیک زدن «مرا به خاطر بسپار»؟"
 
 #: inc/class-widget-login.php:260
 msgid "\"Remember me\" checkbox?"
-msgstr ""
+msgstr "چک باکس «مرا به خاطر بسپار»؟"
 
 #: inc/class-widget-login.php:249
 msgid "Submit Button ID:"
-msgstr ""
+msgstr "شناسه دکمه  ارسال:"
 
 #: inc/class-widget-login.php:245
 msgid "Password Field ID:"
-msgstr ""
+msgstr "شناسه زمینه رمز عبور:"
 
 #: inc/class-widget-login.php:241
 msgid "Remember Me Field ID:"
-msgstr ""
+msgstr "شناسه زمینه مرا به خاطر بسپار:"
 
 #: inc/class-widget-login.php:237
 msgid "Username Field ID:"
-msgstr ""
+msgstr "شناسه زمینه نام کاربری:"
 
 #: inc/class-widget-login.php:233
 msgid "Username Value:"
-msgstr ""
+msgstr "مقدار نام کاربری:"
 
 #: inc/class-widget-login.php:225
 msgid "Remember Me Label:"
-msgstr ""
+msgstr "متن مرا به خاطر بسپار:"
 
 #: inc/class-widget-login.php:221
 msgid "Log In Label:"
-msgstr ""
+msgstr "متن ورود:"
 
 #: inc/class-widget-login.php:217
 msgid "Password Label:"
-msgstr ""
+msgstr "متن رمز عبور:"
 
 #: inc/class-widget-login.php:213
 msgid "Username Label:"
-msgstr ""
+msgstr "متن نام کاربری:"
 
 #: inc/class-widget-login.php:209 inc/class-widget-users.php:208
 msgid "Title:"
-msgstr ""
+msgstr "عنوان:"
 
 #: inc/class-widget-login.php:74
 msgid "You are currently logged in."
-msgstr "شما وارد شده‌اید."
+msgstr "شما وارد حساب کاربری خود شده‌اید."
 
 #: inc/class-widget-login.php:73
 msgid "Please log into the site."
-msgstr ""
+msgstr "لطفا وارد حساب کاربری خود شوید."
 
 #: inc/class-widget-login.php:63
 msgid "Remember Me"
@@ -595,128 +570,113 @@ msgstr "مرا به خاطر بسپار"
 
 #: inc/class-widget-login.php:61
 msgid "Password"
-msgstr ""
+msgstr "رمز عبور"
 
 #: inc/class-widget-login.php:60
 msgid "Username"
-msgstr ""
+msgstr "نام کاربری"
 
 #: inc/class-widget-login.php:59 inc/class-widget-login.php:62
 msgid "Log In"
-msgstr "وارد شوید"
+msgstr "ورود"
 
 #: inc/class-widget-login.php:55
 msgid "Members: Login Form"
-msgstr "اعضاء: فرم ورود"
+msgstr "اعضا: فرم ورود"
 
 #: inc/class-widget-login.php:44
 msgid "A widget that allows users to log into your site."
-msgstr ""
+msgstr "ابزارکی که به کاربران اجازه ورود به سایت شما را می‌دهد."
 
 #: admin/tmpl/cap-section.php:21 admin/tmpl/cap-section.php:29
 msgid "Deny"
-msgstr ""
+msgstr "رد کن"
 
 #: admin/tmpl/cap-section.php:20 admin/tmpl/cap-section.php:28
 msgid "Grant"
-msgstr ""
+msgstr "اعطا کن"
 
 #: admin/tmpl/cap-section.php:19 admin/tmpl/cap-section.php:27
 msgid "Capability"
-msgstr ""
+msgstr "توانایی"
 
 #: inc/functions-role-groups.php:43
 msgid "WordPress %s"
 msgid_plural "WordPress %s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "وردپرس %s"
 
 #: inc/functions-role-groups.php:42
 msgid "WordPress"
-msgstr ""
+msgstr "وردپرس"
 
 #: admin/class-role-list-table.php:429
 msgid "Uneditable %s"
 msgid_plural "Uneditable %s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "غیر قابل ویرایش %s"
 
 #: admin/class-role-list-table.php:424
 msgid "Editable %s"
 msgid_plural "Editable %s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "قابل ویرایش %s"
 
 #: admin/class-role-list-table.php:419
 msgid "No Users %s"
 msgid_plural "No Users %s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "بدون کاربر %s"
 
 #: admin/class-role-list-table.php:414
 msgid "Has Users %s"
 msgid_plural "Has Users %s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "دارای کاربر %s"
 
 #: admin/class-role-list-table.php:409
 msgid "Mine %s"
 msgid_plural "Mine %s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "مال من %s"
 
 #: admin/functions-help.php:168
-msgid ""
-"The custom capability box allows you to create a custom capability for the "
-"role. After hitting the Add New button, it will add the capability to the "
-"Custom tab in the Edit Capabilities box."
-msgstr ""
+msgid "The custom capability box allows you to create a custom capability for the role. After hitting the Add New button, it will add the capability to the Custom tab in the Edit Capabilities box."
+msgstr "جعبه توانایی سفارشی به شما اجازه می‌دهد تا یک توانایی سفارشی‌شده را برای نقش ایجاد نمایید. بعد از کلیک روی دکمه افزودن، توانایی تازه به زبانه سفارشی، در جعبه ویرایش توانایی‌ها اضافه خواهد شد."
 
 #: admin/functions-help.php:154
 msgid "You may also opt to neither grant nor deny the role a capability."
-msgstr ""
+msgstr "شما همچنین می‌توانید انتخاب کنید که برای هر نقش، یک توانایی نه اعطا و نه رد شود."
 
 #: admin/functions-help.php:153
-msgid ""
-"<strong>Deny</strong> allows you to explicitly deny the role a capability."
-msgstr ""
+msgid "<strong>Deny</strong> allows you to explicitly deny the role a capability."
+msgstr "<strong>رد</strong> به شما اجازه می‌دهد تا یک توانایی را برای نقش، آشکارا رد کنید."
 
 #: admin/functions-help.php:152
 msgid "<strong>Grant</strong> allows you to grant the role a capability."
-msgstr ""
+msgstr "<strong>اعطا</strong> به شما اجازه می‌دهد تا یک توانایی را به نقش اعطا کنید."
 
 #: admin/functions-help.php:148
-msgid ""
-"The capabilities edit box is made up of tabs that separate capabilities into "
-"groups. You may take the following actions for each capability:"
-msgstr ""
+msgid "The capabilities edit box is made up of tabs that separate capabilities into groups. You may take the following actions for each capability:"
+msgstr "جعبه ویرایش توانایی‌ها، شامل زبانه‌هایی برای گروه‌بندی توانایی‌ها است. اقدامات قابل اجرا برای هر توانایی به صورت زیر هستند:"
 
 #: admin/functions-help.php:134
-msgid ""
-"The machine-readable version of the role appears below the name field, which "
-"you can edit. This can only have lowercase letters, numbers, or underscores."
-msgstr ""
+msgid "The machine-readable version of the role appears below the name field, which you can edit. This can only have lowercase letters, numbers, or underscores."
+msgstr "در زیر زمینه نام، نسخه ماشین‌خوانِ نقش نمایش داده شده و قابل ویرایش است. فقط می‌تواند شامل حروف لاتین کوچک، اعداد و زیرخط باشد."
 
 #: admin/functions-help.php:130
-msgid ""
-"The role name field allows you to enter a human-readable name for your role."
-msgstr ""
+msgid "The role name field allows you to enter a human-readable name for your role."
+msgstr "زمینه نام نقش، اجازه ورود نام قابل خواندن توسط انسان را برای نقش، به شما می‌دهد."
 
 #: admin/functions-help.php:109
 msgid "This screen allows you to edit an individual role and its capabilities."
-msgstr ""
+msgstr "این صفحه  اجازه ویرایش هر یک از نقش‌ها و توانایی‌های آن را به شما می‌دهد."
 
 #: admin/functions-help.php:78
 msgid "Edit Capabilities"
-msgstr ""
+msgstr "ویرایش توانایی‌ها"
 
 #: admin/functions-help.php:29
 msgid "For more information:"
-msgstr ""
+msgstr "اطلاعات بیشتر:"
 
 #: inc/functions-cap-groups.php:130
 msgid "Custom"
-msgstr ""
+msgstr "سفارشی"
 
 #: inc/functions-cap-groups.php:112
 msgid "Plugins"
@@ -724,15 +684,15 @@ msgstr "افزونه‌ها"
 
 #: inc/functions-cap-groups.php:103
 msgid "Appearance"
-msgstr ""
+msgstr "نمایش"
 
 #: inc/functions-cap-groups.php:92
 msgid "Taxonomies"
-msgstr ""
+msgstr "طبقه‌بندی‌ها"
 
 #: admin/functions-settings.php:35 inc/functions-cap-groups.php:42
 msgid "General"
-msgstr "همگانی"
+msgstr "عمومی"
 
 #: admin/class-cap-tabs.php:165
 msgid "All"
@@ -740,140 +700,115 @@ msgstr "همه"
 
 #: admin/class-manage-users.php:382
 msgid "None"
-msgstr ""
+msgstr "هیچ یک"
 
 #: admin/functions-admin.php:50
-msgid ""
-"Are you sure you want to delete this role? This is a permanent action and "
-"cannot be undone."
-msgstr ""
+msgid "Are you sure you want to delete this role? This is a permanent action and cannot be undone."
+msgstr "آیا اطمینان دارید که می‌خواهید این نقش را حذف کنید؟ این عمل برای همیشه و غیر قابل بازگشت است."
 
 #: admin/functions-admin.php:47
 msgid "OK"
-msgstr ""
+msgstr "باشه"
 
 #: admin/class-user-edit.php:97 admin/class-user-new.php:109
 msgid "User Roles"
-msgstr ""
+msgstr "نقش‌های کاربران"
 
 #: admin/views/class-view-general.php:454
-msgid ""
-"The private site feature redirects all users who are not logged into the "
-"site to the login page, creating an entirely private site. You may also "
-"replace your feed content with a custom error message."
-msgstr ""
+msgid "The private site feature redirects all users who are not logged into the site to the login page, creating an entirely private site. You may also replace your feed content with a custom error message."
+msgstr "قابلیت سایت خصوصی، همه کاربران وارد نشده به سایت را به برگه ورود تغییر مسیر می‌دهد و سایتی کاملاً خصوصی ایجاد می‌کند. همچنین می‌توانید خوراک محتوای خود را با پیام خطای سفارشی جایگزین کنید."
 
 #: admin/views/class-view-general.php:440
-msgid ""
-"The sidebar widgets feature adds additional widgets for use in your theme's "
-"sidebars."
-msgstr ""
+msgid "The sidebar widgets feature adds additional widgets for use in your theme's sidebars."
+msgstr "قابلیت ابزارک‌های کناری، ابزارک‌هایی را برای استفاده در ستون کناری پوسته شما اضافه می‌کند."
 
 #: admin/views/class-view-general.php:426
-msgid ""
-"The content permissions features adds a meta box to the edit post screen "
-"that allows you to grant permissions for who can read the post content based "
-"on the user's role. Only users of roles with the %s capability will be able "
-"to use this component."
-msgstr ""
+msgid "The content permissions features adds a meta box to the edit post screen that allows you to grant permissions for who can read the post content based on the user's role. Only users of roles with the %s capability will be able to use this component."
+msgstr "قابلیت مجوزهای محتوا، یک فراجعبه به صفحه ویرایش نوشته اضافه می‌کند. شما می‌توانید به کمک آن و بر اساس نقش کاربر، اجازه خواندن محتوای نوشته را اعطا کنید. فقط کاربران با توانایی %s می‌توانند از این جزء استفاده کنند."
 
 #: admin/views/class-view-general.php:404
-msgid ""
-"The multiple user roles feature allows you to assign more than one role to "
-"each user from the edit user screen."
-msgstr ""
+msgid "The multiple user roles feature allows you to assign more than one role to each user from the edit user screen."
+msgstr "ویِژگی نقش‌های متعدد برای یک کاربر  به شما اجازه می دهد که بیش از یک نقش را برای هر کاربر در صفحه ویرایش کاربر اعمال کنید ."
 
 #: admin/views/class-view-general.php:408
-msgid ""
-"Tick the checkbox for denied capabilities to always take precedence over "
-"granted capabilities when there is a conflict. This is only relevant when "
-"using multiple roles per user."
-msgstr ""
+msgid "Tick the checkbox for denied capabilities to always take precedence over granted capabilities when there is a conflict. This is only relevant when using multiple roles per user."
+msgstr "این گزینه را انتخاب کنید، اگر می‌خواهید در هنگام تقابل توانایی‌ها، رد آن‌ها همیشه بر اعطای توانایی‌ها اولویت داشته باشد. این تنها مربوط به زمان‌هایی است که چندین نقش برای هر کاربر در نظر گرفته می‌شود."
 
 #: admin/views/class-view-general.php:400
-msgid ""
-"The role manager allows you to manage roles on your site by giving you the "
-"ability to create, edit, and delete any role. Note that changes to roles do "
-"not change settings for the Members plugin. You are literally changing data "
-"in your WordPress database. This plugin feature merely provides an interface "
-"for you to make these changes."
-msgstr ""
+msgid "The role manager allows you to manage roles on your site by giving you the ability to create, edit, and delete any role. Note that changes to roles do not change settings for the Members plugin. You are literally changing data in your WordPress database. This plugin feature merely provides an interface for you to make these changes."
+msgstr "مدیریت نقش ها اجازه می دهد به شما تا نقش های سایتتان را مدیریت کنید با قابلیت ایجاد , ویرایش و حذف هر نقش."
 
 #: admin/functions-help.php:24
 msgid "Support Forums"
-msgstr ""
+msgstr "انجمن پشتیبانی"
 
 #: admin/functions-help.php:23
 msgid "Documentation"
-msgstr ""
+msgstr "مستندات"
 
 #: admin/views/class-view-general.php:354
 msgid "Role and Capabilities"
-msgstr ""
+msgstr "نقش‌ها و توانایی‌ها"
 
 #: admin/views/class-view-general.php:333
 msgid "Update Settings"
-msgstr ""
+msgstr "به‌روزرسانی تنظیمات"
 
 #: admin/views/class-view-general.php:297
 msgid "Show error message for feed items."
-msgstr ""
+msgstr "برای موارد خوراک، پیام خطا نمایش داده شود."
 
 #: admin/views/class-view-general.php:267
-msgid ""
-"Redirect all logged-out users to the login page before allowing them to view "
-"the site."
-msgstr ""
+msgid "Redirect all logged-out users to the login page before allowing them to view the site."
+msgstr "همه کاربران وارد نشده، پیش از نمایش سایت، به برگه ورود تغییر مسیر داده شوند."
 
 #: admin/views/class-view-general.php:252
 msgid "Enable the users widget."
-msgstr ""
+msgstr "ابزارک کاربران فعال شود."
 
 #: admin/views/class-view-general.php:237
 msgid "Enable the login form widget."
-msgstr ""
+msgstr "ابزارک فرم ورود فعال شود."
 
 #: admin/views/class-view-general.php:202
 msgid "Enable the content permissions feature."
-msgstr ""
+msgstr "قابلیت مجوزهای محتوا فعال شود."
 
 #: admin/views/class-view-general.php:187
 msgid "Allow users to be assigned more than a single role."
-msgstr ""
+msgstr "امکان اختصاص دادن بیش از یک نقش را به کاربران می دهد."
 
 #: admin/views/class-view-general.php:162
 msgid "Denied capabilities should always overrule granted capabilities."
-msgstr ""
+msgstr "توانایی‌های رد شده، همیشه بر توانایی‌های اعطا شده برتری خواهند داشت."
 
 #: admin/views/class-view-general.php:144
 msgid "Enable the role manager."
-msgstr ""
+msgstr "مدیریت نقش‌ها فعال شود."
 
 #: admin/views/class-view-general.php:129
-msgid ""
-"Your roles and capabilities will not revert back to their previous settings "
-"after deactivating or uninstalling this plugin, so use this feature wisely."
-msgstr ""
+msgid "Your roles and capabilities will not revert back to their previous settings after deactivating or uninstalling this plugin, so use this feature wisely."
+msgstr "نقش‌ها و توانایی‌های شما با غیرفعال‌سازی و یا حذف این افزونه، به حالت قبل باز نمی‌گردند. پس از این قابلیت، عاقلانه استفاده کنید."
 
 #: admin/views/class-view-general.php:86
 msgid "Feed Error Message"
-msgstr ""
+msgstr "پیام خطای خوراک"
 
 #: admin/views/class-view-general.php:85
 msgid "Disable Feed"
-msgstr ""
+msgstr "غیر فعالسازی خوراک"
 
 #: admin/views/class-view-general.php:83
 msgid "Enable Private Site"
-msgstr ""
+msgstr "فعالسازی سایت خصوصی"
 
 #: admin/views/class-view-general.php:80
 msgid "Users Widget"
-msgstr ""
+msgstr "ابزارک کاربران"
 
 #: admin/views/class-view-general.php:79
 msgid "Login Widget"
-msgstr ""
+msgstr "ابزارک ورود"
 
 #: admin/class-meta-box-content-permissions.php:180
 #: admin/views/class-view-general.php:76
@@ -882,234 +817,208 @@ msgstr "پیام خطا"
 
 #: admin/views/class-view-general.php:75
 msgid "Enable Permissions"
-msgstr ""
+msgstr "فعالسازی مجوزها"
 
 #: admin/views/class-view-general.php:71
 msgid "Multiple User Roles"
-msgstr ""
+msgstr "نقش‌های کاربری چندگانه"
 
 #: admin/views/class-view-general.php:72
 msgid "Capabilities"
-msgstr ""
+msgstr "توانایی‌ها"
 
 #: admin/views/class-view-general.php:70
 msgid "Role Manager"
-msgstr "مدیر نقش"
+msgstr "مدیریت نقش‌ها"
 
 #: admin/views/class-view-general.php:65 admin/views/class-view-general.php:381
 msgid "Private Site"
-msgstr ""
+msgstr "سایت خصوصی"
 
 #: admin/views/class-view-general.php:64 admin/views/class-view-general.php:372
 msgid "Sidebar Widgets"
-msgstr ""
+msgstr "ابزارک‌های نوار کناری"
 
 #: admin/functions-help.php:115 admin/views/class-view-general.php:62
 msgid "Roles and Capabilities"
-msgstr "نقش‌ها و دسترسی‌ها"
+msgstr "نقش‌ها و توانایی‌ها"
 
 #: admin/class-settings.php:174 admin/class-settings.php:175
 #: admin/class-settings.php:275
 msgctxt "admin screen"
 msgid "Members"
-msgstr "اعضاء"
+msgstr "اعضا"
 
 #: admin/class-roles.php:310
-msgid ""
-"You can permanently delete multiple roles at once. Select the roles you want "
-"to act on using the checkboxes, then select the action you want to take from "
-"the Bulk Actions menu and click Apply."
-msgstr ""
+msgid "You can permanently delete multiple roles at once. Select the roles you want to act on using the checkboxes, then select the action you want to take from the Bulk Actions menu and click Apply."
+msgstr "شما می‌توانید یک‌باره چندین نقش را برای همیشه حذف کنید. نقش‌های مورد نظرتان را انتخاب کنید و سپس با استفاده از منوی کارهای دسته‌جمعی، عملی را که می‌خواهید انجام دهید."
 
 #: admin/class-roles.php:296
-msgid ""
-"<strong>Users</strong> takes you to the users screen and lists the users "
-"that have that role."
-msgstr ""
+msgid "<strong>Users</strong> takes you to the users screen and lists the users that have that role."
+msgstr "<strong>کاربران</strong> شما را به صفحه کاربران و فهرستی از ایشان  که آن نقش را دارند، راهنمایی می‌کند."
 
 #: admin/class-roles.php:295
-msgid ""
-"<strong>Clone</strong> copies the role and takes you to the new role screen "
-"to further edit it."
-msgstr ""
+msgid "<strong>Clone</strong> copies the role and takes you to the new role screen to further edit it."
+msgstr "<strong>شبیه‌سازی</strong> نقش را کپی و شما را به صفحه نقش جدید، برای ویرایش بیشتر راهنمایی می‌کند."
 
 #: admin/class-roles.php:294
-msgid ""
-"<strong>Delete</strong> removes your role from this list and permanently "
-"deletes it."
-msgstr ""
+msgid "<strong>Delete</strong> removes your role from this list and permanently deletes it."
+msgstr "<strong>حذف</strong> نقش را از این فهرست پاک و برای همیشه حذف می‌کند."
 
 #: admin/class-roles.php:293
-msgid ""
-"<strong>Edit</strong> takes you to the editing screen for that role. You can "
-"also reach that screen by clicking on the role name."
-msgstr ""
+msgid "<strong>Edit</strong> takes you to the editing screen for that role. You can also reach that screen by clicking on the role name."
+msgstr "<strong>ویرایش</strong> شما را به صفحه ویرایش آن نقش راهنمایی می‌کند. شما همچنین می‌توانید با کلیک روی نام نقش به آن صفحه بروید."
 
 #: admin/class-roles.php:289
-msgid ""
-"Hovering over a row in the roles list will display action links that allow "
-"you to manage your role. You can perform the following actions:"
-msgstr ""
+msgid "Hovering over a row in the roles list will display action links that allow you to manage your role. You can perform the following actions:"
+msgstr "نگه‌داشتن بالای هر ردیف در فهرست نقش‌ها، پیوند‌های اجرایی آن نمایش می‌دهد. به کمک آن‌ها می‌توانید نقش خودتان را مدیریت کنید. اقدامات قابل اجرا به صورت زیر هستند:"
 
 #: admin/class-roles.php:275
-msgid ""
-"You can filter the list of roles by types using the text links in the upper "
-"left. The default view is to show all roles."
-msgstr ""
+msgid "You can filter the list of roles by types using the text links in the upper left. The default view is to show all roles."
+msgstr "شما می‌توانید فهرست نقش‌ها را با استفاده از پیوند‌های بالا سمت راست، بر اساس نوع پالایش کنید. به صورت پیش‌فرض همه نقش‌ها نمایش داده می‌شوند."
 
 #: admin/class-roles.php:274
-msgid ""
-"You can hide/display columns based on your needs and decide how many roles "
-"to list per screen using the Screen Options tab."
-msgstr ""
+msgid "You can hide/display columns based on your needs and decide how many roles to list per screen using the Screen Options tab."
+msgstr "شما می‌توانید ستون‌ها را بر اساس نیاز خود پنهان و نمایش دهید و یا با استفاده از گزینه‌های صفحه نمایش، تصمیم بگیرید چند نقش در هر صفحه فهرست شود."
 
 #: admin/class-roles.php:270
-msgid ""
-"You can customize the display of this screen&#8216;s contents in a number of "
-"ways:"
-msgstr ""
+msgid "You can customize the display of this screen&#8216;s contents in a number of ways:"
+msgstr "شما می‌توانید در چندین حالت، نمایش محتوای این صفحه را سفارشی‌سازی کنید:"
 
 #: admin/class-roles.php:256
-msgid ""
-"This screen provides access to all of your user roles. Roles are a method of "
-"grouping users. They are made up of capabilities (caps), which give "
-"permission to users to perform specific actions on the site."
-msgstr ""
+msgid "This screen provides access to all of your user roles. Roles are a method of grouping users. They are made up of capabilities (caps), which give permission to users to perform specific actions on the site."
+msgstr "این صفحه امکان دسترسی به همه نقش‌های کاربری شما را فراهم می‌کند. نقش‌ها، روشی برای گروه‌بندی کاربران  هستند که از مجموعه توانایی‌هایی ساخته شده‌اند، تا اجازه انجام اقدامات خاصی به کاربران در سایت را بدهند."
 
 #: admin/class-roles.php:237
 msgid "Bulk Actions"
-msgstr ""
+msgstr "کارهای دسته‌جمعی"
 
 #: admin/class-roles.php:228
 msgid "Available Actions"
-msgstr ""
+msgstr "اقدامات در دسترس"
 
 #: admin/class-roles.php:219
 msgid "Screen Content"
-msgstr ""
+msgstr "محتوای صفحه"
 
 #: admin/class-roles.php:210 admin/functions-help.php:46
 #: admin/views/class-view-addons.php:176
 msgid "Overview"
-msgstr ""
+msgstr "بررسی کلی"
 
 #: admin/class-roles.php:131
 msgid "%s role deleted."
-msgstr ""
+msgstr "نقش %s حذف شد."
 
 #: admin/class-roles.php:112
 msgid "Selected roles deleted."
-msgstr ""
+msgstr "نقش‌های انتخاب شده حذف شدند."
 
 #: admin/class-roles.php:71
 msgid "Denied"
-msgstr ""
+msgstr "رد شده"
 
 #: admin/class-roles.php:70
 msgid "Granted"
-msgstr ""
+msgstr "اعطا شده"
 
 #: admin/class-role-new.php:328
 msgid "Enter role name"
-msgstr ""
+msgstr "نام نقش را وارد کنید"
 
 #: admin/class-role-new.php:328
 msgid "%s Clone"
-msgstr ""
+msgstr "شبیه‌سازی %s"
 
 #: admin/class-role-new.php:310
 msgid "Clone Role"
-msgstr ""
+msgstr "شبیه‌سازی نقش"
 
 #: admin/class-role-new.php:243
 msgid "You must enter a valid role name."
-msgstr ""
+msgstr "شما باید یک نام معتبر برای نقش وارد کنید."
 
 #: admin/class-role-new.php:239
 msgid "The %s role already exists."
-msgstr ""
+msgstr "نقش %s پیش از این وجود دارد."
 
 #: admin/class-role-new.php:235
 msgid "You must enter a valid role."
-msgstr ""
+msgstr "باید یک نقش معتبر وارد نمایید."
 
 #: admin/class-role-new.php:109 admin/class-role-new.php:310
 msgid "Add New Role"
-msgstr "افزودن نقش تازه"
+msgstr "افزودن نقش جدید"
 
 #: admin/class-role-list-table.php:404
 msgid "All %s"
 msgid_plural "All %s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "همه %s"
 
 #: admin/class-role-list-table.php:364 admin/class-roles.php:69
 #: inc/class-widget-users.php:59 inc/functions-cap-groups.php:121
 msgid "Users"
-msgstr ""
+msgstr "کاربران"
 
 #: admin/class-role-list-table.php:360
 msgid "Change Default"
-msgstr ""
+msgstr "تغییر پیش‌فرض"
 
 #: admin/class-role-list-table.php:356
 msgid "Clone"
-msgstr ""
+msgstr "شبیه‌سازی"
 
 #: admin/class-role-list-table.php:351
 msgid "View"
-msgstr ""
+msgstr "نمایش"
 
 #: admin/class-role-list-table.php:345 admin/class-role-list-table.php:494
 msgid "Delete"
-msgstr ""
+msgstr "حذف"
 
 #: admin/class-role-list-table.php:341 admin/class-role-new.php:335
 #: admin/functions-admin.php:46
 msgid "Edit"
-msgstr ""
+msgstr "ویرایش"
 
 #: admin/class-role-list-table.php:236
 msgid "Your Role"
-msgstr ""
+msgstr "نقش شما"
 
 #: admin/class-role-list-table.php:232
 msgid "Default Role"
-msgstr ""
+msgstr "نقش پیش‌فرض"
 
 #: admin/class-role-edit.php:326 admin/class-role-new.php:333
 #: inc/class-widget-users.php:228
 msgid "Role:"
-msgstr ""
+msgstr "نقش:"
 
 #: admin/class-role-edit.php:320 admin/class-role-new.php:327
 #: admin/class-roles.php:67 admin/functions-help.php:62
 msgid "Role Name"
-msgstr "عنوان نقش"
+msgstr "نام نقش"
 
 #: admin/class-role-edit.php:238 admin/class-role-new.php:226
 msgid "The %s role has been created."
-msgstr ""
+msgstr "نقش %s ایجاد شد."
 
 #: admin/class-role-edit.php:230
-msgid ""
-"The %s role is not editable. This means that it is most likely added via "
-"another plugin for a special use or that you do not have permission to edit "
-"it."
-msgstr ""
+msgid "The %s role is not editable. This means that it is most likely added via another plugin for a special use or that you do not have permission to edit it."
+msgstr "نقش %s قابل ویرایش نیست. این به معنی است که به احتمال زیاد، برای استفاده خاص توسط افزونه دیگری  اضافه شده و یا شما مجوز ویرایش آن را ندارید."
 
 #: admin/class-role-edit.php:226
 msgid "%s role updated."
-msgstr ""
+msgstr "نقش %s به‌روزرسانی شد."
 
 #: admin/class-role-edit.php:99
 msgid "The requested role to edit does not exist."
-msgstr ""
+msgstr "نقش درخواست شده برای ویرایش، وجود ندارد."
 
 #: admin/class-manage-users.php:161 admin/class-manage-users.php:236
 #: admin/class-role-edit.php:92 members.php:129 members.php:140
 msgid "Whoah, partner!"
-msgstr ""
+msgstr "اوه، رفیق!"
 
 #: admin/class-meta-box-publish-role.php:130
 msgid "Add Role"
@@ -1117,7 +1026,7 @@ msgstr "افزودن نقش"
 
 #: admin/class-meta-box-publish-role.php:130
 msgid "Update"
-msgstr ""
+msgstr "به‌روزرسانی"
 
 #: admin/class-meta-box-publish-role.php:123
 msgctxt "delete role"
@@ -1126,15 +1035,15 @@ msgstr "حذف"
 
 #: admin/class-meta-box-publish-role.php:112
 msgid "Denied:"
-msgstr ""
+msgstr "رد شده:"
 
 #: admin/class-meta-box-publish-role.php:106
 msgid "Granted:"
-msgstr ""
+msgstr "اعطا شده:"
 
 #: admin/class-meta-box-publish-role.php:100
 msgid "Users:"
-msgstr ""
+msgstr "کاربران:"
 
 #: admin/class-meta-box-publish-role.php:67 admin/class-roles.php:68
 #: inc/functions-admin-bar.php:35
@@ -1143,18 +1052,15 @@ msgstr "نقش"
 
 #: admin/class-meta-box-custom-cap.php:73 admin/functions-help.php:94
 msgid "Custom Capability"
-msgstr ""
+msgstr "توانایی سفارشی"
 
 #: admin/class-meta-box-content-permissions.php:210
-msgid ""
-"If no roles are selected, everyone can view the content. The author, any "
-"users who can edit the content, and users with the %s capability can view "
-"the content regardless of role."
-msgstr ""
+msgid "If no roles are selected, everyone can view the content. The author, any users who can edit the content, and users with the %s capability can view the content regardless of role."
+msgstr "اگر نقشی انتخاب نشود، همه می‌توانند محتوا را مشاهده کنند. بدون در نظر گرفتن نقش انتخاب شده، نویسنده یا هر کاربری که می‌تواند محتوا را ویرایش کند و کاربران با توانایی %s، می‌توانند محتوا را مشاهده کنند."
 
 #: admin/class-meta-box-content-permissions.php:190
 msgid "Limit access to the content to users of the selected roles."
-msgstr ""
+msgstr "محدود کردن دسترسی به محتوا به کاربران از نقش های انتخاب شده."
 
 #: admin/class-meta-box-content-permissions.php:115
 #: admin/views/class-view-general.php:63 admin/views/class-view-general.php:363
@@ -1163,7 +1069,7 @@ msgstr "مجوزهای محتوا"
 
 #: admin/class-manage-roles.php:89 admin/class-role-edit.php:298
 msgid "Edit Role"
-msgstr ""
+msgstr "ویرایش نقش"
 
 #: admin/class-manage-roles.php:86 admin/class-manage-roles.php:92
 #: admin/class-manage-users.php:360
@@ -1174,25 +1080,12 @@ msgstr "نقش‌ها"
 
 #: admin/class-cap-tabs.php:194
 msgid "Edit Capabilities: %s"
-msgstr ""
+msgstr "ویرایش توانایی‌ها: %s"
 
 #: admin/class-cap-control.php:119 admin/functions-admin.php:49
 msgid "Deny %s capability"
-msgstr ""
+msgstr "رد کردن توانایی %s"
 
 #: admin/class-cap-control.php:118 admin/functions-admin.php:48
 msgid "Grant %s capability"
-msgstr ""
-
-#~ msgctxt "cap"
-#~ msgid "Add New"
-#~ msgstr "افزودن"
-
-#~ msgid "Add New Capability"
-#~ msgstr "افزودن دسترسی تازه"
-
-#~ msgid "Add Capability"
-#~ msgstr "افزودن دسترسی"
-
-#~ msgid "Add New"
-#~ msgstr "افزودن"
+msgstr "اعطای توانایی %s"
