@@ -398,10 +398,8 @@ class Admin extends gNetwork\Module
 
 	public function admin_enqueue_scripts()
 	{
-		$screen = get_current_screen();
-
-		if ( ! $screen->is_block_editor()
-			&& gNetwork()->option( 'admin_chosen', 'blog' ) ) {
+		if ( gNetwork()->option( 'admin_chosen', 'blog' )
+			&& ! WordPress::isBlockEditor() ) {
 
 			$script = 'jQuery(function($) {
 				$("select.gnetwork-do-chosen, .postbox:not(#submitdiv) .inside select:not(.no-chosen), .tablenav select").chosen({
