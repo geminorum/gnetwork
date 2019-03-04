@@ -28,6 +28,10 @@
         font-size: smaller; // 0.85em;
         margin-bottom: 5px !important;
       }
+
+      + .-wrap {
+        margin-top: .5em;
+      }
     }
 
     li {
@@ -43,6 +47,15 @@
       .-restricted::before {
         color: $brand-warning !important;
         content: "\f530" !important;
+      }
+
+      .-corn-ready::before {
+        color: $brand-warning !important;
+        content: "\f321" !important;
+      }
+
+      .-corn-done::before {
+        content: "\f321" !important;
       }
 
       a.storage::before {
