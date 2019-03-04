@@ -1,3 +1,73 @@
+### 3.8.0
+* main/module: auto setup providers
+* main/module: field as key on settings prep
+* main/module: multi-network in menu urls
+* main/module: providers as dashboard pointers
+* main/plugin: debug log path support
+* main/plugin: late constants
+* main/plugin: unified ssl helper
+* main/provider: unified arg names
+* main/provider: working class on dashboard pointers
+* misc/meta panel: un-html post-content
+* module/admin: check if adminbar module exists
+* module/admin: skip chosen on block editor
+* module/adminbar: cron status on all admins
+* module/adminbar: custom stylesheet for adminbar
+* module/adminbar: multi-network support
+* module/adminbar: network domain as node id
+* module/bbq: adopted from last version
+* module/blog: custom login/logout after url
+* module/blog: force ssl status on plugins loaded
+* module/blog: ssl for attachment urls
+* module/brandig: skip empty data
+* module/branding: background color for webapp manifest
+* module/branding: manifest data filter
+* module/cleanup: bulk purge site meta
+* module/cleanup: more meta keys
+* module/cron: ready cron jobs pointer
+* module/dashboard: pointers api
+* module/debug: better handling meta data panel
+* module/debug: http api debug logs moved into failed
+* module/debug: separete failed logs
+* module/editor: skip buttons on block editor
+* module/extend: active plugins on the summary
+* module/extend: overview of current active themes
+* module/locale: disable overrides constant
+* module/login: break-down login page logic
+* module/login: current network css class
+* module/login: late use of constants
+* module/login: loging logouts
+* module/mail: better test mail subject
+* module/mail: quick nav buttons to other subs
+* module/maintenance: move to pointers api
+* module/media: custom access for tools menu
+* module/media: initial ui for ssl correction
+* module/media: trim & i18n friendly basename
+* module/notify: check for notify type
+* module/restricted: dashboard pointer
+* module/shortcodes: :new: post title shortcode
+* module/shortcodes: :new: shortcode for menus
+* module/shortcodes: :new: shortcode redirect
+* module/shortcodes: support attachment id for pdfs
+* module/site: bulk delete site meta
+* module/site: resync sitemeta via cron
+* module/site: rethinking site meta items
+* module/sms: unifed arg names
+* module/themes: current network as body class
+* module/tracking: constant override for ga account
+* module/tracking: remove support for gplus
+* module/tracking: remove support for gplus
+* module/tracking: twitter site tag even for editors
+* module/typography: custom wiki options
+* module/typography: extra title sanitization
+* module/typography: general typography api
+* module/typography: word wrap for widget titles
+* module/update: browser download url for github
+* module/update: custom main network
+* module/update: disables updates on others than the main network
+* module/user: using internal api for network sites
+* provider/kavenegar: provider status
+
 ### 3.7.9
 * main/module: default method for tools subs
 * main/module: extra args on getting menu url
