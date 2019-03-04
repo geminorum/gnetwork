@@ -374,7 +374,7 @@ class WordPress extends Base
 
 		$clause_order = $orderby_path
 			? 'ORDER BY domain, path ASC'
-			: 'ORDER BY registered DESC';
+			: 'ORDER BY registered ASC';
 
 		$query = "
 			SELECT blog_id, site_id, domain, path

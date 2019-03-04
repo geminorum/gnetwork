@@ -299,6 +299,7 @@ class HTML extends Base
 		return preg_replace( '/[^a-zA-Z0-9_:]/', '', $tag );
 	}
 
+	// https://www.iana.org/assignments/uri-schemes/uri-schemes.xhtml
 	public static function sanitizePhoneNumber( $number )
 	{
 		return self::escapeURL( 'tel:'.str_replace( array( '(', ')', '-', '.', '|', ' ' ), '', $number ) );
