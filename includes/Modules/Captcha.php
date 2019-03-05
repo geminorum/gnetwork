@@ -8,6 +8,7 @@ use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\Error;
 use geminorum\gNetwork\Core\Exception;
 use geminorum\gNetwork\Core\HTTP;
+use geminorum\gNetwork\Core\HTML;
 
 class Captcha extends gNetwork\Module
 {
