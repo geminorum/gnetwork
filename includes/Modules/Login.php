@@ -272,8 +272,8 @@ class Login extends gNetwork\Module
 		if ( is_user_logged_in() )
 			return;
 
-		// if ( 'admin-post.php' === $pagenow )
-		// 	return;
+		if ( 'admin-post.php' === $pagenow )
+			return;
 
 		if ( ! empty( $_GET['adminhash'] )
 			&& '/wp-admin/options.php' === $request['path'] )
