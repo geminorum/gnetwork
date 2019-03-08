@@ -51,7 +51,7 @@ class Farapaymak extends gNetwork\Provider
 			'from_number' => [
 				'type'        => 'text',
 				'title'       => _x( 'From Number', 'Provider: Farapaymak', GNETWORK_TEXTDOMAIN ),
-				'description' => _x( 'You can specify the phone number that messages should be sent from. If you leave this blank, the default number will be used.', 'Provider: Farapaymak', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Specifies the phone number that messages should be sent from. If you leave this blank, the default number will be used.', 'Provider: Farapaymak', GNETWORK_TEXTDOMAIN ),
 				'field_class' => [ 'regular-text', 'code' ],
 			],
 			'admin_numbers' => [

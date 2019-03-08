@@ -421,6 +421,7 @@ class Update extends gNetwork\Module
 		if ( 'github_plugin' == $package['type']
 			|| 'github_theme' == $package['type'] ) {
 
+			// @REF: https://developer.github.com/v3/#current-version
 			return [ 'Accept' => 'application/vnd.github.v3+json' ];
 
 		} else if ( 'gitlab_plugin' == $package['type']

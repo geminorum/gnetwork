@@ -73,19 +73,19 @@ class Mail extends gNetwork\Module
 					'field'       => 'from_email',
 					'type'        => 'email',
 					'title'       => _x( 'From Email', 'Modules: Mail: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'You can specify the email address that emails should be sent from. Leave blank for default.', 'Modules: Mail: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Specifies the email address that emails should be sent from. Leave blank for default.', 'Modules: Mail: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
 					'field'       => 'from_name',
 					'type'        => 'text',
 					'title'       => _x( 'From Name', 'Modules: Mail: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'You can specify the name that emails should be sent from. Leave blank for WordPress.', 'Modules: Mail: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Specifies the name that emails should be sent from. Leave blank for WordPress.', 'Modules: Mail: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
 					'field'       => 'sender',
 					'type'        => 'text',
 					'title'       => _x( 'Return Path', 'Modules: Mail: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Set the return-path email address. Use <code>FROM</code> to match the From Email or Empty to disable.', 'Modules: Mail: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Sets the return-path email address. Use <code>FROM</code> to match the From Email or Empty to disable.', 'Modules: Mail: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => 'FROM',
 					'field_class' => [ 'regular-text', 'email-text' ],
 				],
@@ -96,7 +96,7 @@ class Mail extends gNetwork\Module
 					'default' => 'mail',
 					'values'  => [
 						'mail' => _x( 'Use the PHP mail() function to send emails.', 'Modules: Mail: Settings', GNETWORK_TEXTDOMAIN ),
-						'smtp' => _x( 'Send all WordPress emails via SMTP.', 'Modules: Mail: Settings', GNETWORK_TEXTDOMAIN ),
+						'smtp' => _x( 'Sends all WordPress emails via SMTP.', 'Modules: Mail: Settings', GNETWORK_TEXTDOMAIN ),
 					],
 				],
 			],
@@ -148,7 +148,7 @@ class Mail extends gNetwork\Module
 				[
 					'field'       => 'log_all',
 					'title'       => _x( 'Log All', 'Modules: Mail: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Log all outgoing emails in a secure folder', 'Modules: Mail: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Logs all out-going emails in a secure folder.', 'Modules: Mail: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 			];
 
@@ -394,9 +394,6 @@ class Mail extends gNetwork\Module
 				$phpmailer->Password = $this->options['smtp_password'];
 			}
 		}
-
-		if ( WordPress::isDev() )
-			$phpmailer->Encoding = 'quoted-printable';
 	}
 
 	public function wp_mail_failed( $error )

@@ -3,6 +3,7 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork\Logger;
+use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Core\Error;
 use geminorum\gNetwork\Core\Exception;
 use geminorum\gNetwork\Core\WordPress;
