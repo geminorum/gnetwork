@@ -4,6 +4,7 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork\Core\Date;
 use geminorum\gNetwork\Core\Error;
+use geminorum\gNetwork\Core\File;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\HTTP;
 use geminorum\gNetwork\Core\Number;
@@ -578,5 +579,80 @@ class Utilities extends Core\Base
 
 		echo HTML::getDashicon( 'unlock', _x( 'SSL Disabled', 'Utilities: Title', GNETWORK_TEXTDOMAIN ), '-danger' );
 		return FALSE;
+	}
+
+	public static function buttonDataLogs( $constant, $option = NULL )
+	{
+		if ( ! $constant ) {
+
+			HTML::desc( _x( 'Logging data disabled by constant.', 'Utilities', GNETWORK_TEXTDOMAIN ) );
+
+		} else if ( $option ) {
+
+			if ( ! is_dir( $constant ) || ! wp_is_writable( $constant ) ) {
+
+				HTML::desc( _x( 'Log folder not exists or writable.', 'Utilities', GNETWORK_TEXTDOMAIN ) );
+
+				echo '<p class="submit -wrap-buttons">';
+					Settings::submitButton( 'create_log_folder', _x( 'Create Log Folder', 'Utilities', GNETWORK_TEXTDOMAIN ), 'small' );
+				echo '</p>';
+
+			} else {
+
+				HTML::desc( sprintf( _x( 'Log folder exists and writable on: <code>%s</code>', 'Utilities', GNETWORK_TEXTDOMAIN ), $constant ) );
+
+				if ( ! file_exists( $constant.'/.htaccess' ) )
+					HTML::desc( _x( 'Warning: <code>.htaccess</code> not found!', 'Utilities', GNETWORK_TEXTDOMAIN ) );
+			}
+
+		} else {
+
+			HTML::desc( _x( 'Data logs are disabled.', 'Utilities', GNETWORK_TEXTDOMAIN ), TRUE, '-empty' );
+		}
+	}
+
+	// @SOURCE: http://stackoverflow.com/a/14744288
+	public static function getDataLogs( $path, $limit, $paged = 1, $ext = 'json', $old = NULL )
+	{
+		if ( ! $path )
+			return [ [], [] ];
+
+		$files = glob( File::normalize( $path.'/*.'.$ext ) );
+
+		if ( empty( $files ) )
+			return [ [], [] ];
+
+		$i    = 0;
+		$logs = [];
+
+		usort( $files, function( $a, $b ) {
+			return filemtime( $b ) - filemtime( $a );
+		} );
+
+		$pages  = ceil( count( $files ) / $limit );
+		$offset = ( $paged - 1 ) * $limit;
+		$filter = array_slice( $files, $offset, $limit );
+
+		foreach ( $filter as $log ) {
+
+			if ( $i == $limit )
+				break;
+
+			if ( ! is_null( $old ) && filemtime( $log ) < $old )
+				continue;
+
+			if ( $data = json_decode( File::getContents( $log ), TRUE ) )
+				$logs[] = array_merge( [
+					'file' => basename( $log, '.json' ),
+					'size' => filesize( $log ),
+					'date' => filemtime( $log ),
+				], $data );
+
+			$i++;
+		}
+
+		$pagination = HTML::tablePagination( count( $files ), $pages, $limit, $paged );
+
+		return [ $logs, $pagination ];
 	}
 }

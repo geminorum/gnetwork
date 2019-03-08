@@ -232,32 +232,7 @@ class Mail extends gNetwork\Module
 
 		echo '</p>';
 
-		if ( ! GNETWORK_MAIL_LOG_DIR ) {
-
-			HTML::desc( _x( 'Logging emails disabled by constant.', 'Modules: Mail', GNETWORK_TEXTDOMAIN ) );
-
-		} else if ( $this->options['log_all'] ) {
-
-			if ( ! is_dir( GNETWORK_MAIL_LOG_DIR ) || ! wp_is_writable( GNETWORK_MAIL_LOG_DIR ) ) {
-
-				HTML::desc( _x( 'Log folder not exists or writable.', 'Modules: Mail', GNETWORK_TEXTDOMAIN ) );
-
-				echo $this->wrap_open_buttons();
-					Settings::submitButton( 'create_log_folder', _x( 'Create Log Folder', 'Modules: Mail', GNETWORK_TEXTDOMAIN ), 'small' );
-				echo '</p>';
-
-			} else {
-
-				HTML::desc( sprintf( _x( 'Log folder exists and writable on: <code>%s</code>', 'Modules: Mail', GNETWORK_TEXTDOMAIN ), GNETWORK_MAIL_LOG_DIR ) );
-
-				if ( ! file_exists( GNETWORK_MAIL_LOG_DIR.'/.htaccess' ) )
-					HTML::desc( _x( 'Warning: <code>.htaccess</code> not found!', 'Modules: Mail', GNETWORK_TEXTDOMAIN ) );
-			}
-
-		} else {
-
-			HTML::desc( _x( 'Email logs are disabled.', 'Modules: Mail', GNETWORK_TEXTDOMAIN ), TRUE, '-empty' );
-		}
+		Utilities::buttonDataLogs( GNETWORK_MAIL_LOG_DIR, $this->options['log_all'] );
 	}
 
 	protected function settings_actions( $sub = NULL )
@@ -310,7 +285,7 @@ class Mail extends gNetwork\Module
 
 				if ( isset( $_POST['deletelogs_all'] ) ) {
 
-					WordPress::redirectReferer( ( FALSE === self::deleteEmailLogs() ? 'error' : 'purged' ) );
+					WordPress::redirectReferer( ( FALSE === File::emptyDir( GNETWORK_MAIL_LOG_DIR, TRUE ) ? 'error' : 'purged' ) );
 
 				} else if ( isset( $_POST['deletelogs_selected'], $_POST['_cb'] ) ) {
 
@@ -552,73 +527,9 @@ class Mail extends gNetwork\Module
 		}
 	}
 
-	// @SOURCE: http://stackoverflow.com/a/14744288
-	protected static function getEmailLogs( $limit, $paged = 1, $ext = 'json', $old = NULL, $path = GNETWORK_MAIL_LOG_DIR )
-	{
-		if ( ! $path )
-			return [ [], [] ];
-
-		$files = glob( File::normalize( $path.'/*.'.$ext ) );
-
-		if ( empty( $files ) )
-			return [ [], [] ];
-
-		$i    = 0;
-		$logs = [];
-
-		usort( $files, function( $a, $b ) {
-			return filemtime( $b ) - filemtime( $a );
-		} );
-
-		$pages  = ceil( count( $files ) / $limit );
-		$offset = ( $paged - 1 ) * $limit;
-		$filter = array_slice( $files, $offset, $limit );
-
-		foreach ( $filter as $log ) {
-
-			if ( $i == $limit )
-				break;
-
-			if ( ! is_null( $old ) && filemtime( $log ) < $old )
-				continue;
-
-			if ( $data = json_decode( File::getContents( $log ), TRUE ) )
-				$logs[] = array_merge( [
-					'file' => basename( $log, '.json' ),
-					'size' => filesize( $log ),
-					'date' => filemtime( $log ),
-				], $data );
-
-			$i++;
-		}
-
-		$pagination = HTML::tablePagination( count( $files ), $pages, $limit, $paged );
-
-		return [ $logs, $pagination ];
-	}
-
-	protected static function deleteEmailLogs( $path = GNETWORK_MAIL_LOG_DIR )
-	{
-		if ( ! $path )
-			return FALSE;
-
-		try {
-
-			// @SOURCE: http://stackoverflow.com/a/4594268
-			foreach ( new \DirectoryIterator( $path ) as $file )
-				if ( ! $file->isDot() )
-					unlink( $file->getPathname() );
-
-		} catch ( Exception $e ) {
-			// echo 'Caught exception: '.$e->getMessage().'<br/>';
-		}
-
-		return File::putHTAccessDeny( $path, FALSE );
-	}
-
 	private function tableEmailLogs()
 	{
-		list( $logs, $pagination ) = self::getEmailLogs( self::limit(), self::paged() );
+		list( $logs, $pagination ) = Utilities::getDataLogs( GNETWORK_MAIL_LOG_DIR, self::limit(), self::paged() );
 
 		if ( empty( $logs ) ) {
 
