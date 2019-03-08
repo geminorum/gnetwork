@@ -61,14 +61,15 @@ class Settings extends Core\Base
 		echo '<hr class="wp-header-end">';
 	}
 
-	public static function sideOpen( $title = NULL, $uri = '', $active = '', $subs = [] )
+	public static function sideOpen( $title = NULL, $uri = '', $active = '', $subs = [], $heading = NULL )
 	{
 		if ( is_null( $title ) )
 			$title = _x( 'Network Extras', 'Settings: Header Title', GNETWORK_TEXTDOMAIN );
 
 		echo '<div class="side-nav-wrap">';
 
-		echo HTML::tag( 'h1', [ 'class' => '-title' ], $title );
+		if ( $title )
+			echo HTML::tag( 'h1', [ 'class' => '-title' ], $title );
 
 		HTML::headerNav( $uri, $active, $subs, 'side-nav', 'ul', 'li' );
 
@@ -77,7 +78,13 @@ class Settings extends Core\Base
 		if ( 'overview' == $active )
 			return;
 
-		if ( ! empty( $subs[$active]['title'] ) )
+		if ( FALSE === $heading )
+			return;
+
+		if ( $heading )
+			$subtitle = $heading;
+
+		else if ( ! empty( $subs[$active]['title'] ) )
 			$subtitle = $subs[$active]['title'];
 
 		else if ( ! empty( $subs[$active] ) )

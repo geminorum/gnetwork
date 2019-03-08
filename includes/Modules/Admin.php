@@ -269,7 +269,8 @@ class Admin extends gNetwork\Module
 
 		if ( $this->cucSub( $sub ) ) {
 
-			Settings::sideOpen( NULL, $uri, $sub, $subs );
+			Settings::headerTitle();
+			HTML::headerNav( $uri, $sub, $subs );
 			Settings::message( $this->filters( 'settings_messages', Settings::messages(), $sub ) );
 
 			if ( 'overview' == $sub )
@@ -280,8 +281,6 @@ class Admin extends gNetwork\Module
 
 			else if ( ! $this->actions( 'settings_sub_'.$sub, $uri, $sub ) )
 				Settings::cheatin();
-
-			Settings::sideClose();
 
 		} else {
 
@@ -301,8 +300,7 @@ class Admin extends gNetwork\Module
 
 		if ( $this->cucSub( $sub, 'tools' ) ) {
 
-			Settings::headerTitle();
-			HTML::headerNav( $uri, $sub, $subs );
+			Settings::sideOpen( NULL, $uri, $sub, $subs, FALSE );
 			Settings::message( $this->filters( 'tools_messages', Settings::messages(), $sub ) );
 
 			if ( 'overview' == $sub )
@@ -310,6 +308,8 @@ class Admin extends gNetwork\Module
 
 			else if ( ! $this->actions( 'tools_sub_'.$sub, $uri, $sub ) )
 				Settings::cheatin();
+
+			Settings::sideClose();
 
 		} else {
 
