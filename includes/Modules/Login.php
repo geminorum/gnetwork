@@ -16,7 +16,8 @@ use geminorum\gNetwork\Core\WordPress;
 class Login extends gNetwork\Module
 {
 
-	protected $key = 'login';
+	protected $key        = 'login';
+	protected $installing = TRUE;
 
 	private $is_login_page = FALSE;
 
@@ -263,6 +264,10 @@ class Login extends gNetwork\Module
 
 	private function check_admin_page( $request, $pagenow )
 	{
+		// disabling install page
+		if ( 'install.php' === $pagenow )
+			Utilities::redirect404();
+
 		if ( ! is_admin() )
 			return;
 
