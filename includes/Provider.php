@@ -165,6 +165,7 @@ class Provider extends Core\Base
 			'load_providers'   => '0',
 			'debug_providers'  => '0',
 			'default_provider' => 'none',
+			'log_data'         => '0',
 		];
 	}
 
@@ -191,6 +192,13 @@ class Provider extends Core\Base
 				'title'       => _x( 'Access Level', 'Provider Core: Settings', GNETWORK_TEXTDOMAIN ),
 				'description' => _x( 'Selected and above can view the providers information.', 'Provider Core: Settings', GNETWORK_TEXTDOMAIN ),
 				'default'     => 'edit_others_posts',
+			],
+			[
+				'field'       => 'log_data',
+				'type'        => 'enabled',
+				'title'       => _x( 'Log Data', 'Provider Core: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Logs all data in a secure folder.', 'Provider Core: Settings', GNETWORK_TEXTDOMAIN ),
+				'default'     => '0',
 			],
 		];
 	}
