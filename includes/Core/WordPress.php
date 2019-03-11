@@ -468,6 +468,13 @@ class WordPress extends Base
 		return get_search_link( $query );
 	}
 
+	public static function getAdminPostLink( $action, $extra = array() )
+	{
+		return add_query_arg( array_merge( array(
+			'action' => $action,
+		), $extra ), admin_url( 'admin-post.php' ) );
+	}
+
 	public static function getPostEditLink( $post_id, $extra = array() )
 	{
 		return add_query_arg( array_merge( array(

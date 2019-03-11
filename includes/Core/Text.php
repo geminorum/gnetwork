@@ -26,6 +26,17 @@ class Text extends Base
 		// return preg_replace( '/(.*)([,،;؛]) (.*)/u', '$3'.$separator.'$1', $string ); // Wrong!
 	}
 
+	// @REF: https://davidwalsh.name/php-email-encode-prevent-spam
+	public static function encodeEmail( $string )
+	{
+		$encoded = '';
+
+		for ( $i = 0; $i < strlen( $string ); $i++ )
+			$encoded.= '&#'.ord( $string[$i] ).';';
+
+		return $encoded;
+	}
+
 	// @REF: http://php.net/manual/en/function.htmlspecialchars-decode.php#68962
 	// @REF: `htmlspecialchars_decode()`
 	public static function decodeHTML( $string )

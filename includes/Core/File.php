@@ -237,6 +237,26 @@ class File extends Base
 		rmdir( $dir );
 	}
 
+	protected static function emptyDir( $path, $put_access_deny = FALSE )
+	{
+		if ( ! $path )
+			return FALSE;
+
+		try {
+
+			// @SOURCE: http://stackoverflow.com/a/4594268
+			foreach ( new \DirectoryIterator( $path ) as $file )
+				if ( ! $file->isDot() )
+					unlink( $file->getPathname() );
+
+		} catch ( Exception $e ) {
+
+			self::_log( $e->getMessage().': '.sprintf( '%s', $path ) );
+		}
+
+		return $put_access_deny ? self::putHTAccessDeny( $path, FALSE ) : TRUE;
+	}
+
 	// output up to 5MB is kept in memory, if it becomes bigger
 	// it will automatically be written to a temporary file
 	// @REF: http://php.net/manual/en/function.fputcsv.php#74118
