@@ -181,6 +181,13 @@ table.base-table-list {
     padding: 0;
   }
 
+  .-column-info,
+  .-column-content {
+    > code {
+      display: inline-block;
+    }
+  }
+
   // .-row {}
   // .-cell {}
 
