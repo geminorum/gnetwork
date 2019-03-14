@@ -609,10 +609,7 @@ class Mail extends gNetwork\Module
 						if ( $this->hasHeader( $row, 'Content-Type: text/html' ) )
 							$content.= '<div'.$direction.'>'.$row['message'].'</div>';
 						else
-							$content.= '<div'.$direction.'>'
-								.Text::autoP( make_clickable(
-									HTML::escapeTextarea( $row['message'] ) ) )
-								.'</div>';
+							$content.= '<div'.$direction.'>'.wpautop( make_clickable( nl2br( $row['message'] ) ) ).'</div>';
 					}
 
 					return $content ?: '&mdash;';
