@@ -528,16 +528,8 @@ class Mail extends gNetwork\Module
 	{
 		list( $logs, $pagination ) = Utilities::getDataLogs( GNETWORK_MAIL_LOG_DIR, self::limit(), self::paged() );
 
-		if ( empty( $logs ) ) {
-
-			if ( ! is_dir( GNETWORK_MAIL_LOG_DIR ) || ! wp_is_writable( GNETWORK_MAIL_LOG_DIR ) )
-				echo HTML::error( _x( 'Log folder not exists or writable.', 'Modules: Mail', GNETWORK_TEXTDOMAIN ) );
-
-			else
-				echo HTML::warning( _x( 'No Logs!', 'Modules: Mail', GNETWORK_TEXTDOMAIN ) );
-
-			return FALSE;
-		}
+		if ( empty( $logs ) )
+			return Utilities::emptyDataLogs( GNETWORK_MAIL_LOG_DIR );
 
 		return HTML::tableList( [
 			'_cb' => 'file',

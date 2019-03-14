@@ -611,6 +611,15 @@ class Utilities extends Core\Base
 		}
 	}
 
+	public static function emptyDataLogs( $path )
+	{
+		if ( ! is_dir( $path ) || ! wp_is_writable( $path ) )
+			echo HTML::error( _x( 'Log folder not exists or writable.', 'Utilities', GNETWORK_TEXTDOMAIN ) );
+
+		else
+			echo HTML::warning( _x( 'No Logs!', 'Utilities', GNETWORK_TEXTDOMAIN ) );
+	}
+
 	// @SOURCE: http://stackoverflow.com/a/14744288
 	public static function getDataLogs( $path, $limit, $paged = 1, $ext = 'json', $old = NULL )
 	{
