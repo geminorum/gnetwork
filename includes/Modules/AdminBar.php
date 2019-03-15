@@ -671,8 +671,7 @@ class AdminBar extends gNetwork\Module
 			return $this->wp_admin_bar_my_sites_menu( $wp_admin_bar );
 
 		// assumed the list from `user_has_networks()` have privileges!
-		$super_admin  = WordPress::isSuperAdmin();
-		$main_network = get_main_network_id();
+		$super_admin = WordPress::isSuperAdmin();
 
 		foreach ( $networks as $network_id ) {
 
@@ -775,7 +774,7 @@ class AdminBar extends gNetwork\Module
 					] );
 				}
 
-			 	if ( $network->id == $main_network
+			 	if ( ( ! GNETWORK_MAIN_NETWORK || GNETWORK_MAIN_NETWORK == $network->id )
 					&& current_user_can( 'update_core' ) ) {
 
 					$wp_admin_bar->add_menu( [
