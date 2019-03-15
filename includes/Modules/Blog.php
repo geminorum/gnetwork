@@ -91,6 +91,12 @@ class Blog extends gNetwork\Module
 		}
 
 		add_filter( 'jetpack_get_default_modules', '__return_empty_array' );
+
+		// ADOPTED FROM: Jetpack Without Promotions v1.0.0 by required
+		// @REF: https://github.com/wearerequired/hide-jetpack-promotions
+		add_filter( 'can_display_jetpack_manage_notice', '__return_false', 20 );
+		add_filter( 'jetpack_just_in_time_msgs', '__return_false', 20 );
+		add_filter( 'jetpack_show_promotions', '__return_false', 20 );
 	}
 
 	public function setup_menu( $context )
