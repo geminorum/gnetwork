@@ -175,7 +175,7 @@ class Locale extends gNetwork\Module
 			'antivirus'                  => 'page', // [AntiVirus](https://wordpress.org/plugins/antivirus/)
 			'mapcap'                     => 'page', // [Map Cap](https://wordpress.org/plugins/map-cap/)
 			'akismet-key-config'         => 'page', // Akismet
-			'cache-enabler'              => 'page', // [Cache Enabler](https://wordpress.org/plugins/cache-enabler/)
+			// 'cache-enabler'              => 'page', // [Cache Enabler](https://wordpress.org/plugins/cache-enabler/)
 			'rest_api_console'           => 'page', // [REST API Console](https://wordpress.org/plugins/rest-api-console/)
 			'rest-oauth1-apps'           => 'page',
 			'so-widgets-plugins'         => 'page',

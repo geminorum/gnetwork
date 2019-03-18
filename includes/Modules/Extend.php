@@ -98,6 +98,6 @@ class Extend extends gNetwork\Module
 
 	public function deactivated_plugin( $plugin, $network_deactivating )
 	{
-		Logger::siteNOTICE( 'PLUGIN-DEACTIVATED'.( $network_deactivating ? 'NETWORK' : 'SITE' ), $plugin );
+		Logger::siteNOTICE( 'PLUGIN-DEACTIVATED-'.( $network_deactivating ? 'NETWORK' : 'SITE' ), $plugin );
 	}
 }

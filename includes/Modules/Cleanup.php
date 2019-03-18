@@ -609,6 +609,8 @@ class Cleanup extends gNetwork\Module
 			'theme_mods_',
 			'theme_mods_gtwentyeleven',
 			'theme_mods_gtwentytwelve',
+
+			'fileupload_url', // old upload path
 		];
 
 		foreach ( $options as $option )

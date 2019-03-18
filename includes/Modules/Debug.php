@@ -292,10 +292,15 @@ class Debug extends gNetwork\Module
 			'required_mysql_version' => _x( 'Required MySQL', 'Modules: Debug: Version Strings', GNETWORK_TEXTDOMAIN ),
 		];
 
+		echo '<div class="-wrap card">';
+		HTML::h2( _x( 'Core Versions', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+
 		echo '<table class="base-table-code"><tbody>';
 		foreach ( $versions as $key => $val )
 			echo sprintf( '<tr><td class="-var">%1$s</td><td class="-val"><code>%2$s</code></td></tr>', $val, $GLOBALS[$key] );
 		echo '</tbody></table>';
+
+		echo '</div>';
 	}
 
 	public static function gPlugin()
@@ -379,7 +384,9 @@ class Debug extends gNetwork\Module
 			'AUTOSAVE_INTERVAL'   => AUTOSAVE_INTERVAL,
 		];
 
-		echo HTML::tableCode( $paths );
+		echo '<div class="-wrap card" dir="ltr">';
+			echo HTML::tableCode( $paths );
+		echo '</div>';
 	}
 
 	public static function pluginPaths()
@@ -399,7 +406,9 @@ class Debug extends gNetwork\Module
 			'AJAX_ENDPOINT' => GNETWORK_AJAX_ENDPOINT,
 		];
 
-		echo HTML::tableCode( $paths );
+		echo '<div class="-wrap card" dir="ltr">';
+			echo HTML::tableCode( $paths );
+		echo '</div>';
 	}
 
 	public static function currentTime()
@@ -543,7 +552,9 @@ class Debug extends gNetwork\Module
 		$server['REQUEST_TIME_FLOAT'] = date( 'l, j F, Y - H:i:s T', $server['REQUEST_TIME_FLOAT'] ).' ('.$server['REQUEST_TIME_FLOAT'] .')';
 		$server['REQUEST_TIME']       = date( 'l, j F, Y - H:i:s T', $server['REQUEST_TIME'] ).' ('.$server['REQUEST_TIME'] .')';
 
-		echo HTML::tableCode( $server );
+		echo '<div class="-wrap card" dir="ltr">';
+			echo HTML::tableCode( $server );
+		echo '</div>';
 	}
 
 	private static function get_phpinfo()
@@ -575,7 +586,8 @@ class Debug extends gNetwork\Module
 
 	public static function summaryCurrents()
 	{
-		echo '<div class="-wrap -currents" dir="ltr">';
+		echo '<div class="-wrap card -currents" dir="ltr">';
+		HTML::h2( _x( 'Current Versions', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
 
 		HTML::desc( sprintf( _x( 'Current MySQL version: <code>%s</code>', 'Modules: Debug', GNETWORK_TEXTDOMAIN ), $GLOBALS['wpdb']->db_version() ) );
 
@@ -774,9 +786,9 @@ class Debug extends gNetwork\Module
 		if ( ! did_action( 'admin_head' ) ) {
 
 			if ( ! headers_sent() ) {
+				header( 'Content-Type: text/html; charset=utf-8' );
 				status_header( $r['response'] );
 				nocache_headers();
-				header( 'Content-Type: text/html; charset=utf-8' );
 			}
 
 			if ( empty( $title ) )

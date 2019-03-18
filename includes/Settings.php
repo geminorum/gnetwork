@@ -64,7 +64,7 @@ class Settings extends Core\Base
 	public static function sideOpen( $title = NULL, $uri = '', $active = '', $subs = [], $heading = NULL )
 	{
 		if ( is_null( $title ) )
-			$title = _x( 'Network Extras', 'Settings: Header Title', GNETWORK_TEXTDOMAIN );
+			$title = _x( 'Extras', 'Settings: Header Title', GNETWORK_TEXTDOMAIN );
 
 		echo '<div class="side-nav-wrap">';
 
