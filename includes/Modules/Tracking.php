@@ -193,7 +193,7 @@ class Tracking extends gNetwork\Module
 
 	private function get_ga_account()
 	{
-		if ( ! $blog = gNetwork()->option( 'ga_override', 'blog' ) )
+		if ( $blog = gNetwork()->option( 'ga_override', 'blog' ) )
 			return trim( $blog );
 
 		if ( defined( 'GNETWORK_TRACKING_GA_ACCOUNT' ) )
@@ -234,7 +234,7 @@ class Tracking extends gNetwork\Module
 		if ( $this->ignore() )
 			return;
 
-		if ( ! ( $ga = $this->ga() ) )
+		if ( ! $ga = $this->ga() )
 			return;
 
 		if ( $this->options['ga_userid'] && is_user_logged_in() )
