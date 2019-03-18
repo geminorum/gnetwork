@@ -1,9 +1,90 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-/// gNetwork Partials: Wrap ----------------------------------------------------
+/// gNetwork Partials: Wrap
+//
 
+////////////////////////////////////////////////////////////////////////////////
 .wrap {
+  .-wrap.-danger,
+  .-button.button-reset,
+  .-button.button-danger {
+    color: $brand-danger;
+
+    &:hover {
+      color: darken($brand-danger, 20%);
+    }
+  }
+
+  .-wrap-buttons {
+    padding: 0;
+    margin-bottom: .5em;
+
+    > .dashicons {
+      vertical-align: middle;
+    }
+
+    .button {
+      margin-bottom: .5em;
+    }
+  }
+
+  .-field-after {
+    margin-left: 4px;
+
+    &.-icon-wrap > a {
+      color: $gray-darker;
+      display: inline-block;
+      vertical-align: middle;
+      text-decoration: none;
+
+      &:hover {
+        color: $gray;
+      }
+    }
+
+    &.-link-wrap {
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+
+  // .-field-after {
+  //   vertical-align: middle;
+  //
+  //   // &.-text-wrap {}
+  //   // &.-link-wrap {}
+  //
+  //   &.-constant-wrap {
+  //     cursor: pointer;
+  //   }
+  //
+  //   &.-icon-wrap {
+  //     a {
+  //       color: $gray-light;
+  //       display: inline-block;
+  //       line-height: 22px;
+  //       text-decoration: none;
+  //
+  //       &:hover {
+  //         color: #0073aa;
+  //       }
+  //
+  //       &:focus {
+  //         outline: none;
+  //         box-shadow: none;
+  //       }
+  //     }
+  //
+  //     .dashicons {
+  //       width: 22px;
+  //       height: 22px;
+  //       font-size: 22px;
+  //       vertical-align: text-top;
+  //     }
+  //   }
+  // }
+
   div.-sidebox {
 
     box-sizing: border-box;
@@ -23,21 +104,8 @@
     p {
       margin-top: 0;
 
-      &.submit {
-        padding: 0;
-        margin-bottom: .5em;
-
-        > .dashicons {
-          vertical-align: middle;
-        }
-      }
-
       &:last-of-type {
         margin-bottom: 0;
-      }
-
-      .button {
-        margin-bottom: .5em;
       }
     }
 

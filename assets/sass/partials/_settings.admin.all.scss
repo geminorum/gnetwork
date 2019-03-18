@@ -7,77 +7,11 @@
   // @include mainwrap();
   // padding-right: 20px;
 
-  .-wrap.-danger,
-  .-button.button-reset,
-  .-button.button-danger {
-    color: $brand-danger;
-
-    &:hover {
-      color: darken($brand-danger, 20%);
-    }
-  }
-
   .gnetwork-form {
-    .form-table {
-      .-field-after {
-        margin-left: 4px;
-
-        &.-icon-wrap > a {
-          color: $gray-darker;
-          display: inline-block;
-          vertical-align: middle;
-          text-decoration: none;
-
-          &:hover {
-            color: $gray;
-          }
-        }
-
-        &.-link-wrap {
-          display: inline-block;
-          vertical-align: middle;
-        }
-      }
-
-      // .-field-after {
-      //   vertical-align: middle;
-      //
-      //   // &.-text-wrap {}
-      //   // &.-link-wrap {}
-      //
-      //   &.-constant-wrap {
-      //     cursor: pointer;
-      //   }
-      //
-      //   &.-icon-wrap {
-      //     a {
-      //       color: $gray-light;
-      //       display: inline-block;
-      //       line-height: 22px;
-      //       text-decoration: none;
-      //
-      //       &:hover {
-      //         color: #0073aa;
-      //       }
-      //
-      //       &:focus {
-      //         outline: none;
-      //         box-shadow: none;
-      //       }
-      //     }
-      //
-      //     .dashicons {
-      //       width: 22px;
-      //       height: 22px;
-      //       font-size: 22px;
-      //       vertical-align: text-top;
-      //     }
-      //   }
-      // }
-    }
+    // .form-table {}
 
     .base-table-wrap {
-      margin-right: 10px;
+      // margin-right: 10px;
     }
 
     // FIXME: must check the html
