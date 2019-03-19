@@ -28,6 +28,8 @@ class Kavenegar extends gNetwork\Provider
 
 		else if ( isset( $this->options['kavenegar_api_key'] ) )
 			$this->api_key = $this->options['kavenegar_api_key'];
+
+		add_filter( $this->base.'_sms_recieve_args', [ $this, 'sms_recieve_args' ] );
 	}
 
 	public function default_settings()
@@ -63,6 +65,16 @@ class Kavenegar extends gNetwork\Provider
 			_x( 'Kavenegar', 'Provider: Kavenegar: Settings', GNETWORK_TEXTDOMAIN ),
 			_x( 'Kavenegar is a Persian SMS Provider.', 'Provider: Kavenegar: Settings', GNETWORK_TEXTDOMAIN )
 		);
+	}
+
+	public function sms_recieve_args( $args )
+	{
+		return [
+			'from'    => 'from',
+			'to'      => 'to',
+			'message' => 'message',
+			'id'      => 'messageid',
+		];
 	}
 
 	protected function curlDefaultHeaders()
