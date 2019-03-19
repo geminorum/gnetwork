@@ -46,7 +46,7 @@ class OpenSearch extends gNetwork\Module
 	protected function setup_ajax( $request )
 	{
 		// if ( $this->options['suggestions'] )
-		// 	$this->_hook_ajax( TRUE, 'opensearch_suggestions' );
+		// 	$this->_hook_ajax( NULL, 'opensearch_suggestions' );
 	}
 
 	public function default_options()

@@ -1174,15 +1174,16 @@ class Module extends Core\Base
 		return remove_query_arg( $remove, $url );
 	}
 
-	protected function _hook_ajax( $nopriv = FALSE, $hook = NULL )
+	protected function _hook_ajax( $auth = TRUE, $hook = NULL, $method = 'ajax' )
 	{
 		if ( is_null( $hook ) )
 			$hook = $this->hook();
 
-		add_action( 'wp_ajax_'.$hook, [ $this, 'ajax' ] );
+		if ( is_null( $auth ) || TRUE === $auth )
+			add_action( 'wp_ajax_'.$hook, [ $this, $method ] );
 
-		if ( $nopriv )
-			add_action( 'wp_ajax_nopriv_'.$hook, [ $this, 'ajax' ] );
+		if ( is_null( $auth ) || FALSE === $auth )
+			add_action( 'wp_ajax_nopriv_'.$hook, [ $this, $method ] );
 	}
 
 	// DEFAULT FILTER
