@@ -409,6 +409,7 @@ class Mail extends gNetwork\Module
 			'timestamp' => current_time( 'mysql' ),
 			'site'      => WordPress::currentSiteName(),
 			'locale'    => get_locale(),
+			'user'      => get_current_user_id(),
 			// TODO: get smtp server as well
 		], Arraay::filterArray( $mail ) );
 
@@ -588,9 +589,15 @@ class Mail extends gNetwork\Module
 					if ( isset( $row['timestamp'] ) )
 						$html.= '&ndash; '.Utilities::htmlHumanTime( $row['timestamp'] );
 
+					$html.= '<hr />';
+
+					if ( ! empty( $row['user'] ) )
+						$html.= '<code title="'._x( 'User', 'Modules: Mail: Email Logs Table', GNETWORK_TEXTDOMAIN )
+							.'">'.HTML::link( get_user_by( 'id', $row['user'] )->user_login, WordPress::getUserEditLink( $row['user'] ) ).'</code> @ ';
+
 					if ( isset( $row['site'] ) )
-						$html.= '<hr />'._x( 'Site', 'Modules: Mail: Email Logs Table Prefix', GNETWORK_TEXTDOMAIN )
-							.': <code>'.$row['site'].'</code>';
+						$html.= '<code title="'._x( 'Site', 'Modules: Mail: Email Logs Table', GNETWORK_TEXTDOMAIN )
+							.'">'.$row['site'].'</code>';
 
 					// TODO: add smtp info here
 
