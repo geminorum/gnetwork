@@ -106,6 +106,7 @@ class Plugin
 			'GNETWORK_ANALOG_LOG'   => WP_CONTENT_DIR.'/analog.log', // FALSE to disable
 			'GNETWORK_FAILED_LOG'   => WP_CONTENT_DIR.'/failed.log', // FALSE to disable
 			'GNETWORK_MAIL_LOG_DIR' => WP_CONTENT_DIR.'/emaillogs', // FALSE to disable
+			'GNETWORK_SMS_LOG_DIR'  => WP_CONTENT_DIR.'/smslogs', // FALSE to disable
 
 			'GNETWORK_DL_REMOTE' => FALSE,
 			'GNETWORK_DL_DIR'    => ABSPATH.'repo',
