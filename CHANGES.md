@@ -1,3 +1,26 @@
+### 3.8.2
+* main/module: hooking admin post actions
+* main/module: more control over hooking ajax
+* main/provider: conditional settings
+* main/provider: log all default setting
+* main/settings: switch side menu on tools/settings
+* main/utilities: data log helpers
+* main/utilities: log folder checks moved
+* module/admin: more exclution for chosen
+* module/adminbar: use constant for main network
+* module/blog: hiding jetpack promotions
+* module/login: disabling install page
+* module/login: unblock access to admin post page
+* module/mail: better handling raw email contents
+* module/mail: log actions row
+* module/mail: log table title
+* module/mail: logging current user id
+* module/mail: using path join for deletions
+* module/sms: logging sms data
+* module/sms: logging sms data
+* module/tracking: :warning: fixed empty override
+* module/typography: arabic within html tags
+
 ### 3.8.1
 * module/admin: prior 5 check for block editor
 
