@@ -364,7 +364,7 @@ class AdminBar extends gNetwork\Module
 				'id'     => static::BASE.'-reset-sidebars',
 				'title'  => _x( 'Reset Sidebars', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 				'href'   => add_query_arg( static::BASE.'_action', 'resetsidebars', $current_url ),
-				'meta'   => [ 'title' => _x( 'Delete all previous sidebar widgets, be careful!', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ) ],
+				'meta'   => [ 'title' => _x( 'Deletes settings of all current sidebar widgets, be careful!', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ) ],
 			] );
 
 		if ( $this->wpcf7_admin )
@@ -373,7 +373,7 @@ class AdminBar extends gNetwork\Module
 				'id'     => static::BASE.'-wpcf7-messages',
 				'title'  => _x( 'Reset Messages', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
 				'href'   => add_query_arg( static::BASE.'_action', 'resetwpcf7messages', $current_url ),
-				'meta'   => [ 'title' => _x( 'Reset all saved messages for this form, be careful!', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ) ],
+				'meta'   => [ 'title' => _x( 'Resets all saved messages for this form, be careful!', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ) ],
 			] );
 
 		if ( class_exists( __NAMESPACE__.'\\Cron' ) ) {
@@ -393,7 +393,7 @@ class AdminBar extends gNetwork\Module
 			'id'     => static::BASE.'-info-pagenow',
 			'title'  => 'PageNow: '.( empty( $pagenow ) ? 'EMPTY' : $pagenow ),
 			'href'   => GNETWORK_ANALOG_LOG ? $this->get_menu_url( 'analoglogs', 'network', 'tools' ) : FALSE,
-			'meta'   => [ 'title' => _x( 'Click to see Logs', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ) ],
+			'meta'   => [ 'title' => _x( 'Check System Logs', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ) ],
 		] );
 
 		$wp_admin_bar->add_node( [
