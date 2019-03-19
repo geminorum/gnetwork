@@ -23,7 +23,7 @@ class Mail extends gNetwork\Module
 		if ( GNETWORK_MAIL_LOG_DIR && $this->options['log_all'] ) {
 			$this->filter( 'wp_mail', 1, 99 );
 			$this->action( 'bp_send_email_success', 2, 99 );
-			$this->_hook_post( TRUE, $this->hook( 'log_download' ), 'log_download' );
+			$this->_hook_post( TRUE, $this->hook( 'logs' ), 'log_actions' );
 		}
 
 		$this->filter( 'wp_mail_from', 1, 5 );
@@ -448,7 +448,7 @@ class Mail extends gNetwork\Module
 		$this->wp_mail( $mail );
 	}
 
-	public function log_download()
+	public function log_actions()
 	{
 		if ( ! WordPress::cuc( $this->is_network() ? 'manage_network_options' : 'manage_options' ) )
 			WordPress::cheatin();
@@ -458,8 +458,21 @@ class Mail extends gNetwork\Module
 
 		$file = File::join( GNETWORK_MAIL_LOG_DIR, $log.'.json' );
 
-		if ( ! File::download( $file, $log.'.json' ) )
-			WordPress::redirectReferer( 'wrong' );
+		switch ( self::req( 'what' ) ) {
+
+			case 'download':
+
+				if ( ! File::download( $file, $log.'.json' ) )
+					WordPress::redirectReferer( 'wrong' );
+
+			break;
+			case 'delete':
+
+				if ( TRUE === unlink( $file ) )
+					WordPress::redirectReferer( [ 'message' => 'deleted', 'count' => 1 ] );
+		}
+
+		WordPress::redirectReferer( 'wrong' );
 	}
 
 	private function tableTestMail()
@@ -553,9 +566,7 @@ class Mail extends gNetwork\Module
 				'title'    => _x( 'Whom, When', 'Modules: Mail: Email Logs Table Column', GNETWORK_TEXTDOMAIN ),
 				'class'    => '-column-info',
 				'callback' => function( $value, $row, $column, $index ){
-
-					$link = WordPress::getAdminPostLink( $this->hook( 'log_download' ), [ 'log' => $row['file'] ] );
-					$html = Settings::fieldAfterIcon( $link, _x( 'Download this log!', 'Modules: Mail', GNETWORK_TEXTDOMAIN ), 'download' );
+					$html = '';
 
 					if ( isset( $row['to'] ) ) {
 						if ( is_array( $row['to'] ) ) {
@@ -607,6 +618,20 @@ class Mail extends gNetwork\Module
 					}
 
 					return $html;
+				},
+				'actions' => function( $value, $row, $column, $index, $key, $args ){
+
+					return [
+						'download' => HTML::tag( 'a', [
+							'href'  => WordPress::getAdminPostLink( $this->hook( 'logs' ), [ 'log' => $row['file'], 'what' => 'download' ] ),
+							'class' => '-link -row-link -row-link-download',
+						], _x( 'Download', 'Modules: Mail: Row Action', GNETWORK_TEXTDOMAIN ) ),
+
+						'delete' => HTML::tag( 'a', [
+							'href'  => WordPress::getAdminPostLink( $this->hook( 'logs' ), [ 'log' => $row['file'], 'what' => 'delete' ] ),
+							'class' => '-link -row-link -row-link-delete',
+						], _x( 'Delete', 'Modules: Mail: Row Action', GNETWORK_TEXTDOMAIN ) ),
+					];
 				},
 			],
 
