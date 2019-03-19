@@ -66,7 +66,7 @@ class Profile extends gNetwork\Module
 			$this->filter( 'allow_password_reset', 2 );
 
 		if ( $this->options['contact_methods'] )
-			$this->filter( 'user_contactmethods', 2 );
+			$this->filter( 'user_contactmethods', 2, 9 );
 
 		$this->filter( 'update_user_metadata', 5, 12 );
 		$this->filter( 'get_user_metadata', 4, 12 );
@@ -407,11 +407,14 @@ class Profile extends gNetwork\Module
 
 	public function user_contactmethods( $contactmethods, $user )
 	{
+		unset( $contactmethods['aim'], $contactmethods['yim'], $contactmethods['jabber'] );
+
 		return array_merge( $contactmethods, [
-			'mobile'   => _x( 'Mobile Phone', 'Modules: Profile: User Contact Method', GNETWORK_TEXTDOMAIN ),
-			'twitter'  => _x( 'Twitter', 'Modules: Profile: User Contact Method', GNETWORK_TEXTDOMAIN ),
-			'telegram' => _x( 'Telegram', 'Modules: Profile: User Contact Method', GNETWORK_TEXTDOMAIN ),
-			'facebook' => _x( 'Facebook', 'Modules: Profile: User Contact Method', GNETWORK_TEXTDOMAIN ),
+			'mobile'    => _x( 'Mobile Phone', 'Modules: Profile: User Contact Method', GNETWORK_TEXTDOMAIN ),
+			'twitter'   => _x( 'Twitter', 'Modules: Profile: User Contact Method', GNETWORK_TEXTDOMAIN ),
+			'facebook'  => _x( 'Facebook', 'Modules: Profile: User Contact Method', GNETWORK_TEXTDOMAIN ),
+			'instagram' => _x( 'Instagram', 'Modules: Profile: User Contact Method', GNETWORK_TEXTDOMAIN ),
+			'telegram'  => _x( 'Telegram', 'Modules: Profile: User Contact Method', GNETWORK_TEXTDOMAIN ),
 		] );
 	}
 
