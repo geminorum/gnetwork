@@ -169,7 +169,7 @@ class Provider extends Core\Base
 		];
 	}
 
-	public static function getTypeGeneralSettings( $type )
+	public static function getTypeGeneralSettings( $type, $current = [] )
 	{
 		return [
 			[
@@ -192,6 +192,7 @@ class Provider extends Core\Base
 				'title'       => _x( 'Access Level', 'Provider Core: Settings', GNETWORK_TEXTDOMAIN ),
 				'description' => _x( 'Selected and above can view the providers information.', 'Provider Core: Settings', GNETWORK_TEXTDOMAIN ),
 				'default'     => 'edit_others_posts',
+				'disabled'    => empty( $current['load_providers'] ),
 			],
 			[
 				'field'       => 'log_data',
@@ -199,6 +200,7 @@ class Provider extends Core\Base
 				'title'       => _x( 'Log Data', 'Provider Core: Settings', GNETWORK_TEXTDOMAIN ),
 				'description' => _x( 'Logs all data in a secure folder.', 'Provider Core: Settings', GNETWORK_TEXTDOMAIN ),
 				'default'     => '0',
+				'disabled'    => empty( $current['load_providers'] ),
 			],
 		];
 	}
