@@ -167,26 +167,6 @@ class Debug extends gNetwork\Module
 				'cb'     => [ __CLASS__, 'summaryCurrents' ],
 				'active' => TRUE,
 			],
-			'wordpress' => [
-				'title' => _x( 'WordPress', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
-				'cb'    => [ __CLASS__, 'summaryWordPress' ],
-			],
-			'ip' => [
-				'title' => _x( 'IP', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
-				'cb'    => function(){ self::summaryIPs(); },
-			],
-			'ssl' => [
-				'title' => _x( 'SSL', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
-				'cb'    => [ __CLASS__, 'summarySSL' ],
-			],
-			'constants' => [
-				'title' => _x( 'Constants', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
-				'cb'    => [ __CLASS__, 'initialConstants' ],
-			],
-			'paths' => [
-				'title' => _x( 'Paths', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
-				'cb'    => [ __CLASS__, 'pluginPaths' ],
-			],
 			'server' => [
 				'title' => _x( 'SERVER', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
 				'cb'    => [ __CLASS__, 'dumpServer' ],
@@ -222,6 +202,17 @@ class Debug extends gNetwork\Module
 		] );
 
 		Utilities::enqueueScriptVendor( 'prism' );
+
+		$script = 'jQuery(function($) {
+			$(".masonry-grid").masonry({
+				itemSelector: ".card",
+				isOriginLeft: ! ( "rtl" === $("html").attr("dir") ),
+				percentPosition: true
+			});
+		});';
+
+		wp_enqueue_script( 'masonry' );
+		wp_add_inline_script( 'masonry', $script );
 	}
 
 	// FIXME!
@@ -292,7 +283,7 @@ class Debug extends gNetwork\Module
 			'required_mysql_version' => _x( 'Required MySQL', 'Modules: Debug: Version Strings', GNETWORK_TEXTDOMAIN ),
 		];
 
-		echo '<div class="-wrap card">';
+		echo '<div class="-wrap card -floated" dir="ltr">';
 		HTML::h2( _x( 'Core Versions', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
 
 		echo '<table class="base-table-code"><tbody>';
@@ -384,7 +375,9 @@ class Debug extends gNetwork\Module
 			'AUTOSAVE_INTERVAL'   => AUTOSAVE_INTERVAL,
 		];
 
-		echo '<div class="-wrap card" dir="ltr">';
+		echo '<div class="-wrap card -floated" dir="ltr">';
+		HTML::h2( _x( 'Initial Constants', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+
 			echo HTML::tableCode( $paths );
 		echo '</div>';
 	}
@@ -406,7 +399,9 @@ class Debug extends gNetwork\Module
 			'AJAX_ENDPOINT' => GNETWORK_AJAX_ENDPOINT,
 		];
 
-		echo '<div class="-wrap card" dir="ltr">';
+		echo '<div class="-wrap card -floated" dir="ltr">';
+		HTML::h2( _x( 'Plugin Paths', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+
 			echo HTML::tableCode( $paths );
 		echo '</div>';
 	}
@@ -447,7 +442,12 @@ class Debug extends gNetwork\Module
 			if ( isset( $_SERVER[$key] ) )
 				$summary[$key] = gnetwork_ip_lookup( $_SERVER[$key] );
 
-		echo HTML::tableCode( $summary, FALSE, $caption );
+		echo '<div class="-wrap card -floated" dir="ltr">';
+		HTML::h2( $caption ?: _x( 'IPs', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+
+			// echo HTML::tableCode( $summary, FALSE, $caption );
+			echo HTML::tableCode( $summary );
+		echo '</div>';
 	}
 
 	public static function summarySSL()
@@ -466,7 +466,11 @@ class Debug extends gNetwork\Module
 			if ( isset( $_SERVER[$key] ) )
 				$summary[$key] = HTML::escape( $_SERVER[$key] );
 
-		echo HTML::tableCode( $summary );
+		echo '<div class="-wrap card -floated" dir="ltr">';
+		HTML::h2( _x( 'SSL', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+
+			echo HTML::tableCode( $summary );
+		echo '</div>';
 	}
 
 	public static function summaryUpload()
@@ -552,9 +556,7 @@ class Debug extends gNetwork\Module
 		$server['REQUEST_TIME_FLOAT'] = date( 'l, j F, Y - H:i:s T', $server['REQUEST_TIME_FLOAT'] ).' ('.$server['REQUEST_TIME_FLOAT'] .')';
 		$server['REQUEST_TIME']       = date( 'l, j F, Y - H:i:s T', $server['REQUEST_TIME'] ).' ('.$server['REQUEST_TIME'] .')';
 
-		echo '<div class="-wrap card" dir="ltr">';
-			echo HTML::tableCode( $server );
-		echo '</div>';
+		echo HTML::tableCode( $server );
 	}
 
 	private static function get_phpinfo()
@@ -586,8 +588,22 @@ class Debug extends gNetwork\Module
 
 	public static function summaryCurrents()
 	{
-		echo '<div class="-wrap card -currents" dir="ltr">';
-		HTML::h2( _x( 'Current Versions', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+		echo '<div class="masonry-grid">';
+
+			self::systemVersions();
+			self::summaryWordPress();
+			self::summaryIPs();
+			self::summarySSL();
+			self::initialConstants();
+			self::pluginPaths();
+
+		echo '</div>';
+	}
+
+	public static function systemVersions()
+	{
+		echo '<div class="-wrap card -floated -currents" dir="ltr">';
+		HTML::h2( _x( 'System Versions', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
 
 		HTML::desc( sprintf( _x( 'Current MySQL version: %s', 'Modules: Debug', GNETWORK_TEXTDOMAIN ), '<code>'.$GLOBALS['wpdb']->db_version().'</code>' ) );
 
