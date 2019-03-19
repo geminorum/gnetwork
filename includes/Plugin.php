@@ -89,7 +89,7 @@ class Plugin
 			'GNETWORK_NETWORK_ADMINBAR'      => 'network_adminbar', // menu on the main site for adminbar navigation
 			'GNETWORK_NETWORK_USERMENU'      => 'network_usermenu', // menu on the main site for user navigation
 			'GNETWORK_NETWORK_EXTRAMENU'     => 'network_extramenu', // menu on the main site for extra navigation
-			'GNETWORK_NETWORK_EXTRAMENU_CAP' => 'edit_others_posts', // extra_menu capability
+			'GNETWORK_NETWORK_EXTRAMENU_CAP' => 'read', // extra_menu capability
 
 			'GNETWORK_LARGE_NETWORK_IS' => 500, // set to large network value. default wp is 10000 / FALSE to disable the filter
 			'GNETWORK_SITE_USER_ID'     => FALSE, // set to default site user id / FALSE to disable // DEPRECATED
