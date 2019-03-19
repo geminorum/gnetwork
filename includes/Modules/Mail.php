@@ -293,7 +293,7 @@ class Mail extends gNetwork\Module
 					$count = 0;
 
 					foreach ( $_POST['_cb'] as $log )
-						if ( TRUE === unlink( GNETWORK_MAIL_LOG_DIR.'/'.$log.'.json' ) )
+						if ( TRUE === unlink( File::join( GNETWORK_MAIL_LOG_DIR, $log.'.json' ) ) )
 							$count++;
 
 					WordPress::redirectReferer( [
