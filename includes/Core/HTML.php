@@ -305,6 +305,11 @@ class HTML extends Base
 		return self::escapeURL( 'tel:'.str_replace( array( '(', ')', '-', '.', '|', ' ' ), '', $number ) );
 	}
 
+	public static function sanitizeSMSNumber( $number )
+	{
+		return self::escapeURL( 'sms:'.str_replace( array( '(', ')', '-', '.', '|', ' ' ), '', $number ) );
+	}
+
 	// FIXME: DEPRECATED
 	public static function getAtts( $string, $expecting = array() )
 	{
