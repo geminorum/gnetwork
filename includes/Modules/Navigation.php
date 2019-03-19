@@ -474,6 +474,7 @@ class Navigation extends gNetwork\Module
 								'menu_item_parent' => NULL,
 								'title'            => '',
 								'url'              => '',
+								'xfn'              => '', // used for access cap
 								'attr_title'       => '',
 								'classes'          => [],
 							], get_object_vars( $object ) );

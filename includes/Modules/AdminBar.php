@@ -955,7 +955,7 @@ class AdminBar extends gNetwork\Module
 
 			foreach ( $menu as $item_id => $item ) {
 
-				if (  ( $item->xfn ? current_user_can( $item->xfn ) : TRUE ) ) {
+				if ( ( empty( $item->xfn ) ?: current_user_can( $item->xfn ) ) ) {
 
 					$wp_admin_bar->add_menu( [
 						// check target to place link on externals
