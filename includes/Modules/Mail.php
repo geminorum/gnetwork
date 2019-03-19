@@ -23,6 +23,7 @@ class Mail extends gNetwork\Module
 		if ( GNETWORK_MAIL_LOG_DIR && $this->options['log_all'] ) {
 			$this->filter( 'wp_mail', 1, 99 );
 			$this->action( 'bp_send_email_success', 2, 99 );
+			$this->_hook_post( TRUE, $this->hook( 'log_download' ), 'log_download' );
 		}
 
 		$this->filter( 'wp_mail_from', 1, 5 );
@@ -447,6 +448,20 @@ class Mail extends gNetwork\Module
 		$this->wp_mail( $mail );
 	}
 
+	public function log_download()
+	{
+		if ( ! WordPress::cuc( $this->is_network() ? 'manage_network_options' : 'manage_options' ) )
+			WordPress::cheatin();
+
+		if ( ! $log = self::req( 'log' ) )
+			WordPress::redirectReferer( 'wrong' );
+
+		$file = File::join( GNETWORK_MAIL_LOG_DIR, $log.'.json' );
+
+		if ( ! File::download( $file, $log.'.json' ) )
+			WordPress::redirectReferer( 'wrong' );
+	}
+
 	private function tableTestMail()
 	{
 		$to      = isset( $_POST['send_testmail_to'] ) ? $_POST['send_testmail_to'] : $this->get_from_email();
@@ -538,7 +553,9 @@ class Mail extends gNetwork\Module
 				'title'    => _x( 'Whom, When', 'Modules: Mail: Email Logs Table Column', GNETWORK_TEXTDOMAIN ),
 				'class'    => '-column-info',
 				'callback' => function( $value, $row, $column, $index ){
-					$html = '';
+
+					$link = WordPress::getAdminPostLink( $this->hook( 'log_download' ), [ 'log' => $row['file'] ] );
+					$html = Settings::fieldAfterIcon( $link, _x( 'Download this log!', 'Modules: Mail', GNETWORK_TEXTDOMAIN ), 'download' );
 
 					if ( isset( $row['to'] ) ) {
 						if ( is_array( $row['to'] ) ) {
