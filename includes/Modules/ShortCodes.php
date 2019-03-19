@@ -897,7 +897,7 @@ class ShortCodes extends gNetwork\Module
 		if ( ! $content )
 			$content = $number;
 
-		$html = '<a class="sms" href="sms:'.str_ireplace( [ '-', ' ' ], '', $number )
+		$html = '<a class="sms" href="'.HTML::sanitizeSMSNumber( $number )
 				.( $args['body'] ? '?body='.rawurlencode( $args['body'] )
 				.'" data-sms-body="'.HTML::escape( $args['body'] ) : '' )
 				.'"'.( $args['title'] ? ' data-toggle="tooltip" title="'.HTML::escape( $args['title'] )

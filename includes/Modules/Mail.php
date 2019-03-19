@@ -569,7 +569,7 @@ class Mail extends gNetwork\Module
 				'callback' => function( $value, $row, $column, $index ){
 					$html = '';
 
-					if ( isset( $row['to'] ) ) {
+					if ( ! empty( $row['to'] ) ) {
 						if ( is_array( $row['to'] ) ) {
 
 							foreach ( $row['to'] as $to )
@@ -586,7 +586,7 @@ class Mail extends gNetwork\Module
 						}
 					}
 
-					if ( isset( $row['timestamp'] ) )
+					if ( ! empty( $row['timestamp'] ) )
 						$html.= '&ndash; '.Utilities::htmlHumanTime( $row['timestamp'] );
 
 					$html.= '<hr />';
@@ -595,13 +595,13 @@ class Mail extends gNetwork\Module
 						$html.= '<code title="'._x( 'User', 'Modules: Mail: Email Logs Table', GNETWORK_TEXTDOMAIN )
 							.'">'.HTML::link( get_user_by( 'id', $row['user'] )->user_login, WordPress::getUserEditLink( $row['user'] ) ).'</code> @ ';
 
-					if ( isset( $row['site'] ) )
+					if ( ! empty( $row['site'] ) )
 						$html.= '<code title="'._x( 'Site', 'Modules: Mail: Email Logs Table', GNETWORK_TEXTDOMAIN )
 							.'">'.$row['site'].'</code>';
 
 					// TODO: add smtp info here
 
-					if ( isset( $row['headers'] ) ) {
+					if ( ! empty( $row['headers'] ) ) {
 						$html.= '<hr />';
 
 						if ( ! is_array( $row['headers'] ) )
@@ -611,7 +611,7 @@ class Mail extends gNetwork\Module
 							$html.= '<code>'.HTML::escapeTextarea( $header ).'</code><br />';
 					}
 
-					if ( isset( $row['attachments'] ) ) {
+					if ( ! empty( $row['attachments'] ) ) {
 						$html.= '<hr />';
 
 						if ( is_array( $row['attachments'] ) ) {

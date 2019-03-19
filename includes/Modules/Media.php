@@ -360,11 +360,10 @@ class Media extends gNetwork\Module
 						.get_the_term_list( $row->ID, 'post_tag',
 							'<div><small>', ', ', '</small></div>' );
 				},
-				'actions' => function( $value, $row, $column, $index ){
-
-					$args = [
-						'action'  => $this->hook(),
+				'actions' => function( $value, $row, $column, $index, $key, $args ){
+					$atts = [
 						'post_id' => $row->ID,
+						'action'  => $this->hook(),
 						'nonce'   => wp_create_nonce( $this->hook( $row->ID ) ),
 					];
 
@@ -383,25 +382,25 @@ class Media extends gNetwork\Module
 						], _x( 'View', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) ),
 
 						'clean' => HTML::tag( 'a', [
-							'href'  => add_query_arg( array_merge( $args, [ 'what' => 'clean_post' ] ), $column['args']['ajax'] ),
+							'href'  => add_query_arg( array_merge( $atts, [ 'what' => 'clean_post' ] ), $column['args']['ajax'] ),
 							'class' => '-link -row-ajax -row-ajax-clean',
 							'data'  => [ 'spinner' => _x( 'Cleaning &hellip;', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) ],
 						], _x( 'Clean', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) ),
 
 						'sync' => HTML::tag( 'a', [
-							'href'  => add_query_arg( array_merge( $args, [ 'what' => 'sync_post' ] ), $column['args']['ajax'] ),
+							'href'  => add_query_arg( array_merge( $atts, [ 'what' => 'sync_post' ] ), $column['args']['ajax'] ),
 							'class' => '-link -row-ajax -row-ajax-sync',
 							'data'  => [ 'spinner' => _x( 'Syncing &hellip;', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) ],
 						], _x( 'Sync', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) ),
 
 						'cache' => HTML::tag( 'a', [
-							'href'  => add_query_arg( array_merge( $args, [ 'what' => 'cache_post' ] ), $column['args']['ajax'] ),
+							'href'  => add_query_arg( array_merge( $atts, [ 'what' => 'cache_post' ] ), $column['args']['ajax'] ),
 							'class' => '-link -row-ajax -row-ajax-cache',
 							'data'  => [ 'spinner' => _x( 'Caching &hellip;', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) ],
 						], _x( 'Cache', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) ),
 
 						'correct' => HTML::tag( 'a', [
-							'href'  => add_query_arg( array_merge( $args, [ 'what' => 'correct_post' ] ), $column['args']['ajax'] ),
+							'href'  => add_query_arg( array_merge( $atts, [ 'what' => 'correct_post' ] ), $column['args']['ajax'] ),
 							'class' => '-link -row-ajax -row-ajax-correct',
 							'data'  => [ 'spinner' => _x( 'Correcting SSL &hellip;', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) ],
 						], _x( 'Correct SSL', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) ),
@@ -502,7 +501,7 @@ class Media extends gNetwork\Module
 		], $posts, [
 			'navigation' => 'before',
 			'search'     => 'before',
-			'title'      => HTML::tag( 'h3', _x( 'Overview of posts with attachments', 'Modules: Media', GNETWORK_TEXTDOMAIN ) ),
+			'title'      => HTML::tag( 'h3', _x( 'Overview of Posts with Attachments', 'Modules: Media', GNETWORK_TEXTDOMAIN ) ),
 			'empty'      => HTML::warning( _x( 'No Posts!', 'Modules: Media', GNETWORK_TEXTDOMAIN ) ),
 			'pagination' => $pagination,
 		] );
