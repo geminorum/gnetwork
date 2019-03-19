@@ -599,10 +599,10 @@ class Utilities extends Core\Base
 
 			} else {
 
-				HTML::desc( sprintf( _x( 'Log folder exists and writable on: <code>%s</code>', 'Utilities', GNETWORK_TEXTDOMAIN ), $constant ) );
+				HTML::desc( sprintf( _x( 'Log folder exists and writable on: %s', 'Utilities', GNETWORK_TEXTDOMAIN ), '<code>'.$constant.'</code>' ) );
 
 				if ( ! file_exists( $constant.'/.htaccess' ) )
-					HTML::desc( _x( 'Warning: <code>.htaccess</code> not found!', 'Utilities', GNETWORK_TEXTDOMAIN ) );
+					HTML::desc( sprintf( _x( 'Warning: %s not found!', 'Utilities', GNETWORK_TEXTDOMAIN ), '<code>.htaccess</code>' ) );
 			}
 
 		} else {

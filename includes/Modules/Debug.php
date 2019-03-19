@@ -581,7 +581,7 @@ class Debug extends gNetwork\Module
 			echo HTML::wrap( $phpinfo, '-phpinfo' );
 
 		else
-			HTML::desc( _x( '<code>phpinfo()</code> has been disabled.', 'Modules: Debug', GNETWORK_TEXTDOMAIN ), TRUE, '-empty -phpinfo' );
+			HTML::desc( sprintf( _x( '%s has been disabled.', 'Modules: Debug', GNETWORK_TEXTDOMAIN ), '<code>phpinfo()</code>' ), TRUE, '-empty -phpinfo' );
 	}
 
 	public static function summaryCurrents()
@@ -589,11 +589,11 @@ class Debug extends gNetwork\Module
 		echo '<div class="-wrap card -currents" dir="ltr">';
 		HTML::h2( _x( 'Current Versions', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
 
-		HTML::desc( sprintf( _x( 'Current MySQL version: <code>%s</code>', 'Modules: Debug', GNETWORK_TEXTDOMAIN ), $GLOBALS['wpdb']->db_version() ) );
+		HTML::desc( sprintf( _x( 'Current MySQL version: %s', 'Modules: Debug', GNETWORK_TEXTDOMAIN ), '<code>'.$GLOBALS['wpdb']->db_version().'</code>' ) );
 
 		echo '<hr />';
 
-		HTML::desc( sprintf( _x( 'Current PHP version: <code>%s</code>', 'Modules: Debug', GNETWORK_TEXTDOMAIN ), phpversion() ) );
+		HTML::desc( sprintf( _x( 'Current PHP version: %s', 'Modules: Debug', GNETWORK_TEXTDOMAIN ), '<code>'.phpversion().'</code>' ) );
 
 		echo HTML::listCode( self::getPHPExtensions(),
 			'<code title="%2$s">%1$s</code>',

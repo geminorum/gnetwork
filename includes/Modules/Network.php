@@ -312,9 +312,14 @@ class Network extends gNetwork\Module
 
 	public function updated_message_resetadminemail( $msg )
 	{
+		$message = _x( '%1$s site(s) admin email reset to %2$s', 'Modules: Network: Message', GNETWORK_TEXTDOMAIN );
+
 		$_SERVER['REQUEST_URI'] = remove_query_arg( 'count', $_SERVER['REQUEST_URI'] );
-		$message = _x( '%s site(s) admin email reset to <code>%s</code>', 'Modules: Network: Message', GNETWORK_TEXTDOMAIN );
-		return sprintf( $message, Number::format( self::req( 'count', 0 ) ), get_network_option( NULL, 'admin_email' ) );
+
+		return sprintf( $message,
+			Number::format( self::req( 'count', 0 ) ),
+			'<code>'.get_network_option( NULL, 'admin_email' ).'</code>'
+		);
 	}
 
 	public function updated_message_enable( $msg )

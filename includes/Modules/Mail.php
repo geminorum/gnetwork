@@ -86,7 +86,7 @@ class Mail extends gNetwork\Module
 					'field'       => 'sender',
 					'type'        => 'text',
 					'title'       => _x( 'Return Path', 'Modules: Mail: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Sets the return-path email address. Use <code>FROM</code> to match the From Email or Empty to disable.', 'Modules: Mail: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => sprintf( _x( 'Sets the return-path email address. Use %s to match the From Email or empty to disable.', 'Modules: Mail: Settings', GNETWORK_TEXTDOMAIN ), '<code>FROM</code>' ),
 					'default'     => 'FROM',
 					'field_class' => [ 'regular-text', 'email-text' ],
 				],
