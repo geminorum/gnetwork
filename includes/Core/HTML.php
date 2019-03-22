@@ -564,7 +564,7 @@ class HTML extends Base
 		foreach ( $tabs as $tab => $tab_atts ) {
 
 			$tab_args = self::atts( array(
-				// 'active'  => FALSE, // not needed here, just for docs
+				// 'active'  => FALSE, // not needed here, just for reference
 				'title'   => $tab,
 				'link'    => '#'.$tab,
 				'cb'      => FALSE,
@@ -574,10 +574,7 @@ class HTML extends Base
 			$navs.= self::tag( 'a', array(
 				'href'  => $tab_args['link'],
 				'class' => $args['prefix'].' -nav'.( $tab == $args['active'] ? ' '.$args['prefix'].'-active -active' : '' ),
-				'data'  => array(
-					'toggle' => 'tab',
-					'tab'    => $tab,
-				),
+				'data'  => array( 'tab' => $tab, 'toggle' => 'tab' ),
 			), $tab_args['title'] );
 
 			$content = '';
@@ -589,16 +586,17 @@ class HTML extends Base
 				$content.= ob_get_clean();
 
 			} else if ( $tab_args['content'] ) {
+
 				$content = $tab_args['content'];
 			}
 
-			if ( $content )
+			if ( $content ) {
+
 				$contents.= self::tag( 'div', array(
 					'class' => $args['prefix'].'-content'.( $tab == $args['active'] ? ' '.$args['prefix'].'-content-active -active' : '' ).' -content',
-					'data'  => array(
-						'tab' => $tab,
-					),
+					'data'  => array( 'tab' => $tab ),
 				), $content );
+			}
 		}
 
 		if ( isset( $args['title'] ) && $args['title'] )
@@ -616,6 +614,8 @@ class HTML extends Base
 				$args['class'],
 			),
 		), $navs.$contents );
+
+		return TRUE;
 	}
 
 	public static function tableList( $columns, $data = array(), $atts = array() )
