@@ -90,9 +90,7 @@ class Navigation extends gNetwork\Module
 			[ $this, 'do_meta_box' ],
 			$screen,
 			'side',
-			'default' );
-
-		Utilities::enqueueScript( 'admin.nav-menus' );
+			'low' );
 	}
 
 	public function help_tab_placeholders( $screen, $tab )
@@ -152,6 +150,8 @@ class Navigation extends gNetwork\Module
 			$this->add_to_menu_button( $id );
 
 		echo '</div>';
+
+		Utilities::enqueueScript( 'admin.nav-menus' );
 	}
 
 	private function add_to_menu_button( $id )
