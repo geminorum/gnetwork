@@ -320,20 +320,11 @@ class Admin extends gNetwork\Module
 		Settings::wrapClose();
 	}
 
-	protected function settings_overview( $uri )
+	protected function tools_overview( $uri )
 	{
 		$sitemeta = function_exists( 'is_site_meta_supported' ) && is_site_meta_supported();
 
-		HTML::h2( _x( 'Current Site Overview', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ) );
-		HTML::desc( _x( 'Below you can find various information about current site and contents.', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ) );
-
-		$tabs = [
-			'overview' => [
-				'title'  => _x( 'Currents', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ),
-				'cb'     => [ __CLASS__, 'summaryOverview' ],
-				'active' => TRUE,
-			],
-		];
+		HTML::h2( _x( 'Site Reports', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ) );
 
 		if ( class_exists( __NAMESPACE__.'\\Locale' )
 			&& current_user_can( 'manage_options' ) )
@@ -357,7 +348,7 @@ class Admin extends gNetwork\Module
 			];
 
 		if ( $sitemeta && WordPress::isSuperAdmin() )
-			$tabs['blogmate'] = [
+			$tabs['sitemeta'] = [
 				'title' => _x( 'Site Meta', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ),
 				'cb'    => function() {
 					HTML::tableSide( get_metadata( 'blog', get_current_blog_id() ) );
@@ -369,8 +360,12 @@ class Admin extends gNetwork\Module
 		Utilities::enqueueMasonry();
 	}
 
-	public static function summaryOverview()
+	protected function settings_overview( $uri )
 	{
+		HTML::h2( _x( 'Current Site Overview', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ) );
+		HTML::desc( _x( 'Below you can find various information about current site and contents.', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ) );
+		echo '<hr />';
+
 		echo '<div class="masonry-grid">';
 
 		if ( current_user_can( 'edit_posts' ) ) {
@@ -399,6 +394,8 @@ class Admin extends gNetwork\Module
 		}
 
 		echo '</div>';
+
+		Utilities::enqueueMasonry();
 	}
 
 	public static function summaryShortcodes()
