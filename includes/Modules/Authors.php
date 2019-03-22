@@ -154,28 +154,29 @@ class Authors extends gNetwork\Module
 	public static function userRoles()
 	{
 		self::summarySiteUser();
-
-		HTML::desc( sprintf( _x( 'Site Default Role is %s', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
-			'<code>'.get_option( 'default_role' ).'</code>' ) );
-
 		echo '<hr />';
-
 		HTML::tableSide( get_editable_roles() );
 	}
 
-	public static function summarySiteUser()
+	public static function summarySiteUser( $default_role = TRUE )
 	{
 		if ( $user = gNetwork()->user() ) {
 
 			$name = get_userdata( $user )->display_name;
 			$edit = WordPress::getUserEditLink( $user );
 
-			HTML::desc( sprintf( _x( 'Network Site User Is %s', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
+			HTML::desc( sprintf( _x( 'Site-User for current network is: %s', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
 				$edit ? HTML::link( $name, $edit, TRUE ) : $name ) );
 
 		} else {
 
-			HTML::desc( _x( 'Network Site User Is Not Defined', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ) );
+			HTML::desc( _x( 'Site-User for current network is <strong>not</strong> defined.', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ) );
+		}
+
+		if ( $default_role ) {
+
+			HTML::desc( sprintf( _x( 'Default role for this site is: %s', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
+				'<code>'.get_option( 'default_role' ).'</code>' ) );
 		}
 	}
 
