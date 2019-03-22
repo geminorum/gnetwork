@@ -17,7 +17,6 @@
 * module/mail: logging current user id
 * module/mail: using path join for deletions
 * module/sms: logging sms data
-* module/sms: logging sms data
 * module/tracking: :warning: fixed empty override
 * module/typography: arabic within html tags
 

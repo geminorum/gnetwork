@@ -45,7 +45,8 @@
     "davidepastore/ipinfo": "^0.3.0",
     "ziggeo/simple-box-integration": "^0.0.3",
     "knplabs/github-api": "^2.11",
-    "php-http/guzzle6-adapter": "^1.1"
+    "php-http/guzzle6-adapter": "^1.1",
+    "tecnickcom/tc-lib-barcode": "^1.15"
   },
   "config": {
     "vendor-dir": "assets/vendor",

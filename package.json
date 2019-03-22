@@ -54,7 +54,7 @@
     "gulp-uglify": "^3.0.2",
     "gulp-wp-pot": "^2.3.4",
     "gulp-zip": "^4.2.0",
-    "js-yaml": "^3.12.2",
+    "js-yaml": "^3.13.0",
     "multipipe": "^3.0.1",
     "parse-changelog": "^1.0.2",
     "prettyjson": "^1.2.1",
