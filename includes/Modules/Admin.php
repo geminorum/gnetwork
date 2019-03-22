@@ -355,9 +355,8 @@ class Admin extends gNetwork\Module
 				},
 			];
 
-		HTML::tabsList( $this->filters( 'overview', $tabs ) );
-
-		Utilities::enqueueMasonry();
+		if ( HTML::tabsList( $this->filters( 'overview', $tabs ) ) )
+			Utilities::enqueueMasonry();
 	}
 
 	protected function settings_overview( $uri )
