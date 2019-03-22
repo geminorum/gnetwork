@@ -205,6 +205,16 @@ class Cleanup extends gNetwork\Module
 			'values'      => $confirm,
 		];
 
+		if ( $superadmin )
+			$settings['_files'][] = [
+				'field'       => 'files_clean_core',
+				'type'        => 'button',
+				'title'       => _x( 'Files', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Removes unnecessary files on your WordPress install.', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+				'default'     => _x( 'Clean Core Files', 'Modules: Cleanup: Settings', GNETWORK_TEXTDOMAIN ),
+				'values'      => $confirm,
+			];
+
 		return $settings;
 	}
 
@@ -283,6 +293,9 @@ class Cleanup extends gNetwork\Module
 
 			else if ( isset( $_POST['comments_oldposts'] ) )
 				$message = $this->comments_oldposts();
+
+			else if ( isset( $_POST['files_clean_core'] ) )
+				$message = self::files_clean_core();
 
 			else
 				$message = 'huh';
@@ -657,5 +670,38 @@ class Cleanup extends gNetwork\Module
 			'message' => 'closed',
 			'count'   => $count,
 		] : 'optimized';
+	}
+
+	// static is for `_core_updated_successfully` hook
+	public static function files_clean_core( $message = FALSE )
+	{
+		$count = 0;
+		$files = [
+			'license.txt',
+			'readme.html',
+			'wp-config-sample.php',
+			'wp-admin/install.php',
+		];
+
+		foreach ( $files as $file ) {
+
+			$path = ABSPATH.$file;
+
+			if ( ! file_exists( $path ) )
+				continue;
+
+			if ( TRUE !== unlink( $path ) )
+				continue;
+
+			if ( $message )
+				HTML::desc( sprintf( _x( 'Removing %s &hellip;', 'Modules: Update', GNETWORK_TEXTDOMAIN ), $file ) );
+
+			$count++;
+		}
+
+		return [
+			'message' => 'deleted',
+			'count'   => $count,
+		];
 	}
 }
