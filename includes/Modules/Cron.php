@@ -495,7 +495,13 @@ class Cron extends gNetwork\Module
 		$revisions = get_posts( [
 			'fields'      => 'ids',
 			'post_type'   => 'revision',
-			'numberposts' => -1
+			'numberposts' => -1,
+
+			// @REF: https://stackoverflow.com/a/25069538/
+			'date_query'  => [
+				'column' => 'post_modified_gmt',
+				'before' => '-1 week',
+			],
 		] );
 
 		foreach ( $revisions as $revision )
