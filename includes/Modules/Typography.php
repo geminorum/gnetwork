@@ -213,13 +213,21 @@ class Typography extends gNetwork\Module
 			$new_title = trim( $raw_title );
 
 			// remove more than one ZWNJs
-			$new_title = preg_replace( "/(\x{200C})+/iu", "\xE2\x80\x8C", $new_title );
+			$new_title = preg_replace( "/(\x{200C})+/u", "\xE2\x80\x8C", $new_title );
+
+			// remove arabic/persian accents
+			$new_title = preg_replace( "/[\x{0618}-\x{061A}\x{064B}-\x{065F}]+/u", '', $new_title );
 
 			$new_title = str_ireplace( [
-				"\xD8\x8C", // `،`
-				"\xC2\xAB", // `«`
-				"\xC2\xBB", // `»`
-				"\xD9\x94", // `ٔ`
+				"\xD8\x8C", // `،` // Arabic Comma
+				"\xD8\x9B", // `؛` // Arabic Semicolon
+				"\xD9\x94", // `ٔ` // Arabic Hamza Above
+				"\xD9\xAC", // `٬` // Arabic Thousands Separator
+				"\xD8\x8D", // `؍` // Arabic Date Separator
+
+				"\xC2\xAB",     // `«`
+				"\xC2\xBB",     // `»`
+				"\xE2\x80\xA6", // `…` // Horizontal Ellipsis
 			], '', $new_title );
 
 			$new_title = str_ireplace( [
