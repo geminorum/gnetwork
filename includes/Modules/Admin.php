@@ -322,27 +322,18 @@ class Admin extends gNetwork\Module
 
 	protected function settings_overview( $uri )
 	{
+		$sitemeta = function_exists( 'is_site_meta_supported' ) && is_site_meta_supported();
+
 		HTML::h2( _x( 'Current Site Overview', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ) );
 		HTML::desc( _x( 'Below you can find various information about current site and contents.', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ) );
 
-		$tabs = [];
-
-		if ( class_exists( __NAMESPACE__.'\\ShortCodes' )
-			&& current_user_can( 'edit_posts' ) )
-			$tabs['shortcodes'] = [
-				'title'  => _x( 'Available Shortcodes', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ),
-				'cb'     => [ __NAMESPACE__.'\\ShortCodes', 'available' ],
+		$tabs = [
+			'overview' => [
+				'title'  => _x( 'Currents', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ),
+				'cb'     => [ __CLASS__, 'summaryOverview' ],
 				'active' => TRUE,
-			];
-
-		if ( class_exists( __NAMESPACE__.'\\Comments' )
-			&& current_user_can( 'moderate_comments' ) )
-			$tabs['comments'] = [
-				'title' => _x( 'Comment Counts', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ),
-				'cb'    => function() {
-					Comments::commentSummary();
-				},
-			];
+			],
+		];
 
 		if ( class_exists( __NAMESPACE__.'\\Locale' )
 			&& current_user_can( 'manage_options' ) )
@@ -358,33 +349,12 @@ class Admin extends gNetwork\Module
 				'cb'    => [ __NAMESPACE__.'\\Authors', 'userRoles' ],
 			];
 
-		if ( class_exists( __NAMESPACE__.'\\Debug' )
-			&& current_user_can( 'manage_options' ) ) {
-
-			$tabs['time'] = [
-				'title' => _x( 'Time', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ),
-				'cb'    => [ __NAMESPACE__.'\\Debug', 'currentTime' ],
-			];
-
-			$tabs['caching'] = [
-				'title' => _x( 'Stats of the Caching', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ),
-				'cb'    => [ __NAMESPACE__.'\\Debug', 'cacheStats' ],
-			];
-
-			$tabs['upload'] = [
-				'title' => _x( 'File & Upload', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ),
-				'cb'    => [ __NAMESPACE__.'\\Debug', 'summaryUpload' ],
-			];
-		}
-
 		if ( class_exists( __NAMESPACE__.'\\Media' )
 			&& current_user_can( 'edit_others_posts' ) )
 			$tabs['imagesizes'] = [
 				'title' => _x( 'Registered Image Sizes', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ),
 				'cb'    => [ __NAMESPACE__.'\\Media', 'registeredImageSizes' ],
 			];
-
-		$sitemeta = function_exists( 'is_site_meta_supported' ) && is_site_meta_supported();
 
 		if ( $sitemeta && WordPress::isSuperAdmin() )
 			$tabs['blogmate'] = [
@@ -395,6 +365,67 @@ class Admin extends gNetwork\Module
 			];
 
 		HTML::tabsList( $this->filters( 'overview', $tabs ) );
+
+		Utilities::enqueueMasonry();
+	}
+
+	public static function summaryOverview()
+	{
+		echo '<div class="masonry-grid">';
+
+		if ( current_user_can( 'edit_posts' ) ) {
+
+			self::summaryShortcodes();
+		}
+
+		if ( class_exists( __NAMESPACE__.'\\Comments' )
+			&& current_user_can( 'moderate_comments' ) ) {
+
+			self::summaryComments();
+		}
+
+		if ( class_exists( __NAMESPACE__.'\\Authors' )
+			&& current_user_can( 'list_users' ) ) {
+
+			self::summaryAuthors();
+		}
+
+		if ( class_exists( __NAMESPACE__.'\\Debug' )
+			&& current_user_can( 'manage_options' ) ) {
+
+			Debug::currentTime();
+			Debug::summaryUpload();
+			Debug::cacheStats();
+		}
+
+		echo '</div>';
+	}
+
+	public static function summaryShortcodes()
+	{
+		echo '<div class="-wrap card -floated">';
+		HTML::h2( _x( 'Available Shortcodes', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ) );
+
+			echo HTML::listCode( array_keys( $GLOBALS['shortcode_tags'] ), '<code>[%2$s]</code>' );
+		echo '</div>';
+	}
+
+	public static function summaryComments()
+	{
+		echo '<div class="-wrap card -floated">';
+		HTML::h2( _x( 'Comment Counts', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ) );
+
+			Comments::commentSummary();
+		echo '</div>';
+	}
+
+	public static function summaryAuthors()
+	{
+		echo '<div class="-wrap card -floated">';
+		HTML::h2( _x( 'Authors & Roles', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ) );
+
+			Authors::summarySiteUser();
+		echo '</div>';
 	}
 
 	public function admin_enqueue_scripts()

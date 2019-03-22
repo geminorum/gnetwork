@@ -190,8 +190,6 @@ class Authors extends gNetwork\Module
 
 	public static function userRoles()
 	{
-		self::summarySiteUser();
-		echo '<hr />';
 		HTML::tableSide( get_editable_roles() );
 	}
 

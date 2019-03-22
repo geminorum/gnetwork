@@ -340,7 +340,9 @@ class Debug extends gNetwork\Module
 
 	public static function cacheStats()
 	{
-		echo '<div class="wrap -wrap" dir="ltr">';
+		echo '<div class="-wrap card -floated" dir="ltr">';
+		HTML::h2( _x( 'Stats of the Cache', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+
 			$GLOBALS['wp_object_cache']->stats();
 		echo '</div>';
 	}
@@ -413,7 +415,11 @@ class Debug extends gNetwork\Module
 			'REQUEST_TIME'                    => date( $format, $_SERVER['REQUEST_TIME'] ),
 		];
 
-		echo HTML::tableCode( $times );
+		echo '<div class="-wrap card -floated" dir="ltr">';
+		HTML::h2( _x( 'Current Time', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+
+			echo HTML::tableCode( $times );
+		echo '</div>';
 	}
 
 	public static function summaryIPs( $caption = FALSE )
@@ -481,7 +487,11 @@ class Debug extends gNetwork\Module
 		foreach ( $upload as $key => $val )
 			$info['wp_upload: '.$key] = $val;
 
-		echo HTML::tableCode( $info );
+		echo '<div class="-wrap card -floated" dir="ltr">';
+		HTML::h2( _x( 'File & Upload', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+
+			echo HTML::tableCode( $info );
+		echo '</div>';
 	}
 
 	public static function getServer()
