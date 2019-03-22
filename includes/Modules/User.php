@@ -55,6 +55,8 @@ class User extends gNetwork\Module
 			$this->filter( 'manage_users-network_sortable_columns' );
 		}
 
+		$this->action( 'deleted_user' );
+
 		// cron hook / executes only on the mainsite
 		$this->action( 'update_network_counts' );
 	}
@@ -595,6 +597,11 @@ class User extends gNetwork\Module
 		global $wpdb;
 
 		update_network_option( NULL, $this->hook( 'spam_count' ), $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->users} WHERE spam = '1' AND deleted = '0'" ) );
+	}
+
+	public function deleted_user()
+	{
+		update_network_option( NULL, $this->hook( 'spam_count' ), '' );
 	}
 
 	public function get_spam_count()
