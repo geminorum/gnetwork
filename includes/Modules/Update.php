@@ -52,6 +52,7 @@ class Update extends gNetwork\Module
 			return;
 
 		$this->filter( 'map_meta_cap', 2, 9 );
+		$this->action( '_core_updated_successfully' );
 	}
 
 	public function setup_menu( $context )
@@ -702,5 +703,18 @@ class Update extends gNetwork\Module
 			$caps[] = 'do_not_allow';
 
 		return $caps;
+	}
+
+	// ADOPTED FROM: WP Core Update Cleaner v1.2.0 by Upperdog
+	// @REF: https://wordpress.org/plugins/wp-core-update-cleaner/
+	public function _core_updated_successfully( $wp_version )
+	{
+		if ( ! class_exists( __NAMESPACE__.'\\Cleanup' ) )
+			return;
+
+		// feedback for manual updates
+		$message = in_array( $GLOBALS['action'], [ 'do-core-upgrade', 'do-core-reinstall' ] );
+
+		Cleanup::files_clean_core( $message );
 	}
 }
