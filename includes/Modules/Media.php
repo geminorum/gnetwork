@@ -29,6 +29,9 @@ class Media extends gNetwork\Module
 		$this->filter( 'upload_mimes' );
 		// $this->filter( 'wp_check_filetype_and_ext', 4, 12 );
 
+		if ( function_exists( 'normalizer_normalize' ) )
+			$this->filter( 'wp_handle_upload_prefilter', 1, 1 );
+
 		$this->filter( 'sanitize_file_name', 2, 12 );
 		$this->filter( 'image_send_to_editor', 8 );
 		$this->filter( 'media_send_to_editor', 3, 12 );
@@ -1450,6 +1453,16 @@ class Media extends gNetwork\Module
 				_nx_noop( 'Application <span class="count">(%s)</span>', 'Applications <span class="count">(%s)</span>', 'Modules: Media: Post Mime Type', GNETWORK_TEXTDOMAIN ),
 			],
 		] );
+	}
+
+	// ADOPTED FROM: Filename Normalizer v1.0.1 by required
+	// @SOURCE: https://github.com/wearerequired/filename-normalizer
+	public function wp_handle_upload_prefilter( $file )
+	{
+		if ( ! normalizer_is_normalized( $file['name'] ) )
+			$file['name'] = normalizer_normalize( $file['name'] );
+
+		return $file;
 	}
 
 	// FIXME: waiting on: https://core.trac.wordpress.org/ticket/22363
