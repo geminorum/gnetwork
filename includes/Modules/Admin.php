@@ -393,6 +393,8 @@ class Admin extends gNetwork\Module
 			Debug::cacheStats();
 		}
 
+		$this->actions( 'currents' );
+
 		echo '</div>';
 
 		Utilities::enqueueMasonry();
