@@ -1400,6 +1400,11 @@ class Media extends gNetwork\Module
 				return '[csv id="'.$id.'"]'
 					.WordPress::htmlAttachmentShortLink( $id, $html ).'[/csv]';
 
+			// WORKING BUT DISABLED: shortcode not supported, yet!
+			// if ( 'application/epub+zip' == $attachment->post_mime_type )
+			// 	return '[epub id="'.$id.'"]'
+			// 		.WordPress::htmlAttachmentShortLink( $id, $html ).'[/epub]';
+
 			if ( 'application/pdf' == $attachment->post_mime_type )
 				return '[pdf url="'.wp_get_attachment_url( $id ).'"]'
 					.WordPress::htmlAttachmentShortLink( $id, $html ).'[/pdf]';
@@ -1475,10 +1480,12 @@ class Media extends gNetwork\Module
 
 		$info = pathinfo( $filename );
 		$ext  = empty( $info['extension'] ) ? '' : '.'.$info['extension'];
-		$name = trim( File::basename( $filename, $ext ) );
 
-		$name = Utilities::URLifyDownCode( $name );
-		// $name = Utilities::URLifyFilter( $name );
+		// $name = preg_replace( '/'.$ext.'$/', '', $filename );
+		$name = File::basename( $filename, $ext );
+
+		$name = Utilities::URLifyDownCode( trim( $name ) );
+		// $name = Utilities::URLifyFilter( trim( $name ) );
 
 		return Text::strToLower( $name ).$ext;
 	}
