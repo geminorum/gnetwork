@@ -104,6 +104,8 @@ class Authors extends gNetwork\Module
 
 			echo '<tr><th scope="row">'._x( 'Bulk Change Author', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ).'</th><td>';
 
+			echo $this->wrap_open_buttons();
+
 			$this->do_settings_field( [
 				'type'      => 'select',
 				'field'     => 'from_user_id',
@@ -138,7 +140,7 @@ class Authors extends gNetwork\Module
 
 			Settings::submitButton( 'bulk_change_author', _x( 'Change', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ), FALSE, TRUE );
 
-			echo '</td></tr>';
+			echo '</p></td></tr>';
 		echo '</table>';
 	}
 

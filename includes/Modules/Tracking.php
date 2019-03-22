@@ -84,7 +84,7 @@ class Tracking extends gNetwork\Module
 					'title'       => _x( 'GA Account', 'Modules: Tracking: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Determines current network Google Analytics account ID.', 'Modules: Tracking: Settings', GNETWORK_TEXTDOMAIN ),
 					'dir'         => 'ltr',
-					'placeholder' => 'UA-XXXXX-X',
+					'placeholder' => 'UA-XXXXXXXX-X',
 					'constant'    => 'GNETWORK_TRACKING_GA_ACCOUNT',
 				],
 				[
@@ -94,7 +94,7 @@ class Tracking extends gNetwork\Module
 					'description' => _x( 'Determines current network Google Analytics Beacon account ID.', 'Modules: Tracking: Settings', GNETWORK_TEXTDOMAIN ),
 					'after'       => Settings::fieldAfterIcon( 'https://github.com/igrigorik/ga-beacon' ),
 					'dir'         => 'ltr',
-					'placeholder' => 'UA-XXXXX-X',
+					'placeholder' => 'UA-XXXXXXXX-X',
 				],
 				[
 					'field'       => 'ga_userid',

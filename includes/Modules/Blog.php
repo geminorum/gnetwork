@@ -359,7 +359,7 @@ class Blog extends gNetwork\Module
 				'type'        => 'text',
 				'title'       => _x( 'GA Override', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
 				'description' => _x( 'This site Google Analytics tracking account. Set to override the network.', 'Modules: Blog: Settings', GNETWORK_TEXTDOMAIN ),
-				'placeholder' => 'UA-XXXXX-X',
+				'placeholder' => 'UA-XXXXXXXX-X',
 				'field_class' => [ 'regular-text', 'code-text' ],
 			];
 
