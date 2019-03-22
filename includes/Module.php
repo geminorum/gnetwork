@@ -372,7 +372,8 @@ class Module extends Core\Base
 		$suffix = '';
 
 		foreach ( func_get_args() as $arg )
-			$suffix.= '_'.strtolower( self::sanitize_hook( $arg ) );
+			if ( $arg )
+				$suffix.= '_'.strtolower( self::sanitize_hook( $arg ) );
 
 		return $this->base.'_'.$this->key.$suffix;
 	}
@@ -382,7 +383,8 @@ class Module extends Core\Base
 		$suffix = '';
 
 		foreach ( func_get_args() as $arg )
-			$suffix.= '-'.strtolower( self::sanitize_base( $arg ) );
+			if ( $arg )
+				$suffix.= '-'.strtolower( self::sanitize_base( $arg ) );
 
 		return $this->base.'-'.self::sanitize_base( $this->key ).$suffix;
 	}

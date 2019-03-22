@@ -7,7 +7,22 @@ class WordPress extends Base
 
 	public static function isMinWPv( $minimum_version )
 	{
+		self::_dep( 'WordPress::isWPcompatible()' );
 		return ( version_compare( get_bloginfo( 'version' ), $minimum_version ) >= 0 );
+	}
+
+	// Checks compatibility with the current WordPress version.
+	// @REF: `wp_is_wp_compatible()`
+	public static function isWPcompatible( $required )
+	{
+		return empty( $required ) || version_compare( get_bloginfo( 'version' ), $required, '>=' );
+	}
+
+	// Checks compatibility with the current PHP version.
+	// @REF: `wp_is_php_compatible()`
+	public static function isPHPcompatible( $required )
+	{
+		return empty( $required ) || version_compare( phpversion(), $required, '>=' );
 	}
 
 	public static function mustRegisterUI( $check_admin = TRUE )

@@ -542,19 +542,29 @@ class HTML extends Base
 			return FALSE;
 
 		$args = self::atts( array(
+			'active' => NULL, // TRUE forces first tab active
 			'title'  => FALSE,
-			'active' => FALSE,
 			'class'  => FALSE,
 			'prefix' => 'nav-tab',
 			'nav'    => 'h3',
 		), $atts );
+
+		if ( TRUE === $args['active'] ) {
+
+			$args['active'] = array_keys( $tabs )[0];
+
+		} else if ( ! $args['active'] ) {
+
+			$actives = @wp_list_pluck( $tabs, 'active' );
+			$args['active'] = array_keys( ( count( $actives ) ? $actives : $tabs ) )[0];
+		}
 
 		$navs = $contents = '';
 
 		foreach ( $tabs as $tab => $tab_atts ) {
 
 			$tab_args = self::atts( array(
-				'active'  => FALSE,
+				// 'active'  => FALSE, // not needed here, just for docs
 				'title'   => $tab,
 				'link'    => '#'.$tab,
 				'cb'      => FALSE,
@@ -563,7 +573,7 @@ class HTML extends Base
 
 			$navs.= self::tag( 'a', array(
 				'href'  => $tab_args['link'],
-				'class' => $args['prefix'].' -nav'.( $tab_args['active'] ? ' '.$args['prefix'].'-active -active' : '' ),
+				'class' => $args['prefix'].' -nav'.( $tab == $args['active'] ? ' '.$args['prefix'].'-active -active' : '' ),
 				'data'  => array(
 					'toggle' => 'tab',
 					'tab'    => $tab,
@@ -584,7 +594,7 @@ class HTML extends Base
 
 			if ( $content )
 				$contents.= self::tag( 'div', array(
-					'class' => $args['prefix'].'-content'.( $tab_args['active'] ? ' '.$args['prefix'].'-content-active -active' : '' ).' -content',
+					'class' => $args['prefix'].'-content'.( $tab == $args['active'] ? ' '.$args['prefix'].'-content-active -active' : '' ).' -content',
 					'data'  => array(
 						'tab' => $tab,
 					),

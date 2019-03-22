@@ -200,6 +200,16 @@ class Arraay extends Base
 		return $new;
 	}
 
+	// `array_key_first()` for php < 7.3.0
+	// @REF: http://php.net/manual/en/function.array-key-first.php#123503
+	public static function keyFirst( $input )
+	{
+		if ( function_exists( 'array_key_first' ) )
+			return array_key_first( $input );
+
+		return $input ? array_keys( $input )[0] : NULL;
+	}
+
 	// `array_column()` for php < 5.5
 	// @SEE: https://github.com/ramsey/array_column/blob/master/src/array_column.php
 	// @REF: http://php.net/manual/en/function.array-column.php#118831
