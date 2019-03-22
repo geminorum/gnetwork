@@ -75,9 +75,32 @@ class Authors extends gNetwork\Module
 
 		echo '<table class="form-table">';
 
-			echo '<tr><th>&nbsp;</th><td>';
-				self::summarySiteUser();
-			echo '</td></tr>';
+			if ( $user = gNetwork()->user() ) {
+
+				$name = get_userdata( $user )->display_name;
+				$edit = WordPress::getUserEditLink( $user );
+
+				echo '<tr><th scope="row">'._x( 'Site User', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ).'</th><td>';
+				echo $this->wrap_open_buttons();
+
+				printf( _x( 'Site-User for current network is: %s', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
+				( $edit ? HTML::link( $name, $edit, TRUE ) : $name ) );
+
+				echo '&nbsp;&mdash;&nbsp;';
+
+				printf( _x( 'Default role for this site is: %s', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
+					( '<code>'.get_option( 'default_role' ).'</code>' ) );
+
+				echo '&nbsp;&mdash;&nbsp;';
+
+				if ( is_user_member_of_blog( $user, get_current_blog_id() ) )
+					HTML::desc( _x( 'The user is already member of this blog.', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ), FALSE );
+
+				else
+					Settings::submitButton( 'add_site_user', _x( 'Add User to this Site', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ) );
+
+				echo '</p></td></tr>';
+			}
 
 			echo '<tr><th scope="row">'._x( 'Bulk Change Author', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ).'</th><td>';
 
@@ -121,7 +144,19 @@ class Authors extends gNetwork\Module
 
 	protected function tools_actions( $sub = NULL )
 	{
-		if ( ! empty( $_POST['bulk_change_author'] ) ) {
+		if ( ! empty( $_POST['add_site_user'] ) ) {
+
+			if ( $user = gNetwork()->user() ) {
+
+				$added = add_user_to_blog( get_current_blog_id(), $user, get_option( 'default_role', 'subscriber' ) );
+
+				if ( $added && ! self::isError( $added ) )
+					WordPress::redirectReferer( 'updated' );
+			}
+
+			WordPress::redirectReferer( 'wrong' );
+
+		} else if ( ! empty( $_POST['bulk_change_author'] ) ) {
 
 			$this->check_referer( $sub );
 
