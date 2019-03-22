@@ -86,7 +86,7 @@ class Navigation extends gNetwork\Module
 		] );
 
 		add_meta_box( $this->classs(),
-			_x( 'Network', 'Modules: Navigation: Meta Box Title', GNETWORK_TEXTDOMAIN ),
+			_x( 'Relative Links', 'Modules: Navigation: Meta Box Title', GNETWORK_TEXTDOMAIN ),
 			[ $this, 'do_meta_box' ],
 			$screen,
 			'side',
@@ -127,12 +127,15 @@ class Navigation extends gNetwork\Module
 				'description' => _x( '<em>Logged-Out</em> links are not visible to users who are logged in.', 'Modules: Navigation', GNETWORK_TEXTDOMAIN ),
 				'pages'       => $this->get_loggedout_pages(),
 			],
-			'sites' => [
+		];
+
+		if ( is_multisite() ) {
+			$tabs['sites'] = [
 				'label'       => _x( 'Sites', 'Modules: Navigation: Tabs', GNETWORK_TEXTDOMAIN ),
 				'description' => _x( '<em>Sites</em> on this network within your access.', 'Modules: Navigation', GNETWORK_TEXTDOMAIN ),
 				'pages'       => $this->get_sites_pages(),
-			],
-		];
+			];
+		}
 
 		echo '<div id="'.$id.'" class="gnetwork-admin-wrap-metabox -navigation posttypediv">';
 
