@@ -384,6 +384,12 @@ class Admin extends gNetwork\Module
 			self::summaryAuthors();
 		}
 
+		if ( class_exists( __NAMESPACE__.'\\Media' )
+			&& current_user_can( gNetwork()->option( 'tools_accesscap', 'media', 'edit_others_posts' ) ) ) {
+
+			self::summaryAttachments();
+		}
+
 		if ( class_exists( __NAMESPACE__.'\\Debug' )
 			&& current_user_can( 'manage_options' ) ) {
 
@@ -423,6 +429,15 @@ class Admin extends gNetwork\Module
 		HTML::h2( _x( 'Authors & Roles', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ) );
 
 			Authors::summarySiteUser();
+		echo '</div>';
+	}
+
+	public static function summaryAttachments()
+	{
+		echo '<div class="-wrap card -floated">';
+		HTML::h2( _x( 'Attachment Mime-Types', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ) );
+
+			Media::summaryAttachments();
 		echo '</div>';
 	}
 

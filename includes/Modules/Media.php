@@ -112,8 +112,13 @@ class Media extends gNetwork\Module
 		);
 	}
 
-	// FIXME: get mime names
 	public function settings_sidebox( $sub, $uri )
+	{
+		self::summaryAttachments();
+	}
+
+	// FIXME: get mime names
+	public static function summaryAttachments()
 	{
 		echo HTML::tableCode( wp_count_attachments() );
 	}
