@@ -202,17 +202,7 @@ class Debug extends gNetwork\Module
 		] );
 
 		Utilities::enqueueScriptVendor( 'prism' );
-
-		$script = 'jQuery(function($) {
-			$(".masonry-grid").masonry({
-				itemSelector: ".card",
-				isOriginLeft: ! ( "rtl" === $("html").attr("dir") ),
-				percentPosition: true
-			});
-		});';
-
-		wp_enqueue_script( 'masonry' );
-		wp_add_inline_script( 'masonry', $script );
+		Utilities::enqueueMasonry();
 	}
 
 	// FIXME!

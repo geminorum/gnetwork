@@ -443,6 +443,20 @@ class Utilities extends Core\Base
 		return call_user_func( $callback );
 	}
 
+	public static function enqueueMasonry( $selector = '.card', $grid = '.masonry-grid' )
+	{
+		$script = 'jQuery(function($) {
+			$("'.$grid.'").masonry({
+				itemSelector: "'.$selector.'",
+				isOriginLeft: ! ( "rtl" === $("html").attr("dir") ),
+				percentPosition: true
+			});
+		});';
+
+		wp_enqueue_script( 'masonry' );
+		wp_add_inline_script( 'masonry', $script );
+	}
+
 	public static function pkgAutosize( $ver = '4.0.2' )
 	{
 		$handle = static::BASE.'-autosize';
