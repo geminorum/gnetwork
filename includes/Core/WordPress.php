@@ -202,7 +202,7 @@ class WordPress extends Base
 
 	public static function getHostName()
 	{
-		return is_multisite()
+		return is_multisite() && function_exists( 'get_network' )
 			? get_network()->domain
 			: preg_replace( '#^https?://#i', '', get_option( 'home' ) );
 	}
@@ -210,7 +210,7 @@ class WordPress extends Base
 	// OLD: `getBlogNameforEmail()`
 	public static function getSiteNameforEmail( $site = FALSE )
 	{
-		if ( ! $site && is_multisite() )
+		if ( ! $site && is_multisite() && function_exists( 'get_network' ) )
 			return get_network()->site_name;
 
 		// The blogname option is escaped with esc_html on the way into the database
@@ -778,7 +778,7 @@ class WordPress extends Base
 	// like core's but with custom network
 	public static function networkSiteURL( $network = NULL, $path = '', $scheme = NULL )
 	{
-		if ( ! is_multisite() )
+		if ( ! is_multisite() || ! function_exists( 'get_network' ) )
 			return site_url( $path, $scheme );
 
 		if ( ! $network )
@@ -800,7 +800,7 @@ class WordPress extends Base
 	// like core's but with custom network
 	public static function networkHomeURL( $network = NULL, $path = '', $scheme = NULL )
 	{
-		if ( ! is_multisite() )
+		if ( ! is_multisite() || ! function_exists( 'get_network' ) )
 			return home_url( $path, $scheme );
 
 		if ( ! $network )

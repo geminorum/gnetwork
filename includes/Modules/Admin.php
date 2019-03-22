@@ -45,7 +45,8 @@ class Admin extends gNetwork\Module
 
 	public function admin_body_class( $classes )
 	{
-		$classes.= ' network-'.HTML::sanitizeClass( URL::prepTitle( str_replace( '.', '-', get_network()->domain ) ) );
+		if ( function_exists( 'get_network' ) )
+			$classes.= ' network-'.HTML::sanitizeClass( URL::prepTitle( str_replace( '.', '-', get_network()->domain ) ) );
 
 		if ( gNetwork()->option( 'admin_chosen', 'blog' ) )
 			$classes.= ' enhancement-chosen-enabled';

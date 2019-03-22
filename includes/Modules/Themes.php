@@ -712,7 +712,9 @@ class Themes extends gNetwork\Module
 		if ( $this->options['body_class'] )
 			$classes[] = trim( $this->options['body_class'] );
 
-		$classes[] = 'network-'.HTML::sanitizeClass( URL::prepTitle( str_replace( '.', '-', get_network()->domain ) ) );
+		if ( function_exists( 'get_network' ) )
+			$classes[] = 'network-'.HTML::sanitizeClass( URL::prepTitle( str_replace( '.', '-', get_network()->domain ) ) );
+
 		$classes[] = 'locale-'.HTML::sanitizeClass( strtolower( str_replace( '_', '-', get_locale() ) ) );
 
 		if ( is_user_logged_in() )

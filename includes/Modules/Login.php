@@ -447,7 +447,8 @@ class Login extends gNetwork\Module
 		if ( wp_is_mobile() )
 			$classes[] = 'mobile';
 
-		$classes[] = 'network-'.HTML::sanitizeClass( URL::prepTitle( str_replace( '.', '-', get_network()->domain ) ) );
+		if ( function_exists( 'get_network' ) )
+			$classes[] = 'network-'.HTML::sanitizeClass( URL::prepTitle( str_replace( '.', '-', get_network()->domain ) ) );
 
 		return array_merge( $classes, [ $this->options['login_class'] ] );
 	}
