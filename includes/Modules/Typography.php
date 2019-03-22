@@ -124,12 +124,13 @@ class Typography extends gNetwork\Module
 			'<p style="text-align:center"><strong>***</strong></p>',
 		], $this->shortcode_three_asterisks(), $content );
 
+		// FIXME: DRAFT for date: not tested!
+		// @REF: http://stackoverflow.com/a/3337480
+		// $content = preg_replace( "/(^| )([0-9]{1,2}\/[0-9]{1,2}\/[0-9]{2,4})( |$)/is", "<span class=\"date\">$2</span>", $content );
+
 		return $content;
 	}
 
-	// TODO: آیت الله العظمی // no space
-	// TODO: حجت الاسلام // no space
-	// TODO: ثقة الاسلام // with space
 	// FIXME: use <abbr> and full def: https://developer.mozilla.org/en/docs/Web/HTML/Element/abbr
 	public function arabic_typography( $content )
 	{
@@ -142,9 +143,26 @@ class Typography extends gNetwork\Module
 		$content = preg_replace( "/\(علیه السلام\)/i", '&#xfeff;'."<sup>(علیه السلام)</sup>", $content );
 		$content = preg_replace( "/\(علیه‌السلام\)/i", '&#xfeff;'."<sup>(علیه السلام)</sup>", $content );
 
-		// FIXME: DRAFT for date: not tested!
-		// @REF: http://stackoverflow.com/a/3337480
-		// $content = preg_replace( "/(^| )([0-9]{1,2}\/[0-9]{1,2}\/[0-9]{2,4})( |$)/is", "<span class=\"date\">$2</span>", $content );
+		$content = str_ireplace( [
+			'آیت الله العظمی',
+			'آیت الله‌العظمی',
+			'آیت‌الله العظمی',
+		], 'آیت‌الله‌العظمی', $content ); // no space
+
+		$content = str_ireplace( [
+			'حجه الاسلام',
+			'حجه‌الاسلام',
+			'حجةالاسلام',
+			'حجة‌الاسلام',
+			'حجت الاسلام',
+		], 'حجت‌الاسلام', $content ); // no space
+
+		$content = str_ireplace( [
+			'ثقةالاسلام',
+			'ثقة‌الاسلام',
+			'ثقه الاسلام',
+			'ثقه‌الاسلام',
+		], 'ثقة الاسلام', $content ); // with space
 
 		return $content;
 	}
