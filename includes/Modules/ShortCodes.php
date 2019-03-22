@@ -101,6 +101,8 @@ class ShortCodes extends gNetwork\Module
 			'redirect'    => 'shortcode_redirect',
 			'menu'        => 'shortcode_menu',
 			'post-title'  => 'shortcode_post_title',
+			'post-link'   => 'shortcode_permalink',
+			'permalink'   => 'shortcode_permalink',
 		];
 	}
 
@@ -609,6 +611,62 @@ class ShortCodes extends gNetwork\Module
 			$html = HTML::tag( $args['tag'], $html );
 
 		return self::shortcodeWrap( $html, 'post-title', $args, FALSE );
+	}
+
+	public function shortcode_permalink( $atts = [], $content = NULL, $tag = '' )
+	{
+		$args = shortcode_atts( [
+			'post'      => NULL,
+			'slug'      => FALSE,
+			'type'      => 'page', // only with slug
+			'text'      => FALSE,
+			'title'     => FALSE,
+			'class'     => FALSE,
+			'params'    => FALSE,
+			'newwindow' => FALSE,
+			'context'   => NULL,
+			'wrap'      => TRUE,
+			'before'    => '',
+			'after'     => '',
+		], $atts, $tag );
+
+		if ( FALSE === $args['context'] )
+			return NULL;
+
+		$post = NULL;
+
+		if ( $args['slug'] )
+			$post = get_page_by_path( trim( $args['slug'] ), OBJECT, $args['type'] );
+
+		if ( ! $post )
+			$post = get_post( $args['post'] );
+
+		if ( ! $post )
+			return $content;
+
+		if ( $args['text'] )
+			$text = trim( $args['text'] );
+
+		else if ( trim( $content ) )
+			$text = Text::wordWrap( $content );
+
+		else if ( ! empty( $post->post_title ) )
+			$text = Utilities::prepTitle( $post->post_title, $post->ID );
+
+		else
+			return $content;
+
+		$html = HTML::tag( 'a', [
+			'href'   => get_permalink( $post ).( $args['params'] ? '?'.$args['params'] : '' ),
+			'title'  => $args['title'] ?: FALSE,
+			'class'  => $args['class'] ?: FALSE,
+			'target' => $args['newwindow'] ? '_blank' : FALSE,
+			'data'   => [ 'id' => $post->ID ],
+		], $text );
+
+		unset( $args['class'] );
+
+		return self::shortcodeWrap( $html, 'permalink', $args, FALSE );
 	}
 
 	// TODO: more cases
