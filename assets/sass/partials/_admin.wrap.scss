@@ -16,6 +16,15 @@
     }
   }
 
+  .-wrap.card {
+    &.-floated {
+      float: left;
+      margin: 0 0.5em 0.5em 0;
+      max-width: 460px;
+      min-width: (460px / 2);
+    }
+  }
+
   .-wrap-buttons {
     padding: 0;
     margin-bottom: .5em;
