@@ -475,9 +475,10 @@ class ShortCodes extends gNetwork\Module
 		if ( FALSE === $args['context'] )
 			return NULL;
 
-		$html = '';
+		if ( ! $post = get_post( $args['id'] ) )
+			return $content;
 
-		$post = get_post( $args['id'] );
+		$html = '';
 
 		foreach ( get_object_taxonomies( $post->post_type, 'objects' ) as $taxonomy ) {
 
@@ -530,7 +531,7 @@ class ShortCodes extends gNetwork\Module
 			return NULL;
 
 		if ( ! $post = get_post( $args['id'] ) )
-			return NULL;
+			return $content;
 
 		$gmt   = strtotime( $post->post_modified_gmt );
 		$local = strtotime( $post->post_modified );
@@ -600,10 +601,10 @@ class ShortCodes extends gNetwork\Module
 			return NULL;
 
 		if ( ! $post = get_post( $args['post'] ) )
-			return NULL;
+			return $content;
 
 		if ( empty( $post->post_title ) )
-			return NULL;
+			return $content;
 
 		$html = Utilities::prepTitle( $post->post_title, $post->ID );
 
@@ -792,7 +793,7 @@ class ShortCodes extends gNetwork\Module
 			return NULL;
 
 		if ( ! $args['url'] )
-			return NULL;
+			return $content;
 
 		if ( ! in_array( $args['scroll'], [ 'auto', 'yes', 'no' ] ) )
 			$args['scroll'] = 'no';
@@ -831,7 +832,7 @@ class ShortCodes extends gNetwork\Module
 			return NULL;
 
 		if ( ! $args['url'] )
-			return NULL;
+			return $content;
 
 		$query = [ 'TB_iframe' => '1' ];
 
@@ -1018,11 +1019,14 @@ class ShortCodes extends gNetwork\Module
 			'after'    => '',
 		], $atts, $tag );
 
-		if ( FALSE === $args['context'] || is_feed() || WordPress::isREST() )
+		if ( FALSE === $args['context'] )
 			return NULL;
 
+		if ( is_feed() || WordPress::isREST() )
+			return $content;
+
 		if ( ! $args['key'] )
-			return NULL;
+			return $content;
 
 		return self::shortcode_iframe( array_merge( $args, [
 			'url' => sprintf( $args['template'], $args['key'] ),
@@ -1051,7 +1055,7 @@ class ShortCodes extends gNetwork\Module
 			return NULL;
 
 		if ( ! $args['id'] && ! $args['url'] )
-			return NULL;
+			return $content;
 
 		if ( ! $args['url'] && $args['id'] )
 			$args['url'] = wp_get_attachment_url( $args['id'] );
@@ -1098,7 +1102,7 @@ class ShortCodes extends gNetwork\Module
 			return NULL;
 
 		if ( ! $args['id'] && ! $args['url'] )
-			return NULL;
+			return $content;
 
 		if ( is_feed() || WordPress::isREST() ) {
 
@@ -1228,7 +1232,8 @@ class ShortCodes extends gNetwork\Module
 		if ( FALSE === $args['context'] )
 			return NULL;
 
-		$info = get_bloginfo( $args['key'] );
+		if ( ! $info = get_bloginfo( $args['key'] ) )
+			return $content;
 
 		if ( $args['wrap'] )
 			$info = '<span class="-wrap shortcode-bloginfo -key-'.$args['key'].' '.sprintf( $args['class'], $args['key'] ).'">'.$info.'</span>';
@@ -1280,8 +1285,11 @@ class ShortCodes extends gNetwork\Module
 			'after'    => '',
 		], $atts, $tag );
 
-		if ( FALSE === $args['context'] || is_feed() || WordPress::isREST() )
+		if ( FALSE === $args['context'] )
 			return NULL;
+
+		if ( is_feed() || WordPress::isREST() )
+			return $content;
 
 		if ( $html = wp_audio_shortcode( $atts, $content ) ) {
 
@@ -1567,11 +1575,11 @@ class ShortCodes extends gNetwork\Module
 		if ( $args['name'] )
 			$person = trim( $args['name'] );
 
-		else if ( is_null( $content ) )
-			return NULL;
+		else if ( trim( $content ) )
+			$person = trim( $content );
 
 		else
-			$person = trim( strip_tags( $content ) );
+			return $content;
 
 		if ( ! array_key_exists( $person, $this->people ) ) {
 			$term = get_term_by( 'name', $person, $this->people_tax );
