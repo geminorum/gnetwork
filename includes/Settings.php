@@ -452,13 +452,14 @@ class Settings extends Core\Base
 		];
 	}
 
-	public static function getSetting_dashboard_accesscap()
+	public static function getSetting_dashboard_accesscap( $default = NULL )
 	{
 		return [
 			'field'       => 'dashboard_accesscap',
 			'type'        => 'cap',
 			'title'       => _x( 'Access Level', 'Settings: Setting Title', GNETWORK_TEXTDOMAIN ),
 			'description' => _x( 'Selected and above can view the dashboard widget.', 'Settings: Setting Desc', GNETWORK_TEXTDOMAIN ),
+			'default'     => $default ?: '',
 		];
 	}
 

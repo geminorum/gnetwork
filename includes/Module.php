@@ -893,7 +893,7 @@ class Module extends Core\Base
 
 		$settings = __NAMESPACE__.'\\Settings';
 
-		// passing as custom description
+		// passing as custom variable
 		if ( is_string( $key ) && method_exists( $settings, 'getSetting_'.$key ) )
 			return call_user_func_array( [ $settings, 'getSetting_'.$key ], [ $field ] );
 

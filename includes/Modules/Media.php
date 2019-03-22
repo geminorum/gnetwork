@@ -98,7 +98,7 @@ class Media extends gNetwork\Module
 			],
 			'_uploader' => [
 				'dashboard_widget',
-				'dashboard_accesscap',
+				'dashboard_accesscap' => 'edit_others_posts',
 				'dashboard_intro',
 			],
 		];

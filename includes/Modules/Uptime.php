@@ -61,7 +61,7 @@ class Uptime extends gNetwork\Module
 					'dir'         => 'ltr',
 				],
 				'dashboard_widget',
-				'dashboard_accesscap',
+				'dashboard_accesscap' => 'edit_theme_options',
 			],
 		];
 	}

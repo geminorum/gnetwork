@@ -88,7 +88,7 @@ class Cron extends gNetwork\Module
 			],
 			'_statuscheck' => [
 				'dashboard_widget',
-				'dashboard_accesscap',
+				'dashboard_accesscap' => 'edit_theme_options',
 				'dashboard_intro',
 				[
 					'field'       => 'status_email_failure',
