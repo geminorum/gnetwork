@@ -278,7 +278,7 @@ class Authors extends gNetwork\Module
 
 		WordPress::doNotCache();
 
-		return $content;
+		return do_shortcode( $content );
 	}
 
 	public function shortcode_not_logged_in( $atts = [], $content = NULL, $tag = '' )
@@ -298,7 +298,7 @@ class Authors extends gNetwork\Module
 			return $args['text'];
 		}
 
-		return $content;
+		return do_shortcode( $content );
 	}
 
 	public function wp_insert_post_data( $data, $postarr )
