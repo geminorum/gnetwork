@@ -341,7 +341,7 @@ class Admin extends gNetwork\Module
 			];
 
 		if ( class_exists( __NAMESPACE__.'\\Media' )
-			&& current_user_can( 'edit_others_posts' ) )
+			&& current_user_can( gNetwork()->option( 'tools_accesscap', 'media', 'edit_others_posts' ) ) )
 			$tabs['imagesizes'] = [
 				'title' => _x( 'Registered Image Sizes', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ),
 				'cb'    => [ __NAMESPACE__.'\\Media', 'registeredImageSizes' ],
