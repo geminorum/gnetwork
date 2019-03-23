@@ -253,13 +253,14 @@ class Maintenance extends gNetwork\Module
 		return $class ? HTML::wrap( $html, $class ) : $html;
 	}
 
-	public function default_template( $logged_in = FALSE )
+	public function default_template()
 	{
-		$retry   = '30'; // minutes
-		$status  = $this->options['status_code'];
-		$desc    = HTTP::getStatusDesc( $this->options['status_code'] );
-		$message = self::get503Message( FALSE );
-		$rtl     = is_rtl();
+		$content_title   = $head_title = $this->options['status_code'];
+		$content_desc    = HTTP::getStatusDesc( $this->options['status_code'] );
+		$content_message = self::get503Message( FALSE );
+
+		$retry = '30'; // minutes
+		$rtl   = is_rtl();
 
 		if ( function_exists( 'nocache_headers' ) )
 			nocache_headers();
@@ -270,51 +271,21 @@ class Maintenance extends gNetwork\Module
 		@header( "Content-Type: text/html; charset=utf-8" );
 		@header( "Retry-After: ".( $retry * 60 ) );
 
-?><!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title><?php echo $status; ?></title>
-<style type="text/css">
-:root {
-  font-size: calc(1vw + 1vh + .5vmin);
-}
-html, body, .wrap {
-  height: 100%;
-  margin: 0;
-}
-body {
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Tahoma, Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-	color: #333;
-	background: #f7f7f7;
-}
-.wrap {
-	text-align: center;
-	display: -webkit-flex;
-	display: flex;
-	-webkit-align-items: center;
-	align-items: center;
-	-webkit-justify-content: center;
-	justify-content: center;
-}
-h1 { color: #d9534f; }
-h1, h3 { margin: 0; }
-.small { font-size: small; }
-</style></head><body><div class="wrap"><div><?php
+		if ( $header = Utilities::getLayout( 'system.header' ) )
+			require_once( $header ); // to expose scope vars
 
-	$this->actions( 'template_before' );
+		$this->actions( 'template_before' );
 
-	HTML::h1( $status );
-	HTML::h3( $desc );
+		HTML::h1( $content_title );
+		HTML::h3( $content_desc );
 
-	echo $rtl ? '<div dir="rtl">' : '<div>';
+		echo $rtl ? '<div dir="rtl">' : '<div>';
+			echo Text::autoP( $content_message );
+		echo '</div>';
 
-	echo Text::autoP( $message );
+		$this->actions( 'template_after' );
 
-	$this->actions( 'template_after' );
-
-?></div></div></div></body></html><?php
+		if ( $footer = Utilities::getLayout( 'system.footer' ) )
+			require_once( $footer ); // to expose scope vars
 	}
 }
