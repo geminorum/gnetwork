@@ -154,7 +154,7 @@ class Restricted extends gNetwork\Module
 
 	public function settings_sidebox( $sub, $uri )
 	{
-		$template = Utilities::getLayout( 'error.403' );
+		$template = Utilities::getLayout( 'status.403' );
 
 		HTML::desc( sprintf( _x( 'Current Template: %s', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
 			'<code>'.HTML::link( $template, URL::fromPath( $template ), TRUE ).'</code>' ) );
@@ -456,7 +456,7 @@ class RestrictedBouncer extends \geminorum\gNetwork\Core\Base
 
 		} else {
 
-			Utilities::getLayout( 'error.403', TRUE, TRUE );
+			Utilities::getLayout( 'status.403', TRUE, TRUE );
 			die();
 		}
 	}
@@ -567,7 +567,8 @@ class RestrictedBouncer extends \geminorum\gNetwork\Core\Base
 			if ( $this->options['redirect_page'] ) {
 				WordPress::redirect( get_page_link( $this->options['redirect_page'] ), 403 );
 			} else {
-				Utilities::getLayout( 'error.403', TRUE, TRUE );
+
+				Utilities::getLayout( 'status.403', TRUE, TRUE );
 				die();
 			}
 		}
