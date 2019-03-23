@@ -369,38 +369,42 @@ class RestrictedBouncer extends \geminorum\gNetwork\Core\Base
 	{
 		$this->options = $options;
 
-		add_action( 'init', [ $this, 'init' ], 1 );
-		add_action( 'admin_init', [ $this, 'admin_init' ], 1 );
-		add_action( 'template_redirect', [ $this, 'template_redirect' ], 1 );
+		if ( is_admin() ) {
 
-		if ( ! empty( $options['restricted_notice'] ) )
-			add_filter( 'login_message', [ $this, 'login_message' ] );
+			add_action( 'admin_init', [ $this, 'admin_init' ], 1 );
+
+		} else {
+
+			if ( 'open' != $this->options['restricted_feed'] )
+				add_action( 'init', [ $this, 'init' ], 1 );
+
+			add_action( 'template_redirect', [ $this, 'template_redirect' ], 1 );
+
+			if ( ! empty( $options['restricted_notice'] ) )
+				add_filter( 'login_message', [ $this, 'login_message' ] );
+
+			add_filter( 'rest_authentication_errors', [ $this, 'rest_authentication_errors' ], 999 );
+		}
 
 		// block search engines and robots
 		add_filter( 'robots_txt', [ $this, 'robots_txt' ] );
 		add_filter( 'option_blog_public', '__return_zero', 20 );
-
-		add_filter( 'rest_authentication_errors', [ $this, 'rest_authentication_errors' ], 999 );
 	}
 
 	public function init()
 	{
-		if ( 'open' == $this->options['restricted_feed'] )
-			return;
-
-		if ( is_admin() )
-			return;
-
 		$this->key = self::getUserFeedKey();
 
 		if ( $this->key && is_user_logged_in() )
 			add_filter( 'feed_link', [ $this, 'feed_link' ], 12, 2 );
 
 		$feedkey = isset( $_GET['feedkey'] ) ? trim( $_GET['feedkey'] ) : FALSE;
+
 		if ( ! $feedkey ) {
 
 			// no feed key, do nothing
-			// restrictions comes along automagically!
+			// restriction comes along automagically!
+			// see `template_redirect`
 
 		} else if ( is_user_logged_in() ) {
 
@@ -415,15 +419,16 @@ class RestrictedBouncer extends \geminorum\gNetwork\Core\Base
 
 			global $wpdb;
 
-			$founded = $wpdb->get_results( $wpdb->prepare( "SELECT user_id FROM {$wpdb->usermeta} WHERE meta_value = %s", $feedkey ) );
+			$user_id = $wpdb->get_results( $wpdb->prepare( "SELECT user_id FROM {$wpdb->usermeta} WHERE meta_value = %s", $feedkey ) );
 
-			if ( ! empty( $founded ) ) {
+			if ( ! empty( $user_id ) ) {
+
 				$this->valid = TRUE;
 
 				if ( 'logged_in_user' == $this->options['restricted_site'] )
 					$this->access = TRUE;
 
-				else if ( user_can( intval( $founded ), $this->options['restricted_site'] ) )
+				else if ( user_can( intval( $user_id ), $this->options['restricted_site'] ) )
 					$this->access = TRUE;
 			}
 		}
