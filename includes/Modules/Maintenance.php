@@ -157,7 +157,7 @@ class Maintenance extends gNetwork\Module
 			$this->action( 'admin_notices' );
 
 		if ( ! WordPress::cuc( $this->options['maintenance_admin'] ) )
-			WordPress::redirect( get_home_url() );
+			Utilities::redirectHome();
 	}
 
 	public function do_feed_feed()

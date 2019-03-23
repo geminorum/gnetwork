@@ -576,6 +576,11 @@ class Utilities extends Core\Base
 		return substr( $ISO639, 0, strpos( $ISO639, '-' ) );
 	}
 
+	public static function redirectHome()
+	{
+		WordPress::redirect( get_home_url() );
+	}
+
 	public static function redirect404()
 	{
 		if ( $custom = gNetwork()->option( 'page_404', 'blog' ) )

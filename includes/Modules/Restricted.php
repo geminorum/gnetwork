@@ -62,7 +62,7 @@ class Restricted extends gNetwork\Module
 
 				} else {
 
-					WordPress::redirect( get_home_url() );
+					Utilities::redirectHome();
 				}
 			}
 
