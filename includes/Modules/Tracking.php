@@ -25,6 +25,7 @@ class Tracking extends gNetwork\Module
 		$this->action( 'wp_footer', 0, 99 );
 
 		$this->filter( 'amp_post_template_analytics' );
+		$this->action_module( 'maintenance', 'template_after' );
 	}
 
 	public function setup_menu( $context )
@@ -308,6 +309,11 @@ class Tracking extends gNetwork\Module
 		return $analytics;
 	}
 
+	public function maintenance_template_after()
+	{
+		echo self::getContact( 'contact small' );
+	}
+
 	public static function getContact( $class = 'contact', $fallback = FALSE )
 	{
 		if ( ! $twitter = gNetwork()->option( 'twitter_site', 'tracking', $fallback ) )
@@ -319,8 +325,7 @@ class Tracking extends gNetwork\Module
 			'href'  => 'https://twitter.com/intent/user?screen_name='.substr( $handle, 1 ),
 			'title' => _x( 'Follow Us', 'Modules: Tracking', GNETWORK_TEXTDOMAIN ),
 			'rel'   => 'follow',
-			'dir'   => 'ltr',
-		], $handle );
+		], HTML::wrapLTR( $handle ) );
 
 		return $class ? HTML::wrap( $html, $class ) : $html;
 	}

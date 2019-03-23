@@ -26,6 +26,8 @@ class Branding extends gNetwork\Module
 		add_action( 'network_credits', function(){
 			gnetwork_credits();
 		} );
+
+		$this->action_module( 'maintenance', 'template_before' );
 	}
 
 	public function setup_menu( $context )
@@ -300,6 +302,15 @@ class Branding extends gNetwork\Module
 		$site = get_site_icon_url( $size, FALSE, get_main_site_id() );
 
 		return FALSE === $site ? '' : $site;
+	}
+
+	public function maintenance_template_before()
+	{
+		if ( $this->options['network_sitelogo'] )
+			echo HTML::img( $this->options['network_sitelogo'] );
+
+		else
+			echo self::getLogo( FALSE, FALSE );
 	}
 
 	// FIXME: get from site logo / not used yet

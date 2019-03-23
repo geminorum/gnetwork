@@ -225,8 +225,8 @@ class Maintenance extends gNetwork\Module
 
 			} else {
 
-				// FIXME: probably, Not works for themes because of the fire order
-				$default_template = $this->filters( 'default_template', [ $this, 'template_503' ] );
+				// FIXME: probably, filter will not work for themes because of the fire order
+				$default_template = $this->filters( 'default_template', [ $this, 'default_template' ] );
 				call_user_func_array( $default_template, [ TRUE ] );
 			}
 
@@ -267,11 +267,11 @@ class Maintenance extends gNetwork\Module
 		return $html;
 	}
 
-	// FIXME: use self::get503Message()
-	public function template_503( $logged_in = FALSE )
+	public function default_template( $logged_in = FALSE )
 	{
-		$title   = '503';
 		$retry   = '30'; // minutes
+		$status  = $this->options['status_code'];
+		$desc    = HTTP::getStatusDesc( $this->options['status_code'] );
 		$message = self::get503Message( FALSE );
 		$rtl     = is_rtl();
 
@@ -290,7 +290,7 @@ class Maintenance extends gNetwork\Module
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title><?php echo $title; ?></title>
+<title><?php echo $status; ?></title>
 <style type="text/css">
 :root {
   font-size: calc(1vw + 1vh + .5vmin);
@@ -315,17 +315,20 @@ body {
 }
 h1 { color: #d9534f; }
 h1, h3 { margin: 0; }
-</style>
-</head><body>
-<div class="wrap"><div>
+.small { font-size: small; }
+</style></head><body><div class="wrap"><div><?php
 
-<h1>503</h1>
-<h3>Service Unavailable</h3>
+	$this->actions( 'template_before' );
 
-<?php echo $rtl ? '<div dir="rtl">' : '<div>';
-echo Text::autoP( $message ); ?>
+	HTML::h1( $status );
+	HTML::h3( $desc );
 
-</div></div></div>
-</body></html><?php
+	echo $rtl ? '<div dir="rtl">' : '<div>';
+
+	echo Text::autoP( $message );
+
+	$this->actions( 'template_after' );
+
+?></div></div></div></body></html><?php
 	}
 }
