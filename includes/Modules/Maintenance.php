@@ -122,41 +122,42 @@ class Maintenance extends gNetwork\Module
 
 	public function settings_sidebox( $sub, $uri )
 	{
-		if ( $template = self::getTemplate() )
-			HTML::desc( sprintf( _x( 'Current Template: %s', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
-				'<code>'.HTML::link( File::normalize( $template ), URL::fromPath( $template ), TRUE ).'</code>' ) );
+		if ( $layout = $this->get_maintenance_layout() ) {
 
-		else
+			HTML::desc( sprintf( _x( 'Current Layout: %s', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
+				'<code>'.HTML::link( File::normalize( $layout ), URL::fromPath( $layout ), TRUE ).'</code>' ) );
+
+		} else {
+
 			HTML::desc( _x( 'There are no templates available. We will use an internal instead.', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ) );
+		}
 	}
 
+	// non-admin only
 	public function init()
 	{
-		if ( ! WordPress::cuc( $this->options['maintenance_site'] ) ) {
-			$this->action( 'template_redirect' );
-			$this->filter( 'status_header', 4 );
+		// feeds are always unavailable
+		foreach ( Utilities::getFeeds() as $feed )
+			add_action( 'do_feed_'.$feed, [ $this, 'do_feed_feed' ], 1, 1 );
 
-			if ( $this->options['login_message'] )
-				$this->filter( 'login_message' );
+		if ( WordPress::cuc( $this->options['maintenance_site'] ) )
+			return;
 
-			foreach ( Utilities::getFeeds() as $feed )
-				add_action( 'do_feed_'.$feed, [ $this, 'do_feed_feed' ], 1, 1 );
+		$this->action( 'template_redirect' );
+		$this->filter( 'status_header', 4 );
+		$this->filter( 'rest_authentication_errors', 1, 999 );
 
-			$this->filter( 'rest_authentication_errors', 1, 999 );
-		}
+		if ( $this->options['login_message'] )
+			$this->filter( 'login_message' );
 	}
 
 	public function admin_init()
 	{
-		$this->action( 'admin_notices' );
+		if ( $this->options['admin_notice'] )
+			$this->action( 'admin_notices' );
 
-		if ( 'profile.php' == $GLOBALS['pagenow'] )
-			return;
-
-		if ( WordPress::cuc( $this->options['maintenance_admin'] ) )
-			return;
-
-		WordPress::redirect( get_edit_profile_url( get_current_user_id() ) );
+		if ( ! WordPress::cuc( $this->options['maintenance_admin'] ) )
+			WordPress::redirect( get_home_url() );
 	}
 
 	public function do_feed_feed()
@@ -167,7 +168,7 @@ class Maintenance extends gNetwork\Module
 
 		HTTP::headerRetryInMinutes( $this->options['retry_after'] );
 
-		echo '<?xml version="1.0" encoding="UTF-8"?><status>'.get_status_header_desc( $this->options['status_code'] ).'</status>';
+		echo '<?xml version="1.0" encoding="UTF-8"?><status>'.HTTP::getStatusDesc( $this->options['status_code'] ).'</status>';
 
 		die();
 	}
@@ -177,13 +178,12 @@ class Maintenance extends gNetwork\Module
 		if ( current_user_can( 'manage_options' ) )
 			return $status_header;
 
-		return $protocol.' '.$this->options['status_code'].' '.get_status_header_desc( $this->options['status_code'] );
+		return $protocol.' '.$this->options['status_code'].' '.HTTP::getStatusDesc( $this->options['status_code'] );
 	}
 
 	public function admin_notices()
 	{
-		if ( $this->options['admin_notice'] && ! empty( $this->options['admin_notice'] )  )
-			echo HTML::warning( $this->options['admin_notice'] );
+		echo HTML::warning( $this->options['admin_notice'] );
 	}
 
 	public function dashboard_pointers( $items )
@@ -211,45 +211,35 @@ class Maintenance extends gNetwork\Module
 
 	public function template_redirect()
 	{
-		if ( is_user_logged_in() ) {
+		if ( $layout = $this->get_maintenance_layout() )
+			require_once( $layout );
 
-			if ( WordPress::cuc( $this->options['maintenance_site'] ) )
-				return;
+		else if ( $callback = $this->filters( 'default_template', [ $this, 'default_template' ] ) )
+			call_user_func( $callback );
 
-			WordPress::redirect( get_edit_profile_url( get_current_user_id() ) );
-
-		} else {
-
-			if ( $template = self::getTemplate() ) {
-
-				require_once( $template );
-
-			} else {
-
-				// FIXME: probably, filter will not work for themes because of the fire order
-				$default_template = $this->filters( 'default_template', [ $this, 'default_template' ] );
-				call_user_func_array( $default_template, [ TRUE ] );
-			}
-
-			die();
-		}
+		die();
 	}
 
-	public static function getTemplate()
+	private function get_maintenance_layout()
 	{
-		if ( $override = apply_filters( 'gnetwork_maintenance_forced_template', FALSE ) )
-			return $override;
+		if ( $layout = Utilities::getLayout( 'status.'.$this->options['status_code'] ) )
+			return $layout;
 
-		else if ( ! is_admin() && locate_template( '503.php' ) )
-			return locate_template( '503.php' );
+		// skip double check for `status.503.php`
+		if ( '503' != $this->options['status_code'] && ( $layout = Utilities::getLayout( 'status.503' ) ) )
+			return $layout;
 
-		else if ( file_exists( WP_CONTENT_DIR.'/503.php' ) )
-			return WP_CONTENT_DIR.'/503.php';
-
-		else if ( file_exists( WP_CONTENT_DIR.'/maintenance.php' ) )
-			return WP_CONTENT_DIR.'/maintenance.php';
+		// WORKING but Disabled: `maintenance.php` lacks customizations
+		// default core template for maintenance
+		// if ( $layout = Utilities::getLayout( 'maintenance' ) )
+		// 	return $layout;
 
 		return FALSE;
+	}
+
+	public static function is()
+	{
+		return ( ! WordPress::cuc( gNetwork()->option( 'maintenance_site', 'maintenance', 'none' ) ) );
 	}
 
 	public static function get503Message( $class = 'message', $fallback = NULL )
@@ -260,12 +250,7 @@ class Maintenance extends gNetwork\Module
 
 		$html = gNetwork()->option( 'login_message', 'maintenance', $fallback );
 
-		if ( $class )
-			$html = HTML::tag( 'div', [
-				'class' => $class,
-			], $html );
-
-		return $html;
+		return $class ? HTML::wrap( $html, $class ) : $html;
 	}
 
 	public function default_template( $logged_in = FALSE )
