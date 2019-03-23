@@ -60,6 +60,9 @@ class Admin extends gNetwork\Module
 		if ( gNetwork()->module( 'adminbar' ) && ! gNetwork()->adminbar->show_adminbar() )
 			$classes.= ' hide-adminbar-option';
 
+		if ( class_exists( __NAMESPACE__.'\\Restricted' ) && Restricted::is() )
+			$classes.= ' hide-admin-menu';
+
 		if ( WordPress::isSuperAdmin() )
 			$classes.= ' current-user-superadmin';
 

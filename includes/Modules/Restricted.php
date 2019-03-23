@@ -294,7 +294,13 @@ class Restricted extends gNetwork\Module
 
 	public static function is()
 	{
-		return ( ! WordPress::cuc( gNetwork()->option( 'restricted_site', 'restricted' ) ) );
+		if ( ! $cap = gNetwork()->option( 'restricted_site', 'restricted' ) )
+			return FALSE;
+
+		if ( WordPress::cuc( $cap ) )
+			return FALSE;
+
+		return TRUE;
 	}
 
 	public static function getFeeds( $feed_key = FALSE, $check = TRUE )
