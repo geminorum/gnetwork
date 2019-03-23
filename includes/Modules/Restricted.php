@@ -53,10 +53,8 @@ class Restricted extends gNetwork\Module
 
 			if ( is_admin() ) {
 
-				global $pagenow;
-
 				if ( 'open' == $this->options['restricted_profile']
-					&& 'profile.php' == $pagenow ) {
+					&& WordPress::pageNow( 'profile.php' ) ) {
 
 						// do nothing
 
@@ -444,10 +442,8 @@ class RestrictedBouncer extends \geminorum\gNetwork\Core\Base
 		if ( WordPress::cuc( $this->options['restricted_admin'] ) )
 			return;
 
-		global $pagenow;
-
 		if ( 'open' == $this->options['restricted_profile']
-			&& 'profile.php' == $pagenow ) {
+			&& WordPress::pageNow( 'profile.php' ) ) {
 
 			// do nothing
 
