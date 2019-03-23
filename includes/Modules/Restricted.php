@@ -145,7 +145,7 @@ class Restricted extends gNetwork\Module
 					'field'       => 'restricted_access',
 					'type'        => 'textarea-quicktags',
 					'title'       => _x( 'Restricted Access', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => sprintf( _x( 'Displays on 403 error page for logged-in users. Use %1$s for the role, and %2$s for the page.', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ), '<code>%1$s</code>', '<code>%2$s</code>' ),
+					'description' => sprintf( _x( 'Displays on 403 status page for logged-in users. Use %1$s for the role, and %2$s for the page.', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ), '<code>%1$s</code>', '<code>%2$s</code>' ),
 					'default'     => _x( '<p>You do not have %1$s access level. Please visit <a href="%2$s">here</a> to request access.</p>', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 			],
@@ -546,11 +546,8 @@ class RestrictedBouncer extends \geminorum\gNetwork\Core\Base
 				|| bp_is_current_component( 'activate' ) ) )
 					return;
 
-		if ( 'closed' == $this->options['restricted_feed']
-			&& is_feed() ) {
-				$this->check_feed_access();
-				return;
-		}
+		if ( 'closed' == $this->options['restricted_feed'] && is_feed() )
+			return $this->check_feed_access();
 
 		if ( $this->options['redirect_page']
 			&& is_page( intval( $this->options['redirect_page'] ) ) )
@@ -565,7 +562,9 @@ class RestrictedBouncer extends \geminorum\gNetwork\Core\Base
 				return;
 
 			if ( $this->options['redirect_page'] ) {
+
 				WordPress::redirect( get_page_link( $this->options['redirect_page'] ), 403 );
+
 			} else {
 
 				Utilities::getLayout( 'status.403', TRUE, TRUE );
@@ -573,29 +572,26 @@ class RestrictedBouncer extends \geminorum\gNetwork\Core\Base
 			}
 		}
 
-		$current_url = URL::current();
-
 		if ( ! is_front_page() && ! is_home() )
-			WordPress::redirectLogin( $current_url );
+			WordPress::redirectLogin( URL::current() );
 
 		if ( $this->options['redirect_page'] )
 			WordPress::redirect( get_page_link( $this->options['redirect_page'] ), 403 );
 
-		WordPress::redirectLogin( $current_url );
+		WordPress::redirectLogin( URL::current() );
 	}
 
 	public function login_message()
 	{
 		echo '<div id="login_error">';
 
-			echo Restricted::getNotice(
-				$this->options['restricted_notice'],
-				$this->options['restricted_site'],
-				$this->options['redirect_page'] );
+		echo Restricted::getNotice(
+			$this->options['restricted_notice'],
+			$this->options['restricted_site'],
+			$this->options['redirect_page']
+		);
 
-		echo '</div>';
-
-		echo '<style>#backtoblog {display:none;}</style>';
+		echo '</div><style>#backtoblog{display:none;}</style>';
 	}
 
 	public function robots_txt( $output )
@@ -608,9 +604,12 @@ class RestrictedBouncer extends \geminorum\gNetwork\Core\Base
 		if ( current_user_can( $this->options['restricted_site'] ) )
 			return $null;
 
-		return new Error( 'restricted', Restricted::getNotice(
+		$notice = Restricted::getNotice(
 			$this->options['restricted_notice'],
 			$this->options['restricted_site'],
-			$this->options['redirect_page'] ), [ 'status' => 403 ] );
+			$this->options['redirect_page']
+		);
+
+		return new Error( 'restricted', $notice, [ 'status' => 403 ] );
 	}
 }

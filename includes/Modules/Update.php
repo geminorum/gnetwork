@@ -166,7 +166,7 @@ class Update extends gNetwork\Module
 
 			$count = $this->refresh_packages();
 
-			WordPress::redirectReferer( FALSE === $count ? 'wrong' : [
+			WordPress::redirectReferer( FALSE === $count ? 'nochange' : [
 				'message' => 'synced',
 				'count'   => $count,
 			] );

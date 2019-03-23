@@ -68,9 +68,7 @@ class Settings extends Core\Base
 
 		echo '<div class="side-nav-wrap">';
 
-		if ( $title )
-			echo HTML::tag( 'h1', [ 'class' => '-title' ], $title );
-
+		HTML::h1( $title, '-title' );
 		HTML::headerNav( $uri, $active, $subs, 'side-nav', 'ul', 'li' );
 
 		echo '<div class="side-nav-content">';

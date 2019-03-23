@@ -221,6 +221,7 @@ class Maintenance extends gNetwork\Module
 		} else {
 
 			if ( $template = self::getTemplate() ) {
+
 				require_once( $template );
 
 			} else {
