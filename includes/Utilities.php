@@ -386,15 +386,17 @@ class Utilities extends Core\Base
 
 	public static function getLayout( $name, $require = FALSE, $no_cache = FALSE )
 	{
-		$layout = locate_template( $name );
+		$content = WP_CONTENT_DIR.'/'.$name.'.php';
+		$plugin  = GNETWORK_DIR.'includes/Layouts/'.$name.'.php';
+		$layout  = locate_template( $name );
 
-		if ( ! $layout && file_exists( WP_CONTENT_DIR.'/'.$name.'.php' ) )
-			$layout = WP_CONTENT_DIR.'/'.$name.'.php';
+		if ( ! $layout && file_exists( $content ) )
+			$layout = $content;
 
-		if ( ! $layout )
-			$layout = GNETWORK_DIR.'includes/Layouts/'.$name.'.php';
+		if ( ! $layout && file_exists( $plugin ) )
+			$layout = $plugin;
 
-		if ( $no_cache )
+		if ( $no_cache && $layout )
 			WordPress::doNotCache();
 
 		if ( $require && $layout )
