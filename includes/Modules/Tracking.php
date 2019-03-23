@@ -327,6 +327,6 @@ class Tracking extends gNetwork\Module
 			'rel'   => 'follow',
 		], HTML::wrapLTR( $handle ) );
 
-		return $class ? HTML::wrap( $html, $class ) : $html;
+		return $class ? HTML::wrap( $html, $class, FALSE ) : $html;
 	}
 }

@@ -61,6 +61,7 @@ class Restricted extends gNetwork\Module
 						// do nothing
 
 				} else {
+
 					WordPress::redirect( get_home_url() );
 				}
 			}
@@ -294,13 +295,7 @@ class Restricted extends gNetwork\Module
 
 	public static function is()
 	{
-		if ( ! $cap = gNetwork()->option( 'restricted_site', 'restricted' ) )
-			return FALSE;
-
-		if ( WordPress::cuc( $cap ) )
-			return FALSE;
-
-		return TRUE;
+		return ( ! WordPress::cuc( gNetwork()->option( 'restricted_site', 'restricted', 'none' ) ) );
 	}
 
 	public static function getFeeds( $feed_key = FALSE, $check = TRUE )
