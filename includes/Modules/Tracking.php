@@ -25,7 +25,8 @@ class Tracking extends gNetwork\Module
 		$this->action( 'wp_footer', 0, 99 );
 
 		$this->filter( 'amp_post_template_analytics' );
-		$this->action_module( 'maintenance', 'template_after' );
+		$this->action_module( 'maintenance', 'template_after', 0, 15 );
+		$this->action_module( 'restricted', 'template_after', 0, 15 );
 	}
 
 	public function setup_menu( $context )
@@ -310,6 +311,11 @@ class Tracking extends gNetwork\Module
 	}
 
 	public function maintenance_template_after()
+	{
+		echo self::getContact( 'contact small' );
+	}
+
+	public function restricted_template_after()
 	{
 		echo self::getContact( 'contact small' );
 	}

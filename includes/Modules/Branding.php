@@ -27,7 +27,8 @@ class Branding extends gNetwork\Module
 			gnetwork_credits();
 		} );
 
-		$this->action_module( 'maintenance', 'template_before' );
+		$this->action_module( 'maintenance', 'template_before', 0, 5 );
+		$this->action_module( 'restricted', 'template_before', 0, 5 );
 	}
 
 	public function setup_menu( $context )
@@ -305,6 +306,15 @@ class Branding extends gNetwork\Module
 	}
 
 	public function maintenance_template_before()
+	{
+		if ( $this->options['network_sitelogo'] )
+			echo HTML::img( $this->options['network_sitelogo'] );
+
+		else
+			echo self::getLogo( FALSE, FALSE );
+	}
+
+	public function restricted_template_before()
 	{
 		if ( $this->options['network_sitelogo'] )
 			echo HTML::img( $this->options['network_sitelogo'] );

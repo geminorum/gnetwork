@@ -15,9 +15,6 @@ class Navigation extends gNetwork\Module
 	protected $key  = 'navigation';
 	protected $ajax = TRUE;
 
-	private $restricted = FALSE;   // restricted support
-	private $feeds      = []; // restricted support
-
 	protected function setup_actions()
 	{
 		$this->filter( 'wp_nav_menu_items', 2, 20 );
@@ -33,15 +30,6 @@ class Navigation extends gNetwork\Module
 
 		$this->action( 'after_setup_theme' );
 		$this->action( 'save_post_nav_menu_item', 2 );
-	}
-
-	public function init()
-	{
-		// restricted support
-		if ( class_exists( __NAMESPACE__.'\\Restricted' ) ) {
-			$this->restricted = Restricted::is();
-			$this->feeds      = Restricted::getFeeds( FALSE, $this->restricted );
-		}
 	}
 
 	public function get_global_menus()
@@ -168,18 +156,19 @@ class Navigation extends gNetwork\Module
 
 	public function get_general_pages()
 	{
-		$items = [];
+		$items   = [];
+		$default = get_default_feed();
 
 		$items[] = [
-			'name' => _x( 'RSS Feed', 'Modules: Navigation', GNETWORK_TEXTDOMAIN ),
-			'slug' => 'feed',
-			'link' => get_feed_link( 'rss2' ),
+			'name' => _x( 'Default Posts Feed', 'Modules: Navigation', GNETWORK_TEXTDOMAIN ),
+			'slug' => 'posts_feed',
+			'link' => get_feed_link( $default ),
 		];
 
 		$items[] = [
-			'name' => _x( 'RSS Comments Feed', 'Modules: Navigation', GNETWORK_TEXTDOMAIN ),
+			'name' => _x( 'Default Comments Feed', 'Modules: Navigation', GNETWORK_TEXTDOMAIN ),
 			'slug' => 'comments_feed',
-			'link' => get_feed_link( 'comments_rss2' ),
+			'link' => get_feed_link( 'comments_'.$default ),
 		];
 
 		return $this->decorate_items( $this->filters( 'general_items', $items ) );
@@ -342,20 +331,20 @@ class Navigation extends gNetwork\Module
 					$menu_item->_invalid = TRUE;
 
 			break;
-			case 'feed':
+			case 'posts_feed':
 
-				if ( $this->restricted ) {
+				if ( class_exists( __NAMESPACE__.'\\Restricted' ) && Restricted::enabled() )
 					WordPress::doNotCache();
-					$menu_item->url = $this->feeds['rss2'];
-				}
+
+				$menu_item->url = get_feed_link();
 
 			break;
 			case 'comments_feed':
 
-				if ( $this->restricted ) {
+				if ( class_exists( __NAMESPACE__.'\\Restricted' ) && Restricted::enabled() )
 					WordPress::doNotCache();
-					$menu_item->url = $this->feeds['comments_rss2_url'];
-				}
+
+				$menu_item->url = get_feed_link( 'comments_'.get_default_feed() );
 
 			break;
 			default:

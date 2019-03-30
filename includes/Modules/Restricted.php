@@ -6,7 +6,10 @@ use geminorum\gNetwork;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\Error;
+use geminorum\gNetwork\Core\File;
 use geminorum\gNetwork\Core\HTML;
+use geminorum\gNetwork\Core\HTTP;
+use geminorum\gNetwork\Core\Text;
 use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
 
@@ -16,24 +19,38 @@ class Restricted extends gNetwork\Module
 	protected $key     = 'restricted';
 	protected $network = FALSE;
 
-	private $bouncer = FALSE;
+	private $status_code = 403;
+	private $feed_key    = NULL;
 
 	protected function setup_actions()
 	{
-		if ( 'none' != $this->options['restricted_site'] )
-			$this->bouncer = new RestrictedBouncer( $this->options );
+		if ( is_admin() ) {
 
-		$this->action( 'init', 0, 2 );
+			if ( 'none' != $this->options['access_admin'] )
+				$this->action( 'admin_init', 0, 1 );
 
-		if ( ! is_admin() )
-			return;
+			if ( 'none' != $this->options['access_site'] ) {
 
-		if ( 'none' != $this->options['restricted_site'] )
-			$this->filter_module( 'dashboard', 'pointers' );
+				$this->filter( 'privacy_on_link_title', 1, 20 );
+				$this->filter( 'privacy_on_link_text', 1, 20 );
 
-		// TODO: support front-end profile
-		add_action( 'load-profile.php', [ $this, 'load_profile' ] );
-		add_action( 'load-user-edit.php', [ $this, 'load_profile' ] );
+				$this->filter_module( 'dashboard', 'pointers' );
+
+				if ( ! is_network_admin() && ! is_user_admin() ) {
+
+					add_action( 'load-profile.php', [ $this, 'load_profile' ] );
+					add_action( 'load-user-edit.php', [ $this, 'load_profile' ] );
+				}
+			}
+
+		} else {
+
+			if ( 'none' != $this->options['access_site'] ) {
+
+				$this->action( 'init', 0, 1 );
+				$this->filter( 'rest_authentication_errors', 1, 999 );
+			}
+		}
 	}
 
 	public function setup_menu( $context )
@@ -44,44 +61,15 @@ class Restricted extends gNetwork\Module
 		);
 	}
 
-	public function init()
-	{
-		if ( ! is_user_logged_in() )
-			return;
-
-		if ( ! WordPress::cuc( $this->options['restricted_admin'] ) ) {
-
-			if ( is_admin() ) {
-
-				if ( 'open' == $this->options['restricted_profile']
-					&& WordPress::pageNow( 'profile.php' ) ) {
-
-						// do nothing
-
-				} else {
-
-					Utilities::redirectHome();
-				}
-			}
-
-			$this->remove_menus();
-
-		} else if ( ! WordPress::cuc( $this->options['restricted_site'] ) ) {
-
-			$this->remove_menus();
-		}
-	}
-
 	public function default_options()
 	{
 		return [
-			'restricted_site'    => 'none',
-			'restricted_admin'   => 'none',
-			'restricted_profile' => 'open',
-			'restricted_feed'    => 'open',
-			'redirect_page'      => '0',
-			'restricted_notice'  => '',
-			'restricted_access'  => '',
+			'access_site'        => 'none', // restricted_site
+			'access_admin'       => 'none', // restricted_admin
+			'access_profile'     => 'open', // restricted_profile
+			'redirect_to_page'   => '0', // redirect_page
+			'restricted_notice'  => '', // login_message
+			'restricted_message' => '', // restricted_access
 		];
 	}
 
@@ -90,21 +78,21 @@ class Restricted extends gNetwork\Module
 		return [
 			'_general' => [
 				[
-					'field'       => 'restricted_site',
+					'field'       => 'access_site',
 					'type'        => 'cap',
 					'title'       => _x( 'Site Restriction', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Only this role and above can access to the site.', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => 'none',
 				],
 				[
-					'field'       => 'restricted_admin',
+					'field'       => 'access_admin',
 					'type'        => 'cap',
 					'title'       => _x( 'Admin Restriction', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Only this role and above can access to the site\'s admin pages.', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => 'none',
 				],
 				[
-					'field'       => 'restricted_profile',
+					'field'       => 'access_profile',
 					'type'        => 'select',
 					'title'       => _x( 'Admin Profile', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Whether admin profile can be accessed if the site is in restricted mode.', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
@@ -115,18 +103,7 @@ class Restricted extends gNetwork\Module
 					],
 				],
 				[
-					'field'       => 'restricted_feed',
-					'type'        => 'select',
-					'title'       => _x( 'Feed Restriction', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Whether default feeds available if the site is in restricted mode.', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
-					'default'     => 'open',
-					'values'      => [
-						'open'   => _x( 'Open', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
-						'closed' => _x( 'Restricted', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
-					],
-				],
-				[
-					'field'       => 'redirect_page',
+					'field'       => 'redirect_to_page',
 					'type'        => 'page',
 					'title'       => _x( 'Restricted Page', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Redirects not authorized users to this page. If not selected will redirect to the login page.', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
@@ -141,9 +118,9 @@ class Restricted extends gNetwork\Module
 					'default'     => _x( '<p>This site is restricted to users with %1$s access level. Please visit <a href="%2$s">here</a> to request access.</p>', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
-					'field'       => 'restricted_access',
+					'field'       => 'restricted_message',
 					'type'        => 'textarea-quicktags',
-					'title'       => _x( 'Restricted Access', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Restricted Message', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => sprintf( _x( 'Displays on 403 status page for logged-in users. Use %1$s for the role, and %2$s for the page.', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ), '<code>%1$s</code>', '<code>%2$s</code>' ),
 					'default'     => _x( '<p>You do not have %1$s access level. Please visit <a href="%2$s">here</a> to request access.</p>', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
 				],
@@ -153,22 +130,209 @@ class Restricted extends gNetwork\Module
 
 	public function settings_sidebox( $sub, $uri )
 	{
-		$template = Utilities::getLayout( 'status.403' );
+		if ( $layout = Utilities::getLayout( 'status.403' ) ) {
 
-		HTML::desc( sprintf( _x( 'Current Template: %s', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
-			'<code>'.HTML::link( $template, URL::fromPath( $template ), TRUE ).'</code>' ) );
+			HTML::desc( sprintf( _x( 'Current Layout: %s', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
+				'<code>'.HTML::link( File::normalize( $layout ), URL::fromPath( $layout ), TRUE ).'</code>' ) );
+
+		} else {
+
+			HTML::desc( _x( 'There are no layouts available. We will use an internal instead.', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ) );
+		}
 	}
 
-	private function remove_menus()
+	public static function is()
 	{
-		AdminBar::removeMenus( [
-			'site-name',
-			'my-sites',
-			'blog-'.get_current_blog_id(),
-			'edit',
-			'new-content',
-			'comments',
-		] );
+		return ( ! WordPress::cuc( gNetwork()->option( 'access_site', 'restricted', 'none' ) ) );
+	}
+
+	public static function enabled()
+	{
+		return ( 'none' != gNetwork()->option( 'access_site', 'restricted', 'none' ) );
+	}
+
+	private function get_user_feedkey( $user_id = FALSE, $generate = TRUE, $reset = FALSE )
+	{
+		if ( ! $user_id && ! is_user_logged_in() )
+			return FALSE;
+
+		if ( ! $user_id )
+			$user_id = get_current_user_id();
+
+		$feedkey = get_user_meta( $user_id, 'feed_key', TRUE );
+
+		if ( $reset || ( $generate && ( empty( $feedkey ) || FALSE == $feedkey ) ) ) {
+
+			$feedkey = $this->generate_user_feedkey();
+
+			update_user_meta( $user_id, 'feed_key', $feedkey );
+		}
+
+		return $feedkey;
+	}
+
+	private function generate_user_feedkey()
+	{
+		$login = $GLOBALS['userdata']->user_login;
+		$pass  = wp_generate_password( 12, TRUE, TRUE );
+
+		return hash_hmac( 'md5', $login.$pass, wp_salt( 'auth' ) );
+	}
+
+	private function prep_notice( $notice, $role, $page = FALSE, $register = TRUE )
+	{
+		if ( $page )
+			$link = get_page_link( $page );
+
+		else if ( $register )
+			$link = WordPress::registerURL( 'site' );
+
+		else
+			$link = '#';
+
+		return sprintf( $notice, Settings::getUserCapList( $role ), $link );
+	}
+
+	public function get_restricted_message()
+	{
+		return $this->prep_notice(
+			$this->options['restricted_message'],
+			$this->options['access_site'],
+			$this->options['redirect_to_page'],
+			FALSE
+		);
+	}
+
+	public function get_restricted_notice()
+	{
+		return $this->prep_notice(
+			$this->options['restricted_notice'],
+			$this->options['access_site'],
+			$this->options['redirect_to_page']
+		);
+	}
+
+	private function render_restricted_layout( $current_user = 0 )
+	{
+		if ( $layout = Utilities::getLayout( 'status.'.$this->status_code ) )
+			require_once( $layout );
+
+		else if ( $callback = $this->filters( 'default_template', [ $this, 'default_template' ] ) )
+			call_user_func( $callback );
+
+		die();
+	}
+
+	// using BuddyPress and on the register page
+	public function is_bp_component()
+	{
+		if ( ! function_exists( 'bp_is_current_component' ) )
+			return FALSE;
+
+		if ( bp_is_current_component( 'register' ) )
+			return TRUE;
+
+		if ( bp_is_current_component( 'activate' ) )
+			return TRUE;
+
+		return FALSE;
+	}
+
+	public function admin_init()
+	{
+		$this->filter( 'feed_link', 2, 12 );
+
+		if ( WordPress::cuc( $this->options['access_admin'] ) )
+			return;
+
+		if ( 'open' == $this->options['access_profile']
+			&& WordPress::pageNow( 'profile.php' ) ) {
+
+			// do nothing
+
+			AdminBar::removeMenus( [
+				'site-name',
+				'my-sites',
+				'blog-'.get_current_blog_id(),
+				'edit',
+				'new-content',
+				'comments',
+			] );
+
+		} else if ( $this->options['redirect_to_page'] ) {
+
+			WordPress::redirect( get_page_link( $this->options['redirect_to_page'] ), 302 );
+
+		} else {
+
+			Utilities::redirectHome();
+		}
+	}
+
+	// non-admin only
+	public function init()
+	{
+		$this->filter( 'feed_link', 2, 12 );
+
+		if ( WordPress::cuc( $this->options['access_site'] ) )
+			return;
+
+		// blocks search engines and robots
+		$this->filter( 'robots_txt' );
+		$this->filter_zero( 'option_blog_public', 20 );
+
+		$this->filter( 'login_message' );
+		// $this->filter( 'status_header', 4 );
+		$this->filter( 'rest_authentication_errors', 1, 999 );
+
+		$this->action( 'template_redirect', 0, 1 );
+	}
+
+	public function feed_link( $output, $feed )
+	{
+		if ( is_null( $this->feed_key ) )
+			$this->feed_key = $this->get_user_feedkey();
+
+		return $this->feed_key
+			? add_query_arg( 'feedkey', $this->feed_key, $output )
+			: $output;
+	}
+
+	public function robots_txt( $output )
+	{
+		return $output.'Disallow: /'."\n";
+	}
+
+	public function status_header( $status_header, $header, $text, $protocol )
+	{
+		return $protocol.' '.$this->status_code.' '.HTTP::getStatusDesc( $this->status_code );
+	}
+
+	public function rest_authentication_errors( $null )
+	{
+		return new Error( 'restricted', $this->get_restricted_notice(), [ 'status' => $this->status_code ] );
+	}
+
+	public function login_message()
+	{
+		if ( ! empty( $options['restricted_notice'] ) ) {
+
+			echo '<div id="login_error">';
+				echo $this->get_restricted_notice();
+			echo '</div>';
+		}
+
+		echo '<style>#backtoblog{display:none;}</style>';
+	}
+
+	public function privacy_on_link_title( $title )
+	{
+		return _x( 'Your site is restricted to public', 'Modules: Restricted: At a Glance', GNETWORK_TEXTDOMAIN );
+	}
+
+	public function privacy_on_link_text( $content )
+	{
+		return _x( 'Public Access Discouraged', 'Modules: Restricted: At a Glance', GNETWORK_TEXTDOMAIN );
 	}
 
 	public function dashboard_pointers( $items )
@@ -184,13 +348,120 @@ class Restricted extends gNetwork\Module
 		return $items;
 	}
 
+	public function template_redirect()
+	{
+		if ( is_feed() || 'json' === get_query_var( 'feed' ) ) {
+
+			if ( $this->is_restricted_feed( trim( self::req( 'feedkey' ) ) ) ) {
+
+				foreach ( Utilities::getFeeds() as $feed )
+					add_action( 'do_feed_'.$feed, [ $this, 'do_feed_restricted' ], 1, 2 );
+			}
+
+			return;
+		}
+
+		if ( $this->is_bp_component() )
+			return;
+
+		if ( $this->options['redirect_to_page'] && is_page( intval( $this->options['redirect_to_page'] ) ) )
+			return;
+
+		$current_user = get_current_user_id();
+
+		if ( $current_user && WordPress::cuc( $this->options['access_site'] ) )
+			return;
+
+		if ( ! $current_user && ! is_front_page() && ! is_home() )
+			WordPress::redirectLogin( URL::current() );
+
+		if ( $this->options['redirect_to_page'] )
+			WordPress::redirect( get_page_link( $this->options['redirect_to_page'] ), 303 );
+
+		if ( $current_user )
+			$this->render_restricted_layout( $current_user );
+
+		WordPress::redirectLogin();
+	}
+
+	private function is_restricted_feed( $feedkey )
+	{
+		global $wpdb;
+
+		if ( empty( $feedkey ) )
+			return TRUE;
+
+		$query = $wpdb->prepare( "SELECT user_id FROM {$wpdb->usermeta} WHERE meta_value = %s", $feedkey );
+		$user  = $wpdb->get_results( $query );
+
+		if ( empty( $user ) )
+			return TRUE;
+
+		// valid key is sufficient
+		if ( '_logged_in' == $this->options['access_site'] )
+			return FALSE;
+
+		if ( user_can( $user, $this->options['access_site'] ) )
+			return FALSE;
+
+		return TRUE;
+	}
+
+	public function do_feed_restricted( $is_comment_feed, $feed )
+	{
+		if ( 'json' == $feed ) {
+
+			// TODO: use `_json_wp_die_handler()` since WP 5.2.0
+
+			$json = [
+				'code'    => $this->status_code,
+				'message' => _x( 'You are not authorized to access this site\'s feed.', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
+				'data'    => [ 'status' => $this->status_code ]
+			];
+
+			if ( ! headers_sent() ) {
+				header( 'Content-Type: application/json; charset=utf-8' );
+				status_header( $this->status_code );
+				nocache_headers();
+			}
+
+			echo wp_json_encode( $json );
+
+		} else {
+
+			// TODO: use `_xml_wp_die_handler()` since WP 5.2.0
+
+			$message = htmlspecialchars( _x( 'You are not authorized to access this site\'s feed.', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ) );
+			$title   = htmlspecialchars( HTTP::getStatusDesc( $this->status_code ) );
+
+			$xml = <<<EOD
+<error>
+	<code>{$this->status_code}</code>
+	<title><![CDATA[{$title}]]></title>
+	<message><![CDATA[{$message}]]></message>
+	<data>
+		<status>{$this->status_code}</status>
+	</data>
+</error>
+
+EOD;
+
+			if ( ! headers_sent() ) {
+				header( 'Content-Type: text/xml; charset=utf-8' );
+				status_header( $this->status_code );
+				nocache_headers();
+			}
+
+			echo $xml;
+		}
+
+		die();
+	}
+
+	// TODO: support front-end profiles
 	public function load_profile()
 	{
-		if ( is_network_admin()
-			|| is_user_admin() )
-				return;
-
-		add_filter( 'show_user_profile', [ $this, 'edit_user_profile' ] );
+		add_action( 'show_user_profile', [ $this, 'edit_user_profile' ] );
 		add_action( 'edit_user_profile', [ $this, 'edit_user_profile' ] );
 		add_action( 'personal_options_update', [ $this, 'edit_user_profile_update' ] );
 		add_action( 'edit_user_profile_update', [ $this, 'edit_user_profile_update' ] );
@@ -198,12 +469,7 @@ class Restricted extends gNetwork\Module
 
 	public function edit_user_profile( $profileuser )
 	{
-		if ( 'none' == $this->options['restricted_site']
-			&& ! WordPress::isDev() )
-				return;
-
-		$feedkey = RestrictedBouncer::getUserFeedKey( $profileuser->ID, FALSE );
-		$urls    = self::getFeeds( $feedkey );
+		$feedkey = $this->get_user_feedkey( $profileuser->ID, FALSE );
 
 		Settings::fieldSection(
 			_x( 'Private Feeds', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
@@ -214,12 +480,12 @@ class Restricted extends gNetwork\Module
 		echo '<table class="form-table">';
 
 			$this->do_settings_field( [
-				'field'       => 'restricted_feed_key',
+				'field'       => 'restricted_feedkey',
 				'type'        => 'text',
 				'cap'         => 'read',
-				'title'       => _x( 'Access Key', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
-				'description' => _x( 'The key will be used on all restricted site feed URLs.', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
-				'placeholder' => _x( 'Access key not found', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
+				'title'       => _x( 'Feed Access Key', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'The key will be used on all restricted feed URLs.', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
+				'placeholder' => _x( 'Feed access key not found.', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
 				'field_class' => [ 'regular-text', 'code-text' ],
 				'default'     => $feedkey ?: '',
 				'disabled'    => TRUE,
@@ -236,7 +502,8 @@ class Restricted extends gNetwork\Module
 			}
 
 			$this->do_settings_field( [
-				'field'       => 'feed_operations',
+				'field'       => 'restricted_operations',
+				'name_attr'   => 'restricted_operations',
 				'type'        => 'select',
 				'cap'         => 'read',
 				'title'       => _x( 'Key Operations', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
@@ -248,21 +515,25 @@ class Restricted extends gNetwork\Module
 
 			if ( $feedkey ) {
 
+				$default       = get_default_feed();
+				$posts_feed    = get_feed_link( $default );
+				$comments_feed = get_feed_link( 'comments_'.$default );
+
 				$this->do_settings_field( [
-					'field'  => 'restricted_feed_url',
+					'field'  => 'restricted_posts_feed',
 					'type'   => 'custom',
 					'cap'    => 'read',
-					'title'  => _x( 'Your Feed', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
-					'values' => '<code><a href="'.$urls['rss2'].'" target="_blank">'.$urls['rss2'].'</a></code>',
+					'title'  => _x( 'Posts Feed for You', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
+					'values' => '<code><a href="'.HTML::escapeURL( $posts_feed ).'" target="_blank">'.$posts_feed.'</a></code>',
 					'wrap'   => TRUE,
 				] );
 
 				$this->do_settings_field( [
-					'field'  => 'restricted_feed_comments_url',
+					'field'  => 'restricted_comments_feed',
 					'type'   => 'custom',
 					'cap'    => 'read',
-					'title'  => _x( 'Your Comments Feed', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
-					'values' => '<code><a href="'.$urls['comments_rss2_url'].'" target="_blank">'.$urls['comments_rss2_url'].'</a></code>',
+					'title'  => _x( 'Comments Feed for You', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
+					'values' => '<code><a href="'.HTML::escapeURL( $comments_feed ).'" target="_blank">'.$comments_feed.'</a></code>',
 					'wrap'   => TRUE,
 				] );
 			}
@@ -272,39 +543,18 @@ class Restricted extends gNetwork\Module
 
 	public function edit_user_profile_update( $user_id )
 	{
-		if ( isset( $_POST['gnetwork_restricted']['feed_operations'] )
-			&& 'none' != $_POST['gnetwork_restricted']['feed_operations']
-			&& strlen( $_POST['gnetwork_restricted']['feed_operations'] ) > 0 ) {
+		switch ( self::req( 'restricted_operations' ) ) {
 
-			switch ( $_POST['gnetwork_restricted']['feed_operations'] ) {
+			case 'remove':
 
-				case 'remove':
+				delete_user_meta( $user_id, 'feed_key' );
 
-					delete_user_meta( $user_id, 'feed_key' );
+			break;
+			case 'reset':
+			case 'generate':
 
-				break;
-				case 'reset':
-				case 'generate':
-
-					$feedkey = RestrictedBouncer::getUserFeedKey( $user_id, FALSE, TRUE );
-			}
+				$this->get_user_feedkey( $user_id, FALSE, TRUE );
 		}
-	}
-
-	public static function is()
-	{
-		return ( ! WordPress::cuc( gNetwork()->option( 'restricted_site', 'restricted', 'none' ) ) );
-	}
-
-	public static function getFeeds( $feed_key = FALSE, $check = TRUE )
-	{
-		if ( ! $feed_key && $check )
-			$feed_key = RestrictedBouncer::getUserFeedKey( FALSE, FALSE );
-
-		return [
-			'rss2'              => ( $feed_key ? add_query_arg( 'feedkey', $feed_key, get_feed_link( 'rss2' ) ) : get_feed_link( 'rss2' ) ),
-			'comments_rss2_url' => ( $feed_key ? add_query_arg( 'feedkey', $feed_key, get_feed_link( 'comments_rss2' ) ) : get_feed_link( 'comments_rss2' ) ),
-		];
 	}
 
 	public static function get403Logout( $class = 'logout' )
@@ -316,302 +566,57 @@ class Restricted extends gNetwork\Module
 
 		if ( is_user_logged_in() ) {
 			$html.= ' / '.HTML::tag( 'a', [
-				'href' => wp_logout_url(),
-				'title' => _x( 'Logout of this site', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
+				'href'  => wp_logout_url(),
+				'title' => _x( 'Log-out of this site', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
 			], _x( 'Log Out', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ) );
 		}
 
-		if ( $class )
-			$html = HTML::tag( 'div', [
-				'class' => $class,
-			], $html );
-
-		return $html;
+		return $class ? HTML::wrap( $html, $class ) : $html;
 	}
 
 	public static function get403Message( $class = 'message' )
 	{
-		if ( gNetwork()->option( 'restricted_access', 'restricted' ) )
-			$html = self::getNotice(
-				gNetwork()->option( 'restricted_access', 'restricted', '' ),
-				gNetwork()->option( 'restricted_site', 'restricted', 'none' ),
-				gNetwork()->option( 'redirect_page', 'restricted', '0' ),
-				FALSE );
-		else
+		if ( ! $html = gNetwork()->restricted->get_restricted_message() )
 			$html = _x( 'You do not have sufficient access level.', 'Modules: Restricted', GNETWORK_TEXTDOMAIN );
 
-		if ( $class )
-			$html = HTML::tag( 'div', [
-				'class' => $class,
-			], $html );
-
-		return $html;
+		return $class ? HTML::wrap( $html, $class ) : $html;
 	}
 
-	public static function getNotice( $notice, $role, $page = FALSE, $register = TRUE )
+	public function default_template()
 	{
-		return sprintf( $notice,
-			Settings::getUserCapList( $role ),
-			( $page ? get_page_link( $page )
-				: ( $register ? WordPress::registerURL( 'site' ) : '#' ) ) );
-	}
-}
+		$content_title   = $head_title = $this->status_code;
+		$content_desc    = HTTP::getStatusDesc( $this->status_code );
+		$content_message = self::get403Message( FALSE );
+		$content_menu    = self::get403Logout( FALSE );
 
-class RestrictedBouncer extends \geminorum\gNetwork\Core\Base
-{
+		// $retry = $this->options['retry_after']; // minutes
+		$rtl   = is_rtl();
 
-	protected $options = [];
-	protected $key     = FALSE;
-	protected $valid   = FALSE;
-	protected $access  = FALSE;
+		if ( function_exists( 'nocache_headers' ) )
+			nocache_headers();
 
-	public function __construct( $options )
-	{
-		$this->options = $options;
+		if ( function_exists( 'status_header' ) )
+			status_header( $this->status_code );
 
-		if ( is_admin() ) {
+		@header( "Content-Type: text/html; charset=utf-8" );
+		// @header( "Retry-After: ".( $retry * 60 ) );
 
-			add_action( 'admin_init', [ $this, 'admin_init' ], 1 );
+		if ( $header = Utilities::getLayout( 'system.header' ) )
+			require_once( $header ); // to expose scope vars
 
-		} else {
+		$this->actions( 'template_before' );
 
-			if ( 'open' != $this->options['restricted_feed'] )
-				add_action( 'init', [ $this, 'init' ], 1 );
+		HTML::h1( $content_title );
+		HTML::h3( $content_desc );
 
-			add_action( 'template_redirect', [ $this, 'template_redirect' ], 1 );
+		echo $rtl ? '<div dir="rtl">' : '<div>';
+			echo Text::autoP( $content_message );
+			echo $content_menu;
+		echo '</div>';
 
-			if ( ! empty( $options['restricted_notice'] ) )
-				add_filter( 'login_message', [ $this, 'login_message' ] );
+		$this->actions( 'template_after' );
 
-			add_filter( 'rest_authentication_errors', [ $this, 'rest_authentication_errors' ], 999 );
-		}
-
-		// block search engines and robots
-		add_filter( 'robots_txt', [ $this, 'robots_txt' ] );
-		add_filter( 'option_blog_public', '__return_zero', 20 );
-	}
-
-	public function init()
-	{
-		$this->key = self::getUserFeedKey();
-
-		if ( $this->key && is_user_logged_in() )
-			add_filter( 'feed_link', [ $this, 'feed_link' ], 12, 2 );
-
-		$feedkey = isset( $_GET['feedkey'] ) ? trim( $_GET['feedkey'] ) : FALSE;
-
-		if ( ! $feedkey ) {
-
-			// no feed key, do nothing
-			// restriction comes along automagically!
-			// see `template_redirect`
-
-		} else if ( is_user_logged_in() ) {
-
-			if ( $feedkey == $this->key )
-				$this->valid = TRUE;
-
-			if ( 'logged_in_user' == $this->options['restricted_site']
-				|| current_user_can( $this->options['restricted_site'] ) )
-					$this->access = TRUE;
-
-		} else {
-
-			global $wpdb;
-
-			$user_id = $wpdb->get_results( $wpdb->prepare( "SELECT user_id FROM {$wpdb->usermeta} WHERE meta_value = %s", $feedkey ) );
-
-			if ( ! empty( $user_id ) ) {
-
-				$this->valid = TRUE;
-
-				if ( 'logged_in_user' == $this->options['restricted_site'] )
-					$this->access = TRUE;
-
-				else if ( user_can( intval( $user_id ), $this->options['restricted_site'] ) )
-					$this->access = TRUE;
-			}
-		}
-	}
-
-	public function admin_init()
-	{
-		add_filter( 'privacy_on_link_title', function( $title ) {
-			return _x( 'Your site is restricted to public', 'Modules: Restricted: At a Glance', GNETWORK_TEXTDOMAIN );
-		}, 20 );
-
-		add_filter( 'privacy_on_link_text', function( $content ) {
-			return _x( 'Public Access Discouraged', 'Modules: Restricted: At a Glance', GNETWORK_TEXTDOMAIN );
-		}, 20 );
-
-		if ( WordPress::cuc( $this->options['restricted_admin'] ) )
-			return;
-
-		if ( 'open' == $this->options['restricted_profile']
-			&& WordPress::pageNow( 'profile.php' ) ) {
-
-			// do nothing
-
-		} else if ( $this->options['redirect_page'] ) {
-
-			WordPress::redirect( get_page_link( $this->options['redirect_page'] ), 302 );
-
-		} else {
-
-			Utilities::getLayout( 'status.403', TRUE, TRUE );
-			die();
-		}
-	}
-
-	public function feed_link( $output, $feed )
-	{
-		return $this->key ? add_query_arg( 'feedkey', $this->key, $output ) : $output;
-	}
-
-	private function check_feed_access()
-	{
-		if ( $this->valid && $this->access ) {
-
-			return;
-
-		} else if ( $this->valid ) {
-
-			// key is valid but no access
-			// redirect to request access page
-
-			self::temp_feed(
-				_x( 'Key Valid but no Access', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
-				_x( 'Your Key is valid but you have no access to this site.', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
-				( $this->options['redirect_page'] ? get_page_link( $this->options['redirect_page'] ) : FALSE ) );
-
-		} else if ( is_user_logged_in() ) {
-
-			// user have access but the key is invalid
-			// TODO: add notice;
-
-			return;
-
-		} else {
-
-			// key is not valid and no access
-			// redirect to request access page
-
-			self::temp_feed(
-				_x( 'No key, no Access', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
-				_x( 'You have to have a key to access this site\'s feed', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
-				( $this->options['redirect_page'] ? get_page_link( $this->options['redirect_page'] ) : FALSE ) );
-		}
-	}
-
-	private function temp_feed( $title = '', $desc = '', $link = FALSE )
-	{
-		if ( ! $link )
-			$link = get_bloginfo_rss( 'url' );
-
-		header( "Content-Type: application/xml; ".get_option( 'blog_charset' ) );
-
-		if ( $layout = Utilities::getLayout( 'feed.temp' ) )
-			require_once( $layout ); // accessing $title/$desc/$link
-
-		die();
-	}
-
-	public static function getUserFeedKey( $user_id = FALSE, $generate = TRUE, $reset = FALSE )
-	{
-		if ( ! $user_id && ! is_user_logged_in() )
-			return FALSE;
-
-		if ( ! $user_id )
-			$user_id = get_current_user_id();
-
-		$feedkey = get_user_meta( $user_id, 'feed_key', TRUE );
-
-		if ( $reset || ( $generate && ( empty( $feedkey ) || FALSE == $feedkey ) ) ) {
-			$feedkey = self::genFeedKey();
-			update_user_meta( $user_id, 'feed_key', $feedkey );
-		}
-
-		return $feedkey;
-	}
-
-	private static function genFeedKey()
-	{
-		$data = $GLOBALS['userdata']->user_login.wp_generate_password( 12, TRUE, TRUE );
-		return hash_hmac( 'md5', $data, wp_salt( 'auth' ) );
-	}
-
-	public function template_redirect()
-	{
-		// using BuddyPress and on the register page
-		if ( function_exists( 'bp_is_current_component' )
-			&& ( bp_is_current_component( 'register' )
-				|| bp_is_current_component( 'activate' ) ) )
-					return;
-
-		if ( 'closed' == $this->options['restricted_feed'] && is_feed() )
-			return $this->check_feed_access();
-
-		if ( $this->options['redirect_page']
-			&& is_page( intval( $this->options['redirect_page'] ) ) )
-				return;
-
-		if ( is_user_logged_in() ) {
-
-			if ( 'logged_in_user' == $this->options['restricted_site'] )
-				return;
-
-			if ( current_user_can( $this->options['restricted_site'] ) )
-				return;
-
-			if ( $this->options['redirect_page'] ) {
-
-				WordPress::redirect( get_page_link( $this->options['redirect_page'] ), 403 );
-
-			} else {
-
-				Utilities::getLayout( 'status.403', TRUE, TRUE );
-				die();
-			}
-		}
-
-		if ( ! is_front_page() && ! is_home() )
-			WordPress::redirectLogin( URL::current() );
-
-		if ( $this->options['redirect_page'] )
-			WordPress::redirect( get_page_link( $this->options['redirect_page'] ), 403 );
-
-		WordPress::redirectLogin( URL::current() );
-	}
-
-	public function login_message()
-	{
-		echo '<div id="login_error">';
-
-		echo Restricted::getNotice(
-			$this->options['restricted_notice'],
-			$this->options['restricted_site'],
-			$this->options['redirect_page']
-		);
-
-		echo '</div><style>#backtoblog{display:none;}</style>';
-	}
-
-	public function robots_txt( $output )
-	{
-		return $output.'Disallow: /'."\n";
-	}
-
-	public function rest_authentication_errors( $null )
-	{
-		if ( current_user_can( $this->options['restricted_site'] ) )
-			return $null;
-
-		$notice = Restricted::getNotice(
-			$this->options['restricted_notice'],
-			$this->options['restricted_site'],
-			$this->options['redirect_page']
-		);
-
-		return new Error( 'restricted', $notice, [ 'status' => 403 ] );
+		if ( $footer = Utilities::getLayout( 'system.footer' ) )
+			require_once( $footer ); // to expose scope vars
 	}
 }
