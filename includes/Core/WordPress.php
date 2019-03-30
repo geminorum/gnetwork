@@ -128,6 +128,23 @@ class WordPress extends Base
 		return defined( 'IFRAME_REQUEST' ) && IFRAME_REQUEST;
 	}
 
+	public static function isFeed()
+	{
+		if ( function_exists( 'wp_is_xml_request' ) && wp_is_xml_request() )
+			return TRUE;
+
+		if ( function_exists( 'is_feed' ) && is_feed() )
+			return TRUE;
+
+		if ( function_exists( 'is_comment_feed' ) && is_comment_feed() )
+			return TRUE;
+
+		if ( function_exists( 'is_trackback' ) && is_trackback() )
+			return TRUE;
+
+		return FALSE;
+	}
+
 	public static function doNotCache()
 	{
 		defined( 'DONOTCACHEPAGE' ) || define( 'DONOTCACHEPAGE', TRUE );

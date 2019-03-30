@@ -99,7 +99,7 @@ class Code extends gNetwork\Module
 			'after'   => '',
 		], $atts, $tag );
 
-		if ( FALSE === $args['context'] || is_feed() )
+		if ( FALSE === $args['context'] || WordPress::isFeed() )
 			return NULL;
 
 		$key = $this->hash( 'githubreadme', $args );
@@ -214,7 +214,7 @@ class Code extends gNetwork\Module
 			'after'             => '',
 		], $atts, $tag );
 
-		if ( FALSE === $args['context'] || is_feed() )
+		if ( FALSE === $args['context'] || WordPress::isFeed() )
 			return NULL;
 
 		if ( FALSE == $args['id'] )
@@ -247,7 +247,7 @@ class Code extends gNetwork\Module
 			'wrap'     => TRUE,
 		], $atts, $tag );
 
-		if ( FALSE === $args['context'] || is_feed() )
+		if ( FALSE === $args['context'] || WordPress::isFeed() )
 			return NULL;
 
 		if ( ! $content )
