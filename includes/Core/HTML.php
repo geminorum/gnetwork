@@ -43,14 +43,19 @@ class HTML extends Base
 		return '<img src="'.$src.'" class="'.$class.'" alt="'.$alt.'" />';
 	}
 
+	public static function h1( $html, $class = FALSE, $link = FALSE )
+	{
+		if ( $html ) echo self::tag( 'h1', array( 'class' => $class ), ( $link ? self::link( $html, $link ) : $html ) );
+	}
+
 	public static function h2( $html, $class = FALSE, $link = FALSE )
 	{
-		echo self::tag( 'h2', array( 'class' => $class ), ( $link ? self::link( $html, $link ) : $html ) );
+		if ( $html ) echo self::tag( 'h2', array( 'class' => $class ), ( $link ? self::link( $html, $link ) : $html ) );
 	}
 
 	public static function h3( $html, $class = FALSE, $link = FALSE )
 	{
-		echo self::tag( 'h3', array( 'class' => $class ), ( $link ? self::link( $html, $link ) : $html ) );
+		if ( $html ) echo self::tag( 'h3', array( 'class' => $class ), ( $link ? self::link( $html, $link ) : $html ) );
 	}
 
 	public static function desc( $html, $block = TRUE, $class = '', $nl2br = TRUE )

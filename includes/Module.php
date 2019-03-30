@@ -337,6 +337,14 @@ class Module extends Core\Base
 		}, $priority, 1 );
 	}
 
+	// USAGE: $this->filter_zero( 'option_blog_public' );
+	protected function filter_zero( $hook, $priority = 10 )
+	{
+		add_filter( $hook, function( $first ){
+			return 0;
+		}, $priority, 1 );
+	}
+
 	// USAGE: $this->filter_append( 'body_class', 'foo' );
 	protected function filter_append( $hook, $items, $priority = 10 )
 	{

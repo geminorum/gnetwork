@@ -8,14 +8,14 @@ class WordPress extends Base
 	public static function isMinWPv( $minimum_version )
 	{
 		self::_dep( 'WordPress::isWPcompatible()' );
-		return ( version_compare( get_bloginfo( 'version' ), $minimum_version ) >= 0 );
+		return ( version_compare( $GLOBALS['wp_version'], $minimum_version ) >= 0 );
 	}
 
 	// Checks compatibility with the current WordPress version.
 	// @REF: `wp_is_wp_compatible()`
 	public static function isWPcompatible( $required )
 	{
-		return empty( $required ) || version_compare( get_bloginfo( 'version' ), $required, '>=' );
+		return empty( $required ) || version_compare( $GLOBALS['wp_version'], $required, '>=' );
 	}
 
 	// Checks compatibility with the current PHP version.
@@ -42,12 +42,14 @@ class WordPress extends Base
 	}
 
 	// @REF: `vars.php`
-	public static function pageNow()
+	public static function pageNow( $page = NULL )
 	{
-		if ( preg_match( '#([^/]+\.php)([?/].*?)?$#i', $_SERVER['PHP_SELF'], $matches ) )
-			return strtolower( $matches[1] );
+		$now = 'index.php';
 
-		return 'index.php';
+		if ( preg_match( '#([^/]+\.php)([?/].*?)?$#i', $_SERVER['PHP_SELF'], $matches ) )
+			$now = strtolower( $matches[1] );
+
+		return is_null( $page ) ? $now : ( $now == $page );
 	}
 
 	public static function isBlockEditor()
@@ -308,8 +310,16 @@ class WordPress extends Base
 		if ( 'none' == $cap || '0' == $cap )
 			return $none;
 
-		if ( 'read' != $cap && ! is_user_logged_in() )
+		if ( ! $logged_in = is_user_logged_in() )
 			return FALSE;
+
+		// network users
+		if ( '_logged_in' == $cap && $logged_in )
+			return TRUE;
+
+		// skip unnecessary
+		// if ( 'read' != $cap && ! $logged_in )
+		// 	return FALSE;
 
 		return current_user_can( $cap );
 	}

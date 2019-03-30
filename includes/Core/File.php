@@ -109,14 +109,18 @@ class File extends Base
 		$dir = FALSE;
 
 		if ( is_null( $path ) ) {
+
 			$dir = WP_CONTENT_DIR;
 
 		} else if ( $check_folder ) {
+
 			$dir = wp_mkdir_p( $path );
+
 			if ( TRUE === $dir )
 				$dir = $path;
 
 		} else if ( wp_is_writable( $path ) ) {
+
 			$dir = $path;
 		}
 
@@ -267,8 +271,11 @@ class File extends Base
 
 		$handle = fopen( 'php://temp/maxmemory:'.$maxmemory, 'r+' );
 
-		foreach ( $data as $fields )
+		foreach ( $data as $fields ) {
+
+			// @SEE: https://github.com/parsecsv/parsecsv-for-php/issues/167
 			fputcsv( $handle, $fields );
+		}
 
 		rewind( $handle );
 
