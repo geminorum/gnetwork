@@ -578,7 +578,7 @@ class Utilities extends Core\Base
 
 	public static function redirectHome()
 	{
-		WordPress::redirect( get_home_url() );
+		WordPress::redirect( get_home_url(), 303 );
 	}
 
 	public static function redirect404()
