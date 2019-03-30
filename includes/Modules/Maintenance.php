@@ -24,7 +24,7 @@ class Maintenance extends gNetwork\Module
 		if ( is_admin() ) {
 
 			if ( 'none' != $this->options['maintenance_admin'] )
-				$this->action( 'admin_init' );
+				$this->action( 'admin_init', 0, 2 );
 
 			if ( 'none' != $this->options['maintenance_site'] )
 				$this->filter_module( 'dashboard', 'pointers' );
@@ -200,9 +200,6 @@ class Maintenance extends gNetwork\Module
 
 	public function status_header( $status_header, $header, $text, $protocol )
 	{
-		if ( current_user_can( 'manage_options' ) )
-			return $status_header;
-
 		return $protocol.' '.$this->options['status_code'].' '.HTTP::getStatusDesc( $this->options['status_code'] );
 	}
 
@@ -271,6 +268,11 @@ class Maintenance extends gNetwork\Module
 		return ( ! WordPress::cuc( gNetwork()->option( 'maintenance_site', 'maintenance', 'none' ) ) );
 	}
 
+	public static function enabled()
+	{
+		return ( 'none' != gNetwork()->option( 'maintenance_site', 'maintenance', 'none' ) );
+	}
+
 	public static function get503Message( $class = 'message', $fallback = NULL )
 	{
 		if ( is_null( $fallback ) )
@@ -287,15 +289,16 @@ class Maintenance extends gNetwork\Module
 		$content_title   = $head_title = $this->options['status_code'];
 		$content_desc    = HTTP::getStatusDesc( $this->options['status_code'] );
 		$content_message = self::get503Message( FALSE );
+		$content_menu    = ''; // FIXME
 
-		$retry = '30'; // minutes
+		$retry = $this->options['retry_after']; // minutes
 		$rtl   = is_rtl();
 
 		if ( function_exists( 'nocache_headers' ) )
 			nocache_headers();
 
 		if ( function_exists( 'status_header' ) )
-			status_header( 503 );
+			status_header( $this->options['status_code'] );
 
 		@header( "Content-Type: text/html; charset=utf-8" );
 		@header( "Retry-After: ".( $retry * 60 ) );
@@ -310,6 +313,7 @@ class Maintenance extends gNetwork\Module
 
 		echo $rtl ? '<div dir="rtl">' : '<div>';
 			echo Text::autoP( $content_message );
+			echo $content_menu;
 		echo '</div>';
 
 		$this->actions( 'template_after' );

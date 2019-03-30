@@ -203,14 +203,14 @@ class Themes extends gNetwork\Module
 
 		if ( $this->options['jquery_latest'] ) {
 
-			// 1/1/2019, 3:23:51 AM
+			// 3/28/2019, 10:16:22 PM
 			$jquery_ver  = '3.3.1';
 			$migrate_ver = '3.0.1';
 
 		} else {
 
-			// WP v5.1-alpha-43677-src
-			// 1/1/2019, 3:22:34 AM
+			// WP v5.2-beta1-45048-src
+			// 3/28/2019, 10:17:23 PM
 			$jquery_ver  = '1.12.4';
 			$migrate_ver = '1.4.1';
 		}

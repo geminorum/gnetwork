@@ -760,6 +760,7 @@ class Debug extends gNetwork\Module
 		echo '</p>';
 	}
 
+	// @REF: `_default_wp_die_handler()`
 	public static function wp_die_handler( $message, $title = '', $args = [] )
 	{
 		$r = self::args( $args, [
