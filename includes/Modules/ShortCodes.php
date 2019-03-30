@@ -784,7 +784,7 @@ class ShortCodes extends gNetwork\Module
 			'after'   => '',
 		], $atts, $tag );
 
-		if ( FALSE === $args['context'] || WordPress::isFeed() || WordPress::isREST() )
+		if ( FALSE === $args['context'] || WordPress::isXML() || WordPress::isREST() )
 			return NULL;
 
 		if ( ! $args['url'] )
@@ -849,7 +849,7 @@ class ShortCodes extends gNetwork\Module
 
 		unset( $args['class'] );
 
-		if ( ! WordPress::isFeed() && ! WordPress::isREST() )
+		if ( ! WordPress::isXML() && ! WordPress::isREST() )
 			add_thickbox();
 
 		return self::shortcodeWrap( $html, 'thickbox', $args, FALSE );
@@ -1017,7 +1017,7 @@ class ShortCodes extends gNetwork\Module
 		if ( FALSE === $args['context'] )
 			return NULL;
 
-		if ( WordPress::isFeed() || WordPress::isREST() )
+		if ( WordPress::isXML() || WordPress::isREST() )
 			return $content;
 
 		if ( ! $args['key'] )
@@ -1055,7 +1055,7 @@ class ShortCodes extends gNetwork\Module
 		if ( ! $args['url'] && $args['id'] )
 			$args['url'] = wp_get_attachment_url( $args['id'] );
 
-		if ( WordPress::isFeed() || WordPress::isREST() ) {
+		if ( WordPress::isXML() || WordPress::isREST() ) {
 
 			if ( $content )
 				return $content;
@@ -1099,7 +1099,7 @@ class ShortCodes extends gNetwork\Module
 		if ( ! $args['id'] && ! $args['url'] )
 			return $content;
 
-		if ( WordPress::isFeed() || WordPress::isREST() ) {
+		if ( WordPress::isXML() || WordPress::isREST() ) {
 
 			if ( $content )
 				return $content;
@@ -1256,7 +1256,7 @@ class ShortCodes extends gNetwork\Module
 		if ( FALSE === $args['context'] )
 			return NULL;
 
-		if ( WordPress::isFeed() || WordPress::isREST() )
+		if ( WordPress::isXML() || WordPress::isREST() )
 			return $content;
 
 		$title = sprintf( $args['title'], $args['to'] );
@@ -1283,7 +1283,7 @@ class ShortCodes extends gNetwork\Module
 		if ( FALSE === $args['context'] )
 			return NULL;
 
-		if ( WordPress::isFeed() || WordPress::isREST() )
+		if ( WordPress::isXML() || WordPress::isREST() )
 			return $content;
 
 		if ( $html = wp_audio_shortcode( $atts, $content ) ) {
@@ -1327,7 +1327,7 @@ class ShortCodes extends gNetwork\Module
 		if ( is_null( $content ) || ! is_singular() )
 			return NULL;
 
-		if ( WordPress::isFeed() || WordPress::isREST() ) {
+		if ( WordPress::isXML() || WordPress::isREST() ) {
 			$this->ref_ids[] = FALSE; // for the notice
 			return NULL;
 		}
@@ -1393,7 +1393,7 @@ class ShortCodes extends gNetwork\Module
 		if ( ! is_singular() || empty( $this->ref_ids ) )
 			return NULL;
 
-		if ( WordPress::isFeed() || WordPress::isREST() ) {
+		if ( WordPress::isXML() || WordPress::isREST() ) {
 			$this->ref_list = TRUE;
 			return '<p>'._x( 'See the footnotes on the site.', 'Shortcodes Module: Defaults', GNETWORK_TEXTDOMAIN ).'</p>';
 		}
@@ -1480,7 +1480,7 @@ class ShortCodes extends gNetwork\Module
 	// FIXME: check this!
 	public function shortcode_ref_manual( $atts = [], $content = NULL, $tag = '' )
 	{
-		if ( is_null( $content ) || ! is_singular() || WordPress::isFeed() || WordPress::isREST() )
+		if ( is_null( $content ) || ! is_singular() || WordPress::isXML() || WordPress::isREST() )
 			return NULL;
 
 		// [ref-m id="0" caption="Caption Title"]
@@ -1515,7 +1515,7 @@ class ShortCodes extends gNetwork\Module
 	// FIXME: check this!
 	public function shortcode_reflist_manual( $atts = [], $content = NULL, $tag = '' )
 	{
-		if ( WordPress::isFeed() || WordPress::isREST() )
+		if ( WordPress::isXML() || WordPress::isREST() )
 			return NULL;
 
 		// [reflist-m id="0" caption="Caption Title"]

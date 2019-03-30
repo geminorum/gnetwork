@@ -265,7 +265,7 @@ class Authors extends gNetwork\Module
 			'context' => NULL,
 		], $atts, $tag );
 
-		if ( FALSE === $args['context'] || WordPress::isFeed() )
+		if ( FALSE === $args['context'] || WordPress::isXML() )
 			return NULL;
 
 		if ( $args['cap'] && ! WordPress::cuc( $args['cap'] ) )

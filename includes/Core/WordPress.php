@@ -128,7 +128,7 @@ class WordPress extends Base
 		return defined( 'IFRAME_REQUEST' ) && IFRAME_REQUEST;
 	}
 
-	public static function isFeed()
+	public static function isXML()
 	{
 		if ( function_exists( 'wp_is_xml_request' ) && wp_is_xml_request() )
 			return TRUE;
