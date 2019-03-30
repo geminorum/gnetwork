@@ -73,7 +73,7 @@ class Login extends gNetwork\Module
 			'redirect_login'    => '',
 			'redirect_logout'   => '',
 			'login_headerurl'   => '',
-			'login_headertitle' => '',
+			'login_headertext' => '',
 			'login_logourl'     => '',
 			'login_styles'      => '',
 			'login_class'       => 'logindefault',
@@ -147,10 +147,10 @@ class Login extends gNetwork\Module
 					'placeholder' => GNETWORK_BASE,
 				],
 				[
-					'field'       => 'login_headertitle',
+					'field'       => 'login_headertext',
 					'type'        => 'text',
-					'title'       => _x( 'Header Title', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Login page header logo link title attribute.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Header Text', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Login page header logo link hidden text.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'placeholder' => GNETWORK_NAME,
 				],
 				[
@@ -407,7 +407,7 @@ class Login extends gNetwork\Module
 	public function login_init()
 	{
 		$this->filter( 'login_headerurl', 1, 1000 );
-		$this->filter( 'login_headertitle', 1, 1000 );
+		$this->filter( 'login_headertext', 1, 1000 );
 
 		if ( $this->options['login_remember'] )
 			$this->filter( 'login_footer', 1, 99, 'remember' );
@@ -458,9 +458,9 @@ class Login extends gNetwork\Module
 		return $this->options['login_headerurl'] ?: GNETWORK_BASE;
 	}
 
-	public function login_headertitle( $login_header_title )
+	public function login_headertext( $login_header_title )
 	{
-		return $this->options['login_headertitle'] ?: GNETWORK_NAME;
+		return $this->options['login_headertext'] ?: GNETWORK_NAME;
 	}
 
 	public function login_footer_remember()
