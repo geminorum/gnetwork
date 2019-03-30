@@ -112,13 +112,16 @@ class Maintenance extends gNetwork\Module
 
 	public function settings_sidebox( $sub, $uri )
 	{
-		echo $this->wrap_open_buttons();
+		if ( is_main_site() ) {
 
-			Settings::submitButton( 'store_maintenance_php', sprintf( _x( 'Store as %s', 'Modules: Maintenance', GNETWORK_TEXTDOMAIN ), 'maintenance.php' ), 'small', [
-				'title' => _x( 'Tries to store available layout as WordPress core maintenance template.', 'Modules: Maintenance', GNETWORK_TEXTDOMAIN ),
-			] );
+			echo $this->wrap_open_buttons();
 
-		echo '</p>';
+				Settings::submitButton( 'store_maintenance_php', sprintf( _x( 'Store as %s', 'Modules: Maintenance', GNETWORK_TEXTDOMAIN ), 'maintenance.php' ), 'small', [
+					'title' => _x( 'Tries to store available layout as WordPress core maintenance template.', 'Modules: Maintenance', GNETWORK_TEXTDOMAIN ),
+				] );
+
+			echo '</p>';
+		}
 
 		if ( $layout = $this->get_maintenance_layout() ) {
 
@@ -133,7 +136,8 @@ class Maintenance extends gNetwork\Module
 
 	protected function settings_actions( $sub = NULL )
 	{
-		if ( isset( $_POST['store_maintenance_php'] ) ) {
+		if ( isset( $_POST['store_maintenance_php'] )
+			&& is_main_site() ) {
 
 			$this->check_referer( $sub );
 
@@ -141,8 +145,7 @@ class Maintenance extends gNetwork\Module
 
 				$this->render_maintenance_layout();
 
-			$content = ob_get_clean();
-			$created = File::putContents( 'maintenance.php', $content, WP_CONTENT_DIR, FALSE );
+			$created = File::putContents( 'maintenance.php', ob_get_clean(), WP_CONTENT_DIR, FALSE );
 
 			WordPress::redirectReferer( ( FALSE === $created ? 'wrong' : 'maked' ) );
 		}
