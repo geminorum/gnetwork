@@ -122,6 +122,14 @@ class Maintenance extends gNetwork\Module
 
 	public function settings_sidebox( $sub, $uri )
 	{
+		echo $this->wrap_open_buttons();
+
+			Settings::submitButton( 'store_maintenance_php', _x( 'Store as maintenance.php', 'Modules: Maintenance', GNETWORK_TEXTDOMAIN ), 'small', [
+				'title' => _x( 'Tries to store available layout as WordPress core maintenance.php', 'Modules: Maintenance', GNETWORK_TEXTDOMAIN ),
+			] );
+
+		echo '</p>';
+
 		if ( $layout = $this->get_maintenance_layout() ) {
 
 			HTML::desc( sprintf( _x( 'Current Layout: %s', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
@@ -129,7 +137,24 @@ class Maintenance extends gNetwork\Module
 
 		} else {
 
-			HTML::desc( _x( 'There are no templates available. We will use an internal instead.', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ) );
+			HTML::desc( _x( 'There are no layouts available. We will use an internal instead.', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ) );
+		}
+	}
+
+	protected function settings_actions( $sub = NULL )
+	{
+		if ( isset( $_POST['store_maintenance_php'] ) ) {
+
+			$this->check_referer( $sub );
+
+			ob_start();
+
+				$this->render_maintenance_layout();
+
+			$content = ob_get_clean();
+			$created = File::putContents( 'maintenance.php', $content, WP_CONTENT_DIR, FALSE );
+
+			WordPress::redirectReferer( ( FALSE === $created ? 'wrong' : 'maked' ) );
 		}
 	}
 
@@ -211,13 +236,17 @@ class Maintenance extends gNetwork\Module
 
 	public function template_redirect()
 	{
+		$this->render_maintenance_layout();
+		die();
+	}
+
+	private function render_maintenance_layout()
+	{
 		if ( $layout = $this->get_maintenance_layout() )
 			require_once( $layout );
 
 		else if ( $callback = $this->filters( 'default_template', [ $this, 'default_template' ] ) )
 			call_user_func( $callback );
-
-		die();
 	}
 
 	private function get_maintenance_layout()
