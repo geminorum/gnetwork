@@ -246,7 +246,7 @@ class Navigation extends gNetwork\Module
 
 		foreach ( $items as $item )
 			$objects[$item['slug']] = (object) [
-				'label'          => isset( $item['label'] ) ? $item['label'] : Text::trimChars( $item['name'] ),
+				'label'          => isset( $item['label'] ) ? $item['label'] : Text::trimChars( $item['name'], 60 ),
 				'ID'             => -1,
 				'post_title'     => $item['name'],
 				'post_author'    => 0,

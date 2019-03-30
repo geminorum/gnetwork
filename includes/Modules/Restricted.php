@@ -341,7 +341,7 @@ class Restricted extends gNetwork\Module
 
 		$items[] = HTML::tag( $can ? 'a' : 'span', [
 			'href'  => $can ? $this->get_menu_url( 'restricted' ) : FALSE,
-			'title' => sprintf( _x( 'This site is restricted to users with %s access level.', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ), Settings::getUserCapList( $this->options['restricted_site'] ) ),
+			'title' => sprintf( _x( 'This site is restricted to users with %s access level.', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ), Settings::getUserCapList( $this->options['access_site'] ) ),
 			'class' => '-restricted',
 		], _x( 'Site is Restricted', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ) );
 
