@@ -565,6 +565,14 @@ EOD;
 		], _x( 'Home Page', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ) );
 
 		if ( is_user_logged_in() ) {
+
+			if ( is_user_member_of_blog() ) {
+				$html.= ' / '.HTML::tag( 'a', [
+					'href'  => admin_url( 'profile.php' ),
+					'title' => _x( 'View and update your profile', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
+				], _x( 'Your Profile', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ) );
+			}
+
 			$html.= ' / '.HTML::tag( 'a', [
 				'href'  => wp_logout_url(),
 				'title' => _x( 'Log-out of this site', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
