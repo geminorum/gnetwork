@@ -11,9 +11,6 @@
  * JSON Feed Template for displaying JSON Posts feed.
  */
 
-$callback = trim( esc_html( get_query_var( 'callback' ) ) );
-$charset  = get_option( 'charset' );
-
 if ( have_posts() ) {
 
 	global $wp_query, $post;
@@ -69,21 +66,28 @@ if ( have_posts() ) {
 		$json[] = $single;
 	}
 
-	$json = wp_json_encode( $json, JSON_UNESCAPED_UNICODE );
-
-	nocache_headers();
+	$callback = trim( esc_html( get_query_var( 'callback' ) ) );
+	$json     = wp_json_encode( $json, JSON_UNESCAPED_UNICODE );
 
 	if ( ! empty( $callback ) ) {
-		header( 'Content-Type: application/x-javascript; charset='.$charset );
+		header( 'Content-Type: application/x-javascript; charset=utf-8' );
 		echo "{$callback}({$json});";
 
 	} else {
-		header( 'Content-Type: application/json; charset='.$charset );
+		header( 'Content-Type: application/json; charset=utf-8' );
 		echo $json;
 	}
 
 } else {
 
-	// FIXME: must print json response
-	wp_die( '404 Not Found', 404 );
+	// TODO: use `_json_wp_die_handler()` since WP 5.2.0
+
+	header( 'Content-Type: application/json; charset=utf-8' );
+	status_header( 404 );
+	nocache_headers();
+
+	echo wp_json_encode( [
+		'code'    => 404,
+		'message' => 'Not Found',
+	] );
 }
