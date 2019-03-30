@@ -23,15 +23,15 @@ class Maintenance extends gNetwork\Module
 	{
 		if ( is_admin() ) {
 
-			if ( 'none' != $this->options['maintenance_admin'] )
+			if ( 'none' != $this->options['access_admin'] )
 				$this->action( 'admin_init', 0, 2 );
 
-			if ( 'none' != $this->options['maintenance_site'] )
+			if ( 'none' != $this->options['access_site'] )
 				$this->filter_module( 'dashboard', 'pointers' );
 
 		} else {
 
-			if ( 'none' != $this->options['maintenance_site'] )
+			if ( 'none' != $this->options['access_site'] )
 				$this->action( 'init', 0, 2 );
 		}
 	}
@@ -47,12 +47,12 @@ class Maintenance extends gNetwork\Module
 	public function default_options()
 	{
 		return [
-			'maintenance_site'  => 'none',
-			'maintenance_admin' => 'none',
-			'admin_notice'      => '',
-			'login_message'     => '',
-			'status_code'       => '503',
-			'retry_after'       => '10',
+			'access_site'   => 'none', // maintenance_site
+			'access_admin'  => 'none', // maintenance_admin
+			'admin_notice'  => '',
+			'login_message' => '',
+			'status_code'   => '503',
+			'retry_after'   => '10',
 		];
 	}
 
@@ -61,14 +61,14 @@ class Maintenance extends gNetwork\Module
 		return [
 			'_general' => [
 				[
-					'field'       => 'maintenance_site',
+					'field'       => 'access_site',
 					'type'        => 'cap',
 					'title'       => _x( 'Site Maintenance', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Only this role and above can access to the site.', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => 'none',
 				],
 				[
-					'field'       => 'maintenance_admin',
+					'field'       => 'access_admin',
 					'type'        => 'cap',
 					'title'       => _x( 'Admin Maintenance', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Only this role and above can access to the site\'s admin pages.', 'Modules: Maintenance: Settings', GNETWORK_TEXTDOMAIN ),
@@ -165,7 +165,7 @@ class Maintenance extends gNetwork\Module
 		foreach ( Utilities::getFeeds() as $feed )
 			add_action( 'do_feed_'.$feed, [ $this, 'do_feed_feed' ], 1, 1 );
 
-		if ( WordPress::cuc( $this->options['maintenance_site'] ) )
+		if ( WordPress::cuc( $this->options['access_site'] ) )
 			return;
 
 		$this->action( 'template_redirect' );
@@ -181,7 +181,7 @@ class Maintenance extends gNetwork\Module
 		if ( $this->options['admin_notice'] )
 			$this->action( 'admin_notices' );
 
-		if ( ! WordPress::cuc( $this->options['maintenance_admin'] ) )
+		if ( ! WordPress::cuc( $this->options['access_admin'] ) )
 			Utilities::redirectHome();
 	}
 
@@ -265,12 +265,12 @@ class Maintenance extends gNetwork\Module
 
 	public static function is()
 	{
-		return ( ! WordPress::cuc( gNetwork()->option( 'maintenance_site', 'maintenance', 'none' ) ) );
+		return ( ! WordPress::cuc( gNetwork()->option( 'access_site', 'maintenance', 'none' ) ) );
 	}
 
 	public static function enabled()
 	{
-		return ( 'none' != gNetwork()->option( 'maintenance_site', 'maintenance', 'none' ) );
+		return ( 'none' != gNetwork()->option( 'access_site', 'maintenance', 'none' ) );
 	}
 
 	public static function get503Message( $class = 'message', $fallback = NULL )
