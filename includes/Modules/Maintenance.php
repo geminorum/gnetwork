@@ -114,8 +114,8 @@ class Maintenance extends gNetwork\Module
 	{
 		echo $this->wrap_open_buttons();
 
-			Settings::submitButton( 'store_maintenance_php', _x( 'Store as maintenance.php', 'Modules: Maintenance', GNETWORK_TEXTDOMAIN ), 'small', [
-				'title' => _x( 'Tries to store available layout as WordPress core maintenance.php', 'Modules: Maintenance', GNETWORK_TEXTDOMAIN ),
+			Settings::submitButton( 'store_maintenance_php', sprintf( _x( 'Store as %s', 'Modules: Maintenance', GNETWORK_TEXTDOMAIN ), 'maintenance.php' ), 'small', [
+				'title' => _x( 'Tries to store available layout as WordPress core maintenance template.', 'Modules: Maintenance', GNETWORK_TEXTDOMAIN ),
 			] );
 
 		echo '</p>';
