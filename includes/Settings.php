@@ -4,6 +4,7 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork\Core\Arraay;
 use geminorum\gNetwork\Core\HTML;
+use geminorum\gNetwork\Core\HTTP;
 use geminorum\gNetwork\Core\Number;
 use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
@@ -372,6 +373,29 @@ class Settings extends Core\Base
 			return $caps;
 		else
 			return $caps[$cap];
+	}
+
+	public static function statusOptions( $statuses = NULL )
+	{
+		if ( is_null( $statuses ) )
+			$statuses = [
+				307,
+				403,
+				404,
+				406,
+				410,
+				451,
+				500,
+				501,
+				503,
+			];
+
+		$list = [];
+
+		foreach ( $statuses as $status )
+			$list[$status] = $status.' '.HTTP::getStatusDesc( $status );
+
+		return $list;
 	}
 
 	public static function priorityOptions( $format = TRUE )
