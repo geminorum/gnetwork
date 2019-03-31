@@ -412,30 +412,27 @@ class Text extends Base
 	 * Characters stripped from the text include characters in the following
 	 * Unicode categories:
 	 *
-	 * 	Separators
-	 * 	Control characters
-	 *	Formatting characters
-	 *	Surrogates
-	 *	Open and close quotes
-	 *	Open and close brackets
-	 *	Dashes
-	 *	Connectors
-	 *	Numer separators
-	 *	Spaces
-	 *	Other punctuation
+	 * Separators
+	 * - Control characters
+	 * - Formatting characters
+	 * - Surrogates
+	 * - Open and close quotes
+	 * - Open and close brackets
+	 * - Dashes
+	 * - Connectors
+	 * - Numer separators
+	 * - Spaces
+	 * - Other punctuation
 	 *
 	 * Exceptions are made for punctuation characters that occur withn URLs
 	 * (such as [ ] : ; @ & ? and others), within numbers (such as . , % # '),
 	 * and within words (such as - and ').
 	 *
-	 * Parameters:
-	 * 	text		the UTF-8 text to strip
+	 * Parameters: text: the UTF-8 text to strip
 	 *
-	 * Return values:
-	 * 	the stripped UTF-8 text.
+	 * Return values: the stripped UTF-8 text.
 	 *
-	 * See also:
-	 * 	http://nadeausoftware.com/articles/2007/9/php_tip_how_strip_punctuation_characters_web_page
+	 * See also: http://nadeausoftware.com/articles/2007/9/php_tip_how_strip_punctuation_characters_web_page
 	 */
 	public static function stripPunctuation( $text )
 	{

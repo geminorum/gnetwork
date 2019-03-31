@@ -790,7 +790,7 @@ class WordPress extends Base
 	}
 
 	// `is_main_network()` with extra checks
-	public static function isMainNetwork( $network_id = NUL )
+	public static function isMainNetwork( $network_id = NULL )
 	{
 		// fallback
 		if ( ! defined( 'GNETWORK_MAIN_NETWORK' ) )
