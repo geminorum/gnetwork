@@ -382,9 +382,8 @@ class BuddyPress extends gNetwork\Module
 
 		// check if we are listing friends
 		// check if we are searching
-		if ( ! empty( $args['user_id'] )
-		 	|| ! empty( $args['search_terms'] ) )
-				return $querystring;
+		if ( ! empty( $args['user_id'] ) || ! empty( $args['search_terms'] ) )
+			return $querystring;
 
 		if ( ! empty( $args['exclude'] ) )
 			$args['exclude'].= ','.GNETWORK_BP_EXCLUDEUSERS;

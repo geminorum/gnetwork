@@ -11,7 +11,7 @@ if ( is_multisite() ) {
 
 	if ( $blogs = $wpdb->get_results( "SELECT blog_id FROM {$wpdb->blogs}", ARRAY_A ) ) {
 
-	 	foreach ( $blogs as $blog ) {
+		foreach ( $blogs as $blog ) {
 			switch_to_blog( $blog['blog_id'] );
 			delete_option( 'gnetwork_blog' );
 		}

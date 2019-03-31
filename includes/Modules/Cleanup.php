@@ -619,7 +619,7 @@ class Cleanup extends gNetwork\Module
 			'gnetwork_redirect',
 			'widget_gnetwork-gplusbadge-widget',
 
-			'theme_mods_',
+			// 'theme_mods_',
 			'theme_mods_gtwentyeleven',
 			'theme_mods_gtwentytwelve',
 
