@@ -598,8 +598,9 @@ class Module extends Core\Base
 
 			add_action( $this->menu_hook( $sub ), [ $this, 'render_settings' ], 10, 2 );
 
-			$this->register_settings();
-			$this->settings_buttons( $sub );
+			if ( $this->register_settings() )
+				$this->settings_buttons( $sub );
+
 			$this->settings_setup( $sub ); // must be after `register_settings()`
 
 			$this->register_help( $sub );
@@ -849,14 +850,14 @@ class Module extends Core\Base
 	public function register_settings()
 	{
 		if ( ! method_exists( $this, 'default_settings' ) )
-			return;
+			return FALSE;
 
 		$page = $this->options_key();
 
 		$settings = apply_filters( $page.'_default_settings', $this->default_settings() );
 
 		if ( empty( $settings ) )
-			return;
+			return FALSE;
 
 		foreach ( $settings as $section_suffix => $fields ) {
 
@@ -889,6 +890,8 @@ class Module extends Core\Base
 
 		// register settings on the settings page only
 		add_action( 'admin_print_footer_scripts', [ $this, 'print_scripts' ], 99 );
+
+		return TRUE;
 	}
 
 	protected function get_settings_field( $key, $field )
