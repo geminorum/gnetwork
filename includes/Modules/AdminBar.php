@@ -774,8 +774,7 @@ class AdminBar extends gNetwork\Module
 					] );
 				}
 
-			 	if ( ( ! GNETWORK_MAIN_NETWORK || GNETWORK_MAIN_NETWORK == $network->id )
-					&& current_user_can( 'update_core' ) ) {
+				if ( WordPress::isMainNetwork() && current_user_can( 'update_core' ) ) {
 
 					$wp_admin_bar->add_menu( [
 						'parent' => 'network-admin-'.$network->id,

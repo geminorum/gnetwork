@@ -789,6 +789,26 @@ class WordPress extends Base
 		return FALSE;
 	}
 
+	// `is_main_network()` with extra checks
+	public static function isMainNetwork( $network_id = NUL )
+	{
+		// fallback
+		if ( ! defined( 'GNETWORK_MAIN_NETWORK' ) )
+			return is_main_network( $network_id );
+
+		// every network is main network!
+		if ( FALSE === GNETWORK_MAIN_NETWORK )
+			return TRUE;
+
+		if ( is_null( $network_id ) )
+			$network_id = get_current_network_id();
+
+		if ( GNETWORK_MAIN_NETWORK == $network_id )
+			return TRUE;
+
+		return FALSE;
+	}
+
 	// @REF: `network_admin_url()`
 	// like core's but with custom network
 	public static function networkAdminURL( $network = NULL, $path = '', $scheme = 'admin' )

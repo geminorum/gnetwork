@@ -24,6 +24,16 @@ class Update extends gNetwork\Module
 	{
 		$this->action( 'admin_init', 0, 100 );
 
+		if ( ! WordPress::isMainNetwork() ) {
+
+			$this->filter_true( 'automatic_updater_disabled' );
+			$this->filter_false( 'auto_update_core' );
+
+			$this->filter( 'map_meta_cap', 2, 9 );
+
+			return FALSE;
+		}
+
 		if ( $this->options['disable_autoupdates'] ) {
 			$this->filter_true( 'automatic_updater_disabled' );
 			$this->filter_false( 'auto_update_core' );
@@ -48,10 +58,6 @@ class Update extends gNetwork\Module
 			$this->filter( 'plugins_api', 3, 20 );
 		}
 
-		if ( ! GNETWORK_MAIN_NETWORK || GNETWORK_MAIN_NETWORK == get_current_network_id() )
-			return;
-
-		$this->filter( 'map_meta_cap', 2, 9 );
 		$this->action( '_core_updated_successfully' );
 	}
 
