@@ -422,7 +422,7 @@ class HTTP extends Base
 				// fix the range argument
 				$x = explode( '.', $range );
 
-				while( count( $x ) < 4 )
+				while ( count( $x ) < 4 )
 					$x[] = '0';
 
 				list( $a, $b, $c, $d ) = $x;

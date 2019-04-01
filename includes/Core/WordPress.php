@@ -133,6 +133,9 @@ class WordPress extends Base
 		if ( function_exists( 'wp_is_xml_request' ) && wp_is_xml_request() )
 			return TRUE;
 
+		if ( ! isset( $GLOBALS['wp_query'] ) )
+			return FALSE;
+
 		if ( function_exists( 'is_feed' ) && is_feed() )
 			return TRUE;
 
