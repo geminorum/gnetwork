@@ -459,6 +459,11 @@ class Utilities extends Core\Base
 		wp_add_inline_script( 'masonry', $script );
 	}
 
+	public static function enqueueGithubMarkdown()
+	{
+		wp_enqueue_style( 'gnetwork-github-markdown', GNETWORK_URL.'assets/css/markdown.all'.( is_rtl() ? '-rtl' : '' ).'.css', [], GNETWORK_VERSION );
+	}
+
 	public static function pkgAutosize( $ver = '4.0.2' )
 	{
 		$handle = static::BASE.'-autosize';

@@ -139,6 +139,9 @@ class Network extends gNetwork\Module
 		if ( 'overview' !== $sub )
 			$GLOBALS['submenu_file'] = $this->base.'&sub='.$sub;
 
+		else
+			Utilities::enqueueGithubMarkdown();
+
 		do_action( $this->base.'_network_settings', $sub );
 	}
 

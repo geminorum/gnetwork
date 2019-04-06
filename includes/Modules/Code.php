@@ -93,6 +93,7 @@ class Code extends gNetwork\Module
 			'file'    => 'readme', // markdown page without .md
 			'page'    => 'Home', // wiki page / default is `Home`
 			'trim'    => 0,
+			'class'   => 'markdown-body', // @REF: https://github.com/sindresorhus/github-markdown-css
 			'context' => NULL,
 			'wrap'    => TRUE,
 			'before'  => '',
