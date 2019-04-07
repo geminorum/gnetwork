@@ -29,7 +29,7 @@ class Themes extends gNetwork\Module
 
 			$this->action( 'after_setup_theme' );
 
-			if ( file_exists( GNETWORK_DIR.'includes/Misc/ThemesPluggable.php' ) )
+			if ( is_readable( GNETWORK_DIR.'includes/Misc/ThemesPluggable.php' ) )
 				require_once( GNETWORK_DIR.'includes/Misc/ThemesPluggable.php' );
 		}
 

@@ -202,7 +202,7 @@ class Widgets extends gNetwork\Module
 
 		foreach ( apply_filters( $this->hook(), $widgets ) as $path => $widget ) {
 
-			if ( file_exists( $path ) ) {
+			if ( is_readable( $path ) ) {
 				require_once( $path );
 
 				if ( class_exists( $widget ) )

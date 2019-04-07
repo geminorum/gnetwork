@@ -22,7 +22,7 @@ class Notify extends gNetwork\Module
 		$this->filter( 'send_password_change_email', 3, 12 );
 		$this->filter( 'send_email_change_email', 3, 12 );
 
-		if ( file_exists( GNETWORK_DIR.'includes/Misc/NotifyPluggable.php' ) )
+		if ( is_readable( GNETWORK_DIR.'includes/Misc/NotifyPluggable.php' ) )
 			require_once( GNETWORK_DIR.'includes/Misc/NotifyPluggable.php' );
 
 		if ( $this->options['disable_new_user_admin'] )

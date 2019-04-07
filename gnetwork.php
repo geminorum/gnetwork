@@ -25,7 +25,7 @@ define( 'GNETWORK_DIR', plugin_dir_path( __FILE__ ) );
 define( 'GNETWORK_URL', plugin_dir_url( __FILE__ ) );
 define( 'GNETWORK_FILE', basename( GNETWORK_DIR ) . '/' . basename( __FILE__ ) );
 
-if ( file_exists( WP_CONTENT_DIR . '/gnetwork-custom.php' ) ) {
+if ( is_readable( WP_CONTENT_DIR . '/gnetwork-custom.php' ) ) {
 	require_once WP_CONTENT_DIR . '/gnetwork-custom.php';
 }
 

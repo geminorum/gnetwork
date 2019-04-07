@@ -390,10 +390,10 @@ class Utilities extends Core\Base
 		$plugin  = GNETWORK_DIR.'includes/Layouts/'.$name.'.php';
 		$layout  = locate_template( $name );
 
-		if ( ! $layout && file_exists( $content ) )
+		if ( ! $layout && is_readable( $content ) )
 			$layout = $content;
 
-		if ( ! $layout && file_exists( $plugin ) )
+		if ( ! $layout && is_readable( $plugin ) )
 			$layout = $plugin;
 
 		if ( $no_cache && $layout )

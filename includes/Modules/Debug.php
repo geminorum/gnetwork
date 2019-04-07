@@ -215,7 +215,7 @@ class Debug extends gNetwork\Module
 	// TODO: add limit/length input
 	private static function displayLogs( $file )
 	{
-		if ( $file && file_exists( $file ) ) {
+		if ( $file && is_readable( $file ) ) {
 
 			if ( ! $file_size = File::getSize( $file ) )
 				return FALSE;
@@ -630,7 +630,7 @@ class Debug extends gNetwork\Module
 		// $available = [];
 		//
 		// foreach ( $tools as $tool )
-		// 	$available[strtoupper($tool)] = file_exists( $path.$tool ) ? $path.$tool : FALSE;
+		// 	$available[strtoupper($tool)] = is_readable( $path.$tool ) ? $path.$tool : FALSE;
 		//
 		// echo HTML::tableCode( $available );
 
@@ -693,12 +693,12 @@ class Debug extends gNetwork\Module
 
 	public function debug_bar_panels( $panels )
 	{
-		if ( file_exists( GNETWORK_DIR.'includes/Misc/DebugMetaPanel.php' ) ) {
+		if ( is_readable( GNETWORK_DIR.'includes/Misc/DebugMetaPanel.php' ) ) {
 			require_once( GNETWORK_DIR.'includes/Misc/DebugMetaPanel.php' );
 			$panels[] = new \geminorum\gNetwork\Misc\DebugMetaPanel();
 		}
 
-		if ( file_exists( GNETWORK_DIR.'includes/Misc/DebugExtrasPanel.php' ) ) {
+		if ( is_readable( GNETWORK_DIR.'includes/Misc/DebugExtrasPanel.php' ) ) {
 			require_once( GNETWORK_DIR.'includes/Misc/DebugExtrasPanel.php' );
 			$panels[] = new \geminorum\gNetwork\Misc\DebugExtrasPanel();
 		}

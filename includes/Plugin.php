@@ -60,7 +60,7 @@ class Plugin
 			if ( ! $check )
 				require_once( $base.'includes/'.$path.'.php' );
 
-			else if ( file_exists( $base.'includes/'.$path.'.php' ) )
+			else if ( is_readable( $base.'includes/'.$path.'.php' ) )
 				require_once( $base.'includes/'.$path.'.php' );
 	}
 
@@ -226,7 +226,7 @@ class Plugin
 
 	public function bp_include()
 	{
-		if ( file_exists( GNETWORK_DIR.'includes/Modules/BuddyPress.php' ) ) {
+		if ( is_readable( GNETWORK_DIR.'includes/Modules/BuddyPress.php' ) ) {
 
 			try {
 
@@ -242,7 +242,7 @@ class Plugin
 
 	public function bbp_includes()
 	{
-		if ( file_exists( GNETWORK_DIR.'includes/Modules/bbPress.php' ) ) {
+		if ( is_readable( GNETWORK_DIR.'includes/Modules/bbPress.php' ) ) {
 
 			try {
 
@@ -258,7 +258,7 @@ class Plugin
 
 	public function bp_setup_components()
 	{
-		if ( file_exists( GNETWORK_DIR.'includes/Misc/BuddyPressMe.php' ) ) {
+		if ( is_readable( GNETWORK_DIR.'includes/Misc/BuddyPressMe.php' ) ) {
 
 			buddypress()->me = new Misc\BuddyPressMe();
 		}
@@ -266,7 +266,7 @@ class Plugin
 
 	public function mce_external_languages( $languages )
 	{
-		if ( file_exists( GNETWORK_DIR.'includes/Misc/TinyMceStrings.php' ) )
+		if ( is_readable( GNETWORK_DIR.'includes/Misc/TinyMceStrings.php' ) )
 			$languages['gnetwork'] = GNETWORK_DIR.'includes/Misc/TinyMceStrings.php';
 
 		return $languages;
