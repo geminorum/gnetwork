@@ -289,7 +289,7 @@ class File extends Base
 	// @REF: https://paulund.co.uk/html5-download-attribute
 	public static function download( $path, $name = NULL, $mime = 'application/octet-stream' )
 	{
-		if ( ! file_exists( $path ) )
+		if ( ! is_readable( $path ) )
 			return FALSE;
 
 		if ( ! is_file( $path ) )

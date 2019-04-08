@@ -773,6 +773,7 @@ class WordPress extends Base
 		return empty( $attachment ) ? NULL : $attachment[0];
 	}
 
+	// @REF: `is_plugin_active()`
 	public static function isPluginActive( $plugin, $network_check = TRUE )
 	{
 		if ( in_array( $plugin, (array) apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) )
@@ -784,6 +785,7 @@ class WordPress extends Base
 		return FALSE;
 	}
 
+	// @REF: `is_plugin_active_for_network()`
 	public static function isPluginActiveForNetwork( $plugin, $network = NULL )
 	{
 		if ( is_multisite() )

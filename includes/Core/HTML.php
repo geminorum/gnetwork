@@ -541,6 +541,7 @@ class HTML extends Base
 		), $html );
 	}
 
+	// @REF: https://make.wordpress.org/core/2019/04/02/admin-tabs-semantic-improvements-in-5-2/
 	public static function tabsList( $tabs, $atts = array() )
 	{
 		if ( empty( $tabs ) )
