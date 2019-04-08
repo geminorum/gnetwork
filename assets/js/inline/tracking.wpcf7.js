@@ -1,0 +1,13 @@
+/* global gtag */
+// /////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////
+/// gNetwork: Tracking: WPCF7
+// @REF: https://contactform7.com/2017/06/07/on-sent-ok-is-deprecated/
+// @REF: https://developers.google.com/analytics/devguides/collection/gtagjs/sending-data
+
+// /////////////////////////////////////////////////////////////////////////////
+document.addEventListener('wpcf7mailsent', function () {
+  gtag('event', 'contact', {
+    'transport_type': 'beacon'
+  });
+});

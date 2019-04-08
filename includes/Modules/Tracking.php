@@ -4,6 +4,7 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
 use geminorum\gNetwork\Settings;
+use geminorum\gNetwork\Core\Browser;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\Third;
 use geminorum\gNetwork\Core\URL;
@@ -41,7 +42,6 @@ class Tracking extends gNetwork\Module
 			'primary_domain'      => '',
 			'ga_account'          => '',
 			'ga_beacon'           => '',
-			'ga_domain'           => 'auto',
 			'ga_userid'           => '1',
 			'ga_outbound'         => '0',
 			'quantcast'           => '',
@@ -69,16 +69,6 @@ class Tracking extends gNetwork\Module
 					'default'     => str_ireplace( [ 'http://', 'https://' ], '', home_url() ),
 					'dir'         => 'ltr',
 					'placeholder' => 'example.com',
-				],
-				[
-					'field'       => 'ga_domain',
-					'type'        => 'text',
-					'title'       => _x( 'GA Domain Name', 'Modules: Tracking: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => sprintf( _x( 'Determines current network Google Analytics domain name or just %s.', 'Modules: Tracking: Settings', GNETWORK_TEXTDOMAIN ), '<code>auto</code>' ),
-					'default'     => 'auto',
-					'dir'         => 'ltr',
-					'placeholder' => 'example.com',
-					'disabled'    => defined( 'GNETWORK_TRACKING_GA_ACCOUNT' ),
 				],
 				[
 					'field'       => 'ga_account',
@@ -207,25 +197,35 @@ class Tracking extends gNetwork\Module
 		return FALSE;
 	}
 
-	private function ga()
+	private function render_gtag( $account, $track_outbound = FALSE, $extra = '', $config = [] )
 	{
-		if ( ! $account = $this->get_ga_account() )
-			return FALSE;
+		// @SEE: assets/js/inline/tracking.code.js
+		$script = 'function gtag(){dataLayer.push(arguments)}function gtagCallback(a,t){function n(){e||(e=!0,a())}var e=!1;return setTimeout(n,t||1e3),n}window.dataLayer=window.dataLayer||[],gtag("js",new Date);';
 
-		if ( defined( 'GNETWORK_TRACKING_GA_ACCOUNT' )
-			|| empty( $this->options['ga_domain'] ) )
-				$domain = 'auto';
+		if ( count( $config ) )
+			$script.= "gtag('config', '".esc_js( $account )."',".wp_json_encode( $config ).");";
+
 		else
-			$domain = esc_js( $this->options['ga_domain'] );
+			$script.= "gtag('config', '".esc_js( $account )."');";
 
-		return "ga('create', '".esc_js( $account )."', '".$domain."');"."\n";
-	}
+		if ( $track_outbound ) {
 
-	private function ga_code( $ga )
-	{
-		$analytics = "(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');";
+			// closest v3.0.1 - https://github.com/jonathantneal/closest
+			// @REF: https://unpkg.com/element-closest/browser
+			$polyfill = '!function(e){var t=e.Element.prototype;"function"!=typeof t.matches&&(t.matches=t.msMatchesSelector||t.mozMatchesSelector||t.webkitMatchesSelector||function(e){for(var t=(this.document||this.ownerDocument).querySelectorAll(e),o=0;t[o]&&t[o]!==this;)++o;return Boolean(t[o])}),"function"!=typeof t.closest&&(t.closest=function(e){for(var t=this;t&&1===t.nodeType;){if(t.matches(e))return t;t=t.parentNode}return null})}(window);';
 
-		HTML::wrapScript( $analytics.$ga );
+			// @SEE: /assets/js/inline/tracking.outbound.js
+			$outbound = '!function(){document.addEventListener("click",function(t){if("function"==typeof gtag&&!t.isDefaultPrevented){var e=t.target.closest("a");e&&window.location.host!==e.host&&(t.preventDefault(),gtag("event","click",{event_category:"outbound",event_label:e.href,transport_type:"beacon",event_callback:gtagCallback(function(){document.location=e.href})}))}},!1)}();';
+
+			if ( Browser::isIE() )
+				$script.= $polyfill;
+
+			$script.= $outbound;
+		}
+
+		echo '<script async src="https://www.googletagmanager.com/gtag/js?id='.$account.'"></script>';
+
+		HTML::wrapScript( $script.$extra );
 	}
 
 	public function wp_head()
@@ -236,46 +236,39 @@ class Tracking extends gNetwork\Module
 		if ( $this->ignore() )
 			return;
 
-		if ( ! $ga = $this->ga() )
+		if ( ! $account = $this->get_ga_account() )
 			return;
 
+		$extra = '';
+
 		if ( $this->options['ga_userid'] && is_user_logged_in() )
-			$ga.= "\t"."ga('set', '&uid', '".esc_js( wp_get_current_user()->user_login )."');"."\n";
+			$extra.= "gtag('set',{'user_id':'".esc_js( wp_get_current_user()->user_login )."'});";
 
-		$ga.= "\t"."ga('send', 'pageview');";
-
-		// @REF: https://wp.me/p1wYQJ-5Xv
 		if ( defined( 'WPCF7_VERSION' ) )
-			$ga.= "\n\t"."document.addEventListener('wpcf7mailsent',function(e){ga('send','event','Contact Form','sent');},false);";
+			// @SEE: assets/js/inline/tracking.wpcf7.js
+			$extra.= 'document.addEventListener("wpcf7mailsent",function(){gtag("event","contact",{transport_type:"beacon"})});';
 
-		$this->ga_code( $ga );
-
-		if ( $this->options['ga_outbound'] ) {
-			$this->ga_outbound = TRUE;
-			wp_enqueue_script( 'jquery' );
-		}
+		$this->render_gtag( $account, $this->options['ga_outbound'], $extra );
 	}
 
 	public function login_head()
 	{
-		if ( $ga = $this->ga() ) {
+		if ( $this->ignore() )
+			return;
 
-			$ga.= "ga('send',{hitType:'pageview',title:'login',page:location.pathname});";
+		if ( ! $account = $this->get_ga_account() )
+			return;
 
-			$this->ga_code( $ga );
-		}
+		// @SEE: assets/js/inline/tracking.login.js
+		$extra = '!function(){document.addEventListener("DOMContentLoaded",function(){var t=document.getElementById("loginform");t.addEventListener("submit",function(n){n.preventDefault(),gtag("event","login",{transport_type:"beacon",event_callback:gtagCallback(function(){t.submit()})})})})}();';
+
+		$this->render_gtag( $account, FALSE, $extra );
 	}
 
 	public function wp_footer()
 	{
 		if ( $this->ignore() )
 			return;
-
-		if ( $this->ga_outbound ) {
-
-			// @REF: https://www.sitepoint.com/?p=84248
-			HTML::wrapScript( '(function($){"use strict";var baseURI=window.location.host;$("body").on("click",function(e){if(e.isDefaultPrevented()||typeof ga!=="function"){return;};var link=$(e.target).closest("a");if(link.length!=1||baseURI==link[0].host){return;};e.preventDefault();var href=link[0].href;ga("send",{"hitType":"event","eventCategory":"outbound","eventAction":"link","eventLabel":href,"hitCallback":loadPage});setTimeout(loadPage,1000);function loadPage(){document.location=href;};});})(jQuery);' );
-		}
 
 		if ( ! empty( $this->options['quantcast'] ) ) {
 
