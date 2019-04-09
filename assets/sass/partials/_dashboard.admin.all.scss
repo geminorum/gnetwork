@@ -58,6 +58,11 @@
         content: "\f321" !important;
       }
 
+      .-corn-missing::before {
+        color: $brand-warning !important;
+        content: "\f153" !important;
+      }
+
       a.storage::before {
         content: "\f104" !important;
       }
