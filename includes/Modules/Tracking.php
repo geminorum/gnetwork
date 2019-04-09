@@ -306,11 +306,33 @@ class Tracking extends gNetwork\Module
 	public function maintenance_template_after()
 	{
 		echo self::getContact( 'contact small' );
+
+		if ( $this->ignore() )
+			return;
+
+		if ( ! $account = $this->get_ga_account() )
+			return;
+
+		// FIXME: check for correct event
+		$extra = '';
+
+		$this->render_gtag( $account, FALSE, $extra );
 	}
 
 	public function restricted_template_after()
 	{
 		echo self::getContact( 'contact small' );
+
+		if ( $this->ignore() )
+			return;
+
+		if ( ! $account = $this->get_ga_account() )
+			return;
+
+		// FIXME: check for correct event
+		$extra = '';
+
+		$this->render_gtag( $account, FALSE, $extra );
 	}
 
 	public static function getContact( $class = 'contact', $fallback = FALSE )
