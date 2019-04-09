@@ -1991,7 +1991,7 @@ msgctxt "Modules: CRON: Button"
 msgid "Unschedule"
 msgstr ""
 
-#: includes/Modules/Cron.php:183, includes/Modules/Cron.php:390
+#: includes/Modules/Cron.php:183, includes/Modules/Cron.php:397
 msgctxt "Modules: CRON"
 msgid "Trigger Manually"
 msgstr ""
@@ -2063,47 +2063,59 @@ msgctxt "Modules: CRON"
 msgid "Cron-jobs ready to be run."
 msgstr ""
 
-#: includes/Modules/Cron.php:368
+#: includes/Modules/Cron.php:362
+msgctxt "Modules: CRON"
+msgid "Cron-jobs with missing action."
+msgstr ""
+
+#: includes/Modules/Cron.php:364
+msgctxt "Modules: CRON"
+msgid "%s Corn-job Missing Action"
+msgid_plural "%s Corn-job Missing Actions"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/Modules/Cron.php:375
 msgctxt "Modules: CRON"
 msgid "The WP-Cron system will be automatically checked once every 24 hours."
 msgstr ""
 
-#: includes/Modules/Cron.php:382
+#: includes/Modules/Cron.php:389
 msgctxt "Modules: CRON"
 msgid "Check Status Now"
 msgstr ""
 
-#: includes/Modules/Cron.php:395
+#: includes/Modules/Cron.php:402
 msgctxt "Modules: CRON"
 msgid "View Scheduled Tasks"
 msgstr ""
 
-#: includes/Modules/Cron.php:439
+#: includes/Modules/Cron.php:460
 msgctxt "Modules: CRON"
 msgid "Next"
 msgstr ""
 
-#: includes/Modules/Cron.php:446
+#: includes/Modules/Cron.php:467
 msgctxt "Modules: CRON"
 msgid "Tasks"
 msgstr ""
 
-#: includes/Modules/Cron.php:471
+#: includes/Modules/Cron.php:492
 msgctxt "Modules: CRON"
 msgid "Overview of tasks scheduled for WP-Cron"
 msgstr ""
 
-#: includes/Modules/Cron.php:472
+#: includes/Modules/Cron.php:493
 msgctxt "Modules: CRON"
 msgid "Nothing scheduled!"
 msgstr ""
 
-#: includes/Modules/Cron.php:479
+#: includes/Modules/Cron.php:500
 msgctxt "Modules: CRON"
 msgid "With %s event(s) ready to be run."
 msgstr ""
 
-#: includes/Modules/Cron.php:488
+#: includes/Modules/Cron.php:509
 msgctxt "Modules: CRON"
 msgid "Once Weekly"
 msgstr ""
@@ -4614,97 +4626,97 @@ msgctxt "Modules: Restricted"
 msgid "Site is Restricted"
 msgstr ""
 
-#: includes/Modules/Restricted.php:418, includes/Modules/Restricted.php:434
+#: includes/Modules/Restricted.php:421, includes/Modules/Restricted.php:437
 msgctxt "Modules: Restricted"
 msgid "You are not authorized to access this site's feed."
 msgstr ""
 
-#: includes/Modules/Restricted.php:475
+#: includes/Modules/Restricted.php:478
 msgctxt "Modules: Restricted"
 msgid "Private Feeds"
 msgstr ""
 
-#: includes/Modules/Restricted.php:476
+#: includes/Modules/Restricted.php:479
 msgctxt "Modules: Restricted"
 msgid "Used to access restricted site feeds."
 msgstr ""
 
-#: includes/Modules/Restricted.php:486
+#: includes/Modules/Restricted.php:489
 msgctxt "Modules: Restricted"
 msgid "Feed Access Key"
 msgstr ""
 
-#: includes/Modules/Restricted.php:487
+#: includes/Modules/Restricted.php:490
 msgctxt "Modules: Restricted"
 msgid "The key will be used on all restricted feed URLs."
 msgstr ""
 
-#: includes/Modules/Restricted.php:488
+#: includes/Modules/Restricted.php:491
 msgctxt "Modules: Restricted"
 msgid "Feed access key not found."
 msgstr ""
 
-#: includes/Modules/Restricted.php:498
+#: includes/Modules/Restricted.php:501
 msgctxt "Modules: Restricted"
 msgid "Reset your access key"
 msgstr ""
 
-#: includes/Modules/Restricted.php:499
+#: includes/Modules/Restricted.php:502
 msgctxt "Modules: Restricted"
 msgid "Remove your access key"
 msgstr ""
 
-#: includes/Modules/Restricted.php:501
+#: includes/Modules/Restricted.php:504
 msgctxt "Modules: Restricted"
 msgid "Generate new access key"
 msgstr ""
 
-#: includes/Modules/Restricted.php:509
+#: includes/Modules/Restricted.php:512
 msgctxt "Modules: Restricted"
 msgid "Key Operations"
 msgstr ""
 
-#: includes/Modules/Restricted.php:510
+#: includes/Modules/Restricted.php:513
 msgctxt "Modules: Restricted"
 msgid "Select an operation to work with your private feed access key."
 msgstr ""
 
-#: includes/Modules/Restricted.php:526
+#: includes/Modules/Restricted.php:529
 msgctxt "Modules: Restricted"
 msgid "Posts Feed for You"
 msgstr ""
 
-#: includes/Modules/Restricted.php:535
+#: includes/Modules/Restricted.php:538
 msgctxt "Modules: Restricted"
 msgid "Comments Feed for You"
 msgstr ""
 
-#: includes/Modules/Restricted.php:565
+#: includes/Modules/Restricted.php:568
 msgctxt "Modules: Restricted"
 msgid "Home Page"
 msgstr ""
 
-#: includes/Modules/Restricted.php:572
+#: includes/Modules/Restricted.php:575
 msgctxt "Modules: Restricted"
 msgid "View and update your profile"
 msgstr ""
 
-#: includes/Modules/Restricted.php:573
+#: includes/Modules/Restricted.php:576
 msgctxt "Modules: Restricted"
 msgid "Your Profile"
 msgstr ""
 
-#: includes/Modules/Restricted.php:578
+#: includes/Modules/Restricted.php:581
 msgctxt "Modules: Restricted"
 msgid "Log-out of this site"
 msgstr ""
 
-#: includes/Modules/Restricted.php:579
+#: includes/Modules/Restricted.php:582
 msgctxt "Modules: Restricted"
 msgid "Log Out"
 msgstr ""
 
-#: includes/Modules/Restricted.php:588
+#: includes/Modules/Restricted.php:591
 msgctxt "Modules: Restricted"
 msgid "You do not have sufficient access level."
 msgstr ""
@@ -6636,7 +6648,7 @@ msgstr ""
 
 #: includes/Settings.php:352
 msgctxt "Utilities: Dropdown: Get User Roles"
-msgid "Subscribers"
+msgid "Site Users"
 msgstr ""
 
 #: includes/Settings.php:357

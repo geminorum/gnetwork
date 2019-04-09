@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gNetwork\n"
 "Report-Msgid-Bugs-To: https://github.com/geminorum/gnetwork/issues\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2019-04-09 14:55+0430\n"
+"PO-Revision-Date: 2019-04-09 22:03+0430\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: \n"
 "Language: fa_IR\n"
@@ -2049,7 +2049,7 @@ msgctxt "Modules: CRON: Button"
 msgid "Unschedule"
 msgstr "حذف زمان‌بندی"
 
-#: includes/Modules/Cron.php:183, includes/Modules/Cron.php:390
+#: includes/Modules/Cron.php:183, includes/Modules/Cron.php:397
 msgctxt "Modules: CRON"
 msgid "Trigger Manually"
 msgstr "اجرای دستی"
@@ -2080,7 +2080,7 @@ msgstr "این مشکل از تنظیمات وردپرس شماست."
 #: includes/Modules/Cron.php:266
 msgctxt "Modules: CRON"
 msgid "WP-Cron is working as of %s"
-msgstr "سامانه کرون تا %s فعال بوده است."
+msgstr "سامانه کرون تا %s فعال بوده است"
 
 #: includes/Modules/Cron.php:285
 msgctxt "Modules: CRON"
@@ -2132,47 +2132,59 @@ msgctxt "Modules: CRON"
 msgid "Cron-jobs ready to be run."
 msgstr "تکالیف کرونی که آماده برای اجرا هستند."
 
-#: includes/Modules/Cron.php:368
+#: includes/Modules/Cron.php:362
+msgctxt "Modules: CRON"
+msgid "Cron-jobs with missing action."
+msgstr "کنش‌های کرونی که غیرقابل اجرا هستند."
+
+#: includes/Modules/Cron.php:364
+msgctxt "Modules: CRON"
+msgid "%s Corn-job Missing Action"
+msgid_plural "%s Corn-job Missing Actions"
+msgstr[0] "%s کنش کرون غیرقابل اجرا"
+msgstr[1] "%s کنش کرون غیرقابل اجرا"
+
+#: includes/Modules/Cron.php:375
 msgctxt "Modules: CRON"
 msgid "The WP-Cron system will be automatically checked once every 24 hours."
 msgstr "وضعیت سامانه کرون وردپرس هر ۲۴ ساعت به صورت خودکار بررسی خواهد شد."
 
-#: includes/Modules/Cron.php:382
+#: includes/Modules/Cron.php:389
 msgctxt "Modules: CRON"
 msgid "Check Status Now"
 msgstr "همین حالا بررسی کن"
 
-#: includes/Modules/Cron.php:395
+#: includes/Modules/Cron.php:402
 msgctxt "Modules: CRON"
 msgid "View Scheduled Tasks"
 msgstr "بازبینی تکالیف زمان‌بندی‌شده"
 
-#: includes/Modules/Cron.php:439
+#: includes/Modules/Cron.php:460
 msgctxt "Modules: CRON"
 msgid "Next"
 msgstr "بعدی"
 
-#: includes/Modules/Cron.php:446
+#: includes/Modules/Cron.php:467
 msgctxt "Modules: CRON"
 msgid "Tasks"
 msgstr "تکالیف"
 
-#: includes/Modules/Cron.php:471
+#: includes/Modules/Cron.php:492
 msgctxt "Modules: CRON"
 msgid "Overview of tasks scheduled for WP-Cron"
 msgstr "بازبینی تکالیف زمان‌بندی‌شده برای اجرا توسط کرون وردپرس"
 
-#: includes/Modules/Cron.php:472
+#: includes/Modules/Cron.php:493
 msgctxt "Modules: CRON"
 msgid "Nothing scheduled!"
 msgstr "تکلیفی مشخص نشده است!"
 
-#: includes/Modules/Cron.php:479
+#: includes/Modules/Cron.php:500
 msgctxt "Modules: CRON"
 msgid "With %s event(s) ready to be run."
 msgstr "همراه با %s تکلیف آماده برای اجرا."
 
-#: includes/Modules/Cron.php:488
+#: includes/Modules/Cron.php:509
 msgctxt "Modules: CRON"
 msgid "Once Weekly"
 msgstr "هفته‌ای یک بار"
@@ -4758,97 +4770,97 @@ msgctxt "Modules: Restricted"
 msgid "Site is Restricted"
 msgstr "سایت محدود شده است"
 
-#: includes/Modules/Restricted.php:418, includes/Modules/Restricted.php:434
+#: includes/Modules/Restricted.php:421, includes/Modules/Restricted.php:437
 msgctxt "Modules: Restricted"
 msgid "You are not authorized to access this site's feed."
 msgstr "برای دسترسی به خوراک این سایت، احتیاج به کلید دسترسی دارید."
 
-#: includes/Modules/Restricted.php:475
+#: includes/Modules/Restricted.php:478
 msgctxt "Modules: Restricted"
 msgid "Private Feeds"
 msgstr "خوراک‌های خصوصی"
 
-#: includes/Modules/Restricted.php:476
+#: includes/Modules/Restricted.php:479
 msgctxt "Modules: Restricted"
 msgid "Used to access restricted site feeds."
 msgstr "از این پیوندها برای دسترسی به خوراک‌های محدودشده سایت استفاده کنید."
 
-#: includes/Modules/Restricted.php:486
+#: includes/Modules/Restricted.php:489
 msgctxt "Modules: Restricted"
 msgid "Feed Access Key"
 msgstr "کلید دسترسی خوراک"
 
-#: includes/Modules/Restricted.php:487
+#: includes/Modules/Restricted.php:490
 msgctxt "Modules: Restricted"
 msgid "The key will be used on all restricted feed URLs."
 msgstr "از این کلید هنگام استفاده از خوراک‌های محدود شده استفاده خواهد شد."
 
-#: includes/Modules/Restricted.php:488
+#: includes/Modules/Restricted.php:491
 msgctxt "Modules: Restricted"
 msgid "Feed access key not found."
 msgstr "کلید دسترسی تولید نشده است."
 
-#: includes/Modules/Restricted.php:498
+#: includes/Modules/Restricted.php:501
 msgctxt "Modules: Restricted"
 msgid "Reset your access key"
 msgstr "بازنشانی کلید دسترسی"
 
-#: includes/Modules/Restricted.php:499
+#: includes/Modules/Restricted.php:502
 msgctxt "Modules: Restricted"
 msgid "Remove your access key"
 msgstr "حذف کلید دسترسی"
 
-#: includes/Modules/Restricted.php:501
+#: includes/Modules/Restricted.php:504
 msgctxt "Modules: Restricted"
 msgid "Generate new access key"
 msgstr "تولید کلید دسترسی"
 
-#: includes/Modules/Restricted.php:509
+#: includes/Modules/Restricted.php:512
 msgctxt "Modules: Restricted"
 msgid "Key Operations"
 msgstr "گزینه‌های کلید"
 
-#: includes/Modules/Restricted.php:510
+#: includes/Modules/Restricted.php:513
 msgctxt "Modules: Restricted"
 msgid "Select an operation to work with your private feed access key."
 msgstr "برای تغیر کلید دسترسی یکی از این گزینه‌ها را انتخاب کنید."
 
-#: includes/Modules/Restricted.php:526
+#: includes/Modules/Restricted.php:529
 msgctxt "Modules: Restricted"
 msgid "Posts Feed for You"
 msgstr "خوراک نوشته‌ها برای شما"
 
-#: includes/Modules/Restricted.php:535
+#: includes/Modules/Restricted.php:538
 msgctxt "Modules: Restricted"
 msgid "Comments Feed for You"
 msgstr "خوراک دیدگاه‌ها برای شما"
 
-#: includes/Modules/Restricted.php:565
+#: includes/Modules/Restricted.php:568
 msgctxt "Modules: Restricted"
 msgid "Home Page"
 msgstr "صفحه اصلی"
 
-#: includes/Modules/Restricted.php:572
+#: includes/Modules/Restricted.php:575
 msgctxt "Modules: Restricted"
 msgid "View and update your profile"
 msgstr "نمایه خود را مشاهده و ویرایش کنید"
 
-#: includes/Modules/Restricted.php:573
+#: includes/Modules/Restricted.php:576
 msgctxt "Modules: Restricted"
 msgid "Your Profile"
 msgstr "نمایه شما"
 
-#: includes/Modules/Restricted.php:578
+#: includes/Modules/Restricted.php:581
 msgctxt "Modules: Restricted"
 msgid "Log-out of this site"
 msgstr "از این سایت خارج شوید"
 
-#: includes/Modules/Restricted.php:579
+#: includes/Modules/Restricted.php:582
 msgctxt "Modules: Restricted"
 msgid "Log Out"
 msgstr "خارج شوید"
 
-#: includes/Modules/Restricted.php:588
+#: includes/Modules/Restricted.php:591
 msgctxt "Modules: Restricted"
 msgid "You do not have sufficient access level."
 msgstr "محتوای این صفحه برای شما قابل دسترسی نیست."
@@ -6831,8 +6843,8 @@ msgstr "مشارکت‌کننده‌ها"
 
 #: includes/Settings.php:352
 msgctxt "Utilities: Dropdown: Get User Roles"
-msgid "Subscribers"
-msgstr "دنبال‌کننده‌ها"
+msgid "Site Users"
+msgstr "اعضای سایت"
 
 #: includes/Settings.php:357
 msgctxt "Utilities: Dropdown: Get User Roles"
@@ -6842,7 +6854,7 @@ msgstr "مدیران ارشد"
 #: includes/Settings.php:359
 msgctxt "Utilities: Dropdown: Get User Roles"
 msgid "Network Users"
-msgstr "اعضای سایت"
+msgstr "اعضای شبکه"
 
 #: includes/Settings.php:364
 msgctxt "Utilities: Dropdown: Get User Roles"
@@ -7367,6 +7379,18 @@ msgstr "پیگیری: کوانت‌کست"
 msgctxt "Widget: Description"
 msgid "Simple Quantcast Data Badge"
 msgstr "نشان ساده داده‌های کوانت‌کست"
+
+#~ msgctxt "Modules: CRON"
+#~ msgid "Cron-jobs with missing actions."
+#~ msgstr "تکالیف کرونی که کنش ندارند."
+
+#~ msgctxt "Modules: CRON"
+#~ msgid "Corn-jobs Missing Actions"
+#~ msgstr "کنش‌های کرون غیرقابل اجرا"
+
+#~ msgctxt "Utilities: Dropdown: Get User Roles"
+#~ msgid "Subscribers"
+#~ msgstr "دنبال‌کننده‌ها"
 
 #~ msgctxt "Modules: Login: Settings"
 #~ msgid "Header Title"
