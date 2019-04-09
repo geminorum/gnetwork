@@ -55,10 +55,23 @@ textarea {
   transition: height 0.2s ease 0s;
 }
 
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 body.thrift-mode {
   label[for="media-attachment-date-filters"],
   #media-attachment-date-filters {
     display: none;
+  }
+}
+
+body.hide-admin-menu {
+  #adminmenumain {
+    display: none;
+  }
+
+  #wpcontent,
+  #wpfooter {
+    margin-left: 0;
   }
 }
 

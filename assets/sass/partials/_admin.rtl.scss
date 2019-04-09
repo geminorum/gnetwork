@@ -203,10 +203,11 @@ span.description {
 
 .mce-container-body {
   .mce-resizehandle {
-    right: auto;
-    left: 0;
-    margin-left: 0;
-    margin-right: 2px;
+    right: auto !important;
+    left: 0 !important;
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 2px !important;
 
     i.mce-i-resize {
       transform: scale(-1, 1);
