@@ -398,8 +398,11 @@ class Restricted extends gNetwork\Module
 			return TRUE;
 
 		// valid key is sufficient
-		if ( in_array( $this->options['access_site'], [ '_member_of_network', '_member_of_site' ] ) )
+		if ( '_member_of_network' == $this->options['access_site'] )
 			return FALSE;
+
+		if ( '_member_of_site' == $this->options['access_site'] )
+			return ! is_user_member_of_blog( $user );
 
 		if ( user_can( $user, $this->options['access_site'] ) )
 			return FALSE;
