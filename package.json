@@ -20,7 +20,7 @@
   "scripts": {
     "gulp": "./node_modules/gulp/bin/gulp.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "gulp build",
+    "build": "md .build && cd .build && git clone https://github.com/geminorum/gnetwork . && composer install --no-dev --optimize-autoloader --prefer-dist -v && yarn install && gulp build",
     "ready": "gulp ready",
     "refresh": "gulp dev:styles",
     "locale": "gulp pot",

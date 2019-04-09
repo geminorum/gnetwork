@@ -19,6 +19,9 @@
   var env = config.env;
   var banner = config.banner.join('\n');
 
+  // var debug = /--debug/.test(process.argv.slice(2));
+  var patch = /--patch/.test(process.argv.slice(2)); // bump a patch?
+
   try {
     env = extend(config.env, yaml.safeLoad(fs.readFileSync('./environment.yml', { encoding: 'utf-8' }), { 'json': true }));
   } catch (e) {
@@ -214,21 +217,26 @@
 
   gulp.task('bump:package', function () {
     return gulp.src('./package.json')
-      .pipe(plugins.bump().on('error', log.error))
+      .pipe(plugins.bump({
+        type: patch ? 'patch' : 'minor' // `major|minor|patch|prerelease`
+      }).on('error', log.error))
       .pipe(gulp.dest('.'));
   });
 
   gulp.task('bump:plugin', function () {
     return gulp.src(config.pot.metadataFile)
-      .pipe(plugins.bump().on('error', log.error))
+      .pipe(plugins.bump({
+        type: patch ? 'patch' : 'minor' // `major|minor|patch|prerelease`
+      }).on('error', log.error))
       .pipe(gulp.dest('.'));
   });
 
   gulp.task('bump:constant', function () {
     return gulp.src(config.pot.metadataFile)
       .pipe(plugins.bump({
-        // regex: new RegExp("([<|\'|\"]?" + config.constants.version + "[>|\'|\"]?[ ]*[:=,]?[ ]*[\'|\"]?[a-z]?)(\\d+\\.\\d+\\.\\d+)(-[0-9A-Za-z\.-]+)?([\'|\"|<]?)", "i")
-        regex: new RegExp("([<|'|\"]?" + config.constants.version + "[>|'|\"]?[ ]*[:=,]?[ ]*['|\"]?[a-z]?)(\\d+\\.\\d+\\.\\d+)(-[0-9A-Za-z.-]+)?(['|\"|<]?)", 'i')
+        type: patch ? 'patch' : 'minor', // `major|minor|patch|prerelease`
+        key: config.constants.version, // for error reference
+        regex: new RegExp('([<|\'|"]?(' + config.constants.version + ')[>|\'|"]?[ ]*[:=,]?[ ]*[\'|"]?[a-z]?)(\\d+.\\d+.\\d+)(-[0-9A-Za-z.-]+)?(\\+[0-9A-Za-z\\.-]+)?([\'|"|<]?)', 'i')
       }).on('error', log.error))
       .pipe(gulp.dest('.'));
   });
@@ -238,7 +246,7 @@
     'bump:plugin',
     'bump:constant',
     function (done) {
-      log('Bumped!');
+      log(patch ? 'Bumped to a Patched Version!' : 'Bumped to a Minor Version!');
       done();
     }
   ));
