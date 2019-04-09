@@ -356,6 +356,13 @@ class Cron extends gNetwork\Module
 			'class' => $ready ? '-corn-ready' : '-corn-done',
 		], $title );
 
+		if ( $can && ( $missing = count( $this->get_missing_actions() ) ) )
+			$items[] = HTML::tag( 'a', [
+				'href'  => $this->get_menu_url( 'cron', 'admin', 'tools' ),
+				'title' => _x( 'Cron-jobs with missing actions.', 'Modules: CRON', GNETWORK_TEXTDOMAIN ),
+				'class' => '-corn-missing',
+			], _x( 'Corn-jobs Missing Actions', 'Modules: CRON', GNETWORK_TEXTDOMAIN ) );
+
 		return $items;
 	}
 
@@ -396,6 +403,20 @@ class Cron extends gNetwork\Module
 		}
 
 		echo '</p></div>';
+	}
+
+	protected function get_missing_actions()
+	{
+		$actions = $missing = [];
+
+		foreach ( self::getCronArray() as $timestamp )
+			$actions = array_merge( $actions, array_keys( $timestamp ) );
+
+		foreach ( array_unique( $actions ) as $action )
+			if ( ! has_action( $action ) )
+				$missing[] = $action;
+
+		return $missing;
 	}
 
 	protected static function getCronReady()
