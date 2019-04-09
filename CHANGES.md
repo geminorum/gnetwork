@@ -1,3 +1,56 @@
+### 3.9.0
+* main/module: settings button only with settings options
+* main/settings: passing default cap for dashboard widget
+* main/settings: status options helper
+* main/utilities: better handling layouts
+* main/utilities: github markdown styles
+* main/utilities: masonry helper
+* main/utilities: redirect home helper
+* module/admin: attachment mime-types on currents
+* module/admin: avoid script for no tabs
+* module/admin: check for custom cap on image sizes report
+* module/admin: currents action hook
+* module/admin: masonry layout for currents
+* module/admin: reports on tools overview
+* module/adminbar: account for xfn on menus
+* module/authors: adding user site to current site
+* module/authors: cleanup user site summary
+* module/authors: do shortcode on shortcode contents
+* module/blog: handling 404 on json feeds
+* module/cleanup: clean core files
+* module/cron: delete revisions before one week
+* module/debug: masonry layout for currents
+* module/debug: non static die handler
+* module/login: header title renamed to text
+* module/maintenance: :new: store layout as core page
+* module/maintenance: before/after action hooks for default template
+* module/maintenance: better option keys
+* module/maintenance: core template only on main site
+* module/maintenance: rethinking workflow
+* module/maintenance: using header/footer from layouts
+* module/media: handle uploaded filenames with normalizer
+* module/navigation: default extra menu cap to subscribers
+* module/navigation: enqueue script in meta box
+* module/navigation: skip sites on non-multisite
+* module/navigation: trim item lables
+* module/profile: old and new contact methods
+* module/restricted: better check for page now
+* module/restricted: change default layout name to status
+* module/restricted: complete overhaul
+* module/restricted: fewer checks
+* module/restricted: hide admin menu on profile
+* module/restricted: profile link if member of site
+* module/shortcodes: :new: shortcode for permalink
+* module/shortcodes: return content on failure
+* module/taxonomy: check if active editor defined
+* module/tracking: support for restricted/maintenance pages
+* module/tracking: switch to tags manager
+* module/typography: more chars removed on sanitize titles
+* module/typography: more words on arabic typography
+* module/update: better handling main network
+* module/update: cleanup after core update
+* module/user: purge spam count after user delete
+
 ### 3.8.2
 * main/module: hooking admin post actions
 * main/module: more control over hooking ajax
