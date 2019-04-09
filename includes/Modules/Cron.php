@@ -359,9 +359,9 @@ class Cron extends gNetwork\Module
 		if ( $can && ( $missing = count( $this->get_missing_actions() ) ) )
 			$items[] = HTML::tag( 'a', [
 				'href'  => $this->get_menu_url( 'cron', 'admin', 'tools' ),
-				'title' => _x( 'Cron-jobs with missing actions.', 'Modules: CRON', GNETWORK_TEXTDOMAIN ),
+				'title' => _x( 'Cron-jobs with missing action.', 'Modules: CRON', GNETWORK_TEXTDOMAIN ),
 				'class' => '-corn-missing',
-			], _x( 'Corn-jobs Missing Actions', 'Modules: CRON', GNETWORK_TEXTDOMAIN ) );
+			], Utilities::getCounted( $missing, _nx( '%s Corn-job Missing Action', '%s Corn-job Missing Actions', $missing, 'Modules: CRON', GNETWORK_TEXTDOMAIN ) ) );
 
 		return $items;
 	}
