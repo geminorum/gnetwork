@@ -31,8 +31,8 @@ class Debug extends gNetwork\Module
 		$this->filter( 'debug_bar_panels' );
 		$this->action( 'wp_footer', 1, 999 );
 
-		add_filter( 'wp_die_handler', function( $function ){
-			return [ __NAMESPACE__.'\\Debug', 'wp_die_handler' ];
+		add_filter( 'wp_die_handler', function() {
+			return [ $this, 'wp_die_handler' ];
 		} );
 
 		$this->action( 'http_api_debug', 5 );
@@ -761,7 +761,7 @@ class Debug extends gNetwork\Module
 	}
 
 	// @REF: `_default_wp_die_handler()`
-	public static function wp_die_handler( $message, $title = '', $args = [] )
+	public function wp_die_handler( $message, $title = '', $args = [] )
 	{
 		$r = self::args( $args, [
 			'response' => 500,
