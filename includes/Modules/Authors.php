@@ -93,7 +93,7 @@ class Authors extends gNetwork\Module
 
 				echo '&nbsp;&mdash;&nbsp;';
 
-				if ( is_user_member_of_blog( $user, get_current_blog_id() ) )
+				if ( is_user_member_of_blog( $user ) )
 					HTML::desc( _x( 'The user is already member of this blog.', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ), FALSE );
 
 				else

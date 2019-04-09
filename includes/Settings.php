@@ -349,14 +349,14 @@ class Settings extends Core\Base
 			'edit_others_posts'    => _x( 'Editors', 'Utilities: Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
 			'edit_published_posts' => _x( 'Authors', 'Utilities: Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
 			'edit_posts'           => _x( 'Contributors', 'Utilities: Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
-			'read'                 => _x( 'Subscribers', 'Utilities: Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
+			'_member_of_site'      => _x( 'Site Users', 'Utilities: Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ), // pseudo-cap
 		];
 
 		if ( is_multisite() ) {
 			$caps = [
 				'manage_network' => _x( 'Super Admins', 'Utilities: Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
 			] + $caps + [
-				'_logged_in' => _x( 'Network Users', 'Utilities: Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
+				'_member_of_network' => _x( 'Network Users', 'Utilities: Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ), // pseudo-cap
 			];
 		}
 

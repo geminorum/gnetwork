@@ -333,13 +333,13 @@ class WordPress extends Base
 		if ( ! $logged_in = is_user_logged_in() )
 			return FALSE;
 
-		// network users
-		if ( '_logged_in' == $cap && $logged_in )
+		// pseudo-cap for network users
+		if ( '_member_of_network' == $cap )
 			return TRUE;
 
-		// skip unnecessary
-		// if ( 'read' != $cap && ! $logged_in )
-		// 	return FALSE;
+		// pseudo-cap for site users
+		if ( '_member_of_site' == $cap )
+			return is_user_member_of_blog();
 
 		return current_user_can( $cap );
 	}

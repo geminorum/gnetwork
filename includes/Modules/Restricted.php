@@ -398,7 +398,7 @@ class Restricted extends gNetwork\Module
 			return TRUE;
 
 		// valid key is sufficient
-		if ( '_logged_in' == $this->options['access_site'] )
+		if ( in_array( $this->options['access_site'], [ '_member_of_network', '_member_of_site' ] ) )
 			return FALSE;
 
 		if ( user_can( $user, $this->options['access_site'] ) )
