@@ -1,3 +1,9 @@
+### 3.9.1
+* main/settings: better check for network/site users
+* module/cron: :new: missing actions on dashboard pointers
+* module/restricted: correct check for site members
+* module/site: :warning: resync cron only on the main site
+
 ### 3.9.0
 * main/module: settings button only with settings options
 * main/settings: passing default cap for dashboard widget
