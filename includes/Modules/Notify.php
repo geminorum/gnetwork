@@ -322,7 +322,7 @@ class Notify extends gNetwork\Module
 
 		$mail = [
 			'to'      => $user->user_email,
-			'subject' => __( '[%s] Your username and password info' ),
+			'subject' => __( '[%s] Login Credentials' ),
 			'message' => $message,
 			'headers' => '',
 		];

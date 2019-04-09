@@ -15,8 +15,7 @@ class Tracking extends gNetwork\Module
 
 	protected $key = 'tracking';
 
-	private $ga_outbound = FALSE;
-	private $ignore      = NULL;
+	private $ignore = NULL;
 
 	protected function setup_actions()
 	{
@@ -247,6 +246,8 @@ class Tracking extends gNetwork\Module
 		if ( defined( 'WPCF7_VERSION' ) )
 			// @SEE: assets/js/inline/tracking.wpcf7.js
 			$extra.= 'document.addEventListener("wpcf7mailsent",function(){gtag("event","contact",{transport_type:"beacon"})});';
+
+		// TODO: add more events: @SEE: https://developers.google.com/analytics/devguides/collection/gtagjs/sending-data
 
 		$this->render_gtag( $account, $this->options['ga_outbound'], $extra );
 	}
