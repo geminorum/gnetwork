@@ -251,7 +251,7 @@ class Site extends gNetwork\Module
 
 	public function schedule_actions()
 	{
-		if ( $this->options['resync_sitemeta'] ) {
+		if ( $this->options['resync_sitemeta'] && is_main_site() ) {
 
 			$hook = $this->hook( 'resync_sitemeta' );
 
