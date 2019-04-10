@@ -60,9 +60,17 @@ class HTML extends Base
 
 	public static function desc( $html, $block = TRUE, $class = '', $nl2br = TRUE )
 	{
-		if ( ! $html ) return;
-		if ( $nl2br ) $html = nl2br( trim( $html ) );
-		echo $block ? '<p class="description -description '.$class.'">'.$html.'</p>' : '<span class="description -description '.$class.'">'.$html.'</span>';
+		if ( ! $html )
+			return;
+
+		if ( $nl2br )
+			$html = nl2br( trim( $html ) );
+
+		$html = Text::wordWrap( $html );
+
+		echo $block
+			? '<p class="description -description '.$class.'">'.$html.'</p>'
+			: '<span class="description -description '.$class.'">'.$html.'</span>';
 	}
 
 	public static function label( $input, $for = FALSE, $wrap = 'p' )
