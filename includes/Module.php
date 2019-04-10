@@ -543,19 +543,35 @@ class Module extends Core\Base
 			$options = $this->options;
 
 		if ( $this->is_network() )
-			$saved = get_network_option( NULL, $this->base.'_site', [] );
+			$stored = get_network_option( NULL, $this->base.'_site', [] );
 		else
-			$saved = get_option( $this->base.'_blog', [] );
+			$stored = get_option( $this->base.'_blog', [] );
 
 		if ( $reset || empty( $options ) )
-			unset( $saved[$this->key] );
+			unset( $stored[$this->key] );
 		else
-			$saved[$this->key] = $options;
+			$stored[$this->key] = $options;
 
 		if ( $this->is_network() )
-			return update_network_option( NULL, $this->base.'_site', $saved );
+			return update_network_option( NULL, $this->base.'_site', $stored );
 		else
-			return update_option( $this->base.'_blog', $saved, TRUE );
+			return update_option( $this->base.'_blog', $stored, TRUE );
+	}
+
+	// for out of context manipulations
+	public function update_option( $key, $value )
+	{
+		if ( $this->is_network() )
+			$stored = get_network_option( NULL, $this->base.'_site', [] );
+		else
+			$stored = get_option( $this->base.'_blog', [] );
+
+		$stored[$this->key][$key] = $value;
+
+		if ( $this->is_network() )
+			return update_network_option( NULL, $this->base.'_site', $stored );
+		else
+			return update_option( $this->base.'_blog', $stored, TRUE );
 	}
 
 	public function delete_options()
