@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: gNetwork\n"
 "Report-Msgid-Bugs-To: https://github.com/geminorum/gnetwork/issues\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2019-04-09 22:03+0430\n"
+"PO-Revision-Date: 2019-04-10 14:59+0430\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: \n"
 "Language: fa_IR\n"
@@ -104,92 +104,92 @@ msgctxt "Modules: Debug: Debug Bar Panel"
 msgid "No metadata found!"
 msgstr ""
 
-#: includes/Module.php:250
+#: includes/Module.php:251
 msgctxt "Module Core: Menu Name"
 msgid "Overview"
 msgstr "در یک نگاه"
 
-#: includes/Module.php:258
+#: includes/Module.php:259
 msgctxt "Module Core: Menu Name"
 msgid "Console"
 msgstr "پیشانه"
 
-#: includes/Module.php:919
+#: includes/Module.php:937
 msgctxt "Module Core: Settings"
 msgid "Miscellaneous"
 msgstr "متفرقه"
 
-#: includes/Module.php:924
+#: includes/Module.php:942
 msgctxt "Module Core: Settings"
 msgid "Styling"
 msgstr "سبک‌بندی"
 
-#: includes/Module.php:929
+#: includes/Module.php:947
 msgctxt "Module Core: Settings"
 msgid "Administration"
 msgstr "مدیریت"
 
-#: includes/Module.php:934
+#: includes/Module.php:952
 msgctxt "Module Core: Settings"
 msgid "Front-end"
 msgstr "سمت‌کاربری"
 
-#: includes/Module.php:939
+#: includes/Module.php:957
 msgctxt "Module Core: Settings"
 msgid "Overrides"
 msgstr "رونویسی"
 
-#: includes/Module.php:944
+#: includes/Module.php:962
 msgctxt "Module Core: Settings"
 msgid "Services"
 msgstr "خدمات"
 
-#: includes/Module.php:949
+#: includes/Module.php:967
 msgctxt "Module Core: Settings"
 msgid "Economics"
 msgstr "صرفه‌جویی"
 
-#: includes/Module.php:954
+#: includes/Module.php:972
 msgctxt "Module Core: Settings"
 msgid "Redirects"
 msgstr "هدایت دوباره"
 
-#: includes/Module.php:959
+#: includes/Module.php:977
 msgctxt "Module Core: Settings"
 msgid "Login"
 msgstr "ورود"
 
-#: includes/Module.php:964
+#: includes/Module.php:982
 msgctxt "Module Core: Settings"
 msgid "Sign-up"
 msgstr "نام‌نویسی"
 
-#: includes/Module.php:969
+#: includes/Module.php:987
 msgctxt "Module Core: Settings"
 msgid "Dashboard"
 msgstr "پیشخوان"
 
-#: includes/Module.php:1001
+#: includes/Module.php:1019
 msgctxt "Module Core"
 msgid "Debug"
 msgstr "اشکال‌زدایی"
 
-#: includes/Module.php:1033
+#: includes/Module.php:1051
 msgctxt "Module Core: Help Tab Title"
 msgid "Extra Shortcodes"
 msgstr "شورت‌کدهای افزوده"
 
-#: includes/Module.php:1034
+#: includes/Module.php:1052
 msgctxt "Module Core: Help Tab Content"
 msgid "These are extra shortcodes provided by this module:"
 msgstr "شورت‌کدهایی که این پودمان ارائه می‌کند:"
 
-#: includes/Module.php:1041
+#: includes/Module.php:1059
 msgctxt "Module Core: Help Tab Title"
 msgid "Saved Options"
 msgstr "تنظیمات کنونی"
 
-#: includes/Module.php:1259
+#: includes/Module.php:1287
 msgctxt "Module Core"
 msgid "Please refresh the page to generate the data."
 msgstr "برای بازسازی داده‌ها صفحه را دوباره بارگذاری کنید."
@@ -590,52 +590,60 @@ msgctxt "Modules: Authors: Settings"
 msgid "Site-User for current network is <strong>not</strong> defined."
 msgstr "کاربر سایت برای شبکه کنونی تعریف <strong>نشده</strong> است."
 
-#: includes/Modules/BlackList.php:23
+#: includes/Modules/BlackList.php:32
 msgctxt "Modules: Menu Name"
 msgid "Black List"
 msgstr "فهرست سیاه"
 
-#: includes/Modules/BlackList.php:47
+#: includes/Modules/BlackList.php:56
 msgctxt "Modules: BlackList: Settings"
 msgid "Check Addresses"
 msgstr "بررسی نشانی‌ها"
 
-#: includes/Modules/BlackList.php:48
+#: includes/Modules/BlackList.php:57
 msgctxt "Modules: BlackList: Settings"
 msgid "Enables checking logged-out visitor's IP against your blacklist."
 msgstr ""
 
-#: includes/Modules/BlackList.php:53
+#: includes/Modules/BlackList.php:62
 msgctxt "Modules: BlackList: Settings"
 msgid "IP Addresses"
 msgstr "نشانی IPها"
 
-#: includes/Modules/BlackList.php:54
+#: includes/Modules/BlackList.php:63
 msgctxt "Modules: BlackList: Settings"
 msgid ""
 "Comma or line-seperated IP Ranges or individual IPs to block.\n"
 "ex: %s"
 msgstr ""
 
-#: includes/Modules/BlackList.php:61
+#: includes/Modules/BlackList.php:73
 msgctxt "Modules: BlackList: Settings"
 msgid "Blacklisted Message"
 msgstr "پیام مسدودشده"
 
-#: includes/Modules/BlackList.php:62
+#: includes/Modules/BlackList.php:74
 msgctxt "Modules: BlackList: Settings"
 msgid "Displays on the dead page for the blacklisted addresses."
 msgstr ""
 
-#: includes/Modules/BlackList.php:72
+#: includes/Modules/BlackList.php:84
 msgctxt "Modules: BlackList: Settings"
 msgid "Your IP Summary"
 msgstr ""
 
-#: includes/Modules/BlackList.php:74
+#: includes/Modules/BlackList.php:86
 msgctxt "Modules: BlackList: Settings"
 msgid "Your IP: <code title=\"%s\">%s</code>"
 msgstr "IP شما: <code title=\"%s\">%s</code>"
+
+#: includes/Modules/BlackList.php:92
+msgctxt "Modules: BlackList: Settings"
+msgid ""
+"Your site is scheduled for weekly blacklist updates from the remote source."
+msgstr ""
+"سایت شما برای دریافت هفتگی به‌روزرسانی فهرست سیاه، از منبع دوردست برنامه‌ریزی "
+"شده است."
 
 #: includes/Modules/Blog.php:105
 msgctxt "Modules: Menu Name"
@@ -1977,94 +1985,94 @@ msgctxt "Modules: Commerce"
 msgid "Setab Card Owner"
 msgstr "صاحب کارت شتاب"
 
-#: includes/Modules/Cron.php:50, includes/Modules/Cron.php:55
+#: includes/Modules/Cron.php:48, includes/Modules/Cron.php:53
 msgctxt "Modules: Menu Name"
 msgid "CRON"
 msgstr "کرون"
 
-#: includes/Modules/Cron.php:83
+#: includes/Modules/Cron.php:81
 msgctxt "Modules: CRON: Settings"
 msgid "Clean Revisions"
 msgstr "پاک‌سازی رونوشت‌ها"
 
-#: includes/Modules/Cron.php:84
+#: includes/Modules/Cron.php:82
 msgctxt "Modules: CRON: Settings"
 msgid "Schedules a <b>weekly</b> task to delete post revisions."
 msgstr "برای پاک‌سازی رونوشت‌ها، یک تکلیف <b>هفتگی</b> را زمان‌بندی می‌کند."
 
-#: includes/Modules/Cron.php:86
+#: includes/Modules/Cron.php:84
 msgctxt "Modules: CRON: Settings"
 msgid "Disabled by Constant: %s"
 msgstr "غیرفعال با ثابت: %s"
 
-#: includes/Modules/Cron.php:95
+#: includes/Modules/Cron.php:93
 msgctxt "Modules: CRON: Settings"
 msgid "Email Failure"
 msgstr "ایمیل اخطار"
 
-#: includes/Modules/Cron.php:96
+#: includes/Modules/Cron.php:94
 msgctxt "Modules: CRON: Settings"
 msgid "Notifies the administrator status check failure via email."
 msgstr "از راه ایمیل، عدم موفقیت در بررسی وضعیت را به سرپرست اطلاع می‌دهد."
 
-#: includes/Modules/Cron.php:101
+#: includes/Modules/Cron.php:99
 msgctxt "Modules: CRON: Settings"
 msgid "Email Address"
 msgstr "نشانی ایمیل"
 
-#: includes/Modules/Cron.php:102
+#: includes/Modules/Cron.php:100
 msgctxt "Modules: CRON: Settings"
 msgid ""
 "Failure notices will be sent to this address. Leave empty for WordPress admin "
 "email."
 msgstr ""
 
-#: includes/Modules/Cron.php:112
+#: includes/Modules/Cron.php:110
 msgctxt "Modules: CRON: Settings"
 msgid "Status Check"
 msgstr "بررسی وضعیت"
 
-#: includes/Modules/Cron.php:121
+#: includes/Modules/Cron.php:119
 msgctxt "Modules: CRON: Settings"
 msgid "The %s is set. WP-Cron is disabled and will not run automatically."
 msgstr ""
 
-#: includes/Modules/Cron.php:126
+#: includes/Modules/Cron.php:124
 msgctxt "Modules: CRON: Settings"
 msgid "The %s is set. Cannot determine the status of the WP-Cron."
 msgstr ""
 
-#: includes/Modules/Cron.php:131
+#: includes/Modules/Cron.php:129
 msgctxt "Modules: CRON: Settings"
 msgid "<code>WP_CRON_LOCK_TIMEOUT</code> is %s Seconds."
 msgstr "<code>WP_CRON_LOCK_TIMEOUT</code> &rlm;%s ثانیه است."
 
-#: includes/Modules/Cron.php:148
+#: includes/Modules/Cron.php:146
 msgctxt "Modules: CRON: Help Tab Title"
 msgid "Schedule Intervals"
 msgstr ""
 
-#: includes/Modules/Cron.php:182
+#: includes/Modules/Cron.php:180
 msgctxt "Modules: CRON: Button"
 msgid "Unschedule"
 msgstr "حذف زمان‌بندی"
 
-#: includes/Modules/Cron.php:183, includes/Modules/Cron.php:397
+#: includes/Modules/Cron.php:181, includes/Modules/Cron.php:390
 msgctxt "Modules: CRON"
 msgid "Trigger Manually"
 msgstr "اجرای دستی"
 
-#: includes/Modules/Cron.php:205
+#: includes/Modules/Cron.php:198
 msgctxt "Modules: CRON: Widget Title"
 msgid "WP-Cron Status Check"
 msgstr "بررسی کرون وردپرس"
 
-#: includes/Modules/Cron.php:233
+#: includes/Modules/Cron.php:226
 msgctxt "Modules: CRON"
 msgid "WP-Cron Status Checker has not run yet."
 msgstr "بررسی‌کننده کرون وردپرس تا به حال اجرا نشده است."
 
-#: includes/Modules/Cron.php:257
+#: includes/Modules/Cron.php:250
 msgctxt "Modules: CRON"
 msgid ""
 "While trying to spawn a call to the WP-Cron system, the following error "
@@ -2072,17 +2080,17 @@ msgid ""
 msgstr ""
 "در هنگام اجرای درخواست برای سامانه کرون وردپرس، این خطا اتفاق افتاده است:"
 
-#: includes/Modules/Cron.php:259
+#: includes/Modules/Cron.php:252
 msgctxt "Modules: CRON"
 msgid "This is a problem with your installation."
 msgstr "این مشکل از تنظیمات وردپرس شماست."
 
-#: includes/Modules/Cron.php:266
+#: includes/Modules/Cron.php:259
 msgctxt "Modules: CRON"
 msgid "WP-Cron is working as of %s"
 msgstr "سامانه کرون تا %s فعال بوده است"
 
-#: includes/Modules/Cron.php:285
+#: includes/Modules/Cron.php:278
 msgctxt "Modules: CRON"
 msgid ""
 "The %1$s constant is set to true as of %2$s. WP-Cron is disabled and will not "
@@ -2091,7 +2099,7 @@ msgstr ""
 "ثابت %1$s تعریف شده است. از %2$s سامانه کرون وردپرس غیرفعال است و به صورت "
 "خودکار اجرا نخواهد شد."
 
-#: includes/Modules/Cron.php:288
+#: includes/Modules/Cron.php:281
 msgctxt "Modules: CRON"
 msgid ""
 "The %1$s constant is set to true as of %2$s. We cannot determine the status "
@@ -2100,91 +2108,91 @@ msgstr ""
 "ثابت %1$s تعریف شده است. از %2$s بررسی وضعیت سامانه کرون وردپرس امکان‌پذیر "
 "نیست."
 
-#: includes/Modules/Cron.php:303
+#: includes/Modules/Cron.php:296
 msgctxt "Modules: CRON"
 msgid "Unexpected HTTP response code: %s"
 msgstr ""
 
-#: includes/Modules/Cron.php:330
+#: includes/Modules/Cron.php:323
 msgctxt "Modules: CRON: Email Subject"
 msgid "[%s] WP-Cron Failed!"
 msgstr "[%s] کرون وردپرس انجام نمی‌شود!"
 
-#: includes/Modules/Cron.php:333
+#: includes/Modules/Cron.php:326
 msgctxt "Modules: CRON"
 msgid "View the current cron scheduled tasks"
 msgstr "بازبینی تکالیف زمان‌بندی‌شده برای اجرا توسط کرون"
 
-#: includes/Modules/Cron.php:348
+#: includes/Modules/Cron.php:341
 msgctxt "Modules: CRON"
 msgid "%s Ready Cron-job"
 msgid_plural "%s Ready Cron-jobs"
 msgstr[0] "%s تکلیف کرون آماده"
 msgstr[1] "%s تکلیف کرون آماده"
 
-#: includes/Modules/Cron.php:351
+#: includes/Modules/Cron.php:344
 msgctxt "Modules: CRON"
 msgid "Cron-jobs Done!"
 msgstr "تکالیف کرون اجرا شده‌اند!"
 
-#: includes/Modules/Cron.php:355
+#: includes/Modules/Cron.php:348
 msgctxt "Modules: CRON"
 msgid "Cron-jobs ready to be run."
 msgstr "تکالیف کرونی که آماده برای اجرا هستند."
 
-#: includes/Modules/Cron.php:362
+#: includes/Modules/Cron.php:355
 msgctxt "Modules: CRON"
 msgid "Cron-jobs with missing action."
 msgstr "کنش‌های کرونی که غیرقابل اجرا هستند."
 
-#: includes/Modules/Cron.php:364
+#: includes/Modules/Cron.php:357
 msgctxt "Modules: CRON"
 msgid "%s Corn-job Missing Action"
 msgid_plural "%s Corn-job Missing Actions"
 msgstr[0] "%s کنش کرون غیرقابل اجرا"
 msgstr[1] "%s کنش کرون غیرقابل اجرا"
 
-#: includes/Modules/Cron.php:375
+#: includes/Modules/Cron.php:368
 msgctxt "Modules: CRON"
 msgid "The WP-Cron system will be automatically checked once every 24 hours."
 msgstr "وضعیت سامانه کرون وردپرس هر ۲۴ ساعت به صورت خودکار بررسی خواهد شد."
 
-#: includes/Modules/Cron.php:389
+#: includes/Modules/Cron.php:382
 msgctxt "Modules: CRON"
 msgid "Check Status Now"
 msgstr "همین حالا بررسی کن"
 
-#: includes/Modules/Cron.php:402
+#: includes/Modules/Cron.php:395
 msgctxt "Modules: CRON"
 msgid "View Scheduled Tasks"
 msgstr "بازبینی تکالیف زمان‌بندی‌شده"
 
-#: includes/Modules/Cron.php:460
+#: includes/Modules/Cron.php:453
 msgctxt "Modules: CRON"
 msgid "Next"
 msgstr "بعدی"
 
-#: includes/Modules/Cron.php:467
+#: includes/Modules/Cron.php:460
 msgctxt "Modules: CRON"
 msgid "Tasks"
 msgstr "تکالیف"
 
-#: includes/Modules/Cron.php:492
+#: includes/Modules/Cron.php:485
 msgctxt "Modules: CRON"
 msgid "Overview of tasks scheduled for WP-Cron"
 msgstr "بازبینی تکالیف زمان‌بندی‌شده برای اجرا توسط کرون وردپرس"
 
-#: includes/Modules/Cron.php:493
+#: includes/Modules/Cron.php:486
 msgctxt "Modules: CRON"
 msgid "Nothing scheduled!"
 msgstr "تکلیفی مشخص نشده است!"
 
-#: includes/Modules/Cron.php:500
+#: includes/Modules/Cron.php:493
 msgctxt "Modules: CRON"
 msgid "With %s event(s) ready to be run."
 msgstr "همراه با %s تکلیف آماده برای اجرا."
 
-#: includes/Modules/Cron.php:509
+#: includes/Modules/Cron.php:502
 msgctxt "Modules: CRON"
 msgid "Once Weekly"
 msgstr "هفته‌ای یک بار"
@@ -2539,147 +2547,147 @@ msgctxt "Modules: Debug"
 msgid "Current Time"
 msgstr ""
 
-#: includes/Modules/Debug.php:442
+#: includes/Modules/Debug.php:444
 msgctxt "Modules: Debug"
 msgid "IPs"
 msgstr ""
 
-#: includes/Modules/Debug.php:466
+#: includes/Modules/Debug.php:473
 msgctxt "Modules: Debug"
 msgid "SSL"
 msgstr ""
 
-#: includes/Modules/Debug.php:491
+#: includes/Modules/Debug.php:498
 msgctxt "Modules: Debug"
 msgid "File & Upload"
 msgstr ""
 
-#: includes/Modules/Debug.php:502
+#: includes/Modules/Debug.php:509
 msgctxt "Modules: Debug: Server Vars Group"
 msgid "Server"
 msgstr ""
 
-#: includes/Modules/Debug.php:504
+#: includes/Modules/Debug.php:511
 msgctxt "Modules: Debug: Server Vars"
 msgid "Software"
 msgstr ""
 
-#: includes/Modules/Debug.php:505, includes/Modules/Debug.php:527
+#: includes/Modules/Debug.php:512, includes/Modules/Debug.php:534
 msgctxt "Modules: Debug: Server Vars"
 msgid "Name"
 msgstr ""
 
-#: includes/Modules/Debug.php:506
+#: includes/Modules/Debug.php:513
 msgctxt "Modules: Debug: Server Vars"
 msgid "Admin"
 msgstr ""
 
-#: includes/Modules/Debug.php:507
+#: includes/Modules/Debug.php:514
 msgctxt "Modules: Debug: Server Vars"
 msgid "Protocol"
 msgstr ""
 
-#: includes/Modules/Debug.php:508
+#: includes/Modules/Debug.php:515
 msgctxt "Modules: Debug: Server Vars"
 msgid "Port"
 msgstr ""
 
-#: includes/Modules/Debug.php:509
+#: includes/Modules/Debug.php:516
 msgctxt "Modules: Debug: Server Vars"
 msgid "Signature"
 msgstr ""
 
-#: includes/Modules/Debug.php:510
+#: includes/Modules/Debug.php:517
 msgctxt "Modules: Debug: Server Vars"
 msgid "Address"
 msgstr ""
 
-#: includes/Modules/Debug.php:515
+#: includes/Modules/Debug.php:522
 msgctxt "Modules: Debug: Server Vars Group"
 msgid "Request"
 msgstr ""
 
-#: includes/Modules/Debug.php:517
+#: includes/Modules/Debug.php:524
 msgctxt "Modules: Debug: Server Vars"
 msgid "Time"
 msgstr ""
 
-#: includes/Modules/Debug.php:518
+#: includes/Modules/Debug.php:525
 msgctxt "Modules: Debug: Server Vars"
 msgid "Time (Float)"
 msgstr ""
 
-#: includes/Modules/Debug.php:519
+#: includes/Modules/Debug.php:526
 msgctxt "Modules: Debug: Server Vars"
 msgid "Method"
 msgstr ""
 
-#: includes/Modules/Debug.php:520, includes/Modules/Debug.php:530
+#: includes/Modules/Debug.php:527, includes/Modules/Debug.php:537
 msgctxt "Modules: Debug: Server Vars"
 msgid "URI"
 msgstr ""
 
-#: includes/Modules/Debug.php:525
+#: includes/Modules/Debug.php:532
 msgctxt "Modules: Debug: Server Vars Group"
 msgid "Script"
 msgstr ""
 
-#: includes/Modules/Debug.php:528
+#: includes/Modules/Debug.php:535
 msgctxt "Modules: Debug: Server Vars"
 msgid "Filename"
 msgstr ""
 
-#: includes/Modules/Debug.php:529
+#: includes/Modules/Debug.php:536
 msgctxt "Modules: Debug: Server Vars"
 msgid "URL"
 msgstr ""
 
-#: includes/Modules/Debug.php:586
+#: includes/Modules/Debug.php:593
 msgctxt "Modules: Debug"
 msgid "%s has been disabled."
 msgstr "%s غیرفعال شده است."
 
-#: includes/Modules/Debug.php:606
+#: includes/Modules/Debug.php:613
 msgctxt "Modules: Debug"
 msgid "System Versions"
 msgstr ""
 
-#: includes/Modules/Debug.php:608
+#: includes/Modules/Debug.php:615
 msgctxt "Modules: Debug"
 msgid "Current MySQL version: %s"
 msgstr ""
 
-#: includes/Modules/Debug.php:612
+#: includes/Modules/Debug.php:619
 msgctxt "Modules: Debug"
 msgid "Current PHP version: %s"
 msgstr ""
 
-#: includes/Modules/Debug.php:616
+#: includes/Modules/Debug.php:623
 msgctxt "Modules: Debug"
 msgid "Loaded Extensions"
 msgstr ""
 
-#: includes/Modules/Debug.php:621
+#: includes/Modules/Debug.php:628
 msgctxt "Modules: Debug"
 msgid "Missing Extensions"
 msgstr ""
 
-#: includes/Modules/Debug.php:732
+#: includes/Modules/Debug.php:739
 msgctxt "Modules: Debug"
 msgid "Extras"
 msgstr "افزوده‌ها"
 
-#: includes/Modules/Debug.php:740
+#: includes/Modules/Debug.php:747
 msgctxt "Modules: Debug"
 msgid "Check Error Logs"
 msgstr "بررسی لاگ‌های خطا"
 
-#: includes/Modules/Debug.php:749
+#: includes/Modules/Debug.php:756
 msgctxt "Modules: Debug"
 msgid "Check System Logs"
 msgstr "بررسی لاگ‌های سیستم"
 
-#: includes/Modules/Debug.php:758
+#: includes/Modules/Debug.php:765
 msgctxt "Modules: Debug"
 msgid "Check Failed Logs"
 msgstr "بررسی لاگ‌های ناموفق"
@@ -5146,69 +5154,69 @@ msgctxt "Shortcodes Module: Defaults"
 msgid "See the Footnote"
 msgstr "به پانوشت نگاه کنید"
 
-#: includes/Modules/Site.php:52
+#: includes/Modules/Site.php:54
 msgctxt "Modules: Menu Name"
 msgid "Global"
 msgstr "سراسری"
 
-#: includes/Modules/Site.php:78
+#: includes/Modules/Site.php:80
 msgctxt "Modules: Site: Settings"
 msgid "SSL"
 msgstr ""
 
-#: includes/Modules/Site.php:79
+#: includes/Modules/Site.php:81
 msgctxt "Modules: Site: Settings"
 msgid "Enables SSL tools to support the network sites."
 msgstr ""
 
-#: includes/Modules/Site.php:85
+#: includes/Modules/Site.php:87
 msgctxt "Modules: Site: Settings"
 msgid "Sync Metadata"
 msgstr "همگام‌سازی فراداده‌ها"
 
-#: includes/Modules/Site.php:86
+#: includes/Modules/Site.php:88
 msgctxt "Modules: Site: Settings"
 msgid "Re-syncs the site meta network-wide automatically."
 msgstr ""
 
-#: includes/Modules/Site.php:92
+#: includes/Modules/Site.php:94
 msgctxt "Modules: Site: Settings"
 msgid "Site Not Found"
 msgstr "سایت پیدا نشد"
 
-#: includes/Modules/Site.php:93
+#: includes/Modules/Site.php:95
 msgctxt "Modules: Site: Settings"
 msgid "Redirects to when the network can be determined but a site cannot."
 msgstr ""
 
-#: includes/Modules/Site.php:100
+#: includes/Modules/Site.php:102
 msgctxt "Modules: Site: Settings"
 msgid "Network Locale"
 msgstr "زبان شبکه"
 
-#: includes/Modules/Site.php:101
+#: includes/Modules/Site.php:103
 msgctxt "Modules: Site: Settings"
 msgid "Overrides network admin language, despite of the main site locale."
 msgstr ""
 
-#: includes/Modules/Site.php:111
+#: includes/Modules/Site.php:113
 msgctxt "Modules: Site: Settings"
 msgid "Access Denied"
 msgstr "دسترسی محدود شده است"
 
-#: includes/Modules/Site.php:112
+#: includes/Modules/Site.php:114
 msgctxt "Modules: Site: Settings"
 msgid ""
 "Displays when access to an admin page is denied. Leave empty to use default "
 "or %s to disable."
 msgstr ""
 
-#: includes/Modules/Site.php:118
+#: includes/Modules/Site.php:120
 msgctxt "Modules: Site: Settings"
 msgid "Denied Message"
 msgstr "پیام محدودیت"
 
-#: includes/Modules/Site.php:119
+#: includes/Modules/Site.php:121
 msgctxt "Modules: Site: Settings"
 msgid ""
 "Displays this message when a user tries to view a site's dashboard they do "
@@ -5216,96 +5224,96 @@ msgid ""
 "Name"
 msgstr ""
 
-#: includes/Modules/Site.php:125
+#: includes/Modules/Site.php:127
 msgctxt "Modules: Site: Settings"
 msgid "Extra Message"
 msgstr "اطلاعات بیشتر"
 
-#: includes/Modules/Site.php:126
+#: includes/Modules/Site.php:128
 msgctxt "Modules: Site: Settings"
 msgid ""
 "Displays this message before the list of sites. Leave empty to use default or "
 "%s to disable."
 msgstr ""
 
-#: includes/Modules/Site.php:131
+#: includes/Modules/Site.php:133
 msgctxt "Modules: Site: Settings"
 msgid "List of Sites"
 msgstr "فهرست سایت‌ها"
 
-#: includes/Modules/Site.php:132
+#: includes/Modules/Site.php:134
 msgctxt "Modules: Site: Settings"
 msgid "Displays the current user list of sites after access denied message."
 msgstr ""
 
-#: includes/Modules/Site.php:140
+#: includes/Modules/Site.php:142
 msgctxt "Modules: Site: Settings"
 msgid "Lookup IP URL"
 msgstr "نشانی بررسی‌کننده آی‌پی"
 
-#: includes/Modules/Site.php:141
+#: includes/Modules/Site.php:143
 msgctxt "Modules: Site: Settings"
 msgid ""
 "URL template to to use for looking up IP adresses. Will replace %s with the "
 "IP."
 msgstr ""
 
-#: includes/Modules/Site.php:152
+#: includes/Modules/Site.php:154
 msgctxt "Modules: Site: Settings"
 msgid "Dashboard Access"
 msgstr "دسترسی پیشخوان"
 
-#: includes/Modules/Site.php:162
+#: includes/Modules/Site.php:164
 msgctxt "Modules: Site: Settings"
 msgid "The %s is set. The site will not redirect to HTTPS automatically."
 msgstr ""
 
-#: includes/Modules/Site.php:173
+#: includes/Modules/Site.php:175
 msgctxt "Modules: Site"
 msgid "Disable SSL"
 msgstr "غیرفعال کردن SSL"
 
-#: includes/Modules/Site.php:176
+#: includes/Modules/Site.php:178
 msgctxt "Modules: Site"
 msgid "Enable SSL"
 msgstr "فعال کردن SSL"
 
-#: includes/Modules/Site.php:186
+#: includes/Modules/Site.php:188
 msgctxt "Modules: Site"
 msgid "SSL support disabled."
 msgstr "پشتیبانی از SSL غیرفعال است."
 
-#: includes/Modules/Site.php:195
+#: includes/Modules/Site.php:197
 msgctxt "Modules: Site"
 msgid "Re-sync Sites Meta"
 msgstr "همگام‌سازی فراداده‌های سایت‌‌ها"
 
-#: includes/Modules/Site.php:199
+#: includes/Modules/Site.php:201
 msgctxt "Modules: Site"
 msgid "Delete Sites Meta"
 msgstr "حذف فراداده‌های سایت‌ها"
 
-#: includes/Modules/Site.php:205
+#: includes/Modules/Site.php:207
 msgctxt "Modules: Site"
 msgid "Sync Metadata disabled."
 msgstr "همگام‌سازی فراداده‌ها غیرفعال است."
 
-#: includes/Modules/Site.php:313
+#: includes/Modules/Site.php:310
 msgctxt "Modules: Site: User Sites"
 msgid "Your Sites"
 msgstr "سایت‌های شما"
 
-#: includes/Modules/Site.php:322
+#: includes/Modules/Site.php:319
 msgctxt "Modules: Site: User Sites"
 msgid "Visit Dashboard"
 msgstr "دیدن پیشخوان"
 
-#: includes/Modules/Site.php:324
+#: includes/Modules/Site.php:321
 msgctxt "Modules: Site: User Sites"
 msgid "View Site"
 msgstr "نمایش سایت"
 
-#: includes/Modules/Site.php:354
+#: includes/Modules/Site.php:351
 msgctxt "Modules: Site: Initial Page Content"
 msgid "[ This page is being completed ]"
 msgstr "[این صفحه در حال آماده‌سازی است.]"
@@ -6341,11 +6349,11 @@ msgctxt "Modules: Widgets: Settings"
 msgid "Choose the dashboard widgets you would like to <b>disable</b>."
 msgstr ""
 
-#: includes/Plugin.php:348
+#: includes/Plugin.php:349
 msgid "Not Available"
 msgstr "خارج از دسترس"
 
-#: includes/Plugin.php:348, includes/Plugin.php:349
+#: includes/Plugin.php:349, includes/Plugin.php:350
 msgid "N/A"
 msgstr "خ/د"
 
@@ -6816,187 +6824,187 @@ msgctxt "Settings"
 msgid "Currently defined constant"
 msgstr "ثابت تعریف شده"
 
-#: includes/Settings.php:341
+#: includes/Settings.php:346
 msgctxt "Settings"
 msgid "Add New Post Type"
 msgstr "افزودن نوع جدید نوشته"
 
-#: includes/Settings.php:348
+#: includes/Settings.php:353
 msgctxt "Utilities: Dropdown: Get User Roles"
 msgid "Administrators"
 msgstr "مدیران"
 
-#: includes/Settings.php:349
+#: includes/Settings.php:354
 msgctxt "Utilities: Dropdown: Get User Roles"
 msgid "Editors"
 msgstr "ویرایشگرها"
 
-#: includes/Settings.php:350
+#: includes/Settings.php:355
 msgctxt "Utilities: Dropdown: Get User Roles"
 msgid "Authors"
 msgstr "نویسنده‌ها"
 
-#: includes/Settings.php:351
+#: includes/Settings.php:356
 msgctxt "Utilities: Dropdown: Get User Roles"
 msgid "Contributors"
 msgstr "مشارکت‌کننده‌ها"
 
-#: includes/Settings.php:352
+#: includes/Settings.php:357
 msgctxt "Utilities: Dropdown: Get User Roles"
 msgid "Site Users"
 msgstr "اعضای سایت"
 
-#: includes/Settings.php:357
+#: includes/Settings.php:362
 msgctxt "Utilities: Dropdown: Get User Roles"
 msgid "Super Admins"
 msgstr "مدیران ارشد"
 
-#: includes/Settings.php:359
+#: includes/Settings.php:364
 msgctxt "Utilities: Dropdown: Get User Roles"
 msgid "Network Users"
 msgstr "اعضای شبکه"
 
-#: includes/Settings.php:364
+#: includes/Settings.php:369
 msgctxt "Utilities: Dropdown: Get User Roles"
 msgid "&mdash; No One &mdash;"
 msgstr "&mdash; هیچ &mdash;"
 
-#: includes/Settings.php:413
+#: includes/Settings.php:418
 msgctxt "Settings: Option: Time in Minutes"
 msgid "5 Minutes"
 msgstr "۵ دقیقه"
 
-#: includes/Settings.php:414
+#: includes/Settings.php:419
 msgctxt "Settings: Option: Time in Minutes"
 msgid "10 Minutes"
 msgstr "۱۰ دقیقه"
 
-#: includes/Settings.php:415
+#: includes/Settings.php:420
 msgctxt "Settings: Option: Time in Minutes"
 msgid "15 Minutes"
 msgstr "۱۵ دقیقه"
 
-#: includes/Settings.php:416
+#: includes/Settings.php:421
 msgctxt "Settings: Option: Time in Minutes"
 msgid "30 Minutes"
 msgstr "۳۰ دقیقه"
 
-#: includes/Settings.php:417
+#: includes/Settings.php:422
 msgctxt "Settings: Option: Time in Minutes"
 msgid "60 Minutes"
 msgstr "۶۰ دقیقه"
 
-#: includes/Settings.php:418
+#: includes/Settings.php:423
 msgctxt "Settings: Option: Time in Minutes"
 msgid "2 Hours"
 msgstr "۲ ساعت"
 
-#: includes/Settings.php:419
+#: includes/Settings.php:424
 msgctxt "Settings: Option: Time in Minutes"
 msgid "3 Hours"
 msgstr "۳ ساعت"
 
-#: includes/Settings.php:420
+#: includes/Settings.php:425
 msgctxt "Settings: Option: Time in Minutes"
 msgid "4 Hours"
 msgstr "۴ ساعت"
 
-#: includes/Settings.php:421
+#: includes/Settings.php:426
 msgctxt "Settings: Option: Time in Minutes"
 msgid "8 Hours"
 msgstr "۸ ساعت"
 
-#: includes/Settings.php:422
+#: includes/Settings.php:427
 msgctxt "Settings: Option: Time in Minutes"
 msgid "24 Hours"
 msgstr "۲۴ ساعت"
 
-#: includes/Settings.php:429
+#: includes/Settings.php:434
 msgctxt "Settings: Dropdown Select Option None"
 msgid "&mdash; Select %s &mdash;"
 msgstr "&mdash; انتخاب %s &mdash;"
 
-#: includes/Settings.php:431
+#: includes/Settings.php:436
 msgctxt "Settings: Dropdown Select Option None"
 msgid "&mdash; Select &mdash;"
 msgstr "&mdash; انتخاب &mdash;"
 
-#: includes/Settings.php:437
+#: includes/Settings.php:442
 msgctxt "Settings: Dropdown Select Option All"
 msgid "&mdash; All %s &mdash;"
 msgstr "&mdash; همه %s &mdash;"
 
-#: includes/Settings.php:439
+#: includes/Settings.php:444
 msgctxt "Settings: Dropdown Select Option All"
 msgid "&mdash; All &mdash;"
 msgstr "&mdash; همه &mdash;"
 
-#: includes/Settings.php:445, includes/Settings.php:552
+#: includes/Settings.php:450, includes/Settings.php:557
 msgctxt "Settings"
 msgid "Enabled"
 msgstr "فعال"
 
-#: includes/Settings.php:446, includes/Settings.php:551
+#: includes/Settings.php:451, includes/Settings.php:556
 msgctxt "Settings"
 msgid "Disabled"
 msgstr "غیرفعال"
 
-#: includes/Settings.php:454
+#: includes/Settings.php:459
 msgctxt "Settings: Setting Title"
 msgid "Extra Shortcodes"
 msgstr "شورت‌کدهای افزوده"
 
-#: includes/Settings.php:455
+#: includes/Settings.php:460
 msgctxt "Settings: Setting Desc"
 msgid "Registers this modules's extra shortcodes."
 msgstr "شورت‌کدهای افزوده این پودمان به‌کار گرفته می‌شود."
 
-#: includes/Settings.php:463
+#: includes/Settings.php:468
 msgctxt "Settings: Setting Title"
 msgid "Editor Buttons"
 msgstr "دکمه‌های ویرایشگر"
 
-#: includes/Settings.php:464
+#: includes/Settings.php:469
 msgctxt "Settings: Setting Desc"
 msgid "Displays extra buttons on post content editor."
 msgstr "دکمه‌های افزوده را در ویرایشگر متنی نمایش می‌دهد."
 
-#: includes/Settings.php:472
+#: includes/Settings.php:477
 msgctxt "Settings: Setting Title"
 msgid "Dashboard Widget"
 msgstr "ابزارک پیشخوان"
 
-#: includes/Settings.php:473
+#: includes/Settings.php:478
 msgctxt "Settings: Setting Desc"
 msgid "Adds a widget to this site dashboard."
 msgstr "ابزارکی به پیشخوان مدیریت این سایت اضافه می‌کند."
 
-#: includes/Settings.php:482
+#: includes/Settings.php:487
 msgctxt "Settings: Setting Title"
 msgid "Access Level"
 msgstr "دسترسی ابزارک"
 
-#: includes/Settings.php:483
+#: includes/Settings.php:488
 msgctxt "Settings: Setting Desc"
 msgid "Selected and above can view the dashboard widget."
 msgstr "انتخاب شده و بالاتر به ابزارک پیشخوان دسترسی دارند."
 
-#: includes/Settings.php:493
+#: includes/Settings.php:498
 msgctxt "Settings: Setting Title"
 msgid "Widget Introduction "
 msgstr "توضیحات ابزارک"
 
-#: includes/Settings.php:494
+#: includes/Settings.php:499
 msgctxt "Settings: Setting Desc"
 msgid "Message to display before contents on admin dashbaord widget."
 msgstr "پیامی که قبل از متن ابزارک پیشخوان نمایش داده می‌شود."
 
-#: includes/Settings.php:554
+#: includes/Settings.php:559
 msgctxt "Settings"
 msgid "No options!"
 msgstr "بدون گزینه!"
 
-#: includes/Settings.php:555
+#: includes/Settings.php:560
 msgctxt "Settings"
 msgid "You do not have access to change this option."
 msgstr "شما دسترسی لازم برای تغییر این گزینه را ندارید."
@@ -7290,37 +7298,52 @@ msgctxt "Utilities: Title"
 msgid "SSL Disabled"
 msgstr "SSL غیرفعال"
 
-#: includes/Utilities.php:614
+#: includes/Utilities.php:618
+msgctxt "Utilities: Remote Content"
+msgid "Import"
+msgstr "درون‌ریزی"
+
+#: includes/Utilities.php:619
+msgctxt "Utilities: Remote Content"
+msgid "Import from a remote content."
+msgstr "از محتوای دوردست درون‌ریزی کنید."
+
+#: includes/Utilities.php:626
+msgctxt "Utilities: Remote Content"
+msgid "See the remote content."
+msgstr "محتوای دوردست را ببینید."
+
+#: includes/Utilities.php:636
 msgctxt "Utilities"
 msgid "Logging data disabled by constant."
 msgstr "لاگ کردن داده‌ها به دلیل ثابت غیرفعال است."
 
-#: includes/Utilities.php:620, includes/Utilities.php:643
+#: includes/Utilities.php:642, includes/Utilities.php:665
 msgctxt "Utilities"
 msgid "Log folder not exists or writable."
 msgstr "پوشه لاگ‌ها وجود ندارد یا قابل نوشتن نیست."
 
-#: includes/Utilities.php:623
+#: includes/Utilities.php:645
 msgctxt "Utilities"
 msgid "Create Log Folder"
 msgstr "ساختن پوشه لاگ"
 
-#: includes/Utilities.php:628
+#: includes/Utilities.php:650
 msgctxt "Utilities"
 msgid "Log folder exists and writable on: %s"
 msgstr "پوشه لاگ‌ها وجود دارد و قابل نوشتن است: %s"
 
-#: includes/Utilities.php:631
+#: includes/Utilities.php:653
 msgctxt "Utilities"
 msgid "Warning: %s not found!"
 msgstr "اخطار: %s پیدا نشد!"
 
-#: includes/Utilities.php:636
+#: includes/Utilities.php:658
 msgctxt "Utilities"
 msgid "Data logs are disabled."
 msgstr "لاگ داده‌ها غیرفعال است."
 
-#: includes/Utilities.php:646
+#: includes/Utilities.php:668
 msgctxt "Utilities"
 msgid "No Logs!"
 msgstr "بدون لاگ!"
