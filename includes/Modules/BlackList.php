@@ -3,6 +3,8 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Settings;
+use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\HTTP;
 
@@ -54,6 +56,7 @@ class BlackList extends gNetwork\Module
 					'description' => sprintf( _x( "Comma or line-seperated IP Ranges or individual IPs to block.\nex: %s", 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ),
 						'<code>1.6.0.0-1.7.255.255, 1.2.3/24, 1.2.3.4/255.255.255.0, 1.8.0.0, 1.8.0.1</code>' ),
 					'field_class' => [ 'regular-text', 'code-text' ],
+					'after'       => defined( 'GNETWORK_BLACKLIST_IP_GIST' ) ? Settings::fieldAfterButton( Utilities::buttonImportRemoteContent( GNETWORK_BLACKLIST_IP_GIST, $this->classs().'-blacklisted_ips' ) ) : '',
 				],
 				[
 					'field'       => 'blacklisted_notice',

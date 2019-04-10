@@ -607,6 +607,28 @@ class Utilities extends Core\Base
 		return FALSE;
 	}
 
+	public static function buttonImportRemoteContent( $remote, $target, $enqueue = TRUE )
+	{
+		if ( ! $remote )
+			return '';
+
+		self::enqueueScript( 'api.remote.content' );
+
+		$data   = [ 'action' => 'import-remote-content', 'remote' => $remote, 'target' => $target ];
+		$label  = HTML::getDashicon( 'download' ).' '._x( 'Import', 'Utilities: Remote Content', GNETWORK_TEXTDOMAIN ).'&nbsp;';
+		$title  = _x( 'Import from a remote content.', 'Utilities: Remote Content', GNETWORK_TEXTDOMAIN );
+		$button = HTML::button( $label, '#', $title, TRUE, $data );
+
+		$icon = HTML::tag( 'a', [
+			'href'   => $remote,
+			'target' => '_blank',
+			'class'  => '-icon-wrap',
+			'title'  => _x( 'See the remote content.', 'Utilities: Remote Content', GNETWORK_TEXTDOMAIN ),
+		], HTML::getDashicon( 'external' ) );
+
+		return $button.' '.$icon;
+	}
+
 	public static function buttonDataLogs( $constant, $option = NULL )
 	{
 		if ( ! $constant ) {
