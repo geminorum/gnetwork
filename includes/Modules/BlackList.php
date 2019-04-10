@@ -125,11 +125,18 @@ class BlackList extends gNetwork\Module
 		if ( ! trim( $this->options['blacklisted_ips'] ) )
 			return FALSE;
 
-		$blocks = explode( ',', str_replace( "\n", ',', $this->options['blacklisted_ips'] ) );
+		$blocks  = explode( ',', str_replace( "\n", ',', $this->options['blacklisted_ips'] ) );
+		$current = HTTP::normalizeIP( $_SERVER['REMOTE_ADDR'] );
 
-		foreach ( $blocks as $block )
-			if ( HTTP::IPinRange( $_SERVER['REMOTE_ADDR'], trim( $block ) ) )
+		foreach ( $blocks as $block ) {
+
+			if ( HTTP::IPinRange( $current, trim( $block ) ) ) {
+
+				Logger::siteNOTICE( sprintf( 'BLACKLIST: Blacklisted %s', $current ) );
+
 				return TRUE;
+			}
+		}
 
 		return FALSE;
 	}
