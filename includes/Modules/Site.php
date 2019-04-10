@@ -16,7 +16,8 @@ use geminorum\gNetwork\Core\WordPress;
 class Site extends gNetwork\Module
 {
 
-	protected $key = 'general';
+	protected $key  = 'general';
+	protected $cron = TRUE;
 
 	protected function setup_actions()
 	{
@@ -252,13 +253,8 @@ class Site extends gNetwork\Module
 
 	public function schedule_actions()
 	{
-		if ( $this->options['resync_sitemeta'] && is_main_site() ) {
-
-			$hook = $this->hook( 'resync_sitemeta' );
-
-			if ( ! wp_next_scheduled( $hook ) )
-				wp_schedule_event( time(), 'daily', $hook );
-		}
+		if ( $this->options['resync_sitemeta'] && is_main_site() )
+			$this->_hook_event( 'resync_sitemeta', 'weekly' );
 	}
 
 	public function admin_menu()

@@ -185,13 +185,8 @@ class Cron extends gNetwork\Module
 	{
 		$this->do_status_check();
 
-		if ( $this->options['schedule_revision'] && WP_POST_REVISIONS ) {
-
-			$hook = $this->hook( 'clean_revisions' );
-
-			if ( ! wp_next_scheduled( $hook ) )
-				wp_schedule_event( time(), 'weekly', $hook );
-		}
+		if ( $this->options['schedule_revision'] && WP_POST_REVISIONS )
+			$this->_hook_event( 'clean_revisions', 'weekly' );
 	}
 
 	public function wp_dashboard_setup()

@@ -1226,6 +1226,16 @@ class Module extends Core\Base
 		wp_die();
 	}
 
+	protected function _hook_event( $name, $recurrence = 'weekly' )
+	{
+		$hook = $this->hook( $name );
+
+		if ( ! wp_next_scheduled( $hook ) )
+			return wp_schedule_event( time(), $recurrence, $hook );
+
+		return TRUE;
+	}
+
 	protected function wrap( $html, $class = '', $block = TRUE, $id = FALSE, $hide = FALSE )
 	{
 		return $block
