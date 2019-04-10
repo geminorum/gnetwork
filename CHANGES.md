@@ -1,3 +1,8 @@
+### 3.9.2
+* module/blacklist: :new: schedule updates from remote content
+* module/cron: always register weekly schedules
+* module/site: :warning: register cron action only on main site
+
 ### 3.9.1
 * main/settings: better check for network/site users
 * module/cron: :new: missing actions on dashboard pointers
