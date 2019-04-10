@@ -89,7 +89,7 @@ class BlackList extends gNetwork\Module
 
 			echo '<hr />';
 
-			HTML::desc( _x( 'Your Site is scheduled for weekly updates of the blacklist from a remote source.', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ) );
+			HTML::desc( _x( 'Your site is scheduled for weekly blacklist updates from the remote source.', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ) );
 		}
 	}
 

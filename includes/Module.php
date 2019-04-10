@@ -579,6 +579,7 @@ class Module extends Core\Base
 		return $this->update_options( NULL, TRUE );
 	}
 
+	// FIXME: move this to cleanup
 	// used to cleanup old options
 	public function delete_options_legacy( $options_key = NULL )
 	{
