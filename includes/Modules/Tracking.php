@@ -202,10 +202,10 @@ class Tracking extends gNetwork\Module
 		$script = 'function gtag(){dataLayer.push(arguments)}function gtagCallback(a,t){function n(){e||(e=!0,a())}var e=!1;return setTimeout(n,t||1e3),n}window.dataLayer=window.dataLayer||[],gtag("js",new Date);';
 
 		if ( count( $config ) )
-			$script.= "gtag('config', '".esc_js( $account )."',".wp_json_encode( $config ).");";
+			$script.= "gtag('config','".esc_js( $account )."',".wp_json_encode( $config ).");";
 
 		else
-			$script.= "gtag('config', '".esc_js( $account )."');";
+			$script.= "gtag('config','".esc_js( $account )."');";
 
 		if ( $track_outbound ) {
 

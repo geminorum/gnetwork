@@ -326,12 +326,17 @@ class Settings extends Core\Base
 
 	public static function fieldAfterLink( $link = '', $class = '' )
 	{
-		return '<code class="-field-after -link-wrap '.$class.'">'.HTML::link( URL::prepTitle( $link ), $link, TRUE ).'</code>';
+		return $link ? ( '<code class="-field-after -link-wrap '.$class.'">'.HTML::link( URL::prepTitle( $link ), $link, TRUE ).'</code>' ) : '';
 	}
 
 	public static function fieldAfterEmail( $email = '', $class = '' )
 	{
-		return '<code class="-field-after -email-wrap '.$class.'">'.HTML::mailto( $email ).'</code>';
+		return $email ? ( '<code class="-field-after -email-wrap '.$class.'">'.HTML::mailto( $email ).'</code>' ) : '';
+	}
+
+	public static function fieldAfterButton( $button = '', $class = '' )
+	{
+		return $button ? ( '<span class="-field-after -button-wrap '.$class.'">'.$button.'</span>' ) : '';
 	}
 
 	public static function fieldAfterNewPostType( $post_type = 'page', $icon = 'welcome-add-page' )
