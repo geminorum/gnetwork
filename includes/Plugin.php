@@ -73,8 +73,8 @@ class Plugin
 			// 'GNETWORK_WPLANG'       => 'en_US', // define if necessary
 			// 'GNETWORK_WPLANG_ADMIN' => FALSE, // define if necessary
 
-			// 'GNETWORK_TRACKING_GA_ACCOUNT' => 'UA-XXXXXXXX-X', // define if necessary
-			// 'GNETWORK_BLACKLIST_IP_GIST'   => 'https://gist.githubusercontent.com/{user}/{gist_id}/raw', // define if necessary
+			// 'GNETWORK_TRACKING_GA_ACCOUNT'      => 'UA-XXXXXXXX-X', // define if necessary
+			// 'GNETWORK_BLACKLIST_REMOTE_CONTENT' => 'https://gist.githubusercontent.com/{user}/{gist_id}/raw', // define if necessary
 
 			'GNETWORK_SEARCH_REDIRECT'       => FALSE, // set TRUE to redirect all searches to the network search url
 			'GNETWORK_SEARCH_URL'            => esc_url( home_url( '/' ) ),

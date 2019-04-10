@@ -56,7 +56,9 @@ class BlackList extends gNetwork\Module
 					'description' => sprintf( _x( "Comma or line-seperated IP Ranges or individual IPs to block.\nex: %s", 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ),
 						'<code>1.6.0.0-1.7.255.255, 1.2.3/24, 1.2.3.4/255.255.255.0, 1.8.0.0, 1.8.0.1</code>' ),
 					'field_class' => [ 'regular-text', 'code-text' ],
-					'after'       => defined( 'GNETWORK_BLACKLIST_IP_GIST' ) ? Settings::fieldAfterButton( Utilities::buttonImportRemoteContent( GNETWORK_BLACKLIST_IP_GIST, $this->classs().'-blacklisted_ips' ) ) : '',
+					'after'       => defined( 'GNETWORK_BLACKLIST_REMOTE_CONTENT' )
+						? Settings::fieldAfterButton( Utilities::buttonImportRemoteContent(
+							GNETWORK_BLACKLIST_REMOTE_CONTENT, $this->classs().'-blacklisted_ips' ) ) : '',
 				],
 				[
 					'field'       => 'blacklisted_notice',
