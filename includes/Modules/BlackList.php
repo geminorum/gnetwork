@@ -13,11 +13,18 @@ class BlackList extends gNetwork\Module
 
 	protected $key  = 'blacklist';
 	protected $ajax = TRUE;
+	protected $cron = TRUE;
 
 	protected function setup_actions()
 	{
-		if ( ! is_admin() && $this->options['check_ip'] )
+		if ( ! $this->options['check_ip'] )
+			return;
+
+		if ( ! is_admin() )
 			$this->action( 'init', 0, -10 );
+
+		if ( defined( 'GNETWORK_BLACKLIST_REMOTE_CONTENT' ) && is_main_site() )
+			add_action( $this->hook( 'resync_remote' ), [ $this, 'resync_remote' ] );
 	}
 
 	public function setup_menu( $context )
@@ -74,9 +81,37 @@ class BlackList extends gNetwork\Module
 	public function settings_sidebox( $sub, $uri )
 	{
 		if ( class_exists( __NAMESPACE__.'\\Debug' ) )
-			Debug::summaryIPs( _x( 'Your IP Summary', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ) );
+			Debug::summaryIPs( _x( 'Your IP Summary', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ), FALSE );
 		else
 			HTML::desc( sprintf( _x( 'Your IP: <code title="%s">%s</code>', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ), HTTP::IP(), $_SERVER['REMOTE_ADDR'] ) );
+
+		if ( $this->options['check_ip'] && defined( 'GNETWORK_BLACKLIST_REMOTE_CONTENT' ) ) {
+
+			echo '<hr />';
+
+			HTML::desc( _x( 'Your Site is scheduled for weekly updates of the blacklist from a remote source.', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ) );
+		}
+	}
+
+	public function schedule_actions()
+	{
+		if ( ! $this->options['check_ip'] )
+			return;
+
+		if ( defined( 'GNETWORK_BLACKLIST_REMOTE_CONTENT' ) && is_main_site() )
+			$this->_hook_event( 'resync_remote', 'weekly' );
+	}
+
+	public function resync_remote()
+	{
+		if ( ! $this->options['check_ip'] )
+			return;
+
+		if ( ! defined( 'GNETWORK_BLACKLIST_REMOTE_CONTENT' ) )
+			return;
+
+		if ( $content = HTTP::getHTML( GNETWORK_BLACKLIST_REMOTE_CONTENT ) )
+			$this->update_option( 'blacklisted_ips', trim( $content ) );
 	}
 
 	private function blacklisted()
