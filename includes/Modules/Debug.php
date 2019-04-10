@@ -422,7 +422,7 @@ class Debug extends gNetwork\Module
 		echo '</div>';
 	}
 
-	public static function summaryIPs( $caption = FALSE )
+	public static function summaryIPs( $caption = FALSE, $card = TRUE )
 	{
 		$summary = [];
 		$keys    = [
@@ -438,12 +438,19 @@ class Debug extends gNetwork\Module
 			if ( isset( $_SERVER[$key] ) )
 				$summary[$key] = gnetwork_ip_lookup( $_SERVER[$key] );
 
-		echo '<div class="-wrap card -floated" dir="ltr">';
-		HTML::h2( $caption ?: _x( 'IPs', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+		if ( $card ) {
 
-			// echo HTML::tableCode( $summary, FALSE, $caption );
-			echo HTML::tableCode( $summary );
-		echo '</div>';
+			echo '<div class="-wrap card -floated" dir="ltr">';
+			HTML::h2( $caption ?: _x( 'IPs', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+
+				echo HTML::tableCode( $summary );
+			echo '</div>';
+
+		} else {
+
+			// old fashion way!
+			echo HTML::tableCode( $summary, FALSE, $caption );
+		}
 	}
 
 	public static function summarySSL()
