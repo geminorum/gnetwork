@@ -165,7 +165,7 @@ class User extends gNetwork\Module
 					'type'        => 'textarea',
 					'title'       => _x( 'ToS Text', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Displays as full text of the agreement.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
-					'field_class' => 'large-text',
+					'field_class' => [ 'large-text', 'textarea-autosize' ],
 				],
 				[
 					'field'       => 'tos_label',

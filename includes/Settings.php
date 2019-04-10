@@ -1046,7 +1046,7 @@ class Settings extends Core\Base
 			case 'textarea-quicktags':
 
 				if ( ! $args['field_class'] )
-					$args['field_class'] = 'regular-text';
+					$args['field_class'] = [ 'regular-text', 'textarea-autosize' ];
 
 				if ( 'textarea-quicktags' == $args['type'] ) {
 

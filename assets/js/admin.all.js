@@ -1,5 +1,3 @@
-/* global autosize */
-
 /**
   autosize 4.0.2 - 2018-05-06
   license: MIT

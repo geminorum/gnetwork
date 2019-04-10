@@ -1,14 +1,18 @@
 jQuery(function ($) {
   $('.gnetwork-form').on('click', '[data-action="import-remote-content"]', function (event) {
-    event.preventDefault();
-    event.stopPropagation();
+    var $target = $('#' + $(this).data('target'));
+    if ($target.length) {
+      event.preventDefault();
+      event.stopPropagation();
 
-    var $button = $(this);
-
-    $.get($button.data('remote'), function (response) {
-      // TODO: add visual indicator
-      console.log(response);
-      $('#' + $button.data('target')).val(response);
-    });
+      $.get($(this).data('remote'), function (response) {
+        // TODO: add visual indicator
+        // console.log(response);
+        $target.val(response);
+        if (typeof autosize === 'function') {
+          autosize.update($target);
+        }
+      });
+    }
   });
 });

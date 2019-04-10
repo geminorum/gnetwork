@@ -185,7 +185,7 @@ class Login extends gNetwork\Module
 					'type'        => 'textarea',
 					'title'       => _x( 'Extra CSS', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Additional CSS styles to use on default login page.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'field_class' => [ 'large-text', 'code-text' ],
+					'field_class' => [ 'large-text', 'code-text', 'textarea-autosize' ],
 				],
 				[
 					'field'       => 'login_logourl',

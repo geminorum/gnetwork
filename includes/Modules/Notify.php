@@ -119,7 +119,7 @@ class Notify extends gNetwork\Module
 					'description' => _x( 'Message content of the notification email for new user sign-up. Leave empty to use defaults.', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
 					'placeholder' => __( "To activate your user, please click the following link:\n\n%s\n\nAfter you activate, you will receive *another email* with your login." ),
 					'after'       => Settings::fieldAfterText( '<code>%1$s</code>: Activate URL' ),
-					'field_class' => [ 'large-text' ],
+					'field_class' => [ 'large-text', 'textarea-autosize' ],
 				],
 				[
 					'field'       => 'signup_blog_subject',
@@ -136,7 +136,7 @@ class Notify extends gNetwork\Module
 					'description' => _x( 'Message content of the new blog notification email. Leave empty to use defaults.', 'Modules: Notify: Settings', GNETWORK_TEXTDOMAIN ),
 					'placeholder' => __( "To activate your blog, please click the following link:\n\n%s\n\nAfter you activate, you will receive *another email* with your login.\n\nAfter you activate, you can visit your site here:\n\n%s" ),
 					'after'       => Settings::fieldAfterText( '<code>%1$s</code>: Activate URL, <code>%2$s</code>: New site URL, <code>%3$s</code>: Activation Key' ),
-					'field_class' => [ 'large-text' ],
+					'field_class' => [ 'large-text', 'textarea-autosize' ],
 				],
 			];
 

@@ -72,6 +72,7 @@
     ],
     "globals": [
       "gNetwork",
+      "autosize",
       "jQuery",
       "ajaxurl"
     ]
