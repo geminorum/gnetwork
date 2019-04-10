@@ -3,6 +3,7 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Logger;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\HTML;
@@ -110,8 +111,13 @@ class BlackList extends gNetwork\Module
 		if ( ! defined( 'GNETWORK_BLACKLIST_REMOTE_CONTENT' ) )
 			return;
 
-		if ( $content = HTTP::getHTML( GNETWORK_BLACKLIST_REMOTE_CONTENT ) )
-			$this->update_option( 'blacklisted_ips', trim( $content ) );
+		if ( ! $content = HTTP::getHTML( GNETWORK_BLACKLIST_REMOTE_CONTENT ) )
+			return Logger::WARNING( 'BLACKLIST: Problem getting remote content' );
+
+		if ( $this->update_option( 'blacklisted_ips', trim( $content ) ) )
+			Logger::INFO( 'BLACKLIST: Remote content updated' );
+		else
+			Logger::WARNING( 'BLACKLIST: Problem updating remote content' );
 	}
 
 	private function blacklisted()
