@@ -36,12 +36,10 @@ class Cron extends gNetwork\Module
 		else
 			$this->action( 'activity_box_end', 0, 12 );
 
-		if ( $this->options['schedule_revision'] && WP_POST_REVISIONS ) {
+		$this->filter( 'cron_schedules', 1, 20 );
 
-			$this->filter( 'cron_schedules', 1, 20 );
-
+		if ( $this->options['schedule_revision'] && WP_POST_REVISIONS )
 			add_action( $this->hook( 'clean_revisions' ), [ $this, 'do_clean_revisions' ], 10, 2 );
-		}
 	}
 
 	public function setup_menu( $context )
