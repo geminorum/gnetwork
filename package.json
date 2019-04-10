@@ -25,7 +25,12 @@
     "refresh": "gulp dev:styles",
     "locale": "gulp pot",
     "watch": "gulp watch:styles",
-    "release": "gulp github:package"
+    "patch": "gulp bump --patch",
+    "minor": "gulp bump",
+    "changes": "echo ### > CHANGES.temp && git changelog >> CHANGES.temp && (echo. & echo.) >> CHANGES.temp && type CHANGES.md >> CHANGES.temp && type CHANGES.temp > CHANGES.md && del CHANGES.temp",
+    "release": "gulp github:package && start https://github.com/geminorum/gnetwork/releases",
+    "home": "start https://github.com/geminorum/gnetwork/",
+    "issues": "start https://github.com/geminorum/gnetwork/issues"
   },
   "devDependencies": {
     "autoprefixer": "^9.5.1",
@@ -52,7 +57,7 @@
     "gulp-svgmin": "^2.2.0",
     "gulp-tinypng-unlimited": "^1.0.3",
     "gulp-uglify": "^3.0.2",
-    "gulp-wp-pot": "^2.3.4",
+    "gulp-wp-pot": "^2.3.5",
     "gulp-zip": "^4.2.0",
     "js-yaml": "^3.13.1",
     "multipipe": "^3.0.1",
