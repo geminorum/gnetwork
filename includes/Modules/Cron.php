@@ -312,7 +312,7 @@ class Cron extends gNetwork\Module
 			$this->do_email_failure( $this->options['status_email_address'] );
 
 		foreach ( $result->get_error_codes() as $error )
-			Logger::siteWARNING( 'CRON-STATUS', str_replace( '_', ' ', $error ) );
+			Logger::siteFAILED( 'CRON-STATUS', str_replace( '_', ' ', $error ) );
 	}
 
 	private function do_email_failure( $email = NULL )
