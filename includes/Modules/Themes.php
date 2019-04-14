@@ -521,8 +521,8 @@ class Themes extends gNetwork\Module
 
 			if ( $this->rtl ) {
 
-				add_action( 'wp_enqueue_scripts', function(){
-					Themes::enqueueStyle( 'twentyeleven', TRUE );
+				add_action( 'wp_head', function(){
+					Themes::linkStyleSheet( 'twentyeleven-rtl' );
 				}, 20 );
 
 				add_filter( 'mce_css', function( $url ){
@@ -536,8 +536,8 @@ class Themes extends gNetwork\Module
 
 			if ( $this->rtl ) {
 
-				add_action( 'wp_enqueue_scripts', function(){
-					Themes::enqueueStyle( 'twentytwelve', TRUE );
+				add_action( 'wp_head', function(){
+					Themes::linkStyleSheet( 'twentytwelve-rtl' );
 				}, 20 );
 
 				add_filter( 'mce_css', function( $url ){
