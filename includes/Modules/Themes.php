@@ -203,8 +203,8 @@ class Themes extends gNetwork\Module
 
 		if ( $this->options['jquery_latest'] ) {
 
-			// 3/28/2019, 10:16:22 PM
-			$jquery_ver  = '3.3.1';
+			// 4/11/2019, 6:04:49 PM
+			$jquery_ver  = '3.4.0';
 			$migrate_ver = '3.0.1';
 
 		} else {
