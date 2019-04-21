@@ -31,7 +31,7 @@
   gulp.task('dev:tinify', function () {
     return gulp.src(config.input.images)
       .pipe(plugins.newer(config.output.images))
-      .pipe(plugins.tinypngUnlimited({
+      .pipe(plugins.tinypngExtended({
         key: env.tinypng,
         sigFile: config.logs.tinypng,
         summarize: true,
