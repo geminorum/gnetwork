@@ -1,3 +1,11 @@
+### 3.9.3
+* module/blacklist: log blacklisted
+* module/blacklist: log cron events
+* module/cron: failed status on failed logs
+* module/notify: drop wraps around emails on logs
+* module/themes: :up: jquery 3.4.0
+* module/themes: late stylesheet for twentyeleven/twentytwelve
+
 ### 3.9.2
 * module/blacklist: :new: schedule updates from remote content
 * module/cron: always register weekly schedules
