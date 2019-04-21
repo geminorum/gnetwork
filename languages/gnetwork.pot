@@ -574,54 +574,54 @@ msgctxt "Modules: Authors: Settings"
 msgid "Site-User for current network is <strong>not</strong> defined."
 msgstr ""
 
-#: includes/Modules/BlackList.php:32
+#: includes/Modules/BlackList.php:33
 msgctxt "Modules: Menu Name"
 msgid "Black List"
 msgstr ""
 
-#: includes/Modules/BlackList.php:56
+#: includes/Modules/BlackList.php:57
 msgctxt "Modules: BlackList: Settings"
 msgid "Check Addresses"
 msgstr ""
 
-#: includes/Modules/BlackList.php:57
+#: includes/Modules/BlackList.php:58
 msgctxt "Modules: BlackList: Settings"
 msgid "Enables checking logged-out visitor's IP against your blacklist."
 msgstr ""
 
-#: includes/Modules/BlackList.php:62
+#: includes/Modules/BlackList.php:63
 msgctxt "Modules: BlackList: Settings"
 msgid "IP Addresses"
 msgstr ""
 
-#: includes/Modules/BlackList.php:63
+#: includes/Modules/BlackList.php:64
 msgctxt "Modules: BlackList: Settings"
 msgid ""
 "Comma or line-seperated IP Ranges or individual IPs to block.\n"
 "ex: %s"
 msgstr ""
 
-#: includes/Modules/BlackList.php:73
+#: includes/Modules/BlackList.php:74
 msgctxt "Modules: BlackList: Settings"
 msgid "Blacklisted Message"
 msgstr ""
 
-#: includes/Modules/BlackList.php:74
+#: includes/Modules/BlackList.php:75
 msgctxt "Modules: BlackList: Settings"
 msgid "Displays on the dead page for the blacklisted addresses."
 msgstr ""
 
-#: includes/Modules/BlackList.php:84
+#: includes/Modules/BlackList.php:85
 msgctxt "Modules: BlackList: Settings"
 msgid "Your IP Summary"
 msgstr ""
 
-#: includes/Modules/BlackList.php:86
+#: includes/Modules/BlackList.php:87
 msgctxt "Modules: BlackList: Settings"
 msgid "Your IP: <code title=\"%s\">%s</code>"
 msgstr ""
 
-#: includes/Modules/BlackList.php:92
+#: includes/Modules/BlackList.php:93
 msgctxt "Modules: BlackList: Settings"
 msgid "Your site is scheduled for weekly blacklist updates from the remote source."
 msgstr ""
@@ -2186,83 +2186,83 @@ msgid_plural "%s Spam Comments"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/Modules/Dashboard.php:276
+#: includes/Modules/Dashboard.php:278
 msgctxt "Modules: Dashboard: Right Now"
 msgid "No Content available!"
 msgstr ""
 
-#: includes/Modules/Dashboard.php:319
+#: includes/Modules/Dashboard.php:321
 msgctxt "Modules: Dashboard: Signups"
 msgid "On"
 msgstr ""
 
-#: includes/Modules/Dashboard.php:320
+#: includes/Modules/Dashboard.php:322
 msgctxt "Modules: Dashboard: Signups"
 msgid "Name"
 msgstr ""
 
-#: includes/Modules/Dashboard.php:321
+#: includes/Modules/Dashboard.php:323
 msgctxt "Modules: Dashboard: Signups"
 msgid "E-mail"
 msgstr ""
 
-#: includes/Modules/Dashboard.php:322
+#: includes/Modules/Dashboard.php:324
 msgctxt "Modules: Dashboard: Signups"
 msgid "IP"
 msgstr ""
 
-#: includes/Modules/Dashboard.php:347
+#: includes/Modules/Dashboard.php:349
 msgctxt "Modules: Dashboard: Signups"
 msgid "%1$s ago &mdash; %2$s"
 msgstr ""
 
-#: includes/Modules/Dashboard.php:368
+#: includes/Modules/Dashboard.php:370
 msgctxt "Modules: Dashboard: Signups"
 msgid "Last User Registered %s ago"
 msgstr ""
 
-#: includes/Modules/Dashboard.php:373
+#: includes/Modules/Dashboard.php:375
 msgctxt "Modules: Dashboard: Signups"
 msgid "With %s Spam User"
 msgid_plural "With %s Spam Users"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/Modules/Dashboard.php:375
+#: includes/Modules/Dashboard.php:377
 msgctxt "Modules: Dashboard: Signups"
 msgid "With No Spam User"
 msgstr ""
 
-#: includes/Modules/Dashboard.php:380
+#: includes/Modules/Dashboard.php:382
 msgctxt "Modules: Dashboard: Signups"
 msgid "And %s Super Admin"
 msgid_plural "And %s Super Admins"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/Modules/Dashboard.php:385
+#: includes/Modules/Dashboard.php:387
 msgctxt "Modules: Dashboard: Signups"
 msgid "Total of One User"
 msgid_plural "Total of %s Users"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/Modules/Dashboard.php:428
+#: includes/Modules/Dashboard.php:430
 msgctxt "Modules: Dashboard: Logins"
 msgid "Ago"
 msgstr ""
 
-#: includes/Modules/Dashboard.php:429
+#: includes/Modules/Dashboard.php:431
 msgctxt "Modules: Dashboard: Logins"
 msgid "Name"
 msgstr ""
 
-#: includes/Modules/Dashboard.php:430
+#: includes/Modules/Dashboard.php:432
 msgctxt "Modules: Dashboard: Logins"
 msgid "Timestamp"
 msgstr ""
 
-#: includes/Modules/Dashboard.php:484
+#: includes/Modules/Dashboard.php:486
 msgctxt "Modules: Dashboard: Space Quota"
 msgid "%s Space Used"
 msgstr ""
