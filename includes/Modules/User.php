@@ -35,7 +35,7 @@ class User extends gNetwork\Module
 			$this->filter( 'contextual_help', 3, 999 );
 		}
 
-		if ( $this->options['blog_roles'] ) {
+		if ( $this->options['network_roles'] ) {
 			$this->action( 'wpmu_new_user' );
 			$this->action( 'wp_login', 2 );
 		}
@@ -69,7 +69,10 @@ class User extends gNetwork\Module
 			[ $this, 'settings' ]
 		);
 
-		if ( is_multisite() && $this->options['blog_roles'] )
+		if ( ! is_multisite() )
+			return;
+
+		if ( $this->options['network_roles'] )
 			Network::registerTool( 'roles',
 				_x( 'Roles', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
 				[ $this, 'tools' ]
@@ -81,7 +84,7 @@ class User extends gNetwork\Module
 		return [
 			'site_user_id'    => '0', // GNETWORK_SITE_USER_ID
 			'site_user_role'  => 'editor', // GNETWORK_SITE_USER_ROLE
-			'blog_roles'      => '0',
+			'network_roles'      => '0',
 			'admin_user_edit' => '0',
 			'dashboard_sites' => '0',
 			'dashboard_menu'  => '0',
@@ -121,8 +124,8 @@ class User extends gNetwork\Module
 					],
 				],
 				[
-					'field'       => 'blog_roles',
-					'title'       => _x( 'Blog Roles', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
+					'field'       => 'network_roles',
+					'title'       => _x( 'Network Roles', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Tries to automatically add each user to the network sites.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
