@@ -5,6 +5,7 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 use geminorum\gNetwork;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
+use geminorum\gNetwork\Core\Arraay;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
@@ -646,23 +647,69 @@ class User extends gNetwork\Module
 	}
 
 	// defaults: 'cb', 'username', 'name', 'email', 'registered', 'blogs'
-	public function wpmu_users_columns( $users_columns )
+	public function wpmu_users_columns( $columns )
 	{
-		unset( $users_columns['registered'] );
-		return array_merge( $users_columns, [ 'timestamps' => _x( 'Timestamps', 'Modules: User', GNETWORK_TEXTDOMAIN ) ] );
+		$columns = Arraay::insert( $columns, [
+			'extra' => _x( 'Extra', 'Modules: User', GNETWORK_TEXTDOMAIN ),
+		], 'username', 'after' );
+
+		unset( $columns['name'], $columns['email'], $columns['registered'] );
+
+		return array_merge( $columns, [
+			'timestamps' => _x( 'Timestamps', 'Modules: User', GNETWORK_TEXTDOMAIN ),
+		] );
 	}
 
 	public function manage_users_custom_column( $empty, $column_name, $user_id )
 	{
-		if ( 'timestamps' != $column_name )
-			return $empty;
+		if ( 'timestamps' == $column_name )
+			$this->render_timestamps( $user_id );
 
+		else if ( 'extra' == $column_name )
+			$this->render_extra( $user_id );
+
+		else
+			return $empty;
+	}
+
+	private function render_extra( $user_id )
+	{
+		$user = get_user_by( 'id', $user_id );
+
+		echo '<ul class="-rows">';
+
+		if ( $user->first_name || $user->last_name ) {
+			echo '<li class="-row -name">';
+				echo $this->get_column_icon( FALSE, 'nametag', _x( 'Name', 'Modules: User', GNETWORK_TEXTDOMAIN ) );
+				echo "$user->first_name $user->last_name";
+			echo '</li>';
+		}
+
+		if ( $user->user_email ) {
+			echo '<li class="-row -email">';
+				echo $this->get_column_icon( FALSE, 'email', _x( 'Email', 'Modules: User', GNETWORK_TEXTDOMAIN ) );
+				echo HTML::mailto( $user->user_email );
+			echo '</li>';
+		}
+
+		if ( $user->user_url ) {
+			echo '<li class="-row -url">';
+				echo $this->get_column_icon( FALSE, 'admin-links', _x( 'URL', 'Modules: User', GNETWORK_TEXTDOMAIN ) );
+				echo HTML::link( URL::prepTitle( $user->user_url ), $user->user_url );
+			echo '</li>';
+		}
+
+		echo '</ul>';
+	}
+
+	private function render_timestamps( $user_id )
+	{
 		$html = '';
 		$mode = empty( $_REQUEST['mode'] ) ? 'list' : $_REQUEST['mode'];
 
 		$user        = get_user_by( 'id', $user_id );
-		$lastlogin   = get_user_meta( $user_id, 'lastlogin', TRUE );
-		$register_ip = get_user_meta( $user_id, 'register_ip', TRUE );
+		$lastlogin   = get_user_meta( $user->ID, 'lastlogin', TRUE );
+		$register_ip = get_user_meta( $user->ID, 'register_ip', TRUE );
 
 		$registered = strtotime( get_date_from_gmt( $user->user_registered ) );
 		$lastlogged = $lastlogin ? strtotime( get_date_from_gmt( $lastlogin ) ) : NULL;
@@ -680,7 +727,7 @@ class User extends gNetwork\Module
 
 		if ( function_exists( 'bp_get_user_last_activity' ) ) {
 
-			if ( $lastactivity = bp_get_user_last_activity( $user_id ) )
+			if ( $lastactivity = bp_get_user_last_activity( $user->ID ) )
 				$lastactive = strtotime( get_date_from_gmt( $lastactivity ) );
 
 			$html.= '<tr><td>'._x( 'Last Activity', 'Modules: User', GNETWORK_TEXTDOMAIN ).'</td><td>'
@@ -701,6 +748,9 @@ class User extends gNetwork\Module
 
 	public function manage_users_network_sortable_columns( $sortable_columns )
 	{
-		return array_merge( $sortable_columns, [ 'timestamps' => 'user_registered' ] );
+		return array_merge( $sortable_columns, [
+			'timestamps' => 'user_registered',
+			'extra'      => 'user_email',
+		] );
 	}
 }
