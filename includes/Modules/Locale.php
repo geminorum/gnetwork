@@ -121,8 +121,16 @@ class Locale extends gNetwork\Module
 				return $gNetworkCurrentLocale = $locale;
 		}
 
-		if ( is_network_admin() )
-			return $gNetworkCurrentLocale = $this->whiteListNetworkAdmin( $locale, gNetwork()->option( 'admin_locale', 'site', 'en_US' ) );
+		if ( is_network_admin() ) {
+
+			$target = gNetwork()->option( 'admin_locale', 'site', 'en_US' );
+
+			if ( $target == $locale )
+				return $gNetworkCurrentLocale = $this->blackListNetworkAdmin( $locale, 'en_US' );
+
+			else
+				return $gNetworkCurrentLocale = $this->whiteListNetworkAdmin( $locale, $target );
+		}
 
 		if ( is_admin() || FALSE !== strpos( $_SERVER['REQUEST_URI'], '/wp-includes/js/tinymce/' ) ) {
 
@@ -144,6 +152,12 @@ class Locale extends gNetwork\Module
 
 	private function blackListAdmin( $current, $base = 'en_US' )
 	{
+		if ( $current == $base )
+			return $current;
+
+		if ( WordPress::pageNow( 'site-health.php' ) )
+			return $base;
+
 		$list = $this->filters( 'blacklist', [
 			'rewrite-rules-inspector'    => 'page',
 			'connection-types'           => 'page',
@@ -297,32 +311,58 @@ class Locale extends gNetwork\Module
 			'pp-addons'           => 'page',
 
 			// [WooCommerce](https://woocommerce.com/)
-			'wc-status' => 'page',
-			'wc-addons' => 'page',
+			'wc-status'        => 'page',
+			'wc-addons'        => 'page',
+			'action-scheduler' => 'page',
+
+			'wp-shortpixel'       => 'page',
+			'wp-short-pixel-bulk' => 'page',
 
 		], $current );
 
-		foreach ( array_unique( $list ) as $value => $key )
-			if ( isset( $_REQUEST[$key] )
-				&& isset( $list[$_REQUEST[$key]] )
-					&& array_key_exists( $_REQUEST[$key], $list ) )
-						return $base;
-
-		return $current;
+		return $this->check_request( $list, $current, $base );
 	}
 
 	private function whiteListNetworkAdmin( $current, $base = 'en_US' )
 	{
+		if ( $current == $base )
+			return $current;
+
 		$list = $this->filters( 'whitelist', [
 			'bp-tools' => 'page',
 		], $current );
 
+		return $this->check_request( $list, $base, $current );
+	}
+
+	private function blackListNetworkAdmin( $current, $base = 'en_US' )
+	{
+		if ( $current == $base )
+			return $current;
+
+		$list = $this->filters( 'whitelist', [
+
+			// [BackWPup](https://backwpup.com/)
+			'backwpup'         => 'page',
+			'backwpupjobs'     => 'page',
+			'backwpupeditjob'  => 'page',
+			'backwpuplogs'     => 'page',
+			'backwpupbackups'  => 'page',
+			'backwpupsettings' => 'page',
+			'backwpupabout'    => 'page',
+		], $current );
+
+		return $this->check_request( $list, $current, $base );
+	}
+
+	private function check_request( $list, $locale, $target )
+	{
 		foreach ( array_unique( $list ) as $value => $key )
 			if ( isset( $_REQUEST[$key] )
 				&& isset( $list[$_REQUEST[$key]] )
 					&& array_key_exists( $_REQUEST[$key], $list ) )
-						return $current;
+						return $target;
 
-		return $base;
+		return $locale;
 	}
 }
