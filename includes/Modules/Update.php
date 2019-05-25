@@ -49,8 +49,8 @@ class Update extends gNetwork\Module
 			$this->filter( 'extra_plugin_headers' );
 			$this->filter( 'extra_theme_headers' );
 
-			$this->filter( 'pre_set_site_transient_update_plugins' );
-			$this->filter( 'pre_set_site_transient_update_themes' );
+			$this->filter( 'site_transient_plugins' );
+			$this->filter( 'site_transient_themes' );
 
 			$this->filter( 'upgrader_source_selection', 4 );
 			$this->action( 'upgrader_process_complete', 2 );
@@ -328,7 +328,7 @@ class Update extends gNetwork\Module
 		return $response;
 	}
 
-	public function pre_set_site_transient_update_plugins( $transient )
+	public function site_transient_plugins( $transient )
 	{
 		foreach ( $this->get_packages() as $package ) {
 
@@ -357,7 +357,7 @@ class Update extends gNetwork\Module
 		return $transient;
 	}
 
-	public function pre_set_site_transient_update_themes( $transient )
+	public function site_transient_themes( $transient )
 	{
 		foreach ( $this->get_packages() as $package ) {
 
