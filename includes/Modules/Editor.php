@@ -31,6 +31,7 @@ class Editor extends gNetwork\Module
 
 		$this->filter( 'mce_css' );
 		$this->action( 'wp_enqueue_editor' );
+		$this->action( 'enqueue_block_assets' );
 	}
 
 	public function init_late()
@@ -59,12 +60,17 @@ class Editor extends gNetwork\Module
 		if ( ! empty( $css ) )
 			$css.= ',';
 
-		return $css.GNETWORK_URL.'assets/css/editor.all.css';
+		return $css.GNETWORK_URL.'assets/css/editor.mce.css';
 	}
 
 	public function wp_enqueue_editor()
 	{
 		Utilities::enqueueScript( 'editor.all', [ 'jquery', 'media-editor', 'underscore' ] );
+	}
+
+	public function enqueue_block_assets()
+	{
+		wp_enqueue_style( static::BASE.'-blocks', GNETWORK_URL.'assets/css/editor.blocks'.( is_rtl() ? '-rtl' : '' ).'.css', [], GNETWORK_VERSION );
 	}
 
 	public function wp_link_query_args( $query )
