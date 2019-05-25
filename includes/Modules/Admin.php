@@ -27,6 +27,7 @@ class Admin extends gNetwork\Module
 		$this->filter( 'admin_body_class' );
 
 		if ( is_blog_admin() ) {
+
 			$this->filter( 'admin_title', 2 );
 			$this->filter( 'tablepress_admin_menu_entry_name' );
 

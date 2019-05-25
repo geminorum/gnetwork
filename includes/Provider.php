@@ -247,6 +247,11 @@ class Provider extends Core\Base
 		return FALSE;
 	}
 
+	public function botSend( $message, $target = NULL, $atts = [] )
+	{
+		return new Error( 'mothod_undefined', 'method must be over-ridden in a sub-class.' );
+	}
+
 	public function smsSend( $message, $target = NULL, $atts = [] )
 	{
 		return new Error( 'mothod_undefined', 'method must be over-ridden in a sub-class.' );

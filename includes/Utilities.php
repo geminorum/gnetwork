@@ -461,7 +461,7 @@ class Utilities extends Core\Base
 
 	public static function enqueueGithubMarkdown()
 	{
-		wp_enqueue_style( 'gnetwork-github-markdown', GNETWORK_URL.'assets/css/markdown.all'.( is_rtl() ? '-rtl' : '' ).'.css', [], GNETWORK_VERSION );
+		wp_enqueue_style( static::BASE.'-github-markdown', GNETWORK_URL.'assets/css/markdown.all'.( is_rtl() ? '-rtl' : '' ).'.css', [], GNETWORK_VERSION );
 	}
 
 	public static function pkgAutosize( $ver = '4.0.2' )
@@ -488,7 +488,7 @@ class Utilities extends Core\Base
 	{
 		$strings = apply_filters( self::BASE.'_tinymce_strings', [] );
 
-		return count( $strings ) ? 'tinyMCE.addI18n("'.$locale.'.gnetwork", '.wp_json_encode( $strings ).');'."\n" : '';
+		return count( $strings ) ? 'tinyMCE.addI18n("'.$locale.'.'.self::BASE.'", '.wp_json_encode( $strings ).');'."\n" : '';
 	}
 
 	public static function mdExtra( $markdown )

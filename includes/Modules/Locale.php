@@ -269,10 +269,10 @@ class Locale extends gNetwork\Module
 
 			// [TablePress](https://wordpress.org/plugins/tablepress/)
 			// 'tablepress'         => 'page',
-			'tablepress_add'     => 'page',
-			'tablepress_import'  => 'page',
-			'tablepress_export'  => 'page',
-			'tablepress_options' => 'page',
+			// 'tablepress_add'     => 'page',
+			// 'tablepress_import'  => 'page',
+			// 'tablepress_export'  => 'page',
+			// 'tablepress_options' => 'page',
 			'tablepress_about'   => 'page',
 
 			// [Read Offline](https://wordpress.org/plugins/read-offline/)

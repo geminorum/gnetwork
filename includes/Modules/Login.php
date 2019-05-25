@@ -608,6 +608,7 @@ class Login extends gNetwork\Module
 			'empty_email',
 			'empty_captcha',
 			'invalid_captcha',
+			'retrieve_password_email_failure', // the email could not be sent. your site may not be correctly configured to send emails.
 		];
 
 		foreach ( $errors->get_error_codes() as $error )

@@ -42,6 +42,7 @@ class WordPress extends Base
 	}
 
 	// @REF: `vars.php`
+	// TODO: support arrays
 	public static function pageNow( $page = NULL )
 	{
 		$now = 'index.php';
@@ -52,6 +53,7 @@ class WordPress extends Base
 		return is_null( $page ) ? $now : ( $now == $page );
 	}
 
+	// @REF: https://make.wordpress.org/core/2019/04/17/block-editor-detection-improvements-in-5-2/
 	public static function isBlockEditor()
 	{
 		if ( ! function_exists( 'get_current_screen' ) )

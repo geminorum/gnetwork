@@ -258,8 +258,10 @@ class Dashboard extends gNetwork\Module
 			$html = '<ul>'.$html.'</ul>';
 
 		// FIXME: add better
+		// FIXME: move to pointers
 		// update_right_now_message();
 
+		// FIXME: move to pointers
 		// check if search engines are asked not to index this site.
 		if ( current_user_can( 'manage_options' ) && '0' == get_option( 'blog_public' ) ) {
 

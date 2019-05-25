@@ -29,7 +29,7 @@ if ( is_readable( WP_CONTENT_DIR . '/gnetwork-custom.php' ) ) {
 	require_once WP_CONTENT_DIR . '/gnetwork-custom.php';
 }
 
-if ( version_compare( GNETWORK_MIN_PHP, PHP_VERSION, '>=' ) ) {
+if ( version_compare( GNETWORK_MIN_PHP, phpversion(), '>=' ) ) {
 
 	if ( is_admin() ) {
 		echo '<div class="notice notice-warning notice-alt is-dismissible"><p dir="ltr">';
