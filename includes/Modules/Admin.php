@@ -28,6 +28,8 @@ class Admin extends gNetwork\Module
 
 		if ( is_blog_admin() ) {
 			$this->filter( 'admin_title', 2 );
+			$this->filter( 'tablepress_admin_menu_entry_name' );
+
 			$this->action( 'admin_menu', 0, 12 );
 			$this->action( 'admin_menu', 0, 999, 'late' );
 			$this->action( 'admin_enqueue_scripts', 0, 999 );
@@ -72,6 +74,11 @@ class Admin extends gNetwork\Module
 	public function admin_title( $admin_title, $title )
 	{
 		return sprintf( _x( '%1$s &lsaquo; %2$s &#8212; Content Management', 'Modules: Admin: HTML Title', GNETWORK_TEXTDOMAIN ), $title, get_bloginfo( 'name', 'display' ) );
+	}
+
+	public function tablepress_admin_menu_entry_name()
+	{
+		return _x( 'Tables', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN );
 	}
 
 	public function admin_menu()
@@ -146,6 +153,10 @@ class Admin extends gNetwork\Module
 			$this->base,
 			_x( 'Network Extras', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN ),
 		];
+
+		// HACK: Sensei LMS menu title
+		if ( ! empty( $GLOBALS['menu'][50][2] ) && 'sensei' == $GLOBALS['menu'][50][2] )
+			$GLOBALS['menu'][50][0] = _x( 'Sensei', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN );
 
 		// @REF: http://justintadlock.com/?p=3320
 		if ( ! WordPress::cuc( 'update_plugins' ) )
