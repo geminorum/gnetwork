@@ -6,6 +6,7 @@ use geminorum\gNetwork;
 use geminorum\gNetwork\Core\File;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\HTTP;
+use geminorum\gNetwork\Core\Text;
 use geminorum\gNetwork\Core\WordPress;
 
 class Locale extends gNetwork\Module
@@ -73,14 +74,33 @@ class Locale extends gNetwork\Module
 
 		$this->loaded[$locale][$domain][] = File::normalize( $mofile );
 
-		$tailored = File::normalize( GNETWORK_DIR.'assets/locale/'.$domain.'-'.$locale.'.mo' );
+		if ( 'default' == $domain ) {
 
-		if ( ! is_readable( $tailored ) )
+			if ( Text::has( $mofile, 'admin-network' ) )
+				$path = GNETWORK_DIR.'assets/locale/core/admin-network-'.$locale.'.mo';
+
+			else if ( Text::has( $mofile, 'admin' ) )
+				$path = GNETWORK_DIR.'assets/locale/core/admin-'.$locale.'.mo';
+
+			else if ( Text::has( $mofile, 'continents-cities' ) )
+				$path = GNETWORK_DIR.'assets/locale/core/continents-cities-'.$locale.'.mo';
+
+			else
+				$path = GNETWORK_DIR.'assets/locale/core/'.$locale.'.mo';
+
+		} else {
+
+			$path = GNETWORK_DIR.'assets/locale/'.$domain.'-'.$locale.'.mo';
+		}
+
+		$target = File::normalize( $path );
+
+		if ( ! is_readable( $target ) )
 			return $mofile;
 
-		$this->loaded[$locale][$domain][] = $tailored;
+		$this->loaded[$locale][$domain][] = $target;
 
-		return $tailored;
+		return $target;
 	}
 
 	public function new_blog_options( $new_options )
