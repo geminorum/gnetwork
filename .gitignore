@@ -14,7 +14,8 @@
 /assets/views/cache/*.php
 /assets/packages/jquery
 /assets/vendor
-/node_modules
+
+node_modules
 
 composer.lock
 npm-debug.log

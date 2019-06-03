@@ -41,7 +41,7 @@
       var comparator;
 
       if (!this.get('library')) {
-        this.set('library', media.query({type: 'image', uploadedTo: media.view.settings.post.id, orderby: 'menuOrder', order: 'ASC'}));
+        this.set('library', media.query({ type: 'image', uploadedTo: media.view.settings.post.id, orderby: 'menuOrder', order: 'ASC' }));
       }
 
       media.controller.Library.prototype.initialize.apply(this, arguments);
