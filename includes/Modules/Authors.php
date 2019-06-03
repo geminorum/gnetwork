@@ -4,6 +4,7 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
 use geminorum\gNetwork\Settings;
+use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\WordPress;
 
@@ -20,6 +21,15 @@ class Authors extends gNetwork\Module
 		if ( $this->options['siteuser_as_default']
 			&& is_admin() && gNetwork()->user() )
 			$this->filter( 'wp_insert_post_data', 2, 9 );
+
+		if ( is_admin() )
+			return;
+
+		if ( $this->options['remove_author_pages'] )
+			$this->action( 'template_redirect' );
+
+		if ( $this->options['replace_author_links'] )
+			$this->filter( 'author_link' );
 	}
 
 	public function setup_menu( $context )
@@ -38,8 +48,10 @@ class Authors extends gNetwork\Module
 	public function default_options()
 	{
 		return [
-			'siteuser_as_default' => '0',
-			'register_shortcodes' => '0',
+			'siteuser_as_default'  => '0',
+			'remove_author_pages'  => '0',
+			'replace_author_links' => '',
+			'register_shortcodes'  => '0',
 		];
 	}
 
@@ -51,6 +63,17 @@ class Authors extends gNetwork\Module
 					'field'       => 'siteuser_as_default',
 					'title'       => _x( 'Default Author', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Uses site user as default author of new posts in admin.', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
+				],
+				[
+					'field'       => 'remove_author_pages',
+					'title'       => _x( 'Remove Author Pages', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Triggers a 404 error for all author pages and replace author links with links to the home page.', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
+				],
+				[
+					'field'       => 'replace_author_links',
+					'type'        => 'url',
+					'title'       => _x( 'Replace Author Links', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Replaces author links with links to a custom page.', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				'register_shortcodes',
 			],
@@ -247,6 +270,17 @@ class Authors extends gNetwork\Module
 	{
 		if ( $this->options['register_shortcodes'] )
 			$this->shortcodes( $this->get_shortcodes() );
+	}
+
+	public function template_redirect()
+	{
+		if ( is_author() )
+			Utilities::redirect404();
+	}
+
+	public function author_link( $link )
+	{
+		return $this->options['replace_author_links'];
 	}
 
 	protected function get_shortcodes()
