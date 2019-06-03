@@ -1,0 +1,67 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// gNetwork Partials: Admin Rows
+
+////////////////////////////////////////////////////////////////////////////////
+ul.-rows {
+
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  .-row {
+    margin-bottom: 4px;
+    font-size: 0.89em;
+
+    .-icon {
+      cursor: help;
+      margin: 0 4px 0 0;
+    }
+
+    > code {
+      vertical-align: middle;
+    }
+
+    span.dashicons {
+      color: #b4b9be;
+      width: 16px;
+      height: 16px;
+      font-size: 16px;
+      // vertical-align: middle;
+      vertical-align: text-top;
+      transition: all 0.3s ease;
+    }
+
+    &:hover {
+      .-icon span.dashicons {
+        color: $gray-dark;
+        transition: all 0.1s ease;
+      }
+    }
+
+    a:focus {
+      box-shadow: none;
+    }
+
+    .-valid {
+      color: $brand-success;
+
+      &:hover {
+        color: darken($brand-success, 20%);
+      }
+    }
+
+    .-not-valid {
+      color: $brand-danger;
+
+      &:hover {
+        color: darken($brand-danger, 20%);
+      }
+    }
+  }
+
+  .-row:last-child {
+    margin-bottom: 0;
+  }
+}

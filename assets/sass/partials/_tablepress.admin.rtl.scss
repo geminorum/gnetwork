@@ -1,0 +1,50 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// gNetwork Partials: TablePress: RTL
+
+
+////////////////////////////////////////////////////////////////////////////////
+// html[dir="rtl"] {}
+
+#tablepress_add-add-table .form-field-small,
+#tablepress_import-import-form .column-2 label,
+#tablepress_import-import-wp-table-reloaded .column-2 label {
+  margin: 0 0 0 20px;
+}
+
+.tablepress-postbox-table th {
+  text-align: right;
+}
+
+div#tablepress-page {
+  #option-extra-css-classes,
+  #option-datatables-custom-commands,
+  #tables-export-csv-delimiter,
+  #tables-export-format,
+  #tables-import-format,
+  #tables-import-url,
+  #tables-import-server {
+    direction: ltr;
+  }
+
+  #row-import-source td.column-2,
+  #row-import-type td.column-2 {
+    direction: rtl;
+    // text-align: lef;
+  }
+
+
+  // Larger Edit Input Fields
+  // increase the size of the text fields on the "Edit" screen
+  // @REF: https://tablepress.org/extensions/input-field-size/
+  #edit-form-body {
+    textarea {
+      min-width: 200px;
+    }
+
+    .focus td {
+      height: 96px;
+    }
+  }
+}

@@ -29,5 +29,9 @@ body.locale-fa-ir {
 
   ol {
     list-style-type: persian !important;
+
+    &.wc-progress-steps {
+      list-style-type: none !important;
+    }
   }
 }

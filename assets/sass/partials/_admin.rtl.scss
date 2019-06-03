@@ -10,6 +10,7 @@ body.options-permalink-php .form-table .sptp-fieldset, // Simple Post Type Perma
 .fixed.users-network td.column-blogs,
 #gadash-widget #ga-dash, // Google Analytics Dashboard
 #poststuff #edit-slug-box,
+#bp-groups-permalink-box,
 #poststuff input#post_name,
 // #qm, // Query Monitor
 .user-mobile-wrap input#mobile,
@@ -28,6 +29,10 @@ input#user_login {
 
 .debug-menu-target {
   direction: ltr !important;
+}
+
+#bp-groups-permalink {
+  margin: 0;
 }
 
 ////////////////////////////////////////////////////////////////////////////////

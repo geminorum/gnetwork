@@ -1,0 +1,121 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// gNetwork Partials: Gravity Forms: RTL
+
+
+////////////////////////////////////////////////////////////////////////////////
+html[dir="rtl"] body.wp-admin {
+  #add_fields,
+  table.gforms_form_settings th {
+    text-align: right;
+  }
+
+  .updated_base,
+  .alert_red,
+  ul#gform_fields li#no-fields div.newform_notice {
+    border-left: none;
+  }
+
+  .updated_base {
+    border-right: 4px solid #ffba00;
+  }
+
+  .alert_red,
+  ul#gform_fields li#no-fields div.newform_notice {
+    border-right: 4px solid #dd3d36 !important;
+    // border-left: none !important;
+  }
+
+  .button-title-link div.add-buttons-title {
+    // padding-top: 6px !important;
+
+    span.add-buttons-caret-down,
+    span.add-buttons-caret-up {
+      // right: auto !important;
+      // left: 4px !important;
+      display: none !important;
+    }
+  }
+
+  ol.field_type li {
+    float: right !important;
+  }
+
+  div#add_fields div#floatMenu input.button.button-large.button-primary.update-form {
+    margin-right: 0 !important;
+    margin-left: 15px !important;
+  }
+
+  .field_hover div.settings_control_container div.gfield_admin_header_title,
+  .field_selected div.settings_control_container div.gfield_admin_header_title,
+  .field_hover div.gfield_admin_icons div.gfield_admin_header_title,
+  .field_hover div.gform_admin_icons div.gform_admin_header_title,
+  .field_selected div.gfield_admin_icons div.gfield_admin_header_title,
+  .field_selected div.gform_admin_icons div.gform_admin_header_title {
+    float: right !important;
+  }
+
+  .field_delete_icon,
+  .form_delete_icon {
+    float: left !important;
+    margin: -1px 6px 0 0 !important;
+  }
+
+  .field_edit_icon,
+  .form_edit_icon {
+    float: left !important;
+    margin-left: 0 !important;
+    margin-right: 6px !important;
+  }
+
+  .ui-tabs .ui-tabs-nav li {
+    float: right !important;
+    margin: 0 0 -1px .2em !important;
+  }
+
+  #floatMenu a.submitdelete {
+    float: left;
+  }
+
+  #field_settings ul li label {
+    margin: 0 0 3px 8px !important;
+  }
+
+  .field_duplicate_icon {
+    float: left !important;
+    margin: 0 8px 0 0 !important;
+  }
+
+  .gform_tab_container {
+    border-right: 1px solid #e1e1e1 !important;
+    border-left: none !important;
+    z-index: 51;
+  }
+
+  .gform_tabs li.active a {
+    left: 1px !important;
+    right: auto !important;
+    margin: 0 0 0 -1px !important;
+    padding: 6px 10px 6px 0 !important;
+    border-left-color: #f6fbfd !important;
+    border-right: 2px solid #2ea2cc !important;
+  }
+
+  #entry_search_button,
+  #entry_search_container {
+    float: left;
+  }
+
+  .gform-field-filter select,
+  .gform-field-filter input {
+    margin: 0 0 0 2px;
+  }
+
+  div.gf_animate_sub_settings {
+    border-left: none;
+    border-right: 1px dashed #dfdfdf;
+    margin-left: 0;
+    margin-right: 10px;
+  }
+}

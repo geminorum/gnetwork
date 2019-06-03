@@ -1,0 +1,113 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// gNetwork Partials: Sensei LMS: RTL
+
+
+////////////////////////////////////////////////////////////////////////////////
+html[dir="rtl"] {
+  #course-video-embed,
+  #lesson-info textarea {
+    direction: ltr;
+  }
+
+  #lesson-quiz .add-question {
+    text-align: left;
+  }
+
+  #entrepot-notices-link-wrap {
+    float: left;
+  }
+
+  #entrepot-notices-link-wrap {
+    margin: 0 6px 0 0;
+  }
+
+  #entrepot-notices-back {
+    right: 150px;
+    left: 0;
+  }
+
+  .entrepot-notice-trash,
+  .show-notice {
+    padding: 0 9px 0 0;
+    right: auto;
+    left: -30px;
+  }
+
+  .show-notice {
+    left: 10px;
+  }
+
+  #lesson-quiz {
+    .multiple-choice-answers {
+      label.answer span::before {
+        margin: 0 0 0 5px;
+        vertical-align: middle;
+      }
+
+      label.answer span {
+        vertical-align: top;
+      }
+
+      .add_answer_options .add_answer_option::before {
+        margin: 0 0 0 5px;
+      }
+
+      .add_answer_options .add_answer_option.add_right_answer_option {
+        margin: 0 0 0 20px;
+      }
+    }
+
+    #add-question-main .upload_media_file_button {
+      margin: 0 0 10px 10px;
+    }
+  }
+
+  .sensei-options-panel .options_group .form-field {
+    margin: 10px 300px 10px 0 !important;
+
+    .label {
+      float: right;
+      margin: 0 -300px 0 0;
+    }
+  }
+
+  .sensei-analysis-wrap {
+    margin: 0 300px 0 0;
+
+    .sensei-analysis-main {
+      float: right;
+
+      .tablenav .tablenav-pages {
+        margin-right: 0;
+        margin-left: 20px;
+      }
+    }
+
+    .sensei-analysis-sidebar {
+      margin: 0 -300px 0 0;
+      float: right;
+    }
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  #lesson-quiz #add-new-question .answer-fields,
+  #lesson-quiz #add-question-metadata .question-quick-edit td .question_boolean_fields,
+  #lesson-quiz #add-question-metadata .question-quick-edit td .question_default_fields,
+  #lesson-quiz #add-question-metadata .question-quick-edit td .question_fileupload_fields,
+  #lesson-quiz #add-question-metadata .question-quick-edit td .question_gapfill_fields,
+  #lesson-quiz #add-question-metadata .question-quick-edit td .question_multiline_fields,
+  #lesson-quiz #add-question-metadata .question-quick-edit td .question_singleline_fields {
+    float: left;
+  }
+
+  #lesson-quiz #add-new-question .question,
+  #lesson-quiz #add-question-metadata .question-quick-edit td .question_required_fields {
+    float: right;
+    padding: 0 0 0 5%;
+    border-left: 1px solid #dfdfdf;
+    border-right: none;
+  }
+}

@@ -1,45 +1,48 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-/// gNetwork Partials: ThickBox: RTL -------------------------------------------
+/// gNetwork Partials: ThickBox: RTL
 
 /*rtl:begin:ignore*/
 
-#TB_ajaxWindowTitle {
-  padding: 0 10px 0 29px;
-}
-
-#TB_closeAjaxWindow {
-  float: left;
-}
-
-#TB_ajaxContent,
-#TB_window {
-  text-align: right;
-}
-
-#TB_caption {
-  padding: 5px 15px 0 0;
-  float: right;
-}
-
-#TB_closeWindowButton {
-  left: 0;
-  right: auto;
-
-  &:focus .tb-close-icon {
-    box-shadow: none;
+// this will load on both ltr/rtl
+html[dir="rtl"] {
+  #TB_ajaxWindowTitle {
+    padding: 0 10px 0 29px;
   }
-}
 
-#TB_window img#TB_Image {
-  margin: 15px 15px 0 0;
-  border: none;
-}
+  #TB_closeAjaxWindow {
+    float: left;
+  }
 
-#TB_closeWindow {
-  float: left;
-  padding: 5px 15px;
+  #TB_ajaxContent,
+  #TB_window {
+    text-align: right;
+  }
+
+  #TB_caption {
+    padding: 5px 15px 0 0;
+    float: right;
+  }
+
+  #TB_closeWindowButton {
+    left: 0;
+    right: auto;
+
+    &:focus .tb-close-icon {
+      box-shadow: none;
+    }
+  }
+
+  #TB_window img#TB_Image {
+    margin: 15px 15px 0 0;
+    border: none;
+  }
+
+  #TB_closeWindow {
+    float: left;
+    padding: 5px 15px;
+  }
 }
 
 /*rtl:end:ignore*/
