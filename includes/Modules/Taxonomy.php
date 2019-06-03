@@ -524,6 +524,10 @@ class Taxonomy extends gNetwork\Module
 	{
 		$term_name = $_REQUEST['bulk_to_tag'];
 
+		// if it's term id
+		if ( is_numeric( $term_name ) )
+			$term_name = intval( $term_name );
+
 		if ( ! $term = term_exists( $term_name, $taxonomy ) )
 			$term = wp_insert_term( $term_name, $taxonomy );
 
