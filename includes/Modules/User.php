@@ -688,6 +688,21 @@ class User extends gNetwork\Module
 			echo '</li>';
 		}
 
+		if ( $customs = get_user_meta( $user->ID, 'custom_display_name', TRUE ) ) {
+
+			$blogs = get_blogs_of_user( $user->ID, TRUE );
+
+			foreach ( $customs as $blog => $custom ) {
+
+				$blogname = empty( $blogs[$blog] ) ? '#'.$blog : $blogs[$blog]->blogname;
+
+				echo '<li class="-row -name">';
+					echo $this->get_column_icon( FALSE, 'nametag', _x( 'Custom Name', 'Modules: User', GNETWORK_TEXTDOMAIN ) );
+					printf( _x( 'In %s as: %s', 'Modules: User: Custom Name', GNETWORK_TEXTDOMAIN ), $blogname, $custom );
+				echo '</li>';
+			}
+		}
+
 		if ( $user->user_email ) {
 			echo '<li class="-row -email">';
 				echo $this->get_column_icon( FALSE, 'email', _x( 'Email', 'Modules: User', GNETWORK_TEXTDOMAIN ) );
