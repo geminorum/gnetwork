@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Twenty Fifteen\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2018-09-04 05:44+0430\n"
+"PO-Revision-Date: 2019-05-09 14:29+0430\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: \n"
 "Language: fa_IR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.1.1\n"
+"X-Generator: Poedit 2.2.1\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Poedit-Basepath: ../../../../themes/twentyfifteen\n"
 
@@ -17,14 +17,14 @@ msgstr ""
 msgid ""
 "Our 2015 default theme is clean, blog-focused, and designed for clarity. Twenty "
 "Fifteen's simple, straightforward typography is readable on a wide variety of "
-"screen sizes, and suitable for multiple languages. We designed it using a "
-"mobile-first approach, meaning your content takes center-stage, regardless of "
-"whether your visitors arrive by smartphone, tablet, laptop, or desktop computer."
+"screen sizes, and suitable for multiple languages. We designed it using a mobile-"
+"first approach, meaning your content takes center-stage, regardless of whether "
+"your visitors arrive by smartphone, tablet, laptop, or desktop computer."
 msgstr ""
 
 #. Theme Name of the plugin/theme
 msgid "Twenty Fifteen"
-msgstr "دو هزار و پانزده"
+msgstr "بیست پانزده"
 
 #. translators: %s: post title
 #: comments.php:31
@@ -39,7 +39,7 @@ msgstr "دیدگاه شما <span class=\"screen-reader-text\">درباره %s</
 
 #: single.php:37
 msgid "Previous post:"
-msgstr "نوشتهٔ قبلی:"
+msgstr "نوشته قبلی:"
 
 #: single.php:36
 msgid "Previous"
@@ -47,7 +47,7 @@ msgstr "قبلی"
 
 #: single.php:34
 msgid "Next post:"
-msgstr "نوشتهٔ بعدی:"
+msgstr "نوشته بعدی:"
 
 #: single.php:33
 msgid "Next"
@@ -259,8 +259,7 @@ msgstr ""
 #: content-none.php:22
 msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
 msgstr ""
-"برای انتشار اولین نوشتهٔ خودتان آماده‌اید؟ <a href=\"%1$s\">از اینجا شروع کنید</"
-"a>."
+"برای انتشار اولین نوشتهٔ خودتان آماده‌اید؟ <a href=\"%1$s\">از اینجا شروع کنید</a>."
 
 #: content-none.php:15
 msgid "Nothing Found"
@@ -307,16 +306,15 @@ msgstr "برگه"
 
 #: archive.php:50 index.php:47 search.php:39
 msgid "Next page"
-msgstr "برگهٔ بعدی"
+msgstr "برگه بعدی"
 
 #: archive.php:49 index.php:46 search.php:38
 msgid "Previous page"
-msgstr "برگهٔ قبلی"
+msgstr "برگه قبلی"
 
 #: 404.php:21
 msgid "It looks like nothing was found at this location. Maybe try a search?"
-msgstr ""
-"شرمنده! ولی صفحه‌ای که دنبال آن هستید، پیدا نشد. شاید اگر جست‌وجو کنید، پیدا شود."
+msgstr "چیزی که به دنبالش بودید پیدا نشد، شاید جست‌وجوی دوباره شما را یاری کند."
 
 #: 404.php:17
 msgid "Oops! That page can&rsquo;t be found."
@@ -324,7 +322,7 @@ msgstr "متأسفیم، صفحه مورد نظر شما پیدا نشد."
 
 #. Author of the plugin/theme
 msgid "the WordPress team"
-msgstr "تیم وردپرس"
+msgstr ""
 
 #. Theme URI of the plugin/theme
 msgid "https://wordpress.org/themes/twentyfifteen/"

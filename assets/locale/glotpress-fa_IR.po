@@ -1,0 +1,1646 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: GlotPress 2.3.1\n"
+"PO-Revision-Date: 2019-05-25 04:46+0430\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 2.2.3\n"
+"Language: fa_IR\n"
+"POT-Creation-Date: \n"
+"Last-Translator: geminorum <contact@geminorum.ir>\n"
+"Language-Team: \n"
+"X-Poedit-Basepath: ../../../glotpress\n"
+
+#: gp-templates/locale.php:20
+msgid "Create Locale Glossary"
+msgstr "ایجاد واژه‌نامه محلی"
+
+#: gp-templates/locale.php:18
+msgid "Locale Glossary"
+msgstr "واژه‌نامه محلی"
+
+#. translators: Denotes an entry from the locale glossary in the tooltip
+#: gp-templates/helper-functions.php:91
+msgctxt "Bubble"
+msgid "Locale Glossary"
+msgstr "واژه‌نامه محلی"
+
+#: gp-templates/glossary-view.php:20
+msgid "Glossary for %1$s"
+msgstr "واژه‌نامه برای %1$s"
+
+#: gp-templates/glossary-view.php:18
+msgid "Glossary for %1$s translation of %2$s"
+msgstr "واژه‌نامه برای %1$s ترجمه از %2$s"
+
+#: gp-includes/routes/translation.php:476
+msgid "The remaining %s translation was marked as fuzzy successfully."
+msgid_plural "The remaining %s translations were marked as fuzzy successfully."
+msgstr[0] "%s ترجمه باقیمانده با موفقیت به عنوان گُنگ علامت‌گذاری شد."
+
+#: gp-includes/routes/translation.php:474
+#: gp-includes/routes/translation.php:480
+msgid "Error with marking %s translation as fuzzy."
+msgid_plural "Error with marking %s translations as fuzzy."
+msgstr[0] "خطایی در علامت‌گذاری %s به عنوان ترجمه گُنگ رخ داده است."
+
+#: gp-includes/routes/translation.php:471
+msgid "%d translation was marked as fuzzy."
+msgid_plural "%d translations were marked as fuzzy."
+msgstr[0] "%d ترجمه به عنوان ترجمهٔ گُنگ علامت‌گذاری شد."
+
+#. translators: public profile date format, see https://secure.php.net/date
+#: gp-templates/profile-public.php:29
+msgid "M j, Y"
+msgstr "M j, Y"
+
+#: gp-templates/translation-row.php:197
+msgid "Last updated by:"
+msgstr "آخرین به‌روزرسانی توسط:"
+
+#: gp-templates/translation-row.php:195
+msgid "Rejected by:"
+msgstr "رد شده توسط:"
+
+#: gp-templates/translation-row.php:193
+msgid "Approved by:"
+msgstr "تأیید شده توسط:"
+
+#: gp-templates/settings.php:35
+msgid "Save Settings"
+msgstr "ذخیره تنظیمات"
+
+#: gp-templates/project-permissions.php:50
+msgid "Parent"
+msgstr "مادر"
+
+#: gp-templates/project-permissions.php:22
+#: gp-templates/project-permissions.php:47
+msgid "Permission"
+msgstr "دسترسی‌ها"
+
+#: gp-templates/project-permissions.php:21
+#: gp-templates/project-permissions.php:46
+msgid "User"
+msgstr "کاربر"
+
+#: gp-templates/glossary-import.php:26
+msgid "Flush existing glossary. Warning: all existing glossary entries will be deleted!"
+msgstr "واژه‌نامه موجود دورریزی شود. اخطار: تمامی ورودیه‌های موجود در واژه‌نامه حذف خواهند شد!"
+
+#: gp-includes/routes/translation.php:80
+msgid "Invalid translation status."
+msgstr "وضعیت ترجمه نامعتبر است."
+
+#: gp-includes/routes/settings.php:59
+msgid "Settings saved!"
+msgstr "تنظیمات ذخیره شد!"
+
+#: gp-templates/translations.php:121
+msgid "Case sensitive"
+msgstr "حساس به حروف کوچک و بزرگ"
+
+#: gp-templates/translation-set-delete.php:20
+msgid "Note this will delete all translations associated with this set!"
+msgstr "توجه داشته باشید که همه ترجمه‌های مرتبط با این مجموعه حذف خواهند شد!"
+
+#: gp-templates/translation-set-delete.php:17
+msgid "Delete Translation Set"
+msgstr "حذف مجموعه ترجمه"
+
+#: gp-templates/translation-set-delete.php:10
+msgid "Delete Translation Set &lt; %s &lt; %s &lt; GlotPress"
+msgstr "حذف مجموعه ترجمه &lt; %s &lt; %s &lt; گلات‌پرس"
+
+#: gp-templates/settings.php:14 gp-templates/settings.php:30
+msgid "Your Settings"
+msgstr "تنظیمات شما"
+
+#: gp-templates/settings.php:13
+msgid "Your Settings &lt; GlotPress"
+msgstr "تنظیمات شما &lt; گلات‌پرس"
+
+#: gp-templates/project-import.php:26
+msgid "Auto Detect"
+msgstr "تشخیص خودکار"
+
+#: gp-templates/project-delete.php:17
+msgid "Note this will delete all translations, translation sets and child projects!"
+msgstr "توجه داشته باشید که همهٔ ترجمه‌ها، مجموعه‌های ترجمه و پروژه‌های فرزند آن حذف خواهند شد!"
+
+#: gp-templates/project-delete.php:14
+msgid "Delete project &#8220;%s&#8221;"
+msgstr "حذف پروژه &laquo;%s&raquo;"
+
+#: gp-templates/project-delete.php:10
+msgid "Delete Project %s &lt; GlotPress"
+msgstr "حذف پروژه %s &lt; گلات‌پرس"
+
+#. translators: 1: %file%, 2: %line%, 3:
+#. https://trac.example.org/browser/%file%#L%line%
+#: gp-templates/project-branch.php:25 gp-templates/project-form.php:20
+msgid "Public URL to a source file in the project. You can use %1$s and %2$s. Ex. %3$s"
+msgstr "نشانی عمومی اینترنتی به یک پرونده منبع در این پروژه. می‌توانید از %1$s و  %2$s استفاده کنید. برای نمونه: %3$s"
+
+#: gp-templates/helper-functions.php:125
+msgid "Warning:"
+msgstr "اخطار:"
+
+#: gp-templates/glossary-view.php:26 gp-templates/translations.php:21
+msgid "(delete)"
+msgstr "(حذف)"
+
+#: gp-templates/glossary-delete.php:24
+msgid "Note this will delete all entries associated with this glossary!"
+msgstr "توجه داشته باشید که همه ورودیه‌های مرتبط با این واژه‌نامه حذف خواهند شد!"
+
+#: gp-templates/glossary-delete.php:20
+msgid "Delete Glossary"
+msgstr "حذف واژه‌نامه"
+
+#: gp-templates/glossary-delete.php:15
+msgid "delete"
+msgstr "حذف"
+
+#: gp-templates/glossary-delete.php:10
+msgid "Delete Glossary &lt; GlotPress"
+msgstr "حذف واژه‌نامه &lt; گلات‌پرس"
+
+#. translators: 1: type of a validation field, 2: name of a validation field,
+#. 3: validation rule
+#: gp-includes/validation.php:163
+msgid "The %1$s %2$s is invalid and should not be %3$s!"
+msgstr "%1$s در %2$s نامعتبر است و نباید %3$s باشد!"
+
+#. translators: 1: type of a validation field, 2: name of a validation field,
+#. 3: validation rule
+#: gp-includes/validation.php:160
+msgid "The %1$s %2$s is invalid and should be %3$s!"
+msgstr "%1$s در %2$s نامعتبر است و باید %3$s باشد!"
+
+#. translators: 1: %file%, 2: %line%, 3:
+#. https://trac.example.org/browser/%file%#L%line%
+#: gp-includes/template.php:551
+msgid "URL to a source file in the project. You can use %1$s and %2$s. Ex. %3$s"
+msgstr "نشانی اینترنتی به یک پرونده منبع در این پروژه. می‌توانید از %1$s و %2$s استفاده کنید. برای نمونه: %3$s"
+
+#: gp-includes/template.php:110
+msgid "Settings"
+msgstr "تنظیمات"
+
+#: gp-includes/routes/translation-set.php:130
+msgid "The translation set was deleted!"
+msgstr "مجموعه ترجمه حذف شد!"
+
+#: gp-includes/routes/translation-set.php:125
+msgid "Error deleting translation set!"
+msgstr "خطا در هنگام حذف مجموعه ترجمه!"
+
+#: gp-includes/routes/project.php:248
+msgid "Error deleting project \"%s\"!"
+msgstr "خطا در هنگام حذف پروژه «%s»!"
+
+#: gp-includes/routes/glossary.php:172
+msgid "The glossary was deleted!"
+msgstr "واژه‌نامه حذف شد!"
+
+#: gp-includes/routes/glossary.php:167
+msgid "Error deleting glossary!"
+msgstr "خطا در هنگام حذف واژه‌نامه!"
+
+#: gp-includes/routes/glossary.php:24 gp-includes/routes/glossary.php:54
+msgid "Couldn&#8217;t find translation set with this ID."
+msgstr "مجموعه ترجمه‌ای با این شناسه پیدا نشد."
+
+#: gp-includes/route.php:169 gp-includes/routes/glossary-entry.php:107
+#: gp-includes/routes/glossary-entry.php:165 gp-includes/routes/original.php:25
+#: gp-includes/routes/translation.php:245
+#: gp-includes/routes/translation.php:533
+#: gp-includes/routes/translation.php:544
+msgid "An error has occurred. Please try again."
+msgstr "خطایی اتفاق افتاده است. لطفاً دوباره تلاش کنید."
+
+#: gp-includes/misc.php:489
+msgid "Grant this user administrative privileges in GlotPress."
+msgstr "در گلات‌پرس، اختیارات مدیریت به این کاربر اعطا شود."
+
+#: gp-includes/misc.php:486
+msgid "GlotPress Administrator"
+msgstr "مدیر گلات‌پرس"
+
+#: gp-includes/misc.php:483
+msgid "Administrator"
+msgstr "مدیر"
+
+#. translators: %s: number of errors
+#: gp-includes/cli/import-originals.php:54 gp-includes/routes/project.php:158
+msgid "%s new string was not imported due to an error."
+msgid_plural "%s new strings were not imported due to an error."
+msgstr[0] "%s رشته جدید به دلیل خطا درون‌ریزی نشد."
+
+#. translators: %s: URL to permalink settings
+#: glotpress.php:131
+msgid "GlotPress requires a custom permalink structure to be enabled. Please go to <a href=\"%s\">Permalink Settings</a> and enable an option other than Plain. "
+msgstr "برای فعال‌کردن گلات‌پرس، نیاز به ساختار سفارشی پیوند یکتا دارید. لطفاً به <a href=\"%s\">تنظیمات پیوند یکتا</a> بروید و گزینه‌ای غیر از گزینهٔ پیش‌فرض را انتخاب کنید. "
+
+#: glotpress.php:129
+msgid "&#151; You are running an unsupported permalink structure."
+msgstr "&ndash; ساختار پیوند یکتای شما پشتیبانی نمی‌شود."
+
+#: glotpress.php:72
+msgid "GlotPress requires PHP Version %s, please upgrade to run GlotPress. "
+msgstr "گلات‌پرس نیاز به نگارش %s PHP دارد. لطفاً برای اجرای گلات‌پرس، نگارش خود را ارتقا دهید. "
+
+#: glotpress.php:71
+msgid "&#151; You are running an unsupported version of PHP."
+msgstr "&ndash; نگارش PHP شما پشتیبانی نمی‌شود."
+
+#. Author URI of the plugin/theme
+msgid "https://glotpress.blog"
+msgstr "https://glotpress.blog"
+
+#. Author of the plugin/theme
+msgid "the GlotPress team"
+msgstr "تیم گلات‌پرس"
+
+#. Description of the plugin/theme
+msgid "GlotPress is a tool to help translators collaborate."
+msgstr "گلات‌پرس ابزاری برای کمک به همکاری مترجمین با یک‌دیگر است."
+
+#. Plugin URI of the plugin/theme
+msgid "https://wordpress.org/plugins/glotpress/"
+msgstr "https://fa.wordpress.org/plugins/glotpress/"
+
+#. Plugin Name of the plugin/theme
+#: gp-includes/misc.php:479
+msgid "GlotPress"
+msgstr "گلات‌پرس"
+
+#. translators: combined name for locales: 1: name in English, 2: native name
+#: locales/locales.php:59
+msgctxt "locales"
+msgid "%1$s/%2$s"
+msgstr "%1$s/%2$s"
+
+#. translators: 1: export 2: what to export dropdown (all/filtered) 3: export
+#. format
+#: gp-templates/translations.php:263
+msgid "%1$s %2$s as %3$s"
+msgstr "%1$s %2$s به %3$s"
+
+#: gp-templates/translations.php:260
+msgctxt "export choice"
+msgid "only matching the filter"
+msgstr "فقط مطابق با پالایه"
+
+#: gp-templates/translations.php:260
+msgctxt "export choice"
+msgid "all current"
+msgstr "همهٔ تأییدشده‌ها"
+
+#: gp-templates/translations.php:255
+msgid "Export"
+msgstr "برون‌بری"
+
+#: gp-templates/translations.php:245
+msgid "with warnings"
+msgstr "همراه با اخطار"
+
+#: gp-templates/translations.php:237
+msgid "Old"
+msgstr "قدیمی"
+
+#: gp-templates/project-import.php:34 gp-templates/translations.php:228
+msgid "Current"
+msgstr "تأیید شده"
+
+#: gp-templates/translations.php:218
+msgid "Legend:"
+msgstr "توضیحات:"
+
+#: gp-templates/translations.php:211
+msgid "No translations were found!"
+msgstr "هیچ ترجمه‌ای پیدا نشد!"
+
+#. Translators: Priority
+#: gp-templates/translations.php:191
+msgid "Prio"
+msgstr "اولویت"
+
+#: gp-templates/translations.php:153
+msgid "Order:"
+msgstr "جهت:"
+
+#: gp-templates/translations.php:137
+msgctxt "sort by"
+msgid "By:"
+msgstr "بر اساس:"
+
+#: gp-templates/translations.php:120
+msgid "With context"
+msgstr "همراه با زمینه"
+
+#: gp-templates/translations.php:119
+msgid "With comment"
+msgstr "همراه با توضیح"
+
+#: gp-templates/translations.php:114
+msgid "Any"
+msgstr "هرچیزی"
+
+#: gp-templates/translations.php:113
+msgid "Without current translation"
+msgstr "بدون ترجمه تأییدشده"
+
+#: gp-templates/translations.php:112
+msgid "Rejected"
+msgstr "رد شده"
+
+#: gp-templates/translations.php:111
+msgid "Waiting approval"
+msgstr "در انتظار تأیید"
+
+#: gp-templates/translations.php:110
+msgid "Approved, but obsoleted by another string"
+msgstr "تأیید شده، اما منسوخ توسط رشتهٔ دیگری"
+
+#: gp-templates/translations.php:109
+msgid "Current only"
+msgstr "فقط تأییدشده"
+
+#: gp-templates/translations.php:108
+msgid "Current/waiting/fuzzy + untranslated (All)"
+msgstr "فعلی/در انتظار/گُنگ + ترجمه‌نشده‌ها (همه)"
+
+#: gp-templates/translations.php:98
+msgid "User:"
+msgstr "کاربر:"
+
+#: gp-templates/translations.php:97
+msgid "Term:"
+msgstr "واژه:"
+
+#: gp-templates/translations.php:87
+msgid "Warnings"
+msgstr "اخطارها"
+
+#: gp-templates/translations.php:79
+msgid "random"
+msgstr "تصادفی"
+
+#: gp-templates/translations.php:77
+msgid "All"
+msgstr "همه"
+
+#: gp-templates/translations.php:74
+msgid "Sort &darr;"
+msgstr "مرتب‌سازی &darr;"
+
+#: gp-templates/translations.php:73
+msgid "Filter &darr;"
+msgstr "پالایه &darr;"
+
+#: gp-templates/translations.php:65
+msgid "Apply"
+msgstr "اعمال کردن"
+
+#: gp-templates/translations.php:37
+msgid "Set Priority"
+msgstr "تنظیم اولویت"
+
+#: gp-templates/translations.php:32
+msgid "Bulk Actions"
+msgstr "کنش‌های دسته‌جمعی"
+
+#: gp-templates/translations.php:23
+msgid "glossary"
+msgstr "واژه‌نامه"
+
+#: gp-templates/translations.php:19
+msgid "Translation of %s"
+msgstr "ترجمه %s"
+
+#: gp-templates/translations.php:8 gp-templates/translations.php:134
+msgid "Filter"
+msgstr "پالایه"
+
+#: gp-templates/translations.php:8 gp-templates/translations.php:183
+msgid "Sort"
+msgstr "مرتب‌سازی"
+
+#: gp-templates/translations.php:2
+msgid "Translations &lt; %s &lt; %s &lt; GlotPress"
+msgstr "ترجمه‌ها &lt; %s &lt; %s &lt; گلات‌پرس"
+
+#: gp-templates/translation-set-new.php:10
+msgid "Create New Translation Set"
+msgstr "ساخت مجموعه ترجمه جدید"
+
+#: gp-templates/translation-set-new.php:2
+msgid "Create New Translation Set &lt; GlotPress"
+msgstr "ایجاد مجموعه ترجمه تازه &lt; گلات‌پرس"
+
+#: gp-templates/translation-set-form.php:5
+msgid "Use as name"
+msgstr "استفاده به عنوان نام"
+
+#: gp-templates/translation-set-edit.php:13
+msgid "Edit Translation Set"
+msgstr "ویرایش مجموعه ترجمه"
+
+#: gp-templates/translation-set-edit.php:2
+msgid "Edit Translation Set &lt; %s &lt; %s &lt; GlotPress"
+msgstr "ویرایش مجموعه ترجمه &lt; %s &lt; %s &lt; گلات‌پرس"
+
+#: gp-templates/translation-row.php:239
+msgid "Suggest new translation &rarr;"
+msgstr "پیشنهاد ترجمه جدید &larr;"
+
+#: gp-templates/translation-row.php:239
+msgid "Add translation &rarr;"
+msgstr "افزودن ترجمه &larr;"
+
+#: gp-templates/translation-row.php:28
+msgid "All translations of this original"
+msgstr "همهٔ ترجمه‌ها از این رشته اصلی"
+
+#: gp-templates/translation-row.php:24
+msgid "Permalink to this original"
+msgstr "پیوند پایدار به این رشته اصلی"
+
+#: gp-templates/translation-row.php:21
+msgid "Permalink to this translation"
+msgstr "پیوند پایدار به این ترجمه"
+
+#: gp-templates/translation-row.php:227
+msgid "More links:"
+msgstr "پیوندهای بیشتر:"
+
+#: gp-templates/translation-row.php:207
+msgid "Priority of the original:"
+msgstr "اولویت رشته اصلی:"
+
+#: gp-templates/translation-row.php:185
+msgid "Translated by:"
+msgstr "ترجمه شده توسط:"
+
+#: gp-templates/translation-row.php:179
+msgid "Date added:"
+msgstr "تاریخ اضافه شده:"
+
+#: gp-templates/translation-row.php:173
+msgid "Comment:"
+msgstr "توضیح:"
+
+#: gp-templates/translation-row.php:167
+msgid "Context:"
+msgstr "متن:"
+
+#: gp-templates/translation-row.php:160
+msgid "Priority:"
+msgstr "اولویت:"
+
+#: gp-templates/translation-row.php:152
+msgid "Reject Suggestion"
+msgstr "رد پیشنهاد"
+
+#: gp-templates/translation-row.php:146 gp-templates/translations.php:34
+msgid "Reject"
+msgstr "رد"
+
+#: gp-templates/translation-row.php:143 gp-templates/translations.php:33
+msgid "Approve"
+msgstr "تأیید"
+
+#: gp-templates/project-import.php:43 gp-templates/translation-row.php:137
+#: gp-templates/translations.php:104
+msgid "Status:"
+msgstr "وضعیت:"
+
+#: gp-templates/translation-row.php:125
+msgid "This plural form is used for numbers like: %s"
+msgstr "این صورت جمع برای شماره‌هایی مانند %s استفاده می‌شود."
+
+#: gp-templates/translation-row.php:112 gp-templates/translation-row.php:121
+msgid "Plural: %s"
+msgstr "جمع: %s"
+
+#: gp-templates/translation-row.php:109 gp-templates/translation-row.php:119
+msgid "Singular: %s"
+msgstr "مفرد: %s"
+
+#: gp-templates/translation-row.php:70
+msgid "You <a href=\"%s\">have to log in</a> to add a translation."
+msgstr "برای افزودن ترجمه <a href=\"%s\">باید وارد شوید</a>."
+
+#: gp-templates/translation-row.php:67
+msgid "You are not allowed to add a translation."
+msgstr "شما اجازه افزودن ترجمه را ندارید."
+
+#: gp-templates/translation-row.php:64
+msgid "Double-click to add"
+msgstr "برای افزودن دوبار کلیک کنید"
+
+#: gp-templates/translation-row.php:57
+msgid "Context: %s"
+msgstr "زمینه: %s"
+
+#: gp-templates/translation-row.php:51
+msgid "Priority: %s"
+msgstr "اولویت: %s"
+
+#: gp-templates/redirect.php:1
+msgid "Redirecting to: %s..."
+msgstr "هدایت دوباره به: %s..."
+
+#: gp-templates/projects.php:20
+msgid "Projects by language"
+msgstr "پروژه بر اساس زبان"
+
+#: gp-templates/projects.php:17
+msgid "Create a New Project"
+msgstr "ایجاد پروژه تازه"
+
+#: gp-templates/projects.php:2
+msgid "Projects &lt; GlotPress"
+msgstr "پروژه‌ها &lt; گلات‌پرس"
+
+#: gp-templates/project.php:153
+msgid "Project actions &uarr;"
+msgstr "کنش‌های پروژه &uarr;"
+
+#: gp-templates/project.php:146
+msgid "Personal project options &uarr;"
+msgstr "گزینه‌های شخصی پروژه &uarr;"
+
+#: gp-templates/project.php:113
+msgid "Sub-projects"
+msgstr "زیر پروژه‌ها"
+
+#: gp-templates/project.php:107
+msgid "There are no translations of this project."
+msgstr "ترجمه‌ای برای این پروژه موجود نیست."
+
+#: gp-templates/project.php:57
+msgid "Extra"
+msgstr "اضافی"
+
+#: gp-templates/project.php:51
+msgctxt "locale translation percent header"
+msgid "%"
+msgstr "٪"
+
+#: gp-templates/project-permissions.php:23
+#: gp-templates/project-permissions.php:48 gp-templates/project.php:50
+#: gp-templates/translation-set-form.php:2
+msgid "Locale"
+msgstr "زبان محلی"
+
+#: gp-templates/project.php:46
+msgid "Translations"
+msgstr "ترجمه‌ها"
+
+#: gp-templates/project.php:35 gp-templates/project.php:152
+msgid "Project actions &darr;"
+msgstr "کنش‌های پروژه &darr;"
+
+#: gp-templates/project.php:2
+msgid "%s &lt; GlotPress"
+msgstr "%s &lt; گلات‌پرس"
+
+#: gp-templates/project-permissions.php:76
+msgid "Translation set slug:"
+msgstr "نامک مجموعه ترجمه:"
+
+#: gp-templates/project-permissions.php:74
+msgid "Locale:"
+msgstr "زبان محلی:"
+
+#: gp-templates/project-permissions.php:72
+msgid "Username:"
+msgstr "نام کاربری:"
+
+#: gp-templates/project-permissions.php:70
+msgid "Add a validator for this project"
+msgstr "افزودن اعتبارسنج برای این پروژه"
+
+#: gp-templates/project-permissions.php:67
+msgid "No validators defined for this project."
+msgstr "هیچ اعتبارسنجی برای این پروژه تعریف نشده است."
+
+#: gp-templates/project-permissions.php:42
+msgid "Validators for parent projects"
+msgstr "اعتبارسنج‌های پروژه‌های مادر"
+
+#: gp-templates/project-permissions.php:15
+msgid "Validators for this project"
+msgstr "اعتبارسنج‌های این پروژه"
+
+#: gp-templates/project-permissions.php:10
+#: gp-templates/project-permissions.php:80
+msgid "Add"
+msgstr "افزودن"
+
+#: gp-templates/project-permissions.php:8
+msgid "Validators"
+msgstr "اعتبارسنج‌ها"
+
+#: gp-templates/project-permissions.php:2
+msgid "Permissions &lt; %s &lt; GlotPress"
+msgstr "دسترسی‌ها &lt; %s &lt; گلات‌پرس"
+
+#: gp-templates/project-new.php:4 gp-templates/project-new.php:8
+msgid "Create New Project"
+msgstr "ایجاد پروژه تازه"
+
+#: gp-templates/project-new.php:2
+msgid "Create New Project &lt; GlotPress"
+msgstr "ایجاد پروژه تازه &lt; گلات‌پرس"
+
+#: gp-templates/project-mass-create-sets.php:21
+msgid "Create Translation Sets"
+msgstr "ایجاد مجموعه‌های ترجمه"
+
+#: gp-templates/project-mass-create-sets.php:17
+msgid "Project to take translation sets from:"
+msgstr "پروژه‌ای که مجموعه ترجمه از آن گرفته شود:"
+
+#: gp-templates/project-mass-create-sets.php:12
+msgid ""
+"Here you can mass-create translation sets in this project.\n"
+"The list of translation sets will be mirrored with the sets of a project you choose.\n"
+"Usually this is one of the parent projects."
+msgstr "در اینجا می‌توانید مجموعهٔ ترجمه‌ها را به صورت انبوه بسازید. فهرست مجموعهٔ ترجمه‌ها، منعکس‌کننده مجموعه‌های پروژه‌ای است که شما انتخاب می‌کنید. که معمولاً یکی از پروژه‌های مادر است."
+
+#: gp-templates/project-mass-create-sets.php:7
+msgid "Loading translation sets to create&hellip;"
+msgstr "در حال بارگذاری مجموعه ترجمه برای ایجاد&hellip;"
+
+#: gp-templates/project-mass-create-sets.php:2
+msgid "Mass-create Translation Sets &lt; %s &lt; GlotPress"
+msgstr "ایجاد انبوه مجموعه‌های ترجمه &lt; %s &lt; گلات‌پرس"
+
+#: gp-templates/project-import.php:40
+msgid "Format:"
+msgstr "فرمت:"
+
+#: gp-templates/project-import.php:19 gp-templates/translations.php:252
+msgid "Import Translations"
+msgstr "درون‌ریزی ترجمه‌ها"
+
+#: gp-includes/template.php:508 gp-templates/project-import.php:19
+msgid "Import Originals"
+msgstr "درون‌ریزی رشته‌های اصلی"
+
+#: gp-templates/project-import.php:7
+msgid "Import Translations &lt; %s &lt; GlotPress"
+msgstr "درون‌ریزی ترجمه‌ها &lt; %s &lt; گلات‌پرس"
+
+#: gp-templates/project-import.php:3
+msgid "Import Originals &lt; %s &lt; GlotPress"
+msgstr "درون‌ریزی رشته‌های اصلی &lt; %s &lt; گلات‌پرس"
+
+#: gp-templates/project-form.php:30 gp-templates/project.php:10
+#: gp-templates/project.php:119
+msgid "Active"
+msgstr "فعال"
+
+#: gp-templates/project-form.php:27
+msgid "Parent Project"
+msgstr "پروژه مادر"
+
+#: gp-templates/project-form.php:6 gp-templates/project-permissions.php:24
+#: gp-templates/project-permissions.php:49
+#: gp-templates/translation-set-form.php:12
+msgid "Slug"
+msgstr "نامک"
+
+#: gp-templates/project-form.php:2 gp-templates/translation-set-form.php:8
+msgid "Name"
+msgstr "نام"
+
+#: gp-templates/project-edit.php:6
+msgid "Edit project \"%s\""
+msgstr "ویرایش پروژه «%s»"
+
+#: gp-templates/project-edit.php:2
+msgid "Edit Project %s &lt; GlotPress"
+msgstr "ویرایش پروژه %s &lt; گلات‌پرس"
+
+#: gp-templates/project-branch.php:33
+msgid "Branch project"
+msgstr "شاخه‌کردن پروژه"
+
+#: gp-templates/project-branch.php:16 gp-templates/project-form.php:9
+msgid "If you leave the slug empty, it will be derived from the name."
+msgstr "در صورت خالی گذاشتن، از نام مشتق خواهد شد."
+
+#: gp-templates/project-branch.php:13
+msgid "New Slug"
+msgstr "نامک تازه"
+
+#: gp-templates/project-branch.php:9
+msgid "New branch name"
+msgstr "نام شاخه تازه"
+
+#: gp-templates/project-branch.php:7
+msgid "Here you can branch out this project: everything will be duplicated into a new project for you."
+msgstr "در اینجا می‌توانید از این پروژه، شاخه تازه‌ای بسازید: تمامی جزئیات به عنوان یک پروژه تازه، تکرار خواهد شد."
+
+#: gp-templates/project-branch.php:6
+msgid "Branch project \"%s\""
+msgstr "شاخه‌کردن پروژه «%s»"
+
+#: gp-templates/project-branch.php:2
+msgid "Branch Project %s &lt; GlotPress"
+msgstr "شاخه‌کردن پروژه %s &lt; گلات‌پرس"
+
+#: gp-templates/settings-edit.php:46 gp-templates/translations.php:158
+msgid "Descending"
+msgstr "نزولی"
+
+#: gp-templates/settings-edit.php:45 gp-templates/translations.php:157
+msgid "Ascending"
+msgstr "صعودی"
+
+#: gp-templates/settings-edit.php:40
+msgid "Default Sort Order:"
+msgstr "جهت مرتب‌سازی پیش‌فرض:"
+
+#: gp-includes/misc.php:556
+msgid "Random"
+msgstr "تصادفی"
+
+#: gp-includes/misc.php:552
+msgid "Filename in source"
+msgstr "نام پرونده در منبع"
+
+#: gp-includes/misc.php:548
+msgid "Priority"
+msgstr "اولویت"
+
+#: gp-includes/misc.php:544 gp-templates/translations.php:193
+msgid "Translation"
+msgstr "ترجمه"
+
+#: gp-includes/misc.php:540 gp-templates/translations.php:192
+msgid "Original string"
+msgstr "رشته اصلی"
+
+#: gp-includes/misc.php:536
+msgid "Date added (translation)"
+msgstr "تاریخ اضافه شدن (ترجمه)"
+
+#: gp-includes/misc.php:532
+msgid "Date added (original)"
+msgstr "تاریخ اضافه شدن (اصلی)"
+
+#: gp-templates/settings-edit.php:32
+msgid "Default Sort By:"
+msgstr "مرتب‌سازی پیش‌فرض:"
+
+#: gp-templates/settings-edit.php:28
+msgid "Number of items per page:"
+msgstr "تعداد موردها در هر صفحه:"
+
+#: gp-templates/profile-public.php:66
+msgid "%s is not validating any projects!"
+msgstr "%s به عنوان اعتبارسنج در هیچ پروژه‌ای نیست!"
+
+#: gp-templates/profile-public.php:55
+msgid "Validator to"
+msgstr "اعتبارسنج در"
+
+#: gp-templates/profile-public.php:48
+msgid "last translation about %s ago (UTC)"
+msgstr "آخرین ترجمه در حدود %s قبل (UTC)"
+
+#: gp-templates/profile-public.php:45
+msgid "%s contribution"
+msgid_plural "%s contributions"
+msgstr[0] "%s مشارکت"
+
+#: gp-templates/profile-public.php:37
+msgid "Recent Projects"
+msgstr "آخرین پروژه‌ها"
+
+#: gp-templates/profile-public.php:26
+msgid "Member Since"
+msgstr "تاریخ عضویت"
+
+#. translators: 1: display name of a user, 2: language
+#: gp-templates/profile-public.php:23
+msgid "%1$s is a polyglot who contributes to %2$s"
+msgstr "%1$s کاربری‌ست که در %2$s مشارکت می‌کند."
+
+#. translators: 1: display name of a user, 2: language, 3: language
+#: gp-templates/profile-public.php:20
+msgid "%1$s is a polyglot who knows %2$s but also knows %3$s."
+msgstr "%1$s کاربری‌ست که %2$s می‌داند، همچنین %3$s."
+
+#: gp-templates/profile-public.php:2
+msgid "Profile &lt; GlotPress"
+msgstr "نمایه &lt; گلات‌پرس"
+
+#: gp-templates/locales.php:20
+msgid "Language code"
+msgstr "کد زبان"
+
+#: gp-templates/locales.php:19
+msgid "Native name"
+msgstr "نام بومی"
+
+#: gp-templates/locales.php:18
+msgid "Name (in English)"
+msgstr "نام (در انگلیسی)"
+
+#: gp-templates/locales.php:12
+msgid "search"
+msgstr "جست‌وجو"
+
+#: gp-templates/locales.php:12
+msgid "Filter:"
+msgstr "پالایه:"
+
+#: gp-templates/locales.php:10
+msgid "Locales and Languages"
+msgstr "منطقه زبانی و زبان‌ها"
+
+#: gp-templates/locales.php:2
+msgid "Locales &lt; GlotPress"
+msgstr "منطقه زبانی &lt; گلات‌پرس"
+
+#: gp-templates/locale.php:84
+msgid "All projects"
+msgstr "همه پروژه‌ها"
+
+#: gp-templates/locale.php:57
+msgid "%d%% translated"
+msgstr "%d٪ ترجمه شده"
+
+#: gp-templates/locale.php:56
+msgid "%d strings"
+msgstr "%d رشته"
+
+#: gp-templates/locale.php:47 gp-templates/project-import.php:37
+#: gp-templates/project.php:55 gp-templates/translations.php:83
+#: gp-templates/translations.php:231
+msgid "Waiting"
+msgstr "در انتظار تأیید"
+
+#: gp-templates/locale.php:46 gp-templates/project.php:54
+#: gp-templates/translations.php:78
+msgid "Untranslated"
+msgstr "ترجمه نشده"
+
+#: gp-templates/locale.php:45 gp-templates/project.php:53
+#: gp-templates/translation-row.php:149 gp-templates/translation-row.php:153
+#: gp-templates/translations.php:35 gp-templates/translations.php:85
+#: gp-templates/translations.php:234
+msgid "Fuzzy"
+msgstr "گُنگ"
+
+#: gp-templates/locale.php:44 gp-templates/project.php:52
+msgid "Translated"
+msgstr "ترجمه شده"
+
+#: gp-templates/locale.php:43
+msgid "Set / Sub Project"
+msgstr "مجموعه / زیر پروژه"
+
+#: gp-templates/locale.php:42 gp-templates/translation-set-form.php:15
+msgid "Project"
+msgstr "پروژه"
+
+#: gp-templates/locale.php:32
+msgid "No active projects found."
+msgstr "پروژهٔ فعالی پیدا نشد."
+
+#: gp-templates/locale.php:16
+msgid "Active Projects translated to %s"
+msgstr "پروژه‌های فعالی که به %s ترجمه شده‌اند"
+
+#: gp-templates/locale.php:2
+msgid "Projects translated to %s &lt; GlotPress"
+msgstr "پروژه‌های فعالی که به %s ترجمه شده‌اند &lt; گلات‌پرس"
+
+#: gp-templates/helper-functions.php:173
+msgid "References:"
+msgstr "ارجاعات:"
+
+#: gp-templates/helper-functions.php:154
+msgid "untranslated"
+msgstr "ترجمه نشده"
+
+#: gp-templates/helper-functions.php:144
+msgid "You <a href=\"%s\">have to log in</a> to edit this translation."
+msgstr "برای ویرایش این ترجمه <a href=\"%s\">باید وارد شوید</a>."
+
+#: gp-templates/helper-functions.php:141
+msgid "You are not allowed to edit this translation."
+msgstr "شما اجازه ویرایش این ترجمه را ندارید."
+
+#: gp-templates/helper-functions.php:128
+msgid "Discard"
+msgstr "صرف نظر کردن"
+
+#: gp-templates/helper-functions.php:39
+msgid "Tab character"
+msgstr "نویسه زبانه"
+
+#: gp-templates/helper-functions.php:38
+msgid "New line"
+msgstr "خط جدید"
+
+#: gp-templates/glossary-view.php:105
+msgid "Export as CSV"
+msgstr "برون‌بری CSV"
+
+#: gp-templates/glossary-view.php:67
+msgid "Create an entry"
+msgstr "ایجاد ورودیه"
+
+#: gp-templates/glossary-view.php:58
+msgid "No glossary entries yet."
+msgstr "هنوز ورودیه‌ای در واژه‌نامه نیست."
+
+#: gp-templates/glossary-view.php:38
+msgctxt "glossary entry"
+msgid "Item"
+msgstr "مورد"
+
+#: gp-templates/glossary-view.php:25 gp-templates/project.php:6
+#: gp-templates/translations.php:20
+msgid "(edit)"
+msgstr "(ویرایش)"
+
+#: gp-templates/glossary-view.php:9
+msgid "Are you sure you want to delete this entry?"
+msgstr "آیا مطمئن هستید که می‌خواهید این ورودیه را حذف کنید؟"
+
+#: gp-templates/glossary-view.php:2
+msgid "View Glossary &lt; GlotPress"
+msgstr "نمایش واژه‌نامه &lt; گلات‌پرس"
+
+#: gp-templates/glossary-new.php:19 gp-templates/glossary-view.php:90
+#: gp-templates/project-new.php:12 gp-templates/translation-set-new.php:14
+msgid "Create"
+msgstr "ایجاد"
+
+#: gp-templates/glossary-new.php:14
+msgid "Description (optional)"
+msgstr "توضیحات (اختیاری)"
+
+#: gp-templates/glossary-new.php:11
+msgid "Create New Glossary"
+msgstr "ایجاد واژه‌نامه تازه"
+
+#: gp-templates/glossary-new.php:6 gp-templates/translations.php:25
+msgid "Create Glossary"
+msgstr "ایجاد واژه‌نامه"
+
+#: gp-templates/glossary-new.php:2
+msgid "Create New Glossary &lt; GlotPress"
+msgstr "ایجاد واژه‌نامه تازه  &lt; گلات‌پرس"
+
+#: gp-templates/glossary-import.php:30 gp-templates/glossary-view.php:102
+#: gp-templates/project-import.php:55
+msgid "Import"
+msgstr "درون‌ریزی"
+
+#: gp-templates/glossary-import.php:19 gp-templates/project-import.php:22
+msgid "Import File:"
+msgstr "پروندهٔ درون‌ریزی:"
+
+#: gp-templates/glossary-import.php:14
+msgid "Use this form to bulk upload glossary entries. The entries should be stored in a CSV file, matching the custom glossary format from <a href=\"%s\">Google Translator Toolkit</a>."
+msgstr "از این فرم برای بارگذاری انبوه ورودیه‌های واژه‌نامه استفاده کنید. ورودیه‌ها باید در یک پرونده CSV، مطابق با ساختار سفارشی واژه‌نامه در <a href=\"%s\">جعبه‌ابزار مترجم گوگل</a> باشد."
+
+#: gp-templates/glossary-import.php:12
+msgid "Import Glossary Entries"
+msgstr "درون‌ریزی ورودیه‌های واژه‌نامه"
+
+#: gp-templates/glossary-import.php:7
+msgid "import"
+msgstr "درون‌ریزی"
+
+#: gp-templates/glossary-import.php:2
+msgid "Import into Glossary &lt; GlotPress"
+msgstr "درون‌ریزی به واژه‌نامه &lt; گلات‌پرس"
+
+#: gp-templates/glossary-entry-row.php:63
+msgctxt "delete glossary entry"
+msgid "Delete"
+msgstr "حذف"
+
+#: gp-templates/glossary-entry-row.php:61
+msgid "Actions:"
+msgstr "کنش‌ها:"
+
+#: gp-templates/glossary-entry-row.php:51
+msgctxt "by author"
+msgid "By:"
+msgstr "توسط:"
+
+#: gp-templates/glossary-entry-row.php:46
+msgid "Last Modified:"
+msgstr "آخرین اصلاح:"
+
+#: gp-templates/glossary-entry-row.php:44 gp-templates/translation-row.php:135
+msgid "Meta"
+msgstr "متا"
+
+#: gp-templates/glossary-entry-row.php:33 gp-templates/glossary-view.php:40
+#: gp-templates/glossary-view.php:83
+msgctxt "glossary entry"
+msgid "Translation"
+msgstr "ترجمه"
+
+#: gp-templates/glossary-entry-row.php:31 gp-templates/glossary-view.php:41
+#: gp-templates/glossary-view.php:85
+msgctxt "glossary entry"
+msgid "Comments"
+msgstr "دیدگاه‌ها"
+
+#: gp-templates/glossary-entry-row.php:22 gp-templates/glossary-view.php:39
+#: gp-templates/glossary-view.php:73
+msgctxt "glossary entry"
+msgid "Part of speech"
+msgstr "ادات سخن"
+
+#: gp-templates/glossary-entry-row.php:20 gp-templates/glossary-view.php:71
+msgctxt "glossary entry"
+msgid "Original term:"
+msgstr "واژه اصلی:"
+
+#: gp-templates/glossary-entry-row.php:11 gp-templates/translation-row.php:93
+msgid "Details"
+msgstr "جزئیات"
+
+#: gp-templates/glossary-delete.php:29 gp-templates/glossary-edit.php:24
+#: gp-templates/glossary-entry-row.php:39 gp-templates/glossary-new.php:20
+#: gp-templates/project-delete.php:21 gp-templates/project-edit.php:11
+#: gp-templates/project-import.php:56 gp-templates/project-new.php:13
+#: gp-templates/translation-row.php:242
+#: gp-templates/translation-set-delete.php:24
+#: gp-templates/translation-set-edit.php:18
+#: gp-templates/translation-set-new.php:15
+msgid "or"
+msgstr "یا"
+
+#: gp-templates/glossary-edit.php:23 gp-templates/glossary-entry-row.php:39
+#: gp-templates/project-edit.php:10 gp-templates/translation-set-edit.php:17
+msgid "Save"
+msgstr "ذخیره"
+
+#: gp-templates/glossary-edit.php:16 gp-templates/glossary-new.php:14
+#: gp-templates/project-branch.php:18 gp-templates/project-form.php:12
+msgid "can include HTML"
+msgstr "می‌توانید از HTML استفاده کنید"
+
+#: gp-templates/glossary-edit.php:16 gp-templates/project-branch.php:18
+#: gp-templates/project-form.php:12
+msgid "Description"
+msgstr "توضیحات"
+
+#: gp-templates/glossary-edit.php:12
+msgid "Edit Glossary"
+msgstr "ویرایش واژه‌نامه"
+
+#: gp-templates/glossary-edit.php:7
+msgid "edit"
+msgstr "ویرایش"
+
+#: gp-templates/glossary-delete.php:14 gp-templates/glossary-edit.php:6
+#: gp-templates/glossary-import.php:6 gp-templates/glossary-view.php:6
+msgid "Glossary"
+msgstr "واژه‌نامه"
+
+#: gp-templates/glossary-edit.php:2
+msgid "Edit Glossary &lt; GlotPress"
+msgstr "ویرایش واژه‌نامه &lt; گلات‌پرس"
+
+#: gp-templates/footer.php:3
+msgid "Proudly powered by %s."
+msgstr "با افتخار نیرو گرفته از %s."
+
+#: gp-templates/404.php:2
+msgid "Not Found &lt; GlotPress"
+msgstr "پیدا نشد &lt; گلات‌پرس"
+
+#: gp-includes/warnings.php:374
+msgid "Translation should not end on newline."
+msgstr "ترجمه نباید در خط جدید تمام شود."
+
+#: gp-includes/warnings.php:355
+msgid "Original and translation should both end on newline."
+msgstr "هر دو رشته اصلی و ترجمه، باید در خط جدید تمام شوند."
+
+#: gp-includes/warnings.php:336
+msgid "Translation should not begin on newline."
+msgstr "ترجمه نباید در خط جدید آغاز شود."
+
+#: gp-includes/warnings.php:317
+msgid "Original and translation should both begin on newline."
+msgstr "هر دو رشته اصلی و ترجمه، باید در خط جدید آغاز شوند."
+
+#: gp-includes/warnings.php:277
+msgid "Extra %s placeholder in translation."
+msgstr "نگه‌دارنده %s در متن ترجمه، اضافی است."
+
+#: gp-includes/warnings.php:274
+msgid "Missing %s placeholder in translation."
+msgstr "نگه‌دارنده %s در متن ترجمه، فراموش شده است."
+
+#: gp-includes/warnings.php:211
+msgid "Too many tags in translation."
+msgstr "برچسب‌هایی در ترجمه بیش از اندازه است."
+
+#: gp-includes/warnings.php:208
+msgid "Missing tags from translation."
+msgstr "برچسب‌هایی در ترجمه فراموش‌شده است."
+
+#: gp-includes/warnings.php:184
+msgid "Lengths of source and translation differ too much."
+msgstr "طول رشته منبع و ترجمه، تفاوت زیادی دارد."
+
+#: gp-includes/validation.php:123
+msgid "Non-existent validator: %s"
+msgstr "اعتبارسنج ناموجود: %s"
+
+#: gp-includes/things/glossary-entry.php:67
+msgctxt "part-of-speech"
+msgid "expression"
+msgstr "اصطلاح"
+
+#: gp-includes/things/glossary-entry.php:66
+msgctxt "part-of-speech"
+msgid "pronoun"
+msgstr "ضمیر"
+
+#: gp-includes/things/glossary-entry.php:65
+msgctxt "part-of-speech"
+msgid "preposition"
+msgstr "حرف اضافه"
+
+#: gp-includes/things/glossary-entry.php:64
+msgctxt "part-of-speech"
+msgid "conjunction"
+msgstr "حرف ربط"
+
+#: gp-includes/things/glossary-entry.php:63
+msgctxt "part-of-speech"
+msgid "interjection"
+msgstr "حرف ندا"
+
+#: gp-includes/things/glossary-entry.php:62
+msgctxt "part-of-speech"
+msgid "adverb"
+msgstr "قید"
+
+#: gp-includes/things/glossary-entry.php:61
+msgctxt "part-of-speech"
+msgid "adjective"
+msgstr "صفت"
+
+#: gp-includes/things/glossary-entry.php:60
+msgctxt "part-of-speech"
+msgid "verb"
+msgstr "فعل"
+
+#: gp-includes/things/glossary-entry.php:59
+msgctxt "part-of-speech"
+msgid "noun"
+msgstr "اسم"
+
+#: gp-includes/template.php:569
+msgid "Copy from original"
+msgstr "کپی از رشته اصلی"
+
+#: gp-includes/template.php:560 gp-templates/glossary-delete.php:29
+#: gp-templates/glossary-edit.php:24 gp-templates/glossary-entry-row.php:39
+#: gp-templates/glossary-new.php:20 gp-templates/project-delete.php:21
+#: gp-templates/project-edit.php:11 gp-templates/project-import.php:56
+#: gp-templates/project-new.php:13 gp-templates/translation-row.php:242
+#: gp-templates/translation-set-delete.php:24
+#: gp-templates/translation-set-edit.php:18
+#: gp-templates/translation-set-new.php:15
+msgid "Cancel"
+msgstr "لغو"
+
+#: gp-includes/template.php:559
+msgid "Save &rarr;"
+msgstr "ذخیره &larr;"
+
+#: gp-includes/template.php:546 gp-templates/project-branch.php:20
+#: gp-templates/project-form.php:15
+msgid "Source file URL"
+msgstr "نشانی اینترنتی پرونده منبع"
+
+#: gp-includes/template.php:542 gp-templates/project.php:145
+msgid "Personal project options &darr;"
+msgstr "گزینه‌های شخصی پروژه &darr;"
+
+#: gp-includes/template.php:514
+msgid "Delete Project"
+msgstr "حذف پروژه"
+
+#: gp-includes/template.php:513
+msgid "Branch Project"
+msgstr "شاخه‌کردن پروژه"
+
+#: gp-includes/template.php:512 gp-templates/project-mass-create-sets.php:11
+msgid "Mass-create Translation Sets"
+msgstr "ایجاد انبوه مجموعه‌های ترجمه"
+
+#: gp-includes/template.php:511 gp-templates/translation-set-new.php:3
+msgid "New Translation Set"
+msgstr "مجموعه ترجمه جدید"
+
+#: gp-includes/template.php:510
+msgid "New Sub-Project"
+msgstr "زیر پروژه تازه"
+
+#: gp-includes/template.php:509 gp-templates/project-permissions.php:6
+msgid "Permissions"
+msgstr "مجوزها"
+
+#: gp-includes/template.php:425
+msgid "&mdash; No parent &mdash;"
+msgstr "&mdash; بدون مادر &mdash;"
+
+#: gp-includes/template.php:370
+msgid "&mdash; Locale &mdash;"
+msgstr "&mdash; منطقه زبانی &mdash;"
+
+#: gp-includes/template.php:114
+msgid "Log in"
+msgstr "وارد شوید"
+
+#: gp-includes/template.php:111
+msgid "Log out"
+msgstr "خارج شوید"
+
+#: gp-includes/template.php:109 gp-templates/profile-public.php:3
+msgid "Profile"
+msgstr "نمایه"
+
+#: gp-includes/template.php:104 gp-templates/locale.php:5
+#: gp-templates/locales.php:6
+msgid "Locales"
+msgstr "منطقه‌های زبانی"
+
+#: gp-includes/template-links.php:71
+msgid "Home Is Where The Heart Is"
+msgstr "خانه همان‌جاست که دل‌دار آنجاست"
+
+#: gp-includes/template-links.php:71
+msgid "Home"
+msgstr "خانه"
+
+#: gp-includes/template-links.php:61 gp-includes/template-links.php:112
+#: gp-includes/template-links.php:179 gp-templates/glossary-delete.php:28
+#: gp-templates/project-delete.php:20 gp-templates/project-permissions.php:35
+#: gp-templates/translation-set-delete.php:23
+msgid "Delete"
+msgstr "حذف"
+
+#: gp-includes/template-links.php:48 gp-includes/template-links.php:83
+#: gp-includes/template-links.php:152
+msgid "Edit"
+msgstr "ویرایش"
+
+#: gp-includes/routes/translation.php:518
+msgid "The remaining %d original was modified successfully."
+msgid_plural "The remaining %d originals were modified successfully."
+msgstr[0] "%d رشته اصلی باقیمانده با موفقیت اصلاح شد."
+
+#: gp-includes/routes/translation.php:517
+#: gp-includes/routes/translation.php:522
+msgid "Error modifying priority of %d original."
+msgid_plural "Error modifying priority of %d originals."
+msgstr[0] "خطا در اصلاح اولویت %d رشته اصلی."
+
+#: gp-includes/routes/translation.php:514
+msgid "Priority of %d original was modified."
+msgid_plural "Priority of %d originals were modified."
+msgstr[0] "اولویت %d رشته اصلی اصلاح شد."
+
+#: gp-includes/routes/translation.php:429
+msgid "The remaining %s translation was rejected successfully."
+msgid_plural "The remaining %s translations were rejected successfully."
+msgstr[0] "%s ترجمه باقیمانده با موفقیت رد شد."
+
+#: gp-includes/routes/translation.php:426
+msgid "The remaining %s translation was approved successfully."
+msgid_plural "The remaining %s translations were approved successfully."
+msgstr[0] "%s ترجمه باقیمانده با موفقیت تأیید شد."
+
+#: gp-includes/routes/translation.php:423
+#: gp-includes/routes/translation.php:438
+msgid "Error with rejecting %s translation."
+msgid_plural "Error with rejecting %s translations."
+msgstr[0] "خطا در رد %s ترجمه."
+
+#: gp-includes/routes/translation.php:422
+#: gp-includes/routes/translation.php:435
+msgid "Error with approving %s translation."
+msgid_plural "Error with approving %s translations."
+msgstr[0] "خطا در تأیید %s ترجمه."
+
+#: gp-includes/routes/translation.php:418
+msgid "%d translation was rejected."
+msgid_plural "%d translations were rejected."
+msgstr[0] "%d ترجمه رد شد."
+
+#: gp-includes/routes/translation.php:417
+msgid "%d translation was approved."
+msgid_plural "%d translations were approved."
+msgstr[0] "%d ترجمه تأیید شد."
+
+#: gp-includes/routes/translation.php:297
+msgid "Error in saving the translation!"
+msgstr "خطا در هنگام ذخیره ترجمه!"
+
+#: gp-includes/routes/translation.php:290
+msgid "Identical current or waiting translation already exists."
+msgstr "پیش از این، ترجمهٔ یکسان در انتظار یا تأیید شده وجود دارد."
+
+#: gp-includes/routes/translation-set.php:97
+msgid "The translation set was updated!"
+msgstr "مجموعه ترجمه به‌روزرسانی شد!"
+
+#: gp-includes/routes/translation-set.php:90
+msgid "Error in updating translation set!"
+msgstr "خطا در هنگام به‌روزرسانی مجموعه ترجمه!"
+
+#: gp-includes/routes/translation-set.php:38
+msgid "The translation set was created!"
+msgstr "مجموعه ترجمه ایجاد شد!"
+
+#: gp-includes/routes/translation-set.php:34
+msgid "Error in creating translation set!"
+msgstr "خطا در هنگام ایجاد مجموعه ترجمه!"
+
+#: gp-includes/routes/project.php:458
+msgid "Translation sets were added and removed successfully"
+msgstr "مجموعه ترجمه‌ها با موفقیت حذف و اضافه شد"
+
+#: gp-includes/routes/project.php:454
+msgid "Couldn&#8217;t delete translation set named %s"
+msgstr "امکان حذف مجموعه ترجمه‌ای با نام %s وجود ندارد"
+
+#: gp-includes/routes/project.php:449 gp-includes/things/project.php:356
+msgid "Couldn&#8217;t add translation set named %s"
+msgstr "امکان افزودن مجموعه ترجمه‌ای با نام %s وجود ندارد"
+
+#: gp-includes/routes/project.php:442 gp-includes/routes/project.php:478
+msgid "Project wasn&#8217;found"
+msgstr "پروژه پیدا نشد"
+
+#: gp-includes/routes/project.php:406
+msgid "Permission wasn&#8217;t found!"
+msgstr "دسترسی پیدا نشد!"
+
+#: gp-includes/routes/project.php:403
+msgid "Error in deleting permission!"
+msgstr "خطا در حذف دسترسی!"
+
+#: gp-includes/routes/project.php:401
+msgid "Permission was deleted."
+msgstr "دسترسی‌ها حذف شد."
+
+#: gp-includes/routes/project.php:378
+msgid "Error in adding validator."
+msgstr "خطا در افزودن اعتبارسنج."
+
+#: gp-includes/routes/project.php:378
+msgid "Validator was added."
+msgstr "اعتبارسنج افزوده شد."
+
+#: gp-includes/routes/project.php:365
+msgid "User wasn&#8217;t found!"
+msgstr "کاربر پیدا نشد!"
+
+#: gp-includes/routes/project.php:308
+msgid "The project was created!"
+msgstr "پروژه ایجاد شد!"
+
+#: gp-includes/routes/project.php:305 gp-includes/routes/project.php:528
+msgid "Error in creating project!"
+msgstr "خطا در ایجاد پروژه!"
+
+#: gp-includes/routes/project.php:231
+msgid "Error in deleting project!"
+msgstr "خطا در حذف پروژه!"
+
+#: gp-includes/routes/project.php:245
+msgid "The project \"%s\" was deleted."
+msgstr "پروژهٔ «%s» حذف شد."
+
+#: gp-includes/routes/project.php:210
+msgid "Error in saving project!"
+msgstr "خطا در ذخیره پروژه!"
+
+#: gp-includes/routes/project.php:207
+msgid "The project was saved."
+msgstr "پروژه ذخیره شد."
+
+#: gp-includes/routes/project.php:204
+msgid "The project cannot be parent of itself!"
+msgstr "پروژه نمی‌تواند مادر خودش باشد!"
+
+#: gp-includes/routes/project.php:141 gp-includes/routes/translation.php:98
+msgid "Couldn&#8217;t load translations from file!"
+msgstr "امکان بارگیری ترجمه‌ها از پرونده وجود ندارد!"
+
+#: gp-includes/routes/project.php:64
+msgid "%s project "
+msgstr "%s پروژه "
+
+#. translators: separates links in the navigation breadcrumb
+#: gp-includes/routes/project.php:18 gp-includes/template.php:103
+#: gp-includes/template.php:226 gp-templates/projects.php:3
+#: gp-templates/projects.php:7
+msgid "Projects"
+msgstr "پروژه‌ها"
+
+#: gp-includes/routes/locale.php:123 gp-includes/routes/locale.php:125
+msgid "Default"
+msgstr "پیش‌فرض"
+
+#: gp-includes/routes/glossary.php:113
+msgid "The glossary was updated!"
+msgstr "واژه‌نامه به‌روزرسانی شد!"
+
+#: gp-includes/routes/glossary.php:108
+msgid "Error in updating glossary!"
+msgstr "خطا در به‌روزرسانی واژه‌نامه!"
+
+#: gp-includes/routes/glossary.php:85 gp-includes/routes/glossary.php:131
+msgid "Cannot find glossary."
+msgstr "واژه‌نامه پیدا نشد."
+
+#: gp-includes/routes/glossary.php:76
+msgid "Error in creating glossary!"
+msgstr "خطا در ایجاد واژه‌نامه!"
+
+#: gp-includes/routes/glossary.php:70
+msgid "The glossary was created!"
+msgstr "واژه‌نامه ساخته شد!"
+
+#: gp-includes/routes/glossary.php:32 gp-includes/routes/glossary.php:59
+msgid "The glossary for this translation set already exists."
+msgstr "واژه‌نامهٔ این مجموعه، پیش از این وجود دارد."
+
+#: gp-includes/routes/glossary-entry.php:314
+msgid "Unexpected values in the CSV file header row."
+msgstr "مقادیر غیر منتظره‌ای در ردیف سرستون‌های پرونده CSV وجود دارد."
+
+#: gp-includes/routes/glossary-entry.php:285
+msgid "%s glossary entries were added"
+msgstr "%s ورودیه واژه‌نامه افزوده شد"
+
+#: gp-includes/routes/glossary-entry.php:273 gp-includes/routes/project.php:127
+#: gp-includes/routes/translation.php:85
+msgid "Error uploading the file."
+msgstr "خطا در بارگذاری پرونده."
+
+#: gp-includes/routes/glossary-entry.php:177
+msgid "Error in deleting glossary entry!"
+msgstr "خطا در حذف ورودیه واژه‌نامه!"
+
+#: gp-includes/routes/glossary-entry.php:115
+#: gp-includes/routes/glossary-entry.php:173
+msgid "Forbidden"
+msgstr "ممنوع"
+
+#: gp-includes/routes/glossary-entry.php:103
+#: gp-includes/routes/glossary-entry.php:161
+msgid "The glossary entry cannot be found"
+msgstr "ورودیه واژه‌نامه پیدا نشد"
+
+#: gp-includes/routes/glossary-entry.php:91
+msgid "The glossary entry was created!"
+msgstr "ورودیه واژه‌نامه ایجاد شد!"
+
+#: gp-includes/routes/glossary-entry.php:87
+msgid "Error in creating glossary entry!"
+msgstr "خطا در ایجاد ورودیه واژه‌نامه!"
+
+#: gp-includes/route.php:337 gp-includes/template.php:138
+#: gp-templates/404.api.php:3 gp-templates/404.php:5
+msgid "Not Found"
+msgstr "پیدا نشد"
+
+#: gp-includes/route.php:129 gp-includes/route.php:188
+#: gp-includes/routes/translation.php:35 gp-includes/routes/translation.php:65
+msgid "You are not allowed to do that!"
+msgstr "شما اجازهٔ انجام آن را ندارید!"
+
+#: gp-includes/format.php:60 gp-includes/formats/format-properties.php:342
+msgid "Missing context %s in project #%d"
+msgstr "کمبود زمینه %s در پروژه #%d"
+
+#: gp-includes/cli/wipe-permissions.php:12
+msgid "Permissions were deleted. Now you can use `wp glotpress add-admin` to add a new administrator."
+msgstr "Permissions were deleted. Now you can use `wp glotpress add-admin` to add a new administrator."
+
+#: gp-includes/cli/wipe-permissions.php:9
+msgid "Error in deleting permissions."
+msgstr "خطا در هنگام حذف دسترسی‌ها."
+
+#. translators: %s: ID of a translation
+#: gp-includes/cli/translation-set.php:171
+msgid "Updating warnings for #%s"
+msgstr "به‌روزرسانی اخطارها برای #%s"
+
+#. translators: %s: Number of imported translations
+#: gp-includes/cli/translation-set.php:135
+#: gp-includes/routes/translation.php:103
+msgid "%s translation was added"
+msgid_plural "%s translations were added"
+msgstr[0] "%s ترجمه افزوده شد"
+
+#: gp-includes/cli/translation-set.php:25 gp-includes/cli.php:95
+msgid "Translation set not found!"
+msgstr "مجموعه ترجمه پیدا نشد!"
+
+#: gp-includes/cli/translation-set.php:20 gp-includes/cli.php:90
+msgid "Locale not found!"
+msgstr "منطقه زبانی پیدا نشد!"
+
+#. translators: 1: original ID, 2: new ID
+#: gp-includes/cli/remove-multiple-currents.php:15
+msgid "Duplicate with original_id #%1$d. Translation #%2$d"
+msgstr "Duplicate with original_id #%1$d. Translation #%2$d"
+
+#. translators: %d: Set ID
+#: gp-includes/cli/remove-multiple-currents.php:8
+msgid "Processing set #%d.."
+msgstr "Processing set #%d.."
+
+#. translators: 1: number added, 2: number updated, 3: number fuzzied, 4:
+#. number obsoleted
+#: gp-includes/cli/import-originals.php:44 gp-includes/routes/project.php:148
+msgid "%1$s new strings added, %2$s updated, %3$s fuzzied, and %4$s obsoleted."
+msgstr "%1$s رشتهٔ تازه افزوده شد؛ %2$s به‌روز شده، %3$s گُنگ، و %4$s منسوخ شده."
+
+#: gp-includes/cli/import-originals.php:37
+#: gp-includes/cli/translation-set.php:127
+msgid "Couldn't load translations from file!"
+msgstr "امکان بارگیری ترجمه‌ها از پرونده وجود ندارد!"
+
+#: gp-includes/cli/import-originals.php:32
+#: gp-includes/cli/translation-set.php:67 gp-includes/routes/project.php:134
+#: gp-includes/routes/translation.php:92
+msgid "No such format."
+msgstr "چنین ساختاری وجود ندارد."
+
+#: gp-includes/cli/import-originals.php:26
+#: gp-includes/cli/translation-set.php:15 gp-includes/cli.php:87
+msgid "Project not found!"
+msgstr "پروژه پیدا نشد!"
+
+#: gp-includes/cli/import-originals.php:21
+msgid "-p and -f are no longer required and should be removed."
+msgstr "-p and -f are no longer required and should be removed."
+
+#: gp-includes/cli/branch-project.php:25
+msgid "Destination project not found!"
+msgstr "پروژه مقصد پیدا نشد!"
+
+#: gp-includes/cli/branch-project.php:20
+msgid "Source project not found!"
+msgstr "پروژه منبع پیدا نشد!"
+
+#. translators: %s: Username
+#: gp-includes/cli/add-admin.php:25
+msgid "'%s' is now an admin."
+msgstr "«%s» هم‌اکنون یک مدیر است."
+
+#. translators: %s: Username
+#: gp-includes/cli/add-admin.php:21
+msgid "Error in making '%s' an admin."
+msgstr "خطا در ارتقای «%s» به عنوان مدیر."
+
+#. translators: %s: Username
+#: gp-includes/cli/add-admin.php:17
+msgid "User '%s' doesn't exist."
+msgstr "کاربر «%s» وجود ندارد."
+
+#. translators: 1: Required version of WordPress 2: Current version of
+#. WordPress
+#: glotpress.php:102
+msgid "GlotPress requires WordPress %1$s or later and has detected you are running %2$s. Upgrade your WordPress install or deactivate the GlotPress plugin to remove this message."
+msgstr "گلات‌پرس نیاز به نگارش %1$s وردپرس یا جدیدتر دارد. نگارش وردپرس شما %2$s است. وردپرس خود را ارتقا دهید و یا برای حذف این پیام، افزونه گلات‌پرس را غیرفعال یا حذف کنید."
+
+#: glotpress.php:99
+msgid "&#151; You are running an unsupported version of WordPress."
+msgstr "&ndash; نگارش وردپرس شما پشتیبانی نمی‌شود."
+
+#: glotpress.php:57
+msgid "GlotPress Disabled"
+msgstr "گلات‌پرس غیرفعال است"

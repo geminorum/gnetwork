@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Profile Builder\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2018-09-04 06:13+0430\n"
+"PO-Revision-Date: 2019-05-28 04:07+0430\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: \n"
 "Language: fa\n"
@@ -10,13 +10,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 2.1.1\n"
+"X-Generator: Poedit 2.2.3\n"
 "X-Poedit-Basepath: ../../../profile-builder\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: ../pb-add-on-bbpress/bbpress-page.php:24,
-#: ../pb-add-on-bbpress/bbpress-page.php:24
+#: ../pb-add-on-bbpress/bbpress-page.php:24, ../pb-add-on-bbpress/bbpress-page.php:24
 msgid "bbPress"
 msgstr ""
 
@@ -117,8 +116,8 @@ msgstr ""
 #: ../pb-add-on-buddypress/buddypress-page.php:87
 msgid ""
 "Select Profile Builder Registration form to replace the BuddyPress Registration "
-"form.<br>Registration emails will now be managed in Profile Builder -> User "
-"Email Customizer"
+"form.<br>Registration emails will now be managed in Profile Builder -> User Email "
+"Customizer"
 msgstr ""
 
 #: ../pb-add-on-buddypress/buddypress-page.php:94
@@ -433,7 +432,7 @@ msgstr ""
 #: ../pb-add-on-custom-profile-menus/wppb-custom-profile-menus.php:67,
 #: ../profile-builder-2.0/admin/basic-info.php:44
 msgid "Edit Profile"
-msgstr "ویرایش پروفایل"
+msgstr "ویرایش نمایه"
 
 #: ../pb-add-on-custom-profile-menus/index.php:308,
 #: ../pb-add-on-custom-profile-menus/wppb-custom-profile-menus.php:74,
@@ -465,13 +464,13 @@ msgstr ""
 #: ../pb-add-on-field-visibility/index.php:202,
 #: ../profile-builder-2.0/admin/admin-bar.php:58
 msgid "Visibility"
-msgstr "دیده شدن"
+msgstr "نمایانی"
 
 #: ../pb-add-on-field-visibility/index.php:202
 msgid ""
-"<strong>Admin Only</strong> field is visible only for administrators. "
-"<strong>User Locked</strong> field is visible for both administrators and users, "
-"but only administrators have the capability to edit it."
+"<strong>Admin Only</strong> field is visible only for administrators. <strong>User "
+"Locked</strong> field is visible for both administrators and users, but only "
+"administrators have the capability to edit it."
 msgstr ""
 
 #: ../pb-add-on-field-visibility/index.php:203
@@ -568,8 +567,8 @@ msgstr ""
 
 #: ../pb-add-on-import-export/pbie-import.php:32
 msgid ""
-"Import Profile Builder options from a .json file. This allows you to easily "
-"import the configuration from another site. "
+"Import Profile Builder options from a .json file. This allows you to easily import "
+"the configuration from another site. "
 msgstr ""
 
 #: ../pb-add-on-import-export/pbie-import.php:38,
@@ -578,8 +577,7 @@ msgid "Import"
 msgstr ""
 
 #: ../pb-add-on-import-export/pbie-import.php:38
-msgid ""
-"This will overwrite your old PB settings! Are you sure you want to continue?"
+msgid "This will overwrite your old PB settings! Are you sure you want to continue?"
 msgstr ""
 
 #: ../pb-add-on-import-export/pbie.php:40, ../pb-add-on-import-export/pbie.php:74
@@ -647,7 +645,7 @@ msgstr ""
 #: ../pb-add-on-labels-edit/pble.php:354,
 #: ../profile-builder-2.0/admin/manage-fields.php:140
 msgid "Labels"
-msgstr "برچسب ها"
+msgstr "برچسب‌ها"
 
 #: ../pb-add-on-labels-edit/pble.php:354,
 #: ../profile-builder-2.0/modules/multiple-forms/multiple-forms.php:406
@@ -929,8 +927,8 @@ msgstr ""
 
 #: index.php:229
 msgid ""
-"This option will display linked social platforms to users accounts and will "
-"allow to easily unlink them in Edit Profile page."
+"This option will display linked social platforms to users accounts and will allow "
+"to easily unlink them in Edit Profile page."
 msgstr ""
 
 #: index.php:230
@@ -976,20 +974,20 @@ msgstr ""
 
 #: index.php:385
 msgid ""
-"Before you can access your account you need to confirm your email address. "
-"Please check your inbox and click the activation link."
+"Before you can access your account you need to confirm your email address. Please "
+"check your inbox and click the activation link."
 msgstr ""
 
 #: index.php:386
 msgid ""
-"<strong>ERROR</strong>: You need to confirm your email address before you can "
-"log in."
+"<strong>ERROR</strong>: You need to confirm your email address before you can log "
+"in."
 msgstr ""
 
 #: index.php:387
 msgid ""
-"Before you can access your account an administrator has to approve it. You will "
-"be notified via email."
+"Before you can access your account an administrator has to approve it. You will be "
+"notified via email."
 msgstr ""
 
 #: index.php:388,
@@ -1009,8 +1007,8 @@ msgstr "اینجا"
 
 #: index.php:391
 msgid ""
-"<strong>You can only login with social accounts, not register!</"
-"strong><br>Please link your social account to an existing user account first."
+"<strong>You can only login with social accounts, not register!</strong><br>Please "
+"link your social account to an existing user account first."
 msgstr ""
 
 #: index.php:392
@@ -1155,8 +1153,8 @@ msgstr ""
 
 #: ../pb-add-on-woocommerce/index.php:247
 msgid ""
-"Select which WooCommerce Billing fields to display to the user ( drag and drop "
-"to re-order ) and which should be required"
+"Select which WooCommerce Billing fields to display to the user ( drag and drop to "
+"re-order ) and which should be required"
 msgstr ""
 
 #: ../pb-add-on-woocommerce/index.php:248
@@ -1181,8 +1179,8 @@ msgstr ""
 
 #: ../pb-add-on-woocommerce/index.php:266
 msgid ""
-"Select which WooCommerce Shipping fields to display to the user ( drag and drop "
-"to re-order ) and which should be required"
+"Select which WooCommerce Shipping fields to display to the user ( drag and drop to "
+"re-order ) and which should be required"
 msgstr ""
 
 #: ../pb-add-on-woocommerce/index.php:267
@@ -1217,7 +1215,7 @@ msgstr ""
 #: ../pb-add-on-woocommerce/index.php:384,
 #: ../profile-builder-2.0/front-end/default-fields/email/email.php:47
 msgid "The email you entered is not a valid email address."
-msgstr "ایمیل وارد شده معتبر نیست"
+msgstr "ایمیل وارد شده معتبر نیست."
 
 #: ../pb-add-on-woocommerce/index.php:642
 msgid "No options available. Please select one country."
@@ -1233,8 +1231,8 @@ msgstr ""
 
 #: ../pb-add-on-woocommerce/index.php:846
 msgid ""
-"WooCommerce needs to be installed and activated for Profile Builder - "
-"WooCommerce Sync Add-on to work!"
+"WooCommerce needs to be installed and activated for Profile Builder - WooCommerce "
+"Sync Add-on to work!"
 msgstr ""
 
 #: ../pb-add-on-woocommerce/woo-checkout-field-support.php:63
@@ -1261,8 +1259,8 @@ msgstr ""
 #: ../pb-add-on-woocommerce/woosync-page.php:104
 msgid ""
 "Select which Profile Builder Register form to display on My Account page from "
-"WooCommerce. <br/> This will also add the Profile Builder Login form to "
-"MyAccount page."
+"WooCommerce. <br/> This will also add the Profile Builder Login form to MyAccount "
+"page."
 msgstr ""
 
 #: ../pb-add-on-woocommerce/woosync-page.php:111
@@ -1271,14 +1269,14 @@ msgstr ""
 
 #: ../pb-add-on-woocommerce/woosync-page.php:139
 msgid ""
-"Select which Profile Builder Edit-profile form to display on My Account page "
-"from WooCommerce."
+"Select which Profile Builder Edit-profile form to display on My Account page from "
+"WooCommerce."
 msgstr ""
 
 #: ../profile-builder-2.0/index.php:36
 msgid ""
-"%s is also activated. You need to deactivate it before activating this version "
-"of the plugin."
+"%s is also activated. You need to deactivate it before activating this version of "
+"the plugin."
 msgstr ""
 
 #: ../pb-add-on-campaign-monitor-integration/admin/cmonitor-page.php:11,
@@ -1401,9 +1399,9 @@ msgstr ""
 #: ../pb-add-on-campaign-monitor-integration/admin/cmonitor-page.php:613,
 #: ../pb-add-on-campaign-monitor-integration/admin/widget.php:239
 msgid ""
-"If the subscriber is in an inactive state or has previously been unsubscribed "
-"and you check the Resubscribe option, they will be re-added to the list. "
-"Therefore, this method should be used with caution and only where suitable."
+"If the subscriber is in an inactive state or has previously been unsubscribed and "
+"you check the Resubscribe option, they will be re-added to the list. Therefore, "
+"this method should be used with caution and only where suitable."
 msgstr ""
 
 #: ../pb-add-on-campaign-monitor-integration/admin/cmonitor-page.php:657
@@ -1743,8 +1741,8 @@ msgstr ""
 
 #: ../pb-add-on-select2/admin/manage-fields.php:52
 msgid ""
-"Select2 multi-value select boxes can set restrictions regarding the maximum "
-"number of options selected."
+"Select2 multi-value select boxes can set restrictions regarding the maximum number "
+"of options selected."
 msgstr ""
 
 #: ../pb-add-on-select2/admin/manage-fields.php:53
@@ -1753,8 +1751,7 @@ msgstr ""
 
 #: ../pb-add-on-select2/admin/manage-fields.php:53
 msgid ""
-"Check this to allow users to create their own options beside the pre-existing "
-"ones."
+"Check this to allow users to create their own options beside the pre-existing ones."
 msgstr ""
 
 #: ../pb-add-on-select2/front-end/select2-field.php:72,
@@ -1826,7 +1823,7 @@ msgstr ""
 #: ../profile-builder-2.0/admin/add-ons.php:10,
 #: ../profile-builder-2.0/admin/add-ons.php:193
 msgid "Add-Ons"
-msgstr "افزونه ها"
+msgstr "افزونه‌ها"
 
 #: ../profile-builder-2.0/admin/add-ons.php:41
 msgid "Recommended Plugins"
@@ -2031,8 +2028,8 @@ msgstr "پنهان شدن"
 
 #: ../profile-builder-2.0/admin/admin-functions.php:37
 msgid ""
-"Login is set to be done using the E-mail. This field will NOT appear in the "
-"front-end! ( you can change these settings under the \"%s\" tab )"
+"Login is set to be done using the E-mail. This field will NOT appear in the front-"
+"end! ( you can change these settings under the \"%s\" tab )"
 msgstr ""
 
 #: ../profile-builder-2.0/admin/admin-functions.php:41
@@ -2045,8 +2042,7 @@ msgstr ""
 
 #: ../profile-builder-2.0/admin/admin-functions.php:132
 msgid ""
-"<strong>ERROR</strong>: The password must have the minimum length of %s "
-"characters"
+"<strong>ERROR</strong>: The password must have the minimum length of %s characters"
 msgstr "<strong>خطا</strong>: کلمه عبور باید حداقل  %s  کاراکتری باشد"
 
 #: ../profile-builder-2.0/admin/admin-functions.php:137,
@@ -2091,9 +2087,9 @@ msgstr ""
 
 #: ../profile-builder-2.0/admin/admin-functions.php:200
 msgid ""
-"If you enjoy using <strong> %1$s </strong> please <a href=\"%2$s\" target="
-"\"_blank\">rate us on WordPress.org</a>. More happy users means more features, "
-"less bugs and better support for everyone. "
+"If you enjoy using <strong> %1$s </strong> please <a href=\"%2$s\" target=\"_blank"
+"\">rate us on WordPress.org</a>. More happy users means more features, less bugs "
+"and better support for everyone. "
 msgstr ""
 
 #: ../profile-builder-2.0/admin/admin-functions.php:220
@@ -2185,8 +2181,8 @@ msgstr "تایید با ایمیل"
 
 #: ../profile-builder-2.0/admin/basic-info.php:66
 msgid ""
-"Make sure users sign up with genuine emails. On registration users will receive "
-"a notification to confirm their email address."
+"Make sure users sign up with genuine emails. On registration users will receive a "
+"notification to confirm their email address."
 msgstr ""
 
 #: ../profile-builder-2.0/admin/basic-info.php:69,
@@ -2216,8 +2212,7 @@ msgid "Login with Email or Username"
 msgstr "ورود با ایمیل یا شناسه کاربری"
 
 #: ../profile-builder-2.0/admin/basic-info.php:78
-msgid ""
-"Allow users to log in with their email or username when accessing your site."
+msgid "Allow users to log in with their email or username when accessing your site."
 msgstr ""
 
 #: ../profile-builder-2.0/admin/basic-info.php:81,
@@ -2238,8 +2233,8 @@ msgstr ""
 
 #: ../profile-builder-2.0/admin/basic-info.php:96
 msgid ""
-"With Extra Profile Fields you can create the exact registration form your "
-"project needs."
+"With Extra Profile Fields you can create the exact registration form your project "
+"needs."
 msgstr ""
 
 #: ../profile-builder-2.0/admin/basic-info.php:98
@@ -2332,8 +2327,8 @@ msgstr ""
 
 #: ../profile-builder-2.0/admin/basic-info.php:134
 msgid ""
-"Everything you will need to manage your users is probably already available "
-"using the Pro Modules."
+"Everything you will need to manage your users is probably already available using "
+"the Pro Modules."
 msgstr ""
 
 #: ../profile-builder-2.0/admin/basic-info.php:136
@@ -2361,8 +2356,8 @@ msgstr ""
 
 #: ../profile-builder-2.0/admin/basic-info.php:148
 msgid ""
-"To create a page containing the users registered to this current site/blog, "
-"insert the following shortcode in a page of your chosing: %s."
+"To create a page containing the users registered to this current site/blog, insert "
+"the following shortcode in a page of your chosing: %s."
 msgstr ""
 
 #: ../profile-builder-2.0/admin/basic-info.php:152
@@ -2468,9 +2463,8 @@ msgstr ""
 #: ../profile-builder-2.0/admin/general-settings.php:89
 msgid ""
 "Specify the page where the users will be directed when confirming the email "
-"account. This page can differ from the register page(s) and can be changed at "
-"any time. If none selected, a simple confirmation page will be displayed for the "
-"user."
+"account. This page can differ from the register page(s) and can be changed at any "
+"time. If none selected, a simple confirmation page will be displayed for the user."
 msgstr ""
 
 #: ../profile-builder-2.0/admin/general-settings.php:100
@@ -2480,8 +2474,8 @@ msgstr ""
 #: ../profile-builder-2.0/admin/general-settings.php:108
 msgid "You can find a list of users at %1$sUsers > All Users > Admin Approval%2$s."
 msgstr ""
-"می‌توانید لیستی از کاربران را اینجا مشاهده کنید  %1$sکاربران > همه کاربران > "
-"تایید مدیر%2$s."
+"می‌توانید لیستی از کاربران را اینجا مشاهده کنید  %1$sکاربران > همه کاربران > تایید "
+"مدیر%2$s."
 
 #: ../profile-builder-2.0/admin/general-settings.php:115
 msgid "\"Admin Approval\" on User Role:"
@@ -2519,9 +2513,9 @@ msgid ""
 "multiple users at once from the WordPress UI. Enable Admin Approval by upgrading "
 "to %1$sHobbyist or PRO versions%2$s."
 msgstr ""
-"شما تصمیم می‌گیرید که چه کسی کاربر سایت‌تان باشد. از طریق ایمیل مطلع شوید یا از "
-"پنل مدیریت وردپرس چندین کاربر را همزمان تایید کنید. تایید مدیر را با بروزرسانی "
-"به نسخه %1$sHobbyist or PRO versions%2$s. فعال کنید."
+"شما تصمیم می‌گیرید که چه کسی کاربر سایت‌تان باشد. از طریق ایمیل مطلع شوید یا از پنل "
+"مدیریت وردپرس چندین کاربر را همزمان تایید کنید. تایید مدیر را با بروزرسانی به نسخه "
+"%1$sHobbyist or PRO versions%2$s. فعال کنید."
 
 #: ../profile-builder-2.0/admin/general-settings.php:194
 msgid "Allow Users to Log in With:"
@@ -2573,8 +2567,8 @@ msgstr ""
 
 #: ../profile-builder-2.0/admin/general-settings.php:217
 msgid ""
-"Enter the minimum characters the password should have. Leave empty for no "
-"minimum limit"
+"Enter the minimum characters the password should have. Leave empty for no minimum "
+"limit"
 msgstr ""
 
 #: ../profile-builder-2.0/admin/general-settings.php:224
@@ -2604,17 +2598,16 @@ msgstr ""
 
 #: ../profile-builder-2.0/admin/manage-fields.php:119
 msgid ""
-"Use this in conjunction with WordPress functions to display the value in the "
-"page of your choosing<br/>Auto-completed but in some cases editable (in which "
-"case it must be unique)<br/>Changing this might take long in case of a very big "
-"user-count"
+"Use this in conjunction with WordPress functions to display the value in the page "
+"of your choosing<br/>Auto-completed but in some cases editable (in which case it "
+"must be unique)<br/>Changing this might take long in case of a very big user-count"
 msgstr ""
 
 #: ../profile-builder-2.0/admin/manage-fields.php:122
 msgid ""
-"Use this in conjunction with WordPress functions to display the value in the "
-"page of your choosing<br/>Auto-completed but in some cases editable (in which "
-"case it must be unique)<br/>Changing this will only affect subsequent entries"
+"Use this in conjunction with WordPress functions to display the value in the page "
+"of your choosing<br/>Auto-completed but in some cases editable (in which case it "
+"must be unique)<br/>Changing this will only affect subsequent entries"
 msgstr ""
 
 #: ../profile-builder-2.0/admin/manage-fields.php:128
@@ -2708,10 +2701,9 @@ msgstr "ساختار تاریخ"
 
 #: ../profile-builder-2.0/admin/manage-fields.php:137
 msgid ""
-"Specify the format of the date when using Datepicker<br/>Valid options: mm/dd/"
-"yy, mm/yy/dd, dd/yy/mm, dd/mm/yy, yy/dd/mm, yy/mm/dd, mm-dd-yy, yy-mm-dd, D, dd "
-"M yy, D, d M y, DD, dd-M-y, D, d M yy, @<br/>If not specified, defaults to mm/dd/"
-"yy"
+"Specify the format of the date when using Datepicker<br/>Valid options: mm/dd/yy, "
+"mm/yy/dd, dd/yy/mm, dd/mm/yy, yy/dd/mm, yy/mm/dd, mm-dd-yy, yy-mm-dd, D, dd M yy, "
+"D, d M y, DD, dd-M-y, D, d M yy, @<br/>If not specified, defaults to mm/dd/yy"
 msgstr ""
 
 #: ../profile-builder-2.0/admin/manage-fields.php:138
@@ -2721,8 +2713,8 @@ msgstr "شرایط پذیرش"
 #: ../profile-builder-2.0/admin/manage-fields.php:138
 msgid ""
 "Enter a detailed description of the temrs of agreement for the user to read.<br/"
-">Links can be inserted by using standard HTML syntax: &lt;a href=\"custom_url"
-"\"&gt;custom_text&lt;/a&gt;"
+">Links can be inserted by using standard HTML syntax: &lt;a href=\"custom_url\"&gt;"
+"custom_text&lt;/a&gt;"
 msgstr ""
 
 #: ../profile-builder-2.0/admin/manage-fields.php:139
@@ -2807,8 +2799,7 @@ msgstr ""
 
 #: ../profile-builder-2.0/admin/manage-fields.php:145
 msgid "Select on which default WP forms to display reCAPTCHA"
-msgstr ""
-"مشخص کنید کدامیک از فرم های پیشفرض وردپرس با تصویر امنیتی (reCAPTCHA) باشند"
+msgstr "مشخص کنید کدامیک از فرم های پیشفرض وردپرس با تصویر امنیتی (reCAPTCHA) باشند"
 
 #: ../profile-builder-2.0/admin/manage-fields.php:146
 msgid "User Roles"
@@ -2913,8 +2904,8 @@ msgstr ""
 #: ../profile-builder-2.0/admin/manage-fields.php:159
 msgid ""
 "Enter your Google Maps API key ( <a href=\"https://console.developers.google.com/"
-"flows/enableapi?apiid=maps_backend\" target=\"_blank\">Get your API key</a> ). "
-"If more than one map fields are added to a form the API key from the first map "
+"flows/enableapi?apiid=maps_backend\" target=\"_blank\">Get your API key</a> ). If "
+"more than one map fields are added to a form the API key from the first map "
 "displayed will be used."
 msgstr ""
 
@@ -2923,8 +2914,7 @@ msgid "Default Latitude"
 msgstr ""
 
 #: ../profile-builder-2.0/admin/manage-fields.php:160
-msgid ""
-"The latitude at which the map should be displayed when no pins are attached."
+msgid "The latitude at which the map should be displayed when no pins are attached."
 msgstr ""
 
 #: ../profile-builder-2.0/admin/manage-fields.php:161
@@ -2932,8 +2922,7 @@ msgid "Default Longitude"
 msgstr ""
 
 #: ../profile-builder-2.0/admin/manage-fields.php:161
-msgid ""
-"The longitude at which the map should be displayed when no pins are attached."
+msgid "The longitude at which the map should be displayed when no pins are attached."
 msgstr ""
 
 #: ../profile-builder-2.0/admin/manage-fields.php:162
@@ -3033,8 +3022,8 @@ msgstr ""
 
 #: ../profile-builder-2.0/admin/manage-fields.php:170
 msgid ""
-"You can also use step value to specify the legal number intervals (eg. step "
-"value 2 will allow only -4, -2, 0, 2 and so on)"
+"You can also use step value to specify the legal number intervals (eg. step value "
+"2 will allow only -4, -2, 0, 2 and so on)"
 msgstr ""
 
 #: ../profile-builder-2.0/admin/manage-fields.php:170
@@ -3051,8 +3040,8 @@ msgstr "دوباره‌نویسی برای روی مقادیر موجود"
 
 #: ../profile-builder-2.0/admin/manage-fields.php:172
 msgid ""
-"Selecting 'Yes' will add the field to the list, but will overwrite any other "
-"field in the database that has the same meta-name<br/>Use this at your own risk"
+"Selecting 'Yes' will add the field to the list, but will overwrite any other field "
+"in the database that has the same meta-name<br/>Use this at your own risk"
 msgstr ""
 "انتخاب 'بله' فیلد را به لیست اضافه خواهد کرد، اما با همه فیلدهای موجود با meta-"
 "name مشابه در پایگاه داده جایگزین خواهد شد<br/> از این قسمت با ریسک خود استفاده "
@@ -4825,11 +4814,11 @@ msgstr "باید فیلدی را انتخاب کنید \n"
 
 #: ../profile-builder-2.0/admin/manage-fields.php:1001
 msgid ""
-"Please choose a different field type as this one already exists in your form "
-"(must be unique)\n"
+"Please choose a different field type as this one already exists in your form (must "
+"be unique)\n"
 msgstr ""
-"لطفا نوع فیلد دیگری غیر از چیزی که در فرم‌تان وجود دارد انتخاب کنید (باید منحصر "
-"به فرد باشد) \n"
+"لطفا نوع فیلد دیگری غیر از چیزی که در فرم‌تان وجود دارد انتخاب کنید (باید منحصر به "
+"فرد باشد) \n"
 
 #: ../profile-builder-2.0/admin/manage-fields.php:1012
 msgid "The entered avatar size is not between 20 and 200\n"
@@ -4884,8 +4873,7 @@ msgid ""
 msgstr "گزینه(ها)ی زیر همزمان با لیست گزینه‌ها نیست: %s\n"
 
 #: ../profile-builder-2.0/admin/manage-fields.php:1132
-msgid ""
-"The following option did not coincide with the ones in the options list: %s\n"
+msgid "The following option did not coincide with the ones in the options list: %s\n"
 msgstr "گزینه(ها)ی زیر همزمان با لیست گزینه‌ها نیست: %s\n"
 
 #: ../profile-builder-2.0/admin/manage-fields.php:1139
@@ -4936,8 +4924,8 @@ msgstr ""
 
 #: ../profile-builder-2.0/admin/pms-cross-promotion.php:37
 msgid ""
-"With the new Subscriptions Field in Profile Builder, your registration forms "
-"will allow your users to sign up for paid accounts."
+"With the new Subscriptions Field in Profile Builder, your registration forms will "
+"allow your users to sign up for paid accounts."
 msgstr ""
 
 #: ../profile-builder-2.0/admin/pms-cross-promotion.php:40
@@ -5015,8 +5003,8 @@ msgstr ""
 
 #: ../profile-builder-2.0/admin/register-version.php:69
 msgid ""
-"Now that you acquired a copy of %s, you should take the time and register it "
-"with the serial number you received"
+"Now that you acquired a copy of %s, you should take the time and register it with "
+"the serial number you received"
 msgstr ""
 "حالا که کپی از %s را بدست آورده‌اید، زمانی را گذاشته و آن را با شماره سریالی که "
 "دریافت کرده‌اید ثبت کنید"
@@ -5060,8 +5048,8 @@ msgid ""
 "The serial number couldn't be validated because process timed out. This is "
 "possible due to the server being down. Please try again later!"
 msgstr ""
-"شماره سریال قابل معتبرسازی نیست زیرا پروسه آن زیاد طول کشید. این شاید به خاطر "
-"مشکل سرور باشد. لطفا بعدا مجددا سعی کنید."
+"شماره سریال قابل معتبرسازی نیست زیرا پروسه آن زیاد طول کشید. این شاید به خاطر مشکل "
+"سرور باشد. لطفا بعدا مجددا سعی کنید."
 
 #: ../profile-builder-2.0/admin/register-version.php:87
 msgid "(e.g. RMPB-15-SN-253a55baa4fbe7bf595b2aabb8d72985)"
@@ -5069,12 +5057,12 @@ msgstr ""
 
 #: ../profile-builder-2.0/admin/register-version.php:243
 msgid ""
-"<p>Your <strong>Profile Builder</strong> serial number is invalid or missing. "
-"<br/>Please %1$sregister your copy%2$s to receive access to automatic updates "
-"and support. Need a license key? %3$sPurchase one now%4$s</p>"
+"<p>Your <strong>Profile Builder</strong> serial number is invalid or missing. <br/"
+">Please %1$sregister your copy%2$s to receive access to automatic updates and "
+"support. Need a license key? %3$sPurchase one now%4$s</p>"
 msgstr ""
-"<p>شماره سریال <strong>Profile Builder</strong> شما غیر معتبر یا گم شده است. <br/"
-"> لطفا برای دریافت بروزرسانی خودکار و پشتیبانی  %1$sکپی خود را ثبت کنید%2$s . به "
+"<p>شماره سریال <strong>Profile Builder</strong> شما غیر معتبر یا گم شده است. <br/> "
+"لطفا برای دریافت بروزرسانی خودکار و پشتیبانی  %1$sکپی خود را ثبت کنید%2$s . به "
 "کلید لایسنس نیاز دارید؟ %3$sهمین الان یکی بخرید%4$s</p>"
 
 #: ../profile-builder-2.0/admin/register-version.php:246
@@ -5162,8 +5150,8 @@ msgstr ""
 
 #: ../profile-builder-2.0/features/functions.php:1033
 msgid ""
-"You will soon be redirected automatically. If you see this page for more than "
-"%1$d seconds, please click %2$s.%3$s"
+"You will soon be redirected automatically. If you see this page for more than %1$d "
+"seconds, please click %2$s.%3$s"
 msgstr ""
 "شما به زودی به صفحه جدید هدایت خواهید شد. اگر این صفحه را بیش از  %1$d ثانیه "
 "مشاهده کردید، لطفا %2$s کلیک کنید. %3$s"
@@ -5190,8 +5178,7 @@ msgstr "این پیام فقط برای کاربران مدیر قابل نما�
 
 #: ../profile-builder-2.0/front-end/class-formbuilder.php:149
 msgid ""
-"Users cannot currently register themselves, but you can manually create users "
-"here."
+"Users cannot currently register themselves, but you can manually create users here."
 msgstr ""
 "کاربران نمی‌توانند خودشان عضو شوند، اما می‌توانید آن‌ها را به صورت دستی ایجاد کنید."
 
@@ -5231,8 +5218,8 @@ msgid ""
 "Before you can access your account %1s, an administrator has to approve it. You "
 "will be notified via email."
 msgstr ""
-"پیش از دسترسی به حساب کاربری %1s، لازم است مدیر سایت حساب شما را تایید کند. پس "
-"از تایید از طریق ایمیل مطلع خواهید شد."
+"پیش از دسترسی به حساب کاربری %1s، لازم است مدیر سایت حساب شما را تایید کند. پس از "
+"تایید از طریق ایمیل مطلع خواهید شد."
 
 #: ../profile-builder-2.0/front-end/class-formbuilder.php:352
 msgid "Your profile has been successfully updated!"
@@ -5336,8 +5323,8 @@ msgid ""
 "Your account has to be confirmed by an administrator before you can use the "
 "\"Password Reset\" feature."
 msgstr ""
-"پیش از استفاده از قابلیت \"بازیابی کلمه عبور\" حساب کاربری شما باید توسط مدیر "
-"سایت تایید شود."
+"پیش از استفاده از قابلیت \"بازیابی کلمه عبور\" حساب کاربری شما باید توسط مدیر سایت "
+"تایید شود."
 
 #: ../profile-builder-2.0/front-end/recover.php:95
 msgid "Reset Password"
@@ -5434,8 +5421,8 @@ msgid ""
 "%1$s has requested a password change via the password reset feature.<br/>His/her "
 "new password is:%2$s"
 msgstr ""
-"%1$s درخواستی برای تغییر کلمه عبور از طریق قابلیت بازنشانی کلمه عبور داده است. "
-"<br/>کلمه عبور جدید :%2$s"
+"%1$s درخواستی برای تغییر کلمه عبور از طریق قابلیت بازنشانی کلمه عبور داده است. <br/"
+">کلمه عبور جدید :%2$s"
 
 #: ../profile-builder-2.0/front-end/recover.php:334
 msgid "The entered passwords don't match!"
@@ -5473,11 +5460,11 @@ msgstr "ایمیل شما با موفقیت تایید شد."
 #: ../profile-builder-2.0/front-end/register.php:125,
 #: ../profile-builder-2.0/features/email-confirmation/email-confirmation.php:648
 msgid ""
-"Before you can access your account, an administrator needs to approve it. You "
-"will be notified via email."
+"Before you can access your account, an administrator needs to approve it. You will "
+"be notified via email."
 msgstr ""
-"پیش از دسترسی به حساب کاربری خود، یکی از مدیران باید حساب شما را تایید کنند. پس "
-"از تایید از طریق ایمیل مطلع خواهید شد."
+"پیش از دسترسی به حساب کاربری خود، یکی از مدیران باید حساب شما را تایید کنند. پس از "
+"تایید از طریق ایمیل مطلع خواهید شد."
 
 #: ../profile-builder-2.0/front-end/register.php:153
 msgid "There was an error while trying to activate the user."
@@ -5623,8 +5610,8 @@ msgstr ""
 
 #: ../profile-builder-2.0/features/admin-approval/admin-approval.php:295
 msgid ""
-"The approval link is not valid! Please <a href=\"%s\"> log in </a> to approve "
-"the user manually. "
+"The approval link is not valid! Please <a href=\"%s\"> log in </a> to approve the "
+"user manually. "
 msgstr ""
 
 #: ../profile-builder-2.0/features/admin-approval/class-admin-approval.php:113
@@ -5771,8 +5758,8 @@ msgstr ""
 
 #: ../profile-builder-2.0/features/content-restriction/content-restriction-meta-box.php:85
 msgid ""
-"Checking any user role will show this %s only to users that have one of those "
-"user roles assigned."
+"Checking any user role will show this %s only to users that have one of those user "
+"roles assigned."
 msgstr ""
 
 #: ../profile-builder-2.0/features/content-restriction/content-restriction-meta-box.php:92
@@ -5793,8 +5780,8 @@ msgstr ""
 
 #: ../profile-builder-2.0/features/content-restriction/content-restriction-meta-box.php:113
 msgid ""
-"Add a URL where you wish to redirect users that do not have access to this %s "
-"and try to access it directly."
+"Add a URL where you wish to redirect users that do not have access to this %s and "
+"try to access it directly."
 msgstr ""
 
 #: ../profile-builder-2.0/features/content-restriction/content-restriction-meta-box.php:119
@@ -5819,16 +5806,16 @@ msgstr ""
 
 #: ../profile-builder-2.0/features/content-restriction/content-restriction.php:64
 msgid ""
-"If you select \"Message\", the post's content will be protected by being "
-"replaced with a custom message."
+"If you select \"Message\", the post's content will be protected by being replaced "
+"with a custom message."
 msgstr ""
 
 #: ../profile-builder-2.0/features/content-restriction/content-restriction.php:65
 msgid ""
 "If you select \"Redirect\", the post's content will be protected by redirecting "
-"the user to the URL you specify. The redirect happens only when accessing a "
-"single post. On archive pages the restriction message will be displayed, instead "
-"of the content."
+"the user to the URL you specify. The redirect happens only when accessing a single "
+"post. On archive pages the restriction message will be displayed, instead of the "
+"content."
 msgstr ""
 
 #: ../profile-builder-2.0/features/content-restriction/content-restriction.php:70,
@@ -5935,9 +5922,8 @@ msgstr "[%1$s] فعال کردن %2$s"
 
 #: ../profile-builder-2.0/features/email-confirmation/email-confirmation.php:407
 msgid ""
-"To activate your user, please click the following link:<br><br>%s%s"
-"%s<br><br>After you activate it you will receive yet *another email* with your "
-"login."
+"To activate your user, please click the following link:<br><br>%s%s%s<br><br>After "
+"you activate it you will receive yet *another email* with your login."
 msgstr ""
 
 #: ../profile-builder-2.0/features/email-confirmation/email-confirmation.php:451
@@ -6257,9 +6243,9 @@ msgstr ""
 
 #: ../profile-builder-2.0/modules/custom-redirects/custom_redirects_admin.php:248
 msgid ""
-"Individual redirects defined in shortcodes; <strong><em>redirect_priority=\"top"
-"\"</em></strong> parameter can be added in any shortcode, then that shortcode "
-"redirect will have priority over all other redirects."
+"Individual redirects defined in shortcodes; <strong><em>redirect_priority=\"top\"</"
+"em></strong> parameter can be added in any shortcode, then that shortcode redirect "
+"will have priority over all other redirects."
 msgstr ""
 
 #: ../profile-builder-2.0/modules/custom-redirects/custom_redirects_admin.php:251
@@ -6296,8 +6282,8 @@ msgstr ""
 
 #: ../profile-builder-2.0/modules/custom-redirects/custom_redirects_admin.php:260
 msgid ""
-"the URL sanitized version of the username, the user nicename can be safely used "
-"in URLs since it can't contain special characters or spaces."
+"the URL sanitized version of the username, the user nicename can be safely used in "
+"URLs since it can't contain special characters or spaces."
 msgstr ""
 
 #: ../profile-builder-2.0/modules/custom-redirects/custom_redirects_admin.php:261
@@ -6312,8 +6298,8 @@ msgstr ""
 
 #: ../profile-builder-2.0/modules/email-customizer/admin-email-customizer.php:38
 msgid ""
-"These settings are also replicated in the \"User Email Customizer\" settings-"
-"page upon save."
+"These settings are also replicated in the \"User Email Customizer\" settings-page "
+"upon save."
 msgstr ""
 
 #: ../profile-builder-2.0/modules/email-customizer/admin-email-customizer.php:38,
@@ -6374,8 +6360,7 @@ msgid ""
 "<p>Username:{{username}}</p>\n"
 "<p>E-mail:{{user_email}}</p>\n"
 "<p>The Admin Approval feature was activated at the time of registration,\n"
-"so please remember that you need to approve this user before he/she can log in!</"
-"p>"
+"so please remember that you need to approve this user before he/she can log in!</p>"
 msgstr ""
 
 #: ../profile-builder-2.0/modules/email-customizer/admin-email-customizer.php:104,
@@ -6467,8 +6452,8 @@ msgstr ""
 
 #: ../profile-builder-2.0/modules/email-customizer/user-email-customizer.php:38
 msgid ""
-"These settings are also replicated in the \"Admin Email Customizer\" settings-"
-"page upon save."
+"These settings are also replicated in the \"Admin Email Customizer\" settings-page "
+"upon save."
 msgstr ""
 
 #: ../profile-builder-2.0/modules/email-customizer/user-email-customizer.php:64
@@ -6481,8 +6466,7 @@ msgstr ""
 msgid ""
 "<p>To activate your user, please click the following link:<br/>\n"
 "{{{activation_link}}}</p>\n"
-"<p>After you activate, you will receive another email with your credentials.</"
-"p>\n"
+"<p>After you activate, you will receive another email with your credentials.</p>\n"
 msgstr ""
 
 #: ../profile-builder-2.0/modules/email-customizer/user-email-customizer.php:96
@@ -6508,8 +6492,8 @@ msgstr ""
 #: ../profile-builder-2.0/modules/email-customizer/user-email-customizer.php:137
 msgid ""
 "<h3>Good News!</h3>\n"
-"<p>An administrator has just approved your account: {{username}} on "
-"{{site_name}}.</p>\n"
+"<p>An administrator has just approved your account: {{username}} on {{site_name}}."
+"</p>\n"
 msgstr ""
 
 #: ../profile-builder-2.0/modules/email-customizer/user-email-customizer.php:145
@@ -6523,8 +6507,8 @@ msgstr ""
 #: ../profile-builder-2.0/modules/email-customizer/user-email-customizer.php:161
 msgid ""
 "<h3>Hello,</h3>\n"
-"<p>Unfortunatelly an administrator has just unapproved your account: "
-"{{username}} on {{site_name}}.</p>\n"
+"<p>Unfortunatelly an administrator has just unapproved your account: {{username}} "
+"on {{site_name}}.</p>\n"
 msgstr ""
 
 #: ../profile-builder-2.0/modules/email-customizer/user-email-customizer.php:170
@@ -6569,8 +6553,8 @@ msgstr ""
 msgid ""
 "<h3>Hi {{username}},</h3>\n"
 "<p>This notice confirms that your email was changed on {{site_name}}.</p>\n"
-"<p>If you did not change your email, please contact the Site Administrator at "
-"%s</p>\n"
+"<p>If you did not change your email, please contact the Site Administrator at %s</"
+"p>\n"
 "<p>This email has been sent to {{user_email}}</p>\n"
 "<p>Regards,<br>\n"
 "All at {{site_name}}<br>\n"
@@ -6781,10 +6765,10 @@ msgstr ""
 
 #: ../profile-builder-2.0/modules/multiple-forms/register-forms.php:229
 msgid ""
-"Whether to automatically log in the newly registered user or not<br/>Only works "
-"on single-sites without \"Admin Approval\" and \"Email Confirmation\" features "
-"activated<br/>WARNING: Caching the registration form will make automatic login "
-"not work"
+"Whether to automatically log in the newly registered user or not<br/>Only works on "
+"single-sites without \"Admin Approval\" and \"Email Confirmation\" features "
+"activated<br/>WARNING: Caching the registration form will make automatic login not "
+"work"
 msgstr ""
 
 #: ../profile-builder-2.0/modules/multiple-forms/register-forms.php:232
@@ -7048,8 +7032,7 @@ msgid "Example:"
 msgstr ""
 
 #: ../profile-builder-2.0/modules/user-listing/userlisting.php:2227
-msgid ""
-"Remember though, that the field-value combination must exist in the database."
+msgid "Remember though, that the field-value combination must exist in the database."
 msgstr ""
 
 #: ../profile-builder-2.0/modules/user-listing/userlisting.php:2233
@@ -7098,8 +7081,8 @@ msgstr ""
 
 #: ../profile-builder-2.0/modules/user-listing/userlisting.php:2316
 msgid ""
-"Set the default sorting criteria<br/>This can temporarily be changed for each "
-"new session"
+"Set the default sorting criteria<br/>This can temporarily be changed for each new "
+"session"
 msgstr ""
 
 #: ../profile-builder-2.0/modules/user-listing/userlisting.php:2317
@@ -7209,8 +7192,7 @@ msgid "Search Settings"
 msgstr ""
 
 #: ../profile-builder-2.0/modules/user-listing/userlisting.php:2458
-msgid ""
-"You need to activate the Userlisting feature from within the \"Modules\" tab!"
+msgid "You need to activate the Userlisting feature from within the \"Modules\" tab!"
 msgstr ""
 
 #: ../profile-builder-2.0/modules/user-listing/userlisting.php:2458
@@ -7252,8 +7234,8 @@ msgstr ""
 
 #: ../profile-builder-2.0/front-end/default-fields/blog-details/blog-details.php:138
 msgid ""
-"Privacy: I would like my site to appear in search engines, and in public "
-"listings around this network."
+"Privacy: I would like my site to appear in search engines, and in public listings "
+"around this network."
 msgstr ""
 
 #: ../profile-builder-2.0/front-end/default-fields/email/email.php:51
@@ -7501,11 +7483,11 @@ msgstr "حذف"
 
 #: ../profile-builder-2.0/front-end/extra-fields/upload/upload.php:122
 msgid "Select File"
-msgstr ""
+msgstr "انتخاب پرونده"
 
 #: ../profile-builder-2.0/front-end/extra-fields/upload/upload.php:128
 msgid "Upload "
-msgstr "بارگزاری"
+msgstr "بارگذاری "
 
 #: ../profile-builder-2.0/front-end/extra-fields/upload/upload_helper_functions.php:78,
 #: ../profile-builder-2.0/front-end/extra-fields/upload/upload_helper_functions.php:87
@@ -7637,14 +7619,14 @@ msgstr ""
 
 #~ msgid ""
 #~ "<p>Your <strong>Profile Builder</strong> license is about to expire on %5$s. "
-#~ "<br/>Please %1$sRenew Your Licence%2$s to continue receiving access to "
-#~ "product downloads, automatic updates and support. %3$sRenew now and get "
-#~ "50&#37; off %4$s %6$sDismiss%7$s</p>"
+#~ "<br/>Please %1$sRenew Your Licence%2$s to continue receiving access to product "
+#~ "downloads, automatic updates and support. %3$sRenew now and get 50&#37; off "
+#~ "%4$s %6$sDismiss%7$s</p>"
 #~ msgstr ""
-#~ "<p> لایسنس <strong>پروفایل بیلدر</strong> شما  %5$s روز دیگر منقضی خواهد شد."
-#~ "<br/> لطفا برای ادامه‌ی دریافت دسترسی به دانلود محصول،‌بروزرسانی خودکار و "
-#~ "پشتیبانی %1$sلایسنس خود را تمدید کنید%2$s. %3$sلایسنس خود را تمدید کنید و "
-#~ "بگیرید  50&#37; تخفیف %4$s %6$sDismiss%7$s</p>"
+#~ "<p> لایسنس <strong>پروفایل بیلدر</strong> شما  %5$s روز دیگر منقضی خواهد شد.<br/"
+#~ "> لطفا برای ادامه‌ی دریافت دسترسی به دانلود محصول،‌بروزرسانی خودکار و پشتیبانی "
+#~ "%1$sلایسنس خود را تمدید کنید%2$s. %3$sلایسنس خود را تمدید کنید و بگیرید  "
+#~ "50&#37; تخفیف %4$s %6$sDismiss%7$s</p>"
 
 #~ msgid ""
 #~ "<p>Your <strong>Profile Builder</strong> license has expired. <br/>Please "
@@ -7653,8 +7635,8 @@ msgstr ""
 #~ "%5$sDismiss%6$s</p>"
 #~ msgstr ""
 #~ "<p>لایسنس<strong>پروفایل بیلدر</strong> شما منقضی شده است. <br/> لطفا برای "
-#~ "ادامه دریافت دانلود، بروزرسانی خودکار و پشتیبانی   %1$sلایسنس خود را تمدید "
-#~ "کنید%2$s %3$s همینک تمدید کنید و  50&#37; تخفیف %4$s %5$sجدا کردن%6$s</p>"
+#~ "ادامه دریافت دانلود، بروزرسانی خودکار و پشتیبانی   %1$sلایسنس خود را تمدید کنید"
+#~ "%2$s %3$s همینک تمدید کنید و  50&#37; تخفیف %4$s %5$sجدا کردن%6$s</p>"
 
 #~ msgid "Version %s"
 #~ msgstr "نسخه %s"

@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: BuddyPress 4.2.0\n"
+"Project-Id-Version: BuddyPress 4.3.0\n"
 "Report-Msgid-Bugs-To: https://buddypress.trac.wordpress.org\n"
-"POT-Creation-Date: 2019-02-20 15:34:23+00:00\n"
-"PO-Revision-Date: 2019-04-14 04:34+0430\n"
+"POT-Creation-Date: 2019-04-25 16:09:52+00:00\n"
+"PO-Revision-Date: 2019-05-27 05:17+0430\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: \n"
 "Language: fa_IR\n"
@@ -11,12 +11,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.2.3\n"
 "X-Poedit-Basepath: ../../../buddypress\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: bp-activity/actions/delete.php:52 bp-templates/bp-nouveau/includes/activity/ajax.php:249
+#: bp-activity/actions/delete.php:52 bp-templates/bp-nouveau/includes/activity/ajax.php:255
 msgid "Activity deleted successfully"
 msgstr "فعالیت با موفقیت حذف شد"
 
@@ -24,11 +24,11 @@ msgstr "فعالیت با موفقیت حذف شد"
 msgid "There was an error when deleting that activity"
 msgstr "خطایی در هنگام پاک‌کردن فعالیت رخ داد"
 
-#: bp-activity/actions/favorite.php:25
+#: bp-activity/actions/favorite.php:30
 msgid "Activity marked as favorite."
 msgstr "به عنوان یکی از فعالیت‌های مورد علاقه شما ثبت شد."
 
-#: bp-activity/actions/favorite.php:27
+#: bp-activity/actions/favorite.php:32
 msgid "There was an error marking that activity as a favorite. Please try again."
 msgstr "خطایی در هنگام نشانه گذاری فعالیت به عنوان مورد علاقه رخ داد، دوباره تلاش کنید."
 
@@ -95,7 +95,7 @@ msgid "Activity feed of %s's favorites."
 msgstr "خوراک فعالیت‌های مورد علاقه %s"
 
 #: bp-activity/actions/post.php:60 bp-templates/bp-legacy/buddypress-functions.php:960
-#: bp-templates/bp-nouveau/includes/activity/ajax.php:478
+#: bp-templates/bp-nouveau/includes/activity/ajax.php:490
 msgid "Please enter some content to post."
 msgstr "لطفاً چیزی برای فرستادن بنویسید."
 
@@ -108,17 +108,17 @@ msgid "There was an error when posting your update. Please try again."
 msgstr "خطایی در هنگام ارسال به‌روزرسانی شما رخ داده است، دوباره تلاش کنید."
 
 #: bp-activity/actions/reply.php:43 bp-templates/bp-legacy/buddypress-functions.php:1052
-#: bp-templates/bp-nouveau/includes/activity/ajax.php:349
+#: bp-templates/bp-nouveau/includes/activity/ajax.php:355
 msgid "Please do not leave the comment area blank."
 msgstr "لطفاً متن دیدگاه را خالی نگذارید."
 
-#: bp-activity/actions/reply.php:54
-msgid "Reply Posted!"
-msgstr "پاسخ ارسال شد!"
-
-#: bp-activity/actions/reply.php:56
+#: bp-activity/actions/reply.php:49 bp-activity/actions/reply.php:62
 msgid "There was an error posting that reply. Please try again."
 msgstr "خطایی در هنگام فرستادن پاسخ پیش آمد، دوباره تلاش کنید."
+
+#: bp-activity/actions/reply.php:60
+msgid "Reply Posted!"
+msgstr "پاسخ ارسال شد!"
 
 #: bp-activity/actions/spam.php:59
 msgid "The activity item has been marked as spam and is no longer visible."
@@ -473,19 +473,19 @@ msgstr ""
 msgid "Your browser does not support HTML5 audio"
 msgstr ""
 
-#: bp-activity/bp-activity-filters.php:428
+#: bp-activity/bp-activity-filters.php:435
 msgid "[Read more]"
 msgstr "ادامه &hellip;"
 
-#: bp-activity/bp-activity-filters.php:432
+#: bp-activity/bp-activity-filters.php:439
 msgid "&hellip;"
 msgstr "&hellip;"
 
-#: bp-activity/bp-activity-filters.php:638
+#: bp-activity/bp-activity-filters.php:645
 msgid "Load Newest"
 msgstr "بارگذاری تازه‌ترین‌ها"
 
-#: bp-activity/bp-activity-filters.php:821
+#: bp-activity/bp-activity-filters.php:828
 msgid "BuddyPress Activity Data"
 msgstr "داده‌های فعالیت‌ها بادی‌پرس"
 
@@ -515,7 +515,7 @@ msgstr ""
 
 #: bp-activity/bp-activity-functions.php:2592
 #: bp-templates/bp-legacy/buddypress-functions.php:1049
-#: bp-templates/bp-nouveau/includes/activity/ajax.php:328
+#: bp-templates/bp-nouveau/includes/activity/ajax.php:334
 msgid "There was an error posting your reply. Please try again."
 msgstr "خطایی در هنگام فرستادن پاسخ پیش آمد. لطفاً دوباره تلاش کنید."
 
@@ -1648,14 +1648,14 @@ msgstr ""
 #: bp-core/bp-core-admin.php:25
 msgid "Maintenance Release"
 msgid_plural "Maintenance Releases"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "انتشار نگه‌داری"
+msgstr[1] "انتشارهای نگه‌داری"
 
 #: bp-core/bp-core-admin.php:26
 msgid "Security Release"
 msgid_plural "Security Releases"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "انتشار امنیتی"
+msgstr[1] "انتشارهای امنیتی"
 
 #: bp-core/bp-core-admin.php:27
 msgid "Maintenance and Security Release"
@@ -1751,11 +1751,11 @@ msgstr ""
 
 #: bp-core/bp-core-attachments.php:660
 msgid "HTTP error."
-msgstr ""
+msgstr "خطای HTTP."
 
 #: bp-core/bp-core-attachments.php:661 bp-core/bp-core-avatars.php:1059
 msgid "Upload failed."
-msgstr ""
+msgstr "بارگذاری ناموفق بود."
 
 #: bp-core/bp-core-attachments.php:662
 msgid "Please try uploading this file with the %1$sbrowser uploader%2$s."
@@ -1768,15 +1768,15 @@ msgstr ""
 
 #: bp-core/bp-core-attachments.php:664
 msgid "IO error."
-msgstr ""
+msgstr "خطای IO."
 
 #: bp-core/bp-core-attachments.php:665
 msgid "Security error."
-msgstr ""
+msgstr "خطای امنیتی."
 
 #: bp-core/bp-core-attachments.php:666
 msgid "File canceled."
-msgstr ""
+msgstr "پرونده لغو شد."
 
 #: bp-core/bp-core-attachments.php:667
 msgid "Upload stopped."
@@ -1788,7 +1788,7 @@ msgstr "بستن"
 
 #: bp-core/bp-core-attachments.php:669
 msgid "Crunching&hellip;"
-msgstr ""
+msgstr "متراکم‌سازی&hellip;"
 
 #: bp-core/bp-core-attachments.php:670
 msgid "Make sure to upload a unique file"
@@ -2670,7 +2670,7 @@ msgid "Activate Your Account"
 msgstr "حساب کاربری خودتان را فعال کنید"
 
 #: bp-core/bp-core-template.php:3123 bp-groups/bp-groups-template.php:3394
-#: bp-templates/bp-nouveau/includes/groups/functions.php:530
+#: bp-templates/bp-nouveau/includes/groups/functions.php:536
 msgid "Create a Group"
 msgstr "ساختن گروه"
 
@@ -2720,15 +2720,15 @@ msgstr "بستهٔ الگو"
 
 #: bp-core/classes/class-bp-admin.php:405
 msgid "Profile Photo Uploads"
-msgstr ""
+msgstr "تصاویر نمایه بارگذاری‌شده"
 
 #: bp-core/classes/class-bp-admin.php:410
 msgid "Cover Image Uploads"
-msgstr ""
+msgstr "تصاویر سربرگ بارگذاری‌شده"
 
 #: bp-core/classes/class-bp-admin.php:415
 msgid "Profile Syncing"
-msgstr ""
+msgstr "همگام‌سازی نمایه"
 
 #: bp-core/classes/class-bp-admin.php:424
 msgid "Groups Settings"
@@ -2740,11 +2740,11 @@ msgstr "ساختن گروه"
 
 #: bp-core/classes/class-bp-admin.php:431
 msgid "Group Photo Uploads"
-msgstr ""
+msgstr "تصاویر گروه بارگذاری‌شده"
 
 #: bp-core/classes/class-bp-admin.php:436
 msgid "Group Cover Image Uploads"
-msgstr "بارگذاری تصویر سربرگ گروه"
+msgstr "تصاویر سربرگ گروه بارگذاری‌شده"
 
 #: bp-core/classes/class-bp-admin.php:446
 msgid "Activity Settings"
@@ -2752,7 +2752,7 @@ msgstr "تنظیمات فعالیت‌ها"
 
 #: bp-core/classes/class-bp-admin.php:449
 msgid "Post Comments"
-msgstr ""
+msgstr "دیدگاه‌های نوشته‌ها"
 
 #: bp-core/classes/class-bp-admin.php:453
 msgid "Activity auto-refresh"
@@ -2760,7 +2760,7 @@ msgstr ""
 
 #: bp-core/classes/class-bp-admin.php:458
 msgid "Akismet"
-msgstr ""
+msgstr "اکیسمت"
 
 #: bp-core/classes/class-bp-admin.php:506
 #: bp-groups/classes/class-bp-groups-component.php:709
@@ -2983,23 +2983,23 @@ msgstr[1] ""
 
 #: bp-core/classes/class-bp-admin.php:745
 msgid "Meet the contributors behind BuddyPress:"
-msgstr ""
+msgstr "با مشارکت‌کنندگان در بادی‌پرس آشنا شوید:"
 
 #: bp-core/classes/class-bp-admin.php:747
 msgid "Project Leaders"
-msgstr ""
+msgstr "رهبران پروژه"
 
 #: bp-core/classes/class-bp-admin.php:752
 msgid "Project Lead"
-msgstr ""
+msgstr "رهبر پروژه"
 
 #: bp-core/classes/class-bp-admin.php:757 bp-core/classes/class-bp-admin.php:762
 msgid "Lead Developer"
-msgstr ""
+msgstr "توسعه‌دهنده ارشد"
 
 #: bp-core/classes/class-bp-admin.php:766
 msgid "BuddyPress Team"
-msgstr "گروه بادی‌پرس"
+msgstr "تیم بادی‌پرس"
 
 #: bp-core/classes/class-bp-admin.php:771 bp-core/classes/class-bp-admin.php:776
 #: bp-core/classes/class-bp-admin.php:781 bp-core/classes/class-bp-admin.php:791
@@ -3007,7 +3007,7 @@ msgstr "گروه بادی‌پرس"
 #: bp-core/classes/class-bp-admin.php:821 bp-core/classes/class-bp-admin.php:826
 #: bp-core/classes/class-bp-admin.php:831
 msgid "Core Developer"
-msgstr ""
+msgstr "توسعه‌دهنده هسته"
 
 #: bp-core/classes/class-bp-admin.php:786
 msgid "Navigator"
@@ -3016,11 +3016,11 @@ msgstr "راه‌بر"
 #: bp-core/classes/class-bp-admin.php:801 bp-core/classes/class-bp-admin.php:806
 #: bp-core/classes/class-bp-admin.php:811 bp-core/classes/class-bp-admin.php:836
 msgid "Community Support"
-msgstr ""
+msgstr "پشتیبان جامعه"
 
 #: bp-core/classes/class-bp-admin.php:840
 msgid "Recent Rockstars"
-msgstr ""
+msgstr "آخرین ستارگان"
 
 #: bp-core/classes/class-bp-admin.php:864
 msgid "Contributors to BuddyPress %s"
@@ -3032,11 +3032,11 @@ msgstr ""
 
 #: bp-core/classes/class-bp-admin.php:918
 msgid "Contributor Emeriti"
-msgstr ""
+msgstr "مشارکت‌کنندگان افتخاری"
 
 #: bp-core/classes/class-bp-admin.php:923
 msgid "Project Founder"
-msgstr ""
+msgstr "بنیانگذار پروژه"
 
 #: bp-core/classes/class-bp-attachment-avatar.php:40
 msgid "That photo is too big. Please upload one smaller than %s"
@@ -3455,7 +3455,7 @@ msgid "You already have a pending friendship request with this user"
 msgstr "شما از قبل درخواست دوستی با این کاربر را دارید"
 
 #: bp-friends/actions/remove-friend.php:33
-#: bp-templates/bp-legacy/buddypress-functions.php:1433
+#: bp-templates/bp-legacy/buddypress-functions.php:1445
 msgid "Friendship could not be canceled."
 msgstr "درخواست دوستی قابل لغو نیست."
 
@@ -3601,7 +3601,7 @@ msgid "%d friends"
 msgstr "%s دوستان"
 
 #: bp-friends/bp-friends-template.php:371
-#: bp-templates/bp-legacy/buddypress-functions.php:1445
+#: bp-templates/bp-legacy/buddypress-functions.php:1457
 msgid "Cancel Friendship Request"
 msgstr "لغو درخواست دوستی"
 
@@ -3614,8 +3614,8 @@ msgid "Cancel Friendship"
 msgstr "لغو دوستی"
 
 #: bp-friends/bp-friends-template.php:419
-#: bp-templates/bp-legacy/buddypress-functions.php:1435
-#: bp-templates/bp-legacy/buddypress-functions.php:1453
+#: bp-templates/bp-legacy/buddypress-functions.php:1447
+#: bp-templates/bp-legacy/buddypress-functions.php:1465
 msgid "Add Friend"
 msgstr "درخواست دوستی"
 
@@ -3796,7 +3796,7 @@ msgstr "تازه‌های گروه‌ها"
 msgid "%1$s created the group %2$s"
 msgstr "%1$s گروه %2$s را ایجاد کرد"
 
-#: bp-groups/bp-groups-activity.php:109 bp-groups/bp-groups-activity.php:457
+#: bp-groups/bp-groups-activity.php:109 bp-groups/bp-groups-activity.php:570
 msgid "%1$s joined the group %2$s"
 msgstr "%1$s به گروه %2$s پیوست"
 
@@ -4384,13 +4384,13 @@ msgid ""
 msgstr ""
 
 #: bp-groups/bp-groups-template.php:3277
-#: bp-templates/bp-legacy/buddypress-functions.php:1549
-#: bp-templates/bp-legacy/buddypress-functions.php:1563
+#: bp-templates/bp-legacy/buddypress-functions.php:1561
+#: bp-templates/bp-legacy/buddypress-functions.php:1575
 msgid "Leave Group"
 msgstr "ترک گروه"
 
 #: bp-groups/bp-groups-template.php:3298
-#: bp-templates/bp-legacy/buddypress-functions.php:1583
+#: bp-templates/bp-legacy/buddypress-functions.php:1595
 msgid "Join Group"
 msgstr "پیوستن به گروه"
 
@@ -4399,12 +4399,12 @@ msgid "Accept Invitation"
 msgstr "پذیرش دعوت"
 
 #: bp-groups/bp-groups-template.php:3331
-#: bp-templates/bp-legacy/buddypress-functions.php:1573
+#: bp-templates/bp-legacy/buddypress-functions.php:1585
 msgid "Request Sent"
 msgstr "درخواست فرستاده شد"
 
 #: bp-groups/bp-groups-template.php:3346
-#: bp-templates/bp-legacy/buddypress-functions.php:1585
+#: bp-templates/bp-legacy/buddypress-functions.php:1597
 msgid "Request Membership"
 msgstr "درخواست عضویت"
 
@@ -4481,7 +4481,7 @@ msgstr "فعالیت‌های گروه"
 #: bp-templates/bp-legacy/buddypress/members/single/friends.php:24
 #: bp-templates/bp-legacy/buddypress/members/single/groups.php:25
 #: bp-templates/bp-nouveau/includes/blogs/functions.php:108
-#: bp-templates/bp-nouveau/includes/groups/functions.php:588
+#: bp-templates/bp-nouveau/includes/groups/functions.php:594
 #: bp-templates/bp-nouveau/includes/members/functions.php:102
 #: bp-templates/bp-nouveau/includes/members/functions.php:120
 msgid "Alphabetical"
@@ -4694,11 +4694,11 @@ msgstr "اطلاعات گروه با موفقیت به‌روز شد."
 msgid "The new group profile photo was uploaded successfully."
 msgstr "تصویر نمایه گروه با موفقیت بارگذاری شد."
 
-#: bp-groups/screens/single/admin/group-settings.php:70
+#: bp-groups/screens/single/admin/group-settings.php:72
 msgid "There was an error updating group settings. Please try again."
 msgstr "خطایی در هنگام ذخیره تنظیمات گروه رخ داد. لطفاً دوباره تلاش کنید."
 
-#: bp-groups/screens/single/admin/group-settings.php:72
+#: bp-groups/screens/single/admin/group-settings.php:74
 msgid "Group settings were successfully updated."
 msgstr "تنظیمات گروه با موفقیت به‌روز شد."
 
@@ -4799,12 +4799,12 @@ msgid "Group invite accepted. Visit %s."
 msgstr ""
 
 #: bp-groups/screens/user/invites.php:53
-#: bp-templates/bp-nouveau/includes/groups/ajax.php:140
+#: bp-templates/bp-nouveau/includes/groups/ajax.php:144
 msgid "Group invite could not be rejected"
 msgstr "دعوت گروه نمی تواند رد شود"
 
 #: bp-groups/screens/user/invites.php:55
-#: bp-templates/bp-nouveau/includes/groups/ajax.php:148
+#: bp-templates/bp-nouveau/includes/groups/ajax.php:152
 msgid "Group invite rejected"
 msgstr "دعوت گروه رد شد"
 
@@ -4859,7 +4859,7 @@ msgstr "ویرایش تصویر نمایه"
 
 #: bp-members/bp-members-adminbar.php:123
 msgid "Edit Cover Image"
-msgstr ""
+msgstr "ویرایش تصویر سربرگ"
 
 #: bp-members/bp-members-adminbar.php:143
 #: bp-settings/classes/class-bp-settings-component.php:211
@@ -5467,7 +5467,7 @@ msgid "Messages marked as read"
 msgstr "نشان‌گذاری به عنوان خوانده شده"
 
 #: bp-messages/actions/bulk-manage.php:68
-#: bp-templates/bp-nouveau/includes/messages/ajax.php:681
+#: bp-templates/bp-nouveau/includes/messages/ajax.php:686
 #, fuzzy
 msgid "Messages marked as unread."
 msgstr "نشان‌گذاری به عنوان خوانده نشده."
@@ -6119,7 +6119,7 @@ msgid "Load More"
 msgstr "بیشتر"
 
 #: bp-templates/bp-legacy/buddypress/activity/activity-loop.php:48
-#: bp-templates/bp-nouveau/includes/activity/ajax.php:151
+#: bp-templates/bp-nouveau/includes/activity/ajax.php:157
 #: bp-templates/bp-nouveau/includes/functions.php:961
 msgid "Sorry, there was no activity found. Please try a different filter."
 msgstr "متأسفیم، هیچ فعالیتی پیدا نشد. پالایه دیگری را آزمایش کنید."
@@ -6146,18 +6146,18 @@ msgstr "دیدگاه %s"
 
 #: bp-templates/bp-legacy/buddypress/activity/entry.php:76
 #: bp-templates/bp-legacy/buddypress-functions.php:307
-#: bp-templates/bp-legacy/buddypress-functions.php:1248
-#: bp-templates/bp-legacy/buddypress-functions.php:1276
-#: bp-templates/bp-nouveau/includes/activity/ajax.php:145
+#: bp-templates/bp-legacy/buddypress-functions.php:1260
+#: bp-templates/bp-legacy/buddypress-functions.php:1288
+#: bp-templates/bp-nouveau/includes/activity/ajax.php:151
 #: bp-templates/bp-nouveau/includes/activity/template-tags.php:378
 msgid "Favorite"
 msgstr "مورد علاقه"
 
 #: bp-templates/bp-legacy/buddypress/activity/entry.php:80
 #: bp-templates/bp-legacy/buddypress-functions.php:310
-#: bp-templates/bp-legacy/buddypress-functions.php:1246
-#: bp-templates/bp-legacy/buddypress-functions.php:1278
-#: bp-templates/bp-nouveau/includes/activity/ajax.php:105
+#: bp-templates/bp-legacy/buddypress-functions.php:1258
+#: bp-templates/bp-legacy/buddypress-functions.php:1290
+#: bp-templates/bp-nouveau/includes/activity/ajax.php:111
 #: bp-templates/bp-nouveau/includes/activity/template-tags.php:389
 #: bp-templates/bp-nouveau/includes/activity/template-tags.php:390
 msgid "Remove Favorite"
@@ -6331,7 +6331,7 @@ msgstr "اگر می‌خواهید تصویر سربرگ خود را پاک کن
 
 #: bp-templates/bp-legacy/buddypress/assets/_attachments/cover-images/index.php:28
 msgid "Delete My Cover Image"
-msgstr "پاک‌کردن تصویر سربرگ"
+msgstr "پاک‌کردن تصویر سربرگ من"
 
 #: bp-templates/bp-legacy/buddypress/assets/_attachments/cover-images/index.php:30
 #: bp-templates/bp-nouveau/buddypress/assets/_attachments/cover-images/index.php:31
@@ -6397,7 +6397,7 @@ msgstr ""
 #: bp-templates/bp-legacy/buddypress/members/single/friends.php:22
 #: bp-templates/bp-legacy/buddypress/members/single/groups.php:22
 #: bp-templates/bp-nouveau/includes/blogs/functions.php:106
-#: bp-templates/bp-nouveau/includes/groups/functions.php:585
+#: bp-templates/bp-nouveau/includes/groups/functions.php:591
 #: bp-templates/bp-nouveau/includes/members/functions.php:97
 msgid "Last Active"
 msgstr "فعالیت"
@@ -6587,7 +6587,7 @@ msgstr "پیش‌نمایش تصویر نمایه"
 #: bp-templates/bp-legacy/buddypress/groups/single/admin/group-cover-image.php:23
 #: bp-templates/bp-nouveau/buddypress/groups/single/admin/group-cover-image.php:26
 msgid "The Cover Image will be used to customize the header of your group."
-msgstr "از این تصویر برای شخصی‌سازی سربرگ نمایه گروه استفاده خواهد شد."
+msgstr "از این تصویر برای شخصی‌سازی سربرگ گروه شما استفاده خواهد شد."
 
 #. translators: accessibility text
 #: bp-templates/bp-legacy/buddypress/groups/create.php:332
@@ -6602,7 +6602,7 @@ msgstr "از فهرست دوستان خود افرادی را برای دعوت 
 
 #: bp-templates/bp-legacy/buddypress/groups/create.php:379
 #: bp-templates/bp-legacy/buddypress/groups/single/invites-loop.php:75
-#: bp-templates/bp-legacy/buddypress-functions.php:1379
+#: bp-templates/bp-legacy/buddypress-functions.php:1391
 msgid "Remove Invite"
 msgstr "پاک‌کردن دعوت"
 
@@ -6651,13 +6651,13 @@ msgstr ""
 
 #: bp-templates/bp-legacy/buddypress/groups/index.php:97
 #: bp-templates/bp-legacy/buddypress/members/single/groups.php:23
-#: bp-templates/bp-nouveau/includes/groups/functions.php:586
+#: bp-templates/bp-nouveau/includes/groups/functions.php:592
 msgid "Most Members"
 msgstr "عضویت"
 
 #: bp-templates/bp-legacy/buddypress/groups/index.php:98
 #: bp-templates/bp-legacy/buddypress/members/single/groups.php:24
-#: bp-templates/bp-nouveau/includes/groups/functions.php:587
+#: bp-templates/bp-nouveau/includes/groups/functions.php:593
 msgid "Newly Created"
 msgstr "تازه‌گی"
 
@@ -7010,7 +7010,7 @@ msgstr "دوستان من"
 
 #. translators: accessibility text
 #: bp-templates/bp-legacy/buddypress/members/single/groups/invites.php:21
-#: bp-templates/bp-nouveau/includes/groups/functions.php:1209
+#: bp-templates/bp-nouveau/includes/groups/functions.php:1215
 msgid "Group invitations"
 msgstr "دعوت‌نامه‌های گروه"
 
@@ -7282,12 +7282,12 @@ msgstr "دریافت داده‌های شخصی"
 #: bp-templates/bp-legacy/buddypress/members/single/settings/data.php:30
 #: bp-templates/bp-nouveau/buddypress/members/single/settings/data.php:30
 msgid "Your previous request for an export of personal data has expired."
-msgstr ""
+msgstr "درخواست پیشین شما برای برون‌بری داده‌های شخصی منقضی شده است."
 
 #: bp-templates/bp-legacy/buddypress/members/single/settings/data.php:31
 #: bp-templates/bp-nouveau/buddypress/members/single/settings/data.php:31
 msgid "Please click on the button below to make a new request."
-msgstr ""
+msgstr "برای ارسال درخواست تازه روی دکمه زیر کلیک کنید."
 
 #: bp-templates/bp-legacy/buddypress/members/single/settings/data.php:35
 #: bp-templates/bp-nouveau/buddypress/members/single/settings/data.php:35
@@ -7419,7 +7419,7 @@ msgid "Are you sure you want to leave this group?"
 msgstr ""
 
 #: bp-templates/bp-legacy/buddypress-functions.php:308
-#: bp-templates/bp-nouveau/includes/activity/ajax.php:113
+#: bp-templates/bp-nouveau/includes/activity/ajax.php:119
 #: bp-templates/bp-nouveau/includes/activity/functions.php:227
 msgid "My Favorites"
 msgstr "علاقه‌مندی‌های من"
@@ -7446,75 +7446,75 @@ msgid "Your profile has unsaved changes. If you leave the page, the changes will
 msgstr ""
 
 #: bp-templates/bp-legacy/buddypress-functions.php:996
-#: bp-templates/bp-nouveau/includes/activity/ajax.php:537
+#: bp-templates/bp-nouveau/includes/activity/ajax.php:549
 msgid "There was a problem posting your update. Please try again."
 msgstr "مشکلی در هنگام ارسال به‌روزرسانی شما رخ داده است، دوباره تلاش کنید."
 
-#: bp-templates/bp-legacy/buddypress-functions.php:1129
-#: bp-templates/bp-legacy/buddypress-functions.php:1169
-#: bp-templates/bp-nouveau/includes/activity/ajax.php:195
+#: bp-templates/bp-legacy/buddypress-functions.php:1135
+#: bp-templates/bp-legacy/buddypress-functions.php:1175
+#: bp-templates/bp-nouveau/includes/activity/ajax.php:201
 msgid "There was a problem when deleting. Please try again."
 msgstr "خطایی در هنگام پاک‌کردن رخ داد. دوباره تلاش کنید."
 
-#: bp-templates/bp-legacy/buddypress-functions.php:1383
+#: bp-templates/bp-legacy/buddypress-functions.php:1395
 msgid ""
 "%s has previously requested to join this group. Sending an invitation will automatically "
 "add the member to the group."
 msgstr ""
 
-#: bp-templates/bp-legacy/buddypress-functions.php:1425
+#: bp-templates/bp-legacy/buddypress-functions.php:1437
 #: bp-templates/bp-nouveau/includes/friends/ajax.php:107
 msgid "No member found by that ID."
 msgstr ""
 
-#: bp-templates/bp-legacy/buddypress-functions.php:1443
+#: bp-templates/bp-legacy/buddypress-functions.php:1455
 msgid " Friendship could not be requested."
 msgstr "درخواست دوستی ممکن نیست."
 
-#: bp-templates/bp-legacy/buddypress-functions.php:1455
+#: bp-templates/bp-legacy/buddypress-functions.php:1467
 #: bp-templates/bp-nouveau/includes/friends/ajax.php:210
 msgid "Friendship request could not be cancelled."
 msgstr ""
 
-#: bp-templates/bp-legacy/buddypress-functions.php:1460
+#: bp-templates/bp-legacy/buddypress-functions.php:1472
 #: bp-templates/bp-nouveau/includes/friends/ajax.php:220
 msgid "Request Pending"
 msgstr "درخواست در انتظار"
 
-#: bp-templates/bp-legacy/buddypress-functions.php:1481
+#: bp-templates/bp-legacy/buddypress-functions.php:1493
 #: bp-templates/bp-nouveau/includes/friends/ajax.php:121
 msgid "There was a problem accepting that request. Please try again."
 msgstr "خطایی در هنگام پذیرفتن درخواست رخ داد. دوباره تلاش کنید."
 
-#: bp-templates/bp-legacy/buddypress-functions.php:1501
+#: bp-templates/bp-legacy/buddypress-functions.php:1513
 #: bp-templates/bp-nouveau/includes/friends/ajax.php:145
 msgid "There was a problem rejecting that request. Please try again."
 msgstr "خطایی در هنگام رد درخواست رخ داد. دوباره تلاش کنید."
 
-#: bp-templates/bp-legacy/buddypress-functions.php:1541
-#: bp-templates/bp-legacy/buddypress-functions.php:1547
+#: bp-templates/bp-legacy/buddypress-functions.php:1553
+#: bp-templates/bp-legacy/buddypress-functions.php:1559
 msgid "Error joining group"
 msgstr "خطا در پیوستن به گروه"
 
-#: bp-templates/bp-legacy/buddypress-functions.php:1555
+#: bp-templates/bp-legacy/buddypress-functions.php:1567
 msgid "Error accepting invitation"
 msgstr ""
 
-#: bp-templates/bp-legacy/buddypress-functions.php:1561
-#: bp-templates/bp-legacy/buddypress-functions.php:1571
+#: bp-templates/bp-legacy/buddypress-functions.php:1573
+#: bp-templates/bp-legacy/buddypress-functions.php:1583
 msgid "Error requesting membership"
 msgstr "خطا در درخواست عضویت"
 
-#: bp-templates/bp-legacy/buddypress-functions.php:1581
+#: bp-templates/bp-legacy/buddypress-functions.php:1593
 msgid "Error leaving group"
 msgstr "خطا در ترک گروه"
 
-#: bp-templates/bp-legacy/buddypress-functions.php:1608
+#: bp-templates/bp-legacy/buddypress-functions.php:1620
 msgid "There was a problem closing the notice."
 msgstr "خطایی در هنگام بستن اطلاعیه رخ داد."
 
-#: bp-templates/bp-legacy/buddypress-functions.php:1643
-#: bp-templates/bp-legacy/buddypress-functions.php:1683
+#: bp-templates/bp-legacy/buddypress-functions.php:1655
+#: bp-templates/bp-legacy/buddypress-functions.php:1695
 msgid "There was a problem sending that reply. Please try again."
 msgstr "خطایی در هنگام فرستادن پاسخ رخ داد. دوباره تلاش کنید."
 
@@ -7640,7 +7640,7 @@ msgstr ""
 
 #: bp-templates/bp-nouveau/buddypress/groups/single/activity.php:12
 msgid "Group Activities"
-msgstr ""
+msgstr "فعالیت‌های گروه"
 
 #: bp-templates/bp-nouveau/buddypress/groups/single/admin/delete-group.php:11
 msgid "Delete this group"
@@ -7648,15 +7648,15 @@ msgstr "پاک کردن این گروه"
 
 #: bp-templates/bp-nouveau/buddypress/groups/single/admin/edit-details.php:14
 msgid "Enter Group Name &amp; Description"
-msgstr "عنوان و توضیحات گروه را وارد کنید"
+msgstr "تنظیم عنوان و توضیحات گروه"
 
 #: bp-templates/bp-nouveau/buddypress/groups/single/admin/edit-details.php:20
 msgid "Edit Group Name &amp; Description"
-msgstr "عنوان و توضیحات گروه را ویرایش کنید"
+msgstr "ویرایش عنوان و توضیحات گروه"
 
 #: bp-templates/bp-nouveau/buddypress/groups/single/admin/group-avatar.php:13
 msgid "Upload Group Avatar"
-msgstr ""
+msgstr "بارگذاری آواتار گروه"
 
 #: bp-templates/bp-nouveau/buddypress/groups/single/admin/group-avatar.php:19
 msgid "Change Group Avatar"
@@ -7674,7 +7674,7 @@ msgstr ""
 
 #: bp-templates/bp-nouveau/buddypress/groups/single/admin/group-cover-image.php:13
 msgid "Upload Cover Image"
-msgstr ""
+msgstr "بارگذاری تصویر سربرگ"
 
 #: bp-templates/bp-nouveau/buddypress/groups/single/admin/group-settings.php:13
 msgid "Select Group Settings"
@@ -7706,7 +7706,7 @@ msgstr "مدیریت صفحه اصلی گروه‌ها"
 
 #: bp-templates/bp-nouveau/buddypress/groups/single/default-front.php:21
 msgid "You can set your preferences for the %1$s or add %2$s to it."
-msgstr ""
+msgstr "می‌توانید ترجیحات خود را برای %1$s یا افزودن %2$s به آن تنظیم کنید."
 
 #: bp-templates/bp-nouveau/buddypress/groups/single/members.php:20
 msgid "Membership List"
@@ -7902,27 +7902,27 @@ msgstr ""
 msgid "Show all %d comments"
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/activity/ajax.php:267
+#: bp-templates/bp-nouveau/includes/activity/ajax.php:273
 msgid "There was a problem displaying the content. Please try again."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/activity/ajax.php:455
+#: bp-templates/bp-nouveau/includes/activity/ajax.php:467
 msgid "No activities were found."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/activity/ajax.php:554
+#: bp-templates/bp-nouveau/includes/activity/ajax.php:566
 msgid "Update posted."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/activity/ajax.php:554
+#: bp-templates/bp-nouveau/includes/activity/ajax.php:566
 msgid "View activity."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/activity/ajax.php:582
+#: bp-templates/bp-nouveau/includes/activity/ajax.php:594
 msgid "There was a problem marking this activity as spam. Please try again."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/activity/ajax.php:631
+#: bp-templates/bp-nouveau/includes/activity/ajax.php:643
 msgid "This activity has been marked as spam and is no longer visible."
 msgstr ""
 
@@ -7945,7 +7945,7 @@ msgid "All Members"
 msgstr "همه اعضا"
 
 #: bp-templates/bp-nouveau/includes/activity/functions.php:253
-#: bp-templates/bp-nouveau/includes/groups/functions.php:517
+#: bp-templates/bp-nouveau/includes/groups/functions.php:523
 msgid "My Groups"
 msgstr "گروه‌های من"
 
@@ -7992,15 +7992,15 @@ msgstr "بادی‌پرس: آخرین فعالیت‌ها"
 #: bp-templates/bp-nouveau/includes/activity/widgets.php:62
 #: bp-templates/bp-nouveau/includes/activity/widgets.php:171
 msgid "Latest updates"
-msgstr ""
+msgstr "تازه‌ها"
 
 #: bp-templates/bp-nouveau/includes/activity/widgets.php:192
 msgid "Maximum amount to display:"
-msgstr ""
+msgstr "بیشترین تعداد نمایش:"
 
 #: bp-templates/bp-nouveau/includes/activity/widgets.php:196
 msgid "Type:"
-msgstr ""
+msgstr "نوع:"
 
 #: bp-templates/bp-nouveau/includes/blogs/functions.php:23
 msgid "All Sites"
@@ -8136,7 +8136,7 @@ msgstr ""
 
 #: bp-templates/bp-nouveau/includes/friends/ajax.php:68
 #: bp-templates/bp-nouveau/includes/groups/ajax.php:47
-#: bp-templates/bp-nouveau/includes/groups/ajax.php:259
+#: bp-templates/bp-nouveau/includes/groups/ajax.php:263
 msgid "There was a problem performing this action. Please try again."
 msgstr ""
 
@@ -8171,6 +8171,7 @@ msgstr "خانه عضو بادی‌پرس"
 #: bp-templates/bp-nouveau/includes/functions.php:333
 msgid "Add widgets here to appear in the front page of each member of your community."
 msgstr ""
+"ابزارک‌هایی که اینجا اضافه می‌کنید روی برگه نخست هر عضوی از جامعه شما نمایش داده خواهند شد."
 
 #: bp-templates/bp-nouveau/includes/functions.php:343
 msgid "BuddyPress Group's Home"
@@ -8334,89 +8335,89 @@ msgstr ""
 msgid "You are already a member of the group."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/ajax.php:104
+#: bp-templates/bp-nouveau/includes/groups/ajax.php:108
 msgid "Group invitation could not be accepted."
 msgstr "دعوت‌نامه گروه نمی‌تواند پذیرفته شود."
 
-#: bp-templates/bp-nouveau/includes/groups/ajax.php:125
+#: bp-templates/bp-nouveau/includes/groups/ajax.php:129
 msgid "Group invite accepted."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/ajax.php:171
+#: bp-templates/bp-nouveau/includes/groups/ajax.php:175
 msgid "Error joining this group."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/ajax.php:192
+#: bp-templates/bp-nouveau/includes/groups/ajax.php:196
 msgid "Error requesting membership."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/ajax.php:213
+#: bp-templates/bp-nouveau/includes/groups/ajax.php:217
 msgid "Error leaving group."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/ajax.php:291
+#: bp-templates/bp-nouveau/includes/groups/ajax.php:295
 msgid ""
 "Select members to invite by clicking the + button. Once you've made your selection, use "
 "the \"Send Invites\" navigation item to continue."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/ajax.php:296
+#: bp-templates/bp-nouveau/includes/groups/ajax.php:300
 msgid ""
 "Select friends to invite by clicking the + button. Once you've made your selection, use "
 "the \"Send Invites\" navigation item to continue."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/ajax.php:303
+#: bp-templates/bp-nouveau/includes/groups/ajax.php:307
 msgid "No pending group invitations found."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/ajax.php:310
+#: bp-templates/bp-nouveau/includes/groups/ajax.php:314
 msgid "You can view the group's pending invitations from this screen."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/ajax.php:317
+#: bp-templates/bp-nouveau/includes/groups/ajax.php:321
 msgid "No members were found. Try another filter."
 msgstr "عضوی پیدا نشد. از پالایه دیگری استفاده کنید."
 
-#: bp-templates/bp-nouveau/includes/groups/ajax.php:323
+#: bp-templates/bp-nouveau/includes/groups/ajax.php:327
 msgid ""
 "All your friends are already members of this group, or have already received an invite "
 "to join this group, or have requested to join it."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/ajax.php:329
+#: bp-templates/bp-nouveau/includes/groups/ajax.php:333
 msgid "You have no friends!"
 msgstr "شما دوستی ندارید!"
 
-#: bp-templates/bp-nouveau/includes/groups/ajax.php:358
+#: bp-templates/bp-nouveau/includes/groups/ajax.php:362
 msgid "Invites could not be sent. Please try again."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/ajax.php:374
+#: bp-templates/bp-nouveau/includes/groups/ajax.php:378
 msgid "You are not allowed to send invitations for this group."
 msgstr ""
 
 #. translators: count of users affected
-#: bp-templates/bp-nouveau/includes/groups/ajax.php:415
+#: bp-templates/bp-nouveau/includes/groups/ajax.php:419
 msgid "Invitation failed for %s user."
 msgid_plural "Invitation failed for %s users."
 msgstr[0] ""
 msgstr[1] ""
 
-#: bp-templates/bp-nouveau/includes/groups/ajax.php:434
+#: bp-templates/bp-nouveau/includes/groups/ajax.php:438
 msgid "Invitations sent."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/ajax.php:451
-#: bp-templates/bp-nouveau/includes/groups/ajax.php:471
+#: bp-templates/bp-nouveau/includes/groups/ajax.php:452
+#: bp-templates/bp-nouveau/includes/groups/ajax.php:491
 msgid "Group invitation could not be removed."
 msgstr "دعوت‌نامه گروه نمی‌تواند حذف شود."
 
-#: bp-templates/bp-nouveau/includes/groups/ajax.php:460
+#: bp-templates/bp-nouveau/includes/groups/ajax.php:480
 msgid "The member is already a member of the group."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/ajax.php:480
+#: bp-templates/bp-nouveau/includes/groups/ajax.php:500
 msgid "There are no more pending invitations for the group."
 msgstr ""
 
@@ -8446,114 +8447,114 @@ msgstr ""
 msgid "Cancel invitation %s"
 msgstr "لغو دعوت %s"
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:472
+#: bp-templates/bp-nouveau/includes/groups/functions.php:478
 msgid "Group invites preferences saved."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:474
+#: bp-templates/bp-nouveau/includes/groups/functions.php:480
 msgid "You are not allowed to perform this action."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:501
+#: bp-templates/bp-nouveau/includes/groups/functions.php:507
 msgid "All Groups"
 msgstr "همه گروه‌ها"
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:686
+#: bp-templates/bp-nouveau/includes/groups/functions.php:692
 msgid "Group front page"
 msgstr "صفحه اول گروه"
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:689
+#: bp-templates/bp-nouveau/includes/groups/functions.php:695
 msgid "Configure the default front page for groups."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:692
+#: bp-templates/bp-nouveau/includes/groups/functions.php:698
 msgid "Group navigation"
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:695
+#: bp-templates/bp-nouveau/includes/groups/functions.php:701
 msgid ""
 "Customize the navigation menu for groups. See your changes by navigating to a group in "
 "the live-preview window."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:796
+#: bp-templates/bp-nouveau/includes/groups/functions.php:802
 msgid "Enable custom front pages for groups."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:802
+#: bp-templates/bp-nouveau/includes/groups/functions.php:808
 msgid ""
 "Enable widget region for group homepages. When enabled, the site admin can add widgets "
 "to group pages via the Widgets panel."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:808
+#: bp-templates/bp-nouveau/includes/groups/functions.php:814
 msgid "Display the group description in the body of the group's front page."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:814
+#: bp-templates/bp-nouveau/includes/groups/functions.php:820
 msgid "Display the group navigation vertically."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:820
+#: bp-templates/bp-nouveau/includes/groups/functions.php:826
 msgid "Use tab styling for primary navigation."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:826
+#: bp-templates/bp-nouveau/includes/groups/functions.php:832
 msgid "Use tab styling for secondary navigation."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:832
+#: bp-templates/bp-nouveau/includes/groups/functions.php:838
 msgid "Use tab styling for the group creation process."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:839
+#: bp-templates/bp-nouveau/includes/groups/functions.php:845
 msgid "Reorder the primary navigation for a group."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:852
+#: bp-templates/bp-nouveau/includes/groups/functions.php:858
 msgid "Group > Members"
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:859
+#: bp-templates/bp-nouveau/includes/groups/functions.php:865
 msgid "Use column navigation for the Groups directory."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:865
+#: bp-templates/bp-nouveau/includes/groups/functions.php:871
 msgid "Use tab styling for Groups directory navigation."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:1184
+#: bp-templates/bp-nouveau/includes/groups/functions.php:1190
 msgid "Pending Group membership requests"
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:1189
+#: bp-templates/bp-nouveau/includes/groups/functions.php:1195
 msgid "Accepted Group membership requests"
 msgstr "درخواست‌های عضویت در گروه پذیرفته شده"
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:1194
+#: bp-templates/bp-nouveau/includes/groups/functions.php:1200
 msgid "Rejected Group membership requests"
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:1199
+#: bp-templates/bp-nouveau/includes/groups/functions.php:1205
 msgid "Group Administrator promotions"
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:1204
+#: bp-templates/bp-nouveau/includes/groups/functions.php:1210
 msgid "Group Moderator promotions"
 msgstr ""
 
 #: bp-templates/bp-nouveau/includes/groups/template-tags.php:1301
 msgid "Groups default front page"
-msgstr "صفحه اول پیش‌فرض گروه‌ها"
+msgstr "صفحه نخست پیش‌فرض گروه‌ها"
 
 #: bp-templates/bp-nouveau/includes/groups/template-tags.php:1319
 #: bp-templates/bp-nouveau/includes/members/template-tags.php:711
 msgid "(BuddyPress) Widgets"
-msgstr "بادی‌پرس: ابزارک‌ها"
+msgstr "ابزارک‌های بادی‌پرس"
 
 #: bp-templates/bp-nouveau/includes/members/template-tags.php:693
 msgid "Members default front page"
-msgstr ""
+msgstr "صفحه نخست پیش‌فرض اعضا"
 
 #: bp-templates/bp-nouveau/includes/members/template-tags.php:785
 msgid "Edit your bio"
@@ -8576,47 +8577,47 @@ msgstr ""
 msgid "Unauthorized request."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/messages/ajax.php:519
+#: bp-templates/bp-nouveau/includes/messages/ajax.php:524
 msgid "There was a problem deleting your messages. Please try again."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/messages/ajax.php:542
+#: bp-templates/bp-nouveau/includes/messages/ajax.php:547
 msgid "Messages deleted"
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/messages/ajax.php:558
+#: bp-templates/bp-nouveau/includes/messages/ajax.php:563
 msgid "There was a problem starring your messages. Please try again."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/messages/ajax.php:560
+#: bp-templates/bp-nouveau/includes/messages/ajax.php:565
 msgid "There was a problem unstarring your messages. Please try again."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/messages/ajax.php:634
+#: bp-templates/bp-nouveau/includes/messages/ajax.php:639
 msgid "Messages successfully starred."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/messages/ajax.php:636
+#: bp-templates/bp-nouveau/includes/messages/ajax.php:641
 msgid "Messages successfully unstarred."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/messages/ajax.php:657
+#: bp-templates/bp-nouveau/includes/messages/ajax.php:662
 msgid "There was a problem marking your messages as read. Please try again."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/messages/ajax.php:663
+#: bp-templates/bp-nouveau/includes/messages/ajax.php:668
 msgid "There was a problem marking your messages as unread. Please try again."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/messages/ajax.php:683
+#: bp-templates/bp-nouveau/includes/messages/ajax.php:688
 msgid "Messages marked as read."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/messages/ajax.php:718
+#: bp-templates/bp-nouveau/includes/messages/ajax.php:723
 msgid "There was a problem dismissing the notice. Please try again."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/messages/ajax.php:752
+#: bp-templates/bp-nouveau/includes/messages/ajax.php:757
 msgid "Sitewide notice dismissed"
 msgstr ""
 
@@ -9062,15 +9063,15 @@ msgstr "افزودن توضیحات"
 
 #: bp-xprofile/classes/class-bp-xprofile-field.php:1429
 msgid "Member Types"
-msgstr ""
+msgstr "انواع عضو"
 
 #: bp-xprofile/classes/class-bp-xprofile-field.php:1431
 msgid "This field should be available to:"
-msgstr ""
+msgstr "این فیلد باید در دسترس باشد، برای:"
 
 #: bp-xprofile/classes/class-bp-xprofile-field.php:1451
 msgid "Unavailable to all members."
-msgstr ""
+msgstr "برای همه اعضا در دسترس نباشد."
 
 #: bp-xprofile/classes/class-bp-xprofile-field.php:1495
 msgid "Allow members to override"
@@ -9105,7 +9106,7 @@ msgstr "در نمایه کاربری، این فیلد به برگه جست‌و
 #. translators: accessibility text
 #: bp-xprofile/classes/class-bp-xprofile-field.php:1554
 msgid "Autolink status for this field"
-msgstr ""
+msgstr "وضعیت پیوند خودکار برای این فیلد"
 
 #: bp-xprofile/classes/class-bp-xprofile-field.php:1557
 msgid "Enabled"
@@ -9149,7 +9150,7 @@ msgstr "هاه! می‌خواهی تقلب کنی؟"
 
 #: class-buddypress.php:750
 msgid "BuddyPress Nouveau"
-msgstr "بادی‌پرس نووو"
+msgstr "بادی‌پرس نوو"
 
 #. Author URI of the plugin/theme
 msgid "https://buddypress.org/"
@@ -9160,6 +9161,8 @@ msgid ""
 "BuddyPress adds community features to WordPress. Member Profiles, Activity Streams, "
 "Direct Messaging, Notifications, and more!"
 msgstr ""
+"بادی‌پرس، امکانات جامعه مجازی را به وردپرس اضافه می‌کند. نمایه‌های اعضا، مجموعه فعالیت‌ها، "
+"پیام‌های خصوصی، آگاه‌سازی‌ها و بیشتر!"
 
 #. Author of the plugin/theme
 msgid "The BuddyPress Community"
@@ -9183,7 +9186,7 @@ msgstr "وضعیت"
 #: bp-activity/bp-activity-admin.php:249
 msgctxt "activity admin edit screen"
 msgid "Primary Item/Secondary Item"
-msgstr ""
+msgstr "مورد اولیه/مورد ثانویه"
 
 #: bp-activity/bp-activity-admin.php:250
 msgctxt "activity admin edit screen"
@@ -10676,23 +10679,23 @@ msgstr "بازنشانی"
 #: bp-templates/bp-nouveau/includes/customizer.php:27
 msgctxt "Customizer Panel"
 msgid "BuddyPress Nouveau"
-msgstr "بادی‌پرس نووو"
+msgstr "بادی‌پرس نوو"
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:301
 #: bp-templates/bp-nouveau/includes/groups/functions.php:307
-#: bp-templates/bp-nouveau/includes/groups/functions.php:327
-#: bp-templates/bp-nouveau/includes/groups/functions.php:338
+#: bp-templates/bp-nouveau/includes/groups/functions.php:313
+#: bp-templates/bp-nouveau/includes/groups/functions.php:333
+#: bp-templates/bp-nouveau/includes/groups/functions.php:344
 msgctxt "Group invitations menu title"
 msgid "Invite"
 msgstr "دعوت"
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:414
-#: bp-templates/bp-nouveau/includes/groups/functions.php:442
+#: bp-templates/bp-nouveau/includes/groups/functions.php:420
+#: bp-templates/bp-nouveau/includes/groups/functions.php:448
 msgctxt "Group invitations main menu title"
 msgid "Group Invites"
 msgstr "دعوت‌نامه‌های گروه"
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:845
+#: bp-templates/bp-nouveau/includes/groups/functions.php:851
 msgctxt "Customizer control label"
 msgid "Groups"
 msgstr "گروه‌ها"

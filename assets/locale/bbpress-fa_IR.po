@@ -3,14 +3,14 @@ msgstr ""
 "Project-Id-Version: bbPress\n"
 "Report-Msgid-Bugs-To: https://bbpress.trac.wordpress.org\n"
 "POT-Creation-Date: 2017-09-15 14:01:43+00:00\n"
-"PO-Revision-Date: 2018-09-04 06:15+0430\n"
+"PO-Revision-Date: 2019-05-22 04:11+0430\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: \n"
 "Language: fa_IR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.1.1\n"
+"X-Generator: Poedit 2.2.3\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Poedit-Basepath: ../../../bbpress\n"
@@ -171,7 +171,7 @@ msgstr "اعتبارات"
 
 #: includes/admin/classes/class-bbp-admin.php:836
 msgid "Forum Subscriptions"
-msgstr ""
+msgstr "اشتراک‌های تالار"
 
 #: includes/admin/classes/class-bbp-admin.php:840
 msgid "Subscribe to Forums"
@@ -183,7 +183,7 @@ msgstr ""
 
 #: includes/admin/classes/class-bbp-admin.php:845
 msgid "Manage Subscriptions"
-msgstr ""
+msgstr "مدیریت اشتراک‌ها"
 
 #: includes/admin/classes/class-bbp-admin.php:846
 msgid ""
@@ -887,7 +887,7 @@ msgstr "ناظرین تالار"
 #: includes/admin/topics.php:477 includes/extend/buddypress/loader.php:248
 #: templates/default/bbpress/user-details.php:67
 msgid "Subscriptions"
-msgstr ""
+msgstr "اشتراک‌ها"
 
 #: includes/admin/forums.php:360
 msgid "The forum was not found."
@@ -927,7 +927,7 @@ msgstr "ایجاد‌کننده"
 #: includes/admin/forums.php:526 includes/admin/replies.php:647
 #: includes/admin/topics.php:836
 msgid "Created"
-msgstr "ایجاد شده"
+msgstr "ایجادشده"
 
 #: includes/admin/forums.php:527 includes/admin/topics.php:837
 #: templates/default/bbpress/loop-forums.php:26
@@ -945,7 +945,7 @@ msgstr "بدون جستار"
 
 #: includes/admin/forums.php:613
 msgid "Close this forum"
-msgstr ""
+msgstr "بستن این تالار"
 
 #: includes/admin/forums.php:615
 msgid "Open this forum"
@@ -953,11 +953,11 @@ msgstr "باز کردن این تالار"
 
 #: includes/admin/forums.php:653 includes/admin/forums.php:665
 msgid "Forum updated."
-msgstr ""
+msgstr "تالار به‌روز شد."
 
 #: includes/admin/forums.php:655 includes/admin/forums.php:678
 msgid "View forum"
-msgstr ""
+msgstr "نمایش تالار"
 
 #: includes/admin/forums.php:659 includes/admin/replies.php:910
 #: includes/admin/topics.php:1105
@@ -980,16 +980,16 @@ msgstr "تالار ایجاد شد."
 
 #: includes/admin/forums.php:682
 msgid "Forum saved."
-msgstr ""
+msgstr "تالار ذخیره شد."
 
 #: includes/admin/forums.php:687
 msgid "Forum submitted."
-msgstr ""
+msgstr "تالار ارسال شد."
 
 #: includes/admin/forums.php:689 includes/admin/forums.php:701
 #: includes/admin/forums.php:709
 msgid "Preview forum"
-msgstr ""
+msgstr "پیش‌نمایش تالار"
 
 #: includes/admin/forums.php:696
 msgid "Forum scheduled for: %s."
@@ -1050,7 +1050,7 @@ msgstr[1] "پاسخ‌ها"
 msgid "Topic Tag"
 msgid_plural "Topic Tags"
 msgstr[0] "برچسب"
-msgstr[1] ""
+msgstr[1] "برچسب"
 
 #: includes/admin/metaboxes.php:190
 msgid "Users &amp; Moderation"
@@ -1060,7 +1060,7 @@ msgstr "مدیریت و کاربران"
 msgid "User"
 msgid_plural "Users"
 msgstr[0] "کاربر"
-msgstr[1] ""
+msgstr[1] "کاربر"
 
 #: includes/admin/metaboxes.php:217
 msgid "Hidden Topic"
@@ -1078,7 +1078,7 @@ msgstr[1] "پاسخ‌های پنهانی"
 msgid "Empty Topic Tag"
 msgid_plural "Empty Topic Tags"
 msgstr[0] "برچسب خالی"
-msgstr[1] ""
+msgstr[1] "برچسب خالی"
 
 #: includes/admin/metaboxes.php:285
 msgid "You are using <span class=\"b\">bbPress %s</span>."
@@ -1087,31 +1087,31 @@ msgstr "شما از <span class=\"b\">‌بی‌بی‌پرس %s</span> استف
 #: includes/admin/metaboxes.php:317 includes/admin/metaboxes.php:318
 #: includes/admin/metaboxes.php:404
 msgid "Type:"
-msgstr ""
+msgstr "نوع:"
 
 #: includes/admin/metaboxes.php:329 includes/admin/metaboxes.php:330
 #: includes/admin/metaboxes.php:416 includes/admin/metaboxes.php:479
 #: templates/default/bbpress/form-forum.php:121
 msgid "Status:"
-msgstr ""
+msgstr "وضعیت:"
 
 #: includes/admin/metaboxes.php:341 includes/admin/metaboxes.php:342
 #: templates/default/bbpress/form-forum.php:130
 msgid "Visibility:"
-msgstr ""
+msgstr "نمایانی:"
 
 #: includes/admin/metaboxes.php:355
 msgid "Parent:"
-msgstr ""
+msgstr "مادر:"
 
 #: includes/admin/metaboxes.php:356
 msgid "Forum Parent"
-msgstr ""
+msgstr "تالار مادر"
 
 #: includes/admin/metaboxes.php:369 includes/admin/settings.php:1421
 #: templates/default/bbpress/form-forum.php:144
 msgid "&mdash; No parent &mdash;"
-msgstr ""
+msgstr "&mdash; بدون مادر &mdash;"
 
 #: includes/admin/metaboxes.php:376
 msgid "Order:"
@@ -1119,7 +1119,7 @@ msgstr "چینش:"
 
 #: includes/admin/metaboxes.php:377
 msgid "Forum Order"
-msgstr ""
+msgstr "چینش تالار"
 
 #: includes/admin/metaboxes.php:405
 msgid "Topic Type"
@@ -1127,7 +1127,7 @@ msgstr "نوع جستار"
 
 #: includes/admin/metaboxes.php:418
 msgid "Select whether to open or close the topic."
-msgstr ""
+msgstr "باز و یا بسته بودن جستار را انتخاب کنید."
 
 #: includes/admin/metaboxes.php:431 includes/admin/metaboxes.php:495
 #: includes/extend/buddypress/groups.php:1180 includes/topics/template.php:65
@@ -1139,15 +1139,15 @@ msgstr "تالار:"
 #: includes/admin/metaboxes.php:445 includes/extend/buddypress/groups.php:350
 #: templates/default/bbpress/form-topic.php:127
 msgid "&mdash; No forum &mdash;"
-msgstr ""
+msgstr "&mdash; بدون تالار &mdash;"
 
 #: includes/admin/metaboxes.php:481
 msgid "Select what status to give the reply."
-msgstr ""
+msgstr "وضعیت پاسخ را انتخاب کنید."
 
 #: includes/admin/metaboxes.php:509
 msgid "&mdash; No reply &mdash;"
-msgstr ""
+msgstr "&mdash; بدون پاسخ &mdash;"
 
 #: includes/admin/metaboxes.php:522 includes/replies/template.php:67
 #: templates/default/bbpress/loop-search-topic.php:25
@@ -1157,16 +1157,16 @@ msgstr "جستار:"
 #: includes/admin/metaboxes.php:535
 #: templates/default/bbpress/form-reply.php:129
 msgid "Reply To:"
-msgstr ""
+msgstr "پاسخ به:"
 
 #: includes/admin/metaboxes.php:536
 msgid "Reply To"
-msgstr ""
+msgstr "پاسخ به"
 
 #: includes/admin/metaboxes.php:607
 #: templates/default/bbpress/form-topic-tag.php:40
 msgid "Name:"
-msgstr ""
+msgstr "نام:"
 
 #: includes/admin/metaboxes.php:608
 #: templates/default/bbpress/form-user-edit.php:17
@@ -1176,39 +1176,39 @@ msgstr "نام"
 
 #: includes/admin/metaboxes.php:613
 msgid "Email:"
-msgstr ""
+msgstr "ایمیل:"
 
 #: includes/admin/metaboxes.php:614
 #: templates/default/bbpress/form-user-edit.php:112
 #: templates/default/bbpress/form-user-register.php:34
 msgid "Email"
-msgstr ""
+msgstr "ایمیل"
 
 #: includes/admin/metaboxes.php:619
 #: templates/default/bbpress/form-anonymous.php:33
 msgid "Website:"
-msgstr ""
+msgstr "وبسایت:"
 
 #: includes/admin/metaboxes.php:620
 #: templates/default/bbpress/form-user-edit.php:60
 msgid "Website"
-msgstr ""
+msgstr "وب‌سایت"
 
 #: includes/admin/metaboxes.php:627
 msgid "ID:"
-msgstr ""
+msgstr "نهاد:"
 
 #: includes/admin/metaboxes.php:628
 msgid "ID"
-msgstr ""
+msgstr "نهاد"
 
 #: includes/admin/metaboxes.php:635
 msgid "IP:"
-msgstr ""
+msgstr "IP:"
 
 #: includes/admin/metaboxes.php:636
 msgid "IP Address"
-msgstr ""
+msgstr "نشانی IP"
 
 #: includes/admin/metaboxes.php:661
 msgid "Separate user-names with commas"
@@ -1216,19 +1216,19 @@ msgstr "شناسه‌های کاربری را با ویرگول لاتین جد�
 
 #: includes/admin/metaboxes.php:695
 msgid "No users have engaged to this topic."
-msgstr ""
+msgstr "هیچ کاربری درگیر با این جستار نشده است."
 
 #: includes/admin/metaboxes.php:731
 msgid "No users have favorited this topic."
-msgstr ""
+msgstr "هیچ کاربری علاقه‌مند به این جستار نشده است."
 
 #: includes/admin/metaboxes.php:767
 msgid "No users have subscribed to this topic."
-msgstr ""
+msgstr "هیچ کاربری مشترک این جستار نشده است."
 
 #: includes/admin/metaboxes.php:803
 msgid "No users have subscribed to this forum."
-msgstr ""
+msgstr "هیچ کاربری مشترک این تالار نشده است."
 
 #: includes/admin/replies.php:114
 msgid ""
@@ -1365,7 +1365,7 @@ msgstr ""
 
 #: includes/admin/replies.php:195 includes/admin/replies.php:333
 msgid "Reply Attributes"
-msgstr ""
+msgstr "ویژگی‌های پاسخ"
 
 #: includes/admin/replies.php:197
 msgid "Select the attributes that your reply should have:"
@@ -1390,7 +1390,7 @@ msgstr ""
 #: includes/admin/replies.php:230 includes/admin/topics.php:235
 #: includes/replies/template.php:1971 includes/topics/template.php:2822
 msgid "Unspam"
-msgstr ""
+msgstr "ناجفنگ"
 
 #: includes/admin/replies.php:248
 msgid "%s reply updated."
@@ -1536,7 +1536,7 @@ msgstr ""
 
 #: includes/admin/replies.php:852 includes/admin/topics.php:1047
 msgid "In all forums"
-msgstr ""
+msgstr "در همهٔ تالارها"
 
 #: includes/admin/replies.php:904 includes/admin/replies.php:916
 msgid "Reply updated."
@@ -1580,15 +1580,15 @@ msgstr ""
 
 #: includes/admin/settings.php:29
 msgid "Forum User Settings"
-msgstr ""
+msgstr "تنظیمات کاربری تالارها"
 
 #: includes/admin/settings.php:34
 msgid "Forum Features"
-msgstr "امکانات تالار"
+msgstr "امکانات تالارها"
 
 #: includes/admin/settings.php:39
 msgid "Forum Theme Packages"
-msgstr ""
+msgstr "بسته‌های پوسته تالارها"
 
 #: includes/admin/settings.php:44
 msgid "Topics and Replies Per Page"
@@ -1600,27 +1600,27 @@ msgstr ""
 
 #: includes/admin/settings.php:54
 msgid "Forum Root Slug"
-msgstr ""
+msgstr "نامک پایه تالارها"
 
 #: includes/admin/settings.php:59
 msgid "Forum Single Slugs"
-msgstr ""
+msgstr "نامک تک تالارها"
 
 #: includes/admin/settings.php:64
 msgid "Forum User Slugs"
-msgstr ""
+msgstr "نامک کاربر تالارها"
 
 #: includes/admin/settings.php:71
 msgid "Forum Integration for BuddyPress"
-msgstr ""
+msgstr "یک‌پارچه‌سازی تالارها با بادی‌پرس"
 
 #: includes/admin/settings.php:76
 msgid "Forum Integration for Akismet"
-msgstr ""
+msgstr "یک‌پارچه‌سازی تالارها با اکیسمت"
 
 #: includes/admin/settings.php:83 includes/admin/tools/help.php:104
 msgid "Database Settings"
-msgstr ""
+msgstr "تنظیمات پایگاه‌داده"
 
 #: includes/admin/settings.php:88
 msgid "Options"
@@ -1628,23 +1628,23 @@ msgstr "گزینه‌ها"
 
 #: includes/admin/settings.php:119
 msgid "Roles"
-msgstr ""
+msgstr "نقش‌ها"
 
 #: includes/admin/settings.php:133
 msgid "Flooding"
-msgstr ""
+msgstr "سیلاب"
 
 #: includes/admin/settings.php:147
 msgid "Editing"
-msgstr ""
+msgstr "ویرایش"
 
 #: includes/admin/settings.php:155 includes/users/template.php:799
 msgid "Anonymous"
-msgstr ""
+msgstr "ناشناس"
 
 #: includes/admin/settings.php:168 includes/admin/settings.php:1997
 msgid "Revisions"
-msgstr ""
+msgstr "رونوشت‌ها"
 
 #: includes/admin/settings.php:176 includes/admin/tools/common.php:329
 #: includes/admin/topics.php:447 includes/extend/buddypress/loader.php:235
@@ -1658,15 +1658,15 @@ msgstr "علاقه‌مندی‌ها"
 #: includes/extend/buddypress/loader.php:324
 #: templates/default/bbpress/user-details.php:49
 msgid "Engagements"
-msgstr ""
+msgstr "درگیری‌ها"
 
 #: includes/admin/settings.php:200
 msgid "Topic tags"
-msgstr ""
+msgstr "برچسب‌های جستار"
 
 #: includes/admin/settings.php:216
 msgid "Super Moderators"
-msgstr ""
+msgstr "ناظر ارشد"
 
 #: includes/admin/settings.php:224 includes/admin/settings.php:391
 #: includes/common/template.php:2372 includes/search/template.php:175
@@ -1716,7 +1716,7 @@ msgstr ""
 #: includes/extend/buddypress/loader.php:307
 #: templates/default/bbpress/user-details.php:36
 msgid "Topics Started"
-msgstr ""
+msgstr "جستارهای طرح‌شده"
 
 #: includes/admin/settings.php:420 includes/extend/buddypress/loader.php:210
 #: includes/extend/buddypress/loader.php:315
@@ -1731,15 +1731,15 @@ msgstr "جستارهای مورد علاقه"
 #: includes/admin/settings.php:457 includes/admin/tools/upgrade.php:325
 #: includes/extend/buddypress/functions.php:341
 msgid "Group Forums"
-msgstr ""
+msgstr "تالارهای گروه"
 
 #: includes/admin/settings.php:465
 msgid "Primary Forum"
-msgstr ""
+msgstr "تالار اصلی"
 
 #: includes/admin/settings.php:478
 msgid "Use Akismet"
-msgstr ""
+msgstr "استفاده از اکیسمت"
 
 #: includes/admin/settings.php:492
 msgid "Select Platform"
@@ -2275,31 +2275,31 @@ msgstr "برگه‌ها"
 
 #: includes/admin/settings.php:1998
 msgid "Attachments"
-msgstr ""
+msgstr "پیوست‌ها"
 
 #: includes/admin/settings.php:1999
 msgid "Menus"
-msgstr ""
+msgstr "فهرست‌ها"
 
 #: includes/admin/settings.php:2002
 msgid "Tag base"
-msgstr ""
+msgstr "مبنای برچسب"
 
 #: includes/admin/settings.php:2005
 msgid "Category base"
-msgstr ""
+msgstr "مبنای دسته"
 
 #: includes/admin/settings.php:2010
 msgid "Forums base"
-msgstr ""
+msgstr "مبنای تالارها"
 
 #: includes/admin/settings.php:2013
 msgid "Topics base"
-msgstr ""
+msgstr "مبنای جستارها"
 
 #: includes/admin/settings.php:2016
 msgid "Forum slug"
-msgstr ""
+msgstr "نامک تالار"
 
 #: includes/admin/settings.php:2019
 msgid "Topic slug"
@@ -2307,23 +2307,23 @@ msgstr "نامک جستار"
 
 #: includes/admin/settings.php:2022
 msgid "Reply slug"
-msgstr ""
+msgstr "نامک پاسخ"
 
 #: includes/admin/settings.php:2025
 msgid "User base"
-msgstr ""
+msgstr "مبنای کاربر"
 
 #: includes/admin/settings.php:2028
 msgid "View base"
-msgstr ""
+msgstr "مبنای نمایش"
 
 #: includes/admin/settings.php:2031
 msgid "Topic tag slug"
-msgstr ""
+msgstr "نامک برچسب جستار"
 
 #: includes/admin/settings.php:2043
 msgid "%s page"
-msgstr ""
+msgstr "%s صفحه"
 
 #: includes/admin/settings.php:2066
 msgid "Possible %1$s conflict: %2$s"
@@ -2339,7 +2339,7 @@ msgstr "جست‌وجوی ابزارها"
 
 #: includes/admin/tools/common.php:253
 msgid "Filter by Component"
-msgstr ""
+msgstr "پالایه کامپوننت"
 
 #: includes/admin/tools/common.php:255
 msgid "All Components"
@@ -2351,19 +2351,19 @@ msgstr "پالایه"
 
 #: includes/admin/tools/common.php:282
 msgid "Low"
-msgstr ""
+msgstr "پایین"
 
 #: includes/admin/tools/common.php:285
 msgid "Medium"
-msgstr ""
+msgstr "متوسط"
 
 #: includes/admin/tools/common.php:288
 msgid "High"
-msgstr ""
+msgstr "بالا"
 
 #: includes/admin/tools/common.php:311 includes/admin/tools/common.php:326
 msgid "Users"
-msgstr ""
+msgstr "کاربران"
 
 #: includes/admin/tools/common.php:323 includes/topics/template.php:3379
 #: templates/default/bbpress/content-statistics.php:40
@@ -2372,12 +2372,12 @@ msgstr "برچسب‌های جستار"
 
 #: includes/admin/tools/common.php:504
 msgid "All %s"
-msgstr ""
+msgstr "همه %s"
 
 #: includes/admin/tools/help.php:30 includes/admin/tools/repair.php:29
 #: includes/admin/tools.php:499
 msgid "Repair Forums"
-msgstr ""
+msgstr "تعمیر تالارها"
 
 #: includes/admin/tools/help.php:31
 msgid ""
@@ -3301,7 +3301,7 @@ msgstr ""
 
 #: includes/admin/topics.php:201 includes/admin/topics.php:338
 msgid "Topic Attributes"
-msgstr ""
+msgstr "ویژگی‌های جستار"
 
 #: includes/admin/topics.php:203
 msgid "Select the attributes that your topic should have:"
@@ -3664,7 +3664,7 @@ msgstr "خانه"
 
 #: includes/common/template.php:2249
 msgid "(Edit)"
-msgstr ""
+msgstr "(ویرایش)"
 
 #: includes/common/template.php:2253 includes/common/template.php:2368
 #: includes/common/template.php:2613 includes/core/theme-compat.php:794
@@ -3777,7 +3777,7 @@ msgstr ""
 
 #: includes/common/widgets.php:37
 msgid "(bbPress) Login Widget"
-msgstr ""
+msgstr "بی‌بی‌پرس: ابزارک ورود"
 
 #: includes/common/widgets.php:80 includes/common/widgets.php:101
 #: templates/default/bbpress/form-user-login.php:17
@@ -3833,7 +3833,7 @@ msgstr ""
 
 #: includes/common/widgets.php:229
 msgid "(bbPress) Topic Views List"
-msgstr ""
+msgstr "بی‌بی‌پرس: فهرست نمای جستارها"
 
 #: includes/common/widgets.php:359
 msgid "The bbPress forum search form."
@@ -3841,7 +3841,7 @@ msgstr ""
 
 #: includes/common/widgets.php:362
 msgid "(bbPress) Forum Search Form"
-msgstr ""
+msgstr "بی‌بی‌پرس: فرم جست‌وجوی تالارها"
 
 #: includes/common/widgets.php:451 includes/forums/template.php:60
 msgid "Search Forums"
@@ -3853,7 +3853,7 @@ msgstr ""
 
 #: includes/common/widgets.php:478
 msgid "(bbPress) Forums List"
-msgstr ""
+msgstr "بی‌بی‌پرس: فهرست تالارها"
 
 #: includes/common/widgets.php:601 includes/common/widgets.php:870
 msgid "Parent Forum ID:"
@@ -3870,7 +3870,7 @@ msgstr ""
 
 #: includes/common/widgets.php:650
 msgid "(bbPress) Recent Topics"
-msgstr ""
+msgstr "بی‌بی‌پرس: آخرین جستارها"
 
 #: includes/common/widgets.php:867
 msgid "Maximum topics to show:"
@@ -3890,16 +3890,16 @@ msgstr "چینش بر اساس:"
 
 #: includes/common/widgets.php:885
 msgid "Newest Topics"
-msgstr ""
+msgstr "جستارهای تازه"
 
 #: includes/common/widgets.php:886
 #: templates/default/extras/page-forum-statistics.php:34
 msgid "Popular Topics"
-msgstr ""
+msgstr "جستارهای محبوب"
 
 #: includes/common/widgets.php:887
 msgid "Topics With Recent Replies"
-msgstr ""
+msgstr "جستارهایی با پاسخ‌های تازه"
 
 #: includes/common/widgets.php:903
 msgid "Recent Topics"
@@ -3907,23 +3907,23 @@ msgstr "آخرین جستارها"
 
 #: includes/common/widgets.php:932
 msgid "Some statistics from your forum."
-msgstr ""
+msgstr "آمارهایی از تالارهای شما."
 
 #: includes/common/widgets.php:935
 msgid "(bbPress) Statistics"
-msgstr ""
+msgstr "بی‌بی‌پرس: آمارها"
 
 #: includes/common/widgets.php:1026
 msgid "Forum Statistics"
-msgstr ""
+msgstr "آمار تالارها"
 
 #: includes/common/widgets.php:1050
 msgid "A list of the most recent replies."
-msgstr ""
+msgstr "فهرستی از آخرین پاسخ‌ها."
 
 #: includes/common/widgets.php:1053
 msgid "(bbPress) Recent Replies"
-msgstr ""
+msgstr "بی‌بی‌پرس: آخرین پاسخ‌ها"
 
 #: includes/common/widgets.php:1215
 msgid "Maximum replies to show:"
@@ -3935,7 +3935,7 @@ msgstr ""
 
 #: includes/common/widgets.php:1231
 msgid "Recent Replies"
-msgstr ""
+msgstr "آخرین پاسخ‌ها"
 
 #: includes/core/capabilities.php:501
 msgid "Editable forum roles no longer exist."
@@ -3951,7 +3951,7 @@ msgstr ""
 
 #: includes/core/update.php:187
 msgid "Hello World!"
-msgstr ""
+msgstr "سلام دنیا!"
 
 #: includes/core/update.php:188
 msgid "I am the first topic in your new forums."
@@ -4042,7 +4042,7 @@ msgstr ""
 #: includes/extend/buddypress/groups.php:330
 #: includes/extend/buddypress/groups.php:333
 msgid "Group Forum Settings"
-msgstr ""
+msgstr "تنظیمات تالار گروه"
 
 #: includes/extend/buddypress/groups.php:334
 #: includes/extend/buddypress/groups.php:533
@@ -4050,28 +4050,30 @@ msgid ""
 "Create a discussion forum to allow members of this group to communicate in a "
 "structured, bulletin-board style fashion."
 msgstr ""
+"تالاری برای گفت‌وگوی بین اعضای این گروه ایجاد کنید، تا به شیوه‌ای ساختاریافته "
+"با هم ارتباط برقرار کنند."
 
 #: includes/extend/buddypress/groups.php:338
 #: includes/extend/buddypress/groups.php:536
 msgid "Yes. I want this group to have a forum."
-msgstr ""
+msgstr "بله، می‌خواهم این گروه، تالار داشته باشد."
 
 #: includes/extend/buddypress/groups.php:341
 msgid "Saying no will not delete existing forum content."
-msgstr ""
+msgstr "عدم انتخاب، منجر به پاک‌شدن محتوای تالار موجود نخواهد شد."
 
 #: includes/extend/buddypress/groups.php:346
 msgid "Group Forum:"
-msgstr ""
+msgstr "تالار گروه:"
 
 #: includes/extend/buddypress/groups.php:354
 msgid ""
 "Network administrators can reconfigure which forum belongs to this group."
-msgstr ""
+msgstr "مدیران شبکه توانایی پیکربندی دوباره تالارهای این گروه را دارند."
 
 #: includes/extend/buddypress/groups.php:359
 msgid "Save Settings"
-msgstr ""
+msgstr "ذخیره تنظیمات"
 
 #: includes/extend/buddypress/groups.php:394
 #: includes/extend/buddypress/groups.php:551
@@ -4090,11 +4092,11 @@ msgstr ""
 
 #: includes/extend/buddypress/groups.php:531
 msgid "Group Forum"
-msgstr ""
+msgstr "تالار گروه"
 
 #: includes/extend/buddypress/groups.php:878
 msgid "This group does not currently have a forum."
-msgstr ""
+msgstr "هم‌اکنون این گروه، تالاری ندارد."
 
 #: includes/extend/buddypress/loader.php:107
 msgid "Search Forums..."
@@ -4227,7 +4229,7 @@ msgstr "نمایش تالار"
 
 #: includes/forums/template.php:59
 msgid "View Forums"
-msgstr ""
+msgstr "نمایش تالارها"
 
 #: includes/forums/template.php:61
 msgid "No forums found"
@@ -4235,11 +4237,11 @@ msgstr "تالاری پیدا نشد"
 
 #: includes/forums/template.php:62
 msgid "No forums found in Trash"
-msgstr ""
+msgstr "تالاری در زباله‌دان پیدا نشد"
 
 #: includes/forums/template.php:63
 msgid "Filter forums list"
-msgstr ""
+msgstr "پالایه فهرست تالارها"
 
 #: includes/forums/template.php:64
 msgid "Forums list"
@@ -4251,17 +4253,17 @@ msgstr "راه‌بری فهرست تالارها"
 
 #: includes/forums/template.php:66 templates/default/bbpress/form-forum.php:139
 msgid "Parent Forum:"
-msgstr ""
+msgstr "تالار مادر:"
 
 #: includes/forums/template.php:794 includes/topics/template.php:1796
 #: includes/users/template.php:1272
 msgid "Subscribe"
-msgstr "دنبال کردن"
+msgstr "اشتراک"
 
 #: includes/forums/template.php:795 includes/topics/template.php:1797
 #: includes/users/template.php:1273
 msgid "Unsubscribe"
-msgstr "دنبال نکردن"
+msgstr "عدم اشتراک"
 
 #: includes/forums/template.php:1131 includes/forums/template.php:1932
 msgid "%s topic"
@@ -4272,8 +4274,8 @@ msgstr[1] "%s جستار"
 #: includes/forums/template.php:1146 includes/topics/template.php:2045
 msgid "(+%s hidden)"
 msgid_plural "(+%s hidden)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "(+%s پنهان)"
+msgstr[1] "(+%s پنهان)"
 
 #: includes/forums/template.php:1921 includes/topics/template.php:2030
 msgid "%s reply"
@@ -4517,11 +4519,11 @@ msgstr "پاسخ‌ها: %s"
 
 #: includes/replies/template.php:54
 msgid "Create New Reply"
-msgstr ""
+msgstr "ایجاد پاسخ تازه"
 
 #: includes/replies/template.php:56
 msgid "Edit Reply"
-msgstr ""
+msgstr "ویرایش پاسخ"
 
 #: includes/replies/template.php:57
 msgid "New Reply"
@@ -4529,11 +4531,11 @@ msgstr "افزودن پاسخ"
 
 #: includes/replies/template.php:58 includes/replies/template.php:59
 msgid "View Reply"
-msgstr ""
+msgstr "نمایش پاسخ"
 
 #: includes/replies/template.php:60
 msgid "View Replies"
-msgstr ""
+msgstr "نمایش پاسخ‌ها"
 
 #: includes/replies/template.php:61
 msgid "Search Replies"
@@ -4541,23 +4543,23 @@ msgstr "جست‌وجوی پاسخ‌ها"
 
 #: includes/replies/template.php:62
 msgid "No replies found"
-msgstr ""
+msgstr "پاسخی پیدا نشد"
 
 #: includes/replies/template.php:63
 msgid "No replies found in Trash"
-msgstr ""
+msgstr "پاسخی در زباله‌دان پیدا نشد"
 
 #: includes/replies/template.php:64
 msgid "Filter replies list"
-msgstr ""
+msgstr "پالایه فهرست پاسخ‌ها"
 
 #: includes/replies/template.php:65
 msgid "Replies list"
-msgstr ""
+msgstr "فهرست پاسخ‌ها"
 
 #: includes/replies/template.php:66
 msgid "Replies list navigation"
-msgstr ""
+msgstr "راه‌بری فهرست پاسخ‌ها"
 
 #: includes/replies/template.php:520
 #: templates/default/bbpress/form-reply.php:30
@@ -4575,23 +4577,23 @@ msgstr ""
 #: includes/replies/template.php:1138 includes/topics/template.php:1445
 #: includes/users/template.php:1991
 msgid "View %s's profile"
-msgstr ""
+msgstr "نمایش نمایه %s"
 
 #: includes/replies/template.php:1139 includes/topics/template.php:1446
 #: includes/users/template.php:1991
 msgid "Visit %s's website"
-msgstr ""
+msgstr "نمایش سایت %s"
 
 #: includes/replies/template.php:1594
 #: templates/default/bbpress/form-user-passwords.php:31
 msgid "Cancel"
-msgstr ""
+msgstr "لغو"
 
 #: includes/replies/template.php:1904 includes/topics/template.php:2531
 #: templates/default/bbpress/form-topic-tag.php:100
 #: templates/default/bbpress/form-topic-tag.php:117
 msgid "Delete"
-msgstr ""
+msgstr "حذف"
 
 #: includes/replies/template.php:1929 includes/topics/template.php:2552
 msgid "Are you sure you want to delete that permanently?"
@@ -4607,11 +4609,11 @@ msgstr ""
 
 #: includes/replies/template.php:2085
 msgid "Split"
-msgstr ""
+msgstr "جداسازی"
 
 #: includes/replies/template.php:2086
 msgid "Split the topic from this reply"
-msgstr ""
+msgstr "جداسازی جستار از این پاسخ"
 
 #: includes/replies/template.php:2320
 msgid "Viewing %1$s reply thread"
@@ -4623,7 +4625,7 @@ msgstr[1] ""
 msgid "Viewing %1$s reply"
 msgid_plural "Viewing %1$s replies"
 msgstr[0] "در حال نمایش %1$s پاسخ"
-msgstr[1] ""
+msgstr[1] "در حال نمایش %1$s پاسخ"
 
 #: includes/replies/template.php:2331
 msgid "Viewing %2$s replies (of %4$s total)"
@@ -4873,7 +4875,7 @@ msgstr "نمایش جستار"
 
 #: includes/topics/template.php:58
 msgid "View Topics"
-msgstr ""
+msgstr "نمایش جستارها"
 
 #: includes/topics/template.php:59
 msgid "Search Topics"
@@ -4881,23 +4883,23 @@ msgstr "جست‌وجوی جستارها"
 
 #: includes/topics/template.php:60
 msgid "No topics found"
-msgstr ""
+msgstr "جستاری پیدا نشد"
 
 #: includes/topics/template.php:61
 msgid "No topics found in Trash"
-msgstr ""
+msgstr "جستاری در زباله‌دان پیدا نشد"
 
 #: includes/topics/template.php:62
 msgid "Filter topics list"
-msgstr ""
+msgstr "پالایه فهرست جستارها"
 
 #: includes/topics/template.php:63
 msgid "Topics list"
-msgstr ""
+msgstr "فهرست جستارها"
 
 #: includes/topics/template.php:64
 msgid "Topics list navigation"
-msgstr ""
+msgstr "راه‌بری فهرست جستارها"
 
 #: includes/topics/template.php:911
 msgid "This topic was modified %1$s by %2$s. Reason: %3$s"
@@ -4909,11 +4911,11 @@ msgstr ""
 
 #: includes/topics/template.php:1843 includes/users/template.php:1074
 msgid "Favorite"
-msgstr "محبوب کردن"
+msgstr "محبوب"
 
 #: includes/topics/template.php:1844 includes/users/template.php:1075
 msgid "Unfavorite"
-msgstr ""
+msgstr "نامحبوب"
 
 #: includes/topics/template.php:2209
 msgid "Tagged:"
@@ -5952,7 +5954,7 @@ msgstr "بستن"
 #: includes/admin/forums.php:615
 msgctxt "Open a Forum"
 msgid "Open"
-msgstr "باز کردن"
+msgstr "باز"
 
 #: includes/admin/replies.php:787
 msgctxt "Unapprove reply"
@@ -5987,7 +5989,7 @@ msgstr "بستن"
 #: includes/admin/topics.php:973
 msgctxt "Open a Topic"
 msgid "Open"
-msgstr "باز کردن"
+msgstr "باز"
 
 #: includes/common/formatting.php:692
 msgctxt "Separator in time since"
@@ -6061,7 +6063,7 @@ msgstr "تالار گفت‌وگو"
 #: includes/forums/functions.php:1830
 msgctxt "Open the forum"
 msgid "Open"
-msgstr "باز کردن"
+msgstr "باز"
 
 #: includes/forums/functions.php:1831
 msgctxt "Close the forum"
@@ -6141,7 +6143,7 @@ msgstr "هیچ‌کدام"
 #: includes/topics/functions.php:1826 includes/topics/template.php:2595
 msgctxt "Open the topic"
 msgid "Open"
-msgstr "باز کردن"
+msgstr "باز"
 
 #: includes/topics/functions.php:1827
 msgctxt "Close the topic"
