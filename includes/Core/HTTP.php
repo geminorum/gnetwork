@@ -142,7 +142,7 @@ class HTTP extends Base
 
 	// http://code.tutsplus.com/tutorials/a-look-at-the-wordpress-http-api-a-brief-survey-of-wp_remote_get--wp-32065
 	// http://wordpress.stackexchange.com/a/114922
-	public static function getJSON( $url, $atts = array(), $assoc = FALSE )
+	public static function getJSON( $url, $atts = array(), $assoc = TRUE )
 	{
 		$args = self::recursiveParseArgs( $atts, array(
 			'timeout' => 15,
@@ -159,7 +159,7 @@ class HTTP extends Base
 		return FALSE;
 	}
 
-	public static function postJSON( $body, $url, $atts = array(), $assoc = FALSE )
+	public static function postJSON( $body, $url, $atts = array(), $assoc = TRUE )
 	{
 		$args = self::recursiveParseArgs( $atts, array(
 			'body'    => $body,

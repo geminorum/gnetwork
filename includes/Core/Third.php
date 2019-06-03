@@ -77,7 +77,7 @@ class Third extends Base
 			.'&singleEvents=true'
 			.'&timeMin='.$time.'T00:00:00Z';
 
-		return HTTP::getJSON( $url );
+		return HTTP::getJSON( $url, [], FALSE );
 	}
 
 	// @API: https://developers.google.com/chart/infographics/docs/qr_codes
