@@ -684,7 +684,7 @@ class User extends gNetwork\Module
 		if ( $user->first_name || $user->last_name ) {
 			echo '<li class="-row -name">';
 				echo $this->get_column_icon( FALSE, 'nametag', _x( 'Name', 'Modules: User', GNETWORK_TEXTDOMAIN ) );
-				echo "$user->first_name $user->last_name";
+				printf( '%s %s', $user->first_name, $user->last_name );
 			echo '</li>';
 		}
 

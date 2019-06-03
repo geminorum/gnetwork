@@ -295,7 +295,7 @@ class Update extends gNetwork\Module
 			if ( is_null( $endpoint ) )
 				$endpoint = $this->endpoint( $package );
 
-			if ( ! $response = HTTP::getJSON( $endpoint, [ 'headers' => $this->endpoint_headers( $package ) ], TRUE ) )
+			if ( ! $response = HTTP::getJSON( $endpoint, [ 'headers' => $this->endpoint_headers( $package ) ] ) )
 				return FALSE;
 
 			$data = $this->cleanup_package_date( $response, $package );

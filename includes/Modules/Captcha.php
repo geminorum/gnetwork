@@ -193,7 +193,7 @@ class Captcha extends gNetwork\Module
 			$_POST['g-recaptcha-response'],
 		] );
 
-		$response = HTTP::getJSON( $request, [], TRUE );
+		$response = HTTP::getJSON( $request );
 
 		if ( ! empty( $response['error-codes'] ) )
 			Logger::siteWARNING( 'CAPTCHA-VERIFY', join( ', ', (array) $response['error-codes'] ) );

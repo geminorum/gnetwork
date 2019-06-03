@@ -129,7 +129,7 @@ class Code extends gNetwork\Module
 				$md = HTTP::getHTML( $url );
 
 			else if ( $json = HTTP::getJSON( $url ) )
-				$md = base64_decode( $json->content );
+				$md = base64_decode( $json['content'] );
 
 			else
 				$md = FALSE;

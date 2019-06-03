@@ -462,7 +462,7 @@ class Admin extends gNetwork\Module
 			&& ! WordPress::isBlockEditor() ) {
 
 			$script = 'jQuery(function($) {
-				$("select.gnetwork-do-chosen, .postbox:not(#submitdiv) .inside select:not(.no-chosen):not(.postform), .tablenav select").chosen({
+				$("select.gnetwork-do-chosen, .postbox:not(#submitdiv) .inside select:not(.no-chosen):not(.postform), .tablenav select:not(#bulk-action-selector-top):not(#bulk-action-selector-bottom)").chosen({
 					rtl: "rtl" === $("html").attr("dir"),
 					no_results_text: "'._x( 'No results match', 'Modules: Admin: Chosen', GNETWORK_TEXTDOMAIN ).'",
 					disable_search_threshold: 10
