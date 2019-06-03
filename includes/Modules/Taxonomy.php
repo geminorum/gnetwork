@@ -665,7 +665,8 @@ class Taxonomy extends gNetwork\Module
 	public function input_merge( $taxonomy )
 	{
 		printf( _x( 'into: %s', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN ),
-			'<input name="bulk_to_tag" type="text" size="20"></input>' );
+			'<input name="bulk_to_tag" type="text" placeholder="'
+			._x( 'Name, Slug or ID', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN ).'" />' );
 	}
 
 	public function input_change_tax( $taxonomy )
