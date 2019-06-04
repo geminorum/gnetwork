@@ -24,10 +24,10 @@ class Provider extends Core\Base
 	protected $user    = NULL;
 	protected $front   = TRUE;
 
-	protected $ajax   = FALSE;
-	protected $cron   = FALSE;
-	protected $dev    = NULL;
-	protected $hidden = FALSE;
+	protected $beta = FALSE;
+	protected $ajax = FALSE;
+	protected $cron = FALSE;
+	protected $dev  = NULL;
 
 	protected $api_key = '';
 	protected $api_uri = '';
@@ -43,8 +43,8 @@ class Provider extends Core\Base
 		if ( is_null( $this->type ) )
 			throw new Exception( 'Type Undefined!' );
 
-		if ( ! GNETWORK_HIDDEN_FEATURES && $this->hidden )
-			throw new Exception( 'Hidden Feature!' );
+		if ( ! GNETWORK_BETA_FEATURES && $this->beta )
+			throw new Exception( 'Beta Feature!' );
 
 		if ( ! $this->ajax && WordPress::isAJAX() )
 			throw new Exception( 'Not on AJAX Calls!' );

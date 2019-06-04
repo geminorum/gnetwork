@@ -29,7 +29,7 @@ class Module extends Core\Base
 	protected $user    = NULL;
 	protected $front   = TRUE;
 
-	protected $hidden     = FALSE;
+	protected $beta       = FALSE;
 	protected $ajax       = FALSE;
 	protected $cron       = FALSE;
 	protected $installing = FALSE;
@@ -54,8 +54,8 @@ class Module extends Core\Base
 		if ( is_null( $this->key ) )
 			$this->key = strtolower( str_ireplace( __NAMESPACE__.'\\', '', get_class( $this ) ) );
 
-		if ( ! GNETWORK_HIDDEN_FEATURES && $this->hidden )
-			throw new Exception( 'Hidden Feature!' );
+		if ( ! GNETWORK_BETA_FEATURES && $this->beta )
+			throw new Exception( 'Beta Feature!' );
 
 		if ( ! $this->ajax && WordPress::isAJAX() )
 			throw new Exception( 'Not on AJAX Calls!' );

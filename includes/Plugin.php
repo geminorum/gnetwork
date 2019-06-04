@@ -101,7 +101,7 @@ class Plugin
 			'GNETWORK_DISABLE_BBQ'       => FALSE,
 			'GNETWORK_DISABLE_RECAPTCHA' => FALSE,
 			'GNETWORK_DISABLE_CREDITS'   => FALSE,
-			'GNETWORK_HIDDEN_FEATURES'   => FALSE,
+			'GNETWORK_BETA_FEATURES' => FALSE,
 
 			'GNETWORK_DEBUG_LOG'    => WP_DEBUG_LOG && TRUE !== WP_DEBUG_LOG ? WP_DEBUG_LOG : WP_CONTENT_DIR.'/debug.log', // FALSE to disable / @REF: https://core.trac.wordpress.org/ticket/18391
 			'GNETWORK_ANALOG_LOG'   => WP_CONTENT_DIR.'/analog.log', // FALSE to disable
