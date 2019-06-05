@@ -3,7 +3,7 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
-use geminorum\gNetwork\Core\Exception;
+use geminorum\gNetwork\Core\WordPress;
 
 class GlotPress extends gNetwork\Module
 {
@@ -13,19 +13,44 @@ class GlotPress extends gNetwork\Module
 
 	protected function setup_actions()
 	{
+		if ( ! WordPress::isPluginActive( 'glotpress/glotpress.php' ) )
+			return FALSE;
+
 		if ( is_admin() )
 			return;
 
-		$this->action( 'plugins_loaded' );
+		$this->action( 'init', 0, 12 );
+		$this->filter( 'gp_home_title' );
 	}
 
-	public function plugins_loaded()
+	public function setup_menu( $context )
 	{
-		if ( ! defined( 'GP_VERSION' ) )
-			return;
+		Admin::registerMenu( $this->key,
+			_x( 'Translate', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
+			[ $this, 'settings' ]
+		);
+	}
 
-		$this->action( 'init', 0, 12 );
-		$this->filter( 'gp_home_title' ); // TODO: add setting for custom title
+	public function default_options()
+	{
+		return [
+			'home_title' => '',
+		];
+	}
+
+	public function default_settings()
+	{
+		return [
+			'_general' => [
+				[
+					'field'       => 'home_title',
+					'type'        => 'text',
+					'title'       => _x( 'Home Title', 'Modules: GlotPress: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Appears as home title on front-end of GlotPress.', 'Modules: GlotPress: Settings', GNETWORK_TEXTDOMAIN ),
+					'default'     => _x( 'GlotPress', 'Modules: GlotPress: Home Title', GNETWORK_TEXTDOMAIN ),
+				],
+			],
+		];
 	}
 
 	public function init()
@@ -36,6 +61,8 @@ class GlotPress extends gNetwork\Module
 
 	public function gp_home_title( $title )
 	{
-		return _x( 'GlotPress', 'Modules: GlotPress: Home Title', GNETWORK_TEXTDOMAIN );
+		return $this->options['shetab_card_notes']
+			? trim( $this->options['shetab_card_notes'] )
+			: _x( 'GlotPress', 'Modules: GlotPress: Home Title', GNETWORK_TEXTDOMAIN );
 	}
 }
