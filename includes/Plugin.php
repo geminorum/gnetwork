@@ -101,7 +101,9 @@ class Plugin
 			'GNETWORK_DISABLE_BBQ'       => FALSE,
 			'GNETWORK_DISABLE_RECAPTCHA' => FALSE,
 			'GNETWORK_DISABLE_CREDITS'   => FALSE,
+
 			'GNETWORK_BETA_FEATURES' => FALSE,
+			'GNETWORK_DEV_FEATURES'  => FALSE, // not the same as dev environment!
 
 			'GNETWORK_DEBUG_LOG'    => WP_DEBUG_LOG && TRUE !== WP_DEBUG_LOG ? WP_DEBUG_LOG : WP_CONTENT_DIR.'/debug.log', // FALSE to disable / @REF: https://core.trac.wordpress.org/ticket/18391
 			'GNETWORK_ANALOG_LOG'   => WP_CONTENT_DIR.'/analog.log', // FALSE to disable
@@ -203,6 +205,9 @@ class Plugin
 			// 'Modules/Roles'       => 'Roles',
 			// 'Modules/Rewrite'     => 'Rewrite',
 		];
+
+		if ( GNETWORK_DEV_FEATURES )
+			$modules['Modules/GlotPress'] = 'GlotPress';
 
 		if ( 'production' == WP_STAGE )
 			$modules['Modules/BBQ'] = 'BBQ';
