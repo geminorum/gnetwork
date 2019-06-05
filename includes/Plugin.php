@@ -200,6 +200,7 @@ class Plugin
 			'Modules/Branding'    => 'Branding',
 			'Modules/API'         => 'API',
 			'Modules/Uptime'      => 'Uptime',
+			'Modules/Commerce'    => 'Commerce',
 			'Modules/GlotPress'   => 'GlotPress',
 			'Modules/Profile'     => 'Profile',
 			// 'Modules/Roles'       => 'Roles',
