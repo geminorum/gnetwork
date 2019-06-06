@@ -154,17 +154,19 @@ class Text extends Base
 		return TRUE;
 	}
 
-	// @SOURCE: `normalize_whitespace()`
-	public static function normalizeWhitespace( $string )
+	// @REF: `normalize_whitespace()`
+	public static function normalizeWhitespace( $string, $multiline = FALSE )
 	{
-		// return preg_replace( '!\s+!', ' ', $string );
-		// return preg_replace( '/\s\s+/', ' ', $string );
+		$string = (string) $string;
 
-		return preg_replace(
-			array( '/\n+/', '/[ \t]+/' ),
-			array( "\n", ' ' ),
-			str_replace( "\r", "\n", trim( $string ) )
-		);
+		if ( 0 === strlen( $string ) )
+			return '';
+
+		$string = str_replace( "\r", "\n", trim( $string ) );
+
+		return $multiline
+			? preg_replace( [ "/\n\n+/", "/[ \t]+/" ], [ "\n\n", ' ' ], $string )
+			: preg_replace( [ "/\n+/", "/[ \t]+/" ], [ "\n", ' ' ], $string);
 	}
 
 	// @REF: http://stackoverflow.com/a/3226746
