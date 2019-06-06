@@ -7,6 +7,7 @@ use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\Number;
+use geminorum\gNetwork\Core\Text;
 use geminorum\gNetwork\Core\WordPress;
 
 class Taxonomy extends gNetwork\Module
@@ -21,8 +22,13 @@ class Taxonomy extends gNetwork\Module
 
 	protected function setup_actions()
 	{
-		add_filter( 'pre_term_name', 'normalize_whitespace', 9 );
-		// add_filter( 'pre_term_description', 'normalize_whitespace', 9 ); // FIXME: drops double \n
+		add_filter( 'pre_term_name', function ( $text ) {
+			return Text::normalizeWhitespace( $text, FALSE );
+		}, 9 );
+
+		add_filter( 'pre_term_description', function ( $text ) {
+			return Text::normalizeWhitespace( $text, TRUE );
+		}, 9 );
 	}
 
 	public function setup_menu( $context )
