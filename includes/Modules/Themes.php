@@ -70,7 +70,7 @@ class Themes extends gNetwork\Module
 	{
 		Admin::registerMenu( $this->key,
 			_x( 'Themes', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			[ $this, 'settings' ]
+			[ $this, 'settings' ], 'edit_theme_options'
 		);
 	}
 
