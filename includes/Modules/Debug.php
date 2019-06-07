@@ -4,6 +4,7 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
 use geminorum\gNetwork\Logger;
+use geminorum\gNetwork\Scripts;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\File;
@@ -201,8 +202,8 @@ class Debug extends gNetwork\Module
 			],
 		] );
 
-		Utilities::enqueueScriptVendor( 'prism' );
-		Utilities::enqueueMasonry();
+		Scripts::enqueueScriptVendor( 'prism' );
+		Scripts::enqueueMasonry();
 	}
 
 	// FIXME!

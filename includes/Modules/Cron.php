@@ -5,6 +5,7 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 use geminorum\gNetwork;
 use geminorum\gNetwork\Ajax;
 use geminorum\gNetwork\Logger;
+use geminorum\gNetwork\Scripts;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\Date;
@@ -135,7 +136,7 @@ class Cron extends gNetwork\Module
 
 		$this->status_check_box( FALSE );
 
-		Utilities::enqueueScript( 'admin.cron.statuscheck' );
+		Scripts::enqueueScript( 'admin.cron.statuscheck' );
 	}
 
 	protected function register_help_tabs( $sub = NULL, $context = 'settings' )
@@ -199,7 +200,7 @@ class Cron extends gNetwork\Module
 				[ $this, 'widget_status_check' ]
 			);
 
-			Utilities::enqueueScript( 'admin.cron.statuscheck' );
+			Scripts::enqueueScript( 'admin.cron.statuscheck' );
 		}
 	}
 

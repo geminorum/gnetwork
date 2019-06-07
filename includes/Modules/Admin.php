@@ -3,6 +3,7 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Scripts;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\HTML;
@@ -371,7 +372,7 @@ class Admin extends gNetwork\Module
 			];
 
 		if ( HTML::tabsList( $this->filters( 'overview', $tabs ) ) )
-			Utilities::enqueueMasonry();
+			Scripts::enqueueMasonry();
 	}
 
 	protected function settings_overview( $uri )
@@ -417,7 +418,7 @@ class Admin extends gNetwork\Module
 
 		echo '</div>';
 
-		Utilities::enqueueMasonry();
+		Scripts::enqueueMasonry();
 	}
 
 	public static function summaryShortcodes()
@@ -469,7 +470,7 @@ class Admin extends gNetwork\Module
 				}).addClass("gnetwork-chosen");
 			});';
 
-			wp_add_inline_script( Utilities::enqueueScriptVendor( 'chosen.jquery', [ 'jquery' ], '1.8.5' ), $script );
+			wp_add_inline_script( Scripts::enqueueScriptVendor( 'chosen.jquery', [ 'jquery' ], '1.8.5' ), $script );
 		}
 	}
 
@@ -497,7 +498,7 @@ class Admin extends gNetwork\Module
 		}
 
 		if ( GNETWORK_ADMIN_JS_ENHANCEMENTS )
-			wp_localize_script( Utilities::enqueueScript( 'admin.all' ), 'gNetwork', $this->localize_script() );
+			wp_localize_script( Scripts::enqueueScript( 'admin.all' ), 'gNetwork', $this->localize_script() );
 	}
 
 	protected function localize_script()

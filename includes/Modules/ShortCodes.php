@@ -3,6 +3,7 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Scripts;
 use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\Date;
 use geminorum\gNetwork\Core\File;
@@ -532,7 +533,7 @@ class ShortCodes extends gNetwork\Module
 		$local = strtotime( $post->post_modified );
 
 		if ( 'timeago' == $args['title'] )
-			$title = Utilities::enqueueTimeAgo()
+			$title = Scripts::enqueueTimeAgo()
 				? FALSE
 				: Utilities::humanTimeDiffRound( $local, $args['round'] );
 		else
@@ -850,7 +851,7 @@ class ShortCodes extends gNetwork\Module
 		unset( $args['class'] );
 
 		if ( ! WordPress::isXML() && ! WordPress::isREST() )
-			add_thickbox();
+			Scripts::enqueueThickBox();
 
 		return self::shortcodeWrap( $html, 'thickbox', $args, FALSE );
 	}
@@ -1075,7 +1076,7 @@ class ShortCodes extends gNetwork\Module
 		$selector = $this->selector( 'pdfobject-%2$s' );
 		$this->scripts_nojquery[$selector] = 'PDFObject.embed("'.$args['url'].'", "#'.$selector.'",'.wp_json_encode( $options ).');';
 
-		Utilities::enqueueScriptVendor( 'pdfobject', [], '2.1.1' );
+		Scripts::enqueueScriptVendor( 'pdfobject', [], '2.1.1' );
 		return self::shortcodeWrap( '<div id="'.$selector.'"></div>', 'pdf', $args );
 	}
 
@@ -1263,7 +1264,7 @@ class ShortCodes extends gNetwork\Module
 		$html  = $content ? trim( $content ) : $title;
 		$html  = '<a href="#" class="audio-go-to-time" title="'.HTML::escape( $title ).'" data-time="'.$args['to'].'" data-instance="'.$args['instance'].'">'.$html.'</a>';
 
-		Utilities::enqueueScript( 'front.audio-go' );
+		Scripts::enqueueScript( 'front.audio-go' );
 
 		return self::shortcodeWrap( $html, 'audio-go', $args, FALSE );
 	}
@@ -1444,7 +1445,7 @@ class ShortCodes extends gNetwork\Module
 			.( $args['number'] ? '' : ' style="list-style-type:decimal"' ).'>'.$html.'</ol>';
 
 		if ( ! defined( 'GNETWORK_DISABLE_REFLIST_JS' ) || ! GNETWORK_DISABLE_REFLIST_JS )
-			Utilities::enqueueScript( 'front.cite' );
+			Scripts::enqueueScript( 'front.cite' );
 
 		$this->ref_list = TRUE;
 
@@ -1546,7 +1547,7 @@ class ShortCodes extends gNetwork\Module
 		}
 
 		if ( ! defined( 'GNETWORK_DISABLE_REFLIST_JS' ) || ! GNETWORK_DISABLE_REFLIST_JS )
-			Utilities::enqueueScript( 'front.cite' );
+			Scripts::enqueueScript( 'front.cite' );
 
 		return '<span>'.( $args['format_number'] ? Number::format( $args['id'] ) : $args['id'] ).$args['after_number']
 				.'<span class="ref-backlink"><a href="#citeref-'.$args['id'].'-m" class="cite-scroll">'.$args['back']

@@ -3,8 +3,8 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Scripts;
 use geminorum\gNetwork\Settings;
-use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
@@ -292,7 +292,7 @@ class Themes extends gNetwork\Module
 				Themes::enqueueStyle( 'hueman', TRUE );
 
 				wp_deregister_script( 'flexslider' );
-				// we need the correct handle, so no `Utilities::enqueueScriptVendor()`
+				// we need the correct handle, so no `Scripts::enqueueScriptVendor()`
 				wp_enqueue_script( 'flexslider', GNETWORK_URL.'assets/js/vendor/jquery.flexslider-rtl.min.js', [ 'jquery' ], '2.6.1', TRUE );
 
 			}, 12 );
@@ -398,7 +398,7 @@ class Themes extends gNetwork\Module
 					Themes::enqueueStyle( 'revera', TRUE );
 
 					// wp_deregister_script( 'flexslider' );
-					// Utilities::enqueueScriptVendor( 'jquery.flexslider-rtl', [ 'jquery' ], '2.6.1' );
+					// Scripts::enqueueScriptVendor( 'jquery.flexslider-rtl', [ 'jquery' ], '2.6.1' );
 
 				}, 20 );
 

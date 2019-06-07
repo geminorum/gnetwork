@@ -3,7 +3,7 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
-use geminorum\gNetwork\Utilities;
+use geminorum\gNetwork\Scripts;
 use geminorum\gNetwork\Core\WordPress;
 
 class Editor extends gNetwork\Module
@@ -65,7 +65,7 @@ class Editor extends gNetwork\Module
 
 	public function wp_enqueue_editor()
 	{
-		Utilities::enqueueScript( 'editor.all', [ 'jquery', 'media-editor', 'underscore' ] );
+		Scripts::enqueueScript( 'editor.all', [ 'jquery', 'media-editor', 'underscore' ] );
 	}
 
 	public function enqueue_block_assets()

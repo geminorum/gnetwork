@@ -4,6 +4,7 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
 use geminorum\gNetwork\Ajax;
+use geminorum\gNetwork\Scripts;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\Arraay;
@@ -163,7 +164,7 @@ class Media extends gNetwork\Module
 
 			$this->filter( 'media_row_actions', 3, 50 );
 
-			Utilities::enqueueScript( 'admin.media' );
+			Scripts::enqueueScript( 'admin.media' );
 
 		} else if ( 'post' == $screen->base ) {
 
@@ -182,7 +183,7 @@ class Media extends gNetwork\Module
 				[ $this, 'widget_uploader' ]
 			);
 
-			Utilities::enqueueScript( 'admin.media.uploader' );
+			Scripts::enqueueScript( 'admin.media.uploader' );
 		}
 	}
 
@@ -282,8 +283,8 @@ class Media extends gNetwork\Module
 				}
 			}
 
-			add_thickbox();
-			Utilities::enqueueScript( 'admin.media.images' );
+			Scripts::enqueueThickBox();
+			Scripts::enqueueScript( 'admin.media.images' );
 		}
 	}
 

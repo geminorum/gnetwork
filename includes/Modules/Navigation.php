@@ -3,8 +3,8 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Scripts;
 use geminorum\gNetwork\Settings;
-use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\Text;
 use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
@@ -139,7 +139,7 @@ class Navigation extends gNetwork\Module
 
 		echo '</div>';
 
-		Utilities::enqueueScript( 'admin.nav-menus' );
+		Scripts::enqueueScript( 'admin.nav-menus' );
 	}
 
 	private function add_to_menu_button( $id )

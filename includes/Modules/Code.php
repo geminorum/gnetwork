@@ -3,6 +3,7 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Scripts;
 use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\HTTP;
@@ -233,7 +234,7 @@ class Code extends gNetwork\Module
 			],
 		], NULL );
 
-		Utilities::pkgGistEmbed();
+		Scripts::pkgGistEmbed();
 
 		return self::shortcodeWrap( $html, 'github-gist', $args, TRUE, [ 'data-github-gist' => $args['id'] ] );
 	}
@@ -312,8 +313,8 @@ class Code extends gNetwork\Module
 		if ( FALSE === $args['context'] )
 			return NULL;
 
-		Utilities::enqueueScriptVendor( 'prism' );
-		Utilities::enqueueScript( 'front.prism' );
+		Scripts::enqueueScriptVendor( 'prism' );
+		Scripts::enqueueScript( 'front.prism' );
 
 		if ( ! $content )
 			return '<!-- prismjs enqueued -->';

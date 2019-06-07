@@ -3,6 +3,7 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Scripts;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\HTML;
@@ -117,7 +118,7 @@ class Taxonomy extends gNetwork\Module
 					add_filter( 'term_description', 'wp_kses_post' );
 				}
 
-				Utilities::enqueueScript( 'admin.taxonomy.wordcount', [ 'jquery', 'word-count', 'underscore' ] );
+				Scripts::enqueueScript( 'admin.taxonomy.wordcount', [ 'jquery', 'word-count', 'underscore' ] );
 			}
 
 			if ( 'edit-tags' == $screen->base ) {
@@ -649,7 +650,7 @@ class Taxonomy extends gNetwork\Module
 	{
 		global $taxonomy;
 
-		wp_localize_script( Utilities::enqueueScript( 'admin.taxonomy.actions' ),
+		wp_localize_script( Scripts::enqueueScript( 'admin.taxonomy.actions' ),
 			'gNetworkTaxonomyActions', $this->get_actions( $taxonomy ) );
 	}
 
