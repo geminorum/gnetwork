@@ -1045,6 +1045,7 @@ class Settings extends Core\Base
 			break;
 			case 'textarea':
 			case 'textarea-quicktags':
+			case 'textarea-code-editor':
 
 				if ( ! $args['field_class'] )
 					$args['field_class'] = [ 'regular-text', 'textarea-autosize' ];
@@ -1066,6 +1067,21 @@ class Settings extends Core\Base
 					$scripts[] = 'quicktags({id:"'.$id.'",buttons:"'.implode( ',', $args['values'] ).'"});';
 
 					wp_enqueue_script( 'quicktags' );
+
+				} else if ( 'textarea-code-editor' == $args['type'] ) {
+
+					// @SEE: `wp_get_code_editor_settings()`
+					if ( ! $args['values'] )
+						$args['values'] = [
+							'lineNumbers'  => TRUE,
+							'lineWrapping' => TRUE,
+							'mode'         => 'htmlmixed',
+						];
+
+					// CAUTION: module must enqueue `code-editor` styles/scripts
+					// @SEE: `Scripts::enqueueCodeEditor()`
+					$scripts[] = sprintf( 'wp.CodeMirror.fromTextArea(document.getElementById("%s"), %s );',
+						$id, wp_json_encode( $args['values'] ) );
 				}
 
 				echo HTML::tag( 'textarea', [

@@ -38,6 +38,12 @@ class Scripts extends Core\Base
 		wp_enqueue_style( 'wp-color-picker' );
 	}
 
+	public static function enqueueCodeEditor()
+	{
+		wp_enqueue_script( 'code-editor' );
+		wp_enqueue_style( 'code-editor' );
+	}
+
 	public static function enqueueThickBox()
 	{
 		if ( function_exists( 'add_thickbox' ) )
