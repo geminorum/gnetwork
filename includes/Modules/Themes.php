@@ -45,6 +45,12 @@ class Themes extends gNetwork\Module
 
 		} else {
 
+			if ( $this->options['header_code'] && $this->options['header_html'] )
+				$this->action( 'wp_head', 0, 9999 );
+
+			if ( $this->options['footer_code'] && $this->options['footer_html'] )
+				$this->action( 'wp_footer', 0, 9999 );
+
 			$this->filter( 'amp_post_template_data', 2 );
 			$this->action( 'amp_post_template_css' );
 
@@ -78,6 +84,10 @@ class Themes extends gNetwork\Module
 			'jquery_cdn'      => '0',
 			'jquery_latest'   => '0',
 			'jquery_bottom'   => '0',
+			'header_code'     => '0',
+			'header_html'     => '',
+			'footer_code'     => '0',
+			'footer_html'     => '',
 		];
 	}
 
@@ -129,9 +139,38 @@ class Themes extends gNetwork\Module
 					'description' => _x( 'Prints jQuery in footer on front-end.', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 			],
+			'_insert' => [
+				[
+					'field'       => 'header_code',
+					'title'       => _x( 'Header Code', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Appends the following code to the end of head in HTML, on front-end.', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
+				],
+				[
+					'field'       => 'header_html',
+					'type'        => 'textarea-code-editor',
+					'title'       => _x( 'In Header', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Accepts raw HTML.', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
+				],
+				[
+					'field'       => 'footer_code',
+					'title'       => _x( 'Footer Code', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Appends the following code to the end of body in HTML, on front-end.', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
+				],
+				[
+					'field'       => 'footer_html',
+					'type'        => 'textarea-code-editor',
+					'title'       => _x( 'In Footer', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Accepts raw HTML.', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
+				],
+			],
 		];
 
 		return $settings;
+	}
+
+	protected function settings_setup( $sub = NULL )
+	{
+		Scripts::enqueueCodeEditor();
 	}
 
 	public function current_screen( $screen )
@@ -234,6 +273,16 @@ class Themes extends gNetwork\Module
 		}
 
 		$scripts->add( 'jquery', FALSE, $deps, ( $remote ? NULL : $jquery_ver ), $bottom );
+	}
+
+	public function wp_head()
+	{
+		echo $this->options['header_html'];
+	}
+
+	public function wp_footer()
+	{
+		echo $this->options['footer_html'];
 	}
 
 	public function amp_post_template_data( $data, $post )
