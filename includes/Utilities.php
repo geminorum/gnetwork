@@ -445,6 +445,12 @@ class Utilities extends Core\Base
 		return call_user_func( $callback );
 	}
 
+	public static function enqueueColorPicker()
+	{
+		wp_enqueue_script( 'wp-color-picker' );
+		wp_enqueue_style( 'wp-color-picker' );
+	}
+
 	public static function enqueueMasonry( $selector = '.card', $grid = '.masonry-grid' )
 	{
 		$script = 'jQuery(function($) {

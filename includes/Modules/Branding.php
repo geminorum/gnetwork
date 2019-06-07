@@ -174,8 +174,7 @@ class Branding extends gNetwork\Module
 
 	protected function settings_setup( $sub = NULL )
 	{
-		wp_enqueue_script( 'wp-color-picker' );
-		wp_enqueue_style( 'wp-color-picker' );
+		Utilities::enqueueColorPicker();
 	}
 
 	public function settings_sidebox( $sub, $uri )

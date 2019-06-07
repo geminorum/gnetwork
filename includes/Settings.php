@@ -806,6 +806,7 @@ class Settings extends Core\Base
 				] );
 
 				// CAUTION: module must enqueue `wp-color-picker` styles/scripts
+				// @SEE: `Utilities::enqueueColorPicker()`
 				$scripts[] = '$("#'.$id.'").wpColorPicker();';
 
 			break;
