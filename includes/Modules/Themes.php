@@ -127,6 +127,7 @@ class Themes extends gNetwork\Module
 					'field'       => 'jquery_cdn',
 					'title'       => _x( 'jQuery from CDN', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Replace WordPress jQuery with CDN.', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
+					'after'       => Settings::fieldAfterIcon( 'https://code.jquery.com' ),
 				],
 				[
 					'field'       => 'jquery_latest',
@@ -166,6 +167,24 @@ class Themes extends gNetwork\Module
 		];
 
 		return $settings;
+	}
+
+	public function settings_sidebox( $sub, $uri )
+	{
+		echo self::summaryjQuery();
+	}
+
+	public static function summaryjQuery( $caption = FALSE )
+	{
+		$latest = self::getjQueryVersions( TRUE );
+		$core   = self::getjQueryVersions( FALSE );
+
+		return HTML::tableCode( [
+			_x( 'Latest jQuery Stable',   'Modules: Themes: jQuery', GNETWORK_TEXTDOMAIN ) => $latest[0],
+			_x( 'Latest jQuery Migrate',  'Modules: Themes: jQuery', GNETWORK_TEXTDOMAIN ) => $latest[1],
+			_x( 'WordPress jQuery Stable',  'Modules: Themes: jQuery', GNETWORK_TEXTDOMAIN ) => $core[0],
+			_x( 'WordPress jQuery Migrate', 'Modules: Themes: jQuery', GNETWORK_TEXTDOMAIN ) => $core[1],
+		], FALSE, $caption );
 	}
 
 	protected function settings_setup( $sub = NULL )
@@ -240,19 +259,7 @@ class Themes extends gNetwork\Module
 		if ( ! $bottom && ! $disable && ! $remote )
 			return;
 
-		if ( $this->options['jquery_latest'] ) {
-
-			// 5/25/2019, 7:43:05 AM
-			$jquery_ver  = '3.3.1';
-			$migrate_ver = '3.0.1';
-
-		} else {
-
-			// WP v5.2-beta1-45048-src
-			// 3/28/2019, 10:17:23 PM
-			$jquery_ver  = '1.12.4';
-			$migrate_ver = '1.4.1';
-		}
+		list ( $jquery_ver, $migrate_ver ) = self::getjQueryVersions( $this->options['jquery_latest'] );
 
 		$jquery_url = $remote
 			? 'https://code.jquery.com/jquery-'.$jquery_ver.'.min.js'
@@ -273,6 +280,15 @@ class Themes extends gNetwork\Module
 		}
 
 		$scripts->add( 'jquery', FALSE, $deps, ( $remote ? NULL : $jquery_ver ), $bottom );
+	}
+
+	// 6/8/2019, 1:34:37 AM
+	// 5.3-alpha-45282-src
+	private static function getjQueryVersions( $latest = FALSE )
+	{
+		return $latest
+			? [ '3.4.1', '3.0.1' ]
+			: [ '1.12.4', '1.4.1' ];
 	}
 
 	public function wp_head()

@@ -406,6 +406,12 @@ class Admin extends gNetwork\Module
 			self::summaryAttachments();
 		}
 
+		if ( class_exists( __NAMESPACE__.'\\Themes' )
+			&& current_user_can( 'edit_theme_options' ) ) {
+
+			self::summaryjQuery();
+		}
+
 		if ( class_exists( __NAMESPACE__.'\\Debug' )
 			&& current_user_can( 'manage_options' ) ) {
 
@@ -454,6 +460,15 @@ class Admin extends gNetwork\Module
 		HTML::h2( _x( 'Attachment Mime-Types', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ) );
 
 			Media::summaryAttachments();
+		echo '</div>';
+	}
+
+	public static function summaryjQuery()
+	{
+		echo '<div class="-wrap card -floated" dir="ltr">';
+		HTML::h2( _x( 'jQuery Versions', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ) );
+
+			echo Themes::summaryjQuery();
 		echo '</div>';
 	}
 
