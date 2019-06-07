@@ -3,8 +3,9 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
-use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Logger;
+use geminorum\gNetwork\Scripts;
+use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\Arraay;
 use geminorum\gNetwork\Core\Exception;
@@ -140,7 +141,7 @@ class Network extends gNetwork\Module
 			$GLOBALS['submenu_file'] = $this->base.'&sub='.$sub;
 
 		else
-			Utilities::enqueueGithubMarkdown();
+			Scripts::enqueueGithubMarkdown();
 
 		do_action( $this->base.'_network_settings', $sub );
 	}

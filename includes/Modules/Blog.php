@@ -4,6 +4,7 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
 use geminorum\gNetwork\Logger;
+use geminorum\gNetwork\Scripts;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\Arraay;
@@ -442,7 +443,7 @@ class Blog extends gNetwork\Module
 
 	protected function settings_setup( $sub = NULL )
 	{
-		Utilities::enqueueColorPicker();
+		Scripts::enqueueColorPicker();
 	}
 
 	public function plugins_loaded()

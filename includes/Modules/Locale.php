@@ -261,8 +261,8 @@ class Locale extends gNetwork\Module
 
 			// [bonny/WordPress-Simple-History: Track user changes in WordPress admin](https://github.com/bonny/WordPress-Simple-History)
 			// [See admin changes on your WordPress site with Simple History](https://simple-history.com/)
-			'simple_history_page'               => 'page',
-			'simple_history_settings_menu_slug' => 'page',
+			// 'simple_history_page'               => 'page',
+			// 'simple_history_settings_menu_slug' => 'page',
 
 			// [Edit Flow](https://wordpress.org/plugins/edit-flow/)
 			'ef-settings'                    => 'page',

@@ -3,8 +3,8 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Scripts;
 use geminorum\gNetwork\Settings;
-use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\Number;
 
@@ -193,7 +193,7 @@ class Comments extends gNetwork\Module
 	public function template_redirect()
 	{
 		if ( is_singular() && 'open' == $GLOBALS['wp_query']->post->comment_status )
-			Utilities::pkgAutosize();
+			Scripts::pkgAutosize();
 	}
 
 	public function comment_excerpt( $excerpt )
