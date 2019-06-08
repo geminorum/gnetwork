@@ -176,8 +176,9 @@ class Login extends gNetwork\Module
 					'none_title'  => Settings::showOptionNone(),
 					'none_value'  => 'logindefault',
 					'values'      => $this->filters( 'login_class', [
-						'sidelogo' => _x( 'SideLogo', 'Modules: Login: Login Class', GNETWORK_TEXTDOMAIN ),
-						'webogram' => _x( 'Webogram', 'Modules: Login: Login Class', GNETWORK_TEXTDOMAIN ),
+						'darkstories' => _x( 'DarkStories', 'Modules: Login: Login Class', GNETWORK_TEXTDOMAIN ),
+						'sidelogo'    => _x( 'SideLogo', 'Modules: Login: Login Class', GNETWORK_TEXTDOMAIN ),
+						'webogram'    => _x( 'Webogram', 'Modules: Login: Login Class', GNETWORK_TEXTDOMAIN ),
 					] ),
 				],
 				[
