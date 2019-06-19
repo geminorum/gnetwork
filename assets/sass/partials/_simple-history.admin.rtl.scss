@@ -1,0 +1,228 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// gNetwork Partials: Simple History: RTL
+
+////////////////////////////////////////////////////////////////////////////////
+/* stylelint-disable selector-class-pattern */
+
+.dashboard_page_simple_history_page .SimpleHistoryGui,
+.SimpleHistoryLogitem__firstcol,
+.SimpleHistoryStats__graph {
+  float: right;
+}
+
+.SimpleHistory__waitingForFirstLoad {
+  left: auto;
+  right: 20px;
+}
+
+.dashboard_page_simple_history_page .SimpleHistoryGuiWrap {
+  margin-right: inherit;
+  margin-left: 340px;
+}
+
+.SimpleHistoryLogitem {
+  padding: 20px 16px 20px 20px;
+
+  &::before {
+    right: 66px;
+    left: 0;
+  }
+}
+
+.SimpleHistoryLogitem--loglevel-debug,
+.SimpleHistoryLogitem--loglevel-info,
+.SimpleHistoryLogitem--loglevel-warning,
+.SimpleHistoryLogitem--loglevel-error,
+.SimpleHistoryLogitem--loglevel-alert,
+.SimpleHistoryLogitem--loglevel-emergency {
+  border-left-color: transparent;
+}
+
+.SimpleHistoryLogitem--loglevel-debug {
+  border-right-color: #cef6d8;
+}
+
+.SimpleHistoryLogitem--loglevel-info {
+  border-right-color: #fff;
+}
+
+.SimpleHistoryLogitem--loglevel-warning {
+  border-right-color: #f7d358;
+}
+
+.SimpleHistoryLogitem--loglevel-error {
+  border-right-color: #f79f81;
+}
+
+.SimpleHistoryLogitem--loglevel-alert {
+  border-right-color: rgb(199, 69, 69);
+}
+
+.SimpleHistoryLogitem--loglevel-emergency {
+  border-right-color: #df0101;
+}
+
+.SimpleHistoryLogitem__secondcol {
+  margin-left: inherit;
+  margin-right: 50px;
+}
+
+.SimpleHistoryLogitem__keyValueTable tr > td:first-child {
+  text-align: left;
+  padding-right: inherit;
+  padding-left: 1em;
+}
+
+.postbox .SimpleHistoryLogitem {
+  padding: 12px 16px 12px 5px;
+}
+
+.postbox .SimpleHistoryLogitem::before {
+  left: auto;
+  right: 55px;
+}
+
+.postbox .SimpleHistoryLogitem__secondcol {
+  margin-left: inherit;
+  margin-right: 40px;
+}
+
+.postbox .SimpleHistory__filters__filterSubmitWrap {
+  margin-right: 0;
+}
+
+.postbox .SimpleHistory__filters__filter--dayValuesWrap {
+  margin-right: 0;
+}
+
+.SimpleHistory-modal__content {
+  right: 280px;
+  left: 120px;
+}
+
+.SimpleHistory-modal__contentSpinner {
+  margin-left: inherit;
+  margin-right: 20px;
+}
+
+.SimpleHistory-modal__contentClose {
+  right: auto;
+  left: 10px;
+}
+
+.folded .SimpleHistory-modal__content {
+  left: auto;
+  right: 156px;
+}
+
+.SimpleHistoryLogitem__moreDetailsContext th,
+.SimpleHistoryLogitem__moreDetailsContext td {
+  padding: 4px 4px 4px 20px;
+}
+
+.SimpleHistory-modal .SimpleHistoryLogitem--initiator-web_user .SimpleHistoryLogitem__secondcol,
+.SimpleHistory-modal .SimpleHistoryLogitem--initiator-other .SimpleHistoryLogitem__secondcol {
+  margin-right: 0;
+}
+
+.SimpleHistory__filters__filterSubmitWrap {
+  margin-left: inherit;
+  margin-right: 150px;
+}
+
+.SimpleHistory__filters__userfilter__primary {
+  margin-right: inherit;
+  margin-left: 5px;
+}
+
+.SimpleHistory__filters__userfilter__gravatar {
+  margin-right: inherit;
+  margin-left: 10px;
+}
+
+.SimpleHistory__filters__filter--dayValuesWrap {
+  margin-left: inherit;
+  margin-right: 155px;
+}
+
+.SimpleHistoryIpInfoDropin__popup {
+  left: auto;
+  right: 0;
+  margin-left: inherit;
+  margin-right: -20px;
+}
+
+.SimpleHistoryIpInfoDropin__popupArrow {
+  left: auto;
+  right: 40px;
+}
+
+.SimpleHistoryIpInfoDropin__popupArrow::after,
+.SimpleHistoryIpInfoDropin__popupArrow::before {
+  left: auto;
+  right: 50%;
+  margin-left: inherit;
+}
+
+.SimpleHistoryIpInfoDropin__popupArrow::after {
+  margin-right: -10px;
+}
+
+.SimpleHistoryIpInfoDropin__popupArrow::before {
+  margin-right: -11px;
+}
+
+.SimpleHistoryIpInfoDropin__ipInfoTable th,
+.SimpleHistoryIpInfoDropin__ipInfoTable td {
+  text-align: right;
+}
+
+.SimpleHistoryIpInfoDropin__provider {
+  text-align: left;
+}
+
+.SimpleHistoryIpInfoDropin__popupClose {
+  right: auto;
+  left: 5px;
+}
+
+.SimpleHistoryDropin__NewRowsNotifier--haveNewRows::before {
+  margin-right: inherit;
+  margin-left: .5em;
+}
+
+.SimpleHistory__pageSidebar {
+  float: left;
+  margin-right: inherit;
+  margin-left: -340px;
+}
+
+@media only screen and (max-width: 850px) {
+  .dashboard_page_simple_history_page .SimpleHistoryGuiWrap {
+    margin-left: auto;
+  }
+
+  .SimpleHistory-modal__content {
+    left: auto;
+    right: 10px;
+  }
+
+  .SimpleHistoryLogitem__moreDetails {
+    margin-left: inherit;
+    margin-right: -60px;
+  }
+
+  .SimpleHistory__pageSidebar {
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .SimpleHistory__filters__filterSubmitWrap {
+    margin-right: 0;
+  }
+}
+
+/* stylelint-enable */

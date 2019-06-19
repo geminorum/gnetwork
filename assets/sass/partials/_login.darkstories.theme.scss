@@ -1,0 +1,58 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// gNetwork Partials: Login: DarkStories -----------------------------------------
+
+body.login.darkstories {
+  background: #252525;
+  color: #e8e8e8;
+
+  // a {
+  //   color: #fc0;
+  //
+  //   &:focus,
+  //   &:hover {
+  //     color: #ffeb9b;
+  //   }
+  // }
+
+  a:focus {
+    box-shadow: none;
+  }
+
+  input[type="number"],
+  input[type="text"],
+  form .input {
+    color: inherit;
+    background: transparent;
+    border: 1px solid #434343;
+  }
+
+  #user_login,
+  #user_pass {
+    margin-top: 6px;
+  }
+
+  p {
+    text-align: center;
+
+    &.description {
+      text-align: left;
+    }
+
+    // &.login-sum {}
+  }
+
+  #login {
+    form {
+      background: #353535;
+    }
+  }
+
+  .message,
+  .success,
+  #login_error {
+    background: #353535;
+    color: inherit;
+  }
+}
