@@ -26,6 +26,6 @@ class bbPress extends gNetwork\Module
 				return;
 
 		if ( is_bbpress() )
-			wp_enqueue_style( static::BASE.'-bbpress', GNETWORK_URL.'assets/css/bbpress.all'.( is_rtl() ? '-rtl' : '' ).'.css', [], GNETWORK_VERSION );
+			wp_enqueue_style( static::BASE.'-bbpress', GNETWORK_URL.'assets/css/front.bbpress'.( is_rtl() ? '-rtl' : '' ).'.css', [], GNETWORK_VERSION );
 	}
 }

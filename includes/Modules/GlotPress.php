@@ -56,7 +56,7 @@ class GlotPress extends gNetwork\Module
 	public function init()
 	{
 		wp_deregister_style( 'gp-base' );
-		wp_register_style( 'gp-base', GNETWORK_URL.'assets/css/glotpress.all'.( is_rtl() ? '-rtl' : '' ).'.css', [], GNETWORK_VERSION );
+		wp_register_style( 'gp-base', GNETWORK_URL.'assets/css/front.glotpress'.( is_rtl() ? '-rtl' : '' ).'.css', [], GNETWORK_VERSION );
 	}
 
 	public function gp_home_title( $title )

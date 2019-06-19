@@ -214,7 +214,7 @@ class BuddyPress extends gNetwork\Module
 				return;
 
 		if ( is_buddypress() )
-			wp_enqueue_style( static::BASE.'-buddypress', GNETWORK_URL.'assets/css/buddypress.all'.( is_rtl() ? '-rtl' : '' ).'.css', [], GNETWORK_VERSION );
+			wp_enqueue_style( static::BASE.'-buddypress', GNETWORK_URL.'assets/css/front.buddypress'.( is_rtl() ? '-rtl' : '' ).'.css', [], GNETWORK_VERSION );
 	}
 
 	// cleanup!

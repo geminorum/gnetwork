@@ -394,7 +394,7 @@ class Site extends gNetwork\Module
 
 			if ( ! $disable_styles )
 				add_action( 'wp_head', function(){
-					Utilities::linkStyleSheet( 'signup.all' );
+					Utilities::linkStyleSheet( 'front.signup' );
 				} );
 
 		} else if ( 'wp-activate' == $name ) {
@@ -403,7 +403,7 @@ class Site extends gNetwork\Module
 
 			if ( ! $disable_styles )
 				add_action( 'wp_head', function(){
-					Utilities::linkStyleSheet( 'activate.all' );
+					Utilities::linkStyleSheet( 'front.activate' );
 				} );
 		}
 	}

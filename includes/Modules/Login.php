@@ -135,6 +135,7 @@ class Login extends gNetwork\Module
 					'type'        => 'text',
 					'title'       => _x( 'Hidden Login Slug', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Custom slug for the hidden login page.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'field_class' => [ 'regular-text', 'code-text' ],
 					'default'     => 'login',
 				],
 			],
