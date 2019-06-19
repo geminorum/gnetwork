@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WordPress - 5.2.x - Administration\n"
-"PO-Revision-Date: 2019-05-28 10:34+0430\n"
+"PO-Revision-Date: 2019-06-07 02:14+0430\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -477,7 +477,7 @@ msgstr "نمی‌توان به‌روزرسانی کرد"
 
 #: wp-admin/includes/update.php:458
 msgid "There is a new version of %1$s available, but it doesn&#8217;t work with your version of PHP. <a href=\"%2$s\" %3$s>View version %4$s details</a> or <a href=\"%5$s\">learn more about updating PHP</a>."
-msgstr "نگارش جدیدی از %1$s در دسترس است، اما با نگارش PHP شما کار نمی‌کند. <a href=\"%2$s\" %3$s>مشاهده جزئیات نگارش %4$s</a> یا <a href=\"%5$s\"> درمورد به‌روزرسانی PHP بیشتر بدانید</a>."
+msgstr "نگارش تازه‌ای از %1$s در دسترس است، اما با نگارش PHP شما سازگار نیست. <a href=\"%2$s\" %3$s>جزئیات نگارش %4$s</a> را ببینید و یا <a href=\"%5$s\"> درباره به‌روزرسانی PHP بیشتر بدانید</a>."
 
 #: wp-admin/includes/update.php:847
 msgid "You are in recovery mode. This means there may be an error with a theme or plugin. To exit recovery mode, log out or use the Exit button."
@@ -3229,7 +3229,7 @@ msgstr "تغییرات برنامه ریزی شده شما فقط منتشر ش�
 
 #: wp-admin/includes/class-plugin-installer-skin.php:62
 msgid "Activate Plugin &amp; Return to Press This"
-msgstr "افزونه را فعال نمایید و به \"انتشار این\" بازگردید"
+msgstr "افزونه را فعال کنید و به \"انتشار این\" بازگردید"
 
 #: wp-admin/includes/class-wp-debug-data.php:101
 msgctxt "comment status"
@@ -3521,13 +3521,13 @@ msgstr "پاک کردن %s"
 #: wp-admin/includes/class-wp-plugins-list-table.php:669
 msgctxt "plugin"
 msgid "Deactivate %s"
-msgstr "غیرفعال کردن %s"
+msgstr "غیرفعال‌سازی %s"
 
 #. translators: %s: plugin name
 #: wp-admin/includes/class-wp-plugins-list-table.php:645
 msgctxt "plugin"
 msgid "Network Deactivate %s"
-msgstr "غیرفعال کردن %s در شبکه"
+msgstr "غیرفعال‌سازی %s در شبکه"
 
 #: wp-admin/user-new.php:225
 msgid "By default, new users will receive an email letting them know they&#8217;ve been added as a user for your site. This email will also contain a password reset link. Uncheck the box if you don&#8217;t want to send the new user a welcome email."
@@ -5774,7 +5774,7 @@ msgstr[0] "%d ستاره"
 
 #: wp-admin/includes/class-wp-list-table.php:464
 msgid "Select bulk action"
-msgstr "انتخاب کار دسته‌جمعی"
+msgstr "انتخاب کنش جمعی"
 
 #: wp-admin/update-core.php:222
 msgid "BETA TESTERS:"
@@ -5869,7 +5869,7 @@ msgstr "جزئیات بیشتر"
 
 #: wp-admin/includes/class-wp-plugins-list-table.php:849
 msgid "View details"
-msgstr "مشاهده جزئیات"
+msgstr "دیدن جزئیات"
 
 #: wp-admin/includes/class-wp-automatic-updater.php:750
 msgid "If you reach out to us, we'll also ensure you'll never have this problem again."
@@ -5979,7 +5979,7 @@ msgstr "&rarr; بازگشت به ویرایشگر"
 
 #: wp-admin/users.php:58
 msgid "<strong>Delete</strong> brings you to the Delete Users screen for confirmation, where you can permanently remove a user from your site and delete their content. You can also delete multiple users at once by using Bulk Actions."
-msgstr "<strong>حذف</strong> برای تأیید شما را به صفحه حذف کاربران می‌برد، آن جا می‌توانید یک کاربر و مطالبش را برای همیشه از سایت خود حذف کنید. همین طور با استفاده از کارهای دسته‌جمعی می‌توانید همزمان چند کاربر را حذف کنید."
+msgstr "<strong>حذف</strong> برای تأیید شما را به صفحه حذف کاربران می‌برد، آن جا می‌توانید یک کاربر و مطالبش را برای همیشه از سایت خود حذف کنید. همین طور با استفاده از کنش‌های جمعی می‌توانید هم‌زمان چند کاربر را حذف کنید."
 
 #: wp-admin/users.php:56
 msgid "<strong>Remove</strong> allows you to remove a user from your site. It does not delete their content. You can also remove multiple users at once by using Bulk Actions."
@@ -7392,7 +7392,7 @@ msgstr "پرش به محتوای اصلی"
 
 #: wp-admin/edit-tags.php:253
 msgid "You can delete Link Categories in the Bulk Action pull-down, but that action does not delete the links within the category. Instead, it moves them to the default Link Category."
-msgstr "می‌توانید دسته‌های پیوند را با استفاده از گزینهٔ موجود در کارهای دسته‌جمعی پاک کنید. این کار پیوندها را پاک نمی‌کند بلکه پیوندهای داخل دستهٔ پاک شده را به دستهٔ پیوند پیش‌فرض منتقل می‌کند."
+msgstr "می‌توانید دسته‌های پیوند را با استفاده از گزینهٔ موجود در کنش‌های جمعی پاک کنید. این کار پیوندها را پاک نمی‌کند بلکه پیوندهای داخل دستهٔ پاک شده را به دستهٔ پیوند پیش‌فرض منتقل می‌کند."
 
 #: wp-admin/custom-header.php:540
 msgid "You can select an image to be shown at the top of your site by uploading from your computer or choosing from your media library. After selecting an image you will be able to crop it."
@@ -8119,7 +8119,7 @@ msgstr "می‌توانید نحوه نمایش محتوای این صفحه ر�
 
 #: wp-admin/upload.php:233 wp-admin/users.php:66 wp-admin/edit.php:236
 msgid "Available Actions"
-msgstr "کارهای دردسترس"
+msgstr "کنش‌های در دسترس"
 
 #: wp-admin/edit.php:252
 msgid "You can also edit or move multiple posts to the trash at once. Select the posts you want to act on using the checkboxes, then select the action you want to take from the Bulk Actions menu and click Apply."
@@ -8605,7 +8605,7 @@ msgstr "نمایش"
 #: wp-admin/includes/class-wp-plugins-list-table.php:492
 #: wp-admin/includes/class-wp-plugins-list-table.php:669
 msgid "Deactivate"
-msgstr "غیرفعال کردن"
+msgstr "غیرفعال‌سازی"
 
 #. translators: %s: Plugin author name.
 #. translators: %s: Theme author name.
@@ -8925,7 +8925,7 @@ msgstr "توسعه‌دهنده ارشد"
 #: wp-admin/widgets.php:435
 msgctxt "removing-widget"
 msgid "Deactivate"
-msgstr "غیرفعال شود"
+msgstr "غیرفعال‌سازی"
 
 #: wp-admin/menu.php:97
 msgid "All Comments"
@@ -9730,7 +9730,7 @@ msgstr "جست‌وجو در افزونه‌های نصب‌شده"
 
 #: wp-admin/nav-menus.php:656
 msgid "Your theme supports one menu. Select which menu you would like to use."
-msgstr "پوسته شما از %s منو پشتیبانی می‌کند.یکی از منوها را به دلخواه انتخاب کنید."
+msgstr "پوستهٔ شما از یک فهرست پشتیبانی می‌کند. یکی از منوها را به دلخواه انتخاب کنید."
 
 #: wp-admin/nav-menus.php:19
 msgid "Your theme does not support navigation menus or widgets."
@@ -12153,7 +12153,7 @@ msgstr "توضیحات به صورت پیش فرض مهم نیستند، با ا
 
 #: wp-admin/includes/class-wp-list-table.php:466 wp-admin/edit.php:250
 msgid "Bulk Actions"
-msgstr "کارهای دسته‌جمعی"
+msgstr "کنش‌های جمعی"
 
 #: wp-admin/export.php:18 wp-admin/menu.php:265
 msgid "Export"
@@ -12352,7 +12352,7 @@ msgstr "آخرین دست‌کاری"
 
 #: wp-admin/includes/class-wp-posts-list-table.php:1520
 msgid "Bulk Edit"
-msgstr "ویرایش دسته‌جمعی"
+msgstr "ویرایش جمعی"
 
 #: wp-admin/includes/class-wp-posts-list-table.php:1574
 #: wp-admin/includes/class-wp-posts-list-table.php:1658

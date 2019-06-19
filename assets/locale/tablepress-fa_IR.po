@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TablePress - 1.9.2\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2019-05-28 11:17+0430\n"
+"PO-Revision-Date: 2019-06-06 06:36+0430\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: \n"
 "Language: fa_IR\n"
@@ -52,8 +52,8 @@ msgstr "این خطا ثبت شده است: %s."
 
 #: views/view-edit.php:622
 msgid ""
-"Additional parameters from the <a href=\"%s\">DataTables documentation</a> to be added "
-"to the JS call."
+"Additional parameters from the <a href=\"%s\">DataTables documentation</a> to be added to "
+"the JS call."
 msgstr ""
 "پارامترهای افزوده از <a href=\"%s\">مستندات DataTables</a> برای اضافه به درخواست "
 "جاواسکریپت."
@@ -69,11 +69,11 @@ msgstr "برای استفاده از <a href=\"%s\">جدول‌پرس</a> سپا
 
 #: views/view-options.php:89
 msgid ""
-"In the User Options, every TablePress user can choose the position of the plugin in "
-"his WordPress admin menu."
+"In the User Options, every TablePress user can choose the position of the plugin in his "
+"WordPress admin menu."
 msgstr ""
-"در تنظیمات کاربری، هر کاربر جدول‌پرس می‌تواند جایگاه منوی افزونه در مدیریت وردپرس را "
-"انتخاب کند."
+"در تنظیمات کاربری، هر کاربر جدول‌پرس می‌تواند جایگاه منوی افزونه در مدیریت وردپرس را انتخاب "
+"کند."
 
 #: views/view-about.php:212
 msgid "the translators in the <a href=\"%s\">Plugin Directory</a>,"
@@ -96,8 +96,8 @@ msgid ""
 "Embed beautiful and feature-rich tables into your posts and pages, without having to "
 "write code."
 msgstr ""
-"بدون نیاز به نوشتن کد، جدول‌هایی با امکانات پیشرفته و زیبا را در نوشته‌ها و برگه‌های "
-"خودتان جاسازی کنید."
+"بدون نیاز به نوشتن کد، جدول‌هایی با امکانات پیشرفته و زیبا را در نوشته‌ها و برگه‌های خودتان "
+"جاسازی کنید."
 
 #. Plugin URI of the plugin
 msgid "https://tablepress.org/"
@@ -144,8 +144,7 @@ msgid ""
 msgstr ""
 
 #: views/view-options.php:200
-msgid ""
-"Be very careful with this and only click the button if you know what you are doing!"
+msgid "Be very careful with this and only click the button if you know what you are doing!"
 msgstr ""
 
 #: views/view-options.php:199
@@ -156,14 +155,14 @@ msgstr ""
 
 #: views/view-options.php:198
 msgid ""
-"It is recommended that you create a backup of the tables (by exporting the tables in "
-"the JSON format), in case you later change your mind."
+"It is recommended that you create a backup of the tables (by exporting the tables in the "
+"JSON format), in case you later change your mind."
 msgstr ""
 
 #: views/view-options.php:197
 msgid ""
-"Uninstalling <strong>will permanently delete</strong> all TablePress tables and "
-"options from the database."
+"Uninstalling <strong>will permanently delete</strong> all TablePress tables and options "
+"from the database."
 msgstr ""
 
 #: views/view-options.php:177
@@ -194,8 +193,8 @@ msgstr ""
 
 #: views/view-options.php:122
 msgid ""
-"Information on available CSS selectors can be found in the <a href=\"%s"
-"\">documentation</a>."
+"Information on available CSS selectors can be found in the <a href=\"%s\">documentation</"
+"a>."
 msgstr ""
 
 #: views/view-options.php:120
@@ -342,10 +341,8 @@ msgstr "هر جدول یک شناسه یکتا دارد که باید در آن 
 
 #: views/view-list.php:186
 msgid ""
-"Click the corresponding links within the list to edit, copy, delete, or preview a "
-"table."
-msgstr ""
-"برای ویرایش، کپی، حذف و یا پیش‌نمایش یک جدول روی پیوندهای مربوطه در فهرست کلیک کنید."
+"Click the corresponding links within the list to edit, copy, delete, or preview a table."
+msgstr "برای ویرایش، کپی، حذف و یا پیش‌نمایش یک جدول روی پیوندهای مربوطه در فهرست کلیک کنید."
 
 #: views/view-list.php:185
 msgid "This is a list of your tables."
@@ -402,8 +399,8 @@ msgid ""
 "If you like the new features and enhancements, <a href=\"%s\">giving a donation</a> "
 "towards the further support and development of TablePress is recommended. Thank you!"
 msgstr ""
-"اگر از امکانات و قابلیت‌های تازه خوشتان آمده، توصیه می‌کنیم با <a href=\"%s\">اهدای "
-"مبلغی</a> به توسعه و پشتیبانی جدول‌پرس کمک کنید. سپاس!"
+"اگر از امکانات و قابلیت‌های تازه خوشتان آمده، توصیه می‌کنیم با <a href=\"%s\">اهدای مبلغی</"
+"a> به توسعه و پشتیبانی جدول‌پرس کمک کنید. سپاس!"
 
 #: views/view-list.php:90
 msgid "Please read the <a href=\"%s\">release announcement</a> for more information."
@@ -432,8 +429,8 @@ msgstr ""
 #: views/view-list.php:78
 msgid ""
 "<a href=\"%s\">Donations</a> help me to continue user support and development of this "
-"<em>free</em> software &mdash; things for which I spend countless hours of my free "
-"time! Thank you very much!"
+"<em>free</em> software &mdash; things for which I spend countless hours of my free time! "
+"Thank you very much!"
 msgstr ""
 
 #: views/view-list.php:77
@@ -492,12 +489,12 @@ msgstr "این پیام پنهان شود"
 #: views/view-list.php:55
 msgid ""
 "If you encounter any questions or problems, please visit the <a href=\"%1$s\">FAQ</a>, "
-"the <a href=\"%2$s\">documentation</a>, and the <a href=\"%3$s\">Support</a> section "
-"on the <a href=\"%4$s\">plugin website</a>."
+"the <a href=\"%2$s\">documentation</a>, and the <a href=\"%3$s\">Support</a> section on "
+"the <a href=\"%4$s\">plugin website</a>."
 msgstr ""
-"اگر با سؤال و یا مشکلی برخورد کردید، لطفاً به <a href=\"%1$s\">سؤالات متداول</a>، <a "
-"href=\"%2$s\">مستندات</a> و یا بخش <a href=\"%3$s\">پشتیبانی</a> در <a href=\"%4$s"
-"\">وبسایت افزونه</a> مراجعه کنید."
+"اگر با سؤال و یا مشکلی برخورد کردید، لطفاً به <a href=\"%1$s\">سؤالات متداول</a>، <a href="
+"\"%2$s\">مستندات</a> و یا بخش <a href=\"%3$s\">پشتیبانی</a> در <a href=\"%4$s\">وبسایت "
+"افزونه</a> مراجعه کنید."
 
 #: views/view-list.php:54
 msgid "Thank you for using TablePress for the first time!"
@@ -509,9 +506,9 @@ msgstr "خوش آمدید!"
 
 #: views/view-list.php:47
 msgid ""
-"No problem! I still hope you enjoy the benefits that TablePress adds to your site. If "
-"you should change your mind, you&#8217;ll always find the &#8220;Donate&#8221; button "
-"on the <a href=\"%s\">TablePress website</a>."
+"No problem! I still hope you enjoy the benefits that TablePress adds to your site. If you "
+"should change your mind, you&#8217;ll always find the &#8220;Donate&#8221; button on the "
+"<a href=\"%s\">TablePress website</a>."
 msgstr ""
 
 #: views/view-list.php:46
@@ -526,8 +523,8 @@ msgstr ""
 
 #: views/view-import.php:302
 msgid ""
-"You can import your existing tables and &#8220;Custom CSS&#8221; from WP-Table "
-"Reloaded into TablePress."
+"You can import your existing tables and &#8220;Custom CSS&#8221; from WP-Table Reloaded "
+"into TablePress."
 msgstr ""
 
 #: views/view-import.php:301
@@ -567,8 +564,8 @@ msgstr "پایگاه‌داده وردپرس"
 
 #: views/view-import.php:250
 msgid ""
-"Before doing this, it is highly recommended to read the <a href=\"%s\">migration "
-"guide</a> on the TablePress website."
+"Before doing this, it is highly recommended to read the <a href=\"%s\">migration guide</"
+"a> on the TablePress website."
 msgstr ""
 
 #: views/view-import.php:248
@@ -683,9 +680,9 @@ msgstr ""
 
 #: views/view-import.php:97
 msgid ""
-"TablePress can import tables from existing data, like from a CSV, XLS, or XLSX file "
-"from a spreadsheet application (e.g. Excel), an HTML file resembling a webpage, or its "
-"own JSON format."
+"TablePress can import tables from existing data, like from a CSV, XLS, or XLSX file from "
+"a spreadsheet application (e.g. Excel), an HTML file resembling a webpage, or its own "
+"JSON format."
 msgstr ""
 
 #: views/view-import.php:65
@@ -718,8 +715,7 @@ msgstr ""
 
 #: views/view-import.php:53
 msgid ""
-"Error: You selected to replace or append to an existing table, but did not select a "
-"table."
+"Error: You selected to replace or append to an existing table, but did not select a table."
 msgstr ""
 
 #: views/view-import.php:52
@@ -790,11 +786,10 @@ msgstr "جدول‌ها برای برون‌بری"
 
 #: views/view-list.php:616 views/view-export.php:89
 msgid ""
-"You should <a href=\"%1$s\">add</a> or <a href=\"%2$s\">import</a> a table to get "
-"started!"
+"You should <a href=\"%1$s\">add</a> or <a href=\"%2$s\">import</a> a table to get started!"
 msgstr ""
-"برای شروع باید یک جدول را <a href=\"%1$s\">اضافه</a> و یا <a href=\"%2$s\">درون‌ریزی</"
-"a> کنید!"
+"برای شروع باید یک جدول را <a href=\"%1$s\">اضافه</a> و یا <a href=\"%2$s\">درون‌ریزی</a> "
+"کنید!"
 
 #: views/view-export.php:71
 msgid "For the JSON format, the table data and the table options are exported."
@@ -802,14 +797,14 @@ msgstr ""
 
 #: views/view-export.php:70
 msgid ""
-"Be aware that for the CSV and HTML formats only the table data, but no table options "
-"are exported!"
+"Be aware that for the CSV and HTML formats only the table data, but no table options are "
+"exported!"
 msgstr ""
 
 #: views/view-export.php:68
 msgid ""
-"If you choose more than one table, the exported files will automatically be stored in "
-"a ZIP archive file."
+"If you choose more than one table, the exported files will automatically be stored in a "
+"ZIP archive file."
 msgstr ""
 
 #: views/view-export.php:67
@@ -822,8 +817,7 @@ msgstr ""
 
 #: views/view-export.php:63
 msgid ""
-"Exporting a table allows you to use it in other programs, like spreadsheets "
-"applications."
+"Exporting a table allows you to use it in other programs, like spreadsheets applications."
 msgstr ""
 
 #: views/view-export.php:47
@@ -886,8 +880,8 @@ msgstr "جای‌گذاری کدکوتاه"
 
 #: views/view-editor_button_thickbox.php:179
 msgid ""
-"Click the &#8220;%1$s&#8221; button for the desired table to automatically insert "
-"the<br />corresponding Shortcode (%2$s) into the editor."
+"Click the &#8220;%1$s&#8221; button for the desired table to automatically insert the<br /"
+">corresponding Shortcode (%2$s) into the editor."
 msgstr ""
 
 #: views/view-editor_button_thickbox.php:177
@@ -914,20 +908,19 @@ msgstr ""
 
 #: views/view-edit.php:680
 msgid ""
-"To insert the table into a page, post, or text widget, copy the Shortcode %s and paste "
-"it at the desired place in the editor."
+"To insert the table into a page, post, or text widget, copy the Shortcode %s and paste it "
+"at the desired place in the editor."
 msgstr ""
 
 #: views/view-edit.php:676
 msgid ""
-"For example, you can insert things like text, images, or links into the table, or "
-"change the used table features. You can also insert, delete, move, hide, and swap "
-"columns and rows."
+"For example, you can insert things like text, images, or links into the table, or change "
+"the used table features. You can also insert, delete, move, hide, and swap columns and "
+"rows."
 msgstr ""
 
 #: views/view-edit.php:675
-msgid ""
-"On this screen, you can edit the content and structure of the table with the ID %s."
+msgid "On this screen, you can edit the content and structure of the table with the ID %s."
 msgstr ""
 
 #: views/view-edit.php:657
@@ -970,8 +963,8 @@ msgstr ""
 
 #: views/view-edit.php:611
 msgid ""
-"Enable the table information display, with information about the currently visible "
-"data, like the number of rows."
+"Enable the table information display, with information about the currently visible data, "
+"like the number of rows."
 msgstr ""
 
 #: views/view-edit.php:610
@@ -992,8 +985,8 @@ msgstr ""
 
 #: views/view-edit.php:602
 msgid ""
-"Enable pagination of the table (viewing only a certain number of rows at a time) by "
-"the visitor."
+"Enable pagination of the table (viewing only a certain number of rows at a time) by the "
+"visitor."
 msgstr ""
 
 #: views/view-edit.php:601
@@ -1002,8 +995,8 @@ msgstr "صفحه‌بندی"
 
 #: views/view-edit.php:598
 msgid ""
-"Enable the visitor to filter or search the table. Only rows with the search word in "
-"them are shown."
+"Enable the visitor to filter or search the table. Only rows with the search word in them "
+"are shown."
 msgstr ""
 
 #: views/view-edit.php:597
@@ -1075,8 +1068,7 @@ msgstr "چاپ نام جدول"
 
 #: views/view-edit.php:543
 msgid ""
-"Highlight a row while the mouse cursor hovers above it by changing its background "
-"color."
+"Highlight a row while the mouse cursor hovers above it by changing its background color."
 msgstr "حرکت نشان موش‌واره روی یک ردیف، آن را با تغییر رنگ پس‌زمینه، برجسته می‌کند."
 
 #: views/view-edit.php:542
@@ -1178,8 +1170,8 @@ msgstr "ردیف‌های انتخاب شده"
 
 #: views/view-edit.php:384
 msgid ""
-"Be aware that the functions of the DataTables JavaScript library will not work on "
-"tables which have combined cells."
+"Be aware that the functions of the DataTables JavaScript library will not work on tables "
+"which have combined cells."
 msgstr ""
 
 #: views/view-edit.php:383
@@ -1188,16 +1180,15 @@ msgstr ""
 
 #: views/view-edit.php:382
 msgid ""
-"To combine adjacent cells in a column, add the keyword <code>#rowspan#</code> to the "
-"cell below the one with the content for the combined cell by using the corresponding "
-"button."
+"To combine adjacent cells in a column, add the keyword <code>#rowspan#</code> to the cell "
+"below the one with the content for the combined cell by using the corresponding button."
 msgstr ""
 
 #: views/view-edit.php:381
 msgid ""
-"To combine adjacent cells in a row, add the keyword <code>#colspan#</code> to the cell "
-"to the right of the one with the content for the combined cell by using the "
-"corresponding button."
+"To combine adjacent cells in a row, add the keyword <code>#colspan#</code> to the cell to "
+"the right of the one with the content for the combined cell by using the corresponding "
+"button."
 msgstr ""
 
 #: views/view-edit.php:380
@@ -1206,8 +1197,7 @@ msgid ""
 msgstr ""
 
 #: views/view-edit.php:379
-msgid ""
-"Combining consecutive cells within the same row is called &#8220;colspanning&#8221;."
+msgid "Combining consecutive cells within the same row is called &#8220;colspanning&#8221;."
 msgstr ""
 
 #: views/view-edit.php:378
@@ -1259,8 +1249,7 @@ msgid "Shortcode"
 msgstr "کدکوتاه"
 
 #: views/view-edit.php:217
-msgid ""
-"The Table ID can only consist of letters, numbers, hyphens (-), and underscores (_)."
+msgid "The Table ID can only consist of letters, numbers, hyphens (-), and underscores (_)."
 msgstr ""
 
 #: views/view-edit.php:214
@@ -1339,11 +1328,11 @@ msgstr ""
 
 #: views/view-edit.php:133
 msgid "Saving failed"
-msgstr "ذخیره ناموفق بود"
+msgstr "ذخیره ناموفق"
 
 #: views/view-edit.php:132
 msgid "Saving successful"
-msgstr "ذخیره موفق بود"
+msgstr "ذخیره موفق"
 
 #: views/view-edit.php:131
 msgid "The Table Preview could not be loaded."
@@ -1355,8 +1344,8 @@ msgstr ""
 
 #: views/view-edit.php:129
 msgid ""
-"The changes to this table were not saved yet and will be lost if you navigate away "
-"from this page."
+"The changes to this table were not saved yet and will be lost if you navigate away from "
+"this page."
 msgstr ""
 
 #: views/view-edit.php:128 views/view-edit.php:182
@@ -1387,8 +1376,7 @@ msgstr ""
 
 #: views/view-edit.php:123
 msgid ""
-"Do you want to proceed and automatically turn off the usage of DataTables for this "
-"table?"
+"Do you want to proceed and automatically turn off the usage of DataTables for this table?"
 msgstr ""
 
 #: views/view-edit.php:122
@@ -1397,26 +1385,25 @@ msgstr ""
 
 #: views/view-edit.php:121
 msgid ""
-"Attention: You have enabled the usage of the DataTables JavaScript library for "
-"features like sorting, search, or pagination."
+"Attention: You have enabled the usage of the DataTables JavaScript library for features "
+"like sorting, search, or pagination."
 msgstr ""
 
 #: views/view-edit.php:120
 msgid ""
-"To combine cells within a row, click into the cell to the right of the cell that has "
-"the content the combined cells shall have."
+"To combine cells within a row, click into the cell to the right of the cell that has the "
+"content the combined cells shall have."
 msgstr ""
 
 #: views/view-edit.php:119
 msgid ""
-"To combine cells within a column, click into the cell below the cell that has the "
-"content the combined cells shall have."
+"To combine cells within a column, click into the cell below the cell that has the content "
+"the combined cells shall have."
 msgstr ""
 
 #: views/view-edit.php:118
 msgid ""
-"Please click into the cell that you want to edit using the &#8220;Advanced "
-"Editor&#8221;."
+"Please click into the cell that you want to edit using the &#8220;Advanced Editor&#8221;."
 msgstr ""
 
 #: views/view-edit.php:116 views/view-edit.php:117
@@ -1530,8 +1517,8 @@ msgstr "توضیحات را اینجا وارد کنید"
 msgid "(optional)"
 msgstr "(اختیاری)"
 
-#: views/view-editor_button_thickbox.php:286 views/view-edit.php:227
-#: views/view-add.php:82 views/view-list.php:326
+#: views/view-editor_button_thickbox.php:286 views/view-edit.php:227 views/view-add.php:82
+#: views/view-list.php:326
 msgid "Description"
 msgstr "توضیحات"
 
@@ -1543,8 +1530,8 @@ msgstr "نام یا عنوان جدول شما."
 msgid "Enter Table Name here"
 msgstr "نام جدول را اینجا وارد کنید"
 
-#: views/view-editor_button_thickbox.php:285 views/view-edit.php:223
-#: views/view-add.php:77 views/view-list.php:325
+#: views/view-editor_button_thickbox.php:285 views/view-edit.php:223 views/view-add.php:77
+#: views/view-list.php:325
 msgid "Table Name"
 msgstr "نام جدول"
 
@@ -1554,11 +1541,11 @@ msgstr "همیشه می‌توانید نام، توضیحات و اندازه �
 
 #: views/view-add.php:57
 msgid ""
-"To add a new table, enter its name, a description (optional), and the number of rows "
-"and columns into the form below."
+"To add a new table, enter its name, a description (optional), and the number of rows and "
+"columns into the form below."
 msgstr ""
-"برای افزودن جدول تازه؛ نام، توضیحات (اختیاری) و تعداد ستون‌ها و ردیف‌های آن را در فرم "
-"زیر وارد کنید."
+"برای افزودن جدول تازه؛ نام، توضیحات (اختیاری) و تعداد ستون‌ها و ردیف‌های آن را در فرم زیر "
+"وارد کنید."
 
 #: views/view-add.php:42
 msgid "Add Table"
@@ -1618,14 +1605,13 @@ msgid ""
 msgstr ""
 
 #: views/view-about.php:97
-msgid ""
-"For this, each table is given certain CSS classes that can be used as CSS selectors."
+msgid "For this, each table is given certain CSS classes that can be used as CSS selectors."
 msgstr ""
 
 #: views/view-about.php:96
 msgid ""
-"The plugin ships with default CSS stylesheets, which can be customized with own code "
-"or replaced with other stylesheets."
+"The plugin ships with default CSS stylesheets, which can be customized with own code or "
+"replaced with other stylesheets."
 msgstr ""
 
 #: views/view-about.php:95
@@ -1634,19 +1620,19 @@ msgstr ""
 
 #: views/view-about.php:92 views/view-list.php:193
 msgid ""
-"You can also click the &#8220;%s&#8221; button in the editor toolbar to select and "
-"insert a table."
+"You can also click the &#8220;%s&#8221; button in the editor toolbar to select and insert "
+"a table."
 msgstr ""
 "شما می‌توانید از دکمه &laquo;%s&raquo; در نوارابزار ویرایشگر، برای انتخاب و جای‌گذاری "
 "جدول‌ها استفاده کنید."
 
 #: views/view-about.php:91 views/view-list.php:191
 msgid ""
-"To insert a table into a page, post, or text widget, copy its Shortcode %s and paste "
-"it at the desired place in the editor."
+"To insert a table into a page, post, or text widget, copy its Shortcode %s and paste it "
+"at the desired place in the editor."
 msgstr ""
-"برای جای‌گذاری یک جدول در برگه‌ها، نوشته‌ها و یا ابزارک‌ها، کد کوتاه آن %s را کپی کرده و "
-"در مکان دلخواه در ویرایشگر بچسبانید."
+"برای جای‌گذاری یک جدول در برگه‌ها، نوشته‌ها و یا ابزارک‌ها، کد کوتاه آن %s را کپی کرده و در "
+"مکان دلخواه در ویرایشگر بچسبانید."
 
 #: views/view-about.php:87
 msgid ""
@@ -1661,15 +1647,15 @@ msgstr ""
 #: views/view-about.php:85
 msgid ""
 "Then you can edit your data or change the structure of your table (e.g. by inserting, "
-"deleting, moving, or swapping rows or columns or sorting them) and select specific "
-"table features like alternating row colors or whether to print the name or "
-"description, if you want."
+"deleting, moving, or swapping rows or columns or sorting them) and select specific table "
+"features like alternating row colors or whether to print the name or description, if you "
+"want."
 msgstr ""
 
 #: views/view-about.php:82
 msgid ""
-"This means that you either let the plugin create an empty table for you or that you "
-"load an existing table from either a CSV, HTML, JSON, XLS, or XLSX file."
+"This means that you either let the plugin create an empty table for you or that you load "
+"an existing table from either a CSV, HTML, JSON, XLS, or XLSX file."
 msgstr ""
 
 #: views/view-about.php:81
@@ -1678,14 +1664,14 @@ msgstr ""
 
 #: views/view-about.php:65
 msgid ""
-"If you want to show your tables anywhere else in your theme, you can use a Template "
-"Tag function."
+"If you want to show your tables anywhere else in your theme, you can use a Template Tag "
+"function."
 msgstr ""
 
 #: views/view-about.php:64
 msgid ""
-"You can then show the tables in your posts, on your pages, or in text widgets by using "
-"a Shortcode."
+"You can then show the tables in your posts, on your pages, or in text widgets by using a "
+"Shortcode."
 msgstr ""
 
 #: views/view-about.php:63
@@ -1739,8 +1725,8 @@ msgstr ""
 
 #: controllers/controller-admin_ajax.php:274 views/view-preview_table.php:65
 msgid ""
-"To insert the table into a page, post, or text widget, copy the Shortcode %s and paste "
-"it into the editor."
+"To insert the table into a page, post, or text widget, copy the Shortcode %s and paste it "
+"into the editor."
 msgstr ""
 
 #: controllers/controller-admin_ajax.php:273 views/view-preview_table.php:64
@@ -1750,8 +1736,7 @@ msgid ""
 msgstr ""
 
 #: controllers/controller-admin_ajax.php:272 views/view-preview_table.php:64
-msgid ""
-"Because of CSS styling in your theme, the table might look different on your page!"
+msgid "Because of CSS styling in your theme, the table might look different on your page!"
 msgstr ""
 
 #: controllers/controller-admin_ajax.php:271 views/view-preview_table.php:64
@@ -1796,8 +1781,8 @@ msgstr ""
 
 #: controllers/controller-admin.php:1935
 msgid ""
-"You may now ask the network admin to delete the plugin&#8217;s folder "
-"<code>tablepress</code> from the server, if no other site in the network uses it."
+"You may now ask the network admin to delete the plugin&#8217;s folder <code>tablepress</"
+"code> from the server, if no other site in the network uses it."
 msgstr ""
 
 #: controllers/controller-admin.php:1933
@@ -1958,8 +1943,7 @@ msgstr "برای اطلاعات بیشتر:"
 
 #: classes/class-view.php:109
 msgid ""
-"If you like the plugin, <a href=\"%1$s\"><strong>a donation</strong></a> is "
-"recommended."
+"If you like the plugin, <a href=\"%1$s\"><strong>a donation</strong></a> is recommended."
 msgstr ""
 
 #: classes/class-view.php:108 views/view-about.php:154
@@ -1971,11 +1955,11 @@ msgstr ""
 
 #: classes/class-view.php:107 views/view-about.php:153
 msgid ""
-"<a href=\"%1$s\">Support</a> is provided through the <a href=\"%2$s\">WordPress "
-"Support Forums</a>."
+"<a href=\"%1$s\">Support</a> is provided through the <a href=\"%2$s\">WordPress Support "
+"Forums</a>."
 msgstr ""
-"<a href=\"%1$s\">پشتیبانی</a> از طریق <a href=\"%2$s\">تالارهای پشتیبانی وردپرس</a> "
-"ارائه می‌شود."
+"<a href=\"%1$s\">پشتیبانی</a> از طریق <a href=\"%2$s\">تالارهای پشتیبانی وردپرس</a> ارائه "
+"می‌شود."
 
 #: classes/class-view.php:106 views/view-about.php:115
 msgid "For technical information, please see the <a href=\"%s\">documentation</a>."
@@ -1986,8 +1970,8 @@ msgid ""
 "More information about TablePress can be found on the <a href=\"%1$s\">plugin&#8217;s "
 "website</a> or on its page in the <a href=\"%2$s\">WordPress Plugin Directory</a>."
 msgstr ""
-"اطلاعات بیشتر درباره جدول‌پرس را می‌توانید در <a href=\"%1$s\">سایت افزونه</a> و یا صفحهٔ "
-"آن در <a href=\"%2$s\">دایرکتوری افزونه‌های وردپرس</a> بیابید."
+"اطلاعات بیشتر درباره جدول‌پرس را می‌توانید در <a href=\"%1$s\">سایت افزونه</a> و یا صفحهٔ آن "
+"در <a href=\"%2$s\">دایرکتوری افزونه‌های وردپرس</a> بیابید."
 
 #: classes/class-view.php:103
 msgid "TablePress Help"

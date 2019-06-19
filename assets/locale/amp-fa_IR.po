@@ -1,188 +1,92 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-09-04 06:16+0430\n"
+"Project-Id-Version: AMP for WordPress\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2019-06-18 15:52+0430\n"
+"Last-Translator: geminorum <contact@geminorum.ir>\n"
+"Language-Team: \n"
+"Language: fa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 2.1.1\n"
-"Language: fa\n"
-"Project-Id-Version: AMP for WordPress\n"
-"POT-Creation-Date: \n"
+"X-Generator: Poedit 2.2.3\n"
 "X-Poedit-Basepath: ../../../amp\n"
-"Last-Translator: geminorum <contact@geminorum.ir>\n"
-"Language-Team: \n"
 
-#: wpcom/class-amp-polldaddy-embed.php:83
-msgid "View Poll"
-msgstr "نمایش نظرسنجی"
-
-#: wpcom/class-amp-polldaddy-embed.php:81
-msgid "View Survey"
-msgstr "نمایش نظرسنجی"
-
-#: templates/admin/amp-status.php:68
-msgid "Cancel"
-msgstr "لغو"
-
-#: templates/admin/amp-status.php:66
-msgid "OK"
-msgstr "تأیید"
-
-#: templates/admin/amp-status.php:57
-msgid "Unavailable for an unknown reason."
+#: includes/options/views/class-amp-options-menu-page.php:10
+msgid ""
+"This admin panel menu contains configuration options for the AMP Plugin."
 msgstr ""
 
-#: templates/admin/amp-status.php:54
-msgid "A plugin or theme has disabled AMP support."
-msgstr ""
+#: includes/options/views/class-amp-options-menu-page.php:7
+msgid "AMP Plugin Options"
+msgstr "گزینه‌های افزونه AMP"
 
-#. translators: %s is URL to AMP settings screen
-#: templates/admin/amp-status.php:51
-msgid "AMP cannot be enabled because this <a href=\"%s\">post type does not support it</a>."
-msgstr ""
-
-#: templates/admin/amp-status.php:47
-msgid "AMP cannot be enabled on password protected posts."
-msgstr ""
-
-#: templates/admin/amp-status.php:27
-msgid "Edit Status"
-msgstr "ویرایش وضعیت"
-
-#: templates/admin/amp-status.php:26
-msgid "Edit"
-msgstr "ویرایش"
-
-#: templates/admin/amp-status.php:23
-msgid "AMP:"
-msgstr ""
-
-#: includes/options/class-amp-options-menu.php:105
-msgid "Enable/disable AMP post type(s) support"
-msgstr ""
-
-#: includes/options/class-amp-options-menu.php:58
-msgid "Post Type Support"
-msgstr ""
-
-#: includes/options/class-amp-options-menu.php:45
-msgid "General"
-msgstr "همگانی"
-
-#: includes/options/class-amp-options-menu.php:44
-msgid "AMP Settings"
-msgstr ""
-
-#. translators: %s: Post type name.
-#: includes/options/class-amp-options-manager.php:185
-msgid "\"%s\" could not be deactivated because support is added by a plugin or theme"
-msgstr ""
-
-#. translators: %s: Post type name.
-#: includes/options/class-amp-options-manager.php:181
-msgid "\"%s\" could not be activated because support is removed by a plugin or theme"
-msgstr ""
-
-#: includes/options/class-amp-options-manager.php:139
-msgid "Duplicate analytics entry found."
-msgstr ""
-
-#: includes/options/class-amp-options-manager.php:123
-msgid "Invalid analytics config JSON."
-msgstr ""
-
-#: includes/options/class-amp-options-manager.php:116
-msgid "Missing vendor type or config."
-msgstr ""
-
-#: includes/options/class-amp-options-manager.php:103
-msgid "Unrecognized post type."
-msgstr ""
-
-#: includes/admin/class-amp-post-meta-box.php:178
-msgid "Disabled"
-msgstr "غیرفعال"
-
-#: includes/admin/class-amp-post-meta-box.php:177
-msgid "Enabled"
-msgstr "فعال"
-
-#: includes/admin/class-amp-post-meta-box.php:151
-msgid "Preview changes in AMP (opens in new window)"
-msgstr ""
-
-#: includes/admin/class-amp-post-meta-box.php:81
-msgid "AMP status."
-msgstr ""
-
-#: includes/admin/class-amp-customizer.php:265
-msgid "AMP preview enabled"
-msgstr ""
-
-#: includes/admin/class-amp-customizer.php:142
-msgid "Navigate to an AMP compatible page"
-msgstr ""
-
-#: includes/admin/class-amp-customizer.php:141
-msgid "AMP is not available for the page currently being previewed."
-msgstr ""
-
-#: includes/options/class-amp-options-manager.php:225
+#: includes/options/views/class-amp-options-manager.php:33
 msgid "Sorry, you do not have the necessary permissions to perform this action"
 msgstr "با عرض پوزش، شما مجوزهای مورد نیاز جهت انجام این عمل را ندارید"
 
-#: includes/options/class-amp-options-manager.php:236
-msgid "The analytics entry was successfully saved!"
+#: includes/options/views/class-amp-analytics-options-submenu-page.php:81
+msgid "Dismiss this notice."
+msgstr "بستن این اعلان."
+
+#: includes/options/views/class-amp-analytics-options-submenu-page.php:68
+msgid ""
+"Failed to save the analytics entry. Please make sure that the JSON "
+"configuration is valid and unique."
 msgstr ""
 
 #: includes/options/views/class-amp-analytics-options-submenu-page.php:65
+msgid "The analytics entry was successfully saved!"
+msgstr ""
+
+#: includes/options/views/class-amp-analytics-options-submenu-page.php:49
 msgid "Delete"
 msgstr "حذف"
 
-#: includes/options/views/class-amp-analytics-options-submenu-page.php:63
+#: includes/options/views/class-amp-analytics-options-submenu-page.php:47
 msgid "Save"
 msgstr "ذخیره"
 
-#: includes/options/views/class-amp-analytics-options-submenu-page.php:53
+#: includes/options/views/class-amp-analytics-options-submenu-page.php:37
 msgid "JSON Configuration:"
-msgstr ""
+msgstr "پیکربندی JSON:"
 
-#: includes/options/views/class-amp-analytics-options-submenu-page.php:46
+#: includes/options/views/class-amp-analytics-options-submenu-page.php:30
 msgid "ID:"
-msgstr ""
+msgstr "شناسه:"
 
-#: includes/options/views/class-amp-analytics-options-submenu-page.php:42
+#: includes/options/views/class-amp-analytics-options-submenu-page.php:26
 msgid "Type:"
 msgstr "نوع:"
 
-#: includes/options/views/class-amp-analytics-options-submenu-page.php:28
+#: includes/options/views/class-amp-analytics-options-submenu-page.php:15
 msgid "Add new entry:"
 msgstr ""
 
-#. translators: %s is the entry slug
-#: includes/options/views/class-amp-analytics-options-submenu-page.php:26
+#: includes/options/views/class-amp-analytics-options-submenu-page.php:13
 msgid "Analytics: %s"
 msgstr ""
 
-#: includes/options/class-amp-options-menu.php:34
+#: includes/options/class-amp-options-menu.php:26
 msgid "AMP Options"
 msgstr "گزینه‌های AMP"
 
-#: includes/options/class-amp-analytics-options-submenu.php:35
+#: includes/options/class-amp-analytics-options-submenu.php:30
 msgid "Analytics"
 msgstr "آنالیتیکس"
 
-#: includes/options/class-amp-analytics-options-submenu.php:34
+#: includes/options/class-amp-analytics-options-submenu.php:29
 msgid "AMP Analytics Options"
 msgstr ""
 
-#: includes/amp-helper-functions.php:118
-msgid "is_amp_endpoint() was called before the 'parse_query' hook was called. This function will always return 'false' before the 'parse_query' hook is called."
+#: includes/amp-helper-functions.php:44
+msgid ""
+"is_amp_endpoint() was called before the 'parse_query' hook was called. This "
+"function will always return 'false' before the 'parse_query' hook is called."
 msgstr ""
 
-#. translators: %s is sanitizer class
-#: includes/templates/class-amp-content-sanitizer.php:30
+#: includes/class-amp-content.php:102
 msgid "Sanitizer (%s) class does not exist"
 msgstr ""
 
@@ -194,59 +98,62 @@ msgstr "برچسب: %s"
 msgid "Categories: %s"
 msgstr "دسته: %s"
 
-#: templates/footer.php:25
+#: templates/footer.php:7
 msgid "Back to top"
 msgstr "بازگشت به بالا"
 
-#. translators: %s is WordPress.
-#: templates/footer.php:21
+#: templates/footer.php:5
 msgid "Powered by %s"
 msgstr "به نیروی %s"
 
-#: templates/footer.php:18
+#: templates/footer.php:5
 msgid "https://wordpress.org/"
 msgstr ""
 
-#: includes/settings/class-amp-customizer-design-settings.php:241
+#: includes/settings/class-amp-customizer-design-settings.php:113
 msgid "Dark"
 msgstr "تیره"
 
-#: includes/settings/class-amp-customizer-design-settings.php:240
+#: includes/settings/class-amp-customizer-design-settings.php:112
 msgid "Light"
 msgstr "روشن"
 
-#: includes/settings/class-amp-customizer-design-settings.php:140
+#: includes/settings/class-amp-customizer-design-settings.php:75
 msgid "Color Scheme"
 msgstr "شمای رنگی"
 
-#: includes/settings/class-amp-customizer-design-settings.php:131
+#: includes/settings/class-amp-customizer-design-settings.php:66
 msgid "Header Background & Link Color"
 msgstr "رنگ پیوند و زمینه سربرگ"
 
-#: includes/settings/class-amp-customizer-design-settings.php:121
+#: includes/settings/class-amp-customizer-design-settings.php:56
 msgid "Header Text Color"
 msgstr "رنگ متن سربرگ"
 
-#: includes/settings/class-amp-customizer-design-settings.php:113
+#: includes/settings/class-amp-customizer-design-settings.php:48
 msgid "Design"
 msgstr "طراحی"
 
-#: includes/templates/class-amp-post-template.php:349
+#: includes/class-amp-post-template.php:222
 msgid "View Comments"
 msgstr "نمایش دیدگاه‌ها"
 
-#: includes/templates/class-amp-post-template.php:348
+#: includes/class-amp-post-template.php:221
 msgid "Leave a Comment"
 msgstr "دیدگاه شما"
 
-#. translators: placeholder is URL to AMP project.
-#: includes/admin/class-amp-customizer.php:89
-msgid "<a href=\"%s\" target=\"_blank\">The AMP Project</a> is a Google-led initiative that dramatically improves loading speeds on phones and tablets. You can use the Customizer to preview changes to your AMP template before publishing them."
+#: includes/admin/class-amp-customizer.php:114
+msgid ""
+"<a href=\"%s\" target=\"_blank\">The AMP Project</a> is a Google-led "
+"initiative that dramatically improves loading speeds on phones and tablets. "
+"You can use the Customizer to preview changes to your AMP template before "
+"publishing them."
 msgstr ""
 
-#. translators: %1$s is analytics entry ID, %2$s is actual entry keys.
-#: includes/amp-post-template-actions.php:147
-msgid "Analytics entry for %1$s is missing one of the following keys: `type`, `attributes`, or `config_data` (array keys: %2$s)"
+#: includes/amp-post-template-actions.php:87
+msgid ""
+"Analytics entry for %s is missing one of the following keys: `type`, "
+"`attributes`, or `config_data` (array keys: %s)"
 msgstr ""
 
 #. Author URI of the plugin/theme
@@ -255,7 +162,7 @@ msgstr ""
 
 #. Author of the plugin/theme
 msgid "Automattic"
-msgstr ""
+msgstr "اتوماتیک"
 
 #. Description of the plugin/theme
 msgid "Add AMP support to your WordPress site."
@@ -266,14 +173,18 @@ msgid "https://github.com/automattic/amp-wp"
 msgstr ""
 
 #. Plugin Name of the plugin/theme
-#: includes/admin/class-amp-customizer.php:87 includes/admin/functions.php:76
-#: includes/admin/functions.php:77
-#: includes/options/class-amp-options-menu.php:35
+#: includes/admin/class-amp-customizer.php:113 includes/admin/functions.php:69
+#: includes/admin/functions.php:70
+#: includes/options/class-amp-options-menu.php:27
 msgid "AMP"
 msgstr ""
 
 #: back-compat/templates-v0-3/meta-time.php:6 templates/meta-time.php:6
 msgctxt "%s = human-readable time difference"
+msgid "%s ago"
+msgstr "%s پیش"
+
+#: back-compat/templates-v0-3/meta-time.php:6 templates/meta-time.php:6
 msgid "%s ago"
 msgstr "%s پیش"
 
@@ -284,22 +195,47 @@ msgctxt "Used between list items, there is a space after the comma."
 msgid ", "
 msgstr "، "
 
-#. translators: %1$s is template file, %2$s is 'WP_CONTENT_DIR' string.
-#: includes/templates/class-amp-post-template.php:556
-msgid "Path validation for template (%1$s) failed. Path cannot traverse and must be located in `%2$s`."
+#: includes/class-amp-post-template.php:399
+msgid ""
+"Path validation for template (%s) failed. Path cannot traverse and must be "
+"located in `%s`."
 msgstr ""
 
-#. translators: %s is key name
-#: includes/templates/class-amp-post-template.php:182
-msgid "Called for non-existent key (\"%s\")."
+#: includes/class-amp-post-template.php:107
+msgid "Called for non-existant key (\"%s\")."
 msgstr ""
 
-#. translators: %s is sanitizer class
-#: includes/templates/class-amp-content-sanitizer.php:38
+#: includes/class-amp-content.php:109
 msgid "Sanitizer (%s) must extend `AMP_Base_Sanitizer`"
 msgstr ""
 
-#. translators: %s is embed handler
-#: includes/templates/class-amp-content.php:154
+#: includes/class-amp-content.php:66
 msgid "Embed Handler (%s) must extend `AMP_Embed_Handler`"
 msgstr ""
+
+#~ msgid "View Poll"
+#~ msgstr "نمایش نظرسنجی"
+
+#~ msgid "View Survey"
+#~ msgstr "نمایش نظرسنجی"
+
+#~ msgid "Cancel"
+#~ msgstr "لغو"
+
+#~ msgid "OK"
+#~ msgstr "تأیید"
+
+#~ msgid "Edit Status"
+#~ msgstr "ویرایش وضعیت"
+
+#~ msgid "Edit"
+#~ msgstr "ویرایش"
+
+#~ msgid "General"
+#~ msgstr "همگانی"
+
+#~ msgid "Disabled"
+#~ msgstr "غیرفعال"
+
+#~ msgid "Enabled"
+#~ msgstr "فعال"
