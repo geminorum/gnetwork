@@ -652,11 +652,6 @@ class HTML extends Base
 			'extra'      => array(), // just passing around!
 		), $atts );
 
-		if ( empty( $data ) ) {
-			self::desc( $args['empty'], TRUE, 'base-table-empty' );
-			return FALSE;
-		}
-
 		echo '<div class="base-table-wrap">';
 
 		if ( $args['title'] )
@@ -674,6 +669,7 @@ class HTML extends Base
 			call_user_func_array( $args['before'], array( $columns, $data, $args ) );
 
 		echo '</div><table class="widefat fixed base-table-list"><thead><tr>';
+
 			foreach ( $columns as $key => $column ) {
 
 				$tag   = 'th';
@@ -695,106 +691,117 @@ class HTML extends Base
 
 				echo '<'.$tag.' class="-column -column-'.self::sanitizeClass( $key ).$class.'">'.$title.'</'.$tag.'>';
 			}
+
 		echo '</tr></thead><tbody class="-list">';
 
-		$alt = TRUE;
-		foreach ( $data as $index => $row ) {
+		if ( empty( $data ) ) {
 
-			if ( $args['check'] && ! (bool) call_user_func_array( $args['check'], array( $row, $index, $args ) ) )
-				continue;
+			echo '<tr><td colspan="'.count( $columns ).'">';
+				self::desc( $args['empty'], TRUE, 'base-table-empty' );
+			echo '</td></tr>';
 
-			echo '<tr class="-row -row-'.$index.( $alt ? ' alternate' : '' ).'">';
+		} else {
 
-			foreach ( $columns as $offset => $column ) {
+			$alt = TRUE;
 
-				$cell  = 'td';
-				$class = $callback = $actions = '';
-				$key   = $offset;
-				$value = NULL;
+			foreach ( $data as $index => $row ) {
 
-				// override key using map
-				if ( array_key_exists( $offset, $args['map'] ) )
-					$key = $args['map'][$offset];
+				if ( $args['check'] && ! (bool) call_user_func_array( $args['check'], array( $row, $index, $args ) ) )
+					continue;
 
-				if ( is_array( $column ) ) {
+				echo '<tr class="-row -row-'.$index.( $alt ? ' alternate' : '' ).'">';
 
-					if ( isset( $column['class'] ) )
-						$class.= ' '.self::prepClass( $column['class'] );
+				foreach ( $columns as $offset => $column ) {
 
-					if ( isset( $column['callback'] ) )
-						$callback = $column['callback'];
+					$cell  = 'td';
+					$class = $callback = $actions = '';
+					$key   = $offset;
+					$value = NULL;
 
-					if ( isset( $column['actions'] ) ) {
-						$actions = $column['actions'];
-						$class.= ' has-row-actions';
+					// override key using map
+					if ( array_key_exists( $offset, $args['map'] ) )
+						$key = $args['map'][$offset];
+
+					if ( is_array( $column ) ) {
+
+						if ( isset( $column['class'] ) )
+							$class.= ' '.self::prepClass( $column['class'] );
+
+						if ( isset( $column['callback'] ) )
+							$callback = $column['callback'];
+
+						if ( isset( $column['actions'] ) ) {
+							$actions = $column['actions'];
+							$class.= ' has-row-actions';
+						}
+
+						// again override key using map
+						if ( isset( $column['map'] ) )
+							$key = $column['map'];
 					}
 
-					// again override key using map
-					if ( isset( $column['map'] ) )
-						$key = $column['map'];
-				}
+					if ( '_cb' === $key ) {
 
-				if ( '_cb' === $key ) {
+						if ( '_index' == $column )
+							$value = $index;
 
-					if ( '_index' == $column )
-						$value = $index;
+						else if ( is_array( $column ) && isset( $column['value'] ) )
+							$value = call_user_func_array( $column['value'], array( NULL, $row, $column, $index, $key, $args ) );
 
-					else if ( is_array( $column ) && isset( $column['value'] ) )
-						$value = call_user_func_array( $column['value'], array( NULL, $row, $column, $index, $key, $args ) );
+						else if ( is_array( $row ) && array_key_exists( $column, $row ) )
+							$value = $row[$column];
 
-					else if ( is_array( $row ) && array_key_exists( $column, $row ) )
-						$value = $row[$column];
+						else if ( is_object( $row ) && property_exists( $row, $column ) )
+							$value = $row->{$column};
 
-					else if ( is_object( $row ) && property_exists( $row, $column ) )
-						$value = $row->{$column};
+						else
+							$value = '';
+
+						$cell = 'th';
+						$class.= ' check-column';
+						$value = '<input type="checkbox" name="_cb[]" value="'.self::escape( $value ).'" class="-cb" />';
+
+					} else if ( is_array( $row ) ) {
+
+						if ( array_key_exists( $key, $row ) )
+							$value = $row[$key];
+
+					} else if ( is_object( $row ) ) {
+
+						if ( property_exists( $row, $key ) )
+							$value = $row->{$key};
+					}
+
+					echo '<'.$cell.' class="-cell -cell-'.self::sanitizeClass( $key ).$class.'">';
+
+					if ( $callback )
+						echo call_user_func_array( $callback,
+							array( $value, $row, $column, $index, $key, $args ) );
+
+					else if ( $args['callback'] && '_cb' !== $key )
+						echo call_user_func_array( $args['callback'],
+							array( $value, $row, $column, $index, $key, $args ) );
+
+					else if ( $args['sanitize'] && '_cb' !== $key )
+						echo self::sanitizeDisplay( $value );
+
+					else if ( $value )
+						echo $value;
 
 					else
-						$value = '';
+						echo '&nbsp;';
 
-					$cell  = 'th';
-					$class.= ' check-column';
-					$value = '<input type="checkbox" name="_cb[]" value="'.self::escape( $value ).'" class="-cb" />';
+					if ( $actions )
+						self::tableActions( call_user_func_array( $actions,
+							array( $value, $row, $column, $index, $key, $args ) ) );
 
-				} else if ( is_array( $row ) ) {
-
-					if ( array_key_exists( $key, $row ) )
-						$value = $row[$key];
-
-				} else if ( is_object( $row ) ) {
-
-					if ( property_exists( $row, $key ) )
-						$value = $row->{$key};
+					echo '</'.$cell.'>';
 				}
 
-				echo '<'.$cell.' class="-cell -cell-'.self::sanitizeClass( $key ).$class.'">';
+				$alt = ! $alt;
 
-				if ( $callback )
-					echo call_user_func_array( $callback,
-						array( $value, $row, $column, $index, $key, $args ) );
-
-				else if ( $args['callback'] && '_cb' !== $key )
-					echo call_user_func_array( $args['callback'],
-						array( $value, $row, $column, $index, $key, $args ) );
-
-				else if ( $args['sanitize'] && '_cb' !== $key )
-					echo self::sanitizeDisplay( $value );
-
-				else if ( $value )
-					echo $value;
-
-				else
-					echo '&nbsp;';
-
-				if ( $actions )
-					self::tableActions( call_user_func_array( $actions,
-						array( $value, $row, $column, $index, $key, $args ) ) );
-
-				echo '</'.$cell.'>';
+				echo '</tr>';
 			}
-
-			$alt = ! $alt;
-
-			echo '</tr>';
 		}
 
 		echo '</tbody></table>';
