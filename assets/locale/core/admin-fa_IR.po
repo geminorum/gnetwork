@@ -3318,7 +3318,7 @@ msgstr "با عرض پوزش، شما اجازهٔ ساخت حساب‌های ک
 
 #: wp-admin/customize.php:217
 msgid "The Customizer allows you to preview changes to your site before publishing them. You can navigate to different pages on your site within the preview. Edit shortcuts are shown for some editable elements."
-msgstr "سفارشی‌ساز به شما اجازه می‌دهد تا پیش‌نمایش تغییرات سایت خود را قبل از انتشار آن‌ها ببینید. می‌توانید در حالت پیش‌نمایش، به صفحات مختلف سایت خود سر بزنید. کلیدهای میانبر ویرایش برای برخی از عناصر قابل ویرایش نشان داده شده است."
+msgstr "سفارشی‌ساز به شما اجازه می‌دهد تا پیش‌نمایش تغییرات سایت خود را قبل از انتشار آن‌ها ببینید. می‌توانید در حالت پیش‌نمایش، به صفحات مختلف سایت خود سر بزنید. کلیدهای میان‌بر ویرایش برای برخی از عناصر قابل ویرایش نشان داده شده است."
 
 #: wp-admin/customize.php:231
 msgctxt "short (~12 characters) label for hide controls button"
@@ -5183,7 +5183,7 @@ msgstr "<a href=\"https://codex.wordpress.org/Using_Permalinks\" target=\"_blank
 
 #: wp-admin/edit-comments.php:203
 msgid "<a href=\"https://codex.wordpress.org/Keyboard_Shortcuts\">Documentation on Keyboard Shortcuts</a>"
-msgstr "<a href=\"https://codex.wordpress.org/Keyboard_Shortcuts\" target=\"_blank\">مستندات درباره میانبرهای تخته‌کلید</a>"
+msgstr "<a href=\"https://codex.wordpress.org/Keyboard_Shortcuts\" target=\"_blank\">مستندات درباره میان‌برهای تخته‌کلید</a>"
 
 #: wp-admin/plugin-editor.php:142
 msgid "<a href=\"https://codex.wordpress.org/Writing_a_Plugin\">Documentation on Writing Plugins</a>"
@@ -7766,7 +7766,7 @@ msgstr "مگابایت (در صورت خالی گذاشتن، مقدار پیش�
 
 #: wp-admin/includes/ms.php:646
 msgid "If you reached this screen by accident and meant to visit one of your own sites, here are some shortcuts to help you find your way."
-msgstr "اگر شما به‌صورت تصادفی به این صفحه رسیده‌اید و می‌خواستید به یکی از سایت‌های خودتان وارد شوید، می‌توانید برای پیدا کردن راه خود از میانبرهای زیر استفاده کنید."
+msgstr "اگر شما به‌صورت تصادفی به این صفحه رسیده‌اید و می‌خواستید به یکی از سایت‌های خودتان وارد شوید، می‌توانید برای پیدا کردن راه خود از میان‌برهای زیر استفاده کنید."
 
 #: wp-admin/includes/ms.php:648
 msgid "Your Sites"
@@ -8267,7 +8267,7 @@ msgstr "شما می‌توانید دیدگاه‌ها را مانند نوشت�
 
 #: wp-admin/edit-comments.php:195
 msgid "Many people take advantage of keyboard shortcuts to moderate their comments more quickly. Use the link to the side to learn more."
-msgstr "افراد زیادی برای مدیریت سریع‌تر دیدگاه‌ها از کلیدهای میانبُر صفحه‌کلید استفاده می‌کنند، برای اطلاعات بیشتر پیوندهای سمت چپ را ببینید."
+msgstr "افراد زیادی برای مدیریت سریع‌تر دیدگاه‌ها از کلیدهای میان‌بر صفحه‌کلید استفاده می‌کنند، برای اطلاعات بیشتر پیوندهای سمت چپ را ببینید."
 
 #: wp-admin/edit.php:277
 msgid "Managing pages is very similar to managing posts, and the screens can be customized in the same way."
@@ -11149,7 +11149,7 @@ msgstr "نقش پیش‌فرض کاربر تازه"
 
 #: wp-admin/user-edit.php:311
 msgid "Enable keyboard shortcuts for comment moderation."
-msgstr "فعال‌سازی میانبرهای صفحه‌کلید برای مدیریت دیدگاه‌ها."
+msgstr "فعال‌سازی میان‌برهای صفحه‌کلید برای مدیریت دیدگاه‌ها."
 
 #: wp-admin/plugins.php:362
 msgid "Yes, delete these files"
