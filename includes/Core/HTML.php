@@ -853,6 +853,7 @@ class HTML extends Base
 	{
 		$args = self::atts( array(
 			'actions'  => array(),
+			'icons'    => array(),
 			'before'   => array(),
 			'after'    => array(),
 			'total'    => 0,
@@ -867,7 +868,7 @@ class HTML extends Base
 			'rtl'      => self::rtl(),
 		), $pagination );
 
-		$icons = array(
+		$icons = self::atts( array(
 			'action'   => self::getDashicon( 'update' ),
 			'filter'   => self::getDashicon( 'filter' ),
 			'last'     => self::getDashicon( $args['rtl'] ? 'controls-skipback' : 'controls-skipforward' ),
@@ -876,7 +877,7 @@ class HTML extends Base
 			'previous' => self::getDashicon( $args['rtl'] ? 'controls-forward' : 'controls-back' ), // &lsaquo;
 			'refresh'  => self::getDashicon( 'controls-repeat' ),
 			'order'    => self::getDashicon( 'sort' ),
-		);
+		), $args['icons'] );
 
 		echo '<div class="base-table-navigation">';
 

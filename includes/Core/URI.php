@@ -346,6 +346,8 @@ class URI extends Base
 	 *
 	 * @param string $uri
 	 * @return array
+	 *
+	 * @throws Exception
 	 */
 	private static function _parse_fallback( $uri )
 	{
