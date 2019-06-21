@@ -339,6 +339,9 @@ class Locale extends gNetwork\Module
 			'wp-shortpixel'       => 'page',
 			'wp-short-pixel-bulk' => 'page',
 
+			'sensei_updates'    => 'page',
+			'sensei-extensions' => 'page',
+
 		], $current );
 
 		return $this->check_request( $list, $current, $base );

@@ -63,6 +63,9 @@ class Themes extends gNetwork\Module
 			$this->filter( 'post_class', 3, 5 );
 
 			add_filter( 'the_generator', '__return_null', 98 );
+
+			// FIXME: WORKING but for front-end, needs custom styles within this plugin
+			// $this->filter_true( 'sensei_disable_styles' );
 		}
 	}
 
@@ -312,15 +315,18 @@ class Themes extends gNetwork\Module
 	{
 		?>
 		body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Tahoma, Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif; }
-		footer ol#references { margin: 16px 16px 0; padding-top: 16px; border-top: 1px solid #c2c2c2; }
+		footer ol#references { margin: 16px 16px 0; padding-top: 16px; border-top: 1px solid #c2c2c2; list-style: none; }
 		.-wrap.shortcode-asterisks { margin: 16px 0; text-align: center; }
 		.amp-wp-article-header .overtitle, .amp-wp-article-header .subtitle { margin: 8px 0; }
 		.amp-wp-article-content .-lead { font-size: .89em; color: gray; }
 		.amp-wp-article-header + .amp-wp-article-header { margin-top: 0; }
+		.amp-wp-article-featured-image { text-align: center; }
+		.amp-wp-article-featured-image .wp-caption-text { padding-top: 0; }
 		<?php
 
 		if ( ! is_rtl() )
 			return;
+
 		?>
 		.amp-wp-article-header .amp-wp-meta:last-of-type { text-align: left; }
 		.amp-wp-article-header .amp-wp-meta:first-of-type { text-align: right; }

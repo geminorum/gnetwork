@@ -202,11 +202,14 @@ class Search extends gNetwork\Module
 			if ( $this->options['redirect_single'] && $wp_query->post_count == 1 )
 				WordPress::redirect( get_permalink( $wp_query->posts['0']->ID ) );
 
-			add_action( 'wp_head', function(){
-				// prevent search bots from indexing search results
-				echo "\t".'<meta name="robots" content="noindex, nofollow" />'."\n";
-			}, 1 );
+			$this->action( 'wp_head', 0, 8 );
 		}
+	}
+
+	public function wp_head()
+	{
+		// prevent search bots from indexing search results
+		echo '<meta name="robots" content="noindex, nofollow" />'."\n";
 	}
 
 	public function get_search_form( $form )
