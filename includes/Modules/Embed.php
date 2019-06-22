@@ -7,6 +7,8 @@ use geminorum\gNetwork\Logger;
 use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Core\HTML;
+use geminorum\gNetwork\Core\HTTP;
+use geminorum\gNetwork\Core\Number;
 use geminorum\gNetwork\Core\WordPress;
 
 class Embed extends gNetwork\Module
@@ -56,22 +58,26 @@ class Embed extends gNetwork\Module
 	public function default_options()
 	{
 		return [
-			'load_defaults'    => 0,
-			'autoembed_urls'   => 0,
-			'oembed_providers' => 0,
-			'oembed_discover'  => 0,
-			'wrapped_links'    => 0,
-			'load_docs_pdf'    => 0,
-			'load_aparat'      => 0,
-			'load_kavimo'      => 0,
-			'load_giphy'       => 0,
-			'count_channel'    => 10,
+			'load_defaults'          => 0,
+			'autoembed_urls'         => 0,
+			'oembed_providers'       => 0,
+			'oembed_discover'        => 0,
+			'load_docs_pdf'          => 0,
+			'load_instagram'         => 0,
+			'load_aparat'            => 0,
+			'load_kavimo'            => 0,
+			'load_giphy'             => 0,
+			'instagram_max_width'    => 640,
+			'instagram_hide_caption' => 0,
+			'error_message'          => '',
+			'count_channel'          => 10,
+			'wrapped_links'          => 0,
 		];
 	}
 
 	public function default_settings()
 	{
-		return [
+		$settings = [
 			'_general' => [
 				[
 					'field'       => 'load_defaults',
@@ -103,6 +109,11 @@ class Embed extends gNetwork\Module
 					'description' => _x( 'Whether to load PDF via Google Docs embed handlers on this site.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
+					'field'       => 'load_instagram',
+					'title'       => _x( 'Load Instagram Embeds', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Whether to load Instagram embed handlers on this site.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
+				],
+				[
 					'field'       => 'load_aparat',
 					'title'       => _x( 'Load Aparat Embeds', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Whether to load Aparat.com embed handlers on this site.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
@@ -121,27 +132,66 @@ class Embed extends gNetwork\Module
 					'after'       => Settings::fieldAfterIcon( 'https://giphy.com/' ),
 				],
 			],
-			'_misc' => [
+		];
+
+		if ( $this->options['load_instagram'] )
+			$settings['_instagram'] = [
 				[
-					'field'       => 'wrapped_links',
-					'title'       => _x( 'Wrapped Links', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Fixes wrapped embed links in paragraphs.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
-				],
-				[
-					'field'       => 'count_channel',
+					'field'       => 'instagram_max_width',
 					'type'        => 'number',
-					'title'       => _x( 'Default Count', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Number of items on a list embed.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
-					'default'     => 10,
+					'title'       => _x( 'Image Width', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Applies as default on max width of images on Instagram embeds.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
+					'default'     => 640,
+					'min_attr'    => 320,
 				],
+				[
+					'field'       => 'instagram_hide_caption',
+					'type'        => 'disabled',
+					'title'       => _x( 'Image Caption', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Applies as default on hiding image captions on Instagram embeds.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
+				],
+			];
+
+		$settings['_misc'] = [
+			[
+				'field'       => 'error_message',
+				'type'        => 'text',
+				'title'       => _x( 'Error Message', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Displays as default message upon error occurs.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
+				'default'     => _x( 'Error while loading the content.', 'Modules: Embed', GNETWORK_TEXTDOMAIN ),
+			],
+			[
+				'field'       => 'count_channel',
+				'type'        => 'number',
+				'title'       => _x( 'Default Count', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Number of items on a list embed.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
+				'default'     => 10,
+			],
+			[
+				'field'       => 'wrapped_links',
+				'title'       => _x( 'Wrapped Links', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Fixes wrapped embed links in paragraphs.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
 			],
 		];
+
+		return $settings;
+	}
+
+	public function settings_section_instagram()
+	{
+		Settings::fieldSection(
+			_x( 'Instagram', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
+			sprintf( _x( 'There is no height setting because the height will adjust automatically based on the width. Instagram only allow a minimum width of %s pixels. Using a lower value will break the embed.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ), '<code>'.Number::format( 320 ).'</code>' )
+		);
 	}
 
 	public function plugins_loaded()
 	{
 		if ( $this->options['load_docs_pdf'] )
 			wp_embed_register_handler( 'pdf', '#(^(https?)\:\/\/.+\.pdf$)#i', [ $this, 'handle_docs_pdf' ] );
+
+		if ( $this->options['load_instagram'] )
+			wp_embed_register_handler( 'instagram', '/https?\:\/\/(?:www.)?instagram.com\/p\/(.+)/', [ $this, 'handle_instagram' ] );
 
 		if ( $this->options['load_aparat'] ) {
 			wp_embed_register_handler( 'aparat', '#https?://(?:www)\.aparat\.com\/v\/(.*?)\/?$#i', [ $this, 'handle_aparat_video' ], 5 );
@@ -183,6 +233,37 @@ class Embed extends gNetwork\Module
 
 		$html = '<div class="gnetwork-wrap-embed -pdf -docs">'.$html.'</div>';
 		return $this->filters( 'docs_pdf', $html, $matches, $attr, $url, $rawattr );
+	}
+
+	// @REF: https://www.instagram.com/developer/embedding/
+	public function handle_instagram( $matches, $attr, $url, $rawattr )
+	{
+		$url = add_query_arg( [
+			'url'         => 'https://www.instagram.com/p/'.str_replace( '/', '', $matches[1] ),
+			'maxwidth'    => empty( $rawattr['maxwidth'] ) ? $this->options['instagram_max_width'] : $rawattr['maxwidth'],
+			'hidecaption' => empty( $rawattr['hidecaption'] ) ? $this->options['instagram_hide_caption'] : $rawattr['hidecaption'],
+			'omitscript'  => 1,
+		], 'https://api.instagram.com/oembed/' );
+
+		$key = $this->hash( 'instagram', $url, $attr, $rawattr );
+
+		if ( WordPress::isFlush() )
+			delete_site_transient( $key );
+
+		if ( FALSE === ( $html = get_site_transient( $key ) ) ) {
+
+			if ( ! $response = HTTP::getJSON( $url ) )
+				return $this->options['error_message'];
+
+			$html = $response['html'];
+
+			set_site_transient( $key, $html, GNETWORK_CACHE_TTL );
+		}
+
+		wp_enqueue_script( 'instagram-embed', 'https://www.instagram.com/embed.js', [], NULL, TRUE );
+
+		$html = '<div class="gnetwork-wrap-embed -instagram">'.$html.'</div>';
+		return $this->filters( 'instagram', $html, $matches, $attr, $url, $rawattr );
 	}
 
 	public function handle_aparat_video( $matches, $attr, $url, $rawattr )
