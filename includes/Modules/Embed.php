@@ -202,7 +202,7 @@ class Embed extends gNetwork\Module
 
 	public function handle_aparat_channel( $matches, $attr, $url, $rawattr )
 	{
-		$count = $this->options['count_channel'];
+		$count = empty( $rawattr['count'] ) ? $this->options['count_channel'] : $rawattr['count'];
 		$key   = $this->hash( 'aparatchannel', $url, $count, $attr, $rawattr );
 
 		if ( WordPress::isFlush() )
