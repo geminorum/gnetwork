@@ -306,7 +306,7 @@ class Embed extends gNetwork\Module
 				$rss->__destruct();
 				unset( $rss );
 
-				return _x( 'Error while loading the content.', 'Modules: Embed', GNETWORK_TEXTDOMAIN );
+				return $this->options['error_message'];
 			}
 
 			$layout = '<div class="-item"><div class="-preview">%s</div><div class="-description"><h4 class="-title"><a href="%s">%s</a></h4><span class="-date">%s</span>%s</div></div>';
