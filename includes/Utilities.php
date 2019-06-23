@@ -278,6 +278,34 @@ class Utilities extends Core\Base
 		return $fallback;
 	}
 
+	public static function kses( $text, $context = 'none', $allowed = NULL )
+	{
+		if ( is_null( $allowed ) ) {
+
+			if ( 'text' == $context )
+				$allowed = [
+					'a'       => [ 'class' => TRUE, 'title' => TRUE, 'href' => TRUE ],
+					'abbr'    => [ 'class' => TRUE, 'title' => TRUE ],
+					'acronym' => [ 'class' => TRUE, 'title' => TRUE ],
+					'code'    => [ 'class' => TRUE ],
+					'em'      => [ 'class' => TRUE ],
+					'strong'  => [ 'class' => TRUE ],
+					'i'       => [ 'class' => TRUE ],
+					'b'       => [ 'class' => TRUE ],
+					'span'    => [ 'class' => TRUE ],
+					'br'      => [],
+				];
+
+			else if ( 'html' == $context )
+				$allowed = wp_kses_allowed_html();
+
+			else if ( 'none' == $context )
+				$allowed = [];
+		}
+
+		return apply_filters( static::BASE.'_kses', wp_kses( $text, $allowed ), $allowed, $context );
+	}
+
 	public static function prepTitle( $text, $post_id = 0 )
 	{
 		if ( ! $text )
