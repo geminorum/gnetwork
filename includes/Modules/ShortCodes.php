@@ -1347,8 +1347,12 @@ class ShortCodes extends gNetwork\Module
 
 		$key = $ref = $title = $url = FALSE;
 
-		if ( $content )
-			$ref = $title = trim( strip_tags( apply_filters( 'html_format_i18n', $content ) ) );
+		if ( $content ) {
+			$content = Utilities::kses( $content, 'text' );
+			$content = apply_filters( 'html_format_i18n', $content );
+			$title   = trim( strip_tags( $content ) );
+			$ref     = trim( $content );
+		}
 
 		if ( $args['url'] )
 			$url = HTML::tag( 'a', [
