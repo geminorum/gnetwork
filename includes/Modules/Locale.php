@@ -225,6 +225,7 @@ class Locale extends gNetwork\Module
 			'wp-htaccess-editor'         => 'page', // [Htaccess Editor](https://wordpress.org/plugins/wp-htaccess-editor/)
 			'add-from-server'            => 'page', // [Add From Server](https://wordpress.org/plugins/add-from-server/)
 			'advanced-cron-manager'      => 'page',
+			'sb-instagram-feed'          => 'page',
 
 			// [Official MailerLite Sign Up Forms](https://wordpress.org/plugins/official-mailerlite-sign-up-forms/)
 			'mailerlite_main'     => 'page',

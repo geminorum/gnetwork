@@ -99,7 +99,7 @@ class Embed extends gNetwork\Module
 					'field'       => 'oembed_discover',
 					'title'       => _x( 'oEmbed Discovery', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Whether to inspect the given URL for discoverable link tags.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
-					'after'       => Settings::fieldAfterIcon( 'https://oembed.com/' ),
+					'after'       => Settings::fieldAfterIcon( 'https://oembed.com' ),
 				],
 			],
 			'_services' => [
@@ -112,6 +112,7 @@ class Embed extends gNetwork\Module
 					'field'       => 'load_instagram',
 					'title'       => _x( 'Load Instagram Embeds', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Whether to load Instagram embed handlers on this site.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
+					'after'       => Settings::fieldAfterIcon( 'https://www.instagram.com/developer/' ),
 				],
 				[
 					'field'       => 'load_aparat',
