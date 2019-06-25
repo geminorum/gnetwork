@@ -314,6 +314,11 @@ class Taxonomy extends gNetwork\Module
 
 	private function get_actions( $taxonomy )
 	{
+		static $filtered = [];
+
+		if ( isset( $filtered[$taxonomy] ) )
+			return $filtered[$taxonomy];
+
 		$actions = [];
 
 		if ( is_taxonomy_hierarchical( $taxonomy ) )
@@ -330,7 +335,9 @@ class Taxonomy extends gNetwork\Module
 			$actions['downcode_slug'] = _x( 'Transliterate Slug', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN );
 		}
 
-		return $this->filters( 'bulk_actions', $actions, $taxonomy );
+		$filtered[$taxonomy] = $this->filters( 'bulk_actions', $actions, $taxonomy );
+
+		return $filtered[$taxonomy];
 	}
 
 	private function term_management( $screen )
@@ -342,24 +349,29 @@ class Taxonomy extends gNetwork\Module
 			'action2'     => FALSE,
 		], $_REQUEST );
 
-		$tax = get_taxonomy( $data['taxonomy'] );
-
-		if ( ! $tax )
+		if ( ! $object = get_taxonomy( $data['taxonomy'] ) )
 			return;
 
-		if ( ! current_user_can( $tax->cap->manage_terms ) )
+		if ( ! current_user_can( $object->cap->manage_terms ) )
+			return;
+
+		$actions = $this->get_actions( $data['taxonomy'] );
+
+		if ( ! count( $actions ) )
 			return;
 
 		$this->action( 'admin_notices' );
-		$this->action( 'admin_enqueue_scripts' );
 		$this->action( 'admin_footer' );
 
 		$screen->add_help_tab( [
 			'id'      => $this->classs( 'help-bulk-actions' ),
 			'title'   => _x( 'Bulk Actions', 'Modules: Taxonomy: Help Tab Title', GNETWORK_TEXTDOMAIN ),
 			'content' => '<p>'._x( 'These are bulk actions provided for this taxonomy:', 'Modules: Taxonomy: Help Tab Content', GNETWORK_TEXTDOMAIN )
-				.'</p>'.HTML::renderList( $this->get_actions( $data['taxonomy'] ) ),
+				.'</p>'.HTML::renderList( $actions ),
 		] );
+
+		wp_localize_script( Scripts::enqueueScript( 'admin.taxonomy.actions' ),
+			'gNetworkTaxonomyActions', $actions );
 
 		$action = FALSE;
 
@@ -646,37 +658,33 @@ class Taxonomy extends gNetwork\Module
 		return TRUE;
 	}
 
-	public function admin_enqueue_scripts()
-	{
-		global $taxonomy;
-
-		wp_localize_script( Scripts::enqueueScript( 'admin.taxonomy.actions' ),
-			'gNetworkTaxonomyActions', $this->get_actions( $taxonomy ) );
-	}
-
 	public function admin_footer()
 	{
 		global $taxonomy;
 
 		foreach ( array_keys( $this->get_actions( $taxonomy ) ) as $key ) {
-			echo "<div id='gnetwork-taxonomy-input-$key' class='gnetwork-taxonomy-input-wrap' style='display:none'>\n";
 
-				$callback = $this->filters( 'bulk_input', [ $this, 'input_'.$key ], $key, $taxonomy );
-				if ( is_callable( $callback ) )
-					call_user_func( $callback, $taxonomy );
+			$callback = $this->filters( 'bulk_input', [ $this, 'secondary_input_'.$key ], $key, $taxonomy );
 
-			echo "</div>\n";
+			if ( $callback && is_callable( $callback ) ) {
+
+				echo "<div id='gnetwork-taxonomy-input-$key' class='gnetwork-taxonomy-input-wrap' style='display:none'>\n";
+
+					call_user_func_array( $callback, [ $taxonomy ] );
+
+				echo "</div>\n";
+			}
 		}
 	}
 
-	public function input_merge( $taxonomy )
+	private function secondary_input_merge( $taxonomy )
 	{
 		printf( _x( 'into: %s', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN ),
 			'<input name="bulk_to_tag" type="text" placeholder="'
 			._x( 'Name, Slug or ID', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN ).'" />' );
 	}
 
-	public function input_change_tax( $taxonomy )
+	private function secondary_input_change_tax( $taxonomy )
 	{
 		$args = current_user_can( 'import' ) ?  [] : [ 'show_ui' => TRUE ];
 		$list = get_taxonomies( $args, 'objects' );
@@ -694,7 +702,7 @@ class Taxonomy extends gNetwork\Module
 		echo '</select>';
 	}
 
-	public function input_set_parent( $taxonomy )
+	private function secondary_input_set_parent( $taxonomy )
 	{
 		wp_dropdown_categories( [
 			'hide_empty'       => 0,
