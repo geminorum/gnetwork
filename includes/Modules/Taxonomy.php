@@ -143,7 +143,7 @@ class Taxonomy extends gNetwork\Module
 			} else if ( 'term' == $screen->base ) {
 
 				if ( $this->options['description_editor'] )
-					add_action( $screen->taxonomy.'_edit_form_fields', [ $this, 'edit_form_fields' ], 1, 2 );
+					add_action( $screen->taxonomy.'_edit_form_fields', [ $this, 'edit_form_fields_editor' ], 1, 2 );
 			}
 		}
 	}
@@ -233,7 +233,7 @@ class Taxonomy extends gNetwork\Module
 		return $clauses;
 	}
 
-	public function edit_form_fields( $tag, $taxonomy )
+	public function edit_form_fields_editor( $tag, $taxonomy )
 	{
 		$settings = [
 			'textarea_name'  => 'description',
