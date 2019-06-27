@@ -121,30 +121,10 @@ class Taxonomy extends gNetwork\Module
 				Scripts::enqueueScript( 'admin.taxonomy.wordcount', [ 'jquery', 'word-count', 'underscore' ] );
 			}
 
-			if ( $this->options['management_tools'] ) {
-				$actions = $this->get_actions( $screen->taxonomy );
-				$this->action( 'edited_term', 3, 12, 'actions' );
-			}
+			if ( $this->options['management_tools'] )
+				$this->management_tools( $screen );
 
 			if ( 'edit-tags' == $screen->base ) {
-
-				if ( $this->options['management_tools']
-					&& count( $actions )
-					&& WordPress::cucTaxonomy( $screen->taxonomy, 'manage_terms' ) ) {
-
-					add_filter( 'handle_bulk_actions-'.$screen->id, [ $this, 'handle_bulk_actions' ], 10, 3 );
-					wp_localize_script( Scripts::enqueueScript( 'admin.taxonomy.actions' ), 'gNetworkTaxonomyActions', $actions );
-
-					$this->action( 'admin_notices' );
-					$this->action( 'admin_footer' );
-
-					$screen->add_help_tab( [
-						'id'      => $this->classs( 'help-bulk-actions' ),
-						'title'   => _x( 'Extra Actions', 'Modules: Taxonomy: Help Tab Title', GNETWORK_TEXTDOMAIN ),
-						'content' => '<p>'._x( 'These are extra bulk actions available for this taxonomy:', 'Modules: Taxonomy: Help Tab Content', GNETWORK_TEXTDOMAIN )
-							.'</p>'.HTML::renderList( $actions ),
-					] );
-				}
 
 				if ( $this->options['description_editor'] )
 					add_action( $screen->taxonomy.'_add_form_fields', [ $this, 'add_form_fields_editor' ], 1, 1 );
@@ -161,16 +141,6 @@ class Taxonomy extends gNetwork\Module
 				}
 
 			} else if ( 'term' == $screen->base ) {
-
-				unset( $actions['set_parent'], $actions['merge'], $actions['empty_desc'] );
-
-				if ( $this->options['management_tools'] && count( $actions ) ) {
-					add_action( $screen->taxonomy.'_edit_form_fields', [ $this, 'edit_form_fields_actions' ], 99, 2 );
-					wp_localize_script( Scripts::enqueueScript( 'admin.taxonomy.actions' ), 'gNetworkTaxonomyActions', $actions );
-
-					$this->action( 'admin_notices' );
-					$this->action( 'admin_footer' );
-				}
 
 				if ( $this->options['description_editor'] )
 					add_action( $screen->taxonomy.'_edit_form_fields', [ $this, 'edit_form_fields_editor' ], 1, 2 );
@@ -347,6 +317,47 @@ class Taxonomy extends gNetwork\Module
 /// Originally adapted from : Term Management Tools by scribu v1.1.4
 // @REF: https://github.com/scribu/wp-term-management-tools
 // @REF: https://wordpress.org/plugins/term-management-tools/
+
+	private function management_tools( $screen )
+	{
+		$actions = $this->get_actions( $screen->taxonomy );
+
+		if ( 'term' == $screen->base )
+			unset( $actions['set_parent'], $actions['merge'], $actions['empty_desc'] );
+
+		if ( ! count( $actions ) )
+			return FALSE;
+
+		if ( 'edit-tags' == $screen->base ) {
+
+			if ( ! WordPress::cucTaxonomy( $screen->taxonomy, 'manage_terms' ) )
+				return FALSE;
+
+			add_filter( 'handle_bulk_actions-'.$screen->id, [ $this, 'handle_bulk_actions' ], 10, 3 );
+
+			$intro = _x( 'These are extra bulk actions available for this taxonomy:', 'Modules: Taxonomy: Help Tab Content', GNETWORK_TEXTDOMAIN );
+
+		} else {
+
+			add_action( $screen->taxonomy.'_edit_form_fields', [ $this, 'edit_form_fields_actions' ], 99, 2 );
+
+			$intro = _x( 'These are extra actions available for this term:', 'Modules: Taxonomy: Help Tab Content', GNETWORK_TEXTDOMAIN );
+		}
+
+		$this->action( 'edited_term', 3, 12, 'actions' ); // fires on edit-tags.php
+		$this->action( 'admin_notices' );
+		$this->action( 'admin_footer' );
+
+		$screen->add_help_tab( [
+			'id'      => $this->classs( 'help-bulk-actions' ),
+			'title'   => _x( 'Extra Actions', 'Modules: Taxonomy: Help Tab Title', GNETWORK_TEXTDOMAIN ),
+			'content' => '<p>'.$intro.'</p>'.HTML::renderList( $actions ),
+		] );
+
+		wp_localize_script( Scripts::enqueueScript( 'admin.taxonomy.actions' ), 'gNetworkTaxonomyActions', $actions );
+
+		return TRUE;
+	}
 
 	private function get_actions( $taxonomy )
 	{
