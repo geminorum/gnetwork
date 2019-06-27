@@ -5,7 +5,7 @@ jQuery(function ($) {
 
   $.each(gNetworkTaxonomyActions, function (key, title) {
     actions.unshift({
-      action: 'bulk_' + key,
+      action: 'extra-' + key,
       name: title,
       el: $('#gnetwork-taxonomy-input-' + key)
     });

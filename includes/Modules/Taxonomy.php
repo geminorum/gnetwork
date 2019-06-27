@@ -121,10 +121,28 @@ class Taxonomy extends gNetwork\Module
 				Scripts::enqueueScript( 'admin.taxonomy.wordcount', [ 'jquery', 'word-count', 'underscore' ] );
 			}
 
+			if ( $this->options['management_tools'] )
+				$actions = $this->get_actions( $screen->taxonomy );
+
 			if ( 'edit-tags' == $screen->base ) {
 
-				if ( $this->options['management_tools'] )
-					$this->term_management( $screen );
+				if ( $this->options['management_tools']
+					&& count( $actions )
+					&& WordPress::cucTaxonomy( $screen->taxonomy, 'manage_terms' ) ) {
+
+					add_filter( 'handle_bulk_actions-'.$screen->id, [ $this, 'handle_bulk_actions' ], 10, 3 );
+					wp_localize_script( Scripts::enqueueScript( 'admin.taxonomy.actions' ), 'gNetworkTaxonomyActions', $actions );
+
+					$this->action( 'admin_notices' );
+					$this->action( 'admin_footer' );
+
+					$screen->add_help_tab( [
+						'id'      => $this->classs( 'help-bulk-actions' ),
+						'title'   => _x( 'Extra Actions', 'Modules: Taxonomy: Help Tab Title', GNETWORK_TEXTDOMAIN ),
+						'content' => '<p>'._x( 'These are extra bulk actions available for this taxonomy:', 'Modules: Taxonomy: Help Tab Content', GNETWORK_TEXTDOMAIN )
+							.'</p>'.HTML::renderList( $actions ),
+					] );
+				}
 
 				if ( $this->options['description_editor'] )
 					add_action( $screen->taxonomy.'_add_form_fields', [ $this, 'add_form_fields_editor' ], 1, 1 );
@@ -322,6 +340,9 @@ class Taxonomy extends gNetwork\Module
 	{
 		static $filtered = [];
 
+		if ( empty( $taxonomy ) )
+			return [];
+
 		if ( isset( $filtered[$taxonomy] ) )
 			return $filtered[$taxonomy];
 
@@ -346,75 +367,29 @@ class Taxonomy extends gNetwork\Module
 		return $filtered[$taxonomy];
 	}
 
-	private function term_management( $screen )
+	// already checked for nonce
+	public function handle_bulk_actions( $location, $action, $term_ids )
 	{
-		$data = self::atts( [
-			'taxonomy'    => 'post_tag',
-			'delete_tags' => FALSE,
-			'action'      => FALSE,
-			'action2'     => FALSE,
-		], $_REQUEST );
+		$results = $this->delegate_handling( $action, $GLOBALS['taxonomy'], $term_ids );
 
-		if ( ! $object = get_taxonomy( $data['taxonomy'] ) )
-			return;
+		if ( is_null( $results ) )
+			return $location;
 
-		if ( ! current_user_can( $object->cap->manage_terms ) )
-			return;
+		$query = [
+			'taxonomy'  => $GLOBALS['taxonomy'],
+			'message'   => $this->classs( $results ? 'updated' : 'error' ),
+			'post_type' => self::req( 'post_type', FALSE ),
+			'paged'     => self::req( 'paged', FALSE ),
+			's'         => self::req( 's', FALSE ),
+		];
 
-		$actions = $this->get_actions( $data['taxonomy'] );
+		if ( 'post' == $query['post_type'] )
+			unset( $query['post_type'] );
 
-		if ( ! count( $actions ) )
-			return;
+		if ( '1' == $query['paged'] )
+			unset( $query['paged'] );
 
-		$this->action( 'admin_notices' );
-		$this->action( 'admin_footer' );
-
-		$screen->add_help_tab( [
-			'id'      => $this->classs( 'help-bulk-actions' ),
-			'title'   => _x( 'Bulk Actions', 'Modules: Taxonomy: Help Tab Title', GNETWORK_TEXTDOMAIN ),
-			'content' => '<p>'._x( 'These are bulk actions provided for this taxonomy:', 'Modules: Taxonomy: Help Tab Content', GNETWORK_TEXTDOMAIN )
-				.'</p>'.HTML::renderList( $actions ),
-		] );
-
-		wp_localize_script( Scripts::enqueueScript( 'admin.taxonomy.actions' ),
-			'gNetworkTaxonomyActions', $actions );
-
-		$action = FALSE;
-
-		foreach ( [ 'action', 'action2' ] as $key )
-			if ( $data[$key] && '-1' != $data[$key] )
-				$action = $data[$key];
-
-		if ( ! $action || empty( $data['delete_tags'] ) )
-			return;
-
-		check_admin_referer( 'bulk-tags' );
-
-		$results = $this->delegate_handling( $action, $data['taxonomy'], $data['delete_tags'], $actions );
-
-		if ( empty( $results ) )
-			return;
-
-		$referer = wp_get_referer();
-
-		if ( $referer && FALSE !== strpos( $referer, 'edit-tags.php' ) ) {
-			$location = $referer;
-		} else {
-			$location = add_query_arg( 'taxonomy', $data['taxonomy'], 'edit-tags.php' );
-		}
-
-		$query = [ 'message' => $results ? 'gnetwork-taxonomy-updated' : 'gnetwork-taxonomy-error' ];
-
-		if ( ! empty( $_REQUEST['post_type'] ) && 'post' != $_REQUEST['post_type'] )
-			$query['post_type'] = $_REQUEST['post_type'];
-
-		if ( ! empty( $_REQUEST['paged'] ) )
-			$query['paged'] = $_REQUEST['paged'];
-
-		if ( ! empty( $_REQUEST['s'] ) )
-			$query['s'] = $_REQUEST['s'];
-
-		WordPress::redirect( add_query_arg( $query, $location ) );
+		return add_query_arg( $query, $location ?: 'edit-tags.php' );
 	}
 
 	private function delegate_handling( $action, $taxonomy, $term_ids, $actions = NULL )
@@ -424,7 +399,7 @@ class Taxonomy extends gNetwork\Module
 
 		foreach ( array_keys( $actions ) as $key ) {
 
-			if ( 'bulk_'.$key == $action ) {
+			if ( 'extra-'.$key == $action ) {
 
 				$callback = $this->filters( 'bulk_callback', [ $this, 'handle_'.$key ], $key, $taxonomy );
 
@@ -433,7 +408,7 @@ class Taxonomy extends gNetwork\Module
 			}
 		}
 
-		return FALSE;
+		return NULL;
 	}
 
 	public function admin_notices()
