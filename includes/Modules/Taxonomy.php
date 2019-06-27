@@ -194,10 +194,10 @@ class Taxonomy extends gNetwork\Module
 	// WTF: has to be `edited_term` not `edit_term`
 	public function edited_term_description( $term_id, $tt_id, $taxonomy )
 	{
-		if ( ! wp_verify_nonce( @$_REQUEST['_inline_edit'], 'taxinlineeditnonce' ) )
+		if ( ! isset( $_POST['gnetwork-description'] ) )
 			return;
 
-		if ( ! isset( $_REQUEST['gnetwork-description'] ) )
+		if ( ! wp_verify_nonce( @$_REQUEST['_inline_edit'], 'taxinlineeditnonce' ) )
 			return;
 
 		remove_action( 'edited_term', [ $this, 'edited_term_description' ], 10 );
