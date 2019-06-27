@@ -121,8 +121,10 @@ class Taxonomy extends gNetwork\Module
 				Scripts::enqueueScript( 'admin.taxonomy.wordcount', [ 'jquery', 'word-count', 'underscore' ] );
 			}
 
-			if ( $this->options['management_tools'] )
+			if ( $this->options['management_tools'] ) {
 				$actions = $this->get_actions( $screen->taxonomy );
+				$this->action( 'edited_term', 3, 12, 'actions' );
+			}
 
 			if ( 'edit-tags' == $screen->base ) {
 
@@ -159,6 +161,16 @@ class Taxonomy extends gNetwork\Module
 				}
 
 			} else if ( 'term' == $screen->base ) {
+
+				unset( $actions['set_parent'], $actions['merge'], $actions['empty_desc'] );
+
+				if ( $this->options['management_tools'] && count( $actions ) ) {
+					add_action( $screen->taxonomy.'_edit_form_fields', [ $this, 'edit_form_fields_actions' ], 99, 2 );
+					wp_localize_script( Scripts::enqueueScript( 'admin.taxonomy.actions' ), 'gNetworkTaxonomyActions', $actions );
+
+					$this->action( 'admin_notices' );
+					$this->action( 'admin_footer' );
+				}
 
 				if ( $this->options['description_editor'] )
 					add_action( $screen->taxonomy.'_edit_form_fields', [ $this, 'edit_form_fields_editor' ], 1, 2 );
@@ -367,7 +379,55 @@ class Taxonomy extends gNetwork\Module
 		return $filtered[$taxonomy];
 	}
 
-	// already checked for nonce
+	public function edit_form_fields_actions( $tag, $taxonomy )
+	{
+		$actions = $this->get_actions( $taxonomy );
+
+		unset( $actions['set_parent'], $actions['merge'], $actions['empty_desc'] );
+
+		if ( ! count( $actions ) )
+			return;
+
+		echo '<tr class="form-field term-actions-wrap actions">';
+			echo '<th scope="row" valign="top"><label for="extra-action-selector">';
+				_ex( 'Extra Actions', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN );
+			echo '</label></th><td>';
+
+			echo '<select name="'.$this->classs( 'action' ).'" id="extra-action-selector">';
+				echo '<option value="-1">'._x( '&ndash; Select Action &ndash;', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN )."</option>\n";
+			echo "</select>\n";
+
+		echo '</tr>';
+	}
+
+	public function edited_term_actions( $term_id, $tt_id, $taxonomy )
+	{
+		$name = $this->classs( 'action' );
+
+		if ( ! isset( $_POST[$name] ) )
+			return;
+
+		remove_action( 'edited_term', [ $this, 'edited_term_actions' ], 12 );
+
+		$results = $this->delegate_handling( $_POST[$name], $taxonomy, [ $term_id ] );
+
+		if ( is_null( $results ) )
+			return; // default redirect
+
+		$query = [
+			'tag_ID'          => $term_id,
+			'taxonomy'        => 'extra-change_tax' == $_POST[$name] ? $_POST['new_tax'] : $taxonomy,
+			'message'         => $this->classs( $results ? 'updated' : 'error' ),
+			'post_type'       => self::req( 'post_type', FALSE ),
+			'wp_http_referer' => FALSE,
+		];
+
+		if ( 'post' == $query['post_type'] )
+			unset( $query['post_type'] );
+
+		WordPress::redirect( add_query_arg( $query, wp_get_referer() ) );
+	}
+
 	public function handle_bulk_actions( $location, $action, $term_ids )
 	{
 		$results = $this->delegate_handling( $action, $GLOBALS['taxonomy'], $term_ids );
