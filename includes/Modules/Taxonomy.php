@@ -127,7 +127,7 @@ class Taxonomy extends gNetwork\Module
 					$this->term_management( $screen );
 
 				if ( $this->options['description_editor'] )
-					add_action( $screen->taxonomy.'_add_form_fields', [ $this, 'add_form_fields' ], 1, 1 );
+					add_action( $screen->taxonomy.'_add_form_fields', [ $this, 'add_form_fields_editor' ], 1, 1 );
 
 				if ( $this->options['description_column'] ) {
 					add_filter( 'manage_edit-'.$screen->taxonomy.'_columns', [ $this, 'manage_edit_columns' ], 5 );
@@ -264,7 +264,7 @@ class Taxonomy extends gNetwork\Module
 		echo '</tr>';
 	}
 
-	public function add_form_fields( $taxonomy )
+	public function add_form_fields_editor( $taxonomy )
 	{
 		$settings = [
 			'textarea_name'  => 'description',
