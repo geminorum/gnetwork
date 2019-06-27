@@ -385,40 +385,22 @@ class Taxonomy extends gNetwork\Module
 			if ( $data[$key] && '-1' != $data[$key] )
 				$action = $data[$key];
 
-		if ( ! $action )
+		if ( ! $action || empty( $data['delete_tags'] ) )
 			return;
 
-		$this->delegate_handling( $action, $data['taxonomy'], $data['delete_tags'] );
-	}
+		check_admin_referer( 'bulk-tags' );
 
-	private function delegate_handling( $action, $taxonomy, $term_ids )
-	{
-		if ( empty( $term_ids ) )
-			return;
+		$results = $this->delegate_handling( $action, $data['taxonomy'], $data['delete_tags'], $actions );
 
-		foreach ( array_keys( $this->get_actions( $taxonomy ) ) as $key ) {
-
-			if ( 'bulk_'.$key == $action ) {
-
-				check_admin_referer( 'bulk-tags' );
-
-				$callback = $this->filters( 'bulk_callback', [ $this, 'handle_'.$key ], $key, $taxonomy );
-
-				if ( is_callable( $callback ) )
-					$results = call_user_func( $callback, $term_ids, $taxonomy );
-
-				break;
-			}
-		}
-
-		if ( ! isset( $results ) )
+		if ( empty( $results ) )
 			return;
 
 		$referer = wp_get_referer();
+
 		if ( $referer && FALSE !== strpos( $referer, 'edit-tags.php' ) ) {
 			$location = $referer;
 		} else {
-			$location = add_query_arg( 'taxonomy', $taxonomy, 'edit-tags.php' );
+			$location = add_query_arg( 'taxonomy', $data['taxonomy'], 'edit-tags.php' );
 		}
 
 		$query = [ 'message' => $results ? 'gnetwork-taxonomy-updated' : 'gnetwork-taxonomy-error' ];
@@ -433,6 +415,25 @@ class Taxonomy extends gNetwork\Module
 			$query['s'] = $_REQUEST['s'];
 
 		WordPress::redirect( add_query_arg( $query, $location ) );
+	}
+
+	private function delegate_handling( $action, $taxonomy, $term_ids, $actions = NULL )
+	{
+		if ( is_null( $actions ) )
+			$actions = $this->get_actions( $taxonomy );
+
+		foreach ( array_keys( $actions ) as $key ) {
+
+			if ( 'bulk_'.$key == $action ) {
+
+				$callback = $this->filters( 'bulk_callback', [ $this, 'handle_'.$key ], $key, $taxonomy );
+
+				if ( $callback && is_callable( $callback ) )
+					return call_user_func( $callback, $term_ids, $taxonomy );
+			}
+		}
+
+		return FALSE;
 	}
 
 	public function admin_notices()
@@ -666,9 +667,12 @@ class Taxonomy extends gNetwork\Module
 
 	public function admin_footer()
 	{
-		global $taxonomy;
+		$this->render_secondary_inputs( $GLOBALS['taxonomy'], $this->get_actions( $GLOBALS['taxonomy'] ) );
+	}
 
-		foreach ( array_keys( $this->get_actions( $taxonomy ) ) as $key ) {
+	private function render_secondary_inputs( $taxonomy, $actions )
+	{
+		foreach ( array_keys( $actions ) as $key ) {
 
 			$callback = $this->filters( 'bulk_input', [ $this, 'secondary_input_'.$key ], $key, $taxonomy );
 
