@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Simple History 2.2.4\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/Simple-History\n"
 "POT-Creation-Date: 2019-04-30 21:11:01+00:00\n"
-"PO-Revision-Date: 2019-06-20 03:10+0430\n"
+"PO-Revision-Date: 2019-06-29 05:10+0430\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: \n"
 "Language: fa_IR\n"
@@ -74,8 +74,8 @@ msgstr ""
 #: dropins/SimpleHistoryNewRowsNotifier.php:89
 msgid "1 new event"
 msgid_plural "%d new events"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "یک رویداد تازه"
+msgstr[1] "%s رویداد تازه"
 
 #: dropins/SimpleHistoryRSSDropin.php:68
 msgid "Enable"
@@ -378,15 +378,15 @@ msgstr "امروز، %1$d رویداد از %2$d کاربر."
 
 #: inc/SimpleHistory.php:3257 inc/SimpleHistory.php:3263
 msgid "%1$d events today from one user and one other source."
-msgstr ""
+msgstr "امروز، %1$d رویداد از یک کاربر و یک منبع دیگر."
 
 #: inc/SimpleHistory.php:3269
 msgid "%1$d events today from one user and %3$d other sources."
-msgstr ""
+msgstr "امروز، %1$d رویداد از یک کاربر و %3$d منبع دیگر."
 
 #: inc/SimpleHistory.php:3275
 msgid "%1$s events today from %2$d users and %3$d other sources."
-msgstr ""
+msgstr "امروز، %1$d رویداد از %2$d کاربر و %3$d منبع دیگر."
 
 #: inc/SimpleHistory.php:3448
 msgid "The slug for a logger in Simple History can be max 30 chars long."
@@ -408,27 +408,27 @@ msgstr ""
 
 #: loggers/AvailableUpdatesLogger.php:35
 msgid "Found an update to WordPress."
-msgstr ""
+msgstr "یک به‌روزرسانی برای وردپرس شناسایی شد."
 
 #: loggers/AvailableUpdatesLogger.php:36
 msgid "Found an update to plugin \"{plugin_name}\""
-msgstr ""
+msgstr "یک به‌روزرسانی برای افزونه «{plugin_name}» شناسایی شد."
 
 #: loggers/AvailableUpdatesLogger.php:37
 msgid "Found an update to theme \"{theme_name}\""
-msgstr ""
+msgstr "یک به‌روزرسانی برای پوسته «{theme_name}» شناسایی شد."
 
 #: loggers/AvailableUpdatesLogger.php:293
 msgid "Available version"
-msgstr ""
+msgstr "نگارش در دسترس"
 
 #: loggers/AvailableUpdatesLogger.php:297
 msgid "Installed version"
-msgstr ""
+msgstr "نگار نصب شده"
 
 #: loggers/AvailableUpdatesLogger.php:307
 msgid "View all updates"
-msgstr ""
+msgstr "دیدن همهٔ به‌روزرسانی‌ها"
 
 #: loggers/FileEditsLogger.php:17
 msgid "Edited file \"{file_name}\" in theme \"{theme_name}\""
@@ -440,7 +440,7 @@ msgstr ""
 
 #: loggers/FileEditsLogger.php:238
 msgid "File contents"
-msgstr ""
+msgstr "محتوای پرونده"
 
 #: loggers/SimpleCategoriesLogger.php:20
 msgid "Categories Logger"
@@ -748,7 +748,7 @@ msgstr ""
 
 #: loggers/SimpleThemeLogger.php:30
 msgid "Updated theme \"{theme_name}\""
-msgstr ""
+msgstr "پوسته «{theme_name}» به‌روز شد"
 
 #: loggers/SimpleThemeLogger.php:31
 msgid "Customized theme appearance \"{setting_id}\""
@@ -1186,7 +1186,7 @@ msgstr "پیشینهٔ ساده"
 msgctxt ""
 "Message visible while waiting for log to load from server the first time"
 msgid "Loading history..."
-msgstr ""
+msgstr "بارگیری پیشینه…"
 
 #: inc/SimpleHistory.php:631
 msgctxt "page n of n"
@@ -1229,82 +1229,82 @@ msgstr[1] ""
 #: inc/SimpleHistory.php:2813
 msgctxt "Log level in gui"
 msgid "emergency"
-msgstr ""
+msgstr "اضطراری"
 
 #: inc/SimpleHistory.php:2817
 msgctxt "Log level in gui"
 msgid "alert"
-msgstr ""
+msgstr "هشدار"
 
 #: inc/SimpleHistory.php:2821
 msgctxt "Log level in gui"
 msgid "critical"
-msgstr ""
+msgstr "بحرانی"
 
 #: inc/SimpleHistory.php:2825
 msgctxt "Log level in gui"
 msgid "error"
-msgstr ""
+msgstr "خطا"
 
 #: inc/SimpleHistory.php:2829
 msgctxt "Log level in gui"
 msgid "warning"
-msgstr ""
+msgstr "اخطار"
 
 #: inc/SimpleHistory.php:2833
 msgctxt "Log level in gui"
 msgid "notice"
-msgstr ""
+msgstr "اطلاع"
 
 #: inc/SimpleHistory.php:2837
 msgctxt "Log level in gui"
 msgid "info"
-msgstr ""
+msgstr "اطلاعات"
 
 #: inc/SimpleHistory.php:2841
 msgctxt "Log level in gui"
 msgid "debug"
-msgstr ""
+msgstr "اشکال‌زدایی"
 
 #: inc/SimpleHistory.php:2846
 msgctxt "Log level in gui"
 msgid "Emergency"
-msgstr ""
+msgstr "اضطراری"
 
 #: inc/SimpleHistory.php:2850
 msgctxt "Log level in gui"
 msgid "Alert"
-msgstr ""
+msgstr "هشدار"
 
 #: inc/SimpleHistory.php:2854
 msgctxt "Log level in gui"
 msgid "Critical"
-msgstr ""
+msgstr "بحرانی"
 
 #: inc/SimpleHistory.php:2858
 msgctxt "Log level in gui"
 msgid "Error"
-msgstr ""
+msgstr "خطا"
 
 #: inc/SimpleHistory.php:2862
 msgctxt "Log level in gui"
 msgid "Warning"
-msgstr ""
+msgstr "اخطار"
 
 #: inc/SimpleHistory.php:2866
 msgctxt "Log level in gui"
 msgid "Notice"
-msgstr ""
+msgstr "اطلاع"
 
 #: inc/SimpleHistory.php:2870
 msgctxt "Log level in gui"
 msgid "Info"
-msgstr ""
+msgstr "اطلاعات"
 
 #: inc/SimpleHistory.php:2874
 msgctxt "Log level in gui"
 msgid "Debug"
-msgstr ""
+msgstr "اشکال‌زدایی"
 
 #: loggers/AvailableUpdatesLogger.php:41
 msgctxt "Plugin logger: updates found"
@@ -1700,7 +1700,7 @@ msgstr ""
 #: loggers/SimpleCategoriesLogger.php:29
 msgctxt "Categories logger: search"
 msgid "Categories"
-msgstr ""
+msgstr "دسته‌ها"
 
 #: loggers/SimpleCategoriesLogger.php:30
 msgctxt "Category logger: search"
@@ -1710,17 +1710,17 @@ msgstr ""
 #: loggers/SimpleCategoriesLogger.php:32
 msgctxt "Category logger: search"
 msgid "Term created"
-msgstr ""
+msgstr "رده ایجاد شد"
 
 #: loggers/SimpleCategoriesLogger.php:35
 msgctxt "Category logger: search"
 msgid "Term deleted"
-msgstr ""
+msgstr "رده حذف شد"
 
 #: loggers/SimpleCategoriesLogger.php:38
 msgctxt "Category logger: search"
 msgid "Term edited"
-msgstr ""
+msgstr "رده ویرایش شد"
 
 #: loggers/SimpleCategoriesLogger.php:276
 msgctxt "Categories logger: detailed plain text output for created term"
@@ -1919,7 +1919,7 @@ msgstr ""
 #: loggers/SimpleCommentsLogger.php:267
 msgctxt "Comments logger: search"
 msgid "Comments"
-msgstr ""
+msgstr "دیدگاه‌ها"
 
 #: loggers/SimpleCommentsLogger.php:268
 msgctxt "Comments logger: search"
@@ -1929,22 +1929,22 @@ msgstr ""
 #: loggers/SimpleCommentsLogger.php:270
 msgctxt "Comments logger: search"
 msgid "Added comments"
-msgstr ""
+msgstr "دیدگاه‌های افزوده شده"
 
 #: loggers/SimpleCommentsLogger.php:278
 msgctxt "Comments logger: search"
 msgid "Edited comments"
-msgstr ""
+msgstr "دیدگاه‌های ویرایش شده"
 
 #: loggers/SimpleCommentsLogger.php:283
 msgctxt "Comments logger: search"
 msgid "Approved comments"
-msgstr ""
+msgstr "دیدگاه‌های تأیید شده"
 
 #: loggers/SimpleCommentsLogger.php:288
 msgctxt "Comments logger: search"
 msgid "Held comments"
-msgstr ""
+msgstr "دیدگاه‌های متوفق شده"
 
 #: loggers/SimpleCommentsLogger.php:293
 msgctxt "Comments logger: search"
@@ -1954,65 +1954,65 @@ msgstr ""
 #: loggers/SimpleCommentsLogger.php:298
 msgctxt "Comments logger: search"
 msgid "Trashed comments"
-msgstr ""
+msgstr "دیدگاه‌های زباله شده"
 
 #: loggers/SimpleCommentsLogger.php:303
 msgctxt "Comments logger: search"
 msgid "Untrashed comments"
-msgstr ""
+msgstr "دیدگاه‌های بیرون از زباله"
 
 #: loggers/SimpleCommentsLogger.php:308
 msgctxt "Comments logger: search"
 msgid "Deleted comments"
-msgstr ""
+msgstr "دیدگاه‌های حذف شده"
 
 #: loggers/SimpleCommentsLogger.php:611 loggers/SimpleCommentsLogger.php:624
 #: loggers/SimpleCommentsLogger.php:638
 msgctxt "comments logger - detailed output comment status"
 msgid "Status"
-msgstr ""
+msgstr "وضعیت"
 
 #: loggers/SimpleCommentsLogger.php:613 loggers/SimpleCommentsLogger.php:626
 #: loggers/SimpleCommentsLogger.php:640
 msgctxt "comments logger - detailed output author"
 msgid "Name"
-msgstr ""
+msgstr "نام"
 
 #: loggers/SimpleCommentsLogger.php:614 loggers/SimpleCommentsLogger.php:627
 #: loggers/SimpleCommentsLogger.php:641
 msgctxt "comments logger - detailed output email"
 msgid "Email"
-msgstr ""
+msgstr "ایمیل"
 
 #: loggers/SimpleCommentsLogger.php:615 loggers/SimpleCommentsLogger.php:628
 msgctxt "comments logger - detailed output content"
 msgid "Content"
-msgstr ""
+msgstr "محتوا"
 
 #: loggers/SimpleCommentsLogger.php:642
 msgctxt "comments logger - detailed output content"
 msgid "Comment"
-msgstr ""
+msgstr "دیدگاه"
 
 #: loggers/SimpleCommentsLogger.php:775
 msgctxt "comments logger - edit comment"
 msgid "View/Edit"
-msgstr ""
+msgstr "نمایش/ویرایش"
 
 #: loggers/SimpleCoreUpdatesLogger.php:70
 msgctxt "User logger: search"
 msgid "WordPress Core"
-msgstr ""
+msgstr "هسته وردپرس"
 
 #: loggers/SimpleCoreUpdatesLogger.php:72
 msgctxt "User logger: search"
 msgid "WordPress core updates"
-msgstr ""
+msgstr "به‌روزرسانی‌های هسته وردپرس"
 
 #: loggers/SimpleUserLogger.php:72
 msgctxt "User logger: search"
 msgid "Users"
-msgstr ""
+msgstr "کاربران"
 
 #: loggers/SimpleUserLogger.php:73
 msgctxt "User logger: search"
@@ -2067,7 +2067,7 @@ msgstr "شما"
 #: loggers/SimpleMediaLogger.php:31
 msgctxt "Media logger: search"
 msgid "Media"
-msgstr ""
+msgstr "رسانه"
 
 #: loggers/SimpleMediaLogger.php:32
 msgctxt "Media logger: search"
@@ -2097,22 +2097,22 @@ msgstr "فهرست‌ها"
 #: loggers/SimpleMenuLogger.php:34
 msgctxt "Menu updates logger: search"
 msgid "All menu activity"
-msgstr ""
+msgstr "همهٔ فعالیت‌های فهرست"
 
 #: loggers/SimpleMenuLogger.php:36
 msgctxt "Menu updates logger: search"
 msgid "Created menus"
-msgstr ""
+msgstr "فهرست‌های ایجاد شده"
 
 #: loggers/SimpleMenuLogger.php:39
 msgctxt "Menu updates logger: search"
 msgid "Edited menus"
-msgstr ""
+msgstr "فهرست‌های ویرایش شده"
 
 #: loggers/SimpleMenuLogger.php:44
 msgctxt "Menu updates logger: search"
 msgid "Deleted menus"
-msgstr ""
+msgstr "فهرست‌های حذف شده"
 
 #: loggers/SimpleMenuLogger.php:324
 msgctxt "menu logger"
@@ -2443,7 +2443,7 @@ msgstr ""
 #: loggers/SimpleUserLogger.php:821
 msgctxt "User logger"
 msgid "Email"
-msgstr ""
+msgstr "ایمیل"
 
 #: loggers/SimpleUserLogger.php:825
 msgctxt "User logger"
@@ -2468,7 +2468,7 @@ msgstr ""
 #: loggers/SimpleUserLogger.php:865
 msgctxt "User logger"
 msgid "Password"
-msgstr ""
+msgstr "رمز"
 
 #: loggers/SimpleUserLogger.php:866
 msgctxt "User logger"
@@ -2488,7 +2488,7 @@ msgstr ""
 #: loggers/SimpleUserLogger.php:913
 msgctxt "User logger"
 msgid "Notification"
-msgstr ""
+msgstr "آگاه‌سازی"
 
 #: loggers/class-sh-jetpack-logger.php:30
 msgctxt "Logger: Jetpack"
@@ -2609,7 +2609,7 @@ msgstr ""
 #: templates/template-settings-tab-debug.php:72
 msgctxt "debug dropin"
 msgid "%s rows"
-msgstr ""
+msgstr "%s ردیف"
 
 #: templates/template-settings-tab-debug.php:102
 msgctxt "debug dropin"
