@@ -205,6 +205,17 @@ class User extends gNetwork\Module
 
 		echo $this->wrap_open_buttons();
 
+		if ( ! WordPress::isMainNetwork() ) {
+
+			// for multi-network only!
+
+			Settings::submitButton( 'default_role_for_users', _x( 'Default Role for All Users', 'Modules: User', GNETWORK_TEXTDOMAIN ), 'small', [
+				'title' => _x( 'Adds all registered users on the main site with default role.', 'Modules: User', GNETWORK_TEXTDOMAIN ),
+			] );
+
+			$emtpy = FALSE;
+		}
+
 		if ( $this->options['network_roles'] ) {
 
 			echo HTML::tag( 'a', [
@@ -220,6 +231,38 @@ class User extends gNetwork\Module
 			HTML::desc( _x( 'Network Roles are disabled.', 'Modules: User', GNETWORK_TEXTDOMAIN ), TRUE, '-empty' );
 
 		echo '</p>';
+	}
+
+	protected function settings_actions( $sub = NULL )
+	{
+		if ( isset( $_POST['default_role_for_users'] ) ) {
+
+			$this->check_referer( $sub );
+
+			$count   = 0;
+			$site_id = get_current_blog_id();
+			$default = get_option( 'default_role', 'subscriber' );
+			$users   = get_users( [ 'blog_id' => 0, 'fields' => 'ID' ] );
+
+			foreach ( $users as $user_id ) {
+
+				if ( WordPress::isSuperAdmin( $user_id ) )
+					continue;
+
+				if ( is_user_member_of_blog( $user_id, $site_id ) )
+					continue;
+
+				if ( ! add_user_to_blog( $site_id, $user_id, $default ) )
+					continue;
+
+				$count++;
+			}
+
+			WordPress::redirectReferer( [
+				'message' => 'synced',
+				'count'   => $count,
+			] );
+		}
 	}
 
 	public function tools( $sub = NULL, $key = NULL )
