@@ -621,12 +621,12 @@ class Debug extends gNetwork\Module
 
 		echo HTML::listCode( self::getPHPExtensions(),
 			'<code title="%2$s">%1$s</code>',
-			'<span class="description -success">'._x( 'Loaded Extensions', 'Modules: Debug', GNETWORK_TEXTDOMAIN ).':</span>'
+			'<span class="description -color-success">'._x( 'Loaded Extensions', 'Modules: Debug', GNETWORK_TEXTDOMAIN ).':</span>'
 		);
 
 		echo HTML::listCode( self::getPHPMissingExtensions(),
 			'<code title="%2$s">%1$s</code>',
-			'<span class="description -danger">'._x( 'Missing Extensions', 'Modules: Debug', GNETWORK_TEXTDOMAIN ).':</span>'
+			'<span class="description -color-danger">'._x( 'Missing Extensions', 'Modules: Debug', GNETWORK_TEXTDOMAIN ).':</span>'
 		);
 
 		// echo '<hr />';

@@ -74,7 +74,7 @@ class User extends gNetwork\Module
 
 		if ( $this->options['network_roles'] )
 			Network::registerTool( 'roles',
-				_x( 'Roles', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
+				_x( 'Network Roles', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
 				[ $this, 'tools' ]
 			);
 	}
@@ -166,7 +166,7 @@ class User extends gNetwork\Module
 				],
 				[
 					'field'       => 'tos_text',
-					'type'        => 'textarea',
+					'type'        => 'textarea-quicktags',
 					'title'       => _x( 'ToS Text', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Displays as full text of the agreement.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
 					'field_class' => [ 'large-text', 'textarea-autosize' ],
@@ -249,7 +249,10 @@ class User extends gNetwork\Module
 
 		Settings::fieldSection(
 			_x( 'Default User Roles', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
-			_x( 'New users will receive these roles when activating their account. Existing users will receive these roles only if they have the current default role or no role at all for each particular site.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN )
+			[
+				_x( 'New users will receive these roles when activating their account. Existing users will receive these roles only if they have the current default role or no role at all for each particular site.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
+				_x( 'Please note that the roles listed here are from the main site of your network. Also only public, non-mature and non-dashboard sites appear here.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
+			]
 		);
 
 		echo '<table class="form-table">';
@@ -278,13 +281,11 @@ class User extends gNetwork\Module
 
 		echo '</table>';
 
-		HTML::desc( _x( '<b>Note:</b> only public, non-mature and non-dashboard sites appear here.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ) );
-
 		$this->do_settings_field( [
 			'field'       => 'update_sites_roles',
 			'name_attr'   => 'update_sites_roles',
 			'type'        => 'checkbox',
-			'description' => _x( 'Also Update Current Users Roles', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Also Update Roles for Current Users', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
 		] );
 
 		return TRUE;

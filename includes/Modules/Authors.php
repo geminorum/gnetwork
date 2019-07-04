@@ -85,7 +85,6 @@ class Authors extends gNetwork\Module
 		self::summarySiteUser();
 	}
 
-	// TODO: add site user to this blog ( with cap select )
 	protected function render_tools_html( $uri, $sub = 'general' )
 	{
 		$users = [

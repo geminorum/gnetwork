@@ -196,6 +196,7 @@ class Tracking extends gNetwork\Module
 		return FALSE;
 	}
 
+	// @REF: https://developers.google.com/analytics/devguides/collection/gtagjs/migration
 	private function render_gtag( $account, $track_outbound = FALSE, $extra = '', $config = [] )
 	{
 		// @SEE: assets/js/inline/tracking.code.js
