@@ -221,7 +221,7 @@ class User extends gNetwork\Module
 
 				foreach ( $_POST['role'] as $blog_id => $role )
 					if ( $role != 'none' )
-						$new_roles[$blog_id] = $role;
+						$roles[$blog_id] = $role;
 
 				if ( isset( $_POST['update_sites_roles'] ) ) {
 
