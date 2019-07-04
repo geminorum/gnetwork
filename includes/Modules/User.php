@@ -437,8 +437,8 @@ class User extends gNetwork\Module
 			switch_to_blog( $site_id );
 
 			$users = empty( $old[$site_id] )
-				? wp_get_users_with_no_role()
-				: $this->get_users_with_role( $old[$site_id] );
+				? WordPress::getUsersWithNoRole()
+				: WordPress::getUsersWithRole( $old[$site_id] );
 
 			foreach ( $users as $user_id ) {
 
@@ -459,26 +459,6 @@ class User extends gNetwork\Module
 		restore_current_blog();
 
 		return TRUE;
-	}
-
-	// @REF: `wp_get_users_with_no_role()`
-	private function get_users_with_role( $role )
-	{
-		global $wpdb;
-
-		$prefix = $wpdb->get_blog_prefix();
-		// $regex  = implode( '|', array_keys( wp_roles()->get_names() ) );
-		$regex  = $role;
-		$regex  = preg_replace( '/[^a-zA-Z_\|-]/', '', $regex );
-
-		$users = $wpdb->get_col( $wpdb->prepare( "
-			SELECT user_id
-			FROM {$wpdb->usermeta}
-			WHERE meta_key = '{$prefix}capabilities'
-			AND meta_value REGEXP %s
-		", $regex ) );
-
-		return $users;
 	}
 
 	public function before_signup_header()
