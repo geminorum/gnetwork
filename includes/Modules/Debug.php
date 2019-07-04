@@ -132,7 +132,7 @@ class Debug extends gNetwork\Module
 
 	public function render_tools( $uri, $sub = 'general' )
 	{
-		$this->render_form_start( $uri, $sub, 'bulk', 'tools', FALSE );
+		$this->render_form_start( $uri, $sub, 'bulk', 'tools' );
 
 		if ( 'systemreport' == $sub ) {
 

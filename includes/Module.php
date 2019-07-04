@@ -695,7 +695,7 @@ class Module extends Core\Base
 	// DEFAULT METHOD: tools sub html
 	public function render_tools( $uri, $sub = 'general' )
 	{
-		$this->render_form_start( $uri, $sub, 'bulk', 'tools', FALSE );
+		$this->render_form_start( $uri, $sub, 'bulk', 'tools' );
 
 			if ( $this->render_tools_html( $uri, $sub ) )
 				$this->render_form_buttons( $sub );
@@ -708,17 +708,14 @@ class Module extends Core\Base
 
 	protected function render_form_start( $uri, $sub = 'general', $action = 'update', $context = 'settings', $check = TRUE )
 	{
-		$class = $this->base.'-form -form';
+		$sidebox = $check && method_exists( $this, $context.'_sidebox' );
 
-		if ( $check && $sidebox = method_exists( $this, 'settings_sidebox' ) )
-			$class.= ' has-sidebox';
-
-		echo '<form enctype="multipart/form-data" class="'.$class.'" method="post" action="">'; // WPCS: XSS ok;
+		echo '<form enctype="multipart/form-data" class="'.$this->base.'-form -form'.( $sidebox ? ' has-sidebox' : '' ).'" method="post" action="">'; // WPCS: XSS ok;
 
 			$this->render_form_fields( $sub, $action, $context );
 
 			if ( $check && $sidebox ) {
-				echo '<div class="-sidebox -sidebox-'.HTML::escape( $sub ).'">'; // WPCS: XSS ok;
+				echo '<div class="-sidebox -sidebox-'.$context.' -sidebox-'.HTML::escape( $sub ).'">'; // WPCS: XSS ok;
 					$this->settings_sidebox( $sub, $uri, $context );
 				echo '</div>';
 			}

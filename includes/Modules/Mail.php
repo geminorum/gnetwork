@@ -310,7 +310,7 @@ class Mail extends gNetwork\Module
 
 	public function render_tools( $uri, $sub = 'general' )
 	{
-		$this->render_form_start( $uri, $sub, 'bulk', 'custom', FALSE );
+		$this->render_form_start( $uri, $sub, 'bulk', 'tools' );
 
 		if ( 'testmail' == $sub ) {
 
