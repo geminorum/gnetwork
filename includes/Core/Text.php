@@ -180,6 +180,9 @@ class Text extends Base
 
 	public static function has( $haystack, $needles, $operator = 'OR' )
 	{
+		if ( ! $haystack )
+			return FALSE;
+
 		if ( ! is_array( $needles ) )
 			return FALSE !== stripos( $haystack, $needles );
 

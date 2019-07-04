@@ -205,7 +205,7 @@ class Arraay extends Base
 	public static function keyFirst( $input )
 	{
 		if ( function_exists( 'array_key_first' ) )
-			return array_key_first( $input );
+			return array_key_first( $input ); // phpcs:ignore
 
 		return $input ? array_keys( $input )[0] : NULL;
 	}
@@ -217,7 +217,7 @@ class Arraay extends Base
 	public static function column( $input, $column_key, $index_key = NULL )
 	{
 		if ( function_exists( 'array_column' ) )
-			return array_column( $input, $column_key, $index_key );
+			return array_column( $input, $column_key, $index_key ); // phpcs:ignore
 
 		$arr = array_map( function( $d ) use ( $column_key, $index_key ) {
 
@@ -258,6 +258,7 @@ class Arraay extends Base
 		return self::find( $needle, $haystack[$current], $default );
 	}
 
+	// is associative or sequential?
 	// @REF: https://stackoverflow.com/a/173479
 	public static function isAssoc( $array )
 	{
