@@ -51,6 +51,7 @@ class Authors extends gNetwork\Module
 			'siteuser_as_default'  => '0',
 			'remove_author_pages'  => '0',
 			'replace_author_links' => '',
+			'replace_status_code'  => '301',
 			'register_shortcodes'  => '0',
 		];
 	}
@@ -67,13 +68,23 @@ class Authors extends gNetwork\Module
 				[
 					'field'       => 'remove_author_pages',
 					'title'       => _x( 'Remove Author Pages', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Triggers a 404 error for all author pages and replace author links with links to the home page.', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Triggers a 404 error for all author pages or redirect to custom URL.', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
 					'field'       => 'replace_author_links',
 					'type'        => 'url',
 					'title'       => _x( 'Replace Author Links', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Replaces author links with links to a custom page.', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Replaces author links with links to a custom URL.', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
+				],
+				[
+					'field'       => 'replace_status_code',
+					'type'        => 'select',
+					'title'       => _x( 'Redirect Status Code', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Defines HTTP status header code while redirecting to custom URL.', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
+					'after'       => Settings::fieldAfterIcon( 'https://en.wikipedia.org/wiki/List_of_HTTP_status_codes' ),
+					'dir'         => 'ltr',
+					'default'     => '301',
+					'values'      => Settings::statusOptions( [ 301, 302, 303, 304, 307, 308 ] ),
 				],
 				'register_shortcodes',
 			],
@@ -273,8 +284,13 @@ class Authors extends gNetwork\Module
 
 	public function template_redirect()
 	{
-		if ( is_author() )
-			Utilities::redirect404();
+		if ( ! is_author() )
+			return;
+
+		if ( $this->options['replace_author_links'] )
+			WordPress::redirect( $this->options['replace_author_links'], $this->options['status_code'] );
+
+		Utilities::redirect404();
 	}
 
 	public function author_link( $link )
