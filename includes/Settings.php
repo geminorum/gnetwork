@@ -208,7 +208,7 @@ class Settings extends Core\Base
 		return [ 'onclick' => sprintf( 'return confirm(\'%s\')', HTML::escape( $message ) ) ];
 	}
 
-	public static function submitButton( $name = 'submit', $text = NULL, $primary = FALSE, $atts = [] )
+	public static function submitButton( $name = 'submit', $text = NULL, $primary = FALSE, $atts = [], $after = '&nbsp;&nbsp;' )
 	{
 		$link    = FALSE;
 		$classes = [ '-button', 'button' ];
@@ -252,7 +252,7 @@ class Settings extends Core\Base
 				'default' => TRUE === $primary,
 			] ) );
 
-		echo '&nbsp;&nbsp;';
+		echo $after;
 	}
 
 	public static function fieldAfterCodex( $page = '', $text = FALSE )
