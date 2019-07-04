@@ -629,18 +629,23 @@ class Debug extends gNetwork\Module
 			'<span class="description -color-danger">'._x( 'Missing Extensions', 'Modules: Debug', GNETWORK_TEXTDOMAIN ).':</span>'
 		);
 
-		// echo '<hr />';
-		//
-		// HTML::desc( _x( 'Current Image Tools:', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
-		//
-		// $path      = '/usr/local/bin/';
-		// $tools     = [ 'optipng', 'pngquant', 'cwebp', 'jpegoptim' ];
-		// $available = [];
-		//
-		// foreach ( $tools as $tool )
-		// 	$available[strtoupper($tool)] = is_readable( $path.$tool ) ? $path.$tool : FALSE;
-		//
-		// echo HTML::tableCode( $available );
+		HTML::h2( _x( 'Image Tools', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+
+		$path      = '/usr/local/bin/';
+		$tools     = [ 'optipng', 'pngquant', 'cwebp', 'jpegoptim' ];
+		$available = [];
+
+		foreach ( $tools as $tool )
+			$available[strtoupper($tool)] = is_readable( $path.$tool ) ? $path.$tool : FALSE;
+
+		echo HTML::tableCode( $available );
+
+		HTML::h2( _x( 'Extra', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+
+		if ( function_exists( 'fastcgi_finish_request' ) )
+			HTML::desc( sprintf( _x( '%s available!', 'Modules: Debug', GNETWORK_TEXTDOMAIN ), '<code>fastcgi_finish_request</code>' ), TRUE, '-available -color-success' );
+		else
+			HTML::desc( sprintf( _x( '%s not available!', 'Modules: Debug', GNETWORK_TEXTDOMAIN ), '<code>fastcgi_finish_request</code>' ), TRUE, '-not-available -color-danger' );
 
 		echo '</div>';
 	}
