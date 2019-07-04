@@ -39,6 +39,11 @@
         color: $brand-warning !important;
       }
 
+      .-flush-rules::before {
+        color: $brand-danger !important;
+        content: "\f225" !important;
+      }
+
       .-maintenance::before {
         color: $brand-danger !important;
         content: "\f534" !important;

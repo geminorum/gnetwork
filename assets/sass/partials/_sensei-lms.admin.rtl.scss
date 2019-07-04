@@ -73,6 +73,23 @@ html[dir="rtl"] {
     }
   }
 
+  .sensei-grading-wrap,
+  .sensei-learners-wrap {
+    margin: 0 0 0 15px;
+  }
+
+  .grading-selects,
+  .learners-selects {
+    .select-box {
+      float: right;
+      margin: 5px 0 0 20px;
+    }
+  }
+
+  .sortable-module-list .module span::before {
+    margin: 0 0 0 10px;
+  }
+
   .sensei-analysis-wrap {
     margin: 0 300px 0 0;
 

@@ -38,6 +38,16 @@
     padding: 0;
     margin-bottom: .5em;
 
+    &.-side {
+      float: right;
+      margin-top: 0;
+
+      &.-side-ltr {
+        /*rtl:ignore*/
+        float: right;
+      }
+    }
+
     > .dashicons {
       vertical-align: middle;
     }

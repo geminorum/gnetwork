@@ -1,0 +1,43 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// gNetwork Partials: Rewrite Module
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+.gnetwork-admin-wrap.sub-rewrite {
+  .-column-source {
+    width: 10%;
+  }
+
+  .-cell-rule,
+  .-cell-rewrite,
+  .-cell-source {
+    /*rtl:ignore*/
+    direction: ltr;
+  }
+
+  .-cell-rule {
+    font-weight: 600;
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+// #the-list tr.type-sunrise,
+// #the-list tr.type-custom {
+//   background-color: #EEC7F0;
+// }
+// #the-list tr.type-sunrise td,
+// #the-list tr.type-custom td {
+//   border-top-color: #F4E6F5;
+//   border-bottom-color: #EFBBF2;
+// }
+// #the-list tr.source-missing {
+//   background-color: #f7a8a9;
+// }
+// #the-list tr.type-missing td {
+//   border-top-color: #FECFD0;
+//   border-bottom-color: #f99b9d;
+// }

@@ -7,6 +7,15 @@
   &.-responsive {
     @include theme-responsive-embed;
   }
+
+  &.-instagram {
+    text-align: center;
+
+    > blockquote, // before js loaded
+    > iframe {
+      margin: 0 auto !important;
+    }
+  }
 }
 
 @import "embed.aparat.all";

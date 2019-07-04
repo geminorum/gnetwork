@@ -3,17 +3,25 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// gNetwork Partials: BuddyPress: RTL -----------------------------------------
 
-.bp-new-notice-panel {
-  label {
-    margin-right: 0;
-  }
 
-  .button-primary {
-    margin-left: 0;
-    float: right;
+////////////////////////////////////////////////////////////////////////////////
+body.buddypress {
+  form.settings {
+    legend {
+      font-weight: 600;
+      margin: 1em 0;
+    }
+
+    .checkbox {
+      > label {
+        display: block;
+        margin-bottom: 0.5em;
+      }
+    }
   }
 }
 
+////////////////////////////////////////////////////////////////////////////////
 body.post-type-bp-email {
   .categorydiv {
     ul li {

@@ -21,7 +21,7 @@ body.edit-tags-php {
     height: auto !important;
   }
 
-  // bulk extra input
+  // bulk actions extra input
   .gnetwork-taxonomy-input-wrap {
     input[type="text"] {
       height: 28px;
@@ -43,6 +43,14 @@ body.edit-tags-php {
   .wp-editor-wrap.html-active {
     textarea.wp-editor-area {
       border: none;
+    }
+  }
+
+  // extra actions extra input
+  .gnetwork-taxonomy-input-wrap {
+    input[type="text"] {
+      height: 28px;
+      max-width: 200px;
     }
   }
 }

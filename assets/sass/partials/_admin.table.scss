@@ -3,7 +3,14 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// gNetwork Partials: Table ---------------------------------------------------
 
-div.base-table-wrap {}
+div.base-table-wrap {
+  &[dir="ltr"] {
+    th {
+      /*rtl:ignore*/
+      text-align: left;
+    }
+  }
+}
 
 table {
   &.base-table-simple,
@@ -29,6 +36,10 @@ div.base-table-empty {
   margin-top: 1em;
 }
 
+p.base-table-empty {
+  margin: 0 !important;
+}
+
 div.base-table-actions {
   &.base-table-list-before {
     margin-bottom: 4px;
@@ -46,6 +57,10 @@ div.base-table-actions {
       float: right;
     }
 
+    .-before,
+    .-after {
+    }
+
     // input.-limit,
     // input.-paged {
     //   margin: 0 4px 0 0;
@@ -55,7 +70,13 @@ div.base-table-actions {
     // }
 
     .button {
-      padding: 0 4px 1px;
+      padding: 0 10px 1px;
+      margin: 1px 0;
+
+      &.-icon {
+        padding: 0 4px 1px;
+        line-height: 2.2;
+      }
 
       .dashicons {
         width: 18px;
@@ -65,20 +86,26 @@ div.base-table-actions {
       }
     }
 
-    .-before,
-    .-after {
-      select {
-        margin: 1px 0;
-        height: 28px;
-        line-height: 1;
-        vertical-align: baseline;
-        max-width: 200px;
-      }
+
+
+    select {
+      margin: 1px 0;
+      height: 28px;
+      line-height: 1;
+      vertical-align: baseline;
+      max-width: 200px;
+    }
+
+    label {
+      line-height: 1;
+      vertical-align: baseline;
     }
 
     input[type="text"],
     input[type="number"] {
+      margin: 1px 0;
       height: 27px;
+      vertical-align: baseline;
     }
 
     .-total-pages {
@@ -101,6 +128,10 @@ table.base-table-list {
     .-column-slug {
       width: 25%;
     }
+  }
+
+  .-row-color-danger {
+    background-color: lighten($brand-danger, 20%) !important;
   }
 
   td,

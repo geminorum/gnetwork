@@ -19,6 +19,7 @@ body.options-permalink-php .form-table .sptp-fieldset, // Simple Post Type Perma
 .user-facebook-wrap input#facebook,
 #nav-menu-header input#menu-name,
 .inline-edit-col input[name="slug"],
+input#username_or_email_for_privacy_request,
 input#adduser-email,
 input#email,
 input#slug,
@@ -340,18 +341,6 @@ span.description {
 .imgedit-help p {
   font-style: normal;
   font-size: 0.89em;
-}
-
-.edit-attachment-frame {
-  .edit-media-header {
-    .left {
-      left: 51px;
-    }
-
-    .right {
-      left: 102px;
-    }
-  }
 }
 
 body.edit-comments-php {
