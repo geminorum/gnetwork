@@ -199,6 +199,29 @@ class User extends gNetwork\Module
 		);
 	}
 
+	public function settings_sidebox( $sub, $uri )
+	{
+		$emtpy = TRUE;
+
+		echo $this->wrap_open_buttons();
+
+		if ( $this->options['network_roles'] ) {
+
+			echo HTML::tag( 'a', [
+				'class' => 'button button-secondary button-small',
+				'href'  => $this->get_menu_url( 'roles', NULL, 'tools' ),
+				'title' => _x( 'View and set network roles here.', 'Modules: User', GNETWORK_TEXTDOMAIN ),
+			], _x( 'Network Roles', 'Modules: User', GNETWORK_TEXTDOMAIN ) );
+
+			$emtpy = FALSE;
+		}
+
+		if ( $emtpy )
+			HTML::desc( _x( 'Network Roles are disabled.', 'Modules: User', GNETWORK_TEXTDOMAIN ), TRUE, '-empty' );
+
+		echo '</p>';
+	}
+
 	public function tools( $sub = NULL, $key = NULL )
 	{
 		parent::tools( $sub, 'roles' );
