@@ -241,7 +241,8 @@ class User extends gNetwork\Module
 	protected function render_tools_html( $uri, $sub = 'general' )
 	{
 		$sites = WordPress::getAllSites();
-		$roles = get_network_option( NULL, $this->hook( 'roles' ), [] );
+		$roles = array_reverse( get_editable_roles() ); // NOTE: roles of the main site
+		$saved = get_network_option( NULL, $this->hook( 'roles' ), [] );
 
 		if ( empty( $sites ) )
 			return HTML::desc( gNetwork()->na() );
@@ -263,7 +264,8 @@ class User extends gNetwork\Module
 				'type'       => 'role',
 				'title'      => $name,
 				'wrap'       => TRUE,
-				'options'    => $roles,
+				'values'     => $roles,
+				'options'    => $saved,
 				'name_attr'  => 'role['.$site_id.']',
 				'none_value' => 'none',
 				'after'      => Settings::fieldAfterIcon(
