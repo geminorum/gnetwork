@@ -503,8 +503,8 @@ class User extends gNetwork\Module
 			switch_to_blog( $site_id );
 
 			$users = empty( $old[$site_id] )
-				? WordPress::getUsersWithNoRole()
-				: WordPress::getUsersWithRole( $old[$site_id] );
+				? WordPress::getUsersWithNoRole( $site_id )
+				: WordPress::getUsersWithRole( $old[$site_id], $site_id );
 
 			foreach ( $users as $user_id ) {
 

@@ -96,7 +96,7 @@ class Maintenance extends gNetwork\Module
 					'after'       => Settings::fieldAfterIcon( 'https://en.wikipedia.org/wiki/List_of_HTTP_status_codes' ),
 					'dir'         => 'ltr',
 					'default'     => '503',
-					'values'      => Settings::statusOptions(),
+					'values'      => Settings::statusOptions( [ 307, 403, 404, 406, 410, 451, 500, 501, 503 ] ),
 				],
 				[
 					'field'       => 'retry_after',

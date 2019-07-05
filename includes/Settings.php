@@ -380,21 +380,8 @@ class Settings extends Core\Base
 			return $caps[$cap];
 	}
 
-	public static function statusOptions( $statuses = NULL )
+	public static function statusOptions( $statuses = [] )
 	{
-		if ( is_null( $statuses ) )
-			$statuses = [
-				307,
-				403,
-				404,
-				406,
-				410,
-				451,
-				500,
-				501,
-				503,
-			];
-
 		$list = [];
 
 		foreach ( $statuses as $status )
