@@ -204,7 +204,7 @@ class Plugin
 			'Modules/GlotPress'   => 'GlotPress',
 			'Modules/Profile'     => 'Profile',
 			// 'Modules/Roles'       => 'Roles',
-			// 'Modules/Rewrite'     => 'Rewrite',
+			'Modules/Rewrite'     => 'Rewrite',
 		];
 
 		if ( 'production' == WP_STAGE )
