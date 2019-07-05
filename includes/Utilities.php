@@ -509,6 +509,18 @@ class Utilities extends Core\Base
 		return $results;
 	}
 
+	// @RFEF: https://github.com/10up/Async-Transients
+	public static function getTransient( $key, $callback, $args = [] )
+	{
+		return \TenUp\AsyncTransients\get_async_transient( static::BASE.'-'.$key, $callback, $args );
+	}
+
+	// USAGE: function callback( $args ) { $data = NULL; Utilities::setTransient( $key, $data ); }
+	public static function setTransient( $key, $data, $ttl = GNETWORK_CACHE_TTL )
+	{
+		return \TenUp\AsyncTransients\set_async_transient( static::BASE.'-'.$key, $data, $ttl );
+	}
+
 	public static function log( $error = '[Unknown]', $message = FALSE, $extra = FALSE, $path = GNETWORK_DEBUG_LOG )
 	{
 		if ( ! $path )
