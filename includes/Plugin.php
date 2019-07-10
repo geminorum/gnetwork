@@ -184,7 +184,7 @@ class Plugin
 			'Modules/Cron'        => 'Cron',
 			'Modules/Login'       => 'Login',
 			'Modules/Lockdown'    => 'Lockdown',
-			'Modules/BlackList'   => 'BlackList',
+			'Modules/Blacklist'   => 'Blacklist',
 			'Modules/Update'      => 'Update',
 			'Modules/Search'      => 'Search',
 			'Modules/Taxonomy'    => 'Taxonomy',

@@ -222,7 +222,7 @@ class User extends gNetwork\Module
 				'class' => 'button button-secondary button-small',
 				'href'  => $this->get_menu_url( 'roles', NULL, 'tools' ),
 				'title' => _x( 'View and set network roles here.', 'Modules: User', GNETWORK_TEXTDOMAIN ),
-			], _x( 'Network Roles', 'Modules: User', GNETWORK_TEXTDOMAIN ) );
+			], _x( 'Network Roles', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
 
 			$emtpy = FALSE;
 		}
