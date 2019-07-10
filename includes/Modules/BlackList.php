@@ -9,7 +9,7 @@ use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\HTTP;
 
-class BlackList extends gNetwork\Module
+class Blacklist extends gNetwork\Module
 {
 
 	protected $key  = 'blacklist';
@@ -30,7 +30,7 @@ class BlackList extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Black List', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
+		$this->register_menu( _x( 'Blacklist', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
 	}
 
 	public function init()
@@ -54,14 +54,14 @@ class BlackList extends gNetwork\Module
 			'_general' => [
 				[
 					'field'       => 'check_ip',
-					'title'       => _x( 'Check Addresses', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Enables checking logged-out visitor\'s IP against your blacklist.', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Check Addresses', 'Modules: Blacklist: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Enables checking logged-out visitor\'s IP against your blacklist.', 'Modules: Blacklist: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				[
 					'field'       => 'blacklisted_ips',
 					'type'        => 'textarea',
-					'title'       => _x( 'IP Addresses', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => sprintf( _x( "Comma or line-seperated IP Ranges or individual IPs to block.\nex: %s", 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'IP Addresses', 'Modules: Blacklist: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => sprintf( _x( "Comma or line-seperated IP Ranges or individual IPs to block.\nex: %s", 'Modules: Blacklist: Settings', GNETWORK_TEXTDOMAIN ),
 						'<code>1.6.0.0-1.7.255.255, 1.2.3/24, 1.2.3.4/255.255.255.0, 1.8.0.0, 1.8.0.1</code>' ),
 					'field_class' => [ 'regular-text', 'code-text', 'textarea-autosize' ],
 					'after'       => defined( 'GNETWORK_BLACKLIST_REMOTE_CONTENT' )
@@ -71,8 +71,8 @@ class BlackList extends gNetwork\Module
 				[
 					'field'       => 'blacklisted_notice',
 					'type'        => 'textarea-quicktags',
-					'title'       => _x( 'Blacklisted Message', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Displays on the dead page for the blacklisted addresses.', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Blacklisted Message', 'Modules: Blacklist: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Displays on the dead page for the blacklisted addresses.', 'Modules: Blacklist: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => 'you\'re blacklisted, dude!',
 				],
 			],
@@ -82,15 +82,15 @@ class BlackList extends gNetwork\Module
 	public function settings_sidebox( $sub, $uri )
 	{
 		if ( class_exists( __NAMESPACE__.'\\Debug' ) )
-			Debug::summaryIPs( _x( 'Your IP Summary', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ), FALSE );
+			Debug::summaryIPs( _x( 'Your IP Summary', 'Modules: Blacklist: Settings', GNETWORK_TEXTDOMAIN ), FALSE );
 		else
-			HTML::desc( sprintf( _x( 'Your IP: <code title="%s">%s</code>', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ), HTTP::IP(), $_SERVER['REMOTE_ADDR'] ) );
+			HTML::desc( sprintf( _x( 'Your IP: <code title="%s">%s</code>', 'Modules: Blacklist: Settings', GNETWORK_TEXTDOMAIN ), HTTP::IP(), $_SERVER['REMOTE_ADDR'] ) );
 
 		if ( $this->options['check_ip'] && defined( 'GNETWORK_BLACKLIST_REMOTE_CONTENT' ) ) {
 
 			echo '<hr />';
 
-			HTML::desc( _x( 'Your site is scheduled for weekly blacklist updates from the remote source.', 'Modules: BlackList: Settings', GNETWORK_TEXTDOMAIN ) );
+			HTML::desc( _x( 'Your site is scheduled for weekly blacklist updates from the remote source.', 'Modules: Blacklist: Settings', GNETWORK_TEXTDOMAIN ) );
 		}
 	}
 
