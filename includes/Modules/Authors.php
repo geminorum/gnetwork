@@ -99,6 +99,8 @@ class Authors extends gNetwork\Module
 		foreach ( WordPress::getUsers() as $user_id => $user )
 			$users[$user_id] = sprintf( '%1$s (%2$s)', $user->display_name, $user->user_login );
 
+		Settings::headerTitle( _x( 'Author Tools', 'Modules: Authors', GNETWORK_TEXTDOMAIN ) );
+
 		echo '<table class="form-table">';
 
 			if ( $user = gNetwork()->user() ) {

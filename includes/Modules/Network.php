@@ -221,7 +221,7 @@ class Network extends gNetwork\Module
 	protected function tools_overview( $uri )
 	{
 		if ( class_exists( __NAMESPACE__.'\\Debug' ) ) {
-			HTML::h3( _x( 'System Report', 'Modules: Network', GNETWORK_TEXTDOMAIN ) );
+			Settings::headerTitle( _x( 'System Report', 'Modules: Network', GNETWORK_TEXTDOMAIN ) );
 			Debug::displayReport();
 		}
 	}

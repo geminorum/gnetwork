@@ -70,7 +70,7 @@ class OpenSearch extends gNetwork\Module
 				[
 					'field'       => 'opensearch',
 					'type'        => 'enabled',
-					'title'       => _x( 'Open Search', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'OpenSearch', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'OpenSearch support for this blog.', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
 					'default'     => '0',
 				],
@@ -160,7 +160,7 @@ class OpenSearch extends gNetwork\Module
 		return [
 			 [
 				'id'      => $this->classs( 'help' ),
-				'title'   => _x( 'Open Search', 'Modules: OpenSearch: Help Tab Title', GNETWORK_TEXTDOMAIN ),
+				'title'   => _x( 'OpenSearch', 'Modules: OpenSearch: Help Tab Title', GNETWORK_TEXTDOMAIN ),
 				'content' => '<p>OpenSearch is a collection of simple formats for the sharing of search results.</p>
 					<p>This blog\'s OpenSearch description file is:<br /><a href="'.self::url().'" target="_blank">'.self::url().'</a></p>
 				<p>Fore more information:<br />

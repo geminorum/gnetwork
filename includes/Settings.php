@@ -44,12 +44,12 @@ class Settings extends Core\Base
 	}
 
 	// @REF: `get_admin_page_title()`
-	public static function headerTitle( $title = NULL )
+	public static function headerTitle( $title = NULL, $tag = 'h1' )
 	{
 		if ( is_null( $title ) )
 			$title = _x( 'Network Extras', 'Settings: Header Title', GNETWORK_TEXTDOMAIN );
 
-		echo '<h1 class="wp-heading-inline settings-title">'.$title.'</h1>';
+		echo '<'.$tag.' class="wp-heading-inline settings-title">'.$title.'</'.$tag.'>';
 
 		if ( current_user_can( 'update_plugins' ) )
 			echo ' '.HTML::tag( 'a', [
@@ -69,7 +69,7 @@ class Settings extends Core\Base
 
 		echo '<div class="side-nav-wrap">';
 
-		HTML::h1( $title, '-title' );
+		HTML::h2( $title, '-title' );
 		HTML::headerNav( $uri, $active, $subs, 'side-nav', 'ul', 'li' );
 
 		echo '<div class="side-nav-content">';

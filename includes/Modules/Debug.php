@@ -197,7 +197,7 @@ class Debug extends gNetwork\Module
 	// FIXME!
 	private static function displayTests()
 	{
-		HTML::h3( _x( 'Website Remote Tests', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+		Settings::headerTitle( _x( 'Website Remote Tests', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
 		HTML::desc( _x( 'No tests available, yet!', 'Modules: Debug', GNETWORK_TEXTDOMAIN ), TRUE, '-empty' );
 	}
 
@@ -212,9 +212,9 @@ class Debug extends gNetwork\Module
 			if ( $logs = File::getLastLines( $file, self::limit( 100 ) ) ) {
 
 				$length = self::req( 'length', FALSE );
+				$title = sprintf( _x( 'The Last %s Logs, in reverse order', 'Modules: Debug: Log Box', GNETWORK_TEXTDOMAIN ), Number::format( count( $logs ) ) );
 
-				HTML::h3( sprintf( _x( 'The Last %s Logs, in reverse order', 'Modules: Debug: Log Box', GNETWORK_TEXTDOMAIN ), Number::format( count( $logs ) ) ), 'log-box-header' );
-
+				Settings::headerTitle( $title );
 				echo '<div class="log-box"><ol>';
 
 				foreach ( $logs as $log ) {

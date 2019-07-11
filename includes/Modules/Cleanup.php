@@ -223,6 +223,7 @@ class Cleanup extends gNetwork\Module
 
 	public function render_tools( $uri, $sub = 'general' )
 	{
+		Settings::headerTitle( _x( 'Cleanup Tools', 'Modules: Cleanup', GNETWORK_TEXTDOMAIN ) );
 		$this->render_settings( $uri, $sub );
 	}
 
