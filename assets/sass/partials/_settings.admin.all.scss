@@ -44,5 +44,9 @@
     textarea {
       outline: none;
     }
+
+    .CodeMirror { /* stylelint-disable-line selector-class-pattern */
+      border: 1px solid #ddd;
+    }
   }
 }

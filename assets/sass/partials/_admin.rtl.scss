@@ -24,6 +24,12 @@ input#adduser-email,
 input#email,
 input#slug,
 input#tag-slug,
+input#illegal_names,
+input#first_comment_email,
+input#first_comment_url,
+input#upload_filetypes,
+textarea#limited_email_domains,
+textarea#banned_email_domains,
 input#user_login {
   direction: ltr;
 }

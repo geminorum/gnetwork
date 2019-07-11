@@ -15,7 +15,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // USAGE: @include link-colors(white, blue, green, red);
 @mixin link-colors($link, $visit: null, $hover: null, $active: null) {
-  @warn "DEPRICATED: Modules: Coloring: link-colors()";
+  @warn "DEPRECATED: Modules: Coloring: link-colors()";
 
   a {
     color: $link;
