@@ -6,8 +6,6 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 // @SOURCE: https://github.com/fruux/sabre-uri/blob/1.x/lib/functions.php
 
 /**
- * This file contains all the uri handling functions.
- *
  * @copyright Copyright (C) fruux GmbH (https://fruux.com/)
  * @author Evert Pot (http://evertpot.com/)
  * @license http://sabre.io/license/
@@ -57,14 +55,14 @@ class URI extends Base
 
 		if ( $delta['path'] ) {
 
-			// If the path starts with a slash
+			// if the path starts with a slash
 			if ( '/' === $delta['path'][0] ) {
 
 				$path = $delta['path'];
 
 			} else {
 
-				// Removing last component from base path.
+				// removing last component from base path
 				$path = $base['path'];
 
 				if ( FALSE !== strpos( $path, '/' ) )
@@ -78,7 +76,7 @@ class URI extends Base
 			$path = $base['path'] ?: '/';
 		}
 
-		// Removing .. and .
+		// removing `..` and `.`
 		$pathParts    = explode( '/', $path );
 		$newPathParts = [];
 
@@ -104,7 +102,7 @@ class URI extends Base
 
 		$path = implode( '/', $newPathParts );
 
-		// If the source url ended with a /, we want to preserve that.
+		// if the source url ended with a `/`, we want to preserve that
 		$newParts['path'] = $path;
 
 		if ( $delta['query'] ) {
@@ -112,7 +110,8 @@ class URI extends Base
 			$newParts['query'] = $delta['query'];
 
 		} else if ( ! empty( $base['query'] ) && empty( $delta['host'] ) && empty( $delta['path'] ) ) {
-			// Keep the old query if host and path didn't change
+
+			// keep the old query if host and path didn't change
 			$newParts['query'] = $base['query'];
 		}
 
@@ -154,13 +153,13 @@ class URI extends Base
 					break;
 					case '..':
 
-						// One level up in the hierarchy
+						// one level up in the hierarchy
 						array_pop( $newPathParts );
 
 					break;
 					default:
 
-						// Ensuring that everything is correctly percent-encoded.
+						// ensuring that everything is correctly percent-encoded
 						$newPathParts[] = rawurlencode( rawurldecode( $pathPart ) );
 				}
 			}
@@ -175,18 +174,18 @@ class URI extends Base
 
 			if ( ! empty( $parts['port'] ) && isset( $defaultPorts[$parts['scheme']] ) && $defaultPorts[$parts['scheme']] == $parts['port'] ) {
 
-				// Removing default ports.
-				unset($parts['port']);
+				// removing default ports
+				unset( $parts['port'] );
 			}
 
-			// A few HTTP specific rules.
+			// a few HTTP specific rules
 			switch ( $parts['scheme'] ) {
 
 				case 'http':
 				case 'https':
 
 					if ( empty( $parts['path'] ) ) {
-						// An empty path is equivalent to / in http.
+						// an empty path is equivalent to `/` in HTTP
 						$parts['path'] = '/';
 					}
 			}
@@ -285,11 +284,11 @@ class URI extends Base
 				$auth = $auth.':'.$parts['port'];
 		}
 
-		// If there's a scheme, there's also a host.
+		// if there's a scheme, there's also a host
 		if ( ! empty( $parts['scheme'] ) )
 			$uri = $parts['scheme'].':';
 
-		// No scheme, but there is a host.
+		// no scheme, but there is a host
 		if ( $auth || ( ! empty( $parts['scheme'] ) && 'file' === $parts['scheme'] ) )
 			$uri.= '//'.$auth;
 
@@ -335,6 +334,21 @@ class URI extends Base
 	}
 
 	/**
+	 * This function replaces segments of a parsed uri using parse and build
+	 * to generate a new uri.
+	 *
+	 * @REF: https://github.com/sabre-io/uri/pull/26
+	 *
+	 * @param string $uri
+	 * @param array $replace
+	 * @return string
+	 */
+	public static function replace( $uri, $replace = [] )
+	{
+		return self::build( array_merge( self::parse( $uri ), $replace ) );
+	}
+
+	/**
 	 * This function is another implementation of parse_url, except this one is
 	 * fully written in PHP.
 	 *
@@ -374,27 +388,27 @@ class URI extends Base
 
 			$result['scheme'] = $matches[1];
 
-			// Take what's left.
+			// take what's left
 			$uri = substr( $uri, strlen( $result['scheme'] ) + 1 );
 		}
 
-		// Taking off a fragment part
+		// taking off a fragment part
 		if ( FALSE !== strpos( $uri, '#' ) )
 			list( $uri, $result['fragment'] ) = explode( '#', $uri, 2 );
 
-		// Taking off the query part
+		// taking off the query part
 		if ( FALSE !== strpos( $uri, '?' ) )
 			list( $uri, $result['query'] ) = explode( '?', $uri, 2 );
 
 
-		// The triple slash uris are a bit unusual,
-		// but we have special handling for them.
+		// the triple slash uris are a bit unusual,
+		// but we have special handling for them
 		if ( '///' === substr( $uri, 0, 3 ) ) {
 
 			$result['path'] = substr( $uri, 2 );
 			$result['host'] = '';
 
-		// Uris that have an authority part.
+		// URIs that have an authority part
 		} else if ( '//' === substr( $uri, 0, 2 ) ) {
 
 			$pattern = '%^
