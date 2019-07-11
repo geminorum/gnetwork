@@ -17,10 +17,7 @@ class Cleanup extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		Admin::registerTool( $this->key,
-			_x( 'Cleanup', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			[ $this, 'tools' ]
-		);
+		$this->register_tool( _x( 'Cleanup', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
 	}
 
 	public function default_settings()

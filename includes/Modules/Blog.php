@@ -102,10 +102,7 @@ class Blog extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		Admin::registerMenu( $this->key,
-			_x( 'General', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			[ $this, 'settings' ], 'manage_options', 5
-		);
+		$this->register_menu( _x( 'General', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ), NULL, 5 );
 	}
 
 	public function default_options()

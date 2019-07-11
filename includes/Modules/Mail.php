@@ -37,17 +37,10 @@ class Mail extends gNetwork\Module
 	public function setup_menu( $context )
 	{
 		$this->register_menu( _x( 'Mail', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
-
-		$this->register_tool(
-			_x( 'Test Mail', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			NULL, 'testmail', NULL, 16
-		);
+		$this->register_tool( _x( 'Test Mail', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ), 'testmail', 16 );
 
 		if ( GNETWORK_MAIL_LOG_DIR && $this->options['log_all'] )
-			$this->register_tool(
-				_x( 'Email Logs', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-				FALSE, 'emaillogs', NULL, 15
-			);
+			$this->register_tool( _x( 'Email Logs', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ), 'emaillogs', 15, NULL, FALSE );
 	}
 
 	public function default_options()

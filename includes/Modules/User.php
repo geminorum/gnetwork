@@ -64,19 +64,13 @@ class User extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		Network::registerMenu( $this->key,
-			_x( 'User', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			[ $this, 'settings' ]
-		);
+		$this->register_menu( _x( 'User', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
 
 		if ( ! is_multisite() )
 			return;
 
 		if ( $this->options['network_roles'] )
-			Network::registerTool( 'roles',
-				_x( 'Network Roles', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-				[ $this, 'tools' ]
-			);
+			$this->register_tool( _x( 'Network Roles', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
 	}
 
 	public function default_options()

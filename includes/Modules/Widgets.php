@@ -35,10 +35,7 @@ class Widgets extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		Admin::registerMenu( $this->key,
-			_x( 'Widgets', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			[ $this, 'settings' ], 'edit_theme_options'
-		);
+		$this->register_menu( _x( 'Widgets', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ), NULL, 9, 'edit_theme_options' );
 	}
 
 	public function default_options()

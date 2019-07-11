@@ -71,10 +71,7 @@ class Themes extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		Admin::registerMenu( $this->key,
-			_x( 'Themes', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			[ $this, 'settings' ], 'edit_theme_options'
-		);
+		$this->register_menu( _x( 'Themes', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
 	}
 
 	public function default_options()

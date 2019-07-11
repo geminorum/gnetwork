@@ -37,10 +37,7 @@ class OpenSearch extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		Admin::registerMenu( $this->key,
-			_x( 'Open Search', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			[ $this, 'settings' ]
-		);
+		$this->register_menu( _x( 'OpenSearch', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
 	}
 
 	protected function setup_ajax( $request )

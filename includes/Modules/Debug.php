@@ -59,31 +59,19 @@ class Debug extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_tool(
-			_x( 'Remote Tests', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			NULL, 'remotetests'
-		);
+		$this->register_tool( _x( 'Remote Tests', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ), 'remotetests' );
 
 		if ( ! is_multisite() )
 			Admin::registerTool( 'systemreport', _x( 'System Report', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
 
 		if ( GNETWORK_DEBUG_LOG )
-			$this->register_tool(
-				_x( 'Error Logs', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-				FALSE, 'errorlogs', NULL, 20
-			);
+			$this->register_tool( _x( 'Error Logs', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ), 'errorlogs', 20, NULL, FALSE );
 
 		if ( GNETWORK_ANALOG_LOG )
-			$this->register_tool(
-				_x( 'System Logs', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-				FALSE, 'analoglogs', NULL, 20
-			);
+			$this->register_tool( _x( 'System Logs', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ), 'analoglogs', 20, NULL, FALSE );
 
 		if ( GNETWORK_FAILED_LOG )
-			$this->register_tool(
-				_x( 'Failed Logs', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-				FALSE, 'failedlogs', NULL, 20
-			);
+			$this->register_tool( _x( 'Failed Logs', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ), 'failedlogs', 20, NULL, FALSE );
 	}
 
 	public function tools( $sub = NULL, $key = NULL )

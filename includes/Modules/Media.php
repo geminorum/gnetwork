@@ -55,15 +55,8 @@ class Media extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		Admin::registerMenu( $this->key,
-			_x( 'Media', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			[ $this, 'settings' ]
-		);
-
-		Admin::registerTool( 'images',
-			_x( 'Images', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			[ $this, 'tools' ], $this->options['tools_accesscap']
-		);
+		$this->register_menu( _x( 'Media', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
+		$this->register_tool( _x( 'Images', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ), 'images', 9, $this->options['tools_accesscap'] );
 	}
 
 	protected function setup_ajax( $request )

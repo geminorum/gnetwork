@@ -45,15 +45,8 @@ class Cron extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		Admin::registerMenu( $this->key,
-			_x( 'CRON', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			[ $this, 'settings' ]
-		);
-
-		Admin::registerTool( $this->key,
-			_x( 'CRON', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			[ $this, 'tools' ]
-		);
+		$this->register_menu( _x( 'CRON', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
+		$this->register_tool( _x( 'CRON', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
 	}
 
 	protected function setup_ajax( $request )

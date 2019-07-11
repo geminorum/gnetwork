@@ -34,15 +34,8 @@ class Authors extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		Admin::registerMenu( $this->key,
-			_x( 'Authors', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			[ $this, 'settings' ]
-		);
-
-		Admin::registerTool( $this->key,
-			_x( 'Authors', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			[ $this, 'tools' ], 'list_users'
-		);
+		$this->register_menu( _x( 'Authors', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
+		$this->register_tool( _x( 'Authors', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ), NULL, 9, 'list_users' );
 	}
 
 	public function default_options()

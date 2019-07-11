@@ -39,15 +39,8 @@ class Rewrite extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		Admin::registerMenu( $this->key,
-			_x( 'Rewrite Rules', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			[ $this, 'settings' ]
-		);
-
-		Admin::registerTool( $this->key,
-			_x( 'Rewrite Rules', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			[ $this, 'tools' ]
-		);
+		$this->register_menu( _x( 'Rewrite Rules', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
+		$this->register_tool( _x( 'Rewrite Rules', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
 	}
 
 	public function default_options()

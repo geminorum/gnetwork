@@ -185,7 +185,7 @@ class Module extends Core\Base
 	}
 
 	// we call 'setup_menu' action only if `WordPress::mustRegisterUI()`
-	public function register_menu( $title = NULL, $callback = NULL, $sub = NULL, $capability = NULL, $priority = 10 )
+	public function register_menu( $title = NULL, $sub = NULL, $priority = 10, $capability = NULL, $callback = NULL )
 	{
 		if ( is_null( $sub ) )
 			$sub = $this->key;
@@ -211,7 +211,7 @@ class Module extends Core\Base
 		// no need for user menu
 	}
 
-	public function register_tool( $title = NULL, $callback = NULL, $sub = NULL, $capability = NULL, $priority = 10 )
+	public function register_tool( $title = NULL, $sub = NULL, $priority = 10, $capability = NULL, $callback = NULL )
 	{
 		if ( is_null( $sub ) )
 			$sub = $this->key;

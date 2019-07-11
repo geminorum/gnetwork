@@ -20,10 +20,7 @@ class Extend extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		Network::registerTool( $this->key,
-			_x( 'Extend', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
-			[ $this, 'tools' ]
-		);
+		$this->register_tool( _x( 'Extend', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
 	}
 
 	protected function render_tools_html( $uri, $sub = 'general' )
