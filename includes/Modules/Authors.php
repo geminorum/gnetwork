@@ -89,6 +89,11 @@ class Authors extends gNetwork\Module
 		self::summarySiteUser();
 	}
 
+	public function tools_sidebox( $sub, $uri )
+	{
+		self::summarySiteUser();
+	}
+
 	protected function render_tools_html( $uri, $sub = 'general' )
 	{
 		$users = [
@@ -105,24 +110,11 @@ class Authors extends gNetwork\Module
 
 			if ( $user = gNetwork()->user() ) {
 
-				$name = get_userdata( $user )->display_name;
-				$edit = WordPress::getUserEditLink( $user );
-
 				echo '<tr><th scope="row">'._x( 'Site User', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ).'</th><td>';
 				echo $this->wrap_open_buttons();
 
-				printf( _x( 'Site-User for current network is: %s', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
-				( $edit ? HTML::link( $name, $edit, TRUE ) : $name ) );
-
-				echo '&nbsp;&mdash;&nbsp;';
-
-				printf( _x( 'Default role for this site is: %s', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
-					( '<code>'.get_option( 'default_role' ).'</code>' ) );
-
-				echo '&nbsp;&mdash;&nbsp;';
-
 				if ( is_user_member_of_blog( $user ) )
-					HTML::desc( _x( 'The user is already member of this blog.', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ), FALSE );
+					HTML::desc( _x( 'The user is already member of this blog.', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ) );
 
 				else
 					Settings::submitButton( 'add_site_user', _x( 'Add User to this Site', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ) );

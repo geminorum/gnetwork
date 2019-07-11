@@ -716,7 +716,7 @@ class Module extends Core\Base
 
 			if ( $check && $sidebox ) {
 				echo '<div class="-sidebox -sidebox-'.$context.' -sidebox-'.HTML::escape( $sub ).'">'; // WPCS: XSS ok;
-					$this->settings_sidebox( $sub, $uri, $context );
+					call_user_func_array( [ $this, $context.'_sidebox' ], [ $sub, $uri, $context ] );
 				echo '</div>';
 			}
 	}
