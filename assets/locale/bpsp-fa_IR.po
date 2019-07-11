@@ -1,13 +1,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: BuddyPress Courseware 0.9.7\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/buddypress-"
-"courseware\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/buddypress-courseware\n"
 "POT-Creation-Date: 2019-07-03 11:37+0430\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2019-07-04 08:22+0430\n"
+"PO-Revision-Date: 2019-07-04 15:34+0430\n"
 "Language-Team: \n"
 "X-Generator: Poedit 2.2.3\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
@@ -68,11 +67,11 @@ msgstr ""
 #: assignments/assignments.class.php:62 assignments/assignments.class.php:303
 #: groups/templates/dashboard.php:176 groups/templates/list_assignments.php:2
 msgid "Assignments"
-msgstr ""
+msgstr "تکالیف"
 
 #: assignments/assignments.class.php:63
 msgid "Assignment"
-msgstr ""
+msgstr "تکلیف"
 
 #: assignments/assignments.class.php:64
 msgid "BuddyPress ScholarPress Courseware Assignments"
@@ -84,20 +83,19 @@ msgstr ""
 
 #: assignments/assignments.class.php:303 bibliography/bibliography.class.php:492
 #: bibliography/bibliography.class.php:495 bibliography/bibliography.class.php:588
-#: courses/courses.class.php:272 groups/groups.class.php:93
-#: groups/groups.class.php:110 groups/groups.class.php:151
-#: groups/templates/_trail.php:4 groups/templates/dashboard.php:8
-#: groups/templates/dashboard.php:12 groups/templates/dashboard.php:33
-#: groups/templates/dashboard.php:37 groups/templates/dashboard.php:50
-#: groups/templates/dashboard.php:54 groups/templates/dashboard.php:66
-#: groups/templates/dashboard.php:78 groups/templates/dashboard.php:82
-#: groups/templates/dashboard.php:95 schedules/schedules.class.php:273
+#: courses/courses.class.php:272 groups/groups.class.php:93 groups/groups.class.php:110
+#: groups/groups.class.php:151 groups/templates/_trail.php:4
+#: groups/templates/dashboard.php:8 groups/templates/dashboard.php:12
+#: groups/templates/dashboard.php:33 groups/templates/dashboard.php:37
+#: groups/templates/dashboard.php:50 groups/templates/dashboard.php:54
+#: groups/templates/dashboard.php:66 groups/templates/dashboard.php:78
+#: groups/templates/dashboard.php:82 groups/templates/dashboard.php:95
+#: schedules/schedules.class.php:273
 msgid "Home"
 msgstr "خانه"
 
 #: assignments/assignments.class.php:321
-msgid ""
-"BuddyPress Courseware Error while forbidden user tried to add a new assignment."
+msgid "BuddyPress Courseware Error while forbidden user tried to add a new assignment."
 msgstr ""
 
 #: assignments/assignments.class.php:334
@@ -188,8 +186,8 @@ msgid "Editing Assignment: "
 msgstr ""
 
 #: bibliography/bibliography.class.php:58 bibliography/bibliography.class.php:59
-#: groups/templates/new_bibliography.php:28
-#: groups/templates/single_assignment.php:101 groups/templates/single_course.php:23
+#: groups/templates/new_bibliography.php:28 groups/templates/single_assignment.php:101
+#: groups/templates/single_course.php:23
 msgid "Bibliography"
 msgstr "کتاب‌شناسی"
 
@@ -202,8 +200,7 @@ msgid "BuddyPress Courseware error while registering bibliography post type."
 msgstr ""
 
 #: bibliography/bibliography.class.php:415
-msgid ""
-"BuddyPress Courseware Error while forbidden user tried to delete bibliography."
+msgid "BuddyPress Courseware Error while forbidden user tried to delete bibliography."
 msgstr ""
 
 #: bibliography/bibliography.class.php:421
@@ -227,8 +224,7 @@ msgid "No Bibliography database was created."
 msgstr ""
 
 #: bibliography/bibliography.class.php:473
-msgid ""
-"BuddyPress Courseware Error while forbidden user tried to edit bibliography."
+msgid "BuddyPress Courseware Error while forbidden user tried to edit bibliography."
 msgstr ""
 
 #: bibliography/bibliography.class.php:479
@@ -295,8 +291,7 @@ msgstr ""
 
 #: bibliography/bibliography.class.php:709
 msgid ""
-"BuddyPress Courseware Error while forbidden user tried to add bibliography "
-"entries."
+"BuddyPress Courseware Error while forbidden user tried to add bibliography entries."
 msgstr ""
 
 #: bibliography/bibliography.class.php:717
@@ -348,8 +343,7 @@ msgid "New course could not be added."
 msgstr ""
 
 #: courses/courses.class.php:352
-msgid ""
-"BuddyPress Courseware Error while forbidden user tried to update the course."
+msgid "BuddyPress Courseware Error while forbidden user tried to update the course."
 msgstr ""
 
 #: courses/courses.class.php:361
@@ -370,14 +364,14 @@ msgstr ""
 
 #: courseware.php:100
 msgid ""
-"BuddyPress Courseware dependency error: <a href=\"%1$s\">%2$s has to be "
-"activated</a>!"
+"BuddyPress Courseware dependency error: <a href=\"%1$s\">%2$s has to be activated</"
+"a>!"
 msgstr ""
 
 #: courseware.php:106
 msgid ""
-"BuddyPress Courseware dependency error: Please <a href=\"%1$s\">install "
-"BuddyPress</a>!"
+"BuddyPress Courseware dependency error: Please <a href=\"%1$s\">install BuddyPress</"
+"a>!"
 msgstr ""
 
 #: dashboards/dashboards.class.php:110
@@ -442,18 +436,16 @@ msgstr ""
 
 #: gradebook/gradebook.class.php:478
 msgid ""
-"Data imported successfully, but it is not saved yet! Save this form changes to "
-"keep the data."
+"Data imported successfully, but it is not saved yet! Save this form changes to keep "
+"the data."
 msgstr ""
 
 #: gradebook/gradebook.class.php:480
-msgid ""
-"File data contains error or entries from other gradebook. Please check again."
+msgid "File data contains error or entries from other gradebook. Please check again."
 msgstr ""
 
 #: groups/groups.class.php:83 groups/groups.class.php:249 roles/roles.class.php:68
-#: roles/roles.class.php:123 roles/roles.class.php:128
-#: wordpress/wordpress.class.php:48
+#: roles/roles.class.php:123 roles/roles.class.php:128 wordpress/wordpress.class.php:48
 msgid "Courseware"
 msgstr "درس‌افزار"
 
@@ -519,9 +511,8 @@ msgstr ""
 
 #: groups/templates/_bibs.php:67 groups/templates/edit_bibliography.php:56
 #: groups/templates/edit_bibliography.php:57 groups/templates/edit_schedule.php:52
-#: groups/templates/new_bibliography.php:53
-#: groups/templates/new_bibliography.php:54 groups/templates/new_schedule.php:60
-#: static/static.class.php:201
+#: groups/templates/new_bibliography.php:53 groups/templates/new_bibliography.php:54
+#: groups/templates/new_schedule.php:60 static/static.class.php:201
 msgid "Title"
 msgstr ""
 
@@ -590,12 +581,11 @@ msgstr ""
 
 #: groups/templates/_no_course_group_header.php:3
 msgid "You can manage this group Courseware."
-msgstr ""
+msgstr "شما می‌توانید درس‌افزار این گروه را مدیریت کنید."
 
-#: groups/templates/_no_course_group_header.php:5
-#: groups/templates/single_course.php:36
+#: groups/templates/_no_course_group_header.php:5 groups/templates/single_course.php:36
 msgid "Edit Course"
-msgstr ""
+msgstr "ویرایش دوره"
 
 #: groups/templates/_responses.php:3
 msgid "List of responses"
@@ -642,8 +632,8 @@ msgstr "توضیحات دوره"
 
 #: groups/templates/dashboard.php:18
 msgid ""
-"<strong>%s</strong> course class started by %s and managed by %d teacher(s) for "
-"this group"
+"<strong>%s</strong> course class started by %s and managed by %d teacher(s) for this "
+"group"
 msgstr ""
 
 #: groups/templates/dashboard.php:28
@@ -787,8 +777,7 @@ msgstr ""
 
 #: groups/templates/edit_assignment.php:30
 msgid ""
-"To get the Math/LaTeX formula support, search and install first found MathJax "
-"plugin."
+"To get the Math/LaTeX formula support, search and install first found MathJax plugin."
 msgstr ""
 
 #: groups/templates/edit_assignment.php:31
@@ -817,189 +806,142 @@ msgstr ""
 msgid "Update Bibliography"
 msgstr ""
 
-#: groups/templates/edit_bibliography.php:10
-#: groups/templates/new_bibliography.php:9
+#: groups/templates/edit_bibliography.php:10 groups/templates/new_bibliography.php:9
 msgid "Select a type of source..."
 msgstr ""
 
-#: groups/templates/edit_bibliography.php:13
-#: groups/templates/new_bibliography.php:10
+#: groups/templates/edit_bibliography.php:13 groups/templates/new_bibliography.php:10
 msgid "Book"
 msgstr ""
 
-#: groups/templates/edit_bibliography.php:16
-#: groups/templates/new_bibliography.php:11
+#: groups/templates/edit_bibliography.php:16 groups/templates/new_bibliography.php:11
 msgid "Article"
-msgstr ""
+msgstr "مقاله"
 
-#: groups/templates/edit_bibliography.php:19
-#: groups/templates/new_bibliography.php:12
+#: groups/templates/edit_bibliography.php:19 groups/templates/new_bibliography.php:12
 msgid "Volume Chapter"
 msgstr ""
 
-#: groups/templates/edit_bibliography.php:22
-#: groups/templates/new_bibliography.php:13
+#: groups/templates/edit_bibliography.php:22 groups/templates/new_bibliography.php:13
 msgid "Unpublished"
 msgstr ""
 
-#: groups/templates/edit_bibliography.php:25
-#: groups/templates/new_bibliography.php:14
+#: groups/templates/edit_bibliography.php:25 groups/templates/new_bibliography.php:14
 msgid "Website"
 msgstr ""
 
-#: groups/templates/edit_bibliography.php:28
-#: groups/templates/new_bibliography.php:15
+#: groups/templates/edit_bibliography.php:28 groups/templates/new_bibliography.php:15
 msgid "Webpage"
 msgstr ""
 
-#: groups/templates/edit_bibliography.php:31
-#: groups/templates/new_bibliography.php:16
+#: groups/templates/edit_bibliography.php:31 groups/templates/new_bibliography.php:16
 msgid "Video"
 msgstr ""
 
-#: groups/templates/edit_bibliography.php:34
-#: groups/templates/new_bibliography.php:17
+#: groups/templates/edit_bibliography.php:34 groups/templates/new_bibliography.php:17
 msgid "Audio"
 msgstr ""
 
-#: groups/templates/edit_bibliography.php:43
-#: groups/templates/new_bibliography.php:40
+#: groups/templates/edit_bibliography.php:43 groups/templates/new_bibliography.php:40
 msgid "Author(s)"
 msgstr ""
 
-#: groups/templates/edit_bibliography.php:45
-#: groups/templates/edit_bibliography.php:46
-#: groups/templates/new_bibliography.php:42
-#: groups/templates/new_bibliography.php:43
+#: groups/templates/edit_bibliography.php:45 groups/templates/edit_bibliography.php:46
+#: groups/templates/new_bibliography.php:42 groups/templates/new_bibliography.php:43
 msgid "Author Last Name"
 msgstr ""
 
-#: groups/templates/edit_bibliography.php:47
-#: groups/templates/edit_bibliography.php:48
-#: groups/templates/new_bibliography.php:44
-#: groups/templates/new_bibliography.php:45
+#: groups/templates/edit_bibliography.php:47 groups/templates/edit_bibliography.php:48
+#: groups/templates/new_bibliography.php:44 groups/templates/new_bibliography.php:45
 msgid "Author First Name"
 msgstr ""
 
-#: groups/templates/edit_bibliography.php:49
-#: groups/templates/edit_bibliography.php:50
-#: groups/templates/new_bibliography.php:46
-#: groups/templates/new_bibliography.php:47
+#: groups/templates/edit_bibliography.php:49 groups/templates/edit_bibliography.php:50
+#: groups/templates/new_bibliography.php:46 groups/templates/new_bibliography.php:47
 msgid "Author Two Last Name"
 msgstr ""
 
-#: groups/templates/edit_bibliography.php:51
-#: groups/templates/edit_bibliography.php:52
-#: groups/templates/new_bibliography.php:48
-#: groups/templates/new_bibliography.php:49
+#: groups/templates/edit_bibliography.php:51 groups/templates/edit_bibliography.php:52
+#: groups/templates/new_bibliography.php:48 groups/templates/new_bibliography.php:49
 msgid "Author Two First Name"
 msgstr ""
 
-#: groups/templates/edit_bibliography.php:54
-#: groups/templates/new_bibliography.php:51
+#: groups/templates/edit_bibliography.php:54 groups/templates/new_bibliography.php:51
 msgid "Publish Information"
 msgstr ""
 
-#: groups/templates/edit_bibliography.php:58
-#: groups/templates/edit_bibliography.php:59
-#: groups/templates/new_bibliography.php:55
-#: groups/templates/new_bibliography.php:56
+#: groups/templates/edit_bibliography.php:58 groups/templates/edit_bibliography.php:59
+#: groups/templates/new_bibliography.php:55 groups/templates/new_bibliography.php:56
 msgid "Short Title"
 msgstr ""
 
-#: groups/templates/edit_bibliography.php:60
-#: groups/templates/edit_bibliography.php:61
-#: groups/templates/new_bibliography.php:57
-#: groups/templates/new_bibliography.php:58
+#: groups/templates/edit_bibliography.php:60 groups/templates/edit_bibliography.php:61
+#: groups/templates/new_bibliography.php:57 groups/templates/new_bibliography.php:58
 msgid "Journal Title"
 msgstr ""
 
-#: groups/templates/edit_bibliography.php:62
-#: groups/templates/edit_bibliography.php:63
-#: groups/templates/new_bibliography.php:59
-#: groups/templates/new_bibliography.php:60
+#: groups/templates/edit_bibliography.php:62 groups/templates/edit_bibliography.php:63
+#: groups/templates/new_bibliography.php:59 groups/templates/new_bibliography.php:60
 msgid "Volume Title"
 msgstr ""
 
-#: groups/templates/edit_bibliography.php:64
-#: groups/templates/edit_bibliography.php:65
-#: groups/templates/new_bibliography.php:61
-#: groups/templates/new_bibliography.php:62
+#: groups/templates/edit_bibliography.php:64 groups/templates/edit_bibliography.php:65
+#: groups/templates/new_bibliography.php:61 groups/templates/new_bibliography.php:62
 msgid "Volume Editor(s)"
 msgstr ""
 
-#: groups/templates/edit_bibliography.php:66
-#: groups/templates/edit_bibliography.php:67
-#: groups/templates/new_bibliography.php:63
-#: groups/templates/new_bibliography.php:64
+#: groups/templates/edit_bibliography.php:66 groups/templates/edit_bibliography.php:67
+#: groups/templates/new_bibliography.php:63 groups/templates/new_bibliography.php:64
 msgid "Publication Place"
 msgstr ""
 
-#: groups/templates/edit_bibliography.php:68
-#: groups/templates/edit_bibliography.php:69
-#: groups/templates/new_bibliography.php:65
-#: groups/templates/new_bibliography.php:66
+#: groups/templates/edit_bibliography.php:68 groups/templates/edit_bibliography.php:69
+#: groups/templates/new_bibliography.php:65 groups/templates/new_bibliography.php:66
 msgid "Publisher"
 msgstr ""
 
-#: groups/templates/edit_bibliography.php:70
-#: groups/templates/edit_bibliography.php:71
-#: groups/templates/new_bibliography.php:67
-#: groups/templates/new_bibliography.php:68
+#: groups/templates/edit_bibliography.php:70 groups/templates/edit_bibliography.php:71
+#: groups/templates/new_bibliography.php:67 groups/templates/new_bibliography.php:68
 msgid "Website Title"
 msgstr ""
 
-#: groups/templates/edit_bibliography.php:73
-#: groups/templates/new_bibliography.php:70
+#: groups/templates/edit_bibliography.php:73 groups/templates/new_bibliography.php:70
 msgid "Additional Information"
 msgstr ""
 
-#: groups/templates/edit_bibliography.php:75
-#: groups/templates/edit_bibliography.php:76
-#: groups/templates/new_bibliography.php:72
-#: groups/templates/new_bibliography.php:73
+#: groups/templates/edit_bibliography.php:75 groups/templates/edit_bibliography.php:76
+#: groups/templates/new_bibliography.php:72 groups/templates/new_bibliography.php:73
 msgid "Date Published"
 msgstr ""
 
-#: groups/templates/edit_bibliography.php:77
-#: groups/templates/edit_bibliography.php:78
-#: groups/templates/new_bibliography.php:74
-#: groups/templates/new_bibliography.php:75
+#: groups/templates/edit_bibliography.php:77 groups/templates/edit_bibliography.php:78
+#: groups/templates/new_bibliography.php:74 groups/templates/new_bibliography.php:75
 msgid "Date Accessed"
 msgstr ""
 
-#: groups/templates/edit_bibliography.php:79
-#: groups/templates/edit_bibliography.php:80
-#: groups/templates/new_bibliography.php:76
-#: groups/templates/new_bibliography.php:77
+#: groups/templates/edit_bibliography.php:79 groups/templates/edit_bibliography.php:80
+#: groups/templates/new_bibliography.php:76 groups/templates/new_bibliography.php:77
 msgid "URL"
 msgstr ""
 
-#: groups/templates/edit_bibliography.php:81
-#: groups/templates/edit_bibliography.php:82
-#: groups/templates/new_bibliography.php:78
-#: groups/templates/new_bibliography.php:79
+#: groups/templates/edit_bibliography.php:81 groups/templates/edit_bibliography.php:82
+#: groups/templates/new_bibliography.php:78 groups/templates/new_bibliography.php:79
 msgid "Volume"
 msgstr ""
 
-#: groups/templates/edit_bibliography.php:83
-#: groups/templates/edit_bibliography.php:84
-#: groups/templates/new_bibliography.php:80
-#: groups/templates/new_bibliography.php:81
+#: groups/templates/edit_bibliography.php:83 groups/templates/edit_bibliography.php:84
+#: groups/templates/new_bibliography.php:80 groups/templates/new_bibliography.php:81
 msgid "Issue"
 msgstr ""
 
-#: groups/templates/edit_bibliography.php:85
-#: groups/templates/edit_bibliography.php:86
-#: groups/templates/new_bibliography.php:82
-#: groups/templates/new_bibliography.php:83
+#: groups/templates/edit_bibliography.php:85 groups/templates/edit_bibliography.php:86
+#: groups/templates/new_bibliography.php:82 groups/templates/new_bibliography.php:83
 msgid "Pages"
 msgstr ""
 
-#: groups/templates/edit_bibliography.php:87
-#: groups/templates/edit_bibliography.php:88 groups/templates/edit_schedule.php:55
-#: groups/templates/list_assignments.php:6 groups/templates/list_schedules.php:12
-#: groups/templates/new_bibliography.php:84
+#: groups/templates/edit_bibliography.php:87 groups/templates/edit_bibliography.php:88
+#: groups/templates/edit_schedule.php:55 groups/templates/list_assignments.php:6
+#: groups/templates/list_schedules.php:12 groups/templates/new_bibliography.php:84
 #: groups/templates/new_bibliography.php:85
 msgid "Description"
 msgstr ""
@@ -1155,8 +1097,7 @@ msgid "Import Your Bibliography"
 msgstr ""
 
 #: groups/templates/import_bibliographies.php:6
-msgid ""
-"Paste your BibTeX contents in the textarea and submit <strong>Import</strong>."
+msgid "Paste your BibTeX contents in the textarea and submit <strong>Import</strong>."
 msgstr ""
 
 #: groups/templates/import_bibliographies.php:12
@@ -1167,8 +1108,8 @@ msgstr ""
 msgid "Type"
 msgstr ""
 
-#: groups/templates/list_assignments.php:8
-#: groups/templates/single_assignment.php:78 responses/responses.class.php:59
+#: groups/templates/list_assignments.php:8 groups/templates/single_assignment.php:78
+#: responses/responses.class.php:59
 msgid "Responses"
 msgstr ""
 
@@ -1212,13 +1153,13 @@ msgstr ""
 msgid "Import Bibliography"
 msgstr ""
 
-#: groups/templates/new_bibliography.php:31
-#: groups/templates/single_assignment.php:108 groups/templates/single_course.php:30
+#: groups/templates/new_bibliography.php:31 groups/templates/single_assignment.php:108
+#: groups/templates/single_course.php:30
 msgid "Quick Add Book"
 msgstr ""
 
-#: groups/templates/new_bibliography.php:34
-#: groups/templates/single_assignment.php:111 groups/templates/single_course.php:33
+#: groups/templates/new_bibliography.php:34 groups/templates/single_assignment.php:111
+#: groups/templates/single_course.php:33
 msgid "Quick Add Webpage"
 msgstr ""
 
@@ -1344,7 +1285,7 @@ msgstr ""
 
 #: groups/templates/single_lecture.php:39
 msgid "Edit Lecture"
-msgstr ""
+msgstr "ویرایش درس"
 
 #: groups/templates/single_response.php:4
 msgid "Response Meta"
@@ -1380,7 +1321,7 @@ msgstr ""
 
 #: groups/templates/single_schedule.php:60
 msgid "Edit Schedule"
-msgstr ""
+msgstr "ویرایش زمان‌بندی"
 
 #: lectures/lectures.class.php:48 lectures/lectures.class.php:49
 msgid "Lecture"
@@ -1403,8 +1344,7 @@ msgid "BuddyPress Courseware error while registering course taxonomy."
 msgstr ""
 
 #: lectures/lectures.class.php:274
-msgid ""
-"BuddyPress Courseware Error while forbidden user tried to add a new lecture."
+msgid "BuddyPress Courseware Error while forbidden user tried to add a new lecture."
 msgstr ""
 
 #: lectures/lectures.class.php:284
@@ -1428,8 +1368,7 @@ msgid "Nonce Error while deleting the lecture."
 msgstr ""
 
 #: lectures/lectures.class.php:440
-msgid ""
-"BuddyPress Courseware Error while forbidden user tried to delete the lecture."
+msgid "BuddyPress Courseware Error while forbidden user tried to delete the lecture."
 msgstr ""
 
 #: lectures/lectures.class.php:444
@@ -1437,8 +1376,7 @@ msgid "Lecture deleted successfully."
 msgstr ""
 
 #: lectures/lectures.class.php:469
-msgid ""
-"BuddyPress Courseware Error while forbidden user tried to update the lecture."
+msgid "BuddyPress Courseware Error while forbidden user tried to update the lecture."
 msgstr ""
 
 #: lectures/lectures.class.php:481
@@ -1497,10 +1435,10 @@ msgstr ""
 msgid "BuddyPress Courseware error while registering response post type."
 msgstr ""
 
-#: responses/responses.class.php:87 roles/roles.class.php:39
-#: roles/roles.class.php:43 roles/roles.class.php:47 roles/roles.class.php:91
-#: roles/roles.class.php:106 roles/roles.class.php:107 roles/roles.class.php:156
-#: roles/roles.class.php:186 roles/roles.class.php:221
+#: responses/responses.class.php:87 roles/roles.class.php:39 roles/roles.class.php:43
+#: roles/roles.class.php:47 roles/roles.class.php:91 roles/roles.class.php:106
+#: roles/roles.class.php:107 roles/roles.class.php:156 roles/roles.class.php:186
+#: roles/roles.class.php:221
 msgid "Teacher"
 msgstr ""
 
@@ -1524,8 +1462,7 @@ msgid "(Correct answer below)"
 msgstr ""
 
 #: responses/responses.class.php:458
-msgid ""
-"BuddyPress Courseware Error while forbidden user tried to add a new response."
+msgid "BuddyPress Courseware Error while forbidden user tried to add a new response."
 msgstr ""
 
 #: responses/responses.class.php:472
@@ -1558,8 +1495,7 @@ msgstr ""
 
 #: responses/responses.class.php:582
 msgid ""
-"BuddyPress Courseware Error while forbidden user tried to access a private "
-"response."
+"BuddyPress Courseware Error while forbidden user tried to access a private response."
 msgstr ""
 
 #: responses/responses.class.php:626
@@ -1567,8 +1503,7 @@ msgid "Nonce Error while deleting the response."
 msgstr ""
 
 #: responses/responses.class.php:636
-msgid ""
-"BuddyPress Courseware Error while forbidden user tried to delete the response."
+msgid "BuddyPress Courseware Error while forbidden user tried to delete the response."
 msgstr ""
 
 #: responses/responses.class.php:641
@@ -1612,8 +1547,8 @@ msgid ""
 "Your role when using Courseware. Every request requires moderation. Please be "
 "patient until an administrator reviews it."
 msgstr ""
-"نقش شما در هنگام استفاده از درس‌افزار. همهٔ درخواست‌ها بررسی خواهند شد. لطفاً تا "
-"زمان بازبینی توسط یکی از مدیران، شکیبا باشید."
+"نقش شما در هنگام استفاده از درس‌افزار. همهٔ درخواست‌ها بررسی خواهند شد. لطفاً تا زمان "
+"بازبینی توسط یکی از مدیران، شکیبا باشید."
 
 #: roles/roles.class.php:149
 msgid "BuddyPress Courseware error when saving xProfile field."
@@ -1636,8 +1571,7 @@ msgid "BuddyPress Courseware Error while forbidden user tried to add a new cours
 msgstr ""
 
 #: schedules/schedules.class.php:342
-msgid ""
-"New schedule could not be added. Missing description/title and/or start date."
+msgid "New schedule could not be added. Missing description/title and/or start date."
 msgstr ""
 
 #: schedules/schedules.class.php:362
@@ -1665,8 +1599,7 @@ msgid "BuddyPress Courseware Nonce Error while deleting a schedule."
 msgstr ""
 
 #: schedules/schedules.class.php:513
-msgid ""
-"BuddyPress Courseware Error while forbidden user tried to delete a schedule."
+msgid "BuddyPress Courseware Error while forbidden user tried to delete a schedule."
 msgstr ""
 
 #: schedules/schedules.class.php:517
@@ -1674,8 +1607,7 @@ msgid "Schedule deleted successfully."
 msgstr ""
 
 #: schedules/schedules.class.php:539
-msgid ""
-"BuddyPress Courseware Error while forbidden user tried to update the schedule."
+msgid "BuddyPress Courseware Error while forbidden user tried to update the schedule."
 msgstr ""
 
 #: schedules/schedules.class.php:546
@@ -2070,8 +2002,8 @@ msgstr ""
 #: wordpress/templates/admin.php:41
 msgid ""
 "Enabling this, will allow any teacher to contribute to\n"
-"                    group Courseware by editing/adding new courses, schedules "
-"and assignments."
+"                    group Courseware by editing/adding new courses, schedules and "
+"assignments."
 msgstr ""
 
 #: wordpress/templates/admin.php:45
@@ -2093,8 +2025,7 @@ msgid ""
 msgstr ""
 
 #: wordpress/templates/admin.php:70
-msgid ""
-"This will enable it for every group. There's also a per-group option for it!"
+msgid "This will enable it for every group. There's also a per-group option for it!"
 msgstr ""
 
 #: wordpress/templates/admin.php:76
@@ -2256,8 +2187,7 @@ msgid "External Group Blogs"
 msgstr ""
 
 #: wordpress/templates/contextual_help.php:50
-msgid ""
-"Use this when you need to attach a private blog to a private group's activity."
+msgid "Use this when you need to attach a private blog to a private group's activity."
 msgstr ""
 
 #: wordpress/templates/contextual_help.php:53
