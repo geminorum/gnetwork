@@ -418,7 +418,7 @@ class ShortCodes extends gNetwork\Module
 
 					if ( 'publish' == $post->post_status && $args['li_link'] )
 						$list = $args['li_before'].HTML::tag( 'a', [
-							'href'  => get_permalink( $post->ID ),
+							'href'  => apply_filters( 'the_permalink', get_permalink( $post ), $post ),
 							'title' => $args['li_title'] ? sprintf( $args['li_title'], $title ) : FALSE,
 							'class' => '-link',
 						], $order.$title );
@@ -654,7 +654,7 @@ class ShortCodes extends gNetwork\Module
 			return $content;
 
 		$html = HTML::tag( 'a', [
-			'href'   => get_permalink( $post ).( $args['params'] ? '?'.$args['params'] : '' ),
+			'href'   => apply_filters( 'the_permalink', get_permalink( $post ), $post ).( $args['params'] ? '?'.$args['params'] : '' ),
 			'title'  => $args['title'] ?: FALSE,
 			'class'  => $args['class'] ?: FALSE,
 			'target' => $args['newwindow'] ? '_blank' : FALSE,
@@ -693,11 +693,11 @@ class ShortCodes extends gNetwork\Module
 
 				if ( $post = get_post( $args['id'] ) ) {
 
-					if ( $post->post_parent ) {
+					if ( $parent = get_post( $post->post_parent ) ) {
 
 						$html = HTML::tag( 'a', [
-							'href'        => get_permalink( $post->post_parent ),
-							'title'       => get_the_title( $post->post_parent ),
+							'href'        => apply_filters( 'the_permalink', get_permalink( $parent ), $parent ),
+							'title'       => get_the_title( $parent ),
 							'class'       => 'parent',
 							'data-toggle' => 'tooltip',
 							'rel'         => 'parent',

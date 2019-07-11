@@ -70,7 +70,7 @@ class User extends gNetwork\Module
 			return;
 
 		if ( $this->options['network_roles'] )
-			$this->register_tool( _x( 'Network Roles', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
+			$this->register_tool( _x( 'Network Roles', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ), 'roles' );
 	}
 
 	public function default_options()

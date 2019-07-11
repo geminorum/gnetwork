@@ -734,7 +734,7 @@ class Themes extends gNetwork\Module
 	public static function continueReading()
 	{
 		return vsprintf( ' <a href="%1$s" aria-label="%3$s" class="%4$s">%2$s</a>', [
-			get_permalink(),
+			esc_url( apply_filters( 'the_permalink', get_permalink(), NULL ) ),
 			_x( 'Read more&nbsp;<span class="excerpt-link-hellip">&hellip;</span>', 'Modules: Themes', GNETWORK_TEXTDOMAIN ),
 			sprintf( _x( 'Continue reading &ldquo;%s&rdquo; &hellip;', 'Modules: Themes', GNETWORK_TEXTDOMAIN ), get_the_title() ),
 			'excerpt-link',
@@ -763,7 +763,7 @@ class Themes extends gNetwork\Module
 		echo $before;
 
 		vprintf( $format, [
-			esc_url( get_permalink() ),
+			esc_url( apply_filters( 'the_permalink', get_permalink(), NULL ) ),
 			HTML::escape( get_the_time() ),
 			HTML::escape( get_the_date( 'c' ) ),
 			HTML::escape( get_the_date() ),
