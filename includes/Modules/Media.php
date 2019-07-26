@@ -1477,8 +1477,9 @@ class Media extends gNetwork\Module
 
 		// $name = preg_replace( '/'.$ext.'$/', '', $filename );
 		$name = File::basename( $filename, $ext );
+		$name = trim( remove_accents( $name ) );
 
-		$name = Utilities::URLifyDownCode( trim( $name ) );
+		$name = Utilities::URLifyDownCode( $name );
 		// $name = Utilities::URLifyFilter( trim( $name ) );
 
 		return Text::strToLower( $name ).$ext;
