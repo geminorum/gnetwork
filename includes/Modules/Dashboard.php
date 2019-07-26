@@ -25,16 +25,26 @@ class Dashboard extends gNetwork\Module
 	{
 		if ( 'dashboard' == $screen->base ) {
 
+			$this->disable_check_browser();
 			$this->action( 'wp_dashboard_setup', 0, 20 );
 
 		} else if ( 'dashboard-user' == $screen->base ) {
 
+			$this->disable_check_browser();
 			$this->action( 'wp_user_dashboard_setup', 0, 20 );
 
 		} else if ( 'dashboard-network' == $screen->base ) {
 
+			$this->disable_check_browser();
 			$this->action( 'wp_network_dashboard_setup', 0, 20 );
 		}
+	}
+
+	// disable dashboard browse-happy requests
+	private function disable_check_browser()
+	{
+		if ( ! empty( $_SERVER['HTTP_USER_AGENT'] ) )
+			$this->filter_true( 'pre_site_transient_browser_'.md5( $_SERVER['HTTP_USER_AGENT'] ) );
 	}
 
 	public function wp_dashboard_setup()
