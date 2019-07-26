@@ -18,8 +18,10 @@ class Typography extends gNetwork\Module
 	{
 		$this->action( 'init', 0, 12 );
 
-		if ( $this->options['title_sanitize'] )
+		if ( $this->options['title_sanitize'] ) {
 			$this->filter( 'sanitize_title', 3, 1 );
+			$this->filter( 'pre_term_slug', 2, 1 );
+		}
 
 		if ( is_admin() )
 			return;
@@ -218,7 +220,7 @@ class Typography extends gNetwork\Module
 	}
 
 	// @SEE: https://wordpress.stackexchange.com/a/51809
-	public function sanitize_title( $title, $raw_title, $context )
+	public function sanitize_title( $title, $raw_title = '', $context = 'display' )
 	{
 		if ( 'save' != $context )
 			return $title;
@@ -257,6 +259,11 @@ class Typography extends gNetwork\Module
 		// $title = Text::stripPunctuation( $title );
 
 		return $title;
+	}
+
+	public function pre_term_slug( $value, $taxonomy )
+	{
+		return $this->sanitize_title( $value, $value, 'save' );
 	}
 
 	public function the_content_early( $content )
