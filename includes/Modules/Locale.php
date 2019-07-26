@@ -175,7 +175,13 @@ class Locale extends gNetwork\Module
 		if ( $current == $base )
 			return $current;
 
-		if ( WordPress::pageNow( 'site-health.php' ) )
+		if ( in_array( WordPress::pageNow(), [
+			'about.php',
+			'credits.php',
+			'freedoms.php',
+			'privacy.php',
+			'site-health.php',
+		] ) )
 			return $base;
 
 		$list = $this->filters( 'blacklist', [
