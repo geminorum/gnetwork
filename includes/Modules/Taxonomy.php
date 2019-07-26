@@ -23,12 +23,12 @@ class Taxonomy extends gNetwork\Module
 
 	protected function setup_actions()
 	{
-		add_filter( 'pre_term_name', function ( $text ) {
-			return Text::normalizeWhitespace( $text, FALSE );
+		add_filter( 'pre_term_name', function ( $value ) {
+			return Text::normalizeWhitespace( $value, FALSE );
 		}, 9 );
 
-		add_filter( 'pre_term_description', function ( $text ) {
-			return Text::normalizeWhitespace( $text, TRUE );
+		add_filter( 'pre_term_description', function ( $value ) {
+			return Text::normalizeWhitespace( $value, TRUE );
 		}, 9 );
 	}
 

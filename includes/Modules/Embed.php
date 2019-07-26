@@ -29,7 +29,7 @@ class Embed extends gNetwork\Module
 		}
 
 		if ( ! $this->options['oembed_providers'] )
-			add_filter( 'oembed_providers', '__return_empty_array', 12 );
+			$this->filter_empty_array( 'oembed_providers', 12 );
 
 		if ( ! $this->options['oembed_discover'] ) {
 			$this->filter_false( 'embed_oembed_discover' );

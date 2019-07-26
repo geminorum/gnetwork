@@ -26,7 +26,7 @@ class Notify extends gNetwork\Module
 			require_once( GNETWORK_DIR.'includes/Misc/NotifyPluggable.php' );
 
 		if ( $this->options['disable_new_user_admin'] )
-			add_filter( 'bp_core_send_user_registration_admin_notification', '__return_false' );
+			$this->filter_false( 'bp_core_send_user_registration_admin_notification' );
 
 		if ( ! is_multisite() )
 			return;

@@ -48,10 +48,10 @@ class Blog extends gNetwork\Module
 				// 	wp_deregister_script( 'suggest' );
 				// } );
 
-				add_filter( 'disable_months_dropdown', '__return_true', 5 );
-				add_filter( 'media_library_show_audio_playlist', '__return_false', 5 );
-				add_filter( 'media_library_show_video_playlist', '__return_false', 5 );
-				add_filter( 'media_library_months_with_files', '__return_empty_array', 5 );
+				$this->filter_true( 'disable_months_dropdown', 5 );
+				$this->filter_false( 'media_library_show_audio_playlist', 5 );
+				$this->filter_false( 'media_library_show_video_playlist', 5 );
+				$this->filter_empty_array( 'media_library_months_with_files', 5 );
 			}
 
 			if ( $this->options['disable_pointers'] )
@@ -91,13 +91,13 @@ class Blog extends gNetwork\Module
 			$this->filter_false( 'xmlrpc_enabled', 12 );
 		}
 
-		add_filter( 'jetpack_get_default_modules', '__return_empty_array' );
+		$this->filter_empty_array( 'jetpack_get_default_modules' );
 
 		// ADOPTED FROM: Jetpack Without Promotions v1.0.0 by required
 		// @REF: https://github.com/wearerequired/hide-jetpack-promotions
-		// add_filter( 'can_display_jetpack_manage_notice', '__return_false', 20 );
-		add_filter( 'jetpack_just_in_time_msgs', '__return_false', 20 );
-		add_filter( 'jetpack_show_promotions', '__return_false', 20 );
+		// $this->filter_false( 'can_display_jetpack_manage_notice', 20 );
+		$this->filter_false( 'jetpack_just_in_time_msgs', 20 );
+		$this->filter_false( 'jetpack_show_promotions', 20 );
 	}
 
 	public function setup_menu( $context )
@@ -527,36 +527,40 @@ class Blog extends gNetwork\Module
 			}, 10, 2 );
 		}
 
-		// RSD works through xml-rpc
-		if ( ! $this->options['xmlrpc_enabled'] )
-			remove_action( 'wp_head', 'rsd_link' );
-
-		if ( ! $this->options['wlw_enabled'] )
-			remove_action( 'wp_head', 'wlwmanifest_link' );
-
 		if ( $this->options['content_width'] )
 			$this->set_content_width( $this->options['content_width'] );
 
-		if ( 'disable' == $this->options['heartbeat_mode'] ) {
+		if ( is_admin() ) {
 
-			$this->deregister_heartbeat();
+			if ( 'disable' == $this->options['heartbeat_mode'] ) {
 
-		} else if ( 'dashboard' == $this->options['heartbeat_mode'] ) {
-
-			if ( 'index.php' == $GLOBALS['pagenow'] )
 				$this->deregister_heartbeat();
 
-		} else if ( 'postedit' == $this->options['heartbeat_mode'] ) {
+			} else if ( 'dashboard' == $this->options['heartbeat_mode'] ) {
 
-			if ( 'post.php' == $GLOBALS['pagenow']
-				|| 'post-new.php' == $GLOBALS['pagenow'] )
+				if ( WordPress::pageNow( 'index.php' ) )
 					$this->deregister_heartbeat();
-		}
 
-		if ( 'default' != $this->options['heartbeat_frequency'] )
-			add_filter( 'heartbeat_settings', function( $settings ){
-				return array_merge( $settings, [ 'interval' => intval( $this->options['heartbeat_frequency'] ) ] );
-			} );
+			} else if ( 'postedit' == $this->options['heartbeat_mode'] ) {
+
+				if ( in_array( WordPress::pageNow(), [ 'post.php', 'post-new.php' ] ) )
+					$this->deregister_heartbeat();
+			}
+
+			if ( 'default' != $this->options['heartbeat_frequency'] )
+				add_filter( 'heartbeat_settings', function( $settings ){
+					return array_merge( $settings, [ 'interval' => intval( $this->options['heartbeat_frequency'] ) ] );
+				} );
+
+		} else {
+
+			// RSD works through xml-rpc
+			if ( ! $this->options['xmlrpc_enabled'] )
+				remove_action( 'wp_head', 'rsd_link' );
+
+			if ( ! $this->options['wlw_enabled'] )
+				remove_action( 'wp_head', 'wlwmanifest_link' );
+		}
 	}
 
 	private function deregister_heartbeat()
@@ -581,17 +585,14 @@ class Blog extends gNetwork\Module
 
 	private function blog_redirect( $check = TRUE )
 	{
-		global $pagenow;
-
 		if ( WordPress::cuc( 'manage_options' ) )
 			return;
 
-		// postpone checking in favor of WP Remote
+		// postpone checking in favor of WP Remote: https://app.maek.it/remote
 		if ( $check && ! empty( $_POST['wpr_verify_key'] ) )
 			return $this->action( 'init', 0, 999, 'late_check' ); // must be over 100
 
-		if ( ( ! empty( $pagenow ) && 'index.php' == $pagenow && ! is_admin() )
-			|| FALSE === self::whiteListed() ) {
+		if ( ( WordPress::pageNow( 'index.php' ) && ! is_admin() ) || FALSE === self::whiteListed() ) {
 
 			$redirect = URL::untrail( $this->options['blog_redirect'] ).$_SERVER['REQUEST_URI'];
 			$referer  = HTTP::referer();

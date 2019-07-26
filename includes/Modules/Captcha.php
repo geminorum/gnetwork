@@ -252,7 +252,7 @@ class Captcha extends gNetwork\Module
 			$errors->add( 'invalid_captcha', $messages['invalid_captcha'] );
 		}
 
-		// add_filter( 'allow_password_reset', '__return_false' );
+		// $this->filter_false( 'allow_password_reset' );
 	}
 
 	public function register_form()

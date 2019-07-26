@@ -124,8 +124,8 @@ class Media extends gNetwork\Module
 	{
 		if ( $this->filters( 'object_sizes', GNETWORK_MEDIA_OBJECT_SIZES, get_current_blog_id() ) ) {
 
-			add_filter( 'intermediate_image_sizes', '__return_empty_array', 99 );
-			// add_filter( 'intermediate_image_sizes_advanced', '__return_empty_array', 99 );
+			$this->filter_empty_array( 'intermediate_image_sizes', 99 );
+			// $this->filter_empty_array( 'intermediate_image_sizes_advanced', 99 );
 			$this->filter( 'wp_generate_attachment_metadata', 2, 10, 'posttype' );
 			$this->action( 'clean_attachment_cache' );
 		}
@@ -1438,6 +1438,7 @@ class Media extends gNetwork\Module
 		return $size;
 	}
 
+	// @SEE: https://core.trac.wordpress.org/ticket/38195
 	public function post_mime_types( $post_mime_types )
 	{
 		return array_merge( $post_mime_types, [

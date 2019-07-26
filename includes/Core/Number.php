@@ -90,7 +90,8 @@ class Number extends Base
 		if ( ( $number / 10 ) % 10 != 1 ) {
 
 			// handle 1st, 2nd, 3rd
-			switch( $number % 10 ) {
+			switch ( $number % 10 ) {
+
 				case 1: return $number.'st';
 				case 2: return $number.'nd';
 				case 3: return $number.'rd';

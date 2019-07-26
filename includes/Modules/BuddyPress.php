@@ -223,7 +223,8 @@ class BuddyPress extends gNetwork\Module
 		remove_action( 'wp_head', 'bp_core_add_ajax_url_js' );
 		remove_action( 'wp_footer', 'bp_core_print_generation_time' );
 
-		add_filter( 'bp_use_theme_compat_with_current_theme', '__return_false' );
+		$this->filter_false( 'bp_use_theme_compat_with_current_theme' );
+
 		add_action( 'wp_enqueue_scripts', function() {
 			wp_dequeue_style( [ 'bp-parent-css', 'bp-child-css' ] );
 		}, 20 ) ;

@@ -41,14 +41,14 @@ class Debug extends gNetwork\Module
 		if ( 'production' == WP_STAGE ) {
 
 			if ( ! WP_DEBUG_DISPLAY ) {
-				add_filter( 'doing_it_wrong_trigger_error', '__return_false' );
-				add_filter( 'deprecated_function_trigger_error', '__return_false' );
-				add_filter( 'deprecated_file_trigger_error', '__return_false' );
-				add_filter( 'deprecated_argument_trigger_error', '__return_false' );
+				$this->filter_false( 'doing_it_wrong_trigger_error' );
+				$this->filter_false( 'deprecated_function_trigger_error' );
+				$this->filter_false( 'deprecated_file_trigger_error' );
+				$this->filter_false( 'deprecated_argument_trigger_error' );
 			}
 
 			// akismet will log all the http_reqs!!
-			add_filter( 'akismet_debug_log', '__return_false', 20 );
+			$this->filter_false( 'akismet_debug_log', 20 );
 		}
 
 		// @REF: https://core.trac.wordpress.org/ticket/22430#comment:4

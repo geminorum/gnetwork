@@ -256,7 +256,7 @@ class Login extends gNetwork\Module
 
 		} else if ( 'wp-login.php' === $pagenow ) {
 
-			global $pagenow, $error, $interim_login, $action, $user_login;
+			global $error, $interim_login, $action, $user_login;
 
 			@require_once ABSPATH.'wp-login.php';
 
