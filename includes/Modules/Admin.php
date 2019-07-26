@@ -493,6 +493,9 @@ class Admin extends gNetwork\Module
 	public function doing_dark_mode( $user_id )
 	{
 		$this->dark_mode = $user_id;
+
+		// @REF: https://github.com/johnbillion/query-monitor/issues/366
+		defined( 'QM_DARK_MODE' ) or define( 'QM_DARK_MODE', TRUE );
 	}
 
 	public function admin_print_styles()
