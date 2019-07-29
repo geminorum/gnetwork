@@ -862,14 +862,15 @@ class ShortCodes extends gNetwork\Module
 	public function shortcode_email( $atts = [], $content = NULL, $tag = '' )
 	{
 		$args = shortcode_atts( [
-			'subject' => FALSE,
-			'title'   => FALSE,
-			'email'   => FALSE, // override
-			'content' => FALSE, // override
-			'context' => NULL,
-			'wrap'    => TRUE,
-			'before'  => '',
-			'after'   => '',
+			'subject'  => FALSE,
+			'title'    => FALSE,
+			'email'    => FALSE, // override
+			'content'  => FALSE, // override
+			'fallback' => TRUE,
+			'context'  => NULL,
+			'wrap'     => TRUE,
+			'before'   => '',
+			'after'    => '',
 		], $atts, $tag );
 
 		if ( FALSE === $args['context'] )
@@ -878,11 +879,14 @@ class ShortCodes extends gNetwork\Module
 		$text  = $args['content'] ? trim( $args['content'] ) : trim( $content );
 		$email = $args['email'] && is_email( $args['email'] ) ? trim( $args['email'] ) : trim( $content );
 
-		if ( ! $email )
+		if ( ! $email && $args['fallback'] )
 			$email = gNetwork()->email();
 
 		if ( ! $email )
-			return $text;
+			return $content;
+
+		if ( ! $text )
+			$text = $email;
 
 		$html = '<a class="email" href="'.antispambot( "mailto:".$email.( $args['subject'] ? '?subject='.urlencode( $args['subject'] ) : '' ) )
 				.'"'.( $args['title'] ? ' data-toggle="tooltip" title="'.HTML::escape( $args['title'] ).'"' : '' ).'>'
