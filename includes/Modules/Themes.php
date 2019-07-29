@@ -713,22 +713,18 @@ class Themes extends gNetwork\Module
 		if ( has_action( $this->hook( 'content_before' ) ) ) {
 			ob_start();
 				$this->actions( 'content_before', $content );
-			$before = ob_get_clean();
-
-			if ( trim( $before ) )
-				$before = '<div class="gnetwork-wrap-actions content-before">'.$before.'</div>';
+			$before = trim( ob_get_clean() );
 		}
 
 		if ( has_action( $this->hook( 'content_after' ) ) ) {
 			ob_start();
 				$this->actions( 'content_after', $content );
-			$after = ob_get_clean();
-
-			if ( trim( $after ) )
-				$after = '<div class="gnetwork-wrap-actions content-after">'.$after.'</div>';
+			$after = trim( ob_get_clean() );
 		}
 
-		return $before.$content.$after;
+		return HTML::wrap( $before, 'gnetwork-wrap-actions content-before' )
+			.$content
+		.HTML::wrap( $after, 'gnetwork-wrap-actions content-after' );
 	}
 
 	public static function continueReading()
