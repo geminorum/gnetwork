@@ -12,6 +12,7 @@ class HTML extends Base
 
 	public static function link( $html, $link = '#', $target_blank = FALSE )
 	{
+		if ( is_null( $html ) ) $html = $link;
 		return self::tag( 'a', array( 'href' => $link, 'class' => '-link', 'target' => ( $target_blank ? '_blank' : FALSE ) ), $html );
 	}
 
@@ -113,6 +114,7 @@ class HTML extends Base
 
 	public static function wrap( $html, $class = '', $block = TRUE )
 	{
+		if ( ! $html ) return '';
 		return $block ? '<div class="-wrap '.$class.'">'.$html.'</div>' : '<span class="-wrap '.$class.'">'.$html.'</span>';
 	}
 
