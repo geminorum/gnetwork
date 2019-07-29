@@ -332,6 +332,23 @@ class Utilities extends Core\Base
 		return $autop ? wpautop( $text ) : $text;
 	}
 
+	public static function prepContact( $value, $title = NULL )
+	{
+		if ( is_email( $value ) )
+			$prepared = HTML::mailto( $value, $title );
+
+		else if ( URL::isValid( $value ) )
+			$prepared = HTML::link( $title, URL::untrail( $value ) );
+
+		else if ( is_numeric( str_ireplace( [ '+', '-', '.' ], '', $value ) ) )
+			$prepared = HTML::tel( $value, FALSE, $title );
+
+		else
+			$prepared = HTML::escape( $value );
+
+		return apply_filters( static::BASE.'_prep_contact', $prepared, $value, $title );
+	}
+
 	// @SEE: https://github.com/bobthecow/mustache.php/wiki
 	public static function getMustache( $base = GNETWORK_DIR )
 	{
