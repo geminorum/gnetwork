@@ -114,6 +114,7 @@ class Comments extends gNetwork\Module
 					'field'       => 'admin_fullcomments',
 					'title'       => _x( 'Full Comments', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Displays full comment content on admin dashboard widget.', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
+					'default'     => '1',
 				],
 				[
 					'field'       => 'front_quicktags',

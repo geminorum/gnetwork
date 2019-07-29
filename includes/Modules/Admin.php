@@ -211,7 +211,7 @@ class Admin extends gNetwork\Module
 	{
 		global $pagenow;
 
-		if ( ! isset( gNetwork()->editor ) )
+		if ( ! gNetwork()->module( 'editor' ) )
 			return FALSE;
 
 		switch ( $context ) {
