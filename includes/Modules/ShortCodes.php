@@ -47,27 +47,33 @@ class ShortCodes extends gNetwork\Module
 		add_shortcode( 'person', [ $this, 'shortcode_person' ] );
 	}
 
-	public function shortcode_return_content( $atts, $content = NULL, $tag = '' )
-	{
-		return $content;
-	}
-
 	public function init_late()
 	{
-		add_action( 'gnetwork_tinymce_strings', [ $this, 'tinymce_strings' ] );
-		Admin::registerTinyMCE( 'gnetworkref', 'assets/js/tinymce/ref', 2 );
-		Admin::registerTinyMCE( 'gnetworkemail', 'assets/js/tinymce/email', 2 );
-		Admin::registerTinyMCE( 'gnetworksearch', 'assets/js/tinymce/search', 2 );
-		Admin::registerTinyMCE( 'gnetworkgpeople', 'assets/js/tinymce/gpeople', 2 );
-
 		$this->shortcodes( $this->get_shortcodes() );
 
-		if ( ! defined( 'GNETWORK_DISABLE_REFLIST_INSERT' ) || ! GNETWORK_DISABLE_REFLIST_INSERT ) {
+		if ( is_admin() ) {
 
-			add_action( 'gnetwork_themes_content_after', [ $this, 'content_after_reflist' ], 5 );
+			add_action( 'gnetwork_tinymce_strings', [ $this, 'tinymce_strings' ] );
 
-			$this->filter( 'amp_post_article_footer_meta', 1, 9 );
-			$this->filter( 'amp_post_template_file', 3 );
+			Admin::registerTinyMCE( 'gnetworkref', 'assets/js/tinymce/ref', 2 );
+			Admin::registerTinyMCE( 'gnetworkemail', 'assets/js/tinymce/email', 2 );
+			Admin::registerTinyMCE( 'gnetworksearch', 'assets/js/tinymce/search', 2 );
+			Admin::registerTinyMCE( 'gnetworkgpeople', 'assets/js/tinymce/gpeople', 2 );
+
+		} else {
+
+			add_filter( 'gnetwork_prep_contact', [ $this, 'prep_contact' ], 12, 3 );
+			add_filter( 'geditorial_prep_contact', [ $this, 'prep_contact' ], 12, 3 );
+			add_filter( 'gtheme_prep_contact', [ $this, 'prep_contact' ], 12, 3 );
+
+
+			if ( ! defined( 'GNETWORK_DISABLE_REFLIST_INSERT' ) || ! GNETWORK_DISABLE_REFLIST_INSERT ) {
+
+				add_action( 'gnetwork_themes_content_after', [ $this, 'content_after_reflist' ], 5 );
+
+				$this->filter( 'amp_post_article_footer_meta', 1, 9 );
+				$this->filter( 'amp_post_template_file', 3 );
+			}
 		}
 	}
 
@@ -196,6 +202,24 @@ class ShortCodes extends gNetwork\Module
 		];
 
 		return array_merge( $strings, $new );
+	}
+
+	public function prep_contact( $prepared, $value, $title = NULL )
+	{
+		if ( is_email( $value ) )
+			return $this->shortcode_email( [
+				'email'    => $value,
+				'content'  => $title,
+				'fallback' => FALSE,
+				'wrap'     => FALSE,
+			] );
+
+		return $prepared;
+	}
+
+	public function shortcode_return_content( $atts, $content = NULL, $tag = '' )
+	{
+		return $content;
 	}
 
 	public function shortcode_children( $atts = [], $content = NULL, $tag = '' )
