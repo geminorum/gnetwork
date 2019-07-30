@@ -1366,6 +1366,7 @@ class ShortCodes extends gNetwork\Module
 			'url_text'  => is_rtl() ? '[&#8620;]' : '[&#8619;]',
 			'url_title' => _x( 'External Resource', 'Shortcodes Module: Defaults', GNETWORK_TEXTDOMAIN ),
 			'template'  => '&#8207;[%s]&#8206;',
+			'combine'   => FALSE, // combine identical notes
 			'class'     => 'ref-anchor',
 			'context'   => NULL,
 		], $atts, $tag );
@@ -1398,10 +1399,13 @@ class ShortCodes extends gNetwork\Module
 		if ( ! $ref )
 			return NULL;
 
-		// combine identical notes
-		foreach ( $this->ref_ids as $number => $text )
-			if ( $text == $ref )
-				$key = $number;
+		if ( $args['combine'] ) {
+
+			// TODO: must only check for the previous note
+			foreach ( $this->ref_ids as $number => $text )
+				if ( $text == $ref )
+					$key = $number;
+		}
 
 		if ( ! $key ) {
 			$key = count( $this->ref_ids ) + 1;
