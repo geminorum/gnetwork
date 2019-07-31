@@ -832,4 +832,27 @@ class Text extends Base
 
 		exit();
 	}
+
+	// USAGE: `Text::correctMixedEncoding('Ù…Ø­ØªÙˆØ§ÛŒ Ù…ÛŒÚ©Ø³ Ø´Ø¯Ù‡ و بخش سالم');`
+	// @REF: https://stackoverflow.com/questions/48948340/mixed-encoding-and-make-everything-utf-8
+	// @REF: https://gist.github.com/man4toman/029f43b802f4ee52d5fab2526cdd3cbd
+	// @SEE: https://gist.github.com/man4toman/f69a8bbf0c51b77f4202af7f2c0e7754
+	// @SEE: https://github.com/neitanod/forceutf8
+	public static function correctMixedEncoding( $string )
+	{
+		return preg_replace_callback(
+			'/\\P{Arabic}+/u',
+			function( $matches ) {
+				return iconv( 'UTF-8', 'ISO-8859-1', $matches[0] );
+			},
+			hex2bin( bin2hex( $string ) )
+		);
+	}
+
+	// TODO: address the other attrs
+	// @REF: https://gist.github.com/man4toman/a645c4022f741c879110d09834f73d12
+	public static function unlinkify( $string )
+	{
+		return preg_replace( '/<a href=\"(.*?)\">(.*?)<\/a>/', "\\2", $string );
+	}
 }
