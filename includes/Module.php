@@ -524,7 +524,7 @@ class Module extends Core\Base
 	// it's really moot! since we sanitize options
 	public function get_option( $name, $default = FALSE )
 	{
-		return ( isset( $this->options[$name] ) ? $this->options[$name] : $default ) ;
+		return ( isset( $this->options[$name] ) ? $this->options[$name] : $default );
 	}
 
 	// check if it's '0' then $disabled

@@ -1441,7 +1441,7 @@ class ShortCodes extends gNetwork\Module
 			'number'       => FALSE,
 			'number_after' => '.&nbsp;',
 			'back'         => TRUE,
-			'back_text'    => is_rtl() ? '[&#8618;]' : '[&#8617;]',
+			'back_text'    => is_rtl() ? '[&#10532;]' : '[&#10531;]', // '[&#8618;]' : '[&#8617;]',
 			'back_title'   => _x( 'Back to Text', 'Shortcodes Module: Defaults', GNETWORK_TEXTDOMAIN ),
 			'context'      => NULL,
 			'wrap'         => TRUE,

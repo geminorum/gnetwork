@@ -265,8 +265,8 @@ class Update extends gNetwork\Module
 	public function extra_plugin_headers( $headers = [] )
 	{
 		return array_merge( $headers, [
-			'github_plugin' => 'GitHub URI', // 'GitHub Plugin URI',
-			'gitlab_plugin' => 'GitLab URI', // 'GitLab Plugin URI',
+			'github_plugin' => 'GitHub Plugin URI',
+			'gitlab_plugin' => 'GitLab Plugin URI',
 			'update_branch' => 'Update Branch',
 		] );
 	}
@@ -274,8 +274,8 @@ class Update extends gNetwork\Module
 	public function extra_theme_headers( $headers = [] )
 	{
 		return array_merge( $headers, [
-			'github_theme'  => 'GitHub URI', // 'GitHub Theme URI',
-			'gitlab_theme'  => 'GitLab URI', // 'GitLab Theme URI',
+			'github_theme'  => 'GitHub Theme URI',
+			'gitlab_theme'  => 'GitLab Theme URI',
 			'update_branch' => 'Update Branch',
 		] );
 	}

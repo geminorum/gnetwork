@@ -227,7 +227,7 @@ class BuddyPress extends gNetwork\Module
 
 		add_action( 'wp_enqueue_scripts', function() {
 			wp_dequeue_style( [ 'bp-parent-css', 'bp-child-css' ] );
-		}, 20 ) ;
+		}, 20 );
 	}
 
 	public function init()
