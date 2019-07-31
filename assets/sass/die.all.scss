@@ -6,6 +6,12 @@
 
 html {
   background: $gray-lighter;
+
+  // `is_rtl()` is not always available
+  &[lang="fa-IR"] {
+    /*rtl:ignore*/
+    direction: rtl;
+  }
 }
 
 body {

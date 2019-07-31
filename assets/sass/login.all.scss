@@ -20,8 +20,12 @@ body.login {
   }
 
   h1 a {
+    display: block;
     background-image: none;
-    background-size: auto;
+    background-repeat: no-repeat;
+    background-position: center top;
+    // background-size: auto;
+    background-size: contain;
     width: auto;
   }
 

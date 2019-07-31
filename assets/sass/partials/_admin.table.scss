@@ -125,6 +125,10 @@ table.base-table-list {
       vertical-align: middle !important;
     }
 
+    .image-column {
+      width: 70px;
+    }
+
     .-column-slug {
       width: 25%;
     }
@@ -141,6 +145,12 @@ table.base-table-list {
 
   td {
     vertical-align: top;
+
+    img {
+      display: inline-block;
+      max-width: 100%;
+      height: auto;
+    }
 
     &.-has-table {
       padding: 4px 5px;
