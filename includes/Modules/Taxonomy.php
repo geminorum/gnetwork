@@ -472,7 +472,7 @@ class Taxonomy extends gNetwork\Module
 				$callback = $this->filters( 'bulk_callback', [ $this, 'handle_'.$key ], $key, $taxonomy );
 
 				if ( $callback && is_callable( $callback ) )
-					return call_user_func( $callback, $term_ids, $taxonomy );
+					return call_user_func( $callback, $term_ids, $taxonomy, $key );
 			}
 		}
 
