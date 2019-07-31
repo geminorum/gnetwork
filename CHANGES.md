@@ -1,3 +1,68 @@
+### 3.10.0
+* main/module: beta features constant
+* main/module: column icon helper
+* main/module: reorder register ment/tool args
+* main/module: sidebox based on context
+* main/scripts: :new: main
+* main/settings: code editor field type
+* main/settings: custom nbsp after submit buttons
+* main/utilities: color picker helper
+* main/utilities: custom kses helper
+* main/utilities: initial support for async transients
+* main/utilities: prep contact method
+* module/admin: custom menu names
+* module/admin: enable dark mode for query monitor
+* module/authors: remove & relink author pages
+* module/authors: status code for redirection
+* module/commerce: :new: module
+* module/dashboard: disable browser checks
+* module/debug: extra system checks
+* module/editor: custom block styles
+* module/embed: :new: support instagram
+* module/embed: applying custom count from attr
+* module/embed: custom error message for channels
+* module/glotpress: :new: dev module
+* module/glotpress: setting for home title
+* module/locale: exclude wordpress pages on admin
+* module/locale: override default domain mo files
+* module/locale: whitelist for network admin
+* module/login: :new: dark style for login page
+* module/media: remove accents on sanitize filename
+* module/rewrite: :new: module
+* module/shortcodes: better handling html on refs
+* module/shortcodes: email shortcode on prep contacts
+* module/shortcodes: more control on email shortcode
+* module/shortcodes: ref shortcode: optional combine of identical notes
+* module/taxonomy: avoid repeat hooking
+* module/taxonomy: better handling bulk actions
+* module/taxonomy: better handling edit descriptions
+* module/taxonomy: better normalize whitespaces
+* module/taxonomy: extra actions on single term edit
+* module/taxonomy: informative placeholder on merge terms
+* module/taxonomy: later check for nonce on description editing
+* module/taxonomy: moved to handle bulk actions filter
+* module/taxonomy: passing action into callback filter
+* module/taxonomy: refine term management tools
+* module/taxonomy: suffix for add form fields
+* module/taxonomy: suffix for edit form fields
+* module/taxonomy: support term id on merge terms
+* module/theme: jquery summary
+* module/themes: correct cap for settings
+* module/themes: header/footer custom codes
+* module/themes: simplify content wrapping
+* module/typography: sanitize titles for term slugs
+* module/update: transient filter changed
+* module/user: :warning: fixed network roles not saving
+* module/user: better option name
+* module/user: custom display names as rows
+* module/user: default role for all users on main site
+* module/user: extra column
+* module/user: link to tools tab on settings sidebox
+* module/user: move up getting users with/without roles
+* module/user: passing main site roles to setting
+* :arrow_down: jquery 3.3.1
+* :up: min php 5.6.20
+
 ### 3.9.3
 * module/blacklist: log blacklisted
 * module/blacklist: log cron events
