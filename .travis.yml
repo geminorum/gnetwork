@@ -14,4 +14,8 @@ script:
   - find . \( -name '*.php' \) -exec php -lf {} \;
 
 notifications:
-  email: false
+  email:
+    recipients:
+      - contact@geminorum.ir
+    on_success: never
+    on_failure: always
