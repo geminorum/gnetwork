@@ -119,6 +119,19 @@ class Typography extends gNetwork\Module
 	// ؟! -> ?!
 	public function general_typography( $content )
 	{
+		if ( gNetwork()->option( 'content_replace', 'branding' ) ) {
+
+			if ( ! $brand_name = gNetwork()->option( 'brand_name', 'branding' ) )
+				$brand_name = GNETWORK_NAME;
+
+			if ( ! $brand_url = gNetwork()->option( 'brand_url', 'branding' ) )
+				$brand_url = GNETWORK_BASE;
+
+			$content = Text::replaceWords( [ $brand_name ], $content, function( $matched ) use ( $brand_url ) {
+				return '<em>'.HTML::link( $matched, $brand_url ).'</em>';
+			} );
+		}
+
 		$content = str_ireplace( [
 			'<p>***</p>',
 			'<p><strong>***</strong></p>',

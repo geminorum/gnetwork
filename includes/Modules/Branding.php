@@ -42,6 +42,7 @@ class Branding extends gNetwork\Module
 		return [
 			'brand_name'         => '',
 			'brand_url'          => '',
+			'content_replace'    => '0',
 			'network_sitelogo'   => '',
 			'network_siteicon'   => '',
 			'theme_color'        => '',
@@ -163,6 +164,12 @@ class Branding extends gNetwork\Module
 				'title'       => _x( 'Site Slogan', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
 				'description' => _x( 'Displays as site slogan on the footer of on the admin. Leave empty to use default.', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
 			],
+		];
+
+		$settings['_misc'][] = [
+			'field'       => 'content_replace',
+			'title'       => _x( 'Content Replace', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Replaces brand name with link to brand URL. Must enable &ldquo;General Typography&rdquo; on each site.', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
 		];
 
 		if ( is_multisite() ) {
