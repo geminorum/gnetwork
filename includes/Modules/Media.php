@@ -42,8 +42,10 @@ class Media extends gNetwork\Module
 
 		if ( is_admin() ) {
 
-			if ( $this->options['dashboard_widget'] )
+			if ( $this->options['dashboard_widget'] ) {
 				$this->action( 'wp_dashboard_setup' );
+				$this->action( 'post-plupload-upload-ui', 0, 12 );
+			}
 
 			$this->filter( 'post_mime_types' );
 
@@ -178,6 +180,13 @@ class Media extends gNetwork\Module
 
 			Scripts::enqueueScript( 'admin.media.uploader' );
 		}
+	}
+
+	public function post_plupload_upload_ui()
+	{
+		if ( WordPress::cuc( $this->options['dashboard_accesscap'] ) )
+			HTML::desc( sprintf( _x( 'Alternatively, you can use %1$sLarge File Uploader%2$s widget on the dashoard.', 'Modules: Media', GNETWORK_TEXTDOMAIN ),
+				'<a href="'.HTML::escapeURL( get_dashboard_url() ).'">', '</a>' ) );
 	}
 
 	public function tools( $sub = NULL, $key = NULL )
