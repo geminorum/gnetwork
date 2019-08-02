@@ -40,6 +40,8 @@ class Branding extends gNetwork\Module
 	public function default_options()
 	{
 		return [
+			'brand_name'         => '',
+			'brand_url'          => '',
 			'network_sitelogo'   => '',
 			'network_siteicon'   => '',
 			'theme_color'        => '',
@@ -62,6 +64,33 @@ class Branding extends gNetwork\Module
 		$name = get_bloginfo( 'name', 'display' );
 
 		$settings['_general'][] = [
+			'field'       => 'brand_name',
+			'type'        => 'text',
+			'title'       => _x( 'Brand Name', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Will be used as default brand name. Leave empty to use default', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
+			'placeholder' => GNETWORK_NAME,
+		];
+
+		$settings['_general'][] = [
+			'field'       => 'brand_url',
+			'type'        => 'url',
+			'title'       => _x( 'Brand URL', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Will be used as default brand URL. Leave empty to use default', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
+			'placeholder' => GNETWORK_BASE,
+		];
+
+		if ( is_multisite() ) {
+
+			// will use blog setting if no multisite
+			$settings['_general'][] = [
+				'field'       => 'theme_color',
+				'type'        => 'color',
+				'title'       => _x( 'Theme Color', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Defines color of the mobile browser address bar. Leave empty to disable.', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
+			];
+		}
+
+		$settings['_general'][] = [
 			'field'       => 'network_sitelogo',
 			'type'        => 'url',
 			'title'       => _x( 'SVG Network Logo', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
@@ -74,24 +103,6 @@ class Branding extends gNetwork\Module
 			'title'       => _x( 'SVG Network Icon', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
 			'description' => _x( 'Displays as network wide site icon. Leave empty to disable.', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
 		];
-
-		if ( is_multisite() ) {
-
-			// will use blog setting if no multisite
-			$settings['_general'][] = [
-				'field'       => 'theme_color',
-				'type'        => 'color',
-				'title'       => _x( 'Theme Color', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
-				'description' => _x( 'Defines color of the mobile browser address bar. Leave empty to disable.', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
-			];
-
-			// no use when no multisite!
-			$settings['_general'][] = [
-				'field'       => 'siteicon_fallback',
-				'title'       => _x( 'Network Site Icon', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
-				'description' => _x( 'Falls back into main site icon on the network.', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
-			];
-		}
 
 		// only works if SSL enabled
 		if ( WordPress::isSSL() || WordPress::isDev() ) {
@@ -153,6 +164,16 @@ class Branding extends gNetwork\Module
 				'description' => _x( 'Displays as site slogan on the footer of on the admin. Leave empty to use default.', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
 			],
 		];
+
+		if ( is_multisite() ) {
+
+			// no use when no multisite!
+			$settings['_misc'][] = [
+				'field'       => 'siteicon_fallback',
+				'title'       => _x( 'Network Site Icon', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Falls back into main site icon on the network.', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
+			];
+		}
 
 		return $settings;
 	}
