@@ -114,6 +114,9 @@ class Typography extends gNetwork\Module
 	}
 
 	// TODO: wordwrap headings in content / lookout for link in titles!
+	// @SEE: `wp_replace_in_html_tags()`
+	// @SEE: `Text::replaceWords()`
+	// ؟! -> ?!
 	public function general_typography( $content )
 	{
 		$content = str_ireplace( [
@@ -131,6 +134,9 @@ class Typography extends gNetwork\Module
 	}
 
 	// FIXME: use <abbr> and full def: https://developer.mozilla.org/en/docs/Web/HTML/Element/abbr
+	// رضوان ﷲ علیهما
+	// رضوان‌ﷲ علیه
+	// قدّس سره
 	public function arabic_typography( $content )
 	{
 		$content = preg_replace( "/[\s\t]+(?:(\(ره\)|\(س\)|\(ص\)|\(ع\)|\(عج\)))/i", "$1", $content ); // clean space/tab before
@@ -141,6 +147,11 @@ class Typography extends gNetwork\Module
 		$content = preg_replace( "/\(علیهم‌السلام\)/i", '&#xfeff;'."<sup>(علیهم السلام)</sup>", $content );
 		$content = preg_replace( "/\(علیه السلام\)/i", '&#xfeff;'."<sup>(علیه السلام)</sup>", $content );
 		$content = preg_replace( "/\(علیه‌السلام\)/i", '&#xfeff;'."<sup>(علیه السلام)</sup>", $content );
+
+		$content = str_ireplace( [
+			'آیة‌الله',
+			'آیت الله',
+		], 'آیت‌الله', $content ); // no space
 
 		$content = str_ireplace( [
 			'آیت الله العظمی',
@@ -162,6 +173,11 @@ class Typography extends gNetwork\Module
 			'ثقه الاسلام',
 			'ثقه‌الاسلام',
 		], 'ثقة الاسلام', $content ); // with space
+
+		$content = str_ireplace( [
+			// 'اللَّه',
+			'الله',
+		],'ﷲ', $content );
 
 		return $content;
 	}
