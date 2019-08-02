@@ -66,21 +66,19 @@ class Login extends gNetwork\Module
 	public function default_options()
 	{
 		return [
-			'login_math'        => 0,
-			'ambiguous_error'   => 1,
-			'login_log'         => 0,
-			'store_lastlogin'   => 1,
-			'redirect_login'    => '',
-			'redirect_logout'   => '',
-			'login_headerurl'   => '',
-			'login_headertext' => '',
-			'login_logourl'     => '',
-			'login_styles'      => '',
-			'login_class'       => 'logindefault',
-			'login_remember'    => 0,
-			'login_credits'     => 0,
-			'login_hide'        => 0,
-			'login_slug'        => 'login',
+			'login_math'      => 0,
+			'ambiguous_error' => 1,
+			'login_log'       => 0,
+			'store_lastlogin' => 1,
+			'redirect_login'  => '',
+			'redirect_logout' => '',
+			'login_logourl'   => '',
+			'login_styles'    => '',
+			'login_class'     => 'logindefault',
+			'login_remember'  => 0,
+			'login_credits'   => 0,
+			'login_hide'      => 0,
+			'login_slug'      => 'login',
 		];
 	}
 
@@ -140,20 +138,6 @@ class Login extends gNetwork\Module
 				],
 			],
 			'_styling' => [
-				[
-					'field'       => 'login_headerurl',
-					'type'        => 'url',
-					'title'       => _x( 'Header URL', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Login page header logo link URL.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'placeholder' => GNETWORK_BASE,
-				],
-				[
-					'field'       => 'login_headertext',
-					'type'        => 'text',
-					'title'       => _x( 'Header Text', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Login page header logo link hidden text.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'placeholder' => GNETWORK_NAME,
-				],
 				[
 					'field'       => 'login_remember',
 					'title'       => _x( 'Login Remember', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
@@ -457,12 +441,18 @@ class Login extends gNetwork\Module
 
 	public function login_headerurl( $login_header_url )
 	{
-		return $this->options['login_headerurl'] ?: GNETWORK_BASE;
+		if ( ! $brand_url = gNetwork()->option( 'brand_url', 'branding' ) )
+			$brand_url = GNETWORK_BASE;
+
+		return $brand_url;
 	}
 
 	public function login_headertext( $login_header_title )
 	{
-		return $this->options['login_headertext'] ?: GNETWORK_NAME;
+		if ( ! $brand_name = gNetwork()->option( 'brand_name', 'branding' ) )
+			$brand_name = GNETWORK_NAME;
+
+		return $brand_name;
 	}
 
 	public function login_footer_remember()
