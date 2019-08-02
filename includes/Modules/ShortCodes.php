@@ -1380,7 +1380,7 @@ class ShortCodes extends gNetwork\Module
 			$content = Utilities::kses( $content, 'text' );
 			$content = apply_filters( 'html_format_i18n', $content );
 			$title   = trim( strip_tags( $content ) );
-			$ref     = trim( $content );
+			$ref     = Text::wordWrap( trim( $content ) );
 		}
 
 		if ( $args['url'] )
