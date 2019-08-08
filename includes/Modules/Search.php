@@ -44,6 +44,7 @@ class Search extends gNetwork\Module
 		return [
 			'redirect_single'     => '1',
 			'include_meta'        => '0',
+			'linkify_hashtags'    => '0',
 			'register_shortcodes' => '0',
 		];
 	}
@@ -62,6 +63,11 @@ class Search extends gNetwork\Module
 					'field'       => 'include_meta',
 					'title'       => _x( 'Include Metadata', 'Modules: Search: Settings', GNETWORK_TEXTDOMAIN ),
 					'description' => _x( 'Expands search results into post metadata.', 'Modules: Search: Settings', GNETWORK_TEXTDOMAIN ),
+				],
+				[
+					'field'       => 'linkify_hashtags',
+					'title'       => _x( 'Linkify Hash-tags', 'Modules: Search: Settings', GNETWORK_TEXTDOMAIN ),
+					'description' => _x( 'Tries to linkify hash-tags on the content. Must enable &ldquo;General Typography&rdquo; setting.', 'Modules: Search: Settings', GNETWORK_TEXTDOMAIN ),
 				],
 				'register_shortcodes',
 			],

@@ -6,6 +6,7 @@ use geminorum\gNetwork;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\Text;
+use geminorum\gNetwork\Core\WordPress;
 
 class Typography extends gNetwork\Module
 {
@@ -118,6 +119,13 @@ class Typography extends gNetwork\Module
 	// @SEE: `wp_replace_in_html_tags()`
 	public function general_typography( $content )
 	{
+		if ( gNetwork()->option( 'linkify_hashtags', 'search' ) ) {
+
+			$content = Text::replaceSymbols( '#', $content, function( $matched, $string ) {
+				return HTML::link( str_replace( '_', ' ', $matched ), WordPress::getSearchLink( $matched ) );
+			} );
+		}
+
 		if ( gNetwork()->option( 'content_replace', 'branding' ) ) {
 
 			if ( ! $brand_name = gNetwork()->option( 'brand_name', 'branding' ) )
