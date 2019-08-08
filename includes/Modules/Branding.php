@@ -169,7 +169,7 @@ class Branding extends gNetwork\Module
 		$settings['_misc'][] = [
 			'field'       => 'content_replace',
 			'title'       => _x( 'Content Replace', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
-			'description' => _x( 'Replaces brand name with link to brand URL. Must enable &ldquo;General Typography&rdquo; on each site.', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Tries to linkify brand name on the content. Must enable &ldquo;General Typography&rdquo; setting on each site.', 'Modules: Branding: Settings', GNETWORK_TEXTDOMAIN ),
 		];
 
 		if ( is_multisite() ) {

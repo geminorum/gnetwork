@@ -52,10 +52,10 @@ class Settings extends Core\Base
 
 		echo '<'.$tag.' class="wp-heading-inline settings-title">'.$title.'</'.$tag.'>';
 
-		if ( 'version' == $after && current_user_can( 'update_plugins' ) )
+		if ( 'version' == $after )
 			echo ' '.HTML::tag( 'a', [
-				'href'   => 'https://geminorum.ir/wordpress/gnetwork',
-				'title'  => _x( 'Plugin Homepage', 'Settings: Header Title: Link Title Attr', GNETWORK_TEXTDOMAIN ),
+				'href'   => 'https://github.com/geminorum/gnetwork/releases',
+				'title'  => _x( 'Plugin Changelog', 'Settings: Header Title: Link Title Attr', GNETWORK_TEXTDOMAIN ),
 				'class'  => [ 'page-title-action', 'settings-title-action' ],
 				'target' => '_blank',
 			], GNETWORK_VERSION );

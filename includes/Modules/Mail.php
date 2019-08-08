@@ -369,20 +369,24 @@ class Mail extends gNetwork\Module
 	// http://stackoverflow.com/questions/6315052/use-of-phpmailer-class
 	public function phpmailer_init( &$phpmailer )
 	{
-		$phpmailer->Mailer = $this->options['mailer'];
+		$phpmailer->Mailer   = $this->options['mailer'];
 		$phpmailer->Hostname = WordPress::getHostName();
 
 		if ( 'from' == strtolower( $this->options['sender'] ) )
 			$phpmailer->Sender = $phpmailer->From;
+
 		else if ( $this->options['sender'] )
 			$phpmailer->Sender = $this->options['sender'];
 
 		if ( 'smtp' == $this->options['mailer'] ) {
+
 			$phpmailer->SMTPSecure = ( 'no' == $this->options['smtp_secure'] ? '' : $this->options['smtp_secure'] );
+
 			$phpmailer->Host = $this->options['smtp_host'];
 			$phpmailer->Port = $this->options['smtp_port'];
 
 			if ( $this->options['smtp_username'] && $this->options['smtp_password'] ) {
+
 				$phpmailer->SMTPAuth = TRUE;
 				$phpmailer->Username = $this->options['smtp_username'];
 				$phpmailer->Password = $this->options['smtp_password'];
