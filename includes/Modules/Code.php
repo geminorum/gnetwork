@@ -195,8 +195,8 @@ class Code extends gNetwork\Module
 		}, $html );
 	}
 
-	// @SOURCE: https://github.com/blairvanderhoof/gist-embed
-	// @SOURCE: http://blairvanderhoof.com/gist-embed/
+	// @REF: https://github.com/bvanderhoof/gist-embed
+	// @REF: http://blairvanderhoof.com/gist-embed/
 	public function shortcode_github_gist( $atts = [], $content = NULL, $tag = '' )
 	{
 		$args = shortcode_atts( [

@@ -79,12 +79,12 @@ class Scripts extends Core\Base
 		return $handle;
 	}
 
-	// @REF: https://github.com/blairvanderhoof/gist-embed
-	public static function pkgGistEmbed( $ver = '2.7.1' )
+	// @REF: https://github.com/bvanderhoof/gist-embed
+	public static function pkgGistEmbed( $ver = '1.0.3' )
 	{
 		$handle = static::BASE.'-gist-embed';
 
-		wp_enqueue_script( $handle, 'https://cdnjs.cloudflare.com/ajax/libs/gist-embed/'.$ver.'/gist-embed.min.js', [], NULL, TRUE );
+		wp_enqueue_script( $handle, 'https://cdn.jsdelivr.net/gh/bvanderhoof/gist-embed@'.$ver.'/dist/gist-embed.min.js', [], NULL, TRUE );
 
 		return $handle;
 	}
