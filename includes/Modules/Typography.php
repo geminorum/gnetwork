@@ -124,6 +124,11 @@ class Typography extends gNetwork\Module
 			$content = Text::replaceSymbols( '#', $content, function( $matched, $string ) {
 				return HTML::link( str_replace( '_', ' ', $matched ), WordPress::getSearchLink( $matched ) );
 			} );
+
+			// telegram hash-tag links!
+			$content = preg_replace_callback( '/<a href="\/\/search_hashtag\?hashtag=(.*?)">#(.*?)<\/a>/miu', function( $matched ) {
+				return HTML::link( '#'.str_replace( '_', ' ', $matched[2] ), WordPress::getSearchLink( '#'.$matched[2] ) );
+			}, $content );
 		}
 
 		if ( gNetwork()->option( 'content_replace', 'branding' ) ) {
