@@ -511,7 +511,7 @@ class WordPress extends Base
 		wp_die( $message, 403 );
 	}
 
-	// FIXME: add to filter: 'search_link' / DEPRICATE THIS
+	// FIXME: add to filter: 'search_link'
 	public static function getSearchLink( $query = '', $url = FALSE, $query_id = GNETWORK_SEARCH_QUERYID )
 	{
 		if ( $url )
