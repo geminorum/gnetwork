@@ -286,7 +286,7 @@ class Admin extends gNetwork\Module
 
 		if ( $this->cucSub( $sub ) ) {
 
-			Settings::headerTitle();
+			Settings::headerTitle( NULL, 'version' );
 			HTML::headerNav( $uri, $sub, $subs );
 			Settings::message( $this->filters( 'settings_messages', Settings::messages(), $sub ) );
 

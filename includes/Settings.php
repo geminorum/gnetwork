@@ -44,20 +44,24 @@ class Settings extends Core\Base
 	}
 
 	// @REF: `get_admin_page_title()`
-	public static function headerTitle( $title = NULL, $tag = 'h1' )
+	// $after: `<span class="subtitle">Subtitle</span>`
+	public static function headerTitle( $title = NULL, $after = '', $tag = 'h1' )
 	{
 		if ( is_null( $title ) )
 			$title = _x( 'Network Extras', 'Settings: Header Title', GNETWORK_TEXTDOMAIN );
 
 		echo '<'.$tag.' class="wp-heading-inline settings-title">'.$title.'</'.$tag.'>';
 
-		if ( current_user_can( 'update_plugins' ) )
+		if ( 'version' == $after && current_user_can( 'update_plugins' ) )
 			echo ' '.HTML::tag( 'a', [
 				'href'   => 'https://geminorum.ir/wordpress/gnetwork',
 				'title'  => _x( 'Plugin Homepage', 'Settings: Header Title: Link Title Attr', GNETWORK_TEXTDOMAIN ),
 				'class'  => [ 'page-title-action', 'settings-title-action' ],
 				'target' => '_blank',
 			], GNETWORK_VERSION );
+
+		else if ( $after )
+			echo ' '.$after;
 
 		echo '<hr class="wp-header-end">';
 	}
