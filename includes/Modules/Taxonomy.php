@@ -681,7 +681,8 @@ class Taxonomy extends gNetwork\Module
 
 			if ( is_taxonomy_hierarchical( $taxonomy ) ) {
 
-				$child_terms = get_terms( $taxonomy, [
+				$child_terms = get_terms( [
+					'taxonomy'   => $taxonomy,
 					'child_of'   => $term_id,
 					'hide_empty' => FALSE
 				] );

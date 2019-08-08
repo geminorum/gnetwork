@@ -258,8 +258,6 @@ class Notify extends gNetwork\Module
 	// CHANGED: we opt-out notifying the admin
 	public function wp_new_user_notification( $user_id, $deprecated = NULL, $notify = '' )
 	{
-		global $wpdb, $wp_hasher;
-
 		if ( ! in_array( $notify, array( 'user', 'admin', 'both', '' ), TRUE ) )
 			return;
 
@@ -301,17 +299,10 @@ class Notify extends gNetwork\Module
 			|| ( empty( $deprecated ) && empty( $notify ) ) )
 				return;
 
-		$key = wp_generate_password( 20, FALSE );
+		$key = get_password_reset_key( $user );
 
-		do_action( 'retrieve_password_key', $user->user_login, $key );
-
-		if ( empty( $wp_hasher ) ) {
-			require_once( ABSPATH.WPINC.'/class-phpass.php' );
-			$wp_hasher = new \PasswordHash( 8, TRUE );
-		}
-
-		$hashed = time().':'.$wp_hasher->HashPassword( $key );
-		$wpdb->update( $wpdb->users, [ 'user_activation_key' => $hashed ], [ 'user_login' => $user->user_login ] );
+		if ( is_wp_error( $key ) )
+			return;
 
 		$switched_locale = switch_to_locale( get_user_locale( $user ) );
 
@@ -322,7 +313,7 @@ class Notify extends gNetwork\Module
 
 		$mail = [
 			'to'      => $user->user_email,
-			'subject' => __( '[%s] Login Credentials' ),
+			'subject' => __( '[%s] Login Details' ),
 			'message' => $message,
 			'headers' => '',
 		];

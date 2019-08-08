@@ -114,9 +114,8 @@ class Typography extends gNetwork\Module
 	}
 
 	// TODO: wordwrap headings in content / lookout for link in titles!
+	// TODO: ؟! -> ?!
 	// @SEE: `wp_replace_in_html_tags()`
-	// @SEE: `Text::replaceWords()`
-	// ؟! -> ?!
 	public function general_typography( $content )
 	{
 		if ( gNetwork()->option( 'content_replace', 'branding' ) ) {

@@ -302,7 +302,7 @@ class ShortCodes extends gNetwork\Module
 		return self::shortcodeWrap( '<ul>'.$siblings.'</ul>', 'siblings', $args );
 	}
 
-	// FIXME: move this into gEditorial (using api)
+	// FIXME: move to gEditorial Terms (using api)
 	// USAGE: [in-term tax="category" slug="ungategorized" order="menu_order" /]
 	// EDITED: 4/5/2016, 5:03:30 PM
 	public function shortcode_in_term( $atts = [], $content = NULL, $tag = '' )
@@ -479,6 +479,7 @@ class ShortCodes extends gNetwork\Module
 		return $content;
 	}
 
+	// FIXME: move to gEditorial Terms (using api)
 	// FIXME: working draft
 	// EDITED: 4/5/2016, 5:01:31 PM
 	public function shortcode_all_terms( $atts = [], $content = NULL, $tag = '' )

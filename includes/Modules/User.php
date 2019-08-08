@@ -510,7 +510,7 @@ class User extends gNetwork\Module
 
 				$user->set_role( empty( $new[$site_id] ) ? '' : $new[$site_id] );
 
-				wp_cache_delete( $user_id, 'users' );
+				clean_user_cache( $user_id );
 			}
 
 			wp_cache_delete( $site_id.'_user_count', 'blog-details' );
