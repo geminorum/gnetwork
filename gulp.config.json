@@ -117,7 +117,7 @@
   },
   "pot": {
     "package": "gNetwork",
-    "domain": "GNETWORK_TEXTDOMAIN",
+    "domain": "gnetwork",
     "metadataFile": "gnetwork.php",
     "bugReport": "https://github.com/geminorum/gnetwork/issues",
     "commentKeyword": "translators:",
@@ -127,7 +127,7 @@
   },
   "textdomain": {
     "force": true,
-    "text_domain": "GNETWORK_TEXTDOMAIN",
+    "text_domain": "gnetwork",
     "keywords": [
       "__:1,2d",
       "_e:1,2d",
