@@ -30,8 +30,10 @@ class Locale extends gNetwork\Module
 			if ( is_multisite() )
 				add_filter( 'gnetwork_network_new_blog_options', [ $this, 'new_blog_options' ] );
 
-			if ( ! defined( 'GNETWORK_DISABLE_LOCALE_OVERRIDES' ) )
+			if ( ! defined( 'GNETWORK_DISABLE_LOCALE_OVERRIDES' ) ) {
 				$this->filter( 'load_textdomain_mofile', 2, 12 );
+				$this->filter( 'load_script_translation_file', 3, 12 );
+			}
 		}
 	}
 
@@ -99,6 +101,32 @@ class Locale extends gNetwork\Module
 			return $mofile;
 
 		$this->loaded[$locale][$domain][] = $target;
+
+		return $target;
+	}
+
+	public function load_script_translation_file( $file, $handle, $domain )
+	{
+		$locale = determine_locale();
+
+		if ( 'en_US' == $locale )
+			return $file;
+
+		$this->loaded[$locale][$domain][$handle][] = File::normalize( $file );
+
+		if ( 'default' == $domain ) {
+
+			$target = GNETWORK_DIR.'assets/locale/core'.str_ireplace( WP_LANG_DIR , '', $file );
+
+		} else {
+
+			return $file;
+		}
+
+		if ( ! is_readable( $target ) )
+			return $file;
+
+		$this->loaded[$locale][$domain][$handle][] = File::normalize( $target );
 
 		return $target;
 	}
