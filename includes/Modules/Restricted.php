@@ -111,14 +111,18 @@ class Restricted extends gNetwork\Module
 					'field'       => 'restricted_notice',
 					'type'        => 'textarea-quicktags',
 					'title'       => _x( 'Restricted Notice', 'Modules: Restricted: Settings', 'gnetwork' ),
+					/* translators: %1$s: `%1$s` placeholder, %2$s: `%2$s` placeholder */
 					'description' => sprintf( _x( 'Displays on top of the site login page. Use %1$s for the role, and %2$s for the page.', 'Modules: Restricted: Settings', 'gnetwork' ), '<code>%1$s</code>', '<code>%2$s</code>' ),
+					/* translators: %1$s: `%1$s` placeholder, %2$s: `%2$s` placeholder */
 					'default'     => _x( '<p>This site is restricted to users with %1$s access level. Please visit <a href="%2$s">here</a> to request access.</p>', 'Modules: Restricted: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'restricted_message',
 					'type'        => 'textarea-quicktags',
 					'title'       => _x( 'Restricted Message', 'Modules: Restricted: Settings', 'gnetwork' ),
+					/* translators: %1$s: `%1$s` placeholder, %2$s: `%2$s` placeholder */
 					'description' => sprintf( _x( 'Displays on 403 status page for logged-in users. Use %1$s for the role, and %2$s for the page.', 'Modules: Restricted: Settings', 'gnetwork' ), '<code>%1$s</code>', '<code>%2$s</code>' ),
+					/* translators: %1$s: `%1$s` placeholder, %2$s: `%2$s` placeholder */
 					'default'     => _x( '<p>You do not have %1$s access level. Please visit <a href="%2$s">here</a> to request access.</p>', 'Modules: Restricted: Settings', 'gnetwork' ),
 				],
 			],
@@ -129,6 +133,7 @@ class Restricted extends gNetwork\Module
 	{
 		if ( $layout = Utilities::getLayout( 'status.403' ) ) {
 
+			/* translators: %s: restricted page path */
 			HTML::desc( sprintf( _x( 'Current Layout: %s', 'Modules: Restricted: Settings', 'gnetwork' ),
 				'<code>'.HTML::link( File::normalize( $layout ), URL::fromPath( $layout ), TRUE ).'</code>' ) );
 
@@ -338,6 +343,7 @@ class Restricted extends gNetwork\Module
 
 		$items[] = HTML::tag( $can ? 'a' : 'span', [
 			'href'  => $can ? $this->get_menu_url( 'restricted' ) : FALSE,
+			/* translators: %s: access role */
 			'title' => sprintf( _x( 'This site is restricted to users with %s access level.', 'Modules: Restricted', 'gnetwork' ), Settings::getUserCapList( $this->options['access_site'] ) ),
 			'class' => '-restricted',
 		], _x( 'Site is Restricted', 'Modules: Restricted', 'gnetwork' ) );

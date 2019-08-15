@@ -108,6 +108,7 @@ class Site extends gNetwork\Module
 				'field'       => 'access_denied',
 				'type'        => 'textarea-quicktags',
 				'title'       => _x( 'Access Denied', 'Modules: Site: Settings', 'gnetwork' ),
+				/* translators: %s: zero placeholder */
 				'description' => sprintf( _x( 'Displays when access to an admin page is denied. Leave empty to use default or %s to disable.', 'Modules: Site: Settings', 'gnetwork' ), '<code>0</code>' ),
 				'placeholder' => __( 'Sorry, you are not allowed to access this page.' ),
 			],
@@ -115,6 +116,7 @@ class Site extends gNetwork\Module
 				'field'       => 'denied_message',
 				'type'        => 'textarea-quicktags',
 				'title'       => _x( 'Denied Message', 'Modules: Site: Settings', 'gnetwork' ),
+				/* translators: %1$s: zero placeholder, %2$s: `%1$s` placeholder */
 				'description' => sprintf( _x( 'Displays this message when a user tries to view a site\'s dashboard they do not have access to. Leave empty to use default or %1$s to disable. %2$s: Blog Name', 'Modules: Site: Settings', 'gnetwork' ), '<code>0</code>', '<code>%1$s</code>' ),
 				'placeholder' => __( 'You attempted to access the "%1$s" dashboard, but you do not currently have privileges on this site. If you believe you should be able to access the "%1$s" dashboard, please contact your network administrator.' ),
 			],
@@ -122,6 +124,7 @@ class Site extends gNetwork\Module
 				'field'       => 'denied_extra',
 				'type'        => 'textarea-quicktags',
 				'title'       => _x( 'Extra Message', 'Modules: Site: Settings', 'gnetwork' ),
+				/* translators: %s: zero placeholder */
 				'description' => sprintf( _x( 'Displays this message before the list of sites. Leave empty to use default or %s to disable.', 'Modules: Site: Settings', 'gnetwork' ), '<code>0</code>' ),
 				'placeholder' => __( 'If you reached this screen by accident and meant to visit one of your own sites, here are some shortcuts to help you find your way.' ),
 			],
@@ -137,6 +140,7 @@ class Site extends gNetwork\Module
 			'field'       => 'lookup_ip_service',
 			'type'        => 'text',
 			'title'       => _x( 'Lookup IP URL', 'Modules: Site: Settings', 'gnetwork' ),
+			/* translators: %s: `%s` placeholder */
 			'description' => sprintf( _x( 'URL template to to use for looking up IP adresses. Will replace %s with the IP.', 'Modules: Site: Settings', 'gnetwork' ), '<code>%s</code>' ),
 			'default'     => 'https://redirect.li/map/?ip=%s',
 			'dir'         => 'ltr',
@@ -158,6 +162,7 @@ class Site extends gNetwork\Module
 		if ( $this->options['ssl_support'] ) {
 
 			if ( GNETWORK_DISABLE_SSL ) {
+				/* translators: %s: constant name */
 				HTML::desc( sprintf( _x( 'The %s is set. The site will not redirect to HTTPS automatically.', 'Modules: Site: Settings', 'gnetwork' ), '<code>GNETWORK_DISABLE_SSL</code>' ) );
 				echo '<hr />';
 			}

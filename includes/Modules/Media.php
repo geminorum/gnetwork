@@ -185,6 +185,7 @@ class Media extends gNetwork\Module
 	public function post_plupload_upload_ui()
 	{
 		if ( WordPress::cuc( $this->options['dashboard_accesscap'] ) )
+			/* translators: %1$s: link markup start, %2$s: link markup end */
 			HTML::desc( sprintf( _x( 'Alternatively, you can use %1$sLarge File Uploader%2$s widget on the dashoard.', 'Modules: Media', 'gnetwork' ),
 				'<a href="'.HTML::escapeURL( get_dashboard_url() ).'">', '</a>' ) );
 	}
@@ -1188,6 +1189,7 @@ class Media extends gNetwork\Module
 			'data'  => [
 				'nonce'    => wp_create_nonce( $this->classs( 'file-upload' ) ),
 				'locale'   => get_user_locale(),
+				/* translators: %s: progress precent */
 				'progress' => _x( 'Uploading File - %s%', 'Modules: Media', 'gnetwork' ),
 				'complete' => _x( 'Upload Complete!', 'Modules: Media', 'gnetwork' ),
 			],
@@ -1454,11 +1456,13 @@ class Media extends gNetwork\Module
 			'text' => [
 				_x( 'Text', 'Modules: Media: Post Mime Type', 'gnetwork' ),
 				_x( 'Manage Texts', 'Modules: Media: Post Mime Type', 'gnetwork' ),
+				/* translators: %s: media texts count */
 				_nx_noop( 'Text <span class="count">(%s)</span>', 'Texts <span class="count">(%s)</span>', 'Modules: Media: Post Mime Type', 'gnetwork' ),
 			],
 			'application' => [
 				_x( 'Application', 'Modules: Media: Post Mime Type', 'gnetwork' ),
 				_x( 'Manage Applications', 'Modules: Media: Post Mime Type', 'gnetwork' ),
+				/* translators: %s: media applications count */
 				_nx_noop( 'Application <span class="count">(%s)</span>', 'Applications <span class="count">(%s)</span>', 'Modules: Media: Post Mime Type', 'gnetwork' ),
 			],
 		] );

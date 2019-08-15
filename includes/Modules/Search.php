@@ -78,6 +78,7 @@ class Search extends gNetwork\Module
 	{
 		$page = WordPress::getSearchLink();
 
+		/* translators: %s: search page path */
 		HTML::desc( sprintf( _x( 'Current Page: %s', 'Modules: Search: Settings', 'gnetwork' ),
 			'<code>'.HTML::link( URL::relative( $page ), $page, TRUE ).'</code>' ) );
 	}

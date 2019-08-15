@@ -75,6 +75,7 @@ class Admin extends gNetwork\Module
 
 	public function admin_title( $admin_title, $title )
 	{
+		/* translators: %1$s: page title, %2$s: site name */
 		return sprintf( _x( '%1$s &lsaquo; %2$s &#8212; Content Management', 'Modules: Admin: HTML Title', 'gnetwork' ), $title, get_bloginfo( 'name', 'display' ) );
 	}
 
@@ -102,6 +103,7 @@ class Admin extends gNetwork\Module
 			foreach ( $this->get_menus() as $priority => $group )
 				foreach ( $group as $sub => $args )
 					add_submenu_page( $this->base,
+						/* translators: %s: menu title */
 						sprintf( _x( 'gNetwork Extras: %s', 'Modules: Admin: Page Menu', 'gnetwork' ), $args['title'] ),
 						$args['title'],
 						$args['cap'],

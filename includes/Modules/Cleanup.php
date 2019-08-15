@@ -693,6 +693,7 @@ class Cleanup extends gNetwork\Module
 				continue;
 
 			if ( $message )
+				/* translators: %s: filename */
 				HTML::desc( sprintf( _x( 'Removing %s &hellip;', 'Modules: Update', 'gnetwork' ), $file ) );
 
 			$count++;

@@ -57,6 +57,7 @@ class Rewrite extends gNetwork\Module
 				[
 					'field'       => 'remove_category_base',
 					'title'       => _x( 'Remove Category Base', 'Modules: Rewrite: Settings', 'gnetwork' ),
+					/* translators: %s: default category slug */
 					'description' => sprintf( _x( 'Removes %s from your category permalinks.', 'Modules: Rewrite: Settings', 'gnetwork' ), '<code>/category</code>' ),
 				],
 			],
@@ -87,9 +88,11 @@ class Rewrite extends gNetwork\Module
 		list( $rules, $sources ) = $this->get_rules( $source, $search );
 
 		if ( $search )
+			/* translators: %1$s: rules count, %2$s: search criteria , %3$s: search criteria */
 			$title = sprintf( _x( 'A Listing of All %1$s Rewrite Rules for This Site that Match &ldquo;<a target="_blank" href="%2$s">%3$s</a>&rdquo;', 'Modules: Rewrite', 'gnetwork' ),
 				Number::format( count( $rules ) ), esc_url( $search ), esc_url( $search ) );
 		else
+			/* translators: %1$s: rules count */
 			$title = sprintf( _x( 'A Listing of All %1$s Rewrite Rules for This Site', 'Modules: Rewrite', 'gnetwork' ), Number::format( count( $rules ) ) );
 
 		return HTML::tableList( [

@@ -220,6 +220,7 @@ class Authors extends gNetwork\Module
 			$name = get_userdata( $user )->display_name;
 			$edit = WordPress::getUserEditLink( $user );
 
+			/* translators: %s: site-user */
 			HTML::desc( sprintf( _x( 'Site-User for current network is: %s', 'Modules: Authors: Settings', 'gnetwork' ),
 				$edit ? HTML::link( $name, $edit, TRUE ) : $name ) );
 
@@ -230,6 +231,7 @@ class Authors extends gNetwork\Module
 
 		if ( $default_role ) {
 
+			/* translators: %s: user role */
 			HTML::desc( sprintf( _x( 'Default role for this site is: %s', 'Modules: Authors: Settings', 'gnetwork' ),
 				'<code>'.get_option( 'default_role' ).'</code>' ) );
 		}

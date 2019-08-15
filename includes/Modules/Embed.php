@@ -179,6 +179,7 @@ class Embed extends gNetwork\Module
 	{
 		Settings::fieldSection(
 			_x( 'Instagram', 'Modules: Embed: Settings', 'gnetwork' ),
+			/* translators: %s: min pixels placeholder */
 			sprintf( _x( 'There is no height setting because the height will adjust automatically based on the width. Instagram only allow a minimum width of %s pixels. Using a lower value will break the embed.', 'Modules: Embed: Settings', 'gnetwork' ), '<code>'.Number::format( 320 ).'</code>' )
 		);
 	}

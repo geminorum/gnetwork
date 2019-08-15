@@ -229,6 +229,7 @@ class Blog extends gNetwork\Module
 				'field'       => 'autosave_interval',
 				'type'        => 'number',
 				'title'       => _x( 'Autosave Interval', 'Modules: Blog: Settings', 'gnetwork' ),
+				/* translators: %s: constant placeholder */
 				'description' => sprintf( _x( 'Time in seconds that WordPress will save the currently editing posts. default is %s seconds.', 'Modules: Blog: Settings', 'gnetwork' ), '<code>'.AUTOSAVE_INTERVAL.'</code>' ),
 				'min_attr'    => '20',
 				'default'     => '120',
@@ -312,6 +313,7 @@ class Blog extends gNetwork\Module
 			'type'        => 'number',
 			'title'       => _x( 'Content Width', 'Modules: Blog: Settings', 'gnetwork' ),
 			'description' => _x( 'Overrides content width of the active theme. Leave empty to disable.', 'Modules: Blog: Settings', 'gnetwork' ),
+			/* translators: %s: content width placeholder */
 			'after'       => ! empty( $GLOBALS['content_width'] ) && ! $this->options['content_width'] ? Settings::fieldAfterText( sprintf( _x( 'Current is %s', 'Modules: Blog: Settings', 'gnetwork' ), '<code>'.$GLOBALS['content_width'].'</code>' ) ) : FALSE,
 		];
 
@@ -398,7 +400,9 @@ class Blog extends gNetwork\Module
 			'title'   => _x( 'Shortlink Type', 'Modules: Blog: Settings', 'gnetwork' ),
 			'default' => 'numeric',
 			'values'  => [
+				/* translators: %s: shortlink type placeholder */
 				'numeric'   => sprintf( _x( 'Numeric (%s)', 'Modules: Blog: Settings', 'gnetwork' ), 'example.com/123' ),
+				/* translators: %s: shortlink type placeholder */
 				'bijection' => sprintf( _x( 'Alpha-Numeric (%s)', 'Modules: Blog: Settings', 'gnetwork' ), 'example.com/d3E' ),
 			],
 		];

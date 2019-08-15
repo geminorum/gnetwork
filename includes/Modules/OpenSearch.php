@@ -100,6 +100,7 @@ class OpenSearch extends gNetwork\Module
 					'type'        => 'textarea',
 					'title'       => _x( 'Description', 'Modules: OpenSearch: Settings', 'gnetwork' ),
 					'description' => _x( 'A brief description of the search engine. <b>1024</b> chars or less, no HTML.', 'Modules: OpenSearch: Settings', 'gnetwork' ),
+					/* translators: %s: site name */
 					'default'     => sprintf( _x( 'Search %s', 'Modules: OpenSearch: Settings', 'gnetwork' ), $name ),
 				],
 				[
@@ -107,6 +108,7 @@ class OpenSearch extends gNetwork\Module
 					'type'        => 'text',
 					'title'       => _x( 'Attribution', 'Modules: OpenSearch: Settings', 'gnetwork' ),
 					'description' => _x( 'A list of all sources or entities that should be credited. <b>256</b> chars or less, no HTML.', 'Modules: OpenSearch: Settings', 'gnetwork' ),
+					/* translators: %s: site name */
 					'default'     => sprintf( _x( 'Search data copyright %s', 'Modules: OpenSearch: Settings', 'gnetwork' ), $name ),
 					'field_class' => 'large-text',
 				],
@@ -147,6 +149,7 @@ class OpenSearch extends gNetwork\Module
 
 			$manifest = self::url( FALSE );
 
+			/* translators: %s: manifest url */
 			HTML::desc( sprintf( _x( 'Current Manifest: %s', 'Modules: OpenSearch: Settings', 'gnetwork' ),
 				'<code>'.HTML::link( URL::relative( $manifest ), $manifest ).'</code>' ) );
 		} else {

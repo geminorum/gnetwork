@@ -190,6 +190,7 @@ class Profile extends gNetwork\Module
 
 		if ( ! empty( $wpupload['error'] ) ) {
 
+			/* translators: %s: upload error */
 			echo HTML::error( sprintf( _x( 'Before you can upload a file, you will need to fix the following error: %s', 'Modules: Profile', 'gnetwork' ), '<b>'.$wpupload['error'].'</b>' ), FALSE );
 
 		} else {
@@ -208,6 +209,7 @@ class Profile extends gNetwork\Module
 				$size = File::formatSize( apply_filters( 'import_upload_size_limit', wp_max_upload_size() ) );
 
 				Settings::submitButton( 'import_users_csv', _x( 'Import Users', 'Modules: Profile', 'gnetwork' ), 'small' );
+				/* translators: %s: maximum file size */
 				HTML::desc( sprintf( _x( 'Upload a list of users in CSV. Maximum size: <b>%s</b>', 'Modules: Profile', 'gnetwork' ), HTML::wrapLTR( $size ) ), FALSE );
 
 			echo '</p>';

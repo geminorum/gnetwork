@@ -425,6 +425,7 @@ class Login extends gNetwork\Module
 
 	public function login_title( $login_title, $title )
 	{
+		/* translators: %1$s: page title, %2$s: site name */
 		return sprintf( _x( '%1$s &lsaquo; %2$s', 'Modules: Login: HTML Title', 'gnetwork' ), $title, get_bloginfo( 'name', 'display' ) );
 	}
 

@@ -71,6 +71,7 @@ class Network extends gNetwork\Module
 		foreach ( $this->get_menus() as $priority => $group )
 			foreach ( $group as $sub => $args )
 				add_submenu_page( $this->base,
+					/* translators: %s: menu title */
 					sprintf( _x( 'gNetwork Extras: %s', 'Modules: Network: Page Menu', 'gnetwork' ), $args['title'] ),
 					$args['title'],
 					$args['cap'],
@@ -316,6 +317,7 @@ class Network extends gNetwork\Module
 
 	public function updated_message_resetadminemail( $msg )
 	{
+		/* translators: %1$s: number of sites, %2$s: admin email */
 		$message = _x( '%1$s site(s) admin email reset to %2$s', 'Modules: Network: Message', 'gnetwork' );
 
 		$_SERVER['REQUEST_URI'] = remove_query_arg( 'count', $_SERVER['REQUEST_URI'] );
@@ -329,12 +331,14 @@ class Network extends gNetwork\Module
 	public function updated_message_enable( $msg )
 	{
 		$_SERVER['REQUEST_URI'] = remove_query_arg( 'count', $_SERVER['REQUEST_URI'] );
+		/* translators: %s: enabled sites count */
 		return Utilities::getCounted( self::req( 'count', 0 ), _x( '%s site(s) SSL Enabled', 'Modules: Network: Message', 'gnetwork' ) );
 	}
 
 	public function updated_message_disable( $msg )
 	{
 		$_SERVER['REQUEST_URI'] = remove_query_arg( 'count', $_SERVER['REQUEST_URI'] );
+		/* translators: %s: disabled sites count */
 		return Utilities::getCounted( self::req( 'count', 0 ), _x( '%s site(s) SSL Disabled', 'Modules: Network: Message', 'gnetwork' ) );
 	}
 

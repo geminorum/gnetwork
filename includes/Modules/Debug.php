@@ -212,6 +212,7 @@ class Debug extends gNetwork\Module
 			if ( $logs = File::getLastLines( $file, self::limit( 100 ) ) ) {
 
 				$length = self::req( 'length', FALSE );
+				/* translators: %s: logs count */
 				$title = sprintf( _x( 'The Last %s Logs, in reverse order', 'Modules: Debug: Log Box', 'gnetwork' ), Number::format( count( $logs ) ) );
 
 				Settings::headerTitle( $title );
@@ -232,6 +233,7 @@ class Debug extends gNetwork\Module
 				}
 
 				echo '</ol></div>';
+				/* translators: %s: file size */
 				HTML::desc( sprintf( _x( 'File Size: %s', 'Modules: Debug: Log Box', 'gnetwork' ), HTML::wrapLTR( $file_size ) ), TRUE, 'log-box-footer' );
 
 			} else {
@@ -579,6 +581,7 @@ class Debug extends gNetwork\Module
 			echo HTML::wrap( $phpinfo, '-phpinfo' );
 
 		else
+			/* translators: %s: function placeholder */
 			HTML::desc( sprintf( _x( '%s has been disabled.', 'Modules: Debug', 'gnetwork' ), '<code>phpinfo()</code>' ), TRUE, '-empty -phpinfo' );
 	}
 
@@ -601,10 +604,12 @@ class Debug extends gNetwork\Module
 		echo '<div class="-wrap card -floated -currents" dir="ltr">';
 		HTML::h2( _x( 'System Versions', 'Modules: Debug', 'gnetwork' ) );
 
+		/* translators: %s: mysql version */
 		HTML::desc( sprintf( _x( 'Current MySQL version: %s', 'Modules: Debug', 'gnetwork' ), '<code>'.$GLOBALS['wpdb']->db_version().'</code>' ) );
 
 		echo '<hr />';
 
+		/* translators: %s: php version */
 		HTML::desc( sprintf( _x( 'Current PHP version: %s', 'Modules: Debug', 'gnetwork' ), '<code>'.phpversion().'</code>' ) );
 
 		echo HTML::listCode( self::getPHPExtensions(),
@@ -631,8 +636,10 @@ class Debug extends gNetwork\Module
 		HTML::h2( _x( 'Extra', 'Modules: Debug', 'gnetwork' ) );
 
 		if ( function_exists( 'fastcgi_finish_request' ) )
+			/* translators: %s: function placeholder */
 			HTML::desc( sprintf( _x( '%s available!', 'Modules: Debug', 'gnetwork' ), '<code>fastcgi_finish_request</code>' ), TRUE, '-available -color-success' );
 		else
+			/* translators: %s: function placeholder */
 			HTML::desc( sprintf( _x( '%s not available!', 'Modules: Debug', 'gnetwork' ), '<code>fastcgi_finish_request</code>' ), TRUE, '-not-available -color-danger' );
 
 		echo '</div>';

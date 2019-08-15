@@ -115,12 +115,16 @@ class Uptime extends gNetwork\Module
 			echo '</tbody></table></div>';
 
 			echo '<div class="sub"><table class="base-table-simple"><tbody><tr><td>';
+				/* translators: %s: all time uptime ratio */
 				echo Utilities::getCounted( $monitor['all_time_uptime_ratio'], _x( 'Uptime Ratio: %s', 'Modules: Uptime', 'gnetwork' ) );
 			echo '</td><td>';
+				/* translators: %s: average response time */
 				echo Utilities::getCounted( $monitor['average_response_time'], _x( 'Response Time: %s', 'Modules: Uptime', 'gnetwork' ) );
 			echo '</td></tr><tr><td>';
+				/* translators: %s: interval */
 				printf( _x( 'Interval: %s', 'Modules: Uptime', 'gnetwork' ), Utilities::htmlFromSeconds( $monitor['interval'], 2 ) );
 			echo '</td><td>';
+				/* translators: %s: response time */
 				echo Utilities::getCounted( $monitor['response_times'][0]['value'], _x( 'Last Response Time: %s', 'Modules: Uptime', 'gnetwork' ) );
 			echo '</td></tr></tbody></table>';
 
@@ -183,6 +187,7 @@ class Uptime extends gNetwork\Module
 				return new Error( 'unknown_response', _x( 'Something is wrong with UptimeRobot.com API!', 'Modules: Uptime', 'gnetwork' ) );
 
 			else if ( 'fail' == $data['stat'] )
+				/* translators: %s: error type */
 				return new Error( $data['error']['type'], sprintf( _x( 'UptimeRobot.com API: %s', 'Modules: Uptime', 'gnetwork' ), str_replace( '_', ' ', $data['error']['type'] ) ) );
 
 			else if ( 'ok' == $data['stat'] )

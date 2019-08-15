@@ -370,6 +370,7 @@ class User extends gNetwork\Module
 		foreach ( $this->get_menus() as $priority => $group )
 			foreach ( $group as $sub => $args )
 				add_submenu_page( $this->base,
+					/* translators: %s: menu title */
 					sprintf( _x( 'gNetwork Extras: %s', 'Modules: User: Page Menu', 'gnetwork' ), $args['title'] ),
 					$args['title'],
 					$args['cap'],
@@ -664,6 +665,7 @@ class User extends gNetwork\Module
 		$view = '<a href="'.network_admin_url( 'users.php?spam' ).'"'.$class.'>';
 
 		if ( $spams = $this->get_spam_count() )
+			/* translators: %s: spam users count */
 			$view.= Utilities::getCounted( $spams, _nx( 'Marked as Spam <span class="count">(%s)</span>', 'Marked as Spams <span class="count">(%s)</span>', $spams, 'Modules: User', 'gnetwork' ) ).'</a>';
 		else
 			$view.= _x( 'Marked as Spam', 'Modules: User', 'gnetwork' ).'</a>';
@@ -741,7 +743,8 @@ class User extends gNetwork\Module
 
 				echo '<li class="-row -name">';
 					echo $this->get_column_icon( FALSE, 'nametag', _x( 'Custom Name', 'Modules: User', 'gnetwork' ) );
-					printf( _x( 'In %s as: %s', 'Modules: User: Custom Name', 'gnetwork' ), $blogname, $custom );
+					/* translators: %1$s: blog name, %2$s: custom display name */
+					printf( _x( 'In %1$s as: %2$s', 'Modules: User: Custom Name', 'gnetwork' ), $blogname, $custom );
 				echo '</li>';
 			}
 		}

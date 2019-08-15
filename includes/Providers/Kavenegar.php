@@ -108,6 +108,7 @@ class Kavenegar extends gNetwork\Provider
 		$balance = $this->providerBalance();
 
 		return $balance
+			/* translators: %s: rial */
 			? sprintf( _x( '%s Rials for SMS', 'Provider: Kavenegar', 'gnetwork' ), Number::format( $balance ) )
 			: _x( 'Charge SMS Credits!', 'Provider: Kavenegar', 'gnetwork' );
 	}

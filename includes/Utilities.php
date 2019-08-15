@@ -28,7 +28,8 @@ class Utilities extends Core\Base
 
 		if ( ! empty( $updates[$plugin] ) )
 			echo HTML::info( sprintf(
-				_x( 'A new version of %s is available. Please update to version %s to ensure compatibility with your WordPress.', 'Utilities: Update Notice', 'gnetwork' ),
+				/* translators: %1$s: plugin name, %2$s: version number */
+				_x( 'A new version of %1$s is available. Please update to version %2$s to ensure compatibility with your WordPress.', 'Utilities: Update Notice', 'gnetwork' ),
 				HTML::link( $updates[$plugin]->Name, $updates[$plugin]->PluginURI, TRUE ),
 				$updates[$plugin]->update->new_version
 			) );
@@ -84,6 +85,7 @@ class Utilities extends Core\Base
 
 	public static function humanTimeAgo( $from, $to = '' )
 	{
+		/* translators: %s: time string */
 		return sprintf( _x( '%s ago', 'Utilities: Human Time Ago', 'gnetwork' ), human_time_diff( $from, $to ) );
 	}
 
@@ -116,14 +118,22 @@ class Utilities extends Core\Base
 		if ( is_null( $strings ) )
 			$strings = [
 				'now'    => _x( 'Now', 'Utilities: Human Time Diff', 'gnetwork' ),
+				/* translators: %s: time string */
 				'_s_ago' => _x( '%s ago', 'Utilities: Human Time Diff', 'gnetwork' ),
+				/* translators: %s: time string */
 				'in__s'  => _x( 'in %s', 'Utilities: Human Time Diff', 'gnetwork' ),
 
+				/* translators: %s: number of minutes */
 				'noop_minutes' => _nx_noop( '%s min', '%s mins', 'Utilities: Human Time Diff: Noop', 'gnetwork' ),
+				/* translators: %s: number of hours */
 				'noop_hours'   => _nx_noop( '%s hour', '%s hours', 'Utilities: Human Time Diff: Noop', 'gnetwork' ),
+				/* translators: %s: number of days */
 				'noop_days'    => _nx_noop( '%s day', '%s days', 'Utilities: Human Time Diff: Noop', 'gnetwork' ),
+				/* translators: %s: number of weeks */
 				'noop_weeks'   => _nx_noop( '%s week', '%s weeks', 'Utilities: Human Time Diff: Noop', 'gnetwork' ),
+				/* translators: %s: number of months */
 				'noop_months'  => _nx_noop( '%s month', '%s months', 'Utilities: Human Time Diff: Noop', 'gnetwork' ),
+				/* translators: %s: number of years */
 				'noop_years'   => _nx_noop( '%s year', '%s years', 'Utilities: Human Time Diff: Noop', 'gnetwork' ),
 			];
 
@@ -141,9 +151,13 @@ class Utilities extends Core\Base
 			$strings = [
 				'sep' => _x( ', ', 'Utilities: From Seconds: Seperator', 'gnetwork' ),
 
+				/* translators: %s: number of seconds */
 				'noop_seconds' => _nx_noop( '%s second', '%s seconds', 'Utilities: From Seconds: Noop', 'gnetwork' ),
+				/* translators: %s: number of minutes */
 				'noop_minutes' => _nx_noop( '%s min', '%s mins', 'Utilities: From Seconds: Noop', 'gnetwork' ),
+				/* translators: %s: number of hours */
 				'noop_hours'   => _nx_noop( '%s hour', '%s hours', 'Utilities: From Seconds: Noop', 'gnetwork' ),
+				/* translators: %s: number of days */
 				'noop_days'    => _nx_noop( '%s day', '%s days', 'Utilities: From Seconds: Noop', 'gnetwork' ),
 			];
 
@@ -160,20 +174,27 @@ class Utilities extends Core\Base
 				'now'            => _x( 'Now', 'Utilities: Date: Moment', 'gnetwork' ),
 				'just_now'       => _x( 'Just now', 'Utilities: Date: Moment', 'gnetwork' ),
 				'one_minute_ago' => _x( 'One minute ago', 'Utilities: Date: Moment', 'gnetwork' ),
+				/* translators: %s: number of minutes */
 				'_s_minutes_ago' => _x( '%s minutes ago', 'Utilities: Date: Moment', 'gnetwork' ),
 				'one_hour_ago'   => _x( 'One hour ago', 'Utilities: Date: Moment', 'gnetwork' ),
+				/* translators: %s: number of hours */
 				'_s_hours_ago'   => _x( '%s hours ago', 'Utilities: Date: Moment', 'gnetwork' ),
 				'yesterday'      => _x( 'Yesterday', 'Utilities: Date: Moment', 'gnetwork' ),
+				/* translators: %s: number of days */
 				'_s_days_ago'    => _x( '%s days ago', 'Utilities: Date: Moment', 'gnetwork' ),
+				/* translators: %s: number of weeks */
 				'_s_weeks_ago'   => _x( '%s weeks ago', 'Utilities: Date: Moment', 'gnetwork' ),
 				'last_month'     => _x( 'Last month', 'Utilities: Date: Moment', 'gnetwork' ),
 				'last_year'      => _x( 'Last year', 'Utilities: Date: Moment', 'gnetwork' ),
 				'in_a_minute'    => _x( 'in a minute', 'Utilities: Date: Moment', 'gnetwork' ),
+				/* translators: %s: number of minutes */
 				'in__s_minutes'  => _x( 'in %s minutes', 'Utilities: Date: Moment', 'gnetwork' ),
 				'in_an_hour'     => _x( 'in an hour', 'Utilities: Date: Moment', 'gnetwork' ),
+				/* translators: %s: number of hours */
 				'in__s_hours'    => _x( 'in %s hours', 'Utilities: Date: Moment', 'gnetwork' ),
 				'tomorrow'       => _x( 'Tomorrow', 'Utilities: Date: Moment', 'gnetwork' ),
 				'next_week'      => _x( 'next week', 'Utilities: Date: Moment', 'gnetwork' ),
+				/* translators: %s: number of weeks */
 				'in__s_weeks'    => _x( 'in %s weeks', 'Utilities: Date: Moment', 'gnetwork' ),
 				'next_month'     => _x( 'next month', 'Utilities: Date: Moment', 'gnetwork' ),
 				'format_l'       => _x( 'l', 'Utilities: Date: Moment', 'gnetwork' ),
@@ -633,9 +654,11 @@ class Utilities extends Core\Base
 
 			} else {
 
+				/* translators: %s: log folder path */
 				HTML::desc( sprintf( _x( 'Log folder exists and writable on: %s', 'Utilities', 'gnetwork' ), '<code>'.$constant.'</code>' ) );
 
 				if ( ! file_exists( $constant.'/.htaccess' ) )
+					/* translators: %s: .htaccess */
 					HTML::desc( sprintf( _x( 'Warning: %s not found!', 'Utilities', 'gnetwork' ), '<code>.htaccess</code>' ) );
 			}
 

@@ -119,15 +119,25 @@ class Settings extends Core\Base
 			'nochange'  => self::error( _x( 'No item changed!', 'Settings: Message', 'gnetwork' ) ),
 			'noadded'   => self::error( _x( 'No item added!', 'Settings: Message', 'gnetwork' ) ),
 			'noaccess'  => self::error( _x( 'You do not have the access!', 'Settings: Message', 'gnetwork' ) ),
+			/* translators: %s: count */
 			'converted' => self::counted( _x( '%s items(s) converted!', 'Settings: Message', 'gnetwork' ) ),
+			/* translators: %s: count */
 			'imported'  => self::counted( _x( '%s items(s) imported!', 'Settings: Message', 'gnetwork' ) ),
+			/* translators: %s: count */
 			'created'   => self::counted( _x( '%s items(s) created!', 'Settings: Message', 'gnetwork' ) ),
+			/* translators: %s: count */
 			'deleted'   => self::counted( _x( '%s items(s) deleted!', 'Settings: Message', 'gnetwork' ) ),
+			/* translators: %s: count */
 			'cleaned'   => self::counted( _x( '%s items(s) cleaned!', 'Settings: Message', 'gnetwork' ) ),
+			/* translators: %s: count */
 			'changed'   => self::counted( _x( '%s items(s) changed!', 'Settings: Message', 'gnetwork' ) ),
+			/* translators: %s: count */
 			'emptied'   => self::counted( _x( '%s items(s) emptied!', 'Settings: Message', 'gnetwork' ) ),
+			/* translators: %s: count */
 			'closed'    => self::counted( _x( '%s items(s) closed!', 'Settings: Message', 'gnetwork' ) ),
+			/* translators: %s: count */
 			'ordered'   => self::counted( _x( '%s items(s) re-ordered!', 'Settings: Message', 'gnetwork' ) ),
+			/* translators: %s: count */
 			'synced'    => self::counted( _x( '%s items(s) synced!', 'Settings: Message', 'gnetwork' ) ),
 			'huh'       => HTML::error( self::huh( self::req( 'huh', NULL ) ) ),
 		];
@@ -138,6 +148,7 @@ class Settings extends Core\Base
 		$extra = [];
 
 		if ( isset( $_REQUEST['count'] ) )
+			/* translators: %s: count */
 			$extra[] = sprintf( _x( '%s Counted!', 'Settings: Message', 'gnetwork' ),
 				Number::format( $_REQUEST['count'] ) );
 
@@ -167,6 +178,7 @@ class Settings extends Core\Base
 	public static function counted( $message = NULL, $count = NULL, $class = 'updated' )
 	{
 		if ( is_null( $message ) )
+			/* translators: %s: count */
 			$message = _x( '%s Counted!', 'Settings', 'gnetwork' );
 
 		if ( is_null( $count ) )
@@ -183,6 +195,7 @@ class Settings extends Core\Base
 	public static function huh( $message = NULL )
 	{
 		if ( $message )
+			/* translators: %s: message */
 			return sprintf( _x( 'huh? %s', 'Settings: Message', 'gnetwork' ), $message );
 
 		return _x( 'huh?', 'Settings: Message', 'gnetwork' );
@@ -263,6 +276,7 @@ class Settings extends Core\Base
 	{
 		$html = HTML::tag( 'a', [
 			'href'   => 'https://codex.wordpress.org/'.$page,
+			/* translators: %s: codex title */
 			'title'  => sprintf( _x( 'See WordPress Codex for %s.', 'Settings', 'gnetwork' ), str_ireplace( '_', ' ', $page ) ),
 			'target' => '_blank',
 		], ( $text ? _x( 'See Codex', 'Settings', 'gnetwork' ) : HTML::getDashicon( 'media-code' ) ) );
@@ -422,6 +436,7 @@ class Settings extends Core\Base
 	public static function showOptionNone( $string = NULL )
 	{
 		if ( $string )
+			/* translators: %s: options */
 			return sprintf( _x( '&mdash; Select %s &mdash;', 'Settings: Dropdown Select Option None', 'gnetwork' ), $string );
 
 		return _x( '&mdash; Select &mdash;', 'Settings: Dropdown Select Option None', 'gnetwork' );
@@ -430,6 +445,7 @@ class Settings extends Core\Base
 	public static function showOptionAll( $string = NULL )
 	{
 		if ( $string )
+			/* translators: %s: options */
 			return sprintf( _x( '&mdash; All %s &mdash;', 'Settings: Dropdown Select Option All', 'gnetwork' ), $string );
 
 		return _x( '&mdash; All &mdash;', 'Settings: Dropdown Select Option All', 'gnetwork' );

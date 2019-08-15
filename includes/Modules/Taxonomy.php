@@ -300,8 +300,10 @@ class Taxonomy extends gNetwork\Module
 	private function editor_status_info( $target = 'html-tag-description' )
 	{
 		$html = '<div id="description-editor-counts" class="-wordcount hide-if-no-js" data-target="'.$target.'">';
+		/* translators: %s: number of words */
 		$html.= sprintf( _x( 'Words: %s', 'Modules: Taxonomy', 'gnetwork' ), '<span class="word-count">'.Number::format( '0' ).'</span>' );
 		$html.= ' | ';
+		/* translators: %s: number of chars */
 		$html.= sprintf( _x( 'Chars: %s', 'Modules: Taxonomy', 'gnetwork' ), '<span class="char-count">'.Number::format( '0' ).'</span>' );
 		$html.= '</div>';
 
@@ -733,6 +735,7 @@ class Taxonomy extends gNetwork\Module
 
 	private function secondary_input_merge( $taxonomy )
 	{
+		/* translators: %s: merge into input */
 		printf( _x( 'into: %s', 'Modules: Taxonomy', 'gnetwork' ),
 			'<input name="bulk_to_tag" type="text" placeholder="'
 			._x( 'Name, Slug or ID', 'Modules: Taxonomy', 'gnetwork' ).'" />' );

@@ -189,6 +189,7 @@ class Branding extends gNetwork\Module
 	{
 		Settings::fieldSection(
 			_x( 'Web App', 'Modules: Branding: Settings', 'gnetwork' ),
+			/* translators: %s: link url */
 			sprintf( _x( 'Web app manifests provide the ability to save a site bookmark to a device\'s home screen. <a href="%s">Read More</a>', 'Modules: Branding: Settings', 'gnetwork' ),
 				'https://developer.mozilla.org/en-US/docs/Web/Manifest' )
 		);
