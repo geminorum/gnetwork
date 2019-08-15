@@ -1340,7 +1340,7 @@ class Module extends Core\Base
 			'editor_script' => $script,
 		], $extra ) );
 
-		wp_set_script_translations( $script, 'gnetwork' );
+		wp_set_script_translations( $script, 'gnetwork', GNETWORK_DIR.'languages' );
 
 		return $block;
 	}
