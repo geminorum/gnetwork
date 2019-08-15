@@ -1,0 +1,253 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Simple Podcasting\n"
+"PO-Revision-Date: 2019-08-12 21:24+0430\n"
+"POT-Creation-Date: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: fa_IR\n"
+"Last-Translator: geminorum <contact@geminorum.ir>\n"
+"Language-Team: \n"
+"X-Generator: Poedit 2.2.3\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-Basepath: ../../../simple-podcasting\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: assets/js/edit.js:166
+msgid "Write caption…"
+msgstr "برنگاشت بنویسید…"
+
+#: includes/datatypes.php:521
+msgid "Category 3"
+msgstr "دسته ۳"
+
+#: includes/datatypes.php:515
+msgid "Category 2"
+msgstr "دسته ۲"
+
+#: includes/datatypes.php:509
+msgid "Category 1"
+msgstr "دسته ۱"
+
+#: includes/datatypes.php:505
+msgid "Comma-separated keywords to help people find your podcast."
+msgstr ""
+
+#: includes/datatypes.php:503
+msgid "Keywords"
+msgstr "کلیدواژه‌ها"
+
+#: includes/datatypes.php:497
+msgid "Cover image"
+msgstr "تصویر روی جلد"
+
+#: includes/datatypes.php:491
+msgid "Language"
+msgstr "زبان"
+
+#: includes/datatypes.php:476
+msgid "Copyright / License information"
+msgstr ""
+
+#: includes/datatypes.php:471
+msgid "Summary"
+msgstr "چکیده"
+
+#: includes/datatypes.php:466
+msgid "Podcast email"
+msgstr ""
+
+#: includes/datatypes.php:461
+msgid "Artist / Author name"
+msgstr ""
+
+#: includes/datatypes.php:456
+msgid "Subtitle"
+msgstr "زیرتیتر"
+
+#. Description of the plugin
+msgid "Easily set up multiple podcast feeds using built-in WordPress posts. Includes a podcast block for the new WordPress editor."
+msgstr ""
+
+#. Author URI of the plugin
+msgid "http://10up.com/"
+msgstr ""
+
+#. Author of the plugin
+msgid "10up"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "http://wordpress.org/plugins/simple-podcasting"
+msgstr ""
+
+#. Plugin Name of the plugin
+msgid "Simple Podcasting"
+msgstr "پادکست ساده"
+
+#: includes/post-meta-box.php:66
+msgid "Optional: Use this field if you have more than one audio/video file in your post."
+msgstr ""
+
+#: includes/post-meta-box.php:63
+msgid "Select this file"
+msgstr "این پرونده را انتخاب کنید"
+
+#: includes/post-meta-box.php:63
+msgid "Podcast Enclosure"
+msgstr ""
+
+#: includes/post-meta-box.php:63
+msgid "Choose File"
+msgstr "انتخاب پرونده"
+
+#: includes/post-meta-box.php:61
+msgid "Enclosure"
+msgstr ""
+
+#: includes/post-meta-box.php:55 assets/js/edit.js:142
+msgid "Clean"
+msgstr ""
+
+#: includes/post-meta-box.php:54 assets/js/edit.js:141
+msgid "Yes"
+msgstr ""
+
+#: includes/post-meta-box.php:53 assets/js/edit.js:140
+msgid "No"
+msgstr ""
+
+#: includes/post-meta-box.php:51 assets/js/edit.js:137
+msgid "Explicit Content"
+msgstr ""
+
+#: includes/post-meta-box.php:44 assets/js/edit.js:126 assets/js/edit.js:130
+msgid "Closed Captioned"
+msgstr ""
+
+#: includes/post-meta-box.php:16
+msgid "Podcasting"
+msgstr ""
+
+#: includes/datatypes.php:665
+msgid "None"
+msgstr "هیچ‌کدام"
+
+#: includes/datatypes.php:499
+msgid "Minimum size: 1400px x 1400 px — maximum size: 2048px x 2048px"
+msgstr ""
+
+#: includes/datatypes.php:481
+msgid "Mark as explicit"
+msgstr ""
+
+#: includes/datatypes.php:405
+msgid "This is the URL you submit to iTunes or podcasting service."
+msgstr ""
+
+#: includes/datatypes.php:403
+msgid "Your Podcast Feed:"
+msgstr ""
+
+#: includes/datatypes.php:300
+msgid "Choose Selected Image"
+msgstr ""
+
+#: includes/datatypes.php:299
+msgid "Podcast Image"
+msgstr ""
+
+#: includes/datatypes.php:297
+msgid "Select Image"
+msgstr ""
+
+#: includes/datatypes.php:179
+msgid "Once at least one podcast exists, you can add episodes by creating a post, assigning it to the appropriate podcast, and inserting an audio player or podcast block into the content of the post. You can then submit the feed URL to podcast directories."
+msgstr ""
+
+#: includes/datatypes.php:101
+msgid "&larr; Back to Podcasts"
+msgstr ""
+
+#: includes/datatypes.php:100
+msgid "Podcasts list"
+msgstr ""
+
+#: includes/datatypes.php:99
+msgid "Podcasts list navigation"
+msgstr ""
+
+#: includes/datatypes.php:98
+msgid "No podcasts"
+msgstr ""
+
+#: includes/datatypes.php:97
+msgid "No podcasts found"
+msgstr ""
+
+#: includes/datatypes.php:96
+msgid "Add or remove podcasts"
+msgstr ""
+
+#: includes/datatypes.php:95
+msgid "New Podcast Name"
+msgstr ""
+
+#: includes/datatypes.php:94
+msgid "Add New Podcast"
+msgstr "افزودن پادکست تازه"
+
+#: includes/datatypes.php:93
+msgid "Update Podcast"
+msgstr "به‌روزرسانی پادکست"
+
+#: includes/datatypes.php:92
+msgid "View Podcast"
+msgstr ""
+
+#: includes/datatypes.php:91 assets/js/edit.js:107
+msgid "Edit Podcast"
+msgstr ""
+
+#: includes/datatypes.php:90
+msgid "Parent Podcast:"
+msgstr ""
+
+#: includes/datatypes.php:89
+msgid "Parent Podcast"
+msgstr ""
+
+#: includes/datatypes.php:88
+msgid "All Podcasts"
+msgstr ""
+
+#: includes/datatypes.php:87
+msgid "Search Podcasts"
+msgstr ""
+
+#: includes/datatypes.php:86 assets/js/blocks.js:18 assets/js/edit.js:179
+msgid "Podcast"
+msgstr ""
+
+#: includes/datatypes.php:85 includes/datatypes.php:163
+#: includes/datatypes.php:164
+msgid "Podcasts"
+msgstr ""
+
+#: includes/blocks.php:47 assets/js/edit.js:180
+msgid "a podcast episode"
+msgstr ""
+
+#: includes/blocks.php:46 assets/js/edit.js:149
+msgid "Length (MM:SS)"
+msgstr ""
+
+#: includes/blocks.php:45 assets/js/edit.js:120
+msgid "Podcast Settings"
+msgstr ""
+
+#: includes/blocks.php:44 assets/js/blocks.js:19
+msgid "Insert a podcast episode into a post. To add it to a podcast feed, select a podcast in document settings."
+msgstr ""
