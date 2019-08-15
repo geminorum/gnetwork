@@ -63,7 +63,7 @@ class Update extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Update', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
+		$this->register_menu( _x( 'Update', 'Modules: Menu Name', 'gnetwork' ) );
 	}
 
 	public function default_options()
@@ -84,22 +84,22 @@ class Update extends gNetwork\Module
 				[
 					'field'       => 'disable_autoupdates',
 					'type'        => 'disabled',
-					'title'       => _x( 'Auto Update Core', 'Modules: Update: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Disables automatic updates of the WordPress core.', 'Modules: Update: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Auto Update Core', 'Modules: Update: Settings', 'gnetwork' ),
+					'description' => _x( 'Disables automatic updates of the WordPress core.', 'Modules: Update: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'disable_translations',
 					'type'        => 'disabled',
-					'title'       => _x( 'Auto and Async Translations', 'Modules: Update: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Disables asynchronous and automatic background translation updates.', 'Modules: Update: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Auto and Async Translations', 'Modules: Update: Settings', 'gnetwork' ),
+					'description' => _x( 'Disables asynchronous and automatic background translation updates.', 'Modules: Update: Settings', 'gnetwork' ),
 					'after'       => Settings::fieldAfterIcon( 'https://make.wordpress.org/core/?p=10922' ),
 				],
 			],
 			'_remote' => [
 				[
 					'field'       => 'remote_updates',
-					'title'       => _x( 'Remote Updates', 'Modules: Update: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Enables to check for updates on Github and Gitlab.', 'Modules: Update: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Remote Updates', 'Modules: Update: Settings', 'gnetwork' ),
+					'description' => _x( 'Enables to check for updates on Github and Gitlab.', 'Modules: Update: Settings', 'gnetwork' ),
 				],
 			],
 		];
@@ -115,20 +115,20 @@ class Update extends gNetwork\Module
 		$settings['_remote'][] = [
 			'field'       => 'service_tokens',
 			'type'        => 'text',
-			'title'       => _x( 'Service Tokens', 'Modules: Update: Settings', GNETWORK_TEXTDOMAIN ),
-			'description' => _x( 'Tokens to access external services.', 'Modules: Update: Settings', GNETWORK_TEXTDOMAIN ),
+			'title'       => _x( 'Service Tokens', 'Modules: Update: Settings', 'gnetwork' ),
+			'description' => _x( 'Tokens to access external services.', 'Modules: Update: Settings', 'gnetwork' ),
 			'field_class' => [ 'regular-text', 'code-text' ],
 			'values'      => [
-				'github' => _x( 'Github', 'Modules: Update: Settings', GNETWORK_TEXTDOMAIN ),
-				'gitlab' => _x( 'Gitlab', 'Modules: Update: Settings', GNETWORK_TEXTDOMAIN ),
+				'github' => _x( 'Github', 'Modules: Update: Settings', 'gnetwork' ),
+				'gitlab' => _x( 'Gitlab', 'Modules: Update: Settings', 'gnetwork' ),
 			],
 		];
 
 		$settings['_remote'][] = [
 			'field'       => 'package_tokens',
 			'type'        => 'text',
-			'title'       => _x( 'Package Tokens', 'Modules: Update: Settings', GNETWORK_TEXTDOMAIN ),
-			'description' => _x( 'Tokens to access specefic packages.', 'Modules: Update: Settings', GNETWORK_TEXTDOMAIN ),
+			'title'       => _x( 'Package Tokens', 'Modules: Update: Settings', 'gnetwork' ),
+			'description' => _x( 'Tokens to access specefic packages.', 'Modules: Update: Settings', 'gnetwork' ),
 			'field_class' => [ 'regular-text', 'code-text' ],
 			'values'      => $packages,
 		];
@@ -139,8 +139,8 @@ class Update extends gNetwork\Module
 	public function settings_section_remote()
 	{
 		Settings::fieldSection(
-			_x( 'Remote', 'Modules: Update: Settings', GNETWORK_TEXTDOMAIN ),
-			_x( 'Updates themes and plugins from a remote repository.', 'Modules: Update: Settings', GNETWORK_TEXTDOMAIN )
+			_x( 'Remote', 'Modules: Update: Settings', 'gnetwork' ),
+			_x( 'Updates themes and plugins from a remote repository.', 'Modules: Update: Settings', 'gnetwork' )
 		);
 	}
 
@@ -150,12 +150,12 @@ class Update extends gNetwork\Module
 
 			if ( $this->options['remote_updates'] ) {
 
-				Settings::submitButton( 'refresh_packages', _x( 'Refresh Packages', 'Modules: Update', GNETWORK_TEXTDOMAIN ), 'small' );
-				HTML::desc( _x( 'Regenerates package informations.', 'Modules: Update', GNETWORK_TEXTDOMAIN ), FALSE );
+				Settings::submitButton( 'refresh_packages', _x( 'Refresh Packages', 'Modules: Update', 'gnetwork' ), 'small' );
+				HTML::desc( _x( 'Regenerates package informations.', 'Modules: Update', 'gnetwork' ), FALSE );
 
 			} else {
 
-				HTML::desc( _x( 'Remote updates are disabled.', 'Modules: Update', GNETWORK_TEXTDOMAIN ), TRUE, '-empty' );
+				HTML::desc( _x( 'Remote updates are disabled.', 'Modules: Update', 'gnetwork' ), TRUE, '-empty' );
 			}
 
 		echo '</p>';
@@ -413,7 +413,7 @@ class Update extends gNetwork\Module
 			return $source;
 
 		// FIXME: not working: probably no refrence to the upgrader
-		// $upgrader->skin->feedback( _x( 'Renaming package &hellip;', 'Modules: Update', GNETWORK_TEXTDOMAIN ) );
+		// $upgrader->skin->feedback( _x( 'Renaming package &hellip;', 'Modules: Update', 'gnetwork' ) );
 
 		$wp_filesystem->move( $source, $new );
 

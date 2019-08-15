@@ -23,7 +23,7 @@ class Code extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Code', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
+		$this->register_menu( _x( 'Code', 'Modules: Menu Name', 'gnetwork' ) );
 	}
 
 	public function default_options()
@@ -69,12 +69,12 @@ class Code extends gNetwork\Module
 	public function tinymce_strings( $strings )
 	{
 		$new = [
-			'gnetworkprismjs-title'  => _x( 'PrismJS', 'TinyMCE Strings: PrismJS', GNETWORK_TEXTDOMAIN ),
-			'gnetworkprismjs-window' => _x( 'PrismJS: Syntax Highlighter', 'TinyMCE Strings: PrismJS', GNETWORK_TEXTDOMAIN ),
-			'gnetworkprismjs-input'  => _x( 'The Code', 'TinyMCE Strings: PrismJS', GNETWORK_TEXTDOMAIN ),
-			'gnetworkprismjs-lang'   => _x( 'Language', 'TinyMCE Strings: PrismJS', GNETWORK_TEXTDOMAIN ),
-			'gnetworkprismjs-height' => _x( 'Max Height', 'TinyMCE Strings: PrismJS', GNETWORK_TEXTDOMAIN ),
-			'gnetworkprismjs-file'   => _x( 'File Name', 'TinyMCE Strings: PrismJS', GNETWORK_TEXTDOMAIN ),
+			'gnetworkprismjs-title'  => _x( 'PrismJS', 'TinyMCE Strings: PrismJS', 'gnetwork' ),
+			'gnetworkprismjs-window' => _x( 'PrismJS: Syntax Highlighter', 'TinyMCE Strings: PrismJS', 'gnetwork' ),
+			'gnetworkprismjs-input'  => _x( 'The Code', 'TinyMCE Strings: PrismJS', 'gnetwork' ),
+			'gnetworkprismjs-lang'   => _x( 'Language', 'TinyMCE Strings: PrismJS', 'gnetwork' ),
+			'gnetworkprismjs-height' => _x( 'Max Height', 'TinyMCE Strings: PrismJS', 'gnetwork' ),
+			'gnetworkprismjs-file'   => _x( 'File Name', 'TinyMCE Strings: PrismJS', 'gnetwork' ),
 		];
 
 		return array_merge( $strings, $new );

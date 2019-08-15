@@ -128,8 +128,8 @@ class Provider extends Core\Base
 		if ( count( $default_settings ) ) {
 			$settings['_provider_'.$this->key][] = [
 				'field'       => $this->key.'_enabled',
-				'title'       => _x( 'Provider', 'Provider Core', GNETWORK_TEXTDOMAIN ),
-				'description' => _x( 'Load this provider', 'Provider Core', GNETWORK_TEXTDOMAIN ),
+				'title'       => _x( 'Provider', 'Provider Core', 'gnetwork' ),
+				'description' => _x( 'Load this provider', 'Provider Core', 'gnetwork' ),
 			];
 
 			foreach ( $default_settings as $field => $args )
@@ -175,30 +175,30 @@ class Provider extends Core\Base
 			[
 				'field'       => 'load_providers',
 				'type'        => 'enabled',
-				'title'       => _x( 'Load Providers', 'Provider Core: Settings', GNETWORK_TEXTDOMAIN ),
-				'description' => _x( 'Tries to load available providers for this module.', 'Provider Core: Settings', GNETWORK_TEXTDOMAIN ),
+				'title'       => _x( 'Load Providers', 'Provider Core: Settings', 'gnetwork' ),
+				'description' => _x( 'Tries to load available providers for this module.', 'Provider Core: Settings', 'gnetwork' ),
 				'default'     => '0',
 			],
 			[
 				'field'       => 'debug_providers',
 				'type'        => 'enabled',
-				'title'       => _x( 'Debug Providers', 'Provider Core: Settings', GNETWORK_TEXTDOMAIN ),
-				'description' => _x( 'Shows debug information about available providers.', 'Provider Core: Settings', GNETWORK_TEXTDOMAIN ),
+				'title'       => _x( 'Debug Providers', 'Provider Core: Settings', 'gnetwork' ),
+				'description' => _x( 'Shows debug information about available providers.', 'Provider Core: Settings', 'gnetwork' ),
 				'default'     => '0',
 			],
 			[
 				'field'       => 'manage_providers',
 				'type'        => 'cap',
-				'title'       => _x( 'Access Level', 'Provider Core: Settings', GNETWORK_TEXTDOMAIN ),
-				'description' => _x( 'Selected and above can view the providers information.', 'Provider Core: Settings', GNETWORK_TEXTDOMAIN ),
+				'title'       => _x( 'Access Level', 'Provider Core: Settings', 'gnetwork' ),
+				'description' => _x( 'Selected and above can view the providers information.', 'Provider Core: Settings', 'gnetwork' ),
 				'default'     => 'edit_others_posts',
 				'disabled'    => empty( $current['load_providers'] ),
 			],
 			[
 				'field'       => 'log_data',
 				'type'        => 'enabled',
-				'title'       => _x( 'Log Data', 'Provider Core: Settings', GNETWORK_TEXTDOMAIN ),
-				'description' => _x( 'Logs all data in a secure folder.', 'Provider Core: Settings', GNETWORK_TEXTDOMAIN ),
+				'title'       => _x( 'Log Data', 'Provider Core: Settings', 'gnetwork' ),
+				'description' => _x( 'Logs all data in a secure folder.', 'Provider Core: Settings', 'gnetwork' ),
 				'default'     => '0',
 				'disabled'    => empty( $current['load_providers'] ),
 			],
@@ -210,7 +210,7 @@ class Provider extends Core\Base
 		return [
 			'field'   => 'default_provider',
 			'type'    => 'select',
-			'title'   => _x( 'Default Provider', 'Provider Core: Settings', GNETWORK_TEXTDOMAIN ),
+			'title'   => _x( 'Default Provider', 'Provider Core: Settings', 'gnetwork' ),
 			'default' => 'none',
 			'values'  => gNetwork()->providers( $type, [ 'none' => Settings::showOptionNone() ] ),
 		];

@@ -33,7 +33,7 @@ class Ajax extends Core\Base
 	public static function successMessage( $message = NULL )
 	{
 		if ( is_null( $message ) )
-			$message = _x( 'Succesful!', 'Ajax: Ajax Notice', GNETWORK_TEXTDOMAIN );
+			$message = _x( 'Succesful!', 'Ajax: Ajax Notice', 'gnetwork' );
 
 		if ( $message )
 			self::success( HTML::success( $message ) );
@@ -49,7 +49,7 @@ class Ajax extends Core\Base
 	public static function errorMessage( $message = NULL )
 	{
 		if ( is_null( $message ) )
-			$message = _x( 'Error!', 'Ajax: Ajax Notice', GNETWORK_TEXTDOMAIN );
+			$message = _x( 'Error!', 'Ajax: Ajax Notice', 'gnetwork' );
 
 		if ( $message )
 			self::error( HTML::error( $message ) );
@@ -59,12 +59,12 @@ class Ajax extends Core\Base
 
 	public static function errorUserCant()
 	{
-		self::errorMessage( _x( 'You\'re not authorized!', 'Ajax: Ajax Notice', GNETWORK_TEXTDOMAIN ) );
+		self::errorMessage( _x( 'You\'re not authorized!', 'Ajax: Ajax Notice', 'gnetwork' ) );
 	}
 
 	public static function errorWhat()
 	{
-		self::errorMessage( _x( 'What?!', 'Ajax: Ajax Notice', GNETWORK_TEXTDOMAIN ) );
+		self::errorMessage( _x( 'What?!', 'Ajax: Ajax Notice', 'gnetwork' ) );
 	}
 
 	// @REF: https://make.wordpress.org/core/?p=12799

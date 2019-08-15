@@ -28,7 +28,7 @@ class Utilities extends Core\Base
 
 		if ( ! empty( $updates[$plugin] ) )
 			echo HTML::info( sprintf(
-				_x( 'A new version of %s is available. Please update to version %s to ensure compatibility with your WordPress.', 'Utilities: Update Notice', GNETWORK_TEXTDOMAIN ),
+				_x( 'A new version of %s is available. Please update to version %s to ensure compatibility with your WordPress.', 'Utilities: Update Notice', 'gnetwork' ),
 				HTML::link( $updates[$plugin]->Name, $updates[$plugin]->PluginURI, TRUE ),
 				$updates[$plugin]->update->new_version
 			) );
@@ -84,7 +84,7 @@ class Utilities extends Core\Base
 
 	public static function humanTimeAgo( $from, $to = '' )
 	{
-		return sprintf( _x( '%s ago', 'Utilities: Human Time Ago', GNETWORK_TEXTDOMAIN ), human_time_diff( $from, $to ) );
+		return sprintf( _x( '%s ago', 'Utilities: Human Time Ago', 'gnetwork' ), human_time_diff( $from, $to ) );
 	}
 
 	public static function humanTimeDiffRound( $local, $round = NULL, $format = NULL, $now = NULL )
@@ -115,16 +115,16 @@ class Utilities extends Core\Base
 
 		if ( is_null( $strings ) )
 			$strings = [
-				'now'    => _x( 'Now', 'Utilities: Human Time Diff', GNETWORK_TEXTDOMAIN ),
-				'_s_ago' => _x( '%s ago', 'Utilities: Human Time Diff', GNETWORK_TEXTDOMAIN ),
-				'in__s'  => _x( 'in %s', 'Utilities: Human Time Diff', GNETWORK_TEXTDOMAIN ),
+				'now'    => _x( 'Now', 'Utilities: Human Time Diff', 'gnetwork' ),
+				'_s_ago' => _x( '%s ago', 'Utilities: Human Time Diff', 'gnetwork' ),
+				'in__s'  => _x( 'in %s', 'Utilities: Human Time Diff', 'gnetwork' ),
 
-				'noop_minutes' => _nx_noop( '%s min', '%s mins', 'Utilities: Human Time Diff: Noop', GNETWORK_TEXTDOMAIN ),
-				'noop_hours'   => _nx_noop( '%s hour', '%s hours', 'Utilities: Human Time Diff: Noop', GNETWORK_TEXTDOMAIN ),
-				'noop_days'    => _nx_noop( '%s day', '%s days', 'Utilities: Human Time Diff: Noop', GNETWORK_TEXTDOMAIN ),
-				'noop_weeks'   => _nx_noop( '%s week', '%s weeks', 'Utilities: Human Time Diff: Noop', GNETWORK_TEXTDOMAIN ),
-				'noop_months'  => _nx_noop( '%s month', '%s months', 'Utilities: Human Time Diff: Noop', GNETWORK_TEXTDOMAIN ),
-				'noop_years'   => _nx_noop( '%s year', '%s years', 'Utilities: Human Time Diff: Noop', GNETWORK_TEXTDOMAIN ),
+				'noop_minutes' => _nx_noop( '%s min', '%s mins', 'Utilities: Human Time Diff: Noop', 'gnetwork' ),
+				'noop_hours'   => _nx_noop( '%s hour', '%s hours', 'Utilities: Human Time Diff: Noop', 'gnetwork' ),
+				'noop_days'    => _nx_noop( '%s day', '%s days', 'Utilities: Human Time Diff: Noop', 'gnetwork' ),
+				'noop_weeks'   => _nx_noop( '%s week', '%s weeks', 'Utilities: Human Time Diff: Noop', 'gnetwork' ),
+				'noop_months'  => _nx_noop( '%s month', '%s months', 'Utilities: Human Time Diff: Noop', 'gnetwork' ),
+				'noop_years'   => _nx_noop( '%s year', '%s years', 'Utilities: Human Time Diff: Noop', 'gnetwork' ),
 			];
 
 		if ( empty( $now ) )
@@ -139,12 +139,12 @@ class Utilities extends Core\Base
 
 		if ( is_null( $strings ) )
 			$strings = [
-				'sep' => _x( ', ', 'Utilities: From Seconds: Seperator', GNETWORK_TEXTDOMAIN ),
+				'sep' => _x( ', ', 'Utilities: From Seconds: Seperator', 'gnetwork' ),
 
-				'noop_seconds' => _nx_noop( '%s second', '%s seconds', 'Utilities: From Seconds: Noop', GNETWORK_TEXTDOMAIN ),
-				'noop_minutes' => _nx_noop( '%s min', '%s mins', 'Utilities: From Seconds: Noop', GNETWORK_TEXTDOMAIN ),
-				'noop_hours'   => _nx_noop( '%s hour', '%s hours', 'Utilities: From Seconds: Noop', GNETWORK_TEXTDOMAIN ),
-				'noop_days'    => _nx_noop( '%s day', '%s days', 'Utilities: From Seconds: Noop', GNETWORK_TEXTDOMAIN ),
+				'noop_seconds' => _nx_noop( '%s second', '%s seconds', 'Utilities: From Seconds: Noop', 'gnetwork' ),
+				'noop_minutes' => _nx_noop( '%s min', '%s mins', 'Utilities: From Seconds: Noop', 'gnetwork' ),
+				'noop_hours'   => _nx_noop( '%s hour', '%s hours', 'Utilities: From Seconds: Noop', 'gnetwork' ),
+				'noop_days'    => _nx_noop( '%s day', '%s days', 'Utilities: From Seconds: Noop', 'gnetwork' ),
 			];
 
 		return Date::htmlFromSeconds( $seconds, $round, $strings );
@@ -157,27 +157,27 @@ class Utilities extends Core\Base
 
 		if ( is_null( $strings ) )
 			$strings = [
-				'now'            => _x( 'Now', 'Utilities: Date: Moment', GNETWORK_TEXTDOMAIN ),
-				'just_now'       => _x( 'Just now', 'Utilities: Date: Moment', GNETWORK_TEXTDOMAIN ),
-				'one_minute_ago' => _x( 'One minute ago', 'Utilities: Date: Moment', GNETWORK_TEXTDOMAIN ),
-				'_s_minutes_ago' => _x( '%s minutes ago', 'Utilities: Date: Moment', GNETWORK_TEXTDOMAIN ),
-				'one_hour_ago'   => _x( 'One hour ago', 'Utilities: Date: Moment', GNETWORK_TEXTDOMAIN ),
-				'_s_hours_ago'   => _x( '%s hours ago', 'Utilities: Date: Moment', GNETWORK_TEXTDOMAIN ),
-				'yesterday'      => _x( 'Yesterday', 'Utilities: Date: Moment', GNETWORK_TEXTDOMAIN ),
-				'_s_days_ago'    => _x( '%s days ago', 'Utilities: Date: Moment', GNETWORK_TEXTDOMAIN ),
-				'_s_weeks_ago'   => _x( '%s weeks ago', 'Utilities: Date: Moment', GNETWORK_TEXTDOMAIN ),
-				'last_month'     => _x( 'Last month', 'Utilities: Date: Moment', GNETWORK_TEXTDOMAIN ),
-				'last_year'      => _x( 'Last year', 'Utilities: Date: Moment', GNETWORK_TEXTDOMAIN ),
-				'in_a_minute'    => _x( 'in a minute', 'Utilities: Date: Moment', GNETWORK_TEXTDOMAIN ),
-				'in__s_minutes'  => _x( 'in %s minutes', 'Utilities: Date: Moment', GNETWORK_TEXTDOMAIN ),
-				'in_an_hour'     => _x( 'in an hour', 'Utilities: Date: Moment', GNETWORK_TEXTDOMAIN ),
-				'in__s_hours'    => _x( 'in %s hours', 'Utilities: Date: Moment', GNETWORK_TEXTDOMAIN ),
-				'tomorrow'       => _x( 'Tomorrow', 'Utilities: Date: Moment', GNETWORK_TEXTDOMAIN ),
-				'next_week'      => _x( 'next week', 'Utilities: Date: Moment', GNETWORK_TEXTDOMAIN ),
-				'in__s_weeks'    => _x( 'in %s weeks', 'Utilities: Date: Moment', GNETWORK_TEXTDOMAIN ),
-				'next_month'     => _x( 'next month', 'Utilities: Date: Moment', GNETWORK_TEXTDOMAIN ),
-				'format_l'       => _x( 'l', 'Utilities: Date: Moment', GNETWORK_TEXTDOMAIN ),
-				'format_f_y'     => _x( 'F Y', 'Utilities: Date: Moment', GNETWORK_TEXTDOMAIN ),
+				'now'            => _x( 'Now', 'Utilities: Date: Moment', 'gnetwork' ),
+				'just_now'       => _x( 'Just now', 'Utilities: Date: Moment', 'gnetwork' ),
+				'one_minute_ago' => _x( 'One minute ago', 'Utilities: Date: Moment', 'gnetwork' ),
+				'_s_minutes_ago' => _x( '%s minutes ago', 'Utilities: Date: Moment', 'gnetwork' ),
+				'one_hour_ago'   => _x( 'One hour ago', 'Utilities: Date: Moment', 'gnetwork' ),
+				'_s_hours_ago'   => _x( '%s hours ago', 'Utilities: Date: Moment', 'gnetwork' ),
+				'yesterday'      => _x( 'Yesterday', 'Utilities: Date: Moment', 'gnetwork' ),
+				'_s_days_ago'    => _x( '%s days ago', 'Utilities: Date: Moment', 'gnetwork' ),
+				'_s_weeks_ago'   => _x( '%s weeks ago', 'Utilities: Date: Moment', 'gnetwork' ),
+				'last_month'     => _x( 'Last month', 'Utilities: Date: Moment', 'gnetwork' ),
+				'last_year'      => _x( 'Last year', 'Utilities: Date: Moment', 'gnetwork' ),
+				'in_a_minute'    => _x( 'in a minute', 'Utilities: Date: Moment', 'gnetwork' ),
+				'in__s_minutes'  => _x( 'in %s minutes', 'Utilities: Date: Moment', 'gnetwork' ),
+				'in_an_hour'     => _x( 'in an hour', 'Utilities: Date: Moment', 'gnetwork' ),
+				'in__s_hours'    => _x( 'in %s hours', 'Utilities: Date: Moment', 'gnetwork' ),
+				'tomorrow'       => _x( 'Tomorrow', 'Utilities: Date: Moment', 'gnetwork' ),
+				'next_week'      => _x( 'next week', 'Utilities: Date: Moment', 'gnetwork' ),
+				'in__s_weeks'    => _x( 'in %s weeks', 'Utilities: Date: Moment', 'gnetwork' ),
+				'next_month'     => _x( 'next month', 'Utilities: Date: Moment', 'gnetwork' ),
+				'format_l'       => _x( 'l', 'Utilities: Date: Moment', 'gnetwork' ),
+				'format_f_y'     => _x( 'F Y', 'Utilities: Date: Moment', 'gnetwork' ),
 			];
 
 		if ( empty( $now ) )
@@ -242,14 +242,14 @@ class Utilities extends Core\Base
 
 		if ( empty( $formats ) )
 			$formats = apply_filters( 'custom_date_formats', [
-				'fulltime'  => _x( 'l, M j, Y @ H:i', 'Date Format', GNETWORK_TEXTDOMAIN ),
-				'datetime'  => _x( 'M j, Y @ G:i', 'Date Format', GNETWORK_TEXTDOMAIN ),
-				'dateonly'  => _x( 'l, F j, Y', 'Date Format', GNETWORK_TEXTDOMAIN ),
-				'timedate'  => _x( 'H:i - F j, Y', 'Date Format', GNETWORK_TEXTDOMAIN ),
-				'timeampm'  => _x( 'g:i a', 'Date Format', GNETWORK_TEXTDOMAIN ),
-				'timeonly'  => _x( 'H:i', 'Date Format', GNETWORK_TEXTDOMAIN ),
-				'monthday'  => _x( 'n/j', 'Date Format', GNETWORK_TEXTDOMAIN ),
-				'default'   => _x( 'm/d/Y', 'Date Format', GNETWORK_TEXTDOMAIN ),
+				'fulltime'  => _x( 'l, M j, Y @ H:i', 'Date Format', 'gnetwork' ),
+				'datetime'  => _x( 'M j, Y @ G:i', 'Date Format', 'gnetwork' ),
+				'dateonly'  => _x( 'l, F j, Y', 'Date Format', 'gnetwork' ),
+				'timedate'  => _x( 'H:i - F j, Y', 'Date Format', 'gnetwork' ),
+				'timeampm'  => _x( 'g:i a', 'Date Format', 'gnetwork' ),
+				'timeonly'  => _x( 'H:i', 'Date Format', 'gnetwork' ),
+				'monthday'  => _x( 'n/j', 'Date Format', 'gnetwork' ),
+				'default'   => _x( 'm/d/Y', 'Date Format', 'gnetwork' ),
 				'wordpress' => get_option( 'date_format' ),
 			] );
 
@@ -273,7 +273,7 @@ class Utilities extends Core\Base
 			return '';
 
 		if ( is_null( $fallback ) )
-			return _x( '(untitled)', 'Utilities: Post Title', GNETWORK_TEXTDOMAIN );
+			return _x( '(untitled)', 'Utilities: Post Title', 'gnetwork' );
 
 		return $fallback;
 	}
@@ -389,19 +389,19 @@ class Utilities extends Core\Base
 	public static function joinItems( $items )
 	{
 		return
-			_x( '&rdquo;', 'Utilities: Join Items Helper', GNETWORK_TEXTDOMAIN )
-			.join( _x( '&ldquo; and &rdquo;', 'Utilities: Join Items Helper', GNETWORK_TEXTDOMAIN ),
+			_x( '&rdquo;', 'Utilities: Join Items Helper', 'gnetwork' )
+			.join( _x( '&ldquo; and &rdquo;', 'Utilities: Join Items Helper', 'gnetwork' ),
 				array_filter( array_merge( [
-					join( _x( '&ldquo;, &rdquo;', 'Utilities: Join Items Helper', GNETWORK_TEXTDOMAIN ),
+					join( _x( '&ldquo;, &rdquo;', 'Utilities: Join Items Helper', 'gnetwork' ),
 					array_slice( $items, 0, -1 ) ) ],
 					array_slice( $items, -1 ) ) ) )
-			._x( '&ldquo;', 'Utilities: Join Items Helper', GNETWORK_TEXTDOMAIN ).'.';
+			._x( '&ldquo;', 'Utilities: Join Items Helper', 'gnetwork' ).'.';
 	}
 
 	public static function getJoined( $items, $before = '', $after = '', $empty = '' )
 	{
 		if ( count( $items ) )
-			return $before.join( _x( ', ', 'Utilities: Item Seperator', GNETWORK_TEXTDOMAIN ), $items ).$after;
+			return $before.join( _x( ', ', 'Utilities: Item Seperator', 'gnetwork' ), $items ).$after;
 
 		return $empty;
 	}
@@ -585,11 +585,11 @@ class Utilities extends Core\Base
 	public static function htmlSSLfromURL( $url )
 	{
 		if ( Text::has( $url, 'https://' ) ) {
-			echo HTML::getDashicon( 'lock', _x( 'SSL Enabled', 'Utilities: Title', GNETWORK_TEXTDOMAIN ), '-success' );
+			echo HTML::getDashicon( 'lock', _x( 'SSL Enabled', 'Utilities: Title', 'gnetwork' ), '-success' );
 			return TRUE;
 		}
 
-		echo HTML::getDashicon( 'unlock', _x( 'SSL Disabled', 'Utilities: Title', GNETWORK_TEXTDOMAIN ), '-danger' );
+		echo HTML::getDashicon( 'unlock', _x( 'SSL Disabled', 'Utilities: Title', 'gnetwork' ), '-danger' );
 		return FALSE;
 	}
 
@@ -601,15 +601,15 @@ class Utilities extends Core\Base
 		Scripts::enqueueScript( 'api.remote.content' );
 
 		$data   = [ 'action' => 'import-remote-content', 'remote' => $remote, 'target' => $target ];
-		$label  = HTML::getDashicon( 'download' ).' '._x( 'Import', 'Utilities: Remote Content', GNETWORK_TEXTDOMAIN ).'&nbsp;';
-		$title  = _x( 'Import from a remote content.', 'Utilities: Remote Content', GNETWORK_TEXTDOMAIN );
+		$label  = HTML::getDashicon( 'download' ).' '._x( 'Import', 'Utilities: Remote Content', 'gnetwork' ).'&nbsp;';
+		$title  = _x( 'Import from a remote content.', 'Utilities: Remote Content', 'gnetwork' );
 		$button = HTML::button( $label, '#', $title, TRUE, $data );
 
 		$icon = HTML::tag( 'a', [
 			'href'   => $remote,
 			'target' => '_blank',
 			'class'  => '-icon-wrap',
-			'title'  => _x( 'See the remote content.', 'Utilities: Remote Content', GNETWORK_TEXTDOMAIN ),
+			'title'  => _x( 'See the remote content.', 'Utilities: Remote Content', 'gnetwork' ),
 		], HTML::getDashicon( 'external' ) );
 
 		return $button.' '.$icon;
@@ -619,39 +619,39 @@ class Utilities extends Core\Base
 	{
 		if ( ! $constant ) {
 
-			HTML::desc( _x( 'Logging data disabled by constant.', 'Utilities', GNETWORK_TEXTDOMAIN ) );
+			HTML::desc( _x( 'Logging data disabled by constant.', 'Utilities', 'gnetwork' ) );
 
 		} else if ( $option ) {
 
 			if ( ! is_dir( $constant ) || ! wp_is_writable( $constant ) ) {
 
-				HTML::desc( _x( 'Log folder not exists or writable.', 'Utilities', GNETWORK_TEXTDOMAIN ) );
+				HTML::desc( _x( 'Log folder not exists or writable.', 'Utilities', 'gnetwork' ) );
 
 				echo '<p class="submit -wrap-buttons">';
-					Settings::submitButton( 'create_log_folder', _x( 'Create Log Folder', 'Utilities', GNETWORK_TEXTDOMAIN ), 'small' );
+					Settings::submitButton( 'create_log_folder', _x( 'Create Log Folder', 'Utilities', 'gnetwork' ), 'small' );
 				echo '</p>';
 
 			} else {
 
-				HTML::desc( sprintf( _x( 'Log folder exists and writable on: %s', 'Utilities', GNETWORK_TEXTDOMAIN ), '<code>'.$constant.'</code>' ) );
+				HTML::desc( sprintf( _x( 'Log folder exists and writable on: %s', 'Utilities', 'gnetwork' ), '<code>'.$constant.'</code>' ) );
 
 				if ( ! file_exists( $constant.'/.htaccess' ) )
-					HTML::desc( sprintf( _x( 'Warning: %s not found!', 'Utilities', GNETWORK_TEXTDOMAIN ), '<code>.htaccess</code>' ) );
+					HTML::desc( sprintf( _x( 'Warning: %s not found!', 'Utilities', 'gnetwork' ), '<code>.htaccess</code>' ) );
 			}
 
 		} else {
 
-			HTML::desc( _x( 'Data logs are disabled.', 'Utilities', GNETWORK_TEXTDOMAIN ), TRUE, '-empty' );
+			HTML::desc( _x( 'Data logs are disabled.', 'Utilities', 'gnetwork' ), TRUE, '-empty' );
 		}
 	}
 
 	public static function emptyDataLogs( $path )
 	{
 		if ( ! is_dir( $path ) || ! wp_is_writable( $path ) )
-			echo HTML::error( _x( 'Log folder not exists or writable.', 'Utilities', GNETWORK_TEXTDOMAIN ) );
+			echo HTML::error( _x( 'Log folder not exists or writable.', 'Utilities', 'gnetwork' ) );
 
 		else
-			echo HTML::warning( _x( 'No Logs!', 'Utilities', GNETWORK_TEXTDOMAIN ) );
+			echo HTML::warning( _x( 'No Logs!', 'Utilities', 'gnetwork' ) );
 	}
 
 	// @SOURCE: http://stackoverflow.com/a/14744288

@@ -50,7 +50,7 @@ class Site extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Global', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
+		$this->register_menu( _x( 'Global', 'Modules: Menu Name', 'gnetwork' ) );
 	}
 
 	public function default_options()
@@ -74,30 +74,30 @@ class Site extends gNetwork\Module
 
 		$settings['_general'][] = [
 			'field'       => 'ssl_support',
-			'title'       => _x( 'SSL', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
-			'description' => _x( 'Enables SSL tools to support the network sites.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+			'title'       => _x( 'SSL', 'Modules: Site: Settings', 'gnetwork' ),
+			'description' => _x( 'Enables SSL tools to support the network sites.', 'Modules: Site: Settings', 'gnetwork' ),
 		];
 
 		if ( function_exists( 'is_site_meta_supported' ) )
 			$settings['_general'][] = [
 				'field'       => 'resync_sitemeta',
-				'title'       => _x( 'Sync Metadata', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
-				'description' => _x( 'Re-syncs the site meta network-wide automatically.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+				'title'       => _x( 'Sync Metadata', 'Modules: Site: Settings', 'gnetwork' ),
+				'description' => _x( 'Re-syncs the site meta network-wide automatically.', 'Modules: Site: Settings', 'gnetwork' ),
 			];
 
 		$settings['_general'][] = [
 			'field'       => 'redirect_notfound',
 			'type'        => 'url',
-			'title'       => _x( 'Site Not Found', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
-			'description' => _x( 'Redirects to when the network can be determined but a site cannot.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+			'title'       => _x( 'Site Not Found', 'Modules: Site: Settings', 'gnetwork' ),
+			'description' => _x( 'Redirects to when the network can be determined but a site cannot.', 'Modules: Site: Settings', 'gnetwork' ),
 		];
 
 		if ( class_exists( __NAMESPACE__.'\\Locale' ) ) {
 			$settings['_general'][] = [
 				'field'       => 'admin_locale',
 				'type'        => 'select',
-				'title'       => _x( 'Network Locale', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
-				'description' => _x( 'Overrides network admin language, despite of the main site locale.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+				'title'       => _x( 'Network Locale', 'Modules: Site: Settings', 'gnetwork' ),
+				'description' => _x( 'Overrides network admin language, despite of the main site locale.', 'Modules: Site: Settings', 'gnetwork' ),
 				'default'     => 'en_US',
 				'values'      => Arraay::sameKey( Locale::available() ),
 			];
@@ -107,28 +107,28 @@ class Site extends gNetwork\Module
 			[
 				'field'       => 'access_denied',
 				'type'        => 'textarea-quicktags',
-				'title'       => _x( 'Access Denied', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
-				'description' => sprintf( _x( 'Displays when access to an admin page is denied. Leave empty to use default or %s to disable.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ), '<code>0</code>' ),
+				'title'       => _x( 'Access Denied', 'Modules: Site: Settings', 'gnetwork' ),
+				'description' => sprintf( _x( 'Displays when access to an admin page is denied. Leave empty to use default or %s to disable.', 'Modules: Site: Settings', 'gnetwork' ), '<code>0</code>' ),
 				'placeholder' => __( 'Sorry, you are not allowed to access this page.' ),
 			],
 			[
 				'field'       => 'denied_message',
 				'type'        => 'textarea-quicktags',
-				'title'       => _x( 'Denied Message', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
-				'description' => sprintf( _x( 'Displays this message when a user tries to view a site\'s dashboard they do not have access to. Leave empty to use default or %1$s to disable. %2$s: Blog Name', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ), '<code>0</code>', '<code>%1$s</code>' ),
+				'title'       => _x( 'Denied Message', 'Modules: Site: Settings', 'gnetwork' ),
+				'description' => sprintf( _x( 'Displays this message when a user tries to view a site\'s dashboard they do not have access to. Leave empty to use default or %1$s to disable. %2$s: Blog Name', 'Modules: Site: Settings', 'gnetwork' ), '<code>0</code>', '<code>%1$s</code>' ),
 				'placeholder' => __( 'You attempted to access the "%1$s" dashboard, but you do not currently have privileges on this site. If you believe you should be able to access the "%1$s" dashboard, please contact your network administrator.' ),
 			],
 			[
 				'field'       => 'denied_extra',
 				'type'        => 'textarea-quicktags',
-				'title'       => _x( 'Extra Message', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
-				'description' => sprintf( _x( 'Displays this message before the list of sites. Leave empty to use default or %s to disable.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ), '<code>0</code>' ),
+				'title'       => _x( 'Extra Message', 'Modules: Site: Settings', 'gnetwork' ),
+				'description' => sprintf( _x( 'Displays this message before the list of sites. Leave empty to use default or %s to disable.', 'Modules: Site: Settings', 'gnetwork' ), '<code>0</code>' ),
 				'placeholder' => __( 'If you reached this screen by accident and meant to visit one of your own sites, here are some shortcuts to help you find your way.' ),
 			],
 			[
 				'field'       => 'list_sites',
-				'title'       => _x( 'List of Sites', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
-				'description' => _x( 'Displays the current user list of sites after access denied message.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
+				'title'       => _x( 'List of Sites', 'Modules: Site: Settings', 'gnetwork' ),
+				'description' => _x( 'Displays the current user list of sites after access denied message.', 'Modules: Site: Settings', 'gnetwork' ),
 				'default'     => '1',
 			],
 		];
@@ -136,8 +136,8 @@ class Site extends gNetwork\Module
 		$settings['_misc'][] = [
 			'field'       => 'lookup_ip_service',
 			'type'        => 'text',
-			'title'       => _x( 'Lookup IP URL', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ),
-			'description' => sprintf( _x( 'URL template to to use for looking up IP adresses. Will replace %s with the IP.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ), '<code>%s</code>' ),
+			'title'       => _x( 'Lookup IP URL', 'Modules: Site: Settings', 'gnetwork' ),
+			'description' => sprintf( _x( 'URL template to to use for looking up IP adresses. Will replace %s with the IP.', 'Modules: Site: Settings', 'gnetwork' ), '<code>%s</code>' ),
 			'default'     => 'https://redirect.li/map/?ip=%s',
 			'dir'         => 'ltr',
 			'after'       => $this->options['lookup_ip_service'] ? Settings::fieldAfterLink( sprintf( $this->options['lookup_ip_service'], HTTP::IP() ) ) : '',
@@ -148,7 +148,7 @@ class Site extends gNetwork\Module
 
 	public function settings_section_denied()
 	{
-		Settings::fieldSection( _x( 'Dashboard Access', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ) );
+		Settings::fieldSection( _x( 'Dashboard Access', 'Modules: Site: Settings', 'gnetwork' ) );
 	}
 
 	public function settings_sidebox( $sub, $uri )
@@ -158,7 +158,7 @@ class Site extends gNetwork\Module
 		if ( $this->options['ssl_support'] ) {
 
 			if ( GNETWORK_DISABLE_SSL ) {
-				HTML::desc( sprintf( _x( 'The %s is set. The site will not redirect to HTTPS automatically.', 'Modules: Site: Settings', GNETWORK_TEXTDOMAIN ), '<code>GNETWORK_DISABLE_SSL</code>' ) );
+				HTML::desc( sprintf( _x( 'The %s is set. The site will not redirect to HTTPS automatically.', 'Modules: Site: Settings', 'gnetwork' ), '<code>GNETWORK_DISABLE_SSL</code>' ) );
 				echo '<hr />';
 			}
 
@@ -169,10 +169,10 @@ class Site extends gNetwork\Module
 			echo ' <code>'.$url.'</code> ';
 
 			if ( $ssl )
-				Settings::submitButton( 'disable_site_ssl', _x( 'Disable SSL', 'Modules: Site', GNETWORK_TEXTDOMAIN ), 'small' );
+				Settings::submitButton( 'disable_site_ssl', _x( 'Disable SSL', 'Modules: Site', 'gnetwork' ), 'small' );
 
 			else
-				Settings::submitButton( 'enable_site_ssl', _x( 'Enable SSL', 'Modules: Site', GNETWORK_TEXTDOMAIN ), 'small' );
+				Settings::submitButton( 'enable_site_ssl', _x( 'Enable SSL', 'Modules: Site', 'gnetwork' ), 'small' );
 
 			echo '</p>';
 
@@ -182,7 +182,7 @@ class Site extends gNetwork\Module
 		} else {
 
 			if ( ! $sitemeta )
-				HTML::desc( _x( 'SSL support disabled.', 'Modules: Site', GNETWORK_TEXTDOMAIN ), TRUE, '-empty' );
+				HTML::desc( _x( 'SSL support disabled.', 'Modules: Site', 'gnetwork' ), TRUE, '-empty' );
 		}
 
 		if ( $sitemeta ) {
@@ -191,17 +191,17 @@ class Site extends gNetwork\Module
 
 				echo $this->wrap_open_buttons();
 
-				Settings::submitButton( 'resync_sitemeta', _x( 'Re-sync Sites Meta', 'Modules: Site', GNETWORK_TEXTDOMAIN ), 'small' );
+				Settings::submitButton( 'resync_sitemeta', _x( 'Re-sync Sites Meta', 'Modules: Site', 'gnetwork' ), 'small' );
 
 				echo '&nbsp;';
 
-				Settings::submitButton( 'delete_sitemeta', _x( 'Delete Sites Meta', 'Modules: Site', GNETWORK_TEXTDOMAIN ), 'small button-danger' );
+				Settings::submitButton( 'delete_sitemeta', _x( 'Delete Sites Meta', 'Modules: Site', 'gnetwork' ), 'small button-danger' );
 
 				echo '</p>';
 
 			} else {
 
-				HTML::desc( _x( 'Sync Metadata disabled.', 'Modules: Site', GNETWORK_TEXTDOMAIN ), TRUE, '-empty' );
+				HTML::desc( _x( 'Sync Metadata disabled.', 'Modules: Site', 'gnetwork' ), TRUE, '-empty' );
 			}
 		}
 	}
@@ -304,7 +304,7 @@ class Site extends gNetwork\Module
 		$html = '';
 
 		if ( is_null( $title ) )
-			$html.= '<h3>'._x( 'Your Sites', 'Modules: Site: User Sites', GNETWORK_TEXTDOMAIN ).'</h3>';
+			$html.= '<h3>'._x( 'Your Sites', 'Modules: Site: User Sites', 'gnetwork' ).'</h3>';
 
 		else if ( $title )
 			$html.= $title;
@@ -313,9 +313,9 @@ class Site extends gNetwork\Module
 
 		foreach ( $blogs as $blog ) {
 			$html.= '<tr><td>'.$blog->blogname.'</td><td>';
-			$html.= HTML::link( _x( 'Visit Dashboard', 'Modules: Site: User Sites', GNETWORK_TEXTDOMAIN ), get_admin_url( $blog->userblog_id ) );
+			$html.= HTML::link( _x( 'Visit Dashboard', 'Modules: Site: User Sites', 'gnetwork' ), get_admin_url( $blog->userblog_id ) );
 			$html.= ' | ';
-			$html.= HTML::link( _x( 'View Site', 'Modules: Site: User Sites', GNETWORK_TEXTDOMAIN ), $blog->siteurl );
+			$html.= HTML::link( _x( 'View Site', 'Modules: Site: User Sites', 'gnetwork' ), $blog->siteurl );
 			$html.= '</td></tr>';
 		}
 
@@ -345,7 +345,7 @@ class Site extends gNetwork\Module
 		foreach ( $new_blog_options as $new_blog_option_key => $new_blog_option )
 			update_option( $new_blog_option_key, $new_blog_option );
 
-		$new_post_content = $this->filters( 'new_post_content', _x( '[ This page is being completed ]', 'Modules: Site: Initial Page Content', GNETWORK_TEXTDOMAIN ) );
+		$new_post_content = $this->filters( 'new_post_content', _x( '[ This page is being completed ]', 'Modules: Site: Initial Page Content', 'gnetwork' ) );
 
 		wp_update_post( [ 'ID' => 1, 'post_status' => 'draft', 'post_title' => '', 'post_name' => '', 'post_content' => $new_post_content, 'post_type' => 'page' ] );
 		wp_update_post( [ 'ID' => 2, 'post_status' => 'draft', 'post_title' => '', 'post_name' => '', 'post_content' => $new_post_content ] );

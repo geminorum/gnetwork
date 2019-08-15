@@ -59,19 +59,19 @@ class Debug extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_tool( _x( 'Remote Tests', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ), 'remotetests' );
+		$this->register_tool( _x( 'Remote Tests', 'Modules: Menu Name', 'gnetwork' ), 'remotetests' );
 
 		if ( ! is_multisite() )
-			Admin::registerTool( 'systemreport', _x( 'System Report', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
+			Admin::registerTool( 'systemreport', _x( 'System Report', 'Modules: Menu Name', 'gnetwork' ) );
 
 		if ( GNETWORK_DEBUG_LOG )
-			$this->register_tool( _x( 'Error Logs', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ), 'errorlogs', 20, NULL, FALSE );
+			$this->register_tool( _x( 'Error Logs', 'Modules: Menu Name', 'gnetwork' ), 'errorlogs', 20, NULL, FALSE );
 
 		if ( GNETWORK_ANALOG_LOG )
-			$this->register_tool( _x( 'System Logs', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ), 'analoglogs', 20, NULL, FALSE );
+			$this->register_tool( _x( 'System Logs', 'Modules: Menu Name', 'gnetwork' ), 'analoglogs', 20, NULL, FALSE );
 
 		if ( GNETWORK_FAILED_LOG )
-			$this->register_tool( _x( 'Failed Logs', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ), 'failedlogs', 20, NULL, FALSE );
+			$this->register_tool( _x( 'Failed Logs', 'Modules: Menu Name', 'gnetwork' ), 'failedlogs', 20, NULL, FALSE );
 	}
 
 	public function tools( $sub = NULL, $key = NULL )
@@ -83,8 +83,8 @@ class Debug extends gNetwork\Module
 	protected function tools_buttons( $sub = NULL )
 	{
 		if ( in_array( $sub, [ 'errorlogs', 'analoglogs', 'failedlogs' ] ) ) {
-			$this->register_button( 'clear_logs', _x( 'Clear Logs', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
-			$this->register_button( 'download_logs', _x( 'Download Logs', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+			$this->register_button( 'clear_logs', _x( 'Clear Logs', 'Modules: Debug', 'gnetwork' ) );
+			$this->register_button( 'download_logs', _x( 'Download Logs', 'Modules: Debug', 'gnetwork' ) );
 		}
 	}
 
@@ -148,44 +148,44 @@ class Debug extends gNetwork\Module
 
 	public static function displayReport()
 	{
-		HTML::desc( _x( 'Below you can find various raw information about current server and WordPress installation.', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ) );
+		HTML::desc( _x( 'Below you can find various raw information about current server and WordPress installation.', 'Modules: Debug: System Report', 'gnetwork' ) );
 
 		HTML::tabsList( [
 			'currents' => [
-				'title'  => _x( 'Currents', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
+				'title'  => _x( 'Currents', 'Modules: Debug: System Report', 'gnetwork' ),
 				'cb'     => [ __CLASS__, 'summaryCurrents' ],
 				'active' => TRUE,
 			],
 			'server' => [
-				'title' => _x( 'SERVER', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
+				'title' => _x( 'SERVER', 'Modules: Debug: System Report', 'gnetwork' ),
 				'cb'    => [ __CLASS__, 'dumpServer' ],
 			],
 			'gplugin' => [
-				'title' => _x( 'gPlugin', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
+				'title' => _x( 'gPlugin', 'Modules: Debug: System Report', 'gnetwork' ),
 				'cb'    => [ __CLASS__, 'gPlugin' ],
 			],
 			'htaccess' => [
-				'title' => _x( 'htaccess', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
+				'title' => _x( 'htaccess', 'Modules: Debug: System Report', 'gnetwork' ),
 				'cb'    => [ __CLASS__, 'htaccessSummary' ],
 			],
 			'wpconfig' => [
-				'title' => _x( 'WP-Config', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
+				'title' => _x( 'WP-Config', 'Modules: Debug: System Report', 'gnetwork' ),
 				'cb'    => [ __CLASS__, 'wpconfigSummary' ],
 			],
 			'custom' => [
-				'title' => _x( 'Network Custom', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
+				'title' => _x( 'Network Custom', 'Modules: Debug: System Report', 'gnetwork' ),
 				'cb'    => [ __CLASS__, 'customSummary' ],
 			],
 			'bp_custom' => [
-				'title' => _x( 'BuddyPress Custom', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
+				'title' => _x( 'BuddyPress Custom', 'Modules: Debug: System Report', 'gnetwork' ),
 				'cb'    => [ __CLASS__, 'bpCustomSummary' ],
 			],
 			'phpinfo' => [
-				'title' => _x( 'PHP Info', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
+				'title' => _x( 'PHP Info', 'Modules: Debug: System Report', 'gnetwork' ),
 				'cb'    => [ __CLASS__, 'phpinfo' ],
 			],
 			'phpfuncs' => [
-				'title' => _x( 'PHP Functions', 'Modules: Debug: System Report', GNETWORK_TEXTDOMAIN ),
+				'title' => _x( 'PHP Functions', 'Modules: Debug: System Report', 'gnetwork' ),
 				'cb'    => [ __CLASS__, 'phpFunctions' ],
 			],
 		] );
@@ -197,8 +197,8 @@ class Debug extends gNetwork\Module
 	// FIXME!
 	private static function displayTests()
 	{
-		Settings::headerTitle( _x( 'Website Remote Tests', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
-		HTML::desc( _x( 'No tests available, yet!', 'Modules: Debug', GNETWORK_TEXTDOMAIN ), TRUE, '-empty' );
+		Settings::headerTitle( _x( 'Website Remote Tests', 'Modules: Debug', 'gnetwork' ) );
+		HTML::desc( _x( 'No tests available, yet!', 'Modules: Debug', 'gnetwork' ), TRUE, '-empty' );
 	}
 
 	// TODO: add limit/length input
@@ -212,7 +212,7 @@ class Debug extends gNetwork\Module
 			if ( $logs = File::getLastLines( $file, self::limit( 100 ) ) ) {
 
 				$length = self::req( 'length', FALSE );
-				$title = sprintf( _x( 'The Last %s Logs, in reverse order', 'Modules: Debug: Log Box', GNETWORK_TEXTDOMAIN ), Number::format( count( $logs ) ) );
+				$title = sprintf( _x( 'The Last %s Logs, in reverse order', 'Modules: Debug: Log Box', 'gnetwork' ), Number::format( count( $logs ) ) );
 
 				Settings::headerTitle( $title );
 				echo '<div class="log-box"><ol>';
@@ -232,7 +232,7 @@ class Debug extends gNetwork\Module
 				}
 
 				echo '</ol></div>';
-				HTML::desc( sprintf( _x( 'File Size: %s', 'Modules: Debug: Log Box', GNETWORK_TEXTDOMAIN ), HTML::wrapLTR( $file_size ) ), TRUE, 'log-box-footer' );
+				HTML::desc( sprintf( _x( 'File Size: %s', 'Modules: Debug: Log Box', 'gnetwork' ), HTML::wrapLTR( $file_size ) ), TRUE, 'log-box-footer' );
 
 			} else {
 				echo gNetwork()->na();
@@ -240,7 +240,7 @@ class Debug extends gNetwork\Module
 			}
 
 		} else {
-			echo HTML::error( _x( 'There was a problem reading the logs.', 'Modules: Debug: Log Box', GNETWORK_TEXTDOMAIN ) );
+			echo HTML::error( _x( 'There was a problem reading the logs.', 'Modules: Debug: Log Box', 'gnetwork' ) );
 			return FALSE;
 		}
 
@@ -255,15 +255,15 @@ class Debug extends gNetwork\Module
 	public static function summaryWordPress()
 	{
 		$versions = [
-			'wp_version'             => _x( 'WordPress', 'Modules: Debug: Version Strings', GNETWORK_TEXTDOMAIN ),
-			'wp_db_version'          => _x( 'WordPress DB revision', 'Modules: Debug: Version Strings', GNETWORK_TEXTDOMAIN ),
-			'tinymce_version'        => _x( 'TinyMCE', 'Modules: Debug: Version Strings', GNETWORK_TEXTDOMAIN ),
-			'required_php_version'   => _x( 'Required PHP', 'Modules: Debug: Version Strings', GNETWORK_TEXTDOMAIN ),
-			'required_mysql_version' => _x( 'Required MySQL', 'Modules: Debug: Version Strings', GNETWORK_TEXTDOMAIN ),
+			'wp_version'             => _x( 'WordPress', 'Modules: Debug: Version Strings', 'gnetwork' ),
+			'wp_db_version'          => _x( 'WordPress DB revision', 'Modules: Debug: Version Strings', 'gnetwork' ),
+			'tinymce_version'        => _x( 'TinyMCE', 'Modules: Debug: Version Strings', 'gnetwork' ),
+			'required_php_version'   => _x( 'Required PHP', 'Modules: Debug: Version Strings', 'gnetwork' ),
+			'required_mysql_version' => _x( 'Required MySQL', 'Modules: Debug: Version Strings', 'gnetwork' ),
 		];
 
 		echo '<div class="-wrap card -floated" dir="ltr">';
-		HTML::h2( _x( 'Core Versions', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+		HTML::h2( _x( 'Core Versions', 'Modules: Debug', 'gnetwork' ) );
 
 		echo '<table class="base-table-code"><tbody>';
 		foreach ( $versions as $key => $val )
@@ -283,7 +283,7 @@ class Debug extends gNetwork\Module
 			HTML::tableSide( $info[0] );
 
 		} else {
-			HTML::desc( _x( 'No Instance of gPlugin found.', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+			HTML::desc( _x( 'No Instance of gPlugin found.', 'Modules: Debug', 'gnetwork' ) );
 		}
 	}
 
@@ -306,7 +306,7 @@ class Debug extends gNetwork\Module
 			echo '<pre data-prism="yes" class="language-php line-numbers" dir="ltr"><code class="language-php">'
 				.HTML::escapeTextarea( File::getContents( $wpconfig ) ).'</code></pre>';
 		else
-			HTML::desc( _x( 'Can not find the config file!', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+			HTML::desc( _x( 'Can not find the config file!', 'Modules: Debug', 'gnetwork' ) );
 	}
 
 	public static function customSummary()
@@ -315,7 +315,7 @@ class Debug extends gNetwork\Module
 			echo '<pre data-prism="yes" class="language-php line-numbers" dir="ltr"><code class="language-php">'
 				.HTML::escapeTextarea( File::getContents( WP_CONTENT_DIR.'/gnetwork-custom.php' ) ).'</code></pre>';
 		else
-			HTML::desc( _x( 'No custom file found.', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+			HTML::desc( _x( 'No custom file found.', 'Modules: Debug', 'gnetwork' ) );
 	}
 
 	public static function bpCustomSummary()
@@ -324,13 +324,13 @@ class Debug extends gNetwork\Module
 			echo '<pre data-prism="yes" class="language-php line-numbers" dir="ltr"><code class="language-php">'
 				.HTML::escapeTextarea( File::getContents( WP_PLUGIN_DIR.'/bp-custom.php' ) ).'</code></pre>';
 		else
-			HTML::desc( _x( 'No bp custom file found.', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+			HTML::desc( _x( 'No bp custom file found.', 'Modules: Debug', 'gnetwork' ) );
 	}
 
 	public static function cacheStats()
 	{
 		echo '<div class="-wrap card -floated" dir="ltr">';
-		HTML::h2( _x( 'Stats of the Cache', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+		HTML::h2( _x( 'Stats of the Cache', 'Modules: Debug', 'gnetwork' ) );
 
 			$GLOBALS['wp_object_cache']->stats();
 		echo '</div>';
@@ -357,7 +357,7 @@ class Debug extends gNetwork\Module
 		];
 
 		echo '<div class="-wrap card -floated" dir="ltr">';
-		HTML::h2( _x( 'Initial Constants', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+		HTML::h2( _x( 'Initial Constants', 'Modules: Debug', 'gnetwork' ) );
 
 			echo HTML::tableCode( $paths );
 		echo '</div>';
@@ -381,7 +381,7 @@ class Debug extends gNetwork\Module
 		];
 
 		echo '<div class="-wrap card -floated" dir="ltr">';
-		HTML::h2( _x( 'Plugin Paths', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+		HTML::h2( _x( 'Plugin Paths', 'Modules: Debug', 'gnetwork' ) );
 
 			echo HTML::tableCode( $paths );
 		echo '</div>';
@@ -405,7 +405,7 @@ class Debug extends gNetwork\Module
 		];
 
 		echo '<div class="-wrap card -floated" dir="ltr">';
-		HTML::h2( _x( 'Current Time', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+		HTML::h2( _x( 'Current Time', 'Modules: Debug', 'gnetwork' ) );
 
 			echo HTML::tableCode( $times );
 		echo '</div>';
@@ -430,7 +430,7 @@ class Debug extends gNetwork\Module
 		if ( $card ) {
 
 			echo '<div class="-wrap card -floated" dir="ltr">';
-			HTML::h2( $caption ?: _x( 'IPs', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+			HTML::h2( $caption ?: _x( 'IPs', 'Modules: Debug', 'gnetwork' ) );
 
 				echo HTML::tableCode( $summary );
 			echo '</div>';
@@ -459,7 +459,7 @@ class Debug extends gNetwork\Module
 				$summary[$key] = HTML::escape( $_SERVER[$key] );
 
 		echo '<div class="-wrap card -floated" dir="ltr">';
-		HTML::h2( _x( 'SSL', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+		HTML::h2( _x( 'SSL', 'Modules: Debug', 'gnetwork' ) );
 
 			echo HTML::tableCode( $summary );
 		echo '</div>';
@@ -484,7 +484,7 @@ class Debug extends gNetwork\Module
 			$info['wp_upload: '.$key] = $val;
 
 		echo '<div class="-wrap card -floated" dir="ltr">';
-		HTML::h2( _x( 'File & Upload', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+		HTML::h2( _x( 'File & Upload', 'Modules: Debug', 'gnetwork' ) );
 
 			echo HTML::tableCode( $info );
 		echo '</div>';
@@ -495,35 +495,35 @@ class Debug extends gNetwork\Module
 		return [
 			[
 				'name'  => 'server',
-				'title' => _x( 'Server', 'Modules: Debug: Server Vars Group', GNETWORK_TEXTDOMAIN ),
+				'title' => _x( 'Server', 'Modules: Debug: Server Vars Group', 'gnetwork' ),
 				'keys'  => [
-					'SERVER_SOFTWARE'  => _x( 'Software', 'Modules: Debug: Server Vars', GNETWORK_TEXTDOMAIN ),
-					'SERVER_NAME'      => _x( 'Name', 'Modules: Debug: Server Vars', GNETWORK_TEXTDOMAIN ),
-					'SERVER_ADMIN'     => _x( 'Admin', 'Modules: Debug: Server Vars', GNETWORK_TEXTDOMAIN ),
-					'SERVER_PROTOCOL'  => _x( 'Protocol', 'Modules: Debug: Server Vars', GNETWORK_TEXTDOMAIN ),
-					'SERVER_PORT'      => _x( 'Port', 'Modules: Debug: Server Vars', GNETWORK_TEXTDOMAIN ),
-					'SERVER_SIGNATURE' => _x( 'Signature', 'Modules: Debug: Server Vars', GNETWORK_TEXTDOMAIN ),
-					'SERVER_ADDR'      => _x( 'Address', 'Modules: Debug: Server Vars', GNETWORK_TEXTDOMAIN ),
+					'SERVER_SOFTWARE'  => _x( 'Software', 'Modules: Debug: Server Vars', 'gnetwork' ),
+					'SERVER_NAME'      => _x( 'Name', 'Modules: Debug: Server Vars', 'gnetwork' ),
+					'SERVER_ADMIN'     => _x( 'Admin', 'Modules: Debug: Server Vars', 'gnetwork' ),
+					'SERVER_PROTOCOL'  => _x( 'Protocol', 'Modules: Debug: Server Vars', 'gnetwork' ),
+					'SERVER_PORT'      => _x( 'Port', 'Modules: Debug: Server Vars', 'gnetwork' ),
+					'SERVER_SIGNATURE' => _x( 'Signature', 'Modules: Debug: Server Vars', 'gnetwork' ),
+					'SERVER_ADDR'      => _x( 'Address', 'Modules: Debug: Server Vars', 'gnetwork' ),
 				],
 			],
 			[
 				'name'  => 'request',
-				'title' => _x( 'Request', 'Modules: Debug: Server Vars Group', GNETWORK_TEXTDOMAIN ),
+				'title' => _x( 'Request', 'Modules: Debug: Server Vars Group', 'gnetwork' ),
 				'keys'  => [
-					'REQUEST_TIME'       => _x( 'Time', 'Modules: Debug: Server Vars', GNETWORK_TEXTDOMAIN ),
-					'REQUEST_TIME_FLOAT' => _x( 'Time (Float)', 'Modules: Debug: Server Vars', GNETWORK_TEXTDOMAIN ),
-					'REQUEST_METHOD'     => _x( 'Method', 'Modules: Debug: Server Vars', GNETWORK_TEXTDOMAIN ),
-					'REQUEST_URI'        => _x( 'URI', 'Modules: Debug: Server Vars', GNETWORK_TEXTDOMAIN ),
+					'REQUEST_TIME'       => _x( 'Time', 'Modules: Debug: Server Vars', 'gnetwork' ),
+					'REQUEST_TIME_FLOAT' => _x( 'Time (Float)', 'Modules: Debug: Server Vars', 'gnetwork' ),
+					'REQUEST_METHOD'     => _x( 'Method', 'Modules: Debug: Server Vars', 'gnetwork' ),
+					'REQUEST_URI'        => _x( 'URI', 'Modules: Debug: Server Vars', 'gnetwork' ),
 				],
 			],
 			[
 				'name'  => 'script',
-				'title' => _x( 'Script', 'Modules: Debug: Server Vars Group', GNETWORK_TEXTDOMAIN ),
+				'title' => _x( 'Script', 'Modules: Debug: Server Vars Group', 'gnetwork' ),
 				'keys'  => [
-					'SCRIPT_NAME'     => _x( 'Name', 'Modules: Debug: Server Vars', GNETWORK_TEXTDOMAIN ),
-					'SCRIPT_FILENAME' => _x( 'Filename', 'Modules: Debug: Server Vars', GNETWORK_TEXTDOMAIN ),
-					'SCRIPT_URL'      => _x( 'URL', 'Modules: Debug: Server Vars', GNETWORK_TEXTDOMAIN ),
-					'SCRIPT_URI'      => _x( 'URI', 'Modules: Debug: Server Vars', GNETWORK_TEXTDOMAIN ),
+					'SCRIPT_NAME'     => _x( 'Name', 'Modules: Debug: Server Vars', 'gnetwork' ),
+					'SCRIPT_FILENAME' => _x( 'Filename', 'Modules: Debug: Server Vars', 'gnetwork' ),
+					'SCRIPT_URL'      => _x( 'URL', 'Modules: Debug: Server Vars', 'gnetwork' ),
+					'SCRIPT_URI'      => _x( 'URI', 'Modules: Debug: Server Vars', 'gnetwork' ),
 				],
 			],
 		];
@@ -579,7 +579,7 @@ class Debug extends gNetwork\Module
 			echo HTML::wrap( $phpinfo, '-phpinfo' );
 
 		else
-			HTML::desc( sprintf( _x( '%s has been disabled.', 'Modules: Debug', GNETWORK_TEXTDOMAIN ), '<code>phpinfo()</code>' ), TRUE, '-empty -phpinfo' );
+			HTML::desc( sprintf( _x( '%s has been disabled.', 'Modules: Debug', 'gnetwork' ), '<code>phpinfo()</code>' ), TRUE, '-empty -phpinfo' );
 	}
 
 	public static function summaryCurrents()
@@ -599,25 +599,25 @@ class Debug extends gNetwork\Module
 	public static function systemVersions()
 	{
 		echo '<div class="-wrap card -floated -currents" dir="ltr">';
-		HTML::h2( _x( 'System Versions', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+		HTML::h2( _x( 'System Versions', 'Modules: Debug', 'gnetwork' ) );
 
-		HTML::desc( sprintf( _x( 'Current MySQL version: %s', 'Modules: Debug', GNETWORK_TEXTDOMAIN ), '<code>'.$GLOBALS['wpdb']->db_version().'</code>' ) );
+		HTML::desc( sprintf( _x( 'Current MySQL version: %s', 'Modules: Debug', 'gnetwork' ), '<code>'.$GLOBALS['wpdb']->db_version().'</code>' ) );
 
 		echo '<hr />';
 
-		HTML::desc( sprintf( _x( 'Current PHP version: %s', 'Modules: Debug', GNETWORK_TEXTDOMAIN ), '<code>'.phpversion().'</code>' ) );
+		HTML::desc( sprintf( _x( 'Current PHP version: %s', 'Modules: Debug', 'gnetwork' ), '<code>'.phpversion().'</code>' ) );
 
 		echo HTML::listCode( self::getPHPExtensions(),
 			'<code title="%2$s">%1$s</code>',
-			'<span class="description -color-success">'._x( 'Loaded Extensions', 'Modules: Debug', GNETWORK_TEXTDOMAIN ).':</span>'
+			'<span class="description -color-success">'._x( 'Loaded Extensions', 'Modules: Debug', 'gnetwork' ).':</span>'
 		);
 
 		echo HTML::listCode( self::getPHPMissingExtensions(),
 			'<code title="%2$s">%1$s</code>',
-			'<span class="description -color-danger">'._x( 'Missing Extensions', 'Modules: Debug', GNETWORK_TEXTDOMAIN ).':</span>'
+			'<span class="description -color-danger">'._x( 'Missing Extensions', 'Modules: Debug', 'gnetwork' ).':</span>'
 		);
 
-		HTML::h2( _x( 'Image Tools', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+		HTML::h2( _x( 'Image Tools', 'Modules: Debug', 'gnetwork' ) );
 
 		$path      = '/usr/local/bin/';
 		$tools     = [ 'optipng', 'pngquant', 'cwebp', 'jpegoptim' ];
@@ -628,12 +628,12 @@ class Debug extends gNetwork\Module
 
 		echo HTML::tableCode( $available );
 
-		HTML::h2( _x( 'Extra', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+		HTML::h2( _x( 'Extra', 'Modules: Debug', 'gnetwork' ) );
 
 		if ( function_exists( 'fastcgi_finish_request' ) )
-			HTML::desc( sprintf( _x( '%s available!', 'Modules: Debug', GNETWORK_TEXTDOMAIN ), '<code>fastcgi_finish_request</code>' ), TRUE, '-available -color-success' );
+			HTML::desc( sprintf( _x( '%s available!', 'Modules: Debug', 'gnetwork' ), '<code>fastcgi_finish_request</code>' ), TRUE, '-available -color-success' );
 		else
-			HTML::desc( sprintf( _x( '%s not available!', 'Modules: Debug', GNETWORK_TEXTDOMAIN ), '<code>fastcgi_finish_request</code>' ), TRUE, '-not-available -color-danger' );
+			HTML::desc( sprintf( _x( '%s not available!', 'Modules: Debug', 'gnetwork' ), '<code>fastcgi_finish_request</code>' ), TRUE, '-not-available -color-danger' );
 
 		echo '</div>';
 	}
@@ -730,7 +730,7 @@ class Debug extends gNetwork\Module
 		if ( ! GNETWORK_DEBUG_LOG && ! GNETWORK_ANALOG_LOG && ! GNETWORK_FAILED_LOG )
 			return;
 
-		HTML::h2( _x( 'Extras', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+		HTML::h2( _x( 'Extras', 'Modules: Debug', 'gnetwork' ) );
 
 		echo '<p class="gnetwork-admin-wrap debug-update-core">';
 
@@ -738,7 +738,7 @@ class Debug extends gNetwork\Module
 				echo HTML::tag( 'a', [
 					'class' => 'button button-secondary button-small',
 					'href'  => $this->get_menu_url( 'errorlogs', 'network', 'tools' ),
-				], _x( 'Check Error Logs', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+				], _x( 'Check Error Logs', 'Modules: Debug', 'gnetwork' ) );
 
 			if ( GNETWORK_DEBUG_LOG && GNETWORK_ANALOG_LOG )
 				echo '&nbsp;&nbsp;';
@@ -747,7 +747,7 @@ class Debug extends gNetwork\Module
 				echo HTML::tag( 'a', [
 					'class' => 'button button-secondary button-small',
 					'href'  => $this->get_menu_url( 'analoglogs', 'network', 'tools' ),
-				], _x( 'Check System Logs', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+				], _x( 'Check System Logs', 'Modules: Debug', 'gnetwork' ) );
 
 			if ( GNETWORK_ANALOG_LOG && GNETWORK_FAILED_LOG )
 				echo '&nbsp;&nbsp;';
@@ -756,7 +756,7 @@ class Debug extends gNetwork\Module
 				echo HTML::tag( 'a', [
 					'class' => 'button button-secondary button-small',
 					'href'  => $this->get_menu_url( 'failedlogs', 'network', 'tools' ),
-				], _x( 'Check Failed Logs', 'Modules: Debug', GNETWORK_TEXTDOMAIN ) );
+				], _x( 'Check Failed Logs', 'Modules: Debug', 'gnetwork' ) );
 
 		echo '</p>';
 	}

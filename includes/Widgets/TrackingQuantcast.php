@@ -10,10 +10,10 @@ class TrackingQuantcast extends \WP_Widget
 	public function __construct()
 	{
 		parent::__construct( 'gnetwork-quantcast-widget',
-			_x( 'gNetwork Tracking: Quantcast Widget', 'Widget: Title', GNETWORK_TEXTDOMAIN ),
+			_x( 'gNetwork Tracking: Quantcast Widget', 'Widget: Title', 'gnetwork' ),
 			[
 				'classname'   => 'gnetwork-wrap-widget -quantcast-widget',
-				'description' => _x( 'Simple Quantcast Data Badge', 'Widget: Description', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Simple Quantcast Data Badge', 'Widget: Description', 'gnetwork' ),
 			]
 		);
 	}

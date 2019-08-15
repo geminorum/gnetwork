@@ -71,7 +71,7 @@ class Themes extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Themes', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
+		$this->register_menu( _x( 'Themes', 'Modules: Menu Name', 'gnetwork' ) );
 	}
 
 	public function default_options()
@@ -98,26 +98,26 @@ class Themes extends gNetwork\Module
 				[
 					'field'       => 'disable_themes',
 					'type'        => 'disabled',
-					'title'       => _x( 'Theme Enhancements', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Enhances supported active themes with styles and extra goodies.', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Theme Enhancements', 'Modules: Themes: Settings', 'gnetwork' ),
+					'description' => _x( 'Enhances supported active themes with styles and extra goodies.', 'Modules: Themes: Settings', 'gnetwork' ),
 					'default'     => '1',
 				],
 				[
 					'field'       => 'content_actions',
-					'title'       => _x( 'Content Actions', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Applies extra hooks before and after post content on front-end.', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Content Actions', 'Modules: Themes: Settings', 'gnetwork' ),
+					'description' => _x( 'Applies extra hooks before and after post content on front-end.', 'Modules: Themes: Settings', 'gnetwork' ),
 					'constant'    => 'GNETWORK_DISABLE_CONTENT_ACTIONS',
 				],
 				[
 					'field'       => 'hidden_title',
-					'title'       => _x( 'Hidden Title', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Supports hidden titles on front-end.', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Hidden Title', 'Modules: Themes: Settings', 'gnetwork' ),
+					'description' => _x( 'Supports hidden titles on front-end.', 'Modules: Themes: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'body_class',
 					'type'        => 'text',
-					'title'       => _x( 'Body Class', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Appends as extra HTML body class on all pages on front-end.', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Body Class', 'Modules: Themes: Settings', 'gnetwork' ),
+					'description' => _x( 'Appends as extra HTML body class on all pages on front-end.', 'Modules: Themes: Settings', 'gnetwork' ),
 					'field_class' => [ 'regular-text', 'code-text' ],
 					'default'     => GNETWORK_BODY_CLASS,
 				],
@@ -125,43 +125,43 @@ class Themes extends gNetwork\Module
 			'_scripts' => [
 				[
 					'field'       => 'jquery_cdn',
-					'title'       => _x( 'jQuery from CDN', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Replace WordPress jQuery with CDN.', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'jQuery from CDN', 'Modules: Themes: Settings', 'gnetwork' ),
+					'description' => _x( 'Replace WordPress jQuery with CDN.', 'Modules: Themes: Settings', 'gnetwork' ),
 					'after'       => Settings::fieldAfterIcon( 'https://code.jquery.com' ),
 				],
 				[
 					'field'       => 'jquery_latest',
-					'title'       => _x( 'jQuery Latest', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Replace WordPress jQuery with the latest version from CDN.', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'jQuery Latest', 'Modules: Themes: Settings', 'gnetwork' ),
+					'description' => _x( 'Replace WordPress jQuery with the latest version from CDN.', 'Modules: Themes: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'jquery_bottom',
-					'title'       => _x( 'jQuery on Bottom', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Prints jQuery in footer on front-end.', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'jQuery on Bottom', 'Modules: Themes: Settings', 'gnetwork' ),
+					'description' => _x( 'Prints jQuery in footer on front-end.', 'Modules: Themes: Settings', 'gnetwork' ),
 				],
 			],
 			'_insert' => [
 				[
 					'field'       => 'header_code',
-					'title'       => _x( 'Header Code', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Appends the following code to the end of head in HTML, on front-end.', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Header Code', 'Modules: Themes: Settings', 'gnetwork' ),
+					'description' => _x( 'Appends the following code to the end of head in HTML, on front-end.', 'Modules: Themes: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'header_html',
 					'type'        => 'textarea-code-editor',
-					'title'       => _x( 'In Header', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Accepts raw HTML.', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'In Header', 'Modules: Themes: Settings', 'gnetwork' ),
+					'description' => _x( 'Accepts raw HTML.', 'Modules: Themes: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'footer_code',
-					'title'       => _x( 'Footer Code', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Appends the following code to the end of body in HTML, on front-end.', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Footer Code', 'Modules: Themes: Settings', 'gnetwork' ),
+					'description' => _x( 'Appends the following code to the end of body in HTML, on front-end.', 'Modules: Themes: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'footer_html',
 					'type'        => 'textarea-code-editor',
-					'title'       => _x( 'In Footer', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Accepts raw HTML.', 'Modules: Themes: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'In Footer', 'Modules: Themes: Settings', 'gnetwork' ),
+					'description' => _x( 'Accepts raw HTML.', 'Modules: Themes: Settings', 'gnetwork' ),
 				],
 			],
 		];
@@ -180,10 +180,10 @@ class Themes extends gNetwork\Module
 		$core   = self::getjQueryVersions( FALSE );
 
 		return HTML::tableCode( [
-			_x( 'Latest jQuery Stable',   'Modules: Themes: jQuery', GNETWORK_TEXTDOMAIN ) => $latest[0],
-			_x( 'Latest jQuery Migrate',  'Modules: Themes: jQuery', GNETWORK_TEXTDOMAIN ) => $latest[1],
-			_x( 'WordPress jQuery Stable',  'Modules: Themes: jQuery', GNETWORK_TEXTDOMAIN ) => $core[0],
-			_x( 'WordPress jQuery Migrate', 'Modules: Themes: jQuery', GNETWORK_TEXTDOMAIN ) => $core[1],
+			_x( 'Latest jQuery Stable',   'Modules: Themes: jQuery', 'gnetwork' ) => $latest[0],
+			_x( 'Latest jQuery Migrate',  'Modules: Themes: jQuery', 'gnetwork' ) => $latest[1],
+			_x( 'WordPress jQuery Stable',  'Modules: Themes: jQuery', 'gnetwork' ) => $core[0],
+			_x( 'WordPress jQuery Migrate', 'Modules: Themes: jQuery', 'gnetwork' ) => $core[1],
 		], FALSE, $caption );
 	}
 
@@ -228,7 +228,7 @@ class Themes extends gNetwork\Module
 			echo '<label for="'.$name.'" class="selectit">';
 			echo '<input name="'.$name.'" type="checkbox" id="'.$name.'" ';
 			checked( get_post_meta( $post->ID, '_hidden_title', TRUE ) );
-			echo ' /> '._x( 'Hide Title on Front-end', 'Modules: Themes', GNETWORK_TEXTDOMAIN );
+			echo ' /> '._x( 'Hide Title on Front-end', 'Modules: Themes', 'gnetwork' );
 
 		echo '</label></div>';
 	}
@@ -731,16 +731,16 @@ class Themes extends gNetwork\Module
 	{
 		return vsprintf( ' <a href="%1$s" aria-label="%3$s" class="%4$s">%2$s</a>', [
 			esc_url( apply_filters( 'the_permalink', get_permalink(), NULL ) ),
-			_x( 'Read more&nbsp;<span class="excerpt-link-hellip">&hellip;</span>', 'Modules: Themes', GNETWORK_TEXTDOMAIN ),
-			sprintf( _x( 'Continue reading &ldquo;%s&rdquo; &hellip;', 'Modules: Themes', GNETWORK_TEXTDOMAIN ), get_the_title() ),
+			_x( 'Read more&nbsp;<span class="excerpt-link-hellip">&hellip;</span>', 'Modules: Themes', 'gnetwork' ),
+			sprintf( _x( 'Continue reading &ldquo;%s&rdquo; &hellip;', 'Modules: Themes', 'gnetwork' ), get_the_title() ),
 			'excerpt-link',
 		] );
 	}
 
 	public static function getByLine( $before = '<span class="byline">', $after = '</span>' )
 	{
-		$text   = _x( 'by %s', 'Modules: Themes', GNETWORK_TEXTDOMAIN );
-		$title  = _x( 'View all posts by %s', 'Modules: Themes', GNETWORK_TEXTDOMAIN );
+		$text   = _x( 'by %s', 'Modules: Themes', 'gnetwork' );
+		$title  = _x( 'View all posts by %s', 'Modules: Themes', 'gnetwork' );
 		$format = '<span class="author vcard"><a class="url fn n" href="%3$s" title="%2$s" rel="author">%1$s</a></span>';
 		$author = get_the_author();
 

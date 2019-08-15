@@ -49,7 +49,7 @@ class Embed extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Embed', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
+		$this->register_menu( _x( 'Embed', 'Modules: Menu Name', 'gnetwork' ) );
 	}
 
 	public function default_options()
@@ -78,55 +78,55 @@ class Embed extends gNetwork\Module
 			'_general' => [
 				[
 					'field'       => 'load_defaults',
-					'title'       => _x( 'Load Default Embeds', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Whether to load the default embed handlers for Audio/Video URLs or Youtube.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Load Default Embeds', 'Modules: Embed: Settings', 'gnetwork' ),
+					'description' => _x( 'Whether to load the default embed handlers for Audio/Video URLs or Youtube.', 'Modules: Embed: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'autoembed_urls',
-					'title'       => _x( 'Auto-Embeds URLs', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Whether to attempt to embed all URLs in posts and widgets.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Auto-Embeds URLs', 'Modules: Embed: Settings', 'gnetwork' ),
+					'description' => _x( 'Whether to attempt to embed all URLs in posts and widgets.', 'Modules: Embed: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'oembed_providers',
-					'title'       => _x( 'oEmbed Providers', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Whether to load the list of whitelisted oEmbed providers.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'oEmbed Providers', 'Modules: Embed: Settings', 'gnetwork' ),
+					'description' => _x( 'Whether to load the list of whitelisted oEmbed providers.', 'Modules: Embed: Settings', 'gnetwork' ),
 					'after'       => Settings::fieldAfterCodex( 'Embeds' ),
 				],
 				[
 					'field'       => 'oembed_discover',
-					'title'       => _x( 'oEmbed Discovery', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Whether to inspect the given URL for discoverable link tags.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'oEmbed Discovery', 'Modules: Embed: Settings', 'gnetwork' ),
+					'description' => _x( 'Whether to inspect the given URL for discoverable link tags.', 'Modules: Embed: Settings', 'gnetwork' ),
 					'after'       => Settings::fieldAfterIcon( 'https://oembed.com' ),
 				],
 			],
 			'_services' => [
 				[
 					'field'       => 'load_docs_pdf',
-					'title'       => _x( 'Load PDF Embeds', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Whether to load PDF via Google Docs embed handlers on this site.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Load PDF Embeds', 'Modules: Embed: Settings', 'gnetwork' ),
+					'description' => _x( 'Whether to load PDF via Google Docs embed handlers on this site.', 'Modules: Embed: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'load_instagram',
-					'title'       => _x( 'Load Instagram Embeds', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Whether to load Instagram embed handlers on this site.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Load Instagram Embeds', 'Modules: Embed: Settings', 'gnetwork' ),
+					'description' => _x( 'Whether to load Instagram embed handlers on this site.', 'Modules: Embed: Settings', 'gnetwork' ),
 					'after'       => Settings::fieldAfterIcon( 'https://www.instagram.com/developer/' ),
 				],
 				[
 					'field'       => 'load_aparat',
-					'title'       => _x( 'Load Aparat Embeds', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Whether to load Aparat.com embed handlers on this site.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Load Aparat Embeds', 'Modules: Embed: Settings', 'gnetwork' ),
+					'description' => _x( 'Whether to load Aparat.com embed handlers on this site.', 'Modules: Embed: Settings', 'gnetwork' ),
 					'after'       => Settings::fieldAfterIcon( 'https://aparat.com' ),
 				],
 				[
 					'field'       => 'load_kavimo',
-					'title'       => _x( 'Load Kavimo oEmbeds', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Whether to load Kavimo.com embed handlers on this site.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Load Kavimo oEmbeds', 'Modules: Embed: Settings', 'gnetwork' ),
+					'description' => _x( 'Whether to load Kavimo.com embed handlers on this site.', 'Modules: Embed: Settings', 'gnetwork' ),
 					'after'       => Settings::fieldAfterIcon( 'https://kavimo.com' ),
 				],
 				[
 					'field'       => 'load_giphy',
-					'title'       => _x( 'Load GIPHY Embeds', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Whether to load GIPHY.com embed handlers on this site.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Load GIPHY Embeds', 'Modules: Embed: Settings', 'gnetwork' ),
+					'description' => _x( 'Whether to load GIPHY.com embed handlers on this site.', 'Modules: Embed: Settings', 'gnetwork' ),
 					'after'       => Settings::fieldAfterIcon( 'https://giphy.com/' ),
 				],
 			],
@@ -137,16 +137,16 @@ class Embed extends gNetwork\Module
 				[
 					'field'       => 'instagram_max_width',
 					'type'        => 'number',
-					'title'       => _x( 'Image Width', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Applies as default on max width of images on Instagram embeds.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Image Width', 'Modules: Embed: Settings', 'gnetwork' ),
+					'description' => _x( 'Applies as default on max width of images on Instagram embeds.', 'Modules: Embed: Settings', 'gnetwork' ),
 					'default'     => 640,
 					'min_attr'    => 320,
 				],
 				[
 					'field'       => 'instagram_hide_caption',
 					'type'        => 'disabled',
-					'title'       => _x( 'Image Caption', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Applies as default on hiding image captions on Instagram embeds.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Image Caption', 'Modules: Embed: Settings', 'gnetwork' ),
+					'description' => _x( 'Applies as default on hiding image captions on Instagram embeds.', 'Modules: Embed: Settings', 'gnetwork' ),
 				],
 			];
 
@@ -154,21 +154,21 @@ class Embed extends gNetwork\Module
 			[
 				'field'       => 'error_message',
 				'type'        => 'text',
-				'title'       => _x( 'Error Message', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
-				'description' => _x( 'Displays as default message upon error occurs.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
-				'default'     => _x( 'Error while loading the content.', 'Modules: Embed', GNETWORK_TEXTDOMAIN ),
+				'title'       => _x( 'Error Message', 'Modules: Embed: Settings', 'gnetwork' ),
+				'description' => _x( 'Displays as default message upon error occurs.', 'Modules: Embed: Settings', 'gnetwork' ),
+				'default'     => _x( 'Error while loading the content.', 'Modules: Embed', 'gnetwork' ),
 			],
 			[
 				'field'       => 'count_channel',
 				'type'        => 'number',
-				'title'       => _x( 'Default Count', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
-				'description' => _x( 'Number of items on a list embed.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
+				'title'       => _x( 'Default Count', 'Modules: Embed: Settings', 'gnetwork' ),
+				'description' => _x( 'Number of items on a list embed.', 'Modules: Embed: Settings', 'gnetwork' ),
 				'default'     => 10,
 			],
 			[
 				'field'       => 'wrapped_links',
-				'title'       => _x( 'Wrapped Links', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
-				'description' => _x( 'Fixes wrapped embed links in paragraphs.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
+				'title'       => _x( 'Wrapped Links', 'Modules: Embed: Settings', 'gnetwork' ),
+				'description' => _x( 'Fixes wrapped embed links in paragraphs.', 'Modules: Embed: Settings', 'gnetwork' ),
 			],
 		];
 
@@ -178,8 +178,8 @@ class Embed extends gNetwork\Module
 	public function settings_section_instagram()
 	{
 		Settings::fieldSection(
-			_x( 'Instagram', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ),
-			sprintf( _x( 'There is no height setting because the height will adjust automatically based on the width. Instagram only allow a minimum width of %s pixels. Using a lower value will break the embed.', 'Modules: Embed: Settings', GNETWORK_TEXTDOMAIN ), '<code>'.Number::format( 320 ).'</code>' )
+			_x( 'Instagram', 'Modules: Embed: Settings', 'gnetwork' ),
+			sprintf( _x( 'There is no height setting because the height will adjust automatically based on the width. Instagram only allow a minimum width of %s pixels. Using a lower value will break the embed.', 'Modules: Embed: Settings', 'gnetwork' ), '<code>'.Number::format( 320 ).'</code>' )
 		);
 	}
 
@@ -318,7 +318,7 @@ class Embed extends gNetwork\Module
 				$title = HTML::escape( trim( strip_tags( str_replace( [ "&amp;", "&laquo;", "&raquo;" ], [ "&", "«", "»" ], $item->get_title() ) ) ) );
 
 				if ( empty( $title ) )
-					$title = _x( 'Untitled', 'Modules: Embed: Item With No Title', GNETWORK_TEXTDOMAIN );
+					$title = _x( 'Untitled', 'Modules: Embed: Item With No Title', 'gnetwork' );
 
 				if ( ! preg_match( '#https?://(?:www)\.aparat\.com\/v\/(.*?)\/#i', $link, $results ) )
 					continue;

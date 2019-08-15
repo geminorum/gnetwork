@@ -75,7 +75,7 @@ class Comments extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Comments', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
+		$this->register_menu( _x( 'Comments', 'Modules: Menu Name', 'gnetwork' ) );
 	}
 
 	public function default_options()
@@ -99,37 +99,37 @@ class Comments extends gNetwork\Module
 			'_general' => [
 				[
 					'field'       => 'strip_pings',
-					'title'       => _x( 'Hide Pings', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Removes trackbacks and pingbacks form comment lists on the frontend.', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Hide Pings', 'Modules: Comments: Settings', 'gnetwork' ),
+					'description' => _x( 'Removes trackbacks and pingbacks form comment lists on the frontend.', 'Modules: Comments: Settings', 'gnetwork' ),
 					'default'     => '1',
 				],
 				[
 					'field'       => 'disable_notifications',
 					'type'        => 'disabled',
-					'title'       => _x( 'Comment Notifications', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Prevents WordPress from sending any comment related notifications.', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Comment Notifications', 'Modules: Comments: Settings', 'gnetwork' ),
+					'description' => _x( 'Prevents WordPress from sending any comment related notifications.', 'Modules: Comments: Settings', 'gnetwork' ),
 					'default'     => '1',
 				],
 				[
 					'field'       => 'admin_fullcomments',
-					'title'       => _x( 'Full Comments', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Displays full comment content on admin dashboard widget.', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Full Comments', 'Modules: Comments: Settings', 'gnetwork' ),
+					'description' => _x( 'Displays full comment content on admin dashboard widget.', 'Modules: Comments: Settings', 'gnetwork' ),
 					'default'     => '1',
 				],
 				[
 					'field'       => 'front_quicktags',
-					'title'       => _x( 'Frontend Quicktags', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Adds quick-tags on comment textarea on the frontend.', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Frontend Quicktags', 'Modules: Comments: Settings', 'gnetwork' ),
+					'description' => _x( 'Adds quick-tags on comment textarea on the frontend.', 'Modules: Comments: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'front_autosize',
-					'title'       => _x( 'Frontend Autosize', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Makes the comment textarea expand in height automatically on the frontend.', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Frontend Autosize', 'Modules: Comments: Settings', 'gnetwork' ),
+					'description' => _x( 'Makes the comment textarea expand in height automatically on the frontend.', 'Modules: Comments: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'disable_notes',
-					'title'       => _x( 'Form Notes', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Removes extra notes after comment form on the frontend.', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Form Notes', 'Modules: Comments: Settings', 'gnetwork' ),
+					'description' => _x( 'Removes extra notes after comment form on the frontend.', 'Modules: Comments: Settings', 'gnetwork' ),
 					'default'     => '1',
 				],
 			],
@@ -139,8 +139,8 @@ class Comments extends gNetwork\Module
 			$settings['_captcha'] = [
 				[
 					'field'       => 'captcha',
-					'title'       => _x( 'Captcha', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Displays captcha field after comment form on the frontend.', 'Modules: Comments: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Captcha', 'Modules: Comments: Settings', 'gnetwork' ),
+					'description' => _x( 'Displays captcha field after comment form on the frontend.', 'Modules: Comments: Settings', 'gnetwork' ),
 				],
 			];
 
@@ -279,7 +279,7 @@ class Comments extends gNetwork\Module
 
 	public function explain_nonce()
 	{
-		return _x( 'Your attempt to add this comment has failed.', 'Modules: Comments', GNETWORK_TEXTDOMAIN );
+		return _x( 'Your attempt to add this comment has failed.', 'Modules: Comments', 'gnetwork' );
 	}
 
 	public function comments_template_query_args( $comment_args )
@@ -335,11 +335,11 @@ class Comments extends gNetwork\Module
 		$comments = wp_count_comments( $post_id );
 
 		$map = [
-			'moderated'      => _x( 'Comments in moderation: %s', 'Modules: Comments: Total Comments Item', GNETWORK_TEXTDOMAIN ),
-			'approved'       => _x( 'Comments approved: %s', 'Modules: Comments: Total Comments Item', GNETWORK_TEXTDOMAIN ),
-			'spam'           => _x( 'Comments in Spam: %s', 'Modules: Comments: Total Comments Item', GNETWORK_TEXTDOMAIN ),
-			'trash'          => _x( 'Comments in Trash: %s', 'Modules: Comments: Total Comments Item', GNETWORK_TEXTDOMAIN ),
-			'total_comments' => _x( 'Total Comments: %s', 'Modules: Comments: Total Comments Item', GNETWORK_TEXTDOMAIN ),
+			'moderated'      => _x( 'Comments in moderation: %s', 'Modules: Comments: Total Comments Item', 'gnetwork' ),
+			'approved'       => _x( 'Comments approved: %s', 'Modules: Comments: Total Comments Item', 'gnetwork' ),
+			'spam'           => _x( 'Comments in Spam: %s', 'Modules: Comments: Total Comments Item', 'gnetwork' ),
+			'trash'          => _x( 'Comments in Trash: %s', 'Modules: Comments: Total Comments Item', 'gnetwork' ),
+			'total_comments' => _x( 'Total Comments: %s', 'Modules: Comments: Total Comments Item', 'gnetwork' ),
 		];
 
 		echo '<ul>';
@@ -367,7 +367,7 @@ class Comments extends gNetwork\Module
 		if ( substr_count( strtolower( $comment ), 'http://' ) > $this->links_limit ) {
 
 			if ( 'reject' == $this->links_limit_action )
-				wp_die( sprintf( _x( 'Comment has <strong>over %s links</strong>. Please reduce number of those.', 'Modules: Comments', GNETWORK_TEXTDOMAIN ), $this->links_limit ) );
+				wp_die( sprintf( _x( 'Comment has <strong>over %s links</strong>. Please reduce number of those.', 'Modules: Comments', 'gnetwork' ), $this->links_limit ) );
 
 			else
 				$this->filter( 'pre_comment_approved', 0, 10, 'spam' );
@@ -380,7 +380,7 @@ class Comments extends gNetwork\Module
 		if ( $wpdb->get_var( $dupe ) ) {
 
 			if ( 'reject' == $this->duplicate_action )
-				wp_die( _x( 'Duplicate comment content. Please rephrase.', 'Modules: Comments', GNETWORK_TEXTDOMAIN ) );
+				wp_die( _x( 'Duplicate comment content. Please rephrase.', 'Modules: Comments', 'gnetwork' ) );
 
 			else
 				$this->filter( 'pre_comment_approved', 0, 10, 'spam' );
@@ -394,7 +394,7 @@ class Comments extends gNetwork\Module
 			if ( $wpdb->get_var( $dupe ) || $this->is_known_spam_domain( $url ) ) {
 
 				if ( 'reject' == $this->known_sites_action )
-					wp_die( _x( 'Your URL or domain is in list of known spam-promoted sites. If you believe this to be an error please contact site admin.', 'Modules: Comments', GNETWORK_TEXTDOMAIN ) );
+					wp_die( _x( 'Your URL or domain is in list of known spam-promoted sites. If you believe this to be an error please contact site admin.', 'Modules: Comments', 'gnetwork' ) );
 
 				else
 					$this->filter( 'pre_comment_approved', 0, 10, 'spam' );
@@ -408,7 +408,7 @@ class Comments extends gNetwork\Module
 		if ( $wpdb->get_var( $dupe ) > $this->known_ip_limit ) {
 
 			if ( 'reject' == $this->known_ip_action )
-				wp_die( _x( 'Your IP is in list of known spam sources. If you believe this to be an error please contact site admin.', 'Modules: Comments', GNETWORK_TEXTDOMAIN ) );
+				wp_die( _x( 'Your IP is in list of known spam sources. If you believe this to be an error please contact site admin.', 'Modules: Comments', 'gnetwork' ) );
 
 			else
 				$this->filter( 'pre_comment_approved', 0, 10, 'spam' );
@@ -422,7 +422,7 @@ class Comments extends gNetwork\Module
 
 			if ( 'reject' == $this->group_action ) {
 				$wpdb->query( "UPDATE $wpdb->comments SET comment_approved='trash' WHERE comment_content = '$comment'" );
-				wp_die( _x( 'Duplicate comment content. Please rephrase.', 'Modules: Comments', GNETWORK_TEXTDOMAIN ) );
+				wp_die( _x( 'Duplicate comment content. Please rephrase.', 'Modules: Comments', 'gnetwork' ) );
 
 			} else {
 

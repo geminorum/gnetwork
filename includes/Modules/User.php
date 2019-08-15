@@ -64,13 +64,13 @@ class User extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'User', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
+		$this->register_menu( _x( 'User', 'Modules: Menu Name', 'gnetwork' ) );
 
 		if ( ! is_multisite() )
 			return;
 
 		if ( $this->options['network_roles'] )
-			$this->register_tool( _x( 'Network Roles', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ), 'roles' );
+			$this->register_tool( _x( 'Network Roles', 'Modules: Menu Name', 'gnetwork' ), 'roles' );
 	}
 
 	public function default_options()
@@ -99,15 +99,15 @@ class User extends gNetwork\Module
 				[
 					'field'       => 'site_user_id',
 					'type'        => 'number',
-					'title'       => _x( 'Site User ID', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'ID of site user for the network.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Site User ID', 'Modules: User: Settings', 'gnetwork' ),
+					'description' => _x( 'ID of site user for the network.', 'Modules: User: Settings', 'gnetwork' ),
 					'after'       => Settings::fieldAfterIcon( WordPress::getUserEditLink( $this->options['site_user_id'], [], TRUE, FALSE ) ),
 				],
 				[
 					'field'       => 'site_user_role',
 					'type'        => 'select',
-					'title'       => _x( 'Site User Role', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Default site user role for new sites on the network.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Site User Role', 'Modules: User: Settings', 'gnetwork' ),
+					'description' => _x( 'Default site user role for new sites on the network.', 'Modules: User: Settings', 'gnetwork' ),
 					'default'     => 'editor',
 					'values'      => [
 						'administrator' => _x( 'Administrator', 'User role' ),
@@ -119,66 +119,66 @@ class User extends gNetwork\Module
 				],
 				[
 					'field'       => 'network_roles',
-					'title'       => _x( 'Network Roles', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Tries to automatically add each user to the network sites.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Network Roles', 'Modules: User: Settings', 'gnetwork' ),
+					'description' => _x( 'Tries to automatically add each user to the network sites.', 'Modules: User: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'admin_user_edit',
-					'title'       => _x( 'Administrator User Edit', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Allows site administrators to edit users of their sites.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Administrator User Edit', 'Modules: User: Settings', 'gnetwork' ),
+					'description' => _x( 'Allows site administrators to edit users of their sites.', 'Modules: User: Settings', 'gnetwork' ),
 				],
 			],
 			'_dashboard' => [
 				[
 					'field'       => 'dashboard_sites',
-					'title'       => _x( 'Dashboard Sites', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Displays current user list of sites on the user dashboard.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Dashboard Sites', 'Modules: User: Settings', 'gnetwork' ),
+					'description' => _x( 'Displays current user list of sites on the user dashboard.', 'Modules: User: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'dashboard_menu',
-					'title'       => _x( 'Dashboard User Menu', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Displays global user menu navigation on the user dashboard.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Dashboard User Menu', 'Modules: User: Settings', 'gnetwork' ),
+					'description' => _x( 'Displays global user menu navigation on the user dashboard.', 'Modules: User: Settings', 'gnetwork' ),
 				],
 			],
 			'_tos' => [
 				[
 					'field' => 'tos_display',
-					'title' => _x( 'Display ToS', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
+					'title' => _x( 'Display ToS', 'Modules: User: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'tos_title',
 					'type'        => 'text',
-					'title'       => _x( 'ToS Title', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Displays as section title, usually &#8220;Terms of Service&#8221;.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
-					'default'     => _x( 'Terms of Service', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'ToS Title', 'Modules: User: Settings', 'gnetwork' ),
+					'description' => _x( 'Displays as section title, usually &#8220;Terms of Service&#8221;.', 'Modules: User: Settings', 'gnetwork' ),
+					'default'     => _x( 'Terms of Service', 'Modules: User: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'tos_link',
 					'type'        => 'url',
-					'title'       => _x( 'ToS URL', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Links section title to to the page with detailed information about the agreement.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'ToS URL', 'Modules: User: Settings', 'gnetwork' ),
+					'description' => _x( 'Links section title to to the page with detailed information about the agreement.', 'Modules: User: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'tos_text',
 					'type'        => 'textarea-quicktags',
-					'title'       => _x( 'ToS Text', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Displays as full text of the agreement.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'ToS Text', 'Modules: User: Settings', 'gnetwork' ),
+					'description' => _x( 'Displays as full text of the agreement.', 'Modules: User: Settings', 'gnetwork' ),
 					'field_class' => [ 'large-text', 'textarea-autosize' ],
 				],
 				[
 					'field'       => 'tos_label',
 					'type'        => 'text',
-					'title'       => _x( 'ToS Label', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Displays as label next to the mandatory checkbox, below the full text.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
-					'default'     => _x( 'By checking the Terms of Service box you have read and agree to all the policies set forth in this site\'s terms of service.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'ToS Label', 'Modules: User: Settings', 'gnetwork' ),
+					'description' => _x( 'Displays as label next to the mandatory checkbox, below the full text.', 'Modules: User: Settings', 'gnetwork' ),
+					'default'     => _x( 'By checking the Terms of Service box you have read and agree to all the policies set forth in this site\'s terms of service.', 'Modules: User: Settings', 'gnetwork' ),
 					'field_class' => 'large-text',
 				],
 				[
 					'field'       => 'tos_must',
 					'type'        => 'text',
-					'title'       => _x( 'ToS Must', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Displays as error message upon the user not checking the box.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
-					'default'     => _x( 'You have to accept our terms of service. Otherwise we cannot register you on our site.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'ToS Must', 'Modules: User: Settings', 'gnetwork' ),
+					'description' => _x( 'Displays as error message upon the user not checking the box.', 'Modules: User: Settings', 'gnetwork' ),
+					'default'     => _x( 'You have to accept our terms of service. Otherwise we cannot register you on our site.', 'Modules: User: Settings', 'gnetwork' ),
 					'field_class' => 'large-text',
 				],
 			],
@@ -188,8 +188,8 @@ class User extends gNetwork\Module
 	public function settings_section_tos()
 	{
 		Settings::fieldSection(
-			_x( 'Terms of Service', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
-			_x( 'Details about terms of service section on registration pages.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN )
+			_x( 'Terms of Service', 'Modules: User: Settings', 'gnetwork' ),
+			_x( 'Details about terms of service section on registration pages.', 'Modules: User: Settings', 'gnetwork' )
 		);
 	}
 
@@ -203,8 +203,8 @@ class User extends gNetwork\Module
 
 			// for multi-network only!
 
-			Settings::submitButton( 'default_role_for_users', _x( 'Default Role for All Users', 'Modules: User', GNETWORK_TEXTDOMAIN ), 'small', [
-				'title' => _x( 'Adds all registered users on the main site with default role.', 'Modules: User', GNETWORK_TEXTDOMAIN ),
+			Settings::submitButton( 'default_role_for_users', _x( 'Default Role for All Users', 'Modules: User', 'gnetwork' ), 'small', [
+				'title' => _x( 'Adds all registered users on the main site with default role.', 'Modules: User', 'gnetwork' ),
 			] );
 
 			$emtpy = FALSE;
@@ -215,14 +215,14 @@ class User extends gNetwork\Module
 			echo HTML::tag( 'a', [
 				'class' => 'button button-secondary button-small',
 				'href'  => $this->get_menu_url( 'roles', NULL, 'tools' ),
-				'title' => _x( 'View and set network roles here.', 'Modules: User', GNETWORK_TEXTDOMAIN ),
-			], _x( 'Network Roles', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
+				'title' => _x( 'View and set network roles here.', 'Modules: User', 'gnetwork' ),
+			], _x( 'Network Roles', 'Modules: Menu Name', 'gnetwork' ) );
 
 			$emtpy = FALSE;
 		}
 
 		if ( $emtpy )
-			HTML::desc( _x( 'Network Roles are disabled.', 'Modules: User', GNETWORK_TEXTDOMAIN ), TRUE, '-empty' );
+			HTML::desc( _x( 'Network Roles are disabled.', 'Modules: User', 'gnetwork' ), TRUE, '-empty' );
 
 		echo '</p>';
 	}
@@ -308,10 +308,10 @@ class User extends gNetwork\Module
 			return HTML::desc( gNetwork()->na() );
 
 		Settings::fieldSection(
-			_x( 'Default User Roles', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
+			_x( 'Default User Roles', 'Modules: User: Settings', 'gnetwork' ),
 			[
-				_x( 'New users will receive these roles when activating their account. Existing users will receive these roles only if they have the current default role or no role at all for each particular site.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
-				_x( 'Please note that the roles listed here are from the main site of your network. Also only public, non-mature and non-dashboard sites appear here.', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
+				_x( 'New users will receive these roles when activating their account. Existing users will receive these roles only if they have the current default role or no role at all for each particular site.', 'Modules: User: Settings', 'gnetwork' ),
+				_x( 'Please note that the roles listed here are from the main site of your network. Also only public, non-mature and non-dashboard sites appear here.', 'Modules: User: Settings', 'gnetwork' ),
 			]
 		);
 
@@ -333,7 +333,7 @@ class User extends gNetwork\Module
 				'none_value' => 'none',
 				'after'      => Settings::fieldAfterIcon(
 					$site->siteurl.'/wp-admin/users.php',
-					_x( 'View Users List', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
+					_x( 'View Users List', 'Modules: User: Settings', 'gnetwork' ),
 					'admin-users'
 				),
 			] );
@@ -345,7 +345,7 @@ class User extends gNetwork\Module
 			'field'       => 'update_sites_roles',
 			'name_attr'   => 'update_sites_roles',
 			'type'        => 'checkbox',
-			'description' => _x( 'Also Update Roles for Current Users', 'Modules: User: Settings', GNETWORK_TEXTDOMAIN ),
+			'description' => _x( 'Also Update Roles for Current Users', 'Modules: User: Settings', 'gnetwork' ),
 		] );
 
 		return TRUE;
@@ -356,8 +356,8 @@ class User extends gNetwork\Module
 		do_action( $this->base.'_setup_menu', 'user' );
 
 		$hook = add_menu_page(
-			_x( 'Network Extras', 'Modules: User: Page Menu', GNETWORK_TEXTDOMAIN ),
-			_x( 'Extras', 'Modules: User: Page Menu', GNETWORK_TEXTDOMAIN ),
+			_x( 'Network Extras', 'Modules: User: Page Menu', 'gnetwork' ),
+			_x( 'Extras', 'Modules: User: Page Menu', 'gnetwork' ),
 			'exist',
 			$this->base,
 			[ $this, 'settings_page' ],
@@ -370,7 +370,7 @@ class User extends gNetwork\Module
 		foreach ( $this->get_menus() as $priority => $group )
 			foreach ( $group as $sub => $args )
 				add_submenu_page( $this->base,
-					sprintf( _x( 'gNetwork Extras: %s', 'Modules: User: Page Menu', GNETWORK_TEXTDOMAIN ), $args['title'] ),
+					sprintf( _x( 'gNetwork Extras: %s', 'Modules: User: Page Menu', 'gnetwork' ), $args['title'] ),
 					$args['title'],
 					$args['cap'],
 					$this->base.'&sub='.$sub,
@@ -381,10 +381,10 @@ class User extends gNetwork\Module
 	public function user_admin_menu_late()
 	{
 		$GLOBALS['submenu'][$this->base][0] = [
-			_x( 'Overview', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
+			_x( 'Overview', 'Modules: Menu Name', 'gnetwork' ),
 			'exist',
 			$this->base,
-			_x( 'Network Extras', 'Modules: User: Page Menu', GNETWORK_TEXTDOMAIN ),
+			_x( 'Network Extras', 'Modules: User: Page Menu', 'gnetwork' ),
 		];
 	}
 
@@ -572,7 +572,7 @@ class User extends gNetwork\Module
 		if ( $title && ! empty( $this->options['tos_link'] ) )
 			printf( '<h4 class="-title"><a href="%1$s" title="%2$s">%3$s</a></h4>',
 				esc_url( $this->options['tos_link'] ),
-				_x( 'Read the full agreement', 'Modules: User', GNETWORK_TEXTDOMAIN ),
+				_x( 'Read the full agreement', 'Modules: User', 'gnetwork' ),
 				$title
 			);
 
@@ -664,9 +664,9 @@ class User extends gNetwork\Module
 		$view = '<a href="'.network_admin_url( 'users.php?spam' ).'"'.$class.'>';
 
 		if ( $spams = $this->get_spam_count() )
-			$view.= Utilities::getCounted( $spams, _nx( 'Marked as Spam <span class="count">(%s)</span>', 'Marked as Spams <span class="count">(%s)</span>', $spams, 'Modules: User', GNETWORK_TEXTDOMAIN ) ).'</a>';
+			$view.= Utilities::getCounted( $spams, _nx( 'Marked as Spam <span class="count">(%s)</span>', 'Marked as Spams <span class="count">(%s)</span>', $spams, 'Modules: User', 'gnetwork' ) ).'</a>';
 		else
-			$view.= _x( 'Marked as Spam', 'Modules: User', GNETWORK_TEXTDOMAIN ).'</a>';
+			$view.= _x( 'Marked as Spam', 'Modules: User', 'gnetwork' ).'</a>';
 
 		return array_merge( $views, [ 'spam' => $view ] );
 	}
@@ -696,13 +696,13 @@ class User extends gNetwork\Module
 	public function wpmu_users_columns( $columns )
 	{
 		$columns = Arraay::insert( $columns, [
-			'extra' => _x( 'Extra', 'Modules: User', GNETWORK_TEXTDOMAIN ),
+			'extra' => _x( 'Extra', 'Modules: User', 'gnetwork' ),
 		], 'username', 'after' );
 
 		unset( $columns['name'], $columns['email'], $columns['registered'] );
 
 		return array_merge( $columns, [
-			'timestamps' => _x( 'Timestamps', 'Modules: User', GNETWORK_TEXTDOMAIN ),
+			'timestamps' => _x( 'Timestamps', 'Modules: User', 'gnetwork' ),
 		] );
 	}
 
@@ -726,7 +726,7 @@ class User extends gNetwork\Module
 
 		if ( $user->first_name || $user->last_name ) {
 			echo '<li class="-row -name">';
-				echo $this->get_column_icon( FALSE, 'nametag', _x( 'Name', 'Modules: User', GNETWORK_TEXTDOMAIN ) );
+				echo $this->get_column_icon( FALSE, 'nametag', _x( 'Name', 'Modules: User', 'gnetwork' ) );
 				printf( '%s %s', $user->first_name, $user->last_name );
 			echo '</li>';
 		}
@@ -740,22 +740,22 @@ class User extends gNetwork\Module
 				$blogname = empty( $blogs[$blog] ) ? '#'.$blog : $blogs[$blog]->blogname;
 
 				echo '<li class="-row -name">';
-					echo $this->get_column_icon( FALSE, 'nametag', _x( 'Custom Name', 'Modules: User', GNETWORK_TEXTDOMAIN ) );
-					printf( _x( 'In %s as: %s', 'Modules: User: Custom Name', GNETWORK_TEXTDOMAIN ), $blogname, $custom );
+					echo $this->get_column_icon( FALSE, 'nametag', _x( 'Custom Name', 'Modules: User', 'gnetwork' ) );
+					printf( _x( 'In %s as: %s', 'Modules: User: Custom Name', 'gnetwork' ), $blogname, $custom );
 				echo '</li>';
 			}
 		}
 
 		if ( $user->user_email ) {
 			echo '<li class="-row -email">';
-				echo $this->get_column_icon( FALSE, 'email', _x( 'Email', 'Modules: User', GNETWORK_TEXTDOMAIN ) );
+				echo $this->get_column_icon( FALSE, 'email', _x( 'Email', 'Modules: User', 'gnetwork' ) );
 				echo HTML::mailto( $user->user_email );
 			echo '</li>';
 		}
 
 		if ( $user->user_url ) {
 			echo '<li class="-row -url">';
-				echo $this->get_column_icon( FALSE, 'admin-links', _x( 'URL', 'Modules: User', GNETWORK_TEXTDOMAIN ) );
+				echo $this->get_column_icon( FALSE, 'admin-links', _x( 'URL', 'Modules: User', 'gnetwork' ) );
 				echo HTML::link( URL::prepTitle( $user->user_url ), $user->user_url );
 			echo '</li>';
 		}
@@ -777,11 +777,11 @@ class User extends gNetwork\Module
 
 		$html.= '<table></tbody>';
 
-		$html.= '<tr><td>'._x( 'Registered', 'Modules: User', GNETWORK_TEXTDOMAIN ).'</td><td><code title="'
+		$html.= '<tr><td>'._x( 'Registered', 'Modules: User', 'gnetwork' ).'</td><td><code title="'
 			.Utilities::dateFormat( $registered, 'timeampm' ).'">'
 			.Utilities::dateFormat( $registered ).'</code></td></tr>';
 
-		$html.= '<tr><td>'._x( 'Last Login', 'Modules: User', GNETWORK_TEXTDOMAIN ).'</td><td>'
+		$html.= '<tr><td>'._x( 'Last Login', 'Modules: User', 'gnetwork' ).'</td><td>'
 			.( $lastlogin ? '<code title="'.Utilities::dateFormat( $lastlogged, 'timeampm' ).'">'
 				.Utilities::dateFormat( $lastlogged ).'</code>'
 			: gNetwork()->na() ).'</td></tr>';
@@ -791,7 +791,7 @@ class User extends gNetwork\Module
 			if ( $lastactivity = bp_get_user_last_activity( $user->ID ) )
 				$lastactive = strtotime( get_date_from_gmt( $lastactivity ) );
 
-			$html.= '<tr><td>'._x( 'Last Activity', 'Modules: User', GNETWORK_TEXTDOMAIN ).'</td><td>'
+			$html.= '<tr><td>'._x( 'Last Activity', 'Modules: User', 'gnetwork' ).'</td><td>'
 				.( $lastactivity
 					? '<code title="'.bp_core_time_since( $lastactivity ).'">'
 						.Utilities::dateFormat( $lastactive )
@@ -799,7 +799,7 @@ class User extends gNetwork\Module
 				.'</code></td></tr>';
 		}
 
-		$html.= '<tr><td>'._x( 'Register IP', 'Modules: User', GNETWORK_TEXTDOMAIN ).'</td><td><code>'
+		$html.= '<tr><td>'._x( 'Register IP', 'Modules: User', 'gnetwork' ).'</td><td><code>'
 			.( $register_ip ? gnetwork_ip_lookup( $register_ip ) : gNetwork()->na( FALSE ) ).'</code></td></tr>';
 
 		$html.= '</tbody></table>';

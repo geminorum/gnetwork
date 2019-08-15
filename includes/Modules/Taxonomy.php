@@ -34,7 +34,7 @@ class Taxonomy extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Taxonomy', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
+		$this->register_menu( _x( 'Taxonomy', 'Modules: Menu Name', 'gnetwork' ) );
 	}
 
 	public function default_options()
@@ -54,30 +54,30 @@ class Taxonomy extends gNetwork\Module
 			'_general' => [
 				[
 					'field'       => 'management_tools',
-					'title'       => _x( 'Management Tools', 'Modules: Taxonomy: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Allows you to merge terms, set term parents in bulk, and swap term taxonomies.', 'Modules: Taxonomy: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Management Tools', 'Modules: Taxonomy: Settings', 'gnetwork' ),
+					'description' => _x( 'Allows you to merge terms, set term parents in bulk, and swap term taxonomies.', 'Modules: Taxonomy: Settings', 'gnetwork' ),
 					'default'     => '1',
 				],
 				[
 					'field'       => 'slug_actions',
-					'title'       => _x( 'Slug Actions', 'Modules: Taxonomy: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Adds slug specific actions on the taxonomy management tools.', 'Modules: Taxonomy: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Slug Actions', 'Modules: Taxonomy: Settings', 'gnetwork' ),
+					'description' => _x( 'Adds slug specific actions on the taxonomy management tools.', 'Modules: Taxonomy: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'description_editor',
-					'title'       => _x( 'Description Editor', 'Modules: Taxonomy: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Replaces the term description editor with the WordPress TinyMCE editor.', 'Modules: Taxonomy: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Description Editor', 'Modules: Taxonomy: Settings', 'gnetwork' ),
+					'description' => _x( 'Replaces the term description editor with the WordPress TinyMCE editor.', 'Modules: Taxonomy: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'description_column',
-					'title'       => _x( 'Description Column', 'Modules: Taxonomy: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Adds description column to term list table and quick edit.', 'Modules: Taxonomy: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Description Column', 'Modules: Taxonomy: Settings', 'gnetwork' ),
+					'description' => _x( 'Adds description column to term list table and quick edit.', 'Modules: Taxonomy: Settings', 'gnetwork' ),
 					'default'     => '1',
 				],
 				[
 					'field'       => 'search_fields',
-					'title'       => _x( 'Search Fields', 'Modules: Taxonomy: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Looks for criteria in term descriptions and slugs as well as term names.', 'Modules: Taxonomy: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Search Fields', 'Modules: Taxonomy: Settings', 'gnetwork' ),
+					'description' => _x( 'Looks for criteria in term descriptions and slugs as well as term names.', 'Modules: Taxonomy: Settings', 'gnetwork' ),
 					'default'     => '1',
 				],
 			],
@@ -152,7 +152,7 @@ class Taxonomy extends gNetwork\Module
 		foreach ( $columns as $key => $value ) {
 
 			if ( 'description' == $key )
-				$new['gnetwork_description'] = _x( 'Description', 'Modules: Taxonomy: Column', GNETWORK_TEXTDOMAIN );
+				$new['gnetwork_description'] = _x( 'Description', 'Modules: Taxonomy: Column', 'gnetwork' );
 
 			else
 				$new[$key] = $value;
@@ -180,7 +180,7 @@ class Taxonomy extends gNetwork\Module
 
 		echo '<fieldset><div class="inline-edit-col"><label>';
 		echo '<span class="title">';
-			_ex( 'Description', 'Modules: Taxonomy: Quick Edit Label', GNETWORK_TEXTDOMAIN );
+			_ex( 'Description', 'Modules: Taxonomy: Quick Edit Label', 'gnetwork' );
 		echo '</span><span class="input-text-wrap">';
 			echo '<textarea id="inline-desc" name="gnetwork-description" rows="6" class="ptitle"></textarea>';
 		echo '</span></label></div></fieldset>';
@@ -248,14 +248,14 @@ class Taxonomy extends gNetwork\Module
 
 		echo '<tr class="form-field term-description-wrap -wordcount-wrap">';
 			echo '<th scope="row" valign="top"><label for="html-tag-description">';
-				_ex( 'Description', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN );
+				_ex( 'Description', 'Modules: Taxonomy', 'gnetwork' );
 			echo '</label></th><td>';
 
 			wp_editor( htmlspecialchars_decode( $tag->description ), 'html-tag-description', $settings );
 
 			$this->editor_status_info();
 
-			HTML::desc( _x( 'The description is not prominent by default; however, some themes may show it.', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN ) );
+			HTML::desc( _x( 'The description is not prominent by default; however, some themes may show it.', 'Modules: Taxonomy', 'gnetwork' ) );
 			HTML::wrapScript( 'jQuery("textarea#description").closest(".form-field").remove();' );
 
 		echo '</tr>';
@@ -282,14 +282,14 @@ class Taxonomy extends gNetwork\Module
 		echo '<div class="form-field term-description-wrap -wordcount-wrap">';
 
 			echo '<label for="html-tag-description">';
-				_ex( 'Description', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN );
+				_ex( 'Description', 'Modules: Taxonomy', 'gnetwork' );
 			echo '</label>';
 
 			wp_editor( '', 'html-tag-description', $settings );
 
 			$this->editor_status_info();
 
-			HTML::desc( _x( 'The description is not prominent by default; however, some themes may show it.', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN ) );
+			HTML::desc( _x( 'The description is not prominent by default; however, some themes may show it.', 'Modules: Taxonomy', 'gnetwork' ) );
 
 			HTML::wrapScript( 'jQuery("textarea#tag-description").closest(".form-field").remove();' );
 			HTML::wrapjQueryReady( '$("#addtag").on("mousedown","#submit",function(){tinyMCE.triggerSave();$(document).bind("ajaxSuccess.gnetwork_add_term",function(){if(tinyMCE.activeEditor){tinyMCE.activeEditor.setContent("");}$(document).unbind("ajaxSuccess.gnetwork_add_term",false);});});' );
@@ -300,9 +300,9 @@ class Taxonomy extends gNetwork\Module
 	private function editor_status_info( $target = 'html-tag-description' )
 	{
 		$html = '<div id="description-editor-counts" class="-wordcount hide-if-no-js" data-target="'.$target.'">';
-		$html.= sprintf( _x( 'Words: %s', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN ), '<span class="word-count">'.Number::format( '0' ).'</span>' );
+		$html.= sprintf( _x( 'Words: %s', 'Modules: Taxonomy', 'gnetwork' ), '<span class="word-count">'.Number::format( '0' ).'</span>' );
 		$html.= ' | ';
-		$html.= sprintf( _x( 'Chars: %s', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN ), '<span class="char-count">'.Number::format( '0' ).'</span>' );
+		$html.= sprintf( _x( 'Chars: %s', 'Modules: Taxonomy', 'gnetwork' ), '<span class="char-count">'.Number::format( '0' ).'</span>' );
 		$html.= '</div>';
 
 		echo HTML::wrap( $html, '-editor-status-info' );
@@ -332,13 +332,13 @@ class Taxonomy extends gNetwork\Module
 
 			add_filter( 'handle_bulk_actions-'.$screen->id, [ $this, 'handle_bulk_actions' ], 10, 3 );
 
-			$intro = _x( 'These are extra bulk actions available for this taxonomy:', 'Modules: Taxonomy: Help Tab Content', GNETWORK_TEXTDOMAIN );
+			$intro = _x( 'These are extra bulk actions available for this taxonomy:', 'Modules: Taxonomy: Help Tab Content', 'gnetwork' );
 
 		} else {
 
 			add_action( $screen->taxonomy.'_edit_form_fields', [ $this, 'edit_form_fields_actions' ], 99, 2 );
 
-			$intro = _x( 'These are extra actions available for this term:', 'Modules: Taxonomy: Help Tab Content', GNETWORK_TEXTDOMAIN );
+			$intro = _x( 'These are extra actions available for this term:', 'Modules: Taxonomy: Help Tab Content', 'gnetwork' );
 		}
 
 		$this->action( 'edited_term', 3, 12, 'actions' ); // fires on edit-tags.php
@@ -347,7 +347,7 @@ class Taxonomy extends gNetwork\Module
 
 		$screen->add_help_tab( [
 			'id'      => $this->classs( 'help-bulk-actions' ),
-			'title'   => _x( 'Extra Actions', 'Modules: Taxonomy: Help Tab Title', GNETWORK_TEXTDOMAIN ),
+			'title'   => _x( 'Extra Actions', 'Modules: Taxonomy: Help Tab Title', 'gnetwork' ),
 			'content' => '<p>'.$intro.'</p>'.HTML::renderList( $actions ),
 		] );
 
@@ -369,17 +369,17 @@ class Taxonomy extends gNetwork\Module
 		$actions = [];
 
 		if ( is_taxonomy_hierarchical( $taxonomy ) )
-			$actions['set_parent'] = _x( 'Set Parent', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN );
+			$actions['set_parent'] = _x( 'Set Parent', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
 
-		$actions['merge']       = _x( 'Merge', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN );
-		$actions['change_tax']  = _x( 'Change Taxonomy', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN );
-		$actions['format_i18n'] = _x( 'Format i18n', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN );
-		$actions['empty_posts'] = _x( 'Empty Posts', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN );
-		$actions['empty_desc']  = _x( 'Empty Description', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN );
+		$actions['merge']       = _x( 'Merge', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
+		$actions['change_tax']  = _x( 'Change Taxonomy', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
+		$actions['format_i18n'] = _x( 'Format i18n', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
+		$actions['empty_posts'] = _x( 'Empty Posts', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
+		$actions['empty_desc']  = _x( 'Empty Description', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
 
 		if ( $this->options['slug_actions'] ) {
-			$actions['rewrite_slug']  = _x( 'Rewrite Slug', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN );
-			$actions['downcode_slug'] = _x( 'Transliterate Slug', 'Modules: Taxonomy: Bulk Action', GNETWORK_TEXTDOMAIN );
+			$actions['rewrite_slug']  = _x( 'Rewrite Slug', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
+			$actions['downcode_slug'] = _x( 'Transliterate Slug', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
 		}
 
 		$filtered[$taxonomy] = $this->filters( 'bulk_actions', $actions, $taxonomy );
@@ -398,11 +398,11 @@ class Taxonomy extends gNetwork\Module
 
 		echo '<tr class="form-field term-actions-wrap actions">';
 			echo '<th scope="row" valign="top"><label for="extra-action-selector">';
-				_ex( 'Extra Actions', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN );
+				_ex( 'Extra Actions', 'Modules: Taxonomy', 'gnetwork' );
 			echo '</label></th><td>';
 
 			echo '<select name="'.$this->classs( 'action' ).'" id="extra-action-selector">';
-				echo '<option value="-1">'._x( '&ndash; Select Action &ndash;', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN )."</option>\n";
+				echo '<option value="-1">'._x( '&ndash; Select Action &ndash;', 'Modules: Taxonomy', 'gnetwork' )."</option>\n";
 			echo "</select>\n";
 
 		echo '</tr>';
@@ -488,12 +488,12 @@ class Taxonomy extends gNetwork\Module
 
 			case 'gnetwork-taxonomy-updated':
 
-				echo HTML::success( _x( 'Terms updated.', 'Settings: Message', GNETWORK_TEXTDOMAIN ) );
+				echo HTML::success( _x( 'Terms updated.', 'Settings: Message', 'gnetwork' ) );
 
 			break;
 			case 'gnetwork-taxonomy-error':
 
-				echo HTML::error( _x( 'Terms not updated.', 'Settings: Message', GNETWORK_TEXTDOMAIN ) );
+				echo HTML::error( _x( 'Terms not updated.', 'Settings: Message', 'gnetwork' ) );
 		}
 	}
 
@@ -733,9 +733,9 @@ class Taxonomy extends gNetwork\Module
 
 	private function secondary_input_merge( $taxonomy )
 	{
-		printf( _x( 'into: %s', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN ),
+		printf( _x( 'into: %s', 'Modules: Taxonomy', 'gnetwork' ),
 			'<input name="bulk_to_tag" type="text" placeholder="'
-			._x( 'Name, Slug or ID', 'Modules: Taxonomy', GNETWORK_TEXTDOMAIN ).'" />' );
+			._x( 'Name, Slug or ID', 'Modules: Taxonomy', 'gnetwork' ).'" />' );
 	}
 
 	private function secondary_input_change_tax( $taxonomy )

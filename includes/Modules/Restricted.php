@@ -55,7 +55,7 @@ class Restricted extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Restricted', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
+		$this->register_menu( _x( 'Restricted', 'Modules: Menu Name', 'gnetwork' ) );
 	}
 
 	public function default_options()
@@ -77,49 +77,49 @@ class Restricted extends gNetwork\Module
 				[
 					'field'       => 'access_site',
 					'type'        => 'cap',
-					'title'       => _x( 'Site Restriction', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Only this role and above can access to the site.', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Site Restriction', 'Modules: Restricted: Settings', 'gnetwork' ),
+					'description' => _x( 'Only this role and above can access to the site.', 'Modules: Restricted: Settings', 'gnetwork' ),
 					'default'     => 'none',
 				],
 				[
 					'field'       => 'access_admin',
 					'type'        => 'cap',
-					'title'       => _x( 'Admin Restriction', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Only this role and above can access to the site\'s admin pages.', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Admin Restriction', 'Modules: Restricted: Settings', 'gnetwork' ),
+					'description' => _x( 'Only this role and above can access to the site\'s admin pages.', 'Modules: Restricted: Settings', 'gnetwork' ),
 					'default'     => 'none',
 				],
 				[
 					'field'       => 'access_profile',
 					'type'        => 'select',
-					'title'       => _x( 'Admin Profile', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Whether admin profile can be accessed if the site is in restricted mode.', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Admin Profile', 'Modules: Restricted: Settings', 'gnetwork' ),
+					'description' => _x( 'Whether admin profile can be accessed if the site is in restricted mode.', 'Modules: Restricted: Settings', 'gnetwork' ),
 					'default'     => 'open',
 					'values'      => [
-						'open'   => _x( 'Open', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
-						'closed' => _x( 'Restricted', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
+						'open'   => _x( 'Open', 'Modules: Restricted: Settings', 'gnetwork' ),
+						'closed' => _x( 'Restricted', 'Modules: Restricted: Settings', 'gnetwork' ),
 					],
 				],
 				[
 					'field'       => 'redirect_to_page',
 					'type'        => 'page',
-					'title'       => _x( 'Restricted Page', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Redirects not authorized users to this page. If not selected will redirect to the login page.', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
-					'none_title'  => _x( '&mdash; Login Page &mdash;', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Restricted Page', 'Modules: Restricted: Settings', 'gnetwork' ),
+					'description' => _x( 'Redirects not authorized users to this page. If not selected will redirect to the login page.', 'Modules: Restricted: Settings', 'gnetwork' ),
+					'none_title'  => _x( '&mdash; Login Page &mdash;', 'Modules: Restricted: Settings', 'gnetwork' ),
 					'none_value'  => '0',
 				],
 				[
 					'field'       => 'restricted_notice',
 					'type'        => 'textarea-quicktags',
-					'title'       => _x( 'Restricted Notice', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => sprintf( _x( 'Displays on top of the site login page. Use %1$s for the role, and %2$s for the page.', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ), '<code>%1$s</code>', '<code>%2$s</code>' ),
-					'default'     => _x( '<p>This site is restricted to users with %1$s access level. Please visit <a href="%2$s">here</a> to request access.</p>', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Restricted Notice', 'Modules: Restricted: Settings', 'gnetwork' ),
+					'description' => sprintf( _x( 'Displays on top of the site login page. Use %1$s for the role, and %2$s for the page.', 'Modules: Restricted: Settings', 'gnetwork' ), '<code>%1$s</code>', '<code>%2$s</code>' ),
+					'default'     => _x( '<p>This site is restricted to users with %1$s access level. Please visit <a href="%2$s">here</a> to request access.</p>', 'Modules: Restricted: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'restricted_message',
 					'type'        => 'textarea-quicktags',
-					'title'       => _x( 'Restricted Message', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => sprintf( _x( 'Displays on 403 status page for logged-in users. Use %1$s for the role, and %2$s for the page.', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ), '<code>%1$s</code>', '<code>%2$s</code>' ),
-					'default'     => _x( '<p>You do not have %1$s access level. Please visit <a href="%2$s">here</a> to request access.</p>', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Restricted Message', 'Modules: Restricted: Settings', 'gnetwork' ),
+					'description' => sprintf( _x( 'Displays on 403 status page for logged-in users. Use %1$s for the role, and %2$s for the page.', 'Modules: Restricted: Settings', 'gnetwork' ), '<code>%1$s</code>', '<code>%2$s</code>' ),
+					'default'     => _x( '<p>You do not have %1$s access level. Please visit <a href="%2$s">here</a> to request access.</p>', 'Modules: Restricted: Settings', 'gnetwork' ),
 				],
 			],
 		];
@@ -129,12 +129,12 @@ class Restricted extends gNetwork\Module
 	{
 		if ( $layout = Utilities::getLayout( 'status.403' ) ) {
 
-			HTML::desc( sprintf( _x( 'Current Layout: %s', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ),
+			HTML::desc( sprintf( _x( 'Current Layout: %s', 'Modules: Restricted: Settings', 'gnetwork' ),
 				'<code>'.HTML::link( File::normalize( $layout ), URL::fromPath( $layout ), TRUE ).'</code>' ) );
 
 		} else {
 
-			HTML::desc( _x( 'There are no layouts available. We will use an internal instead.', 'Modules: Restricted: Settings', GNETWORK_TEXTDOMAIN ) );
+			HTML::desc( _x( 'There are no layouts available. We will use an internal instead.', 'Modules: Restricted: Settings', 'gnetwork' ) );
 		}
 	}
 
@@ -324,12 +324,12 @@ class Restricted extends gNetwork\Module
 
 	public function privacy_on_link_title( $title )
 	{
-		return _x( 'Your site is restricted to public', 'Modules: Restricted: At a Glance', GNETWORK_TEXTDOMAIN );
+		return _x( 'Your site is restricted to public', 'Modules: Restricted: At a Glance', 'gnetwork' );
 	}
 
 	public function privacy_on_link_text( $content )
 	{
-		return _x( 'Public Access Discouraged', 'Modules: Restricted: At a Glance', GNETWORK_TEXTDOMAIN );
+		return _x( 'Public Access Discouraged', 'Modules: Restricted: At a Glance', 'gnetwork' );
 	}
 
 	public function dashboard_pointers( $items )
@@ -338,9 +338,9 @@ class Restricted extends gNetwork\Module
 
 		$items[] = HTML::tag( $can ? 'a' : 'span', [
 			'href'  => $can ? $this->get_menu_url( 'restricted' ) : FALSE,
-			'title' => sprintf( _x( 'This site is restricted to users with %s access level.', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ), Settings::getUserCapList( $this->options['access_site'] ) ),
+			'title' => sprintf( _x( 'This site is restricted to users with %s access level.', 'Modules: Restricted', 'gnetwork' ), Settings::getUserCapList( $this->options['access_site'] ) ),
 			'class' => '-restricted',
-		], _x( 'Site is Restricted', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ) );
+		], _x( 'Site is Restricted', 'Modules: Restricted', 'gnetwork' ) );
 
 		return $items;
 	}
@@ -415,7 +415,7 @@ class Restricted extends gNetwork\Module
 
 			$json = [
 				'code'    => $this->status_code,
-				'message' => _x( 'You are not authorized to access this site\'s feed.', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
+				'message' => _x( 'You are not authorized to access this site\'s feed.', 'Modules: Restricted', 'gnetwork' ),
 				'data'    => [ 'status' => $this->status_code ]
 			];
 
@@ -431,7 +431,7 @@ class Restricted extends gNetwork\Module
 
 			// TODO: use `_xml_wp_die_handler()` since WP 5.2.0
 
-			$message = htmlspecialchars( _x( 'You are not authorized to access this site\'s feed.', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ) );
+			$message = htmlspecialchars( _x( 'You are not authorized to access this site\'s feed.', 'Modules: Restricted', 'gnetwork' ) );
 			$title   = htmlspecialchars( HTTP::getStatusDesc( $this->status_code ) );
 
 			$xml = <<<EOD
@@ -472,8 +472,8 @@ EOD;
 		$feedkey = $this->get_user_feedkey( $profileuser->ID, FALSE );
 
 		Settings::fieldSection(
-			_x( 'Private Feeds', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
-			_x( 'Used to access restricted site feeds.', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
+			_x( 'Private Feeds', 'Modules: Restricted', 'gnetwork' ),
+			_x( 'Used to access restricted site feeds.', 'Modules: Restricted', 'gnetwork' ),
 			'h2'
 		);
 
@@ -483,9 +483,9 @@ EOD;
 				'field'       => 'restricted_feedkey',
 				'type'        => 'text',
 				'cap'         => 'read',
-				'title'       => _x( 'Feed Access Key', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
-				'description' => _x( 'The key will be used on all restricted feed URLs.', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
-				'placeholder' => _x( 'Feed access key not found.', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
+				'title'       => _x( 'Feed Access Key', 'Modules: Restricted', 'gnetwork' ),
+				'description' => _x( 'The key will be used on all restricted feed URLs.', 'Modules: Restricted', 'gnetwork' ),
+				'placeholder' => _x( 'Feed access key not found.', 'Modules: Restricted', 'gnetwork' ),
 				'field_class' => [ 'regular-text', 'code-text' ],
 				'default'     => $feedkey ?: '',
 				'disabled'    => TRUE,
@@ -495,10 +495,10 @@ EOD;
 			$operations = [ 'none' => Settings::showOptionNone() ];
 
 			if ( $feedkey ) {
-				$operations['reset']  = _x( 'Reset your access key', 'Modules: Restricted', GNETWORK_TEXTDOMAIN );
-				$operations['remove'] = _x( 'Remove your access key', 'Modules: Restricted', GNETWORK_TEXTDOMAIN );
+				$operations['reset']  = _x( 'Reset your access key', 'Modules: Restricted', 'gnetwork' );
+				$operations['remove'] = _x( 'Remove your access key', 'Modules: Restricted', 'gnetwork' );
 			} else {
-				$operations['generate'] = _x( 'Generate new access key', 'Modules: Restricted', GNETWORK_TEXTDOMAIN );
+				$operations['generate'] = _x( 'Generate new access key', 'Modules: Restricted', 'gnetwork' );
 			}
 
 			$this->do_settings_field( [
@@ -506,8 +506,8 @@ EOD;
 				'name_attr'   => 'restricted_operations',
 				'type'        => 'select',
 				'cap'         => 'read',
-				'title'       => _x( 'Key Operations', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
-				'description' => _x( 'Select an operation to work with your private feed access key.', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
+				'title'       => _x( 'Key Operations', 'Modules: Restricted', 'gnetwork' ),
+				'description' => _x( 'Select an operation to work with your private feed access key.', 'Modules: Restricted', 'gnetwork' ),
 				'default'     => 'none',
 				'values'      => $operations,
 				'wrap'        => TRUE,
@@ -523,7 +523,7 @@ EOD;
 					'field'  => 'restricted_posts_feed',
 					'type'   => 'custom',
 					'cap'    => 'read',
-					'title'  => _x( 'Posts Feed for You', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
+					'title'  => _x( 'Posts Feed for You', 'Modules: Restricted', 'gnetwork' ),
 					'values' => '<code><a href="'.HTML::escapeURL( $posts_feed ).'" target="_blank">'.$posts_feed.'</a></code>',
 					'wrap'   => TRUE,
 				] );
@@ -532,7 +532,7 @@ EOD;
 					'field'  => 'restricted_comments_feed',
 					'type'   => 'custom',
 					'cap'    => 'read',
-					'title'  => _x( 'Comments Feed for You', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
+					'title'  => _x( 'Comments Feed for You', 'Modules: Restricted', 'gnetwork' ),
 					'values' => '<code><a href="'.HTML::escapeURL( $comments_feed ).'" target="_blank">'.$comments_feed.'</a></code>',
 					'wrap'   => TRUE,
 				] );
@@ -562,21 +562,21 @@ EOD;
 		$html = HTML::tag( 'a', [
 			'href'  => GNETWORK_BASE,
 			'title' => GNETWORK_NAME,
-		], _x( 'Home Page', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ) );
+		], _x( 'Home Page', 'Modules: Restricted', 'gnetwork' ) );
 
 		if ( is_user_logged_in() ) {
 
 			if ( is_user_member_of_blog() ) {
 				$html.= ' / '.HTML::tag( 'a', [
 					'href'  => admin_url( 'profile.php' ),
-					'title' => _x( 'View and update your profile', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
-				], _x( 'Your Profile', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ) );
+					'title' => _x( 'View and update your profile', 'Modules: Restricted', 'gnetwork' ),
+				], _x( 'Your Profile', 'Modules: Restricted', 'gnetwork' ) );
 			}
 
 			$html.= ' / '.HTML::tag( 'a', [
 				'href'  => wp_logout_url(),
-				'title' => _x( 'Log-out of this site', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ),
-			], _x( 'Log Out', 'Modules: Restricted', GNETWORK_TEXTDOMAIN ) );
+				'title' => _x( 'Log-out of this site', 'Modules: Restricted', 'gnetwork' ),
+			], _x( 'Log Out', 'Modules: Restricted', 'gnetwork' ) );
 		}
 
 		return $class ? HTML::wrap( $html, $class ) : $html;
@@ -585,7 +585,7 @@ EOD;
 	public static function get403Message( $class = 'message' )
 	{
 		if ( ! $html = gNetwork()->restricted->get_restricted_message() )
-			$html = _x( 'You do not have sufficient access level.', 'Modules: Restricted', GNETWORK_TEXTDOMAIN );
+			$html = _x( 'You do not have sufficient access level.', 'Modules: Restricted', 'gnetwork' );
 
 		return $class ? HTML::wrap( $html, $class ) : $html;
 	}

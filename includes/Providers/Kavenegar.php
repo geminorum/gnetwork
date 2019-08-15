@@ -18,7 +18,7 @@ class Kavenegar extends gNetwork\Provider
 
 	public function providerName()
 	{
-		return _x( 'Kavenegar', 'Provider: Kavenegar', GNETWORK_TEXTDOMAIN );
+		return _x( 'Kavenegar', 'Provider: Kavenegar', 'gnetwork' );
 	}
 
 	protected function setup_actions()
@@ -37,22 +37,22 @@ class Kavenegar extends gNetwork\Provider
 		return [
 			'api_key' => [
 				'type'        => 'text',
-				'title'       => _x( 'API Key', 'Provider: Kavenegar', GNETWORK_TEXTDOMAIN ),
-				'description' => _x( 'Key for communication between this site and Kavenegar.', 'Provider: Kavenegar', GNETWORK_TEXTDOMAIN ),
+				'title'       => _x( 'API Key', 'Provider: Kavenegar', 'gnetwork' ),
+				'description' => _x( 'Key for communication between this site and Kavenegar.', 'Provider: Kavenegar', 'gnetwork' ),
 				'constant'    => 'KAVENEGAR_API_KEY',
 				'field_class' => [ 'regular-text', 'code' ],
 				'dir'         => 'ltr',
 			],
 			'from_number' => [
 				'type'        => 'text',
-				'title'       => _x( 'From Number', 'Provider: Kavenegar', GNETWORK_TEXTDOMAIN ),
-				'description' => _x( 'Specifies the phone number that messages should be sent from. If you leave this blank, the default number will be used.', 'Provider: Kavenegar', GNETWORK_TEXTDOMAIN ),
+				'title'       => _x( 'From Number', 'Provider: Kavenegar', 'gnetwork' ),
+				'description' => _x( 'Specifies the phone number that messages should be sent from. If you leave this blank, the default number will be used.', 'Provider: Kavenegar', 'gnetwork' ),
 				'field_class' => [ 'regular-text', 'code' ],
 				'dir'         => 'ltr',
 			],
 			'admin_numbers' => [
 				'type'  => 'text',
-				'title' => _x( 'Admin Numbers', 'Provider: Kavenegar', GNETWORK_TEXTDOMAIN ),
+				'title' => _x( 'Admin Numbers', 'Provider: Kavenegar', 'gnetwork' ),
 				'field_class' => [ 'regular-text', 'code' ],
 				'dir'         => 'ltr',
 			],
@@ -62,8 +62,8 @@ class Kavenegar extends gNetwork\Provider
 	public function settings_section()
 	{
 		Settings::fieldSection(
-			_x( 'Kavenegar', 'Provider: Kavenegar: Settings', GNETWORK_TEXTDOMAIN ),
-			_x( 'Kavenegar is a Persian SMS Provider.', 'Provider: Kavenegar: Settings', GNETWORK_TEXTDOMAIN )
+			_x( 'Kavenegar', 'Provider: Kavenegar: Settings', 'gnetwork' ),
+			_x( 'Kavenegar is a Persian SMS Provider.', 'Provider: Kavenegar: Settings', 'gnetwork' )
 		);
 	}
 
@@ -108,8 +108,8 @@ class Kavenegar extends gNetwork\Provider
 		$balance = $this->providerBalance();
 
 		return $balance
-			? sprintf( _x( '%s Rials for SMS', 'Provider: Kavenegar', GNETWORK_TEXTDOMAIN ), Number::format( $balance ) )
-			: _x( 'Charge SMS Credits!', 'Provider: Kavenegar', GNETWORK_TEXTDOMAIN );
+			? sprintf( _x( '%s Rials for SMS', 'Provider: Kavenegar', 'gnetwork' ), Number::format( $balance ) )
+			: _x( 'Charge SMS Credits!', 'Provider: Kavenegar', 'gnetwork' );
 	}
 
 	public function providerWorking()

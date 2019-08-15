@@ -75,12 +75,12 @@ class Admin extends gNetwork\Module
 
 	public function admin_title( $admin_title, $title )
 	{
-		return sprintf( _x( '%1$s &lsaquo; %2$s &#8212; Content Management', 'Modules: Admin: HTML Title', GNETWORK_TEXTDOMAIN ), $title, get_bloginfo( 'name', 'display' ) );
+		return sprintf( _x( '%1$s &lsaquo; %2$s &#8212; Content Management', 'Modules: Admin: HTML Title', 'gnetwork' ), $title, get_bloginfo( 'name', 'display' ) );
 	}
 
 	public function tablepress_admin_menu_entry_name()
 	{
-		return _x( 'Tables', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN );
+		return _x( 'Tables', 'Modules: Admin: Page Menu', 'gnetwork' );
 	}
 
 	public function admin_menu()
@@ -90,8 +90,8 @@ class Admin extends gNetwork\Module
 		if ( WordPress::cuc( 'manage_options' ) ) {
 
 			$hook = add_menu_page(
-				_x( 'Network Extras', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN ),
-				_x( 'Extras', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN ),
+				_x( 'Network Extras', 'Modules: Admin: Page Menu', 'gnetwork' ),
+				_x( 'Extras', 'Modules: Admin: Page Menu', 'gnetwork' ),
 				'manage_options',
 				$this->base,
 				[ $this, 'settings_page' ],
@@ -102,7 +102,7 @@ class Admin extends gNetwork\Module
 			foreach ( $this->get_menus() as $priority => $group )
 				foreach ( $group as $sub => $args )
 					add_submenu_page( $this->base,
-						sprintf( _x( 'gNetwork Extras: %s', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN ), $args['title'] ),
+						sprintf( _x( 'gNetwork Extras: %s', 'Modules: Admin: Page Menu', 'gnetwork' ), $args['title'] ),
 						$args['title'],
 						$args['cap'],
 						$this->base.'&sub='.$sub,
@@ -110,8 +110,8 @@ class Admin extends gNetwork\Module
 					);
 
 			$tools = add_submenu_page( 'tools.php',
-				_x( 'Network Tools', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN ),
-				_x( 'Extras', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN ),
+				_x( 'Network Tools', 'Modules: Admin: Page Menu', 'gnetwork' ),
+				_x( 'Extras', 'Modules: Admin: Page Menu', 'gnetwork' ),
 				'edit_others_posts',
 				$this->base.'-tools',
 				[ $this, 'tools_page' ]
@@ -120,16 +120,16 @@ class Admin extends gNetwork\Module
 		} else {
 
 			$hook = add_submenu_page( 'index.php',
-				_x( 'Network Extras', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN ),
-				_x( 'My Extras', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN ),
+				_x( 'Network Extras', 'Modules: Admin: Page Menu', 'gnetwork' ),
+				_x( 'My Extras', 'Modules: Admin: Page Menu', 'gnetwork' ),
 				'read',
 				$this->base,
 				[ $this, 'settings_page' ]
 			);
 
 			$tools = add_submenu_page( 'tools.php',
-				_x( 'Network Tools', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN ),
-				_x( 'Extras', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN ),
+				_x( 'Network Tools', 'Modules: Admin: Page Menu', 'gnetwork' ),
+				_x( 'Extras', 'Modules: Admin: Page Menu', 'gnetwork' ),
 				'edit_others_posts',
 				$this->base.'-tools',
 				[ $this, 'tools_page' ]
@@ -140,8 +140,8 @@ class Admin extends gNetwork\Module
 		add_action( 'load-'.$tools, [ $this, 'tools_load' ] );
 
 		add_submenu_page( 'plugins.php',
-			_x( 'Active', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN ),
-			_x( 'Active', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN ),
+			_x( 'Active', 'Modules: Admin: Page Menu', 'gnetwork' ),
+			_x( 'Active', 'Modules: Admin: Page Menu', 'gnetwork' ),
 			'activate_plugins',
 			'plugins.php?plugin_status=active'
 		);
@@ -150,15 +150,15 @@ class Admin extends gNetwork\Module
 	public function admin_menu_late()
 	{
 		$GLOBALS['submenu'][$this->base][0] = [
-			_x( 'Overview', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ),
+			_x( 'Overview', 'Modules: Menu Name', 'gnetwork' ),
 			'read',
 			$this->base,
-			_x( 'Network Extras', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN ),
+			_x( 'Network Extras', 'Modules: Admin: Page Menu', 'gnetwork' ),
 		];
 
 		// HACK: Sensei LMS menu title
 		if ( ! empty( $GLOBALS['menu'][50][2] ) && 'sensei' == $GLOBALS['menu'][50][2] )
-			$GLOBALS['menu'][50][0] = _x( 'Sensei', 'Modules: Admin: Page Menu', GNETWORK_TEXTDOMAIN );
+			$GLOBALS['menu'][50][0] = _x( 'Sensei', 'Modules: Admin: Page Menu', 'gnetwork' );
 
 		// @REF: http://justintadlock.com/?p=3320
 		if ( ! WordPress::cuc( 'update_plugins' ) )
@@ -340,32 +340,32 @@ class Admin extends gNetwork\Module
 	{
 		$sitemeta = function_exists( 'is_site_meta_supported' ) && is_site_meta_supported();
 
-		HTML::h2( _x( 'Site Reports', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ) );
+		HTML::h2( _x( 'Site Reports', 'Modules: Admin: Site Overview', 'gnetwork' ) );
 
 		if ( class_exists( __NAMESPACE__.'\\Locale' )
 			&& current_user_can( 'manage_options' ) )
 			$tabs['loadedmos'] = [
-				'title' => _x( 'Loaded Localizations', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ),
+				'title' => _x( 'Loaded Localizations', 'Modules: Admin: Site Overview', 'gnetwork' ),
 				'cb'    => [ __NAMESPACE__.'\\Locale', 'loadedMOs' ],
 			];
 
 		if ( class_exists( __NAMESPACE__.'\\Authors' )
 			&& current_user_can( 'list_users' ) )
 			$tabs['userroles'] = [
-				'title' => _x( 'Roles and Capabilities', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ),
+				'title' => _x( 'Roles and Capabilities', 'Modules: Admin: Site Overview', 'gnetwork' ),
 				'cb'    => [ __NAMESPACE__.'\\Authors', 'userRoles' ],
 			];
 
 		if ( class_exists( __NAMESPACE__.'\\Media' )
 			&& current_user_can( gNetwork()->option( 'tools_accesscap', 'media', 'edit_others_posts' ) ) )
 			$tabs['imagesizes'] = [
-				'title' => _x( 'Registered Image Sizes', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ),
+				'title' => _x( 'Registered Image Sizes', 'Modules: Admin: Site Overview', 'gnetwork' ),
 				'cb'    => [ __NAMESPACE__.'\\Media', 'registeredImageSizes' ],
 			];
 
 		if ( $sitemeta && WordPress::isSuperAdmin() )
 			$tabs['sitemeta'] = [
-				'title' => _x( 'Site Meta', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ),
+				'title' => _x( 'Site Meta', 'Modules: Admin: Site Overview', 'gnetwork' ),
 				'cb'    => function() {
 					HTML::tableSide( get_metadata( 'blog', get_current_blog_id() ) );
 				},
@@ -377,8 +377,8 @@ class Admin extends gNetwork\Module
 
 	protected function settings_overview( $uri )
 	{
-		HTML::h2( _x( 'Current Site Overview', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ) );
-		HTML::desc( _x( 'Below you can find various information about current site and contents.', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ) );
+		HTML::h2( _x( 'Current Site Overview', 'Modules: Admin: Site Overview', 'gnetwork' ) );
+		HTML::desc( _x( 'Below you can find various information about current site and contents.', 'Modules: Admin: Site Overview', 'gnetwork' ) );
 		echo '<hr />';
 
 		echo '<div class="masonry-grid">';
@@ -430,7 +430,7 @@ class Admin extends gNetwork\Module
 	public static function summaryShortcodes()
 	{
 		echo '<div class="-wrap card -floated">';
-		HTML::h2( _x( 'Available Shortcodes', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ) );
+		HTML::h2( _x( 'Available Shortcodes', 'Modules: Admin: Site Overview', 'gnetwork' ) );
 
 			echo HTML::listCode( array_keys( $GLOBALS['shortcode_tags'] ), '<code>[%2$s]</code>' );
 		echo '</div>';
@@ -439,7 +439,7 @@ class Admin extends gNetwork\Module
 	public static function summaryComments()
 	{
 		echo '<div class="-wrap card -floated">';
-		HTML::h2( _x( 'Comment Counts', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ) );
+		HTML::h2( _x( 'Comment Counts', 'Modules: Admin: Site Overview', 'gnetwork' ) );
 
 			Comments::commentSummary();
 		echo '</div>';
@@ -448,7 +448,7 @@ class Admin extends gNetwork\Module
 	public static function summaryAuthors()
 	{
 		echo '<div class="-wrap card -floated">';
-		HTML::h2( _x( 'Authors & Roles', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ) );
+		HTML::h2( _x( 'Authors & Roles', 'Modules: Admin: Site Overview', 'gnetwork' ) );
 
 			Authors::summarySiteUser();
 		echo '</div>';
@@ -457,7 +457,7 @@ class Admin extends gNetwork\Module
 	public static function summaryAttachments()
 	{
 		echo '<div class="-wrap card -floated">';
-		HTML::h2( _x( 'Attachment Mime-Types', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ) );
+		HTML::h2( _x( 'Attachment Mime-Types', 'Modules: Admin: Site Overview', 'gnetwork' ) );
 
 			Media::summaryAttachments();
 		echo '</div>';
@@ -466,7 +466,7 @@ class Admin extends gNetwork\Module
 	public static function summaryjQuery()
 	{
 		echo '<div class="-wrap card -floated" dir="ltr">';
-		HTML::h2( _x( 'jQuery Versions', 'Modules: Admin: Site Overview', GNETWORK_TEXTDOMAIN ) );
+		HTML::h2( _x( 'jQuery Versions', 'Modules: Admin: Site Overview', 'gnetwork' ) );
 
 			echo Themes::summaryjQuery();
 		echo '</div>';
@@ -480,7 +480,7 @@ class Admin extends gNetwork\Module
 			$script = 'jQuery(function($) {
 				$("select.gnetwork-do-chosen, .postbox:not(#submitdiv) .inside select:not(.no-chosen):not(.postform), .tablenav select:not(#bulk-action-selector-top):not(#bulk-action-selector-bottom)").chosen({
 					rtl: "rtl" === $("html").attr("dir"),
-					no_results_text: "'._x( 'No results match', 'Modules: Admin: Chosen', GNETWORK_TEXTDOMAIN ).'",
+					no_results_text: "'._x( 'No results match', 'Modules: Admin: Chosen', 'gnetwork' ).'",
 					disable_search_threshold: 10
 				}).addClass("gnetwork-chosen");
 			});';
@@ -522,9 +522,9 @@ class Admin extends gNetwork\Module
 	protected function localize_script()
 	{
 		return [
-			'metabox_controls_collapse' => HTML::escape( _x( 'Collapse All', 'Modules: Admin: Localize Script', GNETWORK_TEXTDOMAIN ) ),
-			'metabox_controls_expand'   => HTML::escape( _x( 'Expand All', 'Modules: Admin: Localize Script', GNETWORK_TEXTDOMAIN ) ),
-			'reset_button_text'         => HTML::escape( _x( 'Reset', 'Modules: Admin: Localize Script', GNETWORK_TEXTDOMAIN ) ),
+			'metabox_controls_collapse' => HTML::escape( _x( 'Collapse All', 'Modules: Admin: Localize Script', 'gnetwork' ) ),
+			'metabox_controls_expand'   => HTML::escape( _x( 'Expand All', 'Modules: Admin: Localize Script', 'gnetwork' ) ),
+			'reset_button_text'         => HTML::escape( _x( 'Reset', 'Modules: Admin: Localize Script', 'gnetwork' ) ),
 			'reset_button_disabled'     => isset( $_GET['filter_action'] ) ? '' : 'disabled',
 		];
 	}
@@ -545,7 +545,7 @@ class Admin extends gNetwork\Module
 		if ( current_user_can( 'update_core' ) )
 			return $content;
 
-		$content = _x( 'CODE IS POETRY', 'Modules: Admin', GNETWORK_TEXTDOMAIN );
+		$content = _x( 'CODE IS POETRY', 'Modules: Admin', 'gnetwork' );
 
 		if ( $branding = gNetwork()->option( 'text_slogan', 'branding' ) )
 			return $content = $branding;

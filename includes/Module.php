@@ -251,7 +251,7 @@ class Module extends Core\Base
 	{
 		$subs = [];
 
-		$subs['overview'] = _x( 'Overview', 'Module Core: Menu Name', GNETWORK_TEXTDOMAIN );
+		$subs['overview'] = _x( 'Overview', 'Module Core: Menu Name', 'gnetwork' );
 
 		foreach ( $this->get_menus( $context ) as $priority => $group )
 			foreach ( $group as $sub => $args )
@@ -259,7 +259,7 @@ class Module extends Core\Base
 					$subs[$sub] = $args['title'];
 
 		if ( 'settings' == $context && WordPress::isSuperAdmin() )
-			$subs['console'] = _x( 'Console', 'Module Core: Menu Name', GNETWORK_TEXTDOMAIN );
+			$subs['console'] = _x( 'Console', 'Module Core: Menu Name', 'gnetwork' );
 
 		return $subs;
 	}
@@ -942,57 +942,57 @@ class Module extends Core\Base
 
 	public function settings_section_misc()
 	{
-		Settings::fieldSection( _x( 'Miscellaneous', 'Module Core: Settings', GNETWORK_TEXTDOMAIN ) );
+		Settings::fieldSection( _x( 'Miscellaneous', 'Module Core: Settings', 'gnetwork' ) );
 	}
 
 	public function settings_section_styling()
 	{
-		Settings::fieldSection( _x( 'Styling', 'Module Core: Settings', GNETWORK_TEXTDOMAIN ) );
+		Settings::fieldSection( _x( 'Styling', 'Module Core: Settings', 'gnetwork' ) );
 	}
 
 	public function settings_section_admin()
 	{
-		Settings::fieldSection( _x( 'Administration', 'Module Core: Settings', GNETWORK_TEXTDOMAIN ) );
+		Settings::fieldSection( _x( 'Administration', 'Module Core: Settings', 'gnetwork' ) );
 	}
 
 	public function settings_section_front()
 	{
-		Settings::fieldSection( _x( 'Front-end', 'Module Core: Settings', GNETWORK_TEXTDOMAIN ) );
+		Settings::fieldSection( _x( 'Front-end', 'Module Core: Settings', 'gnetwork' ) );
 	}
 
 	public function settings_section_overrides()
 	{
-		Settings::fieldSection( _x( 'Overrides', 'Module Core: Settings', GNETWORK_TEXTDOMAIN ) );
+		Settings::fieldSection( _x( 'Overrides', 'Module Core: Settings', 'gnetwork' ) );
 	}
 
 	public function settings_section_services()
 	{
-		Settings::fieldSection( _x( 'Services', 'Module Core: Settings', GNETWORK_TEXTDOMAIN ) );
+		Settings::fieldSection( _x( 'Services', 'Module Core: Settings', 'gnetwork' ) );
 	}
 
 	public function settings_section_economics()
 	{
-		Settings::fieldSection( _x( 'Economics', 'Module Core: Settings', GNETWORK_TEXTDOMAIN ) );
+		Settings::fieldSection( _x( 'Economics', 'Module Core: Settings', 'gnetwork' ) );
 	}
 
 	public function settings_section_redirects()
 	{
-		Settings::fieldSection( _x( 'Redirects', 'Module Core: Settings', GNETWORK_TEXTDOMAIN ) );
+		Settings::fieldSection( _x( 'Redirects', 'Module Core: Settings', 'gnetwork' ) );
 	}
 
 	public function settings_section_login()
 	{
-		Settings::fieldSection( _x( 'Login', 'Module Core: Settings', GNETWORK_TEXTDOMAIN ) );
+		Settings::fieldSection( _x( 'Login', 'Module Core: Settings', 'gnetwork' ) );
 	}
 
 	public function settings_section_signup()
 	{
-		Settings::fieldSection( _x( 'Sign-up', 'Module Core: Settings', GNETWORK_TEXTDOMAIN ) );
+		Settings::fieldSection( _x( 'Sign-up', 'Module Core: Settings', 'gnetwork' ) );
 	}
 
 	public function settings_section_dashboard()
 	{
-		Settings::fieldSection( _x( 'Dashboard', 'Module Core: Settings', GNETWORK_TEXTDOMAIN ) );
+		Settings::fieldSection( _x( 'Dashboard', 'Module Core: Settings', 'gnetwork' ) );
 	}
 
 	protected function settings_buttons( $sub = NULL )
@@ -1024,7 +1024,7 @@ class Module extends Core\Base
 			$args['type'] = 'debug';
 
 			if ( ! $args['title'] )
-				$args['title'] = _x( 'Debug', 'Module Core', GNETWORK_TEXTDOMAIN );
+				$args['title'] = _x( 'Debug', 'Module Core', 'gnetwork' );
 		}
 
 		add_settings_field(
@@ -1056,15 +1056,15 @@ class Module extends Core\Base
 		if ( method_exists( $this, 'get_shortcodes' ) )
 			$screen->add_help_tab( [
 				'id'      => $this->classs( 'help-shortcodes' ),
-				'title'   => _x( 'Extra Shortcodes', 'Module Core: Help Tab Title', GNETWORK_TEXTDOMAIN ),
-				'content' => '<p>'._x( 'These are extra shortcodes provided by this module:', 'Module Core: Help Tab Content', GNETWORK_TEXTDOMAIN )
+				'title'   => _x( 'Extra Shortcodes', 'Module Core: Help Tab Title', 'gnetwork' ),
+				'content' => '<p>'._x( 'These are extra shortcodes provided by this module:', 'Module Core: Help Tab Content', 'gnetwork' )
 					.'</p>'.HTML::listCode( $this->get_shortcodes(), '<code>[%1$s]</code>' ),
 			] );
 
 		if ( $options = $this->init_options( FALSE ) )
 			$screen->add_help_tab( [
 				'id'       => $this->classs( 'help-options' ),
-				'title'    => _x( 'Saved Options', 'Module Core: Help Tab Title', GNETWORK_TEXTDOMAIN ),
+				'title'    => _x( 'Saved Options', 'Module Core: Help Tab Title', 'gnetwork' ),
 				'content'  => HTML::tableCode( $options ),
 				'priority' => 999,
 			] );
@@ -1292,7 +1292,7 @@ class Module extends Core\Base
 		echo HTML::tag( 'a', [
 			'href'  => add_query_arg( 'flush', '' ),
 			'class' => [ '-description', '-refresh' ],
-		], _x( 'Please refresh the page to generate the data.', 'Module Core', GNETWORK_TEXTDOMAIN ) );
+		], _x( 'Please refresh the page to generate the data.', 'Module Core', 'gnetwork' ) );
 
 		echo $after; // WPCS: XSS ok;
 
@@ -1340,7 +1340,7 @@ class Module extends Core\Base
 			'editor_script' => $script,
 		], $extra ) );
 
-		wp_set_script_translations( $script, GNETWORK_TEXTDOMAIN );
+		wp_set_script_translations( $script, 'gnetwork' );
 
 		return $block;
 	}

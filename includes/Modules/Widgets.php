@@ -35,7 +35,7 @@ class Widgets extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Widgets', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ), NULL, 9, 'edit_theme_options' );
+		$this->register_menu( _x( 'Widgets', 'Modules: Menu Name', 'gnetwork' ), NULL, 9, 'edit_theme_options' );
 	}
 
 	public function default_options()
@@ -53,21 +53,21 @@ class Widgets extends gNetwork\Module
 			'_general' => [
 				[
 					'field'       => 'register_sidebar_widgets',
-					'title'       => _x( 'Extra Widgets', 'Modules: Widgets: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Registers extra sidebar widgets.', 'Modules: Widgets: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Extra Widgets', 'Modules: Widgets: Settings', 'gnetwork' ),
+					'description' => _x( 'Registers extra sidebar widgets.', 'Modules: Widgets: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'disabled_sidebar_widgets',
 					'type'        => 'callback',
-					'title'       => _x( 'Sidebar Widgets', 'Modules: Widgets: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Choose the sidebar widgets you would like to <b>disable</b>.', 'Modules: Widgets: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Sidebar Widgets', 'Modules: Widgets: Settings', 'gnetwork' ),
+					'description' => _x( 'Choose the sidebar widgets you would like to <b>disable</b>.', 'Modules: Widgets: Settings', 'gnetwork' ),
 					'callback'    => [ $this, 'setting_sidebar_widgets' ],
 				],
 				[
 					'field'       => 'disabled_dashboard_widgets',
 					'type'        => 'callback',
-					'title'       => _x( 'Dashboard Widgets', 'Modules: Widgets: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Choose the dashboard widgets you would like to <b>disable</b>.', 'Modules: Widgets: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Dashboard Widgets', 'Modules: Widgets: Settings', 'gnetwork' ),
+					'description' => _x( 'Choose the dashboard widgets you would like to <b>disable</b>.', 'Modules: Widgets: Settings', 'gnetwork' ),
 					'callback'    => [ $this, 'setting_dashboard_widgets' ],
 				],
 			],

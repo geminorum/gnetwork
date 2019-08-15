@@ -36,7 +36,7 @@ class Search extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Search', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
+		$this->register_menu( _x( 'Search', 'Modules: Menu Name', 'gnetwork' ) );
 	}
 
 	public function default_options()
@@ -55,19 +55,19 @@ class Search extends gNetwork\Module
 			'_general' => [
 				[
 					'field'       => 'redirect_single',
-					'title'       => _x( 'Redirect Single Result', 'Modules: Search: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Redirects to the post if search results only returns single post.', 'Modules: Search: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Redirect Single Result', 'Modules: Search: Settings', 'gnetwork' ),
+					'description' => _x( 'Redirects to the post if search results only returns single post.', 'Modules: Search: Settings', 'gnetwork' ),
 					'default'     => '1',
 				],
 				[
 					'field'       => 'include_meta',
-					'title'       => _x( 'Include Metadata', 'Modules: Search: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Expands search results into post metadata.', 'Modules: Search: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Include Metadata', 'Modules: Search: Settings', 'gnetwork' ),
+					'description' => _x( 'Expands search results into post metadata.', 'Modules: Search: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'linkify_hashtags',
-					'title'       => _x( 'Linkify Hash-tags', 'Modules: Search: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Tries to linkify hash-tags on the content. Must enable &ldquo;General Typography&rdquo; setting.', 'Modules: Search: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Linkify Hash-tags', 'Modules: Search: Settings', 'gnetwork' ),
+					'description' => _x( 'Tries to linkify hash-tags on the content. Must enable &ldquo;General Typography&rdquo; setting.', 'Modules: Search: Settings', 'gnetwork' ),
 				],
 				'register_shortcodes',
 			],
@@ -78,7 +78,7 @@ class Search extends gNetwork\Module
 	{
 		$page = WordPress::getSearchLink();
 
-		HTML::desc( sprintf( _x( 'Current Page: %s', 'Modules: Search: Settings', GNETWORK_TEXTDOMAIN ),
+		HTML::desc( sprintf( _x( 'Current Page: %s', 'Modules: Search: Settings', 'gnetwork' ),
 			'<code>'.HTML::link( URL::relative( $page ), $page, TRUE ).'</code>' ) );
 	}
 
@@ -228,10 +228,10 @@ class Search extends gNetwork\Module
 	public function search_form()
 	{
 		$html = '<form role="search" method="get" class="search-form" action="'.GNETWORK_SEARCH_URL.'">';
-			$html.= '<label><span class="screen-reader-text">'._x( 'Search for:', 'Modules: Search: Form: Label', GNETWORK_TEXTDOMAIN ).'</span>';
-			$html.= '<input type="search" class="search-field" placeholder="'.esc_attr_x( 'Search &hellip;', 'Modules: Search: Form: Placeholder', GNETWORK_TEXTDOMAIN );
+			$html.= '<label><span class="screen-reader-text">'._x( 'Search for:', 'Modules: Search: Form: Label', 'gnetwork' ).'</span>';
+			$html.= '<input type="search" class="search-field" placeholder="'.esc_attr_x( 'Search &hellip;', 'Modules: Search: Form: Placeholder', 'gnetwork' );
 			$html.= '" value="'.get_search_query().'" name="'.GNETWORK_SEARCH_QUERYID.'" />';
-			$html.= '</label><input type="submit" class="search-submit" value="'.esc_attr_x( 'Search', 'Modules: Search: Form: Submit Button', GNETWORK_TEXTDOMAIN ).'" />';
+			$html.= '</label><input type="submit" class="search-submit" value="'.esc_attr_x( 'Search', 'Modules: Search: Form: Submit Button', 'gnetwork' ).'" />';
 		$html.= '</form>';
 
 		return $html;

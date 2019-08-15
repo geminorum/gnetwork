@@ -33,7 +33,7 @@ class Lockdown extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Lockdown', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
+		$this->register_menu( _x( 'Lockdown', 'Modules: Menu Name', 'gnetwork' ) );
 	}
 
 	public function default_options()
@@ -54,36 +54,36 @@ class Lockdown extends gNetwork\Module
 			'_general' => [
 				[
 					'field'       => 'record_attempts',
-					'title'       => _x( 'Record & Lockdown', 'Modules: Lockdown: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Select to record failed attempts and lockdown after the limit is reached.', 'Modules: Lockdown: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Record & Lockdown', 'Modules: Lockdown: Settings', 'gnetwork' ),
+					'description' => _x( 'Select to record failed attempts and lockdown after the limit is reached.', 'Modules: Lockdown: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'trust_proxied_ip',
-					'title'       => _x( 'Trust Proxy Data', 'Modules: Lockdown: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Do we trust forwarded IP adresses?', 'Modules: Lockdown: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Trust Proxy Data', 'Modules: Lockdown: Settings', 'gnetwork' ),
+					'description' => _x( 'Do we trust forwarded IP adresses?', 'Modules: Lockdown: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'failed_limit',
 					'type'        => 'select',
-					'title'       => _x( 'Login Attempt Limit', 'Modules: Lockdown: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'What is the maximum number of failed login attempts?', 'Modules: Lockdown: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Login Attempt Limit', 'Modules: Lockdown: Settings', 'gnetwork' ),
+					'description' => _x( 'What is the maximum number of failed login attempts?', 'Modules: Lockdown: Settings', 'gnetwork' ),
 					'default'     => '4',
 					'values'      => Arraay::range( 4, 20, 2 ),
 				],
 				[
 					'field'       => 'locked_expiration',
 					'type'        => 'select',
-					'title'       => _x( 'Login Lockdown Time', 'Modules: Lockdown: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'How long should the user be locked out?', 'Modules: Lockdown: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Login Lockdown Time', 'Modules: Lockdown: Settings', 'gnetwork' ),
+					'description' => _x( 'How long should the user be locked out?', 'Modules: Lockdown: Settings', 'gnetwork' ),
 					'default'     => '60',
 					'values'      => Settings::minutesOptions(),
 				],
 				[
 					'field'       => 'locked_notice',
 					'type'        => 'textarea-quicktags',
-					'title'       => _x( 'Locked Message', 'Modules: Lockdown: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Locked message on login page.', 'Modules: Lockdown: Settings', GNETWORK_TEXTDOMAIN ),
-					'default'     => _x( '<strong>LOCKED OUT</strong>: Too many login attempts from one IP address! Please take a break and try again.', 'Modules: Lockdown: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Locked Message', 'Modules: Lockdown: Settings', 'gnetwork' ),
+					'description' => _x( 'Locked message on login page.', 'Modules: Lockdown: Settings', 'gnetwork' ),
+					'default'     => _x( '<strong>LOCKED OUT</strong>: Too many login attempts from one IP address! Please take a break and try again.', 'Modules: Lockdown: Settings', 'gnetwork' ),
 				],
 			],
 		];

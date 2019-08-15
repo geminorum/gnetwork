@@ -37,7 +37,7 @@ class OpenSearch extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'OpenSearch', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
+		$this->register_menu( _x( 'OpenSearch', 'Modules: Menu Name', 'gnetwork' ) );
 	}
 
 	protected function setup_ajax( $request )
@@ -70,71 +70,71 @@ class OpenSearch extends gNetwork\Module
 				[
 					'field'       => 'opensearch',
 					'type'        => 'enabled',
-					'title'       => _x( 'OpenSearch', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'OpenSearch support for this blog.', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'OpenSearch', 'Modules: OpenSearch: Settings', 'gnetwork' ),
+					'description' => _x( 'OpenSearch support for this blog.', 'Modules: OpenSearch: Settings', 'gnetwork' ),
 					'default'     => '0',
 				],
 				[
 					'field'       => 'suggestions',
 					'type'        => 'enabled',
-					'title'       => _x( 'Suggestions', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'OpenSearch Suggestions support for this site.', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Suggestions', 'Modules: OpenSearch: Settings', 'gnetwork' ),
+					'description' => _x( 'OpenSearch Suggestions support for this site.', 'Modules: OpenSearch: Settings', 'gnetwork' ),
 					'default'     => '0',
 				],
 				[
 					'field'       => 'shortname',
 					'type'        => 'text',
-					'title'       => _x( 'ShortName', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'A short name for the search engine. <b>16</b> chars or less, no HTML.', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'ShortName', 'Modules: OpenSearch: Settings', 'gnetwork' ),
+					'description' => _x( 'A short name for the search engine. <b>16</b> chars or less, no HTML.', 'Modules: OpenSearch: Settings', 'gnetwork' ),
 					'default'     => $name,
 					'field_class' => 'medium-text',
 				],
 				[
 					'field'       => 'longname',
 					'type'        => 'text',
-					'title'       => _x( 'LongName', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'An extended name for the search engine. <b>48</b> chars or less, no HTML.', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'LongName', 'Modules: OpenSearch: Settings', 'gnetwork' ),
+					'description' => _x( 'An extended name for the search engine. <b>48</b> chars or less, no HTML.', 'Modules: OpenSearch: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'description',
 					'type'        => 'textarea',
-					'title'       => _x( 'Description', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'A brief description of the search engine. <b>1024</b> chars or less, no HTML.', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
-					'default'     => sprintf( _x( 'Search %s', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ), $name ),
+					'title'       => _x( 'Description', 'Modules: OpenSearch: Settings', 'gnetwork' ),
+					'description' => _x( 'A brief description of the search engine. <b>1024</b> chars or less, no HTML.', 'Modules: OpenSearch: Settings', 'gnetwork' ),
+					'default'     => sprintf( _x( 'Search %s', 'Modules: OpenSearch: Settings', 'gnetwork' ), $name ),
 				],
 				[
 					'field'       => 'attribution',
 					'type'        => 'text',
-					'title'       => _x( 'Attribution', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'A list of all sources or entities that should be credited. <b>256</b> chars or less, no HTML.', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
-					'default'     => sprintf( _x( 'Search data copyright %s', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ), $name ),
+					'title'       => _x( 'Attribution', 'Modules: OpenSearch: Settings', 'gnetwork' ),
+					'description' => _x( 'A list of all sources or entities that should be credited. <b>256</b> chars or less, no HTML.', 'Modules: OpenSearch: Settings', 'gnetwork' ),
+					'default'     => sprintf( _x( 'Search data copyright %s', 'Modules: OpenSearch: Settings', 'gnetwork' ), $name ),
 					'field_class' => 'large-text',
 				],
 				[
 					'field'       => 'syndication',
 					'type'        => 'select',
-					'title'       => _x( 'Syndication Right', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Indicates the degree to which the search results provided.', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Syndication Right', 'Modules: OpenSearch: Settings', 'gnetwork' ),
+					'description' => _x( 'Indicates the degree to which the search results provided.', 'Modules: OpenSearch: Settings', 'gnetwork' ),
 					'default'     => 'open',
 					'values'      => [
-						'open'    => _x( 'Open', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
-						'limited' => _x( 'Limited', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
-						'private' => _x( 'Private', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
-						'closed'  => _x( 'Closed', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
+						'open'    => _x( 'Open', 'Modules: OpenSearch: Settings', 'gnetwork' ),
+						'limited' => _x( 'Limited', 'Modules: OpenSearch: Settings', 'gnetwork' ),
+						'private' => _x( 'Private', 'Modules: OpenSearch: Settings', 'gnetwork' ),
+						'closed'  => _x( 'Closed', 'Modules: OpenSearch: Settings', 'gnetwork' ),
 					],
 				],
 				[
 					'field'       => 'contact',
 					'type'        => 'email',
-					'title'       => _x( 'Contact', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'An email address at which the maintainer of the search engine can be reached.', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Contact', 'Modules: OpenSearch: Settings', 'gnetwork' ),
+					'description' => _x( 'An email address at which the maintainer of the search engine can be reached.', 'Modules: OpenSearch: Settings', 'gnetwork' ),
 					'default'     => get_network_option( NULL, 'admin_email' ),
 				],
 				[
 					'field'       => 'tags',
 					'type'        => 'text',
-					'title'       => _x( 'Tags', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'A set of words that are used as keywords to identify and categorize this search content. Single words and are delimited by space. <b>256</b> chars or less, no HTML.', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Tags', 'Modules: OpenSearch: Settings', 'gnetwork' ),
+					'description' => _x( 'A set of words that are used as keywords to identify and categorize this search content. Single words and are delimited by space. <b>256</b> chars or less, no HTML.', 'Modules: OpenSearch: Settings', 'gnetwork' ),
 					'field_class' => 'large-text',
 				],
 			],
@@ -147,11 +147,11 @@ class OpenSearch extends gNetwork\Module
 
 			$manifest = self::url( FALSE );
 
-			HTML::desc( sprintf( _x( 'Current Manifest: %s', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ),
+			HTML::desc( sprintf( _x( 'Current Manifest: %s', 'Modules: OpenSearch: Settings', 'gnetwork' ),
 				'<code>'.HTML::link( URL::relative( $manifest ), $manifest ).'</code>' ) );
 		} else {
 
-			HTML::desc( _x( 'There are no manifest available.', 'Modules: OpenSearch: Settings', GNETWORK_TEXTDOMAIN ) );
+			HTML::desc( _x( 'There are no manifest available.', 'Modules: OpenSearch: Settings', 'gnetwork' ) );
 		}
 	}
 
@@ -160,7 +160,7 @@ class OpenSearch extends gNetwork\Module
 		return [
 			 [
 				'id'      => $this->classs( 'help' ),
-				'title'   => _x( 'OpenSearch', 'Modules: OpenSearch: Help Tab Title', GNETWORK_TEXTDOMAIN ),
+				'title'   => _x( 'OpenSearch', 'Modules: OpenSearch: Help Tab Title', 'gnetwork' ),
 				'content' => '<p>OpenSearch is a collection of simple formats for the sharing of search results.</p>
 					<p>This blog\'s OpenSearch description file is:<br /><a href="'.self::url().'" target="_blank">'.self::url().'</a></p>
 				<p>Fore more information:<br />
@@ -236,14 +236,14 @@ class OpenSearch extends gNetwork\Module
 			$link = GNETWORK_SEARCH_REDIRECT ? GNETWORK_SEARCH_URL : '#';
 
 		if ( is_null( $text ) )
-			$text = _x( 'Search Engine', 'Modules: OpenSearch', GNETWORK_TEXTDOMAIN );
+			$text = _x( 'Search Engine', 'Modules: OpenSearch', 'gnetwork' );
 
 		if ( is_null( $title ) )
-			$title = _x( 'Add this site search engine plugin to your browser.', 'Modules: OpenSearch', GNETWORK_TEXTDOMAIN );
+			$title = _x( 'Add this site search engine plugin to your browser.', 'Modules: OpenSearch', 'gnetwork' );
 
 		$script = "function AddSearchEngine(){
 			if(window.external && ('AddSearchProvider' in window.external)){window.external.AddSearchProvider('".self::url()."');
-			}else{alert('"._x( 'Your browser does not support the AddSearchProvider method!', 'Modules: OpenSearch', GNETWORK_TEXTDOMAIN )."');
+			}else{alert('"._x( 'Your browser does not support the AddSearchProvider method!', 'Modules: OpenSearch', 'gnetwork' )."');
 			};return false;}";
 
 		echo '<script type="text/javascript">'.$script.'</script>';

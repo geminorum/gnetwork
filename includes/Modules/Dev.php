@@ -44,7 +44,7 @@ class Dev extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_tool( _x( 'Dev Tools', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
+		$this->register_tool( _x( 'Dev Tools', 'Modules: Menu Name', 'gnetwork' ) );
 	}
 
 	public function render_tools( $uri, $sub = 'general' )

@@ -10,10 +10,10 @@ class SiteIcon extends \WP_Widget
 	public function __construct()
 	{
 		parent::__construct( 'gnetwork-siteicon-widget',
-			_x( 'gNetwork Branding: Site Icon', 'Widget: Title', GNETWORK_TEXTDOMAIN ),
+			_x( 'gNetwork Branding: Site Icon', 'Widget: Title', 'gnetwork' ),
 			[
 				'classname'   => 'gnetwork-wrap-widget -siteicon-widget',
-				'description' => _x( 'Site Icon', 'Widget: Description', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Site Icon', 'Widget: Description', 'gnetwork' ),
 
 				'customize_selective_refresh' => TRUE,
 			]
@@ -25,7 +25,7 @@ class SiteIcon extends \WP_Widget
 		if ( is_customize_preview() ) {
 
 			echo '<p><a class="button" href="javascript:wp.customize.control(\'site_icon\').focus()">';
-				_ex( 'Setup or Change Site Icon', 'Modules: Widgets: Site Icon', GNETWORK_TEXTDOMAIN );
+				_ex( 'Setup or Change Site Icon', 'Modules: Widgets: Site Icon', 'gnetwork' );
 			echo '</a></p>';
 
 		} else {
@@ -41,7 +41,7 @@ class SiteIcon extends \WP_Widget
 
 		else if ( is_customize_preview() )
 			echo $args['before_widget']
-				._x( 'Please set up your site icon in the &#8220;Site Identity&#8221; section.', 'Modules: Widgets: Site Icon', GNETWORK_TEXTDOMAIN )
+				._x( 'Please set up your site icon in the &#8220;Site Identity&#8221; section.', 'Modules: Widgets: Site Icon', 'gnetwork' )
 				.$args['after_widget'];
 	}
 }

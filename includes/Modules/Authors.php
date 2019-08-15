@@ -34,8 +34,8 @@ class Authors extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Authors', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
-		$this->register_tool( _x( 'Authors', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ), NULL, 9, 'list_users' );
+		$this->register_menu( _x( 'Authors', 'Modules: Menu Name', 'gnetwork' ) );
+		$this->register_tool( _x( 'Authors', 'Modules: Menu Name', 'gnetwork' ), NULL, 9, 'list_users' );
 	}
 
 	public function default_options()
@@ -55,25 +55,25 @@ class Authors extends gNetwork\Module
 			'_general' => [
 				[
 					'field'       => 'siteuser_as_default',
-					'title'       => _x( 'Default Author', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Uses site user as default author of new posts in admin.', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Default Author', 'Modules: Authors: Settings', 'gnetwork' ),
+					'description' => _x( 'Uses site user as default author of new posts in admin.', 'Modules: Authors: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'remove_author_pages',
-					'title'       => _x( 'Remove Author Pages', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Triggers a 404 error for all author pages or redirect to custom URL.', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Remove Author Pages', 'Modules: Authors: Settings', 'gnetwork' ),
+					'description' => _x( 'Triggers a 404 error for all author pages or redirect to custom URL.', 'Modules: Authors: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'replace_author_links',
 					'type'        => 'url',
-					'title'       => _x( 'Replace Author Links', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Replaces author links with links to a custom URL.', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Replace Author Links', 'Modules: Authors: Settings', 'gnetwork' ),
+					'description' => _x( 'Replaces author links with links to a custom URL.', 'Modules: Authors: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'replace_status_code',
 					'type'        => 'select',
-					'title'       => _x( 'Redirect Status Code', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Defines HTTP status header code while redirecting to custom URL.', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Redirect Status Code', 'Modules: Authors: Settings', 'gnetwork' ),
+					'description' => _x( 'Defines HTTP status header code while redirecting to custom URL.', 'Modules: Authors: Settings', 'gnetwork' ),
 					'after'       => Settings::fieldAfterIcon( 'https://en.wikipedia.org/wiki/List_of_HTTP_status_codes' ),
 					'dir'         => 'ltr',
 					'default'     => '301',
@@ -104,25 +104,25 @@ class Authors extends gNetwork\Module
 		foreach ( WordPress::getUsers() as $user_id => $user )
 			$users[$user_id] = sprintf( '%1$s (%2$s)', $user->display_name, $user->user_login );
 
-		Settings::headerTitle( _x( 'Author Tools', 'Modules: Authors', GNETWORK_TEXTDOMAIN ) );
+		Settings::headerTitle( _x( 'Author Tools', 'Modules: Authors', 'gnetwork' ) );
 
 		echo '<table class="form-table">';
 
 			if ( $user = gNetwork()->user() ) {
 
-				echo '<tr><th scope="row">'._x( 'Site User', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ).'</th><td>';
+				echo '<tr><th scope="row">'._x( 'Site User', 'Modules: Authors: Settings', 'gnetwork' ).'</th><td>';
 				echo $this->wrap_open_buttons();
 
 				if ( is_user_member_of_blog( $user ) )
-					HTML::desc( _x( 'The user is already member of this blog.', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ) );
+					HTML::desc( _x( 'The user is already member of this blog.', 'Modules: Authors: Settings', 'gnetwork' ) );
 
 				else
-					Settings::submitButton( 'add_site_user', _x( 'Add User to this Site', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ) );
+					Settings::submitButton( 'add_site_user', _x( 'Add User to this Site', 'Modules: Authors: Settings', 'gnetwork' ) );
 
 				echo '</p></td></tr>';
 			}
 
-			echo '<tr><th scope="row">'._x( 'Bulk Change Author', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ).'</th><td>';
+			echo '<tr><th scope="row">'._x( 'Bulk Change Author', 'Modules: Authors: Settings', 'gnetwork' ).'</th><td>';
 
 			echo $this->wrap_open_buttons();
 
@@ -134,7 +134,7 @@ class Authors extends gNetwork\Module
 				'default'   => 'none',
 			] );
 
-			echo '&nbsp;&mdash;&nbsp;'._x( 'to', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ).'&nbsp;&ndash;&nbsp;';
+			echo '&nbsp;&mdash;&nbsp;'._x( 'to', 'Modules: Authors: Settings', 'gnetwork' ).'&nbsp;&ndash;&nbsp;';
 
 			unset( $users['all'] );
 
@@ -146,7 +146,7 @@ class Authors extends gNetwork\Module
 				'default'   => gNetwork()->user(),
 			] );
 
-			echo '&nbsp;&mdash;&nbsp;'._x( 'on', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ).'&nbsp;&ndash;&nbsp;';
+			echo '&nbsp;&mdash;&nbsp;'._x( 'on', 'Modules: Authors: Settings', 'gnetwork' ).'&nbsp;&ndash;&nbsp;';
 
 			$this->do_settings_field( [
 				'type'      => 'select',
@@ -156,9 +156,9 @@ class Authors extends gNetwork\Module
 				'values'    => WordPress::getPostTypes(),
 			] );
 
-			echo '&nbsp;&mdash;&nbsp;'._x( 'do', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ).'&nbsp;&ndash;&nbsp;';
+			echo '&nbsp;&mdash;&nbsp;'._x( 'do', 'Modules: Authors: Settings', 'gnetwork' ).'&nbsp;&ndash;&nbsp;';
 
-			Settings::submitButton( 'bulk_change_author', _x( 'Change', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ), FALSE, TRUE );
+			Settings::submitButton( 'bulk_change_author', _x( 'Change', 'Modules: Authors: Settings', 'gnetwork' ), FALSE, TRUE );
 
 			echo '</p></td></tr>';
 		echo '</table>';
@@ -220,17 +220,17 @@ class Authors extends gNetwork\Module
 			$name = get_userdata( $user )->display_name;
 			$edit = WordPress::getUserEditLink( $user );
 
-			HTML::desc( sprintf( _x( 'Site-User for current network is: %s', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
+			HTML::desc( sprintf( _x( 'Site-User for current network is: %s', 'Modules: Authors: Settings', 'gnetwork' ),
 				$edit ? HTML::link( $name, $edit, TRUE ) : $name ) );
 
 		} else {
 
-			HTML::desc( _x( 'Site-User for current network is <strong>not</strong> defined.', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ) );
+			HTML::desc( _x( 'Site-User for current network is <strong>not</strong> defined.', 'Modules: Authors: Settings', 'gnetwork' ) );
 		}
 
 		if ( $default_role ) {
 
-			HTML::desc( sprintf( _x( 'Default role for this site is: %s', 'Modules: Authors: Settings', GNETWORK_TEXTDOMAIN ),
+			HTML::desc( sprintf( _x( 'Default role for this site is: %s', 'Modules: Authors: Settings', 'gnetwork' ),
 				'<code>'.get_option( 'default_role' ).'</code>' ) );
 		}
 	}

@@ -48,14 +48,14 @@ class Settings extends Core\Base
 	public static function headerTitle( $title = NULL, $after = '', $tag = 'h1' )
 	{
 		if ( is_null( $title ) )
-			$title = _x( 'Network Extras', 'Settings: Header Title', GNETWORK_TEXTDOMAIN );
+			$title = _x( 'Network Extras', 'Settings: Header Title', 'gnetwork' );
 
 		echo '<'.$tag.' class="wp-heading-inline settings-title">'.$title.'</'.$tag.'>';
 
 		if ( 'version' == $after )
 			echo ' '.HTML::tag( 'a', [
 				'href'   => 'https://github.com/geminorum/gnetwork/releases',
-				'title'  => _x( 'Plugin Changelog', 'Settings: Header Title: Link Title Attr', GNETWORK_TEXTDOMAIN ),
+				'title'  => _x( 'Plugin Changelog', 'Settings: Header Title: Link Title Attr', 'gnetwork' ),
 				'class'  => [ 'page-title-action', 'settings-title-action' ],
 				'target' => '_blank',
 			], GNETWORK_VERSION );
@@ -69,7 +69,7 @@ class Settings extends Core\Base
 	public static function sideOpen( $title = NULL, $uri = '', $active = '', $subs = [], $heading = NULL )
 	{
 		if ( is_null( $title ) )
-			$title = _x( 'Extras', 'Settings: Header Title', GNETWORK_TEXTDOMAIN );
+			$title = _x( 'Extras', 'Settings: Header Title', 'gnetwork' );
 
 		echo '<div class="side-nav-wrap">';
 
@@ -108,27 +108,27 @@ class Settings extends Core\Base
 	public static function messages()
 	{
 		return [
-			'resetting' => self::success( _x( 'Settings reset.', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
-			'optimized' => self::success( _x( 'Tables optimized.', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
-			'updated'   => self::success( _x( 'Settings updated.', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
-			'purged'    => self::success( _x( 'Data purged.', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
-			'maked'     => self::success( _x( 'File/Folder created.', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
-			'mailed'    => self::success( _x( 'Mail sent successfully.', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
-			'error'     => self::error( _x( 'Error occurred!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
-			'wrong'     => self::error( _x( 'Something\'s wrong!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
-			'nochange'  => self::error( _x( 'No item changed!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
-			'noadded'   => self::error( _x( 'No item added!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
-			'noaccess'  => self::error( _x( 'You do not have the access!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
-			'converted' => self::counted( _x( '%s items(s) converted!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
-			'imported'  => self::counted( _x( '%s items(s) imported!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
-			'created'   => self::counted( _x( '%s items(s) created!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
-			'deleted'   => self::counted( _x( '%s items(s) deleted!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
-			'cleaned'   => self::counted( _x( '%s items(s) cleaned!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
-			'changed'   => self::counted( _x( '%s items(s) changed!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
-			'emptied'   => self::counted( _x( '%s items(s) emptied!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
-			'closed'    => self::counted( _x( '%s items(s) closed!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
-			'ordered'   => self::counted( _x( '%s items(s) re-ordered!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
-			'synced'    => self::counted( _x( '%s items(s) synced!', 'Settings: Message', GNETWORK_TEXTDOMAIN ) ),
+			'resetting' => self::success( _x( 'Settings reset.', 'Settings: Message', 'gnetwork' ) ),
+			'optimized' => self::success( _x( 'Tables optimized.', 'Settings: Message', 'gnetwork' ) ),
+			'updated'   => self::success( _x( 'Settings updated.', 'Settings: Message', 'gnetwork' ) ),
+			'purged'    => self::success( _x( 'Data purged.', 'Settings: Message', 'gnetwork' ) ),
+			'maked'     => self::success( _x( 'File/Folder created.', 'Settings: Message', 'gnetwork' ) ),
+			'mailed'    => self::success( _x( 'Mail sent successfully.', 'Settings: Message', 'gnetwork' ) ),
+			'error'     => self::error( _x( 'Error occurred!', 'Settings: Message', 'gnetwork' ) ),
+			'wrong'     => self::error( _x( 'Something\'s wrong!', 'Settings: Message', 'gnetwork' ) ),
+			'nochange'  => self::error( _x( 'No item changed!', 'Settings: Message', 'gnetwork' ) ),
+			'noadded'   => self::error( _x( 'No item added!', 'Settings: Message', 'gnetwork' ) ),
+			'noaccess'  => self::error( _x( 'You do not have the access!', 'Settings: Message', 'gnetwork' ) ),
+			'converted' => self::counted( _x( '%s items(s) converted!', 'Settings: Message', 'gnetwork' ) ),
+			'imported'  => self::counted( _x( '%s items(s) imported!', 'Settings: Message', 'gnetwork' ) ),
+			'created'   => self::counted( _x( '%s items(s) created!', 'Settings: Message', 'gnetwork' ) ),
+			'deleted'   => self::counted( _x( '%s items(s) deleted!', 'Settings: Message', 'gnetwork' ) ),
+			'cleaned'   => self::counted( _x( '%s items(s) cleaned!', 'Settings: Message', 'gnetwork' ) ),
+			'changed'   => self::counted( _x( '%s items(s) changed!', 'Settings: Message', 'gnetwork' ) ),
+			'emptied'   => self::counted( _x( '%s items(s) emptied!', 'Settings: Message', 'gnetwork' ) ),
+			'closed'    => self::counted( _x( '%s items(s) closed!', 'Settings: Message', 'gnetwork' ) ),
+			'ordered'   => self::counted( _x( '%s items(s) re-ordered!', 'Settings: Message', 'gnetwork' ) ),
+			'synced'    => self::counted( _x( '%s items(s) synced!', 'Settings: Message', 'gnetwork' ) ),
 			'huh'       => HTML::error( self::huh( self::req( 'huh', NULL ) ) ),
 		];
 	}
@@ -138,7 +138,7 @@ class Settings extends Core\Base
 		$extra = [];
 
 		if ( isset( $_REQUEST['count'] ) )
-			$extra[] = sprintf( _x( '%s Counted!', 'Settings: Message', GNETWORK_TEXTDOMAIN ),
+			$extra[] = sprintf( _x( '%s Counted!', 'Settings: Message', 'gnetwork' ),
 				Number::format( $_REQUEST['count'] ) );
 
 		return count( $extra ) ? ' ('.implode( ', ', $extra ).')' : '';
@@ -167,7 +167,7 @@ class Settings extends Core\Base
 	public static function counted( $message = NULL, $count = NULL, $class = 'updated' )
 	{
 		if ( is_null( $message ) )
-			$message = _x( '%s Counted!', 'Settings', GNETWORK_TEXTDOMAIN );
+			$message = _x( '%s Counted!', 'Settings', 'gnetwork' );
 
 		if ( is_null( $count ) )
 			$count = isset( $_REQUEST['count'] ) ? $_REQUEST['count'] : 0;
@@ -177,15 +177,15 @@ class Settings extends Core\Base
 
 	public static function cheatin( $message = NULL )
 	{
-		echo HTML::error( is_null( $message ) ? _x( 'Cheatin&#8217; uh?', 'Settings: Message', GNETWORK_TEXTDOMAIN ) : $message );
+		echo HTML::error( is_null( $message ) ? _x( 'Cheatin&#8217; uh?', 'Settings: Message', 'gnetwork' ) : $message );
 	}
 
 	public static function huh( $message = NULL )
 	{
 		if ( $message )
-			return sprintf( _x( 'huh? %s', 'Settings: Message', GNETWORK_TEXTDOMAIN ), $message );
+			return sprintf( _x( 'huh? %s', 'Settings: Message', 'gnetwork' ), $message );
 
-		return _x( 'huh?', 'Settings: Message', GNETWORK_TEXTDOMAIN );
+		return _x( 'huh?', 'Settings: Message', 'gnetwork' );
 	}
 
 	public static function message( $messages = NULL )
@@ -207,7 +207,7 @@ class Settings extends Core\Base
 	public static function getButtonConfirm( $message = NULL )
 	{
 		if ( is_null( $message ) )
-			$message = _x( 'Are you sure? This operation can not be undone.', 'Settings: Confirm', GNETWORK_TEXTDOMAIN );
+			$message = _x( 'Are you sure? This operation can not be undone.', 'Settings: Confirm', 'gnetwork' );
 
 		return [ 'onclick' => sprintf( 'return confirm(\'%s\')', HTML::escape( $message ) ) ];
 	}
@@ -219,8 +219,8 @@ class Settings extends Core\Base
 
 		if ( is_null( $text ) )
 			$text = 'reset' == $name
-				? _x( 'Reset Settings', 'Settings: Button', GNETWORK_TEXTDOMAIN )
-				: _x( 'Save Changes', 'Settings: Button', GNETWORK_TEXTDOMAIN );
+				? _x( 'Reset Settings', 'Settings: Button', 'gnetwork' )
+				: _x( 'Save Changes', 'Settings: Button', 'gnetwork' );
 
 		if ( TRUE === $atts )
 			$atts = self::getButtonConfirm();
@@ -263,9 +263,9 @@ class Settings extends Core\Base
 	{
 		$html = HTML::tag( 'a', [
 			'href'   => 'https://codex.wordpress.org/'.$page,
-			'title'  => sprintf( _x( 'See WordPress Codex for %s.', 'Settings', GNETWORK_TEXTDOMAIN ), str_ireplace( '_', ' ', $page ) ),
+			'title'  => sprintf( _x( 'See WordPress Codex for %s.', 'Settings', 'gnetwork' ), str_ireplace( '_', ' ', $page ) ),
 			'target' => '_blank',
-		], ( $text ? _x( 'See Codex', 'Settings', GNETWORK_TEXTDOMAIN ) : HTML::getDashicon( 'media-code' ) ) );
+		], ( $text ? _x( 'See Codex', 'Settings', 'gnetwork' ) : HTML::getDashicon( 'media-code' ) ) );
 
 		return $text
 			? '<code class="-field-after -link-wrap">'.$html.'</span>'
@@ -284,9 +284,9 @@ class Settings extends Core\Base
 
 		return HTML::tag( 'a', [
 			'href'   => $logo,
-			'title'  => _x( 'Full URL to the current login logo image', 'Settings', GNETWORK_TEXTDOMAIN ),
+			'title'  => _x( 'Full URL to the current login logo image', 'Settings', 'gnetwork' ),
 			'target' => '_blank',
-		], ( $text ? _x( 'Login Logo', 'Settings', GNETWORK_TEXTDOMAIN ) : HTML::getDashicon( 'format-image' ) ) );
+		], ( $text ? _x( 'Login Logo', 'Settings', 'gnetwork' ) : HTML::getDashicon( 'format-image' ) ) );
 	}
 
 	public static function fieldSection( $title, $description = FALSE, $tag = 'h2' )
@@ -308,7 +308,7 @@ class Settings extends Core\Base
 
 		$html = HTML::tag( 'a', [
 			'href'         => $url,
-			'title'        => is_null( $title ) ? _x( 'See More Information', 'Settings', GNETWORK_TEXTDOMAIN ) : $title,
+			'title'        => is_null( $title ) ? _x( 'See More Information', 'Settings', 'gnetwork' ) : $title,
 			'target'       => '_blank',
 			'data-tooltip' => $tooltip,
 			'class'        => $tooltip ? ( HTML::rtl() ? 'tooltip-right' : 'tooltip-left' ) : FALSE,
@@ -324,7 +324,7 @@ class Settings extends Core\Base
 
 		return HTML::tag( 'span', [
 			'class' => '-field-after '.$class,
-			'title' => is_null( $title ) ? _x( 'Currently defined constant', 'Settings', GNETWORK_TEXTDOMAIN ) : $title,
+			'title' => is_null( $title ) ? _x( 'Currently defined constant', 'Settings', 'gnetwork' ) : $title,
 		], '<code>'.$constant.'</code> : <code>'.constant( $constant ).'</code>' );
 	}
 
@@ -347,30 +347,30 @@ class Settings extends Core\Base
 	{
 		return self::fieldAfterIcon(
 			add_query_arg( [ 'post_type' => $post_type ], admin_url( 'post-new.php' ) ),
-			_x( 'Add New Post Type', 'Settings', GNETWORK_TEXTDOMAIN ), $icon );
+			_x( 'Add New Post Type', 'Settings', 'gnetwork' ), $icon );
 	}
 
 	// using caps instead of roles
 	public static function getUserCapList( $cap = NULL, $none_title = NULL, $none_value = NULL )
 	{
 		$caps = [
-			'edit_theme_options'   => _x( 'Administrators', 'Utilities: Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
-			'edit_others_posts'    => _x( 'Editors', 'Utilities: Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
-			'edit_published_posts' => _x( 'Authors', 'Utilities: Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
-			'edit_posts'           => _x( 'Contributors', 'Utilities: Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
-			'_member_of_site'      => _x( 'Site Users', 'Utilities: Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ), // pseudo-cap
+			'edit_theme_options'   => _x( 'Administrators', 'Utilities: Dropdown: Get User Roles', 'gnetwork' ),
+			'edit_others_posts'    => _x( 'Editors', 'Utilities: Dropdown: Get User Roles', 'gnetwork' ),
+			'edit_published_posts' => _x( 'Authors', 'Utilities: Dropdown: Get User Roles', 'gnetwork' ),
+			'edit_posts'           => _x( 'Contributors', 'Utilities: Dropdown: Get User Roles', 'gnetwork' ),
+			'_member_of_site'      => _x( 'Site Users', 'Utilities: Dropdown: Get User Roles', 'gnetwork' ), // pseudo-cap
 		];
 
 		if ( is_multisite() ) {
 			$caps = [
-				'manage_network' => _x( 'Super Admins', 'Utilities: Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ),
+				'manage_network' => _x( 'Super Admins', 'Utilities: Dropdown: Get User Roles', 'gnetwork' ),
 			] + $caps + [
-				'_member_of_network' => _x( 'Network Users', 'Utilities: Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN ), // pseudo-cap
+				'_member_of_network' => _x( 'Network Users', 'Utilities: Dropdown: Get User Roles', 'gnetwork' ), // pseudo-cap
 			];
 		}
 
 		if ( is_null( $none_title ) )
-			$none_title = _x( '&mdash; No One &mdash;', 'Utilities: Dropdown: Get User Roles', GNETWORK_TEXTDOMAIN );
+			$none_title = _x( '&mdash; No One &mdash;', 'Utilities: Dropdown: Get User Roles', 'gnetwork' );
 
 		if ( is_null( $none_value ) )
 			$none_value = 'none';
@@ -406,40 +406,40 @@ class Settings extends Core\Base
 	public static function minutesOptions()
 	{
 		return [
-			'5'    => _x( '5 Minutes', 'Settings: Option: Time in Minutes', GNETWORK_TEXTDOMAIN ),
-			'10'   => _x( '10 Minutes', 'Settings: Option: Time in Minutes', GNETWORK_TEXTDOMAIN ),
-			'15'   => _x( '15 Minutes', 'Settings: Option: Time in Minutes', GNETWORK_TEXTDOMAIN ),
-			'30'   => _x( '30 Minutes', 'Settings: Option: Time in Minutes', GNETWORK_TEXTDOMAIN ),
-			'60'   => _x( '60 Minutes', 'Settings: Option: Time in Minutes', GNETWORK_TEXTDOMAIN ),
-			'120'  => _x( '2 Hours', 'Settings: Option: Time in Minutes', GNETWORK_TEXTDOMAIN ),
-			'180'  => _x( '3 Hours', 'Settings: Option: Time in Minutes', GNETWORK_TEXTDOMAIN ),
-			'240'  => _x( '4 Hours', 'Settings: Option: Time in Minutes', GNETWORK_TEXTDOMAIN ),
-			'480'  => _x( '8 Hours', 'Settings: Option: Time in Minutes', GNETWORK_TEXTDOMAIN ),
-			'1440' => _x( '24 Hours', 'Settings: Option: Time in Minutes', GNETWORK_TEXTDOMAIN ),
+			'5'    => _x( '5 Minutes', 'Settings: Option: Time in Minutes', 'gnetwork' ),
+			'10'   => _x( '10 Minutes', 'Settings: Option: Time in Minutes', 'gnetwork' ),
+			'15'   => _x( '15 Minutes', 'Settings: Option: Time in Minutes', 'gnetwork' ),
+			'30'   => _x( '30 Minutes', 'Settings: Option: Time in Minutes', 'gnetwork' ),
+			'60'   => _x( '60 Minutes', 'Settings: Option: Time in Minutes', 'gnetwork' ),
+			'120'  => _x( '2 Hours', 'Settings: Option: Time in Minutes', 'gnetwork' ),
+			'180'  => _x( '3 Hours', 'Settings: Option: Time in Minutes', 'gnetwork' ),
+			'240'  => _x( '4 Hours', 'Settings: Option: Time in Minutes', 'gnetwork' ),
+			'480'  => _x( '8 Hours', 'Settings: Option: Time in Minutes', 'gnetwork' ),
+			'1440' => _x( '24 Hours', 'Settings: Option: Time in Minutes', 'gnetwork' ),
 		];
 	}
 
 	public static function showOptionNone( $string = NULL )
 	{
 		if ( $string )
-			return sprintf( _x( '&mdash; Select %s &mdash;', 'Settings: Dropdown Select Option None', GNETWORK_TEXTDOMAIN ), $string );
+			return sprintf( _x( '&mdash; Select %s &mdash;', 'Settings: Dropdown Select Option None', 'gnetwork' ), $string );
 
-		return _x( '&mdash; Select &mdash;', 'Settings: Dropdown Select Option None', GNETWORK_TEXTDOMAIN );
+		return _x( '&mdash; Select &mdash;', 'Settings: Dropdown Select Option None', 'gnetwork' );
 	}
 
 	public static function showOptionAll( $string = NULL )
 	{
 		if ( $string )
-			return sprintf( _x( '&mdash; All %s &mdash;', 'Settings: Dropdown Select Option All', GNETWORK_TEXTDOMAIN ), $string );
+			return sprintf( _x( '&mdash; All %s &mdash;', 'Settings: Dropdown Select Option All', 'gnetwork' ), $string );
 
-		return _x( '&mdash; All &mdash;', 'Settings: Dropdown Select Option All', GNETWORK_TEXTDOMAIN );
+		return _x( '&mdash; All &mdash;', 'Settings: Dropdown Select Option All', 'gnetwork' );
 	}
 
 	public static function reverseEnabled()
 	{
 		return [
-			_x( 'Enabled', 'Settings', GNETWORK_TEXTDOMAIN ),
-			_x( 'Disabled', 'Settings', GNETWORK_TEXTDOMAIN ),
+			_x( 'Enabled', 'Settings', 'gnetwork' ),
+			_x( 'Disabled', 'Settings', 'gnetwork' ),
 		];
 	}
 
@@ -447,8 +447,8 @@ class Settings extends Core\Base
 	{
 		return [
 			'field'       => 'register_shortcodes',
-			'title'       => _x( 'Extra Shortcodes', 'Settings: Setting Title', GNETWORK_TEXTDOMAIN ),
-			'description' => _x( 'Registers this modules\'s extra shortcodes.', 'Settings: Setting Desc', GNETWORK_TEXTDOMAIN ),
+			'title'       => _x( 'Extra Shortcodes', 'Settings: Setting Title', 'gnetwork' ),
+			'description' => _x( 'Registers this modules\'s extra shortcodes.', 'Settings: Setting Desc', 'gnetwork' ),
 		];
 	}
 
@@ -456,8 +456,8 @@ class Settings extends Core\Base
 	{
 		return [
 			'field'       => 'editor_buttons',
-			'title'       => _x( 'Editor Buttons', 'Settings: Setting Title', GNETWORK_TEXTDOMAIN ),
-			'description' => _x( 'Displays extra buttons on post content editor.', 'Settings: Setting Desc', GNETWORK_TEXTDOMAIN ),
+			'title'       => _x( 'Editor Buttons', 'Settings: Setting Title', 'gnetwork' ),
+			'description' => _x( 'Displays extra buttons on post content editor.', 'Settings: Setting Desc', 'gnetwork' ),
 		];
 	}
 
@@ -465,8 +465,8 @@ class Settings extends Core\Base
 	{
 		return [
 			'field'       => 'dashboard_widget',
-			'title'       => _x( 'Dashboard Widget', 'Settings: Setting Title', GNETWORK_TEXTDOMAIN ),
-			'description' => _x( 'Adds a widget to this site dashboard.', 'Settings: Setting Desc', GNETWORK_TEXTDOMAIN ),
+			'title'       => _x( 'Dashboard Widget', 'Settings: Setting Title', 'gnetwork' ),
+			'description' => _x( 'Adds a widget to this site dashboard.', 'Settings: Setting Desc', 'gnetwork' ),
 		];
 	}
 
@@ -475,8 +475,8 @@ class Settings extends Core\Base
 		return [
 			'field'       => 'dashboard_accesscap',
 			'type'        => 'cap',
-			'title'       => _x( 'Access Level', 'Settings: Setting Title', GNETWORK_TEXTDOMAIN ),
-			'description' => _x( 'Selected and above can view the dashboard widget.', 'Settings: Setting Desc', GNETWORK_TEXTDOMAIN ),
+			'title'       => _x( 'Access Level', 'Settings: Setting Title', 'gnetwork' ),
+			'description' => _x( 'Selected and above can view the dashboard widget.', 'Settings: Setting Desc', 'gnetwork' ),
 			'default'     => $default ?: '',
 		];
 	}
@@ -486,8 +486,8 @@ class Settings extends Core\Base
 		return [
 			'field'       => 'dashboard_intro',
 			'type'        => 'textarea-quicktags',
-			'title'       => _x( 'Widget Introduction ', 'Settings: Setting Title', GNETWORK_TEXTDOMAIN ),
-			'description' => _x( 'Message to display before contents on admin dashbaord widget.', 'Settings: Setting Desc', GNETWORK_TEXTDOMAIN ),
+			'title'       => _x( 'Widget Introduction ', 'Settings: Setting Title', 'gnetwork' ),
+			'description' => _x( 'Message to display before contents on admin dashbaord widget.', 'Settings: Setting Desc', 'gnetwork' ),
 		];
 	}
 
@@ -544,11 +544,11 @@ class Settings extends Core\Base
 			'wrap'         => FALSE,
 			'cap'          => NULL,
 
-			'string_disabled' => _x( 'Disabled', 'Settings', GNETWORK_TEXTDOMAIN ),
-			'string_enabled'  => _x( 'Enabled', 'Settings', GNETWORK_TEXTDOMAIN ),
+			'string_disabled' => _x( 'Disabled', 'Settings', 'gnetwork' ),
+			'string_enabled'  => _x( 'Enabled', 'Settings', 'gnetwork' ),
 			'string_select'   => self::showOptionNone(),
-			'string_empty'    => _x( 'No options!', 'Settings', GNETWORK_TEXTDOMAIN ),
-			'string_noaccess' => _x( 'You do not have access to change this option.', 'Settings', GNETWORK_TEXTDOMAIN ),
+			'string_empty'    => _x( 'No options!', 'Settings', 'gnetwork' ),
+			'string_noaccess' => _x( 'You do not have access to change this option.', 'Settings', 'gnetwork' ),
 		], $atts );
 
 		if ( $args['wrap'] ) {

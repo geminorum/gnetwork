@@ -45,8 +45,8 @@ class Cron extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'CRON', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
-		$this->register_tool( _x( 'CRON', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
+		$this->register_menu( _x( 'CRON', 'Modules: Menu Name', 'gnetwork' ) );
+		$this->register_tool( _x( 'CRON', 'Modules: Menu Name', 'gnetwork' ) );
 	}
 
 	protected function setup_ajax( $request )
@@ -72,10 +72,10 @@ class Cron extends gNetwork\Module
 			'_general' => [
 				[
 					'field'       => 'schedule_revision',
-					'title'       => _x( 'Clean Revisions', 'Modules: CRON: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Schedules a <b>weekly</b> task to delete post revisions.', 'Modules: CRON: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Clean Revisions', 'Modules: CRON: Settings', 'gnetwork' ),
+					'description' => _x( 'Schedules a <b>weekly</b> task to delete post revisions.', 'Modules: CRON: Settings', 'gnetwork' ),
 					'disabled'    => ! WP_POST_REVISIONS,
-					'after'       => WP_POST_REVISIONS ? FALSE : Settings::fieldAfterText( sprintf( _x( 'Disabled by Constant: %s', 'Modules: CRON: Settings', GNETWORK_TEXTDOMAIN ), '<code>WP_POST_REVISIONS</code>' ) ),
+					'after'       => WP_POST_REVISIONS ? FALSE : Settings::fieldAfterText( sprintf( _x( 'Disabled by Constant: %s', 'Modules: CRON: Settings', 'gnetwork' ), '<code>WP_POST_REVISIONS</code>' ) ),
 				],
 			],
 			'_statuscheck' => [
@@ -84,14 +84,14 @@ class Cron extends gNetwork\Module
 				'dashboard_intro',
 				[
 					'field'       => 'status_email_failure',
-					'title'       => _x( 'Email Failure', 'Modules: CRON: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Notifies the administrator status check failure via email.', 'Modules: CRON: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Email Failure', 'Modules: CRON: Settings', 'gnetwork' ),
+					'description' => _x( 'Notifies the administrator status check failure via email.', 'Modules: CRON: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'status_email_address',
 					'type'        => 'email',
-					'title'       => _x( 'Email Address', 'Modules: CRON: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Failure notices will be sent to this address. Leave empty for WordPress admin email.', 'Modules: CRON: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Email Address', 'Modules: CRON: Settings', 'gnetwork' ),
+					'description' => _x( 'Failure notices will be sent to this address. Leave empty for WordPress admin email.', 'Modules: CRON: Settings', 'gnetwork' ),
 					'after'       => empty( $this->options['status_email_address'] ) ? Settings::fieldAfterEmail( get_option( 'admin_email' ) ) : FALSE,
 				],
 			],
@@ -101,7 +101,7 @@ class Cron extends gNetwork\Module
 	public function settings_section_statuscheck()
 	{
 		Settings::fieldSection(
-			_x( 'Status Check', 'Modules: CRON: Settings', GNETWORK_TEXTDOMAIN )
+			_x( 'Status Check', 'Modules: CRON: Settings', 'gnetwork' )
 		);
 	}
 
@@ -110,17 +110,17 @@ class Cron extends gNetwork\Module
 		$check = TRUE;
 
 		if ( defined( 'DISABLE_WP_CRON' ) && DISABLE_WP_CRON ) {
-			HTML::desc( sprintf( _x( 'The %s is set. WP-Cron is disabled and will not run automatically.', 'Modules: CRON: Settings', GNETWORK_TEXTDOMAIN ), '<code>DISABLE_WP_CRON</code>' ) );
+			HTML::desc( sprintf( _x( 'The %s is set. WP-Cron is disabled and will not run automatically.', 'Modules: CRON: Settings', 'gnetwork' ), '<code>DISABLE_WP_CRON</code>' ) );
 			$check = FALSE;
 		}
 
 		if ( defined( 'ALTERNATE_WP_CRON' ) && ALTERNATE_WP_CRON ) {
-			HTML::desc( sprintf( _x( 'The %s is set. Cannot determine the status of the WP-Cron.', 'Modules: CRON: Settings', GNETWORK_TEXTDOMAIN ), '<code>ALTERNATE_WP_CRON</code>' ) );
+			HTML::desc( sprintf( _x( 'The %s is set. Cannot determine the status of the WP-Cron.', 'Modules: CRON: Settings', 'gnetwork' ), '<code>ALTERNATE_WP_CRON</code>' ) );
 			$check = FALSE;
 		}
 
 		if ( defined( 'WP_CRON_LOCK_TIMEOUT' ) && WP_CRON_LOCK_TIMEOUT )
-			HTML::desc( Utilities::getCounted( WP_CRON_LOCK_TIMEOUT, _x( '<code>WP_CRON_LOCK_TIMEOUT</code> is %s Seconds.', 'Modules: CRON: Settings', GNETWORK_TEXTDOMAIN ) ) );
+			HTML::desc( Utilities::getCounted( WP_CRON_LOCK_TIMEOUT, _x( '<code>WP_CRON_LOCK_TIMEOUT</code> is %s Seconds.', 'Modules: CRON: Settings', 'gnetwork' ) ) );
 
 		if ( ! $check )
 			return;
@@ -137,7 +137,7 @@ class Cron extends gNetwork\Module
 		return [
 			[
 				'id'      => $this->classs( 'help' ),
-				'title'   => _x( 'Schedule Intervals', 'Modules: CRON: Help Tab Title', GNETWORK_TEXTDOMAIN ),
+				'title'   => _x( 'Schedule Intervals', 'Modules: CRON: Help Tab Title', 'gnetwork' ),
 				'content' => HTML::tableCode( wp_get_schedules() ),
 			],
 		];
@@ -171,8 +171,8 @@ class Cron extends gNetwork\Module
 
 	protected function tools_buttons( $sub = NULL )
 	{
-		$this->register_button( 'unschedule', _x( 'Unschedule', 'Modules: CRON: Button', GNETWORK_TEXTDOMAIN ), 'danger' );
-		$this->register_button( $this->get_cron_url(), _x( 'Trigger Manually', 'Modules: CRON', GNETWORK_TEXTDOMAIN ), 'link', [ 'target' => '_blank' ] );
+		$this->register_button( 'unschedule', _x( 'Unschedule', 'Modules: CRON: Button', 'gnetwork' ), 'danger' );
+		$this->register_button( $this->get_cron_url(), _x( 'Trigger Manually', 'Modules: CRON', 'gnetwork' ), 'link', [ 'target' => '_blank' ] );
 	}
 
 	public function schedule_actions()
@@ -189,7 +189,7 @@ class Cron extends gNetwork\Module
 
 			wp_add_dashboard_widget(
 				$this->classs( 'dashboard' ),
-				_x( 'WP-Cron Status Check', 'Modules: CRON: Widget Title', GNETWORK_TEXTDOMAIN ),
+				_x( 'WP-Cron Status Check', 'Modules: CRON: Widget Title', 'gnetwork' ),
 				[ $this, 'widget_status_check' ]
 			);
 
@@ -217,7 +217,7 @@ class Cron extends gNetwork\Module
 		if ( $status = get_option( $this->hook( 'status' ) ) )
 			return Text::autoP( $status );
 
-		return '<p>'._x( 'WP-Cron Status Checker has not run yet.', 'Modules: CRON', GNETWORK_TEXTDOMAIN ).'</p>';
+		return '<p>'._x( 'WP-Cron Status Checker has not run yet.', 'Modules: CRON', 'gnetwork' ).'</p>';
 	}
 
 	// run the check and update the status
@@ -241,16 +241,16 @@ class Cron extends gNetwork\Module
 
 			} else {
 
-				$message = _x( 'While trying to spawn a call to the WP-Cron system, the following error occurred:', 'Modules: CRON', GNETWORK_TEXTDOMAIN );
+				$message = _x( 'While trying to spawn a call to the WP-Cron system, the following error occurred:', 'Modules: CRON', 'gnetwork' );
 				$message.= '<br><br><strong>'.HTML::escape( $result->get_error_message() ).'</strong><br><br>';
-				$message.= _x( 'This is a problem with your installation.', 'Modules: CRON', GNETWORK_TEXTDOMAIN );
+				$message.= _x( 'This is a problem with your installation.', 'Modules: CRON', 'gnetwork' );
 
 				update_option( $this->hook( 'status' ), '<span class="-status -error">'.$message.'</span>', TRUE );
 			}
 
 		} else {
 
-			$message = sprintf( _x( 'WP-Cron is working as of %s', 'Modules: CRON', GNETWORK_TEXTDOMAIN ), Utilities::htmlCurrent() );
+			$message = sprintf( _x( 'WP-Cron is working as of %s', 'Modules: CRON', 'gnetwork' ), Utilities::htmlCurrent() );
 
 			update_option( $this->hook( 'status' ), '<span class="-status -success">'.$message.'</span>', TRUE );
 		}
@@ -269,10 +269,10 @@ class Cron extends gNetwork\Module
 	private function status_check_spawn()
 	{
 		if ( defined( 'DISABLE_WP_CRON' ) && DISABLE_WP_CRON )
-			return new Error( 'cron_disabled', sprintf( _x( 'The %1$s constant is set to true as of %2$s. WP-Cron is disabled and will not run automatically.', 'Modules: CRON', GNETWORK_TEXTDOMAIN ), '<code>DISABLE_WP_CRON</code>', Utilities::htmlCurrent() ) );
+			return new Error( 'cron_disabled', sprintf( _x( 'The %1$s constant is set to true as of %2$s. WP-Cron is disabled and will not run automatically.', 'Modules: CRON', 'gnetwork' ), '<code>DISABLE_WP_CRON</code>', Utilities::htmlCurrent() ) );
 
 		if ( defined( 'ALTERNATE_WP_CRON' ) && ALTERNATE_WP_CRON )
-			return new Error( 'cron_alternated', sprintf( _x( 'The %1$s constant is set to true as of %2$s. We cannot determine the status of the WP-Cron system.', 'Modules: CRON', GNETWORK_TEXTDOMAIN ), '<code>ALTERNATE_WP_CRON</code>', Utilities::htmlCurrent() ) );
+			return new Error( 'cron_alternated', sprintf( _x( 'The %1$s constant is set to true as of %2$s. We cannot determine the status of the WP-Cron system.', 'Modules: CRON', 'gnetwork' ), '<code>ALTERNATE_WP_CRON</code>', Utilities::htmlCurrent() ) );
 
 		$args = [
 			'timeout'  => 3,
@@ -287,7 +287,7 @@ class Cron extends gNetwork\Module
 		$response = intval( wp_remote_retrieve_response_code( $result ) );
 
 		if ( $response >= 300 )
-			return new Error( 'unexpected_http_response_code', sprintf( _x( 'Unexpected HTTP response code: %s', 'Modules: CRON', GNETWORK_TEXTDOMAIN ), $response ) );
+			return new Error( 'unexpected_http_response_code', sprintf( _x( 'Unexpected HTTP response code: %s', 'Modules: CRON', 'gnetwork' ), $response ) );
 
 		return TRUE;
 	}
@@ -314,10 +314,10 @@ class Cron extends gNetwork\Module
 		if ( ! $email )
 			$email = get_option( 'admin_email' );
 
-		$subject = sprintf( _x( '[%s] WP-Cron Failed!', 'Modules: CRON: Email Subject', GNETWORK_TEXTDOMAIN ), WordPress::getSiteNameforEmail( TRUE ) );
+		$subject = sprintf( _x( '[%s] WP-Cron Failed!', 'Modules: CRON: Email Subject', 'gnetwork' ), WordPress::getSiteNameforEmail( TRUE ) );
 
 		$message = get_option( $this->hook( 'status' ) );
-		$message.= '<p>'.HTML::link( _x( 'View the current cron scheduled tasks', 'Modules: CRON', GNETWORK_TEXTDOMAIN ), $this->get_menu_url( 'cron', 'admin', 'tools' ) ).'</p>';
+		$message.= '<p>'.HTML::link( _x( 'View the current cron scheduled tasks', 'Modules: CRON', 'gnetwork' ), $this->get_menu_url( 'cron', 'admin', 'tools' ) ).'</p>';
 
 		if ( HTML::rtl() )
 			$message = '<div dir="rtl">'.$message.'</div>';
@@ -332,23 +332,23 @@ class Cron extends gNetwork\Module
 		$can = WordPress::cuc( 'manage_options' );
 
 		if ( $ready = count( self::getCronReady() ) )
-			$title = Utilities::getCounted( $ready, _nx( '%s Ready Cron-job', '%s Ready Cron-jobs', $ready, 'Modules: CRON', GNETWORK_TEXTDOMAIN ) );
+			$title = Utilities::getCounted( $ready, _nx( '%s Ready Cron-job', '%s Ready Cron-jobs', $ready, 'Modules: CRON', 'gnetwork' ) );
 
 		else
-			$title = _x( 'Cron-jobs Done!', 'Modules: CRON', GNETWORK_TEXTDOMAIN );
+			$title = _x( 'Cron-jobs Done!', 'Modules: CRON', 'gnetwork' );
 
 		$items[] = HTML::tag( $can ? 'a' : 'span', [
 			'href'  => $can ? $this->get_menu_url( 'cron', 'admin', 'tools' ) : FALSE,
-			'title' => _x( 'Cron-jobs ready to be run.', 'Modules: CRON', GNETWORK_TEXTDOMAIN ),
+			'title' => _x( 'Cron-jobs ready to be run.', 'Modules: CRON', 'gnetwork' ),
 			'class' => $ready ? '-corn-ready' : '-corn-done',
 		], $title );
 
 		if ( $can && ( $missing = count( $this->get_missing_actions() ) ) )
 			$items[] = HTML::tag( 'a', [
 				'href'  => $this->get_menu_url( 'cron', 'admin', 'tools' ),
-				'title' => _x( 'Cron-jobs with missing action.', 'Modules: CRON', GNETWORK_TEXTDOMAIN ),
+				'title' => _x( 'Cron-jobs with missing action.', 'Modules: CRON', 'gnetwork' ),
 				'class' => '-corn-missing',
-			], Utilities::getCounted( $missing, _nx( '%s Corn-job Missing Action', '%s Corn-job Missing Actions', $missing, 'Modules: CRON', GNETWORK_TEXTDOMAIN ) ) );
+			], Utilities::getCounted( $missing, _nx( '%s Corn-job Missing Action', '%s Corn-job Missing Actions', $missing, 'Modules: CRON', 'gnetwork' ) ) );
 
 		return $items;
 	}
@@ -359,7 +359,7 @@ class Cron extends gNetwork\Module
 
 		$this->status_check_box();
 
-		HTML::desc( _x( 'The WP-Cron system will be automatically checked once every 24 hours.', 'Modules: CRON', GNETWORK_TEXTDOMAIN ) );
+		HTML::desc( _x( 'The WP-Cron system will be automatically checked once every 24 hours.', 'Modules: CRON', 'gnetwork' ) );
 	}
 
 	protected function status_check_box( $link = TRUE )
@@ -373,7 +373,7 @@ class Cron extends gNetwork\Module
 			'id'    => $this->classs( 'force-check' ),
 			'class' => [ 'button', 'button-small' ],
 			'data'  => [ 'nonce' => wp_create_nonce( $this->classs( 'status-check' ) ) ],
-		], _x( 'Check Status Now', 'Modules: CRON', GNETWORK_TEXTDOMAIN ) );
+		], _x( 'Check Status Now', 'Modules: CRON', 'gnetwork' ) );
 
 		if ( $link && WordPress::cuc( 'manage_options' ) ) {
 
@@ -381,12 +381,12 @@ class Cron extends gNetwork\Module
 				'href'   => $this->get_cron_url(),
 				'class'  => [ 'button', 'button-small' ],
 				'target' => '_blank',
-			], _x( 'Trigger Manually', 'Modules: CRON', GNETWORK_TEXTDOMAIN ) );
+			], _x( 'Trigger Manually', 'Modules: CRON', 'gnetwork' ) );
 
 			echo '&nbsp;&nbsp;'.HTML::tag( 'a', [
 				'href'  => $this->get_menu_url( 'cron', 'admin', 'tools' ),
 				'class' => [ 'button', 'button-small' ],
-			], _x( 'View Scheduled Tasks', 'Modules: CRON', GNETWORK_TEXTDOMAIN ) );
+			], _x( 'View Scheduled Tasks', 'Modules: CRON', 'gnetwork' ) );
 		}
 
 		echo '</p></div>';
@@ -444,14 +444,14 @@ class Cron extends gNetwork\Module
 			'_cb' => '_index',
 
 			'next' => [
-				'title'    => _x( 'Next', 'Modules: CRON', GNETWORK_TEXTDOMAIN ),
+				'title'    => _x( 'Next', 'Modules: CRON', 'gnetwork' ),
 				'callback' => function( $value, $row, $column, $index ){
 					return Utilities::getDateEditRow( $index );
 				},
 			],
 
 			'tasks' => [
-				'title'    => _x( 'Tasks', 'Modules: CRON', GNETWORK_TEXTDOMAIN ),
+				'title'    => _x( 'Tasks', 'Modules: CRON', 'gnetwork' ),
 				'args'     => [ 'schedules' => wp_get_schedules() ],
 				'callback' => function( $value, $row, $column, $index ){
 
@@ -476,15 +476,15 @@ class Cron extends gNetwork\Module
 				},
 			],
 		], self::getCronArray(), [
-			'title' => HTML::tag( 'h3', _x( 'Overview of tasks scheduled for WP-Cron', 'Modules: CRON', GNETWORK_TEXTDOMAIN ) ),
-			'empty' => HTML::warning( _x( 'Nothing scheduled!', 'Modules: CRON', GNETWORK_TEXTDOMAIN ), FALSE ),
+			'title' => HTML::tag( 'h3', _x( 'Overview of tasks scheduled for WP-Cron', 'Modules: CRON', 'gnetwork' ) ),
+			'empty' => HTML::warning( _x( 'Nothing scheduled!', 'Modules: CRON', 'gnetwork' ), FALSE ),
 			'after' => [ $this, 'table_list_after' ],
 		] );
 	}
 
 	public function table_list_after()
 	{
-		HTML::desc( Utilities::getCounted( count( self::getCronReady() ), _x( 'With %s event(s) ready to be run.', 'Modules: CRON', GNETWORK_TEXTDOMAIN ) ) );
+		HTML::desc( Utilities::getCounted( count( self::getCronReady() ), _x( 'With %s event(s) ready to be run.', 'Modules: CRON', 'gnetwork' ) ) );
 	}
 
 	// adds once weekly to the existing schedules
@@ -493,7 +493,7 @@ class Cron extends gNetwork\Module
 		return array_merge( $schedules, [
 			'weekly' => [
 				'interval' => Date::WEEK_IN_SECONDS,
-				'display'  => _x( 'Once Weekly', 'Modules: CRON', GNETWORK_TEXTDOMAIN ),
+				'display'  => _x( 'Once Weekly', 'Modules: CRON', 'gnetwork' ),
 			],
 		] );
 	}

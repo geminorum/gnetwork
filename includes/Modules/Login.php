@@ -60,7 +60,7 @@ class Login extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Login', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
+		$this->register_menu( _x( 'Login', 'Modules: Menu Name', 'gnetwork' ) );
 	}
 
 	public function default_options()
@@ -88,24 +88,24 @@ class Login extends gNetwork\Module
 			'_general' => [
 				[
 					'field'       => 'login_math',
-					'title'       => _x( 'Login Math', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Puts a math problem after the login form.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Login Math', 'Modules: Login: Settings', 'gnetwork' ),
+					'description' => _x( 'Puts a math problem after the login form.', 'Modules: Login: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'ambiguous_error',
-					'title'       => _x( 'Ambiguous Error', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Swaps error messages with an ambiguous one.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Ambiguous Error', 'Modules: Login: Settings', 'gnetwork' ),
+					'description' => _x( 'Swaps error messages with an ambiguous one.', 'Modules: Login: Settings', 'gnetwork' ),
 					'default'     => '1',
 				],
 				[
 					'field'       => 'login_log',
-					'title'       => _x( 'Log Logins', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Logs user log-in/log-out events in the log system.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Log Logins', 'Modules: Login: Settings', 'gnetwork' ),
+					'description' => _x( 'Logs user log-in/log-out events in the log system.', 'Modules: Login: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'store_lastlogin',
-					'title'       => _x( 'Last Logins', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Stores last login timestamp for each user.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Last Logins', 'Modules: Login: Settings', 'gnetwork' ),
+					'description' => _x( 'Stores last login timestamp for each user.', 'Modules: Login: Settings', 'gnetwork' ),
 					'default'     => '1',
 				],
 			],
@@ -113,26 +113,26 @@ class Login extends gNetwork\Module
 				[
 					'field'       => 'redirect_login',
 					'type'        => 'url',
-					'title'       => _x( 'Log-in After', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Full URL to redirect after successful log-in. Leave empty to fall-back on site settings.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Log-in After', 'Modules: Login: Settings', 'gnetwork' ),
+					'description' => _x( 'Full URL to redirect after successful log-in. Leave empty to fall-back on site settings.', 'Modules: Login: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'redirect_logout',
 					'type'        => 'url',
-					'title'       => _x( 'Log-out After', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Full URL to redirect after compelete log-out. Leave empty to fall-back on site settings.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Log-out After', 'Modules: Login: Settings', 'gnetwork' ),
+					'description' => _x( 'Full URL to redirect after compelete log-out. Leave empty to fall-back on site settings.', 'Modules: Login: Settings', 'gnetwork' ),
 				],
 			],
 			'_hidden' => [
 				[
 					'field' => 'login_hide',
-					'title' => _x( 'Hidden Login Page', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'title' => _x( 'Hidden Login Page', 'Modules: Login: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'login_slug',
 					'type'        => 'text',
-					'title'       => _x( 'Hidden Login Slug', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Custom slug for the hidden login page.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Hidden Login Slug', 'Modules: Login: Settings', 'gnetwork' ),
+					'description' => _x( 'Custom slug for the hidden login page.', 'Modules: Login: Settings', 'gnetwork' ),
 					'field_class' => [ 'regular-text', 'code-text' ],
 					'default'     => 'login',
 				],
@@ -140,44 +140,44 @@ class Login extends gNetwork\Module
 			'_styling' => [
 				[
 					'field'       => 'login_remember',
-					'title'       => _x( 'Login Remember', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Always checked “Remember Me” checkbox.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Login Remember', 'Modules: Login: Settings', 'gnetwork' ),
+					'description' => _x( 'Always checked “Remember Me” checkbox.', 'Modules: Login: Settings', 'gnetwork' ),
 					'values'      => [
-						_x( 'Not Checked', 'Modules: Login', GNETWORK_TEXTDOMAIN ),
-						_x( 'Checked', 'Modules: Login', GNETWORK_TEXTDOMAIN ),
+						_x( 'Not Checked', 'Modules: Login', 'gnetwork' ),
+						_x( 'Checked', 'Modules: Login', 'gnetwork' ),
 					],
 				],
 				[
 					'field'       => 'login_credits',
-					'title'       => _x( 'Credits Badge', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Displays credits badge on the bottom of default login page.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Credits Badge', 'Modules: Login: Settings', 'gnetwork' ),
+					'description' => _x( 'Displays credits badge on the bottom of default login page.', 'Modules: Login: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'login_class',
 					'type'        => 'select',
-					'title'       => _x( 'CSS Class', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Select styles from pre-configured login themes.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'CSS Class', 'Modules: Login: Settings', 'gnetwork' ),
+					'description' => _x( 'Select styles from pre-configured login themes.', 'Modules: Login: Settings', 'gnetwork' ),
 					'after'       => Settings::fieldAfterIcon( self::getLoginStyleLink() ),
 					'none_title'  => Settings::showOptionNone(),
 					'none_value'  => 'logindefault',
 					'values'      => $this->filters( 'login_class', [
-						'darkstories' => _x( 'DarkStories', 'Modules: Login: Login Class', GNETWORK_TEXTDOMAIN ),
-						'sidelogo'    => _x( 'SideLogo', 'Modules: Login: Login Class', GNETWORK_TEXTDOMAIN ),
-						'webogram'    => _x( 'Webogram', 'Modules: Login: Login Class', GNETWORK_TEXTDOMAIN ),
+						'darkstories' => _x( 'DarkStories', 'Modules: Login: Login Class', 'gnetwork' ),
+						'sidelogo'    => _x( 'SideLogo', 'Modules: Login: Login Class', 'gnetwork' ),
+						'webogram'    => _x( 'Webogram', 'Modules: Login: Login Class', 'gnetwork' ),
 					] ),
 				],
 				[
 					'field'       => 'login_styles',
 					'type'        => 'textarea',
-					'title'       => _x( 'Extra CSS', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Additional CSS styles to use on default login page.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Extra CSS', 'Modules: Login: Settings', 'gnetwork' ),
+					'description' => _x( 'Additional CSS styles to use on default login page.', 'Modules: Login: Settings', 'gnetwork' ),
 					'field_class' => [ 'large-text', 'code-text', 'textarea-autosize' ],
 				],
 				[
 					'field'       => 'login_logourl',
 					'type'        => 'url',
-					'title'       => _x( 'Logo Image', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Full URL to the login logo image.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Logo Image', 'Modules: Login: Settings', 'gnetwork' ),
+					'description' => _x( 'Full URL to the login logo image.', 'Modules: Login: Settings', 'gnetwork' ),
 					'after'       => Settings::fieldAfterIcon( Settings::getLoginLogoLink() ),
 				],
 			],
@@ -189,15 +189,15 @@ class Login extends gNetwork\Module
 	public function settings_section_hidden()
 	{
 		Settings::fieldSection(
-			_x( 'Hidden', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN ),
-			_x( 'Protects logins by changing the URL and preventing access to admin while not logged-in.', 'Modules: Login: Settings', GNETWORK_TEXTDOMAIN )
+			_x( 'Hidden', 'Modules: Login: Settings', 'gnetwork' ),
+			_x( 'Protects logins by changing the URL and preventing access to admin while not logged-in.', 'Modules: Login: Settings', 'gnetwork' )
 		);
 	}
 
 	public function plugins_loaded()
 	{
 		if ( ! is_multisite() && Text::has( $_SERVER['REQUEST_URI'], [ 'wp-signup', 'wp-activate' ] ) )
-			wp_die( _x( 'Move along, nothing to see here!', 'Modules: Login', GNETWORK_TEXTDOMAIN ), 403 );
+			wp_die( _x( 'Move along, nothing to see here!', 'Modules: Login', 'gnetwork' ), 403 );
 
 		$request = URI::parse( $_SERVER['REQUEST_URI'] );
 		$path    = URL::untrail( $request['path'] );
@@ -425,7 +425,7 @@ class Login extends gNetwork\Module
 
 	public function login_title( $login_title, $title )
 	{
-		return sprintf( _x( '%1$s &lsaquo; %2$s', 'Modules: Login: HTML Title', GNETWORK_TEXTDOMAIN ), $title, get_bloginfo( 'name', 'display' ) );
+		return sprintf( _x( '%1$s &lsaquo; %2$s', 'Modules: Login: HTML Title', 'gnetwork' ), $title, get_bloginfo( 'name', 'display' ) );
 	}
 
 	public function login_body_class( $classes, $action )
@@ -483,7 +483,7 @@ class Login extends gNetwork\Module
 	public function get_html_math( $label = NULL )
 	{
 		if ( is_null( $label ) )
-			$label = _x( 'Prove your humanity:', 'Modules: Login', GNETWORK_TEXTDOMAIN );
+			$label = _x( 'Prove your humanity:', 'Modules: Login', 'gnetwork' );
 
 		$one = wp_rand( 0, 10 );
 		$two = wp_rand( 1, 10 );
@@ -517,7 +517,7 @@ class Login extends gNetwork\Module
 
 			Logger::siteALERT( 'LOGIN-MATH', 'not properly configured'.sprintf( ': %s', self::req( 'log', '(EMPTY)' ) ) );
 
-			wp_die( _x( '<strong>This site is not properly configured.</strong> Please ask this site\'s administrator to review for information on how to resolve this issue.', 'Modules: Login', GNETWORK_TEXTDOMAIN ) );
+			wp_die( _x( '<strong>This site is not properly configured.</strong> Please ask this site\'s administrator to review for information on how to resolve this issue.', 'Modules: Login', 'gnetwork' ) );
 
 		} else if ( FALSE === $salted || $salted != $correct ) {
 
@@ -526,7 +526,7 @@ class Login extends gNetwork\Module
 			else
 				Logger::siteFAILED( 'LOGIN-MATH', 'failed to correctly answer'.sprintf( ': %s', self::req( 'log', '(EMPTY)' ) ) );
 
-			wp_die( _x( '<strong>You failed to correctly answer the math problem.</strong> This is used to combat spam. Please use your browser\'s back button to return to the login form, press the "refresh" button to generate a new math problem, and try to log in again.', 'Modules: Login', GNETWORK_TEXTDOMAIN ), 403 );
+			wp_die( _x( '<strong>You failed to correctly answer the math problem.</strong> This is used to combat spam. Please use your browser\'s back button to return to the login form, press the "refresh" button to generate a new math problem, and try to log in again.', 'Modules: Login', 'gnetwork' ), 403 );
 		}
 
 		return TRUE;
@@ -580,7 +580,7 @@ class Login extends gNetwork\Module
 	public function login_message( $message )
 	{
 		if ( isset( $_GET['disabled'] ) )
-			$message.= HTML::wrap( $this->filters( 'login_disabled', _x( 'Your account is disabled by an administrator.', 'Modules: Login', GNETWORK_TEXTDOMAIN ) ), 'message -danger' );
+			$message.= HTML::wrap( $this->filters( 'login_disabled', _x( 'Your account is disabled by an administrator.', 'Modules: Login', 'gnetwork' ) ), 'message -danger' );
 
 		return $message;
 	}
@@ -612,8 +612,8 @@ class Login extends gNetwork\Module
 
 	public function login_errors( $error )
 	{
-		return _x( 'Something is wrong!', 'Modules: Login: Ambiguous Error', GNETWORK_TEXTDOMAIN )
-			.' '.HTML::link( _x( 'Lost your password?', 'Modules: Login: Ambiguous Error', GNETWORK_TEXTDOMAIN ),
+		return _x( 'Something is wrong!', 'Modules: Login: Ambiguous Error', 'gnetwork' )
+			.' '.HTML::link( _x( 'Lost your password?', 'Modules: Login: Ambiguous Error', 'gnetwork' ),
 				esc_url( wp_lostpassword_url() ) );
 	}
 
@@ -643,9 +643,9 @@ class Login extends gNetwork\Module
 		if ( $style )
 			return HTML::tag( 'a', [
 				'href'   => $style,
-				'title'  => _x( 'Full URL to the current login style file', 'Modules: Login', GNETWORK_TEXTDOMAIN ),
+				'title'  => _x( 'Full URL to the current login style file', 'Modules: Login', 'gnetwork' ),
 				'target' => '_blank',
-			], ( $text ? _x( 'Login Style', 'Modules: Login', GNETWORK_TEXTDOMAIN ) : HTML::getDashicon( 'admin-customizer' ) ) );
+			], ( $text ? _x( 'Login Style', 'Modules: Login', 'gnetwork' ) : HTML::getDashicon( 'admin-customizer' ) ) );
 
 		return FALSE;
 	}

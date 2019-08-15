@@ -223,7 +223,7 @@ class Plugin
 
 		$this->files( [ 'Pluggable', 'Functions' ] );
 
-		load_plugin_textdomain( GNETWORK_TEXTDOMAIN, FALSE, 'gnetwork/languages' );
+		load_plugin_textdomain( $this->base, FALSE, 'gnetwork/languages' );
 
 		add_filter( 'mce_external_languages',[ $this, 'mce_external_languages' ] );
 	}
@@ -348,7 +348,7 @@ class Plugin
 	public function na( $wrap = 'code' )
 	{
 		return $wrap
-			? HTML::tag( $wrap, [ 'title' => __( 'Not Available', GNETWORK_TEXTDOMAIN ) ], __( 'N/A', GNETWORK_TEXTDOMAIN ) )
-			: __( 'N/A', GNETWORK_TEXTDOMAIN );
+			? HTML::tag( $wrap, [ 'title' => __( 'Not Available', 'gnetwork' ) ], __( 'N/A', 'gnetwork' ) )
+			: __( 'N/A', 'gnetwork' );
 	}
 }

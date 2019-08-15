@@ -237,25 +237,25 @@ class AdminBar extends gNetwork\Module
 		$wp_admin_bar->add_node( [
 			'parent' => $parent_id,
 			'id'     => static::BASE.'-debug',
-			'title'  => _x( 'Display Errors', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+			'title'  => _x( 'Display Errors', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 			'href'   => add_query_arg( 'debug', '', $current_url ),
-			'meta'   => [ 'title' => _x( 'Display debug info for the current page', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ) ],
+			'meta'   => [ 'title' => _x( 'Display debug info for the current page', 'Modules: AdminBar: Nodes', 'gnetwork' ) ],
 		] );
 
 		$wp_admin_bar->add_node( [
 			'parent' => $parent_id,
 			'id'     => static::BASE.'-flush',
-			'title'  => _x( 'Flush Cached', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+			'title'  => _x( 'Flush Cached', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 			'href'   => add_query_arg( 'flush', '', $current_url ),
-			'meta'   => [ 'title' => _x( 'Flush cached data for the current page', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ) ],
+			'meta'   => [ 'title' => _x( 'Flush cached data for the current page', 'Modules: AdminBar: Nodes', 'gnetwork' ) ],
 		] );
 
 		$wp_admin_bar->add_node( [
 			'parent' => $parent_id,
 			'id'     => static::BASE.'-flushrewrite',
-			'title'  => _x( 'Flush Permalinks', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+			'title'  => _x( 'Flush Permalinks', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 			'href'   => add_query_arg( static::BASE.'_action', 'flushrewrite', $current_url ),
-			'meta'   => [ 'title' => _x( 'Removes rewrite rules and then recreate rewrite rules', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ) ],
+			'meta'   => [ 'title' => _x( 'Removes rewrite rules and then recreate rewrite rules', 'Modules: AdminBar: Nodes', 'gnetwork' ) ],
 		] );
 
 		if ( defined( 'GNETWORK_WPLANG' )
@@ -266,9 +266,9 @@ class AdminBar extends gNetwork\Module
 			$wp_admin_bar->add_node( [
 				'parent' => $parent_id,
 				'id'     => static::BASE.'-locale',
-				'title'  => _x( 'Change Locale', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+				'title'  => _x( 'Change Locale', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 				'href'   => FALSE, // $this->get_menu_url( 'locale' ),
-				'meta'   => [ 'title' => _x( 'Quickly change current blog language', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ) ],
+				'meta'   => [ 'title' => _x( 'Quickly change current blog language', 'Modules: AdminBar: Nodes', 'gnetwork' ) ],
 			] );
 
 			$current_locale = get_user_locale();
@@ -297,7 +297,7 @@ class AdminBar extends gNetwork\Module
 				$wp_admin_bar->add_node( [
 					'parent' => $parent_id,
 					'id'     => static::BASE.'-api-calls',
-					'title'  => _x( 'HTTP Calls', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+					'title'  => _x( 'HTTP Calls', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 				] );
 
 				foreach (  $calls as $offset => $call ) {
@@ -330,21 +330,21 @@ class AdminBar extends gNetwork\Module
 				$wp_admin_bar->add_node( [
 					'parent' => $parent_id,
 					'id'     => static::BASE.'-current-post',
-					'title'  => _x( 'Current Post', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+					'title'  => _x( 'Current Post', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 					'href'   => WordPress::getPostEditLink( $post->ID ),
 				] );
 
 				$wp_admin_bar->add_node( [
 					'parent' => static::BASE.'-current-post',
 					'id'     => static::BASE.'-current-post-rest',
-					'title'  => _x( 'Rest Endpoint', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+					'title'  => _x( 'Rest Endpoint', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 					'href'   => rest_url( sprintf( '/wp/v2/%s/%d', $object->rest_base, $post->ID ) ),
 				] );
 
 				$wp_admin_bar->add_node( [
 					'parent' => static::BASE.'-current-post',
 					'id'     => static::BASE.'-current-post-embed',
-					'title'  => _x( 'Embed Endpoint', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+					'title'  => _x( 'Embed Endpoint', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 					'href'   => get_post_embed_url( $post ),
 				] );
 			}
@@ -362,18 +362,18 @@ class AdminBar extends gNetwork\Module
 			$wp_admin_bar->add_node( [
 				'parent' => $group_id,
 				'id'     => static::BASE.'-reset-sidebars',
-				'title'  => _x( 'Reset Sidebars', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+				'title'  => _x( 'Reset Sidebars', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 				'href'   => add_query_arg( static::BASE.'_action', 'resetsidebars', $current_url ),
-				'meta'   => [ 'title' => _x( 'Deletes settings of all current sidebar widgets, be careful!', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ) ],
+				'meta'   => [ 'title' => _x( 'Deletes settings of all current sidebar widgets, be careful!', 'Modules: AdminBar: Nodes', 'gnetwork' ) ],
 			] );
 
 		if ( $this->wpcf7_admin )
 			$wp_admin_bar->add_node( [
 				'parent' => $group_id,
 				'id'     => static::BASE.'-wpcf7-messages',
-				'title'  => _x( 'Reset Messages', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+				'title'  => _x( 'Reset Messages', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 				'href'   => add_query_arg( static::BASE.'_action', 'resetwpcf7messages', $current_url ),
-				'meta'   => [ 'title' => _x( 'Resets all saved messages for this form, be careful!', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ) ],
+				'meta'   => [ 'title' => _x( 'Resets all saved messages for this form, be careful!', 'Modules: AdminBar: Nodes', 'gnetwork' ) ],
 			] );
 
 		if ( class_exists( __NAMESPACE__.'\\Cron' ) ) {
@@ -393,7 +393,7 @@ class AdminBar extends gNetwork\Module
 			'id'     => static::BASE.'-info-pagenow',
 			'title'  => 'PageNow: '.( empty( $pagenow ) ? 'EMPTY' : $pagenow ),
 			'href'   => GNETWORK_ANALOG_LOG ? $this->get_menu_url( 'analoglogs', 'network', 'tools' ) : FALSE,
-			'meta'   => [ 'title' => _x( 'Check System Logs', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ) ],
+			'meta'   => [ 'title' => _x( 'Check System Logs', 'Modules: AdminBar: Nodes', 'gnetwork' ) ],
 		] );
 
 		$wp_admin_bar->add_node( [
@@ -401,7 +401,7 @@ class AdminBar extends gNetwork\Module
 			'id'     => static::BASE.'-info-queries',
 			'title'  => self::stat( '%dq | %.3fs | %.2fMB' ),
 			'href'   => GNETWORK_DEBUG_LOG ? $this->get_menu_url( 'errorlogs', 'network', 'tools' ) : FALSE,
-			'meta'   => [ 'title' => _x( 'Queries | Timer Stop | Memory Usage', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ) ],
+			'meta'   => [ 'title' => _x( 'Queries | Timer Stop | Memory Usage', 'Modules: AdminBar: Nodes', 'gnetwork' ) ],
 		] );
 	}
 
@@ -412,8 +412,8 @@ class AdminBar extends gNetwork\Module
 
 		$form = '<form action="'.GNETWORK_SEARCH_URL.'" method="get" id="adminbarsearch">';
 		$form.= '<input class="adminbar-input" name="'.GNETWORK_SEARCH_QUERYID.'" id="adminbar-search" type="text" value="" maxlength="150" />';
-		$form.= '<label for="adminbar-search" class="screen-reader-text">'._x( 'Search', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ).'</label>';
-		$form.= '<input type="submit" class="adminbar-button" value="'._x( 'Search', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ).'"/>';
+		$form.= '<label for="adminbar-search" class="screen-reader-text">'._x( 'Search', 'Modules: AdminBar: Nodes', 'gnetwork' ).'</label>';
+		$form.= '<input type="submit" class="adminbar-button" value="'._x( 'Search', 'Modules: AdminBar: Nodes', 'gnetwork' ).'"/>';
 		$form.= '</form>';
 
 		$wp_admin_bar->add_menu( [
@@ -447,7 +447,7 @@ class AdminBar extends gNetwork\Module
 			'href'  => $short,
 			'meta'  => [
 				'html'  => '<input class="shortlink-input" type="text" readonly="readonly" value="'.HTML::escape( $short ).'" />',
-				'title' => _x( 'Shortlink', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+				'title' => _x( 'Shortlink', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 			],
 		] );
 	}
@@ -459,9 +459,9 @@ class AdminBar extends gNetwork\Module
 
 		$wp_admin_bar->add_menu( [
 			'id'    => 'edit-contact-form',
-			'title' => _x( 'Edit Contact Form', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+			'title' => _x( 'Edit Contact Form', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 			'href'  => add_query_arg( [ 'page' => 'wpcf7', 'post' => $this->wpcf7_shortcode ], admin_url( 'admin.php' ) ),
-			'meta'  => [ 'title' => _x( 'Edit Current embeded contact form on admin', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ) ],
+			'meta'  => [ 'title' => _x( 'Edit Current embeded contact form on admin', 'Modules: AdminBar: Nodes', 'gnetwork' ) ],
 		] );
 	}
 
@@ -485,7 +485,7 @@ class AdminBar extends gNetwork\Module
 			'id'    => 'my-sites',
 			'title' => '', // more minimal!
 			'href'  => $my_sites,
-			'meta'  => [ 'title' => _x( 'My Sites', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ) ],
+			'meta'  => [ 'title' => _x( 'My Sites', 'Modules: AdminBar: Nodes', 'gnetwork' ) ],
 		] );
 
 		$wp_admin_bar->add_group( [
@@ -496,7 +496,7 @@ class AdminBar extends gNetwork\Module
 		$wp_admin_bar->add_menu( [
 			'parent' => 'my-sites-admin',
 			'id'     => 'user-admin',
-			'title'  => '<div class="blavatar -user"></div>'._x( 'My Dashboard', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+			'title'  => '<div class="blavatar -user"></div>'._x( 'My Dashboard', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 			'href'   => user_admin_url(),
 		] );
 
@@ -505,7 +505,7 @@ class AdminBar extends gNetwork\Module
 			$wp_admin_bar->add_menu( [
 				'parent' => 'my-sites-admin',
 				'id'     => 'network-admin',
-				'title'  => '<div class="blavatar -network"></div>'._x( 'Network Admin', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+				'title'  => '<div class="blavatar -network"></div>'._x( 'Network Admin', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 				'href'   => network_admin_url(),
 			] );
 
@@ -513,7 +513,7 @@ class AdminBar extends gNetwork\Module
 				$wp_admin_bar->add_menu( [
 					'parent' => 'network-admin',
 					'id'     => 'network-admin-sr',
-					'title'  => _x( 'System Report', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+					'title'  => _x( 'System Report', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 					'href'   => $this->get_menu_url( 'overview', 'network', 'tools' ),
 				] );
 
@@ -522,7 +522,7 @@ class AdminBar extends gNetwork\Module
 				$wp_admin_bar->add_menu( [
 					'parent' => 'network-admin',
 					'id'     => 'network-admin-s',
-					'title'  => _x( 'Sites', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+					'title'  => _x( 'Sites', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 					'href'   => network_admin_url( 'sites.php' ),
 				] );
 			}
@@ -532,7 +532,7 @@ class AdminBar extends gNetwork\Module
 				$wp_admin_bar->add_menu( [
 					'parent' => 'network-admin',
 					'id'     => 'network-admin-u',
-					'title'  => _x( 'Users', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+					'title'  => _x( 'Users', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 					'href'   => network_admin_url( 'users.php' ),
 				] );
 			}
@@ -542,7 +542,7 @@ class AdminBar extends gNetwork\Module
 				$wp_admin_bar->add_menu( [
 					'parent' => 'network-admin',
 					'id'     => 'network-admin-t',
-					'title'  => _x( 'Themes', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+					'title'  => _x( 'Themes', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 					'href'   => network_admin_url( 'themes.php' ),
 				] );
 			}
@@ -552,7 +552,7 @@ class AdminBar extends gNetwork\Module
 				$wp_admin_bar->add_menu( [
 					'parent' => 'network-admin',
 					'id'     => 'network-admin-p',
-					'title'  => _x( 'Plugins', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+					'title'  => _x( 'Plugins', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 					'href'   => network_admin_url( 'plugins.php' ),
 				] );
 			}
@@ -562,14 +562,14 @@ class AdminBar extends gNetwork\Module
 				$wp_admin_bar->add_menu( [
 					'parent' => 'network-admin',
 					'id'     => 'network-admin-o',
-					'title'  => _x( 'Settings', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+					'title'  => _x( 'Settings', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 					'href'   => network_admin_url( 'settings.php' ),
 				] );
 
 				$wp_admin_bar->add_menu( [
 					'parent' => 'network-admin',
 					'id'     => 'network-admin-ne',
-					'title'  => _x( 'Extras', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+					'title'  => _x( 'Extras', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 					'href'   => $this->get_menu_url( FALSE, 'network' ),
 				] );
 			}
@@ -578,7 +578,7 @@ class AdminBar extends gNetwork\Module
 				$wp_admin_bar->add_menu( [
 					'parent' => 'network-admin',
 					'id'     => 'network-admin-uc',
-					'title'  => _x( 'Updates', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+					'title'  => _x( 'Updates', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 					'href'   => network_admin_url( 'update-core.php' ),
 				] );
 		}
@@ -609,7 +609,7 @@ class AdminBar extends gNetwork\Module
 			$wp_admin_bar->add_menu( [
 				'parent' => $menu_id,
 				'id'     => $menu_id.'-d',
-				'title'  => _x( 'Dashboard', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+				'title'  => _x( 'Dashboard', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 				'href'      => $blog->siteurl.'/wp-admin/',
 			] );
 
@@ -619,35 +619,35 @@ class AdminBar extends gNetwork\Module
 				$wp_admin_bar->add_menu( [
 					'parent' => $menu_id,
 					'id'     => $menu_id.'-e',
-					'title'  => _x( 'Posts', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+					'title'  => _x( 'Posts', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 					'href'   => $blog->siteurl.'/wp-admin/edit.php',
 				] );
 
 				$wp_admin_bar->add_menu( [
 					'parent' => $menu_id,
 					'id'     => $menu_id.'-u',
-					'title'  => _x( 'Users', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+					'title'  => _x( 'Users', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 					'href'   => $blog->siteurl.'/wp-admin/users.php',
 				] );
 
 				$wp_admin_bar->add_menu( [
 					'parent' => $menu_id,
 					'id'     => $menu_id.'-s',
-					'title'  => _x( 'Settings', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+					'title'  => _x( 'Settings', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 					'href'   => $blog->siteurl.'/wp-admin/options-general.php',
 				] );
 
 				$wp_admin_bar->add_menu( [
 					'parent' => $menu_id,
 					'id'     => $menu_id.'-e-s',
-					'title'  => _x( 'Edit Site', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+					'title'  => _x( 'Edit Site', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 					'href'   => network_admin_url( 'site-info.php?id='.$blog->userblog_id ),
 				] );
 
 				$wp_admin_bar->add_menu( [
 					'parent' => $menu_id,
 					'id'     => $menu_id.'-e-t',
-					'title'  => _x( 'Edit Themes', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+					'title'  => _x( 'Edit Themes', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 					'href'   => network_admin_url( 'site-themes.php?id='.$blog->userblog_id ),
 				] );
 			}
@@ -655,7 +655,7 @@ class AdminBar extends gNetwork\Module
 			$wp_admin_bar->add_menu( [
 				'parent' => $menu_id,
 				'id'     => $menu_id.'-v',
-				'title'  => _x( 'Visit Site', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+				'title'  => _x( 'Visit Site', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 				'href'   => URL::trail( $blog->siteurl ),
 			] );
 		}
@@ -704,7 +704,7 @@ class AdminBar extends gNetwork\Module
 			$wp_admin_bar->add_menu( [
 				'parent' => 'network-links-'.$network->id,
 				'id'     => 'user-admin-'.$network->id,
-				'title'  => '<div class="blavatar -user"></div>'._x( 'My Dashboard', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+				'title'  => '<div class="blavatar -user"></div>'._x( 'My Dashboard', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 				'href'   => WordPress::userAdminURL( $network ),
 			] );
 
@@ -713,7 +713,7 @@ class AdminBar extends gNetwork\Module
 				$wp_admin_bar->add_menu( [
 					'parent' => 'network-links-'.$network->id,
 					'id'     => 'network-admin-'.$network->id,
-					'title'  => '<div class="blavatar -network"></div>'._x( 'Network Admin', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+					'title'  => '<div class="blavatar -network"></div>'._x( 'Network Admin', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 					'href'   => WordPress::networkAdminURL( $network ),
 				] );
 
@@ -722,7 +722,7 @@ class AdminBar extends gNetwork\Module
 					$wp_admin_bar->add_menu( [
 						'parent' => 'network-admin-'.$network->id,
 						'id'     => 'network-admin-s-'.$network->id,
-						'title'  => _x( 'Sites', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+						'title'  => _x( 'Sites', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 						'href'   => WordPress::networkAdminURL( $network, 'sites.php' ),
 					] );
 				}
@@ -732,7 +732,7 @@ class AdminBar extends gNetwork\Module
 					$wp_admin_bar->add_menu( [
 						'parent' => 'network-admin-'.$network->id,
 						'id'     => 'network-admin-u-'.$network->id,
-						'title'  => _x( 'Users', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+						'title'  => _x( 'Users', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 						'href'   => WordPress::networkAdminURL( $network, 'users.php' ),
 					] );
 				}
@@ -742,7 +742,7 @@ class AdminBar extends gNetwork\Module
 					$wp_admin_bar->add_menu( [
 						'parent' => 'network-admin-'.$network->id,
 						'id'     => 'network-admin-t-'.$network->id,
-						'title'  => _x( 'Themes', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+						'title'  => _x( 'Themes', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 						'href'   => WordPress::networkAdminURL( $network, 'themes.php' ),
 					] );
 				}
@@ -752,7 +752,7 @@ class AdminBar extends gNetwork\Module
 					$wp_admin_bar->add_menu( [
 						'parent' => 'network-admin-'.$network->id,
 						'id'     => 'network-admin-p-'.$network->id,
-						'title'  => _x( 'Plugins', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+						'title'  => _x( 'Plugins', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 						'href'   => WordPress::networkAdminURL( $network, 'plugins.php' ),
 					] );
 				}
@@ -762,14 +762,14 @@ class AdminBar extends gNetwork\Module
 					$wp_admin_bar->add_menu( [
 						'parent' => 'network-admin-'.$network->id,
 						'id'     => 'network-admin-o-'.$network->id,
-						'title'  => _x( 'Settings', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+						'title'  => _x( 'Settings', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 						'href'   => WordPress::networkAdminURL( $network, 'settings.php' ),
 					] );
 
 					$wp_admin_bar->add_menu( [
 						'parent' => 'network-admin-'.$network->id,
 						'id'     => 'network-admin-ne-'.$network->id,
-						'title'  => _x( 'Extras', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+						'title'  => _x( 'Extras', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 						'href'   => $this->get_menu_url( FALSE, 'network', 'admin', [], 'admin', $network ),
 					] );
 				}
@@ -779,7 +779,7 @@ class AdminBar extends gNetwork\Module
 					$wp_admin_bar->add_menu( [
 						'parent' => 'network-admin-'.$network->id,
 						'id'     => 'network-admin-uc-'.$network->id,
-						'title'  => _x( 'Updates', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+						'title'  => _x( 'Updates', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 						'href'   => WordPress::networkAdminURL( $network, 'update-core.php' ),
 					] );
 				}
@@ -815,7 +815,7 @@ class AdminBar extends gNetwork\Module
 			$wp_admin_bar->add_menu( [
 				'parent' => $menu_id,
 				'id'     => $menu_id.'-d',
-				'title'  => _x( 'Dashboard', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+				'title'  => _x( 'Dashboard', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 				'href'      => $blog->siteurl.'/wp-admin/',
 			] );
 
@@ -825,35 +825,35 @@ class AdminBar extends gNetwork\Module
 				$wp_admin_bar->add_menu( [
 					'parent' => $menu_id,
 					'id'     => $menu_id.'-e',
-					'title'  => _x( 'Posts', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+					'title'  => _x( 'Posts', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 					'href'   => $blog->siteurl.'/wp-admin/edit.php',
 				] );
 
 				$wp_admin_bar->add_menu( [
 					'parent' => $menu_id,
 					'id'     => $menu_id.'-u',
-					'title'  => _x( 'Users', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+					'title'  => _x( 'Users', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 					'href'   => $blog->siteurl.'/wp-admin/users.php',
 				] );
 
 				$wp_admin_bar->add_menu( [
 					'parent' => $menu_id,
 					'id'     => $menu_id.'-s',
-					'title'  => _x( 'Settings', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+					'title'  => _x( 'Settings', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 					'href'   => $blog->siteurl.'/wp-admin/options-general.php',
 				] );
 
 				$wp_admin_bar->add_menu( [
 					'parent' => $menu_id,
 					'id'     => $menu_id.'-e-s',
-					'title'  => _x( 'Edit Site', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+					'title'  => _x( 'Edit Site', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 					'href'   => WordPress::networkAdminURL( $network, 'site-info.php?id='.$blog->userblog_id ),
 				] );
 
 				$wp_admin_bar->add_menu( [
 					'parent' => $menu_id,
 					'id'     => $menu_id.'-e-t',
-					'title'  => _x( 'Edit Themes', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+					'title'  => _x( 'Edit Themes', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 					'href'   => WordPress::networkAdminURL( $network, 'site-themes.php?id='.$blog->userblog_id ),
 				] );
 			}
@@ -861,7 +861,7 @@ class AdminBar extends gNetwork\Module
 			$wp_admin_bar->add_menu( [
 				'parent' => $menu_id,
 				'id'     => $menu_id.'-v',
-				'title'  => _x( 'Visit Site', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+				'title'  => _x( 'Visit Site', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 				'href'   => URL::trail( $blog->siteurl ),
 			] );
 		}
@@ -921,7 +921,7 @@ class AdminBar extends gNetwork\Module
 		$wp_admin_bar->add_menu( [
 			'parent' => $parent,
 			'id'     => 'network-login',
-			'title'  => _x( 'Log in', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+			'title'  => _x( 'Log in', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 			'href'   => WordPress::loginURL(),
 		] );
 
@@ -929,7 +929,7 @@ class AdminBar extends gNetwork\Module
 			$wp_admin_bar->add_menu( [
 				'parent' => $parent,
 				'id'     => 'network-register',
-				'title'  => _x( 'Register', 'Modules: AdminBar: Nodes', GNETWORK_TEXTDOMAIN ),
+				'title'  => _x( 'Register', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 				'href'   => $register_url,
 			] );
 	}

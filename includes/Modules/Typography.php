@@ -49,7 +49,7 @@ class Typography extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Typography', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
+		$this->register_menu( _x( 'Typography', 'Modules: Menu Name', 'gnetwork' ) );
 	}
 
 	public function default_options()
@@ -73,40 +73,40 @@ class Typography extends gNetwork\Module
 			'_general' => [
 				[
 					'field'       => 'persian_typography',
-					'title'       => _x( 'Persian Typography', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Applies Persian typography on post contents.', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Persian Typography', 'Modules: Typography: Settings', 'gnetwork' ),
+					'description' => _x( 'Applies Persian typography on post contents.', 'Modules: Typography: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'arabic_typography',
-					'title'       => _x( 'Arabic Typography', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Applies Arabic typography on post contents.', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Arabic Typography', 'Modules: Typography: Settings', 'gnetwork' ),
+					'description' => _x( 'Applies Arabic typography on post contents.', 'Modules: Typography: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'general_typography',
-					'title'       => _x( 'General Typography', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Applies general typography on post contents.', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'General Typography', 'Modules: Typography: Settings', 'gnetwork' ),
+					'description' => _x( 'Applies general typography on post contents.', 'Modules: Typography: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'title_sanitize',
-					'title'       => _x( 'Extra Title Sanitization', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Tries to additional sanitization checks on slugs from titles.', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Extra Title Sanitization', 'Modules: Typography: Settings', 'gnetwork' ),
+					'description' => _x( 'Tries to additional sanitization checks on slugs from titles.', 'Modules: Typography: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'title_titlecase',
-					'title'       => _x( 'Titles in Title Case', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Tries to make post titles properly-cased.', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Titles in Title Case', 'Modules: Typography: Settings', 'gnetwork' ),
+					'description' => _x( 'Tries to make post titles properly-cased.', 'Modules: Typography: Settings', 'gnetwork' ),
 					'after'       => Settings::fieldAfterIcon( 'https://gist.github.com/geminorum/fe2a9ba25db5cf2e5ad6718423d00f8a' ),
 				],
 				[
 					'field'       => 'title_wordwrap',
-					'title'       => _x( 'Word Wrapper for Post Titles', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Prevents widow words in the end of post titles.', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Word Wrapper for Post Titles', 'Modules: Typography: Settings', 'gnetwork' ),
+					'description' => _x( 'Prevents widow words in the end of post titles.', 'Modules: Typography: Settings', 'gnetwork' ),
 					'after'       => Settings::fieldAfterIcon( 'https://davidwalsh.name/word-wrap-mootools-php' ),
 				],
 				[
 					'field'       => 'widget_wordwrap',
-					'title'       => _x( 'Word Wrapper for Widget Titles', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Prevents widow words in the end of widget titles.', 'Modules: Typography: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Word Wrapper for Widget Titles', 'Modules: Typography: Settings', 'gnetwork' ),
+					'description' => _x( 'Prevents widow words in the end of widget titles.', 'Modules: Typography: Settings', 'gnetwork' ),
 				],
 				'register_shortcodes',
 				'editor_buttons',
@@ -245,16 +245,16 @@ class Typography extends gNetwork\Module
 	public function tinymce_strings( $strings )
 	{
 		$new = [
-			'gnetworkasterisks-title' => _x( 'Asterisks', 'TinyMCE Strings: Asterisks', GNETWORK_TEXTDOMAIN ),
+			'gnetworkasterisks-title' => _x( 'Asterisks', 'TinyMCE Strings: Asterisks', 'gnetwork' ),
 
-			'gnetworkquote-title'    => _x( 'Quote This', 'TinyMCE Strings: Quote', GNETWORK_TEXTDOMAIN ),
-			'gnetworkquote-attr'     => _x( 'Quote This', 'TinyMCE Strings: Quote', GNETWORK_TEXTDOMAIN ),
-			'gnetworkquote-text'     => _x( 'Quote Text', 'TinyMCE Strings: Quote', GNETWORK_TEXTDOMAIN ),
-			'gnetworkquote-cite'     => _x( 'Cite Text', 'TinyMCE Strings: Quote', GNETWORK_TEXTDOMAIN ),
-			'gnetworkquote-url'      => _x( 'Cite URL', 'TinyMCE Strings: Quote', GNETWORK_TEXTDOMAIN ),
-			'gnetworkquote-align'    => _x( 'Quote Align', 'TinyMCE Strings: Quote', GNETWORK_TEXTDOMAIN ),
-			'gnetworkquote-epigraph' => _x( 'Epigraph', 'TinyMCE Strings: Quote', GNETWORK_TEXTDOMAIN ),
-			'gnetworkquote-rev'      => _x( 'Reverse', 'TinyMCE Strings: Quote', GNETWORK_TEXTDOMAIN ),
+			'gnetworkquote-title'    => _x( 'Quote This', 'TinyMCE Strings: Quote', 'gnetwork' ),
+			'gnetworkquote-attr'     => _x( 'Quote This', 'TinyMCE Strings: Quote', 'gnetwork' ),
+			'gnetworkquote-text'     => _x( 'Quote Text', 'TinyMCE Strings: Quote', 'gnetwork' ),
+			'gnetworkquote-cite'     => _x( 'Cite Text', 'TinyMCE Strings: Quote', 'gnetwork' ),
+			'gnetworkquote-url'      => _x( 'Cite URL', 'TinyMCE Strings: Quote', 'gnetwork' ),
+			'gnetworkquote-align'    => _x( 'Quote Align', 'TinyMCE Strings: Quote', 'gnetwork' ),
+			'gnetworkquote-epigraph' => _x( 'Epigraph', 'TinyMCE Strings: Quote', 'gnetwork' ),
+			'gnetworkquote-rev'      => _x( 'Reverse', 'TinyMCE Strings: Quote', 'gnetwork' ),
 		];
 
 		return array_merge( $strings, $new );
@@ -341,7 +341,7 @@ class Typography extends gNetwork\Module
 			'lang'    => NULL,
 			'domain'  => 'wikipedia.org/wiki',
 			'scheme'  => 'https',
-			'title'   => _x( 'View Wikipedia page', 'Modules: Typography: Shortcode Defaults', GNETWORK_TEXTDOMAIN ),
+			'title'   => _x( 'View Wikipedia page', 'Modules: Typography: Shortcode Defaults', 'gnetwork' ),
 			'context' => NULL,
 			'wrap'    => TRUE,
 			'before'  => '',

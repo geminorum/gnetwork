@@ -25,7 +25,7 @@ class GlotPress extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Translate', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
+		$this->register_menu( _x( 'Translate', 'Modules: Menu Name', 'gnetwork' ) );
 	}
 
 	public function default_options()
@@ -42,9 +42,9 @@ class GlotPress extends gNetwork\Module
 				[
 					'field'       => 'home_title',
 					'type'        => 'text',
-					'title'       => _x( 'Home Title', 'Modules: GlotPress: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Appears as home title on front-end of GlotPress.', 'Modules: GlotPress: Settings', GNETWORK_TEXTDOMAIN ),
-					'default'     => _x( 'GlotPress', 'Modules: GlotPress: Home Title', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Home Title', 'Modules: GlotPress: Settings', 'gnetwork' ),
+					'description' => _x( 'Appears as home title on front-end of GlotPress.', 'Modules: GlotPress: Settings', 'gnetwork' ),
+					'default'     => _x( 'GlotPress', 'Modules: GlotPress: Home Title', 'gnetwork' ),
 				],
 			],
 		];
@@ -60,6 +60,6 @@ class GlotPress extends gNetwork\Module
 	{
 		return $this->options['shetab_card_notes']
 			? trim( $this->options['shetab_card_notes'] )
-			: _x( 'GlotPress', 'Modules: GlotPress: Home Title', GNETWORK_TEXTDOMAIN );
+			: _x( 'GlotPress', 'Modules: GlotPress: Home Title', 'gnetwork' );
 	}
 }

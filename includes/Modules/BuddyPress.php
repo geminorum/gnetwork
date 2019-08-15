@@ -80,7 +80,7 @@ class BuddyPress extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'BuddyPress', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
+		$this->register_menu( _x( 'BuddyPress', 'Modules: Menu Name', 'gnetwork' ) );
 	}
 
 	public function default_options()
@@ -107,14 +107,14 @@ class BuddyPress extends gNetwork\Module
 			'_general' => [
 				[
 					'field'       => 'open_directories',
-					'title'       => _x( 'Open Directories', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Redirect directories to homepage for not logged-in users.', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Open Directories', 'Modules: BuddyPress: Settings', 'gnetwork' ),
+					'description' => _x( 'Redirect directories to homepage for not logged-in users.', 'Modules: BuddyPress: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'complete_signup',
 					'type'        => 'url',
-					'title'       => _x( 'Complete Signup', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Redirect users after successful registration.', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Complete Signup', 'Modules: BuddyPress: Settings', 'gnetwork' ),
+					'description' => _x( 'Redirect users after successful registration.', 'Modules: BuddyPress: Settings', 'gnetwork' ),
 					'placeholder' => 'http://example.com/welcome',
 				],
 			],
@@ -122,22 +122,22 @@ class BuddyPress extends gNetwork\Module
 				[
 					'field'       => 'display_name',
 					'type'        => 'select',
-					'title'       => _x( 'Display Name', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Universal sidewide display name of the user.', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Display Name', 'Modules: BuddyPress: Settings', 'gnetwork' ),
+					'description' => _x( 'Universal sidewide display name of the user.', 'Modules: BuddyPress: Settings', 'gnetwork' ),
 					'default'     => 'default',
 					'values'      => [
-						'default'         => _x( '&mdash; Default &mdash;', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
-						'first_last_name' => _x( 'First and Last Name', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
-						'username'        => _x( 'Username', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
-						'nickname'        => _x( 'Nickname', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
-						'first_name'      => _x( 'First Name', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
-						'last_name'       => _x( 'Last Name', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
+						'default'         => _x( '&mdash; Default &mdash;', 'Modules: BuddyPress: Settings', 'gnetwork' ),
+						'first_last_name' => _x( 'First and Last Name', 'Modules: BuddyPress: Settings', 'gnetwork' ),
+						'username'        => _x( 'Username', 'Modules: BuddyPress: Settings', 'gnetwork' ),
+						'nickname'        => _x( 'Nickname', 'Modules: BuddyPress: Settings', 'gnetwork' ),
+						'first_name'      => _x( 'First Name', 'Modules: BuddyPress: Settings', 'gnetwork' ),
+						'last_name'       => _x( 'Last Name', 'Modules: BuddyPress: Settings', 'gnetwork' ),
 					],
 				],
 				[
 					'field'       => 'check_completed',
-					'title'       => _x( 'Check Completed', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Notice member for empty required fields.', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Check Completed', 'Modules: BuddyPress: Settings', 'gnetwork' ),
+					'description' => _x( 'Notice member for empty required fields.', 'Modules: BuddyPress: Settings', 'gnetwork' ),
 				],
 			],
 		];
@@ -147,8 +147,8 @@ class BuddyPress extends gNetwork\Module
 				[
 					'field'       => 'notification_defaults',
 					'type'        => 'checkboxes',
-					'title'       => _x( 'Default Settings', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Select enabled by default BuddyPress email notifications settings upon user activation', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Default Settings', 'Modules: BuddyPress: Settings', 'gnetwork' ),
+					'description' => _x( 'Select enabled by default BuddyPress email notifications settings upon user activation', 'Modules: BuddyPress: Settings', 'gnetwork' ),
 					'values'      => self::defaultNotifications(),
 					'default'     => [],
 				],
@@ -159,31 +159,31 @@ class BuddyPress extends gNetwork\Module
 				[
 					'field' => 'avatars_thumb_width',
 					'type'  => 'number',
-					'title' => _x( 'Thumbnail Width', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
+					'title' => _x( 'Thumbnail Width', 'Modules: BuddyPress: Settings', 'gnetwork' ),
 					'after' => Settings::fieldAfterConstant( 'BP_AVATAR_THUMB_WIDTH' ),
 				],
 				[
 					'field' => 'avatars_thumb_height',
 					'type'  => 'number',
-					'title' => _x( 'Thumbnail Height', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
+					'title' => _x( 'Thumbnail Height', 'Modules: BuddyPress: Settings', 'gnetwork' ),
 					'after' => Settings::fieldAfterConstant( 'BP_AVATAR_THUMB_HEIGHT' ),
 				],
 				[
 					'field' => 'avatars_full_width',
 					'type'  => 'number',
-					'title' => _x( 'Full Width', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
+					'title' => _x( 'Full Width', 'Modules: BuddyPress: Settings', 'gnetwork' ),
 					'after' => Settings::fieldAfterConstant( 'BP_AVATAR_FULL_WIDTH' ),
 				],
 				[
 					'field' => 'avatars_full_height',
 					'type'  => 'number',
-					'title' => _x( 'Full Height', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
+					'title' => _x( 'Full Height', 'Modules: BuddyPress: Settings', 'gnetwork' ),
 					'after' => Settings::fieldAfterConstant( 'BP_AVATAR_FULL_HEIGHT' ),
 				],
 				[
 					'field' => 'avatars_original_max_width',
 					'type'  => 'number',
-					'title' => _x( 'Original Max Width', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
+					'title' => _x( 'Original Max Width', 'Modules: BuddyPress: Settings', 'gnetwork' ),
 					'after' => Settings::fieldAfterConstant( 'BP_AVATAR_ORIGINAL_MAX_WIDTH' ),
 				],
 			];
@@ -194,16 +194,16 @@ class BuddyPress extends gNetwork\Module
 	public function settings_section_notifications()
 	{
 		Settings::fieldSection(
-			_x( 'Email Notifications', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
-			_x( 'Control the default email preference for users after activation', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN )
+			_x( 'Email Notifications', 'Modules: BuddyPress: Settings', 'gnetwork' ),
+			_x( 'Control the default email preference for users after activation', 'Modules: BuddyPress: Settings', 'gnetwork' )
 		);
 	}
 
 	public function settings_section_avatars()
 	{
 		Settings::fieldSection(
-			_x( 'Avatars Sizes', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN ),
-			_x( 'Change the default BuddyPress Avatar values. Leave empty to use BuddyPress defaults.', 'Modules: BuddyPress: Settings', GNETWORK_TEXTDOMAIN )
+			_x( 'Avatars Sizes', 'Modules: BuddyPress: Settings', 'gnetwork' ),
+			_x( 'Change the default BuddyPress Avatar values. Leave empty to use BuddyPress defaults.', 'Modules: BuddyPress: Settings', 'gnetwork' )
 		);
 	}
 
@@ -308,7 +308,7 @@ class BuddyPress extends gNetwork\Module
 		if ( empty( $fields ) )
 			return;
 
-		$message = sprintf( _x( 'Please complete your profile: %s', 'Modules: BuddyPress', GNETWORK_TEXTDOMAIN ),
+		$message = sprintf( _x( 'Please complete your profile: %s', 'Modules: BuddyPress', 'gnetwork' ),
 			Utilities::joinItems( Arraay::column( $fields, 'name' ) ) );
 
 		bp_core_add_message( $message, 'warning' );
@@ -348,7 +348,7 @@ class BuddyPress extends gNetwork\Module
 	{
 		if ( isset( $_POST[$this->field_name] ) && ! empty( $_POST[$this->field_name] ) )
 			$result['errors']->add( static::BASE.'_bp_honeypot',
-				_x( 'You\'re totally a spammer. Go somewhere else with your spammy ways.', 'Modules: BuddyPress', GNETWORK_TEXTDOMAIN ) );
+				_x( 'You\'re totally a spammer. Go somewhere else with your spammy ways.', 'Modules: BuddyPress', 'gnetwork' ) );
 
 		return $result;
 	}
@@ -466,15 +466,15 @@ class BuddyPress extends gNetwork\Module
 	public static function defaultNotifications()
 	{
 		return [
-			'activity_new_mention'        => _x( 'Activity: New Mention', 'Modules: BuddyPress: Notifications', GNETWORK_TEXTDOMAIN ),
-			'activity_new_reply'          => _x( 'Activity: New Reply', 'Modules: BuddyPress: Notifications', GNETWORK_TEXTDOMAIN ),
-			'friends_friendship_request'  => _x( 'Friends: Friendship Request', 'Modules: BuddyPress: Notifications', GNETWORK_TEXTDOMAIN ),
-			'friends_friendship_accepted' => _x( 'Friends: Friendship Accepted', 'Modules: BuddyPress: Notifications', GNETWORK_TEXTDOMAIN ),
-			'groups_invite'               => _x( 'Groups: Invite', 'Modules: BuddyPress: Notifications', GNETWORK_TEXTDOMAIN ),
-			'groups_group_updated'        => _x( 'Groups: Group Updated', 'Modules: BuddyPress: Notifications', GNETWORK_TEXTDOMAIN ),
-			'groups_admin_promotion'      => _x( 'Groups: Admin Promotion', 'Modules: BuddyPress: Notifications', GNETWORK_TEXTDOMAIN ),
-			'groups_membership_request'   => _x( 'Groups: Membership Request', 'Modules: BuddyPress: Notifications', GNETWORK_TEXTDOMAIN ),
-			'messages_new_message'        => _x( 'Messages: New Message', 'Modules: BuddyPress: Notifications', GNETWORK_TEXTDOMAIN ),
+			'activity_new_mention'        => _x( 'Activity: New Mention', 'Modules: BuddyPress: Notifications', 'gnetwork' ),
+			'activity_new_reply'          => _x( 'Activity: New Reply', 'Modules: BuddyPress: Notifications', 'gnetwork' ),
+			'friends_friendship_request'  => _x( 'Friends: Friendship Request', 'Modules: BuddyPress: Notifications', 'gnetwork' ),
+			'friends_friendship_accepted' => _x( 'Friends: Friendship Accepted', 'Modules: BuddyPress: Notifications', 'gnetwork' ),
+			'groups_invite'               => _x( 'Groups: Invite', 'Modules: BuddyPress: Notifications', 'gnetwork' ),
+			'groups_group_updated'        => _x( 'Groups: Group Updated', 'Modules: BuddyPress: Notifications', 'gnetwork' ),
+			'groups_admin_promotion'      => _x( 'Groups: Admin Promotion', 'Modules: BuddyPress: Notifications', 'gnetwork' ),
+			'groups_membership_request'   => _x( 'Groups: Membership Request', 'Modules: BuddyPress: Notifications', 'gnetwork' ),
+			'messages_new_message'        => _x( 'Messages: New Message', 'Modules: BuddyPress: Notifications', 'gnetwork' ),
 		];
 	}
 

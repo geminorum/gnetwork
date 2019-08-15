@@ -20,7 +20,7 @@ class Extend extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_tool( _x( 'Extend', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
+		$this->register_tool( _x( 'Extend', 'Modules: Menu Name', 'gnetwork' ) );
 	}
 
 	protected function render_tools_html( $uri, $sub = 'general' )
@@ -54,7 +54,7 @@ class Extend extends gNetwork\Module
 
 		return HTML::tableList( [
 			'site' => [
-				'title'    => _x( 'Site', 'Modules: Extend', GNETWORK_TEXTDOMAIN ),
+				'title'    => _x( 'Site', 'Modules: Extend', 'gnetwork' ),
 				'callback' => function( $value, $row, $column, $index ) {
 					return '<code title="'.HTML::escape( $row['blogname'] ).'">'.
 						URL::untrail( $row['_site']->domain.$row['_site']->path ).
@@ -62,11 +62,11 @@ class Extend extends gNetwork\Module
 				},
 			],
 
-			'stylesheet' => [ 'title' => _x( 'Theme', 'Modules: Extend', GNETWORK_TEXTDOMAIN ) ],
-			'template'   => [ 'title' => _x( 'Template', 'Modules: Extend', GNETWORK_TEXTDOMAIN ) ],
+			'stylesheet' => [ 'title' => _x( 'Theme', 'Modules: Extend', 'gnetwork' ) ],
+			'template'   => [ 'title' => _x( 'Template', 'Modules: Extend', 'gnetwork' ) ],
 
 			'plugins' => [
-				'title'    => _x( 'Plugins', 'Modules: Extend', GNETWORK_TEXTDOMAIN ),
+				'title'    => _x( 'Plugins', 'Modules: Extend', 'gnetwork' ),
 				'callback' => function( $value, $row, $column, $index ) {
 					$html = '';
 
@@ -83,8 +83,8 @@ class Extend extends gNetwork\Module
 			],
 
 		], $data, [
-			'title' => HTML::tag( 'h3', _x( 'Overview of Current Active Theme and Plugins', 'Modules: Extend', GNETWORK_TEXTDOMAIN ) ),
-			'empty' => HTML::warning( _x( 'No site found!', 'Modules: Extend', GNETWORK_TEXTDOMAIN ), FALSE ),
+			'title' => HTML::tag( 'h3', _x( 'Overview of Current Active Theme and Plugins', 'Modules: Extend', 'gnetwork' ) ),
+			'empty' => HTML::warning( _x( 'No site found!', 'Modules: Extend', 'gnetwork' ), FALSE ),
 		] );
 	}
 

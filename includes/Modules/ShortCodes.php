@@ -117,15 +117,15 @@ class ShortCodes extends gNetwork\Module
 	public function register_shortcode_ui()
 	{
 		shortcode_ui_register_for_shortcode( 'ref', [
-			'label'         => HTML::escape( _x( 'Reference', 'Modules: ShortCodes: UI: Label', GNETWORK_TEXTDOMAIN ) ),
+			'label'         => HTML::escape( _x( 'Reference', 'Modules: ShortCodes: UI: Label', 'gnetwork' ) ),
 			'listItemImage' => 'dashicons-editor-quote',
 			'inner_content' => [
-				'label'       => HTML::escape( _x( 'Reference', 'Modules: ShortCodes: UI: Label', GNETWORK_TEXTDOMAIN ) ),
-				'description' => HTML::escape( _x( 'Make a reference to an external source.', 'Modules: ShortCodes: UI: Description', GNETWORK_TEXTDOMAIN ) ),
+				'label'       => HTML::escape( _x( 'Reference', 'Modules: ShortCodes: UI: Label', 'gnetwork' ) ),
+				'description' => HTML::escape( _x( 'Make a reference to an external source.', 'Modules: ShortCodes: UI: Description', 'gnetwork' ) ),
 			],
 			'attrs' => [
 				[
-					'label'  => HTML::escape( _x( 'External Resource', 'Modules: ShortCodes: UI: Label', GNETWORK_TEXTDOMAIN ) ),
+					'label'  => HTML::escape( _x( 'External Resource', 'Modules: ShortCodes: UI: Label', 'gnetwork' ) ),
 					'attr'   => 'url',
 					'type'   => 'text',
 					'encode' => TRUE,
@@ -135,42 +135,42 @@ class ShortCodes extends gNetwork\Module
 					],
 				],
 				[
-					'label' => HTML::escape( _x( 'External Resource Hover', 'Modules: ShortCodes: UI: Label', GNETWORK_TEXTDOMAIN ) ),
+					'label' => HTML::escape( _x( 'External Resource Hover', 'Modules: ShortCodes: UI: Label', 'gnetwork' ) ),
 					'attr'  => 'url_title',
 					'type'  => 'text',
 					'meta'  => [
-						'placeholder' => HTML::escape( _x( 'Read more about it', 'Modules: ShortCodes: UI: Placeholder', GNETWORK_TEXTDOMAIN ) ),
+						'placeholder' => HTML::escape( _x( 'Read more about it', 'Modules: ShortCodes: UI: Placeholder', 'gnetwork' ) ),
 					],
 				],
 			],
 		] );
 
 		shortcode_ui_register_for_shortcode( 'email', [
-			'label'         => HTML::escape( _x( 'Email', 'Modules: ShortCodes: UI: Label', GNETWORK_TEXTDOMAIN ) ),
+			'label'         => HTML::escape( _x( 'Email', 'Modules: ShortCodes: UI: Label', 'gnetwork' ) ),
 			'listItemImage' => 'dashicons-email-alt',
 			'inner_content' => [
-				'label'       => HTML::escape( _x( 'Email Address', 'Modules: ShortCodes: UI: Label', GNETWORK_TEXTDOMAIN ) ),
-				'description' => HTML::escape( _x( 'Full email address to appear as link and cloaked against spam bots.', 'Modules: ShortCodes: UI: Description', GNETWORK_TEXTDOMAIN ) ),
+				'label'       => HTML::escape( _x( 'Email Address', 'Modules: ShortCodes: UI: Label', 'gnetwork' ) ),
+				'description' => HTML::escape( _x( 'Full email address to appear as link and cloaked against spam bots.', 'Modules: ShortCodes: UI: Description', 'gnetwork' ) ),
 				'meta'        => [ 'dir' => 'ltr' ],
 			],
 			'attrs' => [
 				[
-					'label' => HTML::escape( _x( 'Display Text', 'Modules: ShortCodes: UI: Label', GNETWORK_TEXTDOMAIN ) ),
+					'label' => HTML::escape( _x( 'Display Text', 'Modules: ShortCodes: UI: Label', 'gnetwork' ) ),
 					'attr'  => 'content',
 					'type'  => 'text',
-					'meta'  => [ 'placeholder' => HTML::escape( _x( 'Email Me', 'Modules: ShortCodes: UI: Placeholder', GNETWORK_TEXTDOMAIN ) ) ],
+					'meta'  => [ 'placeholder' => HTML::escape( _x( 'Email Me', 'Modules: ShortCodes: UI: Placeholder', 'gnetwork' ) ) ],
 				],
 				[
-					'label' => HTML::escape( _x( 'Email Subject', 'Modules: ShortCodes: UI: Label', GNETWORK_TEXTDOMAIN ) ),
+					'label' => HTML::escape( _x( 'Email Subject', 'Modules: ShortCodes: UI: Label', 'gnetwork' ) ),
 					'attr'  => 'subject',
 					'type'  => 'text',
-					'meta'  => [ 'placeholder' => HTML::escape( _x( 'About something important', 'Modules: ShortCodes: UI: Placeholder', GNETWORK_TEXTDOMAIN ) ) ],
+					'meta'  => [ 'placeholder' => HTML::escape( _x( 'About something important', 'Modules: ShortCodes: UI: Placeholder', 'gnetwork' ) ) ],
 				],
 				[
-					'label' => HTML::escape( _x( 'Link Hover', 'Modules: ShortCodes: UI: Label', GNETWORK_TEXTDOMAIN ) ),
+					'label' => HTML::escape( _x( 'Link Hover', 'Modules: ShortCodes: UI: Label', 'gnetwork' ) ),
 					'attr'  => 'title',
 					'type'  => 'text',
-					'meta'  => [ 'placeholder' => HTML::escape( _x( 'Jump right into it!', 'Modules: ShortCodes: UI: Placeholder', GNETWORK_TEXTDOMAIN ) ) ],
+					'meta'  => [ 'placeholder' => HTML::escape( _x( 'Jump right into it!', 'Modules: ShortCodes: UI: Placeholder', 'gnetwork' ) ) ],
 				],
 			],
 		] );
@@ -179,26 +179,26 @@ class ShortCodes extends gNetwork\Module
 	public function tinymce_strings( $strings )
 	{
 		$new = [
-			'gnetworkref-title' => _x( 'Cite This', 'TinyMCE Strings: Ref', GNETWORK_TEXTDOMAIN ),
-			'gnetworkref-attr'  => _x( 'Cite This (Ctrl+Q)', 'TinyMCE Strings: Ref', GNETWORK_TEXTDOMAIN ),
-			'gnetworkref-text'  => _x( 'Ref Text', 'TinyMCE Strings: Ref', GNETWORK_TEXTDOMAIN ),
-			'gnetworkref-url'   => _x( 'Ref URL', 'TinyMCE Strings: Ref', GNETWORK_TEXTDOMAIN ),
+			'gnetworkref-title' => _x( 'Cite This', 'TinyMCE Strings: Ref', 'gnetwork' ),
+			'gnetworkref-attr'  => _x( 'Cite This (Ctrl+Q)', 'TinyMCE Strings: Ref', 'gnetwork' ),
+			'gnetworkref-text'  => _x( 'Ref Text', 'TinyMCE Strings: Ref', 'gnetwork' ),
+			'gnetworkref-url'   => _x( 'Ref URL', 'TinyMCE Strings: Ref', 'gnetwork' ),
 
-			'gnetworkemail-title'   => _x( 'Email', 'TinyMCE Strings: Email', GNETWORK_TEXTDOMAIN ),
-			'gnetworkemail-attr'    => _x( 'Email (Ctrl+E)', 'TinyMCE Strings: Email', GNETWORK_TEXTDOMAIN ),
-			'gnetworkemail-email'   => _x( 'Full Email', 'TinyMCE Strings: Email', GNETWORK_TEXTDOMAIN ),
-			'gnetworkemail-text'    => _x( 'Display Text', 'TinyMCE Strings: Email', GNETWORK_TEXTDOMAIN ),
-			'gnetworkemail-subject' => _x( 'Email Subject', 'TinyMCE Strings: Email', GNETWORK_TEXTDOMAIN ),
-			'gnetworkemail-hover'   => _x( 'Link Hover', 'TinyMCE Strings: Email', GNETWORK_TEXTDOMAIN ),
+			'gnetworkemail-title'   => _x( 'Email', 'TinyMCE Strings: Email', 'gnetwork' ),
+			'gnetworkemail-attr'    => _x( 'Email (Ctrl+E)', 'TinyMCE Strings: Email', 'gnetwork' ),
+			'gnetworkemail-email'   => _x( 'Full Email', 'TinyMCE Strings: Email', 'gnetwork' ),
+			'gnetworkemail-text'    => _x( 'Display Text', 'TinyMCE Strings: Email', 'gnetwork' ),
+			'gnetworkemail-subject' => _x( 'Email Subject', 'TinyMCE Strings: Email', 'gnetwork' ),
+			'gnetworkemail-hover'   => _x( 'Link Hover', 'TinyMCE Strings: Email', 'gnetwork' ),
 
-			'gnetworksearch-title' => _x( 'Search', 'TinyMCE Strings: Search', GNETWORK_TEXTDOMAIN ),
-			'gnetworksearch-attr'  => _x( 'Search (Ctrl+3)', 'TinyMCE Strings: Search', GNETWORK_TEXTDOMAIN ),
-			'gnetworksearch-text'  => _x( 'Display Text', 'TinyMCE Strings: Search', GNETWORK_TEXTDOMAIN ),
-			'gnetworksearch-query' => _x( 'Override Criteria', 'TinyMCE Strings: Search', GNETWORK_TEXTDOMAIN ),
+			'gnetworksearch-title' => _x( 'Search', 'TinyMCE Strings: Search', 'gnetwork' ),
+			'gnetworksearch-attr'  => _x( 'Search (Ctrl+3)', 'TinyMCE Strings: Search', 'gnetwork' ),
+			'gnetworksearch-text'  => _x( 'Display Text', 'TinyMCE Strings: Search', 'gnetwork' ),
+			'gnetworksearch-query' => _x( 'Override Criteria', 'TinyMCE Strings: Search', 'gnetwork' ),
 
-			'gnetworkgpeople-title' => _x( 'People', 'TinyMCE Strings: People', GNETWORK_TEXTDOMAIN ),
-			'gnetworkgpeople-attr'  => _x( 'People', 'TinyMCE Strings: People', GNETWORK_TEXTDOMAIN ),
-			'gnetworkgpeople-name'  => _x( 'Name', 'TinyMCE Strings: People', GNETWORK_TEXTDOMAIN ),
+			'gnetworkgpeople-title' => _x( 'People', 'TinyMCE Strings: People', 'gnetwork' ),
+			'gnetworkgpeople-attr'  => _x( 'People', 'TinyMCE Strings: People', 'gnetwork' ),
+			'gnetworkgpeople-name'  => _x( 'Name', 'TinyMCE Strings: People', 'gnetwork' ),
 		];
 
 		return array_merge( $strings, $new );
@@ -697,7 +697,7 @@ class ShortCodes extends gNetwork\Module
 		$args = shortcode_atts( [
 			'id'      => get_queried_object_id(),
 			'to'      => 'parent',
-			'html'    => _x( 'Back', 'Modules: ShortCodes: Defaults', GNETWORK_TEXTDOMAIN ),
+			'html'    => _x( 'Back', 'Modules: ShortCodes: Defaults', 'gnetwork' ),
 			'context' => NULL,
 			'wrap'    => TRUE,
 			'before'  => '',
@@ -732,7 +732,7 @@ class ShortCodes extends gNetwork\Module
 
 						$html = HTML::tag( 'a', [
 							'href'        => home_url( '/' ),
-							'title'       => _x( 'Home', 'Modules: ShortCodes: Defaults', GNETWORK_TEXTDOMAIN ),
+							'title'       => _x( 'Home', 'Modules: ShortCodes: Defaults', 'gnetwork' ),
 							'class'       => 'home',
 							'data-toggle' => 'tooltip',
 							'rel'         => 'home',
@@ -745,7 +745,7 @@ class ShortCodes extends gNetwork\Module
 
 				$html = HTML::tag( 'a', [
 					'href'        => home_url( '/' ),
-					'title'       => _x( 'Home', 'Modules: ShortCodes: Defaults', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Home', 'Modules: ShortCodes: Defaults', 'gnetwork' ),
 					'class'       => 'home',
 					'data-toggle' => 'tooltip',
 					'rel'         => 'home',
@@ -820,7 +820,7 @@ class ShortCodes extends gNetwork\Module
 			$args['scroll'] = 'no';
 
 		if ( ! $content )
-			$content = _x( 'Loading &hellip;', 'Modules: ShortCodes: Defaults', GNETWORK_TEXTDOMAIN );
+			$content = _x( 'Loading &hellip;', 'Modules: ShortCodes: Defaults', 'gnetwork' );
 
 		$html = HTML::tag( 'iframe', [
 			'frameborder' => '0',
@@ -864,7 +864,7 @@ class ShortCodes extends gNetwork\Module
 			$query['height'] = $args['height'];
 
 		if ( ! $content )
-			$content = _x( 'More Info', 'Modules: ShortCodes: Defaults: ThickBox', GNETWORK_TEXTDOMAIN );
+			$content = _x( 'More Info', 'Modules: ShortCodes: Defaults: ThickBox', 'gnetwork' );
 
 		$html = HTML::tag( 'a', [
 			'href'    => add_query_arg( $query, $args['url'] ),
@@ -1004,7 +1004,7 @@ class ShortCodes extends gNetwork\Module
 		$args = shortcode_atts( [
 			'for'     => FALSE, // override
 			'url'     => FALSE, // override
-			'title'   => _x( 'Search this site for &ldquo;%s&rdquo;', 'Modules: ShortCodes: Defaults', GNETWORK_TEXTDOMAIN ),
+			'title'   => _x( 'Search this site for &ldquo;%s&rdquo;', 'Modules: ShortCodes: Defaults', 'gnetwork' ),
 			'context' => NULL,
 			'wrap'    => TRUE,
 			'before'  => '',
@@ -1068,8 +1068,8 @@ class ShortCodes extends gNetwork\Module
 			'width'    => FALSE, // default is full width
 			'height'   => FALSE, // '960px',
 			'view'     => FALSE, // 'FitV',  //'FitH',
-			'fallback' => _x( 'It appears you don\'t have Adobe Reader or PDF support in this web browser. <a href="%s">Click here to download the PDF</a>.', 'Modules: ShortCodes: Defaults', GNETWORK_TEXTDOMAIN ),
-			'feedlink' => _x( '<a href="%s">Click here to download the PDF</a>.', 'Modules: ShortCodes: Defaults', GNETWORK_TEXTDOMAIN ),
+			'fallback' => _x( 'It appears you don\'t have Adobe Reader or PDF support in this web browser. <a href="%s">Click here to download the PDF</a>.', 'Modules: ShortCodes: Defaults', 'gnetwork' ),
+			'feedlink' => _x( '<a href="%s">Click here to download the PDF</a>.', 'Modules: ShortCodes: Defaults', 'gnetwork' ),
 			'context'  => NULL,
 			'wrap'     => TRUE,
 			'before'   => '',
@@ -1115,8 +1115,8 @@ class ShortCodes extends gNetwork\Module
 			'id'           => FALSE,
 			'url'          => FALSE,
 			'columns'      => NULL,
-			'string_view'  => _x( 'View Resource', 'Modules: ShortCodes: Defaults', GNETWORK_TEXTDOMAIN ), // FALSE to disable
-			'string_empty' => _x( 'Resource is empty!', 'Modules: ShortCodes: Defaults', GNETWORK_TEXTDOMAIN ), // FALSE to disable
+			'string_view'  => _x( 'View Resource', 'Modules: ShortCodes: Defaults', 'gnetwork' ), // FALSE to disable
+			'string_empty' => _x( 'Resource is empty!', 'Modules: ShortCodes: Defaults', 'gnetwork' ), // FALSE to disable
 			'context'      => NULL,
 			'wrap'         => TRUE,
 			'before'       => '',
@@ -1225,7 +1225,7 @@ class ShortCodes extends gNetwork\Module
 		$args = shortcode_atts( [
 			'duration' => '',
 			'location' => '',
-			'message'  => _x( 'Please wait while you are redirected. Or <a href="%s">click here</a> if you do not want to wait.', 'Modules: ShortCodes: Defaults', GNETWORK_TEXTDOMAIN ),
+			'message'  => _x( 'Please wait while you are redirected. Or <a href="%s">click here</a> if you do not want to wait.', 'Modules: ShortCodes: Defaults', 'gnetwork' ),
 			'context'  => NULL,
 			'wrap'     => TRUE,
 			'before'   => '',
@@ -1276,7 +1276,7 @@ class ShortCodes extends gNetwork\Module
 		$args = shortcode_atts( [
 			'to'       => '0',
 			'instance' => '0',
-			'title'    => _x( 'Go to %s second mark and play', 'Shortcodes Module: Defaults', GNETWORK_TEXTDOMAIN ),
+			'title'    => _x( 'Go to %s second mark and play', 'Shortcodes Module: Defaults', 'gnetwork' ),
 			'context'  => NULL,
 			'wrap'     => TRUE,
 			'before'   => '',
@@ -1365,7 +1365,7 @@ class ShortCodes extends gNetwork\Module
 		$args = shortcode_atts( [
 			'url'       => FALSE,
 			'url_text'  => is_rtl() ? '[&#8620;]' : '[&#8619;]',
-			'url_title' => _x( 'External Resource', 'Shortcodes Module: Defaults', GNETWORK_TEXTDOMAIN ),
+			'url_title' => _x( 'External Resource', 'Shortcodes Module: Defaults', 'gnetwork' ),
 			'template'  => '&#8207;[%s]&#8206;',
 			'combine'   => FALSE, // combine identical notes
 			'class'     => 'ref-anchor',
@@ -1433,7 +1433,7 @@ class ShortCodes extends gNetwork\Module
 
 		if ( WordPress::isXML() || WordPress::isREST() ) {
 			$this->ref_list = TRUE;
-			return '<p>'._x( 'See the footnotes on the site.', 'Shortcodes Module: Defaults', GNETWORK_TEXTDOMAIN ).'</p>';
+			return '<p>'._x( 'See the footnotes on the site.', 'Shortcodes Module: Defaults', 'gnetwork' ).'</p>';
 		}
 
 		$args = shortcode_atts( [
@@ -1443,7 +1443,7 @@ class ShortCodes extends gNetwork\Module
 			'number_after' => '.&nbsp;',
 			'back'         => TRUE,
 			'back_text'    => is_rtl() ? '[&#10532;]' : '[&#10531;]', // '[&#8618;]' : '[&#8617;]',
-			'back_title'   => _x( 'Back to Text', 'Shortcodes Module: Defaults', GNETWORK_TEXTDOMAIN ),
+			'back_title'   => _x( 'Back to Text', 'Shortcodes Module: Defaults', 'gnetwork' ),
 			'context'      => NULL,
 			'wrap'         => TRUE,
 			'before'       => '',
@@ -1527,7 +1527,7 @@ class ShortCodes extends gNetwork\Module
 
 			$args = shortcode_atts( [
 				'id'            => 0,
-				'title'         => _x( 'See the Footnote', 'Shortcodes Module: Defaults', GNETWORK_TEXTDOMAIN ),
+				'title'         => _x( 'See the Footnote', 'Shortcodes Module: Defaults', 'gnetwork' ),
 				'class'         => 'ref-anchor',
 				'format_number' => TRUE,
 				'context'       => NULL,
@@ -1539,7 +1539,7 @@ class ShortCodes extends gNetwork\Module
 		} else { // [ref-m 0]
 
 			$args['id']            = isset( $atts[0] ) ? $atts[0] : FALSE;
-			$args['title']         = isset( $atts[1] ) ? $atts[1] : _x( 'See the Footnote', 'Shortcodes Module: Defaults', GNETWORK_TEXTDOMAIN );
+			$args['title']         = isset( $atts[1] ) ? $atts[1] : _x( 'See the Footnote', 'Shortcodes Module: Defaults', 'gnetwork' );
 			$args['class']         = isset( $atts[2] ) ? $atts[2] : 'ref-anchor';
 			$args['format_number'] = isset( $atts[3] ) ? $atts[3] : TRUE;
 		}
@@ -1562,7 +1562,7 @@ class ShortCodes extends gNetwork\Module
 
 			$args = shortcode_atts( [
 				'id'            => 0,
-				'title'         => _x( 'See the Footnote', 'Shortcodes Module: Defaults', GNETWORK_TEXTDOMAIN ),
+				'title'         => _x( 'See the Footnote', 'Shortcodes Module: Defaults', 'gnetwork' ),
 				'class'         => 'ref-anchor',
 				'format_number' => TRUE,
 				'back'          => is_rtl() ? '[&#8618;]' : '[&#8617;]', //'&uarr;',
@@ -1575,7 +1575,7 @@ class ShortCodes extends gNetwork\Module
 
 		} else { // [reflist-m 0]
 			$args['id']            = $atts[0];
-			$args['title']         = isset( $atts[1] ) ? $atts[1] : _x( 'See the Footnote', 'Shortcodes Module: Defaults', GNETWORK_TEXTDOMAIN );
+			$args['title']         = isset( $atts[1] ) ? $atts[1] : _x( 'See the Footnote', 'Shortcodes Module: Defaults', 'gnetwork' );
 			$args['class']         = isset( $atts[2] ) ? $atts[2] : 'ref-anchor';
 			$args['format_number'] = isset( $atts[3] ) ? $atts[3] : TRUE;
 			$args['back']          = isset( $atts[4] ) ? $atts[4] : ( is_rtl() ? '[&#8618;]' : '[&#8617;]' );

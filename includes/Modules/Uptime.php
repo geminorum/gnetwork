@@ -32,7 +32,7 @@ class Uptime extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Uptime', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
+		$this->register_menu( _x( 'Uptime', 'Modules: Menu Name', 'gnetwork' ) );
 	}
 
 	public function default_options()
@@ -51,8 +51,8 @@ class Uptime extends gNetwork\Module
 				[
 					'field'       => 'uptimerobot_apikey',
 					'type'        => 'text',
-					'title'       => _x( 'API Key', 'Modules: Uptime: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Key for communication between this site and UptimeRobot.com', 'Modules: Uptime: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'API Key', 'Modules: Uptime: Settings', 'gnetwork' ),
+					'description' => _x( 'Key for communication between this site and UptimeRobot.com', 'Modules: Uptime: Settings', 'gnetwork' ),
 					'constant'    => 'UPTIMEROBOT_APIKEY',
 					'field_class' => [ 'regular-text', 'code' ],
 					'dir'         => 'ltr',
@@ -68,7 +68,7 @@ class Uptime extends gNetwork\Module
 		return [
 			[
 				'id'      => $this->classs( 'help' ),
-				'title'   => _x( 'Uptime Robot', 'Modules: Uptime: Help Tab Title', GNETWORK_TEXTDOMAIN ),
+				'title'   => _x( 'Uptime Robot', 'Modules: Uptime: Help Tab Title', 'gnetwork' ),
 				'content' => '<p>Uptime Robot monitors your site and alerts you if your sites are down.</p><p>Register and get api key from <a href="https://uptimerobot.com/dashboard.php#mySettings" target="_blank"><i>here</i></a>.</p>',
 			],
 		];
@@ -79,7 +79,7 @@ class Uptime extends gNetwork\Module
 		if ( WordPress::cuc( $this->options['dashboard_accesscap'] ) )
 			wp_add_dashboard_widget(
 				$this->classs( 'dashboard' ),
-				_x( 'Uptime Monitor', 'Modules: Uptime: Widget Title', GNETWORK_TEXTDOMAIN ),
+				_x( 'Uptime Monitor', 'Modules: Uptime: Widget Title', 'gnetwork' ),
 				[ $this, 'widget_uptimerobot' ]
 			);
 	}
@@ -115,13 +115,13 @@ class Uptime extends gNetwork\Module
 			echo '</tbody></table></div>';
 
 			echo '<div class="sub"><table class="base-table-simple"><tbody><tr><td>';
-				echo Utilities::getCounted( $monitor['all_time_uptime_ratio'], _x( 'Uptime Ratio: %s', 'Modules: Uptime', GNETWORK_TEXTDOMAIN ) );
+				echo Utilities::getCounted( $monitor['all_time_uptime_ratio'], _x( 'Uptime Ratio: %s', 'Modules: Uptime', 'gnetwork' ) );
 			echo '</td><td>';
-				echo Utilities::getCounted( $monitor['average_response_time'], _x( 'Response Time: %s', 'Modules: Uptime', GNETWORK_TEXTDOMAIN ) );
+				echo Utilities::getCounted( $monitor['average_response_time'], _x( 'Response Time: %s', 'Modules: Uptime', 'gnetwork' ) );
 			echo '</td></tr><tr><td>';
-				printf( _x( 'Interval: %s', 'Modules: Uptime', GNETWORK_TEXTDOMAIN ), Utilities::htmlFromSeconds( $monitor['interval'], 2 ) );
+				printf( _x( 'Interval: %s', 'Modules: Uptime', 'gnetwork' ), Utilities::htmlFromSeconds( $monitor['interval'], 2 ) );
 			echo '</td><td>';
-				echo Utilities::getCounted( $monitor['response_times'][0]['value'], _x( 'Last Response Time: %s', 'Modules: Uptime', GNETWORK_TEXTDOMAIN ) );
+				echo Utilities::getCounted( $monitor['response_times'][0]['value'], _x( 'Last Response Time: %s', 'Modules: Uptime', 'gnetwork' ) );
 			echo '</td></tr></tbody></table>';
 
 			echo '</div></div>';
@@ -131,13 +131,13 @@ class Uptime extends gNetwork\Module
 	private function get_uptimerobot_type( $type )
 	{
 		switch ( $type ) {
-			case '1' : return HTML::getDashicon( 'warning', _x( 'Down', 'Modules: Uptime', GNETWORK_TEXTDOMAIN ) );
-			case '2' : return HTML::getDashicon( 'marker', _x( 'Up', 'Modules: Uptime', GNETWORK_TEXTDOMAIN ) );
-			case '99': return HTML::getDashicon( 'star-empty', _x( 'Paused', 'Modules: Uptime', GNETWORK_TEXTDOMAIN ) );
-			case '98': return HTML::getDashicon( 'star-filled', _x( 'Started', 'Modules: Uptime', GNETWORK_TEXTDOMAIN ) );
+			case '1' : return HTML::getDashicon( 'warning', _x( 'Down', 'Modules: Uptime', 'gnetwork' ) );
+			case '2' : return HTML::getDashicon( 'marker', _x( 'Up', 'Modules: Uptime', 'gnetwork' ) );
+			case '99': return HTML::getDashicon( 'star-empty', _x( 'Paused', 'Modules: Uptime', 'gnetwork' ) );
+			case '98': return HTML::getDashicon( 'star-filled', _x( 'Started', 'Modules: Uptime', 'gnetwork' ) );
 		}
 
-		return HTML::getDashicon( 'info', 'span', _x( 'Unknown!', 'Modules: Uptime', GNETWORK_TEXTDOMAIN ) );
+		return HTML::getDashicon( 'info', 'span', _x( 'Unknown!', 'Modules: Uptime', 'gnetwork' ) );
 	}
 
 	// @REF: https://uptimerobot.com/api#getMonitors
@@ -180,15 +180,15 @@ class Uptime extends gNetwork\Module
 			$data = json_decode( wp_remote_retrieve_body( $response ), TRUE );
 
 			if ( empty( $data['stat'] ) )
-				return new Error( 'unknown_response', _x( 'Something is wrong with UptimeRobot.com API!', 'Modules: Uptime', GNETWORK_TEXTDOMAIN ) );
+				return new Error( 'unknown_response', _x( 'Something is wrong with UptimeRobot.com API!', 'Modules: Uptime', 'gnetwork' ) );
 
 			else if ( 'fail' == $data['stat'] )
-				return new Error( $data['error']['type'], sprintf( _x( 'UptimeRobot.com API: %s', 'Modules: Uptime', GNETWORK_TEXTDOMAIN ), str_replace( '_', ' ', $data['error']['type'] ) ) );
+				return new Error( $data['error']['type'], sprintf( _x( 'UptimeRobot.com API: %s', 'Modules: Uptime', 'gnetwork' ), str_replace( '_', ' ', $data['error']['type'] ) ) );
 
 			else if ( 'ok' == $data['stat'] )
 				return $data['monitors'];
 		}
 
-		return new Error( 'not_ok_status', HTTP::getStatusDesc( $status, _x( 'Unknown!', 'Modules: Uptime', GNETWORK_TEXTDOMAIN ) ) );
+		return new Error( 'not_ok_status', HTTP::getStatusDesc( $status, _x( 'Unknown!', 'Modules: Uptime', 'gnetwork' ) ) );
 	}
 }

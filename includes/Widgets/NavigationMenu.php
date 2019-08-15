@@ -10,10 +10,10 @@ class NavigationMenu extends \WP_Widget
 	public function __construct()
 	{
 		parent::__construct( 'gnetwork-navmenu-widget',
-			_x( 'gNetwork Navigation: Menu', 'Widget: Title', GNETWORK_TEXTDOMAIN ),
+			_x( 'gNetwork Navigation: Menu', 'Widget: Title', 'gnetwork' ),
 			[
 				'classname'   => 'gnetwork-wrap-widget -navmenu-widget',
-				'description' => _x( 'Global Navigation Menus', 'Widget: Description', GNETWORK_TEXTDOMAIN ),
+				'description' => _x( 'Global Navigation Menus', 'Widget: Description', 'gnetwork' ),
 			]
 		);
 	}
@@ -47,7 +47,7 @@ class NavigationMenu extends \WP_Widget
 
 		} else {
 			echo '<br />';
-			HTML::desc( _x( 'Navigation module not found!', 'Modules: Widgets', GNETWORK_TEXTDOMAIN ), FALSE, '-empty' );
+			HTML::desc( _x( 'Navigation module not found!', 'Modules: Widgets', 'gnetwork' ), FALSE, '-empty' );
 		}
 
 		echo '</div>';

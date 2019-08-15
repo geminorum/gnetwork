@@ -10,7 +10,7 @@ class DebugMetaPanel extends \Debug_Bar_Panel
 
 	public function init()
 	{
-		$this->title( _x( 'Meta Data', 'Modules: Debug: Debug Bar Panel Title', GNETWORK_TEXTDOMAIN ) );
+		$this->title( _x( 'Meta Data', 'Modules: Debug: Debug Bar Panel Title', 'gnetwork' ) );
 	}
 
 	public function render()
@@ -52,7 +52,7 @@ class DebugMetaPanel extends \Debug_Bar_Panel
 				echo '</div>';
 
 				echo '<div class="-posttype-supports">';
-					HTML::h3( _x( 'Posttype Supports', 'Modules: Debug: Debug Bar Panel', GNETWORK_TEXTDOMAIN ) );
+					HTML::h3( _x( 'Posttype Supports', 'Modules: Debug: Debug Bar Panel', 'gnetwork' ) );
 					HTML::tableSide( get_all_post_type_supports( $screen->post_type ), FALSE );
 				echo '</div>';
 
@@ -87,7 +87,7 @@ class DebugMetaPanel extends \Debug_Bar_Panel
 
 		} else {
 
-			HTML::h2( _x( 'No metadata found!', 'Modules: Debug: Debug Bar Panel', GNETWORK_TEXTDOMAIN ) );
+			HTML::h2( _x( 'No metadata found!', 'Modules: Debug: Debug Bar Panel', 'gnetwork' ) );
 		}
 
 		echo '</div>';

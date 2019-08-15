@@ -38,7 +38,7 @@ class Captcha extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Captcha', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
+		$this->register_menu( _x( 'Captcha', 'Modules: Menu Name', 'gnetwork' ) );
 	}
 
 	public function init()
@@ -88,37 +88,37 @@ class Captcha extends gNetwork\Module
 				[
 					'field'       => 'public_key',
 					'type'        => 'text',
-					'title'       => _x( 'Site Key', 'Modules: Captcha: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'The key in the HTML code your site serves to users.', 'Modules: Captcha: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Site Key', 'Modules: Captcha: Settings', 'gnetwork' ),
+					'description' => _x( 'The key in the HTML code your site serves to users.', 'Modules: Captcha: Settings', 'gnetwork' ),
 					'field_class' => [ 'regular-text', 'code-text' ],
 				],
 				[
 					'field'       => 'private_key',
 					'type'        => 'text',
-					'title'       => _x( 'Secret Key', 'Modules: Captcha: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'The key for communication between your site and Google reCAPTCHA.', 'Modules: Captcha: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Secret Key', 'Modules: Captcha: Settings', 'gnetwork' ),
+					'description' => _x( 'The key for communication between your site and Google reCAPTCHA.', 'Modules: Captcha: Settings', 'gnetwork' ),
 					'field_class' => [ 'regular-text', 'code-text' ],
 				],
 				[
 					'field'       => 'login_captcha',
-					'title'       => _x( 'Login Captcha', 'Modules: Captcha: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Displays captcha field on login and lost password form.', 'Modules: Captcha: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Login Captcha', 'Modules: Captcha: Settings', 'gnetwork' ),
+					'description' => _x( 'Displays captcha field on login and lost password form.', 'Modules: Captcha: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'register_captcha',
-					'title'       => _x( 'Register Captcha', 'Modules: Captcha: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Displays captcha field on register form.', 'Modules: Captcha: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Register Captcha', 'Modules: Captcha: Settings', 'gnetwork' ),
+					'description' => _x( 'Displays captcha field on register form.', 'Modules: Captcha: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'bp_captcha',
-					'title'       => _x( 'BuddyPress Captcha', 'Modules: Captcha: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Displays captcha field on BuddyPress forms.', 'Modules: Captcha: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'BuddyPress Captcha', 'Modules: Captcha: Settings', 'gnetwork' ),
+					'description' => _x( 'Displays captcha field on BuddyPress forms.', 'Modules: Captcha: Settings', 'gnetwork' ),
 					'disabled'    => ! function_exists( 'buddypress' ),
 				],
 				[
 					'field'       => 'logged_in',
-					'title'       => _x( 'Logged In', 'Modules: Captcha: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Displays captcha field also for logged-in users.', 'Modules: Captcha: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Logged In', 'Modules: Captcha: Settings', 'gnetwork' ),
+					'description' => _x( 'Displays captcha field also for logged-in users.', 'Modules: Captcha: Settings', 'gnetwork' ),
 				],
 			],
 		];
@@ -129,7 +129,7 @@ class Captcha extends gNetwork\Module
 		return [
 			[
 				'id'      => $this->classs( 'help' ),
-				'title'   => _x( 'Google reCAPTCHA', 'Modules: Captcha: Help Tab Title', GNETWORK_TEXTDOMAIN ),
+				'title'   => _x( 'Google reCAPTCHA', 'Modules: Captcha: Help Tab Title', 'gnetwork' ),
 				'content' => '<p>reCAPTCHA is a free service that protects your website from spam and abuse.</p><p>Register and get the keys from <a href="https://www.google.com/recaptcha/admin" target="_blank"><i>here</i></a>.</p>',
 			],
 		];
@@ -207,8 +207,8 @@ class Captcha extends gNetwork\Module
 	public function recaptcha_errors()
 	{
 		return [
-			'empty_captcha'   => _x( 'CAPTCHA should not be empty', 'Modules: Captcha: ReCaptcha Error', GNETWORK_TEXTDOMAIN ),
-			'invalid_captcha' => _x( 'CAPTCHA response was incorrect', 'Modules: Captcha: ReCaptcha Error', GNETWORK_TEXTDOMAIN ),
+			'empty_captcha'   => _x( 'CAPTCHA should not be empty', 'Modules: Captcha: ReCaptcha Error', 'gnetwork' ),
+			'invalid_captcha' => _x( 'CAPTCHA response was incorrect', 'Modules: Captcha: ReCaptcha Error', 'gnetwork' ),
 		];
 	}
 

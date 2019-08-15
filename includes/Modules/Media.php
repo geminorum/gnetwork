@@ -57,8 +57,8 @@ class Media extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Media', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
-		$this->register_tool( _x( 'Images', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ), 'images', 9, $this->options['tools_accesscap'] );
+		$this->register_menu( _x( 'Media', 'Modules: Menu Name', 'gnetwork' ) );
+		$this->register_tool( _x( 'Images', 'Modules: Menu Name', 'gnetwork' ), 'images', 9, $this->options['tools_accesscap'] );
 	}
 
 	protected function setup_ajax( $request )
@@ -84,14 +84,14 @@ class Media extends gNetwork\Module
 				[
 					'field'       => 'tools_accesscap',
 					'type'        => 'cap',
-					'title'       => _x( 'Tools Access', 'Modules: Media: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Selected and above can view the image tools.', 'Modules: Media: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Tools Access', 'Modules: Media: Settings', 'gnetwork' ),
+					'description' => _x( 'Selected and above can view the image tools.', 'Modules: Media: Settings', 'gnetwork' ),
 					'default'     => 'edit_others_posts',
 				],
 				[
 					'field'       => 'skip_exifmeta',
-					'title'       => _x( 'Strip EXIF', 'Modules: Media: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Skips storing unused EXIF metadata for image attachments.', 'Modules: Media: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Strip EXIF', 'Modules: Media: Settings', 'gnetwork' ),
+					'description' => _x( 'Skips storing unused EXIF metadata for image attachments.', 'Modules: Media: Settings', 'gnetwork' ),
 					'default'     => '1',
 				],
 			],
@@ -106,8 +106,8 @@ class Media extends gNetwork\Module
 	public function settings_section_uploader()
 	{
 		Settings::fieldSection(
-			_x( 'Large File Uploader', 'Modules: Media: Settings', GNETWORK_TEXTDOMAIN ),
-			_x( 'Simple javascript powered widget to upload large files.', 'Modules: Media: Settings', GNETWORK_TEXTDOMAIN )
+			_x( 'Large File Uploader', 'Modules: Media: Settings', 'gnetwork' ),
+			_x( 'Simple javascript powered widget to upload large files.', 'Modules: Media: Settings', 'gnetwork' )
 		);
 	}
 
@@ -174,7 +174,7 @@ class Media extends gNetwork\Module
 
 			wp_add_dashboard_widget(
 				$this->classs( 'dashboard' ),
-				_x( 'Large File Uploader', 'Modules: Media: Widget Title', GNETWORK_TEXTDOMAIN ),
+				_x( 'Large File Uploader', 'Modules: Media: Widget Title', 'gnetwork' ),
 				[ $this, 'widget_uploader' ]
 			);
 
@@ -185,7 +185,7 @@ class Media extends gNetwork\Module
 	public function post_plupload_upload_ui()
 	{
 		if ( WordPress::cuc( $this->options['dashboard_accesscap'] ) )
-			HTML::desc( sprintf( _x( 'Alternatively, you can use %1$sLarge File Uploader%2$s widget on the dashoard.', 'Modules: Media', GNETWORK_TEXTDOMAIN ),
+			HTML::desc( sprintf( _x( 'Alternatively, you can use %1$sLarge File Uploader%2$s widget on the dashoard.', 'Modules: Media', 'gnetwork' ),
 				'<a href="'.HTML::escapeURL( get_dashboard_url() ).'">', '</a>' ) );
 	}
 
@@ -196,10 +196,10 @@ class Media extends gNetwork\Module
 
 	protected function tools_buttons( $sub = NULL )
 	{
-		$this->register_button( 'clean_attachments', _x( 'Clean Attachments', 'Modules: Media', GNETWORK_TEXTDOMAIN ) );
-		$this->register_button( 'sync_attachments', _x( 'Sync Attachments', 'Modules: Media', GNETWORK_TEXTDOMAIN ) );
-		$this->register_button( 'cache_in_content', _x( 'Cache In Content', 'Modules: Media', GNETWORK_TEXTDOMAIN ) );
-		$this->register_button( 'ssl_correction', _x( 'Correct SSL', 'Modules: Media', GNETWORK_TEXTDOMAIN ) );
+		$this->register_button( 'clean_attachments', _x( 'Clean Attachments', 'Modules: Media', 'gnetwork' ) );
+		$this->register_button( 'sync_attachments', _x( 'Sync Attachments', 'Modules: Media', 'gnetwork' ) );
+		$this->register_button( 'cache_in_content', _x( 'Cache In Content', 'Modules: Media', 'gnetwork' ) );
+		$this->register_button( 'ssl_correction', _x( 'Correct SSL', 'Modules: Media', 'gnetwork' ) );
 	}
 
 	protected function tools_actions( $sub = NULL )
@@ -295,7 +295,7 @@ class Media extends gNetwork\Module
 		global $_wp_additional_image_sizes;
 
 		if ( empty( $_wp_additional_image_sizes ) )
-			HTML::desc( _x( 'No additional image size registered.', 'Modules: Media', GNETWORK_TEXTDOMAIN ) );
+			HTML::desc( _x( 'No additional image size registered.', 'Modules: Media', 'gnetwork' ) );
 		else
 			HTML::tableSide( $_wp_additional_image_sizes );
 	}
@@ -340,17 +340,17 @@ class Media extends gNetwork\Module
 
 		return HTML::tableList( [
 			'_cb' => 'ID',
-			'ID'  => _x( 'ID', 'Modules: Media: Column Title', GNETWORK_TEXTDOMAIN ),
+			'ID'  => _x( 'ID', 'Modules: Media: Column Title', 'gnetwork' ),
 
 			'date' => [
-				'title'    => _x( 'Date', 'Modules: Media: Column Title', GNETWORK_TEXTDOMAIN ),
+				'title'    => _x( 'Date', 'Modules: Media: Column Title', 'gnetwork' ),
 				'callback' => function( $value, $row, $column, $index ){
 					return Utilities::humanTimeDiffRound( strtotime( $row->post_date ) );
 				},
 			],
 
 			'type' => [
-				'title'    => _x( 'Type', 'Modules: Media: Column Title', GNETWORK_TEXTDOMAIN ),
+				'title'    => _x( 'Type', 'Modules: Media: Column Title', 'gnetwork' ),
 				'args'     => [ 'post_types' => WordPress::getPostTypes( 2 ) ],
 				'callback' => function( $value, $row, $column, $index ){
 					return isset( $column['args']['post_types'][$row->post_type] )
@@ -360,7 +360,7 @@ class Media extends gNetwork\Module
 			],
 
 			'title' => [
-				'title' => _x( 'Title', 'Modules: Media: Column Title', GNETWORK_TEXTDOMAIN ),
+				'title' => _x( 'Title', 'Modules: Media: Column Title', 'gnetwork' ),
 				'args'  => [
 					'url'   => get_bloginfo( 'url' ),
 					'admin' => admin_url( 'post.php' ),
@@ -384,43 +384,43 @@ class Media extends gNetwork\Module
 							'href'   => add_query_arg( [ 'action' => 'edit', 'post' => $row->ID ], $column['args']['admin'] ),
 							'class'  => '-link -row-link -row-link-edit',
 							'target' => '_blank',
-						], _x( 'Edit', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) ),
+						], _x( 'Edit', 'Modules: Media: Row Action', 'gnetwork' ) ),
 
 						'view' => HTML::tag( 'a', [
 							'href'   => add_query_arg( [ 'p' => $row->ID ], $column['args']['url'] ),
 							'class'  => '-link -row-link -row-link-view',
 							'target' => '_blank',
-						], _x( 'View', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) ),
+						], _x( 'View', 'Modules: Media: Row Action', 'gnetwork' ) ),
 
 						'clean' => HTML::tag( 'a', [
 							'href'  => add_query_arg( array_merge( $atts, [ 'what' => 'clean_post' ] ), $column['args']['ajax'] ),
 							'class' => '-link -row-ajax -row-ajax-clean',
-							'data'  => [ 'spinner' => _x( 'Cleaning &hellip;', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) ],
-						], _x( 'Clean', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) ),
+							'data'  => [ 'spinner' => _x( 'Cleaning &hellip;', 'Modules: Media: Row Action', 'gnetwork' ) ],
+						], _x( 'Clean', 'Modules: Media: Row Action', 'gnetwork' ) ),
 
 						'sync' => HTML::tag( 'a', [
 							'href'  => add_query_arg( array_merge( $atts, [ 'what' => 'sync_post' ] ), $column['args']['ajax'] ),
 							'class' => '-link -row-ajax -row-ajax-sync',
-							'data'  => [ 'spinner' => _x( 'Syncing &hellip;', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) ],
-						], _x( 'Sync', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) ),
+							'data'  => [ 'spinner' => _x( 'Syncing &hellip;', 'Modules: Media: Row Action', 'gnetwork' ) ],
+						], _x( 'Sync', 'Modules: Media: Row Action', 'gnetwork' ) ),
 
 						'cache' => HTML::tag( 'a', [
 							'href'  => add_query_arg( array_merge( $atts, [ 'what' => 'cache_post' ] ), $column['args']['ajax'] ),
 							'class' => '-link -row-ajax -row-ajax-cache',
-							'data'  => [ 'spinner' => _x( 'Caching &hellip;', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) ],
-						], _x( 'Cache', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) ),
+							'data'  => [ 'spinner' => _x( 'Caching &hellip;', 'Modules: Media: Row Action', 'gnetwork' ) ],
+						], _x( 'Cache', 'Modules: Media: Row Action', 'gnetwork' ) ),
 
 						'correct' => HTML::tag( 'a', [
 							'href'  => add_query_arg( array_merge( $atts, [ 'what' => 'correct_post' ] ), $column['args']['ajax'] ),
 							'class' => '-link -row-ajax -row-ajax-correct',
-							'data'  => [ 'spinner' => _x( 'Correcting SSL &hellip;', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) ],
-						], _x( 'Correct SSL', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) ),
+							'data'  => [ 'spinner' => _x( 'Correcting SSL &hellip;', 'Modules: Media: Row Action', 'gnetwork' ) ],
+						], _x( 'Correct SSL', 'Modules: Media: Row Action', 'gnetwork' ) ),
 					];
 				},
 			],
 
 			'attached' => [
-				'title'    => _x( 'Attached Media', 'Modules: Media: Column Title', GNETWORK_TEXTDOMAIN ),
+				'title'    => _x( 'Attached Media', 'Modules: Media: Column Title', 'gnetwork' ),
 				'args'     => [ 'wpupload' => wp_get_upload_dir() ],
 				'callback' => function( $value, $row, $column, $index ){
 
@@ -432,7 +432,7 @@ class Media extends gNetwork\Module
 						return '<div dir="ltr">&mdash;</div>';
 
 					$links   = [];
-					$sizes   = _x( 'Number of Sizes', 'Modules: Media: Title Attr', GNETWORK_TEXTDOMAIN );
+					$sizes   = _x( 'Number of Sizes', 'Modules: Media: Title Attr', 'gnetwork' );
 					$checked = HTTP::checkURLs( Arraay::column( $attachments, 'url' ) );
 
 					$thumbnail_id  = get_post_meta( $row->ID, '_thumbnail_id', TRUE );
@@ -474,7 +474,7 @@ class Media extends gNetwork\Module
 			],
 
 			'content' => [
-				'title'    => _x( 'In Content', 'Modules: Media: Column Title', GNETWORK_TEXTDOMAIN ),
+				'title'    => _x( 'In Content', 'Modules: Media: Column Title', 'gnetwork' ),
 				'callback' => function( $value, $row, $column, $index ){
 
 					preg_match_all( '|<img.*?src=[\'"](.*?)[\'"].*?>|i', $row->post_content, $matches );
@@ -486,8 +486,8 @@ class Media extends gNetwork\Module
 					$externals = URL::checkExternals( $matches[1] );
 
 					$external = sprintf( '<small><code class="-external-resource" title="%s">%s</code></small>',
-						_x( 'External Resource', 'Modules: Media: Title Attr', GNETWORK_TEXTDOMAIN ),
-						_x( 'Ex', 'Modules: Media: External Resource', GNETWORK_TEXTDOMAIN ) );
+						_x( 'External Resource', 'Modules: Media: Title Attr', 'gnetwork' ),
+						_x( 'Ex', 'Modules: Media: External Resource', 'gnetwork' ) );
 
 					if ( FALSE === ( $checked = HTTP::checkURLs( $matches[1] ) ) )
 						$checked = array_fill_keys( $matches[1], NULL );
@@ -512,8 +512,8 @@ class Media extends gNetwork\Module
 		], $posts, [
 			'navigation' => 'before',
 			'search'     => 'before',
-			'title'      => HTML::tag( 'h3', _x( 'Overview of Posts with Attachments', 'Modules: Media', GNETWORK_TEXTDOMAIN ) ),
-			'empty'      => HTML::warning( _x( 'No Posts!', 'Modules: Media', GNETWORK_TEXTDOMAIN ) ),
+			'title'      => HTML::tag( 'h3', _x( 'Overview of Posts with Attachments', 'Modules: Media', 'gnetwork' ) ),
+			'empty'      => HTML::warning( _x( 'No Posts!', 'Modules: Media', 'gnetwork' ) ),
 			'pagination' => $pagination,
 		] );
 	}
@@ -990,7 +990,7 @@ class Media extends gNetwork\Module
 
 	public function bulk_actions( $actions )
 	{
-		return array_merge( $actions, [ 'cleanattachments' => _x( 'Clean Attachments', 'Modules: Media: Bulk Action', GNETWORK_TEXTDOMAIN ) ] );
+		return array_merge( $actions, [ 'cleanattachments' => _x( 'Clean Attachments', 'Modules: Media: Bulk Action', 'gnetwork' ) ] );
 	}
 
 	public function handle_bulk_actions( $redirect_to, $doaction, $post_ids )
@@ -1029,9 +1029,9 @@ class Media extends gNetwork\Module
 					'id'      => $post->ID,
 					'parent'  => $post->post_parent,
 					'nonce'   => wp_create_nonce( $this->hook( $post->ID ) ),
-					'spinner' => _x( 'Cleaning &hellip;', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ),
+					'spinner' => _x( 'Cleaning &hellip;', 'Modules: Media: Row Action', 'gnetwork' ),
 				],
-			], _x( 'Clean', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) );
+			], _x( 'Clean', 'Modules: Media: Row Action', 'gnetwork' ) );
 		}
 
 		$link = HTML::tag( 'a', [
@@ -1092,7 +1092,7 @@ class Media extends gNetwork\Module
 				if ( ! $this->clean_attachment( $post['attachment'] ) )
 					Ajax::errorMessage();
 
-				Ajax::success( _x( 'Cleaned', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) );
+				Ajax::success( _x( 'Cleaned', 'Modules: Media: Row Action', 'gnetwork' ) );
 
 			break;
 			case 'clean_post':
@@ -1108,9 +1108,9 @@ class Media extends gNetwork\Module
 					Ajax::errorMessage();
 
 				if ( TRUE === $count || 0 === $count )
-					Ajax::success( _x( 'Already Cleaned!', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) );
+					Ajax::success( _x( 'Already Cleaned!', 'Modules: Media: Row Action', 'gnetwork' ) );
 
-				Ajax::success( _x( 'Cleaned!', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) );
+				Ajax::success( _x( 'Cleaned!', 'Modules: Media: Row Action', 'gnetwork' ) );
 
 			break;
 			case 'sync_post':
@@ -1126,9 +1126,9 @@ class Media extends gNetwork\Module
 					Ajax::errorMessage();
 
 				if ( TRUE === $count || 0 === $count )
-					Ajax::success( _x( 'Already Synced!', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) );
+					Ajax::success( _x( 'Already Synced!', 'Modules: Media: Row Action', 'gnetwork' ) );
 
-				Ajax::success( _x( 'Synced!', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) );
+				Ajax::success( _x( 'Synced!', 'Modules: Media: Row Action', 'gnetwork' ) );
 
 			break;
 			case 'cache_post':
@@ -1141,7 +1141,7 @@ class Media extends gNetwork\Module
 				if ( ! $this->cache_in_content( $post['post_id'] ) )
 					Ajax::errorMessage();
 
-				Ajax::success( _x( 'Cached', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) );
+				Ajax::success( _x( 'Cached', 'Modules: Media: Row Action', 'gnetwork' ) );
 
 			break;
 			case 'correct_post':
@@ -1154,7 +1154,7 @@ class Media extends gNetwork\Module
 				if ( ! $this->ssl_correction( $post['post_id'] ) )
 					Ajax::errorMessage();
 
-				Ajax::success( _x( 'SSL Corrected', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN ) );
+				Ajax::success( _x( 'SSL Corrected', 'Modules: Media: Row Action', 'gnetwork' ) );
 		}
 
 		Ajax::errorWhat();
@@ -1168,11 +1168,11 @@ class Media extends gNetwork\Module
 
 		$html = '<form>'.Ajax::spinner();
 		$html.= '<div id="'.$this->classs( 'file-progress' ).'" class="-messages">';
-		$html.= _x( 'Please select a file and click &#8220;Upload&#8221; to continue.', 'Modules: Media', GNETWORK_TEXTDOMAIN );
+		$html.= _x( 'Please select a file and click &#8220;Upload&#8221; to continue.', 'Modules: Media', 'gnetwork' );
 		$html.= '</div>';
 
 		$html.= '<div><label for="'.$this->classs( 'file-upload' ).'" class="button button-small">';
-		$html.= _x( 'Select File', 'Modules: Media', GNETWORK_TEXTDOMAIN ).'</label>';
+		$html.= _x( 'Select File', 'Modules: Media', 'gnetwork' ).'</label>';
 
 		$html.= HTML::tag( 'input', [
 			'id'    => $this->classs( 'file-upload' ),
@@ -1184,12 +1184,12 @@ class Media extends gNetwork\Module
 			'id'    => $this->classs( 'file-submit' ),
 			'type'  => 'submit',
 			'class' => [ 'button', 'button-small', 'button-primary' ],
-			'value' => _x( 'Upload', 'Modules: Media', GNETWORK_TEXTDOMAIN ),
+			'value' => _x( 'Upload', 'Modules: Media', 'gnetwork' ),
 			'data'  => [
 				'nonce'    => wp_create_nonce( $this->classs( 'file-upload' ) ),
 				'locale'   => get_user_locale(),
-				'progress' => _x( 'Uploading File - %s%', 'Modules: Media', GNETWORK_TEXTDOMAIN ),
-				'complete' => _x( 'Upload Complete!', 'Modules: Media', GNETWORK_TEXTDOMAIN ),
+				'progress' => _x( 'Uploading File - %s%', 'Modules: Media', 'gnetwork' ),
+				'complete' => _x( 'Upload Complete!', 'Modules: Media', 'gnetwork' ),
 			],
 			'disabled' => TRUE,
 		] );
@@ -1198,7 +1198,7 @@ class Media extends gNetwork\Module
 
 		echo $this->wrap( $html, '-widget-form' );
 
-		HTML::desc( _x( 'You can access uploaded files via Media Library.', 'Modules: Media', GNETWORK_TEXTDOMAIN ) );
+		HTML::desc( _x( 'You can access uploaded files via Media Library.', 'Modules: Media', 'gnetwork' ) );
 	}
 
 	// FIXME: must check filetype for non super admins / and delete file if not allowed
@@ -1229,26 +1229,26 @@ class Media extends gNetwork\Module
 		if ( $metadata )
 			wp_update_attachment_metadata( $id, wp_generate_attachment_metadata( $id, $path ) );
 
-		return [ TRUE, HTML::link( _x( 'View Uploaded File', 'Modules: Media', GNETWORK_TEXTDOMAIN ), WordPress::getPostEditLink( $id ), TRUE ) ];
+		return [ TRUE, HTML::link( _x( 'View Uploaded File', 'Modules: Media', 'gnetwork' ), WordPress::getPostEditLink( $id ), TRUE ) ];
 	}
 
 	private function store_chaunk( $file, $data, $chunk = 0 )
 	{
 		if ( FALSE === ( $decoded = $this->decode_chunk( $data ) ) )
-			return _x( 'Something is wrong with data!', 'Modules: Media', GNETWORK_TEXTDOMAIN );
+			return _x( 'Something is wrong with data!', 'Modules: Media', 'gnetwork' );
 
 		$wpupload = WordPress::upload();
 
 		if ( FALSE !== $wpupload['error'] )
-			return _x( 'Can not access upload folders!', 'Modules: Media', GNETWORK_TEXTDOMAIN );
+			return _x( 'Can not access upload folders!', 'Modules: Media', 'gnetwork' );
 
 		$path = File::join( $wpupload['path'], sanitize_file_name( $file ) );
 
 		if ( 0 === $chunk && file_exists( $path ) )
-			return _x( 'The file is already exists in upload folder!', 'Modules: Media', GNETWORK_TEXTDOMAIN );
+			return _x( 'The file is already exists in upload folder!', 'Modules: Media', 'gnetwork' );
 
 		if ( ! file_put_contents( $path, $decoded, FILE_APPEND ) )
-			return _x( 'Can not put contents into file!', 'Modules: Media', GNETWORK_TEXTDOMAIN );
+			return _x( 'Can not put contents into file!', 'Modules: Media', 'gnetwork' );
 
 		return TRUE;
 	}
@@ -1274,7 +1274,7 @@ class Media extends gNetwork\Module
 			case 'image/png':
 			case 'image/gif':
 
-				$label = _x( 'View Image URL', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN );
+				$label = _x( 'View Image URL', 'Modules: Media: Row Action', 'gnetwork' );
 
 			break;
 			case 'video/mpeg':
@@ -1283,19 +1283,19 @@ class Media extends gNetwork\Module
 			case 'video/ogg':
 			case 'video/quicktime':
 
-				$label = _x( 'View Video URL', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN );
+				$label = _x( 'View Video URL', 'Modules: Media: Row Action', 'gnetwork' );
 
 			break;
 			case 'text/csv':
 			case 'text/xml':
 
-				$label = _x( 'View Data File URL', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN );
+				$label = _x( 'View Data File URL', 'Modules: Media: Row Action', 'gnetwork' );
 
 			break;
 			case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
 			case 'application/vnd.ms-excel':
 
-				$label = _x( 'View Spreadsheet URL', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN );
+				$label = _x( 'View Spreadsheet URL', 'Modules: Media: Row Action', 'gnetwork' );
 
 			break;
 			case 'application/pdf':
@@ -1303,17 +1303,17 @@ class Media extends gNetwork\Module
 			case 'application/msword':
 			case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
 
-				$label = _x( 'View Document URL', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN );
+				$label = _x( 'View Document URL', 'Modules: Media: Row Action', 'gnetwork' );
 
 			break;
 			case 'text/html':
 
-				$label = _x( 'View HTML file URL', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN );
+				$label = _x( 'View HTML file URL', 'Modules: Media: Row Action', 'gnetwork' );
 
 			break;
 			default:
 
-				$label = _x( 'View Item URL', 'Modules: Media: Row Action', GNETWORK_TEXTDOMAIN );
+				$label = _x( 'View Item URL', 'Modules: Media: Row Action', 'gnetwork' );
 		}
 
 		return $this->filters( 'mime_type_label', $label, $mime_type, $post_id );
@@ -1452,14 +1452,14 @@ class Media extends gNetwork\Module
 	{
 		return array_merge( $post_mime_types, [
 			'text' => [
-				_x( 'Text', 'Modules: Media: Post Mime Type', GNETWORK_TEXTDOMAIN ),
-				_x( 'Manage Texts', 'Modules: Media: Post Mime Type', GNETWORK_TEXTDOMAIN ),
-				_nx_noop( 'Text <span class="count">(%s)</span>', 'Texts <span class="count">(%s)</span>', 'Modules: Media: Post Mime Type', GNETWORK_TEXTDOMAIN ),
+				_x( 'Text', 'Modules: Media: Post Mime Type', 'gnetwork' ),
+				_x( 'Manage Texts', 'Modules: Media: Post Mime Type', 'gnetwork' ),
+				_nx_noop( 'Text <span class="count">(%s)</span>', 'Texts <span class="count">(%s)</span>', 'Modules: Media: Post Mime Type', 'gnetwork' ),
 			],
 			'application' => [
-				_x( 'Application', 'Modules: Media: Post Mime Type', GNETWORK_TEXTDOMAIN ),
-				_x( 'Manage Applications', 'Modules: Media: Post Mime Type', GNETWORK_TEXTDOMAIN ),
-				_nx_noop( 'Application <span class="count">(%s)</span>', 'Applications <span class="count">(%s)</span>', 'Modules: Media: Post Mime Type', GNETWORK_TEXTDOMAIN ),
+				_x( 'Application', 'Modules: Media: Post Mime Type', 'gnetwork' ),
+				_x( 'Manage Applications', 'Modules: Media: Post Mime Type', 'gnetwork' ),
+				_nx_noop( 'Application <span class="count">(%s)</span>', 'Applications <span class="count">(%s)</span>', 'Modules: Media: Post Mime Type', 'gnetwork' ),
 			],
 		] );
 	}

@@ -32,7 +32,7 @@ class Commerce extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Commerce', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
+		$this->register_menu( _x( 'Commerce', 'Modules: Menu Name', 'gnetwork' ) );
 	}
 
 	public function default_options()
@@ -49,15 +49,15 @@ class Commerce extends gNetwork\Module
 			'_shetab' => [
 				[
 					'field'       => 'shetab_card_fields',
-					'title'       => _x( 'Shetab Card Fields', 'Modules: Commerce: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Adds extra fields for Shetab Card information after order form.', 'Modules: Commerce: Settings', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Shetab Card Fields', 'Modules: Commerce: Settings', 'gnetwork' ),
+					'description' => _x( 'Adds extra fields for Shetab Card information after order form.', 'Modules: Commerce: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'shetab_card_notes',
 					'type'        => 'textarea-quicktags',
-					'title'       => _x( 'Shetab Card Notes', 'Modules: Commerce: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => _x( 'Appears before Shetab Card information after order form.', 'Modules: Commerce: Settings', GNETWORK_TEXTDOMAIN ),
-					'default'     => _x( 'Please enter your card information, to use in case of refund.', 'Modules: Commerce', GNETWORK_TEXTDOMAIN ),
+					'title'       => _x( 'Shetab Card Notes', 'Modules: Commerce: Settings', 'gnetwork' ),
+					'description' => _x( 'Appears before Shetab Card information after order form.', 'Modules: Commerce: Settings', 'gnetwork' ),
+					'default'     => _x( 'Please enter your card information, to use in case of refund.', 'Modules: Commerce', 'gnetwork' ),
 				],
 			],
 		];
@@ -70,14 +70,14 @@ class Commerce extends gNetwork\Module
 	{
 		echo $this->wrap_open( 'shetab_card' );
 
-			HTML::h2( _x( 'Shetab Card', 'Modules: Commerce', GNETWORK_TEXTDOMAIN ) );
+			HTML::h2( _x( 'Shetab Card', 'Modules: Commerce', 'gnetwork' ) );
 			HTML::desc( $this->options['shetab_card_notes'] );
 
 			woocommerce_form_field( 'shetab_card_number', [
 				'type'        => 'text',
 				'class'       => [ 'form-row-wide' ],
-				'label'       => _x( 'Card Number', 'Modules: Commerce', GNETWORK_TEXTDOMAIN ),
-				'placeholder' => _x( 'XXXX-XXXX-XXXX-XXXX', 'Modules: Commerce', GNETWORK_TEXTDOMAIN ),
+				'label'       => _x( 'Card Number', 'Modules: Commerce', 'gnetwork' ),
+				'placeholder' => _x( 'XXXX-XXXX-XXXX-XXXX', 'Modules: Commerce', 'gnetwork' ),
 				'required'    => TRUE,
 				'clear'       => TRUE,
 			], $checkout->get_value( 'shetab_card_number' ) );
@@ -87,8 +87,8 @@ class Commerce extends gNetwork\Module
 			woocommerce_form_field( 'shetab_card_owner', [
 				'type'        => 'text',
 				'class'       => [ 'form-row-wide' ],
-				'label'       => _x( 'Card Owner', 'Modules: Commerce', GNETWORK_TEXTDOMAIN ),
-				'placeholder' => _x( 'Mohammad Mohammadi', 'Modules: Commerce', GNETWORK_TEXTDOMAIN ),
+				'label'       => _x( 'Card Owner', 'Modules: Commerce', 'gnetwork' ),
+				'placeholder' => _x( 'Mohammad Mohammadi', 'Modules: Commerce', 'gnetwork' ),
 				'required'    => TRUE,
 				'clear'       => TRUE,
 			], $checkout->get_value( 'shetab_card_owner' ) );
@@ -101,11 +101,11 @@ class Commerce extends gNetwork\Module
 		if ( ! $_POST['shetab_card_number']
 			|| strlen( $_POST['shetab_card_number'] ) < 16
 			|| ! is_numeric( $_POST['shetab_card_number'] ) )
-				wc_add_notice( _x( 'Please enter numbers without dash and spaces.', 'Modules: Commerce', GNETWORK_TEXTDOMAIN ), 'error' );
+				wc_add_notice( _x( 'Please enter numbers without dash and spaces.', 'Modules: Commerce', 'gnetwork' ), 'error' );
 
 		if ( ! $_POST['shetab_card_owner']
 			|| strlen($_POST['shetab_card_owner']) < 3 )
-				wc_add_notice( _x( 'Please enter the name of the owner to check for correct card number.', 'Modules: Commerce', GNETWORK_TEXTDOMAIN ), 'error' );
+				wc_add_notice( _x( 'Please enter the name of the owner to check for correct card number.', 'Modules: Commerce', 'gnetwork' ), 'error' );
 	}
 
 	public function woocommerce_checkout_update_order_meta( $order_id )
@@ -124,12 +124,12 @@ class Commerce extends gNetwork\Module
 		if ( $id = $order->get_id() ) {
 
 			vprintf( '<p><strong>%s</strong>: %s</p>', [
-				_x( 'Setab Card Number', 'Modules: Commerce', GNETWORK_TEXTDOMAIN ),
+				_x( 'Setab Card Number', 'Modules: Commerce', 'gnetwork' ),
 				get_post_meta( $id, 'shetab_card_number', TRUE ),
 			] );
 
 			vprintf( '<p><strong>%s</strong>: %s</p>', [
-				_x( 'Setab Card Owner', 'Modules: Commerce', GNETWORK_TEXTDOMAIN ),
+				_x( 'Setab Card Owner', 'Modules: Commerce', 'gnetwork' ),
 				get_post_meta( $id, 'shetab_card_owner', TRUE ),
 			] );
 		}
@@ -137,8 +137,8 @@ class Commerce extends gNetwork\Module
 
 	public function woocommerce_email_order_meta_keys( $keys )
 	{
-		$keys['shetab_card_number'] = _x( 'Setab Card Number', 'Modules: Commerce', GNETWORK_TEXTDOMAIN );
-		$keys['shetab_card_owner']  = _x( 'Setab Card Owner', 'Modules: Commerce', GNETWORK_TEXTDOMAIN );
+		$keys['shetab_card_number'] = _x( 'Setab Card Number', 'Modules: Commerce', 'gnetwork' );
+		$keys['shetab_card_owner']  = _x( 'Setab Card Owner', 'Modules: Commerce', 'gnetwork' );
 
 		return $keys;
 	}

@@ -39,8 +39,8 @@ class Rewrite extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Rewrite Rules', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
-		$this->register_tool( _x( 'Rewrite Rules', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
+		$this->register_menu( _x( 'Rewrite Rules', 'Modules: Menu Name', 'gnetwork' ) );
+		$this->register_tool( _x( 'Rewrite Rules', 'Modules: Menu Name', 'gnetwork' ) );
 	}
 
 	public function default_options()
@@ -56,8 +56,8 @@ class Rewrite extends gNetwork\Module
 			'_general' => [
 				[
 					'field'       => 'remove_category_base',
-					'title'       => _x( 'Remove Category Base', 'Modules: Rewrite: Settings', GNETWORK_TEXTDOMAIN ),
-					'description' => sprintf( _x( 'Removes %s from your category permalinks.', 'Modules: Rewrite: Settings', GNETWORK_TEXTDOMAIN ), '<code>/category</code>' ),
+					'title'       => _x( 'Remove Category Base', 'Modules: Rewrite: Settings', 'gnetwork' ),
+					'description' => sprintf( _x( 'Removes %s from your category permalinks.', 'Modules: Rewrite: Settings', 'gnetwork' ), '<code>/category</code>' ),
 				],
 			],
 		];
@@ -66,15 +66,15 @@ class Rewrite extends gNetwork\Module
 	public function settings_sidebox( $sub, $uri )
 	{
 		if ( WordPress::maybeFlushRules() )
-			HTML::desc( _x( 'You need to flush rewrite rules!', 'Modules: Rewrite', GNETWORK_TEXTDOMAIN ), TRUE, '-color-danger' );
+			HTML::desc( _x( 'You need to flush rewrite rules!', 'Modules: Rewrite', 'gnetwork' ), TRUE, '-color-danger' );
 
 		echo $this->wrap_open_buttons();
 
 		echo HTML::tag( 'a', [
 			'class' => 'button button-secondary button-small',
 			'href'  => $this->get_menu_url( NULL, NULL, 'tools' ),
-			'title' => _x( 'View and set network roles here.', 'Modules: Rewrite', GNETWORK_TEXTDOMAIN ),
-		], _x( 'Rewrite Rules', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
+			'title' => _x( 'View and set network roles here.', 'Modules: Rewrite', 'gnetwork' ),
+		], _x( 'Rewrite Rules', 'Modules: Menu Name', 'gnetwork' ) );
 
 		echo '</p>';
 	}
@@ -87,18 +87,18 @@ class Rewrite extends gNetwork\Module
 		list( $rules, $sources ) = $this->get_rules( $source, $search );
 
 		if ( $search )
-			$title = sprintf( _x( 'A Listing of All %1$s Rewrite Rules for This Site that Match &ldquo;<a target="_blank" href="%2$s">%3$s</a>&rdquo;', 'Modules: Rewrite', GNETWORK_TEXTDOMAIN ),
+			$title = sprintf( _x( 'A Listing of All %1$s Rewrite Rules for This Site that Match &ldquo;<a target="_blank" href="%2$s">%3$s</a>&rdquo;', 'Modules: Rewrite', 'gnetwork' ),
 				Number::format( count( $rules ) ), esc_url( $search ), esc_url( $search ) );
 		else
-			$title = sprintf( _x( 'A Listing of All %1$s Rewrite Rules for This Site', 'Modules: Rewrite', GNETWORK_TEXTDOMAIN ), Number::format( count( $rules ) ) );
+			$title = sprintf( _x( 'A Listing of All %1$s Rewrite Rules for This Site', 'Modules: Rewrite', 'gnetwork' ), Number::format( count( $rules ) ) );
 
 		return HTML::tableList( [
-			'rule'    => _x( 'Rule', 'Modules: Rewrite', GNETWORK_TEXTDOMAIN ),
-			'rewrite' => _x( 'Rewrite', 'Modules: Rewrite', GNETWORK_TEXTDOMAIN ),
-			'source'  => _x( 'Source', 'Modules: Rewrite', GNETWORK_TEXTDOMAIN ),
+			'rule'    => _x( 'Rule', 'Modules: Rewrite', 'gnetwork' ),
+			'rewrite' => _x( 'Rewrite', 'Modules: Rewrite', 'gnetwork' ),
+			'source'  => _x( 'Source', 'Modules: Rewrite', 'gnetwork' ),
 		], $rules, [
 			'title'     => HTML::tag( 'h3', $title ),
-			'empty'     => _x( 'No rewrite rules were found.', 'Modules: Rewrite', GNETWORK_TEXTDOMAIN ),
+			'empty'     => _x( 'No rewrite rules were found.', 'Modules: Rewrite', 'gnetwork' ),
 			'row_class' => [ $this, 'table_list_row_class' ],
 			'before'    => [ $this, 'table_list_before' ],
 			'extra'     => compact( 'search', 'source', 'sources' ),
@@ -109,7 +109,7 @@ class Rewrite extends gNetwork\Module
 	{
 		$url = $this->get_menu_url( NULL, NULL, 'tools' );
 
-		$html = _x( 'Match URL:', 'Modules: Rewrite', GNETWORK_TEXTDOMAIN );
+		$html = _x( 'Match URL:', 'Modules: Rewrite', 'gnetwork' );
 		$html.= ' '.HTML::tag( 'input', [
 			'type'  => 'text',
 			'name'  => 's',
@@ -123,18 +123,18 @@ class Rewrite extends gNetwork\Module
 		echo '&nbsp;&nbsp;';
 
 		$sources = array_combine( $args['extra']['sources'], $args['extra']['sources'] );
-		$sources['all'] = _x( 'All Sources', 'Modules: Rewrite', GNETWORK_TEXTDOMAIN );
+		$sources['all'] = _x( 'All Sources', 'Modules: Rewrite', 'gnetwork' );
 		echo HTML::dropdown( $sources, [ 'name' => 'source', 'selected' => $args['extra']['source'] ] );
 
 		echo '&nbsp;&nbsp;';
 
-		Settings::submitButton( 'filter', _x( 'Filter', 'Modules: Rewrite', GNETWORK_TEXTDOMAIN ), TRUE );
-		Settings::submitButton( $url, _x( 'Reset', 'Modules: Rewrite', GNETWORK_TEXTDOMAIN ), 'link' );
+		Settings::submitButton( 'filter', _x( 'Filter', 'Modules: Rewrite', 'gnetwork' ), TRUE );
+		Settings::submitButton( $url, _x( 'Reset', 'Modules: Rewrite', 'gnetwork' ), 'link' );
 
 		echo $this->wrap_open_buttons( '-side -s1ide-ltr', FALSE );
 
 		Settings::submitButton( add_query_arg( static::BASE.'_action', 'flushrewrite', $url ),
-			_x( 'Flush Rewrite Rules', 'Modules: Rewrite', GNETWORK_TEXTDOMAIN ), 'link', [], '' );
+			_x( 'Flush Rewrite Rules', 'Modules: Rewrite', 'gnetwork' ), 'link', [], '' );
 
 		echo '</span>';
 	}
@@ -352,9 +352,9 @@ class Rewrite extends gNetwork\Module
 
 		$items[] = HTML::tag( $url ? 'a' : 'span', [
 			'href'  => $url,
-			'title' => _x( 'You need to flush rewrite rules!', 'Modules: Rewrite', GNETWORK_TEXTDOMAIN ),
+			'title' => _x( 'You need to flush rewrite rules!', 'Modules: Rewrite', 'gnetwork' ),
 			'class' => '-flush-rules',
-		], _x( 'Flush Rewrite Rules', 'Modules: Rewrite', GNETWORK_TEXTDOMAIN ) );
+		], _x( 'Flush Rewrite Rules', 'Modules: Rewrite', 'gnetwork' ) );
 
 		return $items;
 	}

@@ -22,10 +22,10 @@ class SMS extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'SMS', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
+		$this->register_menu( _x( 'SMS', 'Modules: Menu Name', 'gnetwork' ) );
 
 		if ( GNETWORK_MAIL_LOG_DIR && $this->options['log_data'] )
-			$this->register_tool( _x( 'SMS Logs', 'Modules: Menu Name', GNETWORK_TEXTDOMAIN ) );
+			$this->register_tool( _x( 'SMS Logs', 'Modules: Menu Name', 'gnetwork' ) );
 	}
 
 	public function default_options()
@@ -52,12 +52,12 @@ class SMS extends gNetwork\Module
 			echo HTML::tag( 'a', [
 				'class' => 'button button-secondary button-small',
 				'href'  => $this->get_menu_url( NULL, NULL, 'tools' ),
-			], _x( 'SMS Logs', 'Modules: SMS', GNETWORK_TEXTDOMAIN ) );
+			], _x( 'SMS Logs', 'Modules: SMS', 'gnetwork' ) );
 
 			echo '&nbsp;';
 
 			echo Settings::fieldAfterIcon( WordPress::getAdminPostLink( 'network-sms-receive' ),
-				_x( 'SMS receive callback URL', 'Modules: SMS', GNETWORK_TEXTDOMAIN ), 'external' );
+				_x( 'SMS receive callback URL', 'Modules: SMS', 'gnetwork' ), 'external' );
 
 			echo '</p>';
 		}
@@ -80,8 +80,8 @@ class SMS extends gNetwork\Module
 
 	protected function tools_buttons( $sub = NULL )
 	{
-		$this->register_button( 'deletelogs_selected', _x( 'Delete Selected', 'Modules: SMS', GNETWORK_TEXTDOMAIN ), TRUE );
-		$this->register_button( 'deletelogs_all', _x( 'Delete All', 'Modules: SMS', GNETWORK_TEXTDOMAIN ), FALSE, TRUE );
+		$this->register_button( 'deletelogs_selected', _x( 'Delete Selected', 'Modules: SMS', 'gnetwork' ), TRUE );
+		$this->register_button( 'deletelogs_all', _x( 'Delete All', 'Modules: SMS', 'gnetwork' ), FALSE, TRUE );
 	}
 
 	protected function tools_actions( $sub = NULL )
@@ -127,7 +127,7 @@ class SMS extends gNetwork\Module
 			'_cb' => 'file',
 
 			'info' => [
-				'title'    => _x( 'Whom, When', 'Modules: SMS: Data Logs Table Column', GNETWORK_TEXTDOMAIN ),
+				'title'    => _x( 'Whom, When', 'Modules: SMS: Data Logs Table Column', 'gnetwork' ),
 				'class'    => '-column-info',
 				'callback' => function( $value, $row, $column, $index ){
 					$html = $target = '';
@@ -146,11 +146,11 @@ class SMS extends gNetwork\Module
 					$html.= '<hr />';
 
 					if ( ! empty( $row['user'] ) )
-						$html.= '<code title="'._x( 'User', 'Modules: SMS: Email Logs Table', GNETWORK_TEXTDOMAIN )
+						$html.= '<code title="'._x( 'User', 'Modules: SMS: Email Logs Table', 'gnetwork' )
 							.'">'.HTML::link( get_user_by( 'id', $row['user'] )->user_login, WordPress::getUserEditLink( $row['user'] ) ).'</code> @ ';
 
 					if ( ! empty( $row['site'] ) )
-						$html.= '<code title="'._x( 'Site', 'Modules: SMS: Email Logs Table', GNETWORK_TEXTDOMAIN )
+						$html.= '<code title="'._x( 'Site', 'Modules: SMS: Email Logs Table', 'gnetwork' )
 							.'">'.$row['site'].'</code>';
 
 					return $html;
@@ -161,18 +161,18 @@ class SMS extends gNetwork\Module
 						'download' => HTML::tag( 'a', [
 							'href'  => WordPress::getAdminPostLink( $this->hook( 'logs' ), [ 'log' => $row['file'], 'what' => 'download' ] ),
 							'class' => '-link -row-link -row-link-download',
-						], _x( 'Download', 'Modules: SMS: Row Action', GNETWORK_TEXTDOMAIN ) ),
+						], _x( 'Download', 'Modules: SMS: Row Action', 'gnetwork' ) ),
 
 						'delete' => HTML::tag( 'a', [
 							'href'  => WordPress::getAdminPostLink( $this->hook( 'logs' ), [ 'log' => $row['file'], 'what' => 'delete' ] ),
 							'class' => '-link -row-link -row-link-delete',
-						], _x( 'Delete', 'Modules: SMS: Row Action', GNETWORK_TEXTDOMAIN ) ),
+						], _x( 'Delete', 'Modules: SMS: Row Action', 'gnetwork' ) ),
 					];
 				},
 			],
 
 			'content' => [
-				'title'    => _x( 'What', 'Modules: SMS: Data Logs Table Column', GNETWORK_TEXTDOMAIN ),
+				'title'    => _x( 'What', 'Modules: SMS: Data Logs Table Column', 'gnetwork' ),
 				'class'    => '-column-content',
 				'callback' => function( $value, $row, $column, $index ){
 					$content   = $target = '';
@@ -196,7 +196,7 @@ class SMS extends gNetwork\Module
 		], $logs, [
 			'navigation' => 'before',
 			'search'     => 'before',
-			'title'      => HTML::tag( 'h3', _x( 'Overview of SMS Logs', 'Modules: SMS', GNETWORK_TEXTDOMAIN ) ),
+			'title'      => HTML::tag( 'h3', _x( 'Overview of SMS Logs', 'Modules: SMS', 'gnetwork' ) ),
 			'pagination' => $pagination,
 		] );
 	}
