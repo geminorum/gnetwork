@@ -141,6 +141,9 @@ class Module extends Core\Base
 		if ( ! WordPress::mustRegisterUI() )
 			return;
 
+		if ( method_exists( $this, 'setup_blocks' ) )
+			add_action( 'init', [ $this, 'setup_blocks' ] );
+
 		if ( method_exists( $this, 'setup_menu' ) )
 			add_action( $this->base.'_setup_menu', [ $this, 'setup_menu' ] );
 
@@ -1324,5 +1327,21 @@ class Module extends Core\Base
 			'class'  => [ '-icon', ( $link ? '-link' : '-info' ) ],
 			'target' => $link ? '_blank' : FALSE,
 		], HTML::getDashicon( $icon ) );
+	}
+
+	protected function register_block_type( $name, $extra = [] )
+	{
+		if ( ! function_exists( 'register_block_type' ) )
+			return FALSE;
+
+		$script = Scripts::enqueueBlock( $name );
+
+		$block = register_block_type( $this->base.'/'.$name, array_merge( [
+			'editor_script' => $script,
+		], $extra ) );
+
+		wp_set_script_translations( $script, GNETWORK_TEXTDOMAIN );
+
+		return $block;
 	}
 }

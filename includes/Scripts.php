@@ -22,6 +22,16 @@ class Scripts extends Core\Base
 		return self::enqueueScript( $asset, $dep, $version, $base, $path );
 	}
 
+	public static function enqueueBlock( $asset, $dep = NULL, $version = GNETWORK_VERSION, $base = GNETWORK_URL, $path = 'assets/blocks/' )
+	{
+		$dep    = is_null( $dep ) ? [ 'wp-blocks', 'wp-element', 'wp-i18n' ] : (array) $dep;
+		$handle = strtolower( self::BASE.'-block-'.str_replace( '.', '-', $asset ) );
+
+		wp_enqueue_script( $handle, $base.$path.'/'.$asset.'/build/index.js', $dep, $version, TRUE );
+
+		return $handle;
+	}
+
 	public static function enqueueTimeAgo()
 	{
 		$callback = [ 'gPersianDateTimeAgo', 'enqueue' ];
