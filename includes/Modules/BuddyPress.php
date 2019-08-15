@@ -258,6 +258,8 @@ class BuddyPress extends gNetwork\Module
 
 	public function bp_init()
 	{
+		return; // FIXME
+
 		if ( '' !== $this->options['avatars_thumb_width'] && ! defined( 'BP_AVATAR_THUMB_WIDTH' ) )
 			define( 'BP_AVATAR_THUMB_WIDTH', $this->options['avatars_thumb_width'] );
 

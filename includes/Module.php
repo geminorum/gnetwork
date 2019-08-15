@@ -107,7 +107,7 @@ class Module extends Core\Base
 			}
 		}
 
-		if ( ! is_admin() && ! $this->front )
+		if ( ! $this->front && ! is_admin() )
 			throw new Exception( 'Not on Frontend!' );
 
 		if ( ! is_null( $this->user ) && is_multisite() ) {

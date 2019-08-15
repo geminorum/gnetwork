@@ -67,7 +67,7 @@ class Locale extends gNetwork\Module
 
 	public function load_textdomain_mofile( $mofile, $domain )
 	{
-		$locale = get_user_locale();
+		$locale = get_user_locale(); // FIXME: sinec WP v5.0.0: use `determine_locale()`
 
 		if ( 'en_US' == $locale )
 			return $mofile;
@@ -232,6 +232,7 @@ class Locale extends gNetwork\Module
 			'add-from-server'            => 'page', // [Add From Server](https://wordpress.org/plugins/add-from-server/)
 			'advanced-cron-manager'      => 'page',
 			'sb-instagram-feed'          => 'page',
+			'theme-sniffer'              => 'page', // [Theme Sniffer](https://wordpress.org/plugins/theme-sniffer/)
 
 			// [Official MailerLite Sign Up Forms](https://wordpress.org/plugins/official-mailerlite-sign-up-forms/)
 			'mailerlite_main'     => 'page',
@@ -348,6 +349,8 @@ class Locale extends gNetwork\Module
 
 			'sensei_updates'    => 'page',
 			'sensei-extensions' => 'page',
+
+			'stop-wp-emails-going-to-spam-settings' => 'page',
 
 		], $current );
 
