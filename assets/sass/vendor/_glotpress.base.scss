@@ -192,20 +192,15 @@ select {
   -moz-box-sizing: content-box;
   -webkit-box-sizing: content-box;
   box-sizing: content-box;
-  background-color: #f2f2f2; /* Fallback */
-  background-image: -ms-linear-gradient(bottom, #ededed, #fff); /* IE10 */
-  background-image: -moz-linear-gradient(bottom, #ededed, #fff); /* Firefox */
-  background-image: -o-linear-gradient(bottom, #ededed, #fff); /* Opera */
-  background-image: -webkit-gradient(linear, left bottom, left top, from(#ededed), to(#fff)); /* old Webkit  */
-  background-image: -webkit-linear-gradient(bottom, #ededed, #fff); /* new Webkit */
-  background-image: linear-gradient(bottom, #ededed, #fff); /* proposed W3C Markup */
+  background-color: #f2f2f2;
+  background-image: linear-gradient(to bottom, #ededed, #fff);
   text-shadow: #fff 0 1px 0;
 }
 
 textarea {
   font-size: 100%;
   padding: 0.5em;
-  line-height: 1.5em;
+  line-height: 1.5;
   width: 40em;
 }
 
@@ -226,7 +221,7 @@ table.glossary thead th,
 table.locale-sub-projects thead th,
 table.permissions thead th,
 table.locales thead th {
-  font-weight: bold;
+  font-weight: 700;
   color: #eee;
   background-color: #555;
   padding: 0.5em;
@@ -234,7 +229,7 @@ table.locales thead th {
 
 table.translation-sets.tablesorter-glotpress thead th,
 table.locales.tablesorter-glotpress thead th {
-    padding-right: 20px;
+  padding-right: 20px;
 }
 
 table.locales thead th {
@@ -246,7 +241,7 @@ table.permissions thead th {
 }
 
 table.permissions tr:nth-child(even) {
-  background-color: #eeeeee;
+  background-color: #eee;
 }
 
 table.translations tr,
@@ -283,11 +278,16 @@ table.translations td.translation span.missing a {
   font-style: italic;
 }
 
-table.translations td,table.translations th,
-table.translation-sets td, table.translation-sets th,
-table.locales td, table.locales th,
-table.permissions td, table.permissions th,
-table.glossary th, table.glossary td,
+table.translations td,
+table.translations th,
+table.translation-sets td,
+table.translation-sets th,
+table.locales td,
+table.locales th,
+table.permissions td,
+table.permissions th,
+table.glossary th,
+table.glossary td,
 table.locale-sub-projects th,
 table.locale-sub-projects td {
   padding: 0.5em;
@@ -315,7 +315,8 @@ table.translations.translation-sets-rtl .foreign-text {
   direction: rtl;
 }
 
-table.translations td.original, table.translations td.translation {
+table.translations td.original,
+table.translations td.translation {
   width: 45%;
   word-break: break-word;
   word-wrap: break-word;
@@ -326,15 +327,17 @@ table.translations tr:nth-child(4n+3) {
 }
 
 table.translations tr.editor {
-  background-color: #F8FFEC;
+  background-color: #f8ffec;
   display: none;
 }
 
-table.translations tr.preview.status-fuzzy, #legend .status-fuzzy {
-  background-color: #FC6;
+table.translations tr.preview.status-fuzzy,
+#legend .status-fuzzy {
+  background-color: #fc6;
 }
 
-table.translations tr.preview.status-current, #legend .status-current  {
+table.translations tr.preview.status-current,
+#legend .status-current  {
   background-color: #E9FFD8;
 }
 
@@ -342,15 +345,18 @@ table.translations tr.preview.status-old, #legend .status-old {
   background-color: #FEE4F8;
 }
 
-table.translations tr.preview.status-waiting, #legend .status-waiting {
+table.translations tr.preview.status-waiting,
+#legend .status-waiting {
   background-color: #FFFFC2;
 }
 
-table.translations tr.preview.status-rejected, #legend .status-rejected {
+table.translations tr.preview.status-rejected,
+#legend .status-rejected {
   background-color: #FF8E8E;
 }
 
-table.translations tr.preview.has-warnings td.original, div#legend div.has-warnings {
+table.translations tr.preview.has-warnings td.original,
+div#legend div.has-warnings {
   border-left: 2px solid red;
 }
 
@@ -378,21 +384,21 @@ table.translations a.action {
 
 span.context {
   background-color: #aaa;
-  color: white;
+  color: #fff;
   font-size: 100%;
   padding: 0.3em;
 }
 
 span.morethan90 {
   background-color: green;
-  color: white;
+  color: #fff;
 }
 
 /*
  * Translation Row Editor
  */
 .editor .original {
-  font-weight: bold;
+  font-weight: 700;
   white-space: pre-wrap;
   max-width: 50em;
 }
@@ -413,10 +419,11 @@ span.morethan90 {
 }
 
 .editor .strings p.plural-numbers span.numbers {
-  font-weight: bold;
+  font-weight: 700;
 }
 
-.editor .textareas, .editor .actions {
+.editor .textareas,
+.editor .actions {
   clear: both;
 }
 
@@ -434,7 +441,8 @@ span.morethan90 {
   margin: 0.1em 1em;
 }
 
-.editor .meta dt, .editor .meta dd {
+.editor .meta dt,
+.editor .meta dd {
   display: inline;
   margin: 0;
 }
@@ -443,18 +451,12 @@ span.morethan90 {
   margin-right: 0.5em;
 }
 
-.editor .meta dt {
-  margin-right: 0.5em;
-}
-
 .editor .meta dd {
   color: #444;
-  font-weight: bold;
+  font-weight: 700;
 }
 
-/*
- * JavaScript, errors and notices.
- */
+// JavaScript, errors and notices
 #gp-js-message {
   position: fixed;
   top: 0;
@@ -464,7 +466,8 @@ span.morethan90 {
   z-index: 1001;
 }
 
-.gp-js-error, .error {
+.gp-js-error,
+.error {
   color: white;
   background-color: red;
 }

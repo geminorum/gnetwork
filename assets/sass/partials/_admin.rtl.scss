@@ -51,6 +51,7 @@ input#user_login {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+.wrap .subtitle,
 .wrap .add-new-h2,
 .wrap .add-new-h2:active,
 .wrap .page-title-action,
@@ -61,6 +62,7 @@ input#user_login {
   font-family: Arial, sans-serif;
 }
 
+.wrap .subtitle,
 #dashboard-widgets h4,
 #dashboard-widgets h3,
 #dashboard_quick_press .drafts h2,
@@ -77,6 +79,7 @@ input#user_login {
 
 #qni-introduction,
 .col-wrap h2,
+.wrap .subtitle,
 #dashboard-widgets h4,
 #dashboard-widgets h3,
 #dashboard_quick_press .drafts h2,
@@ -156,12 +159,6 @@ input[type="checkbox"]:checked::before {
 .widget-title h4 {
   // font-size: 1.28em;
   // padding: 15px 15px 12px;
-}
-
-.wrap .subtitle {
-  font-size: 15px;
-  font-weight: 700;
-  vertical-align: middle;
 }
 
 // #poststuff h2 {
