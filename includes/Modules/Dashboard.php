@@ -224,7 +224,7 @@ class Dashboard extends gNetwork\Module
 					? _n( '%s Post', '%s Posts', $num_posts->publish )
 					: _n( '%s Page', '%s Pages', $num_posts->publish );
 
-				$text   = sprintf( $text, number_format_i18n( $num_posts->publish ) );
+				$text   = sprintf( $text, Number::format( $num_posts->publish ) );
 				$object = get_post_type_object( $post_type );
 
 				if ( $object && current_user_can( $object->cap->edit_posts ) )
@@ -244,11 +244,11 @@ class Dashboard extends gNetwork\Module
 			if ( $num_comm->approved || $num_comm->moderated ) {
 
 				/* translators: %s: comments count */
-				$text = sprintf( _nx( '%s Comment', '%s Comments', $num_comm->approved, 'Modules: Dashboard: Right Now', 'gnetwork' ), number_format_i18n( $num_comm->approved ) );
+				$text = sprintf( _nx( '%s Comment', '%s Comments', $num_comm->approved, 'Modules: Dashboard: Right Now', 'gnetwork' ), Number::format( $num_comm->approved ) );
 
 				$html.= '<li class="comment-count"><a href="edit-comments.php">'.$text.'</a></li>';
 
-				$moderated_comments_count_i18n = number_format_i18n( $num_comm->moderated );
+				$moderated_comments_count_i18n = Number::format( $num_comm->moderated );
 
 				/* translators: %s: awaiting comments count */
 				$text = sprintf( _nx( '%s Awaiting Comment', '%s Awaiting Comments', $num_comm->moderated, 'Modules: Dashboard: Right Now', 'gnetwork' ), $moderated_comments_count_i18n );
@@ -262,7 +262,7 @@ class Dashboard extends gNetwork\Module
 
 			if ( $num_comm->spam > 0 ) {
 				/* translators: %s: spam comments count */
-				$spam = sprintf( _nx( '%s Spam Comment', '%s Spam Comments', $num_comm->spam, 'Modules: Dashboard: Right Now', 'gnetwork' ), number_format_i18n( $num_comm->spam ) );
+				$spam = sprintf( _nx( '%s Spam Comment', '%s Spam Comments', $num_comm->spam, 'Modules: Dashboard: Right Now', 'gnetwork' ), Number::format( $num_comm->spam ) );
 				$html.= '<li class="comment-spam-count"><a href="edit-comments.php?comment_status=spam">'.$spam.'</a></li>';
 			}
 		}

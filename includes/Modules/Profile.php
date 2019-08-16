@@ -681,7 +681,7 @@ class Profile extends gNetwork\Module
 		if ( ! $update && isset( $meta['nickname'] ) && $user->user_login == $meta['nickname'] ) {
 
 			// TODO: get default field from settings
-			if ( ! empty ( $meta['last_name'] ) )
+			if ( ! empty( $meta['last_name'] ) )
 				$meta['nickname'] = $meta['last_name'];
 		}
 

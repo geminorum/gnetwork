@@ -259,7 +259,7 @@ class Themes extends gNetwork\Module
 		if ( ! $bottom && ! $disable && ! $remote )
 			return;
 
-		list ( $jquery_ver, $migrate_ver ) = self::getjQueryVersions( $this->options['jquery_latest'] );
+		list( $jquery_ver, $migrate_ver ) = self::getjQueryVersions( $this->options['jquery_latest'] );
 
 		$jquery_url = $remote
 			? 'https://code.jquery.com/jquery-'.$jquery_ver.'.min.js'
