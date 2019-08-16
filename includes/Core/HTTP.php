@@ -301,7 +301,7 @@ class HTTP extends Base
 	// @REF: https://stackoverflow.com/a/594134
 	public static function IPinCIDR( $ip, $range )
 	{
-		list ( $subnet, $bits ) = explode( '/', $range );
+		list( $subnet, $bits ) = explode( '/', $range );
 
 		$ip     = ip2long( $ip );
 		$subnet = ip2long( $subnet );
