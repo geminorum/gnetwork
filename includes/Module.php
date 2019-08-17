@@ -1334,7 +1334,7 @@ class Module extends Core\Base
 		if ( ! function_exists( 'register_block_type' ) )
 			return FALSE;
 
-		$script = Scripts::enqueueBlock( $name );
+		$script = Scripts::registerBlock( $name );
 
 		$block = register_block_type( $this->base.'/'.$name, array_merge( [
 			'editor_script' => $script,
