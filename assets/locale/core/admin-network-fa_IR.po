@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2019-08-15 07:59+0430\n"
+"PO-Revision-Date: 2019-08-22 00:43+0430\n"
 "Language: fa\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 2.2.3\n"
@@ -45,7 +45,7 @@ msgstr "نصب زیرپوشه"
 
 #: wp-admin/includes/class-wp-ms-themes-list-table.php:671
 msgid "Active Child Theme"
-msgstr "فعال‌سازی پوستهٔ فرزند"
+msgstr "پوستهٔ فرزند فعال"
 
 #: wp-admin/network/site-info.php:192
 msgid "Attributes"
@@ -248,7 +248,7 @@ msgstr "فعال‌سازی %s"
 #: wp-admin/includes/class-wp-ms-themes-list-table.php:350
 #: wp-admin/includes/class-wp-ms-themes-list-table.php:470
 msgid "Network Disable"
-msgstr "غیرفعال کردن در شبکه"
+msgstr "غیرفعال‌سازی در شبکه"
 
 #: wp-admin/includes/class-wp-ms-themes-list-table.php:350
 #: wp-admin/includes/class-wp-ms-themes-list-table.php:470
@@ -263,7 +263,7 @@ msgstr "فعال‌سازی"
 #: wp-admin/includes/class-wp-ms-themes-list-table.php:314
 msgid "Broken <span class=\"count\">(%s)</span>"
 msgid_plural "Broken <span class=\"count\">(%s)</span>"
-msgstr[0] "از کار افتاده <span class=\"count\">(%s)</span>"
+msgstr[0] "شکسته <span class=\"count\">(%s)</span>"
 
 #: wp-admin/includes/class-wp-ms-themes-list-table.php:308
 msgid "Disabled <span class=\"count\">(%s)</span>"
@@ -287,7 +287,7 @@ msgstr "پوسته"
 
 #: wp-admin/includes/class-wp-ms-themes-list-table.php:251
 msgid "You do not appear to have any themes available at this time."
-msgstr "شما در حال حاضر پوسته‌ای در دسترس ندارید."
+msgstr "در حال حاضر پوسته‌ای در دسترس نیست."
 
 #: wp-admin/includes/class-wp-ms-themes-list-table.php:249
 msgid "No themes found."
@@ -296,11 +296,11 @@ msgstr "پوسته‌ای پیدا نشد."
 #: wp-admin/includes/class-wp-ms-sites-list-table.php:548
 msgctxt "verb; site"
 msgid "Archive"
-msgstr "بایگانی نمودن"
+msgstr "بایگانی"
 
 #: wp-admin/includes/class-wp-ms-sites-list-table.php:546
 msgid "Unarchive"
-msgstr "خروج از بایگانی"
+msgstr "نابایگانی"
 
 #: wp-admin/includes/class-wp-ms-sites-list-table.php:372
 msgid "Never"
@@ -374,7 +374,7 @@ msgstr "شما باید مقدار ثابت %1$s را در پروندهٔ %2$s �
 
 #: wp-admin/network/themes.php:253
 msgid "Themes list navigation"
-msgstr "راهبری فهرست پوسته‌ها"
+msgstr "راه‌بری فهرست پوسته‌ها"
 
 #: wp-admin/network/sites.php:52
 msgid "Sites list"
@@ -382,7 +382,7 @@ msgstr "فهرست سایت‌ها"
 
 #: wp-admin/network/sites.php:51
 msgid "Sites list navigation"
-msgstr "راهبری فهرست سایت‌ها"
+msgstr "راه‌بری فهرست سایت‌ها"
 
 #: wp-admin/network/site-users.php:27
 msgid "Site users list"
@@ -390,7 +390,7 @@ msgstr "فهرست کاربران سایت"
 
 #: wp-admin/network/site-users.php:26
 msgid "Site users list navigation"
-msgstr "راهبری فهرست کاربران سایت"
+msgstr "راه‌بری فهرست کاربران سایت"
 
 #: wp-admin/network/site-users.php:25
 msgid "Filter site users list"
@@ -402,7 +402,7 @@ msgstr "فهرست پوسته‌های سایت"
 
 #: wp-admin/network/site-themes.php:23
 msgid "Site themes list navigation"
-msgstr "راهبری فهرست پوسته‌های سایت"
+msgstr "راه‌بری فهرست پوسته‌های سایت"
 
 #: wp-admin/network/site-themes.php:22
 msgid "Filter site themes list"
@@ -426,36 +426,36 @@ msgstr "در حال نشانه‌گذاری سایت %s به عنوان سایت
 
 #: wp-admin/network/sites.php:70
 msgid "You are about to delete the site %s."
-msgstr "شما در حال پاک کردن سایت %s هستید."
+msgstr "در حال پاک کردن سایت %s هستید."
 
 #: wp-admin/network/sites.php:69
 msgid "You are about to mark the site %s as spam."
-msgstr "شما در حال نشان‌دار کردن سایت %s به عنوان جفنگ هستید."
+msgstr "در حال نشان‌دار کردن سایت %s به عنوان جفنگ هستید."
 
 #: wp-admin/network/sites.php:68
 msgid "You are about to unspam the site %s."
-msgstr "شما در حال خارج کردن سایت %s از جفنگ هستید."
+msgstr "در حال خارج کردن سایت %s از جفنگ هستید."
 
 #: wp-admin/network/sites.php:67
 msgid "You are about to archive the site %s."
-msgstr "شما در حال بایگانی کردن سایت %s هستید."
+msgstr "در حال بایگانی کردن سایت %s هستید."
 
 #: wp-admin/network/sites.php:66
 msgid "You are about to unarchive the site %s."
-msgstr "شما در حال خارج کردن سایت %s از بایگانی هستید."
+msgstr "در حال خارج کردن سایت %s از بایگانی هستید."
 
 #: wp-admin/network/sites.php:65
 msgid "You are about to deactivate the site %s."
-msgstr "شما در حال غیرفعال کردن سایت %s هستید."
+msgstr "در حال غیرفعال‌سازی سایت %s هستید."
 
 #: wp-admin/network/sites.php:64
 msgid "You are about to activate the site %s."
-msgstr "شما در حال فعال‌سازی سایت %s هستید."
+msgstr "در حال فعال‌سازی سایت %s هستید."
 
 #: wp-admin/network/site-info.php:28 wp-admin/network/site-users.php:46
 #: wp-admin/network/site-themes.php:53 wp-admin/network/site-settings.php:28
 msgid "The requested site does not exist."
-msgstr "سایت موردنظر وجود ندارد."
+msgstr "سایت درخواستی ناموجود است."
 
 #: wp-admin/network/upgrade.php:31
 msgid "<a href=\"https://codex.wordpress.org/Network_Admin_Updates_Screen\">Documentation on Upgrade Network</a>"
@@ -488,15 +488,15 @@ msgstr "<a href=\"https://codex.wordpress.org/Network_Admin_Settings_Screen\">م
 #. translators: 1: site url, 2: server error message
 #: wp-admin/network/upgrade.php:97
 msgid "Warning! Problem updating %1$s. Your server may not be able to connect to sites running on it. Error message: %2$s"
-msgstr "هشدار! مشکل در به‌روزرسانی %1$s. شاید سرویس‌دهنده شما نمی‌تواند با سایت‌هایی که روی آن اجرا می‌شوند ارتباط برقرار کند. خطا: %2$s"
+msgstr "هشدار! مشکل در به‌روزرسانی %1$s. شاید سرور شما نمی‌تواند با سایت‌هایی که روی آن اجرا می‌شوند ارتباط برقرار کند. خطا: %2$s"
 
 #: wp-admin/network/themes.php:134
 msgid "You are about to remove the following themes:"
-msgstr "شما در حال حذف پوسته‌های مقابل هستید:"
+msgstr "در حال حذف این پوسته‌ها هستید:"
 
 #: wp-admin/network/themes.php:133
 msgid "These themes may be active on other sites in the network."
-msgstr "این پوسته‌ها ممکن است در سایت‌های دیگر این شبکه فعال باشند."
+msgstr "ممکن است این پوسته‌ها در سایت‌های دیگر این شبکه فعال باشند."
 
 #: wp-admin/network/themes.php:149
 msgid "Are you sure you wish to delete this theme?"
@@ -515,19 +515,19 @@ msgstr[0] "%s پوسته فعال شد."
 #: wp-admin/network/themes.php:306
 msgid "%s theme deleted."
 msgid_plural "%s themes deleted."
-msgstr[0] "%s پوسته پاک شد."
+msgstr[0] "%s پوسته حذف شد."
 
 #: wp-admin/network/themes.php:166
 msgid "Yes, delete these themes"
-msgstr "بله، این پوسته‌ها را پاک کن"
+msgstr "بله، این پوسته‌ها را حذف کن"
 
 #: wp-admin/network/themes.php:132
 msgid "Delete Themes"
-msgstr "پاک کردن پوسته‌ها"
+msgstr "حذف پوسته‌ها"
 
 #: wp-admin/network/settings.php:202
 msgid "New registrations settings"
-msgstr "تنظیمات تازهٔ نام‌نویسی"
+msgstr "تنظیمات نام‌نویسی تازه"
 
 #: wp-admin/network/settings.php:393
 msgid "Size in kilobytes"
@@ -552,7 +552,7 @@ msgstr "کد زیر را در پرونده %1$s در %2$s اضافه کنید، 
 
 #: wp-admin/network/sites.php:105 wp-admin/network/sites.php:174
 msgid "Confirm your action"
-msgstr "عمل خود را تأیید کنید"
+msgstr "کنش خود را تأیید کنید"
 
 #: wp-admin/network/users.php:201
 msgid "Hover over any user on the list to make the edit links appear. The Edit link on the left will take you to their Edit User profile page; the Edit link on the right by any site name goes to an Edit Site screen for that site."
@@ -580,7 +580,7 @@ msgstr "اقدامات سریع"
 
 #: wp-admin/network/index.php:41
 msgid "To search for a user or site, use the search boxes."
-msgstr "برای جست‌وجوی یک کاربر یا سایت، از کادرهای جست‌وجو استفاده کنید."
+msgstr "برای جست‌وجوی یک کاربر یا سایت، از جعبه‌های جست‌وجو استفاده کنید."
 
 #: wp-admin/network/index.php:38
 msgid "The Right Now widget on this screen provides current user and site counts on your network."
@@ -600,11 +600,11 @@ msgstr "نصب و فعال‌سازی پوسته‌ها یا افزونه‌ها
 
 #: wp-admin/network/index.php:25
 msgid "Add and manage sites or users"
-msgstr "افزودن و مدیریت سایتها یا کاربران"
+msgstr "افزودن و مدیریت سایت‌ها و یا کاربران"
 
 #: wp-admin/network/index.php:24
 msgid "From here you can:"
-msgstr "از اینجا شما میتوانید:"
+msgstr "از اینجا میتوانید:"
 
 #: wp-admin/network/index.php:23
 msgid "Welcome to your Network Admin. This area of the Administration Screens is used for managing all aspects of your Multisite Network."
@@ -639,7 +639,7 @@ msgstr ""
 #: wp-admin/includes/network.php:257 wp-admin/includes/network.php:608
 #: wp-admin/includes/network.php:650
 msgid "Subdirectory networks may not be fully compatible with custom wp-content directories."
-msgstr "شبکه‌های زیردامنه شاید کاملاً با مسیرهای wp-content دلخواه سازگار نباشند."
+msgstr "شبکه‌های زیردامنه شاید به صورت کامل با مسیرهای wp-content سفارشی سازگار نباشند."
 
 #: wp-admin/network.php:62
 msgid "Add the designated lines of code to wp-config.php (just before <code>/*...stop editing...*/</code>) and <code>.htaccess</code> (replacing the existing WordPress rules)."
