@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPress - 5.2.2 - Administration\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2019-08-22 11:39+0430\n"
+"PO-Revision-Date: 2019-08-24 01:42+0430\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: \n"
 "Language: fa\n"
@@ -366,8 +366,7 @@ msgstr "فراخوان پاک‌کننده نامعتبر است: %s."
 msgid "Eraser does not include a callback: %s."
 msgstr "پاک‌کننده شامل فراخوان نیست: %s."
 
-#: wp-admin/includes/class-wp-site-health.php:183 wp-admin/includes/class-wp-site-health.php:647 wp-admin/includes/class-wp-site-health.php:736 wp-admin/includes/class-wp-site-health.php:938 wp-admin/includes/class-wp-site-health.php:1025 wp-admin/includes/class-wp-site-health.php:1387 wp-admin/includes/class-wp-site-health.php:1524 wp-admin/includes/class-wp-site-health.php:1566
-#: wp-admin/includes/class-wp-site-health.php:1637
+#: wp-admin/includes/class-wp-site-health.php:183 wp-admin/includes/class-wp-site-health.php:647 wp-admin/includes/class-wp-site-health.php:736 wp-admin/includes/class-wp-site-health.php:938 wp-admin/includes/class-wp-site-health.php:1025 wp-admin/includes/class-wp-site-health.php:1387 wp-admin/includes/class-wp-site-health.php:1524 wp-admin/includes/class-wp-site-health.php:1566 wp-admin/includes/class-wp-site-health.php:1637
 msgid "Performance"
 msgstr ""
 
@@ -405,8 +404,7 @@ msgstr ""
 msgid "The WordPress Hosting Team maintains a list of those modules, both recommended and required, in <a href=\"%1$s\" %2$s>the team handbook%3$s</a>."
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:244 wp-admin/includes/class-wp-site-health.php:283 wp-admin/includes/class-wp-site-health.php:415 wp-admin/includes/class-wp-site-health.php:688 wp-admin/includes/class-wp-site-health.php:978 wp-admin/includes/class-wp-site-health.php:1140 wp-admin/includes/class-wp-site-health.php:1209 wp-admin/includes/class-wp-site-health.php:1278
-#: wp-admin/includes/class-wp-site-health.php:1341 wp-admin/includes/class-wp-site-health.php:1448
+#: wp-admin/includes/class-wp-site-health.php:244 wp-admin/includes/class-wp-site-health.php:283 wp-admin/includes/class-wp-site-health.php:415 wp-admin/includes/class-wp-site-health.php:688 wp-admin/includes/class-wp-site-health.php:978 wp-admin/includes/class-wp-site-health.php:1140 wp-admin/includes/class-wp-site-health.php:1209 wp-admin/includes/class-wp-site-health.php:1278 wp-admin/includes/class-wp-site-health.php:1341 wp-admin/includes/class-wp-site-health.php:1448
 msgid "Security"
 msgstr ""
 
@@ -1755,10 +1753,9 @@ msgstr "ازسرگرفتن"
 
 #. translators: %s: plugin name
 #: wp-admin/includes/class-wp-plugins-list-table.php:673
-#, fuzzy
 msgctxt "plugin"
 msgid "Resume %s"
-msgstr "ازسرگرفتن %s"
+msgstr "ازسرگیری %s"
 
 #: wp-admin/includes/theme.php:875
 #, fuzzy
@@ -1923,7 +1920,7 @@ msgstr "<strong>خطا</strong>: «پیشوند جدول» نمی‌تواند �
 
 #: wp-admin/edit-form-blocks.php:158
 msgid "Default template"
-msgstr "قالب پیش‌فرض"
+msgstr "الگوی پیش‌فرض"
 
 #. translators: %s: the name of the plugin that generated this meta box.
 #: wp-admin/includes/template.php:1103 wp-admin/includes/template.php:1296
@@ -2097,8 +2094,7 @@ msgstr "الزامات افشای قانونی صنعت"
 
 #. translators: privacy policy tutorial.
 #: wp-admin/includes/misc.php:1979
-msgid ""
-"If your web site provides a service which includes automated decision making - for example, allowing customers to apply for credit, or aggregating their data into an advertising profile - you must note that this is taking place, and include information about how that information is used, what decisions are made with that aggregated data, and what rights users have over decisions made without human intervention."
+msgid "If your web site provides a service which includes automated decision making - for example, allowing customers to apply for credit, or aggregating their data into an advertising profile - you must note that this is taking place, and include information about how that information is used, what decisions are made with that aggregated data, and what rights users have over decisions made without human intervention."
 msgstr "اگر وب سایت شما یک سرویس ارائه می‌دهد که شامل تصمیم گیری خودکار می‌شود - به عنوان مثال، اجازه می‌دهد مشتریان برای درخواست اعتبار، یا جمع آوری داده‌های خود را به یک نمایه تبلیغاتی - شما باید توجه داشته باشید که این اتفاق می‌افتد، و شامل اطلاعات در مورد نحوه استفاده از این اطلاعات، چه تصمیماتی با داده‌های جمع آوری شده انجام می‌شود و چه کاربران حقوق بیش از تصمیم گیری را بدون دخالت انسانی گرفته اند."
 
 #. translators: privacy policy tutorial.
@@ -2164,12 +2160,8 @@ msgstr "اطلاعات تماس شما"
 #. translators: privacy policy tutorial.
 #: wp-admin/includes/misc.php:1928
 #, fuzzy
-msgid ""
-"European data protection law requires data about European residents which is transferred outside the European Union to be safeguarded to the same standards as if the data was in Europe. So in addition to listing where data goes, you should describe how you ensure that these standards are met either by yourself or by your third party providers, whether that is through an agreement such as Privacy Shield, model "
-"clauses in your contracts, or binding corporate rules."
-msgstr ""
-"قانون حفاظت از داده‌های اروپا نیاز به داده‌های مربوط به ساکنان اروپایی دارد که در خارج از اتحادیه اروپا منتقل می‌شود تا به همان استانداردهای محافظت شود که داده‌ها در اروپا باشد. بنابراین علاوه بر فهرستی که داده‌ها می‌رود، شما باید نحوه تضمین این که آیا این استانداردها توسط خود یا ارائه دهنده‌های شخص ثالث شما مطابقت دارند یا خیر، از طریق یک توافقنامه مانند سپر حریم خصوصی، شرایط مدل در قراردادهای شما، یا شرکت‌های مجاز "
-"قوانین"
+msgid "European data protection law requires data about European residents which is transferred outside the European Union to be safeguarded to the same standards as if the data was in Europe. So in addition to listing where data goes, you should describe how you ensure that these standards are met either by yourself or by your third party providers, whether that is through an agreement such as Privacy Shield, model clauses in your contracts, or binding corporate rules."
+msgstr "قانون حفاظت از داده‌های اروپا نیاز به داده‌های مربوط به ساکنان اروپایی دارد که در خارج از اتحادیه اروپا منتقل می‌شود تا به همان استانداردهای محافظت شود که داده‌ها در اروپا باشد. بنابراین علاوه بر فهرستی که داده‌ها می‌رود، شما باید نحوه تضمین این که آیا این استانداردها توسط خود یا ارائه دهنده‌های شخص ثالث شما مطابقت دارند یا خیر، از طریق یک توافقنامه مانند سپر حریم خصوصی، شرایط مدل در قراردادهای شما، یا شرکت‌های مجاز قوانین"
 
 #. translators: privacy policy tutorial.
 #: wp-admin/includes/misc.php:1926
@@ -2208,12 +2200,8 @@ msgstr "اگر یک نظر را ترک کنید، نظر و متادیتای آ�
 
 #. translators: privacy policy tutorial.
 #: wp-admin/includes/misc.php:1902
-msgid ""
-"In this section you should explain how long you retain personal data collected or processed by the web site. While it is your responsibility to come up with the schedule of how long you keep each dataset for and why you keep it, that information does need to be listed here. For example, you may want to say that you keep contact form entries for six months, analytics records for a year, and customer purchase "
-"records for ten years."
-msgstr ""
-"در این قسمت شما باید توضیح دهید که چه مدت اطلاعات شخصی خود را که از طریق وب سایت جمع آوری شده یا پردازش شده نگهداری می‌کنید. در حالی که این مسئولیت شماست که برنامه زمانبندی هر یک از مجموعه داده‌ها را حفظ کنید و به همین دلیل آن را نگه دارید، این اطلاعات باید در اینجا فهرست شود. به عنوان مثال، ممکن است بخواهید بگوئید که برای مدت شش ماه، پرونده‌های تجزیه و تحلیل برای یک سال و پرونده‌های خرید مشتری برای ده سال نگه "
-"دارید."
+msgid "In this section you should explain how long you retain personal data collected or processed by the web site. While it is your responsibility to come up with the schedule of how long you keep each dataset for and why you keep it, that information does need to be listed here. For example, you may want to say that you keep contact form entries for six months, analytics records for a year, and customer purchase records for ten years."
+msgstr "در این قسمت شما باید توضیح دهید که چه مدت اطلاعات شخصی خود را که از طریق وب سایت جمع آوری شده یا پردازش شده نگهداری می‌کنید. در حالی که این مسئولیت شماست که برنامه زمانبندی هر یک از مجموعه داده‌ها را حفظ کنید و به همین دلیل آن را نگه دارید، این اطلاعات باید در اینجا فهرست شود. به عنوان مثال، ممکن است بخواهید بگوئید که برای مدت شش ماه، پرونده‌های تجزیه و تحلیل برای یک سال و پرونده‌های خرید مشتری برای ده سال نگه دارید."
 
 #. translators: default privacy policy heading.
 #: wp-admin/includes/misc.php:1898
@@ -2302,11 +2290,8 @@ msgstr "هنگامی که بازدیدکنندگان نظرات خود را در
 
 #. translators: privacy policy tutorial.
 #: wp-admin/includes/misc.php:1850
-msgid ""
-"By default, WordPress does not include a contact form. If you use a contact form plugin, use this subsection to note what personal data is captured when someone submits a contact form, and how long you keep it. For example, you may note that you keep contact form submissions for a certain period for customer service purposes, but you do not use the information submitted through them for marketing purposes."
-msgstr ""
-"به طور پیش فرض، وردپرس یک فرم تماس را شامل نمی‌شود. اگر از یک پلاگین فرم تماس استفاده می‌کنید، از این بخش استفاده کنید تا توجه کنید که چه اطلاعات شخصی هنگام ثبت نام یک فرم تماس، و چه مدت آن را نگه دارید. به عنوان مثال، شما ممکن است توجه داشته باشید که شما درخواست ارسال فرم تماس را برای یک دوره مشخص برای اهداف خدمات مشتری نگه دارید، اما از اطلاعاتی که از طریق آن‌ها برای اهداف بازاریابی ارسال شده است استفاده "
-"نمی‌کنید."
+msgid "By default, WordPress does not include a contact form. If you use a contact form plugin, use this subsection to note what personal data is captured when someone submits a contact form, and how long you keep it. For example, you may note that you keep contact form submissions for a certain period for customer service purposes, but you do not use the information submitted through them for marketing purposes."
+msgstr "به طور پیش فرض، وردپرس یک فرم تماس را شامل نمی‌شود. اگر از یک پلاگین فرم تماس استفاده می‌کنید، از این بخش استفاده کنید تا توجه کنید که چه اطلاعات شخصی هنگام ثبت نام یک فرم تماس، و چه مدت آن را نگه دارید. به عنوان مثال، شما ممکن است توجه داشته باشید که شما درخواست ارسال فرم تماس را برای یک دوره مشخص برای اهداف خدمات مشتری نگه دارید، اما از اطلاعاتی که از طریق آن‌ها برای اهداف بازاریابی ارسال شده است استفاده نمی‌کنید."
 
 #. translators: default privacy policy heading.
 #: wp-admin/includes/misc.php:1846
@@ -2673,7 +2658,7 @@ msgstr "شناسه درخواست نامعتبر در هنگام تولید پر
 
 #: wp-admin/includes/user.php:706
 msgid "Unable to add this request. A valid email address or username must be supplied."
-msgstr "امکان اضافه کردن این درخواست وجود ندارد. باید یک نشانی ایمیل معتبر یا نام کاربری ارائه شود."
+msgstr "امکان اضافه کردن این درخواست وجود ندارد. باید یک نشانی ایمیل معتبر یا نام‌کاربری ارائه شود."
 
 #: wp-admin/includes/user.php:667
 msgid "Confirmation request sent again successfully."
@@ -2764,7 +2749,7 @@ msgstr "ارسال درخواست"
 
 #: wp-admin/includes/user.php:838 wp-admin/includes/user.php:922
 msgid "Username or email address"
-msgstr "نام کاربری یا نشانی ایمیل"
+msgstr "نام‌کاربری یا نشانی ایمیل"
 
 #: wp-admin/includes/ajax-actions.php:4466 wp-admin/includes/ajax-actions.php:4649
 msgid "Invalid request ID."
@@ -2810,7 +2795,7 @@ msgstr "منتظر کلید items_removed در آرایهٔ پاسخ از پاک
 
 #: wp-admin/includes/plugin-install.php:656
 msgid "Requires PHP Version:"
-msgstr "نگارش PHP مورد نیاز:"
+msgstr "نیازمند PHP:"
 
 #: wp-admin/customize.php:80
 msgid "This changeset cannot be further modified."
@@ -3160,7 +3145,7 @@ msgstr "پیش‌نویس‌های اخیر شما"
 #. translators: 1: line number, 2: file path
 #: wp-admin/includes/file.php:304
 msgid "Your PHP code changes were rolled back due to an error on line %1$s of file %2$s. Please fix and try saving again."
-msgstr "تغییرات کد PHP شما، به دلیل یک خطا در خط %1$s از پرونده %2$s بازگردانده شد. لطفا اصلاح و دوباره برای ذخیره آن تلاش کنید."
+msgstr "تغییرات کد PHP شما، به دلیل یک خطا در خط %1$s از پرونده %2$s بازگردانده شد. اصلاح و برای ذخیره آن دوباره تلاش کنید."
 
 #: wp-admin/includes/class-wp-terms-list-table.php:527
 msgid "No description"
@@ -3394,9 +3379,9 @@ msgctxt "Background Scroll"
 msgid "Scroll"
 msgstr "پیمایش"
 
-#: wp-admin/options-reading.php:44 wp-admin/edit-tags.php:307 wp-admin/link-manager.php:72 wp-admin/options-writing.php:53 wp-admin/my-sites.php:52 wp-admin/options-general.php:49 wp-admin/comment.php:57 wp-admin/theme-editor.php:55 wp-admin/plugin-editor.php:143 wp-admin/nav-menus.php:596 wp-admin/update-core.php:658 wp-admin/options-permalink.php:53 wp-admin/user-new.php:256 wp-admin/index.php:108
-#: wp-admin/plugins.php:465 wp-admin/themes.php:145 wp-admin/edit-comments.php:204 wp-admin/media.php:96 wp-admin/revision.php:140 wp-admin/upload.php:76 wp-admin/upload.php:250 wp-admin/edit-form-advanced.php:291 wp-admin/edit-form-advanced.php:309 wp-admin/edit-form-advanced.php:327 wp-admin/custom-background.php:100 wp-admin/tools.php:36 wp-admin/import.php:32 wp-admin/widgets.php:84
-#: wp-admin/options-media.php:38 wp-admin/edit-link-form.php:75 wp-admin/user-edit.php:68 wp-admin/users.php:76 wp-admin/media-new.php:61 wp-admin/theme-install.php:130 wp-admin/options-discussion.php:32 wp-admin/edit.php:260 wp-admin/edit.php:285 wp-admin/plugin-install.php:106 wp-admin/export.php:58 wp-admin/custom-header.php:130
+#: wp-admin/options-reading.php:44 wp-admin/edit-tags.php:307 wp-admin/link-manager.php:72 wp-admin/options-writing.php:53 wp-admin/my-sites.php:52 wp-admin/options-general.php:49 wp-admin/comment.php:57 wp-admin/theme-editor.php:55 wp-admin/plugin-editor.php:143 wp-admin/nav-menus.php:596 wp-admin/update-core.php:658 wp-admin/options-permalink.php:53 wp-admin/user-new.php:256 wp-admin/index.php:108 wp-admin/plugins.php:465 wp-admin/themes.php:145 wp-admin/edit-comments.php:204
+#: wp-admin/media.php:96 wp-admin/revision.php:140 wp-admin/upload.php:76 wp-admin/upload.php:250 wp-admin/edit-form-advanced.php:291 wp-admin/edit-form-advanced.php:309 wp-admin/edit-form-advanced.php:327 wp-admin/custom-background.php:100 wp-admin/tools.php:36 wp-admin/import.php:32 wp-admin/widgets.php:84 wp-admin/options-media.php:38 wp-admin/edit-link-form.php:75 wp-admin/user-edit.php:68 wp-admin/users.php:76 wp-admin/media-new.php:61 wp-admin/theme-install.php:130
+#: wp-admin/options-discussion.php:32 wp-admin/edit.php:260 wp-admin/edit.php:285 wp-admin/plugin-install.php:106 wp-admin/export.php:58 wp-admin/custom-header.php:130
 msgid "<a href=\"https://wordpress.org/support/\">Support</a>"
 msgstr "<a href=\"https://wordpress.org/support/\">پشتیبانی</a>"
 
@@ -3482,7 +3467,7 @@ msgstr "به‌صورت پیش‌فرض، کاربران تازه ایمیلی �
 
 #: wp-admin/user-new.php:223
 msgid "New users are automatically assigned a password, which they can change after logging in. You can view or edit the assigned password by clicking the Show Password button. The username cannot be changed once the user has been added."
-msgstr "کاربران تازه به صورت خودکار رمزی دریافت خواهند کرد که بعداً می‌توانند آن را تغییر دهند. می‌توانید با کلیک روی دکمهٔ نمایش رمز عبور، رمز عبور را ببینید یا ویرایش کنید. هنگامی که کاربر به سایت افزوده شد، نام‌کاربری غیر قابل تغییر خواهد بود."
+msgstr "کاربران تازه به صورت خودکار رمزی دریافت خواهند کرد که بعداً می‌توانند آن را تغییر دهند. می‌توانید با کلیک روی دکمهٔ نمایش رمز، رمز را ببینید یا ویرایش کنید. هنگامی که کاربر به سایت افزوده شد، نام‌کاربری غیرقابل‌تغییر خواهد بود."
 
 #. translators: %s: Plugin name
 #: wp-admin/includes/update.php:815
@@ -3536,7 +3521,7 @@ msgstr "<strong>خطا</strong>: \"Table Prefix\" نامعتبر است."
 
 #: wp-admin/includes/file.php:410 wp-admin/theme-editor.php:18
 msgid "Sorry, you are not allowed to edit templates for this site."
-msgstr "با عرض پوزش، شما اجازهٔ ویرایش قالب‌های این سایت را ندارید."
+msgstr "با عرض پوزش، شما اجازهٔ ویرایش الگوهای این سایت را ندارید."
 
 #: wp-admin/plugins.php:209
 msgid "Sorry, you are not allowed to deactivate plugins for this site."
@@ -3667,11 +3652,11 @@ msgstr "%s پوسته با موفقیت به‌روز شدند."
 
 #: wp-admin/includes/template.php:2408
 msgid "This will replace the current editor content with the last backup version. You can use undo and redo in the editor to get the old content back or to return to the restored version."
-msgstr "این کار محتوای کنونی ویرایشگر را یا آخرین نسخهٔ ذخیره‌شده جایگزین می‌کند. می‌توانید از دکمه‌های بازگردانی/بازانجام برای بازگرداندن محتوای پیشین یا استفاده از محتوای تازه استفاده کنید."
+msgstr "این کار محتوای کنونی ویرایشگر را با آخرین نسخهٔ ذخیره‌شده جایگزین می‌کند. می‌توانید از دکمه‌های بازگردانی/بازانجام برای بازگرداندن محتوای پیشین یا استفاده از محتوای تازه استفاده کنید."
 
 #: wp-admin/includes/template.php:1814
 msgid "Close media attachment panel"
-msgstr "بستن بخش پیوست رسانه"
+msgstr "بستن پنل پیوست رسانه"
 
 #: wp-admin/includes/ms.php:1075 wp-admin/site-health.php:59
 msgid "Info"
@@ -3679,23 +3664,23 @@ msgstr "اطلاعات"
 
 #: wp-admin/includes/file.php:48
 msgid "Embed 404 Template"
-msgstr "جاسازی قالب خطای ۴۰۴"
+msgstr "الگوی ۴۰۴ جاسازی"
 
 #: wp-admin/includes/file.php:49
 msgid "Embed Content Template"
-msgstr "جاسازی قالب محتوا"
+msgstr "الگوی محتوای جاسازی"
 
 #: wp-admin/includes/file.php:50
 msgid "Embed Header Template"
-msgstr "جاسازی قالب سربرگ"
+msgstr "الگوی سربرگ جاسازی"
 
 #: wp-admin/includes/file.php:51
 msgid "Embed Footer Template"
-msgstr "جاسازی قالب پابرگ"
+msgstr "الگوی پابرگ جاسازی"
 
 #: wp-admin/includes/file.php:47
 msgid "Embed Template"
-msgstr "جاسازی قالب"
+msgstr "الگوی جاسازی"
 
 #: wp-admin/includes/meta-boxes.php:978
 msgid "Need help? Use the Help tab above the screen title."
@@ -3752,7 +3737,7 @@ msgstr "پوسته نمی‌تواند حذف شود."
 
 #: wp-admin/includes/ajax-actions.php:3758 wp-admin/includes/ajax-actions.php:3881 wp-admin/includes/ajax-actions.php:3976
 msgid "No theme specified."
-msgstr "پوسته‌ای مشخص نشده."
+msgstr "پوسته‌ای مشخص نشده است."
 
 #: wp-admin/includes/ajax-actions.php:3955
 msgid "Update failed."
@@ -3788,20 +3773,20 @@ msgstr "با عرض پوزش، شما اجازهٔ درون‌ریزی محتو�
 
 #: wp-admin/credits.php:150
 msgid "Release Design Lead"
-msgstr "سرپرست طراحی این نگارش"
+msgstr ""
 
 #: wp-admin/credits.php:151
 msgid "Release Deputy"
-msgstr "معاون این انتشار"
+msgstr ""
 
 #: wp-admin/includes/meta-boxes.php:742
 msgid "https://codex.wordpress.org/Using_Custom_Fields"
-msgstr "https://codex.wordpress.org/Using_Custom_Fields"
+msgstr ""
 
 #. translators: %s: Codex URL
 #: wp-admin/includes/meta-boxes.php:765
 msgid "Allow <a href=\"%s\">trackbacks and pingbacks</a> on this page"
-msgstr "پذیرفتن <a href=\"%s\">بازتاب و بازخوان</a> برای این برگه."
+msgstr "پذیرفتن <a href=\"%s\">بازتاب و بازخوان</a> برای این برگه"
 
 #. translators: %s: Codex URL
 #: wp-admin/includes/meta-boxes.php:741
@@ -3840,7 +3825,7 @@ msgstr[0] "%s پروندهٔ رسانه‌ای از زباله‌دان بازی
 #: wp-admin/upload.php:327
 msgid "%s media file moved to the trash."
 msgid_plural "%s media files moved to the trash."
-msgstr[0] "%s پروندهٔ رسانه‌ای به زباله‌دان انتقال یافت."
+msgstr[0] "%s پروندهٔ رسانه‌ای به زباله‌دان انتقال داده شد."
 
 #. translators: %s: number of media files
 #: wp-admin/upload.php:294
@@ -3886,11 +3871,11 @@ msgstr "%1$s &mdash; %2$s"
 
 #: wp-admin/edit-form-advanced.php:347
 msgid ""
-"<strong>Publish</strong> &mdash; You can set the terms of publishing your post in the Publish box. For Status, Visibility, and Publish (immediately), click on the Edit link to reveal more options. Visibility includes options for password-protecting a post or making it stay at the top of your blog indefinitely (sticky). The Password protected option allows you to set an arbitrary password for each post. The "
-"Private option hides the post from everyone except editors and administrators. Publish (immediately) allows you to set a future or past date and time, so you can schedule a post to be published in the future or backdate a post."
+"<strong>Publish</strong> &mdash; You can set the terms of publishing your post in the Publish box. For Status, Visibility, and Publish (immediately), click on the Edit link to reveal more options. Visibility includes options for password-protecting a post or making it stay at the top of your blog indefinitely (sticky). The Password protected option allows you to set an arbitrary password for each post. The Private option hides the post from everyone except editors and "
+"administrators. Publish (immediately) allows you to set a future or past date and time, so you can schedule a post to be published in the future or backdate a post."
 msgstr ""
-"<strong>انتشار</strong> &mdash; می‌توانید شرایط انتشار نوشتهٔ خود را، در جعبه انتشار تنظیم کنید. برای وضعیت، نمایانی و انتشار (فوری)، روی پیوند ویرایش، جهت نمایش تنظیمات بیشتر کلیک کنید. نمایانی شامل تنظیماتی برای رمزدار کردن نوشته یا قرار دادن آن در بالای بلاگ (به‌صورت سنجاق‌شده) است. انتشار (فوری) به شما اجازهٔ تنظیم تاریخ و زمان گذشته و آینده را می‌دهد. می‌توانید تاریخ انتشار یک نوشته را برای آینده تنظیم کرده یا "
-"تاریخ انتشار آن را به قبل برگردانید. گزینه رمزدار کردن، نوشته را از دید همه به جز ویرایشگران و مدیران سایت مخفی می‌سازد."
+"<strong>انتشار</strong> &mdash; می‌توانید شرایط انتشار نوشتهٔ خود را، در جعبه انتشار تنظیم کنید. برای وضعیت، نمایانی و انتشار (فوری)، روی پیوند ویرایش، جهت نمایش تنظیمات بیشتر کلیک کنید. نمایانی شامل تنظیماتی برای رمزدار کردن نوشته یا قرار دادن آن در بالای بلاگ (به‌صورت سنجاق‌شده) است. انتشار (فوری) به شما اجازهٔ تنظیم تاریخ و زمان گذشته و آینده را می‌دهد. می‌توانید تاریخ انتشار یک نوشته را برای آینده تنظیم کرده یا تاریخ انتشار آن را به قبل برگردانید. گزینه رمزدار کردن، نوشته را از دید "
+"همه به جز ویرایشگران و مدیران سایت مخفی می‌سازد."
 
 #. translators: %s: new email
 #: wp-admin/user-edit.php:506
@@ -4051,7 +4036,7 @@ msgstr "بلندای نسبت برش"
 
 #: wp-admin/includes/file.php:37
 msgid "Single Page"
-msgstr "برگه یکتا"
+msgstr "برگه ایستا"
 
 #: wp-admin/includes/file.php:28
 msgid "Taxonomy Template"
@@ -4063,7 +4048,7 @@ msgstr "الگوی تک‌نوشته"
 
 #: wp-admin/includes/file.php:33
 msgid "Date Template"
-msgstr "قالب تاریخ"
+msgstr "الگوی تاریخ"
 
 #: wp-admin/includes/dashboard.php:953
 msgid "View more comments"
@@ -4316,14 +4301,13 @@ msgstr "این بسته زبان پرونده‌های %1$s یا %2$s را ند�
 
 #. translators: %s: style.css
 #: wp-admin/includes/class-theme-upgrader.php:478
-#, fuzzy
 msgid "The theme is missing the %s stylesheet."
-msgstr "پوسته، پروندهٔ استایل %s را کم دارد."
+msgstr "این پوسته، پروندهٔ شیوه‌نامه %s را کم دارد."
 
 #. translators: %s: style.css
 #: wp-admin/includes/class-theme-upgrader.php:498
 msgid "The %s stylesheet doesn&#8217;t contain a valid theme header."
-msgstr "شیوه‌نامهٔ %s حاوی سرآیند پوسته معتبری نیست."
+msgstr "شیوه‌نامهٔ %s حاوی سرآیند پوسته نامعتبر است."
 
 #: wp-admin/theme-install.php:194
 msgid "If you have marked themes as favorites on WordPress.org, you can browse them here."
@@ -4514,7 +4498,7 @@ msgstr "تغییر وضعیت پنل: %s"
 
 #: wp-admin/includes/post.php:1452
 msgid "Edit permalink"
-msgstr "ویرایش پیوندیکتا"
+msgstr "ویرایش پایاپیوند"
 
 #: wp-admin/includes/post.php:1747
 msgid "Saving revision&hellip;"
@@ -4713,7 +4697,7 @@ msgstr "پالایش فهرست موارد"
 
 #: wp-admin/includes/class-wp-plugins-list-table.php:660
 msgid "Network Active"
-msgstr "فعال‌سازی در شبکه"
+msgstr "فعال در شبکه"
 
 #: wp-admin/export.php:178
 msgid "Content to export"
@@ -4943,12 +4927,8 @@ msgid "https://codex.wordpress.org/First_Steps_With_WordPress"
 msgstr "https://codex.wordpress.org/First_Steps_With_WordPress"
 
 #: wp-admin/edit-form-advanced.php:351
-msgid ""
-"<strong>Format</strong> &mdash; Post Formats designate how your theme will display a specific post. For example, you could have a <em>standard</em> blog post with a title and paragraphs, or a short <em>aside</em> that omits the title and contains a short text blurb. Please refer to the Codex for <a href=\"https://codex.wordpress.org/Post_Formats#Supported_Formats\">descriptions of each post format</a>. Your "
-"theme could enable all or some of 10 possible formats."
-msgstr ""
-"<strong>ساختار</strong> - این گزینه به پوستهٔ شما این امکان را می‌دهد که نوشته‌ها را به‌صورت‌های مختلف نمایش دهد. برای مثال شما می‌توانید یک نوشتهٔ <em>استاندارد</em> به‌همراه عنوان و پاراگراف‌ها داشته باشید، یا یک <em>حاشیه</em> که عنوان ندارد و حاوی متن کوتاه است. برای اطلاعات بیشتر به <a href=\"https://codex.wordpress.org/Post_Formats#Supported_Formats\">توضیحات مربوط به ساختار نوشته در مستندات</a> مراجعه کنید. "
-"پوستهٔ شما می‌تواند همه یا بخشی از ۱۰ ساختار نوشته را فعال کند."
+msgid "<strong>Format</strong> &mdash; Post Formats designate how your theme will display a specific post. For example, you could have a <em>standard</em> blog post with a title and paragraphs, or a short <em>aside</em> that omits the title and contains a short text blurb. Please refer to the Codex for <a href=\"https://codex.wordpress.org/Post_Formats#Supported_Formats\">descriptions of each post format</a>. Your theme could enable all or some of 10 possible formats."
+msgstr "<strong>ساختار</strong> &mdash; این گزینه به پوستهٔ شما این امکان را می‌دهد که نوشته‌ها را به‌صورت‌های مختلف نمایش دهد. برای مثال شما می‌توانید یک نوشتهٔ <em>استاندارد</em> به‌همراه عنوان و پاراگراف‌ها داشته باشید، یا یک <em>حاشیه</em> که عنوان ندارد و حاوی متن کوتاه است. برای اطلاعات بیشتر به <a href=\"https://codex.wordpress.org/Post_Formats#Supported_Formats\">توضیحات مربوط به ساختار نوشته در مستندات</a> مراجعه کنید. پوستهٔ شما می‌تواند همه یا بخشی از ۱۰ ساختار نوشته را فعال کند."
 
 #: wp-admin/edit-tags.php:304
 msgid "<a href=\"https://codex.wordpress.org/Posts_Tags_Screen\">Documentation on Tags</a>"
@@ -5555,7 +5535,7 @@ msgstr "%s بیرون رفت."
 
 #: wp-admin/includes/ajax-actions.php:3581
 msgid "Could not log out user sessions. Please try again."
-msgstr "نمی‌توان از نشست‌های کاربری بیرون رفت. لطفاً دوباره تلاش کنید."
+msgstr "نمی‌توان از نشست‌های کاربری بیرون رفت. دوباره تلاش کنید."
 
 #: wp-admin/includes/ajax-actions.php:3469
 msgid "This preview is unavailable in the editor."
@@ -5846,7 +5826,7 @@ msgstr "جست‌وجوی پوسته‌ها"
 
 #: wp-admin/index.php:76
 msgid "<strong>At A Glance</strong> &mdash; Displays a summary of the content on your site and identifies which theme and version of WordPress you are using."
-msgstr "<strong>در یک نگاه</strong> - خلاصه‌ای از محتوای سایت شما را نمایش می‌دهد و پوسته و نگارش وردپرس مورد استفاده شما را شناسایی می‌کند."
+msgstr "<strong>در یک نگاه</strong> &mdash; خلاصه‌ای از محتوای سایت شما را نمایش می‌دهد و پوسته و نگارش وردپرس مورد استفاده شما را شناسایی می‌کند."
 
 #: wp-admin/maint/repair.php:146
 msgid "https://wordpress.org/support/forum/how-to-and-troubleshooting"
@@ -5854,7 +5834,7 @@ msgstr "https://wordpress.org/support/forum/how-to-and-troubleshooting"
 
 #: wp-admin/index.php:63
 msgid "<strong>Box Controls</strong> &mdash; Click the title bar of the box to expand or collapse it. Some boxes added by plugins may have configurable content, and will show a &#8220;Configure&#8221; link in the title bar if you hover over it."
-msgstr "<strong>تنظیمات جعبه</strong> - با کلیک روی عنوان جعبه، می‌توانید آن را باز یا بسته کنید. همچنین برخی جعبه‌ها دارای تنظیمات محتوا هستند و هنگامی که شما نشانگر را روی عنوان جعبه می‌برید، پیوند «پیکربندی» در عنوان جعبه ظاهر می‌شود."
+msgstr "<strong>تنظیمات جعبه</strong> &mdash; با کلیک روی عنوان جعبه، می‌توانید آن را باز یا بسته کنید. همچنین برخی جعبه‌ها دارای تنظیمات محتوا هستند و هنگامی که شما نشانگر را روی عنوان جعبه می‌برید، پیوند «پیکربندی» در عنوان جعبه ظاهر می‌شود."
 
 #: wp-admin/includes/ms.php:976 wp-admin/users.php:310
 msgid "Delete all content."
@@ -6018,7 +5998,7 @@ msgstr "این صفحه برای مدیریت پوسته‌های نصب‌شد�
 
 #: wp-admin/themes.php:130
 msgid "The theme being previewed is fully interactive &mdash; navigate to different pages to see how the theme handles posts, archives, and other page templates. The settings may differ depending on what theme features the theme being previewed supports. To accept the new settings and activate the theme all in one step, click the Publish &amp; Activate button above the menu."
-msgstr "پوسته‌ای که پیش‌نمایش داده می‌شود کاملا تعاملی است &mdash; بین صفحه‌ها حرکت کنید تا ببینید تا ببینید چگونه پوسته پست‌ها، بایگانی‌ها و باقی قالب‌های صفحه را تحت تاثیر قرار می‌دهد. تنظیمات ممکن است بسته به قابلیت‌هایی که پوسته پیش‌نمایش داده شده پشتیبانی می‌کند، متفاوت باشند. برای قبول تنظیمات جدید و فعالسازی پوسته در یک گام، دکمهٔ «ذخیره و فعال‌سازی» در بالای فهرست را کلیک کنید."
+msgstr "پوسته‌ای که پیش‌نمایش داده می‌شود کاملا تعاملی است &mdash; بین صفحه‌ها حرکت کنید تا ببینید تا ببینید چگونه پوسته پست‌ها، بایگانی‌ها و باقی الگوهای صفحه را تحت تاثیر قرار می‌دهد. تنظیمات ممکن است بسته به قابلیت‌هایی که پوسته پیش‌نمایش داده شده پشتیبانی می‌کند، متفاوت باشند. برای قبول تنظیمات جدید و فعالسازی پوسته در یک گام، دکمهٔ «ذخیره و فعال‌سازی» در بالای فهرست را کلیک کنید."
 
 #: wp-admin/themes.php:131
 msgid "When previewing on smaller monitors, you can use the collapse icon at the bottom of the left-hand pane. This will hide the pane, giving you more room to preview your site in the new theme. To bring the pane back, click on the collapse icon again."
@@ -6072,15 +6052,15 @@ msgstr "ترجمه‌های زیر با موفقیت به‌روز شدند:"
 
 #: wp-admin/includes/class-wp-automatic-updater.php:879
 msgid "The following plugins failed to update:"
-msgstr "به‌روزرسانی افزونه‌های زیر ناموفق شد:"
+msgstr "به‌روزرسانی افزونه‌های زیر ناموفق بود:"
 
 #: wp-admin/includes/class-wp-automatic-updater.php:880
 msgid "The following themes failed to update:"
-msgstr "به‌روزرسانی پوسته‌های زیر ناموفق شد:"
+msgstr "به‌روزرسانی پوسته‌های زیر ناموفق بود:"
 
 #: wp-admin/includes/class-wp-automatic-updater.php:881
 msgid "The following translations failed to update:"
-msgstr "به‌روزرسانی ترجمه‌های زیر ناموفق شد:"
+msgstr "به‌روزرسانی ترجمه‌های زیر ناموفق بود:"
 
 #: wp-admin/includes/theme.php:702 wp-admin/themes.php:531
 msgid "Show next theme"
@@ -6096,11 +6076,11 @@ msgstr "نمایش پوسته قبلی"
 
 #: wp-admin/post.php:81
 msgid "Unable to submit this form, please refresh and try again."
-msgstr "نمی‌توانیم این فرم را بفرستیم، لطفاً صفحه را دوباره بارگذاری کرده و تلاش کنید."
+msgstr "نمی‌توانیم این فرم را بفرستیم، صفحه را از نو بارگذاری کرده و دوباره تلاش کنید."
 
 #: wp-admin/index.php:79
 msgid "<strong>Activity</strong> &mdash; Shows the upcoming scheduled posts, recently published posts, and the most recent comments on your posts and allows you to moderate them."
-msgstr "<strong>فعالیت</strong> - نوشته‌های زمانبندی شدهٔ آتی و نوشته‌هایی که اخیرا منتشر شده‌اند را به همراه آخرین دیدگاه‌ها نمایش داده و به شما امکان می‌دهد تا آن‌ها را مدیریت کنید."
+msgstr "<strong>فعالیت</strong> &mdash; نوشته‌های زمانبندی شدهٔ آتی و نوشته‌هایی که اخیرا منتشر شده‌اند را به همراه آخرین دیدگاه‌ها نمایش داده و به شما امکان می‌دهد تا آن‌ها را مدیریت کنید."
 
 #: wp-admin/index.php:61
 msgid "<strong>Screen Options</strong> &mdash; Use the Screen Options tab to choose which Dashboard boxes to show."
@@ -6298,7 +6278,7 @@ msgstr "[%1$s] سایت شما به وردپرس %2$s به‌روز شد"
 #. translators: 1: name of project, 2: language
 #: wp-admin/includes/class-wp-automatic-updater.php:341 wp-admin/includes/class-language-pack-upgrader-skin.php:51
 msgid "Updating translations for %1$s (%2$s)&#8230;"
-msgstr "به‌روزرسانی ترجمه‌ها برای %1$s (%2$s)&#8230;"
+msgstr "به‌روزرسانی ترجمه‌ها برای &#8206;%1$s (%2$s)&#8207;&#8230;"
 
 #: wp-admin/includes/class-language-pack-upgrader-skin.php:31 wp-admin/update-core.php:491 wp-admin/update-core.php:852
 msgid "Update Translations"
@@ -6354,17 +6334,16 @@ msgstr "ترجمه با موفقیت به‌روز شد."
 #. translators: %s: Theme name
 #: wp-admin/includes/class-wp-automatic-updater.php:327
 msgid "Updating theme: %s"
-msgstr "در حال به‌روزرسانی پوسته: %s"
+msgstr "در حال به‌روزرسانی پوسته: &#8206;%s&#8207;"
 
 #. translators: %s: Plugin name
 #: wp-admin/includes/class-wp-automatic-updater.php:334
 msgid "Updating plugin: %s"
-msgstr "در حال به‌روزرسانی افزونه: %s"
+msgstr "در حال به‌روزرسانی افزونه: &#8206;%s&#8207;"
 
 #: wp-admin/includes/class-language-pack-upgrader.php:113
-#, fuzzy
 msgid "Some of your translations need updating. Sit tight for a few more seconds while we update them as well."
-msgstr "برخی از ترجمه‌های شما نیاز به به‌روزرسانی دارند. اندک ثانیه بیشتر، محکم بنشینید تا زمانی که ما آن‌ها را نیز به‌روز می‌کنیم."
+msgstr "بعضی از ترجمه‌های شما هم نیاز به به‌بروزرسانی دارند. چند ثانیه دیگر منتظر بمانید تا آن‌ها هم به‌روز شوند."
 
 #: wp-admin/user-new.php:442
 msgid "Create a brand new user and add them to this site."
@@ -6402,7 +6381,7 @@ msgstr "نام‌کاربری که شما وارد کرده‌اید دارای 
 
 #: wp-admin/install.php:377
 msgid "Your passwords do not match. Please try again."
-msgstr "رمزهای عبور شما با هم هم‌خوانی ندارند. لطفاً دوباره تلاش کنید."
+msgstr "رمزهای شما با هم هم‌خوانی ندارند. دوباره تلاش کنید."
 
 #: wp-admin/includes/file.php:2114
 msgid "This password will not be stored on the server."
@@ -6617,11 +6596,11 @@ msgstr "با عرض پوزش، مشکلی پیش آمده. مقایسهٔ درخ
 
 #: wp-admin/install.php:162 wp-admin/user-new.php:515
 msgid "Repeat Password"
-msgstr "تکرار رمز عبور"
+msgstr "تکرار رمز"
 
 #: wp-admin/user-edit.php:633
 msgid "Repeat New Password"
-msgstr "تکرار رمز عبور جدید"
+msgstr "تکرار رمز تازه"
 
 #: wp-admin/includes/nav-menu.php:1000
 msgid "Add menu items from the column on the left."
@@ -6985,9 +6964,7 @@ msgstr "محیط عنوان و محتوای نوشته، ثابت هستند و�
 
 #: wp-admin/custom-background.php:91
 msgid "To use a background image, simply upload it or choose an image that has already been uploaded to your Media Library by clicking the &#8220;Choose Image&#8221; button. You can display a single instance of your image, or tile it to fill the screen. You can have your background fixed in place, so your site content moves on top of it, or you can have it scroll with your site."
-msgstr ""
-"برای استفاده از یک تصویر به عنوان پس‌زمینه، آن را بارگذاری کنید یا با کلیک روی «گزینش تصویر» از تصاویری که پیش‌تر در کتابخانه‌های رسانه‌ها بارگذاری کرده‌اید استفاده کنید، سپس از گزینه‌های زیر شیوه نمایش را انتخاب کنید. شما می‌توانید حالت تک نمایش را برای تصویرتان انتخاب کنید، یا از شیوه موزاییکی برای پرکردن صفحه نمایش استفاده کنید. شما می‌توانید تصویر را در پس‌زمینه ثابت نگه دارید تا محتوای سایت روی آن حرکت کند یا "
-"پس‌زمینه نیز با محتوای سایت بالا و پایین شود."
+msgstr "برای استفاده از یک تصویر به عنوان پس‌زمینه، آن را بارگذاری کنید یا با کلیک روی «گزینش تصویر» از تصاویری که پیش‌تر در کتابخانه‌های رسانه‌ها بارگذاری کرده‌اید استفاده کنید، سپس از گزینه‌های زیر شیوه نمایش را انتخاب کنید. شما می‌توانید حالت تک نمایش را برای تصویرتان انتخاب کنید، یا از شیوه موزاییکی برای پرکردن صفحه نمایش استفاده کنید. شما می‌توانید تصویر را در پس‌زمینه ثابت نگه دارید تا محتوای سایت روی آن حرکت کند یا پس‌زمینه نیز با محتوای سایت بالا و پایین شود."
 
 #: wp-admin/widgets.php:77
 msgid "When changing themes, there is often some variation in the number and setup of widget areas/sidebars and sometimes these conflicts make the transition a bit less smooth. If you changed themes and seem to be missing widgets, scroll down on this screen to the Inactive Widgets area, where all of your widgets and their settings will have been saved."
@@ -7022,7 +6999,7 @@ msgstr "بارگذاری در"
 
 #: wp-admin/includes/ajax-actions.php:2355 wp-admin/custom-background.php:485 wp-admin/custom-header.php:886
 msgid "The uploaded file is not a valid image. Please try again."
-msgstr "پروندهٔ بارگذاری‌شده یک تصویر با ساختار نامعتبر است. دوباره تلاش کنید."
+msgstr "پروندهٔ بارگذاری‌شده، تصویر نامعتبر است. دوباره تلاش کنید."
 
 #: wp-admin/custom-background.php:331
 msgid "Choose a Background Image"
@@ -7062,11 +7039,11 @@ msgstr "نشانی پرونده:"
 
 #: wp-admin/edit-comments.php:193
 msgid ""
-"In the <strong>In Response To</strong> column, there are three elements. The text is the name of the post that inspired the comment, and links to the post editor for that entry. The View Post link leads to that post on your live site. The small bubble with the number in it shows the number of approved comments that post has received. If there are pending comments, a red notification circle with the number of "
-"pending comments is displayed. Clicking the notification circle will filter the comments screen to show only pending comments on that post."
+"In the <strong>In Response To</strong> column, there are three elements. The text is the name of the post that inspired the comment, and links to the post editor for that entry. The View Post link leads to that post on your live site. The small bubble with the number in it shows the number of approved comments that post has received. If there are pending comments, a red notification circle with the number of pending comments is displayed. Clicking the notification circle will "
+"filter the comments screen to show only pending comments on that post."
 msgstr ""
-"در ستون <strong>در پاسخ به</strong> سه عنصر وجود دارد. متن، نام نوشته‌ای است که دیدگاه در پاسخ به آن نوشته شده و پیوندی برای ورود به ویرایشگر همان نوشته است. نماد پایاپیوند &#8220;#&#8221; که در پایین قابل مشاهده است، شما را به نوشته مورد نظر در سایت هدایت می‌کند. حباب کوچکی که در آن عدد نوشته شده است، تعداد دیدگاه‌های نوشته را نشان می‌دهد. اگر حباب خاکستری بود، همه دیدگاه‌های نوشته مدیریت شده‌اند. اگر حباب آبی بود، "
-"دیدگاهی در انتظار مدیریت برای آن نوشته وجود دارد. با کلیک بر روی حباب، تنها دید‌گاه‌های نوشته موردنظر در صفحه نمایش دیدگاه‌ها نشان داده می‌شوند."
+"در ستون <strong>در پاسخ به</strong> سه عنصر وجود دارد. متن، نام نوشته‌ای است که دیدگاه در پاسخ به آن نوشته شده و پیوندی برای ورود به ویرایشگر همان نوشته است. نماد پایاپیوند &#8220;#&#8221; که در پایین قابل مشاهده است، شما را به نوشته مورد نظر در سایت هدایت می‌کند. حباب کوچکی که در آن عدد نوشته شده است، تعداد دیدگاه‌های نوشته را نشان می‌دهد. اگر حباب خاکستری بود، همه دیدگاه‌های نوشته مدیریت شده‌اند. اگر حباب آبی بود، دیدگاهی در انتظار مدیریت برای آن نوشته وجود دارد. با کلیک بر روی "
+"حباب، تنها دید‌گاه‌های نوشته موردنظر در صفحه نمایش دیدگاه‌ها نشان داده می‌شوند."
 
 #. translators: 1: user id, 2: user login
 #: wp-admin/users.php:290 wp-admin/users.php:428
@@ -7242,8 +7219,8 @@ msgstr "ویرایش"
 
 #: wp-admin/theme-install.php:117
 msgid ""
-"To install the theme so you can preview it with your site&#8217;s content and customize its theme options, click the \"Install\" button at the top of the left-hand pane. The theme files will be downloaded to your website automatically. When this is complete, the theme is now available for activation, which you can do by clicking the \"Activate\" link, or by navigating to your Manage Themes screen and clicking "
-"the \"Live Preview\" link under any installed theme&#8217;s thumbnail image."
+"To install the theme so you can preview it with your site&#8217;s content and customize its theme options, click the \"Install\" button at the top of the left-hand pane. The theme files will be downloaded to your website automatically. When this is complete, the theme is now available for activation, which you can do by clicking the \"Activate\" link, or by navigating to your Manage Themes screen and clicking the \"Live Preview\" link under any installed theme&#8217;s thumbnail "
+"image."
 msgstr "یرای نصب پوسته‌ها می‌توانید پیش‌نمایش آن‌ها را با محتوای سایت‌تان ببینید و شخصی‌سازی کنید، روی دکمهٔ «نصب» در بخش بالا سمت راست کلیک کنید. پس از این کار، پرونده‌های پوسته در سایت شما بارگذاری خواهند شد و می‌توانید با کلیک روی «فعال‌سازی» پوسته را فعال کنید. همچنین می‌توانید با رفتن به صفحه مدیریت پوسته‌ها و کلیک روی «پیش‌نمایش زنده» زیر تصویر بندانگشتی پوسته، آن را شخصی‌سازی و فعال کنید."
 
 #: wp-admin/includes/theme-install.php:110 wp-admin/includes/theme-install.php:122
@@ -7251,12 +7228,10 @@ msgid "Search by keyword"
 msgstr "جست‌وجو براساس واژه کلیدی"
 
 #: wp-admin/edit-form-advanced.php:295
-msgid ""
-"Creating a Page is very similar to creating a Post, and the screens can be customized in the same way using drag and drop, the Screen Options tab, and expanding/collapsing boxes as you choose. This screen also has the distraction-free writing space, available in both the Visual and Text modes via the Fullscreen buttons. The Page editor mostly works the same as the Post editor, but there are some Page-specific "
-"features in the Page Attributes box."
+msgid "Creating a Page is very similar to creating a Post, and the screens can be customized in the same way using drag and drop, the Screen Options tab, and expanding/collapsing boxes as you choose. This screen also has the distraction-free writing space, available in both the Visual and Text modes via the Fullscreen buttons. The Page editor mostly works the same as the Post editor, but there are some Page-specific features in the Page Attributes box."
 msgstr ""
-"ساختن برگه‌ها بسیار شبیه به ساختن نوشته‌ها است، همان‌طور که صفحهٔ نوشتن نوشته‌هایتان را سفارشی می‌کنید می‌توانید صفحه نوشتن برگه‌ها را نیز با استفاده از کشیدن و رها کردن، زبانه تنظیمات صفحه و جعبه‌های باز و بسته‌شونده به دلخواه سفارشی کنید. این بخش همچنین دارای صفحهٔ ویرایش بدون مزاحم است که به‌وسیلهٔ آن فضای بیشتری برای نوشتن در ویرایشگر دیداری و متنی در اختیار شما قرار می‌گیرد، برای رفتن به این حالت از دکمهٔ «تمام‌صفحه» "
-"استفاده کنید. ویرایشگر برگه تقریبا شبیه به ویرایشگر نوشته عمل می‌کند با این تفاوت که گزینه‌هایی برای ویرایش برگه‌ها در جعبه مربوط به صفات آن‌ها وحود دارد."
+"ساختن برگه‌ها بسیار شبیه به ساختن نوشته‌ها است، همان‌طور که صفحهٔ نوشتن نوشته‌هایتان را سفارشی می‌کنید می‌توانید صفحه نوشتن برگه‌ها را نیز با استفاده از کشیدن و رها کردن، زبانه تنظیمات صفحه و جعبه‌های باز و بسته‌شونده به دلخواه سفارشی کنید. این بخش همچنین دارای صفحهٔ ویرایش بدون مزاحم است که به‌وسیلهٔ آن فضای بیشتری برای نوشتن در ویرایشگر دیداری و متنی در اختیار شما قرار می‌گیرد، برای رفتن به این حالت از دکمهٔ «تمام‌صفحه» استفاده کنید. ویرایشگر برگه تقریبا شبیه به ویرایشگر نوشته عمل می‌کند با "
+"این تفاوت که گزینه‌هایی برای ویرایش برگه‌ها در جعبه مربوط به صفات آن‌ها وحود دارد."
 
 #. translators: %s: plugin name
 #: wp-admin/includes/class-wp-links-list-table.php:172 wp-admin/includes/class-wp-plugins-list-table.php:772 wp-admin/includes/class-wp-terms-list-table.php:353 wp-admin/includes/class-wp-users-list-table.php:466 wp-admin/includes/class-wp-media-list-table.php:360 wp-admin/includes/class-wp-posts-list-table.php:919 wp-admin/update-core.php:351 wp-admin/update-core.php:436
@@ -7309,7 +7284,7 @@ msgstr "اگر نمی‌خواهید هیچ سربرگی در سایت‌تان 
 
 #: wp-admin/media.php:69
 msgid "You attempted to edit an item that isn&#8217;t an attachment. Please go back and try again."
-msgstr "می‌خواهید موردی را ویرایش کنید که پیوست نیست. لطفاً بازگردید و دوباره تلاش کنید."
+msgstr "می‌خواهید موردی را ویرایش کنید که یک پیوست نیست. بازگردید و دوباره تلاش کنید."
 
 #: wp-admin/includes/class-wp-plugin-install-list-table.php:597
 msgctxt "plugin"
@@ -7556,9 +7531,8 @@ msgid "Hello Dolly"
 msgstr "سلام عزیزم"
 
 #: wp-admin/index.php:92
-#, fuzzy
 msgid "<strong>Welcome</strong> &mdash; Shows links for some of the most common tasks when setting up a new site."
-msgstr "<strong>خوش آمدید</strong> - نمایش پیوندهایی که برخی کارهای"
+msgstr "<strong>خوش آمدید</strong> &mdash; پیوندهایی برای بعضی از کارهای متداول در هنگام راه اندازی یک سایت تازه را نمایش می‌دهد."
 
 #. translators: 1: Theme name. 2: Theme slug.
 #: wp-admin/includes/class-wp-debug-data.php:955
@@ -7788,10 +7762,9 @@ msgid "Installation"
 msgstr "راه‌اندازی"
 
 #: wp-admin/includes/plugin-install.php:554
-#, fuzzy
 msgctxt "Plugin installer section title"
 msgid "Changelog"
-msgstr "سیاهه تغییرات"
+msgstr "لاگ تغییرات"
 
 #: wp-admin/includes/plugin-install.php:556
 msgctxt "Plugin installer section title"
@@ -7807,9 +7780,7 @@ msgid "Plugin Homepage &#187;"
 msgstr "وب‌سایت افزونه &#187;"
 
 #: wp-admin/export.php:50
-msgid ""
-"You can export a file of your site&#8217;s content in order to import it into another installation or platform. The export file will be an XML file format called WXR. Posts, pages, comments, custom fields, categories, and tags can be included. You can choose for the WXR file to include only certain posts or pages by setting the dropdown filters to limit the export by category, author, date range by month, or "
-"publishing status."
+msgid "You can export a file of your site&#8217;s content in order to import it into another installation or platform. The export file will be an XML file format called WXR. Posts, pages, comments, custom fields, categories, and tags can be included. You can choose for the WXR file to include only certain posts or pages by setting the dropdown filters to limit the export by category, author, date range by month, or publishing status."
 msgstr "شما میتوانید پرونده‌ای از محتویات سایت خود را به منظور انتقال به دیگر سایت‌ها یا سیستم‌ها، برون‌بری کنید. پرونده برون‌بری شده، XML با ساختار WXR خواهد بود. نوشته‌ها، برگه‌ها، دیدگاه‌ها، زمینه‌های سفارشی، دسته‌ها و برچسب‌ها نیر میتوانند مشمول شوند. می‌توانید پالایه‌هایی را اعمال کرده تا پرونده WXR تنها شامل روز، نویسنده، دسته، برچسب، تمام نوشته‌ها یا تمام برگه‌ها و وضعیت‌های انتشار مشخصی باشد."
 
 #. translators: 1: table name, 2: error message,
@@ -7819,7 +7790,7 @@ msgstr "شکست در تعمیر جدول %1$s. خطا: %2$s"
 
 #: wp-admin/user-new.php:221
 msgid "New users will receive an email letting them know they&#8217;ve been added as a user for your site. This email will also contain their password. Check the box if you don&#8217;t want the user to receive a welcome email."
-msgstr "یک ایمیل برای کاربران جدید ارسال خواهد شد تا از عضویت‌شان در سایت شما باخبر شوند. رمز عبور نیز به صورت پیش‌فرض در این ایمیل موجود است. چنان‌چه نمی‌خواهید رمز عبور در نامه خوش‌آمدگویی ذکر شود، تیک گزینهٔ مربوطه را حذف کنید."
+msgstr "یک ایمیل برای کاربران جدید ارسال خواهد شد تا از عضویت‌شان در سایت شما باخبر شوند. رمز نیز به صورت پیش‌فرض در این ایمیل موجود است. اگر نمی‌خواهید رمز در ایمیل خوش‌آمدگویی گنجانده شود، تیک گزینهٔ مربوطه را حذف کنید."
 
 #: wp-admin/includes/image-edit.php:244
 msgid "There are unsaved changes that will be lost. 'OK' to continue, 'Cancel' to return to the Image Editor."
@@ -7839,7 +7810,7 @@ msgstr "در نگارش‌های قبلی وردپرس، همهٔ درون‌ر�
 
 #: wp-admin/custom-header.php:825 wp-admin/custom-header.php:968 wp-admin/custom-header.php:1304
 msgid "Image could not be processed. Please go back and try again."
-msgstr "پردازش تصویر با اشکال مواجه شد. لطفاً دوباره تلاش کنید."
+msgstr "پردازش تصویر با اشکال مواجه شد. دوباره تلاش کنید."
 
 #: wp-admin/edit-form-advanced.php:234
 msgid "There is an autosave of this post that is more recent than the version below. <a href=\"%s\">View the autosave</a>"
@@ -7935,7 +7906,7 @@ msgstr ""
 
 #: wp-admin/options-permalink.php:24
 msgid "This screen allows you to choose your permalink structure. You can choose from common settings or create custom URL structures."
-msgstr "این صفحه به شما امکان می‌دهد ساختار پیش‌فرض پیوندیکتا را انتخاب کنید. می‌توانید از گزینه‌های موجود یکی را انتخاب کنید یا خودتان یک ساختار سفارشی بسازید."
+msgstr "این صفحه به شما امکان می‌دهد ساختار پیش‌فرض پایاپیوند را انتخاب کنید. می‌توانید از گزینه‌های موجود یکی را انتخاب کنید یا خودتان یک ساختار سفارشی بسازید."
 
 #: wp-admin/includes/update-core.php:1357 wp-admin/update-core.php:578
 msgid "Welcome to WordPress %1$s. <a href=\"%2$s\">Learn more</a>."
@@ -8084,7 +8055,7 @@ msgstr "در این صفحه می‌توانید تنظیمات و چگونگی 
 
 #: wp-admin/user-edit.php:50
 msgid "You can change your password, turn on keyboard shortcuts, change the color scheme of your WordPress administration screens, and turn off the WYSIWYG (Visual) editor, among other things. You can hide the Toolbar (formerly called the Admin Bar) from the front end of your site, however it cannot be disabled on the admin screens."
-msgstr "شما میتوانید رمز عبور را تغییر دهید، میان‌بُرهای صفحه‌کلید را فعال کنید، رنگ محیط مدیریت، و حالت ویرایشگر دیداری را تغییر دهید و چند مورد دیگر که بهتر است خودتان ببینید. می‌توانید نوارابزار را هنگام مشاهدهٔ سایت پنهان کنید، اما نمی‌توانید آن را در محیط مدیریت غیرفعال کنید."
+msgstr "شما میتوانید رمز را تغییر دهید، میان‌بُرهای صفحه‌کلید را فعال کنید، رنگ محیط مدیریت، و حالت ویرایشگر دیداری را تغییر دهید و چند مورد دیگر که بهتر است خودتان ببینید. می‌توانید نوارابزار را هنگام مشاهدهٔ سایت پنهان کنید، اما نمی‌توانید آن را در محیط مدیریت غیرفعال کنید."
 
 #: wp-admin/widgets.php:110
 msgid "This sidebar is no longer available and does not show anywhere on your site. Remove each of the widgets below to fully remove this inactive sidebar."
@@ -8263,7 +8234,7 @@ msgstr "این افزونه شامل هیچ پرونده‌ای نیست."
 
 #: wp-admin/includes/class-plugin-upgrader.php:370
 msgid "No valid plugins were found."
-msgstr "هیچ افزونهٔ معتبری یافت نشد."
+msgstr "هیچ افزونهٔ معتبری پیدا نشد."
 
 #: wp-admin/includes/media.php:1161
 msgid "Attachment Post URL"
@@ -8353,9 +8324,9 @@ msgstr "خطا: شما به دیدگاه ِ یک پیش‌نویس پاسخ دا
 msgid "ERROR: please type a comment."
 msgstr "خطا: دیدگاهی بنویسید."
 
-#: wp-admin/options-reading.php:24 wp-admin/edit-tags.php:261 wp-admin/link-manager.php:53 wp-admin/options-writing.php:22 wp-admin/includes/ms.php:1156 wp-admin/includes/class-wp-screen.php:816 wp-admin/my-sites.php:43 wp-admin/options-general.php:41 wp-admin/comment.php:47 wp-admin/theme-editor.php:27 wp-admin/plugin-editor.php:123 wp-admin/nav-menus.php:546 wp-admin/nav-menus.php:587
-#: wp-admin/update-core.php:635 wp-admin/options-permalink.php:22 wp-admin/user-new.php:233 wp-admin/index.php:42 wp-admin/plugins.php:437 wp-admin/themes.php:103 wp-admin/edit-comments.php:180 wp-admin/media.php:84 wp-admin/revision.php:133 wp-admin/upload.php:54 wp-admin/upload.php:223 wp-admin/edit-form-advanced.php:315 wp-admin/custom-background.php:88 wp-admin/import.php:23 wp-admin/widgets.php:55
-#: wp-admin/options-media.php:30 wp-admin/edit-link-form.php:64 wp-admin/user-edit.php:60 wp-admin/users.php:32 wp-admin/media-new.php:48 wp-admin/theme-install.php:110 wp-admin/options-discussion.php:23 wp-admin/edit.php:214 wp-admin/edit.php:267 wp-admin/plugin-install.php:84 wp-admin/export.php:49 wp-admin/custom-header.php:97
+#: wp-admin/options-reading.php:24 wp-admin/edit-tags.php:261 wp-admin/link-manager.php:53 wp-admin/options-writing.php:22 wp-admin/includes/ms.php:1156 wp-admin/includes/class-wp-screen.php:816 wp-admin/my-sites.php:43 wp-admin/options-general.php:41 wp-admin/comment.php:47 wp-admin/theme-editor.php:27 wp-admin/plugin-editor.php:123 wp-admin/nav-menus.php:546 wp-admin/nav-menus.php:587 wp-admin/update-core.php:635 wp-admin/options-permalink.php:22 wp-admin/user-new.php:233
+#: wp-admin/index.php:42 wp-admin/plugins.php:437 wp-admin/themes.php:103 wp-admin/edit-comments.php:180 wp-admin/media.php:84 wp-admin/revision.php:133 wp-admin/upload.php:54 wp-admin/upload.php:223 wp-admin/edit-form-advanced.php:315 wp-admin/custom-background.php:88 wp-admin/import.php:23 wp-admin/widgets.php:55 wp-admin/options-media.php:30 wp-admin/edit-link-form.php:64 wp-admin/user-edit.php:60 wp-admin/users.php:32 wp-admin/media-new.php:48 wp-admin/theme-install.php:110
+#: wp-admin/options-discussion.php:23 wp-admin/edit.php:214 wp-admin/edit.php:267 wp-admin/plugin-install.php:84 wp-admin/export.php:49 wp-admin/custom-header.php:97
 msgid "Overview"
 msgstr "در یک نگاه"
 
@@ -8369,11 +8340,11 @@ msgstr "می‌توانید با استفاده از موارد زیر نحوه�
 
 #: wp-admin/index.php:62
 msgid "<strong>Drag and Drop</strong> &mdash; To rearrange the boxes, drag and drop by clicking on the title bar of the selected box and releasing when you see a gray dotted-line rectangle appear in the location you want to place the box."
-msgstr "<strong>کشیدن و رها کردن</strong> - برای جابجایی جعبه‌های مختلف در صفحه می‌توانید روی عنوان جعبه کلیک کرده و آن‌را به محل موردنظر خود بکشید، هنگامی که یک کادر خاکستری با لبهٔ نقطه‌چین در محل مورد نظر مشاهده کردید، جعبه را رها کنید."
+msgstr "<strong>کشیدن و رها کردن</strong> &mdash; برای جابجایی جعبه‌های مختلف در صفحه می‌توانید روی عنوان جعبه کلیک کرده و آن‌را به محل موردنظر خود بکشید، هنگامی که یک کادر خاکستری با لبهٔ نقطه‌چین در محل مورد نظر مشاهده کردید، جعبه را رها کنید."
 
 #: wp-admin/index.php:55
 msgid "Navigation"
-msgstr "راهبری"
+msgstr "راه‌بری"
 
 #. translators: %s: The current WordPress version number
 #. translators: %s: Plugin version number.
@@ -8384,9 +8355,9 @@ msgstr "راهبری"
 msgid "Version %s"
 msgstr "نگارش %s"
 
-#: wp-admin/options-reading.php:42 wp-admin/edit-tags.php:297 wp-admin/link-manager.php:70 wp-admin/options-writing.php:51 wp-admin/includes/ms.php:1174 wp-admin/my-sites.php:50 wp-admin/options-general.php:47 wp-admin/comment.php:55 wp-admin/theme-editor.php:50 wp-admin/plugin-editor.php:140 wp-admin/nav-menus.php:594 wp-admin/update-core.php:656 wp-admin/options-permalink.php:50 wp-admin/user-new.php:254
-#: wp-admin/index.php:106 wp-admin/plugins.php:463 wp-admin/themes.php:143 wp-admin/edit-comments.php:200 wp-admin/media.php:94 wp-admin/revision.php:138 wp-admin/upload.php:74 wp-admin/upload.php:248 wp-admin/edit-form-advanced.php:289 wp-admin/edit-form-advanced.php:306 wp-admin/edit-form-advanced.php:325 wp-admin/custom-background.php:98 wp-admin/tools.php:34 wp-admin/import.php:30 wp-admin/widgets.php:82
-#: wp-admin/options-media.php:36 wp-admin/edit-link-form.php:73 wp-admin/user-edit.php:66 wp-admin/users.php:73 wp-admin/media-new.php:59 wp-admin/theme-install.php:128 wp-admin/options-discussion.php:30 wp-admin/edit.php:258 wp-admin/edit.php:283 wp-admin/plugin-install.php:104 wp-admin/export.php:56 wp-admin/custom-header.php:128
+#: wp-admin/options-reading.php:42 wp-admin/edit-tags.php:297 wp-admin/link-manager.php:70 wp-admin/options-writing.php:51 wp-admin/includes/ms.php:1174 wp-admin/my-sites.php:50 wp-admin/options-general.php:47 wp-admin/comment.php:55 wp-admin/theme-editor.php:50 wp-admin/plugin-editor.php:140 wp-admin/nav-menus.php:594 wp-admin/update-core.php:656 wp-admin/options-permalink.php:50 wp-admin/user-new.php:254 wp-admin/index.php:106 wp-admin/plugins.php:463 wp-admin/themes.php:143
+#: wp-admin/edit-comments.php:200 wp-admin/media.php:94 wp-admin/revision.php:138 wp-admin/upload.php:74 wp-admin/upload.php:248 wp-admin/edit-form-advanced.php:289 wp-admin/edit-form-advanced.php:306 wp-admin/edit-form-advanced.php:325 wp-admin/custom-background.php:98 wp-admin/tools.php:34 wp-admin/import.php:30 wp-admin/widgets.php:82 wp-admin/options-media.php:36 wp-admin/edit-link-form.php:73 wp-admin/user-edit.php:66 wp-admin/users.php:73 wp-admin/media-new.php:59
+#: wp-admin/theme-install.php:128 wp-admin/options-discussion.php:30 wp-admin/edit.php:258 wp-admin/edit.php:283 wp-admin/plugin-install.php:104 wp-admin/export.php:56 wp-admin/custom-header.php:128
 msgid "For more information:"
 msgstr "برای اطلاعات بیشتر:"
 
@@ -8395,8 +8366,8 @@ msgid "Caution:"
 msgstr "اخطار:"
 
 #. translators: %s: plugin name
-#: wp-admin/includes/class-wp-links-list-table.php:88 wp-admin/includes/class-wp-links-list-table.php:323 wp-admin/includes/class-wp-themes-list-table.php:200 wp-admin/includes/theme.php:758 wp-admin/includes/class-wp-plugins-list-table.php:500 wp-admin/includes/class-wp-plugins-list-table.php:654 wp-admin/includes/class-wp-plugins-list-table.php:683 wp-admin/includes/meta-boxes.php:1030
-#: wp-admin/includes/class-wp-terms-list-table.php:159 wp-admin/includes/class-wp-terms-list-table.php:478 wp-admin/includes/class-wp-users-list-table.php:249 wp-admin/includes/class-wp-users-list-table.php:432 wp-admin/includes/media.php:1605 wp-admin/includes/widgets.php:286 wp-admin/includes/template.php:625 wp-admin/themes.php:434 wp-admin/themes.php:585 wp-admin/widgets.php:349 wp-admin/edit-tag-form.php:278
+#: wp-admin/includes/class-wp-links-list-table.php:88 wp-admin/includes/class-wp-links-list-table.php:323 wp-admin/includes/class-wp-themes-list-table.php:200 wp-admin/includes/theme.php:758 wp-admin/includes/class-wp-plugins-list-table.php:500 wp-admin/includes/class-wp-plugins-list-table.php:654 wp-admin/includes/class-wp-plugins-list-table.php:683 wp-admin/includes/meta-boxes.php:1030 wp-admin/includes/class-wp-terms-list-table.php:159
+#: wp-admin/includes/class-wp-terms-list-table.php:478 wp-admin/includes/class-wp-users-list-table.php:249 wp-admin/includes/class-wp-users-list-table.php:432 wp-admin/includes/media.php:1605 wp-admin/includes/widgets.php:286 wp-admin/includes/template.php:625 wp-admin/themes.php:434 wp-admin/themes.php:585 wp-admin/widgets.php:349 wp-admin/edit-tag-form.php:278
 msgid "Delete"
 msgstr "حذف"
 
@@ -8418,8 +8389,8 @@ msgstr "مدیر کل"
 #. translators: %s: plugin version number
 #. translators: %s: theme author
 #. translators: %s: Theme author name
-#: wp-admin/includes/class-wp-debug-data.php:783 wp-admin/includes/class-wp-debug-data.php:821 wp-admin/includes/class-wp-debug-data.php:934 wp-admin/includes/class-wp-themes-list-table.php:225 wp-admin/includes/theme.php:719 wp-admin/includes/class-wp-plugins-list-table.php:833 wp-admin/includes/class-wp-plugin-install-list-table.php:502 wp-admin/includes/class-wp-theme-install-list-table.php:355
-#: wp-admin/includes/class-wp-theme-install-list-table.php:487 wp-admin/themes.php:329 wp-admin/themes.php:493 wp-admin/themes.php:548 wp-admin/theme-install.php:273 wp-admin/theme-install.php:328
+#: wp-admin/includes/class-wp-debug-data.php:783 wp-admin/includes/class-wp-debug-data.php:821 wp-admin/includes/class-wp-debug-data.php:934 wp-admin/includes/class-wp-themes-list-table.php:225 wp-admin/includes/theme.php:719 wp-admin/includes/class-wp-plugins-list-table.php:833 wp-admin/includes/class-wp-plugin-install-list-table.php:502 wp-admin/includes/class-wp-theme-install-list-table.php:355 wp-admin/includes/class-wp-theme-install-list-table.php:487 wp-admin/themes.php:329
+#: wp-admin/themes.php:493 wp-admin/themes.php:548 wp-admin/theme-install.php:273 wp-admin/theme-install.php:328
 msgid "By %s"
 msgstr "توسط %s"
 
@@ -8515,7 +8486,7 @@ msgstr "درباره برگه‌ها"
 
 #: wp-admin/options-reading.php:155 wp-admin/install.php:197
 msgid "Note: Neither of these options blocks access to your site &mdash; it is up to search engines to honor your request."
-msgstr "نکته: هیچ‌کدام از این گزینه‌ها دسترسی موتورهای جست‌وجو به سایت شما را به‌طور کامل قطع نمی‌کند؛ این بستگی به پذیرش درخواست شما از جانب موتورهای جست‌وجو دارد."
+msgstr "نکته: هیچ‌کدام از این گزینه‌ها دسترسی موتورهای جست‌وجو به سایت شما را به‌طور کامل قطع نمی‌کند &mdash; این بستگی به پذیرش درخواست شما از جانب موتورهای جست‌وجو دارد."
 
 #: wp-admin/options-permalink.php:193 wp-admin/options-permalink.php:213
 msgctxt "sample permalink base"
@@ -8655,8 +8626,7 @@ msgstr ""
 
 #. translators: %s: https://wordpress.org/about/license
 #: wp-admin/freedoms.php:134
-msgid ""
-"Every plugin and theme in WordPress.org&#8217;s directory is 100%% GPL or a similarly free and compatible license, so you can feel safe finding <a href=\"%1$s\">plugins</a> and <a href=\"%2$s\">themes</a> there. If you get a plugin or theme from another source, make sure to <a href=\"%3$s\">ask them if it&#8217;s GPL</a> first. If they don&#8217;t respect the WordPress license, we don&#8217;t recommend them."
+msgid "Every plugin and theme in WordPress.org&#8217;s directory is 100%% GPL or a similarly free and compatible license, so you can feel safe finding <a href=\"%1$s\">plugins</a> and <a href=\"%2$s\">themes</a> there. If you get a plugin or theme from another source, make sure to <a href=\"%3$s\">ask them if it&#8217;s GPL</a> first. If they don&#8217;t respect the WordPress license, we don&#8217;t recommend them."
 msgstr ""
 
 #. translators: %s: https://wordpress.org/about/license
@@ -8768,7 +8738,7 @@ msgstr "%1$s از %2$s"
 
 #: wp-admin/includes/file.php:90
 msgid "%s Page Template"
-msgstr "%s قالب برگه"
+msgstr "%s الگوی برگه"
 
 #: wp-admin/plugins.php:319
 msgid "This plugin may be active on other sites in the network."
@@ -8842,7 +8812,7 @@ msgstr "شیوه‌نامهٔ راست به چپ ویرایشگر دیداری"
 
 #: wp-admin/theme-editor.php:255
 msgid "This child theme inherits templates from a parent theme, %s."
-msgstr "این زیرپوسته، قالب‌هایی را از یک پوستهٔ مادر به ارث می‌برد، %s."
+msgstr "این پوسته فرزند، الگوهایی را از پوسته مادر به ارث می‌برد، %s."
 
 #: wp-admin/theme-editor.php:304
 msgid "This is a file in your current parent theme."
@@ -8957,11 +8927,8 @@ msgid "This screen allows you to edit five fields for metadata in a file within 
 msgstr "در این بخش می‌توانید پنج مورد از مشخصات پرونده‌های موجود در کتابخانهٔ رسانه را ویرایش کنید."
 
 #: wp-admin/media.php:87 wp-admin/edit-form-advanced.php:318
-msgid ""
-"For images only, you can click on Edit Image under the thumbnail to expand out an inline image editor with icons for cropping, rotating, or flipping the image as well as for undoing and redoing. The boxes on the right give you more options for scaling the image, for cropping it, and for cropping the thumbnail in a different way than you crop the original image. You can click on Help in those boxes to get more "
-"information."
-msgstr ""
-"فقط برای تصاویر، می‌توانید با کلیک روی دکمهٔ «ویرایش تصویر» زیر بندانگشتی تصویر، به یک ویرایشگر توکار برای ویرایش تصویر دسترسی پیدا کنید، با این ویرایشگر می‌توانید عملیاتی مانند قاب‌بُری، چرخاندن یا وارونه کردن تصاویر را به سادگی انجام دهید. همچنین از طریق جعبه‌های موجود در سمت چپ می‌توانید اندازه و مقیاس تصویر یا قاب‌بُری را انتخاب کنید. با کلیک روی (راهنما) در جعبه‌های مذکور، می‌توانید به اطلاعات بیشتری دست یابید."
+msgid "For images only, you can click on Edit Image under the thumbnail to expand out an inline image editor with icons for cropping, rotating, or flipping the image as well as for undoing and redoing. The boxes on the right give you more options for scaling the image, for cropping it, and for cropping the thumbnail in a different way than you crop the original image. You can click on Help in those boxes to get more information."
+msgstr "فقط برای تصاویر، می‌توانید با کلیک روی دکمهٔ «ویرایش تصویر» زیر بندانگشتی تصویر، به یک ویرایشگر توکار برای ویرایش تصویر دسترسی پیدا کنید، با این ویرایشگر می‌توانید عملیاتی مانند قاب‌بُری، چرخاندن یا وارونه کردن تصاویر را به سادگی انجام دهید. همچنین از طریق جعبه‌های موجود در سمت چپ می‌توانید اندازه و مقیاس تصویر یا قاب‌بُری را انتخاب کنید. با کلیک روی (راهنما) در جعبه‌های مذکور، می‌توانید به اطلاعات بیشتری دست یابید."
 
 #: wp-admin/media.php:88 wp-admin/edit-form-advanced.php:319
 msgid "Note that you crop the image by clicking on it (the Crop icon is already selected) and dragging the cropping frame to select the desired part. Then click Save to retain the cropping."
@@ -8982,7 +8949,7 @@ msgstr "جست‌وجو در پوسته‌های نصب‌شده"
 #. translators: %s: link to documentation on child themes
 #: wp-admin/update-core.php:408
 msgid "<strong>Please Note:</strong> Any customizations you have made to theme files will be lost. Please consider using <a href=\"%s\">child themes</a> for modifications."
-msgstr "<strong>لطفاً توجه کنید:</strong> هر تغییری که در پرونده‌های پوسته ایجاد کرده‌اید از دست خواهد رفت. لطفا برای تغییرات از <a href=\"%s\">زیرپوسته‌ها</a> استفاده کنید."
+msgstr "<strong>لطفاً توجه کنید:</strong> هر تغییری که در پرونده‌های پوسته ایجاد کرده‌اید از دست خواهد رفت. لطفاً برای تغییرات از <a href=\"%s\">پوسته‌های فرزند</a> استفاده کنید."
 
 #: wp-admin/includes/class-wp-posts-list-table.php:375
 msgctxt "posts"
@@ -9152,7 +9119,7 @@ msgstr "بیشتر پوسته‌ها عنوان سایت را در بالای ه
 
 #: wp-admin/edit-form-advanced.php:382
 msgid "<strong>Order</strong> &mdash; Pages are usually ordered alphabetically, but you can choose your own order by entering a number (1 for first, etc.) in this field."
-msgstr "<strong>چیدمان</strong> - صفحه‌ها معمولا براساس حروف الفبا مرتب شده‌اند. اما شما می‌توانید ترتیب خود را بوسیلهٔ وارد کردن یک عدد (مثلاً ۱ برای اولی) در این کادر وارد کنید."
+msgstr "<strong>چیدمان</strong> &mdash; صفحه‌ها معمولا براساس حروف الفبا مرتب شده‌اند. اما شما می‌توانید ترتیب خود را بوسیلهٔ وارد کردن یک عدد (مثلاً ۱ برای اولی) در این کادر وارد کنید."
 
 #: wp-admin/includes/file.php:2074
 msgid "Please enter your FTP or SSH credentials to proceed."
@@ -9177,7 +9144,7 @@ msgstr "می‌توانید پوسته‌ای را که به‌صورت فشرد
 
 #: wp-admin/edit-form-advanced.php:369
 msgid "<strong>Send Trackbacks</strong> &mdash; Trackbacks are a way to notify legacy blog systems that you&#8217;ve linked to them. Enter the URL(s) you want to send trackbacks. If you link to other WordPress sites they&#8217;ll be notified automatically using pingbacks, and this field is unnecessary."
-msgstr "<strong>فرستادن بازتاب</strong> - بازتاب‌ها راهی برای باخبر کردن نرم افزارهای قدیمی‌تر وبلاگ‌نویسی، در مورد این‌که شما به آن‌ها در نوشته خود پیوند داده اید، هستند. اگر شما به وبلاگ‌های قدرت گرفته از وردپرس ارجاع می‌دهید،‌ آن‌ها به صورت خودکار توسط پینگ از این عمل شما باخبر می‌شوند، نیاز به عمل دیگری نیست."
+msgstr "<strong>فرستادن بازتاب</strong> &mdash; بازتاب‌ها راهی برای باخبر کردن نرم افزارهای قدیمی‌تر وبلاگ‌نویسی، در مورد این‌که شما به آن‌ها در نوشته خود پیوند داده اید، هستند. اگر شما به وبلاگ‌های قدرت گرفته از وردپرس ارجاع می‌دهید،‌ آن‌ها به صورت خودکار توسط پینگ از این عمل شما باخبر می‌شوند، نیاز به عمل دیگری نیست."
 
 #: wp-admin/link-manager.php:55
 msgid "You can add links here to be displayed on your site, usually using <a href=\"%s\">Widgets</a>. By default, links to several sites in the WordPress community are included as examples."
@@ -9205,7 +9172,7 @@ msgstr "شما همچنین میتوانید از طریق <a href=\"%s\">مخا
 
 #: wp-admin/edit-tags.php:277
 msgid "<strong>Slug</strong> &mdash; The &#8220;slug&#8221; is the URL-friendly version of the name. It is usually all lowercase and contains only letters, numbers, and hyphens."
-msgstr "<strong>نامک</strong> - «نامک» معادل واژه با الفبای لاتین است که در نشانی‌های اینترنتی استفاده می‌شود. برای نام‌گذاری فقط از حروف کوچک لاتین،‌ ارقام و خط تیره استفاده کنید."
+msgstr "<strong>نامک</strong> &mdash; «نامک» معادل واژه با الفبای لاتین است که در نشانی‌های اینترنتی استفاده می‌شود. برای نام‌گذاری فقط از حروف کوچک لاتین،‌ ارقام و خط تیره استفاده کنید."
 
 #: wp-admin/custom-background.php:93
 msgid "Don&#8217;t forget to click on the Save Changes button when you are finished."
@@ -9265,7 +9232,7 @@ msgstr "جعبه‌های نام پیوند، نشانی وب، و توضیحا�
 
 #: wp-admin/update-core.php:190
 msgid "You have the latest version of WordPress."
-msgstr "شما از آخرین نگارش وردپرس استفاده می‌کنید."
+msgstr "از آخرین نگارش وردپرس استفاده می‌کنید."
 
 #: wp-admin/update-core.php:236
 msgid "While your site is being updated, it will be in maintenance mode. As soon as your updates are complete, your site will return to normal."
@@ -9331,9 +9298,7 @@ msgstr "برای ویرایش، یک افزونه از فهرست بازشو، �
 
 #: wp-admin/plugins.php:453
 msgid "Most of the time, plugins play nicely with the core of WordPress and with other plugins. Sometimes, though, a plugin&#8217;s code will get in the way of another plugin, causing compatibility issues. If your site starts doing strange things, this may be the problem. Try deactivating all your plugins and re-activating them in various combinations until you isolate which one(s) caused the issue."
-msgstr ""
-"در بیشتر موارد افزونه با هسته وردپرس و سایر افزونه‌ها هماهنگ است. با این حال گاه دستورات یک افزونه با دستورات یکی دیگر از افزونه‌ها تداخل دارد و باعث به‌روز ناهماهنگی می‌شود. علت احتمالی بسیاری از مشکلات عجیب مشاهده شده در سایت، تداخل افزونه‌ها است. برای حل مشکل ابتدا همه افزونه‌های خود را غیرفعال کنید، سپس ترکیب‌های مختلفی از افزونه‌ها را دوباره فعال کنید و این کار را تا مرحله‌ای ادامه دهید تا افزونه‌ یا افزونه‌هایی را "
-"که موجب به‌روز ناهماهنگی شده‌اند، پیدا کنید."
+msgstr "در بیشتر موارد افزونه با هسته وردپرس و سایر افزونه‌ها هماهنگ است. با این حال گاه دستورات یک افزونه با دستورات یکی دیگر از افزونه‌ها تداخل دارد و باعث به‌روز ناهماهنگی می‌شود. علت احتمالی بسیاری از مشکلات عجیب مشاهده شده در سایت، تداخل افزونه‌ها است. برای حل مشکل ابتدا همه افزونه‌های خود را غیرفعال کنید، سپس ترکیب‌های مختلفی از افزونه‌ها را دوباره فعال کنید و این کار را تا مرحله‌ای ادامه دهید تا افزونه‌ یا افزونه‌هایی را که موجب به‌روز ناهماهنگی شده‌اند، پیدا کنید."
 
 #: wp-admin/widgets.php:57
 msgid "Widgets are independent sections of content that can be placed into any widgetized area provided by your theme (commonly called sidebars). To populate your sidebars/widget areas with individual widgets, drag and drop the title bars into the desired area. By default, only the first widget area is expanded. To populate additional widget areas, click on their title bars to expand them."
@@ -9369,11 +9334,11 @@ msgstr "(بدون مادر)"
 
 #: wp-admin/edit-form-advanced.php:381
 msgid "<strong>Template</strong> &mdash; Some themes have custom templates you can use for certain pages that might have additional features or custom layouts. If so, you&#8217;ll see them in this dropdown menu."
-msgstr "<strong>قالب</strong> - برخی از پوسته‌ها ممکن است ‌قالب‌های دلخواهی برای برگه‌هایی خاص با امکانات اضافی و یا نمایی متفاوت داشته باشند،‌ در این صورت، شما آن‌ها را اینجا می‌بینید."
+msgstr "<strong>الگو</strong> &mdash; برخی از پوسته‌ها ممکن است الگوهای سفارشی برای برگه‌هایی خاص با امکانات اضافی و یا نمایی متفاوت داشته باشند،‌ در این صورت، شما آن‌ها را اینجا می‌بینید."
 
 #: wp-admin/edit-form-advanced.php:380
 msgid "<strong>Parent</strong> &mdash; You can arrange your pages in hierarchies. For example, you could have an &#8220;About&#8221; page that has &#8220;Life Story&#8221; and &#8220;My Dog&#8221; pages under it. There are no limits to how many levels you can nest pages."
-msgstr "<strong>مادر</strong> - شما می‌توانید برگه‌های خود را به صورت سلسله مراتبی مرتب کنید. برای نمونه شما می‌توانید برگه‌ای با نام درباره من داشته باشید و برای این برگه، زیربرگه‌هایی با نام‌های دوران کودکی و سابقه کاری بسازید. محدودیتی برای تعداد و ژرفای این زیربرگه‌ها وجود ندارد."
+msgstr "<strong>مادر</strong> &mdash; شما می‌توانید برگه‌های خود را به صورت سلسله مراتبی مرتب کنید. برای نمونه شما می‌توانید برگه‌ای با نام درباره من داشته باشید و برای این برگه، زیربرگه‌هایی با نام‌های دوران کودکی و سابقه کاری بسازید. محدودیتی برای تعداد و ژرفای این زیربرگه‌ها وجود ندارد."
 
 #: wp-admin/includes/class-bulk-upgrader-skin.php:48
 msgid "All updates have been completed."
@@ -9385,11 +9350,11 @@ msgstr "دسته‌ و برچسب چه تفاوتی با یکدیگر دارند
 
 #: wp-admin/edit-tags.php:268
 msgid "When adding a new category on this screen, you&#8217;ll fill in the following fields:"
-msgstr "زمانی که یک دسته جدید اضافه می‌کنید، باید بخش‌های زیر را پر کنید:"
+msgstr "در صفحه، زمانی که دسته تازه‌ای را اضافه می‌کنید، باید زمینه‌های زیر را پر کنید:"
 
 #: wp-admin/edit-tags.php:270
 msgid "When adding a new tag on this screen, you&#8217;ll fill in the following fields:"
-msgstr "زمانی که یک برچسب جدید اضافه می‌کنید باید بخش‌های زیر را پر کنید:"
+msgstr "در صفحه، زمانی که برچسب تازه‌ای را اضافه می‌کنید باید زمینه‌های زیر را پر کنید:"
 
 #: wp-admin/edit-tags.php:286
 msgid "You can change the display of this screen using the Screen Options tab to set how many items are displayed per screen and to display/hide columns in the table."
@@ -9397,11 +9362,11 @@ msgstr "با استفاده از زبانه تنظیمات صفحه می‌تو�
 
 #: wp-admin/edit-tags.php:284
 msgid "<strong>Description</strong> &mdash; The description is not prominent by default; however, some themes may display it."
-msgstr "<strong>توضیحات</strong> - توضیحات به صورت پیش فرض مهم نیستند، با این حال برخی از پوسته‌ها ممکن است آن‌ها را نمایش دهند."
+msgstr "<strong>توضیحات</strong> &mdash; توضیحات به صورت پیش فرض مهم نیستند، با این حال برخی از پوسته‌ها ممکن است آن‌ها را نمایش دهند."
 
 #: wp-admin/edit-tags.php:274
 msgid "<strong>Name</strong> &mdash; The name is how it appears on your site."
-msgstr "<strong>نام</strong> - در سایت با این نام نمایش داده می‌شود."
+msgstr "<strong>نام</strong> &mdash; در سایت با این نام نمایش داده می‌شود."
 
 #: wp-admin/edit-tags.php:245
 msgid "You can use categories to define sections of your site and group related posts. The default category is &#8220;Uncategorized&#8221; until you change it in your <a href=\"%s\">writing settings</a>."
@@ -9461,7 +9426,7 @@ msgstr "بازگشت به صفحهٔ به‌روزرسانی‌های وردپر
 
 #: wp-admin/edit-form-advanced.php:271
 msgid "<strong>Title</strong> &mdash; Enter a title for your post. After you enter a title, you&#8217;ll see the permalink below, which you can edit."
-msgstr "<strong>عنوان</strong> - برای نوشتهٔ خود عنوانی انتخاب کنید، بعد از نوشتن عنوان در قسمت زیر میتوانید پایاپیوند نوشته را ویرایش کنید."
+msgstr "<strong>عنوان</strong> &mdash; برای نوشتهٔ خود عنوانی انتخاب کنید، بعد از نوشتن عنوان در قسمت زیر میتوانید پایاپیوند نوشته را ویرایش کنید."
 
 #. translators: %s: Featured Image
 #: wp-admin/edit-form-advanced.php:356
@@ -9470,7 +9435,7 @@ msgstr "<strong>%s</strong> &mdash; به شما امکان این را می‌د
 
 #: wp-admin/edit-form-advanced.php:370
 msgid "<strong>Discussion</strong> &mdash; You can turn comments and pings on or off, and if there are comments on the post, you can see them here and moderate them."
-msgstr "<strong>گفت‌وگو</strong> - می‌توانید دیدگاه‌ها و بازتاب‌ها را فعال یا غیرفعال کنید، در صورت وجود دیدگاه برای هر نوشته نیز می‌توانید آن را مشاهده و مدیریت کنید."
+msgstr "<strong>گفت‌وگو</strong> &mdash; می‌توانید دیدگاه‌ها و بازتاب‌ها را فعال یا غیرفعال کنید، در صورت وجود دیدگاه برای هر نوشته نیز می‌توانید آن را مشاهده و مدیریت کنید."
 
 #: wp-admin/edit.php:226
 msgid "You can hide/display columns based on your needs and decide how many posts to list per screen using the Screen Options tab."
@@ -9642,7 +9607,7 @@ msgstr "حذف کاربران از این صفحه امکان‌پذیر نیس�
 
 #: wp-admin/users.php:438
 msgid "There are no valid users selected for removal."
-msgstr "هیچ کاربر معتبری برای حذف کردن گزینش نشده."
+msgstr "هیچ کاربر معتبری برای حذف انتخاب نشده است."
 
 #: wp-admin/users.php:517
 msgid "You can't remove the current user."
@@ -9714,9 +9679,8 @@ msgid "Sorry, you are not allowed to restore this item from the Trash."
 msgstr "با عرض پوزش، شما اجازهٔ بازگردانی این مورد از زباله‌دان را ندارید."
 
 #: wp-admin/update-core.php:403
-#, fuzzy
 msgid "The following themes have new versions available. Check the ones you want to update and then click &#8220;Update Themes&#8221;."
-msgstr "پوسته‌های زیر نگارش‌های تازه‌ای در دسترس دارند. پوسته‌هایی که مایل به به‌روزرسانی هستید را انتخاب کرده و سپس روی &#8220;به‌روزرسانی پوسته‌ها&#8221; کلیک کنید."
+msgstr "نگارش‌های تازه‌ای از پوسته‌ها در دسترس است. از فهرست زیر پوسته‌هایی را که مایل به به‌روزرسانی هستید انتخاب کرده و سپس روی «به‌روزرسانی پوسته‌ها» کلیک کنید."
 
 #: wp-admin/user-new.php:293
 msgid "Invitation email sent to user. A confirmation link must be clicked for them to be added to your site."
@@ -9731,9 +9695,8 @@ msgid "That user is already a member of this site."
 msgstr "این کاربر از پیش عضو این سایت است."
 
 #: wp-admin/update-core.php:265
-#, fuzzy
 msgid "The following plugins have new versions available. Check the ones you want to update and then click &#8220;Update Plugins&#8221;."
-msgstr "افزونه‌های زیر نگارش‌های تازه‌ای در دسترس دارند. افزونه‌هایی که مایل به به‌روزرسانی هستید را انتخاب کرده و سپس روی &#8220;به‌روزرسانی افزونه‌ها&#8221; کلیک کنید."
+msgstr "نگارش‌های تازه‌ای از افزونه‌ها در دسترس است. از فهرست زیر افزونه‌هایی را که مایل به به‌روزرسانی هستید انتخاب کرده و سپس روی «به‌روزرسانی افزونه‌ها» کلیک کنید."
 
 #: wp-admin/custom-background.php:297
 msgid "This will remove the background image. You will not be able to restore any customizations."
@@ -9745,7 +9708,7 @@ msgstr "در حال حاضر تنها پوستهٔ فعلی را در اختیا
 
 #: wp-admin/includes/file.php:27
 msgid "Author Template"
-msgstr "قالب نویسنده"
+msgstr "الگوی نویسنده"
 
 #: wp-admin/includes/file.php:54
 msgid "Visual Editor Stylesheet"
@@ -9753,7 +9716,7 @@ msgstr "شیوه‌نامهٔ ویرایشگر دیداری"
 
 #: wp-admin/includes/file.php:30
 msgid "Tag Template"
-msgstr "قالب برچسب"
+msgstr "الگوی برچسب"
 
 #: wp-admin/edit-form-advanced.php:188
 msgid "Page saved."
@@ -9801,7 +9764,7 @@ msgstr "فهرست با موفقیت حذف شد."
 
 #: wp-admin/options-reading.php:35 wp-admin/options-reading.php:148 wp-admin/options-reading.php:149 wp-admin/install.php:186 wp-admin/install.php:189
 msgid "Site Visibility"
-msgstr "نمایانی ِ سایت"
+msgstr "نمایانی سایت"
 
 #: wp-admin/options-general.php:71
 msgid "In a few words, explain what this site is about."
@@ -9823,7 +9786,7 @@ msgstr "ذخیره فهرست"
 #. 3: total number of themes being updated
 #: wp-admin/includes/class-bulk-theme-upgrader-skin.php:24
 msgid "Updating Theme %1$s (%2$d/%3$d)"
-msgstr "به‌روزرسانی پوسته %1$s (%2$d/%3$d)"
+msgstr "به‌روزرسانی پوسته &#8206;%1$s&#8207; (%2$d/%3$d)"
 
 #: wp-admin/includes/schema.php:969
 msgid "You must provide a domain name."
@@ -9867,7 +9830,7 @@ msgstr "به‌روزرسانی %s ناموفق بود."
 #. 3: total number of plugins being updated
 #: wp-admin/includes/class-bulk-plugin-upgrader-skin.php:24
 msgid "Updating Plugin %1$s (%2$d/%3$d)"
-msgstr "به‌روزرسانی افزونه %1$s (%2$d/%3$d)"
+msgstr "به‌روزرسانی افزونه &#8206;%1$s&#8207; (%2$d/%3$d)"
 
 #: wp-admin/includes/upgrade.php:89
 msgid "User already exists. Password inherited."
@@ -9875,7 +9838,7 @@ msgstr "این شناسه وجود دارد. رمز به ارث برده شده 
 
 #: wp-admin/includes/upgrade.php:101
 msgid "The password you chose during installation."
-msgstr "رمز عبوری که هنگام نصب انتحاب کرده‌اید."
+msgstr "رمزی که هنگام نصب انتحاب کرده‌اید."
 
 #: wp-admin/includes/update-core.php:1353 wp-admin/includes/class-wp-automatic-updater.php:379 wp-admin/update-core.php:576
 msgid "WordPress updated successfully"
@@ -10178,7 +10141,7 @@ msgstr "ویرایش افزونه‌ها"
 
 #: wp-admin/includes/file.php:463 wp-admin/plugin-editor.php:108
 msgid "No such file exists! Double check the name and try again."
-msgstr "چنین پرونده‌ای پیدا نشد! نام را دوباره چک و کنید و بار دیگر تلاش کنید."
+msgstr "چنین پرونده‌ای ناموجود است! نام را بررسی و دوباره تلاش کنید."
 
 #: wp-admin/includes/ajax-actions.php:4447 wp-admin/theme-editor.php:189 wp-admin/plugin-editor.php:183
 msgid "File edited successfully."
@@ -10191,7 +10154,7 @@ msgstr "مستندات:"
 #: wp-admin/includes/class-wp-plugin-install-list-table.php:108
 msgctxt "Plugin Installer"
 msgid "Popular"
-msgstr "بیشتر استفاده‌شده"
+msgstr "محبوب‌ها"
 
 #: wp-admin/plugins.php:349
 msgid "Are you sure you wish to delete these files?"
@@ -10227,7 +10190,7 @@ msgstr "افزونه‌های انتخاب شده <strong>غیرفعال شدن�
 
 #: wp-admin/theme-editor.php:275
 msgid "Oops, no such file exists! Double check the name and try again, merci."
-msgstr "اووه، چنین پرونده‌ای پیدا نشد! نام را دوباره چک و کنید و بار دیگر تلاش کنید، متشکرم."
+msgstr "اووه، چنین پرونده‌ای ناموجود است! نام را بررسی و دوباره تلاش کنید."
 
 #: wp-admin/themes.php:212
 msgid "Theme deleted."
@@ -10239,7 +10202,7 @@ msgstr "نگارش بومی شده شامل ترجمهٔ عبارات و دیگ�
 
 #: wp-admin/update-core.php:293 wp-admin/update-core.php:300
 msgid "Compatibility with WordPress %1$s: 100%% (according to its author)"
-msgstr "سازگاری با وردپرس %1$s: ۱۰۰٪ (مبنی بر گفته‌های نویسنده)"
+msgstr "سازگاری با وردپرس %1$s: ۱۰۰٪ (بر اساس ادعای نویسنده)"
 
 #: wp-admin/update.php:87
 msgid "Plugin reactivated successfully."
@@ -10725,7 +10688,7 @@ msgstr "ابزارک‌های در دسترس"
 
 #: wp-admin/includes/theme-install.php:138 wp-admin/theme-install.php:180
 msgid "Feature Filter"
-msgstr "پالایه خصوصیات"
+msgstr "پالایه امکانات"
 
 #: wp-admin/includes/theme-install.php:171
 msgid "Find Themes"
@@ -10993,7 +10956,7 @@ msgstr "ستون‌کناری و مکان ابزارک در آن ستون را �
 
 #: wp-admin/options-reading.php:86
 msgid "A <a href=\"%s\">static page</a> (select below)"
-msgstr "یک <a href=\"%s\">برگه یکتا</a> (از پایین برگزینید)"
+msgstr "یک <a href=\"%s\">برگه ایستا</a> (از پایین برگزینید)"
 
 #. translators: %s: post title
 #: wp-admin/revision.php:93
@@ -11147,7 +11110,7 @@ msgstr "یکی از به‌روزرسانی‌های خودکار وردپرس �
 
 #: wp-admin/includes/update.php:683
 msgid "An automated WordPress update has failed to complete - <a href=\"%s\">please attempt the update again now</a>."
-msgstr "یکی از به‌روزرسانی‌های خودکار وردپرس ناتمام مانده است - <a href=\"%s\">لطفاً دوباره برای به‌روزرسانی تلاش کنید</a>."
+msgstr "یکی از به‌روزرسانی‌های خودکار وردپرس ناتمام مانده است - <a href=\"%s\">برای به‌روزرسانی دوباره تلاش کنید</a>."
 
 #: wp-admin/edit-tags.php:137 wp-admin/options.php:78
 msgid "Sorry, you are not allowed to delete these items."
@@ -11471,7 +11434,7 @@ msgstr "نمی‌توان تصویر جدیدی ساخت."
 
 #: wp-admin/includes/image-edit.php:782
 msgid "Error while saving the scaled image. Please reload the page and try again."
-msgstr "خطایی در ذخیره‌سازی تصویر پیش آمده. لطفاً صفحه را نوسازی و دوباره تلاش کنید."
+msgstr "خطایی در ذخیره‌سازی تصویر پیش آمده است. صفحه را نوسازی و دوباره تلاش کنید."
 
 #: wp-admin/includes/image-edit.php:791
 msgid "Nothing to save, the image has not changed."
@@ -12006,14 +11969,13 @@ msgstr "آخرین دست‌کاری"
 msgid "Bulk Edit"
 msgstr "ویرایش جمعی"
 
-#: wp-admin/includes/class-wp-posts-list-table.php:1574 wp-admin/includes/class-wp-posts-list-table.php:1658 wp-admin/includes/class-wp-posts-list-table.php:1697 wp-admin/includes/class-wp-posts-list-table.php:1737 wp-admin/includes/class-wp-posts-list-table.php:1746 wp-admin/includes/class-wp-posts-list-table.php:1780 wp-admin/includes/class-wp-posts-list-table.php:1801
-#: wp-admin/includes/class-wp-posts-list-table.php:1829
+#: wp-admin/includes/class-wp-posts-list-table.php:1574 wp-admin/includes/class-wp-posts-list-table.php:1658 wp-admin/includes/class-wp-posts-list-table.php:1697 wp-admin/includes/class-wp-posts-list-table.php:1737 wp-admin/includes/class-wp-posts-list-table.php:1746 wp-admin/includes/class-wp-posts-list-table.php:1780 wp-admin/includes/class-wp-posts-list-table.php:1801 wp-admin/includes/class-wp-posts-list-table.php:1829
 msgid "&mdash; No Change &mdash;"
 msgstr "&mdash; بدون تغییر &mdash;"
 
 #: wp-admin/includes/meta-boxes.php:958 wp-admin/includes/class-wp-posts-list-table.php:1701
 msgid "Default Template"
-msgstr "قالب پیش‌فرض"
+msgstr "الگوی پیش‌فرض"
 
 #: wp-admin/includes/class-wp-posts-list-table.php:1765
 msgid "Allow Pings"
@@ -12147,7 +12109,7 @@ msgstr "این ابزارک نیازمند جاواسکریپت است."
 
 #: wp-admin/includes/file.php:25
 msgid "Main Index Template"
-msgstr "قالب صفحه اصلی"
+msgstr "الگوی اندیس اصلی"
 
 #: wp-admin/includes/file.php:56
 msgid "RTL Stylesheet"
@@ -12163,11 +12125,11 @@ msgstr "فرم جست‌وجو"
 
 #: wp-admin/includes/file.php:22
 msgid "404 Template"
-msgstr "قالب خطای ۴۰۴"
+msgstr "الگوی ۴۰۴"
 
 #: wp-admin/includes/file.php:23
 msgid "Links Template"
-msgstr "قالب پیوند‌ها"
+msgstr "الگوی پیوند‌ها"
 
 #: wp-admin/includes/file.php:16
 msgid "Theme Functions"
@@ -12175,31 +12137,31 @@ msgstr "توابع پوسته"
 
 #: wp-admin/includes/file.php:41
 msgid "Attachment Template"
-msgstr "قالب پیوست"
+msgstr "الگوی پیوست"
 
 #: wp-admin/includes/file.php:42
 msgid "Image Attachment Template"
-msgstr "قالب پیوست‌های تصویری"
+msgstr "الگوی پیوست‌های تصویری"
 
 #: wp-admin/includes/file.php:44
 msgid "Audio Attachment Template"
-msgstr "قالب پیوست‌های صوتی"
+msgstr "الگوی پیوست‌های صوتی"
 
 #: wp-admin/includes/file.php:45
 msgid "Application Attachment Template"
-msgstr "قالب پیوست‌های اجرایی"
+msgstr "الگوی پیوست‌های اجرایی"
 
 #: wp-admin/includes/file.php:62
 msgid "Comments Template"
-msgstr "قالب دیدگاه‌ها"
+msgstr "الگوی دیدگاه‌ها"
 
 #: wp-admin/includes/file.php:63
 msgid "Popup Comments Template"
-msgstr "قالب پنجرک دیدگاه‌ها"
+msgstr "الگوی پنجرک دیدگاه‌ها"
 
 #: wp-admin/includes/file.php:757
 msgid "No file was uploaded."
-msgstr "هیچ پرونده‌ای فرستاده نشده."
+msgstr "هیچ پرونده‌ای بارگذاری نشده است."
 
 #: wp-admin/includes/file.php:760
 msgid "Failed to write file to disk."
@@ -12207,7 +12169,7 @@ msgstr "نوشتن پرونده روی دیسک با خطا مواجه شد."
 
 #: wp-admin/includes/file.php:775
 msgid "Invalid form submission."
-msgstr "فرستادن فرم نادرست."
+msgstr "ارسال فرم نامعتبر است."
 
 #: wp-admin/includes/import.php:85 wp-admin/includes/file.php:794
 msgid "File is empty. Please upload something more substantial. This error could also be caused by uploads being disabled in your php.ini or by post_max_size being defined as smaller than upload_max_filesize in php.ini."
@@ -12215,15 +12177,15 @@ msgstr "پرونده خالی است. لطفاً پرونده‌ای قابل ق
 
 #: wp-admin/includes/file.php:785
 msgid "Specified file failed upload test."
-msgstr "آزمایش بارگذاری پرونده با شکست روبه‌رو شد"
+msgstr "آزمایش بارگذاری پرونده مشخص ناموفق بود."
 
 #: wp-admin/includes/file.php:863
 msgid "The uploaded file could not be moved to %s."
-msgstr "پرونده فرستاده شده نمی‌تواند به %s برود."
+msgstr "پرونده بارگذاری‌شده نمی‌تواند به %s انتقال یابد."
 
 #: wp-admin/includes/file.php:979
 msgid "Invalid URL Provided."
-msgstr "نشانی نامعتبر است."
+msgstr "نشانی ارائه‌شده نامعتبر است."
 
 #: wp-admin/includes/file.php:986
 #, fuzzy
@@ -12232,7 +12194,7 @@ msgstr "نمی‌توان پروندهٔ موقتی ساخت."
 
 #: wp-admin/includes/file.php:1429 wp-admin/includes/file.php:1564
 msgid "Incompatible Archive."
-msgstr "بایگانی ناسازگار."
+msgstr "بایگانی ناسازگار است."
 
 #: wp-admin/includes/file.php:1436 wp-admin/includes/file.php:1500
 msgid "Could not retrieve file from archive."
@@ -12249,7 +12211,7 @@ msgstr "نمی‌توان پرونده را کپی کرد."
 
 #: wp-admin/includes/file.php:1568
 msgid "Empty archive."
-msgstr "بایگانی خالی."
+msgstr "بایگانی خالی است."
 
 #: wp-admin/includes/file.php:2164
 msgid "Proceed"
@@ -12500,11 +12462,11 @@ msgstr "نام دستهٔ تازه"
 
 #: wp-admin/includes/meta-boxes.php:1119
 msgid "<code>_top</code> &mdash; current window or tab, with no frames."
-msgstr "<code>_top</code> - در همین پنجره یا زبانه."
+msgstr "<code>_top</code> &mdash; در همین پنجره یا زبانه، بدون فریم."
 
 #: wp-admin/includes/meta-boxes.php:1122
 msgid "<code>_none</code> &mdash; same window or tab."
-msgstr "<code>_none</code> - پنجره یا زبانهٔ مشابه."
+msgstr "<code>_none</code> &mdash; پنجره یا زبانهٔ مشابه."
 
 #: wp-admin/includes/plugin-install.php:321 wp-admin/includes/plugin-install.php:324
 msgid "Search Plugins"
@@ -12521,7 +12483,7 @@ msgstr "آخرین نگارش نصب شده است"
 
 #: wp-admin/includes/plugin-install.php:646
 msgid "Requires WordPress Version:"
-msgstr "به‌این نگارش وردپرس نیازمند است:"
+msgstr "نیازمند وردپرس:"
 
 #: wp-admin/includes/plugin.php:704
 msgid "The plugin generated unexpected output."
@@ -12697,7 +12659,7 @@ msgstr "به‌روزرسانی تنظیمات گالری"
 
 #: wp-admin/includes/class-wp-plugin-install-list-table.php:726 wp-admin/includes/plugin-install.php:638
 msgid "Last Updated:"
-msgstr "آخرین به‌روزرسانی در:"
+msgstr "به‌روزرسانی در:"
 
 #: wp-admin/includes/plugin-install.php:832
 msgid "Install Update Now"
@@ -12750,7 +12712,7 @@ msgstr "با عرض پوزش، شما اجازهٔ حذف این مورد را �
 
 #: wp-admin/includes/file.php:43
 msgid "Video Attachment Template"
-msgstr "قالب پیوست‌های ویدئویی"
+msgstr "الگوی پیوست‌های ویدئویی"
 
 #: wp-admin/includes/class-wp-comments-list-table.php:415
 msgid "Empty Spam"
@@ -12770,7 +12732,7 @@ msgstr "هنگامی‌که روی دکمه زیر کلیک کنید وردپر�
 
 #: wp-admin/includes/class-wp-filesystem-ftpsockets.php:61 wp-admin/includes/class-wp-filesystem-ftpext.php:67
 msgid "FTP password is required"
-msgstr "رمز عبور FTP لازم است"
+msgstr "رمز FTP الزامی است"
 
 #: wp-admin/includes/theme.php:61 wp-admin/includes/class-wp-automatic-updater.php:366 wp-admin/includes/class-wp-upgrader.php:150 wp-admin/includes/file.php:1353 wp-admin/includes/plugin.php:912
 msgid "Could not access filesystem."
