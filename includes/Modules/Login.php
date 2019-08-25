@@ -395,16 +395,18 @@ class Login extends gNetwork\Module
 		$this->filter( 'login_headerurl', 1, 1000 );
 		$this->filter( 'login_headertext', 1, 1000 );
 
-		if ( $this->options['login_remember'] )
-			$this->filter( 'login_footer', 1, 99, 'remember' );
-
 		$this->action( 'login_header', 0, 1 );
 		$this->action( 'login_head' );
 		$this->filter( 'login_title', 2 );
 		$this->filter( 'login_body_class', 2, 99 );
 
+		$this->filter( 'login_footer', 1, 9, 'logged_in' );
+
 		if ( ! GNETWORK_DISABLE_CREDITS && $this->options['login_credits'] )
 			$this->filter( 'login_footer', 1, 10, 'badge' );
+
+		if ( $this->options['login_remember'] )
+			$this->filter( 'login_footer', 1, 999, 'remember' );
 	}
 
 	public function login_header()
@@ -618,14 +620,25 @@ class Login extends gNetwork\Module
 				esc_url( wp_lostpassword_url() ) );
 	}
 
-	public function login_footer_badge()
+	public function login_footer_logged_in()
 	{
-		global $interim_login;
-
-		if ( $interim_login )
+		if ( ! empty( $GLOBALS['interim_login'] ) )
 			return;
 
-		echo '<div class="gnetwork-wrap -footer">';
+		if ( ! is_user_logged_in() )
+			return;
+
+		echo '<div class="gnetwork-wrap -footer -already">';
+			_ex( 'You are already logged in.', 'Modules: Login', 'gnetwork' );
+		echo '</div>';
+	}
+
+	public function login_footer_badge()
+	{
+		if ( ! empty( $GLOBALS['interim_login'] ) )
+			return;
+
+		echo '<div class="gnetwork-wrap -footer -badge">';
 
 			if ( $credits = WordPress::customFile( 'credits-badge.png' ) )
 				echo HTML::img( $credits );
