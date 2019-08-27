@@ -15,6 +15,9 @@
 /assets/packages/jquery
 /assets/vendor
 
+*.deps.json
+*.js.map
+
 node_modules
 
 composer.lock

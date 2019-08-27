@@ -47,7 +47,8 @@
     "ziggeo/simple-box-integration": "^0.0.3",
     "knplabs/github-api": "^2.11",
     "php-http/guzzle6-adapter": "^1.1",
-    "tecnickcom/tc-lib-barcode": "^1.15"
+    "tecnickcom/tc-lib-barcode": "^1.15",
+    "kub-at/php-simple-html-dom-parser": "^1.9"
   },
   "config": {
     "vendor-dir": "assets/vendor",
