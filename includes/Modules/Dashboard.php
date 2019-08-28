@@ -502,7 +502,7 @@ class Dashboard extends gNetwork\Module
 			'title' => sprintf( HTML::wrapLTR( '%s MB/%s MB' ), Number::format( number_format( round( $used, 2 ), 2 ) ), Number::format( $quota ) ),
 			'class' => 'storage'.( $percent >= 70 ? ' warning' : '' ),
 		/* translators: %s: space used precent */
-		], sprintf( _x( '%s Space Used', 'Modules: Dashboard: Space Quota', 'gnetwork' ), Number::format( $percent.'%' ) ) );
+	], sprintf( _x( '%s Space Used', 'Modules: Dashboard: Space Quota', 'gnetwork' ), apply_filters( 'number_format_i18n', $percent.'%' ) ) );
 
 		return $items;
 	}
