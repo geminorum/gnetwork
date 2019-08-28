@@ -402,7 +402,15 @@ class Locale extends gNetwork\Module
 		if ( $current == $base )
 			return $current;
 
+		if ( in_array( WordPress::pageNow(), [
+			'theme-editor.php',
+			'plugin-editor.php',
+		] ) )
+			return $base;
+
 		$list = $this->filters( 'whitelist', [
+			'wp_beta_tester'             => 'page',
+			'ssl-insecure-content-fixer' => 'page',
 
 			// [BackWPup](https://backwpup.com/)
 			'backwpup'         => 'page',
