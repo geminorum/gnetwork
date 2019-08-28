@@ -26,7 +26,9 @@ class Media extends gNetwork\Module
 
 	protected function setup_actions()
 	{
+		$this->action( 'init' );
 		$this->action( 'init', 0, 999, 'late' );
+
 		$this->filter( 'upload_mimes' );
 		// $this->filter( 'wp_check_filetype_and_ext', 4, 12 );
 
@@ -122,6 +124,17 @@ class Media extends gNetwork\Module
 		echo HTML::tableCode( wp_count_attachments() );
 	}
 
+	public function init()
+	{
+		// support for taxonomy sizes
+		// must be after object_sizes filter: `wp_generate_attachment_metadata_posttype`
+		$this->filter( 'wp_generate_attachment_metadata', 2, 12, 'taxonomy' );
+
+		// fires after images attached to terms
+		// WARNING: no prefix is not a good idea!
+		$this->action( 'clean_term_attachment_cache' );
+	}
+
 	public function init_late()
 	{
 		if ( $this->filters( 'object_sizes', GNETWORK_MEDIA_OBJECT_SIZES, get_current_blog_id() ) ) {
@@ -138,14 +151,6 @@ class Media extends gNetwork\Module
 			$this->filter( 'image_downsize', 3, 5 );
 			$this->action( 'delete_attachment' );
 		}
-
-		// support for taxonomy sizes
-		// must be after object_sizes filter: `wp_generate_attachment_metadata_posttype`
-		$this->filter( 'wp_generate_attachment_metadata', 2, 12, 'taxonomy' );
-
-		// fires after images attached to terms
-		// WARNING: no prefix is not a good idea!
-		$this->action( 'clean_term_attachment_cache' );
 	}
 
 	public function current_screen( $screen )
