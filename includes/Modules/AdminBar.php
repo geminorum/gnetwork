@@ -35,7 +35,6 @@ class AdminBar extends gNetwork\Module
 		if ( WordPress::mustRegisterUI() ) {
 
 			$this->setup_adminbar();
-			$this->wp_enqueue_style();
 
 			$this->action( 'sidebar_admin_setup' );
 			$this->action( 'load-toplevel_page_wpcf7' );
@@ -43,11 +42,11 @@ class AdminBar extends gNetwork\Module
 		} else if ( $this->show_adminbar() ) {
 
 			$this->setup_adminbar();
-			add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_style' ] );
 
 			$this->filter( 'shortcode_atts_wpcf7', 4 );
 
 		} else {
+
 			show_admin_bar( FALSE );
 		}
 	}
@@ -146,12 +145,6 @@ class AdminBar extends gNetwork\Module
 		}
 
 		return $this->show_adminbar = is_admin_bar_showing();
-	}
-
-	public function wp_enqueue_style()
-	{
-		if ( file_exists( WP_CONTENT_DIR.'/adminbar.css' ) )
-			wp_enqueue_style( static::BASE.'-adminbar', WP_CONTENT_URL.'/adminbar.css', [ 'admin-bar' ], GNETWORK_VERSION );
 	}
 
 	// fires early before the Widgets administration screen loads, after scripts are enqueued.
