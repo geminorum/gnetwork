@@ -41,7 +41,7 @@ class HTML extends Base
 
 	public static function img( $src, $class = '', $alt = '' )
 	{
-		return '<img src="'.$src.'" class="'.$class.'" alt="'.$alt.'" />';
+		return $src ? '<img src="'.$src.'" class="'.self::prepClass( $class ).'" alt="'.$alt.'" />' : '';
 	}
 
 	public static function h1( $html, $class = FALSE, $link = FALSE )
@@ -80,8 +80,8 @@ class HTML extends Base
 		$html = Text::wordWrap( $html );
 
 		echo $block
-			? '<p class="description -description '.$class.'">'.$html.'</p>'
-			: '<span class="description -description '.$class.'">'.$html.'</span>';
+			? '<p class="'.self::prepClass( 'description', '-description', $class ).'">'.$html.'</p>'
+			: '<span class="'.self::prepClass( 'description', '-description', $class ).'">'.$html.'</span>';
 	}
 
 	public static function label( $input, $for = FALSE, $wrap = 'p' )
@@ -114,8 +114,12 @@ class HTML extends Base
 
 	public static function wrap( $html, $class = '', $block = TRUE )
 	{
-		if ( ! $html ) return '';
-		return $block ? '<div class="-wrap '.$class.'">'.$html.'</div>' : '<span class="-wrap '.$class.'">'.$html.'</span>';
+		if ( ! $html )
+			return '';
+
+		return $block
+			? '<div class="'.self::prepClass( '-wrap', $class ).'">'.$html.'</div>'
+			: '<span class="'.self::prepClass( '-wrap', $class ).'">'.$html.'</span>';
 	}
 
 	public static function wrapLTR( $content )
@@ -202,12 +206,14 @@ class HTML extends Base
 		return array_unique( array_filter( $classes, 'trim' ) );
 	}
 
-	public static function prepClass( $classes )
+	public static function prepClass()
 	{
-		if ( TRUE === $classes )
+		$classes = func_get_args();
+
+		if ( TRUE === $classes[0] )
 			return '';
 
-		return implode( ' ', array_unique( array_filter( self::attrClass( $classes ), array( __CLASS__, 'sanitizeClass' ) ) ) );
+		return implode( ' ', array_unique( array_filter( call_user_func_array( array( __CLASS__, 'attrClass' ), $classes ), array( __CLASS__, 'sanitizeClass' ) ) ) );
 	}
 
 	private static function _tag_open( $tag, $atts, $content = TRUE )
