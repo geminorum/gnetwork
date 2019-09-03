@@ -835,14 +835,12 @@ class Debug extends gNetwork\Module
 			else
 				echo 'dir="'.$text_direction.'"';
 
-			echo '><head>';
-			echo '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />';
-			echo '<meta name="viewport" content="width=device-width">';
+			echo '><head>'."\n";
+			echo '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />'."\n";
+			echo '<meta name="viewport" content="width=device-width">'."\n";
+			echo '<meta name="robots" content="noindex,nofollow" />'."\n";
 
-			if ( function_exists( 'wp_no_robots' ) )
-				wp_no_robots();
-
-			echo '<title>'.$title.'</title>';
+			echo '<title>'.$title.'</title>'."\n";
 
 			Utilities::linkStyleSheet( 'die.all' );
 			Utilities::customStyleSheet( 'die.css' );

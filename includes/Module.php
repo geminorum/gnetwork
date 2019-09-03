@@ -1265,22 +1265,39 @@ class Module extends Core\Base
 	protected function wrap( $html, $class = '', $block = TRUE, $id = FALSE, $hide = FALSE )
 	{
 		return $block
-			? '<div class="-wrap '.$this->base.'-wrap -'.$this->key.' '.$class.'"'.( $id ? ' id="'.$id.'"' : '' ).( $hide ? ' style="display:none"' : '' ).'>'.$html.'</div>'
-			: '<span class="-wrap '.$this->base.'-wrap -'.$this->key.' '.$class.'"'.( $id ? ' id="'.$id.'"' : '' ).( $hide ? ' style="display:none"' : '' ).'>'.$html.'</span>';
+			? '<div class="'.HTML::prepClass( '-wrap', $this->base.'-wrap', '-'.$this->key, $class ).'"'
+				.( $id ? ' id="'.$id.'"' : '' )
+				.( $hide ? ' style="display:none"' : '' )
+				.'>'.$html.'</div>'
+
+			: '<span class="'.HTML::prepClass( '-wrap', $this->base.'-wrap', '-'.$this->key, $class ).'"'
+				.( $id ? ' id="'.$id.'"' : '' )
+				.( $hide ? ' style="display:none"' : '' )
+				.'>'.$html.'</span>';
 	}
 
 	protected function wrap_open( $class = '', $block = TRUE, $id = FALSE, $hide = FALSE )
 	{
 		return $block
-			? '<div class="-wrap '.$this->base.'-wrap -'.$this->key.' '.$class.'"'.( $id ? ' id="'.$id.'"' : '' ).( $hide ? ' style="display:none"' : '' ).'>'
-			: '<span class="-wrap '.$this->base.'-wrap -'.$this->key.' '.$class.'"'.( $id ? ' id="'.$id.'"' : '' ).( $hide ? ' style="display:none"' : '' ).'>';
+			? '<div class="'.HTML::prepClass( '-wrap', $this->base.'-wrap', '-'.$this->key, $class ).'"'
+				.( $id ? ' id="'.$id.'"' : '' )
+				.( $hide ? ' style="display:none"' : '' ).'>'
+
+			: '<span class="'.HTML::prepClass( '-wrap', $this->base.'-wrap', '-'.$this->key, $class ).'"'
+				.( $id ? ' id="'.$id.'"' : '' )
+				.( $hide ? ' style="display:none"' : '' ).'>';
 	}
 
 	protected function wrap_open_buttons( $class = '', $block = TRUE, $id = FALSE, $hide = FALSE )
 	{
 		return $block
-			? '<p class="submit '.$this->base.'-wrap -wrap-buttons -'.$this->key.' '.$class.'"'.( $id ? ' id="'.$id.'"' : '' ).( $hide ? ' style="display:none"' : '' ).'>'
-			: '<span class="submit '.$this->base.'-wrap -wrap-buttons -'.$this->key.' '.$class.'"'.( $id ? ' id="'.$id.'"' : '' ).( $hide ? ' style="display:none"' : '' ).'>';
+			? '<p class="'.HTML::prepClass( 'submit', $this->base.'-wrap', '-wrap-buttons', '-'.$this->key, $class ).'"'
+				.( $id ? ' id="'.$id.'"' : '' )
+				.( $hide ? ' style="display:none"' : '' ).'>'
+
+			: '<span class="'.HTML::prepClass( 'submit', $this->base.'-wrap', '-wrap-buttons', '-'.$this->key, $class ).'"'
+				.( $id ? ' id="'.$id.'"' : '' )
+				.( $hide ? ' style="display:none"' : '' ).'>';
 	}
 
 	// checks to bail early if metabox/widget is hidden
@@ -1329,7 +1346,7 @@ class Module extends Core\Base
 		], HTML::getDashicon( $icon ) );
 	}
 
-	protected function register_block_type( $name, $extra = [] )
+	protected function register_blocktype( $name, $extra = [] )
 	{
 		if ( ! function_exists( 'register_block_type' ) )
 			return FALSE;

@@ -350,12 +350,12 @@ class Dashboard extends gNetwork\Module
 					HTML::escape( $user->display_name ),
 					HTML::escape( Text::truncateString( $user->user_email, 32 ) ),
 					HTML::escape( Utilities::dateFormat( $registered, 'monthday' ) ),
-					HTML::escape( sprintf(
+					sprintf(
 						/* translators: %1$s: human time diff, %2$s: registred date */
 						_x( '%1$s ago &mdash; %2$s', 'Modules: Dashboard: Signups', 'gnetwork' ),
 						human_time_diff( $registered, $time ),
 						Utilities::dateFormat( $registered )
-					) ),
+					),
 					get_edit_user_link( $user->ID ),
 					'mailto:'.HTML::escape( $user->user_email ),
 					$user->user_login,
@@ -511,9 +511,9 @@ class Dashboard extends gNetwork\Module
 		$items[] = HTML::tag( 'a', [
 			'href'  => admin_url( 'upload.php' ),
 			'title' => sprintf( HTML::wrapLTR( '%s MB/%s MB' ), Number::format( number_format( round( $used, 2 ), 2 ) ), Number::format( $quota ) ),
-			'class' => 'storage'.( $percent >= 70 ? ' warning' : '' ),
+			'class' => '-storage'.( $percent >= 70 ? ' warning' : '' ),
 		/* translators: %s: space used precent */
-	], sprintf( _x( '%s Space Used', 'Modules: Dashboard: Space Quota', 'gnetwork' ), apply_filters( 'number_format_i18n', $percent.'%' ) ) );
+		], sprintf( _x( '%s Space Used', 'Modules: Dashboard: Space Quota', 'gnetwork' ), apply_filters( 'number_format_i18n', $percent.'%' ) ) );
 
 		return $items;
 	}
