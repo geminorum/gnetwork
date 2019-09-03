@@ -75,6 +75,9 @@ class Dashboard extends gNetwork\Module
 
 		$this->action( 'activity_box_end', 0, 4 );
 
+			if ( current_user_can( 'update_core' ) )
+			$this->filter_module( 'dashboard', 'pointers', 1, 3, 'update' );
+
 		if ( current_user_can( 'manage_options' ) )
 			$this->filter_module( 'dashboard', 'pointers', 1, 4, 'blog_public' );
 
@@ -271,14 +274,7 @@ class Dashboard extends gNetwork\Module
 		}
 
 		if ( $html )
-			$html = '<ul>'.$html.'</ul>';
-
-		// FIXME: add better
-		// FIXME: move to pointers
-		// update_right_now_message();
-
-		if ( $html )
-			echo '<div class="main">'.$html.'</div>';
+			echo '<div class="main"><ul>'.$html.'</ul></div>';
 		else
 			HTML::desc( _x( 'No Content available!', 'Modules: Dashboard: Right Now', 'gnetwork' ), FALSE, '-empty' );
 
@@ -478,6 +474,23 @@ class Dashboard extends gNetwork\Module
 		}
 
 		echo '</div>';
+	}
+
+	// @REF: `update_right_now_message()`
+	public function dashboard_pointers_update( $items )
+	{
+		$preferred = get_preferred_from_update_core();
+
+		if ( ! isset( $preferred->response ) || 'upgrade' != $preferred->response )
+			return $items;
+
+		$items[] = HTML::tag( 'a', [
+			'href'  => network_admin_url( 'update-core.php' ),
+			'title' => sprintf( __( 'Update to %s' ), $preferred->current ? $preferred->current : __( 'Latest' ) ),
+			'class' => '-privacy',
+		], _x( 'Update WordPress', 'Modules: Dashboard: Update Core', 'gnetwork' ) );
+
+		return $items;
 	}
 
 	// checks if search engines are asked not to index this site
