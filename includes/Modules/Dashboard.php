@@ -75,6 +75,9 @@ class Dashboard extends gNetwork\Module
 
 		$this->action( 'activity_box_end', 0, 4 );
 
+		if ( current_user_can( 'manage_options' ) )
+			$this->filter_module( 'dashboard', 'pointers', 1, 4, 'blog_public' );
+
 		if ( ! is_multisite() )
 			return;
 
@@ -273,17 +276,6 @@ class Dashboard extends gNetwork\Module
 		// FIXME: add better
 		// FIXME: move to pointers
 		// update_right_now_message();
-
-		// FIXME: move to pointers
-		// check if search engines are asked not to index this site.
-		if ( current_user_can( 'manage_options' ) && '0' == get_option( 'blog_public' ) ) {
-
-			$title   = apply_filters( 'privacy_on_link_title', '' );
-			$content = apply_filters( 'privacy_on_link_text', __( 'Search Engines Discouraged' ) );
-			$attr    = '' === $title ? '' : " title='$title'";
-
-			$html.= "<p class='-privacy-notice'><a href='options-reading.php'$attr>$content</a></p>";
-		}
 
 		if ( $html )
 			echo '<div class="main">'.$html.'</div>';
@@ -486,6 +478,25 @@ class Dashboard extends gNetwork\Module
 		}
 
 		echo '</div>';
+	}
+
+	// checks if search engines are asked not to index this site
+	public function dashboard_pointers_blog_public( $items )
+	{
+		if ( '0' != get_option( 'blog_public' ) )
+			return $items;
+
+		$title   = apply_filters( 'privacy_on_link_title', '' );
+		$content = apply_filters( 'privacy_on_link_text', _x( 'Search Engines Discouraged', 'Modules: Dashboard: Blog Public', 'gnetwork' ) );
+
+		if ( $content )
+			$items[] = HTML::tag( 'a', [
+				'href'  => admin_url( 'options-reading.php' ),
+				'title' => $title ?: FALSE,
+				'class' => '-privacy',
+			], $content );
+
+		return $items;
 	}
 
 	public function dashboard_pointers_quota( $items )
