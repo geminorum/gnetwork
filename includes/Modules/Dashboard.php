@@ -62,16 +62,11 @@ class Dashboard extends gNetwork\Module
 
 			add_meta_box( $this->classs( 'right-now' ),
 				_x( 'At a Glance', 'Modules: Dashboard: Widget Title', 'gnetwork' ),
-				[ $this, 'widget_right_now' ], $screen, 'normal', 'high' );
+				[ $this, 'render_widget_right_now' ], $screen, 'normal', 'high' );
 		}
 
-		if ( has_filter( $this->hook( 'external_feeds' ) ) ) {
-			wp_add_dashboard_widget(
-				$this->classs( 'external-feed' ),
-				_x( 'External Feed', 'Modules: Dashboard: Widget Title', 'gnetwork' ),
-				[ $this, 'widget_external_feed' ]
-			);
-		}
+		if ( has_filter( $this->hook( 'external_feeds' ) ) )
+			$this->add_dashboard_widget( 'external-feed', _x( 'External Feed', 'Modules: Dashboard: Widget Title', 'gnetwork' ) );
 
 		$this->action( 'activity_box_end', 0, 4 );
 
@@ -95,45 +90,30 @@ class Dashboard extends gNetwork\Module
 		remove_meta_box( 'dashboard_primary', NULL, 'side' );
 
 		if ( gNetwork()->option( 'dashboard_sites', 'user' ) )
-			wp_add_dashboard_widget(
-				$this->classs( 'user-sites' ),
-				_x( 'Your Sites', 'Modules: Dashboard: Widget Title', 'gnetwork' ),
-				[ $this, 'widget_user_sites' ]
-			);
+			$this->add_dashboard_widget( 'user-sites', _x( 'Your Sites', 'Modules: Dashboard: Widget Title', 'gnetwork' ) );
 
 		if ( gNetwork()->option( 'tos_display', 'user' ) )
-			wp_add_dashboard_widget(
-				$this->classs( 'tos' ),
-				gNetwork()->option( 'tos_title', 'user',
-					_x( 'Terms of Service', 'Modules: Dashboard: Widget Title', 'gnetwork' )
-				), [ $this, 'widget_tos' ]
-			);
+			$this->add_dashboard_widget( 'tos', gNetwork()->option( 'tos_title', 'user',
+				_x( 'Terms of Service', 'Modules: Dashboard: Widget Title', 'gnetwork' )
+			) );
 
 		if ( GNETWORK_NETWORK_USERMENU && gNetwork()->option( 'dashboard_menu', 'user' ) )
 			add_meta_box( $this->classs( 'usermenu' ),
 				_x( 'Your Navigation', 'Modules: Dashboard: Widget Title', 'gnetwork' ),
-				[ $this, 'widget_usermenu' ], NULL, 'normal', 'high' );
+				[ $this, 'render_widget_usermenu' ], NULL, 'normal', 'high' );
 	}
 
 	public function wp_network_dashboard_setup()
 	{
 		remove_meta_box( 'dashboard_primary', NULL, 'side' );
 
-		wp_add_dashboard_widget(
-			$this->classs( 'signups' ),
-			_x( 'Latest Signups', 'Modules: Dashboard: Widget Title', 'gnetwork' ),
-			[ $this, 'widget_signups' ]
-		);
+		$this->add_dashboard_widget( 'signups', _x( 'Latest Signups', 'Modules: Dashboard: Widget Title', 'gnetwork' ) );
 
 		if ( gNetwork()->option( 'login', 'store_lastlogin', TRUE ) )
-			wp_add_dashboard_widget(
-				$this->classs( 'logins' ),
-				_x( 'Latest Logins', 'Modules: Dashboard: Widget Title', 'gnetwork' ),
-				[ $this, 'widget_logins' ]
-			);
+			$this->add_dashboard_widget( 'logins', _x( 'Latest Logins', 'Modules: Dashboard: Widget Title', 'gnetwork' ) );
 	}
 
-	public function widget_external_feed()
+	public function render_widget_external_feed()
 	{
 		if ( $this->check_hidden_metabox( 'external-feed' ) )
 			return;
@@ -170,7 +150,7 @@ class Dashboard extends gNetwork\Module
 		wp_die();
 	}
 
-	public function widget_tos()
+	public function render_widget_tos()
 	{
 		echo '<div class="gnetwork-admin-wrap-widget -user-tos">';
 			echo wpautop( gNetwork()->option( 'tos_text', 'user', gNetwork()->na() ) );
@@ -178,7 +158,7 @@ class Dashboard extends gNetwork\Module
 	}
 
 	// FIXME: needs better styling
-	public function widget_usermenu()
+	public function render_widget_usermenu()
 	{
 		if ( $this->check_hidden_metabox( 'usermenu' ) )
 			return;
@@ -193,7 +173,7 @@ class Dashboard extends gNetwork\Module
 			HTML::desc( _x( '&#8220;Not all those who wander are lost!&#8221;', 'Modules: Dashboard: User Menu', 'gnetwork' ), FALSE, '-empty' );
 	}
 
-	public function widget_user_sites()
+	public function render_widget_user_sites()
 	{
 		if ( $this->check_hidden_metabox( 'user-sites' ) )
 			return;
@@ -210,7 +190,7 @@ class Dashboard extends gNetwork\Module
 		echo '</div>';
 	}
 
-	public function widget_right_now()
+	public function render_widget_right_now()
 	{
 		// wrap to use core styles
 		echo '<div id="dashboard_right_now" class="-core-styles">';
@@ -289,7 +269,7 @@ class Dashboard extends gNetwork\Module
 		echo '</div>';
 	}
 
-	public function widget_signups()
+	public function render_widget_signups()
 	{
 		if ( $this->check_hidden_metabox( 'signups' ) )
 			return;
@@ -400,7 +380,7 @@ class Dashboard extends gNetwork\Module
 		echo '</div>';
 	}
 
-	public function widget_logins()
+	public function render_widget_logins()
 	{
 		if ( $this->check_hidden_metabox( 'logins' ) )
 			return;

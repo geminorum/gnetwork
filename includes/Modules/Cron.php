@@ -189,16 +189,8 @@ class Cron extends gNetwork\Module
 
 	public function wp_dashboard_setup()
 	{
-		if ( WordPress::cuc( $this->options['dashboard_accesscap'] ) ) {
-
-			wp_add_dashboard_widget(
-				$this->classs( 'dashboard' ),
-				_x( 'WP-Cron Status Check', 'Modules: CRON: Widget Title', 'gnetwork' ),
-				[ $this, 'widget_status_check' ]
-			);
-
+		if ( $this->add_dashboard_widget( 'status-check', _x( 'WP-Cron Status Check', 'Modules: CRON: Widget Title', 'gnetwork' ) ) )
 			Scripts::enqueueScript( 'admin.cron.statuscheck' );
-		}
 	}
 
 	public function activity_box_end()
@@ -364,7 +356,7 @@ class Cron extends gNetwork\Module
 		return $items;
 	}
 
-	public function widget_status_check()
+	public function render_widget_status_check()
 	{
 		HTML::desc( $this->options['dashboard_intro'] );
 

@@ -1328,6 +1328,53 @@ class Module extends Core\Base
 		return TRUE;
 	}
 
+	protected function metabox_titleActionRefresh( $hook )
+	{
+		$html = ' <span class="postbox-title-action"><a href="'.esc_url( add_query_arg( 'flush', '' ) ).'"';
+		$html.= ' title="'._x( 'Click to refresh the content', 'Module Core: Title Action', 'gnetwork' ).'">';
+		$html.= _x( 'Refresh', 'Module Core: Title Action', 'gnetwork' ).'</a></span>';
+
+		return $html;
+	}
+
+	protected function metabox_titleActionInfo( $hook )
+	{
+		if ( ! method_exists( $this, 'render_widget_'.$hook.'_info' ) )
+			return '';
+
+		if ( ! $info = call_user_func( [ $this, 'render_widget_'.$hook.'_info' ] ) )
+			return '';
+
+		$html = ' <span class="postbox-title-action" data-tooltip="'.$info.'"';
+		$html.= ' data-tooltip-length="xlarge" data-tooltip-pos="'.( HTML::rtl() ? 'down-right' : 'down-left' ).'">';
+		$html.= HTML::getDashicon( 'info' ).'</span>';
+
+		return $html;
+	}
+
+	// @REF: `wp_add_dashboard_widget()`
+	protected function add_dashboard_widget( $name, $title, $action = FALSE, $option_key = 'dashboard_accesscap' )
+	{
+		if ( array_key_exists( $option_key, $this->options )
+			&& ! WordPress::cuc( $this->options[$option_key] ) )
+				return FALSE;
+
+		$hook     = self::sanitize_hook( $name );
+		$args     = [ '__widget_basename' => $title ]; // passing title without extra markup
+		$context  = 'normal';
+		$priority = 'default';
+
+		switch ( $action ) {
+			case 'refresh': $title.= $this->metabox_titleActionRefresh( $hook ); break;
+			case 'info'   : $title.= $this->metabox_titleActionInfo( $hook );    break;
+		}
+
+		// wp_add_dashboard_widget( $this->classs( $name ), $title, [ $this, 'render_widget_'.$hook ] );
+		add_meta_box( $this->classs( $name ), $title, [ $this, 'render_widget_'.$hook ], NULL, $context, $priority, $args );
+
+		return TRUE;
+	}
+
 	// DEFAULT FILTER
 	public function dashboard_pointers_providers( $items )
 	{

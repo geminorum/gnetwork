@@ -174,17 +174,11 @@ class Media extends gNetwork\Module
 
 	public function wp_dashboard_setup()
 	{
-		if ( WordPress::cuc( $this->options['dashboard_accesscap'] )
-			&& current_user_can( 'upload_files' ) ) {
+		if ( ! current_user_can( 'upload_files' ) )
+			return;
 
-			wp_add_dashboard_widget(
-				$this->classs( 'dashboard' ),
-				_x( 'Large File Uploader', 'Modules: Media: Widget Title', 'gnetwork' ),
-				[ $this, 'widget_uploader' ]
-			);
-
+		if ( $this->add_dashboard_widget( 'uploader', _x( 'Large File Uploader', 'Modules: Media: Widget Title', 'gnetwork' ) ) )
 			Scripts::enqueueScript( 'admin.media.uploader' );
-		}
 	}
 
 	public function post_plupload_upload_ui()
@@ -1168,7 +1162,7 @@ class Media extends gNetwork\Module
 
 	// @REF: https://github.com/deliciousbrains/wp-dbi-file-uploader
 	// @REF: https://deliciousbrains.com/?p=26646
-	public function widget_uploader()
+	public function render_widget_uploader()
 	{
 		HTML::desc( $this->options['dashboard_intro'] );
 

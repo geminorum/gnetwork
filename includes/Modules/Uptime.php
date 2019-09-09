@@ -76,15 +76,10 @@ class Uptime extends gNetwork\Module
 
 	public function wp_dashboard_setup()
 	{
-		if ( WordPress::cuc( $this->options['dashboard_accesscap'] ) )
-			wp_add_dashboard_widget(
-				$this->classs( 'dashboard' ),
-				_x( 'Uptime Monitor', 'Modules: Uptime: Widget Title', 'gnetwork' ),
-				[ $this, 'widget_uptimerobot' ]
-			);
+		$this->add_dashboard_widget( 'dashboard', _x( 'Uptime Monitor', 'Modules: Uptime: Widget Title', 'gnetwork' ) );
 	}
 
-	public function widget_uptimerobot()
+	public function render_widget_dashboard()
 	{
 		if ( $this->check_hidden_metabox( 'dashboard' ) )
 			return;
