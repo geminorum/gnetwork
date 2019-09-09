@@ -31,7 +31,7 @@ class Editor extends gNetwork\Module
 
 		$this->filter( 'mce_css' );
 		$this->action( 'wp_enqueue_editor' );
-		$this->action( 'enqueue_block_assets' );
+		$this->action( 'enqueue_block_assets' ); // or `enqueue_block_editor_assets`
 	}
 
 	public function init_late()
@@ -68,6 +68,7 @@ class Editor extends gNetwork\Module
 		Scripts::enqueueScript( 'editor.all', [ 'jquery', 'media-editor', 'underscore' ] );
 	}
 
+	// @REF: https://developer.wordpress.org/block-editor/tutorials/javascript/extending-the-block-editor/
 	public function enqueue_block_assets()
 	{
 		wp_enqueue_style( static::BASE.'-blocks', GNETWORK_URL.'assets/css/editor.blocks'.( is_rtl() ? '-rtl' : '' ).'.css', [], GNETWORK_VERSION );

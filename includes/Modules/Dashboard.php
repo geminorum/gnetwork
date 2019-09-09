@@ -79,7 +79,7 @@ class Dashboard extends gNetwork\Module
 			$this->filter_module( 'dashboard', 'pointers', 1, 3, 'update' );
 
 		if ( current_user_can( 'manage_options' ) )
-			$this->filter_module( 'dashboard', 'pointers', 1, 4, 'blog_public' );
+			$this->filter_module( 'dashboard', 'pointers', 1, 4, 'public' );
 
 		if ( ! is_multisite() )
 			return;
@@ -494,7 +494,7 @@ class Dashboard extends gNetwork\Module
 	}
 
 	// checks if search engines are asked not to index this site
-	public function dashboard_pointers_blog_public( $items )
+	public function dashboard_pointers_public( $items )
 	{
 		if ( '0' != get_option( 'blog_public' ) )
 			return $items;
