@@ -345,6 +345,16 @@ class Plugin
 		return 0;
 	}
 
+	public function brand( $what = 'name' )
+	{
+		switch ( $what ) {
+			case 'name': $custom = gNetwork()->option( 'brand_name', 'branding' ); return $custom ?: GNETWORK_NAME; break;
+			case 'url' : $custom = gNetwork()->option( 'brand_url', 'branding' ); return $custom ?: GNETWORK_BASE; break;
+		}
+
+		return '';
+	}
+
 	public function na( $wrap = 'code' )
 	{
 		return $wrap

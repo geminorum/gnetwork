@@ -444,18 +444,12 @@ class Login extends gNetwork\Module
 
 	public function login_headerurl( $login_header_url )
 	{
-		if ( ! $brand_url = gNetwork()->option( 'brand_url', 'branding' ) )
-			$brand_url = GNETWORK_BASE;
-
-		return $brand_url;
+		return gNetwork()->brand( 'url' );
 	}
 
 	public function login_headertext( $login_header_title )
 	{
-		if ( ! $brand_name = gNetwork()->option( 'brand_name', 'branding' ) )
-			$brand_name = GNETWORK_NAME;
-
-		return $brand_name;
+		return gNetwork()->brand( 'name' );
 	}
 
 	public function login_footer_remember()

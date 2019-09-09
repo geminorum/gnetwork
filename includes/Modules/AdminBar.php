@@ -898,8 +898,8 @@ class AdminBar extends gNetwork\Module
 	{
 		$wp_admin_bar->add_menu( [
 			'id'    => $id,
-			'title' => $title.'<span class="screen-reader-text">'.GNETWORK_NAME.'</span>',
-			'href'  => GNETWORK_BASE,
+			'title' => $title.'<span class="screen-reader-text">'.gNetwork()->brand( 'name' ).'</span>',
+			'href'  => gNetwork()->brand( 'url' ),
 		] );
 	}
 

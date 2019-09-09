@@ -355,21 +355,24 @@ class Branding extends gNetwork\Module
 	// FIXME: get from site logo / not used yet
 	public static function getLogo( $wrap = FALSE, $fallback = TRUE, $logo = NULL )
 	{
+		$brand_name = gNetwork()->brand( 'name' );
+		$brand_url  = gNetwork()->brand( 'url' );
+
 		if ( ! is_null( $logo ) )
-			$html = HTML::img( $logo, '-logo-img', GNETWORK_NAME );
+			$html = HTML::img( $logo, '-logo-img', $brand_name );
 
 		else if ( file_exists( WP_CONTENT_DIR.'/'.GNETWORK_LOGO ) )
-			$html = HTML::img( WP_CONTENT_URL.'/'.GNETWORK_LOGO, '-logo-img', GNETWORK_NAME );
+			$html = HTML::img( WP_CONTENT_URL.'/'.GNETWORK_LOGO, '-logo-img', $brand_name );
 
 		else if ( $fallback )
-			$html = GNETWORK_NAME;
+			$html = $brand_name;
 
 		else
 			return '';
 
 		$html = HTML::tag( 'a', [
-			'href'  => GNETWORK_BASE,
-			'title' => GNETWORK_NAME,
+			'href'  => $brand_url,
+			'title' => $brand_name,
 		], $html );
 
 		return $wrap ? HTML::tag( $wrap, [ 'class' => 'logo' ], $html ) : $html;

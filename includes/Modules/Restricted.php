@@ -566,8 +566,8 @@ EOD;
 	public static function get403Logout( $class = 'logout' )
 	{
 		$html = HTML::tag( 'a', [
-			'href'  => GNETWORK_BASE,
-			'title' => GNETWORK_NAME,
+			'title' => gNetwork()->brand( 'name' ),
+			'href'  => gNetwork()->brand( 'url' ),
 		], _x( 'Home Page', 'Modules: Restricted', 'gnetwork' ) );
 
 		if ( is_user_logged_in() ) {
