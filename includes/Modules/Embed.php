@@ -90,7 +90,7 @@ class Embed extends gNetwork\Module
 					'field'       => 'oembed_providers',
 					'title'       => _x( 'oEmbed Providers', 'Modules: Embed: Settings', 'gnetwork' ),
 					'description' => _x( 'Whether to load the list of whitelisted oEmbed providers.', 'Modules: Embed: Settings', 'gnetwork' ),
-					'after'       => Settings::fieldAfterCodex( 'Embeds' ),
+					'after'       => Settings::fieldAfterIcon( 'https://wordpress.org/support/article/embeds/' ),
 				],
 				[
 					'field'       => 'oembed_discover',

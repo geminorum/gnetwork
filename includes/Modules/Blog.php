@@ -276,7 +276,7 @@ class Blog extends gNetwork\Module
 			'type'        => 'disabled',
 			'title'       => _x( 'Emojis', 'Modules: Blog: Settings', 'gnetwork' ),
 			'description' => _x( 'Removes the extra code bloat used to add support for Emoji\'s in older browsers.', 'Modules: Blog: Settings', 'gnetwork' ),
-			'after'       => Settings::fieldAfterCodex( 'Emoji' ),
+			'after'       => Settings::fieldAfterIcon( 'https://wordpress.org/support/article/emoji/' ),
 			'default'     => '1',
 		];
 

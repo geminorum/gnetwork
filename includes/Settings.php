@@ -272,20 +272,6 @@ class Settings extends Core\Base
 		echo $after;
 	}
 
-	public static function fieldAfterCodex( $page = '', $text = FALSE )
-	{
-		$html = HTML::tag( 'a', [
-			'href'   => 'https://codex.wordpress.org/'.$page,
-			/* translators: %s: codex title */
-			'title'  => sprintf( _x( 'See WordPress Codex for %s.', 'Settings', 'gnetwork' ), str_ireplace( '_', ' ', $page ) ),
-			'target' => '_blank',
-		], ( $text ? _x( 'See Codex', 'Settings', 'gnetwork' ) : HTML::getDashicon( 'media-code' ) ) );
-
-		return $text
-			? '<code class="-field-after -link-wrap">'.$html.'</span>'
-			: '<span class="-field-after -icon-wrap">'.$html.'</span>';
-	}
-
 	public static function getLoginLogoLink( $text = FALSE, $filename = GNETWORK_LOGO )
 	{
 		$logo = gNetwork()->option( 'network_sitelogo', 'branding' );
@@ -315,17 +301,21 @@ class Settings extends Core\Base
 		return $text ? HTML::tag( $wrap, [ 'class' => '-field-after '.$class ], $text ) : '';
 	}
 
-	public static function fieldAfterIcon( $url = '', $title = NULL, $icon = 'info', $tooltip = FALSE )
+	public static function fieldAfterIcon( $url = '', $title = NULL, $icon = 'info' )
 	{
 		if ( ! $url )
 			return '';
 
+		if ( is_null( $title ) )
+			$title = _x( 'See More Information', 'Settings', 'gnetwork' );
+
 		$html = HTML::tag( 'a', [
-			'href'         => $url,
-			'title'        => is_null( $title ) ? _x( 'See More Information', 'Settings', 'gnetwork' ) : $title,
-			'target'       => '_blank',
-			'data-tooltip' => $tooltip,
-			'class'        => $tooltip ? ( HTML::rtl() ? 'tooltip-right' : 'tooltip-left' ) : FALSE,
+			'href'   => $url,
+			'target' => '_blank',
+			'data'   => [
+				'tooltip'     => $title,
+				'tooltip-pos' => HTML::rtl() ? 'right' : 'left',
+			],
 		], HTML::getDashicon( $icon ) );
 
 		return '<span class="-field-after -icon-wrap">'.$html.'</span>';
@@ -336,9 +326,16 @@ class Settings extends Core\Base
 		if ( ! defined( $constant ) )
 			return '';
 
+		if ( is_null( $title ) )
+			$title = _x( 'Currently defined constant', 'Settings', 'gnetwork' );
+
+
 		return HTML::tag( 'span', [
-			'class' => '-field-after '.$class,
-			'title' => is_null( $title ) ? _x( 'Currently defined constant', 'Settings', 'gnetwork' ) : $title,
+			'class' => HTML::attrClass( '-field-after', $class ),
+			'data'  => [
+				'tooltip'     => $title,
+				'tooltip-pos' => HTML::rtl() ? 'right' : 'left',
+			],
 		], '<code>'.$constant.'</code> : <code>'.constant( $constant ).'</code>' );
 	}
 
