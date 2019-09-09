@@ -611,9 +611,8 @@ class ShortCodes extends gNetwork\Module
 	{
 		$args = shortcode_atts( [
 			'post'    => NULL,
-			'tag'     => FALSE,
 			'context' => NULL,
-			'wrap'    => TRUE,
+			'wrap'    => empty( $atts['tag'] ) ? TRUE : $atts['tag'], // back-comp
 			'before'  => '',
 			'after'   => '',
 		], $atts, $tag );
@@ -628,9 +627,6 @@ class ShortCodes extends gNetwork\Module
 			return $content;
 
 		$html = Utilities::prepTitle( $post->post_title, $post->ID );
-
-		if ( $args['tag'] )
-			$html = HTML::tag( $args['tag'], $html );
 
 		return self::shortcodeWrap( $html, 'post-title', $args, FALSE );
 	}

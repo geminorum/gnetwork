@@ -1130,6 +1130,7 @@ class Module extends Core\Base
 			return $before.$html.$after;
 
 		$classes = [ '-wrap', 'gnetwork-wrap-shortcode' ];
+		$wrap    = TRUE === $args['wrap'] ? ( $block ? 'div' : 'span' ) : $args['wrap'];
 
 		if ( $suffix )
 			$classes[] = 'shortcode-'.$suffix;
@@ -1138,12 +1139,12 @@ class Module extends Core\Base
 			$classes[] = 'context-'.$args['context'];
 
 		if ( ! empty( $args['class'] ) )
-			$classes[] = $args['class'];
+			$classes = HTML::attrClass( $classes, $args['class'] );
 
 		if ( $after )
-			return $before.HTML::tag( $block ? 'div' : 'span', array_merge( [ 'class' => $classes ], $extra ), $html ).$after;
+			return $before.HTML::tag( $wrap, array_merge( [ 'class' => $classes ], $extra ), $html ).$after;
 
-		return HTML::tag( $block ? 'div' : 'span', array_merge( [ 'class' => $classes ], $extra ), $before.$html );
+		return HTML::tag( $wrap, array_merge( [ 'class' => $classes ], $extra ), $before.$html );
 	}
 
 	public static function shortcodeTermTitle( $atts, $term = FALSE )
