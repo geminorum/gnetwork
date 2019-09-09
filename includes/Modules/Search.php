@@ -85,8 +85,7 @@ class Search extends gNetwork\Module
 
 	public function init()
 	{
-		if ( $this->options['register_shortcodes'] )
-			$this->shortcodes( $this->get_shortcodes() );
+		$this->register_shortcodes();
 	}
 
 	protected function get_shortcodes()

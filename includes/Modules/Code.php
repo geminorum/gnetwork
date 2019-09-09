@@ -51,8 +51,7 @@ class Code extends gNetwork\Module
 			Admin::registerTinyMCE( 'gnetworkprismjs', 'assets/js/tinymce/prismjs', 2 );
 		}
 
-		if ( $this->options['register_shortcodes'] )
-			$this->shortcodes( $this->get_shortcodes() );
+		$this->register_shortcodes();
 	}
 
 	protected function get_shortcodes()

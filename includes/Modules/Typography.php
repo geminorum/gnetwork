@@ -225,8 +225,7 @@ class Typography extends gNetwork\Module
 			Admin::registerTinyMCE( 'gnetworkasterisks', 'assets/js/tinymce/asterisks', 2 );
 		}
 
-		if ( $this->options['register_shortcodes'] )
-			$this->shortcodes( $this->get_shortcodes() );
+		$this->register_shortcodes();
 	}
 
 	protected function get_shortcodes()

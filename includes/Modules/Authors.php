@@ -267,8 +267,7 @@ class Authors extends gNetwork\Module
 
 	public function init()
 	{
-		if ( $this->options['register_shortcodes'] )
-			$this->shortcodes( $this->get_shortcodes() );
+		$this->register_shortcodes();
 	}
 
 	public function template_redirect()

@@ -1110,6 +1110,25 @@ class Module extends Core\Base
 		return sprintf( $prefix, $this->key, $this->counter );
 	}
 
+	protected function register_shortcodes( $option_key = 'register_shortcodes' )
+	{
+		if ( ! method_exists( $this, 'get_shortcodes' ) )
+			return FALSE;
+
+		if ( ! $list = $this->get_shortcodes() )
+			return FALSE;
+
+		if ( ! array_key_exists( $option_key, $this->options ) )
+			$this->options[$option_key] = TRUE; // default setting
+
+		if ( ! $this->options[$option_key] )
+			return FALSE;
+
+		$this->shortcodes( $list );
+
+		return count( $list );
+	}
+
 	protected function shortcodes( $shortcodes = [] )
 	{
 		foreach ( $shortcodes as $shortcode => $method ) {

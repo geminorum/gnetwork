@@ -49,7 +49,7 @@ class ShortCodes extends gNetwork\Module
 
 	public function init_late()
 	{
-		$this->shortcodes( $this->get_shortcodes() );
+		$this->register_shortcodes();
 
 		if ( is_admin() ) {
 
