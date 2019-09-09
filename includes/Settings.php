@@ -329,7 +329,6 @@ class Settings extends Core\Base
 		if ( is_null( $title ) )
 			$title = _x( 'Currently defined constant', 'Settings', 'gnetwork' );
 
-
 		return HTML::tag( 'span', [
 			'class' => HTML::attrClass( '-field-after', $class ),
 			'data'  => [

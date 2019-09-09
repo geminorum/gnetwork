@@ -348,8 +348,8 @@ class Plugin
 	public function brand( $what = 'name' )
 	{
 		switch ( $what ) {
-			case 'name': $custom = gNetwork()->option( 'brand_name', 'branding' ); return $custom ?: GNETWORK_NAME; break;
-			case 'url' : $custom = gNetwork()->option( 'brand_url', 'branding' ); return $custom ?: GNETWORK_BASE; break;
+			case 'name': $custom = $this->option( 'brand_name', 'branding' ); return $custom ?: GNETWORK_NAME; break;
+			case 'url' : $custom = $this->option( 'brand_url', 'branding' ); return $custom ?: GNETWORK_BASE; break;
 		}
 
 		return '';

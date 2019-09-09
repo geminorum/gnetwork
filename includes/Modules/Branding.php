@@ -68,7 +68,7 @@ class Branding extends gNetwork\Module
 			'field'       => 'brand_name',
 			'type'        => 'text',
 			'title'       => _x( 'Brand Name', 'Modules: Branding: Settings', 'gnetwork' ),
-			'description' => _x( 'Will be used as default brand name. Leave empty to use default', 'Modules: Branding: Settings', 'gnetwork' ),
+			'description' => _x( 'Will be used as default brand name. Leave empty to use default.', 'Modules: Branding: Settings', 'gnetwork' ),
 			'placeholder' => GNETWORK_NAME,
 		];
 
@@ -76,7 +76,7 @@ class Branding extends gNetwork\Module
 			'field'       => 'brand_url',
 			'type'        => 'url',
 			'title'       => _x( 'Brand URL', 'Modules: Branding: Settings', 'gnetwork' ),
-			'description' => _x( 'Will be used as default brand URL. Leave empty to use default', 'Modules: Branding: Settings', 'gnetwork' ),
+			'description' => _x( 'Will be used as default brand URL. Leave empty to use default.', 'Modules: Branding: Settings', 'gnetwork' ),
 			'placeholder' => GNETWORK_BASE,
 		];
 

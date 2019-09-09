@@ -520,11 +520,16 @@ class Module extends Core\Base
 		return $options;
 	}
 
-	// option and it's default
-	// it's really moot! since we sanitize options
+	// used for non-existant options
 	public function get_option( $name, $default = FALSE )
 	{
-		return ( isset( $this->options[$name] ) ? $this->options[$name] : $default );
+		return array_key_exists( $name, $this->options ) ? $this->options[$name] : $default;
+	}
+
+	// used for empty options
+	public function get_option_fallback( $name, $fallback )
+	{
+		return empty( $this->options[$name] ) ? $fallback : $this->options[$name];
 	}
 
 	// check if it's '0' then $disabled
@@ -1112,21 +1117,15 @@ class Module extends Core\Base
 		if ( ! method_exists( $this, 'get_shortcodes' ) )
 			return FALSE;
 
-		if ( ! array_key_exists( $option_key, $this->options ) )
-			$this->options[$option_key] = TRUE; // default setting
-
-		if ( ! $this->options[$option_key] )
+		if ( ! $this->get_option( $option_key, TRUE ) )
 			return FALSE;
 
-		if ( ! $shortcodes = $this->get_shortcodes() )
-			return FALSE;
-
-		foreach ( $shortcodes as $shortcode => $method ) {
+		foreach ( $this->get_shortcodes() as $shortcode => $method ) {
 			remove_shortcode( $shortcode );
 			add_shortcode( $shortcode, [ $this, $method ] );
 		}
 
-		return count( $shortcodes );
+		return TRUE;
 	}
 
 	public static function shortcodeWrap( $html, $suffix = FALSE, $args = [], $block = TRUE, $extra = [] )
