@@ -1359,18 +1359,23 @@ class Module extends Core\Base
 			&& ! WordPress::cuc( $this->options[$option_key] ) )
 				return FALSE;
 
+		$screen   = get_current_screen();
 		$hook     = self::sanitize_hook( $name );
-		$args     = [ '__widget_basename' => $title ]; // passing title without extra markup
+		$id       = $this->classs( $name );
 		$context  = 'normal';
 		$priority = 'default';
+		$args     = [ '__widget_basename' => $title ]; // passing title without extra markup
 
 		switch ( $action ) {
 			case 'refresh': $title.= $this->metabox_titleActionRefresh( $hook ); break;
 			case 'info'   : $title.= $this->metabox_titleActionInfo( $hook );    break;
 		}
 
-		// wp_add_dashboard_widget( $this->classs( $name ), $title, [ $this, 'render_widget_'.$hook ] );
-		add_meta_box( $this->classs( $name ), $title, [ $this, 'render_widget_'.$hook ], NULL, $context, $priority, $args );
+		// wp_add_dashboard_widget( $id, $title, [ $this, 'render_widget_'.$hook ] );
+		add_meta_box( $id, $title, [ $this, 'render_widget_'.$hook ], $screen, $context, $priority, $args );
+
+		if ( in_array( $id, get_hidden_meta_boxes( $screen ) ) )
+			return FALSE; // prevent scripts
 
 		return TRUE;
 	}
