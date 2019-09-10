@@ -135,7 +135,7 @@ class Module extends Core\Base
 		if ( FALSE === $this->setup_actions() )
 			return;
 
-		if ( ! empty( $this->options['load_providers'] ) )
+		if ( $this->get_option( 'load_providers' ) )
 			$this->setup_providers();
 
 		if ( ! WordPress::mustRegisterUI() )
@@ -738,7 +738,7 @@ class Module extends Core\Base
 				$this->render_form_fields( $sub, $action, $context );
 
 			if ( $check && $sidebox ) {
-				echo '<div class="-sidebox -sidebox-'.$context.' -sidebox-'.HTML::escape( $sub ).'">'; // WPCS: XSS ok;
+				echo '<div class="'.HTML::prepClass( '-sidebox', '-sidebox-'.$context, '-sidebox-'.$sub ).'">'; // WPCS: XSS ok;
 					call_user_func_array( [ $this, $context.'_sidebox' ], [ $sub, $uri, $context ] );
 				echo '</div>';
 			}
@@ -1360,8 +1360,8 @@ class Module extends Core\Base
 			return '';
 
 		$html = ' <span class="postbox-title-action" data-tooltip="'.$info.'"';
-		$html.= ' data-tooltip-length="xlarge" data-tooltip-pos="'.( HTML::rtl() ? 'down-right' : 'down-left' ).'">';
-		$html.= HTML::getDashicon( 'info' ).'</span>';
+		$html.= ' data-tooltip-length="xlarge" data-tooltip-pos="'.( HTML::rtl() ? 'down-right' : 'down-left' ).'"';
+		$html.= ' data-tooltip-blunt>'.HTML::getDashicon( 'info' ).'</span>';
 
 		return $html;
 	}

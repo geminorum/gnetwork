@@ -1111,7 +1111,7 @@ class Settings extends Core\Base
 
 					// CAUTION: module must enqueue `code-editor` styles/scripts
 					// @SEE: `Scripts::enqueueCodeEditor()`
-					$scripts[] = sprintf( 'wp.CodeMirror.fromTextArea(document.getElementById("%s"), %s );',
+					$scripts[] = sprintf( 'wp.CodeMirror.fromTextArea(document.getElementById("%s"), %s);',
 						$id, wp_json_encode( $args['values'] ) );
 				}
 
