@@ -464,6 +464,16 @@ class Settings extends Core\Base
 		];
 	}
 
+	public static function getSetting_register_blocktypes()
+	{
+		return [
+			'field'       => 'register_blocktypes',
+			'title'       => _x( 'Extra Blocktypes', 'Settings: Setting Title', 'gnetwork' ),
+			'description' => _x( 'Registers this modules\'s extra blocktypes.', 'Settings: Setting Desc', 'gnetwork' ),
+			'disabled'    => ! function_exists( 'register_block_type' ),
+		];
+	}
+
 	public static function getSetting_editor_buttons()
 	{
 		return [

@@ -1424,19 +1424,72 @@ class Module extends Core\Base
 		], HTML::getDashicon( $icon ) );
 	}
 
-	protected function register_blocktype( $name, $extra = [] )
+	protected function register_blocktype( $name, $extra = [], $deps = NULL )
 	{
+		$args = [ 'editor_script' => Scripts::registerBlock( $name, $deps ) ];
+
+		// if ( ! defined( 'GNETWORK_DISABLE_BLOCK_STYLES' ) || ! GNETWORK_DISABLE_BLOCK_STYLES )
+		// 	$args['style'] = Scripts::registerBlockStyle( $name );
+
+		$callback = self::sanitize_hook( 'block_'.$name.'_render_callback' );
+
+		if ( method_exists( $this, $callback ) )
+			$args['render_callback'] = [ $this, $callback ];
+
+		$block = register_block_type( 'gnetwork/'.$name, array_merge( $args, $extra ) );
+
+		wp_set_script_translations( $args['editor_script'], 'gnetwork', GNETWORK_DIR.'languages' );
+
+		return $block;
+	}
+
+	protected function register_blocktypes( $option_key = 'register_blocktypes' )
+	{
+		// checks for WP 5.0
 		if ( ! function_exists( 'register_block_type' ) )
 			return FALSE;
 
-		$script = Scripts::registerBlock( $name );
+		if ( ! method_exists( $this, 'get_blocktypes' ) )
+			return FALSE;
 
-		$block = register_block_type( $this->base.'/'.$name, array_merge( [
-			'editor_script' => $script,
-		], $extra ) );
+		if ( ! $this->get_option( $option_key, TRUE ) )
+			return FALSE;
 
-		wp_set_script_translations( $script, 'gnetwork', GNETWORK_DIR.'languages' );
+		foreach ( $this->get_blocktypes() as $blocktype => $args )
+			$this->register_blocktype( $blocktype, $args );
 
-		return $block;
+		return TRUE;
+	}
+
+	public static function blockWrap( $html, $suffix = FALSE, $args = [], $block = TRUE, $extra = [] )
+	{
+		if ( is_null( $html ) )
+			return $html;
+
+		$before = empty( $args['before'] ) ? '' : $args['before'];
+		$after  = empty( $args['after'] )  ? '' : $args['after'];
+
+		if ( ! array_key_exists( 'wrap', $args ) )
+			$args['wrap'] = TRUE;
+
+		if ( empty( $args['wrap'] ) )
+			return $before.$html.$after;
+
+		$classes = [ '-wrap', 'gnetwork-wrap-block' ];
+		$wrap    = TRUE === $args['wrap'] ? ( $block ? 'div' : 'span' ) : $args['wrap'];
+
+		if ( $suffix )
+			$classes[] = 'wp-block-gnetwork-'.$suffix;
+
+		if ( isset( $args['context'] ) && $args['context'] )
+			$classes[] = 'context-'.$args['context'];
+
+		if ( ! empty( $args['className'] ) )
+			$classes = HTML::attrClass( $classes, $args['className'] );
+
+		if ( $after )
+			return $before.HTML::tag( $wrap, array_merge( [ 'class' => $classes ], $extra ), $html ).$after;
+
+		return HTML::tag( $wrap, array_merge( [ 'class' => $classes ], $extra ), $before.$html );
 	}
 }
