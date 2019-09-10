@@ -16,7 +16,8 @@ use geminorum\gNetwork\Core\WordPress;
 class Mail extends gNetwork\Module
 {
 
-	protected $key = 'mail';
+	protected $key  = 'mail';
+	protected $ajax = TRUE;
 
 	protected function setup_actions()
 	{
