@@ -42,6 +42,7 @@ class Branding extends gNetwork\Module
 		return [
 			'brand_name'         => '',
 			'brand_url'          => '',
+			'brand_email'        => '',
 			'content_replace'    => '0',
 			'network_sitelogo'   => '',
 			'network_siteicon'   => '',
@@ -78,6 +79,14 @@ class Branding extends gNetwork\Module
 			'title'       => _x( 'Brand URL', 'Modules: Branding: Settings', 'gnetwork' ),
 			'description' => _x( 'Will be used as default brand URL. Leave empty to use default.', 'Modules: Branding: Settings', 'gnetwork' ),
 			'placeholder' => GNETWORK_BASE,
+		];
+
+		$settings['_general'][] = [
+			'field'       => 'brand_email',
+			'type'        => 'email',
+			'title'       => _x( 'Brand E-mail', 'Modules: Branding: Settings', 'gnetwork' ),
+			'description' => _x( 'Will be used as default brand e-mail. Leave empty to use default.', 'Modules: Branding: Settings', 'gnetwork' ),
+			'placeholder' => gNetwork()->email(),
 		];
 
 		if ( is_multisite() ) {
