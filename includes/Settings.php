@@ -1048,6 +1048,7 @@ class Settings extends Core\Base
 			break;
 			case 'textarea':
 			case 'textarea-quicktags':
+			case 'textarea-quicktags-tokens':
 			case 'textarea-code-editor':
 
 				if ( ! $args['field_class'] )
@@ -1068,6 +1069,33 @@ class Settings extends Core\Base
 						];
 
 					$scripts[] = 'quicktags({id:"'.$id.'",buttons:"'.implode( ',', $args['values'] ).'"});';
+
+					wp_enqueue_script( 'quicktags' );
+
+				} else if ( 'textarea-quicktags-tokens' == $args['type'] ) {
+
+					$args['field_class'] = HTML::attrClass( $args['field_class'], 'textarea-quicktags', 'code' );
+
+					if ( ! $args['dir'] && HTML::rtl() )
+						$args['field_class'][] = 'quicktags-rtl';
+
+					if ( ! $args['values'] )
+						$args['values'] = [
+							'subject',
+							'content',
+							'topic',
+							'site',
+							'domain',
+							'url',
+							'display_name',
+							'email',
+							'useragent',
+						];
+
+					$scripts[] = 'quicktags({id:"'.$id.'",buttons:"_none"});';
+
+					foreach ( $args['values'] as $button )
+						$scripts[] = 'QTags.addButton("token_'.$button.'","'.$button.'","{{'.$button.'}}","","","",0,"'.$id.'");';
 
 					wp_enqueue_script( 'quicktags' );
 
