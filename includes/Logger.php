@@ -152,6 +152,11 @@ class Logger
 		self::logAnalog( $message, \Analog::DEBUG, $context, $path );
 	}
 
+	public static function FAILED( $message = '', $context = [], $path = GNETWORK_FAILED_LOG )
+	{
+		self::logAnalog( $message, \Analog::NOTICE, $context, $path );
+	}
+
 	// action must be taken immediately
 	public static function siteALERT( $prefix, $message = '', $context = [] )
 	{

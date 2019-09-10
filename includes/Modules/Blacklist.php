@@ -114,7 +114,7 @@ class Blacklist extends gNetwork\Module
 			return;
 
 		if ( ! $content = HTTP::getHTML( GNETWORK_BLACKLIST_REMOTE_CONTENT ) )
-			return Logger::WARNING( 'BLACKLIST: Problem getting remote content' );
+			return Logger::FAILED( 'BLACKLIST: Problem getting remote content' );
 
 		if ( $this->update_option( 'blacklisted_ips', trim( $content ) ) )
 			Logger::INFO( 'BLACKLIST: Remote content updated' );
