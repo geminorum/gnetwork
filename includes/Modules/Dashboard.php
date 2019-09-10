@@ -21,7 +21,7 @@ class Dashboard extends gNetwork\Module
 		$this->_hook_ajax();
 	}
 
-	public function current_screen( $screen )
+	public function setup_screen( $screen )
 	{
 		if ( 'dashboard' == $screen->base ) {
 

@@ -151,7 +151,7 @@ class Media extends gNetwork\Module
 		}
 	}
 
-	public function current_screen( $screen )
+	public function setup_screen( $screen )
 	{
 		if ( 'upload' == $screen->base ) {
 

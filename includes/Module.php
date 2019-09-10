@@ -144,8 +144,8 @@ class Module extends Core\Base
 		if ( method_exists( $this, 'setup_menu' ) )
 			add_action( $this->base.'_setup_menu', [ $this, 'setup_menu' ] );
 
-		if ( method_exists( $this, 'current_screen' ) )
-			add_action( 'current_screen', [ $this, 'current_screen' ], $this->priority_current_screen );
+		if ( method_exists( $this, 'setup_screen' ) )
+			add_action( 'current_screen', [ $this, 'setup_screen' ], $this->priority_current_screen );
 
 		if ( method_exists( $this, 'setup_dashboard' ) && $this->get_option( 'dashboard_widget', TRUE ) )
 			add_action( 'wp_dashboard_setup', [ $this, 'setup_dashboard' ] );

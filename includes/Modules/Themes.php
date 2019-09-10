@@ -192,7 +192,7 @@ class Themes extends gNetwork\Module
 		Scripts::enqueueCodeEditor();
 	}
 
-	public function current_screen( $screen )
+	public function setup_screen( $screen )
 	{
 		if ( $this->options['hidden_title']
 			&& 'post' == $screen->base

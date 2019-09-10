@@ -93,7 +93,7 @@ class Taxonomy extends gNetwork\Module
 		}
 	}
 
-	public function current_screen( $screen )
+	public function setup_screen( $screen )
 	{
 		if ( 'edit-tags' == $screen->base
 			|| 'term' == $screen->base ) {

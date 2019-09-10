@@ -336,7 +336,7 @@ class Profile extends gNetwork\Module
 		return $count;
 	}
 
-	public function current_screen( $screen )
+	public function setup_screen( $screen )
 	{
 		if ( ! in_array( $screen->base, [ 'profile-user', 'profile-network', 'user-edit-network', 'profile', 'user-edit' ] ) )
 			return;
