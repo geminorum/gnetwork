@@ -1,0 +1,454 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// gNetwork Blocks: Tooltip: 02 - 2019-09-09
+// -----------------------------------------------------------------------------
+// ADOPTED FROM: Balloon.css v1.0.0
+// @REF: https://github.com/kazzkiq/balloon.css
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+$theme-tooltip-bg:       fade-out(#101010, .05) !default; // $balloon-bg
+$theme-tooltip-fontsize: 12px !default; // $balloon-base-size
+
+$theme-tooltip-color:        #fff !default;
+$theme-tooltip-width:        160px !default;
+$theme-tooltip-padding:      8px !default;
+$theme-tooltip-lineheight:   1.2 !default;
+$theme-tooltip-borderradius: 2px !default;
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+$balloon-arrow-size: 5px !default;
+$balloon-move:       4px !default;
+
+
+//
+// Mixins
+// -----------------------------------------
+
+@mixin arrow-down() {
+  width: 0;
+  height: 0;
+  border: $balloon-arrow-size solid transparent;
+  border-top-color: var(--balloon-color);
+}
+
+@mixin arrow-up() {
+  width: 0;
+  height: 0;
+  border: $balloon-arrow-size solid transparent;
+  border-bottom-color: var(--balloon-color);
+}
+
+@mixin arrow-left() {
+  width: 0;
+  height: 0;
+  border: $balloon-arrow-size solid transparent;
+  border-right-color: var(--balloon-color);
+}
+
+@mixin arrow-right() {
+  width: 0;
+  height: 0;
+  border: $balloon-arrow-size solid transparent;
+  border-left-color: var(--balloon-color);
+}
+
+@mixin base-effects () {
+  opacity: 0;
+  pointer-events: none;
+  transition: all .18s ease-out .18s;
+}
+
+@mixin no-effects () {
+  transition: none;
+}
+
+@mixin normalized-text() {
+  @include theme-fonts-core-native;
+  font-weight: 400;
+  font-style: normal;
+  text-indent: 0;
+  text-shadow: none;
+  font-size: var(--balloon-font-size);
+}
+
+
+//
+// Styles
+// -----------------------------------------
+// [data-tooltip],
+
+
+:root {
+  --balloon-color: #{$theme-tooltip-bg};
+  --balloon-font-size: #{$theme-tooltip-fontsize};
+  --balloon-move: #{$balloon-move};
+}
+
+// IE 11 button bugfix
+button[data-tooltip] {
+  overflow: visible;
+}
+
+[data-tooltip] {
+  position: relative; // alt. absolute or fixed
+
+  // Fixing iOS Safari event issue.
+  // More info at: https://goo.gl/w8JF4W
+  cursor: pointer;
+
+  &::after {
+    @include base-effects();
+    @include normalized-text();
+
+    background: var(--balloon-color);
+    border-radius: 2px;
+    color: #fff;
+    content: attr(data-tooltip);
+    padding: .5em 1em;
+    position: absolute;
+    white-space: nowrap;
+    z-index: 1000;
+  }
+
+  &::before {
+    @include arrow-down();
+    @include base-effects();
+
+    content: "";
+    position: absolute;
+    z-index: 1000;
+  }
+
+  &:hover,
+  &[data-tooltip-visible],
+  &:not([data-tooltip-nofocus]):focus {
+    &::before,
+    &::after {
+      opacity: 1;
+      pointer-events: none;
+    }
+  }
+
+  &:not([data-tooltip-pos]) {
+    &::after {
+      bottom: 100%;
+      left: 50%;
+      margin-bottom: $balloon-arrow-size + 5px;
+      transform: translate(-50%, var(--balloon-move));
+      transform-origin: top;
+    }
+
+    &::before {
+      bottom: 100%;
+      left: 50%;
+      transform: translate(-50%, var(--balloon-move));
+      transform-origin: top;
+    }
+
+    &:hover,
+    &[data-tooltip-visible] {
+      &::after {
+        transform: translate(-50%, 0);
+      }
+
+      &::before {
+        transform: translate(-50%, 0);
+      }
+    }
+  }
+
+  &.font-awesome::after {
+    font-family: FontAwesome, sans-serif;
+  }
+
+  &[data-tooltip-break] {
+    &::after {
+      white-space: pre;
+    }
+
+    &[data-tooltip-length] {
+      &::after {
+        white-space: pre-line;
+        word-break: break-word;
+      }
+    }
+  }
+
+  &[data-tooltip-blunt] {
+    &::before,
+    &::after {
+      @include no-effects();
+    }
+  }
+
+  &[data-tooltip-pos="up"] {
+    &::after {
+      bottom: 100%;
+      left: 50%;
+      margin-bottom: $balloon-arrow-size + 5px;
+      transform: translate(-50%, var(--balloon-move));
+      transform-origin: top;
+    }
+
+    &::before {
+      bottom: 100%;
+      left: 50%;
+      transform: translate(-50%, var(--balloon-move));
+      transform-origin: top;
+    }
+
+    &:hover,
+    &[data-tooltip-visible] {
+      &::after {
+        transform: translate(-50%, 0);
+      }
+
+      &::before {
+        transform: translate(-50%, 0);
+      }
+    }
+  }
+
+  &[data-tooltip-pos="up-left"] {
+    &::after {
+      bottom: 100%;
+      left: 0;
+      margin-bottom: $balloon-arrow-size + 5px;
+      transform: translate(0, var(--balloon-move));
+      transform-origin: top;
+    }
+
+    &::before {
+      bottom: 100%;
+      left: 5px;
+      transform: translate(0, var(--balloon-move));
+      transform-origin: top;
+    }
+
+    &:hover,
+    &[data-tooltip-visible] {
+      &::after {
+        transform: translate(0, 0);
+      }
+
+      &::before {
+        transform: translate(0, 0);
+      }
+    }
+  }
+
+  &[data-tooltip-pos="up-right"] {
+    &::after {
+      bottom: 100%;
+      right: 0;
+      margin-bottom: $balloon-arrow-size + 5px;
+      transform: translate(0, var(--balloon-move));
+      transform-origin: top;
+    }
+
+    &::before {
+      bottom: 100%;
+      right: 5px;
+      transform: translate(0, var(--balloon-move));
+      transform-origin: top;
+    }
+
+    &:hover,
+    &[data-tooltip-visible] {
+      &::after {
+        transform: translate(0, 0);
+      }
+
+      &::before {
+        transform: translate(0, 0);
+      }
+    }
+  }
+
+  &[data-tooltip-pos="down"] {
+    &::after {
+      left: 50%;
+      margin-top: $balloon-arrow-size + 5px;
+      top: 100%;
+      transform: translate(-50%, calc(var(--balloon-move) * -1));
+    }
+
+    &::before {
+      @include arrow-up();
+
+      left: 50%;
+      top: 100%;
+      transform: translate(-50%, calc(var(--balloon-move) * -1));
+    }
+
+    &:hover,
+    &[data-tooltip-visible] {
+      &::after {
+        transform: translate(-50%, 0);
+      }
+
+      &::before {
+        transform: translate(-50%, 0);
+      }
+    }
+  }
+
+  &[data-tooltip-pos="down-left"] {
+    &::after {
+      left: 0;
+      margin-top: $balloon-arrow-size + 5px;
+      top: 100%;
+      transform: translate(0, calc(var(--balloon-move) * -1));
+    }
+
+    &::before {
+      @include arrow-up();
+
+      left: 5px;
+      top: 100%;
+      transform: translate(0, calc(var(--balloon-move) * -1));
+    }
+
+    &:hover,
+    &[data-tooltip-visible] {
+      &::after {
+        transform: translate(0, 0);
+      }
+
+      &::before {
+        transform: translate(0, 0);
+      }
+    }
+  }
+
+  &[data-tooltip-pos="down-right"] {
+    &::after {
+      right: 0;
+      margin-top: $balloon-arrow-size + 5px;
+      top: 100%;
+      transform: translate(0, calc(var(--balloon-move) * -1));
+    }
+
+    &::before {
+      @include arrow-up();
+
+      right: 5px;
+      top: 100%;
+      transform: translate(0, calc(var(--balloon-move) * -1));
+    }
+
+    &:hover,
+    &[data-tooltip-visible] {
+      &::after {
+        transform: translate(0, 0);
+      }
+
+      &::before {
+        transform: translate(0, 0);
+      }
+    }
+  }
+
+  &[data-tooltip-pos="left"] {
+    &::after {
+      margin-right: $balloon-arrow-size + 5px;
+      right: 100%;
+      top: 50%;
+      transform: translate(var(--balloon-move), -50%);
+    }
+
+    &::before {
+      @include arrow-right();
+
+      right: 100%;
+      top: 50%;
+      transform: translate(var(--balloon-move), -50%);
+    }
+
+    &:hover,
+    &[data-tooltip-visible] {
+      &::after {
+        transform: translate(0, -50%);
+      }
+
+      &::before {
+        transform: translate(0, -50%);
+      }
+    }
+
+  }
+
+  &[data-tooltip-pos="right"] {
+    &::after {
+
+      left: 100%;
+      margin-left: $balloon-arrow-size + 5px;
+      top: 50%;
+      transform: translate(calc(var(--balloon-move) * -1), -50%);
+    }
+
+    &::before {
+      @include arrow-left();
+
+      left: 100%;
+      top: 50%;
+      transform: translate(calc(var(--balloon-move) * -1), -50%);
+    }
+
+    &:hover,
+    &[data-tooltip-visible] {
+      &::after {
+        transform: translate(0, -50%);
+      }
+
+      &::before {
+        transform: translate(0, -50%);
+      }
+    }
+  }
+
+  &[data-tooltip-length="small"] {
+    &::after {
+      white-space: normal;
+      width: 80px;
+    }
+  }
+
+  &[data-tooltip-length="medium"] {
+    &::after {
+      white-space: normal;
+      width: 150px;
+    }
+  }
+
+  &[data-tooltip-length="large"] {
+    &::after {
+      white-space: normal;
+      width: 260px;
+    }
+  }
+
+  &[data-tooltip-length="xlarge"] {
+    &::after {
+      white-space: normal;
+      width: 380px;
+
+      @media screen and (max-width: 768px) {
+        white-space: normal;
+        width: 90vw;
+      }
+    }
+  }
+
+  &[data-tooltip-length="fit"] {
+    &::after {
+      white-space: normal;
+      width: 100%;
+    }
+  }
+}

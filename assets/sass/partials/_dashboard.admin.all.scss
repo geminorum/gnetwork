@@ -35,6 +35,10 @@
     }
 
     li {
+      a.notice::before {
+        color: $brand-info !important;
+      }
+
       a.warning::before {
         color: $brand-warning !important;
       }
@@ -51,7 +55,7 @@
 
       .-restricted::before {
         color: $brand-warning !important;
-        content: "\f530" !important;
+        content: "\f160" !important;
       }
 
       .-corn-ready::before {
@@ -68,7 +72,12 @@
         content: "\f153" !important;
       }
 
-      a.storage::before {
+      a.-privacy::before {
+        color: $brand-info !important;
+        content: "\f530" !important;
+      }
+
+      a.-storage::before {
         content: "\f104" !important;
       }
 
@@ -85,18 +94,18 @@
       }
     }
 
-    .-privacy-notice {
-      margin-bottom: 1em !important;
-      font-size: smaller;
-
-      a {
-        color: $gray-dark;
-
-        &:hover {
-          color: $gray-darker;
-        }
-      }
-    }
+    // .-privacy-notice {
+    //   margin-bottom: 1em !important;
+    //   font-size: smaller;
+    //
+    //   a {
+    //     color: $gray-dark;
+    //
+    //     &:hover {
+    //       color: $gray-darker;
+    //     }
+    //   }
+    // }
   }
 }
 

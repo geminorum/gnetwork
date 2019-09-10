@@ -1,0 +1,295 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// gNetwork Partials: Common
+
+
+////////////////////////////////////////////////////////////////////////////////
+.gnetwork-admin-wrap {
+  // @include mainwrap();
+  &.footer-wp-version {
+    cursor: pointer;
+  }
+}
+
+// .gnetwork-admin-wrap-metabox {}
+// .gnetwork-admin-wrap-column {}
+// .gnetwork-admin-wrap-widget {}
+
+textarea {
+  // width: 100%;
+  resize: vertical;
+  transition: height 0.2s ease 0s;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+body.thrift-mode {
+  label[for="media-attachment-date-filters"],
+  #media-attachment-date-filters {
+    display: none;
+  }
+}
+
+body.hide-admin-menu {
+  #adminmenumain {
+    display: none;
+  }
+
+  #wpcontent,
+  #wpfooter {
+    margin-left: 0;
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// DASHBOARD WIDGETS ----------------------------------------------------------
+
+#dashboard_right_now {
+  .main {
+    padding-bottom: 1px !important;
+  }
+}
+
+#dashboard_activity {
+  #future-posts,
+  #published-posts {
+    ul {
+      margin-top: 0;
+    }
+
+    // @REF: http://jsfiddle.net/VaSn6/5/
+    li {
+      span {
+        float: left;
+        margin-right: 10px;
+        clear: both;
+      }
+
+      a {
+        margin-left: 0;
+        overflow: auto;
+        display: block;
+
+        &:focus {
+          box-shadow: none;
+        }
+      }
+    }
+  }
+}
+
+#dashboard_activity #future-posts h3,
+#dashboard_activity #published-posts h3,
+// #dashboard_right_now #wp-version-message,
+// #dashboard_right_now .inside .versions p,
+// #dashboard_right_now .inside .versions span,
+// #dashboard_right_now .inside p.musub,
+#dashboard_right_now h3.mu-storage {
+  display: none !important;
+}
+
+.gnetwork-admin-wrap-widget {
+  &.-user-sites {
+    table {
+      width: 100%;
+    }
+  }
+
+  // &.-user-tos {}
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// WP LIST TABLE --------------------------------------------------------------
+
+.widefat {
+  td {
+    ul.cat-checklist {
+      height: auto !important;
+      max-height: 12em !important;
+      overflow-x: hidden;
+
+      label {
+        line-height: 1.5 !important;
+      }
+    }
+  }
+}
+
+.tablenav div.actions:empty {
+  display: none;
+}
+
+#gnetwork-reset-filters {
+  margin: 1px 8px 0 0;
+}
+
+.inline-edit-row {
+  h4 {
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  fieldset {
+    span.title {
+      font-style: normal !important;
+      margin: 0 !important;
+    }
+
+    span.inline-edit-categories-label {
+      line-height: 1.5 !important;
+    }
+  }
+}
+
+body.colored {
+  .status-draft {
+    background: #fce3f2 !important;
+  }
+
+  .status-pending {
+    background: #87c5d6 !important;
+  }
+
+  .status-publish {
+    // no background keep wp alternating colors
+  }
+
+  .status-future {
+    background: #c6ebf5 !important;
+  }
+
+  .status-private {
+    background: #f2d46f;
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// WORDPRESS EDIT TAGS --------------------------------------------------------
+
+body.edit-tags-php {
+  .form-wrap.edit-term-notes {
+    display: none;
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// WORDPRESS POST PAGE --------------------------------------------------------
+
+ul.categorychecklist {
+  li {
+    line-height: 18px !important;
+  }
+}
+
+#poststuff {
+  #pageparentdiv div.inside p:last-child,
+  #pageparentdiv .post-attributes-label-wrapper,
+  #postcustom div.inside > p,
+  #postexcerpt div.inside textarea + p,
+  #postexcerpt div.inside .ortho-input-wrap + p,
+  #trackbacksdiv label[for="trackback_url"],
+  #postcustomstuff > p,
+  #commentsdiv #no-comments,
+  #set-post-thumbnail-desc,
+  #trackbacksdiv div.inside p:last-child {
+    display: none;
+    visibility: hidden;
+  }
+
+  .misc-pub-section {
+    > a.hide-if-no-js {
+      font-size: smaller;
+    }
+  }
+
+  #postimagediv {
+    div.inside {
+      padding: 6px 12px;
+
+      p {
+        margin: 0;
+        text-align: center;
+
+        &:last-child {
+          margin-top: 1em;
+        }
+      }
+    }
+
+    #set-post-thumbnail {
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+    }
+  }
+
+  #revisionsdiv div.inside {
+    padding-bottom: 0;
+  }
+
+  .taxonomy-add-new,
+  .category-add,
+  #tagcloud-post_tag {
+    margin-bottom: 0;
+  }
+
+  #trackback-url-desc,
+  .jaxtag .howto {
+    margin: 0 2px 0 2px !important;
+    font-size: 0.8em;
+  }
+
+  ul.category-tabs li {
+    font-size: 0.9em;
+  }
+
+  .postbox .inside p.howto {
+    font-style: normal;
+  }
+
+  input#post_name,
+  select#page_template,
+  select#parent_id,
+  select#post_author_override {
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  // attachment page
+  .wp_attachment_holder {
+    .wp-audio-shortcode,
+    .wp-video {
+      margin: 18px auto 0;
+    }
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+#wpfooter {
+  a.-powered {
+    text-decoration: none;
+    color: $gray-light;
+
+    &:hover {
+      color: $gray-dark;
+    }
+
+    .dashicons {
+      width: 16px;
+      height: 16px;
+      font-size: 16px;
+    }
+  }
+}

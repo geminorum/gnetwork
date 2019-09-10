@@ -8,15 +8,26 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// this will load with block editor
 
+
+////////////////////////////////////////////////////////////////////////////////
+.wp-block-gnetwork-asterisks {
+  @include theme-clearfix;
+  margin: 20px 0;
+  text-align: center;
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 .components-base-control .components-base-control__label,
 .editor-block-inspector__card-description,
 .components-external-link,
+.edit-post-post-link__preview-label,
 .editor-post-link > p {
   font-size: 0.65rem;
 }
 
 .edit-post-visual-editor .wp-block-shortcode .input-control,
+.editor-post-permalink,
+.editor-post-link .components-text-control__input,
 .edit-post-post-link__link {
   /*rtl:ignore*/
   direction: ltr !important;
@@ -30,7 +41,15 @@
 /*rtl:begin:ignore*/
 
 html[dir="rtl"] {
+  .edit-post-post-link__link {
+    display: block;
+  }
 
+  .editor-post-permalink__link::after {
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), #fff 90%);
+    left: auto;
+    right: 1px;
+  }
 }
 
 /*rtl:end:ignore*/

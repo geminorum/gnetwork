@@ -3,16 +3,19 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// gNetwork Partals: Module: Typography Front All -----------------------------
 
-.-wrap {
-  &.shortcode-asterisks {
-    @include theme-clearfix;
-    margin: 20px 0;
-    text-align: center;
-  }
 
-  &.shortcode-wikipedia {}
+////////////////////////////////////////////////////////////////////////////////
+.wp-block-gnetwork-asterisks, // on front
+.-wrap.shortcode-asterisks {
+  @include theme-clearfix;
+  margin: 20px 0;
+  text-align: center;
 }
 
+////////////////////////////////////////////////////////////////////////////////
+.-wrap.shortcode-wikipedia {}
+
+////////////////////////////////////////////////////////////////////////////////
 .post-content,
 .entry-content {
   .numeral-section-title {

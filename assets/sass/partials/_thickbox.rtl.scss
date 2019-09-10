@@ -26,8 +26,8 @@ html[dir="rtl"] {
   }
 
   #TB_closeWindowButton {
-    left: 0;
-    right: auto;
+    // left: 0;
+    // right: auto;
 
     &:focus .tb-close-icon {
       box-shadow: none;

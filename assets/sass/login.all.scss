@@ -105,7 +105,16 @@ body.rtl {
 
 .gnetwork-wrap {
   &.-footer {
-    margin: 2em 0 1em;
     text-align: center;
+
+    &.-already {
+      margin-top: 2em;
+      color: $gray;
+      font-size: smaller;
+    }
+
+    &.-badge {
+      margin: 1em 0 .5em;
+    }
   }
 }
