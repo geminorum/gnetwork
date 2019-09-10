@@ -611,6 +611,7 @@ class ShortCodes extends gNetwork\Module
 	{
 		$args = shortcode_atts( [
 			'post'    => NULL,
+			'link'    => TRUE,
 			'context' => NULL,
 			'wrap'    => empty( $atts['tag'] ) ? TRUE : $atts['tag'], // back-comp
 			'before'  => '',
@@ -627,6 +628,12 @@ class ShortCodes extends gNetwork\Module
 			return $content;
 
 		$html = Utilities::prepTitle( $post->post_title, $post->ID );
+
+		if ( TRUE === $args['link'] )
+			$html = HTML::link( $html, apply_filters( 'the_permalink', get_permalink( $post ), $post ) );
+
+		else if ( $args['link'] )
+			$html = HTML::link( $html, $args['link'] );
 
 		return self::shortcodeWrap( $html, 'post-title', $args, FALSE );
 	}
