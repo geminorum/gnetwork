@@ -86,13 +86,17 @@ class Arraay extends Base
 		return $array;
 	}
 
-	// for useing with $('form').serializeArray();
-	// http://api.jquery.com/serializeArray/
-	public static function parseJSArray( $array )
+	// for using with $('form').serializeArray();
+	// @REF: http://api.jquery.com/serializeArray/
+	// @INPUT: [{name:"a",value:"1"},{name:"b",value:"2"}]
+	// @OLD: `parseJSArray()`
+	public static function parseSerialized( $array )
 	{
 		$parsed = array();
+
 		foreach ( $array as $part )
 			$parsed[$part['name']] = $part['value'];
+
 		return $parsed;
 	}
 

@@ -172,8 +172,16 @@ class HTML extends Base
 
 	public static function tag( $tag, $atts = array(), $content = FALSE, $sep = '' )
 	{
-		if ( FALSE === $tag && ! is_array( $atts ) )
-			return $atts;
+		if ( empty( $tag ) ) {
+
+			if ( ! is_array( $atts ) )
+				return $atts.$sep;
+
+			if ( $content )
+				return $content.$sep;
+
+			return '';
+		}
 
 		$tag = self::sanitizeTag( $tag );
 

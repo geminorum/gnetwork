@@ -53,7 +53,7 @@ class URI extends Base
 
 		$path = '';
 
-		if ( $delta['path'] ) {
+		if ( is_string( $delta['path'] ) && strlen( $delta['path'] ) > 0 ) {
 
 			// if the path starts with a slash
 			if ( '/' === $delta['path'][0] ) {
