@@ -44,10 +44,8 @@ class Media extends gNetwork\Module
 
 		if ( is_admin() ) {
 
-			if ( $this->options['dashboard_widget'] ) {
-				$this->action( 'wp_dashboard_setup' );
+			if ( $this->options['dashboard_widget'] )
 				$this->action( 'post-plupload-upload-ui', 0, 12 );
-			}
 
 			$this->filter( 'post_mime_types' );
 
@@ -172,7 +170,7 @@ class Media extends gNetwork\Module
 		}
 	}
 
-	public function wp_dashboard_setup()
+	public function setup_dashboard()
 	{
 		if ( ! current_user_can( 'upload_files' ) )
 			return;

@@ -32,9 +32,7 @@ class Cron extends gNetwork\Module
 		if ( function_exists( 'wp_get_ready_cron_jobs' ) )
 			$this->filter_module( 'dashboard', 'pointers', 1, 4 );
 
-		if ( $this->options['dashboard_widget'] )
-			$this->action( 'wp_dashboard_setup' );
-		else
+		if ( ! $this->options['dashboard_widget'] )
 			$this->action( 'activity_box_end', 0, 12 );
 
 		$this->filter( 'cron_schedules', 1, 20 );
@@ -187,7 +185,7 @@ class Cron extends gNetwork\Module
 			$this->_hook_event( 'clean_revisions', 'weekly' );
 	}
 
-	public function wp_dashboard_setup()
+	public function setup_dashboard()
 	{
 		if ( $this->add_dashboard_widget( 'status-check', _x( 'WP-Cron Status Check', 'Modules: CRON: Widget Title', 'gnetwork' ) ) )
 			Scripts::enqueueScript( 'admin.cron.statuscheck' );

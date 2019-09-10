@@ -25,9 +25,6 @@ class Uptime extends gNetwork\Module
 
 		else if ( isset( $this->options['uptimerobot_apikey'] ) )
 			$this->api_key = $this->options['uptimerobot_apikey'];
-
-		if ( $this->options['dashboard_widget'] && $this->api_key )
-			$this->action( 'wp_dashboard_setup' );
 	}
 
 	public function setup_menu( $context )
@@ -74,8 +71,11 @@ class Uptime extends gNetwork\Module
 		];
 	}
 
-	public function wp_dashboard_setup()
+	public function setup_dashboard()
 	{
+		if ( empty( $this->api_key ) )
+			return FALSE;
+
 		$this->add_dashboard_widget( 'dashboard', _x( 'Uptime Monitor', 'Modules: Uptime: Widget Title', 'gnetwork' ) );
 	}
 
