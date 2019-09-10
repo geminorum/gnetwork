@@ -171,7 +171,7 @@ class Plugin
 			'Modules/Editor'      => 'Editor',
 			'Modules/Captcha'     => 'Captcha',
 			'Modules/OpenSearch'  => 'OpenSearch',
-			// 'Modules/Support'     => 'Support',
+			'Modules/Support'     => 'Support',
 			'Modules/Mail'        => 'Mail',
 			'Modules/SMS'         => 'SMS',
 			// 'Modules/Bot'         => 'Bot',
