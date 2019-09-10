@@ -138,7 +138,7 @@ class Maintenance extends gNetwork\Module
 		if ( isset( $_POST['store_maintenance_php'] )
 			&& is_main_site() ) {
 
-			$this->check_referer( $sub );
+			$this->check_referer( $sub, 'settings' );
 
 			ob_start();
 

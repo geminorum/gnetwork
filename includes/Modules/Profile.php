@@ -239,7 +239,7 @@ class Profile extends gNetwork\Module
 	{
 		if ( isset( $_POST['import_users_csv'] ) ) {
 
-			$this->check_referer( $sub );
+			$this->check_referer( $sub, 'settings' );
 
 			$file = wp_import_handle_upload();
 
@@ -256,7 +256,7 @@ class Profile extends gNetwork\Module
 
 		} else if ( isset( $_POST['export_users_csv'] ) ) {
 
-			$this->check_referer( $sub );
+			$this->check_referer( $sub, 'settings' );
 
 			Text::download( $this->get_csv_users(), File::prepName( 'users.csv' ) );
 

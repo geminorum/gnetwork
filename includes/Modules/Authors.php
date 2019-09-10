@@ -180,7 +180,7 @@ class Authors extends gNetwork\Module
 
 		} else if ( ! empty( $_POST['bulk_change_author'] ) ) {
 
-			$this->check_referer( $sub );
+			$this->check_referer( $sub, 'tools' );
 
 			if ( empty( $_POST['from_user_id'] ) || 'none' == $_POST['from_user_id'] )
 				return;

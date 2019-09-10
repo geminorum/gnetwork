@@ -216,7 +216,7 @@ class Site extends gNetwork\Module
 		if ( isset( $_POST['disable_site_ssl'] )
 			|| isset( $_POST['enable_site_ssl'] ) ) {
 
-			$this->check_referer( $sub );
+			$this->check_referer( $sub, 'settings' );
 
 			$switch = isset( $_POST['enable_site_ssl'] )
 				? [ 'http://', 'https://' ]
@@ -231,7 +231,7 @@ class Site extends gNetwork\Module
 
 		} else if ( isset( $_POST['resync_sitemeta'] ) ) {
 
-			$this->check_referer( $sub );
+			$this->check_referer( $sub, 'settings' );
 
 			$count = $this->network_resync_sitemeta();
 
@@ -242,7 +242,7 @@ class Site extends gNetwork\Module
 
 		} else if ( isset( $_POST['delete_sitemeta'] ) ) {
 
-			$this->check_referer( $sub );
+			$this->check_referer( $sub, 'settings' );
 
 			$count = $this->network_delete_sitemeta();
 

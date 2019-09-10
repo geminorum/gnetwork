@@ -236,7 +236,7 @@ class Mail extends gNetwork\Module
 		if ( GNETWORK_MAIL_LOG_DIR
 			&& isset( $_POST['create_log_folder'] ) ) {
 
-			$this->check_referer( $sub );
+			$this->check_referer( $sub, 'settings' );
 
 			$created = File::putHTAccessDeny( GNETWORK_MAIL_LOG_DIR, TRUE );
 
@@ -271,7 +271,7 @@ class Mail extends gNetwork\Module
 				&& ! empty( $_POST )
 				&& 'bulk' == $_POST['action'] ) {
 
-				$this->check_referer( $sub );
+				$this->check_referer( $sub, 'tools' );
 
 				// TODO: add exporting to .eml files
 				// http://stackoverflow.com/a/16039103
@@ -510,7 +510,7 @@ class Mail extends gNetwork\Module
 		if ( isset( $_POST['send_testmail'] )
 			&& isset( $_POST['send_testmail_to'] ) ) {
 
-			$this->check_referer( 'testmail' );
+			$this->check_referer( 'testmail', 'tools' );
 
 			// Make sure the PHPMailer class has been instantiated
 			// (copied verbatim from wp-includes/pluggable.php)

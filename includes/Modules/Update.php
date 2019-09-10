@@ -165,7 +165,7 @@ class Update extends gNetwork\Module
 	{
 		if ( isset( $_POST['refresh_packages'] ) ) {
 
-			$this->check_referer( $sub );
+			$this->check_referer( $sub, 'settings' );
 
 			$count = $this->refresh_packages();
 

@@ -70,7 +70,7 @@ class SMS extends gNetwork\Module
 		if ( GNETWORK_SMS_LOG_DIR
 			&& isset( $_POST['create_log_folder'] ) ) {
 
-			$this->check_referer( $sub );
+			$this->check_referer( $sub, 'settings' );
 
 			$created = File::putHTAccessDeny( GNETWORK_SMS_LOG_DIR, TRUE );
 
@@ -90,7 +90,7 @@ class SMS extends gNetwork\Module
 			&& ! empty( $_POST )
 			&& 'bulk' == $_POST['action'] ) {
 
-			$this->check_referer( $sub );
+			$this->check_referer( $sub, 'tools' );
 
 			if ( isset( $_POST['deletelogs_all'] ) ) {
 

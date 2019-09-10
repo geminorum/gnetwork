@@ -726,9 +726,16 @@ class Module extends Core\Base
 	{
 		$sidebox = $check && method_exists( $this, $context.'_sidebox' );
 
-		echo '<form enctype="multipart/form-data" class="'.$this->base.'-form -form'.( $sidebox ? ' has-sidebox' : '' ).'" method="post" action="">'; // WPCS: XSS ok;
+		echo '<form enctype="multipart/form-data"';
+			echo ' class="'.HTML::prepClass( $this->base.'-form', '-form', ( $sidebox ? ' has-sidebox' : '' ) ).'"'; // WPCS: XSS ok;
 
-			$this->render_form_fields( $sub, $action, $context );
+			if ( 'ajax' == $action ) // @SEE: `$this->check_referer_ajax()`
+				echo 'data-nonce="'.wp_create_nonce( $this->base.'_'.$sub.'-'.$context ).'"'; // WPCS: XSS ok;
+
+			echo ' method="post" action="">';
+
+			if ( in_array( $context, [ 'settings', 'tools' ] ) )
+				$this->render_form_fields( $sub, $action, $context );
 
 			if ( $check && $sidebox ) {
 				echo '<div class="-sidebox -sidebox-'.$context.' -sidebox-'.HTML::escape( $sub ).'">'; // WPCS: XSS ok;
@@ -775,14 +782,14 @@ class Module extends Core\Base
 		HTML::inputHidden( 'sub', $sub );
 		HTML::inputHidden( 'action', $action );
 
-		wp_nonce_field( $this->base.'_'.$sub.'-settings' );
+		wp_nonce_field( $this->base.'_'.$sub.'-'.$context ); // @SEE: `$this->check_referer()`
 	}
 
 	protected function settings_update( $sub )
 	{
 		if ( ! empty( $_POST ) && 'update' == $_POST['action'] ) {
 
-			$this->check_referer( $sub );
+			$this->check_referer( $sub, 'settings' );
 
 			if ( isset( $_POST['reset'] ) )
 				$message = $this->reset_settings() ? 'resetting' : 'error';
@@ -797,9 +804,14 @@ class Module extends Core\Base
 		}
 	}
 
-	protected function check_referer( $sub )
+	protected function check_referer( $sub, $context )
 	{
-		check_admin_referer( $this->base.'_'.$sub.'-settings' );
+		check_admin_referer( $this->base.'_'.$sub.'-'.$context );
+	}
+
+	protected function check_referer_ajax( $sub, $context, $key = 'nonce' )
+	{
+		check_ajax_referer( $this->base.'_'.$sub.'-'.$context, $key );
 	}
 
 	public function reset_settings( $options_key = NULL )

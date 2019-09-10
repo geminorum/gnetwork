@@ -92,7 +92,7 @@ class Debug extends gNetwork\Module
 	{
 		if ( isset( $_POST['clear_logs'] ) ) {
 
-			$this->check_referer( $sub );
+			$this->check_referer( $sub, 'tools' );
 
 			if ( GNETWORK_DEBUG_LOG && 'errorlogs' == $sub )
 				WordPress::redirectReferer( ( @unlink( GNETWORK_DEBUG_LOG ) ? 'purged' : 'error' ) );

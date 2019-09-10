@@ -231,7 +231,7 @@ class Cleanup extends gNetwork\Module
 	{
 		if ( ! empty( $_POST ) && 'update' == $_POST['action'] ) {
 
-			$this->check_referer( $sub );
+			$this->check_referer( $sub, 'tools' );
 
 			if ( isset( $_POST['transient_purge_site'] ) )
 				$message = $this->purge_transient_data( FALSE, TRUE );

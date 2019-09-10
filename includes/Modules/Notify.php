@@ -162,7 +162,7 @@ class Notify extends gNetwork\Module
 	{
 		if ( isset( $_POST['test_signup_user'] ) ) {
 
-			$this->check_referer( $sub );
+			$this->check_referer( $sub, 'settings' );
 
 			// BuddyPress's
 			remove_filter( 'wpmu_signup_user_notification', 'bp_core_activation_signup_user_notification', 1, 4 );
@@ -180,7 +180,7 @@ class Notify extends gNetwork\Module
 
 		} else if ( isset( $_POST['test_signup_blog'] ) ) {
 
-			$this->check_referer( $sub );
+			$this->check_referer( $sub, 'settings' );
 
 			// BuddyPress's
 			remove_filter( 'wpmu_signup_blog_notification', 'bp_core_activation_signup_blog_notification', 1, 6 );

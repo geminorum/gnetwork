@@ -231,7 +231,7 @@ class User extends gNetwork\Module
 	{
 		if ( isset( $_POST['default_role_for_users'] ) ) {
 
-			$this->check_referer( $sub );
+			$this->check_referer( $sub, 'settings' );
 
 			$count   = 0;
 			$site_id = get_current_blog_id();
@@ -275,7 +275,7 @@ class User extends gNetwork\Module
 
 			if ( ! empty( $_POST ) && 'bulk' == $_POST['action'] ) {
 
-				$this->check_referer( $sub );
+				$this->check_referer( $sub, 'tools' );
 
 				$roles = [];
 

@@ -149,7 +149,7 @@ class Cron extends gNetwork\Module
 	{
 		if ( ! empty( $_POST ) && 'bulk' == $_POST['action'] ) {
 
-			$this->check_referer( $sub );
+			$this->check_referer( $sub, 'tools' );
 
 			if ( isset( $_POST['unschedule'], $_POST['_cb'] ) ) {
 
