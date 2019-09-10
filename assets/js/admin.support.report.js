@@ -23,7 +23,7 @@ jQuery(function ($) {
         $spinner.removeClass('is-active');
         if (response.success) {
           $message.html(response.data);
-          $(':input', form).not(':button, :submit, :reset, :hidden, :select').val('').prop('checked', false); // .prop('selected', false);
+          $(':input', form).not(':button, :submit, :reset, :hidden, select').val('').prop('checked', false); // .prop('selected', false);
         } else {
           $message.html(response.data);
         }

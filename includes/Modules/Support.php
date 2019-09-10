@@ -215,9 +215,15 @@ class Support extends gNetwork\Module
 		return $template;
 	}
 
-	private function do_submit_report( $form )
+	private function do_submit_report( $data )
 	{
-		if ( strlen( $form['report_subject'] ) < 1 && strlen( $form['report_content'] ) < 1 )
+		$parsed = self::atts( [
+			'report_subject' => _x( '[UNTITLED]', 'Modules: Support: Defaults', 'gnetwork' ),
+			'report_content' => _x( '[EMPTY]', 'Modules: Support: Defaults', 'gnetwork' ),
+			'report_topic'   => _x( '[UKNOWN]', 'Modules: Support: Defaults', 'gnetwork' ),
+		], $data );
+
+		if ( strlen( $parsed['report_subject'] ) < 1 && strlen( $parsed['report_content'] ) < 1 )
 			return _x( 'Please don\'t submit empty reports!', 'Modules: Support: Ajax', 'gnetwork' );
 
 		$email = $this->get_option_fallback( 'provider_email', gNetwork()->brand( 'email' ) );
@@ -229,9 +235,9 @@ class Support extends gNetwork\Module
 		];
 
 		$tokens = [
-			'subject'      => $form['report_subject'],
-			'content'      => $form['report_content'],
-			'topic'        => $form['report_topic'],
+			'subject'      => $parsed['report_subject'],
+			'content'      => $parsed['report_content'],
+			'topic'        => $parsed['report_topic'],
 			'site'         => WordPress::getSiteNameforEmail(),
 			'domain'       => WordPress::currentSiteName(),
 			'url'          => get_option( 'home' ),
