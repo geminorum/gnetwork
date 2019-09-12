@@ -1455,8 +1455,16 @@ class Module extends Core\Base
 		if ( ! $this->get_option( $option_key, TRUE ) )
 			return FALSE;
 
-		foreach ( $this->get_blocktypes() as $blocktype => $args )
-			$this->register_blocktype( $blocktype, $args );
+		foreach ( $this->get_blocktypes() as $blocktype ) {
+
+			if ( empty( $blocktype[0] ) )
+				continue;
+
+			$extra = empty( $blocktype[1] ) ? [] : $blocktype[1];
+			$deps  = empty( $blocktype[2] ) ? NULL : $blocktype[2];
+
+			$this->register_blocktype( $blocktype[0], $extra, $deps );
+		}
 
 		return TRUE;
 	}
@@ -1483,6 +1491,9 @@ class Module extends Core\Base
 
 		if ( isset( $args['context'] ) && $args['context'] )
 			$classes[] = 'context-'.$args['context'];
+
+		if ( ! empty( $args['alignment'] ) )
+			$classes[] = 'gnetwork-block-align-'.$args['alignment'];
 
 		if ( ! empty( $args['className'] ) )
 			$classes = HTML::attrClass( $classes, $args['className'] );

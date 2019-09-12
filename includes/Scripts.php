@@ -24,7 +24,7 @@ class Scripts extends Core\Base
 
 	public static function registerBlock( $asset, $dep = NULL, $version = GNETWORK_VERSION, $base = GNETWORK_URL, $path = 'assets/blocks' )
 	{
-		$dep     = is_null( $dep ) ? [ 'wp-blocks', 'wp-element', 'wp-i18n', 'wp-components' ] : (array) $dep;
+		$dep     = is_null( $dep ) ? [ 'wp-blocks', 'wp-i18n', 'wp-components', 'wp-editor' ] : (array) $dep;
 		$handle  = strtolower( self::BASE.'-block-'.str_replace( '.', '-', $asset ) );
 		$variant = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
