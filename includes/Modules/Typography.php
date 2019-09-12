@@ -55,6 +55,7 @@ class Typography extends gNetwork\Module
 	public function default_options()
 	{
 		return [
+			'register_blocktypes' => '0',
 			'register_shortcodes' => '0',
 			'editor_buttons'      => '0',
 			'title_sanitize'      => '0',
@@ -108,6 +109,7 @@ class Typography extends gNetwork\Module
 					'title'       => _x( 'Word Wrapper for Widget Titles', 'Modules: Typography: Settings', 'gnetwork' ),
 					'description' => _x( 'Prevents widow words in the end of widget titles.', 'Modules: Typography: Settings', 'gnetwork' ),
 				],
+				'register_blocktypes',
 				'register_shortcodes',
 				'editor_buttons',
 			],
@@ -222,7 +224,17 @@ class Typography extends gNetwork\Module
 			Admin::registerTinyMCE( 'gnetworkasterisks', 'assets/js/tinymce/asterisks', 2 );
 		}
 
+		$this->register_blocktypes();
 		$this->register_shortcodes();
+	}
+
+	protected function get_blocktypes()
+	{
+		return [
+			[
+				'asterisks',
+			]
+		];
 	}
 
 	protected function get_shortcodes()

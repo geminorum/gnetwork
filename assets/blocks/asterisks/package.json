@@ -1,0 +1,22 @@
+{
+  "main": "src/index.js",
+  "private": true,
+  "scripts": {
+    "start": "wp-scripts start",
+    "build": "wp-scripts build",
+    "check-engines": "wp-scripts check-engines"
+  },
+  "devDependencies": {
+    "@wordpress/scripts": "4.1.0",
+    "semistandard": "^14.1.0"
+  },
+  "semistandard": {
+    "ignore": [
+      "**/build/",
+      "*.min.js"
+    ],
+    "globals": [
+      "wp"
+    ]
+  }
+}
