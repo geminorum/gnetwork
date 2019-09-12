@@ -49,6 +49,7 @@ class ShortCodes extends gNetwork\Module
 
 	public function init_late()
 	{
+		$this->register_blocktypes();
 		$this->register_shortcodes();
 
 		if ( is_admin() ) {
@@ -75,6 +76,35 @@ class ShortCodes extends gNetwork\Module
 				$this->filter( 'amp_post_template_file', 3 );
 			}
 		}
+	}
+
+	protected function get_blocktypes()
+	{
+		return [
+			[
+				'post-title',
+				[
+					'attributes' => [
+						'post' => [
+							'default' => '',
+							'type'    => 'string',
+						],
+						'link' => [
+							'default' => TRUE,
+							'type'    => 'boolean',
+						],
+						'wrap' => [
+							'default' => '',
+							'type'    => 'string',
+						],
+						'alignment' => [
+							'default' => 'none',
+							'type'    => 'string',
+						],
+					],
+				],
+			],
+		];
 	}
 
 	protected function get_shortcodes()
@@ -605,6 +635,18 @@ class ShortCodes extends gNetwork\Module
 		] );
 
 		return self::shortcodeWrap( wp_nav_menu( $menu ), 'menu', $args );
+	}
+
+	public function block_post_title_render_callback( $attributes, $content )
+	{
+		if ( empty( $attributes['post'] ) )
+			$attributes['post'] = self::req( 'post_id', get_post() );
+
+		$attributes['link'] = (bool) $attributes['link'];
+
+		$html = $this->shortcode_post_title( array_merge( $attributes, [ 'wrap' => FALSE ] ) );
+
+		return self::blockWrap( $html, 'post-title', $attributes, FALSE );
 	}
 
 	public function shortcode_post_title( $atts = [], $content = NULL, $tag = '' )
