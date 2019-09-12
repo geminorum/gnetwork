@@ -74,6 +74,12 @@ class Debug extends gNetwork\Module
 			$this->register_tool( _x( 'Failed Logs', 'Modules: Menu Name', 'gnetwork' ), 'failedlogs', 20, NULL, FALSE );
 	}
 
+	public function setup_dashboard()
+	{
+		if ( current_user_can( 'manage_options' ) )
+			$this->filter_module( 'dashboard', 'pointers' );
+	}
+
 	public function tools( $sub = NULL, $key = NULL )
 	{
 		if ( in_array( $sub, [ 'systemreport', 'remotetests', 'errorlogs', 'analoglogs', 'failedlogs' ] ) )
@@ -730,6 +736,54 @@ class Debug extends gNetwork\Module
 				'url'    => $url,
 				'method' => empty( $args['method'] ) ? 'UNKNOWN' : $args['method'],
 			];
+	}
+
+	public function dashboard_pointers( $items )
+	{
+		$logs = [
+			/* translators: %s: log file size */
+			'errorlogs'  => [ GNETWORK_DEBUG_LOG, _x( '%s in Error Logs', 'Modules: Debug', 'gnetwork' ) ],
+			/* translators: %s: log file size */
+			'analoglogs' => [ GNETWORK_ANALOG_LOG, _x( '%s in System Logs', 'Modules: Debug', 'gnetwork' ) ],
+			/* translators: %s: log file size */
+			'failedlogs' => [ GNETWORK_FAILED_LOG, _x( '%s in Failed Logs', 'Modules: Debug', 'gnetwork' ) ],
+		];
+
+		$quota = 2 * 1024 * 1024; // 2 megabytes // FIXME
+
+		foreach( $logs as $sub => $log ) {
+
+			if ( ! $log[0] )
+				continue;
+
+			if ( ! is_readable( $log[0] ) )
+				continue;
+
+			if ( ! $size = File::getSize( $log[0], FALSE ) )
+				continue;
+
+			$classes = [ '-log-size' ];
+			$percent = number_format( ( $size / $quota ) * 100 );
+
+			/* translators: %1$s: quota percent, %2$s: full quota */
+			$title = sprintf( _x( '%1$s of %2$s', 'Modules: Debug', 'gnetwork' ),
+				apply_filters( 'number_format_i18n', $percent.'%' ),
+				HTML::wrapLTR( File::formatSize( $quota ) ) );
+
+			if ( $percent >= 100 )
+				$classes[] = 'danger';
+
+			else if ( $percent >= 70 )
+				$classes[] = 'warning';
+
+			$items[] = HTML::tag( 'a', [
+				'href'  => $this->get_menu_url( $sub, 'network', 'tools' ),
+				'title' => $title,
+				'class' => $classes,
+			], sprintf( $log[1], HTML::wrapLTR( File::formatSize( $size ) ) ) );
+		}
+
+		return $items;
 	}
 
 	public function core_upgrade_preamble()
