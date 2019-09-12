@@ -75,7 +75,7 @@ class Debug extends gNetwork\Module
 
 	public function setup_dashboard()
 	{
-		if ( current_user_can( 'manage_options' ) )
+		if ( current_user_can( ( $this->is_network() ? 'manage_network_options' : 'manage_options' ) ) )
 			$this->filter_module( 'dashboard', 'pointers' );
 	}
 
