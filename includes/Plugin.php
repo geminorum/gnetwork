@@ -67,7 +67,7 @@ class Plugin
 	private function constants()
 	{
 		return [
-			'GNETWORK_TEXTDOMAIN'   => $this->base,
+			// 'GNETWORK_TEXTDOMAIN'   => $this->base,
 			'GNETWORK_MAIN_NETWORK' => get_main_network_id(), // set FALSE to disable multi-network enhancements
 
 			// 'GNETWORK_WPLANG'       => 'en_US', // define if necessary

@@ -29,14 +29,13 @@ class Debug extends gNetwork\Module
 		if ( WordPress::mustRegisterUI() )
 			$this->action( 'core_upgrade_preamble', 1, 20 );
 
-		$this->filter( 'debug_bar_panels' );
 		$this->action( 'wp_footer', 1, 999 );
+		$this->action( 'http_api_debug', 5 );
+		$this->filter( 'debug_bar_panels' );
 
 		add_filter( 'wp_die_handler', function() {
 			return [ $this, 'wp_die_handler' ];
 		} );
-
-		$this->action( 'http_api_debug', 5 );
 
 		if ( 'production' == WP_STAGE ) {
 

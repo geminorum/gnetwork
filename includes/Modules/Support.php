@@ -153,7 +153,7 @@ class Support extends gNetwork\Module
 
 		echo $this->wrap_open_buttons();
 
-			Settings::submitButton( 'support_send_report', _x( 'Send Report', 'Modules: Support', 'gnetwork' ) );
+			Settings::submitButton( 'support_send_report', _x( 'Send Report', 'Modules: Support', 'gnetwork' ), TRUE );
 			echo Ajax::spinner();
 
 		echo '</p>';

@@ -70,7 +70,7 @@ class Dashboard extends gNetwork\Module
 
 		$this->action( 'activity_box_end', 0, 4 );
 
-			if ( current_user_can( 'update_core' ) )
+		if ( current_user_can( 'update_core' ) )
 			$this->filter_module( 'dashboard', 'pointers', 1, 3, 'update' );
 
 		if ( current_user_can( 'manage_options' ) )
@@ -500,12 +500,19 @@ class Dashboard extends gNetwork\Module
 		$quota   = get_space_allowed();
 		$used    = get_space_used();
 		$percent = number_format( ( $used / $quota ) * 100 );
+		$classes = [ '-storage' ];
+
+		if ( $percent >= 100 )
+			$classes[] = 'danger';
+
+		else if ( $percent >= 70 )
+			$classes[] = 'warning';
 
 		$items[] = HTML::tag( 'a', [
 			'href'  => admin_url( 'upload.php' ),
-			'title' => sprintf( HTML::wrapLTR( '%s MB/%s MB' ), Number::format( number_format( round( $used, 2 ), 2 ) ), Number::format( $quota ) ),
-			'class' => '-storage'.( $percent >= 70 ? ' warning' : '' ),
-		/* translators: %s: space used precent */
+			'title' => sprintf( HTML::wrapLTR( '%s MB/%s MB' ), Number::format( round( $used, 2 ), 2 ), Number::format( $quota ) ),
+			'class' => $classes,
+		/* translators: %s: space used percent */
 		], sprintf( _x( '%s Space Used', 'Modules: Dashboard: Space Quota', 'gnetwork' ), apply_filters( 'number_format_i18n', $percent.'%' ) ) );
 
 		return $items;
