@@ -81,13 +81,13 @@ body.hide-admin-menu {
   }
 }
 
-#dashboard_activity #future-posts h3,
-#dashboard_activity #published-posts h3,
 // #dashboard_right_now #wp-version-message,
 // #dashboard_right_now .inside .versions p,
 // #dashboard_right_now .inside .versions span,
 // #dashboard_right_now .inside p.musub,
-#dashboard_right_now h3.mu-storage {
+// #dashboard_right_now h3.mu-storage,
+#dashboard_activity #future-posts h3,
+#dashboard_activity #published-posts h3 {
   display: none !important;
 }
 

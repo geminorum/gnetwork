@@ -43,6 +43,10 @@
         color: $brand-warning !important;
       }
 
+      a.danger::before {
+        color: $brand-danger !important;
+      }
+
       .-flush-rules::before {
         color: $brand-danger !important;
         content: "\f225" !important;
@@ -79,6 +83,10 @@
 
       a.-storage::before {
         content: "\f104" !important;
+      }
+
+      a.-log-size::before {
+        content: "\f13a" !important;
       }
 
       a[data-module="sms"]::before {
