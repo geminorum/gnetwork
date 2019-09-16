@@ -6,6 +6,7 @@ use geminorum\gNetwork;
 use geminorum\gNetwork\Scripts;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Core\Text;
+use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
 
@@ -477,10 +478,13 @@ class Navigation extends gNetwork\Module
 
 					} else {
 
+						$classes = [ 'menu', 'nav', 'network-menu', '-print-hide' ];
+						$classes = apply_filters( self::BASE.'_navigation_globalmenu_class', $classes, $term );
+
 						$results = wp_nav_menu( [
 							'menu'         => $term->term_id,
 							'menu_id'      => $name,
-							'menu_class'   => 'menu network-menu -print-hide',
+							'menu_class'   => HTML::prepClass( $classes ),
 							'container'    => '',
 							'item_spacing' => 'discard',
 							'fallback_cb'  => FALSE,
