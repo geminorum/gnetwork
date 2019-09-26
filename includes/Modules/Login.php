@@ -42,9 +42,6 @@ class Login extends gNetwork\Module
 		$this->filter( 'wp_login_errors', 2 );
 		$this->filter( 'login_message' );
 
-		if ( $this->options['ambiguous_error'] )
-			$this->filter( 'login_errors', 1, 20 );
-
 		if ( $this->options['login_hide'] ) {
 			$this->action( 'plugins_loaded', 0, 9 );
 			$this->action( 'wp_loaded', 0, 9 );
@@ -67,7 +64,6 @@ class Login extends gNetwork\Module
 	{
 		return [
 			'login_math'      => 0,
-			'ambiguous_error' => 1,
 			'login_log'       => 0,
 			'store_lastlogin' => 1,
 			'redirect_login'  => '',
@@ -90,12 +86,6 @@ class Login extends gNetwork\Module
 					'field'       => 'login_math',
 					'title'       => _x( 'Login Math', 'Modules: Login: Settings', 'gnetwork' ),
 					'description' => _x( 'Puts a math problem after the login form.', 'Modules: Login: Settings', 'gnetwork' ),
-				],
-				[
-					'field'       => 'ambiguous_error',
-					'title'       => _x( 'Ambiguous Error', 'Modules: Login: Settings', 'gnetwork' ),
-					'description' => _x( 'Swaps error messages with an ambiguous one.', 'Modules: Login: Settings', 'gnetwork' ),
-					'default'     => '1',
 				],
 				[
 					'field'       => 'login_log',
@@ -604,14 +594,18 @@ class Login extends gNetwork\Module
 			if ( in_array( $error, $log ) )
 				Logger::siteFAILED( 'LOGIN-ERRORS', str_replace( '_', ' ', $error ).sprintf( ': %s', self::req( 'log', '(EMPTY)' ) ) );
 
-		return $errors;
-	}
+		$code = $errors->get_error_code();
 
-	public function login_errors( $error )
-	{
-		return _x( 'Something is wrong!', 'Modules: Login: Ambiguous Error', 'gnetwork' )
-			.' '.HTML::link( _x( 'Lost your password?', 'Modules: Login: Ambiguous Error', 'gnetwork' ),
-				esc_url( wp_lostpassword_url() ) );
+		if ( in_array( $code, [ 'invalid_username', 'incorrect_password', 'invalid_email', 'invalidcombo' ] ) ) {
+			$errors->remove( $code );
+			$errors->add( 'invalid_username', vsprintf( '%1$s <a href="%3$s">%2$s</a>', [
+				_x( '<strong>ERROR</strong>: Invalid login data.', 'Modules: Login: Ambiguous Error', 'gnetwork' ),
+				_x( 'Lost your password?', 'Modules: Login: Ambiguous Error', 'gnetwork' ),
+				esc_url( wp_lostpassword_url() ),
+			] ) );
+		}
+
+		return $errors;
 	}
 
 	public function login_footer_logged_in()
