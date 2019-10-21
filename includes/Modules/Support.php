@@ -142,7 +142,7 @@ class Support extends gNetwork\Module
 			] );
 
 		$this->do_settings_field( [
-			'type'        => 'textarea-quicktags',
+			'type'        => 'textarea',
 			'name_attr'   => 'report_content',
 			'field'       => 'content',
 			'field_class' => [ 'large-text', 'textarea-autosize' ],

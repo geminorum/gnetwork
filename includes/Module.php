@@ -317,11 +317,17 @@ class Module extends Core\Base
 	protected function filter_once( $hook, $args = 1, $priority = 10, $suffix = FALSE )
 	{
 		if ( $method = self::sanitize_hook( ( $suffix ? $hook.'_'.$suffix : $hook ) ) )
-			add_filter( $hook, function( $first ) use( $method ) {
+			add_filter( $hook, function() use( $method ) {
 				static $ran = FALSE;
-				if ( $ran ) return $first;
+
+				$params = func_get_args();
+
+				if ( $ran )
+					return $params[0];
+
 				$ran = TRUE;
-				return call_user_func_array( [ $this, $method ], func_get_args() );
+
+				return call_user_func_array( [ $this, $method ], $params );
 			}, $priority, $args );
 	}
 
@@ -1360,8 +1366,8 @@ class Module extends Core\Base
 			return '';
 
 		$html = ' <span class="postbox-title-action" data-tooltip="'.$info.'"';
-		$html.= ' data-tooltip-length="xlarge" data-tooltip-pos="'.( HTML::rtl() ? 'down-right' : 'down-left' ).'"';
-		$html.= ' data-tooltip-blunt>'.HTML::getDashicon( 'info' ).'</span>';
+		$html.= ' data-tooltip-pos="'.( HTML::rtl() ? 'down-right' : 'down-left' ).'"';
+		$html.= ' data-tooltip-length="xlarge">'.HTML::getDashicon( 'info' ).'</span>';
 
 		return $html;
 	}
