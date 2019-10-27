@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2019-08-22 19:18+0430\n"
+"PO-Revision-Date: 2019-08-27 17:13+0430\n"
 "Language: fa\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 2.2.3\n"
@@ -613,7 +613,7 @@ msgstr "به مدیریت شبکه خوش آمدید. این بخش برای م�
 
 #: wp-admin/network/upgrade.php:138
 msgid "WordPress has been updated! Before we send you on your way, we need to individually upgrade the sites in your network."
-msgstr "وردپرس به‌روز شده است! پیش از ادامه کارتان، باید سایت‌های شبکهٔ شما را به‌روز کنیم."
+msgstr "وردپرس به‌روز شده است! پیش از ادامه، باید هر یک از سایت‌ها را در شبکهٔ شما ارتقا دهیم."
 
 #: wp-admin/network/upgrade.php:23
 msgid "Only use this screen once you have updated to a new version of WordPress through Updates/Available Updates (via the Network Administration navigation menu or the Toolbar). Clicking the Upgrade Network button will step through each site in the network, five at a time, and make sure any database updates are applied."
