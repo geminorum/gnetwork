@@ -27,6 +27,7 @@
       li {
         font-size: smaller; // 0.85em;
         margin-bottom: 5px !important;
+        line-height: 1.8;
       }
 
       + .-wrap {
@@ -86,7 +87,7 @@
       }
 
       a.-log-size::before {
-        content: "\f13a" !important;
+        content: "\f123" !important;
       }
 
       a[data-module="sms"]::before {

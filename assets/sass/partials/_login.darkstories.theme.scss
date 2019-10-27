@@ -7,17 +7,21 @@ body.login.darkstories {
   background: #252525;
   color: #e8e8e8;
 
-  // a {
-  //   color: #fc0;
-  //
-  //   &:focus,
-  //   &:hover {
-  //     color: #ffeb9b;
-  //   }
-  // }
-
   a:focus {
     box-shadow: none;
+  }
+
+  #login {
+    form {
+      border-radius: 2px;
+      background: #353535;
+      border-color: #434343;
+    }
+  }
+
+  label[for="user_login"],
+  label[for="user_pass"] {
+    margin-bottom: 0.5rem;
   }
 
   input[type="number"],
@@ -26,27 +30,18 @@ body.login.darkstories {
     color: inherit;
     background: transparent;
     border: 1px solid #434343;
+    border-radius: 2px;
   }
 
-  #user_login,
-  #user_pass {
-    margin-top: 6px;
-  }
-
-  p {
+  p,
+  .user-pass-wrap,
+  .admin-email__heading,
+  .admin-email__actions {
     text-align: center;
-
-    &.description {
-      text-align: left;
-    }
-
-    // &.login-sum {}
   }
 
-  #login {
-    form {
-      background: #353535;
-    }
+  p.description {
+    text-align: left;
   }
 
   .message,

@@ -239,14 +239,21 @@ ul.categorychecklist {
 
   .taxonomy-add-new,
   .category-add,
+  #trackbacksdiv .inside > ul,
   #tagcloud-post_tag {
     margin-bottom: 0;
   }
 
-  #trackback-url-desc,
+  #trackback-url-desc {
+    // margin: -20px 2px 0 0 !important;
+    margin-top: -0.5rem;
+    margin-left: 0.2rem;
+    font-size: smaller;
+  }
+
   .jaxtag .howto {
-    margin: 0 2px 0 2px !important;
-    font-size: 0.8em;
+    margin: 0 2px !important;
+    font-size: smaller;
   }
 
   ul.category-tabs li {

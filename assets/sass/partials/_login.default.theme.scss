@@ -4,25 +4,30 @@
 /// gNetwork Partials: Login: Default ------------------------------------------
 
 body.login.logindefault {
-  form {
-    border-radius: 2px;
+  a:focus {
     box-shadow: none;
+  }
 
-    input[type="password"],
-    input[type="text"] {
-      margin-top: 10px;
-    }
-
-    p {
-      text-align: center;
-
-      &.description {
-        text-align: left;
-      }
+  #login {
+    form {
+      border-radius: 2px;
+      box-shadow: none;
     }
   }
 
-  a:focus {
-    box-shadow: none;
+  label[for="user_login"],
+  label[for="user_pass"] {
+    margin-bottom: 0.5rem;
+  }
+
+  p,
+  .user-pass-wrap,
+  .admin-email__heading,
+  .admin-email__actions {
+    text-align: center;
+  }
+
+  p.description {
+    text-align: left;
   }
 }
