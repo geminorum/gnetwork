@@ -440,6 +440,9 @@ class Taxonomy extends gNetwork\Module
 
 	public function handle_bulk_actions( $location, $action, $term_ids )
 	{
+		if ( empty( $GLOBALS['taxonomy'] ) )
+			return $location;
+
 		$results = $this->delegate_handling( $action, $GLOBALS['taxonomy'], $term_ids );
 
 		if ( is_null( $results ) )
@@ -713,7 +716,8 @@ class Taxonomy extends gNetwork\Module
 
 	public function admin_footer()
 	{
-		$this->render_secondary_inputs( $GLOBALS['taxonomy'], $this->get_actions( $GLOBALS['taxonomy'] ) );
+		if ( ! empty( $GLOBALS['taxonomy'] ) )
+			$this->render_secondary_inputs( $GLOBALS['taxonomy'], $this->get_actions( $GLOBALS['taxonomy'] ) );
 	}
 
 	private function render_secondary_inputs( $taxonomy, $actions )
