@@ -409,7 +409,7 @@ class AdminBar extends gNetwork\Module
 		$form.= '<input type="submit" class="adminbar-button" value="'._x( 'Search', 'Modules: AdminBar: Nodes', 'gnetwork' ).'"/>';
 		$form.= '</form>';
 
-		$wp_admin_bar->add_menu( [
+		$wp_admin_bar->add_node( [
 			'parent' => 'top-secondary',
 			'id'     => 'search',
 			'title'  => $form,
@@ -434,7 +434,7 @@ class AdminBar extends gNetwork\Module
 		if ( ! $short = wp_get_shortlink( 0, 'query' ) )
 			return;
 
-		$wp_admin_bar->add_menu( [
+		$wp_admin_bar->add_node( [
 			'id'    => 'get-shortlink',
 			'title' => self::getIcon( 'admin-links' ),
 			'href'  => $short,
@@ -450,7 +450,7 @@ class AdminBar extends gNetwork\Module
 		if ( is_admin() || ! is_singular() || is_front_page() )
 			return;
 
-		$wp_admin_bar->add_menu( [
+		$wp_admin_bar->add_node( [
 			'id'    => 'edit-contact-form',
 			'title' => _x( 'Edit Contact Form', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 			'href'  => add_query_arg( [ 'page' => 'wpcf7', 'post' => $this->wpcf7_shortcode ], admin_url( 'admin.php' ) ),
@@ -474,7 +474,7 @@ class AdminBar extends gNetwork\Module
 		if ( $wp_admin_bar->user->active_blog && isset( $wp_admin_bar->user->blogs[$wp_admin_bar->user->active_blog] ) )
 			$my_sites = $wp_admin_bar->user->blogs[$wp_admin_bar->user->active_blog]->siteurl.'/wp-admin/my-sites.php';
 
-		$wp_admin_bar->add_menu( [
+		$wp_admin_bar->add_node( [
 			'id'    => 'my-sites',
 			'title' => '', // more minimal!
 			'href'  => $my_sites,
@@ -486,7 +486,7 @@ class AdminBar extends gNetwork\Module
 			'id'     => 'my-sites-admin',
 		] );
 
-		$wp_admin_bar->add_menu( [
+		$wp_admin_bar->add_node( [
 			'parent' => 'my-sites-admin',
 			'id'     => 'user-admin',
 			'title'  => '<div class="blavatar -user"></div>'._x( 'My Dashboard', 'Modules: AdminBar: Nodes', 'gnetwork' ),
@@ -495,7 +495,7 @@ class AdminBar extends gNetwork\Module
 
 		if ( $super_admin ) {
 
-			$wp_admin_bar->add_menu( [
+			$wp_admin_bar->add_node( [
 				'parent' => 'my-sites-admin',
 				'id'     => 'network-admin',
 				'title'  => '<div class="blavatar -network"></div>'._x( 'Network Admin', 'Modules: AdminBar: Nodes', 'gnetwork' ),
@@ -503,7 +503,7 @@ class AdminBar extends gNetwork\Module
 			] );
 
 			if ( class_exists( __NAMESPACE__.'\\Debug' ) )
-				$wp_admin_bar->add_menu( [
+				$wp_admin_bar->add_node( [
 					'parent' => 'network-admin',
 					'id'     => 'network-admin-sr',
 					'title'  => _x( 'System Report', 'Modules: AdminBar: Nodes', 'gnetwork' ),
@@ -512,7 +512,7 @@ class AdminBar extends gNetwork\Module
 
 			if ( current_user_can( 'manage_sites' ) ) {
 
-				$wp_admin_bar->add_menu( [
+				$wp_admin_bar->add_node( [
 					'parent' => 'network-admin',
 					'id'     => 'network-admin-s',
 					'title'  => _x( 'Sites', 'Modules: AdminBar: Nodes', 'gnetwork' ),
@@ -522,7 +522,7 @@ class AdminBar extends gNetwork\Module
 
 			if ( current_user_can( 'manage_network_users' ) ) {
 
-				$wp_admin_bar->add_menu( [
+				$wp_admin_bar->add_node( [
 					'parent' => 'network-admin',
 					'id'     => 'network-admin-u',
 					'title'  => _x( 'Users', 'Modules: AdminBar: Nodes', 'gnetwork' ),
@@ -532,7 +532,7 @@ class AdminBar extends gNetwork\Module
 
 			if ( current_user_can( 'manage_network_themes' ) ) {
 
-				$wp_admin_bar->add_menu( [
+				$wp_admin_bar->add_node( [
 					'parent' => 'network-admin',
 					'id'     => 'network-admin-t',
 					'title'  => _x( 'Themes', 'Modules: AdminBar: Nodes', 'gnetwork' ),
@@ -542,7 +542,7 @@ class AdminBar extends gNetwork\Module
 
 			if ( current_user_can( 'manage_network_plugins' ) ) {
 
-				$wp_admin_bar->add_menu( [
+				$wp_admin_bar->add_node( [
 					'parent' => 'network-admin',
 					'id'     => 'network-admin-p',
 					'title'  => _x( 'Plugins', 'Modules: AdminBar: Nodes', 'gnetwork' ),
@@ -552,14 +552,14 @@ class AdminBar extends gNetwork\Module
 
 			if ( current_user_can( 'manage_network_options' ) ) {
 
-				$wp_admin_bar->add_menu( [
+				$wp_admin_bar->add_node( [
 					'parent' => 'network-admin',
 					'id'     => 'network-admin-o',
 					'title'  => _x( 'Settings', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 					'href'   => network_admin_url( 'settings.php' ),
 				] );
 
-				$wp_admin_bar->add_menu( [
+				$wp_admin_bar->add_node( [
 					'parent' => 'network-admin',
 					'id'     => 'network-admin-ne',
 					'title'  => _x( 'Extras', 'Modules: AdminBar: Nodes', 'gnetwork' ),
@@ -568,7 +568,7 @@ class AdminBar extends gNetwork\Module
 			}
 
 			if ( current_user_can( 'update_core' ) )
-				$wp_admin_bar->add_menu( [
+				$wp_admin_bar->add_node( [
 					'parent' => 'network-admin',
 					'id'     => 'network-admin-uc',
 					'title'  => _x( 'Updates', 'Modules: AdminBar: Nodes', 'gnetwork' ),
@@ -592,14 +592,14 @@ class AdminBar extends gNetwork\Module
 			if ( ! $blogname )
 				$blogname = URL::untrail( $blog->domain.$blog->path );
 
-			$wp_admin_bar->add_menu( [
+			$wp_admin_bar->add_node( [
 				'parent'    => 'my-sites-list',
 				'id'        => $menu_id,
 				'title'     => '<div class="blavatar"></div>'.$blogname,
 				'href'      => $blog->siteurl.'/wp-admin/',
 			] );
 
-			$wp_admin_bar->add_menu( [
+			$wp_admin_bar->add_node( [
 				'parent' => $menu_id,
 				'id'     => $menu_id.'-d',
 				'title'  => _x( 'Dashboard', 'Modules: AdminBar: Nodes', 'gnetwork' ),
@@ -609,35 +609,35 @@ class AdminBar extends gNetwork\Module
 			// extra links for super admins only (no cap checks)
 			if ( $super_admin ) {
 
-				$wp_admin_bar->add_menu( [
+				$wp_admin_bar->add_node( [
 					'parent' => $menu_id,
 					'id'     => $menu_id.'-e',
 					'title'  => _x( 'Posts', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 					'href'   => $blog->siteurl.'/wp-admin/edit.php',
 				] );
 
-				$wp_admin_bar->add_menu( [
+				$wp_admin_bar->add_node( [
 					'parent' => $menu_id,
 					'id'     => $menu_id.'-u',
 					'title'  => _x( 'Users', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 					'href'   => $blog->siteurl.'/wp-admin/users.php',
 				] );
 
-				$wp_admin_bar->add_menu( [
+				$wp_admin_bar->add_node( [
 					'parent' => $menu_id,
 					'id'     => $menu_id.'-s',
 					'title'  => _x( 'Settings', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 					'href'   => $blog->siteurl.'/wp-admin/options-general.php',
 				] );
 
-				$wp_admin_bar->add_menu( [
+				$wp_admin_bar->add_node( [
 					'parent' => $menu_id,
 					'id'     => $menu_id.'-e-s',
 					'title'  => _x( 'Edit Site', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 					'href'   => network_admin_url( 'site-info.php?id='.$blog->userblog_id ),
 				] );
 
-				$wp_admin_bar->add_menu( [
+				$wp_admin_bar->add_node( [
 					'parent' => $menu_id,
 					'id'     => $menu_id.'-e-t',
 					'title'  => _x( 'Edit Themes', 'Modules: AdminBar: Nodes', 'gnetwork' ),
@@ -645,7 +645,7 @@ class AdminBar extends gNetwork\Module
 				] );
 			}
 
-			$wp_admin_bar->add_menu( [
+			$wp_admin_bar->add_node( [
 				'parent' => $menu_id,
 				'id'     => $menu_id.'-v',
 				'title'  => _x( 'Visit Site', 'Modules: AdminBar: Nodes', 'gnetwork' ),
@@ -674,7 +674,7 @@ class AdminBar extends gNetwork\Module
 
 			$node = 'network-'.URL::prepTitle( str_replace( '.', '-', $network->domain ) );
 
-			$wp_admin_bar->add_menu( [
+			$wp_admin_bar->add_node( [
 				'id'    => $node,
 				'title' => self::getIcon( 'networking' ).'<span class="screen-reader-text">'.$network->site_name.'</span>',
 				'href'  => WordPress::networkSiteURL( $network ),
@@ -686,7 +686,7 @@ class AdminBar extends gNetwork\Module
 				'id'     => 'network-links-'.$network->id,
 			] );
 
-			$wp_admin_bar->add_menu( [
+			$wp_admin_bar->add_node( [
 				'parent' => 'network-links-'.$network->id,
 				'id'     => 'network-info-'.$network->id,
 				'title'  => '<div class="blavatar -site"></div>'.$network->site_name,
@@ -694,7 +694,7 @@ class AdminBar extends gNetwork\Module
 				'meta'   => [ 'class' => $this->classs( 'network-title' ) ],
 			] );
 
-			$wp_admin_bar->add_menu( [
+			$wp_admin_bar->add_node( [
 				'parent' => 'network-links-'.$network->id,
 				'id'     => 'user-admin-'.$network->id,
 				'title'  => '<div class="blavatar -user"></div>'._x( 'My Dashboard', 'Modules: AdminBar: Nodes', 'gnetwork' ),
@@ -703,7 +703,7 @@ class AdminBar extends gNetwork\Module
 
 			if ( $super_admin ) {
 
-				$wp_admin_bar->add_menu( [
+				$wp_admin_bar->add_node( [
 					'parent' => 'network-links-'.$network->id,
 					'id'     => 'network-admin-'.$network->id,
 					'title'  => '<div class="blavatar -network"></div>'._x( 'Network Admin', 'Modules: AdminBar: Nodes', 'gnetwork' ),
@@ -712,7 +712,7 @@ class AdminBar extends gNetwork\Module
 
 				if ( current_user_can( 'manage_sites' ) ) {
 
-					$wp_admin_bar->add_menu( [
+					$wp_admin_bar->add_node( [
 						'parent' => 'network-admin-'.$network->id,
 						'id'     => 'network-admin-s-'.$network->id,
 						'title'  => _x( 'Sites', 'Modules: AdminBar: Nodes', 'gnetwork' ),
@@ -722,7 +722,7 @@ class AdminBar extends gNetwork\Module
 
 				if ( current_user_can( 'manage_network_users' ) ) {
 
-					$wp_admin_bar->add_menu( [
+					$wp_admin_bar->add_node( [
 						'parent' => 'network-admin-'.$network->id,
 						'id'     => 'network-admin-u-'.$network->id,
 						'title'  => _x( 'Users', 'Modules: AdminBar: Nodes', 'gnetwork' ),
@@ -732,7 +732,7 @@ class AdminBar extends gNetwork\Module
 
 				if ( current_user_can( 'manage_network_themes' ) ) {
 
-					$wp_admin_bar->add_menu( [
+					$wp_admin_bar->add_node( [
 						'parent' => 'network-admin-'.$network->id,
 						'id'     => 'network-admin-t-'.$network->id,
 						'title'  => _x( 'Themes', 'Modules: AdminBar: Nodes', 'gnetwork' ),
@@ -742,7 +742,7 @@ class AdminBar extends gNetwork\Module
 
 				if ( current_user_can( 'manage_network_plugins' ) ) {
 
-					$wp_admin_bar->add_menu( [
+					$wp_admin_bar->add_node( [
 						'parent' => 'network-admin-'.$network->id,
 						'id'     => 'network-admin-p-'.$network->id,
 						'title'  => _x( 'Plugins', 'Modules: AdminBar: Nodes', 'gnetwork' ),
@@ -752,14 +752,14 @@ class AdminBar extends gNetwork\Module
 
 				if ( current_user_can( 'manage_network_options' ) ) {
 
-					$wp_admin_bar->add_menu( [
+					$wp_admin_bar->add_node( [
 						'parent' => 'network-admin-'.$network->id,
 						'id'     => 'network-admin-o-'.$network->id,
 						'title'  => _x( 'Settings', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 						'href'   => WordPress::networkAdminURL( $network, 'settings.php' ),
 					] );
 
-					$wp_admin_bar->add_menu( [
+					$wp_admin_bar->add_node( [
 						'parent' => 'network-admin-'.$network->id,
 						'id'     => 'network-admin-ne-'.$network->id,
 						'title'  => _x( 'Extras', 'Modules: AdminBar: Nodes', 'gnetwork' ),
@@ -769,7 +769,7 @@ class AdminBar extends gNetwork\Module
 
 				if ( WordPress::isMainNetwork() && current_user_can( 'update_core' ) ) {
 
-					$wp_admin_bar->add_menu( [
+					$wp_admin_bar->add_node( [
 						'parent' => 'network-admin-'.$network->id,
 						'id'     => 'network-admin-uc-'.$network->id,
 						'title'  => _x( 'Updates', 'Modules: AdminBar: Nodes', 'gnetwork' ),
@@ -798,14 +798,14 @@ class AdminBar extends gNetwork\Module
 			if ( ! $blogname )
 				$blogname = URL::untrail( $blog->domain.$blog->path );
 
-			$wp_admin_bar->add_menu( [
+			$wp_admin_bar->add_node( [
 				'parent'    => 'network-list-'.$network->id,
 				'id'        => $menu_id,
 				'title'     => '<div class="blavatar"></div>'.$blogname,
 				'href'      => $blog->siteurl.'/wp-admin/',
 			] );
 
-			$wp_admin_bar->add_menu( [
+			$wp_admin_bar->add_node( [
 				'parent' => $menu_id,
 				'id'     => $menu_id.'-d',
 				'title'  => _x( 'Dashboard', 'Modules: AdminBar: Nodes', 'gnetwork' ),
@@ -815,35 +815,35 @@ class AdminBar extends gNetwork\Module
 			// extra links for super admins only (no cap checks)
 			if ( $super_admin ) {
 
-				$wp_admin_bar->add_menu( [
+				$wp_admin_bar->add_node( [
 					'parent' => $menu_id,
 					'id'     => $menu_id.'-e',
 					'title'  => _x( 'Posts', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 					'href'   => $blog->siteurl.'/wp-admin/edit.php',
 				] );
 
-				$wp_admin_bar->add_menu( [
+				$wp_admin_bar->add_node( [
 					'parent' => $menu_id,
 					'id'     => $menu_id.'-u',
 					'title'  => _x( 'Users', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 					'href'   => $blog->siteurl.'/wp-admin/users.php',
 				] );
 
-				$wp_admin_bar->add_menu( [
+				$wp_admin_bar->add_node( [
 					'parent' => $menu_id,
 					'id'     => $menu_id.'-s',
 					'title'  => _x( 'Settings', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 					'href'   => $blog->siteurl.'/wp-admin/options-general.php',
 				] );
 
-				$wp_admin_bar->add_menu( [
+				$wp_admin_bar->add_node( [
 					'parent' => $menu_id,
 					'id'     => $menu_id.'-e-s',
 					'title'  => _x( 'Edit Site', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 					'href'   => WordPress::networkAdminURL( $network, 'site-info.php?id='.$blog->userblog_id ),
 				] );
 
-				$wp_admin_bar->add_menu( [
+				$wp_admin_bar->add_node( [
 					'parent' => $menu_id,
 					'id'     => $menu_id.'-e-t',
 					'title'  => _x( 'Edit Themes', 'Modules: AdminBar: Nodes', 'gnetwork' ),
@@ -851,7 +851,7 @@ class AdminBar extends gNetwork\Module
 				] );
 			}
 
-			$wp_admin_bar->add_menu( [
+			$wp_admin_bar->add_node( [
 				'parent' => $menu_id,
 				'id'     => $menu_id.'-v',
 				'title'  => _x( 'Visit Site', 'Modules: AdminBar: Nodes', 'gnetwork' ),
@@ -878,7 +878,7 @@ class AdminBar extends gNetwork\Module
 
 			foreach ( $menu as $item_id => $item ) {
 
-				$wp_admin_bar->add_menu( [
+				$wp_admin_bar->add_node( [
 					'parent' => ( empty( $item->target ) ? ( empty( $item->menu_item_parent ) ? 'wp-logo' : 'network-menu-'.$item->menu_item_parent ) : 'wp-logo-external' ),
 					'id'     => 'network-menu-'.$item->ID,
 					'title'  => $item->title,
@@ -896,7 +896,7 @@ class AdminBar extends gNetwork\Module
 
 	public static function addMainLogo( $wp_admin_bar, $id = 'wp-logo', $title = '<span class="ab-icon"></span>' )
 	{
-		$wp_admin_bar->add_menu( [
+		$wp_admin_bar->add_node( [
 			'id'    => $id,
 			'title' => $title.'<span class="screen-reader-text">'.gNetwork()->brand( 'name' ).'</span>',
 			'href'  => gNetwork()->brand( 'url' ),
@@ -911,7 +911,7 @@ class AdminBar extends gNetwork\Module
 		if ( is_user_logged_in() )
 			return;
 
-		$wp_admin_bar->add_menu( [
+		$wp_admin_bar->add_node( [
 			'parent' => $parent,
 			'id'     => 'network-login',
 			'title'  => _x( 'Log in', 'Modules: AdminBar: Nodes', 'gnetwork' ),
@@ -919,7 +919,7 @@ class AdminBar extends gNetwork\Module
 		] );
 
 		if ( $register_url = WordPress::registerURL() )
-			$wp_admin_bar->add_menu( [
+			$wp_admin_bar->add_node( [
 				'parent' => $parent,
 				'id'     => 'network-register',
 				'title'  => _x( 'Register', 'Modules: AdminBar: Nodes', 'gnetwork' ),
@@ -949,7 +949,7 @@ class AdminBar extends gNetwork\Module
 
 				if ( ( empty( $item->xfn ) ?: current_user_can( $item->xfn ) ) ) {
 
-					$wp_admin_bar->add_menu( [
+					$wp_admin_bar->add_node( [
 						// check target to place link on externals
 						// 'parent' => ( empty( $item->target ) ? ( empty( $item->menu_item_parent ) ? 'wp-logo' : 'network-menu-'.$item->menu_item_parent ) : 'wp-logo-external' ),
 						'parent' => $parent,

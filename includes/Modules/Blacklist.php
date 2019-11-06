@@ -134,7 +134,7 @@ class Blacklist extends gNetwork\Module
 
 			if ( HTTP::IPinRange( $current, trim( $block ) ) ) {
 
-				Logger::siteNOTICE( 'BLACKLIST: Blacklisted', $current );
+				Logger::siteFAILED( 'BLACKLIST: Blacklisted', $current );
 
 				return TRUE;
 			}
