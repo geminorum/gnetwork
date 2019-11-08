@@ -5,10 +5,28 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 class Third extends Base
 {
 
+	// @REF: https://gist.github.com/boonebgorges/5537311
+	public static function getHandle( $string, $url = FALSE, $base = '', $prefix = '@' )
+	{
+		$parts = wp_parse_url( $string );
+
+		if ( empty( $parts['host'] ) )
+			$handle = 0 === strpos( $string, '@' ) ? substr( $string, 1 ) : $string;
+		else
+			$handle = trim( $parts['path'], '/\\' );
+
+		return $url ? URL::trail( $base.$handle ) : $prefix.$handle;
+	}
+
+	public static function htmlHandle( $string, $service )
+	{
+		return HTML::link( HTML::wrapLTR( self::getHandle( $string ) ), self::getHandle( $string, TRUE, $service ) );
+	}
+
 	public static function htmlTwitterIntent( $string, $thickbox = FALSE )
 	{
-		$handle = self::getTwitter( $string );
-		$url    = URL::untrail( self::getTwitter( $string, TRUE, 'https://twitter.com/intent/user?screen_name=' ) );
+		$handle = self::getHandle( $string );
+		$url    = URL::untrail( self::getHandle( $string, TRUE, 'https://twitter.com/intent/user?screen_name=' ) );
 
 		if ( $thickbox ) {
 
@@ -27,7 +45,7 @@ class Third extends Base
 			$args = array( 'href' => $url, 'class' => '-twitter' );
 		}
 
-		return HTML::tag( 'a', $args, '&lrm;'.$handle.'&rlm;' );
+		return HTML::tag( 'a', $args, HTML::wrapLTR( $handle ) );
 	}
 
 	/**
@@ -43,6 +61,8 @@ class Third extends Base
 	 */
 	public static function getTwitter( $string, $url = FALSE, $base = 'https://twitter.com/' )
 	{
+		self::_dep( 'Third::getHandle()' );
+
 		$parts = wp_parse_url( $string );
 
 		if ( empty( $parts['host'] ) )

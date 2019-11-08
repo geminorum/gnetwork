@@ -12,8 +12,14 @@ class HTML extends Base
 
 	public static function link( $html, $link = '#', $target_blank = FALSE )
 	{
-		if ( is_null( $html ) ) $html = $link;
-		return self::tag( 'a', array( 'href' => $link, 'class' => '-link', 'target' => ( $target_blank ? '_blank' : FALSE ) ), $html );
+		if ( is_null( $html ) )
+			$html = $link;
+
+		return self::tag( 'a', array(
+			'class'  => '-link',
+			'href'   => $link,
+			'target' => $target_blank ? '_blank' : FALSE,
+		), $html );
 	}
 
 	public static function mailto( $email, $title = NULL, $wrap = FALSE )
@@ -39,9 +45,10 @@ class HTML extends Base
 		return '<a class="scroll" title="'.$title.'" href="#'.$to.'">'.$html.'</a>';
 	}
 
+	// @REF: https://web.dev/native-lazy-loading/
 	public static function img( $src, $class = '', $alt = '' )
 	{
-		return $src ? '<img src="'.$src.'" class="'.self::prepClass( $class ).'" alt="'.$alt.'" />' : '';
+		return $src ? '<img src="'.$src.'" class="'.self::prepClass( $class ).'" alt="'.$alt.'" loading="lazy" />' : '';
 	}
 
 	public static function h1( $html, $class = FALSE, $link = FALSE )
@@ -124,6 +131,7 @@ class HTML extends Base
 
 	public static function wrapLTR( $content )
 	{
+		// return '&lrm;'.$content.'&rlm;';
 		return '&#8206;'.$content.'&#8207;';
 	}
 
@@ -197,6 +205,17 @@ class HTML extends Base
 			return $html.'</'.$tag.'>'.$sep;
 
 		return $html.$content.'</'.$tag.'>'.$sep;
+	}
+
+	public static function attrBoolean( $value, $current = NULL, $fallback = FALSE )
+	{
+		if ( ! is_array( $value ) )
+			return (bool) $value;
+
+		if ( ! is_null( $current ) )
+			return in_array( $current, $value );
+
+		return $fallback;
 	}
 
 	public static function attrClass()

@@ -53,6 +53,12 @@ class WordPress extends Base
 		return is_null( $page ) ? $now : ( $now == $page );
 	}
 
+	// @REF: https://core.trac.wordpress.org/ticket/19898
+	public static function isLogin()
+	{
+		return Text::has( self::loginURL(), $_SERVER['SCRIPT_NAME'] );
+	}
+
 	// @REF: https://make.wordpress.org/core/2019/04/17/block-editor-detection-improvements-in-5-2/
 	public static function isBlockEditor()
 	{
@@ -85,10 +91,10 @@ class WordPress extends Base
 		return FALSE;
 	}
 
-	public static function isFlush()
+	public static function isFlush( $cap = 'publish_posts' )
 	{
 		if ( isset( $_GET['flush'] ) )
-			return did_action( 'init' ) && current_user_can( 'publish_posts' );
+			return did_action( 'init' ) && current_user_can( $cap );
 
 		return FALSE;
 	}
