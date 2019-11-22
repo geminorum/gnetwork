@@ -206,6 +206,7 @@ class Typography extends gNetwork\Module
 		return $content;
 	}
 
+	// TODO: check for number with precentage sign
 	public function persian_typography( $content )
 	{
 		$content = str_ireplace( '&#8220;', '&#xAB;', $content );

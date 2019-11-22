@@ -34,8 +34,8 @@ class Network extends gNetwork\Module
 		do_action( $this->base.'_setup_menu', 'network' );
 
 		add_submenu_page( 'plugins.php',
-			_x( 'Active', 'Modules: Network: Page Menu', 'gnetwork' ),
-			_x( 'Active', 'Modules: Network: Page Menu', 'gnetwork' ),
+			_x( 'Active Plugins', 'Modules: Network: Page Menu', 'gnetwork' ),
+			_x( 'Active Plugins', 'Modules: Network: Page Menu', 'gnetwork' ),
 			'manage_network',
 			'plugins.php?plugin_status=active'
 		);

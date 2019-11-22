@@ -78,7 +78,7 @@ class User extends gNetwork\Module
 		return [
 			'site_user_id'    => '0', // GNETWORK_SITE_USER_ID
 			'site_user_role'  => 'editor', // GNETWORK_SITE_USER_ROLE
-			'network_roles'      => '0',
+			'network_roles'   => '0',
 			'admin_user_edit' => '0',
 			'dashboard_sites' => '0',
 			'dashboard_menu'  => '0',
@@ -307,13 +307,10 @@ class User extends gNetwork\Module
 		if ( empty( $sites ) )
 			return HTML::desc( gNetwork()->na() );
 
-		Settings::fieldSection(
-			_x( 'Default User Roles', 'Modules: User: Settings', 'gnetwork' ),
-			[
-				_x( 'New users will receive these roles when activating their account. Existing users will receive these roles only if they have the current default role or no role at all for each particular site.', 'Modules: User: Settings', 'gnetwork' ),
-				_x( 'Please note that the roles listed here are from the main site of your network. Also only public, non-mature and non-dashboard sites appear here.', 'Modules: User: Settings', 'gnetwork' ),
-			]
-		);
+		Settings::fieldSection( _x( 'Default User Roles', 'Modules: User: Settings', 'gnetwork' ), [
+			_x( 'New users will receive these roles when activating their account. Existing users will receive these roles only if they have the current default role or no role at all for each particular site.', 'Modules: User: Settings', 'gnetwork' ),
+			_x( 'Please note that the roles listed here are from the main site of your network. Also only public, non-mature and non-dashboard sites appear here.', 'Modules: User: Settings', 'gnetwork' ),
+		] );
 
 		echo '<table class="form-table">';
 

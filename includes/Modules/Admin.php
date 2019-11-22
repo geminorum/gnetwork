@@ -142,8 +142,8 @@ class Admin extends gNetwork\Module
 		add_action( 'load-'.$tools, [ $this, 'tools_load' ] );
 
 		add_submenu_page( 'plugins.php',
-			_x( 'Active', 'Modules: Admin: Page Menu', 'gnetwork' ),
-			_x( 'Active', 'Modules: Admin: Page Menu', 'gnetwork' ),
+			_x( 'Active Plugins', 'Modules: Admin: Page Menu', 'gnetwork' ),
+			_x( 'Active Plugins', 'Modules: Admin: Page Menu', 'gnetwork' ),
 			'activate_plugins',
 			'plugins.php?plugin_status=active'
 		);

@@ -1410,7 +1410,7 @@ class Media extends gNetwork\Module
 	{
 		if ( strpos( $url, 'attachment_id' ) || $url == get_attachment_link( $id ) )
 			return WordPress::htmlAttachmentShortLink( $id,
-				get_image_tag( $id, $alt, '', $align, $size ) );
+				get_image_tag( $id, $alt, '', $align, $size ), '-image-link' );
 
 		return $html;
 	}
