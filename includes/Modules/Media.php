@@ -198,6 +198,7 @@ class Media extends gNetwork\Module
 		$this->register_button( 'sync_attachments', _x( 'Sync Attachments', 'Modules: Media', 'gnetwork' ) );
 		$this->register_button( 'cache_in_content', _x( 'Cache In Content', 'Modules: Media', 'gnetwork' ) );
 		$this->register_button( 'ssl_correction', _x( 'Correct SSL', 'Modules: Media', 'gnetwork' ) );
+		$this->register_button( 'purge_meta', _x( 'Purge Meta', 'Modules: Media', 'gnetwork' ) );
 	}
 
 	protected function tools_actions( $sub = NULL )
@@ -268,6 +269,21 @@ class Media extends gNetwork\Module
 
 					WordPress::redirectReferer( [
 						'message' => 'converted',
+						'count'   => $count,
+						'limit'   => self::limit(),
+						'paged'   => self::paged(),
+					] );
+
+				} else if ( isset( $_POST['purge_meta'], $_POST['_cb'] ) ) {
+
+					$count = 0;
+
+					foreach ( $_POST['_cb'] as $post_id )
+						if ( $this->purge_meta( $post_id ) )
+							$count++;
+
+					WordPress::redirectReferer( [
+						'message' => 'purged',
 						'count'   => $count,
 						'limit'   => self::limit(),
 						'paged'   => self::paged(),
@@ -969,6 +985,15 @@ class Media extends gNetwork\Module
 	// FIXME: WTF?!
 	public function ssl_correction( $post_id )
 	{
+		return TRUE;
+	}
+
+	public function purge_meta( $post_id )
+	{
+		delete_post_meta( $post_id, '_thumbnail_id' );
+		delete_post_meta( $post_id, '_gtheme_images' );
+		delete_post_meta( $post_id, '_gtheme_images_terms' );
+
 		return TRUE;
 	}
 
