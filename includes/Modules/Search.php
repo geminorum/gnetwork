@@ -202,7 +202,7 @@ class Search extends gNetwork\Module
 			if ( GNETWORK_SEARCH_REDIRECT )
 				WordPress::redirect( add_query_arg( GNETWORK_SEARCH_QUERYID, $wp_query->query_vars['s'], GNETWORK_SEARCH_URL ) );
 
-			if ( $this->options['redirect_single'] && $wp_query->post_count == 1 )
+			if ( $this->options['redirect_single'] && $wp_query->post_count == 1 && ! is_paged() )
 				WordPress::redirect( get_permalink( $wp_query->posts['0']->ID ) );
 
 			$this->action( 'wp_head', 0, 8 );
