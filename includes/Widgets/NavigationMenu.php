@@ -20,7 +20,7 @@ class NavigationMenu extends \WP_Widget
 
 	public function form( $instance )
 	{
-		echo '<div class="gnetwork-admin-wrap-widgetform">';
+		echo '<div class="-wrap -admin-widgetform">';
 
 		if ( isset( gNetwork()->navigation ) ) {
 

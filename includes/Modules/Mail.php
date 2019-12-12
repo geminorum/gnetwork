@@ -570,6 +570,7 @@ class Mail extends gNetwork\Module
 					$html = '';
 
 					if ( ! empty( $row['to'] ) ) {
+
 						if ( is_array( $row['to'] ) ) {
 
 							foreach ( $row['to'] as $to )
@@ -589,7 +590,8 @@ class Mail extends gNetwork\Module
 					if ( ! empty( $row['timestamp'] ) )
 						$html.= '&ndash; '.Utilities::htmlHumanTime( $row['timestamp'] );
 
-					$html.= '<hr />';
+					if ( $html )
+						$html.= '<hr />';
 
 					if ( ! empty( $row['user'] ) )
 						$html.= '<code title="'._x( 'User', 'Modules: Mail: Email Logs Table', 'gnetwork' )
@@ -608,7 +610,7 @@ class Mail extends gNetwork\Module
 							$row['headers'] = explode( "\n", $row['headers']  );
 
 						foreach ( array_filter( $row['headers'] ) as $header )
-							$html.= '<code>'.HTML::escapeTextarea( $header ).'</code><br />';
+							$html.= '<code class="-header">'.HTML::escapeTextarea( $header ).'</code><br />';
 					}
 
 					if ( ! empty( $row['attachments'] ) ) {
@@ -617,14 +619,14 @@ class Mail extends gNetwork\Module
 						if ( is_array( $row['attachments'] ) ) {
 
 							foreach ( array_filter( $row['attachments'] ) as $attachment )
-								$html.= '<code>'.$attachment.'</code><br />';
+								$html.= '<code class="-attachment">'.$attachment.'</code><br />';
 
 						} else if ( $row['attachments'] ) {
-							$html.= '<code>'.$row['attachments'].'</code><br />';
+							$html.= '<code class="-attachment">'.$row['attachments'].'</code><br />';
 						}
 					}
 
-					return $html;
+					return HTML::wrap( $html, '-info' );
 				},
 				'actions' => function( $value, $row, $column, $index, $key, $args ){
 

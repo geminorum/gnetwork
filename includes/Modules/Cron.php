@@ -154,13 +154,14 @@ class Cron extends gNetwork\Module
 			if ( isset( $_POST['unschedule'], $_POST['_cb'] ) ) {
 
 				$count = 0;
-				$cron = self::getCronArray();
+				$cron  = self::getCronArray();
 
 				foreach ( $_POST['_cb'] as $event )
 					if ( self::unschedule( intval( $event ), $cron ) )
 						$count++;
 
 			} else {
+
 				WordPress::redirectReferer( 'wrong' );
 			}
 
@@ -368,7 +369,8 @@ class Cron extends gNetwork\Module
 		echo '<div id="'.$this->classs( 'status-check' ).'">';
 		echo '<div class="-status-container">'.$this->get_status().'</div>';
 
-		echo '<p>'.Ajax::spinner();
+		echo $this->wrap_open_buttons();
+		echo Ajax::spinner();
 
 		echo HTML::tag( 'button', [
 			'id'    => $this->classs( 'force-check' ),

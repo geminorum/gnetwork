@@ -1347,27 +1347,26 @@ class Media extends gNetwork\Module
 	public function upload_mimes( $mimes )
 	{
 		return array_merge( $mimes, [
-			'pptx' => 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-			'ppt'  => 'application/vnd.ms-powerpoint',
-			'doc'  => 'application/msword',
-			'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-			'xls'  => 'application/vnd.ms-excel', // @SEE: https://core.trac.wordpress.org/ticket/39550#comment:156
-			'xlsx' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-			'csv'  => 'text/csv',
-			'xml'  => 'text/xml',
-			'md'   => 'text/markdown',
-			'webm' => 'video/webm',
-			'flv'  => 'video/x-flv',
-			'ac3'  => 'audio/ac3',
-			'mpa'  => 'audio/MPA',
-			'mp4'  => 'video/mp4',
-			'mpg4' => 'video/mp4',
-			'flv'  => 'video/x-flv',
-			'svg'  => 'image/svg+xml',
-			'psd'  => 'image/vnd.adobe.photoshop',
-			'mobi' => 'application/x-mobipocket-ebook', // 'application/octet-stream'
-			'epub' => 'application/epub+zip', // 'application/octet-stream'
-			'bib'  => 'application/x-bibtex', // 'text/plain', // @REF: http://fileformats.archiveteam.org/wiki/BibTeX
+			'pptx'      => 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+			'ppt'       => 'application/vnd.ms-powerpoint',
+			'doc'       => 'application/msword',
+			'docx|docm' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+			'xls'       => 'application/vnd.ms-excel', // @SEE: https://core.trac.wordpress.org/ticket/39550#comment:156
+			'xlsx'      => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+			'csv'       => 'text/csv',
+			'xml'       => 'text/xml',
+			'md'        => 'text/markdown',
+			'webm'      => 'video/webm',
+			'flv'       => 'video/x-flv',
+			'ac3'       => 'audio/ac3',
+			'mpa'       => 'audio/MPA',
+			'mp4|mpg4'  => 'video/mp4',
+			'flv'       => 'video/x-flv',
+			'svg|svgz'  => 'image/svg+xml',
+			'psd'       => 'image/vnd.adobe.photoshop',
+			'mobi'      => 'application/x-mobipocket-ebook', // 'application/octet-stream'
+			'epub'      => 'application/epub+zip', // 'application/octet-stream'
+			'bib'       => 'application/x-bibtex', // 'text/plain', // @REF: http://fileformats.archiveteam.org/wiki/BibTeX
 		] );
 	}
 
