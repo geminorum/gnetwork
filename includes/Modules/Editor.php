@@ -71,7 +71,8 @@ class Editor extends gNetwork\Module
 	// @REF: https://developer.wordpress.org/block-editor/tutorials/javascript/extending-the-block-editor/
 	public function enqueue_block_assets()
 	{
-		wp_enqueue_style( static::BASE.'-blocks', GNETWORK_URL.'assets/css/editor.blocks'.( is_rtl() ? '-rtl' : '' ).'.css', [], GNETWORK_VERSION );
+		wp_enqueue_style( static::BASE.'-blocks', GNETWORK_URL.'assets/css/editor.blocks.css', [], GNETWORK_VERSION );
+		wp_style_add_data( static::BASE.'-blocks', 'rtl', 'replace' );
 	}
 
 	public function wp_link_query_args( $query )

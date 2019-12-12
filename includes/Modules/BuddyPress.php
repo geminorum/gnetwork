@@ -213,8 +213,11 @@ class BuddyPress extends gNetwork\Module
 			&& GNETWORK_DISABLE_BUDDYPRESS_STYLES )
 				return;
 
-		if ( is_buddypress() )
-			wp_enqueue_style( static::BASE.'-buddypress', GNETWORK_URL.'assets/css/front.buddypress'.( is_rtl() ? '-rtl' : '' ).'.css', [], GNETWORK_VERSION );
+		if ( ! is_buddypress() )
+			return;
+
+		wp_enqueue_style( static::BASE.'-buddypress', GNETWORK_URL.'assets/css/front.buddypress.css', [], GNETWORK_VERSION );
+		wp_style_add_data( static::BASE.'-buddypress', 'rtl', 'replace' );
 	}
 
 	// cleanup!

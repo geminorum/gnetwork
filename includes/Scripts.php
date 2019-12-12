@@ -87,7 +87,8 @@ class Scripts extends Core\Base
 
 	public static function enqueueGithubMarkdown()
 	{
-		wp_enqueue_style( static::BASE.'-github-markdown', GNETWORK_URL.'assets/css/markdown.all'.( is_rtl() ? '-rtl' : '' ).'.css', [], GNETWORK_VERSION );
+		wp_enqueue_style( static::BASE.'-github-markdown', GNETWORK_URL.'assets/css/markdown.all.css', [], GNETWORK_VERSION );
+		wp_style_add_data( static::BASE.'-github-markdown', 'rtl', 'replace' );
 	}
 
 	public static function pkgAutosize( $ver = '4.0.2' )
