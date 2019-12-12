@@ -6,7 +6,7 @@
   var autoprefixer = require('autoprefixer');
   var rtlcss = require('rtlcss');
   var parseChangelog = require('parse-changelog');
-  var prettyjson = require('prettyjson');
+  // var prettyjson = require('prettyjson');
   var extend = require('xtend');
   var yaml = require('js-yaml');
   var log = require('fancy-log');
@@ -23,7 +23,7 @@
   var patch = /--patch/.test(process.argv.slice(2)); // bump a patch?
 
   try {
-    env = extend(config.env, yaml.safeLoad(fs.readFileSync('./environment.yml', { encoding: 'utf-8' }), { 'json': true }));
+    env = extend(config.env, yaml.safeLoad(fs.readFileSync('./environment.yml', { encoding: 'utf-8' }), { json: true }));
   } catch (e) {
     log.warn('no environment.yml loaded!');
   }
@@ -165,7 +165,7 @@
   });
 
   gulp.task('build:banner', function () {
-    return gulp.src(config.input.banner, { 'base': '.' })
+    return gulp.src(config.input.banner, { base: '.' })
       .pipe(plugins.header(banner, {
         pkg: pkg
       }))
@@ -173,7 +173,7 @@
   });
 
   gulp.task('build:copy', function () {
-    return gulp.src(config.input.final, { 'base': '.' })
+    return gulp.src(config.input.final, { base: '.' })
       .pipe(gulp.dest(config.output.ready + pkg.name));
   });
 
@@ -259,10 +259,10 @@
   gulp.task('default', function (done) {
     log.info('Hi, I\'m Gulp!');
     log.info('Sass is:\n' + require('node-sass').info);
-    log.info('\n');
-    console.log(prettyjson.render(pkg));
-    log.info('\n');
-    console.log(prettyjson.render(config));
+    // log.info('\n');
+    // console.log(prettyjson.render(pkg));
+    // log.info('\n');
+    // console.log(prettyjson.render(config));
     done();
   });
 }());

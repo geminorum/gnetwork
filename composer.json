@@ -36,7 +36,7 @@
     "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
     "symfony/stopwatch": "^3.4",
     "kint-php/kint": "^2.2",
-    "mustache/mustache": "^2.12",
+    "mustache/mustache": "^2.13",
     "phelium/mysql-backup": "dev-master",
     "picqer/php-barcode-generator": "^0.2.2",
     "deviservi/nusoap": "^1.123",

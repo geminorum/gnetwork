@@ -14,6 +14,7 @@ Domain Path: /languages
 GitHub Plugin URI: https://github.com/geminorum/gnetwork
 Release Asset: true
 Requires WP: 4.9
+Requires at least: 4.9
 Requires PHP: 5.6.20
 */
 
