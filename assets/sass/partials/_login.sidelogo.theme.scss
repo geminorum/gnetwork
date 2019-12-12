@@ -5,13 +5,12 @@
 
 // body.login.sidelogo:not(.mobile) {
 body.login.sidelogo {
-  @include mainwrap();
-
+  @include theme-box-sizing-reset;
   padding-top: 5%;
 
-
   #login {
-    @include clearfix;
+    @include theme-clearfix;
+
     width: 622px;
     position: relative;
     background-color: #fafafa;

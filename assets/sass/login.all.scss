@@ -27,17 +27,36 @@ body.login {
     // background-size: auto;
     background-size: contain;
     width: auto;
+    height: auto;
   }
 
-  #user_login,
-  #user_pass {
-
+  #user_login {
     /*rtl:ignore*/
     direction: ltr;
-
-    /*rtl:ignore*/
-    margin-left: 0 !important;
+    text-align: center;
   }
+
+  // #user_login,
+  // #user_pass {
+  //   /*rtl:begin:ignore*/
+  //   direction: ltr;
+  //   margin-left: 0 !important;
+  //   /*rtl:end:ignore*/
+  // }
+  //
+  // &.js input.password-input,
+  // &.js.login-action-rp form .input,
+  // &.js.login-action-rp input[type="text"] {
+  //   padding-left: 2.5rem;
+  //   padding-right: 2.5rem;
+  // }
+  //
+  // .button.wp-hide-pw {
+  //   /*rtl:begin:ignore*/
+  //   left: auto;
+  //   right: 0;
+  //   /*rtl:end:ignore*/
+  // }
 
   #wp-submit {
     line-height: 18px;
@@ -85,6 +104,7 @@ body.login {
   }
 }
 
+////////////////////////////////////////////////////////////////////////////////
 body.rtl {
   #lostpasswordform {
     padding: 26px 24px;
@@ -103,6 +123,7 @@ body.rtl {
   }
 }
 
+////////////////////////////////////////////////////////////////////////////////
 .gnetwork-wrap {
   &.-footer {
     text-align: center;
@@ -116,5 +137,16 @@ body.rtl {
     &.-badge {
       margin: 1em 0 .5em;
     }
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+.admin-email-confirm-form {
+  padding: 1.25rem 1rem !important;
+
+  .admin-email__heading {
+    font-family: Arial, sans-serif;
+    font-weight: 600 !important;
+    font-size: 19px;
   }
 }

@@ -1,0 +1,33 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// Modules: General: DEPRECATED ------------------------------------------------
+
+////////////////////////////////////////////////////////////////////////////////
+@mixin mainwrap() {
+  @warn "DEPRECATED: Theme Utilities: mainwrap()";
+
+  &,
+  *,
+  *::after,
+  *::before,
+  &::after,
+  &::before {
+    box-sizing: border-box;
+  }
+
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+// DEPRECATED: use @include theme-clearfix;
+@mixin clearfix() {
+  @warn "DEPRECATED: Theme Utilities: clearfix(): use @include theme-clearfix";
+
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}

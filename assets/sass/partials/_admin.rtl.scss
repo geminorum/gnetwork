@@ -57,12 +57,14 @@ input#user_login {
 .wrap .add-new-h2:active,
 .wrap .page-title-action,
 .wrap .page-title-action:active,
+.drag-drop-inside p.drag-drop-info,
 .mce-window .mce-window-head .mce-title,
 .media-menu > a,
 #dashboard_activity .no-activity p {
   font-family: Arial, sans-serif;
 }
 
+.drag-drop-inside p.drag-drop-info,
 .wrap .subtitle,
 #dashboard-widgets h4,
 #dashboard-widgets h3,
@@ -71,6 +73,7 @@ input#user_login {
   font-weight: 600;
 }
 
+.drag-drop-inside p.drag-drop-info,
 .wrap > h2:first-child,
 .wrap [class$="icon32"] + h2,
 .postbox .inside h2,
@@ -191,12 +194,12 @@ span.description {
   padding: 0 0 0 5px;
 }
 
-.form-table.permalink-structure #permalink_structure {
-  float: right;
-  margin: -4px 1px 0 0;
-  padding: 3px 5px 2px 1px;
-  border-left: none;
-}
+// .form-table.permalink-structure #permalink_structure {
+//   float: right;
+//   margin: -4px 1px 0 0;
+//   padding: 3px 5px 2px 1px;
+//   border-left: none;
+// }
 
 #post-lock-dialog .post-locked-message,
 #post-lock-dialog .post-taken-over {

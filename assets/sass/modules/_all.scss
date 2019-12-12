@@ -1,16 +1,19 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-/// MODULE: ALL ----------------------------------------------------------------
+/// Modules: All ---------------------------------------------------------------
 
-@import "utilities";
-@import "extra";
-@import "coloring";
-@import "sizing";
-@import "transform";
-@import "responsive";
-@import "form";
-@import "fonts";
+@import "general.utilities";
+@import "general.coloring";
+@import "general.sizing";
+@import "general.transform";
+@import "general.responsive";
+@import "general.form";
+@import "general.fonts";
+@import "general.extra";
+@import "general.deprecated";
 
 ////////////////////////////////////////////////////////////////////////////////
-@import "deprecated";
+
+////////////////////////////////////////////////////////////////////////////////
+@import "theme.deprecated";

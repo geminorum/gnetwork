@@ -49,6 +49,11 @@
       }
     }
 
+    .-wrap.-readonly > p {
+      margin-left: 1em;
+      margin-right: 1em;
+    }
+
     .-description.-refresh {
       display: block;
       color: $gray-dark;

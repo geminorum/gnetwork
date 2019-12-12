@@ -5,7 +5,7 @@
 
 .-wrap {
   &.shortcode-reflist {
-    @include mainwrap();
+    @include theme-gutter-reset;
 
     ol {
       list-style: none; // using inline style if numbered

@@ -10,14 +10,11 @@
   }
 
   .-item {
-    // clear: both;
+    @include theme-clearfix();
     margin-bottom: 2em;
-
-    @include clearfix();
   }
 
   .-preview {
-
     max-width: 40%;
     height: auto;
 
