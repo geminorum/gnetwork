@@ -214,7 +214,7 @@ class Captcha extends gNetwork\Module
 
 	public function login_form()
 	{
-		echo '<style>#login{width:350px!important}#loginform #wp-submit{display:none}div.g-recaptcha{margin:10px 0 20px}</style>';
+		echo '<style>#login{min-width:350px}#loginform #wp-submit{display:none}div.g-recaptcha{margin:10px 0 20px}</style>';
 		$this->recaptcha_form();
 	}
 
@@ -233,7 +233,7 @@ class Captcha extends gNetwork\Module
 
 	public function lostpassword_form()
 	{
-		echo '<style>#login{width:350px!important}#lostpasswordform #wp-submit{display:none}div.g-recaptcha{margin:10px 0 20px}</style>';
+		echo '<style>#login{min-width:350px}#lostpasswordform #wp-submit{display:none}div.g-recaptcha{margin:10px 0 20px}</style>';
 		$this->recaptcha_form();
 	}
 

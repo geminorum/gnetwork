@@ -478,7 +478,7 @@ class Navigation extends gNetwork\Module
 
 					} else {
 
-						$classes = [ 'menu', 'nav', 'network-menu', '-print-hide' ];
+						$classes = [ 'menu', 'network-menu', '-print-hide' ];
 						$classes = apply_filters( self::BASE.'_navigation_globalmenu_class', $classes, $term );
 
 						$results = wp_nav_menu( [

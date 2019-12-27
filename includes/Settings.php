@@ -105,6 +105,7 @@ class Settings extends Core\Base
 		echo '</div><div class="clear"></div></div>';
 	}
 
+	// @SEE: `wp_removable_query_args()`
 	public static function messages()
 	{
 		return [

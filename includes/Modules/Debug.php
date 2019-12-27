@@ -51,7 +51,7 @@ class Debug extends gNetwork\Module
 		}
 
 		// @REF: https://core.trac.wordpress.org/ticket/22430#comment:4
-		remove_action( 'shutdown', 'wp_ob_end_flush_all', 1 );
+		remove_action( 'shutdown', 'wp_ob_end_flush_all', 1 ); // FIXME: must check for zlib enabled/optional
 
 		$this->action( 'shutdown', 1, 99999 );
 	}

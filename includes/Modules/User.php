@@ -160,7 +160,7 @@ class User extends gNetwork\Module
 				],
 				[
 					'field'       => 'tos_text',
-					'type'        => 'textarea-quicktags',
+					'type'        => 'textarea',
 					'title'       => _x( 'ToS Text', 'Modules: User: Settings', 'gnetwork' ),
 					'description' => _x( 'Displays as full text of the agreement.', 'Modules: User: Settings', 'gnetwork' ),
 					'field_class' => [ 'large-text', 'textarea-autosize' ],
