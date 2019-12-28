@@ -384,15 +384,15 @@ class Cron extends gNetwork\Module
 		if ( $link && WordPress::cuc( 'manage_options' ) ) {
 
 			echo '&nbsp;&nbsp;'.HTML::tag( 'a', [
+				'href'  => $this->get_menu_url( 'cron', 'admin', 'tools' ),
+				'class' => [ 'button', 'button-small' ],
+			], _x( 'View Scheduled Tasks', 'Modules: CRON', 'gnetwork' ) );
+
+			echo '&nbsp;&nbsp;'.HTML::tag( 'a', [
 				'href'   => $this->get_cron_url(),
 				'class'  => [ 'button', 'button-small' ],
 				'target' => '_blank',
 			], _x( 'Trigger Manually', 'Modules: CRON', 'gnetwork' ) );
-
-			echo '&nbsp;&nbsp;'.HTML::tag( 'a', [
-				'href'  => $this->get_menu_url( 'cron', 'admin', 'tools' ),
-				'class' => [ 'button', 'button-small' ],
-			], _x( 'View Scheduled Tasks', 'Modules: CRON', 'gnetwork' ) );
 		}
 
 		echo '</p></div>';
