@@ -188,7 +188,7 @@ class Cron extends gNetwork\Module
 
 	public function setup_dashboard()
 	{
-		if ( $this->add_dashboard_widget( 'status-check', _x( 'WP-Cron Status Check', 'Modules: CRON: Widget Title', 'gnetwork' ) ) )
+		if ( $this->add_dashboard_widget( 'status-check', _x( 'WP-Cron Status Check', 'Modules: CRON: Widget Title', 'gnetwork' ), 'info' ) )
 			Scripts::enqueueScript( 'admin.cron.statuscheck' );
 	}
 
@@ -360,8 +360,11 @@ class Cron extends gNetwork\Module
 		HTML::desc( $this->options['dashboard_intro'] );
 
 		$this->status_check_box();
+	}
 
-		HTML::desc( _x( 'The WP-Cron system will be automatically checked once every 24 hours.', 'Modules: CRON', 'gnetwork' ) );
+	protected function get_widget_status_check_info()
+	{
+		return _x( 'The WP-Cron system will be automatically checked once every 24 hours.', 'Modules: CRON', 'gnetwork' );
 	}
 
 	protected function status_check_box( $link = TRUE )
