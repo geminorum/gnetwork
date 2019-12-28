@@ -5,6 +5,7 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 use geminorum\gNetwork\Core\Arraay;
 use geminorum\gNetwork\Core\Exception;
 use geminorum\gNetwork\Core\HTML;
+use geminorum\gNetwork\Core\Text;
 use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
 
@@ -1359,13 +1360,13 @@ class Module extends Core\Base
 
 	protected function metabox_titleActionInfo( $hook )
 	{
-		if ( ! method_exists( $this, 'render_widget_'.$hook.'_info' ) )
+		if ( ! method_exists( $this, 'get_widget_'.$hook.'_info' ) )
 			return '';
 
-		if ( ! $info = call_user_func( [ $this, 'render_widget_'.$hook.'_info' ] ) )
+		if ( ! $info = call_user_func( [ $this, 'get_widget_'.$hook.'_info' ] ) )
 			return '';
 
-		$html = ' <span class="postbox-title-action" data-tooltip="'.$info.'"';
+		$html = ' <span class="postbox-title-action" data-tooltip="'.Text::wordWrap( $info ).'"';
 		$html.= ' data-tooltip-pos="'.( HTML::rtl() ? 'down-right' : 'down-left' ).'"';
 		$html.= ' data-tooltip-length="xlarge">'.HTML::getDashicon( 'info' ).'</span>';
 

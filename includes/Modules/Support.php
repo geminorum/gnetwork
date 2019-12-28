@@ -98,7 +98,7 @@ class Support extends gNetwork\Module
 			Scripts::enqueueScript( 'admin.support.report' );
 	}
 
-	protected function render_widget_report_info()
+	protected function get_widget_report_info()
 	{
 		/* translators: %s: support provider name */
 		$html = sprintf( _x( 'Please use this form to report encountered bugs, issues and other support requests directly to %s.', 'Modules: Support', 'gnetwork' ),
