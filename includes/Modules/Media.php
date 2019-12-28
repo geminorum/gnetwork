@@ -175,7 +175,7 @@ class Media extends gNetwork\Module
 		if ( ! current_user_can( 'upload_files' ) )
 			return;
 
-		if ( $this->add_dashboard_widget( 'uploader', _x( 'Large File Uploader', 'Modules: Media: Widget Title', 'gnetwork' ) ) )
+		if ( $this->add_dashboard_widget( 'uploader', _x( 'Large File Uploader', 'Modules: Media: Widget Title', 'gnetwork' ), 'info' ) )
 			Scripts::enqueueScript( 'admin.media.uploader' );
 	}
 
@@ -1221,8 +1221,11 @@ class Media extends gNetwork\Module
 		$html.= '</div><code id="'.$this->classs( 'file-name' ).'" class="-filename" style="display:none"></code></form>';
 
 		echo $this->wrap( $html, '-widget-form' );
+	}
 
-		HTML::desc( _x( 'You can access uploaded files via Media Library.', 'Modules: Media', 'gnetwork' ) );
+	protected function get_widget_uploader_info()
+	{
+		return _x( 'You can access uploaded files via Media Library.', 'Modules: Media', 'gnetwork' );
 	}
 
 	// FIXME: must check filetype for non super admins / and delete file if not allowed
