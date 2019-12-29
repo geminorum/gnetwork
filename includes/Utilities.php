@@ -224,7 +224,7 @@ class Utilities extends Core\Base
 		$html.= HTML::escape( date_i18n( $formats['fulltime'], $timestamp ) ).'">';
 		$html.= self::humanTimeDiff( $timestamp ).'</span>)';
 
-		return $class ? '<span class="'.$class.'">'.$html.'</span>' : $html;
+		return $class ? '<span class="'.HTML::prepClass( $class ).'">'.$html.'</span>' : $html;
 	}
 
 	public static function getModifiedEditRow( $post, $class = FALSE )
@@ -240,7 +240,7 @@ class Utilities extends Core\Base
 		if ( $edit_last && $post->post_author != $edit_last )
 			$html.= '&nbsp;(<span class="-edit-last">'.WordPress::getAuthorEditHTML( $post->post_type, $edit_last ).'</span>)';
 
-		return $class ? '<span class="'.$class.'">'.$html.'</span>' : $html;
+		return $class ? '<span class="'.HTML::prepClass( $class ).'">'.$html.'</span>' : $html;
 	}
 
 	public static function htmlCurrent( $format = NULL, $class = FALSE, $title = FALSE )

@@ -1313,7 +1313,7 @@ class ShortCodes extends gNetwork\Module
 			$info = '<span class="-wrap shortcode-bloginfo -key-'.$args['key'].' '.sprintf( $args['class'], $args['key'] ).'">'.$info.'</span>';
 
 		else if ( $args['class'] )
-			$info = '<span class="'.sprintf( $args['class'], $args['key'] ).'">'.$info.'</span>';
+			$info = '<span class="'.HTML::prepClass( sprintf( $args['class'], $args['key'] ) ).'">'.$info.'</span>';
 
 		return $info;
 	}
