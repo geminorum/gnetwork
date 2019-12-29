@@ -706,6 +706,11 @@ class Text extends Base
 			: "/[{$symbols}]+([a-zA-Z0-9-_\.\w\p{L}\p{N}\p{Pd}{$symbols}]+)\b/u";
 	}
 
+	public static function replaceOnce( $search, $replace, $string )
+	{
+		return preg_replace( ( '/'.preg_quote( $search, '/' ).'/' ), $replace, $string, 1 );
+	}
+
 	// @SOURCE: http://snipplr.com/view/3618/
 	public static function closeHTMLTags( $html )
 	{

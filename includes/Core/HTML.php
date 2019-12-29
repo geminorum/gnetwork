@@ -728,23 +728,27 @@ class HTML extends Base
 			foreach ( $columns as $key => $column ) {
 
 				$tag   = 'th';
-				$class = '';
+				$class = [];
 
 				if ( is_array( $column ) ) {
-					$title = isset( $column['title'] ) ? $column['title'] : $key;
 
-					if ( isset( $column['class'] ) )
-						$class = ' '.self::prepClass( $column['class'] );
+					$title = empty( $column['title'] ) ? $key : $column['title'];
+
+					if ( ! empty( $column['class'] ) )
+						$class[] = $column['class'];
 
 				} else if ( '_cb' === $key ) {
-					$title = '<input type="checkbox" id="cb-select-all-1" class="-cb-all" />';
-					$class = ' check-column';
-					$tag   = 'td';
+
+					$title   = '<input type="checkbox" id="cb-select-all-1" class="-cb-all" />';
+					$tag     = 'td';
+					$class[] = 'check-column';
+
 				} else {
+
 					$title = $column;
 				}
 
-				echo '<'.$tag.' class="-column -column-'.self::sanitizeClass( $key ).$class.'">'.$title.'</'.$tag.'>';
+				echo '<'.$tag.' class="'.HTML::prepClass( '-column', '-column-'.$key, $class ).'">'.$title.'</'.$tag.'>';
 			}
 
 		echo '</tr></thead><tbody class="-list">';
@@ -776,10 +780,11 @@ class HTML extends Base
 
 				foreach ( $columns as $offset => $column ) {
 
-					$cell  = 'td';
-					$class = $callback = $actions = '';
-					$key   = $offset;
-					$value = NULL;
+					$cell     = 'td';
+					$value    = NULL;
+					$key      = $offset;
+					$class    = array();
+					$callback = $actions = '';
 
 					// override key using map
 					if ( array_key_exists( $offset, $args['map'] ) )
@@ -787,28 +792,32 @@ class HTML extends Base
 
 					if ( is_array( $column ) ) {
 
-						if ( isset( $column['class'] ) )
-							$class.= ' '.self::prepClass( $column['class'] );
+						if ( ! empty( $column['class'] ) )
+							$class[] = $column['class'];
 
-						if ( isset( $column['callback'] ) )
+						if ( ! empty( $column['callback'] ) )
 							$callback = $column['callback'];
 
-						if ( isset( $column['actions'] ) ) {
+						if ( ! empty( $column['actions'] ) ) {
 							$actions = $column['actions'];
-							$class.= ' has-row-actions';
+							$class[] = 'has-row-actions';
 						}
 
 						// again override key using map
-						if ( isset( $column['map'] ) )
+						if ( ! empty( $column['map'] ) )
 							$key = $column['map'];
 					}
 
 					if ( '_cb' === $key ) {
 
+						$cell    = 'th';
+						$value   = '';
+						$class[] = 'check-column';
+
 						if ( '_index' == $column )
 							$value = $index;
 
-						else if ( is_array( $column ) && isset( $column['value'] ) )
+						else if ( is_array( $column ) && ! empty( $column['value'] ) )
 							$value = call_user_func_array( $column['value'], array( NULL, $row, $column, $index, $key, $args ) );
 
 						else if ( is_array( $row ) && array_key_exists( $column, $row ) )
@@ -817,11 +826,6 @@ class HTML extends Base
 						else if ( is_object( $row ) && property_exists( $row, $column ) )
 							$value = $row->{$column};
 
-						else
-							$value = '';
-
-						$cell = 'th';
-						$class.= ' check-column';
 						$value = '<input type="checkbox" name="_cb[]" value="'.self::escape( $value ).'" class="-cb" />';
 
 					} else if ( is_array( $row ) ) {
@@ -835,7 +839,7 @@ class HTML extends Base
 							$value = $row->{$key};
 					}
 
-					echo '<'.$cell.' class="-cell -cell-'.self::sanitizeClass( $key ).$class.'">';
+					echo '<'.$cell.' class="'.self::prepClass( '-cell', '-cell-'.$key, $class ).'">';
 
 					if ( $callback )
 						echo call_user_func_array( $callback,
