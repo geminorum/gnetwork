@@ -574,11 +574,20 @@ class Settings extends Core\Base
 			'string_noaccess' => _x( 'You do not have access to change this option.', 'Settings', 'gnetwork' ),
 		], $atts );
 
-		if ( $args['wrap'] ) {
+		if ( TRUE === $args['wrap'] )
+			$args['wrap'] = 'div';
+
+		if ( 'tr' == $args['wrap'] ) {
+
 			if ( ! empty( $args['label_for'] ) )
-				echo '<tr class="'.$args['class'].'"><th scope="row"><label for="'.HTML::escape( $args['label_for'] ).'">'.$args['title'].'</label></th><td>';
+				echo '<tr class="'.HTML::prepClass( $args['class'] ).'"><th scope="row"><label for="'.HTML::escape( $args['label_for'] ).'">'.$args['title'].'</label></th><td>';
+
 			else
-				echo '<tr class="'.$args['class'].'"><th scope="row">'.$args['title'].'</th><td>';
+				echo '<tr class="'.HTML::prepClass( $args['class'] ).'"><th scope="row">'.$args['title'].'</th><td>';
+
+		} else if ( $args['wrap'] ) {
+
+			echo '<'.$args['wrap'].' class="'.HTML::prepClass( '-wrap', '-settings-field', '-'.$args['type'] ).'">';
 		}
 
 		if ( ! $args['field'] )
@@ -1448,7 +1457,10 @@ class Settings extends Core\Base
 		if ( FALSE !== $args['values'] )
 			HTML::desc( $args['description'] );
 
-		if ( $args['wrap'] )
+		if ( 'tr' == $args['wrap'] )
 			echo '</td></tr>';
+
+		else if ( $args['wrap'] )
+			echo '</'.$args['wrap'].'>';
 	}
 }
