@@ -2,22 +2,24 @@
 @import "partials/base";
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
 
+
+////////////////////////////////////////////////////////////////////////////////
 .wp-activate-container {
+  margin: 0 auto 1rem;
+  max-width: 576px;
   width: 90%;
-  margin: 0 auto 20px;
 
   form {
-    margin-top: 2em;
+    margin-top: 2rem;
   }
 
   h2 {
-    margin-bottom: 20px;
+    margin-bottom: 1rem;
   }
 
   p {
-    margin-bottom: 20px;
+    margin-bottom: 1rem;
 
     &:last-of-type {
       margin-bottom: 0;
@@ -36,7 +38,7 @@
   }
 
   #language {
-    margin-top: 0.5em;
+    margin-top: 0.5rem;
   }
 
   .error {
