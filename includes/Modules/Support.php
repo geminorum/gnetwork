@@ -76,6 +76,7 @@ class Support extends gNetwork\Module
 					'description' => _x( 'Customize the content of the report.', 'Modules: Support: Settings', 'gnetwork' ),
 					'placeholder' => $this->default_message_template(),
 					'field_class' => [ 'large-text', 'textarea-autosize' ],
+					'values'      => [ 'subject', 'content', 'topic', 'site', 'domain', 'url', 'display_name', 'email', 'useragent' ],
 				],
 				[
 					'field'       => 'report_topics',

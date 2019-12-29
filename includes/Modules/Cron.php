@@ -357,7 +357,7 @@ class Cron extends gNetwork\Module
 
 	public function render_widget_status_check()
 	{
-		HTML::desc( $this->options['dashboard_intro'] );
+		HTML::desc( $this->options['dashboard_intro'], TRUE, '-intro' );
 
 		$this->status_check_box();
 	}

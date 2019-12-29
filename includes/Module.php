@@ -1367,7 +1367,7 @@ class Module extends Core\Base
 			return '';
 
 		$html = ' <span class="postbox-title-action" data-tooltip="'.Text::wordWrap( $info ).'"';
-		$html.= ' data-tooltip-pos="'.( HTML::rtl() ? 'down-right' : 'down-left' ).'"';
+		$html.= ' data-tooltip-pos="'.( HTML::rtl() ? 'down-left' : 'down-right' ).'"';
 		$html.= ' data-tooltip-length="xlarge">'.HTML::getDashicon( 'info' ).'</span>';
 
 		return $html;

@@ -1187,7 +1187,7 @@ class Media extends gNetwork\Module
 	// @REF: https://deliciousbrains.com/?p=26646
 	public function render_widget_uploader()
 	{
-		HTML::desc( $this->options['dashboard_intro'] );
+		HTML::desc( $this->options['dashboard_intro'], TRUE, '-intro' );
 
 		$html = '<form>'.Ajax::spinner();
 		$html.= '<div id="'.$this->classs( 'file-progress' ).'" class="-messages">';
