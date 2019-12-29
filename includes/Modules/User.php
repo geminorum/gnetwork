@@ -323,7 +323,7 @@ class User extends gNetwork\Module
 				'field'      => $site_id,
 				'type'       => 'role',
 				'title'      => $name,
-				'wrap'       => TRUE,
+				'wrap'       => 'tr',
 				'values'     => $roles,
 				'options'    => $saved,
 				'name_attr'  => 'role['.$site_id.']',

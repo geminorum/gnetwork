@@ -115,11 +115,12 @@ class Support extends gNetwork\Module
 		if ( $this->check_hidden_metabox( 'report' ) )
 			return;
 
+		HTML::desc( $this->options['dashboard_intro'], TRUE, '-intro' );
+
+		echo $this->wrap_open( '-widget-form' );
 		$this->render_form_start( NULL, 'report', 'ajax', 'widget', FALSE );
 
-		echo HTML::wrap( ' ', '-message', FALSE );
-
-		HTML::desc( $this->options['dashboard_intro'] );
+		echo HTML::wrap( ' ', '-message' );
 
 		$this->do_settings_field( [
 			'type'        => 'text',
@@ -129,6 +130,7 @@ class Support extends gNetwork\Module
 			'placeholder' => _x( 'Subject', 'Modules: Support', 'gnetwork' ),
 			'description' => _x( 'Give your issue a short subject.', 'Modules: Support', 'gnetwork' ),
 			'cap'         => TRUE,
+			'wrap'        => TRUE,
 		] );
 
 		if ( ! empty( $this->options['report_topics'] ) )
@@ -139,6 +141,7 @@ class Support extends gNetwork\Module
 				'values'      => Arraay::sameKey( explode( "\n", $this->options['report_topics'] ) ),
 				'description' => _x( 'Pick one that suits your issue.', 'Modules: Support', 'gnetwork' ),
 				'cap'         => TRUE,
+				'wrap'        => TRUE,
 			] );
 
 		$this->do_settings_field( [
@@ -149,6 +152,7 @@ class Support extends gNetwork\Module
 			'placeholder' => _x( 'Description', 'Modules: Support', 'gnetwork' ),
 			'description' => _x( 'Please describe your issue as detailed as possible.', 'Modules: Support', 'gnetwork' ),
 			'cap'         => TRUE,
+			'wrap'        => TRUE,
 		] );
 
 		echo $this->wrap_open_buttons();
@@ -159,6 +163,7 @@ class Support extends gNetwork\Module
 		echo '</p>';
 
 		$this->render_form_end( NULL, 'report', 'ajax', 'widget', FALSE );
+		echo '</div>';
 	}
 
 	public function ajax()

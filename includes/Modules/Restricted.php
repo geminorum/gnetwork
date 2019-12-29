@@ -495,7 +495,7 @@ EOD;
 				'field_class' => [ 'regular-text', 'code-text' ],
 				'default'     => $feedkey ?: '',
 				'disabled'    => TRUE,
-				'wrap'        => TRUE,
+				'wrap'       => 'tr',
 			] );
 
 			$operations = [ 'none' => Settings::showOptionNone() ];
@@ -516,7 +516,7 @@ EOD;
 				'description' => _x( 'Select an operation to work with your private feed access key.', 'Modules: Restricted', 'gnetwork' ),
 				'default'     => 'none',
 				'values'      => $operations,
-				'wrap'        => TRUE,
+				'wrap'        => 'tr',
 			] );
 
 			if ( $feedkey ) {
@@ -531,7 +531,7 @@ EOD;
 					'cap'    => 'read',
 					'title'  => _x( 'Posts Feed for You', 'Modules: Restricted', 'gnetwork' ),
 					'values' => '<code><a href="'.HTML::escapeURL( $posts_feed ).'" target="_blank">'.$posts_feed.'</a></code>',
-					'wrap'   => TRUE,
+					'wrap'   => 'tr',
 				] );
 
 				$this->do_settings_field( [
@@ -540,7 +540,7 @@ EOD;
 					'cap'    => 'read',
 					'title'  => _x( 'Comments Feed for You', 'Modules: Restricted', 'gnetwork' ),
 					'values' => '<code><a href="'.HTML::escapeURL( $comments_feed ).'" target="_blank">'.$comments_feed.'</a></code>',
-					'wrap'   => TRUE,
+					'wrap'   => 'tr',
 				] );
 			}
 
