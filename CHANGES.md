@@ -1,3 +1,59 @@
+### 3.11.0
+* main/logger: failed for network
+* main/module: add dashboard widget api
+* main/module: another pass at api for blocktypes
+* main/module: auto hook dashboard setup
+* main/module: better handling nonce in contexts
+* main/module: default folder for script translations
+* main/module: initial api for blocks
+* main/module: prevent scripts for hidden widgets
+* main/module: register shortcodes helper
+* main/module: rename screen setup method
+* main/module: word wrap for widget info
+* main/module: wrap attr as html tag
+* main/plugin: brand helper
+* main/scripts: avoid enqueue on all
+* main/scripts: correct cdn for gist-embed
+* main/scripts: proper way to add rtl data for styles
+* main/settings: custom wrap tags in field types
+* main/settings: field after methods revised
+* main/settings: new field type: quicktags tokens
+* main/settings: version only on settings titles
+* module/adminbar: avoid double linking custom styles
+* module/blacklist: skip saving if remote content is the same
+* module/branding: :new: linkify brand on the content
+* module/branding: custom brand email
+* module/branding: default brand name/url
+* module/cron: simplify widget
+* module/dashboard: blog public on pointers
+* module/dashboard: skip default number format for precent sign
+* module/dashboard: update message on pointers
+* module/debug: correct cap for pointers
+* module/debug: log size in pointers
+* module/locale: override script translations
+* module/locale: skip pages on network admin
+* module/login: better ambiguous errors
+* module/login: header text/url from branding
+* module/login: logged in indicator
+* module/mail: :warning: key correction
+* module/media: intime init action
+* module/media: purge meta for attachments
+* module/media: simplify widget info
+* module/media: widget notice on plupload ui
+* module/navigation: filter for menu class
+* module/search: :new: linkify hashtags
+* module/search: skip single redirect on paged
+* module/search: support for telegram hash-tag links
+* module/shortcodes: :new: post-title blocktype
+* module/shortcodes: linking post titles
+* module/shortcodes: prevent orphans on refs
+* module/support: :new: module
+* module/support: empty values in form data
+* module/support: trigger autosize after submit form
+* module/taxonomy: check if tax is available on globals
+* module/typography: :new: asterisks blocktype
+* module/typography: more tweaks for arabic
+
 ### 3.10.0
 * main/module: beta features constant
 * main/module: column icon helper
