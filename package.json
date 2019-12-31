@@ -61,7 +61,7 @@
     "gulp-svgmin": "^2.2.0",
     "gulp-tinypng-extended": "^2.0.2",
     "gulp-uglify": "^3.0.2",
-    "gulp-wp-pot": "^2.3.5",
+    "gulp-wp-pot": "^2.3.6",
     "gulp-zip": "^5.0.1",
     "js-yaml": "^3.13.1",
     "multipipe": "^3.0.1",
@@ -70,8 +70,8 @@
     "publish-release": "^1.6.1",
     "rtlcss": "^2.4.1",
     "semistandard": "^14.2.0",
-    "stylelint": "^12.0.0",
-    "stylelint-config-wordpress": "^15.0.0",
+    "stylelint": "^12.0.1",
+    "stylelint-config-wordpress": "^16.0.0",
     "xtend": "^4.0.2"
   },
   "browserslist": [
