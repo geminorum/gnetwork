@@ -148,6 +148,7 @@ class Support extends gNetwork\Module
 		$this->do_settings_field( [
 			'type'        => 'textarea',
 			'name_attr'   => 'report_content',
+			'rows_attr'   => '3',
 			'field'       => 'content',
 			'field_class' => [ 'large-text', 'textarea-autosize' ],
 			'placeholder' => _x( 'Description', 'Modules: Support', 'gnetwork' ),

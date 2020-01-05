@@ -230,7 +230,7 @@ class Tracking extends gNetwork\Module
 	public function wp_head()
 	{
 		if ( ! empty( $this->options['twitter_site'] ) )
-			echo '<meta name="twitter:site" content="'.Third::getTwitter( $this->options['twitter_site'] ).'" />'."\n";
+			echo '<meta name="twitter:site" content="'.Third::getHandle( $this->options['twitter_site'] ).'" />'."\n";
 
 		if ( $this->ignore() )
 			return;
@@ -341,7 +341,7 @@ class Tracking extends gNetwork\Module
 		if ( ! $twitter = gNetwork()->option( 'twitter_site', 'tracking', $fallback ) )
 			return '';
 
-		$handle = Third::getTwitter( $twitter );
+		$handle = Third::getHandle( $twitter );
 
 		$html = HTML::tag( 'a',[
 			'href'  => 'https://twitter.com/intent/user?screen_name='.substr( $handle, 1 ),
