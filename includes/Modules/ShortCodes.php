@@ -993,7 +993,8 @@ class ShortCodes extends gNetwork\Module
 		if ( ! $content )
 			$content = $number;
 
-		$html = HTML::tel( $number, $args['title'], Number::format( $content ) );
+		$html = HTML::tel( $number, $args['title'], apply_filters( 'number_format_i18n', $content ) );
+
 		return self::shortcodeWrap( $html, 'tel', $args, FALSE );
 	}
 
