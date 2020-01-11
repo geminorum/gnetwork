@@ -199,6 +199,7 @@ class Plugin
 			'Modules/Cleanup'     => 'Cleanup',
 			// 'Modules/Social'      => 'Social',
 			'Modules/Branding'    => 'Branding',
+			'Modules/Legal'       => 'Legal',
 			'Modules/API'         => 'API',
 			'Modules/Uptime'      => 'Uptime',
 			'Modules/Commerce'    => 'Commerce',
