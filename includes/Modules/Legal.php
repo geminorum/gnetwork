@@ -13,7 +13,7 @@ class Legal extends gNetwork\Module
 	protected function setup_actions()
 	{
 		if ( is_admin() )
-			return TRUE;
+			return;
 
 		if ( $this->options['tos_display'] ) {
 			$this->action( 'before_signup_header' ); // multisite signup

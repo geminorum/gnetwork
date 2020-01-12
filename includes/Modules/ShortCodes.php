@@ -1044,7 +1044,6 @@ class ShortCodes extends gNetwork\Module
 		return $content ? Third::getGoogleQRCode( trim( $content ), $atts ) : $content;
 	}
 
-	// TODO: also [search-form] to include current theme search form
 	public function shortcode_search( $atts = [], $content = NULL, $tag = '' )
 	{
 		$args = shortcode_atts( [
