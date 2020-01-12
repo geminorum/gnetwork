@@ -4,7 +4,7 @@
 
     editor.addCommand('gnetworkref', function () {
       var text = editor.selection.getContent();
-      editor.insertContent('[ref]' + (text ? text : '') + '[/ref]');
+      editor.insertContent('[ref]' + (text ? text.trim() : '') + '[/ref]');
     });
 
     editor.addButton('gnetworkref', {
@@ -22,7 +22,7 @@
             type: 'textbox',
             name: 'text',
             label: editor.getLang('gnetwork.gnetworkref-text'),
-            value: selected,
+            value: selected.trim(),
             multiline: true,
             minHeight: 130
           }, {
@@ -30,7 +30,7 @@
             name: 'url',
             label: editor.getLang('gnetwork.gnetworkref-url'),
             style: 'direction:ltr;text-align:left;',
-            autofocus: selected
+            autofocus: selected.trim()
           }],
           buttons: [{
             text: 'Insert',
@@ -44,8 +44,8 @@
             editor.insertContent((
               e.data.url ? '[ref url="' + encodeURI(e.data.url) + '"]' : '[ref]'
             ) + (
-                e.data.text ? e.data.text + '[/ref]' : '[/ref]'
-              ));
+              e.data.text ? e.data.text.trim() + '[/ref]' : '[/ref]'
+            ));
           }
         });
       }
