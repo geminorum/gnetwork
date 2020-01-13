@@ -1285,7 +1285,7 @@ class Module extends Core\Base
 		wp_die();
 	}
 
-	protected function _hook_event( $name, $recurrence = 'weekly' )
+	protected function _hook_event( $name, $recurrence = 'monthly' )
 	{
 		$hook = $this->hook( $name );
 

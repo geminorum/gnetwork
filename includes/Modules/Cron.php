@@ -71,7 +71,7 @@ class Cron extends gNetwork\Module
 				[
 					'field'       => 'schedule_revision',
 					'title'       => _x( 'Clean Revisions', 'Modules: CRON: Settings', 'gnetwork' ),
-					'description' => _x( 'Schedules a <b>weekly</b> task to delete post revisions.', 'Modules: CRON: Settings', 'gnetwork' ),
+					'description' => _x( 'Schedules a <b>monthly</b> task to delete post revisions.', 'Modules: CRON: Settings', 'gnetwork' ),
 					'disabled'    => ! WP_POST_REVISIONS,
 					/* translators: %s: constant placeholder */
 					'after'       => WP_POST_REVISIONS ? FALSE : Settings::fieldAfterText( sprintf( _x( 'Disabled by Constant: %s', 'Modules: CRON: Settings', 'gnetwork' ), '<code>WP_POST_REVISIONS</code>' ) ),
@@ -183,7 +183,7 @@ class Cron extends gNetwork\Module
 		$this->do_status_check();
 
 		if ( $this->options['schedule_revision'] && WP_POST_REVISIONS )
-			$this->_hook_event( 'clean_revisions', 'weekly' );
+			$this->_hook_event( 'clean_revisions', 'monthly' );
 	}
 
 	public function setup_dashboard()
@@ -494,13 +494,13 @@ class Cron extends gNetwork\Module
 		HTML::desc( Utilities::getCounted( count( self::getCronReady() ), _x( 'With %s event(s) ready to be run.', 'Modules: CRON', 'gnetwork' ) ) );
 	}
 
-	// adds once weekly to the existing schedules
+	// adds once monthly to the existing schedules
 	public function cron_schedules( $schedules )
 	{
 		return array_merge( $schedules, [
-			'weekly' => [
-				'interval' => Date::WEEK_IN_SECONDS,
-				'display'  => _x( 'Once Weekly', 'Modules: CRON', 'gnetwork' ),
+			'monthly' => [
+				'interval' => Date::MONTH_IN_SECONDS,
+				'display'  => _x( 'Once Monthly', 'Modules: CRON', 'gnetwork' ),
 			],
 		] );
 	}

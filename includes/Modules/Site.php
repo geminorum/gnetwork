@@ -256,7 +256,7 @@ class Site extends gNetwork\Module
 	public function schedule_actions()
 	{
 		if ( $this->options['resync_sitemeta'] && is_main_site() )
-			$this->_hook_event( 'resync_sitemeta', 'weekly' );
+			$this->_hook_event( 'resync_sitemeta', 'monthly' );
 	}
 
 	public function admin_menu()

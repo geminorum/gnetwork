@@ -92,7 +92,7 @@ class Blacklist extends gNetwork\Module
 
 			echo '<hr />';
 
-			HTML::desc( _x( 'Your site is scheduled for weekly blacklist updates from the remote source.', 'Modules: Blacklist: Settings', 'gnetwork' ) );
+			HTML::desc( _x( 'Your site is scheduled for regularly blacklist updates from a pre-configured remote source.', 'Modules: Blacklist: Settings', 'gnetwork' ) );
 		}
 	}
 
@@ -102,7 +102,7 @@ class Blacklist extends gNetwork\Module
 			return;
 
 		if ( defined( 'GNETWORK_BLACKLIST_REMOTE_CONTENT' ) && is_main_site() )
-			$this->_hook_event( 'resync_remote', 'weekly' );
+			$this->_hook_event( 'resync_remote', 'monthly' );
 	}
 
 	public function resync_remote()
