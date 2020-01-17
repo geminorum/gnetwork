@@ -860,14 +860,19 @@ class Media extends gNetwork\Module
 			// $filepath = File::normalize( str_replace( $filename, '', $file ) );
 			$filepath = dirname( $file );
 
-			$pattern_gn = File::join( GNETWORK_MEDIA_THUMBS_DIR, get_current_blog_id() ).'/'.File::join( $filepath, File::basename( $file, '.'.$filetype['ext'] ) ).'-[0-9]*x[0-9]*.'.$filetype['ext'];
+			if ( $this->filters( 'thumbs_separation', GNETWORK_MEDIA_THUMBS_SEPARATION, get_current_blog_id() ) ) {
+
+				$pattern_gn = File::join( GNETWORK_MEDIA_THUMBS_DIR, get_current_blog_id() ).'/';
+				$pattern_gn.= File::join( $filepath, File::basename( $file, '.'.$filetype['ext'] ) );
+				$pattern_gn.= '-[0-9]*x[0-9]*.'.$filetype['ext'];
+				$thumbs_gn  = glob( $pattern_gn );
+
+				if ( is_array( $thumbs_gn ) && count( $thumbs_gn ) )
+					$thumbs += $thumbs_gn;
+			}
+
 			$pattern_wp = $wpupload['basedir'].'/'.File::join( $filepath, File::basename( $file, '.'.$filetype['ext'] ) ).'-[0-9]*x[0-9]*.'.$filetype['ext'];
-
-			$thumbs_gn = glob( $pattern_gn );
-			$thumbs_wp = glob( $pattern_wp );
-
-			if ( is_array( $thumbs_gn ) && count( $thumbs_gn ) )
-				$thumbs += $thumbs_gn;
+			$thumbs_wp  = glob( $pattern_wp );
 
 			if ( is_array( $thumbs_wp ) && count( $thumbs_wp ) )
 				$thumbs += $thumbs_wp;
