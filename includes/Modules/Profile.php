@@ -497,13 +497,16 @@ class Profile extends gNetwork\Module
 					.'</label></td></tr>';
 			}
 
-			$name_reset = $this->hook( 'password_reset' );
-			echo '<tr><th>'._x( 'Password Reset', 'Modules: Profile', 'gnetwork' )
-				.'</th><td><label for="'.$name_reset.'">'
-				.'<input type="checkbox" name="'.$name_reset.'" id="'.$name_reset.'" value="1"';
-					checked( 1, get_the_author_meta( 'disable_password_reset', $profileuser->ID ) );
-			echo ' /> '._x( 'Disable this account password reset via default login page', 'Modules: Profile', 'gnetwork' )
-				.'</label></td></tr>';
+			if ( $this->options['disable_password_reset'] ) {
+
+				$name_reset = $this->hook( 'password_reset' );
+				echo '<tr><th>'._x( 'Password Reset', 'Modules: Profile', 'gnetwork' )
+					.'</th><td><label for="'.$name_reset.'">'
+					.'<input type="checkbox" name="'.$name_reset.'" id="'.$name_reset.'" value="1"';
+						checked( 1, get_the_author_meta( 'disable_password_reset', $profileuser->ID ) );
+				echo ' /> '._x( 'Disable this account password reset via default login page', 'Modules: Profile', 'gnetwork' )
+					.'</label></td></tr>';
+			}
 		}
 
 		echo '</table'; // YES, this is correct, check the hook!
@@ -540,10 +543,14 @@ class Profile extends gNetwork\Module
 			else
 				delete_user_meta( $user_id, 'disable_user' );
 
-			if ( self::req( $this->hook( 'password_reset' ) ) )
-				update_user_meta( $user_id, 'disable_password_reset', '1' );
-			else
-				delete_user_meta( $user_id, 'disable_password_reset' );
+			if ( $this->options['disable_password_reset'] ) {
+
+				if ( self::req( $this->hook( 'password_reset' ) ) )
+					update_user_meta( $user_id, 'disable_password_reset', '1' );
+
+				else
+					delete_user_meta( $user_id, 'disable_password_reset' );
+			}
 		}
 
 		if ( ! is_multisite() )
