@@ -845,38 +845,34 @@ class Media extends gNetwork\Module
 		];
 	}
 
-	// FIXME: ALSO SEE: https://core.trac.wordpress.org/changeset/38113
+	// @SEE: `IMAGE_EDIT_OVERWRITE`
+	// NOTE: maybe look into stored sizes in meta
 	private function get_attachment_thumbs( $attachment_id, $wpupload = NULL )
 	{
+		$thumbs = [];
+
+		if ( ! $file = get_post_meta( $attachment_id, '_wp_attached_file', TRUE ) )
+			return $thumbs;
+
 		if ( is_null( $wpupload ) )
 			$wpupload = wp_get_upload_dir();
 
-		$thumbs = [];
+		$filetype = wp_check_filetype( File::basename( $file ) );
+		$pathfile = File::join( dirname( $file ), File::basename( $file, '.'.$filetype['ext'] ) );
 
-		if ( $file = get_post_meta( $attachment_id, '_wp_attached_file', TRUE ) ) { // '2015/05/filename.jpg'
+		if ( $this->filters( 'thumbs_separation', GNETWORK_MEDIA_THUMBS_SEPARATION, get_current_blog_id() ) ) {
 
-			$filename = File::basename( $file );
-			$filetype = wp_check_filetype( $filename );
-			// $filepath = File::normalize( str_replace( $filename, '', $file ) );
-			$filepath = dirname( $file );
+			$thumbs_dir = File::join( GNETWORK_MEDIA_THUMBS_DIR, get_current_blog_id() );
+			$gn_thumbs  = glob( $thumbs_dir.'/'.$pathfile.'-[0-9]*x[0-9]*.'.$filetype['ext'] );
 
-			if ( $this->filters( 'thumbs_separation', GNETWORK_MEDIA_THUMBS_SEPARATION, get_current_blog_id() ) ) {
-
-				$pattern_gn = File::join( GNETWORK_MEDIA_THUMBS_DIR, get_current_blog_id() ).'/';
-				$pattern_gn.= File::join( $filepath, File::basename( $file, '.'.$filetype['ext'] ) );
-				$pattern_gn.= '-[0-9]*x[0-9]*.'.$filetype['ext'];
-				$thumbs_gn  = glob( $pattern_gn );
-
-				if ( is_array( $thumbs_gn ) && count( $thumbs_gn ) )
-					$thumbs += $thumbs_gn;
-			}
-
-			$pattern_wp = $wpupload['basedir'].'/'.File::join( $filepath, File::basename( $file, '.'.$filetype['ext'] ) ).'-[0-9]*x[0-9]*.'.$filetype['ext'];
-			$thumbs_wp  = glob( $pattern_wp );
-
-			if ( is_array( $thumbs_wp ) && count( $thumbs_wp ) )
-				$thumbs += $thumbs_wp;
+			if ( ! empty( $gn_thumbs ) )
+				$thumbs += $gn_thumbs;
 		}
+
+		$wp_thumbs = glob( $wpupload['basedir'].'/'.$pathfile.'-[0-9]*x[0-9]*.'.$filetype['ext'] );
+
+		if ( ! empty( $wp_thumbs ) )
+			$thumbs += $wp_thumbs;
 
 		return $thumbs;
 	}

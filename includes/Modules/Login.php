@@ -145,15 +145,15 @@ class Login extends gNetwork\Module
 				[
 					'field'       => 'login_class',
 					'type'        => 'select',
-					'title'       => _x( 'CSS Class', 'Modules: Login: Settings', 'gnetwork' ),
+					'title'       => _x( 'CSS Theme', 'Modules: Login: Settings', 'gnetwork' ),
 					'description' => _x( 'Select styles from pre-configured login themes.', 'Modules: Login: Settings', 'gnetwork' ),
 					'after'       => Settings::fieldAfterIcon( self::getLoginStyleLink() ),
 					'none_title'  => Settings::showOptionNone(),
 					'none_value'  => 'logindefault',
 					'values'      => $this->filters( 'login_class', [
-						'darkstories' => _x( 'DarkStories', 'Modules: Login: Login Class', 'gnetwork' ),
-						'sidelogo'    => _x( 'SideLogo', 'Modules: Login: Login Class', 'gnetwork' ),
-						'webogram'    => _x( 'Webogram', 'Modules: Login: Login Class', 'gnetwork' ),
+						'darkstories' => _x( 'DarkStories', 'Modules: Login: Login Theme', 'gnetwork' ),
+						'sidelogo'    => _x( 'SideLogo', 'Modules: Login: Login Theme', 'gnetwork' ),
+						'webogram'    => _x( 'Webogram', 'Modules: Login: Login Theme', 'gnetwork' ),
 					] ),
 				],
 				[

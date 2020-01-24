@@ -213,7 +213,6 @@ class Locale extends gNetwork\Module
 			return $base;
 
 		$list = $this->filters( 'blacklist', [
-			'rewrite-rules-inspector'    => 'page',
 			'connection-types'           => 'page',
 			'regenerate-thumbnails'      => 'page',
 			'wpsupercache'               => 'page',
@@ -243,7 +242,7 @@ class Locale extends gNetwork\Module
 			'antivirus'                  => 'page', // [AntiVirus](https://wordpress.org/plugins/antivirus/)
 			'mapcap'                     => 'page', // [Map Cap](https://wordpress.org/plugins/map-cap/)
 			'akismet-key-config'         => 'page', // Akismet
-			// 'cache-enabler'              => 'page', // [Cache Enabler](https://wordpress.org/plugins/cache-enabler/)
+			'cache-enabler'              => 'page', // [Cache Enabler](https://wordpress.org/plugins/cache-enabler/)
 			'rest_api_console'           => 'page', // [REST API Console](https://wordpress.org/plugins/rest-api-console/)
 			'rest-oauth1-apps'           => 'page',
 			'so-widgets-plugins'         => 'page',
@@ -251,7 +250,6 @@ class Locale extends gNetwork\Module
 			'custom-contact-forms'       => 'page', // https://github.com/tlovett1/custom-contact-forms
 			'php-compatibility-checker'  => 'page', // [PHP Compatibility Checker](https://wordpress.org/plugins/php-compatibility-checker/)
 			'rlrsssl_really_simple_ssl'  => 'page', // [Really Simple SSL](https://wordpress.org/plugins/really-simple-ssl/)
-			'onesignal-push'             => 'page', // [OneSignal](https://wordpress.org/plugins/onesignal-free-web-push-notifications/)
 			'icit-profiler'              => 'page', // [WP Performance Profiler](https://github.com/khromov/wp-performance-profiler)
 			'simpleWpSitemapSettings'    => 'page', // [Simple Wp Sitemap](https://wordpress.org/plugins/simple-wp-sitemap/)
 			'health-check'               => 'page', // [Health Check & Troubleshooting](https://wordpress.org/plugins/health-check/)
@@ -260,6 +258,7 @@ class Locale extends gNetwork\Module
 			'add-from-server'            => 'page', // [Add From Server](https://wordpress.org/plugins/add-from-server/)
 			'advanced-cron-manager'      => 'page',
 			'sb-instagram-feed'          => 'page',
+			'pdfemb_list_options'        => 'page',
 			'theme-sniffer'              => 'page', // [Theme Sniffer](https://wordpress.org/plugins/theme-sniffer/)
 
 			// [Official MailerLite Sign Up Forms](https://wordpress.org/plugins/official-mailerlite-sign-up-forms/)
