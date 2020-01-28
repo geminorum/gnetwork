@@ -513,7 +513,7 @@ class Dashboard extends gNetwork\Module
 			'title' => sprintf( HTML::wrapLTR( '%s MB/%s MB' ), Number::format( round( $used, 2 ), 2 ), Number::format( $quota ) ),
 			'class' => $classes,
 		/* translators: %s: space used percent */
-		], sprintf( _x( '%s Space Used', 'Modules: Dashboard: Space Quota', 'gnetwork' ), apply_filters( 'number_format_i18n', $percent.'%' ) ) );
+		], sprintf( _x( '%s Space Used', 'Modules: Dashboard: Space Quota', 'gnetwork' ), Number::localize( $percent.'%' ) ) );
 
 		return $items;
 	}

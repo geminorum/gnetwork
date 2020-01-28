@@ -468,7 +468,7 @@ class ShortCodes extends gNetwork\Module
 				} else {
 
 					$title = get_the_title( $post->ID );
-					$order = $args['order_before'] ? Number::format( $args['order_zeroise'] ? zeroise( $post->menu_order, $args['order_zeroise'] ) : $post->menu_order ).$args['order_sep'] : '';
+					$order = $args['order_before'] ? Number::localize( $args['order_zeroise'] ? zeroise( $post->menu_order, $args['order_zeroise'] ) : $post->menu_order ).$args['order_sep'] : '';
 
 					if ( 'publish' == $post->post_status && $args['li_link'] )
 						$list = $args['li_before'].HTML::tag( 'a', [
@@ -993,7 +993,7 @@ class ShortCodes extends gNetwork\Module
 		if ( ! $content )
 			$content = $number;
 
-		$html = HTML::tel( $number, $args['title'], apply_filters( 'number_format_i18n', $content ) );
+		$html = HTML::tel( $number, $args['title'], Number::localize( $content ) );
 
 		return self::shortcodeWrap( $html, 'tel', $args, FALSE );
 	}
@@ -1032,7 +1032,7 @@ class ShortCodes extends gNetwork\Module
 				.'" data-sms-body="'.HTML::escape( $args['body'] ) : '' )
 				.'"'.( $args['title'] ? ' data-toggle="tooltip" title="'.HTML::escape( $args['title'] )
 				.'"' : '' ).' data-sms-number="'.HTML::escape( $number ).'">'
-				.HTML::wrapLTR( Number::format( $content ) ).'</a>';
+				.HTML::wrapLTR( Number::localize( $content ) ).'</a>';
 
 		return self::shortcodeWrap( $html, 'sms', $args, FALSE );
 	}
@@ -1468,7 +1468,7 @@ class ShortCodes extends gNetwork\Module
 			'title'       => $title,
 			'class'       => 'cite-scroll',
 			'data-toggle' => 'tooltip',
-		], sprintf( $args['template'], Number::format( $key ) ) );
+		], sprintf( $args['template'], Number::localize( $key ) ) );
 
 		return '&#xfeff;'.'<sup class="ref reference '.$args['class'].'" id="citeref-'.$key.'" data-ref="'.$key.'">'.$html.'</sup>';
 	}
@@ -1513,7 +1513,7 @@ class ShortCodes extends gNetwork\Module
 			$html.= '<li data-ref="'.$number.'" id="citenote-'.$number.'" '.( $args['number'] ? '' : ' class="-anchor"' ).'>';
 
 			if ( $args['number'] )
-				$html.= '<span class="-number -anchor ref-number">'.Number::format( $number ).$args['number_after'].'</span>';
+				$html.= '<span class="-number -anchor ref-number">'.Number::localize( $number ).$args['number_after'].'</span>';
 
 			$html.= '<span class="-text ref-text"><span class="citation">'.$text.'</span></span>';
 
@@ -1597,7 +1597,7 @@ class ShortCodes extends gNetwork\Module
 		if ( FALSE === $args['id'] )
 			return NULL;
 
-		return '&#xfeff;'.'<sup id="citeref-'.$args['id'].'-m" class="reference '.$args['class'].'" title="'.trim( strip_tags( $args['title'] ) ).'" ><a href="#citenote-'.$args['id'].'-m" class="cite-scroll">['.( $args['format_number'] ? Number::format( $args['id'] ) : $args['id'] ).']</a></sup>';
+		return '&#xfeff;'.'<sup id="citeref-'.$args['id'].'-m" class="reference '.$args['class'].'" title="'.trim( strip_tags( $args['title'] ) ).'" ><a href="#citenote-'.$args['id'].'-m" class="cite-scroll">['.( $args['format_number'] ? Number::localize( $args['id'] ) : $args['id'] ).']</a></sup>';
 	}
 
 	// FIXME: check this!
@@ -1636,7 +1636,7 @@ class ShortCodes extends gNetwork\Module
 		if ( ! defined( 'GNETWORK_DISABLE_REFLIST_JS' ) || ! GNETWORK_DISABLE_REFLIST_JS )
 			Scripts::enqueueScript( 'front.cite' );
 
-		return '<span>'.( $args['format_number'] ? Number::format( $args['id'] ) : $args['id'] ).$args['after_number']
+		return '<span>'.( $args['format_number'] ? Number::localize( $args['id'] ) : $args['id'] ).$args['after_number']
 				.'<span class="ref-backlink"><a href="#citeref-'.$args['id'].'-m" class="cite-scroll">'.$args['back']
 				.'</a></span><span class="ref-text"><span class="citation" id="citenote-'.$args['id'].'-m">&nbsp;</span></span></span>';
 	}

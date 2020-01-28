@@ -478,7 +478,7 @@ class Login extends gNetwork\Module
 		$html = '<p class="login-sum">';
 
 			$html.= '<label>'.$label.'</label>';
-			$html.= '&nbsp;'.Number::format( $one ).'&nbsp;+&nbsp;'.Number::format( $two ).'&nbsp;=&nbsp; ';
+			$html.= '&nbsp;'.Number::localize( $one ).'&nbsp;+&nbsp;'.Number::localize( $two ).'&nbsp;=&nbsp; ';
 
 			$html.= HTML::tag( 'input', [
 				'type'         => 'number',

@@ -766,7 +766,7 @@ class Debug extends gNetwork\Module
 
 			/* translators: %1$s: quota percent, %2$s: full quota */
 			$title = sprintf( _x( '%1$s of %2$s', 'Modules: Debug', 'gnetwork' ),
-				apply_filters( 'number_format_i18n', $percent.'%' ),
+				Number::localize( $percent.'%' ),
 				HTML::wrapLTR( File::formatSize( $quota ) ) );
 
 			if ( $percent >= 100 )
