@@ -417,7 +417,7 @@ class Restricted extends gNetwork\Module
 	{
 		if ( 'json' == $feed ) {
 
-			// TODO: use `_json_wp_die_handler()` since WP 5.2.0
+			// TODO: use `_json_wp_die_handler()` @since WP 5.2.0
 
 			$json = [
 				'code'    => $this->status_code,
@@ -435,7 +435,7 @@ class Restricted extends gNetwork\Module
 
 		} else {
 
-			// TODO: use `_xml_wp_die_handler()` since WP 5.2.0
+			// TODO: use `_xml_wp_die_handler()` @since WP 5.2.0
 
 			$message = htmlspecialchars( _x( 'You are not authorized to access this site\'s feed.', 'Modules: Restricted', 'gnetwork' ) );
 			$title   = htmlspecialchars( HTTP::getStatusDesc( $this->status_code ) );

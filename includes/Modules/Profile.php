@@ -643,7 +643,7 @@ class Profile extends gNetwork\Module
 		}
 	}
 
-	// hook fire order changed since WP 4.7.0
+	// hook fire order changed @since WP 4.7.0
 	// @SEE: https://make.wordpress.org/core/?p=20592
 	public function set_current_user()
 	{

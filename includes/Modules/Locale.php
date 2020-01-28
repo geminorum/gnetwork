@@ -23,12 +23,10 @@ class Locale extends gNetwork\Module
 
 		if ( defined( 'GNETWORK_WPLANG' ) ) {
 
-			add_filter( 'core_version_check_locale', function( $locale ){
-				return Locale::getDefault( $locale );
-			} );
+			$this->filter( 'core_version_check_locale' );
 
 			if ( is_multisite() )
-				add_filter( 'gnetwork_network_new_blog_options', [ $this, 'new_blog_options' ] );
+				$this->filter_module( 'network', 'new_blog_options' );
 
 			if ( ! defined( 'GNETWORK_DISABLE_LOCALE_OVERRIDES' ) ) {
 				$this->filter( 'load_textdomain_mofile', 2, 12 );
@@ -56,7 +54,7 @@ class Locale extends gNetwork\Module
 		return update_option( 'WPLANG', $locale );
 	}
 
-	// TODO: add arg to get by localized names
+	// TODO: get by localized names
 	public static function available()
 	{
 		$languages = get_available_languages();
@@ -67,9 +65,14 @@ class Locale extends gNetwork\Module
 		return $languages;
 	}
 
+	public function core_version_check_locale( $locale )
+	{
+		return self::getDefault( $locale );
+	}
+
 	public function load_textdomain_mofile( $mofile, $domain )
 	{
-		$locale = get_user_locale(); // FIXME: sinec WP v5.0.0: use `determine_locale()`
+		$locale = get_user_locale(); // FIXME: @since WP v5.0.0: use `determine_locale()`
 
 		if ( 'en_US' == $locale )
 			return $mofile;
@@ -131,7 +134,7 @@ class Locale extends gNetwork\Module
 		return $target;
 	}
 
-	public function new_blog_options( $new_options )
+	public function network_new_blog_options( $new_options )
 	{
 		if ( 'fa_IR' == constant( 'GNETWORK_WPLANG' ) )
 			return array_merge( $new_options, [

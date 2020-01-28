@@ -87,7 +87,7 @@ class Uptime extends gNetwork\Module
 		$data = $this->get_monitors();
 
 		if ( self::isError( $data ) ) {
-			echo HTML::warning( $data->get_error_message(), FALSE );
+			echo HTML::warning( $data->get_error_message(), FALSE, '-full' );
 			return;
 		}
 

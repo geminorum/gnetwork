@@ -300,14 +300,14 @@ class Module extends Core\Base
 				add_filter( $hook, [ $this, $method ], $priority, $args );
 	}
 
-	// USAGE: $this->action_module( 'importer', 'saved', 5 );
+	// USAGE: $this->action_module( 'network', 'saved', 5 );
 	protected function action_module( $module, $hook = 'init', $args = 1, $priority = 10, $suffix = FALSE )
 	{
 		if ( $method = self::sanitize_hook( ( $suffix ? $module.'_'.$hook.'_'.$suffix : $module.'_'.$hook ) ) )
 			add_action( $this->base.'_'.$module.'_'.$hook, [ $this, $method ], $priority, $args );
 	}
 
-	// USAGE: $this->filter_module( 'importer', 'prepare', 4 );
+	// USAGE: $this->filter_module( 'network', 'prepare', 4 );
 	protected function filter_module( $module, $hook = 'init', $args = 1, $priority = 10, $suffix = FALSE )
 	{
 		if ( $method = self::sanitize_hook( ( $suffix ? $module.'_'.$hook.'_'.$suffix : $module.'_'.$hook ) ) )
