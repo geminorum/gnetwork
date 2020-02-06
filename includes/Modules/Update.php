@@ -422,19 +422,32 @@ class Update extends gNetwork\Module
 
 	private function endpoint_headers( $package )
 	{
+		$defaults = [ 'Accept' => 'application/json' ];
+
 		if ( 'github_plugin' == $package['type']
 			|| 'github_theme' == $package['type'] ) {
 
 			// @REF: https://developer.github.com/v3/#current-version
-			return [ 'Accept' => 'application/vnd.github.v3+json' ];
+
+			$defaults['Accept'] = 'application/vnd.github.v3+json';
+
+			if ( ! empty( $this->options['package_tokens'][$package['slug']] ) )
+				$defaults['Authorization'] = sprintf( 'token %s', $this->options['package_tokens'][$package['slug']] );
+
+			else if ( ! empty( $this->options['service_tokens']['github']) )
+				$defaults['Authorization'] = sprintf( 'token %s', $this->options['service_tokens']['github'] );
 
 		} else if ( 'gitlab_plugin' == $package['type']
 			|| 'gitlab_theme' == $package['type'] ) {
 
-			// FIXME: add gitlab
+			if ( ! empty( $this->options['package_tokens'][$package['slug']] ) )
+				$defaults['Authorization'] = sprintf( 'Bearer %s', $this->options['package_tokens'][$package['slug']] );
+
+			else if ( ! empty( $this->options['service_tokens']['gitlab']) )
+				$defaults['Authorization'] = sprintf( 'Bearer %s', $this->options['service_tokens']['gitlab'] );
 		}
 
-		return [ 'Accept' => 'application/json' ];
+		return $defaults;
 	}
 
 	// @REF: https://developer.github.com/v3/
@@ -474,28 +487,31 @@ class Update extends gNetwork\Module
 		if ( 'github_plugin' == $package['type']
 			|| 'github_theme' == $package['type'] ) {
 
-			if ( ! empty( $this->options['package_tokens'][$package['slug']] ) )
-				return add_query_arg( [
-					'access_token' => $this->options['package_tokens'][$package['slug']],
-				], $url );
+			// DEPRECATED: Github auth using query parameters
+			// @REF: https://developer.github.com/changes/2019-11-05-deprecated-passwords-and-authorizations-api/#authenticating-using-query-parameters
 
-			if ( ! empty( $this->options['service_tokens']['github']) )
-				return add_query_arg( [
-					'access_token' => $this->options['service_tokens']['github'],
-				], $url );
+			// if ( ! empty( $this->options['package_tokens'][$package['slug']] ) )
+			// 	return add_query_arg( [
+			// 		'access_token' => $this->options['package_tokens'][$package['slug']],
+			// 	], $url );
+			//
+			// if ( ! empty( $this->options['service_tokens']['github']) )
+			// 	return add_query_arg( [
+			// 		'access_token' => $this->options['service_tokens']['github'],
+			// 	], $url );
 
 		} else if ( 'gitlab_plugin' == $package['type']
 			|| 'gitlab_theme' == $package['type'] ) {
 
-			if ( ! empty( $this->options['package_tokens'][$package['slug']] ) )
-				return add_query_arg( [
-					'private_token' => $this->options['package_tokens'][$package['slug']],
-				], $url );
-
-			if ( ! empty( $this->options['service_tokens']['gitlab']) )
-				return add_query_arg( [
-					'private_token' => $this->options['service_tokens']['gitlab'],
-				], $url );
+			// if ( ! empty( $this->options['package_tokens'][$package['slug']] ) )
+			// 	return add_query_arg( [
+			// 		'private_token' => $this->options['package_tokens'][$package['slug']],
+			// 	], $url );
+			//
+			// if ( ! empty( $this->options['service_tokens']['gitlab']) )
+			// 	return add_query_arg( [
+			// 		'private_token' => $this->options['service_tokens']['gitlab'],
+			// 	], $url );
 		}
 
 		return $url;
