@@ -1442,10 +1442,8 @@ class ShortCodes extends gNetwork\Module
 				'title'       => $args['url_title'],
 			], $args['url_text'] );
 
-		if ( $ref && $url )
-			$ref = $ref.'&nbsp;'.$url;
-		else if ( $url )
-			$ref = $url;
+		if ( $url )
+			$ref = $ref ? sprintf( '%s&nbsp;%s', $ref, $url ) : $url;
 
 		if ( ! $ref )
 			return NULL;

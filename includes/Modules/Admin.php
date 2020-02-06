@@ -487,7 +487,7 @@ class Admin extends gNetwork\Module
 				}).addClass("gnetwork-chosen");
 			});';
 
-			wp_add_inline_script( Scripts::enqueueScriptVendor( 'chosen.jquery', [ 'jquery' ], '1.8.5' ), $script );
+			wp_add_inline_script( Scripts::enqueueScriptVendor( 'chosen.jquery', [ 'jquery' ], '1.8.7' ), $script );
 		}
 	}
 

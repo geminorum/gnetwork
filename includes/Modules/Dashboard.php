@@ -92,8 +92,8 @@ class Dashboard extends gNetwork\Module
 		if ( gNetwork()->option( 'dashboard_sites', 'user' ) )
 			$this->add_dashboard_widget( 'user-sites', _x( 'Your Sites', 'Modules: Dashboard: Widget Title', 'gnetwork' ) );
 
-		if ( gNetwork()->option( 'tos_display', 'user' ) )
-			$this->add_dashboard_widget( 'tos', gNetwork()->option( 'tos_title', 'user',
+		if ( gNetwork()->option( 'tos_display', 'legal' ) )
+			$this->add_dashboard_widget( 'tos', gNetwork()->option( 'tos_title', 'legal',
 				_x( 'Terms of Service', 'Modules: Dashboard: Widget Title', 'gnetwork' )
 			) );
 
