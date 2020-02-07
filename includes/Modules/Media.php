@@ -445,9 +445,10 @@ class Media extends gNetwork\Module
 					if ( empty( $attachments ) )
 						return '<div dir="ltr">&mdash;</div>';
 
-					$links   = [];
-					$sizes   = _x( 'Number of Sizes', 'Modules: Media: Title Attr', 'gnetwork' );
-					$checked = HTTP::checkURLs( Arraay::column( $attachments, 'url' ) );
+					$links    = [];
+					$original = _x( 'Original Size', 'Modules: Media: Title Attr', 'gnetwork' );
+					$sizes    = _x( 'Number of Sizes', 'Modules: Media: Title Attr', 'gnetwork' );
+					$checked  = HTTP::checkURLs( Arraay::column( $attachments, 'url' ) );
 
 					$thumbnail_id  = get_post_meta( $row->ID, '_thumbnail_id', TRUE );
 					$gtheme_images = get_post_meta( $row->ID, '_gtheme_images', TRUE );
@@ -467,6 +468,13 @@ class Media extends gNetwork\Module
 						], $attachment['file'] );
 
 						$html.= ' &ndash;'.$attachment['ID'];
+
+						if ( ! empty( $meta['original_image'] ) )
+							$html.= sprintf( ' &ndash;<span title="%s">%s</span>', $original, HTML::tag( 'a', [
+								'href'   => File::join( dirname( $attachment['url'] ), $meta['original_image'] ),
+								'class'  => 'original',
+								'target' => '_blank',
+							], 'O' ) );
 
 						if ( $thumbnail_id == $attachment['ID'] )
 							$html.= ' &ndash;<b>thumbnail</b>';
