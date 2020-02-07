@@ -330,31 +330,26 @@ class Profile extends gNetwork\Module
 
 	public function init()
 	{
-		if ( is_admin() ) {
+		if ( ! is_user_logged_in() )
+			return;
 
-			if ( $this->options['disable_colorschemes'] )
-				remove_all_actions( 'admin_color_scheme_picker' );
+		if ( $this->options['disable_colorschemes'] )
+			remove_all_actions( 'admin_color_scheme_picker' );
 
-			if ( $this->disable_profile_edit() ) {
+		if ( ! current_user_can( 'edit_users' )
+			&& get_user_meta( get_current_user_id(), 'disable_edit', TRUE ) ) {
 
-				remove_menu_page( 'profile.php' );
-
-				$this->action( 'load-profile.php' );
-				$this->action( 'admin_notices' );
-
-				$this->filter_false( 'edit_profile_url', 12 );
-			}
-
-		} else if ( is_user_logged_in() ) {
-
-			if ( $this->disable_profile_edit() )
-				$this->filter_false( 'edit_profile_url', 12 );
+			$this->action( 'admin_init', 0, 12, 'disable_edit' );
+			$this->filter_false( 'edit_profile_url', 12 );
 		}
 	}
 
-	private function disable_profile_edit()
+	public function admin_init_disable_edit()
 	{
-		return ( ! current_user_can( 'edit_users' ) && get_user_meta( get_current_user_id(), 'disable_edit', TRUE ) );
+		remove_menu_page( 'profile.php' );
+
+		$this->action( 'load-profile.php' );
+		$this->action( 'admin_notices' );
 	}
 
 	// TODO: must check if user is member of the site
