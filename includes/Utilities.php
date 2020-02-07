@@ -210,7 +210,7 @@ class Utilities extends Core\Base
 	public static function getDateEditRow( $timestamp, $class = FALSE )
 	{
 		if ( empty( $timestamp ) )
-			return '<span class="-empty">&mdash;</span>';
+			return self::htmlEmpty();
 
 		if ( ! ctype_digit( $timestamp ) )
 			$timestamp = strtotime( $timestamp );
@@ -368,6 +368,13 @@ class Utilities extends Core\Base
 			$prepared = HTML::escape( $value );
 
 		return apply_filters( static::BASE.'_prep_contact', $prepared, $value, $title );
+	}
+
+	public static function htmlEmpty( $class = '', $title_attr = NULL )
+	{
+		return is_null( $title_attr )
+			? '<span class="-empty '.$class.'">&mdash;</span>'
+			: sprintf( '<span title="%s" class="'.HTML::prepClass( '-empty', $class ).'">&mdash;</span>', $title_attr );
 	}
 
 	// @SEE: https://github.com/bobthecow/mustache.php/wiki

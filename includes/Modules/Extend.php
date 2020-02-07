@@ -75,10 +75,7 @@ class Extend extends gNetwork\Module
 						$html.= '<code>'.$plugin[0].'</code><br />';
 					}
 
-					if ( ! $html )
-						return '<div dir="ltr">&mdash;</div>';
-
-					return $html;
+					return $html ?: Utilities::htmlEmpty();
 				},
 			],
 

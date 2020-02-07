@@ -190,7 +190,7 @@ class SMS extends gNetwork\Module
 						$content.= '<div'.$direction.'>'.Text::autoP(
 							make_clickable( HTML::escapeTextarea( $row['message'] ) ) ).'</div>';
 
-					return $content ?: '&mdash;';
+					return $content ?: Utilities::htmlEmpty();
 				},
 			],
 		], $logs, [

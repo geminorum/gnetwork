@@ -443,7 +443,7 @@ class Media extends gNetwork\Module
 					$attachments = $this->get_attachment_urls( $row->ID, 'image', $column['args']['wpupload'] );
 
 					if ( empty( $attachments ) )
-						return '<div dir="ltr">&mdash;</div>';
+						return Utilities::htmlEmpty();
 
 					$links    = [];
 					$original = _x( 'Original Size', 'Modules: Media: Title Attr', 'gnetwork' );
@@ -502,7 +502,7 @@ class Media extends gNetwork\Module
 					preg_match_all( '|<img.*?src=[\'"](.*?)[\'"].*?>|i', $row->post_content, $matches );
 
 					if ( empty( $matches[1] ) )
-						return '<div dir="ltr">&mdash;</div>';
+						return Utilities::htmlEmpty();
 
 					$links     = [];
 					$externals = URL::checkExternals( $matches[1] );

@@ -663,7 +663,7 @@ class Mail extends gNetwork\Module
 							$content.= '<div'.$direction.'>'.wpautop( make_clickable( nl2br( $row['message'] ) ) ).'</div>';
 					}
 
-					return $content ?: '&mdash;';
+					return $content ?: Utilities::htmlEmpty();
 				},
 			],
 		], $logs, [
