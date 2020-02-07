@@ -20,15 +20,10 @@ class Profile extends gNetwork\Module
 
 	protected function setup_actions()
 	{
+		$this->action( 'init', 0, 12 );
 		$this->action( 'user_register' );
 
-		if ( is_admin() ) {
-
-			$this->action( 'admin_init', 0, 12 );
-
-		} else {
-
-			$this->filter( 'edit_profile_url', 3, 8 );
+		if ( ! is_admin() ) {
 
 			$this->action( 'before_signup_header', 0, 1 );
 
@@ -88,7 +83,6 @@ class Profile extends gNetwork\Module
 			'page_signup_disabled'   => '0',
 			'default_colorscheme'    => '0',
 			'disable_colorschemes'   => '0',
-			'disable_profile_edit'   => '0',
 			'disable_password_reset' => '0',
 			'contact_methods'        => '1',
 			'user_locale'            => '0',
@@ -108,12 +102,6 @@ class Profile extends gNetwork\Module
 					'field'       => 'display_name_per_site',
 					'title'       => _x( 'Custom Display Name', 'Modules: Profile: Settings', 'gnetwork' ),
 					'description' => _x( 'Enables custom display name per-site for each user.', 'Modules: Profile: Settings', 'gnetwork' ),
-				],
-				[
-					'field'       => 'disable_profile_edit',
-					'type'        => 'disabled',
-					'title'       => _x( 'Edit Profile', 'Modules: Profile: Settings', 'gnetwork' ),
-					'description' => _x( 'Controls whether to allow a user to edit his profile.', 'Modules: Profile: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'disable_password_reset',
@@ -340,33 +328,44 @@ class Profile extends gNetwork\Module
 		return $count;
 	}
 
-	public function admin_init()
+	public function init()
 	{
-		if ( $this->options['disable_colorschemes'] )
-			remove_all_actions( 'admin_color_scheme_picker' );
+		if ( is_admin() ) {
 
-		if ( $this->options['disable_profile_edit'] ) {
+			if ( $this->options['disable_colorschemes'] )
+				remove_all_actions( 'admin_color_scheme_picker' );
 
-			if ( ! current_user_can( 'edit_users' )
-				&& get_user_meta( get_current_user_id(), 'disable_edit', TRUE ) ) {
+			if ( $this->disable_profile_edit() ) {
 
 				remove_menu_page( 'profile.php' );
 
 				$this->action( 'load-profile.php' );
 				$this->action( 'admin_notices' );
 
+				$this->filter_false( 'edit_profile_url', 12 );
 			}
+
+		} else if ( is_user_logged_in() ) {
+
+			if ( $this->disable_profile_edit() )
+				$this->filter_false( 'edit_profile_url', 12 );
 		}
 	}
 
+	private function disable_profile_edit()
+	{
+		return ( ! current_user_can( 'edit_users' ) && get_user_meta( get_current_user_id(), 'disable_edit', TRUE ) );
+	}
+
+	// TODO: must check if user is member of the site
 	public function load_profile_php()
 	{
-		WordPress::redirect( add_query_arg( [ static::BASE.'_action' => 'banned' ], admin_url( 'index.php' ) ) );
+		WordPress::redirect( add_query_arg( [ static::BASE.'_action' => 'edit-profile-banned' ], admin_url( 'index.php' ) ) );
 	}
 
 	public function admin_notices()
 	{
-		if ( $this->is_action( 'banned' ) )
+		if ( $this->is_action( 'edit-profile-banned' ) )
 			echo HTML::warning( _x( 'Sorry, you are not allowed to edit your profile.', 'Modules: Profile', 'gnetwork' ) );
 	}
 
@@ -395,12 +394,6 @@ class Profile extends gNetwork\Module
 		// NO NEED: we're not going to let the meta stored in the first place!
 		// @REF: http://wpengineer.com/2470/hide-welcome-panel-for-wordpress-multisite/
 		// update_user_meta( $user_id, 'show_welcome_panel', 0 );
-	}
-
-	// set all non-admin edit profile links to the main site
-	public function edit_profile_url( $url, $user_id, $scheme )
-	{
-		return get_admin_url( get_main_site_id(), 'profile.php', $scheme );
 	}
 
 	public function before_signup_header()
