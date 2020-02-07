@@ -104,7 +104,7 @@ class Restricted extends gNetwork\Module
 					'type'        => 'page',
 					'title'       => _x( 'Restricted Page', 'Modules: Restricted: Settings', 'gnetwork' ),
 					'description' => _x( 'Redirects not authorized users to this page. If not selected will redirect to the login page.', 'Modules: Restricted: Settings', 'gnetwork' ),
-					'none_title'  => _x( '&mdash; Login Page &mdash;', 'Modules: Restricted: Settings', 'gnetwork' ),
+					'none_title'  => _x( '&ndash; Login Page &ndash;', 'Modules: Restricted: Settings', 'gnetwork' ),
 					'none_value'  => '0',
 				],
 				[

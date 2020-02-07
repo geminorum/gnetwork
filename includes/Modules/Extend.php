@@ -4,6 +4,7 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
 use geminorum\gNetwork\Logger;
+use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\URL;
 
@@ -67,15 +68,16 @@ class Extend extends gNetwork\Module
 
 			'plugins' => [
 				'title'    => _x( 'Plugins', 'Modules: Extend', 'gnetwork' ),
+				'class'    => '-extend-plugins -has-list -has-list-ltr',
 				'callback' => function( $value, $row, $column, $index ) {
-					$html = '';
+					$list = [];
 
 					foreach ( (array) $value as $path ) {
 						$plugin = explode( '/', $path );
-						$html.= '<code>'.$plugin[0].'</code><br />';
+						$list[] = sprintf( '<code>%s</code>', array_shift( $plugin ) );
 					}
 
-					return $html ?: Utilities::htmlEmpty();
+					return $list ? HTML::renderList( $list ) : Utilities::htmlEmpty();
 				},
 			],
 

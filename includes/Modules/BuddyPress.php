@@ -126,7 +126,7 @@ class BuddyPress extends gNetwork\Module
 					'description' => _x( 'Universal sidewide display name of the user.', 'Modules: BuddyPress: Settings', 'gnetwork' ),
 					'default'     => 'default',
 					'values'      => [
-						'default'         => _x( '&mdash; Default &mdash;', 'Modules: BuddyPress: Settings', 'gnetwork' ),
+						'default'         => _x( '&ndash; Default &ndash;', 'Modules: BuddyPress: Settings', 'gnetwork' ),
 						'first_last_name' => _x( 'First and Last Name', 'Modules: BuddyPress: Settings', 'gnetwork' ),
 						'username'        => _x( 'Username', 'Modules: BuddyPress: Settings', 'gnetwork' ),
 						'nickname'        => _x( 'Nickname', 'Modules: BuddyPress: Settings', 'gnetwork' ),

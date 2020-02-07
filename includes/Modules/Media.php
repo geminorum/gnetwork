@@ -435,6 +435,7 @@ class Media extends gNetwork\Module
 
 			'attached' => [
 				'title'    => _x( 'Attached Media', 'Modules: Media: Column Title', 'gnetwork' ),
+				'class'    => '-attached-media -has-list -has-list-ltr',
 				'args'     => [ 'wpupload' => wp_get_upload_dir() ],
 				'callback' => function( $value, $row, $column, $index ){
 
@@ -445,7 +446,7 @@ class Media extends gNetwork\Module
 					if ( empty( $attachments ) )
 						return Utilities::htmlEmpty();
 
-					$links    = [];
+					$list     = [];
 					$original = _x( 'Original Size', 'Modules: Media: Title Attr', 'gnetwork' );
 					$sizes    = _x( 'Number of Sizes', 'Modules: Media: Title Attr', 'gnetwork' );
 					$checked  = HTTP::checkURLs( Arraay::column( $attachments, 'url' ) );
@@ -486,17 +487,18 @@ class Media extends gNetwork\Module
 							$html.= ' &ndash;term:<b>'.array_search( $attachment['ID'], $gtheme_terms ).'</b>';
 
 						if ( $meta && isset( $meta['sizes'] ) && ( $count = count( $meta['sizes'] ) ) )
-							$html.= sprintf( ' &ndash;<span class="-sizes" title="%s">x%s</span>', $sizes, $count );
+							$html.= sprintf( ' &ndash;<span class="-sizes" title="%s">%s&times;</span>', $sizes, $count );
 
-						$links[] = $html;
+						$list[] = $html;
 					}
 
-					return '<div dir="ltr">'.( count( $links ) ? implode( '<br />', $links ) : '&mdash;' ).'</div>';
+					return $list ? HTML::renderList( $list ) : Utilities::htmlEmpty();
 				},
 			],
 
 			'content' => [
 				'title'    => _x( 'In Content', 'Modules: Media: Column Title', 'gnetwork' ),
+				'class'    => '-media-in-content -has-list -has-list-ltr',
 				'callback' => function( $value, $row, $column, $index ){
 
 					preg_match_all( '|<img.*?src=[\'"](.*?)[\'"].*?>|i', $row->post_content, $matches );
@@ -504,7 +506,7 @@ class Media extends gNetwork\Module
 					if ( empty( $matches[1] ) )
 						return Utilities::htmlEmpty();
 
-					$links     = [];
+					$list     = [];
 					$externals = URL::checkExternals( $matches[1] );
 
 					$external = sprintf( '<small><code class="-external-resource" title="%s">%s</code></small>',
@@ -521,14 +523,14 @@ class Media extends gNetwork\Module
 						if ( isset( $externals[$src] ) && $externals[$src] )
 							$link.= $external;
 
-						$links[] = $link.' '.HTML::tag( 'a', [
+						$list[] = $link.' '.HTML::tag( 'a', [
 							'href'   => $src,
 							'class'  => 200 === $code ? 'thickbox' : '-error',
 							'target' => '_blank',
 						], URL::prepTitle( $src ) );
 					}
 
-					return '<div dir="ltr">'.( count( $links ) ? implode( '<br />', $links ) : '&mdash;' ).'</div>';
+					return $list ? HTML::renderList( $list ) : Utilities::htmlEmpty();
 				},
 			],
 		], $posts, [

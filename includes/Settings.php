@@ -387,7 +387,7 @@ class Settings extends Core\Base
 		}
 
 		if ( is_null( $none_title ) )
-			$none_title = _x( '&mdash; No One &mdash;', 'Utilities: Dropdown: Get User Roles', 'gnetwork' );
+			$none_title = _x( '&ndash; No One &ndash;', 'Utilities: Dropdown: Get User Roles', 'gnetwork' );
 
 		if ( is_null( $none_value ) )
 			$none_value = 'none';
@@ -440,18 +440,18 @@ class Settings extends Core\Base
 	{
 		if ( $string )
 			/* translators: %s: options */
-			return sprintf( _x( '&mdash; Select %s &mdash;', 'Settings: Dropdown Select Option None', 'gnetwork' ), $string );
+			return sprintf( _x( '&ndash; Select %s &ndash;', 'Settings: Dropdown Select Option None', 'gnetwork' ), $string );
 
-		return _x( '&mdash; Select &mdash;', 'Settings: Dropdown Select Option None', 'gnetwork' );
+		return _x( '&ndash; Select &ndash;', 'Settings: Dropdown Select Option None', 'gnetwork' );
 	}
 
 	public static function showOptionAll( $string = NULL )
 	{
 		if ( $string )
 			/* translators: %s: options */
-			return sprintf( _x( '&mdash; All %s &mdash;', 'Settings: Dropdown Select Option All', 'gnetwork' ), $string );
+			return sprintf( _x( '&ndash; All %s &ndash;', 'Settings: Dropdown Select Option All', 'gnetwork' ), $string );
 
-		return _x( '&mdash; All &mdash;', 'Settings: Dropdown Select Option All', 'gnetwork' );
+		return _x( '&ndash; All &ndash;', 'Settings: Dropdown Select Option All', 'gnetwork' );
 	}
 
 	public static function reverseEnabled()
