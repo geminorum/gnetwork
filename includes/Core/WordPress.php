@@ -12,7 +12,7 @@ class WordPress extends Base
 	}
 
 	// Checks compatibility with the current WordPress version.
-	// @REF: `wp_is_wp_compatible()`
+	// @REF: `is_wp_version_compatible()`
 	public static function isWPcompatible( $required )
 	{
 		return empty( $required ) || version_compare( $GLOBALS['wp_version'], $required, '>=' );

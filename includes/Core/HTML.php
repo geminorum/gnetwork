@@ -32,7 +32,7 @@ class HTML extends Base
 	public static function tel( $number, $title = FALSE, $content = NULL )
 	{
 		if ( is_null( $content ) )
-			$content = apply_filters( 'number_format_i18n', $number );
+			$content = Number::localize( $number );
 
 		return '<a class="-tel" href="'.self::sanitizePhoneNumber( $number )
 				.'"'.( $title ? ' data-toggle="tooltip" title="'.self::escape( $title ).'"' : '' )
@@ -238,6 +238,9 @@ class HTML extends Base
 		$classes = func_get_args();
 
 		if ( TRUE === $classes[0] )
+			return '';
+
+		if ( 1 === count( $classes ) && empty( $classes[0] ) )
 			return '';
 
 		return implode( ' ', array_unique( array_filter( call_user_func_array( array( __CLASS__, 'attrClass' ), $classes ), array( __CLASS__, 'sanitizeClass' ) ) ) );
@@ -1138,30 +1141,30 @@ class HTML extends Base
 	}
 
 	// @REF: https://codex.wordpress.org/Plugin_API/Action_Reference/admin_notices
-	// CLASSES: notice-error, notice-warning, notice-success, notice-info, is-dismissible
+	// CLASSES: notice-error, notice-warning, notice-success, notice-info, is-dismissible, fade, inline
 	public static function notice( $notice, $class = 'notice-success fade inline', $dismissible = TRUE )
 	{
 		return sprintf( '<div class="notice %s%s -notice">%s</div>', $class, ( $dismissible ? ' is-dismissible' : '' ), Text::autoP( $notice ) );
 	}
 
-	public static function error( $notice, $dismissible = TRUE )
+	public static function error( $notice, $dismissible = TRUE, $extra = '' )
 	{
-		return self::notice( $notice, 'notice-error fade inline', $dismissible );
+		return self::notice( $notice, 'notice-error fade inline '.self::prepClass( $extra ), $dismissible );
 	}
 
-	public static function success( $notice, $dismissible = TRUE )
+	public static function success( $notice, $dismissible = TRUE, $extra = '' )
 	{
-		return self::notice( $notice, 'notice-success fade inline', $dismissible );
+		return self::notice( $notice, 'notice-success fade inline '.self::prepClass( $extra ), $dismissible );
 	}
 
-	public static function warning( $notice, $dismissible = TRUE )
+	public static function warning( $notice, $dismissible = TRUE, $extra = '' )
 	{
-		return self::notice( $notice, 'notice-warning fade inline', $dismissible );
+		return self::notice( $notice, 'notice-warning fade inline '.self::prepClass( $extra ), $dismissible );
 	}
 
-	public static function info( $notice, $dismissible = TRUE )
+	public static function info( $notice, $dismissible = TRUE, $extra = '' )
 	{
-		return self::notice( $notice, 'notice-info fade inline', $dismissible );
+		return self::notice( $notice, 'notice-info fade inline '.self::prepClass( $extra ), $dismissible );
 	}
 
 	// @REF: https://developer.wordpress.org/resource/dashicons/

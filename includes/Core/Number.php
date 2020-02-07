@@ -5,6 +5,11 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 class Number extends Base
 {
 
+	public static function localize( $number )
+	{
+		return apply_filters( 'number_format_i18n', $number );
+	}
+
 	public static function format( $number, $decimals = 0, $locale = NULL )
 	{
 		return apply_filters( 'number_format_i18n', number_format( $number, absint( $decimals ) ), $number, $decimals );
@@ -23,13 +28,15 @@ class Number extends Base
 	// @SOURCE: `bbp_number_not_negative()`
 	public static function notNegative( $number )
 	{
-		// protect against formatted strings
 		if ( is_string( $number ) ) {
-			$number = strip_tags( $number );                    // no HTML
+
+			// protect against formatted strings
+			$number = strip_tags( $number ); // no HTML
 			$number = preg_replace( '/[^0-9-]/', '', $number ); // no number-format
 
-		// protect against objects, arrays, scalars, etc...
 		} else if ( ! is_numeric( $number ) ) {
+
+			// protect against objects, arrays, scalars, etc...
 			$number = 0;
 		}
 
