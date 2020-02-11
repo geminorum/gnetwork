@@ -321,7 +321,7 @@ class Settings extends Core\Base
 			'target' => '_blank',
 			'data'   => [
 				'tooltip'     => $title,
-				'tooltip-pos' => HTML::rtl() ? 'right' : 'left',
+				'tooltip-pos' => HTML::rtl() ? 'left' : 'right',
 			],
 		], HTML::getDashicon( $icon ) );
 
@@ -340,7 +340,7 @@ class Settings extends Core\Base
 			'class' => HTML::attrClass( '-field-after', $class ),
 			'data'  => [
 				'tooltip'     => $title,
-				'tooltip-pos' => HTML::rtl() ? 'right' : 'left',
+				'tooltip-pos' => HTML::rtl() ? 'left' : 'right',
 			],
 		], '<code>'.$constant.'</code> : <code>'.constant( $constant ).'</code>' );
 	}

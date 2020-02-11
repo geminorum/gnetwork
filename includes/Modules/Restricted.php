@@ -495,7 +495,7 @@ EOD;
 				'field_class' => [ 'regular-text', 'code-text' ],
 				'default'     => $feedkey ?: '',
 				'disabled'    => TRUE,
-				'wrap'       => 'tr',
+				'wrap'        => 'tr',
 			] );
 
 			$operations = [ 'none' => Settings::showOptionNone() ];

@@ -637,7 +637,10 @@ class Utilities extends Core\Base
 			'href'   => $remote,
 			'target' => '_blank',
 			'class'  => '-icon-wrap',
-			'title'  => _x( 'See the remote content.', 'Utilities: Remote Content', 'gnetwork' ),
+			'data'  => [
+				'tooltip'     => _x( 'See the remote content.', 'Utilities: Remote Content', 'gnetwork' ),
+				'tooltip-pos' => HTML::rtl() ? 'left' : 'right',
+			],
 		], HTML::getDashicon( 'external' ) );
 
 		return $button.' '.$icon;
