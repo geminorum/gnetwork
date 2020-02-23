@@ -3,16 +3,32 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// gNetwork Partials: Login: Default ------------------------------------------
 
+////////////////////////////////////////////////////////////////////////////////
 body.login.logindefault {
   a:focus {
     box-shadow: none;
   }
 
   #login {
+    width: 360px;
+    padding-top: 4%;
+
     form {
-      border-radius: 2px;
       box-shadow: none;
     }
+  }
+
+  #login form,
+  &.wp-core-ui .button:not(.wp-hide-pw),
+  &.wp-core-ui .button-primary,
+  &.wp-core-ui .button-secondary:not(.wp-hide-pw),
+  input[type="checkbox"],
+  input[type="radio"],
+  input[type="email"],
+  input[type="number"],
+  input[type="password"],
+  input[type="text"] {
+    border-radius: 2px;
   }
 
   label[for="user_login"],
@@ -27,6 +43,8 @@ body.login.logindefault {
     text-align: center;
   }
 
+  #login .message,
+  #login_error,
   p.description {
     text-align: left;
   }

@@ -45,7 +45,9 @@
   }
 
   .-wrap-buttons {
-    margin: 0;
+    float: none !important; // for clearfix
+    padding: 0 !important;
+    margin: 0 !important;
   }
 }
 

@@ -4,66 +4,64 @@
 /// gNetwork Partials: Login: Webogram -----------------------------------------
 // https://zhukov.github.io/webogram/#/login
 
+////////////////////////////////////////////////////////////////////////////////
 body.login.webogram {
-  background: #f7f7f7;
+  background: #e7ebf0;
   position: relative;
 
   .-head-placeholder {
     background: #5682a3;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
 
-    // height: 206px;
-    height: 18vw;
+    height: 14vw;
     width: 100%;
     position: absolute;
+    z-index: -100;
     top: 0;
     left: 0;
     right: 0;
-    z-index: -100;
   }
 
   #login {
     padding-top: 8vw;
-
     max-width: 404px;
     width: auto;
 
-    > h1 {
-      a {
-        width: 100%;
-        height: 0;
-        margin: 0;
-        background-image: none;
-        background-position: center center;
-        background-size: auto auto;
-
-        &:focus {
-          box-shadow: none;
-        }
-      }
-    }
-
-    > p.message {
-      // margin-top: -12.5%;
-      margin-top: -20px;
-    }
-
     form {
-      border-radius: 2px;
+      /*rtl:ignore*/
       box-shadow: 0 1px 1px rgba(97, 127, 152, .2), 1px 0 0 rgba(97, 127, 152, .1), -1px 0 0 rgba(97, 127, 152, .1);
-
-      input[type="password"],
-      input[type="text"] {
-        margin-top: 10px !important;
-      }
-
-      p {
-        text-align: center;
-
-        &.description {
-          text-align: left;
-        }
-      }
     }
+  }
+
+  #login form,
+  &.wp-core-ui .button:not(.wp-hide-pw),
+  &.wp-core-ui .button-primary,
+  &.wp-core-ui .button-secondary:not(.wp-hide-pw),
+  input[type="checkbox"],
+  input[type="radio"],
+  input[type="email"],
+  input[type="number"],
+  input[type="password"],
+  input[type="text"] {
+    border-radius: 2px;
+    border-color: #e6e6e6;
+  }
+
+  label[for="user_login"],
+  label[for="user_pass"] {
+    margin-bottom: 0.5rem;
+  }
+
+  p,
+  .user-pass-wrap,
+  .admin-email__heading,
+  .admin-email__actions {
+    text-align: center;
+  }
+
+  #login .message,
+  #login_error,
+  p.description {
+    text-align: left;
   }
 }

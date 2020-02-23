@@ -452,3 +452,14 @@ button[data-tooltip] {
     }
   }
 }
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+// EXTRA
+
+// @REF: https://github.com/kazzkiq/balloon.css/issues/134#issuecomment-579996229
+.no-tooltip[aria-label][data-balloon-pos]::before,
+.no-tooltip[aria-label][data-balloon-pos]::after {
+  // display: none !important;
+  opacity: 0 !important;
+}

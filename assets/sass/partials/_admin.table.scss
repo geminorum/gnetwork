@@ -152,13 +152,25 @@ table.base-table-list {
       height: auto;
     }
 
+    &.-has-list {
+      ul,
+      ol {
+        margin: 0;
+        padding: 0;
+      }
+    }
+
+    &.-has-list-ltr {
+      /*rtl:ignore*/
+      direction: ltr;
+    }
+
     &.-has-table {
       padding: 4px 5px;
     }
 
     &.-has-table-ltr {
       table {
-
         /*rtl:ignore*/
         direction: ltr;
       }

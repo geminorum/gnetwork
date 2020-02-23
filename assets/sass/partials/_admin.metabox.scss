@@ -41,8 +41,15 @@
   }
 
   .inside {
-    .notice.inline {
+    .notice {
       box-shadow: none;
+
+      &.-full {
+        margin: 0 0 15px;
+        border-top: none;
+        border-bottom: none;
+        border-right: none;
+      }
 
       &:last-child {
         margin-bottom: 0;

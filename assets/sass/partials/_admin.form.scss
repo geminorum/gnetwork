@@ -3,7 +3,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// gNetwork Partials: Form ----------------------------------------------------
 
-.wXXrap {
+// TODO: check new core styles: https://make.wordpress.org/core/2019/10/18/noteworthy-admin-css-changes-in-wordpress-5-3/
+
+////////////////////////////////////////////////////////////////////////////////
+.wrap {
   input[type="text"] {
     vertical-align: middle;
   }
@@ -13,7 +16,7 @@
   }
 
   input.small-text {
-    padding: 5px 5px 4px;
+    // padding: 5px 5px 4px;
   }
 
   input.small-text,
