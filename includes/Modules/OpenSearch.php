@@ -342,6 +342,7 @@ class OpenSearch extends gNetwork\Module
 			'template' => self::url(),
 		] )."\n";
 
+		// TODO: use the one from branding module
 		if ( file_exists( ABSPATH.'favicon.ico' ) )
 			$xml.= "\t".HTML::tag( 'Image', [
 				'type'   => 'image/x-icon',
@@ -349,6 +350,7 @@ class OpenSearch extends gNetwork\Module
 				'height' => '16',
 			], get_bloginfo( 'url' ).'/favicon.ico' )."\n";
 
+		// TODO: use the one from branding module
 		if ( file_exists( ABSPATH.'favicon.png' ) )
 			$xml.= "\t".HTML::tag( 'Image', [
 				'type'   => 'image/png',

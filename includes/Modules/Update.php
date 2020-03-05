@@ -435,6 +435,8 @@ class Update extends gNetwork\Module
 
 		} else if ( in_array( $package['type'], [ 'gitlab_plugin', 'gitlab_theme' ] ) ) {
 
+			//@REF: https://gitlab.com/gitlab-org/gitlab-foss/issues/63438
+
 			if ( ! empty( $this->options['package_tokens'][$package['slug']] ) )
 				$defaults['Authorization'] = sprintf( 'Bearer %s', $this->options['package_tokens'][$package['slug']] );
 

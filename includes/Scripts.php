@@ -102,7 +102,7 @@ class Scripts extends Core\Base
 	}
 
 	// @REF: https://github.com/bvanderhoof/gist-embed
-	public static function pkgGistEmbed( $ver = '1.0.3' )
+	public static function pkgGistEmbed( $ver = '1.0.4' )
 	{
 		$handle = static::BASE.'-gist-embed';
 

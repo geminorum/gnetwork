@@ -44,7 +44,7 @@ class Dashboard extends gNetwork\Module
 	private function disable_check_browser()
 	{
 		if ( ! empty( $_SERVER['HTTP_USER_AGENT'] ) )
-			$this->filter_true( 'pre_site_transient_browser_'.md5( $_SERVER['HTTP_USER_AGENT'] ) );
+			$this->filter_empty_array( 'pre_site_transient_browser_'.md5( $_SERVER['HTTP_USER_AGENT'] ) );
 	}
 
 	public function wp_dashboard_setup()

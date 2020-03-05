@@ -203,8 +203,8 @@ class Code extends gNetwork\Module
 			'hide-line-numbers' => FALSE,
 			'hide-footer'       => TRUE,
 			'file'              => FALSE,
-			'line'              => FALSE, // EXAMPLES: '2', '2-4', '1,3-4', '2,3,4'
-			'highlight'         => FALSE, // EXAMPLES: '2', '2-4', '1,3-4', '2,3,4'
+			'line'              => FALSE, // EXAMPLES: '2', '2-4', '1,3-4', '2,3,4', '1,3-5,7-'
+			'highlight'         => FALSE, // EXAMPLES: '2', '2-4', '1,3-4', '2,3,4', '1,3-5,7-'
 			'loading'           => FALSE,
 			'context'           => NULL,
 			'wrap'              => TRUE,
