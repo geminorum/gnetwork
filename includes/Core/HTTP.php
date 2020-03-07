@@ -225,6 +225,40 @@ class HTTP extends Base
 		return FALSE;
 	}
 
+	// @REF: https://github.com/10up/restricted-site-access/blob/develop/restricted_site_access.php
+	// @SEE: https://wordpress.org/support/topic/how-to-troubleshoot-client-ip-detection/
+	public static function clientIP()
+	{
+		$headers = [
+			'HTTP_CF_CONNECTING_IP', // @REF: https://github.com/10up/restricted-site-access/issues/109
+			'HTTP_CLIENT_IP',
+			'HTTP_X_FORWARDED_FOR',
+			'HTTP_X_FORWARDED',
+			'HTTP_X_CLUSTER_CLIENT_IP',
+			'HTTP_FORWARDED_FOR',
+			'HTTP_FORWARDED',
+			'REMOTE_ADDR',
+		];
+
+		foreach ( $headers as $key ) {
+
+			if ( ! isset( $_SERVER[$key] ) )
+				continue;
+
+			$list = explode( ',', sanitize_text_field( self::unslash( $_SERVER[$key] ) ) );
+
+			foreach ( $list as $ip ) {
+
+				$ip = trim( $ip );
+
+				if ( FALSE !== filter_var( $ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE ) )
+					return $ip;
+			}
+		}
+
+		return '';
+	}
+
 	// @REF: `WP_Community_Events::get_unsafe_client_ip()`
 	public static function IP( $pad = FALSE )
 	{
@@ -257,10 +291,7 @@ class HTTP extends Base
 
 		$ip = self::normalizeIP( $ip );
 
-		if ( $pad )
-			return str_pad( $ip, 15, ' ', STR_PAD_LEFT );
-
-		return $ip;
+		return $pad ? str_pad( $ip, 15, ' ', STR_PAD_LEFT ) : $ip;
 	}
 
 	public static function normalizeIP( $ip )
@@ -338,7 +369,7 @@ class HTTP extends Base
 	}
 
 	// @REF: https://gist.github.com/tott/7684443#gistcomment-1645778
-	public static function CheckIpRange($ip, $min, $max)
+	public static function checkIPRange($ip, $min, $max)
 	{
 		return ( ip2long( $min ) < ip2long( $ip ) && ip2long( $ip ) < ip2long( $max ) );
 	}

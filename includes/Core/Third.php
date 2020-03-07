@@ -32,7 +32,7 @@ class Third extends Base
 
 			$args  = array(
 				'href'    => add_query_arg( array( 'TB_iframe' => '1' ), $url ),
-				'title'   => $handle,
+				'title'   => HTML::wrapLTR( $handle ),
 				'class'   => '-twitter thickbox',
 				'onclick' => 'return false;',
 			);
@@ -134,7 +134,7 @@ class Third extends Base
 		] );
 	}
 
-	// TODO: hex color sanitize
+	// FIXME: hex color sanitize
 	public static function htmlThemeColor( $color )
 	{
 		if ( ! $color )

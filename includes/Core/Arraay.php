@@ -307,4 +307,23 @@ class Arraay extends Base
 
 		return $groups;
 	}
+
+	// transform a list of objects into an associative array
+	// @SOURCE: `scb_list_fold()`
+	public static function listFold( $list, $key, $value )
+	{
+		$array = array();
+
+		if ( is_array( reset( $list ) ) )
+
+			foreach ( $list as $item )
+				$array[$item[$key]] = $item[$value];
+
+		else
+
+			foreach ( $list as $item )
+				$array[$item->{$key}] = $item->{$value};
+
+		return $array;
+	}
 }

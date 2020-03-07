@@ -133,7 +133,7 @@ class Date extends Base
 	public static function htmlDateTime( $time, $gmt = NULL, $format = 'l, F j, Y', $title = FALSE )
 	{
 		return HTML::tag( 'time', array(
-			'datetime' => date( 'c', ( $gmt ? $gmt : $time ) ),
+			'datetime' => date( 'c', ( $gmt ?: $time ) ),
 			'title'    => $title,
 			'class'    => 'do-timeago', // @SEE: http://timeago.yarp.com/
 		), date_i18n( $format, $time ) );

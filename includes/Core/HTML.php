@@ -356,11 +356,11 @@ class HTML extends Base
 	// ANCESTOR: tag_escape()
 	public static function sanitizeTag( $tag )
 	{
-		// return strtolower( preg_replace( '/[^a-zA-Z0-9_:]/', '', $tag ) );
 		return preg_replace( '/[^a-zA-Z0-9_:]/', '', $tag );
 	}
 
-	// https://www.iana.org/assignments/uri-schemes/uri-schemes.xhtml
+	// @REF: https://www.billerickson.net/code/phone-number-url/
+	// @SEE: https://www.iana.org/assignments/uri-schemes/uri-schemes.xhtml
 	public static function sanitizePhoneNumber( $number )
 	{
 		return self::escapeURL( 'tel:'.str_replace( array( '(', ')', '-', '.', '|', ' ' ), '', $number ) );
@@ -529,7 +529,7 @@ class HTML extends Base
 			$url = add_query_arg( $version, $url );
 
 		else if ( $version )
-			$url = add_query_arg( array( 'ver' => $version ), $url );
+			$url = add_query_arg( 'ver', $version, $url );
 
 		$html = self::tag( 'link', array(
 			'rel'   => 'stylesheet',

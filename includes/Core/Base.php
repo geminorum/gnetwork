@@ -5,6 +5,32 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 class Base
 {
 
+	public static function req( $key, $default = '' )
+	{
+		return isset( $_REQUEST[$key] ) ? $_REQUEST[$key] : $default;
+	}
+
+	public static function limit( $default = 25, $key = 'limit' )
+	{
+		return intval( self::req( $key, $default ) );
+	}
+
+	public static function paged( $default = 1, $key = 'paged' )
+	{
+		return intval( self::req( $key, $default ) );
+	}
+
+	public static function orderby( $default = 'title', $key = 'orderby' )
+	{
+		return self::req( $key, $default );
+	}
+
+	public static function order( $default = 'desc', $key = 'order' )
+	{
+		$req = strtoupper( self::req( $key, $default ) );
+		return ( 'ASC' === $req || 'DESC' === $req ) ? $req : $default;
+	}
+
 	public static function dump( $var, $safe = TRUE, $echo = TRUE )
 	{
 		$export = var_export( $var, TRUE );
@@ -88,6 +114,15 @@ class Base
 			self::_dep( $note, $prefix, $offset );
 	}
 
+	// INTERNAL: used on functions deprecated
+	public static function _dev_func( $function, $version, $replacement = NULL )
+	{
+		if ( is_null( $replacement ) )
+			self::_log( sprintf( 'DEP: \'%1$s\' function, since %2$s with no alternative', $function, $version ) );
+		else
+			self::_log( sprintf( 'DEP: \'%1$s\' function, since %2$s, Use \'%3$s\'', $function, $version, $replacement ) );
+	}
+
 	public static function console( $data, $table = FALSE )
 	{
 		$func = $table ? 'table' : 'log';
@@ -162,32 +197,6 @@ class Base
 		$start_memory = memory_get_usage();
 		$var = unserialize( serialize( $var ) );
 		return memory_get_usage() - $start_memory - PHP_INT_SIZE * 8;
-	}
-
-	public static function req( $key, $default = '' )
-	{
-		return empty( $_REQUEST[$key] ) ? $default : $_REQUEST[$key];
-	}
-
-	public static function limit( $default = 25, $key = 'limit' )
-	{
-		return intval( self::req( $key, $default ) );
-	}
-
-	public static function paged( $default = 1, $key = 'paged' )
-	{
-		return intval( self::req( $key, $default ) );
-	}
-
-	public static function orderby( $default = 'title', $key = 'orderby' )
-	{
-		return self::req( $key, $default );
-	}
-
-	public static function order( $default = 'desc', $key = 'order' )
-	{
-		$req = strtoupper( self::req( $key, $default ) );
-		return ( 'ASC' === $req || 'DESC' === $req ) ? $req : $default;
 	}
 
 	// @REF: `shortcode_atts()`
