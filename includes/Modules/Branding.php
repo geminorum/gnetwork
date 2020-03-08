@@ -24,6 +24,9 @@ class Branding extends gNetwork\Module
 			$this->filter( 'redirect_canonical', 2 );
 		}
 
+		if ( $this->options['network_siteicon'] )
+			$this->action( 'do_faviconico', 0, 8 );
+
 		add_action( 'network_credits', function(){
 			gnetwork_credits();
 		} );
@@ -341,6 +344,12 @@ class Branding extends gNetwork\Module
 		$site = get_site_icon_url( $size, FALSE, get_main_site_id() );
 
 		return FALSE === $site ? '' : $site;
+	}
+
+	// @REF: https://make.wordpress.org/core/2020/02/19/enhancements-to-favicon-handling-in-wordpress-5-4/
+	public function do_faviconico()
+	{
+		WordPress::redirect( $this->options['network_siteicon'] );
 	}
 
 	public function maintenance_template_before()
