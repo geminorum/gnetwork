@@ -1424,8 +1424,8 @@ class Module extends Core\Base
 	public function get_column_icon( $link = FALSE, $icon = 'wordpress-alt', $title = FALSE )
 	{
 		return HTML::tag( ( $link ? 'a' : 'span' ), [
-			'href'   => $link ? $link : FALSE,
-			'title'  => $title ? $title : FALSE,
+			'href'   => $link ?: FALSE,
+			'title'  => $title ?: FALSE,
 			'class'  => [ '-icon', ( $link ? '-link' : '-info' ) ],
 			'target' => $link ? '_blank' : FALSE,
 		], HTML::getDashicon( $icon ) );

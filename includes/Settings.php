@@ -319,6 +319,7 @@ class Settings extends Core\Base
 		$html = HTML::tag( 'a', [
 			'href'   => $url,
 			'target' => '_blank',
+			'rel'    => 'noreferrer',
 			'data'   => [
 				'tooltip'     => $title,
 				'tooltip-pos' => HTML::rtl() ? 'left' : 'right',

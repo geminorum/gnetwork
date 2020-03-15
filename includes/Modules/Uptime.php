@@ -66,7 +66,7 @@ class Uptime extends gNetwork\Module
 			[
 				'id'      => $this->classs( 'help' ),
 				'title'   => _x( 'Uptime Robot', 'Modules: Uptime: Help Tab Title', 'gnetwork' ),
-				'content' => '<p>Uptime Robot monitors your site and alerts you if your sites are down.</p><p>Register and get api key from <a href="https://uptimerobot.com/dashboard.php#mySettings" target="_blank"><i>here</i></a>.</p>',
+				'content' => '<p>Uptime Robot monitors your site and alerts you if your sites are down.</p><p>Register and get api key from <a href="https://uptimerobot.com/dashboard.php#mySettings" target="_blank" rel="noreferrer"><i>here</i></a>.</p>',
 			],
 		];
 	}

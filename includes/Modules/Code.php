@@ -168,7 +168,7 @@ class Code extends gNetwork\Module
 
 			$slug = preg_replace( '/\s+/', '-', $slug );
 
-			return '<a href="https://github.com/'.$repo.'/wiki/'.rawurlencode( $slug ).'" class="-github-link -github-wikilink" data-repo="'.$repo.'" target="_blank">'.$text.'</a>';
+			return '<a href="https://github.com/'.$repo.'/wiki/'.rawurlencode( $slug ).'" class="-github-link -github-wikilink" data-repo="'.$repo.'" target="_blank" rel="noreferrer">'.$text.'</a>';
 
 		}, $html );
 	}

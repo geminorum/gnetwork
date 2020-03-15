@@ -29,7 +29,7 @@ class Debug extends gNetwork\Module
 		if ( WordPress::mustRegisterUI() )
 			$this->action( 'core_upgrade_preamble', 1, 20 );
 
-		$this->action( 'wp_footer', 1, 999 );
+		$this->action( 'wp_footer', 1, 999999 );
 		$this->action( 'http_api_debug', 5 );
 		$this->filter( 'debug_bar_panels' );
 

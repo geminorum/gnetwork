@@ -189,7 +189,7 @@ class Mail extends gNetwork\Module
 				<tr><td>Username</td><td><em>your.gmail@gmail.com</em></td></tr>
 				<tr><td>Password</td><td><em>yourpassword</em></td></tr>
 				</tbody></table><br />
-				For more information see <a href="http://www.wpbeginner.com/plugins/how-to-send-email-in-wordpress-using-the-gmail-smtp-server/" target="_blank">here</a>.</p>',
+				For more information see <a href="http://www.wpbeginner.com/plugins/how-to-send-email-in-wordpress-using-the-gmail-smtp-server/" target="_blank" rel="noreferrer">here</a>.</p>',
 			],
 			[
 				'id'      => $this->classs( 'help-pepipost' ),
@@ -201,8 +201,8 @@ class Mail extends gNetwork\Module
 				<tr><td>Username</td><td><em>your.pepipost.username</em></td></tr>
 				<tr><td>Password</td><td><em>your smtp password</em></td></tr>
 				</tbody></table><br />
-				Get your API key from <a href="https://app.pepipost.com" target="_blank">here</a>.<br />
-				For more information see <a href="https://docs.pepipost.com/documentation/smtp-integration/" target="_blank">here</a>.</p>',
+				Get your API key from <a href="https://app.pepipost.com" target="_blank" rel="noreferrer">here</a>.<br />
+				For more information see <a href="https://docs.pepipost.com/documentation/smtp-integration/" target="_blank" rel="noreferrer">here</a>.</p>',
 			],
 		];
 	}

@@ -39,6 +39,7 @@ if ( ! function_exists( 'gnetwork_ip_lookup' ) ) :
 				'href'   => sprintf( $service, $ip ),
 				'class'  => '-ip-lookup',
 				'target' => '_blank',
+				'rel'    => 'noreferrer',
 			], $ip );
 
 		return $ip;

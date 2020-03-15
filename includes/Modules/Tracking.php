@@ -22,7 +22,7 @@ class Tracking extends gNetwork\Module
 		$this->action( 'init', 0, 8 );
 		$this->action( 'wp_head', 0, 999 );
 		$this->action( 'login_head', 0, 999 );
-		$this->action( 'wp_footer', 0, 99 );
+		$this->action( 'wp_footer', 0, 99999 );
 
 		$this->filter( 'amp_post_template_analytics' );
 		$this->action_module( 'maintenance', 'template_after', 0, 15 );
