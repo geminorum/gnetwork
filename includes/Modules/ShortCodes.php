@@ -1468,7 +1468,7 @@ class ShortCodes extends gNetwork\Module
 			'data-toggle' => 'tooltip',
 		], sprintf( $args['template'], Number::localize( $key ) ) );
 
-		return '&#xfeff;'.'<sup class="ref reference '.$args['class'].'" id="citeref-'.$key.'" data-ref="'.$key.'">'.$html.'</sup>';
+		return '&#xfeff;'.'<sup class="ref reference '.$args['class'].'" id="citeref-'.$key.'" data-ref="'.$key.'">'.$html.'</sup>'.' '; // plus extra space
 	}
 
 	public function shortcode_reflist( $atts = [], $content = NULL, $tag = '' )
