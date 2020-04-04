@@ -331,6 +331,9 @@ class Media extends gNetwork\Module
 			'suppress_filters' => TRUE,
 		];
 
+		if ( ! empty( $_REQUEST['s'] ) )
+			$args['s'] = $extra['s'] = $_REQUEST['s'];
+
 		if ( ! empty( $_REQUEST['id'] ) )
 			$args['post__in'] = explode( ',', maybe_unserialize( $_REQUEST['id'] ) );
 
@@ -351,6 +354,14 @@ class Media extends gNetwork\Module
 	protected function render_tools_html( $uri, $sub = 'general' )
 	{
 		list( $posts, $pagination ) = self::getPostArray();
+
+		$pagination['before'][] = HTML::tag( 'input', [
+			'type'        => 'search',
+			'name'        => 's',
+			'value'       => self::req( 's', '' ),
+			'class'       => '-search',
+			'placeholder' => _x( 'Search', 'Modules: Media: Table Filter', 'gnetwork' ),
+		] );
 
 		return HTML::tableList( [
 			'_cb' => 'ID',
