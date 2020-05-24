@@ -336,12 +336,11 @@ class Text extends Base
 	public static function firstSentence( $text )
 	{
 		// looks for three punctuation characters: . (period), ! (exclamation), or ? (question mark), followed by a space
-		$strings = preg_split( '/(\.|!|\?)\s/', strip_tags( $text ), 2, PREG_SPLIT_DELIM_CAPTURE );
+		$parts = preg_split( '/(\.|!|\?)\s/', strip_tags( $text ), 2, PREG_SPLIT_DELIM_CAPTURE );
 
 		// [0] is the first sentence and [1] is the punctuation character at the end
-		if ( ! empty( $strings[0] )
-			&& ! empty( $strings[1] ) )
-				$text = $strings[0] . $strings[1];
+		if ( ! empty( $parts[0] ) && ! empty( $parts[1] ) )
+			$text = $parts[0].$parts[1];
 
 		return $text;
 	}
@@ -872,13 +871,9 @@ class Text extends Base
 	// @SEE: https://github.com/neitanod/forceutf8
 	public static function correctMixedEncoding( $string )
 	{
-		return preg_replace_callback(
-			'/\\P{Arabic}+/u',
-			function( $matches ) {
-				return iconv( 'UTF-8', 'ISO-8859-1', $matches[0] );
-			},
-			hex2bin( bin2hex( $string ) )
-		);
+		return preg_replace_callback( '/\\P{Arabic}+/u', function( $matches ) {
+			return iconv( 'UTF-8', 'ISO-8859-1', $matches[0] );
+		}, hex2bin( bin2hex( $string ) ) );
 	}
 
 	// FIXME: address the other attrs
