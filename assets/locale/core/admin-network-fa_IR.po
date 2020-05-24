@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WordPress - 5.3.x - Administration - Network Admin\n"
+"Project-Id-Version: WordPress - 5.4.x - Administration - Network Admin\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2020-01-15 04:11+0330\n"
+"PO-Revision-Date: 2020-05-13 00:28+0430\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: \n"
 "Language: fa\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.2.4\n"
+"X-Generator: Poedit 2.3\n"
 
 #. translators: %s: Number of sites.
 #: wp-admin/includes/class-wp-ms-sites-list-table.php:255
@@ -249,15 +249,11 @@ msgstr "نشانی اینترنتی شبکه شما %s خواهد بود."
 
 #. translators: 1: Site URL, 2: Host name, 3: www.
 #: wp-admin/includes/network.php:271
-#, fuzzy
 msgid ""
-"We recommend you change your siteurl to %1$s before enabling the network "
+"We recommend you change your site domain to %1$s before enabling the network "
 "feature. It will still be possible to visit your site using the %3$s prefix with "
 "an address like %2$s but any links will not have the %3$s prefix."
 msgstr ""
-"پیشنهاد می‌کنیم نشانی سایت خود را قبل از فعال‌سازی قابلیت شبکه به %1$s تغییر دهید. "
-"هنوز هم مشاهده سایتتان با استفاده از پیشوند %3$s با نشانی شبیه %2$s امکان‌پذیر "
-"خواهد بود ولی هر پیوندی دارای پیشوند %3$s نخواهد بود."
 
 #: wp-admin/includes/network.php:226
 msgid "You cannot change this later."
@@ -412,12 +408,12 @@ msgstr "در حال حاضر پوسته‌ای در دسترس نیست."
 msgid "No themes found."
 msgstr "پوسته‌ای پیدا نشد."
 
-#: wp-admin/includes/class-wp-ms-sites-list-table.php:704
+#: wp-admin/includes/class-wp-ms-sites-list-table.php:705
 msgctxt "verb; site"
 msgid "Archive"
 msgstr "بایگانی"
 
-#: wp-admin/includes/class-wp-ms-sites-list-table.php:702
+#: wp-admin/includes/class-wp-ms-sites-list-table.php:703
 msgid "Unarchive"
 msgstr "نابایگانی"
 
@@ -442,7 +438,7 @@ msgid "Last Updated"
 msgstr "آخرین به‌روزرسانی"
 
 #: wp-admin/includes/class-wp-ms-sites-list-table.php:294
-#: wp-admin/includes/class-wp-ms-sites-list-table.php:708
+#: wp-admin/includes/class-wp-ms-sites-list-table.php:709
 msgctxt "site"
 msgid "Not Spam"
 msgstr "جفنگ نیست"
@@ -467,7 +463,7 @@ msgid "Deleted"
 msgstr "حذف‌شده"
 
 #: wp-admin/includes/class-wp-ms-sites-list-table.php:40
-#: wp-admin/includes/class-wp-ms-sites-list-table.php:710
+#: wp-admin/includes/class-wp-ms-sites-list-table.php:711
 #: wp-admin/network/site-info.php:186
 msgctxt "site"
 msgid "Spam"
@@ -872,11 +868,6 @@ msgstr "حذف برای همیشه که بعد از صفحه تأیید انجا
 msgid "Clicking on bold headings can re-sort this table."
 msgstr "کلیک کردن روی عناوین توپُر باعث بازچینی جدول می‌شود."
 
-#: wp-admin/network/themes.php:272 wp-admin/network/menu.php:81
-msgctxt "theme"
-msgid "Add New"
-msgstr "افزودن"
-
 #: wp-admin/network/sites.php:30
 msgid ""
 "Add New takes you to the Add New Site screen. You can search for a site by Name, "
@@ -1055,7 +1046,7 @@ msgstr ""
 "سایت مشخص در فهرست سایت‌های من در نوارابزار، جابجا شوید."
 
 #: wp-admin/includes/network.php:157
-msgid "ERROR: The network could not be created."
+msgid "Error: The network could not be created."
 msgstr "خطا: شبکه نمی‌تواند ساخته شود."
 
 #: wp-admin/includes/network.php:243
@@ -1750,6 +1741,23 @@ msgstr "ایجاد کاربر خالی، امکان‌پذیر نیست."
 #: wp-admin/network/sites.php:121 wp-admin/network/sites.php:208
 msgid "Confirm"
 msgstr "تأیید"
+
+#, fuzzy
+#~ msgid ""
+#~ "We recommend you change your siteurl to %1$s before enabling the network "
+#~ "feature. It will still be possible to visit your site using the %3$s prefix "
+#~ "with an address like %2$s but any links will not have the %3$s prefix."
+#~ msgstr ""
+#~ "پیشنهاد می‌کنیم نشانی سایت خود را قبل از فعال‌سازی قابلیت شبکه به %1$s تغییر "
+#~ "دهید. هنوز هم مشاهده سایتتان با استفاده از پیشوند %3$s با نشانی شبیه %2$s "
+#~ "امکان‌پذیر خواهد بود ولی هر پیوندی دارای پیشوند %3$s نخواهد بود."
+
+#~ msgctxt "theme"
+#~ msgid "Add New"
+#~ msgstr "افزودن"
+
+#~ msgid "ERROR: The network could not be created."
+#~ msgstr "خطا: شبکه نمی‌تواند ساخته شود."
 
 #~ msgid "User added. <a href=\"%s\">Edit user</a>"
 #~ msgstr "کاربر اضافه شد. <a href=\"%s\">ویرایش کاربر</a>"

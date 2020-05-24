@@ -1,41 +1,143 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Edit Flow v0.9.2\n"
+"Project-Id-Version: Edit Flow v0.9.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/edit-flow\n"
-"POT-Creation-Date: 2019-12-01T18:30:17+00:00\n"
-"PO-Revision-Date: 2019-12-01 22:13+0330\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2020-05-24 13:26+0430\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: \n"
 "Language: fa_IR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.4\n"
+"X-Generator: Poedit 2.3.1\n"
 "X-Poedit-Basepath: ../../../edit-flow\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#. Plugin Name of the plugin
-#: modules/settings/settings.php:17 modules/settings/settings.php:186
-#: modules/settings/settings.php:189
-msgid "Edit Flow"
-msgstr "ادیت فلو"
-
-#. Plugin URI of the plugin
-#. Author URI of the plugin
-msgid "http://editflow.org/"
+#: modules/story-budget/story-budget.php:362
+msgid "showing"
 msgstr ""
 
-#. Description of the plugin
-msgid "Remixing the WordPress admin for better editorial workflow options."
+#: modules/story-budget/story-budget.php:358
+msgid "starting"
 msgstr ""
 
-#. Author of the plugin
-msgid "Daniel Bachhuber, Scott Bressler, Mohammad Jangda, Automattic, and others"
+#: blocks/src/custom-status/block.js:69
+msgid "Save as Pending"
 msgstr ""
 
-#: common/php/util.php:14
-msgid "(no title)"
-msgstr "(بدون عنوان)"
+#: blocks/src/custom-status/block.js:69
+msgid "Save Draft"
+msgstr ""
+
+#: blocks/src/custom-status/block.js:92
+msgid "To select a custom status, please unpublish the content first."
+msgstr ""
+
+#: blocks/src/custom-status/block.js:92
+msgid "edit-flow"
+msgstr ""
+
+#: blocks/src/custom-status/block.js:82
+msgid "Extended Post Status Disabled."
+msgstr ""
+
+#: blocks/src/custom-status/block.js:82
+msgid "Extended Post Status"
+msgstr ""
+
+#: modules/notifications/notifications.php:202
+#: modules/notifications/notifications.php:394
+msgid "No Email"
+msgstr ""
+
+#: modules/notifications/notifications.php:201
+#: modules/notifications/notifications.php:387
+msgid "No Access"
+msgstr ""
+
+#: modules/story-budget/story-budget.php:545
+msgid "%s ago"
+msgstr "%s پیش"
+
+#: modules/dashboard/widgets/dashboard-notepad.php:20
+msgid "Dashboard Note"
+msgstr "یادداشت پیشخوان"
+
+#: modules/dashboard/dashboard.php:185
+msgid "%s at a Glance"
+msgstr "%s در یک نگاه"
+
+#: modules/dashboard/dashboard.php:149
+msgid "Unpublished Content: %s"
+msgstr ""
+
+#: modules/custom-status/custom-status.php:517
+msgid "Changing the name and slug of \"Draft\" is not allowed"
+msgstr ""
+
+#: modules/custom-status/custom-status.php:319
+msgid "OK"
+msgstr ""
+
+#: modules/custom-status/custom-status.php:316
+msgid "Save as"
+msgstr ""
+
+#: modules/editorial-comments/editorial-comments.php:227
+#: modules/notifications/notifications.php:751
+msgid "Notified"
+msgstr ""
+
+#: modules/editorial-comments/editorial-comments.php:225
+msgid "No users or groups were notified."
+msgstr ""
+
+#: modules/editorial-comments/editorial-comments.php:185
+msgid "The following will be notified:"
+msgstr ""
+
+#: modules/editorial-comments/editorial-comments.php:90
+#: modules/editorial-comments/editorial-comments.php:347
+msgid "No one will be notified."
+msgstr ""
+
+#: modules/editorial-comments/editorial-comments.php:89
+msgid "and"
+msgstr ""
+
+#: modules/settings/settings.php:222
+msgid ""
+"<a href=\"http://wordpress.org/tags/edit-flow?forum_id=10\">Please give us "
+"your feedback, ideas, bug reports and comments</a> in the WordPress.org forums."
+msgstr ""
+
+#: modules/settings/settings.php:221
+msgid ""
+"Icons courtesy of the <a href=\"http://thenounproject.com/\">Noun Project</a>."
+msgstr ""
+
+#: modules/settings/settings.php:220
+msgid "You're using Edit Flow version %s."
+msgstr ""
+
+#: modules/settings/settings.php:219
+msgid ""
+"<a href=\"http://editflow.org/\">Edit Flow</a> is produced by <a href=\"http://"
+"danielbachhuber.com/\">Daniel Bachhuber</a>, <a href=\"http://digitalize.ca/"
+"\">Mo Jangda</a>, and <a href=\"http://www.scottbressler.com/blog/\">Scott "
+"Bressler</a>, with special help from <a href=\"http://andrewspittle.net"
+"\">Andrew Spittle</a> and <a href=\"http://andrewwitherspoon.com/\">Andrew "
+"Witherspoon</a>."
+msgstr ""
+
+#: edit_flow.php:397
+msgid "Selected"
+msgstr ""
+
+#: edit_flow.php:396
+msgid "All"
+msgstr ""
 
 #: edit_flow.php:38
 msgid ""
@@ -43,942 +145,872 @@ msgid ""
 "version."
 msgstr ""
 
-#: edit_flow.php:271
-msgid "Configure"
-msgstr "پیکربندی"
-
-#: edit_flow.php:274
-msgid "Settings updated."
-msgstr "تنظیمات به‌روز شد."
-
-#: edit_flow.php:275
-msgid "Please correct your form errors below and try again."
+#. Author of the plugin
+msgid "Daniel Bachhuber, Scott Bressler, Mohammad Jangda, Automattic, and others"
 msgstr ""
 
-#: edit_flow.php:276
-msgid "Cheatin&#8217; uh?"
+#. Description of the plugin
+msgid "Remixing the WordPress admin for better editorial workflow options."
 msgstr ""
 
-#: edit_flow.php:277
-msgid "You do not have necessary permissions to complete this action."
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+msgid "http://editflow.org/"
 msgstr ""
 
-#: edit_flow.php:278
-msgid "Post does not exist"
-msgstr "نوشته وجود ندارد"
-
-#: edit_flow.php:404
-msgid "All"
+#: modules/user-groups/user-groups.php:1148
+msgid "Users in Group"
 msgstr ""
 
-#: edit_flow.php:405
-msgid "Selected"
+#: modules/user-groups/user-groups.php:1135
+msgid "No user groups found."
 msgstr ""
 
-#: modules/calendar/calendar.php:34 modules/calendar/calendar.php:168
-#: modules/calendar/calendar.php:659
-msgid "Calendar"
-msgstr "تقویم"
-
-#: modules/calendar/calendar.php:35
-msgid "View upcoming content in a <a href=\"%s\">customizable calendar</a>."
+#: modules/user-groups/user-groups.php:963
+msgid "Invalid users variable. Should be array."
 msgstr ""
 
-#: modules/calendar/calendar.php:36
+#: modules/user-groups/user-groups.php:876
+msgid "New user groups must have a name"
+msgstr ""
+
+#: modules/user-groups/user-groups.php:764
+msgid "Add a User Group"
+msgstr ""
+
+#: modules/user-groups/user-groups.php:764
+msgid "Add a new user group. Opens new window."
+msgstr ""
+
+#: modules/user-groups/user-groups.php:764
+msgid "No user groups were found."
+msgstr ""
+
+#: modules/user-groups/user-groups.php:658
+msgid "Select the user groups that this user should be a part of:"
+msgstr ""
+
+#: modules/user-groups/user-groups.php:656
+msgid "Select the user groups that you would like to be a part of:"
+msgstr ""
+
+#: modules/user-groups/user-groups.php:654
+msgid "Usergroups"
+msgstr ""
+
+#: modules/user-groups/user-groups.php:626
+msgid "Add New User Group"
+msgstr ""
+
+#: modules/user-groups/user-groups.php:594
+msgid "Are you sure you want to delete the user group?"
+msgstr ""
+
+#: modules/user-groups/user-groups.php:582
+#: modules/user-groups/user-groups.php:1248
+msgid "Update User Group"
+msgstr ""
+
+#: modules/user-groups/user-groups.php:579
+#: modules/user-groups/user-groups.php:622
 msgid ""
-"Edit Flow’s calendar lets you see your posts over a customizable date range. "
-"Filter by status or click on the post title to see its details. Drag and drop "
-"posts between days to change their publication date."
+"The description is primarily for administrative use, to give you some context "
+"on what the user group is to be used for."
 msgstr ""
 
-#: modules/calendar/calendar.php:52
-msgid "Post date updated."
+#: modules/user-groups/user-groups.php:574
+#: modules/user-groups/user-groups.php:617
+msgid "The name is used to identify the user group."
 msgstr ""
 
-#: modules/calendar/calendar.php:53
-msgid "There was an error updating the post. Please try again."
+#: modules/user-groups/user-groups.php:486
+msgid "Could not update the user group: <strong>%s</strong>"
 msgstr ""
 
-#: modules/calendar/calendar.php:54
-msgid ""
-"Updating the post date dynamically doesn't work for published content. Please "
-"<a href='%s'>edit the post</a>."
+#: modules/user-groups/user-groups.php:420
+msgid "Error deleting user group."
 msgstr ""
 
-#: modules/calendar/calendar.php:55
-msgid ""
-"iCal secret key regenerated. Please inform all users they will need to "
-"resubscribe."
+#: modules/user-groups/user-groups.php:391
+msgid "Error updating user group."
 msgstr ""
 
-#: modules/calendar/calendar.php:58 modules/calendar/calendar.php:253
-msgid "Calendar Options"
+#: modules/user-groups/user-groups.php:317
+msgid "Error adding usergroup."
 msgstr ""
 
-#: modules/calendar/calendar.php:61 modules/custom-status/custom-status.php:70
-#: modules/editorial-comments/editorial-comments.php:39
-#: modules/editorial-metadata/editorial-metadata.php:67
-#: modules/notifications/notifications.php:50
-#: modules/user-groups/user-groups.php:63
-msgid "Overview"
+#: modules/user-groups/user-groups.php:303
+#: modules/user-groups/user-groups.php:374
+#: modules/user-groups/user-groups.php:457
+msgid "User group name cannot exceed 40 characters. Please try a shorter name."
 msgstr ""
 
-#: modules/calendar/calendar.php:62
-msgid ""
-"<p>The calendar is a convenient week-by-week or month-by-month view into your "
-"content. Quickly see which stories are on track to being published on time, "
-"and which will need extra effort.</p>"
+#: modules/user-groups/user-groups.php:295
+#: modules/user-groups/user-groups.php:364
+#: modules/user-groups/user-groups.php:452
+msgid "Please enter a name for the user group."
 msgstr ""
 
-#: modules/calendar/calendar.php:64
+#: modules/user-groups/user-groups.php:139
+msgid "Providing feedback and direction."
+msgstr ""
+
+#: modules/user-groups/user-groups.php:138
+msgid "Section Editors"
+msgstr ""
+
+#: modules/user-groups/user-groups.php:135
+msgid "Out in the field, writing stories."
+msgstr ""
+
+#: modules/user-groups/user-groups.php:134
+msgid "Reporters"
+msgstr ""
+
+#: modules/user-groups/user-groups.php:131
+msgid "Capturing the story visually."
+msgstr ""
+
+#: modules/user-groups/user-groups.php:130
+msgid "Photographers"
+msgstr ""
+
+#: modules/user-groups/user-groups.php:127
+msgid "Making sure the quality is top-notch."
+msgstr ""
+
+#: modules/user-groups/user-groups.php:126
+msgid "Copy Editors"
+msgstr ""
+
+#: modules/user-groups/user-groups.php:66
 msgid ""
 "<p><strong>For more information:</strong></p><p><a href=\"http://editflow.org/"
-"features/calendar/\">Calendar Documentation</a></p><p><a href=\"http://"
+"features/user-groups/\">User Groups Documentation</a></p><p><a href=\"http://"
 "wordpress.org/tags/edit-flow?forum_id=10\">Edit Flow Forum</a></p><p><a href="
 "\"https://github.com/danielbachhuber/Edit-Flow\">Edit Flow on Github</a></p>"
 msgstr ""
 
-#: modules/calendar/calendar.php:222
-msgid "Number of Weeks: "
-msgstr ""
-
-#: modules/calendar/calendar.php:239
-msgid "Subscribe in iCal or Google Calendar"
-msgstr ""
-
-#: modules/calendar/calendar.php:321
-msgid "Something is wrong with the format for the new date."
-msgstr ""
-
-#: modules/calendar/calendar.php:672 modules/story-budget/story-budget.php:588
-msgid "Undo"
-msgstr ""
-
-#: modules/calendar/calendar.php:786 modules/calendar/calendar.php:1177
-msgid "Today"
-msgstr ""
-
-#: modules/calendar/calendar.php:808
-msgid "Show %d more"
-msgstr ""
-
-#. translators: %1$s = post type name, %2$s = date
-#: modules/calendar/calendar.php:817
-msgid "Schedule a %1$s for %2$s"
-msgstr ""
-
-#. translators: %s = post type name
-#: modules/calendar/calendar.php:819
-msgctxt "post type name"
-msgid "%s Title"
-msgstr ""
-
-#: modules/calendar/calendar.php:822
-msgctxt "post type name"
-msgid "Create %s"
-msgstr ""
-
-#: modules/calendar/calendar.php:823
-msgctxt "post type name"
-msgid "Edit %s"
-msgstr "ویرایش %s"
-
-#: modules/calendar/calendar.php:957
-msgid "None"
-msgstr ""
-
-#: modules/calendar/calendar.php:968
-msgid "Edit this item"
-msgstr ""
-
-#: modules/calendar/calendar.php:968 modules/custom-status/custom-status.php:324
-#: modules/custom-status/custom-status.php:1939
-#: modules/editorial-metadata/editorial-metadata.php:1698
-#: modules/story-budget/story-budget.php:548
-#: modules/user-groups/user-groups.php:1177
-msgid "Edit"
-msgstr "ویرایش"
-
-#: modules/calendar/calendar.php:970 modules/story-budget/story-budget.php:550
-msgid "Trash"
-msgstr ""
-
-#: modules/calendar/calendar.php:973 modules/story-budget/story-budget.php:556
-msgid "Preview &#8220;%s&#8221;"
-msgstr ""
-
-#: modules/calendar/calendar.php:973 modules/story-budget/story-budget.php:556
-msgid "Preview"
-msgstr "پیش‌نمایش"
-
-#: modules/calendar/calendar.php:975 modules/story-budget/story-budget.php:554
-msgid "View &#8220;%s&#8221;"
-msgstr ""
-
-#: modules/calendar/calendar.php:975 modules/story-budget/story-budget.php:554
-msgid "View"
-msgstr ""
-
-#: modules/calendar/calendar.php:978
-msgid "Save &#8220;%s&#8221;"
-msgstr ""
-
-#: modules/calendar/calendar.php:978 modules/custom-status/custom-status.php:323
-msgid "Save"
-msgstr ""
-
-#: modules/calendar/calendar.php:1048 modules/story-budget/story-budget.php:175
-msgid "Author"
-msgstr ""
-
-#: modules/calendar/calendar.php:1056
-msgid "Post Type"
-msgstr ""
-
-#: modules/calendar/calendar.php:1069 modules/custom-status/custom-status.php:434
-#: modules/dashboard/dashboard.php:175
-msgid "Scheduled"
-msgstr "زمان‌بندی‌شده"
-
-#: modules/calendar/calendar.php:1074 modules/custom-status/custom-status.php:321
-#: modules/custom-status/custom-status.php:424
-msgid "Published"
-msgstr "منتشرشده"
-
-#: modules/calendar/calendar.php:1153 modules/story-budget/story-budget.php:615
-msgid "Filter"
-msgstr "پالایه"
-
-#: modules/calendar/calendar.php:1165 modules/story-budget/story-budget.php:627
-msgid "Reset"
-msgstr "بازنشانی"
-
-#: modules/calendar/calendar.php:1171
-msgid "Forward 1 week"
-msgstr ""
-
-#: modules/calendar/calendar.php:1171
-msgid "&rsaquo;"
-msgstr ""
-
-#: modules/calendar/calendar.php:1173
-msgid "Forward %d weeks"
-msgstr ""
-
-#: modules/calendar/calendar.php:1173
-msgid "&raquo;"
-msgstr ""
-
-#: modules/calendar/calendar.php:1177
-msgid "Today is %s"
-msgstr ""
-
-#: modules/calendar/calendar.php:1181
-msgid "Back %d weeks"
-msgstr ""
-
-#: modules/calendar/calendar.php:1181
-msgid "&laquo;"
-msgstr ""
-
-#: modules/calendar/calendar.php:1183
-msgid "Back 1 week"
-msgstr ""
-
-#: modules/calendar/calendar.php:1183
-msgid "&lsaquo;"
-msgstr ""
-
-#: modules/calendar/calendar.php:1371
-msgid "for %1$s through %2$s"
-msgstr ""
-
-#: modules/calendar/calendar.php:1412
-msgid "Number of weeks to show"
-msgstr ""
-
-#: modules/calendar/calendar.php:1413
-msgid "Post types to show"
-msgstr ""
-
-#: modules/calendar/calendar.php:1414
-msgid "Post type to create directly from calendar"
-msgstr ""
-
-#: modules/calendar/calendar.php:1415
-msgid "Subscription in iCal or Google Calendar"
-msgstr ""
-
-#: modules/calendar/calendar.php:1452
+#: modules/user-groups/user-groups.php:64
 msgid ""
-"The number of weeks shown on the calendar can be changed on a user-by-user "
-"basis using the calendar's screen options."
+"<p>For those with many people involved in the publishing process, user groups "
+"helps you keep them organized.</p><p>Currently, user groups are primarily used "
+"for subscribing a set of users to a post for notifications.</p>"
 msgstr ""
 
-#: modules/calendar/calendar.php:1462
-#: modules/custom-status/custom-status.php:1162
-#: modules/dashboard/dashboard.php:268 modules/dashboard/dashboard.php:288
-#: modules/dashboard/dashboard.php:316
-#: modules/notifications/notifications.php:1209
-msgid "Disabled"
+#: modules/user-groups/user-groups.php:59
+msgid "Manage User Groups"
 msgstr ""
 
-#: modules/calendar/calendar.php:1463
-#: modules/custom-status/custom-status.php:1163
-#: modules/dashboard/dashboard.php:269 modules/dashboard/dashboard.php:289
-#: modules/dashboard/dashboard.php:317
-#: modules/notifications/notifications.php:1210
-msgid "Enabled"
+#: modules/user-groups/user-groups.php:56
+msgid "User group deleted."
 msgstr ""
 
-#: modules/calendar/calendar.php:1476
-msgid "Regenerate calendar feed secret"
+#: modules/user-groups/user-groups.php:55 modules/user-groups/user-groups.php:919
+msgid "User group doesn't exist."
 msgstr ""
 
-#: modules/calendar/calendar.php:1517
-#: modules/custom-status/custom-status.php:1296
-#: modules/dashboard/dashboard.php:358
-#: modules/editorial-comments/editorial-comments.php:455
-#: modules/editorial-metadata/editorial-metadata.php:1548
-#: modules/notifications/notifications.php:1254
-#: modules/user-groups/user-groups.php:626
-msgid "Back to Edit Flow"
-msgstr "بازگشت به «ادیت فلو»"
-
-#: modules/calendar/calendar.php:1538
-msgid "No date supplied."
+#: modules/user-groups/user-groups.php:54
+msgid "User group updated."
 msgstr ""
 
-#: modules/calendar/calendar.php:1542
-msgid "Please change Quick Create to use a post type viewable on the calendar."
+#: modules/user-groups/user-groups.php:53
+msgid "User group created. Feel free to add users to the usergroup."
 msgstr ""
 
-#: modules/calendar/calendar.php:1548
-msgid "Untitled"
-msgstr ""
-
-#: modules/calendar/calendar.php:1582
-msgid "Post could not be created"
-msgstr ""
-
-#: modules/calendar/calendar.php:1664
-msgid "Invalid metadata type"
-msgstr ""
-
-#: modules/calendar/calendar.php:1673
-msgid "Metadata could not be updated."
-msgstr ""
-
-#: modules/calendar/calendar.php:1737 modules/story-budget/story-budget.php:730
-msgid "View all statuses"
-msgstr ""
-
-#: modules/calendar/calendar.php:1745 modules/story-budget/story-budget.php:737
-msgid "Unpublished"
-msgstr "منتشرنشده‌ها"
-
-#: modules/calendar/calendar.php:1753 modules/story-budget/story-budget.php:746
-msgid "View all categories"
-msgstr ""
-
-#: modules/calendar/calendar.php:1765 modules/story-budget/story-budget.php:758
-msgid "View all users"
-msgstr ""
-
-#: modules/calendar/calendar.php:1778
-msgid "View all types"
-msgstr ""
-
-#: modules/custom-status/custom-status.php:41
-msgid "Custom Statuses"
-msgstr "وضعیت‌های سفارشی"
-
-#: modules/custom-status/custom-status.php:42
-msgid "Create custom post statuses to define the stages of your workflow."
-msgstr ""
-
-#: modules/custom-status/custom-status.php:43
+#: modules/user-groups/user-groups.php:41
 msgid ""
-"Create your own post statuses to add structure your publishing workflow. You "
-"can change existing or add new ones anytime, and drag and drop to change their "
-"order."
+"Configure user groups to organize all of the users on your site. Each user can "
+"be in many user groups and you can change them at any time."
 msgstr ""
 
-#: modules/custom-status/custom-status.php:58
-msgid "Edit Statuses"
+#: modules/user-groups/user-groups.php:40
+msgid "Organize your users into groups to mimic your organizational structure."
 msgstr ""
 
-#: modules/custom-status/custom-status.php:60
-msgid "Post status created."
+#: modules/story-budget/story-budget.php:656
+msgid "Print"
+msgstr "چاپ"
+
+#: modules/story-budget/story-budget.php:617
+msgid "Item restored from the Trash."
+msgid_plural "%d items restored from the Trash."
+msgstr[0] ""
+msgstr[1] ""
+
+#: modules/story-budget/story-budget.php:610
+msgid "Item moved to the trash."
+msgid_plural "%d items moved to the trash."
+msgstr[0] ""
+msgstr[1] ""
+
+#: modules/story-budget/story-budget.php:574
+msgid "Move this item to the Trash"
 msgstr ""
 
-#: modules/custom-status/custom-status.php:61
-msgid "Post status doesn't exist."
+#: modules/story-budget/story-budget.php:481
+msgid "There are no posts for this term in the range or filter specified."
 msgstr ""
 
-#: modules/custom-status/custom-status.php:62
-msgid "Default post status has been changed."
+#: modules/story-budget/story-budget.php:460
+msgid "Click to toggle"
 msgstr ""
 
-#: modules/custom-status/custom-status.php:63
-msgid "Post status updated."
+#: modules/story-budget/story-budget.php:367
+#: modules/story-budget/story-budget.php:369
+msgid "Change"
 msgstr ""
 
-#: modules/custom-status/custom-status.php:64
-msgid "Post status deleted."
+#: modules/story-budget/story-budget.php:365
+msgid "day"
+msgid_plural "days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: modules/story-budget/story-budget.php:273
+msgid "Number of Columns: "
 msgstr ""
 
-#: modules/custom-status/custom-status.php:65
-msgid "Status order updated."
+#: modules/story-budget/story-budget.php:177
+msgid "Last Modified"
 msgstr ""
 
-#: modules/custom-status/custom-status.php:71
+#: modules/story-budget/story-budget.php:176
+msgid "Post Date"
+msgstr ""
+
+#: modules/story-budget/story-budget.php:173
+msgid "Title"
+msgstr ""
+
+#: modules/story-budget/story-budget.php:266
+msgid "Screen Layout"
+msgstr ""
+
+#: modules/story-budget/story-budget.php:40
 msgid ""
-"<p>Edit Flow’s custom statuses allow you to define the most important stages "
-"of your editorial workflow. Out of the box, WordPress only offers “Draft” and "
-"“Pending Review” as post states. With custom statuses, you can create your own "
-"post states like “In Progress”, “Pitch”, or “Waiting for Edit” and keep or "
-"delete the originals. You can also drag and drop statuses to set the best "
-"order for your workflow.</p><p>Custom statuses are fully integrated into the "
-"rest of Edit Flow and the WordPress admin. On the calendar and story budget, "
-"you can filter your view to see only posts of a specific post state. "
-"Furthermore, email notifications can be sent to a specific group of users when "
-"a post changes state.</p>"
+"Use the story budget to see how content on your site is progressing. Filter by "
+"specific categories or date ranges to see details about each post in progress."
 msgstr ""
 
-#: modules/custom-status/custom-status.php:73
+#: modules/story-budget/story-budget.php:39
+msgid "View the status of all your content <a href=\"%s\">at a glance</a>."
+msgstr ""
+
+#: modules/story-budget/story-budget.php:38
+#: modules/story-budget/story-budget.php:130
+#: modules/story-budget/story-budget.php:321
+msgid "Story Budget"
+msgstr "هزینه‌ها"
+
+#: modules/settings/settings.php:331
+msgid ""
+"Disabled because add_post_type_support( '%1$s', '%2$s' ) is included in a "
+"loaded file."
+msgstr ""
+
+#: modules/settings/settings.php:311
+msgid "Pages"
+msgstr ""
+
+#: modules/settings/settings.php:310
+msgid "Posts"
+msgstr ""
+
+#: modules/settings/settings.php:270
+msgid "Disable"
+msgstr "غیرفعال"
+
+#: modules/settings/settings.php:267
+msgid "Enable"
+msgstr ""
+
+#: modules/settings/settings.php:233
+msgid "There are no Edit Flow modules registered"
+msgstr ""
+
+#: modules/settings/settings.php:139
+msgid ""
+"Module not enabled. Please enable it from the <a href=\"%1$s\">Edit Flow "
+"settings page</a>."
+msgstr ""
+
+#: modules/settings/settings.php:133
+msgid "Not a registered Edit Flow module"
+msgstr ""
+
+#: modules/settings/settings.php:19
+msgid ""
+"Enable any of the features below to take control of your workflow. Custom "
+"statuses, email notifications, editorial comments, and more help you and your "
+"team save time so everyone can focus on what matters most: the content."
+msgstr ""
+
+#: modules/settings/settings.php:18
+msgid "Edit Flow redefines your WordPress publishing workflow."
+msgstr ""
+
+#. Plugin Name of the plugin
+#: modules/settings/settings.php:17 modules/settings/settings.php:186
+#: modules/settings/settings.php:189
+msgid "Edit Flow"
+msgstr "ادیت فلو"
+
+#: modules/notifications/notifications.php:1206
+msgid "Always notify blog admin"
+msgstr ""
+
+#: modules/notifications/notifications.php:1205
+msgid "Post types for notifications:"
+msgstr ""
+
+#: modules/notifications/notifications.php:777
+msgid "This email was sent %s."
+msgstr ""
+
+#: modules/notifications/notifications.php:775
+msgid "You are receiving this email because you are subscribed to \"%s\"."
+msgstr ""
+
+#: modules/notifications/notifications.php:764
+msgid "You can see all editorial comments on this %s here: "
+msgstr ""
+
+#: modules/notifications/notifications.php:759
+msgid "Reply: %s"
+msgstr ""
+
+#. translators: 1: comment author, 2: author email, 3: date, 4: time
+#: modules/notifications/notifications.php:737
+msgid "%1$s (%2$s) said on %3$s at %4$s:"
+msgstr ""
+
+#. translators: 1: post id, 2: post title, 3. post type
+#: modules/notifications/notifications.php:735
+msgid "A new editorial comment was added to %3$s #%1$s \"%2$s\""
+msgstr ""
+
+#. translators: 1: blog name, 2: post title
+#: modules/notifications/notifications.php:732
+msgid "[%1$s] New Editorial Comment: \"%2$s\""
+msgstr ""
+
+#: modules/notifications/notifications.php:680
+#: modules/notifications/notifications.php:762
+msgid "View: %s"
+msgstr ""
+
+#: modules/notifications/notifications.php:679
+#: modules/notifications/notifications.php:761
+msgid "Edit: %s"
+msgstr ""
+
+#: modules/notifications/notifications.php:678
+#: modules/notifications/notifications.php:760
+msgid "Add editorial comment: %s"
+msgstr ""
+
+#: modules/notifications/notifications.php:677
+#: modules/notifications/notifications.php:758
+msgid "== Actions =="
+msgstr ""
+
+#. translators: 1: author name, 2: author email
+#: modules/notifications/notifications.php:667
+msgid "Author: %1$s (%2$s)"
+msgstr ""
+
+#: modules/notifications/notifications.php:664
+msgid "Title: %s"
+msgstr ""
+
+#: modules/notifications/notifications.php:663
+msgid "== %s Details =="
+msgstr ""
+
+#. translators: 1: old status, 2: new status
+#: modules/notifications/notifications.php:658
+msgid "%1$s => %2$s"
+msgstr ""
+
+#. translators: 1: date, 2: time, 3: timezone
+#: modules/notifications/notifications.php:653
+msgid "This action was taken on %1$s at %2$s %3$s"
+msgstr ""
+
+#. translators: 1: post type, 2: post id, 3. post title, 4. user name, 5. user
+#. email
+#: modules/notifications/notifications.php:649
+msgid "Status was changed for %1$s #%2$s \"%3$s\" by %4$s %5$s"
+msgstr ""
+
+#. translators: 1: site name, 2: post type, 3. post title
+#: modules/notifications/notifications.php:647
+msgid "[%1$s] %2$s Status Changed for \"%3$s\""
+msgstr ""
+
+#. translators: 1: post type, 2: post id, 3. post title, 4. user name, 5. user
+#. email
+#: modules/notifications/notifications.php:644
+msgid "%1$s #%2$s \"%3$s\" was unpublished by %4$s %5$s"
+msgstr ""
+
+#. translators: 1: site name, 2: post type, 3. post title
+#: modules/notifications/notifications.php:642
+msgid "[%1$s] %2$s Unpublished: \"%3$s\""
+msgstr ""
+
+#. translators: 1: post type, 2: post id, 3. post title, 4. user name, 5. user
+#. email
+#: modules/notifications/notifications.php:639
+msgid "%1$s #%2$s \"%3$s\" was published by %4$s %5$s"
+msgstr ""
+
+#. translators: 1: site name, 2: post type, 3. post title
+#: modules/notifications/notifications.php:637
+msgid "[%1$s] %2$s Published: \"%3$s\""
+msgstr ""
+
+#. translators: 1: post type, 2: post id, 3. post title, 4. user name, 5. user
+#. email 6. scheduled date
+#: modules/notifications/notifications.php:634
+msgid ""
+"%1$s #%2$s \"%3$s\" was scheduled by %4$s %5$s.  It will be published on %6$s"
+msgstr ""
+
+#. translators: 1: site name, 2: post type, 3. post title
+#: modules/notifications/notifications.php:632
+msgid "[%1$s] %2$s Scheduled: \"%3$s\""
+msgstr ""
+
+#. translators: 1: post type, 2: post id, 3. post title, 4. user name, 5. user
+#. email
+#: modules/notifications/notifications.php:629
+msgid "%1$s #%2$s \"%3$s\" was restored from trash by %4$s %5$s"
+msgstr ""
+
+#. translators: 1: site name, 2: post type, 3. post title
+#: modules/notifications/notifications.php:627
+msgid "[%1$s] %2$s Restored (from Trash): \"%3$s\""
+msgstr ""
+
+#. translators: 1: post type, 2: post id, 3. post title, 4. user name, 5. user
+#. email
+#: modules/notifications/notifications.php:624
+msgid "%1$s #%2$s \"%3$s\" was moved to the trash by %4$s %5$s"
+msgstr ""
+
+#. translators: 1: site name, 2: post type, 3. post title
+#: modules/notifications/notifications.php:622
+msgid "[%1$s] %2$s Trashed: \"%3$s\""
+msgstr ""
+
+#. translators: 1: post type, 2: post id, 3. post title, 4. user name, 5. user
+#. email
+#: modules/notifications/notifications.php:619
+msgid "A new %1$s (#%2$s \"%3$s\") was created by %4$s %5$s"
+msgstr ""
+
+#. translators: 1: site name, 2: post type, 3. post title
+#: modules/notifications/notifications.php:617
+msgid "[%1$s] New %2$s Created: \"%3$s\""
+msgstr ""
+
+#: modules/notifications/notifications.php:586
+msgid "WordPress Scheduler"
+msgstr ""
+
+#: modules/notifications/notifications.php:406
+msgid ""
+"Nonce check failed. Please ensure you can add users or user groups to a post."
+msgstr ""
+
+#: modules/user-groups/user-groups.php:39
+#: modules/notifications/notifications.php:354
+msgid "User Groups"
+msgstr "گروه‌های کاربری"
+
+#: modules/user-groups/user-groups.php:555
+#: modules/notifications/notifications.php:343
+msgid "Users"
+msgstr "کاربران"
+
+#: modules/notifications/notifications.php:341
+msgid ""
+"Select the users and user groups that should receive notifications when the "
+"status of this post is updated or when an editorial comment is added."
+msgstr ""
+"کاربران یا گروه‌های کاربری را برای آگاه‌سازی از تغییر وضعیت نوشته و یا دیدگاه "
+"تحریریه جدید انتخاب کنید."
+
+#: modules/notifications/notifications.php:303
+msgid "Follow"
+msgstr ""
+
+#: modules/notifications/notifications.php:302
+msgid "Follow updates to this post"
+msgstr ""
+
+#: modules/notifications/notifications.php:299
+msgid "Following"
+msgstr ""
+
+#: modules/notifications/notifications.php:298
+msgid "Click to unfollow updates to this post"
+msgstr ""
+
+#: modules/notifications/notifications.php:53
 msgid ""
 "<p><strong>For more information:</strong></p><p><a href=\"http://editflow.org/"
-"features/custom-statuses/\">Custom Status Documentation</a></p><p><a href="
+"features/notifications/\">Notifications Documentation</a></p><p><a href="
 "\"http://wordpress.org/tags/edit-flow?forum_id=10\">Edit Flow Forum</a></"
-"p><p><a href=\"https://github.com/Automattic/Edit-Flow\">Edit Flow on Github</"
-"a></p>"
-msgstr ""
-
-#: modules/custom-status/custom-status.php:142
-msgid "Pitch"
-msgstr ""
-
-#: modules/custom-status/custom-status.php:145
-msgid "Idea proposed; waiting for acceptance."
-msgstr ""
-
-#: modules/custom-status/custom-status.php:150
-msgid "Assigned"
-msgstr ""
-
-#: modules/custom-status/custom-status.php:153
-msgid "Post idea assigned to writer."
-msgstr ""
-
-#: modules/custom-status/custom-status.php:158
-msgid "In Progress"
-msgstr ""
-
-#: modules/custom-status/custom-status.php:161
-msgid "Writer is working on the post."
-msgstr ""
-
-#: modules/custom-status/custom-status.php:166
-msgid "Draft"
-msgstr "پیش‌نویس"
-
-#: modules/custom-status/custom-status.php:169
-msgid "Post is a draft; not ready for review or publication."
-msgstr ""
-
-#: modules/custom-status/custom-status.php:177
-msgid "Post needs to be reviewed by an editor."
-msgstr ""
-
-#: modules/custom-status/custom-status.php:320
-msgid "&mdash; No Change &mdash;"
-msgstr ""
-
-#: modules/custom-status/custom-status.php:322
-msgid "Save as"
-msgstr ""
-
-#: modules/custom-status/custom-status.php:325
-msgid "OK"
-msgstr ""
-
-#: modules/custom-status/custom-status.php:326
-#: modules/custom-status/custom-status.php:1248
-#: modules/editorial-comments/editorial-comments.php:215
-#: modules/editorial-metadata/editorial-metadata.php:1476
-#: modules/story-budget/story-budget.php:343
-#: modules/user-groups/user-groups.php:583
-msgid "Cancel"
-msgstr "لغو"
-
-#: modules/custom-status/custom-status.php:350
-msgid ""
-"<strong>Note:</strong> Your browser does not support JavaScript or has "
-"JavaScript disabled. You will not be able to access or change the post status."
-msgstr ""
-
-#: modules/custom-status/custom-status.php:429
-msgid "Privately Published"
-msgstr ""
-
-#: modules/custom-status/custom-status.php:511
-msgid "Custom status doesn't exist."
-msgstr ""
-
-#: modules/custom-status/custom-status.php:523
-msgid "Changing the name and slug of \"Draft\" is not allowed"
-msgstr ""
-
-#: modules/custom-status/custom-status.php:567
-msgid "Cannot reassign to the status you want to delete"
-msgstr ""
-
-#: modules/custom-status/custom-status.php:588
-msgid "Restricted status "
-msgstr ""
-
-#: modules/custom-status/custom-status.php:727
-#: modules/story-budget/story-budget.php:174
-msgid "Status"
-msgstr "وضعیت"
-
-#: modules/custom-status/custom-status.php:819
-#: modules/custom-status/custom-status.php:886
-msgid "Please enter a name for the status"
-msgstr ""
-
-#: modules/custom-status/custom-status.php:822
-#: modules/custom-status/custom-status.php:889
-#: modules/custom-status/custom-status.php:1082
-msgid "Please enter a valid, non-numeric name for the status."
-msgstr ""
-
-#: modules/custom-status/custom-status.php:825
-#: modules/custom-status/custom-status.php:892
-#: modules/custom-status/custom-status.php:1088
-msgid "Status name cannot exceed 20 characters. Please try a shorter name."
-msgstr ""
-
-#: modules/custom-status/custom-status.php:828
-#: modules/custom-status/custom-status.php:896
-#: modules/custom-status/custom-status.php:1107
-msgid "Status name conflicts with existing term. Please choose another."
-msgstr ""
-
-#: modules/custom-status/custom-status.php:831
-#: modules/custom-status/custom-status.php:903
-msgid "Status name is restricted. Please choose another name."
-msgstr ""
-
-#: modules/custom-status/custom-status.php:846
-msgid "Could not add status: "
-msgstr ""
-
-#: modules/custom-status/custom-status.php:900
-msgid "Status name conflicts with existing status. Please choose another."
-msgstr ""
-
-#: modules/custom-status/custom-status.php:919
-msgid "Error updating post status."
-msgstr ""
-
-#: modules/custom-status/custom-status.php:941
-#: modules/custom-status/custom-status.php:975
-msgid "Invalid nonce for submission."
-msgstr ""
-
-#: modules/custom-status/custom-status.php:945
-#: modules/custom-status/custom-status.php:979
-msgid "Sorry, you do not have permission to edit custom statuses."
-msgstr ""
-
-#: modules/custom-status/custom-status.php:956
-msgid "Status doesn&#39;t exist."
-msgstr ""
-
-#: modules/custom-status/custom-status.php:985
-msgid "Status does not exist."
-msgstr ""
-
-#: modules/custom-status/custom-status.php:989
-msgid "Cannot delete default status."
-msgstr ""
-
-#: modules/custom-status/custom-status.php:993
-msgid "Could not delete the status: "
-msgstr ""
-
-#: modules/custom-status/custom-status.php:1040
-#: modules/editorial-metadata/editorial-metadata.php:1287
-msgid "Terms not set."
-msgstr ""
-
-#: modules/custom-status/custom-status.php:1076
-msgid "Please enter a name for the status."
-msgstr ""
-
-#: modules/custom-status/custom-status.php:1094
-msgid "Status name is restricted. Please chose another name."
-msgstr ""
-
-#: modules/custom-status/custom-status.php:1100
-msgid "Status already exists. Please choose another name."
-msgstr ""
-
-#: modules/custom-status/custom-status.php:1125
-msgid "Could not update the status: <strong>%s</strong>"
-msgstr ""
-
-#: modules/custom-status/custom-status.php:1140
-msgid "Use on these post types:"
-msgstr ""
-
-#: modules/custom-status/custom-status.php:1141
-msgid "Always show dropdown:"
-msgstr ""
-
-#: modules/custom-status/custom-status.php:1226
-msgid "Custom Status"
-msgstr "وضعیت سفارشی"
-
-#: modules/custom-status/custom-status.php:1228
-#: modules/custom-status/custom-status.php:1287
-msgid "The name is used to identify the status. (Max: 20 characters)"
-msgstr ""
-
-#: modules/custom-status/custom-status.php:1232
-#: modules/editorial-metadata/editorial-metadata.php:1435
-#: modules/editorial-metadata/editorial-metadata.php:1507
-msgid "Slug"
-msgstr "نامک"
-
-#: modules/custom-status/custom-status.php:1235
-msgid ""
-"The slug is the unique ID for the status and is changed when the name is "
-"changed."
-msgstr ""
-
-#: modules/custom-status/custom-status.php:1239
-#: modules/custom-status/custom-status.php:1290
-#: modules/custom-status/custom-status.php:1857
-#: modules/custom-status/custom-status.php:2002
-#: modules/editorial-metadata/editorial-metadata.php:1442
-#: modules/editorial-metadata/editorial-metadata.php:1512
-#: modules/editorial-metadata/editorial-metadata.php:1631
-#: modules/editorial-metadata/editorial-metadata.php:1732
-#: modules/user-groups/user-groups.php:577
-#: modules/user-groups/user-groups.php:620
-#: modules/user-groups/user-groups.php:1147
-#: modules/user-groups/user-groups.php:1242
-msgid "Description"
-msgstr "توضیح"
-
-#: modules/custom-status/custom-status.php:1242
-#: modules/custom-status/custom-status.php:1292
-msgid ""
-"The description is primarily for administrative use, to give you some context "
-"on what the custom status is to be used for."
-msgstr ""
-
-#: modules/custom-status/custom-status.php:1247
-#: modules/custom-status/custom-status.php:2008
-msgid "Update Status"
-msgstr ""
-
-#: modules/custom-status/custom-status.php:1258
-msgid ""
-"Are you sure you want to delete the post status? All posts with this status "
-"will be assigned to the default status."
-msgstr ""
-
-#: modules/custom-status/custom-status.php:1264
-msgid "Deleting a post status will assign all posts to the default post status."
-msgstr ""
-
-#: modules/custom-status/custom-status.php:1271
-#: modules/editorial-metadata/editorial-metadata.php:1486
-#: modules/user-groups/user-groups.php:601
-msgid "Add New"
-msgstr ""
-
-#: modules/custom-status/custom-status.php:1272
-#: modules/editorial-metadata/editorial-metadata.php:1487
-#: modules/user-groups/user-groups.php:602
-msgid "Options"
-msgstr "پیکربندی"
-
-#: modules/custom-status/custom-status.php:1285
-#: modules/custom-status/custom-status.php:1856
-#: modules/custom-status/custom-status.php:1998
-#: modules/editorial-metadata/editorial-metadata.php:1502
-#: modules/editorial-metadata/editorial-metadata.php:1629
-#: modules/editorial-metadata/editorial-metadata.php:1728
-#: modules/user-groups/user-groups.php:572
-#: modules/user-groups/user-groups.php:615
-#: modules/user-groups/user-groups.php:1146
-#: modules/user-groups/user-groups.php:1238
-msgid "Name"
-msgstr "نام"
-
-#: modules/custom-status/custom-status.php:1296
-msgid "Add New Status"
-msgstr ""
-
-#: modules/custom-status/custom-status.php:1840
-msgid "No custom statuses found."
-msgstr ""
-
-#: modules/custom-status/custom-status.php:1855
-#: modules/editorial-metadata/editorial-metadata.php:1628
-msgid "Position"
-msgstr ""
-
-#: modules/custom-status/custom-status.php:1931
-msgid "Default"
-msgstr "پیش‌فرض"
-
-#: modules/custom-status/custom-status.php:1941
-msgid "Make&nbsp;Default"
-msgstr ""
-
-#: modules/custom-status/custom-status.php:1945
-#: modules/editorial-metadata/editorial-metadata.php:1704
-#: modules/user-groups/user-groups.php:1179
-msgid "Delete"
-msgstr "حذف"
-
-#: modules/dashboard/dashboard.php:28
-msgid "Dashboard Widgets"
-msgstr "ابزارک‌های پیشخوان"
-
-#: modules/dashboard/dashboard.php:29
-msgid "Track your content from the WordPress dashboard."
-msgstr ""
-
-#: modules/dashboard/dashboard.php:30
-msgid ""
-"Enable dashboard widgets to quickly get an overview of what state your content "
-"is in."
-msgstr ""
-
-#: modules/dashboard/dashboard.php:42
-msgid "Widget Options"
-msgstr "پیکربندی ابزارک"
-
-#: modules/dashboard/dashboard.php:130 modules/dashboard/dashboard.php:257
-msgid "Notepad"
-msgstr "یادداشت"
-
-#: modules/dashboard/dashboard.php:134 modules/dashboard/dashboard.php:256
-msgid "Posts I'm Following"
-msgstr "نوشته‌هایی که شما دنبال می‌کنید"
-
-#: modules/dashboard/dashboard.php:149
-msgid "Unpublished Content: %s"
-msgstr ""
-
-#: modules/dashboard/dashboard.php:152
-msgid "Unpublished Content"
-msgstr "مطالب منتشرنشده"
-
-#: modules/dashboard/dashboard.php:185
-msgid "%s at a Glance"
-msgstr "%s در یک نگاه"
-
-#: modules/dashboard/dashboard.php:210
-msgid "Edit Custom Statuses"
-msgstr "ویرایش وضعیت‌ها"
-
-#: modules/dashboard/dashboard.php:235 modules/story-budget/story-budget.php:548
-msgid "Edit this post"
-msgstr "ویرایش این نوشته"
-
-#: modules/dashboard/dashboard.php:236
-msgid "This post was last updated on"
-msgstr "این نوشته آخرین بار ویرایش شده است در"
-
-#: modules/dashboard/dashboard.php:240
-msgid "Sorry! You're not subscribed to any posts!"
-msgstr "متأسفانه، نوشته‌ای را دنبال نمی‌کنید!"
-
-#: modules/dashboard/dashboard.php:255
-msgid "Post Status Widget"
-msgstr ""
-
-#: modules/dashboard/dashboard.php:305
-msgid ""
-"The notifications module will need to be enabled for this widget to display."
-msgstr ""
-
-#: modules/dashboard/widgets/dashboard-notepad.php:20
-msgid "Dashboard Note"
-msgstr "یادداشت پیشخوان"
-
-#: modules/dashboard/widgets/dashboard-notepad.php:83
-msgid "%1$s last updated on %2$s"
-msgstr "آخرین تغییر در %2$s توسط %1$s"
-
-#: modules/dashboard/widgets/dashboard-notepad.php:97
-msgid "Update Note"
-msgstr "ذخیره تغییرات"
-
-#: modules/editorial-comments/editorial-comments.php:21
-#: modules/editorial-comments/editorial-comments.php:120
-msgid "Editorial Comments"
-msgstr "دیدگاه‌های تحریریه"
-
-#: modules/editorial-comments/editorial-comments.php:22
-msgid "Share internal notes with your team."
-msgstr ""
-
-#: modules/editorial-comments/editorial-comments.php:23
-msgid ""
-"Use editorial comments to hold a private discussion about a post. Communicate "
-"directly with your writers or editors about what works and what needs to be "
-"improved for each piece."
-msgstr ""
-
-#: modules/editorial-comments/editorial-comments.php:35
-msgid "Choose Post Types"
-msgstr ""
-
-#: modules/editorial-comments/editorial-comments.php:40
-msgid ""
-"<p>Editorial comments help you cut down on email overload and keep the "
-"conversation close to where it matters: your content. Threaded commenting in "
-"the admin, similar to what you find at the end of a blog post, allows writers "
-"and editors to privately leave feedback and discuss what needs to be changed "
-"before publication.</p><p>Anyone with access to view the story in progress "
-"will also have the ability to comment on it. If you have notifications "
-"enabled, those following the post will receive an email every time a comment "
-"is left.</p>"
-msgstr ""
-
-#: modules/editorial-comments/editorial-comments.php:42
-msgid ""
-"<p><strong>For more information:</strong></p><p><a href=\"http://editflow.org/"
-"features/editorial-comments/\">Editorial Comments Documentation</a></p><p><a "
-"href=\"http://wordpress.org/tags/edit-flow?forum_id=10\">Edit Flow Forum</a></"
 "p><p><a href=\"https://github.com/danielbachhuber/Edit-Flow\">Edit Flow on "
 "Github</a></p>"
 msgstr ""
 
-#: modules/editorial-comments/editorial-comments.php:96
-msgid "and"
-msgstr ""
-
-#: modules/editorial-comments/editorial-comments.php:97
-#: modules/editorial-comments/editorial-comments.php:373
-msgid "No one will be notified."
-msgstr ""
-
-#: modules/editorial-comments/editorial-comments.php:180
+#: modules/notifications/notifications.php:51
 msgid ""
-"You can add editorial comments to a post once you've saved it for the first "
-"time."
-msgstr "بعد از ذخیرهٔ اولیه این نوشته، می‌توانید برای تحریریه دیدگاه اضافه کنید."
-
-#: modules/editorial-comments/editorial-comments.php:197
-msgid "Respond to this post"
-msgstr "پاسخ‌ به این نوشته"
-
-#: modules/editorial-comments/editorial-comments.php:206
-msgid "The following will be notified:"
+"<p>Notifications ensure you keep up to date with progress your most important "
+"content. Users can be subscribed to notifications on a post one by one or by "
+"selecting user groups.</p><p>When enabled, email notifications can be sent "
+"when a post changes status or an editorial comment is left by a writer or an "
+"editor.</p>"
 msgstr ""
 
-#: modules/editorial-comments/editorial-comments.php:213
-msgid "Submit Response"
-msgstr "ارسال پاسخ"
-
-#: modules/editorial-comments/editorial-comments.php:246
-msgid "No users or groups were notified."
-msgstr ""
-
-#: modules/editorial-comments/editorial-comments.php:248
-#: modules/notifications/notifications.php:734
-msgid "Notified"
-msgstr ""
-
-#: modules/editorial-comments/editorial-comments.php:275
-msgid "Reply to this comment"
-msgstr "پاسخ به این دیدگاه"
-
-#: modules/editorial-comments/editorial-comments.php:275
-msgid "Reply"
-msgstr "پاسخ"
-
-#: modules/editorial-comments/editorial-comments.php:297
+#: modules/notifications/notifications.php:33
 msgid ""
-"<span class=\"comment-author\">%1$s</span><span class=\"meta\"> said on %2$s "
-"at %3$s</span>"
+"With email notifications, you can keep everyone updated about what’s happening "
+"with a given content. Each status change or editorial comment sends out an "
+"email notification to users subscribed to a post. User groups can be used to "
+"manage who receives notifications on what."
 msgstr ""
-"<span class=\"meta\">در %2$s ساعت %3$s </span><span class=\"comment-author\">"
-"%1$s</span>"
 
-#: modules/editorial-comments/editorial-comments.php:320
+#: modules/notifications/notifications.php:32
+msgid "Update your team of important changes to your content."
+msgstr ""
+
+#: modules/notifications/notifications.php:31
+#: modules/notifications/notifications.php:326
+msgid "Notifications"
+msgstr "آگاه‌سازی‌ها"
+
+#: modules/editorial-metadata/editorial-metadata.php:1713
+msgid "Make Viewable"
+msgstr "نمایان کن"
+
+#: modules/editorial-metadata/editorial-metadata.php:1711
+msgid "Make Hidden"
+msgstr "مخفی کن"
+
+#: modules/editorial-metadata/editorial-metadata.php:1711
+msgid "Hidden metadata can only be viewed on the edit post view."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:1640
+msgid "Metadata Type"
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:1627
+msgid "No editorial metadata found."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:1558
+msgid "Add New Metadata Term"
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:1538
+msgid "Indicate the type of editorial metadata."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:1519
 msgid ""
-"Nonce check failed. Please ensure you're supposed to be adding editorial "
-"comments."
+"The \"slug\" is the URL-friendly version of the name. It is usually all "
+"lowercase and contains only letters, numbers, and hyphens."
 msgstr ""
 
-#: modules/editorial-comments/editorial-comments.php:332
+#: modules/editorial-metadata/editorial-metadata.php:1485
+#: modules/editorial-metadata/editorial-metadata.php:1748
+msgid "Update Metadata Term"
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:1479
+#: modules/editorial-metadata/editorial-metadata.php:1554
+#: modules/editorial-metadata/editorial-metadata.php:1713
 msgid ""
-"Sorry, you don't have the privileges to add editorial comments. Please talk to "
-"your Administrator."
+"When viewable, metadata can be seen on views other than the edit post view (e."
+"g. calendar, manage posts, story budget, etc.)"
 msgstr ""
 
-#: modules/editorial-comments/editorial-comments.php:337
-msgid "Please enter a comment."
+#: modules/editorial-metadata/editorial-metadata.php:1466
+#: modules/editorial-metadata/editorial-metadata.php:1541
+#: modules/editorial-metadata/editorial-metadata.php:1642
+msgid "Viewable"
+msgstr "نمایانی"
+
+#: modules/editorial-metadata/editorial-metadata.php:1462
+msgid "The metadata type cannot be changed once created."
 msgstr ""
 
-#: modules/editorial-comments/editorial-comments.php:400
+#: modules/editorial-metadata/editorial-metadata.php:1459
+#: modules/editorial-metadata/editorial-metadata.php:1527
+msgid "Type"
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:1455
+#: modules/editorial-metadata/editorial-metadata.php:1524
 msgid ""
-"There was a problem of some sort. Try again or contact your administrator."
+"The description can be used to communicate with your team about what the "
+"metadata is for."
 msgstr ""
 
-#: modules/editorial-comments/editorial-comments.php:412
-msgid "Enable for these post types:"
+#: modules/editorial-metadata/editorial-metadata.php:1448
+msgid "The slug cannot be changed once the term has been created."
 msgstr ""
 
-#: modules/editorial-metadata/editorial-metadata.php:43
-#: modules/editorial-metadata/editorial-metadata.php:343
+#: modules/editorial-metadata/editorial-metadata.php:1442
+#: modules/editorial-metadata/editorial-metadata.php:1514
+msgid "The name is for labeling the metadata field."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:1393
+msgid ""
+"Are you sure you want to delete this term? Any metadata for this term will "
+"remain but will not be visible unless this term is re-added."
+msgstr ""
+
+#: modules/user-groups/user-groups.php:501
+#: modules/editorial-metadata/editorial-metadata.php:1346
+msgid "Add to these post types:"
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:1330
+msgid "Error deleting term."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:1277
+msgid "Could not update the term: <strong>%s</strong>"
+msgstr ""
+
+#: modules/user-groups/user-groups.php:301
+#: modules/user-groups/user-groups.php:372
+#: modules/user-groups/user-groups.php:469
+#: modules/editorial-metadata/editorial-metadata.php:1260
+msgid "Name conflicts with slug for another term. Please choose again."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:1158
+#: modules/editorial-metadata/editorial-metadata.php:1194
+msgid "Error updating term."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:1134
+msgid "Name conflicts with slug for another term. Please choose something else."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:1125
+#: modules/editorial-metadata/editorial-metadata.php:1246
+msgid "Metadata name conflicts with existing term. Please choose another."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:1121
+#: modules/editorial-metadata/editorial-metadata.php:1233
+msgid "Please enter a valid, non-numeric name for the editorial metadata."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:1117
+#: modules/editorial-metadata/editorial-metadata.php:1227
+msgid "Please enter a name for the editorial metadata"
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:1080
+msgid "Error adding term."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:1058
+msgid "Please select a valid metadata type."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:1054
+#: modules/editorial-metadata/editorial-metadata.php:1138
+#: modules/editorial-metadata/editorial-metadata.php:1239
+msgid "Name cannot exceed 200 characters. Please try a shorter name."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:1050
+msgid "Slug already in use. Please choose another."
+msgstr ""
+
+#: modules/user-groups/user-groups.php:298
+#: modules/user-groups/user-groups.php:368
+#: modules/user-groups/user-groups.php:463
+#: modules/editorial-metadata/editorial-metadata.php:1047
+#: modules/editorial-metadata/editorial-metadata.php:1130
+#: modules/editorial-metadata/editorial-metadata.php:1253
+msgid "Name already in use. Please choose another."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:1044
+msgid "Name conflicts with existing term. Please choose another."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:1042
+msgid "Please enter a slug for the editorial metadata."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:1039
+msgid "Please enter a name for the editorial metadata."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:861
+#: modules/editorial-metadata/editorial-metadata.php:1470
+#: modules/editorial-metadata/editorial-metadata.php:1544
+#: modules/editorial-metadata/editorial-metadata.php:1685
+msgid "No"
+msgstr "خیر"
+
+#: modules/editorial-metadata/editorial-metadata.php:859
+#: modules/editorial-metadata/editorial-metadata.php:1471
+#: modules/editorial-metadata/editorial-metadata.php:1545
+#: modules/editorial-metadata/editorial-metadata.php:1683
+msgid "Yes"
+msgstr "بلی"
+
+#: modules/notifications/notifications.php:1291
+#: modules/editorial-metadata/editorial-metadata.php:847
+msgid "%1$s at %2$s"
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:434
+msgid "This editorial metadata type is not yet supported."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:422
+msgid "-- Select a user --"
+msgstr "-- انتخاب کاربر --"
+
+#: modules/editorial-metadata/editorial-metadata.php:405
+msgid "View &#8220;%s&#8221; on Google Maps"
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:373
+msgid ""
+" Encourage your site administrator to configure your editorial workflow by "
+"adding editorial metadata."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:371
+msgid " <a href=\"%s\">Add fields to get started</a>."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:369
+msgid "No editorial metadata available."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:328
+msgid "New Editorial Metadata"
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:327
+msgid "Add New Editorial Metadata"
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:326
+msgid "Update Editorial Metadata"
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:325
+msgid "Edit Editorial Metadata"
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:324
+msgid "All Editorial Metadata"
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:323
+msgid "Popular Editorial Metadata"
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:322
+msgid "Search Editorial Metadata"
+msgstr "جست‌جو در اطلاعات اختصاصی تحریریه"
+
+#: modules/editorial-metadata/editorial-metadata.php:321
+msgctxt "taxonomy singular name"
 msgid "Editorial Metadata"
 msgstr "اختصاصی تحریریه"
 
-#: modules/editorial-metadata/editorial-metadata.php:44
-msgid "Track details about your posts in progress."
+#: modules/editorial-metadata/editorial-metadata.php:320
+msgctxt "taxonomy general name"
+msgid "Editorial Metadata"
+msgstr "اختصاصی تحریریه"
+
+#: modules/editorial-metadata/editorial-metadata.php:224
+msgid "User"
 msgstr ""
 
-#: modules/editorial-metadata/editorial-metadata.php:45
+#: modules/editorial-metadata/editorial-metadata.php:223
+msgid "Text"
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:222
+msgid "Paragraph"
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:221
+msgid "Number"
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:220
+msgid "Location"
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:219
+msgid "Date"
+msgstr "تاریخ"
+
+#: modules/editorial-metadata/editorial-metadata.php:218
+msgid "Checkbox"
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:153
+msgid "Required post length in words."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:150
+msgid "Word Count"
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:147
+msgid "Checked if this post needs a photo."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:144
+msgid "Needs Photo"
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:141
+msgid "What the post needs to cover."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:138
+msgid "Assignment"
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:135
+msgid "When the first draft needs to be ready."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:132
+msgid "First Draft Date"
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:70
 msgid ""
-"Log details on every assignment using configurable editorial metadata. It’s "
-"completely customizable; create fields for everything from due date to "
-"location to contact information to role assignments."
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:57
-msgid "Metadata term added."
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:58
-msgid "Metadata term updated."
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:59
-msgid "Metadata term doesn't exist."
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:60
-msgid "Metadata term deleted."
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:61
-msgid "Term order updated."
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:62
-msgid "Term visibility changed."
+"<p><strong>For more information:</strong></p><p><a href=\"http://editflow.org/"
+"features/editorial-metadata/\">Editorial Metadata Documentation</a></p><p><a "
+"href=\"http://wordpress.org/tags/edit-flow?forum_id=10\">Edit Flow Forum</a></"
+"p><p><a href=\"https://github.com/danielbachhuber/Edit-Flow\">Edit Flow on "
+"Github</a></p>"
 msgstr ""
 
 #: modules/editorial-metadata/editorial-metadata.php:68
@@ -993,871 +1025,947 @@ msgid ""
 "writer and their editor.</p>"
 msgstr ""
 
-#: modules/editorial-metadata/editorial-metadata.php:70
+#: modules/editorial-metadata/editorial-metadata.php:62
+msgid "Term visibility changed."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:61
+msgid "Term order updated."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:60
+msgid "Metadata term deleted."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:59
+msgid "Metadata term doesn't exist."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:58
+msgid "Metadata term updated."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:57
+msgid "Metadata term added."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:45
+msgid ""
+"Log details on every assignment using configurable editorial metadata. It’s "
+"completely customizable; create fields for everything from due date to "
+"location to contact information to role assignments."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:44
+msgid "Track details about your posts in progress."
+msgstr ""
+
+#: modules/editorial-metadata/editorial-metadata.php:43
+#: modules/editorial-metadata/editorial-metadata.php:343
+msgid "Editorial Metadata"
+msgstr "اختصاصی تحریریه"
+
+#: modules/editorial-comments/editorial-comments.php:386
+msgid "Enable for these post types:"
+msgstr ""
+
+#: modules/editorial-comments/editorial-comments.php:374
+msgid ""
+"There was a problem of some sort. Try again or contact your administrator."
+msgstr ""
+
+#: modules/editorial-comments/editorial-comments.php:311
+msgid "Please enter a comment."
+msgstr ""
+
+#: modules/editorial-comments/editorial-comments.php:306
+msgid ""
+"Sorry, you don't have the privileges to add editorial comments. Please talk to "
+"your Administrator."
+msgstr ""
+
+#: modules/editorial-comments/editorial-comments.php:294
+msgid ""
+"Nonce check failed. Please ensure you're supposed to be adding editorial "
+"comments."
+msgstr ""
+
+#: modules/editorial-comments/editorial-comments.php:271
+msgid ""
+"<span class=\"comment-author\">%1$s</span><span class=\"meta\"> said on %2$s "
+"at %3$s</span>"
+msgstr ""
+"<span class=\"meta\">در %2$s ساعت %3$s </span><span class=\"comment-author\">"
+"%1$s</span>"
+
+#: modules/editorial-comments/editorial-comments.php:249
+msgid "Reply"
+msgstr "پاسخ"
+
+#: modules/editorial-comments/editorial-comments.php:249
+msgid "Reply to this comment"
+msgstr "پاسخ به این دیدگاه"
+
+#: modules/editorial-comments/editorial-comments.php:192
+msgid "Submit Response"
+msgstr "ارسال پاسخ"
+
+#: modules/editorial-comments/editorial-comments.php:176
+msgid "Respond to this post"
+msgstr "پاسخ‌ به این نوشته"
+
+#: modules/editorial-comments/editorial-comments.php:159
+msgid ""
+"You can add editorial comments to a post once you've saved it for the first "
+"time."
+msgstr "بعد از ذخیرهٔ اولیه این نوشته، می‌توانید برای تحریریه دیدگاه اضافه کنید."
+
+#: modules/editorial-comments/editorial-comments.php:42
 msgid ""
 "<p><strong>For more information:</strong></p><p><a href=\"http://editflow.org/"
-"features/editorial-metadata/\">Editorial Metadata Documentation</a></p><p><a "
+"features/editorial-comments/\">Editorial Comments Documentation</a></p><p><a "
 "href=\"http://wordpress.org/tags/edit-flow?forum_id=10\">Edit Flow Forum</a></"
 "p><p><a href=\"https://github.com/danielbachhuber/Edit-Flow\">Edit Flow on "
 "Github</a></p>"
 msgstr ""
 
-#: modules/editorial-metadata/editorial-metadata.php:132
-msgid "First Draft Date"
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:135
-msgid "When the first draft needs to be ready."
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:138
-msgid "Assignment"
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:141
-msgid "What the post needs to cover."
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:144
-msgid "Needs Photo"
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:147
-msgid "Checked if this post needs a photo."
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:150
-msgid "Word Count"
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:153
-msgid "Required post length in words."
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:218
-msgid "Checkbox"
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:219
-msgid "Date"
-msgstr "تاریخ"
-
-#: modules/editorial-metadata/editorial-metadata.php:220
-msgid "Location"
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:221
-msgid "Number"
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:222
-msgid "Paragraph"
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:223
-msgid "Text"
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:224
-msgid "User"
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:320
-msgctxt "taxonomy general name"
-msgid "Editorial Metadata"
-msgstr "اختصاصی تحریریه"
-
-#: modules/editorial-metadata/editorial-metadata.php:321
-msgctxt "taxonomy singular name"
-msgid "Editorial Metadata"
-msgstr "اختصاصی تحریریه"
-
-#: modules/editorial-metadata/editorial-metadata.php:322
-msgid "Search Editorial Metadata"
-msgstr "جست‌جو در اطلاعات اختصاصی تحریریه"
-
-#: modules/editorial-metadata/editorial-metadata.php:323
-msgid "Popular Editorial Metadata"
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:324
-msgid "All Editorial Metadata"
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:325
-msgid "Edit Editorial Metadata"
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:326
-msgid "Update Editorial Metadata"
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:327
-msgid "Add New Editorial Metadata"
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:328
-msgid "New Editorial Metadata"
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:403
-msgid "View &#8220;%s&#8221; on Google Maps"
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:420
-msgid "-- Select a user --"
-msgstr "-- انتخاب کاربر --"
-
-#: modules/editorial-metadata/editorial-metadata.php:432
-msgid "This editorial metadata type is not yet supported."
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:837
-#: modules/notifications/notifications.php:1274
-msgid "%1$s at %2$s"
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:849
-#: modules/editorial-metadata/editorial-metadata.php:1461
-#: modules/editorial-metadata/editorial-metadata.php:1535
-#: modules/editorial-metadata/editorial-metadata.php:1673
-msgid "Yes"
-msgstr "بلی"
-
-#: modules/editorial-metadata/editorial-metadata.php:851
-#: modules/editorial-metadata/editorial-metadata.php:1460
-#: modules/editorial-metadata/editorial-metadata.php:1534
-#: modules/editorial-metadata/editorial-metadata.php:1675
-msgid "No"
-msgstr "خیر"
-
-#: modules/editorial-metadata/editorial-metadata.php:1029
-msgid "Please enter a name for the editorial metadata."
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:1032
-msgid "Please enter a slug for the editorial metadata."
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:1034
-msgid "Name conflicts with existing term. Please choose another."
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:1037
-#: modules/editorial-metadata/editorial-metadata.php:1120
-#: modules/editorial-metadata/editorial-metadata.php:1243
-#: modules/user-groups/user-groups.php:298
-#: modules/user-groups/user-groups.php:368
-#: modules/user-groups/user-groups.php:463
-msgid "Name already in use. Please choose another."
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:1040
-msgid "Slug already in use. Please choose another."
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:1044
-#: modules/editorial-metadata/editorial-metadata.php:1128
-msgid "Name cannot exceed 200 characters. Please try a shorter name."
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:1048
-msgid "Please select a valid metadata type."
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:1070
-msgid "Error adding term."
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:1107
-#: modules/editorial-metadata/editorial-metadata.php:1217
-msgid "Please enter a name for the editorial metadata"
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:1111
-#: modules/editorial-metadata/editorial-metadata.php:1223
-msgid "Please enter a valid, non-numeric name for the editorial metadata."
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:1115
-#: modules/editorial-metadata/editorial-metadata.php:1236
-msgid "Metadata name conflicts with existing term. Please choose another."
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:1124
-msgid "Name conflicts with slug for another term. Please choose something else."
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:1148
-#: modules/editorial-metadata/editorial-metadata.php:1184
-msgid "Error updating term."
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:1250
-#: modules/user-groups/user-groups.php:301
-#: modules/user-groups/user-groups.php:372
-#: modules/user-groups/user-groups.php:469
-msgid "Name conflicts with slug for another term. Please choose again."
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:1267
-msgid "Could not update the term: <strong>%s</strong>"
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:1320
-msgid "Error deleting term."
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:1336
-#: modules/user-groups/user-groups.php:501
-msgid "Add to these post types:"
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:1383
+#: modules/editorial-comments/editorial-comments.php:40
 msgid ""
-"Are you sure you want to delete this term? Any metadata for this term will "
-"remain but will not be visible unless this term is re-added."
+"<p>Editorial comments help you cut down on email overload and keep the "
+"conversation close to where it matters: your content. Threaded commenting in "
+"the admin, similar to what you find at the end of a blog post, allows writers "
+"and editors to privately leave feedback and discuss what needs to be changed "
+"before publication.</p><p>Anyone with access to view the story in progress "
+"will also have the ability to comment on it. If you have notifications "
+"enabled, those following the post will receive an email every time a comment "
+"is left.</p>"
 msgstr ""
 
-#: modules/editorial-metadata/editorial-metadata.php:1432
-#: modules/editorial-metadata/editorial-metadata.php:1504
-msgid "The name is for labeling the metadata field."
+#: modules/editorial-comments/editorial-comments.php:35
+msgid "Choose Post Types"
 msgstr ""
 
-#: modules/editorial-metadata/editorial-metadata.php:1438
-msgid "The slug cannot be changed once the term has been created."
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:1445
-#: modules/editorial-metadata/editorial-metadata.php:1514
+#: modules/editorial-comments/editorial-comments.php:23
 msgid ""
-"The description can be used to communicate with your team about what the "
-"metadata is for."
+"Use editorial comments to hold a private discussion about a post. Communicate "
+"directly with your writers or editors about what works and what needs to be "
+"improved for each piece."
 msgstr ""
 
-#: modules/editorial-metadata/editorial-metadata.php:1449
-#: modules/editorial-metadata/editorial-metadata.php:1517
-msgid "Type"
+#: modules/editorial-comments/editorial-comments.php:22
+msgid "Share internal notes with your team."
 msgstr ""
 
-#: modules/editorial-metadata/editorial-metadata.php:1452
-msgid "The metadata type cannot be changed once created."
-msgstr ""
+#: modules/editorial-comments/editorial-comments.php:21
+#: modules/editorial-comments/editorial-comments.php:113
+msgid "Editorial Comments"
+msgstr "دیدگاه‌های تحریریه"
 
-#: modules/editorial-metadata/editorial-metadata.php:1456
-#: modules/editorial-metadata/editorial-metadata.php:1531
-#: modules/editorial-metadata/editorial-metadata.php:1632
-msgid "Viewable"
-msgstr "نمایانی"
+#: modules/dashboard/widgets/dashboard-notepad.php:95
+msgid "Update Note"
+msgstr "ذخیره تغییرات"
 
-#: modules/editorial-metadata/editorial-metadata.php:1469
-#: modules/editorial-metadata/editorial-metadata.php:1544
-#: modules/editorial-metadata/editorial-metadata.php:1703
+#: modules/dashboard/widgets/dashboard-notepad.php:81
+msgid "%1$s last updated on %2$s"
+msgstr "آخرین تغییر در %2$s توسط %1$s"
+
+#: modules/dashboard/dashboard.php:305
 msgid ""
-"When viewable, metadata can be seen on views other than the edit post view (e."
-"g. calendar, manage posts, story budget, etc.)"
+"The notifications module will need to be enabled for this widget to display."
 msgstr ""
 
-#: modules/editorial-metadata/editorial-metadata.php:1475
+#: modules/dashboard/dashboard.php:255
+msgid "Post Status Widget"
+msgstr ""
+
+#: modules/dashboard/dashboard.php:240
+msgid "Sorry! You're not subscribed to any posts!"
+msgstr "متأسفانه، نوشته‌ای را دنبال نمی‌کنید!"
+
+#: modules/dashboard/dashboard.php:236
+msgid "This post was last updated on"
+msgstr "این نوشته آخرین بار ویرایش شده است در"
+
+#: modules/story-budget/story-budget.php:572 modules/dashboard/dashboard.php:235
+msgid "Edit this post"
+msgstr "ویرایش این نوشته"
+
+#: modules/dashboard/dashboard.php:210
+msgid "Edit Custom Statuses"
+msgstr "ویرایش وضعیت‌ها"
+
+#: modules/dashboard/dashboard.php:134 modules/dashboard/dashboard.php:256
+msgid "Posts I'm Following"
+msgstr "نوشته‌هایی که شما دنبال می‌کنید"
+
+#: modules/dashboard/dashboard.php:130 modules/dashboard/dashboard.php:257
+msgid "Notepad"
+msgstr "یادداشت"
+
+#: modules/dashboard/dashboard.php:152
+msgid "Unpublished Content"
+msgstr "مطالب منتشرنشده"
+
+#: modules/dashboard/dashboard.php:42
+msgid "Widget Options"
+msgstr "پیکربندی ابزارک"
+
+#: modules/dashboard/dashboard.php:30
+msgid ""
+"Enable dashboard widgets to quickly get an overview of what state your content "
+"is in."
+msgstr ""
+
+#: modules/dashboard/dashboard.php:29
+msgid "Track your content from the WordPress dashboard."
+msgstr ""
+
+#: modules/dashboard/dashboard.php:28
+msgid "Dashboard Widgets"
+msgstr "ابزارک‌های پیشخوان"
+
+#: modules/user-groups/user-groups.php:1236
+#: modules/custom-status/custom-status.php:1926
+#: modules/editorial-metadata/editorial-metadata.php:1736
+msgid "Quick Edit"
+msgstr "ویرایش سریع"
+
+#: modules/user-groups/user-groups.php:1179
+#: modules/custom-status/custom-status.php:1875
+#: modules/editorial-metadata/editorial-metadata.php:1714
+msgid "Delete"
+msgstr "حذف"
+
+#: modules/custom-status/custom-status.php:1871
+msgid "Make&nbsp;Default"
+msgstr ""
+
+#: modules/user-groups/user-groups.php:1178
+#: modules/custom-status/custom-status.php:1870
+#: modules/editorial-metadata/editorial-metadata.php:1709
+msgid "Quick&nbsp;Edit"
+msgstr ""
+
+#: modules/custom-status/custom-status.php:1861
+msgid "Default"
+msgstr "پیش‌فرض"
+
+#: modules/custom-status/custom-status.php:1785
+#: modules/editorial-metadata/editorial-metadata.php:1638
+msgid "Position"
+msgstr ""
+
+#: modules/custom-status/custom-status.php:1770
+msgid "No custom statuses found."
+msgstr ""
+
+#: modules/custom-status/custom-status.php:1267
+msgid "Add New Status"
+msgstr ""
+
+#: modules/user-groups/user-groups.php:572
+#: modules/user-groups/user-groups.php:615
+#: modules/user-groups/user-groups.php:1146
+#: modules/user-groups/user-groups.php:1238
+#: modules/custom-status/custom-status.php:1256
+#: modules/custom-status/custom-status.php:1786
+#: modules/custom-status/custom-status.php:1928
+#: modules/editorial-metadata/editorial-metadata.php:1440
+#: modules/editorial-metadata/editorial-metadata.php:1512
+#: modules/editorial-metadata/editorial-metadata.php:1639
 #: modules/editorial-metadata/editorial-metadata.php:1738
-msgid "Update Metadata Term"
+msgid "Name"
+msgstr "نام"
+
+#: modules/user-groups/user-groups.php:602
+#: modules/custom-status/custom-status.php:1243
+#: modules/editorial-metadata/editorial-metadata.php:1497
+msgid "Options"
+msgstr "پیکربندی"
+
+#: modules/user-groups/user-groups.php:601
+#: modules/custom-status/custom-status.php:1242
+#: modules/editorial-metadata/editorial-metadata.php:1496
+msgid "Add New"
 msgstr ""
 
-#: modules/editorial-metadata/editorial-metadata.php:1509
+#: modules/custom-status/custom-status.php:1235
+msgid "Deleting a post status will assign all posts to the default post status."
+msgstr ""
+
+#: modules/custom-status/custom-status.php:1229
 msgid ""
-"The \"slug\" is the URL-friendly version of the name. It is usually all "
-"lowercase and contains only letters, numbers, and hyphens."
+"Are you sure you want to delete the post status? All posts with this status "
+"will be assigned to the default status."
 msgstr ""
 
-#: modules/editorial-metadata/editorial-metadata.php:1528
-msgid "Indicate the type of editorial metadata."
+#: modules/story-budget/story-budget.php:368
+#: modules/editorial-comments/editorial-comments.php:194
+#: modules/user-groups/user-groups.php:583
+#: modules/user-groups/user-groups.php:1247
+#: modules/custom-status/custom-status.php:320
+#: modules/custom-status/custom-status.php:1219
+#: modules/custom-status/custom-status.php:1937
+#: modules/editorial-metadata/editorial-metadata.php:1486
+#: modules/editorial-metadata/editorial-metadata.php:1747
+msgid "Cancel"
+msgstr "لغو"
+
+#: modules/custom-status/custom-status.php:1218
+#: modules/custom-status/custom-status.php:1938
+msgid "Update Status"
 msgstr ""
 
-#: modules/editorial-metadata/editorial-metadata.php:1548
-msgid "Add New Metadata Term"
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:1617
-msgid "No editorial metadata found."
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:1630
-msgid "Metadata Type"
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:1701
-msgid "Hidden metadata can only be viewed on the edit post view."
-msgstr ""
-
-#: modules/editorial-metadata/editorial-metadata.php:1701
-msgid "Make Hidden"
-msgstr "مخفی کن"
-
-#: modules/editorial-metadata/editorial-metadata.php:1703
-msgid "Make Viewable"
-msgstr "نمایان کن"
-
-#: modules/notifications/notifications.php:31
-#: modules/notifications/notifications.php:326
-msgid "Notifications"
-msgstr "آگاه‌سازی‌ها"
-
-#: modules/notifications/notifications.php:32
-msgid "Update your team of important changes to your content."
-msgstr ""
-
-#: modules/notifications/notifications.php:33
+#: modules/custom-status/custom-status.php:1213
+#: modules/custom-status/custom-status.php:1263
 msgid ""
-"With email notifications, you can keep everyone updated about what’s happening "
-"with a given content. Each status change or editorial comment sends out an "
-"email notification to users subscribed to a post. User groups can be used to "
-"manage who receives notifications on what."
+"The description is primarily for administrative use, to give you some context "
+"on what the custom status is to be used for."
 msgstr ""
 
-#: modules/notifications/notifications.php:51
+#: modules/user-groups/user-groups.php:577
+#: modules/user-groups/user-groups.php:620
+#: modules/user-groups/user-groups.php:1147
+#: modules/user-groups/user-groups.php:1242
+#: modules/custom-status/custom-status.php:1210
+#: modules/custom-status/custom-status.php:1261
+#: modules/custom-status/custom-status.php:1787
+#: modules/custom-status/custom-status.php:1932
+#: modules/editorial-metadata/editorial-metadata.php:1452
+#: modules/editorial-metadata/editorial-metadata.php:1522
+#: modules/editorial-metadata/editorial-metadata.php:1641
+#: modules/editorial-metadata/editorial-metadata.php:1742
+msgid "Description"
+msgstr "توضیح"
+
+#: modules/custom-status/custom-status.php:1206
 msgid ""
-"<p>Notifications ensure you keep up to date with progress your most important "
-"content. Users can be subscribed to notifications on a post one by one or by "
-"selecting user groups.</p><p>When enabled, email notifications can be sent "
-"when a post changes status or an editorial comment is left by a writer or an "
-"editor.</p>"
+"The slug is the unique ID for the status and is changed when the name is "
+"changed."
 msgstr ""
 
-#: modules/notifications/notifications.php:53
+#: modules/custom-status/custom-status.php:1203
+#: modules/editorial-metadata/editorial-metadata.php:1445
+#: modules/editorial-metadata/editorial-metadata.php:1517
+msgid "Slug"
+msgstr "نامک"
+
+#: modules/custom-status/custom-status.php:1199
+#: modules/custom-status/custom-status.php:1258
+msgid "The name is used to identify the status. (Max: 20 characters)"
+msgstr ""
+
+#: modules/custom-status/custom-status.php:1197
+msgid "Custom Status"
+msgstr "وضعیت سفارشی"
+
+#: modules/custom-status/custom-status.php:1112
+msgid "Always show dropdown:"
+msgstr ""
+
+#: modules/custom-status/custom-status.php:1111
+msgid "Use on these post types:"
+msgstr ""
+
+#: modules/custom-status/custom-status.php:1096
+msgid "Could not update the status: <strong>%s</strong>"
+msgstr ""
+
+#: modules/custom-status/custom-status.php:1071
+msgid "Status already exists. Please choose another name."
+msgstr ""
+
+#: modules/custom-status/custom-status.php:1065
+msgid "Status name is restricted. Please chose another name."
+msgstr ""
+
+#: modules/custom-status/custom-status.php:1047
+msgid "Please enter a name for the status."
+msgstr ""
+
+#: modules/custom-status/custom-status.php:1011
+#: modules/editorial-metadata/editorial-metadata.php:1297
+msgid "Terms not set."
+msgstr ""
+
+#: modules/custom-status/custom-status.php:964
+msgid "Could not delete the status: "
+msgstr ""
+
+#: modules/custom-status/custom-status.php:960
+msgid "Cannot delete default status."
+msgstr ""
+
+#: modules/custom-status/custom-status.php:956
+msgid "Status does not exist."
+msgstr ""
+
+#: modules/custom-status/custom-status.php:927
+msgid "Status doesn&#39;t exist."
+msgstr ""
+
+#: modules/custom-status/custom-status.php:916
+#: modules/custom-status/custom-status.php:950
+msgid "Sorry, you do not have permission to edit custom statuses."
+msgstr ""
+
+#: modules/custom-status/custom-status.php:912
+#: modules/custom-status/custom-status.php:946
+msgid "Invalid nonce for submission."
+msgstr ""
+
+#: modules/custom-status/custom-status.php:890
+msgid "Error updating post status."
+msgstr ""
+
+#: modules/custom-status/custom-status.php:871
+msgid "Status name conflicts with existing status. Please choose another."
+msgstr ""
+
+#: modules/custom-status/custom-status.php:817
+msgid "Could not add status: "
+msgstr ""
+
+#: modules/custom-status/custom-status.php:802
+#: modules/custom-status/custom-status.php:874
+msgid "Status name is restricted. Please choose another name."
+msgstr ""
+
+#: modules/custom-status/custom-status.php:799
+#: modules/custom-status/custom-status.php:867
+#: modules/custom-status/custom-status.php:1078
+msgid "Status name conflicts with existing term. Please choose another."
+msgstr ""
+
+#: modules/custom-status/custom-status.php:796
+#: modules/custom-status/custom-status.php:863
+#: modules/custom-status/custom-status.php:1059
+msgid "Status name cannot exceed 20 characters. Please try a shorter name."
+msgstr ""
+
+#: modules/custom-status/custom-status.php:793
+#: modules/custom-status/custom-status.php:860
+#: modules/custom-status/custom-status.php:1053
+msgid "Please enter a valid, non-numeric name for the status."
+msgstr ""
+
+#: modules/custom-status/custom-status.php:790
+#: modules/custom-status/custom-status.php:857
+msgid "Please enter a name for the status"
+msgstr ""
+
+#: modules/story-budget/story-budget.php:174
+msgid "Status"
+msgstr "وضعیت"
+
+#: modules/custom-status/custom-status.php:582
+msgid "Restricted status "
+msgstr ""
+
+#: modules/custom-status/custom-status.php:561
+msgid "Cannot reassign to the status you want to delete"
+msgstr ""
+
+#: modules/custom-status/custom-status.php:505
+msgid "Custom status doesn't exist."
+msgstr ""
+
+#: modules/custom-status/custom-status.php:314
+msgid "&mdash; No Change &mdash;"
+msgstr ""
+
+#: modules/custom-status/custom-status.php:423
+msgid "Privately Published"
+msgstr ""
+
+#: modules/custom-status/custom-status.php:344
+msgid ""
+"<strong>Note:</strong> Your browser does not support JavaScript or has "
+"JavaScript disabled. You will not be able to access or change the post status."
+msgstr ""
+
+#: modules/custom-status/custom-status.php:161
+msgid "Post needs to be reviewed by an editor."
+msgstr ""
+
+#: modules/custom-status/custom-status.php:153
+msgid "Post is a draft; not ready for review or publication."
+msgstr ""
+
+#: modules/custom-status/custom-status.php:145
+msgid "Writer is working on the post."
+msgstr ""
+
+#: modules/custom-status/custom-status.php:142
+msgid "In Progress"
+msgstr ""
+
+#: modules/custom-status/custom-status.php:137
+msgid "Post idea assigned to writer."
+msgstr ""
+
+#: modules/custom-status/custom-status.php:134
+msgid "Assigned"
+msgstr ""
+
+#: modules/custom-status/custom-status.php:129
+msgid "Idea proposed; waiting for acceptance."
+msgstr ""
+
+#: modules/custom-status/custom-status.php:126
+msgid "Pitch"
+msgstr ""
+
+#: modules/custom-status/custom-status.php:65
 msgid ""
 "<p><strong>For more information:</strong></p><p><a href=\"http://editflow.org/"
-"features/notifications/\">Notifications Documentation</a></p><p><a href="
+"features/custom-statuses/\">Custom Status Documentation</a></p><p><a href="
 "\"http://wordpress.org/tags/edit-flow?forum_id=10\">Edit Flow Forum</a></"
-"p><p><a href=\"https://github.com/danielbachhuber/Edit-Flow\">Edit Flow on "
-"Github</a></p>"
+"p><p><a href=\"https://github.com/Automattic/Edit-Flow\">Edit Flow on Github</"
+"a></p>"
 msgstr ""
 
-#: modules/notifications/notifications.php:201
-#: modules/notifications/notifications.php:387
-msgid "No Access"
-msgstr ""
-
-#: modules/notifications/notifications.php:202
-#: modules/notifications/notifications.php:394
-msgid "No Email"
-msgstr ""
-
-#: modules/notifications/notifications.php:298
-msgid "Click to unfollow updates to this post"
-msgstr ""
-
-#: modules/notifications/notifications.php:299
-msgid "Following"
-msgstr ""
-
-#: modules/notifications/notifications.php:302
-msgid "Follow updates to this post"
-msgstr ""
-
-#: modules/notifications/notifications.php:303
-msgid "Follow"
-msgstr ""
-
-#: modules/notifications/notifications.php:341
+#: modules/custom-status/custom-status.php:63
 msgid ""
-"Select the users and user groups that should receive notifications when the "
-"status of this post is updated or when an editorial comment is added."
+"<p>Edit Flow’s custom statuses allow you to define the most important stages "
+"of your editorial workflow. Out of the box, WordPress only offers “Draft” and "
+"“Pending Review” as post states. With custom statuses, you can create your own "
+"post states like “In Progress”, “Pitch”, or “Waiting for Edit” and keep or "
+"delete the originals. You can also drag and drop statuses to set the best "
+"order for your workflow.</p><p>Custom statuses are fully integrated into the "
+"rest of Edit Flow and the WordPress admin. On the calendar and story budget, "
+"you can filter your view to see only posts of a specific post state. "
+"Furthermore, email notifications can be sent to a specific group of users when "
+"a post changes state.</p>"
 msgstr ""
-"کاربران یا گروه‌های کاربری را برای آگاه‌سازی از تغییر وضعیت نوشته و یا دیدگاه "
-"تحریریه جدید انتخاب کنید."
 
-#: modules/notifications/notifications.php:343
-#: modules/user-groups/user-groups.php:555
-msgid "Users"
-msgstr "کاربران"
+#: modules/custom-status/custom-status.php:57
+msgid "Status order updated."
+msgstr ""
 
-#: modules/notifications/notifications.php:354
-#: modules/user-groups/user-groups.php:39
-msgid "User Groups"
-msgstr "گروه‌های کاربری"
+#: modules/custom-status/custom-status.php:56
+msgid "Post status deleted."
+msgstr ""
 
-#: modules/notifications/notifications.php:406
+#: modules/custom-status/custom-status.php:55
+msgid "Post status updated."
+msgstr ""
+
+#: modules/custom-status/custom-status.php:54
+msgid "Default post status has been changed."
+msgstr ""
+
+#: modules/custom-status/custom-status.php:53
+msgid "Post status doesn't exist."
+msgstr ""
+
+#: modules/custom-status/custom-status.php:52
+msgid "Post status created."
+msgstr ""
+
+#: modules/custom-status/custom-status.php:50
+msgid "Edit Statuses"
+msgstr ""
+
+#: modules/custom-status/custom-status.php:35
 msgid ""
-"Nonce check failed. Please ensure you can add users or user groups to a post."
+"Create your own post statuses to add structure your publishing workflow. You "
+"can change existing or add new ones anytime, and drag and drop to change their "
+"order."
 msgstr ""
 
-#: modules/notifications/notifications.php:586
-msgid "WordPress Scheduler"
+#: modules/custom-status/custom-status.php:34
+msgid "Create custom post statuses to define the stages of your workflow."
 msgstr ""
 
-#. translators: 1: site name, 2: post type, 3. post title
-#: modules/notifications/notifications.php:595
-msgid "[%1$s] New %2$s Created: \"%3$s\""
+#: modules/custom-status/custom-status.php:33
+msgid "Custom Statuses"
+msgstr "وضعیت‌های سفارشی"
+
+#: modules/calendar/calendar.php:1774
+msgid "View all types"
 msgstr ""
 
-#. translators: 1: post type, 2: post id, 3. post title, 4. user name, 5. user email
-#: modules/notifications/notifications.php:597
-msgid "A new %1$s (#%2$s \"%3$s\") was created by %4$s %5$s"
+#: modules/story-budget/story-budget.php:779 modules/calendar/calendar.php:1761
+msgid "View all users"
 msgstr ""
 
-#. translators: 1: site name, 2: post type, 3. post title
-#: modules/notifications/notifications.php:600
-msgid "[%1$s] %2$s Trashed: \"%3$s\""
+#: modules/story-budget/story-budget.php:767 modules/calendar/calendar.php:1749
+msgid "View all categories"
 msgstr ""
 
-#. translators: 1: post type, 2: post id, 3. post title, 4. user name, 5. user email
-#: modules/notifications/notifications.php:602
-msgid "%1$s #%2$s \"%3$s\" was moved to the trash by %4$s %5$s"
+#: modules/story-budget/story-budget.php:758 modules/calendar/calendar.php:1741
+msgid "Unpublished"
+msgstr "منتشرنشده‌ها"
+
+#: modules/story-budget/story-budget.php:753 modules/calendar/calendar.php:1735
+msgid "View all statuses"
 msgstr ""
 
-#. translators: 1: site name, 2: post type, 3. post title
-#: modules/notifications/notifications.php:605
-msgid "[%1$s] %2$s Restored (from Trash): \"%3$s\""
+#: modules/calendar/calendar.php:1672
+msgid "Metadata could not be updated."
 msgstr ""
 
-#. translators: 1: post type, 2: post id, 3. post title, 4. user name, 5. user email
-#: modules/notifications/notifications.php:607
-msgid "%1$s #%2$s \"%3$s\" was restored from trash by %4$s %5$s"
+#: modules/calendar/calendar.php:1663
+msgid "Invalid metadata type"
 msgstr ""
 
-#. translators: 1: site name, 2: post type, 3. post title
-#: modules/notifications/notifications.php:615
-msgid "[%1$s] %2$s Published: \"%3$s\""
+#: modules/calendar/calendar.php:1581
+msgid "Post could not be created"
 msgstr ""
 
-#. translators: 1: post type, 2: post id, 3. post title, 4. user name, 5. user email
-#: modules/notifications/notifications.php:617
-msgid "%1$s #%2$s \"%3$s\" was published by %4$s %5$s"
+#: modules/calendar/calendar.php:1547
+msgid "Untitled"
 msgstr ""
 
-#. translators: 1: site name, 2: post type, 3. post title
-#: modules/notifications/notifications.php:620
-msgid "[%1$s] %2$s Unpublished: \"%3$s\""
+#: modules/calendar/calendar.php:1541
+msgid "Please change Quick Create to use a post type viewable on the calendar."
 msgstr ""
 
-#. translators: 1: post type, 2: post id, 3. post title, 4. user name, 5. user email
-#: modules/notifications/notifications.php:622
-msgid "%1$s #%2$s \"%3$s\" was unpublished by %4$s %5$s"
+#: modules/calendar/calendar.php:1537
+msgid "No date supplied."
 msgstr ""
 
-#. translators: 1: site name, 2: post type, 3. post title
-#: modules/notifications/notifications.php:625
-msgid "[%1$s] %2$s Status Changed for \"%3$s\""
+#: modules/editorial-comments/editorial-comments.php:429
+#: modules/user-groups/user-groups.php:626
+#: modules/custom-status/custom-status.php:1267
+#: modules/notifications/notifications.php:1271
+#: modules/dashboard/dashboard.php:358
+#: modules/editorial-metadata/editorial-metadata.php:1558
+#: modules/calendar/calendar.php:1516
+msgid "Back to Edit Flow"
+msgstr "بازگشت به «ادیت فلو»"
+
+#: modules/calendar/calendar.php:1475
+msgid "Regenerate calendar feed secret"
 msgstr ""
 
-#. translators: 1: post type, 2: post id, 3. post title, 4. user name, 5. user email
-#: modules/notifications/notifications.php:627
-msgid "Status was changed for %1$s #%2$s \"%3$s\" by %4$s %5$s"
+#: modules/custom-status/custom-status.php:1134
+#: modules/notifications/notifications.php:1227
+#: modules/dashboard/dashboard.php:269 modules/dashboard/dashboard.php:289
+#: modules/dashboard/dashboard.php:317 modules/calendar/calendar.php:1462
+msgid "Enabled"
 msgstr ""
 
-#. translators: 1: date, 2: time, 3: timezone
-#: modules/notifications/notifications.php:633
-msgid "This action was taken on %1$s at %2$s %3$s"
+#: modules/custom-status/custom-status.php:1133
+#: modules/notifications/notifications.php:1226
+#: modules/dashboard/dashboard.php:268 modules/dashboard/dashboard.php:288
+#: modules/dashboard/dashboard.php:316 modules/calendar/calendar.php:1461
+msgid "Disabled"
 msgstr ""
 
-#. translators: 1: old status, 2: new status
-#: modules/notifications/notifications.php:641
-msgid "%1$s => %2$s"
-msgstr ""
-
-#: modules/notifications/notifications.php:646
-msgid "== %s Details =="
-msgstr ""
-
-#: modules/notifications/notifications.php:647
-msgid "Title: %s"
-msgstr ""
-
-#. translators: 1: author name, 2: author email
-#: modules/notifications/notifications.php:650
-msgid "Author: %1$s (%2$s)"
-msgstr ""
-
-#: modules/notifications/notifications.php:660
-#: modules/notifications/notifications.php:741
-msgid "== Actions =="
-msgstr ""
-
-#: modules/notifications/notifications.php:661
-#: modules/notifications/notifications.php:743
-msgid "Add editorial comment: %s"
-msgstr ""
-
-#: modules/notifications/notifications.php:662
-#: modules/notifications/notifications.php:744
-msgid "Edit: %s"
-msgstr ""
-
-#: modules/notifications/notifications.php:663
-#: modules/notifications/notifications.php:745
-msgid "View: %s"
-msgstr ""
-
-#. translators: 1: blog name, 2: post title
-#: modules/notifications/notifications.php:715
-msgid "[%1$s] New Editorial Comment: \"%2$s\""
-msgstr ""
-
-#. translators: 1: post id, 2: post title, 3. post type
-#: modules/notifications/notifications.php:718
-msgid "A new editorial comment was added to %3$s #%1$s \"%2$s\""
-msgstr ""
-
-#. translators: 1: comment author, 2: author email, 3: date, 4: time
-#: modules/notifications/notifications.php:720
-msgid "%1$s (%2$s) said on %3$s at %4$s:"
-msgstr ""
-
-#: modules/notifications/notifications.php:742
-msgid "Reply: %s"
-msgstr ""
-
-#: modules/notifications/notifications.php:747
-msgid "You can see all editorial comments on this %s here: "
-msgstr ""
-
-#: modules/notifications/notifications.php:758
-msgid "You are receiving this email because you are subscribed to \"%s\"."
-msgstr ""
-
-#: modules/notifications/notifications.php:760
-msgid "This email was sent %s."
-msgstr ""
-
-#: modules/notifications/notifications.php:1188
-msgid "Post types for notifications:"
-msgstr ""
-
-#: modules/notifications/notifications.php:1189
-msgid "Always notify blog admin"
-msgstr ""
-
-#: modules/settings/settings.php:18
-msgid "Edit Flow redefines your WordPress publishing workflow."
-msgstr ""
-
-#: modules/settings/settings.php:19
+#: modules/calendar/calendar.php:1451
 msgid ""
-"Enable any of the features below to take control of your workflow. Custom "
-"statuses, email notifications, editorial comments, and more help you and your "
-"team save time so everyone can focus on what matters most: the content."
+"The number of weeks shown on the calendar can be changed on a user-by-user "
+"basis using the calendar's screen options."
 msgstr ""
 
-#: modules/settings/settings.php:133
-msgid "Not a registered Edit Flow module"
+#: modules/calendar/calendar.php:1414
+msgid "Subscription in iCal or Google Calendar"
 msgstr ""
 
-#: modules/settings/settings.php:139
-msgid ""
-"Module not enabled. Please enable it from the <a href=\"%1$s\">Edit Flow "
-"settings page</a>."
+#: modules/calendar/calendar.php:1413
+msgid "Post type to create directly from calendar"
 msgstr ""
 
-#: modules/settings/settings.php:219
-msgid ""
-"<a href=\"http://editflow.org/\">Edit Flow</a> is produced by <a href=\"http://"
-"danielbachhuber.com/\">Daniel Bachhuber</a>, <a href=\"http://digitalize.ca/"
-"\">Mo Jangda</a>, and <a href=\"http://www.scottbressler.com/blog/\">Scott "
-"Bressler</a>, with special help from <a href=\"http://andrewspittle.net"
-"\">Andrew Spittle</a> and <a href=\"http://andrewwitherspoon.com/\">Andrew "
-"Witherspoon</a>."
+#: modules/calendar/calendar.php:1412
+msgid "Post types to show"
 msgstr ""
 
-#: modules/settings/settings.php:220
-msgid "You're using Edit Flow version %s."
+#: modules/calendar/calendar.php:1411
+msgid "Number of weeks to show"
 msgstr ""
 
-#: modules/settings/settings.php:221
-msgid ""
-"Icons courtesy of the <a href=\"http://thenounproject.com/\">Noun Project</a>."
+#: modules/calendar/calendar.php:1370
+msgid "for %1$s through %2$s"
 msgstr ""
 
-#: modules/settings/settings.php:222
-msgid ""
-"<a href=\"http://wordpress.org/tags/edit-flow?forum_id=10\">Please give us "
-"your feedback, ideas, bug reports and comments</a> in the WordPress.org forums."
+#: modules/calendar/calendar.php:1183
+msgid "&lsaquo;"
 msgstr ""
 
-#: modules/settings/settings.php:233
-msgid "There are no Edit Flow modules registered"
+#: modules/calendar/calendar.php:1183
+msgid "Back 1 week"
 msgstr ""
 
-#: modules/settings/settings.php:267
-msgid "Enable"
+#: modules/calendar/calendar.php:1181
+msgid "&laquo;"
 msgstr ""
 
-#: modules/settings/settings.php:270
-msgid "Disable"
-msgstr "غیرفعال"
-
-#: modules/settings/settings.php:331
-msgid ""
-"Disabled because add_post_type_support( '%1$s', '%2$s' ) is included in a "
-"loaded file."
+#: modules/calendar/calendar.php:1181
+msgid "Back %d weeks"
 msgstr ""
 
-#: modules/story-budget/story-budget.php:38
-#: modules/story-budget/story-budget.php:130
-#: modules/story-budget/story-budget.php:288
-msgid "Story Budget"
-msgstr "هزینه‌ها"
-
-#: modules/story-budget/story-budget.php:39
-msgid "View the status of all your content <a href=\"%s\">at a glance</a>."
+#: modules/calendar/calendar.php:1177
+msgid "Today is %s"
 msgstr ""
 
-#: modules/story-budget/story-budget.php:40
-msgid ""
-"Use the story budget to see how content on your site is progressing. Filter by "
-"specific categories or date ranges to see details about each post in progress."
+#: modules/calendar/calendar.php:1173
+msgid "&raquo;"
 msgstr ""
 
-#: modules/story-budget/story-budget.php:173
-msgid "Title"
+#: modules/calendar/calendar.php:1173
+msgid "Forward %d weeks"
 msgstr ""
 
-#: modules/story-budget/story-budget.php:176
-msgid "Post Date"
+#: modules/calendar/calendar.php:1171
+msgid "&rsaquo;"
 msgstr ""
 
-#: modules/story-budget/story-budget.php:177
-msgid "Last Modified"
+#: modules/calendar/calendar.php:1171
+msgid "Forward 1 week"
 msgstr ""
 
-#: modules/story-budget/story-budget.php:233
-msgid "Screen Layout"
+#: modules/story-budget/story-budget.php:651 modules/calendar/calendar.php:1165
+msgid "Reset"
+msgstr "بازنشانی"
+
+#: modules/story-budget/story-budget.php:639 modules/calendar/calendar.php:1153
+msgid "Filter"
+msgstr "پالایه"
+
+#: modules/calendar/calendar.php:1056
+msgid "Post Type"
 msgstr ""
 
-#: modules/story-budget/story-budget.php:240
-msgid "Number of Columns: "
+#: modules/story-budget/story-budget.php:175 modules/calendar/calendar.php:1048
+msgid "Author"
 msgstr ""
 
-#: modules/story-budget/story-budget.php:338
-msgctxt "%1$s = start date, %2$s = number of days, %3$s = translation of 'Days'"
-msgid "starting %1$s showing %2$s %3$s"
+#: modules/custom-status/custom-status.php:317 modules/calendar/calendar.php:978
+#: blocks/src/custom-status/block.js:70
+msgid "Save"
 msgstr ""
 
-#: modules/story-budget/story-budget.php:338
-msgid "day"
-msgid_plural "days"
+#: modules/calendar/calendar.php:978
+msgid "Save &#8220;%s&#8221;"
+msgstr ""
+
+#: modules/story-budget/story-budget.php:578 modules/calendar/calendar.php:975
+msgid "View"
+msgstr ""
+
+#: modules/story-budget/story-budget.php:578 modules/calendar/calendar.php:975
+msgid "View &#8220;%s&#8221;"
+msgstr ""
+
+#: modules/story-budget/story-budget.php:580
+#: modules/custom-status/custom-status.php:1707 modules/calendar/calendar.php:973
+msgid "Preview"
+msgstr "پیش‌نمایش"
+
+#: modules/story-budget/story-budget.php:580
+#: modules/custom-status/custom-status.php:1707 modules/calendar/calendar.php:973
+msgid "Preview &#8220;%s&#8221;"
+msgstr ""
+
+#: modules/calendar/calendar.php:970
+msgid "Trash this item"
+msgstr ""
+
+#: modules/story-budget/story-budget.php:572
+#: modules/user-groups/user-groups.php:1177
+#: modules/custom-status/custom-status.php:318
+#: modules/custom-status/custom-status.php:1869
+#: modules/editorial-metadata/editorial-metadata.php:1708
+#: modules/calendar/calendar.php:968
+msgid "Edit"
+msgstr "ویرایش"
+
+#: modules/calendar/calendar.php:968
+msgid "Edit this item"
+msgstr ""
+
+#: modules/calendar/calendar.php:957
+msgid "None"
+msgstr ""
+
+#: modules/calendar/calendar.php:823
+msgctxt "post type name"
+msgid "Edit %s"
+msgstr "ویرایش %s"
+
+#: modules/calendar/calendar.php:822
+msgctxt "post type name"
+msgid "Create %s"
+msgstr ""
+
+#. translators: %s = post type name
+#: modules/calendar/calendar.php:819
+msgctxt "post type name"
+msgid "%s Title"
+msgstr ""
+
+#. translators: %1$s = post type name, %2$s = date
+#: modules/calendar/calendar.php:817
+msgid "Schedule a %1$s for %2$s"
+msgstr ""
+
+#: modules/calendar/calendar.php:808
+msgid "Show %d more"
+msgstr ""
+
+#: modules/calendar/calendar.php:786 modules/calendar/calendar.php:1177
+msgid "Today"
+msgstr ""
+
+#: modules/calendar/calendar.php:676
+msgid "Post restored from the Trash."
+msgid_plural "%d posts restored from the Trash."
 msgstr[0] ""
 msgstr[1] ""
 
-#: modules/story-budget/story-budget.php:341
-#: modules/story-budget/story-budget.php:344
-msgid "Change"
+#: modules/story-budget/story-budget.php:612 modules/calendar/calendar.php:672
+msgid "Undo"
 msgstr ""
 
-#: modules/story-budget/story-budget.php:436
-msgid "Click to toggle"
+#: modules/calendar/calendar.php:668
+msgid "Post moved to the trash."
+msgid_plural "%d posts moved to the trash."
+msgstr[0] ""
+msgstr[1] ""
+
+#: modules/calendar/calendar.php:321
+msgid "Something is wrong with the format for the new date."
 msgstr ""
 
-#: modules/story-budget/story-budget.php:457
-msgid "There are no posts for this term in the range or filter specified."
+#: modules/calendar/calendar.php:239
+msgid "Subscribe in iCal or Google Calendar"
 msgstr ""
 
-#: modules/story-budget/story-budget.php:521
-msgid "%s ago"
-msgstr "%s پیش"
-
-#: modules/story-budget/story-budget.php:550
-msgid "Move this item to the Trash"
+#: modules/calendar/calendar.php:229
+msgid "Apply"
 msgstr ""
 
-#: modules/story-budget/story-budget.php:632
-msgid "Print"
-msgstr "چاپ"
-
-#: modules/user-groups/user-groups.php:40
-msgid "Organize your users into groups to mimic your organizational structure."
+#: modules/calendar/calendar.php:222
+msgid "Number of Weeks: "
 msgstr ""
 
-#: modules/user-groups/user-groups.php:41
-msgid ""
-"Configure user groups to organize all of the users on your site. Each user can "
-"be in many user groups and you can change them at any time."
-msgstr ""
-
-#: modules/user-groups/user-groups.php:53
-msgid "User group created. Feel free to add users to the usergroup."
-msgstr ""
-
-#: modules/user-groups/user-groups.php:54
-msgid "User group updated."
-msgstr ""
-
-#: modules/user-groups/user-groups.php:55 modules/user-groups/user-groups.php:919
-msgid "User group doesn't exist."
-msgstr ""
-
-#: modules/user-groups/user-groups.php:56
-msgid "User group deleted."
-msgstr ""
-
-#: modules/user-groups/user-groups.php:59
-msgid "Manage User Groups"
-msgstr ""
-
-#: modules/user-groups/user-groups.php:64
-msgid ""
-"<p>For those with many people involved in the publishing process, user groups "
-"helps you keep them organized.</p><p>Currently, user groups are primarily used "
-"for subscribing a set of users to a post for notifications.</p>"
-msgstr ""
-
-#: modules/user-groups/user-groups.php:66
+#: modules/calendar/calendar.php:64
 msgid ""
 "<p><strong>For more information:</strong></p><p><a href=\"http://editflow.org/"
-"features/user-groups/\">User Groups Documentation</a></p><p><a href=\"http://"
+"features/calendar/\">Calendar Documentation</a></p><p><a href=\"http://"
 "wordpress.org/tags/edit-flow?forum_id=10\">Edit Flow Forum</a></p><p><a href="
 "\"https://github.com/danielbachhuber/Edit-Flow\">Edit Flow on Github</a></p>"
 msgstr ""
 
-#: modules/user-groups/user-groups.php:126
-msgid "Copy Editors"
-msgstr ""
-
-#: modules/user-groups/user-groups.php:127
-msgid "Making sure the quality is top-notch."
-msgstr ""
-
-#: modules/user-groups/user-groups.php:130
-msgid "Photographers"
-msgstr ""
-
-#: modules/user-groups/user-groups.php:131
-msgid "Capturing the story visually."
-msgstr ""
-
-#: modules/user-groups/user-groups.php:134
-msgid "Reporters"
-msgstr ""
-
-#: modules/user-groups/user-groups.php:135
-msgid "Out in the field, writing stories."
-msgstr ""
-
-#: modules/user-groups/user-groups.php:138
-msgid "Section Editors"
-msgstr ""
-
-#: modules/user-groups/user-groups.php:139
-msgid "Providing feedback and direction."
-msgstr ""
-
-#: modules/user-groups/user-groups.php:295
-#: modules/user-groups/user-groups.php:364
-#: modules/user-groups/user-groups.php:452
-msgid "Please enter a name for the user group."
-msgstr ""
-
-#: modules/user-groups/user-groups.php:303
-#: modules/user-groups/user-groups.php:374
-msgid "User group name cannot exceed 40 characters. Please try a shorter name."
-msgstr ""
-
-#: modules/user-groups/user-groups.php:317
-msgid "Error adding usergroup."
-msgstr ""
-
-#: modules/user-groups/user-groups.php:391
-msgid "Error updating user group."
-msgstr ""
-
-#: modules/user-groups/user-groups.php:420
-msgid "Error deleting user group."
-msgstr ""
-
-#: modules/user-groups/user-groups.php:486
-msgid "Could not update the user group: <strong>%s</strong>"
-msgstr ""
-
-#: modules/user-groups/user-groups.php:574
-#: modules/user-groups/user-groups.php:617
-msgid "The name is used to identify the user group."
-msgstr ""
-
-#: modules/user-groups/user-groups.php:579
-#: modules/user-groups/user-groups.php:622
+#: modules/calendar/calendar.php:62
 msgid ""
-"The description is primarily for administrative use, to give you some context "
-"on what the user group is to be used for."
+"<p>The calendar is a convenient week-by-week or month-by-month view into your "
+"content. Quickly see which stories are on track to being published on time, "
+"and which will need extra effort.</p>"
 msgstr ""
 
-#: modules/user-groups/user-groups.php:582
-#: modules/user-groups/user-groups.php:1248
-msgid "Update User Group"
+#: modules/editorial-comments/editorial-comments.php:39
+#: modules/user-groups/user-groups.php:63
+#: modules/custom-status/custom-status.php:62
+#: modules/notifications/notifications.php:50
+#: modules/editorial-metadata/editorial-metadata.php:67
+#: modules/calendar/calendar.php:61
+msgid "Overview"
 msgstr ""
 
-#: modules/user-groups/user-groups.php:594
-msgid "Are you sure you want to delete the user group?"
+#: modules/calendar/calendar.php:58 modules/calendar/calendar.php:253
+msgid "Calendar Options"
 msgstr ""
 
-#: modules/user-groups/user-groups.php:626
-msgid "Add New User Group"
+#: modules/calendar/calendar.php:55
+msgid ""
+"iCal secret key regenerated. Please inform all users they will need to "
+"resubscribe."
 msgstr ""
 
-#: modules/user-groups/user-groups.php:654
-msgid "Usergroups"
+#: modules/calendar/calendar.php:54
+msgid ""
+"Updating the post date dynamically doesn't work for published content. Please "
+"<a href='%s'>edit the post</a>."
 msgstr ""
 
-#: modules/user-groups/user-groups.php:656
-msgid "Select the user groups that you would like to be a part of:"
+#: modules/calendar/calendar.php:53
+msgid "There was an error updating the post. Please try again."
 msgstr ""
 
-#: modules/user-groups/user-groups.php:658
-msgid "Select the user groups that this user should be a part of:"
+#: modules/calendar/calendar.php:52
+msgid "Post date updated."
 msgstr ""
 
-#: modules/user-groups/user-groups.php:764
-msgid "No user groups were found."
+#: modules/calendar/calendar.php:36
+msgid ""
+"Edit Flow’s calendar lets you see your posts over a customizable date range. "
+"Filter by status or click on the post title to see its details. Drag and drop "
+"posts between days to change their publication date."
 msgstr ""
 
-#: modules/user-groups/user-groups.php:764
-msgid "Add a new user group. Opens new window."
+#: modules/calendar/calendar.php:35
+msgid "View upcoming content in a <a href=\"%s\">customizable calendar</a>."
 msgstr ""
 
-#: modules/user-groups/user-groups.php:764
-msgid "Add a User Group"
+#: modules/calendar/calendar.php:34 modules/calendar/calendar.php:168
+#: modules/calendar/calendar.php:659
+msgid "Calendar"
+msgstr "تقویم"
+
+#: edit_flow.php:270
+msgid "Post does not exist"
+msgstr "نوشته وجود ندارد"
+
+#: edit_flow.php:269
+msgid "You do not have necessary permissions to complete this action."
 msgstr ""
 
-#: modules/user-groups/user-groups.php:876
-msgid "New user groups must have a name"
+#: edit_flow.php:268 modules/settings/settings.php:101
+#: modules/settings/settings.php:356
+msgid "Cheatin&#8217; uh?"
 msgstr ""
 
-#: modules/user-groups/user-groups.php:963
-msgid "Invalid users variable. Should be array."
+#: edit_flow.php:267
+msgid "Please correct your form errors below and try again."
 msgstr ""
 
-#: modules/user-groups/user-groups.php:1135
-msgid "No user groups found."
+#: edit_flow.php:266
+msgid "Settings updated."
+msgstr "تنظیمات به‌روز شد."
+
+#: edit_flow.php:263 modules/editorial-metadata/editorial-metadata.php:364
+msgid "Configure"
+msgstr "پیکربندی"
+
+#: common/php/util.php:14
+msgid "(no title)"
+msgstr "(بدون عنوان)"
+
+#: modules/story-budget/story-budget.php:574 modules/calendar/calendar.php:970
+msgid "Trash"
 msgstr ""
 
-#: modules/user-groups/user-groups.php:1148
-msgid "Users in Group"
-msgstr ""
+#: modules/custom-status/custom-status.php:428
+#: modules/dashboard/dashboard.php:175 modules/calendar/calendar.php:1069
+msgid "Scheduled"
+msgstr "زمان‌بندی‌شده"
 
-#: blocks/src/custom-status/block.js:66
-msgid "Extended Post Status"
-msgstr ""
+#: modules/custom-status/custom-status.php:315
+#: modules/custom-status/custom-status.php:418 modules/calendar/calendar.php:1074
+msgid "Published"
+msgstr "منتشرشده"
 
-#: blocks/src/custom-status/block.js:66
-msgid "Extended Post Status Disabled."
-msgstr ""
+#: common/php/class-module.php:159 modules/custom-status/custom-status.php:158
+msgid "Pending Review"
+msgstr "برای بازبینی"
 
-#: blocks/src/custom-status/block.js:76
-msgid "To select a custom status, please unpublish the content first."
-msgstr ""
+#: common/php/class-module.php:153 modules/custom-status/custom-status.php:150
+msgid "Draft"
+msgstr "پیش‌نویس"
 
-#~ msgid "Post"
-#~ msgstr "نوشته"
+#: common/php/class-module.php:54
+msgid "Page"
+msgstr "برگه"
 
-#~ msgid "Page"
-#~ msgstr "برگه"
-
-#~ msgid "Pending Review"
-#~ msgstr "برای بازبینی"
+#: common/php/class-module.php:53
+msgid "Post"
+msgstr "نوشته"
 
 #~ msgid "Invalid Taxonomy"
 #~ msgstr "رده‌بندی نامعتبر"
-
-#~ msgid "Quick Edit"
-#~ msgstr "ویرایش سریع"
 
 #~ msgid "Posts at a Glance"
 #~ msgstr "نوشته‌ها در یک نگاه"
