@@ -467,7 +467,7 @@ class Dashboard extends gNetwork\Module
 		$items[] = HTML::tag( 'a', [
 			'href'  => network_admin_url( 'update-core.php' ),
 			'title' => sprintf( __( 'Update to %s' ), $preferred->current ? $preferred->current : __( 'Latest' ) ),
-			'class' => '-privacy',
+			'class' => '-update',
 		], _x( 'Update WordPress', 'Modules: Dashboard: Update Core', 'gnetwork' ) );
 
 		return $items;

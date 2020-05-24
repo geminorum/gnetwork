@@ -263,11 +263,11 @@ class Themes extends gNetwork\Module
 
 		$jquery_url = $remote
 			? 'https://code.jquery.com/jquery-'.$jquery_ver.'.min.js'
-			: '/wp-includes/js/jquery/jquery.js';
+			: includes_url( 'js/jquery/jquery.js' );
 
 		$migrate_url = $remote
 			? 'https://code.jquery.com/jquery-migrate-'.$migrate_ver.'.min.js'
-			: '/wp-includes/js/jquery/jquery-migrate.min.js';
+			: includes_url( 'js/jquery/jquery-migrate.min.js' );
 
 		$scripts->remove( [ 'jquery', 'jquery-core', 'jquery-migrate' ] );
 		$scripts->add( 'jquery-core', $jquery_url, FALSE, ( $remote ? NULL : $jquery_ver ), $bottom );
