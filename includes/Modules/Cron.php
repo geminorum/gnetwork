@@ -378,7 +378,10 @@ class Cron extends gNetwork\Module
 		echo HTML::tag( 'button', [
 			'id'    => $this->classs( 'force-check' ),
 			'class' => [ 'button', 'button-small' ],
-			'data'  => [ 'nonce' => wp_create_nonce( $this->classs( 'status-check' ) ) ],
+			'data'  => [
+				'error' => _x( 'There was a problem getting the status of WP Cron.', 'Modules: CRON', 'gnetwork' ),
+				'nonce' => wp_create_nonce( $this->classs( 'status-check' ) ),
+			],
 		], _x( 'Check Status Now', 'Modules: CRON', 'gnetwork' ) );
 
 		if ( $link && WordPress::cuc( 'manage_options' ) ) {
