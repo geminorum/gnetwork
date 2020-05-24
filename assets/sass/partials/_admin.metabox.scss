@@ -40,6 +40,13 @@
     }
   }
 
+  &.closed {
+    .postbox-title-action,
+    .postbox-title-info {
+      display: none;
+    }
+  }
+
   .inside {
     .notice {
       box-shadow: none;

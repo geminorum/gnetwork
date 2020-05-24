@@ -82,6 +82,11 @@
         content: "\f530" !important;
       }
 
+      a.-update::before {
+        color: $brand-success !important;
+        content: "\f463" !important;
+      }
+
       a.-storage::before {
         content: "\f104" !important;
       }

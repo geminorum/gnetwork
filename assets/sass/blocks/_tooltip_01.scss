@@ -24,7 +24,7 @@ $theme-tooltip-borderradius: 2px !default;
 // [data-toggle="tooltip"],
 .tooltip {
   position: relative;
-  cursor: pointer;
+  cursor: help; // pointer;
 
   // base styles for the entire tooltip
   &::before,
