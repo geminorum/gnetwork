@@ -20,7 +20,7 @@ class Branding extends gNetwork\Module
 			$this->filter( 'get_site_icon_url', 3 );
 
 		if ( $this->options['webapp_manifest'] && ! is_admin() && is_main_site() ) {
-			$this->action( 'parse_request', 1, 1 );
+			$this->filter( 'pre_handle_404', 2 );
 			$this->filter( 'redirect_canonical', 2 );
 		}
 
@@ -251,10 +251,18 @@ class Branding extends gNetwork\Module
 			echo '<link rel="manifest" href="'.$this->url_manifest().'" />'."\n";
 	}
 
-	public function parse_request( $request )
+	public function pre_handle_404( $preempt, $wp_query )
 	{
-		if ( 'manifest.json' == $request->request )
-			$this->render_manifest();
+		if ( $preempt )
+			return $preempt;
+
+		// 'pagename' is for most permalink types, name is for when
+		// the %postname% is used as a top-level field
+		if ( 'manifest-json' === $wp_query->get( 'pagename' )
+			|| 'manifest-json' === $wp_query->get( 'name' ) )
+				$this->render_manifest();
+
+		return $preempt;
 	}
 
 	public function redirect_canonical( $redirect_url, $requested_url )
