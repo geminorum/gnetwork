@@ -30,7 +30,7 @@ class OpenSearch extends gNetwork\Module
 		// $this->action( 'rewrite_rules_array', 1, 8 );
 
 		if ( ! is_admin() ) {
-			$this->action( 'parse_request', 1, 1 );
+			$this->filter( 'pre_handle_404', 2 );
 			$this->filter( 'redirect_canonical', 2 );
 		}
 	}
@@ -201,13 +201,22 @@ class OpenSearch extends gNetwork\Module
 	}
 
 	// TODO: make suggestions an AJAX call
-	public function parse_request( $request )
+	public function pre_handle_404( $preempt, $wp_query )
 	{
-		if ( 'osd.xml' == $request->request )
-			$this->xml();
+		if ( $preempt )
+			return $preempt;
 
-		else if ( 'oss.json' == $request->request )
-			$this->suggestions();
+		// 'pagename' is for most permalink types, name is for when
+		// the %postname% is used as a top-level field
+		if ( 'osd-xml' === $wp_query->get( 'pagename' )
+			|| 'osd-xml' === $wp_query->get( 'name' ) )
+				$this->render_xml();
+
+		if ( 'oss-json' === $wp_query->get( 'pagename' )
+			|| 'oss-json' === $wp_query->get( 'name' ) )
+				$this->render_suggestions();
+
+		return $preempt;
 	}
 
 	// DISABLED
@@ -266,7 +275,7 @@ class OpenSearch extends gNetwork\Module
 
 	// http://www.opensearch.org/Specifications/OpenSearch/1.1
 	// https://developer.mozilla.org/en-US/Add-ons/Creating_OpenSearch_plugins_for_Firefox
-	private function xml()
+	private function render_xml()
 	{
 		// _donot_cache_page();
 
@@ -391,7 +400,7 @@ class OpenSearch extends gNetwork\Module
 	// https://wiki.mozilla.org/Search_Service/Suggestions
 	// https://developer.mozilla.org/en-US/docs/Supporting_search_suggestions_in_search_plugins
 	// http://www.opensearch.org/Specifications/OpenSearch/Extensions/Suggestions
-	private function suggestions()
+	private function render_suggestions()
 	{
 		$completions = $descriptions = $query_urls = [];
 
