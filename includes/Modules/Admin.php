@@ -114,7 +114,7 @@ class Admin extends gNetwork\Module
 			$tools = add_submenu_page( 'tools.php',
 				_x( 'Network Tools', 'Modules: Admin: Page Menu', 'gnetwork' ),
 				_x( 'Extras', 'Modules: Admin: Page Menu', 'gnetwork' ),
-				'edit_others_posts',
+				'edit_posts', // core's for tools.php
 				$this->base.'-tools',
 				[ $this, 'tools_page' ]
 			);
@@ -132,7 +132,7 @@ class Admin extends gNetwork\Module
 			$tools = add_submenu_page( 'tools.php',
 				_x( 'Network Tools', 'Modules: Admin: Page Menu', 'gnetwork' ),
 				_x( 'Extras', 'Modules: Admin: Page Menu', 'gnetwork' ),
-				'edit_others_posts',
+				'edit_posts', // core's for tools.php
 				$this->base.'-tools',
 				[ $this, 'tools_page' ]
 			);

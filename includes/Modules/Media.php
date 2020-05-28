@@ -58,7 +58,7 @@ class Media extends gNetwork\Module
 	public function setup_menu( $context )
 	{
 		$this->register_menu( _x( 'Media', 'Modules: Menu Name', 'gnetwork' ) );
-		$this->register_tool( _x( 'Images', 'Modules: Menu Name', 'gnetwork' ), 'images', 9, $this->options['tools_accesscap'] );
+		$this->register_tool( _x( 'Images', 'Modules: Menu Name', 'gnetwork' ), 'images' );
 	}
 
 	protected function setup_ajax( $request )

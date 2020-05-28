@@ -207,7 +207,9 @@ class Module extends Core\Base
 		} else {
 
 			if ( is_null( $capability ) )
-				$capability = 'manage_options';
+				$capability = array_key_exists( 'menus_accesscap', $this->options )
+					? $this->options['menus_accesscap']
+					: 'manage_options';
 
 			Modules\Admin::registerMenu( $sub, $title, $callback, $capability, $priority );
 		}
@@ -233,7 +235,9 @@ class Module extends Core\Base
 		} else {
 
 			if ( is_null( $capability ) )
-				$capability = 'manage_options';
+				$capability = array_key_exists( 'tools_accesscap', $this->options )
+					? $this->options['tools_accesscap']
+					: 'manage_options';
 
 			Modules\Admin::registerTool( $sub, $title, $callback, $capability, $priority );
 		}
