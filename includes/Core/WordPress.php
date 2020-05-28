@@ -347,7 +347,7 @@ class WordPress extends Base
 
 		// pseudo-cap for site users
 		if ( '_member_of_site' == $cap )
-			return is_user_member_of_blog();
+			return is_user_member_of_blog() || self::isSuperAdmin();
 
 		return current_user_can( $cap );
 	}

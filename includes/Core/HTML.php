@@ -1142,29 +1142,29 @@ class HTML extends Base
 
 	// @REF: https://codex.wordpress.org/Plugin_API/Action_Reference/admin_notices
 	// CLASSES: notice-error, notice-warning, notice-success, notice-info, is-dismissible, fade, inline
-	public static function notice( $notice, $class = 'notice-success fade inline', $dismissible = TRUE )
+	public static function notice( $notice, $class = 'notice-success fade', $dismissible = TRUE )
 	{
 		return sprintf( '<div class="notice %s%s -notice">%s</div>', $class, ( $dismissible ? ' is-dismissible' : '' ), Text::autoP( $notice ) );
 	}
 
 	public static function error( $notice, $dismissible = TRUE, $extra = '' )
 	{
-		return self::notice( $notice, 'notice-error fade inline '.self::prepClass( $extra ), $dismissible );
+		return self::notice( $notice, 'notice-error fade '.self::prepClass( $extra ), $dismissible );
 	}
 
 	public static function success( $notice, $dismissible = TRUE, $extra = '' )
 	{
-		return self::notice( $notice, 'notice-success fade inline '.self::prepClass( $extra ), $dismissible );
+		return self::notice( $notice, 'notice-success fade '.self::prepClass( $extra ), $dismissible );
 	}
 
 	public static function warning( $notice, $dismissible = TRUE, $extra = '' )
 	{
-		return self::notice( $notice, 'notice-warning fade inline '.self::prepClass( $extra ), $dismissible );
+		return self::notice( $notice, 'notice-warning fade '.self::prepClass( $extra ), $dismissible );
 	}
 
 	public static function info( $notice, $dismissible = TRUE, $extra = '' )
 	{
-		return self::notice( $notice, 'notice-info fade inline '.self::prepClass( $extra ), $dismissible );
+		return self::notice( $notice, 'notice-info fade '.self::prepClass( $extra ), $dismissible );
 	}
 
 	// @REF: https://developer.wordpress.org/resource/dashicons/
