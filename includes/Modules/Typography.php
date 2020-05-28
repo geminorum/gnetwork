@@ -152,7 +152,11 @@ class Typography extends gNetwork\Module
 
 		// FIXME: DRAFT for date: not tested!
 		// @REF: http://stackoverflow.com/a/3337480
-		// $content = preg_replace( "/(^| )([0-9]{1,2}\/[0-9]{1,2}\/[0-9]{2,4})( |$)/is", "<span class=\"date\">$2</span>", $content );
+		// $content = preg_replace( "/(^| )([0-9]{1,2}\/[0-9]{1,2}\/[0-9]{2,4})( |$)/is", "$1<span class=\"date\">$2</span>$3", $content );
+
+		// FIXME: DRAFT for phone: not tested!
+		// @REF: https://www.regextester.com/1950
+		// $content = preg_replace( "/(^| )(([+]{1}[0-9]{2}|0)[0-9]{9})( |$)/is", "$1[tel]$2[/tel]$3", $content );
 
 		return $content;
 	}

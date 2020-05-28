@@ -39,6 +39,7 @@ class Scripts extends Core\Base
 		$handle = strtolower( self::BASE.'-block-'.str_replace( '.', '-', $asset ) );
 
 		wp_register_style( $handle, $base.$path.'/block.'.$asset.'.css', $dep, $version );
+		wp_style_add_data( $handle, 'rtl', 'replace' );
 
 		return $handle;
 	}
