@@ -44,7 +44,7 @@ class Site extends gNetwork\Module
 			$this->setup_meta_sync();
 
 			if ( is_main_site() )
-				add_action( $this->hook( 'resync_sitemeta' ), [ $this, 'resync_sitemeta' ] );
+				add_action( $this->hook( 'resync_sitemeta' ), [ $this, 'network_resync_sitemeta' ], 10, 0 );
 		}
 	}
 
