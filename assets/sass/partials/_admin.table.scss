@@ -24,6 +24,13 @@ table {
       width: auto;
     }
   }
+
+  &.base-table-code,
+  &.base-table-side,
+  &.base-table-side-wrap {
+    /*rtl:ignore*/
+    direction: ltr;
+  }
 }
 
 div.base-table-title {
@@ -256,10 +263,6 @@ table.base-table-simple {
 
 table.base-table-raw,
 table.base-table-code {
-
-  /*rtl:ignore*/
-  direction: ltr;
-
   > caption {}
 
   > tbody > tr > td {
@@ -282,10 +285,6 @@ table.base-table-code {
 }
 
 table.base-table-side {
-
-  /*rtl:ignore*/
-  direction: ltr;
-
   border: 1px solid #ccc;
   border-spacing: 0;
 
@@ -320,9 +319,6 @@ table.base-table-side {
 }
 
 table.base-table-side-wrap {
-
-  /*rtl:ignore*/
-  direction: ltr;
   border: 1px solid #ccc;
   border-width: 1px 1px 1px 0;
   border-spacing: 0;

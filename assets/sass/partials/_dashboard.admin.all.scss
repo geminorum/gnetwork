@@ -146,6 +146,10 @@
 
   .-table-logins,
   .-table-signup {
+    th {
+      font-size: .89em;
+    }
+
     .-month-day,
     .-time-ago,
     .-time-full {
@@ -172,8 +176,8 @@
   }
 
   .-table-summary {
-    margin-top: .5em;
     width: 100%;
+    margin: .5em 0 -.25em;
 
     td {
       width: 50%;
