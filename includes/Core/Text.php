@@ -674,7 +674,8 @@ class Text extends Base
 	}
 
 	// @SOURCE: http://php.net/manual/en/function.preg-replace-callback.php#91950
-	// USAGE: echo Text::replaceWords( $words, $string, function( $matched ) { return "<strong>{$matched}</strong>"; });
+	// USAGE: echo Text::replaceWords( $words, $string, function( $matched ) { return "<strong>{$matched}</strong>"; } );
+	// // FIXME: maybe space before/after the words
 	public static function replaceWords( $words, $string, $callback, $skip_links = TRUE )
 	{
 		$pattern = '(^|[^\\w\\-])('.implode( '|', array_map( 'preg_quote', $words ) ).')($|[^\\w\\-])';
@@ -861,7 +862,7 @@ class Text extends Base
 
 		echo $contents;
 
-		exit();
+		exit;
 	}
 
 	// USAGE: `Text::correctMixedEncoding('Ù…Ø­ØªÙˆØ§ÛŒ Ù…ÛŒÚ©Ø³ Ø´Ø¯Ù‡ و بخش سالم');`

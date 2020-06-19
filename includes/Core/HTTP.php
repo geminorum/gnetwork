@@ -603,8 +603,10 @@ class HTTP extends Base
 			curl_multi_add_handle( $mh, $ch[$i] );
 		}
 
-		do { // execute all queries simultaneously, and continue when all are complete
+		do {
 
+			// execute all queries simultaneously,
+			// and continue when all are complete
 			curl_multi_exec( $mh, $running );
 
 		} while ( $running );
