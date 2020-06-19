@@ -22,6 +22,37 @@ class Scripts extends Core\Base
 		return self::enqueueScript( $asset, $dep, $version, $base, $path );
 	}
 
+	// @REF: https://fontawesome.com/how-to-use/customizing-wordpress/snippets/setup-cdn-webfont
+	public static function enqueueStyleCDN( $url, $integrity = NULL, $actions = NULL )
+	{
+		$matched = 1 === preg_match( '|/([^/]+?)\.css$|', $url, $matches )
+			? $matches[1]
+			: md5( $url );
+
+		$handle = sprintf( '%s-cdn-%s', self::BASE, $matched );
+
+		if ( is_null( $actions ) )
+			$actions = [
+				'wp_enqueue_scripts',
+				'admin_enqueue_scripts',
+				'login_enqueue_scripts',
+			];
+
+		foreach ( (array) $actions as $action )
+			add_action( $action, function() use ( $url, $handle ) {
+				wp_enqueue_style( $handle, $url, [], NULL );
+			} );
+
+		if ( $integrity )
+			add_filter( 'style_loader_tag', function( $html, $registered ) use ( $handle, $integrity ) {
+				return $registered == $handle
+					? preg_replace( '/\/>$/', sprintf( 'integrity="%s" crossorigin="anonymous" />', $integrity ), $html, 1 )
+					: $html;
+			}, 10, 2 );
+
+		return $handle;
+	}
+
 	public static function registerBlock( $asset, $dep = NULL, $version = GNETWORK_VERSION, $base = GNETWORK_URL, $path = 'assets/blocks' )
 	{
 		$dep     = is_null( $dep ) ? [ 'wp-blocks', 'wp-i18n', 'wp-components', 'wp-editor' ] : (array) $dep;
