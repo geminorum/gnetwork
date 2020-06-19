@@ -319,7 +319,7 @@ class File extends Base
 
 		readfile( $path );
 
-		exit();
+		exit;
 	}
 
 	public static function prepName( $suffix = NULL, $prefix = NULL )

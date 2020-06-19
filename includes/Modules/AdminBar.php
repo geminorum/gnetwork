@@ -885,7 +885,7 @@ class AdminBar extends gNetwork\Module
 					'href'   => $item->url,
 					'meta'   => [
 						'title' => $item->attr_title,
-						'class' => join( ' ', $item->classes ),
+						'class' => HTML::prepClass( $item->classes ),
 					],
 				] );
 			}
@@ -958,7 +958,7 @@ class AdminBar extends gNetwork\Module
 						'href'   => $item->url,
 						'meta'   => [
 							'title' => $item->attr_title,
-							'class' => join( ' ', $item->classes ),
+							'class' => HTML::prepClass( $item->classes ),
 						],
 					] );
 				}

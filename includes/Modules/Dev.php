@@ -24,6 +24,7 @@ class Dev extends gNetwork\Module
 
 		$this->filter_false( 'https_ssl_verify' );
 		$this->filter_false( 'https_local_ssl_verify' );
+		$this->filter_false( 'wp_is_php_version_acceptable' ); // to help with translation
 		$this->filter_true( 'jetpack_development_mode' );
 
 		$this->action( 'pre_get_posts', 1, 99 );

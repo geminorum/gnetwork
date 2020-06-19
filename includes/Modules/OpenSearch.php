@@ -393,7 +393,7 @@ class OpenSearch extends gNetwork\Module
 			'xmlns:suggestions' => $this->options['suggestions'] ? 'http://www.opensearch.org/specifications/opensearch/extensions/suggestions/1.1' : FALSE,
 		], "\n".$xml."\n" );
 
-		exit();
+		exit;
 	}
 
 	// FIXME: WORKING BUT: firefox and chrome will try to get it but wont display suggestions!

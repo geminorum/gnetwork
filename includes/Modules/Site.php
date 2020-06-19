@@ -420,7 +420,7 @@ class Site extends gNetwork\Module
 		'template',
 		'stylesheet',
 		'active_plugins',
-		'post_count',
+		'post_count', // TODO: attachment count: must count media before hand
 		// 'blog_charset',
 		// 'blog_public',
 		// 'db_version',

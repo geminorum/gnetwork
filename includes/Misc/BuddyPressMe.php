@@ -70,7 +70,7 @@ class BuddyPressMe extends \BP_Component
 	public function me_action_profile( $vars = FALSE )
 	{
 		bp_core_redirect( bp_get_loggedin_user_link() );
-		exit();
+		exit;
 	}
 
 	public function me_action_settings( $vars = FALSE )
@@ -112,7 +112,7 @@ class BuddyPressMe extends \BP_Component
 		$redirect = bp_get_loggedin_user_link();
 		wp_logout();
 		bp_core_redirect( $redirect );
-		exit();
+		exit;
 	}
 
 	public function url( $link = '' )

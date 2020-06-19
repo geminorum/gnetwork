@@ -360,6 +360,14 @@ class Module extends Core\Base
 		}, $priority, 1 );
 	}
 
+	// USAGE: $this->filter_empty_string( 'option_blog_public' );
+	protected function filter_empty_string( $hook, $priority = 10 )
+	{
+		add_filter( $hook, function( $first ){
+			return '';
+		}, $priority, 1 );
+	}
+
 	// USAGE: $this->filter_empty_array( 'option_blog_public' );
 	protected function filter_empty_array( $hook, $priority = 10 )
 	{

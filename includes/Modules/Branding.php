@@ -340,7 +340,7 @@ class Branding extends gNetwork\Module
 		header( 'Content-Type: application/manifest+json; charset='.get_option( 'charset' ) );
 		echo wp_json_encode( $data );
 
-		exit();
+		exit;
 	}
 
 	// @SOURCE: https://github.com/kraftbj/default-site-icon

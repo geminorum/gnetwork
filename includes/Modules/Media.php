@@ -581,6 +581,7 @@ class Media extends gNetwork\Module
 		return $list;
 	}
 
+	// FIXME: switch to `wp_media_attach_action` action @since WP 5.5.0
 	public function clean_attachment_cache( $attachment_id )
 	{
 		$this->clean_attachment( $attachment_id, TRUE );

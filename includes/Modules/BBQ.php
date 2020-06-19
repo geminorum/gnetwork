@@ -61,6 +61,6 @@ class BBQ extends gNetwork\Module
 		header( 'Status: 403 Forbidden' );
 		header( 'Connection: Close' );
 
-		exit();
+		exit;
 	}
 }
