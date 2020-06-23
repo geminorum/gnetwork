@@ -37,9 +37,6 @@ class SMS extends gNetwork\Module
 	{
 		$settings = [ '_general' => Provider::getTypeGeneralSettings( $this->key, $this->options ) ];
 
-		if ( $this->options['load_providers'] )
-			$settings['_general'][] = Provider::getSetting_default_provider( $this->key );
-
 		return $settings;
 	}
 

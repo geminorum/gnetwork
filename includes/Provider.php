@@ -171,6 +171,10 @@ class Provider extends Core\Base
 
 	public static function getTypeGeneralSettings( $type, $current = [] )
 	{
+		$providers = empty( $current['load_providers'] )
+			? []
+			: gNetwork()->providers( $type, [ 'none' => Settings::showOptionNone() ] );
+
 		return [
 			[
 				'field'       => 'load_providers',
@@ -195,6 +199,14 @@ class Provider extends Core\Base
 				'disabled'    => empty( $current['load_providers'] ),
 			],
 			[
+				'field'    => 'default_provider',
+				'type'     => 'select',
+				'title'    => _x( 'Default Provider', 'Provider Core: Settings', 'gnetwork' ),
+				'default'  => 'none',
+				'values'   => $providers,
+				'disabled' => empty( $current['load_providers'] ),
+			],
+			[
 				'field'       => 'log_data',
 				'type'        => 'enabled',
 				'title'       => _x( 'Log Data', 'Provider Core: Settings', 'gnetwork' ),
@@ -202,17 +214,6 @@ class Provider extends Core\Base
 				'default'     => '0',
 				'disabled'    => empty( $current['load_providers'] ),
 			],
-		];
-	}
-
-	public static function getSetting_default_provider( $type )
-	{
-		return [
-			'field'   => 'default_provider',
-			'type'    => 'select',
-			'title'   => _x( 'Default Provider', 'Provider Core: Settings', 'gnetwork' ),
-			'default' => 'none',
-			'values'  => gNetwork()->providers( $type, [ 'none' => Settings::showOptionNone() ] ),
 		];
 	}
 
