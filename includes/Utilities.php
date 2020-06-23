@@ -583,6 +583,7 @@ class Utilities extends Core\Base
 	// @REF: https://en.wikipedia.org/wiki/ISO_639
 	// @REF: http://stackoverflow.com/a/16838443
 	// @REF: `bp_core_register_common_scripts()`
+	// @REF: https://make.wordpress.org/polyglots/handbook/translating/packaging-localized-wordpress/working-with-the-translation-repository/#repository-file-structure
 	public static function getISO639( $locale = NULL )
 	{
 		if ( is_null( $locale ) )

@@ -162,8 +162,8 @@ class Kavenegar extends gNetwork\Provider
 	public function smsBulk( $message, $target = NULL, $atts = [] )
 	{
 		$args = self::atts( [
-			'receptor' => $target ?: $this->options['kavenegar_admin_numbers'],
-			'sender'   => $this->options['kavenegar_from_number'],
+			'receptor' => $target ?: $this->options[$this->key.'_admin_numbers'],
+			'sender'   => $this->options[$this->key.'_from_number'],
 			'message'  => wp_json_encode( $message ),
 			// 'date'             => $date,
 			// 'type'             => $type,

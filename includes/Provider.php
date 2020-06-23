@@ -389,4 +389,14 @@ class Provider extends Core\Base
 			],
 		] );
 	}
+
+	protected function hash()
+	{
+		$suffix = '';
+
+		foreach ( func_get_args() as $arg )
+			$suffix.= maybe_serialize( $arg );
+
+		return md5( $this->base.$this->key.$suffix );
+	}
 }

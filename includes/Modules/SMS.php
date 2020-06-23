@@ -30,15 +30,15 @@ class SMS extends gNetwork\Module
 
 	public function default_options()
 	{
-		return Provider::getTypeDefaultOptions( 'sms' );
+		return Provider::getTypeDefaultOptions( $this->key );
 	}
 
 	public function default_settings()
 	{
-		$settings = [ '_general' => Provider::getTypeGeneralSettings( 'sms', $this->options ) ];
+		$settings = [ '_general' => Provider::getTypeGeneralSettings( $this->key, $this->options ) ];
 
 		if ( $this->options['load_providers'] )
-			$settings['_general'][] = Provider::getSetting_default_provider( 'sms' );
+			$settings['_general'][] = Provider::getSetting_default_provider( $this->key );
 
 		return $settings;
 	}

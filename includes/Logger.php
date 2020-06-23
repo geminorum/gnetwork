@@ -69,7 +69,7 @@ class Logger
 			$gNetworkAnalog[$path] = new \Analog\Logger;
 			$gNetworkAnalog[$path]->handler( \Analog\Handler\File::init( $path ) );
 
-			// format to use with `Debug::displayErrorLogs()`
+			// format to use with `Debug::displayErrorLogs()` : machine, date, level, message
 			\Analog::$format = '[%2$s] %1$s :: (%3$d) %4$s'."\n";
 			\Analog::$date_format = 'd-M-Y H:i:s e';
 

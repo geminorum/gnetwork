@@ -274,7 +274,7 @@ class Debug extends gNetwork\Module
 
 		echo '<table class="base-table-code"><tbody>';
 		foreach ( $versions as $key => $val )
-			echo sprintf( '<tr><td class="-var">%1$s</td><td class="-val"><code>%2$s</code></td></tr>', $val, $GLOBALS[$key] );
+			printf( '<tr><td class="-var">%1$s</td><td class="-val"><code>%2$s</code></td></tr>', $val, $GLOBALS[$key] );
 		echo '</tbody></table>';
 
 		echo '</div>';
