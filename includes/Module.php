@@ -1440,6 +1440,22 @@ class Module extends Core\Base
 		return $items;
 	}
 
+	public function get_default_provider()
+	{
+		if ( ! $this->get_option( 'load_providers' ) )
+			return FALSE;
+
+		$default = $this->get_option( 'default_provider', 'none' );
+
+		if ( 'none' == $default || ! array_key_exists( $default, $this->providers ) )
+			return FALSE;
+
+		if ( ! $this->providers[$default]->providerEnabled() )
+			return FALSE;
+
+		return $this->providers[$default];
+	}
+
 	public function get_column_icon( $link = FALSE, $icon = 'wordpress-alt', $title = FALSE )
 	{
 		return HTML::tag( ( $link ? 'a' : 'span' ), [

@@ -328,57 +328,50 @@ class SMS extends gNetwork\Module
 		exit('1');
 	}
 
-	public static function send( $message, $target = NULL, $atts = [] )
+	public function send( $message, $target = NULL, $atts = [] )
 	{
-		if ( gNetwork()->option( 'load_providers', 'sms' ) ) {
+		if ( ! $provider = $this->get_default_provider() )
+			return FALSE;
 
-			$provider = gNetwork()->option( 'default_provider', 'sms' );
+		$results = $provider->smsSend( $message, $target, $atts );
 
-			if ( isset( gNetwork()->sms->providers[$provider] ) ) {
+		if ( self::isError( $results ) ) {
+			Logger::siteFAILED( 'SMS-SEND-FAILED: '.$results->get_error_message() );
 
-				$results = gNetwork()->sms->providers[$provider]->smsSend( $message, $target, $atts );
-
-				if ( self::isError( $results ) ) {
-					Logger::siteFAILED( 'SMS-SEND-FAILED: '.$results->get_error_message() );
-
-					return FALSE;
-				}
-
-				if ( GNETWORK_SMS_LOG_DIR && gNetwork()->option( 'log_data', 'sms' ) ) {
-
-					$contents = [
-						'type'      => 'sent',
-						'timestamp' => current_time( 'mysql' ),
-						'site'      => WordPress::currentSiteName(),
-						'user'      => get_current_user_id(),
-						'provider'  => $provider,
-						'results'   => $results,
-						'to'        => $target,
-						'message'   => $message,
-						// 'from'    => 'from', // FIXME: get site number form provider
-						// 'id'      => 'id', // FIXME: get message id from provider
-					];
-
-					$to   = empty( $contents['to'] ) ? 'UNKNOWN' : File::escFilename( $contents['to'] );
-					$file = current_time( 'Ymd-His' ).'-'.$to.'.sent.json';
-
-					if ( FALSE === File::putContents( $file, wp_json_encode( $contents, JSON_UNESCAPED_UNICODE ), GNETWORK_SMS_LOG_DIR ) )
-						Logger::CRITICAL( 'SMS-LOGS: CAN NOT LOG SMS TO: '.$contents['to'] );
-
-				} else if ( gNetwork()->option( 'debug_providers', 'sms' ) ) {
-
-					Logger::DEBUG( 'SMS-SEND: {provider}: {target}::{message} - {results}', [
-						'provider' => $provider,
-						'target'   => $target,
-						'message'  => $message,
-						'results'  => $results,
-					] );
-				}
-
-				return $results;
-			}
+			return FALSE;
 		}
 
-		return FALSE;
+		if ( GNETWORK_SMS_LOG_DIR && $this->get_option( 'log_data' ) ) {
+
+			$contents = [
+				'type'      => 'sent',
+				'timestamp' => current_time( 'mysql' ),
+				'site'      => WordPress::currentSiteName(),
+				'user'      => get_current_user_id(),
+				'provider'  => $provider,
+				'results'   => $results,
+				'to'        => $target,
+				'message'   => $message,
+				// 'from'    => 'from', // FIXME: get site number form provider
+				// 'id'      => 'id', // FIXME: get message id from provider
+			];
+
+			$to   = empty( $contents['to'] ) ? 'UNKNOWN' : File::escFilename( $contents['to'] );
+			$file = current_time( 'Ymd-His' ).'-'.$to.'.sent.json';
+
+			if ( FALSE === File::putContents( $file, wp_json_encode( $contents, JSON_UNESCAPED_UNICODE ), GNETWORK_SMS_LOG_DIR ) )
+				Logger::CRITICAL( 'SMS-LOGS: CAN NOT LOG SMS TO: '.$contents['to'] );
+
+		} else if ( $this->get_option( 'debug_providers' ) ) {
+
+			Logger::DEBUG( 'SMS-SEND: {provider}: {target}::{message} - {results}', [
+				'provider' => $provider,
+				'target'   => $target,
+				'message'  => $message,
+				'results'  => $results,
+			] );
+		}
+
+		return $results;
 	}
 }
