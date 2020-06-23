@@ -221,11 +221,6 @@ class Provider extends Core\Base
 		return $this->enabled;
 	}
 
-	public function providerWorking()
-	{
-		return TRUE;
-	}
-
 	public function providerBalance() {}
 
 	public function providerName()
@@ -235,7 +230,7 @@ class Provider extends Core\Base
 
 	public function providerStatus()
 	{
-		return '<span>[UKNOWN]</span>';
+		return FALSE; // [ 'class', 'message', 'link' ]
 	}
 
 	protected function apiEndpoint()

@@ -1421,14 +1421,21 @@ class Module extends Core\Base
 
 		$menu = $this->get_menu_url( $this->key, NULL );
 
-		foreach ( $this->providers as $name => &$provider )
-			if ( $provider->providerEnabled() )
-				$items[] = HTML::tag( 'a', [
-					'href'  => $menu,
-					'title' => $provider->providerName(),
-					'class' => $provider->providerWorking() ? 'working' : 'warning',
-					'data'  => [ 'name' => $name, 'module' => $this->key ],
-				], $provider->providerStatus() );
+		foreach ( $this->providers as $name => &$provider ) {
+
+			if ( ! $provider->providerEnabled() )
+				continue;
+
+			if ( FALSE === ( $status = $provider->providerStatus() ) )
+				continue;
+
+			$items[] = HTML::tag( 'a', [
+				'href'  => empty( $status[2] ) ? $menu : $status[2],
+				'title' => $provider->providerName(),
+				'class' => [ '-provider-status', $status[0] ],
+				'data'  => [ 'name' => $name, 'module' => $this->key ],
+			], $status[1] );
+		}
 
 		return $items;
 	}

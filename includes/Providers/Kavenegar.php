@@ -107,17 +107,11 @@ class Kavenegar extends gNetwork\Provider
 
 	public function providerStatus()
 	{
-		$balance = $this->providerBalance();
-
-		return $balance
+		if ( $balance = $this->providerBalance() )
 			/* translators: %s: rial */
-			? sprintf( _x( '%s Rials for SMS', 'Provider: Kavenegar', 'gnetwork' ), Number::format( $balance ) )
-			: _x( 'Charge SMS Credits!', 'Provider: Kavenegar', 'gnetwork' );
-	}
+			return [ 'working', sprintf( _x( '%s Rials for SMS', 'Provider: Kavenegar', 'gnetwork' ), Number::format( $balance ) ) ];
 
-	public function providerWorking()
-	{
-		return (bool) $this->providerBalance();
+		return [ 'warning -must-charge', _x( 'Charge SMS Credits!', 'Provider: Kavenegar', 'gnetwork' ) ];
 	}
 
 	public function providerBalance()
