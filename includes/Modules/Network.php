@@ -20,13 +20,15 @@ class Network extends gNetwork\Module
 
 	protected function setup_actions()
 	{
-		if ( ! is_multisite() )
-			throw new Exception( 'Only on Multisite!' );
-
 		if ( ! is_network_admin() )
 			return FALSE;
 
 		$this->action( 'network_admin_menu' );
+	}
+
+	protected function setup_checks()
+	{
+		return is_multisite();
 	}
 
 	public function network_admin_menu()

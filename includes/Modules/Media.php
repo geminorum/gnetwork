@@ -1252,6 +1252,7 @@ class Media extends gNetwork\Module
 	}
 
 	// FIXME: must check filetype for non super admins / and delete file if not allowed
+	// FIXME: maybe use `wp_check_filetype_and_ext()`
 	// @REF: `media_handle_upload()`
 	private function complete_upload( $filename, $metadata = FALSE )
 	{

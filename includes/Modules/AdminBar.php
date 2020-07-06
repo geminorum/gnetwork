@@ -180,6 +180,7 @@ class AdminBar extends gNetwork\Module
 		return $properties;
 	}
 
+	// FIXME: not working anymore, shortcodes are too late for `admin_bar_menu` hook @since WP v5.4.0
 	public function shortcode_atts_wpcf7( $out, $pairs, $atts, $shortcode )
 	{
 		if ( ! empty( $atts['id'] ) && current_user_can( 'wpcf7_edit_contact_form' ) ) {

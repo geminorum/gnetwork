@@ -234,11 +234,11 @@ class Provider extends Core\Base
 		return FALSE; // [ 'class', 'message', 'link' ]
 	}
 
-	protected function apiEndpoint()
+	protected function apiEndpoint( ...$args )
 	{
 		if ( $this->api_uri )
 			return sprintf( $this->api_uri, $this->api_key )
-				.implode( '/', func_get_args() ).$this->api_suffix;
+				.implode( '/', $args ).$this->api_suffix;
 
 		return FALSE;
 	}
@@ -364,8 +364,7 @@ class Provider extends Core\Base
 
 	protected function isResults( $responce, $status_code = NULL )
 	{
-		if ( self::isError( $responce ) )
-			return FALSE;
+		return ! self::isError( $responce );
 	}
 
 	public static function dateFormat( $timestamp = NULL )
@@ -391,11 +390,11 @@ class Provider extends Core\Base
 		] );
 	}
 
-	protected function hash()
+	protected function hash( ...$args )
 	{
 		$suffix = '';
 
-		foreach ( func_get_args() as $arg )
+		foreach ( $args as $arg )
 			$suffix.= maybe_serialize( $arg );
 
 		return md5( $this->base.$this->key.$suffix );

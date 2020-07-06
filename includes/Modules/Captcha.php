@@ -19,9 +19,6 @@ class Captcha extends gNetwork\Module
 
 	protected function setup_actions()
 	{
-		if ( GNETWORK_DISABLE_RECAPTCHA )
-			throw new Exception( 'Captcha is diabled!' );
-
 		// NO NEED: after WPCF7 v5.1
 		// if ( ! is_admin() )
 		// 	$this->action( 'wpcf7_enqueue_scripts' );
@@ -34,6 +31,11 @@ class Captcha extends gNetwork\Module
 
 		if ( ! is_admin() && $this->options['bp_captcha'] )
 			$this->action( 'bp_init' );
+	}
+
+	protected function setup_checks()
+	{
+		return ! GNETWORK_DISABLE_RECAPTCHA;
 	}
 
 	public function setup_menu( $context )

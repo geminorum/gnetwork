@@ -14,10 +14,14 @@ class BBQ extends gNetwork\Module
 
 	protected function setup_actions()
 	{
-		if ( GNETWORK_DISABLE_BBQ )
-			throw new Exception( 'BBQ is diabled!' );
-
 		$this->action( 'plugins_loaded', 0, -999 );
+
+		return FALSE;
+	}
+
+	protected function setup_checks()
+	{
+		return ! GNETWORK_DISABLE_BBQ;
 	}
 
 	public function plugins_loaded()
