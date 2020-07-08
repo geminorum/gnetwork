@@ -482,14 +482,14 @@ class Mail extends gNetwork\Module
 			echo '<tr><th scope="row"><label for="send_testmail_to">';
 				_ex( 'To', 'Modules: Mail', 'gnetwork' );
 			echo '</label></th><td><input type="text" id="send_testmail_to" name="send_testmail_to" value="'.$to.'" class="regular-text code" />';
-			echo '<span class="-field-after -icon-wrap"><a href="https://www.mail-tester.com/" target="_blank"><span data-icon="dashicons" class="dashicons dashicons-info"></span></a></span>';
+			echo Settings::fieldAfterIcon( 'https://www.mail-tester.com/', 'Test the Spammyness of your Emails' );
 			echo '</td></tr>';
 			echo '<tr><th scope="row"><label for="send_testmail_subject">';
 				_ex( 'Subject', 'Modules: Mail', 'gnetwork' );
 			echo '</label></th><td><input type="text" id="send_testmail_subject" name="send_testmail_subject" value="'.$subject.'" class="regular-text" />';
 			echo '</td></tr>';
 			echo '<tr><th scope="row"><label for="send_testmail_message">';
-				_ex( 'Message:', 'Modules: Mail', 'gnetwork' );
+				_ex( 'Message', 'Modules: Mail', 'gnetwork' );
 			echo '</label></th><td><textarea id="send_testmail_message" name="send_testmail_message" cols="45" rows="5" class="large-text">'.$message.'</textarea>';
 			echo '</td></tr>';
 		echo '</tbody></table>';
@@ -520,21 +520,21 @@ class Mail extends gNetwork\Module
 
 			$smtp_debug = ob_get_clean();
 
-			echo '<hr /><br /><div class="notice notice-'.( FALSE === $result ? 'error' : 'success' ).' fade inline"><p><strong>';
-				_ex( 'Test Message Sent', 'Modules: Mail', 'gnetwork' );
-			echo '</strong></p><p>';
-				_ex( 'The result was:', 'Modules: Mail', 'gnetwork' );
-			echo '</p>';
-				self::dump( $result );
-			echo '<p>';
-				_ex('The SMTP debugging output:', 'Modules: Mail', 'gnetwork' );
-			echo '</p><pre>';
-				echo $smtp_debug;
-			echo '</pre><p>';
-				_ex('The full debugging output:', 'Modules: Mail', 'gnetwork' );
-			echo '</p>';
-				HTML::tableSide( $phpmailer );
-			echo '<br /></div>';
+			$classes = 'notice-'.( FALSE === $result ? 'error' : 'success' ).' fade inline';
+			echo HTML::notice( _x( 'Test message sent.', 'Modules: Mail', 'gnetwork' ), $classes, FALSE );
+
+			HTML::desc( _x( 'The result was:', 'Modules: Mail', 'gnetwork' ) );
+			HTML::dump( $result );
+
+			echo '<hr />';
+
+			HTML::desc( _x('The SMTP debugging output:', 'Modules: Mail', 'gnetwork' ) );
+			HTML::dump( $smtp_debug );
+
+			echo '<hr />';
+
+			HTML::desc( _x('The full debugging output:', 'Modules: Mail', 'gnetwork' ) );
+			HTML::tableSide( $phpmailer );
 
 			unset( $phpmailer );
 		}
