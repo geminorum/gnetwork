@@ -415,19 +415,11 @@ class Mail extends gNetwork\Module
 		if ( is_rtl() )
 			$contents['rtl'] = 'true';
 
-		if ( empty( $contents['to'] ) )
-			$to = 'UNKNOWN';
-
-		else if ( is_array( $contents['to'] ) )
-			$to = array_filter( [ 'geminorum\\gNetwork\\Core\\File', 'escFilename' ], $contents['to'] );
-
-		else
-			$to = File::escFilename( $contents['to'] );
-
-		$filename = current_time( 'Ymd-His' ).'-'.$to.'.json';
+		$recipient = empty( $contents['to'] ) ? 'UNDEFINED' : array_shift( (array) $contents['to'] );
+		$filename  = File::escFilename( sprintf( '%s-%s.json', current_time( 'Ymd-His' ), $recipient ) );
 
 		if ( FALSE === File::putContents( $filename, wp_json_encode( $contents, JSON_UNESCAPED_UNICODE ), GNETWORK_MAIL_LOG_DIR ) )
-			Logger::CRITICAL( 'EMAIL-LOGS: CAN NOT LOG EMAIL TO: '.$contents['to'] );
+			Logger::CRITICAL( sprintf( 'EMAIL-LOGS: CAN NOT LOG EMAIL TO: %s', $recipient ) );
 
 		return $mail;
 	}
