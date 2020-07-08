@@ -409,11 +409,13 @@ class Mail extends gNetwork\Module
 			'site'      => WordPress::currentSiteName(),
 			'locale'    => get_locale(),
 			'user'      => get_current_user_id(),
-			// TODO: get smtp server as well
 		], Arraay::filterArray( $atts ) );
 
 		if ( is_rtl() )
 			$contents['rtl'] = 'true';
+
+		if ( 'smtp' == $this->options['mailer'] )
+			$contents['smtp'] = sprintf( '%s::%s', $this->options['smtp_host'], $this->options['smtp_port'] );
 
 		$recipient = empty( $contents['to'] ) ? 'UNDEFINED' : $contents['to'];
 
@@ -597,7 +599,9 @@ class Mail extends gNetwork\Module
 						$html.= '<code title="'._x( 'Site', 'Modules: Mail: Email Logs Table', 'gnetwork' )
 							.'">'.$row['site'].'</code>';
 
-					// TODO: add smtp info here
+					if ( ! empty( $row['smtp'] ) )
+						$html.= ' &#5397; <code title="'._x( 'SMTP', 'Modules: Mail: Email Logs Table', 'gnetwork' )
+							.'">'.$row['smtp'].'</code>';
 
 					if ( ! empty( $row['headers'] ) ) {
 						$html.= '<hr />';
