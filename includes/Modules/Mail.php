@@ -401,8 +401,8 @@ class Mail extends gNetwork\Module
 		Logger::CRITICAL( 'EMAIL-FAILED', $error->get_error_message() );
 	}
 
-	// $mail = [ 'to', 'subject', 'message', 'headers', 'attachments' ];
-	public function wp_mail( $mail )
+	// [ 'to', 'subject', 'message', 'headers', 'attachments' ]
+	private function do_log_mail( $atts )
 	{
 		$contents = array_merge( [
 			'timestamp' => current_time( 'mysql' ),
@@ -424,7 +424,11 @@ class Mail extends gNetwork\Module
 
 		if ( FALSE === File::putContents( $filename, wp_json_encode( $contents, JSON_UNESCAPED_UNICODE ), GNETWORK_MAIL_LOG_DIR ) )
 			Logger::CRITICAL( sprintf( 'EMAIL-LOGS: CAN NOT LOG EMAIL TO: %s', $recipient ) );
+	}
 
+	public function wp_mail( $mail )
+	{
+		$this->do_log_mail( $mail );
 		return $mail;
 	}
 
@@ -441,7 +445,7 @@ class Mail extends gNetwork\Module
 		foreach ( $email->get_headers() as $name => $content )
 			$mail['headers'][] = sprintf( '%s: %s', $name, $content );
 
-		$this->wp_mail( $mail );
+		$this->do_log_mail( $mail );
 	}
 
 	public function log_actions()
