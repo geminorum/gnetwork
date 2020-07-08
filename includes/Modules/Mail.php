@@ -410,7 +410,7 @@ class Mail extends gNetwork\Module
 			'locale'    => get_locale(),
 			'user'      => get_current_user_id(),
 			// TODO: get smtp server as well
-		], Arraay::filterArray( $mail ) );
+		], Arraay::filterArray( $atts ) );
 
 		if ( is_rtl() )
 			$contents['rtl'] = 'true';
