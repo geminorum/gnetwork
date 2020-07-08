@@ -504,16 +504,7 @@ class Mail extends gNetwork\Module
 
 			$this->check_referer( 'testmail', 'tools' );
 
-			// Make sure the PHPMailer class has been instantiated
-			// (copied verbatim from wp-includes/pluggable.php)
-			// (Re)create it, if it's gone missing
-			if ( ! is_object( $phpmailer ) || ! is_a( $phpmailer, 'PHPMailer' ) ) {
-				require_once ABSPATH.WPINC.'/class-phpmailer.php';
-				require_once ABSPATH.WPINC.'/class-smtp.php';
-				$phpmailer = new \PHPMailer( TRUE );
-			}
-
-			$phpmailer->SMTPDebug = TRUE;
+			$this->action( 'phpmailer_init', 1, 20, 'debug' );
 
 			ob_start();
 
@@ -543,6 +534,11 @@ class Mail extends gNetwork\Module
 
 			unset( $phpmailer );
 		}
+	}
+
+	public function phpmailer_init_debug( &$phpmailer )
+	{
+		$phpmailer->SMTPDebug = TRUE;
 	}
 
 	private function tableEmailLogs()
