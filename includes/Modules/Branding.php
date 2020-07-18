@@ -27,9 +27,7 @@ class Branding extends gNetwork\Module
 		if ( $this->options['network_siteicon'] )
 			$this->action( 'do_faviconico', 0, 8 );
 
-		add_action( 'network_credits', function(){
-			gnetwork_credits();
-		} );
+		$this->action( 'network_credits' );
 		$this->filter( 'gtheme_copyright', 2 );
 
 		$this->action_module( 'maintenance', 'template_before', 0, 5 );
@@ -359,6 +357,11 @@ class Branding extends gNetwork\Module
 	public function do_faviconico()
 	{
 		WordPress::redirect( $this->options['network_siteicon'] );
+	}
+
+	public function network_credits()
+	{
+		gnetwork_credits();
 	}
 
 	// without default fallback

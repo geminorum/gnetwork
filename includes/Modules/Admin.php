@@ -145,7 +145,9 @@ class Admin extends gNetwork\Module
 			_x( 'Active Plugins', 'Modules: Admin: Page Menu', 'gnetwork' ),
 			_x( 'Active Plugins', 'Modules: Admin: Page Menu', 'gnetwork' ),
 			'activate_plugins',
-			'plugins.php?plugin_status=active'
+			'plugins.php?plugin_status=active',
+			'',
+			1
 		);
 	}
 
