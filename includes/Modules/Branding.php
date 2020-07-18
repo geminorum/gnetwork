@@ -30,6 +30,7 @@ class Branding extends gNetwork\Module
 		add_action( 'network_credits', function(){
 			gnetwork_credits();
 		} );
+		$this->filter( 'gtheme_copyright', 2 );
 
 		$this->action_module( 'maintenance', 'template_before', 0, 5 );
 		$this->action_module( 'restricted', 'template_before', 0, 5 );
@@ -358,6 +359,15 @@ class Branding extends gNetwork\Module
 	public function do_faviconico()
 	{
 		WordPress::redirect( $this->options['network_siteicon'] );
+	}
+
+	// without default fallback
+	public function gtheme_copyright( $copyright, $context )
+	{
+		if ( $blog = gNetwork()->option( 'text_copyright', 'blog' ) )
+			return $blog;
+
+		return $this->options['text_copyright'] ?: $copyright;
 	}
 
 	public function maintenance_template_before()
