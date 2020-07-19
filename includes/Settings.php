@@ -1144,12 +1144,17 @@ class Settings extends Core\Base
 				} else if ( 'textarea-code-editor' == $args['type'] ) {
 
 					// @SEE: `wp_get_code_editor_settings()`
+					$codemirror_args =  [
+						'lineNumbers'  => TRUE,
+						'lineWrapping' => TRUE,
+						'mode'         => 'htmlmixed',
+					];
+
 					if ( ! $args['values'] )
-						$args['values'] = [
-							'lineNumbers'  => TRUE,
-							'lineWrapping' => TRUE,
-							'mode'         => 'htmlmixed',
-						];
+						$args['values'] = $codemirror_args;
+
+					else if ( is_array( $args['values'] ) )
+						$args['values'] = array_merge( $codemirror_args, $args['values'] );
 
 					// CAUTION: module must enqueue `code-editor` styles/scripts
 					// @SEE: `Scripts::enqueueCodeEditor()`
