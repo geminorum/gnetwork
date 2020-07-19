@@ -4,6 +4,7 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
 use geminorum\gNetwork\Logger;
+use geminorum\gNetwork\Scripts;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\HTML;
@@ -158,10 +159,10 @@ class Login extends gNetwork\Module
 				],
 				[
 					'field'       => 'login_styles',
-					'type'        => 'textarea',
+					'type'        => 'textarea-code-editor',
 					'title'       => _x( 'Extra CSS', 'Modules: Login: Settings', 'gnetwork' ),
 					'description' => _x( 'Additional CSS styles to use on default login page.', 'Modules: Login: Settings', 'gnetwork' ),
-					'field_class' => [ 'large-text', 'code-text', 'textarea-autosize' ],
+					'values'      => [ 'mode' => 'css' ],
 				],
 				[
 					'field'       => 'login_logourl',
@@ -182,6 +183,11 @@ class Login extends gNetwork\Module
 			_x( 'Hidden', 'Modules: Login: Settings', 'gnetwork' ),
 			_x( 'Protects logins by changing the URL and preventing access to admin while not logged-in.', 'Modules: Login: Settings', 'gnetwork' )
 		);
+	}
+
+	protected function settings_setup( $sub = NULL )
+	{
+		Scripts::enqueueCodeEditor();
 	}
 
 	public function plugins_loaded()
@@ -409,6 +415,7 @@ class Login extends gNetwork\Module
 	{
 		Utilities::linkStyleSheet( 'login.all' );
 
+		// TODO: support placeholders
 		if ( $this->options['login_styles'] )
 			printf( "<style>\n%s\n</style>\n", $this->options['login_styles'] );
 
