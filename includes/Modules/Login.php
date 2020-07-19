@@ -401,7 +401,8 @@ class Login extends gNetwork\Module
 
 	public function login_header()
 	{
-		echo '<div class="-head-placeholder"></div>';
+		if ( 'webogram' == $this->options['login_class'] )
+			echo '<div class="-head-placeholder"></div>';
 	}
 
 	public function login_head()
