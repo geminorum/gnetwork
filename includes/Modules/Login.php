@@ -392,23 +392,29 @@ class Login extends gNetwork\Module
 		$this->filter( 'login_headertext', 1, 1000 );
 
 		$this->action( 'login_header', 0, 1 );
+		$this->action( 'login_footer', 0, 999 );
 		$this->action( 'login_head' );
+
 		$this->filter( 'login_title', 2 );
 		$this->filter( 'login_body_class', 2, 99 );
 
-		$this->filter( 'login_footer', 1, 9, 'logged_in' );
+		$this->action( 'login_footer', 1, 9, 'logged_in' );
 
 		if ( ! GNETWORK_DISABLE_CREDITS && $this->options['login_credits'] )
-			$this->filter( 'login_footer', 1, 10, 'badge' );
-
-		if ( $this->options['login_remember'] )
-			$this->filter( 'login_footer', 1, 999, 'remember' );
+			$this->action( 'login_footer', 1, 10, 'badge' );
 	}
 
 	public function login_header()
 	{
 		if ( 'webogram' == $this->options['login_class'] )
 			echo '<div class="-head-placeholder"></div>';
+	}
+
+	public function login_footer()
+	{
+
+		if ( $this->options['login_remember'] )
+			echo '<script type="text/javascript">try{document.getElementById("rememberme").checked=true;}catch(e){};</script>';
 	}
 
 	public function login_head()
@@ -448,11 +454,6 @@ class Login extends gNetwork\Module
 	public function login_headertext( $login_header_title )
 	{
 		return gNetwork()->brand( 'name' );
-	}
-
-	public function login_footer_remember()
-	{
-		echo '<script type="text/javascript">try{document.getElementById("rememberme").checked=true;}catch(e){};</script>';
 	}
 
 	public function login_form()
