@@ -147,7 +147,7 @@ class OpenSearch extends gNetwork\Module
 	{
 		if ( $this->options['opensearch'] ) {
 
-			$manifest = self::url( FALSE );
+			$manifest = self::getManifestURL();
 
 			/* translators: %s: manifest url */
 			HTML::desc( sprintf( _x( 'Current Manifest: %s', 'Modules: OpenSearch: Settings', 'gnetwork' ),
@@ -165,7 +165,7 @@ class OpenSearch extends gNetwork\Module
 				'id'      => $this->classs( 'help' ),
 				'title'   => _x( 'OpenSearch', 'Modules: OpenSearch: Help Tab Title', 'gnetwork' ),
 				'content' => '<p>OpenSearch is a collection of simple formats for the sharing of search results.</p>
-					<p>This blog\'s OpenSearch description file is:<br /><a href="'.self::url().'" target="_blank">'.self::url().'</a></p>
+					<p>This site\'s OpenSearch description file is located on:<br />'.HTML::link( NULL, self::getManifestURL() ).'</p>
 				<p>Fore more information:<br />
 					<a href="https://developer.mozilla.org/en-US/Add-ons/Creating_OpenSearch_plugins_for_Firefox" target="_blank">Creating OpenSearch plugins for Firefox</a><br />
 					<a href="https://developer.mozilla.org/en-US/docs/Adding_search_engines_from_web_pages" target="_blank">Adding search engines from web pages</a><br />
@@ -178,7 +178,7 @@ class OpenSearch extends gNetwork\Module
 	public function do_link_tag()
 	{
 		echo '<link rel="search" type="application/opensearchdescription+xml" href="'
-			.self::url().'" title="'.$this->options['shortname'].'" />'."\n";
+			.esc_url( self::getManifestURL() ).'" title="'.$this->options['shortname'].'" />'."\n";
 	}
 
 	public function rss2_ns()
@@ -197,7 +197,7 @@ class OpenSearch extends gNetwork\Module
 				return;
 
 		echo "\t".'<atom:link rel="search" type="application/opensearchdescription+xml" href="'
-			.self::url().'" title="'.$this->options['shortname'].'" />'."\n";
+			.esc_url( self::getManifestURL() ).'" title="'.$this->options['shortname'].'" />'."\n";
 	}
 
 	// TODO: make suggestions an AJAX call
@@ -254,7 +254,7 @@ class OpenSearch extends gNetwork\Module
 			$title = _x( 'Add this site search engine plugin to your browser.', 'Modules: OpenSearch', 'gnetwork' );
 
 		$script = "function AddSearchEngine(){
-			if(window.external && ('AddSearchProvider' in window.external)){window.external.AddSearchProvider('".self::url()."');
+			if(window.external && ('AddSearchProvider' in window.external)){window.external.AddSearchProvider('".esc_js( self::getManifestURL() )."');
 			}else{alert('"._x( 'Your browser does not support the AddSearchProvider method!', 'Modules: OpenSearch', 'gnetwork' )."');
 			};return false;}";
 
@@ -267,10 +267,9 @@ class OpenSearch extends gNetwork\Module
 		], $text ).$after;
 	}
 
-	public static function url( $escape = TRUE )
+	public static function getManifestURL()
 	{
-		$url = get_bloginfo( 'url', 'display' ).'/osd.xml';
-		return $escape ? esc_url( $url ) : $url;
+		return get_site_url( NULL, 'osd.xml' );
 	}
 
 	// http://www.opensearch.org/Specifications/OpenSearch/1.1
@@ -348,7 +347,7 @@ class OpenSearch extends gNetwork\Module
 		$xml.= "\t".HTML::tag( 'Url', [
 			'type'     => 'application/opensearchdescription+xml',
 			'rel'      => 'self',
-			'template' => self::url(),
+			'template' => esc_url( self::getManifestURL() ),
 		] )."\n";
 
 		// TODO: use the one from branding module
