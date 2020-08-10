@@ -517,7 +517,12 @@ class Admin extends gNetwork\Module
 
 		if ( is_admin_bar_showing() ) {
 			Utilities::linkStyleSheet( 'adminbar.all' );
-			Utilities::customStyleSheet( 'adminbar.css' );
+
+			if ( gNetwork()->option( 'adminbar_styles', 'branding' ) )
+				gNetwork()->branding->do_adminbar_styles();
+
+			else
+				Utilities::customStyleSheet( 'adminbar.css' );
 		}
 
 		if ( GNETWORK_ADMIN_JS_ENHANCEMENTS )
