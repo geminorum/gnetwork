@@ -423,9 +423,12 @@ class Mail extends gNetwork\Module
 			$recipient = array_shift( $recipient );
 
 		$filename = File::escFilename( sprintf( '%s-%s', current_time( 'Ymd-His' ), $recipient ) ).'.json';
+		$logged   = wp_json_encode( $contents, JSON_UNESCAPED_UNICODE );
 
-		if ( FALSE === File::putContents( $filename, wp_json_encode( $contents, JSON_UNESCAPED_UNICODE ), GNETWORK_MAIL_LOG_DIR ) )
-			Logger::CRITICAL( sprintf( 'EMAIL-LOGS: CAN NOT LOG EMAIL TO: %s', $recipient ) );
+		if ( FALSE === File::putContents( $filename, $logged, GNETWORK_MAIL_LOG_DIR ) )
+			return Logger::FAILED( sprintf( 'EMAIL-LOGS: can not log email to: %s', $recipient ) );
+
+		Logger::INFO( sprintf( 'EMAIL-LOGS: logged email to: %s', $recipient ) );
 	}
 
 	public function wp_mail( $mail )
