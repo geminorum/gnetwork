@@ -421,7 +421,7 @@ class Login extends gNetwork\Module
 	{
 		Utilities::linkStyleSheet( 'login.all' );
 
-		// TODO: support placeholders
+		// TODO: support placeholders: `Text::replaceTokens()`
 		if ( $this->options['login_styles'] )
 			printf( "<style>\n%s\n</style>\n", $this->options['login_styles'] );
 
@@ -633,6 +633,14 @@ class Login extends gNetwork\Module
 	public function login_footer_badge()
 	{
 		if ( ! empty( $GLOBALS['interim_login'] ) )
+			return;
+
+		$this->render_badge();
+	}
+
+	public function render_badge()
+	{
+		if ( GNETWORK_DISABLE_CREDITS )
 			return;
 
 		echo '<div class="gnetwork-wrap -footer -badge">';

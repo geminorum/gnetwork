@@ -1,7 +1,7 @@
 <?php defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 // ensure this plugin is actually being uninstalled
-defined( 'WP_UNINSTALL_PLUGIN' ) || exit();
+defined( 'WP_UNINSTALL_PLUGIN' ) || exit;
 
 return; // working but in case of removing plugin for correct install, all options will be gone!
 

@@ -822,6 +822,7 @@ class Debug extends gNetwork\Module
 	}
 
 	// @REF: `_default_wp_die_handler()`
+	// FIXME: rewrite this base on core changes
 	public function wp_die_handler( $message, $title = '', $args = [] )
 	{
 		$r = self::args( $args, [

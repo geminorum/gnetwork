@@ -580,6 +580,7 @@ class Utilities extends Core\Base
 		error_log( $log."\n", 3, $path );
 	}
 
+	// FIXME: move to Core\L10n
 	// @REF: https://en.wikipedia.org/wiki/ISO_639
 	// @REF: http://stackoverflow.com/a/16838443
 	// @REF: `bp_core_register_common_scripts()`

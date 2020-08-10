@@ -1370,7 +1370,11 @@ class Media extends gNetwork\Module
 		return $this->filters( 'mime_type_label', $label, $mime_type, $post_id );
 	}
 
+	// FIXME: add based on current user: needs testing: for svg,json
+	// FIXME: add general option to select mimes
+	// FIXME: add administrative option to select mimes: svg,json
 	// @SEE: https://core.trac.wordpress.org/ticket/40175
+	// @SEE: https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types
 	public function upload_mimes( $mimes )
 	{
 		return array_merge( $mimes, [
@@ -1381,6 +1385,7 @@ class Media extends gNetwork\Module
 			'xls'       => 'application/vnd.ms-excel', // @SEE: https://core.trac.wordpress.org/ticket/39550#comment:156
 			'xlsx'      => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
 			'csv'       => 'text/csv',
+			'json'      => 'text/plain', // 'application/json', // @REF: https://stackoverflow.com/a/477819/
 			'xml'       => 'text/xml',
 			'md'        => 'text/markdown',
 			'webm'      => 'video/webm',

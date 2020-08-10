@@ -16,6 +16,8 @@ use geminorum\gNetwork\Core\WordPress;
 class Restricted extends gNetwork\Module
 {
 
+	// what if the frontpage is the same as open page: too many redirects?
+
 	protected $key     = 'restricted';
 	protected $network = FALSE;
 

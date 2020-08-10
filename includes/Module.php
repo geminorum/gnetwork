@@ -1031,6 +1031,11 @@ class Module extends Core\Base
 		Settings::fieldSection( _x( 'Dashboard', 'Module Core: Settings', 'gnetwork' ) );
 	}
 
+	public function settings_section_adminbar()
+	{
+		Settings::fieldSection( _x( 'Admin-bar', 'Module Core: Settings', 'gnetwork' ) );
+	}
+
 	protected function settings_buttons( $sub = NULL )
 	{
 		$this->register_button( 'submit', NULL, TRUE );
