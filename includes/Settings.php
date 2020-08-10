@@ -368,6 +368,28 @@ class Settings extends Core\Base
 			_x( 'Add New Post Type', 'Settings', 'gnetwork' ), $icon );
 	}
 
+	// @REF: `Text::replaceTokens()`
+	public static function fieldDescPlaceholders( $items, $title = NULL )
+	{
+		$list  = [];
+		$assoc = Arraay::isAssoc( $items );
+
+		foreach ( (array) $items as $key => $item )
+			$list[$key] = $assoc
+				? sprintf( '<code>{{%s}}</code>: %s', $key, $item )
+				: sprintf( '<code>{{%s}}</code>', $item );
+
+		if ( ! count( $list ) )
+			return '';
+
+		if ( is_null( $title ) )
+			$title = _x( 'Supported Place-holders', 'Settings', 'gnetwork' );
+
+		$html = $title ? HTML::tag( 'h5', $title ) : '';
+
+		return HTML::wrap( $html.HTML::renderList( $list ), '-field-after-placeholders' );
+	}
+
 	// using caps instead of roles
 	public static function getUserCapList( $cap = NULL, $none_title = NULL, $none_value = NULL )
 	{
