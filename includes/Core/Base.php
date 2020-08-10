@@ -138,7 +138,7 @@ class Base
 		// https://gist.github.com/eddieajau/2651181
 		if ( $old ) {
 			foreach ( debug_backtrace() as $trace )
-				echo sprintf( "\n%s:%s %s::%s", $trace['file'], $trace['line'], $trace['class'], $trace['function'] );
+				printf( "\n%s:%s %s::%s", $trace['file'], $trace['line'], $trace['class'], $trace['function'] );
 			die();
 		}
 

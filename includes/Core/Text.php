@@ -203,6 +203,31 @@ class Text extends Base
 		return $has;
 	}
 
+	public static function start( $haystack, $needles, $operator = 'OR' )
+	{
+		if ( ! $haystack )
+			return FALSE;
+
+		if ( ! is_array( $needles ) )
+			return 0 === stripos( $haystack, $needles );
+
+		if ( 'OR' == $operator ) {
+			foreach ( $needles as $needle )
+				if ( 0 === stripos( $haystack, $needle ) )
+					return TRUE;
+
+			return FALSE;
+		}
+
+		$start = FALSE;
+
+		foreach ( $needles as $needle )
+			if ( 0 === stripos( $haystack, $needle ) )
+				$start = TRUE;
+
+		return $start;
+	}
+
 	// @SEE: `mb_convert_case()`
 	public static function strToLower( $string, $encoding = 'UTF-8' )
 	{
@@ -675,7 +700,7 @@ class Text extends Base
 
 	// @SOURCE: http://php.net/manual/en/function.preg-replace-callback.php#91950
 	// USAGE: echo Text::replaceWords( $words, $string, function( $matched ) { return "<strong>{$matched}</strong>"; } );
-	// // FIXME: maybe space before/after the words
+	// FIXME: maybe space before/after the words
 	public static function replaceWords( $words, $string, $callback, $skip_links = TRUE )
 	{
 		$pattern = '(^|[^\\w\\-])('.implode( '|', array_map( 'preg_quote', $words ) ).')($|[^\\w\\-])';

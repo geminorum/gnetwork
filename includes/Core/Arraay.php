@@ -118,10 +118,22 @@ class Arraay extends Base
 		return $atts;
 	}
 
-	// @REF: http://stackoverflow.com/a/11026840
+	// @REF: http://stackoverflow.com/a/11026840#comment44080768_11026840
 	public static function stripByValue( $array, $value )
 	{
 		return array_diff_key( $array, array_flip( array_keys( $array, $value ) ) );
+	}
+
+	//@RF: https://stackoverflow.com/a/11026840
+	public static function stripByKeys( $array, $keys )
+	{
+		return array_diff_key( $array, array_flip( $keys ) );
+	}
+
+	// @REF: https://stackoverflow.com/a/34575007
+	public static function keepByKeys( $array, $keys )
+	{
+		return array_intersect_key( $array, array_flip( $keys ) );
 	}
 
 	// FIXME: TEST THIS!
@@ -205,13 +217,27 @@ class Arraay extends Base
 	}
 
 	// `array_key_first()` for php < 7.3.0
-	// @REF: http://php.net/manual/en/function.array-key-first.php#123503
 	public static function keyFirst( $input )
 	{
 		if ( function_exists( 'array_key_first' ) )
 			return array_key_first( $input ); // phpcs:ignore
 
-		return $input ? array_keys( $input )[0] : NULL;
+		foreach ( $input as $key => $value )
+			return $key;
+
+		return NULL;
+	}
+
+	// `array_key_last()` for php < 7.3.0
+	public static function keyLast( $input )
+	{
+		if ( function_exists( 'array_key_last' ) )
+			return array_key_last( $input ); // phpcs:ignore
+
+		if ( ! is_array( $input ) || empty( $input ) )
+			return NULL;
+
+		return array_keys( $input )[count( $input ) - 1];
 	}
 
 	// `array_column()` for php < 5.5

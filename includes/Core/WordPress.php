@@ -618,11 +618,11 @@ class WordPress extends Base
 	}
 
 	// TODO: get title if html is empty
-	public static function htmlAttachmentShortLink( $id, $html, $extra = '' )
+	public static function htmlAttachmentShortLink( $id, $html, $extra = '', $rel = 'attachment' )
 	{
 		return HTML::tag( 'a', [
 			'href'  => self::getPostShortLink( $id ),
-			'rel'   => 'attachment',
+			'rel'   => $rel,
 			'class' => HTML::attrClass( $extra, '-attachment' ),
 			'data'  => [ 'id' => $id ],
 		], $html );

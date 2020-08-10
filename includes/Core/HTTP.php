@@ -144,6 +144,9 @@ class HTTP extends Base
 	// http://wordpress.stackexchange.com/a/114922
 	public static function getJSON( $url, $atts = array(), $assoc = TRUE )
 	{
+		if ( ! $url )
+			return FALSE;
+
 		$args = self::recursiveParseArgs( $atts, array(
 			'timeout' => 15,
 			'headers' => array( 'Accept' => 'application/json' ),
@@ -161,6 +164,9 @@ class HTTP extends Base
 
 	public static function postJSON( $body, $url, $atts = array(), $assoc = TRUE )
 	{
+		if ( ! $url )
+			return FALSE;
+
 		$args = self::recursiveParseArgs( $atts, array(
 			'body'    => $body,
 			'timeout' => 15,
@@ -169,8 +175,11 @@ class HTTP extends Base
 
 		$response = wp_remote_post( $url, $args );
 
+		if ( WordPress::isDev() )
+			self::_log( $args, wp_remote_retrieve_body( $response ) );
+
 		if ( ! self::isError( $response )
-			&& 200 == wp_remote_retrieve_response_code( $response ) ) {
+			&& 201 == wp_remote_retrieve_response_code( $response ) ) {
 				return json_decode( wp_remote_retrieve_body( $response ), $assoc );
 		}
 
@@ -179,6 +188,9 @@ class HTTP extends Base
 
 	public static function getHTML( $url, $atts = array() )
 	{
+		if ( ! $url )
+			return FALSE;
+
 		$args = self::recursiveParseArgs( $atts, array(
 			'timeout' => 15,
 		) );

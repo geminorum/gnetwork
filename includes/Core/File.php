@@ -96,8 +96,10 @@ class File extends Base
 		return self::putContents( '.htaccess', $content, $path, FALSE, $check_folder );
 	}
 
-	// wrapper for file_get_contents()
+	// wrapper for `file_get_contents()`
+	// TODO: use `$wp_filesystem`
 	// @REF: https://github.com/markjaquith/feedback/issues/33
+	// @REF: `$wp_filesystem->get_contents()`
 	public static function getContents( $filename )
 	{
 		return @file_get_contents( $filename );

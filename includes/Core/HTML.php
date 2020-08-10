@@ -66,29 +66,30 @@ class HTML extends Base
 		if ( $html ) echo self::tag( 'h3', array( 'class' => $class ), ( $link ? self::link( $html, $link ) : $html ) );
 	}
 
-	public static function desc( $html, $block = TRUE, $class = '', $nl2br = TRUE )
+	public static function desc( $string, $block = TRUE, $class = '', $nl2br = TRUE )
 	{
-		if ( is_array( $html ) ) {
+		if ( is_array( $string ) ) {
 
-			$assoc = Arraay::isAssoc( $html );
+			$assoc = Arraay::isAssoc( $string );
 
-			foreach ( $html as $desc_class => $desc_html )
+			foreach ( $string as $desc_class => $desc_html )
 				self::desc( $desc_html, $block, $assoc ? $desc_class : $class, $nl2br );
 
 			return;
 		}
 
-		if ( ! $html )
+		if ( ! $string = trim( $string ) )
 			return;
 
-		if ( $nl2br )
-			$html = nl2br( trim( $html ) );
+		$tag = $block ? 'p' : 'span';
 
-		$html = Text::wordWrap( $html );
+		if ( Text::start( $string, [ '<ul', '<ol', '<h3', '<h4', '<h5', '<h6' ] ) )
+			$tag = 'div';
 
-		echo $block
-			? '<p class="'.self::prepClass( 'description', '-description', $class ).'">'.$html.'</p>'
-			: '<span class="'.self::prepClass( 'description', '-description', $class ).'">'.$html.'</span>';
+		echo '<'.$tag.' class="'.self::prepClass( 'description', '-description', $class ).'">'
+			// .Text::wordWrap( $nl2br ? nl2br( $string ) : $string ) // FIXME: messes with html attrs
+			.( $nl2br ? nl2br( $string ) : $string )
+		.'</'.$tag.'>';
 	}
 
 	public static function label( $input, $for = FALSE, $wrap = 'p' )
@@ -151,7 +152,7 @@ class HTML extends Base
 	// useful when you want to pass on a complex data structure via a form
 	public static function inputHiddenArray( $array, $prefix = '' )
 	{
-		if ( (bool) count( array_filter( array_keys( $array ), 'is_string' ) ) ) {
+		if ( Arraay::hasStringKeys( $array ) ) {
 
 			foreach ( $array as $key => $value ) {
 				$name = empty( $prefix ) ? $key : $prefix.'['.$key.']';
@@ -1238,6 +1239,6 @@ class HTML extends Base
 
 	public static function renderList( $items, $keys = FALSE, $list = 'ul' )
 	{
-		return self::tag( $list, '<li>'.implode( '</li><li>', $keys ? array_keys( $items ) : $items ).'</li>' );
+		return $items ? self::tag( $list, '<li>'.implode( '</li><li>', $keys ? array_keys( $items ) : $items ).'</li>' ) : '';
 	}
 }
