@@ -353,6 +353,24 @@ class Plugin
 			case 'name'  : $custom = $this->option( 'brand_name', 'branding' ); return $custom ?: GNETWORK_NAME; break;
 			case 'url'   : $custom = $this->option( 'brand_url', 'branding' ); return $custom ?: GNETWORK_BASE; break;
 			case 'email' : $custom = $this->option( 'brand_email', 'branding' ); return $custom ?: $this->email(); break;
+
+			case 'color' :
+
+				if ( $blog = $this->option( 'theme_color', 'blog' ) )
+					return $blog;
+
+				if ( $branding = $this->option( 'theme_color', 'branding' ) )
+					return $branding;
+
+				return '#d1d1d1';
+
+			break;
+			case 'background' :
+
+				if ( $branding = $this->option( 'webapp_color', 'branding' ) )
+					return $branding;
+
+				return '#fff';
 		}
 
 		return '';
