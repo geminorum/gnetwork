@@ -13,8 +13,8 @@
       event.preventDefault();
 
       gtag('event', 'login', {
-        'transport_type': 'beacon',
-        'event_callback': gtagCallback(function () {
+        transport_type: 'beacon',
+        event_callback: gtagCallback(function () {
           form.submit();
         })
       });

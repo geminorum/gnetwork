@@ -8,6 +8,6 @@
 // /////////////////////////////////////////////////////////////////////////////
 document.addEventListener('wpcf7mailsent', function () {
   gtag('event', 'contact', {
-    'transport_type': 'beacon'
+    transport_type: 'beacon'
   });
 });
