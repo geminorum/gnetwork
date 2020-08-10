@@ -726,7 +726,12 @@ class Blog extends gNetwork\Module
 
 		if ( is_admin_bar_showing() ) {
 			Utilities::linkStyleSheet( 'adminbar.all' );
-			Utilities::customStyleSheet( 'adminbar.css' );
+
+			if ( gNetwork()->option( 'adminbar_styles', 'branding' ) )
+				gNetwork()->branding->do_adminbar_styles();
+
+			else
+				Utilities::customStyleSheet( 'adminbar.css' );
 		}
 
 		if ( defined( 'GNETWORK_DISABLE_FRONT_STYLES' )
