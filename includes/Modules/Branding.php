@@ -58,6 +58,7 @@ class Branding extends gNetwork\Module
 			'text_copyright'     => '',
 			'text_powered'       => '',
 			'text_slogan'        => '',
+			'adminbar_styles'    => '',
 		];
 	}
 
@@ -156,6 +157,19 @@ class Branding extends gNetwork\Module
 			];
 		}
 
+		$settings['_adminbar'] = [
+			[
+				'field'       => 'adminbar_styles',
+				'type'        => 'textarea-code-editor',
+				'title'       => _x( 'Custom Styles', 'Modules: Branding: Settings', 'gnetwork' ),
+				'description' => [
+					_x( 'Additional CSS styles to use alongside the Adminbar.', 'Modules: Branding: Settings', 'gnetwork' ),
+					Settings::fieldDescPlaceholders( [ 'theme_color', 'webapp_color', 'network_sitelogo', 'network_siteicon' ] ),
+				],
+				'values' => [ 'mode' => 'css' ],
+			],
+		];
+
 		$settings['_texts'] = [
 			[
 				'field'       => 'text_copyright',
@@ -216,6 +230,7 @@ class Branding extends gNetwork\Module
 	protected function settings_setup( $sub = NULL )
 	{
 		Scripts::enqueueColorPicker();
+		Scripts::enqueueCodeEditor();
 	}
 
 	public function settings_sidebox( $sub, $uri )
@@ -357,6 +372,18 @@ class Branding extends gNetwork\Module
 	public function do_faviconico()
 	{
 		WordPress::redirect( $this->options['network_siteicon'] );
+	}
+
+	public function do_adminbar_styles()
+	{
+		printf( "<style>\n%s\n</style>\n",
+			Text::replaceTokens( $this->options['adminbar_styles'], [
+				'theme_color'      => $this->options['theme_color'],
+				'webapp_color'     => $this->options['webapp_color'],
+				'network_sitelogo' => $this->options['network_sitelogo'],
+				'network_siteicon' => $this->options['network_siteicon'],
+			] )
+		);
 	}
 
 	public function network_credits()
