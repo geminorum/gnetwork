@@ -1,0 +1,114 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Restrict Categories\n"
+"PO-Revision-Date: 2020-08-05 18:57+0430\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n==0 || n==1);\n"
+"X-Poedit-Basepath: ../../restrict-categories\n"
+"X-Generator: Poedit 2.4\n"
+"Language: fa\n"
+"POT-Creation-Date: \n"
+"Last-Translator: geminorum <contact@geminorum.ir>\n"
+"Language-Team: \n"
+
+#: restrict-categories.php:918
+msgid "Last page"
+msgstr "برگهٔ آخر"
+
+#: restrict-categories.php:907
+msgid "Next page"
+msgstr "برگهٔ بعد"
+
+#: restrict-categories.php:899
+msgctxt "paging"
+msgid "%1$s of %2$s"
+msgstr "%1$s از %2$s"
+
+#: restrict-categories.php:889 restrict-categories.php:893
+msgid "Current Page"
+msgstr "برگهٔ کنونی"
+
+#: restrict-categories.php:882
+msgid "Previous page"
+msgstr "برگهٔ قبل"
+
+#: restrict-categories.php:871
+msgid "First page"
+msgstr "برگهٔ نخست"
+
+#: restrict-categories.php:834
+msgid "%s item"
+msgid_plural "%s items"
+msgstr[0] "%s مورد"
+msgstr[1] "%s مورد"
+
+#: restrict-categories.php:777
+msgid "Select All"
+msgstr "انتخاب همه"
+
+#: restrict-categories.php:477
+msgid "Reset"
+msgstr "بازنشانی"
+
+#: restrict-categories.php:475
+msgid "This option will reset all changes you have made to the default configuration.  <strong>You cannot undo this process</strong>."
+msgstr "این گزینه تمام تغییراتی را که در پیکربندی پیش‌فرض اعمال کرده‌اید، بازنشانی می‌کند. <strong>این فرآیند بازگشت‌ناپذیر است</strong>."
+
+#: restrict-categories.php:474
+msgid "Reset to Default Settings"
+msgstr "بازنشانی تنظیمات اولیه"
+
+#: restrict-categories.php:456
+msgid "Search Users"
+msgstr "جست‌وجوی کاربران"
+
+#: restrict-categories.php:453
+msgid "Selecting categories for a user will <em>override</em> the categories you have chosen for that user's role."
+msgstr "دسته‌های انتخاب‌شده برای هر کاربر، بر دسته‌های انتخابی برای نقش آن کاربر <em>اولویت</em> دارد."
+
+#: restrict-categories.php:423
+msgid "Users"
+msgstr "کاربران"
+
+#: restrict-categories.php:422
+msgid "Roles"
+msgstr "نقش‌ها"
+
+#: restrict-categories.php:416
+msgid "View All Users"
+msgstr "دیدن همهٔ کاربران"
+
+#: restrict-categories.php:415
+msgid "Search results for \"%s\""
+msgstr "نتایج جست‌وجو برای «%s»"
+
+#: restrict-categories.php:207
+msgid "Settings"
+msgstr "تنظیمات"
+
+#: restrict-categories.php:185
+msgid "Restrict Categories reset"
+msgstr "بازنشانی محدودسازی دسته‌ها"
+
+#: restrict-categories.php:163
+msgid "Security check"
+msgstr "بررسی امنیتی"
+
+#. Author URI of the plugin
+msgid "http://vfbpro.com"
+msgstr "http://vfbpro.com"
+
+#. Author of the plugin
+msgid "Matthew Muro"
+msgstr "Matthew Muro"
+
+#. Description of the plugin
+msgid "Restrict the categories that users can view, add, and edit in the admin panel."
+msgstr "در صفحه مدیریت، دسته‌هایی را که کاربران می‌توانند مشاهده، افزوده و یا ویرایش کنند محدود کنید."
+
+#. Plugin Name of the plugin
+#: restrict-categories.php:379 restrict-categories.php:411
+msgid "Restrict Categories"
+msgstr "محدودسازی دسته‌ها"
