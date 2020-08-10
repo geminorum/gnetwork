@@ -1,0 +1,158 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// gNetwork Partials: Login: SplitScreen -----------------------------------------
+// https://www.wowthemes.net/bootstrap-4-split-screen-layout/
+// https://codepen.io/geminorum/pen/XWXyoON
+
+////////////////////////////////////////////////////////////////////////////////
+body.login.splitscreen {
+  background-color: #fff;
+
+  .split-screen {
+    .-first {
+      background-color: #4b0082;
+    }
+
+    .-second {
+      background-color: #fff;
+    }
+
+    *,
+    ::after,
+    ::before {
+      box-sizing: border-box;
+    }
+
+    align-items: center; // .align-items-center
+
+    .-side {
+      align-items: center; // .align-items-center
+
+      &.-first {
+        .-inner {
+          height: 100%; // .h-100
+          color: #fff; // .text-white
+          text-align: center; // .text-center
+        }
+      }
+
+      // &.-second {}
+
+      .-inner {
+        justify-content: center; // .justify-content-center
+        align-items: center; // .align-items-center
+        // padding: 2rem 3rem; // .p-5
+      }
+
+      .-brand {
+        padding: 3rem 0;
+
+        h1 a {
+          text-indent: initial;
+          font-size: 5rem;
+          color: #fff;
+        }
+      }
+    }
+
+    .-row-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+
+      .-row {
+        // border: 1px dotted green;
+
+        &.-main {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: auto 0;
+          padding: 1rem;
+        }
+
+        &.-head,
+        &.-foot {
+          // font-size: 0.75rem;
+          height: 2rem;
+        }
+
+        &.-head {
+          padding-top: 0.5rem;
+          font-size: 2rem;
+        }
+
+        &.-foot {
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-end;
+          padding-bottom: 0.5rem;
+        }
+      }
+    }
+  }
+
+  #login {
+    width: auto;
+    padding: 0;
+    margin: 0;
+
+    + h1,
+    #backtoblog {
+      display: none;
+      visibility: hidden;
+    }
+
+    form {
+      border: none;
+      box-shadow: none;
+      background: transparent;
+    }
+  }
+
+  .gnetwork-wrap {
+    &.-footer {
+      // text-align: center;
+
+      &.-already {
+        margin-top: 1rem;
+        // color: $gray;
+        // font-size: smaller;
+      }
+
+      &.-badge {
+        margin: 3rem 0 0 0;
+        // margin: 0;
+      }
+    }
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+@media (min-width: 768px) {
+  body.login.splitscreen {
+    .split-screen {
+      display: flex; // .d-md-flex
+      height: 100vh; // .h-md-100
+
+      .-side {
+        flex: 0 0 50%; // .col-md-6
+        max-width: 50%; // .col-md-6
+        height: 100vh; // .h-md-100
+
+        .-inner {
+          display: flex; // .d-md-flex
+          padding: 2rem 3rem; // .p-5
+        }
+
+        &.-second {
+          .-inner {
+            height: 100vh; // .h-md-100
+          }
+        }
+      }
+    }
+  }
+}

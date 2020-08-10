@@ -165,6 +165,7 @@ table.base-table-list {
       }
     }
 
+    &.-ltr,
     &.-has-list-ltr {
       /*rtl:ignore*/
       direction: ltr;

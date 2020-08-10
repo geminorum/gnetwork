@@ -46,6 +46,7 @@
 
     .CodeMirror { /* stylelint-disable-line selector-class-pattern */
       border: 1px solid #ddd;
+      height: 120px; // default is `300px`
     }
   }
 }

@@ -14,4 +14,10 @@
       display: none;
     }
   }
+
+  #poststuff {
+    .misc-pub-section > a.hide-if-no-js {
+      font-size: inherit;
+    }
+  }
 }

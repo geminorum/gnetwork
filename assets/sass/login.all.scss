@@ -6,6 +6,7 @@
 @import "partials/login.darkstories.theme";
 @import "partials/login.sidelogo.theme";
 @import "partials/login.webogram.theme";
+@import "partials/login.splitscreen.theme";
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -121,6 +122,10 @@ body.rtl {
 
     &.-badge {
       margin: 1em 0 .5em;
+
+      a:focus {
+        box-shadow: none;
+      }
     }
   }
 }

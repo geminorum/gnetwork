@@ -4,12 +4,31 @@
 /// gNetwork Partials: MetaBox -------------------------------------------------
 
 .postbox {
+  // FIXME: combine the opacity styles
+  .handle-actions {
+    .handle-order-higher,
+    .handle-order-lower {
+      opacity: .2;
+      transition: all 0.1s ease;
+    }
+  }
+
+  &:hover {
+    .handle-actions {
+      .handle-order-higher,
+      .handle-order-lower {
+        opacity: 1;
+        transition: all 0.3s ease;
+      }
+    }
+  }
+
   .hndle {
     .postbox-title-action {
-      opacity: .4;
-      // line-height: 1;
+      opacity: .2;
       transition: all 0.1s ease;
-      float: right;
+      // line-height: 1;
+      // float: right;
 
       a {
         text-decoration: none !important;
