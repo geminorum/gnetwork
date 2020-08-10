@@ -119,9 +119,7 @@ class Blacklist extends gNetwork\Module
 		if ( $content === $this->options['blacklisted_ips'] )
 			return;
 
-		if ( $this->update_option( 'blacklisted_ips', trim( $content ) ) )
-			Logger::INFO( 'BLACKLIST: Remote content updated' );
-		else
+		if ( ! $this->update_option( 'blacklisted_ips', trim( $content ) ) )
 			Logger::WARNING( 'BLACKLIST: Problem updating remote content' );
 	}
 
