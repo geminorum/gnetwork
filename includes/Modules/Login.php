@@ -155,6 +155,7 @@ class Login extends gNetwork\Module
 						'darkstories' => _x( 'DarkStories', 'Modules: Login: Login Theme', 'gnetwork' ),
 						'sidelogo'    => _x( 'SideLogo', 'Modules: Login: Login Theme', 'gnetwork' ),
 						'webogram'    => _x( 'Webogram', 'Modules: Login: Login Theme', 'gnetwork' ),
+						'splitscreen' => _x( 'SplitScreen', 'Modules: Login: Login Theme', 'gnetwork' ),
 					] ),
 				],
 				[
@@ -400,18 +401,52 @@ class Login extends gNetwork\Module
 
 		$this->action( 'login_footer', 1, 9, 'logged_in' );
 
-		if ( ! GNETWORK_DISABLE_CREDITS && $this->options['login_credits'] )
-			$this->action( 'login_footer', 1, 10, 'badge' );
+		if ( $this->options['login_credits']
+			&& 'splitscreen' !== $this->options['login_class'] )
+				$this->action( 'login_footer', 1, 10, 'badge' );
 	}
 
 	public function login_header()
 	{
-		if ( 'webogram' == $this->options['login_class'] )
+		if ( 'webogram' == $this->options['login_class'] ) {
 			echo '<div class="-head-placeholder"></div>';
+
+		} else if ( 'splitscreen' == $this->options['login_class']
+			&& empty( $GLOBALS['interim_login'] ) ) {
+
+			echo '<div class="split-screen"><div class="-side -first">'
+				.'<div class="-inner -row-wrap">';
+
+			echo '<div class="-row -head"><div>';
+				$this->actions( 'header_splitscreen_head' );
+			echo '</div></div>';
+
+			echo '<div class="-row -main"><div class="-brand">';
+
+			echo '<h1><a href="'.esc_url( apply_filters( 'login_headerurl', GNETWORK_BASE ) ).'">'
+				.apply_filters( 'login_headertext', GNETWORK_NAME ).'</a></h1>';
+
+			echo '</div></div><div class="-row -foot"><div>';
+
+			$this->actions( 'header_splitscreen_foot' );
+
+			if ( $this->options['login_credits'] )
+				$this->render_badge();
+
+			echo '</div></div>';
+
+			echo '</div></div><div class="-side -second">'
+				.'<div class="-inner"><div class="-action">';
+		}
 	}
 
 	public function login_footer()
 	{
+		if ( ! empty( $GLOBALS['interim_login'] ) )
+			return;
+
+		if ( 'splitscreen' == $this->options['login_class'] )
+			echo '</div></div></div></div>';
 
 		if ( $this->options['login_remember'] )
 			echo '<script type="text/javascript">try{document.getElementById("rememberme").checked=true;}catch(e){};</script>';
@@ -420,6 +455,13 @@ class Login extends gNetwork\Module
 	public function login_head()
 	{
 		Utilities::linkStyleSheet( 'login.all' );
+
+		if ( 'splitscreen' == $this->options['login_class'] ) {
+			$variables = '.split-screen .-first{background-color:'.gNetwork()->brand( 'color' ).'!important}';
+			$variables.= '.split-screen .-second{background-color:'.gNetwork()->brand( 'background' ).'!important}';
+
+			printf( "<style>\n%s\n</style>\n", $variables );
+		}
 
 		// TODO: support placeholders: `Text::replaceTokens()`
 		if ( $this->options['login_styles'] )
