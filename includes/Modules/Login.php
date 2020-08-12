@@ -69,7 +69,6 @@ class Login extends gNetwork\Module
 			'store_lastlogin' => 1,
 			'redirect_login'  => '',
 			'redirect_logout' => '',
-			'login_logourl'   => '',
 			'login_styles'    => '',
 			'login_class'     => 'logindefault',
 			'login_remember'  => 0,
@@ -164,13 +163,6 @@ class Login extends gNetwork\Module
 					'title'       => _x( 'Extra CSS', 'Modules: Login: Settings', 'gnetwork' ),
 					'description' => _x( 'Additional CSS styles to use on default login page.', 'Modules: Login: Settings', 'gnetwork' ),
 					'values'      => [ 'mode' => 'css' ],
-				],
-				[
-					'field'       => 'login_logourl',
-					'type'        => 'url',
-					'title'       => _x( 'Logo Image', 'Modules: Login: Settings', 'gnetwork' ),
-					'description' => _x( 'Full URL to the login logo image.', 'Modules: Login: Settings', 'gnetwork' ),
-					'after'       => Settings::fieldAfterIcon( Settings::getLoginLogoLink() ),
 				],
 			],
 		];
