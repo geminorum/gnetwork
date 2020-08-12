@@ -27,7 +27,7 @@ class Site extends gNetwork\Module
 		if ( GNETWORK_LARGE_NETWORK_IS )
 			$this->filter( 'wp_is_large_network', 3, 9 );
 
-		$this->action( 'wpmu_new_blog', 6, 12 );
+		$this->action( 'wp_initialize_site', 2, 12 );
 		$this->action( 'ms_site_not_found', 3, 12 );
 
 		if ( is_admin() ) {
@@ -327,14 +327,14 @@ class Site extends gNetwork\Module
 		return $html.'</table>';
 	}
 
-	// FIXME: DEPRECATED: @SEE: https://core.trac.wordpress.org/ticket/41333
 	// TODO: on signup form: http://stackoverflow.com/a/10372861
-	public function wpmu_new_blog( $blog_id, $user_id, $domain, $path, $network_id, $meta )
+	// @REF: https://core.trac.wordpress.org/ticket/41333
+	public function wp_initialize_site( $new_site, $args )
 	{
-		switch_to_blog( $blog_id );
+		switch_to_blog( $new_site->id );
 
 		if ( $site_user_id = gNetwork()->user() )
-			add_user_to_blog( $blog_id, $site_user_id, gNetwork()->option( 'site_user_role', 'user', 'editor' ) );
+			add_user_to_blog( $new_site->id, $site_user_id, gNetwork()->option( 'site_user_role', 'user', 'editor' ) );
 
 		$new_blog_options = $this->filters( 'new_blog_options', [
 			'blogdescription'        => '',
@@ -365,7 +365,7 @@ class Site extends gNetwork\Module
 			activate_plugin( $new_blog_plugin, '', FALSE, $new_blog_plugin_silent );
 
 		restore_current_blog();
-		clean_blog_cache( $blog_id );
+		clean_blog_cache( $new_site->id );
 	}
 
 	// alternative to `NOBLOGREDIRECT`
@@ -437,7 +437,7 @@ class Site extends gNetwork\Module
 		if ( ! is_site_meta_supported() )
 			return;
 
-		$this->action( 'wpmu_new_blog', 1, 10, 'sync' );
+		$this->action( 'wp_initialize_site', 2, 10, 'sync' );
 		$this->action( 'wp_upgrade' );
 
 		$this->action( 'updated_option', 3 );
@@ -511,9 +511,9 @@ class Site extends gNetwork\Module
 		update_site_meta( get_current_blog_id(), 'wp_db_version', $wp_db_version );
 	}
 
-	public function wpmu_new_blog_sync( $blog_id )
+	public function wp_initialize_site_sync( $new_site, $args )
 	{
-		switch_to_blog( $blog_id );
+		switch_to_blog( $new_site->id );
 
 		$this->resync_sitemeta();
 
