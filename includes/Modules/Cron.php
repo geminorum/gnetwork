@@ -406,7 +406,8 @@ class Cron extends gNetwork\Module
 		$actions = $missing = [];
 
 		foreach ( self::getCronArray() as $timestamp )
-			$actions = array_merge( $actions, array_keys( $timestamp ) );
+			if ( $timestamp )
+				$actions = array_merge( $actions, array_keys( $timestamp ) );
 
 		foreach ( array_unique( $actions ) as $action )
 			if ( ! has_action( $action ) )
