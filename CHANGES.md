@@ -1,3 +1,48 @@
+### 3.11.1
+* main/module: better handling provider status
+* main/module: default provider helper
+* main/module: min cap for tools
+* main/plugin: colors on brand helper
+* main/provider: move default provider option into general settings
+* main/scripts: enqueue styles from cdn
+* main/settings: field description for supported placeholders
+* main/settings: overriding code-editor settings
+* main/utilities: empty html helper
+* module/bbq: :up: 20200706
+* module/blacklist: less log on skipped updates
+* module/branding: custom adminbar styles
+* module/branding: filter theme copyright text
+* module/branding: network site icon on favicon requests
+* module/cron: :warning: avoid notice on undefined hook
+* module/cron: better handling ajax errors on manual status check
+* module/cron: switch weekly to monthly schedules
+* module/legal: :new: module
+* module/login: code editor for styles field
+* module/login: new theme: split-screen
+* module/login: placeholder only with activated style class
+* module/login: proper handling login footer action
+* module/mail: append smtp server on logging
+* module/mail: avoid manually instantiating phpmailer
+* module/mail: better output handling on test form
+* module/mail: correct filename on logging
+* module/mail: logic separation on logging
+* module/mail: refine logs on logging emails
+* module/media : check if separation enabled before cleanup thumbs
+* module/media: original size on overview images
+* module/media: search box on attachment list
+* module/opensearch: better handling manifest requests
+* module/opensearch: better handling xml/json requests
+* module/opensearch: proper handling of manifest url
+* module/profile: :new: optional disabling of profile edits
+* module/profile: check for option before disable password checkbox
+* module/shortcodes: :warning: avoid format number on phones
+* module/shortcodes: extra space after ref markup
+* module/shortcodes: trim text on ref editor plugin
+* module/site: fixed deprecated action
+* module/site: resync entire network on cron
+* module/update: check for force check on query
+* module/update: remove token via query args
+
 ### 3.11.0
 * main/logger: failed for network
 * main/module: add dashboard widget api
