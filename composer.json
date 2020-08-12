@@ -45,7 +45,6 @@
     "behat/transliterator": "^1.3",
     "davidepastore/ipinfo": "^0.3.0",
     "ziggeo/simple-box-integration": "^0.0.3",
-    "knplabs/github-api": "^2.11",
     "nicolab/php-ftp-client": "^1.5",
     "tecnickcom/tc-lib-barcode": "^1.15",
     "kub-at/php-simple-html-dom-parser": "^1.9"
