@@ -223,9 +223,9 @@ class SMS extends gNetwork\Module
 		return $html;
 	}
 
-	protected function setup_providers()
+	protected function get_bundled_providers()
 	{
-		$bundled = [
+		return [
 			'kavenegar' => [
 				'path'  => GNETWORK_DIR.'includes/Providers/Kavenegar.php',
 				'class' => 'geminorum\\gNetwork\\Providers\\Kavenegar',
@@ -235,34 +235,12 @@ class SMS extends gNetwork\Module
 				'class' => 'geminorum\\gNetwork\\Providers\\Farapaymak',
 			],
 		];
+	}
 
-		foreach ( $this->filters( 'providers', $bundled ) as $provider => $args ) {
-
-			if ( isset( $args['path'] ) && file_exists( $args['path'] ) ) {
-
-				require_once( $args['path'] );
-
-				if ( isset( $args['class'] ) ) {
-
-					$class = $args['class'];
-
-					try {
-
-						$this->providers[$provider] = new $class( $this->options, $this->base, $provider );
-
-					} catch ( Exception $e ) {
-
-						// if ( $this->options['debug_providers'] )
-						// 	Logger::DEBUG( 'SMS-DEBUG: provider: '.$provider.' :: '.$e->getMessage() );
-					}
-				}
-			}
-		}
-
-		if ( ! is_admin() )
+	protected function setup_providers()
+	{
+		if ( ! parent::setup_providers() )
 			return;
-
-		$this->filter_module( 'dashboard', 'pointers', 1, 10, 'providers' );
 
 		if ( GNETWORK_SMS_LOG_DIR && $this->options['log_data'] ) {
 			$this->_hook_post( TRUE, $this->hook( 'logs' ), 'log_actions' );

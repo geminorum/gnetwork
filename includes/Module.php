@@ -168,7 +168,17 @@ class Module extends Core\Base
 
 	protected function setup_providers()
 	{
-		// WILL BE OVERRIDDEN
+		$providers = $this->filters( 'providers', $this->get_bundled_providers() );
+
+		if ( empty( $providers ) )
+			return FALSE;
+
+		$this->_init_providers( $providers );
+
+		if ( is_admin() )
+			$this->filter_module( 'dashboard', 'pointers', 1, 10, 'providers' );
+
+		return TRUE;
 	}
 
 	public function get_menu_url( $sub = NULL, $admin = 'admin', $context = 'settings', $extra = [], $scheme = 'admin', $network = NULL )
@@ -1416,6 +1426,44 @@ class Module extends Core\Base
 			return FALSE; // prevent scripts
 
 		return TRUE;
+	}
+
+	protected function get_bundled_providers()
+	{
+		return [];
+	}
+
+	protected function _init_providers( $providers )
+	{
+		foreach ( $providers as $provider => $args ) {
+
+			if ( ! empty( $args['path'] ) && is_readable( $args['path'] ) )
+				require_once( $args['path'] );
+
+			if ( empty( $args['class'] ) )
+				continue;
+
+			$class = $args['class'];
+
+			try {
+
+				$this->providers[$provider] = new $class( $this->options, $this->base, $provider );
+
+			} catch ( Exception $e ) {
+
+				if ( $this->options['debug_providers'] ) {
+
+					$message = $e->getMessage();
+
+					if ( ! in_array( $message, [ 'Not Enabled!' ] ) )
+						Logger::DEBUG( vsprintf( '%s-DEBUG: provider: %s :: %s', [
+							strtoupper( $this->key ),
+							$provider,
+							$message,
+						] ) );
+				}
+			}
+		}
 	}
 
 	// DEFAULT FILTER
