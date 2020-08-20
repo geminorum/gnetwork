@@ -401,9 +401,9 @@ class Blog extends gNetwork\Module
 			'default' => 'numeric',
 			'values'  => [
 				/* translators: %s: shortlink type placeholder */
-				'numeric'   => sprintf( _x( 'Numeric (%s)', 'Modules: Blog: Settings', 'gnetwork' ), 'example.com/123' ),
+				'numeric'   => sprintf( _x( 'Numeric (%s)', 'Modules: Blog: Settings', 'gnetwork' ), URL::home( '123' ) ),
 				/* translators: %s: shortlink type placeholder */
-				'bijection' => sprintf( _x( 'Alpha-Numeric (%s)', 'Modules: Blog: Settings', 'gnetwork' ), 'example.com/d3E' ),
+				'bijection' => sprintf( _x( 'Alpha-Numeric (%s)', 'Modules: Blog: Settings', 'gnetwork' ), URL::home( 'd3E' ) ),
 			],
 		];
 

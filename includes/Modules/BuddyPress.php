@@ -7,6 +7,7 @@ use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\Arraay;
 use geminorum\gNetwork\Core\HTTP;
+use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
 
 class BuddyPress extends gNetwork\Module
@@ -115,7 +116,7 @@ class BuddyPress extends gNetwork\Module
 					'type'        => 'url',
 					'title'       => _x( 'Complete Signup', 'Modules: BuddyPress: Settings', 'gnetwork' ),
 					'description' => _x( 'Redirect users after successful registration.', 'Modules: BuddyPress: Settings', 'gnetwork' ),
-					'placeholder' => 'http://example.com/welcome',
+					'placeholder' => URL::home( 'welcome' ),
 				],
 			],
 			'_xprofile' => [

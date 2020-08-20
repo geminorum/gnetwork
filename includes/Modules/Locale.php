@@ -263,6 +263,7 @@ class Locale extends gNetwork\Module
 			'sb-instagram-feed'          => 'page',
 			'pdfemb_list_options'        => 'page',
 			'theme-sniffer'              => 'page', // [Theme Sniffer](https://wordpress.org/plugins/theme-sniffer/)
+			'wp-jquery-update-test'      => 'page', // [Test jQuery Updates](https://wordpress.org/plugins/wp-jquery-update-test/)
 
 			// [Official MailerLite Sign Up Forms](https://wordpress.org/plugins/official-mailerlite-sign-up-forms/)
 			'mailerlite_main'     => 'page',
@@ -413,6 +414,7 @@ class Locale extends gNetwork\Module
 		$list = $this->filters( 'whitelist', [
 			'wp_beta_tester'             => 'page',
 			'ssl-insecure-content-fixer' => 'page',
+			'wp-jquery-update-test'      => 'page', // [Test jQuery Updates](https://wordpress.org/plugins/wp-jquery-update-test/)
 
 			// [BackWPup](https://backwpup.com/)
 			'backwpup'         => 'page',

@@ -7,7 +7,6 @@ use geminorum\gNetwork\Logger;
 use geminorum\gNetwork\Provider;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
-use geminorum\gNetwork\Core\Exception;
 use geminorum\gNetwork\Core\File;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\Text;
@@ -227,12 +226,10 @@ class SMS extends gNetwork\Module
 	{
 		return [
 			'kavenegar' => [
-				'path'  => GNETWORK_DIR.'includes/Providers/Kavenegar.php',
-				'class' => 'geminorum\\gNetwork\\Providers\\Kavenegar',
+				'class' => 'geminorum\\gNetwork\\Providers\\Kavenegar', // autoloaded by composer
 			],
 			'farapaymak' => [
-				'path'  => GNETWORK_DIR.'includes/Providers/Farapaymak.php',
-				'class' => 'geminorum\\gNetwork\\Providers\\Farapaymak',
+				'class' => 'geminorum\\gNetwork\\Providers\\Farapaymak', // autoloaded by composer
 			],
 		];
 	}

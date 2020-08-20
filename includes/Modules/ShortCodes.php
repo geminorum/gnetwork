@@ -12,6 +12,7 @@ use geminorum\gNetwork\Core\HTTP;
 use geminorum\gNetwork\Core\Number;
 use geminorum\gNetwork\Core\Text;
 use geminorum\gNetwork\Core\Third;
+use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
 
 class ShortCodes extends gNetwork\Module
@@ -160,7 +161,7 @@ class ShortCodes extends gNetwork\Module
 					'type'   => 'text',
 					'encode' => TRUE,
 					'meta'   => [
-						'placeholder' => 'http://example.com/about-this',
+						'placeholder' => URL::home( 'about-this' ),
 						'dir'         => 'ltr',
 					],
 				],
