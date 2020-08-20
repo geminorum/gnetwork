@@ -115,6 +115,11 @@ class URL extends Base
 		);
 	}
 
+	public static function home( $path = '' )
+	{
+		return $path ? ( self::trail( get_option( 'home' ) ).$path ) : self::untrail( get_option( 'home' ) );
+	}
+
 	// check whether the given URL belongs to this site
 	public static function isLocal( $url, $domain = NULL )
 	{

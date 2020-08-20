@@ -17,11 +17,20 @@ class Number extends Base
 
 	// FIXME: use our own
 	// converts back number chars into english
-	public static function intval( $text, $intval = TRUE )
+	public static function intval( $text, $force = TRUE )
 	{
 		$number = apply_filters( 'string_format_i18n_back', $text );
 
-		return $intval ? intval( $number ) : $number;
+		return $force ? intval( $number ) : $number;
+	}
+
+	// FIXME: use our own
+	// converts back number chars into english
+	public static function floatval( $text, $force = TRUE )
+	{
+		$number = apply_filters( 'string_format_i18n_back', $text );
+
+		return $force ? floatval( $number ) : $number;
 	}
 
 	// never let a numeric value be less than zero.

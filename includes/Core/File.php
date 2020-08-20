@@ -91,7 +91,19 @@ class File extends Base
 	// puts .htaccess deny from all on a given folder
 	public static function putHTAccessDeny( $path, $check_folder = TRUE )
 	{
-		$content = '<Files ~ ".*\..*">'.PHP_EOL.'order allow,deny'.PHP_EOL.'deny from all'.PHP_EOL.'</Files>';
+		$content = '<Files ~ ".*\..*">'.PHP_EOL.
+				'<IfModule mod_access.c>'.PHP_EOL.
+					'Deny from all'.PHP_EOL.
+				'</IfModule>'.PHP_EOL.
+				'<IfModule !mod_access_compat>'.PHP_EOL.
+					'<IfModule mod_authz_host.c>'.PHP_EOL.
+						'Deny from all'.PHP_EOL.
+					'</IfModule>'.PHP_EOL.
+				'</IfModule>'.PHP_EOL.
+				'<IfModule mod_access_compat>'.PHP_EOL.
+					'Deny from all'.PHP_EOL.
+				'</IfModule>'.PHP_EOL.
+			'</Files>';
 
 		return self::putContents( '.htaccess', $content, $path, FALSE, $check_folder );
 	}
