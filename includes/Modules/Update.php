@@ -49,8 +49,8 @@ class Update extends gNetwork\Module
 			$this->filter( 'extra_plugin_headers' );
 			$this->filter( 'extra_theme_headers' );
 
-			$this->filter( 'site_transient_plugins' );
-			$this->filter( 'site_transient_themes' );
+			$this->filter( 'site_transient_update_plugins', 2 );
+			$this->filter( 'site_transient_update_themes', 2 );
 
 			$this->filter( 'upgrader_source_selection', 4 );
 			$this->action( 'upgrader_process_complete', 2 );
@@ -323,7 +323,7 @@ class Update extends gNetwork\Module
 		return $response;
 	}
 
-	public function site_transient_plugins( $transient )
+	public function site_transient_update_plugins( $value, $transient )
 	{
 		foreach ( $this->get_packages() as $package ) {
 
@@ -346,13 +346,13 @@ class Update extends gNetwork\Module
 			$plugin->new_version  = $version;
 			$plugin->package      = $this->get_data_download( $package, $data );
 
-			$transient->response[$package['path']] = $plugin;
+			$value->response[$package['path']] = $plugin;
 		}
 
-		return $transient;
+		return $value;
 	}
 
-	public function site_transient_themes( $transient )
+	public function site_transient_update_themes( $value, $transient )
 	{
 		foreach ( $this->get_packages() as $package ) {
 
@@ -374,10 +374,10 @@ class Update extends gNetwork\Module
 				'package'     => $this->get_data_download( $package, $data ),
 			];
 
-			$transient->response[$package['slug']] = $theme;
+			$value->response[$package['slug']] = $theme;
 		}
 
-		return $transient;
+		return $value;
 	}
 
 	public function upgrader_source_selection( $source, $remote, $upgrader, $extra )
