@@ -209,8 +209,8 @@ class Captcha extends gNetwork\Module
 	public function recaptcha_errors()
 	{
 		return [
-			'empty_captcha'   => _x( 'CAPTCHA should not be empty', 'Modules: Captcha: ReCaptcha Error', 'gnetwork' ),
-			'invalid_captcha' => _x( 'CAPTCHA response was incorrect', 'Modules: Captcha: ReCaptcha Error', 'gnetwork' ),
+			'empty_captcha'   => _x( 'CAPTCHA should not be empty!', 'Modules: Captcha: ReCaptcha Error', 'gnetwork' ),
+			'invalid_captcha' => _x( 'CAPTCHA response was incorrect!', 'Modules: Captcha: ReCaptcha Error', 'gnetwork' ),
 		];
 	}
 

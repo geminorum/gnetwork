@@ -438,6 +438,10 @@ class Cron extends gNetwork\Module
 	{
 		if ( array_key_exists( $timestamp, $cron ) ) {
 			foreach ( $cron[$timestamp] as $action => $hashes ) {
+
+				if ( empty( $hashes ) )
+					continue;
+
 				foreach ( $hashes as $hash ) {
 					wp_unschedule_event( $timestamp, $action, $hash['args'] );
 					return TRUE;
@@ -468,6 +472,10 @@ class Cron extends gNetwork\Module
 					$html = '';
 
 					foreach ( $row as $action => $tasks ) {
+
+						if ( empty( $tasks ) )
+							continue;
+
 						foreach ( $tasks as $hash => $task ) {
 
 							$html.= '<div dir="ltr"><code style="color:'.( has_action( $action ) ? 'green' : 'red' ).'">'.$action.'</code>';

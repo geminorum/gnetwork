@@ -538,7 +538,7 @@ class Settings extends Core\Base
 		return [
 			'field'       => 'dashboard_intro',
 			'type'        => 'textarea-quicktags',
-			'title'       => _x( 'Widget Introduction ', 'Settings: Setting Title', 'gnetwork' ),
+			'title'       => _x( 'Widget Introduction', 'Settings: Setting Title', 'gnetwork' ),
 			'description' => _x( 'Message to display before contents on admin dashbaord widget.', 'Settings: Setting Desc', 'gnetwork' ),
 		];
 	}
