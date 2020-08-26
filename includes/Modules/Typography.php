@@ -245,6 +245,7 @@ class Typography extends gNetwork\Module
 	protected function get_shortcodes()
 	{
 		return [
+			'bismillah'       => 'shortcode_bismillah',
 			'three-asterisks' => 'shortcode_three_asterisks',
 			'nst'             => 'shortcode_numeral_section_title',
 			'ltr'             => 'shortcode_ltr',
@@ -387,6 +388,12 @@ class Typography extends gNetwork\Module
 				.'>'.trim( $content ).'</a>';
 
 		return self::shortcodeWrap( $html, 'wikipedia', $args, FALSE );
+	}
+
+	// @REF: https://unicode-table.com/en/FDFD/
+	public function shortcode_bismillah( $atts = [], $content = NULL, $tag = '' )
+	{
+		return self::shortcodeWrap( html_entity_decode( '&#65021;', ENT_QUOTES, 'UTF-8' ), 'bismillah', [ 'wrap' => TRUE ] );
 	}
 
 	// @SOURCE: http://writers.stackexchange.com/a/3304
