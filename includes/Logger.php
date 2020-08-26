@@ -103,22 +103,31 @@ class Logger
 		}
 	}
 
+	public static function logAdminBot( $message, $level = NULL, $context = [], $target = NULL )
+	{
+		if ( gNetwork()->module( 'bot' ) )
+			gNetwork()->bot->log( $level, $message, $context );
+	}
+
 	// system is unusable
 	public static function URGENT( $message, $context = [], $path = NULL )
 	{
 		self::logAnalog( $message, \Analog::URGENT, $context, $path );
+		self::logAdminBot( $message, 'URGENT', $context );
 	}
 
 	// action must be taken immediately
 	public static function ALERT( $message, $context = [], $path = NULL )
 	{
 		self::logAnalog( $message, \Analog::ALERT, $context, $path );
+		self::logAdminBot( $message, 'ALERT', $context );
 	}
 
 	// critical conditions
 	public static function CRITICAL( $message, $context = [], $path = NULL )
 	{
 		self::logAnalog( $message, \Analog::CRITICAL, $context, $path );
+		self::logAdminBot( $message, 'CRITICAL', $context );
 	}
 
 	// runtime errors that do not require immediate action
@@ -126,82 +135,104 @@ class Logger
 	public static function ERROR( $message, $context = [], $path = NULL )
 	{
 		self::logAnalog( $message, \Analog::ERROR, $context, $path );
+		self::logAdminBot( $message, 'ERROR', $context );
 	}
 
 	// exceptional occurrences that are not errors
 	public static function WARNING( $message, $context = [], $path = NULL )
 	{
 		self::logAnalog( $message, \Analog::WARNING, $context, $path );
+		self::logAdminBot( $message, 'WARNING', $context );
 	}
 
 	// normal but significant events
 	public static function NOTICE( $message, $context = [], $path = NULL )
 	{
 		self::logAnalog( $message, \Analog::NOTICE, $context, $path );
+		self::logAdminBot( $message, 'NOTICE', $context );
 	}
 
 	// interesting events
 	public static function INFO( $message, $context = [], $path = NULL )
 	{
 		self::logAnalog( $message, \Analog::INFO, $context, $path );
+		self::logAdminBot( $message, 'INFO', $context );
 	}
 
 	// detailed debug information
 	public static function DEBUG( $message, $context = [], $path = NULL )
 	{
 		self::logAnalog( $message, \Analog::DEBUG, $context, $path );
+		self::logAdminBot( $message, 'DEBUG', $context );
 	}
 
 	public static function FAILED( $message = '', $context = [], $path = GNETWORK_FAILED_LOG )
 	{
 		self::logAnalog( $message, \Analog::NOTICE, $context, $path );
+		self::logAdminBot( $message, 'FAILED', $context );
 	}
 
 	// action must be taken immediately
 	public static function siteALERT( $prefix, $message = '', $context = [] )
 	{
-		self::logAnalog( $prefix.': '.WordPress::currentSiteName().': '.$message, \Analog::ALERT, $context );
+		$site = WordPress::currentSiteName();
+		self::logAnalog( $prefix.': '.$site.': '.$message, \Analog::ALERT, $context );
+		self::logAdminBot( $prefix.': '.$site.': '.$message, 'ALERT', $context );
 	}
 
 	// critical conditions
 	public static function siteCRITICAL( $prefix, $message = '', $context = [] )
 	{
-		self::logAnalog( $prefix.': '.WordPress::currentSiteName().': '.$message, \Analog::CRITICAL, $context );
+		$site = WordPress::currentSiteName();
+		self::logAnalog( $prefix.': '.$site.': '.$message, \Analog::CRITICAL, $context );
+		self::logAdminBot( $prefix.': '.$site.': '.$message, 'CRITICAL', $context );
 	}
 
 	// runtime errors that do not require immediate action
 	// but should typically be logged and monitored
 	public static function siteERROR( $prefix, $message = '', $context = [] )
 	{
-		self::logAnalog( $prefix.': '.WordPress::currentSiteName().': '.$message, \Analog::ERROR, $context );
+		$site = WordPress::currentSiteName();
+		self::logAnalog( $prefix.': '.$site.': '.$message, \Analog::ERROR, $context );
+		self::logAdminBot( $prefix.': '.$site.': '.$message, 'ERROR', $context );
 	}
 
 	// exceptional occurrences that are not errors
 	public static function siteWARNING( $prefix, $message = '', $context = [] )
 	{
-		self::logAnalog( $prefix.': '.WordPress::currentSiteName().': '.$message, \Analog::WARNING, $context );
+		$site = WordPress::currentSiteName();
+		self::logAnalog( $prefix.': '.$site.': '.$message, \Analog::WARNING, $context );
+		self::logAdminBot( $prefix.': '.$site.': '.$message, 'WARNING', $context );
 	}
 
 	// normal but significant events
 	public static function siteNOTICE( $prefix, $message = '', $context = [] )
 	{
-		self::logAnalog( $prefix.': '.WordPress::currentSiteName().': '.$message, \Analog::NOTICE, $context );
+		$site = WordPress::currentSiteName();
+		self::logAnalog( $prefix.': '.$site.': '.$message, \Analog::NOTICE, $context );
+		self::logAdminBot( $prefix.': '.$site.': '.$message, 'NOTICE', $context );
 	}
 
 	// interesting events
 	public static function siteINFO( $prefix, $message = '', $context = [] )
 	{
-		self::logAnalog( $prefix.': '.WordPress::currentSiteName().': '.$message, \Analog::INFO, $context );
+		$site = WordPress::currentSiteName();
+		self::logAnalog( $prefix.': '.$site.': '.$message, \Analog::INFO, $context );
+		self::logAdminBot( $prefix.': '.$site.': '.$message, 'INFO', $context );
 	}
 
 	// detailed debug information
 	public static function siteDEBUG( $prefix, $message = '', $context = [] )
 	{
-		self::logAnalog( $prefix.': '.WordPress::currentSiteName().': '.$message, \Analog::DEBUG, $context );
+		$site = WordPress::currentSiteName();
+		self::logAnalog( $prefix.': '.$site.': '.$message, \Analog::DEBUG, $context );
+		self::logAdminBot( $prefix.': '.$site.': '.$message, 'DEBUG', $context );
 	}
 
 	public static function siteFAILED( $prefix, $message = '', $context = [] )
 	{
-		self::logAnalog( $prefix.': '.WordPress::currentSiteName().': '.$message, \Analog::NOTICE, $context, GNETWORK_FAILED_LOG );
+		$site = WordPress::currentSiteName();
+		self::logAnalog( $prefix.': '.$site.': '.$message, \Analog::NOTICE, $context, GNETWORK_FAILED_LOG );
+		self::logAdminBot( $prefix.': '.$site.': '.$message, 'FAILED', $context );
 	}
 }
