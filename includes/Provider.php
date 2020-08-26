@@ -166,6 +166,7 @@ class Provider extends Core\Base
 			'debug_providers'  => '0',
 			'default_provider' => 'none',
 			'log_data'         => '0',
+			'log_to_private'   => '0',
 		];
 	}
 
@@ -217,6 +218,15 @@ class Provider extends Core\Base
 		];
 	}
 
+	public static function getSetting_log_to_private( $type )
+	{
+		return [
+			'field'       => 'log_to_private',
+			'title'       => _x( 'Log to Private', 'Provider Core: Settings', 'gnetwork' ),
+			'description' => _x( 'Logs system events into private area.', 'Provider Core: Settings', 'gnetwork' ),
+		];
+	}
+
 	public function providerEnabled()
 	{
 		return $this->enabled;
@@ -244,6 +254,11 @@ class Provider extends Core\Base
 	}
 
 	public function botSend( $message, $target = NULL, $atts = [] )
+	{
+		return new Error( 'mothod_undefined', 'method must be over-ridden in a sub-class.' );
+	}
+
+	public function botLog( $log )
 	{
 		return new Error( 'mothod_undefined', 'method must be over-ridden in a sub-class.' );
 	}
