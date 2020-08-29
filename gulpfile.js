@@ -287,7 +287,12 @@
     }
   ));
 
-  gulp.task('github:package', function () {
+  gulp.task('github:package', function (done) {
+    if (!env.github) {
+      log.error('Error: missing required token for github');
+      return done();
+    }
+
     var changes = parseChangelog(fs.readFileSync('CHANGES.md', { encoding: 'utf-8' }), { title: false });
     var options = {
       token: env.github,
