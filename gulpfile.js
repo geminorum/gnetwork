@@ -7,11 +7,14 @@
   var rtlcss = require('rtlcss');
   var parseChangelog = require('parse-changelog');
   // var prettyjson = require('prettyjson');
+  var mergeJson = require('merge-json');
   var extend = require('xtend');
   var yaml = require('js-yaml');
   var log = require('fancy-log');
   var del = require('del');
-  var fs = require('fs');
+  var fs = require('fs-extra');
+  var exec = require('child_process').exec;
+  var path = require('path');
 
   var pkg = require('./package.json');
   var config = require('./gulp.config.json');
@@ -19,7 +22,7 @@
   var env = config.env;
   var banner = config.banner.join('\n');
 
-  // var debug = /--debug/.test(process.argv.slice(2));
+  var debug = /--debug/.test(process.argv.slice(2));
   var patch = /--patch/.test(process.argv.slice(2)); // bump a patch?
 
   try {
@@ -55,6 +58,90 @@
       .pipe(plugins.smushit())
       .pipe(gulp.dest(config.output.images));
   });
+
+  function i18nCommand (command, callback) {
+    exec('wp i18n ' + command, function (err, stdout, stderr) {
+      if (stdout) {
+        log.info('WP-CLI:', stdout.trim());
+      }
+      if (stderr) {
+        log.error('Errors:', stderr.trim());
+      }
+      callback(err);
+    });
+  }
+
+  // JSON.stringify does not support unicode escaping
+  // @REF: https://stackoverflow.com/a/4901205
+  function stringifyJSON (json, emitUnicode) {
+    var string = JSON.stringify(json);
+    return emitUnicode ? string : string.replace(/[\u007f-\uffff]/g,
+      function (match) {
+        return '\\u' + ('0000' + match.charCodeAt(0).toString(16)).slice(-4);
+      }
+    );
+  }
+
+  // clears the destination directory
+  gulp.task('i18n:core:clean', function (done) {
+    fs.emptyDirSync(config.i18n.core.dist);
+    done();
+  });
+
+  // clears original wp-cli generated jsons
+  gulp.task('i18n:core:done', function (done) {
+    // fs.emptyDirSync(config.i18n.core.temp); // WORKING BUT DISABLED
+    done();
+  });
+
+  // makes a copy of original .po file for make-json and purged by wp-cli
+  gulp.task('i18n:core:copy', function (done) {
+    fs.copySync(config.i18n.core.raw, config.i18n.core.dist);
+    done();
+  });
+
+  // dispatches the wp-cli to make-json and purge the .po files
+  gulp.task('i18n:core:make', function (cb) {
+    i18nCommand('make-json ' +
+      config.i18n.core.dist + ' ' +
+      config.i18n.core.temp + ' ' +
+      // '--no-purge ' + // the whole point of this is not to use the flag!
+      '--skip-plugins --skip-themes --skip-packages' +
+      (debug ? ' --debug' : ''),
+    cb);
+  });
+
+  // combines jsons with same name (generated incorrectly by wp-cli)
+  gulp.task('i18n:core:json', function () {
+    return gulp.src(config.i18n.core.temp + '/*.json')
+      .pipe(plugins.rename(function (file) {
+        file.basename = file.basename.replace(/^admin-/, '');
+      }))
+      .pipe(plugins.tap(function (file) {
+        var data = JSON.parse(file.contents.toString());
+        var dest = path.join(config.i18n.core.dist, file.path.split(path.sep).pop());
+
+        if (fs.existsSync(dest)) {
+          data = mergeJson.merge(require('./' + dest), data);
+        }
+
+        // to avoid unnecessary commits!
+        data['translation-revision-date'] = '';
+        data.generator = pkg.productName; // + ' v' + pkg.version;
+
+        file.contents = Buffer.from(stringifyJSON(data));
+      }))
+      .pipe(gulp.dest(config.i18n.core.dist));
+  });
+
+  // the parent task for json support of the core translations
+  gulp.task('i18n:core', gulp.series(
+    'i18n:core:clean',
+    'i18n:core:copy',
+    'i18n:core:make',
+    'i18n:core:json',
+    'i18n:core:done'
+  ));
 
   gulp.task('pot', function () {
     return gulp.src(config.input.php)

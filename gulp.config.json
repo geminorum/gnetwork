@@ -115,6 +115,13 @@
   "constants": {
     "version": "GNETWORK_VERSION"
   },
+  "i18n": {
+    "core": {
+      "raw": "./assets/locale/core/raw",
+      "temp": "./assets/locale/core/.temp",
+      "dist": "./assets/locale/core/dist"
+    }
+  },
   "pot": {
     "package": "gNetwork",
     "domain": "gnetwork",
