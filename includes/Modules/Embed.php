@@ -251,13 +251,14 @@ class Embed extends gNetwork\Module
 
 		if ( FALSE === ( $html = get_site_transient( $key ) ) ) {
 
-			if ( ! $response = HTTP::getJSON( $url ) )
-				return $this->options['error_message'];
+			$json = HTTP::getJSON( $url );
+			$html = $json ? $json['html'] : '';
 
-			$html = $response['html'];
-
-			set_site_transient( $key, $html, GNETWORK_CACHE_TTL );
+			set_site_transient( $key, $html, $html ? GNETWORK_CACHE_TTL : HOUR_IN_SECONDS );
 		}
+
+		if ( ! $html )
+			return $this->options['error_message'];
 
 		wp_enqueue_script( 'instagram-embed', 'https://www.instagram.com/embed.js', [], NULL, TRUE );
 
