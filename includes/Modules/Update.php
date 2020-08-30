@@ -292,12 +292,10 @@ class Update extends gNetwork\Module
 			if ( is_null( $endpoint ) )
 				$endpoint = $this->endpoint( $package );
 
-			if ( ! $response = HTTP::getJSON( $endpoint, [ 'headers' => $this->endpoint_headers( $package ) ] ) )
-				return FALSE;
+			$json = HTTP::getJSON( $endpoint, [ 'headers' => $this->endpoint_headers( $package ) ] );
+			$data = $json ? $this->cleanup_package_date( $json, $package ) : '';
 
-			$data = $this->cleanup_package_date( $response, $package );
-
-			set_site_transient( $key, $data, GNETWORK_CACHE_TTL );
+			set_site_transient( $key, $data, $data ? GNETWORK_CACHE_TTL : HOUR_IN_SECONDS );
 		}
 
 		return $data;
