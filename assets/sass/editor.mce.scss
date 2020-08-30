@@ -11,6 +11,14 @@
 // TODO: import styles for module markups
 
 html .mce-content-body.rtl {
+  .mce-notification-inner {
+    direction: ltr;
+  }
+
+  .mce-notification.mce-has-close {
+    padding-right: 15px;
+    padding-left: 5px;
+  }
 
   // shortcake
   .mce-offscreen-selection {

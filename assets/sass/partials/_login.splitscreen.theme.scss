@@ -52,6 +52,7 @@ body.login.splitscreen {
           text-indent: initial;
           font-size: 5rem;
           color: #fff;
+          margin: 0;
         }
       }
     }
@@ -99,10 +100,15 @@ body.login.splitscreen {
     padding: 0;
     margin: 0;
 
-    + h1,
+    > h1, // for custom defined logos
     #backtoblog {
       display: none;
       visibility: hidden;
+    }
+
+    #nav {
+      margin: 1rem auto 0;
+      text-align: center;
     }
 
     form {

@@ -18,7 +18,7 @@ $theme-fonts-repo: "../fonts" !default;
 // @REF: https://make.wordpress.org/core/2016/07/07/native-fonts-in-4-6/
 
 @mixin theme-fonts-core-native() {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Tahoma, Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Tahoma, Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 @mixin theme-fonts-core-code() {
