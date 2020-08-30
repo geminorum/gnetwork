@@ -82,16 +82,16 @@ class Locale extends gNetwork\Module
 		if ( 'default' == $domain ) {
 
 			if ( Text::has( $mofile, 'admin-network' ) )
-				$path = GNETWORK_DIR.'assets/locale/core/admin-network-'.$locale.'.mo';
+				$path = GNETWORK_DIR.'assets/locale/core/dist/admin-network-'.$locale.'.mo';
 
 			else if ( Text::has( $mofile, 'admin' ) )
-				$path = GNETWORK_DIR.'assets/locale/core/admin-'.$locale.'.mo';
+				$path = GNETWORK_DIR.'assets/locale/core/dist/admin-'.$locale.'.mo';
 
 			else if ( Text::has( $mofile, 'continents-cities' ) )
-				$path = GNETWORK_DIR.'assets/locale/core/continents-cities-'.$locale.'.mo';
+				$path = GNETWORK_DIR.'assets/locale/core/dist/continents-cities-'.$locale.'.mo';
 
 			else
-				$path = GNETWORK_DIR.'assets/locale/core/'.$locale.'.mo';
+				$path = GNETWORK_DIR.'assets/locale/core/dist/'.$locale.'.mo';
 
 		} else {
 
@@ -115,16 +115,16 @@ class Locale extends gNetwork\Module
 		if ( 'en_US' == $locale )
 			return $file;
 
-		$this->loaded[$locale][$domain][$handle][] = File::normalize( $file );
+		$this->loaded[$locale][$domain][$handle][] = $normalized = File::normalize( $file );
 
-		if ( 'default' == $domain ) {
+		if ( 'default' == $domain )
+			$target = GNETWORK_DIR.'assets/locale/core/dist'.str_ireplace( File::normalize( WP_LANG_DIR ), '', $normalized );
 
-			$target = GNETWORK_DIR.'assets/locale/core'.str_ireplace( WP_LANG_DIR , '', $file );
+		else if ( in_array( $domain, [ 'gnetwork', 'geditorial', 'gpersiandate', 'gpeople', 'gtheme' ] ) )
+			return $file; // do nothing!
 
-		} else {
-
-			return $file;
-		}
+		else
+			$target = GNETWORK_DIR.'assets/locale/'.File::basename( $normalized );
 
 		if ( ! is_readable( $target ) )
 			return $file;
