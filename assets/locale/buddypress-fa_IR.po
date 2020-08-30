@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: BuddyPress v6.2.0\n"
 "Report-Msgid-Bugs-To: https://buddypress.trac.wordpress.org\n"
 "POT-Creation-Date: 2020-08-06T20:59:51+00:00\n"
-"PO-Revision-Date: 2020-08-11 02:35+0430\n"
+"PO-Revision-Date: 2020-08-29 23:38+0430\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: \n"
 "Language: fa_IR\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 2.4\n"
+"X-Generator: Poedit 2.4.1\n"
 "X-Poedit-Basepath: ../../../buddypress\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -12150,7 +12150,7 @@ msgstr "درخواست‌های دوستی در انتظار"
 
 #: bp-templates/bp-nouveau/includes/functions.php:331
 msgid "BuddyPress Member's Home"
-msgstr "خانه عضو بادی‌پرس"
+msgstr "خانهٔ عضو بادی‌پرس"
 
 #: bp-templates/bp-nouveau/includes/functions.php:333
 msgid ""
@@ -13796,7 +13796,7 @@ msgstr ""
 
 #: bp-groups/js/blocks/group.js:41
 msgid "BuddyPress Group"
-msgstr ""
+msgstr "گروه بادی‌پرس"
 
 #: bp-groups/js/blocks/group.js:42
 msgid "Start typing the name of the group you want to feature into this post."
@@ -13860,11 +13860,11 @@ msgstr ""
 
 #: bp-groups/js/blocks/group.js:144
 msgid "BuddyPress Group."
-msgstr ""
+msgstr "گروه بادی‌پرس."
 
 #: bp-members/js/blocks/member.js:41
 msgid "BuddyPress Member"
-msgstr ""
+msgstr "عضو بادی‌پرس"
 
 #: bp-members/js/blocks/member.js:42
 msgid "Start typing the name of the member you want to feature into this post."
@@ -13917,7 +13917,7 @@ msgstr ""
 
 #: bp-members/js/blocks/member.js:145
 msgid "BuddyPress Member."
-msgstr ""
+msgstr "عضو بادی‌پرس."
 
 #~ msgid "%1$s | %2$s | Activity"
 #~ msgstr "%1$s | %2$s | فعالیت‌ها"
