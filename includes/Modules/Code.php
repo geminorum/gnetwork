@@ -149,6 +149,8 @@ class Code extends gNetwork\Module
 			} else {
 
 				$html = $content;
+
+				set_site_transient( $key, '', HOUR_IN_SECONDS );
 			}
 		}
 
