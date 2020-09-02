@@ -117,45 +117,41 @@ class Branding extends gNetwork\Module
 			'description' => _x( 'Displays as network wide site icon. Leave empty to disable.', 'Modules: Branding: Settings', 'gnetwork' ),
 		];
 
-		// only works if SSL enabled
-		if ( WordPress::isSSL() || WordPress::isDev() ) {
-
-			$settings['_webapp'] = [
-				[
-					'field'       => 'webapp_manifest',
-					'title'       => _x( 'Manifest', 'Modules: Branding: Settings', 'gnetwork' ),
-					'description' => _x( 'Provides the ability to save a site bookmark to a device\'s home screen.', 'Modules: Branding: Settings', 'gnetwork' ),
-					'after'       => Settings::fieldAfterIcon( $this->url_manifest( FALSE ), NULL, 'external' ),
-				],
-				[
-					'field'       => 'webapp_shortname',
-					'type'        => 'text',
-					'title'       => _x( 'Short Name', 'Modules: Branding: Settings', 'gnetwork' ),
-					'description' => _x( 'A short name for use as the text on the users home screen.', 'Modules: Branding: Settings', 'gnetwork' ),
-					'default'     => $name,
-					'field_class' => 'medium-text',
-				],
-				[
-					'field'       => 'webapp_longname',
-					'type'        => 'text',
-					'title'       => _x( 'Name', 'Modules: Branding: Settings', 'gnetwork' ),
-					'description' => _x( 'A name for use in the Web App Install banner.', 'Modules: Branding: Settings', 'gnetwork' ),
-				],
-				[
-					'field'       => 'webapp_description',
-					'type'        => 'text',
-					'title'       => _x( 'Description', 'Modules: Branding: Settings', 'gnetwork' ),
-					'description' => _x( 'A description for use in the Web App Manifest.', 'Modules: Branding: Settings', 'gnetwork' ),
-					'field_class' => 'large-text',
-				],
-				[
-					'field'       => 'webapp_color',
-					'type'        => 'color',
-					'title'       => _x( 'Background Color', 'Modules: Branding: Settings', 'gnetwork' ),
-					'description' => _x( 'Defines the expected &ldquo;background color&rdquo; for the website. Leave empty to use theme color.', 'Modules: Branding: Settings', 'gnetwork' ),
-				],
-			];
-		}
+		$settings['_webapp'] = [
+			[
+				'field'       => 'webapp_manifest',
+				'title'       => _x( 'Manifest', 'Modules: Branding: Settings', 'gnetwork' ),
+				'description' => _x( 'Provides the ability to save a site bookmark to a device\'s home screen.', 'Modules: Branding: Settings', 'gnetwork' ),
+				'after'       => Settings::fieldAfterIcon( $this->url_manifest( FALSE ), NULL, 'external' ),
+			],
+			[
+				'field'       => 'webapp_shortname',
+				'type'        => 'text',
+				'title'       => _x( 'Short Name', 'Modules: Branding: Settings', 'gnetwork' ),
+				'description' => _x( 'A short name for use as the text on the users home screen.', 'Modules: Branding: Settings', 'gnetwork' ),
+				'default'     => $name,
+				'field_class' => 'medium-text',
+			],
+			[
+				'field'       => 'webapp_longname',
+				'type'        => 'text',
+				'title'       => _x( 'Name', 'Modules: Branding: Settings', 'gnetwork' ),
+				'description' => _x( 'A name for use in the Web App Install banner.', 'Modules: Branding: Settings', 'gnetwork' ),
+			],
+			[
+				'field'       => 'webapp_description',
+				'type'        => 'text',
+				'title'       => _x( 'Description', 'Modules: Branding: Settings', 'gnetwork' ),
+				'description' => _x( 'A description for use in the Web App Manifest.', 'Modules: Branding: Settings', 'gnetwork' ),
+				'field_class' => 'large-text',
+			],
+			[
+				'field'       => 'webapp_color',
+				'type'        => 'color',
+				'title'       => _x( 'Background Color', 'Modules: Branding: Settings', 'gnetwork' ),
+				'description' => _x( 'Defines the expected &ldquo;background color&rdquo; for the website. Leave empty to use theme color.', 'Modules: Branding: Settings', 'gnetwork' ),
+			],
+		];
 
 		$settings['_adminbar'] = [
 			[
