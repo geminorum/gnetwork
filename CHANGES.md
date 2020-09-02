@@ -1,3 +1,6 @@
+### 3.11.3
+* module/update: :warning: correct class for empty transients
+
 ### 3.11.2
 * assets/js: :up: prismjs 1.21.0
 * main/logger: support for upcomming bot module
