@@ -345,7 +345,7 @@ class Update extends gNetwork\Module
 			$plugin->package      = $this->get_data_download( $package, $data );
 
 			if ( ! is_object( $current ) ) {
-				$current = new stdClass;
+				$current = new \stdClass();
 				$current->response = [];
 			}
 
@@ -378,7 +378,7 @@ class Update extends gNetwork\Module
 			];
 
 			if ( ! is_object( $current ) ) {
-				$current = new stdClass;
+				$current = new \stdClass();
 				$current->response = [];
 			}
 
