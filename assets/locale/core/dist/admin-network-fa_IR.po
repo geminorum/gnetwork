@@ -8,10 +8,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2020-08-12 01:52+0430\n"
+"PO-Revision-Date: 2020-09-02 23:31+0430\n"
 "Language: fa\n"
 "Plural-Forms: nplurals=2; plural=(n==0 || n==1);\n"
-"X-Generator: Poedit 2.4\n"
+"X-Generator: Poedit 2.4.1\n"
 "X-Poedit-Basepath: ../../../../..\n"
 
 #: wp-admin/includes/class-wp-ms-sites-list-table.php:293
@@ -24,14 +24,14 @@ msgstr "جفنگ نیست"
 msgid "%s theme will no longer be auto-updated."
 msgid_plural "%s themes will no longer be auto-updated."
 msgstr[0] "%s پوسته به‌روزرسانی خوکار نخواهند شد."
-msgstr[1] ""
+msgstr[1] "%s پوسته به‌روزرسانی خوکار نخواهند شد."
 
 #. translators: %s: Number of themes.
 #: wp-admin/network/themes.php:396
 msgid "%s theme will be auto-updated."
 msgid_plural "%s themes will be auto-updated."
 msgstr[0] "%s پوسته به‌روزرسانی خوکار خواهند شد."
-msgstr[1] ""
+msgstr[1] "%s پوسته به‌روزرسانی خوکار خواهند شد."
 
 #: wp-admin/network/themes.php:225
 msgid "Sorry, you are not allowed to change themes automatic update settings."
@@ -61,7 +61,7 @@ msgstr "هم‌اکنون هیچ پوسته‌ای در دسترس نیست."
 msgid "Deleted <span class=\"count\">(%s)</span>"
 msgid_plural "Deleted <span class=\"count\">(%s)</span>"
 msgstr[0] "حذف‌شده <span class=\"count\">(%s)</span>"
-msgstr[1] ""
+msgstr[1] "حذف‌شده <span class=\"count\">(%s)</span>"
 
 #. translators: %s: Number of sites.
 #: wp-admin/includes/class-wp-ms-sites-list-table.php:247
@@ -76,21 +76,21 @@ msgstr[1] "جفنگ <span class=\"count\">(%s)</span>"
 msgid "Mature <span class=\"count\">(%s)</span>"
 msgid_plural "Mature <span class=\"count\">(%s)</span>"
 msgstr[0] "بزرگ‌سال <span class=\"count\">(%s)</span>"
-msgstr[1] ""
+msgstr[1] "بزرگ‌سال <span class=\"count\">(%s)</span>"
 
 #. translators: %s: Number of sites.
 #: wp-admin/includes/class-wp-ms-sites-list-table.php:235
 msgid "Archived <span class=\"count\">(%s)</span>"
 msgid_plural "Archived <span class=\"count\">(%s)</span>"
-msgstr[0] "بایگانی شده <span class=\"count\">(%s)</span>"
-msgstr[1] ""
+msgstr[0] "بایگانی‌شده <span class=\"count\">(%s)</span>"
+msgstr[1] "بایگانی‌شده <span class=\"count\">(%s)</span>"
 
 #. translators: %s: Number of sites.
 #: wp-admin/includes/class-wp-ms-sites-list-table.php:229
 msgid "Public <span class=\"count\">(%s)</span>"
 msgid_plural "Public <span class=\"count\">(%s)</span>"
 msgstr[0] "عمومی <span class=\"count\">(%s)</span>"
-msgstr[1] ""
+msgstr[1] "عمومی <span class=\"count\">(%s)</span>"
 
 #. translators: %s: Number of sites.
 #: wp-admin/includes/class-wp-ms-sites-list-table.php:222
@@ -322,7 +322,7 @@ msgstr "نام‌نویسی"
 msgid "Super Admin <span class=\"count\">(%s)</span>"
 msgid_plural "Super Admins <span class=\"count\">(%s)</span>"
 msgstr[0] "مدیر کل <span class=\"count\">(%s)</span>"
-msgstr[1] ""
+msgstr[1] "مدیر کل <span class=\"count\">(%s)</span>"
 
 #: wp-admin/includes/class-wp-ms-users-list-table.php:118
 msgctxt "user"
@@ -638,7 +638,7 @@ msgstr[1] "%s پوسته غیرفعال شد."
 msgid "%s theme enabled."
 msgid_plural "%s themes enabled."
 msgstr[0] "%s پوسته فعال شد."
-msgstr[1] ""
+msgstr[1] "%s پوسته فعال شد."
 
 #. translators: %s: Number of themes.
 #: wp-admin/network/themes.php:387
@@ -1508,14 +1508,14 @@ msgstr "تأیید"
 #, fuzzy
 #~ msgid ""
 "\n"
-"recommend you change your siteurl to %1$s before enabling the network \"\n"
-"It will still be possible to visit your site using the %3$s prefix \"\n"
-"an address like %2$s but any links will not have the %3$s prefix.\""
+"recommend you change your siteurl to %1$s before enabling the network feature. \"\n"
+"will still be possible to visit your site using the %3$s prefix with an \"\n"
+"like %2$s but any links will not have the %3$s prefix.\""
 #~ msgstr ""
 "\n"
-"می‌کنیم نشانی سایت خود را قبل از فعال‌سازی قابلیت شبکه به %1$s تغییر \"\n"
-"هنوز هم مشاهده سایتتان با استفاده از پیشوند %3$s با نشانی شبیه %2$s \"\n"
-"خواهد بود ولی هر پیوندی دارای پیشوند %3$s نخواهد بود.\""
+"می‌کنیم نشانی سایت خود را قبل از فعال‌سازی قابلیت شبکه به %1$s تغییر دهید. \"\n"
+"هم مشاهده سایتتان با استفاده از پیشوند %3$s با نشانی شبیه %2$s امکان‌پذیر \"\n"
+"بود ولی هر پیوندی دارای پیشوند %3$s نخواهد بود.\""
 
 #~ msgctxt "theme"
 #~ msgid "Add New"
@@ -1553,20 +1553,17 @@ msgstr "تأیید"
 
 #~ msgid ""
 "\n"
-"href=\"https://codex.wordpress.org/Tools_Network_Screen\">Documentation on \"\n"
-"Network Screen</a>\""
+"href=\"https://codex.wordpress.org/Tools_Network_Screen\">Documentation on the \"\n"
+"Screen</a>\""
 #~ msgstr ""
 "\n"
-"href=\"https://codex.wordpress.org/Tools_Network_Screen\">مستندات صفحه \"\n"
-""
+"href=\"https://codex.wordpress.org/Tools_Network_Screen\">مستندات صفحه شبکه</a>\""
 
 #~ msgid ""
 "\n"
 "href=\"https://codex.wordpress.org/Network_Admin\">Documentation on the \"\n"
 "Admin</a>\""
-#~ msgstr ""
-"\n"
-"href=\"https://codex.wordpress.org/Network_Admin\">مستندات مدیر شبکه</a>\""
+#~ msgstr "<a href=\"https://codex.wordpress.org/Network_Admin\">مستندات مدیر شبکه</a>"
 
 #~ msgid ""
 "\n"
