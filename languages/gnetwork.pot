@@ -1,13 +1,13 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: gNetwork 3.11.0\n"
+"Project-Id-Version: gNetwork 3.11.2\n"
 "Report-Msgid-Bugs-To: https://github.com/geminorum/gnetwork/issues\n"
 "Last-Translator: NULL\n"
 "Language-Team: NULL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-08-12T11:29:09+00:00\n"
+"POT-Creation-Date: 2020-09-02T20:39:42+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: gnetwork\n"
@@ -96,107 +96,107 @@ msgctxt "Modules: Debug: Debug Bar Panel"
 msgid "No metadata found!"
 msgstr ""
 
-#: includes/Module.php:259
+#: includes/Module.php:269
 msgctxt "Module Core: Menu Name"
 msgid "Overview"
 msgstr ""
 
-#: includes/Module.php:267
+#: includes/Module.php:277
 msgctxt "Module Core: Menu Name"
 msgid "Console"
 msgstr ""
 
-#: includes/Module.php:981
+#: includes/Module.php:991
 msgctxt "Module Core: Settings"
 msgid "Miscellaneous"
 msgstr ""
 
-#: includes/Module.php:986
+#: includes/Module.php:996
 msgctxt "Module Core: Settings"
 msgid "Styling"
 msgstr ""
 
-#: includes/Module.php:991
+#: includes/Module.php:1001
 msgctxt "Module Core: Settings"
 msgid "Administration"
 msgstr ""
 
-#: includes/Module.php:996
+#: includes/Module.php:1006
 msgctxt "Module Core: Settings"
 msgid "Front-end"
 msgstr ""
 
-#: includes/Module.php:1001
+#: includes/Module.php:1011
 msgctxt "Module Core: Settings"
 msgid "Overrides"
 msgstr ""
 
-#: includes/Module.php:1006
+#: includes/Module.php:1016
 msgctxt "Module Core: Settings"
 msgid "Services"
 msgstr ""
 
-#: includes/Module.php:1011
+#: includes/Module.php:1021
 msgctxt "Module Core: Settings"
 msgid "Economics"
 msgstr ""
 
-#: includes/Module.php:1016
+#: includes/Module.php:1026
 msgctxt "Module Core: Settings"
 msgid "Redirects"
 msgstr ""
 
-#: includes/Module.php:1021
+#: includes/Module.php:1031
 msgctxt "Module Core: Settings"
 msgid "Login"
 msgstr ""
 
-#: includes/Module.php:1026
+#: includes/Module.php:1036
 msgctxt "Module Core: Settings"
 msgid "Sign-up"
 msgstr ""
 
-#: includes/Module.php:1031
+#: includes/Module.php:1041
 msgctxt "Module Core: Settings"
 msgid "Dashboard"
 msgstr ""
 
-#: includes/Module.php:1036
+#: includes/Module.php:1046
 msgctxt "Module Core: Settings"
 msgid "Admin-bar"
 msgstr ""
 
-#: includes/Module.php:1068
+#: includes/Module.php:1078
 msgctxt "Module Core"
 msgid "Debug"
 msgstr ""
 
-#: includes/Module.php:1100
+#: includes/Module.php:1110
 msgctxt "Module Core: Help Tab Title"
 msgid "Extra Shortcodes"
 msgstr ""
 
-#: includes/Module.php:1101
+#: includes/Module.php:1111
 msgctxt "Module Core: Help Tab Content"
 msgid "These are extra shortcodes provided by this module:"
 msgstr ""
 
-#: includes/Module.php:1108
+#: includes/Module.php:1118
 msgctxt "Module Core: Help Tab Title"
 msgid "Saved Options"
 msgstr ""
 
-#: includes/Module.php:1362
+#: includes/Module.php:1372
 msgctxt "Module Core"
 msgid "Please refresh the page to generate the data."
 msgstr ""
 
-#: includes/Module.php:1372
+#: includes/Module.php:1382
 msgctxt "Module Core: Title Action"
 msgid "Click to refresh the content"
 msgstr ""
 
-#: includes/Module.php:1373
+#: includes/Module.php:1383
 msgctxt "Module Core: Title Action"
 msgid "Refresh"
 msgstr ""
@@ -1147,7 +1147,7 @@ msgctxt "Modules: Blog"
 msgid "Edit this page"
 msgstr ""
 
-#: includes/Modules/Bot.php:23
+#: includes/Modules/Bot.php:22
 msgctxt "Modules: Menu Name"
 msgid "Bot"
 msgstr ""
@@ -1217,326 +1217,326 @@ msgctxt "Modules: Branding: Settings"
 msgid "Displays as network wide site icon. Leave empty to disable."
 msgstr ""
 
-#: includes/Modules/Branding.php:126
+#: includes/Modules/Branding.php:123
 msgctxt "Modules: Branding: Settings"
 msgid "Manifest"
 msgstr ""
 
-#: includes/Modules/Branding.php:127
+#: includes/Modules/Branding.php:124
 msgctxt "Modules: Branding: Settings"
 msgid "Provides the ability to save a site bookmark to a device's home screen."
 msgstr ""
 
-#: includes/Modules/Branding.php:133
+#: includes/Modules/Branding.php:130
 msgctxt "Modules: Branding: Settings"
 msgid "Short Name"
 msgstr ""
 
-#: includes/Modules/Branding.php:134
+#: includes/Modules/Branding.php:131
 msgctxt "Modules: Branding: Settings"
 msgid "A short name for use as the text on the users home screen."
 msgstr ""
 
-#: includes/Modules/Branding.php:141
+#: includes/Modules/Branding.php:138
 msgctxt "Modules: Branding: Settings"
 msgid "Name"
 msgstr ""
 
-#: includes/Modules/Branding.php:142
+#: includes/Modules/Branding.php:139
 msgctxt "Modules: Branding: Settings"
 msgid "A name for use in the Web App Install banner."
 msgstr ""
 
-#: includes/Modules/Branding.php:147
+#: includes/Modules/Branding.php:144
 msgctxt "Modules: Branding: Settings"
 msgid "Description"
 msgstr ""
 
-#: includes/Modules/Branding.php:148
+#: includes/Modules/Branding.php:145
 msgctxt "Modules: Branding: Settings"
 msgid "A description for use in the Web App Manifest."
 msgstr ""
 
-#: includes/Modules/Branding.php:154
+#: includes/Modules/Branding.php:151
 msgctxt "Modules: Branding: Settings"
 msgid "Background Color"
 msgstr ""
 
-#: includes/Modules/Branding.php:155
+#: includes/Modules/Branding.php:152
 msgctxt "Modules: Branding: Settings"
 msgid "Defines the expected &ldquo;background color&rdquo; for the website. Leave empty to use theme color."
 msgstr ""
 
-#: includes/Modules/Branding.php:164
+#: includes/Modules/Branding.php:160
 msgctxt "Modules: Branding: Settings"
 msgid "Custom Styles"
 msgstr ""
 
-#: includes/Modules/Branding.php:166
+#: includes/Modules/Branding.php:162
 msgctxt "Modules: Branding: Settings"
 msgid "Additional CSS styles to use alongside the Adminbar."
 msgstr ""
 
-#: includes/Modules/Branding.php:177
+#: includes/Modules/Branding.php:173
 msgctxt "Modules: Branding: Settings"
 msgid "Copyright Notice"
 msgstr ""
 
-#: includes/Modules/Branding.php:178
+#: includes/Modules/Branding.php:174
 msgctxt "Modules: Branding: Settings"
 msgid "Displays as copyright notice on the footer on the front-end. Leave empty to use default."
 msgstr ""
 
-#: includes/Modules/Branding.php:183
+#: includes/Modules/Branding.php:179
 msgctxt "Modules: Branding: Settings"
 msgid "Powered Notice"
 msgstr ""
 
-#: includes/Modules/Branding.php:184
+#: includes/Modules/Branding.php:180
 msgctxt "Modules: Branding: Settings"
 msgid "Displays as powered notice on the footer of on the admin. Leave empty to use default."
 msgstr ""
 
-#: includes/Modules/Branding.php:189
+#: includes/Modules/Branding.php:185
 msgctxt "Modules: Branding: Settings"
 msgid "Site Slogan"
 msgstr ""
 
-#: includes/Modules/Branding.php:190
+#: includes/Modules/Branding.php:186
 msgctxt "Modules: Branding: Settings"
 msgid "Displays as site slogan on the footer of on the admin. Leave empty to use default."
 msgstr ""
 
-#: includes/Modules/Branding.php:196
+#: includes/Modules/Branding.php:192
 msgctxt "Modules: Branding: Settings"
 msgid "Content Replace"
 msgstr ""
 
-#: includes/Modules/Branding.php:197
+#: includes/Modules/Branding.php:193
 msgctxt "Modules: Branding: Settings"
 msgid "Tries to linkify brand name on the content. Must enable &ldquo;General Typography&rdquo; setting on each site."
 msgstr ""
 
-#: includes/Modules/Branding.php:205
+#: includes/Modules/Branding.php:201
 msgctxt "Modules: Branding: Settings"
 msgid "Network Site Icon"
 msgstr ""
 
-#: includes/Modules/Branding.php:206
+#: includes/Modules/Branding.php:202
 msgctxt "Modules: Branding: Settings"
 msgid "Falls back into main site icon on the network."
 msgstr ""
 
-#: includes/Modules/Branding.php:216
+#: includes/Modules/Branding.php:212
 msgctxt "Modules: Branding: Settings"
 msgid "Web App"
 msgstr ""
 
 #. translators: %s: link url
-#: includes/Modules/Branding.php:218
+#: includes/Modules/Branding.php:214
 msgctxt "Modules: Branding: Settings"
 msgid "Web app manifests provide the ability to save a site bookmark to a device's home screen. <a href=\"%s\">Read More</a>"
 msgstr ""
 
-#: includes/Modules/Branding.php:226
+#: includes/Modules/Branding.php:222
 msgctxt "Modules: Branding: Settings"
 msgid "Notices"
 msgstr ""
 
-#: includes/Modules/Branding.php:241
-#: includes/Modules/Branding.php:246
+#: includes/Modules/Branding.php:237
+#: includes/Modules/Branding.php:242
 msgctxt "Modules: Branding"
 msgid "Main Site Logo"
 msgstr ""
 
-#: includes/Modules/Branding.php:252
-#: includes/Modules/Branding.php:257
+#: includes/Modules/Branding.php:248
+#: includes/Modules/Branding.php:253
 msgctxt "Modules: Branding"
 msgid "Main Site Icon"
 msgstr ""
 
-#: includes/Modules/BuddyPress.php:83
+#: includes/Modules/BuddyPress.php:84
 msgctxt "Modules: Menu Name"
 msgid "BuddyPress"
 msgstr ""
 
-#: includes/Modules/BuddyPress.php:110
+#: includes/Modules/BuddyPress.php:111
 msgctxt "Modules: BuddyPress: Settings"
 msgid "Open Directories"
 msgstr ""
 
-#: includes/Modules/BuddyPress.php:111
+#: includes/Modules/BuddyPress.php:112
 msgctxt "Modules: BuddyPress: Settings"
 msgid "Redirect directories to homepage for not logged-in users."
 msgstr ""
 
-#: includes/Modules/BuddyPress.php:116
+#: includes/Modules/BuddyPress.php:117
 msgctxt "Modules: BuddyPress: Settings"
 msgid "Complete Signup"
 msgstr ""
 
-#: includes/Modules/BuddyPress.php:117
+#: includes/Modules/BuddyPress.php:118
 msgctxt "Modules: BuddyPress: Settings"
 msgid "Redirect users after successful registration."
 msgstr ""
 
-#: includes/Modules/BuddyPress.php:125
+#: includes/Modules/BuddyPress.php:126
 msgctxt "Modules: BuddyPress: Settings"
 msgid "Display Name"
 msgstr ""
 
-#: includes/Modules/BuddyPress.php:126
+#: includes/Modules/BuddyPress.php:127
 msgctxt "Modules: BuddyPress: Settings"
 msgid "Universal sidewide display name of the user."
 msgstr ""
 
-#: includes/Modules/BuddyPress.php:129
+#: includes/Modules/BuddyPress.php:130
 msgctxt "Modules: BuddyPress: Settings"
 msgid "&ndash; Default &ndash;"
 msgstr ""
 
-#: includes/Modules/BuddyPress.php:130
+#: includes/Modules/BuddyPress.php:131
 msgctxt "Modules: BuddyPress: Settings"
 msgid "First and Last Name"
 msgstr ""
 
-#: includes/Modules/BuddyPress.php:131
+#: includes/Modules/BuddyPress.php:132
 msgctxt "Modules: BuddyPress: Settings"
 msgid "Username"
 msgstr ""
 
-#: includes/Modules/BuddyPress.php:132
+#: includes/Modules/BuddyPress.php:133
 msgctxt "Modules: BuddyPress: Settings"
 msgid "Nickname"
 msgstr ""
 
-#: includes/Modules/BuddyPress.php:133
+#: includes/Modules/BuddyPress.php:134
 msgctxt "Modules: BuddyPress: Settings"
 msgid "First Name"
 msgstr ""
 
-#: includes/Modules/BuddyPress.php:134
+#: includes/Modules/BuddyPress.php:135
 msgctxt "Modules: BuddyPress: Settings"
 msgid "Last Name"
 msgstr ""
 
-#: includes/Modules/BuddyPress.php:139
+#: includes/Modules/BuddyPress.php:140
 msgctxt "Modules: BuddyPress: Settings"
 msgid "Check Completed"
 msgstr ""
 
-#: includes/Modules/BuddyPress.php:140
+#: includes/Modules/BuddyPress.php:141
 msgctxt "Modules: BuddyPress: Settings"
 msgid "Notice member for empty required fields."
 msgstr ""
 
-#: includes/Modules/BuddyPress.php:150
+#: includes/Modules/BuddyPress.php:151
 msgctxt "Modules: BuddyPress: Settings"
 msgid "Default Settings"
 msgstr ""
 
-#: includes/Modules/BuddyPress.php:151
+#: includes/Modules/BuddyPress.php:152
 msgctxt "Modules: BuddyPress: Settings"
 msgid "Select enabled by default BuddyPress email notifications settings upon user activation"
 msgstr ""
 
-#: includes/Modules/BuddyPress.php:162
+#: includes/Modules/BuddyPress.php:163
 msgctxt "Modules: BuddyPress: Settings"
 msgid "Thumbnail Width"
 msgstr ""
 
-#: includes/Modules/BuddyPress.php:168
+#: includes/Modules/BuddyPress.php:169
 msgctxt "Modules: BuddyPress: Settings"
 msgid "Thumbnail Height"
 msgstr ""
 
-#: includes/Modules/BuddyPress.php:174
+#: includes/Modules/BuddyPress.php:175
 msgctxt "Modules: BuddyPress: Settings"
 msgid "Full Width"
 msgstr ""
 
-#: includes/Modules/BuddyPress.php:180
+#: includes/Modules/BuddyPress.php:181
 msgctxt "Modules: BuddyPress: Settings"
 msgid "Full Height"
 msgstr ""
 
-#: includes/Modules/BuddyPress.php:186
+#: includes/Modules/BuddyPress.php:187
 msgctxt "Modules: BuddyPress: Settings"
 msgid "Original Max Width"
 msgstr ""
 
-#: includes/Modules/BuddyPress.php:197
+#: includes/Modules/BuddyPress.php:198
 msgctxt "Modules: BuddyPress: Settings"
 msgid "Email Notifications"
 msgstr ""
 
-#: includes/Modules/BuddyPress.php:198
+#: includes/Modules/BuddyPress.php:199
 msgctxt "Modules: BuddyPress: Settings"
 msgid "Control the default email preference for users after activation"
 msgstr ""
 
-#: includes/Modules/BuddyPress.php:205
+#: includes/Modules/BuddyPress.php:206
 msgctxt "Modules: BuddyPress: Settings"
 msgid "Avatars Sizes"
 msgstr ""
 
-#: includes/Modules/BuddyPress.php:206
+#: includes/Modules/BuddyPress.php:207
 msgctxt "Modules: BuddyPress: Settings"
 msgid "Change the default BuddyPress Avatar values. Leave empty to use BuddyPress defaults."
 msgstr ""
 
 #. translators: %s: filed name list
-#: includes/Modules/BuddyPress.php:315
+#: includes/Modules/BuddyPress.php:316
 msgctxt "Modules: BuddyPress"
 msgid "Please complete your profile: %s"
 msgstr ""
 
-#: includes/Modules/BuddyPress.php:355
+#: includes/Modules/BuddyPress.php:356
 msgctxt "Modules: BuddyPress"
 msgid "You're totally a spammer. Go somewhere else with your spammy ways."
 msgstr ""
 
-#: includes/Modules/BuddyPress.php:473
+#: includes/Modules/BuddyPress.php:474
 msgctxt "Modules: BuddyPress: Notifications"
 msgid "Activity: New Mention"
 msgstr ""
 
-#: includes/Modules/BuddyPress.php:474
+#: includes/Modules/BuddyPress.php:475
 msgctxt "Modules: BuddyPress: Notifications"
 msgid "Activity: New Reply"
 msgstr ""
 
-#: includes/Modules/BuddyPress.php:475
+#: includes/Modules/BuddyPress.php:476
 msgctxt "Modules: BuddyPress: Notifications"
 msgid "Friends: Friendship Request"
 msgstr ""
 
-#: includes/Modules/BuddyPress.php:476
+#: includes/Modules/BuddyPress.php:477
 msgctxt "Modules: BuddyPress: Notifications"
 msgid "Friends: Friendship Accepted"
 msgstr ""
 
-#: includes/Modules/BuddyPress.php:477
+#: includes/Modules/BuddyPress.php:478
 msgctxt "Modules: BuddyPress: Notifications"
 msgid "Groups: Invite"
 msgstr ""
 
-#: includes/Modules/BuddyPress.php:478
+#: includes/Modules/BuddyPress.php:479
 msgctxt "Modules: BuddyPress: Notifications"
 msgid "Groups: Group Updated"
 msgstr ""
 
-#: includes/Modules/BuddyPress.php:479
+#: includes/Modules/BuddyPress.php:480
 msgctxt "Modules: BuddyPress: Notifications"
 msgid "Groups: Admin Promotion"
 msgstr ""
 
-#: includes/Modules/BuddyPress.php:480
+#: includes/Modules/BuddyPress.php:481
 msgctxt "Modules: BuddyPress: Notifications"
 msgid "Groups: Membership Request"
 msgstr ""
 
-#: includes/Modules/BuddyPress.php:481
+#: includes/Modules/BuddyPress.php:482
 msgctxt "Modules: BuddyPress: Notifications"
 msgid "Messages: New Message"
 msgstr ""
@@ -1613,12 +1613,12 @@ msgstr ""
 
 #: includes/Modules/Captcha.php:212
 msgctxt "Modules: Captcha: ReCaptcha Error"
-msgid "CAPTCHA should not be empty"
+msgid "CAPTCHA should not be empty!"
 msgstr ""
 
 #: includes/Modules/Captcha.php:213
 msgctxt "Modules: Captcha: ReCaptcha Error"
-msgid "CAPTCHA response was incorrect"
+msgid "CAPTCHA response was incorrect!"
 msgstr ""
 
 #: includes/Modules/Cleanup.php:20
@@ -2313,33 +2313,33 @@ msgctxt "Modules: CRON"
 msgid "View Scheduled Tasks"
 msgstr ""
 
-#: includes/Modules/Cron.php:457
+#: includes/Modules/Cron.php:461
 msgctxt "Modules: CRON"
 msgid "Next"
 msgstr ""
 
-#: includes/Modules/Cron.php:464
+#: includes/Modules/Cron.php:468
 msgctxt "Modules: CRON"
 msgid "Tasks"
 msgstr ""
 
-#: includes/Modules/Cron.php:489
+#: includes/Modules/Cron.php:497
 msgctxt "Modules: CRON"
 msgid "Overview of tasks scheduled for WP-Cron"
 msgstr ""
 
-#: includes/Modules/Cron.php:490
+#: includes/Modules/Cron.php:498
 msgctxt "Modules: CRON"
 msgid "Nothing scheduled!"
 msgstr ""
 
 #. translators: %s: events count
-#: includes/Modules/Cron.php:498
+#: includes/Modules/Cron.php:506
 msgctxt "Modules: CRON"
 msgid "With %s event(s) ready to be run."
 msgstr ""
 
-#: includes/Modules/Cron.php:507
+#: includes/Modules/Cron.php:515
 msgctxt "Modules: CRON"
 msgid "Once Monthly"
 msgstr ""
@@ -3075,7 +3075,7 @@ msgctxt "Modules: Embed: Settings"
 msgid "There is no height setting because the height will adjust automatically based on the width. Instagram only allow a minimum width of %s pixels. Using a lower value will break the embed."
 msgstr ""
 
-#: includes/Modules/Embed.php:322
+#: includes/Modules/Embed.php:323
 msgctxt "Modules: Embed: Item With No Title"
 msgid "Untitled"
 msgstr ""
@@ -5005,22 +5005,22 @@ msgctxt "Modules: Profile"
 msgid "This will be displayed as your name in this site only."
 msgstr ""
 
-#: includes/Modules/Remote.php:21
+#: includes/Modules/Remote.php:20
 msgctxt "Modules: Menu Name"
 msgid "Remote"
 msgstr ""
 
-#: includes/Modules/Remote.php:38
+#: includes/Modules/Remote.php:37
 msgctxt "Modules: Remote: Settings"
 msgid "Synced Directory"
 msgstr ""
 
-#: includes/Modules/Remote.php:39
+#: includes/Modules/Remote.php:38
 msgctxt "Modules: Remote: Settings"
 msgid "This directory will be automatically synced on the remote resource."
 msgstr ""
 
-#: includes/Modules/Remote.php:47
+#: includes/Modules/Remote.php:46
 msgctxt "Modules: Remote: Settings"
 msgid "Sync Now"
 msgstr ""
@@ -5390,238 +5390,243 @@ msgctxt "Modules: Search: Form: Submit Button"
 msgid "Search"
 msgstr ""
 
-#: includes/Modules/ShortCodes.php:150
-#: includes/Modules/ShortCodes.php:153
+#: includes/Modules/ShortCodes.php:151
+#: includes/Modules/ShortCodes.php:154
 msgctxt "Modules: ShortCodes: UI: Label"
 msgid "Reference"
 msgstr ""
 
-#: includes/Modules/ShortCodes.php:154
+#: includes/Modules/ShortCodes.php:155
 msgctxt "Modules: ShortCodes: UI: Description"
 msgid "Make a reference to an external source."
 msgstr ""
 
-#: includes/Modules/ShortCodes.php:158
+#: includes/Modules/ShortCodes.php:159
 msgctxt "Modules: ShortCodes: UI: Label"
 msgid "External Resource"
 msgstr ""
 
-#: includes/Modules/ShortCodes.php:168
+#: includes/Modules/ShortCodes.php:169
 msgctxt "Modules: ShortCodes: UI: Label"
 msgid "External Resource Hover"
 msgstr ""
 
-#: includes/Modules/ShortCodes.php:172
+#: includes/Modules/ShortCodes.php:173
 msgctxt "Modules: ShortCodes: UI: Placeholder"
 msgid "Read more about it"
 msgstr ""
 
-#: includes/Modules/ShortCodes.php:179
+#: includes/Modules/ShortCodes.php:180
 msgctxt "Modules: ShortCodes: UI: Label"
 msgid "Email"
 msgstr ""
 
-#: includes/Modules/ShortCodes.php:182
+#: includes/Modules/ShortCodes.php:183
 msgctxt "Modules: ShortCodes: UI: Label"
 msgid "Email Address"
 msgstr ""
 
-#: includes/Modules/ShortCodes.php:183
+#: includes/Modules/ShortCodes.php:184
 msgctxt "Modules: ShortCodes: UI: Description"
 msgid "Full email address to appear as link and cloaked against spam bots."
 msgstr ""
 
-#: includes/Modules/ShortCodes.php:188
+#: includes/Modules/ShortCodes.php:189
 msgctxt "Modules: ShortCodes: UI: Label"
 msgid "Display Text"
 msgstr ""
 
-#: includes/Modules/ShortCodes.php:191
+#: includes/Modules/ShortCodes.php:192
 msgctxt "Modules: ShortCodes: UI: Placeholder"
 msgid "Email Me"
 msgstr ""
 
-#: includes/Modules/ShortCodes.php:194
+#: includes/Modules/ShortCodes.php:195
 msgctxt "Modules: ShortCodes: UI: Label"
 msgid "Email Subject"
 msgstr ""
 
-#: includes/Modules/ShortCodes.php:197
+#: includes/Modules/ShortCodes.php:198
 msgctxt "Modules: ShortCodes: UI: Placeholder"
 msgid "About something important"
 msgstr ""
 
-#: includes/Modules/ShortCodes.php:200
+#: includes/Modules/ShortCodes.php:201
 msgctxt "Modules: ShortCodes: UI: Label"
 msgid "Link Hover"
 msgstr ""
 
-#: includes/Modules/ShortCodes.php:203
+#: includes/Modules/ShortCodes.php:204
 msgctxt "Modules: ShortCodes: UI: Placeholder"
 msgid "Jump right into it!"
 msgstr ""
 
-#: includes/Modules/ShortCodes.php:212
+#: includes/Modules/ShortCodes.php:213
 msgctxt "TinyMCE Strings: Ref"
 msgid "Cite This"
 msgstr ""
 
-#: includes/Modules/ShortCodes.php:213
+#: includes/Modules/ShortCodes.php:214
 msgctxt "TinyMCE Strings: Ref"
 msgid "Cite This (Ctrl+Q)"
 msgstr ""
 
-#: includes/Modules/ShortCodes.php:214
+#: includes/Modules/ShortCodes.php:215
 msgctxt "TinyMCE Strings: Ref"
 msgid "Ref Text"
 msgstr ""
 
-#: includes/Modules/ShortCodes.php:215
+#: includes/Modules/ShortCodes.php:216
 msgctxt "TinyMCE Strings: Ref"
 msgid "Ref URL"
 msgstr ""
 
-#: includes/Modules/ShortCodes.php:217
+#: includes/Modules/ShortCodes.php:218
 msgctxt "TinyMCE Strings: Email"
 msgid "Email"
 msgstr ""
 
-#: includes/Modules/ShortCodes.php:218
+#: includes/Modules/ShortCodes.php:219
 msgctxt "TinyMCE Strings: Email"
 msgid "Email (Ctrl+E)"
 msgstr ""
 
-#: includes/Modules/ShortCodes.php:219
+#: includes/Modules/ShortCodes.php:220
 msgctxt "TinyMCE Strings: Email"
 msgid "Full Email"
 msgstr ""
 
-#: includes/Modules/ShortCodes.php:220
-msgctxt "TinyMCE Strings: Email"
-msgid "Display Text"
-msgstr ""
-
 #: includes/Modules/ShortCodes.php:221
 msgctxt "TinyMCE Strings: Email"
-msgid "Email Subject"
+msgid "Display Text"
 msgstr ""
 
 #: includes/Modules/ShortCodes.php:222
 msgctxt "TinyMCE Strings: Email"
-msgid "Link Hover"
+msgid "Email Subject"
 msgstr ""
 
-#: includes/Modules/ShortCodes.php:224
-msgctxt "TinyMCE Strings: Search"
-msgid "Search"
+#: includes/Modules/ShortCodes.php:223
+msgctxt "TinyMCE Strings: Email"
+msgid "Link Hover"
 msgstr ""
 
 #: includes/Modules/ShortCodes.php:225
 msgctxt "TinyMCE Strings: Search"
-msgid "Search (Ctrl+3)"
+msgid "Search"
 msgstr ""
 
 #: includes/Modules/ShortCodes.php:226
 msgctxt "TinyMCE Strings: Search"
-msgid "Display Text"
+msgid "Search (Ctrl+3)"
 msgstr ""
 
 #: includes/Modules/ShortCodes.php:227
 msgctxt "TinyMCE Strings: Search"
+msgid "Display Text"
+msgstr ""
+
+#: includes/Modules/ShortCodes.php:228
+msgctxt "TinyMCE Strings: Search"
 msgid "Override Criteria"
 msgstr ""
 
-#: includes/Modules/ShortCodes.php:229
 #: includes/Modules/ShortCodes.php:230
+#: includes/Modules/ShortCodes.php:231
 msgctxt "TinyMCE Strings: People"
 msgid "People"
 msgstr ""
 
-#: includes/Modules/ShortCodes.php:231
+#: includes/Modules/ShortCodes.php:232
 msgctxt "TinyMCE Strings: People"
 msgid "Name"
 msgstr ""
 
-#: includes/Modules/ShortCodes.php:745
+#: includes/Modules/ShortCodes.php:746
 msgctxt "Modules: ShortCodes: Defaults"
 msgid "Back"
 msgstr ""
 
-#: includes/Modules/ShortCodes.php:780
-#: includes/Modules/ShortCodes.php:793
+#: includes/Modules/ShortCodes.php:781
+#: includes/Modules/ShortCodes.php:794
 msgctxt "Modules: ShortCodes: Defaults"
 msgid "Home"
 msgstr ""
 
-#: includes/Modules/ShortCodes.php:868
+#: includes/Modules/ShortCodes.php:869
 msgctxt "Modules: ShortCodes: Defaults"
 msgid "Loading &hellip;"
 msgstr ""
 
-#: includes/Modules/ShortCodes.php:912
+#: includes/Modules/ShortCodes.php:913
 msgctxt "Modules: ShortCodes: Defaults: ThickBox"
 msgid "More Info"
 msgstr ""
 
 #. translators: %s: search criteria
-#: includes/Modules/ShortCodes.php:1053
+#: includes/Modules/ShortCodes.php:1054
 msgctxt "Modules: ShortCodes: Defaults"
 msgid "Search this site for &ldquo;%s&rdquo;"
 msgstr ""
 
 #. translators: %s: download url
-#: includes/Modules/ShortCodes.php:1118
+#: includes/Modules/ShortCodes.php:1119
 msgctxt "Modules: ShortCodes: Defaults"
 msgid "It appears you don't have Adobe Reader or PDF support in this web browser. <a href=\"%s\">Click here to download the PDF</a>."
 msgstr ""
 
 #. translators: %s: download url
-#: includes/Modules/ShortCodes.php:1120
+#: includes/Modules/ShortCodes.php:1121
 msgctxt "Modules: ShortCodes: Defaults"
 msgid "<a href=\"%s\">Click here to download the PDF</a>."
 msgstr ""
 
-#: includes/Modules/ShortCodes.php:1166
+#: includes/Modules/ShortCodes.php:1167
 msgctxt "Modules: ShortCodes: Defaults"
 msgid "View Resource"
 msgstr ""
 
-#: includes/Modules/ShortCodes.php:1167
+#: includes/Modules/ShortCodes.php:1168
 msgctxt "Modules: ShortCodes: Defaults"
 msgid "Resource is empty!"
 msgstr ""
 
 #. translators: %s: redirect url
-#: includes/Modules/ShortCodes.php:1277
+#: includes/Modules/ShortCodes.php:1278
 msgctxt "Modules: ShortCodes: Defaults"
 msgid "Please wait while you are redirected. Or <a href=\"%s\">click here</a> if you do not want to wait."
 msgstr ""
 
 #. translators: %s: number of seconds
-#: includes/Modules/ShortCodes.php:1329
+#: includes/Modules/ShortCodes.php:1330
 msgctxt "Shortcodes Module: Defaults"
 msgid "Go to %s second mark and play"
 msgstr ""
 
-#: includes/Modules/ShortCodes.php:1418
+#: includes/Modules/ShortCodes.php:1375
+msgctxt "Shortcodes Module: Defaults"
+msgid "Download"
+msgstr ""
+
+#: includes/Modules/ShortCodes.php:1425
 msgctxt "Shortcodes Module: Defaults"
 msgid "External Resource"
 msgstr ""
 
-#: includes/Modules/ShortCodes.php:1484
+#: includes/Modules/ShortCodes.php:1491
 msgctxt "Shortcodes Module: Defaults"
 msgid "See the footnotes on the site."
 msgstr ""
 
-#: includes/Modules/ShortCodes.php:1494
+#: includes/Modules/ShortCodes.php:1501
 msgctxt "Shortcodes Module: Defaults"
 msgid "Back to Text"
 msgstr ""
 
-#: includes/Modules/ShortCodes.php:1578
-#: includes/Modules/ShortCodes.php:1590
-#: includes/Modules/ShortCodes.php:1613
-#: includes/Modules/ShortCodes.php:1626
+#: includes/Modules/ShortCodes.php:1585
+#: includes/Modules/ShortCodes.php:1597
+#: includes/Modules/ShortCodes.php:1620
+#: includes/Modules/ShortCodes.php:1633
 msgctxt "Shortcodes Module: Defaults"
 msgid "See the Footnote"
 msgstr ""
@@ -5786,67 +5791,67 @@ msgctxt "Modules: Site: Initial Page Content"
 msgid "[ This page is being completed ]"
 msgstr ""
 
-#: includes/Modules/SMS.php:25
+#: includes/Modules/SMS.php:24
 msgctxt "Modules: Menu Name"
 msgid "SMS"
 msgstr ""
 
-#: includes/Modules/SMS.php:28
+#: includes/Modules/SMS.php:27
 msgctxt "Modules: Menu Name"
 msgid "SMS Logs"
 msgstr ""
 
-#: includes/Modules/SMS.php:52
+#: includes/Modules/SMS.php:51
 msgctxt "Modules: SMS"
 msgid "SMS Logs"
 msgstr ""
 
-#: includes/Modules/SMS.php:57
+#: includes/Modules/SMS.php:56
 msgctxt "Modules: SMS"
 msgid "SMS receive callback URL"
 msgstr ""
 
-#: includes/Modules/SMS.php:80
+#: includes/Modules/SMS.php:79
 msgctxt "Modules: SMS"
 msgid "Delete Selected"
 msgstr ""
 
-#: includes/Modules/SMS.php:81
+#: includes/Modules/SMS.php:80
 msgctxt "Modules: SMS"
 msgid "Delete All"
 msgstr ""
 
-#: includes/Modules/SMS.php:127
+#: includes/Modules/SMS.php:126
 msgctxt "Modules: SMS: Data Logs Table Column"
 msgid "Whom, When"
 msgstr ""
 
-#: includes/Modules/SMS.php:146
+#: includes/Modules/SMS.php:145
 msgctxt "Modules: SMS: Email Logs Table"
 msgid "User"
 msgstr ""
 
-#: includes/Modules/SMS.php:150
+#: includes/Modules/SMS.php:149
 msgctxt "Modules: SMS: Email Logs Table"
 msgid "Site"
 msgstr ""
 
-#: includes/Modules/SMS.php:161
+#: includes/Modules/SMS.php:160
 msgctxt "Modules: SMS: Row Action"
 msgid "Download"
 msgstr ""
 
-#: includes/Modules/SMS.php:166
+#: includes/Modules/SMS.php:165
 msgctxt "Modules: SMS: Row Action"
 msgid "Delete"
 msgstr ""
 
-#: includes/Modules/SMS.php:172
+#: includes/Modules/SMS.php:171
 msgctxt "Modules: SMS: Data Logs Table Column"
 msgid "What"
 msgstr ""
 
-#: includes/Modules/SMS.php:196
+#: includes/Modules/SMS.php:195
 msgctxt "Modules: SMS"
 msgid "Overview of SMS Logs"
 msgstr ""
@@ -6547,48 +6552,48 @@ msgctxt "Modules: Typography: Settings"
 msgid "Prevents widow words in the end of widget titles."
 msgstr ""
 
-#: includes/Modules/Typography.php:261
+#: includes/Modules/Typography.php:262
 msgctxt "TinyMCE Strings: Asterisks"
 msgid "Asterisks"
 msgstr ""
 
-#: includes/Modules/Typography.php:263
 #: includes/Modules/Typography.php:264
+#: includes/Modules/Typography.php:265
 msgctxt "TinyMCE Strings: Quote"
 msgid "Quote This"
 msgstr ""
 
-#: includes/Modules/Typography.php:265
+#: includes/Modules/Typography.php:266
 msgctxt "TinyMCE Strings: Quote"
 msgid "Quote Text"
 msgstr ""
 
-#: includes/Modules/Typography.php:266
+#: includes/Modules/Typography.php:267
 msgctxt "TinyMCE Strings: Quote"
 msgid "Cite Text"
 msgstr ""
 
-#: includes/Modules/Typography.php:267
+#: includes/Modules/Typography.php:268
 msgctxt "TinyMCE Strings: Quote"
 msgid "Cite URL"
 msgstr ""
 
-#: includes/Modules/Typography.php:268
+#: includes/Modules/Typography.php:269
 msgctxt "TinyMCE Strings: Quote"
 msgid "Quote Align"
 msgstr ""
 
-#: includes/Modules/Typography.php:269
+#: includes/Modules/Typography.php:270
 msgctxt "TinyMCE Strings: Quote"
 msgid "Epigraph"
 msgstr ""
 
-#: includes/Modules/Typography.php:270
+#: includes/Modules/Typography.php:271
 msgctxt "TinyMCE Strings: Quote"
 msgid "Reverse"
 msgstr ""
 
-#: includes/Modules/Typography.php:357
+#: includes/Modules/Typography.php:358
 msgctxt "Modules: Typography: Shortcode Defaults"
 msgid "View Wikipedia page"
 msgstr ""
@@ -7713,7 +7718,7 @@ msgstr ""
 
 #: includes/Settings.php:541
 msgctxt "Settings: Setting Title"
-msgid "Widget Introduction "
+msgid "Widget Introduction"
 msgstr ""
 
 #: includes/Settings.php:542
