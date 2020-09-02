@@ -1,3 +1,18 @@
+### 3.11.2
+* assets/js: :up: prismjs 1.21.0
+* main/logger: support for upcomming bot module
+* main/module: loading providers revised
+* main/provider: more defaults
+* module/bbq: :up: 20200811
+* module/code: cache invalid http responses for one hour
+* module/embed: cache invalid http responses for one hour
+* module/locale: core translation overrides revised
+* module/shortcodes: default download string on audio
+* module/typography: :new: bismillah shortcode
+* module/update: :warning: core transients renamed
+* module/update: avoid notice on empty pre-transients
+* module/update: cache invalid responses for one hour
+
 ### 3.11.1
 * main/module: better handling provider status
 * main/module: default provider helper
