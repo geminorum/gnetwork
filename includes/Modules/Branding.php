@@ -7,6 +7,7 @@ use geminorum\gNetwork\Scripts;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\HTML;
+use geminorum\gNetwork\Core\Text;
 use geminorum\gNetwork\Core\WordPress;
 
 class Branding extends gNetwork\Module
