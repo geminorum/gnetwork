@@ -3,6 +3,7 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Core\Arraay;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\WordPress;
 
@@ -18,6 +19,13 @@ class Commerce extends gNetwork\Module
 	{
 		if ( ! WordPress::isPluginActive( 'woocommerce/woocommerce.php' ) )
 			return FALSE;
+
+		$this->action( 'init' );
+
+		if ( $this->options['purchased_products'] ) {
+			$this->filter( 'woocommerce_account_menu_items', 2, 40 );
+			$this->action( 'woocommerce_account_purchased-products_endpoint' );
+		}
 
 		if ( $this->options['shetab_card_notes'] ) {
 			$this->action( 'woocommerce_after_order_notes' );
@@ -38,6 +46,9 @@ class Commerce extends gNetwork\Module
 	public function default_options()
 	{
 		return [
+			'purchased_products'       => '0',
+			'purchased_products_title' => '',
+
 			'shetab_card_fields' => '0',
 			'shetab_card_notes'  => '',
 		];
@@ -46,7 +57,21 @@ class Commerce extends gNetwork\Module
 	public function default_settings()
 	{
 		return [
-			'_shetab' => [
+			'_frontend' => [
+				[
+					'field'       => 'purchased_products',
+					'title'       => _x( 'Purchased Products', 'Modules: Commerce: Settings', 'gnetwork' ),
+					'description' => _x( 'Displays recently purchased products on front-end account page.', 'Modules: Commerce: Settings', 'gnetwork' ),
+				],
+				[
+					'field'       => 'purchased_products_title',
+					'type'        => 'text',
+					'title'       => _x( 'Purchased Products Title', 'Modules: Commerce: Settings', 'gnetwork' ),
+					'description' => _x( 'Appears as title of the purchased products menu on front-end account page.', 'Modules: Commerce: Settings', 'gnetwork' ),
+					'placeholder' => _x( 'Purchased Products', 'Modules: Commerce: Default', 'gnetwork' ),
+				],
+			],
+			'_fields' => [
 				[
 					'field'       => 'shetab_card_fields',
 					'title'       => _x( 'Shetab Card Fields', 'Modules: Commerce: Settings', 'gnetwork' ),
@@ -61,6 +86,19 @@ class Commerce extends gNetwork\Module
 				],
 			],
 		];
+	}
+
+	public function init()
+	{
+		if ( $this->options['purchased_products'] )
+			add_rewrite_endpoint( 'purchased-products', EP_PAGES );
+	}
+
+	public function woocommerce_account_menu_items( $items, $endpoints )
+	{
+		return Arraay::insert( $items, [
+			'purchased-products' => $this->get_option_fallback( 'purchased_products_title', _x( 'Purchased Products', 'Modules: Commerce: Default', 'gnetwork' ) ),
+		], 'orders', 'after' );
 	}
 
 	// ADOPTED FROM: woo-iran-shetab-card-field by Farhad Sakhaei
@@ -141,5 +179,60 @@ class Commerce extends gNetwork\Module
 		$keys['shetab_card_owner']  = _x( 'Setab Card Owner', 'Modules: Commerce', 'gnetwork' );
 
 		return $keys;
+	}
+
+	// @REF: https://rudrastyh.com/woocommerce/display-purchased-products.html
+	public function woocommerce_account_purchased_products_endpoint()
+	{
+		global $wpdb;
+
+		// this SQL query allows to get all the products purchased by the
+		// current user in this example we sort products by date but you
+		// can reorder them another way
+		$ids = $wpdb->get_col( $wpdb->prepare( "
+			SELECT      itemmeta.meta_value
+			FROM        {$wpdb->prefix}woocommerce_order_itemmeta itemmeta
+			INNER JOIN  {$wpdb->prefix}woocommerce_order_items items
+			            ON itemmeta.order_item_id = items.order_item_id
+			INNER JOIN  {$wpdb->posts} orders
+			            ON orders.ID = items.order_id
+			INNER JOIN  {$wpdb->postmeta} ordermeta
+			            ON orders.ID = ordermeta.post_id
+			WHERE       itemmeta.meta_key = '_product_id'
+			            AND ordermeta.meta_key = '_customer_user'
+			            AND ordermeta.meta_value = %s
+			ORDER BY    orders.post_date DESC
+		", get_current_user_id() ) );
+
+		// some orders may contain the same product,
+		// but we do not need it twice
+		$ids = array_unique( $ids );
+
+		if ( ! empty( $ids ) ) {
+
+			$products = new \WP_Query( [
+				'post_type'   => 'product',
+				'post_status' => 'publish',
+				'orderby'     => 'post__in',
+				'post__in'    => $ids,
+			] );
+
+			echo $this->wrap_open( [ 'woocommerce', 'columns-3' ] );
+			woocommerce_product_loop_start();
+
+			while ( $products->have_posts() ) {
+				$products->the_post();
+				wc_get_template_part( 'content', 'product' );
+			}
+
+			woocommerce_product_loop_end();
+			woocommerce_reset_loop();
+			wp_reset_postdata();
+			echo '</div>';
+
+		} else {
+
+			HTML::desc( _x( 'Nothing purchased yet.', 'Modules: Commerce', 'gnetwork' ) );
+		}
 	}
 }
