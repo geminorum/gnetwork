@@ -27,6 +27,11 @@ class Commerce extends gNetwork\Module
 			$this->action( 'woocommerce_account_purchased-products_endpoint' );
 		}
 
+		$this->filter_false( 'woocommerce_allow_marketplace_suggestions' ); // @REF: https://wp.me/pBMYe-n1W
+
+		if ( ! defined( 'GNETWORK_WPLANG' ) )
+			return;
+
 		if ( $this->options['shetab_card_notes'] ) {
 			$this->action( 'woocommerce_after_order_notes' );
 			$this->action( 'woocommerce_checkout_process' );
@@ -35,7 +40,6 @@ class Commerce extends gNetwork\Module
 			$this->filter( 'woocommerce_email_order_meta_keys' );
 		}
 
-		$this->filter_false( 'woocommerce_allow_marketplace_suggestions' ); // @REF: https://wp.me/pBMYe-n1W
 	}
 
 	public function setup_menu( $context )
