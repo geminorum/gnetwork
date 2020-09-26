@@ -285,6 +285,10 @@ class Restricted extends gNetwork\Module
 		$this->filter( 'robots_txt' );
 		$this->filter_zero( 'option_blog_public', 20 );
 
+		// blocks sitemap generation
+		remove_action( 'init', 'wp_sitemaps_get_server' ); // current filter is on `1`
+		$this->filter_false( 'wp_sitemaps_enabled', 20 ); // in case enabled by other plugins
+
 		$this->filter( 'login_message' );
 		// $this->filter( 'status_header', 4 );
 		$this->filter( 'rest_authentication_errors', 1, 999 );
