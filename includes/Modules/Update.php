@@ -284,7 +284,7 @@ class Update extends gNetwork\Module
 	{
 		$key = $this->hash( 'package', $package, $endpoint );
 
-		if ( WordPress::isFlush() || '1' == self::req( 'force-check' ) )
+		if ( WordPress::isFlush( 'update_core', 'force-check' ) )
 			delete_site_transient( $key );
 
 		if ( FALSE === ( $data = get_site_transient( $key ) ) ) {
