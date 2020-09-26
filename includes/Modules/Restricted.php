@@ -145,12 +145,12 @@ class Restricted extends gNetwork\Module
 		}
 	}
 
-	public static function is()
+	public static function isRestricted()
 	{
 		return ( ! WordPress::cuc( gNetwork()->option( 'access_site', 'restricted', 'none' ) ) );
 	}
 
-	public static function enabled()
+	public static function isEnabled()
 	{
 		return ( 'none' != gNetwork()->option( 'access_site', 'restricted', 'none' ) );
 	}

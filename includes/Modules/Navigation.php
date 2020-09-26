@@ -334,7 +334,7 @@ class Navigation extends gNetwork\Module
 			break;
 			case 'posts_feed':
 
-				if ( class_exists( __NAMESPACE__.'\\Restricted' ) && Restricted::enabled() )
+				if ( class_exists( __NAMESPACE__.'\\Restricted' ) && Restricted::isEnabled() )
 					WordPress::doNotCache();
 
 				$menu_item->url = get_feed_link();
@@ -342,7 +342,7 @@ class Navigation extends gNetwork\Module
 			break;
 			case 'comments_feed':
 
-				if ( class_exists( __NAMESPACE__.'\\Restricted' ) && Restricted::enabled() )
+				if ( class_exists( __NAMESPACE__.'\\Restricted' ) && Restricted::isEnabled() )
 					WordPress::doNotCache();
 
 				$menu_item->url = get_feed_link( 'comments_'.get_default_feed() );
