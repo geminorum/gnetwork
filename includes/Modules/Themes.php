@@ -669,11 +669,7 @@ class Themes extends gNetwork\Module
 					return Themes::appendMCECSS( $url, 'twentyseventeen', $this->rtl );
 				} );
 
-				add_action( 'get_template_part_template-parts/footer/site', function(){
-					echo '<div class="site-info" style="display:block;">';
-						echo gnetwork_credits( TRUE, FALSE );
-					echo '</div>';
-				} );
+				add_action( 'get_template_part_template-parts/footer/site', [ $this, 'underscores_credits' ] );
 			}
 		}
 	}
@@ -852,5 +848,12 @@ class Themes extends gNetwork\Module
 			.'<span style="visibility:visible;">'
 				.gnetwork_credits( $this->rtl, FALSE )
 			.'</span>';
+	}
+
+	public function underscores_credits()
+	{
+		echo '<div class="site-info" style="display:block;">';
+			echo gnetwork_credits( $this->rtl, FALSE );
+		echo '</div>';
 	}
 }
