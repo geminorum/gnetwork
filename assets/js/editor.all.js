@@ -1,5 +1,3 @@
-/* global wp, _ */
-
 // almost exact copy of: Default Media Uploader View v1.0.8 by leemon
 // @REF: https://wordpress.org/plugins/default-media-uploader-view/
 

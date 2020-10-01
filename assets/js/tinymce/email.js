@@ -51,8 +51,8 @@
             var open = '[email' + (
               e.data.subject ? ' subject="' + e.data.subject + '"' : ''
             ) + (
-                e.data.hover ? ' title="' + e.data.hover + '"' : ''
-              );
+              e.data.hover ? ' title="' + e.data.hover + '"' : ''
+            );
 
             if (e.data.email && e.data.text && e.data.text === e.data.email) {
               editor.insertContent(open + ']' + e.data.email + '[/email]');

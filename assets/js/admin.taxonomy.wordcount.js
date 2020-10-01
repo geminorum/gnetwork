@@ -16,7 +16,7 @@
         text = $content.val();
         lang = $('html').attr('lang');
       } else {
-        text = contentEditor.getContent({format: 'raw'});
+        text = contentEditor.getContent({ format: 'raw' });
         lang = contentEditor.settings.wp_lang_attr;
       }
 

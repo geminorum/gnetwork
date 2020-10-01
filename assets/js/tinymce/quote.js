@@ -46,7 +46,7 @@
               type: 'listbox',
               name: 'align',
               label: editor.getLang('gnetwork.gnetworkquote-align'),
-              'values': [
+              values: [
                 {
                   text: 'None',
                   value: 'none'

@@ -34,20 +34,20 @@
             type: 'listbox',
             name: 'languagesName',
             label: editor.getLang('gnetwork.gnetworkprismjs-lang'),
-            'values': [
-              {text: 'Markup (HTML)', value: 'markup'},
-              {text: 'CSS', value: 'css'},
-              {text: 'Javascript', value: 'javascript'},
-              {text: 'PHP', value: 'php'},
-              {text: 'SCSS', value: 'scss'},
-              {text: 'Bash', value: 'bash'},
-              {text: 'C', value: 'c'},
-              {text: 'C++', value: 'cpp'},
-              {text: 'Python', value: 'python'},
-              {text: 'SQL', value: 'sql'},
-              {text: 'Ruby', value: 'ruby'},
-              {text: 'C#', value: 'csharp'},
-              {text: 'Swift', value: 'swift'}
+            values: [
+              { text: 'Markup (HTML)', value: 'markup' },
+              { text: 'CSS', value: 'css' },
+              { text: 'Javascript', value: 'javascript' },
+              { text: 'PHP', value: 'php' },
+              { text: 'SCSS', value: 'scss' },
+              { text: 'Bash', value: 'bash' },
+              { text: 'C', value: 'c' },
+              { text: 'C++', value: 'cpp' },
+              { text: 'Python', value: 'python' },
+              { text: 'SQL', value: 'sql' },
+              { text: 'Ruby', value: 'ruby' },
+              { text: 'C#', value: 'csharp' },
+              { text: 'Swift', value: 'swift' }
             ]
           },
           {
