@@ -91,9 +91,9 @@ class WordPress extends Base
 		return FALSE;
 	}
 
-	public static function isFlush( $cap = 'publish_posts' )
+	public static function isFlush( $cap = 'publish_posts', $key = 'flush' )
 	{
-		if ( isset( $_GET['flush'] ) )
+		if ( isset( $_GET[$key] ) )
 			return did_action( 'init' ) && current_user_can( $cap );
 
 		return FALSE;

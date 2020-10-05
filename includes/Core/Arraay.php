@@ -76,6 +76,12 @@ class Arraay extends Base
 		return array_combine( $keys, array_values( $array ) );
 	}
 
+	// @REF: https://stackoverflow.com/a/6252803
+	public static function equalKeys( $one, $two )
+	{
+		return ! array_diff_key( $one, $two ) && ! array_diff_key( $two, $one );
+	}
+
 	public static function range( $start, $end, $step = 1, $format = TRUE )
 	{
 		$array = array();

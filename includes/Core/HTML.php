@@ -120,14 +120,14 @@ class HTML extends Base
 		), $html );
 	}
 
-	public static function wrap( $html, $class = '', $block = TRUE )
+	public static function wrap( $html, $class = '', $block = TRUE, $data = [] )
 	{
 		if ( ! $html )
 			return '';
 
 		return $block
-			? '<div class="'.self::prepClass( '-wrap', $class ).'">'.$html.'</div>'
-			: '<span class="'.self::prepClass( '-wrap', $class ).'">'.$html.'</span>';
+			? '<div class="'.self::prepClass( '-wrap', $class ).'"'.self::propData( $data ).'>'.$html.'</div>'
+			: '<span class="'.self::prepClass( '-wrap', $class ).'"'.self::propData( $data ).'>'.$html.'</span>';
 	}
 
 	public static function wrapLTR( $content )
@@ -247,6 +247,28 @@ class HTML extends Base
 		return implode( ' ', array_unique( array_filter( call_user_func_array( array( __CLASS__, 'attrClass' ), $classes ), array( __CLASS__, 'sanitizeClass' ) ) ) );
 	}
 
+	public static function propData( $data )
+	{
+		if ( ! is_array( $data ) )
+			return ' data="'.trim( self::escape( $data ) ).'"';
+
+		$html = '';
+
+		foreach ( $data as $key => $value ) {
+
+			if ( is_array( $value ) )
+				$html.= ' data-'.$key.'=\''.wp_json_encode( $value ).'\'';
+
+			else if ( FALSE === $value )
+				continue;
+
+			else
+				$html.= ' data-'.$key.'="'.trim( self::escape( $value ) ).'"';
+		}
+
+		return $html;
+	}
+
 	private static function _tag_open( $tag, $atts, $content = TRUE )
 	{
 		$html = '<'.$tag;
@@ -261,18 +283,7 @@ class HTML extends Base
 					continue;
 
 				if ( 'data' == $key ) {
-
-					foreach ( $att as $data_key => $data_val ) {
-
-						if ( is_array( $data_val ) )
-							$html.= ' data-'.$data_key.'=\''.wp_json_encode( $data_val ).'\'';
-
-						else if ( FALSE === $data_val )
-							continue;
-
-						else
-							$html.= ' data-'.$data_key.'="'.self::escape( $data_val ).'"';
-					}
+					$html.= self::propData( $att );
 
 					continue;
 
@@ -1181,7 +1192,7 @@ class HTML extends Base
 	public static function dropdown( $list, $atts = array() )
 	{
 		$args = self::atts( array(
-			'id'         => '',
+			'id'         => FALSE,
 			'name'       => '',
 			'none_title' => NULL,
 			'none_value' => 0,
@@ -1192,6 +1203,7 @@ class HTML extends Base
 			'prop'       => FALSE,
 			'value'      => FALSE,
 			'exclude'    => array(),
+			'data'       => array(),
 		), $atts );
 
 		$html = '';
@@ -1234,6 +1246,7 @@ class HTML extends Base
 			'class'    => $args['class'],
 			'disabled' => $args['disabled'],
 			'dir'      => $args['dir'],
+			'data'     => $args['data'],
 		), $html );
 	}
 
