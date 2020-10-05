@@ -53,6 +53,8 @@ class Commerce extends gNetwork\Module
 			'purchased_products'       => '0',
 			'purchased_products_title' => '',
 
+			'hide_price_on_outofstock' => '0',
+			'hide_price_on_shoploops'  => '0',
 			'shetab_card_fields' => '0',
 			'shetab_card_notes'  => '',
 		];
@@ -73,6 +75,16 @@ class Commerce extends gNetwork\Module
 					'title'       => _x( 'Purchased Products Title', 'Modules: Commerce: Settings', 'gnetwork' ),
 					'description' => _x( 'Appears as title of the purchased products menu on front-end account page.', 'Modules: Commerce: Settings', 'gnetwork' ),
 					'placeholder' => _x( 'Purchased Products', 'Modules: Commerce: Default', 'gnetwork' ),
+				],
+				[
+					'field'       => 'hide_price_on_outofstock',
+					'title'       => _x( 'Hide Out-of-Stock Prices', 'Modules: Commerce: Settings', 'gnetwork' ),
+					'description' => _x( 'Hides prices of products that are out of stock.', 'Modules: Commerce: Settings', 'gnetwork' ),
+				],
+				[
+					'field'       => 'hide_price_on_shoploops',
+					'title'       => _x( 'Hide Prices on Shop Loops', 'Modules: Commerce: Settings', 'gnetwork' ),
+					'description' => _x( 'Hides prices of products on shop pages loops.', 'Modules: Commerce: Settings', 'gnetwork' ),
 				],
 			],
 			'_fields' => [
@@ -96,6 +108,16 @@ class Commerce extends gNetwork\Module
 	{
 		if ( $this->options['purchased_products'] )
 			add_rewrite_endpoint( 'purchased-products', EP_PAGES );
+
+		if ( $this->options['hide_price_on_outofstock'] ) {
+			add_filter( 'woocommerce_variable_sale_price_html', [ $this, 'hide_price_outofstock' ], 12, 2 );
+			add_filter( 'woocommerce_variable_price_html', [ $this, 'hide_price_outofstock' ], 12, 2 );
+			add_filter( 'woocommerce_get_price_html', [ $this, 'hide_price_outofstock' ], 12, 2 );
+		}
+
+		if ( $this->options['hide_price_on_shoploops'] )
+			// @REF: https://rudrastyh.com/woocommerce/remove-product-prices.html
+			remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 10 );
 	}
 
 	public function woocommerce_account_menu_items( $items, $endpoints )
@@ -103,6 +125,11 @@ class Commerce extends gNetwork\Module
 		return Arraay::insert( $items, [
 			'purchased-products' => $this->get_option_fallback( 'purchased_products_title', _x( 'Purchased Products', 'Modules: Commerce: Default', 'gnetwork' ) ),
 		], 'orders', 'after' );
+	}
+
+	public function hide_price_outofstock( $price, $product )
+	{
+		return $product->is_in_stock() ? $price : '';
 	}
 
 	// ADOPTED FROM: woo-iran-shetab-card-field by Farhad Sakhaei
