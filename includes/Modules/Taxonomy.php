@@ -594,9 +594,81 @@ class Taxonomy extends gNetwork\Module
 		return TRUE;
 	}
 
+	// we have keep the connected object list
+	public function handle_multiple_merge( $targets, $term_ids, $taxonomy )
+	{
+		global $wpdb;
+
+		$targets   = array_filter( array_map( 'trim', explode( ',,', $targets ) ) );
+		$new_terms = [];
+
+		foreach ( $targets as $target ) {
+
+			// if it's term id
+			if ( is_numeric( $target ) )
+				$target = intval( $target );
+
+			if ( ! $new_term = term_exists( $target, $taxonomy ) )
+				$new_term = wp_insert_term( $target, $taxonomy );
+
+			if ( self::isError( $new_term ) )
+				continue;
+
+			$new_term_id = intval( $new_term['term_id'] );
+
+			$new_terms[$new_term_id] = get_term( $new_term_id, $taxonomy );
+		}
+
+		if ( ! count( $new_terms ) )
+			return FALSE;
+
+		foreach ( $term_ids as $term_id ) {
+
+			if ( array_key_exists( $term_id, $new_terms ) )
+				continue;
+
+			$old_term = get_term( $term_id, $taxonomy );
+			$old_meta = get_term_meta( $term_id );
+
+			$old_objects = (array) $wpdb->get_col( $wpdb->prepare( "
+				SELECT object_id FROM {$wpdb->term_relationships}
+				WHERE term_taxonomy_id = %d
+			", $old_term->term_taxonomy_id ) );
+
+			$merged = wp_delete_term( $term_id, $taxonomy );
+
+			if ( ! $merged || self::isError( $merged ) )
+				continue;
+
+			foreach ( $new_terms as $new_term_id => $new_term ) {
+
+				// needs to be set before our action fired
+				foreach ( $old_objects as $object_id ) {
+
+					$terms = wp_get_object_terms( $object_id, $taxonomy, [ 'fields' => 'ids', 'orderby' => 'none' ] );
+					$terms = array_unique( array_filter( array_map( 'intval', array_merge( $terms, [ $new_term_id ] ) ) ) );
+
+					wp_set_object_terms( $object_id, $terms, $taxonomy );
+				}
+
+				foreach ( $old_meta as $meta_key => $meta_value )
+					foreach ( $meta_value as $value_value ) // multiple meta
+						add_term_meta( $new_term_id, $meta_key, $value_value, FALSE );
+
+				$this->actions( 'term_merged', $taxonomy, $new_term, $old_term, $old_meta );
+			}
+		}
+
+		return TRUE;
+	}
+
 	public function handle_merge( $term_ids, $taxonomy )
 	{
 		$target = $_REQUEST['bulk_to_tag'];
+
+		// handle multiple merge
+		if ( Text::has( $target, ',,' ) )
+			return $this->handle_multiple_merge( $target, $term_ids, $taxonomy );
 
 		// if it's term id
 		if ( is_numeric( $target ) )
