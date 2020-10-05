@@ -55,6 +55,7 @@ class Commerce extends gNetwork\Module
 
 			'hide_price_on_outofstock' => '0',
 			'hide_price_on_shoploops'  => '0',
+			'custom_string_instock'    => '',
 			'custom_string_outofstock' => '',
 
 			'shetab_card_fields' => '0',
@@ -87,6 +88,13 @@ class Commerce extends gNetwork\Module
 					'field'       => 'hide_price_on_shoploops',
 					'title'       => _x( 'Hide Prices on Shop Loops', 'Modules: Commerce: Settings', 'gnetwork' ),
 					'description' => _x( 'Hides prices of products on shop pages loops.', 'Modules: Commerce: Settings', 'gnetwork' ),
+				],
+				[
+					'field'       => 'custom_string_instock',
+					'type'        => 'text',
+					'title'       => _x( 'In Stock Custom String', 'Modules: Commerce: Settings', 'gnetwork' ),
+					'description' => _x( 'Changes default `In stock` message for customers. Leave empty to use defaults.', 'Modules: Commerce: Settings', 'gnetwork' ),
+					'placeholder' => __( 'In stock', 'woocommerce' ),
 				],
 				[
 					'field'       => 'custom_string_outofstock',
@@ -128,7 +136,7 @@ class Commerce extends gNetwork\Module
 			// @REF: https://rudrastyh.com/woocommerce/remove-product-prices.html
 			remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 10 );
 
-		if ( $this->options['custom_string_outofstock'] )
+		if ( $this->options['custom_string_outofstock'] || $this->options['custom_string_instock'] )
 			$this->filter( 'woocommerce_get_availability_text', 2, 8 );
 	}
 
@@ -146,10 +154,13 @@ class Commerce extends gNetwork\Module
 
 	public function woocommerce_get_availability_text( $availability, $product )
 	{
-		// the logic is correct, don't change it!
-		return ( ! $product->is_in_stock() )
-			? trim( $this->options['custom_string_outofstock'] )
-			: $availability;
+		if ( $this->options['custom_string_outofstock'] && ! $product->is_in_stock() )
+			return trim( $this->options['custom_string_outofstock'] );
+
+		if ( $this->options['custom_string_instock'] && $availability == __( 'In stock', 'woocommerce' ) )
+			return trim( $this->options['custom_string_instock'] );
+
+		return $availability;
 	}
 
 	// ADOPTED FROM: woo-iran-shetab-card-field by Farhad Sakhaei
