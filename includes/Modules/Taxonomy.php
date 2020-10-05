@@ -596,32 +596,31 @@ class Taxonomy extends gNetwork\Module
 
 	public function handle_merge( $term_ids, $taxonomy )
 	{
-		$term_name = $_REQUEST['bulk_to_tag'];
+		$target = $_REQUEST['bulk_to_tag'];
 
 		// if it's term id
-		if ( is_numeric( $term_name ) )
-			$term_name = intval( $term_name );
+		if ( is_numeric( $target ) )
+			$target = intval( $target );
 
-		if ( ! $term = term_exists( $term_name, $taxonomy ) )
-			$term = wp_insert_term( $term_name, $taxonomy );
+		if ( ! $term = term_exists( $target, $taxonomy ) )
+			$term = wp_insert_term( $target, $taxonomy );
 
 		if ( self::isError( $term ) )
 			return FALSE;
 
-		$to_term = $term['term_id'];
-
-		$to_term_obj = get_term( $to_term, $taxonomy );
+		$to_term_id  = $term['term_id'];
+		$to_term_obj = get_term( $to_term_id, $taxonomy );
 
 		foreach ( $term_ids as $term_id ) {
 
-			if ( $term_id == $to_term )
+			if ( $term_id == $to_term_id )
 				continue;
 
 			$old_term = get_term( $term_id, $taxonomy );
 			$old_meta = get_term_meta( $term_id );
 
 			$merged = wp_delete_term( $term_id, $taxonomy, [
-				'default'       => $to_term,
+				'default'       => $to_term_id,
 				'force_default' => TRUE,
 			] );
 
@@ -629,7 +628,8 @@ class Taxonomy extends gNetwork\Module
 				continue;
 
 			foreach ( $old_meta as $meta_key => $meta_value )
-				add_term_meta( $to_term, $meta_key, $meta_value, FALSE );
+				foreach ( $meta_value as $value_value ) // multiple meta
+					add_term_meta( $to_term_id, $meta_key, $value_value, FALSE );
 
 			$this->actions( 'term_merged', $taxonomy, $to_term_obj, $old_term, $old_meta );
 		}
