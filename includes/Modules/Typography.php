@@ -245,14 +245,18 @@ class Typography extends gNetwork\Module
 	protected function get_shortcodes()
 	{
 		return [
+			'wiki'            => 'shortcode_wiki',
+			'wiki-en'         => 'shortcode_wiki',
+			'wiki-fa'         => 'shortcode_wiki',
 			'bismillah'       => 'shortcode_bismillah',
 			'three-asterisks' => 'shortcode_three_asterisks',
 			'nst'             => 'shortcode_numeral_section_title',
 			'ltr'             => 'shortcode_ltr',
 			'pad'             => 'shortcode_pad',
-			'wiki'            => 'shortcode_wiki',
-			'wiki-en'         => 'shortcode_wiki',
-			'wiki-fa'         => 'shortcode_wiki',
+			'spacer'          => 'shortcode_spacer',
+			'clearleft'       => 'shortcode_clearleft',
+			'clearright'      => 'shortcode_clearright',
+			'clearboth'       => 'shortcode_clearboth',
 		];
 	}
 
@@ -435,8 +439,10 @@ class Typography extends gNetwork\Module
 
 		} else {
 
-			$args['space'] = isset( $atts[0] ) ? $atts[0] : 3;
-			$args['class'] = isset( $atts[1] ) ? $atts[1] : 'typography-pad';
+			$args = [
+				'space' => empty( $atts[0] ) ? 3 : $atts[0],
+				'class' => empty( $atts[1] ) ? 'typography-pad' : $atts[1],
+			];
 		}
 
 		if ( ! $args['space'] )
@@ -450,6 +456,90 @@ class Typography extends gNetwork\Module
 		return HTML::tag( 'span', [
 			'class' => $args['class'],
 		], $html );
+	}
+
+	public function shortcode_spacer( $atts = [], $content = NULL, $tag = '' )
+	{
+		if ( isset( $atts['space'] ) ) {
+
+			$args = shortcode_atts( [
+				'space'   => 10,
+				'class'   => 'typography-spacer',
+				'id'      => FALSE,
+				'context' => NULL,
+			], $atts, $tag );
+
+			if ( FALSE === $args['context'] )
+				return NULL;
+		} else {
+
+			$args = [
+				'space' => empty( $atts[0] ) ? 3 : $atts[0],
+				'class' => empty( $atts[1] ) ? 'typography-pad' : $atts[1],
+			];
+		}
+
+		$args['style'] = 'height:'.absint( $args['space'] ).'px;margin:0;padding:0;';
+		unset( $args['space'], $args['context'] );
+
+		return HTML::tag( 'div', $args, NULL );
+	}
+
+	public function shortcode_clearleft( $atts = [], $content = NULL, $tag = '' )
+	{
+		$args = shortcode_atts( [
+			'class'   => 'typography-clearleft',
+			'id'      => FALSE,
+			'span'    => FALSE,
+			'context' => NULL,
+		], $atts, $tag );
+
+		if ( FALSE === $args['context'] )
+			return NULL;
+
+		$tag = $args['span'] ? 'span' : 'div';
+		$args['style'] = 'clear:left;';
+		unset( $args['span'], $args['context'] );
+
+		return HTML::tag( $tag, $args, NULL );
+	}
+
+	public function shortcode_clearright( $atts = [], $content = NULL, $tag = '' )
+	{
+		$args = shortcode_atts( [
+			'class'   => 'typography-clearright',
+			'id'      => FALSE,
+			'span'    => FALSE,
+			'context' => NULL,
+		], $atts, $tag );
+
+		if ( FALSE === $args['context'] )
+			return NULL;
+
+		$tag = $args['span'] ? 'span' : 'div';
+		$args['style'] = 'clear:right;';
+		unset( $args['span'], $args['context'] );
+
+		return HTML::tag( $tag, $args, NULL );
+	}
+
+	public function shortcode_clearboth( $atts = [], $content = NULL, $tag = '' )
+	{
+		$args = shortcode_atts( [
+			'class'   => 'typography-clearboth',
+			'id'      => FALSE,
+			'span'    => FALSE,
+			'context' => NULL,
+		], $atts, $tag );
+
+		if ( FALSE === $args['context'] )
+			return NULL;
+
+		$tag = $args['span'] ? 'span' : 'div';
+		$args['style'] = 'clear:both;';
+		unset( $args['span'], $args['context'] );
+
+		return HTML::tag( $tag, $args, NULL );
 	}
 
 	public function the_title( $title )
