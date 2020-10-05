@@ -55,6 +55,8 @@ class Commerce extends gNetwork\Module
 
 			'hide_price_on_outofstock' => '0',
 			'hide_price_on_shoploops'  => '0',
+			'custom_string_outofstock' => '',
+
 			'shetab_card_fields' => '0',
 			'shetab_card_notes'  => '',
 		];
@@ -85,6 +87,13 @@ class Commerce extends gNetwork\Module
 					'field'       => 'hide_price_on_shoploops',
 					'title'       => _x( 'Hide Prices on Shop Loops', 'Modules: Commerce: Settings', 'gnetwork' ),
 					'description' => _x( 'Hides prices of products on shop pages loops.', 'Modules: Commerce: Settings', 'gnetwork' ),
+				],
+				[
+					'field'       => 'custom_string_outofstock',
+					'type'        => 'text',
+					'title'       => _x( 'Out-of-Stock Custom String', 'Modules: Commerce: Settings', 'gnetwork' ),
+					'description' => _x( 'Changes default `Out of stock` message for customers. Leave empty to use defaults.', 'Modules: Commerce: Settings', 'gnetwork' ),
+					'placeholder' => __( 'Out of stock', 'woocommerce' ),
 				],
 			],
 			'_fields' => [
@@ -118,6 +127,9 @@ class Commerce extends gNetwork\Module
 		if ( $this->options['hide_price_on_shoploops'] )
 			// @REF: https://rudrastyh.com/woocommerce/remove-product-prices.html
 			remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 10 );
+
+		if ( $this->options['custom_string_outofstock'] )
+			$this->filter( 'woocommerce_get_availability_text', 2, 8 );
 	}
 
 	public function woocommerce_account_menu_items( $items, $endpoints )
@@ -130,6 +142,14 @@ class Commerce extends gNetwork\Module
 	public function hide_price_outofstock( $price, $product )
 	{
 		return $product->is_in_stock() ? $price : '';
+	}
+
+	public function woocommerce_get_availability_text( $availability, $product )
+	{
+		// the logic is correct, don't change it!
+		return ( ! $product->is_in_stock() )
+			? trim( $this->options['custom_string_outofstock'] )
+			: $availability;
 	}
 
 	// ADOPTED FROM: woo-iran-shetab-card-field by Farhad Sakhaei
