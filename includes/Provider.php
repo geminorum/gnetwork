@@ -332,7 +332,7 @@ class Provider extends Core\Base
 		curl_setopt( $handle, CURLOPT_URL, $url );
 		curl_setopt( $handle, CURLOPT_HTTPHEADER, array_merge( $this->curlDefaultHeaders(), $headers ) );
 		curl_setopt( $handle, CURLOPT_RETURNTRANSFER, TRUE );
-		curl_setopt( $handle, CURLOPT_SSL_VERIFYHOST, FALSE );
+		// curl_setopt( $handle, CURLOPT_SSL_VERIFYHOST, FALSE );
 		curl_setopt( $handle, CURLOPT_SSL_VERIFYPEER, FALSE );
 
 		switch ( $method ) {

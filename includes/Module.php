@@ -53,7 +53,7 @@ class Module extends Core\Base
 	public function __construct( $base = NULL, $slug = NULL )
 	{
 		if ( is_null( $this->key ) )
-			$this->key = strtolower( str_ireplace( __NAMESPACE__.'\\', '', get_class( $this ) ) );
+			$this->key = strtolower( str_ireplace( __NAMESPACE__.'\\Modules\\', '', get_class( $this ) ) );
 
 		if ( ! GNETWORK_BETA_FEATURES && $this->beta )
 			throw new Exception( 'Beta Feature!' );
@@ -302,15 +302,19 @@ class Module extends Core\Base
 
 	protected function action( $hooks, $args = 1, $priority = 10, $suffix = FALSE )
 	{
-		foreach ( (array) $hooks as $hook )
-			if ( $method = self::sanitize_hook( ( $suffix ? $hook.'_'.$suffix : $hook ) ) )
+		$hooks = (array) $hooks;
+
+		if ( $method = self::sanitize_hook( ( $suffix ? $hooks[0].'_'.$suffix : $hooks[0] ) ) )
+			foreach ( $hooks as $hook )
 				add_action( $hook, [ $this, $method ], $priority, $args );
 	}
 
 	protected function filter( $hooks, $args = 1, $priority = 10, $suffix = FALSE )
 	{
-		foreach ( (array) $hooks as $hook )
-			if ( $method = self::sanitize_hook( ( $suffix ? $hook.'_'.$suffix : $hook ) ) )
+		$hooks = (array) $hooks;
+
+		if ( $method = self::sanitize_hook( ( $suffix ? $hooks[0].'_'.$suffix : $hooks[0] ) ) )
+			foreach ( $hooks as $hook )
 				add_filter( $hook, [ $this, $method ], $priority, $args );
 	}
 
@@ -402,6 +406,16 @@ class Module extends Core\Base
 		add_filter( $hook, function( $first ) use( $items ){
 			foreach ( $items as $key => $value )
 				$first[$key] = $value;
+			return $first;
+		}, $priority, 1 );
+	}
+
+	// USAGE: $this->filter_unset( 'shortcode_atts_gallery', [ 'columns' ] );
+	protected function filter_unset( $hook, $items, $priority = 10 )
+	{
+		add_filter( $hook, function( $first ) use( $items ){
+			foreach ( (array) $items as $key )
+				unset( $first[$key] );
 			return $first;
 		}, $priority, 1 );
 	}

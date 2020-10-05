@@ -126,11 +126,15 @@ class Commerce extends gNetwork\Module
 		if ( $this->options['purchased_products'] )
 			add_rewrite_endpoint( 'purchased-products', EP_PAGES );
 
-		if ( $this->options['hide_price_on_outofstock'] ) {
-			add_filter( 'woocommerce_variable_sale_price_html', [ $this, 'hide_price_outofstock' ], 12, 2 );
-			add_filter( 'woocommerce_variable_price_html', [ $this, 'hide_price_outofstock' ], 12, 2 );
-			add_filter( 'woocommerce_get_price_html', [ $this, 'hide_price_outofstock' ], 12, 2 );
-		}
+		if ( $this->options['hide_price_on_outofstock'] )
+			$this->filter( [
+				'woocommerce_get_price_html',
+				'woocommerce_variable_price_html',
+				'woocommerce_variable_sale_price_html',
+			], 2, 12 );
+
+		if ( is_admin() )
+			return;
 
 		if ( $this->options['hide_price_on_shoploops'] )
 			// @REF: https://rudrastyh.com/woocommerce/remove-product-prices.html
@@ -147,7 +151,7 @@ class Commerce extends gNetwork\Module
 		], 'orders', 'after' );
 	}
 
-	public function hide_price_outofstock( $price, $product )
+	public function woocommerce_get_price_html( $price, $product )
 	{
 		return $product->is_in_stock() ? $price : '';
 	}

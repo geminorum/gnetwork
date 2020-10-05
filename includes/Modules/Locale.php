@@ -373,6 +373,7 @@ class Locale extends gNetwork\Module
 			// [WooCommerce](https://woocommerce.com/)
 			'wc-status'        => 'page',
 			'wc-addons'        => 'page',
+			// 'wc-settings'      => 'page',
 			'action-scheduler' => 'page',
 
 			'wp-shortpixel'       => 'page',

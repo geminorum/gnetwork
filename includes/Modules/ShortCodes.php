@@ -64,9 +64,11 @@ class ShortCodes extends gNetwork\Module
 
 		} else {
 
-			add_filter( 'gnetwork_prep_contact', [ $this, 'prep_contact' ], 12, 3 );
-			add_filter( 'geditorial_prep_contact', [ $this, 'prep_contact' ], 12, 3 );
-			add_filter( 'gtheme_prep_contact', [ $this, 'prep_contact' ], 12, 3 );
+			$this->filter( [
+				'gnetwork_prep_contact',
+				'geditorial_prep_contact',
+				'gtheme_prep_contact',
+			], 3, 12 );
 
 
 			if ( ! defined( 'GNETWORK_DISABLE_REFLIST_INSERT' ) || ! GNETWORK_DISABLE_REFLIST_INSERT ) {
@@ -235,7 +237,7 @@ class ShortCodes extends gNetwork\Module
 		return array_merge( $strings, $new );
 	}
 
-	public function prep_contact( $prepared, $value, $title = NULL )
+	public function gnetwork_prep_contact( $prepared, $value, $title = NULL )
 	{
 		if ( is_email( $value ) )
 			return $this->shortcode_email( [

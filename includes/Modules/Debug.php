@@ -681,7 +681,7 @@ class Debug extends gNetwork\Module
 			'PDO'       => 'PHP Data Objects',
 			'mbstring'  => 'Multibyte String',
 			'tokenizer' => 'Tokenizer',
-			'mcrypt'    => 'Mcrypt',
+			// 'mcrypt'    => 'Mcrypt', // mcrypt is deprecated // @REF: https://bugs.php.net/bug.php?id=73734
 			'pcre'      => 'Perl Compatible Regular Expressions',
 			'imagick'   => 'Image Processing (ImageMagick)',
 			'gmagick'   => 'Gmagick',
