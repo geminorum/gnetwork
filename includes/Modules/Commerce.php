@@ -3,6 +3,7 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Core\Arraay;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\WordPress;
@@ -58,6 +59,11 @@ class Commerce extends gNetwork\Module
 			'custom_string_instock'    => '',
 			'custom_string_outofstock' => '',
 
+			'fallback_empty_weight' => '0',
+			'fallback_empty_length' => '0',
+			'fallback_empty_width'  => '0',
+			'fallback_empty_height' => '0',
+
 			'shetab_card_fields' => '0',
 			'shetab_card_notes'  => '',
 		];
@@ -104,6 +110,32 @@ class Commerce extends gNetwork\Module
 					'placeholder' => __( 'Out of stock', 'woocommerce' ),
 				],
 			],
+			'_measurements' => [
+				[
+					'field'       => 'fallback_empty_weight',
+					'type'        => 'number',
+					'title'       => _x( 'Weight Empty Fallback', 'Modules: Commerce: Settings', 'gnetwork' ),
+					'description' => _x( 'Sets a fallback value on products with empty <b>weight</b> field. Leave empty to disable.', 'Modules: Commerce: Settings', 'gnetwork' ),
+				],
+				[
+					'field'       => 'fallback_empty_length',
+					'type'        => 'number',
+					'title'       => _x( 'Length Empty Fallback', 'Modules: Commerce: Settings', 'gnetwork' ),
+					'description' => _x( 'Sets a fallback value on products with empty <b>length</b> field. Leave empty to disable.', 'Modules: Commerce: Settings', 'gnetwork' ),
+				],
+				[
+					'field'       => 'fallback_empty_width',
+					'type'        => 'number',
+					'title'       => _x( 'Width Empty Fallback', 'Modules: Commerce: Settings', 'gnetwork' ),
+					'description' => _x( 'Sets a fallback value on products with empty <b>width</b> field. Leave empty to disable.', 'Modules: Commerce: Settings', 'gnetwork' ),
+				],
+				[
+					'field'       => 'fallback_empty_height',
+					'type'        => 'number',
+					'title'       => _x( 'Height Empty Fallback', 'Modules: Commerce: Settings', 'gnetwork' ),
+					'description' => _x( 'Sets a fallback value on products with empty <b>height</b> field. Leave empty to disable.', 'Modules: Commerce: Settings', 'gnetwork' ),
+				],
+			],
 			'_fields' => [
 				[
 					'field'       => 'shetab_card_fields',
@@ -119,6 +151,11 @@ class Commerce extends gNetwork\Module
 				],
 			],
 		];
+	}
+
+	public function settings_section_measurements()
+	{
+		Settings::fieldSection( _x( 'Measurements', 'Modules: Commerce: Settings', 'gnetwork' ) );
 	}
 
 	public function init()
@@ -140,6 +177,14 @@ class Commerce extends gNetwork\Module
 			// @REF: https://rudrastyh.com/woocommerce/remove-product-prices.html
 			remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 10 );
 
+		// @REF: https://wallydavid.com/set-a-default-length-width-height-weight-in-woocommerce/
+		foreach ( [ 'weight', 'length', 'width', 'height' ] as $measurement )
+			if ( $this->options['fallback_empty_'.$measurement] )
+				$this->filter( [
+					'woocommerce_product_get_'.$measurement,
+					'woocommerce_product_variation_get_'.$measurement,
+				], 2, 8 );
+
 		if ( $this->options['custom_string_outofstock'] || $this->options['custom_string_instock'] )
 			$this->filter( 'woocommerce_get_availability_text', 2, 8 );
 	}
@@ -154,6 +199,26 @@ class Commerce extends gNetwork\Module
 	public function woocommerce_get_price_html( $price, $product )
 	{
 		return $product->is_in_stock() ? $price : '';
+	}
+
+	public function woocommerce_product_get_weight( $value, $product )
+	{
+		return empty( $value ) ? $this->options['fallback_empty_weight'] : $value;
+	}
+
+	public function woocommerce_product_get_length( $value, $product )
+	{
+		return empty( $value ) ? $this->options['fallback_empty_length'] : $value;
+	}
+
+	public function woocommerce_product_get_width( $value, $product )
+	{
+		return empty( $value ) ? $this->options['fallback_empty_width'] : $value;
+	}
+
+	public function woocommerce_product_get_height( $value, $product )
+	{
+		return empty( $value ) ? $this->options['fallback_empty_height'] : $value;
 	}
 
 	public function woocommerce_get_availability_text( $availability, $product )
