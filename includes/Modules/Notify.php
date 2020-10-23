@@ -31,6 +31,9 @@ class Notify extends gNetwork\Module
 		if ( ! is_multisite() )
 			return;
 
+		if ( $this->options['disable_new_site_email'] )
+			$this->filter_false( 'send_new_site_email' );
+
 		if ( $this->options['signup_user_subject'] )
 			$this->filter( 'wpmu_signup_user_notification_subject', 5, 12 );
 
@@ -52,6 +55,7 @@ class Notify extends gNetwork\Module
 	public function default_options()
 	{
 		return [
+			'disable_new_site_email'       => 0,
 			'disable_new_user_admin'       => 0,
 			'disable_user_password_change' => 0,
 			'disable_password_change'      => 0,
@@ -102,7 +106,17 @@ class Notify extends gNetwork\Module
 			],
 		];
 
-		if ( is_multisite() )
+		if ( is_multisite() ) {
+
+			$settings['_multisite'] = [
+				[
+					'field'       => 'disable_new_site_email',
+					'type'        => 'disabled',
+					'title'       => _x( 'New Sites Email', 'Modules: Notify: Settings', 'gnetwork' ),
+					'description' => _x( 'Notifies the network administrator of a newly-registered site.', 'Modules: Notify: Settings', 'gnetwork' ),
+				],
+			];
+
 			$settings['_signup'] = [
 				[
 					'field'       => 'signup_user_subject',
@@ -139,6 +153,7 @@ class Notify extends gNetwork\Module
 					'field_class' => [ 'large-text', 'textarea-autosize' ],
 				],
 			];
+		}
 
 		return $settings;
 	}
