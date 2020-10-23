@@ -373,11 +373,12 @@ class Taxonomy extends gNetwork\Module
 		if ( is_taxonomy_hierarchical( $taxonomy ) )
 			$actions['set_parent'] = _x( 'Set Parent', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
 
-		$actions['merge']       = _x( 'Merge', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
-		$actions['change_tax']  = _x( 'Change Taxonomy', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
-		$actions['format_i18n'] = _x( 'Format i18n', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
-		$actions['empty_posts'] = _x( 'Empty Posts', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
-		$actions['empty_desc']  = _x( 'Empty Description', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
+		$actions['merge']          = _x( 'Merge', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
+		$actions['change_tax']     = _x( 'Change Taxonomy', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
+		$actions['format_i18n']    = _x( 'Format i18n', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
+		$actions['assign_parents'] = _x( 'Assign Parents', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
+		$actions['empty_posts']    = _x( 'Empty Posts', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
+		$actions['empty_desc']     = _x( 'Empty Description', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
 
 		if ( $this->options['slug_actions'] ) {
 			$actions['rewrite_slug']  = _x( 'Rewrite Slug', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
@@ -500,6 +501,46 @@ class Taxonomy extends gNetwork\Module
 
 				echo HTML::error( _x( 'Terms not updated.', 'Settings: Message', 'gnetwork' ) );
 		}
+	}
+
+	public function handle_assign_parents( $term_ids, $taxonomy )
+	{
+		foreach ( $term_ids as $term_id ) {
+
+			if ( ! $parents = $this->get_term_parents( $term_id, $taxonomy ) )
+				continue;
+
+			$posts = get_objects_in_term( (int) $term_id, $taxonomy );
+
+			if ( self::isError( $posts ) )
+				continue;
+
+			foreach ( $posts as $post )
+				wp_set_object_terms( $post, $parents, $taxonomy, TRUE );
+		}
+
+		return TRUE;
+	}
+
+	private function get_term_parents( $term_id, $taxonomy )
+	{
+		$parents = [];
+		$up      = TRUE;
+
+		while ( $up ) {
+
+			$term = get_term( (int) $term_id, $taxonomy );
+
+			if ( $term->parent )
+				$parents[] = (int) $term->parent;
+
+			else
+				$up = FALSE;
+
+			$term_id = $term->parent;
+		}
+
+		return count( $parents ) ? $parents : FALSE;
 	}
 
 	public function handle_empty_posts( $term_ids, $taxonomy )
