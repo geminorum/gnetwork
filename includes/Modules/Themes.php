@@ -585,6 +585,18 @@ class Themes extends gNetwork\Module
 
 			add_action( 'untitled_credits', [ $this, 'twentysomething_credits' ] );
 
+		} else if ( $this->isTheme( 'storefront' ) ) {
+
+			if ( $this->rtl ) {
+
+				add_action( 'wp_head', function(){
+					Themes::linkStyleSheet( 'storefront-rtl' );
+				}, 20 );
+			}
+
+			remove_action( 'storefront_footer', 'storefront_credit', 20 );
+			add_action( 'storefront_footer', [ $this, 'underscores_credits' ], 20 );
+
 		} else if ( $this->isTheme( 'twentyeleven' ) ) {
 
 			if ( $this->rtl ) {
