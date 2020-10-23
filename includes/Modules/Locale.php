@@ -110,6 +110,9 @@ class Locale extends gNetwork\Module
 
 	public function load_script_translation_file( $file, $handle, $domain )
 	{
+		if ( ! $file )
+			return $file;
+
 		$locale = determine_locale();
 
 		if ( 'en_US' == $locale )
