@@ -22,6 +22,7 @@ class Commerce extends gNetwork\Module
 			return FALSE;
 
 		$this->action( 'init' );
+		$this->action( 'admin_init' );
 
 		if ( $this->options['purchased_products'] ) {
 			$this->filter( 'woocommerce_account_menu_items', 2, 40 );
@@ -64,6 +65,7 @@ class Commerce extends gNetwork\Module
 			'fallback_empty_width'  => '0',
 			'fallback_empty_height' => '0',
 
+			'gtin_field_title'   => '',
 			'shetab_card_fields' => '0',
 			'shetab_card_notes'  => '',
 		];
@@ -138,6 +140,14 @@ class Commerce extends gNetwork\Module
 			],
 			'_fields' => [
 				[
+					'field'       => 'gtin_field_title',
+					'type'        => 'text',
+					'title'       => _x( 'GTIN Field', 'Modules: Commerce: Settings', 'gnetwork' ),
+					'description' => _x( 'Adds extra field for GTIN information on product. Leave empty to disable.', 'Modules: Commerce: Settings', 'gnetwork' ),
+					'placeholder' => _x( 'GTIN', 'Modules: Commerce: Default', 'gnetwork' ),
+					'after'       => Settings::fieldAfterConstant( 'GNETWORK_COMMERCE_GTIN_METAKEY' ),
+				],
+				[
 					'field'       => 'shetab_card_fields',
 					'title'       => _x( 'Shetab Card Fields', 'Modules: Commerce: Settings', 'gnetwork' ),
 					'description' => _x( 'Adds extra fields for Shetab Card information after order form.', 'Modules: Commerce: Settings', 'gnetwork' ),
@@ -187,6 +197,16 @@ class Commerce extends gNetwork\Module
 
 		if ( $this->options['custom_string_outofstock'] || $this->options['custom_string_instock'] )
 			$this->filter( 'woocommerce_get_availability_text', 2, 8 );
+	}
+
+	public function admin_init()
+	{
+		if ( $this->options['gtin_field_title'] ) {
+			$this->action( 'woocommerce_product_options_inventory_product_data', 0, 10, 'gtin' );
+			$this->action( 'woocommerce_process_product_meta', 2, 10, 'gtin' );
+			$this->action( 'woocommerce_product_after_variable_attributes', 3, 10, 'gtin' );
+			$this->action( 'woocommerce_save_product_variation', 2, 10, 'gtin' );
+		}
 	}
 
 	public function woocommerce_account_menu_items( $items, $endpoints )
@@ -310,6 +330,47 @@ class Commerce extends gNetwork\Module
 		$keys['shetab_card_owner']  = _x( 'Setab Card Owner', 'Modules: Commerce', 'gnetwork' );
 
 		return $keys;
+	}
+
+	public function woocommerce_product_options_inventory_product_data_gtin()
+	{
+		woocommerce_wp_text_input( [
+			'id'          => $this->base.'-product_gtin',
+			'label'       => $this->options['gtin_field_title'],
+			'desc_tip'    => TRUE,
+			'description' => _x( 'Enter the Global Trade Item Number (UPC, EAN, ISBN)', 'Modules: Commerce', 'gnetwork' ),
+			'value'       => get_post_meta( get_the_ID(), GNETWORK_COMMERCE_GTIN_METAKEY, TRUE ),
+		] );
+	}
+
+	public function woocommerce_process_product_meta_gtin( $post_id, $post )
+	{
+		$key = $this->classs( 'product_gtin' );
+
+		if ( array_key_exists( $key, $_POST ) )
+			update_post_meta( $post_id, GNETWORK_COMMERCE_GTIN_METAKEY, trim( $_POST[$key] ) );
+	}
+
+	public function woocommerce_product_after_variable_attributes_gtin( $loop, $variation_data, $variation )
+	{
+		$key = $this->classs( 'product_gtin' );
+
+		woocommerce_wp_text_input( [
+			'id'          => sprintf( '%s-%s', $key, $variation->ID ),
+			'name'        => sprintf( '%s[%s]', $key, $variation->ID ),
+			'label'       => $this->options['gtin_field_title'],
+			'desc_tip'    => TRUE,
+			'description' => _x( 'Unique GTIN for variation? Enter it here.', 'Modules: Commerce', 'gnetwork' ),
+			'value'       => get_post_meta( $variation->ID, GNETWORK_COMMERCE_GTIN_METAKEY, TRUE ),
+		] );
+	}
+
+	public function woocommerce_save_product_variation_gtin( $variation_id, $i )
+	{
+		$key = $this->classs( 'product_gtin' );
+
+		if ( array_key_exists( $variation_id, $_POST[$key] ) )
+			update_post_meta( $variation_id, GNETWORK_COMMERCE_GTIN_METAKEY, trim( $_POST[$key][$variation_id] ) );
 	}
 
 	// @REF: https://rudrastyh.com/woocommerce/display-purchased-products.html
