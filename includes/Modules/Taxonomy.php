@@ -6,6 +6,7 @@ use geminorum\gNetwork;
 use geminorum\gNetwork\Scripts;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
+use geminorum\gNetwork\Core\Arraay;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\Number;
 use geminorum\gNetwork\Core\Text;
@@ -392,9 +393,10 @@ class Taxonomy extends gNetwork\Module
 
 	public function edit_form_fields_actions( $tag, $taxonomy )
 	{
-		$actions = $this->get_actions( $taxonomy );
-
-		unset( $actions['set_parent'], $actions['merge'], $actions['empty_desc'] );
+		$actions = Arraay::stripByKeys(
+			$this->get_actions( $taxonomy ),
+			[ 'set_parent', 'merge', 'empty_desc' ]
+		);
 
 		if ( ! count( $actions ) )
 			return;

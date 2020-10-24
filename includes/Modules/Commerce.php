@@ -34,7 +34,7 @@ class Commerce extends gNetwork\Module
 		if ( ! defined( 'GNETWORK_WPLANG' ) )
 			return;
 
-		if ( $this->options['shetab_card_notes'] ) {
+		if ( $this->options['shetab_card_fields'] ) {
 			$this->action( 'woocommerce_after_order_notes' );
 			$this->action( 'woocommerce_checkout_process' );
 			$this->action( 'woocommerce_checkout_update_order_meta' );
@@ -74,7 +74,7 @@ class Commerce extends gNetwork\Module
 	public function default_settings()
 	{
 		return [
-			'_frontend' => [
+			'_front' => [
 				[
 					'field'       => 'purchased_products',
 					'title'       => _x( 'Purchased Products', 'Modules: Commerce: Settings', 'gnetwork' ),
@@ -87,6 +87,8 @@ class Commerce extends gNetwork\Module
 					'description' => _x( 'Appears as title of the purchased products menu on front-end account page.', 'Modules: Commerce: Settings', 'gnetwork' ),
 					'placeholder' => _x( 'Purchased Products', 'Modules: Commerce: Default', 'gnetwork' ),
 				],
+			],
+			'_overrides' => [
 				[
 					'field'       => 'hide_price_on_outofstock',
 					'title'       => _x( 'Hide Out-of-Stock Prices', 'Modules: Commerce: Settings', 'gnetwork' ),
@@ -147,6 +149,8 @@ class Commerce extends gNetwork\Module
 					'placeholder' => _x( 'GTIN', 'Modules: Commerce: Default', 'gnetwork' ),
 					'after'       => Settings::fieldAfterConstant( 'GNETWORK_COMMERCE_GTIN_METAKEY' ),
 				],
+			],
+			'_checkout' => [
 				[
 					'field'       => 'shetab_card_fields',
 					'title'       => _x( 'Shetab Card Fields', 'Modules: Commerce: Settings', 'gnetwork' ),
@@ -166,6 +170,16 @@ class Commerce extends gNetwork\Module
 	public function settings_section_measurements()
 	{
 		Settings::fieldSection( _x( 'Measurements', 'Modules: Commerce: Settings', 'gnetwork' ) );
+	}
+
+	public function settings_section_fields()
+	{
+		Settings::fieldSection( _x( 'Fields', 'Modules: Commerce: Settings', 'gnetwork' ) );
+	}
+
+	public function settings_section_checkout()
+	{
+		Settings::fieldSection( _x( 'Checkout', 'Modules: Commerce: Settings', 'gnetwork' ) );
 	}
 
 	public function init()

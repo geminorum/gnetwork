@@ -198,7 +198,7 @@ class Captcha extends gNetwork\Module
 		$response = HTTP::getJSON( $request );
 
 		if ( ! empty( $response['error-codes'] ) )
-			Logger::siteWARNING( 'CAPTCHA-VERIFY', join( ', ', (array) $response['error-codes'] ) );
+			Logger::siteWARNING( 'CAPTCHA-VERIFY', implode( ', ', (array) $response['error-codes'] ) );
 
 		if ( empty( $response['success'] ) )
 			return FALSE;

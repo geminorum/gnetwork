@@ -844,7 +844,7 @@ class Debug extends gNetwork\Module
 			switch ( count( $errors ) ) {
 				case 0: $message = ''; break;
 				case 1: $message = "<p>{$errors[0]}</p>"; break;
-				default: $message = "<ul>\n\t\t<li>".join( "</li>\n\t\t<li>", $errors )."</li>\n\t</ul>";
+				default: $message = "<ul>\n\t\t<li>".implode( "</li>\n\t\t<li>", $errors )."</li>\n\t</ul>";
 			}
 
 		} else if ( is_string( $message ) ) {

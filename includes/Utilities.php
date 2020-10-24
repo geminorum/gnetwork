@@ -277,10 +277,9 @@ class Utilities extends Core\Base
 		if ( FALSE === $context )
 			return $formats;
 
-		if ( isset( $formats[$context] ) )
-			return $formats[$context];
-
-		return $formats['default'];
+		return empty( $formats[$context] )
+			? $formats['default']
+			: $formats[$context];
 	}
 
 	public static function getPostTitle( $post, $fallback = NULL )
@@ -418,9 +417,9 @@ class Utilities extends Core\Base
 	{
 		return
 			_x( '&rdquo;', 'Utilities: Join Items Helper', 'gnetwork' )
-			.join( _x( '&ldquo; and &rdquo;', 'Utilities: Join Items Helper', 'gnetwork' ),
+			.implode( _x( '&ldquo; and &rdquo;', 'Utilities: Join Items Helper', 'gnetwork' ),
 				array_filter( array_merge( [
-					join( _x( '&ldquo;, &rdquo;', 'Utilities: Join Items Helper', 'gnetwork' ),
+					implode( _x( '&ldquo;, &rdquo;', 'Utilities: Join Items Helper', 'gnetwork' ),
 					array_slice( $items, 0, -1 ) ) ],
 					array_slice( $items, -1 ) ) ) )
 			._x( '&ldquo;', 'Utilities: Join Items Helper', 'gnetwork' ).'.';
@@ -429,7 +428,7 @@ class Utilities extends Core\Base
 	public static function getJoined( $items, $before = '', $after = '', $empty = '' )
 	{
 		if ( count( $items ) )
-			return $before.join( _x( ', ', 'Utilities: Item Seperator', 'gnetwork' ), $items ).$after;
+			return $before.implode( _x( ', ', 'Utilities: Item Seperator', 'gnetwork' ), $items ).$after;
 
 		return $empty;
 	}

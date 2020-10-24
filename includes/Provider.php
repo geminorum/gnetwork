@@ -278,6 +278,7 @@ class Provider extends Core\Base
 		return new Error( 'mothod_undefined', 'method must be over-ridden in a sub-class.' );
 	}
 
+	// @REF: https://github.com/pwnlabs/nusoap
 	protected function soapExecute( $method, $args = [] )
 	{
 		if ( ! $this->soap_wsdl )
@@ -288,6 +289,9 @@ class Provider extends Core\Base
 		try {
 
 			$client = new \nusoap_client( $this->soap_wsdl, 'wsdl' );
+			$client->soap_defencoding = 'UTF-8'; // FIXME: test this!
+			$client->decode_utf8      = FALSE; // FIXME: test this!
+
 			$results = $client->call( $method, $params );
 
 			if ( $this->options['debug_providers'] )

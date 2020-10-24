@@ -132,6 +132,8 @@ class Plugin
 			'GNETWORK_MEDIA_THUMBS_CHECK'      => TRUE, // check default wp dir before thumbs / make it disable for newly created sites
 			'GNETWORK_MEDIA_OBJECT_SIZES'      => FALSE, // disable all image sizes and enable for each posttypes
 
+			'GNETWORK_COMMERCE_GTIN_METAKEY' => '_product_gtin',
+
 			// reset some stuff
 			'WP_STAGE'       => 'production',
 			// 'NOBLOGREDIRECT' => '%siteurl%', // @SEE: https://core.trac.wordpress.org/ticket/21573

@@ -151,10 +151,10 @@ class Login extends gNetwork\Module
 					'none_title'  => Settings::showOptionNone(),
 					'none_value'  => 'logindefault',
 					'values'      => $this->filters( 'login_class', [
-						'darkstories' => _x( 'DarkStories', 'Modules: Login: Login Theme', 'gnetwork' ),
-						'sidelogo'    => _x( 'SideLogo', 'Modules: Login: Login Theme', 'gnetwork' ),
+						'darkstories' => _x( 'Dark Stories', 'Modules: Login: Login Theme', 'gnetwork' ),
+						'sidelogo'    => _x( 'Side Logo', 'Modules: Login: Login Theme', 'gnetwork' ),
 						'webogram'    => _x( 'Webogram', 'Modules: Login: Login Theme', 'gnetwork' ),
-						'splitscreen' => _x( 'SplitScreen', 'Modules: Login: Login Theme', 'gnetwork' ),
+						'splitscreen' => _x( 'Split Screen', 'Modules: Login: Login Theme', 'gnetwork' ),
 					] ),
 				],
 				[

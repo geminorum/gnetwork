@@ -10,6 +10,8 @@ use geminorum\gNetwork\Core\Number;
 class Kavenegar extends gNetwork\Provider
 {
 
+	// https://kavenegar.com/rest.html
+	// @SEE: https://github.com/kavenegar/kavenegar-php
 	// @SEE: https://github.com/MahdiMajidzadeh/laravel-kavenegar
 
 	protected $key  = 'kavenegar';

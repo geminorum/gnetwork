@@ -90,9 +90,9 @@ class BuddyPress extends gNetwork\Module
 	public function default_options()
 	{
 		return [
-			'complete_signup'  => '',
 			'disable_mentions' => '0',
 			'open_directories' => '0',
+			'complete_signup'  => '',
 			'display_name'     => 'default',
 			'check_completed'  => '0',
 
