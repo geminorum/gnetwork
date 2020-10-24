@@ -27,6 +27,9 @@ class BuddyPress extends gNetwork\Module
 		$this->filter( 'register_url' );
 		$this->action( 'before_signup_header' );
 
+		if ( $this->options['disable_mentions'] )
+			$this->filter_false( 'bp_activity_do_mentions' );
+
 		if ( bp_is_root_blog() ) {
 
 			$this->action( 'init' );
@@ -88,6 +91,7 @@ class BuddyPress extends gNetwork\Module
 	{
 		return [
 			'complete_signup'  => '',
+			'disable_mentions' => '0',
 			'open_directories' => '0',
 			'display_name'     => 'default',
 			'check_completed'  => '0',
@@ -110,6 +114,12 @@ class BuddyPress extends gNetwork\Module
 					'field'       => 'open_directories',
 					'title'       => _x( 'Open Directories', 'Modules: BuddyPress: Settings', 'gnetwork' ),
 					'description' => _x( 'Redirect directories to homepage for not logged-in users.', 'Modules: BuddyPress: Settings', 'gnetwork' ),
+				],
+				[
+					'field'       => 'disable_mentions',
+					'type'        => 'disabled',
+					'title'       => _x( 'Mentions', 'Modules: BuddyPress: Settings', 'gnetwork' ),
+					'description' => _x( 'Disables mentions feature on BuddyPress.', 'Modules: BuddyPress: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'complete_signup',
