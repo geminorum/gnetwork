@@ -35,11 +35,11 @@ class Commerce extends gNetwork\Module
 			return;
 
 		if ( $this->options['shetab_card_fields'] ) {
-			$this->action( 'woocommerce_after_order_notes' );
-			$this->action( 'woocommerce_checkout_process' );
-			$this->action( 'woocommerce_checkout_update_order_meta' );
-			$this->action( 'woocommerce_admin_order_data_after_billing_address' );
-			$this->filter( 'woocommerce_email_order_meta_keys' );
+			$this->action( 'woocommerce_after_order_notes', 1, 10, 'shetab' );
+			$this->action( 'woocommerce_checkout_process', 0, 10, 'shetab' );
+			$this->action( 'woocommerce_checkout_update_order_meta', 1, 10, 'shetab' );
+			$this->action( 'woocommerce_admin_order_data_after_billing_address', 1, 10, 'shetab' );
+			$this->filter( 'woocommerce_email_order_meta_keys', 1, 10, 'shetab' );
 		}
 
 	}
@@ -215,6 +215,11 @@ class Commerce extends gNetwork\Module
 
 	public function admin_init()
 	{
+
+		// FIXME:
+		// move over sku on admin edit page
+		// display on front end
+
 		if ( $this->options['gtin_field_title'] ) {
 			$this->action( 'woocommerce_product_options_inventory_product_data', 0, 10, 'gtin' );
 			$this->action( 'woocommerce_process_product_meta', 2, 10, 'gtin' );
@@ -269,49 +274,49 @@ class Commerce extends gNetwork\Module
 	// ADOPTED FROM: woo-iran-shetab-card-field by Farhad Sakhaei
 	// v1.1 - 2018-12-11
 	// @REF: https://wordpress.org/plugins/woo-iran-shetab-card-field/
-	public function woocommerce_after_order_notes( $checkout )
+	public function woocommerce_after_order_notes_shetab( $checkout )
 	{
+		// TODO: move to `woocommerce_checkout_fields`
+		// TODO: add working ltr class
+		// TODO: strip dash and spaces on sanitize
+
 		echo $this->wrap_open( 'shetab_card' );
 
-			HTML::h2( _x( 'Shetab Card', 'Modules: Commerce', 'gnetwork' ) );
+			HTML::h3( _x( 'Shetab Card', 'Modules: Commerce', 'gnetwork' ) );
 			HTML::desc( $this->options['shetab_card_notes'] );
 
 			woocommerce_form_field( 'shetab_card_number', [
 				'type'        => 'text',
-				'class'       => [ 'form-row-wide' ],
+				'class'       => [ 'form-row-first', 'shetab-card-number' ],
 				'label'       => _x( 'Card Number', 'Modules: Commerce', 'gnetwork' ),
 				'placeholder' => _x( 'XXXX-XXXX-XXXX-XXXX', 'Modules: Commerce', 'gnetwork' ),
 				'required'    => TRUE,
-				'clear'       => TRUE,
 			], $checkout->get_value( 'shetab_card_number' ) );
-
-		echo '<br />';
 
 			woocommerce_form_field( 'shetab_card_owner', [
 				'type'        => 'text',
-				'class'       => [ 'form-row-wide' ],
+				'class'       => [ 'form-row-last', 'shetab-card-owner' ],
 				'label'       => _x( 'Card Owner', 'Modules: Commerce', 'gnetwork' ),
 				'placeholder' => _x( 'Mohammad Mohammadi', 'Modules: Commerce', 'gnetwork' ),
 				'required'    => TRUE,
-				'clear'       => TRUE,
 			], $checkout->get_value( 'shetab_card_owner' ) );
 
 		echo '</div>';
 	}
 
-	public function woocommerce_checkout_process()
+	public function woocommerce_checkout_process_shetab()
 	{
 		if ( ! $_POST['shetab_card_number']
 			|| strlen( $_POST['shetab_card_number'] ) < 16
 			|| ! is_numeric( $_POST['shetab_card_number'] ) )
-				wc_add_notice( _x( 'Please enter numbers without dash and spaces.', 'Modules: Commerce', 'gnetwork' ), 'error' );
+				wc_add_notice( _x( 'Please enter Shetab card numbers correctly.', 'Modules: Commerce', 'gnetwork' ), 'error' );
 
 		if ( ! $_POST['shetab_card_owner']
 			|| strlen($_POST['shetab_card_owner']) < 3 )
-				wc_add_notice( _x( 'Please enter the name of the owner to check for correct card number.', 'Modules: Commerce', 'gnetwork' ), 'error' );
+				wc_add_notice( _x( 'Please enter the name of the owner to check for correct Shetab card number.', 'Modules: Commerce', 'gnetwork' ), 'error' );
 	}
 
-	public function woocommerce_checkout_update_order_meta( $order_id )
+	public function woocommerce_checkout_update_order_meta_shetab( $order_id )
 	{
 		if ( ! empty( $_POST['shetab_card_number'] ) )
 			update_post_meta( $order_id, 'shetab_card_number',
@@ -322,7 +327,7 @@ class Commerce extends gNetwork\Module
 				sanitize_text_field( $_POST['shetab_card_owner'] ) );
 	}
 
-	public function woocommerce_admin_order_data_after_billing_address( $order )
+	public function woocommerce_admin_order_data_after_billing_address_shetab( $order )
 	{
 		if ( $id = $order->get_id() ) {
 
@@ -338,7 +343,7 @@ class Commerce extends gNetwork\Module
 		}
 	}
 
-	public function woocommerce_email_order_meta_keys( $keys )
+	public function woocommerce_email_order_meta_keys_shetab( $keys )
 	{
 		$keys['shetab_card_number'] = _x( 'Setab Card Number', 'Modules: Commerce', 'gnetwork' );
 		$keys['shetab_card_owner']  = _x( 'Setab Card Owner', 'Modules: Commerce', 'gnetwork' );
