@@ -6,6 +6,7 @@ use geminorum\gNetwork;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Core\Arraay;
 use geminorum\gNetwork\Core\HTML;
+use geminorum\gNetwork\Core\Number;
 use geminorum\gNetwork\Core\WordPress;
 
 class Commerce extends gNetwork\Module
@@ -65,9 +66,13 @@ class Commerce extends gNetwork\Module
 			'fallback_empty_width'  => '0',
 			'fallback_empty_height' => '0',
 
-			'gtin_field_title'   => '',
-			'shetab_card_fields' => '0',
-			'shetab_card_notes'  => '',
+			'gtin_field_title'        => '',
+			'mobile_field'            => '1',
+			'remove_order_notes'      => '0',
+			'order_notes_label'       => '',
+			'order_notes_placeholder' => '',
+			'shetab_card_fields'      => '0',
+			'shetab_card_notes'       => '',
 		];
 	}
 
@@ -152,6 +157,31 @@ class Commerce extends gNetwork\Module
 			],
 			'_checkout' => [
 				[
+					'field'       => 'mobile_field',
+					'title'       => _x( 'Mobile Number Field', 'Modules: Commerce: Settings', 'gnetwork' ),
+					'description' => _x( 'Adds extra required field for mobile number after checkout form.', 'Modules: Commerce: Settings', 'gnetwork' ),
+					'default'     => '1',
+				],
+				[
+					'field'       => 'remove_order_notes',
+					'title'       => _x( 'Remove Order Notes', 'Modules: Commerce: Settings', 'gnetwork' ),
+					'description' => _x( 'Removes default `Order notes` from checkout form.', 'Modules: Commerce: Settings', 'gnetwork' ),
+				],
+				[
+					'field'       => 'order_notes_label',
+					'type'        => 'text',
+					'title'       => _x( 'Order Notes Label', 'Modules: Commerce: Settings', 'gnetwork' ),
+					'description' => _x( 'Changes default `Order notes` label for customers. Leave empty to use defaults.', 'Modules: Commerce: Settings', 'gnetwork' ),
+					'placeholder' => __( 'Order notes', 'woocommerce' ),
+				],
+				[
+					'field'       => 'order_notes_placeholder',
+					'type'        => 'text',
+					'title'       => _x( 'Order Notes Placeholder', 'Modules: Commerce: Settings', 'gnetwork' ),
+					'description' => _x( 'Changes default `Order notes` placeholder for customers. Leave empty to use defaults.', 'Modules: Commerce: Settings', 'gnetwork' ),
+					'placeholder' => __( 'Notes about your order, e.g. special notes for delivery.', 'woocommerce' ),
+				],
+				[
 					'field'       => 'shetab_card_fields',
 					'title'       => _x( 'Shetab Card Fields', 'Modules: Commerce: Settings', 'gnetwork' ),
 					'description' => _x( 'Adds extra fields for Shetab Card information after order form.', 'Modules: Commerce: Settings', 'gnetwork' ),
@@ -196,6 +226,14 @@ class Commerce extends gNetwork\Module
 
 		if ( is_admin() )
 			return;
+
+		$this->filter( 'woocommerce_checkout_fields' );
+		$this->filter( 'woocommerce_checkout_posted_data' );
+		$this->action( 'woocommerce_after_checkout_validation', 2 );
+		$this->action( 'woocommerce_checkout_update_customer', 2 );
+
+		if ( $this->options['remove_order_notes'] )
+			$this->filter_false( 'woocommerce_enable_order_notes_field' );
 
 		if ( $this->options['hide_price_on_shoploops'] )
 			// @REF: https://rudrastyh.com/woocommerce/remove-product-prices.html
@@ -269,6 +307,55 @@ class Commerce extends gNetwork\Module
 			return trim( $this->options['custom_string_instock'] );
 
 		return $availability;
+	}
+
+	// @REF: https://docs.woocommerce.com/document/tutorial-customising-checkout-fields-using-actions-and-filters/
+	public function woocommerce_checkout_fields( $fields )
+	{
+		if ( $this->options['mobile_field'] ) {
+
+			$fields['billing']['billing_phone']['class'] = [ 'form-row-first', 'phone' ];
+			$fields['billing']['billing_phone']['placeholder'] = _x( 'For calling on land-line', 'Modules: Commerce', 'gnetwork' );
+
+			$fields['billing']['billing_mobile'] = [
+				'type'        => 'tel',
+				'class'       => [ 'form-row-last', 'mobile' ],
+				'label'       => _x( 'Mobile', 'Modules: Commerce', 'gnetwork' ),
+				'placeholder' => _x( 'For short message purposes', 'Modules: Commerce', 'gnetwork' ),
+				'priority'    => 105, // after the `billing_phone` with priority `100`
+				'required'    => TRUE,
+			];
+		}
+
+		if ( $this->options['order_notes_label'] )
+			$fields['order']['order_comments']['label'] = $this->options['order_notes_label'];
+
+		if ( $this->options['order_notes_placeholder'] )
+			$fields['order']['order_comments']['placeholder'] = $this->options['order_notes_placeholder'];
+
+		return $fields;
+	}
+
+	// alternatively we can use `woocommerce_process_checkout_field_{$key}` filter
+	public function woocommerce_checkout_posted_data( $data )
+	{
+		if ( $this->options['mobile_field'] )
+			$data['billing_mobile'] = wc_sanitize_phone_number( Number::intval( $data['billing_mobile'], FALSE ) );
+
+		return $data;
+	}
+
+	public function woocommerce_after_checkout_validation( $data, $errors )
+	{
+		if ( $this->options['mobile_field'] && empty( $data['billing_mobile'] ) )
+			$errors->add( 'billing', _x( 'Mobile Number cannot be empty.', 'Modules: Commerce', 'gnetwork' ) );
+	}
+
+	public function woocommerce_checkout_update_customer( $customer, $data )
+	{
+		if ( $this->options['mobile_field'] )
+			// fields with `billing_` prefix will auto-update, this also updates customer profile
+			$customer->update_meta_data( GNETWORK_COMMERCE_MOBILE_METAKEY, $data['billing_mobile'] );
 	}
 
 	// ADOPTED FROM: woo-iran-shetab-card-field by Farhad Sakhaei
