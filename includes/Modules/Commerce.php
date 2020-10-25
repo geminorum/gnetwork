@@ -36,7 +36,7 @@ class Commerce extends gNetwork\Module
 			return;
 
 		if ( $this->options['shetab_card_fields'] ) {
-			$this->action( 'woocommerce_after_order_notes', 1, 10, 'shetab' );
+			$this->action( 'woocommerce_before_order_notes', 1, 10, 'shetab' );
 			$this->action( 'woocommerce_checkout_process', 0, 10, 'shetab' );
 			$this->action( 'woocommerce_checkout_update_order_meta', 1, 10, 'shetab' );
 			$this->action( 'woocommerce_admin_order_data_after_billing_address', 1, 10, 'shetab' );
@@ -184,13 +184,13 @@ class Commerce extends gNetwork\Module
 				[
 					'field'       => 'shetab_card_fields',
 					'title'       => _x( 'Shetab Card Fields', 'Modules: Commerce: Settings', 'gnetwork' ),
-					'description' => _x( 'Adds extra fields for Shetab Card information after order form.', 'Modules: Commerce: Settings', 'gnetwork' ),
+					'description' => _x( 'Adds extra fields for Shetab Card information after checkout form.', 'Modules: Commerce: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'shetab_card_notes',
 					'type'        => 'textarea-quicktags',
 					'title'       => _x( 'Shetab Card Notes', 'Modules: Commerce: Settings', 'gnetwork' ),
-					'description' => _x( 'Appears before Shetab Card information after order form.', 'Modules: Commerce: Settings', 'gnetwork' ),
+					'description' => _x( 'Appears before Shetab Card information after checkout form.', 'Modules: Commerce: Settings', 'gnetwork' ),
 					'default'     => _x( 'Please enter your card information, to use in case of refund.', 'Modules: Commerce', 'gnetwork' ),
 				],
 			],
@@ -361,32 +361,31 @@ class Commerce extends gNetwork\Module
 	// ADOPTED FROM: woo-iran-shetab-card-field by Farhad Sakhaei
 	// v1.1 - 2018-12-11
 	// @REF: https://wordpress.org/plugins/woo-iran-shetab-card-field/
-	public function woocommerce_after_order_notes_shetab( $checkout )
+	public function woocommerce_before_order_notes_shetab( $checkout )
 	{
-		// TODO: move to `woocommerce_checkout_fields`
-		// TODO: add working ltr class
+		// TODO: must move to billing
 		// TODO: strip dash and spaces on sanitize
 
-		echo $this->wrap_open( 'shetab_card' );
+		echo $this->wrap_open( 'shetab-card' );
 
 			HTML::h3( _x( 'Shetab Card', 'Modules: Commerce', 'gnetwork' ) );
 			HTML::desc( $this->options['shetab_card_notes'] );
 
-			woocommerce_form_field( 'shetab_card_number', [
-				'type'        => 'text',
-				'class'       => [ 'form-row-first', 'shetab-card-number' ],
-				'label'       => _x( 'Card Number', 'Modules: Commerce', 'gnetwork' ),
-				'placeholder' => _x( 'XXXX-XXXX-XXXX-XXXX', 'Modules: Commerce', 'gnetwork' ),
-				'required'    => TRUE,
-			], $checkout->get_value( 'shetab_card_number' ) );
-
 			woocommerce_form_field( 'shetab_card_owner', [
 				'type'        => 'text',
-				'class'       => [ 'form-row-last', 'shetab-card-owner' ],
+				'class'       => [ 'form-row-first', 'shetab-card-owner' ],
 				'label'       => _x( 'Card Owner', 'Modules: Commerce', 'gnetwork' ),
 				'placeholder' => _x( 'Mohammad Mohammadi', 'Modules: Commerce', 'gnetwork' ),
 				'required'    => TRUE,
 			], $checkout->get_value( 'shetab_card_owner' ) );
+
+			woocommerce_form_field( 'shetab_card_number', [
+				'type'        => 'text',
+				'class'       => [ 'form-row-last', 'shetab-card-number' ],
+				'label'       => _x( 'Card Number', 'Modules: Commerce', 'gnetwork' ),
+				'placeholder' => _x( 'XXXX-XXXX-XXXX-XXXX', 'Modules: Commerce', 'gnetwork' ),
+				'required'    => TRUE,
+			], $checkout->get_value( 'shetab_card_number' ) );
 
 		echo '</div>';
 	}
