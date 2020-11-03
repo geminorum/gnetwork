@@ -416,7 +416,7 @@ class Commerce extends gNetwork\Module
 			if ( empty( $data['customer_ssn'] ) )
 				$errors->add( 'ssn_empty', _x( 'Social Security Number cannot be empty.', 'Modules: Commerce', 'gnetwork' ) );
 
-			else if ( ! Validation::isSSN( $data['customer_ssn'] ) )
+			else if ( ! GNETWORK_DISABLE_SSN_CHECKS && ! Validation::isSSN( $data['customer_ssn'] ) )
 				$errors->add( 'ssn_invalid', _x( 'Social Security Number is not valid.', 'Modules: Commerce', 'gnetwork' ) );
 
 			else if ( WPUser::getIDbyMeta( GNETWORK_COMMERCE_SSN_METAKEY, $data['customer_ssn'] ) )
@@ -534,7 +534,7 @@ class Commerce extends gNetwork\Module
 			if ( empty( $ssn ) )
 				$errors->add( 'ssn_empty', _x( 'Social Security Number cannot be empty.', 'Modules: Commerce', 'gnetwork' ) );
 
-			else if ( ! Validation::isSSN( $ssn ) )
+			else if ( ! GNETWORK_DISABLE_SSN_CHECKS && ! Validation::isSSN( $ssn ) )
 				$errors->add( 'ssn_invalid', _x( 'Social Security Number is not valid.', 'Modules: Commerce', 'gnetwork' ) );
 
 			else if ( WPUser::getIDbyMeta( GNETWORK_COMMERCE_SSN_METAKEY, $ssn ) )
