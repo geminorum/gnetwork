@@ -7,7 +7,9 @@ use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Core\Arraay;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\Number;
+use geminorum\gNetwork\Core\Validation;
 use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\WordPress\User as WPUser;
 
 class Commerce extends gNetwork\Module
 {
@@ -224,6 +226,8 @@ class Commerce extends gNetwork\Module
 				'woocommerce_variable_sale_price_html',
 			], 2, 12 );
 
+		$this->filter( 'woocommerce_email_order_meta_fields', 3 );
+
 		if ( is_admin() )
 			return;
 
@@ -234,6 +238,14 @@ class Commerce extends gNetwork\Module
 		$this->filter( 'woocommerce_checkout_posted_data' );
 		$this->action( 'woocommerce_after_checkout_validation', 2 );
 		$this->action( 'woocommerce_checkout_update_customer', 2 );
+		$this->action( 'woocommerce_checkout_create_order', 2 );
+
+		$this->action( 'woocommerce_edit_account_form_start' );
+		$this->action( 'woocommerce_save_account_details' );
+		$this->action( 'woocommerce_save_account_details_errors', 2 );
+		$this->filter( 'woocommerce_save_account_details_required_fields' );
+		$this->action( 'woocommerce_register_form' );
+		$this->action( 'woocommerce_created_customer' );
 
 		if ( $this->options['remove_order_notes'] )
 			$this->filter_false( 'woocommerce_enable_order_notes_field' );
@@ -307,21 +319,28 @@ class Commerce extends gNetwork\Module
 		return $availability;
 	}
 
+	// TODO: re-order city and state
 	// @REF: https://docs.woocommerce.com/document/tutorial-customising-checkout-fields-using-actions-and-filters/
+	// NOTE: wc auto-stores meta with `billing` or `shipping` prefixes, we use `customer` to prevent this
 	public function woocommerce_checkout_fields( $fields )
 	{
 		if ( $this->options['mobile_field'] ) {
 
 			$fields['billing']['billing_phone']['class'] = [ 'form-row-first', 'phone' ];
 			$fields['billing']['billing_phone']['placeholder'] = _x( 'For calling on land-line', 'Modules: Commerce', 'gnetwork' );
+			$fields['billing']['billing_phone']['input_class'] = [ 'ltr', 'rtl-placeholder' ];
 
-			$fields['billing']['billing_mobile'] = [
+			$mobile = is_user_logged_in() ? get_user_meta( get_current_user_id(), GNETWORK_COMMERCE_MOBILE_METAKEY, TRUE ) : FALSE;
+
+			$fields['billing']['customer_mobile'] = [
 				'type'        => 'tel',
 				'class'       => [ 'form-row-last', 'mobile' ],
+				'input_class' => [ 'ltr', 'rtl-placeholder' ],
 				'label'       => _x( 'Mobile', 'Modules: Commerce', 'gnetwork' ),
 				'placeholder' => _x( 'For short message purposes', 'Modules: Commerce', 'gnetwork' ),
 				'priority'    => 105, // after the `billing_phone` with priority `100`
 				'required'    => TRUE,
+				'default'     => $mobile ?: '',
 			];
 		}
 
@@ -334,26 +353,134 @@ class Commerce extends gNetwork\Module
 		return $fields;
 	}
 
+	private function sanitize_mobile_field( $input )
+	{
+		return wc_sanitize_phone_number( Number::intval( $input, FALSE ) );
+	}
+
 	// alternatively we can use `woocommerce_process_checkout_field_{$key}` filter
 	public function woocommerce_checkout_posted_data( $data )
 	{
 		if ( $this->options['mobile_field'] )
-			$data['billing_mobile'] = wc_sanitize_phone_number( Number::intval( $data['billing_mobile'], FALSE ) );
+			$data['customer_mobile'] = $this->sanitize_mobile_field( $data['customer_mobile'] );
 
 		return $data;
 	}
 
 	public function woocommerce_after_checkout_validation( $data, $errors )
 	{
-		if ( $this->options['mobile_field'] && empty( $data['billing_mobile'] ) )
-			$errors->add( 'billing', _x( 'Mobile Number cannot be empty.', 'Modules: Commerce', 'gnetwork' ) );
+		if ( $this->options['mobile_field'] ) {
+
+			if ( empty( $data['customer_mobile'] ) )
+				$errors->add( 'mobile_empty', _x( 'Mobile Number cannot be empty.', 'Modules: Commerce', 'gnetwork' ) );
+
+			else if ( ! Validation::isMobileNumber( $data['customer_mobile'] ) )
+				$errors->add( 'mobile_invalid', _x( 'Mobile Number is not valid.', 'Modules: Commerce', 'gnetwork' ) );
+
+			else if ( WPUser::getIDbyMeta( GNETWORK_COMMERCE_MOBILE_METAKEY, $data['customer_mobile'] ) )
+				$errors->add( 'mobile_registered', _x( 'Mobile Number is already registered.', 'Modules: Commerce', 'gnetwork' ) );
+		}
 	}
 
 	public function woocommerce_checkout_update_customer( $customer, $data )
 	{
 		if ( $this->options['mobile_field'] )
-			// fields with `billing_` prefix will auto-update, this also updates customer profile
-			$customer->update_meta_data( GNETWORK_COMMERCE_MOBILE_METAKEY, $data['billing_mobile'] );
+			$customer->update_meta_data( GNETWORK_COMMERCE_MOBILE_METAKEY, $data['customer_mobile'] );
+	}
+
+	public function woocommerce_checkout_create_order( $order, $data )
+	{
+		if ( $this->options['mobile_field'] )
+			$order->update_meta_data( '_customer_mobile', $data['customer_mobile'] );
+	}
+
+	// @REF: https://docs.woocommerce.com/document/add-a-custom-field-in-an-order-to-the-emails/
+	// @SEE: https://rudrastyh.com/woocommerce/order-meta-in-emails.html
+	// MAYBE: for better control/linking: use `woocommerce_email_order_meta` hook
+	public function woocommerce_email_order_meta_fields( $fields, $sent_to_admin, $order )
+	{
+		if ( $this->options['mobile_field'] ) {
+
+			$meta = get_post_meta( $order->id, '_customer_mobile', TRUE );
+
+			if ( $meta && ( $mobile = wc_format_phone_number( $meta ) ) )
+				$fields[] = [
+					'label' => _x( 'Mobile Number', 'Modules: Commerce', 'gnetwork' ),
+					'value' => Number::localize( $mobile ),
+				];
+		}
+
+		return $fields;
+	}
+
+	// @REF: https://rudrastyh.com/woocommerce/edit-account-fields.html
+	public function woocommerce_edit_account_form_start()
+	{
+		if ( $this->options['mobile_field'] ) {
+			woocommerce_form_field( 'account_mobile', [
+				'type'        => 'tel',
+				'class'       => [ 'form-row-wide', 'mobile' ],
+				'input_class' => [ 'ltr', 'rtl-placeholder' ],
+				'label'       => _x( 'Mobile', 'Modules: Commerce', 'gnetwork' ),
+				'placeholder' => _x( 'For short message purposes', 'Modules: Commerce', 'gnetwork' ),
+				'required'    => TRUE,
+				'clear'       => TRUE,
+			], get_user_meta( get_current_user_id(), GNETWORK_COMMERCE_MOBILE_METAKEY, TRUE ) );
+
+			wc_enqueue_js( "$('p#account_mobile_field').insertAfter($('input#account_email').parent());" );
+		}
+	}
+
+	public function woocommerce_save_account_details( $user_id )
+	{
+		if ( $this->options['mobile_field'] )
+			update_user_meta( $user_id, GNETWORK_COMMERCE_MOBILE_METAKEY, $this->sanitize_mobile_field( sanitize_text_field( $_POST['account_mobile'] ) ) );
+	}
+
+	public function woocommerce_save_account_details_errors( &$errors, &$user )
+	{
+		if ( $this->options['mobile_field'] ) {
+
+			$mobile = wc_clean( wp_unslash( $_POST['account_mobile'] ) );
+
+			if ( empty( $mobile ) )
+				$errors->add( 'mobile_empty', _x( 'Mobile Number cannot be empty.', 'Modules: Commerce', 'gnetwork' ) );
+
+			else if ( ! Validation::isMobileNumber( $mobile ) )
+				$errors->add( 'mobile_invalid', _x( 'Mobile Number is not valid.', 'Modules: Commerce', 'gnetwork' ) );
+
+			else if ( WPUser::getIDbyMeta( GNETWORK_COMMERCE_MOBILE_METAKEY, $mobile ) )
+				$errors->add( 'mobile_registered', _x( 'Mobile Number is already registered.', 'Modules: Commerce', 'gnetwork' ) );
+		}
+	}
+
+	public function woocommerce_save_account_details_required_fields( $fields )
+	{
+		$extra = [];
+
+		if ( $this->options['mobile_field'] )
+			$extra['account_mobile'] = _x( 'Mobile', 'Modules: Commerce', 'gnetwork' );
+
+		return array_merge( $fields, $extra );
+	}
+
+	public function woocommerce_register_form()
+	{
+		if ( $this->options['mobile_field'] )
+			woocommerce_form_field( 'account_mobile', [
+				'type'        => 'tel',
+				'class'       => [ 'form-row-wide', 'mobile' ],
+				'input_class' => [ 'ltr', 'rtl-placeholder' ],
+				'label'       => _x( 'Mobile', 'Modules: Commerce', 'gnetwork' ),
+				'placeholder' => _x( 'For short message purposes', 'Modules: Commerce', 'gnetwork' ),
+				'required'    => TRUE,
+				'clear'       => TRUE,
+			] );
+	}
+
+	public function woocommerce_created_customer( $customer_id )
+	{
+		$this->woocommerce_save_account_details( $customer_id );
 	}
 
 	// ADOPTED FROM: woo-iran-shetab-card-field by Farhad Sakhaei
@@ -380,6 +507,7 @@ class Commerce extends gNetwork\Module
 			woocommerce_form_field( 'shetab_card_number', [
 				'type'        => 'text',
 				'class'       => [ 'form-row-last', 'shetab-card-number' ],
+				'input_class' => [ 'ltr' ],
 				'label'       => _x( 'Card Number', 'Modules: Commerce', 'gnetwork' ),
 				'placeholder' => _x( 'XXXX-XXXX-XXXX-XXXX', 'Modules: Commerce', 'gnetwork' ),
 				'required'    => TRUE,
@@ -427,6 +555,7 @@ class Commerce extends gNetwork\Module
 		}
 	}
 
+	// FIXME: Deprecated wc filter
 	public function woocommerce_email_order_meta_keys_shetab( $keys )
 	{
 		$keys['shetab_card_number'] = _x( 'Setab Card Number', 'Modules: Commerce', 'gnetwork' );
