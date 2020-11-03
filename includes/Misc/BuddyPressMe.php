@@ -105,10 +105,9 @@ class BuddyPressMe extends \BP_Component
 		$this->me_action_profile();
 	}
 
+	// FIXME: check $_SERVER['HTTP_REFERER']; then safe redirect within network ( must add a filter )
 	public function me_action_logout( $vars = FALSE )
 	{
-		// TODO: check $_SERVER['HTTP_REFERER']; then safe redirect within network ( must add a filter )
-
 		$redirect = bp_get_loggedin_user_link();
 		wp_logout();
 		bp_core_redirect( $redirect );

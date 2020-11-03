@@ -58,8 +58,8 @@ class GlotPress extends gNetwork\Module
 
 	public function gp_home_title( $title )
 	{
-		return $this->options['shetab_card_notes']
-			? trim( $this->options['shetab_card_notes'] )
+		return $this->options['home_title']
+			? trim( $this->options['home_title'] )
 			: _x( 'GlotPress', 'Modules: GlotPress: Home Title', 'gnetwork' );
 	}
 }

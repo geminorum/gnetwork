@@ -5,6 +5,7 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 use geminorum\gNetwork;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
+use geminorum\gNetwork\Core\Arraay;
 use geminorum\gNetwork\Core\Email;
 use geminorum\gNetwork\Core\File;
 use geminorum\gNetwork\Core\HTML;
@@ -431,10 +432,8 @@ class Profile extends gNetwork\Module
 
 	public function user_contactmethods( $contactmethods, $user )
 	{
-		unset( $contactmethods['aim'], $contactmethods['yim'], $contactmethods['jabber'] );
-
-		return array_merge( $contactmethods, [
-			'mobile'    => _x( 'Mobile Phone', 'Modules: Profile: User Contact Method', 'gnetwork' ),
+		return array_merge( Arraay::stripByKeys( $contactmethods, [ 'aim', 'yim', 'jabber' ] ), [
+			'mobile'    => _x( 'Mobile Phone', 'Modules: Profile: User Contact Method', 'gnetwork' ), // @SEE: `GNETWORK_COMMERCE_MOBILE_METAKEY`
 			'twitter'   => _x( 'Twitter', 'Modules: Profile: User Contact Method', 'gnetwork' ),
 			'facebook'  => _x( 'Facebook', 'Modules: Profile: User Contact Method', 'gnetwork' ),
 			'instagram' => _x( 'Instagram', 'Modules: Profile: User Contact Method', 'gnetwork' ),

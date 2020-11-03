@@ -268,6 +268,8 @@ class Notify extends gNetwork\Module
 		return $this->options['disable_admin_email_change'] ? FALSE: $send;
 	}
 
+	// @SEE: https://wordpress.stackexchange.com/a/236301
+	// @SEE: https://smartwp.com/disable-wordpress-new-user-notification-email/
 	// pluggable core function
 	// email login credentials to a newly-registered user
 	// CHANGED: we opt-out notifying the admin
