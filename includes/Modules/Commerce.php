@@ -227,6 +227,9 @@ class Commerce extends gNetwork\Module
 		if ( is_admin() )
 			return;
 
+		if ( $this->options['gtin_field_title'] )
+			$this->action( 'woocommerce_product_meta_start', 0, 10, 'gtin' );
+
 		$this->filter( 'woocommerce_checkout_fields' );
 		$this->filter( 'woocommerce_checkout_posted_data' );
 		$this->action( 'woocommerce_after_checkout_validation', 2 );
@@ -253,13 +256,8 @@ class Commerce extends gNetwork\Module
 
 	public function admin_init()
 	{
-
-		// FIXME:
-		// move over sku on admin edit page
-		// display on front end
-
 		if ( $this->options['gtin_field_title'] ) {
-			$this->action( 'woocommerce_product_options_inventory_product_data', 0, 10, 'gtin' );
+			$this->action( 'woocommerce_product_options_sku', 0, 10, 'gtin' );
 			$this->action( 'woocommerce_process_product_meta', 2, 10, 'gtin' );
 			$this->action( 'woocommerce_product_after_variable_attributes', 3, 10, 'gtin' );
 			$this->action( 'woocommerce_save_product_variation', 2, 10, 'gtin' );
@@ -437,15 +435,23 @@ class Commerce extends gNetwork\Module
 		return $keys;
 	}
 
-	public function woocommerce_product_options_inventory_product_data_gtin()
+	public function woocommerce_product_options_sku_gtin()
 	{
 		woocommerce_wp_text_input( [
 			'id'          => $this->base.'-product_gtin',
 			'label'       => $this->options['gtin_field_title'],
-			'desc_tip'    => TRUE,
 			'description' => _x( 'Enter the Global Trade Item Number (UPC, EAN, ISBN)', 'Modules: Commerce', 'gnetwork' ),
 			'value'       => get_post_meta( get_the_ID(), GNETWORK_COMMERCE_GTIN_METAKEY, TRUE ),
+			'desc_tip'    => TRUE,
 		] );
+	}
+
+	public function woocommerce_product_meta_start_gtin()
+	{
+		global $product;
+
+		if ( $meta = get_post_meta( $product->get_id(), GNETWORK_COMMERCE_GTIN_METAKEY, TRUE ) )
+			echo '<span class="gtin_wrapper">'.sprintf( '%s: ', $this->options['gtin_field_title'] ).'<span class="gtin">'.esc_html( $meta ).'</span></span>';
 	}
 
 	public function woocommerce_process_product_meta_gtin( $post_id, $post )
