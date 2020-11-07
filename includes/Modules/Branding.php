@@ -21,7 +21,8 @@ class Branding extends gNetwork\Module
 			$this->filter( 'get_site_icon_url', 3 );
 
 		if ( $this->options['webapp_manifest'] && ! is_admin() && is_main_site() ) {
-			$this->filter( 'pre_handle_404', 2 );
+			$this->action( 'parse_request', 1, 1 );
+			// $this->filter( 'pre_handle_404', 2 );
 			$this->filter( 'redirect_canonical', 2 );
 		}
 
@@ -262,6 +263,13 @@ class Branding extends gNetwork\Module
 			echo '<link rel="manifest" href="'.$this->url_manifest().'" />'."\n";
 	}
 
+	public function parse_request( $request )
+	{
+		if ( 'manifest.json' == $request->request )
+			$this->render_manifest();
+	}
+
+	// DISABLED: not working on every permalink setup
 	public function pre_handle_404( $preempt, $wp_query )
 	{
 		if ( $preempt )
