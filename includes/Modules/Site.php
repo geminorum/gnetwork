@@ -37,6 +37,7 @@ class Site extends gNetwork\Module
 		} else {
 
 			$this->action( 'get_header' );
+			$this->filter( 'allowed_redirect_hosts' );
 		}
 
 		if ( $this->options['resync_sitemeta'] ) {
@@ -408,6 +409,16 @@ class Site extends gNetwork\Module
 					Utilities::linkStyleSheet( 'front.activate' );
 				} );
 		}
+	}
+
+	public function allowed_redirect_hosts( $hosts )
+	{
+		static $sites = NULL;
+
+		if ( is_null( $sites ) )
+			$sites = wp_list_pluck( WordPress::getAllSites( FALSE, NULL, FALSE ), 'domain' );
+
+		return array_unique( array_filter( array_merge( $hosts, $sites ) ) );
 	}
 
 	protected $filters = [
