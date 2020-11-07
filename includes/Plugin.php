@@ -4,67 +4,14 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork\Core\Exception;
 use geminorum\gNetwork\Core\HTML;
+use geminorum\gNetwork\WordPress\Plugin as Base;
 
-class Plugin
+class Plugin extends Base
 {
 
 	public $base = 'gnetwork';
 
-	public static function instance()
-	{
-		static $instance = NULL;
-
-		if ( NULL === $instance ) {
-			$instance = new Plugin;
-			$instance->setup();
-		}
-
-		return $instance;
-	}
-
-	public function __construct() {}
-
-	private function setup()
-	{
-		foreach ( $this->constants() as $key => $val )
-			defined( $key ) || define( $key, $val );
-
-		foreach ( $this->get_modules() as $module ) {
-
-			$class = __NAMESPACE__.'\\Modules\\'.$module;
-			$slug  = strtolower( $module );
-
-			if ( $module && class_exists( $class ) ) {
-
-				try {
-
-					$this->{$slug} = new $class( $this->base, $slug );
-
-				} catch ( Exception $e ) {
-
-					// no need to do anything!
-				}
-			}
-		}
-
-		add_action( 'plugins_loaded', [ $this, 'plugins_loaded' ], 20 );
-		add_action( 'bp_setup_components', [ $this, 'bp_setup_components' ] );
-		add_action( 'bp_include', [ $this, 'bp_include' ] );
-		add_action( 'bbp_includes', [ $this, 'bbp_includes' ] );
-	}
-
-	private function files( $stack, $check = TRUE, $base = GNETWORK_DIR )
-	{
-		foreach ( (array) $stack as $path )
-
-			if ( ! $check )
-				require_once( $base.'includes/'.$path.'.php' );
-
-			else if ( is_readable( $base.'includes/'.$path.'.php' ) )
-				require_once( $base.'includes/'.$path.'.php' );
-	}
-
-	private function constants()
+	protected function constants()
 	{
 		return [
 			// 'GNETWORK_TEXTDOMAIN'   => $this->base,
@@ -148,7 +95,7 @@ class Plugin
 		];
 	}
 
-	private function constants_late()
+	protected function late_constants()
 	{
 		return [
 			'GNETWORK_BASE' => network_home_url( '/', $this->ssl() ? 'https' : 'http' ), // comes handy on multi-network
@@ -157,78 +104,83 @@ class Plugin
 		];
 	}
 
-	private function get_modules()
+	protected function modules()
 	{
 		$modules = [
-			'Modules/Locale'      => 'Locale',
-			'Modules/Network'     => 'Network',
-			'Modules/Admin'       => 'Admin',
-			'Modules/Site'        => 'Site',
-			'Modules/Blog'        => 'Blog',
-			'Modules/User'        => 'User',
-			// 'Modules/API'         => 'API',
-			'Modules/AdminBar'    => 'AdminBar',
-			'Modules/Dashboard'   => 'Dashboard',
-			'Modules/Authors'     => 'Authors',
-			'Modules/Tracking'    => 'Tracking',
-			'Modules/Maintenance' => 'Maintenance',
-			'Modules/Restricted'  => 'Restricted',
-			'Modules/Editor'      => 'Editor',
-			'Modules/Captcha'     => 'Captcha',
-			'Modules/OpenSearch'  => 'OpenSearch',
-			'Modules/Support'     => 'Support',
-			'Modules/Mail'        => 'Mail',
-			'Modules/SMS'         => 'SMS',
-			// 'Modules/Bot'         => 'Bot',
-			// 'Modules/Remote'      => 'Remote',
-			'Modules/Navigation'  => 'Navigation',
-			'Modules/Themes'      => 'Themes',
-			'Modules/Extend'      => 'Extend',
-			// 'Modules/DB'          => 'DB',
-			'Modules/Media'       => 'Media',
-			'Modules/Embed'       => 'Embed',
-			'Modules/Cron'        => 'Cron',
-			'Modules/Login'       => 'Login',
-			'Modules/Lockdown'    => 'Lockdown',
-			'Modules/Blacklist'   => 'Blacklist',
-			'Modules/Update'      => 'Update',
-			'Modules/Search'      => 'Search',
-			'Modules/Taxonomy'    => 'Taxonomy',
-			'Modules/ShortCodes'  => 'ShortCodes',
-			'Modules/Comments'    => 'Comments',
-			'Modules/Widgets'     => 'Widgets',
-			'Modules/Notify'      => 'Notify',
-			'Modules/Typography'  => 'Typography',
-			'Modules/Debug'       => 'Debug',
-			'Modules/Code'        => 'Code',
-			'Modules/Cleanup'     => 'Cleanup',
-			// 'Modules/Social'      => 'Social',
-			'Modules/Branding'    => 'Branding',
-			'Modules/Legal'       => 'Legal',
-			'Modules/API'         => 'API',
-			'Modules/Uptime'      => 'Uptime',
-			'Modules/Commerce'    => 'Commerce',
-			'Modules/GlotPress'   => 'GlotPress',
-			'Modules/Profile'     => 'Profile',
-			// 'Modules/Roles'       => 'Roles',
-			'Modules/Rewrite'     => 'Rewrite',
+			'Locale',
+			'Network',
+			'Admin',
+			'Site',
+			'Blog',
+			'User',
+			// 'API',
+			'AdminBar',
+			'Dashboard',
+			'Authors',
+			'Tracking',
+			'Maintenance',
+			'Restricted',
+			'Editor',
+			'Captcha',
+			'OpenSearch',
+			'Support',
+			'Mail',
+			'SMS',
+			// 'Bot',
+			// 'Remote',
+			'Navigation',
+			'Themes',
+			'Extend',
+			// 'DB',
+			'Media',
+			'Embed',
+			'Cron',
+			'Login',
+			'Lockdown',
+			'Blacklist',
+			'Update',
+			'Search',
+			'Taxonomy',
+			'ShortCodes',
+			'Comments',
+			'Widgets',
+			'Notify',
+			'Typography',
+			'Debug',
+			'Code',
+			'Cleanup',
+			// 'Social',
+			'Branding',
+			'Legal',
+			'Uptime',
+			'Commerce',
+			'GlotPress',
+			'Profile',
+			// 'Roles',
+			'Rewrite',
 		];
 
 		if ( 'production' == WP_STAGE )
-			$modules['Modules/BBQ'] = 'BBQ';
+			$modules[] = 'BBQ';
 
 		else if ( 'development' == WP_STAGE )
-			$modules['Modules/Dev'] = 'Dev';
+			$modules[] = 'Dev';
 
-		return $modules;
+		return [ $modules, __NAMESPACE__.'\\Modules' ];
+	}
+
+	protected function actions()
+	{
+		add_action( 'plugins_loaded', [ $this, 'plugins_loaded' ], 20 );
+		add_action( 'bp_setup_components', [ $this, 'bp_setup_components' ] );
+		add_action( 'bp_include', [ $this, 'bp_include' ] );
+		add_action( 'bbp_includes', [ $this, 'bbp_includes' ] );
 	}
 
 	public function plugins_loaded()
 	{
-		foreach ( $this->constants_late() as $key => $val )
-			defined( $key ) || define( $key, $val );
-
-		$this->files( [ 'Pluggable', 'Functions' ] );
+		$this->defines( $this->late_constants() );
+		$this->files( [ 'Pluggable', 'Functions' ], GNETWORK_DIR );
 
 		load_plugin_textdomain( $this->base, FALSE, 'gnetwork/languages' );
 
