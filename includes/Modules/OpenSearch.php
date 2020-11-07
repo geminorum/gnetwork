@@ -30,7 +30,8 @@ class OpenSearch extends gNetwork\Module
 		// $this->action( 'rewrite_rules_array', 1, 8 );
 
 		if ( ! is_admin() ) {
-			$this->filter( 'pre_handle_404', 2 );
+			// $this->filter( 'pre_handle_404', 2 );
+			$this->action( 'parse_request', 1, 1 );
 			$this->filter( 'redirect_canonical', 2 );
 		}
 	}
@@ -201,6 +202,16 @@ class OpenSearch extends gNetwork\Module
 	}
 
 	// TODO: make suggestions an AJAX call
+	public function parse_request( $request )
+	{
+		if ( 'osd.xml' == $request->request )
+			$this->render_xml();
+
+		else if ( 'oss.json' == $request->request )
+			$this->render_suggestions();
+	}
+
+	// DISABLED: not working on every permalink setup
 	public function pre_handle_404( $preempt, $wp_query )
 	{
 		if ( $preempt )
