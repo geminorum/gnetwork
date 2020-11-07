@@ -11,6 +11,7 @@ use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\Number;
 use geminorum\gNetwork\Core\Text;
 use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\Core\Taxonomy as Tax;
 
 class Taxonomy extends gNetwork\Module
 {
@@ -645,22 +646,9 @@ class Taxonomy extends gNetwork\Module
 		$targets   = array_filter( array_map( 'trim', explode( ',,', $targets ) ) );
 		$new_terms = [];
 
-		foreach ( $targets as $target ) {
-
-			// if it's term id
-			if ( is_numeric( $target ) )
-				$target = intval( $target );
-
-			if ( ! $new_term = term_exists( $target, $taxonomy ) )
-				$new_term = wp_insert_term( $target, $taxonomy );
-
-			if ( self::isError( $new_term ) )
-				continue;
-
-			$new_term_id = intval( $new_term['term_id'] );
-
-			$new_terms[$new_term_id] = get_term( $new_term_id, $taxonomy );
-		}
+		foreach ( $targets as $target )
+			if ( $new_term = Tax::getTargetTerm( $target, $taxonomy ) )
+				$new_terms[$new_term->term_id] = $new_term;
 
 		if ( ! count( $new_terms ) )
 			return FALSE;
@@ -713,29 +701,19 @@ class Taxonomy extends gNetwork\Module
 		if ( Text::has( $target, ',,' ) )
 			return $this->handle_multiple_merge( $target, $term_ids, $taxonomy );
 
-		// if it's term id
-		if ( is_numeric( $target ) )
-			$target = intval( $target );
-
-		if ( ! $term = term_exists( $target, $taxonomy ) )
-			$term = wp_insert_term( $target, $taxonomy );
-
-		if ( self::isError( $term ) )
+		if ( ! $new_term = Tax::getTargetTerm( $target, $taxonomy ) )
 			return FALSE;
-
-		$to_term_id  = $term['term_id'];
-		$to_term_obj = get_term( $to_term_id, $taxonomy );
 
 		foreach ( $term_ids as $term_id ) {
 
-			if ( $term_id == $to_term_id )
+			if ( $term_id == $new_term->term_id )
 				continue;
 
 			$old_term = get_term( $term_id, $taxonomy );
 			$old_meta = get_term_meta( $term_id );
 
 			$merged = wp_delete_term( $term_id, $taxonomy, [
-				'default'       => $to_term_id,
+				'default'       => $new_term->term_id,
 				'force_default' => TRUE,
 			] );
 
@@ -744,9 +722,9 @@ class Taxonomy extends gNetwork\Module
 
 			foreach ( $old_meta as $meta_key => $meta_value )
 				foreach ( $meta_value as $value_value ) // multiple meta
-					add_term_meta( $to_term_id, $meta_key, $value_value, FALSE );
+					add_term_meta( $new_term->term_id, $meta_key, $value_value, FALSE );
 
-			$this->actions( 'term_merged', $taxonomy, $to_term_obj, $old_term, $old_meta );
+			$this->actions( 'term_merged', $taxonomy, $new_term, $old_term, $old_meta );
 		}
 
 		return TRUE;
