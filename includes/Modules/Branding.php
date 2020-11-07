@@ -52,7 +52,7 @@ class Branding extends gNetwork\Module
 			'network_siteicon'   => '',
 			'theme_color'        => '',
 			'siteicon_fallback'  => '0',
-			'webapp_manifest'    => '0',
+			'webapp_manifest'    => '1',
 			'webapp_shortname'   => '',
 			'webapp_longname'    => '',
 			'webapp_description' => '',
@@ -125,6 +125,7 @@ class Branding extends gNetwork\Module
 				'title'       => _x( 'Manifest', 'Modules: Branding: Settings', 'gnetwork' ),
 				'description' => _x( 'Provides the ability to save a site bookmark to a device\'s home screen.', 'Modules: Branding: Settings', 'gnetwork' ),
 				'after'       => Settings::fieldAfterIcon( $this->url_manifest( FALSE ), NULL, 'external' ),
+				'default'     => '1',
 			],
 			[
 				'field'       => 'webapp_shortname',
