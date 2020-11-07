@@ -407,7 +407,7 @@ class Commerce extends gNetwork\Module
 			else if ( ! Validation::isMobileNumber( $data['customer_mobile'] ) )
 				$errors->add( 'mobile_invalid', _x( 'Mobile Number is not valid.', 'Modules: Commerce', 'gnetwork' ) );
 
-			else if ( WPUser::getIDbyMeta( GNETWORK_COMMERCE_MOBILE_METAKEY, $data['customer_mobile'] ) )
+			else if ( ! is_user_logged_in() && WPUser::getIDbyMeta( GNETWORK_COMMERCE_MOBILE_METAKEY, $data['customer_mobile'] ) )
 				$errors->add( 'mobile_registered', _x( 'Mobile Number is already registered.', 'Modules: Commerce', 'gnetwork' ) );
 		}
 
@@ -419,7 +419,7 @@ class Commerce extends gNetwork\Module
 			else if ( ! GNETWORK_DISABLE_SSN_CHECKS && ! Validation::isSSN( $data['customer_ssn'] ) )
 				$errors->add( 'ssn_invalid', _x( 'Social Security Number is not valid.', 'Modules: Commerce', 'gnetwork' ) );
 
-			else if ( WPUser::getIDbyMeta( GNETWORK_COMMERCE_SSN_METAKEY, $data['customer_ssn'] ) )
+			else if ( ! is_user_logged_in() && WPUser::getIDbyMeta( GNETWORK_COMMERCE_SSN_METAKEY, $data['customer_ssn'] ) )
 				$errors->add( 'ssn_registered', _x( 'Social Security Number is already registered.', 'Modules: Commerce', 'gnetwork' ) );
 		}
 	}
