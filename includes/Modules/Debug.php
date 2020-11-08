@@ -710,13 +710,6 @@ class Debug extends gNetwork\Module
 		$panels[] = new \geminorum\gNetwork\Misc\DebugExtrasPanel();
 
 		return $panels;
-
-		if ( is_readable( GNETWORK_DIR.'includes/Misc/DebugExtrasPanel.php' ) ) {
-			require_once( GNETWORK_DIR.'includes/Misc/DebugExtrasPanel.php' );
-			$panels[] = new \geminorum\gNetwork\Misc\DebugExtrasPanel();
-		}
-
-		return $panels;
 	}
 
 	public function wp_footer()
