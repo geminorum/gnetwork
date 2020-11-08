@@ -645,11 +645,6 @@ class Taxonomy extends gNetwork\Module
 				WHERE term_taxonomy_id = %d
 			", $old_term->term_taxonomy_id ) );
 
-			$merged = wp_delete_term( $term_id, $taxonomy );
-
-			if ( ! $merged || self::isError( $merged ) )
-				continue;
-
 			foreach ( $new_terms as $new_term_id => $new_term ) {
 
 				// needs to be set before our action fired
@@ -667,6 +662,12 @@ class Taxonomy extends gNetwork\Module
 
 				$this->actions( 'term_merged', $taxonomy, $new_term, $old_term, $old_meta );
 			}
+
+			// late delete to avoid losing relation data!
+			$deleted = wp_delete_term( $term_id, $taxonomy );
+
+			if ( ! $deleted || self::isError( $deleted ) )
+				return FALSE; // bail if something's wrong!
 		}
 
 		return TRUE;
