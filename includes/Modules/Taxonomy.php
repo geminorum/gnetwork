@@ -11,7 +11,7 @@ use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\Number;
 use geminorum\gNetwork\Core\Text;
 use geminorum\gNetwork\Core\WordPress;
-use geminorum\gNetwork\Core\Taxonomy as Tax;
+use geminorum\gNetwork\WordPress\Taxonomy as Tax;
 
 class Taxonomy extends gNetwork\Module
 {
@@ -510,7 +510,7 @@ class Taxonomy extends gNetwork\Module
 	{
 		foreach ( $term_ids as $term_id ) {
 
-			if ( ! $parents = $this->get_term_parents( $term_id, $taxonomy ) )
+			if ( ! $parents = Tax::getTermParents( $term_id, $taxonomy ) )
 				continue;
 
 			$posts = get_objects_in_term( (int) $term_id, $taxonomy );
@@ -523,27 +523,6 @@ class Taxonomy extends gNetwork\Module
 		}
 
 		return TRUE;
-	}
-
-	private function get_term_parents( $term_id, $taxonomy )
-	{
-		$parents = [];
-		$up      = TRUE;
-
-		while ( $up ) {
-
-			$term = get_term( (int) $term_id, $taxonomy );
-
-			if ( $term->parent )
-				$parents[] = (int) $term->parent;
-
-			else
-				$up = FALSE;
-
-			$term_id = $term->parent;
-		}
-
-		return count( $parents ) ? $parents : FALSE;
 	}
 
 	public function handle_empty_posts( $term_ids, $taxonomy )
