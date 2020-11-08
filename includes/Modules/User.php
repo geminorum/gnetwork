@@ -9,6 +9,7 @@ use geminorum\gNetwork\Core\Arraay;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\WordPress\User as WPUser;
 
 class User extends gNetwork\Module
 {
@@ -18,6 +19,8 @@ class User extends gNetwork\Module
 
 	protected function setup_actions()
 	{
+		$this->filter( 'authenticate', 3, 50 );
+
 		if ( ! is_multisite() )
 			return TRUE;
 
@@ -398,6 +401,21 @@ class User extends gNetwork\Module
 		// TODO
 		// add setting option for page
 		// display page content as over view
+	}
+
+	// @REF: https://medium.com/@omarkasem/login-with-phone-number-in-woocommerce-wordpress-f7d6d07964d8
+	public function authenticate( $user, $username, $password )
+	{
+		if ( $user instanceof \WP_User || empty( $username ) || empty( $password ) )
+			return $user;
+
+		if ( ! $mobile = WPUser::getObjectbyMeta( 'mobile', $username ) )
+			return $user;
+
+		if ( wp_check_password( $password, $mobile->user_pass, $mobile->ID ) )
+			return $mobile;
+
+		return $user;
 	}
 
 	public function wpmu_new_user( $user_id )
