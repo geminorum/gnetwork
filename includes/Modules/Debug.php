@@ -13,6 +13,7 @@ use geminorum\gNetwork\Core\HTTP;
 use geminorum\gNetwork\Core\Text;
 use geminorum\gNetwork\Core\Number;
 use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\Misc\QM;
 
 class Debug extends gNetwork\Module
 {
@@ -29,9 +30,12 @@ class Debug extends gNetwork\Module
 		if ( WordPress::mustRegisterUI() )
 			$this->action( 'core_upgrade_preamble', 1, 20 );
 
+		$this->filter( 'qm/collectors', 2, 200 );
+		$this->filter( 'qm/outputter/html', 2, 200 );
+
 		$this->action( 'wp_footer', 1, 999999 );
 		$this->action( 'http_api_debug', 5 );
-		$this->filter( 'debug_bar_panels' );
+		// $this->filter( 'debug_bar_panels' );
 
 		add_filter( 'wp_die_handler', function() {
 			return [ $this, 'wp_die_handler' ];
@@ -812,6 +816,21 @@ class Debug extends gNetwork\Module
 				], _x( 'Check Failed Logs', 'Modules: Debug', 'gnetwork' ) );
 
 		echo '</p>';
+	}
+
+	public function qm_collectors( $collectors, $qm )
+	{
+		$collectors['currentobject'] = new QM\CollectorCurrentObject();
+
+		return $collectors;
+	}
+
+	public function qm_outputter_html( $output, $collectors )
+	{
+		if ( $collector = \QM_Collectors::get( 'currentobject' ) )
+			$output['currentobject'] = new QM\OutputterCurrentObject( $collector );
+
+		return $output;
 	}
 
 	// @REF: `_default_wp_die_handler()`
