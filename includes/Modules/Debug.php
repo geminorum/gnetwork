@@ -706,10 +706,10 @@ class Debug extends gNetwork\Module
 
 	public function debug_bar_panels( $panels )
 	{
-		if ( is_readable( GNETWORK_DIR.'includes/Misc/DebugMetaPanel.php' ) ) {
-			require_once( GNETWORK_DIR.'includes/Misc/DebugMetaPanel.php' );
-			$panels[] = new \geminorum\gNetwork\Misc\DebugMetaPanel();
-		}
+		$panels[] = new \geminorum\gNetwork\Misc\DebugMetaPanel();
+		$panels[] = new \geminorum\gNetwork\Misc\DebugExtrasPanel();
+
+		return $panels;
 
 		if ( is_readable( GNETWORK_DIR.'includes/Misc/DebugExtrasPanel.php' ) ) {
 			require_once( GNETWORK_DIR.'includes/Misc/DebugExtrasPanel.php' );
