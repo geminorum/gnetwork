@@ -648,13 +648,8 @@ class Taxonomy extends gNetwork\Module
 			foreach ( $new_terms as $new_term_id => $new_term ) {
 
 				// needs to be set before our action fired
-				foreach ( $old_objects as $object_id ) {
-
-					$terms = wp_get_object_terms( $object_id, $taxonomy, [ 'fields' => 'ids', 'orderby' => 'none' ] );
-					$terms = array_unique( array_filter( array_map( 'intval', array_merge( $terms, [ $new_term_id ] ) ) ) );
-
-					wp_set_object_terms( $object_id, $terms, $taxonomy );
-				}
+				foreach ( $old_objects as $old_object )
+					wp_set_object_terms( $old_object, (int) $new_term_id, $taxonomy, TRUE );
 
 				foreach ( $old_meta as $meta_key => $meta_value )
 					foreach ( $meta_value as $value_value ) // multiple meta
