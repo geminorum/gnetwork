@@ -224,12 +224,17 @@ class Cleanup extends gNetwork\Module
 	public function render_tools( $uri, $sub = 'general' )
 	{
 		Settings::headerTitle( _x( 'Cleanup Tools', 'Modules: Cleanup', 'gnetwork' ) );
-		$this->render_settings( $uri, $sub );
+
+		$this->render_form_start( $uri, $sub, 'bulk', 'tools' );
+
+		do_settings_sections( $this->base.'_'.$sub );
+
+		$this->render_form_end( $uri, $sub, 'bulk', 'tools' );
 	}
 
 	protected function tools_actions( $sub = NULL )
 	{
-		if ( ! empty( $_POST ) && 'update' == $_POST['action'] ) {
+		if ( ! empty( $_POST ) && 'bulk' == $_POST['action'] ) {
 
 			$this->check_referer( $sub, 'tools' );
 
