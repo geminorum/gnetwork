@@ -39,6 +39,10 @@ class Update extends gNetwork\Module
 			$this->filter_false( 'auto_update_core' );
 		}
 
+		// @REF: https://make.wordpress.org/core/2020/11/02/introducing-auto-updates-interface-for-core-major-versions-in-wordpress-5-6/
+		if ( $this->options['disable_majorupdates'] )
+			$this->filter_false( 'allow_major_auto_core_updates' );
+
 		if ( $this->options['disable_translations'] ) {
 			$this->filter_false( 'auto_update_translation' );
 			$this->filter_false( 'async_update_translation' );
@@ -71,6 +75,7 @@ class Update extends gNetwork\Module
 		return [
 			'disable_autoupdates'  => '0',
 			'disable_translations' => '0',
+			'disable_majorupdates' => '1',
 			'remote_updates'       => '0',
 			'service_tokens'       => [],
 			'package_tokens'       => [],
@@ -93,6 +98,13 @@ class Update extends gNetwork\Module
 					'title'       => _x( 'Auto and Async Translations', 'Modules: Update: Settings', 'gnetwork' ),
 					'description' => _x( 'Disables asynchronous and automatic background translation updates.', 'Modules: Update: Settings', 'gnetwork' ),
 					'after'       => Settings::fieldAfterIcon( 'https://make.wordpress.org/core/?p=10922' ),
+				],
+				[
+					'field'       => 'disable_majorupdates',
+					'type'        => 'disabled',
+					'title'       => _x( 'Auto Update Major Core', 'Modules: Update: Settings', 'gnetwork' ),
+					'description' => _x( 'Disables automatic updates of the WordPress core.', 'Modules: Update: Settings', 'gnetwork' ),
+					'default'     => '1',
 				],
 			],
 			'_remote' => [
