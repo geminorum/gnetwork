@@ -432,7 +432,7 @@ class WordPress extends Base
 			if ( ! $ids )
 				return [];
 
-			$clause_site = "AND blog_id IN ( '".join( "', '", esc_sql( $ids ) )."' )";
+			$clause_site = "AND blog_id IN ( '".implode( "', '", esc_sql( $ids ) )."' )";
 		}
 
 		if ( TRUE !== $network )

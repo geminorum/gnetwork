@@ -225,7 +225,7 @@ class File extends Base
 			return number_format( 0, $decimals ).' B';
 
 		foreach ( $quant as $unit => $mag )
-			if ( doubleval( $bytes ) >= $mag )
+			if ( (float) $bytes >= $mag )
 				return number_format( $bytes / $mag, $decimals ).' '.$unit;
 
 		return FALSE;

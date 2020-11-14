@@ -178,6 +178,13 @@ class Text extends Base
 		return preg_replace( '/[\p{Z}\s]{2,}/u', ' ', $string );
 	}
 
+	public static function stripPrefix( $string, $prefix )
+	{
+		return 0 === strpos( $string, $prefix )
+			? substr( $string, strlen( $prefix ) ).''
+			: $string;
+	}
+
 	public static function has( $haystack, $needles, $operator = 'OR' )
 	{
 		if ( ! $haystack )
@@ -203,7 +210,7 @@ class Text extends Base
 		return $has;
 	}
 
-	public static function start( $haystack, $needles, $operator = 'OR' )
+	public static function start( $haystack, $needles )
 	{
 		if ( ! $haystack )
 			return FALSE;
@@ -211,21 +218,26 @@ class Text extends Base
 		if ( ! is_array( $needles ) )
 			return 0 === stripos( $haystack, $needles );
 
-		if ( 'OR' == $operator ) {
-			foreach ( $needles as $needle )
-				if ( 0 === stripos( $haystack, $needle ) )
-					return TRUE;
-
-			return FALSE;
-		}
-
-		$start = FALSE;
-
 		foreach ( $needles as $needle )
 			if ( 0 === stripos( $haystack, $needle ) )
-				$start = TRUE;
+				return TRUE;
 
-		return $start;
+		return FALSE;
+	}
+
+	public static function ends( $haystack, $needles )
+	{
+		if ( ! $haystack )
+			return FALSE;
+
+		if ( ! is_array( $needles ) )
+			return $needles === substr( $haystack, ( strlen( $needles ) * -1 ) );
+
+		foreach ( $needles as $needle )
+			if ( $needle === substr( $haystack, ( strlen( $needle ) * -1 ) ) )
+				return TRUE;
+
+		return FALSE;
 	}
 
 	// @SEE: `mb_convert_case()`
@@ -823,7 +835,7 @@ class Text extends Base
 			if ( ! is_string( $value ) && is_callable( $value ) )
 				$value = call_user_func( $value );
 
-			// tokens could be objects or arrays
+			// tokens could not be objects or arrays
 			if ( ! is_scalar( $value ) )
 				continue;
 
@@ -861,7 +873,7 @@ class Text extends Base
 					: $field;
 			}
 
-			$output.= join( $delimiter, $row )."\n";
+			$output.= implode( $delimiter, $row )."\n";
 		}
 
 		return $output;
