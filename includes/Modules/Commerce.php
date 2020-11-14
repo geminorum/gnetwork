@@ -17,7 +17,6 @@ class Commerce extends gNetwork\Module
 	protected $key     = 'commerce';
 	protected $network = FALSE;
 	protected $ajax    = TRUE;
-	protected $beta    = TRUE; // FIXME
 
 	protected function setup_actions()
 	{
@@ -504,10 +503,10 @@ class Commerce extends gNetwork\Module
 
 	public function woocommerce_save_account_details( $user_id )
 	{
-		if ( $this->options['ssn_field'] )
+		if ( $this->options['ssn_field'] && array_key_exists( 'account_ssn', $_POST ) )
 			update_user_meta( $user_id, GNETWORK_COMMERCE_SSN_METAKEY, $this->sanitize_ssn_field( sanitize_text_field( $_POST['account_ssn'] ) ) );
 
-		if ( $this->options['mobile_field'] )
+		if ( $this->options['mobile_field'] && array_key_exists( 'account_mobile', $_POST ) )
 			update_user_meta( $user_id, GNETWORK_COMMERCE_MOBILE_METAKEY, $this->sanitize_mobile_field( sanitize_text_field( $_POST['account_mobile'] ) ) );
 	}
 

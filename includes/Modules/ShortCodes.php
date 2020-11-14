@@ -536,8 +536,8 @@ class ShortCodes extends gNetwork\Module
 
 		foreach ( get_object_taxonomies( $post->post_type, 'objects' ) as $taxonomy ) {
 
-			// TODO: use `is_taxonomy_viewable()` @since WP 5.0.0
-			if ( ! $taxonomy->public )
+			// @REF: `is_taxonomy_viewable()` @since WP 5.1.0
+			if ( ! $taxonomy->publicly_queryable )
 				continue;
 
 			if ( $args['tax'] && ! in_array( $taxonomy->name, explode( ',', $args['tax'] ) ) )

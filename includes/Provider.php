@@ -343,6 +343,9 @@ class Provider extends Core\Base
 
 			case 'GET':
 
+				// curl_setopt( $handle, CURLOPT_CUSTOMREQUEST, 'GET' ); // DEFAULT is `GET`
+				// curl_setopt( $handle, CURLOPT_POSTFIELDS, http_build_query( $data ) );
+
 			break;
 			case 'POST':
 

@@ -1465,6 +1465,8 @@ class Module extends Core\Base
 
 			} catch ( Exception $e ) {
 
+				do_action( 'qm/debug', $e );
+
 				if ( $this->options['debug_providers'] ) {
 
 					$message = $e->getMessage();

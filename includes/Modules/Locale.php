@@ -268,6 +268,19 @@ class Locale extends gNetwork\Module
 			'theme-sniffer'              => 'page', // [Theme Sniffer](https://wordpress.org/plugins/theme-sniffer/)
 			'wp-jquery-update-test'      => 'page', // [Test jQuery Updates](https://wordpress.org/plugins/wp-jquery-update-test/)
 
+
+			// [Rank Math](https://wordpress.org/plugins/seo-by-rank-math/)
+			'rank-math'                 => 'page',
+			'rank-math-analytics'       => 'page',
+			'rank-math-options-general' => 'page',
+			'rank-math-options-titles'  => 'page',
+			'rank-math-options-sitemap' => 'page',
+			'rank-math-role-manager'    => 'page',
+			'rank-math-404-monitor'     => 'page',
+			'rank-math-redirections'    => 'page',
+			'rank-math-seo-analysis'    => 'page',
+			'rank-math-status'          => 'page',
+
 			// [Official MailerLite Sign Up Forms](https://wordpress.org/plugins/official-mailerlite-sign-up-forms/)
 			'mailerlite_main'     => 'page',
 			'mailerlite_settings' => 'page',

@@ -199,6 +199,7 @@ class Plugin extends Base
 
 				// echo 'Caught exception: ',  $e->getMessage(), "\n";
 				// no need to do anything!
+				do_action( 'qm/debug', $e );
 			}
 		}
 	}
@@ -215,6 +216,7 @@ class Plugin extends Base
 
 				// echo 'Caught exception: ',  $e->getMessage(), "\n";
 				// no need to do anything!
+				do_action( 'qm/debug', $e );
 			}
 		}
 	}

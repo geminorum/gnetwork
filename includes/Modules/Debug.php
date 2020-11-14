@@ -708,6 +708,7 @@ class Debug extends gNetwork\Module
 		HTML::tableSide( $list );
 	}
 
+	// FIXME: DROP THIS
 	public function debug_bar_panels( $panels )
 	{
 		$panels[] = new \geminorum\gNetwork\Misc\DebugMetaPanel();
