@@ -249,8 +249,14 @@ class Update extends gNetwork\Module
 			}
 		}
 
-		return update_network_option( NULL, $this->hook( 'packages' ), $packages )
-			? count( $packages )
+		$validated = [];
+
+		foreach ( $packages as $name => $package )
+			if ( $this->endpoint( $package ) )
+				$validated[$name] = $package;
+
+		return update_network_option( NULL, $this->hook( 'packages' ), $validated )
+			? count( $validated )
 			: FALSE;
 	}
 
@@ -475,14 +481,17 @@ class Update extends gNetwork\Module
 
 		if ( in_array( $package['type'], [ 'github_plugin', 'github_theme' ] ) ) {
 
+			if ( empty( $package['uri'] ) )
+				return FALSE;
+
+			$uri   = str_replace( 'https://github.com/', '', URL::untrail( $package['uri'] ) );
+			$parts = explode( '/', $uri );
+
+			if ( 2 !== count( $parts ) )
+				return FALSE;
+
 			$endpoint = '/repos/:owner/:repo/releases/latest';
-
-			list( $owner, $repo ) = explode( '/', str_replace( 'https://github.com/', '', URL::untrail( $package['uri'] ) ), 2 );
-
-			$segments = [
-				'owner' => $owner,
-				'repo'  => $repo,
-			];
+			$segments = [ 'owner' => $parts[0], 'repo' => $parts[1] ];
 
 			foreach ( $segments as $segment => $value )
 				$endpoint = str_replace( '/:'.$segment, '/'.sanitize_text_field( $value ), $endpoint );
