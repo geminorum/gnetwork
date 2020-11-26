@@ -1614,4 +1614,60 @@ class Module extends Core\Base
 
 		return HTML::tag( $wrap, array_merge( [ 'class' => $classes ], $extra ), $before.$html );
 	}
+
+	public static function getTablelistPosts( $atts = [], $extra = [], $posttypes = 'any', $perpage = 25 )
+	{
+		$limit  = self::limit( $perpage );
+		$paged  = self::paged();
+		$offset = ( $paged - 1 ) * $limit;
+
+		$args = array_merge( [
+			'posts_per_page'   => $limit,
+			'offset'           => $offset,
+			'orderby'          => self::orderby( 'ID' ),
+			'order'            => self::order( 'DESC' ),
+			'post_type'        => $posttypes, // 'any',
+			'post_status'      => 'any', // [ 'publish', 'future', 'draft', 'pending' ],
+			'suppress_filters' => TRUE,
+		], $atts );
+
+		if ( ! empty( $_REQUEST['s'] ) )
+			$args['s'] = $extra['s'] = $_REQUEST['s'];
+
+		if ( ! empty( $_REQUEST['id'] ) )
+			$args['post__in'] = explode( ',', maybe_unserialize( $_REQUEST['id'] ) );
+
+		if ( ! empty( $_REQUEST['type'] ) )
+			$args['post_type'] = $extra['type'] = $_REQUEST['type'];
+
+		if ( ! empty( $_REQUEST['author'] ) )
+			$args['author'] = $extra['author'] = $_REQUEST['author'];
+
+		if ( ! empty( $_REQUEST['parent'] ) )
+			$args['post_parent'] = $extra['parent'] = $_REQUEST['parent'];
+
+		if ( 'attachment' == $args['post_type'] && is_array( $args['post_status'] ) )
+			$args['post_status'][] = 'inherit';
+
+		$query = new \WP_Query;
+		$posts = $query->query( $args );
+
+		$pagination = HTML::tablePagination( $query->found_posts, $query->max_num_pages, $limit, $paged, $extra );
+
+		$pagination['orderby'] = $args['orderby'];
+		$pagination['order']   = $args['order'];
+
+		return [ $posts, $pagination ];
+	}
+
+	public static function filterTablelistSearch( $list = NULL, $name = 's' )
+	{
+		return HTML::tag( 'input', [
+			'type'        => 'search',
+			'name'        => $name,
+			'value'       => self::req( $name, '' ),
+			'class'       => '-search',
+			'placeholder' => _x( 'Search', 'Tablelist: Filter', 'gnetwork' ),
+		] );
+	}
 }

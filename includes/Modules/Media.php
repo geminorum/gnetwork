@@ -314,54 +314,11 @@ class Media extends gNetwork\Module
 			HTML::tableSide( $_wp_additional_image_sizes );
 	}
 
-	protected static function getPostArray()
-	{
-		$extra  = [];
-		$limit  = self::limit();
-		$paged  = self::paged();
-		$offset = ( $paged - 1 ) * $limit;
-
-		$args = [
-			'posts_per_page'   => $limit,
-			'offset'           => $offset,
-			'orderby'          => self::orderby( 'ID' ),
-			'order'            => self::order( 'DESC' ),
-			'post_type'        => 'any',
-			'post_status'      => [ 'publish', 'future', 'draft', 'pending' ],
-			'suppress_filters' => TRUE,
-		];
-
-		if ( ! empty( $_REQUEST['s'] ) )
-			$args['s'] = $extra['s'] = $_REQUEST['s'];
-
-		if ( ! empty( $_REQUEST['id'] ) )
-			$args['post__in'] = explode( ',', maybe_unserialize( $_REQUEST['id'] ) );
-
-		if ( ! empty( $_REQUEST['type'] ) )
-			$args['post_type'] = $extra['type'] = $_REQUEST['type'];
-
-		if ( 'attachment' == $args['post_type'] )
-			$args['post_status'][] = 'inherit';
-
-		$query = new \WP_Query;
-		$posts = $query->query( $args );
-
-		$pagination = HTML::tablePagination( $query->found_posts, $query->max_num_pages, $limit, $paged, $extra );
-
-		return [ $posts, $pagination ];
-	}
-
 	protected function render_tools_html( $uri, $sub = 'general' )
 	{
-		list( $posts, $pagination ) = self::getPostArray();
+		list( $posts, $pagination ) = self::getTablelistPosts();
 
-		$pagination['before'][] = HTML::tag( 'input', [
-			'type'        => 'search',
-			'name'        => 's',
-			'value'       => self::req( 's', '' ),
-			'class'       => '-search',
-			'placeholder' => _x( 'Search', 'Modules: Media: Table Filter', 'gnetwork' ),
-		] );
+		$pagination['before'][] = self::filterTablelistSearch();
 
 		return HTML::tableList( [
 			'_cb' => 'ID',
