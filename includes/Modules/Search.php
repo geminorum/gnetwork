@@ -27,9 +27,9 @@ class Search extends gNetwork\Module
 
 		if ( 'include_meta' == $this->options['search_context'] ) {
 
-			$this->filter( 'posts_search', 2 );
-			$this->filter( 'posts_join' );
-			$this->filter( 'posts_request' );
+			$this->filter( 'posts_search', 2, 99, 'include_meta' );
+			$this->filter( 'posts_join', 2, 99, 'include_meta' );
+			$this->filter( 'posts_request', 2, 99, 'include_meta' );
 
 		} else if ( 'titles_only' == $this->options['search_context'] ) {
 
@@ -107,40 +107,37 @@ class Search extends gNetwork\Module
 	}
 
 	// @SOURCE: `se_search_where()`
-	public function posts_search( $search, $wp_query )
+	public function posts_search_include_meta( $search, $wp_query )
 	{
 		if ( ! $wp_query->is_search() )
 			return $search;
 
-		$this->query = &$wp_query;
-
-		$clause = $this->clause_default();
-		$clause.= $this->clause_meta();
+		$clause = $this->clause_default( $wp_query );
+		$clause.= $this->clause_meta( $wp_query );
 
 		return $clause ? " AND ( ( {$clause} ) ) " : $search;
 	}
 
-	public function posts_request( $query )
+	public function posts_request_include_meta( $request, $wp_query )
 	{
-		if ( ! empty( $this->query->query_vars['s'] )
-			&& ! strstr( $query, 'DISTINCT' ) )
-				return str_replace( 'SELECT', 'SELECT DISTINCT', $query );
+		if ( ! empty( $wp_query->query_vars['s'] ) && ! strstr( $request, 'DISTINCT' ) )
+			return str_replace( 'SELECT', 'SELECT DISTINCT', $request );
 
-		return $query;
+		return $request;
 	}
 
 	// search for terms in default locations like title and content replacing
 	// the old search terms seems to be the best way to avoid issue with
 	// multiple terms
 	// @SOURCE: `se_search_default()`
-	private function clause_default()
+	private function clause_default( $wp_query )
 	{
 		global $wpdb;
 
 		$clause = $sep = '';
 
-		foreach ( $this->searched() as $searched ) {
-			$escaped = $wpdb->prepare( '%s', empty( $this->query->query_vars['exact'] ) ? '%'.$searched.'%' : $searched );
+		foreach ( $this->searched( $wp_query ) as $searched ) {
+			$escaped = $wpdb->prepare( '%s', empty( $wp_query->query_vars['exact'] ) ? '%'.$searched.'%' : $searched );
 			$clause.= $sep."( ( {$wpdb->posts}.post_title LIKE {$escaped} ) OR ( {$wpdb->posts}.post_content LIKE {$escaped} ) )";
 			$sep = ' AND ';
 		}
@@ -150,58 +147,63 @@ class Search extends gNetwork\Module
 
 	// creates the list of search keywords from the 's' parameters.
 	// @SOURCE: `se_get_search_terms()`
-	private function searched()
+	private function searched( $wp_query )
 	{
-		if ( empty( $this->query->query_vars['s'] ) )
+		if ( empty( $wp_query->query_vars['s'] ) )
 			return [];
 
 		// added slashes screw with quote grouping when done early, so done later
-		$searched = stripslashes( $this->query->query_vars['s'] );
+		$searched = stripslashes( $wp_query->query_vars['s'] );
 
-		if ( ! empty( $this->query->query_vars['sentence'] ) )
+		if ( ! empty( $wp_query->query_vars['sentence'] ) )
 			return [ $searched ];
 
-		preg_match_all( '/".*?("|$)|((?<=[\\s",+])|^)[^\\s",+]+/', $searched, $matches );
+		// preg_match_all( '/".*?("|$)|((?<=[\\s",+])|^)[^\\s",+]+/', $searched, $matches );
+		preg_match_all( '/(".*?)("|$)|((?<=[\s",+])|^)[^\s",+]+/', $searched, $matches );
 
-		return array_filter( array_map( function( $value ){
+		return array_filter( array_map( function( $value ) {
 			return trim( $value, "\"\'\n\r " );
 		}, $matches[0] ) );
 	}
 
 	// create the search meta data query
 	// @SOURCE: `se_build_search_metadata()`
-	private function clause_meta()
+	private function clause_meta( $wp_query )
 	{
 		global $wpdb;
 
-		$searched = $this->searched();
+		$searched = $this->searched( $wp_query );
 		$clause   = $sep = '';
 
 		foreach ( $searched as $term ) {
-			$escaped = $wpdb->prepare( '%s', empty( $this->query->query_vars['exact'] ) ? '%'.$term.'%' : $term );
+			$escaped = $wpdb->prepare( '%s', empty( $wp_query->query_vars['exact'] ) ? '%'.$term.'%' : $term );
 			$clause.= $sep."( m.meta_value LIKE {$escaped} )";
 			$sep = ' AND ';
 		}
 
-		$sentence = $wpdb->prepare( '%s', $this->query->query_vars['s'] );
+		$sentence = $wpdb->prepare( '%s', $wp_query->query_vars['s'] );
 
 		if ( count( $searched ) > 1 && $searched[0] != $sentence )
 			$clause = "( {$clause} ) OR ( m.meta_value LIKE {$sentence} )";
 
-		if ( ! empty( $clause ) )
+		if ( ! empty( $clause ) ) {
 			$clause = " OR ( {$clause} ) ";
+
+			if ( ! is_user_logged_in() )
+				$clause.= " AND ( {$wpdb->posts}.post_password = '' ) ";
+		}
 
 		return $clause;
 	}
 
-	public function posts_join( $where )
+	public function posts_join_include_meta( $join, $wp_query )
 	{
 		global $wpdb;
 
-		if ( ! empty( $this->query->query_vars['s'] ) )
-			$where.= " LEFT JOIN {$wpdb->postmeta} AS m ON ( {$wpdb->posts}.ID = m.post_id ) ";
+		if ( ! empty( $wp_query->query_vars['s'] ) )
+			$join.= " LEFT JOIN {$wpdb->postmeta} AS m ON ( {$wpdb->posts}.ID = m.post_id ) ";
 
-		return $where;
+		return $join;
 	}
 
 	// @REF: https://nathaningram.com/restricting-wordpress-search-to-titles-only/
@@ -212,11 +214,11 @@ class Search extends gNetwork\Module
 
 		global $wpdb;
 
-		$clause = $sep = '';
+		$searched = $this->searched( $wp_query );
+		$clause   = $sep = '';
 
-		// FIXME: use `$this->searched()`
-		foreach ( (array) $wp_query->query_vars['search_terms'] as $searched ) {
-			$escaped = $wpdb->prepare( '%s', empty( $this->query->query_vars['exact'] ) ? '%'.$searched.'%' : $searched );
+		foreach ( $searched as $term ) {
+			$escaped = $wpdb->prepare( '%s', empty( $wp_query->query_vars['exact'] ) ? '%'.$term.'%' : $term );
 			$clause.= $sep."( {$wpdb->posts}.post_title LIKE {$escaped} )";
 			$sep = ' AND ';
 		}
