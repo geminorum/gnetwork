@@ -67,6 +67,7 @@ class Commerce extends gNetwork\Module
 			'fallback_empty_width'  => '0',
 			'fallback_empty_height' => '0',
 
+			'quantity_price_preview'  => '0',
 			'gtin_field_title'        => '',
 			'mobile_field'            => '1',
 			'ssn_field'               => '0',
@@ -148,6 +149,11 @@ class Commerce extends gNetwork\Module
 				],
 			],
 			'_fields' => [
+				[
+					'field'       => 'quantity_price_preview',
+					'title'       => _x( 'Quantity &times; Price', 'Modules: Commerce: Settings', 'gnetwork' ),
+					'description' => _x( 'Calculates subtotal on quantity increment by customer.', 'Modules: Commerce: Settings', 'gnetwork' ),
+				],
 				[
 					'field'       => 'gtin_field_title',
 					'type'        => 'text',
@@ -239,6 +245,9 @@ class Commerce extends gNetwork\Module
 		if ( $this->options['gtin_field_title'] )
 			$this->action( 'woocommerce_product_meta_start', 0, 10, 'gtin' );
 
+		if ( $this->options['quantity_price_preview'] )
+			$this->action( 'woocommerce_after_add_to_cart_button' );
+
 		$this->filter( 'woocommerce_checkout_fields' );
 		$this->filter( 'woocommerce_checkout_posted_data' );
 		$this->action( 'woocommerce_after_checkout_validation', 2 );
@@ -291,6 +300,29 @@ class Commerce extends gNetwork\Module
 	public function woocommerce_get_price_html( $price, $product )
 	{
 		return $product->is_in_stock() ? $price : '';
+	}
+
+	// @REF: https://www.businessbloomer.com/woocommerce-calculate-subtotal-on-quantity-increment-single-product/
+	// @SEE: https://wordpress.org/plugins/woo-product-price-x-quantity-preview/
+	// FIXME: get currency placement form wc settings
+	public function woocommerce_after_add_to_cart_button()
+	{
+		global $product;
+
+		$price    = $product->get_price();
+		$currency = get_woocommerce_currency_symbol();
+		/* translators: %s: price x quantity total */
+		$string   = sprintf( _x( 'Total: %s', 'Modules: Commerce', 'gnetwork' ), '<span></span>' );
+
+		echo '<div id="subtot" style="display:inline-block;margin:0 1rem;">'.$string.'</div>';
+
+		wc_enqueue_js( "$('[name=quantity]').on('input change', function() {
+			var qty = $(this).val();
+			var price = '" . esc_js( $price ) . "';
+			// var price_string = (price*qty).toFixed();
+			var price_string = parseFloat(price*qty);
+			$('#subtot > span').html(price_string+' '+'" . esc_js( $currency ) . "');
+		}).change();" );
 	}
 
 	public function woocommerce_product_get_weight( $value, $product )
