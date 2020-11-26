@@ -1436,6 +1436,10 @@ class Module extends Core\Base
 		// wp_add_dashboard_widget( $id, $title, [ $this, 'render_widget_'.$hook ] );
 		add_meta_box( $id, $title, [ $this, 'render_widget_'.$hook ], $screen, $context, $priority, $args );
 
+		add_filter( 'postbox_classes_'.$screen->id.'_'.$id, function( $classes ) use ( $name ) {
+			return array_merge( $classes, [ $this->base.'-wrap', '-admin-postbox', '-'.$this->key, '-'.$this->key.'-'.$name ] );
+		} );
+
 		if ( in_array( $id, get_hidden_meta_boxes( $screen ) ) )
 			return FALSE; // prevent scripts
 
