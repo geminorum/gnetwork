@@ -25,10 +25,15 @@ class Search extends gNetwork\Module
 
 		$this->action( 'template_redirect', 0, 1 );
 
-		if ( $this->options['include_meta'] ) {
+		if ( 'include_meta' == $this->options['search_context'] ) {
+
 			$this->filter( 'posts_search', 2 );
 			$this->filter( 'posts_join' );
 			$this->filter( 'posts_request' );
+
+		} else if ( 'titles_only' == $this->options['search_context'] ) {
+
+			$this->filter( 'posts_search', 2, 99, 'titles_only' );
 		}
 
 		$this->filter( 'get_search_form' );
@@ -42,8 +47,8 @@ class Search extends gNetwork\Module
 	public function default_options()
 	{
 		return [
+			'search_context'      => 'include_meta',
 			'redirect_single'     => '1',
-			'include_meta'        => '0',
 			'linkify_hashtags'    => '0',
 			'register_shortcodes' => '0',
 		];
@@ -54,15 +59,21 @@ class Search extends gNetwork\Module
 		return [
 			'_general' => [
 				[
+					'field'   => 'search_context',
+					'type'    => 'radio',
+					'title'   => _x( 'Search Context', 'Modules: Search: Settings', 'gnetwork' ),
+					'default' => 'include_meta',
+					'values'  => [
+						'include_meta' => _x( 'Include Metadata  &ndash; Expands search results into post metadata.', 'Modules: Search: Settings', 'gnetwork' ),
+						'titles_only'  => _x( 'Titles Only &ndash; Limits search to post titles only.', 'Modules: Search: Settings', 'gnetwork' ),
+						'default'      => _x( 'WordPress Default &ndash; Does not alter core search.', 'Modules: Search: Settings', 'gnetwork' ),
+					],
+				],
+				[
 					'field'       => 'redirect_single',
 					'title'       => _x( 'Redirect Single Result', 'Modules: Search: Settings', 'gnetwork' ),
 					'description' => _x( 'Redirects to the post if search results only returns single post.', 'Modules: Search: Settings', 'gnetwork' ),
 					'default'     => '1',
-				],
-				[
-					'field'       => 'include_meta',
-					'title'       => _x( 'Include Metadata', 'Modules: Search: Settings', 'gnetwork' ),
-					'description' => _x( 'Expands search results into post metadata.', 'Modules: Search: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'linkify_hashtags',
@@ -191,6 +202,33 @@ class Search extends gNetwork\Module
 			$where.= " LEFT JOIN {$wpdb->postmeta} AS m ON ( {$wpdb->posts}.ID = m.post_id ) ";
 
 		return $where;
+	}
+
+	// @REF: https://nathaningram.com/restricting-wordpress-search-to-titles-only/
+	public function posts_search_titles_only( $search, $wp_query )
+	{
+		if ( empty( $search ) || ! $wp_query->is_search() )
+			return $search;
+
+		global $wpdb;
+
+		$clause = $sep = '';
+
+		// FIXME: use `$this->searched()`
+		foreach ( (array) $wp_query->query_vars['search_terms'] as $searched ) {
+			$escaped = $wpdb->prepare( '%s', empty( $this->query->query_vars['exact'] ) ? '%'.$searched.'%' : $searched );
+			$clause.= $sep."( {$wpdb->posts}.post_title LIKE {$escaped} )";
+			$sep = ' AND ';
+		}
+
+		if ( ! empty( $clause ) ) {
+			$clause = " AND ( {$clause} ) ";
+
+			if ( ! is_user_logged_in() )
+				$clause.= " AND ( {$wpdb->posts}.post_password = '' ) ";
+		}
+
+		return $clause;
 	}
 
 	public function template_redirect()
