@@ -76,12 +76,17 @@ class Dashboard extends gNetwork\Module
 		if ( current_user_can( 'manage_options' ) )
 			$this->filter_module( 'dashboard', 'pointers', 1, 4, 'public' );
 
-		if ( ! is_multisite() )
-			return;
+		if ( is_multisite() ) {
 
-		if ( current_user_can( 'upload_files' ) ) {
-			remove_action( 'activity_box_end', 'wp_dashboard_quota' );
-			$this->filter_module( 'dashboard', 'pointers', 1, 5, 'quota' );
+			if ( current_user_can( 'upload_files' ) ) {
+				remove_action( 'activity_box_end', 'wp_dashboard_quota' );
+				$this->filter_module( 'dashboard', 'pointers', 1, 5, 'quota' );
+			}
+
+		} else {
+
+			if ( gNetwork()->option( 'login', 'store_lastlogin', TRUE ) && current_user_can( 'list_users' ) )
+				$this->add_dashboard_widget( 'logins', _x( 'Latest Logins', 'Modules: Dashboard: Widget Title', 'gnetwork' ) );
 		}
 	}
 
