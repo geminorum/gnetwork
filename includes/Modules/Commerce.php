@@ -4,6 +4,7 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
 use geminorum\gNetwork\Settings;
+use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\Arraay;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\Number;
@@ -49,6 +50,7 @@ class Commerce extends gNetwork\Module
 	public function setup_menu( $context )
 	{
 		$this->register_menu( _x( 'Commerce', 'Modules: Menu Name', 'gnetwork' ) );
+		$this->register_tool( _x( 'Products', 'Modules: Menu Name', 'gnetwork' ), 'products' );
 	}
 
 	public function default_options()
@@ -223,6 +225,97 @@ class Commerce extends gNetwork\Module
 	public function settings_section_checkout()
 	{
 		Settings::fieldSection( _x( 'Checkout', 'Modules: Commerce: Settings', 'gnetwork' ) );
+	}
+
+	public function tools( $sub = NULL, $key = NULL )
+	{
+		parent::tools( $sub, 'products' );
+	}
+
+	protected function tools_buttons( $sub = NULL )
+	{
+		$this->register_button( 'recalculate_stocks', _x( 'Recalculate Stocks', 'Modules: Commerce', 'gnetwork' ) );
+		// $this->register_button( 'cleanup_attributes', _x( 'Cleanup Attributes', 'Modules: Commerce', 'gnetwork' ) );
+	}
+
+	protected function tools_actions( $sub = NULL )
+	{
+		if ( 'products' == $sub ) {
+
+			if ( ! empty( $_POST ) && 'bulk' == $_POST['action'] ) {
+
+				$this->check_referer( $sub, 'tools' );
+
+				if ( isset( $_POST['recalculate_stocks'], $_POST['_cb'] ) ) {
+
+					$count = 0;
+
+					foreach ( $_POST['_cb'] as $post_id ) {
+
+						if ( ! $product = wc_get_product( $post_id ) )
+							continue;
+
+						$meta = get_post_meta( $product->get_id(), '_stock', TRUE );
+
+						if ( wc_update_product_stock( $product, $meta ) )
+							$count++;
+					}
+
+					WordPress::redirectReferer( [
+						'message' => 'synced',
+						'count'   => $count,
+						'limit'   => self::limit(),
+						'paged'   => self::paged(),
+					] );
+
+				} else if ( isset( $_POST['cleanup_attributes'], $_POST['_cb'] ) ) {
+
+					// FIXME
+
+				} else {
+
+					WordPress::redirectReferer( [
+						'message' => 'wrong',
+						'limit'   => self::limit(),
+						'paged'   => self::paged(),
+					] );
+				}
+			}
+		}
+	}
+
+	protected function render_tools_html( $uri, $sub = 'general' )
+	{
+		list( $posts, $pagination ) = self::getTablelistPosts( [], [], 'product' );
+
+		$pagination['before'][] = self::filterTablelistSearch();
+
+		return HTML::tableList( [
+			'_cb'  => 'ID',
+			'ID'   => _x( 'ID', 'Modules: Commerce: Column Title', 'gnetwork' ),
+			'stock' => [
+				'title'    => _x( 'Stock', 'Modules: Commerce: Column Title', 'gnetwork' ),
+				'callback' => function( $value, $row, $column, $index ){
+					if ( ! $product = wc_get_product( $row->ID ) )
+						return Utilities::htmlEmpty();
+
+					return '<span style="color:'.( $product->is_in_stock() ? 'green' : 'red' ).'">'
+						.Number::format( $product->get_stock_quantity() ).'</span>';
+				},
+			],
+			'title' => [
+				'title'    => _x( 'Title', 'Modules: Commerce: Column Title', 'gnetwork' ),
+				'callback' => function( $value, $row, $column, $index ){
+					return Utilities::getPostTitle( $row );
+				},
+			],
+		], $posts, [
+			'navigation' => 'before',
+			'search'     => 'before',
+			'title'      => HTML::tag( 'h3', _x( 'Overview of Woocommerce Products', 'Modules: Commerce', 'gnetwork' ) ),
+			'empty'      => HTML::warning( _x( 'No Products!', 'Modules: Commerce', 'gnetwork' ) ),
+			'pagination' => $pagination,
+		] );
 	}
 
 	public function init()
