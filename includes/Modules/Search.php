@@ -31,6 +31,14 @@ class Search extends gNetwork\Module
 			$this->filter( 'posts_join', 2, 99, 'include_meta' );
 			$this->filter( 'posts_request', 2, 99, 'include_meta' );
 
+		} else if ( 'include_terms' == $this->options['search_context'] ) {
+
+			if ( count( $this->options['include_taxonomies'] ) ) {
+				$this->filter( 'posts_join', 2, 99, 'include_terms' );
+				$this->filter( 'posts_where', 2, 99, 'include_terms' );
+				$this->filter( 'posts_groupby', 2, 99, 'include_terms' );
+			}
+
 		} else if ( 'titles_only' == $this->options['search_context'] ) {
 
 			$this->filter( 'posts_search', 2, 99, 'titles_only' );
@@ -48,6 +56,7 @@ class Search extends gNetwork\Module
 	{
 		return [
 			'search_context'      => 'include_meta',
+			'include_taxonomies'  => [],
 			'redirect_single'     => '1',
 			'linkify_hashtags'    => '0',
 			'register_shortcodes' => '0',
@@ -64,10 +73,18 @@ class Search extends gNetwork\Module
 					'title'   => _x( 'Search Context', 'Modules: Search: Settings', 'gnetwork' ),
 					'default' => 'include_meta',
 					'values'  => [
-						'include_meta' => _x( 'Include Metadata  &ndash; Expands search results into post metadata.', 'Modules: Search: Settings', 'gnetwork' ),
-						'titles_only'  => _x( 'Titles Only &ndash; Limits search to post titles only.', 'Modules: Search: Settings', 'gnetwork' ),
-						'default'      => _x( 'WordPress Default &ndash; Does not alter core search.', 'Modules: Search: Settings', 'gnetwork' ),
+						'include_meta'  => _x( 'Include Metadata &ndash; Expands search results into post metadata.', 'Modules: Search: Settings', 'gnetwork' ),
+						'include_terms' => _x( 'Include Terms &ndash; Expands search results into terms of selected taxonomies.', 'Modules: Search: Settings', 'gnetwork' ),
+						'titles_only'   => _x( 'Titles Only &ndash; Limits search to post titles only.', 'Modules: Search: Settings', 'gnetwork' ),
+						'default'       => _x( 'WordPress Default &ndash; Does not alter core search.', 'Modules: Search: Settings', 'gnetwork' ),
 					],
+				],
+				[
+					'field'       => 'include_taxonomies',
+					'type'        => 'taxonomies',
+					'title'       => _x( 'Included Taxonomies', 'Modules: Search: Settings', 'gnetwork' ),
+					'description' => _x( 'Terms from selected taxonomies will be included on search contenxt.', 'Modules: Search: Settings', 'gnetwork' ),
+					'extra'       => [ 'public' => TRUE ],
 				],
 				[
 					'field'       => 'redirect_single',
@@ -204,6 +221,54 @@ class Search extends gNetwork\Module
 			$join.= " LEFT JOIN {$wpdb->postmeta} AS m ON ( {$wpdb->posts}.ID = m.post_id ) ";
 
 		return $join;
+	}
+
+	// @REF: https://stackoverflow.com/a/13493126
+	public function posts_join_include_terms( $join, $wp_query )
+	{
+		global $wpdb;
+
+		if ( $wp_query->is_search() ) {
+			$join.= " INNER JOIN {$wpdb->term_relationships} ON {$wpdb->posts}.ID = {$wpdb->term_relationships}.object_id ";
+			$join.= " INNER JOIN {$wpdb->term_taxonomy} ON {$wpdb->term_taxonomy}.term_taxonomy_id = {$wpdb->term_relationships}.term_taxonomy_id ";
+			$join.= " INNER JOIN {$wpdb->terms} ON {$wpdb->terms}.term_id = {$wpdb->term_taxonomy}.term_id ";
+		}
+
+		return $join;
+	}
+
+	public function posts_where_include_terms( $where, $wp_query )
+	{
+		global $wpdb;
+
+		if ( $wp_query->is_search() ) {
+
+			foreach ( $this->options['include_taxonomies'] as $taxonomy ) {
+
+				$taxonomy = $wpdb->prepare( '%s', $taxonomy );
+				$clause   = $sep = '';
+
+				foreach ( $this->searched( $wp_query ) as $searched ) {
+					$escaped = $wpdb->prepare( '%s', empty( $wp_query->query_vars['exact'] ) ? '%'.$searched.'%' : $searched );
+					$clause.= $sep."( ( {$wpdb->term_taxonomy}.taxonomy LIKE {$taxonomy} ) AND ( {$wpdb->terms}.name LIKE {$escaped} ) ) ";
+					$sep = ' AND ';
+				}
+
+				if ( ! empty( $clause ) )
+					$where.= " OR ( {$clause} ) ";
+			}
+		}
+
+		return $where;
+	}
+
+	public function posts_groupby_include_terms( $groupby, $wp_query )
+	{
+		global $wpdb;
+
+		return $wp_query->is_search()
+			? "{$wpdb->posts}.ID"
+			: $groupby;
 	}
 
 	// @REF: https://nathaningram.com/restricting-wordpress-search-to-titles-only/
