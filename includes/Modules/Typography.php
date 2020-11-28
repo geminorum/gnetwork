@@ -281,48 +281,14 @@ class Typography extends gNetwork\Module
 	// @SEE: https://wordpress.stackexchange.com/a/51809
 	public function sanitize_title( $title, $raw_title = '', $context = 'display' )
 	{
-		if ( 'save' != $context )
-			return $title;
-
-		if ( seems_utf8( $raw_title ) ) {
-
-			$new_title = trim( $raw_title );
-
-			// remove more than one ZWNJs
-			$new_title = preg_replace( "/(\x{200C})+/u", "\xE2\x80\x8C", $new_title );
-
-			// remove arabic/persian accents
-			$new_title = preg_replace( "/[\x{0618}-\x{061A}\x{064B}-\x{065F}]+/u", '', $new_title );
-
-			$new_title = str_ireplace( [
-				"\xD8\x8C", // `،` // Arabic Comma
-				"\xD8\x9B", // `؛` // Arabic Semicolon
-				"\xD9\x94", // `ٔ` // Arabic Hamza Above
-				"\xD9\xAC", // `٬` // Arabic Thousands Separator
-				"\xD8\x8D", // `؍` // Arabic Date Separator
-
-				"\xC2\xAB",     // `«`
-				"\xC2\xBB",     // `»`
-				"\xE2\x80\xA6", // `…` // Horizontal Ellipsis
-			], '', $new_title );
-
-			$new_title = str_ireplace( [
-				"\xE2\x80\x8C\x20", // zwnj + space
-				"\x20\xE2\x80\x8C", // space + znwj
-			], ' ', $new_title );
-
-			$title = remove_accents( $new_title );
-		}
-
-		// messes with zwnj
-		// $title = Text::stripPunctuation( $title );
-
-		return $title;
+		return 'save' == $context && seems_utf8( $raw_title )
+			? Text::formatSlug( $raw_title )
+			: $title;
 	}
 
 	public function pre_term_slug( $value, $taxonomy )
 	{
-		return $this->sanitize_title( $value, $value, 'save' );
+		return Text::formatSlug( $value );
 	}
 
 	public function the_content_early( $content )
