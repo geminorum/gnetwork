@@ -354,14 +354,13 @@ class Media extends gNetwork\Module
 							'<div><small>', ', ', '</small></div>' );
 				},
 				'actions' => function( $value, $row, $column, $index, $key, $args ){
-					$atts = [
+					$query = [
 						'post_id' => $row->ID,
 						'action'  => $this->hook(),
 						'nonce'   => wp_create_nonce( $this->hook( $row->ID ) ),
 					];
 
 					return [
-
 						'edit' => HTML::tag( 'a', [
 							'href'   => add_query_arg( [ 'action' => 'edit', 'post' => $row->ID ], $column['args']['admin'] ),
 							'class'  => '-link -row-link -row-link-edit',
@@ -375,25 +374,25 @@ class Media extends gNetwork\Module
 						], _x( 'View', 'Modules: Media: Row Action', 'gnetwork' ) ),
 
 						'clean' => HTML::tag( 'a', [
-							'href'  => add_query_arg( array_merge( $atts, [ 'what' => 'clean_post' ] ), $column['args']['ajax'] ),
+							'href'  => add_query_arg( array_merge( $query, [ 'what' => 'clean_post' ] ), $column['args']['ajax'] ),
 							'class' => '-link -row-ajax -row-ajax-clean',
 							'data'  => [ 'spinner' => _x( 'Cleaning &hellip;', 'Modules: Media: Row Action', 'gnetwork' ) ],
 						], _x( 'Clean', 'Modules: Media: Row Action', 'gnetwork' ) ),
 
 						'sync' => HTML::tag( 'a', [
-							'href'  => add_query_arg( array_merge( $atts, [ 'what' => 'sync_post' ] ), $column['args']['ajax'] ),
+							'href'  => add_query_arg( array_merge( $query, [ 'what' => 'sync_post' ] ), $column['args']['ajax'] ),
 							'class' => '-link -row-ajax -row-ajax-sync',
 							'data'  => [ 'spinner' => _x( 'Syncing &hellip;', 'Modules: Media: Row Action', 'gnetwork' ) ],
 						], _x( 'Sync', 'Modules: Media: Row Action', 'gnetwork' ) ),
 
 						'cache' => HTML::tag( 'a', [
-							'href'  => add_query_arg( array_merge( $atts, [ 'what' => 'cache_post' ] ), $column['args']['ajax'] ),
+							'href'  => add_query_arg( array_merge( $query, [ 'what' => 'cache_post' ] ), $column['args']['ajax'] ),
 							'class' => '-link -row-ajax -row-ajax-cache',
 							'data'  => [ 'spinner' => _x( 'Caching &hellip;', 'Modules: Media: Row Action', 'gnetwork' ) ],
 						], _x( 'Cache', 'Modules: Media: Row Action', 'gnetwork' ) ),
 
 						'correct' => HTML::tag( 'a', [
-							'href'  => add_query_arg( array_merge( $atts, [ 'what' => 'correct_post' ] ), $column['args']['ajax'] ),
+							'href'  => add_query_arg( array_merge( $query, [ 'what' => 'correct_post' ] ), $column['args']['ajax'] ),
 							'class' => '-link -row-ajax -row-ajax-correct',
 							'data'  => [ 'spinner' => _x( 'Correcting SSL &hellip;', 'Modules: Media: Row Action', 'gnetwork' ) ],
 						], _x( 'Correct SSL', 'Modules: Media: Row Action', 'gnetwork' ) ),

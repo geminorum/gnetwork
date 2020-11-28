@@ -29,6 +29,7 @@ class OutputterCurrentObject extends \QM_Output_Html
 		// $this->before_non_tabular_output();
 		$this->before_tabular_output();
 
+		/* translators: %s: object type */
 		HTML::tableSide( $data['object'], TRUE, HTML::tag( 'h2', sprintf( _x( 'Current Object: %s', 'Modules: Debug: QM Output', 'gnetwork' ), '<strong>'.HTML::sanitizeDisplay( $data['type'] ).'</strong>' ) ) );
 
 		if ( ! empty( $data['meta'] ) )

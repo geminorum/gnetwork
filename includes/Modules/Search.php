@@ -13,8 +13,6 @@ class Search extends gNetwork\Module
 	protected $key     = 'search';
 	protected $network = FALSE;
 
-	private $query = NULL;
-
 	protected function setup_actions()
 	{
 		if ( $this->options['register_shortcodes'] )
@@ -217,7 +215,7 @@ class Search extends gNetwork\Module
 	{
 		global $wpdb;
 
-		if ( ! empty( $wp_query->query_vars['s'] ) )
+		if ( $wp_query->is_search() )
 			$join.= " LEFT JOIN {$wpdb->postmeta} AS m ON ( {$wpdb->posts}.ID = m.post_id ) ";
 
 		return $join;
