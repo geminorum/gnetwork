@@ -597,6 +597,14 @@ class Themes extends gNetwork\Module
 			remove_action( 'storefront_footer', 'storefront_credit', 20 );
 			add_action( 'storefront_footer', [ $this, 'underscores_credits' ], 20 );
 
+			$this->filter( [
+				'storefront_recent_products_args',
+				'storefront_featured_products_args',
+				'storefront_popular_products_args',
+				'storefront_on_sale_products_args',
+				'storefront_best_selling_products_args',
+			], 1, 9 );
+
 		} else if ( $this->isTheme( 'twentyeleven' ) ) {
 
 			if ( $this->rtl ) {
@@ -867,5 +875,18 @@ class Themes extends gNetwork\Module
 		echo '<div class="site-info" style="display:block;">';
 			echo gnetwork_credits( $this->rtl, FALSE );
 		echo '</div>';
+	}
+
+	// force storefront defaults to woocomerce settings on customizer
+	public function storefront_recent_products_args( $args )
+	{
+		$limit = function_exists( 'wc_get_default_products_per_row' )
+			? wc_get_default_products_per_row()
+			: $args['limit'];
+
+		$args['limit']   = $limit;
+		$args['columns'] = $limit;
+
+		return $args;
 	}
 }
