@@ -4,6 +4,7 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
 use geminorum\gNetwork\Core\HTML;
+use geminorum\gNetwork\Core\Text;
 use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
 
@@ -260,13 +261,19 @@ class Search extends gNetwork\Module
 		return $where;
 	}
 
+	// @REF: https://wordpress.stackexchange.com/a/5404
 	public function posts_groupby_include_terms( $groupby, $wp_query )
 	{
 		global $wpdb;
 
-		return $wp_query->is_search()
-			? "{$wpdb->posts}.ID"
-			: $groupby;
+		$bypostid = "{$wpdb->posts}.ID";
+
+		if ( ! $wp_query->is_search() || Text::has( $groupby, $bypostid ) )
+			return $groupby;
+
+		return empty( trim( $groupby ) )
+			? $bypostid
+			: $groupby.', '.$bypostid;
 	}
 
 	// @REF: https://nathaningram.com/restricting-wordpress-search-to-titles-only/
