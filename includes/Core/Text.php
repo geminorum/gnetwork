@@ -5,6 +5,43 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 class Text extends Base
 {
 
+	public static function formatSlug( $string )
+	{
+		$string = (string) $string;
+		$string = trim( $string );
+
+		if ( 0 === strlen( $string ) )
+			return '';
+
+		// remove more than one ZWNJs
+		$string = preg_replace( "/(\x{200C})+/u", "\xE2\x80\x8C", $string );
+
+		// remove arabic/persian accents
+		$string = preg_replace( "/[\x{0618}-\x{061A}\x{064B}-\x{065F}]+/u", '', $string );
+
+		$string = str_ireplace( [
+			"\xD8\x8C", // `،` // Arabic Comma
+			"\xD8\x9B", // `؛` // Arabic Semicolon
+			"\xD9\x94", // `ٔ` // Arabic Hamza Above
+			"\xD9\xAC", // `٬` // Arabic Thousands Separator
+			"\xD8\x8D", // `؍` // Arabic Date Separator
+
+			"\xC2\xAB",     // `«`
+			"\xC2\xBB",     // `»`
+			"\xE2\x80\xA6", // `…` // Horizontal Ellipsis
+		], '', $string );
+
+		$string = str_ireplace( [
+			"\xE2\x80\x8C\x20", // zwnj + space
+			"\x20\xE2\x80\x8C", // space + znwj
+		], ' ', $string );
+
+		// messes with zwnj
+		// $string = self::stripPunctuation( $string );
+
+		return $string;
+	}
+
 	public static function formatName( $string, $separator = ', ' )
 	{
 		// already formatted
@@ -835,7 +872,7 @@ class Text extends Base
 			if ( ! is_string( $value ) && is_callable( $value ) )
 				$value = call_user_func( $value );
 
-			// tokens could not be objects or arrays
+			// tokens can not be objects or arrays
 			if ( ! is_scalar( $value ) )
 				continue;
 

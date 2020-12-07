@@ -17,6 +17,14 @@ class Validation extends Base
 		return TRUE; // FIXME!
 	}
 
+	public static function getMobileHTMLPattern()
+	{
+		if ( defined( 'GNETWORK_WPLANG' ) && 'fa_IR' == constant( 'GNETWORK_WPLANG' ) )
+			return '[0-9۰-۹+]{11,}';
+
+		return '[0-9+]{11,}';
+	}
+
 	public static function isMobileNumber( $input )
 	{
 		if ( empty( $input ) )
@@ -27,6 +35,14 @@ class Validation extends Base
 			return FALSE;
 
 		return TRUE; // FIXME!
+	}
+
+	public static function getSSNHTMLPattern()
+	{
+		if ( defined( 'GNETWORK_WPLANG' ) && 'fa_IR' == constant( 'GNETWORK_WPLANG' ) )
+			return '[0-9۰-۹]{10}';
+
+		return '[0-9]{10}';
 	}
 
 	public static function isSSN( $input )

@@ -706,7 +706,7 @@ class HTML extends Base
 			'title'      => NULL,
 			'before'     => FALSE,
 			'after'      => FALSE,
-			'row_check'  => FALSE, // call back to check each row display
+			'row_prep'   => FALSE, // call back to prep each row data
 			'row_class'  => FALSE, // call back to filter each row class
 			'callback'   => FALSE, // for all cells
 			'sanitize'   => TRUE, // using sanitizeDisplay()
@@ -784,7 +784,10 @@ class HTML extends Base
 
 			foreach ( $data as $index => $row ) {
 
-				if ( $args['row_check'] && ! (bool) call_user_func_array( $args['row_check'], array( $row, $index, $args ) ) )
+				if ( is_callable( $args['row_prep'] ) )
+					$row = call_user_func_array( $args['row_prep'], array( $row, $index, $args ) );
+
+				if ( FALSE === $row )
 					continue;
 
 				$row_class = array( '-row', '-row-'.$index );
