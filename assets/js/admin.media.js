@@ -7,7 +7,7 @@ jQuery(function ($) {
     event.preventDefault();
     event.stopPropagation();
 
-    var row = $(this).next('div.media-url-box');
+    const row = $(this).next('div.media-url-box');
 
     $(this).toggleClass('media-url-open');
     $(row).addClass('media-url-visible');
@@ -24,7 +24,7 @@ jQuery(function ($) {
   $('.wp-list-table').on('click', '.media-clean a', function (event) {
     event.preventDefault();
 
-    var link = $(this);
+    const link = $(this);
 
     if (link.hasClass('-cleaned')) {
       return;

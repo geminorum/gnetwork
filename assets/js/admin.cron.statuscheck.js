@@ -1,8 +1,10 @@
 jQuery(function ($) {
   $('#gnetwork-cron-force-check').on('click', function (event) {
     event.preventDefault();
-    var $button = $(this);
-    var $spinner = $button.prev('.spinner');
+
+    const $button = $(this);
+    const $spinner = $button.prev('.spinner');
+
     $.ajax({
       type: 'GET',
       url: ajaxurl,

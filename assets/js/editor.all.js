@@ -2,7 +2,7 @@
 // @REF: https://wordpress.org/plugins/default-media-uploader-view/
 
 (function ($, _) {
-  var media = wp.media;
+  const media = wp.media;
 
   if (media) {
     media.view.MediaFrame.Select.prototype.initialize = function () {
@@ -10,7 +10,7 @@
 
       // Fix for WooCommerce Product Gallery
       this.states.forEach(function (state) {
-        var library = state.get('library');
+        const library = state.get('library');
         if (library) {
           library.props.set('uploadedTo', media.view.settings.post.id);
           library.props.set('orderby', 'menuOrder');
@@ -35,8 +35,8 @@
     };
 
     media.controller.FeaturedImage.prototype.initialize = function () {
-      var library;
-      var comparator;
+      // let library;
+      // let comparator;
 
       if (!this.get('library')) {
         this.set('library', media.query({ type: 'image', uploadedTo: media.view.settings.post.id, orderby: 'menuOrder', order: 'ASC' }));
@@ -44,12 +44,12 @@
 
       media.controller.Library.prototype.initialize.apply(this, arguments);
 
-      library = this.get('library');
-      comparator = library.comparator;
+      const library = this.get('library');
+      const comparator = library.comparator;
 
       library.comparator = function (a, b) {
-        var aInQuery = !!this.mirroring.get(a.cid);
-        var bInQuery = !!this.mirroring.get(b.cid);
+        const aInQuery = !!this.mirroring.get(a.cid);
+        const bInQuery = !!this.mirroring.get(b.cid);
 
         if (!aInQuery && bInQuery) {
           return -1;

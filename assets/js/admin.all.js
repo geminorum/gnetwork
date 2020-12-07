@@ -13,8 +13,8 @@ jQuery(function ($) {
   $('body').on('click', 'a[data-toggle="tab"]', function (e) {
     e.preventDefault();
 
-    var $list = $(this).parents('.-base');
-    var $target = $list.find('[data-tab="' + $(this).data('tab') + '"]');
+    const $list = $(this).parents('.-base');
+    const $target = $list.find('[data-tab="' + $(this).data('tab') + '"]');
 
     $list.find('.-wrapper a.nav-tab').removeClass('nav-tab-active -active');
     $list.find('.-content').hide();
@@ -67,11 +67,10 @@ jQuery(function ($) {
   });
 
   function populateWidgets (i, id) {
-    var p;
-    var e = $('#' + id + ' div.inside:visible').find('.widget-loading');
+    const e = $('#' + id + ' div.inside:visible').find('.widget-loading');
 
     if (e.length) {
-      p = e.parent();
+      const p = e.parent();
       setTimeout(function () {
         p.load(ajaxurl + '?action=gnetwork_dashboard&widget=' + id, '', function () {
           p.hide().slideDown('normal', function () {

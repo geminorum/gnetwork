@@ -4,7 +4,7 @@
     .on('click', 'a.-row-ajax-clean', function (e) {
       e.preventDefault();
 
-      var link = $(this);
+      const link = $(this);
 
       if (link.hasClass('-cleaned')) {
         return;
@@ -30,7 +30,7 @@
     .on('click', 'a.-row-ajax-sync', function (e) {
       e.preventDefault();
 
-      var link = $(this);
+      const link = $(this);
 
       if (link.hasClass('-synced')) {
         return;
@@ -56,7 +56,7 @@
     .on('click', 'a.-row-ajax-cache', function (e) {
       e.preventDefault();
 
-      var link = $(this);
+      const link = $(this);
 
       if (link.hasClass('-cached')) {
         return;
@@ -82,7 +82,7 @@
     .on('click', 'a.-row-ajax-correct', function (e) {
       e.preventDefault();
 
-      var link = $(this);
+      const link = $(this);
 
       if (link.hasClass('-corrected')) {
         return;

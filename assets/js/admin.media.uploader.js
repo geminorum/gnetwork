@@ -1,11 +1,11 @@
 /* global FileReader */
 
 (function ($) {
-  var reader = {};
-  var file = {};
-  var sliceSize = 1000 * 1024;
+  const sliceSize = 1000 * 1024;
+  let reader = {};
+  let file = {};
 
-  var s = {
+  const s = {
     action: 'gnetwork_media',
     file: '#gnetwork-media-file-upload',
     name: '#gnetwork-media-file-name',
@@ -13,17 +13,17 @@
     progress: '#gnetwork-media-file-progress'
   };
 
-  var o = {
+  const o = {
     upload: function (start) {
-      var sliceNext = start + sliceSize + 1;
-      var blob = file.slice(start, sliceNext);
+      const sliceNext = start + sliceSize + 1;
+      const blob = file.slice(start, sliceNext);
 
       reader.onloadend = function (event) {
         if (event.target.readyState !== FileReader.DONE) {
           return;
         }
 
-        var $submit = $(s.submit);
+        const $submit = $(s.submit);
 
         $.ajax({
           url: ajaxurl,
@@ -44,8 +44,8 @@
           },
           success: function (response) {
             if (response.success) {
-              var doneSize = start + sliceSize;
-              var donePercent = Math.floor((doneSize / file.size) * 100);
+              const doneSize = start + sliceSize;
+              let donePercent = Math.floor((doneSize / file.size) * 100);
               if (sliceNext < file.size) {
                 if ($submit.data('locale') === 'fa_IR') {
                   donePercent = u.tP(donePercent);
@@ -70,8 +70,8 @@
     },
 
     complete: function (filename) {
-      var $submit = $(s.submit);
-      var $spinner = $(s.progress).prev('.spinner');
+      const $submit = $(s.submit);
+      const $spinner = $(s.progress).prev('.spinner');
 
       $.ajax({
         type: 'GET',
@@ -98,17 +98,17 @@
     }
   };
 
-  var u = {
+  const u = {
     // @REF: https://gist.github.com/geminorum/ebb48ff0c0df3876e58610dbb5a60f0f
     sp: function (f) {
-      var a = Array.prototype.slice.call(arguments, 1);
-      var i = 0;
+      const a = Array.prototype.slice.call(arguments, 1);
+      let i = 0;
       return f.replace(/%s/g, function () {
         return a[i++];
       });
     },
     tP: function (n) {
-      var p = '۰'.charCodeAt(0);
+      const p = '۰'.charCodeAt(0);
       return n.toString().replace(/\d+/g, function (m) {
         return m.split('').map(function (n) {
           return String.fromCharCode(p + parseInt(n));
@@ -123,7 +123,7 @@
   };
 
   $(s.file).change(function () {
-    var filename = $(this).val();
+    const filename = $(this).val();
     if (filename !== '') {
       $(s.name).html(filename).show();
       $(s.submit).prop('disabled', false);

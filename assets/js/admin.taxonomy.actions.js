@@ -1,7 +1,7 @@
 /* global gNetworkTaxonomyActions */
 
 jQuery(function ($) {
-  var actions = [];
+  const actions = [];
 
   $.each(gNetworkTaxonomyActions, function (key, title) {
     actions.unshift({
@@ -13,7 +13,7 @@ jQuery(function ($) {
 
   $('.actions select')
     .each(function () {
-      var $option = $(this).find('option:first');
+      const $option = $(this).find('option:first');
 
       $.each(actions, function (i, actionObj) {
         $option.after($('<option>', {
@@ -23,7 +23,7 @@ jQuery(function ($) {
       });
     })
     .change(function () {
-      var $select = $(this);
+      const $select = $(this);
 
       $.each(actions, function (i, actionObj) {
         if ($select.val() === actionObj.action) {

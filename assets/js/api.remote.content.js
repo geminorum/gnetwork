@@ -1,6 +1,6 @@
 jQuery(function ($) {
   $('.gnetwork-form').on('click', '[data-action="import-remote-content"]', function (event) {
-    var $target = $('#' + $(this).data('target'));
+    const $target = $('#' + $(this).data('target'));
     if ($target.length) {
       event.preventDefault();
       event.stopPropagation();
