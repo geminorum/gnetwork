@@ -27,7 +27,8 @@
     "jbroadway/urlify": "^1.1",
     "analog/analog": "dev-master",
     "hbattat/verifyemail": "^1.0",
-    "10up/async-transients": "^1.0"
+    "10up/async-transients": "^1.0",
+    "econea/nusoap": "^0.9.10"
   },
   "require-dev": {
     "phpcompatibility/phpcompatibility-wp": "*",
@@ -39,7 +40,6 @@
     "mustache/mustache": "^2.13",
     "phelium/mysql-backup": "dev-master",
     "picqer/php-barcode-generator": "^0.2.2",
-    "deviservi/nusoap": "^1.123",
     "tinify/tinify": "^1.5",
     "ricardoper/twitteroauth": "2.*",
     "behat/transliterator": "^1.3",

@@ -1,29 +1,29 @@
 (function () {
-  var gulp = require('gulp');
-  var plugins = require('gulp-load-plugins')();
-  var multipipe = require('multipipe');
-  var cssnano = require('cssnano');
-  var autoprefixer = require('autoprefixer');
-  var rtlcss = require('rtlcss');
-  var parseChangelog = require('parse-changelog');
-  // var prettyjson = require('prettyjson');
-  var mergeJson = require('merge-json');
-  var extend = require('xtend');
-  var yaml = require('js-yaml');
-  var log = require('fancy-log');
-  var del = require('del');
-  var fs = require('fs-extra');
-  var exec = require('child_process').exec;
-  var path = require('path');
+  const gulp = require('gulp');
+  const plugins = require('gulp-load-plugins')();
+  const multipipe = require('multipipe');
+  const cssnano = require('cssnano');
+  const autoprefixer = require('autoprefixer');
+  const rtlcss = require('rtlcss');
+  const parseChangelog = require('parse-changelog');
+  // const prettyjson = require('prettyjson');
+  const mergeJson = require('merge-json');
+  const extend = require('xtend');
+  const yaml = require('js-yaml');
+  const log = require('fancy-log');
+  const del = require('del');
+  const fs = require('fs-extra');
+  const exec = require('child_process').exec;
+  const path = require('path');
 
-  var pkg = require('./package.json');
-  var config = require('./gulp.config.json');
+  const pkg = require('./package.json');
+  const config = require('./gulp.config.json');
 
-  var env = config.env;
-  var banner = config.banner.join('\n');
+  let env = config.env;
+  const banner = config.banner.join('\n');
 
-  var debug = /--debug/.test(process.argv.slice(2));
-  var patch = /--patch/.test(process.argv.slice(2)); // bump a patch?
+  const debug = /--debug/.test(process.argv.slice(2));
+  const patch = /--patch/.test(process.argv.slice(2)); // bump a patch?
 
   try {
     env = extend(config.env, yaml.safeLoad(fs.readFileSync('./environment.yml', { encoding: 'utf-8' }), { json: true }));
@@ -74,12 +74,12 @@
   // JSON.stringify does not support unicode escaping
   // @REF: https://stackoverflow.com/a/4901205
   function stringifyJSON (json, emitUnicode) {
-    var string = JSON.stringify(json);
-    return emitUnicode ? string : string.replace(/[\u007f-\uffff]/g,
-      function (match) {
+    const string = JSON.stringify(json);
+    return emitUnicode
+      ? string
+      : string.replace(/[\u007f-\uffff]/g, function (match) {
         return '\\u' + ('0000' + match.charCodeAt(0).toString(16)).slice(-4);
-      }
-    );
+      });
   }
 
   // clears the destination directory
@@ -118,8 +118,8 @@
         file.basename = file.basename.replace(/^admin-/, '');
       }))
       .pipe(plugins.tap(function (file) {
-        var data = JSON.parse(file.contents.toString());
-        var dest = path.join(config.i18n.core.dist, file.path.split(path.sep).pop());
+        let data = JSON.parse(file.contents.toString());
+        const dest = path.join(config.i18n.core.dist, file.path.split(path.sep).pop());
 
         if (fs.existsSync(dest)) {
           data = mergeJson.merge(require('./' + dest), data);
@@ -217,6 +217,16 @@
       .pipe(gulp.dest(config.output.css)).on('error', log.error);
   });
 
+  gulp.task('dev:scripts', function () {
+    return gulp.src(config.input.js, { base: '.' })
+      .pipe(plugins.rename({
+        suffix: '.min'
+      }))
+      .pipe(plugins.uglify())
+      .pipe(plugins.size({ title: 'JS:', showFiles: true }))
+      .pipe(gulp.dest('.'));
+  });
+
   gulp.task('build:styles', function () {
     return gulp.src(config.input.sass)
       .pipe(plugins.sass(config.sass).on('error', plugins.sass.logError))
@@ -248,7 +258,8 @@
         suffix: '.min'
       }))
       .pipe(plugins.uglify())
-      .pipe(plugins.size({ title: 'JS:', showFiles: true }));
+      .pipe(plugins.size({ title: 'JS:', showFiles: true }))
+      .pipe(gulp.dest('.'));
   });
 
   gulp.task('build:banner', function () {
@@ -293,8 +304,8 @@
       return done();
     }
 
-    var changes = parseChangelog(fs.readFileSync('CHANGES.md', { encoding: 'utf-8' }), { title: false });
-    var options = {
+    const changes = parseChangelog(fs.readFileSync('CHANGES.md', { encoding: 'utf-8' }), { title: false });
+    const options = {
       token: env.github,
       tag: pkg.version,
       notes: changes.versions[0].rawNote,

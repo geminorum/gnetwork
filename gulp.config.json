@@ -154,7 +154,7 @@
   },
   "banner": [
     "/**",
-    " * <%= pkg.name %> - <%= pkg.description %>",
+    " * <%= pkg.productName %> - <%= pkg.description %>",
     " * @link <%= pkg.homepage %>",
     " * @license <%= pkg.license %>",
     " */",
