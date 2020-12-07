@@ -465,18 +465,20 @@ class Commerce extends gNetwork\Module
 			$fields['billing']['billing_phone']['class'] = [ 'form-row-first', 'phone' ];
 			$fields['billing']['billing_phone']['placeholder'] = _x( 'For calling on land-line', 'Modules: Commerce', 'gnetwork' );
 			$fields['billing']['billing_phone']['input_class'] = [ 'ltr', 'rtl-placeholder' ];
+			// $fields['billing']['billing_phone']['custom_attributes']['pattern'] = Validation::getMobileHTMLPattern();
 
 			$mobile = is_user_logged_in() ? get_user_meta( get_current_user_id(), GNETWORK_COMMERCE_MOBILE_METAKEY, TRUE ) : FALSE;
 
 			$fields['billing']['customer_mobile'] = [
-				'type'        => 'tel',
-				'class'       => [ 'form-row-last', 'mobile' ],
-				'input_class' => [ 'ltr', 'rtl-placeholder' ],
-				'label'       => _x( 'Mobile', 'Modules: Commerce', 'gnetwork' ),
-				'placeholder' => _x( 'For short message purposes', 'Modules: Commerce', 'gnetwork' ),
-				'priority'    => 105, // after the `billing_phone` with priority `100`
-				'required'    => TRUE,
-				'default'     => $mobile ?: '',
+				'type'              => 'tel',
+				'class'             => [ 'form-row-last', 'mobile' ],
+				'input_class'       => [ 'ltr', 'rtl-placeholder' ],
+				'label'             => _x( 'Mobile', 'Modules: Commerce', 'gnetwork' ),
+				'placeholder'       => _x( 'For short message purposes', 'Modules: Commerce', 'gnetwork' ),
+				'priority'          => 105, // after the `billing_phone` with priority `100`
+				'required'          => TRUE,
+				'default'           => $mobile ?: '',
+				'custom_attributes' => [ 'pattern' => Validation::getMobileHTMLPattern() ],
 			];
 		}
 
@@ -494,6 +496,11 @@ class Commerce extends gNetwork\Module
 				'required'    => TRUE,
 				'default'     => $ssn ?: '',
 			];
+
+			if ( ! GNETWORK_DISABLE_SSN_CHECKS ) {
+				$fields['billing']['customer_ssn']['maxlength'] = 10;
+				$fields['billing']['customer_ssn']['custom_attributes']['pattern'] = Validation::getSSNHTMLPattern();
+			}
 		}
 
 		if ( $this->options['order_notes_label'] )
@@ -518,10 +525,10 @@ class Commerce extends gNetwork\Module
 	// alternatively we can use `woocommerce_process_checkout_field_{$key}` filter
 	public function woocommerce_checkout_posted_data( $data )
 	{
-		if ( $this->options['mobile_field'] )
+		if ( $this->options['mobile_field'] && ! empty( $data['customer_mobile'] ) )
 			$data['customer_mobile'] = $this->sanitize_mobile_field( $data['customer_mobile'] );
 
-		if ( $this->options['ssn_field'] )
+		if ( $this->options['ssn_field'] && ! empty( $data['customer_ssn'] ) )
 			$data['customer_ssn'] = $this->sanitize_ssn_field( $data['customer_ssn'] );
 
 		if ( ! empty( $data['shipping_postcode'] ) )
@@ -614,28 +621,37 @@ class Commerce extends gNetwork\Module
 	{
 		if ( $this->options['mobile_field'] ) {
 			woocommerce_form_field( 'account_mobile', [
-				'type'        => 'tel',
-				'class'       => [ 'form-row-wide', 'mobile' ],
-				'input_class' => [ 'ltr', 'rtl-placeholder' ],
-				'label'       => _x( 'Mobile', 'Modules: Commerce', 'gnetwork' ),
-				'placeholder' => _x( 'For short message purposes', 'Modules: Commerce', 'gnetwork' ),
-				'required'    => TRUE,
-				'clear'       => TRUE,
+				'type'              => 'tel',
+				'class'             => [ 'form-row-wide', 'mobile' ],
+				'input_class'       => [ 'ltr', 'rtl-placeholder' ],
+				'label'             => _x( 'Mobile', 'Modules: Commerce', 'gnetwork' ),
+				'placeholder'       => _x( 'For short message purposes', 'Modules: Commerce', 'gnetwork' ),
+				'required'          => TRUE,
+				'clear'             => TRUE,
+				'custom_attributes' => [ 'pattern' => Validation::getMobileHTMLPattern() ],
 			], get_user_meta( get_current_user_id(), GNETWORK_COMMERCE_MOBILE_METAKEY, TRUE ) );
 
 			wc_enqueue_js( "$('p#account_mobile_field').insertAfter($('input#account_email').parent());" );
 		}
 
 		if ( $this->options['ssn_field'] ) {
-			woocommerce_form_field( 'account_ssn', [
-				'type'        => 'tel',
+
+			$ssn = [
+				'type'        => 'text',
 				'class'       => [ 'form-row-wide', 'ssn' ],
 				'input_class' => [ 'ltr', 'rtl-placeholder' ],
 				'label'       => _x( 'SSN', 'Modules: Commerce', 'gnetwork' ),
 				'placeholder' => _x( 'Social Security Number', 'Modules: Commerce', 'gnetwork' ),
 				'required'    => TRUE,
 				'clear'       => TRUE,
-			], get_user_meta( get_current_user_id(), GNETWORK_COMMERCE_SSN_METAKEY, TRUE ) );
+			];
+
+			if ( ! GNETWORK_DISABLE_SSN_CHECKS ) {
+				$ssn['maxlength'] = 10;
+				$ssn['custom_attributes']['pattern'] = Validation::getSSNHTMLPattern();
+			}
+
+			woocommerce_form_field( 'account_ssn', $ssn, get_user_meta( get_current_user_id(), GNETWORK_COMMERCE_SSN_METAKEY, TRUE ) );
 
 			wc_enqueue_js( "$('p#account_ssn_field').insertAfter($('input#account_display_name').parent());" );
 		}
@@ -696,8 +712,9 @@ class Commerce extends gNetwork\Module
 
 	public function woocommerce_register_form()
 	{
-		if ( $this->options['ssn_field'] )
-			woocommerce_form_field( 'account_ssn', [
+		if ( $this->options['ssn_field'] ) {
+
+			$ssn = [
 				'type'        => 'text',
 				'class'       => [ 'form-row-wide', 'ssn' ],
 				'input_class' => [ 'ltr', 'rtl-placeholder' ],
@@ -705,17 +722,26 @@ class Commerce extends gNetwork\Module
 				'placeholder' => _x( 'Social Security Number', 'Modules: Commerce', 'gnetwork' ),
 				'required'    => TRUE,
 				'clear'       => TRUE,
-			] );
+			];
+
+			if ( ! GNETWORK_DISABLE_SSN_CHECKS ) {
+				$ssn['maxlength'] = 10;
+				$ssn['custom_attributes']['pattern'] = Validation::getSSNHTMLPattern();
+			}
+
+			woocommerce_form_field( 'account_ssn', $ssn );
+		}
 
 		if ( $this->options['mobile_field'] )
 			woocommerce_form_field( 'account_mobile', [
-				'type'        => 'tel',
-				'class'       => [ 'form-row-wide', 'mobile' ],
-				'input_class' => [ 'ltr', 'rtl-placeholder' ],
-				'label'       => _x( 'Mobile', 'Modules: Commerce', 'gnetwork' ),
-				'placeholder' => _x( 'For short message purposes', 'Modules: Commerce', 'gnetwork' ),
-				'required'    => TRUE,
-				'clear'       => TRUE,
+				'type'              => 'tel',
+				'class'             => [ 'form-row-wide', 'mobile' ],
+				'input_class'       => [ 'ltr', 'rtl-placeholder' ],
+				'label'             => _x( 'Mobile', 'Modules: Commerce', 'gnetwork' ),
+				'placeholder'       => _x( 'For short message purposes', 'Modules: Commerce', 'gnetwork' ),
+				'required'          => TRUE,
+				'clear'             => TRUE,
+				'custom_attributes' => [ 'pattern' => Validation::getMobileHTMLPattern() ],
 			] );
 	}
 
