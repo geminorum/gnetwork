@@ -354,6 +354,12 @@ class Commerce extends gNetwork\Module
 		$this->action( 'woocommerce_register_form' );
 		$this->action( 'woocommerce_created_customer' );
 
+		$this->filter( [
+			'woocommerce_process_myaccount_field_shipping_postcode',
+			'woocommerce_process_myaccount_field_billing_postcode',
+			'woocommerce_process_myaccount_field_billing_phone',
+		] );
+
 		if ( $this->options['remove_order_notes'] )
 			$this->filter_false( 'woocommerce_enable_order_notes_field' );
 
@@ -707,6 +713,11 @@ class Commerce extends gNetwork\Module
 	public function woocommerce_created_customer( $customer_id )
 	{
 		$this->woocommerce_save_account_details( $customer_id );
+	}
+
+	public function woocommerce_process_myaccount_field_shipping_postcode( $value )
+	{
+		return Number::intval( $value, FALSE );
 	}
 
 	// ADOPTED FROM: woo-iran-shetab-card-field by Farhad Sakhaei
