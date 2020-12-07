@@ -1,0 +1,1377 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Checkout Manager\n"
+"POT-Creation-Date: 2020-06-19 14:48-0300\n"
+"PO-Revision-Date: 2020-09-05 02:57+0430\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.4.1\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-WPHeader: woocommerce-checkout-manager.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Last-Translator: geminorum <contact@geminorum.ir>\n"
+"Plural-Forms: nplurals=2; plural=(n==0 || n==1);\n"
+"Language: fa_IR\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: includes/class-wooccm-backend.php:63
+#, php-format
+msgid "Stock: %d"
+msgstr ""
+
+#: includes/class-wooccm-backend.php:96 includes/class-wooccm-backend.php:102
+#: includes/controller/class-wooccm-checkout.php:294
+#: includes/view/backend/pages/checkout.php:2
+msgid "Checkout"
+msgstr "تسویه حساب"
+
+#: includes/class-wooccm-notices.php:72 includes/class-wooccm-notices.php:99
+msgid "Join Community!"
+msgstr ""
+
+#: includes/class-wooccm-notices.php:75 includes/class-wooccm-notices.php:102
+msgid "Report a bug"
+msgstr "گزارش یک حفره امنیتی"
+
+#: includes/class-wooccm-notices.php:78 includes/class-wooccm-notices.php:105
+msgid "About us"
+msgstr ""
+
+#: includes/class-wooccm-notices.php:94
+msgid "Hello! We've recently acquired this plugin!"
+msgstr ""
+
+#: includes/class-wooccm-notices.php:96
+msgid ""
+"We will do our best to improve it and include new features gradually. Please "
+"be patient and let us know about the issues and improvements that you want to "
+"see in this plugin."
+msgstr ""
+
+#: includes/class-wooccm-notices.php:118
+msgid "Important! Manual update is required."
+msgstr ""
+
+#: includes/class-wooccm-notices.php:120
+msgid ""
+"Due to the recent WooCommerce 4.0 changes it is necessary to reconfigure "
+"conditional fields. If you have conditional fields, please go to the billing, "
+"shipping and advanced sections and set conditionals relationships again."
+msgstr ""
+
+#: includes/class-wooccm-notices.php:123 includes/class-wooccm-notices.php:161
+msgid "Settings"
+msgstr "تنظیمات"
+
+#: includes/class-wooccm-notices.php:126
+#: includes/view/backend/pages/parts/header.php:9
+#: includes/view/backend/pages/parts/tabs.php:3
+msgid "Documentation"
+msgstr "مستندات"
+
+#: includes/class-wooccm-notices.php:160
+#: includes/controller/class-wooccm-premium.php:45
+#: includes/controller/class-wooccm-premium.php:52
+#: includes/view/backend/pages/premium.php:6
+msgid "Premium"
+msgstr "ویژه"
+
+#: includes/class-wooccm-suggestions-list-table.php:111
+msgid "Search Results"
+msgstr "نتایج جست‌وجو"
+
+#: includes/class-wooccm-suggestions-list-table.php:114
+msgctxt "Plugin Installer"
+msgid "Beta Testing"
+msgstr "نسخه‌های آزمایشی"
+
+#: includes/class-wooccm-suggestions-list-table.php:116
+msgctxt "Plugin Installer"
+msgid "Featured"
+msgstr "برگزیده"
+
+#: includes/class-wooccm-suggestions-list-table.php:117
+msgctxt "Plugin Installer"
+msgid "Popular"
+msgstr "بیشتر استفاده‌شده"
+
+#: includes/class-wooccm-suggestions-list-table.php:118
+msgctxt "Plugin Installer"
+msgid "Recommended"
+msgstr "پیشنهادی"
+
+#: includes/class-wooccm-suggestions-list-table.php:119
+msgctxt "Plugin Installer"
+msgid "Favorites"
+msgstr "علاقه‌مندی‌ها"
+
+#: includes/class-wooccm-upload.php:79
+msgid "No attachment selected."
+msgstr ""
+
+#: includes/class-wooccm-upload.php:117
+#: includes/controller/class-wooccm-order.php:86
+msgid "No uploads were recognised. Files were not uploaded."
+msgstr ""
+
+#: includes/class-wooccm-upload.php:124
+#: includes/controller/class-wooccm-order.php:111
+msgid "Unknow error."
+msgstr ""
+
+#: includes/class-wooccm.php:83 includes/class-wooccm.php:114
+msgid "Uploading, please wait..."
+msgstr ""
+
+#: includes/class-wooccm.php:84 includes/class-wooccm.php:115
+msgid "Saving, please wait..."
+msgstr ""
+
+#: includes/class-wooccm.php:85 includes/class-wooccm.php:116
+msgid "Files uploaded successfully."
+msgstr ""
+
+#: includes/class-wooccm.php:86 includes/class-wooccm.php:117
+msgid "Deleted successfully."
+msgstr ""
+
+#: includes/class-wooccm.php:97 includes/view/backend/pages/parts/loop.php:11
+msgid "Clear"
+msgstr "پاک‌سازی"
+
+#: includes/class-wooccm.php:98
+#: includes/view/backend/pages/modals/parts/panel-general.php:94
+#: includes/view/backend/pages/modals/parts/panel-general.php:110
+#: includes/view/backend/pages/modals/parts/panel-general.php:155
+#: includes/view/backend/pages/modals/parts/panel-options.php:24
+msgid "Default"
+msgstr "پیش‌فرض"
+
+#: includes/class-wooccm.php:99
+msgid "Select Color"
+msgstr "انتخاب رنگ"
+
+#: includes/class-wooccm.php:100
+msgid "Current Color"
+msgstr ""
+
+#: includes/controller/class-wooccm-advanced.php:65
+msgid "Export custom fields"
+msgstr ""
+
+#: includes/controller/class-wooccm-advanced.php:66
+msgid ""
+"Include custom fields in CSV export files generated by WooCommerce Customer / "
+"Order / Coupon Export."
+msgstr ""
+
+#: includes/controller/class-wooccm-advanced.php:70
+#: includes/controller/class-wooccm-email.php:39
+#: includes/controller/class-wooccm-email.php:52
+#: includes/controller/class-wooccm-email.php:61
+#: includes/controller/class-wooccm-email.php:71
+#: includes/controller/class-wooccm-email.php:84
+#: includes/controller/class-wooccm-email.php:94
+#: includes/controller/class-wooccm-field-additional.php:127
+#: includes/view/backend/pages/modals/parts/panel-options.php:17
+#: includes/view/backend/pages/modals/parts/panel-options.php:21
+msgid "This is a premium feature."
+msgstr "این یک امکان ویژه است"
+
+#: includes/controller/class-wooccm-advanced.php:72
+#: includes/controller/class-wooccm-checkout.php:189
+#: includes/controller/class-wooccm-checkout.php:201
+#: includes/controller/class-wooccm-checkout.php:213
+#: includes/controller/class-wooccm-email.php:41
+#: includes/controller/class-wooccm-email.php:73
+#: includes/controller/class-wooccm-order.php:196
+#: includes/controller/class-wooccm-order.php:224
+#: includes/view/backend/pages/modals/parts/info.php:53
+#: includes/view/backend/pages/modals/parts/panel-general.php:113
+#: includes/view/backend/pages/parts/loop.php:39
+#: includes/view/backend/pages/parts/loop.php:57
+#: includes/view/backend/pages/parts/loop.php:80
+#: includes/view/backend/pages/parts/loop.php:82
+#: includes/view/backend/pages/parts/loop.php:89
+#: includes/view/backend/pages/parts/loop.php:91
+#: includes/view/backend/pages/parts/loop.php:98
+#: includes/view/backend/pages/parts/loop.php:100
+#: includes/view/backend/pages/parts/loop.php:107
+#: includes/view/frontend/class-wooccm-fields-handler.php:62
+msgid "Yes"
+msgstr "بله"
+
+#: includes/controller/class-wooccm-advanced.php:73
+#: includes/controller/class-wooccm-checkout.php:190
+#: includes/controller/class-wooccm-checkout.php:202
+#: includes/controller/class-wooccm-checkout.php:214
+#: includes/controller/class-wooccm-email.php:42
+#: includes/controller/class-wooccm-email.php:74
+#: includes/controller/class-wooccm-order.php:197
+#: includes/controller/class-wooccm-order.php:225
+#: includes/view/backend/pages/modals/parts/info.php:54
+#: includes/view/backend/pages/modals/parts/panel-general.php:114
+#: includes/view/backend/pages/parts/loop.php:41
+#: includes/view/backend/pages/parts/loop.php:59
+#: includes/view/backend/pages/parts/loop.php:109
+msgid "No"
+msgstr ""
+
+#: includes/controller/class-wooccm-advanced.php:78
+msgid "Custom CSS"
+msgstr "CSS سفارشی"
+
+#: includes/controller/class-wooccm-advanced.php:79
+msgid "Add custom stylesheets to the checkout page."
+msgstr ""
+
+#: includes/controller/class-wooccm-advanced.php:98
+#: includes/view/backend/pages/advanced.php:2
+msgid "Advanced"
+msgstr "پیشرفته"
+
+#: includes/controller/class-wooccm-checkout.php:183
+msgid "Force shipping address"
+msgstr ""
+
+#: includes/controller/class-wooccm-checkout.php:184
+msgid "Force show shipping checkout fields."
+msgstr ""
+
+#: includes/controller/class-wooccm-checkout.php:195
+msgid "Force create an account"
+msgstr ""
+
+#: includes/controller/class-wooccm-checkout.php:196
+msgid "Force create an account for guests users."
+msgstr ""
+
+#: includes/controller/class-wooccm-checkout.php:207
+msgid "Remove order notes"
+msgstr ""
+
+#: includes/controller/class-wooccm-checkout.php:208
+msgid "Remove order notes from checkout page."
+msgstr ""
+
+#: includes/controller/class-wooccm-checkout.php:219
+msgid "Order notes label"
+msgstr ""
+
+#: includes/controller/class-wooccm-checkout.php:220
+#: includes/controller/class-wooccm-checkout.php:227
+#: includes/controller/class-wooccm-checkout.php:234
+#: includes/controller/class-wooccm-checkout.php:241
+msgid "Add custom title for the custom fields table in the thankyou page."
+msgstr ""
+
+#: includes/controller/class-wooccm-checkout.php:223
+msgid "Order notes"
+msgstr "توضیحات سفارش"
+
+#: includes/controller/class-wooccm-checkout.php:226
+msgid "Order notes placeholder"
+msgstr ""
+
+#: includes/controller/class-wooccm-checkout.php:230
+msgid "Notes about your order, e.g. special notes for delivery."
+msgstr ""
+"توضیحاتی درباره سفارش شما، برای نمونه: نکته‌هایی که باید در هنگام تحویل سفارش "
+"در نظر گرفته شوند."
+
+#: includes/controller/class-wooccm-checkout.php:233
+msgid "Add message before checkout"
+msgstr ""
+
+#: includes/controller/class-wooccm-checkout.php:240
+msgid "Add message after checkout"
+msgstr ""
+
+#: includes/controller/class-wooccm-controller.php:18
+msgid "Please, reload page"
+msgstr ""
+
+#: includes/controller/class-wooccm-controller.php:23
+msgid "Access denied"
+msgstr "امکان دسترسی وجود ندارد"
+
+#: includes/controller/class-wooccm-email.php:34
+#: includes/controller/class-wooccm-order.php:190
+msgid "Add upload files"
+msgstr ""
+
+#: includes/controller/class-wooccm-email.php:35
+#: includes/controller/class-wooccm-email.php:48
+#: includes/controller/class-wooccm-email.php:80
+msgid "Allow customers to upload files in the email."
+msgstr ""
+
+#: includes/controller/class-wooccm-email.php:47
+#: includes/controller/class-wooccm-email.php:79
+#: includes/controller/class-wooccm-order.php:202
+#: includes/controller/class-wooccm-order.php:230
+msgid "Add for this order status"
+msgstr ""
+
+#: includes/controller/class-wooccm-email.php:57
+#: includes/controller/class-wooccm-order.php:211
+msgid "Add upload files title"
+msgstr ""
+
+#: includes/controller/class-wooccm-email.php:58
+#: includes/controller/class-wooccm-email.php:90
+#: includes/controller/class-wooccm-order.php:212
+#: includes/controller/class-wooccm-order.php:240
+msgid "Add custom title for the uploads files table."
+msgstr ""
+
+#: includes/controller/class-wooccm-email.php:63
+#: includes/controller/class-wooccm-order.php:215
+#: templates/order/order-upload-files.php:2
+msgid "Uploaded files"
+msgstr ""
+
+#: includes/controller/class-wooccm-email.php:66
+#: includes/controller/class-wooccm-order.php:218
+msgid "Add custom fields"
+msgstr ""
+
+#: includes/controller/class-wooccm-email.php:67
+msgid "Show the selected fields in the email."
+msgstr ""
+
+#: includes/controller/class-wooccm-email.php:89
+#: includes/controller/class-wooccm-order.php:239
+msgid "Add custom fields title"
+msgstr ""
+
+#: includes/controller/class-wooccm-email.php:95
+#: includes/controller/class-wooccm-order.php:243
+#: templates/order/order-custom-fields.php:1
+msgid "Order extra"
+msgstr ""
+
+#: includes/controller/class-wooccm-email.php:108
+#: includes/view/backend/pages/email.php:2
+msgid "Email"
+msgstr "ایمیل"
+
+#: includes/controller/class-wooccm-field-additional.php:69
+msgid "Select the position of the additional fields."
+msgstr ""
+
+#: includes/controller/class-wooccm-field-additional.php:74
+msgid "Before billing form"
+msgstr ""
+
+#: includes/controller/class-wooccm-field-additional.php:75
+msgid "After billing form"
+msgstr ""
+
+#: includes/controller/class-wooccm-field-additional.php:76
+msgid "Before order notes"
+msgstr ""
+
+#: includes/controller/class-wooccm-field-additional.php:77
+msgid "After order notes"
+msgstr ""
+
+#: includes/controller/class-wooccm-field-additional.php:123
+#: includes/controller/class-wooccm-field-additional.php:210
+#: includes/view/backend/pages/additional.php:2
+msgid "Additional"
+msgstr "افزوده‌ها"
+
+#: includes/controller/class-wooccm-field-additional.php:124
+#: includes/view/backend/pages/parts/loop.php:115
+msgid "Edit"
+msgstr "ویرایش"
+
+#: includes/controller/class-wooccm-field-additional.php:152
+#, php-format
+msgid "ID: %s | Field Type: %s"
+msgstr ""
+
+#: includes/controller/class-wooccm-field-additional.php:152
+msgid "Generic"
+msgstr ""
+
+#: includes/controller/class-wooccm-field-additional.php:153
+#: includes/view/backend/pages/modals/parts/info.php:30
+#, php-format
+msgid "Field %s"
+msgstr ""
+
+#: includes/controller/class-wooccm-field-billing.php:57
+#: includes/view/backend/pages/billing.php:2
+msgid "Billing"
+msgstr "صورت‌حساب"
+
+#: includes/controller/class-wooccm-field-shipping.php:34
+#: includes/view/backend/pages/shipping.php:2
+msgid "Shipping"
+msgstr "ارسال"
+
+#: includes/controller/class-wooccm-field.php:59
+msgid "Are you sure you want to remove this field?"
+msgstr ""
+
+#: includes/controller/class-wooccm-field.php:60
+msgid "Are you sure you want to reset this fields?"
+msgstr ""
+
+#: includes/controller/class-wooccm-field.php:226
+msgid "Undefined field id"
+msgstr ""
+
+#: includes/controller/class-wooccm-order.php:92
+msgid "Empty order id."
+msgstr ""
+
+#: includes/controller/class-wooccm-order.php:96
+msgid "Invalid order id."
+msgstr ""
+
+#: includes/controller/class-wooccm-order.php:176
+msgid "Order Files"
+msgstr ""
+
+#: includes/controller/class-wooccm-order.php:191
+#: includes/controller/class-wooccm-order.php:203
+#: includes/controller/class-wooccm-order.php:231
+msgid "Allow customers to upload files in the order."
+msgstr ""
+
+#: includes/controller/class-wooccm-order.php:219
+msgid "Show the selected fields in the order."
+msgstr ""
+
+#: includes/controller/class-wooccm-order.php:256
+#: includes/view/backend/pages/order.php:2
+msgid "Order"
+msgstr "چینش"
+
+#: includes/controller/class-wooccm-suggestions.php:34
+#: includes/view/backend/pages/parts/header.php:3
+msgid "Suggestions"
+msgstr "پیشنهادات"
+
+#: includes/model/class-wooccm-field.php:156
+msgid "Option"
+msgstr ""
+
+#: includes/view/backend/meta-boxes/html-order-uploads.php:5
+msgid "Image"
+msgstr "تصویر"
+
+#: includes/view/backend/meta-boxes/html-order-uploads.php:6
+#: templates/order/order-upload-files.php:7
+msgid "Filename"
+msgstr "نام پرونده"
+
+#: includes/view/backend/meta-boxes/html-order-uploads.php:7
+#: templates/order/order-upload-files.php:8
+msgid "Dimensions"
+msgstr "اندازه"
+
+#: includes/view/backend/meta-boxes/html-order-uploads.php:8
+#: templates/order/order-upload-files.php:9
+msgid "Extension"
+msgstr "توسعه"
+
+#: includes/view/backend/meta-boxes/html-order-uploads.php:39
+#: templates/order/order-upload-files.php:36
+msgid "Download"
+msgstr "دریافت"
+
+#: includes/view/backend/meta-boxes/html-order-uploads.php:40
+#: includes/view/backend/pages/parts/loop.php:119
+#: templates/order/order-upload-files.php:37
+msgid "Delete"
+msgstr "حذف"
+
+#: includes/view/backend/meta-boxes/html-order-uploads.php:46
+#: templates/order/order-upload-files.php:43
+msgid "No files have been uploaded to this order."
+msgstr ""
+
+#: includes/view/backend/meta-boxes/html-order-uploads.php:55
+#: templates/order/order-upload-files.php:52
+msgid "Upload Files"
+msgstr "بارگذاری پرونده‌ها"
+
+#: includes/view/backend/meta-boxes/html-order-uploads.php:58
+#: templates/order/order-upload-files.php:55
+msgid "Save Changes"
+msgstr "ذخیره تغییرات"
+
+#: includes/view/backend/pages/additional.php:3
+msgid "Additional fields"
+msgstr ""
+
+#: includes/view/backend/pages/additional.php:5
+#: includes/view/backend/pages/advanced.php:5
+#: includes/view/backend/pages/billing.php:5
+#: includes/view/backend/pages/email.php:5
+#: includes/view/backend/pages/shipping.php:5
+#, php-format
+msgid "Customize and manage the checkout %s fields."
+msgstr "فیلدهای %s تسویه حساب را سفارشی‌سازی و مدیریت کنید."
+
+#: includes/view/backend/pages/advanced.php:3
+msgid "Advanced settings"
+msgstr ""
+
+#: includes/view/backend/pages/advanced.php:8
+msgid ""
+"This will permanently delete all WordPress Options associated with "
+"WooCommerce Checkout Manager. Are you sure you want to proceed?"
+msgstr ""
+
+#: includes/view/backend/pages/advanced.php:8
+msgid "Delete Options"
+msgstr ""
+
+#: includes/view/backend/pages/advanced.php:9
+msgid ""
+"This will permanently delete all WordPress Post meta associated with that is "
+"linked to Orders. Are you sure you want to proceed?"
+msgstr ""
+
+#: includes/view/backend/pages/advanced.php:9
+msgid "Delete Orders Post meta"
+msgstr ""
+
+#: includes/view/backend/pages/advanced.php:10
+msgid ""
+"This will permanently delete all WordPress Post meta associated with that is "
+"linked to Users. Are you sure you want to proceed?"
+msgstr ""
+
+#: includes/view/backend/pages/advanced.php:10
+msgid "Delete Users Post meta"
+msgstr ""
+
+#: includes/view/backend/pages/billing.php:3
+msgid "Billing fields"
+msgstr ""
+
+#: includes/view/backend/pages/checkout.php:3
+msgid "Checkout settings"
+msgstr "تنظیمات تسویه حساب"
+
+#: includes/view/backend/pages/checkout.php:5
+msgid "Customize and manage the checkout settings."
+msgstr "تنظیمات تسویه حساب را سفارشی‌سازی و مدیریت کنید."
+
+#: includes/view/backend/pages/email.php:3
+msgid "Email settings"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/info.php:3
+msgid "Saved."
+msgstr "ذخیره شد."
+
+#: includes/view/backend/pages/modals/parts/info.php:7
+msgid "Field id"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/info.php:8
+msgid "Field key"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/info.php:10
+msgid "Parent type"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/info.php:17
+msgid "Conditional"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/info.php:19
+msgid "Activate conditional field requirement."
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/info.php:24
+msgid "Parent"
+msgstr "مادر"
+
+#: includes/view/backend/pages/modals/parts/info.php:25
+msgid "Select parent field&hellip;"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/info.php:35
+msgid "Select conditional parent field."
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/info.php:43
+msgid "Value"
+msgstr "مقدار"
+
+#: includes/view/backend/pages/modals/parts/info.php:57
+#: includes/view/backend/pages/modals/parts/panel-general.php:156
+msgid "Preserve default country&hellip;"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/info.php:66
+msgid "Conditional parent value"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/info.php:68
+msgid "Show field if parent has this value."
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/info.php:74
+msgid "View checkout page"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/info.php:75
+msgid "Get premium version"
+msgstr "دریافت نگارش ویژه"
+
+#: includes/view/backend/pages/modals/parts/info.php:76
+msgid "View documentation"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/main.php:12
+msgid "Edit previous media item"
+msgstr "ویرایش رسانهٔ پیشین"
+
+#: includes/view/backend/pages/modals/parts/main.php:13
+msgid "Edit next media item"
+msgstr "ویرایش رسانهٔ بعدی"
+
+#: includes/view/backend/pages/modals/parts/main.php:15
+msgid "Close dialog"
+msgstr "بستن کادر"
+
+#: includes/view/backend/pages/modals/parts/main.php:18
+msgid "Edit field"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/main.php:18
+msgid "New"
+msgstr "تازه"
+
+#: includes/view/backend/pages/modals/parts/main.php:40
+msgid "Save"
+msgstr "ذخیره"
+
+#: includes/view/backend/pages/modals/parts/main.php:46
+msgid "Close"
+msgstr "بستن"
+
+#: includes/view/backend/pages/modals/parts/panel-admin.php:5
+#: includes/view/backend/pages/parts/loop.php:16
+msgid "Listable"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-admin.php:7
+msgid "Display in View Orders screen"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-admin.php:8
+#: includes/view/backend/pages/modals/parts/panel-admin.php:14
+#: includes/view/backend/pages/modals/parts/panel-admin.php:20
+#: includes/view/backend/pages/modals/parts/panel-datepicker.php:8
+#: includes/view/backend/pages/modals/parts/panel-datepicker.php:16
+#: includes/view/backend/pages/modals/parts/panel-datepicker.php:26
+#: includes/view/backend/pages/modals/parts/panel-datepicker.php:37
+#: includes/view/backend/pages/modals/parts/panel-datepicker.php:48
+#: includes/view/backend/pages/modals/parts/panel-datepicker.php:59
+#: includes/view/backend/pages/modals/parts/panel-display.php:7
+#: includes/view/backend/pages/modals/parts/panel-display.php:13
+#: includes/view/backend/pages/modals/parts/panel-display.php:19
+#: includes/view/backend/pages/modals/parts/panel-display.php:25
+#: includes/view/backend/pages/modals/parts/panel-display.php:31
+#: includes/view/backend/pages/modals/parts/panel-filter.php:9
+#: includes/view/backend/pages/modals/parts/panel-price.php:7
+#: includes/view/backend/pages/modals/parts/panel-price.php:12
+#: includes/view/backend/pages/modals/parts/panel-price.php:21
+#: includes/view/backend/pages/modals/parts/panel-price.php:28
+#: includes/view/backend/pages/modals/parts/panel-select2.php:8
+#: includes/view/backend/pages/modals/parts/panel-select2.php:16
+#: includes/view/backend/pages/modals/parts/panel-select2.php:22
+#: includes/view/backend/pages/modals/parts/panel-select2.php:30
+#: includes/view/backend/pages/modals/parts/panel-select2.php:36
+#: includes/view/backend/pages/modals/parts/panel-timepicker.php:8
+#: includes/view/backend/pages/modals/parts/panel-timepicker.php:15
+#: includes/view/backend/pages/modals/parts/panel-timepicker.php:20
+#: includes/view/backend/pages/modals/parts/panel-timepicker.php:25
+msgid "This is a premium feature"
+msgstr "فقط در نگارش ویژه"
+
+#: includes/view/backend/pages/modals/parts/panel-admin.php:11
+#: includes/view/backend/pages/parts/loop.php:17
+msgid "Sortable"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-admin.php:13
+msgid "Allow Sorting on View Orders screen"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-admin.php:17
+#: includes/view/backend/pages/parts/loop.php:18
+msgid "Filterable"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-admin.php:19
+msgid "Allow Filtering on View Orders screen"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-datepicker.php:5
+#: includes/view/backend/pages/modals/parts/panel-timepicker.php:5
+msgid "Enhance"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-datepicker.php:7
+msgid "Enhance date behaviour with datepicker."
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-datepicker.php:13
+msgid "Date format"
+msgstr "ساختار تاریخ"
+
+#: includes/view/backend/pages/modals/parts/panel-datepicker.php:21
+msgid "Date limit"
+msgstr "محدودیت تاریخ"
+
+#: includes/view/backend/pages/modals/parts/panel-datepicker.php:23
+msgid "Since current date"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-datepicker.php:24
+msgid "Between fixed dates"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-datepicker.php:31
+msgid "Days disable"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-datepicker.php:32
+msgid "Disable week days"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-datepicker.php:43
+msgid "Between days"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-datepicker.php:54
+msgid "Between dates"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-datepicker.php:56
+#: includes/view/backend/pages/modals/parts/panel-datepicker.php:57
+msgid "From… YYYY-MM-DD"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-display.php:4
+msgid "Hide on account"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-display.php:6
+msgid "Hide this field on the account page"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-display.php:10
+msgid "Hide on checkout"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-display.php:12
+msgid "Hide this field on the checkout page"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-display.php:16
+msgid "Hide on orders"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-display.php:18
+msgid "Hide this field on the user order"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-display.php:22
+msgid "Hide on emails"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-display.php:24
+msgid "Hide this field on the user email"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-display.php:28
+msgid "Hide on invoices"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-display.php:30
+msgid "Hide this field on the order invoice"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-filter.php:4
+msgid "Cart subtotal"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-filter.php:6
+#: includes/view/backend/pages/modals/parts/panel-general.php:130
+msgid "minimun"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-filter.php:7
+#: includes/view/backend/pages/modals/parts/panel-general.php:131
+msgid "maximun"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-filter.php:14
+msgid "Show for roles"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-filter.php:15
+#: includes/view/backend/pages/modals/parts/panel-filter.php:23
+msgid "Filter by roles"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-filter.php:22
+msgid "Hide for roles"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-filter.php:33
+msgid "More"
+msgstr "بیشتر"
+
+#: includes/view/backend/pages/modals/parts/panel-filter.php:35
+msgid "Apply conditions event it there is more than one product"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-filter.php:41
+msgid "Show for products"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-filter.php:42
+#: includes/view/backend/pages/modals/parts/panel-filter.php:50
+msgid "Filter by product"
+msgstr "پالایه با کالا"
+
+#: includes/view/backend/pages/modals/parts/panel-filter.php:49
+msgid "Hide for products"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-filter.php:60
+msgid "Show for category"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-filter.php:61
+#: includes/view/backend/pages/modals/parts/panel-filter.php:71
+msgid "Filter by categories"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-filter.php:70
+msgid "Hide for category"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-general.php:4
+#: includes/view/backend/pages/modals/parts/panel-price.php:10
+msgid "Name"
+msgstr "عنوان"
+
+#: includes/view/backend/pages/modals/parts/panel-general.php:6
+msgid "You can't change the slug of default fields."
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-general.php:7
+#: includes/view/backend/pages/modals/parts/panel-general.php:10
+msgid "myfield"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-general.php:9
+msgid "Currently is not possible to change the name of the fields."
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-general.php:16
+#: includes/view/backend/pages/modals/parts/panel-general.php:73
+#: includes/view/backend/pages/modals/parts/panel-general.php:92
+#: includes/view/backend/pages/parts/loop.php:12
+msgid "Type"
+msgstr "نوع"
+
+#: includes/view/backend/pages/modals/parts/panel-general.php:28
+msgid "Type of the checkout field."
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-general.php:32
+msgid "Picker Type"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-general.php:34
+msgid "Farbtastic"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-general.php:35
+msgid "Iris"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-general.php:42
+#: includes/view/backend/pages/modals/parts/panel-options.php:13
+#: includes/view/backend/pages/parts/loop.php:13
+msgid "Label"
+msgstr "سرستون"
+
+#: includes/view/backend/pages/modals/parts/panel-general.php:43
+msgid "My Field Name"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-general.php:44
+msgid "Label text of the checkout field."
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-general.php:48
+#: includes/view/backend/pages/parts/loop.php:14
+msgid "Placeholder"
+msgstr "مکان گیرنده"
+
+#: includes/view/backend/pages/modals/parts/panel-general.php:49
+msgid "This is a placeholder"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-general.php:50
+#: includes/view/backend/pages/modals/parts/panel-general.php:66
+msgid "Placeholder text of the checkout field."
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-general.php:55
+msgid "Button"
+msgstr "دکمه"
+
+#: includes/view/backend/pages/modals/parts/panel-general.php:56
+msgid "Upload your files"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-general.php:57
+msgid "Text for the button name."
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-general.php:64
+msgid "Description"
+msgstr "توضیحات"
+
+#: includes/view/backend/pages/modals/parts/panel-general.php:65
+msgid "Description of the checkout field"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-general.php:75
+msgid "Info"
+msgstr "اطلاعات"
+
+#: includes/view/backend/pages/modals/parts/panel-general.php:76
+msgid "Success"
+msgstr "انجام شد"
+
+#: includes/view/backend/pages/modals/parts/panel-general.php:77
+msgid "Error"
+msgstr "خطا"
+
+#: includes/view/backend/pages/modals/parts/panel-general.php:79
+#: includes/view/backend/pages/modals/parts/panel-general.php:97
+msgid "Message alert type."
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-general.php:82
+msgid "Message"
+msgstr "پیام"
+
+#: includes/view/backend/pages/modals/parts/panel-general.php:83
+msgid "Message content"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-general.php:84
+msgid "Message content."
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-general.php:95
+msgid "Alt"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-general.php:100
+msgid "Link"
+msgstr "پیوند"
+
+#: includes/view/backend/pages/modals/parts/panel-general.php:101
+msgid "URL"
+msgstr "نشانی"
+
+#: includes/view/backend/pages/modals/parts/panel-general.php:102
+msgid "Button URL."
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-general.php:117
+#: includes/view/backend/pages/modals/parts/panel-general.php:119
+msgid "Enter a default value (optional)"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-general.php:121
+msgid "Default value of the checkout field."
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-general.php:128
+msgid "Number"
+msgstr "شماره"
+
+#: includes/view/backend/pages/modals/parts/panel-general.php:139
+msgid "Upload files"
+msgstr "بارگذاری پرونده‌ها"
+
+#: includes/view/backend/pages/modals/parts/panel-general.php:143
+msgid "Choose the allowed types&hellip;"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-general.php:169
+msgid "Country"
+msgstr "کشورها"
+
+#: includes/view/backend/pages/modals/parts/panel-general.php:170
+msgid "Select country&hellip;"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-general.php:181
+msgid "Extra class"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-options.php:9
+msgid "Select all"
+msgstr "انتخاب همه"
+
+#: includes/view/backend/pages/modals/parts/panel-options.php:16
+#: includes/view/backend/pages/modals/parts/panel-price.php:5
+#: includes/view/backend/pages/modals/parts/tabs.php:23
+msgid "Price"
+msgstr "قیمت"
+
+#: includes/view/backend/pages/modals/parts/panel-options.php:20
+msgid "Taxable"
+msgstr "مشمول مالیات"
+
+#: includes/view/backend/pages/modals/parts/panel-options.php:66
+msgid "Add new option"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-options.php:67
+msgid "Delete selected"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-price.php:11
+msgid "My Custom Charge"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-price.php:15
+msgid "Total"
+msgstr "جمع"
+
+#: includes/view/backend/pages/modals/parts/panel-price.php:26
+msgid "Tax"
+msgstr "مالیات"
+
+#: includes/view/backend/pages/modals/parts/panel-select2.php:5
+#: includes/view/backend/pages/modals/parts/tabs.php:7
+msgid "Select2"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-select2.php:7
+msgid "Enhance select behaviour with select2."
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-select2.php:13
+msgid "Allow clear"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-select2.php:15
+msgid "Provides support for clearable selections."
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-select2.php:19
+msgid "Allow search"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-select2.php:21
+msgid "Display the search box for options."
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-select2.php:27
+msgid "Select on close"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-select2.php:29
+msgid "Implements automatic selection when the dropdown is closed."
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-select2.php:33
+msgid "Close on select"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-select2.php:35
+msgid "Controls whether the dropdown is closed after a selection is made."
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-timepicker.php:7
+msgid "Enhance time behaviour with timepicker."
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-timepicker.php:13
+msgid "Hour start"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-timepicker.php:18
+msgid "Hour end"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/panel-timepicker.php:23
+msgid "Minutes interval"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/tabs.php:3
+msgid "General"
+msgstr "همگانی"
+
+#: includes/view/backend/pages/modals/parts/tabs.php:12
+msgid "Options"
+msgstr "تنظیمات"
+
+#: includes/view/backend/pages/modals/parts/tabs.php:16
+msgid "Filter"
+msgstr "پالایه"
+
+#: includes/view/backend/pages/modals/parts/tabs.php:19
+msgid "Display"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/tabs.php:28
+msgid "Timepicker"
+msgstr ""
+
+#: includes/view/backend/pages/modals/parts/tabs.php:33
+msgid "Datepicker"
+msgstr "انتخاب‌گر تاریخ"
+
+#: includes/view/backend/pages/modals/parts/tabs.php:38
+msgid "Admin"
+msgstr "مدیر"
+
+#: includes/view/backend/pages/order.php:3
+msgid "Order settings"
+msgstr ""
+
+#: includes/view/backend/pages/order.php:5
+msgid "Customize and manage the order settings."
+msgstr "تنظیمات سفارش را سفارشی‌سازی و مدیریت کنید."
+
+#: includes/view/backend/pages/parts/actions.php:3
+msgid "+ Add New Field"
+msgstr ""
+
+#: includes/view/backend/pages/parts/actions.php:4
+msgid "Import"
+msgstr "درون‌ریزی"
+
+#: includes/view/backend/pages/parts/actions.php:5
+msgid "Reset"
+msgstr "بازنشانی"
+
+#: includes/view/backend/pages/parts/header.php:5
+msgid ""
+"Thanks for using our product! We recommend these extensions that will add new "
+"features to stand out your business and improve your sales."
+msgstr ""
+
+#: includes/view/backend/pages/parts/header.php:8
+msgid "Purchase"
+msgstr "خرید"
+
+#. Author of the plugin/theme
+#: includes/view/backend/pages/parts/header.php:25
+msgid "QuadLayers"
+msgstr ""
+
+#: includes/view/backend/pages/parts/loop.php:9
+msgid "Required"
+msgstr "ضروری"
+
+#: includes/view/backend/pages/parts/loop.php:10
+msgid "Position"
+msgstr "موقعیت"
+
+#: includes/view/backend/pages/parts/loop.php:15
+msgid "ID"
+msgstr "شـ"
+
+#: includes/view/backend/pages/parts/loop.php:19
+msgid "Disabled"
+msgstr "غیرفعال"
+
+#: includes/view/backend/pages/parts/loop.php:30
+#, php-format
+msgid "Move the \"%s\" payment method up"
+msgstr ""
+
+#: includes/view/backend/pages/parts/loop.php:30
+msgid "Move up"
+msgstr "انتقال به پایین"
+
+#: includes/view/backend/pages/parts/loop.php:31
+#, php-format
+msgid "Move the \"%s\" payment method down"
+msgstr ""
+
+#: includes/view/backend/pages/parts/loop.php:31
+msgid "Move down"
+msgstr "انتقال به بالا"
+
+#: includes/view/backend/pages/parts/loop.php:39
+#: includes/view/backend/pages/parts/loop.php:57
+#: includes/view/backend/pages/parts/loop.php:107
+#, php-format
+msgid "The \"%s\" field currently enabled"
+msgstr ""
+
+#: includes/view/backend/pages/parts/loop.php:41
+#: includes/view/backend/pages/parts/loop.php:59
+#: includes/view/backend/pages/parts/loop.php:109
+#, php-format
+msgid "The \"%s\" field currently disabled"
+msgstr ""
+
+#: includes/view/backend/pages/parts/loop.php:48
+msgid "Wide"
+msgstr ""
+
+#: includes/view/backend/pages/parts/loop.php:49
+msgid "Left"
+msgstr "چپ"
+
+#: includes/view/backend/pages/parts/loop.php:50
+msgid "Right"
+msgstr "راست"
+
+#: includes/view/backend/pages/parts/loop.php:115
+#: includes/view/backend/pages/parts/loop.php:119
+msgid "Edit checkout field"
+msgstr ""
+
+#: includes/view/backend/pages/premium.php:8
+#, php-format
+msgid ""
+"%s allows you to customize, add, edit and delete fields displayed on the "
+"checkout page. With the premium version you can also create conditional "
+"fields and include custom fees based on the checkout fields."
+msgstr ""
+
+#: includes/view/backend/pages/premium.php:11
+msgid "Purchase Now"
+msgstr ""
+
+#: includes/view/backend/pages/premium.php:12
+msgid "Get Support"
+msgstr ""
+
+#: includes/view/backend/pages/premium.php:16
+msgid "Add checkout fees"
+msgstr ""
+
+#: includes/view/backend/pages/premium.php:18
+#, php-format
+msgid ""
+"%s allows you to include fees to each custom or core field. Fees can be fixed "
+"or percentage amounts based on checkout total."
+msgstr ""
+
+#: includes/view/backend/pages/premium.php:22
+msgid "Remove account fields"
+msgstr ""
+
+#: includes/view/backend/pages/premium.php:24
+msgid ""
+"By default all fields attached to the billing or shipping sections are "
+"included in the edit address area of the user account page. With the premium "
+"version, you can hide the fields on the checkout or my account page."
+msgstr ""
+
+#: includes/view/backend/pages/premium.php:28
+msgid "Enhance select fields"
+msgstr ""
+
+#: includes/view/backend/pages/premium.php:30
+msgid ""
+"The enhance options allow you to improve the behavior of the select and "
+"multiselect fields with the select2 jquery plugin."
+msgstr ""
+
+#: includes/view/backend/pages/premium.php:45
+msgid "Display on admin list orders"
+msgstr ""
+
+#: includes/view/backend/pages/premium.php:47
+msgid ""
+"This option allows you to display the fields in the WooCommerce order list."
+msgstr ""
+
+#: includes/view/backend/pages/premium.php:51
+msgid "Allow sorting on admin list orders"
+msgstr ""
+
+#: includes/view/backend/pages/premium.php:53
+msgid ""
+"This option allows you to sort the WooCommerce orders list based on the field "
+"values."
+msgstr ""
+
+#: includes/view/backend/pages/premium.php:57
+msgid "Allow filtering on admin list orders"
+msgstr ""
+
+#: includes/view/backend/pages/premium.php:59
+msgid ""
+"This option allows you to add a search field to filter the options based on "
+"the selected values."
+msgstr ""
+
+#: includes/view/backend/pages/shipping.php:3
+msgid "Shipping fields"
+msgstr ""
+
+#: includes/view/frontend/class-wooccm-fields-additional.php:57
+#, php-format
+msgid "%s is a required field."
+msgstr "فیلد %s الزامی است."
+
+#: includes/view/frontend/class-wooccm-fields-filters.php:27
+msgid "required"
+msgstr "ضروری"
+
+#: includes/view/frontend/class-wooccm-fields-filters.php:29
+msgid "optional"
+msgstr "اختیاری"
+
+#: templates/order/order-upload-files.php:6
+msgid "File"
+msgstr "پرونده"
+
+#: templates/order/order-upload-files.php:10
+msgid "Actions"
+msgstr "کنش‌ها"
+
+#. Plugin Name of the plugin/theme
+msgid "Checkout Manager for WooCommerce"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://quadlayers.com/portfolio/woocommerce-checkout-manager/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Manages WooCommerce Checkout, the advanced way."
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://quadlayers.com"
+msgstr ""

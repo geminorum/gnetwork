@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: BuddyPress v6.2.0\n"
+"Project-Id-Version: BuddyPress v6.3.0\n"
 "Report-Msgid-Bugs-To: https://buddypress.trac.wordpress.org\n"
-"POT-Creation-Date: 2020-08-06T20:59:51+00:00\n"
-"PO-Revision-Date: 2020-08-29 23:38+0430\n"
+"POT-Creation-Date: 2020-09-14T19:14:34+00:00\n"
+"PO-Revision-Date: 2020-11-06 21:36+0330\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: \n"
 "Language: fa_IR\n"
@@ -745,7 +745,7 @@ msgstr ""
 #: bp-blogs/bp-blogs-template.php:1159 bp-core/admin/bp-core-admin-tools.php:600
 #: bp-friends/bp-friends-functions.php:962
 #: bp-friends/bp-friends-notifications.php:256
-#: bp-groups/bp-groups-notifications.php:1138
+#: bp-groups/bp-groups-notifications.php:1143
 #: bp-messages/bp-messages-notifications.php:268
 #: bp-settings/bp-settings-functions.php:135
 #: bp-templates/bp-legacy/buddypress/members/register.php:319
@@ -757,7 +757,7 @@ msgstr "بله"
 #: bp-blogs/bp-blogs-template.php:1163 bp-core/admin/bp-core-admin-tools.php:602
 #: bp-friends/bp-friends-functions.php:962
 #: bp-friends/bp-friends-notifications.php:257
-#: bp-groups/bp-groups-notifications.php:1139
+#: bp-groups/bp-groups-notifications.php:1144
 #: bp-messages/bp-messages-notifications.php:269
 #: bp-settings/bp-settings-functions.php:136
 #: bp-templates/bp-legacy/buddypress/members/register.php:320
@@ -775,11 +775,11 @@ msgstr "یکی از اعضا در یک به‌روزرسانی با کمک «%s@
 #: bp-activity/bp-activity-notifications.php:433
 #: bp-friends/bp-friends-notifications.php:267
 #: bp-friends/bp-friends-notifications.php:279
-#: bp-groups/bp-groups-notifications.php:1149
-#: bp-groups/bp-groups-notifications.php:1161
-#: bp-groups/bp-groups-notifications.php:1173
-#: bp-groups/bp-groups-notifications.php:1185
-#: bp-groups/bp-groups-notifications.php:1197
+#: bp-groups/bp-groups-notifications.php:1154
+#: bp-groups/bp-groups-notifications.php:1166
+#: bp-groups/bp-groups-notifications.php:1178
+#: bp-groups/bp-groups-notifications.php:1190
+#: bp-groups/bp-groups-notifications.php:1202
 #: bp-messages/bp-messages-notifications.php:279
 msgid "Yes, send email"
 msgstr "بله، ایمیل ارسال شود"
@@ -789,11 +789,11 @@ msgstr "بله، ایمیل ارسال شود"
 #: bp-activity/bp-activity-notifications.php:437
 #: bp-friends/bp-friends-notifications.php:271
 #: bp-friends/bp-friends-notifications.php:283
-#: bp-groups/bp-groups-notifications.php:1153
-#: bp-groups/bp-groups-notifications.php:1165
-#: bp-groups/bp-groups-notifications.php:1177
-#: bp-groups/bp-groups-notifications.php:1189
-#: bp-groups/bp-groups-notifications.php:1201
+#: bp-groups/bp-groups-notifications.php:1158
+#: bp-groups/bp-groups-notifications.php:1170
+#: bp-groups/bp-groups-notifications.php:1182
+#: bp-groups/bp-groups-notifications.php:1194
+#: bp-groups/bp-groups-notifications.php:1206
 #: bp-messages/bp-messages-notifications.php:283
 msgid "No, do not send email"
 msgstr ""
@@ -3819,7 +3819,7 @@ msgid "Activate Your Account"
 msgstr "حساب کاربری خودتان را فعال کنید"
 
 #: bp-core/bp-core-template.php:3145 bp-groups/bp-groups-template.php:3467
-#: bp-templates/bp-nouveau/includes/groups/functions.php:544
+#: bp-templates/bp-nouveau/includes/groups/functions.php:551
 msgid "Create a Group"
 msgstr "ساختن گروه"
 
@@ -4429,7 +4429,7 @@ msgstr ""
 
 #: bp-core/classes/class-bp-attachment-cover-image.php:215
 msgid "Your cover image was deleted successfully!"
-msgstr ""
+msgstr "تصویر سربرگ شما با موفقیت حذف شد!"
 
 #: bp-core/classes/class-bp-attachment-cover-image.php:231
 msgid "The group cover image was uploaded successfully."
@@ -5277,7 +5277,7 @@ msgid ""
 msgstr ""
 
 #: bp-friends/classes/class-bp-rest-friends-endpoint.php:329
-#: bp-templates/bp-nouveau/includes/groups/functions.php:488
+#: bp-templates/bp-nouveau/includes/groups/functions.php:495
 msgid "You are not allowed to perform this action."
 msgstr ""
 
@@ -6080,100 +6080,100 @@ msgctxt "Group update email text"
 msgid "* Permalink changed from \"%1$s\" to \"%2$s\"."
 msgstr ""
 
-#: bp-groups/bp-groups-notifications.php:256
+#: bp-groups/bp-groups-notifications.php:261
 msgid "an administrator"
 msgstr "یک مدیر"
 
-#: bp-groups/bp-groups-notifications.php:259
+#: bp-groups/bp-groups-notifications.php:264
 msgid "a moderator"
 msgstr "یک مدیر"
 
 #. translators: 1: number of group membership requests. 2: group name.
-#: bp-groups/bp-groups-notifications.php:400
+#: bp-groups/bp-groups-notifications.php:405
 msgid "%1$d new membership requests for the group \"%2$s\""
 msgstr "%1$s درخواست تازه عضویت برای گروه «%2$s»"
 
 #. translators: %s: member name
-#: bp-groups/bp-groups-notifications.php:447
+#: bp-groups/bp-groups-notifications.php:452
 msgid "%s requests group membership"
 msgstr ""
 
 #. translators: 1: number of accepted group membership requests. 2: group name.
-#: bp-groups/bp-groups-notifications.php:503
+#: bp-groups/bp-groups-notifications.php:508
 msgid "%1$d accepted group membership requests for the group \"%2$s\""
 msgstr ""
 
 #. translators: %s: group name.
-#: bp-groups/bp-groups-notifications.php:543
+#: bp-groups/bp-groups-notifications.php:548
 msgid "Membership for group \"%s\" accepted"
 msgstr "عضویت در گروه \"%s\" پذیرفته شد"
 
 #. translators: 1: number of accepted group membership requests. 2: group name.
-#: bp-groups/bp-groups-notifications.php:594
+#: bp-groups/bp-groups-notifications.php:599
 msgid "%1$d rejected group membership requests for the group \"%2$s\""
 msgstr ""
 
 #. translators: %s: group name.
-#: bp-groups/bp-groups-notifications.php:634
+#: bp-groups/bp-groups-notifications.php:639
 msgid "Membership for group \"%s\" rejected"
 msgstr "عضویت در گروه %s پذیرفته نشد"
 
 #. translators: %d: number of groups the user has been promoted admin for
-#: bp-groups/bp-groups-notifications.php:684
+#: bp-groups/bp-groups-notifications.php:689
 msgid "You were promoted to an admin in %d groups"
 msgstr "شما به نقش مدیر در گروه‌های %s ارتقاء داده شده‌اید"
 
 #. translators: %s: group name.
-#: bp-groups/bp-groups-notifications.php:720
+#: bp-groups/bp-groups-notifications.php:725
 msgid "You were promoted to an admin in the group \"%s\""
 msgstr "شما به نقش مدیر در گروه «%s» ارتقاء داده شده‌اید"
 
 #. translators: %d: number of groups the user has been promoted mod for
-#: bp-groups/bp-groups-notifications.php:768
+#: bp-groups/bp-groups-notifications.php:773
 msgid "You were promoted to a mod in %d groups"
 msgstr "شما به نقش ناظر در گروه‌های %s ارتقاء داده شده‌اید"
 
 #. translators: %s: group name.
-#: bp-groups/bp-groups-notifications.php:804
+#: bp-groups/bp-groups-notifications.php:809
 msgid "You were promoted to a mod in the group \"%s\""
 msgstr "شما به نقش ناظر در گروه «%s» ارتقاء داده شده‌اید"
 
 #. translators: %d: number of group invites
-#: bp-groups/bp-groups-notifications.php:853
+#: bp-groups/bp-groups-notifications.php:858
 msgid "You have %d new group invitations"
 msgstr "شما %s دعوت‌نامه برای پیوستن به گروه دارید"
 
 #. translators: %s: group name.
-#: bp-groups/bp-groups-notifications.php:888
+#: bp-groups/bp-groups-notifications.php:893
 msgid "You have an invitation to the group: %s"
 msgstr "شما دعوت‌نامه‌ای برای پیوستن به گروه %s دارید"
 
-#: bp-groups/bp-groups-notifications.php:1137
+#: bp-groups/bp-groups-notifications.php:1142
 msgctxt "Group settings on notification settings page"
 msgid "Groups"
 msgstr "گروه‌ها"
 
-#: bp-groups/bp-groups-notifications.php:1146
+#: bp-groups/bp-groups-notifications.php:1151
 msgctxt "group settings on notification settings page"
 msgid "A member invites you to join a group"
 msgstr "یک عضو شما را دعوت به پیوستن به یک گروه کند"
 
-#: bp-groups/bp-groups-notifications.php:1158
+#: bp-groups/bp-groups-notifications.php:1163
 msgctxt "group settings on notification settings page"
 msgid "Group information is updated"
 msgstr "اطلاعات گروه به‌روز شد"
 
-#: bp-groups/bp-groups-notifications.php:1170
+#: bp-groups/bp-groups-notifications.php:1175
 msgctxt "group settings on notification settings page"
 msgid "You are promoted to a group administrator or moderator"
 msgstr "شما به عنوان مدیر و یا ناظر گروه ارتقاء داده شده‌اید"
 
-#: bp-groups/bp-groups-notifications.php:1182
+#: bp-groups/bp-groups-notifications.php:1187
 msgctxt "group settings on notification settings page"
 msgid "A member requests to join a private group for which you are an admin"
 msgstr "یک عضو درخواست پیوستن به گروه خصوصی، که شما مدیر آن هستید را داشته باشد"
 
-#: bp-groups/bp-groups-notifications.php:1194
+#: bp-groups/bp-groups-notifications.php:1199
 msgctxt "group settings on notification settings page"
 msgid "Your request to join a group has been approved or denied"
 msgstr "درخواست شما برای پیوستن به یک گروه تأیید و یا رد شده باشد"
@@ -6382,7 +6382,7 @@ msgstr "فعالیت‌های گروه"
 #: bp-templates/bp-legacy/buddypress/members/single/friends.php:24
 #: bp-templates/bp-legacy/buddypress/members/single/groups.php:25
 #: bp-templates/bp-nouveau/includes/blogs/functions.php:108
-#: bp-templates/bp-nouveau/includes/groups/functions.php:602
+#: bp-templates/bp-nouveau/includes/groups/functions.php:609
 #: bp-templates/bp-nouveau/includes/members/functions.php:102
 #: bp-templates/bp-nouveau/includes/members/functions.php:120
 msgid "Alphabetical"
@@ -7406,19 +7406,19 @@ msgstr "خطایی در هنگام رد کردن درخواست عضویت رخ 
 msgid "Group membership request rejected"
 msgstr "درخواست عضویت گروه رد شد"
 
-#: bp-groups/screens/single/request-membership.php:28
+#: bp-groups/screens/single/request-membership.php:30
 msgid "Group invite accepted"
 msgstr "دعوت گروه پذیرفته شد"
 
-#: bp-groups/screens/single/request-membership.php:30
+#: bp-groups/screens/single/request-membership.php:32
 msgid "There was an error accepting the group invitation. Please try again."
 msgstr ""
 
-#: bp-groups/screens/single/request-membership.php:42
+#: bp-groups/screens/single/request-membership.php:58
 msgid "There was an error sending your group membership request. Please try again."
 msgstr "خطایی در هنگام فرستادن درخواست عضویت شما در گروه رخ داد، دوباره تلاش کنید."
 
-#: bp-groups/screens/single/request-membership.php:44
+#: bp-groups/screens/single/request-membership.php:60
 msgid ""
 "Your membership request was sent to the group administrator successfully. You "
 "will be notified when the group administrator responds to your request."
@@ -9057,7 +9057,7 @@ msgstr "تاریخ"
 
 #: bp-messages/classes/class-bp-messages-notices-list-table.php:119
 msgid "Activate Notice"
-msgstr "اطلاعیه فعال‌سازی"
+msgstr "فعال‌سازی اطلاعیه"
 
 #: bp-messages/classes/class-bp-messages-notices-list-table.php:127
 msgid "Delete Notice"
@@ -10135,7 +10135,7 @@ msgstr ""
 #: bp-templates/bp-legacy/buddypress/members/single/friends.php:22
 #: bp-templates/bp-legacy/buddypress/members/single/groups.php:22
 #: bp-templates/bp-nouveau/includes/blogs/functions.php:106
-#: bp-templates/bp-nouveau/includes/groups/functions.php:599
+#: bp-templates/bp-nouveau/includes/groups/functions.php:606
 #: bp-templates/bp-nouveau/includes/members/functions.php:97
 msgid "Last Active"
 msgstr "فعالیت"
@@ -10387,13 +10387,13 @@ msgstr "راه‌بری ثانویه دایرکتوری گروه‌ها"
 
 #: bp-templates/bp-legacy/buddypress/groups/index.php:111
 #: bp-templates/bp-legacy/buddypress/members/single/groups.php:23
-#: bp-templates/bp-nouveau/includes/groups/functions.php:600
+#: bp-templates/bp-nouveau/includes/groups/functions.php:607
 msgid "Most Members"
 msgstr "عضویت"
 
 #: bp-templates/bp-legacy/buddypress/groups/index.php:112
 #: bp-templates/bp-legacy/buddypress/members/single/groups.php:24
-#: bp-templates/bp-nouveau/includes/groups/functions.php:601
+#: bp-templates/bp-nouveau/includes/groups/functions.php:608
 msgid "Newly Created"
 msgstr "تازه‌گی"
 
@@ -10765,7 +10765,7 @@ msgstr "گروه‌های عضو"
 
 #. translators: accessibility text
 #: bp-templates/bp-legacy/buddypress/members/single/groups/invites.php:21
-#: bp-templates/bp-nouveau/includes/groups/functions.php:1223
+#: bp-templates/bp-nouveau/includes/groups/functions.php:1230
 msgid "Group invitations"
 msgstr "دعوت‌نامه‌های گروه"
 
@@ -10956,10 +10956,10 @@ msgid ""
 "there is a <a href=\"http://gravatar.com\">Gravatar</a> associated with your "
 "account email we will use that, or you can upload an image from your computer."
 msgstr ""
-"تصویر نمایه شما در نمایه شما و سراسر سایت استفاده خواهد شد. اگر <a href="
-"\"https://fa.gravatar.com\">گراواتار</a> مرتبط با ایمیل حساب شما وجود داشته "
-"باشد، از آن استفاده خواهیم کرد؛ همچنین می‌توانید از روی رایانه تصویر دلخواه "
-"خودتان را بارگذاری کنید."
+"این تصویر در نمایه شما و سراسر سایت استفاده خواهد شد. اگر <a href=\"https://fa."
+"gravatar.com\">گراواتار</a> مرتبط با ایمیل حساب شما وجود داشته باشد، از آن "
+"استفاده خواهیم کرد؛ همچنین می‌توانید از روی رایانه تصویر دلخواه خودتان را "
+"بارگذاری کنید."
 
 #: bp-templates/bp-legacy/buddypress/members/single/profile/change-avatar.php:32
 #: bp-templates/bp-nouveau/buddypress/members/single/profile/change-avatar.php:33
@@ -10982,9 +10982,9 @@ msgid ""
 "gravatar.com\">Gravatar</a> using the same email address as you used to register "
 "with this site."
 msgstr ""
-"تصویر نمایه شما، در برگهٔ نمایه و در سراسر سایت استفاده خواهد شد. برای تغییر این "
-"تصویر، می‌توانید با استفاده از ایمیلی که در این سایت وارد کرده‌اید در <a href="
-"\"https://fa.gravatar.com\">گراواتار</a> نام‌نویسی کنید."
+"این تصویر در نمایه شما و سراسر سایت استفاده خواهد شد. برای تغییر آن می‌توانید با "
+"استفاده از ایمیلی که در این سایت وارد کرده‌اید در <a href=\"https://fa.gravatar."
+"com\">گراواتار</a> نام‌نویسی کنید."
 
 #: bp-templates/bp-legacy/buddypress/members/single/profile/change-cover-image.php:12
 #: bp-templates/bp-nouveau/buddypress/groups/single/admin/group-cover-image.php:21
@@ -11696,9 +11696,9 @@ msgid ""
 "there is a %s associated with your account email we will use that, or you can "
 "upload an image from your computer."
 msgstr ""
-"تصویر نمایه شما در نمایه و سرتاسر سایت استفاده خواهد شد. اگر %s مرتبط با ایمیل "
-"حساب کاربری شما وجود داشته باشد، از آن استفاده خواهیم کرد، یا می‌توانید تصویری را "
-"از رایانه خود بارگذاری کنید."
+"این تصویر در نمایه شما و سراسر سایت استفاده خواهد شد. اگر %s مرتبط با ایمیل حساب "
+"کاربری شما وجود داشته باشد، از آن استفاده خواهیم کرد، یا می‌توانید تصویری را از "
+"رایانه خود بارگذاری کنید."
 
 #. Translators: Url to the Gravatar site, you can use the one for your country eg: https://fr.gravatar.com for French translation
 #: bp-templates/bp-nouveau/buddypress/members/single/profile/change-avatar.php:23
@@ -11713,6 +11713,8 @@ msgid ""
 "change your profile photo, create an account with %s using the same email "
 "address as you used to register with this site."
 msgstr ""
+"این تصویر در نمایه شما و سراسر سایت استفاده خواهد شد. برای تغییر آن می‌توانید با "
+"استفاده از ایمیلی که در این سایت وارد کرده‌اید در %s نام‌نویسی کنید."
 
 #. translators: %s = profile field group name
 #: bp-templates/bp-nouveau/buddypress/members/single/profile/edit.php:34
@@ -11868,7 +11870,7 @@ msgid "All Members"
 msgstr "همه اعضا"
 
 #: bp-templates/bp-nouveau/includes/activity/functions.php:256
-#: bp-templates/bp-nouveau/includes/groups/functions.php:531
+#: bp-templates/bp-nouveau/includes/groups/functions.php:538
 msgid "My Groups"
 msgstr "گروه‌های من"
 
@@ -12400,26 +12402,26 @@ msgid "You are not allowed to send invitations for this group."
 msgstr ""
 
 #. translators: count of users affected
-#: bp-templates/bp-nouveau/includes/groups/ajax.php:431
+#: bp-templates/bp-nouveau/includes/groups/ajax.php:419
 msgid "Invitation failed for %s user."
 msgid_plural "Invitation failed for %s users."
 msgstr[0] ""
 msgstr[1] ""
 
-#: bp-templates/bp-nouveau/includes/groups/ajax.php:450
+#: bp-templates/bp-nouveau/includes/groups/ajax.php:438
 msgid "Invitations sent."
 msgstr "دعوت‌نامه‌ها ارسال شد."
 
-#: bp-templates/bp-nouveau/includes/groups/ajax.php:464
-#: bp-templates/bp-nouveau/includes/groups/ajax.php:507
+#: bp-templates/bp-nouveau/includes/groups/ajax.php:452
+#: bp-templates/bp-nouveau/includes/groups/ajax.php:495
 msgid "Group invitation could not be removed."
 msgstr "دعوت‌نامه گروه نمی‌تواند حذف شود."
 
-#: bp-templates/bp-nouveau/includes/groups/ajax.php:496
+#: bp-templates/bp-nouveau/includes/groups/ajax.php:484
 msgid "The member is already a member of the group."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/ajax.php:516
+#: bp-templates/bp-nouveau/includes/groups/ajax.php:504
 msgid "There are no more pending invitations for the group."
 msgstr ""
 
@@ -12479,106 +12481,106 @@ msgctxt "Group invitations menu title"
 msgid "Invite"
 msgstr "دعوت"
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:428
-#: bp-templates/bp-nouveau/includes/groups/functions.php:456
+#: bp-templates/bp-nouveau/includes/groups/functions.php:435
+#: bp-templates/bp-nouveau/includes/groups/functions.php:463
 msgctxt "Group invitations main menu title"
 msgid "Group Invites"
 msgstr "دعوت‌نامه‌های گروه"
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:486
+#: bp-templates/bp-nouveau/includes/groups/functions.php:493
 msgid "Group invites preferences saved."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:515
+#: bp-templates/bp-nouveau/includes/groups/functions.php:522
 msgid "All Groups"
 msgstr "همه گروه‌ها"
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:700
+#: bp-templates/bp-nouveau/includes/groups/functions.php:707
 msgid "Group front page"
 msgstr "صفحه اول گروه"
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:703
+#: bp-templates/bp-nouveau/includes/groups/functions.php:710
 msgid "Configure the default front page for groups."
 msgstr "صفحه نخست پیش‌فرض گروه‌ها را پیکربندی کنید."
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:706
+#: bp-templates/bp-nouveau/includes/groups/functions.php:713
 msgid "Group navigation"
 msgstr "راه‌بری گروه"
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:709
+#: bp-templates/bp-nouveau/includes/groups/functions.php:716
 msgid ""
 "Customize the navigation menu for groups. See your changes by navigating to a "
 "group in the live-preview window."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:810
+#: bp-templates/bp-nouveau/includes/groups/functions.php:817
 msgid "Enable custom front pages for groups."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:816
+#: bp-templates/bp-nouveau/includes/groups/functions.php:823
 msgid ""
 "Enable widget region for group homepages. When enabled, the site admin can add "
 "widgets to group pages via the Widgets panel."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:822
+#: bp-templates/bp-nouveau/includes/groups/functions.php:829
 msgid "Display the group description in the body of the group's front page."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:828
+#: bp-templates/bp-nouveau/includes/groups/functions.php:835
 msgid "Display the group navigation vertically."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:834
+#: bp-templates/bp-nouveau/includes/groups/functions.php:841
 msgid "Use tab styling for primary navigation."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:840
+#: bp-templates/bp-nouveau/includes/groups/functions.php:847
 msgid "Use tab styling for secondary navigation."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:846
+#: bp-templates/bp-nouveau/includes/groups/functions.php:853
 msgid "Use tab styling for the group creation process."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:853
+#: bp-templates/bp-nouveau/includes/groups/functions.php:860
 msgid "Reorder the primary navigation for a group."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:859
+#: bp-templates/bp-nouveau/includes/groups/functions.php:866
 msgctxt "Customizer control label"
 msgid "Groups"
 msgstr "گروه‌ها"
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:866
+#: bp-templates/bp-nouveau/includes/groups/functions.php:873
 msgid "Group > Members"
 msgstr "گروه > اعضا"
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:873
+#: bp-templates/bp-nouveau/includes/groups/functions.php:880
 msgid "Use column navigation for the Groups directory."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:879
+#: bp-templates/bp-nouveau/includes/groups/functions.php:886
 msgid "Use tab styling for Groups directory navigation."
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:1198
+#: bp-templates/bp-nouveau/includes/groups/functions.php:1205
 msgid "Pending Group membership requests"
 msgstr "درخواست‌های عضویت گروه در انتظار"
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:1203
+#: bp-templates/bp-nouveau/includes/groups/functions.php:1210
 msgid "Accepted Group membership requests"
 msgstr "درخواست‌های عضویت در گروه پذیرفته شده"
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:1208
+#: bp-templates/bp-nouveau/includes/groups/functions.php:1215
 msgid "Rejected Group membership requests"
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:1213
+#: bp-templates/bp-nouveau/includes/groups/functions.php:1220
 msgid "Group Administrator promotions"
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/groups/functions.php:1218
+#: bp-templates/bp-nouveau/includes/groups/functions.php:1225
 msgid "Group Moderator promotions"
 msgstr ""
 
