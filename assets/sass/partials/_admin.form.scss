@@ -11,8 +11,19 @@
     vertical-align: middle;
   }
 
-  input[data-ortho="number"].tiny-text {
-    width: 45px;
+  input[type="number"] {
+    &[dir="ltr"].small-text {
+      /*rtl:begin:ignore*/
+      padding-left: 6px;
+      padding-right: 0;
+      /*rtl:end:ignore*/
+    }
+  }
+
+  input[data-ortho="number"] {
+    &.tiny-text {
+      width: 45px;
+    }
   }
 
   input.small-text {

@@ -1,0 +1,90 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// gNetwork Partials: WooCommerce: Aamin: RTL
+
+////////////////////////////////////////////////////////////////////////////////
+#woocommerce_dashboard_status {
+  .wc_status_list {
+    // width: 100%;
+
+    li {
+      a {
+        font-size: smaller;
+
+        strong {
+          font-family: Arial, sans-serif;
+          font-weight: 600;
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}
+
+#woocommerce_dashboard_recent_reviews {
+  h4.meta {
+    // font-weight: 600;
+    font-size: 12px;
+  }
+
+  blockquote {
+    font-size: smaller;
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+#woocommerce-importer-file-url {
+  // direction: ltr;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+body.woocommerce-page {
+  .select2-container {
+    z-index: inherit; // messed up by `woocommerce-checkout-manager`
+  }
+
+  .button.wc-reload::after {
+    content: "\f341";
+  }
+
+  .order_data_column_container {
+    .order_data_column h3 {
+      font-size: 12px !important;
+    }
+
+    .form-field label {
+      font-size: smaller;
+    }
+
+    input#_billing_postcode,
+    input#_shipping_postcode,
+    input#_billing_phone,
+    input#_billing_email {
+      direction: ltr;
+    }
+
+    p._billing_email_field { /* stylelint-disable-line selector-class-pattern */
+      margin-top: 9px !important;
+    }
+
+    textarea#excerpt {
+      margin-top: 0;
+    }
+  }
+
+  .billing-same-as-shipping,
+  .load_customer_billing,
+  .load_customer_shipping,
+  .woocommerce-layout__header-breadcrumbs {
+    @include theme-fonts-core-native;
+  }
+
+  .woocommerce_options_panel {
+    input#_sku,
+    input#_sale_price,
+    input#_regular_price {
+      direction: ltr;
+    }
+  }
+}

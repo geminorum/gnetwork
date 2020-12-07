@@ -17,8 +17,13 @@
   }
 
   .-button.-button-icon {
-    padding: 4px 3px 3px !important;
-    // line-height: 1.3;
+    padding: 0 8px !important;
+
+    .dashicons {
+      // vertical-align: text-top;
+      position: relative;
+      top: 5px;
+    }
 
     &.-button-icon-with-text {
       padding-left: 6px !important;

@@ -1,0 +1,56 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// gNetwork Partials: Rank Math SEO: RTL --------------------------------------
+
+////////////////////////////////////////////////////////////////////////////////
+#rank_math_dashboard_widget {
+  .hndle .rank-math-icon {
+    margin-right: 0;
+    margin-left: 5px;
+  }
+
+  .rank-math-dashabord-block {
+    > div:first-of-type {
+      border-radius: 0 6px 6px 0;
+      border-width: 1px 1px 1px 0;
+    }
+
+    > div:last-of-type {
+      border-radius: 6px 0 0 6px;
+    }
+  }
+
+  .rank-math-blog-title,
+  .rank-math-blog-list {
+    display: none;
+  }
+
+  .rank-math-blog-list {
+    margin-left: 0;
+    margin-right: 17px;
+  }
+
+  .rank-math-widget-footer {
+    a {
+      border-right: none;
+      border-left: 1px solid #dadfe4;
+
+      &:first-child {
+        padding-left: 10px;
+        padding-right: 0;
+      }
+    }
+  }
+}
+////////////////////////////////////////////////////////////////////////////////
+.misc-pub-section.rank-math-seo-score {
+  left: 0 !important;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+.rank-math-metabox-wrap {
+  .rank-math-seo-score {
+    height: 45px;
+  }
+}

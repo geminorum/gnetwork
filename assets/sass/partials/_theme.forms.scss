@@ -1,14 +1,16 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-/// gNetwork Partials: Woo-Commerce: RTL ---------------------------------------
+/// gNetwork Partials: Theme: Forms
 
-#woocommerce_dashboard_status {
-  .wc_status_list {
-    width: 100%;
+@mixin theme-forms-defaults() {
+  input[type="url"],
+  input[type="tel"],
+  input[type="email"] {
+    direction: ltr;
   }
-}
 
-#woocommerce-importer-file-url {
-  direction: ltr;
+  textarea {
+    resize: vertical;
+  }
 }

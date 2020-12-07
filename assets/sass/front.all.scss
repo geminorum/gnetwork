@@ -11,6 +11,7 @@
 @import "partials/widgets.front.all";
 @import "partials/code.front.all";
 @import "partials/comments.front.all";
+@import "partials/commerce.front.all";
 @import "partials/shortcodes.front.all";
 @import "partials/typography.front.all";
 @import "partials/themes.front.all";
@@ -23,7 +24,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 @import "blocks/wpcf7_01";
 @import "partials/prism.all";
-@import "partials/front.adblock";
+// @import "partials/front.adblock";
 @import "partials/thickbox.rtl";
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -212,9 +212,10 @@ table.base-table-list {
   .-column-id,
   .-column-post_id,
   .-column-term_id {
-    width: 60px;
+    width: 40px;
   }
 
+  .-column-stock,
   .-column-count {
     width: 40px;
   }
@@ -224,12 +225,12 @@ table.base-table-list {
   }
 
   .-column-date {
-    width: 95px;
+    width: 65px;
   }
 
   .-column-markdown,
   .-column-type {
-    width: 6%;
+    width: 65px; // 6%;
   }
 
   .-column-mime {
