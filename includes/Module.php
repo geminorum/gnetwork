@@ -1390,13 +1390,18 @@ class Module extends Core\Base
 		return TRUE;
 	}
 
+	protected static function metabox_getTitleAction( $action )
+	{
+		return ' <span class="postbox-title-action"><a href="'.esc_url( $action['url'] ).'" title="'.$action['title'].'">'.$action['link'].'</a></span>';
+	}
+
 	protected function metabox_titleActionRefresh( $hook )
 	{
-		$html = ' <span class="postbox-title-action"><a href="'.esc_url( add_query_arg( 'flush', '' ) ).'"';
-		$html.= ' title="'._x( 'Click to refresh the content', 'Module Core: Title Action', 'gnetwork' ).'">';
-		$html.= _x( 'Refresh', 'Module Core: Title Action', 'gnetwork' ).'</a></span>';
-
-		return $html;
+		return self::metabox_getTitleAction( [
+			'url'   => add_query_arg( 'flush', '' ),
+			'title' => _x( 'Click to refresh the content', 'Module Core: Title Action', 'gnetwork' ),
+			'link'  => _x( 'Refresh', 'Module Core: Title Action', 'gnetwork' ),
+		] );
 	}
 
 	protected function metabox_titleActionInfo( $hook )
@@ -1415,29 +1420,45 @@ class Module extends Core\Base
 	}
 
 	// @REF: `wp_add_dashboard_widget()`
-	protected function add_dashboard_widget( $name, $title, $action = FALSE, $option_key = 'dashboard_accesscap' )
+	protected function add_dashboard_widget( $name, $title, $action = FALSE, $extra = [], $callback = NULL, $option_key = 'dashboard_accesscap' )
 	{
 		if ( array_key_exists( $option_key, $this->options )
 			&& ! WordPress::cuc( $this->options[$option_key] ) )
 				return FALSE;
 
-		$screen   = get_current_screen();
-		$hook     = self::sanitize_hook( $name );
-		$id       = $this->classs( $name );
-		$context  = 'normal';
-		$priority = 'default';
-		$args     = [ '__widget_basename' => $title ]; // passing title without extra markup
+		$screen = get_current_screen();
+		$hook   = self::sanitize_hook( $name );
+		$id     = $this->classs( $name );
+		$title  = $this->filters( 'dashboard_widget_title', $title, $name, $option_key );
+		$args   = array_merge( [
+			'__widget_basename' => $title, // passing title without extra markup
+		], $extra );
 
-		switch ( $action ) {
-			case 'refresh': $title.= $this->metabox_titleActionRefresh( $hook ); break;
-			case 'info'   : $title.= $this->metabox_titleActionInfo( $hook );    break;
+		if ( is_array( $action ) ) {
+
+			$title.= self::metabox_getTitleAction( $action );
+
+		} else if ( $action ) {
+
+			switch ( $action ) {
+				case 'refresh': $title.= $this->metabox_titleActionRefresh( $hook ); break;
+				case 'info'   : $title.= $this->metabox_titleActionInfo( $hook );    break;
+			}
 		}
 
-		// wp_add_dashboard_widget( $id, $title, [ $this, 'render_widget_'.$hook ] );
-		add_meta_box( $id, $title, [ $this, 'render_widget_'.$hook ], $screen, $context, $priority, $args );
+		if ( is_null( $callback ) )
+			$callback = [ $this, 'render_widget_'.$hook ];
+
+		add_meta_box( $id, $title, $callback, $screen, 'normal', 'default', $args );
 
 		add_filter( 'postbox_classes_'.$screen->id.'_'.$id, function( $classes ) use ( $name ) {
-			return array_merge( $classes, [ $this->base.'-wrap', '-admin-postbox', '-'.$this->key, '-'.$this->key.'-'.$name ] );
+			return array_merge( $classes, [
+				$this->base.'-wrap',
+				'-admin-postbox',
+				'-admin-postbox'.'-'.$name,
+				'-'.$this->key,
+				'-'.$this->key.'-'.$name,
+			] );
 		} );
 
 		if ( in_array( $id, get_hidden_meta_boxes( $screen ) ) )
