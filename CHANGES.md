@@ -1,3 +1,61 @@
+### 3.12.0
+* main/module: custom postbox classes
+* main/module: dashboard widget api refreshed
+* main/module: get posts for tablelist as api
+* main/plugin: refactoring the main plugin class
+* main/settings: css class for empty strings
+* module/bbq: :up: v20201123
+* module/branding: :warning: previous hook not works on every permalink setup
+* module/branding: manifest enabled by default
+* module/buddypress: optional disable mentions
+* module/cleanup: :warning: correct nounce on tools
+* module/commerce: :new: optional gtin field with custom label
+* module/commerce: :new: purchased products on the account page
+* module/commerce: check for duplicate meta if user is not logged in
+* module/commerce: custom string for in stock
+* module/commerce: custom string for out of stocks
+* module/commerce: fallbacks for empty measurements
+* module/commerce: format numbers back on postcode/phone
+* module/commerce: hide price options
+* module/commerce: more fields options on checkout
+* module/commerce: quantity price preview
+* module/commerce: recalculate stock tools
+* module/commerce: shetab card tweaks
+* module/commerce: skip on non-releated locale
+* module/commerce: ssn field
+* module/commerce: validation patterns for mobile/ssn html fields
+* module/dashboard: last logins on non-multisite
+* module/debug: auto-loading debug-bar clasess
+* module/debug: query monitor panel for current object
+* module/locale: skip filtering empty script translations
+* module/media: format slug on media file names
+* module/notify: disable new site email
+* module/opensearch: :warning: previous hook not works on every permalink setup
+* module/profile: check for multisite on settings
+* module/restricted: better naming for helper methods
+* module/restricted: double sure on avoiding sitemap generation
+* module/search: foolproof posts group by filter
+* module/search: include terms on search
+* module/search: refactoring include meta on search
+* module/search: titles only search
+* module/site: includes all sites on allowed redirect hosts
+* module/taxonomy: :new: bulk action for assign parents to posts
+* module/taxonomy: :new: handle multiple terms on merge action
+* module/taxonomy: :warning: set term meta values correctly
+* module/taxonomy: better handling targeted terms
+* module/taxonomy: better handling term parents
+* module/taxonomy: late deletion of the term on multiple merge
+* module/taxonomy: simplify the term append on multiple merge
+* module/themes: storefront: force woocomerce defaults
+* module/themes: support for storefront theme
+* module/themes: underscores credits helper
+* module/typography: more extra shortcodes
+* module/typography: move up format slugs
+* module/update: better handling uri on remote packages
+* module/update: check for cap and correct query arg on flush
+* module/update: disable major updates by default
+* module/user: :new: authenticate by mobile number
+
 ### 3.11.3
 * module/update: :warning: correct class for empty transients
 
