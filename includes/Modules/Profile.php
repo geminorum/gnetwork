@@ -92,89 +92,98 @@ class Profile extends gNetwork\Module
 
 	public function default_settings()
 	{
+		$settings  = array_fill_keys( [ '_general', '_signup' ], [] );
+		$multisite = is_multisite();
+
 		$exclude = array_filter( [
 			get_option( 'page_on_front' ),
 			get_option( 'page_for_posts' ),
 		] );
 
-		return [
-			'_general' => [
-				[
-					'field'       => 'display_name_per_site',
-					'title'       => _x( 'Custom Display Name', 'Modules: Profile: Settings', 'gnetwork' ),
-					'description' => _x( 'Enables custom display name per-site for each user.', 'Modules: Profile: Settings', 'gnetwork' ),
-				],
-				[
-					'field'       => 'disable_password_reset',
-					'type'        => 'disabled',
-					'title'       => _x( 'Password Reset', 'Modules: Profile: Settings', 'gnetwork' ),
-					'description' => _x( 'Controls whether to allow a password to be reset.', 'Modules: Profile: Settings', 'gnetwork' ),
-				],
-				[
-					'field'       => 'disable_colorschemes',
-					'type'        => 'disabled',
-					'title'       => _x( 'Color Schemes', 'Modules: Profile: Settings', 'gnetwork' ),
-					'description' => _x( 'Controls whether to allow a selection of admin color scheme.', 'Modules: Profile: Settings', 'gnetwork' ),
-				],
-				[
-					'field'       => 'contact_methods',
-					'title'       => _x( 'Contact Methods', 'Modules: Profile: Settings', 'gnetwork' ),
-					'description' => _x( 'Adds extra contact methods to user profiles.', 'Modules: Profile: Settings', 'gnetwork' ),
-					'default'     => '1',
-				],
-				[
-					'field'       => 'user_locale',
-					'title'       => _x( 'User Language', 'Modules: Profile: Settings', 'gnetwork' ),
-					'description' => _x( 'Enables admin language switcher for each user.', 'Modules: Profile: Settings', 'gnetwork' ),
-					'after'       => Settings::fieldAfterIcon( 'https://core.trac.wordpress.org/ticket/29783' ),
-				],
-			],
-			'_signup' => [
-				[
-					'field'       => 'page_signup_disabled',
-					'type'        => 'page',
-					'title'       => _x( 'Disabled Page', 'Modules: Profile: Settings', 'gnetwork' ),
-					'description' => _x( 'Redirects network sign-up into this page, if registration have been <b>disabled</b>.', 'Modules: Profile: Settings', 'gnetwork' ),
-					'default'     => '0',
-					'exclude'     => $exclude,
-					'after'       => Settings::fieldAfterNewPostType( 'page' ),
-				],
-				[
-					'field'       => 'redirect_signup_url',
-					'type'        => 'url',
-					'title'       => _x( 'Custom Location', 'Modules: Profile: Settings', 'gnetwork' ),
-					'description' => _x( 'Full URL to the custom sign-up page.', 'Modules: Profile: Settings', 'gnetwork' ),
-				],
-				[
-					'field'       => 'redirect_signup_after',
-					'type'        => 'url',
-					'title'       => _x( 'Location After', 'Modules: Profile: Settings', 'gnetwork' ),
-					'description' => _x( 'Redirects into this URL after a successful registraion.', 'Modules: Profile: Settings', 'gnetwork' ),
-				],
-				[
-					'field'       => 'store_signup_ip',
-					'title'       => _x( 'IP Address', 'Modules: Profile: Settings', 'gnetwork' ),
-					'description' => _x( 'Stores user\'s IP address upon registration.', 'Modules: Profile: Settings', 'gnetwork' ),
-					'default'     => '1',
-				],
-				[
-					'field'       => 'default_colorscheme',
-					'type'        => 'select',
-					'title'       => _x( 'Default Color Scheme', 'Modules: Profile: Settings', 'gnetwork' ),
-					'description' => _x( 'Sets as default upon each user registeration.', 'Modules: Profile: Settings', 'gnetwork' ),
-					'values'      => [
-						'0'         => _x( 'Default', 'Modules: Profile: Settings: Color Scheme', 'gnetwork' ),
-						'light'     => _x( 'Light', 'Modules: Profile: Settings: Color Scheme', 'gnetwork' ),
-						'blue'      => _x( 'Blue', 'Modules: Profile: Settings: Color Scheme', 'gnetwork' ),
-						'coffee'    => _x( 'Coffee', 'Modules: Profile: Settings: Color Scheme', 'gnetwork' ),
-						'ectoplasm' => _x( 'Ectoplasm', 'Modules: Profile: Settings: Color Scheme', 'gnetwork' ),
-						'midnight'  => _x( 'Midnight', 'Modules: Profile: Settings: Color Scheme', 'gnetwork' ),
-						'ocean'     => _x( 'Ocean', 'Modules: Profile: Settings: Color Scheme', 'gnetwork' ),
-						'sunrise'   => _x( 'Sunrise', 'Modules: Profile: Settings: Color Scheme', 'gnetwork' ),
-					],
-				],
+		if ( $multisite )
+			$settings['_general'][] = [
+				'field'       => 'display_name_per_site',
+				'title'       => _x( 'Custom Display Name', 'Modules: Profile: Settings', 'gnetwork' ),
+				'description' => _x( 'Enables custom display name per-site for each user.', 'Modules: Profile: Settings', 'gnetwork' ),
+			];
+
+		$settings['_general'][] = [
+			'field'       => 'disable_password_reset',
+			'type'        => 'disabled',
+			'title'       => _x( 'Password Reset', 'Modules: Profile: Settings', 'gnetwork' ),
+			'description' => _x( 'Controls whether to allow a password to be reset.', 'Modules: Profile: Settings', 'gnetwork' ),
+		];
+
+		$settings['_general'][] = [
+			'field'       => 'disable_colorschemes',
+			'type'        => 'disabled',
+			'title'       => _x( 'Color Schemes', 'Modules: Profile: Settings', 'gnetwork' ),
+			'description' => _x( 'Controls whether to allow a selection of admin color scheme.', 'Modules: Profile: Settings', 'gnetwork' ),
+		];
+
+		$settings['_general'][] = [
+			'field'       => 'contact_methods',
+			'title'       => _x( 'Contact Methods', 'Modules: Profile: Settings', 'gnetwork' ),
+			'description' => _x( 'Adds extra contact methods to user profiles.', 'Modules: Profile: Settings', 'gnetwork' ),
+			'default'     => '1',
+		];
+
+		$settings['_general'][] = [
+			'field'       => 'user_locale',
+			'title'       => _x( 'User Language', 'Modules: Profile: Settings', 'gnetwork' ),
+			'description' => _x( 'Enables admin language switcher for each user.', 'Modules: Profile: Settings', 'gnetwork' ),
+			'after'       => Settings::fieldAfterIcon( 'https://core.trac.wordpress.org/ticket/29783' ),
+		];
+
+		$settings['_signup'][] = [
+			'field'       => 'page_signup_disabled',
+			'type'        => 'page',
+			'title'       => _x( 'Disabled Page', 'Modules: Profile: Settings', 'gnetwork' ),
+			'description' => _x( 'Redirects network sign-up into this page, if registration have been <b>disabled</b>.', 'Modules: Profile: Settings', 'gnetwork' ),
+			'default'     => '0',
+			'exclude'     => $exclude,
+			'after'       => Settings::fieldAfterNewPostType( 'page' ),
+		];
+
+		$settings['_signup'][] = [
+			'field'       => 'redirect_signup_url',
+			'type'        => 'url',
+			'title'       => _x( 'Custom Location', 'Modules: Profile: Settings', 'gnetwork' ),
+			'description' => _x( 'Full URL to the custom sign-up page.', 'Modules: Profile: Settings', 'gnetwork' ),
+		];
+
+		$settings['_signup'][] = [
+			'field'       => 'redirect_signup_after',
+			'type'        => 'url',
+			'title'       => _x( 'Location After', 'Modules: Profile: Settings', 'gnetwork' ),
+			'description' => _x( 'Redirects into this URL after a successful registraion.', 'Modules: Profile: Settings', 'gnetwork' ),
+		];
+
+		$settings['_signup'][] = [
+			'field'       => 'store_signup_ip',
+			'title'       => _x( 'IP Address', 'Modules: Profile: Settings', 'gnetwork' ),
+			'description' => _x( 'Stores user\'s IP address upon registration.', 'Modules: Profile: Settings', 'gnetwork' ),
+			'default'     => '1',
+		];
+
+		$settings['_signup'][] = [
+			'field'       => 'default_colorscheme',
+			'type'        => 'select',
+			'title'       => _x( 'Default Color Scheme', 'Modules: Profile: Settings', 'gnetwork' ),
+			'description' => _x( 'Sets as default upon each user registeration.', 'Modules: Profile: Settings', 'gnetwork' ),
+			'values'      => [
+				'0'         => _x( 'Default', 'Modules: Profile: Settings: Color Scheme', 'gnetwork' ),
+				'light'     => _x( 'Light', 'Modules: Profile: Settings: Color Scheme', 'gnetwork' ),
+				'blue'      => _x( 'Blue', 'Modules: Profile: Settings: Color Scheme', 'gnetwork' ),
+				'coffee'    => _x( 'Coffee', 'Modules: Profile: Settings: Color Scheme', 'gnetwork' ),
+				'ectoplasm' => _x( 'Ectoplasm', 'Modules: Profile: Settings: Color Scheme', 'gnetwork' ),
+				'midnight'  => _x( 'Midnight', 'Modules: Profile: Settings: Color Scheme', 'gnetwork' ),
+				'ocean'     => _x( 'Ocean', 'Modules: Profile: Settings: Color Scheme', 'gnetwork' ),
+				'sunrise'   => _x( 'Sunrise', 'Modules: Profile: Settings: Color Scheme', 'gnetwork' ),
 			],
 		];
+
+		return $settings;
 	}
 
 	public function settings_sidebox( $sub, $uri )
