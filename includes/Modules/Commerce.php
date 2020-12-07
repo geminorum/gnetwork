@@ -524,6 +524,15 @@ class Commerce extends gNetwork\Module
 		if ( $this->options['ssn_field'] )
 			$data['customer_ssn'] = $this->sanitize_ssn_field( $data['customer_ssn'] );
 
+		if ( ! empty( $data['shipping_postcode'] ) )
+			$data['shipping_postcode'] = Number::intval( $data['shipping_postcode'], FALSE );
+
+		if ( ! empty( $data['billing_postcode'] ) )
+			$data['billing_postcode'] = Number::intval( $data['billing_postcode'], FALSE );
+
+		if ( ! empty( $data['billing_phone'] ) )
+			$data['billing_phone'] = Number::intval( $data['billing_phone'], FALSE );
+
 		return $data;
 	}
 
