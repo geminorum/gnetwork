@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-12-07T19:34:57+00:00\n"
+"POT-Creation-Date: 2020-12-08T02:04:05+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: gnetwork\n"
@@ -6580,127 +6580,147 @@ msgctxt "Modules: Taxonomy: Settings"
 msgid "Looks for criteria in term descriptions and slugs as well as term names."
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:157
+#: includes/Modules/Taxonomy.php:159
 msgctxt "Modules: Taxonomy: Column"
 msgid "Description"
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:185
+#: includes/Modules/Taxonomy.php:187
 msgctxt "Modules: Taxonomy: Quick Edit Label"
 msgid "Description"
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:253
-#: includes/Modules/Taxonomy.php:287
+#: includes/Modules/Taxonomy.php:251
+msgctxt "Modules: Taxonomy: Info"
+msgid "Default term for this taxonomy is &ldquo;%s&rdquo;."
+msgstr ""
+
+#: includes/Modules/Taxonomy.php:272
+#: includes/Modules/Taxonomy.php:306
 msgctxt "Modules: Taxonomy"
 msgid "Description"
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:260
-#: includes/Modules/Taxonomy.php:294
+#: includes/Modules/Taxonomy.php:279
+#: includes/Modules/Taxonomy.php:313
 msgctxt "Modules: Taxonomy"
 msgid "The description is not prominent by default; however, some themes may show it."
 msgstr ""
 
 #. translators: %s: number of words
-#: includes/Modules/Taxonomy.php:306
+#: includes/Modules/Taxonomy.php:325
 msgctxt "Modules: Taxonomy"
 msgid "Words: %s"
 msgstr ""
 
 #. translators: %s: number of chars
-#: includes/Modules/Taxonomy.php:309
+#: includes/Modules/Taxonomy.php:328
 msgctxt "Modules: Taxonomy"
 msgid "Chars: %s"
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:339
+#: includes/Modules/Taxonomy.php:360
 msgctxt "Modules: Taxonomy: Help Tab Content"
 msgid "These are extra bulk actions available for this taxonomy:"
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:345
+#: includes/Modules/Taxonomy.php:367
 msgctxt "Modules: Taxonomy: Help Tab Content"
 msgid "These are extra actions available for this term:"
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:354
+#: includes/Modules/Taxonomy.php:376
 msgctxt "Modules: Taxonomy: Help Tab Title"
 msgid "Extra Actions"
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:376
+#: includes/Modules/Taxonomy.php:397
+msgctxt "Modules: Taxonomy: Bulk Action"
+msgid "Set Default"
+msgstr ""
+
+#: includes/Modules/Taxonomy.php:400
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Set Parent"
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:378
+#: includes/Modules/Taxonomy.php:402
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Merge"
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:379
+#: includes/Modules/Taxonomy.php:403
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Change Taxonomy"
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:380
+#: includes/Modules/Taxonomy.php:404
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Format i18n"
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:381
+#: includes/Modules/Taxonomy.php:405
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Assign Parents"
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:382
+#: includes/Modules/Taxonomy.php:406
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Empty Posts"
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:383
+#: includes/Modules/Taxonomy.php:407
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Empty Description"
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:386
+#: includes/Modules/Taxonomy.php:410
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Rewrite Slug"
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:387
+#: includes/Modules/Taxonomy.php:411
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Transliterate Slug"
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:407
+#: includes/Modules/Taxonomy.php:434
+msgctxt "Modules: Taxonomy"
+msgid "Caution"
+msgstr ""
+
+#: includes/Modules/Taxonomy.php:437
+msgctxt "Modules: Taxonomy: Info"
+msgid "This is the default term for &ldquo;%s&rdquo; taxonomy."
+msgstr ""
+
+#: includes/Modules/Taxonomy.php:453
 msgctxt "Modules: Taxonomy"
 msgid "Extra Actions"
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:411
+#: includes/Modules/Taxonomy.php:457
 msgctxt "Modules: Taxonomy"
 msgid "&ndash; Select Action &ndash;"
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:500
+#: includes/Modules/Taxonomy.php:546
 msgctxt "Settings: Message"
 msgid "Terms updated."
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:505
+#: includes/Modules/Taxonomy.php:551
 msgctxt "Settings: Message"
 msgid "Terms not updated."
 msgstr ""
 
 #. translators: %s: merge into input
-#: includes/Modules/Taxonomy.php:811
+#: includes/Modules/Taxonomy.php:871
 msgctxt "Modules: Taxonomy"
 msgid "into: %s"
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:813
+#: includes/Modules/Taxonomy.php:873
 msgctxt "Modules: Taxonomy"
 msgid "Name, Slug or ID"
 msgstr ""

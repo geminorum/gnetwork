@@ -340,12 +340,29 @@ class Taxonomy extends gNetwork\Module
 
 	private function management_tools( $screen )
 	{
-		$actions = $this->get_actions( $screen->taxonomy );
+		if ( 'term' == $screen->base ) {
 
-		if ( 'term' == $screen->base )
-			unset( $actions['set_parent'], $actions['merge'], $actions['empty_desc'] );
-		else
-			unset( $actions['set_default'] );
+			$excludes = [
+				'set_parent',
+				'empty_desc',
+				'merge',
+			];
+
+			$option  = 'category' == $screen->taxonomy ? 'default_category' : 'default_term_'.$screen->taxonomy;
+			$default = get_option( $option );
+
+			if ( ! empty( $default ) && ( $current = self::req( 'tag_ID' ) ) )
+				$excludes[] = $default == $current ? 'set_default' : 'unset_default';
+
+		} else {
+
+			$excludes = [
+				'set_default',
+				'unset_default',
+			];
+		}
+
+		$actions = Arraay::stripByKeys( $this->get_actions( $screen->taxonomy ), $excludes );
 
 		if ( ! count( $actions ) )
 			return FALSE;
@@ -394,7 +411,8 @@ class Taxonomy extends gNetwork\Module
 
 		$actions = [];
 
-		$actions['set_default'] = _x( 'Set Default', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
+		$actions['set_default']   = _x( 'Set Default', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
+		$actions['unset_default'] = _x( 'Unset Default', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
 
 		if ( is_taxonomy_hierarchical( $taxonomy ) )
 			$actions['set_parent'] = _x( 'Set Parent', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
@@ -758,6 +776,20 @@ class Taxonomy extends gNetwork\Module
 		foreach ( $term_ids as $term_id ) {
 
 			update_option( $option, (int) $term_id );
+
+			break; // only one can be default!
+		}
+
+		return TRUE;
+	}
+
+	public function handle_unset_default( $term_ids, $taxonomy )
+	{
+		$option = 'category' == $taxonomy ? 'default_category' : 'default_term_'.$taxonomy;
+
+		foreach ( $term_ids as $term_id ) {
+
+			delete_option( $option, (int) $term_id );
 
 			break; // only one can be default!
 		}

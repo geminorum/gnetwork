@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gNetwork\n"
 "Report-Msgid-Bugs-To: https://github.com/geminorum/gnetwork/issues\n"
-"POT-Creation-Date: 2020-12-07T19:34:57+00:00\n"
-"PO-Revision-Date: 2020-12-07 23:05+0330\n"
+"POT-Creation-Date: 2020-12-08T02:04:05+00:00\n"
+"PO-Revision-Date: 2020-12-08 05:35+0330\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: \n"
 "Language: fa_IR\n"
@@ -6693,22 +6693,27 @@ msgctxt "Modules: Taxonomy: Settings"
 msgid "Looks for criteria in term descriptions and slugs as well as term names."
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:157
+#: includes/Modules/Taxonomy.php:159
 msgctxt "Modules: Taxonomy: Column"
 msgid "Description"
 msgstr "توضیحات"
 
-#: includes/Modules/Taxonomy.php:185
+#: includes/Modules/Taxonomy.php:187
 msgctxt "Modules: Taxonomy: Quick Edit Label"
 msgid "Description"
 msgstr "توضیحات"
 
-#: includes/Modules/Taxonomy.php:253 includes/Modules/Taxonomy.php:287
+#: includes/Modules/Taxonomy.php:251
+msgctxt "Modules: Taxonomy: Info"
+msgid "Default term for this taxonomy is &ldquo;%s&rdquo;."
+msgstr "&ldquo;%s&rdquo; رده پیش‌فرض برای این رده‌بندی است."
+
+#: includes/Modules/Taxonomy.php:272 includes/Modules/Taxonomy.php:306
 msgctxt "Modules: Taxonomy"
 msgid "Description"
 msgstr "توضیحات"
 
-#: includes/Modules/Taxonomy.php:260 includes/Modules/Taxonomy.php:294
+#: includes/Modules/Taxonomy.php:279 includes/Modules/Taxonomy.php:313
 msgctxt "Modules: Taxonomy"
 msgid ""
 "The description is not prominent by default; however, some themes may show it."
@@ -6717,104 +6722,119 @@ msgstr ""
 "را نمایش دهند."
 
 #. translators: %s: number of words
-#: includes/Modules/Taxonomy.php:306
+#: includes/Modules/Taxonomy.php:325
 msgctxt "Modules: Taxonomy"
 msgid "Words: %s"
 msgstr "واژه‌ها: %s"
 
 #. translators: %s: number of chars
-#: includes/Modules/Taxonomy.php:309
+#: includes/Modules/Taxonomy.php:328
 msgctxt "Modules: Taxonomy"
 msgid "Chars: %s"
 msgstr "نویسه‌ها: %s"
 
-#: includes/Modules/Taxonomy.php:339
+#: includes/Modules/Taxonomy.php:360
 msgctxt "Modules: Taxonomy: Help Tab Content"
 msgid "These are extra bulk actions available for this taxonomy:"
 msgstr "کنش‌های افزوده جمعی ارائه شده برای این رده‌بندی:"
 
-#: includes/Modules/Taxonomy.php:345
+#: includes/Modules/Taxonomy.php:367
 msgctxt "Modules: Taxonomy: Help Tab Content"
 msgid "These are extra actions available for this term:"
 msgstr "کنش‌های افزوده ارائه شده برای این رده:"
 
-#: includes/Modules/Taxonomy.php:354
+#: includes/Modules/Taxonomy.php:376
 msgctxt "Modules: Taxonomy: Help Tab Title"
 msgid "Extra Actions"
 msgstr "کنش‌های افزوده"
 
-#: includes/Modules/Taxonomy.php:376
+#: includes/Modules/Taxonomy.php:397
+msgctxt "Modules: Taxonomy: Bulk Action"
+msgid "Set Default"
+msgstr "تنظیم پیش‌فرض"
+
+#: includes/Modules/Taxonomy.php:400
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Set Parent"
 msgstr "تغییر مادر"
 
-#: includes/Modules/Taxonomy.php:378
+#: includes/Modules/Taxonomy.php:402
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Merge"
 msgstr "ترکیب رده‌بندی"
 
-#: includes/Modules/Taxonomy.php:379
+#: includes/Modules/Taxonomy.php:403
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Change Taxonomy"
 msgstr "تغییر رده‌بندی"
 
-#: includes/Modules/Taxonomy.php:380
+#: includes/Modules/Taxonomy.php:404
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Format i18n"
 msgstr "اصلاح نویسه‌ها"
 
-#: includes/Modules/Taxonomy.php:381
+#: includes/Modules/Taxonomy.php:405
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Assign Parents"
 msgstr "تخصیص مادران"
 
-#: includes/Modules/Taxonomy.php:382
+#: includes/Modules/Taxonomy.php:406
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Empty Posts"
 msgstr "تخلیه نوشته‌ها"
 
-#: includes/Modules/Taxonomy.php:383
+#: includes/Modules/Taxonomy.php:407
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Empty Description"
 msgstr "تخلیه توضیحات"
 
-#: includes/Modules/Taxonomy.php:386
+#: includes/Modules/Taxonomy.php:410
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Rewrite Slug"
 msgstr "بازنویسی نامک"
 
-#: includes/Modules/Taxonomy.php:387
+#: includes/Modules/Taxonomy.php:411
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Transliterate Slug"
 msgstr "نویسه‌گردانی نامک"
 
-#: includes/Modules/Taxonomy.php:407
+#: includes/Modules/Taxonomy.php:434
+msgctxt "Modules: Taxonomy"
+msgid "Caution"
+msgstr "هشدار"
+
+#: includes/Modules/Taxonomy.php:437
+msgctxt "Modules: Taxonomy: Info"
+msgid "This is the default term for &ldquo;%s&rdquo; taxonomy."
+msgstr "این رده پیش‌فرض برای رده‌بندی &ldquo;%s&rdquo; است."
+
+#: includes/Modules/Taxonomy.php:453
 msgctxt "Modules: Taxonomy"
 msgid "Extra Actions"
 msgstr "کنش‌های افزوده"
 
-#: includes/Modules/Taxonomy.php:411
+#: includes/Modules/Taxonomy.php:457
 msgctxt "Modules: Taxonomy"
 msgid "&ndash; Select Action &ndash;"
 msgstr "&ndash; انتخاب کنید &ndash;"
 
-#: includes/Modules/Taxonomy.php:500
+#: includes/Modules/Taxonomy.php:546
 msgctxt "Settings: Message"
 msgid "Terms updated."
 msgstr "رده‌بندی‌ها به‌روز شدند."
 
-#: includes/Modules/Taxonomy.php:505
+#: includes/Modules/Taxonomy.php:551
 msgctxt "Settings: Message"
 msgid "Terms not updated."
 msgstr "رده‌بندی‌ها به‌روز نشده‌اند."
 
 #. translators: %s: merge into input
-#: includes/Modules/Taxonomy.php:811
+#: includes/Modules/Taxonomy.php:871
 msgctxt "Modules: Taxonomy"
 msgid "into: %s"
 msgstr "در: %s"
 
-#: includes/Modules/Taxonomy.php:813
+#: includes/Modules/Taxonomy.php:873
 msgctxt "Modules: Taxonomy"
 msgid "Name, Slug or ID"
 msgstr "نام، نامک و یا شناسه"
