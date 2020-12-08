@@ -458,14 +458,6 @@ class Taxonomy extends gNetwork\Module
 
 	public function edit_form_fields_actions( $tag, $taxonomy )
 	{
-		$actions = Arraay::stripByKeys(
-			$this->get_actions( $taxonomy ),
-			[ 'set_parent', 'merge', 'empty_desc' ]
-		);
-
-		if ( ! count( $actions ) )
-			return;
-
 		echo '<tr class="form-field term-actions-wrap actions">';
 			echo '<th scope="row" valign="top"><label for="extra-action-selector">';
 				_ex( 'Extra Actions', 'Modules: Taxonomy', 'gnetwork' );
@@ -787,12 +779,7 @@ class Taxonomy extends gNetwork\Module
 	{
 		$option = 'category' == $taxonomy ? 'default_category' : 'default_term_'.$taxonomy;
 
-		foreach ( $term_ids as $term_id ) {
-
-			delete_option( $option, (int) $term_id );
-
-			break; // only one can be default!
-		}
+		delete_option( $option );
 
 		return TRUE;
 	}
