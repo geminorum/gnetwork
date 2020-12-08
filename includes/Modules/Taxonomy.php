@@ -779,9 +779,7 @@ class Taxonomy extends gNetwork\Module
 	{
 		$option = 'category' == $taxonomy ? 'default_category' : 'default_term_'.$taxonomy;
 
-		delete_option( $option );
-
-		return TRUE;
+		return delete_option( $option );
 	}
 
 	public function handle_set_parent( $term_ids, $taxonomy )
