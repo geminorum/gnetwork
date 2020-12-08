@@ -139,6 +139,8 @@ class Taxonomy extends gNetwork\Module
 					$this->filter( 'terms_clauses', 3 );
 				}
 
+				add_action( 'after-'.$screen->taxonomy.'-table', [ $this, 'render_info_default_term' ], 12 );
+
 			} else if ( 'term' == $screen->base ) {
 
 				if ( $this->options['description_editor'] )
@@ -230,6 +232,23 @@ class Taxonomy extends gNetwork\Module
 		}
 
 		return $clauses;
+	}
+
+	// ACTION HOOK: `after_{$taxonomy}_table`
+	public function render_info_default_term( $taxonomy )
+	{
+		$option  = 'category' == $taxonomy ? 'default_category' : 'default_term_'.$taxonomy;
+		$default = get_option( $option );
+
+		if ( empty( $default ) )
+			return;
+
+		$term = get_term( $default, $taxonomy );
+
+		if ( self::isError( $term ) )
+			return;
+
+		HTML::desc( sprintf( _x( 'Default term for this taxonomy is &ldquo;%s&rdquo;.', 'Modules: Taxonomy: Info', 'gnetwork' ), '<strong>'.$term->name.'</strong>' ) );
 	}
 
 	public function edit_form_fields_editor( $tag, $taxonomy )
@@ -325,6 +344,8 @@ class Taxonomy extends gNetwork\Module
 
 		if ( 'term' == $screen->base )
 			unset( $actions['set_parent'], $actions['merge'], $actions['empty_desc'] );
+		else
+			unset( $actions['set_default'] );
 
 		if ( ! count( $actions ) )
 			return FALSE;
@@ -340,6 +361,7 @@ class Taxonomy extends gNetwork\Module
 
 		} else {
 
+			add_action( $screen->taxonomy.'_edit_form_fields', [ $this, 'edit_form_fields_default' ], 9, 2 );
 			add_action( $screen->taxonomy.'_edit_form_fields', [ $this, 'edit_form_fields_actions' ], 99, 2 );
 
 			$intro = _x( 'These are extra actions available for this term:', 'Modules: Taxonomy: Help Tab Content', 'gnetwork' );
@@ -372,6 +394,8 @@ class Taxonomy extends gNetwork\Module
 
 		$actions = [];
 
+		$actions['set_default'] = _x( 'Set Default', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
+
 		if ( is_taxonomy_hierarchical( $taxonomy ) )
 			$actions['set_parent'] = _x( 'Set Parent', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
 
@@ -390,6 +414,28 @@ class Taxonomy extends gNetwork\Module
 		$filtered[$taxonomy] = $this->filters( 'bulk_actions', $actions, $taxonomy );
 
 		return $filtered[$taxonomy];
+	}
+
+	public function edit_form_fields_default( $term, $taxonomy )
+	{
+		$option  = 'category' == $taxonomy ? 'default_category' : 'default_term_'.$taxonomy;
+		$default = get_option( $option );
+
+		if ( empty( $default ) )
+			return;
+
+		if ( $term->term_id != $default )
+			return;
+
+		$object = get_taxonomy( $taxonomy );
+
+		echo '<tr class="form-field term-info-wrap">';
+			echo '<th scope="row" valign="top">';
+				_ex( 'Caution', 'Modules: Taxonomy', 'gnetwork' );
+			echo '</th><td>';
+
+			HTML::desc( sprintf( _x( 'This is the default term for &ldquo;%s&rdquo; taxonomy.', 'Modules: Taxonomy: Info', 'gnetwork' ), '<strong>'.$object->label.'</strong>' ) );
+		echo '</tr>';
 	}
 
 	public function edit_form_fields_actions( $tag, $taxonomy )
@@ -700,6 +746,20 @@ class Taxonomy extends gNetwork\Module
 					add_term_meta( $new_term->term_id, $meta_key, $value_value, FALSE );
 
 			$this->actions( 'term_merged', $taxonomy, $new_term, $old_term, $old_meta );
+		}
+
+		return TRUE;
+	}
+
+	public function handle_set_default( $term_ids, $taxonomy )
+	{
+		$option = 'category' == $taxonomy ? 'default_category' : 'default_term_'.$taxonomy;
+
+		foreach ( $term_ids as $term_id ) {
+
+			update_option( $option, (int) $term_id );
+
+			break; // only one can be default!
 		}
 
 		return TRUE;
