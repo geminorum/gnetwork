@@ -279,11 +279,11 @@ class Mail extends gNetwork\Module
 				// http://www.alexcasamassima.com/2013/02/send-pre-formatted-eml-file-in-php.html
 				// https://wiki.zarafa.com/index.php/Eml_vs_msg
 
-				if ( isset( $_POST['deletelogs_all'] ) ) {
+				if ( self::isTablelistAction( 'deletelogs_all' ) ) {
 
 					WordPress::redirectReferer( ( FALSE === File::emptyDir( GNETWORK_MAIL_LOG_DIR, TRUE ) ? 'error' : 'purged' ) );
 
-				} else if ( isset( $_POST['deletelogs_selected'], $_POST['_cb'] ) ) {
+				} else if ( self::isTablelistAction( 'deletelogs_selected', TRUE ) ) {
 
 					$count = 0;
 

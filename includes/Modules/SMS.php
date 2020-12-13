@@ -88,11 +88,11 @@ class SMS extends gNetwork\Module
 
 			$this->check_referer( $sub, 'tools' );
 
-			if ( isset( $_POST['deletelogs_all'] ) ) {
+			if ( self::isTablelistAction( 'deletelogs_all' ) ) {
 
 				WordPress::redirectReferer( ( FALSE === File::emptyDir( GNETWORK_SMS_LOG_DIR, TRUE ) ? 'error' : 'purged' ) );
 
-			} else if ( isset( $_POST['deletelogs_selected'], $_POST['_cb'] ) ) {
+			} else if ( self::isTablelistAction( 'deletelogs_selected', TRUE ) ) {
 
 				$count = 0;
 

@@ -1695,4 +1695,12 @@ class Module extends Core\Base
 			'placeholder' => _x( 'Search', 'Tablelist: Filter', 'gnetwork' ),
 		] );
 	}
+
+	public static function isTablelistAction( $action, $check_cb = FALSE )
+	{
+		if ( $action == self::req( 'table_action' ) || isset( $_POST[$action] ) )
+			return $check_cb ? (bool) count( self::req( '_cb', [] ) ) : TRUE;
+
+		return FALSE;
+	}
 }

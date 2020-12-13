@@ -246,7 +246,7 @@ class Commerce extends gNetwork\Module
 
 				$this->check_referer( $sub, 'tools' );
 
-				if ( isset( $_POST['recalculate_stocks'], $_POST['_cb'] ) ) {
+				if ( self::isTablelistAction( 'recalculate_stocks', TRUE ) ) {
 
 					$count = 0;
 
@@ -268,7 +268,7 @@ class Commerce extends gNetwork\Module
 						'paged'   => self::paged(),
 					] );
 
-				} else if ( isset( $_POST['cleanup_attributes'], $_POST['_cb'] ) ) {
+				} else if ( self::isTablelistAction( 'cleanup_attributes', TRUE ) ) {
 
 					// FIXME
 

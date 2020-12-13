@@ -151,7 +151,7 @@ class Cron extends gNetwork\Module
 
 			$this->check_referer( $sub, 'tools' );
 
-			if ( isset( $_POST['unschedule'], $_POST['_cb'] ) ) {
+			if ( self::isTablelistAction( 'unschedule', TRUE ) ) {
 
 				$count = 0;
 				$cron  = self::getCronArray();

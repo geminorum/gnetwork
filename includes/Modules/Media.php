@@ -209,7 +209,7 @@ class Media extends gNetwork\Module
 
 				$this->check_referer( $sub, 'tools' );
 
-				if ( isset( $_POST['sync_attachments'], $_POST['_cb'] ) ) {
+				if ( self::isTablelistAction( 'sync_attachments', TRUE ) ) {
 
 					$count = 0;
 
@@ -224,7 +224,7 @@ class Media extends gNetwork\Module
 						'paged'   => self::paged(),
 					] );
 
-				} else if ( isset( $_POST['clean_attachments'], $_POST['_cb'] ) ) {
+				} else if ( self::isTablelistAction( 'clean_attachments', TRUE ) ) {
 
 					$count = 0;
 
@@ -244,7 +244,7 @@ class Media extends gNetwork\Module
 						'paged'   => self::paged(),
 					] );
 
-				} else if ( isset( $_POST['cache_in_content'], $_POST['_cb'] ) ) {
+				} else if ( self::isTablelistAction( 'cache_in_content', TRUE ) ) {
 
 					$count = 0;
 
@@ -259,7 +259,7 @@ class Media extends gNetwork\Module
 						'paged'   => self::paged(),
 					] );
 
-				} else if ( isset( $_POST['ssl_correction'], $_POST['_cb'] ) ) {
+				} else if ( self::isTablelistAction( 'ssl_correction', TRUE ) ) {
 
 					$count = 0;
 
@@ -274,7 +274,7 @@ class Media extends gNetwork\Module
 						'paged'   => self::paged(),
 					] );
 
-				} else if ( isset( $_POST['purge_meta'], $_POST['_cb'] ) ) {
+				} else if ( self::isTablelistAction( 'purge_meta', TRUE ) ) {
 
 					$count = 0;
 
