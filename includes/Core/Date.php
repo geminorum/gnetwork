@@ -155,15 +155,15 @@ class Date extends Base
 		$html  = '';
 		$parts = array();
 
-		$parts['days'] = intval( floor( $seconds / self::DAY_IN_SECONDS ) );
+		$parts['days'] = (int) floor( $seconds / self::DAY_IN_SECONDS );
 
 		$remains = $seconds % self::DAY_IN_SECONDS;
-		$parts['hours'] = intval( floor( $remains / self::HOUR_IN_SECONDS ) );
+		$parts['hours'] = (int) floor( $remains / self::HOUR_IN_SECONDS );
 
 		$remains = $remains % self::HOUR_IN_SECONDS;
-		$parts['minutes'] = intval( floor( $remains / self::MINUTE_IN_SECONDS ) );
+		$parts['minutes'] = (int) floor( $remains / self::MINUTE_IN_SECONDS );
 
-		$parts['seconds'] = intval( ceil( $remains % self::MINUTE_IN_SECONDS ) );
+		$parts['seconds'] = (int) ceil( $remains % self::MINUTE_IN_SECONDS );
 
 		foreach ( $parts as $part => $count ) {
 

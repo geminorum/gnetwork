@@ -66,6 +66,11 @@ class HTML extends Base
 		if ( $html ) echo self::tag( 'h3', array( 'class' => $class ), ( $link ? self::link( $html, $link ) : $html ) );
 	}
 
+	public static function h4( $html, $class = FALSE, $link = FALSE )
+	{
+		if ( $html ) echo self::tag( 'h4', array( 'class' => $class ), ( $link ? self::link( $html, $link ) : $html ) );
+	}
+
 	public static function desc( $string, $block = TRUE, $class = '', $nl2br = TRUE )
 	{
 		if ( is_array( $string ) ) {
@@ -212,6 +217,9 @@ class HTML extends Base
 	{
 		if ( ! is_array( $value ) )
 			return (bool) $value;
+
+		if ( TRUE === $current )
+			return TRUE;
 
 		if ( ! is_null( $current ) )
 			return in_array( $current, $value );
@@ -595,21 +603,22 @@ class HTML extends Base
 			echo $html;
 	}
 
-	public static function tabNav( $active = '', $subs = array(), $prefix = 'nav-tab-', $tag = 'div' )
+	public static function tabNav( $active = '', $tabs = array(), $prefix = 'nav-tab-', $tag = 'div' )
 	{
-		if ( empty( $subs ) )
+		if ( empty( $tabs ) )
 			return;
 
 		$html = '';
 
-		foreach ( $subs as $slug => $page )
+		foreach ( $tabs as $tab => $title )
 			$html.= self::tag( 'a', array(
-				'class' => 'nav-tab '.$prefix.$slug.( $slug == $active ? ' nav-tab-active' : '' ),
-				'href'  => '#'.$slug,
-			), $page );
+				'class' => 'nav-tab '.$prefix.$tab.( $tab == $active ? ' nav-tab-active -active' : '' ),
+				'href'  => '#'.$tab,
+				'data'  => array( 'tab' => $tab, 'toggle' => 'tab' ),
+			), $title );
 
 		echo self::tag( $tag, array(
-			'class' => 'nav-tab-wrapper',
+			'class' => 'nav-tab-wrapper -wrapper',
 		), $html );
 	}
 
@@ -1082,10 +1091,10 @@ class HTML extends Base
 	public static function tablePagination( $found, $max, $limit, $paged, $extra = array(), $all = FALSE )
 	{
 		$pagination = array(
-			'total'    => intval( $found ),
-			'pages'    => intval( $max ),
-			'limit'    => intval( $limit ),
-			'paged'    => intval( $paged ),
+			'total'    => (int) $found,
+			'pages'    => (int) $max,
+			'limit'    => (int) $limit,
+			'paged'    => (int) $paged,
 			'extra'    => $extra, // extra args to add to the links
 			'all'      => $all, // WTF?! (probably display all!)
 			'next'     => FALSE,
@@ -1198,6 +1207,11 @@ class HTML extends Base
 
 	public static function dropdown( $list, $atts = array() )
 	{
+		$html = '';
+
+		if ( FALSE === $list ) // allows hiding
+			return $html;
+
 		$args = self::atts( array(
 			'id'         => FALSE,
 			'name'       => '',
@@ -1212,11 +1226,6 @@ class HTML extends Base
 			'exclude'    => array(),
 			'data'       => array(),
 		), $atts );
-
-		$html = '';
-
-		if ( FALSE === $list ) // alow hiding
-			return $html;
 
 		if ( ! is_null( $args['none_title'] ) )
 			$html.= self::tag( 'option', array(
@@ -1255,6 +1264,66 @@ class HTML extends Base
 			'dir'      => $args['dir'],
 			'data'     => $args['data'],
 		), $html );
+	}
+
+	public static function multiSelect( $list, $atts = [] )
+	{
+		$html = '';
+
+		if ( FALSE === $list ) // allows hiding
+			return $html;
+
+		$args = self::atts( [
+			'id'       => FALSE,
+			'name'     => '',
+			'class'    => FALSE,
+			'selected' => [],
+			'disabled' => FALSE,
+			'prop'     => FALSE,
+			'value'    => FALSE,
+			'exclude'  => [],
+			'panel'    => FALSE, // wraps in `wp-tab-panel`
+			'values'   => FALSE, // appends values after titles
+		], $atts );
+
+		foreach ( $list as $offset => $value ) {
+
+			if ( $args['value'] )
+				$key = is_object( $value ) ? $value->{$args['value']} : $value[$args['value']];
+
+			else
+				$key = $offset;
+
+			if ( in_array( $key, (array) $args['exclude'] ) )
+				continue;
+
+			if ( $args['prop'] )
+				$title = is_object( $value ) ? $value->{$args['prop']} : $value[$args['prop']];
+
+			else
+				$title = $value;
+
+			$input = self::tag( 'input', [
+				'type'     => 'checkbox',
+				'id'       => $args['id'].'-'.$key,
+				'name'     => $args['name'].'['.$key.']',
+				'value'    => '1', // $key,
+				'checked'  => self::attrBoolean( $args['selected'], $key ),
+				'disabled' => self::attrBoolean( $args['disabled'], $key ),
+				'class'    => self::attrClass( $args['class'], '-type-checkbox' ),
+			] );
+
+			if ( $args['values'] )
+				$title.= ' &mdash; <code>'.$key.'</code>';
+
+			$label = self::tag( 'label', [ 'for' => $args['id'].'-'.$key ], $input.$title );
+			$html .= self::tag( ( $args['panel'] ? 'li' : 'p' ), [ 'class' => [ 'description', '-description' ] ], $label );
+		}
+
+		if ( $args['panel'] )
+			$html = self::tag( 'ul', $html );
+
+		return self::wrap( $html, '-multiselect-wrap'.( $args['panel'] ? ' wp-tab-panel' : '' ) );
 	}
 
 	public static function renderList( $items, $keys = FALSE, $list = 'ul' )

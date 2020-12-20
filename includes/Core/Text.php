@@ -980,7 +980,7 @@ class Text extends Base
 
 				$positions = [];
 
-				foreach( $one as $from => $to ) {
+				foreach ( $one as $from => $to ) {
 					if ( FALSE === ( $pos2 = stripos( $product, $from, $pos1 ) ) ) {
 						unset( $one[$from] );
 					} else {

@@ -325,6 +325,20 @@ class Module extends Core\Base
 			add_action( $this->base.'_'.$module.'_'.$hook, [ $this, $method ], $priority, $args );
 	}
 
+	// USAGE: $this->action_self( 'saved', 5 );
+	protected function action_self( $hook, $args = 1, $priority = 10, $suffix = FALSE )
+	{
+		if ( $method = self::sanitize_hook( ( $suffix ? $hook.'_'.$suffix : $hook ) ) )
+			add_action( $this->base.'_'.$this->key.'_'.$hook, [ $this, $method ], $priority, $args );
+	}
+
+	// USAGE: $this->filter_self( 'prepare', 4 );
+	protected function filter_self( $hook, $args = 1, $priority = 10, $suffix = FALSE )
+	{
+		if ( $method = self::sanitize_hook( ( $suffix ? $hook.'_'.$suffix : $hook ) ) )
+			add_filter( $this->base.'_'.$this->key.'_'.$hook, [ $this, $method ], $priority, $args );
+	}
+
 	// USAGE: $this->filter_module( 'network', 'prepare', 4 );
 	protected function filter_module( $module, $hook = 'init', $args = 1, $priority = 10, $suffix = FALSE )
 	{
@@ -496,6 +510,15 @@ class Module extends Core\Base
 		$args[0] = $this->hook( $args[0] );
 
 		return call_user_func_array( 'apply_filters', $args );
+	}
+
+	// `has_filter()` / `has_action()`
+	protected function hooked( $hook, $suffix = FALSE, $function_to_check = FALSE )
+	{
+		if ( $tag = $this->hook( $hook, $suffix ) )
+			return has_filter( $tag, $function_to_check );
+
+		return FALSE;
 	}
 
 	// USAGE: add_filter( 'body_class', self::_array_append( 'foo' ) );
@@ -805,12 +828,15 @@ class Module extends Core\Base
 		];
 	}
 
-	protected function render_form_buttons( $sub = NULL, $wrap = '' )
+	protected function render_form_buttons( $sub = NULL, $wrap = '', $buttons = NULL )
 	{
 		if ( FALSE !== $wrap )
 			echo $this->wrap_open_buttons( $wrap );
 
-		foreach ( $this->buttons as $button )
+		if ( is_null( $buttons ) )
+			$buttons = $this->buttons;
+
+		foreach ( $buttons as $button )
 			Settings::submitButton( $button['key'], $button['value'], $button['type'], $button['atts'] );
 
 		if ( FALSE !== $wrap )
@@ -849,12 +875,12 @@ class Module extends Core\Base
 
 	protected function check_referer( $sub, $context )
 	{
-		check_admin_referer( $this->base.'_'.$sub.'-'.$context );
+		return check_admin_referer( $this->base.'_'.$sub.'-'.$context );
 	}
 
 	protected function check_referer_ajax( $sub, $context, $key = 'nonce' )
 	{
-		check_ajax_referer( $this->base.'_'.$sub.'-'.$context, $key );
+		return check_ajax_referer( $this->base.'_'.$sub.'-'.$context, $key );
 	}
 
 	public function reset_settings( $options_key = NULL )

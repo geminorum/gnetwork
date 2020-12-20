@@ -21,7 +21,7 @@ class Number extends Base
 	{
 		$number = apply_filters( 'string_format_i18n_back', $text );
 
-		return $force ? intval( $number ) : $number;
+		return $force ? (int) $number : $number;
 	}
 
 	// FIXME: use our own
@@ -30,7 +30,7 @@ class Number extends Base
 	{
 		$number = apply_filters( 'string_format_i18n_back', $text );
 
-		return $force ? floatval( $number ) : $number;
+		return $force ? (float) $number : $number;
 	}
 
 	// never let a numeric value be less than zero
@@ -52,7 +52,7 @@ class Number extends Base
 
 		// make the number an integer
 		// pick the maximum value, never less than zero
-		return max( 0, intval( $number ) );
+		return max( 0, (int) $number );
 	}
 
 	// @SOURCE: WP's `zeroise()`
