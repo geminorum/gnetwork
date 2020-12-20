@@ -170,7 +170,7 @@ class Taxonomy extends gNetwork\Module
 		if ( 'gnetwork_description' !== $column_name )
 			return $empty;
 
-		if ( $term = get_term( intval( $term_id ) ) )
+		if ( $term = get_term( (int) $term_id ) )
 			echo sanitize_term_field( 'description', $term->description, $term->term_id, $term->taxonomy, 'display' );
 	}
 

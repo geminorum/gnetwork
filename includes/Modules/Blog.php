@@ -553,7 +553,7 @@ class Blog extends gNetwork\Module
 
 			if ( 'default' != $this->options['heartbeat_frequency'] )
 				add_filter( 'heartbeat_settings', function( $settings ){
-					return array_merge( $settings, [ 'interval' => intval( $this->options['heartbeat_frequency'] ) ] );
+					return array_merge( $settings, [ 'interval' => (int) $this->options['heartbeat_frequency'] ] );
 				} );
 
 		} else {
@@ -676,7 +676,7 @@ class Blog extends gNetwork\Module
 		if ( ! $width )
 			return FALSE;
 
-		return $content_width = intval( $width );
+		return $content_width = (int) $width;
 	}
 
 	public function export_wp()

@@ -224,7 +224,7 @@ class Embed extends gNetwork\Module
 		$html = HTML::tag( 'iframe', [
 			'src'             => sprintf( 'https://docs.google.com/viewer?url=%s&embedded=true', urlencode( $url ) ),
 			'width'           => $attr['width'],
-			'height'          => isset( $rawattr['height'] ) ? $rawattr['height'] : intval( 1.414 * $attr['width'] / 1 ), // A4 is 1:1.414
+			'height'          => isset( $rawattr['height'] ) ? $rawattr['height'] : (int) ( 1.414 * $attr['width'] / 1 ), // A4 is 1:1.414
 			'style'           => 'border:none',
 			'allowfullscreen' => 'true',
 			'data'            => [ 'source' => esc_url( $url ) ],
@@ -271,7 +271,7 @@ class Embed extends gNetwork\Module
 		$html = HTML::tag( 'iframe', [
 			'src'             => sprintf( 'https://www.aparat.com/video/video/embed/videohash/%s/vt/frame', $matches[1] ),
 			'width'           => $attr['width'],
-			'height'          => isset( $rawattr['height'] ) ? $rawattr['height'] : intval( 9 * $attr['width'] / 16 ), // aparat is 16:9
+			'height'          => isset( $rawattr['height'] ) ? $rawattr['height'] : (int) ( 9 * $attr['width'] / 16 ), // aparat is 16:9
 			'style'           => 'border:none',
 			'allowfullscreen' => 'true',
 			'data'            => [ 'source' => esc_url( $url ) ],
@@ -310,8 +310,8 @@ class Embed extends gNetwork\Module
 			}
 
 			$layout = '<div class="-item"><div class="-preview">%s</div><div class="-description"><h4 class="-title"><a href="%s">%s</a></h4><span class="-date">%s</span>%s</div></div>';
-			$width  = intval( ( 40 / 100 ) * $attr['width'] ); // css layout is 40% iframe
-			$height = intval( 9 * $width / 16 ); // aparat is 16:9
+			$width  = (int) ( ( 40 / 100 ) * $attr['width'] ); // css layout is 40% iframe
+			$height = (int) ( 9 * $width / 16 ); // aparat is 16:9
 			$html   = '';
 
 			foreach ( $rss->get_items( 0, $count ) as $item ) {
@@ -358,7 +358,7 @@ class Embed extends gNetwork\Module
 		$html = HTML::tag( 'iframe', [
 			'src'             => add_query_arg( 'html5', TRUE, trailingslashit( 'https://giphy.com/embed/' ).$matches[1] ),
 			'width'           => $attr['width'],
-			'height'          => isset( $rawattr['height'] ) ? $rawattr['height'] : intval( 14 * $attr['width'] / 25 ), // 500/281
+			'height'          => isset( $rawattr['height'] ) ? $rawattr['height'] : (int) ( 14 * $attr['width'] / 25 ), // 500/281
 			'style'           => 'border:none',
 			'allowfullscreen' => 'true',
 			'data'            => [ 'source' => esc_url( $url ) ],

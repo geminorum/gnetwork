@@ -188,7 +188,7 @@ class Admin extends gNetwork\Module
 		if ( ! is_blog_admin() )
 			return;
 
-		gNetwork()->admin->menus['settings'][intval( $priority )][$sub] = [
+		gNetwork()->admin->menus['settings'][( (int) $priority )][$sub] = [
 			'title' => $title ? $title : $sub,
 			'cap'   => $capability,
 		];
@@ -202,7 +202,7 @@ class Admin extends gNetwork\Module
 		if ( ! is_blog_admin() )
 			return;
 
-		gNetwork()->admin->menus['tools'][intval( $priority )][$sub] = [
+		gNetwork()->admin->menus['tools'][( (int) $priority )][$sub] = [
 			'title' => $title ? $title : $sub,
 			'cap'   => $capability,
 		];

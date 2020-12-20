@@ -373,7 +373,7 @@ class Restricted extends gNetwork\Module
 		if ( $this->is_bp_component() )
 			return;
 
-		if ( $this->options['redirect_to_page'] && is_page( intval( $this->options['redirect_to_page'] ) ) )
+		if ( $this->options['redirect_to_page'] && is_page( (int) $this->options['redirect_to_page'] ) )
 			return;
 
 		$current_user = get_current_user_id();

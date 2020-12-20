@@ -185,7 +185,7 @@ class Authors extends gNetwork\Module
 			if ( empty( $_POST['from_user_id'] ) || 'none' == $_POST['from_user_id'] )
 				return;
 
-			$to_user  = isset( $_POST['to_user_id'] ) ? intval( $_POST['to_user_id'] ) : gNetwork()->user( TRUE );
+			$to_user  = isset( $_POST['to_user_id'] ) ? (int) $_POST['to_user_id'] : gNetwork()->user( TRUE );
 			$posttype = isset( $_POST['on_post_type'] ) ? $_POST['on_post_type'] : 'post';
 
 			if ( $_POST['from_user_id'] == $to_user )
@@ -195,7 +195,7 @@ class Authors extends gNetwork\Module
 				$count = $this->bulk_change_all_authors( $to_user, $posttype );
 
 			else
-				$count = $this->bulk_change_author( intval( $_POST['from_user_id'] ), $to_user, $posttype );
+				$count = $this->bulk_change_author( (int) $_POST['from_user_id'], $to_user, $posttype );
 
 			if ( FALSE === $count )
 				WordPress::redirectReferer( 'wrong' );

@@ -345,7 +345,7 @@ class User extends gNetwork\Module
 		if ( ! is_user_admin() )
 			return;
 
-		gNetwork()->user->menus['settings'][intval( $priority )][$sub] = [
+		gNetwork()->user->menus['settings'][((int) $priority )][$sub] = [
 			'title' => $title ? $title : $sub,
 			'cap'   => $capability,
 		];

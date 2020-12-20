@@ -157,7 +157,7 @@ class Cron extends gNetwork\Module
 				$cron  = self::getCronArray();
 
 				foreach ( $_POST['_cb'] as $event )
-					if ( self::unschedule( intval( $event ), $cron ) )
+					if ( self::unschedule( (int) $event, $cron ) )
 						$count++;
 
 			} else {
@@ -282,7 +282,7 @@ class Cron extends gNetwork\Module
 		if ( self::isError( $result ) )
 			return $result;
 
-		$response = intval( wp_remote_retrieve_response_code( $result ) );
+		$response = (int) wp_remote_retrieve_response_code( $result );
 
 		if ( $response >= 300 )
 			/* translators: %s: error code */

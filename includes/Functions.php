@@ -156,5 +156,5 @@ if ( ! function_exists( 'is_iterable' ) ) : function is_iterable( $var ) {
 
 // convert a value to non-negative integer
 if ( ! function_exists( 'absint' ) ) : function absint( $maybeint ) {
-	return abs( intval( $maybeint ) );
+	return abs( (int) $maybeint );
 } endif;

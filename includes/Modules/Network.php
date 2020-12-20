@@ -115,7 +115,7 @@ class Network extends gNetwork\Module
 		if ( ! is_network_admin() )
 			return;
 
-		gNetwork()->network->menus['settings'][intval( $priority )][$sub] = [
+		gNetwork()->network->menus['settings'][( (int) $priority )][$sub] = [
 			'title' => $title ? $title : $sub,
 			'cap'   => $capability,
 		];
@@ -129,7 +129,7 @@ class Network extends gNetwork\Module
 		if ( ! is_network_admin() )
 			return;
 
-		gNetwork()->network->menus['tools'][intval( $priority )][$sub] = [
+		gNetwork()->network->menus['tools'][( (int) $priority )][$sub] = [
 			'title' => $title ? $title : $sub,
 			'cap'   => $capability,
 		];

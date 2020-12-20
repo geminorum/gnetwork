@@ -134,7 +134,7 @@ class Code extends gNetwork\Module
 			if ( $md ) {
 
 				if ( $args['trim'] )
-					$md = implode( "\n", array_slice( explode( "\n", $md ), intval( $args['trim'] ) ) );
+					$md = implode( "\n", array_slice( explode( "\n", $md ), (int) $args['trim'] ) );
 
 				$html = @Utilities::mdExtra( $md );
 

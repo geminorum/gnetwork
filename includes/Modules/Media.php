@@ -1064,7 +1064,7 @@ class Media extends gNetwork\Module
 
 				Ajax::checkReferer( $this->classs( 'file-upload' ) );
 
-				$stored = $this->store_chaunk( $post['file'], $post['file_data'], intval( $post['chunk'] ) );
+				$stored = $this->store_chaunk( $post['file'], $post['file_data'], (int) $post['chunk'] );
 
 				if ( TRUE === $stored )
 					Ajax::success();
