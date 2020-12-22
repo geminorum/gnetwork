@@ -10,6 +10,7 @@ use geminorum\gNetwork\Core\Arraay;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\Number;
 use geminorum\gNetwork\Core\Text;
+use geminorum\gNetwork\Core\File;
 use geminorum\gNetwork\Core\WordPress;
 use geminorum\gNetwork\WordPress\Taxonomy as Tax;
 
@@ -125,6 +126,15 @@ class Taxonomy extends gNetwork\Module
 
 			if ( 'edit-tags' == $screen->base ) {
 
+				$this->handle_tab_content_actions( $screen->taxonomy );
+
+				add_action( $screen->taxonomy.'_pre_add_form', [ $this, 'edittags_pre_add_form' ], -9999 );
+				add_action( $screen->taxonomy.'_add_form', [ $this, 'edittags_add_form' ], 9999 );
+
+				$this->action_self( 'tab_extra_content', 1, 12, 'default_term' );
+				// $this->action_self( 'tab_extra_content', 1, 22, 'terms_stats' ); // FIXME
+				// $this->action_self( 'tab_extra_content', 1, 32, 'i18n_reports' ); // FIXME
+
 				if ( $this->options['description_editor'] )
 					add_action( $screen->taxonomy.'_add_form_fields', [ $this, 'add_form_fields_editor' ], 1, 1 );
 
@@ -234,6 +244,222 @@ class Taxonomy extends gNetwork\Module
 		return $clauses;
 	}
 
+	private function get_taxonomy_tabs( $taxonomy )
+	{
+		return $this->filters( 'tabs', [
+			// 'search' => [ 'title' => _x( 'Search', 'Modules: Taxonomy: Tab Title', 'gnetwork' ), 'callback' => NULL ], // FIXME
+			'tools'  => [ 'title' => _x( 'Tools', 'Modules: Taxonomy: Tab Title', 'gnetwork' ), 'callback' => NULL ],
+			'extras' => [ 'title' => _x( 'Extras', 'Modules: Taxonomy: Tab Title', 'gnetwork' ), 'callback' => NULL ],
+		], $taxonomy );
+	}
+
+	// @HOOK: `{$taxonomy}_pre_add_form`
+	public function edittags_pre_add_form( $taxonomy )
+	{
+		$object = get_taxonomy( $taxonomy );
+		$tabs   = $this->get_taxonomy_tabs( $taxonomy );
+
+		echo '<div class="base-tabs-list -base nav-tab-base">';
+
+		HTML::tabNav( 'addnew', [ 'addnew' => $object->labels->add_new_item ] + wp_list_pluck( $tabs, 'title' ) );
+
+		echo '<div class="nav-tab-content -content nav-tab-active -active" data-tab="addnew">';
+	}
+
+	// @HOOK: `{$taxonomy}_add_form`
+	public function edittags_add_form( $taxonomy )
+	{
+		echo '</form></div></div>';
+
+		$tabs = $this->get_taxonomy_tabs( $taxonomy );
+
+		foreach ( wp_list_pluck( $tabs, 'callback' ) as $tab => $callback ) {
+
+			if ( FALSE === $callback )
+				continue;
+
+			if ( is_null( $callback ) )
+				$callback = [ $this, 'callback_tab_content_'.$tab ];
+
+			if ( ! is_callable( $callback ) )
+				continue;
+
+			echo '<div class="nav-tab-content -content -content-tab-'.$tab.'" data-tab="'.$tab.'">';
+				call_user_func_array( $callback, [ $taxonomy, $tab ] );
+			echo '</div>';
+		}
+
+		echo '</div><div><form class="dummy-form">';
+	}
+
+	private function handle_tab_content_actions( $taxonomy )
+	{
+		if ( self::req( $this->classs( 'do-default-terms' ) ) ) {
+
+			check_admin_referer( $this->classs( 'do-default-terms' ) );
+
+			$terms    = $this->filters( 'default_terms_'.$taxonomy, [], $taxonomy );
+			$selected = self::req( $this->classs( 'do-default-selected' ), [] );
+			$data     = $selected ? Arraay::keepByKeys( $terms, array_keys( $selected ) ) : $terms;
+
+			if ( count( $data ) && FALSE !== ( $count = Tax::insertDefaultTerms( $taxonomy, $data ) ) )
+				WordPress::redirectReferer( [
+					'message' => 'imported',
+					'count'   => $count,
+				] );
+
+			WordPress::redirectReferer( 'wrong' );
+
+		} else if ( self::req( $this->classs( 'do-export-terms' ) ) ) {
+
+			check_admin_referer( $this->classs( 'do-export-terms' ) );
+
+			$fields = self::req( $this->classs( 'do-export-fields' ), [] );
+			$data   = $this->get_csv_terms( $taxonomy, ( $fields ? array_keys( $fields ) : NULL ) );
+
+			Text::download( $data, File::prepName( sprintf( '%s.csv', $taxonomy ) ) );
+
+			WordPress::redirectReferer( 'wrong' );
+		}
+	}
+
+	// TODO: ajax search
+	// TODO: suggestion: misspelled
+	// TODO: suggestion: i18n variations
+	public function callback_tab_content_search( $taxonomy, $tab )
+	{
+		$this->actions( 'tab_search_content_before', $taxonomy );
+
+		echo $this->wrap_open( '-tab-tools-search' );
+			HTML::desc( gNetwork()->na() ); // FIXME
+		echo '</div>';
+
+		$this->actions( 'tab_search_content', $taxonomy );
+	}
+
+	// TODO: delete empty terms
+	// TODO: delete terms with single post
+	public function callback_tab_content_tools( $taxonomy, $tab )
+	{
+		$this->actions( 'tab_tools_content_before', $taxonomy );
+
+		$this->_tab_content_tools_defaults( $taxonomy );
+		// $this->_tab_content_tools_import( $taxonomy ); // FIXME
+		$this->_tab_content_tools_export( $taxonomy );
+
+		$this->actions( 'tab_tools_content', $taxonomy );
+	}
+
+	// TODO: indicate already installed
+	private function _tab_content_tools_defaults( $taxonomy )
+	{
+		echo $this->wrap_open( '-tab-tools-defaults card -toolbox-card' );
+			HTML::h4( _x( 'Default Terms', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'title' );
+
+			$hook = 'default_terms_'.$taxonomy;
+
+			if ( $this->hooked( $hook ) ) {
+
+				$this->render_form_start( NULL, 'defaults', 'install', 'tabs', FALSE );
+					wp_nonce_field( $this->classs( 'do-default-terms' ) );
+
+					echo HTML::multiSelect( $this->filters( $hook, [], $taxonomy ), [
+						'name'     => $this->classs( 'do-default-selected' ),
+						'selected' => TRUE,
+						'panel'    => TRUE,
+						'values'   => TRUE,
+					] );
+
+					HTML::desc( _x( 'Select to install pre-configured terms for this taxonomy.', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ) );
+
+					echo $this->wrap_open_buttons( '-toolbox-buttons' );
+						Settings::submitButton( $this->classs( 'do-default-terms' ), _x( 'Install Defaults', 'Modules: Taxonomy: Tab Tools: Button', 'gnetwork' ), 'small button-primary' );
+					echo '</p>';
+
+				$this->render_form_end( NULL, 'defaults', 'install', 'tabs' );
+
+			} else {
+
+				HTML::desc( gNetwork()->na() );
+			}
+
+		echo '</div>';
+	}
+
+	private function _tab_content_tools_import( $taxonomy )
+	{
+		echo $this->wrap_open( '-tab-tools-import card -toolbox-card' );
+			HTML::h4( _x( 'Import Terms', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'title' );
+
+			HTML::desc( gNetwork()->na() ); // FIXME
+
+		echo '</div>';
+	}
+
+	private function _tab_content_tools_export( $taxonomy )
+	{
+		echo $this->wrap_open( '-tab-tools-export card -toolbox-card' );
+			HTML::h4( _x( 'Export Terms', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'title' );
+
+			$this->render_form_start( NULL, 'export', 'download', 'tabs', FALSE );
+				wp_nonce_field( $this->classs( 'do-export-terms' ) );
+
+				echo HTML::multiSelect( $this->get_export_term_fields( $taxonomy ), [
+					'name'     => $this->classs( 'do-export-fields' ),
+					'selected' => TRUE,
+					'panel'    => TRUE,
+					'values'   => TRUE,
+				] );
+
+				HTML::desc( _x( 'Select fields to include on the the exported CSV file.', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ) );
+
+				echo $this->wrap_open_buttons( '-toolbox-buttons' );
+					Settings::submitButton( $this->classs( 'do-export-terms' ), _x( 'Export in CSV', 'Modules: Taxonomy: Tab Tools: Button', 'gnetwork' ), 'small button-primary' );
+				echo '</p>';
+
+			$this->render_form_end( NULL, 'export', 'download', 'tabs' );
+		echo '</div>';
+	}
+
+	public function callback_tab_content_extras( $taxonomy, $tab )
+	{
+		$this->actions( 'tab_extra_content', $taxonomy );
+	}
+
+	public function tab_extra_content_i18n_reports( $taxonomy )
+	{
+		echo $this->wrap_open( '-tab-extras-i18n-reports card -toolbox-card' );
+			HTML::h4( _x( 'i18n Reports', 'Modules: Taxonomy: Tab Extra', 'gnetwork' ), 'title' );
+
+			HTML::desc( gNetwork()->na() ); // FIXME
+
+		echo '</div>';
+	}
+
+	// TODO: count by meta fields
+	public function tab_extra_content_terms_stats( $taxonomy )
+	{
+		echo $this->wrap_open( '-tab-extras-terms-stats card -toolbox-card' );
+			HTML::h4( _x( 'Terms Stats', 'Modules: Taxonomy: Tab Extra', 'gnetwork' ), 'title' );
+
+			HTML::desc( '<code>'.wp_count_terms( $taxonomy ).'</code>' );
+
+		echo '</div>';
+	}
+
+	// FIXME: must be link button to edit the default term
+	// FIXME: unset default term button
+	public function tab_extra_content_default_term( $taxonomy )
+	{
+		echo $this->wrap_open( '-tab-extras-default-term card -toolbox-card' );
+			HTML::h4( _x( 'Default Term', 'Modules: Taxonomy: Tab Extra', 'gnetwork' ), 'title' );
+
+			if ( ! $this->render_info_default_term( $taxonomy ) )
+				HTML::desc( gNetwork()->na() );
+
+		echo '</div>';
+	}
+
 	// ACTION HOOK: `after_{$taxonomy}_table`
 	public function render_info_default_term( $taxonomy )
 	{
@@ -249,6 +475,8 @@ class Taxonomy extends gNetwork\Module
 			return;
 
 		HTML::desc( sprintf( _x( 'Default term for this taxonomy is &ldquo;%s&rdquo;.', 'Modules: Taxonomy: Info', 'gnetwork' ), '<strong>'.$term->name.'</strong>' ) );
+
+		return TRUE;
 	}
 
 	public function edit_form_fields_editor( $tag, $taxonomy )
@@ -919,5 +1147,62 @@ class Taxonomy extends gNetwork\Module
 			'hierarchical'     => TRUE,
 			'show_option_none' => Settings::showOptionNone(),
 		] );
+	}
+
+	private function get_export_term_fields( $taxonomy )
+	{
+		return $this->filters( 'export_term_fields', [
+			'parent'      => _x( 'Parent', 'Modules: Taxonomy: Term Field', 'gnetwork' ),
+			'name'        => _x( 'Name', 'Modules: Taxonomy: Term Field', 'gnetwork' ),
+			'slug'        => _x( 'Slug', 'Modules: Taxonomy: Term Field', 'gnetwork' ),
+			'description' => _x( 'Description', 'Modules: Taxonomy: Term Field', 'gnetwork' ),
+			'count'       => _x( 'Count', 'Modules: Taxonomy: Term Field', 'gnetwork' ),
+		], $taxonomy );
+	}
+
+	private function get_export_term_meta( $taxonomy )
+	{
+		return $this->filters( 'export_term_meta', [
+			// 'example' => _x( 'Example', 'Modules: Taxonomy: Term Meta', 'gnetwork' ),
+		], $taxonomy );
+	}
+
+	// FIXME: deal with line-breaks on descrioptions
+	private function get_csv_terms( $taxonomy, $fields = NULL, $metas = NULL )
+	{
+		global $wpdb;
+
+		if ( is_null( $fields ) )
+			$fields = array_keys( $this->get_export_term_fields( $taxonomy ) );
+
+		if ( is_null( $metas ) )
+			$metas = array_keys( $this->get_export_term_meta( $taxonomy ) );
+
+		$terms = $wpdb->get_results( $wpdb->prepare( "
+			SELECT * FROM {$wpdb->term_taxonomy}
+			INNER JOIN {$wpdb->terms} ON {$wpdb->terms}.term_id = {$wpdb->term_taxonomy}.term_id
+			WHERE {$wpdb->term_taxonomy}.taxonomy = %s
+			ORDER BY {$wpdb->terms}.term_id ASC
+		", $taxonomy ) );
+
+		// FIXME: check for empty
+
+		$data = [ array_merge( [ 'term_id' ], $fields, $metas ) ];
+
+		foreach ( $terms as $term ) {
+			$row = [ $term->term_id ];
+
+			foreach ( $fields as $field )
+				$row[] = trim( $term->{$field} );
+
+			$meta = get_term_meta( $term->term_id );
+
+			foreach ( $metas as $saved )
+				$row[] = empty( $meta[$saved][0] ) ? '' : trim( $meta[$saved][0] );
+
+			$data[] = $row;
+		}
+
+		return Text::toCSV( $data );
 	}
 }
