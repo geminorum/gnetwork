@@ -297,6 +297,7 @@ class Mail extends gNetwork\Module
 					] );
 
 				} else {
+
 					WordPress::redirectReferer( 'wrong' );
 				}
 			}

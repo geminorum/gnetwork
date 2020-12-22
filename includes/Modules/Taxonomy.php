@@ -616,6 +616,8 @@ class Taxonomy extends gNetwork\Module
 		$this->action( 'admin_notices' );
 		$this->action( 'admin_footer' );
 
+		// TODO: add help tab for supported posttypes
+
 		$screen->add_help_tab( [
 			'id'      => $this->classs( 'help-bulk-actions' ),
 			'title'   => _x( 'Extra Actions', 'Modules: Taxonomy: Help Tab Title', 'gnetwork' ),

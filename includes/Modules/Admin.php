@@ -376,7 +376,7 @@ class Admin extends gNetwork\Module
 				},
 			];
 
-		if ( HTML::tabsList( $this->filters( 'overview', $tabs ) ) )
+		if ( HTML::tabsList( $this->filters( 'overview', $tabs ), [ 'active' => TRUE ] ) )
 			Scripts::enqueueMasonry();
 	}
 

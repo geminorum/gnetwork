@@ -82,7 +82,7 @@ class Search extends gNetwork\Module
 					'field'       => 'include_taxonomies',
 					'type'        => 'taxonomies',
 					'title'       => _x( 'Included Taxonomies', 'Modules: Search: Settings', 'gnetwork' ),
-					'description' => _x( 'Terms from selected taxonomies will be included on search contenxt.', 'Modules: Search: Settings', 'gnetwork' ),
+					'description' => _x( 'Terms from selected taxonomies will be included on search context.', 'Modules: Search: Settings', 'gnetwork' ),
 					'extra'       => [ 'public' => TRUE ],
 				],
 				[

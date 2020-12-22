@@ -197,7 +197,7 @@ class Debug extends gNetwork\Module
 				'title' => _x( 'PHP Functions', 'Modules: Debug: System Report', 'gnetwork' ),
 				'cb'    => [ __CLASS__, 'phpFunctions' ],
 			],
-		] );
+		], [ 'active' => TRUE ] );
 
 		Scripts::enqueueScriptVendor( 'prism' );
 		Scripts::enqueueMasonry();
@@ -748,7 +748,7 @@ class Debug extends gNetwork\Module
 
 		$quota = 2 * 1024 * 1024; // 2 megabytes // FIXME
 
-		foreach( $logs as $sub => $log ) {
+		foreach ( $logs as $sub => $log ) {
 
 			if ( ! $log[0] )
 				continue;
