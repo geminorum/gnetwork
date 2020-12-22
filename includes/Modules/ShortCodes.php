@@ -851,6 +851,7 @@ class ShortCodes extends gNetwork\Module
 			'width'   => '100%',
 			'height'  => '520',
 			'scroll'  => 'auto',
+			'load'    => 'lazy',
 			'style'   => 'width:100% !important;',
 			'context' => NULL,
 			'wrap'    => TRUE,
@@ -875,6 +876,7 @@ class ShortCodes extends gNetwork\Module
 			'src'         => $args['url'],
 			'style'       => $args['style'],
 			'scrolling'   => $args['scroll'],
+			'loading'     => $args['load'],
 			'height'      => $args['height'],
 			'width'       => $args['width'],
 		], $content );
