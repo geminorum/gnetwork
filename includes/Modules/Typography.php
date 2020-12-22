@@ -4,6 +4,8 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
 use geminorum\gNetwork\Settings;
+use geminorum\gNetwork\Utilities;
+use geminorum\gNetwork\Core\Number;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\Text;
 use geminorum\gNetwork\Core\WordPress;
@@ -50,6 +52,7 @@ class Typography extends gNetwork\Module
 	public function setup_menu( $context )
 	{
 		$this->register_menu( _x( 'Typography', 'Modules: Menu Name', 'gnetwork' ) );
+		$this->register_tool( _x( 'Titles', 'Modules: Menu Name', 'gnetwork' ), 'titles' );
 	}
 
 	public function default_options()
@@ -114,6 +117,163 @@ class Typography extends gNetwork\Module
 				'editor_buttons',
 			],
 		];
+	}
+
+	public function tools( $sub = NULL, $key = NULL )
+	{
+		parent::tools( $sub, 'titles' );
+	}
+
+	protected function tools_buttons( $sub = NULL )
+	{
+		$this->register_button( 'format_i18n', _x( 'Format I18n', 'Modules: Typography', 'gnetwork' ) );
+		$this->register_button( 'downcode_slugs', _x( 'DownCode Slugs', 'Modules: Typography', 'gnetwork' ) );
+		$this->register_button( 'rewrite_slugs', _x( 'Rewrite Slugs', 'Modules: Typography', 'gnetwork' ) );
+	}
+
+	protected function tools_actions( $sub = NULL )
+	{
+		if ( 'titles' == $sub ) {
+
+			if ( ! empty( $_POST ) && 'bulk' == $_POST['action'] ) {
+
+				$this->check_referer( $sub, 'tools' );
+
+				if ( self::isTablelistAction( 'rewrite_slugs', TRUE ) ) {
+
+					$count = 0;
+
+					foreach ( $_POST['_cb'] as $post_id ) {
+
+						if ( ! $post = get_post( $post_id ) )
+							continue;
+
+						$updated = wp_update_post( [
+							'ID'        => $post->ID,
+							'post_name' => Text::formatSlug( $post->post_title ),
+						] );
+
+						if ( ! $updated || self::isError( $updated ) )
+							continue;
+
+						$count++;
+					}
+
+					WordPress::redirectReferer( [
+						'message' => 'changed',
+						'count'   => $count,
+						'limit'   => self::limit(),
+						'paged'   => self::paged(),
+					] );
+
+				} else if ( self::isTablelistAction( 'downcode_slugs', TRUE ) ) {
+
+					$count = 0;
+
+					foreach ( $_POST['_cb'] as $post_id ) {
+
+						if ( ! $post = get_post( $post_id ) )
+							continue;
+
+						$updated = wp_update_post( [
+							'ID'        => $post->ID,
+							'post_name' => Utilities::URLifyDownCode( Text::formatSlug( $post->post_title ) ),
+						] );
+
+						if ( ! $updated || self::isError( $updated ) )
+							continue;
+
+						$count++;
+					}
+
+					WordPress::redirectReferer( [
+						'message' => 'changed',
+						'count'   => $count,
+						'limit'   => self::limit(),
+						'paged'   => self::paged(),
+					] );
+
+				} else if ( self::isTablelistAction( 'format_i18n', TRUE ) ) {
+
+					$count = 0;
+
+					foreach ( $_POST['_cb'] as $post_id ) {
+
+						if ( ! $post = get_post( $post_id ) )
+							continue;
+
+						$updated = wp_update_post( [
+							'ID'         => $post->ID,
+							'post_title' => apply_filters( 'string_format_i18n', $post->post_title ),
+						] );
+
+						if ( ! $updated || self::isError( $updated ) )
+							continue;
+
+						$count++;
+					}
+
+					WordPress::redirectReferer( [
+						'message' => 'changed',
+						'count'   => $count,
+						'limit'   => self::limit(),
+						'paged'   => self::paged(),
+					] );
+
+				} else {
+
+					WordPress::redirectReferer( [
+						'message' => 'wrong',
+						'limit'   => self::limit(),
+						'paged'   => self::paged(),
+					] );
+				}
+			}
+		}
+	}
+
+	protected function render_tools_html( $uri, $sub = 'general' )
+	{
+		list( $posts, $pagination ) = self::getTablelistPosts();
+
+		$pagination['before'][] = self::filterTablelistSearch();
+
+		return HTML::tableList( [
+			'_cb'  => 'ID',
+			'ID'   => _x( 'ID', 'Modules: Typography: Column Title', 'gnetwork' ),
+			'type' => [
+				'title'    => _x( 'Type', 'Modules: Typography: Column Title', 'gnetwork' ),
+				'args'     => [ 'post_types' => WordPress::getPostTypes( 2 ) ],
+				'callback' => function( $value, $row, $column, $index ){
+					return isset( $column['args']['post_types'][$row->post_type] )
+						? $column['args']['post_types'][$row->post_type]
+						: $row->post_type;
+				},
+			],
+			'slug' => [
+				'title'    => _x( 'Slug', 'Modules: Typography: Column Title', 'gnetwork' ),
+				// 'class'    => '-ltr',
+				'callback' => function( $value, $row, $column, $index ){
+					// TODO: must warn for customized slugs
+					// TODO: title attr for more info
+					return HTML::tag( 'code', urldecode( $row->post_name ) )
+						// .'<br />'.HTML::tag( 'code', urldecode( Text::formatSlug( Number::intval( $row->post_title, FALSE ) ) ) );
+						.'<br />'.HTML::tag( 'code', urldecode( sanitize_title( Number::intval( $row->post_title, FALSE ) ) ) );
+				},
+			],
+			'title' => [
+				'title'    => _x( 'Title', 'Modules: Typography: Column Title', 'gnetwork' ),
+				'callback' => function( $value, $row, $column, $index ){
+					return Utilities::getPostTitle( $row );
+				},
+			],
+		], $posts, [
+			'navigation' => 'before',
+			'search'     => 'before',
+			'title'      => HTML::tag( 'h3', _x( 'Overview of Titles and Slugs', 'Modules: Typography', 'gnetwork' ) ),
+			'empty'      => HTML::warning( _x( 'No Posts!', 'Modules: Typography', 'gnetwork' ) ),
+			'pagination' => $pagination,
+		] );
 	}
 
 	// TODO: wordwrap headings in content / lookout for link in titles!
