@@ -21,6 +21,9 @@ class User extends gNetwork\Module
 	{
 		$this->filter( 'authenticate', 3, 50 );
 
+		if ( $this->options['disable_apppass'] )
+			$this->filter_false( 'wp_is_application_passwords_available' );
+
 		if ( ! is_multisite() )
 			return TRUE;
 
@@ -73,6 +76,7 @@ class User extends gNetwork\Module
 		return [
 			'site_user_id'    => '0', // GNETWORK_SITE_USER_ID
 			'site_user_role'  => 'editor', // GNETWORK_SITE_USER_ROLE
+			'disable_apppass' => '0',
 			'network_roles'   => '0',
 			'admin_user_edit' => '0',
 			'dashboard_sites' => '0',
@@ -104,6 +108,12 @@ class User extends gNetwork\Module
 						'contributor'   => _x( 'Contributor', 'User role' ),
 						'subscriber'    => _x( 'Subscriber', 'User role' ),
 					],
+				],
+				[
+					'field'       => 'disable_apppass',
+					'type'        => 'disabled',
+					'title'       => _x( 'Application Passwords', 'Modules: User: Settings', 'gnetwork' ),
+					'description' => _x( 'Disables WordPress application passwords feature.', 'Modules: User: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'network_roles',
