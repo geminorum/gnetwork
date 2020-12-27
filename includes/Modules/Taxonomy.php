@@ -340,7 +340,54 @@ class Taxonomy extends gNetwork\Module
 			Text::download( $data, File::prepName( sprintf( '%s.csv', $taxonomy ) ) );
 
 			WordPress::redirectReferer( 'wrong' );
+
+		} else if ( self::req( $this->classs( 'do-delete-terms' ) ) ) {
+
+			check_admin_referer( $this->classs( 'do-delete-terms' ) );
+
+			// no need, we check the nounce
+			// if ( ! current_user_can( get_taxonomy( $taxonomy )->cap->delete_terms ) )
+			// 	WordPress::redirectReferer( 'noaccess' );
+
+			if ( $taxonomy !== self::req( $this->classs( 'do-delete-confirm' ) ) )
+				WordPress::redirectReferer( 'huh' );
+
+			else
+				$count = $this->handle_delete_terms( $taxonomy, FALSE );
+
+			WordPress::redirectReferer( [
+				'message' => 'deleted',
+				'count'   => $count,
+			] );
 		}
+	}
+
+	// NOTE: we canot relay on count data from the database
+	private function handle_delete_terms( $taxonomy, $empty = TRUE )
+	{
+		$count = 0;
+		$terms = get_terms( [
+			'taxonomy'   => $taxonomy,
+			'hide_empty' => FALSE,
+
+			'update_term_meta_cache' => FALSE,
+		] );
+
+		foreach ( $terms as $term ) {
+
+			if ( $empty && $term->count )
+				continue;
+
+			// MAYBE: check `delete_term` for each term
+			// @SEE: https://wp.me/p2AvED-5kA
+
+			$deleted = wp_delete_term( $term->term_id, $term->taxonomy );
+
+			if ( $deleted && ! is_wp_error( $deleted ) )
+				$count++;
+		}
+
+		return $count;
 	}
 
 	// TODO: ajax search
@@ -366,6 +413,7 @@ class Taxonomy extends gNetwork\Module
 		$this->_tab_content_tools_defaults( $taxonomy, $object );
 		// $this->_tab_content_tools_import( $taxonomy, $object ); // FIXME
 		$this->_tab_content_tools_export( $taxonomy, $object );
+		$this->_tab_content_tools_delete( $taxonomy, $object );
 
 		$this->actions( 'tab_tools_content', $taxonomy, $object );
 	}
@@ -441,6 +489,36 @@ class Taxonomy extends gNetwork\Module
 				echo '</p>';
 
 			$this->render_form_end( NULL, 'export', 'download', 'tabs' );
+		echo '</div>';
+	}
+
+	private function _tab_content_tools_delete( $taxonomy, $object )
+	{
+		if ( ! current_user_can( $object->cap->delete_terms ) )
+			return FALSE;
+
+		echo $this->wrap_open( '-tab-tools-delete card -toolbox-card' );
+			HTML::h4( _x( 'Delete Terms', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'title' );
+
+			$this->render_form_start( NULL, 'delete', 'bulk', 'tabs', FALSE );
+				wp_nonce_field( $this->classs( 'do-delete-terms' ) );
+
+				echo HTML::tag( 'input', [
+					'type'         => 'text',
+					'name'         => $this->classs( 'do-delete-confirm' ),
+					'placeholder'  => $taxonomy,
+					'autocomplete' => 'off',
+					'class'        => [ 'regular-text', 'code' ],
+					'dir'          => 'ltr',
+				] );
+
+				HTML::desc( _x( 'Confirm deletion of all terms by entering the taxonomy name.', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ) );
+
+				echo $this->wrap_open_buttons( '-toolbox-buttons' );
+					Settings::submitButton( $this->classs( 'do-delete-terms' ), _x( 'Delete All', 'Modules: Taxonomy: Tab Tools: Button', 'gnetwork' ), 'small button-danger' );
+				echo '</p>';
+
+			$this->render_form_end( NULL, 'delete', 'bulk', 'tabs' );
 		echo '</div>';
 	}
 
