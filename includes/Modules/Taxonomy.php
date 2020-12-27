@@ -266,11 +266,15 @@ class Taxonomy extends gNetwork\Module
 
 	private function get_taxonomy_tabs( $taxonomy )
 	{
-		return $this->filters( 'tabs', [
-			// 'search' => [ 'title' => _x( 'Search', 'Modules: Taxonomy: Tab Title', 'gnetwork' ), 'callback' => NULL ], // FIXME
-			'tools'  => [ 'title' => _x( 'Tools', 'Modules: Taxonomy: Tab Title', 'gnetwork' ), 'callback' => NULL ],
-			'extras' => [ 'title' => _x( 'Extras', 'Modules: Taxonomy: Tab Title', 'gnetwork' ), 'callback' => NULL ],
-		], $taxonomy );
+		$tabs = [];
+
+		// $tabs['search'] = [ 'title' => _x( 'Search', 'Modules: Taxonomy: Tab Title', 'gnetwork' ), , 'callback' => NULL ]; // FIXME
+		$tabs['tools']  = [ 'title' => _x( 'Tools', 'Modules: Taxonomy: Tab Title', 'gnetwork' ), 'callback' => NULL ];
+
+		if ( $this->hooked( 'tab_extra_content' ) )
+			$tabs['extras'] = [ 'title' => _x( 'Extras', 'Modules: Taxonomy: Tab Title', 'gnetwork' ), 'callback' => NULL ];
+
+		return $this->filters( 'tabs', $tabs, $taxonomy );
 	}
 
 	// @HOOK: `{$taxonomy}_pre_add_form`
