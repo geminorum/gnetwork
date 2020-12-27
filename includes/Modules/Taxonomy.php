@@ -44,6 +44,7 @@ class Taxonomy extends gNetwork\Module
 	{
 		return [
 			'management_tools'   => '1',
+			'taxonomy_tabs'      => '0',
 			'slug_actions'       => '0',
 			'description_editor' => '0',
 			'description_column' => '1',
@@ -60,6 +61,11 @@ class Taxonomy extends gNetwork\Module
 					'title'       => _x( 'Management Tools', 'Modules: Taxonomy: Settings', 'gnetwork' ),
 					'description' => _x( 'Allows you to merge terms, set term parents in bulk, and swap term taxonomies.', 'Modules: Taxonomy: Settings', 'gnetwork' ),
 					'default'     => '1',
+				],
+				[
+					'field'       => 'taxonomy_tabs',
+					'title'       => _x( 'Taxonomy Tabs', 'Modules: Taxonomy: Settings', 'gnetwork' ),
+					'description' => _x( 'Extends taxonomy default user interface with extra features.', 'Modules: Taxonomy: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'slug_actions',
@@ -126,14 +132,17 @@ class Taxonomy extends gNetwork\Module
 
 			if ( 'edit-tags' == $screen->base ) {
 
-				$this->handle_tab_content_actions( $screen->taxonomy );
+				if ( $this->options['taxonomy_tabs'] ) {
 
-				add_action( $screen->taxonomy.'_pre_add_form', [ $this, 'edittags_pre_add_form' ], -9999 );
-				add_action( $screen->taxonomy.'_add_form', [ $this, 'edittags_add_form' ], 9999 );
+					$this->handle_tab_content_actions( $screen->taxonomy );
 
-				$this->action_self( 'tab_extra_content', 1, 12, 'default_term' );
-				// $this->action_self( 'tab_extra_content', 1, 22, 'terms_stats' ); // FIXME
-				// $this->action_self( 'tab_extra_content', 1, 32, 'i18n_reports' ); // FIXME
+					add_action( $screen->taxonomy.'_pre_add_form', [ $this, 'edittags_pre_add_form' ], -9999 );
+					add_action( $screen->taxonomy.'_add_form', [ $this, 'edittags_add_form' ], 9999 );
+
+					$this->action_self( 'tab_extra_content', 1, 12, 'default_term' );
+					// $this->action_self( 'tab_extra_content', 1, 22, 'terms_stats' ); // FIXME
+					// $this->action_self( 'tab_extra_content', 1, 32, 'i18n_reports' ); // FIXME
+				}
 
 				if ( $this->options['description_editor'] )
 					add_action( $screen->taxonomy.'_add_form_fields', [ $this, 'add_form_fields_editor' ], 1, 1 );
