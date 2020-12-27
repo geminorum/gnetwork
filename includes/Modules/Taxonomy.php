@@ -130,19 +130,10 @@ class Taxonomy extends gNetwork\Module
 			if ( $this->options['management_tools'] )
 				$this->management_tools( $screen );
 
+			if ( $this->options['taxonomy_tabs'] )
+				$this->taxonomy_tabs( $screen );
+
 			if ( 'edit-tags' == $screen->base ) {
-
-				if ( $this->options['taxonomy_tabs'] ) {
-
-					$this->handle_tab_content_actions( $screen->taxonomy );
-
-					add_action( $screen->taxonomy.'_pre_add_form', [ $this, 'edittags_pre_add_form' ], -9999 );
-					add_action( $screen->taxonomy.'_add_form', [ $this, 'edittags_add_form' ], 9999 );
-
-					$this->action_self( 'tab_extra_content', 1, 12, 'default_term' );
-					// $this->action_self( 'tab_extra_content', 1, 22, 'terms_stats' ); // FIXME
-					// $this->action_self( 'tab_extra_content', 1, 32, 'i18n_reports' ); // FIXME
-				}
 
 				if ( $this->options['description_editor'] )
 					add_action( $screen->taxonomy.'_add_form_fields', [ $this, 'add_form_fields_editor' ], 1, 1 );
@@ -253,6 +244,26 @@ class Taxonomy extends gNetwork\Module
 		return $clauses;
 	}
 
+	private function taxonomy_tabs( $screen )
+	{
+		if ( 'edit-tags' != $screen->base )
+			return FALSE;
+
+		$object = get_taxonomy( $screen->taxonomy );
+
+		if ( ! current_user_can( $object->cap->manage_terms ) )
+			return FALSE;
+
+		$this->handle_tab_content_actions( $object->name );
+
+		add_action( $object->name.'_pre_add_form', [ $this, 'edittags_pre_add_form' ], -9999 );
+		add_action( $object->name.'_add_form', [ $this, 'edittags_add_form' ], 9999 );
+
+		$this->action_self( 'tab_extra_content', 2, 12, 'default_term' );
+		// $this->action_self( 'tab_extra_content', 2, 22, 'terms_stats' ); // FIXME
+		// $this->action_self( 'tab_extra_content', 2, 32, 'i18n_reports' ); // FIXME
+	}
+
 	private function get_taxonomy_tabs( $taxonomy )
 	{
 		return $this->filters( 'tabs', [
@@ -294,7 +305,7 @@ class Taxonomy extends gNetwork\Module
 				continue;
 
 			echo '<div class="nav-tab-content -content -content-tab-'.$tab.'" data-tab="'.$tab.'">';
-				call_user_func_array( $callback, [ $taxonomy, $tab ] );
+				call_user_func_array( $callback, [ $taxonomy, $tab, get_taxonomy( $taxonomy ) ] );
 			echo '</div>';
 		}
 
@@ -335,33 +346,36 @@ class Taxonomy extends gNetwork\Module
 	// TODO: ajax search
 	// TODO: suggestion: misspelled
 	// TODO: suggestion: i18n variations
-	public function callback_tab_content_search( $taxonomy, $tab )
+	public function callback_tab_content_search( $taxonomy, $tab, $object )
 	{
-		$this->actions( 'tab_search_content_before', $taxonomy );
+		$this->actions( 'tab_search_content_before', $taxonomy, $object );
 
 		echo $this->wrap_open( '-tab-tools-search' );
 			HTML::desc( gNetwork()->na() ); // FIXME
 		echo '</div>';
 
-		$this->actions( 'tab_search_content', $taxonomy );
+		$this->actions( 'tab_search_content', $taxonomy, $object );
 	}
 
 	// TODO: delete empty terms
 	// TODO: delete terms with single post
-	public function callback_tab_content_tools( $taxonomy, $tab )
+	public function callback_tab_content_tools( $taxonomy, $tab, $object )
 	{
-		$this->actions( 'tab_tools_content_before', $taxonomy );
+		$this->actions( 'tab_tools_content_before', $taxonomy, $object );
 
-		$this->_tab_content_tools_defaults( $taxonomy );
-		// $this->_tab_content_tools_import( $taxonomy ); // FIXME
-		$this->_tab_content_tools_export( $taxonomy );
+		$this->_tab_content_tools_defaults( $taxonomy, $object );
+		// $this->_tab_content_tools_import( $taxonomy, $object ); // FIXME
+		$this->_tab_content_tools_export( $taxonomy, $object );
 
-		$this->actions( 'tab_tools_content', $taxonomy );
+		$this->actions( 'tab_tools_content', $taxonomy, $object );
 	}
 
-	// TODO: indicate already installed
-	private function _tab_content_tools_defaults( $taxonomy )
+	// TODO: indicate that term maybe already installed
+	private function _tab_content_tools_defaults( $taxonomy, $object )
 	{
+		if ( ! current_user_can( $object->cap->edit_terms ) )
+			return FALSE;
+
 		echo $this->wrap_open( '-tab-tools-defaults card -toolbox-card' );
 			HTML::h4( _x( 'Default Terms', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'title' );
 
@@ -395,7 +409,7 @@ class Taxonomy extends gNetwork\Module
 		echo '</div>';
 	}
 
-	private function _tab_content_tools_import( $taxonomy )
+	private function _tab_content_tools_import( $taxonomy, $object )
 	{
 		echo $this->wrap_open( '-tab-tools-import card -toolbox-card' );
 			HTML::h4( _x( 'Import Terms', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'title' );
@@ -405,7 +419,7 @@ class Taxonomy extends gNetwork\Module
 		echo '</div>';
 	}
 
-	private function _tab_content_tools_export( $taxonomy )
+	private function _tab_content_tools_export( $taxonomy, $object )
 	{
 		echo $this->wrap_open( '-tab-tools-export card -toolbox-card' );
 			HTML::h4( _x( 'Export Terms', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'title' );
@@ -430,12 +444,12 @@ class Taxonomy extends gNetwork\Module
 		echo '</div>';
 	}
 
-	public function callback_tab_content_extras( $taxonomy, $tab )
+	public function callback_tab_content_extras( $taxonomy, $tab, $object )
 	{
-		$this->actions( 'tab_extra_content', $taxonomy );
+		$this->actions( 'tab_extra_content', $taxonomy, $object );
 	}
 
-	public function tab_extra_content_i18n_reports( $taxonomy )
+	public function tab_extra_content_i18n_reports( $taxonomy, $object )
 	{
 		echo $this->wrap_open( '-tab-extras-i18n-reports card -toolbox-card' );
 			HTML::h4( _x( 'i18n Reports', 'Modules: Taxonomy: Tab Extra', 'gnetwork' ), 'title' );
@@ -446,7 +460,7 @@ class Taxonomy extends gNetwork\Module
 	}
 
 	// TODO: count by meta fields
-	public function tab_extra_content_terms_stats( $taxonomy )
+	public function tab_extra_content_terms_stats( $taxonomy, $object )
 	{
 		echo $this->wrap_open( '-tab-extras-terms-stats card -toolbox-card' );
 			HTML::h4( _x( 'Terms Stats', 'Modules: Taxonomy: Tab Extra', 'gnetwork' ), 'title' );
@@ -458,7 +472,7 @@ class Taxonomy extends gNetwork\Module
 
 	// FIXME: must be link button to edit the default term
 	// FIXME: unset default term button
-	public function tab_extra_content_default_term( $taxonomy )
+	public function tab_extra_content_default_term( $taxonomy, $object )
 	{
 		echo $this->wrap_open( '-tab-extras-default-term card -toolbox-card' );
 			HTML::h4( _x( 'Default Term', 'Modules: Taxonomy: Tab Extra', 'gnetwork' ), 'title' );
