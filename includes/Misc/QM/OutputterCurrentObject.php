@@ -38,6 +38,9 @@ class OutputterCurrentObject extends \QM_Output_Html
 		if ( ! empty( $data['supports'] ) )
 			HTML::tableSide( $data['supports'], TRUE, HTML::tag( 'h2', _x( 'Current Object Supports', 'Modules: Debug: QM Output', 'gnetwork' ) ) );
 
+		if ( ! empty( $data['taxonomies'] ) )
+			HTML::tableSide( $data['taxonomies'], TRUE, HTML::tag( 'h2', _x( 'Current Object Taxonomies', 'Modules: Debug: QM Output', 'gnetwork' ) ) );
+
 		// $this->after_non_tabular_output();
 		$this->after_tabular_output();
 	}
