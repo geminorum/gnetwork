@@ -86,59 +86,69 @@ class User extends gNetwork\Module
 
 	public function default_settings()
 	{
-		return [
-			'_general' => [
-				[
-					'field'       => 'site_user_id',
-					'type'        => 'number',
-					'title'       => _x( 'Site User ID', 'Modules: User: Settings', 'gnetwork' ),
-					'description' => _x( 'ID of site user for the network.', 'Modules: User: Settings', 'gnetwork' ),
-					'after'       => Settings::fieldAfterIcon( WordPress::getUserEditLink( $this->options['site_user_id'], [], TRUE, FALSE ) ),
-				],
-				[
-					'field'       => 'site_user_role',
-					'type'        => 'select',
-					'title'       => _x( 'Site User Role', 'Modules: User: Settings', 'gnetwork' ),
-					'description' => _x( 'Default site user role for new sites on the network.', 'Modules: User: Settings', 'gnetwork' ),
-					'default'     => 'editor',
-					'values'      => [
-						'administrator' => _x( 'Administrator', 'User role' ),
-						'editor'        => _x( 'Editor', 'User role' ),
-						'author'        => _x( 'Author', 'User role' ),
-						'contributor'   => _x( 'Contributor', 'User role' ),
-						'subscriber'    => _x( 'Subscriber', 'User role' ),
-					],
-				],
-				[
-					'field'       => 'disable_apppass',
-					'type'        => 'disabled',
-					'title'       => _x( 'Application Passwords', 'Modules: User: Settings', 'gnetwork' ),
-					'description' => _x( 'Disables WordPress application passwords feature.', 'Modules: User: Settings', 'gnetwork' ),
-				],
-				[
-					'field'       => 'network_roles',
-					'title'       => _x( 'Network Roles', 'Modules: User: Settings', 'gnetwork' ),
-					'description' => _x( 'Tries to automatically add each user to the network sites.', 'Modules: User: Settings', 'gnetwork' ),
-				],
-				[
-					'field'       => 'admin_user_edit',
-					'title'       => _x( 'Administrator User Edit', 'Modules: User: Settings', 'gnetwork' ),
-					'description' => _x( 'Allows site administrators to edit users of their sites.', 'Modules: User: Settings', 'gnetwork' ),
-				],
-			],
-			'_dashboard' => [
-				[
-					'field'       => 'dashboard_sites',
-					'title'       => _x( 'Dashboard Sites', 'Modules: User: Settings', 'gnetwork' ),
-					'description' => _x( 'Displays current user list of sites on the user dashboard.', 'Modules: User: Settings', 'gnetwork' ),
-				],
-				[
-					'field'       => 'dashboard_menu',
-					'title'       => _x( 'Dashboard User Menu', 'Modules: User: Settings', 'gnetwork' ),
-					'description' => _x( 'Displays global user menu navigation on the user dashboard.', 'Modules: User: Settings', 'gnetwork' ),
-				],
-			],
+		$settings  = array_fill_keys( [ '_general', '_dashboard' ], [] );
+		$multisite = is_multisite();
+
+		$settings['_general'][] = [
+			'field'       => 'site_user_id',
+			'type'        => 'number',
+			'title'       => _x( 'Site User ID', 'Modules: User: Settings', 'gnetwork' ),
+			'description' => _x( 'ID of site user for the network.', 'Modules: User: Settings', 'gnetwork' ),
+			'after'       => Settings::fieldAfterIcon( WordPress::getUserEditLink( $this->options['site_user_id'], [], TRUE, FALSE ) ),
 		];
+
+		if ( $multisite )
+			$settings['_general'][] = [
+				'field'       => 'site_user_role',
+				'type'        => 'select',
+				'title'       => _x( 'Site User Role', 'Modules: User: Settings', 'gnetwork' ),
+				'description' => _x( 'Default site user role for new sites on the network.', 'Modules: User: Settings', 'gnetwork' ),
+				'default'     => 'editor',
+				'values'      => [
+					'administrator' => _x( 'Administrator', 'User role' ),
+					'editor'        => _x( 'Editor', 'User role' ),
+					'author'        => _x( 'Author', 'User role' ),
+					'contributor'   => _x( 'Contributor', 'User role' ),
+					'subscriber'    => _x( 'Subscriber', 'User role' ),
+				],
+			];
+
+		$settings['_general'][] = [
+			'field'       => 'disable_apppass',
+			'type'        => 'disabled',
+			'title'       => _x( 'Application Passwords', 'Modules: User: Settings', 'gnetwork' ),
+			'description' => _x( 'Disables WordPress application passwords feature.', 'Modules: User: Settings', 'gnetwork' ),
+		];
+
+		if ( $multisite )
+			$settings['_general'][] = [
+				'field'       => 'network_roles',
+				'title'       => _x( 'Network Roles', 'Modules: User: Settings', 'gnetwork' ),
+				'description' => _x( 'Tries to automatically add each user to the network sites.', 'Modules: User: Settings', 'gnetwork' ),
+			];
+
+		if ( $multisite )
+			$settings['_general'][] = [
+				'field'       => 'admin_user_edit',
+				'title'       => _x( 'Administrator User Edit', 'Modules: User: Settings', 'gnetwork' ),
+				'description' => _x( 'Allows site administrators to edit users of their sites.', 'Modules: User: Settings', 'gnetwork' ),
+			];
+
+		if ( $multisite )
+			$settings['_dashboard'][] = [
+				'field'       => 'dashboard_sites',
+				'title'       => _x( 'Dashboard Sites', 'Modules: User: Settings', 'gnetwork' ),
+				'description' => _x( 'Displays current user list of sites on the user dashboard.', 'Modules: User: Settings', 'gnetwork' ),
+			];
+
+		if ( $multisite )
+			$settings['_dashboard'][] = [
+				'field'       => 'dashboard_menu',
+				'title'       => _x( 'Dashboard User Menu', 'Modules: User: Settings', 'gnetwork' ),
+				'description' => _x( 'Displays global user menu navigation on the user dashboard.', 'Modules: User: Settings', 'gnetwork' ),
+			];
+
+		return $settings;
 	}
 
 	public function settings_sidebox( $sub, $uri )
