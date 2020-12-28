@@ -271,6 +271,9 @@ class Taxonomy extends gNetwork\Module
 		// $tabs['search'] = [ 'title' => _x( 'Search', 'Modules: Taxonomy: Tab Title', 'gnetwork' ), , 'callback' => NULL ]; // FIXME
 		$tabs['tools']  = [ 'title' => _x( 'Tools', 'Modules: Taxonomy: Tab Title', 'gnetwork' ), 'callback' => NULL ];
 
+		if ( $this->hooked( 'tab_maintenance_content' ) )
+			$tabs['maintenance'] = [ 'title' => _x( 'Maintenance', 'Modules: Taxonomy: Tab Title', 'gnetwork' ), 'callback' => NULL ];
+
 		if ( $this->hooked( 'tab_extra_content' ) )
 			$tabs['extras'] = [ 'title' => _x( 'Extras', 'Modules: Taxonomy: Tab Title', 'gnetwork' ), 'callback' => NULL ];
 
@@ -524,6 +527,11 @@ class Taxonomy extends gNetwork\Module
 
 			$this->render_form_end( NULL, 'delete', 'bulk', 'tabs' );
 		echo '</div>';
+	}
+
+	public function callback_tab_content_maintenance( $taxonomy, $tab, $object )
+	{
+		$this->actions( 'tab_maintenance_content', $taxonomy, $object );
 	}
 
 	public function callback_tab_content_extras( $taxonomy, $tab, $object )
