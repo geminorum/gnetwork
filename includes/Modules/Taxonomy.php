@@ -271,10 +271,11 @@ class Taxonomy extends gNetwork\Module
 		$tabs = [];
 
 		// $tabs['search'] = [ 'title' => _x( 'Search', 'Modules: Taxonomy: Tab Title', 'gnetwork' ), , 'callback' => NULL ]; // FIXME
-		$tabs['tools']  = [ 'title' => _x( 'Tools', 'Modules: Taxonomy: Tab Title', 'gnetwork' ), 'callback' => NULL ];
 
 		if ( $this->hooked( 'tab_maintenance_content' ) )
 			$tabs['maintenance'] = [ 'title' => _x( 'Maintenance', 'Modules: Taxonomy: Tab Title', 'gnetwork' ), 'callback' => NULL ];
+
+		$tabs['tools'] = [ 'title' => _x( 'Tools', 'Modules: Taxonomy: Tab Title', 'gnetwork' ), 'callback' => NULL ];
 
 		if ( $this->hooked( 'tab_extra_content' ) )
 			$tabs['extras'] = [ 'title' => _x( 'Extras', 'Modules: Taxonomy: Tab Title', 'gnetwork' ), 'callback' => NULL ];
@@ -321,6 +322,7 @@ class Taxonomy extends gNetwork\Module
 		echo '</div><div><form class="dummy-form">';
 	}
 
+	// FIXME: redirect messages wont appear on the edit-tags screen
 	private function handle_tab_content_actions( $taxonomy )
 	{
 		if ( self::req( $this->classs( 'do-default-terms' ) ) ) {
@@ -535,13 +537,15 @@ class Taxonomy extends gNetwork\Module
 				HTML::desc( _x( 'Confirm deletion of all terms by entering the taxonomy name.', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ) );
 
 				echo $this->wrap_open_buttons( '-toolbox-buttons' );
-					Settings::submitButton( $this->classs( 'do-delete-terms' ), _x( 'Delete All', 'Modules: Taxonomy: Tab Tools: Button', 'gnetwork' ), 'small button-danger' );
+					Settings::submitButton( $this->classs( 'do-delete-terms' ), _x( 'Delete All Terms', 'Modules: Taxonomy: Tab Tools: Button', 'gnetwork' ), 'small button-danger', TRUE );
 				echo '</p>';
 
 			$this->render_form_end( NULL, 'delete', 'bulk', 'tabs' );
 		echo '</div>';
 	}
 
+	// TODO: card: apply i18n on all titles
+	// TODO: card: merge i18n same titles
 	public function callback_tab_content_maintenance( $taxonomy, $tab, $object )
 	{
 		$this->actions( 'tab_maintenance_content', $taxonomy, $object );
@@ -605,6 +609,7 @@ class Taxonomy extends gNetwork\Module
 		echo '</div>';
 	}
 
+	// FIXME: maybe move to `maintenance` tab
 	// FIXME: must be link button to edit the default term
 	// FIXME: unset default term button
 	public function tab_extra_content_default_term( $taxonomy, $object )

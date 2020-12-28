@@ -1471,6 +1471,8 @@ class Settings extends Core\Base
 				if ( ! $args['values'] )
 					$args['values'] = WordPress::getTaxonomies( 0, $args['extra'] );
 
+				echo '<div class="wp-tab-panel"><ul>';
+
 				foreach ( $args['values'] as $value_name => $value_title ) {
 
 					if ( in_array( $value_name, $exclude ) )
@@ -1491,8 +1493,10 @@ class Settings extends Core\Base
 					$html.= '&nbsp;'.HTML::escape( $value_title );
 					$html.= ' &mdash; <code>'.$value_name.'</code>';
 
-					HTML::label( $html, $id.'-'.$value_name );
+					HTML::label( $html, $id.'-'.$value_name, 'li' );
 				}
+
+				echo '</ul></div>';
 
 			break;
 			case 'callback':

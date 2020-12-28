@@ -33,7 +33,7 @@ class Ajax extends Core\Base
 	public static function successMessage( $message = NULL )
 	{
 		if ( is_null( $message ) )
-			$message = _x( 'Succesful!', 'Ajax: Ajax Notice', 'gnetwork' );
+			$message = _x( 'Successful!', 'Ajax: Ajax Notice', 'gnetwork' );
 
 		if ( $message )
 			self::success( HTML::success( $message ) );
