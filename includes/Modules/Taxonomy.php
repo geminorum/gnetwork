@@ -259,6 +259,8 @@ class Taxonomy extends gNetwork\Module
 		add_action( $object->name.'_pre_add_form', [ $this, 'edittags_pre_add_form' ], -9999 );
 		add_action( $object->name.'_add_form', [ $this, 'edittags_add_form' ], 9999 );
 
+		$this->action_self( 'tab_maintenance_content', 2, 12, 'delete_empties' );
+
 		$this->action_self( 'tab_extra_content', 2, 12, 'default_term' );
 		// $this->action_self( 'tab_extra_content', 2, 22, 'terms_stats' ); // FIXME
 		// $this->action_self( 'tab_extra_content', 2, 32, 'i18n_reports' ); // FIXME
@@ -361,6 +363,17 @@ class Taxonomy extends gNetwork\Module
 
 			else
 				$count = $this->handle_delete_terms( $taxonomy, FALSE );
+
+			WordPress::redirectReferer( [
+				'message' => 'deleted',
+				'count'   => $count,
+			] );
+
+		} else if ( self::req( $this->classs( 'do-delete-empties' ) ) ) {
+
+			check_admin_referer( $this->classs( 'do-delete-empties' ) );
+
+			$count = $this->handle_delete_terms( $taxonomy, TRUE );
 
 			WordPress::redirectReferer( [
 				'message' => 'deleted',
@@ -532,6 +545,38 @@ class Taxonomy extends gNetwork\Module
 	public function callback_tab_content_maintenance( $taxonomy, $tab, $object )
 	{
 		$this->actions( 'tab_maintenance_content', $taxonomy, $object );
+	}
+
+	public function tab_maintenance_content_delete_empties( $taxonomy, $object )
+	{
+		if ( ! current_user_can( $object->cap->delete_terms ) )
+			return FALSE;
+
+		echo $this->wrap_open( '-tab-tools-delete-empties card -toolbox-card' );
+			HTML::h4( _x( 'Delete Empties', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'title' );
+
+			$empties = wp_count_terms( $taxonomy ) - wp_count_terms( $taxonomy, [ 'hide_empty' => TRUE ] );
+
+			if ( $empties ) {
+
+				$this->render_form_start( NULL, 'delete', 'empties', 'tabs', FALSE );
+					wp_nonce_field( $this->classs( 'do-delete-empties' ) );
+
+					/* translators: %s: number of empty terms */
+					HTML::desc( Utilities::getCounted( $empties, _nx( 'Confirm deletion of %s empty term.', 'Confirm deletion of %s empty terms.', $empties, 'Modules: Taxonomy: Tab Tools', 'gnetwork' ) ) );
+
+					echo $this->wrap_open_buttons( '-toolbox-buttons' );
+						Settings::submitButton( $this->classs( 'do-delete-empties' ), _x( 'Delete Empty Terms', 'Modules: Taxonomy: Tab Tools: Button', 'gnetwork' ), 'small button-danger', TRUE );
+					echo '</p>';
+
+				$this->render_form_end( NULL, 'delete', 'empties', 'tabs' );
+
+			} else {
+
+				HTML::desc( _x( 'There are no empty terms in this taxonomy.', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ) );
+			}
+
+		echo '</div>';
 	}
 
 	public function callback_tab_content_extras( $taxonomy, $tab, $object )
