@@ -364,7 +364,7 @@ class Taxonomy extends gNetwork\Module
 				WordPress::redirectReferer( 'huh' );
 
 			else
-				$count = $this->handle_delete_terms( $taxonomy, FALSE );
+				$count = $this->handle_delete_terms( $taxonomy, FALSE, FALSE );
 
 			WordPress::redirectReferer( [
 				'message' => 'deleted',
@@ -375,7 +375,7 @@ class Taxonomy extends gNetwork\Module
 
 			check_admin_referer( $this->classs( 'do-delete-empties' ) );
 
-			$count = $this->handle_delete_terms( $taxonomy, TRUE );
+			$count = $this->handle_delete_terms( $taxonomy, TRUE, FALSE );
 
 			WordPress::redirectReferer( [
 				'message' => 'deleted',
@@ -385,12 +385,13 @@ class Taxonomy extends gNetwork\Module
 	}
 
 	// NOTE: we canot relay on count data from the database
-	private function handle_delete_terms( $taxonomy, $empty = TRUE )
+	private function handle_delete_terms( $taxonomy, $empty = TRUE, $include_default = FALSE )
 	{
 		$count = 0;
 		$terms = get_terms( [
 			'taxonomy'   => $taxonomy,
 			'hide_empty' => FALSE,
+			'exclude'    => $include_default ? '' : get_option( $this->get_default_term_key( $taxonomy ), '' ),
 
 			'update_term_meta_cache' => FALSE,
 		] );
@@ -536,6 +537,14 @@ class Taxonomy extends gNetwork\Module
 
 				HTML::desc( _x( 'Confirm deletion of all terms by entering the taxonomy name.', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ) );
 
+				if ( $default = get_option( $this->get_default_term_key( $taxonomy ) ) ) {
+
+					$term = get_term( $default, $taxonomy );
+
+					if ( $term && ! self::isError( $term ) )
+						HTML::desc( sprintf( _x( 'The Default term for this taxonomy is &ldquo;%s&rdquo; and will <b>not</b> be deleted.', 'Modules: Taxonomy: Info', 'gnetwork' ), '<i>'.$term->name.'</i>' ) );
+				}
+
 				echo $this->wrap_open_buttons( '-toolbox-buttons' );
 					Settings::submitButton( $this->classs( 'do-delete-terms' ), _x( 'Delete All Terms', 'Modules: Taxonomy: Tab Tools: Button', 'gnetwork' ), 'small button-danger', TRUE );
 				echo '</p>';
@@ -633,10 +642,10 @@ class Taxonomy extends gNetwork\Module
 
 		$term = get_term( $default, $taxonomy );
 
-		if ( self::isError( $term ) )
+		if ( ! $term || self::isError( $term ) )
 			return;
 
-		HTML::desc( sprintf( _x( 'Default term for this taxonomy is &ldquo;%s&rdquo;.', 'Modules: Taxonomy: Info', 'gnetwork' ), '<strong>'.$term->name.'</strong>' ) );
+		HTML::desc( sprintf( _x( 'The Default term for this taxonomy is &ldquo;%s&rdquo;.', 'Modules: Taxonomy: Info', 'gnetwork' ), '<i>'.$term->name.'</i>' ) );
 
 		return TRUE;
 	}
