@@ -626,8 +626,7 @@ class Taxonomy extends gNetwork\Module
 	// ACTION HOOK: `after_{$taxonomy}_table`
 	public function render_info_default_term( $taxonomy )
 	{
-		$option  = 'category' == $taxonomy ? 'default_category' : 'default_term_'.$taxonomy;
-		$default = get_option( $option );
+		$default = get_option( $this->get_default_term_key( $taxonomy ) );
 
 		if ( empty( $default ) )
 			return;
@@ -640,6 +639,13 @@ class Taxonomy extends gNetwork\Module
 		HTML::desc( sprintf( _x( 'Default term for this taxonomy is &ldquo;%s&rdquo;.', 'Modules: Taxonomy: Info', 'gnetwork' ), '<strong>'.$term->name.'</strong>' ) );
 
 		return TRUE;
+	}
+
+	private function get_default_term_key( $taxonomy )
+	{
+		return 'category' == $taxonomy
+			? 'default_category'
+			: 'default_term_'.$taxonomy;
 	}
 
 	public function edit_form_fields_editor( $tag, $taxonomy )
@@ -739,8 +745,7 @@ class Taxonomy extends gNetwork\Module
 				'merge',
 			];
 
-			$option  = 'category' == $screen->taxonomy ? 'default_category' : 'default_term_'.$screen->taxonomy;
-			$default = get_option( $option );
+			$default = get_option( $this->get_default_term_key( $screen->taxonomy ) );
 
 			if ( ! empty( $default ) && ( $current = self::req( 'tag_ID' ) ) )
 				$excludes[] = $default == $current ? 'set_default' : 'unset_default';
@@ -829,8 +834,7 @@ class Taxonomy extends gNetwork\Module
 
 	public function edit_form_fields_default( $term, $taxonomy )
 	{
-		$option  = 'category' == $taxonomy ? 'default_category' : 'default_term_'.$taxonomy;
-		$default = get_option( $option );
+		$default = get_option( $this->get_default_term_key( $taxonomy ) );
 
 		if ( empty( $default ) )
 			return;
@@ -1156,11 +1160,9 @@ class Taxonomy extends gNetwork\Module
 
 	public function handle_set_default( $term_ids, $taxonomy )
 	{
-		$option = 'category' == $taxonomy ? 'default_category' : 'default_term_'.$taxonomy;
-
 		foreach ( $term_ids as $term_id ) {
 
-			update_option( $option, (int) $term_id );
+			update_option( $this->get_default_term_key( $taxonomy ), (int) $term_id );
 
 			break; // only one can be default!
 		}
@@ -1170,9 +1172,7 @@ class Taxonomy extends gNetwork\Module
 
 	public function handle_unset_default( $term_ids, $taxonomy )
 	{
-		$option = 'category' == $taxonomy ? 'default_category' : 'default_term_'.$taxonomy;
-
-		return delete_option( $option );
+		return delete_option( $this->get_default_term_key( $taxonomy ) );
 	}
 
 	public function handle_set_parent( $term_ids, $taxonomy )
