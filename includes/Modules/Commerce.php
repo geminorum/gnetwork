@@ -56,6 +56,7 @@ class Commerce extends gNetwork\Module
 	public function default_options()
 	{
 		return [
+			'related_on_tabs'          => '0',
 			'purchased_products'       => '0',
 			'purchased_products_title' => '',
 
@@ -85,6 +86,11 @@ class Commerce extends gNetwork\Module
 	{
 		return [
 			'_front' => [
+				[
+					'field'       => 'related_on_tabs',
+					'title'       => _x( 'Related on Tabs', 'Modules: Commerce: Settings', 'gnetwork' ),
+					'description' => _x( 'Displays Upsells and Related products on front-end product tabs.', 'Modules: Commerce: Settings', 'gnetwork' ),
+				],
 				[
 					'field'       => 'purchased_products',
 					'title'       => _x( 'Purchased Products', 'Modules: Commerce: Settings', 'gnetwork' ),
@@ -334,6 +340,9 @@ class Commerce extends gNetwork\Module
 
 		if ( is_admin() )
 			return;
+
+		if ( $this->options['related_on_tabs'] )
+			$this->filter( 'woocommerce_product_tabs' );
 
 		if ( $this->options['gtin_field_title'] )
 			$this->action( 'woocommerce_product_meta_start', 0, 10, 'gtin' );
@@ -883,6 +892,40 @@ class Commerce extends gNetwork\Module
 
 		if ( array_key_exists( $variation_id, $_POST[$key] ) )
 			update_post_meta( $variation_id, GNETWORK_COMMERCE_GTIN_METAKEY, trim( $_POST[$key][$variation_id] ) );
+	}
+
+	// @REF: https://gist.github.com/bekarice/0220adfc3e6ba8d0388714eabbb00adc
+	public function woocommerce_product_tabs( $tabs )
+	{
+		global $product;
+
+		if ( empty( $product ) || ! is_a( $product, 'WC_Product' ) )
+			return $tabs;
+
+		if ( $product->get_upsell_ids()
+			|| $product->get_cross_sell_ids()
+			|| apply_filters( 'woocommerce_product_related_posts_force_display', FALSE, $product->get_id() ) ) {
+
+			$tabs['related'] = [
+				'title'    => $this->filters( 'tab_related_title', __( 'Related products', 'woocommerce' ), $product ),
+				'callback' => [ $this, 'product_tabs_related_callback' ],
+				'priority' => 25,
+			];
+
+			remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_upsell_display', 15 );
+			remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20 );
+		}
+
+		return $tabs;
+	}
+
+	public function product_tabs_related_callback()
+	{
+		if ( function_exists( 'woocommerce_upsell_display' ) )
+			woocommerce_upsell_display();
+
+		if ( function_exists( 'woocommerce_output_related_products' ) )
+			woocommerce_output_related_products();
 	}
 
 	// @REF: https://rudrastyh.com/woocommerce/display-purchased-products.html
