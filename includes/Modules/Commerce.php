@@ -604,7 +604,7 @@ class Commerce extends gNetwork\Module
 	{
 		if ( $this->options['mobile_field'] ) {
 
-			$meta = get_post_meta( $order->id, '_customer_mobile', TRUE );
+			$meta = get_post_meta( $order->get_id(), '_customer_mobile', TRUE );
 
 			if ( $meta && ( $mobile = wc_format_phone_number( $meta ) ) )
 				$fields[] = [
@@ -615,7 +615,7 @@ class Commerce extends gNetwork\Module
 
 		if ( $this->options['ssn_field'] ) {
 
-			if ( $meta = get_post_meta( $order->id, '_customer_ssn', TRUE ) )
+			if ( $meta = get_post_meta( $order->get_id(), '_customer_ssn', TRUE ) )
 				$fields[] = [
 					'label' => _x( 'Social Security Number', 'Modules: Commerce', 'gnetwork' ),
 					'value' => Number::localize( $meta ),
