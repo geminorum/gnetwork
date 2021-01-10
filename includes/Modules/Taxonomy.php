@@ -652,9 +652,13 @@ class Taxonomy extends gNetwork\Module
 
 	private function get_default_term_key( $taxonomy )
 	{
-		return 'category' == $taxonomy
-			? 'default_category'
-			: 'default_term_'.$taxonomy;
+		if ( 'category' == $taxonomy )
+			return 'default_category'; // WordPress
+
+		if ( 'product_cat' == $taxonomy )
+			return 'default_product_cat'; // WooCommerce
+
+		return 'default_term_'.$taxonomy;
 	}
 
 	public function edit_form_fields_editor( $tag, $taxonomy )
