@@ -433,15 +433,30 @@ class Utilities extends Core\Base
 		return $empty;
 	}
 
-	public static function getSeperated( $string, $delimiters = NULL, $delimiter = '|' )
+	public static function getSeperated( $string, $delimiters = NULL, $limit = NULL, $delimiter = '|' )
 	{
 		if ( is_array( $string ) )
 			return $string;
 
 		if ( is_null( $delimiters ) )
-			$delimiters = [ '/', '،', '؛', ';', ',' ];
+			$delimiters = [
+				'/',
+				'،',
+				'؛',
+				';',
+				',',
+				// '-',
+				// '_',
+				'|',
+			];
 
-		return explode( $delimiter, str_ireplace( $delimiters, $delimiter, $string ) );
+		$string = str_ireplace( $delimiters, $delimiter, $string );
+
+		$seperated = is_null( $limit )
+			? explode( $delimiter, $string )
+			: explode( $delimiter, $string, $limit );
+
+		return array_unique( array_filter( $seperated, 'trim' ) );
 	}
 
 	public static function trimChars( $text, $length = 45, $append = '&nbsp;&hellip;' )
