@@ -484,7 +484,7 @@ class Cron extends gNetwork\Module
 								$html.= ' <small>('.$column['args']['schedules'][$task['schedule']]['display'].')</small>';
 
 							if ( ! empty( $task['args'] ) )
-								$html.= ': <code>'.wp_json_encode( $task['args'], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ).'</code>';
+								$html.= ': <code>'.wp_json_encode( $task['args'], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT ).'</code>';
 
 							$html.= '</div>';
 						}

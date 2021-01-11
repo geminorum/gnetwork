@@ -311,7 +311,7 @@ class Update extends gNetwork\Module
 				$endpoint = $this->endpoint( $package );
 
 			$json = HTTP::getJSON( $endpoint, [ 'headers' => $this->endpoint_headers( $package ) ] );
-			$data = $json ? $this->cleanup_package_date( $json, $package ) : '';
+			$data = $json ? $this->cleanup_package_data( $json, $package ) : '';
 
 			set_site_transient( $key, $data, $data ? GNETWORK_CACHE_TTL : HOUR_IN_SECONDS );
 		}
@@ -319,7 +319,7 @@ class Update extends gNetwork\Module
 		return $data;
 	}
 
-	private function cleanup_package_date( $response, $package )
+	private function cleanup_package_data( $response, $package )
 	{
 		if ( in_array( $package['type'], [ 'github_plugin', 'github_theme' ] ) ) {
 
@@ -328,7 +328,7 @@ class Update extends gNetwork\Module
 				'published_at' => '',
 				'zipball_url'  => '',
 				'body'         => '',
-				'assets'       => [],
+				'assets'       => [], // needed for pre-packages
 			], $response );
 
 		} else if ( in_array( $package['type'], [ 'gitlab_plugin', 'gitlab_theme' ] ) ) {
@@ -581,6 +581,8 @@ class Update extends gNetwork\Module
 
 			if ( gNetwork()->module( 'code' ) ) {
 
+				// FIXME: add token for private repos
+
 				if ( $readme = gNetwork()->code->shortcode_github_readme( [ 'repo' => $package['uri'], 'branch' => $package['branch'], 'type' => 'readme', 'wrap' => FALSE ] ) )
 					$sections['readme'] = $readme;
 
@@ -692,7 +694,7 @@ class Update extends gNetwork\Module
 			return $result;
 
 		if ( ! $data = $this->get_package_data( $package ) )
-			return $result; // TODO: n/a notice
+			return $result; // FIXME: n/a notice
 
 		$local = get_plugin_data( WP_PLUGIN_DIR.'/'.$package['path'] );
 

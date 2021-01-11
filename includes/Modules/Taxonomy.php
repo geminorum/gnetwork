@@ -542,6 +542,7 @@ class Taxonomy extends gNetwork\Module
 					$term = get_term( $default, $taxonomy );
 
 					if ( $term && ! self::isError( $term ) )
+						/* translators: %s: default term name */
 						HTML::desc( sprintf( _x( 'The Default term for this taxonomy is &ldquo;%s&rdquo; and will <b>not</b> be deleted.', 'Modules: Taxonomy: Info', 'gnetwork' ), '<i>'.$term->name.'</i>' ) );
 				}
 
@@ -645,6 +646,7 @@ class Taxonomy extends gNetwork\Module
 		if ( ! $term || self::isError( $term ) )
 			return;
 
+		/* translators: %s: default term name */
 		HTML::desc( sprintf( _x( 'The Default term for this taxonomy is &ldquo;%s&rdquo;.', 'Modules: Taxonomy: Info', 'gnetwork' ), '<i>'.$term->name.'</i>' ) );
 
 		return TRUE;
@@ -862,6 +864,7 @@ class Taxonomy extends gNetwork\Module
 				_ex( 'Caution', 'Modules: Taxonomy', 'gnetwork' );
 			echo '</th><td>';
 
+			/* translators: %s: taxonomy label */
 			HTML::desc( sprintf( _x( 'This is the default term for &ldquo;%s&rdquo; taxonomy.', 'Modules: Taxonomy: Info', 'gnetwork' ), '<strong>'.$object->label.'</strong>' ) );
 		echo '</tr>';
 	}

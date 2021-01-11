@@ -605,6 +605,8 @@ class Themes extends gNetwork\Module
 				'storefront_best_selling_products_args',
 			], 1, 9 );
 
+			add_filter( 'woocommerce_subcategory_count_html', '__return_null' );
+
 		} else if ( $this->isTheme( 'twentyeleven' ) ) {
 
 			if ( $this->rtl ) {

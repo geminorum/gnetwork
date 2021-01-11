@@ -294,7 +294,7 @@ class SMS extends gNetwork\Module
 		$from = empty( $contents['from'] ) ? 'UNKNOWN' : File::escFilename( $contents['from'] );
 		$file = current_time( 'Ymd-His' ).'-'.$from.'.received.json';
 
-		if ( FALSE === File::putContents( $file, wp_json_encode( $contents, JSON_UNESCAPED_UNICODE ), GNETWORK_SMS_LOG_DIR ) )
+		if ( FALSE === File::putContents( $file, wp_json_encode( $contents, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT ), GNETWORK_SMS_LOG_DIR ) )
 			Logger::CRITICAL( 'SMS-LOGS: CAN NOT LOG SMS FROM: '.$contents['from'] );
 
 		exit('1');
@@ -331,7 +331,7 @@ class SMS extends gNetwork\Module
 			$to   = empty( $contents['to'] ) ? 'UNKNOWN' : File::escFilename( $contents['to'] );
 			$file = current_time( 'Ymd-His' ).'-'.$to.'.sent.json';
 
-			if ( FALSE === File::putContents( $file, wp_json_encode( $contents, JSON_UNESCAPED_UNICODE ), GNETWORK_SMS_LOG_DIR ) )
+			if ( FALSE === File::putContents( $file, wp_json_encode( $contents, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT ), GNETWORK_SMS_LOG_DIR ) )
 				Logger::CRITICAL( 'SMS-LOGS: CAN NOT LOG SMS TO: '.$contents['to'] );
 
 		} else if ( $this->get_option( 'debug_providers' ) ) {

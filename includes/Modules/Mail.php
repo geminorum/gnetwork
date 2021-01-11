@@ -424,7 +424,7 @@ class Mail extends gNetwork\Module
 			$recipient = array_shift( $recipient );
 
 		$filename = File::escFilename( sprintf( '%s-%s', current_time( 'Ymd-His' ), $recipient ) ).'.json';
-		$logged   = wp_json_encode( $contents, JSON_UNESCAPED_UNICODE );
+		$logged   = wp_json_encode( $contents, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT );
 
 		if ( FALSE === File::putContents( $filename, $logged, GNETWORK_MAIL_LOG_DIR ) )
 			return Logger::FAILED( sprintf( 'EMAIL-LOGS: can not log email to: %s', $recipient ) );
