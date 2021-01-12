@@ -213,13 +213,14 @@ class Update extends gNetwork\Module
 				$slug = explode( '/', $plugin, 2 );
 
 				$packages[$slug[0]] = [
-					'slug'    => $slug[0],
-					'type'    => $extra_type,
-					'uri'     => $headers[$extra],
-					'branch'  => empty( $headers[$plugins['update_branch']] ) ? 'master' : $headers[$plugins['update_branch']],
-					'name'    => $headers['Name'],
-					'package' => 'plugin',
-					'path'    => $plugin,
+					'slug'     => $slug[0],
+					'type'     => $extra_type,
+					'uri'      => $headers[$extra],
+					'branch'   => empty( $headers[$plugins['update_branch']] ) ? 'master' : $headers[$plugins['update_branch']],
+					'name'     => $headers['Name'],
+					'package'  => 'plugin',
+					'segments' => $this->parse_segments( $headers[$extra], $extra_type ),
+					'path'     => $plugin,
 				];
 
 				break;
@@ -237,12 +238,13 @@ class Update extends gNetwork\Module
 					continue;
 
 				$packages[$name] = [
-					'slug'    => $name,
-					'type'    => $extra_type,
-					'uri'     => $uri,
-					'branch'  => empty( $headers[$themes['update_branch']] ) ? 'master' : $headers[$themes['update_branch']],
-					'name'    => $theme->get( 'Name' ),
-					'package' => 'theme',
+					'slug'     => $name,
+					'type'     => $extra_type,
+					'uri'      => $uri,
+					'branch'   => empty( $headers[$themes['update_branch']] ) ? 'master' : $headers[$themes['update_branch']],
+					'name'     => $theme->get( 'Name' ),
+					'package'  => 'theme',
+					'segments' => $this->parse_segments( $uri, $extra_type ),
 				];
 
 				break;
@@ -252,7 +254,7 @@ class Update extends gNetwork\Module
 		$validated = [];
 
 		foreach ( $packages as $name => $package )
-			if ( $this->endpoint( $package ) )
+			if ( ! empty( $package['segments'] ) )
 				$validated[$name] = $package;
 
 		return update_network_option( NULL, $this->hook( 'packages' ), $validated )
@@ -321,6 +323,9 @@ class Update extends gNetwork\Module
 
 	private function cleanup_package_data( $response, $package )
 	{
+		if ( empty( $response ) )
+			return '';
+
 		if ( in_array( $package['type'], [ 'github_plugin', 'github_theme' ] ) ) {
 
 			return self::atts( [
@@ -333,7 +338,20 @@ class Update extends gNetwork\Module
 
 		} else if ( in_array( $package['type'], [ 'gitlab_plugin', 'gitlab_theme' ] ) ) {
 
-			// FIXME: add gitlab
+			$release = reset( $response );
+
+			$data = self::atts( [
+				'tag_name'    => '',
+				'released_at' => '',
+				'description' => '', // raw markdown
+				// 'assets'      => [], // needed for pre-packages
+			], $release );
+
+			// Gitlab won allow downloading the damn links!
+			// $assets = wp_list_pluck( $release['assets']['sources'], 'url', 'format' );
+			// $data['_download'] = $assets['zip'];
+
+			return $data;
 		}
 
 		return $response;
@@ -464,10 +482,12 @@ class Update extends gNetwork\Module
 			//@REF: https://gitlab.com/gitlab-org/gitlab-foss/issues/63438
 
 			if ( ! empty( $this->options['package_tokens'][$package['slug']] ) )
-				$defaults['Authorization'] = sprintf( 'Bearer %s', $this->options['package_tokens'][$package['slug']] );
+				// $defaults['Authorization'] = sprintf( 'Bearer %s', $this->options['package_tokens'][$package['slug']] );
+				$defaults['PRIVATE-TOKEN'] = sprintf( '%s', $this->options['package_tokens'][$package['slug']] );
 
 			else if ( ! empty( $this->options['service_tokens']['gitlab']) )
-				$defaults['Authorization'] = sprintf( 'Bearer %s', $this->options['service_tokens']['gitlab'] );
+				// $defaults['Authorization'] = sprintf( 'Bearer %s', $this->options['service_tokens']['gitlab'] );
+				$defaults['PRIVATE-TOKEN'] = sprintf( '%s', $this->options['service_tokens']['gitlab'] );
 		}
 
 		return $defaults;
@@ -477,33 +497,63 @@ class Update extends gNetwork\Module
 	// @REF: https://docs.gitlab.com/ee/api/README.html
 	private function endpoint( $package )
 	{
-		$url = FALSE;
-
 		if ( in_array( $package['type'], [ 'github_plugin', 'github_theme' ] ) ) {
 
-			if ( empty( $package['uri'] ) )
-				return FALSE;
+			$template = 'repos/:owner/:repo/releases/latest';
+			$endpoint = sprintf( 'https://api.github.com/%s', $this->add_segments( $template, $package['segments'] ) );
 
-			$uri   = str_replace( 'https://github.com/', '', URL::untrail( $package['uri'] ) );
-			$parts = explode( '/', $uri );
-
-			if ( 2 !== count( $parts ) )
-				return FALSE;
-
-			$endpoint = '/repos/:owner/:repo/releases/latest';
-			$segments = [ 'owner' => $parts[0], 'repo' => $parts[1] ];
-
-			foreach ( $segments as $segment => $value )
-				$endpoint = str_replace( '/:'.$segment, '/'.sanitize_text_field( $value ), $endpoint );
-
-			return $this->add_token( 'https://api.github.com'.$endpoint, $package );
+			return $this->add_token( $endpoint, $package );
 
 		} else if ( in_array( $package['type'], [ 'gitlab_plugin', 'gitlab_theme' ] ) ) {
 
-			// FIXME: add gitlab
+			$endpoint = sprintf( 'https://gitlab.com/api/v4/projects/%s/releases', $package['segments']['id'] );
+
+			return $this->add_token( $endpoint, $package );
 		}
 
 		return $url;
+	}
+
+	private function parse_segments( $uri, $type )
+	{
+		if ( empty( $uri ) )
+			return [];
+
+		if ( in_array( $type, [ 'github_plugin', 'github_theme' ] ) ) {
+
+			$parts = explode( '/', str_replace( 'https://github.com/', '', URL::untrail( $uri ) ) );
+
+			if ( 2 !== count( $parts ) )
+				return [];
+
+			return [
+				'owner' => $parts[0],
+				'repo'  => $parts[1],
+			];
+
+		} else if ( in_array( $type, [ 'gitlab_plugin', 'gitlab_theme' ] ) ) {
+
+			$parts = explode( '/', str_replace( 'https://gitlab.com/', '', URL::untrail( $uri ) ) );
+
+			if ( 2 !== count( $parts ) )
+				return [];
+
+			return [
+				'owner' => $parts[0],
+				'repo'  => $parts[1],
+				'id'    => $parts[0].'%2F'.$parts[1],
+			];
+		}
+
+		return [];
+	}
+
+	private function add_segments( $template, $segments )
+	{
+		foreach ( $segments as $segment => $value )
+			$template = str_replace( '/:'.$segment, '/'.sanitize_text_field( $value ), $template );
+
+		return $template;
 	}
 
 	// DEPRECATED: Github auth using query parameters
@@ -524,15 +574,15 @@ class Update extends gNetwork\Module
 
 		} else if ( in_array( $package['type'], [ 'gitlab_plugin', 'gitlab_theme' ] ) ) {
 
-			// if ( ! empty( $this->options['package_tokens'][$package['slug']] ) )
-			// 	return add_query_arg( [
-			// 		'private_token' => $this->options['package_tokens'][$package['slug']],
-			// 	], $url );
-			//
-			// if ( ! empty( $this->options['service_tokens']['gitlab']) )
-			// 	return add_query_arg( [
-			// 		'private_token' => $this->options['service_tokens']['gitlab'],
-			// 	], $url );
+			if ( ! empty( $this->options['package_tokens'][$package['slug']] ) )
+				return add_query_arg( [
+					'private_token' => $this->options['package_tokens'][$package['slug']],
+				], $url );
+
+			if ( ! empty( $this->options['service_tokens']['gitlab']) )
+				return add_query_arg( [
+					'private_token' => $this->options['service_tokens']['gitlab'],
+				], $url );
 		}
 
 		return $url;
@@ -547,7 +597,8 @@ class Update extends gNetwork\Module
 
 		} else if ( in_array( $package['type'], [ 'gitlab_plugin', 'gitlab_theme' ] ) ) {
 
-			// FIXME: add gitlab
+			if ( isset( $data['tag_name'] ) )
+				return $data['tag_name'];
 		}
 
 		return '0.0.0';
@@ -564,7 +615,9 @@ class Update extends gNetwork\Module
 
 		} else if ( in_array( $package['type'], [ 'gitlab_plugin', 'gitlab_theme' ] ) ) {
 
-			// FIXME: add gitlab
+			// EXAMPLE: "2021-01-11T03:47:29.559Z",
+			if ( isset( $data['released_at'] ) )
+				return $data['released_at'];
 		}
 
 		return current_time( 'timestamp' );
@@ -592,7 +645,8 @@ class Update extends gNetwork\Module
 
 		} else if ( in_array( $package['type'], [ 'gitlab_plugin', 'gitlab_theme' ] ) ) {
 
-			// FIXME: add gitlab
+			if ( ! empty( $data['description'] ) )
+				$sections['current_release'] = Utilities::mdExtra( $data['description'] );
 		}
 
 		return $sections;
@@ -625,7 +679,12 @@ class Update extends gNetwork\Module
 
 		} else if ( in_array( $package['type'], [ 'gitlab_plugin', 'gitlab_theme' ] ) ) {
 
-			// FIXME: add gitlab
+			// FIXME: check for release assets
+
+			$download = 'https://gitlab.com/api/v4/projects/'.$package['segments']['id'].'/repository/archive.zip';
+			$download = add_query_arg( [ 'sha' => $data['tag_name'] ], $download );
+
+			return $this->add_token( $download, $package );
 		}
 
 		return FALSE;
@@ -648,7 +707,7 @@ class Update extends gNetwork\Module
 
 		} else if ( in_array( $package['type'], [ 'gitlab_plugin', 'gitlab_theme' ] ) ) {
 
-			// FIXME: add gitlab
+			// not available on gitlab!
 		}
 
 		return NULL;
