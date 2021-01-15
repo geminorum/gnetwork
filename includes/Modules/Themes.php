@@ -40,8 +40,7 @@ class Themes extends gNetwork\Module
 
 			$this->filter( 'theme_scandir_exclusions' );
 
-			if ( ! WordPress::isDev() )
-				$this->action( 'wp_default_scripts', 1, 12, 'admin' );
+			$this->action( 'wp_default_scripts', 1, 12, 'admin' );
 
 		} else {
 
@@ -54,7 +53,7 @@ class Themes extends gNetwork\Module
 			$this->filter( 'amp_post_template_data', 2 );
 			$this->action( 'amp_post_template_css' );
 
-			$this->action( 'wp_default_scripts', 1, 12 );
+			$this->action( 'wp_default_scripts', 1, 12, 'front' );
 
 			if ( $this->options['content_actions'] )
 				$this->filter( 'the_content', 1, 999 );
@@ -244,10 +243,13 @@ class Themes extends gNetwork\Module
 		if ( empty( $scripts->registered['jquery'] ) )
 			return;
 
+		if ( defined( 'GNETWORK_DISABLE_JQUERY_MIGRATE' ) && ! GNETWORK_DISABLE_JQUERY_MIGRATE )
+			return;
+
 		$scripts->registered['jquery']->deps = array_diff( $scripts->registered['jquery']->deps, [ 'jquery-migrate' ] );
 	}
 
-	public function wp_default_scripts( &$scripts )
+	public function wp_default_scripts_front( &$scripts )
 	{
 		if ( SCRIPT_DEBUG )
 			return;
@@ -282,13 +284,14 @@ class Themes extends gNetwork\Module
 		$scripts->add( 'jquery', FALSE, $deps, ( $remote ? NULL : $jquery_ver ), $bottom );
 	}
 
-	// 8/17/2020, 11:25:50 PM
-	// 5.6-alpha-48683-src
+	// 1/16/2021, 12:55:27 AM
+	// 5.7-alpha-49644-src
+	// NOTE: latest & core versions shall be equal
 	private static function getjQueryVersions( $latest = FALSE )
 	{
 		return $latest
-			? [ '3.5.1', '3.3.1' ]
-			: [ '1.12.4', '1.4.1' ];
+			? [ '3.5.1', '3.3.2' ]
+			: [ '3.5.1', '3.3.2' ];
 	}
 
 	public function wp_head()
