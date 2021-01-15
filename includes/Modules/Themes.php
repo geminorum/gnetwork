@@ -35,11 +35,6 @@ class Themes extends gNetwork\Module
 
 		if ( is_admin() ) {
 
-			// FIXME: NOT WORKING : when trying to enable each theme
-			// $this->filter( 'allowed_themes' );
-
-			$this->filter( 'theme_scandir_exclusions' );
-
 			$this->action( 'wp_default_scripts', 1, 12, 'admin' );
 
 		} else {
@@ -230,12 +225,6 @@ class Themes extends gNetwork\Module
 			echo ' /> '._x( 'Hide Title on Front-end', 'Modules: Themes', 'gnetwork' );
 
 		echo '</label></div>';
-	}
-
-	// array of excluded directories and files while scanning theme folder.
-	public function theme_scandir_exclusions( $exclusions )
-	{
-		return array_merge( $exclusions, [ 'vendor', 'bower_components', 'node_modules' ] );
 	}
 
 	public function wp_default_scripts_admin( &$scripts )
@@ -708,19 +697,6 @@ class Themes extends gNetwork\Module
 			return ( $template == $this->theme->template && $not_stylesheet != $this->theme->stylesheet );
 
 		return ( $template == $this->theme->template || $template == $this->theme->stylesheet );
-	}
-
-	public function allowed_themes( $themes )
-	{
-		if ( ! WordPress::isSuperAdmin() )
-			return $themes;
-
-		$allowed = [];
-
-		foreach ( wp_get_themes() as $theme )
-			$allowed[$theme->get_stylesheet()] = TRUE;
-
-		return $allowed;
 	}
 
 	public function the_content( $content )
