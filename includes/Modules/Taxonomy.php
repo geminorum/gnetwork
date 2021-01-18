@@ -831,6 +831,7 @@ class Taxonomy extends gNetwork\Module
 			$actions['set_parent'] = _x( 'Set Parent', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
 
 		$actions['merge']          = _x( 'Merge', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
+		$actions['split']          = _x( 'Split', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
 		$actions['change_tax']     = _x( 'Change Taxonomy', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
 		$actions['format_i18n']    = _x( 'Format i18n', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
 		$actions['assign_parents'] = _x( 'Assign Parents', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
@@ -1174,6 +1175,52 @@ class Taxonomy extends gNetwork\Module
 		return TRUE;
 	}
 
+	public function handle_split( $term_ids, $taxonomy )
+	{
+		global $wpdb;
+
+		$delimiter = $_REQUEST['bulk_to_split'];
+
+		foreach ( $term_ids as $term_id ) {
+
+			$old_term = get_term( $term_id, $taxonomy );
+			$targets  = Utilities::getSeperated( $old_term->name, $delimiter ?: NULL );
+
+			if ( count( $targets ) < 2 )
+				continue;
+
+			$old_meta    = get_term_meta( $term_id );
+			$old_objects = (array) $wpdb->get_col( $wpdb->prepare( "
+				SELECT object_id FROM {$wpdb->term_relationships}
+				WHERE term_taxonomy_id = %d
+			", $old_term->term_taxonomy_id ) );
+
+			foreach ( $targets as $target ) {
+
+				if ( ! $new_term = Tax::getTargetTerm( $target, $taxonomy ) )
+					continue;
+
+				// needs to be set before our action fired
+				foreach ( $old_objects as $old_object )
+					wp_set_object_terms( $old_object, $new_term->term_id, $taxonomy, TRUE );
+
+				foreach ( $old_meta as $meta_key => $meta_value )
+					foreach ( $meta_value as $value_value ) // multiple meta
+						add_term_meta( $new_term_id, $meta_key, $value_value, FALSE );
+
+				$this->actions( 'term_merged', $taxonomy, $new_term, $old_term, $old_meta );
+			}
+
+			// late delete to avoid losing relation data!
+			$deleted = wp_delete_term( $term_id, $taxonomy );
+
+			if ( ! $deleted || self::isError( $deleted ) )
+				return FALSE; // bail if something's wrong!
+		}
+
+		return TRUE;
+	}
+
 	public function handle_set_default( $term_ids, $taxonomy )
 	{
 		foreach ( $term_ids as $term_id ) {
@@ -1293,10 +1340,18 @@ class Taxonomy extends gNetwork\Module
 
 	private function secondary_input_merge( $taxonomy )
 	{
-		/* translators: %s: merge into input */
+		/* translators: %s: merge/split into input */
 		printf( _x( 'into: %s', 'Modules: Taxonomy', 'gnetwork' ),
 			'<input name="bulk_to_tag" type="text" placeholder="'
 			._x( 'Name, Slug or ID', 'Modules: Taxonomy', 'gnetwork' ).'" />' );
+	}
+
+	private function secondary_input_split( $taxonomy )
+	{
+		/* translators: %s: merge/split into input */
+		printf( _x( 'into: %s', 'Modules: Taxonomy', 'gnetwork' ),
+			'<input name="bulk_to_split" type="text" placeholder="'
+			._x( 'Delimiter', 'Modules: Taxonomy', 'gnetwork' ).'" />' );
 	}
 
 	private function secondary_input_change_tax( $taxonomy )
