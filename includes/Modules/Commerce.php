@@ -10,6 +10,7 @@ use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\Number;
 use geminorum\gNetwork\Core\Validation;
 use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\WordPress\PostType as WPPost;
 use geminorum\gNetwork\WordPress\User as WPUser;
 
 class Commerce extends gNetwork\Module
@@ -297,8 +298,23 @@ class Commerce extends gNetwork\Module
 		$pagination['before'][] = self::filterTablelistSearch();
 
 		return HTML::tableList( [
-			'_cb'  => 'ID',
-			'ID'   => _x( 'ID', 'Modules: Commerce: Column Title', 'gnetwork' ),
+			'_cb'    => 'ID',
+			'ID'     => _x( 'ID', 'Modules: Commerce: Column Title', 'gnetwork' ),
+			'status' => [
+				'title'    => _x( 'Status', 'Modules: Commerce: Column Title', 'gnetwork' ),
+				'args'     => [ 'statuses' => WPPost::getStatuses() ],
+				'callback' => function( $value, $row, $column, $index ){
+					if ( ! $product = wc_get_product( $row->ID ) )
+						return Utilities::htmlEmpty();
+
+					$status = $product->get_status();
+
+					if ( isset( $column['args']['statuses'][$status] ) )
+						return $column['args']['statuses'][$status];
+
+					return HTML::tag( 'code', $status );
+				},
+			],
 			'stock' => [
 				'title'    => _x( 'Stock', 'Modules: Commerce: Column Title', 'gnetwork' ),
 				'callback' => function( $value, $row, $column, $index ){
