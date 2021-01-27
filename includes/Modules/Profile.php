@@ -12,6 +12,7 @@ use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\HTTP;
 use geminorum\gNetwork\Core\Text;
 use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\WordPress\Media as WPMedia;
 
 class Profile extends gNetwork\Module
 {
@@ -202,7 +203,7 @@ class Profile extends gNetwork\Module
 				$this->do_settings_field( [
 					'type'      => 'file',
 					'field'     => 'import_users_file',
-					'name_attr' => 'import',
+					'name_attr' => $this->classs( 'import' ), // 'import',
 					'values'    => [ '.csv' ],
 				] );
 
@@ -243,12 +244,12 @@ class Profile extends gNetwork\Module
 
 			$this->check_referer( $sub, 'settings' );
 
-			$file = wp_import_handle_upload();
+			$file = WPMedia::handleImportUpload( $this->classs( 'import' ) );
 
-			if ( isset( $file['error'] ) || empty( $file['file'] ) )
+			if ( ! $file || isset( $file['error'] ) || empty( $file['file'] ) )
 				WordPress::redirectReferer( 'wrong' );
 
-			$count = $this->import_users_csv( $file, get_option( 'default_role' ) );
+			$count = $this->import_users_csv( $file['file'], get_option( 'default_role' ) );
 
 			WordPress::redirectReferer( [
 				'message'    => 'imported',
@@ -266,7 +267,7 @@ class Profile extends gNetwork\Module
 		}
 	}
 
-	private function import_users_csv( $file, $role )
+	private function import_users_csv( $file_path, $role )
 	{
 		$count = 0;
 
@@ -274,7 +275,7 @@ class Profile extends gNetwork\Module
 		$this->options['store_signup_ip'] = FALSE;
 
 		$csv = new \ParseCsv\Csv();
-		$csv->auto( File::normalize( $file['file'] ) );
+		$csv->auto( File::normalize( $file_path ) );
 
 		foreach ( $csv->data as $offset => $row ) {
 
