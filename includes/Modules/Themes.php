@@ -577,6 +577,15 @@ class Themes extends gNetwork\Module
 
 			add_action( 'untitled_credits', [ $this, 'twentysomething_credits' ] );
 
+		} else if ( $this->isTheme( 'astra' ) ) {
+
+			if ( $this->rtl ) {
+
+				add_action( 'wp_head', function(){
+					Themes::linkStyleSheet( 'astra-rtl' );
+				}, 20 );
+			}
+
 		} else if ( $this->isTheme( 'storefront' ) ) {
 
 			if ( $this->rtl ) {
