@@ -593,15 +593,49 @@ class WordPress extends Base
 	public static function upload( $post = FALSE )
 	{
 		if ( FALSE === $post )
-			return wp_upload_dir();
+			return wp_upload_dir( NULL, FALSE, FALSE );
 
 		if ( ! $post = get_post( $post ) )
-			return wp_upload_dir();
+			return wp_upload_dir( NULL, TRUE, FALSE );
 
 		if ( 'page' === $post->post_type )
-			return wp_upload_dir();
+			return wp_upload_dir( NULL, TRUE, FALSE );
 
-		return wp_upload_dir( ( substr( $post->post_date, 0, 4 ) > 0 ? $post->post_date : NULL ) );
+		return wp_upload_dir( ( substr( $post->post_date, 0, 4 ) > 0 ? $post->post_date : NULL ), TRUE, FALSE );
+	}
+
+	public static function getUploadDirectory( $sub = '', $create = FALSE, $htaccess = TRUE )
+	{
+		$upload = wp_upload_dir( NULL, FALSE, FALSE );
+
+		if ( ! $sub )
+			return $upload['basedir'];
+
+		$folder = File::join( $upload['basedir'], $sub );
+
+		if ( $create ) {
+
+			if ( ! is_dir( $folder ) || ! wp_is_writable( $folder ) ) {
+
+				if ( $htaccess )
+					File::putHTAccessDeny( $folder, TRUE );
+				else
+					wp_mkdir_p( $folder );
+
+			} else if ( $htaccess && ! file_exists( $folder.'/.htaccess' ) ) {
+
+				File::putHTAccessDeny( $folder, FALSE );
+			}
+		}
+
+		return $folder;
+	}
+
+	public static function getUploadURL( $sub = '' )
+	{
+		$upload = wp_upload_dir( NULL, FALSE, FALSE );
+		$base   = is_ssl() ? str_ireplace( 'http://', 'https://', $upload['baseurl'] ) : $upload['baseurl'];
+		return $sub ? $base.'/'.$sub : $base;
 	}
 
 	public static function getAttachments( $post_id, $mime_type = 'image' )

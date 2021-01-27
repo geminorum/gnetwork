@@ -15,6 +15,13 @@ class Arraay extends Base
 		return $callback ? array_filter( $input, $callback ) : array_filter( $input );
 	}
 
+	// @REF: https://stackoverflow.com/a/28115783
+	// php 5.3
+	public static function prefixValues( $array, $prefix )
+	{
+		return preg_filter( '/^/', $prefix, $array );
+	}
+
 	public static function roundArray( $array, $precision = -3, $mode = PHP_ROUND_HALF_UP )
 	{
 		$rounded = array();
@@ -140,6 +147,21 @@ class Arraay extends Base
 	public static function keepByKeys( $array, $keys )
 	{
 		return array_intersect_key( $array, array_flip( $keys ) );
+	}
+
+	// @REF: `_sort_priority_callback()`
+	public static function sortByPriority( $array, $priority_key )
+	{
+		uasort( $array, function( $a, $b ) use ( $priority_key ) {
+
+			if ( ! isset( $a[$priority_key], $b[$priority_key] )
+				|| $a[$priority_key] === $b[$priority_key] )
+					return 0;
+
+			return ( $a[$priority_key] < $b[$priority_key] ) ? -1 : 1;
+		} );
+
+		return $array;
 	}
 
 	// FIXME: TEST THIS!

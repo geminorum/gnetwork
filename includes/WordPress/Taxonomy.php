@@ -28,7 +28,7 @@ class Taxonomy extends Core\Base
 		return count( $parents ) ? $parents : FALSE;
 	}
 
-	public static function getTargetTerm( $target, $taxonomy )
+	public static function getTargetTerm( $target, $taxonomy, $args = [] )
 	{
 		$target = trim( $target );
 
@@ -38,7 +38,7 @@ class Taxonomy extends Core\Base
 				return get_term( $term['term_id'], $taxonomy );
 
 			else
-				return FALSE; // dont insert numbers as new term!
+				return FALSE; // avoid inserting numbers as new terms!
 
 		} else if ( $term = term_exists( $target, $taxonomy ) ) {
 
@@ -58,7 +58,7 @@ class Taxonomy extends Core\Base
 		}
 
 		// avoid filtering the new term
-		$term = wp_insert_term( $target, $taxonomy );
+		$term = wp_insert_term( $target, $taxonomy, $args );
 
 		if ( self::isError( $term ) )
 			return FALSE;

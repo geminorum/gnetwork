@@ -30,6 +30,39 @@ class File extends Base
 		return urldecode( basename( str_replace( array( '%2F', '%5C' ), '/', urlencode( $path ) ), $suffix ) );
 	}
 
+	// @SOURCE: `wp_tempnam()`
+	public static function tempName( $name = '', $dir = '' )
+	{
+		if ( empty( $dir ) )
+			$dir = get_temp_dir();
+
+		if ( empty( $name ) || in_array( $name, [ '.', '/', '\\' ], TRUE ) )
+			$name = uniqid();
+
+		// use the basename of the given file without the extension
+		// as the name for the temporary directory
+		$temp = preg_replace( '|\.[^.]*$|', '', basename( $name ) );
+
+		// If the folder is falsey, use its parent directory name instead.
+		if ( ! $temp )
+			return self::tempName( dirname( $name ), $dir );
+
+		// Suffix some random data to avoid filename conflicts.
+		$temp.= '-'.wp_generate_password( 6, FALSE );
+		$temp.= '.tmp';
+		$temp = $dir.wp_unique_filename( $dir, $temp );
+
+		$fp = @fopen( $temp, 'x' );
+
+		if ( ! $fp && is_writable( $dir ) && file_exists( $temp ) )
+			return self::tempName( $name, $dir );
+
+		if ( $fp )
+			fclose( $fp );
+
+		return $temp;
+	}
+
 	// join two filesystem paths together
 	// @SOURCE: `path_join()`
 	public static function join( $base, $path )

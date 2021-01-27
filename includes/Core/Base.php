@@ -5,6 +5,12 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 class Base
 {
 
+	public static function define( $name, $value )
+	{
+		if ( ! defined( $name ) )
+			define( $name, $value );
+	}
+
 	public static function req( $key, $default = '' )
 	{
 		return isset( $_REQUEST[$key] ) ? $_REQUEST[$key] : $default;

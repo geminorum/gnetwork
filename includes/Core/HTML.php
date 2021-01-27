@@ -466,7 +466,7 @@ class HTML extends Base
 			$value = self::joined( $value, '[', ']', ',', 'EMPTY ARRAY' );
 
 		else if ( is_object( $value ) )
-			$value = json_encode( $value, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES );
+			$value = json_encode( $value, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT );
 
 		else if ( is_int( $value ) )
 			$value = $value;
