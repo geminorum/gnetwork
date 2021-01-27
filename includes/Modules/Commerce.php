@@ -281,6 +281,11 @@ class Commerce extends gNetwork\Module
 
 				} else {
 
+					$this->actions( 'products_do_bulk_actions',
+						self::req( 'table_action', NULL ),
+						self::req( '_cb', NULL )
+					);
+
 					WordPress::redirectReferer( [
 						'message' => 'wrong',
 						'limit'   => self::limit(),
@@ -295,6 +300,7 @@ class Commerce extends gNetwork\Module
 	{
 		list( $posts, $pagination ) = self::getTablelistPosts( [], [], 'product' );
 
+		$pagination['actions'] = $this->filters( 'products_list_bulk_actions', [], $posts, $pagination );
 		$pagination['before'][] = self::filterTablelistSearch();
 
 		return HTML::tableList( [
