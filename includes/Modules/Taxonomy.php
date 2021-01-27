@@ -1092,7 +1092,12 @@ class Taxonomy extends gNetwork\Module
 	{
 		global $wpdb;
 
-		$targets   = array_filter( array_map( 'trim', explode( ',,', $targets ) ) );
+		if ( empty( $targets ) )
+			return FALSE;
+
+		if ( ! is_array( $targets ) )
+			$targets = array_filter( array_map( 'trim', explode( ',,', $targets ) ) );
+
 		$new_terms = [];
 
 		foreach ( $targets as $target )
