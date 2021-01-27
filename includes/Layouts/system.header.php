@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <?php if ( ! empty( $head_title ) ) echo '<title>'.$head_title.'</title>'; ?>
+<?php if ( ! empty( $head_callback ) && is_callable( $head_callback ) ) call_user_func( $head_callback ); ?>
 
 <style type="text/css">
 :root {

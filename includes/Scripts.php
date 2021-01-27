@@ -7,6 +7,20 @@ class Scripts extends Core\Base
 
 	const BASE = 'gnetwork';
 
+	public static function inlineScript( $asset, $script, $dep = [ 'jquery' ] )
+	{
+		if ( empty( $script ) )
+			return;
+
+		$handle = strtolower( static::BASE.'-'.str_replace( '.', '-', $asset ) );
+
+		// @REF: https://core.trac.wordpress.org/ticket/44551
+		// @REF: https://wordpress.stackexchange.com/a/311279
+		wp_register_script( $handle, '', $dep, '', TRUE );
+		wp_enqueue_script( $handle ); // must register then enqueue
+		wp_add_inline_script( $handle, $script );
+	}
+
 	public static function enqueueScript( $asset, $dep = [ 'jquery' ], $version = GNETWORK_VERSION, $base = GNETWORK_URL, $path = 'assets/js' )
 	{
 		$handle  = strtolower( self::BASE.'-'.str_replace( '.', '-', $asset ) );

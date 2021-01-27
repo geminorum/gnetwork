@@ -427,13 +427,13 @@ class Utilities extends Core\Base
 
 	public static function getJoined( $items, $before = '', $after = '', $empty = '' )
 	{
-		if ( count( $items ) )
+		if ( $items && count( $items ) )
 			return $before.implode( _x( ', ', 'Utilities: Item Seperator', 'gnetwork' ), $items ).$after;
 
 		return $empty;
 	}
 
-	public static function getSeperated( $string, $delimiters = NULL, $limit = NULL, $delimiter = '|' )
+	public static function getSeparated( $string, $delimiters = NULL, $limit = NULL, $delimiter = '|' )
 	{
 		if ( is_array( $string ) )
 			return $string;
@@ -475,7 +475,7 @@ class Utilities extends Core\Base
 	{
 		$content = WP_CONTENT_DIR.'/'.$name.'.php';
 		$plugin  = GNETWORK_DIR.'includes/Layouts/'.$name.'.php';
-		$layout  = locate_template( $name );
+		$layout  = locate_template( 'system-layouts/'.$name );
 
 		if ( ! $layout && is_readable( $content ) )
 			$layout = $content;

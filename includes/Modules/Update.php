@@ -137,12 +137,13 @@ class Update extends gNetwork\Module
 		];
 
 		$settings['_remote'][] = [
-			'field'       => 'package_tokens',
-			'type'        => 'text',
-			'title'       => _x( 'Package Tokens', 'Modules: Update: Settings', 'gnetwork' ),
-			'description' => _x( 'Tokens to access specefic packages.', 'Modules: Update: Settings', 'gnetwork' ),
-			'field_class' => [ 'regular-text', 'code-text' ],
-			'values'      => $packages,
+			'field'        => 'package_tokens',
+			'type'         => 'text',
+			'title'        => _x( 'Package Tokens', 'Modules: Update: Settings', 'gnetwork' ),
+			'description'  => _x( 'Tokens to access specefic packages.', 'Modules: Update: Settings', 'gnetwork' ),
+			'string_empty' => _x( 'No packages found. Please use “Refresh Packages” button on the sidebox.', 'Modules: Update: Settings', 'gnetwork' ),
+			'field_class'  => [ 'regular-text', 'code-text' ],
+			'values'       => $packages,
 		];
 
 		return $settings;
@@ -680,7 +681,9 @@ class Update extends gNetwork\Module
 		} else if ( in_array( $package['type'], [ 'gitlab_plugin', 'gitlab_theme' ] ) ) {
 
 			// FIXME: check for release assets
+			// @SEE: https://gitlab.com/gitlab-org/gitlab/-/issues/238172
 
+			// @REF: https://docs.gitlab.com/ee/api/repositories.html#get-file-archive
 			$download = 'https://gitlab.com/api/v4/projects/'.$package['segments']['id'].'/repository/archive.zip';
 			$download = add_query_arg( [ 'sha' => $data['tag_name'] ], $download );
 

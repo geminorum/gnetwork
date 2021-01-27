@@ -335,6 +335,8 @@ class Typography extends gNetwork\Module
 		$content = preg_replace( "/\(علیهم‌السلام\)/i", '&#xfeff;'."<sup>(علیهم السلام)</sup>", $content );
 		$content = preg_replace( "/\(علیه السلام\)/i", '&#xfeff;'."<sup>(علیه السلام)</sup>", $content );
 		$content = preg_replace( "/\(علیه‌السلام\)/i", '&#xfeff;'."<sup>(علیه السلام)</sup>", $content );
+		$content = preg_replace( "/\(علیها السلام\)/i", '&#xfeff;'."<sup>(علیها السلام)</sup>", $content );
+		$content = preg_replace( "/\(علیهاالسلام\)/i", '&#xfeff;'."<sup>(علیها السلام)</sup>", $content );
 
 		$content = str_ireplace( [
 			'آیة‌الله',

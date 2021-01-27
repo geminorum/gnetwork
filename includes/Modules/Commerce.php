@@ -430,7 +430,7 @@ class Commerce extends gNetwork\Module
 			// var price_string = (price*qty).toFixed();
 			var price_string = parseFloat(price*qty);
 			$('#subtot > span').html(price_string+' '+'" . esc_js( $currency ) . "');
-		}).change();" );
+		}).trigger('change');" );
 	}
 
 	public function woocommerce_product_get_weight( $value, $product )

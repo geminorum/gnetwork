@@ -72,7 +72,8 @@ class Locale extends gNetwork\Module
 
 	public function load_textdomain_mofile( $mofile, $domain )
 	{
-		$locale = get_user_locale(); // FIXME: @since WP v5.0.0: use `determine_locale()`
+		// $locale = get_user_locale();
+		$locale = determine_locale();
 
 		if ( 'en_US' == $locale )
 			return $mofile;
@@ -400,6 +401,12 @@ class Locale extends gNetwork\Module
 			'sensei-extensions' => 'page',
 
 			'stop-wp-emails-going-to-spam-settings' => 'page',
+
+			'mycred-about'    => 'page',
+			'mycred-setup'    => 'page',
+			'mycred-hooks'    => 'page',
+			'mycred-addons'   => 'page',
+			'mycred-settings' => 'page',
 
 		], $current );
 

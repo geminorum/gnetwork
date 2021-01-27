@@ -282,6 +282,7 @@ class Maintenance extends gNetwork\Module
 		$content_desc    = HTTP::getStatusDesc( $this->options['status_code'] );
 		$content_message = self::get503Message( FALSE );
 		$content_menu    = ''; // FIXME
+		$head_callback   = '';
 
 		$retry = $this->options['retry_after']; // minutes
 		$rtl   = is_rtl();

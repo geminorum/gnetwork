@@ -12,7 +12,7 @@ use geminorum\gNetwork\Core\Number;
 use geminorum\gNetwork\Core\Text;
 use geminorum\gNetwork\Core\File;
 use geminorum\gNetwork\Core\WordPress;
-use geminorum\gNetwork\WordPress\Taxonomy as Tax;
+use geminorum\gNetwork\WordPress\Taxonomy as WPTaxonomy;
 
 class Taxonomy extends gNetwork\Module
 {
@@ -333,7 +333,7 @@ class Taxonomy extends gNetwork\Module
 			$selected = self::req( $this->classs( 'do-default-selected' ), [] );
 			$data     = $selected ? Arraay::keepByKeys( $terms, array_keys( $selected ) ) : $terms;
 
-			if ( count( $data ) && FALSE !== ( $count = Tax::insertDefaultTerms( $taxonomy, $data ) ) )
+			if ( count( $data ) && FALSE !== ( $count = WPTaxonomy::insertDefaultTerms( $taxonomy, $data ) ) )
 				WordPress::redirectReferer( [
 					'message' => 'imported',
 					'count'   => $count,
@@ -384,7 +384,7 @@ class Taxonomy extends gNetwork\Module
 		}
 	}
 
-	// NOTE: we canot relay on count data from the database
+	// FIXME: we cannot rely on `count` data from the database
 	private function handle_delete_terms( $taxonomy, $empty = TRUE, $include_default = FALSE )
 	{
 		$count = 0;
@@ -441,7 +441,7 @@ class Taxonomy extends gNetwork\Module
 		$this->actions( 'tab_tools_content', $taxonomy, $object );
 	}
 
-	// TODO: indicate that term maybe already installed
+	// TODO: indicate that default terms may already installed
 	private function _tab_content_tools_defaults( $taxonomy, $object )
 	{
 		if ( ! current_user_can( $object->cap->edit_terms ) )
@@ -725,7 +725,7 @@ class Taxonomy extends gNetwork\Module
 			HTML::desc( _x( 'The description is not prominent by default; however, some themes may show it.', 'Modules: Taxonomy', 'gnetwork' ) );
 
 			HTML::wrapScript( 'jQuery("textarea#tag-description").closest(".form-field").remove();' );
-			HTML::wrapjQueryReady( '$("#addtag").on("mousedown","#submit",function(){tinyMCE.triggerSave();$(document).bind("ajaxSuccess.gnetwork_add_term",function(){if(tinyMCE.activeEditor){tinyMCE.activeEditor.setContent("");}$(document).unbind("ajaxSuccess.gnetwork_add_term",false);});});' );
+			HTML::wrapjQueryReady( '$("#addtag").on("mousedown","#submit",function(){tinyMCE.triggerSave();$(document).on("ajaxSuccess.gnetwork_add_term",function(){if(tinyMCE.activeEditor){tinyMCE.activeEditor.setContent("");}$(document).unbind("ajaxSuccess.gnetwork_add_term",false);});});' );
 
 		echo '</div>';
 	}
@@ -980,7 +980,7 @@ class Taxonomy extends gNetwork\Module
 	{
 		foreach ( $term_ids as $term_id ) {
 
-			if ( ! $parents = Tax::getTermParents( $term_id, $taxonomy ) )
+			if ( ! $parents = WPTaxonomy::getTermParents( $term_id, $taxonomy ) )
 				continue;
 
 			$posts = get_objects_in_term( (int) $term_id, $taxonomy );
@@ -1087,7 +1087,7 @@ class Taxonomy extends gNetwork\Module
 		return TRUE;
 	}
 
-	// we have keep the connected object list
+	// separeted because we have to keep the connected object list
 	public function handle_multiple_merge( $targets, $term_ids, $taxonomy )
 	{
 		global $wpdb;
@@ -1096,7 +1096,7 @@ class Taxonomy extends gNetwork\Module
 		$new_terms = [];
 
 		foreach ( $targets as $target )
-			if ( $new_term = Tax::getTargetTerm( $target, $taxonomy ) )
+			if ( $new_term = WPTaxonomy::getTargetTerm( $target, $taxonomy ) )
 				$new_terms[$new_term->term_id] = $new_term;
 
 		if ( ! count( $new_terms ) )
@@ -1146,7 +1146,7 @@ class Taxonomy extends gNetwork\Module
 		if ( Text::has( $target, ',,' ) )
 			return $this->handle_multiple_merge( $target, $term_ids, $taxonomy );
 
-		if ( ! $new_term = Tax::getTargetTerm( $target, $taxonomy ) )
+		if ( ! $new_term = WPTaxonomy::getTargetTerm( $target, $taxonomy ) )
 			return FALSE;
 
 		foreach ( $term_ids as $term_id ) {
@@ -1184,7 +1184,7 @@ class Taxonomy extends gNetwork\Module
 		foreach ( $term_ids as $term_id ) {
 
 			$old_term = get_term( $term_id, $taxonomy );
-			$targets  = Utilities::getSeperated( $old_term->name, $delimiter ?: NULL );
+			$targets  = Utilities::getSeparated( $old_term->name, $delimiter ?: NULL );
 
 			if ( count( $targets ) < 2 )
 				continue;
@@ -1197,7 +1197,7 @@ class Taxonomy extends gNetwork\Module
 
 			foreach ( $targets as $target ) {
 
-				if ( ! $new_term = Tax::getTargetTerm( $target, $taxonomy ) )
+				if ( ! $new_term = WPTaxonomy::getTargetTerm( $target, $taxonomy ) )
 					continue;
 
 				// needs to be set before our action fired
@@ -1421,7 +1421,7 @@ class Taxonomy extends gNetwork\Module
 			ORDER BY {$wpdb->terms}.term_id ASC
 		", $taxonomy ) );
 
-		// FIXME: check for empty
+		// FIXME: handle empty results
 
 		$data = [ array_merge( [ 'term_id' ], $fields, $metas ) ];
 

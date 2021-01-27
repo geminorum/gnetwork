@@ -819,13 +819,13 @@ class Profile extends gNetwork\Module
 			foreach ( $headers as $header )
 				$row[] = $user->{$header};
 
-			$meta = get_user_meta( $user->ID );
+			$saved = get_user_meta( $user->ID );
 
-			foreach ( $metas as $saved )
-				$row[] = empty( $meta[$saved][0] ) ? '' : $meta[$saved][0];
+			foreach ( $metas as $meta )
+				$row[] = empty( $saved[$meta][0] ) ? '' : $saved[$meta][0];
 
 			foreach ( $contacts as $saved )
-				$row[] = empty( $meta[$saved][0] ) ? '' : $meta[$saved][0];
+				$row[] = empty( $saved[$meta][0] ) ? '' : $saved[$meta][0];
 
 			$data[] = $row;
 		}

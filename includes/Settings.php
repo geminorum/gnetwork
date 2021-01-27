@@ -29,6 +29,7 @@ class Settings extends Core\Base
 	{
 		echo '<div id="'.static::BASE.'-'.$context.'" class="'.HTML::prepClass(
 			'wrap',
+			'-settings-wrap',
 			static::BASE.'-admin-wrap',
 			static::BASE.'-'.$context,
 			static::BASE.'-'.$context.'-'.$sub,
