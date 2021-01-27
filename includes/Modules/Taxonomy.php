@@ -1428,7 +1428,7 @@ class Taxonomy extends gNetwork\Module
 
 		// FIXME: handle empty results
 
-		$data = [ array_merge( [ 'term_id' ], $fields, $metas ) ];
+		$data = [ array_merge( [ 'term_id' ], $fields, Arraay::prefixValues( $metas, 'meta_' ) ) ];
 
 		foreach ( $terms as $term ) {
 			$row = [ $term->term_id ];
