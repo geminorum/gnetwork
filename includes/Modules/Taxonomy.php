@@ -12,6 +12,7 @@ use geminorum\gNetwork\Core\Number;
 use geminorum\gNetwork\Core\Text;
 use geminorum\gNetwork\Core\File;
 use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\WordPress\Media as WPMedia;
 use geminorum\gNetwork\WordPress\Taxonomy as WPTaxonomy;
 
 class Taxonomy extends gNetwork\Module
@@ -341,6 +342,23 @@ class Taxonomy extends gNetwork\Module
 
 			WordPress::redirectReferer( 'wrong' );
 
+		} else if ( self::req( $this->classs( 'do-import-terms' ) ) ) {
+
+			check_admin_referer( $this->classs( 'do-import-terms' ) );
+
+			$file = WPMedia::handleImportUpload( $this->classs( 'import' ) );
+
+			if ( ! $file || isset( $file['error'] ) || empty( $file['file'] ) )
+				WordPress::redirectReferer( 'wrong' );
+
+			$count = $this->import_terms_csv( $file['file'], $taxonomy );
+
+			WordPress::redirectReferer( [
+				'message'    => 'imported',
+				'count'      => $count,
+				'attachment' => $file['id'],
+			] );
+
 		} else if ( self::req( $this->classs( 'do-export-terms' ) ) ) {
 
 			check_admin_referer( $this->classs( 'do-export-terms' ) );
@@ -438,7 +456,7 @@ class Taxonomy extends gNetwork\Module
 		$this->actions( 'tab_tools_content_before', $taxonomy, $object );
 
 		$this->_tab_content_tools_defaults( $taxonomy, $object );
-		// $this->_tab_content_tools_import( $taxonomy, $object ); // FIXME
+		$this->_tab_content_tools_import( $taxonomy, $object );
 		$this->_tab_content_tools_export( $taxonomy, $object );
 		$this->_tab_content_tools_delete( $taxonomy, $object );
 
@@ -489,8 +507,25 @@ class Taxonomy extends gNetwork\Module
 		echo $this->wrap_open( '-tab-tools-import card -toolbox-card' );
 			HTML::h4( _x( 'Import Terms', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'title' );
 
-			HTML::desc( gNetwork()->na() ); // FIXME
+			$this->render_form_start( NULL, 'import', 'download', 'tabs', FALSE );
+				wp_nonce_field( $this->classs( 'do-import-terms' ) );
 
+				$this->do_settings_field( [
+					'type'      => 'file',
+					'field'     => 'import_terms_file',
+					'name_attr' => $this->classs( 'import' ),
+					'values'    => [ '.csv' ],
+				] );
+
+				$size = File::formatSize( apply_filters( 'import_upload_size_limit', wp_max_upload_size() ) );
+				/* translators: %s: maximum file size */
+				HTML::desc( sprintf( _x( 'Upload a list of terms in CSV. Maximum size: <b>%s</b>', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), HTML::wrapLTR( $size ) ) );
+
+				echo $this->wrap_open_buttons( '-toolbox-buttons' );
+					Settings::submitButton( $this->classs( 'do-import-terms' ), _x( 'Import from CSV', 'Modules: Taxonomy: Tab Tools: Button', 'gnetwork' ), 'small button-primary' );
+				echo '</p>';
+
+			$this->render_form_end( NULL, 'import', 'download', 'tabs' );
 		echo '</div>';
 	}
 
@@ -1454,5 +1489,48 @@ class Taxonomy extends gNetwork\Module
 		}
 
 		return Text::toCSV( $data );
+	}
+
+	private function import_terms_csv( $file_path, $taxonomy )
+	{
+		$count = 0;
+
+		$csv = new \ParseCsv\Csv();
+		$csv->auto( File::normalize( $file_path ) );
+
+		foreach ( $csv->data as $offset => $row ) {
+
+			$name = '';
+			$args = [];
+			$meta = [];
+
+			foreach( (array) $row as $key => $value ) {
+
+				if ( 'name' == $key )
+					$name = trim( $value );
+
+				else if ( in_array( $key, [ 'parent', 'slug', 'description' ] ) )
+					$args[$key] = trim( $value );
+
+				else if ( Text::start( $key, 'meta_' ) )
+					$meta[preg_replace( '/^meta\_/', '', $key )] = trim( $value );
+			}
+
+			if ( empty( $name ) )
+				continue;
+
+			if ( ! $term = WPTaxonomy::getTargetTerm( $name, $taxonomy, $args ) )
+				continue;
+
+			// will bail if an entry with the same key is found
+			foreach ( $meta as $meta_key => $meta_value )
+				add_term_meta( $term->term_id, $meta_key, $meta_value, TRUE );
+
+			$this->actions( 'import_terms_csv', $term, $taxonomy, $meta, $row, $file_path );
+
+			$count++;
+		}
+
+		return $count;
 	}
 }
