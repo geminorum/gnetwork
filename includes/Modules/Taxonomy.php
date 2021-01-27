@@ -1436,10 +1436,15 @@ class Taxonomy extends gNetwork\Module
 			foreach ( $fields as $field )
 				$row[] = trim( $term->{$field} );
 
-			$meta = get_term_meta( $term->term_id );
+			$saved = get_term_meta( $term->term_id );
 
-			foreach ( $metas as $saved )
-				$row[] = empty( $meta[$saved][0] ) ? '' : trim( $meta[$saved][0] );
+			foreach ( $metas as $meta ) {
+
+				$row_cell = empty( $saved[$meta][0] ) ? '' : trim( $saved[$meta][0] );
+				$filtered = $this->filters( 'export_term_meta_data', $row_cell, $meta, $taxonomy, $term );
+
+				$row[] = $filtered ?: '';
+			}
 
 			$data[] = $row;
 		}
