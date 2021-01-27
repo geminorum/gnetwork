@@ -381,6 +381,10 @@ class Taxonomy extends gNetwork\Module
 				'message' => 'deleted',
 				'count'   => $count,
 			] );
+
+		} else {
+
+			$this->actions( 'handle_tab_content_actions', $taxonomy );
 		}
 	}
 
