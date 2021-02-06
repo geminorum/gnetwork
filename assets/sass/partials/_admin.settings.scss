@@ -1,8 +1,54 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-/// gNetwork Partials: Settings Admin ALL --------------------------------------
+/// gNetwork Partials: Settings Admin ALL
 
+////////////////////////////////////////////////////////////////////////////////
+.wrap.-settings-wrap {
+  // form.-form {}
+  // table.form-table {}
+
+  // FIXME: must check the html
+  .button.button-small {
+    vertical-align: middle;
+  }
+
+  .button.button-icon {
+    padding: 1px !important;
+  }
+
+  .-wrap.-type-object-wrap {
+    .-object-group {
+      border: 1px solid #ddd;
+      padding: .25rem .25rem;
+
+      + .-object-group {
+        margin-top: .5rem;
+      }
+
+      position: relative;
+
+      .-group-controls {
+        position: absolute;
+        left: -25px;
+        top: .25rem;
+      }
+    }
+
+    a.-icon-button {
+      display: inline-block;
+      text-decoration: none;
+      color: $gray;
+
+      &:hover,
+      &:focus {
+        color: $gray-darker;
+      }
+    }
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
 .wrap.gnetwork-admin-wrap {
   // padding-right: 20px;
 
@@ -13,14 +59,6 @@
       // margin-right: 10px;
     }
 
-    // FIXME: must check the html
-    .button.button-small {
-      vertical-align: middle;
-    }
-
-    .button.button-icon {
-      padding: 1px !important;
-    }
 
     input.big-text {
       width: 56em;

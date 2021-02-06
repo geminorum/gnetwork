@@ -39,6 +39,12 @@
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+#woocommerce-fields-bulk {
+  label span.title {
+    width: 10em;
+  }
+}
+////////////////////////////////////////////////////////////////////////////////
 body.woocommerce-page {
   .select2-container {
     z-index: inherit; // messed up by `woocommerce-checkout-manager`
@@ -46,6 +52,10 @@ body.woocommerce-page {
 
   .button.wc-reload::after {
     content: "\f341";
+  }
+
+  #coupon-root .woocommerce-marketing-coupons {
+    display: none !important;
   }
 
   .order_data_column_container {
@@ -82,6 +92,7 @@ body.woocommerce-page {
 
   .woocommerce_options_panel {
     input#_sku,
+    input#_product_url,
     input#_sale_price,
     input#_regular_price {
       direction: ltr;

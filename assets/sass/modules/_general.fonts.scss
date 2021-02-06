@@ -32,7 +32,8 @@ $theme-fonts-repo: "../fonts" !default;
 ////////////////////////////////////////////////////////////////////////////////
 
 @mixin theme-fonts-unicoderange-Persian() {
-  unicode-range: u+0600-06ff, u+200c-200e, u+2010-2011, u+fb50-fdff, u+fe80-fefc;
+  // unicode-range: u+0600-06ff, u+200c-200e, u+2010-2011, u+fb50-fdff, u+fe80-fefc;
+  unicode-range: "U+0600-06ff", "U+200c-200e", "U+2010-2011", "U+fb50-fdff", "U+fe80-fefc";
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -61,7 +62,7 @@ $theme-fonts-repo: "../fonts" !default;
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-/// Vazir v27.0.3
+/// Vazir v27.2.1
 // https://github.com/rastikerdar/vazir-font
 // http://rastikerdar.github.io/vazir-font/
 
@@ -70,12 +71,12 @@ $theme-fonts-repo: "../fonts" !default;
   $font-family-normal: "Vazir", "Tahoma", "Iranian Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif !global;
 
   $name: "Vazir";
-  $ver: "v27.0.3";
-  $weight: "normal";
+  $ver: "v27.2.1";
+  $weight: "400"; // "normal";
 
   $base: $theme-fonts-base;
   $repo: "rastikerdar/vazir-font";
-  $file: "dist/Vazir";
+  $file: "dist/Vazir-Regular";
   $path: $base + "/" + $repo + "/" + $ver + "/" + $file;
 
   @include _theme-fonts-fontface($name, $path, $weight) {
@@ -88,8 +89,8 @@ $theme-fonts-repo: "../fonts" !default;
   $font-family-bold: "Vazir", "Arial", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", "Helvetica", sans-serif !global;
 
   $name: "Vazir";
-  $ver: "v27.0.3";
-  $weight: "bold";
+  $ver: "v27.2.1";
+  $weight: "700"; // "bold";
 
   $base: $theme-fonts-base;
   $repo: "rastikerdar/vazir-font";
@@ -106,7 +107,7 @@ $theme-fonts-repo: "../fonts" !default;
   $font-family-light: "Vazir", "Arial", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", "Helvetica", sans-serif !global;
 
   $name: "Vazir";
-  $ver: "v27.0.3";
+  $ver: "v27.2.1";
   $weight: "300";
 
   $base: $theme-fonts-base;
@@ -124,7 +125,7 @@ $theme-fonts-repo: "../fonts" !default;
   $font-family-medium: "Vazir", "Arial", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", "Helvetica", sans-serif !global;
 
   $name: "Vazir";
-  $ver: "v27.0.3";
+  $ver: "v27.2.1";
   $weight: "500";
 
   $base: $theme-fonts-base;
@@ -142,7 +143,7 @@ $theme-fonts-repo: "../fonts" !default;
   $font-family-thin: "Vazir", "Tahoma", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", "Helvetica", sans-serif !global;
 
   $name: "Vazir";
-  $ver: "v27.0.3";
+  $ver: "v27.2.1";
   $weight: "100";
 
   $base: $theme-fonts-base;
@@ -160,7 +161,7 @@ $theme-fonts-repo: "../fonts" !default;
   $font-family-heavy: "Vazir", "Tahoma", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", "Helvetica", sans-serif !global;
 
   $name: "Vazir";
-  $ver: "v27.0.3";
+  $ver: "v27.2.1";
   $weight: "900";
 
   $base: $theme-fonts-base;

@@ -4,6 +4,13 @@
 /// gNetwork Partials: Rank Math SEO: RTL --------------------------------------
 
 ////////////////////////////////////////////////////////////////////////////////
+#wp-admin-bar-rank-math {
+  .rank-math-icon {
+    padding-right: 0;
+    padding-left: 10px;
+  }
+}
+////////////////////////////////////////////////////////////////////////////////
 #rank_math_dashboard_widget {
   .hndle .rank-math-icon {
     margin-right: 0;

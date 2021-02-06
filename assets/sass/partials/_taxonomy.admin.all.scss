@@ -4,6 +4,14 @@
 /// gNetwork Partials: Taxonomy Module -----------------------------------------
 
 body.edit-tags-php {
+  div[data-tab="addnew"] > .form-wrap > h2 {
+    display: none;
+  }
+
+  form#posts-filter + .description,
+  .form-wrap.edit-term-notes + .description {
+    margin-top: 1rem;
+  }
 
   // only if taxonomy module not loading
   &:not(.gnetowrk-taxonomy) {

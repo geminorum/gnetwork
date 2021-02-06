@@ -5,8 +5,20 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 .-wrap.-toolbox-card {
-  .title {
+  .-base.nav-tab-base & {
+    max-width: 100%;
+  }
+
+  h3.title {
     margin: 1rem 0;
+  }
+
+  h4.title {
+    margin: .75rem 0 .5rem;
+  }
+
+  .-wrap-buttons.-toolbox-buttons {
+    margin-top: .75rem;
   }
 }
 

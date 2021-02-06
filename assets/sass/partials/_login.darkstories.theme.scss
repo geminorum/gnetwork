@@ -40,6 +40,7 @@ body.login.darkstories {
     margin-bottom: 0.5rem;
   }
 
+  input[type="checkbox"],
   input[type="number"],
   input[type="text"],
   form .input {
@@ -67,5 +68,9 @@ body.login.darkstories {
   #login_error {
     background: #353535;
     color: inherit;
+  }
+
+  p#nav {
+    color: #434343;
   }
 }

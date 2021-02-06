@@ -1,0 +1,101 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// gNetwork Blocks: Switch: 01 - 2021-01-31
+// -----------------------------------------------------------------------------
+// @REF: https://codepen.io/geminorum/pen/dyOPowx
+
+////////////////////////////////////////////////////////////////////////////////
+$spacer: 1rem !default;
+
+////////////////////////////////////////////////////////////////////////////////
+.-wrap.-type-switchonoff {
+  // max-width: $spacer * 5;
+
+  // &,
+  *,
+  *::after,
+  *::before,
+  &::after,
+  &::before {
+    box-sizing: border-box;
+  }
+
+  .-switch {
+    align-items: center;
+    background-color: $gray;
+    border-radius: 500px;
+    cursor: pointer;
+    display: flex;
+    height: ($spacer * 2);
+    justify-content: space-between;
+    padding: 0 ($spacer * .25);
+    position: relative;
+    user-select: none;
+    // width: 80px;
+    width: 100%;
+
+    .switch__left,
+    .switch__right {
+      color: #fff;
+      font-weight: 600;
+      text-transform: uppercase;
+      padding: ($spacer * .25) ($spacer * .5);
+      position: absolute;
+    }
+
+    .switch__left {
+      left: 0;
+    }
+
+    .switch__right {
+      right: 0;
+    }
+
+    .switch__circle {
+      height: ($spacer * 2);
+      padding: $spacer * .25;
+      position: absolute;
+      transition: all 0.1s linear;
+      width: ($spacer * 2);
+    }
+
+    .switch__circle-inner {
+      background-color: $gray-lighter;
+      border-radius: 50%;
+      display: block;
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  .-checkbox {
+    display: none;
+
+    &:checked ~ .-switch {
+      background-color: $brand-primary;
+    }
+
+    &:not(:checked) ~ .-switch {
+      background-color: $gray;
+    }
+
+    &:checked ~ .-switch .switch__left {
+      visibility: hidden;
+    }
+
+    &:not(:checked) ~ .-switch .switch__right {
+      visibility: hidden;
+    }
+
+    &:checked ~ .-switch .switch__circle {
+      left: 0;
+      right: calc(100% - #{($spacer * 2)});
+    }
+
+    &:not(:checked) ~ .-switch .switch__circle {
+      left: calc(100% - #{($spacer * 2)});
+      right: 0;
+    }
+  }
+}

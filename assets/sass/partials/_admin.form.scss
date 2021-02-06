@@ -53,6 +53,10 @@
     background: lighten($gray-light, 50%);
     border: 1px solid $gray-lighter;
     border-radius: 2px;
+
+    + p.description {
+      margin-top: -1em;
+    }
   }
 
   input.medium-text,
