@@ -37,7 +37,7 @@ class Cron extends gNetwork\Module
 
 		$this->filter( 'cron_schedules', 1, 20 );
 
-		if ( $this->options['schedule_revision'] && WP_POST_REVISIONS )
+		if ( $this->options['schedule_revision'] )
 			add_action( $this->hook( 'clean_revisions' ), [ $this, 'do_clean_revisions' ], 10, 2 );
 	}
 
@@ -519,6 +519,10 @@ class Cron extends gNetwork\Module
 
 	public function do_clean_revisions()
 	{
+		// NOTE: the constant may late defined!
+		if ( ! WP_POST_REVISIONS )
+			return;
+
 		$revisions = get_posts( [
 			'fields'      => 'ids',
 			'post_type'   => 'revision',
