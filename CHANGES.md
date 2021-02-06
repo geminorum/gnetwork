@@ -1,3 +1,41 @@
+### 3.13.0
+* main/module: internal nonce field/check methods
+* main/module: tablelist action conditional
+* main/utilities: limit on get seperated
+* misc/qm: current object taxonomy data
+* module/bbq: :up: v20201209
+* module/commerce: avoid deprection notice for data access
+* module/commerce: custom hooks on products tablelist
+* module/commerce: related products on tabs
+* module/commerce: status column on tablelist
+* module/cron: avoid undefined constant on setup actions
+* module/profile: handle import file with custom name
+* module/shortcodes: lazy loading for iframe shortcode
+* module/taxonomy: :new: bulk action for splitting the terms by delimiter
+* module/taxonomy: :new: import terms from csv file
+* module/taxonomy: :new: support for default term
+* module/taxonomy: :new: tab ui api for each taxonomy with exporting terms
+* module/taxonomy: capability checks on taxonomy tabs api
+* module/taxonomy: check type before splitting the target terms
+* module/taxonomy: default option-key for wc categories
+* module/taxonomy: default term key helper
+* module/taxonomy: delete all terms on tools tab
+* module/taxonomy: exclude default term from deletion
+* module/taxonomy: filter meta data on export terms
+* module/taxonomy: hook for handle tab content actions
+* module/taxonomy: maintenance tab: delete empty terms
+* module/taxonomy: make taxonomy tabs optional
+* module/taxonomy: new tab for maintenance
+* module/taxonomy: prefix meta column titles on export terms
+* module/taxonomy: tabs if actions exists
+* module/themes: initial support for astera theme
+* module/themes: latest version of jquery
+* module/typography: :new: title and slug tools page
+* module/update: disable update checks on all non-main networks
+* module/update: partial support for gitlab hosted
+* module/user: disable application passwords
+* module/user: multisite-aware settings
+
 ### 3.12.0
 * main/module: custom postbox classes
 * main/module: dashboard widget api refreshed
