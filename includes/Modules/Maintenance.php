@@ -163,6 +163,7 @@ class Maintenance extends gNetwork\Module
 		$this->action( 'template_redirect' );
 		$this->filter( 'status_header', 4 );
 		$this->filter( 'rest_authentication_errors', 1, 999 );
+		$this->filter_empty_string( 'login_site_html_link' );
 
 		if ( $this->options['login_message'] )
 			$this->filter( 'login_message' );
@@ -283,6 +284,7 @@ class Maintenance extends gNetwork\Module
 		$content_message = self::get503Message( FALSE );
 		$content_menu    = ''; // FIXME
 		$head_callback   = '';
+		$body_class      = '';
 
 		$retry = $this->options['retry_after']; // minutes
 		$rtl   = is_rtl();
