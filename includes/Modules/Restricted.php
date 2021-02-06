@@ -51,6 +51,7 @@ class Restricted extends gNetwork\Module
 
 				$this->action( 'init', 0, 1 );
 				$this->filter( 'rest_authentication_errors', 1, 999 );
+				$this->filter_empty_string( 'login_site_html_link' );
 			}
 		}
 	}
@@ -608,6 +609,8 @@ EOD;
 		$content_desc    = HTTP::getStatusDesc( $this->status_code );
 		$content_message = self::get403Message( FALSE );
 		$content_menu    = self::get403Logout( FALSE );
+		$head_callback   = '';
+		$body_class      = '';
 
 		// $retry = $this->options['retry_after']; // minutes
 		$rtl   = is_rtl();

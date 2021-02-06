@@ -511,6 +511,7 @@ class Admin extends gNetwork\Module
 			HTML::linkStyleSheet( GNETWORK_URL.'assets/css/admin.rtl.css', GNETWORK_VERSION );
 
 		if ( $this->dark_mode )
+			// @SEE: https://github.com/WordPress/gutenberg/pull/28233
 			HTML::linkStyleSheet( GNETWORK_URL.'assets/css/admin.darkmode.css', GNETWORK_VERSION );
 
 		Utilities::customStyleSheet( 'admin.css' );

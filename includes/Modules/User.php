@@ -668,7 +668,7 @@ class User extends gNetwork\Module
 		$registered = strtotime( get_date_from_gmt( $user->user_registered ) );
 		$lastlogged = $lastlogin ? strtotime( get_date_from_gmt( $lastlogin ) ) : NULL;
 
-		$html.= '<table></tbody>';
+		$html.= '<table><tbody>';
 
 		$html.= '<tr><td>'._x( 'Registered', 'Modules: User', 'gnetwork' ).'</td><td><code title="'
 			.Utilities::dateFormat( $registered, 'timeampm' ).'">'

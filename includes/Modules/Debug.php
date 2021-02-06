@@ -352,14 +352,14 @@ class Debug extends gNetwork\Module
 		$paths = [
 			'WP_MEMORY_LIMIT'     => WP_MEMORY_LIMIT,
 			'WP_MAX_MEMORY_LIMIT' => WP_MAX_MEMORY_LIMIT,
-			'WP_LOCAL_DEV'        => @constant( 'WP_LOCAL_DEV' ),
+			'WP_LOCAL_DEV'        => defined( 'WP_LOCAL_DEV' ) ? constant( 'WP_LOCAL_DEV' ) : 'UNDEFINED',
 			'WP_DEBUG'            => WP_DEBUG,
 			'WP_DEBUG_DISPLAY'    => WP_DEBUG_DISPLAY,
 			'WP_DEBUG_LOG'        => WP_DEBUG_LOG,
 			'SCRIPT_DEBUG'        => SCRIPT_DEBUG,
-			'CONCATENATE_SCRIPTS' => @constant( 'CONCATENATE_SCRIPTS' ),
-			'COMPRESS_SCRIPTS'    => @constant( 'COMPRESS_SCRIPTS' ),
-			'COMPRESS_CSS'        => @constant( 'COMPRESS_CSS' ),
+			'CONCATENATE_SCRIPTS' => defined( 'CONCATENATE_SCRIPTS' ) ? constant( 'CONCATENATE_SCRIPTS' ) : 'UNDEFINED',
+			'COMPRESS_SCRIPTS'    => defined( 'COMPRESS_SCRIPTS' ) ? constant( 'COMPRESS_SCRIPTS' ) : 'UNDEFINED',
+			'COMPRESS_CSS'        => defined( 'COMPRESS_CSS' ) ? constant( 'COMPRESS_CSS' ) : 'UNDEFINED',
 			'WP_CACHE'            => WP_CACHE,
 			'WP_CONTENT_DIR'      => WP_CONTENT_DIR,
 			'WP_POST_REVISIONS'   => WP_POST_REVISIONS,
@@ -578,10 +578,10 @@ class Debug extends gNetwork\Module
 			return FALSE;
 
 		$dom = new \domDocument;
-		$dom->loadHTML( $info );
+		@$dom->loadHTML( $info );
 
 		$body = $dom->documentElement->lastChild;
-		return $dom->saveHTML( $body );
+		return @$dom->saveHTML( $body );
 	}
 
 	public static function phpinfo()
@@ -670,6 +670,42 @@ class Debug extends gNetwork\Module
 		}
 
 		return $extensions;
+	}
+
+	// FIXME: display missing from the list!
+	// @REF: https://make.wordpress.org/hosting/handbook/handbook/server-environment/#php-extensions
+	// @SEE: https://www.littlebizzy.com/blog/wordpress-php-extensions
+	// @SEE: https://wordpress.stackexchange.com/a/42212
+	public static function getWordPressPHPExtensions()
+	{
+		return [
+			'curl'     => 'Performs remote request operations.',
+			'dom'      => 'Used to validate Text Widget content and to automatically configure IIS7+.',
+			'exif'     => 'Works with metadata stored in images.',
+			'fileinfo' => 'Used to detect mimetype of file uploads.',
+			'hash'     => 'Used for hashing, including passwords and update packages.',
+			'json'     => 'Used for communications with other servers.',
+			'mbstring' => 'Used to properly handle UTF8 text.',
+			'mysqli'   => 'Connects to MySQL for database interactions.',
+			'sodium'   => 'Validates Signatures and provides securely random bytes.',
+			'openssl'  => 'Permits SSL-based connections to other hosts.',
+			'pcre'     => 'Increases performance of pattern matching in code searches.',
+			'imagick'  => 'Provides better image quality for media uploads. See WP_Image_Editor is incoming! for details. Smarter image resizing (for smaller images) and PDF thumbnail support, when Ghost Script is also available.',
+			'xml'      => 'Used for XML parsing, such as from a third-party site.',
+			'zip'      => 'Used for decompressing Plugins, Themes, and WordPress update packages.',
+
+			'filter'    => 'Used for securely filtering user input.',
+			'gd'        => 'If Imagick isn’t installed, the GD Graphics Library is used as a functionally limited fallback for image manipulation.',
+			'iconv'     => 'Used to convert between character sets.',
+			'mcrypt'    => 'Generates random bytes when libsodium and /dev/urandom aren’t available.',
+			'simplexml' => 'Used for XML parsing.',
+			'xmlreader' => 'Used for XML parsing.',
+			'zlib'      => 'Gzip compression and decompression.',
+
+			'ssh2'    => 'SSH2',
+			'ftp'     => 'File Transfer Protocol',
+			'sockets' => 'Sockets (For when the ftp extension is unavailable)',
+		];
 	}
 
 	public static function getPHPMissingExtensions()

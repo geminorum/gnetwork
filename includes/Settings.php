@@ -557,7 +557,7 @@ class Settings extends Core\Base
 		return $html ? HTML::wrap( '<ul>'.$html.'</ul>', '-help-sidebar' ) : FALSE;
 	}
 
-	public static function fieldType( $atts = [], &$scripts )
+	public static function fieldType( $atts, &$scripts )
 	{
 		$args = self::atts( [
 			'title'        => '&nbsp;',

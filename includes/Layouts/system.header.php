@@ -35,5 +35,5 @@ h1, h3 { margin: 0; }
 .small { font-size: small; }
 </style>
 </head>
-<body>
+<body<?php if ( ! empty( $body_class ) ) echo ' class="'.$body_class.'"'; ?>>
 <div class="wrap"><div>
