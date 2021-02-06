@@ -22,9 +22,9 @@ class Update extends gNetwork\Module
 
 	protected function setup_actions()
 	{
-		$this->action( 'admin_init', 0, 100 );
-
 		if ( ! WordPress::isMainNetwork() ) {
+
+			$this->action( 'admin_init', 0, 100, 'not_mainsite' );
 
 			$this->filter_true( 'automatic_updater_disabled' );
 			$this->filter_false( 'auto_update_core' );
@@ -33,6 +33,8 @@ class Update extends gNetwork\Module
 
 			return FALSE;
 		}
+
+		$this->action( 'admin_init', 0, 100 );
 
 		if ( $this->options['disable_autoupdates'] ) {
 			$this->filter_true( 'automatic_updater_disabled' );
@@ -281,6 +283,16 @@ class Update extends gNetwork\Module
 			add_filter( 'pre_option_update_core', '__return_null' );
 			add_filter( 'pre_site_transient_update_core', '__return_null' );
 		}
+	}
+
+	public function admin_init_not_mainsite()
+	{
+		remove_filter( 'admin_notices', 'update_nag', 3 );
+		remove_filter( 'network_admin_notices', 'update_nag', 3 );
+
+		remove_all_actions( 'wp_version_check' );
+		add_filter( 'pre_option_update_core', '__return_null' );
+		add_filter( 'pre_site_transient_update_core', '__return_null' );
 	}
 
 	public function extra_plugin_headers( $headers = [] )
