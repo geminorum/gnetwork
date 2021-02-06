@@ -46,6 +46,7 @@
       "./assets/locale/**/*",
       "!./assets/locale/**/*.pot",
       "!./assets/locale/**/*.po",
+      "!./assets/locale/core/raw",
       "./assets/vendor/**/*.php",
       "!./assets/vendor/**/test/*",
       "!./assets/vendor/**/Tests/*",

@@ -13,8 +13,8 @@ Text Domain: gnetwork
 Domain Path: /languages
 GitHub Plugin URI: https://github.com/geminorum/gnetwork
 Release Asset: true
-Requires WP: 4.9
-Requires at least: 4.9
+Requires WP: 5.0
+Requires at least: 5.0
 Requires PHP: 5.6.20
 */
 
