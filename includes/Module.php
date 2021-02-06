@@ -854,6 +854,28 @@ class Module extends Core\Base
 		wp_nonce_field( $this->base.'_'.$sub.'-'.$context ); // @SEE: `$this->check_referer()`
 	}
 
+	protected function nonce_field( $context = 'settings', $key = NULL, $name = NULL )
+	{
+		if ( is_null( $key ) )
+			$key = $this->key;
+
+		if ( is_null( $name ) )
+			$name = '_'.$this->base.'-'.$key.'-'.$context; // OLD: '_wpnonce'
+
+		return wp_nonce_field( $this->base.'-'.$key.'-'.$context, $name, FALSE, TRUE );
+	}
+
+	protected function nonce_check( $context = 'settings', $key = NULL, $name = NULL )
+	{
+		if ( is_null( $key ) )
+			$key = $this->key;
+
+		if ( is_null( $name ) )
+			$name = '_'.$this->base.'-'.$key.'-'.$context; // OLD: '_wpnonce'
+
+		return check_admin_referer( $this->base.'-'.$key.'-'.$context, $name );
+	}
+
 	protected function settings_update( $sub )
 	{
 		if ( ! empty( $_POST ) && 'update' == $_POST['action'] ) {

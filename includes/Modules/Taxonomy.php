@@ -328,7 +328,7 @@ class Taxonomy extends gNetwork\Module
 	{
 		if ( self::req( $this->classs( 'do-default-terms' ) ) ) {
 
-			check_admin_referer( $this->classs( 'do-default-terms' ) );
+			$this->nonce_check( 'do-default-terms' );
 
 			$terms    = $this->filters( 'default_terms_'.$taxonomy, [], $taxonomy );
 			$selected = self::req( $this->classs( 'do-default-selected' ), [] );
@@ -344,7 +344,7 @@ class Taxonomy extends gNetwork\Module
 
 		} else if ( self::req( $this->classs( 'do-import-terms' ) ) ) {
 
-			check_admin_referer( $this->classs( 'do-import-terms' ) );
+			$this->nonce_check( 'do-import-terms' );
 
 			$file = WPMedia::handleImportUpload( $this->classs( 'import' ) );
 
@@ -361,7 +361,7 @@ class Taxonomy extends gNetwork\Module
 
 		} else if ( self::req( $this->classs( 'do-export-terms' ) ) ) {
 
-			check_admin_referer( $this->classs( 'do-export-terms' ) );
+			$this->nonce_check( 'do-export-terms' );
 
 			$fields = self::req( $this->classs( 'do-export-fields' ), [] );
 			$data   = $this->get_csv_terms( $taxonomy, ( $fields ? array_keys( $fields ) : NULL ) );
@@ -372,7 +372,7 @@ class Taxonomy extends gNetwork\Module
 
 		} else if ( self::req( $this->classs( 'do-delete-terms' ) ) ) {
 
-			check_admin_referer( $this->classs( 'do-delete-terms' ) );
+			$this->nonce_check( 'do-delete-terms' );
 
 			// no need, we check the nounce
 			// if ( ! current_user_can( get_taxonomy( $taxonomy )->cap->delete_terms ) )
@@ -391,7 +391,7 @@ class Taxonomy extends gNetwork\Module
 
 		} else if ( self::req( $this->classs( 'do-delete-empties' ) ) ) {
 
-			check_admin_referer( $this->classs( 'do-delete-empties' ) );
+			$this->nonce_check( 'do-delete-empties' );
 
 			$count = $this->handle_delete_terms( $taxonomy, TRUE, FALSE );
 
@@ -477,7 +477,7 @@ class Taxonomy extends gNetwork\Module
 			if ( $this->hooked( $hook ) ) {
 
 				$this->render_form_start( NULL, 'defaults', 'install', 'tabs', FALSE );
-					wp_nonce_field( $this->classs( 'do-default-terms' ) );
+					$this->nonce_field( 'do-default-terms' );
 
 					echo HTML::multiSelect( $this->filters( $hook, [], $taxonomy ), [
 						'name'     => $this->classs( 'do-default-selected' ),
@@ -508,7 +508,7 @@ class Taxonomy extends gNetwork\Module
 			HTML::h4( _x( 'Import Terms', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'title' );
 
 			$this->render_form_start( NULL, 'import', 'download', 'tabs', FALSE );
-				wp_nonce_field( $this->classs( 'do-import-terms' ) );
+				$this->nonce_field( 'do-import-terms' );
 
 				$this->do_settings_field( [
 					'type'      => 'file',
@@ -535,7 +535,7 @@ class Taxonomy extends gNetwork\Module
 			HTML::h4( _x( 'Export Terms', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'title' );
 
 			$this->render_form_start( NULL, 'export', 'download', 'tabs', FALSE );
-				wp_nonce_field( $this->classs( 'do-export-terms' ) );
+				$this->nonce_field( 'do-export-terms' );
 
 				echo HTML::multiSelect( $this->get_export_term_fields( $taxonomy ), [
 					'name'     => $this->classs( 'do-export-fields' ),
@@ -563,7 +563,7 @@ class Taxonomy extends gNetwork\Module
 			HTML::h4( _x( 'Delete Terms', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'title' );
 
 			$this->render_form_start( NULL, 'delete', 'bulk', 'tabs', FALSE );
-				wp_nonce_field( $this->classs( 'do-delete-terms' ) );
+				$this->nonce_field( 'do-delete-terms' );
 
 				echo HTML::tag( 'input', [
 					'type'         => 'text',
@@ -613,7 +613,7 @@ class Taxonomy extends gNetwork\Module
 			if ( $empties ) {
 
 				$this->render_form_start( NULL, 'delete', 'empties', 'tabs', FALSE );
-					wp_nonce_field( $this->classs( 'do-delete-empties' ) );
+					$this->nonce_field( 'do-delete-empties' );
 
 					/* translators: %s: number of empty terms */
 					HTML::desc( Utilities::getCounted( $empties, _nx( 'Confirm deletion of %s empty term.', 'Confirm deletion of %s empty terms.', $empties, 'Modules: Taxonomy: Tab Tools', 'gnetwork' ) ) );
