@@ -53,7 +53,7 @@
     "vendor-dir": "assets/vendor",
     "vendor/bin": "assets/bin",
     "platform": {
-      "php": "5.6.20"
+      "php": "7.2"
     }
   },
   "autoload": {
