@@ -22,7 +22,7 @@ jQuery(function ($) {
         }));
       });
     })
-    .change(function () {
+    .on('change', function () {
       const $select = $(this);
 
       $.each(actions, function (i, actionObj) {
@@ -30,7 +30,7 @@ jQuery(function ($) {
           actionObj.el
             .insertAfter($select)
             .css('display', 'inline')
-            .find(':input').focus();
+            .find(':input').trigger('focus');
         } else {
           actionObj.el
             .css('display', 'none');

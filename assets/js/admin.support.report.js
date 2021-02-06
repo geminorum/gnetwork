@@ -1,7 +1,7 @@
 jQuery(function ($) {
   const form = '#gnetwork-support-report form';
 
-  $(form).submit(function () {
+  $(form).on('submit', function () {
     const $spinner = $(this).find('.spinner');
     const $message = $(this).find('.-message');
 

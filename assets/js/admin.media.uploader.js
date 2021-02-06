@@ -122,7 +122,7 @@
     }
   };
 
-  $(s.file).change(function () {
+  $(s.file).on('change', function () {
     const filename = $(this).val();
     if (filename !== '') {
       $(s.name).html(filename).show();

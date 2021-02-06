@@ -17,7 +17,7 @@ jQuery(function ($) {
     $('div.media-url-box').not(row).slideUp('slow');
   });
 
-  $('input.media-url-field').focus(function () {
+  $('input.media-url-field').on('focus', function () {
     this.select();
   });
 
