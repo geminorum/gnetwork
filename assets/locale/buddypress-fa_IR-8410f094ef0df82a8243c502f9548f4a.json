@@ -1,0 +1,51 @@
+{
+    "translation-revision-date": "2021-02-06 13:28+0330",
+    "generator": "WP-CLI\/2.4.0",
+    "source": "bp-activity\/js\/blocks\/embed-activity.js",
+    "domain": "messages",
+    "locale_data": {
+        "messages": {
+            "": {
+                "domain": "messages",
+                "lang": "fa_IR",
+                "plural-forms": "nplurals=2; plural=n != 1;"
+            },
+            "Add a block that displays the activity content pulled from this or other community sites.": [
+                ""
+            ],
+            "Embed an activity": [
+                ""
+            ],
+            "Write caption\u2026": [
+                ""
+            ],
+            "The URL you provided is not a permalink to a public BuddyPress Activity. Please use another URL.": [
+                ""
+            ],
+            "Embedding\u2026": [
+                ""
+            ],
+            "Learn more about activity embeds": [
+                ""
+            ],
+            "https:\/\/codex.buddypress.org\/activity-embeds\/": [
+                ""
+            ],
+            "Embed": [
+                ""
+            ],
+            "Enter URL to embed here\u2026": [
+                ""
+            ],
+            "Paste the link to the activity content you want to display on your site.": [
+                ""
+            ],
+            "Edit URL": [
+                ""
+            ],
+            "BuddyPress Activity URL": [
+                ""
+            ]
+        }
+    }
+}

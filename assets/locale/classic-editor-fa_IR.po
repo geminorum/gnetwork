@@ -1,0 +1,126 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Classic Editor v1.6\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2020-12-28 21:25+0330\n"
+"Last-Translator: geminorum <contact@geminorum.ir>\n"
+"Language-Team: \n"
+"Language: fa_IR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 2.4.2\n"
+"X-Poedit-Basepath: ../../../classic-editor\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: classic-editor.php:822
+msgctxt "Editor Name"
+msgid "Edit (classic editor)"
+msgstr "ویرایش (ویرایشگر کلاسیک)"
+
+#: classic-editor.php:815
+msgctxt "Editor Name"
+msgid "Edit (block editor)"
+msgstr "ویرایش (ویرایشگر بلوک)"
+
+#: classic-editor.php:456
+msgid "Default Editor"
+msgstr "ویرایشگر پیش‌فرض"
+
+#: classic-editor.php:489
+msgid "Change settings"
+msgstr "تغییر تنظیمات"
+
+#: classic-editor.php:476
+msgid "Default editor for all sites"
+msgstr "ویرایشگر پیش‌فرض برای همه سایت‌ها"
+
+#: classic-editor.php:472
+msgid "Editor Settings"
+msgstr "تنظیمات ویرایشگر"
+
+#: classic-editor.php:856
+msgctxt "Editor Name"
+msgid "block editor"
+msgstr "ویرایشگر بلوک"
+
+#: classic-editor.php:853
+msgctxt "Editor Name"
+msgid "classic editor"
+msgstr "ویرایشگر کلاسیک"
+
+#: classic-editor.php:657
+msgid "Switch to block editor"
+msgstr "سوییچ به ویرایشگر بلوک"
+
+#: classic-editor.php:493
+msgid ""
+"By default the block editor is replaced with the classic editor and users "
+"cannot switch editors."
+msgstr ""
+
+#: classic-editor.php:492
+msgid "Allow site admins to change settings"
+msgstr "به مدیران سایت اجازه دهید تنظیمات را تغییر دهند"
+
+#. Author URI of the plugin
+msgid "https://github.com/WordPress/classic-editor/"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://wordpress.org/plugins/classic-editor/"
+msgstr ""
+
+#: classic-editor.php:681
+msgid "Switch to classic editor"
+msgstr "سوییچ به ویرایشگر کلاسیک"
+
+#: classic-editor.php:638
+msgid "Editor"
+msgstr "ویرایشگر"
+
+#: classic-editor.php:431
+msgid "No"
+msgstr "خیر"
+
+#: classic-editor.php:427
+msgid "Yes"
+msgstr "بله"
+
+#: classic-editor.php:354
+msgid "Allow users to switch editors"
+msgstr "اجازه تغییر ویرایشگر به کاربران"
+
+#: classic-editor.php:353
+msgid "Default editor for all users"
+msgstr "ویرایشگر پیش‌فرض برای همهٔ کاربران"
+
+#. translators: %s: post title
+#: classic-editor.php:817
+msgid "Edit &#8220;%s&#8221; in the block editor"
+msgstr "ویرایش «%s» در ویرایشگر بلوک"
+
+#. Author of the plugin
+msgid "WordPress Contributors"
+msgstr "مشارکت‌کنندگان وردپرس"
+
+#. Description of the plugin
+msgid ""
+"Enables the WordPress classic editor and the old-style Edit Post screen with "
+"TinyMCE, Meta Boxes, etc. Supports the older plugins that extend this screen."
+msgstr ""
+
+#. Plugin Name of the plugin
+msgid "Classic Editor"
+msgstr "ویرایشگر کلاسیک"
+
+#. translators: %s: post title
+#: classic-editor.php:824
+msgid "Edit &#8220;%s&#8221; in the classic editor"
+msgstr "ویرایش «%s» در ویرایشگر کلاسیک"
+
+#: classic-editor.php:700
+msgid "Settings"
+msgstr "تنظیمات"
