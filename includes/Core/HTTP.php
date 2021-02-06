@@ -544,7 +544,7 @@ class HTTP extends Base
 	//
 	// If the request fails for some reason FALSE is returned with the $err_msg
 	// param containing more info.
-	public static function download( $url, &$headers = array(), &$err_msg )
+	public static function download( $url, &$headers, &$err_msg )
 	{
 		if ( ! extension_loaded( 'curl' ) )
 			return FALSE;

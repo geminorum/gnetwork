@@ -42,7 +42,6 @@ class WordPress extends Base
 	}
 
 	// @REF: `vars.php`
-	// TODO: support arrays
 	public static function pageNow( $page = NULL )
 	{
 		$now = 'index.php';
@@ -50,7 +49,10 @@ class WordPress extends Base
 		if ( preg_match( '#([^/]+\.php)([?/].*?)?$#i', $_SERVER['PHP_SELF'], $matches ) )
 			$now = strtolower( $matches[1] );
 
-		return is_null( $page ) ? $now : ( $now == $page );
+		if ( is_null( $page ) )
+			return $now;
+
+		return in_array( $now, (array) $page );
 	}
 
 	// @REF: https://core.trac.wordpress.org/ticket/19898

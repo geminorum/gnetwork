@@ -28,7 +28,7 @@ class Taxonomy extends Core\Base
 		return count( $parents ) ? $parents : FALSE;
 	}
 
-	public static function getTargetTerm( $target, $taxonomy, $args = [] )
+	public static function getTargetTerm( $target, $taxonomy, $args = [], $meta = [] )
 	{
 		$target = trim( $target );
 
@@ -62,6 +62,9 @@ class Taxonomy extends Core\Base
 
 		if ( self::isError( $term ) )
 			return FALSE;
+
+		foreach ( $meta as $meta_key => $meta_value )
+			add_term_meta( $term['term_id'], $meta_key, $meta_value, TRUE );
 
 		return get_term( $term['term_id'], $taxonomy );
 	}
