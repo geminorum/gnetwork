@@ -380,7 +380,9 @@ $theme-fonts-repo: "../fonts" !default;
 // http://www.google.com/webfonts/earlyaccess
 // http://openfontlibrary.org/en/font/droid-arabic-naskh
 
-@mixin theme-fonts-DroidArabicNaskh($base: $theme-fonts-repo) {
+@mixin theme-fonts-DroidArabicNaskh($base: $theme-fonts-repo) {}
+
+@mixin theme-fonts-DroidArabicNaskh_DISABLED($base: $theme-fonts-repo) {
   @include theme-fonts-DroidArabicNaskh-Normal($base);
   @include theme-fonts-DroidArabicNaskh-Bold($base);
 }
@@ -446,7 +448,9 @@ $theme-fonts-repo: "../fonts" !default;
 // https://www.google.com/get/noto/
 // https://github.com/googlei18n/noto-fonts
 
-@mixin theme-fonts-NotoNaskhArabic($base: $theme-fonts-repo) {
+@mixin theme-fonts-NotoNaskhArabic($base: $theme-fonts-repo) {}
+
+@mixin theme-fonts-NotoNaskhArabic_DISABLED($base: $theme-fonts-repo) {
   @include theme-fonts-NotoNaskhArabic-Normal($base);
   @include theme-fonts-NotoNaskhArabic-Bold($base);
 }
@@ -511,7 +515,9 @@ $theme-fonts-repo: "../fonts" !default;
 /// Droid Arabic Kufi (Arabic) v6
 // http://www.google.com/fonts/earlyaccess
 
-@mixin theme-fonts-DroidArabicKufi($base: $theme-fonts-repo) {
+@mixin theme-fonts-DroidArabicKufi($base: $theme-fonts-repo) {}
+
+@mixin theme-fonts-DroidArabicKufi_DISABLED($base: $theme-fonts-repo) {
 
   $name: "Droid Arabic Kufi";
   $folder: "droidarabickufi";
@@ -565,7 +571,9 @@ $theme-fonts-repo: "../fonts" !default;
 // http://goo.gl/WhRr3a
 // http://weblogma.com/
 
-@mixin theme-fonts-WeblogmaYekan($base: $theme-fonts-repo) {
+@mixin theme-fonts-WeblogmaYekan($base: $theme-fonts-repo) {}
+
+@mixin theme-fonts-WeblogmaYekan_DISABLED($base: $theme-fonts-repo) {
 
   $name: "Weblogma Yekan";
   $folder: "weblogmayekan";
