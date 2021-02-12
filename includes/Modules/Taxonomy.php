@@ -292,6 +292,8 @@ class Taxonomy extends gNetwork\Module
 
 		echo '<div class="base-tabs-list -base nav-tab-base">';
 
+		Settings::message( $this->filters( 'tabs_messages', Settings::messages() ) );
+
 		HTML::tabNav( 'addnew', [ 'addnew' => $object->labels->add_new_item ] + wp_list_pluck( $tabs, 'title' ) );
 
 		echo '<div class="nav-tab-content -content nav-tab-active -active" data-tab="addnew">';
