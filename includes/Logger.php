@@ -172,6 +172,14 @@ class Logger
 		self::logAdminBot( $message, 'FAILED', $context );
 	}
 
+	// system is unusable
+	public static function siteURGENT( $prefix, $message = '', $context = [] )
+	{
+		$site = WordPress::currentSiteName();
+		self::logAnalog( $prefix.': '.$site.': '.$message, \Analog::URGENT, $context );
+		self::logAdminBot( $prefix.': '.$site.': '.$message, 'URGENT', $context );
+	}
+
 	// action must be taken immediately
 	public static function siteALERT( $prefix, $message = '', $context = [] )
 	{
