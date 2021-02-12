@@ -175,6 +175,8 @@ class Plugin extends Base
 		add_action( 'bp_setup_components', [ $this, 'bp_setup_components' ] );
 		add_action( 'bp_include', [ $this, 'bp_include' ] );
 		add_action( 'bbp_includes', [ $this, 'bbp_includes' ] );
+
+		Logger::setup();
 	}
 
 	public function plugins_loaded()

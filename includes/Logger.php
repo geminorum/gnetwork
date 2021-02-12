@@ -7,6 +7,28 @@ use geminorum\gNetwork\Core\WordPress;
 class Logger
 {
 
+	const BASE = 'gnetwork';
+
+	const LEVELS = [
+		'URGENT',
+		'ALERT',
+		'CRITICAL',
+		'ERROR',
+		'WARNING',
+		'NOTICE',
+		'INFO',
+		'DEBUG',
+		'FAILED', // not in the analog, log in different file
+	];
+
+	public static function setup()
+	{
+		foreach ( self::LEVELS as $level ) {
+			add_action( self::BASE.'_logger_'.strtolower( $level ), [ __NAMESPACE__.'\\Logger', $level ], 10, 3 );
+			add_action( self::BASE.'_logger_site_'.strtolower( $level ), [ __NAMESPACE__.'\\Logger', 'site'.$level ], 10, 3 );
+		}
+	}
+
 	// @REF: http://symfony.com/doc/current/components/stopwatch.html
 	public static function startWatch( $name = 'testing', $category = 'gnetwork' )
 	{
