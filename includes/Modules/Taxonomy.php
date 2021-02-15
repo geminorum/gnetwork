@@ -1186,7 +1186,8 @@ class Taxonomy extends gNetwork\Module
 
 	public function handle_merge( $term_ids, $taxonomy )
 	{
-		$target = $_REQUEST['bulk_to_tag'];
+		if ( ! $target = self::req( $this->classs( 'bulk-merge' ) ) )
+			return FALSE;
 
 		// handle multiple merge
 		if ( Text::has( $target, ',,' ) )
@@ -1225,7 +1226,7 @@ class Taxonomy extends gNetwork\Module
 	{
 		global $wpdb;
 
-		$delimiter = $_REQUEST['bulk_to_split'];
+		$delimiter = self::req( $this->classs( 'bulk-split' ) );
 
 		foreach ( $term_ids as $term_id ) {
 
@@ -1388,7 +1389,7 @@ class Taxonomy extends gNetwork\Module
 	{
 		/* translators: %s: merge/split into input */
 		printf( _x( 'into: %s', 'Modules: Taxonomy', 'gnetwork' ),
-			'<input name="bulk_to_tag" type="text" placeholder="'
+			'<input name="'.$this->classs( 'bulk-merge' ).'" type="text" placeholder="'
 			._x( 'Name, Slug or ID', 'Modules: Taxonomy', 'gnetwork' ).'" />' );
 	}
 
@@ -1396,7 +1397,7 @@ class Taxonomy extends gNetwork\Module
 	{
 		/* translators: %s: merge/split into input */
 		printf( _x( 'into: %s', 'Modules: Taxonomy', 'gnetwork' ),
-			'<input name="bulk_to_split" type="text" placeholder="'
+			'<input name="'.$this->classs( 'bulk-split' ).'" type="text" placeholder="'
 			._x( 'Delimiter', 'Modules: Taxonomy', 'gnetwork' ).'" />' );
 	}
 
