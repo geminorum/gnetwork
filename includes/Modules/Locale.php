@@ -81,11 +81,15 @@ class Locale extends gNetwork\Module
 			'gmember',
 			'gletter',
 			'gtheme',
+			'kowsarsync',
 		], $context );
 	}
 
 	private function bypass_domain( $domain, $context = NULL )
 	{
+		if ( empty( $domain ) || 'default' == $domain )
+			return FALSE;
+
 		if ( in_array( $domain, $this->get_bypassed_domains( $context ) ) )
 			return TRUE;
 
@@ -105,11 +109,6 @@ class Locale extends gNetwork\Module
 		if ( 'en_US' == $locale || $this->bypass_domain( $domain, 'mofile' ) )
 			return $mofile;
 
-		if ( ! empty( $filtered[$locale][$domain] ) )
-			return $filtered[$locale][$domain];
-
-		$this->loaded[$locale][$domain][] = File::normalize( $mofile );
-
 		if ( 'default' == $domain ) {
 
 			if ( Text::has( $mofile, 'admin-network' ) )
@@ -126,8 +125,13 @@ class Locale extends gNetwork\Module
 
 		} else {
 
+			if ( ! empty( $filtered[$locale][$domain] ) )
+				return $filtered[$locale][$domain];
+
 			$path = GNETWORK_DIR.'assets/locale/'.$domain.'-'.$locale.'.mo';
 		}
+
+		$this->loaded[$locale][$domain][] = File::normalize( $mofile );
 
 		$target = File::normalize( $path );
 
