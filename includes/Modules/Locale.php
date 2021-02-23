@@ -77,8 +77,22 @@ class Locale extends gNetwork\Module
 			'geditorial',
 			'gpersiandate',
 			'gpeople',
+			'gplugin',
+			'gmember',
+			'gletter',
 			'gtheme',
 		], $context );
+	}
+
+	private function bypass_domain( $domain, $context = NULL )
+	{
+		if ( in_array( $domain, $this->get_bypassed_domains( $context ) ) )
+			return TRUE;
+
+		if ( Text::start( $domain, 'geditorial-' ) )
+			return TRUE;
+
+		return FALSE;
 	}
 
 	public function load_textdomain_mofile( $mofile, $domain )
@@ -88,7 +102,7 @@ class Locale extends gNetwork\Module
 		// $locale = get_user_locale();
 		$locale = determine_locale();
 
-		if ( 'en_US' == $locale || in_array( $domain, $this->get_bypassed_domains( 'mofile' ) ) )
+		if ( 'en_US' == $locale || $this->bypass_domain( $domain, 'mofile' ) )
 			return $mofile;
 
 		if ( ! empty( $filtered[$locale][$domain] ) )
@@ -145,7 +159,7 @@ class Locale extends gNetwork\Module
 		if ( 'default' == $domain )
 			$target = GNETWORK_DIR.'assets/locale/core/dist'.str_ireplace( File::normalize( WP_LANG_DIR ), '', $normalized );
 
-		else if ( in_array( $domain, $this->get_bypassed_domains( 'script' ) ) )
+		else if ( $this->bypass_domain( $domain, 'script' ) )
 			return $filtered[$locale][$domain][$handle] = $file; // do nothing!
 
 		else
