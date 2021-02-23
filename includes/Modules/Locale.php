@@ -83,11 +83,16 @@ class Locale extends gNetwork\Module
 
 	public function load_textdomain_mofile( $mofile, $domain )
 	{
+		static $filtered = [];
+
 		// $locale = get_user_locale();
 		$locale = determine_locale();
 
 		if ( 'en_US' == $locale || in_array( $domain, $this->get_bypassed_domains( 'mofile' ) ) )
 			return $mofile;
+
+		if ( ! empty( $filtered[$locale][$domain] ) )
+			return $filtered[$locale][$domain];
 
 		$this->loaded[$locale][$domain][] = File::normalize( $mofile );
 
@@ -113,15 +118,17 @@ class Locale extends gNetwork\Module
 		$target = File::normalize( $path );
 
 		if ( ! is_readable( $target ) )
-			return $mofile;
+			return $filtered[$locale][$domain] = $mofile;
 
 		$this->loaded[$locale][$domain][] = $target;
 
-		return $target;
+		return $filtered[$locale][$domain] = $target;
 	}
 
 	public function load_script_translation_file( $file, $handle, $domain )
 	{
+		static $filtered = [];
+
 		if ( ! $file )
 			return $file;
 
@@ -130,23 +137,26 @@ class Locale extends gNetwork\Module
 		if ( 'en_US' == $locale )
 			return $file;
 
+		if ( ! empty( $filtered[$locale][$domain][$handle] ) )
+			return $filtered[$locale][$domain][$handle];
+
 		$this->loaded[$locale][$domain][$handle][] = $normalized = File::normalize( $file );
 
 		if ( 'default' == $domain )
 			$target = GNETWORK_DIR.'assets/locale/core/dist'.str_ireplace( File::normalize( WP_LANG_DIR ), '', $normalized );
 
 		else if ( in_array( $domain, $this->get_bypassed_domains( 'script' ) ) )
-			return $file; // do nothing!
+			return $filtered[$locale][$domain][$handle] = $file; // do nothing!
 
 		else
 			$target = GNETWORK_DIR.'assets/locale/'.File::basename( $normalized );
 
 		if ( ! is_readable( $target ) )
-			return $file;
+			return $filtered[$locale][$domain][$handle] = $file;
 
 		$this->loaded[$locale][$domain][$handle][] = File::normalize( $target );
 
-		return $target;
+		return $filtered[$locale][$domain][$handle] = $target;
 	}
 
 	public function network_new_blog_options( $new_options )
