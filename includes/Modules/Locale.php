@@ -70,12 +70,23 @@ class Locale extends gNetwork\Module
 		return self::getDefault( $locale );
 	}
 
+	private function get_bypassed_domains( $context = NULL )
+	{
+		return (array) $this->filters( 'bypassed_domains', [
+			'gnetwork',
+			'geditorial',
+			'gpersiandate',
+			'gpeople',
+			'gtheme',
+		], $context );
+	}
+
 	public function load_textdomain_mofile( $mofile, $domain )
 	{
 		// $locale = get_user_locale();
 		$locale = determine_locale();
 
-		if ( 'en_US' == $locale )
+		if ( 'en_US' == $locale || in_array( $domain, $this->get_bypassed_domains( 'mofile' ) ) )
 			return $mofile;
 
 		$this->loaded[$locale][$domain][] = File::normalize( $mofile );
@@ -124,7 +135,7 @@ class Locale extends gNetwork\Module
 		if ( 'default' == $domain )
 			$target = GNETWORK_DIR.'assets/locale/core/dist'.str_ireplace( File::normalize( WP_LANG_DIR ), '', $normalized );
 
-		else if ( in_array( $domain, [ 'gnetwork', 'geditorial', 'gpersiandate', 'gpeople', 'gtheme' ] ) )
+		else if ( in_array( $domain, $this->get_bypassed_domains( 'script' ) ) )
 			return $file; // do nothing!
 
 		else
