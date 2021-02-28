@@ -25,8 +25,10 @@ class Authors extends gNetwork\Module
 		if ( is_admin() )
 			return;
 
-		if ( $this->options['remove_author_pages'] )
+		if ( $this->options['remove_author_pages'] ) {
 			$this->action( 'template_redirect' );
+			$this->filter( 'wp_sitemaps_add_provider', 2 );
+		}
 
 		if ( $this->options['replace_author_links'] )
 			$this->filter( 'author_link' );
@@ -279,6 +281,11 @@ class Authors extends gNetwork\Module
 			WordPress::redirect( $this->options['replace_author_links'], $this->options['status_code'] );
 
 		Utilities::redirect404();
+	}
+
+	public function wp_sitemaps_add_provider( $provider, $name )
+	{
+		return 'users' == $name ? FALSE : $provider;
 	}
 
 	public function author_link( $link )
