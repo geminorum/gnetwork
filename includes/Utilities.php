@@ -511,7 +511,7 @@ class Utilities extends Core\Base
 	{
 		global $gNetworkParsedownExtra;
 
-		if ( ! class_exists( 'ParsedownExtra' ) )
+		if ( ! class_exists( 'ParsedownExtra' ) || empty( $markdown ) )
 			return $markdown;
 
 		if ( empty( $gNetworkParsedownExtra ) )

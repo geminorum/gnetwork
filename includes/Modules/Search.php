@@ -315,7 +315,8 @@ class Search extends gNetwork\Module
 			if ( $this->options['redirect_single'] && $wp_query->post_count == 1 && ! is_paged() )
 				WordPress::redirect( get_permalink( $wp_query->posts['0']->ID ) );
 
-			$this->action( 'wp_head', 0, 8 );
+			// no-robots added @since WP 5.7
+			// $this->action( 'wp_head', 0, 8 );
 		}
 	}
 

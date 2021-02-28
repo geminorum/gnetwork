@@ -127,7 +127,7 @@ class Mail extends gNetwork\Module
 					'field'       => 'smtp_username',
 					'type'        => 'text',
 					'title'       => _x( 'Username', 'Modules: Mail: Settings', 'gnetwork' ),
-					'description' => _x( 'Empty to disable Authentication.', 'Modules: Mail: Settings', 'gnetwork' ),
+					'description' => _x( 'Leave empty to disable authentication.', 'Modules: Mail: Settings', 'gnetwork' ),
 					'field_class' => [ 'regular-text', 'code-text' ],
 				],
 				[

@@ -110,7 +110,7 @@ class Authors extends gNetwork\Module
 
 		echo '<table class="form-table">';
 
-			if ( $user = gNetwork()->user() ) {
+			if ( is_multisite() && ( $user = gNetwork()->user() ) ) {
 
 				echo '<tr><th scope="row">'._x( 'Site User', 'Modules: Authors: Settings', 'gnetwork' ).'</th><td>';
 				echo $this->wrap_open_buttons();

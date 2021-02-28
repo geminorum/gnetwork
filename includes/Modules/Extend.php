@@ -17,6 +17,9 @@ class Extend extends gNetwork\Module
 	{
 		$this->action( 'activated_plugin', 2, 99 );
 		$this->action( 'deactivated_plugin', 2, 99 );
+
+		if ( ! is_multisite() )
+			return FALSE; // disable menus
 	}
 
 	public function setup_menu( $context )
