@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gNetwork\n"
 "Report-Msgid-Bugs-To: https://github.com/geminorum/gnetwork/issues\n"
-"POT-Creation-Date: 2021-02-06T23:54:56+00:00\n"
-"PO-Revision-Date: 2021-02-07 03:25+0330\n"
+"POT-Creation-Date: 2021-03-18T16:11:57+00:00\n"
+"PO-Revision-Date: 2021-03-18 19:42+0330\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: \n"
 "Language: fa_IR\n"
@@ -64,27 +64,27 @@ msgstr ""
 "ساخته شده بر نیروی <a href=\"http://wordpress.org/\" title=\"Semantic Personal "
 "Publishing Platform\">وردپرس</a> و چای!"
 
-#: includes/Layouts/console.admin.php:121 includes/Modules/Taxonomy.php:1435
+#: includes/Layouts/console.admin.php:147 includes/Modules/Taxonomy.php:1438
 msgctxt "Modules: Taxonomy: Term Field"
 msgid "Parent"
 msgstr "مادر"
 
-#: includes/Layouts/console.admin.php:122 includes/Modules/Taxonomy.php:1436
+#: includes/Layouts/console.admin.php:148 includes/Modules/Taxonomy.php:1439
 msgctxt "Modules: Taxonomy: Term Field"
 msgid "Name"
 msgstr "نام"
 
-#: includes/Layouts/console.admin.php:123 includes/Modules/Taxonomy.php:1437
+#: includes/Layouts/console.admin.php:149 includes/Modules/Taxonomy.php:1440
 msgctxt "Modules: Taxonomy: Term Field"
 msgid "Slug"
 msgstr "نامک"
 
-#: includes/Layouts/console.admin.php:124 includes/Modules/Taxonomy.php:1438
+#: includes/Layouts/console.admin.php:150 includes/Modules/Taxonomy.php:1441
 msgctxt "Modules: Taxonomy: Term Field"
 msgid "Description"
 msgstr "توضیحات"
 
-#: includes/Layouts/console.admin.php:125 includes/Modules/Taxonomy.php:1439
+#: includes/Layouts/console.admin.php:151 includes/Modules/Taxonomy.php:1442
 msgctxt "Modules: Taxonomy: Term Field"
 msgid "Count"
 msgstr "شمار"
@@ -684,111 +684,111 @@ msgctxt "Modules: AdminBar: Nodes"
 msgid "Register"
 msgstr "نام‌نویسی کنید"
 
-#: includes/Modules/Authors.php:37 includes/Modules/Authors.php:38
+#: includes/Modules/Authors.php:39 includes/Modules/Authors.php:40
 msgctxt "Modules: Menu Name"
 msgid "Authors"
 msgstr "نویسندگان"
 
-#: includes/Modules/Authors.php:58
+#: includes/Modules/Authors.php:60
 msgctxt "Modules: Authors: Settings"
 msgid "Default Author"
 msgstr "نویسنده پیش‌فرض"
 
-#: includes/Modules/Authors.php:59
+#: includes/Modules/Authors.php:61
 msgctxt "Modules: Authors: Settings"
 msgid "Uses site user as default author of new posts in admin."
 msgstr "حساب کاربری سایت، به عنوان نویسنده پیش‌فرض نوشته‌ها استفاده شود."
 
-#: includes/Modules/Authors.php:63
+#: includes/Modules/Authors.php:65
 msgctxt "Modules: Authors: Settings"
 msgid "Remove Author Pages"
 msgstr "حذف صفحات نویسندگان"
 
-#: includes/Modules/Authors.php:64
+#: includes/Modules/Authors.php:66
 msgctxt "Modules: Authors: Settings"
 msgid "Triggers a 404 error for all author pages or redirect to custom URL."
 msgstr ""
 "خطای ۴۰۴ را برای همهٔ صفحات نویسندگان اعلام و یا به نشانی سفارشی بازگردانی "
 "می‌کند."
 
-#: includes/Modules/Authors.php:69
+#: includes/Modules/Authors.php:71
 msgctxt "Modules: Authors: Settings"
 msgid "Replace Author Links"
 msgstr "جای‌گزینی پیوندهای نویسندگان"
 
-#: includes/Modules/Authors.php:70
+#: includes/Modules/Authors.php:72
 msgctxt "Modules: Authors: Settings"
 msgid "Replaces author links with links to a custom URL."
 msgstr "پیوندهای نویسندگان را با نشانی سفارشی جای‌گزین می‌کند."
 
-#: includes/Modules/Authors.php:75
+#: includes/Modules/Authors.php:77
 msgctxt "Modules: Authors: Settings"
 msgid "Redirect Status Code"
 msgstr "کد وضعیت بازگردانی"
 
-#: includes/Modules/Authors.php:76
+#: includes/Modules/Authors.php:78
 msgctxt "Modules: Authors: Settings"
 msgid "Defines HTTP status header code while redirecting to custom URL."
 msgstr "کد وضعیت سرآیند HTTP را در هنگام بازگردانی به نشانی سفارشی، تعریف می‌کند."
 
-#: includes/Modules/Authors.php:107
+#: includes/Modules/Authors.php:109
 msgctxt "Modules: Authors"
 msgid "Author Tools"
 msgstr "ابزارهای نویسندگان"
 
-#: includes/Modules/Authors.php:113
+#: includes/Modules/Authors.php:115
 msgctxt "Modules: Authors: Settings"
 msgid "Site User"
 msgstr "کاربر سایت"
 
-#: includes/Modules/Authors.php:117
+#: includes/Modules/Authors.php:119
 msgctxt "Modules: Authors: Settings"
 msgid "The user is already member of this blog."
 msgstr "کاربر هم‌اکنون عضو این سایت است."
 
-#: includes/Modules/Authors.php:120
+#: includes/Modules/Authors.php:122
 msgctxt "Modules: Authors: Settings"
 msgid "Add User to this Site"
 msgstr "افزودن کاربر به این سایت"
 
-#: includes/Modules/Authors.php:125
+#: includes/Modules/Authors.php:127
 msgctxt "Modules: Authors: Settings"
 msgid "Bulk Change Author"
 msgstr "تغییر جمعی نویسندگان"
 
-#: includes/Modules/Authors.php:137
+#: includes/Modules/Authors.php:139
 msgctxt "Modules: Authors: Settings"
 msgid "to"
 msgstr "به"
 
-#: includes/Modules/Authors.php:149
+#: includes/Modules/Authors.php:151
 msgctxt "Modules: Authors: Settings"
 msgid "on"
 msgstr "بر"
 
-#: includes/Modules/Authors.php:159
+#: includes/Modules/Authors.php:161
 msgctxt "Modules: Authors: Settings"
 msgid "do"
 msgstr "اعمال"
 
-#: includes/Modules/Authors.php:161
+#: includes/Modules/Authors.php:163
 msgctxt "Modules: Authors: Settings"
 msgid "Change"
 msgstr "تغییر"
 
 #. translators: %s: site-user
-#: includes/Modules/Authors.php:224
+#: includes/Modules/Authors.php:226
 msgctxt "Modules: Authors: Settings"
 msgid "Site-User for current network is: %s"
 msgstr "کاربر سایت برای شبکه کنونی: %s"
 
-#: includes/Modules/Authors.php:229
+#: includes/Modules/Authors.php:231
 msgctxt "Modules: Authors: Settings"
 msgid "Site-User for current network is <strong>not</strong> defined."
 msgstr "کاربر سایت برای شبکه کنونی تعریف <strong>نشده</strong> است."
 
 #. translators: %s: user role
-#: includes/Modules/Authors.php:235
+#: includes/Modules/Authors.php:237
 msgctxt "Modules: Authors: Settings"
 msgid "Default role for this site is: %s"
 msgstr "نقش پیش‌فرض این سایت: %s"
@@ -3607,37 +3607,37 @@ msgctxt "Modules: Embed: Item With No Title"
 msgid "Untitled"
 msgstr "(بدون عنوان)"
 
-#: includes/Modules/Extend.php:24
+#: includes/Modules/Extend.php:27
 msgctxt "Modules: Menu Name"
 msgid "Extend"
 msgstr "گستره"
 
-#: includes/Modules/Extend.php:58
+#: includes/Modules/Extend.php:61
 msgctxt "Modules: Extend"
 msgid "Site"
 msgstr "سایت"
 
-#: includes/Modules/Extend.php:66
+#: includes/Modules/Extend.php:69
 msgctxt "Modules: Extend"
 msgid "Theme"
 msgstr "پوسته"
 
-#: includes/Modules/Extend.php:67
+#: includes/Modules/Extend.php:70
 msgctxt "Modules: Extend"
 msgid "Template"
 msgstr "قالب"
 
-#: includes/Modules/Extend.php:70
+#: includes/Modules/Extend.php:73
 msgctxt "Modules: Extend"
 msgid "Plugins"
 msgstr "افزونه‌ها"
 
-#: includes/Modules/Extend.php:85
+#: includes/Modules/Extend.php:88
 msgctxt "Modules: Extend"
 msgid "Overview of Current Active Theme and Plugins"
 msgstr "بازبینی پوسته و افزونه‌های فعال کنونی"
 
-#: includes/Modules/Extend.php:86
+#: includes/Modules/Extend.php:89
 msgctxt "Modules: Extend"
 msgid "No site found!"
 msgstr "سایتی پیدا نشد!"
@@ -4147,7 +4147,7 @@ msgstr "شناسه"
 
 #: includes/Modules/Mail.php:130
 msgctxt "Modules: Mail: Settings"
-msgid "Empty to disable Authentication."
+msgid "Leave empty to disable authentication."
 msgstr ""
 
 #: includes/Modules/Mail.php:136 includes/Providers/FTP.php:47
@@ -4443,23 +4443,33 @@ msgctxt "Modules: Media: Settings"
 msgid "Skips storing unused EXIF metadata for image attachments."
 msgstr "فراداده‌های EXIF استفاده‌نشده در پیوست‌های تصویری ذخیره نشود."
 
-#: includes/Modules/Media.php:110
+#: includes/Modules/Media.php:107
+msgctxt "Modules: Media: Settings"
+msgid "Support Tus"
+msgstr ""
+
+#: includes/Modules/Media.php:108
+msgctxt "Modules: Media: Settings"
+msgid "Enables support for resumable file uploads via tus."
+msgstr ""
+
+#: includes/Modules/Media.php:117
 msgctxt "Modules: Media: Settings"
 msgid "Large File Uploader"
 msgstr "بارگذاری پرونده‌های بزرگ"
 
-#: includes/Modules/Media.php:111
+#: includes/Modules/Media.php:118
 msgctxt "Modules: Media: Settings"
 msgid "Simple javascript powered widget to upload large files."
 msgstr "ابزارک ساده برای بارگذاری پرونده‌های بزرگ به کمک جاواسکریپت."
 
-#: includes/Modules/Media.php:182
+#: includes/Modules/Media.php:189
 msgctxt "Modules: Media: Widget Title"
 msgid "Large File Uploader"
 msgstr "بارگذاری پرونده‌های بزرگ"
 
 #. translators: %1$s: link markup start, %2$s: link markup end
-#: includes/Modules/Media.php:190
+#: includes/Modules/Media.php:197
 msgctxt "Modules: Media"
 msgid ""
 "Alternatively, you can use %1$sLarge File Uploader%2$s widget on the dashoard."
@@ -4467,308 +4477,308 @@ msgstr ""
 "همچنین می‌توانید از ابزارک %1$sبارگذاری پرونده‌های بزرگ%2$s در روی پیشخوان "
 "استفاده کنید."
 
-#: includes/Modules/Media.php:201
+#: includes/Modules/Media.php:208
 msgctxt "Modules: Media"
 msgid "Clean Attachments"
 msgstr "پالایش پیوست‌ها"
 
-#: includes/Modules/Media.php:202
+#: includes/Modules/Media.php:209
 msgctxt "Modules: Media"
 msgid "Sync Attachments"
 msgstr "همگام‌سازی پیوست‌ها"
 
-#: includes/Modules/Media.php:203
+#: includes/Modules/Media.php:210
 msgctxt "Modules: Media"
 msgid "Cache In Content"
 msgstr "انباشت درون‌متن"
 
-#: includes/Modules/Media.php:204
+#: includes/Modules/Media.php:211
 msgctxt "Modules: Media"
 msgid "Correct SSL"
 msgstr "اصلاح SSL"
 
-#: includes/Modules/Media.php:205
+#: includes/Modules/Media.php:212
 msgctxt "Modules: Media"
 msgid "Purge Meta"
 msgstr "پاک‌سازی متا"
 
-#: includes/Modules/Media.php:316
+#: includes/Modules/Media.php:323
 msgctxt "Modules: Media"
 msgid "No additional image size registered."
 msgstr "اندازه تصویر افزوده‌ای تعریف نشده است."
 
-#: includes/Modules/Media.php:329
+#: includes/Modules/Media.php:336
 msgctxt "Modules: Media: Column Title"
 msgid "ID"
 msgstr "شـ"
 
-#: includes/Modules/Media.php:332
+#: includes/Modules/Media.php:339
 msgctxt "Modules: Media: Column Title"
 msgid "Date"
 msgstr "تاریخ"
 
-#: includes/Modules/Media.php:339
+#: includes/Modules/Media.php:346
 msgctxt "Modules: Media: Column Title"
 msgid "Type"
 msgstr "نوع"
 
-#: includes/Modules/Media.php:349
+#: includes/Modules/Media.php:356
 msgctxt "Modules: Media: Column Title"
 msgid "Title"
 msgstr "عنوان"
 
-#: includes/Modules/Media.php:372
+#: includes/Modules/Media.php:379
 msgctxt "Modules: Media: Row Action"
 msgid "Edit"
 msgstr "ویرایش"
 
-#: includes/Modules/Media.php:378
+#: includes/Modules/Media.php:385
 msgctxt "Modules: Media: Row Action"
 msgid "View"
 msgstr "نمایش"
 
-#: includes/Modules/Media.php:383 includes/Modules/Media.php:1038
+#: includes/Modules/Media.php:390 includes/Modules/Media.php:1045
 msgctxt "Modules: Media: Row Action"
 msgid "Cleaning &hellip;"
 msgstr "پالایش &hellip;"
 
-#: includes/Modules/Media.php:384 includes/Modules/Media.php:1040
+#: includes/Modules/Media.php:391 includes/Modules/Media.php:1047
 msgctxt "Modules: Media: Row Action"
 msgid "Clean"
 msgstr "پالایش"
 
-#: includes/Modules/Media.php:389
+#: includes/Modules/Media.php:396
 msgctxt "Modules: Media: Row Action"
 msgid "Syncing &hellip;"
 msgstr "همگام‌سازی &hellip;"
 
-#: includes/Modules/Media.php:390
+#: includes/Modules/Media.php:397
 msgctxt "Modules: Media: Row Action"
 msgid "Sync"
 msgstr "همگام‌سازی"
 
-#: includes/Modules/Media.php:395
+#: includes/Modules/Media.php:402
 msgctxt "Modules: Media: Row Action"
 msgid "Caching &hellip;"
 msgstr "انباشت  &hellip;"
 
-#: includes/Modules/Media.php:396
+#: includes/Modules/Media.php:403
 msgctxt "Modules: Media: Row Action"
 msgid "Cache"
 msgstr "انباشت"
 
-#: includes/Modules/Media.php:401
+#: includes/Modules/Media.php:408
 msgctxt "Modules: Media: Row Action"
 msgid "Correcting SSL &hellip;"
 msgstr "اصلاح SSL &hellip;"
 
-#: includes/Modules/Media.php:402
+#: includes/Modules/Media.php:409
 msgctxt "Modules: Media: Row Action"
 msgid "Correct SSL"
 msgstr "اصلاح SSL"
 
-#: includes/Modules/Media.php:408
+#: includes/Modules/Media.php:415
 msgctxt "Modules: Media: Column Title"
 msgid "Attached Media"
 msgstr "پیوست‌شده"
 
-#: includes/Modules/Media.php:421
+#: includes/Modules/Media.php:428
 msgctxt "Modules: Media: Title Attr"
 msgid "Original Size"
 msgstr ""
 
-#: includes/Modules/Media.php:422
+#: includes/Modules/Media.php:429
 msgctxt "Modules: Media: Title Attr"
 msgid "Number of Sizes"
 msgstr "تعداد اندازه‌ها"
 
-#: includes/Modules/Media.php:471
+#: includes/Modules/Media.php:478
 msgctxt "Modules: Media: Column Title"
 msgid "In Content"
 msgstr "درون متن"
 
-#: includes/Modules/Media.php:484
+#: includes/Modules/Media.php:491
 msgctxt "Modules: Media: Title Attr"
 msgid "External Resource"
 msgstr "منبع بیرونی"
 
-#: includes/Modules/Media.php:485
+#: includes/Modules/Media.php:492
 msgctxt "Modules: Media: External Resource"
 msgid "Ex"
 msgstr "Ex"
 
-#: includes/Modules/Media.php:510
+#: includes/Modules/Media.php:517
 msgctxt "Modules: Media"
 msgid "Overview of Posts with Attachments"
 msgstr "مروری بر پیوست‌های نوشته‌ها"
 
-#: includes/Modules/Media.php:511
+#: includes/Modules/Media.php:518
 msgctxt "Modules: Media"
 msgid "No Posts!"
 msgstr "چیزی پیدا نشد!"
 
-#: includes/Modules/Media.php:999
+#: includes/Modules/Media.php:1006
 msgctxt "Modules: Media: Bulk Action"
 msgid "Clean Attachments"
 msgstr "پالایش پیوست‌ها"
 
-#: includes/Modules/Media.php:1101
+#: includes/Modules/Media.php:1108
 msgctxt "Modules: Media: Row Action"
 msgid "Cleaned"
 msgstr "پالایش شد"
 
-#: includes/Modules/Media.php:1117
+#: includes/Modules/Media.php:1124
 msgctxt "Modules: Media: Row Action"
 msgid "Already Cleaned!"
 msgstr "پیش از این پالایش شده!"
 
-#: includes/Modules/Media.php:1119
+#: includes/Modules/Media.php:1126
 msgctxt "Modules: Media: Row Action"
 msgid "Cleaned!"
 msgstr "پالایش شد!"
 
-#: includes/Modules/Media.php:1135
+#: includes/Modules/Media.php:1142
 msgctxt "Modules: Media: Row Action"
 msgid "Already Synced!"
 msgstr "پیش از این همگام‌سازی شده!"
 
-#: includes/Modules/Media.php:1137
+#: includes/Modules/Media.php:1144
 msgctxt "Modules: Media: Row Action"
 msgid "Synced!"
 msgstr "همگام‌سازی شد!"
 
-#: includes/Modules/Media.php:1150
+#: includes/Modules/Media.php:1157
 msgctxt "Modules: Media: Row Action"
 msgid "Cached"
 msgstr "انباشت شد"
 
-#: includes/Modules/Media.php:1163
+#: includes/Modules/Media.php:1170
 msgctxt "Modules: Media: Row Action"
 msgid "SSL Corrected"
 msgstr "SSL اصلاح شد"
 
-#: includes/Modules/Media.php:1177
+#: includes/Modules/Media.php:1184
 msgctxt "Modules: Media"
 msgid "Please select a file and click &#8220;Upload&#8221; to continue."
 msgstr "یک پرونده را انتخاب و «بارگذاری» را کلیک کنید."
 
-#: includes/Modules/Media.php:1181
+#: includes/Modules/Media.php:1188
 msgctxt "Modules: Media"
 msgid "Select File"
 msgstr "انتخاب پرونده"
 
-#: includes/Modules/Media.php:1193
+#: includes/Modules/Media.php:1200
 msgctxt "Modules: Media"
 msgid "Upload"
 msgstr "بارگذاری"
 
 #. translators: %s: progress precent
-#: includes/Modules/Media.php:1198
+#: includes/Modules/Media.php:1205
 msgctxt "Modules: Media"
 msgid "Uploading File - %s%"
 msgstr "بارگذاری پرونده - ٪%s"
 
-#: includes/Modules/Media.php:1199
+#: includes/Modules/Media.php:1206
 msgctxt "Modules: Media"
 msgid "Upload Complete!"
 msgstr "بارگذاری انجام شد!"
 
-#: includes/Modules/Media.php:1211
+#: includes/Modules/Media.php:1218
 msgctxt "Modules: Media"
 msgid "You can access uploaded files via Media Library."
 msgstr ""
 "برای دسترسی به محتوای بارگذاری شده، کتابخانه پرونده‌های چندرسانه‌ای را ببینید."
 
-#: includes/Modules/Media.php:1243
+#: includes/Modules/Media.php:1250
 msgctxt "Modules: Media"
 msgid "View Uploaded File"
 msgstr "دیدن پرونده بارگذاری‌شده"
 
-#: includes/Modules/Media.php:1249
+#: includes/Modules/Media.php:1256
 msgctxt "Modules: Media"
 msgid "Something is wrong with data!"
 msgstr "انگار چیزی اشتباه است!"
 
-#: includes/Modules/Media.php:1254
+#: includes/Modules/Media.php:1261
 msgctxt "Modules: Media"
 msgid "Can not access upload folders!"
 msgstr "دسترسی به شاخه بارگذاری امکان‌پذیر نیست!"
 
-#: includes/Modules/Media.php:1259
+#: includes/Modules/Media.php:1266
 msgctxt "Modules: Media"
 msgid "The file is already exists in upload folder!"
 msgstr "این پرونده قبلاً بارگذاری شده است!"
 
-#: includes/Modules/Media.php:1262
+#: includes/Modules/Media.php:1269
 msgctxt "Modules: Media"
 msgid "Can not put contents into file!"
 msgstr "ذخیره محتوا در پرونده امکان‌پذیر نیست!"
 
-#: includes/Modules/Media.php:1288
+#: includes/Modules/Media.php:1295
 msgctxt "Modules: Media: Row Action"
 msgid "View Image URL"
 msgstr "نمایش نشانی تصویر"
 
-#: includes/Modules/Media.php:1297
+#: includes/Modules/Media.php:1304
 msgctxt "Modules: Media: Row Action"
 msgid "View Video URL"
 msgstr "نمایش نشانی ویدئو"
 
-#: includes/Modules/Media.php:1303
+#: includes/Modules/Media.php:1310
 msgctxt "Modules: Media: Row Action"
 msgid "View Data File URL"
 msgstr "نمایش نشانی پروندهٔ داده‌ها"
 
-#: includes/Modules/Media.php:1309
+#: includes/Modules/Media.php:1316
 msgctxt "Modules: Media: Row Action"
 msgid "View Spreadsheet URL"
 msgstr "نمایش نشانی پرونده اکسل"
 
-#: includes/Modules/Media.php:1317
+#: includes/Modules/Media.php:1324
 msgctxt "Modules: Media: Row Action"
 msgid "View Document URL"
 msgstr "نمایش نشانی پروندهٔ متنی"
 
-#: includes/Modules/Media.php:1322
+#: includes/Modules/Media.php:1329
 msgctxt "Modules: Media: Row Action"
 msgid "View HTML file URL"
 msgstr "نمایش نشانی پروندهٔ وب"
 
-#: includes/Modules/Media.php:1327
+#: includes/Modules/Media.php:1334
 msgctxt "Modules: Media: Row Action"
 msgid "View Item URL"
 msgstr "نمایش نشانی پرونده"
 
-#: includes/Modules/Media.php:1470
+#: includes/Modules/Media.php:1477
 msgctxt "Modules: Media: Post Mime Type"
 msgid "Text"
 msgstr "متن"
 
-#: includes/Modules/Media.php:1471
+#: includes/Modules/Media.php:1478
 msgctxt "Modules: Media: Post Mime Type"
 msgid "Manage Texts"
 msgstr "مدیریت متن‌ها"
 
 #. translators: %s: media texts count
-#: includes/Modules/Media.php:1473
+#: includes/Modules/Media.php:1480
 msgctxt "Modules: Media: Post Mime Type"
 msgid "Text <span class=\"count\">(%s)</span>"
 msgid_plural "Texts <span class=\"count\">(%s)</span>"
 msgstr[0] "متن <span class=\"count\">(%s)</span>"
 msgstr[1] "متن <span class=\"count\">(%s)</span>"
 
-#: includes/Modules/Media.php:1476
+#: includes/Modules/Media.php:1483
 msgctxt "Modules: Media: Post Mime Type"
 msgid "Application"
 msgstr "کاربردی"
 
-#: includes/Modules/Media.php:1477
+#: includes/Modules/Media.php:1484
 msgctxt "Modules: Media: Post Mime Type"
 msgid "Manage Applications"
 msgstr "مدیریت کاربردی‌ها"
 
 #. translators: %s: media applications count
-#: includes/Modules/Media.php:1479
+#: includes/Modules/Media.php:1486
 msgctxt "Modules: Media: Post Mime Type"
 msgid "Application <span class=\"count\">(%s)</span>"
 msgid_plural "Applications <span class=\"count\">(%s)</span>"
@@ -5984,17 +5994,17 @@ msgctxt "Modules: Search: Settings"
 msgid "Current Page: %s"
 msgstr "صفحه کنونی: %s"
 
-#: includes/Modules/Search.php:341
+#: includes/Modules/Search.php:342
 msgctxt "Modules: Search: Form: Label"
 msgid "Search for:"
 msgstr "جست‌وجو برای:"
 
-#: includes/Modules/Search.php:342
+#: includes/Modules/Search.php:343
 msgctxt "Modules: Search: Form: Placeholder"
 msgid "Search &hellip;"
 msgstr "جست‌وجو &hellip;"
 
-#: includes/Modules/Search.php:344
+#: includes/Modules/Search.php:345
 msgctxt "Modules: Search: Form: Submit Button"
 msgid "Search"
 msgstr "جست‌وجو"
@@ -6774,125 +6784,125 @@ msgctxt "Modules: Taxonomy: Tab Title"
 msgid "Extras"
 msgstr "افزوده‌ها"
 
-#: includes/Modules/Taxonomy.php:473
+#: includes/Modules/Taxonomy.php:475
 msgctxt "Modules: Taxonomy: Tab Tools"
 msgid "Default Terms"
 msgstr "رده‌های پیش‌فرض"
 
-#: includes/Modules/Taxonomy.php:489
+#: includes/Modules/Taxonomy.php:491
 msgctxt "Modules: Taxonomy: Tab Tools"
 msgid "Select to install pre-configured terms for this taxonomy."
 msgstr "رده‌های پیش‌تنظیم‌شده برای این رده‌بندی را نصب کنید."
 
-#: includes/Modules/Taxonomy.php:492
+#: includes/Modules/Taxonomy.php:494
 msgctxt "Modules: Taxonomy: Tab Tools: Button"
 msgid "Install Defaults"
 msgstr "افزودن پیش‌فرض‌ها"
 
-#: includes/Modules/Taxonomy.php:508
+#: includes/Modules/Taxonomy.php:510
 msgctxt "Modules: Taxonomy: Tab Tools"
 msgid "Import Terms"
 msgstr "درون‌ریزی رده‌ها"
 
 #. translators: %s: maximum file size
-#: includes/Modules/Taxonomy.php:522
+#: includes/Modules/Taxonomy.php:524
 msgctxt "Modules: Taxonomy: Tab Tools"
 msgid "Upload a list of terms in CSV. Maximum size: <b>%s</b>"
 msgstr "بارگذاری فهرست رده‌ها از پرونده CSV. بیشینه اندازه: <b>%s</b>"
 
-#: includes/Modules/Taxonomy.php:525
+#: includes/Modules/Taxonomy.php:527
 msgctxt "Modules: Taxonomy: Tab Tools: Button"
 msgid "Import from CSV"
 msgstr "درون‌ریزی CSV"
 
-#: includes/Modules/Taxonomy.php:535
+#: includes/Modules/Taxonomy.php:537
 msgctxt "Modules: Taxonomy: Tab Tools"
 msgid "Export Terms"
 msgstr "برون‌بری رده‌ها"
 
-#: includes/Modules/Taxonomy.php:547
+#: includes/Modules/Taxonomy.php:549
 msgctxt "Modules: Taxonomy: Tab Tools"
 msgid "Select fields to include on the the exported CSV file."
 msgstr "فیلد‌های لازم برای برون‌بری در پرونده CSV را انتخاب کنید."
 
-#: includes/Modules/Taxonomy.php:550
+#: includes/Modules/Taxonomy.php:552
 msgctxt "Modules: Taxonomy: Tab Tools: Button"
 msgid "Export in CSV"
 msgstr "برون‌بری CSV"
 
-#: includes/Modules/Taxonomy.php:563
+#: includes/Modules/Taxonomy.php:565
 msgctxt "Modules: Taxonomy: Tab Tools"
 msgid "Delete Terms"
 msgstr "پاک‌کردن رده‌ها"
 
-#: includes/Modules/Taxonomy.php:577
+#: includes/Modules/Taxonomy.php:579
 msgctxt "Modules: Taxonomy: Tab Tools"
 msgid "Confirm deletion of all terms by entering the taxonomy name."
 msgstr "پاک‌کردن همهٔ رده‌ها را با وارد کردن نام رده‌بندی، تأیید کنید."
 
 #. translators: %s: default term name
-#: includes/Modules/Taxonomy.php:585
+#: includes/Modules/Taxonomy.php:587
 msgctxt "Modules: Taxonomy: Info"
 msgid ""
 "The Default term for this taxonomy is &ldquo;%s&rdquo; and will <b>not</b> be "
 "deleted."
 msgstr "&ldquo;%s&rdquo; رده پیش‌فرض برای این رده‌بندی است و حذف <b>نمی‌شود</b>."
 
-#: includes/Modules/Taxonomy.php:589
+#: includes/Modules/Taxonomy.php:591
 msgctxt "Modules: Taxonomy: Tab Tools: Button"
 msgid "Delete All Terms"
 msgstr "پاک‌کردن همهٔ رده‌ها"
 
-#: includes/Modules/Taxonomy.php:609
+#: includes/Modules/Taxonomy.php:611
 msgctxt "Modules: Taxonomy: Tab Tools"
 msgid "Delete Empties"
 msgstr "پاک‌کردن خالی‌ها"
 
 #. translators: %s: number of empty terms
-#: includes/Modules/Taxonomy.php:619
+#: includes/Modules/Taxonomy.php:621
 msgctxt "Modules: Taxonomy: Tab Tools"
 msgid "Confirm deletion of %s empty term."
 msgid_plural "Confirm deletion of %s empty terms."
 msgstr[0] "پاک‌کردن %s رده را تأیید کنید."
 msgstr[1] "پاک‌کردن %s رده را تأیید کنید."
 
-#: includes/Modules/Taxonomy.php:622
+#: includes/Modules/Taxonomy.php:624
 msgctxt "Modules: Taxonomy: Tab Tools: Button"
 msgid "Delete Empty Terms"
 msgstr "پاک‌کردن رده‌های خالی"
 
-#: includes/Modules/Taxonomy.php:629
+#: includes/Modules/Taxonomy.php:631
 msgctxt "Modules: Taxonomy: Tab Tools"
 msgid "There are no empty terms in this taxonomy."
 msgstr "رده خالی در این رده‌بندی وجود ندارد."
 
-#: includes/Modules/Taxonomy.php:643
+#: includes/Modules/Taxonomy.php:645
 msgctxt "Modules: Taxonomy: Tab Extra"
 msgid "i18n Reports"
 msgstr ""
 
-#: includes/Modules/Taxonomy.php:654
+#: includes/Modules/Taxonomy.php:656
 msgctxt "Modules: Taxonomy: Tab Extra"
 msgid "Terms Stats"
 msgstr "آمار رده‌ها"
 
-#: includes/Modules/Taxonomy.php:667
+#: includes/Modules/Taxonomy.php:669
 msgctxt "Modules: Taxonomy: Tab Extra"
 msgid "Default Term"
 msgstr "رده پیش‌فرض"
 
 #. translators: %s: default term name
-#: includes/Modules/Taxonomy.php:689
+#: includes/Modules/Taxonomy.php:691
 msgctxt "Modules: Taxonomy: Info"
 msgid "The Default term for this taxonomy is &ldquo;%s&rdquo;."
 msgstr "&ldquo;%s&rdquo; رده پیش‌فرض برای این رده‌بندی است."
 
-#: includes/Modules/Taxonomy.php:723 includes/Modules/Taxonomy.php:757
+#: includes/Modules/Taxonomy.php:725 includes/Modules/Taxonomy.php:759
 msgctxt "Modules: Taxonomy"
 msgid "Description"
 msgstr "توضیحات"
 
-#: includes/Modules/Taxonomy.php:730 includes/Modules/Taxonomy.php:764
+#: includes/Modules/Taxonomy.php:732 includes/Modules/Taxonomy.php:766
 msgctxt "Modules: Taxonomy"
 msgid ""
 "The description is not prominent by default; however, some themes may show it."
@@ -6901,135 +6911,135 @@ msgstr ""
 "را نمایش دهند."
 
 #. translators: %s: number of words
-#: includes/Modules/Taxonomy.php:776
+#: includes/Modules/Taxonomy.php:778
 msgctxt "Modules: Taxonomy"
 msgid "Words: %s"
 msgstr "واژه‌ها: %s"
 
 #. translators: %s: number of chars
-#: includes/Modules/Taxonomy.php:779
+#: includes/Modules/Taxonomy.php:781
 msgctxt "Modules: Taxonomy"
 msgid "Chars: %s"
 msgstr "نویسه‌ها: %s"
 
-#: includes/Modules/Taxonomy.php:827
+#: includes/Modules/Taxonomy.php:829
 msgctxt "Modules: Taxonomy: Help Tab Content"
 msgid "These are extra bulk actions available for this taxonomy:"
 msgstr "کنش‌های افزوده جمعی ارائه شده برای این رده‌بندی:"
 
-#: includes/Modules/Taxonomy.php:834
+#: includes/Modules/Taxonomy.php:836
 msgctxt "Modules: Taxonomy: Help Tab Content"
 msgid "These are extra actions available for this term:"
 msgstr "کنش‌های افزوده ارائه شده برای این رده:"
 
-#: includes/Modules/Taxonomy.php:845
+#: includes/Modules/Taxonomy.php:847
 msgctxt "Modules: Taxonomy: Help Tab Title"
 msgid "Extra Actions"
 msgstr "کنش‌های افزوده"
 
-#: includes/Modules/Taxonomy.php:866
+#: includes/Modules/Taxonomy.php:868
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Set Default"
 msgstr "تنظیم پیش‌فرض"
 
-#: includes/Modules/Taxonomy.php:867
+#: includes/Modules/Taxonomy.php:869
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Unset Default"
 msgstr "حذف پیش‌فرض"
 
-#: includes/Modules/Taxonomy.php:870
+#: includes/Modules/Taxonomy.php:872
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Set Parent"
 msgstr "تغییر مادر"
 
-#: includes/Modules/Taxonomy.php:872
+#: includes/Modules/Taxonomy.php:874
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Merge"
 msgstr "ترکیب"
 
-#: includes/Modules/Taxonomy.php:873
+#: includes/Modules/Taxonomy.php:875
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Split"
 msgstr "جداسازی"
 
-#: includes/Modules/Taxonomy.php:874
+#: includes/Modules/Taxonomy.php:876
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Change Taxonomy"
 msgstr "تغییر رده‌بندی"
 
-#: includes/Modules/Taxonomy.php:875
+#: includes/Modules/Taxonomy.php:877
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Format i18n"
 msgstr "اصلاح نویسه‌ها"
 
-#: includes/Modules/Taxonomy.php:876
+#: includes/Modules/Taxonomy.php:878
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Assign Parents"
 msgstr "تخصیص مادران"
 
-#: includes/Modules/Taxonomy.php:877
+#: includes/Modules/Taxonomy.php:879
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Empty Posts"
 msgstr "تخلیه نوشته‌ها"
 
-#: includes/Modules/Taxonomy.php:878
+#: includes/Modules/Taxonomy.php:880
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Empty Description"
 msgstr "تخلیه توضیحات"
 
-#: includes/Modules/Taxonomy.php:881
+#: includes/Modules/Taxonomy.php:883
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Rewrite Slug"
 msgstr "بازنویسی نامک"
 
-#: includes/Modules/Taxonomy.php:882
+#: includes/Modules/Taxonomy.php:884
 msgctxt "Modules: Taxonomy: Bulk Action"
 msgid "Transliterate Slug"
 msgstr "نویسه‌گردانی نامک"
 
-#: includes/Modules/Taxonomy.php:904
+#: includes/Modules/Taxonomy.php:906
 msgctxt "Modules: Taxonomy"
 msgid "Caution"
 msgstr "هشدار"
 
 #. translators: %s: taxonomy label
-#: includes/Modules/Taxonomy.php:908
+#: includes/Modules/Taxonomy.php:910
 msgctxt "Modules: Taxonomy: Info"
 msgid "This is the default term for &ldquo;%s&rdquo; taxonomy."
 msgstr "این رده پیش‌فرض برای رده‌بندی &ldquo;%s&rdquo; است."
 
-#: includes/Modules/Taxonomy.php:916
+#: includes/Modules/Taxonomy.php:918
 msgctxt "Modules: Taxonomy"
 msgid "Extra Actions"
 msgstr "کنش‌های افزوده"
 
-#: includes/Modules/Taxonomy.php:920
+#: includes/Modules/Taxonomy.php:922
 msgctxt "Modules: Taxonomy"
 msgid "&ndash; Select Action &ndash;"
 msgstr "&ndash; انتخاب کنید &ndash;"
 
-#: includes/Modules/Taxonomy.php:1009
+#: includes/Modules/Taxonomy.php:1011
 msgctxt "Settings: Message"
 msgid "Terms updated."
 msgstr "رده‌بندی‌ها به‌روز شدند."
 
-#: includes/Modules/Taxonomy.php:1014
+#: includes/Modules/Taxonomy.php:1016
 msgctxt "Settings: Message"
 msgid "Terms not updated."
 msgstr "رده‌بندی‌ها به‌روز نشده‌اند."
 
 #. translators: %s: merge/split into input
-#: includes/Modules/Taxonomy.php:1388 includes/Modules/Taxonomy.php:1396
+#: includes/Modules/Taxonomy.php:1391 includes/Modules/Taxonomy.php:1399
 msgctxt "Modules: Taxonomy"
 msgid "into: %s"
 msgstr "در: %s"
 
-#: includes/Modules/Taxonomy.php:1390
+#: includes/Modules/Taxonomy.php:1393
 msgctxt "Modules: Taxonomy"
 msgid "Name, Slug or ID"
 msgstr "نام، نامک و یا شناسه"
 
-#: includes/Modules/Taxonomy.php:1398
+#: includes/Modules/Taxonomy.php:1401
 msgctxt "Modules: Taxonomy"
 msgid "Delimiter"
 msgstr "جداکننده"
@@ -7887,11 +7897,11 @@ msgctxt "Modules: Widgets: Settings"
 msgid "Choose the dashboard widgets you would like to <b>disable</b>."
 msgstr ""
 
-#: includes/Plugin.php:341
+#: includes/Plugin.php:343
 msgid "Not Available"
 msgstr "خارج از دسترس"
 
-#: includes/Plugin.php:341 includes/Plugin.php:342
+#: includes/Plugin.php:343 includes/Plugin.php:344
 msgid "N/A"
 msgstr "خ/د"
 

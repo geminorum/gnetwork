@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WordPress - 5.6.x - Administration - Network Admin\n"
+"Project-Id-Version: WordPress - 5.7.x - Administration - Network Admin\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: \n"
@@ -8,11 +8,20 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2020-12-12 21:35+0330\n"
+"PO-Revision-Date: 2021-02-24 02:47+0330\n"
 "Language: fa\n"
 "Plural-Forms: nplurals=2; plural=(n==0 || n==1);\n"
 "X-Generator: Poedit 2.4.2\n"
 "X-Poedit-Basepath: ../../../../..\n"
+
+#: wp-admin/network/settings.php:63
+msgid "<a href=\"https://wordpress.org/support/article/network-admin-settings-screen/\">Documentation on Network Settings</a>"
+msgstr "<a href=\"https://wordpress.org/support/article/network-admin-settings-screen/\">مستندات تنظیمات شبکه</a>"
+
+#: wp-admin/network/site-info.php:184
+msgctxt "site"
+msgid "Public"
+msgstr "عمومی"
 
 #: wp-admin/includes/class-wp-ms-sites-list-table.php:293
 msgctxt "site"
@@ -139,7 +148,7 @@ msgstr "ثابت %s نمی‌تواند تعریف شود هنگامی که شب
 msgid "You are about to delete the following sites:"
 msgstr "در حال حذف سایت‌های زیر هستید:"
 
-#: wp-admin/network/site-users.php:248
+#: wp-admin/network/site-users.php:243
 msgid "User could not be added to this site."
 msgstr "کاربر نمی‌تواند به این سایت افزوده شود."
 
@@ -483,7 +492,7 @@ msgid "Archived"
 msgstr "بایگانی‌شده"
 
 #: wp-admin/network/user-new.php:136
-#: wp-admin/network/site-users.php:360
+#: wp-admin/network/site-users.php:355
 msgid "A password reset link will be sent to the user via email."
 msgstr "پیوند تغییر رمز به ایمیل کاربر ارسال خواهد شد."
 
@@ -601,10 +610,6 @@ msgstr "<a href=\"https://codex.wordpress.org/Network_Admin_Users_Screen\">مس�
 #: wp-admin/network/themes.php:323
 msgid "<a href=\"https://codex.wordpress.org/Network_Admin_Themes_Screen\">Documentation on Network Themes</a>"
 msgstr "<a href=\"https://codex.wordpress.org/Network_Admin_Themes_Screen\">مستندات پوسته‌های شبکه</a>"
-
-#: wp-admin/network/settings.php:63
-msgid "<a href=\"https://codex.wordpress.org/Network_Admin_Settings_Screen\">Documentation on Network Settings</a>"
-msgstr "<a href=\"https://codex.wordpress.org/Network_Admin_Settings_Screen\">مستندات تنظیمات شبکه</a>"
 
 #. translators: 1: Site URL, 2: Server error message.
 #: wp-admin/network/upgrade.php:98
@@ -774,27 +779,27 @@ msgstr "مدیران سایت اجازهٔ افزودن کاربران تازه 
 msgid "Super admins can no longer be added on the Options screen. You must now go to the list of existing users on Network Admin > Users and click on Username or the Edit action link below that name. This goes to an Edit User page where you can check a box to grant super admin privileges."
 msgstr "مدیران کل را دیگر نمی‌توان در صفحه تنظیمات اضافه کرد. باید ابتدا به فهرست کاربران کنونی به نشانی، مدیر شبکه > کاربران، بروید و سپس روی نام‌کاربری یا پیوند ویرایش زیر هر نام کلیک کنید. حالا در صفحه ویرایش کاربر هستید، در اینجا با گذاشتن تیک در کنار نام کاربران، می‌توانید اختیارات مدیرکلی را در اختیار کاربران انتخابی قرا دهید."
 
-#: wp-admin/network/site-users.php:269
+#: wp-admin/network/site-users.php:264
 msgid "Enter the username and email."
 msgstr "نام کاربری و ایمیل را وارد کنید."
 
-#: wp-admin/network/site-users.php:266
+#: wp-admin/network/site-users.php:261
 msgid "User created."
 msgstr "کاربر ساخته شد."
 
-#: wp-admin/network/site-users.php:263
+#: wp-admin/network/site-users.php:258
 msgid "Select a user to remove."
 msgstr "کاربری را برای حذف انتخاب کنید."
 
-#: wp-admin/network/site-users.php:257
+#: wp-admin/network/site-users.php:252
 msgid "Select a user to change role."
 msgstr "کاربری را برای تغییر نقش انتخاب کنید."
 
-#: wp-admin/network/site-users.php:251
+#: wp-admin/network/site-users.php:246
 msgid "Enter the username of an existing user."
 msgstr "نام‌کاربری یک کاربر موجود را وارد کنید."
 
-#: wp-admin/network/site-users.php:245
+#: wp-admin/network/site-users.php:240
 msgid "User is already a member of this site."
 msgstr "این کاربر از قبل عضو این سایت است."
 
@@ -873,7 +878,7 @@ msgstr "پوسته فعال شد."
 
 #. translators: %s: Site title.
 #: wp-admin/network/site-info.php:126
-#: wp-admin/network/site-users.php:204
+#: wp-admin/network/site-users.php:199
 #: wp-admin/network/site-themes.php:170
 #: wp-admin/network/site-settings.php:83
 msgid "Edit Site: %s"
@@ -912,7 +917,7 @@ msgid "Add New takes you to the Add New Site screen. You can search for a site b
 msgstr "با کلیک روی گزینه افزودن به بخش افزودن سایت تازه می‌روید. می‌توانید با جست‌وجو بر اساس نام، شناسه یا نشانی آی‌پی سایت را پیدا کنید. با استفاده از تنظیمات صفحه نمایش می‌توانید تعداد سایت‌های به نمایش درآمده در هر صفحه را تعیین کنید."
 
 #: wp-admin/network/user-new.php:148
-#: wp-admin/network/site-users.php:323
+#: wp-admin/network/site-users.php:318
 msgid "Add User"
 msgstr "افزودن کاربر"
 
@@ -1449,7 +1454,7 @@ msgstr "آگاهی از نام‌نویسی"
 msgid "Allow new registrations"
 msgstr "اجازه نام‌نویسی تازه"
 
-#: wp-admin/network/site-users.php:272
+#: wp-admin/network/site-users.php:267
 msgid "Duplicated username or email address."
 msgstr "نام کاربری یا ایمیل تکراری است."
 
@@ -1461,6 +1466,15 @@ msgstr "ایجاد کاربر خالی، امکان‌پذیر نیست."
 #: wp-admin/network/sites.php:208
 msgid "Confirm"
 msgstr "تأیید"
+
+#~ msgid ""
+"\n"
+"href=\"https://codex.wordpress.org/Network_Admin_Settings_Screen\"\n"
+"on Network Settings</a>\""
+#~ msgstr ""
+"\n"
+"href=\"https://codex.wordpress.org/Network_Admin_Settings_Screen\">مستندات \"\n"
+"شبکه</a>\""
 
 #~ msgctxt "email \"From\" field"
 #~ msgid "Site Admin"

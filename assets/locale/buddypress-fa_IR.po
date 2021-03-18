@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: BuddyPress v7.1.0\n"
+"Project-Id-Version: BuddyPress v7.2.0\n"
 "Report-Msgid-Bugs-To: https://buddypress.trac.wordpress.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2021-02-06 13:28+0330\n"
+"PO-Revision-Date: 2021-02-26 05:57+0330\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: \n"
 "Language: fa_IR\n"
@@ -238,7 +238,7 @@ msgstr ""
 #: bp-groups/bp-groups-functions.php:2567
 msgctxt "Group type taxonomy description"
 msgid "BuddyPress Group Types"
-msgstr ""
+msgstr "انواع گروه بادی‌پرس"
 
 #: bp-groups/bp-groups-functions.php:2542
 msgctxt "BP Group type show in list"
@@ -265,7 +265,7 @@ msgstr "شناسه نوع گروه"
 #: bp-groups/bp-groups-functions.php:2536
 msgctxt "Group type taxonomy back to items label"
 msgid "&larr; Back to Group Types"
-msgstr ""
+msgstr "&rarr; بازگشت به انواع گروه‌ها"
 
 #. translators: Tab heading when selecting from the most used terms.
 #: bp-groups/bp-groups-functions.php:2535
@@ -276,17 +276,17 @@ msgstr ""
 #: bp-groups/bp-groups-functions.php:2532
 msgctxt "Group type taxonomy items list label"
 msgid "Group Types list"
-msgstr ""
+msgstr "فهرست انواع گروه‌ها"
 
 #: bp-groups/bp-groups-functions.php:2531
 msgctxt "Group type taxonomy items list navigation label"
 msgid "Group Types list navigation"
-msgstr ""
+msgstr "راه‌بری فهرست انواع گروه‌ها"
 
 #: bp-groups/bp-groups-functions.php:2530
 msgctxt "Group type taxonomy no terms label"
 msgid "No group types"
-msgstr ""
+msgstr "بدون نوع گروه"
 
 #: bp-groups/bp-groups-functions.php:2529
 msgctxt "Group type taxonomy not found label"
@@ -296,12 +296,12 @@ msgstr ""
 #: bp-groups/bp-groups-functions.php:2528
 msgctxt "Group type taxonomy choose from most used label"
 msgid "Choose from the most used group types"
-msgstr ""
+msgstr "انتخاب از میان انواع گروه بیشتر استفاده شده"
 
 #: bp-groups/bp-groups-functions.php:2527
 msgctxt "Group type taxonomy add or remove items label"
 msgid "Add or remove group types"
-msgstr ""
+msgstr "افزودن و یا حذف انواع گروه‌ها"
 
 #: bp-groups/bp-groups-functions.php:2526
 msgctxt "Group type taxonomy separate items with commas label"
@@ -311,27 +311,27 @@ msgstr ""
 #: bp-groups/bp-groups-functions.php:2525
 msgctxt "Group type taxonomy new item name label"
 msgid "New Group Type Name"
-msgstr ""
+msgstr "نام نوع گروه تازه"
 
 #: bp-groups/bp-groups-functions.php:2524
 msgctxt "Group type taxonomy add new item label"
 msgid "Add New Group Type"
-msgstr ""
+msgstr "افزودن نوع گروه تازه"
 
 #: bp-groups/bp-groups-functions.php:2523
 msgctxt "Group type taxonomy update item label"
 msgid "Update Group Type"
-msgstr ""
+msgstr "به‌روزرسانی نوع گروه"
 
 #: bp-groups/bp-groups-functions.php:2522
 msgctxt "Group type taxonomy view item label"
 msgid "View Group Type"
-msgstr ""
+msgstr "نمایش نوع گروه"
 
 #: bp-groups/bp-groups-functions.php:2521
 msgctxt "Group type taxonomy edit item label"
 msgid "Edit Group Type"
-msgstr ""
+msgstr "ویرایش نوع گروه"
 
 #: bp-groups/bp-groups-functions.php:2520
 msgctxt "Group type taxonomy parent item label"
@@ -346,7 +346,7 @@ msgstr ""
 #: bp-groups/bp-groups-functions.php:2518
 msgctxt "Group type taxonomy all items label"
 msgid "All Group Types"
-msgstr ""
+msgstr "همهٔ انواع گروه‌ها"
 
 #: bp-groups/bp-groups-functions.php:2517
 msgctxt "Group type taxonomy popular items label"
@@ -356,17 +356,17 @@ msgstr ""
 #: bp-groups/bp-groups-functions.php:2516
 msgctxt "Group type taxonomy search items label"
 msgid "Search Group Types"
-msgstr ""
+msgstr "جست‌وجوی انواع گروه‌ها"
 
 #: bp-groups/bp-groups-functions.php:2515
 msgctxt "Group type taxonomy singular name"
 msgid "Group Type"
-msgstr ""
+msgstr "نوع گروه"
 
 #: bp-groups/bp-groups-functions.php:2514
 msgctxt "Group type taxonomy name"
 msgid "Group Types"
-msgstr ""
+msgstr "انواع گروه‌ها"
 
 #. translators: %d: the number of group members.
 #: bp-groups/bp-groups-blocks.php:315
@@ -536,7 +536,7 @@ msgstr ""
 #: bp-core/classes/class-bp-admin-types.php:500
 msgctxt "Number/count of types"
 msgid "Count"
-msgstr ""
+msgstr "شمار"
 
 #. translators: %s is the name of the Type meta key
 #: bp-core/classes/class-bp-admin-types.php:367
@@ -984,12 +984,12 @@ msgstr ""
 #: bp-members/bp-members-functions.php:2703
 msgctxt "Member type taxonomy update item label"
 msgid "Update Member Type"
-msgstr ""
+msgstr "به‌روزرسانی نوع اعضاء"
 
 #: bp-members/bp-members-functions.php:2702
 msgctxt "Member type taxonomy view item label"
 msgid "View Member Type"
-msgstr ""
+msgstr "نمایش نوع اعضاء"
 
 #: bp-members/bp-members-functions.php:2701
 msgctxt "Member type taxonomy edit item label"
@@ -1024,12 +1024,12 @@ msgstr ""
 #: bp-members/bp-members-functions.php:2695
 msgctxt "Member type taxonomy singular name"
 msgid "Member Type"
-msgstr ""
+msgstr "نوع اعضاء"
 
 #: bp-members/bp-members-functions.php:2694
 msgctxt "Member type taxonomy name"
 msgid "Member Types"
-msgstr ""
+msgstr "انواع اعضاء"
 
 #. translators: %s: last activity timestamp (e.g. "Active 1 hour ago")
 #: bp-groups/bp-groups-blocks.php:307
@@ -1621,14 +1621,14 @@ msgstr ""
 #. class="count"/>`
 #: bp-activity/classes/class-bp-activity-list-table.php:361
 msgid "Spam %s"
-msgstr ""
+msgstr "جفنگ %s"
 
 #. translators: %s is the placeholder for the count html tag `<span
 #. class="count"/>`
 #: bp-groups/classes/class-bp-groups-list-table.php:364
 #: bp-activity/classes/class-bp-activity-list-table.php:349
 msgid "All %s"
-msgstr ""
+msgstr "همه %s"
 
 #: bp-xprofile/classes/class-bp-rest-xprofile-fields-endpoint.php:1072
 msgid "Options of the profile field."
@@ -3599,19 +3599,19 @@ msgctxt "BuddyPress Friends data exporter friendly name"
 msgid "Friends"
 msgstr ""
 
-#: bp-templates/bp-nouveau/includes/template-tags.php:2407
+#: bp-templates/bp-nouveau/includes/template-tags.php:2416
 msgid "Confirm new password"
 msgstr "تکرار رمز تازه"
 
-#: bp-templates/bp-nouveau/includes/template-tags.php:2399
+#: bp-templates/bp-nouveau/includes/template-tags.php:2408
 msgid "Confirm use of weak password"
 msgstr "تأیید استفاده از رمز ضعیف"
 
-#: bp-templates/bp-nouveau/includes/template-tags.php:2394
+#: bp-templates/bp-nouveau/includes/template-tags.php:2403
 msgid "Strength indicator"
 msgstr "شاخص استحکام"
 
-#: bp-templates/bp-nouveau/includes/template-tags.php:2385
+#: bp-templates/bp-nouveau/includes/template-tags.php:2394
 msgid "Choose a Password (required)"
 msgstr "رمز انتخاب کنید (ضروری)"
 
@@ -3981,7 +3981,7 @@ msgid ""
 msgstr ""
 
 #. translators: link to Privacy Policy
-#: bp-templates/bp-nouveau/includes/template-tags.php:2583
+#: bp-templates/bp-nouveau/includes/template-tags.php:2592
 msgid "I have read and agree to this site's %s."
 msgstr ""
 
@@ -4240,13 +4240,13 @@ msgstr ""
 
 #. translators: link to Privacy Policy
 #: bp-core/bp-core-functions.php:3564
-#: bp-templates/bp-nouveau/includes/template-tags.php:2583
+#: bp-templates/bp-nouveau/includes/template-tags.php:2592
 msgid "Privacy Policy"
 msgstr ""
 
 #. translators: Do not translate placeholders. 2 = form field name, 3 =
 #. "(required)".
-#: bp-templates/bp-nouveau/includes/template-tags.php:2423
+#: bp-templates/bp-nouveau/includes/template-tags.php:2432
 msgid "<label for=\"%1$s\">%2$s %3$s</label>"
 msgstr ""
 
@@ -8086,7 +8086,7 @@ msgstr ""
 #: bp-themes/bp-default/single.php:36
 msgctxt "Next post link"
 msgid "&rarr;"
-msgstr ""
+msgstr "&larr;"
 
 #: bp-themes/bp-default/single.php:35
 msgctxt "Previous post link"
@@ -9425,7 +9425,7 @@ msgid "Email Address"
 msgstr "نشانی ایمیل"
 
 #: bp-xprofile/bp-xprofile-template.php:1439
-#: bp-templates/bp-nouveau/includes/template-tags.php:2429
+#: bp-templates/bp-nouveau/includes/template-tags.php:2438
 #: bp-templates/bp-legacy/buddypress/members/register.php:85
 #: bp-templates/bp-legacy/buddypress/members/register.php:96
 #: bp-templates/bp-legacy/buddypress/members/register.php:107
@@ -10242,7 +10242,7 @@ msgstr "تازه چه خبر در %s، %s؟"
 msgid "&mdash; Everything &mdash;"
 msgstr "&mdash; همه &mdash;"
 
-#: bp-templates/bp-nouveau/includes/template-tags.php:2183
+#: bp-templates/bp-nouveau/includes/template-tags.php:2192
 #: bp-templates/bp-legacy/buddypress/members/single/activity.php:18
 #: bp-templates/bp-legacy/buddypress/groups/single/activity.php:25
 #: bp-templates/bp-legacy/buddypress/activity/index.php:204
@@ -11740,7 +11740,7 @@ msgstr "قدیمی‌ترین"
 
 #: bp-groups/bp-groups-template.php:4530
 #: bp-notifications/bp-notifications-template.php:1001
-#: bp-templates/bp-nouveau/includes/template-tags.php:2180
+#: bp-templates/bp-nouveau/includes/template-tags.php:2189
 #: bp-templates/bp-legacy/buddypress/members/single/friends.php:20
 #: bp-templates/bp-legacy/buddypress/members/single/blogs.php:19
 #: bp-templates/bp-legacy/buddypress/members/single/groups.php:20
@@ -14794,7 +14794,7 @@ msgstr "سایت‌های %s"
 msgid "Congratulations! You have successfully registered a new site."
 msgstr "تبریک می‌گوییم! با موفقیت یک سایت جدید ساختید."
 
-#: bp-templates/bp-nouveau/includes/template-tags.php:2442
+#: bp-templates/bp-nouveau/includes/template-tags.php:2451
 #: bp-themes/bp-default/registration/register.php:236
 msgid ""
 "I would like my site to appear in search engines, and in public listings around "
