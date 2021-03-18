@@ -26,7 +26,7 @@
   const patch = /--patch/.test(process.argv.slice(2)); // bump a patch?
 
   try {
-    env = extend(config.env, yaml.safeLoad(fs.readFileSync('./environment.yml', { encoding: 'utf-8' }), { json: true }));
+    env = extend(config.env, yaml.load(fs.readFileSync('./environment.yml', { encoding: 'utf-8' }), { json: true }));
   } catch (e) {
     log.warn('no environment.yml loaded!');
   }
@@ -241,10 +241,9 @@
   // seperated because of stripping rtl directives in compression
   gulp.task('build:rtl', function () {
     return gulp.src(config.input.rtl)
-      // .pipe(plugins.sass(config.sass).on('error', plugins.sass.logError))
-      .pipe(sass(config.sass).on('error', sass.logError))
+      .pipe(sass.sync().on('error', sass.logError))
+      .pipe(plugins.postcss([rtlcss()])) // divided to avoid cssnano messing with rtl directives
       .pipe(plugins.postcss([
-        rtlcss(),
         cssnano(config.cssnano.build),
         autoprefixer(config.autoprefixer.build)
       ]))

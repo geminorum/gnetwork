@@ -44,15 +44,19 @@
       "./assets/js/**/*.js",
       "./assets/js/**/*.html",
       "./assets/locale/**/*",
+      "!./assets/locale/core/raw/*",
       "!./assets/locale/**/*.pot",
       "!./assets/locale/**/*.po",
-      "!./assets/locale/core/raw",
       "./assets/vendor/**/*.php",
       "!./assets/vendor/**/test/*",
+      "!./assets/vendor/**/Test/*",
       "!./assets/vendor/**/Tests/*",
       "!./assets/vendor/**/tests/*",
       "!./assets/vendor/**/scripts/*",
       "!./assets/vendor/**/examples/*",
+      "!./assets/vendor/**/samples/*",
+      "!./assets/vendor/**/docs/*",
+      "!./assets/vendor/**/.github",
       "!./assets/vendor/**/.git",
       "./assets/views/**/*",
       "./assets/index.html",
@@ -84,6 +88,7 @@
     "tinypng": ""
   },
   "sass": {
+    "sourceComments": true,
     "errLogToConsole": true
   },
   "cssnano": {

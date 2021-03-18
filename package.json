@@ -42,7 +42,7 @@
   "devDependencies": {
     "@wordpress/browserslist-config": "^3.0.1",
     "@wordpress/stylelint-config": "^19.0.1",
-    "autoprefixer": "^10.2.4",
+    "autoprefixer": "^10.2.5",
     "browserslist": "^4.16.3",
     "cssnano": "^4.1.10",
     "del": "^6.0.0",
@@ -67,18 +67,18 @@
     "gulp-sourcemaps": "^3.0.0",
     "gulp-svgmin": "^3.0.0",
     "gulp-tap": "^2.0.0",
-    "gulp-tinypng-extended": "^3.0.1",
+    "gulp-tinypng-extended": "^3.0.2",
     "gulp-uglify": "^3.0.2",
     "gulp-wp-pot": "^2.5.0",
-    "gulp-zip": "^5.0.2",
+    "gulp-zip": "^5.1.0",
     "js-yaml": "^4.0.0",
     "merge-json": "^0.1.0-b.3",
     "multipipe": "^4.0.0",
     "parse-changelog": "^1.0.2",
-    "postcss": "^8.2.5",
+    "postcss": "^8.2.8",
     "rtlcss": "^3.1.2",
     "semistandard": "^16.0.0",
-    "stylelint": "^13.9.0",
+    "stylelint": "^13.12.0",
     "xtend": "^4.0.2"
   },
   "optionalDependencies": {
@@ -86,7 +86,7 @@
     "chosen-js": "^1.8.7",
     "github-markdown-css": "^4.0.0",
     "pdfobject": "^2.2.4",
-    "vazir-font": "^27.2.1"
+    "vazir-font": "^27.2.2"
   },
   "babel": {
     "presets": [
