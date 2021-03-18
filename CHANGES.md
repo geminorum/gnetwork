@@ -1,3 +1,13 @@
+### 3.13.1
+* main/logger: missing level for sites
+* main/logger: public actions to use for other plugins
+* module/authors: disable sitemap for users
+* module/bbq: :up: v20210211
+* module/locale: avoid double checks for files
+* module/locale: filtred bypassed domains
+* module/taxonomy: handling messages in taxonomy tabs ui
+* module/taxonomy: prefix secondary input names
+
 ### 3.13.0
 * main/module: internal nonce field/check methods
 * main/module: tablelist action conditional
