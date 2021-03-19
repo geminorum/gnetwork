@@ -131,6 +131,9 @@ class Media extends gNetwork\Module
 		// fires after images attached to terms
 		// WARNING: no prefix is not a good idea!
 		$this->action( 'clean_term_attachment_cache' );
+
+		if ( is_main_site() )
+			$this->filter_true( 'pre_site_option_upload_space_check_disabled' );
 	}
 
 	public function init_late()
