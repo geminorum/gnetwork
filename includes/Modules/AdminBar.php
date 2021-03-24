@@ -865,10 +865,8 @@ class AdminBar extends gNetwork\Module
 	public function wp_admin_bar_wp_menu( $wp_admin_bar )
 	{
 		// custom menu by filter, it's better 'cause there are no default wp menu.
-		if ( apply_filters( static::BASE.'_adminbar_custom', FALSE ) ) {
-			call_user_func_array( $custom, [ &$wp_admin_bar ] );
-			return;
-		}
+		if ( $custom = apply_filters( static::BASE.'_adminbar_custom', NULL ) )
+			return call_user_func_array( $custom, [ &$wp_admin_bar ] );
 
 		self::addMainLogo( $wp_admin_bar );
 
