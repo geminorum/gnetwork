@@ -27,6 +27,7 @@ class Commerce extends gNetwork\Module
 
 		$this->action( 'init' );
 		$this->action( 'admin_init' );
+		$this->action( 'admin_bar_menu', 1, 35 );
 
 		if ( $this->options['purchased_products'] ) {
 			$this->filter( 'woocommerce_account_menu_items', 2, 40 );
@@ -418,6 +419,72 @@ class Commerce extends gNetwork\Module
 			$this->action( 'woocommerce_product_after_variable_attributes', 3, 10, 'gtin' );
 			$this->action( 'woocommerce_save_product_variation', 2, 10, 'gtin' );
 		}
+	}
+
+	public function admin_bar_menu( $wp_admin_bar )
+	{
+		if ( is_admin() )
+			return;
+
+		$parent = $this->classs();
+
+		$wp_admin_bar->add_node( [
+			'id'    => $parent,
+			'title' => AdminBar::getIcon( 'store' ),
+			'href'  => admin_url( 'edit.php?post_type=product' ),
+			'meta'  => [ 'title' => __( 'WooCommerce', 'woocommerce' ) ],
+		] );
+
+		if ( current_user_can( 'edit_others_shop_orders' ) )
+			$wp_admin_bar->add_node( [
+				'parent' => $parent,
+				'id'     => $this->classs( 'shop_orders' ),
+				'title'  => __( 'Orders', 'woocommerce' ),
+				'href'   => admin_url( 'edit.php?post_type=shop_order' ),
+			] );
+
+		if ( current_user_can( 'edit_others_products' ) )
+			$wp_admin_bar->add_node( [
+				'parent' => $parent,
+				'id'     => $this->classs( 'products' ),
+				'title'  => __( 'Products', 'woocommerce' ),
+				'href'   => admin_url( 'edit.php?post_type=product' ),
+			] );
+
+		if ( current_user_can( 'manage_product_terms' ) ) {
+
+			$wp_admin_bar->add_node( [
+				'parent' => $parent,
+				'id'     => $this->classs( 'product_cat' ),
+				'title'  => get_taxonomy( 'product_cat' )->labels->menu_name,
+				'href'   => admin_url( 'edit-tags.php?post_type=product&taxonomy=product_cat' ),
+			] );
+
+			$attributes = $this->classs( 'attributes' );
+
+			$wp_admin_bar->add_node( [
+				'parent' => $parent,
+				'id'     => $attributes,
+				'title'  => __( 'Attributes', 'woocommerce' ),
+				'href'   => admin_url( 'edit.php?post_type=product&page=product_attributes' ),
+			] );
+
+			foreach ( wc_get_attribute_taxonomies() as $attribute )
+				$wp_admin_bar->add_node( [
+					'parent' => $attributes,
+					'id'     => $this->classs( 'attributes', $attribute->attribute_name ),
+					'title'  => $attribute->attribute_label,
+					'href'   => admin_url( 'edit-tags.php?post_type=product&taxonomy=pa_'.$attribute->attribute_name ),
+				] );
+		}
+
+		if ( current_user_can( 'manage_woocommerce' ) )
+			$wp_admin_bar->add_node( [
+				'parent' => $parent,
+				'id'     => $this->classs( 'status' ),
+				'title'  => __( 'Status', 'woocommerce' ),
+				'href'   => admin_url( 'admin.php?page=wc-status' ),
+			] );
 	}
 
 	public function woocommerce_account_menu_items( $items, $endpoints )
