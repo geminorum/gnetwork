@@ -104,6 +104,7 @@ class AdminBar extends gNetwork\Module
 			add_action( 'admin_bar_menu', [ $this, 'wp_admin_bar_extra_menu' ], 10 );
 
 		add_action( 'admin_bar_menu', 'wp_admin_bar_site_menu', 30 );
+		add_action( 'admin_bar_menu', [ $this, 'wp_admin_bar_posttypes' ], 32 );
 		add_action( 'admin_bar_menu', 'wp_admin_bar_customize_menu', 40 );
 		add_action( 'admin_bar_menu', 'wp_admin_bar_updates_menu', 50 );
 
@@ -965,6 +966,20 @@ class AdminBar extends gNetwork\Module
 				}
 			}
 		}
+	}
+
+	public function wp_admin_bar_posttypes( $wp_admin_bar )
+	{
+		$posttypes = (array) get_post_types( [ 'show_in_admin_bar' => TRUE ], 'objects' );
+
+		foreach ( $posttypes as $posttype )
+			if ( current_user_can( $posttype->cap->edit_posts ) )
+				$wp_admin_bar->add_node( [
+					'parent' => 'site-name',
+					'id'     => sprintf( 'all-%s', $posttype->rest_base ?: $posttype->name ),
+					'title'  => $posttype->labels->menu_name,
+					'href'   => 'post' == $posttype->name ? admin_url( 'edit.php' ) : admin_url( 'edit.php?post_type='.$posttype->name ),
+				] );
 	}
 
 	public static function getIcon( $icon, $style = 'margin:2px 1px 0 1px;' )
