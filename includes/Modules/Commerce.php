@@ -47,14 +47,12 @@ class Commerce extends gNetwork\Module
 			$this->filter( 'woocommerce_email_order_meta_keys', 1, 10, 'shetab' );
 		}
 
-		if ( GNETWORK_COMMERCE_TRACKING_METAKEY )
-			$this->filter( 'woocommerce_my_account_my_orders_actions', 2, 99 );
 
-		if ( ! is_admin() )
-			return;
-
-		if ( GNETWORK_COMMERCE_TRACKING_METAKEY )
+		if ( GNETWORK_COMMERCE_TRACKING_METAKEY ) {
 			$this->action( 'woocommerce_admin_order_actions_end', 1, 99 );
+			$this->filter( 'woocommerce_my_account_my_orders_actions', 2, 99 );
+			$this->filter_append( 'woocommerce_shop_order_search_fields', GNETWORK_COMMERCE_TRACKING_METAKEY );
+		}
 	}
 
 	public function setup_menu( $context )
