@@ -80,9 +80,10 @@ class Plugin extends Base
 			'GNETWORK_MEDIA_THUMBS_CHECK'      => TRUE, // check default wp dir before thumbs / make it disable for newly created sites
 			'GNETWORK_MEDIA_OBJECT_SIZES'      => FALSE, // disable all image sizes and enable for each posttypes
 
-			'GNETWORK_COMMERCE_GTIN_METAKEY'   => '_product_gtin',
-			'GNETWORK_COMMERCE_MOBILE_METAKEY' => 'mobile',
-			'GNETWORK_COMMERCE_SSN_METAKEY'    => 'ssn',
+			'GNETWORK_COMMERCE_GTIN_METAKEY'     => '_product_gtin',
+			'GNETWORK_COMMERCE_MOBILE_METAKEY'   => 'mobile',
+			'GNETWORK_COMMERCE_SSN_METAKEY'      => 'ssn',
+			'GNETWORK_COMMERCE_TRACKING_METAKEY' => 'post_barcode', // FALSE to disable // @SEE: https://github.com/MahdiY/Persian-woocommerce-shipping
 
 			// reset some stuff
 			'WP_STAGE'       => 'production',

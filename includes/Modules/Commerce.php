@@ -47,6 +47,14 @@ class Commerce extends gNetwork\Module
 			$this->filter( 'woocommerce_email_order_meta_keys', 1, 10, 'shetab' );
 		}
 
+		if ( GNETWORK_COMMERCE_TRACKING_METAKEY )
+			$this->filter( 'woocommerce_my_account_my_orders_actions', 2, 99 );
+
+		if ( ! is_admin() )
+			return;
+
+		if ( GNETWORK_COMMERCE_TRACKING_METAKEY )
+			$this->action( 'woocommerce_admin_order_actions_end', 1, 99 );
 	}
 
 	public function setup_menu( $context )
@@ -485,6 +493,29 @@ class Commerce extends gNetwork\Module
 				'title'  => __( 'Status', 'woocommerce' ),
 				'href'   => admin_url( 'admin.php?page=wc-status' ),
 			] );
+	}
+
+	public function woocommerce_my_account_my_orders_actions( $actions, $order )
+	{
+		if ( $tracking = $order->get_meta( GNETWORK_COMMERCE_TRACKING_METAKEY, TRUE, 'edit' ) )
+			$actions['tracking'] = [
+				'url'  => sprintf( 'https://tracking.post.ir/?id=%s', $tracking ),
+				'name' => _x( 'Tracking', 'Modules: Commerce: Action', 'gnetwork' ), // will be escaped!
+			];
+
+		return $actions;
+	}
+
+	// TODO: add on admin order edit page
+	public function woocommerce_admin_order_actions_end( $order )
+	{
+		if ( $tracking = $order->get_meta( GNETWORK_COMMERCE_TRACKING_METAKEY, TRUE, 'edit' ) )
+			echo HTML::tag( 'a', [
+				'href'   => sprintf( 'https://tracking.post.ir/?id=%s', $tracking ),
+				'title'  => _x( 'Tracking Package', 'Modules: Commerce: Action', 'gnetwork' ),
+				'class'  => 'button tracking',
+				'target' => '_blank',
+			], HTML::img( GNETWORK_URL.'assets/images/postarm.png', 'tracking-icon' ) );
 	}
 
 	public function woocommerce_account_menu_items( $items, $endpoints )
