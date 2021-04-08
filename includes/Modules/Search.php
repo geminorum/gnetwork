@@ -311,6 +311,9 @@ class Search extends gNetwork\Module
 		if ( ! is_search() )
 			return;
 
+		if ( GNETWORK_SEARCH_LOG && ( $query = get_query_var( 's' ) ) )
+			Logger::siteSearch( 'QUERY', sprintf( '%s', $query ) );
+
 		if ( GNETWORK_SEARCH_REDIRECT )
 			WordPress::redirect( add_query_arg( GNETWORK_SEARCH_QUERYID, $wp_query->query_vars['s'], GNETWORK_SEARCH_URL ) );
 
@@ -319,9 +322,6 @@ class Search extends gNetwork\Module
 
 		// no-robots added @since WP 5.7
 		// $this->action( 'wp_head', 0, 8 );
-
-		if ( GNETWORK_SEARCH_LOG && $query = get_query_var( 's' ) )
-			Logger::siteSearch( 'QUERY', sprintf( '%s', $query ) );
 	}
 
 	public function wp_head()
