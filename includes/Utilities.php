@@ -487,7 +487,7 @@ class Utilities extends Core\Base
 			WordPress::doNotCache();
 
 		if ( $require && $layout )
-			require_once( $layout );
+			require_once $layout;
 		else
 			return $layout;
 	}

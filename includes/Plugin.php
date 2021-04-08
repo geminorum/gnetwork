@@ -83,7 +83,7 @@ class Plugin extends Base
 			'GNETWORK_COMMERCE_GTIN_METAKEY'     => '_product_gtin',
 			'GNETWORK_COMMERCE_MOBILE_METAKEY'   => 'mobile',
 			'GNETWORK_COMMERCE_SSN_METAKEY'      => 'ssn',
-			'GNETWORK_COMMERCE_TRACKING_METAKEY' => 'post_barcode', // FALSE to disable // @SEE: https://github.com/MahdiY/Persian-woocommerce-shipping
+			'GNETWORK_COMMERCE_TRACKING_METAKEY' => FALSE, // 'post_barcode', // FALSE to disable // @SEE: https://github.com/MahdiY/Persian-woocommerce-shipping
 
 			// reset some stuff
 			'WP_STAGE'       => 'production',

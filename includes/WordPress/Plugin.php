@@ -60,10 +60,10 @@ class Plugin extends Core\Base
 		foreach ( (array) $stack as $path )
 
 			if ( ! $check )
-				require_once( $base.'includes/'.$path.'.php' );
+				require_once $base.'includes/'.$path.'.php';
 
 			else if ( is_readable( $base.'includes/'.$path.'.php' ) )
-				require_once( $base.'includes/'.$path.'.php' );
+				require_once $base.'includes/'.$path.'.php';
 	}
 
 	protected function actions() {}

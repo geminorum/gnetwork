@@ -220,7 +220,7 @@ class Restricted extends gNetwork\Module
 	private function render_restricted_layout( $current_user = 0 )
 	{
 		if ( $layout = Utilities::getLayout( 'status.'.$this->status_code ) )
-			require_once( $layout );
+			require_once $layout;
 
 		else if ( $callback = $this->filters( 'default_template', [ $this, 'default_template' ] ) )
 			call_user_func( $callback );
@@ -625,7 +625,7 @@ EOD;
 		// @header( "Retry-After: ".( $retry * 60 ) );
 
 		if ( $header = Utilities::getLayout( 'system.header' ) )
-			require_once( $header ); // to expose scope vars
+			require_once $header; // to expose scope vars
 
 		$this->actions( 'template_before' );
 
@@ -640,6 +640,6 @@ EOD;
 		$this->actions( 'template_after' );
 
 		if ( $footer = Utilities::getLayout( 'system.footer' ) )
-			require_once( $footer ); // to expose scope vars
+			require_once $footer; // to expose scope vars
 	}
 }

@@ -174,7 +174,7 @@ class Network extends gNetwork\Module
 				$this->settings_overview( $uri );
 
 			else if ( 'console' == $sub )
-				@require_once( GNETWORK_DIR.'includes/Layouts/console.'.$this->key.'.php' );
+				@require_once GNETWORK_DIR.'includes/Layouts/console.'.$this->key.'.php';
 
 			else if ( ! $this->actions( 'settings_sub_'.$sub, $uri, $sub ) )
 				Settings::cheatin();

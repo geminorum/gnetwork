@@ -1525,7 +1525,7 @@ class Module extends Core\Base
 		foreach ( $providers as $provider => $args ) {
 
 			if ( ! empty( $args['path'] ) && is_readable( $args['path'] ) )
-				require_once( $args['path'] );
+				require_once $args['path'];
 
 			if ( empty( $args['class'] ) )
 				continue;

@@ -141,7 +141,7 @@ class Dashboard extends gNetwork\Module
 
 	public function ajax()
 	{
-		require_once( ABSPATH.'wp-admin/includes/dashboard.php' );
+		require_once ABSPATH.'wp-admin/includes/dashboard.php';
 
 		switch ( $_GET['widget'] ) {
 

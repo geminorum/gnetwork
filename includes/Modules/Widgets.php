@@ -105,7 +105,8 @@ class Widgets extends gNetwork\Module
 		if ( ! isset( $wp_meta_boxes['dashboard'] )
 			|| ! is_array( $wp_meta_boxes['dashboard'] ) ) {
 
-			require_once( ABSPATH.'/wp-admin/includes/dashboard.php' );
+			require_once ABSPATH.'/wp-admin/includes/dashboard.php';
+
 			set_current_screen( 'dashboard' );
 			remove_action( 'wp_dashboard_setup', [ $this, 'disable_dashboard_widgets' ], 100 );
 			wp_dashboard_setup();
@@ -200,7 +201,7 @@ class Widgets extends gNetwork\Module
 		foreach ( apply_filters( $this->hook(), $widgets ) as $path => $widget ) {
 
 			if ( is_readable( $path ) ) {
-				require_once( $path );
+				require_once $path;
 
 				if ( class_exists( $widget ) )
 					register_widget( $widget );

@@ -233,7 +233,7 @@ class Maintenance extends gNetwork\Module
 	private function render_maintenance_layout()
 	{
 		if ( $layout = $this->get_maintenance_layout() )
-			require_once( $layout );
+			require_once $layout;
 
 		else if ( $callback = $this->filters( 'default_template', [ $this, 'default_template' ] ) )
 			call_user_func( $callback );
@@ -299,7 +299,7 @@ class Maintenance extends gNetwork\Module
 		@header( "Retry-After: ".( $retry * 60 ) );
 
 		if ( $header = Utilities::getLayout( 'system.header' ) )
-			require_once( $header ); // to expose scope vars
+			require_once $header; // to expose scope vars
 
 		$this->actions( 'template_before' );
 
@@ -314,6 +314,6 @@ class Maintenance extends gNetwork\Module
 		$this->actions( 'template_after' );
 
 		if ( $footer = Utilities::getLayout( 'system.footer' ) )
-			require_once( $footer ); // to expose scope vars
+			require_once $footer; // to expose scope vars
 	}
 }

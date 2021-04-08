@@ -315,15 +315,15 @@ class Update extends gNetwork\Module
 
 	private function get_package_data( $package, $endpoint = NULL )
 	{
+		if ( is_null( $endpoint ) )
+			$endpoint = $this->endpoint( $package );
+
 		$key = $this->hash( 'package', $package, $endpoint );
 
 		if ( WordPress::isFlush( 'update_core', 'force-check' ) )
 			delete_site_transient( $key );
 
 		if ( FALSE === ( $data = get_site_transient( $key ) ) ) {
-
-			if ( is_null( $endpoint ) )
-				$endpoint = $this->endpoint( $package );
 
 			$json = HTTP::getJSON( $endpoint, [ 'headers' => $this->endpoint_headers( $package ) ] );
 			$data = $json ? $this->cleanup_package_data( $json, $package ) : '';

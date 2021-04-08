@@ -560,6 +560,7 @@ class ShortCodes extends gNetwork\Module
 		return self::shortcodeWrap( $html, 'all-terms', $args );
 	}
 
+	// FIXME: move to gEditorial Modified
 	/**
 	 * [last-edited format="l, F j, Y"] : 'Friday, January 11, 2012'
 	 * [last-edited format="G:i a (T)"] : '7:02 pm (EST)'

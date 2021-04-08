@@ -8,7 +8,7 @@ if ( ! function_exists( 'wp_hash_password' ) ):
 
 		if ( empty( $wp_hasher ) ) {
 
-			require_once( ABSPATH.WPINC.'/class-phpass.php' );
+			require_once ABSPATH.WPINC.'/class-phpass.php';
 
 			// second arg: make password non-portable (eg. allow bcrypt)
 			$wp_hasher = new \PasswordHash( 16, FALSE );
