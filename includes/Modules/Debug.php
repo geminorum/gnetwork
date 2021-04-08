@@ -11,6 +11,7 @@ use geminorum\gNetwork\Core\File;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\HTTP;
 use geminorum\gNetwork\Core\Text;
+use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\Number;
 use geminorum\gNetwork\Core\WordPress;
 use geminorum\gNetwork\Misc\QM;
@@ -36,6 +37,8 @@ class Debug extends gNetwork\Module
 		$this->action( 'wp_footer', 1, 999999 );
 		$this->action( 'http_api_debug', 5 );
 		// $this->filter( 'debug_bar_panels' );
+
+		$this->filter( 'site_status_test_result' );
 
 		add_filter( 'wp_die_handler', function() {
 			return [ $this, 'wp_die_handler' ];
@@ -762,6 +765,60 @@ class Debug extends gNetwork\Module
 		$panels[] = new \geminorum\gNetwork\Misc\DebugExtrasPanel();
 
 		return $panels;
+	}
+
+	public function site_status_test_result( $result )
+	{
+		if ( ! $result || ! array_key_exists( 'test', $result ) )
+			return $result;
+
+		switch ( $result['test'] ) {
+
+			case 'is_in_debug_mode':
+
+				if ( ! GNETWORK_DEBUG_LOG )
+					return $result;
+
+				if ( FALSE === ( $status = HTTP::getStatus( URL::fromPath( GNETWORK_DEBUG_LOG ), FALSE ) ) )
+					return $result;
+
+				if ( 200 == $status ) {
+
+					$result['status']         = 'critical';
+					$result['badge']['color'] = 'red';
+
+				} else if ( $status >= 500 ) {
+
+					$result['status']         = 'critical';
+					$result['badge']['color'] = 'red';
+
+					$result['label']        = _x( 'Your site is set to store errors but there are errors on checking the logs', 'Modules: Debug', 'gnetwork' );
+					$result['description'] .= '<p class="gnetwork-additional-test">'
+						._x( 'Additional tests shows that the log files are not accessible but with errors.', 'Modules: Debug', 'gnetwork' ).'</p>';
+
+				} else if ( $status >= 400 ) {
+
+					$result['status']         = 'good';
+					$result['badge']['color'] = 'green';
+
+					$result['label']        = _x( 'Your site is set to store errors but not accessible to site visitors', 'Modules: Debug', 'gnetwork' );
+					$result['description'] .= '<p class="gnetwork-additional-test">'
+						._x( 'Additional tests shows that the log files are not accessible to site visitors.', 'Modules: Debug', 'gnetwork' ).'</p>';
+
+				} else if ( $status >= 300 ) {
+
+					$result['status']         = 'critical';
+					$result['badge']['color'] = 'red';
+
+					$result['label']        = _x( 'Your site is set to store errors but there are errors on checking the logs', 'Modules: Debug', 'gnetwork' );
+					$result['description'] .= '<p class="gnetwork-additional-test">'
+						._x( 'Additional tests shows that the log files are not accessible but redirecting!', 'Modules: Debug', 'gnetwork' ).'</p>';
+				}
+
+				break;
+		}
+
+		return $result;
 	}
 
 	public function wp_footer()
