@@ -3,6 +3,7 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Logger;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\Text;
 use geminorum\gNetwork\Core\URL;
@@ -305,19 +306,22 @@ class Search extends gNetwork\Module
 
 	public function template_redirect()
 	{
-		global $wp_the_query, $wp_query;
+		global $wp_query;
 
-		if ( is_search() ) {
+		if ( ! is_search() )
+			return;
 
-			if ( GNETWORK_SEARCH_REDIRECT )
-				WordPress::redirect( add_query_arg( GNETWORK_SEARCH_QUERYID, $wp_query->query_vars['s'], GNETWORK_SEARCH_URL ) );
+		if ( GNETWORK_SEARCH_REDIRECT )
+			WordPress::redirect( add_query_arg( GNETWORK_SEARCH_QUERYID, $wp_query->query_vars['s'], GNETWORK_SEARCH_URL ) );
 
-			if ( $this->options['redirect_single'] && $wp_query->post_count == 1 && ! is_paged() )
-				WordPress::redirect( get_permalink( $wp_query->posts['0']->ID ) );
+		if ( $this->options['redirect_single'] && $wp_query->post_count == 1 && ! is_paged() )
+			WordPress::redirect( get_permalink( $wp_query->posts['0']->ID ) );
 
-			// no-robots added @since WP 5.7
-			// $this->action( 'wp_head', 0, 8 );
-		}
+		// no-robots added @since WP 5.7
+		// $this->action( 'wp_head', 0, 8 );
+
+		if ( GNETWORK_SEARCH_LOG && $query = get_query_var( 's' ) )
+			Logger::siteSearch( 'QUERY', sprintf( '%s', $query ) );
 	}
 
 	public function wp_head()

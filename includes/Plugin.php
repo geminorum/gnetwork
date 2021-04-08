@@ -55,6 +55,7 @@ class Plugin extends Base
 			'GNETWORK_DEBUG_LOG'    => WP_DEBUG_LOG && TRUE !== WP_DEBUG_LOG ? WP_DEBUG_LOG : WP_CONTENT_DIR.'/debug.log', // FALSE to disable / @REF: https://core.trac.wordpress.org/ticket/18391
 			'GNETWORK_ANALOG_LOG'   => WP_CONTENT_DIR.'/analog.log', // FALSE to disable
 			'GNETWORK_FAILED_LOG'   => WP_CONTENT_DIR.'/failed.log', // FALSE to disable
+			'GNETWORK_SEARCH_LOG'   => WP_CONTENT_DIR.'/search.log', // FALSE to disable
 			'GNETWORK_MAIL_LOG_DIR' => WP_CONTENT_DIR.'/emaillogs', // FALSE to disable
 			'GNETWORK_SMS_LOG_DIR'  => WP_CONTENT_DIR.'/smslogs', // FALSE to disable
 
