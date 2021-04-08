@@ -7,6 +7,20 @@ use geminorum\gNetwork\Core;
 class Media extends Core\Base
 {
 
+	public static function upload( $post = FALSE )
+	{
+		if ( FALSE === $post )
+			return wp_upload_dir( NULL, FALSE, FALSE );
+
+		if ( ! $post = get_post( $post ) )
+			return wp_upload_dir( NULL, TRUE, FALSE );
+
+		if ( 'page' === $post->post_type )
+			return wp_upload_dir( NULL, TRUE, FALSE );
+
+		return wp_upload_dir( ( substr( $post->post_date, 0, 4 ) > 0 ? $post->post_date : NULL ), TRUE, FALSE );
+	}
+
 	// @REF: `wp_import_handle_upload()`
 	public static function handleImportUpload( $name = 'import' )
 	{
@@ -104,5 +118,26 @@ class Media extends Core\Base
 		add_post_meta( $attachment, '_source_url', $url );
 
 		return $attachment;
+	}
+
+	// @REF: https://wordpress.stackexchange.com/a/315447
+	public static function prepAttachmentData( $attachment_id )
+	{
+		if ( ! $attachment_id )
+			return [];
+
+		$uploads  = self::upload();
+		$metadata = wp_get_attachment_metadata( $attachment_id );
+		$prepared = [
+			'caption'   => wp_get_attachment_caption( $attachment_id ),
+			'mime_type' => get_post_mime_type( $attachment_id ),
+			'url'       => $uploads['baseurl'].'/'.$metadata['file'],
+			'sizes'     => [],
+		];
+
+		foreach ( $metadata['sizes'] as $size => $info )
+			$prepared['sizes'][$size] = $uploads['baseurl'].'/'.$info['file'];
+
+		return $prepared;
 	}
 }

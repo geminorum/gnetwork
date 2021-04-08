@@ -24,11 +24,11 @@ class URL extends Base
 	}
 
 	// like twitter links
-	public static function prepTitle( $url, $slash = FALSE )
+	public static function prepTitle( $url, $convert_slash = FALSE )
 	{
 		$title = preg_replace( '|^http(s)?://(www\.)?|i', '', $url );
 		$title = self::untrail( $title );
-		return $slash ? str_ireplace( array( '/', '\/' ), '-', $title ) : $title;
+		return $convert_slash ? str_ireplace( array( '/', '\/' ), '-', $title ) : $title;
 	}
 
 	public static function prepTitleQuery( $string )

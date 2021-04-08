@@ -5,20 +5,14 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 class WordPress extends Base
 {
 
-	public static function isMinWPv( $minimum_version )
-	{
-		self::_dep( 'WordPress::isWPcompatible()' );
-		return ( version_compare( $GLOBALS['wp_version'], $minimum_version ) >= 0 );
-	}
-
-	// Checks compatibility with the current WordPress version.
+	// checks compatibility with the current WordPress version
 	// @REF: `is_wp_version_compatible()`
 	public static function isWPcompatible( $required )
 	{
-		return empty( $required ) || version_compare( $GLOBALS['wp_version'], $required, '>=' );
+		return empty( $required ) || version_compare( get_bloginfo( 'version' ), $required, '>=' );
 	}
 
-	// Checks compatibility with the current PHP version.
+	// checks compatibility with the current php version
 	// @REF: `wp_is_php_compatible()`
 	public static function isPHPcompatible( $required )
 	{
@@ -266,9 +260,9 @@ class WordPress extends Base
 	}
 
 	// OLD: `currentBlog()`
-	public static function currentSiteName( $slash = TRUE )
+	public static function currentSiteName( $convert_slash = TRUE )
 	{
-		return URL::prepTitle( get_option( 'home' ), $slash );
+		return URL::prepTitle( get_option( 'home' ), $convert_slash );
 	}
 
 	// DEPRECATED

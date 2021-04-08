@@ -10,11 +10,21 @@ class Validation extends Base
 		if ( empty( $input ) )
 			return FALSE;
 
+		if ( defined( 'GNETWORK_WPLANG' ) && 'fa_IR' == constant( 'GNETWORK_WPLANG' ) )
+			return self::isIranPostCode( $input );
+
 		// @SOURCE: `WC_Validation::is_postcode()`
 		if ( 0 < strlen( trim( preg_replace( '/[\s\-A-Za-z0-9]/', '', $input ) ) ) )
 			return FALSE;
 
 		return TRUE; // FIXME!
+	}
+
+	// @REF: https://github.com/VahidN/DNTPersianUtils.Core/blob/master/src/DNTPersianUtils.Core/Validators/IranCodesUtils.cs#L13
+	// @REF: https://www.dotnettips.info/newsarchive/details/14187
+	public static function isIranPostCode( $input )
+	{
+		return (bool) preg_match( '/(?!(\d)\1{3})[13-9]{4}[1346-9][013-9]{5}/', trim( str_ireplace( [ '-', ' ' ], '', Number::intval( $input, FALSE ) ) ) );
 	}
 
 	public static function getMobileHTMLPattern()

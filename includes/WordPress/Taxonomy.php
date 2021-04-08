@@ -7,6 +7,28 @@ use geminorum\gNetwork\Core;
 class Taxonomy extends Core\Base
 {
 
+	// @REF: `get_the_term_list()`
+	public static function getTheTermList( $taxonomy, $post = NULL, $before = '', $after = '' )
+	{
+		if ( ! $post = get_post( $post ) )
+			return FALSE;
+
+		$terms = get_the_terms( $post, $taxonomy );
+
+		if ( empty( $terms ) || is_wp_error( $terms ) )
+			return FALSE;
+
+		$list = [];
+
+		foreach ( $terms as $term )
+			$list[] = Core\HTML::tag( 'a', [
+				'href'  => get_term_link( $term, $taxonomy ),
+				'class' => '-term',
+			], sanitize_term_field( 'name', $term->name, $term->term_id, $taxonomy, 'display' ) );
+
+		return apply_filters( 'term_links-'.$taxonomy, $list );
+	}
+
 	public static function getTermParents( $term_id, $taxonomy )
 	{
 		$parents = [];
