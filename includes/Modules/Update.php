@@ -30,6 +30,7 @@ class Update extends gNetwork\Module
 			$this->filter_false( 'auto_update_core' );
 
 			$this->filter( 'map_meta_cap', 2, 9 );
+			$this->filter( 'site_status_tests' );
 
 			return FALSE;
 		}
@@ -807,6 +808,15 @@ class Update extends gNetwork\Module
 			$caps[] = 'do_not_allow';
 
 		return $caps;
+	}
+
+	// filter out updates on non main networks
+	public function site_status_tests( $test_type )
+	{
+		unset( $test_type['direct']['plugin_theme_auto_updates'] );
+		unset( $test_type['async']['background_updates'] );
+
+		return $test_type;
 	}
 
 	// ADOPTED FROM: WP Core Update Cleaner v1.2.0 by Upperdog
