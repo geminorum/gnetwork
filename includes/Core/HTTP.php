@@ -632,4 +632,30 @@ class HTTP extends Base
 
 		return $results;
 	}
+
+	// @REF: https://stackoverflow.com/a/12629254
+	public static function getStatus( $url, $verify_ssl = TRUE )
+	{
+		if ( empty( $url ) || ! extension_loaded( 'curl' ) )
+			return FALSE;
+
+		$ch = curl_init( $url );
+
+		curl_setopt( $ch, CURLOPT_HEADER, TRUE ); // we want headers
+		curl_setopt( $ch, CURLOPT_NOBODY, TRUE ); // we don't need body
+		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
+		curl_setopt( $ch, CURLOPT_TIMEOUT, 10 );
+
+		if ( ! $verify_ssl ) {
+			curl_setopt( $ch, CURLOPT_SSL_VERIFYHOST, FALSE );
+			curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, FALSE );
+		}
+
+		$output = curl_exec( $ch );
+		$status = curl_getinfo( $ch, CURLINFO_HTTP_CODE );
+
+		curl_close( $ch );
+
+		return $status;
+	}
 }

@@ -135,8 +135,9 @@ class Media extends Core\Base
 			'sizes'     => [],
 		];
 
-		foreach ( $metadata['sizes'] as $size => $info )
-			$prepared['sizes'][$size] = $uploads['baseurl'].'/'.$info['file'];
+		if ( ! empty( $metadata['sizes'] ) )
+			foreach ( $metadata['sizes'] as $size => $info )
+				$prepared['sizes'][$size] = $uploads['baseurl'].'/'.$info['file'];
 
 		return $prepared;
 	}
