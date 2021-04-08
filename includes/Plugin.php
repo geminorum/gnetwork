@@ -115,6 +115,7 @@ class Plugin extends Base
 			'Site',
 			'Blog',
 			'User',
+			'Rest',
 			// 'API',
 			'AdminBar',
 			'Dashboard',
