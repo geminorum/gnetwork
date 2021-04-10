@@ -465,9 +465,6 @@ class Commerce extends gNetwork\Module
 			] );
 	}
 
-	{
-	}
-
 	public function woocommerce_account_menu_items( $items, $endpoints )
 	{
 		return Arraay::insert( $items, [
