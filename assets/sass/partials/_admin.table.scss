@@ -278,6 +278,7 @@ table.base-table-code {
     &.-val {
       code {
         display: inline-block;
+        word-break: break-all;
       }
     }
 
