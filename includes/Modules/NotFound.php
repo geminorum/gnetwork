@@ -4,6 +4,7 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
 use geminorum\gNetwork\Logger;
+use geminorum\gNetwork\Core\HTML;
 
 class NotFound extends gNetwork\Module
 {
@@ -19,19 +20,12 @@ class NotFound extends gNetwork\Module
 		if ( ! GNETWORK_NOTFOUND_LOG )
 			return;
 
-		$this->filter( 'pre_handle_404', 2, 99999 );
+		$this->action( 'template_redirect', 0, 99999 );
 	}
 
-	public function pre_handle_404( $preempt, $wp_query )
+	public function template_redirect()
 	{
-		if ( $pagename = $wp_query->get( 'pagename' ) )
-			Logger::siteNotFound( 'HANDLE-404', sprintf( 'PAGENAME: %s', $pagename ) );
-
-		else if ( $name = $wp_query->get( 'name' ) )
-			Logger::siteNotFound( 'HANDLE-404', sprintf( 'NAME: %s', $name ) );
-
-		// FIXME: check other vars!
-
-		return $preempt;
+		if ( is_404() )
+			Logger::siteNotFound( '404', HTML::escapeURL( $_SERVER['REQUEST_URI'] ) );
 	}
 }
