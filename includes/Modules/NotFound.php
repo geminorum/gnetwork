@@ -6,6 +6,7 @@ use geminorum\gNetwork;
 use geminorum\gNetwork\Logger;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Core\HTML;
+use geminorum\gNetwork\Core\URL;
 
 class NotFound extends gNetwork\Module
 {
@@ -61,6 +62,18 @@ class NotFound extends gNetwork\Module
 		];
 
 		return $settings;
+	}
+
+	public function settings_sidebox( $sub, $uri )
+	{
+		if ( $this->options['page_404'] )
+			$location = get_page_link( $this->options['page_404'] );
+		else
+			$location = GNETWORK_REDIRECT_404_URL;
+
+		/* translators: %s: notfound location */
+		HTML::desc( sprintf( _x( 'Current Location: %s', 'Modules: NotFound: Settings', 'gnetwork' ),
+			'<code>'.HTML::link( URL::relative( $location ), $location, TRUE ).'</code>' ) );
 	}
 
 	public function template_redirect()
