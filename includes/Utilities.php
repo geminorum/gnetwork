@@ -618,7 +618,7 @@ class Utilities extends Core\Base
 
 	public static function redirect404()
 	{
-		if ( $custom = gNetwork()->option( 'page_404', 'blog' ) )
+		if ( $custom = gNetwork()->option( 'page_404', 'notfound' ) )
 			$location = get_page_link( $custom );
 		else
 			$location = GNETWORK_REDIRECT_404_URL;
