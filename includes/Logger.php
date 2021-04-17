@@ -272,4 +272,11 @@ class Logger
 		self::logAnalog( $prefix.': '.$site.': '.$message, \Analog::INFO, $context, GNETWORK_SEARCH_LOG );
 		self::logAdminBot( $prefix.': '.$site.': '.$message, 'SEARCH', $context );
 	}
+
+	public static function siteNotFound( $prefix, $message = '', $context = [] )
+	{
+		$site = WordPress::currentSiteName( FALSE );
+		self::logAnalog( $prefix.': '.$site.': '.$message, \Analog::INFO, $context, GNETWORK_NOTFOUND_LOG );
+		self::logAdminBot( $prefix.': '.$site.': '.$message, 'NOTFOUND', $context );
+	}
 }

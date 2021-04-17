@@ -79,6 +79,9 @@ class Debug extends gNetwork\Module
 		if ( GNETWORK_FAILED_LOG )
 			$this->register_tool( _x( 'Failed Logs', 'Modules: Menu Name', 'gnetwork' ), 'failedlogs', 20, NULL, FALSE );
 
+		if ( GNETWORK_NOTFOUND_LOG )
+			$this->register_tool( _x( 'Not-Found Logs', 'Modules: Menu Name', 'gnetwork' ), 'notfoundlogs', 20, NULL, FALSE );
+
 		if ( GNETWORK_SEARCH_LOG )
 			$this->register_tool( _x( 'Search Logs', 'Modules: Menu Name', 'gnetwork' ), 'searchlogs', 20, NULL, FALSE );
 	}
@@ -91,13 +94,13 @@ class Debug extends gNetwork\Module
 
 	public function tools( $sub = NULL, $key = NULL )
 	{
-		if ( in_array( $sub, [ 'systemreport', 'remotetests', 'errorlogs', 'analoglogs', 'failedlogs', 'searchlogs' ] ) )
+		if ( in_array( $sub, [ 'systemreport', 'remotetests', 'errorlogs', 'analoglogs', 'failedlogs', 'notfoundlogs', 'searchlogs' ] ) )
 			parent::tools( $sub, TRUE );
 	}
 
 	protected function tools_buttons( $sub = NULL )
 	{
-		if ( in_array( $sub, [ 'errorlogs', 'analoglogs', 'failedlogs', 'searchlogs' ] ) ) {
+		if ( in_array( $sub, [ 'errorlogs', 'analoglogs', 'failedlogs', 'notfoundlogs', 'searchlogs' ] ) ) {
 			$this->register_button( 'clear_logs', _x( 'Clear Logs', 'Modules: Debug', 'gnetwork' ) );
 			$this->register_button( 'download_logs', _x( 'Download Logs', 'Modules: Debug', 'gnetwork' ) );
 		}
@@ -118,6 +121,9 @@ class Debug extends gNetwork\Module
 			else if ( GNETWORK_FAILED_LOG && 'failedlogs' == $sub )
 				WordPress::redirectReferer( ( @unlink( GNETWORK_FAILED_LOG ) ? 'purged' : 'error' ) );
 
+			else if ( GNETWORK_NOTFOUND_LOG && 'notfoundlogs' == $sub )
+				WordPress::redirectReferer( ( @unlink( GNETWORK_NOTFOUND_LOG ) ? 'purged' : 'error' ) );
+
 			else if ( GNETWORK_SEARCH_LOG && 'searchlogs' == $sub )
 				WordPress::redirectReferer( ( @unlink( GNETWORK_SEARCH_LOG ) ? 'purged' : 'error' ) );
 
@@ -131,6 +137,9 @@ class Debug extends gNetwork\Module
 
 			else if ( GNETWORK_FAILED_LOG && 'failedlogs' == $sub )
 				File::download( GNETWORK_FAILED_LOG, File::prepName( 'failed.log' ) );
+
+			else if ( GNETWORK_NOTFOUND_LOG && 'notfoundlogs' == $sub )
+				File::download( GNETWORK_NOTFOUND_LOG, File::prepName( 'notfound.log' ) );
 
 			else if ( GNETWORK_SEARCH_LOG && 'searchlogs' == $sub )
 				File::download( GNETWORK_SEARCH_LOG, File::prepName( 'search.log' ) );
@@ -155,10 +164,11 @@ class Debug extends gNetwork\Module
 		} else {
 
 			$map = [
-				'errorlogs'  => GNETWORK_DEBUG_LOG,
-				'analoglogs' => GNETWORK_ANALOG_LOG,
-				'failedlogs' => GNETWORK_FAILED_LOG,
-				'searchlogs' => GNETWORK_SEARCH_LOG,
+				'errorlogs'    => GNETWORK_DEBUG_LOG,
+				'analoglogs'   => GNETWORK_ANALOG_LOG,
+				'failedlogs'   => GNETWORK_FAILED_LOG,
+				'notfoundlogs' => GNETWORK_NOTFOUND_LOG,
+				'searchlogs'   => GNETWORK_SEARCH_LOG,
 			];
 
 			if ( self::displayLogs( $map[$sub] ) )
@@ -400,6 +410,7 @@ class Debug extends gNetwork\Module
 			'DEBUG_LOG'     => GNETWORK_DEBUG_LOG,
 			'ANALOG_LOG'    => GNETWORK_ANALOG_LOG,
 			'FAILED_LOG'    => GNETWORK_FAILED_LOG,
+			'NOTFOUND_LOG'  => GNETWORK_NOTFOUND_LOG,
 			'SEARCH_LOG'    => GNETWORK_SEARCH_LOG,
 			'MAIL_LOG_DIR'  => GNETWORK_MAIL_LOG_DIR,
 			'AJAX_ENDPOINT' => GNETWORK_AJAX_ENDPOINT,
@@ -843,13 +854,15 @@ class Debug extends gNetwork\Module
 	{
 		$logs = [
 			/* translators: %s: log file size */
-			'errorlogs'  => [ GNETWORK_DEBUG_LOG, _x( '%s in Error Logs', 'Modules: Debug', 'gnetwork' ) ],
+			'errorlogs'    => [ GNETWORK_DEBUG_LOG, _x( '%s in Error Logs', 'Modules: Debug', 'gnetwork' ) ],
 			/* translators: %s: log file size */
-			'analoglogs' => [ GNETWORK_ANALOG_LOG, _x( '%s in System Logs', 'Modules: Debug', 'gnetwork' ) ],
+			'analoglogs'   => [ GNETWORK_ANALOG_LOG, _x( '%s in System Logs', 'Modules: Debug', 'gnetwork' ) ],
 			/* translators: %s: log file size */
-			'failedlogs' => [ GNETWORK_FAILED_LOG, _x( '%s in Failed Logs', 'Modules: Debug', 'gnetwork' ) ],
+			'failedlogs'   => [ GNETWORK_FAILED_LOG, _x( '%s in Failed Logs', 'Modules: Debug', 'gnetwork' ) ],
 			/* translators: %s: log file size */
-			'searchlogs' => [ GNETWORK_SEARCH_LOG, _x( '%s in Search Logs', 'Modules: Debug', 'gnetwork' ) ],
+			'notfoundlogs' => [ GNETWORK_NOTFOUND_LOG, _x( '%s in Not-Found Logs', 'Modules: Debug', 'gnetwork' ) ],
+			/* translators: %s: log file size */
+			'searchlogs'   => [ GNETWORK_SEARCH_LOG, _x( '%s in Search Logs', 'Modules: Debug', 'gnetwork' ) ],
 		];
 
 		$quota = 2 * 1024 * 1024; // 2 megabytes // FIXME
@@ -891,7 +904,7 @@ class Debug extends gNetwork\Module
 
 	public function core_upgrade_preamble()
 	{
-		if ( ! GNETWORK_DEBUG_LOG && ! GNETWORK_ANALOG_LOG && ! GNETWORK_FAILED_LOG && ! GNETWORK_SEARCH_LOG )
+		if ( ! GNETWORK_DEBUG_LOG && ! GNETWORK_ANALOG_LOG && ! GNETWORK_FAILED_LOG && ! GNETWORK_NOTFOUND_LOG && ! GNETWORK_SEARCH_LOG )
 			return;
 
 		HTML::h2( _x( 'Extras', 'Modules: Debug', 'gnetwork' ) );
@@ -922,7 +935,16 @@ class Debug extends gNetwork\Module
 					'href'  => $this->get_menu_url( 'failedlogs', 'network', 'tools' ),
 				], _x( 'Check Failed Logs', 'Modules: Debug', 'gnetwork' ) );
 
-			if ( GNETWORK_FAILED_LOG && GNETWORK_SEARCH_LOG )
+			if ( GNETWORK_FAILED_LOG && GNETWORK_NOTFOUND_LOG )
+				echo '&nbsp;&nbsp;';
+
+			if ( GNETWORK_NOTFOUND_LOG )
+				echo HTML::tag( 'a', [
+					'class' => 'button button-secondary button-small',
+					'href'  => $this->get_menu_url( 'notfoundlogs', 'network', 'tools' ),
+				], _x( 'Check Not-Found Logs', 'Modules: Debug', 'gnetwork' ) );
+
+			if ( GNETWORK_NOTFOUND_LOG && GNETWORK_SEARCH_LOG )
 				echo '&nbsp;&nbsp;';
 
 			if ( GNETWORK_SEARCH_LOG )
