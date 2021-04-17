@@ -74,11 +74,6 @@ class Blog extends gNetwork\Module
 				$this->filter( 'posts_clauses', 2 );
 			}
 
-			if ( $this->options['page_404'] ) {
-				add_filter( '404_template', [ $this, 'custom_404_template' ] );
-				$this->filter( 'template_include', 1, 99, 'custom_404' );
-			}
-
 			if ( $this->options['feed_delay'] )
 				$this->filter( 'posts_where', 2 );
 		}
@@ -122,7 +117,6 @@ class Blog extends gNetwork\Module
 			'xmlrpc_enabled'       => '0',
 			'wlw_enabled'          => '0',
 			'page_copyright'       => '0',
-			'page_404'             => '0',
 			'content_width'        => '',
 			'meta_revised'         => '0',
 			'noindex_attachments'  => '0',
@@ -293,16 +287,6 @@ class Blog extends gNetwork\Module
 			'type'        => 'page',
 			'title'       => _x( 'Copyright Information', 'Modules: Blog: Settings', 'gnetwork' ),
 			'description' => _x( 'Defines an HTML meta tag as copyright manifest page for this site.', 'Modules: Blog: Settings', 'gnetwork' ),
-			'default'     => '0',
-			'exclude'     => $exclude,
-			'after'       => Settings::fieldAfterNewPostType( 'page' ),
-		];
-
-		$settings['_front'][] = [
-			'field'       => 'page_404',
-			'type'        => 'page',
-			'title'       => _x( 'Custom 404 Error', 'Modules: Blog: Settings', 'gnetwork' ),
-			'description' => _x( 'Displays the selected page as 404 Error page on this site.', 'Modules: Blog: Settings', 'gnetwork' ),
 			'default'     => '0',
 			'exclude'     => $exclude,
 			'after'       => Settings::fieldAfterNewPostType( 'page' ),
@@ -907,60 +891,4 @@ class Blog extends gNetwork\Module
 		return $template;
 	}
 
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-/// originally based on: Custom 404 Error Page v0.2.5 - 20170925
-/// @REF: https://github.com/kasparsd/custom-404-page
-/// by Kaspars Dambis
-
-	// set WP to use page template (page.php) even when returning 404
-	public function custom_404_template( $template )
-	{
-		global $wp_query, $post;
-
-		if ( is_404() ) {
-
-			$page_404 = (int) $this->options['page_404'];
-
-			// get our custom 404 post object. We need to assign
-			// $post global in order to force get_post() to work
-			// during page template resolving.
-			$post = get_post( $page_404 );
-
-			// populate the posts array with our 404 page object
-			$wp_query->posts = [ $post ];
-
-			// set the query object to enable support for custom page templates
-			$wp_query->queried_object_id = $page_404;
-			$wp_query->queried_object    = $post;
-
-			// set post counters to avoid loop errors
-			$wp_query->post_count    = 1;
-			$wp_query->found_posts   = 1;
-			$wp_query->max_num_pages = 0;
-
-			// return the page.php template instead of 404.php
-			return get_page_template();
-		}
-
-		return $template;
-	}
-
-	// @REF: https://bbpress.trac.wordpress.org/ticket/1973
-	public function template_include_custom_404( $template )
-	{
-		$page_id = (int) $this->options['page_404'];
-
-		if ( is_page( $page_id ) ) {
-
-			status_header( 404 );
-			nocache_headers();
-
-			defined( 'GNETWORK_IS_CUSTOM_404' )
-				or define( 'GNETWORK_IS_CUSTOM_404', $page_id );
-		}
-
-		return $template;
-	}
 }
