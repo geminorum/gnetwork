@@ -300,22 +300,22 @@ class Module extends Core\Base
 		return is_multisite() ? $this->network : FALSE;
 	}
 
-	protected function action( $hooks, $args = 1, $priority = 10, $suffix = FALSE )
+	protected function action( $hooks, $args = 1, $priority = 10, $suffix = FALSE, $base = FALSE )
 	{
 		$hooks = (array) $hooks;
 
 		if ( $method = self::sanitize_hook( ( $suffix ? $hooks[0].'_'.$suffix : $hooks[0] ) ) )
 			foreach ( $hooks as $hook )
-				add_action( $hook, [ $this, $method ], $priority, $args );
+				add_action( ( $base ? $base.'_'.$hook : $hook ), [ $this, $method ], $priority, $args );
 	}
 
-	protected function filter( $hooks, $args = 1, $priority = 10, $suffix = FALSE )
+	protected function filter( $hooks, $args = 1, $priority = 10, $suffix = FALSE, $base = FALSE )
 	{
 		$hooks = (array) $hooks;
 
 		if ( $method = self::sanitize_hook( ( $suffix ? $hooks[0].'_'.$suffix : $hooks[0] ) ) )
 			foreach ( $hooks as $hook )
-				add_filter( $hook, [ $this, $method ], $priority, $args );
+				add_filter( ( $base ? $base.'_'.$hook : $hook ), [ $this, $method ], $priority, $args );
 	}
 
 	// USAGE: $this->action_module( 'network', 'saved', 5 );

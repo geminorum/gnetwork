@@ -545,7 +545,7 @@ class Login extends gNetwork\Module
 
 		if ( FALSE === $correct ) {
 
-			Logger::siteALERT( 'LOGIN-MATH', 'not properly configured'.sprintf( ': %s', self::req( 'log', '(EMPTY)' ) ) );
+			Logger::siteFAILED( 'LOGIN-MATH', 'not properly configured'.sprintf( ': %s', self::req( 'log', '(EMPTY)' ) ) );
 
 			wp_die( _x( '<strong>This site is not properly configured.</strong> Please ask this site\'s administrator to review for information on how to resolve this issue.', 'Modules: Login', 'gnetwork' ) );
 

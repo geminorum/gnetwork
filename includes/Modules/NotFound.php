@@ -54,8 +54,8 @@ class NotFound extends gNetwork\Module
 		$settings['_front'][] = [
 			'field'       => 'page_404',
 			'type'        => 'page',
-			'title'       => _x( 'Custom 404 Error', 'Modules: Not Found: Settings', 'gnetwork' ),
-			'description' => _x( 'Displays the selected page as 404 Error page on this site.', 'Modules: Not Found: Settings', 'gnetwork' ),
+			'title'       => _x( 'Custom 404 Error', 'Modules: NotFound: Settings', 'gnetwork' ),
+			'description' => _x( 'Displays the selected page as 404 Error page.', 'Modules: NotFound: Settings', 'gnetwork' ),
 			'default'     => '0',
 			'exclude'     => $exclude,
 			'after'       => Settings::fieldAfterNewPostType( 'page' ),
