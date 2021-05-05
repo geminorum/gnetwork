@@ -409,7 +409,7 @@ class Taxonomy extends gNetwork\Module
 	}
 
 	// FIXME: we cannot rely on `count` data from the database
-	private function handle_delete_terms( $taxonomy, $empty = TRUE, $include_default = FALSE )
+	private function handle_delete_terms( $taxonomy, $empty_only = TRUE, $include_default = FALSE )
 	{
 		$count = 0;
 		$terms = get_terms( [
@@ -422,7 +422,7 @@ class Taxonomy extends gNetwork\Module
 
 		foreach ( $terms as $term ) {
 
-			if ( $empty && $term->count )
+			if ( $empty_only && $this->filters( 'term_count', $term->count, $term, $taxonomy ) )
 				continue;
 
 			// MAYBE: check `delete_term` for each term
