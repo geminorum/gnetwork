@@ -7,6 +7,7 @@ use geminorum\gNetwork\Logger;
 use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\File;
 use geminorum\gNetwork\Core\HTML;
+use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
 
 class Dev extends gNetwork\Module
@@ -21,6 +22,7 @@ class Dev extends gNetwork\Module
 	protected function setup_actions()
 	{
 		// $this->filter( 'http_request_args', 2, 12 );
+		$this->filter( 'redirect_canonical', 2, 99999 );
 
 		$this->filter_false( 'https_ssl_verify' );
 		$this->filter_false( 'https_local_ssl_verify' );
@@ -61,6 +63,14 @@ class Dev extends gNetwork\Module
 	{
 		$r['sslverify'] = FALSE;
 		return $r;
+	}
+
+	public function redirect_canonical( $redirect_url, $requested_url )
+	{
+		if ( $redirect_url && URL::stripFragment( $redirect_url ) !== URL::stripFragment( $requested_url ) )
+			Logger::siteDEBUG( 'CANONICAL', esc_url( $requested_url ).' >> '.esc_url( $redirect_url ) );
+
+		return $redirect_url;
 	}
 
 	// blocks oEmbeds from displaying
