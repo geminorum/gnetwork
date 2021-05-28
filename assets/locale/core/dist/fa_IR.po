@@ -8,10 +8,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2021-02-24 03:44+0330\n"
+"PO-Revision-Date: 2021-05-20 02:12+0430\n"
 "Language: fa\n"
 "Plural-Forms: nplurals=2; plural=(n==0 || n==1);\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 2.4.3\n"
 "X-Poedit-Basepath: ../../../../..\n"
 "X-Poedit-Bookmarks: -1,2704,-1,-1,-1,-1,-1,-1,-1,-1\n"
 
@@ -36,7 +36,7 @@ msgstr ""
 
 #: wp-includes/script-loader.php:1674
 #: wp-includes/formatting.php:3888
-#: wp-includes/js/dist/editor.js:12012
+#: wp-includes/js/dist/editor.js:12000
 msgctxt "Word count type. Do not translate!"
 msgid "words"
 msgstr ""
@@ -101,13 +101,26 @@ msgid "number_format_decimal_point"
 msgstr "٫"
 
 #: wp-includes/category-template.php:161
-#: wp-includes/js/dist/block-editor.js:20180
-#: wp-includes/js/dist/block-editor.js:20185
-#: wp-includes/js/dist/block-editor.js:20465
+#: wp-includes/js/dist/block-editor.js:20198
+#: wp-includes/js/dist/block-editor.js:20203
+#: wp-includes/js/dist/block-editor.js:20483
 #: wp-includes/js/dist/edit-post.js:4103
 #: wp-admin/includes/upgrade.php:158
 msgid "Uncategorized"
 msgstr "دسته‌بندی‌نشده"
+
+#: wp-includes/blocks/latest-posts.php:138
+#: wp-includes/blocks/latest-posts.php:153
+msgid "This content is password protected."
+msgstr ""
+
+#: wp-includes/https-detection.php:139
+msgid "SSL verification failed."
+msgstr ""
+
+#: wp-includes/https-detection.php:134
+msgid "HTTPS request failed."
+msgstr ""
 
 #. translators: 1: $l10n, 2: wp_add_inline_script()
 #: wp-includes/class.wp-scripts.php:492
@@ -129,7 +142,7 @@ msgstr ""
 
 #: wp-includes/class-wp-fatal-error-handler.php:196
 msgid "Learn more about troubleshooting WordPress."
-msgstr ""
+msgstr "اطلاعات بیشتر درباره اشکال‌زدایی در وردپرس."
 
 #. translators: Documentation about troubleshooting.
 #: wp-includes/class-wp-fatal-error-handler.php:195
@@ -165,19 +178,19 @@ msgstr ""
 
 #: wp-includes/class-wp-application-passwords.php:78
 msgid "Each application name should be unique."
-msgstr ""
+msgstr "نام هر برنامه باید یکتا باشد."
 
 #: wp-includes/https-detection.php:150
 msgid "It looks like the response did not come from this site."
 msgstr ""
 
 #. translators: 1: Parameter, 2: List of valid values.
-#: wp-includes/rest-api.php:1965
+#: wp-includes/rest-api.php:1971
 msgid "%1$s is not one of %2$l."
 msgstr ""
 
 #. translators: 1: Parameter, 2: Valid values.
-#: wp-includes/rest-api.php:1961
+#: wp-includes/rest-api.php:1967
 msgid "%1$s is not %2$s."
 msgstr ""
 
@@ -294,70 +307,70 @@ msgstr ""
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-application-passwords-controller.php:522
 msgid "Cannot introspect Application Password."
-msgstr ""
+msgstr "رمز برنامه در خودکاوی ناتوان است."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-application-passwords-controller.php:494
 msgid "The authenticated Application Password can only be introspected for the current user."
-msgstr ""
+msgstr "برنامه اصالت‌سنجی‌شده، فقط توانایی خودکاوی برای کاربر کنونی را دارد."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-application-passwords-controller.php:431
 msgid "Sorry, you are not allowed to delete this application password."
-msgstr ""
+msgstr "متأسفیم، شما اجازه حذف این رمز برنامه را ندارید."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-application-passwords-controller.php:376
 msgid "Sorry, you are not allowed to delete application passwords for this user."
-msgstr ""
+msgstr "متأسفیم، شما اجازه حذف رمزهای برنامه این کاربر را ندارید."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-application-passwords-controller.php:302
 msgid "Sorry, you are not allowed to edit this application password."
-msgstr ""
+msgstr "متأسفیم، شما اجازه ویرایش این رمز برنامه را ندارید."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-application-passwords-controller.php:219
 msgid "Sorry, you are not allowed to create application passwords for this user."
-msgstr ""
+msgstr "متأسفیم، شما اجازه ایجاد رمزهای برنامه برای این کاربر را ندارید."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-application-passwords-controller.php:175
 msgid "Sorry, you are not allowed to read this application password."
-msgstr ""
+msgstr "متأسفیم، شما اجازه خواندن این رمز برنامه را ندارید."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-application-passwords-controller.php:122
 msgid "Sorry, you are not allowed to list application passwords for this user."
-msgstr ""
+msgstr "متأسفیم، شما اجازه فهرست‌کردن رمزهای برنامه برای این کاربر را ندارید."
 
 #. translators: %s: Taxonomy name.
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2976
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:3023
 msgid "Limit result set to items with specific terms assigned in the %s taxonomy."
 msgstr ""
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2963
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:3010
 msgid "Whether to include child terms in the terms limiting the result set."
 msgstr ""
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2955
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:3002
 msgid "Term IDs."
 msgstr ""
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2951
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2998
 msgid "Perform an advanced term query."
 msgstr ""
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2950
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2997
 msgid "Term ID Taxonomy Query"
 msgstr ""
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2943
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2990
 msgid "Match terms with the listed IDs."
 msgstr ""
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2942
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2989
 msgid "Term ID List"
 msgstr ""
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2669
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2716
 msgid "Limit response to posts modified before a given ISO8601 compliant date."
 msgstr ""
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2638
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2685
 msgid "Limit response to posts modified after a given ISO8601 compliant date."
 msgstr ""
 
@@ -408,11 +421,11 @@ msgstr ""
 msgid "&larr; Go to Tags"
 msgstr ""
 
-#: wp-includes/media.php:4382
+#: wp-includes/media.php:4388
 msgid "&#8592; Go to library"
 msgstr ""
 
-#: wp-includes/js/dist/block-editor.js:9376
+#: wp-includes/js/dist/block-editor.js:9394
 #: wp-includes/js/dist/edit-post.js:4361
 #: wp-admin/menu.php:188
 msgid "Appearance"
@@ -445,7 +458,7 @@ msgstr ""
 
 #: wp-includes/user.php:438
 msgid "The provided password is an invalid application password."
-msgstr ""
+msgstr "رمز ارائه‌شده، یک رمز برنامه نامعتبر است."
 
 #: wp-includes/post.php:282
 msgid "Reusable Block updated."
@@ -538,27 +551,27 @@ msgstr "بلوک‌های چندباره"
 
 #: wp-includes/class-wp-application-passwords.php:340
 msgid "Could not delete application passwords."
-msgstr ""
+msgstr "حذف رمز‌های برنامه ناممکن است."
 
 #: wp-includes/class-wp-application-passwords.php:305
 msgid "Could not delete application password."
-msgstr ""
+msgstr "حذف رمز برنامه ناممکن است."
 
 #: wp-includes/class-wp-application-passwords.php:246
 #: wp-includes/class-wp-application-passwords.php:284
 #: wp-includes/class-wp-application-passwords.php:322
 msgid "Could not find an application password with that id."
-msgstr ""
+msgstr "پیداکردن رمز برنامه‌ای با این شناسه ناممکن است."
 
 #: wp-includes/class-wp-application-passwords.php:99
 #: wp-includes/class-wp-application-passwords.php:228
 #: wp-includes/class-wp-application-passwords.php:277
 msgid "Could not save application password."
-msgstr ""
+msgstr "ذخیره رمز برنامه ناممکن است."
 
 #: wp-includes/class-wp-application-passwords.php:74
 msgid "An application name is required to create an application password."
-msgstr ""
+msgstr "نام برنامه برای ایجاد رمز برنامه الزامی است."
 
 #: wp-includes/media-template.php:513
 #: wp-includes/media-template.php:742
@@ -572,17 +585,19 @@ msgid "Used as:"
 msgstr ""
 
 #. translators: 1: Parameter, 2: Multiplier.
-#: wp-includes/rest-api.php:2414
+#: wp-includes/rest-api.php:2420
 msgid "%1$s must be a multiple of %2$s."
 msgstr ""
 
-#: wp-includes/rest-api.php:2305
+#. translators: 1: Parameter, 2: Number.
+#: wp-includes/rest-api.php:2311
 msgid "%1$s must contain at most %2$s property."
 msgid_plural "%1$s must contain at most %2$s properties."
 msgstr[0] "%1$s باید حاوی حداکثر %2$s ویژگی باشد."
 msgstr[1] "%1$s باید حاوی حداکثر %2$s ویژگی باشد."
 
-#: wp-includes/rest-api.php:2289
+#. translators: 1: Parameter, 2: Number.
+#: wp-includes/rest-api.php:2295
 msgid "%1$s must contain at least %2$s property."
 msgid_plural "%1$s must contain at least %2$s properties."
 msgstr[0] "%1$s باید حاوی حداقل %2$s ویژگی باشد."
@@ -620,23 +635,23 @@ msgstr ""
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-application-passwords-controller.php:825
 msgid "The IP address the application password was last used by."
-msgstr ""
+msgstr "رمز برنامه آخرین بار از این نشانی IP استفاده شده است."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-application-passwords-controller.php:818
 msgid "The GMT date the application password was last used."
-msgstr ""
+msgstr "رمز برنامه آخرین بار در این تاریخ GMT استفاده شده است."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-application-passwords-controller.php:811
 msgid "The GMT date the application password was created."
-msgstr ""
+msgstr "رمز برنامه در این تاریخ GMT ایجاد شده است."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-application-passwords-controller.php:805
 msgid "The generated password. Only available after adding an application."
-msgstr ""
+msgstr "رمز تولید شده، که فقط بعد از افزودن برنامه قابل دسترس است."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-application-passwords-controller.php:797
 msgid "The name of the application password."
-msgstr ""
+msgstr "نام این رمز برنامه."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-application-passwords-controller.php:791
 msgid "A uuid provided by the application to uniquely identify it. It is recommended to use an UUID v5 with the URL or DNS namespace."
@@ -644,28 +659,28 @@ msgstr ""
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-application-passwords-controller.php:784
 msgid "The unique identifier for the application password."
-msgstr ""
+msgstr "شناسه یکتا برای این رمز برنامه."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-application-passwords-controller.php:532
 #: wp-includes/rest-api/endpoints/class-wp-rest-application-passwords-controller.php:745
 msgid "Application password not found."
-msgstr ""
+msgstr "رمز برنامه پیدا نشد."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-application-passwords-controller.php:717
 #: wp-includes/user.php:366
 #: wp-admin/authorize-application.php:105
 msgid "Application passwords are not available for your account. Please contact the site administrator for assistance."
-msgstr ""
+msgstr "رمز برنامه برای حساب کاربری شما در دسترس نیست. برای راهنمایی بیشتر با مدیریت سایت تماس بگیرید."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-application-passwords-controller.php:673
 #: wp-includes/user.php:361
 #: wp-admin/authorize-application.php:107
 msgid "Application passwords are not available."
-msgstr ""
+msgstr "رمز برنامه در دسترس نیست."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-application-passwords-controller.php:561
 msgid "Sorry, you are not allowed to manage application passwords for this user."
-msgstr ""
+msgstr "متأسفیم، شما اجازه مدیریت رمزهای برنامه برای این کاربر را ندارید."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-site-health-controller.php:368
 msgid "HTML containing an action to direct the user to where they can resolve the issue."
@@ -722,7 +737,7 @@ msgstr ""
 #. translators: %s: IP address of password reset requester.
 #: wp-includes/user.php:2781
 msgid "This password reset request originated from the IP address %s."
-msgstr ""
+msgstr "درخواست بازنشانی رمز از این نشانی IP ارسال شده است: %s"
 
 #: wp-includes/class-wp-xmlrpc-server.php:3887
 #: wp-includes/class-wp-xmlrpc-server.php:3894
@@ -953,7 +968,7 @@ msgstr ""
 #: wp-admin/includes/update.php:761
 #: wp-admin/includes/class-wp-plugin-install-list-table.php:672
 #: wp-admin/includes/class-wp-plugin-install-list-table.php:691
-#: wp-admin/includes/update-core.php:972
+#: wp-admin/includes/update-core.php:983
 #: wp-admin/includes/plugin.php:1157
 #: wp-admin/install.php:244
 #: wp-admin/update-core.php:90
@@ -1044,7 +1059,7 @@ msgid "This theme doesn&#8217;t work with your versions of WordPress and PHP."
 msgstr ""
 
 #. translators: %s: register_rest_field
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2479
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2526
 msgid "Please use %s to add new schema properties."
 msgstr ""
 
@@ -1089,7 +1104,7 @@ msgstr ""
 #. translators: byline. %s: current author.
 #: wp-includes/blocks/rss.php:60
 #: wp-includes/blocks/latest-posts.php:114
-#: wp-includes/js/dist/block-library.js:19361
+#: wp-includes/js/dist/block-library.js:19349
 msgid "by %s"
 msgstr "توسط %s"
 
@@ -1105,7 +1120,7 @@ msgid "Comment"
 msgstr ""
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-attachments-controller.php:1361
-#: wp-includes/js/dist/block-library.js:5866
+#: wp-includes/js/dist/block-library.js:5839
 #: wp-admin/includes/image-edit.php:54
 msgid "Crop"
 msgstr "برش"
@@ -1271,12 +1286,12 @@ msgstr ""
 msgid "Pattern name must be a string."
 msgstr ""
 
-#: wp-includes/media.php:4410
+#: wp-includes/media.php:4416
 msgid "Attachment details"
 msgstr "جزئیات پیوست"
 
-#: wp-includes/media.php:4356
-#: wp-includes/media.php:4378
+#: wp-includes/media.php:4362
+#: wp-includes/media.php:4384
 msgid "Add media"
 msgstr "افزودن رسانه"
 
@@ -1295,64 +1310,68 @@ msgid "File URL:"
 msgstr "نشانی پرونده:"
 
 #. translators: %s: The name of a JSON field expecting a valid UUID.
-#: wp-includes/rest-api.php:2151
+#: wp-includes/rest-api.php:2157
 msgid "%s is not a valid UUID."
 msgstr ""
 
-#: wp-includes/rest-api.php:2127
+#: wp-includes/rest-api.php:2133
 msgid "Invalid hex color."
 msgstr "رنگ هگزا نامعتبر است."
 
 #. translators: 1: Parameter, 2: Pattern.
-#: wp-includes/rest-api.php:2575
+#: wp-includes/rest-api.php:2581
 msgid "%1$s does not match pattern %2$s."
 msgstr ""
 
-#: wp-includes/rest-api.php:2560
+#. translators: 1: Parameter, 2: Number of characters.
+#: wp-includes/rest-api.php:2566
 msgid "%1$s must be at most %2$s character long."
 msgid_plural "%1$s must be at most %2$s characters long."
 msgstr[0] "%1$s باید حداکثر %2$s کاراکتر طول داشته باشد."
 msgstr[1] "%1$s باید حداکثر %2$s کاراکتر طول داشته باشد."
 
-#: wp-includes/rest-api.php:2544
+#. translators: 1: Parameter, 2: Number of characters.
+#: wp-includes/rest-api.php:2550
 msgid "%1$s must be at least %2$s character long."
 msgid_plural "%1$s must be at least %2$s characters long."
 msgstr[0] "%1$s باید حداقل %2$s کاراکتر طول داشته باشد."
 msgstr[1] "%1$s باید حداقل %2$s کاراکتر طول داشته باشد."
 
 #. translators: 1: Property of an object, 2: Parameter.
-#: wp-includes/rest-api.php:2232
-#: wp-includes/rest-api.php:2242
+#: wp-includes/rest-api.php:2238
+#: wp-includes/rest-api.php:2248
 msgid "%1$s is a required property of %2$s."
 msgstr ""
 
 #. translators: %s: Parameter.
-#: wp-includes/rest-api.php:2384
-#: wp-includes/rest-api.php:2686
+#: wp-includes/rest-api.php:2390
+#: wp-includes/rest-api.php:2692
 msgid "%s has duplicate items."
 msgstr ""
 
-#: wp-includes/rest-api.php:2371
+#. translators: 1: Parameter, 2: Number.
+#: wp-includes/rest-api.php:2377
 msgid "%1$s must contain at most %2$s item."
 msgid_plural "%1$s must contain at most %2$s items."
 msgstr[0] "%1$s باید حاوی حداکثر %2$s مورد باشد."
 msgstr[1] "%1$s باید حاوی حداکثر %2$s مورد باشد."
 
-#: wp-includes/rest-api.php:2355
+#. translators: 1: Parameter, 2: Number.
+#: wp-includes/rest-api.php:2361
 msgid "%1$s must contain at least %2$s item."
 msgid_plural "%1$s must contain at least %2$s items."
 msgstr[0] "%1$s باید حاوی حداقل %2$s مورد باشد."
 msgstr[1] "%1$s باید حاوی حداقل %2$s مورد باشد."
 
 #. translators: 1: Parameter, 2: The list of allowed types.
-#: wp-includes/rest-api.php:2076
-#: wp-includes/rest-api.php:2670
+#: wp-includes/rest-api.php:2082
+#: wp-includes/rest-api.php:2676
 msgid "The \"type\" schema keyword for %1$s can only be one of the built-in types: %2$l."
 msgstr ""
 
 #. translators: %s: Parameter.
-#: wp-includes/rest-api.php:2054
-#: wp-includes/rest-api.php:2653
+#: wp-includes/rest-api.php:2060
+#: wp-includes/rest-api.php:2659
 msgid "The \"type\" schema keyword for %s is required."
 msgstr ""
 
@@ -2016,8 +2035,8 @@ msgstr ""
 msgid "Sorry, the post could not be updated."
 msgstr ""
 
-#: wp-includes/media.php:4457
-#: wp-includes/js/dist/block-library.js:25789
+#: wp-includes/media.php:4463
+#: wp-includes/js/dist/block-library.js:25777
 msgid "Select poster image"
 msgstr "انتخاب تصویر اعلان"
 
@@ -2026,8 +2045,8 @@ msgstr "انتخاب تصویر اعلان"
 msgid "View post"
 msgstr "نمایش نوشته"
 
-#: wp-includes/js/dist/components.js:30803
-#: wp-includes/js/dist/editor.js:10816
+#: wp-includes/js/dist/components.js:30546
+#: wp-includes/js/dist/editor.js:10815
 #: wp-admin/edit-tags.php:451
 #: wp-admin/includes/meta-boxes.php:890
 #: wp-admin/includes/meta-boxes.php:1563
@@ -2038,7 +2057,7 @@ msgstr "نمایش نوشته"
 msgid "Slug"
 msgstr "نامک"
 
-#: wp-includes/js/dist/editor.js:7748
+#: wp-includes/js/dist/editor.js:7747
 #: wp-admin/includes/meta-boxes.php:708
 msgid "https://wordpress.org/support/article/excerpt/"
 msgstr ""
@@ -2139,13 +2158,13 @@ msgstr ""
 msgid "HTTP redirect status code must be a redirection code, 3xx."
 msgstr ""
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2933
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2980
 msgid "Limit result set based on relationship between multiple taxonomies."
 msgstr ""
 
 #. translators: 1: The taxonomy name, 2: The property name, either 'rest_base'
 #. or 'name', 3: The conflicting value.
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2431
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2478
 msgid "The \"%1$s\" taxonomy \"%2$s\" property (%3$s) conflicts with an existing property on the REST API Posts Controller. Specify a custom \"rest_base\" when registering the taxonomy to avoid this error."
 msgstr ""
 
@@ -2241,7 +2260,7 @@ msgstr "احتمالاً به دلیل ناکافی بودن منابع و یا 
 
 #: wp-login.php:740
 msgid "Please enter your username or email address. You will receive an email message with instructions on how to reset your password."
-msgstr "نام کاربری و یا آدرس ایمیل خود را وارد کنید. در مرحله بعد، از طریق ایمیل پیامی همراه با دستورالعمل نحوه بازنشانی رمز عبور خود دریافت خواهید کرد."
+msgstr "نام کاربری و یا آدرس ایمیل خود را وارد کنید. در ادامه ایمیلی درباره چگونگی بازنشانی رمز را دریافت خواهید کرد."
 
 #. translators: Accessibility text.
 #: wp-includes/media-template.php:188
@@ -2277,34 +2296,34 @@ msgstr ""
 msgid "Unknown username. Check again or try your email address."
 msgstr ""
 
-#: wp-includes/media.php:4482
+#: wp-includes/media.php:4488
 msgid "Media list"
 msgstr "فهرست رسانه"
 
-#: wp-includes/media.php:4481
+#: wp-includes/media.php:4487
 msgid "Filter media"
 msgstr "پالایه رسانه"
 
 #: wp-includes/media-template.php:316
-#: wp-includes/js/dist/block-library.js:19304
-#: wp-includes/js/dist/block-library.js:21694
+#: wp-includes/js/dist/block-library.js:19292
+#: wp-includes/js/dist/block-library.js:21682
 #: wp-admin/includes/class-wp-media-list-table.php:45
 msgid "Grid view"
 msgstr "نمایش شبکه‌ای"
 
 #: wp-includes/media-template.php:313
-#: wp-includes/js/dist/block-editor.js:28471
-#: wp-includes/js/dist/block-library.js:19295
-#: wp-includes/js/dist/block-library.js:21685
+#: wp-includes/js/dist/block-editor.js:28497
+#: wp-includes/js/dist/block-library.js:19283
+#: wp-includes/js/dist/block-library.js:21673
 #: wp-admin/includes/class-wp-media-list-table.php:44
 msgid "List view"
 msgstr "نمایش فهرست‌وار"
 
-#: wp-includes/js/dist/block-library.js:7579
+#: wp-includes/js/dist/block-library.js:7552
 #: wp-admin/credits.php:25
 #: wp-admin/privacy.php:22
 #: wp-admin/freedoms.php:28
-#: wp-admin/about.php:23
+#: wp-admin/about.php:26
 msgid "Code is Poetry"
 msgstr "کد نوشتن، شاعرانه است"
 
@@ -2347,6 +2366,7 @@ msgstr ""
 msgid "Current theme: %1$s (version %2$s)"
 msgstr ""
 
+#. translators: %s: Current WordPress version number.
 #. translators: %s: Your current version of WordPress.
 #: wp-includes/class-wp-recovery-mode-email-service.php:336
 #: wp-admin/includes/class-wp-site-health.php:266
@@ -2404,11 +2424,11 @@ msgstr ""
 
 #: wp-includes/class-wp-fatal-error-handler.php:188
 msgid "There has been a critical error on this website."
-msgstr ""
+msgstr "یک خطای مهم روی این وب‌سایت اتفاق افتاده است."
 
 #: wp-includes/class-wp-fatal-error-handler.php:186
 msgid "There has been a critical error on this website. Please check your site admin email inbox for instructions."
-msgstr ""
+msgstr "یک خطای مهم روی این وب‌سایت اتفاق افتاده است. برای اطلاعات بیشتر، صندوق ورودی ایمیل مدیریت سایت خودتان را بررسی کنید."
 
 #: wp-includes/class-wp-fatal-error-handler.php:184
 msgid "There has been a critical error on this website, putting it in recovery mode. Please check the Themes and Plugins screens for more details. If you just installed or updated a theme or plugin, check the relevant page for that first."
@@ -2430,19 +2450,19 @@ msgstr ""
 msgid "Sorry, marking a user as spam is only supported on Multisite."
 msgstr ""
 
-#: wp-includes/media.php:4920
+#: wp-includes/media.php:4926
 msgid "User&#8217;s media data."
 msgstr ""
 
-#: wp-includes/media.php:4407
+#: wp-includes/media.php:4413
 msgid "No media items found. Try a different search."
 msgstr "هیچ رسانه‌ای پیدا نشد. جست‌وجوی دیگری کنید."
 
-#: wp-includes/media.php:4405
+#: wp-includes/media.php:4411
 msgid "Number of media items displayed: %d. Scroll the page for more results."
 msgstr ""
 
-#: wp-includes/media.php:4404
+#: wp-includes/media.php:4410
 msgid "Number of media items found: %d"
 msgstr ""
 
@@ -2512,9 +2532,9 @@ msgid "Sorry, you are not allowed to delete revisions of this post."
 msgstr ""
 
 #. translators: %s: Custom field key.
-#: wp-includes/rest-api/fields/class-wp-rest-meta-fields.php:320
-#: wp-includes/rest-api/fields/class-wp-rest-meta-fields.php:334
-#: wp-includes/rest-api/fields/class-wp-rest-meta-fields.php:384
+#: wp-includes/rest-api/fields/class-wp-rest-meta-fields.php:324
+#: wp-includes/rest-api/fields/class-wp-rest-meta-fields.php:338
+#: wp-includes/rest-api/fields/class-wp-rest-meta-fields.php:388
 msgid "Could not update the meta value of %s in database."
 msgstr ""
 
@@ -2638,7 +2658,7 @@ msgid "Caption&hellip;"
 msgstr "برنگاشت&hellip;"
 
 #: wp-includes/media-template.php:407
-#: wp-includes/js/dist/editor.js:12154
+#: wp-includes/js/dist/editor.js:12142
 #: wp-admin/includes/class-wp-themes-list-table.php:271
 #: wp-admin/includes/class-wp-theme-install-list-table.php:369
 #: wp-admin/import.php:205
@@ -2687,12 +2707,12 @@ msgstr "<a href=\"%1$s\" %2$s>هدف تصویر%3$s را توضیح دهید</a>
 #. translators: %s: Theme name.
 #: wp-includes/class-wp-recovery-mode-email-service.php:280
 msgid "In this case, WordPress caught an error with your theme, %s."
-msgstr "در این مورد، وردپرس خطایی با پوستهٔ شما گرفت، %s."
+msgstr ""
 
 #. translators: %s: Plugin name.
 #: wp-includes/class-wp-recovery-mode-email-service.php:274
 msgid "In this case, WordPress caught an error with one of your plugins, %s."
-msgstr "در این مورد، وردپرس خطایی با یکی از افزونه‌های شما گرفت، %s."
+msgstr ""
 
 #. translators: Do not translate LINK, EXPIRES, CAUSE, DETAILS, SITEURL,
 #. PAGEURL, SUPPORT. DEBUG: those are placeholders.
@@ -2720,11 +2740,11 @@ msgstr ""
 
 #: wp-includes/class-wp-recovery-mode-email-service.php:140
 msgid "Please contact your host for assistance with investigating this issue further."
-msgstr "برای کمک بیشتر یا بررسی این مشکل با میزبان خود تماس بگیرید."
+msgstr ""
 
 #: wp-includes/class-wp-recovery-mode.php:177
 msgid "Error occurred on a non-protected endpoint."
-msgstr "خطایی در نقطه‌پایانی محافظت‌نشده رخ داده است."
+msgstr ""
 
 #. translators: %s: Login screen title.
 #. translators: %s: Admin screen title.
@@ -2740,7 +2760,7 @@ msgstr "[%s] جزئیات ورود"
 
 #: wp-includes/media-template.php:538
 #: wp-includes/media-template.php:689
-#: wp-includes/media.php:4395
+#: wp-includes/media.php:4401
 #: wp-admin/includes/meta-boxes.php:337
 #: wp-admin/includes/meta-boxes.php:441
 #: wp-admin/includes/media.php:1736
@@ -2754,7 +2774,7 @@ msgstr "انتقال به زباله‌دان"
 
 #: wp-includes/media-template.php:536
 #: wp-includes/media-template.php:687
-#: wp-includes/media.php:4396
+#: wp-includes/media.php:4402
 msgid "Restore from Trash"
 msgstr "بازنشانی از زباله‌دان"
 
@@ -2814,17 +2834,17 @@ msgstr "[%s] درخواست تغییر ایمیل"
 msgid "[%s] Email Changed"
 msgstr "[%s] ایمیل تغییر کرد"
 
-#: wp-includes/js/dist/block-library.js:12247
+#: wp-includes/js/dist/block-library.js:12223
 #: wp-admin/options-reading.php:152
 msgid "posts"
 msgstr "نوشته‌ها"
 
 #: wp-includes/widgets/class-wp-widget-calendar.php:34
-#: wp-includes/js/dist/block-library.js:12245
+#: wp-includes/js/dist/block-library.js:12221
 msgid "A calendar of your site’s posts."
 msgstr "تقویمی از نوشته‌های سایت شما."
 
-#: wp-includes/media.php:4421
+#: wp-includes/media.php:4427
 msgid "Edit gallery"
 msgstr "ویرایش گالری"
 
@@ -2968,7 +2988,7 @@ msgstr "تصاویر افزوده‌ای به این گالری اضافه شد:
 #. Translators: %s: The selected image filename.
 #: wp-includes/widgets/class-wp-widget-media-image.php:364
 #: wp-includes/widgets/class-wp-widget-media-gallery.php:204
-#: wp-includes/js/dist/editor.js:7929
+#: wp-includes/js/dist/editor.js:7928
 msgid "The current image has no alternative text. The file name is: %s"
 msgstr "تصویر فعلی متن جایگزین ندارد. نام پرونده: %s"
 
@@ -3217,24 +3237,24 @@ msgstr "میان‌برهای صفحه‌کلید بلوک کلاسیک"
 msgid "Sorry, you are not allowed to view autosaves of this post."
 msgstr "با عرض پوزش، شما مجاز به مشاهدهٔ ذخیره خودکار این نوشته نیستید."
 
-#: wp-includes/js/dist/block-editor.js:21583
-#: wp-includes/js/dist/block-library.js:3094
+#: wp-includes/js/dist/block-editor.js:21601
+#: wp-includes/js/dist/block-library.js:3065
 #: wp-admin/edit-form-blocks.php:306
 msgid "Start writing or type / to choose a block"
 msgstr "شروع به نوشتن و یا یکی از بلوک‌ها را با / انتخاب کنید"
 
-#: wp-includes/media.php:4433
-#: wp-includes/js/dist/block-library.js:6348
-#: wp-includes/js/dist/block-library.js:6349
+#: wp-includes/media.php:4439
+#: wp-includes/js/dist/block-library.js:6321
+#: wp-includes/js/dist/block-library.js:6322
 msgid "Edit image"
 msgstr "ویرایش تصویر"
 
 #: wp-includes/block-patterns/large-header-button.php:10
 #: wp-includes/block-patterns/large-header.php:10
-#: wp-includes/js/dist/block-library.js:14339
-#: wp-includes/js/dist/block-library.js:14395
-#: wp-includes/js/dist/block-library.js:14441
-#: wp-includes/js/dist/block-library.js:14497
+#: wp-includes/js/dist/block-library.js:14327
+#: wp-includes/js/dist/block-library.js:14383
+#: wp-includes/js/dist/block-library.js:14429
+#: wp-includes/js/dist/block-library.js:14485
 msgid "Write title…"
 msgstr "عنوان بنویسید…"
 
@@ -3250,41 +3270,41 @@ msgstr "جاسازی‌ها"
 msgid "Discussion"
 msgstr "گفت‌وگو"
 
-#: wp-includes/js/dist/editor.js:11839
-#: wp-includes/js/dist/editor.js:11845
+#: wp-includes/js/dist/editor.js:11827
+#: wp-includes/js/dist/editor.js:11833
 #: wp-admin/edit-form-advanced.php:519
 #: wp-admin/edit-form-blocks.php:317
 msgid "Add title"
 msgstr "عنوان را وارد کنید"
 
-#: wp-includes/js/dist/editor.js:10055
+#: wp-includes/js/dist/editor.js:10054
 #: wp-admin/includes/meta-boxes.php:163
 msgid "Visibility:"
 msgstr "نمایانی:"
 
 #: wp-includes/media-template.php:514
 #: wp-includes/media-template.php:743
-#: wp-includes/js/dist/editor.js:10220
+#: wp-includes/js/dist/editor.js:10219
 #: wp-includes/js/dist/edit-post.js:3030
-#: wp-includes/js/dist/block-library.js:16826
+#: wp-includes/js/dist/block-library.js:16814
 #: wp-admin/includes/class-wp-privacy-policy-content.php:421
 #: wp-admin/includes/media.php:3335
 #: wp-admin/site-health-info.php:102
 msgid "Copied!"
 msgstr "کپی شد!"
 
-#: wp-includes/js/dist/editor.js:8866
+#: wp-includes/js/dist/editor.js:8865
 #: wp-admin/includes/meta-boxes.php:364
 #: wp-admin/includes/meta-boxes.php:365
 msgid "Submit for Review"
 msgstr "ارسال برای بازبینی"
 
-#: wp-includes/media.php:4431
-#: wp-includes/js/dist/block-library.js:9136
+#: wp-includes/media.php:4437
+#: wp-includes/js/dist/block-library.js:9109
 msgid "Replace image"
 msgstr "جای‌گزینی تصویر"
 
-#: wp-includes/js/dist/editor.js:7708
+#: wp-includes/js/dist/editor.js:7707
 #: wp-admin/includes/meta-boxes.php:801
 msgid "Allow comments"
 msgstr "پذیرفتن دیدگاه"
@@ -3297,13 +3317,13 @@ msgstr "پذیرفتن دیدگاه"
 msgid "Order"
 msgstr "ترتیب"
 
-#: wp-includes/js/dist/block-editor.js:18833
+#: wp-includes/js/dist/block-editor.js:18851
 #: wp-admin/includes/class-theme-installer-skin.php:248
 #: wp-admin/includes/class-plugin-installer-skin.php:224
 msgid "Current"
 msgstr "کنونی"
 
-#: wp-includes/js/dist/components.js:40911
+#: wp-includes/js/dist/components.js:40654
 #: wp-admin/includes/edit-tag-messages.php:14
 msgid "Item added."
 msgstr "مورد افزوده شد."
@@ -3318,8 +3338,8 @@ msgstr "مورد افزوده شد."
 #: wp-includes/class-wp-customize-manager.php:4342
 #: wp-includes/class-wp-customize-manager.php:5664
 #: wp-includes/class-wp-customize-manager.php:5685
-#: wp-includes/js/dist/components.js:37966
-#: wp-includes/js/dist/editor.js:8472
+#: wp-includes/js/dist/components.js:37709
+#: wp-includes/js/dist/editor.js:8471
 #: wp-includes/js/dist/edit-post.js:3218
 #: wp-admin/includes/theme.php:827
 #: wp-admin/includes/class-wp-privacy-policy-content.php:360
@@ -3333,7 +3353,7 @@ msgstr "مورد افزوده شد."
 #: wp-admin/includes/class-wp-site-health.php:1523
 #: wp-admin/includes/class-wp-site-health.php:1605
 #: wp-admin/includes/class-wp-site-health.php:1624
-#: wp-admin/includes/class-wp-site-health.php:2258
+#: wp-admin/includes/class-wp-site-health.php:2228
 #: wp-admin/includes/dashboard.php:1243
 #: wp-admin/includes/dashboard.php:1255
 #: wp-admin/includes/dashboard.php:1268
@@ -3430,20 +3450,20 @@ msgstr "خطا در دست‌گذار داخلی جست‌وجو."
 msgid "REST search handlers must extend the %s class."
 msgstr "دست‌گذاران جست‌وجو باید کلاس %s را گسترش دهند."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2523
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2570
 msgid "The current user can post unfiltered HTML markup and JavaScript."
 msgstr "کاربر کنونی می‌تواند HTML پالایش‌نشده و جاواسکریپت را ارسال کند."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2299
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2346
 #, fuzzy
 msgid "Version of the content block format used by the object."
 msgstr "نگارش ساختار بلوک محتوای استفاده‌شده توسط ابژه."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2184
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2231
 msgid "Slug automatically generated from the object title."
 msgstr "نامک به‌صورت خودکار از عنوان تولید می‌شود."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2177
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2224
 msgid "Permalink template for the object."
 msgstr "الگوی پایاپیوند برای این ابژه."
 
@@ -3560,24 +3580,24 @@ msgid "[%1$s] Action Confirmed: %2$s"
 msgstr "[%1$s] کنش تأیید شد: %2$s"
 
 #. translators: %s: Taxonomy name.
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2577
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2624
 msgid "The current user can create terms in the %s taxonomy."
 msgstr "کاربر کنونی می‌تواند رده‌ها را در رده‌بندی %s ایجاد کند."
 
 #. translators: %s: Taxonomy name.
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2575
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2622
 msgid "The current user can assign terms in the %s taxonomy."
 msgstr "کاربر کنونی می‌تواند رده‌ها را در رده‌بندی %s تعیین کند."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2556
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2603
 msgid "The current user can change the author on this post."
 msgstr "کاربر کنونی می‌تواند نویسنده این نوشته را تغییر دهد."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2540
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2587
 msgid "The current user can sticky this post."
 msgstr "کاربر کنونی می‌تواند این نوشته را سنجاق کند."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2507
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2554
 msgid "The current user can publish this post."
 msgstr "کاربر کنونی می‌تواند این نوشته را منتشر کند."
 
@@ -3764,7 +3784,7 @@ msgstr "شناسه کاربر"
 msgid "WordPress User"
 msgstr "کاربر وردپرس"
 
-#: wp-includes/media.php:4863
+#: wp-includes/media.php:4869
 msgid "WordPress Media"
 msgstr "رسانه وردپرس"
 
@@ -3928,7 +3948,7 @@ msgstr "محدود‌سازی نتایج به کاربرانی که نویسند
 msgid "Sorry, you are not allowed to query users by this parameter."
 msgstr "با عرض پوزش، شما اجازهٔ پرس‌و‌جوی کاربران با این پارامتر را ندارید."
 
-#: wp-includes/media.php:4388
+#: wp-includes/media.php:4394
 #: wp-admin/includes/class-wp-media-list-table.php:155
 msgctxt "media items"
 msgid "Mine"
@@ -4027,7 +4047,7 @@ msgid "Installed"
 msgstr "نصب‌شده"
 
 #. translators: %s: Property of an object.
-#: wp-includes/rest-api.php:2271
+#: wp-includes/rest-api.php:2277
 msgid "%1$s is not a valid property of Object."
 msgstr "ویژگی %1$s برای ابژه نامعتبر است."
 
@@ -4231,8 +4251,8 @@ msgid "Displays an image gallery."
 msgstr "یک گالری از تصاویر را نمایش می‌دهد."
 
 #: wp-includes/widgets/class-wp-widget-media-gallery.php:28
-#: wp-includes/js/dist/editor.js:8098
-#: wp-includes/js/dist/block-library.js:9619
+#: wp-includes/js/dist/editor.js:8097
+#: wp-includes/js/dist/block-library.js:9595
 #: wp-admin/includes/media.php:20
 msgid "Gallery"
 msgstr "گالری"
@@ -4526,7 +4546,7 @@ msgid "Estonian"
 msgstr "استونیایی"
 
 #: wp-includes/script-loader.php:981
-#: wp-includes/js/dist/block-library.js:25452
+#: wp-includes/js/dist/block-library.js:25440
 #: wp-admin/includes/ms.php:664
 msgid "English"
 msgstr "انگلیسی"
@@ -4588,7 +4608,7 @@ msgid "Live Broadcast"
 msgstr "پخش زنده"
 
 #: wp-includes/script-loader.php:966
-#: wp-includes/js/dist/block-library.js:25323
+#: wp-includes/js/dist/block-library.js:25311
 msgid "Chapters"
 msgstr "فصل‌ها"
 
@@ -4781,7 +4801,7 @@ msgstr "نشانی نامعتبر است."
 msgid "Time to add some links! Click &#8220;%s&#8221; to start putting pages, categories, and custom links in your menu. Add as many things as you&#8217;d like."
 msgstr "زمان افزودن چند پیوند رسیده است! برای شروع قرار دادن برگه‌ها، دسته‌ها، و پیوندهای سفارشی در فهرست‌تان &#8220;%s&#8221; را کلیک کنید. هر تعداد موردی که مایلید، بیافزایید."
 
-#: wp-includes/media.php:4436
+#: wp-includes/media.php:4442
 #: wp-includes/customize/class-wp-customize-media-control.php:252
 msgid "Choose image"
 msgstr "انتخاب تصویر"
@@ -4839,24 +4859,24 @@ msgid "Hour"
 msgstr "ساعت"
 
 #: wp-includes/customize/class-wp-customize-date-time-control.php:160
-#: wp-includes/js/dist/components.js:36241
+#: wp-includes/js/dist/components.js:35984
 msgid "Time"
 msgstr "زمان"
 
 #: wp-includes/customize/class-wp-customize-date-time-control.php:146
-#: wp-includes/js/dist/components.js:36172
+#: wp-includes/js/dist/components.js:35915
 #: wp-admin/includes/template.php:826
 msgid "Day"
 msgstr "روز"
 
 #: wp-includes/customize/class-wp-customize-date-time-control.php:130
-#: wp-includes/js/dist/components.js:36187
+#: wp-includes/js/dist/components.js:35930
 #: wp-admin/includes/template.php:816
 msgid "Month"
 msgstr "ماه"
 
 #: wp-includes/customize/class-wp-customize-date-time-control.php:127
-#: wp-includes/js/dist/components.js:36225
+#: wp-includes/js/dist/components.js:35968
 #: wp-admin/includes/ajax-actions.php:2182
 #: wp-admin/includes/class-wp-posts-list-table.php:660
 #: wp-admin/includes/class-wp-posts-list-table.php:1578
@@ -4970,7 +4990,7 @@ msgstr "نمادک سایت، باید مربعی و دست‌کم %s پیکسل
 
 #: wp-includes/class-wp-customize-manager.php:5163
 msgid "Site Icons are what you see in browser tabs, bookmark bars, and within the WordPress mobile apps. Upload one here!"
-msgstr "نمادک‌های سایت نشانه‌هایی هستند که در زبانه‌های مرورگر، نوارهای نشان‌گذاری، و برنامه‌های موبایل وردپرس مشاهده می‌کنید. یکی از همین‌ها را در اینجا بارگذاری کنید!"
+msgstr "نمادک‌های سایت، نشانه‌هایی هستند که در زبانه‌های مرورگر، نوارهای نشان‌گذاری، و برنامه‌های موبایل وردپرس مشاهده می‌کنید. یکی از همین‌ها را در اینجا بارگذاری کنید!"
 
 #: wp-includes/class-wp-customize-manager.php:5059
 msgid "WordPress.org themes"
@@ -5133,7 +5153,7 @@ msgctxt "label for button in the audio widget"
 msgid "Add Audio"
 msgstr "افزودن صوت"
 
-#: wp-includes/media.php:3956
+#: wp-includes/media.php:3962
 #: wp-admin/includes/media.php:3295
 msgid "(no author)"
 msgstr "(بدون نویسنده)"
@@ -5345,22 +5365,22 @@ msgid "Displays an audio player."
 msgstr "پخش‌کننده صوتی را نمایش می‌دهد."
 
 #. translators: 1: Parameter, 2: Maximum number.
-#: wp-includes/rest-api.php:2449
+#: wp-includes/rest-api.php:2455
 msgid "%1$s must be less than or equal to %2$d"
 msgstr "%1$s باید کمتر یا برابر %2$d باشد"
 
 #. translators: 1: Parameter, 2: Maximum number.
-#: wp-includes/rest-api.php:2441
+#: wp-includes/rest-api.php:2447
 msgid "%1$s must be less than %2$d"
 msgstr "%1$s باید کمتر از %2$d باشد"
 
 #. translators: 1: Parameter, 2: Minimum number.
-#: wp-includes/rest-api.php:2431
+#: wp-includes/rest-api.php:2437
 msgid "%1$s must be greater than or equal to %2$d"
 msgstr "%1$s باید بیشتر یا برابر %2$d باشد"
 
 #. translators: 1: Parameter, 2: Minimum number.
-#: wp-includes/rest-api.php:2423
+#: wp-includes/rest-api.php:2429
 msgid "%1$s must be greater than %2$d"
 msgstr "%1$s باید بزرگتر از %2$d باشد"
 
@@ -5375,13 +5395,13 @@ msgid "Limit result set to terms with one or more specific slugs."
 msgstr "محدودسازی نتایج جست‌وجو به رده‌هایی با یک نامک یا بیشتر."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-revisions-controller.php:312
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:353
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:393
 #: wp-includes/rest-api/endpoints/class-wp-rest-search-controller.php:160
 msgid "The page number requested is larger than the number of pages available."
 msgstr "شماره برگه درخواست‌شده بزرگتر از تعداد برگه‌های در دسترس است."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-revisions-controller.php:237
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:174
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:214
 msgid "You need to define an include parameter to order by include."
 msgstr "شما نیاز دارید یک پارامتر برای نمایش ترتیب براساس آن را تعریف کنید."
 
@@ -5439,7 +5459,7 @@ msgstr "تصویر برگزیده"
 msgid "%1$s is deprecated. The callback from %2$s is used instead."
 msgstr "%1$s منسوخ شده است. لطفا به‌جای آن از %2$s استفاده کنید."
 
-#: wp-includes/media.php:4392
+#: wp-includes/media.php:4398
 msgid ""
 "You are about to permanently delete these items from your site.\n"
 "This action cannot be undone.\n"
@@ -5449,7 +5469,7 @@ msgstr ""
 "این کنش غیرقابل بازگشت است.\n"
 "'Cancel' برای انصراف، 'OK' برای حذف."
 
-#: wp-includes/media.php:4391
+#: wp-includes/media.php:4397
 msgid ""
 "You are about to permanently delete this item from your site.\n"
 "This action cannot be undone.\n"
@@ -5461,13 +5481,13 @@ msgstr ""
 
 #. translators: 1: Suggested width number, 2: Suggested height number.
 #: wp-includes/media-template.php:296
-#: wp-includes/media.php:4443
+#: wp-includes/media.php:4449
 msgid "Suggested image dimensions: %1$s by %2$s pixels."
 msgstr "اندازه پیشنهادی تصویر: %1$s در %2$s پیکسل."
 
 #: wp-includes/script-loader.php:869
 #: wp-includes/functions.php:2679
-#: wp-includes/js/dist/media-utils.js:1127
+#: wp-includes/js/dist/media-utils.js:1084
 #: wp-admin/includes/file.php:890
 msgid "Sorry, this file type is not permitted for security reasons."
 msgstr "با عرض پوزش، این نوع پرونده به دلایل امنیتی مجاز نیست."
@@ -5806,7 +5826,7 @@ msgid "Invalid slug."
 msgstr "نامک نامعتبر است."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:717
-#: wp-includes/rest-api.php:2139
+#: wp-includes/rest-api.php:2145
 #: wp-includes/user.php:3965
 #: wp-admin/network/site-new.php:96
 msgid "Invalid email address."
@@ -5826,7 +5846,7 @@ msgid "Invalid page template."
 msgstr "الگوی برگه نامعتبر است."
 
 #: wp-includes/script-loader.php:1210
-#: wp-includes/rest-api.php:2133
+#: wp-includes/rest-api.php:2139
 #: wp-includes/post.php:3917
 #: wp-admin/includes/post.php:188
 msgid "Invalid date."
@@ -5987,19 +6007,19 @@ msgstr "دربارهٔ این سایت"
 
 #. translators: %s: Custom field key.
 #: wp-includes/rest-api/fields/class-wp-rest-meta-fields.php:227
-#: wp-includes/rest-api/fields/class-wp-rest-meta-fields.php:269
-#: wp-includes/rest-api/fields/class-wp-rest-meta-fields.php:364
+#: wp-includes/rest-api/fields/class-wp-rest-meta-fields.php:273
+#: wp-includes/rest-api/fields/class-wp-rest-meta-fields.php:368
 msgid "Sorry, you are not allowed to edit the %s custom field."
 msgstr "با عرض پوزش، شما مجاز به ویرایش فیلد سفارشی %s نیستید."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:560
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:733
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:606
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:779
 msgid "Sorry, you are not allowed to assign the provided terms."
 msgstr "با عرض پوزش، شما مجاز به اختصاص دادن رده‌های ارائه شده نیستید."
 
 #: wp-includes/class-wp-xmlrpc-server.php:1344
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:544
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:725
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:590
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:771
 msgid "Sorry, you are not allowed to make posts sticky."
 msgstr "با عرض پوزش، شما اجازهٔ سنجاق کردن نوشته‌ها را ندارید."
 
@@ -6211,7 +6231,7 @@ msgid "Revisions do not support trashing. Set '%s' to delete."
 msgstr "رونوشت‌ها به زباله‌دان منتقل نمی‌شوند. برای حذف «%s» را تنظیم کنید."
 
 #. translators: %s: force=true
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:929
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:975
 msgid "The post does not support trashing. Set '%s' to delete."
 msgstr "نوشته به زباله‌دان منتقل نمی‌شوند. برای حذف «%s» را تنظیم کنید."
 
@@ -6228,7 +6248,7 @@ msgstr "یا، یک نشانی یوتیوب وارد کنید:"
 msgid "Invalid JSON body passed."
 msgstr "بدنه JSON ارائه‌شده نامعتبر است."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2765
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2812
 msgid "Limit result set to posts assigned one or more statuses."
 msgstr "محدود‌سازی نتایج به نوشته‌های تخصیص یافته یک یا چند وضعیت."
 
@@ -6241,7 +6261,7 @@ msgstr "زمینه دیدگاه بیش از حداکثر طول مجاز است.
 msgid "Taxonomies associated with post type."
 msgstr "رده‌بندی‌های مرتبط با گونه نوشته."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2755
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2802
 msgid "Limit result set to posts with one or more specific slugs."
 msgstr "محدودسازی نتایج به نوشته‌ها با یک یا چند نامک مشخص."
 
@@ -6267,7 +6287,7 @@ msgid "I really need an ID for this to work."
 msgstr "واقعا به یک شناسه برای کارکرد این نیاز دارم."
 
 #: wp-includes/block-patterns/three-buttons.php:10
-#: wp-includes/js/dist/block-library.js:12133
+#: wp-includes/js/dist/block-library.js:12109
 msgid "Contact us"
 msgstr "تماس بگیرید"
 
@@ -6277,54 +6297,58 @@ msgid "Homepage"
 msgstr "صفحه نخست"
 
 #: wp-includes/script-loader.php:819
-#: wp-includes/js/dist/components.js:31386
+#: wp-includes/js/dist/components.js:31129
 msgid "Item selected."
 msgstr "مورد انتخاب شد."
 
-#: wp-includes/rest-api.php:2506
+#. translators: 1: Parameter, 2: Minimum number, 3: Maximum number.
+#: wp-includes/rest-api.php:2512
 msgid "%1$s must be between %2$d (inclusive) and %3$d (inclusive)"
 msgstr "%1$s باید بین %2$d (همگانی) و %3$d (همگانی) باشد."
 
-#: wp-includes/rest-api.php:2476
+#. translators: 1: Parameter, 2: Minimum number, 3: Maximum number.
+#: wp-includes/rest-api.php:2482
 msgid "%1$s must be between %2$d (exclusive) and %3$d (inclusive)"
 msgstr "%1$s باید بین %2$d (انحصاری) و %3$d (همگانی) باشد."
 
-#: wp-includes/rest-api.php:2491
+#. translators: 1: Parameter, 2: Minimum number, 3: Maximum number.
+#: wp-includes/rest-api.php:2497
 msgid "%1$s must be between %2$d (inclusive) and %3$d (exclusive)"
 msgstr "%1$s باید بین %2$d (همگانی) و %3$d (انحصاری) باشد."
 
-#: wp-includes/rest-api.php:2461
+#. translators: 1: Parameter, 2: Minimum number, 3: Maximum number.
+#: wp-includes/rest-api.php:2467
 msgid "%1$s must be between %2$d (exclusive) and %3$d (exclusive)"
 msgstr "%1$s باید بین %2$d (انحصاری) و %3$d (انحصاری) باشد."
 
 #. translators: %s: IP address.
-#: wp-includes/rest-api.php:2145
+#: wp-includes/rest-api.php:2151
 msgid "%s is not a valid IP address."
 msgstr "%s یک نشانی IP نامعتبر است."
 
 #. translators: 1: Parameter, 2: List of types.
 #. translators: 1: Parameter, 2: Type name.
-#: wp-includes/rest-api.php:2064
-#: wp-includes/rest-api.php:2174
-#: wp-includes/rest-api.php:2196
-#: wp-includes/rest-api.php:2219
-#: wp-includes/rest-api.php:2334
-#: wp-includes/rest-api.php:2405
-#: wp-includes/rest-api.php:2534
-#: wp-includes/rest-api.php:2602
+#: wp-includes/rest-api.php:2070
+#: wp-includes/rest-api.php:2180
+#: wp-includes/rest-api.php:2202
+#: wp-includes/rest-api.php:2225
+#: wp-includes/rest-api.php:2340
+#: wp-includes/rest-api.php:2411
+#: wp-includes/rest-api.php:2540
+#: wp-includes/rest-api.php:2608
 msgid "%1$s is not of type %2$s."
 msgstr "%1$s از نوع %2$s نیست."
 
 #. translators: 1: Parameter, 2: List of valid values.
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1401
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1447
 msgid "%1$s is not one of %2$s."
 msgstr "%1$s یکی از %2$s نیست."
 
-#: wp-includes/rest-api/fields/class-wp-rest-meta-fields.php:501
+#: wp-includes/rest-api/fields/class-wp-rest-meta-fields.php:505
 msgid "Meta fields."
 msgstr "زمینه‌های متا."
 
-#: wp-includes/rest-api/fields/class-wp-rest-meta-fields.php:238
+#: wp-includes/rest-api/fields/class-wp-rest-meta-fields.php:242
 msgid "Could not delete meta value from database."
 msgstr "نمی‌توانید مقدار متا را از پایگاه‌داده حذف کنید."
 
@@ -6448,197 +6472,197 @@ msgstr "ویژگی %s دارای مقدار ذخیره‌شده نامعتبر �
 msgid "Invalid revision ID."
 msgstr "شناسه رونوشت نامعتبر است."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2834
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2881
 #: wp-includes/class-wp-customize-nav-menus.php:952
 msgid "Status is forbidden."
 msgstr "وضعیت ممنوع است."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2778
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2825
 msgid "Limit result set to items that are sticky."
 msgstr "محدود‌سازی نتایج به مواردی که سنجاق‌شده هستند."
 
 #. translators: %s: Taxonomy name.
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2983
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:3030
 msgid "Limit result set to items except those with specific terms assigned in the %s taxonomy."
 msgstr ""
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2745
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2792
 msgid "Limit result set to all items except those of a particular parent ID."
 msgstr "محدود‌سازی نتایج به همهٔ موارد به‌جز آن‌هایی که از شناسه مادر خاص هستند."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2737
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2784
 msgid "Limit result set to items with particular parent IDs."
 msgstr "محدود‌سازی نتایج به رده‌هایی با شناسه‌های مادر خاص."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:1599
 #: wp-includes/rest-api/endpoints/class-wp-rest-revisions-controller.php:785
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2700
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2747
 #: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1510
 #: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:1030
 #, fuzzy
 msgid "Offset the result set by a specific number of items."
 msgstr "آفست نتیجه را با یک تعداد خاص از موارد تنظیم کنید."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2694
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2741
 msgid "Limit result set to posts with a specific menu_order value."
 msgstr "محدود‌سازی نتایج به نوشته‌هایی با یک مقدار مشخص menu_order."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2653
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2700
 msgid "Ensure result set excludes posts assigned to specific authors."
 msgstr "مطمئن شوید که نتیجه نوشته‌های تخصیص یافته به نویسنده‌های خاص را محدود می‌کند."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2645
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2692
 msgid "Limit result set to posts assigned to specific authors."
 msgstr "محدود‌سازی نتایج به نوشته‌های اختصاص یافته به نویسنده‌های خاص."
 
 #. translators: %s: Taxonomy name.
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2442
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2489
 msgid "The terms assigned to the object in the %s taxonomy."
 msgstr "رده‌های اختصاص‌یافته به ابژه در رده‌بندی %s."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2412
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2459
 #, fuzzy
 msgid "The theme file to use to display the object."
 msgstr "پرونده پوسته مورد استفاده برای نمایش ابژه."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2167
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2214
 #, fuzzy
 msgid "A password to protect access to the content and excerpt."
 msgstr "یک رمز عبور برای محافظت دسترسی به محتوا و چکیده."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2405
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2452
 msgid "Whether or not the object should be treated as sticky."
 msgstr ""
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2389
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2436
 msgid "The format for the object."
 msgstr "ساختار برای ابژه."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2378
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2425
 msgid "The order of the object in relation to other object of its type."
 msgstr "ترتیب یک ابژه در رابطه با ابژه‌ای دیگر از گونه خودش."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2369
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2416
 msgid "Whether or not the object can be pinged."
 msgstr ""
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2363
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2410
 msgid "Whether or not comments are open on the object."
 msgstr ""
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2355
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2402
 msgid "The ID of the featured media for the object."
 msgstr "شناسه رسانه برگزیده برای ابژه."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2344
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2391
 msgid "Whether the excerpt is protected with a password."
 msgstr ""
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2338
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2385
 msgid "HTML excerpt for the object, transformed for display."
 msgstr "چکیدهٔ HTML برای این ابژه، که برای نمایش تغییر شکل داده شده است."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2333
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2380
 msgid "Excerpt for the object, as it exists in the database."
 msgstr "چکیده برای این ابژه، همان‌طور که در پایگاه‌داده وجود دارد."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2324
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2371
 msgid "The excerpt for the object."
 msgstr "چکیده برای این ابژه."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-revisions-controller.php:678
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2316
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2363
 msgid "The ID for the author of the object."
 msgstr "شناسه برای نویسنده این ابژه."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2305
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2352
 msgid "Whether the content is protected with a password."
 msgstr ""
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2268
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2315
 msgid "HTML title for the object, transformed for display."
 msgstr "عنوان HTML برای این ابژه، که برای نمایش تغییر شکل داده شده است."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2263
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2310
 msgid "Title for the object, as it exists in the database."
 msgstr "عنوان برای این ابژه، همان‌طور که در پایگاه‌داده وجود دارد."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2254
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2301
 #: wp-includes/rest-api/endpoints/class-wp-rest-search-controller.php:254
 msgid "The title for the object."
 msgstr "عنوان برای این ابژه."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2161
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2208
 msgid "Type of Post for the object."
 msgstr "گونه نوشته برای این ابژه."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2152
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2199
 msgid "A named status for the object."
 msgstr "یک وضعیت نام‌گذاری شده برای این ابژه."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-revisions-controller.php:722
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2144
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2191
 msgid "An alphanumeric identifier for the object unique to its type."
 msgstr "یک شناسه الفبایی برای این ابژه، که با توجه به گونه آن، یکتاست."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-revisions-controller.php:711
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2137
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2184
 msgid "The date the object was last modified, as GMT."
 msgstr "آخرین تاریخی که ابژه ویرایش شده است، در GMT."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-revisions-controller.php:705
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2130
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2177
 msgid "The date the object was last modified, in the site's timezone."
 msgstr "آخرین تاریخی که ابژه ویرایش شده است، در منطقهٔ زمانی سایت."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2109
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2156
 msgid "GUID for the object, transformed for display."
 msgstr "GUID برای این ابژه، که برای نمایش تغییر شکل داده شده است."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-revisions-controller.php:695
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2103
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2150
 msgid "GUID for the object, as it exists in the database."
 msgstr "GUID برای این ابژه، همان‌طور که در پایگاه‌داده وجود دارد."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2097
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2144
 msgid "The globally unique identifier for the object."
 msgstr "یک شناسه یکتای سراسری برای این ابژه."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:1461
 #: wp-includes/rest-api/endpoints/class-wp-rest-revisions-controller.php:689
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2091
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2138
 msgid "The date the object was published, as GMT."
 msgstr "تاریخ انتشار این ابژه، در GMT."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:1455
 #: wp-includes/rest-api/endpoints/class-wp-rest-revisions-controller.php:683
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2085
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2132
 msgid "The date the object was published, in the site's timezone."
 msgstr "تاریخ انتشار این ابژه، در منطقهٔ زمانی سایت."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1353
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1399
 msgid "Invalid featured media ID."
 msgstr "شناسه رسانه برگزیده نامعتبر است."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-revisions-controller.php:143
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1220
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1266
 #: wp-includes/rest-api/endpoints/class-wp-rest-autosaves-controller.php:259
 msgid "Invalid post parent ID."
 msgstr "شناسه نوشته مادر نامعتبر است."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1204
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1250
 msgid "A password protected post can not be set to sticky."
 msgstr "نوشتهٔ محافظت‌شده با رمز نمی‌تواند سنجاق شود."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1193
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1239
 msgid "A sticky post can not be password protected."
 msgstr "یک نوشته سنجاق شده نمی‌تواند با رمزعبور محافظت شود."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1185
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1231
 msgid "A post can not be sticky and have a password."
 msgstr "یک نوشته نمی‌تواند سنجاق‌شده و رمز داشته باشد."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:938
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:984
 msgid "The post has already been deleted."
 msgstr "نوشته پیش از این حذف‌شده است."
 
@@ -6652,8 +6676,8 @@ msgstr "با عرض پوزش، شما مجاز به ویرایش دیدگاه‌
 msgid "Sorry, you are not allowed to manage this plugin."
 msgstr ""
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:526
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:580
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:572
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:626
 msgid "Cannot create existing post."
 msgstr "نمی‌توانید نوشته موجود ایجاد کنید."
 
@@ -6661,18 +6685,18 @@ msgstr "نمی‌توانید نوشته موجود ایجاد کنید."
 msgid "Sorry, you are not allowed to create new users."
 msgstr "با عرض پوزش، شما مجاز به ایجاد کاربر تازه نیستید."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:440
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:480
 msgid "Incorrect post password."
 msgstr "رمز عبور نوشته نادرست است."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-revisions-controller.php:228
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:165
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:205
 #, fuzzy
 msgid "You need to define a search term to order by relevance."
 msgstr "شما نیاز به تعریف یک عبارت جست‌وجو براساس ارتباط دارید."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:1672
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:85
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:93
 msgid "The password for the post if it is password protected."
 msgstr "رمز عبور برای نوشته اگر آن با رمز عبور محافظت شده است."
 
@@ -6775,14 +6799,14 @@ msgstr "محدود‌سازی نتایج به دیدگاه‌های شناسه�
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:1614
 #: wp-includes/rest-api/endpoints/class-wp-rest-revisions-controller.php:797
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2712
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2759
 #: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1523
 msgid "Sort collection by object attribute."
 msgstr "مرتب‌سازی بر اساس ویژگی ابژه."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:1604
 #: wp-includes/rest-api/endpoints/class-wp-rest-revisions-controller.php:790
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2705
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2752
 #: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1516
 #: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:1036
 msgid "Order sort attribute ascending or descending."
@@ -6790,7 +6814,7 @@ msgstr "مرتب‌سازی ویژگی، به صورت صعودی یا نزول�
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:1590
 #: wp-includes/rest-api/endpoints/class-wp-rest-revisions-controller.php:776
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2684
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2731
 #: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1501
 #: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:1020
 msgid "Limit result set to specific IDs."
@@ -6798,13 +6822,13 @@ msgstr "محدود‌سازی نتایج به شناسه‌های مشخص."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:1581
 #: wp-includes/rest-api/endpoints/class-wp-rest-revisions-controller.php:767
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2675
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2722
 #: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1492
 #: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:1011
 msgid "Ensure result set excludes specific IDs."
 msgstr "مطمئن شوید نتیجه مستثنی از شناسه‌های خاص است."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2663
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2710
 msgid "Limit response to posts published before a given ISO8601 compliant date."
 msgstr "محدود‌سازی نتایج به نوشته‌های منتشر شده پس از یک تاریخ سازگار با ISO8601."
 
@@ -6820,7 +6844,7 @@ msgstr "مطمئن شوید نتیجه دیدگاه‌های تخصیص یافت
 msgid "Limit result set to comments assigned to specific user IDs. Requires authorization."
 msgstr "محدود‌سازی نتایج به دیدگاه‌های تخصیص یافته به شناسه‌های کاربری خاص. نیازمند مجوز است."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2632
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2679
 msgid "Limit response to posts published after a given ISO8601 compliant date."
 msgstr "محدود‌سازی نتایج به نوشته‌های منتشر شده پس از یک تاریخ سازگار با ISO8601."
 
@@ -6850,30 +6874,30 @@ msgstr "شناسه ابژه نوشته مرتبط."
 #: wp-includes/rest-api/endpoints/class-wp-rest-revisions-controller.php:78
 #: wp-includes/rest-api/endpoints/class-wp-rest-revisions-controller.php:98
 #: wp-includes/rest-api/endpoints/class-wp-rest-revisions-controller.php:717
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2193
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2240
 #: wp-includes/rest-api/endpoints/class-wp-rest-autosaves-controller.php:89
 #: wp-includes/rest-api/endpoints/class-wp-rest-autosaves-controller.php:115
 msgid "The ID for the parent of the object."
 msgstr "شناسه ابژه مادر."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:1467
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2123
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2170
 #: wp-includes/rest-api/endpoints/class-wp-rest-search-controller.php:260
 msgid "URL to the object."
 msgstr "نشانی اینترنتی برای این ابژه."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:1447
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2293
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2340
 msgid "HTML content for the object, transformed for display."
 msgstr "محتوای HTML برای این ابژه، که برای نمایش تغییر شکل داده شده است."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:1442
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2288
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2335
 msgid "Content for the object, as it exists in the database."
 msgstr "محتوا برای این ابژه، همان‌طور که در پایگاه‌داده وجود دارد."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:1433
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2279
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2326
 msgid "The content for the object."
 msgstr "محتوا برای این ابژه."
 
@@ -6905,8 +6929,8 @@ msgstr "شناسه ابژه کاربری، اگر نویسنده یک کاربر
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:1384
 #: wp-includes/rest-api/endpoints/class-wp-rest-revisions-controller.php:102
 #: wp-includes/rest-api/endpoints/class-wp-rest-revisions-controller.php:700
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:95
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2117
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:103
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2164
 #: wp-includes/rest-api/endpoints/class-wp-rest-search-controller.php:248
 #: wp-includes/rest-api/endpoints/class-wp-rest-attachments-controller.php:37
 msgid "Unique identifier for the object."
@@ -6957,7 +6981,7 @@ msgid "Query parameter not permitted: %s"
 msgstr "پارامتر کوئری مجاز نیست: %s"
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:104
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:119
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:127
 msgid "Whether to bypass Trash and force deletion."
 msgstr ""
 
@@ -7169,7 +7193,7 @@ msgstr "شهری در منطقهٔ زمانی شما."
 msgid "Site title."
 msgstr "عنوان سایت."
 
-#: wp-includes/media.php:4403
+#: wp-includes/media.php:4409
 msgid "Search media items..."
 msgstr "جست‌وجوی پرونده‌های رسانه‌ای…"
 
@@ -7613,11 +7637,12 @@ msgstr "با عرض پوزش، شما اجازهٔ حذف این برگه را �
 
 #: wp-includes/class-wp-xmlrpc-server.php:1784
 #: wp-includes/class-wp-xmlrpc-server.php:5218
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:857
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:905
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:903
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:951
 msgid "Sorry, you are not allowed to delete this post."
 msgstr "با عرض پوزش، شما اجازهٔ حذف این نوشته را ندارید."
 
+#. translators: %s: Site title.
 #: wp-login.php:292
 msgctxt "site"
 msgid "&larr; Go to %s"
@@ -7738,7 +7763,7 @@ msgid "Link inserted."
 msgstr "پیوند درج شد."
 
 #: wp-includes/script-loader.php:1121
-#: wp-includes/js/dist/block-editor.js:30774
+#: wp-includes/js/dist/block-editor.js:30800
 msgid "Link selected."
 msgstr "پیوند انتخاب شد."
 
@@ -7748,7 +7773,7 @@ msgstr "پیوند انتخاب شد."
 msgid "%s is required to strip image meta."
 msgstr "برای به دست آوردن فرادادهٔ تصویر، نیاز به %s است."
 
-#: wp-includes/media.php:4406
+#: wp-includes/media.php:4412
 msgid "No media items found."
 msgstr "هیچ رسانه‌ای پیدا نشد."
 
@@ -7797,7 +7822,7 @@ msgstr "گروه بعدی میان‌برهای ساختاربندی هنگام�
 
 #: wp-login.php:1242
 msgid "Your session has expired. Please log in to continue where you left off."
-msgstr "نشست شما منقضی شده است. برای ادامه، دوباره وارد شوید."
+msgstr "نشست شما منقضی شده است. برای ادامه کار، دوباره وارد شوید."
 
 #. translators: 1: User's display name, 2: User login.
 #: wp-includes/user.php:1393
@@ -7819,7 +7844,7 @@ msgid "Unregistering a built-in taxonomy is not allowed."
 msgstr "لغو ثبت رده‌بندی‌های توکار مجاز نیست."
 
 #: wp-includes/script-loader.php:1174
-#: wp-includes/js/dist/block-library.js:12353
+#: wp-includes/js/dist/block-library.js:12329
 msgid "(Untitled)"
 msgstr "(بدون عنوان)"
 
@@ -7887,7 +7912,7 @@ msgstr "خوراک %1$s %2$s %3$s %4$s"
 #: wp-includes/media-template.php:199
 #: wp-includes/media-template.php:347
 #: wp-includes/functions.php:6624
-#: wp-includes/js/dist/components.js:42113
+#: wp-includes/js/dist/components.js:41856
 msgid "Close dialog"
 msgstr "بستن کادر"
 
@@ -7967,7 +7992,7 @@ msgid "Invalid object type."
 msgstr "گونهٔ ابژه نامعتبر است."
 
 #: wp-includes/class-wp-editor.php:1385
-#: wp-includes/js/dist/block-editor.js:30821
+#: wp-includes/js/dist/block-editor.js:30847
 msgid "Paste URL or type to search"
 msgstr "نشانی اینترنتی را بچسبانید یا برای جست‌وجو، تایپ کنید"
 
@@ -8365,7 +8390,7 @@ msgstr ""
 
 #: wp-includes/rest-api/class-wp-rest-server.php:1596
 msgid "The handler for the route is invalid"
-msgstr "برنامه کنترل برای مسیر نامعتبر است"
+msgstr ""
 
 #: wp-includes/rest-api/class-wp-rest-server.php:371
 msgid "JSONP support is disabled on this site."
@@ -8442,8 +8467,8 @@ msgid "Usernames can only contain lowercase letters (a-z) and numbers."
 msgstr "نام کاربری فقط می‌تواند شامل حروف کوچک (a-z) و اعداد باشد."
 
 #. translators: %s: Playlist item title.
-#: wp-includes/media.php:2516
-#: wp-includes/media.php:2533
+#: wp-includes/media.php:2522
+#: wp-includes/media.php:2539
 msgctxt "playlist item title"
 msgid "&#8220;%s&#8221;"
 msgstr "&laquo;%s&raquo;"
@@ -8719,7 +8744,7 @@ msgstr "نام فهرست"
 #: wp-includes/media-template.php:1501
 #: wp-includes/customize/class-wp-customize-site-icon-control.php:73
 msgid "Preview as an app icon"
-msgstr "پیش‌نمایش به عنوان نمادک یک اپلیکیشن"
+msgstr "پیش‌نمایش به عنوان نمادک برنامه"
 
 #: wp-includes/media-template.php:1499
 msgid "As an app icon"
@@ -9463,7 +9488,7 @@ msgstr ""
 "\n"
 "پشتیبانی SITE_NAME"
 
-#: wp-includes/media.php:4370
+#: wp-includes/media.php:4376
 msgid "Drag and drop to reorder media files."
 msgstr "با کشیدن و رها کردن، چینش پرونده‌های رسانه را تغییر دهید."
 
@@ -9655,7 +9680,7 @@ msgstr "دیدگاه: %s"
 msgid "URL: %s"
 msgstr "نشانی: %s"
 
-#: wp-includes/media.php:4389
+#: wp-includes/media.php:4395
 msgctxt "noun"
 msgid "Trash"
 msgstr "زباله‌دان"
@@ -9665,7 +9690,7 @@ msgid "Edit Selection"
 msgstr "ویرایش انتخاب‌شده‌ها"
 
 #: wp-includes/script-loader.php:1732
-#: wp-includes/js/dist/components.js:42603
+#: wp-includes/js/dist/components.js:42346
 msgid "Previous"
 msgstr "قبلی"
 
@@ -9792,13 +9817,13 @@ msgid "Custom..."
 msgstr "سفارشی…"
 
 #: wp-includes/class-wp-editor.php:1268
-#: wp-includes/js/dist/components.js:31006
+#: wp-includes/js/dist/components.js:30749
 msgid "Custom color"
 msgstr "رنگ سفارشی"
 
 #: wp-includes/class-wp-editor.php:1267
-#: wp-includes/js/dist/block-library.js:14863
-#: wp-includes/js/dist/block-library.js:22686
+#: wp-includes/js/dist/block-library.js:14851
+#: wp-includes/js/dist/block-library.js:22674
 msgid "Color"
 msgstr "رنگ"
 
@@ -9863,7 +9888,7 @@ msgstr "پیوند"
 msgid "<strong>You have successfully updated WordPress!</strong> Please log back in to see what&#8217;s new."
 msgstr "<strong>وردپرس را با موفقیت به‌روز کردید!</strong> لطفاً دوباره وارد شوید تا ببینید چه چیزهای تازه‌ای در انتظارتان است."
 
-#: wp-includes/media.php:4393
+#: wp-includes/media.php:4399
 msgid ""
 "You are about to trash these items.\n"
 "  'Cancel' to stop, 'OK' to delete."
@@ -9875,7 +9900,7 @@ msgstr ""
 msgid "Press return or enter to open this panel"
 msgstr "برای باز شدن این پنجره دکمه بازگشت یا اینتر را بزنید"
 
-#: wp-includes/media.php:4394
+#: wp-includes/media.php:4400
 msgid "Bulk select"
 msgstr "انتخاب جمعی"
 
@@ -9895,36 +9920,36 @@ msgstr "(بدون برچسب)"
 msgid "This site is no longer available."
 msgstr "این سایت دیگر در دسترس نیست."
 
-#: wp-includes/media.php:4402
+#: wp-includes/media.php:4408
 msgid "Search media"
 msgstr "جست‌وجوی رسانه"
 
-#: wp-includes/media.php:4400
+#: wp-includes/media.php:4406
 #: wp-admin/includes/class-wp-media-list-table.php:271
 msgid "Filter by type"
 msgstr "پالایه بر اساس نوع"
 
 #: wp-includes/post.php:1752
-#: wp-includes/media.php:4399
+#: wp-includes/media.php:4405
 msgid "Filter by date"
 msgstr "پالایه بر اساس تاریخ"
 
-#: wp-includes/media.php:4387
+#: wp-includes/media.php:4393
 #: wp-admin/includes/class-wp-media-list-table.php:150
 msgid "Unattached"
 msgstr "پیوست‌نشده"
 
-#: wp-includes/media.php:4384
+#: wp-includes/media.php:4390
 #: wp-admin/includes/media.php:2833
 #: wp-admin/includes/class-wp-list-table.php:650
 msgid "All dates"
 msgstr "همهٔ تاریخ‌ها"
 
-#: wp-includes/media.php:2882
+#: wp-includes/media.php:2888
 msgid "Bitrate Mode"
 msgstr "حالت Bitrate"
 
-#: wp-includes/media.php:2881
+#: wp-includes/media.php:2887
 msgid "Bitrate"
 msgstr "نرخ بیت"
 
@@ -10064,65 +10089,65 @@ msgstr "<strong>خطا</strong>: کوکی‌ها مسدود شده و یا تو�
 msgid "<strong>Error</strong>: Cookies are blocked due to unexpected output. For help, please see <a href=\"%1$s\">this documentation</a> or try the <a href=\"%2$s\">support forums</a>."
 msgstr "<strong>خطا</strong>: کوکی‌ها به خاطر خروجی غیرمنتظره مسدود هستند. برای راهنمایی، لطفاً <a href=\"%1$s\">این نوشته</a> را ببینید یا <a href=\"%2$s\">انجمن پشتیبانی</a> را امتحان کنید."
 
-#: wp-includes/media.php:4468
+#: wp-includes/media.php:4474
 msgid "Add to Audio Playlist"
 msgstr "افزودن صدا به فهرست پخش صوتی"
 
-#: wp-includes/media.php:4467
+#: wp-includes/media.php:4473
 msgid "Add to audio playlist"
 msgstr "افزودن به فهرست پخش صوتی"
 
-#: wp-includes/media.php:4466
+#: wp-includes/media.php:4472
 msgid "Update audio playlist"
 msgstr "به‌روزرسانی فهرست پخش صوتی"
 
-#: wp-includes/media.php:4465
+#: wp-includes/media.php:4471
 msgid "Insert audio playlist"
 msgstr "گذاشتن فهرست پخش صوتی"
 
-#: wp-includes/media.php:4464
+#: wp-includes/media.php:4470
 msgid "&#8592; Cancel audio playlist"
 msgstr "&#8594; لغو فهرست پخش صوتی"
 
-#: wp-includes/media.php:4463
+#: wp-includes/media.php:4469
 msgid "Edit audio playlist"
 msgstr "ویرایش فهرست پخش صوتی"
 
-#: wp-includes/media.php:4444
+#: wp-includes/media.php:4450
 msgid "There has been an error cropping your image."
 msgstr "خطایی در برش تصویر رخ داد."
 
-#: wp-includes/media.php:2879
+#: wp-includes/media.php:2885
 msgctxt "video or audio"
 msgid "Length"
 msgstr "زمان"
 
-#: wp-includes/media.php:2878
+#: wp-includes/media.php:2884
 #: wp-includes/customize/class-wp-customize-date-time-control.php:151
-#: wp-includes/js/dist/components.js:36230
+#: wp-includes/js/dist/components.js:35973
 #: wp-admin/includes/template.php:827
 msgid "Year"
 msgstr "سال"
 
-#: wp-includes/media.php:2877
+#: wp-includes/media.php:2883
 msgid "Genre"
 msgstr "نوع"
 
 #: wp-includes/media-template.php:492
 #: wp-includes/media-template.php:721
-#: wp-includes/media.php:2873
+#: wp-includes/media.php:2879
 msgid "Album"
 msgstr "آلبوم"
 
 #: wp-includes/media-template.php:491
 #: wp-includes/media-template.php:720
-#: wp-includes/media.php:2872
+#: wp-includes/media.php:2878
 msgid "Artist"
 msgstr "هنرمند"
 
 #: wp-includes/widgets/class-wp-widget-media-image.php:130
 #: wp-includes/media-template.php:1213
-#: wp-includes/js/dist/block-editor.js:33572
+#: wp-includes/js/dist/block-editor.js:33598
 msgid "Link CSS Class"
 msgstr "کلاس CSS پیوند"
 
@@ -10141,12 +10166,12 @@ msgid "Advanced Options"
 msgstr "تنظیمات پیشرفته"
 
 #: wp-includes/media-template.php:1143
-#: wp-includes/js/dist/components.js:40025
+#: wp-includes/js/dist/components.js:39768
 msgid "Custom Size"
 msgstr "اندازه سفارشی"
 
 #: wp-includes/media-template.php:1090
-#: wp-includes/js/dist/block-library.js:22111
+#: wp-includes/js/dist/block-library.js:22099
 msgid "Display Settings"
 msgstr "تنظیمات نمایش"
 
@@ -10207,7 +10232,7 @@ msgctxt "auto preload"
 msgid "Auto"
 msgstr "خودکار"
 
-#: wp-includes/media.php:4441
+#: wp-includes/media.php:4447
 msgid "Cropping&hellip;"
 msgstr "در حال برش&hellip;"
 
@@ -10349,7 +10374,7 @@ msgid "Replace"
 msgstr "جای‌گزینی"
 
 #: wp-includes/class-wp-editor.php:1240
-#: wp-includes/js/dist/block-library.js:2986
+#: wp-includes/js/dist/block-library.js:2957
 msgctxt "editor button"
 msgid "Left to right"
 msgstr "چپ به راست"
@@ -10463,116 +10488,116 @@ msgstr "آرگومان کوئری %s باید دارای نگهدارندهٔ م
 msgid "Invalid menu ID."
 msgstr "شناسه فهرست نامعتبر است."
 
-#: wp-includes/media.php:4478
+#: wp-includes/media.php:4484
 msgid "Add to video Playlist"
 msgstr "افزودن به فهرست پخش ویدئویی"
 
-#: wp-includes/media.php:4477
+#: wp-includes/media.php:4483
 msgid "Add to video playlist"
 msgstr "افزودن به فهرست پخش ویدئویی"
 
-#: wp-includes/media.php:4476
+#: wp-includes/media.php:4482
 msgid "Update video playlist"
 msgstr "به‌روزرسانی فهرست پخش ویدئویی"
 
-#: wp-includes/media.php:4475
+#: wp-includes/media.php:4481
 msgid "Insert video playlist"
 msgstr "گذاشتن فهرست پخش ویدئویی"
 
-#: wp-includes/media.php:4474
+#: wp-includes/media.php:4480
 msgid "&#8592; Cancel video playlist"
 msgstr "&#8592; لغو فهرست پخش ویدئویی"
 
-#: wp-includes/media.php:4473
+#: wp-includes/media.php:4479
 msgid "Edit video playlist"
 msgstr "ویرایش فهرست پخش ویدئویی"
 
-#: wp-includes/media.php:4472
+#: wp-includes/media.php:4478
 msgid "Create video playlist"
 msgstr "ساخت فهرست ویدئویی"
 
-#: wp-includes/media.php:4471
+#: wp-includes/media.php:4477
 msgid "Drag and drop to reorder videos."
 msgstr "با کشیدن و رها کردن، چینش ویدئوها را تغییر دهید."
 
-#: wp-includes/media.php:4462
+#: wp-includes/media.php:4468
 msgid "Create audio playlist"
 msgstr "ساخت فهرست صوتی"
 
-#: wp-includes/media.php:4461
+#: wp-includes/media.php:4467
 msgid "Drag and drop to reorder tracks."
 msgstr "با کشیدن و رها کردن، چینش ترک‌ها را تغییر دهید."
 
-#: wp-includes/media.php:4458
+#: wp-includes/media.php:4464
 msgid "Add subtitles"
 msgstr "افزودن زیرنویس"
 
-#: wp-includes/media.php:4455
+#: wp-includes/media.php:4461
 msgid "Add video source"
 msgstr "افزودن منبع ویدئو"
 
-#: wp-includes/media.php:4454
+#: wp-includes/media.php:4460
 msgid "Replace video"
 msgstr "جای‌گزینی ویدئو"
 
-#: wp-includes/media.php:4453
+#: wp-includes/media.php:4459
 msgid "Video details"
 msgstr "جزئیات ویدئو"
 
-#: wp-includes/media.php:4449
+#: wp-includes/media.php:4455
 msgid "Add audio source"
 msgstr "افزودن منبع صوت"
 
-#: wp-includes/media.php:4448
+#: wp-includes/media.php:4454
 msgid "Replace audio"
 msgstr "جای‌گزینی صوت"
 
-#: wp-includes/media.php:4447
+#: wp-includes/media.php:4453
 msgid "Audio details"
 msgstr "جزئیات صوت"
 
-#: wp-includes/media.php:4440
+#: wp-includes/media.php:4446
 msgid "Crop your image"
 msgstr "تصویر خود را برش بزنید"
 
-#: wp-includes/media.php:4439
+#: wp-includes/media.php:4445
 msgid "Crop image"
 msgstr "برش تصویر"
 
-#: wp-includes/media.php:4438
+#: wp-includes/media.php:4444
 msgid "Skip cropping"
 msgstr "صرف‌نظر از برش"
 
-#: wp-includes/media.php:4437
+#: wp-includes/media.php:4443
 msgid "Select and crop"
 msgstr "انتخاب و برش"
 
-#: wp-includes/media.php:4432
-#: wp-includes/media.php:4450
+#: wp-includes/media.php:4438
 #: wp-includes/media.php:4456
+#: wp-includes/media.php:4462
 msgid "Cancel edit"
 msgstr "لغو ویرایش"
 
-#: wp-includes/media.php:4430
+#: wp-includes/media.php:4436
 msgid "Image details"
 msgstr "جزئیات تصویر"
 
-#: wp-includes/media.php:4381
+#: wp-includes/media.php:4387
 msgid "Create a new video playlist"
 msgstr "ساخت فهرست ویدئویی تازه"
 
-#: wp-includes/media.php:4380
+#: wp-includes/media.php:4386
 msgid "Create a new playlist"
 msgstr "ساخت فهرست پخش تازه"
 
 #: wp-includes/class-wp-customize-section.php:365
 #: wp-includes/class-wp-customize-widgets.php:821
-#: wp-includes/media.php:4363
+#: wp-includes/media.php:4369
 #: wp-includes/class-wp-customize-panel.php:369
 #: wp-includes/customize/class-wp-customize-themes-panel.php:70
 #: wp-includes/customize/class-wp-customize-nav-menus-panel.php:72
 #: wp-includes/class-wp-customize-nav-menus.php:1144
-#: wp-includes/js/dist/components.js:43328
+#: wp-includes/js/dist/components.js:43071
 #: wp-includes/js/dist/edit-post.js:4774
 #: wp-admin/includes/ms.php:49
 #: wp-admin/theme-install.php:59
@@ -10589,16 +10614,16 @@ msgstr "تصویر پوستر"
 
 #: wp-includes/media-template.php:1309
 #: wp-includes/media-template.php:1408
-#: wp-includes/js/dist/block-library.js:10405
-#: wp-includes/js/dist/block-library.js:25254
+#: wp-includes/js/dist/block-library.js:10381
+#: wp-includes/js/dist/block-library.js:25242
 msgid "Autoplay"
 msgstr "پخش خودکار"
 
 #: wp-includes/media-template.php:1300
 #: wp-includes/media-template.php:1399
-#: wp-includes/js/dist/block-library.js:10430
-#: wp-includes/js/dist/block-library.js:25215
-#: wp-includes/js/dist/block-library.js:25326
+#: wp-includes/js/dist/block-library.js:10406
+#: wp-includes/js/dist/block-library.js:25203
+#: wp-includes/js/dist/block-library.js:25314
 #: wp-admin/includes/meta-boxes.php:1462
 msgid "Metadata"
 msgstr "فراداده"
@@ -10646,18 +10671,18 @@ msgid "Show invisible characters"
 msgstr "نمایش حروف نامرئی"
 
 #: wp-includes/class-wp-editor.php:1350
-#: wp-includes/js/dist/block-library.js:21167
+#: wp-includes/js/dist/block-library.js:21155
 #: wp-includes/js/dist/format-library.js:1550
 msgid "Text color"
 msgstr "رنگ متن"
 
 #: wp-includes/class-wp-editor.php:1349
-#: wp-includes/js/dist/block-library.js:24376
+#: wp-includes/js/dist/block-library.js:24364
 msgid "Background color"
 msgstr "رنگ پس‌زمینه"
 
 #: wp-includes/class-wp-editor.php:1318
-#: wp-includes/js/dist/block-library.js:24301
+#: wp-includes/js/dist/block-library.js:24289
 msgid "Delete column"
 msgstr "حذف ستون"
 
@@ -10710,10 +10735,10 @@ msgid "Find and replace"
 msgstr "جست‌وجو و جای‌گزینی"
 
 #: wp-includes/media-template.php:1226
-#: wp-includes/media.php:4361
-#: wp-includes/js/dist/block-editor.js:32078
-#: wp-includes/js/dist/block-library.js:14805
-#: wp-includes/js/dist/block-library.js:25799
+#: wp-includes/media.php:4367
+#: wp-includes/js/dist/block-editor.js:32104
+#: wp-includes/js/dist/block-library.js:14793
+#: wp-includes/js/dist/block-library.js:25787
 msgid "Replace"
 msgstr "جای‌گزینی"
 
@@ -10726,7 +10751,7 @@ msgid "Paste as text"
 msgstr "چسباندن به صورت متن"
 
 #: wp-includes/class-wp-editor.php:1243
-#: wp-includes/js/dist/block-library.js:20491
+#: wp-includes/js/dist/block-library.js:20479
 msgid "Page break"
 msgstr "جداکننده صفحه"
 
@@ -10808,7 +10833,7 @@ msgid "Visual aids"
 msgstr "کمک‌های دیداری"
 
 #: wp-includes/class-wp-editor.php:1165
-#: wp-includes/js/dist/block-editor.js:6586
+#: wp-includes/js/dist/block-editor.js:6604
 msgid "Align left"
 msgstr "چپ‌چین"
 
@@ -10825,7 +10850,7 @@ msgid "Decrease indent"
 msgstr "کم‌کردن تورفتگی"
 
 #: wp-includes/class-wp-editor.php:1163
-#: wp-includes/js/dist/block-editor.js:6590
+#: wp-includes/js/dist/block-editor.js:6608
 msgid "Align center"
 msgstr "وسط‌چین"
 
@@ -10843,7 +10868,7 @@ msgid "Numbered list"
 msgstr "فهرست عددی"
 
 #: wp-includes/class-wp-editor.php:1164
-#: wp-includes/js/dist/block-editor.js:6594
+#: wp-includes/js/dist/block-editor.js:6612
 msgid "Align right"
 msgstr "راست‌چین"
 
@@ -10862,7 +10887,7 @@ msgstr "برای جابه‌جایی این ابزارک ناحیه‌ای را 
 
 #: wp-includes/class-wp-customize-widgets.php:697
 #: wp-includes/class-wp-customize-nav-menus.php:1091
-#: wp-includes/js/dist/block-editor.js:18536
+#: wp-includes/js/dist/block-editor.js:18554
 #: wp-admin/includes/class-walker-nav-menu-edit.php:138
 #: wp-admin/includes/template.php:1339
 msgid "Move up"
@@ -10870,7 +10895,7 @@ msgstr "انتقال به پایین"
 
 #: wp-includes/class-wp-customize-widgets.php:696
 #: wp-includes/class-wp-customize-nav-menus.php:1092
-#: wp-includes/js/dist/block-editor.js:18542
+#: wp-includes/js/dist/block-editor.js:18560
 #: wp-admin/includes/class-walker-nav-menu-edit.php:155
 #: wp-admin/includes/template.php:1349
 msgid "Move down"
@@ -10928,7 +10953,7 @@ msgstr ""
 msgid "https://wordpress.org/support/"
 msgstr ""
 
-#: wp-includes/js/dist/editor.js:8113
+#: wp-includes/js/dist/editor.js:8112
 #: wp-admin/includes/class-wp-privacy-requests-table.php:44
 #: wp-admin/includes/ajax-actions.php:2182
 #: wp-admin/includes/class-wp-posts-list-table.php:1838
@@ -10961,7 +10986,7 @@ msgid "Attempted to set image quality outside of the range [1,100]."
 msgstr "سعی کردید کیفیت تصویر را خارج از محدوده [۱-۱۰۰] تعیین کنید."
 
 #: wp-includes/widgets/class-wp-widget-tag-cloud.php:26
-#: wp-includes/js/dist/block-library.js:26183
+#: wp-includes/js/dist/block-library.js:26171
 msgid "A cloud of your most used tags."
 msgstr "ابری از برچسب‌هایی که بیشتر استفاده کرده‌اید."
 
@@ -11210,7 +11235,7 @@ msgstr ""
 #. translators: 1: Post edited date, 2: Post edited time.
 #: wp-includes/script-loader.php:161
 #: wp-includes/script-loader.php:376
-#: wp-includes/media.php:3939
+#: wp-includes/media.php:3945
 #: wp-includes/class-wp-locale.php:363
 #: wp-admin/includes/class-wp-privacy-policy-content.php:378
 #: wp-admin/includes/schema.php:426
@@ -11335,12 +11360,12 @@ msgstr "شناسه کاربر نامعتبر است."
 msgid "Random Order"
 msgstr "چینش تصادفی"
 
-#: wp-includes/media.php:4413
-#: wp-includes/js/dist/block-editor.js:32725
+#: wp-includes/media.php:4419
+#: wp-includes/js/dist/block-editor.js:32751
 msgid "Insert from URL"
 msgstr "جای‌گذاری با نشانی اینترنتی"
 
-#: wp-includes/media.php:4369
+#: wp-includes/media.php:4375
 msgid "%d selected"
 msgstr "گزینش‌شده: %d"
 
@@ -11350,7 +11375,7 @@ msgid "Random"
 msgstr "تصادفی"
 
 #: wp-includes/media-template.php:1475
-#: wp-includes/media.php:4385
+#: wp-includes/media.php:4391
 #: wp-admin/includes/class-wp-themes-list-table.php:93
 #: wp-admin/includes/class-wp-list-table.php:335
 #: wp-admin/includes/ajax-actions.php:2179
@@ -11358,7 +11383,7 @@ msgstr "تصادفی"
 msgid "No items found."
 msgstr "پرونده‌ای پیدا نشد."
 
-#: wp-includes/media.php:4427
+#: wp-includes/media.php:4433
 msgid "Reverse order"
 msgstr "چینش معکوس"
 
@@ -11368,7 +11393,7 @@ msgstr "عدم انتخاب"
 
 #: wp-includes/media-template.php:541
 #: wp-includes/media-template.php:692
-#: wp-includes/media.php:4397
+#: wp-includes/media.php:4403
 #: wp-admin/includes/meta-boxes.php:335
 #: wp-admin/includes/meta-boxes.php:444
 #: wp-admin/includes/class-wp-media-list-table.php:177
@@ -11390,7 +11415,7 @@ msgstr "نادیده گرفتن خطاها"
 msgid "Uploading"
 msgstr "در حال بارگذاری"
 
-#: wp-includes/media.php:3696
+#: wp-includes/media.php:3702
 msgid "No editor could be selected."
 msgstr "ویرایشگری قابل گزینش نیست."
 
@@ -11407,8 +11432,8 @@ msgstr "مدیریت ویدئو"
 
 #: wp-includes/widgets/class-wp-widget-media-video.php:28
 #: wp-includes/post.php:2870
-#: wp-includes/js/dist/editor.js:8116
-#: wp-includes/js/dist/block-editor.js:32677
+#: wp-includes/js/dist/editor.js:8115
+#: wp-includes/js/dist/block-editor.js:32703
 msgid "Video"
 msgstr "ویدئو"
 
@@ -11444,8 +11469,8 @@ msgstr "گذاشتن در برگه"
 
 #: wp-includes/widgets/class-wp-widget-media-audio.php:28
 #: wp-includes/post.php:2861
-#: wp-includes/js/dist/editor.js:8092
-#: wp-includes/js/dist/block-editor.js:32673
+#: wp-includes/js/dist/editor.js:8091
+#: wp-includes/js/dist/block-editor.js:32699
 msgid "Audio"
 msgstr "صوت"
 
@@ -11453,7 +11478,7 @@ msgstr "صوت"
 msgid "Uploaded to this post"
 msgstr "بارگذاری در این نوشته"
 
-#: wp-includes/media.php:4383
+#: wp-includes/media.php:4389
 #: wp-admin/includes/class-wp-media-list-table.php:127
 msgid "All media items"
 msgstr "همهٔ موارد رسانه‌ای"
@@ -11466,11 +11491,11 @@ msgstr "نشانی سفارشی"
 
 #: wp-includes/media-template.php:903
 #: wp-includes/class-wp-editor.php:1304
-#: wp-includes/js/dist/block-library.js:9642
-#: wp-includes/js/dist/block-library.js:13158
-#: wp-includes/js/dist/block-library.js:19263
-#: wp-includes/js/dist/block-library.js:21741
-#: wp-includes/js/dist/block-library.js:24819
+#: wp-includes/js/dist/block-library.js:9618
+#: wp-includes/js/dist/block-library.js:13134
+#: wp-includes/js/dist/block-library.js:19251
+#: wp-includes/js/dist/block-library.js:21729
+#: wp-includes/js/dist/block-library.js:24807
 #: wp-admin/includes/class-wp-screen.php:1158
 msgid "Columns"
 msgstr "ستون‌ها"
@@ -11487,21 +11512,21 @@ msgstr "جزئیات پیوست"
 #: wp-includes/media-template.php:856
 #: wp-includes/media-template.php:936
 #: wp-includes/media-template.php:1127
-#: wp-includes/media.php:4004
-#: wp-includes/js/dist/components.js:36628
-#: wp-includes/js/dist/block-editor.js:11980
-#: wp-includes/js/dist/block-library.js:26553
+#: wp-includes/media.php:4010
+#: wp-includes/js/dist/components.js:36371
+#: wp-includes/js/dist/block-editor.js:11998
+#: wp-includes/js/dist/block-library.js:26613
 #: wp-admin/includes/class-custom-background.php:599
 #: wp-admin/includes/media.php:1170
 #: wp-admin/edit-form-blocks.php:240
 msgid "Large"
 msgstr "بزرگ"
 
-#: wp-includes/media.php:4422
+#: wp-includes/media.php:4428
 msgid "&#8592; Cancel gallery"
 msgstr "&#8594; لغو گالری"
 
-#: wp-includes/media.php:4374
+#: wp-includes/media.php:4380
 msgid "Upload images"
 msgstr "بارگذاری تصویرها"
 
@@ -11518,11 +11543,11 @@ msgstr "تنظیمات نمایش پیوست"
 msgid "WordPress &rsaquo; Success"
 msgstr "وردپرس &rsaquo; موفقیت"
 
-#: wp-includes/media.php:4373
+#: wp-includes/media.php:4379
 msgid "Upload files"
 msgstr "بارگذاری پرونده‌ها"
 
-#: wp-includes/media.php:4423
+#: wp-includes/media.php:4429
 #: wp-admin/includes/media.php:2669
 msgid "Insert gallery"
 msgstr "درج گالری"
@@ -11530,17 +11555,17 @@ msgstr "درج گالری"
 #: wp-includes/media-template.php:209
 #: wp-includes/media-template.php:216
 #: wp-includes/media-template.php:253
-#: wp-includes/js/dist/components.js:37435
+#: wp-includes/js/dist/components.js:37178
 #: wp-admin/includes/media.php:2233
 msgid "Drop files to upload"
 msgstr "پرونده‌ها را برای بارگذاری رها کنید"
 
-#: wp-includes/media.php:4420
+#: wp-includes/media.php:4426
 msgid "Create gallery"
 msgstr "ساخت گالری"
 
-#: wp-includes/media.php:4377
-#: wp-includes/js/dist/block-editor.js:32752
+#: wp-includes/media.php:4383
+#: wp-includes/js/dist/block-editor.js:32778
 #: wp-admin/includes/media.php:21
 #: wp-admin/upload.php:79
 #: wp-admin/upload.php:216
@@ -11601,16 +11626,16 @@ msgstr ""
 #: wp-includes/media-template.php:819
 #: wp-includes/media-template.php:894
 #: wp-includes/media-template.php:1167
-#: wp-includes/js/dist/block-editor.js:33501
-#: wp-includes/js/dist/block-library.js:9330
+#: wp-includes/js/dist/block-editor.js:33527
+#: wp-includes/js/dist/block-library.js:9303
 msgid "Media File"
 msgstr "پرونده رسانه‌ای"
 
 #: wp-includes/media-template.php:826
 #: wp-includes/media-template.php:891
 #: wp-includes/media-template.php:1170
-#: wp-includes/js/dist/block-editor.js:33509
-#: wp-includes/js/dist/block-library.js:9327
+#: wp-includes/js/dist/block-editor.js:33535
+#: wp-includes/js/dist/block-library.js:9300
 #: wp-admin/includes/media.php:2611
 msgid "Attachment Page"
 msgstr "برگهٔ پیوست"
@@ -11623,7 +11648,7 @@ msgstr "برگهٔ پیوست"
 msgid "Link To"
 msgstr "پیوند به"
 
-#: wp-includes/media.php:4424
+#: wp-includes/media.php:4430
 msgid "Update gallery"
 msgstr "به‌روزرسانی گالری"
 
@@ -11695,16 +11720,16 @@ msgid "Could not insert term relationship into the database."
 msgstr "ارتباط رده‌ها نمی‌تواند به بانک اطلاعاتی افزوده شود."
 
 #: wp-includes/media-template.php:756
-#: wp-includes/js/dist/components.js:31009
-#: wp-includes/js/dist/components.js:41961
+#: wp-includes/js/dist/components.js:30752
+#: wp-includes/js/dist/components.js:41704
 #: wp-admin/theme-install.php:209
 #: wp-admin/theme-install.php:232
 #: wp-admin/js/color-picker.js:154
 msgid "Clear"
 msgstr "پاک‌سازی"
 
-#: wp-includes/media.php:4425
-#: wp-includes/media.php:4426
+#: wp-includes/media.php:4431
+#: wp-includes/media.php:4432
 msgid "Add to gallery"
 msgstr "افزودن به گالری"
 
@@ -11712,7 +11737,7 @@ msgstr "افزودن به گالری"
 msgid "Insert into post"
 msgstr "گذاشتن در نوشته"
 
-#: wp-includes/media.php:4379
+#: wp-includes/media.php:4385
 msgid "Create a new gallery"
 msgstr "گالری تازه بسازید"
 
@@ -11805,7 +11830,7 @@ msgid "Colors"
 msgstr "رنگ‌ها"
 
 #: wp-includes/script-loader.php:1162
-#: wp-includes/js/dist/editor.js:10658
+#: wp-includes/js/dist/editor.js:10657
 #: wp-admin/js/widgets.js:130
 #: wp-admin/js/widgets.js:575
 msgid "Saved"
@@ -11905,17 +11930,17 @@ msgid "Background Image"
 msgstr "تصویر پس‌زمینه"
 
 #: wp-includes/class-wp-customize-manager.php:5283
-#: wp-includes/js/dist/block-editor.js:8650
-#: wp-includes/js/dist/block-editor.js:10783
-#: wp-includes/js/dist/block-library.js:11358
+#: wp-includes/js/dist/block-editor.js:8668
+#: wp-includes/js/dist/block-editor.js:10801
+#: wp-includes/js/dist/block-library.js:11334
 #: wp-admin/includes/class-custom-background.php:454
 #: wp-admin/includes/class-custom-background.php:455
 msgid "Background Color"
 msgstr "رنگ پس‌زمینه"
 
-#: wp-includes/js/dist/block-editor.js:8646
-#: wp-includes/js/dist/block-editor.js:10782
-#: wp-includes/js/dist/block-library.js:11354
+#: wp-includes/js/dist/block-editor.js:8664
+#: wp-includes/js/dist/block-editor.js:10800
+#: wp-includes/js/dist/block-library.js:11330
 #: wp-admin/includes/class-custom-image-header.php:716
 msgid "Text Color"
 msgstr "رنگ متن"
@@ -11925,8 +11950,8 @@ msgid "Change image"
 msgstr "تغییر تصویر"
 
 #: wp-includes/customize/class-wp-customize-header-image-control.php:140
-#: wp-includes/js/dist/editor.js:7879
-#: wp-includes/js/dist/block-library.js:9141
+#: wp-includes/js/dist/editor.js:7878
+#: wp-includes/js/dist/block-library.js:9114
 msgid "Remove image"
 msgstr "حذف تصویر"
 
@@ -11945,7 +11970,7 @@ msgstr "پرونده‌های مجاز"
 
 #: wp-includes/media-template.php:574
 #: wp-includes/class-wp-customize-widgets.php:777
-#: wp-includes/media.php:4362
+#: wp-includes/media.php:4368
 #: wp-includes/customize/class-wp-customize-nav-menu-item-control.php:158
 #: wp-includes/customize/class-wp-customize-media-control.php:228
 #: wp-includes/customize/class-wp-customize-media-control.php:238
@@ -11954,17 +11979,17 @@ msgstr "پرونده‌های مجاز"
 #: wp-includes/class-wp-customize-manager.php:5200
 #: wp-includes/class-wp-editor.php:1383
 #: wp-includes/js/dist/edit-post.js:2944
-#: wp-includes/js/dist/block-library.js:25809
+#: wp-includes/js/dist/block-library.js:25797
 #: wp-admin/includes/class-walker-nav-menu-edit.php:278
 #: wp-admin/includes/class-wp-users-list-table.php:269
 #: wp-admin/includes/class-wp-users-list-table.php:463
 msgid "Remove"
 msgstr "حذف"
 
-#: wp-includes/js/dist/block-editor.js:32202
-#: wp-includes/js/dist/block-editor.js:32766
-#: wp-includes/js/dist/block-editor.js:32779
-#: wp-includes/js/dist/block-library.js:25591
+#: wp-includes/js/dist/block-editor.js:32228
+#: wp-includes/js/dist/block-editor.js:32792
+#: wp-includes/js/dist/block-editor.js:32805
+#: wp-includes/js/dist/block-library.js:25579
 #: wp-admin/includes/class-custom-background.php:333
 #: wp-admin/includes/media.php:2260
 #: wp-admin/includes/media.php:2262
@@ -12162,8 +12187,8 @@ msgstr "نوع پیوند پیش‌فرض تصویر"
 #: wp-includes/class-wp-xmlrpc-server.php:6383
 #: wp-includes/class-wp-xmlrpc-server.php:6572
 #: wp-includes/class-wp-xmlrpc-server.php:6630
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:430
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:709
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:470
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:755
 #: wp-admin/includes/post.php:267
 #: wp-admin/includes/post.php:1891
 #: wp-admin/includes/post.php:1895
@@ -12190,7 +12215,7 @@ msgstr ""
 
 #: wp-includes/class-wp-xmlrpc-server.php:1951
 #: wp-includes/class-wp-xmlrpc-server.php:4512
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:143
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:151
 #: wp-includes/rest-api/endpoints/class-wp-rest-post-types-controller.php:95
 #: wp-includes/rest-api/endpoints/class-wp-rest-post-types-controller.php:157
 #: wp-admin/post.php:135
@@ -12200,7 +12225,7 @@ msgid "Sorry, you are not allowed to edit posts in this post type."
 msgstr "با عرض پوزش، شما اجازهٔ ویرایش نوشته‌هایی با این نوع نوشته را ندارید."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-revisions-controller.php:484
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:953
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:999
 msgid "The post cannot be deleted."
 msgstr "نوشته نمیتواند حذف شود."
 
@@ -12234,14 +12259,14 @@ msgstr "با عرض پوزش، شما مجاز به مشاهده این مورد
 
 #: wp-includes/class-wp-xmlrpc-server.php:1452
 #: wp-includes/class-wp-xmlrpc-server.php:5403
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1168
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1214
 msgid "Invalid author ID."
 msgstr "شناسه نویسنده نامعتبر است."
 
 #: wp-includes/class-wp-xmlrpc-server.php:1446
 #: wp-includes/class-wp-xmlrpc-server.php:5390
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:536
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:552
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:582
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:598
 #: wp-admin/includes/post.php:42
 #: wp-admin/includes/post.php:87
 #: wp-admin/press-this.php:20
@@ -12254,7 +12279,7 @@ msgid "Sorry, you are not allowed to create password protected posts in this pos
 msgstr "با عرض پوزش، شما مجاز نیستید در این نوع نوشته، نوشتهٔ رمزدار بسازید."
 
 #: wp-includes/class-wp-xmlrpc-server.php:1423
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1309
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1355
 msgid "Sorry, you are not allowed to create private posts in this post type."
 msgstr "با عرض پوزش، شما مجاز نیستید نوشتهٔ خصوصی با این نوع بسازید."
 
@@ -12521,8 +12546,8 @@ msgid "Your account is now activated. <a href=\"%1$s\">View your site</a> or <a 
 msgstr "حساب شما هم‌اکنون فعال شد. می‌توانید سایت را <a href=\"%1$s\">مشاهده</a> کنید یا <a href=\"%2$s\">وارد</a> آن شوید"
 
 #: wp-includes/class-wp-editor.php:1256
-#: wp-includes/js/dist/editor.js:8104
-#: wp-includes/js/dist/block-library.js:11575
+#: wp-includes/js/dist/editor.js:8103
+#: wp-includes/js/dist/block-library.js:11551
 #: wp-includes/js/dist/format-library.js:1214
 msgid "Link"
 msgstr "پیوند"
@@ -12556,8 +12581,8 @@ msgstr "پوستر"
 #: wp-includes/widgets/class-wp-widget-media-video.php:74
 #: wp-includes/media-template.php:1296
 #: wp-includes/media-template.php:1395
-#: wp-includes/js/dist/block-library.js:10414
-#: wp-includes/js/dist/block-library.js:25275
+#: wp-includes/js/dist/block-library.js:10390
+#: wp-includes/js/dist/block-library.js:25263
 msgid "Preload"
 msgstr "پیش‌بارگذاری"
 
@@ -12746,8 +12771,8 @@ msgstr "دیگر نیازی به فراخوانی (include) این پرونده 
 
 #: wp-includes/widgets/class-wp-widget-categories.php:193
 #: wp-includes/widgets/class-wp-widget-archives.php:224
-#: wp-includes/js/dist/block-library.js:10104
-#: wp-includes/js/dist/block-library.js:12418
+#: wp-includes/js/dist/block-library.js:10080
+#: wp-includes/js/dist/block-library.js:12394
 msgid "Display as dropdown"
 msgstr "نمایش به‌عنوان فهرست بازشو"
 
@@ -12927,7 +12952,7 @@ msgid "Parent Category:"
 msgstr "دستهٔ مادر:"
 
 #: wp-includes/taxonomy.php:598
-#: wp-includes/js/dist/editor.js:11383
+#: wp-includes/js/dist/editor.js:11382
 msgid "Parent Category"
 msgstr "مادر دسته"
 
@@ -13493,7 +13518,7 @@ msgstr "با عرض پوزش، شما اجازهٔ تغییر نویسندهٔ �
 msgid "Sorry, you are not allowed to change the post author as this user."
 msgstr "با عرض پوزش، شما اجازهٔ تغییر نویسندهٔ نوشته با این نام کاربری را ندارید."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:717
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:763
 msgid "Sorry, you are not allowed to update posts as this user."
 msgstr "با عرض پوزش، شما مجاز نیستید با این نام‌کاربری نوشته‌ها را ویرایش کنید."
 
@@ -13520,7 +13545,7 @@ msgid "Invalid post type."
 msgstr "نوع نوشته نامعتبر است."
 
 #: wp-includes/class-wp-xmlrpc-server.php:1429
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1319
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1365
 msgid "Sorry, you are not allowed to publish posts in this post type."
 msgstr "با عرض پوزش، شما اجازهٔ انتشار این نوع نوشته را ندارید."
 
@@ -13578,7 +13603,7 @@ msgstr "نویسندهٔ دیدگاه باید نام و نشانی ایمیل �
 #: wp-includes/class-wp-xmlrpc-server.php:6751
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:361
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:828
-#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:397
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:437
 #: wp-includes/comment.php:2458
 #: wp-includes/post.php:3800
 #: wp-includes/post.php:4433
@@ -13660,7 +13685,7 @@ msgstr "نام‌کاربری تازه شما %s است"
 #: wp-includes/script-loader.php:1731
 #: wp-includes/class-wp-customize-nav-menus.php:1110
 #: wp-signup.php:621
-#: wp-includes/js/dist/components.js:42606
+#: wp-includes/js/dist/components.js:42349
 msgid "Next"
 msgstr "بعدی"
 
@@ -13903,8 +13928,8 @@ msgstr "از"
 #: wp-includes/script-loader.php:851
 #: wp-includes/widgets/class-wp-widget-media-image.php:28
 #: wp-includes/class-wp-editor.php:1212
-#: wp-includes/js/dist/editor.js:8101
-#: wp-includes/js/dist/block-editor.js:32675
+#: wp-includes/js/dist/editor.js:8100
+#: wp-includes/js/dist/block-editor.js:32701
 #: wp-admin/includes/media.php:2929
 msgid "Image"
 msgstr "تصویر"
@@ -14230,13 +14255,13 @@ msgstr "این کاربر وجود ندارد."
 
 #: wp-includes/class-wp-locale.php:194
 #: wp-includes/customize/class-wp-customize-date-time-control.php:173
-#: wp-includes/js/dist/components.js:36280
+#: wp-includes/js/dist/components.js:36023
 msgid "PM"
 msgstr "ب.ظ"
 
 #: wp-includes/class-wp-locale.php:193
 #: wp-includes/customize/class-wp-customize-date-time-control.php:172
-#: wp-includes/js/dist/components.js:36275
+#: wp-includes/js/dist/components.js:36018
 msgid "AM"
 msgstr "ق.ظ"
 
@@ -14285,19 +14310,19 @@ msgid "Fill Screen"
 msgstr "تمام صفحه"
 
 #: wp-includes/block-patterns/quote.php:9
-#: wp-includes/js/dist/editor.js:8107
+#: wp-includes/js/dist/editor.js:8106
 msgid "Quote"
 msgstr "گفتاورد"
 
 #: wp-includes/class-wp-editor.php:1253
-#: wp-includes/js/dist/block-editor.js:33614
+#: wp-includes/js/dist/block-editor.js:33640
 msgid "Remove link"
 msgstr "حذف پیوند"
 
 #: wp-includes/script-loader.php:662
 #: wp-includes/class-wp-editor.php:1257
-#: wp-includes/js/dist/block-editor.js:33286
-#: wp-includes/js/dist/block-editor.js:33581
+#: wp-includes/js/dist/block-editor.js:33312
+#: wp-includes/js/dist/block-editor.js:33607
 msgid "Insert link"
 msgstr "جای‌گذاری پیوند"
 
@@ -14320,7 +14345,7 @@ msgstr "حرف"
 
 #: wp-includes/widgets/class-wp-widget-media-image.php:137
 #: wp-includes/media-template.php:1209
-#: wp-includes/js/dist/block-editor.js:33568
+#: wp-includes/js/dist/block-editor.js:33594
 msgid "Link Rel"
 msgstr "ارتباط پیوند"
 
@@ -14329,25 +14354,25 @@ msgid "Source"
 msgstr "منبع"
 
 #: wp-includes/customize/class-wp-customize-background-position-control.php:79
-#: wp-includes/js/dist/components.js:18195
+#: wp-includes/js/dist/components.js:17925
 #: wp-admin/includes/class-custom-background.php:401
 msgid "Bottom Right"
 msgstr "پایین راست"
 
 #: wp-includes/customize/class-wp-customize-background-position-control.php:71
-#: wp-includes/js/dist/components.js:18193
+#: wp-includes/js/dist/components.js:17923
 #: wp-admin/includes/class-custom-background.php:393
 msgid "Bottom Left"
 msgstr "پایین چپ"
 
 #: wp-includes/customize/class-wp-customize-background-position-control.php:51
-#: wp-includes/js/dist/components.js:18189
+#: wp-includes/js/dist/components.js:17919
 #: wp-admin/includes/class-custom-background.php:373
 msgid "Top Right"
 msgstr "بالا راست"
 
 #: wp-includes/customize/class-wp-customize-background-position-control.php:43
-#: wp-includes/js/dist/components.js:18187
+#: wp-includes/js/dist/components.js:17917
 #: wp-admin/includes/class-custom-background.php:365
 msgid "Top Left"
 msgstr "بالا چپ"
@@ -14369,8 +14394,8 @@ msgstr "پس‌زمینه"
 
 #: wp-includes/media-template.php:1028
 #: wp-includes/media-template.php:1092
-#: wp-includes/js/dist/block-editor.js:6660
-#: wp-includes/js/dist/block-editor.js:11241
+#: wp-includes/js/dist/block-editor.js:6678
+#: wp-includes/js/dist/block-editor.js:11259
 msgid "Align"
 msgstr "چینش"
 
@@ -14378,12 +14403,12 @@ msgstr "چینش"
 #: wp-includes/widgets/class-wp-widget-media-video.php:80
 #: wp-includes/media-template.php:1314
 #: wp-includes/media-template.php:1413
-#: wp-includes/js/dist/block-library.js:10410
-#: wp-includes/js/dist/block-library.js:25259
+#: wp-includes/js/dist/block-library.js:10386
+#: wp-includes/js/dist/block-library.js:25247
 msgid "Loop"
 msgstr "چرخه"
 
-#: wp-includes/js/dist/components.js:41855
+#: wp-includes/js/dist/components.js:41598
 #: wp-admin/includes/ajax-actions.php:2182
 msgid "Type"
 msgstr "نوع"
@@ -14407,7 +14432,7 @@ msgstr "نشانی که شما وارد کردید، شبیه به یک نشان
 
 #: wp-includes/customize/class-wp-customize-background-position-control.php:75
 #: wp-includes/class-wp-editor.php:1336
-#: wp-includes/js/dist/components.js:27322
+#: wp-includes/js/dist/components.js:27065
 #: wp-admin/includes/class-custom-background.php:397
 msgid "Bottom"
 msgstr "پایین"
@@ -14418,8 +14443,8 @@ msgstr "میانه"
 
 #: wp-includes/customize/class-wp-customize-background-position-control.php:47
 #: wp-includes/class-wp-editor.php:1334
-#: wp-includes/js/dist/components.js:27321
-#: wp-includes/js/dist/components.js:38150
+#: wp-includes/js/dist/components.js:27064
+#: wp-includes/js/dist/components.js:37893
 #: wp-admin/includes/class-custom-background.php:369
 msgid "Top"
 msgstr "بالا"
@@ -14433,7 +14458,7 @@ msgid "Vertical space"
 msgstr "فاصله عمودی"
 
 #: wp-includes/class-wp-editor.php:1222
-#: wp-includes/js/dist/block-library.js:14841
+#: wp-includes/js/dist/block-library.js:14829
 msgid "Dimensions"
 msgstr "اندازه"
 
@@ -14455,7 +14480,7 @@ msgstr "چسباندن"
 
 #: wp-includes/class-wp-customize-manager.php:4345
 #: wp-includes/class-wp-editor.php:1171
-#: wp-includes/js/dist/block-editor.js:24787
+#: wp-includes/js/dist/block-editor.js:24813
 msgid "Copy"
 msgstr "کپی"
 
@@ -14474,34 +14499,34 @@ msgid "Subscript"
 msgstr "زیرنویس"
 
 #: wp-includes/class-wp-editor.php:1152
-#: wp-includes/js/dist/block-editor.js:8735
+#: wp-includes/js/dist/block-editor.js:8753
 #: wp-includes/js/dist/format-library.js:1348
 msgid "Strikethrough"
 msgstr "خط خوردن"
 
 #: wp-includes/class-wp-editor.php:1151
-#: wp-includes/js/dist/block-editor.js:8731
+#: wp-includes/js/dist/block-editor.js:8749
 #: wp-includes/js/dist/format-library.js:1389
 msgid "Underline"
 msgstr "زیرخط دار"
 
 #: wp-includes/script-loader.php:660
 #: wp-includes/class-wp-editor.php:1157
-#: wp-includes/js/dist/block-editor.js:9237
+#: wp-includes/js/dist/block-editor.js:9255
 #: wp-includes/js/dist/format-library.js:890
 msgid "Italic"
 msgstr "کج"
 
 #: wp-includes/script-loader.php:658
 #: wp-includes/class-wp-editor.php:1156
-#: wp-includes/js/dist/block-editor.js:9259
+#: wp-includes/js/dist/block-editor.js:9277
 #: wp-includes/js/dist/format-library.js:576
 msgid "Bold"
 msgstr "تو پر"
 
 #: wp-includes/script-loader.php:676
 #: wp-includes/class-wp-editor.php:1158
-#: wp-includes/js/dist/block-library.js:12507
+#: wp-includes/js/dist/block-library.js:12483
 msgid "Code"
 msgstr "دستور"
 
@@ -14604,27 +14629,27 @@ msgid "Merge table cells"
 msgstr "ادغام خانه‌های جدول"
 
 #: wp-includes/class-wp-editor.php:1314
-#: wp-includes/js/dist/block-library.js:24296
+#: wp-includes/js/dist/block-library.js:24284
 msgid "Insert column after"
 msgstr "جای‌گذاری ستون در پس"
 
 #: wp-includes/class-wp-editor.php:1313
-#: wp-includes/js/dist/block-library.js:24291
+#: wp-includes/js/dist/block-library.js:24279
 msgid "Insert column before"
 msgstr "جای‌گذاری ستون در پیش"
 
 #: wp-includes/class-wp-editor.php:1317
-#: wp-includes/js/dist/block-library.js:24286
+#: wp-includes/js/dist/block-library.js:24274
 msgid "Delete row"
 msgstr "حذف ردیف"
 
 #: wp-includes/class-wp-editor.php:1312
-#: wp-includes/js/dist/block-library.js:24281
+#: wp-includes/js/dist/block-library.js:24269
 msgid "Insert row after"
 msgstr "جای‌گذاری ردیف در پس"
 
 #: wp-includes/class-wp-editor.php:1311
-#: wp-includes/js/dist/block-library.js:24276
+#: wp-includes/js/dist/block-library.js:24264
 msgid "Insert row before"
 msgstr "جای‌گذاری ردیف در پیش"
 
@@ -14742,7 +14767,7 @@ msgstr "یکشنبه"
 #. translators: Three-letter abbreviation of the month.
 #: wp-includes/class-wp-locale.php:160
 #: wp-includes/class-wp-locale.php:188
-#: wp-includes/js/dist/components.js:36219
+#: wp-includes/js/dist/components.js:35962
 msgid "December"
 msgstr "دسامبر"
 
@@ -14750,7 +14775,7 @@ msgstr "دسامبر"
 #. translators: Three-letter abbreviation of the month.
 #: wp-includes/class-wp-locale.php:159
 #: wp-includes/class-wp-locale.php:187
-#: wp-includes/js/dist/components.js:36217
+#: wp-includes/js/dist/components.js:35960
 msgid "November"
 msgstr "نوامبر"
 
@@ -14758,7 +14783,7 @@ msgstr "نوامبر"
 #. translators: Three-letter abbreviation of the month.
 #: wp-includes/class-wp-locale.php:158
 #: wp-includes/class-wp-locale.php:186
-#: wp-includes/js/dist/components.js:36215
+#: wp-includes/js/dist/components.js:35958
 msgid "October"
 msgstr "اکتبر"
 
@@ -14766,7 +14791,7 @@ msgstr "اکتبر"
 #. translators: Three-letter abbreviation of the month.
 #: wp-includes/class-wp-locale.php:157
 #: wp-includes/class-wp-locale.php:185
-#: wp-includes/js/dist/components.js:36213
+#: wp-includes/js/dist/components.js:35956
 msgid "September"
 msgstr "سپتامبر"
 
@@ -14774,7 +14799,7 @@ msgstr "سپتامبر"
 #. translators: Three-letter abbreviation of the month.
 #: wp-includes/class-wp-locale.php:156
 #: wp-includes/class-wp-locale.php:184
-#: wp-includes/js/dist/components.js:36211
+#: wp-includes/js/dist/components.js:35954
 msgid "August"
 msgstr "آگوست"
 
@@ -14782,7 +14807,7 @@ msgstr "آگوست"
 #. translators: Three-letter abbreviation of the month.
 #: wp-includes/class-wp-locale.php:155
 #: wp-includes/class-wp-locale.php:183
-#: wp-includes/js/dist/components.js:36209
+#: wp-includes/js/dist/components.js:35952
 msgid "July"
 msgstr "جولای"
 
@@ -14790,7 +14815,7 @@ msgstr "جولای"
 #. translators: Three-letter abbreviation of the month.
 #: wp-includes/class-wp-locale.php:154
 #: wp-includes/class-wp-locale.php:182
-#: wp-includes/js/dist/components.js:36207
+#: wp-includes/js/dist/components.js:35950
 msgid "June"
 msgstr "ژوئن"
 
@@ -14798,7 +14823,7 @@ msgstr "ژوئن"
 #. translators: Three-letter abbreviation of the month.
 #: wp-includes/class-wp-locale.php:153
 #: wp-includes/class-wp-locale.php:181
-#: wp-includes/js/dist/components.js:36205
+#: wp-includes/js/dist/components.js:35948
 msgid "May"
 msgstr "می"
 
@@ -14806,7 +14831,7 @@ msgstr "می"
 #. translators: Three-letter abbreviation of the month.
 #: wp-includes/class-wp-locale.php:152
 #: wp-includes/class-wp-locale.php:180
-#: wp-includes/js/dist/components.js:36203
+#: wp-includes/js/dist/components.js:35946
 msgid "April"
 msgstr "آوریل"
 
@@ -14814,7 +14839,7 @@ msgstr "آوریل"
 #. translators: Three-letter abbreviation of the month.
 #: wp-includes/class-wp-locale.php:151
 #: wp-includes/class-wp-locale.php:179
-#: wp-includes/js/dist/components.js:36201
+#: wp-includes/js/dist/components.js:35944
 msgid "March"
 msgstr "مارس"
 
@@ -14822,14 +14847,14 @@ msgstr "مارس"
 #. translators: Three-letter abbreviation of the month.
 #: wp-includes/class-wp-locale.php:150
 #: wp-includes/class-wp-locale.php:178
-#: wp-includes/js/dist/components.js:36199
+#: wp-includes/js/dist/components.js:35942
 msgid "February"
 msgstr "فوریه"
 
 #. translators: Month name.
 #: wp-includes/class-wp-locale.php:149
 #: wp-includes/class-wp-locale.php:177
-#: wp-includes/js/dist/components.js:36197
+#: wp-includes/js/dist/components.js:35940
 msgid "January"
 msgstr "ژانویه"
 
@@ -14905,7 +14930,7 @@ msgstr "%1$s %2$s"
 
 #. translators: 1: Month, 2: Year.
 #. translators: 1: Month name, 2: 4-digit year.
-#: wp-includes/media.php:4292
+#: wp-includes/media.php:4298
 #: wp-includes/general-template.php:2031
 #: wp-admin/includes/class-wp-list-table.php:665
 msgid "%1$s %2$d"
@@ -15167,7 +15192,7 @@ msgid "Recent Posts"
 msgstr "آخرین نوشته‌ها"
 
 #: wp-includes/widgets/class-wp-widget-categories.php:201
-#: wp-includes/js/dist/block-library.js:12422
+#: wp-includes/js/dist/block-library.js:12398
 msgid "Show hierarchy"
 msgstr "نمایش رده‌بندی‌ها"
 
@@ -15191,9 +15216,9 @@ msgstr "تقویم"
 
 #: wp-includes/widgets/class-wp-widget-categories.php:197
 #: wp-includes/widgets/class-wp-widget-archives.php:227
-#: wp-includes/js/dist/block-library.js:10112
-#: wp-includes/js/dist/block-library.js:12426
-#: wp-includes/js/dist/block-library.js:26125
+#: wp-includes/js/dist/block-library.js:10088
+#: wp-includes/js/dist/block-library.js:12402
+#: wp-includes/js/dist/block-library.js:26113
 msgid "Show post counts"
 msgstr "نمایش تعداد نوشته‌ها"
 
@@ -15416,8 +15441,8 @@ msgstr "دیدگاه‌ها برای %s"
 #: wp-includes/script-loader.php:814
 #: wp-includes/script-loader.php:1120
 #: wp-includes/class-wp-customize-nav-menus.php:335
-#: wp-includes/js/dist/components.js:43897
-#: wp-includes/js/dist/block-editor.js:20538
+#: wp-includes/js/dist/components.js:43640
+#: wp-includes/js/dist/block-editor.js:20556
 #: wp-admin/includes/nav-menu.php:596
 #: wp-admin/includes/nav-menu.php:886
 #: wp-admin/js/nav-menu.js:1261
@@ -15436,10 +15461,10 @@ msgstr "&laquo; برگه‌ٔ پیشین"
 
 #. translators: 'Label. Used to signify a layout property (eg: margin, padding)
 #. will apply uniformly to all screensizes.'
-#: wp-includes/js/dist/components.js:27320
-#: wp-includes/js/dist/components.js:44666
-#: wp-includes/js/dist/components.js:44685
-#: wp-includes/js/dist/block-editor.js:32953
+#: wp-includes/js/dist/components.js:27063
+#: wp-includes/js/dist/components.js:44409
+#: wp-includes/js/dist/components.js:44428
+#: wp-includes/js/dist/block-editor.js:32979
 #: wp-admin/export.php:187
 #: wp-admin/export.php:199
 #: wp-admin/export.php:224
@@ -15503,12 +15528,12 @@ msgstr "عنوان:"
 #: wp-includes/customize/class-wp-customize-media-control.php:248
 #: wp-includes/customize/class-wp-customize-media-control.php:258
 #: wp-includes/class-wp-customize-manager.php:5201
-#: wp-includes/js/dist/components.js:36689
-#: wp-includes/js/dist/components.js:39919
-#: wp-includes/js/dist/block-editor.js:9287
-#: wp-includes/js/dist/block-editor.js:9551
-#: wp-includes/js/dist/block-library.js:22842
-#: wp-includes/js/dist/block-library.js:26808
+#: wp-includes/js/dist/components.js:36432
+#: wp-includes/js/dist/components.js:39662
+#: wp-includes/js/dist/block-editor.js:9305
+#: wp-includes/js/dist/block-editor.js:9569
+#: wp-includes/js/dist/block-library.js:22830
+#: wp-includes/js/dist/block-library.js:26859
 #: wp-admin/js/color-picker.js:149
 msgid "Default"
 msgstr "پیش‌فرض"
@@ -15516,7 +15541,7 @@ msgstr "پیش‌فرض"
 #: wp-includes/widgets/class-wp-widget-media-image.php:84
 #: wp-includes/media-template.php:1155
 #: wp-includes/class-wp-editor.php:1324
-#: wp-includes/js/dist/block-editor.js:29959
+#: wp-includes/js/dist/block-editor.js:29985
 #: wp-admin/options-media.php:61
 msgid "Height"
 msgstr "ارتفاع"
@@ -15565,7 +15590,7 @@ msgstr "اولین نوشته"
 #. translators: accessibility text for the settings landmark region.
 #: wp-includes/admin-bar.php:564
 #: wp-includes/js/dist/edit-post.js:7291
-#: wp-includes/js/dist/edit-post.js:9318
+#: wp-includes/js/dist/edit-post.js:9317
 #: wp-admin/includes/ms.php:1071
 #: wp-admin/options.php:21
 #: wp-admin/menu.php:292
@@ -15674,16 +15699,16 @@ msgstr "<strong>خطا</strong>: لطفاً نام کاربری را وارد ک
 #: wp-includes/widgets/class-wp-widget-media-image.php:78
 #: wp-includes/media-template.php:1150
 #: wp-includes/class-wp-editor.php:1325
-#: wp-includes/js/dist/block-editor.js:29948
-#: wp-includes/js/dist/block-library.js:13730
-#: wp-includes/js/dist/block-library.js:22113
+#: wp-includes/js/dist/block-editor.js:29974
+#: wp-includes/js/dist/block-library.js:13706
+#: wp-includes/js/dist/block-library.js:22101
 #: wp-includes/js/dist/format-library.js:786
 #: wp-admin/options-media.php:58
 msgid "Width"
 msgstr "پهنا"
 
 #: wp-includes/class-wp-theme.php:956
-#: wp-includes/js/dist/block-editor.js:9247
+#: wp-includes/js/dist/block-editor.js:9265
 msgid "Light"
 msgstr "روشن"
 
@@ -15692,7 +15717,7 @@ msgid "Yellow"
 msgstr "زرد"
 
 #: wp-includes/class-wp-theme.php:953
-#: wp-includes/js/dist/block-editor.js:11909
+#: wp-includes/js/dist/block-editor.js:11927
 msgid "White"
 msgstr "سفید"
 
@@ -15729,8 +15754,8 @@ msgid "Blue"
 msgstr "آبی"
 
 #: wp-includes/class-wp-theme.php:942
-#: wp-includes/js/dist/block-editor.js:9265
-#: wp-includes/js/dist/block-editor.js:11901
+#: wp-includes/js/dist/block-editor.js:9283
+#: wp-includes/js/dist/block-editor.js:11919
 msgid "Black"
 msgstr "سیاه"
 
@@ -15749,11 +15774,11 @@ msgstr "راهنما"
 #: wp-includes/blocks/rss.php:31
 #: wp-includes/blocks/latest-comments.php:31
 #: wp-includes/blocks/latest-posts.php:102
-#: wp-includes/media.php:3962
-#: wp-includes/js/dist/editor.js:10201
-#: wp-includes/js/dist/editor.js:12470
+#: wp-includes/media.php:3968
+#: wp-includes/js/dist/editor.js:10200
+#: wp-includes/js/dist/editor.js:12458
 #: wp-includes/js/dist/edit-post.js:7212
-#: wp-includes/js/dist/block-library.js:19357
+#: wp-includes/js/dist/block-library.js:19345
 #: wp-admin/includes/media.php:3315
 #: wp-admin/includes/revision.php:59
 #: wp-admin/includes/revision.php:62
@@ -15776,11 +15801,11 @@ msgstr "ویرایش رسانه"
 msgid "New Page"
 msgstr "برگهٔ تازه"
 
-#: wp-includes/media.php:4358
+#: wp-includes/media.php:4364
 #: wp-includes/js/dist/editor.js:6462
-#: wp-includes/js/dist/block-editor.js:33192
+#: wp-includes/js/dist/block-editor.js:33218
 #: wp-includes/js/dist/edit-post.js:4986
-#: wp-includes/js/dist/block-library.js:25799
+#: wp-includes/js/dist/block-library.js:25787
 #: wp-admin/includes/template.php:1949
 #: wp-admin/theme-editor.php:238
 #: wp-admin/plugin-editor.php:235
@@ -15795,12 +15820,12 @@ msgstr "گزینش"
 #: wp-includes/class-wp-customize-manager.php:5692
 #: wp-includes/class-wp-editor.php:1179
 #: wp-includes/class-wp-editor.php:1835
-#: wp-includes/js/dist/components.js:36373
-#: wp-includes/js/dist/block-editor.js:33303
+#: wp-includes/js/dist/components.js:36116
+#: wp-includes/js/dist/block-editor.js:33329
 #: wp-includes/js/dist/edit-post.js:3832
 #: wp-includes/js/dist/edit-post.js:4168
 #: wp-includes/js/dist/edit-post.js:4498
-#: wp-includes/js/dist/block-library.js:25467
+#: wp-includes/js/dist/block-library.js:25455
 #: wp-admin/includes/class-wp-theme-install-list-table.php:385
 #: wp-admin/theme-install.php:406
 msgid "Close"
@@ -15862,7 +15887,7 @@ msgstr "تصویرها"
 msgid "By %s"
 msgstr "توسط %s"
 
-#: wp-includes/js/dist/block-library.js:24724
+#: wp-includes/js/dist/block-library.js:24712
 #: wp-admin/includes/class-wp-debug-data.php:69
 #: wp-admin/includes/class-wp-debug-data.php:1084
 #: wp-admin/includes/class-wp-debug-data.php:1179
@@ -15876,12 +15901,12 @@ msgstr "نگارش"
 #: wp-includes/blocks/search.php:25
 #: wp-includes/blocks/search.php:26
 #: wp-includes/blocks/search.php:52
-#: wp-includes/media.php:4357
-#: wp-includes/media.php:4401
+#: wp-includes/media.php:4363
+#: wp-includes/media.php:4407
 #: wp-includes/class-wp-editor.php:1856
-#: wp-includes/js/dist/block-editor.js:21092
-#: wp-includes/js/dist/block-library.js:22199
-#: wp-includes/js/dist/block-library.js:22200
+#: wp-includes/js/dist/block-editor.js:21110
+#: wp-includes/js/dist/block-library.js:22187
+#: wp-includes/js/dist/block-library.js:22188
 #: wp-admin/includes/class-wp-media-list-table.php:300
 #: wp-admin/includes/theme-install.php:126
 #: wp-admin/includes/class-wp-theme-install-list-table.php:59
@@ -15926,8 +15951,8 @@ msgstr "افزودن یا حذف برچسب‌ها"
 
 #: wp-login.php:602
 #: wp-includes/script-loader.php:1117
-#: wp-includes/media.php:4360
-#: wp-includes/js/dist/editor.js:8868
+#: wp-includes/media.php:4366
+#: wp-includes/js/dist/editor.js:8867
 #: wp-admin/includes/class-wp-plugins-list-table.php:610
 #: wp-admin/includes/meta-boxes.php:370
 #: wp-admin/includes/meta-boxes.php:371
@@ -15946,7 +15971,7 @@ msgstr "افزودن یا حذف برچسب‌ها"
 msgid "Update"
 msgstr "به‌روزرسانی"
 
-#: wp-includes/js/dist/editor.js:9159
+#: wp-includes/js/dist/editor.js:9158
 #: wp-admin/includes/meta-boxes.php:178
 #: wp-admin/includes/meta-boxes.php:195
 #: wp-admin/js/post.js:874
@@ -15955,7 +15980,7 @@ msgstr "عمومی"
 
 #: wp-includes/post.php:969
 #: wp-includes/post.php:989
-#: wp-includes/js/dist/editor.js:9163
+#: wp-includes/js/dist/editor.js:9162
 #: wp-admin/includes/meta-boxes.php:169
 #: wp-admin/includes/meta-boxes.php:204
 #: wp-admin/includes/class-wp-posts-list-table.php:1648
@@ -15965,7 +15990,7 @@ msgid "Private"
 msgstr "خصوصی"
 
 #: wp-includes/class-wp-editor.php:1177
-#: wp-includes/js/dist/components.js:30652
+#: wp-includes/js/dist/components.js:30395
 #: wp-admin/includes/meta-boxes.php:154
 #: wp-admin/includes/meta-boxes.php:207
 #: wp-admin/includes/template.php:861
@@ -15979,10 +16004,10 @@ msgid "Image URL"
 msgstr "نشانی تصویر"
 
 #. translators: Default privacy policy heading.
-#: wp-includes/media.php:4354
-#: wp-includes/media.php:4919
+#: wp-includes/media.php:4360
+#: wp-includes/media.php:4925
 #: wp-includes/class-wp-editor.php:1229
-#: wp-includes/js/dist/block-editor.js:32670
+#: wp-includes/js/dist/block-editor.js:32696
 #: wp-includes/js/dist/blocks.js:6098
 #: wp-includes/js/dist/core-data.js:3062
 #: wp-admin/includes/class-wp-privacy-policy-content.php:500
@@ -16023,8 +16048,8 @@ msgstr "چیدمان"
 #: wp-includes/media-template.php:843
 #: wp-includes/media-template.php:922
 #: wp-includes/media-template.php:1114
-#: wp-includes/js/dist/block-library.js:26623
-#: wp-includes/js/dist/block-library.js:26624
+#: wp-includes/js/dist/block-library.js:26678
+#: wp-includes/js/dist/block-library.js:26679
 #: wp-admin/includes/media.php:1219
 msgid "Size"
 msgstr "اندازه"
@@ -16032,8 +16057,8 @@ msgstr "اندازه"
 #: wp-includes/media-template.php:857
 #: wp-includes/media-template.php:937
 #: wp-includes/media-template.php:1128
-#: wp-includes/media.php:4005
-#: wp-includes/js/dist/block-editor.js:11983
+#: wp-includes/media.php:4011
+#: wp-includes/js/dist/block-editor.js:12001
 #: wp-admin/includes/class-custom-background.php:600
 #: wp-admin/includes/media.php:1171
 #: wp-admin/edit-form-blocks.php:241
@@ -16043,10 +16068,10 @@ msgstr "اندازه کامل"
 #: wp-includes/media-template.php:855
 #: wp-includes/media-template.php:935
 #: wp-includes/media-template.php:1126
-#: wp-includes/media.php:4003
-#: wp-includes/js/dist/components.js:36625
-#: wp-includes/js/dist/block-editor.js:9253
-#: wp-includes/js/dist/block-editor.js:11977
+#: wp-includes/media.php:4009
+#: wp-includes/js/dist/components.js:36368
+#: wp-includes/js/dist/block-editor.js:9271
+#: wp-includes/js/dist/block-editor.js:11995
 #: wp-admin/includes/class-custom-background.php:598
 #: wp-admin/includes/media.php:1169
 #: wp-admin/edit-form-blocks.php:239
@@ -16058,7 +16083,7 @@ msgstr "متوسط"
 #: wp-includes/media-template.php:1102
 #: wp-includes/customize/class-wp-customize-background-position-control.php:65
 #: wp-includes/class-wp-editor.php:1331
-#: wp-includes/js/dist/components.js:27324
+#: wp-includes/js/dist/components.js:27067
 #: wp-admin/includes/class-custom-background.php:387
 #: wp-admin/includes/media.php:1128
 #: wp-admin/includes/media.php:2970
@@ -16081,8 +16106,8 @@ msgstr "میانه"
 #: wp-includes/media-template.php:1096
 #: wp-includes/customize/class-wp-customize-background-position-control.php:57
 #: wp-includes/class-wp-editor.php:1329
-#: wp-includes/js/dist/components.js:27323
-#: wp-includes/js/dist/components.js:38145
+#: wp-includes/js/dist/components.js:27066
+#: wp-includes/js/dist/components.js:37888
 #: wp-admin/includes/class-custom-background.php:379
 #: wp-admin/includes/media.php:1126
 #: wp-admin/includes/media.php:2966
@@ -16096,7 +16121,7 @@ msgid "Saved."
 msgstr "ذخیره شد."
 
 #: wp-includes/class-wp-editor.php:1390
-#: wp-includes/js/dist/block-library.js:14805
+#: wp-includes/js/dist/block-library.js:14793
 #: wp-admin/includes/media.php:645
 msgid "Add Media"
 msgstr "افزودن پروندهٔ رسانه‌ای"
@@ -16118,8 +16143,8 @@ msgstr "پرونده &#8220;%s&#8221; پیدا نشد؟"
 #: wp-includes/media-template.php:854
 #: wp-includes/media-template.php:934
 #: wp-includes/media-template.php:1125
-#: wp-includes/media.php:4002
-#: wp-includes/js/dist/block-editor.js:11974
+#: wp-includes/media.php:4008
+#: wp-includes/js/dist/block-editor.js:11992
 #: wp-admin/includes/class-custom-background.php:597
 #: wp-admin/includes/image-edit.php:234
 #: wp-admin/includes/media.php:1168
@@ -16177,7 +16202,7 @@ msgstr "ستون‌کناری"
 
 #. translators: accessibility text for the top bar landmark region.
 #: wp-includes/admin-bar.php:1009
-#: wp-includes/js/dist/edit-post.js:9309
+#: wp-includes/js/dist/edit-post.js:9308
 #: wp-admin/includes/class-custom-image-header.php:73
 #: wp-admin/menu.php:200
 msgid "Header"
@@ -16224,22 +16249,22 @@ msgstr "برچسب‌ها"
 
 #. translators: accessibility text for the content landmark region.
 #: wp-includes/revision.php:33
-#: wp-includes/js/dist/edit-post.js:9312
+#: wp-includes/js/dist/edit-post.js:9311
 #: wp-admin/includes/dashboard.php:557
 #: wp-admin/index.php:102
 msgid "Content"
 msgstr "محتوا"
 
 #: wp-includes/script-loader.php:1163
-#: wp-includes/media.php:4359
+#: wp-includes/media.php:4365
 #: wp-includes/class-wp-editor.php:1178
 #: wp-includes/class-wp-editor.php:1881
-#: wp-includes/js/dist/components.js:30794
-#: wp-includes/js/dist/editor.js:10356
-#: wp-includes/js/dist/block-editor.js:32711
-#: wp-includes/js/dist/block-editor.js:32714
+#: wp-includes/js/dist/components.js:30537
+#: wp-includes/js/dist/editor.js:10355
+#: wp-includes/js/dist/block-editor.js:32737
+#: wp-includes/js/dist/block-editor.js:32740
 #: wp-includes/js/dist/edit-post.js:5777
-#: wp-includes/js/dist/block-library.js:5513
+#: wp-includes/js/dist/block-library.js:5486
 #: wp-admin/includes/image-edit.php:97
 #: wp-admin/includes/class-walker-nav-menu-edit.php:296
 #: wp-admin/includes/meta-boxes.php:155
@@ -16287,9 +16312,9 @@ msgstr "آخرین دیدگاه‌ها"
 #: wp-includes/media-template.php:1488
 #: wp-includes/class-wp-customize-manager.php:4299
 #: wp-includes/class-wp-editor.php:1245
-#: wp-includes/js/dist/block-editor.js:23457
-#: wp-includes/js/dist/block-editor.js:33658
-#: wp-includes/js/dist/block-library.js:17311
+#: wp-includes/js/dist/block-editor.js:23483
+#: wp-includes/js/dist/block-editor.js:33684
+#: wp-includes/js/dist/block-library.js:17299
 #: wp-admin/includes/class-custom-background.php:258
 #: wp-admin/includes/meta-boxes.php:73
 #: wp-admin/includes/post.php:1766
@@ -16310,8 +16335,8 @@ msgstr "پیش‌نمایش"
 msgid "RSS"
 msgstr "RSS"
 
-#: wp-includes/js/dist/block-editor.js:31965
-#: wp-includes/js/dist/block-editor.js:33310
+#: wp-includes/js/dist/block-editor.js:31991
+#: wp-includes/js/dist/block-editor.js:33336
 #: wp-admin/includes/dashboard.php:236
 #: wp-admin/includes/dashboard.php:1332
 #: wp-admin/setup-config.php:252
@@ -16374,10 +16399,10 @@ msgstr "ویرایش برچسب"
 #: wp-includes/media-template.php:1301
 #: wp-includes/media-template.php:1400
 #: wp-includes/deprecated.php:706
-#: wp-includes/js/dist/components.js:36619
-#: wp-includes/js/dist/block-library.js:9333
-#: wp-includes/js/dist/block-library.js:10433
-#: wp-includes/js/dist/block-library.js:25218
+#: wp-includes/js/dist/components.js:36362
+#: wp-includes/js/dist/block-library.js:9306
+#: wp-includes/js/dist/block-library.js:10409
+#: wp-includes/js/dist/block-library.js:25206
 #: wp-admin/edit-tags.php:467
 #: wp-admin/includes/class-wp-debug-data.php:1069
 #: wp-admin/includes/media.php:1125
@@ -16407,8 +16432,8 @@ msgid "Description"
 msgstr "توضیحات"
 
 #: wp-includes/comment-template.php:2356
-#: wp-includes/js/dist/components.js:30749
-#: wp-includes/js/dist/block-library.js:21547
+#: wp-includes/js/dist/components.js:30492
+#: wp-includes/js/dist/block-library.js:21535
 #: wp-admin/includes/class-wp-debug-data.php:1075
 #: wp-admin/includes/class-wp-debug-data.php:1170
 #: wp-admin/includes/class-wp-users-list-table.php:362
@@ -16421,7 +16446,7 @@ msgid "Name"
 msgstr "نام"
 
 #: wp-includes/class-wp-editor.php:1215
-#: wp-includes/js/dist/block-editor.js:34154
+#: wp-includes/js/dist/block-editor.js:34180
 #: wp-admin/edit-link-form.php:34
 msgid "Advanced"
 msgstr "پیشرفته"
@@ -16436,18 +16461,18 @@ msgstr "هدف"
 #: wp-includes/widgets/class-wp-widget-categories.php:47
 #: wp-includes/category-template.php:547
 #: wp-includes/theme-compat/sidebar.php:129
-#: wp-includes/js/dist/components.js:44671
-#: wp-includes/js/dist/block-library.js:12393
-#: wp-includes/js/dist/block-library.js:12431
+#: wp-includes/js/dist/components.js:44414
+#: wp-includes/js/dist/block-library.js:12369
+#: wp-includes/js/dist/block-library.js:12407
 #: wp-admin/includes/class-wp-links-list-table.php:135
 #: wp-admin/edit-link-form.php:31
 msgid "Categories"
 msgstr "دسته‌ها"
 
 #: wp-includes/class-wp-editor.php:1247
-#: wp-includes/js/dist/components.js:30826
+#: wp-includes/js/dist/components.js:30569
 #: wp-includes/js/dist/editor.js:6688
-#: wp-includes/js/dist/editor.js:10672
+#: wp-includes/js/dist/editor.js:10671
 #: wp-admin/includes/image-edit.php:98
 #: wp-admin/includes/meta-boxes.php:44
 #: wp-admin/includes/meta-boxes.php:398
@@ -16493,7 +16518,7 @@ msgstr "رونوشت‌ها"
 #: wp-includes/revision.php:34
 #: wp-includes/js/dist/edit-post.js:4407
 #: wp-includes/js/dist/edit-post.js:6546
-#: wp-includes/js/dist/block-library.js:19135
+#: wp-includes/js/dist/block-library.js:19123
 #: wp-admin/includes/meta-boxes.php:702
 #: wp-admin/includes/meta-boxes.php:1510
 msgid "Excerpt"
@@ -16502,10 +16527,10 @@ msgstr "چکیده"
 #. translators: accessibility text for the publish landmark region.
 #: wp-includes/script-loader.php:1151
 #: wp-includes/class-wp-customize-manager.php:4816
-#: wp-includes/js/dist/editor.js:8873
-#: wp-includes/js/dist/editor.js:9082
+#: wp-includes/js/dist/editor.js:8872
+#: wp-includes/js/dist/editor.js:9081
 #: wp-includes/js/dist/edit-post.js:6034
-#: wp-includes/js/dist/edit-post.js:9321
+#: wp-includes/js/dist/edit-post.js:9320
 #: wp-admin/includes/meta-boxes.php:358
 #: wp-admin/includes/meta-boxes.php:359
 #: wp-admin/includes/meta-boxes.php:1465
@@ -16532,13 +16557,13 @@ msgid "Comments"
 msgstr "دیدگاه‌ها"
 
 #: wp-includes/class-wp-customize-widgets.php:775
-#: wp-includes/media.php:4398
+#: wp-includes/media.php:4404
 #: wp-includes/class-wp-editor.php:1386
-#: wp-includes/js/dist/block-editor.js:32359
-#: wp-includes/js/dist/block-editor.js:32481
+#: wp-includes/js/dist/block-editor.js:32385
+#: wp-includes/js/dist/block-editor.js:32507
 #: wp-includes/js/dist/edit-post.js:5783
-#: wp-includes/js/dist/block-library.js:5511
-#: wp-includes/js/dist/block-library.js:28036
+#: wp-includes/js/dist/block-library.js:5484
+#: wp-includes/js/dist/block-library.js:28095
 #: wp-includes/js/dist/format-library.js:794
 #: wp-admin/includes/class-wp-screen.php:1095
 #: wp-admin/includes/class-wp-list-table.php:509
@@ -16581,13 +16606,13 @@ msgstr "%s پیش"
 #: wp-includes/class-wp-editor.php:1384
 #: wp-includes/class-walker-comment.php:250
 #: wp-includes/class-walker-comment.php:449
-#: wp-includes/js/dist/block-editor.js:31609
-#: wp-includes/js/dist/block-editor.js:32318
-#: wp-includes/js/dist/block-editor.js:33189
+#: wp-includes/js/dist/block-editor.js:31635
+#: wp-includes/js/dist/block-editor.js:32344
+#: wp-includes/js/dist/block-editor.js:33215
 #: wp-includes/js/dist/edit-post.js:4983
 #: wp-includes/js/dist/edit-post.js:4989
 #: wp-includes/js/dist/edit-post.js:6267
-#: wp-includes/js/dist/block-library.js:25376
+#: wp-includes/js/dist/block-library.js:25364
 #: wp-admin/includes/class-wp-links-list-table.php:330
 #: wp-admin/includes/class-walker-nav-menu-edit.php:176
 #: wp-admin/includes/meta-boxes.php:134
@@ -16642,15 +16667,15 @@ msgstr "دیدگاه"
 #: wp-includes/media-template.php:1186
 #: wp-includes/media-template.php:1260
 #: wp-includes/media-template.php:1351
-#: wp-includes/media.php:4355
-#: wp-includes/media.php:4912
+#: wp-includes/media.php:4361
+#: wp-includes/media.php:4918
 #: wp-includes/customize/class-wp-customize-nav-menu-item-control.php:94
 #: wp-includes/class-wp-editor.php:1261
 #: wp-includes/class-wp-editor.php:1840
 #: wp-includes/class-wp-customize-nav-menus.php:1257
-#: wp-includes/js/dist/block-editor.js:30848
-#: wp-includes/js/dist/block-editor.js:32474
-#: wp-includes/js/dist/block-library.js:16757
+#: wp-includes/js/dist/block-editor.js:30874
+#: wp-includes/js/dist/block-editor.js:32500
+#: wp-includes/js/dist/block-library.js:16745
 #: wp-admin/includes/class-wp-links-list-table.php:134
 #: wp-admin/includes/class-walker-nav-menu-edit.php:187
 #: wp-admin/includes/media.php:2937
@@ -16664,7 +16689,7 @@ msgstr "نشانی اینترنتی"
 
 #: wp-includes/class-wp-editor.php:1209
 #: wp-includes/theme-compat/sidebar.php:29
-#: wp-includes/js/dist/components.js:44684
+#: wp-includes/js/dist/components.js:44427
 #: wp-includes/js/dist/editor.js:7548
 #: wp-includes/js/dist/editor.js:7602
 #: wp-admin/includes/class-wp-debug-data.php:1089
@@ -16714,7 +16739,7 @@ msgstr ""
 
 #: wp-includes/post.php:967
 #: wp-includes/post.php:988
-#: wp-includes/js/dist/editor.js:10495
+#: wp-includes/js/dist/editor.js:10494
 #: wp-admin/includes/meta-boxes.php:121
 #: wp-admin/includes/meta-boxes.php:149
 #: wp-admin/includes/meta-boxes.php:151
@@ -16758,7 +16783,7 @@ msgid "Title"
 msgstr "عنوان"
 
 #: wp-includes/post.php:1739
-#: wp-includes/js/dist/block-library.js:19288
+#: wp-includes/js/dist/block-library.js:19276
 msgid "No posts found."
 msgstr "هیچ نوشته‌ای پیدا نشد."
 

@@ -8,10 +8,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2021-03-17 19:15+0330\n"
+"PO-Revision-Date: 2021-05-20 02:12+0430\n"
 "Language: fa\n"
 "Plural-Forms: nplurals=2; plural=(n==0 || n==1);\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 2.4.3\n"
 "X-Poedit-Basepath: ../../../../..\n"
 "X-Poedit-Bookmarks: 298,-1,-1,-1,-1,-1,-1,-1,-1,-1\n"
 
@@ -32,110 +32,121 @@ msgstr "+3.5"
 msgid "Continue"
 msgstr "ادامه"
 
-#: wp-admin/about.php:205
-msgid "Now it’s simple to let iframes lazy-load. Just add the <code>loading=\"lazy\"</code> attribute to iframe tags on the front end."
+#: wp-admin/about.php:164
+msgid "<strong>Buttons block:</strong> now you can choose a vertical or a horizontal layout. And you can set the width of a button to a preset percentage."
 msgstr ""
 
-#: wp-admin/about.php:204
-msgid "Lazy-load your iframes"
+#: wp-admin/about.php:260
+msgid "Now it’s simple to let iframes lazy-load. By default, WordPress will add a <code>loading=\"lazy\"</code> attribute to iframe tags when both width and height are specified."
 msgstr ""
 
-#: wp-admin/about.php:203
-msgid "One side effect: it generated a set of cryptic messages on the dashboard that informed only developers. In 5.7, you will get far fewer of those messages, and they will be in plain language."
+#: wp-admin/about.php:258
+msgid "In 5.7, jQuery gets more focused and less intrusive, with fewer messages in the console."
 msgstr ""
 
-#: wp-admin/about.php:202
-msgid "For years jQuery helped make things move on the screen in ways the basic tools couldn’t—but that keeps changing, and so does jQuery."
+#: wp-admin/about.php:251
+msgid "The new Robots API lets you include the filter directives in the robots meta tag, and the API includes the <code>max-image-preview: large</code> directive by default. That means search engines can show bigger image previews, which can boost your traffic (unless the site is marked <em>not-public</em>)."
 msgstr ""
 
-#: wp-admin/about.php:201
-msgid "Ongoing cleanup after update to jQuery 3.5.1"
-msgstr ""
-
-#: wp-admin/about.php:196
-msgid "The new Robots API lets you include the filter directives in the robots meta tag, and the API includes the directive <code>max-image-preview: large</code> by default. That means search engines can show bigger image previews (unless the blog is marked as not public), which can boost your traffic."
-msgstr ""
-
-#: wp-admin/about.php:193
-msgid "New Robots API"
-msgstr ""
-
-#: wp-admin/about.php:192
-msgid "Starting now, switching a site from HTTP to HTTPS is a one-click move. WordPress will automatically update database URLs when you make the switch. No more hunting and guessing!"
+#: wp-admin/about.php:194
+msgid "Above, the Dashboard before and after the color update in 5.7."
 msgstr ""
 
 #: wp-admin/about.php:191
+msgid "Dashboard with new color scheme."
+msgstr ""
+
+#: wp-admin/about.php:189
+msgid "Dashboard with old color scheme."
+msgstr ""
+
+#: wp-admin/about.php:169
+msgid "<strong>Social Icons block:</strong> now you can change the size of the icons."
+msgstr ""
+
+#: wp-admin/about.php:259
+msgid "Lazy-load your iframes"
+msgstr ""
+
+#: wp-admin/about.php:257
+msgid "For years jQuery helped make things move on the screen in ways the basic tools couldn’t—but that keeps changing, and so does jQuery."
+msgstr ""
+
+#: wp-admin/about.php:256
+msgid "Ongoing cleanup after update to jQuery 3.5.1"
+msgstr ""
+
+#: wp-admin/about.php:248
+msgid "New Robots API"
+msgstr ""
+
+#: wp-admin/about.php:247
+msgid "Starting now, switching a site from HTTP to HTTPS is a one-click move. WordPress will automatically update database URLs when you make the switch. No more hunting and guessing!"
+msgstr ""
+
+#: wp-admin/about.php:246
 msgid "From HTTP to HTTPS in a single click"
 msgstr ""
 
 #. translators: %s: Color palette dev note link.
-#: wp-admin/about.php:170
+#: wp-admin/about.php:225
 msgid "Find the new palette in the default WordPress Dashboard color scheme, and use it when you’re building themes, plugins, or any other components. For all the details, <a href=\"%s\">check out the Color Palette dev note</a>."
 msgstr ""
 
-#: wp-admin/about.php:163
+#: wp-admin/about.php:218
 msgid "Half the range has a 4.5 or higher contrast ratio against black, and the other half maintains the same contrast against white."
 msgstr ""
 
-#: wp-admin/about.php:156
+#: wp-admin/about.php:211
 msgid "The colors are perceptually uniform from light to dark in each range, which means they start at white and get darker by the same amount with each step."
 msgstr ""
 
 #. translators: %s: WCAG information link.
-#: wp-admin/about.php:149
+#: wp-admin/about.php:204
 msgid "This new streamlined color palette collapses all the colors that used to be in the WordPress source code down to seven core colors and a range of 56 shades that meet the <a href=\"%s\">WCAG 2.0 AA recommended contrast ratio</a> against white or black."
 msgstr ""
 
-#: wp-admin/about.php:128
+#: wp-admin/about.php:182
 msgid "A Simpler Default Color Palette"
 msgstr ""
 
-#: wp-admin/about.php:115
-msgid "<strong>Social Icons block:</strong> you can now change the size of the icons in the Social Icons block."
-msgstr ""
-
-#: wp-admin/about.php:110
-msgid "<strong>Buttons block:</strong> now you can align the content in buttons vertically. And you can set the width of a button to a preset percentage."
-msgstr ""
-
-#: wp-admin/about.php:105
+#: wp-admin/about.php:159
 msgid "<strong>Full-height alignment:</strong> have you ever wanted to make a block, like the Cover block, fill the whole window? Now you can."
 msgstr ""
 
-#: wp-admin/about.php:100
+#: wp-admin/about.php:154
 msgid "You can do more without writing custom code"
 msgstr ""
 
-#: wp-admin/about.php:87
+#: wp-admin/about.php:140
 msgid "<strong>Inserter drag-and-drop:</strong> drag blocks and block patterns from the inserter right into your post."
 msgstr ""
 
-#: wp-admin/about.php:82
+#: wp-admin/about.php:135
 msgid "<strong>Reusable blocks:</strong> several enhancements make reusable blocks more stable and easier to use. And now they save automatically with the post when you click the Update button."
 msgstr ""
 
-#: wp-admin/about.php:77
+#: wp-admin/about.php:130
 msgid "<strong>Font-size adjustment in more places:</strong> now, font-size controls are right where you need them in the List and Code blocks. No more trekking to another screen to make that single change!"
 msgstr ""
 
-#: wp-admin/about.php:72
+#: wp-admin/about.php:125
 msgid "Now the editor is easier to use"
 msgstr ""
 
-#. translators: %s: The current WordPress version number.
-#: wp-admin/about.php:60
-msgid "With this new version, the editor cleans up the colors and helps you work in  a few places you couldn’t before—at least, not without getting into code or hiring a pro. The controls you use most, like changing type sizes, are in more places—right where you need them. And layout changes that should be simple, like full-height images, get even simpler to make."
+#: wp-admin/about.php:61
+msgid "With this new version, WordPress brings you fresh colors. The editor helps you work in a few places you couldn’t before—at least, not without getting into code or hiring a pro. The controls you use most, like changing font sizes, are in more places—right where you need them. And layout changes that should be simple, like full-height images, are even simpler to make."
 msgstr ""
 
 #. translators: %s: The current WordPress version number.
-#: wp-admin/about.php:51
+#: wp-admin/about.php:54
 msgid "Step into WordPress %s."
 msgstr ""
 
 #: wp-admin/credits.php:37
 #: wp-admin/privacy.php:34
 #: wp-admin/freedoms.php:40
-#: wp-admin/about.php:34
+#: wp-admin/about.php:37
 msgid "Jazz up your stories in an editor that’s cleaner, crisper, and does more to get out of your way."
 msgstr ""
 
@@ -262,7 +273,7 @@ msgstr "باز-نصب نگارش %s"
 
 #: wp-admin/update-core.php:61
 msgid "Update to latest nightly"
-msgstr ""
+msgstr "به‌روزرسانی به آخرین نگارش شبانه"
 
 #: wp-admin/erase-personal-data.php:129
 msgid "Send personal data erasure confirmation email."
@@ -271,7 +282,7 @@ msgstr "ایمیل تأییدیه پاک‌سازی اطلاعات شخصی، ا
 #: wp-admin/erase-personal-data.php:124
 #: wp-admin/export-personal-data.php:124
 msgid "Confirmation email"
-msgstr ""
+msgstr "ایمیل تأییدیه"
 
 #: wp-admin/erase-personal-data.php:105
 msgid "This tool helps site owners comply with local laws and regulations by deleting or anonymizing known data for a given user."
@@ -292,7 +303,7 @@ msgstr ""
 #: wp-admin/erase-personal-data.php:52
 #: wp-admin/export-personal-data.php:52
 msgid "Plugin Data"
-msgstr ""
+msgstr "داده‌های افزونه"
 
 #. translators: %s: URL to Privacy Policy Guide screen.
 #: wp-admin/erase-personal-data.php:45
@@ -329,7 +340,7 @@ msgstr ""
 #: wp-admin/erase-personal-data.php:32
 #: wp-admin/export-personal-data.php:32
 msgid "Default Data"
-msgstr ""
+msgstr "داده‌های پیش‌فرض"
 
 #: wp-admin/erase-personal-data.php:25
 msgid "<strong>Note: As this tool only gathers data from WordPress and participating plugins, you may need to do more to comply with erasure requests. You should also delete any data collected by or stored with any 3rd party services used by your business or site.</strong>"
@@ -360,33 +371,15 @@ msgstr ""
 #. translators: %s: User's display name.
 #: wp-admin/includes/ajax-actions.php:5433
 msgid "A password reset link was emailed to %s."
-msgstr ""
+msgstr "ایمیلی همراه با پیوند بازنشانی رمز، برای %s ارسال شد."
 
 #: wp-admin/includes/ajax-actions.php:5423
 msgid "Cannot send password reset, permission denied."
 msgstr ""
 
 #. translators: 1: post_max_size, 2: upload_max_filesize
-#: wp-admin/includes/class-wp-site-health.php:2186
+#: wp-admin/includes/class-wp-site-health.php:2156
 msgid "The setting for %1$s is currently configured as 0, this could cause some problems when trying to upload files through plugin or theme features that rely on various upload methods. It is recommended to configure this setting to a fixed value, ideally matching the value of %2$s, as some upload methods read the value 0 as either unlimited, or disabled."
-msgstr ""
-
-#: wp-admin/includes/class-wp-site-health.php:1661
-msgid "Talk to your web host about resolving this HTTPS issue for your website."
-msgstr ""
-
-#. translators: %s: URL to Settings > General > WordPress Address.
-#: wp-admin/includes/class-wp-site-health.php:1654
-msgid "Your <a href=\"%s\">WordPress Address</a> is set up to use HTTPS, but your website appears to be unavailable when using an HTTPS connection."
-msgstr ""
-
-#. translators: %s: URL to Settings > General > WordPress Address.
-#: wp-admin/includes/class-wp-site-health.php:1645
-msgid "Your <a href=\"%s\">WordPress Address</a> is set up to use HTTPS, but the SSL certificate appears to be invalid."
-msgstr ""
-
-#: wp-admin/includes/class-wp-site-health.php:1637
-msgid "There are problems with the HTTPS connection of your website"
 msgstr ""
 
 #: wp-admin/includes/class-wp-site-health.php:1622
@@ -397,7 +390,7 @@ msgstr ""
 #: wp-admin/includes/class-wp-site-health.php:1603
 #: wp-admin/includes/class-wp-site-health.php:1611
 msgid "Update your site to use HTTPS"
-msgstr ""
+msgstr "برای استفاده از HTTPS سایت خود را به‌روز کنید"
 
 #. translators: 1: wp-config.php, 2: WP_HOME, 3: WP_SITEURL
 #: wp-admin/includes/class-wp-site-health.php:1589
@@ -431,7 +424,7 @@ msgstr ""
 
 #: wp-admin/includes/revision.php:90
 msgid "Added"
-msgstr ""
+msgstr "افزوده"
 
 #: wp-admin/includes/class-wp-users-list-table.php:279
 #: wp-admin/includes/class-wp-users-list-table.php:480
@@ -447,7 +440,7 @@ msgstr "اطلاعات تماس"
 msgid "Copy suggested policy text to clipboard"
 msgstr ""
 
-#: wp-admin/includes/update-core.php:1356
+#: wp-admin/includes/update-core.php:1375
 #: wp-admin/includes/file.php:1780
 msgid "Directory listing failed."
 msgstr ""
@@ -490,7 +483,7 @@ msgstr "درخواست با موفقیت افزوده شد."
 #: wp-admin/includes/privacy-tools.php:107
 #: wp-admin/includes/privacy-tools.php:124
 msgid "Invalid personal data action."
-msgstr ""
+msgstr "کنش داده‌های شخصی نامعتبر است."
 
 #: wp-admin/includes/privacy-tools.php:31
 msgid "Unable to initiate confirmation for personal data request."
@@ -504,34 +497,34 @@ msgstr ""
 #. translators: %s: The server PHP version.
 #: wp-admin/includes/dashboard.php:1771
 msgid "Your site is running an outdated version of PHP (%s), which should be updated."
-msgstr ""
+msgstr "سایت شما در حال اجرای نگارش تاریخ‌گذشته‌ای از PHP است که باید به‌روز شود."
 
 #. translators: %s: The server PHP version.
 #: wp-admin/includes/dashboard.php:1765
 msgid "Your site is running an insecure version of PHP (%s), which should be updated."
-msgstr ""
+msgstr "سایت شما در حال اجرای نگارش ناامنی از PHP است که باید به‌روز شود."
 
 #: wp-admin/includes/dashboard.php:42
 msgid "PHP Update Recommended"
-msgstr ""
+msgstr "به‌روزرسانی PHP توصیه می‌شود"
 
 #. translators: %s: The minimum recommended PHP version.
 #: wp-admin/includes/class-wp-site-health.php:729
 #: wp-admin/includes/dashboard.php:1783
 msgid "PHP is the programming language used to build and maintain WordPress. Newer versions of PHP are created with increased performance in mind, so you may see a positive effect on your site&#8217;s performance. The minimum recommended version of PHP is %s."
-msgstr ""
+msgstr "PHP زبان برنامه‌نویسی مورد استفاده برای ساخت و نگه‌داری وردپرس است. نگارش‌های تازه‌تر PHP با نگاه به افزایش سرعت عمل‌کرد ساخته می‌شوند که ممکن است اثر مثبتی روی سایت شما داشته باشد. کمینه نگارش PHP توصیه‌شده %s است."
 
 #: wp-admin/user-edit.php:787
 #: wp-admin/authorize-application.php:93
 msgid "Your website appears to use Basic Authentication, which is not currently compatible with Application Passwords."
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:2255
+#: wp-admin/includes/class-wp-site-health.php:2225
 msgid "https://developer.wordpress.org/rest-api/frequently-asked-questions/#why-is-authentication-not-working"
 msgstr ""
 
 #. translators: %s: WordPress 5.7 Field Guide link.
-#: wp-admin/about.php:218
+#: wp-admin/about.php:273
 msgid "Check out the latest version of the WordPress Field Guide. It highlights developer notes for each change you may want to be aware of. <a href=\"%s\">WordPress 5.7 Field Guide.</a>"
 msgstr ""
 
@@ -597,13 +590,13 @@ msgstr ""
 
 #: wp-admin/user-edit.php:783
 msgid "Add New Application Password"
-msgstr ""
+msgstr "افزودن رمز برنامه تازه"
 
 #: wp-admin/user-edit.php:769
 msgid "Required to create an Application Password, but not to update the user."
-msgstr ""
+msgstr "برای ایجاد یک رمز برنامه الزامی است، اما نه برای به‌روزرسانی کاربر."
 
-#: wp-admin/about.php:231
+#: wp-admin/about.php:286
 msgid "Go to Updates"
 msgstr "بازگشت به به‌روزرسانی‌ها"
 
@@ -694,7 +687,7 @@ msgstr ""
 
 #: wp-admin/authorize-application.php:65
 msgid "Authorize Application"
-msgstr "صدور جواز اپلیکیشن"
+msgstr "صدور جواز برنامه"
 
 #: wp-admin/user-edit.php:902
 #: wp-admin/authorize-application.php:198
@@ -705,31 +698,31 @@ msgstr "اطمینان پیدا کنید که این رمز را در مکان �
 #: wp-admin/user-edit.php:768
 #: wp-admin/authorize-application.php:227
 msgid "WordPress App on My Phone"
-msgstr "اپلیکیشن وردپرس روی تلفن همراه من"
+msgstr "برنامه وردپرس روی تلفن همراه من"
 
 #: wp-admin/user-edit.php:767
 #: wp-admin/authorize-application.php:226
 msgid "New Application Password Name"
-msgstr "نام رمز اپلیکیشن تازه"
+msgstr "نام رمز برنامه تازه"
 
 #. translators: 1: URL to my-sites.php, 2: Number of blogs the user has.
 #: wp-admin/user-edit.php:749
 msgid "Application passwords grant access to <a href=\"%1$s\">the %2$s blog in this installation that you have permissions on</a>."
 msgid_plural "Application passwords grant access to <a href=\"%1$s\">all %2$s blogs in this installation that you have permissions on</a>."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "رمزهای برنامه، اجازه دسترسی به <a href=\"%1$s\">تمامی %2$s بلاگ در این نصب</a> را خواهد داد."
+msgstr[1] "رمزهای برنامه، اجازه دسترسی به <a href=\"%1$s\">تمامی %2$s بلاگ در این نصب</a> را خواهد داد."
 
 #: wp-admin/user-edit.php:738
 msgid "Application passwords allow authentication via non-interactive systems, such as XML-RPC or the REST API, without providing your actual password. Application passwords can be easily revoked. They cannot be used for traditional logins to your website."
-msgstr ""
+msgstr "رمزهای برنامه، بدون ارائه رمز اصلی شما، اجازه تأیید هویت به سامانه‌های غیرتعاملی مانند XML-RPC و یا REST API را می‌دهند. رمزهای برنامه به آسانی قابل ابطال هستند و نمی‌توان از آن‌ها برای ورود به سایت به شیوه‌های معمولی استفاده کرد."
 
 #: wp-admin/user-edit.php:737
 msgid "Application Passwords"
-msgstr "رمزهای اپلیکیشن"
+msgstr "رمزهای برنامه"
 
 #: wp-admin/user-edit.php:658
 msgid "Type the new password again."
-msgstr ""
+msgstr "رمز تازه را دوباره بنویسید."
 
 #: wp-admin/user-edit.php:634
 msgid "Set New Password"
@@ -744,11 +737,11 @@ msgstr "رمز را دوباره وارد کنید."
 #. necessary.
 #: wp-admin/update-core.php:132
 msgid "You can update from WordPress %1$s to <a href=\"%2$s\">WordPress %3$s</a> manually:"
-msgstr ""
+msgstr "می‌توانید به صورت دستی از وردپرس %1$s به <a href=\"%2$s\">وردپرس %3$s</a> به‌روزرسانی کنید:"
 
 #: wp-admin/includes/class-wp-application-passwords-list-table.php:159
 msgid "Revoke all application passwords"
-msgstr "ابطال همهٔ رمزهای اپلیکیشن"
+msgstr "ابطال همهٔ رمزهای برنامه"
 
 #. translators: %s: the application password's given name.
 #: wp-admin/includes/class-wp-application-passwords-list-table.php:120
@@ -797,31 +790,31 @@ msgstr ""
 msgid "Current Header Video"
 msgstr "ویدئو سربرگ کنونی"
 
-#: wp-admin/includes/class-wp-site-health.php:2367
+#: wp-admin/includes/class-wp-site-health.php:2337
 msgid "Authorization header"
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:2256
+#: wp-admin/includes/class-wp-site-health.php:2226
 msgid "Learn how to configure the Authorization header."
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:2250
+#: wp-admin/includes/class-wp-site-health.php:2220
 msgid "Flush permalinks"
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:2235
+#: wp-admin/includes/class-wp-site-health.php:2205
 msgid "The authorization header is invalid."
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:2233
+#: wp-admin/includes/class-wp-site-health.php:2203
 msgid "The authorization header is missing."
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:2226
+#: wp-admin/includes/class-wp-site-health.php:2196
 msgid "The Authorization header comes from the third-party applications you approve. Without it, those apps cannot connect to your site."
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:2218
+#: wp-admin/includes/class-wp-site-health.php:2188
 msgid "The Authorization header is working as expected."
 msgstr ""
 
@@ -961,7 +954,7 @@ msgid "You can choose whether or not your site will be crawled by robots, ping s
 msgstr ""
 
 #. translators: 1: post_max_size, 2: upload_max_filesize
-#: wp-admin/includes/class-wp-site-health.php:2175
+#: wp-admin/includes/class-wp-site-health.php:2145
 msgid "The \"%1$s\" value is smaller than \"%2$s\"."
 msgstr ""
 
@@ -969,7 +962,7 @@ msgstr ""
 msgid "Environment type"
 msgstr ""
 
-#: wp-admin/about.php:213
+#: wp-admin/about.php:268
 msgid "Check the Field Guide for more!"
 msgstr ""
 
@@ -995,39 +988,39 @@ msgstr ""
 msgid "Disallowed Comment Keys"
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:2337
+#: wp-admin/includes/class-wp-site-health.php:2307
 msgid "Plugin and theme auto-updates"
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:2635
+#: wp-admin/includes/class-wp-site-health.php:2605
 msgid "There appear to be no issues with plugin and theme auto-updates."
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:2629
+#: wp-admin/includes/class-wp-site-health.php:2599
 msgid "Auto-updates for themes appear to be disabled. This will prevent your site from receiving new versions automatically when available."
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:2624
+#: wp-admin/includes/class-wp-site-health.php:2594
 msgid "Auto-updates for plugins appear to be disabled. This will prevent your site from receiving new versions automatically when available."
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:2619
+#: wp-admin/includes/class-wp-site-health.php:2589
 msgid "Auto-updates for plugins and themes appear to be disabled. This will prevent your site from receiving new versions automatically when available."
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:2610
+#: wp-admin/includes/class-wp-site-health.php:2580
 msgid "Auto-updates for plugins and/or themes appear to be disabled, but settings are still set to be displayed. This could cause auto-updates to not work as expected."
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:1885
+#: wp-admin/includes/class-wp-site-health.php:1855
 msgid "Your site may have problems auto-updating plugins and themes"
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:1874
+#: wp-admin/includes/class-wp-site-health.php:1844
 msgid "Plugin and theme auto-updates ensure that the latest versions are always installed."
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:1866
+#: wp-admin/includes/class-wp-site-health.php:1836
 msgid "Plugin and theme auto-updates appear to be configured correctly"
 msgstr ""
 
@@ -1044,26 +1037,26 @@ msgid "Sorry, you are not allowed to modify plugins."
 msgstr ""
 
 #. translators: 1: post_max_size, 2: upload_max_filesize
-#: wp-admin/includes/class-wp-site-health.php:2196
+#: wp-admin/includes/class-wp-site-health.php:2166
 msgid "The setting for %1$s is smaller than %2$s, this could cause some problems when trying to upload files."
 msgstr ""
 
 #. translators: 1: file_uploads, 2: 0
-#: wp-admin/includes/class-wp-site-health.php:2161
+#: wp-admin/includes/class-wp-site-health.php:2131
 msgid "%1$s is set to %2$s. You won't be able to upload files on your site."
 msgstr ""
 
 #. translators: %s: ini_get()
-#: wp-admin/includes/class-wp-site-health.php:2149
+#: wp-admin/includes/class-wp-site-health.php:2119
 msgid "The %s function has been disabled, some media settings are unavailable because of this."
 msgstr ""
 
 #. translators: 1: file_uploads, 2: php.ini
-#: wp-admin/includes/class-wp-site-health.php:2136
+#: wp-admin/includes/class-wp-site-health.php:2106
 msgid "The %1$s directive in %2$s determines if uploading files is allowed on your site."
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:2126
+#: wp-admin/includes/class-wp-site-health.php:2096
 msgid "Files can be uploaded."
 msgstr ""
 
@@ -1084,7 +1077,7 @@ msgid "Max size of post data allowed"
 msgstr ""
 
 #: wp-admin/includes/class-wp-debug-data.php:553
-#: wp-admin/includes/class-wp-site-health.php:2333
+#: wp-admin/includes/class-wp-site-health.php:2303
 msgid "File uploads"
 msgstr ""
 
@@ -1139,7 +1132,7 @@ msgstr ""
 
 #: wp-admin/includes/class-plugin-installer-skin.php:211
 msgid "This plugin is already installed."
-msgstr ""
+msgstr "این افزونه پیش از این نصب شده است."
 
 #. translators: %s: Plugin name.
 #. translators: %s: Plugin name and version.
@@ -1308,14 +1301,14 @@ msgstr "انجام شد"
 #: wp-admin/includes/plugin.php:1196
 msgctxt "plugin"
 msgid "<strong>Error:</strong> Current WordPress version (%1$s) does not meet minimum requirements for %2$s. The plugin requires WordPress %3$s."
-msgstr ""
+msgstr "<strong>خطا:</strong> نگارش کنونی وردپرس (%1$s) برای کمینه نیاز %2$s کافی نیست. این افزونه نیازمند وردپرس %3$s است."
 
 #. translators: 1: Current PHP version, 2: Plugin name, 3: Required PHP
 #. version.
 #: wp-admin/includes/plugin.php:1185
 msgctxt "plugin"
 msgid "<strong>Error:</strong> Current PHP version (%1$s) does not meet minimum requirements for %2$s. The plugin requires PHP %3$s."
-msgstr ""
+msgstr "<strong>خطا:</strong> نگارش کنونی PHP (%1$s) برای کمینه نیاز %2$s کافی نیست. این افزونه نیازمند PHP %3$s است."
 
 #. translators: 1: Current WordPress version, 2: Current PHP version, 3: Plugin
 #. name, 4: Required WordPress version, 5: Required PHP version.
@@ -1455,7 +1448,7 @@ msgctxt "comment"
 msgid "Not spam"
 msgstr "جفنگ نیست"
 
-#: wp-admin/includes/class-wp-site-health.php:2305
+#: wp-admin/includes/class-wp-site-health.php:2275
 msgid "PHP Sessions"
 msgstr ""
 
@@ -1550,7 +1543,7 @@ msgstr "به‌روزرسانی خودکار برنامه‌ریزی نشده ا
 #. translators: %s: Documentation URL.
 #: wp-admin/includes/class-plugin-installer-skin.php:301
 msgid "You are updating a plugin. Be sure to <a href=\"%s\">back up your database and files</a> first."
-msgstr ""
+msgstr "شما در حال به‌روزرسانی یک افزونه هستید. بهتر است پیش از این کار از پایگاه‌داده و پرونده‌های خود <a href=\"%s\">پشتیبان</a> تهیه کنید."
 
 #. translators: %s: Documentation URL.
 #: wp-admin/includes/class-plugin-installer-skin.php:295
@@ -1593,7 +1586,7 @@ msgstr "ارتقای معکوس پوسته &#8230;"
 
 #: wp-admin/includes/class-theme-upgrader.php:99
 msgid "Updating the theme&#8230;"
-msgstr ""
+msgstr "به‌روزرسانی پوسته&#8230;"
 
 #. translators: %s: Theme error.
 #: wp-admin/includes/class-theme-upgrader.php:95
@@ -1665,7 +1658,7 @@ msgstr ""
 #: wp-admin/includes/class-theme-installer-skin.php:359
 #: wp-admin/includes/class-plugin-installer-skin.php:324
 msgid "Cancel and go back"
-msgstr ""
+msgstr "لغو و بازگشت"
 
 #: wp-admin/includes/class-theme-installer-skin.php:348
 #: wp-admin/includes/class-plugin-installer-skin.php:313
@@ -1675,7 +1668,7 @@ msgstr "جابه‌جایی بارگذاری‌شده با کنونی"
 #. translators: %s: Documentation URL.
 #: wp-admin/includes/class-theme-installer-skin.php:336
 msgid "You are updating a theme. Be sure to <a href=\"%s\">back up your database and files</a> first."
-msgstr ""
+msgstr "شما در حال به‌روزرسانی یک پوسته هستید. بهتر است پیش از این کار از پایگاه‌داده و پرونده‌های خود <a href=\"%s\">پشتیبان</a> تهیه کنید."
 
 #: wp-admin/includes/class-theme-installer-skin.php:331
 #: wp-admin/includes/class-theme-installer-skin.php:337
@@ -1760,7 +1753,7 @@ msgstr "ارتقای معکوس افزونه &#8230;"
 
 #: wp-admin/includes/class-plugin-upgrader.php:90
 msgid "Updating the plugin&#8230;"
-msgstr ""
+msgstr "به‌روزرسانی افزونه&#8230;"
 
 #: wp-admin/includes/class-plugin-upgrader.php:81
 msgid "Could not remove the current plugin."
@@ -1895,14 +1888,14 @@ msgstr ""
 msgid "File is empty. Please upload something more substantial. This error could also be caused by uploads being disabled in your %1$s file or by %2$s being defined as smaller than %3$s in %1$s."
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:2811
+#: wp-admin/includes/class-wp-site-health.php:2781
 #: wp-admin/js/site-health.js:336
 msgid "A test is unavailable"
 msgstr ""
 
 #. translators: 1: The WordPress error message. 2: The WordPress error code.
-#: wp-admin/includes/class-wp-site-health.php:2075
-#: wp-admin/includes/class-wp-site-health.php:2686
+#: wp-admin/includes/class-wp-site-health.php:2045
+#: wp-admin/includes/class-wp-site-health.php:2656
 msgid "Error: %1$s (%2$s)"
 msgstr ""
 
@@ -1992,7 +1985,7 @@ msgstr "حذف درخواست‌ها"
 msgid "Table prefix"
 msgstr "پیشوند جدول"
 
-#: wp-admin/includes/class-wp-site-health.php:2301
+#: wp-admin/includes/class-wp-site-health.php:2271
 msgid "PHP Default Timezone"
 msgstr ""
 
@@ -2019,7 +2012,7 @@ msgid "The seventh parameter passed to %s should be an integer representing menu
 msgstr ""
 
 #. translators: 1: WordPress version number, 2: The PHP extension name needed.
-#: wp-admin/includes/update-core.php:1028
+#: wp-admin/includes/update-core.php:1039
 msgid "The update cannot be installed because WordPress %1$s requires the %2$s PHP extension."
 msgstr ""
 
@@ -2309,11 +2302,11 @@ msgid "Password protected"
 msgstr "محافظت‌شده با رمز"
 
 #. translators: %s: The name of the late cron event.
-#: wp-admin/includes/class-wp-site-health.php:1774
+#: wp-admin/includes/class-wp-site-health.php:1744
 msgid "The scheduled event, %s, is late to run. Your site still works, but this may indicate that scheduling posts or automated updates may not work as intended."
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:1768
+#: wp-admin/includes/class-wp-site-health.php:1738
 msgid "A scheduled event is late"
 msgstr ""
 
@@ -2769,12 +2762,12 @@ msgid "Sorry, you are not allowed to perform this action."
 msgstr "با عرض پوزش، شما مجاز به انجام این عمل نیستید."
 
 #. translators: 1: Name of the constant used. 2: List of allowed hostnames.
-#: wp-admin/includes/class-wp-site-health.php:2001
+#: wp-admin/includes/class-wp-site-health.php:1971
 msgid "HTTP requests have been blocked by the %1$s constant, with some allowed hosts: %2$s."
 msgstr ""
 
 #. translators: %s: Name of the constant used.
-#: wp-admin/includes/class-wp-site-health.php:1986
+#: wp-admin/includes/class-wp-site-health.php:1956
 msgid "HTTP requests have been blocked by the %s constant, with no allowed hosts."
 msgstr ""
 
@@ -2801,11 +2794,11 @@ msgstr ""
 #: wp-admin/includes/class-wp-site-health.php:1105
 #: wp-admin/includes/class-wp-site-health.php:1155
 #: wp-admin/includes/class-wp-site-health.php:1246
-#: wp-admin/includes/class-wp-site-health.php:1726
-#: wp-admin/includes/class-wp-site-health.php:1912
-#: wp-admin/includes/class-wp-site-health.php:1955
-#: wp-admin/includes/class-wp-site-health.php:2026
-#: wp-admin/includes/class-wp-site-health.php:2129
+#: wp-admin/includes/class-wp-site-health.php:1696
+#: wp-admin/includes/class-wp-site-health.php:1882
+#: wp-admin/includes/class-wp-site-health.php:1925
+#: wp-admin/includes/class-wp-site-health.php:1996
+#: wp-admin/includes/class-wp-site-health.php:2099
 msgid "Performance"
 msgstr ""
 
@@ -2857,10 +2850,10 @@ msgstr[1] ""
 #: wp-admin/includes/class-wp-site-health.php:1361
 #: wp-admin/includes/class-wp-site-health.php:1430
 #: wp-admin/includes/class-wp-site-health.php:1511
-#: wp-admin/includes/class-wp-site-health.php:1680
-#: wp-admin/includes/class-wp-site-health.php:1799
-#: wp-admin/includes/class-wp-site-health.php:1869
-#: wp-admin/includes/class-wp-site-health.php:2221
+#: wp-admin/includes/class-wp-site-health.php:1650
+#: wp-admin/includes/class-wp-site-health.php:1769
+#: wp-admin/includes/class-wp-site-health.php:1839
+#: wp-admin/includes/class-wp-site-health.php:2191
 msgid "Security"
 msgstr ""
 
@@ -2965,206 +2958,206 @@ msgstr ""
 #: wp-admin/site-health-info.php:51
 #: wp-admin/freedoms.php:44
 #: wp-admin/privacy-policy-guide.php:41
-#: wp-admin/about.php:37
+#: wp-admin/about.php:40
 #: wp-admin/site-health.php:89
 #: wp-admin/options-privacy.php:143
 msgid "Secondary menu"
 msgstr "فهرست ثانویه"
 
-#: wp-admin/includes/class-wp-site-health.php:2707
+#: wp-admin/includes/class-wp-site-health.php:2677
 msgid "The loopback request to your site completed successfully."
 msgstr ""
 
 #. translators: %d: The HTTP response code returned.
-#: wp-admin/includes/class-wp-site-health.php:2699
+#: wp-admin/includes/class-wp-site-health.php:2669
 msgid "The loopback request returned an unexpected http status code, %d, it was not possible to determine if this will prevent features from working as expected."
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:2683
+#: wp-admin/includes/class-wp-site-health.php:2653
 msgid "The loopback request to your site failed, this means features relying on them are not currently working as expected."
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:2475
+#: wp-admin/includes/class-wp-site-health.php:2445
 msgid "No scheduled events exist on this site."
 msgstr "رویداد برنامه‌ریزی‌شده‌ای در این سایت وجود ندارد."
 
-#: wp-admin/includes/class-wp-site-health.php:2379
+#: wp-admin/includes/class-wp-site-health.php:2349
 msgid "REST API availability"
 msgstr "دسترسی REST API"
 
-#: wp-admin/includes/class-wp-site-health.php:2355
+#: wp-admin/includes/class-wp-site-health.php:2325
 msgid "Loopback request"
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:2329
+#: wp-admin/includes/class-wp-site-health.php:2299
 msgid "Debugging enabled"
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:2325
+#: wp-admin/includes/class-wp-site-health.php:2295
 msgid "HTTP Requests"
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:2321
+#: wp-admin/includes/class-wp-site-health.php:2291
 msgid "Scheduled events"
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:2317
+#: wp-admin/includes/class-wp-site-health.php:2287
 msgid "Secure communication"
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:2361
+#: wp-admin/includes/class-wp-site-health.php:2331
 msgid "HTTPS status"
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:2313
+#: wp-admin/includes/class-wp-site-health.php:2283
 msgid "MySQL utf8mb4 support"
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:2297
+#: wp-admin/includes/class-wp-site-health.php:2267
 msgid "PHP Extensions"
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:2309
+#: wp-admin/includes/class-wp-site-health.php:2279
 msgid "Database Server version"
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:2293
+#: wp-admin/includes/class-wp-site-health.php:2263
 msgid "PHP Version"
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:2289
+#: wp-admin/includes/class-wp-site-health.php:2259
 msgid "Theme Versions"
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:2285
+#: wp-admin/includes/class-wp-site-health.php:2255
 msgid "Plugin Versions"
 msgstr "نگارش‌های افزونه"
 
-#: wp-admin/includes/class-wp-site-health.php:2281
+#: wp-admin/includes/class-wp-site-health.php:2251
 msgid "WordPress Version"
 msgstr ""
 
 #. translators: %s: The name of the query parameter being tested.
-#: wp-admin/includes/class-wp-site-health.php:2107
+#: wp-admin/includes/class-wp-site-health.php:2077
 msgid "The REST API did not process the %s query parameter correctly."
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:2101
+#: wp-admin/includes/class-wp-site-health.php:2071
 msgid "The REST API did not behave correctly"
 msgstr ""
 
 #. translators: 1: The HTTP error code. 2: The HTTP error message.
-#: wp-admin/includes/class-wp-site-health.php:2090
+#: wp-admin/includes/class-wp-site-health.php:2060
 msgid "The REST API call gave the following unexpected result: (%1$d) %2$s."
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:2084
+#: wp-admin/includes/class-wp-site-health.php:2054
 msgid "The REST API encountered an unexpected result"
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:2072
+#: wp-admin/includes/class-wp-site-health.php:2042
 msgid "The REST API request failed due to an error."
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:2066
+#: wp-admin/includes/class-wp-site-health.php:2036
 msgid "The REST API encountered an error"
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:2031
+#: wp-admin/includes/class-wp-site-health.php:2001
 msgid "The REST API is one way WordPress, and other applications, communicate with the server. One example is the block editor screen, which relies on this to display, and save, your posts and pages."
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:2023
+#: wp-admin/includes/class-wp-site-health.php:1993
 msgid "The REST API is available"
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:1995
+#: wp-admin/includes/class-wp-site-health.php:1965
 msgid "HTTP requests are partially blocked"
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:1980
+#: wp-admin/includes/class-wp-site-health.php:1950
 msgid "HTTP requests are blocked"
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:1960
+#: wp-admin/includes/class-wp-site-health.php:1930
 msgid "It is possible for site maintainers to block all, or some, communication to other sites and services. If set up incorrectly, this may prevent plugins and themes from working as intended."
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:1952
+#: wp-admin/includes/class-wp-site-health.php:1922
 msgid "HTTP requests seem to be working as expected"
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:1928
+#: wp-admin/includes/class-wp-site-health.php:1898
 msgid "Your site could not complete a loopback request"
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:1917
+#: wp-admin/includes/class-wp-site-health.php:1887
 msgid "Loopback requests are used to run scheduled events, and are also used by the built-in editors for themes and plugins to verify code stability."
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:1909
+#: wp-admin/includes/class-wp-site-health.php:1879
 msgid "Your site can perform loopback requests"
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:1833
+#: wp-admin/includes/class-wp-site-health.php:1803
 msgid "Background updates may not be working properly"
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:1825
+#: wp-admin/includes/class-wp-site-health.php:1795
 msgid "Background updates are not working as expected"
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:1822
+#: wp-admin/includes/class-wp-site-health.php:1792
 msgid "Passed"
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:1804
+#: wp-admin/includes/class-wp-site-health.php:1774
 msgid "Background updates ensure that WordPress can auto-update if a security update is released for the version you are currently using."
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:1796
+#: wp-admin/includes/class-wp-site-health.php:1766
 msgid "Background updates are working"
 msgstr ""
 
 #. translators: %s: The name of the failed cron event.
-#: wp-admin/includes/class-wp-site-health.php:1761
+#: wp-admin/includes/class-wp-site-health.php:1731
 msgid "The scheduled event, %s, failed to run. Your site still works, but this may indicate that scheduling posts or automated updates may not work as intended."
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:1755
+#: wp-admin/includes/class-wp-site-health.php:1725
 msgid "A scheduled event has failed"
 msgstr ""
 
 #. translators: %s: The error message returned while from the cron scheduler.
-#: wp-admin/includes/class-wp-site-health.php:1748
+#: wp-admin/includes/class-wp-site-health.php:1718
 msgid "While trying to test your site&#8217;s scheduled events, the following error was returned: %s"
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:1742
+#: wp-admin/includes/class-wp-site-health.php:1712
 msgid "It was not possible to check your scheduled events"
 msgstr "بررسی رویداد برنامه‌ریزی‌شده ناممکن است"
 
-#: wp-admin/includes/class-wp-site-health.php:1731
+#: wp-admin/includes/class-wp-site-health.php:1701
 msgid "Scheduled events are what periodically looks for updates to plugins, themes and WordPress itself. It is also what makes sure scheduled posts are published on time. It may also be used by various plugins to make sure that planned actions are executed."
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:1723
+#: wp-admin/includes/class-wp-site-health.php:1693
 msgid "Scheduled events are running"
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:1704
+#: wp-admin/includes/class-wp-site-health.php:1674
 msgid "Talk to your web host about OpenSSL support for PHP."
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:1700
+#: wp-admin/includes/class-wp-site-health.php:1670
 msgid "Your site is unable to communicate securely with other services"
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:1696
+#: wp-admin/includes/class-wp-site-health.php:1666
 msgid "Your site can communicate securely with other services"
 msgstr ""
 
-#: wp-admin/includes/class-wp-site-health.php:1685
+#: wp-admin/includes/class-wp-site-health.php:1655
 msgid "Securely communicating between servers are needed for transactions such as fetching files, conducting sales on store sites, and much more."
 msgstr ""
 
@@ -3293,7 +3286,7 @@ msgstr ""
 
 #: wp-admin/includes/class-wp-site-health.php:1001
 #: wp-admin/includes/class-wp-site-health.php:1389
-#: wp-admin/includes/class-wp-site-health.php:1829
+#: wp-admin/includes/class-wp-site-health.php:1799
 msgid "Error"
 msgstr "خطا"
 
@@ -3751,7 +3744,7 @@ msgstr ""
 
 #: wp-admin/includes/class-wp-debug-data.php:421
 #: wp-admin/includes/class-wp-debug-data.php:427
-#: wp-admin/includes/class-wp-site-health.php:2343
+#: wp-admin/includes/class-wp-site-health.php:2313
 msgid "Communication with WordPress.org"
 msgstr ""
 
@@ -4131,6 +4124,8 @@ msgstr "نصب ناممکن است"
 #: wp-admin/install.php:238
 #: wp-admin/update-core.php:84
 #: wp-admin/upgrade.php:80
+#: wp-admin/about.php:86
+#: wp-admin/about.php:112
 msgid "https://wordpress.org/support/wordpress-version/version-%s/"
 msgstr ""
 
@@ -4330,7 +4325,7 @@ msgid "About"
 msgstr "درباره"
 
 #. translators: Page title of the About WordPress page in the admin.
-#: wp-admin/about.php:13
+#: wp-admin/about.php:16
 msgctxt "page title"
 msgid "About"
 msgstr "درباره"
@@ -6657,7 +6652,8 @@ msgid "(Currently set to: %s)"
 msgstr "(تنظیم کنونی: %s)"
 
 #. translators: %s: WordPress version number.
-#: wp-admin/about.php:254
+#: wp-admin/about.php:76
+#: wp-admin/about.php:387
 msgid "<strong>Version %s</strong> addressed one security issue."
 msgstr ""
 
@@ -6669,15 +6665,16 @@ msgstr "https://fa.gravatar.com/"
 msgid "Profile Picture"
 msgstr "تصویر نمایه"
 
-#: wp-admin/about.php:251
+#: wp-admin/about.php:71
+#: wp-admin/about.php:384
 msgid "Maintenance and Security Releases"
 msgstr ""
 
-#: wp-admin/about.php:248
+#: wp-admin/about.php:381
 msgid "Security Releases"
 msgstr ""
 
-#: wp-admin/about.php:245
+#: wp-admin/about.php:378
 msgid "Maintenance Releases"
 msgstr ""
 
@@ -6949,7 +6946,7 @@ msgid "The %1$s plugin header is deprecated. Use %2$s instead."
 msgstr "هدر افزونهٔ %1$s از رده خارج شده است. به جای آن از %2$s استفاده کنید."
 
 #: wp-admin/includes/class-wp-site-health.php:1009
-#: wp-admin/includes/class-wp-site-health.php:1837
+#: wp-admin/includes/class-wp-site-health.php:1807
 msgid "Warning"
 msgstr "اخطار"
 
@@ -8486,9 +8483,9 @@ msgstr "سایت شما در %1$s هنگام به روزرسانی به نگار
 msgid "WordPress %s is also now available."
 msgstr "همین حالا وردپرس %s نیز در دسترس است."
 
-#: wp-admin/includes/update-core.php:945
-#: wp-admin/includes/update-core.php:1092
-#: wp-admin/includes/update-core.php:1117
+#: wp-admin/includes/update-core.php:947
+#: wp-admin/includes/update-core.php:1103
+#: wp-admin/includes/update-core.php:1128
 #: wp-admin/includes/class-core-upgrader.php:160
 #: wp-admin/includes/class-wp-upgrader.php:165
 msgid "The update cannot be installed because we will be unable to copy some files. This is usually due to inconsistent file permissions."
@@ -8613,11 +8610,11 @@ msgstr "به‌روزرسانی ترجمه‌ها برای &#8206;%1$s (%2$s)&#8
 msgid "Update Translations"
 msgstr "به‌روزرسانی ترجمه‌ها"
 
-#: wp-admin/includes/class-wp-site-health.php:2349
+#: wp-admin/includes/class-wp-site-health.php:2319
 msgid "Background updates"
 msgstr "به‌روزرسانی‌ها در پس‌زمینه"
 
-#: wp-admin/includes/update-core.php:1158
+#: wp-admin/includes/update-core.php:1177
 msgid "There is not enough free disk space to complete the update."
 msgstr "فضای دیسک خالی کافی برای کامل کردن به‌روزرسانی، وجود ندارد."
 
@@ -8695,11 +8692,11 @@ msgstr "نام‌کاربری که شما وارد کرده‌اید دارای 
 msgid "Please provide a valid username."
 msgstr "لطفاً نام‌کاربری معتبر وارد کنید."
 
-#: wp-admin/includes/update-core.php:1106
+#: wp-admin/includes/update-core.php:1117
 msgid "Copying the required files&#8230;"
 msgstr "کپی پرونده‌های مورد نیاز&#8230;"
 
-#: wp-admin/includes/update-core.php:1036
+#: wp-admin/includes/update-core.php:1047
 msgid "Preparing to install the latest version&#8230;"
 msgstr "آمادگی برای نصب آخرین نگارش&#8230;"
 
@@ -9427,7 +9424,7 @@ msgid "Search engine visibility"
 msgstr "نمایانی برای موتورهای جست‌وجو"
 
 #. translators: 1: WordPress version, 2: URL to About screen.
-#: wp-admin/includes/update-core.php:1446
+#: wp-admin/includes/update-core.php:1468
 #: wp-admin/update-core.php:858
 msgid "Welcome to WordPress %1$s. You will be redirected to the About WordPress screen. If not, click <a href=\"%2$s\">here</a>."
 msgstr "به وردپرس %1$s خوش آمدید. شما به صفحهٔ درباره وردپرس هدایت خواهید شد. در غیراین‌صورت <a href=\"%2$s\">این‌جا را کلیک کنید</a>."
@@ -10253,14 +10250,18 @@ msgstr "ایمیل یک کاربر موجود در شبکه را برای دعو
 msgid "Show Toolbar when viewing site"
 msgstr "هنگام مشاهده سایت، نوارابزار نمایش داده شود"
 
+#. translators: %s: HelpHub URL.
 #. translators: %s: Documentation URL.
-#: wp-admin/about.php:277
+#: wp-admin/about.php:83
+#: wp-admin/about.php:109
+#: wp-admin/about.php:410
 msgid "For more information, see <a href=\"%s\">the release notes</a>."
 msgstr "برای اطلاعات بیشتر، <a href=\"%s\">یادداشت‌های این انتشار</a> را ببینید."
 
 #. translators: 1: WordPress version number, 2: Plural number of bugs. More
 #. than one security issue.
-#: wp-admin/about.php:271
+#: wp-admin/about.php:97
+#: wp-admin/about.php:404
 msgid "<strong>Version %1$s</strong> addressed some security issues and fixed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed some security issues and fixed %2$s bugs."
 msgstr[0] ""
@@ -10268,14 +10269,14 @@ msgstr[1] ""
 
 #. translators: 1: WordPress version number, 2: Plural number of bugs. Singular
 #. security issue.
-#: wp-admin/about.php:265
+#: wp-admin/about.php:398
 msgid "<strong>Version %1$s</strong> addressed a security issue and fixed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed a security issue and fixed %2$s bugs."
 msgstr[0] ""
 msgstr[1] ""
 
 #. translators: 1: WordPress version number, 2: Plural number of bugs.
-#: wp-admin/about.php:259
+#: wp-admin/about.php:392
 msgid "<strong>Version %1$s</strong> addressed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed %2$s bugs."
 msgstr[0] ""
@@ -10286,26 +10287,26 @@ msgid "Welcome to your WordPress Dashboard! This is the screen you will see when
 msgstr "به پیشخوان وردپرس خود خوش آمدید! این صفحه‌ایست که شما هنگام ورود به سایت مشاهده می‌کنید، این صفحه امکان دسترسی به کلیه بخش‌های مدیریتی را برای شما فراهم می‌کند. برای استفاده از راهنمای هر صفحه روی زبانهٔ راهنما در گوشهٔ بالایی صفحه کلیک کنید."
 
 #. translators: %s: WordPress version number.
-#: wp-admin/about.php:256
+#: wp-admin/about.php:389
 msgid "<strong>Version %s</strong> addressed some security issues."
 msgstr ""
 
-#: wp-admin/about.php:250
+#: wp-admin/about.php:383
 msgid "Maintenance and Security Release"
 msgstr ""
 
-#: wp-admin/about.php:247
+#: wp-admin/about.php:380
 msgid "Security Release"
 msgstr ""
 
-#: wp-admin/about.php:244
+#: wp-admin/about.php:377
 msgid "Maintenance Release"
 msgstr ""
 
 #: wp-admin/credits.php:42
 #: wp-admin/privacy.php:39
 #: wp-admin/freedoms.php:45
-#: wp-admin/about.php:38
+#: wp-admin/about.php:41
 msgid "What&#8217;s New"
 msgstr ""
 
@@ -10314,7 +10315,7 @@ msgid "This screen allows you to choose your permalink structure. You can choose
 msgstr "این صفحه به شما امکان می‌دهد ساختار پیش‌فرض پایاپیوند را انتخاب کنید. می‌توانید از گزینه‌های موجود یکی را انتخاب کنید یا خودتان یک ساختار سفارشی بسازید."
 
 #. translators: 1: WordPress version, 2: URL to About screen.
-#: wp-admin/includes/update-core.php:1454
+#: wp-admin/includes/update-core.php:1476
 #: wp-admin/update-core.php:866
 msgid "Welcome to WordPress %1$s. <a href=\"%2$s\">Learn more</a>."
 msgstr "به وردپرس %1$s خوش آمدید. <a href=\"%2$s\">بیشتر بدانید</a>."
@@ -10591,11 +10592,11 @@ msgstr "<strong>ویرایش</strong> شما را به صفحهٔ ویرایش �
 msgid "Because this is a multisite installation, you may add accounts that already exist on the Network by specifying a username or email, and defining a role. For more options, such as specifying a password, you have to be a Network Administrator and use the hover link under an existing user&#8217;s name to Edit the user profile under Network Admin > All Users."
 msgstr "به دلیل نصب وردپرس چندسایته، می‌توانید با وارد کردن نام‌کاربری یا ایمیل و تعیین نقش، حساب‌های کاربری موجود در شبکه را به آن بیافزایید. برای دسترسی به گزینه‌های بیشتر هم‌چون تغییر رمز، شما باید مدیر شبکه باشید و در مسیر مدیر شبکه > همه‌ کاربران، از پیوندهایی که هنگام بردن موشواره روی نام کاربران ظاهر می‌شود برای ویرایش آن‌ها استفاده کنید."
 
-#: wp-admin/about.php:234
+#: wp-admin/about.php:289
 msgid "Go to Dashboard &rarr; Home"
 msgstr ""
 
-#: wp-admin/about.php:231
+#: wp-admin/about.php:286
 msgid "Go to Dashboard &rarr; Updates"
 msgstr ""
 
@@ -11259,7 +11260,7 @@ msgstr ""
 #: wp-admin/credits.php:51
 #: wp-admin/privacy.php:40
 #: wp-admin/freedoms.php:46
-#: wp-admin/about.php:39
+#: wp-admin/about.php:42
 msgid "Credits"
 msgstr ""
 
@@ -11285,7 +11286,7 @@ msgstr ""
 #: wp-admin/freedoms.php:18
 #: wp-admin/freedoms.php:47
 #: wp-admin/freedoms.php:53
-#: wp-admin/about.php:40
+#: wp-admin/about.php:43
 msgid "Freedoms"
 msgstr ""
 
@@ -11627,7 +11628,7 @@ msgstr "شیوه‌بندی ویرایشگر"
 
 #: wp-admin/users.php:223
 msgid "Sorry, you are not allowed to edit users."
-msgstr ""
+msgstr "متأسفانه شما اجازهٔ ویرایش کاربران را ندارید."
 
 #: wp-admin/includes/file.php:2212
 msgid "To perform the requested action, WordPress needs to access your web server."
@@ -12552,7 +12553,7 @@ msgstr "رمزی که هنگام نصب انتحاب کرده‌اید."
 msgid "User already exists. Password inherited."
 msgstr "این شناسه وجود دارد. رمز به ارث برده شده است."
 
-#: wp-admin/includes/update-core.php:1440
+#: wp-admin/includes/update-core.php:1462
 #: wp-admin/includes/class-wp-automatic-updater.php:418
 #: wp-admin/update-core.php:854
 msgid "WordPress updated successfully."
@@ -12587,7 +12588,7 @@ msgstr "به‌روزرسانی‌های وردپرس"
 msgid "Edit menu item"
 msgstr "ویرایش گزینه فهرست"
 
-#: wp-admin/about.php:234
+#: wp-admin/about.php:289
 #: wp-admin/includes/network.php:148
 msgid "Go to Dashboard"
 msgstr "بازگشت به پیشخوان"
@@ -13674,7 +13675,7 @@ msgstr "پایاپیوندها"
 #: wp-admin/privacy.php:48
 #: wp-admin/freedoms.php:48
 #: wp-admin/privacy-policy-guide.php:37
-#: wp-admin/about.php:41
+#: wp-admin/about.php:44
 #: wp-admin/menu.php:299
 #: wp-admin/options-privacy.php:139
 msgid "Privacy"
@@ -13894,34 +13895,34 @@ msgstr "به‌روزرسانی به %s"
 msgid "You are using a development version (%1$s). Cool! Please <a href=\"%2$s\">stay updated</a>."
 msgstr "از نگارش توسعه (%1$s) استفاده می‌کنید. <a href=\"%2$s\">به‌روز بمانید</a>."
 
-#: wp-admin/includes/update-core.php:1289
+#: wp-admin/includes/update-core.php:1308
 msgid "Upgrading database&#8230;"
 msgstr "در حال ارتقا پایگاه‌داده&#8230;"
 
-#: wp-admin/includes/update-core.php:933
+#: wp-admin/includes/update-core.php:935
 msgid "The update could not be unpacked"
 msgstr "به‌روزرسانی نمی‌تواند از حالت بسته (Pack) خارج شود"
 
-#: wp-admin/includes/update-core.php:920
+#: wp-admin/includes/update-core.php:922
 msgid "Verifying the unpacked files&#8230;"
 msgstr "درستی‌سنجی پرونده‌هایی که از حالت فشرده خارج شده‌اند&#8230;"
 
 #. translators: 1: WordPress version number, 2: Minimum required MySQL version
 #. number, 3: Current MySQL version number.
-#: wp-admin/includes/update-core.php:1014
+#: wp-admin/includes/update-core.php:1025
 msgid "The update cannot be installed because WordPress %1$s requires MySQL version %2$s or higher. You are running version %3$s."
 msgstr "به‌روزرسانی نمی‌تواند نصب شود زیرا وردپرس %1$s نیازمند MySQL نگارش %2$s یا بالاتر است. شما در حال اجرا بر روی نگارش %3$s هستید."
 
 #. translators: 1: WordPress version number, 2: Minimum required PHP version
 #. number, 3: Current PHP version number.
-#: wp-admin/includes/update-core.php:1003
+#: wp-admin/includes/update-core.php:1014
 msgid "The update cannot be installed because WordPress %1$s requires PHP version %2$s or higher. You are running version %3$s."
 msgstr "به‌روزرسانی نمی‌تواند نصب شود زیرا وردپرس %1$s نیازمند PHP نگارش %2$s یا بالاتر است. شما در حال اجرا بر روی نگارش %3$s هستید."
 
 #. translators: 1: WordPress version number, 2: Minimum required PHP version
 #. number, 3: Minimum required MySQL version number, 4: Current PHP version
 #. number, 5: Current MySQL version number.
-#: wp-admin/includes/update-core.php:990
+#: wp-admin/includes/update-core.php:1001
 msgid "The update cannot be installed because WordPress %1$s requires PHP version %2$s or higher and MySQL version %3$s or higher. You are running PHP version %4$s and MySQL version %5$s."
 msgstr "به‌روزرسانی نمی‌تواند نصب شود زیرا وردپرس %1$s نیازمند PHP نگارش %2$s یا بالاتر و MySQL نگارش %3$s یا بالاتر است. شما در حال اجرا بر روی PHP نگارش %4$s و MySQL نگارش %5$s هستید."
 
@@ -13948,7 +13949,7 @@ msgstr "نگارش: %s"
 
 #: wp-admin/includes/theme-install.php:182
 msgid "If you have a theme in a .zip format, you may install or update it by uploading it here."
-msgstr ""
+msgstr "اگر پوسته‌ای در شکل‌بندی zip دارید، می‌توانید با بارگذاری در اینجا، آن را نصب و یا به‌روز کنید."
 
 #: wp-admin/includes/theme-install.php:172
 msgid "Find Themes"
@@ -14318,7 +14319,7 @@ msgstr "پروندهٔ فشردهٔ افزونه"
 
 #: wp-admin/includes/plugin-install.php:352
 msgid "If you have a plugin in a .zip format, you may install or update it by uploading it here."
-msgstr ""
+msgstr "اگر افزونه‌ای در شکل‌بندی zip دارید، می‌توانید با بارگذاری در اینجا، آن را نصب و یا به‌روز کنید."
 
 #: wp-admin/includes/plugin-install.php:337
 #: wp-admin/includes/plugin-install.php:339
@@ -14732,7 +14733,7 @@ msgstr "نشانی پرونده"
 #: wp-admin/install.php:77
 #: wp-admin/freedoms.php:34
 #: wp-admin/upgrade.php:68
-#: wp-admin/about.php:28
+#: wp-admin/about.php:31
 #: wp-admin/setup-config.php:118
 #: wp-admin/maint/repair.php:24
 msgid "WordPress"
@@ -14914,8 +14915,8 @@ msgstr "FTP"
 msgid "Empty archive."
 msgstr "بایگانی خالی است."
 
-#: wp-admin/includes/update-core.php:1240
-#: wp-admin/includes/update-core.php:1372
+#: wp-admin/includes/update-core.php:1259
+#: wp-admin/includes/update-core.php:1391
 #: wp-admin/includes/file.php:1635
 #: wp-admin/includes/file.php:1753
 #: wp-admin/includes/file.php:1796
@@ -15247,12 +15248,12 @@ msgstr "گشودن به‌روزرسانی&#8230;"
 msgid "The plugin is at the latest version."
 msgstr "تازه‌ترین نگارش افزونه است."
 
-#: wp-admin/includes/update-core.php:1195
+#: wp-admin/includes/update-core.php:1214
 #: wp-admin/includes/class-wp-upgrader.php:168
 msgid "Disabling Maintenance mode&#8230;"
 msgstr "غیرفعال‌سازی حالت نگه‌داشت&#8230;"
 
-#: wp-admin/includes/update-core.php:1098
+#: wp-admin/includes/update-core.php:1109
 #: wp-admin/includes/class-wp-upgrader.php:167
 msgid "Enabling Maintenance mode&#8230;"
 msgstr "فعال‌سازی حالت نگه‌داشت&#8230;"
@@ -15262,7 +15263,7 @@ msgstr "فعال‌سازی حالت نگه‌داشت&#8230;"
 msgid "Incompatible Archive."
 msgstr "بایگانی ناسازگار است."
 
-#: wp-admin/includes/update-core.php:1383
+#: wp-admin/includes/update-core.php:1405
 #: wp-admin/includes/class-wp-upgrader.php:163
 #: wp-admin/includes/file.php:1605
 #: wp-admin/includes/file.php:1732
@@ -15922,29 +15923,38 @@ msgstr "&laquo;"
 
 #~ msgid ""
 "\n"
-"is the programming language used to build and maintain WordPress. Newer versions of PHP are faster and more secure, so \"\n"
-"up to date will help your site&#8217;s overall performance and security. The minimum recommended version of PHP is %s.\""
+"is the programming language used to build and maintain WordPress. Newer \"\n"
+"of PHP are faster and more secure, so staying up to date will help \"\n"
+"site&#8217;s overall performance and security. The minimum recommended \"\n"
+"of PHP is %s.\""
 #~ msgstr ""
 "\n"
-"زبان برنامه‌نویسی است که برای ساخت و نگه‌داشت وردپرس از آن استفاده می‌شود. نگارش‌های تازه‌تر PHP سریع‌تر و ایمن‌تر هستند، \"\n"
-"به‌روزرسانی آن تاثیر مثبتی بر کارایی و امنیت سایت شما خواهد داشت. پایین‌ترین نگارش توصیه‌شده PHP %s است.\""
+"زبان برنامه‌نویسی است که برای ساخت و نگه‌داشت وردپرس از آن استفاده می‌شود. \"\n"
+"تازه‌تر PHP سریع‌تر و ایمن‌تر هستند، بنابراین به‌روزرسانی آن تاثیر مثبتی \"\n"
+"کارایی و امنیت سایت شما خواهد داشت. پایین‌ترین نگارش توصیه‌شده PHP %s است.\""
 
 #~ msgid ""
 "\n"
-"is the programming language we use to build and maintain WordPress. Newer versions of PHP are both faster and more secure, \"\n"
-"updating will have a positive effect on your site&#8217;s performance.\""
+"is the programming language we use to build and maintain WordPress. Newer \"\n"
+"of PHP are both faster and more secure, so updating will have a \"\n"
+"effect on your site&#8217;s performance.\""
 #~ msgstr ""
 "\n"
-"زبان برنامه‌نویسی است که ما برای ساخت و نگه‌داشت وردپرس از آن استفاده می‌کنیم. نگارش‌های تازه‌تر PHP سریع‌تر و ایمن‌تر هستند، \"\n"
-"به‌روزرسانی آن تاثیر مثبتی بر کارایی سایت شما خواهد داشت.\""
+"زبان برنامه‌نویسی است که ما برای ساخت و نگه‌داشت وردپرس از آن استفاده می‌کنیم. \"\n"
+"تازه‌تر PHP سریع‌تر و ایمن‌تر هستند، بنابراین به‌روزرسانی آن تاثیر مثبتی \"\n"
+"کارایی سایت شما خواهد داشت.\""
 
 #~ msgid "Your website is using an active HTTPS connection."
 #~ msgstr "وب سایت شما در حال استفاده از یک ارتباط HTTPS فعال است."
 
-#~ msgid "WordPress has detected that your site is running on an outdated version of PHP."
+#~ msgid ""
+"\n"
+"has detected that your site is running on an outdated version of PHP.\""
 #~ msgstr "بنابر تشخیص وردپرس، سایت شما به کمک نگارش منسوخی از PHP اجرا می‌شود."
 
-#~ msgid "WordPress has detected that your site is running on an insecure version of PHP."
+#~ msgid ""
+"\n"
+"has detected that your site is running on an insecure version of PHP.\""
 #~ msgstr "بنابر تشخیص وردپرس، سایت شما به کمک نگارش ناامنی از PHP اجرا می‌شود."
 
 #~ msgid "PHP Update Required"
@@ -15959,12 +15969,15 @@ msgstr "&laquo;"
 
 #~ msgid ""
 "\n"
-"help putting together your new Privacy Policy page? <a href=\"%1$s\" %2$s>Check out our guide%3$s</a> for recommendations \"\n"
-"what content to include, along with policies suggested by your plugins and theme.\""
+"help putting together your new Privacy Policy page? <a href=\"%1$s\" \"\n"
+"out our guide%3$s</a> for recommendations on what content to \"\n"
+"along with policies suggested by your plugins and theme.\""
 #~ msgstr ""
 "\n"
-"نیازمند کمک برای تنظیم برگه سیاست حریم خصوصی تازه خود هستید؛ راهنمای ما برای توصیه‌هایی در مورد این که باید شامل چه محتوایی \"\n"
-"را <a href=\"%1$s\" %2$s>بررسی کنید%3$s</a>. در کنار آن، سیاست‌های پیشنهادی برای افزونه‌ها و پوسته‌ها را هم ببینید.\""
+"نیازمند کمک برای تنظیم برگه سیاست حریم خصوصی تازه خود هستید؛ راهنمای ما \"\n"
+"توصیه‌هایی در مورد این که باید شامل چه محتوایی باشد را <a href=\"%1$s\" \"\n"
+"کنید%3$s</a>. در کنار آن، سیاست‌های پیشنهادی برای افزونه‌ها و پوسته‌ها \"\n"
+"هم ببینید.\""
 
 #~ msgid "Source: %s"
 #~ msgstr "منبع: %s"
@@ -15978,8 +15991,14 @@ msgstr "&laquo;"
 #~ msgid "Create New Page"
 #~ msgstr "ایجاد برگهٔ تازه"
 
-#~ msgid "An email will be sent to the user at this email address asking them to verify the request."
-#~ msgstr "یک ایمیل برای کاربر در این نشانی ارسال خواهد شد، تا از او بخواهد درخواست را تأیید کند."
+#~ msgid ""
+"\n"
+"email will be sent to the user at this email address asking them to verify \"\n"
+"request.\""
+#~ msgstr ""
+"\n"
+"ایمیل برای کاربر در این نشانی ارسال خواهد شد، تا از او بخواهد درخواست را \"\n"
+"کند.\""
 
 #~ msgid "If you need to re-install version %s, you can do so here:"
 #~ msgstr "اگر می‌خواهید نگارش %s را دوباره نصب کنید، می‌توانید از اینجا انجام دهید:"
@@ -15989,15 +16008,18 @@ msgstr "&laquo;"
 
 #~ msgid ""
 "\n"
-"theme being previewed is fully interactive &mdash; navigate to different pages to see how the theme handles posts, \"\n"
-"and other page templates. The settings may differ depending on what theme features the theme being previewed \"\n"
-"To accept the new settings and activate the theme all in one step, click the Publish &amp; Activate button above the \"\n"
-""
+"theme being previewed is fully interactive &mdash; navigate to different \"\n"
+"to see how the theme handles posts, archives, and other page templates. \"\n"
+"settings may differ depending on what theme features the theme being \"\n"
+"supports. To accept the new settings and activate the theme all in \"\n"
+"step, click the Publish &amp; Activate button above the menu.\""
 #~ msgstr ""
 "\n"
-"که پیش‌نمایش داده می‌شود کاملا تعاملی است &mdash; بین صفحه‌ها حرکت کنید تا ببینید تا ببینید چگونه پوسته پست‌ها، بایگانی‌ها \"\n"
-"باقی الگوهای صفحه را تحت تاثیر قرار می‌دهد. تنظیمات ممکن است بسته به قابلیت‌هایی که پوسته پیش‌نمایش داده شده پشتیبانی می‌کند، \"\n"
-"باشند. برای قبول تنظیمات جدید و فعالسازی پوسته در یک گام، دکمهٔ «ذخیره و فعال‌سازی» در بالای فهرست را کلیک کنید.\""
+"که پیش‌نمایش داده می‌شود کاملا تعاملی است &mdash; بین صفحه‌ها حرکت کنید تا \"\n"
+"تا ببینید چگونه پوسته پست‌ها، بایگانی‌ها و باقی الگوهای صفحه را تحت تاثیر \"\n"
+"می‌دهد. تنظیمات ممکن است بسته به قابلیت‌هایی که پوسته پیش‌نمایش داده شده \"\n"
+"می‌کند، متفاوت باشند. برای قبول تنظیمات جدید و فعالسازی پوسته در یک \"\n"
+"دکمهٔ «ذخیره و فعال‌سازی» در بالای فهرست را کلیک کنید.\""
 
 #~ msgid "Re-install Now"
 #~ msgstr "راه‌اندازی مجدد"
@@ -16018,7 +16040,9 @@ msgstr "&laquo;"
 #~ msgstr "حذف درخواست‌ها"
 
 #~ msgid "You can update to <a href=\"%1$s\">WordPress %2$s</a> automatically:"
-#~ msgstr "می‌توانید به صورت خودکار به <a href=\"%1$s\">وردپرس %2$s</a> به‌روزرسانی کنید:"
+#~ msgstr ""
+"\n"
+"به صورت خودکار به <a href=\"%1$s\">وردپرس %2$s</a> به‌روزرسانی کنید:\""
 
 #~ msgid "Unable to create export folder."
 #~ msgstr "پوشهٔ برون‌بری ساخته نشد."
@@ -16095,8 +16119,14 @@ msgstr "&laquo;"
 #~ msgid "Activate Plugin &amp; Return to Press This"
 #~ msgstr "فعال‌سازی افزونه و بازگشت به پرس‌دیس"
 
-#~ msgid "You are using a development version of WordPress. You can update to the latest nightly build automatically:"
-#~ msgstr "از نگارش مخصوص توسعه وردپرس استفاده می‌کنید. می‌توانید به صورت خودکار، به آخرین ساخت شبانه وردپرس به‌روزرسانی کنید:"
+#~ msgid ""
+"\n"
+"are using a development version of WordPress. You can update to the latest \"\n"
+"build automatically:\""
+#~ msgstr ""
+"\n"
+"نگارش مخصوص توسعه وردپرس استفاده می‌کنید. می‌توانید به صورت خودکار، به آخرین \"\n"
+"شبانه وردپرس به‌روزرسانی کنید:\""
 
 #~ msgid "Confirm use of potentially weak password"
 #~ msgstr "تأیید استفاده از رمز ضعیف"
@@ -16113,8 +16143,13 @@ msgstr "&laquo;"
 #~ msgid "Generate Password"
 #~ msgstr "تولید رمز"
 
-#~ msgid "This site is set up to install updates of future beta versions automatically."
-#~ msgstr "این سایت برای نصب به‌روزرسانی‌های نگارش‌های آزمایشی آینده، بطور خودکار تنظیم شده است."
+#~ msgid ""
+"\n"
+"site is set up to install updates of future beta versions automatically.\""
+#~ msgstr ""
+"\n"
+"سایت برای نصب به‌روزرسانی‌های نگارش‌های آزمایشی آینده، بطور خودکار تنظیم شده \"\n"
+""
 
 #~ msgid "BETA TESTERS:"
 #~ msgstr "داوطلبان آزمایش:"
@@ -16124,26 +16159,30 @@ msgstr "&laquo;"
 
 #~ msgid ""
 "\n"
-"A Glance</strong> &mdash; Displays a summary of the content on your site and identifies which theme and version of \"\n"
-"you are using.\""
+"A Glance</strong> &mdash; Displays a summary of the content on your \"\n"
+"and identifies which theme and version of WordPress you are using.\""
 #~ msgstr ""
 "\n"
-"یک نگاه</strong> &mdash; خلاصه‌ای از محتوای سایت شما را نمایش می‌دهد و پوسته و نگارش وردپرس مورد استفاده شما را \"\n"
-"می‌کند.\""
+"یک نگاه</strong> &mdash; خلاصه‌ای از محتوای سایت شما را نمایش می‌دهد و \"\n"
+"و نگارش وردپرس مورد استفاده شما را شناسایی می‌کند.\""
 
 #~ msgid "Future security updates will be applied automatically."
 #~ msgstr "به‌روزرسانی‌های امنیتی در آینده به صورت خودکار نصب خواهند شد."
 
 #~ msgid ""
 "\n"
-"can choose whether or not your site will be crawled by robots, ping services, and spiders. If you want those services to \"\n"
-"your site, click the checkbox next to &#8220;Discourage search engines from indexing this site&#8221; and click the \"\n"
-"Changes button at the bottom of the screen. Note that your privacy is not complete; your site is still visible on the web.\""
+"can choose whether or not your site will be crawled by robots, ping \"\n"
+"and spiders. If you want those services to ignore your site, click \"\n"
+"checkbox next to &#8220;Discourage search engines from indexing this \"\n"
+"and click the Save Changes button at the bottom of the screen. Note \"\n"
+"your privacy is not complete; your site is still visible on the web.\""
 #~ msgstr ""
 "\n"
-"می‌توانید انتخاب کنید که آیا سایت شما در معرض دید رباتهای جست‌وجو، سرویسهای پینگ و پیمایش‌افزارها باشد یا نه. اگر می‌خواهید \"\n"
-"خود را از معرض دید آن‌ها پنهان کنید گزینه «از موتورهای جست‌وجو درخواست شود تا محتوای سایت را بررسی نکنند» را انتخاب کرده و \"\n"
-"را ذخیره کنید. به خاطر داشته باشید که حریم خصوصی شما کامل نیست و سایت شما هنوز در اینترنت، در معرض دید است.\""
+"می‌توانید انتخاب کنید که آیا سایت شما در معرض دید رباتهای جست‌وجو، سرویسهای \"\n"
+"و پیمایش‌افزارها باشد یا نه. اگر می‌خواهید سایت خود را از معرض دید آن‌ها \"\n"
+"کنید گزینه «از موتورهای جست‌وجو درخواست شود تا محتوای سایت را بررسی نکنند» \"\n"
+"انتخاب کرده و تغییرات را ذخیره کنید. به خاطر داشته باشید که حریم خصوصی شما \"\n"
+"نیست و سایت شما هنوز در اینترنت، در معرض دید است.\""
 
 #~ msgid "Return to Updates"
 #~ msgstr "بازگشت به به‌روزرسانی‌ها"
@@ -16189,23 +16228,36 @@ msgstr "&laquo;"
 
 #~ msgid ""
 "\n"
-"Before updating, please <a href=\"https://wordpress.org/support/article/wordpress-backups/\">back \"\n"
-"your database and files</a>. For help with updates, visit the <a href=\"https://wordpress.org/support/article/updating-\"\n"
+"Before updating, please <a href=\"https://wordpress.\"\n"
+"up your database and files</a>. \"\n"
+"help with updates, visit the <a href=\"https://wordpress.org/support/\"\n"
 "WordPress</a> documentation page.\""
 #~ msgstr ""
 "\n"
-"پیش از به‌روزرسانی از پرونده‌ها و پایگاه‌داده خود <a href=\"https://wordpress.org/support/article/wordpress-\"\n"
-"کنید. برای راهنمایی بیشتر، صفحه مستندات درباره <a href=\"https://wordpress.org/support/article/\"\n"
+"پیش از به‌روزرسانی از پرونده‌ها و پایگاه‌داده خود <a href=\"\n"
+"\n"
+"برای راهنمایی بیشتر، صفحه مستندات درباره <a href=\"https://wordpress.org/\"\n"
 "وردپرس</a> را ببینید.\""
 
-#~ msgid "<strong>Error:</strong> Current WordPress version does not meet minimum requirements for %s."
+#~ msgid ""
+"\n"
+"Current WordPress version does not meet minimum \"\n"
+"for %s.\""
 #~ msgstr "<strong>خطا:</strong> نگارش فعلی وردپرس حداقل نیازمندی‌های %s را ندارد."
 
-#~ msgid "<strong>Error:</strong> Current PHP version does not meet minimum requirements for %s."
+#~ msgid ""
+"\n"
+"Current PHP version does not meet minimum requirements \"\n"
+"%s.\""
 #~ msgstr "<strong>خطا:</strong> نگارش فعلی PHP حداقل نیازمندی‌های %s را ندارد."
 
-#~ msgid "<strong>Error:</strong> Current WordPress and PHP versions do not meet minimum requirements for %s."
-#~ msgstr "<strong>خطا:</strong> نگارش فعلی وردپرس و PHP حداقل نیازمندی‌های %s را ندارد."
+#~ msgid ""
+"\n"
+"Current WordPress and PHP versions do not meet minimum \"\n"
+"for %s.\""
+#~ msgstr ""
+"\n"
+"نگارش فعلی وردپرس و PHP حداقل نیازمندی‌های %s را ندارد.\""
 
 #~ msgid "<a href=\"%s\">Learn more about updating PHP</a>."
 #~ msgstr "<a href=\"%s\">درباره به‌روزرسانی PHP بیشتر بدانید</a>."
@@ -16213,8 +16265,14 @@ msgstr "&laquo;"
 #~ msgid "<a href=\"%s\">Please update WordPress</a>."
 #~ msgstr "<a href=\"%s\">لطفاً وردپرس را به‌روز کنید</a>."
 
-#~ msgid "<a href=\"%1$s\">Please update WordPress</a>, and then <a href=\"%2$s\">learn more about updating PHP</a>."
-#~ msgstr "<a href=\"%1$s\">لطفاً وردپرس را به‌روز کنید</a>، و همچنین <a href=\"%2$s\">درباره به‌روزرسانی PHP بیشتر بدانید</a>."
+#~ msgid ""
+"\n"
+"href=\"%1$s\">Please update WordPress</a>, and then <a href=\"%2$s\">learn \"\n"
+"about updating PHP</a>.\""
+#~ msgstr ""
+"\n"
+"href=\"%1$s\">لطفاً وردپرس را به‌روز کنید</a>، و همچنین <a href=\"%2$s\"\n"
+"به‌روزرسانی PHP بیشتر بدانید</a>.\""
 
 #~ msgid "Sorry, you are not allowed to deactivate this plugin."
 #~ msgstr "با عرض پوزش، شما اجازهٔ غیرفعال‌سازی این افزونه را ندارید."
@@ -16222,11 +16280,23 @@ msgstr "&laquo;"
 #~ msgid "Sorry, you are not allowed to activate this plugin."
 #~ msgstr "با عرض پوزش، شما اجازهٔ فعال‌سازی این افزونه را ندارید."
 
-#~ msgid "There aren&#8217;t any events scheduled near you at the moment. Would you like to <a href=\"%s\">organize one</a>?"
-#~ msgstr "در حال حاضر هیچ رویدادی نزدیک شما برنامه‌ریزی نشده است. آیا می‌خواهید <a href=\"%s\">یکی راه بیندازید</a>؟"
+#~ msgid ""
+"\n"
+"aren&#8217;t any events scheduled near you at the moment. Would you like \"\n"
+"<a href=\"%s\">organize one</a>?\""
+#~ msgstr ""
+"\n"
+"حال حاضر هیچ رویدادی نزدیک شما برنامه‌ریزی نشده است. آیا می‌خواهید <a href=\"%s\"\n"
+"راه بیندازید</a>؟\""
 
-#~ msgid "There aren&#8217;t any events scheduled near %1$s at the moment. Would you like to <a href=\"%2$s\">organize one</a>?"
-#~ msgstr "در حال حاضر هیچ رویدادی نزدیک %1$s برنامه‌ریزی نشده است. آیا می‌خواهید <a href=\"%2$s\">یکی راه بیندازید</a>؟"
+#~ msgid ""
+"\n"
+"aren&#8217;t any events scheduled near %1$s at the moment. Would you like \"\n"
+"<a href=\"%2$s\">organize one</a>?\""
+#~ msgstr ""
+"\n"
+"حال حاضر هیچ رویدادی نزدیک %1$s برنامه‌ریزی نشده است. آیا می‌خواهید <a href=\"\n"
+"راه بیندازید</a>؟\""
 
 #~ msgid "Sorry, you are not allowed to manage plugins for this site."
 #~ msgstr "با عرض پوزش، شما اجازهٔ مدیریت افزونه‌های این سایت را ندارید."
@@ -16237,7 +16307,9 @@ msgstr "&laquo;"
 #~ msgid "Sorry, you are not allowed to install plugins on this site."
 #~ msgstr "با عرض پوزش، شما اجازهٔ نصب افزونه‌ها در این سایت را ندارید."
 
-#~ msgid "The ssh2 PHP extension is available, however, we require the PHP5 function %s"
+#~ msgid ""
+"\n"
+"ssh2 PHP extension is available, however, we require the PHP5 function %s\""
 #~ msgstr "افزونهٔ ssh2 در PHP در دسترس است، اما ما به تابع %s در PHP5 نیاز داریم."
 
 #~ msgid "View Mode"
@@ -16249,12 +16321,13 @@ msgstr "&laquo;"
 
 #~ msgid ""
 "\n"
-"the <strong>Submitted On</strong> column, the date and time the comment was left on your site appears. Clicking on the date/\"\n"
-"link will take you to that comment on your live site.\""
+"the <strong>Submitted On</strong> column, the date and time the comment was \"\n"
+"on your site appears. Clicking on the date/time link will take you to that \"\n"
+"on your live site.\""
 #~ msgstr ""
 "\n"
-"و تاریخ کامنت در ظاهر سایت شما در ستون <strong>ارسال‌شده در</strong> باقی خواهد ماند. کلیک روی پیوند تاریخ/زمان شما را به \"\n"
-"دیدگاه در سایتتان خواهد برد.\""
+"و تاریخ کامنت در ظاهر سایت شما در ستون <strong>ارسال‌شده در</strong> باقی \"\n"
+"ماند. کلیک روی پیوند تاریخ/زمان شما را به آن دیدگاه در سایتتان خواهد برد.\""
 
 #~ msgid ""
 "\n"
@@ -16268,8 +16341,8 @@ msgstr "&laquo;"
 "\n"
 "you really want to delete your site, click the link below. You will not\n"
 "\"\n"
-"asked to confirm again so only click this link if you are absolutely certain:\n"
-"\"\n"
+"asked to confirm again so only click this link if you are absolutely \"\n"
+"\n"
 "\n"
 "\n"
 "you delete your site, please consider opening a new site here\n"
@@ -16295,7 +16368,8 @@ msgstr "&laquo;"
 "\n"
 "واقعا می‌خواهید سایت خود را حذف کنید روی پیوند زیر کلیک کنید.\n"
 "\"\n"
-"با یک بار کلیک بر روی این پیوند سایت شما حذف می‌شود پس تنها در صورت اطمینان کامل روی این پیوند کلیک کنید:\n"
+"با یک بار کلیک بر روی این پیوند سایت شما حذف می‌شود پس تنها در صورت اطمینان \"\n"
+"روی این پیوند کلیک کنید:\n"
 "\"\n"
 "\n"
 "\n"
@@ -16311,7 +16385,9 @@ msgstr "&laquo;"
 
 #, fuzzy
 #~ msgid "Unable to connect to the filesystem. Please confirm your credentials."
-#~ msgstr "وردپرس قادر به اتصال به سیستم‌فایل نیست. لطفا اطلاعات کاربری خود را تأیید کنید."
+#~ msgstr ""
+"\n"
+"قادر به اتصال به سیستم‌فایل نیست. لطفا اطلاعات کاربری خود را تأیید کنید.\""
 
 #~ msgid "Y/m/d g:i:s a"
 #~ msgstr "Y/m/d g:i:s a"
@@ -16325,57 +16401,72 @@ msgstr "&laquo;"
 #~ msgid "Install %s now"
 #~ msgstr "همین حالا %s را نصب کنید"
 
-#~ msgid "Keyboard users: When you&#8217;re working in the visual editor, you can use <kbd>Alt + F10</kbd> to access the toolbar."
+#~ msgid ""
+"\n"
+"users: When you&#8217;re working in the visual editor, you can use \"\n"
+"+ F10</kbd> to access the toolbar.\""
 #~ msgstr ""
 "\n"
-"صفحه‌کلید: هنگامی که از ویرایش‌گر بصری (روی صفحه) استفاده می‌کنید می‌توانید با فشردن <kbd>Alt + F10</kbd> به نوارابزار \"\n"
-"داشته باشید.\""
+"صفحه‌کلید: هنگامی که از ویرایش‌گر بصری (روی صفحه) استفاده می‌کنید می‌توانید \"\n"
+"فشردن <kbd>Alt + F10</kbd> به نوارابزار دسترسی داشته باشید.\""
 
 #~ msgid ""
 "\n"
-"brings you to the Delete Users screen for confirmation, where you can permanently remove a user from \"\n"
-"site and delete their content. You can also delete multiple users at once by using Bulk Actions.\""
+"brings you to the Delete Users screen for confirmation, \"\n"
+"you can permanently remove a user from your site and delete their \"\n"
+"You can also delete multiple users at once by using Bulk Actions.\""
 #~ msgstr ""
 "\n"
-"برای تأیید شما را به صفحه حذف کاربران می‌برد، آن جا می‌توانید یک کاربر و مطالبش را برای همیشه از سایت خود \"\n"
-"کنید. همین طور با استفاده از کنش‌های جمعی می‌توانید هم‌زمان چند کاربر را حذف کنید.\""
+"برای تأیید شما را به صفحه حذف کاربران می‌برد، آن جا \"\n"
+"یک کاربر و مطالبش را برای همیشه از سایت خود حذف کنید. همین طور با \"\n"
+"از کنش‌های جمعی می‌توانید هم‌زمان چند کاربر را حذف کنید.\""
 
 #~ msgid ""
 "\n"
-"allows you to remove a user from your site. It does not delete their content. You can also remove \"\n"
-"users at once by using Bulk Actions.\""
+"allows you to remove a user from your site. It does not \"\n"
+"their content. You can also remove multiple users at once by using Bulk \"\n"
+""
 #~ msgstr ""
 "\n"
-"این امکان را به شما می‌دهد که یک کاربر را از سایت خود حذف کنید. با این کار محتوای کاربر حذف نمی‌شود. همچنین \"\n"
-"می‌توانید چندین کاربر را همزمان با استفاده از کنش‌های جمعی حذف کنید.\""
+"این امکان را به شما می‌دهد که یک کاربر را از سایت خود حذف \"\n"
+"با این کار محتوای کاربر حذف نمی‌شود. همچنین شما می‌توانید چندین کاربر را \"\n"
+"با استفاده از کنش‌های جمعی حذف کنید.\""
 
 #, fuzzy
 #~ msgid ""
 "\n"
-"this setting is in effect, a reminder is shown in the At a Glance box of the Dashboard that says, &#8220;Search Engines \"\n"
-"to remind you that your site is not being crawled.\""
+"this setting is in effect, a reminder is shown in the At a Glance box of \"\n"
+"Dashboard that says, &#8220;Search Engines Discouraged,&#8221; to remind \"\n"
+"that your site is not being crawled.\""
 #~ msgstr ""
 "\n"
-"که این گزینه فعال باشد، آگاه‌سازی در جعبه «در یک نگاه» پیشخوان ظاهر خواهد شد که می‌گوید، «موتورهای جست‌وجو غیرفعال هستند» \"\n"
-"به شما یادآوری کند که سایت شما توسط آن‌ها پویش نمی‌شود.\""
+"که این گزینه فعال باشد، آگاه‌سازی در جعبه «در یک نگاه» پیشخوان ظاهر خواهد \"\n"
+"که می‌گوید، «موتورهای جست‌وجو غیرفعال هستند» تا به شما یادآوری کند که سایت شما \"\n"
+"آن‌ها پویش نمی‌شود.\""
 
 #~ msgid "File URL:"
 #~ msgstr "نشانی پرونده:"
 
 #~ msgid ""
 "\n"
-"the <strong>In Response To</strong> column, there are three elements. The text is the name of the post that inspired the \"\n"
-"and links to the post editor for that entry. The View Post link leads to that post on your live site. The small \"\n"
-"with the number in it shows the number of approved comments that post has received. If there are pending comments, a \"\n"
-"notification circle with the number of pending comments is displayed. Clicking the notification circle will filter the \"\n"
-"screen to show only pending comments on that post.\""
+"the <strong>In Response To</strong> column, there are three elements. The \"\n"
+"is the name of the post that inspired the comment, and links to the post \"\n"
+"for that entry. The View Post link leads to that post on your live site. \"\n"
+"small bubble with the number in it shows the number of approved comments \"\n"
+"post has received. If there are pending comments, a red notification \"\n"
+"with the number of pending comments is displayed. Clicking the \"\n"
+"circle will filter the comments screen to show only pending \"\n"
+"on that post.\""
 #~ msgstr ""
 "\n"
-"ستون <strong>در پاسخ به</strong> سه عنصر وجود دارد. متن، نام نوشته‌ای است که دیدگاه در پاسخ به آن نوشته شده و پیوندی برای \"\n"
-"به ویرایشگر همان نوشته است. نماد پایاپیوند &#8220;#&#8221; که در پایین قابل مشاهده است، شما را به نوشته مورد نظر در سایت \"\n"
-"می‌کند. حباب کوچکی که در آن عدد نوشته شده است، تعداد دیدگاه‌های نوشته را نشان می‌دهد. اگر حباب خاکستری بود، همه دیدگاه‌های \"\n"
-"مدیریت شده‌اند. اگر حباب آبی بود، دیدگاهی در انتظار مدیریت برای آن نوشته وجود دارد. با کلیک بر روی حباب، تنها دید‌گاه‌های \"\n"
-"موردنظر در صفحه نمایش دیدگاه‌ها نشان داده می‌شوند.\""
+"ستون <strong>در پاسخ به</strong> سه عنصر وجود دارد. متن، نام نوشته‌ای است که \"\n"
+"در پاسخ به آن نوشته شده و پیوندی برای ورود به ویرایشگر همان نوشته است. \"\n"
+"پایاپیوند &#8220;#&#8221; که در پایین قابل مشاهده است، شما را به نوشته \"\n"
+"نظر در سایت هدایت می‌کند. حباب کوچکی که در آن عدد نوشته شده است، تعداد \"\n"
+"نوشته را نشان می‌دهد. اگر حباب خاکستری بود، همه دیدگاه‌های نوشته مدیریت \"\n"
+"اگر حباب آبی بود، دیدگاهی در انتظار مدیریت برای آن نوشته وجود دارد. با \"\n"
+"بر روی حباب، تنها دید‌گاه‌های نوشته موردنظر در صفحه نمایش دیدگاه‌ها نشان داده \"\n"
+""
 
 #~ msgid "Search Engine Visibility"
 #~ msgstr "نمایش به موتورهای جست‌وجو"
@@ -16389,28 +16480,40 @@ msgstr "&laquo;"
 #~ msgid "%1$s (%2$s)"
 #~ msgstr "%1$s (%2$s)"
 
-#~ msgid "I'm sure I want to permanently disable my site, and I am aware I can never get it back or use %s again."
-#~ msgstr "کاملاً از حذف دائمی سایت خود مطمئنم و از این‌که قادر به بازیابی و استفاده مجدد از %s نیستم آگاهی کامل دارم."
+#~ msgid ""
+"\n"
+"sure I want to permanently disable my site, and I am aware I can never get \"\n"
+"back or use %s again.\""
+#~ msgstr ""
+"\n"
+"از حذف دائمی سایت خود مطمئنم و از این‌که قادر به بازیابی و استفاده مجدد از \"\n"
+"نیستم آگاهی کامل دارم.\""
 
 #~ msgid ""
 "\n"
-"can also perform the same types of actions, including narrowing the list by using the filters, acting on a page using the \"\n"
-"links that appear when you hover over a row, or using the Bulk Actions menu to edit the metadata for multiple pages at \"\n"
-""
+"can also perform the same types of actions, including narrowing the list by \"\n"
+"the filters, acting on a page using the action links that appear when you \"\n"
+"over a row, or using the Bulk Actions menu to edit the metadata for \"\n"
+"pages at once.\""
 #~ msgstr ""
 "\n"
-"این کارها را می‌توان روی برگه‌ها نیز انجام داد: کوچک‌تر کردن فهرست برگه‌ها با استفاده از صافی‌ها، اجرای عملیات مختلف روی برگه \"\n"
-"استفاده از پیوندهای نمایان شده پس از حرکت روی ردیف‌ها یا ویرایش هم‌زمان اطلاعات چند برگه‌ با استفاده از فهرست کنش‌های جمعی.\""
+"این کارها را می‌توان روی برگه‌ها نیز انجام داد: کوچک‌تر کردن فهرست برگه‌ها با \"\n"
+"از صافی‌ها، اجرای عملیات مختلف روی برگه با استفاده از پیوندهای نمایان \"\n"
+"پس از حرکت روی ردیف‌ها یا ویرایش هم‌زمان اطلاعات چند برگه‌ با استفاده از فهرست \"\n"
+"جمعی.\""
 
 #~ msgid ""
 "\n"
-"can manage comments made on your site similar to the way you manage posts and other content. This screen is customizable \"\n"
-"the same ways as other management screens, and you can act on comments using the on-hover action links or the Bulk Actions.\""
+"can manage comments made on your site similar to the way you manage posts \"\n"
+"other content. This screen is customizable in the same ways as other \"\n"
+"screens, and you can act on comments using the on-hover action links \"\n"
+"the Bulk Actions.\""
 #~ msgstr ""
 "\n"
-"می‌توانید دیدگاه‌ها را مانند نوشته‌ها و دیگر موارد مدیریت کنید. این صفحه مانند دیگر صفحات مدیریتی قابل سفارشی‌شدن است. شما \"\n"
-"گزینه‌های مدیریت دیدگاه‌ها را با حرکت نشانگر بر روی هر یک از آن‌ها مشاهده و تغییرات خود را روی یک دیدگاه یا به‌صورت \"\n"
-"جمعی اعمال کنید.\""
+"می‌توانید دیدگاه‌ها را مانند نوشته‌ها و دیگر موارد مدیریت کنید. این صفحه مانند \"\n"
+"صفحات مدیریتی قابل سفارشی‌شدن است. شما می‌توانید گزینه‌های مدیریت دیدگاه‌ها را \"\n"
+"حرکت نشانگر بر روی هر یک از آن‌ها مشاهده و تغییرات خود را روی یک دیدگاه یا \"\n"
+"کنش‌های جمعی اعمال کنید.\""
 
 #~ msgid "By %s"
 #~ msgstr "توسط %s"
@@ -16418,21 +16521,24 @@ msgstr "&laquo;"
 #, fuzzy
 #~ msgid ""
 "\n"
-"stands for <a href=\"http://gmpg.org/xfn/\">XHTML Friends Network</a>, which is optional. WordPress allows the generation \"\n"
-"XFN attributes to show how you are related to the authors/owners of the site to which you are linking.\""
+"stands for <a href=\"http://gmpg.org/xfn/\">XHTML Friends Network</a>, \"\n"
+"is optional. WordPress allows the generation of XFN attributes to show \"\n"
+"you are related to the authors/owners of the site to which you are linking.\""
 #~ msgstr ""
 "\n"
-"مخفف عبارت <a href=\"http://gmpg.org/xfn/\">شبکه دوستان XHTML</a> است، استفاده از این امکان اختیاری است. وردپرس با تولید \"\n"
-"دستوری XFN این امکان را می‌دهد تا نوع رابطه بین سایت شما و نویسندگان/صاحبان سایتی که به آن پیوند داده‌اید، به نمایش دربیاید.\""
+"مخفف عبارت <a href=\"http://gmpg.org/xfn/\">شبکه دوستان XHTML</a> است، \"\n"
+"از این امکان اختیاری است. وردپرس با تولید صفات دستوری XFN این امکان را \"\n"
+"تا نوع رابطه بین سایت شما و نویسندگان/صاحبان سایتی که به آن پیوند \"\n"
+"به نمایش دربیاید.\""
 
 #~ msgid ""
 "\n"
-"your site is being updated, it will be in maintenance mode. As soon as your updates are complete, your site will return \"\n"
-"normal.\""
+"your site is being updated, it will be in maintenance mode. As soon as \"\n"
+"updates are complete, your site will return to normal.\""
 #~ msgstr ""
 "\n"
-"مدت زمان به‌روزرسانی، سایت شما در حالت نگه‌داشت قرار خواهد گرفت و پس از تکمیل به‌روزرسانی‌ها، بی‌درنگ به حالت معمول باز خواهد \"\n"
-""
+"مدت زمان به‌روزرسانی، سایت شما در حالت نگه‌داشت قرار خواهد گرفت و پس از تکمیل \"\n"
+"بی‌درنگ به حالت معمول باز خواهد گشت.\""
 
 #~ msgctxt "comment"
 #~ msgid "Mark as Spam"
@@ -16470,46 +16576,62 @@ msgstr "&laquo;"
 
 #~ msgid ""
 "\n"
-"post to WordPress by email you must set up a secret email account with POP3 access. Any mail received at this address will \"\n"
-"posted, so it&#8217;s a good idea to keep this address very secret. Here are three random strings you could use: %1$s, \"\n"
-"%3$s.\""
+"post to WordPress by email you must set up a secret email account with POP3 \"\n"
+"Any mail received at this address will be posted, so it&#8217;s a good \"\n"
+"to keep this address very secret. Here are three random strings you could \"\n"
+"%1$s, %2$s, %3$s.\""
 #~ msgstr ""
 "\n"
-"فرستادن نوشته به وردپرس با ایمیل باید یک ایمیل محرمانه با دسترسی POP3‌ درست کنید. هر ایمیل که از ‌این نشانی دریافت شود \"\n"
-"خواهد شد، بنابراین‌ ایدهٔ خوبی است که ‌این نشانی را به شدت محرمانه نگه دارید.‌این‌ها رشته‌های تصادفی هستند که شما می‌توانید \"\n"
-"این کار به کار برید: %1$s، %2$s، %3$s.\""
+"فرستادن نوشته به وردپرس با ایمیل باید یک ایمیل محرمانه با دسترسی POP3‌ درست \"\n"
+"هر ایمیل که از ‌این نشانی دریافت شود منتشر خواهد شد، بنابراین‌ ایدهٔ خوبی \"\n"
+"که ‌این نشانی را به شدت محرمانه نگه دارید.‌این‌ها رشته‌های تصادفی هستند که شما \"\n"
+"برای این کار به کار برید: %1$s، %2$s، %3$s.\""
 
 #~ msgid ""
 "\n"
-"a comment contains any of these words in its content, name, URL, email, or IP address, it will be held in the <a href=\"\n"
-"queue</a>. One word or IP address per line. It will match inside \"\n"
-"so &#8220;press&#8221; will match &#8220;WordPress&#8221;.\""
+"a comment contains any of these words in its content, name, URL, email, or \"\n"
+"address, it will be held in the <a href=\"edit-comments.php?\"\n"
+"queue</a>. One word or IP address per \"\n"
+"It will match inside words, so &#8220;press&#8221; will match &#8220;\"\n"
+""
 #~ msgstr ""
 "\n"
-"که یک دیدگاه چنین واژه‌هایی را در محتوا، نام، نشانی، ایمیل یا IP آن داشت، به <a href=\"edit-comments.php?\"\n"
-"بررسی</a> برود. در هر خط تنها یک واژه باشد.‌ این‌ واژه‌ها در درون عبارت‌ها جست‌وجو می‌شوند، مانند \"\n"
-"در «وردپرس».\""
+"که یک دیدگاه چنین واژه‌هایی را در محتوا، نام، نشانی، ایمیل یا IP آن داشت، \"\n"
+"<a href=\"edit-comments.php?comment_status=moderated\">صف بررسی</a> برود. در \"\n"
+"خط تنها یک واژه باشد.‌ این‌ واژه‌ها در درون عبارت‌ها جست‌وجو می‌شوند، مانند «پرس» \"\n"
+"«وردپرس».\""
 
 #~ msgid "Your Profile"
 #~ msgstr "نمایه شما"
 
-#~ msgid "If you have a theme in a .zip format, you may install it by uploading it here."
-#~ msgstr "اگر پوسته‌ای در ساختار فشرده دارید، می‌توانید با بارگذاری آن در این بخش، آن‌را نصب کنید."
+#~ msgid ""
+"\n"
+"you have a theme in a .zip format, you may install it by uploading it here.\""
+#~ msgstr ""
+"\n"
+"پوسته‌ای در ساختار فشرده دارید، می‌توانید با بارگذاری آن در این بخش، آن‌را نصب \"\n"
+""
 
 #~ msgid "Last Modified"
 #~ msgstr "آخرین دست‌کاری"
 
-#~ msgid "If you have a plugin in a .zip format, you may install it by uploading it here."
-#~ msgstr "اگر افزونه‌ای با ساختار .zip دارید، می‌توانید آن را با بارگذاری در اینجا نصب کنید."
+#~ msgid ""
+"\n"
+"you have a plugin in a .zip format, you may install it by uploading it here.\""
+#~ msgstr ""
+"\n"
+"افزونه‌ای با ساختار .zip دارید، می‌توانید آن را با بارگذاری در اینجا نصب کنید.\""
 
 #~ msgid ""
 "\n"
-"the link is to a person, you can specify your relationship with them using the above form. If you would like to learn more \"\n"
-"the idea check out <a href=\"http://gmpg.org/xfn/\">XFN</a>.\""
+"the link is to a person, you can specify your relationship with them using \"\n"
+"above form. If you would like to learn more about the idea check out <a \"\n"
+""
 #~ msgstr ""
 "\n"
-"این پیوند به یک شخص است، شما می‌توانید رابطه خود را با ایشان از طریق فرم زیر مشخص کنید. برای اطلاعات بیشتر در مورد این \"\n"
-"به وبگاه <a href=\"http://gmpg.org/xfn/\">XFN</a> مراجعه کنید.\""
+"این پیوند به یک شخص است، شما می‌توانید رابطه خود را با ایشان از طریق فرم زیر \"\n"
+"کنید. برای اطلاعات بیشتر در مورد این ایده، به وبگاه <a href=\"http://gmpg.\"\n"
+"مراجعه کنید.\""
 
 #~ msgid "Default Template"
 #~ msgstr "الگوی پیش‌فرض"
@@ -16535,8 +16657,14 @@ msgstr "&laquo;"
 #~ msgid "Excerpt View"
 #~ msgstr "نمایش چکیده"
 
-#~ msgid "Example: <code>http://wordpress.org/</code> &#8212; don&#8217;t forget the <code>http://</code>"
-#~ msgstr "نمونه: <code>http://wordpress.org/</code>، لطفا پیشوند <code>http://</code> را فراموش نکنید"
+#~ msgid ""
+"\n"
+"<code>http://wordpress.org/</code> &#8212; don&#8217;t forget the \"\n"
+""
+#~ msgstr ""
+"\n"
+"<code>http://wordpress.org/</code>، لطفا پیشوند <code>http://</code> را \"\n"
+"نکنید\""
 
 #~ msgid "Bulk Actions"
 #~ msgstr "کنش‌های جمعی"
@@ -16552,24 +16680,25 @@ msgstr "&laquo;"
 
 #~ msgid ""
 "\n"
-"you change this we will send you an email at your new address to confirm it. <strong>The new address will not become active \"\n"
-"confirmed.</strong>\""
+"you change this we will send you an email at your new address to confirm it. \"\n"
+"new address will not become active until confirmed.</strong>\""
 #~ msgstr ""
 "\n"
-"صورتی که این را تغییر دهید، یک ایمیل به نشانی تازه شما برای تأیید آن، ارسال خواهیم کرد. <strong>نشانی جدید تا زمان تأیید، \"\n"
-"نخواهد شد.</strong>\""
+"صورتی که این را تغییر دهید، یک ایمیل به نشانی تازه شما برای تأیید آن، ارسال \"\n"
+"کرد. <strong>نشانی جدید تا زمان تأیید، فعال نخواهد شد.</strong>\""
 
 #~ msgid "<strong>ERROR</strong>: \"Table Prefix\" must not be empty."
 #~ msgstr "<strong>خطا</strong>: «پیشوند جدول» نمی‌تواند خالی باشد."
 
 #~ msgid ""
 "\n"
-"currently selected Privacy Policy page is in the trash. Please create or select a new Privacy Policy page or <a href=\"%s\"\n"
-"the current page</a>.\""
+"currently selected Privacy Policy page is in the trash. Please create or \"\n"
+"a new Privacy Policy page or <a href=\"%s\">restore the current page</a>.\""
 #~ msgstr ""
 "\n"
-"برگه سیاست حریم خصوصی تنظیم‌شده در زباله‌دان است. لطفاً یک برگه سیاست حریم خصوصی تازه ایجاد، یا انتخاب و یا <a href=\"%s\"\n"
-"فعلی را بازنشانی کنید</a>.\""
+"برگه سیاست حریم خصوصی تنظیم‌شده در زباله‌دان است. لطفاً یک برگه سیاست \"\n"
+"خصوصی تازه ایجاد، یا انتخاب و یا <a href=\"%s\">برگه فعلی را بازنشانی \"\n"
+""
 
 #~ msgid "Unable to add data to export file."
 #~ msgstr "افزودن داده‌ها به پرونده برون‌بری، امکان‌پذیر نیست."
@@ -16620,17 +16749,22 @@ msgstr "&laquo;"
 
 #~ msgid ""
 "\n"
-"each item into the order you prefer. Click the arrow on the right of the item to reveal additional configuration options.\""
-#~ msgstr "گزینه‌های دل‌خواه خود را بکشید و مرتب کنید. برای دیدن گزینه‌های افزوده پیکربندی، روی پیکان کنار هر گزینه کلیک کنید."
+"each item into the order you prefer. Click the arrow on the right of the \"\n"
+"to reveal additional configuration options.\""
+#~ msgstr ""
+"\n"
+"دل‌خواه خود را بکشید و مرتب کنید. برای دیدن گزینه‌های افزوده پیکربندی، \"\n"
+"پیکان کنار هر گزینه کلیک کنید.\""
 
 #~ msgid ""
 "\n"
-"your default menu by adding or removing items. Drag each item into the order you prefer. Click Create Menu to save your \"\n"
-""
+"your default menu by adding or removing items. Drag each item into the \"\n"
+"you prefer. Click Create Menu to save your changes.\""
 #~ msgstr ""
 "\n"
-"افزودن یا حذف موارد و گزینه‌ها، فهرست پیش‌فرض را ویرایش کنید. با کشیدن و رها کردن می‌توانید چینش موارد را تنظیم کنید. برای \"\n"
-"تغییرات روی ساخت فهرست کلیک کنید.\""
+"افزودن یا حذف موارد و گزینه‌ها، فهرست پیش‌فرض را ویرایش کنید. با کشیدن و رها \"\n"
+"می‌توانید چینش موارد را تنظیم کنید. برای ذخیرهٔ تغییرات روی ساخت فهرست کلیک \"\n"
+""
 
 #~ msgid "<strong>ERROR</strong>: Please enter a nickname."
 #~ msgstr "<strong>خطا</strong>: نام مستعار را وارد کنید."
@@ -16643,26 +16777,35 @@ msgstr "&laquo;"
 
 #~ msgid ""
 "\n"
-"can also edit or move multiple posts to the trash at once. Select the posts you want to act on using the checkboxes, then \"\n"
-"the action you want to take from the Bulk Actions menu and click Apply.\""
+"can also edit or move multiple posts to the trash at once. Select the posts \"\n"
+"want to act on using the checkboxes, then select the action you want to \"\n"
+"from the Bulk Actions menu and click Apply.\""
 #~ msgstr ""
 "\n"
-"چند نوشته را همزمان باهم ویرایش و یا به زباله‌دان منتقل کنید. با استفاده از جعبه‌انتخاب کنار عنوان نوشته‌ها، نوشته‌های \"\n"
-"خود را انتخاب کنید، سپس کنش مناسب را از فهرست کنش‌های جمعی انتخاب و «اعمال» را کلیک کنید.\""
+"چند نوشته را همزمان باهم ویرایش و یا به زباله‌دان منتقل کنید. با \"\n"
+"از جعبه‌انتخاب کنار عنوان نوشته‌ها، نوشته‌های موردنظر خود را انتخاب کنید، \"\n"
+"کنش مناسب را از فهرست کنش‌های جمعی انتخاب و «اعمال» را کلیک کنید.\""
 
 #~ msgid ""
 "\n"
-"removes your post from this list and places it in the trash, from which you can permanently delete it.\""
+"removes your post from this list and places it in the \"\n"
+"from which you can permanently delete it.\""
 #~ msgstr ""
 "\n"
-"نوشته شما را از این فهرست حذف کرده و آن را به زباله‌دان انتقال می‌دهد. شما می‌توانید در آنجا نوشته را \"\n"
-"همیشه حذف کنید.\""
+"نوشته شما را از این فهرست حذف کرده و آن را به \"\n"
+"انتقال می‌دهد. شما می‌توانید در آنجا نوشته را برای همیشه حذف کنید.\""
 
 #~ msgid "<strong>ERROR</strong>: options page not found."
 #~ msgstr "<strong>خطا</strong>: صفحه تنظیمات پیدا نشد."
 
-#~ msgid "<strong>ERROR:</strong> There was an error connecting to the server, Please verify the settings are correct."
-#~ msgstr "<strong>خطا:</strong> خطایی در هنگام اتصال به سرور پیش آمده است. لطفاً درستی تنظیمات را بررسی کنید."
+#~ msgid ""
+"\n"
+"There was an error connecting to the server, Please \"\n"
+"the settings are correct.\""
+#~ msgstr ""
+"\n"
+"خطایی در هنگام اتصال به سرور پیش آمده است. لطفاً درستی \"\n"
+"را بررسی کنید.\""
 
 #~ msgid "ERROR: please type a comment."
 #~ msgstr "خطا: دیدگاهی بنویسید."
@@ -16670,7 +16813,10 @@ msgstr "&laquo;"
 #~ msgid "ERROR: you are replying to a comment on a draft post."
 #~ msgstr "خطا: شما به دیدگاه ِ یک پیش‌نویس پاسخ داده‌اید."
 
-#~ msgid "The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form."
+#~ msgid ""
+"\n"
+"uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the \"\n"
+"form.\""
 #~ msgstr "پرونده فرستاده شده بزرگ‌تر از MAX_FILE_SIZE که در فرم HTML گفته شده."
 
 #~ msgid "The uploaded file exceeds the upload_max_filesize directive in php.ini."
@@ -16687,17 +16833,25 @@ msgstr "&laquo;"
 #~ msgstr[0] "%s دیدگاه از زباله‌دان بازیابی شد"
 #~ msgstr[1] ""
 
-#~ msgid "<strong>ERROR</strong>: \"Table Prefix\" can only contain numbers, letters, and underscores."
-#~ msgstr "<strong>خطا</strong>: «پیشوند جدول» فقط می‌تواند شامل شماره، حروف و خط زیرین باشد."
+#~ msgid ""
+"\n"
+"\"Table Prefix\" can only contain numbers, letters, and \"\n"
+""
+#~ msgstr ""
+"\n"
+"«پیشوند جدول» فقط می‌تواند شامل شماره، حروف و خط زیرین \"\n"
+""
 
 #~ msgid ""
 "\n"
-"address is used for admin purposes. If you change this we will send you an email at your new address to confirm it. \"\n"
-"new address will not become active until confirmed.</strong>\""
+"address is used for admin purposes. If you change this we will send you an \"\n"
+"at your new address to confirm it. <strong>The new address will not \"\n"
+"active until confirmed.</strong>\""
 #~ msgstr ""
 "\n"
-"نشانی یرای موارد مدیریتی استفاده می‌شود. اگر این نشانی را تغییر دهید، یک ایمیل به نشانی تازهٔ شما ارسال خواهد شد تا تأیید \"\n"
-"<strong>نشانی جدید تا وقتی که تأیید نشود، فعال نخواهد شد.</strong>\""
+"نشانی یرای موارد مدیریتی استفاده می‌شود. اگر این نشانی را تغییر دهید، یک \"\n"
+"به نشانی تازهٔ شما ارسال خواهد شد تا تأیید شود. <strong>نشانی جدید تا وقتی \"\n"
+"تأیید نشود، فعال نخواهد شد.</strong>\""
 
 #~ msgid "Media file restored from the trash."
 #~ msgstr "پروندهٔ چندرسانه‌ای از زباله‌دان بازیابی شد."
@@ -16707,12 +16861,13 @@ msgstr "&laquo;"
 
 #~ msgid ""
 "\n"
-"localized version contains both the translation and various other localization fixes. You can skip upgrading if you want \"\n"
-"keep your current translation.\""
+"localized version contains both the translation and various other \"\n"
+"fixes. You can skip upgrading if you want to keep your current \"\n"
+""
 #~ msgstr ""
 "\n"
-"نگارش بومی، شامل ترجمهٔ عبارت‌ها و دیگر بهبودهای بومی‌سازی‌ست. اگر می‌خواهید ترجمهٔ فعلی‌تان را حفظ کنید می‌توانید از ارتقاء \"\n"
-"کنید.\""
+"نگارش بومی، شامل ترجمهٔ عبارت‌ها و دیگر بهبودهای بومی‌سازی‌ست. اگر می‌خواهید \"\n"
+"فعلی‌تان را حفظ کنید می‌توانید از ارتقاء صرف‌نظر کنید.\""
 
 #~ msgid "View post"
 #~ msgstr "نمایش نوشته"
@@ -16721,16 +16876,21 @@ msgstr "&laquo;"
 #~ msgstr "همین حالا باید htaccess. خود را به‌روز کنید."
 
 #~ msgid "Permalink structure updated. Remove write access on web.config file now!"
-#~ msgstr "ساختار پایاپیوند به‌روز شد. سطح دسترسی نوشتن را از پروندهٔ web.config حذف کنید!"
+#~ msgstr ""
+"\n"
+"پایاپیوند به‌روز شد. سطح دسترسی نوشتن را از پروندهٔ web.config حذف کنید!\""
 
 #~ msgid ""
 "\n"
-"a comment contains any of these words in its content, name, URL, email, or IP address, it will be put in the trash. One \"\n"
-"or IP address per line. It will match inside words, so &#8220;press&#8221; will match &#8220;WordPress&#8221;.\""
+"a comment contains any of these words in its content, name, URL, email, or \"\n"
+"address, it will be put in the trash. One word or IP address per line. It \"\n"
+"match inside words, so &#8220;press&#8221; will match &#8220;\"\n"
+""
 #~ msgstr ""
 "\n"
-"که یک دیدگاه چنین واژه‌هایی را در محتوا، نام، نشانی، ایمیل یا IP آن داشت، به نام جفنگ نشانه‌گذاری شود. در هر خط تنها یک \"\n"
-"باشد.‌ این‌ واژه‌ها در درون عبارت‌ها جست‌وجو می‌شوند، مانند «پرس» در «وردپرس».\""
+"که یک دیدگاه چنین واژه‌هایی را در محتوا، نام، نشانی، ایمیل یا IP آن داشت، \"\n"
+"نام جفنگ نشانه‌گذاری شود. در هر خط تنها یک واژه باشد.‌ این‌ واژه‌ها در درون \"\n"
+"جست‌وجو می‌شوند، مانند «پرس» در «وردپرس».\""
 
 #~ msgid "Comment Blacklist"
 #~ msgstr "سیاه‌نامهٔ دیدگاه‌ها"
@@ -16738,7 +16898,9 @@ msgstr "&laquo;"
 #~ msgid "<strong>ERROR</strong>: Please enter an email address."
 #~ msgstr "<strong>خطا</strong>: لطفا یک نشانی ایمیل وارد کنید."
 
-#~ msgid "<strong>ERROR</strong>: Please enter the same password in both password fields."
+#~ msgid ""
+"\n"
+"Please enter the same password in both password fields.\""
 #~ msgstr "<strong>خطا</strong>: در هر دو زمینه، رمز یکسان وارد کنید."
 
 #~ msgid "<strong>ERROR</strong>: Passwords may not contain the character \"\\\"."
@@ -16752,12 +16914,14 @@ msgstr "&laquo;"
 
 #~ msgid ""
 "\n"
-"is empty. Please upload something more substantial. This error could also be caused by uploads being disabled in your php.\"\n"
-"or by post_max_size being defined as smaller than upload_max_filesize in php.ini.\""
+"is empty. Please upload something more substantial. This error could also \"\n"
+"caused by uploads being disabled in your php.ini or by post_max_size being \"\n"
+"as smaller than upload_max_filesize in php.ini.\""
 #~ msgstr ""
 "\n"
-"خالی است. لطفاً پرونده‌ای قابل قبول بارگذاری کنید. این خطا ممکن است به دلیل غیرفعال‌سازی بارگذاری پرونده‌ها و یا تنظیم کردن \"\n"
-"کوچک‌تر از upload_max_filesize در php.ini شما باشد.\""
+"خالی است. لطفاً پرونده‌ای قابل قبول بارگذاری کنید. این خطا ممکن است به \"\n"
+"غیرفعال‌سازی بارگذاری پرونده‌ها و یا تنظیم کردن post_max_size کوچک‌تر از \"\n"
+"در php.ini شما باشد.\""
 
 #~ msgid "Slug"
 #~ msgstr "نامک"
@@ -16781,35 +16945,51 @@ msgstr "&laquo;"
 #~ msgstr "مدیریت <a href=\"%1$s\">ابزارک‌ها</a> یا <a href=\"%2$s\">فهرست‌ها</a>"
 
 #, fuzzy
-#~ msgid "The authenticity of %1$s could not be verified as signature verification is unavailable on this system."
+#~ msgid ""
+"\n"
+"authenticity of %1$s could not be verified as signature verification is \"\n"
+"on this system.\""
 #~ msgstr "اعتبار %1$s قابل تأیید نیست زیرا تأیید امضا در این سیستم در دسترس نیست."
 
 #~ msgid ""
 "\n"
-"are in recovery mode. This means there may be an error with a theme or plugin. To exit recovery mode, log out or use the \"\n"
-"button.\""
+"are in recovery mode. This means there may be an error with a theme or \"\n"
+"To exit recovery mode, log out or use the Exit button.\""
 #~ msgstr ""
 "\n"
-"در حالت بازیابی هستید. این بدان‌معناست که شاید خطایی در یک پوسته یا افزونه وجود دارد. برای خروج از حالت بازیابی، خارج شوید \"\n"
-"از دکمه خروج استفاده کنید.\""
+"در حالت بازیابی هستید. این بدان‌معناست که شاید خطایی در یک پوسته یا افزونه \"\n"
+"دارد. برای خروج از حالت بازیابی، خارج شوید یا از دکمه خروج استفاده کنید.\""
 
-#~ msgid "(%s ratings) <span class=\"screen-reader-text\">link to view ratings opens in a new tab</span>"
-#~ msgstr "(%s رای) <span class=\"screen-reader-text\">پیوند دیدن آرا در زبانهٔ تازه باز می‌شود</span>"
+#~ msgid ""
+"\n"
+"ratings) <span class=\"screen-reader-text\">link to view ratings opens in a \"\n"
+"tab</span>\""
+#~ msgstr ""
+"\n"
+"رای) <span class=\"screen-reader-text\">پیوند دیدن آرا در زبانهٔ تازه باز \"\n"
+""
 
-#~ msgid "Show comments cookies opt-in checkbox, allowing comment author cookies to be set."
-#~ msgstr "نمایش جعبه انتخاب کوکی‌های دیدگاه‌ها، اجازه برای تنظیم کوکی‌های نویسنده دیدگاه."
+#~ msgid ""
+"\n"
+"comments cookies opt-in checkbox, allowing comment author cookies to be \"\n"
+""
+#~ msgstr ""
+"\n"
+"جعبه انتخاب کوکی‌های دیدگاه‌ها، اجازه برای تنظیم کوکی‌های نویسنده دیدگاه.\""
 
 #~ msgid "Plugin <strong>resumed</strong>."
 #~ msgstr "افزونه <strong>بازسرگرفته شد</strong>."
 
 #~ msgid ""
 "\n"
-"is the programming language we use to build and maintain WordPress. Newer versions of PHP are both faster and more secure, \"\n"
-"updating will have a positive effect on your site’s performance.\""
+"is the programming language we use to build and maintain WordPress. Newer \"\n"
+"of PHP are both faster and more secure, so updating will have a \"\n"
+"effect on your site’s performance.\""
 #~ msgstr ""
 "\n"
-"زبان برنامه‎نویسی است که ما برای ساخت و نگهداری وردپرس استفاده می‌کنیم. نگارش‌های جدیدتر PHP سریع‌تر و امن‌تر هستند، بنابراین \"\n"
-"تاثیر مثبتی بر عملکرد سایت شما خواهد داشت.\""
+"زبان برنامه‎نویسی است که ما برای ساخت و نگهداری وردپرس استفاده می‌کنیم. \"\n"
+"جدیدتر PHP سریع‌تر و امن‌تر هستند، بنابراین به‌روزرسانی تاثیر مثبتی بر \"\n"
+"سایت شما خواهد داشت.\""
 
 #~ msgid "https://wordpress.org/plugins/classic-editor/"
 #~ msgstr "https://fa.wordpress.org/plugins/classic-editor/"
@@ -16831,14 +17011,18 @@ msgstr "&laquo;"
 
 #~ msgid ""
 "\n"
-"appear to be making direct edits to your theme in the WordPress dashboard. We recommend that you don&#8217;t! Editing your \"\n"
-"directly could break your site and your changes may be lost in future updates. If you need to tweak more than your \"\n"
-"CSS, you might want to try <a href=\"%s\">making a child theme</a>.\""
+"appear to be making direct edits to your theme in the WordPress dashboard. \"\n"
+"recommend that you don&#8217;t! Editing your theme directly could break your \"\n"
+"and your changes may be lost in future updates. If you need to tweak more \"\n"
+"your theme&#8217;s CSS, you might want to try <a href=\"%s\">making a \"\n"
+"theme</a>.\""
 #~ msgstr ""
 "\n"
-"نظر می‌رسد که شما در حال ویرایش مستقیم پوسته در پیشخوان وردپرس هستید. به شما توصیه می‌کنیم که پوسته خود را به صورت مستقیم \"\n"
-"نکنید زیرا این کار ممکن است منجر به مشکل در سایت شما شود و تغییرات شما در به‌روزرسانی‌های آینده از دست خواهد رفت. در \"\n"
-"که نیاز دارید تا فراتر از CSS پوسته‌تان ویرایش کنید، ممکن است بخواهید تا <a href=\"%s\">یک پوسته فرزند ایجاد کنید</a>.\""
+"نظر می‌رسد که شما در حال ویرایش مستقیم پوسته در پیشخوان وردپرس هستید. به شما \"\n"
+"می‌کنیم که پوسته خود را به صورت مستقیم ویرایش نکنید زیرا این کار ممکن است \"\n"
+"به مشکل در سایت شما شود و تغییرات شما در به‌روزرسانی‌های آینده از دست خواهد \"\n"
+"در صورتی که نیاز دارید تا فراتر از CSS پوسته‌تان ویرایش کنید، ممکن است \"\n"
+"تا <a href=\"%s\">یک پوسته فرزند ایجاد کنید</a>.\""
 
 #~ msgid "https://codex.wordpress.org/Using_Permalinks"
 #~ msgstr "https://codex.wordpress.org/Using_Permalinks"
@@ -16846,8 +17030,14 @@ msgstr "&laquo;"
 #~ msgid "https://codex.wordpress.org/Giving_WordPress_Its_Own_Directory"
 #~ msgstr "https://codex.wordpress.org/Giving_WordPress_Its_Own_Directory"
 
-#~ msgid "<a href=\"https://codex.wordpress.org/Network_Admin_Sites_Screen\">Documentation on Site Management</a>"
-#~ msgstr "<a href=\"https://codex.wordpress.org/Network_Admin_Sites_Screen\">مستندات مدیریت سایت‌ها</a>"
+#~ msgid ""
+"\n"
+"href=\"https://codex.wordpress.org/Network_Admin_Sites_Screen\"\n"
+"on Site Management</a>\""
+#~ msgstr ""
+"\n"
+"href=\"https://codex.wordpress.org/Network_Admin_Sites_Screen\">مستندات \"\n"
+"سایت‌ها</a>\""
 
 #~ msgid "New version available."
 #~ msgstr "نگارش جدید در دسترس است."
@@ -16877,202 +17067,476 @@ msgstr "&laquo;"
 #~ msgid "The selected plugin has been <strong>deleted</strong>."
 #~ msgstr "افزونه‌ انتخاب شده <strong>حذف</strong> شده است."
 
-#~ msgid "<a href=\"https://codex.wordpress.org/Nginx\">Documentation on Nginx configuration</a>."
+#~ msgid ""
+"\n"
+"href=\"https://codex.wordpress.org/Nginx\">Documentation on Nginx \"\n"
+""
 #~ msgstr "<a href=\"https://codex.wordpress.org/Nginx\">مستندات پیکربندی Nginx</a>."
-
-#~ msgid "<a href=\"https://codex.wordpress.org/Revision_Management\">Revisions Management</a>"
-#~ msgstr "<a href=\"https://codex.wordpress.org/Revision_Management\" target=\"_blank\">مدیریت رونوشت‌ها</a>"
 
 #~ msgid ""
 "\n"
-"can also embed media from many popular websites including Twitter, YouTube, Flickr and others by pasting the media URL on \"\n"
-"own line into the content of your post/page. Please refer to the Codex to <a href=\"https://codex.wordpress.org/Embeds\"\n"
+"href=\"https://codex.wordpress.org/Revision_Management\">Revisions \"\n"
+""
+#~ msgstr ""
+"\n"
+"href=\"https://codex.wordpress.org/Revision_Management\" target=\"_blank\"\n"
+"رونوشت‌ها</a>\""
+
+#~ msgid ""
+"\n"
+"can also embed media from many popular websites including Twitter, YouTube, \"\n"
+"and others by pasting the media URL on its own line into the content of \"\n"
+"post/page. Please refer to the Codex to <a href=\"https://codex.wordpress.\"\n"
 "more about embeds</a>.\""
 #~ msgstr ""
 "\n"
-"می‌توانید پرونده‌های چندرسانه‌ای را از سایت‌هایی همچون یوتوب، توییتر، فلیکر و… با استفاده از قرار دادن پیوند مربوطه در یک \"\n"
-"جدا در متن نوشته، جاسازی کنید. <a href=\"https://codex.wordpress.org/Embeds\">درباره‌ه جاسازی‌ها بیشتر بخوانید</a>.\""
+"می‌توانید پرونده‌های چندرسانه‌ای را از سایت‌هایی همچون یوتوب، توییتر، فلیکر \"\n"
+"با استفاده از قرار دادن پیوند مربوطه در یک خط جدا در متن نوشته، جاسازی کنید. \"\n"
+"href=\"https://codex.wordpress.org/Embeds\">درباره‌ه جاسازی‌ها بیشتر بخوانید</\"\n"
+""
 
 #~ msgid "https://codex.wordpress.org/First_Steps_With_WordPress"
 #~ msgstr "https://codex.wordpress.org/First_Steps_With_WordPress"
 
 #~ msgid ""
 "\n"
-"&mdash; Post Formats designate how your theme will display a specific post. For example, you could \"\n"
-"a <em>standard</em> blog post with a title and paragraphs, or a short <em>aside</em> that omits the title and contains a \"\n"
-"text blurb. Please refer to the Codex for <a href=\"https://codex.wordpress.org/Post_Formats#Supported_Formats\"\n"
-"of each post format</a>. Your theme could enable all or some of 10 possible formats.\""
-#~ msgstr ""
-"\n"
-"&mdash; این گزینه به پوستهٔ شما این امکان را می‌دهد که نوشته‌ها را به‌صورت‌های مختلف نمایش دهد. برای مثال \"\n"
-"می‌توانید یک نوشتهٔ <em>استاندارد</em> به‌همراه عنوان و پاراگراف‌ها داشته باشید، یا یک <em>حاشیه</em> که عنوان ندارد و حاوی \"\n"
-"کوتاه است. برای اطلاعات بیشتر به <a href=\"https://codex.wordpress.org/Post_Formats#Supported_Formats\">توضیحات مربوط به \"\n"
-"نوشته در مستندات</a> مراجعه کنید. پوستهٔ شما می‌تواند همه یا بخشی از ۱۰ ساختار نوشته را فعال کند.\""
-
-#~ msgid "<a href=\"https://codex.wordpress.org/Posts_Tags_Screen\">Documentation on Tags</a>"
-#~ msgstr "<a href=\"https://codex.wordpress.org/Posts_Tags_Screen\" target=\"_blank\">مستندات برچسب‌ها</a>"
-
-#~ msgid "<a href=\"https://codex.wordpress.org/Settings_Writing_Screen\">Documentation on Writing Settings</a>"
-#~ msgstr "<a href=\"https://codex.wordpress.org/Settings_Writing_Screen\" target=\"_blank\">مستندات تنظیمات نوشتن</a>"
-
-#~ msgid "<a href=\"https://codex.wordpress.org/Pages_Add_New_Screen\">Documentation on Adding New Pages</a>"
-#~ msgstr "<a href=\"https://codex.wordpress.org/Pages_Add_New_Screen\" target=\"_blank\">مستندات افزودن برگه تازه</a>"
-
-#~ msgid "<a href=\"https://codex.wordpress.org/Pages_Screen\">Documentation on Managing Pages</a>"
-#~ msgstr "<a href=\"https://codex.wordpress.org/Pages_Screen\" target=\"_blank\">مستندات مدیریت برگه‌ها</a>"
-
-#~ msgid "<a href=\"https://codex.wordpress.org/Appearance_Menus_Screen\">Documentation on Menus</a>"
-#~ msgstr "<a href=\"https://codex.wordpress.org/Appearance_Menus_Screen\" target=\"_blank\">مستندات فهرست‌ها</a>"
-
-#~ msgid "<a href=\"https://codex.wordpress.org/Tools_Import_Screen\">Documentation on Import</a>"
-#~ msgstr "<a href=\"https://codex.wordpress.org/Tools_Import_SubPanel\" target=\"_blank\">مستندات درون‌ریزی</a>"
-
-#~ msgid "<a href=\"https://codex.wordpress.org/Plugins_Editor_Screen\">Documentation on Editing Plugins</a>"
-#~ msgstr "<a href=\"https://codex.wordpress.org/Plugins_Editor_Screen\" target=\"_blank\">مستندات ویرایش افزونه‌ها</a>"
-
-#~ msgid "<a href=\"https://codex.wordpress.org/Appearance_Widgets_Screen\">Documentation on Widgets</a>"
-#~ msgstr "<a href=\"https://codex.wordpress.org/Appearance_Widgets_Screen\" target=\"_blank\">مستندات ابزارک‌ها</a>"
-
-#~ msgid "<a href=\"https://codex.wordpress.org/Dashboard_Screen\">Documentation on Dashboard</a>"
-#~ msgstr "<a href=\"https://codex.wordpress.org/Dashboard_Screen\" target=\"_blank\">مستندات پیشخوان</a>"
-
-#~ msgid "<a href=\"https://codex.wordpress.org/Posts_Screen\">Documentation on Managing Posts</a>"
-#~ msgstr "<a href=\"https://codex.wordpress.org/Posts_Screen\" target=\"_blank\">مستندات مدیریت نوشته‌ها</a>"
-
-#~ msgid "<a href=\"https://codex.wordpress.org/Posts_Categories_Screen\">Documentation on Categories</a>"
-#~ msgstr "<a href=\"https://codex.wordpress.org/Posts_Categories_Screen\" target=\"_blank\">مستندات دسته‌ها</a>"
-
-#~ msgid "<a href=\"https://codex.wordpress.org/Plugins_Add_New_Screen\">Documentation on Installing Plugins</a>"
-#~ msgstr "<a href=\"https://codex.wordpress.org/Plugins_Add_New_Screen\" target=\"_blank\">مستندات نصب افزونه‌ها</a>"
-
-#~ msgid "<a href=\"https://codex.wordpress.org/Users_Add_New_Screen\">Documentation on Adding New Users</a>"
-#~ msgstr "<a href=\"https://codex.wordpress.org/Users_Add_New_Screen\" target=\"_blank\">مستندات افزودن کاربران تازه</a>"
-
-#~ msgid "<a href=\"https://codex.wordpress.org/Settings_Reading_Screen\">Documentation on Reading Settings</a>"
-#~ msgstr "<a href=\"https://codex.wordpress.org/Settings_Reading_Screen\" target=\"_blank\">مستندات تنظیمات خواندن</a>"
-
-#~ msgid "<a href=\"https://codex.wordpress.org/Settings_Discussion_Screen\">Documentation on Discussion Settings</a>"
-#~ msgstr "<a href=\"https://codex.wordpress.org/Settings_Discussion_Screen\" target=\"_blank\">مستندات تنظیمات گفت‌وگو</a>"
-
-#~ msgid "<a href=\"https://codex.wordpress.org/Settings_Permalinks_Screen\">Documentation on Permalinks Settings</a>"
-#~ msgstr "<a href=\"https://codex.wordpress.org/Settings_Permalinks_Screen\" target=\"_blank\">مستندات تنظیمات پایاپیوندها</a>"
-
-#~ msgid "<a href=\"https://codex.wordpress.org/Users_Your_Profile_Screen\">Documentation on User Profiles</a>"
-#~ msgstr "<a href=\"https://codex.wordpress.org/Users_Your_Profile_Screen\" target=\"_blank\">مستندات نمایه کاربران</a>"
-
-#~ msgid "<a href=\"https://codex.wordpress.org/Media_Add_New_Screen\">Documentation on Uploading Media Files</a>"
-#~ msgstr "<a href=\"https://codex.wordpress.org/Media_Add_New_Screen\" target=\"_blank\">مستندات بارگذاری پرونده‌های رسانه‌ای</a>"
-
-#~ msgid "<a href=\"https://codex.wordpress.org/Users_Screen\">Documentation on Managing Users</a>"
-#~ msgstr "<a href=\"https://codex.wordpress.org/Users_Screen\" target=\"_blank\">مستندات مدیریت کاربران</a>"
-
-#~ msgid "<a href=\"https://codex.wordpress.org/Administration_Screens#Comments\">Documentation on Comments</a>"
-#~ msgstr "<a href=\"https://codex.wordpress.org/Administration_Screens#Comments\" target=\"_blank\">مستندات دیدگاه‌ها</a>"
-
-#~ msgid "<a href=\"https://codex.wordpress.org/Posts_Add_New_Screen\">Documentation on Writing and Editing Posts</a>"
-#~ msgstr "<a href=\"https://codex.wordpress.org/Posts_Add_New_Screen\" target=\"_blank\">مستندات نوشتن و ویرایش نوشته‌ها</a>"
-
-#~ msgid "<a href=\"https://codex.wordpress.org/Dashboard_Updates_Screen\">Documentation on Updating WordPress</a>"
-#~ msgstr "<a href=\"https://codex.wordpress.org/Dashboard_Updates_Screen\">مستندات به‌روزرسانی وردپرس</a>"
-
-#~ msgid "<a href=\"https://codex.wordpress.org/Settings_Media_Screen\">Documentation on Media Settings</a>"
-#~ msgstr "<a href=\"https://codex.wordpress.org/Settings_Media_Screen\" target=\"_blank\">مستندات تنظیمات رسانه‌ای</a>"
-
-#~ msgid "<a href=\"https://codex.wordpress.org/Settings_General_Screen\">Documentation on General Settings</a>"
-#~ msgstr "<a href=\"https://codex.wordpress.org/Settings_General_Screen\">مستندات تنظیمات عمومی</a>"
-
-#~ msgid "<a href=\"https://codex.wordpress.org/Tools_Export_Screen\">Documentation on Export</a>"
-#~ msgstr "<a href=\"https://codex.wordpress.org/Tools_Export_Screen\" target=\"_blank\">مستندات برون‌بری</a>"
-
-#~ msgid "<a href=\"https://codex.wordpress.org/Tools_Screen\">Documentation on Tools</a>"
-#~ msgstr "<a href=\"https://codex.wordpress.org/Tools_Screen\" target=\"_blank\">مستندات ابزارها</a>"
-
-#~ msgid "<a href=\"https://codex.wordpress.org/Media_Library_Screen\">Documentation on Media Library</a>"
-#~ msgstr "<a href=\"https://codex.wordpress.org/Media_Library_Screen\" target=\"_blank\">مستندات کتاب‌خانه رسانه‌ها</a>"
-
-#~ msgid "<a href=\"https://codex.wordpress.org/Pages_Screen#Editing_Individual_Pages\">Documentation on Editing Pages</a>"
-#~ msgstr ""
-"\n"
-"href=\"https://codex.wordpress.org/Pages_Screens#Editing_Individual_Pages\" target=\"_blank\">مستندات ویرایش برگه‌ها</a>\""
-
-#~ msgid "<a href=\"https://codex.wordpress.org/Media_Add_New_Screen#Edit_Media\">Documentation on Edit Media</a>"
-#~ msgstr "<a href=\"https://codex.wordpress.org/Media_Add_New_Screen#Edit_Media\" target=\"_blank\">مستندات ویرایش رسانه</a>"
-
-#~ msgid "<a href=\"https://codex.wordpress.org/Roles_and_Capabilities\">Descriptions of Roles and Capabilities</a>"
-#~ msgstr "<a href=\"https://codex.wordpress.org/Roles_and_Capabilities\" target=\"_blank\">توضیحات نقش‌ها و توانایی‌ها</a>"
-
-#~ msgid "<a href=\"https://codex.wordpress.org/Using_Permalinks\">Documentation on Using Permalinks</a>"
-#~ msgstr "<a href=\"https://codex.wordpress.org/Using_Permalinks\" target=\"_blank\">مستندات استفاده از پایاپیوندها</a>"
-
-#~ msgid "<a href=\"https://codex.wordpress.org/Keyboard_Shortcuts\">Documentation on Keyboard Shortcuts</a>"
-#~ msgstr "<a href=\"https://codex.wordpress.org/Keyboard_Shortcuts\" target=\"_blank\">مستندات میان‌برهای صفجه‌کلید</a>"
-
-#~ msgid "<a href=\"https://codex.wordpress.org/Writing_a_Plugin\">Documentation on Writing Plugins</a>"
-#~ msgstr "<a href=\"https://codex.wordpress.org/Writing_a_Plugin\" target=\"_blank\">مستندات نوشتن افزونه‌ها</a>"
-
-#~ msgid "<a href=\"https://codex.wordpress.org/Keyboard_Shortcuts\" target=\"_blank\">More information</a>"
-#~ msgstr "<a href=\"https://codex.wordpress.org/Keyboard_Shortcuts\" target=\"_blank\">اطلاعات بیشتر</a>"
-
-#~ msgid "<a href=\"https://codex.wordpress.org/Comment_Spam\">Documentation on Comment Spam</a>"
-#~ msgstr "<a href=\"https://codex.wordpress.org/Comment_Spam\" target=\"_blank\">مستندات دیدگاه‌های جفنگ</a>"
-
-#~ msgid "<a href=\"https://codex.wordpress.org/Formatting_Date_and_Time\">Documentation on date and time formatting</a>."
-#~ msgstr "<a href=\"https://codex.wordpress.org/Formatting_Date_and_Time\">مستندات ساختار تاریخ و زمان</a>."
-
-#~ msgid ""
-"\n"
-"Before updating, please <a href=\"https://codex.wordpress.org/WordPress_Backups\">back up your \"\n"
-"and files</a>. For help with updates, visit the <a href=\"https://codex.wordpress.org/Updating_WordPress\">Updating \"\n"
-"Codex page.\""
-#~ msgstr ""
-"\n"
-"لطفاً پیش از ارتقا، از پایگاه‌داده و پرونده‌های خود <a href=\"https://codex.wordpress.org/WordPress_Backups\"\n"
-"تهیه کنید</a>. برای اطلاعات بیشتر از صفحهٔ <a href=\"https://codex.wordpress.org/Updating_WordPress\">به‌روزرسانی \"\n"
-"در مستندات بازدید کنید.\""
-
-#~ msgid "<a href=\"https://codex.wordpress.org/Using_Themes#Adding_New_Themes\">Documentation on Adding New Themes</a>"
-#~ msgstr ""
-"\n"
-"href=\"https://codex.wordpress.org/Using_Themes#Adding_New_Themes\" target=\"_blank\">مستندات افزودن پوسته‌های تازه</a>\""
-
-#~ msgid "<a href=\"https://codex.wordpress.org/Theme_Development\">Documentation on Theme Development</a>"
-#~ msgstr "<a href=\"https://codex.wordpress.org/Theme_Development\" target=\"_blank\">مستندات توسعه پوسته‌ها</a>"
-
-#~ msgid "<a href=\"https://codex.wordpress.org/Using_Themes\">Documentation on Using Themes</a>"
-#~ msgstr "<a href=\"https://codex.wordpress.org/Using_Themes\" target=\"_blank\">مستندات استفاده از پوسته‌ها</a>"
-
-#~ msgid "<a href=\"https://codex.wordpress.org/Editing_Files\">Documentation on Editing Files</a>"
-#~ msgstr "<a href=\"https://codex.wordpress.org/Editing_Files\" target=\"_blank\">مستندات ویرایش پرونده‌ها</a>"
-
-#~ msgid "<a href=\"https://codex.wordpress.org/Template_Tags\">Documentation on Template Tags</a>"
-#~ msgstr "<a href=\"https://codex.wordpress.org/Template_Tags\" target=\"_blank\">مستندات توابع پوسته</a>"
-
-#~ msgid "<a href=\"https://codex.wordpress.org/Managing_Plugins#Plugin_Management\">Documentation on Managing Plugins</a>"
-#~ msgstr "<a href=\"https://codex.wordpress.org/Managing_Plugins#Plugin_Management\" target=\"_blank\">مستندات مدیریت افزونه‌ها</a>"
-
-#~ msgid "The %s setting is unregistered. Unregistered settings are deprecated. See https://codex.wordpress.org/Settings_API"
-#~ msgstr ""
-"\n"
-"<code>%1$s</code> ثبت نشده است. تنظیمات ثبت نشده از رده خارج شده‌اند. به https://codex.wordpress.org/Settings_API \"\n"
-"کنید.\""
-
-#~ msgid ""
-"\n"
-"theme you are currently using isn&#8217;t widget-aware, meaning that it has no sidebars that you are able to change. For \"\n"
-"on making your theme widget-aware, please <a href=\"https://codex.wordpress.org/Widgetizing_Themes\">follow these \"\n"
+"&mdash; Post Formats designate how your theme will \"\n"
+"a specific post. For example, you could have a <em>standard</em> blog \"\n"
+"with a title and paragraphs, or a short <em>aside</em> that omits the \"\n"
+"and contains a short text blurb. Please refer to the Codex for <a href=\"\n"
+"of \"\n"
+"post format</a>. Your theme could enable all or some of 10 possible \"\n"
 ""
 #~ msgstr ""
 "\n"
-"کنونی شما از ابزارک پشتیبانی نمی‌کند بنابراین نمی‌توانید نوار کناری پوستهٔ خود را ویرایش کنید. برای هماهنگی پوسته خود با \"\n"
-"<a href=\"https://codex.wordpress.org/Widgetizing_Themes\">این‌جا</a> را ببینید.\""
+"&mdash; این گزینه به پوستهٔ شما این امکان را می‌دهد که \"\n"
+"را به‌صورت‌های مختلف نمایش دهد. برای مثال شما می‌توانید یک نوشتهٔ \"\n"
+"به‌همراه عنوان و پاراگراف‌ها داشته باشید، یا یک <em>حاشیه</em> \"\n"
+"عنوان ندارد و حاوی متن کوتاه است. برای اطلاعات بیشتر به <a href=\"https://\"\n"
+"مربوط به ساختار \"\n"
+"در مستندات</a> مراجعه کنید. پوستهٔ شما می‌تواند همه یا بخشی از ۱۰ ساختار \"\n"
+"را فعال کند.\""
 
 #~ msgid ""
 "\n"
-"need to make this file writable before you can save your changes. See <a href=\"https://codex.wordpress.org/\"\n"
-"Codex</a> for more information.\""
+"href=\"https://codex.wordpress.org/Posts_Tags_Screen\">Documentation on \"\n"
+""
 #~ msgstr ""
 "\n"
-"از ذخیرهٔ ویرایش‌ها، لازم است این پرونده را قابل‌نوشتن کنید. برای اطلاعات بیشتر <a href=\"https://codex.wordpress.org/\"\n"
+"href=\"https://codex.wordpress.org/Posts_Tags_Screen\" target=\"_blank\"\n"
+"برچسب‌ها</a>\""
+
+#~ msgid ""
+"\n"
+"href=\"https://codex.wordpress.org/Settings_Writing_Screen\">Documentation \"\n"
+"Writing Settings</a>\""
+#~ msgstr ""
+"\n"
+"href=\"https://codex.wordpress.org/Settings_Writing_Screen\" target=\"_blank\"\n"
+"تنظیمات نوشتن</a>\""
+
+#~ msgid ""
+"\n"
+"href=\"https://codex.wordpress.org/Pages_Add_New_Screen\">Documentation on \"\n"
+"New Pages</a>\""
+#~ msgstr ""
+"\n"
+"href=\"https://codex.wordpress.org/Pages_Add_New_Screen\" target=\"_blank\"\n"
+"افزودن برگه تازه</a>\""
+
+#~ msgid ""
+"\n"
+"href=\"https://codex.wordpress.org/Pages_Screen\">Documentation on Managing \"\n"
+""
+#~ msgstr ""
+"\n"
+"href=\"https://codex.wordpress.org/Pages_Screen\" target=\"_blank\">مستندات \"\n"
+"برگه‌ها</a>\""
+
+#~ msgid ""
+"\n"
+"href=\"https://codex.wordpress.org/Appearance_Menus_Screen\">Documentation \"\n"
+"Menus</a>\""
+#~ msgstr ""
+"\n"
+"href=\"https://codex.wordpress.org/Appearance_Menus_Screen\" target=\"_blank\"\n"
+"فهرست‌ها</a>\""
+
+#~ msgid ""
+"\n"
+"href=\"https://codex.wordpress.org/Tools_Import_Screen\">Documentation on \"\n"
+""
+#~ msgstr ""
+"\n"
+"href=\"https://codex.wordpress.org/Tools_Import_SubPanel\" target=\"_blank\"\n"
+"درون‌ریزی</a>\""
+
+#~ msgid ""
+"\n"
+"href=\"https://codex.wordpress.org/Plugins_Editor_Screen\">Documentation on \"\n"
+"Plugins</a>\""
+#~ msgstr ""
+"\n"
+"href=\"https://codex.wordpress.org/Plugins_Editor_Screen\" target=\"_blank\"\n"
+"ویرایش افزونه‌ها</a>\""
+
+#~ msgid ""
+"\n"
+"href=\"https://codex.wordpress.org/Appearance_Widgets_Screen\">Documentation \"\n"
+"Widgets</a>\""
+#~ msgstr ""
+"\n"
+"href=\"https://codex.wordpress.org/Appearance_Widgets_Screen\" target=\"\n"
+"ابزارک‌ها</a>\""
+
+#~ msgid ""
+"\n"
+"href=\"https://codex.wordpress.org/Dashboard_Screen\">Documentation on \"\n"
+""
+#~ msgstr ""
+"\n"
+"href=\"https://codex.wordpress.org/Dashboard_Screen\" target=\"_blank\"\n"
+"پیشخوان</a>\""
+
+#~ msgid ""
+"\n"
+"href=\"https://codex.wordpress.org/Posts_Screen\">Documentation on Managing \"\n"
+""
+#~ msgstr ""
+"\n"
+"href=\"https://codex.wordpress.org/Posts_Screen\" target=\"_blank\">مستندات \"\n"
+"نوشته‌ها</a>\""
+
+#~ msgid ""
+"\n"
+"href=\"https://codex.wordpress.org/Posts_Categories_Screen\">Documentation \"\n"
+"Categories</a>\""
+#~ msgstr ""
+"\n"
+"href=\"https://codex.wordpress.org/Posts_Categories_Screen\" target=\"_blank\"\n"
+"دسته‌ها</a>\""
+
+#~ msgid ""
+"\n"
+"href=\"https://codex.wordpress.org/Plugins_Add_New_Screen\">Documentation on \"\n"
+"Plugins</a>\""
+#~ msgstr ""
+"\n"
+"href=\"https://codex.wordpress.org/Plugins_Add_New_Screen\" target=\"_blank\"\n"
+"نصب افزونه‌ها</a>\""
+
+#~ msgid ""
+"\n"
+"href=\"https://codex.wordpress.org/Users_Add_New_Screen\">Documentation on \"\n"
+"New Users</a>\""
+#~ msgstr ""
+"\n"
+"href=\"https://codex.wordpress.org/Users_Add_New_Screen\" target=\"_blank\"\n"
+"افزودن کاربران تازه</a>\""
+
+#~ msgid ""
+"\n"
+"href=\"https://codex.wordpress.org/Settings_Reading_Screen\">Documentation \"\n"
+"Reading Settings</a>\""
+#~ msgstr ""
+"\n"
+"href=\"https://codex.wordpress.org/Settings_Reading_Screen\" target=\"_blank\"\n"
+"تنظیمات خواندن</a>\""
+
+#~ msgid ""
+"\n"
+"href=\"https://codex.wordpress.org/Settings_Discussion_Screen\"\n"
+"on Discussion Settings</a>\""
+#~ msgstr ""
+"\n"
+"href=\"https://codex.wordpress.org/Settings_Discussion_Screen\" target=\"\n"
+"تنظیمات گفت‌وگو</a>\""
+
+#~ msgid ""
+"\n"
+"href=\"https://codex.wordpress.org/Settings_Permalinks_Screen\"\n"
+"on Permalinks Settings</a>\""
+#~ msgstr ""
+"\n"
+"href=\"https://codex.wordpress.org/Settings_Permalinks_Screen\" target=\"\n"
+"تنظیمات پایاپیوندها</a>\""
+
+#~ msgid ""
+"\n"
+"href=\"https://codex.wordpress.org/Users_Your_Profile_Screen\">Documentation \"\n"
+"User Profiles</a>\""
+#~ msgstr ""
+"\n"
+"href=\"https://codex.wordpress.org/Users_Your_Profile_Screen\" target=\"\n"
+"نمایه کاربران</a>\""
+
+#~ msgid ""
+"\n"
+"href=\"https://codex.wordpress.org/Media_Add_New_Screen\">Documentation on \"\n"
+"Media Files</a>\""
+#~ msgstr ""
+"\n"
+"href=\"https://codex.wordpress.org/Media_Add_New_Screen\" target=\"_blank\"\n"
+"بارگذاری پرونده‌های رسانه‌ای</a>\""
+
+#~ msgid ""
+"\n"
+"href=\"https://codex.wordpress.org/Users_Screen\">Documentation on Managing \"\n"
+""
+#~ msgstr ""
+"\n"
+"href=\"https://codex.wordpress.org/Users_Screen\" target=\"_blank\">مستندات \"\n"
+"کاربران</a>\""
+
+#~ msgid ""
+"\n"
+"href=\"https://codex.wordpress.org/Administration_Screens#Comments\"\n"
+"on Comments</a>\""
+#~ msgstr ""
+"\n"
+"href=\"https://codex.wordpress.org/Administration_Screens#Comments\" target=\"\n"
+"دیدگاه‌ها</a>\""
+
+#~ msgid ""
+"\n"
+"href=\"https://codex.wordpress.org/Posts_Add_New_Screen\">Documentation on \"\n"
+"and Editing Posts</a>\""
+#~ msgstr ""
+"\n"
+"href=\"https://codex.wordpress.org/Posts_Add_New_Screen\" target=\"_blank\"\n"
+"نوشتن و ویرایش نوشته‌ها</a>\""
+
+#~ msgid ""
+"\n"
+"href=\"https://codex.wordpress.org/Dashboard_Updates_Screen\">Documentation \"\n"
+"Updating WordPress</a>\""
+#~ msgstr ""
+"\n"
+"href=\"https://codex.wordpress.org/Dashboard_Updates_Screen\">مستندات \"\n"
+"وردپرس</a>\""
+
+#~ msgid ""
+"\n"
+"href=\"https://codex.wordpress.org/Settings_Media_Screen\">Documentation on \"\n"
+"Settings</a>\""
+#~ msgstr ""
+"\n"
+"href=\"https://codex.wordpress.org/Settings_Media_Screen\" target=\"_blank\"\n"
+"تنظیمات رسانه‌ای</a>\""
+
+#~ msgid ""
+"\n"
+"href=\"https://codex.wordpress.org/Settings_General_Screen\">Documentation \"\n"
+"General Settings</a>\""
+#~ msgstr ""
+"\n"
+"href=\"https://codex.wordpress.org/Settings_General_Screen\">مستندات تنظیمات \"\n"
+""
+
+#~ msgid ""
+"\n"
+"href=\"https://codex.wordpress.org/Tools_Export_Screen\">Documentation on \"\n"
+""
+#~ msgstr ""
+"\n"
+"href=\"https://codex.wordpress.org/Tools_Export_Screen\" target=\"_blank\"\n"
+"برون‌بری</a>\""
+
+#~ msgid ""
+"\n"
+"href=\"https://codex.wordpress.org/Tools_Screen\">Documentation on Tools</a>\""
+#~ msgstr ""
+"\n"
+"href=\"https://codex.wordpress.org/Tools_Screen\" target=\"_blank\">مستندات \"\n"
+""
+
+#~ msgid ""
+"\n"
+"href=\"https://codex.wordpress.org/Media_Library_Screen\">Documentation on \"\n"
+"Library</a>\""
+#~ msgstr ""
+"\n"
+"href=\"https://codex.wordpress.org/Media_Library_Screen\" target=\"_blank\"\n"
+"کتاب‌خانه رسانه‌ها</a>\""
+
+#~ msgid ""
+"\n"
+"href=\"https://codex.wordpress.org/Pages_Screen#Editing_Individual_Pages\"\n"
+"on Editing Pages</a>\""
+#~ msgstr ""
+"\n"
+"href=\"https://codex.wordpress.org/Pages_Screens#Editing_Individual_Pages\" \"\n"
+"ویرایش برگه‌ها</a>\""
+
+#~ msgid ""
+"\n"
+"href=\"https://codex.wordpress.org/Media_Add_New_Screen#Edit_Media\"\n"
+"on Edit Media</a>\""
+#~ msgstr ""
+"\n"
+"href=\"https://codex.wordpress.org/Media_Add_New_Screen#Edit_Media\" target=\"\n"
+"ویرایش رسانه</a>\""
+
+#~ msgid ""
+"\n"
+"href=\"https://codex.wordpress.org/Roles_and_Capabilities\">Descriptions of \"\n"
+"and Capabilities</a>\""
+#~ msgstr ""
+"\n"
+"href=\"https://codex.wordpress.org/Roles_and_Capabilities\" target=\"_blank\"\n"
+"نقش‌ها و توانایی‌ها</a>\""
+
+#~ msgid ""
+"\n"
+"href=\"https://codex.wordpress.org/Using_Permalinks\">Documentation on Using \"\n"
+""
+#~ msgstr ""
+"\n"
+"href=\"https://codex.wordpress.org/Using_Permalinks\" target=\"_blank\"\n"
+"استفاده از پایاپیوندها</a>\""
+
+#~ msgid ""
+"\n"
+"href=\"https://codex.wordpress.org/Keyboard_Shortcuts\">Documentation on \"\n"
+"Shortcuts</a>\""
+#~ msgstr ""
+"\n"
+"href=\"https://codex.wordpress.org/Keyboard_Shortcuts\" target=\"_blank\"\n"
+"میان‌برهای صفجه‌کلید</a>\""
+
+#~ msgid ""
+"\n"
+"href=\"https://codex.wordpress.org/Writing_a_Plugin\">Documentation on \"\n"
+"Plugins</a>\""
+#~ msgstr ""
+"\n"
+"href=\"https://codex.wordpress.org/Writing_a_Plugin\" target=\"_blank\"\n"
+"نوشتن افزونه‌ها</a>\""
+
+#~ msgid ""
+"\n"
+"href=\"https://codex.wordpress.org/Keyboard_Shortcuts\" target=\"_blank\"\n"
+"information</a>\""
+#~ msgstr ""
+"\n"
+"href=\"https://codex.wordpress.org/Keyboard_Shortcuts\" target=\"_blank\"\n"
+"بیشتر</a>\""
+
+#~ msgid ""
+"\n"
+"href=\"https://codex.wordpress.org/Comment_Spam\">Documentation on Comment \"\n"
+""
+#~ msgstr ""
+"\n"
+"href=\"https://codex.wordpress.org/Comment_Spam\" target=\"_blank\">مستندات \"\n"
+"جفنگ</a>\""
+
+#~ msgid ""
+"\n"
+"href=\"https://codex.wordpress.org/Formatting_Date_and_Time\">Documentation \"\n"
+"date and time formatting</a>.\""
+#~ msgstr ""
+"\n"
+"href=\"https://codex.wordpress.org/Formatting_Date_and_Time\">مستندات ساختار \"\n"
+"و زمان</a>.\""
+
+#~ msgid ""
+"\n"
+"Before updating, please <a href=\"https://codex.\"\n"
+"up your database and files</a>. For help \"\n"
+"updates, visit the <a href=\"https://codex.wordpress.org/Updating_WordPress\"\n"
+"WordPress</a> Codex page.\""
+#~ msgstr ""
+"\n"
+"لطفاً پیش از ارتقا، از پایگاه‌داده و پرونده‌های خود <a href=\"\n"
+"تهیه کنید</a>. برای \"\n"
+"بیشتر از صفحهٔ <a href=\"https://codex.wordpress.org/Updating_WordPress\"\n"
+"وردپرس</a> در مستندات بازدید کنید.\""
+
+#~ msgid ""
+"\n"
+"href=\"https://codex.wordpress.org/Using_Themes#Adding_New_Themes\"\n"
+"on Adding New Themes</a>\""
+#~ msgstr ""
+"\n"
+"href=\"https://codex.wordpress.org/Using_Themes#Adding_New_Themes\" target=\"\n"
+"افزودن پوسته‌های تازه</a>\""
+
+#~ msgid ""
+"\n"
+"href=\"https://codex.wordpress.org/Theme_Development\">Documentation on \"\n"
+"Development</a>\""
+#~ msgstr ""
+"\n"
+"href=\"https://codex.wordpress.org/Theme_Development\" target=\"_blank\"\n"
+"توسعه پوسته‌ها</a>\""
+
+#~ msgid ""
+"\n"
+"href=\"https://codex.wordpress.org/Using_Themes\">Documentation on Using \"\n"
+""
+#~ msgstr ""
+"\n"
+"href=\"https://codex.wordpress.org/Using_Themes\" target=\"_blank\">مستندات \"\n"
+"از پوسته‌ها</a>\""
+
+#~ msgid ""
+"\n"
+"href=\"https://codex.wordpress.org/Editing_Files\">Documentation on Editing \"\n"
+""
+#~ msgstr ""
+"\n"
+"href=\"https://codex.wordpress.org/Editing_Files\" target=\"_blank\">مستندات \"\n"
+"پرونده‌ها</a>\""
+
+#~ msgid ""
+"\n"
+"href=\"https://codex.wordpress.org/Template_Tags\">Documentation on Template \"\n"
+""
+#~ msgstr ""
+"\n"
+"href=\"https://codex.wordpress.org/Template_Tags\" target=\"_blank\">مستندات \"\n"
+"پوسته</a>\""
+
+#~ msgid ""
+"\n"
+"href=\"https://codex.wordpress.org/Managing_Plugins#Plugin_Management\"\n"
+"on Managing Plugins</a>\""
+#~ msgstr ""
+"\n"
+"href=\"https://codex.wordpress.org/Managing_Plugins#Plugin_Management\" \"\n"
+"مدیریت افزونه‌ها</a>\""
+
+#~ msgid ""
+"\n"
+"%s setting is unregistered. Unregistered settings are deprecated. See \"\n"
+""
+#~ msgstr ""
+"\n"
+"<code>%1$s</code> ثبت نشده است. تنظیمات ثبت نشده از رده خارج شده‌اند. به \"\n"
+"مراجعه کنید.\""
+
+#~ msgid ""
+"\n"
+"theme you are currently using isn&#8217;t widget-aware, meaning that it has \"\n"
+"sidebars that you are able to change. For information on making your theme \"\n"
+"please <a href=\"https://codex.wordpress.org/Widgetizing_Themes\"\n"
+"these instructions</a>.\""
+#~ msgstr ""
+"\n"
+"کنونی شما از ابزارک پشتیبانی نمی‌کند بنابراین نمی‌توانید نوار کناری پوستهٔ \"\n"
+"را ویرایش کنید. برای هماهنگی پوسته خود با ابزارک <a href=\"https://codex.\"\n"
+"را ببینید.\""
+
+#~ msgid ""
+"\n"
+"need to make this file writable before you can save your changes. See <a \"\n"
+"Codex</a> \"\n"
+"more information.\""
+#~ msgstr ""
+"\n"
+"از ذخیرهٔ ویرایش‌ها، لازم است این پرونده را قابل‌نوشتن کنید. برای اطلاعات \"\n"
+"<a href=\"https://codex.wordpress.org/Changing_File_Permissions\"\n"
 "را ببینید.\""
 
 #~ msgid "https://codex.wordpress.org/Introduction_to_Blogging#Managing_Comments"
@@ -17080,65 +17544,97 @@ msgstr "&laquo;"
 
 #~ msgid ""
 "\n"
-"<a href=\"https://codex.wordpress.org/Glossary#Character_set\">character encoding</a> of your site (UTF-8 is recommended)\""
-#~ msgstr "<a href=\"https://codex.wordpress.org/Glossary#Character_set\">نوع نویسه‌های</a> سایت شما (UTF-8 پیشنهاد می‌شود)"
+"<a href=\"https://codex.wordpress.org/Glossary#Character_set\">character \"\n"
+"of your site (UTF-8 is recommended)\""
+#~ msgstr ""
+"\n"
+"href=\"https://codex.wordpress.org/Glossary#Character_set\">نوع نویسه‌های</a> \"\n"
+"شما (UTF-8 پیشنهاد می‌شود)\""
 
 #~ msgid "Front Page"
 #~ msgstr "برگه نخست"
 
-#~ msgid "You can now manage and live-preview Custom Header in the <a href=\"%1$s\">Customizer</a>."
-#~ msgstr "می‌توانید سربرگ‌های شخصی خود را در <a href=\"%1$s\">سفارشی‌ساز</a> مدیریت کنید و پیش‌نمایش آن‌ها را به‌صورت زنده ببینید."
+#~ msgid ""
+"\n"
+"can now manage and live-preview Custom Header in the <a href=\"%1$s\"\n"
+""
+#~ msgstr ""
+"\n"
+"سربرگ‌های شخصی خود را در <a href=\"%1$s\">سفارشی‌ساز</a> مدیریت کنید و \"\n"
+"آن‌ها را به‌صورت زنده ببینید.\""
 
-#~ msgid "You can now manage and live-preview Custom Backgrounds in the <a href=\"%1$s\">Customizer</a>."
-#~ msgstr "می‌توانید پس‌زمینه‌های شخصی خود را در <a href=\"%1$s\">سفارشی‌ساز</a> مدیریت کنید و پیش‌نمایش آن‌ها را به‌صورت زنده ببینید."
+#~ msgid ""
+"\n"
+"can now manage and live-preview Custom Backgrounds in the <a href=\"%1$s\"\n"
+""
+#~ msgstr ""
+"\n"
+"پس‌زمینه‌های شخصی خود را در <a href=\"%1$s\">سفارشی‌ساز</a> مدیریت کنید و \"\n"
+"آن‌ها را به‌صورت زنده ببینید.\""
 
 #~ msgid "The translations are up to date."
 #~ msgstr "ترجمه‌ها به‌روز هستند."
 
 #~ msgid ""
 "\n"
-"extend and expand the functionality of WordPress. You may automatically install plugins from the <a href=\"%1$s\"\n"
-"Plugin Directory</a> or upload a plugin in .zip format by clicking the button at the top of this page.\""
+"extend and expand the functionality of WordPress. You may automatically \"\n"
+"plugins from the <a href=\"%1$s\">WordPress Plugin Directory</a> or \"\n"
+"a plugin in .zip format by clicking the button at the top of this page.\""
 #~ msgstr ""
 "\n"
-"کارایی وردپرس را افزایش می‌دهند. می‌توانید آن‌ها را به صورت خودکار از <a href=\"%1$s\">مخزن افزونه‌های وردپرس</a> نصب \"\n"
-"یا آن‌ها را با ساختار zip با استفاده از دکمهٔ بالای این صفحه بارگذاری کنید.\""
+"کارایی وردپرس را افزایش می‌دهند. می‌توانید آن‌ها را به صورت خودکار از <a \"\n"
+"افزونه‌های وردپرس</a> نصب کنید یا آن‌ها را با ساختار zip با \"\n"
+"از دکمهٔ بالای این صفحه بارگذاری کنید.\""
 
 #~ msgid "Restore the backup"
 #~ msgstr "بازنشانی پشتیبان"
 
-#~ msgid "The backup of this post in your browser is different from the version below."
+#~ msgid ""
+"\n"
+"backup of this post in your browser is different from the version below.\""
 #~ msgstr "نسخه پشتیبان این پست در مرورگر شما با نسخه زیر تفاوت دارد."
 
-#~ msgid "You are using the multi-file uploader. Problems? Try the <a href=\"%1$s\" target=\"%2$s\">browser uploader</a> instead."
+#~ msgid ""
+"\n"
+"are using the multi-file uploader. Problems? Try the <a href=\"%1$s\" \"\n"
+"uploader</a> instead.\""
 #~ msgstr ""
 "\n"
-"از بارگذار چندپرونده‌ای استفاده می‌کنید. مشکلی هست؟ می‌توانید از <a href=\"%1$s\" target=\"%2$s\">بارگذار مرورگر</a> به‌جای آن \"\n"
-"کنید.\""
+"از بارگذار چندپرونده‌ای استفاده می‌کنید. مشکلی هست؟ می‌توانید از <a href=\"%1$s\"\n"
+"target=\"%2$s\">بارگذار مرورگر</a> به‌جای آن استفاده کنید.\""
 
 #~ msgid "$image needs to be an WP_Image_Editor object"
 #~ msgstr "$image نیاز است یک شی از WP_Image_Editor باشد"
 
 #~ msgid ""
 "\n"
-"can also control the display of your content in RSS feeds, including the maximum number of posts to display and whether to \"\n"
-"full text or a summary.\""
+"can also control the display of your content in RSS feeds, including the \"\n"
+"number of posts to display and whether to show full text or a summary.\""
 #~ msgstr ""
 "\n"
-"همچنین می‌توانید نمایش محتوا در خوراک RSS را کنترل کنید، که شامل بیشترین تعداد نوشته برای نمایش، نمایش متن به صورت کامل یا \"\n"
-"است.\""
+"همچنین می‌توانید نمایش محتوا در خوراک RSS را کنترل کنید، که شامل بیشترین \"\n"
+"نوشته برای نمایش، نمایش متن به صورت کامل یا کوتاه است.\""
 
 #~ msgid "After you&#8217;ve done that, click &#8220;Run the installation.&#8221;"
 #~ msgstr "بعد از انجام، روی &#8220;اجرای نصب&#8221; کلیک کنید."
 
-#~ msgid "This screen allows you to edit four fields for metadata in a file within the media library."
-#~ msgstr "در این بخش می‌توانید چهار مورد از مشخصات پرونده‌های موجود در کتابخانهٔ رسانه را ویرایش کنید."
+#~ msgid ""
+"\n"
+"screen allows you to edit four fields for metadata in a file within the \"\n"
+"library.\""
+#~ msgstr ""
+"\n"
+"این بخش می‌توانید چهار مورد از مشخصات پرونده‌های موجود در کتابخانهٔ رسانه را \"\n"
+"کنید.\""
 
 #~ msgid ""
 "\n"
-"most themes, the header text is your Site Title and Tagline, as defined in the <a href=\"%1$s\">General Settings</a> \"\n"
-""
-#~ msgstr "برای بیشتر پوسته‌ها، متن سربرگ، عنوان و معرفی کوتاه سایت شماست که در بخش <a href=\"%1$s\">تنظیمات عمومی</a> تعریف شده‌اند."
+"most themes, the header text is your Site Title and Tagline, as defined in \"\n"
+"<a href=\"%1$s\">General Settings</a> section.\""
+#~ msgstr ""
+"\n"
+"بیشتر پوسته‌ها، متن سربرگ، عنوان و معرفی کوتاه سایت شماست که در بخش <a href=\"\n"
+"عمومی</a> تعریف شده‌اند.\""
 
 #~ msgid "New user created. <a href=\"%s\">Edit user</a>"
 #~ msgstr "کاربر جدید ایجاد شد. <a href=\"%s\">ویرایش کاربر</a>"
@@ -17167,37 +17663,55 @@ msgstr "&laquo;"
 #~ msgid "Attempt to notify any blogs linked to from the article"
 #~ msgstr "کوشش برای آگاه کردن ‌همهٔ وبلاگ‌هایی که پیوندشان در ‌این نوشته است"
 
-#~ msgid "Drop-ins are advanced plugins in the %s directory that replace WordPress functionality when present."
-#~ msgstr "جایگزین‌ها افزونه‌های پیشرفته‌ای هستند که در پوشهٔ %s قرار دارند و در صورت وجود، جایگزین عملکردهای وردپرس می‌شوند."
+#~ msgid ""
+"\n"
+"are advanced plugins in the %s directory that replace WordPress \"\n"
+"when present.\""
+#~ msgstr ""
+"\n"
+"افزونه‌های پیشرفته‌ای هستند که در پوشهٔ %s قرار دارند و در صورت وجود، \"\n"
+"عملکردهای وردپرس می‌شوند.\""
 
 #~ msgid ""
 "\n"
-"only have one theme enabled for this site right now. Visit the Network Admin to <a href=\"%1$s\">enable</a> more themes.\""
+"only have one theme enabled for this site right now. Visit the Network \"\n"
+"to <a href=\"%1$s\">enable</a> more themes.\""
 #~ msgstr ""
 "\n"
-"تنها یک پوستهٔ فعال برای این سایت دارید. برای <a href=\"%1$s\">فعال‌سازی</a> پوسته‌های بیشتر به بخش مدیریت شبکه مراجعه کنید.\""
-
-#~ msgid "This screen allows you to edit five fields for metadata in a file within the media library."
-#~ msgstr "در این بخش می‌توانید پنج مورد از مشخصات پرونده‌های موجود در کتابخانهٔ رسانه را ویرایش کنید."
-
-#~ msgid ""
-"\n"
-"you assign multiple categories or tags to a post, only one can show up in the permalink: the lowest numbered category. \"\n"
-"applies if your custom structure includes <code>%category%</code> or <code>%tag%</code>.\""
-#~ msgstr ""
-"\n"
-"چند دسته یا برچسب برای یک نوشته تعریف می‌شوند، در این شرایط تنها یکی از آن‌ها یا به عبارت دیگر همان دسته با شناسه کوچک‌تر، در \"\n"
-"نشان داده می‌شود. این شرایط در صورتی تحقق می‌یابد که ساختار پیش‌فرض شامل <code>%category%</code> و <code>%tag%</code> \"\n"
-""
+"تنها یک پوستهٔ فعال برای این سایت دارید. برای <a href=\"%1$s\">فعال‌سازی</a> \"\n"
+"بیشتر به بخش مدیریت شبکه مراجعه کنید.\""
 
 #~ msgid ""
 "\n"
-"you pick an option other than Plain, your general URL path with structure tags (terms surrounded by <code>%</code>) will \"\n"
-"appear in the custom structure field and your path can be further modified there.\""
+"screen allows you to edit five fields for metadata in a file within the \"\n"
+"library.\""
 #~ msgstr ""
 "\n"
-"گزینه‌ای غیر از پیش‌فرض را انتخاب کنید، مسیر URL عمومی شما که با برچسب‌های ساختاری و نویسه‌های <code>%</code> احاطه شده، در \"\n"
-"ساختار سفارشی ظاهر خواهد شد و آنجا مسیر شما می‌تواند تغییرات بیشتری داشته باشد.\""
+"این بخش می‌توانید پنج مورد از مشخصات پرونده‌های موجود در کتابخانهٔ رسانه را \"\n"
+"کنید.\""
+
+#~ msgid ""
+"\n"
+"you assign multiple categories or tags to a post, only one can show up in \"\n"
+"permalink: the lowest numbered category. This applies if your custom \"\n"
+"includes <code>%category%</code> or <code>%tag%</code>.\""
+#~ msgstr ""
+"\n"
+"چند دسته یا برچسب برای یک نوشته تعریف می‌شوند، در این شرایط تنها یکی از آن‌ها \"\n"
+"به عبارت دیگر همان دسته با شناسه کوچک‌تر، در پایاپیوند نشان داده می‌شود. این \"\n"
+"در صورتی تحقق می‌یابد که ساختار پیش‌فرض شامل <code>%category%</code> و \"\n"
+"باشد.\""
+
+#~ msgid ""
+"\n"
+"you pick an option other than Plain, your general URL path with structure \"\n"
+"(terms surrounded by <code>%</code>) will also appear in the custom \"\n"
+"field and your path can be further modified there.\""
+#~ msgstr ""
+"\n"
+"گزینه‌ای غیر از پیش‌فرض را انتخاب کنید، مسیر URL عمومی شما که با برچسب‌های \"\n"
+"و نویسه‌های <code>%</code> احاطه شده، در شاخهٔ ساختار سفارشی ظاهر خواهد \"\n"
+"و آنجا مسیر شما می‌تواند تغییرات بیشتری داشته باشد.\""
 
 #~ msgctxt "nav menu front page title"
 #~ msgid "Home: %s"
@@ -17251,7 +17765,9 @@ msgstr "&laquo;"
 #~ msgid "Compatibility with WordPress %1$s: Unknown"
 #~ msgstr "سازگاری با وردپرس %1$s: نامعلوم"
 
-#~ msgid "The plugin %1$s has been <strong>deactivated</strong> due to an error: %2$s"
+#~ msgid ""
+"\n"
+"plugin %1$s has been <strong>deactivated</strong> due to an error: %2$s\""
 #~ msgstr "افزونه %1$s به دلیل این خطا <strong>غیرفعال</strong> شد: %2$s"
 
 #~ msgid "Your WordPress database is already up-to-date!"
