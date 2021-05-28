@@ -180,13 +180,15 @@ class Taxonomy extends gNetwork\Module
 		return $new;
 	}
 
-	public function manage_custom_column( $empty, $column_name, $term_id )
+	public function manage_custom_column( $string, $column_name, $term_id )
 	{
 		if ( 'gnetwork_description' !== $column_name )
-			return $empty;
+			return $string;
 
 		if ( $term = get_term( (int) $term_id ) )
-			echo sanitize_term_field( 'description', $term->description, $term->term_id, $term->taxonomy, 'display' );
+			return sanitize_term_field( 'description', $term->description, $term->term_id, $term->taxonomy, 'display' );
+
+		return $string;
 	}
 
 	public function quick_edit_custom_box( $column_name, $screen, $taxonomy )
@@ -412,7 +414,6 @@ class Taxonomy extends gNetwork\Module
 		}
 	}
 
-	// FIXME: we cannot rely on `count` data from the database
 	private function handle_delete_terms( $taxonomy, $empty_only = TRUE, $include_default = FALSE )
 	{
 		$count = 0;
@@ -426,10 +427,11 @@ class Taxonomy extends gNetwork\Module
 
 		foreach ( $terms as $term ) {
 
+			// NOTE: we cannot rely on `count` data from the database
 			if ( $empty_only && $this->filters( 'term_count', $term->count, $term, $taxonomy ) )
 				continue;
 
-			// MAYBE: check `delete_term` for each term
+			// MAYBE: check `delete_term` cap for each term
 			// @SEE: https://wp.me/p2AvED-5kA
 
 			$deleted = wp_delete_term( $term->term_id, $term->taxonomy );
@@ -455,8 +457,6 @@ class Taxonomy extends gNetwork\Module
 		$this->actions( 'tab_search_content', $taxonomy, $object );
 	}
 
-	// TODO: delete empty terms
-	// TODO: delete terms with single post
 	public function callback_tab_content_tools( $taxonomy, $tab, $object )
 	{
 		$this->actions( 'tab_tools_content_before', $taxonomy, $object );
@@ -599,6 +599,7 @@ class Taxonomy extends gNetwork\Module
 		echo '</div>';
 	}
 
+	// TODO: card: delete terms with single post
 	// TODO: card: apply i18n on all titles
 	// TODO: card: merge i18n same titles
 	public function callback_tab_content_maintenance( $taxonomy, $tab, $object )
