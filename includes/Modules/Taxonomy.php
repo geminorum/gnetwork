@@ -20,13 +20,17 @@ class Taxonomy extends gNetwork\Module
 
 	protected $key     = 'taxonomy';
 	protected $network = FALSE;
-	protected $front   = FALSE;
 	protected $ajax    = TRUE;
 
 	protected $priority_current_screen = 12;
 
 	protected function setup_actions()
 	{
+		$this->filter_append( 'query_vars', 't' );
+		$this->action( 'init', 0, 99, 'redirect_terms' );
+		$this->action( 'template_redirect', 0, 99, 'redirect_terms' );
+		$this->filter( 'tag_row_actions', 2, 99, 'redirect_terms' );
+
 		add_filter( 'pre_term_name', function ( $value ) {
 			return Text::normalizeWhitespace( $value, FALSE );
 		}, 9 );
@@ -1535,5 +1539,44 @@ class Taxonomy extends gNetwork\Module
 		}
 
 		return $count;
+	}
+
+	public function init_redirect_terms()
+	{
+		add_rewrite_tag( '%t%', '([^&]+)' );
+		add_rewrite_rule( '^t/([^/]*)/?', 'index.php?t=$matches[1]','top' );
+	}
+
+	public function template_redirect_redirect_terms()
+	{
+		if ( ! is_home() )
+			return;
+
+		if ( ! $term_id = get_query_var( 't' ) )
+			return;
+
+		$term = get_term( (int) $term_id );
+
+		if ( ! $term || is_wp_error( $term ) )
+			return;
+
+		if ( in_array( $term->taxonomy, $this->filters( 'redirect_blacklist', [ 'nav_menu' ], $term ), TRUE ) )
+			return;
+
+		WordPress::redirect( get_term_link( $term ), 301 );
+	}
+
+	public function tag_row_actions_redirect_terms( $actions, $term )
+	{
+		if ( is_taxonomy_viewable( $term->taxonomy ) )
+			$actions['shortlink'] = sprintf(
+				'<a href="%s" aria-label="%s">%s</a>',
+				WordPress::getTermShortLink( $term->term_id ),
+				/* translators: %s: Taxonomy term name. */
+				esc_attr( sprintf( _x( 'Copy Shortlink for &#8220;%s&#8221;', 'Modules: Taxonomy: Action', 'gnetwork' ), $term->name ) ),
+				_x( 'Shortlink', 'Modules: Taxonomy: Action', 'gnetwork' )
+			);
+
+		return $actions;
 	}
 }
