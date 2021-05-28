@@ -36,6 +36,8 @@ class Login extends gNetwork\Module
 
 			$this->action( 'register_form' );
 			$this->filter( 'register_post', 3, 1 );
+
+			$this->action( 'woocommerce_login_form', 0, 99 );
 		}
 
 		$this->action( 'wp_logout' );
@@ -506,6 +508,11 @@ class Login extends gNetwork\Module
 	}
 
 	public function register_form()
+	{
+		echo $this->get_html_math();
+	}
+
+	public function woocommerce_login_form()
 	{
 		echo $this->get_html_math();
 	}
