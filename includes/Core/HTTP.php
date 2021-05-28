@@ -633,6 +633,7 @@ class HTTP extends Base
 		return $results;
 	}
 
+	// @SEE: https://stackoverflow.com/a/12628971
 	// @REF: https://stackoverflow.com/a/12629254
 	public static function getStatus( $url, $verify_ssl = TRUE )
 	{

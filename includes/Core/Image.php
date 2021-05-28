@@ -13,7 +13,12 @@ class Image extends Base
 		$filename    = $sourceFile[5];
 		$destination = $source;
 
-		$size = getimagesize( $source );
+		// @since WP 5.7.0
+		if ( function_exists( 'wp_getimagesize' )
+			$size = wp_getimagesize( $source );
+
+		else
+			$size = getimagesize( $source );
 
 		$width  = $size[0];
 		$height = $size[1];

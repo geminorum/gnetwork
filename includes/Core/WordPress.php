@@ -547,6 +547,13 @@ class WordPress extends Base
 		), $extra ), get_bloginfo( 'url' ) );
 	}
 
+	public static function getTermShortLink( $term_id, $extra = array() )
+	{
+		return add_query_arg( array_merge( array(
+			't' => $term_id,
+		), $extra ), get_bloginfo( 'url' ) );
+	}
+
 	public static function getPostNewLink( $posttype, $extra = array() )
 	{
 		$args = 'post' == $posttype ? array() : array( 'post_type' => $posttype );

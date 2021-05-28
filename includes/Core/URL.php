@@ -75,6 +75,31 @@ class URL extends Base
 		);
 	}
 
+	// strips the #fragment from a URL, if one is present
+	// @REF: `strip_fragment_from_url()`
+	public static function stripFragment( $url )
+	{
+		$parsed = parse_url( $url );
+
+		if ( empty( $parsed['host'] ) )
+			return $url;
+
+		// this mirrors code in `redirect_canonical()`
+		// it does not handle every case
+		$url = $parsed['scheme'].'://'.$parsed['host'];
+
+		if ( ! empty( $parsed['port'] ) )
+			$url.= ':'.$parsed['port'];
+
+		if ( ! empty( $parsed['path'] ) )
+			$url.= $parsed['path'];
+
+		if ( ! empty( $parsed['query'] ) )
+			$url.= '?'.$parsed['query'];
+
+		return $url;
+	}
+
 	// will remove trailing forward and backslashes if it exists already before adding
 	// a trailing forward slash. This prevents double slashing a string or path.
 	// @SOURCE: `trailingslashit()`
