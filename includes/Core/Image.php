@@ -14,7 +14,7 @@ class Image extends Base
 		$destination = $source;
 
 		// @since WP 5.7.0
-		if ( function_exists( 'wp_getimagesize' )
+		if ( function_exists( 'wp_getimagesize' ) )
 			$size = wp_getimagesize( $source );
 
 		else
