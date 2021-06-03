@@ -48,7 +48,7 @@ class HTML extends Base
 	// @REF: https://web.dev/native-lazy-loading/
 	public static function img( $src, $class = '', $alt = '' )
 	{
-		return $src ? '<img src="'.$src.'" class="'.self::prepClass( $class ).'" alt="'.$alt.'" loading="lazy" />' : '';
+		return $src ? '<img src="'.$src.'" class="'.self::prepClass( $class ).'" alt="'.self::escape( $alt ).'" loading="lazy" />' : '';
 	}
 
 	public static function h1( $html, $class = FALSE, $link = FALSE )
