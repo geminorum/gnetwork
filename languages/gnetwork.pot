@@ -1,13 +1,13 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: gNetwork 3.13.1\n"
+"Project-Id-Version: gNetwork 3.14.0\n"
 "Report-Msgid-Bugs-To: https://github.com/geminorum/gnetwork/issues\n"
 "Last-Translator: NULL\n"
 "Language-Team: NULL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-05-28T22:26:33+00:00\n"
+"POT-Creation-Date: 2021-06-03T09:28:44+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: gnetwork\n"
@@ -238,102 +238,102 @@ msgctxt "Module Core: Menu Name"
 msgid "Console"
 msgstr ""
 
-#: includes/Module.php:1053
+#: includes/Module.php:1061
 msgctxt "Module Core: Settings"
 msgid "Miscellaneous"
 msgstr ""
 
-#: includes/Module.php:1058
+#: includes/Module.php:1066
 msgctxt "Module Core: Settings"
 msgid "Styling"
 msgstr ""
 
-#: includes/Module.php:1063
+#: includes/Module.php:1071
 msgctxt "Module Core: Settings"
 msgid "Administration"
 msgstr ""
 
-#: includes/Module.php:1068
+#: includes/Module.php:1076
 msgctxt "Module Core: Settings"
 msgid "Front-end"
 msgstr ""
 
-#: includes/Module.php:1073
+#: includes/Module.php:1081
 msgctxt "Module Core: Settings"
 msgid "Overrides"
 msgstr ""
 
-#: includes/Module.php:1078
+#: includes/Module.php:1086
 msgctxt "Module Core: Settings"
 msgid "Services"
 msgstr ""
 
-#: includes/Module.php:1083
+#: includes/Module.php:1091
 msgctxt "Module Core: Settings"
 msgid "Economics"
 msgstr ""
 
-#: includes/Module.php:1088
+#: includes/Module.php:1096
 msgctxt "Module Core: Settings"
 msgid "Redirects"
 msgstr ""
 
-#: includes/Module.php:1093
+#: includes/Module.php:1101
 msgctxt "Module Core: Settings"
 msgid "Login"
 msgstr ""
 
-#: includes/Module.php:1098
+#: includes/Module.php:1106
 msgctxt "Module Core: Settings"
 msgid "Sign-up"
 msgstr ""
 
-#: includes/Module.php:1103
+#: includes/Module.php:1111
 msgctxt "Module Core: Settings"
 msgid "Dashboard"
 msgstr ""
 
-#: includes/Module.php:1108
+#: includes/Module.php:1116
 msgctxt "Module Core: Settings"
 msgid "Admin-bar"
 msgstr ""
 
-#: includes/Module.php:1140
+#: includes/Module.php:1148
 msgctxt "Module Core"
 msgid "Debug"
 msgstr ""
 
-#: includes/Module.php:1172
+#: includes/Module.php:1180
 msgctxt "Module Core: Help Tab Title"
 msgid "Extra Shortcodes"
 msgstr ""
 
-#: includes/Module.php:1173
+#: includes/Module.php:1181
 msgctxt "Module Core: Help Tab Content"
 msgid "These are extra shortcodes provided by this module:"
 msgstr ""
 
-#: includes/Module.php:1180
+#: includes/Module.php:1188
 msgctxt "Module Core: Help Tab Title"
 msgid "Saved Options"
 msgstr ""
 
-#: includes/Module.php:1434
+#: includes/Module.php:1442
 msgctxt "Module Core"
 msgid "Please refresh the page to generate the data."
 msgstr ""
 
-#: includes/Module.php:1450
+#: includes/Module.php:1458
 msgctxt "Module Core: Title Action"
 msgid "Click to refresh the content"
 msgstr ""
 
-#: includes/Module.php:1451
+#: includes/Module.php:1459
 msgctxt "Module Core: Title Action"
 msgid "Refresh"
 msgstr ""
 
-#: includes/Module.php:1743
+#: includes/Module.php:1751
 msgctxt "Tablelist: Filter"
 msgid "Search"
 msgstr ""
