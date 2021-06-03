@@ -40,8 +40,8 @@
     "issues": "start https://github.com/geminorum/gnetwork/issues"
   },
   "devDependencies": {
-    "@wordpress/browserslist-config": "^4.0.0",
-    "@wordpress/stylelint-config": "^19.0.4",
+    "@wordpress/browserslist-config": "^4.0.1",
+    "@wordpress/stylelint-config": "^19.0.5",
     "autoprefixer": "^10.2.6",
     "browserslist": "^4.16.6",
     "cssnano": "^5.0.5",
