@@ -434,6 +434,14 @@ class Module extends Core\Base
 		}, $priority, 1 );
 	}
 
+	// USAGE: $this->filter_string( 'parent_file', 'options-general.php' );
+	protected function filter_string( $hook, $string, $priority = 10 )
+	{
+		add_filter( $hook, function( $first ) use( $string ){
+			return $string;
+		}, $priority, 1 );
+	}
+
 	protected static function sanitize_hook( $hook )
 	{
 		return trim( str_ireplace( [ '-', '.', '/' ], '_', $hook ) );
@@ -1544,7 +1552,7 @@ class Module extends Core\Base
 
 					$message = $e->getMessage();
 
-					if ( ! in_array( $message, [ 'Not Enabled!' ] ) )
+					if ( ! in_array( $message, [ 'Not Enabled!', 'Not on AJAX Calls!' ] ) )
 						Logger::DEBUG( vsprintf( '%s-DEBUG: provider: %s :: %s', [
 							strtoupper( $this->key ),
 							$provider,
