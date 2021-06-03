@@ -1,3 +1,25 @@
+### 3.14.0
+* assets/js: :up: PDFObject v2.2.5
+* assets/js: :up: prismjs 1.23.0
+* module/adminbar: :warning: custom adminbar callback
+* module/adminbar: link to all items posttypes
+* module/commerce: admin bar menu for shop and attributes
+* module/commerce: drop support for shetab cards
+* module/debug: additional tests on accessing the log files
+* module/dev: log canonical redirects
+* module/login: math problem on wc login form
+* module/media: disable space check on main site
+* module/notfound: :new: module
+* module/notfound: moved custom 404 page
+* module/notfound: sidebox with 404 location info
+* module/notfound: using correct hook for logging
+* module/rest: :new: module
+* module/search: :new: log search queries
+* module/taxonomy: :new: custom query for terms
+* module/taxonomy: filtering the term count before deletion
+* module/theme: :up: jquery versions
+* module/update: disable update tests on non main sites
+
 ### 3.13.1
 * main/logger: missing level for sites
 * main/logger: public actions to use for other plugins
