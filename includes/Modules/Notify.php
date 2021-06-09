@@ -321,11 +321,12 @@ class Notify extends gNetwork\Module
 		if ( is_wp_error( $key ) )
 			return;
 
-		$switched_locale = switch_to_locale( get_user_locale( $user ) );
+		$locale          = get_user_locale( $user );
+		$switched_locale = switch_to_locale( $locale );
 
 		$message = sprintf( __( 'Username: %s' ), $user->user_login )."\r\n\r\n";
 		$message.= __( 'To set your password, visit the following address:' )."\r\n\r\n";
-		$message.= '<'.network_site_url( "wp-login.php?action=rp&key=$key&login=".rawurlencode( $user->user_login ), 'login' ).">\r\n\r\n";
+		$message.= '<'.network_site_url( "wp-login.php?action=rp&key=$key&login=".rawurlencode( $user->user_login ).'&wp_lang='.$locale, 'login' ).">\r\n\r\n";
 		$message.= WordPress::loginURL()."\r\n";
 
 		$mail = [
