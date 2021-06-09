@@ -30,6 +30,7 @@ class Media extends gNetwork\Module
 		$this->action( 'init', 0, 999, 'late' );
 
 		$this->filter( 'upload_mimes' );
+		$this->filter( 'wp_editor_set_quality', 2, 12 );
 		// $this->filter( 'wp_check_filetype_and_ext', 4, 12 );
 
 		if ( function_exists( 'normalizer_normalize' ) )
@@ -71,6 +72,8 @@ class Media extends gNetwork\Module
 		return [
 			'tools_accesscap'     => 'edit_others_posts',
 			'skip_exifmeta'       => '1',
+			'quality_jpeg'        => 60,
+			'quality_webp'        => 75,
 			'dashboard_widget'    => '0',
 			'dashboard_accesscap' => 'edit_others_posts',
 			'dashboard_intro'     => '',
@@ -93,6 +96,28 @@ class Media extends gNetwork\Module
 					'title'       => _x( 'Strip EXIF', 'Modules: Media: Settings', 'gnetwork' ),
 					'description' => _x( 'Skips storing unused EXIF metadata for image attachments.', 'Modules: Media: Settings', 'gnetwork' ),
 					'default'     => '1',
+				],
+			],
+			'_quality' => [
+				[
+					'field'       => 'quality_jpeg',
+					'type'        => 'number',
+					'title'       => _x( 'JPEG Quality', 'Modules: Media: Settings', 'gnetwork' ),
+					'description' => _x( 'Sets the compression quality setting used for JPEG images.', 'Modules: Media: Settings', 'gnetwork' ),
+					'placeholder' => 90,
+					'default'     => 60,
+					'min_attr'    => 1,
+					'max_attr'    => 100,
+				],
+				[
+					'field'       => 'quality_webp',
+					'type'        => 'number',
+					'title'       => _x( 'WebP Quality', 'Modules: Media: Settings', 'gnetwork' ),
+					'description' => _x( 'Sets the compression quality setting used for WebP images.', 'Modules: Media: Settings', 'gnetwork' ),
+					'placeholder' => 90,
+					'default'     => 75,
+					'min_attr'    => 1,
+					'max_attr'    => 100,
 				],
 			],
 			'_uploader' => [
@@ -1359,6 +1384,16 @@ class Media extends gNetwork\Module
 			'epub'      => 'application/epub+zip', // 'application/octet-stream'
 			'bib'       => 'application/x-bibtex', // 'text/plain', // @REF: http://fileformats.archiveteam.org/wiki/BibTeX
 		] );
+	}
+
+	public function wp_editor_set_quality( $quality, $mime_type )
+	{
+		switch ( $mime_type ) {
+			case 'image/jpeg': return $this->options['quality_jpeg'] ?: $quality;
+			case 'image/webp': return $this->options['quality_webp'] ?: $quality;
+		}
+
+		return $quality;
 	}
 
 	// @REF: https://gist.github.com/rmpel/e1e2452ca06ab621fe061e0fde7ae150
