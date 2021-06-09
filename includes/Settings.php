@@ -586,8 +586,9 @@ class Settings extends Core\Base
 			'id_name_cb'   => FALSE, // id/name generator callback
 			'id_attr'      => FALSE, // override
 			'name_attr'    => FALSE, // override
-			'step_attr'    => '1', // for number type
-			'min_attr'     => '0', // for number type
+			'step_attr'    => '1', // for number type // FALSE to disable
+			'min_attr'     => '0', // for number type // FALSE to disable
+			'max_attr'     => FALSE, // for number type // FALSE to disable
 			'rows_attr'    => '5', // for textarea type
 			'cols_attr'    => '45', // for textarea type
 			'placeholder'  => FALSE,
@@ -812,8 +813,9 @@ class Settings extends Core\Base
 					'id'          => $id,
 					'name'        => $name,
 					'value'       => (int) $value,
-					'step'        => (int) $args['step_attr'],
-					'min'         => (int) $args['min_attr'],
+					'step'        => FALSE !== $args['step_attr'] ? (int) $args['step_attr'] : FALSE,
+					'min'         => FALSE !== $args['min_attr'] ? (int) $args['min_attr'] : FALSE,
+					'max'         => FALSE !== $args['max_attr'] ? (int) $args['max_attr'] : FALSE,
 					'class'       => HTML::attrClass( $args['field_class'], '-type-number' ),
 					'placeholder' => $args['placeholder'],
 					'disabled'    => $args['disabled'],
