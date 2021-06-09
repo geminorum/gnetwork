@@ -30,14 +30,14 @@ class CollectorCurrentObject extends \QM_Collector
 				$this->data['type']       = _x( 'Post', 'Modules: Debug: QM Collector Type', 'gnetwork' );
 				$this->data['object']     = get_post( $_GET['post'] );
 				$this->data['meta']       = get_post_meta( $_GET['post'] );
-				$this->data['taxonomies'] = get_object_taxonomies( $this->data['object'] );
+				$this->data['taxonomies'] = $this->_get_object_taxonomies( $this->data['object'], $_GET['post'] );
 
 			} else if ( 'term' == $screen->base ) {
 
 				$this->data['type']       = _x( 'Term', 'Modules: Debug: QM Collector Type', 'gnetwork' );
 				$this->data['object']     = get_term( $_GET['tag_ID'] );
 				$this->data['meta']       = get_term_meta( $_GET['tag_ID'] );
-				$this->data['taxonomies'] = get_object_taxonomies( $this->data['object']->taxonomy );
+				$this->data['taxonomies'] = $this->_get_object_taxonomies( $this->data['object']->taxonomy, $_GET['tag_ID'] );
 
 			} else if ( 'edit-tags' == $screen->base && $screen->taxonomy ) {
 
@@ -59,7 +59,7 @@ class CollectorCurrentObject extends \QM_Collector
 				$this->data['type']       = _x( 'User', 'Modules: Debug: QM Collector Type', 'gnetwork' );
 				$this->data['object']     = get_user_by( 'id', $user_id );
 				$this->data['meta']       = get_user_meta( $user_id );
-				$this->data['taxonomies'] = get_object_taxonomies( 'user' );
+				$this->data['taxonomies'] = $this->_get_object_taxonomies( 'user', $user_id );
 			}
 
 		} else if ( is_tax() || is_tag() || is_category() ) {
@@ -69,7 +69,7 @@ class CollectorCurrentObject extends \QM_Collector
 			$this->data['type']       = _x( 'Term', 'Modules: Debug: QM Collector Type', 'gnetwork' );
 			$this->data['object']     = get_term( $term_id );
 			$this->data['meta']       = get_term_meta( $term_id );
-			$this->data['taxonomies'] = get_object_taxonomies( $this->data['object']->taxonomy );
+			$this->data['taxonomies'] = $this->_get_object_taxonomies( $this->data['object']->taxonomy, $term_id );
 
 		} else if ( is_author() ) {
 
@@ -78,7 +78,7 @@ class CollectorCurrentObject extends \QM_Collector
 			$this->data['type']       = _x( 'User', 'Modules: Debug: QM Collector Type', 'gnetwork' );
 			$this->data['object']     = get_user_by( 'id', $user_id );
 			$this->data['meta']       = get_user_meta( $user_id );
-			$this->data['taxonomies'] = get_object_taxonomies( 'user' );
+			$this->data['taxonomies'] = $this->_get_object_taxonomies( 'user', $user_id );
 
 		} else if ( ! is_admin() && is_singular() ) {
 
@@ -87,21 +87,31 @@ class CollectorCurrentObject extends \QM_Collector
 			$this->data['type']       = _x( 'Post', 'Modules: Debug: QM Collector Type', 'gnetwork' );
 			$this->data['object']     = get_post( $post_id );
 			$this->data['meta']       = get_post_meta( $post_id );
-			$this->data['taxonomies'] = get_object_taxonomies( $this->data['object'] );
+			$this->data['taxonomies'] = $this->_get_object_taxonomies( $this->data['object'], $post_id );
 
 		} else if ( $post = get_post() ) {
 
 			$this->data['type']       = _x( 'Post', 'Modules: Debug: QM Collector Type', 'gnetwork' );
 			$this->data['object']     = $post;
 			$this->data['meta']       = get_post_meta( $post->ID );
-			$this->data['taxonomies'] = get_object_taxonomies( $this->data['object'] );
+			$this->data['taxonomies'] = $this->_get_object_taxonomies( $this->data['object'], $post->ID );
 
 		} else if ( ! empty( $_GET['post'] ) ) {
 
 			$this->data['type']       = _x( 'Post', 'Modules: Debug: QM Collector Type', 'gnetwork' );
 			$this->data['object']     = get_post( $_GET['post'] );
 			$this->data['meta']       = get_post_meta( $_GET['post'] );
-			$this->data['taxonomies'] = get_object_taxonomies( $this->data['object'] );
+			$this->data['taxonomies'] = $this->_get_object_taxonomies( $this->data['object'], $_GET['post'] );
 		}
+	}
+
+	private function _get_object_taxonomies( $type, $id )
+	{
+		$list = [];
+
+		foreach ( (array) get_object_taxonomies( $type ) as $taxonomy )
+			$list[$taxonomy] = get_the_terms( $id, $taxonomy );
+
+		return $list;
 	}
 }
