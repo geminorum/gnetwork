@@ -44,7 +44,7 @@ class Commerce extends gNetwork\Module
 	public function setup_menu( $context )
 	{
 		$this->register_menu( _x( 'Commerce', 'Modules: Menu Name', 'gnetwork' ) );
-		$this->register_tool( _x( 'Products', 'Modules: Menu Name', 'gnetwork' ), 'products' );
+		$this->register_tool( _x( 'Products', 'Modules: Menu Name', 'gnetwork' ), 'products', 12, 'edit_others_products' );
 	}
 
 	public function default_options()
