@@ -21,8 +21,8 @@ class User extends gNetwork\Module
 	{
 		$this->filter( 'authenticate', 3, 50 );
 
-		if ( $this->options['disable_apppass'] )
-			$this->filter_false( 'wp_is_application_passwords_available' );
+		if ( ! in_array( $this->options['apppass_accesscap'], [ '_member_of_network', '_member_of_site'] ) )
+			$this->filter( 'wp_is_application_passwords_available_for_user', 2, 9 );
 
 		if ( ! is_multisite() )
 			return TRUE;
@@ -74,13 +74,13 @@ class User extends gNetwork\Module
 	public function default_options()
 	{
 		return [
-			'site_user_id'    => '0', // GNETWORK_SITE_USER_ID
-			'site_user_role'  => 'editor', // GNETWORK_SITE_USER_ROLE
-			'disable_apppass' => '0',
-			'network_roles'   => '0',
-			'admin_user_edit' => '0',
-			'dashboard_sites' => '0',
-			'dashboard_menu'  => '0',
+			'site_user_id'      => '0', // GNETWORK_SITE_USER_ID
+			'site_user_role'    => 'editor', // GNETWORK_SITE_USER_ROLE
+			'apppass_accesscap' => is_multisite() ? '_member_of_network' : '_member_of_site',
+			'network_roles'     => '0',
+			'admin_user_edit'   => '0',
+			'dashboard_sites'   => '0',
+			'dashboard_menu'    => '0',
 		];
 	}
 
@@ -114,10 +114,11 @@ class User extends gNetwork\Module
 			];
 
 		$settings['_general'][] = [
-			'field'       => 'disable_apppass',
-			'type'        => 'disabled',
-			'title'       => _x( 'Application Passwords', 'Modules: User: Settings', 'gnetwork' ),
-			'description' => _x( 'Disables WordPress application passwords feature.', 'Modules: User: Settings', 'gnetwork' ),
+			'field'       => 'apppass_accesscap',
+			'type'        => 'cap',
+			'title'       => _x( 'Application Password Access', 'Modules: User: Settings', 'gnetwork' ),
+			'description' => _x( 'Selected and above can create Application Passwords.', 'Modules: User: Settings', 'gnetwork' ),
+			'default'     => $multisite ? '_member_of_network' : '_member_of_site',
 		];
 
 		if ( $multisite )
@@ -421,6 +422,18 @@ class User extends gNetwork\Module
 		// TODO
 		// add setting option for page
 		// display page content as over view
+	}
+
+	public function wp_is_application_passwords_available_for_user( $available, $user )
+	{
+		if ( 'none' == $this->options['apppass_accesscap'] )
+			return FALSE;
+
+		// no need: we check this before adding the filter
+		if ( in_array( $this->options['apppass_accesscap'], [ '_member_of_network', '_member_of_site'] ) )
+			return $available;
+
+		return user_can( $user, $this->options['apppass_accesscap'] );
 	}
 
 	// @REF: https://medium.com/@omarkasem/login-with-phone-number-in-woocommerce-wordpress-f7d6d07964d8
