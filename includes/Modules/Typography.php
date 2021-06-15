@@ -58,6 +58,7 @@ class Typography extends gNetwork\Module
 	public function default_options()
 	{
 		return [
+			'tools_accesscap'     => 'edit_others_posts',
 			'register_blocktypes' => '0',
 			'register_shortcodes' => '0',
 			'editor_buttons'      => '0',
@@ -75,6 +76,13 @@ class Typography extends gNetwork\Module
 	{
 		return [
 			'_general' => [
+				[
+					'field'       => 'tools_accesscap',
+					'type'        => 'cap',
+					'title'       => _x( 'Tools Access', 'Modules: Typography: Settings', 'gnetwork' ),
+					'description' => _x( 'Selected and above can access the typography tools.', 'Modules: Typography: Settings', 'gnetwork' ),
+					'default'     => 'edit_others_posts',
+				],
 				[
 					'field'       => 'persian_typography',
 					'title'       => _x( 'Persian Typography', 'Modules: Typography: Settings', 'gnetwork' ),
