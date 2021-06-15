@@ -266,6 +266,26 @@ class Typography extends gNetwork\Module
 				'callback' => function( $value, $row, $column, $index ){
 					return Utilities::getPostTitle( $row );
 				},
+				'actions' => function( $value, $row, $column, $index, $key, $args ){
+					$list = [];
+
+					if ( current_user_can( 'edit_post', $row->ID ) )
+						$list['edit'] = HTML::tag( 'a', [
+							'href'   => WordPress::getPostEditLink( $row->ID ),
+							'class'  => '-link -row-link -row-link-edit',
+							'data'   => [ 'id' => $row->ID, 'row' => 'edit' ],
+							'target' => '_blank',
+						], _x( 'Edit', 'Modules: Typography: Row Action', 'gnetwork' ) );
+
+					$list['view'] = HTML::tag( 'a', [
+						'href'   => WordPress::getPostShortLink( $row->ID ),
+						'class'  => '-link -row-link -row-link-view',
+						'data'   => [ 'id' => $row->ID, 'row' => 'view' ],
+						'target' => '_blank',
+					], _x( 'View', 'Modules: Typography: Row Action', 'gnetwork' ) );
+
+					return $list;
+				},
 			],
 		], $posts, [
 			'navigation' => 'before',
