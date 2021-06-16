@@ -88,7 +88,7 @@ class Media extends gNetwork\Module
 					'field'       => 'tools_accesscap',
 					'type'        => 'cap',
 					'title'       => _x( 'Tools Access', 'Modules: Media: Settings', 'gnetwork' ),
-					'description' => _x( 'Selected and above can view the image tools.', 'Modules: Media: Settings', 'gnetwork' ),
+					'description' => _x( 'Selected and above can access the image tools.', 'Modules: Media: Settings', 'gnetwork' ),
 					'default'     => 'edit_others_posts',
 				],
 				[
