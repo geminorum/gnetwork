@@ -416,6 +416,8 @@ class Taxonomy extends gNetwork\Module
 
 	private function handle_delete_terms( $taxonomy, $empty_only = TRUE, $include_default = FALSE )
 	{
+		global $wpdb;
+
 		$count = 0;
 		$terms = get_terms( [
 			'taxonomy'   => $taxonomy,
@@ -425,16 +427,23 @@ class Taxonomy extends gNetwork\Module
 			'update_term_meta_cache' => FALSE,
 		] );
 
-		foreach ( $terms as $term ) {
+		foreach ( $terms as $term_id ) {
 
-			// NOTE: we cannot rely on `count` data from the database
-			if ( $empty_only && $this->filters( 'term_count', $term->count, $term, $taxonomy ) )
-				continue;
+			// NOTE: we cannot rely on `count` data from the term query
+			// $objects = $this->filters( 'term_count', $term->count, $term, $taxonomy )
+
+			if ( $empty_only ) {
+
+				$objects = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->term_relationships} WHERE term_taxonomy_id = %d", $term_id ) );
+
+				if ( $objects )
+					continue;
+			}
 
 			// MAYBE: check `delete_term` cap for each term
 			// @SEE: https://wp.me/p2AvED-5kA
 
-			$deleted = wp_delete_term( $term->term_id, $term->taxonomy );
+			$deleted = wp_delete_term( $term_id, $taxonomy );
 
 			if ( $deleted && ! is_wp_error( $deleted ) )
 				$count++;
