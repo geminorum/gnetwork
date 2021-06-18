@@ -421,9 +421,12 @@ class Taxonomy extends gNetwork\Module
 		$count = 0;
 		$terms = get_terms( [
 			'taxonomy'   => $taxonomy,
-			'hide_empty' => FALSE,
 			'exclude'    => $include_default ? '' : get_option( $this->get_default_term_key( $taxonomy ), '' ),
+			'fields'     => 'ids',
+			'orderby'    => 'none',
+			'hide_empty' => FALSE,
 
+			'suppress_filter'        => TRUE,
 			'update_term_meta_cache' => FALSE,
 		] );
 
@@ -1351,7 +1354,11 @@ class Taxonomy extends gNetwork\Module
 				$child_terms = get_terms( [
 					'taxonomy'   => $taxonomy,
 					'child_of'   => $term_id,
-					'hide_empty' => FALSE
+					'hide_empty' => FALSE,
+					'orderby'    => 'none',
+
+					'suppress_filter'        => TRUE,
+					'update_term_meta_cache' => FALSE,
 				] );
 
 				$tt_ids = array_merge( $tt_ids, wp_list_pluck( $child_terms, 'term_taxonomy_id' ) );
