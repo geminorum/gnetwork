@@ -14,6 +14,7 @@ use geminorum\gNetwork\Core\Text;
 use geminorum\gNetwork\Core\Third;
 use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\WordPress\Media as WPMedia;
 
 class ShortCodes extends gNetwork\Module
 {
@@ -1192,7 +1193,7 @@ class ShortCodes extends gNetwork\Module
 				return NULL;
 
 			return $args['id']
-				? WordPress::htmlAttachmentShortLink( $args['id'], $args['string_view'] )
+				? WPMedia::htmlAttachmentShortLink( $args['id'], $args['string_view'] )
 				: HTML::link( $args['string_view'], $args['url'] );
 		}
 
@@ -1216,7 +1217,7 @@ class ShortCodes extends gNetwork\Module
 					$data   = $csv->data;
 
 				} else {
-					return $content ?: ( $args['string_view'] ? WordPress::htmlAttachmentShortLink( $args['id'], $args['string_view'] ) : NULL );
+					return $content ?: ( $args['string_view'] ? WPMedia::htmlAttachmentShortLink( $args['id'], $args['string_view'] ) : NULL );
 				}
 
 			} else {

@@ -120,6 +120,77 @@ class Media extends Core\Base
 		return $attachment;
 	}
 
+	public static function getUploadDirectory( $sub = '', $create = FALSE, $htaccess = TRUE )
+	{
+		$upload = wp_upload_dir( NULL, FALSE, FALSE );
+
+		if ( ! $sub )
+			return $upload['basedir'];
+
+		$folder = Core\File::join( $upload['basedir'], $sub );
+
+		if ( $create ) {
+
+			if ( ! is_dir( $folder ) || ! wp_is_writable( $folder ) ) {
+
+				if ( $htaccess )
+					Core\File::putHTAccessDeny( $folder, TRUE );
+				else
+					wp_mkdir_p( $folder );
+
+			} else if ( $htaccess && ! file_exists( $folder.'/.htaccess' ) ) {
+
+				Core\File::putHTAccessDeny( $folder, FALSE );
+			}
+
+			if ( ! wp_is_writable( $folder ) )
+				return FALSE;
+		}
+
+		return $folder;
+	}
+
+	public static function getUploadURL( $sub = '' )
+	{
+		$upload = wp_upload_dir( NULL, FALSE, FALSE );
+		$base   = Core\WordPress::isSSL() ? str_ireplace( 'http://', 'https://', $upload['baseurl'] ) : $upload['baseurl'];
+		return $sub ? $base.'/'.$sub : $base;
+	}
+
+	public static function getAttachments( $post_id, $mime_type = 'image' )
+	{
+		return get_children( array(
+			'post_mime_type' => $mime_type,
+			'post_parent'    => $post_id,
+			'post_type'      => 'attachment',
+			'post_status'    => 'inherit',
+			'numberposts'    => -1,
+			'orderby'        => 'menu_order',
+			'order'          => 'ASC',
+		) );
+	}
+
+	// TODO: get title if html is empty
+	public static function htmlAttachmentShortLink( $id, $html, $extra = '', $rel = 'attachment' )
+	{
+		return HTML::tag( 'a', [
+			'href'  => self::getPostShortLink( $id ),
+			'rel'   => $rel,
+			'class' => HTML::attrClass( $extra, '-attachment' ),
+			'data'  => [ 'id' => $id ],
+		], $html );
+	}
+
+	// @REF: https://pippinsplugins.com/retrieve-attachment-id-from-image-url/
+	public static function getAttachmentByURL( $url )
+	{
+		global $wpdb;
+
+		$attachment = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE guid='%s';", $url ) );
+
+		return empty( $attachment ) ? NULL : $attachment[0];
+	}
+
 	// @REF: https://wordpress.stackexchange.com/a/315447
 	public static function prepAttachmentData( $attachment_id )
 	{

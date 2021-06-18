@@ -14,6 +14,7 @@ use geminorum\gNetwork\Core\HTTP;
 use geminorum\gNetwork\Core\Text;
 use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\WordPress\Media as WPMedia;
 
 class Media extends gNetwork\Module
 {
@@ -544,7 +545,7 @@ class Media extends gNetwork\Module
 
 		$list = [];
 
-		foreach ( WordPress::getAttachments( $parent_id, $mime_type ) as $attachment ) {
+		foreach ( WPMedia::getAttachments( $parent_id, $mime_type ) as $attachment ) {
 
 			if ( ! $file = get_post_meta( $attachment->ID, '_wp_attached_file', TRUE ) )
 				continue;
@@ -905,7 +906,7 @@ class Media extends gNetwork\Module
 	{
 		$count = 0;
 
-		foreach ( WordPress::getAttachments( $post_id ) as $attachment )
+		foreach ( WPMedia::getAttachments( $post_id ) as $attachment )
 			if ( $this->clean_attachment( $attachment->ID, TRUE, $force ) )
 				$count++;
 
@@ -921,7 +922,7 @@ class Media extends gNetwork\Module
 
 		$clean = $moved = [];
 
-		foreach ( WordPress::getAttachments( $post->ID ) as $attachment ) {
+		foreach ( WPMedia::getAttachments( $post->ID ) as $attachment ) {
 			if ( $attached_file = get_post_meta( $attachment->ID, '_wp_attached_file', TRUE ) ) {
 				if ( ! str_replace( File::basename( $attached_file ), '', $attached_file ) ) {
 					$clean[$attachment->ID] = $attached_file;
@@ -932,7 +933,7 @@ class Media extends gNetwork\Module
 		if ( empty( $clean ) )
 			return TRUE;
 
-		$wpupload = WordPress::upload( $post );
+		$wpupload = WPMedia::upload( $post );
 
 		preg_match_all( '|<img.*?src=[\'"](.*?)[\'"].*?>|i', $post->post_content, $matches );
 
@@ -1240,7 +1241,7 @@ class Media extends gNetwork\Module
 	// @REF: `media_handle_upload()`
 	private function complete_upload( $filename, $metadata = FALSE )
 	{
-		$wpupload = WordPress::upload();
+		$wpupload = WPMedia::upload();
 
 		$file = sanitize_file_name( $filename );
 		$type = wp_check_filetype( $file );
@@ -1272,7 +1273,7 @@ class Media extends gNetwork\Module
 		if ( FALSE === ( $decoded = $this->decode_chunk( $data ) ) )
 			return _x( 'Something is wrong with data!', 'Modules: Media', 'gnetwork' );
 
-		$wpupload = WordPress::upload();
+		$wpupload = WPMedia::upload();
 
 		if ( FALSE !== $wpupload['error'] )
 			return _x( 'Can not access upload folders!', 'Modules: Media', 'gnetwork' );
@@ -1434,7 +1435,7 @@ class Media extends gNetwork\Module
 	public function image_send_to_editor( $html, $id, $caption, $title, $align, $url, $size, $alt )
 	{
 		if ( strpos( $url, 'attachment_id' ) || $url == get_attachment_link( $id ) )
-			return WordPress::htmlAttachmentShortLink( $id,
+			return WPMedia::htmlAttachmentShortLink( $id,
 				get_image_tag( $id, $alt, '', $align, $size ), '-image-link' );
 
 		return $html;
@@ -1450,16 +1451,16 @@ class Media extends gNetwork\Module
 
 			if ( 'text/csv' == $attachment->post_mime_type )
 				return '[csv id="'.$id.'"]'
-					.WordPress::htmlAttachmentShortLink( $id, $html ).'[/csv]';
+					.WPMedia::htmlAttachmentShortLink( $id, $html ).'[/csv]';
 
 			// WORKING BUT DISABLED: shortcode not supported, yet!
 			// if ( 'application/epub+zip' == $attachment->post_mime_type )
 			// 	return '[epub id="'.$id.'"]'
-			// 		.WordPress::htmlAttachmentShortLink( $id, $html ).'[/epub]';
+			// 		.WPMedia::htmlAttachmentShortLink( $id, $html ).'[/epub]';
 
 			if ( 'application/pdf' == $attachment->post_mime_type )
 				return '[pdf url="'.wp_get_attachment_url( $id ).'"]'
-					.WordPress::htmlAttachmentShortLink( $id, $html ).'[/pdf]';
+					.WPMedia::htmlAttachmentShortLink( $id, $html ).'[/pdf]';
 
 			// bail if no link
 			return $html;
@@ -1476,7 +1477,7 @@ class Media extends gNetwork\Module
 		// core media js is failing to set title for video/audio
 		$html = isset( $data['post_title'] ) ? $data['post_title'] : strip_tags( $html );
 
-		return WordPress::htmlAttachmentShortLink( $id, $html );
+		return WPMedia::htmlAttachmentShortLink( $id, $html );
 	}
 
 	public function wp_update_attachment_metadata( $data, $post_id )

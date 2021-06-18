@@ -593,78 +593,6 @@ class WordPress extends Base
 		return FALSE;
 	}
 
-	public static function upload( $post = FALSE )
-	{
-		if ( FALSE === $post )
-			return wp_upload_dir( NULL, FALSE, FALSE );
-
-		if ( ! $post = get_post( $post ) )
-			return wp_upload_dir( NULL, TRUE, FALSE );
-
-		if ( 'page' === $post->post_type )
-			return wp_upload_dir( NULL, TRUE, FALSE );
-
-		return wp_upload_dir( ( substr( $post->post_date, 0, 4 ) > 0 ? $post->post_date : NULL ), TRUE, FALSE );
-	}
-
-	public static function getUploadDirectory( $sub = '', $create = FALSE, $htaccess = TRUE )
-	{
-		$upload = wp_upload_dir( NULL, FALSE, FALSE );
-
-		if ( ! $sub )
-			return $upload['basedir'];
-
-		$folder = File::join( $upload['basedir'], $sub );
-
-		if ( $create ) {
-
-			if ( ! is_dir( $folder ) || ! wp_is_writable( $folder ) ) {
-
-				if ( $htaccess )
-					File::putHTAccessDeny( $folder, TRUE );
-				else
-					wp_mkdir_p( $folder );
-
-			} else if ( $htaccess && ! file_exists( $folder.'/.htaccess' ) ) {
-
-				File::putHTAccessDeny( $folder, FALSE );
-			}
-		}
-
-		return $folder;
-	}
-
-	public static function getUploadURL( $sub = '' )
-	{
-		$upload = wp_upload_dir( NULL, FALSE, FALSE );
-		$base   = is_ssl() ? str_ireplace( 'http://', 'https://', $upload['baseurl'] ) : $upload['baseurl'];
-		return $sub ? $base.'/'.$sub : $base;
-	}
-
-	public static function getAttachments( $post_id, $mime_type = 'image' )
-	{
-		return get_children( array(
-			'post_mime_type' => $mime_type,
-			'post_parent'    => $post_id,
-			'post_type'      => 'attachment',
-			'post_status'    => 'inherit',
-			'numberposts'    => -1,
-			'orderby'        => 'menu_order',
-			'order'          => 'ASC',
-		) );
-	}
-
-	// TODO: get title if html is empty
-	public static function htmlAttachmentShortLink( $id, $html, $extra = '', $rel = 'attachment' )
-	{
-		return HTML::tag( 'a', [
-			'href'  => self::getPostShortLink( $id ),
-			'rel'   => $rel,
-			'class' => HTML::attrClass( $extra, '-attachment' ),
-			'data'  => [ 'id' => $id ],
-		], $html );
-	}
-
 	public static function getPostTypes( $mod = 0, $args = array( 'public' => TRUE ) )
 	{
 		$list = array();
@@ -814,16 +742,6 @@ class WordPress extends Base
 			return TRUE;
 
 		return FALSE;
-	}
-
-	// @REF: https://pippinsplugins.com/retrieve-attachment-id-from-image-url/
-	public static function getAttachmentByURL( $url )
-	{
-		global $wpdb;
-
-		$attachment = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE guid='%s';", $url ) );
-
-		return empty( $attachment ) ? NULL : $attachment[0];
 	}
 
 	// @REF: `is_plugin_active()`

@@ -189,7 +189,7 @@ class Profile extends gNetwork\Module
 
 	public function settings_sidebox( $sub, $uri )
 	{
-		$wpupload = WordPress::upload();
+		$wpupload = WPMedia::upload();
 
 		if ( ! empty( $wpupload['error'] ) ) {
 
