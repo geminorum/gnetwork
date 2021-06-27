@@ -125,7 +125,7 @@ class Maintenance extends gNetwork\Module
 
 			/* translators: %s: maintenance page path */
 			HTML::desc( sprintf( _x( 'Current Layout: %s', 'Modules: Maintenance: Settings', 'gnetwork' ),
-				'<code>'.HTML::link( File::normalize( $layout ), URL::fromPath( $layout ), TRUE ).'</code>' ) );
+				HTML::tag( 'code', HTML::link( File::normalize( $layout ), URL::fromPath( $layout ), TRUE ) ) ) );
 
 		} else {
 

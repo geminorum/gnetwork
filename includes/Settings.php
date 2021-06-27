@@ -344,7 +344,7 @@ class Settings extends Core\Base
 				'tooltip'     => $title,
 				'tooltip-pos' => HTML::rtl() ? 'left' : 'right',
 			],
-		], '<code>'.$constant.'</code> : <code>'.constant( $constant ).'</code>' );
+		], HTML::tag( 'code', $constant ).' : '.HTML::tag( 'code', constant( $constant ) ) );
 	}
 
 	public static function fieldAfterLink( $link = '', $class = '' )
@@ -653,7 +653,7 @@ class Settings extends Core\Base
 			$value = constant( $args['constant'] );
 
 			$args['disabled'] = TRUE;
-			$args['after'] = '<code>'.$args['constant'].'</code>';
+			$args['after'] = HTML::tag( 'code', $args['constant'] );
 		}
 
 		if ( is_null( $args['cap'] ) ) {

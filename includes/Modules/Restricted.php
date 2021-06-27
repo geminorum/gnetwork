@@ -138,7 +138,7 @@ class Restricted extends gNetwork\Module
 
 			/* translators: %s: restricted page path */
 			HTML::desc( sprintf( _x( 'Current Layout: %s', 'Modules: Restricted: Settings', 'gnetwork' ),
-				'<code>'.HTML::link( File::normalize( $layout ), URL::fromPath( $layout ), TRUE ).'</code>' ) );
+				HTML::tag( 'code', HTML::link( File::normalize( $layout ), URL::fromPath( $layout ), TRUE ) ) ) );
 
 		} else {
 

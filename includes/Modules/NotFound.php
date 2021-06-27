@@ -73,7 +73,7 @@ class NotFound extends gNetwork\Module
 
 		/* translators: %s: notfound location */
 		HTML::desc( sprintf( _x( 'Current Location: %s', 'Modules: NotFound: Settings', 'gnetwork' ),
-			'<code>'.HTML::link( URL::relative( $location ), $location, TRUE ).'</code>' ) );
+			HTML::tag( 'code', HTML::link( URL::relative( $location ), $location, TRUE ) ) ) );
 	}
 
 	public function template_redirect()

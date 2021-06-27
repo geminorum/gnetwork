@@ -639,12 +639,12 @@ class Debug extends gNetwork\Module
 		HTML::h2( _x( 'System Versions', 'Modules: Debug', 'gnetwork' ) );
 
 		/* translators: %s: mysql version */
-		HTML::desc( sprintf( _x( 'Current MySQL version: %s', 'Modules: Debug', 'gnetwork' ), '<code>'.$GLOBALS['wpdb']->db_version().'</code>' ) );
+		HTML::desc( sprintf( _x( 'Current MySQL version: %s', 'Modules: Debug', 'gnetwork' ), HTML::tag( 'code', $GLOBALS['wpdb']->db_version() ) ) );
 
 		echo '<hr />';
 
 		/* translators: %s: php version */
-		HTML::desc( sprintf( _x( 'Current PHP version: %s', 'Modules: Debug', 'gnetwork' ), '<code>'.phpversion().'</code>' ) );
+		HTML::desc( sprintf( _x( 'Current PHP version: %s', 'Modules: Debug', 'gnetwork' ), HTML::tag( 'code', phpversion() ) ) );
 
 		echo HTML::listCode( self::getPHPExtensions(),
 			'<code title="%2$s">%1$s</code>',

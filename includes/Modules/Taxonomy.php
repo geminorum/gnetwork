@@ -421,7 +421,7 @@ class Taxonomy extends gNetwork\Module
 		$count = 0;
 		$terms = get_terms( [
 			'taxonomy'   => $taxonomy,
-			'exclude'    => $include_default ? '' : get_option( $this->get_default_term_key( $taxonomy ), '' ),
+			'exclude'    => $include_default ? '' : WPTaxonomy::getDefaultTermID( $taxonomy, '' ),
 			'fields'     => 'ids',
 			'orderby'    => 'none',
 			'hide_empty' => FALSE,
@@ -594,7 +594,7 @@ class Taxonomy extends gNetwork\Module
 
 				HTML::desc( _x( 'Confirm deletion of all terms by entering the taxonomy name.', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ) );
 
-				if ( $default = get_option( $this->get_default_term_key( $taxonomy ) ) ) {
+				if ( $default = WPTaxonomy::getDefaultTermID( $taxonomy ) ) {
 
 					$term = get_term( $default, $taxonomy );
 
@@ -619,6 +619,7 @@ class Taxonomy extends gNetwork\Module
 		$this->actions( 'tab_maintenance_content', $taxonomy, $object );
 	}
 
+	// FIXME: also add as bulk action to use on heavy counts
 	public function tab_maintenance_content_delete_empties( $taxonomy, $object )
 	{
 		if ( ! current_user_can( $object->cap->delete_terms ) )
@@ -627,6 +628,7 @@ class Taxonomy extends gNetwork\Module
 		echo $this->wrap_open( '-tab-tools-delete-empties card -toolbox-card' );
 			HTML::h4( _x( 'Delete Empties', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'title' );
 
+			// FIXME: write a proper method!
 			$empties = wp_count_terms( $taxonomy ) - wp_count_terms( $taxonomy, [ 'hide_empty' => TRUE ] );
 
 			if ( $empties ) {
@@ -671,9 +673,7 @@ class Taxonomy extends gNetwork\Module
 	{
 		echo $this->wrap_open( '-tab-extras-terms-stats card -toolbox-card' );
 			HTML::h4( _x( 'Terms Stats', 'Modules: Taxonomy: Tab Extra', 'gnetwork' ), 'title' );
-
-			HTML::desc( '<code>'.wp_count_terms( $taxonomy ).'</code>' );
-
+			HTML::desc( HTML::tag( 'code', wp_count_terms( $taxonomy ) ) );
 		echo '</div>';
 	}
 
@@ -694,7 +694,7 @@ class Taxonomy extends gNetwork\Module
 	// ACTION HOOK: `after_{$taxonomy}_table`
 	public function render_info_default_term( $taxonomy )
 	{
-		$default = get_option( $this->get_default_term_key( $taxonomy ) );
+		$default = WPTaxonomy::getDefaultTermID( $taxonomy );
 
 		if ( empty( $default ) )
 			return;
@@ -708,17 +708,6 @@ class Taxonomy extends gNetwork\Module
 		HTML::desc( sprintf( _x( 'The Default term for this taxonomy is &ldquo;%s&rdquo;.', 'Modules: Taxonomy: Info', 'gnetwork' ), '<i>'.$term->name.'</i>' ) );
 
 		return TRUE;
-	}
-
-	private function get_default_term_key( $taxonomy )
-	{
-		if ( 'category' == $taxonomy )
-			return 'default_category'; // WordPress
-
-		if ( 'product_cat' == $taxonomy )
-			return 'default_product_cat'; // WooCommerce
-
-		return 'default_term_'.$taxonomy;
 	}
 
 	public function edit_form_fields_editor( $tag, $taxonomy )
@@ -818,7 +807,7 @@ class Taxonomy extends gNetwork\Module
 				'merge',
 			];
 
-			$default = get_option( $this->get_default_term_key( $screen->taxonomy ) );
+			$default = WPTaxonomy::getDefaultTermID( $screen->taxonomy );
 
 			if ( ! empty( $default ) && ( $current = self::req( 'tag_ID' ) ) )
 				$excludes[] = $default == $current ? 'set_default' : 'unset_default';
@@ -908,7 +897,7 @@ class Taxonomy extends gNetwork\Module
 
 	public function edit_form_fields_default( $term, $taxonomy )
 	{
-		$default = get_option( $this->get_default_term_key( $taxonomy ) );
+		$default = WPTaxonomy::getDefaultTermID( $taxonomy );
 
 		if ( empty( $default ) )
 			return;
@@ -1289,7 +1278,7 @@ class Taxonomy extends gNetwork\Module
 	{
 		foreach ( $term_ids as $term_id ) {
 
-			update_option( $this->get_default_term_key( $taxonomy ), (int) $term_id );
+			update_option( WPTaxonomy::getDefaultTermOptionKey( $taxonomy ), (int) $term_id );
 
 			break; // only one can be default!
 		}
@@ -1299,7 +1288,7 @@ class Taxonomy extends gNetwork\Module
 
 	public function handle_unset_default( $term_ids, $taxonomy )
 	{
-		return delete_option( $this->get_default_term_key( $taxonomy ) );
+		return delete_option( WPTaxonomy::getDefaultTermOptionKey( $taxonomy ) );
 	}
 
 	public function handle_set_parent( $term_ids, $taxonomy )

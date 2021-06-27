@@ -207,16 +207,16 @@ class SMS extends gNetwork\Module
 		if ( is_array( $target ) ) {
 
 			foreach ( $target as $item )
-				$html.= '<code>'.HTML::tel( $item ).'</code>'.$suffix;
+				$html.= HTML::tag( 'code', HTML::tel( $item ) ).$suffix;
 
 		} else if ( Text::has( $target, ',' ) ) {
 
 			foreach ( explode( ',', $target ) as $item )
-				$html.= '<code>'.HTML::tel( $item ).'</code>'.$suffix;
+				$html.= HTML::tag( 'code', HTML::tel( $item ) ).$suffix;
 
 		} else if ( $target ) {
 
-			$html.= '<code>'.HTML::tel( $target ).'</code>'.$suffix;
+			$html.= HTML::tag( 'code', HTML::tel( $target ) ).$suffix;
 		}
 
 		return $html;

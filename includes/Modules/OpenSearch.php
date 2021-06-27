@@ -152,7 +152,7 @@ class OpenSearch extends gNetwork\Module
 
 			/* translators: %s: manifest url */
 			HTML::desc( sprintf( _x( 'Current Manifest: %s', 'Modules: OpenSearch: Settings', 'gnetwork' ),
-				'<code>'.HTML::link( URL::relative( $manifest ), $manifest ).'</code>' ) );
+				HTML::tag( 'code', HTML::link( URL::relative( $manifest ), $manifest ) ) ) );
 		} else {
 
 			HTML::desc( _x( 'There are no manifest available.', 'Modules: OpenSearch: Settings', 'gnetwork' ) );

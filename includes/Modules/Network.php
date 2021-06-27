@@ -328,7 +328,7 @@ class Network extends gNetwork\Module
 
 		return sprintf( $message,
 			Number::format( self::req( 'count', 0 ) ),
-			'<code>'.get_network_option( NULL, 'admin_email' ).'</code>'
+			HTML::tag( 'code', get_network_option( NULL, 'admin_email' ) )
 		);
 	}
 

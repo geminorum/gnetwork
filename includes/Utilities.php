@@ -681,7 +681,7 @@ class Utilities extends Core\Base
 			} else {
 
 				/* translators: %s: log folder path */
-				HTML::desc( sprintf( _x( 'Log folder exists and writable on: %s', 'Utilities', 'gnetwork' ), '<code>'.$constant.'</code>' ) );
+				HTML::desc( sprintf( _x( 'Log folder exists and writable on: %s', 'Utilities', 'gnetwork' ), HTML::tag( 'code', $constant ) ) );
 
 				if ( ! file_exists( $constant.'/.htaccess' ) )
 					/* translators: %s: .htaccess */

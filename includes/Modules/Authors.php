@@ -235,7 +235,7 @@ class Authors extends gNetwork\Module
 
 			/* translators: %s: user role */
 			HTML::desc( sprintf( _x( 'Default role for this site is: %s', 'Modules: Authors: Settings', 'gnetwork' ),
-				'<code>'.get_option( 'default_role' ).'</code>' ) );
+				HTML::tag( 'code', get_option( 'default_role' ) ) ) );
 		}
 	}
 

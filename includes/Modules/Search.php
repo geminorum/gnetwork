@@ -108,7 +108,7 @@ class Search extends gNetwork\Module
 
 		/* translators: %s: search page path */
 		HTML::desc( sprintf( _x( 'Current Page: %s', 'Modules: Search: Settings', 'gnetwork' ),
-			'<code>'.HTML::link( URL::relative( $page ), $page, TRUE ).'</code>' ) );
+			HTML::tag( 'code', HTML::link( URL::relative( $page ), $page, TRUE ) ) ) );
 	}
 
 	public function init()
