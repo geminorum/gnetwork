@@ -1286,7 +1286,11 @@ class HTML extends Base
 			'exclude'  => [],
 			'panel'    => FALSE, // wraps in `wp-tab-panel`
 			'values'   => FALSE, // appends values after titles
+			'item_tag' => NULL,
 		], $atts );
+
+		if ( is_null( $args['item_tag'] ) )
+			$args['item_tag'] = $args['panel'] ? 'li' : 'p';
 
 		foreach ( $list as $offset => $value ) {
 
@@ -1313,13 +1317,14 @@ class HTML extends Base
 				'checked'  => self::attrBoolean( $args['selected'], $key ),
 				'disabled' => self::attrBoolean( $args['disabled'], $key ),
 				'class'    => self::attrClass( $args['class'], '-type-checkbox' ),
+				'data'     => [ 'key' => $key ],
 			] );
 
 			if ( $args['values'] )
 				$title.= ' &mdash; <code>'.$key.'</code>';
 
 			$label = self::tag( 'label', [ 'for' => $args['id'].'-'.$key ], $input.$title );
-			$html .= self::tag( ( $args['panel'] ? 'li' : 'p' ), [ 'class' => [ 'description', '-description' ] ], $label );
+			$html .= $args['item_tag'] ? self::tag( $args['item_tag'], [ 'class' => [ 'description', '-description' ] ], $label ) : $label;
 		}
 
 		if ( $args['panel'] )

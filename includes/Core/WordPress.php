@@ -107,9 +107,33 @@ class WordPress extends Base
 		return wp_doing_cron(); // @since WP 4.8.0
 	}
 
+	// support if behind web proxy/balancer
+	// @REF: https://developer.wordpress.org/reference/functions/is_ssl/#comment-4265
 	public static function isSSL()
 	{
-		return is_ssl();
+		// cloudflare
+		if ( ! empty( $_SERVER['HTTP_CF_VISITOR'] ) ) {
+
+			$visitor = json_decode( $_SERVER['HTTP_CF_VISITOR'] );
+
+			if ( isset( $visitor->scheme )
+				&& 'https' === $visitor->scheme )
+					return TRUE;
+		}
+
+		// other proxy
+		if ( ! empty( $_SERVER['HTTP_X_FORWARDED_PROTO'] )
+			&& 'https' === $_SERVER['HTTP_X_FORWARDED_PROTO'] )
+				return TRUE;
+
+
+		return function_exists( 'is_ssl' ) ? is_ssl() : FALSE;
+	}
+
+	// @REF: `wc_site_is_https()`
+	public static function siteIsHTTPS()
+	{
+		return FALSE !== strstr( get_option( 'home' ), 'https:' );
 	}
 
 	public static function isCLI()

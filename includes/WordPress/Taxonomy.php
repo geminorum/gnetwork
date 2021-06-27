@@ -7,6 +7,22 @@ use geminorum\gNetwork\Core;
 class Taxonomy extends Core\Base
 {
 
+	public static function getDefaultTermID( $taxonomy, $fallback = FALSE )
+	{
+		return get_option( self::getDefaultTermOptionKey( $taxonomy ), $fallback );
+	}
+
+	public static function getDefaultTermOptionKey( $taxonomy )
+	{
+		if ( 'category' == $taxonomy )
+			return 'default_category'; // WordPress
+
+		if ( 'product_cat' == $taxonomy )
+			return 'default_product_cat'; // WooCommerce
+
+		return 'default_term_'.$taxonomy;
+	}
+
 	// @REF: `get_the_term_list()`
 	public static function getTheTermList( $taxonomy, $post = NULL, $before = '', $after = '' )
 	{

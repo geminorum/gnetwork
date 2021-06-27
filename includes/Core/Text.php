@@ -5,6 +5,7 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 class Text extends Base
 {
 
+	// FIXME: move this to Orthography module
 	public static function formatSlug( $string )
 	{
 		$string = (string) $string;
@@ -18,6 +19,8 @@ class Text extends Base
 
 		// remove arabic/persian accents
 		$string = preg_replace( "/[\x{0618}-\x{061A}\x{064B}-\x{065F}]+/u", '', $string );
+
+		// TODO: remove arabic question mark
 
 		$string = str_ireplace( [
 			"\xD8\x8C", // `،` // Arabic Comma
