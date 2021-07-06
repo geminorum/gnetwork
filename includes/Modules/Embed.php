@@ -193,8 +193,8 @@ class Embed extends gNetwork\Module
 			wp_embed_register_handler( 'instagram', '/https?\:\/\/(?:www.)?instagram.com\/p\/(.+)/', [ $this, 'handle_instagram' ] );
 
 		if ( $this->options['load_aparat'] ) {
-			wp_embed_register_handler( 'aparat', '#https?://(?:www)\.aparat\.com\/v\/(.*?)\/?$#i', [ $this, 'handle_aparat_video' ], 5 );
-			wp_embed_register_handler( 'aparat', '#https?://(?:www)\.aparat\.com\/(.*?)\/?$#i', [ $this, 'handle_aparat_channel' ], 20 );
+			wp_embed_register_handler( 'aparat', '#https?://(?:www.)?aparat\.com\/v\/(.*?)\/?$#i', [ $this, 'handle_aparat_video' ], 5 );
+			wp_embed_register_handler( 'aparat', '#https?://(?:www.)?aparat\.com\/(.*?)\/?$#i', [ $this, 'handle_aparat_channel' ], 20 );
 		}
 
 		if ( $this->options['load_kavimo'] )
@@ -269,7 +269,7 @@ class Embed extends gNetwork\Module
 	public function handle_aparat_video( $matches, $attr, $url, $rawattr )
 	{
 		$html = HTML::tag( 'iframe', [
-			'src'             => sprintf( 'https://www.aparat.com/video/video/embed/videohash/%s/vt/frame', $matches[1] ),
+			'src'             => sprintf( 'https://aparat.com/video/video/embed/videohash/%s/vt/frame', $matches[1] ),
 			'width'           => $attr['width'],
 			'height'          => isset( $rawattr['height'] ) ? $rawattr['height'] : (int) ( 9 * $attr['width'] / 16 ), // aparat is 16:9
 			'style'           => 'border:none',
@@ -291,7 +291,7 @@ class Embed extends gNetwork\Module
 
 		if ( FALSE === ( $html = get_site_transient( $key ) ) ) {
 
-			$rss = fetch_feed( sprintf( 'https://www.aparat.com/rss/%s', $matches[1] ) );
+			$rss = fetch_feed( sprintf( 'https://aparat.com/rss/%s', $matches[1] ) );
 
 			if ( self::isError( $rss ) ) {
 
@@ -322,11 +322,11 @@ class Embed extends gNetwork\Module
 				if ( empty( $title ) )
 					$title = _x( 'Untitled', 'Modules: Embed: Item With No Title', 'gnetwork' );
 
-				if ( ! preg_match( '#https?://(?:www)\.aparat\.com\/v\/(.*?)\/#i', $link, $results ) )
+				if ( ! preg_match( '#https?://(?:www.)?aparat\.com\/v\/(.*?)\/#i', $link, $results ) )
 					continue;
 
 				$video = HTML::tag( 'iframe', [
-					'src'             => sprintf( 'https://www.aparat.com/video/video/embed/videohash/%s/vt/frame', $results[1] ),
+					'src'             => sprintf( 'https://aparat.com/video/video/embed/videohash/%s/vt/frame', $results[1] ),
 					'width'           => $width,
 					'height'          => $height,
 					'style'           => 'border:none',
