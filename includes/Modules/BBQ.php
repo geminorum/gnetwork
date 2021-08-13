@@ -59,13 +59,23 @@ class BBQ extends gNetwork\Module
 			return $this->die_BBQ();
 		}
 
-		if (
-			preg_match( '/'.implode( '|', $request_uri_array ) .'/i', $request_uri_string,  $matches ) ||
-			preg_match( '/'.implode( '|', $query_string_array ).'/i', $query_string_string, $matches ) ||
-			preg_match( '/'.implode( '|', $user_agent_array )  .'/i', $user_agent_string,   $matches ) ||
-			preg_match( '/'.implode( '|', $referrer_array )    .'/i', $referrer_string,     $matches )
-		) {
-			Logger::siteFAILED( 'BBQ', sprintf( 'MATCHED: %s', $matches[0] ) );
+		if ( preg_match( '/'.implode( '|', $request_uri_array ) .'/i', $request_uri_string, $matches ) ) {
+			Logger::siteFAILED( 'BBQ', sprintf( 'MATCHED REQUEST URI: %s', $matches[0] ) );
+			$this->die_BBQ();
+		}
+
+		if ( preg_match( '/'.implode( '|', $query_string_array ).'/i', $query_string_string, $matches ) ) {
+			Logger::siteFAILED( 'BBQ', sprintf( 'MATCHED QUERY STRING: %s', $matches[0] ) );
+			$this->die_BBQ();
+		}
+
+		if ( preg_match( '/'.implode( '|', $user_agent_array ).'/i', $user_agent_string, $matches ) ) {
+			Logger::siteFAILED( 'BBQ', sprintf( 'MATCHED USER AGENT: %s', $matches[0] ) );
+			$this->die_BBQ();
+		}
+
+		if ( preg_match( '/'.implode( '|', $referrer_array ).'/i', $referrer_string, $matches ) ) {
+			Logger::siteFAILED( 'BBQ', sprintf( 'MATCHED REFERRER: %s', $matches[0] ) );
 			$this->die_BBQ();
 		}
 	}
