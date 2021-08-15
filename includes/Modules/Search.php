@@ -44,6 +44,9 @@ class Search extends gNetwork\Module
 			$this->filter( 'posts_search', 2, 99, 'titles_only' );
 		}
 
+		if ( '-' !== $this->options['exclusion_prefix'] )
+			$this->filter( 'wp_query_search_exclusion_prefix' );
+
 		$this->filter( 'get_search_form' );
 	}
 
@@ -60,6 +63,7 @@ class Search extends gNetwork\Module
 			'redirect_single'     => '1',
 			'linkify_hashtags'    => '0',
 			'register_shortcodes' => '0',
+			'exclusion_prefix'    => '-',
 		];
 	}
 
@@ -85,6 +89,18 @@ class Search extends gNetwork\Module
 					'title'       => _x( 'Included Taxonomies', 'Modules: Search: Settings', 'gnetwork' ),
 					'description' => _x( 'Terms from selected taxonomies will be included on search context.', 'Modules: Search: Settings', 'gnetwork' ),
 					'extra'       => [ 'public' => TRUE ],
+				],
+				[
+					'field'       => 'exclusion_prefix',
+					'type'        => 'radio',
+					'title'       => _x( 'Exclusion Prefix', 'Modules: Search: Settings', 'gnetwork' ),
+					'description' => _x( 'Filters the prefix that indicates that a search term should be excluded from results.', 'Modules: Search: Settings', 'gnetwork' ),
+					'default'     => '-',
+					'values'      => [
+						'-' => sprintf( _x( '%s Hyphen &ndash; Default WordPress character to exclude terms.', 'Modules: Search: Settings', 'gnetwork' ), HTML::tag( 'code', '-' ) ),
+						'!' => sprintf( _x( '%s Exclamation Mark &ndash; Using exclamation as exclude prfix.', 'Modules: Search: Settings', 'gnetwork' ), HTML::tag( 'code', '!' ) ),
+						'0' => _x( 'Disable Exclusion &ndash; Ignores exclude prefixes all together.', 'Modules: Search: Settings', 'gnetwork' ),
+					],
 				],
 				[
 					'field'       => 'redirect_single',
@@ -328,6 +344,11 @@ class Search extends gNetwork\Module
 	{
 		// prevent search bots from indexing search results
 		echo '<meta name="robots" content="noindex, nofollow" />'."\n";
+	}
+
+	public function wp_query_search_exclusion_prefix( $prefix )
+	{
+		return $this->options['exclusion_prefix'] ?: FALSE;
 	}
 
 	public function get_search_form( $form )
