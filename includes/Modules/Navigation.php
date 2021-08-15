@@ -9,6 +9,8 @@ use geminorum\gNetwork\Core\Text;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\WordPress\PostType as WPPostType;
+use geminorum\gNetwork\WordPress\Taxonomy as WPTaxonomy;
 
 class Navigation extends gNetwork\Module
 {
@@ -20,11 +22,21 @@ class Navigation extends gNetwork\Module
 	{
 		$this->filter( 'wp_nav_menu_items', 2, 20 );
 
-		if ( is_admin() )
+		if ( is_admin() ) {
+
 			$this->action( 'load-nav-menus.php' );
 
-		else
+			$this->filter( 'wp_setup_nav_menu_item', 1, 9, 'children' );
+			$this->action( 'wp_update_nav_menu_item', 3, 9, 'children' );
+			$this->action( 'wp_nav_menu_item_custom_fields', 5, 12, 'children' );
+
+		} else {
+
 			$this->filter( 'wp_setup_nav_menu_item' );
+
+			$this->filter( 'wp_setup_nav_menu_item', 1, 9, 'children' );
+			$this->filter( 'wp_get_nav_menu_items', 3, 9, 'children' );
+		}
 
 		if ( ! is_main_site() )
 			return;
@@ -422,6 +434,125 @@ class Navigation extends gNetwork\Module
 	private function get_public_profile_url()
 	{
 		return $this->filters( 'public_profile_url', get_edit_profile_url() );
+	}
+
+	public function wp_setup_nav_menu_item_children( $menu_item )
+	{
+		$menu_item->children = get_post_meta( $menu_item->ID, '_'.$this->hook( 'children' ), TRUE );
+
+		return $menu_item;
+	}
+
+	public function wp_update_nav_menu_item_children( $menu_id, $menu_item_db_id, $args )
+	{
+		if ( empty( $_REQUEST['menu-item-children'][$menu_item_db_id] ) )
+			delete_post_meta( $menu_item_db_id, '_'.$this->hook( 'children' ) );
+		else
+			update_post_meta( $menu_item_db_id, '_'.$this->hook( 'children' ), 1 );
+	}
+
+	// @REF: https://make.wordpress.org/core/2020/02/25/wordpress-5-4-introduces-new-hooks-to-add-custom-fields-to-menu-items/
+	public function wp_nav_menu_item_custom_fields_children( $item_id, $item, $depth, $args, $id )
+	{
+		if ( ! in_array( $item->type, [ 'post_type', 'taxonomy' ], TRUE ) )
+			return;
+
+		if ( 'post_type' == $item->type && ! WPPostType::object( $item->object )->hierarchical )
+			return;
+
+		if ( 'taxonomy' == $item->type && ! WPTaxonomy::object( $item->object )->hierarchical )
+			return;
+
+		echo '<fieldset class="description description-wide"><label for="edit-menu-item-children-'.$item_id.'">';
+			echo '<input type="checkbox" id="edit-menu-item-children-'.$item_id.'" value="1" name="menu-item-children['.$item_id.']"'.checked( $item->children, TRUE, FALSE ).' /> ';
+			_ex( 'Include Children as Sub-menu', 'Modules: Navigation', 'gnetwork' );
+		echo '</label></fieldset>';
+	}
+
+	public function wp_get_nav_menu_items_children( $items, $menu, $args )
+	{
+		$children = [];
+
+		foreach ( $items as $item_key => $item ) {
+
+			if ( empty( $item->children ) )
+				continue;
+
+			if ( 'post_type' === $item->type )
+				$children = array_merge( $children, $this->_get_page_children( $item ) );
+
+			else if ( 'taxonomy' === $item->type )
+				$children = array_merge( $children, $this->_get_term_children( $item ) );
+		}
+
+		return array_merge( $items, $children );
+	}
+
+	private function _get_page_children( $item )
+	{
+		$i     = 1;
+		$list  = [];
+		$pages = get_pages( [
+			'child_of'  => $item->object_id,
+			'post_type' => $item->object,
+			'order'     => 'ASC',
+			'orderby'   => 'menu_order',
+		] );
+
+		foreach ( $pages as $page ) {
+
+			$list[] = (object) [
+				'menu_item_parent' => $page->post_parent == $item->object_id ? $item->ID : $page->post_parent,
+				'object_id'        => $page->ID,
+				'object'           => $page->post_type,
+				'type'             => 'post_type',
+				'url'              => get_page_link( $page ),
+				'title'            => get_the_title( $page ),
+				'classes'          => [],
+				'menu_order'       => $i * $item->object_id, // most importante!
+				'target'           => '',
+				'xfn'              => '',
+				'ID'               => $page->ID,
+				'db_id'            => $page->ID,
+				'post_parent'      => $page->post_parent,
+			];
+
+			$i++;
+		}
+
+		return $list;
+	}
+
+	private function _get_term_children( $item )
+	{
+		$i     = 1;
+		$list  = [];
+		$terms = WPTaxonomy::listTerms( $item->object, 'all', [
+			'include' => get_term_children( $item->object_id, $item->object ),
+		] );
+
+		foreach ( $terms as $term ) {
+
+			$list[] = (object) [
+				'menu_item_parent' => $term->parent == $item->object_id ? $item->ID : $term->parent,
+				'object_id'        => $term->term_id,
+				'object'           => $term->taxonomy,
+				'type'             => 'taxonomy',
+				'url'              => get_term_link( $term ),
+				'title'            => sanitize_term_field( 'name', $term->name, $term->term_id, $term->taxonomy, 'display' ),
+				'classes'          => [],
+				'menu_order'       => $i * $item->object_id, // most importante!
+				'target'           => '',
+				'xfn'              => '',
+				'ID'               => $term->term_id,
+				'db_id'            => $term->term_id,
+				'post_parent'      => $term->parent,
+			];
+
+			$i++;
+		}
+
+		return $list;
 	}
 
 	public static function getGlobalMenu( $name, $items = TRUE )
