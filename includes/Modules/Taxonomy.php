@@ -1293,7 +1293,7 @@ class Taxonomy extends gNetwork\Module
 
 	public function handle_set_parent( $term_ids, $taxonomy )
 	{
-		$parent_id = $_REQUEST['parent'];
+		$parent_id = self::req( $this->classs( 'parent-id' ) );
 
 		foreach ( $term_ids as $term_id ) {
 			if ( $term_id == $parent_id )
@@ -1312,19 +1312,20 @@ class Taxonomy extends gNetwork\Module
 	{
 		global $wpdb;
 
-		$new_tax = $_POST['new_tax'];
+		$old_tax = $taxonomy;
+		$new_tax = self::req( $this->classs( 'new-taxonomy' ) );
 
 		if ( ! taxonomy_exists( $new_tax ) )
 			return FALSE;
 
-		if ( $new_tax == $taxonomy )
+		if ( $new_tax == $old_tax )
 			return FALSE;
 
 		$tt_ids = [];
 
 		foreach ( $term_ids as $term_id ) {
 
-			$term = get_term( $term_id, $taxonomy );
+			$term = get_term( $term_id, $old_tax );
 
 			if ( ! $term || self::isError( $term ) )
 				continue;
@@ -1338,10 +1339,10 @@ class Taxonomy extends gNetwork\Module
 
 			$tt_ids[] = $term->term_taxonomy_id;
 
-			if ( is_taxonomy_hierarchical( $taxonomy ) ) {
+			if ( is_taxonomy_hierarchical( $old_tax ) ) {
 
 				$child_terms = get_terms( [
-					'taxonomy'   => $taxonomy,
+					'taxonomy'   => $old_tax,
 					'child_of'   => $term_id,
 					'hide_empty' => FALSE,
 					'orderby'    => 'none',
@@ -1360,14 +1361,14 @@ class Taxonomy extends gNetwork\Module
 			UPDATE {$wpdb->term_taxonomy} SET taxonomy = %s WHERE term_taxonomy_id IN ({$tt_ids})
 		", $new_tax ) );
 
-		if ( is_taxonomy_hierarchical( $taxonomy )
+		if ( is_taxonomy_hierarchical( $old_tax )
 			&& ! is_taxonomy_hierarchical( $new_tax ) )
 				$wpdb->query( "UPDATE {$wpdb->term_taxonomy} SET parent = 0 WHERE term_taxonomy_id IN ({$tt_ids})" );
 
-		clean_term_cache( $tt_ids, $taxonomy );
-		clean_term_cache( $tt_ids, $new_tax );
+		clean_term_cache( $tt_ids, $old_tax, FALSE );
+		clean_term_cache( $tt_ids, $new_tax, FALSE );
 
-		$this->actions( 'term_changed_taxonomy', $tt_ids, $new_tax, $taxonomy );
+		$this->actions( 'term_changed_taxonomy', $tt_ids, $new_tax, $old_tax );
 
 		return TRUE;
 	}
@@ -1416,7 +1417,7 @@ class Taxonomy extends gNetwork\Module
 		$args = current_user_can( 'import' ) ?  [] : [ 'show_ui' => TRUE ];
 		$list = get_taxonomies( $args, 'objects' );
 
-		echo '<select class="postform" name="new_tax">';
+		echo '<select class="postform" name="'.$this->classs( 'new-taxonomy' ).'">';
 
 		foreach ( $list as $new_tax => $tax_obj ) {
 
@@ -1434,7 +1435,7 @@ class Taxonomy extends gNetwork\Module
 		wp_dropdown_categories( [
 			'hide_empty'       => 0,
 			'hide_if_empty'    => FALSE,
-			'name'             => 'parent',
+			'name'             => $this->classs( 'parent-id' ),
 			'orderby'          => 'name',
 			'taxonomy'         => $taxonomy,
 			'hierarchical'     => TRUE,
