@@ -445,6 +445,11 @@ class User extends gNetwork\Module
 		if ( ! $mobile = WPUser::getObjectbyMeta( 'mobile', $username ) )
 			return $user;
 
+		$mobile = apply_filters( 'wp_authenticate_user', $mobile, $password );
+
+		if ( is_wp_error( $mobile ) )
+			return $mobile;
+
 		if ( wp_check_password( $password, $mobile->user_pass, $mobile->ID ) )
 			return $mobile;
 
