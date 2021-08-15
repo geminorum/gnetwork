@@ -138,7 +138,10 @@ class Orthography extends Base
 
 	public static function translatePersianNumbers( $string )
 	{
-		return strtr( $string, self::pairsPersianNumbers() );
+		$string = strtr( $string, self::pairsArabicNumbersBack() ); // arabic to english
+		$string = strtr( $string, self::pairsPersianNumbers() ); // english to persian
+
+		return $string;
 	}
 
 	private static function pairsPersianNumbers()
@@ -155,6 +158,14 @@ class Orthography extends Base
 			'8' => chr(0xDB).chr(0xB8),
 			'9' => chr(0xDB).chr(0xB9),
 		);
+	}
+
+	public static function translateNumbersBack( $string )
+	{
+		$string = strtr( $string, self::pairsArabicNumbersBack() ); // arabic to english
+		$string = strtr( $string, self::pairsPersianNumbersBack() ); // persian to english
+
+		return $string;
 	}
 
 	public static function translatePersianNumbersBack( $string )
@@ -175,6 +186,27 @@ class Orthography extends Base
 			chr(0xDB).chr(0xB7) => '7',
 			chr(0xDB).chr(0xB8) => '8',
 			chr(0xDB).chr(0xB9) => '9',
+		);
+	}
+
+	public static function translateArabicNumbersBack( $string )
+	{
+		return strtr( $string, self::pairsArabicNumbersBack() );
+	}
+
+	private static function pairsArabicNumbersBack()
+	{
+		return array(
+			chr(0xD9).chr(0xA0) => '0',
+			chr(0xD9).chr(0xA1) => '1',
+			chr(0xD9).chr(0xA2) => '2',
+			chr(0xD9).chr(0xA3) => '3',
+			chr(0xD9).chr(0xA4) => '4',
+			chr(0xD9).chr(0xA5) => '5',
+			chr(0xD9).chr(0xA6) => '6',
+			chr(0xD9).chr(0xA7) => '7',
+			chr(0xD9).chr(0xA8) => '8',
+			chr(0xD9).chr(0xA9) => '9',
 		);
 	}
 

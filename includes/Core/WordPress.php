@@ -478,6 +478,9 @@ class WordPress extends Base
 
 		foreach ( $wpdb->get_results( $query, ARRAY_A ) as $blog ) {
 
+			if ( ! $blog )
+				continue;
+
 			$siteurl = FALSE;
 
 			if ( $retrieve_url )

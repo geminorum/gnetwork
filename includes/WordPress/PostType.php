@@ -7,6 +7,11 @@ use geminorum\gNetwork\Core;
 class PostType extends Core\Base
 {
 
+	public static function object( $posttype )
+	{
+		return is_object( $posttype ) ? $posttype : get_post_type_object( $posttype );
+	}
+
 	// * 'publish' - a published post or page
 	// * 'pending' - post is pending review
 	// * 'draft' - a post in draft status
