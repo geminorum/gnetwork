@@ -342,7 +342,7 @@ class Search extends gNetwork\Module
 	// also overrided for strings!
 	public function search_form()
 	{
-		$html = '<form role="search" method="get" class="search-form" action="'.GNETWORK_SEARCH_URL.'">';
+		$html = '<form role="search" method="get" class="search-form" action="'.esc_url( GNETWORK_SEARCH_URL ).'">';
 			$html.= '<label><span class="screen-reader-text">'._x( 'Search for:', 'Modules: Search: Form: Label', 'gnetwork' ).'</span>';
 			$html.= '<input type="search" class="search-field" placeholder="'.esc_attr_x( 'Search &hellip;', 'Modules: Search: Form: Placeholder', 'gnetwork' );
 			$html.= '" value="'.get_search_query().'" name="'.GNETWORK_SEARCH_QUERYID.'" />';

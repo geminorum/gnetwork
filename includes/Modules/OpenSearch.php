@@ -303,7 +303,7 @@ class OpenSearch extends gNetwork\Module
 
 		if ( GNETWORK_SEARCH_REDIRECT ) {
 
-			$xml.= "\t".HTML::tag( 'moz:SearchForm', GNETWORK_SEARCH_URL )."\n";
+			$xml.= "\t".HTML::tag( 'moz:SearchForm', esc_url( GNETWORK_SEARCH_URL ) )."\n";
 
 		} else {
 
@@ -314,21 +314,22 @@ class OpenSearch extends gNetwork\Module
 
 			$xml.= "\t".HTML::tag( 'Url', [
 				'type'     => 'application/atom+xml',
-				'template' => add_query_arg( [
+				'template' => esc_url( add_query_arg( [
 					'feed'                  => 'atom',
 					GNETWORK_SEARCH_QUERYID => '{searchTerms}',
-				], GNETWORK_SEARCH_URL ),
+				], GNETWORK_SEARCH_URL ) ),
 			] )."\n";
 
 			$xml.= "\t".HTML::tag( 'Url', [
 				'type'     => 'application/rss+xml',
-				'template' => add_query_arg( [
+				'template' => esc_url( add_query_arg( [
 					'feed'                  => 'rss2',
 					GNETWORK_SEARCH_QUERYID => '{searchTerms}',
-				], GNETWORK_SEARCH_URL ),
+				], GNETWORK_SEARCH_URL ) ),
 			] )."\n";
 
 			if ( $this->options['suggestions'] ) {
+
 				$xml.= "\t".HTML::tag( 'Url', [
 					// 'type'     => 'application/json',
 					'type'     => 'application/x-suggestions+json',
@@ -352,7 +353,7 @@ class OpenSearch extends gNetwork\Module
 		$xml.= "\t".HTML::tag( 'Url', [
 			'type'     => 'text/html',
 			'method'   => 'get',
-			'template' => $url,
+			'template' => esc_url( $url ),
 		] )."\n";
 
 		$xml.= "\t".HTML::tag( 'Url', [

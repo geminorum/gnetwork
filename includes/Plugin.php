@@ -24,7 +24,7 @@ class Plugin extends Base
 			// 'GNETWORK_BLACKLIST_REMOTE_CONTENT' => 'https://gist.githubusercontent.com/{user}/{gist_id}/raw', // define if necessary
 
 			'GNETWORK_SEARCH_REDIRECT'       => FALSE, // set TRUE to redirect all searches to the network search url
-			'GNETWORK_SEARCH_URL'            => esc_url( home_url( '/' ) ),
+			'GNETWORK_SEARCH_URL'            => home_url( '/' ),
 			'GNETWORK_SEARCH_QUERYID'        => 's',
 			'GNETWORK_BP_EXCLUDEUSERS'       => FALSE, // comma separated ids of users whom you want to exclude
 			'GNETWORK_ADMINBAR'              => TRUE, // disable admin bar for non caps, like: 'edit_others_posts'
