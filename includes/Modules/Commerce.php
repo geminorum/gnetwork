@@ -288,7 +288,7 @@ class Commerce extends gNetwork\Module
 			'status' => [
 				'title'    => _x( 'Status', 'Modules: Commerce: Column Title', 'gnetwork' ),
 				'args'     => [ 'statuses' => WPPost::getStatuses() ],
-				'callback' => function( $value, $row, $column, $index ){
+				'callback' => static function( $value, $row, $column, $index, $key, $args ) {
 					if ( ! $product = wc_get_product( $row->ID ) )
 						return Utilities::htmlEmpty();
 
@@ -302,7 +302,7 @@ class Commerce extends gNetwork\Module
 			],
 			'stock' => [
 				'title'    => _x( 'Stock', 'Modules: Commerce: Column Title', 'gnetwork' ),
-				'callback' => function( $value, $row, $column, $index ){
+				'callback' => static function( $value, $row, $column, $index, $key, $args ) {
 					if ( ! $product = wc_get_product( $row->ID ) )
 						return Utilities::htmlEmpty();
 
@@ -312,7 +312,7 @@ class Commerce extends gNetwork\Module
 			],
 			'title' => [
 				'title'    => _x( 'Title', 'Modules: Commerce: Column Title', 'gnetwork' ),
-				'callback' => function( $value, $row, $column, $index ){
+				'callback' => static function( $value, $row, $column, $index, $key, $args ) {
 					return Utilities::getPostTitle( $row );
 				},
 			],

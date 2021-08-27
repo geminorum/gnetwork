@@ -568,7 +568,7 @@ class Mail extends gNetwork\Module
 			'info' => [
 				'title'    => _x( 'Whom, When', 'Modules: Mail: Email Logs Table Column', 'gnetwork' ),
 				'class'    => '-column-info',
-				'callback' => function( $value, $row, $column, $index ){
+				'callback' => static function( $value, $row, $column, $index, $key, $args ) {
 					$html = '';
 
 					if ( ! empty( $row['to'] ) ) {
@@ -632,7 +632,7 @@ class Mail extends gNetwork\Module
 
 					return HTML::wrap( $html, '-info' );
 				},
-				'actions' => function( $value, $row, $column, $index, $key, $args ){
+				'actions' => function( $value, $row, $column, $index, $key, $args ) {
 
 					return [
 						'download' => HTML::tag( 'a', [
@@ -651,7 +651,7 @@ class Mail extends gNetwork\Module
 			'content' => [
 				'title'    => _x( 'What', 'Modules: Mail: Email Logs Table Column', 'gnetwork' ),
 				'class'    => '-column-content',
-				'callback' => function( $value, $row, $column, $index ){
+				'callback' => static function( $value, $row, $column, $index, $key, $args ) {
 					$content   = '';
 					$direction = empty( $row['rtl'] ) ? '' : ' style="direction:rtl"';
 
@@ -661,7 +661,7 @@ class Mail extends gNetwork\Module
 
 					if ( ! empty( $row['message'] ) ) {
 
-						if ( $this->hasHeader( $row, 'Content-Type: text/html' ) )
+						if ( self::hasHeader( $row, 'Content-Type: text/html' ) )
 							$content.= '<div'.$direction.'>'.$row['message'].'</div>';
 						else
 							$content.= '<div'.$direction.'>'.wpautop( make_clickable( nl2br( $row['message'] ) ) ).'</div>';
@@ -678,7 +678,7 @@ class Mail extends gNetwork\Module
 		] );
 	}
 
-	private function hasHeader( $mail, $needle )
+	private static function hasHeader( $mail, $needle )
 	{
 		if ( empty( $mail['headers'] ) )
 			return FALSE;

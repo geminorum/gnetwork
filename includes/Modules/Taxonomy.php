@@ -112,7 +112,7 @@ class Taxonomy extends gNetwork\Module
 		if ( 'edit-tags' == $screen->base
 			|| 'term' == $screen->base ) {
 
-			add_filter( 'admin_body_class', function( $classes ) {
+			add_filter( 'admin_body_class', static function( $classes ) {
 				return $classes.' gnetowrk-taxonomy';
 			} );
 

@@ -59,7 +59,7 @@ class Extend extends gNetwork\Module
 		return HTML::tableList( [
 			'site' => [
 				'title'    => _x( 'Site', 'Modules: Extend', 'gnetwork' ),
-				'callback' => function( $value, $row, $column, $index ) {
+				'callback' => static function( $value, $row, $column, $index, $key, $args ) {
 					return '<code title="'.HTML::escape( $row['blogname'] ).'">'.
 						URL::untrail( $row['_site']->domain.$row['_site']->path ).
 					'</code>';
@@ -72,7 +72,7 @@ class Extend extends gNetwork\Module
 			'plugins' => [
 				'title'    => _x( 'Plugins', 'Modules: Extend', 'gnetwork' ),
 				'class'    => '-extend-plugins -has-list -has-list-ltr',
-				'callback' => function( $value, $row, $column, $index ) {
+				'callback' => static function( $value, $row, $column, $index, $key, $args ) {
 					$list = [];
 
 					foreach ( (array) $value as $path ) {

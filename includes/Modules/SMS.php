@@ -125,7 +125,7 @@ class SMS extends gNetwork\Module
 			'info' => [
 				'title'    => _x( 'Whom, When', 'Modules: SMS: Data Logs Table Column', 'gnetwork' ),
 				'class'    => '-column-info',
-				'callback' => function( $value, $row, $column, $index ){
+				'callback' => static function( $value, $row, $column, $index, $key, $args ) {
 					$html = $target = '';
 
 					if ( ! empty( $row['type'] ) && 'received' == $row['type'] && ! empty( $row['from'] ) )
@@ -134,7 +134,7 @@ class SMS extends gNetwork\Module
 					else if ( ! empty( $row['to'] ) )
 						$target = $row['to'];
 
-					$html.= $this->parseLogTarget( $target );
+					$html.= self::parseLogTarget( $target );
 
 					if ( ! empty( $row['timestamp'] ) )
 						$html.= '&ndash; '.Utilities::htmlHumanTime( $row['timestamp'] );
@@ -151,7 +151,7 @@ class SMS extends gNetwork\Module
 
 					return $html;
 				},
-				'actions' => function( $value, $row, $column, $index, $key, $args ){
+				'actions' => function( $value, $row, $column, $index, $key, $args ) {
 
 					return [
 						'download' => HTML::tag( 'a', [
@@ -170,7 +170,7 @@ class SMS extends gNetwork\Module
 			'content' => [
 				'title'    => _x( 'What', 'Modules: SMS: Data Logs Table Column', 'gnetwork' ),
 				'class'    => '-column-content',
-				'callback' => function( $value, $row, $column, $index ){
+				'callback' => static function( $value, $row, $column, $index, $key, $args ) {
 					$content   = $target = '';
 					$direction = empty( $row['rtl'] ) ? '' : ' style="direction:rtl"';
 
@@ -180,7 +180,7 @@ class SMS extends gNetwork\Module
 					else if ( ! empty( $row['from'] ) )
 						$target = $row['from'];
 
-					$content.= $this->parseLogTarget( $target, '<hr />' );
+					$content.= self::parseLogTarget( $target, '<hr />' );
 
 					if ( ! empty( $row['message'] ) )
 						$content.= '<div'.$direction.'>'.Text::autoP(
@@ -197,7 +197,7 @@ class SMS extends gNetwork\Module
 		] );
 	}
 
-	private function parseLogTarget( $target, $suffix = ' ' )
+	private static function parseLogTarget( $target, $suffix = ' ' )
 	{
 		$html = '';
 

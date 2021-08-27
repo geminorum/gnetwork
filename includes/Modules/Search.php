@@ -97,7 +97,9 @@ class Search extends gNetwork\Module
 					'description' => _x( 'Filters the prefix that indicates that a search term should be excluded from results.', 'Modules: Search: Settings', 'gnetwork' ),
 					'default'     => '-',
 					'values'      => [
+						/* translators: %s: prefix char */
 						'-' => sprintf( _x( '%s Hyphen &ndash; Default WordPress character to exclude terms.', 'Modules: Search: Settings', 'gnetwork' ), HTML::tag( 'code', '-' ) ),
+						/* translators: %s: prefix char */
 						'!' => sprintf( _x( '%s Exclamation Mark &ndash; Using exclamation as exclude prfix.', 'Modules: Search: Settings', 'gnetwork' ), HTML::tag( 'code', '!' ) ),
 						'0' => _x( 'Disable Exclusion &ndash; Ignores exclude prefixes all together.', 'Modules: Search: Settings', 'gnetwork' ),
 					],

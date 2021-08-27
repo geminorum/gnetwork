@@ -49,7 +49,7 @@ class Utilities extends Core\Base
 	{
 		$pattern = '/\[([^\]]+)\]/';
 
-		return preg_replace_callback( $pattern, function( $matches ) {
+		return preg_replace_callback( $pattern, static function( $matches ) {
 			return '<b><span title="'.HTML::escape( self::humanTimeAgo( strtotime( $matches[1] ) ) ).'">['.$matches[1].']</span></b>';
 		}, $string, $limit );
 	}
@@ -59,7 +59,7 @@ class Utilities extends Core\Base
 		// @REF: http://regexr.com/35833
 		$pattern = "/((((25[0-5])|(2[0-4]\d)|([01]?\d?\d)))\.){3}((((25[0-5])|(2[0-4]\d)|([01]?\d?\d))))/i";
 
-		return preg_replace_callback( $pattern, function( $matches ) {
+		return preg_replace_callback( $pattern, static function( $matches ) {
 			return gnetwork_ip_lookup( $matches[0] );
 		}, $string, $limit );
 	}
@@ -392,7 +392,7 @@ class Utilities extends Core\Base
 
 			'loader'          => new \Mustache_Loader_FilesystemLoader( $base.'assets/views' ),
 			'partials_loader' => new \Mustache_Loader_FilesystemLoader( $base.'assets/views/partials' ),
-			'escape'          => function( $value ) {
+			'escape'          => static function( $value ) {
 				return htmlspecialchars( $value, ENT_COMPAT, 'UTF-8' );
 			},
 		] );
@@ -717,7 +717,7 @@ class Utilities extends Core\Base
 		$i    = 0;
 		$logs = [];
 
-		usort( $files, function( $a, $b ) {
+		usort( $files, static function( $a, $b ) {
 			return filemtime( $b ) - filemtime( $a );
 		} );
 

@@ -161,7 +161,7 @@ class Code extends gNetwork\Module
 	{
 		$pattern = '/\[\[(.*?)\]\]/u';
 
-		return preg_replace_callback( $pattern, function( $match ) use( $repo ){
+		return preg_replace_callback( $pattern, static function( $match ) use ( $repo ) {
 
 			$slug = $text = $match[1];
 
@@ -187,7 +187,7 @@ class Code extends gNetwork\Module
 			'readme.txt',
 		];
 
-		return preg_replace_callback( $pattern, function( $matches ) use( $files, $repo, $branch ){
+		return preg_replace_callback( $pattern, static function( $matches ) use ( $files, $repo, $branch ) {
 
 			if ( in_array( strtolower( $matches[2] ), $files ) )
 				return '<a href="https://github.com/'.$repo.'/blob/'.$branch.'/'.$matches[2].'" class="-github-link" data-repo="'.$repo.'">'.$matches[3].'</a>';

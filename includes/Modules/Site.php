@@ -396,7 +396,7 @@ class Site extends gNetwork\Module
 			remove_action( 'wp_head', 'wpmu_signup_stylesheet' );
 
 			if ( ! $disable_styles )
-				add_action( 'wp_head', function(){
+				add_action( 'wp_head', static function() {
 					Utilities::linkStyleSheet( 'front.signup' );
 				} );
 
@@ -405,7 +405,7 @@ class Site extends gNetwork\Module
 			remove_action( 'wp_head', 'wpmu_activate_stylesheet' );
 
 			if ( ! $disable_styles )
-				add_action( 'wp_head', function(){
+				add_action( 'wp_head', static function() {
 					Utilities::linkStyleSheet( 'front.activate' );
 				} );
 		}

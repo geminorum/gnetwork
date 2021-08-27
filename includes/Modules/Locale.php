@@ -164,7 +164,7 @@ class Locale extends gNetwork\Module
 			$target = GNETWORK_DIR.'assets/locale/core/dist'.str_ireplace( File::normalize( WP_LANG_DIR ), '', $normalized );
 
 		else if ( $this->bypass_domain( $domain, 'script' ) )
-			return $filtered[$locale][$domain][$handle] = $file; // do nothing!
+			return $file; // do nothing! NOTE: must not cache this here!
 
 		else
 			$target = GNETWORK_DIR.'assets/locale/'.File::basename( $normalized );

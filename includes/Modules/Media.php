@@ -355,7 +355,7 @@ class Media extends gNetwork\Module
 
 			'date' => [
 				'title'    => _x( 'Date', 'Modules: Media: Column Title', 'gnetwork' ),
-				'callback' => function( $value, $row, $column, $index ){
+				'callback' => static function( $value, $row, $column, $index, $key, $args ) {
 					return Utilities::humanTimeDiffRound( strtotime( $row->post_date ) );
 				},
 			],
@@ -363,7 +363,7 @@ class Media extends gNetwork\Module
 			'type' => [
 				'title'    => _x( 'Type', 'Modules: Media: Column Title', 'gnetwork' ),
 				'args'     => [ 'post_types' => WordPress::getPostTypes( 2 ) ],
-				'callback' => function( $value, $row, $column, $index ){
+				'callback' => static function( $value, $row, $column, $index, $key, $args ) {
 					return isset( $column['args']['post_types'][$row->post_type] )
 						? $column['args']['post_types'][$row->post_type]
 						: $row->post_type;
@@ -377,12 +377,12 @@ class Media extends gNetwork\Module
 					'admin' => admin_url( 'post.php' ),
 					'ajax'  => admin_url( 'admin-ajax.php' ),
 				],
-				'callback' => function( $value, $row, $column, $index ){
+				'callback' => static function( $value, $row, $column, $index, $key, $args ) {
 					return Utilities::getPostTitle( $row )
 						.get_the_term_list( $row->ID, 'post_tag',
 							'<div><small>', ', ', '</small></div>' );
 				},
-				'actions' => function( $value, $row, $column, $index, $key, $args ){
+				'actions' => function( $value, $row, $column, $index, $key, $args ) {
 					$query = [
 						'post_id' => $row->ID,
 						'action'  => $this->hook(),
@@ -433,7 +433,7 @@ class Media extends gNetwork\Module
 				'title'    => _x( 'Attached Media', 'Modules: Media: Column Title', 'gnetwork' ),
 				'class'    => '-attached-media -has-list -has-list-ltr',
 				'args'     => [ 'wpupload' => wp_get_upload_dir() ],
-				'callback' => function( $value, $row, $column, $index ){
+				'callback' => static function( $value, $row, $column, $index, $key, $args ) {
 
 					// TODO: check for all attachment types, use wp icons
 					// TODO: attachment title as attr
@@ -495,7 +495,7 @@ class Media extends gNetwork\Module
 			'content' => [
 				'title'    => _x( 'In Content', 'Modules: Media: Column Title', 'gnetwork' ),
 				'class'    => '-media-in-content -has-list -has-list-ltr',
-				'callback' => function( $value, $row, $column, $index ){
+				'callback' => static function( $value, $row, $column, $index, $key, $args ) {
 
 					preg_match_all( '|<img.*?src=[\'"](.*?)[\'"].*?>|i', $row->post_content, $matches );
 

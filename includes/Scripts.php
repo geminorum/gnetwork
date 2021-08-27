@@ -53,12 +53,12 @@ class Scripts extends Core\Base
 			];
 
 		foreach ( (array) $actions as $action )
-			add_action( $action, function() use ( $url, $handle ) {
+			add_action( $action, static function() use ( $url, $handle ) {
 				wp_enqueue_style( $handle, $url, [], NULL );
 			} );
 
 		if ( $integrity )
-			add_filter( 'style_loader_tag', function( $html, $registered ) use ( $handle, $integrity ) {
+			add_filter( 'style_loader_tag', static function( $html, $registered ) use ( $handle, $integrity ) {
 				return $registered == $handle
 					? preg_replace( '/\/>$/', sprintf( 'integrity="%s" crossorigin="anonymous" />', $integrity ), $html, 1 )
 					: $html;

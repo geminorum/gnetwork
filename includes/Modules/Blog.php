@@ -43,7 +43,7 @@ class Blog extends gNetwork\Module
 
 			if ( $this->options['thrift_mode'] ) {
 
-				// add_action( 'admin_init', function(){
+				// add_action( 'admin_init', static function() {
 				// 	// when there are a lot of terms
 				// 	wp_deregister_script( 'suggest' );
 				// } );
@@ -55,7 +55,7 @@ class Blog extends gNetwork\Module
 			}
 
 			if ( $this->options['disable_pointers'] )
-				add_action( 'admin_init', function(){
+				add_action( 'admin_init', static function() {
 					remove_action( 'admin_enqueue_scripts', [ 'WP_Internal_Pointers', 'enqueue_scripts' ] );
 				} );
 
@@ -497,12 +497,12 @@ class Blog extends gNetwork\Module
 			remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );
 			remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
 
-			add_filter( 'tiny_mce_plugins', function( $plugins ) {
+			add_filter( 'tiny_mce_plugins', static function( $plugins ) {
 				return is_array( $plugins ) ? array_diff( $plugins, [ 'wpemoji' ] ) : [];
 			} );
 
 			// strip out any URLs referencing the WordPress.org emoji location
-			add_filter( 'wp_resource_hints', function( $urls, $relation_type ) {
+			add_filter( 'wp_resource_hints', static function( $urls, $relation_type ) {
 
 				if ( 'dns-prefetch' != $relation_type )
 					return $urls;
@@ -536,7 +536,7 @@ class Blog extends gNetwork\Module
 			}
 
 			if ( 'default' != $this->options['heartbeat_frequency'] )
-				add_filter( 'heartbeat_settings', function( $settings ){
+				add_filter( 'heartbeat_settings', function( $settings ) {
 					return array_merge( $settings, [ 'interval' => (int) $this->options['heartbeat_frequency'] ] );
 				} );
 
