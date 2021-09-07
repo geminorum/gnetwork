@@ -669,14 +669,26 @@ class Debug extends gNetwork\Module
 
 		HTML::h2( _x( 'Extra', 'Modules: Debug', 'gnetwork' ) );
 
-		if ( function_exists( 'fastcgi_finish_request' ) )
-			/* translators: %s: function placeholder */
-			HTML::desc( sprintf( _x( '%s available!', 'Modules: Debug', 'gnetwork' ), '<code>fastcgi_finish_request</code>' ), TRUE, '-available -color-success' );
-		else
-			/* translators: %s: function placeholder */
-			HTML::desc( sprintf( _x( '%s not available!', 'Modules: Debug', 'gnetwork' ), '<code>fastcgi_finish_request</code>' ), TRUE, '-not-available -color-danger' );
+		foreach ( [
+			'finfo_file',
+			'getimagesize',
+			'mime_content_type',
+			'fastcgi_finish_request',
+		] as $function )
+			self::functionExists( $function );
 
 		echo '</div>';
+	}
+
+	public static function functionExists( $function )
+	{
+		if ( function_exists( $function ) )
+			/* translators: %s: function placeholder */
+			HTML::desc( sprintf( _x( '%s available!', 'Modules: Debug', 'gnetwork' ), '<code>'.$function.'</code>' ), TRUE, '-available -color-success' );
+
+		else
+			/* translators: %s: function placeholder */
+			HTML::desc( sprintf( _x( '%s not available!', 'Modules: Debug', 'gnetwork' ), '<code>'.$function.'</code>' ), TRUE, '-not-available -color-danger' );
 	}
 
 	public static function getPHPExtensions()
