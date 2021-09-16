@@ -9,6 +9,7 @@ use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\HTTP;
 use geminorum\gNetwork\Core\Number;
 use geminorum\gNetwork\Core\Text;
+use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
 
 class Utilities extends Core\Base
@@ -746,5 +747,29 @@ class Utilities extends Core\Base
 		$pagination = HTML::tablePagination( count( $files ), $pages, $limit, $paged );
 
 		return [ $logs, $pagination ];
+	}
+
+	public static function getCacheDIR( $sub, $base = NULL )
+	{
+		if ( ! GNETWORK_CACHE_DIR )
+			return FALSE;
+
+		if ( is_null( $base ) )
+			$base = self::BASE;
+
+		$path = File::normalize( GNETWORK_CACHE_DIR.( $base ? '/'.$base.'/' : '/' ).$sub );
+
+		return wp_mkdir_p( $path ) ? URL::untrail( $path ) : FALSE;
+	}
+
+	public static function getCacheURL( $sub, $base = NULL )
+	{
+		if ( ! GNETWORK_CACHE_DIR ) // correct, we check for path constant
+			return FALSE;
+
+		if ( is_null( $base ) )
+			$base = self::BASE;
+
+		return URL::untrail( GNETWORK_CACHE_URL.( $base ? '/'.$base.'/' : '/' ).$sub );
 	}
 }

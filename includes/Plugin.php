@@ -30,8 +30,11 @@ class Plugin extends Base
 			'GNETWORK_ADMINBAR'              => TRUE, // disable admin bar for non caps, like: 'edit_others_posts'
 			'GNETWORK_ADMINBAR_LOGIN'        => TRUE, // disable admin bar login/register nodes
 			'GNETWORK_ADMIN_JS_ENHANCEMENTS' => TRUE, // autoresize textarea and more...
-			'GNETWORK_CACHE_TTL'             => 60 * 60 * 12, // 12 hours
 			'GNETWORK_REDIRECT_404_URL'      => home_url( '/not-found' ),
+
+			'GNETWORK_CACHE_DIR' => WP_CONTENT_DIR.'/cache', // FALSE to disable
+			'GNETWORK_CACHE_URL' => WP_CONTENT_URL.'/cache',
+			'GNETWORK_CACHE_TTL' => 60 * 60 * 12, // 12 hours
 
 			'GNETWORK_NETWORK_NAVIGATION'    => 'network_navigation', // menu on the main site for network navigation
 			'GNETWORK_NETWORK_ADMINBAR'      => 'network_adminbar', // menu on the main site for adminbar navigation
