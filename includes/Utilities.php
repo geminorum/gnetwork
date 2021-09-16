@@ -2,6 +2,7 @@
 
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
+use geminorum\gNetwork\Core\DataCode;
 use geminorum\gNetwork\Core\Date;
 use geminorum\gNetwork\Core\Error;
 use geminorum\gNetwork\Core\File;
@@ -771,5 +772,40 @@ class Utilities extends Core\Base
 			$base = self::BASE;
 
 		return URL::untrail( GNETWORK_CACHE_URL.( $base ? '/'.$base.'/' : '/' ).$sub );
+	}
+
+	public static function getQRCode( $data, $type = 'text', $size = 300, $tag = FALSE, $cache = TRUE, $sub = 'qrcodes', $base = NULL )
+	{
+		if ( ! GNETWORK_CACHE_DIR )
+			$cache = FALSE;
+
+		switch ( $type ) {
+			case 'url'    : $prepared = DataCode::prepDataURL( $data ); break;
+			case 'email'  : $prepared = DataCode::prepDataEmail( is_array( $data ) ? $data : [ 'email' => $data ] ); break;
+			case 'phone'  : $prepared = DataCode::prepDataPhone( $data ); break;
+			case 'sms'    : $prepared = DataCode::prepDataSMS( is_array( $data ) ? $data : [ 'mobile' => $data ] ); break;
+			case 'contact': $prepared = DataCode::prepDataContact( is_array( $data ) ? $data : [ 'name' => $data ] ); break;
+			default       : $prepared = trim( $data ); break;
+		}
+
+		if ( ! $cache )
+			return Core\Third::getGoogleQRCode( $prepared, [ 'tag' => $tag, 'size' => $size ] );
+
+		$file = sprintf( '%s-%s.png', md5( maybe_serialize( $prepared ) ), $size );
+		$path = self::getCacheDIR( $sub, $base ).'/'.$file;
+		$url  = self::getCacheURL( $sub, $base ).'/'.$file;
+
+		if ( file_exists( $path.'/'.$file ) )
+			return $url;
+
+		if ( ! DataCode::cacheQRCode( $prepared, $path, $size ) )
+			return $tag ? '' : FALSE;
+
+		return $tag ? HTML::tag( 'img', [
+			'src'    => $url,
+			'width'  => $size,
+			'height' => $size,
+			'alt'    => '', // strip_tags( $data ),
+		] ) : $url;
 	}
 }
