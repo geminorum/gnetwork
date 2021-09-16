@@ -760,7 +760,15 @@ class Utilities extends Core\Base
 
 		$path = File::normalize( GNETWORK_CACHE_DIR.( $base ? '/'.$base.'/' : '/' ).$sub );
 
-		return wp_mkdir_p( $path ) ? URL::untrail( $path ) : FALSE;
+		if ( file_exists( $path ) )
+			return URL::untrail( $path );
+
+		if ( ! wp_mkdir_p( $path ) )
+			return FALSE;
+
+		FILE::putIndexHTML( $path, GNETWORK_DIR.'index.html' );
+
+		return URL::untrail( $path );
 	}
 
 	public static function getCacheURL( $sub, $base = NULL )
