@@ -24,6 +24,9 @@ class BuddyPressMe extends \BP_Component
 		add_filter( 'gnetwork_navigation_loggedin_items', [ $this, 'navigation_loggedin_items' ] );
 		add_filter( 'gnetwork_navigation_public_profile_url', [ $this, 'navigation_public_profile_url' ], 12, 4 );
 		add_filter( 'gnetwork_navigation_logout_url', [ $this, 'navigation_logout_url' ], 12, 4 );
+
+		add_filter( 'wp_sitemaps_posts_query_args', [ $this, 'wp_sitemaps_posts_query_args' ], 12, 2 );
+		add_filter( 'wpseo_exclude_from_sitemap_by_post_ids', [ $this, 'wpseo_exclude_from_sitemap_by_post_ids' ], 12 );
 	}
 
 	// @REF: https://buddypress.trac.wordpress.org/ticket/6325
@@ -163,5 +166,25 @@ class BuddyPressMe extends \BP_Component
 	public function navigation_logout_url( $logout_url )
 	{
 		return $this->url( 'logout' );
+	}
+
+	public function wp_sitemaps_posts_query_args( $args, $post_type )
+	{
+		if ( 'page' !== $post_type )
+			return $args;
+
+		if ( ! array_key_exists( 'post__not_in', $args ) )
+			$args['post__not_in'] = [];
+
+		$args['post__not_in'][] = bp_core_get_directory_page_id( $this->id );
+
+		return $args;
+	}
+
+	public function wpseo_exclude_from_sitemap_by_post_ids( $excluded_posts_ids )
+	{
+		$excluded_posts_ids[] = bp_core_get_directory_page_id( $this->id );
+
+		return $excluded_posts_ids;
 	}
 }
