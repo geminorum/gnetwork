@@ -22,6 +22,8 @@ class NotFound extends gNetwork\Module
 		if ( $this->options['page_404'] ) {
 			add_filter( '404_template', [ $this, 'custom_404_template' ] );
 			$this->filter( 'template_include', 1, 99, 'custom_404' );
+			$this->filter( 'wp_sitemaps_posts_query_args', 2, 12 );
+			$this->filter( 'wpseo_exclude_from_sitemap_by_post_ids', 1, 12 );
 		}
 
 		if ( ! GNETWORK_NOTFOUND_LOG )
@@ -137,5 +139,27 @@ class NotFound extends gNetwork\Module
 		}
 
 		return $template;
+	}
+
+	// @REF: https://perishablepress.com/customize-wordpress-sitemaps/
+	public function wp_sitemaps_posts_query_args( $args, $post_type )
+	{
+		if ( 'page' !== $post_type )
+			return $args;
+
+		if ( ! array_key_exists( 'post__not_in', $args ) )
+			$args['post__not_in'] = [];
+
+		$args['post__not_in'][] = (int) $this->options['page_404'];
+
+		return $args;
+	}
+
+	// @REF: https://preventdirectaccess.com/5-ways-remove-pages-from-sitemap/
+	public function wpseo_exclude_from_sitemap_by_post_ids( $excluded_posts_ids )
+	{
+		$excluded_posts_ids[] = (int) $this->options['page_404'];
+
+		return $excluded_posts_ids;
 	}
 }
