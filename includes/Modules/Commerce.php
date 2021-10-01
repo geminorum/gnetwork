@@ -34,6 +34,7 @@ class Commerce extends gNetwork\Module
 			$this->action( 'woocommerce_account_purchased-products_endpoint' );
 		}
 
+		$this->filter( 'exclude_from_sitemap_by_post_ids', 1, 12, FALSE, 'wpseo' ); // @REF: https://github.com/Yoast/wpseo-woocommerce/pull/260
 		$this->filter_false( 'woocommerce_allow_marketplace_suggestions' ); // @REF: https://wp.me/pBMYe-n1W
 
 		if ( ! defined( 'GNETWORK_WPLANG' ) )
@@ -967,5 +968,18 @@ class Commerce extends gNetwork\Module
 
 			HTML::desc( _x( 'Nothing purchased yet.', 'Modules: Commerce', 'gnetwork' ) );
 		}
+	}
+
+	// adds the page ids from the WooCommerce core pages to the excluded post ids on Yoast Sitemaps
+	public function exclude_from_sitemap_by_post_ids( $excluded_posts_ids )
+	{
+		if ( ! function_exists( 'wc_get_page_id' ) )
+			return $excluded_posts_ids;
+
+		return array_merge( $excluded_posts_ids, array_filter( [
+			wc_get_page_id( 'cart' ),
+			wc_get_page_id( 'checkout' ),
+			wc_get_page_id( 'myaccount' ),
+		] ) );
 	}
 }
