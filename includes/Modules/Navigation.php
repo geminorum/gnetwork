@@ -366,6 +366,10 @@ class Navigation extends gNetwork\Module
 				if ( $menu_item->url && Text::start( $matches[1], 'site-' ) )
 					break;
 
+				// via filter customs
+				if ( $menu_item->url && Text::start( $matches[1], 'custom-' ) )
+					break;
+
 				// all other nav items are specific to the logged-in user,
 				// and so are not relevant to logged-out users
 
