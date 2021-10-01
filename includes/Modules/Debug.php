@@ -1054,7 +1054,8 @@ class Debug extends gNetwork\Module
 			echo '><head>'."\n";
 			echo '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />'."\n";
 			echo '<meta name="viewport" content="width=device-width">'."\n";
-			echo '<meta name="robots" content="noindex,nofollow" />'."\n";
+			echo '<meta name="robots" content="noindex, noarchive" />'."\n";
+			echo '<meta name="referrer" content="strict-origin-when-cross-origin" />'."\n";
 
 			echo '<title>'.$title.'</title>'."\n";
 

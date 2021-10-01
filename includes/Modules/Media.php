@@ -433,7 +433,7 @@ class Media extends gNetwork\Module
 				'title'    => _x( 'Attached Media', 'Modules: Media: Column Title', 'gnetwork' ),
 				'class'    => '-attached-media -has-list -has-list-ltr',
 				'args'     => [ 'wpupload' => wp_get_upload_dir() ],
-				'callback' => static function( $value, $row, $column, $index, $key, $args ) {
+				'callback' => function( $value, $row, $column, $index, $key, $args ) {
 
 					// TODO: check for all attachment types, use wp icons
 					// TODO: attachment title as attr

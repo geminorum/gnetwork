@@ -345,7 +345,7 @@ class Search extends gNetwork\Module
 	public function wp_head()
 	{
 		// prevent search bots from indexing search results
-		echo '<meta name="robots" content="noindex, nofollow" />'."\n";
+		echo '<meta name="robots" content="noindex, noarchive" />'."\n";
 	}
 
 	public function wp_query_search_exclusion_prefix( $prefix )

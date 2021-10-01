@@ -16,6 +16,7 @@ class SiteIcon extends \WP_Widget
 				'description' => _x( 'Site Icon', 'Widget: Description', 'gnetwork' ),
 
 				'customize_selective_refresh' => TRUE,
+				'show_instance_in_rest'       => TRUE,
 			]
 		);
 	}

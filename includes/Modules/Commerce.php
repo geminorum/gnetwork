@@ -827,6 +827,7 @@ class Commerce extends gNetwork\Module
 		$this->woocommerce_save_account_details( $customer_id );
 	}
 
+	// MAYBE move to persiandate
 	public function woocommerce_process_myaccount_field_shipping_postcode( $value )
 	{
 		return Number::intval( $value, FALSE );

@@ -14,6 +14,8 @@ class NavigationMenu extends \WP_Widget
 			[
 				'classname'   => 'gnetwork-wrap-widget -navmenu-widget',
 				'description' => _x( 'Global Navigation Menus', 'Widget: Description', 'gnetwork' ),
+
+				'show_instance_in_rest' => TRUE,
 			]
 		);
 	}

@@ -701,8 +701,9 @@ class Blog extends gNetwork\Module
 		if ( $this->options['meta_revised'] && $singular )
 			echo '<meta name="revised" content="'.get_post_modified_time( 'D, m M Y G:i:s', TRUE ).'" />'."\n";
 
+		// @SEE: `wp_sensitive_page_meta()`
 		if ( $this->options['noindex_attachments'] && is_attachment() )
-			echo '<meta name="robots" content="noindex,nofollow" />'."\n";
+			echo '<meta name="robots" content="noindex, noarchive" />'."\n";
 
 		// @REF: http://universaleditbutton.org/WordPress_plugin
 		if ( $singular && ( $edit = get_edit_post_link() ) )

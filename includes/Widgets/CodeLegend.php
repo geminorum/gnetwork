@@ -14,6 +14,8 @@ class CodeLegend extends \WP_Widget
 			[
 				'classname'   => 'gnetwork-wrap-widget -legend-widget',
 				'description' => _x( 'Simple Changelog Legend', 'Widget: Description', 'gnetwork' ),
+
+				'show_instance_in_rest' => TRUE,
 			]
 		);
 	}

@@ -71,7 +71,7 @@ class Rest extends gNetwork\Module
 
 			$html = Utilities::getJoined( WPTaxonomy::getTheTermList( $taxonomy->name, $post['id'] ) );
 
-			$rendered[$taxonomy->name] = $this->filters( 'terms_rendered_html', $html, $taxonomy, $post, $object_type );
+			$rendered[$taxonomy->rest_base] = $this->filters( 'terms_rendered_html', $html, $taxonomy, $post, $object_type );
 		}
 
 		return $rendered;

@@ -458,7 +458,7 @@ class Utilities extends Core\Base
 			? explode( $delimiter, $string )
 			: explode( $delimiter, $string, $limit );
 
-		return array_unique( array_filter( $seperated, 'trim' ) );
+		return array_unique( array_filter( array_map( 'trim', $seperated ) ) );
 	}
 
 	public static function trimChars( $text, $length = 45, $append = '&nbsp;&hellip;' )

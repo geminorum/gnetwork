@@ -363,7 +363,7 @@ class Navigation extends gNetwork\Module
 			default:
 
 				// network sites
-				if ( $menu_item->url && Text::has( $matches[1], 'site-' ) )
+				if ( $menu_item->url && Text::start( $matches[1], 'site-' ) )
 					break;
 
 				// all other nav items are specific to the logged-in user,
@@ -528,7 +528,8 @@ class Navigation extends gNetwork\Module
 		$i     = 1;
 		$list  = [];
 		$terms = WPTaxonomy::listTerms( $item->object, 'all', [
-			'include' => get_term_children( $item->object_id, $item->object ),
+			'include'    => get_term_children( $item->object_id, $item->object ),
+			'hide_empty' => TRUE, // TODO: make this optional
 		] );
 
 		foreach ( $terms as $term ) {
