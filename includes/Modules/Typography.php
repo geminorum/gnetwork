@@ -706,7 +706,7 @@ class Typography extends gNetwork\Module
 		if ( $this->options['title_titlecase'] )
 			$title = Text::titleCase( $title );
 
-		if ( $this->options['title_wordwrap'] )
+		if ( $this->options['title_wordwrap'] && ! WordPress::isREST() )
 			$title = Text::wordWrap( $title );
 
 		return $title;
