@@ -1260,9 +1260,9 @@ class Taxonomy extends gNetwork\Module
 
 				foreach ( $old_meta as $meta_key => $meta_value )
 					foreach ( $meta_value as $value_value ) // multiple meta
-						add_term_meta( $new_term_id, $meta_key, $value_value, FALSE );
+						add_term_meta( $new_term->term_id, $meta_key, $value_value, FALSE );
 
-				$this->actions( 'term_merged', $taxonomy, $new_term, $old_term, $old_meta );
+				$this->actions( 'term_splited', $taxonomy, $new_term, $old_term, $old_meta );
 			}
 
 			// late delete to avoid losing relation data!
