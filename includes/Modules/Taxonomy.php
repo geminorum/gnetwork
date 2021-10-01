@@ -880,6 +880,7 @@ class Taxonomy extends gNetwork\Module
 		$actions['merge']          = _x( 'Merge', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
 		$actions['split']          = _x( 'Split', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
 		$actions['change_tax']     = _x( 'Change Taxonomy', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
+		$actions['clone_tax']      = _x( 'Clone to Taxonomy', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
 		$actions['format_i18n']    = _x( 'Format i18n', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
 		$actions['assign_parents'] = _x( 'Assign Parents', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
 		$actions['empty_posts']    = _x( 'Empty Posts', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
@@ -1373,6 +1374,49 @@ class Taxonomy extends gNetwork\Module
 		return TRUE;
 	}
 
+	public function handle_clone_tax( $term_ids, $taxonomy )
+	{
+		global $wpdb;
+
+		$current_tax = $taxonomy;
+		$cloned_tax  = self::req( $this->classs( 'clone-taxonomy' ) );
+
+		if ( ! taxonomy_exists( $cloned_tax ) )
+			return FALSE;
+
+		if ( $cloned_tax == $current_tax )
+			return FALSE;
+
+		foreach ( $term_ids as $term_id ) {
+
+			$current_term = get_term( $term_id, $current_tax );
+			$cloned_args  = [ 'slug' => $current_term->slug, 'description' => $current_term->description ]; // not supporting parents
+
+			$current_meta = get_term_meta( $term_id );
+			$cloned_meta  = []; // empty( $current_meta ) ? [] : array_combine( wp_list_pluck( $current_meta, 0 ), array_keys( $current_meta ) ); // added manually later
+
+			if ( ! $cloned_term = WPTaxonomy::getTargetTerm( $current_term->name, $cloned_tax, $cloned_args, $cloned_meta ) )
+				continue;
+
+			$current_objects = (array) $wpdb->get_col( $wpdb->prepare( "
+				SELECT object_id FROM {$wpdb->term_relationships}
+				WHERE term_taxonomy_id = %d
+			", $current_term->term_taxonomy_id ) );
+
+			// needs to be set before our action fired
+			foreach ( $current_objects as $current_object )
+				wp_set_object_terms( $current_object, $cloned_term->term_id, $cloned_tax, TRUE );
+
+			foreach ( $current_meta as $meta_key => $meta_value )
+				foreach ( $meta_value as $value_value ) // multiple meta
+					add_term_meta( $cloned_term->term_id, $meta_key, $value_value, FALSE );
+
+			$this->actions( 'term_cloned', $cloned_tax, $cloned_term, $current_term, $current_meta );
+		}
+
+		return TRUE;
+	}
+
 	public function admin_footer()
 	{
 		if ( ! empty( $GLOBALS['taxonomy'] ) )
@@ -1418,6 +1462,24 @@ class Taxonomy extends gNetwork\Module
 		$list = get_taxonomies( $args, 'objects' );
 
 		echo '<select class="postform" name="'.$this->classs( 'new-taxonomy' ).'">';
+
+		foreach ( $list as $new_tax => $tax_obj ) {
+
+			if ( $new_tax == $taxonomy )
+				continue;
+
+			echo "<option value='$new_tax'>$tax_obj->label</option>\n";
+		}
+
+		echo '</select>';
+	}
+
+	private function secondary_input_clone_tax( $taxonomy )
+	{
+		$args = current_user_can( 'import' ) ?  [] : [ 'show_ui' => TRUE ];
+		$list = get_taxonomies( $args, 'objects' );
+
+		echo '<select class="postform" name="'.$this->classs( 'clone-taxonomy' ).'">';
 
 		foreach ( $list as $new_tax => $tax_obj ) {
 
