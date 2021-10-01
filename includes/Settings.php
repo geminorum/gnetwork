@@ -603,6 +603,8 @@ class Settings extends Core\Base
 			'string_select'   => self::showOptionNone(),
 			'string_empty'    => _x( 'No options!', 'Settings', 'gnetwork' ),
 			'string_noaccess' => _x( 'You do not have access to change this option.', 'Settings', 'gnetwork' ),
+
+			'template_value' => '%s', // used on display value output
 		], $atts );
 
 		if ( TRUE === $args['wrap'] )
@@ -959,7 +961,7 @@ class Settings extends Core\Base
 						$html.= '&nbsp;'.$value_title;
 
 						if ( 'checkboxes-values' == $args['type'] )
-							$html.= ' &mdash; <code>'.$value_name.'</code>';
+							$html.= ' &mdash; <code>'.sprintf( $args['template_value'], $value_name ).'</code>';
 
 						HTML::label( $html, $id.'-'.$value_name );
 					}
@@ -1463,7 +1465,7 @@ class Settings extends Core\Base
 					] );
 
 					$html.= '&nbsp;'.HTML::escape( $value_title );
-					$html.= ' &mdash; <code>'.$value_name.'</code>';
+					$html.= ' &mdash; <code>'.sprintf( $args['template_value'], $value_name ).'</code>';
 
 					HTML::label( $html, $id.'-'.$value_name );
 				}
@@ -1494,7 +1496,7 @@ class Settings extends Core\Base
 					] );
 
 					$html.= '&nbsp;'.HTML::escape( $value_title );
-					$html.= ' &mdash; <code>'.$value_name.'</code>';
+					$html.= ' &mdash; <code>'.sprintf( $args['template_value'], $value_name ).'</code>';
 
 					HTML::label( $html, $id.'-'.$value_name, 'li' );
 				}
