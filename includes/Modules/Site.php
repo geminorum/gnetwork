@@ -38,6 +38,9 @@ class Site extends gNetwork\Module
 
 			$this->action( 'get_header' );
 			$this->filter( 'allowed_redirect_hosts' );
+
+			if ( $this->options['body_class'] )
+				$this->filter_append( 'body_class', HTML::attrClass( $this->options['body_class'] ) );
 		}
 
 		if ( $this->options['resync_sitemeta'] ) {
@@ -61,6 +64,7 @@ class Site extends gNetwork\Module
 			'resync_sitemeta'   => 0,
 			'redirect_notfound' => '',
 			'admin_locale'      => 'en_US',
+			'body_class'        => '',
 			'access_denied'     => '',
 			'denied_message'    => '',
 			'denied_extra'      => '',
@@ -103,6 +107,14 @@ class Site extends gNetwork\Module
 				'values'      => Arraay::sameKey( Locale::available() ),
 			];
 		}
+
+		$settings['_general'][] = [
+			'field'       => 'body_class',
+			'type'        => 'text',
+			'title'       => _x( 'Body Class', 'Modules: Site: Settings', 'gnetwork' ),
+			'description' => _x( 'Appends as extra HTML body class on all pages on front-end.', 'Modules: Site: Settings', 'gnetwork' ),
+			'field_class' => [ 'regular-text', 'code-text' ],
+		];
 
 		$settings['_denied'] = [
 			[
