@@ -26,13 +26,7 @@ class Commerce extends gNetwork\Module
 			return FALSE;
 
 		$this->action( 'init' );
-		$this->action( 'admin_init' );
 		$this->action( 'admin_bar_menu', 1, 35 );
-
-		if ( $this->options['purchased_products'] ) {
-			$this->filter( 'woocommerce_account_menu_items', 2, 40 );
-			$this->action( 'woocommerce_account_purchased-products_endpoint' );
-		}
 
 		$this->filter( 'exclude_from_sitemap_by_post_ids', 1, 12, FALSE, 'wpseo' ); // @REF: https://github.com/Yoast/wpseo-woocommerce/pull/260
 		$this->filter_false( 'woocommerce_allow_marketplace_suggestions' ); // @REF: https://wp.me/pBMYe-n1W
@@ -51,52 +45,19 @@ class Commerce extends gNetwork\Module
 	public function default_options()
 	{
 		return [
-			'related_on_tabs'          => '0',
-			'purchased_products'       => '0',
-			'purchased_products_title' => '',
-
 			'hide_price_on_outofstock' => '0',
 			'hide_price_on_shoploops'  => '0',
 			'custom_string_instock'    => '',
 			'custom_string_outofstock' => '',
-
-			'fallback_empty_weight' => '0',
-			'fallback_empty_length' => '0',
-			'fallback_empty_width'  => '0',
-			'fallback_empty_height' => '0',
-
-			'quantity_price_preview'  => '0',
-			'gtin_field_title'        => '',
-			'mobile_field'            => '1',
-			'ssn_field'               => '0',
-			'remove_order_notes'      => '0',
-			'order_notes_label'       => '',
-			'order_notes_placeholder' => '',
+			'quantity_price_preview'   => '0',
+			'mobile_field'             => '1',
+			'ssn_field'                => '0',
 		];
 	}
 
 	public function default_settings()
 	{
 		return [
-			'_front' => [
-				[
-					'field'       => 'related_on_tabs',
-					'title'       => _x( 'Related on Tabs', 'Modules: Commerce: Settings', 'gnetwork' ),
-					'description' => _x( 'Displays Upsells and Related products on front-end product tabs.', 'Modules: Commerce: Settings', 'gnetwork' ),
-				],
-				[
-					'field'       => 'purchased_products',
-					'title'       => _x( 'Purchased Products', 'Modules: Commerce: Settings', 'gnetwork' ),
-					'description' => _x( 'Displays recently purchased products on front-end account page.', 'Modules: Commerce: Settings', 'gnetwork' ),
-				],
-				[
-					'field'       => 'purchased_products_title',
-					'type'        => 'text',
-					'title'       => _x( 'Purchased Products Title', 'Modules: Commerce: Settings', 'gnetwork' ),
-					'description' => _x( 'Appears as title of the purchased products menu on front-end account page.', 'Modules: Commerce: Settings', 'gnetwork' ),
-					'placeholder' => _x( 'Purchased Products', 'Modules: Commerce: Default', 'gnetwork' ),
-				],
-			],
 			'_overrides' => [
 				[
 					'field'       => 'hide_price_on_outofstock',
@@ -123,45 +84,11 @@ class Commerce extends gNetwork\Module
 					'placeholder' => __( 'Out of stock', 'woocommerce' ),
 				],
 			],
-			'_measurements' => [
-				[
-					'field'       => 'fallback_empty_weight',
-					'type'        => 'number',
-					'title'       => _x( 'Weight Empty Fallback', 'Modules: Commerce: Settings', 'gnetwork' ),
-					'description' => _x( 'Sets a fallback value on products with empty <b>weight</b> field. Leave empty to disable.', 'Modules: Commerce: Settings', 'gnetwork' ),
-				],
-				[
-					'field'       => 'fallback_empty_length',
-					'type'        => 'number',
-					'title'       => _x( 'Length Empty Fallback', 'Modules: Commerce: Settings', 'gnetwork' ),
-					'description' => _x( 'Sets a fallback value on products with empty <b>length</b> field. Leave empty to disable.', 'Modules: Commerce: Settings', 'gnetwork' ),
-				],
-				[
-					'field'       => 'fallback_empty_width',
-					'type'        => 'number',
-					'title'       => _x( 'Width Empty Fallback', 'Modules: Commerce: Settings', 'gnetwork' ),
-					'description' => _x( 'Sets a fallback value on products with empty <b>width</b> field. Leave empty to disable.', 'Modules: Commerce: Settings', 'gnetwork' ),
-				],
-				[
-					'field'       => 'fallback_empty_height',
-					'type'        => 'number',
-					'title'       => _x( 'Height Empty Fallback', 'Modules: Commerce: Settings', 'gnetwork' ),
-					'description' => _x( 'Sets a fallback value on products with empty <b>height</b> field. Leave empty to disable.', 'Modules: Commerce: Settings', 'gnetwork' ),
-				],
-			],
 			'_fields' => [
 				[
 					'field'       => 'quantity_price_preview',
 					'title'       => _x( 'Quantity &times; Price', 'Modules: Commerce: Settings', 'gnetwork' ),
 					'description' => _x( 'Calculates subtotal on quantity increment by customer.', 'Modules: Commerce: Settings', 'gnetwork' ),
-				],
-				[
-					'field'       => 'gtin_field_title',
-					'type'        => 'text',
-					'title'       => _x( 'GTIN Field', 'Modules: Commerce: Settings', 'gnetwork' ),
-					'description' => _x( 'Adds extra field for GTIN information on product. Leave empty to disable.', 'Modules: Commerce: Settings', 'gnetwork' ),
-					'placeholder' => _x( 'GTIN', 'Modules: Commerce: Default', 'gnetwork' ),
-					'after'       => Settings::fieldAfterConstant( 'GNETWORK_COMMERCE_GTIN_METAKEY' ),
 				],
 			],
 			'_checkout' => [
@@ -176,32 +103,8 @@ class Commerce extends gNetwork\Module
 					'title'       => _x( 'Social Security Number Field', 'Modules: Commerce: Settings', 'gnetwork' ),
 					'description' => _x( 'Adds extra required field for social security number after checkout form.', 'Modules: Commerce: Settings', 'gnetwork' ),
 				],
-				[
-					'field'       => 'remove_order_notes',
-					'title'       => _x( 'Remove Order Notes', 'Modules: Commerce: Settings', 'gnetwork' ),
-					'description' => _x( 'Removes default `Order notes` from checkout form.', 'Modules: Commerce: Settings', 'gnetwork' ),
-				],
-				[
-					'field'       => 'order_notes_label',
-					'type'        => 'text',
-					'title'       => _x( 'Order Notes Label', 'Modules: Commerce: Settings', 'gnetwork' ),
-					'description' => _x( 'Changes default `Order notes` label for customers. Leave empty to use defaults.', 'Modules: Commerce: Settings', 'gnetwork' ),
-					'placeholder' => __( 'Order notes', 'woocommerce' ),
-				],
-				[
-					'field'       => 'order_notes_placeholder',
-					'type'        => 'text',
-					'title'       => _x( 'Order Notes Placeholder', 'Modules: Commerce: Settings', 'gnetwork' ),
-					'description' => _x( 'Changes default `Order notes` placeholder for customers. Leave empty to use defaults.', 'Modules: Commerce: Settings', 'gnetwork' ),
-					'placeholder' => __( 'Notes about your order, e.g. special notes for delivery.', 'woocommerce' ),
-				],
 			],
 		];
-	}
-
-	public function settings_section_measurements()
-	{
-		Settings::fieldSection( _x( 'Measurements', 'Modules: Commerce: Settings', 'gnetwork' ) );
 	}
 
 	public function settings_section_fields()
@@ -328,9 +231,6 @@ class Commerce extends gNetwork\Module
 
 	public function init()
 	{
-		if ( $this->options['purchased_products'] )
-			add_rewrite_endpoint( 'purchased-products', EP_PAGES );
-
 		if ( $this->options['hide_price_on_outofstock'] )
 			$this->filter( [
 				'woocommerce_get_price_html',
@@ -342,12 +242,6 @@ class Commerce extends gNetwork\Module
 
 		if ( is_admin() )
 			return;
-
-		if ( $this->options['related_on_tabs'] )
-			$this->filter( 'woocommerce_product_tabs' );
-
-		if ( $this->options['gtin_field_title'] )
-			$this->action( 'woocommerce_product_meta_start', 0, 10, 'gtin' );
 
 		if ( $this->options['quantity_price_preview'] )
 			$this->action( 'woocommerce_after_add_to_cart_button' );
@@ -371,33 +265,12 @@ class Commerce extends gNetwork\Module
 			'woocommerce_process_myaccount_field_billing_phone',
 		] );
 
-		if ( $this->options['remove_order_notes'] )
-			$this->filter_false( 'woocommerce_enable_order_notes_field' );
-
 		if ( $this->options['hide_price_on_shoploops'] )
 			// @REF: https://rudrastyh.com/woocommerce/remove-product-prices.html
 			remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 10 );
 
-		// @REF: https://wallydavid.com/set-a-default-length-width-height-weight-in-woocommerce/
-		foreach ( [ 'weight', 'length', 'width', 'height' ] as $measurement )
-			if ( $this->options['fallback_empty_'.$measurement] )
-				$this->filter( [
-					'woocommerce_product_get_'.$measurement,
-					'woocommerce_product_variation_get_'.$measurement,
-				], 2, 8 );
-
 		if ( $this->options['custom_string_outofstock'] || $this->options['custom_string_instock'] )
 			$this->filter( 'woocommerce_get_availability_text', 2, 8 );
-	}
-
-	public function admin_init()
-	{
-		if ( $this->options['gtin_field_title'] ) {
-			$this->action( 'woocommerce_product_options_sku', 0, 10, 'gtin' );
-			$this->action( 'woocommerce_process_product_meta', 2, 10, 'gtin' );
-			$this->action( 'woocommerce_product_after_variable_attributes', 3, 10, 'gtin' );
-			$this->action( 'woocommerce_save_product_variation', 2, 10, 'gtin' );
-		}
 	}
 
 	public function admin_bar_menu( $wp_admin_bar )
@@ -466,13 +339,6 @@ class Commerce extends gNetwork\Module
 			] );
 	}
 
-	public function woocommerce_account_menu_items( $items, $endpoints )
-	{
-		return Arraay::insert( $items, [
-			'purchased-products' => $this->get_option_fallback( 'purchased_products_title', _x( 'Purchased Products', 'Modules: Commerce: Default', 'gnetwork' ) ),
-		], 'orders', 'after' );
-	}
-
 	public function woocommerce_get_price_html( $price, $product )
 	{
 		return $product->is_in_stock() ? $price : '';
@@ -499,26 +365,6 @@ class Commerce extends gNetwork\Module
 			var price_string = parseFloat(price*qty);
 			$('#subtot > span').html(price_string+' '+'" . esc_js( $currency ) . "');
 		}).trigger('change');" );
-	}
-
-	public function woocommerce_product_get_weight( $value, $product )
-	{
-		return empty( $value ) ? $this->options['fallback_empty_weight'] : $value;
-	}
-
-	public function woocommerce_product_get_length( $value, $product )
-	{
-		return empty( $value ) ? $this->options['fallback_empty_length'] : $value;
-	}
-
-	public function woocommerce_product_get_width( $value, $product )
-	{
-		return empty( $value ) ? $this->options['fallback_empty_width'] : $value;
-	}
-
-	public function woocommerce_product_get_height( $value, $product )
-	{
-		return empty( $value ) ? $this->options['fallback_empty_height'] : $value;
 	}
 
 	public function woocommerce_get_availability_text( $availability, $product )
@@ -579,12 +425,6 @@ class Commerce extends gNetwork\Module
 				$fields['billing']['customer_ssn']['custom_attributes']['pattern'] = Validation::getSSNHTMLPattern();
 			}
 		}
-
-		if ( $this->options['order_notes_label'] )
-			$fields['order']['order_comments']['label'] = $this->options['order_notes_label'];
-
-		if ( $this->options['order_notes_placeholder'] )
-			$fields['order']['order_comments']['placeholder'] = $this->options['order_notes_placeholder'];
 
 		return $fields;
 	}
@@ -831,144 +671,6 @@ class Commerce extends gNetwork\Module
 	public function woocommerce_process_myaccount_field_shipping_postcode( $value )
 	{
 		return Number::intval( $value, FALSE );
-	}
-
-	public function woocommerce_product_options_sku_gtin()
-	{
-		woocommerce_wp_text_input( [
-			'id'          => $this->base.'-product_gtin',
-			'label'       => $this->options['gtin_field_title'],
-			'description' => _x( 'Enter the Global Trade Item Number (UPC, EAN, ISBN)', 'Modules: Commerce', 'gnetwork' ),
-			'value'       => get_post_meta( get_the_ID(), GNETWORK_COMMERCE_GTIN_METAKEY, TRUE ),
-			'desc_tip'    => TRUE,
-		] );
-	}
-
-	public function woocommerce_product_meta_start_gtin()
-	{
-		global $product;
-
-		if ( $meta = get_post_meta( $product->get_id(), GNETWORK_COMMERCE_GTIN_METAKEY, TRUE ) )
-			echo '<span class="gtin_wrapper">'.sprintf( '%s: ', $this->options['gtin_field_title'] ).'<span class="gtin">'.esc_html( $meta ).'</span></span>';
-	}
-
-	public function woocommerce_process_product_meta_gtin( $post_id, $post )
-	{
-		$key = $this->classs( 'product_gtin' );
-
-		if ( array_key_exists( $key, $_POST ) )
-			update_post_meta( $post_id, GNETWORK_COMMERCE_GTIN_METAKEY, trim( $_POST[$key] ) );
-	}
-
-	public function woocommerce_product_after_variable_attributes_gtin( $loop, $variation_data, $variation )
-	{
-		$key = $this->classs( 'product_gtin' );
-
-		woocommerce_wp_text_input( [
-			'id'          => sprintf( '%s-%s', $key, $variation->ID ),
-			'name'        => sprintf( '%s[%s]', $key, $variation->ID ),
-			'label'       => $this->options['gtin_field_title'],
-			'desc_tip'    => TRUE,
-			'description' => _x( 'Unique GTIN for variation? Enter it here.', 'Modules: Commerce', 'gnetwork' ),
-			'value'       => get_post_meta( $variation->ID, GNETWORK_COMMERCE_GTIN_METAKEY, TRUE ),
-		] );
-	}
-
-	public function woocommerce_save_product_variation_gtin( $variation_id, $i )
-	{
-		$key = $this->classs( 'product_gtin' );
-
-		if ( array_key_exists( $variation_id, $_POST[$key] ) )
-			update_post_meta( $variation_id, GNETWORK_COMMERCE_GTIN_METAKEY, trim( $_POST[$key][$variation_id] ) );
-	}
-
-	// @REF: https://gist.github.com/bekarice/0220adfc3e6ba8d0388714eabbb00adc
-	public function woocommerce_product_tabs( $tabs )
-	{
-		global $product;
-
-		if ( empty( $product ) || ! is_a( $product, 'WC_Product' ) )
-			return $tabs;
-
-		if ( $product->get_upsell_ids()
-			|| $product->get_cross_sell_ids()
-			|| apply_filters( 'woocommerce_product_related_posts_force_display', FALSE, $product->get_id() ) ) {
-
-			$tabs['related'] = [
-				'title'    => $this->filters( 'tab_related_title', __( 'Related products', 'woocommerce' ), $product ),
-				'callback' => [ $this, 'product_tabs_related_callback' ],
-				'priority' => 25,
-			];
-
-			remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_upsell_display', 15 );
-			remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20 );
-		}
-
-		return $tabs;
-	}
-
-	public function product_tabs_related_callback()
-	{
-		if ( function_exists( 'woocommerce_upsell_display' ) )
-			woocommerce_upsell_display();
-
-		if ( function_exists( 'woocommerce_output_related_products' ) )
-			woocommerce_output_related_products();
-	}
-
-	// @REF: https://rudrastyh.com/woocommerce/display-purchased-products.html
-	public function woocommerce_account_purchased_products_endpoint()
-	{
-		global $wpdb;
-
-		// this SQL query allows to get all the products purchased by the
-		// current user in this example we sort products by date but you
-		// can reorder them another way
-		$ids = $wpdb->get_col( $wpdb->prepare( "
-			SELECT      itemmeta.meta_value
-			FROM        {$wpdb->prefix}woocommerce_order_itemmeta itemmeta
-			INNER JOIN  {$wpdb->prefix}woocommerce_order_items items
-			            ON itemmeta.order_item_id = items.order_item_id
-			INNER JOIN  {$wpdb->posts} orders
-			            ON orders.ID = items.order_id
-			INNER JOIN  {$wpdb->postmeta} ordermeta
-			            ON orders.ID = ordermeta.post_id
-			WHERE       itemmeta.meta_key = '_product_id'
-			            AND ordermeta.meta_key = '_customer_user'
-			            AND ordermeta.meta_value = %s
-			ORDER BY    orders.post_date DESC
-		", get_current_user_id() ) );
-
-		// some orders may contain the same product,
-		// but we do not need it twice
-		$ids = array_unique( $ids );
-
-		if ( ! empty( $ids ) ) {
-
-			$products = new \WP_Query( [
-				'post_type'   => 'product',
-				'post_status' => 'publish',
-				'orderby'     => 'post__in',
-				'post__in'    => $ids,
-			] );
-
-			echo $this->wrap_open( [ 'woocommerce', 'columns-3' ] );
-			woocommerce_product_loop_start();
-
-			while ( $products->have_posts() ) {
-				$products->the_post();
-				wc_get_template_part( 'content', 'product' );
-			}
-
-			woocommerce_product_loop_end();
-			woocommerce_reset_loop();
-			wp_reset_postdata();
-			echo '</div>';
-
-		} else {
-
-			HTML::desc( _x( 'Nothing purchased yet.', 'Modules: Commerce', 'gnetwork' ) );
-		}
 	}
 
 	// adds the page ids from the WooCommerce core pages to the excluded post ids on Yoast Sitemaps
