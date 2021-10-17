@@ -32,6 +32,9 @@ class Editor extends gNetwork\Module
 		$this->filter( 'mce_css' );
 		$this->action( 'wp_enqueue_editor' );
 		$this->action( 'enqueue_block_assets' ); // or `enqueue_block_editor_assets`
+
+		// @REF: https://make.wordpress.org/core/2021/07/01/block-styles-loading-enhancements-in-wordpress-5-8/
+		$this->filter_true( 'should_load_separate_core_block_assets' );
 	}
 
 	public function init_late()
