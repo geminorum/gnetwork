@@ -14,6 +14,7 @@ use geminorum\gNetwork\Core\File;
 use geminorum\gNetwork\Core\WordPress;
 use geminorum\gNetwork\WordPress\Media as WPMedia;
 use geminorum\gNetwork\WordPress\Taxonomy as WPTaxonomy;
+use geminorum\gNetwork\WordPress\Strings;
 
 class Taxonomy extends gNetwork\Module
 {
@@ -390,7 +391,7 @@ class Taxonomy extends gNetwork\Module
 				WordPress::redirectReferer( 'huh' );
 
 			else
-				$count = $this->handle_delete_terms( $taxonomy, FALSE, FALSE );
+				$count = $this->_handle_delete_terms( $taxonomy, TRUE, FALSE );
 
 			WordPress::redirectReferer( [
 				'message' => 'deleted',
@@ -401,7 +402,7 @@ class Taxonomy extends gNetwork\Module
 
 			$this->nonce_check( 'do-delete-empties' );
 
-			$count = $this->handle_delete_terms( $taxonomy, TRUE, FALSE );
+			$count = $this->_handle_delete_terms( $taxonomy, FALSE, FALSE );
 
 			WordPress::redirectReferer( [
 				'message' => 'deleted',
@@ -414,7 +415,7 @@ class Taxonomy extends gNetwork\Module
 		}
 	}
 
-	private function handle_delete_terms( $taxonomy, $empty_only = TRUE, $include_default = FALSE )
+	private function _handle_delete_terms( $taxonomy, $force = FALSE, $include_default = FALSE )
 	{
 		global $wpdb;
 
@@ -422,7 +423,7 @@ class Taxonomy extends gNetwork\Module
 		$terms = get_terms( [
 			'taxonomy'   => $taxonomy,
 			'exclude'    => $include_default ? '' : WPTaxonomy::getDefaultTermID( $taxonomy, '' ),
-			'fields'     => 'ids',
+			'fields'     => 'all',
 			'orderby'    => 'none',
 			'hide_empty' => FALSE,
 
@@ -430,23 +431,35 @@ class Taxonomy extends gNetwork\Module
 			'update_term_meta_cache' => FALSE,
 		] );
 
-		foreach ( $terms as $term_id ) {
+		foreach ( $terms as $term ) {
 
-			// NOTE: we cannot rely on `count` data from the term query
-			// $objects = $this->filters( 'term_count', $term->count, $term, $taxonomy )
+			$delete = TRUE;
 
-			if ( $empty_only ) {
+			if ( ! $force ) {
 
-				$objects = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->term_relationships} WHERE term_taxonomy_id = %d", $term_id ) );
+				if ( ! Strings::isEmpty( $term->description ) ) {
 
-				if ( $objects )
-					continue;
+					// skip if the term description is not an empty string
+					$delete = FALSE;
+
+				} else {
+
+					// NOTE: we can not rely on `$term->count` data from the term query
+					$query = $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->term_relationships} WHERE term_taxonomy_id = %d", $term->term_id );
+
+					// skip if the term  has relationships
+					if ( $wpdb->get_var( $query ) )
+						$delete = FALSE;
+				}
 			}
+
+			if ( ! $this->filters( 'delete_term', $delete, $term, $taxonomy, $force ) )
+				continue;
 
 			// MAYBE: check `delete_term` cap for each term
 			// @SEE: https://wp.me/p2AvED-5kA
 
-			$deleted = wp_delete_term( $term_id, $taxonomy );
+			$deleted = wp_delete_term( $term->term_id, $taxonomy );
 
 			if ( $deleted && ! is_wp_error( $deleted ) )
 				$count++;
