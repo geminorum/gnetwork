@@ -1238,7 +1238,7 @@ class Taxonomy extends gNetwork\Module
 		foreach ( $term_ids as $term_id ) {
 
 			$old_term = get_term( $term_id, $taxonomy );
-			$targets  = Utilities::getSeparated( $old_term->name, $delimiter ?: NULL );
+			$targets  = Strings::getSeparated( $old_term->name, $delimiter ?: NULL );
 
 			if ( count( $targets ) < 2 )
 				continue;

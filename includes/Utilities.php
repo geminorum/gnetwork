@@ -435,39 +435,6 @@ class Utilities extends Core\Base
 		return $empty;
 	}
 
-	public static function getSeparated( $string, $delimiters = NULL, $limit = NULL, $delimiter = '|' )
-	{
-		if ( is_array( $string ) )
-			return $string;
-
-		if ( is_null( $delimiters ) )
-			$delimiters = [
-				'/',
-				'،',
-				'؛',
-				';',
-				',',
-				// '-',
-				// '_',
-				'|',
-			];
-
-		$string = str_ireplace( $delimiters, $delimiter, $string );
-
-		$seperated = is_null( $limit )
-			? explode( $delimiter, $string )
-			: explode( $delimiter, $string, $limit );
-
-		return array_unique( array_filter( array_map( 'trim', $seperated ) ) );
-	}
-
-	public static function trimChars( $text, $length = 45, $append = '&nbsp;&hellip;' )
-	{
-		$append = '<span title="'.HTML::escape( $text ).'">'.$append.'</span>';
-
-		return Text::trimChars( $text, $length, $append );
-	}
-
 	public static function getCounted( $count, $template = '%s' )
 	{
 		return sprintf( $template, '<span class="-count" data-count="'.$count.'">'.Number::format( $count ).'</span>' );

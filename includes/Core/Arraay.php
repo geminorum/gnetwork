@@ -5,6 +5,20 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 class Arraay extends Base
 {
 
+	public static function prepString()
+	{
+		$args = func_get_args();
+
+		return empty( $args ) ? [] : array_unique( array_filter( array_map( 'trim', array_merge( ...$args ) ) ) );
+	}
+
+	public static function prepNumeral()
+	{
+		$args = func_get_args();
+
+		return empty( $args ) ? [] : array_unique( array_filter( array_map( 'intval', array_merge( ...$args ) ) ) );
+	}
+
 	// deep array_filter()
 	public static function filterArray( $input, $callback = NULL )
 	{
@@ -149,16 +163,31 @@ class Arraay extends Base
 		return array_intersect_key( $array, array_flip( $keys ) );
 	}
 
-	// @REF: `_sort_priority_callback()`
+	// @REF: WooCommerce: `_sort_priority_callback()`
 	public static function sortByPriority( $array, $priority_key )
 	{
-		uasort( $array, function( $a, $b ) use ( $priority_key ) {
+		uasort( $array, static function( $a, $b ) use ( $priority_key ) {
 
 			if ( ! isset( $a[$priority_key], $b[$priority_key] )
 				|| $a[$priority_key] === $b[$priority_key] )
 					return 0;
 
 			return ( $a[$priority_key] < $b[$priority_key] ) ? -1 : 1;
+		} );
+
+		return $array;
+	}
+
+	// @REF: WooCommerce: `_sort_priority_callback()`
+	public static function sortObjectByPriority( $array, $priority_key )
+	{
+		uasort( $array, static function( $a, $b ) use ( $priority_key ) {
+
+			if ( ! isset( $a->{$priority_key}, $b->{$priority_key} )
+				|| $a->{$priority_key} === $b->{$priority_key} )
+					return 0;
+
+			return ( $a->{$priority_key} < $b->{$priority_key} ) ? -1 : 1;
 		} );
 
 		return $array;

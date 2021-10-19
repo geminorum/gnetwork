@@ -45,14 +45,17 @@ class Text extends Base
 		return $string;
 	}
 
-	public static function formatName( $string, $separator = ', ' )
+	public static function nameFamilyFirst( $string, $separator = ', ' )
 	{
+		if ( empty( $string ) )
+			return $string;
+
 		// already formatted
 		if ( FALSE !== stripos( $string, trim( $separator ) ) )
 			return $string;
 
 		// remove NULL, FALSE and empty strings (""), but leave values of 0
-		$parts = array_filter( explode( ' ', $string, 2 ), 'strlen' );
+		$parts = array_filter( explode( ' ', trim( $string ), 2 ), 'strlen' );
 
 		if ( 1 == count( $parts ) )
 			return $string;
@@ -60,10 +63,28 @@ class Text extends Base
 		return $parts[1].$separator.$parts[0];
 	}
 
-	public static function reFormatName( $string, $separator = ', ' )
+	public static function nameFamilyLast( $string, $separator = ', ' )
 	{
+		if ( empty( $string ) )
+			return $string;
+
 		return preg_replace( '/(.*), (.*)/', '$2 $1', $string );
 		// return preg_replace( '/(.*)([,،;؛]) (.*)/u', '$3'.$separator.'$1', $string ); // Wrong!
+	}
+
+	public static function formatName( $string, $separator = ', ' )
+	{
+		return self::nameFamilyFirst( $string, $separator );
+	}
+
+	public static function reFormatName( $string, $separator = ', ' )
+	{
+		return self::nameFamilyLast( $string, $separator );
+	}
+
+	public static function readableKey( $string )
+	{
+		return $string ? ucwords( trim( str_replace( [ '_', '-', '.' ], ' ', $string ) ) ) : $string;
 	}
 
 	// @REF: https://davidwalsh.name/php-email-encode-prevent-spam
@@ -741,7 +762,7 @@ class Text extends Base
 	// @SOURCE: http://php.net/manual/en/function.preg-replace-callback.php#96899
 	public static function hex2str( $string )
 	{
-		return preg_replace_callback( '#\%[a-zA-Z0-9]{2}#', function( $hex ) {
+		return preg_replace_callback( '#\%[a-zA-Z0-9]{2}#', static function( $hex ) {
 			$hex = substr( $hex[0], 1 );
 			$str = '';
 			for ( $i = 0; $i < strlen( $hex ); $i += 2 )
@@ -751,7 +772,7 @@ class Text extends Base
 	}
 
 	// @SOURCE: http://php.net/manual/en/function.preg-replace-callback.php#91950
-	// USAGE: echo Text::replaceWords( $words, $string, function( $matched ) { return "<strong>{$matched}</strong>"; } );
+	// USAGE: echo Text::replaceWords( $words, $string, static function( $matched ) { return "<strong>{$matched}</strong>"; } );
 	// FIXME: maybe space before/after the words
 	public static function replaceWords( $words, $string, $callback, $skip_links = TRUE )
 	{
@@ -760,15 +781,15 @@ class Text extends Base
 		if ( $skip_links )
 			$pattern = '<a[^>]*>.*?<\/a\s*>(*SKIP)(*FAIL)|'.$pattern;
 
-		return preg_replace_callback( '/'.$pattern.'/miu', function( $matched ) use ( $callback ) {
+		return preg_replace_callback( '/'.$pattern.'/miu', static function( $matched ) use ( $callback ) {
 			return $matched[1].call_user_func( $callback, $matched[2] ).$matched[3];
 		}, $string );
 	}
 
-	// USAGE: echo Text::replaceSymbols( [ '#', '$' ], $string, function( $matched, $string ) { return "<strong>{$matched}</strong>"; });
+	// USAGE: echo Text::replaceSymbols( [ '#', '$' ], $string, static function( $matched, $string ) { return "<strong>{$matched}</strong>"; });
 	public static function replaceSymbols( $symbols, $string, $callback, $skip_links = TRUE )
 	{
-		return preg_replace_callback( self::replaceSymbolsPattern( implode( ',', (array) $symbols ), $skip_links ), function ( $matches ) use ( $callback ) {
+		return preg_replace_callback( self::replaceSymbolsPattern( implode( ',', (array) $symbols ), $skip_links ), static function( $matches ) use ( $callback ) {
 			return call_user_func( $callback, $matches[0], $matches[1] );
 		}, $string );
 	}
@@ -949,7 +970,7 @@ class Text extends Base
 	// @SEE: https://github.com/neitanod/forceutf8
 	public static function correctMixedEncoding( $string )
 	{
-		return preg_replace_callback( '/\\P{Arabic}+/u', function( $matches ) {
+		return preg_replace_callback( '/\\P{Arabic}+/u', static function( $matches ) {
 			return iconv( 'UTF-8', 'ISO-8859-1', $matches[0] );
 		}, hex2bin( bin2hex( $string ) ) );
 	}
@@ -1004,5 +1025,41 @@ class Text extends Base
 		}
 
 		return $string;
+	}
+
+	// it has the exact same interface as str_split, but works with any UTF-8 string
+	// @REF: https://www.php.net/manual/en/function.str-split.php#117112
+	/**
+	 * Converts an UTF-8 string to an array.
+	 *
+	 * E.g. mb_str_split("Hello Friend");
+	 * returns ['H', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']
+	 *
+	 * @param string $string The input string.
+	 * @param int $split_length Maximum length of the chunk. If specified, the returned array will be broken down
+	 *        into chunks with each being split_length in length, otherwise each chunk will be one character in length.
+	 * @return array|boolean
+	 *         -
+	 *         - If the split_length length exceeds the length of string, the entire string is returned
+	 *           as the first (and only) array element.
+	 *         - False is returned if split_length is less than 1.
+	 */
+	public static function str_split( $string, $split_length = 1 )
+	{
+		if ( 1 === $split_length )
+			return preg_split( '//u', $string, -1, PREG_SPLIT_NO_EMPTY );
+
+		if ( $split_length > 1 ) {
+
+			$return_value  = [];
+			$string_length = mb_strlen( $string, 'UTF-8' );
+
+			for ( $i = 0; $i < $string_length; $i += $split_length )
+				$return_value[] = mb_substr( $string, $i, $split_length, 'UTF-8' );
+
+			return $return_value;
+		}
+
+		return FALSE;
 	}
 }

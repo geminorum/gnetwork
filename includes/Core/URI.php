@@ -217,7 +217,7 @@ class URI extends Base
 		//
 		// For that reason we take any non-ascii characters from the uri and
 		// uriencode them first.
-		$uri = preg_replace_callback( '/[^[:ascii:]]/u', function( $matches ) {
+		$uri = preg_replace_callback( '/[^[:ascii:]]/u', static function( $matches ) {
 			return rawurlencode( $matches[0] );
 		}, $uri );
 
@@ -370,7 +370,7 @@ class URI extends Base
 		//
 		// For that reason we take any non-ascii characters from the uri and
 		// uriencode them first.
-		$uri = preg_replace_callback( '/[^[:ascii:]]/u', function( $matches ) {
+		$uri = preg_replace_callback( '/[^[:ascii:]]/u', static function( $matches ) {
 			return rawurlencode( $matches[0] );
 		}, $uri );
 

@@ -7,9 +7,18 @@ use geminorum\gNetwork\Core;
 class PostType extends Core\Base
 {
 
-	public static function object( $posttype )
+	public static function object( $posttype_or_post )
 	{
-		return is_object( $posttype ) ? $posttype : get_post_type_object( $posttype );
+		if ( ! $posttype_or_post )
+			return FALSE;
+
+		if ( $posttype_or_post instanceof \WP_Post )
+			return get_post_type_object( $posttype_or_post->post_type );
+
+		if ( $posttype_or_post instanceof \WP_Post_Type )
+			return $posttype_or_post;
+
+		return get_post_type_object( $posttype_or_post );
 	}
 
 	// * 'publish' - a published post or page

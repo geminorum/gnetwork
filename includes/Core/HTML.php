@@ -157,6 +157,9 @@ class HTML extends Base
 	// useful when you want to pass on a complex data structure via a form
 	public static function inputHiddenArray( $array, $prefix = '' )
 	{
+		if ( empty( $array ) )
+			return;
+
 		if ( Arraay::hasStringKeys( $array ) ) {
 
 			foreach ( $array as $key => $value ) {
@@ -239,7 +242,7 @@ class HTML extends Base
 			else if ( $arg )
 				$classes = array_merge( $classes, preg_split( '#\s+#', $arg ) );
 
-		return array_unique( array_filter( $classes, 'trim' ) );
+		return Arraay::prepString( $classes );
 	}
 
 	public static function prepClass()
@@ -291,15 +294,18 @@ class HTML extends Base
 					continue;
 
 				if ( 'data' == $key ) {
+
 					$html.= self::propData( $att );
 
 					continue;
 
 				} else if ( 'class' == $key ) {
+
 					$att = self::prepClass( $att );
 
 				} else {
-					$att = implode( ' ', array_unique( array_filter( $att, 'trim' ) ) );
+
+					$att = implode( ' ', Arraay::prepString( $att ) );
 				}
 
 				$sanitized = TRUE;

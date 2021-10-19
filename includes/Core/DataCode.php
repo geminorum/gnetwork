@@ -55,7 +55,7 @@ class DataCode extends Base
 
 		curl_setopt( $ch, CURLOPT_URL, $api ?: 'http://chart.apis.google.com/chart' );
 		curl_setopt( $ch, CURLOPT_POST, TRUE );
-		curl_setopt( $ch, CURLOPT_POSTFIELDS, "chs={$size}x{$size}&cht=qr&chl=".urlencode( $data ) );
+		curl_setopt( $ch, CURLOPT_POSTFIELDS, "chs={$size}x{$size}&cht=qr&correction=H|0&choe=UTF-8&chl=".urlencode( $data ) );
 		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, TRUE );
 		curl_setopt( $ch, CURLOPT_HEADER, FALSE );
 		curl_setopt( $ch, CURLOPT_TIMEOUT, 30 );

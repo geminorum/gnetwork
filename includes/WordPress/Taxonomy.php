@@ -71,6 +71,7 @@ class Taxonomy extends Core\Base
 		return count( $parents ) ? $parents : FALSE;
 	}
 
+	// TODO: must suport different parents
 	public static function getTargetTerm( $target, $taxonomy, $args = [], $meta = [] )
 	{
 		$target = trim( $target );
@@ -91,11 +92,11 @@ class Taxonomy extends Core\Base
 
 			return get_term( $term['term_id'], $taxonomy );
 
-		} else if ( $term = term_exists( Core\Text::formatName( $target ), $taxonomy ) ) {
+		} else if ( $term = term_exists( Core\Text::nameFamilyFirst( $target ), $taxonomy ) ) {
 
 			return get_term( $term['term_id'], $taxonomy );
 
-		} else if ( $term = term_exists( Core\Text::reFormatName( $target ), $taxonomy ) ) {
+		} else if ( $term = term_exists( Core\Text::nameFamilyLast( $target ), $taxonomy ) ) {
 
 			return get_term( $term['term_id'], $taxonomy );
 		}
