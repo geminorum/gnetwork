@@ -343,9 +343,15 @@ class Media extends gNetwork\Module
 			HTML::tableSide( $_wp_additional_image_sizes );
 	}
 
+	// @SEE: `get_post_types_by_support()`
+	private function _get_posttypes_with_attachments( $context = NULL )
+	{
+		return $this->filters( 'attachment_posttypes', array_diff( array_keys( get_post_types( [ 'public' => TRUE ] ) ), [ 'attachment' ] ), $context );
+	}
+
 	protected function render_tools_html( $uri, $sub = 'general' )
 	{
-		list( $posts, $pagination ) = self::getTablelistPosts();
+		list( $posts, $pagination ) = self::getTablelistPosts( [], [], $this->_get_posttypes_with_attachments( 'tools' ) );
 
 		$pagination['before'][] = self::filterTablelistSearch();
 
