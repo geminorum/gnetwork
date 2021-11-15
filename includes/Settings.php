@@ -1204,7 +1204,7 @@ class Settings extends Core\Base
 					'readonly'    => $args['readonly'],
 					'dir'         => $args['dir'],
 					'data'        => $args['data'],
-				], $value );
+				], esc_textarea( $value ) );
 
 			break;
 			case 'page':

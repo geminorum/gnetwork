@@ -733,7 +733,8 @@ class Utilities extends Core\Base
 		if ( ! wp_mkdir_p( $path ) )
 			return FALSE;
 
-		FILE::putIndexHTML( $path, GNETWORK_DIR.'index.html' );
+		// FIXME: chack if the folder is writable
+		File::putIndexHTML( $path, GNETWORK_DIR.'index.html' );
 
 		return URL::untrail( $path );
 	}

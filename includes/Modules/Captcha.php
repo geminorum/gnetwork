@@ -13,6 +13,8 @@ use geminorum\gNetwork\Core\HTML;
 class Captcha extends gNetwork\Module
 {
 
+	// @SEE: https://contactform7.com/faq-about-recaptcha-v3/
+
 	protected $key = 'captcha';
 
 	protected $enqueued = FALSE;

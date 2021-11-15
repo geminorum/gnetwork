@@ -58,6 +58,7 @@ class Commerce extends gNetwork\Module
 	public function default_settings()
 	{
 		return [
+			// move to wc-tweaks
 			'_overrides' => [
 				[
 					'field'       => 'hide_price_on_outofstock',

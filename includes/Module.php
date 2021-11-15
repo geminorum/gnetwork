@@ -476,12 +476,12 @@ class Module extends Core\Base
 
 	protected function hash()
 	{
-		$suffix = '';
+		$string = '';
 
 		foreach ( func_get_args() as $arg )
-			$suffix.= maybe_serialize( $arg );
+			$string.= maybe_serialize( $arg );
 
-		return md5( $this->base.$this->key.$suffix );
+		return md5( $this->base.$this->key.$string );
 	}
 
 	protected function hashwithsalt()
@@ -1628,7 +1628,7 @@ class Module extends Core\Base
 		if ( method_exists( $this, $callback ) )
 			$args['render_callback'] = [ $this, $callback ];
 
-		$block = register_block_type( 'gnetwork/'.$name, array_merge( $args, $extra ) );
+		$block = register_block_type( $this->base.'/'.$name, array_merge( $args, $extra ) );
 
 		wp_set_script_translations( $args['editor_script'], 'gnetwork', GNETWORK_DIR.'languages' );
 

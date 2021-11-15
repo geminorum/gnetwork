@@ -440,6 +440,7 @@ class Typography extends gNetwork\Module
 			'wiki-en'         => 'shortcode_wiki',
 			'wiki-fa'         => 'shortcode_wiki',
 			'bismillah'       => 'shortcode_bismillah',
+			'basmala'         => 'shortcode_bismillah',
 			'three-asterisks' => 'shortcode_three_asterisks',
 			'nst'             => 'shortcode_numeral_section_title',
 			'ltr'             => 'shortcode_ltr',

@@ -1415,6 +1415,9 @@ class ShortCodes extends gNetwork\Module
 		return FALSE;
 	}
 
+	// must suffix post id from current post
+	// must cache md5 of ref content for comparison
+	// maybe run the shortcode manually before core on post_content
 	public function shortcode_ref( $atts = [], $content = NULL, $tag = '' )
 	{
 		if ( is_null( $content ) || ! is_singular() )
@@ -1463,7 +1466,7 @@ class ShortCodes extends gNetwork\Module
 
 		if ( $args['combine'] ) {
 
-			// TODO: must only check for the previous note
+			// TODO: optional: only check for the previous note
 			foreach ( $this->ref_ids as $number => $text )
 				if ( $text == $ref )
 					$key = $number;

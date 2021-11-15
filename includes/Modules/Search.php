@@ -366,10 +366,12 @@ class Search extends gNetwork\Module
 	public function search_form()
 	{
 		$html = '<form role="search" method="get" class="search-form" action="'.esc_url( GNETWORK_SEARCH_URL ).'">';
+			// TODO: do action: `search_form_before`
 			$html.= '<label><span class="screen-reader-text">'._x( 'Search for:', 'Modules: Search: Form: Label', 'gnetwork' ).'</span>';
 			$html.= '<input type="search" class="search-field" placeholder="'.esc_attr_x( 'Search &hellip;', 'Modules: Search: Form: Placeholder', 'gnetwork' );
 			$html.= '" value="'.get_search_query().'" name="'.GNETWORK_SEARCH_QUERYID.'" />';
 			$html.= '</label><input type="submit" class="search-submit" value="'.esc_attr_x( 'Search', 'Modules: Search: Form: Submit Button', 'gnetwork' ).'" />';
+			// TODO: do action: `search_form_after`
 		$html.= '</form>';
 
 		return $html;
@@ -382,13 +384,12 @@ class Search extends gNetwork\Module
 			'context' => NULL,
 		], $atts, $tag );
 
-		if ( FALSE === $args['context'] || WordPress::isXML() )
+		if ( FALSE === $args['context'] || WordPress::isXML() || WordPress::isREST() )
 			return NULL;
 
-		if ( $args['theme'] )
-			$html = get_search_form( FALSE );
-		else
-			$html = $this->search_form();
+		$html = $args['theme']
+			? get_search_form( [ 'echo' => FALSE ] )
+			: $this->search_form();
 
 		return self::shortcodeWrap( $html, 'search-form', $args );
 	}

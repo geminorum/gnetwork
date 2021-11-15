@@ -26,16 +26,18 @@ class Navigation extends gNetwork\Module
 
 			$this->action( 'load-nav-menus.php' );
 
-			$this->filter( 'wp_setup_nav_menu_item', 1, 9, 'children' );
-			$this->action( 'wp_update_nav_menu_item', 3, 9, 'children' );
-			$this->action( 'wp_nav_menu_item_custom_fields', 5, 12, 'children' );
+			// WORKING BUT DISABLED: use https://wordpress.org/plugins/add-descendants-as-submenu-items/
+			// $this->filter( 'wp_setup_nav_menu_item', 1, 9, 'children' );
+			// $this->action( 'wp_update_nav_menu_item', 3, 9, 'children' );
+			// $this->action( 'wp_nav_menu_item_custom_fields', 5, 12, 'children' );
 
 		} else {
 
 			$this->filter( 'wp_setup_nav_menu_item' );
 
-			$this->filter( 'wp_setup_nav_menu_item', 1, 9, 'children' );
-			$this->filter( 'wp_get_nav_menu_items', 3, 9, 'children' );
+			// WORKING BUT DISABLED: use https://wordpress.org/plugins/add-descendants-as-submenu-items/
+			// $this->filter( 'wp_setup_nav_menu_item', 1, 9, 'children' );
+			// $this->filter( 'wp_get_nav_menu_items', 3, 9, 'children' );
 		}
 
 		if ( ! is_main_site() )

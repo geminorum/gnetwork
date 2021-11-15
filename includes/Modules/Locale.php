@@ -436,6 +436,8 @@ class Locale extends gNetwork\Module
 			'wp-shortpixel'       => 'page',
 			'wp-short-pixel-bulk' => 'page',
 
+			'enable-media-replace/enable-media-replace.php' => 'page',
+
 			'sensei_updates'    => 'page',
 			'sensei-extensions' => 'page',
 
@@ -446,6 +448,9 @@ class Locale extends gNetwork\Module
 			'mycred-hooks'    => 'page',
 			'mycred-addons'   => 'page',
 			'mycred-settings' => 'page',
+
+			// [Slim SEO](https://wordpress.org/plugins/slim-seo/)
+			'slim-seo' => 'page',
 
 		], $current );
 
