@@ -12,6 +12,84 @@ class Taxonomy extends Core\Base
 		return is_object( $taxonomy ) ? $taxonomy : get_taxonomy( $taxonomy );
 	}
 
+	public static function can( $taxonomy, $capability = 'manage_terms', $user_id = NULL )
+	{
+		if ( is_null( $capability ) )
+			return TRUE;
+
+		$cap = self::object( $taxonomy )->cap->{$capability};
+
+		return is_null( $user_id )
+			? current_user_can( $cap )
+			: user_can( $user_id, $cap );
+	}
+
+	public static function get( $mod = 0, $args = [], $object = FALSE, $capability = NULL, $user_id = NULL )
+	{
+		$list = [];
+
+		if ( FALSE === $object || 'any' == $object )
+			$objects = get_taxonomies( $args, 'objects' );
+		else
+			$objects = get_object_taxonomies( $object, 'objects' );
+
+		foreach ( $objects as $taxonomy => $taxonomy_obj ) {
+
+			if ( ! self::can( $taxonomy_obj, $capability, $user_id ) )
+				continue;
+
+			// label
+			if ( 0 === $mod )
+				$list[$taxonomy] = $taxonomy_obj->label ? $taxonomy_obj->label : $taxonomy_obj->name;
+
+			// plural
+			else if ( 1 === $mod )
+				$list[$taxonomy] = $taxonomy_obj->labels->name;
+
+			// singular
+			else if ( 2 === $mod )
+				$list[$taxonomy] = $taxonomy_obj->labels->singular_name;
+
+			// nooped
+			else if ( 3 === $mod )
+				$list[$taxonomy] = [
+					0          => $taxonomy_obj->labels->singular_name,
+					1          => $taxonomy_obj->labels->name,
+					'singular' => $taxonomy_obj->labels->singular_name,
+					'plural'   => $taxonomy_obj->labels->name,
+					'context'  => NULL,
+					'domain'   => NULL,
+				];
+
+			// object
+			else if ( 4 === $mod )
+				$list[$taxonomy] = $taxonomy_obj;
+
+			// with object_type
+			else if ( 5 === $mod )
+				$list[$taxonomy] = $taxonomy_obj->labels->name.Core\HTML::joined( $taxonomy_obj->object_type, ' [', ']' );
+
+			// with name
+			else if ( 6 === $mod )
+				$list[$taxonomy] = $taxonomy_obj->labels->menu_name.' ('.$taxonomy_obj->name.')';
+		}
+
+		return $list;
+	}
+
+	// @REF: `is_post_type_viewable()`
+	public static function isViewable( $taxonomy )
+	{
+		if ( is_scalar( $taxonomy ) ) {
+
+			if ( ! $taxonomy = get_taxonomy( $taxonomy ) )
+				return FALSE;
+		}
+
+		return $taxonomy->publicly_queryable
+			|| ( $taxonomy->_builtin && $taxonomy->public );
+	}
+
 	public static function getDefaultTermID( $taxonomy, $fallback = FALSE )
 	{
 		return get_option( self::getDefaultTermOptionKey( $taxonomy ), $fallback );

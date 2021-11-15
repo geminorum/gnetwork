@@ -14,6 +14,7 @@ use geminorum\gNetwork\Core\HTTP;
 use geminorum\gNetwork\Core\Text;
 use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\WordPress\PostType as WPPostType;
 use geminorum\gNetwork\WordPress\Media as WPMedia;
 
 class Media extends gNetwork\Module
@@ -368,7 +369,7 @@ class Media extends gNetwork\Module
 
 			'type' => [
 				'title'    => _x( 'Type', 'Modules: Media: Column Title', 'gnetwork' ),
-				'args'     => [ 'post_types' => WordPress::getPostTypes( 2 ) ],
+				'args'     => [ 'post_types' => WPPostType::get( 2 ) ],
 				'callback' => static function( $value, $row, $column, $index, $key, $args ) {
 					return isset( $column['args']['post_types'][$row->post_type] )
 						? $column['args']['post_types'][$row->post_type]

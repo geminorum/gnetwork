@@ -7,6 +7,7 @@ use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\WordPress\PostType as WPPostType;
 
 class Authors extends gNetwork\Module
 {
@@ -155,7 +156,7 @@ class Authors extends gNetwork\Module
 				'field'     => 'on_post_type',
 				'name_attr' => 'on_post_type',
 				'default'   => 'post',
-				'values'    => WordPress::getPostTypes(),
+				'values'    => WPPostType::get(),
 			] );
 
 			echo '&nbsp;&mdash;&nbsp;'._x( 'do', 'Modules: Authors: Settings', 'gnetwork' ).'&nbsp;&ndash;&nbsp;';

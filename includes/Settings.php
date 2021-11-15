@@ -8,6 +8,8 @@ use geminorum\gNetwork\Core\HTTP;
 use geminorum\gNetwork\Core\Number;
 use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\WordPress\PostType as WPPostType;
+use geminorum\gNetwork\WordPress\Taxonomy as WPTaxonomy;
 
 class Settings extends Core\Base
 {
@@ -1444,7 +1446,7 @@ class Settings extends Core\Base
 			case 'posttypes':
 
 				if ( ! $args['values'] )
-					$args['values'] = WordPress::getPostTypes( 0,
+					$args['values'] = WPPostType::get( 0,
 						array_merge( [ 'public' => TRUE ], $args['extra'] ) );
 
 				foreach ( $args['values'] as $value_name => $value_title ) {
@@ -1474,7 +1476,7 @@ class Settings extends Core\Base
 			case 'taxonomies':
 
 				if ( ! $args['values'] )
-					$args['values'] = WordPress::getTaxonomies( 0, $args['extra'] );
+					$args['values'] = WPTaxonomy::get( 0, $args['extra'] );
 
 				echo '<div class="wp-tab-panel"><ul>';
 

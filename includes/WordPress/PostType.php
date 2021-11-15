@@ -21,6 +21,58 @@ class PostType extends Core\Base
 		return get_post_type_object( $posttype_or_post );
 	}
 
+	public static function can( $posttype, $capability = 'edit_posts', $user_id = NULL )
+	{
+		if ( is_null( $capability ) )
+			return TRUE;
+
+		$cap = self::object( $posttype )->cap->{$capability};
+
+		return is_null( $user_id )
+			? current_user_can( $cap )
+			: user_can( $user_id, $cap );
+	}
+
+	public static function get( $mod = 0, $args = [ 'public' => TRUE ], $capability = NULL, $user_id = NULL )
+	{
+		$list = [];
+
+		foreach ( get_post_types( $args, 'objects' ) as $posttype => $posttype_obj ) {
+
+			if ( ! self::can( $posttype_obj, $capability, $user_id ) )
+				continue;
+
+			// label
+			if ( 0 === $mod )
+				$list[$posttype] = $posttype_obj->label ? $posttype_obj->label : $posttype_obj->name;
+
+			// plural
+			else if ( 1 === $mod )
+				$list[$posttype] = $posttype_obj->labels->name;
+
+			// singular
+			else if ( 2 === $mod )
+				$list[$posttype] = $posttype_obj->labels->singular_name;
+
+			// nooped
+			else if ( 3 === $mod )
+				$list[$posttype] = [
+					0          => $posttype_obj->labels->singular_name,
+					1          => $posttype_obj->labels->name,
+					'singular' => $posttype_obj->labels->singular_name,
+					'plural'   => $posttype_obj->labels->name,
+					'context'  => NULL,
+					'domain'   => NULL,
+				];
+
+			// object
+			else if ( 4 === $mod )
+				$list[$posttype] = $posttype_obj;
+		}
+
+		return $list;
+	}
+
 	// * 'publish' - a published post or page
 	// * 'pending' - post is pending review
 	// * 'draft' - a post in draft status

@@ -10,7 +10,7 @@ use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\Number;
 use geminorum\gNetwork\Core\Validation;
 use geminorum\gNetwork\Core\WordPress;
-use geminorum\gNetwork\WordPress\PostType as WPPost;
+use geminorum\gNetwork\WordPress\PostType as WPPostType;
 use geminorum\gNetwork\WordPress\User as WPUser;
 
 class Commerce extends gNetwork\Module
@@ -191,7 +191,7 @@ class Commerce extends gNetwork\Module
 			'ID'     => _x( 'ID', 'Modules: Commerce: Column Title', 'gnetwork' ),
 			'status' => [
 				'title'    => _x( 'Status', 'Modules: Commerce: Column Title', 'gnetwork' ),
-				'args'     => [ 'statuses' => WPPost::getStatuses() ],
+				'args'     => [ 'statuses' => WPPostType::getStatuses() ],
 				'callback' => static function( $value, $row, $column, $index, $key, $args ) {
 					if ( ! $product = wc_get_product( $row->ID ) )
 						return Utilities::htmlEmpty();
