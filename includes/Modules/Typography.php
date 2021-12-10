@@ -25,6 +25,7 @@ class Typography extends gNetwork\Module
 		if ( $this->options['title_sanitize'] ) {
 			$this->filter( 'sanitize_title', 3, 1 );
 			$this->filter( 'pre_term_slug', 2, 1 );
+			$this->filter_module( 'taxonomy', 'term_rewrite_slug', 3, 8 );
 		}
 
 		if ( is_admin() )
@@ -481,6 +482,11 @@ class Typography extends gNetwork\Module
 	public function pre_term_slug( $value, $taxonomy )
 	{
 		return Text::formatSlug( $value );
+	}
+
+	public function taxonomy_term_rewrite_slug( $name, $term, $taxonomy )
+	{
+		return Text::formatSlug( $name );
 	}
 
 	public function the_content_early( $content )
