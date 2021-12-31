@@ -67,6 +67,7 @@ class Login extends gNetwork\Module
 	{
 		return [
 			'login_math'      => 0,
+			'login_language'  => 0,
 			'login_log'       => 0,
 			'store_lastlogin' => 1,
 			'redirect_login'  => '',
@@ -88,6 +89,11 @@ class Login extends gNetwork\Module
 					'field'       => 'login_math',
 					'title'       => _x( 'Login Math', 'Modules: Login: Settings', 'gnetwork' ),
 					'description' => _x( 'Puts a math problem after the login form.', 'Modules: Login: Settings', 'gnetwork' ),
+				],
+				[
+					'field'       => 'login_language',
+					'title'       => _x( 'Login Language', 'Modules: Login: Settings', 'gnetwork' ),
+					'description' => _x( 'Displays Language dropdown after login form.', 'Modules: Login: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'login_log',
@@ -394,6 +400,10 @@ class Login extends gNetwork\Module
 		$this->filter( 'login_body_class', 2, 99 );
 
 		$this->action( 'login_footer', 1, 9, 'logged_in' );
+
+		// @REF: https://make.wordpress.org/core/2021/12/20/introducing-new-language-switcher-on-the-login-screen-in-wp-5-9/
+		if ( ! $this->options['login_language'] )
+			$this->filter_false( 'display_login_language_dropdown' );
 
 		if ( $this->options['login_credits']
 			&& 'splitscreen' !== $this->options['login_class'] )
