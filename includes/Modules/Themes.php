@@ -639,6 +639,9 @@ class Themes extends gNetwork\Module
 				}, 20 );
 			}
 
+			// $this->filter_false( 'ast_footer_bar_display' );
+			// $this->filter_false( 'astra_get_option_footer-copyright-editor' );
+
 		} else if ( $this->isTheme( 'storefront' ) ) {
 
 			if ( $this->rtl ) {

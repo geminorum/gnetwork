@@ -142,6 +142,7 @@ class ShortCodes extends gNetwork\Module
 			'redirect'    => 'shortcode_redirect',
 			'menu'        => 'shortcode_menu',
 			'post-title'  => 'shortcode_post_title',
+			// 'post-excerpt' => 'shortcode_post_excerpt', // TODO
 			'post-link'   => 'shortcode_permalink',
 			'permalink'   => 'shortcode_permalink',
 		];
@@ -1217,6 +1218,7 @@ class ShortCodes extends gNetwork\Module
 					$data   = $csv->data;
 
 				} else {
+
 					return $content ?: ( $args['string_view'] ? WPMedia::htmlAttachmentShortLink( $args['id'], $args['string_view'] ) : NULL );
 				}
 
@@ -1231,6 +1233,7 @@ class ShortCodes extends gNetwork\Module
 					$data   = $csv->data;
 
 				} else {
+
 					return $content ?: ( $args['string_view'] ? HTML::link( $args['string_view'], $args['url'] ) : NULL );
 				}
 			}

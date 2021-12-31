@@ -588,6 +588,7 @@ class Cleanup extends gNetwork\Module
 		] : 'optimized';
 	}
 
+	// FIXME: filter meta for multiple meta orphaned
 	private function thumbnail_orphanedmeta()
 	{
 		global $wpdb;
@@ -685,7 +686,7 @@ class Cleanup extends gNetwork\Module
 		] : 'optimized';
 	}
 
-	// static is for `_core_updated_successfully` hook
+	// public-static is for `_core_updated_successfully` hook
 	public static function files_clean_core( $message = FALSE )
 	{
 		$count = 0;

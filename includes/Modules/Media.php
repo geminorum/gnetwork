@@ -39,7 +39,7 @@ class Media extends gNetwork\Module
 			$this->filter( 'wp_handle_upload_prefilter', 1, 1 );
 
 		$this->filter( 'sanitize_file_name', 2, 12 );
-		$this->filter( 'image_send_to_editor', 8 );
+		$this->filter( 'image_send_to_editor', 9 );
 		$this->filter( 'media_send_to_editor', 3, 12 );
 
 		if ( $this->options['skip_exifmeta'] )
@@ -1439,7 +1439,8 @@ class Media extends gNetwork\Module
 		return $data;
 	}
 
-	public function image_send_to_editor( $html, $id, $caption, $title, $align, $url, $size, $alt )
+	// overrides the attachment url with short-link
+	public function image_send_to_editor( $html, $id, $caption, $title, $align, $url, $size, $alt, $rel = '' )
 	{
 		if ( strpos( $url, 'attachment_id' ) || $url == get_attachment_link( $id ) )
 			return WPMedia::htmlAttachmentShortLink( $id,
@@ -1453,8 +1454,10 @@ class Media extends gNetwork\Module
 		if ( ! $attachment = get_post( $id ) )
 			return $html;
 
-		// check for shortcode supported types if no link provided
+		// if no link provided, check for shortcode supported types
 		if ( empty( $data['url'] ) ) {
+
+			// TODO: must use filter system
 
 			if ( 'text/csv' == $attachment->post_mime_type )
 				return '[csv id="'.$id.'"]'
