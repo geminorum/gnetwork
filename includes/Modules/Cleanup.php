@@ -547,10 +547,13 @@ class Cleanup extends gNetwork\Module
 
 		$count = 0;
 
-		$meta_keys = [
+
+		$meta_keys = $this->filters( 'postmeta_obsolete_equals', [
 			'_gmeta'     => 'a:1:{i:0;s:0:\"\";}',
 			'_ge_series' => 'a:0:{}',
-		];
+
+			'_wp_page_template' => 'default',
+		] );
 
 		foreach ( $meta_keys as $key => $val )
 			$count += $wpdb->query( $wpdb->prepare( "
@@ -561,12 +564,12 @@ class Cleanup extends gNetwork\Module
 
 		$count+= $wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = '_gmeta' AND meta_value = ''" ); // with diffrent value
 
-		$likes = [
-			'%_yoast_wpseo_%', // Yoast SEO
-			'%_ad_participant_%', // Assignment Desk
-			'%_ad_pitched_by_%', // Assignment Desk
-			'%_ad_total_%', // Assignment Desk
-		];
+		$likes = $this->filters( 'postmeta_obsolete_likes', [
+			'_yoast_wpseo_%', // Yoast SEO
+			'_ad_participant_%', // Assignment Desk
+			'_ad_pitched_by_%', // Assignment Desk
+			'_ad_total_%', // Assignment Desk
+		] );
 
 		foreach ( $likes as $like )
 			$count += $wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key LIKE '{$like}'" );
