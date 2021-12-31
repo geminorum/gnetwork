@@ -23,6 +23,8 @@ class Themes extends gNetwork\Module
 
 	protected function setup_actions()
 	{
+		$this->action( 'after_switch_theme', 2 );
+
 		if ( ! $this->options['disable_themes']
 			&& ! is_network_admin()
 			&& ! is_user_admin() ) {
@@ -323,6 +325,57 @@ class Themes extends gNetwork\Module
 		.amp-wp-footer p { margin: 0 0 0 85px; }
 		blockquote { border-right: 2px solid gray; border-left: none; }
 		<?php
+	}
+
+	public function after_switch_theme( $old_name, $old_theme )
+	{
+		$current    = wp_get_theme();
+		$template   = $current->get_template();
+		$stylesheet = $current->get_stylesheet();
+		$supported  = $this->_get_supported_themes();
+
+		if ( $this->options['disable_themes'] && in_array( $stylesheet, $supported ) )
+			$this->update_option( 'disable_themes', '0' );
+
+		else if ( $this->options['disable_themes'] && in_array( $template, $supported ) )
+			$this->update_option( 'disable_themes', '0' );
+
+		else if ( ! $this->options['disable_themes'] && ! in_array( $stylesheet, $supported ) )
+			$this->update_option( 'disable_themes', '1' );
+
+		else if ( ! $this->options['disable_themes'] && ! in_array( $template, $supported ) )
+			$this->update_option( 'disable_themes', '1' );
+	}
+
+	private function _get_supported_themes()
+	{
+		return [
+			'publish',
+			'hueman',
+			'tribes',
+			'semicolon',
+			'omega',
+			'hyde',
+			'houston',
+			'revera',
+			'ari',
+			'easy-docs',
+			'rams',
+			'didi-lite',
+			'atlantic',
+			'aster',
+			'chosen',
+			'untitled',
+			'astra',
+			'storefront',
+			'twentyeleven',
+			'twentytwelve',
+			'twentythirteen',
+			'twentyfourteen',
+			'twentyfifteen',
+			'twentysixteen',
+			'twentyseventeen',
+		];
 	}
 
 	public function after_setup_theme()
@@ -697,15 +750,18 @@ class Themes extends gNetwork\Module
 		}
 	}
 
-	public function isTheme( $template, $not_stylesheet = NULL )
+	public function isTheme( $theme, $except_stylesheet = NULL )
 	{
 		if ( is_null( $this->theme ) )
 			$this->theme = wp_get_theme();
 
-		if ( ! is_null( $not_stylesheet ) )
-			return ( $template == $this->theme->template && $not_stylesheet != $this->theme->stylesheet );
+		$template   = $this->theme->get_template();
+		$stylesheet = $this->theme->get_stylesheet();
 
-		return ( $template == $this->theme->template || $template == $this->theme->stylesheet );
+		if ( ! is_null( $except_stylesheet ) )
+			return ( $theme == $template && $except_stylesheet != $stylesheet );
+
+		return ( $theme == $template || $theme == $stylesheet );
 	}
 
 	public function the_content( $content )
