@@ -547,22 +547,28 @@ class Cleanup extends gNetwork\Module
 
 		$count = 0;
 
+		$ins = $this->filters( 'postmeta_obsolete_ins', [
+			'_gmeta' => [ '', 'a:1:{i:0;s:0:\"\";}' ],
+		] );
 
-		$meta_keys = $this->filters( 'postmeta_obsolete_equals', [
-			'_gmeta'     => 'a:1:{i:0;s:0:\"\";}',
-			'_ge_series' => 'a:0:{}',
+		foreach ( $ins as $key => $val )
+			$count += $wpdb->query( $wpdb->prepare( "
+				DELETE FROM {$wpdb->postmeta}
+				WHERE meta_key = %s
+				AND meta_value IN ( '".implode( "', '", esc_sql( $val ) )."' )
+			", $key ) );
 
+		$equals = $this->filters( 'postmeta_obsolete_equals', [
+			'_ge_series'        => 'a:0:{}',
 			'_wp_page_template' => 'default',
 		] );
 
-		foreach ( $meta_keys as $key => $val )
+		foreach ( $equals as $key => $val )
 			$count += $wpdb->query( $wpdb->prepare( "
 				DELETE FROM {$wpdb->postmeta}
 				WHERE meta_key = %s
 				AND meta_value = %s
 			", $key, $val ) );
-
-		$count+= $wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = '_gmeta' AND meta_value = ''" ); // with diffrent value
 
 		$likes = $this->filters( 'postmeta_obsolete_likes', [
 			'_yoast_wpseo_%', // Yoast SEO
