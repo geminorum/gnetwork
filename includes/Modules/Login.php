@@ -403,7 +403,7 @@ class Login extends gNetwork\Module
 
 		// @REF: https://make.wordpress.org/core/2021/12/20/introducing-new-language-switcher-on-the-login-screen-in-wp-5-9/
 		if ( ! $this->options['login_language'] )
-			$this->filter_false( 'display_login_language_dropdown' );
+			$this->filter_false( 'login_display_language_dropdown' );
 
 		if ( $this->options['login_credits']
 			&& 'splitscreen' !== $this->options['login_class'] )

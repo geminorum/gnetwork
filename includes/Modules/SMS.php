@@ -300,6 +300,11 @@ class SMS extends gNetwork\Module
 		exit('1');
 	}
 
+	public function auth( $target, $atts = [] )
+	{
+		return FALSE;
+	}
+
 	public function send( $message, $target = NULL, $atts = [] )
 	{
 		if ( ! $provider = $this->get_default_provider() )

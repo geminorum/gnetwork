@@ -157,7 +157,7 @@ class Settings extends Core\Base
 	{
 		$extra = [];
 
-		if ( isset( $_REQUEST['count'] ) )
+		if ( isset( $_REQUEST['count'] ) && ! is_array( $_REQUEST['count'] ) )
 			/* translators: %s: count */
 			$extra[] = sprintf( _x( '%s Counted!', 'Settings: Message', 'gnetwork' ),
 				Number::format( $_REQUEST['count'] ) );

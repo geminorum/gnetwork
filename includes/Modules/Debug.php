@@ -503,8 +503,10 @@ class Debug extends gNetwork\Module
 
 	public static function summaryUpload()
 	{
+		$max_upload_size = wp_max_upload_size();
+
 		$info = [
-			'wp_max_upload_size()'     => File::formatSize( wp_max_upload_size() ).' = '.wp_max_upload_size(),
+			'wp_max_upload_size()'     => File::formatSize( $max_upload_size ).' = '.$max_upload_size,
 			'option: max_file_size'    => get_option( 'max_file_size' ),
 			'ini: upload_max_filesize' => ini_get( 'upload_max_filesize' ).' = '.wp_convert_hr_to_bytes( ini_get( 'upload_max_filesize' ) ),
 			'ini: post_max_size'       => ini_get( 'post_max_size' ).' = '.wp_convert_hr_to_bytes( ini_get( 'post_max_size' ) ),
