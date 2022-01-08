@@ -756,6 +756,7 @@ class Taxonomy extends gNetwork\Module
 
 	public function add_form_fields_editor( $taxonomy )
 	{
+		$object   = WPTaxonomy::object( $taxonomy );
 		$settings = [
 			'textarea_name'  => 'description',
 			'textarea_rows'  => 7,
@@ -782,7 +783,11 @@ class Taxonomy extends gNetwork\Module
 
 			$this->editor_status_info();
 
-			HTML::desc( _x( 'The description is not prominent by default; however, some themes may show it.', 'Modules: Taxonomy', 'gnetwork' ) );
+			if ( empty( $object->labels->desc_field_description ) )
+				HTML::desc( _x( 'The description is not prominent by default; however, some themes may show it.', 'Modules: Taxonomy', 'gnetwork' ) );
+
+			else
+				HTML::desc( $object->labels->desc_field_description );
 
 			HTML::wrapScript( 'jQuery("textarea#tag-description").closest(".form-field").remove();' );
 			HTML::wrapjQueryReady( '$("#addtag").on("mousedown","#submit",function(){tinyMCE.triggerSave();$(document).on("ajaxSuccess.gnetwork_add_term",function(){if(tinyMCE.activeEditor){tinyMCE.activeEditor.setContent("");}$(document).unbind("ajaxSuccess.gnetwork_add_term",false);});});' );
