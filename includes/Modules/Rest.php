@@ -39,13 +39,22 @@ class Rest extends gNetwork\Module
 
 	public function rest_api_init()
 	{
+		$this->_init_terms_rendered();
+		$this->_init_thumbnail_data();
+	}
+
+	private function _init_terms_rendered()
+	{
 		$posttypes = $this->get_supported_posttypes();
 		$posttypes = $this->filters( 'terms_rendered_posttypes', $posttypes );
 
 		register_rest_field( $posttypes, 'terms_rendered', [
 			'get_callback' => [ $this, 'terms_rendered_get_callback' ],
 		] );
+	}
 
+	private function _init_thumbnail_data()
+	{
 		$posttypes = get_post_types_by_support( 'thumbnail' );
 		$posttypes = $this->get_supported_posttypes( $posttypes );
 		$posttypes = $this->filters( 'thumbnail_data_posttypes', $posttypes );
