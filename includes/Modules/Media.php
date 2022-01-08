@@ -35,6 +35,9 @@ class Media extends gNetwork\Module
 		$this->filter( 'wp_editor_set_quality', 2, 12 );
 		// $this->filter( 'wp_check_filetype_and_ext', 4, 12 );
 
+		if ( ! empty( $this->option['output_format'] ) )
+			$this->filter( 'image_editor_output_format', 3, 12 );
+
 		if ( function_exists( 'normalizer_normalize' ) )
 			$this->filter( 'wp_handle_upload_prefilter', 1, 1 );
 
@@ -76,6 +79,7 @@ class Media extends gNetwork\Module
 			'skip_exifmeta'       => '1',
 			'quality_jpeg'        => 60,
 			'quality_webp'        => 75,
+			'output_format'       => [],
 			'dashboard_widget'    => '0',
 			'dashboard_accesscap' => 'edit_others_posts',
 			'dashboard_intro'     => '',
@@ -120,6 +124,24 @@ class Media extends gNetwork\Module
 					'default'     => 75,
 					'min_attr'    => 1,
 					'max_attr'    => 100,
+				],
+			],
+			'_format' => [
+				[
+					'field'       => 'output_format',
+					'type'        => 'checkboxes',
+					'title'       => _x( 'Output Format', 'Modules: Media: Settings', 'gnetwork' ),
+					'description' => _x( 'Sets WebP as default format for selected image sub-sizes.', 'Modules: Media: Settings', 'gnetwork' ),
+					// 'after'       => Settings::fieldAfterIcon( 'https://caniuse.com/webp' ),
+					'values'      => [
+						'jpeg'   => 'JPEG',
+						'gif'    => 'GIF',
+						'png'    => 'PNG',
+						'bmp'    => 'BMP',
+						'tiff'   => 'TIFF',
+						'avif'   => 'AVIF',
+						'jpegxl' => 'JPEG XL',
+					],
 				],
 			],
 			'_uploader' => [
@@ -1402,6 +1424,16 @@ class Media extends gNetwork\Module
 		}
 
 		return $quality;
+	}
+
+	// @REF: https://core.trac.wordpress.org/ticket/52867
+	// @REF: https://github.com/adamsilverstein/modern-images-wp
+	public function image_editor_output_format( $map, $filename, $mime_type )
+	{
+		foreach ( $this->option['output_format'] as $format )
+			$map['image/'.$format] = 'image/webp';
+
+		return $map;
 	}
 
 	// @REF: https://gist.github.com/rmpel/e1e2452ca06ab621fe061e0fde7ae150
