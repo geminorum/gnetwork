@@ -81,7 +81,7 @@ class NotFound extends gNetwork\Module
 	public function template_redirect()
 	{
 		if ( is_404() )
-			Logger::siteNotFound( '404', HTML::escapeURL( $_SERVER['REQUEST_URI'] ) );
+			Logger::siteNotFound( '404', HTML::escapeURL( rawurldecode( $_SERVER['REQUEST_URI'] ) ) );
 	}
 
 ////////////////////////////////////////////////////////////////////////////////
