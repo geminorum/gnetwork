@@ -3,6 +3,7 @@
 /*
 Plugin Name: gNetwork
 Plugin URI: https://geminorum.ir/wordpress/gnetwork
+Update URI: https://github.com/geminorum/gnetwork
 Description: Network Helper
 Version: 3.14.0
 License: GPLv3+
@@ -13,8 +14,8 @@ Text Domain: gnetwork
 Domain Path: /languages
 GitHub Plugin URI: https://github.com/geminorum/gnetwork
 Release Asset: true
-Requires WP: 5.0
-Requires at least: 5.0
+Requires WP: 5.5
+Requires at least: 5.5
 Requires PHP: 7.2
 */
 

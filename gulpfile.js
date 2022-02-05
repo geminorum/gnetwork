@@ -106,6 +106,7 @@
       config.i18n.core.dist + ' ' +
       config.i18n.core.temp + ' ' +
       // '--no-purge ' + // the whole point of this is not to use the flag!
+      '--update-mo-files ' + // @REF: https://github.com/wp-cli/i18n-command/issues/126
       '--skip-plugins --skip-themes --skip-packages' +
       (debug ? ' --debug' : ''),
     cb);
@@ -242,8 +243,9 @@
   gulp.task('build:rtl', function () {
     return gulp.src(config.input.rtl)
       .pipe(sass.sync().on('error', sass.logError))
-      .pipe(plugins.postcss([rtlcss()])) // divided to avoid cssnano messing with rtl directives
+      // .pipe(plugins.postcss([rtlcss()])) // divided to avoid cssnano messing with rtl directives
       .pipe(plugins.postcss([
+        rtlcss(),
         cssnano(config.cssnano.build),
         autoprefixer(config.autoprefixer.build)
       ]))

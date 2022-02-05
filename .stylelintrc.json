@@ -1,8 +1,15 @@
 {
+  "plugins": [
+    "stylelint-scss"
+  ],
   "extends": [
     "@wordpress/stylelint-config/scss"
   ],
   "rules": {
+    "scss/at-import-partial-extension": null,
+    "declaration-property-unit-allowed-list": {
+      "line-height": [ "px" ]
+    },
     "block-no-empty": null,
     "max-line-length": null,
     "comment-empty-line-before": null,
