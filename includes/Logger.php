@@ -29,7 +29,7 @@ class Logger
 		}
 	}
 
-	// @REF: http://symfony.com/doc/current/components/stopwatch.html
+	// @REF: https://github.com/symfony/stopwatch
 	public static function startWatch( $name = 'testing', $category = 'gnetwork' )
 	{
 		global $gNetworkStopWatch;

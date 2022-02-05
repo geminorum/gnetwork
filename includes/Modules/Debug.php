@@ -58,6 +58,7 @@ class Debug extends gNetwork\Module
 		}
 
 		// @REF: https://core.trac.wordpress.org/ticket/22430#comment:4
+		// @SEE: https://core.trac.wordpress.org/ticket/18525
 		remove_action( 'shutdown', 'wp_ob_end_flush_all', 1 ); // FIXME: must check for zlib enabled/optional
 
 		$this->action( 'shutdown', 1, 99999 );
@@ -377,8 +378,8 @@ class Debug extends gNetwork\Module
 			'WP_MAX_MEMORY_LIMIT' => WP_MAX_MEMORY_LIMIT,
 			'WP_LOCAL_DEV'        => defined( 'WP_LOCAL_DEV' ) ? constant( 'WP_LOCAL_DEV' ) : 'UNDEFINED',
 			'WP_DEBUG'            => WP_DEBUG,
-			'WP_DEBUG_DISPLAY'    => WP_DEBUG_DISPLAY,
 			'WP_DEBUG_LOG'        => WP_DEBUG_LOG,
+			'WP_DEBUG_DISPLAY'    => WP_DEBUG_DISPLAY,
 			'SCRIPT_DEBUG'        => SCRIPT_DEBUG,
 			'CONCATENATE_SCRIPTS' => defined( 'CONCATENATE_SCRIPTS' ) ? constant( 'CONCATENATE_SCRIPTS' ) : 'UNDEFINED',
 			'COMPRESS_SCRIPTS'    => defined( 'COMPRESS_SCRIPTS' ) ? constant( 'COMPRESS_SCRIPTS' ) : 'UNDEFINED',
@@ -665,7 +666,7 @@ class Debug extends gNetwork\Module
 		$available = [];
 
 		foreach ( $tools as $tool )
-			$available[strtoupper($tool)] = is_readable( $path.$tool ) ? $path.$tool : FALSE;
+			$available[strtoupper($tool)] = @is_readable( $path.$tool ) ? $path.$tool : FALSE;
 
 		echo HTML::tableCode( $available );
 

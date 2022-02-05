@@ -39,6 +39,8 @@ class Module extends Core\Base
 	protected $xmlrpc     = NULL;
 	protected $iframe     = NULL;
 
+	protected $rest_api_version = 'v1';
+
 	protected $priority_current_screen = 10;
 
 	protected $scripts_printed  = FALSE;

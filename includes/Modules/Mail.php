@@ -539,11 +539,11 @@ class Mail extends gNetwork\Module
 			echo '<hr />';
 
 			HTML::desc( _x('The SMTP debugging output:', 'Modules: Mail', 'gnetwork' ) );
-			HTML::dump( $smtp_debug );
+			echo HTML::wrap( $smtp_debug, '-smtp-debug' );
 
 			echo '<hr />';
 
-			HTML::desc( _x('The full debugging output:', 'Modules: Mail', 'gnetwork' ) );
+			HTML::desc( _x('The full phpmailer object properties:', 'Modules: Mail', 'gnetwork' ) );
 			HTML::tableSide( $phpmailer );
 
 			unset( $phpmailer );
