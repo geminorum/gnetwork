@@ -1,3 +1,51 @@
+### 3.15.0
+* main/plugin: avoid escaping on the constant
+* main/settings: better handling min/max/step on number inputs
+* main/settings: template for value arg on fields
+* main/utilities: :new: cached qrcodes
+* main/utilities: internal api for cache folder
+* misc/buddypress-me: exclude the page from sitemaps
+* misc/qm: taxonomy terms of current object
+* module/adminbar: core helper for current post rest route
+* module/bbq: :up: v20220122
+* module/bbq: explicit logging
+* module/cleanup: filter post-meta obsoletes
+* module/cleanup: multiple value post-meta obsoletes
+* module/commerce: access cap check for tablelist
+* module/commerce: exclude wc private pages from sitemap
+* module/commerce: migrate to editorial
+* module/debug: check for more common available functions
+* module/editor: load separate core block assets
+* module/embed: handle www on aparat
+* module/legal: insert default ads.txt
+* module/login: hide language switcher by default
+* module/media: custom jpeg/webp compression quality
+* module/media: exempt attachments from table list
+* module/media: webp output format for image sub-sizes
+* module/navigation: :new: include children as sub-menu
+* module/navigation: support custom navs via filters
+* module/notfound: exclude the page from sitemaps
+* module/notfound: readable urls in the log
+* module/notify: locale on reset password email link
+* module/rest: filtering the thumbnail id
+* module/rest: logic separation on init
+* module/search: custom exclusion prefix
+* module/site: body class for network
+* module/taxonomy: :new: clone to taxonomy action
+* module/taxonomy: :warning: correct termid/action on split terms
+* module/taxonomy: explicitly count relations for each term before deletion
+* module/taxonomy: optimize term queries
+* module/taxonomy: prefix input names
+* module/taxonomy: skip delete terms if desc is not empty
+* module/taxonomy: support for desc field description string
+* module/themes: auto enable/disable enhancements for supported themes
+* module/typography: access cap optional for titles tablelist
+* module/typography: actions for titles tablelist
+* module/typography: more checks on term rewrite slugs
+* module/typography: skip title word-wrap on rest
+* module/user: :new: application password based on roles
+* module/user: missing filter on authentication
+
 ### 3.14.0
 * assets/js: :up: PDFObject v2.2.5
 * assets/js: :up: prismjs 1.23.0
