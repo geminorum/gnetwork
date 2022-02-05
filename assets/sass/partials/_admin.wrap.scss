@@ -5,6 +5,9 @@
 //
 
 ////////////////////////////////////////////////////////////////////////////////
+@use "sass:math"; // @REF: https://sass-lang.com/d/slash-div
+
+////////////////////////////////////////////////////////////////////////////////
 .wrap {
   .-wrap.-danger,
   .-button.button-reset,
@@ -35,7 +38,7 @@
       float: left;
       margin: 0 0.5em 0.5em 0;
       max-width: 460px;
-      min-width: (460px / 2);
+      min-width: math.div(460px, 2);
     }
   }
 

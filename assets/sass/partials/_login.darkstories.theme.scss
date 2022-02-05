@@ -29,6 +29,7 @@ body.login.darkstories {
   input[type="checkbox"],
   input[type="radio"],
   input[type="email"],
+  input[type="tel"],
   input[type="number"],
   input[type="password"],
   input[type="text"] {
@@ -41,6 +42,8 @@ body.login.darkstories {
   }
 
   input[type="checkbox"],
+  input[type="email"],
+  input[type="tel"],
   input[type="number"],
   input[type="text"],
   form .input {

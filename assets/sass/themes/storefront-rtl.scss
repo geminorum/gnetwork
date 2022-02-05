@@ -65,6 +65,29 @@ h6 {
   }
 }
 
+.wc-forward::after,
+.woocommerce-Button--next::after {
+  content: "\f30a"; // long-arrow-alt-left (Font Awesome 5)
+}
+
+.woocommerce-Button--previous::after {
+  content: "\f30b"; // long-arrow-alt-right (Font Awesome 5)
+}
+
+.storefront-product-pagination a[rel="next"]::after,
+.main-navigation ul.menu ul li.menu-item-has-children > a::after,
+.main-navigation ul.menu ul li.page_item_has_children > a::after,
+.main-navigation ul.nav-menu ul li.menu-item-has-children > a::after,
+.main-navigation ul.nav-menu ul li.page_item_has_children > a::after,
+.woocommerce-tabs ul.tabs li::after,
+.woocommerce-breadcrumb .breadcrumb-separator::after {
+  content: "\f104"; // angle-left (Font Awesome 5)
+}
+
+.storefront-product-pagination a[rel="prev"]::after {
+  content: "\f105"; // angle-right (Font Awesome 5)
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 input#username,
 input#billing_postcode {
@@ -81,7 +104,7 @@ input#billing_postcode {
 .woocommerce-product-attributes-item--weight,
 .woocommerce-product-attributes-item--dimensions {
   .woocommerce-product-attributes-item__value {
-    direction: ltr;
+    // direction: ltr; // no need, we use gEditorial WC-Units
   }
 }
 
@@ -91,7 +114,6 @@ h2.woocommerce-Reviews-title,
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-
 .woocommerce-table.order_details {
   tfoot {
     th {
@@ -99,5 +121,3 @@ h2.woocommerce-Reviews-title,
     }
   }
 }
-
-////////////////////////////////////////////////////////////////////////////////

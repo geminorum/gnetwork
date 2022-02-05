@@ -59,7 +59,8 @@ table.media {
 .gnetwork-wrap.-media.-widget-form {
   form {
     background: #fafafa;
-    border: 1px solid #e5e5e5;
+    border: 1px dashed #e5e5e5;
+    border-radius: 2px;
     padding: 10px;
     // margin: 5px 0;
     // max-width: 380px;
@@ -71,6 +72,8 @@ table.media {
     .-messages {
       margin-bottom: 20px;
       text-align: center;
+      color: $gray-light;
+      font-size: smaller;
     }
 
     input[type="file"] {

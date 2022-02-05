@@ -37,6 +37,7 @@
     }
 
     .postbox-title-info {
+      display: inline !important;
       cursor: help;
       opacity: .6;
       transition: all 0.1s ease;
@@ -98,15 +99,6 @@
 
       &:focus {
         box-shadow: none;
-      }
-    }
-
-    .-description.-empty {
-      display: block;
-      color: $gray-dark;
-
-      &:hover {
-        color: $gray-darker;
       }
     }
 

@@ -20,6 +20,7 @@ body.options-permalink-php .form-table .sptp-fieldset, // Simple Post Type Perma
 .user-facebook-wrap input#facebook,
 #nav-menu-header input#menu-name,
 .inline-edit-col input[name="slug"],
+input[type="text"].widefat.link,
 input#username_or_email_for_privacy_request,
 input#adduser-email,
 input#email,
@@ -325,8 +326,16 @@ span.description {
     float: none;
   }
 
-  .embed-url .spinner {
-    left: 26px;
+  .embed-url {
+    input {
+      padding-right: 40px;
+      padding-left: 14px;
+    }
+
+    .spinner {
+      right: 26px;
+      left: auto;
+    }
   }
 
   .setting {

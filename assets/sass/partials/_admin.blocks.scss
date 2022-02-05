@@ -15,3 +15,37 @@
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+// Default meta boxes in Gutenberg have a different style than other components
+// @REF: https://github.com/WordPress/gutenberg/issues/12101#issuecomment-971215145
+
+.block-editor__container {
+  .edit-post-meta-boxes-area {
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  #poststuff .inside {
+    margin-top: -6px !important;
+  }
+
+  .postbox .handlediv .toggle-indicator::before {
+    right: 5px;
+    font-size: 15px !important;
+    color: #1e1e1e;
+  }
+
+  .meta-box-sortables .postbox {
+    &.closed .handlediv .toggle-indicator::before {
+      content: "\f347" !important;
+    }
+
+    .toggle-indicator::before {
+      content: "\f343" !important;
+    }
+  }
+}
+
+#editor.block-editor__container .postbox > .postbox-header .hndle {
+  font-size: 13px;
+  color: #1e1e1e;
+  font-weight: 500;
+}

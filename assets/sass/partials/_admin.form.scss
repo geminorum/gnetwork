@@ -6,13 +6,36 @@
 // TODO: check new core styles: https://make.wordpress.org/core/2019/10/18/noteworthy-admin-css-changes-in-wordpress-5-3/
 
 ////////////////////////////////////////////////////////////////////////////////
+.-description {
+  &.-empty {
+    display: block;
+    color: $gray-dark;
+
+    &:hover {
+      color: $gray-darker;
+    }
+  }
+
+  &.-denied {
+    display: block;
+    color: $brand-danger;
+
+    &:hover {
+      color: darken($brand-danger, 20);
+    }
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+.-wrap.field-wrap,
 .wrap {
   input[type="text"] {
     vertical-align: middle;
   }
 
   input[type="number"] {
-    &[dir="ltr"].small-text {
+    // &[dir="ltr"].small-text {
+    &[dir="ltr"] {
       /*rtl:begin:ignore*/
       padding-left: 6px;
       padding-right: 0;

@@ -5,11 +5,6 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-span.gtin_wrapper {
-  span.gtin {}
-}
-
-////////////////////////////////////////////////////////////////////////////////
 .woocommerce-input-wrapper {
   input.input-text.ltr {
     /*rtl:ignore*/
@@ -18,7 +13,7 @@ span.gtin_wrapper {
 
   input.input-text.rtl-placeholder {
     &::-webkit-input-placeholder {
-      direction: ltr; // will swith for rtl
+      direction: ltr; // will switch for rtl
     }
   }
 }
@@ -31,4 +26,11 @@ span.gtin_wrapper {
     max-height: 1.618em; // storefront default
     width: auto;
   }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+.woocommerce-MyAccount-navigation ul li a::before {
+  margin-left: 0; // will switch for rtl
+  margin-right: 0.540791em; // will switch for rtl
+  float: left; // will switch for rtl
 }
