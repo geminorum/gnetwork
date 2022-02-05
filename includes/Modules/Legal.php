@@ -3,7 +3,11 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Logger;
 use geminorum\gNetwork\Settings;
+use geminorum\gNetwork\Core\File;
+use geminorum\gNetwork\Core\HTML;
+use geminorum\gNetwork\Core\WordPress;
 
 class Legal extends gNetwork\Module
 {
@@ -92,6 +96,41 @@ class Legal extends gNetwork\Module
 			_x( 'Terms of Service', 'Modules: Legal: Settings', 'gnetwork' ),
 			_x( 'Details about terms of service section on registration pages.', 'Modules: Legal: Settings', 'gnetwork' )
 		);
+	}
+
+	// @SEE: https://wordpress.org/plugins/ads-txt/
+	public function settings_sidebox( $sub, $uri )
+	{
+		if ( file_exists( ABSPATH.'ads.txt' ) ) {
+
+			echo HTML::tag( 'a', [
+				'href'   => home_url( '/ads.txt' ),
+				'class'  => 'button button-secondary button-small',
+				'target' => '_blank',
+			], _x( 'View Ads.txt', 'Modules: Mail', 'gnetwork' ) );
+
+		} else {
+
+			/* translators: %s: file name for `Ads.txt` */
+			Settings::submitButton( 'insert_default_adstxt', sprintf( _x( 'Insert Default %s', 'Modules: Legal', 'gnetwork' ), 'Ads.txt' ), 'small' );
+		}
+	}
+
+	protected function settings_actions( $sub = NULL )
+	{
+		if ( isset( $_POST['insert_default_adstxt'] ) ) {
+
+			$this->check_referer( $sub, 'settings' );
+
+			// @REF: https://webmasters.stackexchange.com/a/129389
+			$default = 'placeholder.example.com, placeholder, DIRECT, placeholder';
+
+			if ( FALSE === File::putContents( 'ads.txt', $default, ABSPATH, FALSE ) )
+				WordPress::redirectReferer( 'wrong' );
+
+			Logger::INFO( 'LEGAL: ads.txt created' );
+			WordPress::redirectReferer( 'maked' );
+		}
 	}
 
 	public function before_signup_header()
