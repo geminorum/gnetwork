@@ -804,6 +804,15 @@ class Text extends Base
 			: "/[{$symbols}]+([a-zA-Z0-9-_\.\w\p{L}\p{N}\p{Pd}{$symbols}]+)\b/u";
 	}
 
+	// @REF: https://regex101.com/r/5K24IU/1
+	// @REF: https://stackoverflow.com/a/42551826
+	public static function linkifyHashtags( $string, $callback )
+	{
+		return preg_replace_callback( "/(?:^|\B)#(?![0-9_]+\b)([a-zA-Z0-9_]{1,})(?:\b|\r)/gmu", static function( $matches ) use ( $callback ) {
+			return call_user_func( $callback, $matches[0], $matches[1] );
+		}, $string );
+	}
+
 	public static function replaceOnce( $search, $replace, $string )
 	{
 		return preg_replace( ( '/'.preg_quote( $search, '/' ).'/' ), $replace, $string, 1 );

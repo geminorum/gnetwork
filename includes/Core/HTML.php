@@ -71,6 +71,11 @@ class HTML extends Base
 		if ( $html ) echo self::tag( 'h4', array( 'class' => $class ), ( $link ? self::link( $html, $link ) : $html ) );
 	}
 
+	public static function code( $string, $class = FALSE )
+	{
+		return empty( $string ) ? '' : self::tag( 'code', [ 'class' => $class ], $string );
+	}
+
 	public static function desc( $string, $block = TRUE, $class = '', $nl2br = TRUE )
 	{
 		if ( is_array( $string ) ) {

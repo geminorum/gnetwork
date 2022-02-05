@@ -26,24 +26,28 @@ class User extends Core\Base
 		return reset( $users );
 	}
 
-	public static function getIDbyMeta( $meta, $value )
+	public static function getIDbyMeta( $meta, $value, $single = TRUE )
 	{
-		static $results = [];
+		static $data = [];
 
-		if ( isset( $results[$meta][$value] ) )
-			return $results[$meta][$value];
+		$group = $single ? 'single' : 'all';
+
+		if ( isset( $data[$meta][$group][$value] ) )
+			return $data[$meta][$group][$value];
 
 		global $wpdb;
 
-		$post_id = $wpdb->get_var(
-			$wpdb->prepare( "
-				SELECT user_id
-				FROM {$wpdb->usermeta}
-				WHERE meta_key = %s
-				AND meta_value = %s
-			", $meta, $value )
-		);
+		$query = $wpdb->prepare( "
+			SELECT user_id
+			FROM {$wpdb->usermeta}
+			WHERE meta_key = %s
+			AND meta_value = %s
+		", $meta, $value );
 
-		return $results[$meta][$value] = $post_id;
+		$results = $single
+			? $wpdb->get_var( $query )
+			: $wpdb->get_col( $query );
+
+		return $data[$meta][$group][$value] = $results;
 	}
 }

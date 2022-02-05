@@ -264,6 +264,28 @@ class File extends Base
 		return FALSE;
 	}
 
+	// @REF: https://www.php.net/manual/en/function.disk-free-space.php#103382
+	// @SEE: https://en.wikipedia.org/wiki/Binary_prefix
+	// @SEE: https://en.wikipedia.org/wiki/International_System_of_Units#Prefixes
+	// @USAGE: `File::prefixSI( disk_free_space( '.' ) )`
+	public static function prefixSI( $bytes, $poweroftwo = TRUE )
+	{
+		if ( $poweroftwo ) {
+
+			$base   = 1024;
+			$prefix = [ 'B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB' ];
+
+		} else {
+
+			$base   = 1000;
+			$prefix = [ 'B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB' ];
+		}
+
+		$class = min( (int) log( $bytes, $base ), count( $prefix ) - 1 );
+
+		return sprintf( '%1.2f', $bytes / pow( $base, $class ) ).' '.$prefix[$class];
+	}
+
 	public static function remove( $files )
 	{
 		$count = 0;

@@ -1299,4 +1299,27 @@ class Orthography extends Base
 
 		return $regex;
 	}
+
+	// removes inside spaces and more than one outside
+	// for `()`, `[]`, `{}`, `“”` and `«»`
+	// @REF: Virastar: `fixBracesSpacing()`
+	public static function virastarFixBracesSpacing( $string )
+	{
+		$string = (string) $string;
+		$string = trim( $string );
+
+		if ( 0 === strlen( $string ) )
+			return '';
+
+		$replacement = ' $1$2$3 ';
+		$string = ' '.$string.' '; // padding!
+
+		$string = preg_replace( "/[ \t\x{200c}]*(\()\s*([^)]+?)\s*?(\))[ \t\x{200c}]*/miu", $replacement, $string );
+		$string = preg_replace( "/[ \t\x{200c}]*(\[)\s*([^\]]+?)\s*?(\])[ \t\x{200c}]*/miu", $replacement, $string );
+		$string = preg_replace( "/[ \t\x{200c}]*(\{)\s*([^}]+?)\s*?(\})[ \t\x{200c}]*/miu", $replacement, $string );
+		$string = preg_replace( "/[ \t\x{200c}]*(“)\s*([^”]+?)\s*?(”)[ \t\x{200c}]*/miu", $replacement, $string );
+		$string = preg_replace( "/[ \t\x{200c}]*(«)\s*([^»]+?)\s*?(»)[ \t\x{200c}]*/miu", $replacement, $string );
+
+		return trim( $string );
+	}
 }

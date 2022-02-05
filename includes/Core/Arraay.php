@@ -19,6 +19,11 @@ class Arraay extends Base
 		return empty( $args ) ? [] : array_unique( array_filter( array_map( 'intval', array_merge( ...$args ) ) ) );
 	}
 
+	public static function prepSplitters( $string, $default = '|' )
+	{
+		return empty( $string ) ? [ $default ] : self::prepString( preg_split( '//u', $string, -1, PREG_SPLIT_NO_EMPTY ), [ $default ] );
+	}
+
 	// deep array_filter()
 	public static function filterArray( $input, $callback = NULL )
 	{
@@ -125,6 +130,24 @@ class Arraay extends Base
 			$parsed[$part['name']] = $part['value'];
 
 		return $parsed;
+	}
+
+	// FIXME: TEST THIS!
+	// array map, but maps values to new keys instead of new values
+	// @REF: https://gist.github.com/abiusx/4ed90007ca693802cc7a56446cfd9394
+	// @SEE: https://ryanwinchester.ca/posts/php-array-map-with-keys
+	public static function mapKeys( $callback, $array )
+	{
+		return array_reduce( $array, static function ( $key, $value ) use ( $array, $callback ) {
+			return [ call_user_func( $callback, $key, $value ) => $value ];
+		} );
+	}
+
+	// array map for keys, php > 5.6
+	// @SEE: https://stackoverflow.com/a/43004994
+	public static function mapAssoc( $callback, $array )
+	{
+		return array_merge( ...array_map( $callback, array_keys( $array ), $array ) );
 	}
 
 	public static function strposArray( $needles, $haystack )
@@ -331,6 +354,14 @@ class Arraay extends Base
 		return $arr;
 	}
 
+	// `array_is_list()` for php < 8.1
+	// @REF: https://www.php.net/manual/en/function.array-is-list.php#126574
+	// an array is considered a list if its keys consist of consecutive numbers from 0 to count $array
+	public static function isList( $array )
+	{
+		return $array === [] || ( array_keys( $array ) === range( 0, count( $array ) - 1 ) );
+	}
+
 	// @REF: http://stackoverflow.com/a/11320508
 	public static function find( $needle, &$haystack, $default = NULL )
 	{
@@ -356,9 +387,64 @@ class Arraay extends Base
 	}
 
 	// @REF: https://stackoverflow.com/a/4254008
+	// To merely check whether the array has non-integer keys, not whether the
+	// array is sequentially-indexed or zero-indexed. If there is at least one
+	// string key, the array will be regarded as an associative array.
 	public static function hasStringKeys( $array )
 	{
 		return count( array_filter( array_keys( $array ), 'is_string' ) ) > 0;
+	}
+
+	public static function changeCaseLower( $array )
+	{
+		return array_map( [ __CLASS__, 'changeCaseLowerCallback' ], $array );
+	}
+
+	private static function changeCaseLowerCallback( $value )
+	{
+		return is_array( $value ) ? array_map( [ __CLASS__, 'changeCaseLowerCallback' ], $value ) : strtolower( $value );
+	}
+
+	public static function reKeyByMap( $array, $map )
+	{
+		if ( empty( $array ) || empty( $map ) || ! self::isAssoc( $array ) )
+			return $array;
+
+		$new = [];
+
+		foreach ( $array as $key => $value ) {
+
+			if ( '' === $key || is_numeric( $key ) ) {
+
+				$new[$key] = $value;
+
+			} else {
+
+				$passed = FALSE;
+
+				foreach ( $map as $target => $keys ) {
+
+					if ( '' === $target || is_numeric( $target ) || ! $keys )
+						continue;
+
+					$keys = (array) $keys;
+					$lows = array_map( 'strtolower', $keys );
+
+					if ( in_array( $key, $keys, TRUE )
+						|| in_array( $key, $lows, TRUE ) ) {
+
+						$new[$target] = $value;
+						$passed = TRUE;
+						break;
+					}
+				}
+
+				if ( ! $passed )
+					$new[$key] = $value;
+			}
+		}
+
+		return $new;
 	}
 
 	// @REF: `wp_array_slice_assoc()`

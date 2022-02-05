@@ -77,14 +77,25 @@ class Taxonomy extends Core\Base
 		return $list;
 	}
 
-	// @REF: `is_post_type_viewable()`
+	// @REF: `is_taxonomy_viewable()`
 	public static function isViewable( $taxonomy )
 	{
-		if ( is_scalar( $taxonomy ) ) {
+		if ( ! $taxonomy = self::object( $taxonomy ) )
+			return FALSE;
 
-			if ( ! $taxonomy = get_taxonomy( $taxonomy ) )
-				return FALSE;
-		}
+		return $taxonomy->publicly_queryable
+			|| ( $taxonomy->_builtin && $taxonomy->public );
+	}
+
+	public static function isTermViewable( $term_id )
+	{
+		$term = get_term( $term_id );
+
+		if ( ! $term || is_wp_error( $term ) )
+			return FALSE;
+
+		if ( ! $taxonomy = self::object( $term->taxonomy ) )
+			return FALSE;
 
 		return $taxonomy->publicly_queryable
 			|| ( $taxonomy->_builtin && $taxonomy->public );
@@ -130,12 +141,18 @@ class Taxonomy extends Core\Base
 
 	public static function getTermParents( $term_id, $taxonomy )
 	{
+		static $data = [];
+
+		if ( isset( $data[$taxonomy][$term_id] ) )
+			return $data[$taxonomy][$term_id];
+
+		$current = $term_id;
 		$parents = [];
 		$up      = TRUE;
 
 		while ( $up ) {
 
-			$term = get_term( (int) $term_id, $taxonomy );
+			$term = get_term( (int) $current, $taxonomy );
 
 			if ( $term->parent )
 				$parents[] = (int) $term->parent;
@@ -143,10 +160,10 @@ class Taxonomy extends Core\Base
 			else
 				$up = FALSE;
 
-			$term_id = $term->parent;
+			$current = $term->parent;
 		}
 
-		return count( $parents ) ? $parents : FALSE;
+		return $data[$taxonomy][$term_id] = $parents;
 	}
 
 	// TODO: must suport different parents
