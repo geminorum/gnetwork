@@ -792,11 +792,14 @@ class Module extends Core\Base
 			if ( $this->render_tools_html( $uri, $sub ) )
 				$this->render_form_buttons( $sub );
 
+			$this->render_tools_html_after( $uri, $sub );
+
 		$this->render_form_end( $uri, $sub, 'bulk', 'tools' );
 	}
 
 	// DEFAULT METHOD: used for tools default sub html
 	protected function render_tools_html( $uri, $sub = 'general' ) {}
+	protected function render_tools_html_after( $uri, $sub = 'general' ) {}
 
 	protected function render_form_start( $uri, $sub = 'general', $action = 'update', $context = 'settings', $check = TRUE )
 	{
