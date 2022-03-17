@@ -624,6 +624,7 @@ class Taxonomy extends gNetwork\Module
 		echo '</div>';
 	}
 
+	// TODO: card: recount posts for each term
 	// TODO: card: delete terms with single post
 	// TODO: card: apply i18n on all titles
 	// TODO: card: merge i18n same titles

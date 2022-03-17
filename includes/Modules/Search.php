@@ -113,7 +113,7 @@ class Search extends gNetwork\Module
 				[
 					'field'       => 'linkify_hashtags',
 					'title'       => _x( 'Linkify Hash-tags', 'Modules: Search: Settings', 'gnetwork' ),
-					'description' => _x( 'Tries to linkify hash-tags on the content. Must enable &ldquo;General Typography&rdquo; setting.', 'Modules: Search: Settings', 'gnetwork' ),
+					'description' => _x( 'Tries to linkify hash-tags on the content. Must enable &ldquo;Linkify Content&rdquo; setting on Typography Module.', 'Modules: Search: Settings', 'gnetwork' ),
 				],
 				'register_shortcodes',
 			],
@@ -330,7 +330,7 @@ class Search extends gNetwork\Module
 			return;
 
 		if ( GNETWORK_SEARCH_LOG && ( $query = get_query_var( 's' ) ) )
-			Logger::siteSearch( 'QUERY', sprintf( '%s', $query ) );
+			Logger::siteSearch( 'QUERY', sprintf( '%s -- %s', $query, ( isset( $_SERVER['HTTP_REFERER'] ) ? $_SERVER['HTTP_REFERER'] : 'NO-REFERER' ) ) );
 
 		if ( GNETWORK_SEARCH_REDIRECT )
 			WordPress::redirect( add_query_arg( GNETWORK_SEARCH_QUERYID, $wp_query->query_vars['s'], GNETWORK_SEARCH_URL ) );

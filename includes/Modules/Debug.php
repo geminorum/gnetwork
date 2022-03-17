@@ -757,6 +757,7 @@ class Debug extends gNetwork\Module
 			'json'      => 'JavaScript Object Notation',
 			'xml'       => 'XML Parser',
 			'libxml'    => 'libXML',
+			'exif'      => 'Exchangeable Image Information',
 			'openssl'   => 'OpenSSL',
 			'PDO'       => 'PHP Data Objects',
 			'mbstring'  => 'Multibyte String',
