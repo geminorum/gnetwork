@@ -737,13 +737,13 @@ class Blog extends gNetwork\Module
 
 	public function rest_api_init()
 	{
-		if ( ! WordPress::isSSL() )
+		if ( ! empty( $_SERVER['HTTP_HOST'] ) && ! WordPress::isSSL() )
 			WordPress::redirect( 'https://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'], 301 );
 	}
 
 	public function wp()
 	{
-		if ( ! WordPress::isSSL() )
+		if ( ! empty( $_SERVER['HTTP_HOST'] ) && ! WordPress::isSSL() )
 			WordPress::redirect( 'https://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'], 301 );
 	}
 
