@@ -103,7 +103,6 @@ class Locale extends gNetwork\Module
 	{
 		static $filtered = [];
 
-		// $locale = get_user_locale();
 		$locale = determine_locale();
 
 		if ( 'en_US' == $locale || $this->bypass_domain( $domain, 'mofile' ) )

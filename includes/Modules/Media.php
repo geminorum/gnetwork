@@ -12,6 +12,7 @@ use geminorum\gNetwork\Core\Arraay;
 use geminorum\gNetwork\Core\File;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\HTTP;
+use geminorum\gNetwork\Core\L10n;
 use geminorum\gNetwork\Core\Text;
 use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
@@ -1248,7 +1249,7 @@ class Media extends gNetwork\Module
 			'value' => _x( 'Upload', 'Modules: Media', 'gnetwork' ),
 			'data'  => [
 				'nonce'    => wp_create_nonce( $this->classs( 'file-upload' ) ),
-				'locale'   => get_user_locale(),
+				'locale'   => L10n::locale(),
 				/* translators: %s: progress precent */
 				'progress' => _x( 'Uploading File - %s%', 'Modules: Media', 'gnetwork' ),
 				'complete' => _x( 'Upload Complete!', 'Modules: Media', 'gnetwork' ),

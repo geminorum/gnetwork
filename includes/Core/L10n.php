@@ -5,6 +5,11 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 class L10n extends Base
 {
 
+	public static function locale( $site = FALSE )
+	{
+		return $site ? get_locale() : determine_locale();
+	}
+
 	public static function getNooped( $singular, $plural )
 	{
 		return array( 'singular' => $singular, 'plural' => $plural, 'context' => NULL, 'domain' => NULL );
