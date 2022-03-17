@@ -502,6 +502,19 @@ class Debug extends gNetwork\Module
 		echo '</div>';
 	}
 
+	public static function summarySpaceUsage()
+	{
+		$summary = [
+			'Available Space' => function_exists( 'disk_free_space' ) ? @disk_free_space( WP_CONTENT_DIR ) : 'UNAVAILABLE',
+		];
+
+		echo '<div class="-wrap card -floated" dir="ltr">';
+		HTML::h2( _x( 'Space Usage', 'Modules: Debug', 'gnetwork' ) );
+
+			echo HTML::tableCode( $summary );
+		echo '</div>';
+	}
+
 	public static function summaryUpload()
 	{
 		$max_upload_size = wp_max_upload_size();
@@ -630,6 +643,7 @@ class Debug extends gNetwork\Module
 			self::summaryWordPress();
 			self::summaryIPs();
 			self::summarySSL();
+			self::summarySpaceUsage();
 			self::initialConstants();
 			self::pluginPaths();
 
