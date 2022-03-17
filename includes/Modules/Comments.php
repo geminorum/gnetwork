@@ -68,6 +68,9 @@ class Comments extends gNetwork\Module
 			}
 		}
 
+		if ( $this->options['linkify_content'] )
+			$this->filter( 'comment_text', 3, 99 );
+
 		$this->filter( 'pre_comment_approved', 2, 99 );
 		$this->filter( 'add_comment_metadata', 5, 20 );
 
@@ -87,6 +90,7 @@ class Comments extends gNetwork\Module
 			'front_quicktags'       => '0',
 			'front_autosize'        => '0',
 			'disable_notes'         => '1',
+			'linkify_content'       => '0',
 			'strip_pings'           => '1',
 			'blacklist_check'       => '0', // FIXME: DRAFT: needs test / NO settings UI YET
 			'front_nonce'           => '0', // FIXME: DRAFT: working / NO settings UI YET / check the hooks
@@ -132,6 +136,11 @@ class Comments extends gNetwork\Module
 					'title'       => _x( 'Form Notes', 'Modules: Comments: Settings', 'gnetwork' ),
 					'description' => _x( 'Removes extra notes after comment form on the frontend.', 'Modules: Comments: Settings', 'gnetwork' ),
 					'default'     => '1',
+				],
+				[
+					'field'       => 'linkify_content',
+					'title'       => _x( 'Linkify Content', 'Modules: Comments: Settings', 'gnetwork' ),
+					'description' => _x( 'Tries to linkify hash-tags on the comments.', 'Modules: Comments: Settings', 'gnetwork' ),
 				],
 			],
 		];
@@ -198,6 +207,11 @@ class Comments extends gNetwork\Module
 	public function comment_excerpt( $excerpt )
 	{
 		return wpautop( trim( $GLOBALS['comment']->comment_content ) );
+	}
+
+	public function comment_text( $comment_text, $comment, $args )
+	{
+		return apply_filters( 'gnetwork_typography_linkify', $comment_text );
 	}
 
 	// http://css-tricks.com/snippets/wordpress/spam-comments-with-very-long-urls/
