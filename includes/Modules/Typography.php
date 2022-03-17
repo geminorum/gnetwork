@@ -42,12 +42,14 @@ class Typography extends gNetwork\Module
 
 		if ( $this->options['general_typography']
 			|| $this->options['arabic_typography']
-			|| $this->options['persian_typography'] )
+			|| $this->options['persian_typography']
+			|| $this->options['linkify_content'] )
 				$this->filter( 'the_content', 1, 1000, 'late' );
 
 		add_filter( $this->hook( 'general' ), [ $this, 'general_typography' ] ); // force apply
 		add_filter( $this->hook( 'arabic' ), [ $this, 'arabic_typography' ] ); // force apply
 		add_filter( $this->hook( 'persian' ), [ $this, 'persian_typography' ] ); // force apply
+		add_filter( $this->hook( 'linkify' ), [ $this, 'linkify_content' ] ); // force apply
 		add_filter( $this->hook(), [ $this, 'the_content_late' ] ); // only applies enabled
 	}
 
@@ -71,6 +73,7 @@ class Typography extends gNetwork\Module
 			'general_typography'  => '0',
 			'arabic_typography'   => '0',
 			'persian_typography'  => '0',
+			'linkify_content'     => '0',
 		];
 	}
 
@@ -84,6 +87,11 @@ class Typography extends gNetwork\Module
 					'title'       => _x( 'Tools Access', 'Modules: Typography: Settings', 'gnetwork' ),
 					'description' => _x( 'Selected and above can access the typography tools.', 'Modules: Typography: Settings', 'gnetwork' ),
 					'default'     => 'edit_others_posts',
+				],
+				[
+					'field'       => 'linkify_content',
+					'title'       => _x( 'Linkify Content', 'Modules: Typography: Settings', 'gnetwork' ),
+					'description' => _x( 'Tries to linkify hash-tags on post contents.', 'Modules: Typography: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'persian_typography',
@@ -311,28 +319,6 @@ class Typography extends gNetwork\Module
 	// @SEE: `wp_replace_in_html_tags()`
 	public function general_typography( $content )
 	{
-		if ( gNetwork()->option( 'linkify_hashtags', 'search' ) ) {
-
-			$content = Text::replaceSymbols( '#', $content, static function( $matched, $string ) {
-				return HTML::link( str_replace( '_', ' ', $matched ), WordPress::getSearchLink( $matched ) );
-			} );
-
-			// telegram hash-tag links!
-			$content = preg_replace_callback( '/<a href="\/\/search_hashtag\?hashtag=(.*?)">#(.*?)<\/a>/miu', static function( $matched ) {
-				return HTML::link( '#'.str_replace( '_', ' ', $matched[2] ), WordPress::getSearchLink( '#'.$matched[2] ) );
-			}, $content );
-		}
-
-		if ( gNetwork()->option( 'content_replace', 'branding' ) ) {
-
-			$brand_name = gNetwork()->brand( 'name' );
-			$brand_url  = gNetwork()->brand( 'url' );
-
-			$content = Text::replaceWords( [ $brand_name ], $content, static function( $matched ) use ( $brand_url ) {
-				return '<em>'.HTML::link( $matched, $brand_url ).'</em>';
-			} );
-		}
-
 		$content = str_ireplace( [
 			'<p>***</p>',
 			'<p><strong>***</strong></p>',
@@ -407,6 +393,33 @@ class Typography extends gNetwork\Module
 	{
 		$content = str_ireplace( '&#8220;', '&#xAB;', $content );
 		$content = str_ireplace( '&#8221;', '&#xBB;', $content );
+
+		return $content;
+	}
+
+	public function linkify_content( $content )
+	{
+		if ( gNetwork()->option( 'linkify_hashtags', 'search' ) ) {
+
+			$content = Text::replaceSymbols( '#', $content, static function( $matched, $string ) {
+				return HTML::link( str_replace( '_', ' ', $matched ), WordPress::getSearchLink( $matched ) );
+			} );
+
+			// telegram hash-tag links!
+			$content = preg_replace_callback( '/<a href="\/\/search_hashtag\?hashtag=(.*?)">#(.*?)<\/a>/miu', static function( $matched ) {
+				return HTML::link( '#'.str_replace( '_', ' ', $matched[2] ), WordPress::getSearchLink( '#'.$matched[2] ) );
+			}, $content );
+		}
+
+		if ( gNetwork()->option( 'content_replace', 'branding' ) ) {
+
+			$brand_name = gNetwork()->brand( 'name' );
+			$brand_url  = gNetwork()->brand( 'url' );
+
+			$content = Text::replaceWords( [ $brand_name ], $content, static function( $matched ) use ( $brand_url ) {
+				return '<em>'.HTML::link( $matched, $brand_url ).'</em>';
+			} );
+		}
 
 		return $content;
 	}
@@ -503,6 +516,9 @@ class Typography extends gNetwork\Module
 
 	public function the_content_late( $content )
 	{
+		if ( $this->options['linkify_content'] )
+			$content = $this->filters( 'linkify', $content );
+
 		if ( $this->options['general_typography'] )
 			$content = $this->filters( 'general', $content );
 
