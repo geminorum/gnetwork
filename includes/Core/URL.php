@@ -36,9 +36,14 @@ class URL extends Base
 		return str_ireplace( array( '_', '-' ), ' ', urldecode( $string ) );
 	}
 
+	// wrapper for `wp_parse_url()`
+	public static function parse( $url, $component = -1 )
+	{
+		return wp_parse_url( $url, $component );
+	}
+
 	// @SOURCE: `add_query_arg()`
-	// @SEE: `URI::parse()`
-	public static function parse( $url )
+	public static function parseDeep( $url )
 	{
 		if ( $frag = strstr( $url, '#' ) )
 			$url = substr( $url, 0, -strlen( $frag ) );
@@ -79,7 +84,7 @@ class URL extends Base
 	// @REF: `strip_fragment_from_url()`
 	public static function stripFragment( $url )
 	{
-		$parsed = parse_url( $url );
+		$parsed = self::parse( $url );
 
 		if ( empty( $parsed['host'] ) )
 			return $url;
@@ -148,13 +153,13 @@ class URL extends Base
 	// check whether the given URL belongs to this site
 	public static function isLocal( $url, $domain = NULL )
 	{
-		return wp_parse_url( $url, PHP_URL_HOST ) === wp_parse_url( ( is_null( $domain ) ? home_url() : $domain ), PHP_URL_HOST );
+		return self::parse( $url, PHP_URL_HOST ) === self::parse( ( is_null( $domain ) ? home_url() : $domain ), PHP_URL_HOST );
 	}
 
 	// check whether the given URL is relative or not
 	public static function isRelative( $url )
 	{
-		$parsed = wp_parse_url( $url );
+		$parsed = self::parse( $url );
 		return empty( $parsed['host'] ) && empty( $parsed['scheme'] );
 	}
 
@@ -247,7 +252,7 @@ class URL extends Base
 	// @SOURCE: https://gist.github.com/davejamesmiller/1965937
 	public static function getDomain( $url )
 	{
-		$host = wp_parse_url( $url, PHP_URL_HOST );
+		$host = self::parse( $url, PHP_URL_HOST );
 
 		if ( ! $host )
 			$host = $url;

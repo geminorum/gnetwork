@@ -239,8 +239,8 @@ class Rewrite extends gNetwork\Module
 
 		if ( ! empty( $req_search ) ) {
 
-			$match_path = parse_url( esc_url( $req_search ), PHP_URL_PATH );
-			$wordpress  = parse_url( home_url(), PHP_URL_PATH );
+			$match_path = URL::parse( esc_url( $req_search ), PHP_URL_PATH );
+			$wordpress  = URL::parse( home_url(), PHP_URL_PATH );
 
 			if ( ! empty( $wordpress ) )
 				$match_path = str_replace( $wordpress, '', $match_path );

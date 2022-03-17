@@ -7,6 +7,7 @@ use geminorum\gNetwork\Scripts;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\Number;
+use geminorum\gNetwork\Core\URL;
 
 class Comments extends gNetwork\Module
 {
@@ -449,7 +450,7 @@ class Comments extends gNetwork\Module
 	// checks url against top spam domains
 	private function is_known_spam_domain( $url )
 	{
-		$host = wp_parse_url( $url, PHP_URL_HOST );
+		$host = URL::parse( $url, PHP_URL_HOST );
 
 		if ( empty( $host ) )
 			return FALSE;

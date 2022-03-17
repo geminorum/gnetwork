@@ -196,7 +196,7 @@ class Login extends gNetwork\Module
 		if ( ! is_multisite() && Text::has( $_SERVER['REQUEST_URI'], [ 'wp-signup', 'wp-activate' ] ) )
 			wp_die( _x( 'Move along, nothing to see here!', 'Modules: Login', 'gnetwork' ), 403 );
 
-		$request = URI::parse( $_SERVER['REQUEST_URI'] );
+		$request = URL::parse( $_SERVER['REQUEST_URI'] );
 		$path    = URL::untrail( $request['path'] );
 
 		if ( ! is_admin() && ( Text::has( $_SERVER['REQUEST_URI'], 'wp-login.php' )
@@ -219,7 +219,7 @@ class Login extends gNetwork\Module
 	{
 		global $pagenow;
 
-		$request = URI::parse( $_SERVER['REQUEST_URI'] );
+		$request = URL::parse( $_SERVER['REQUEST_URI'] );
 
 		$this->check_admin_page( $request, $pagenow );
 
@@ -278,7 +278,7 @@ class Login extends gNetwork\Module
 		if ( ! Text::has( $referer, 'wp-activate.php' ) )
 			return;
 
-		$parsed = URL::parse( $referer );
+		$parsed = URL::parseDeep( $referer );
 
 		if ( empty( $parsed['query']['key'] ) )
 			return;
