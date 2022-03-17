@@ -151,7 +151,7 @@ class Utilities extends Core\Base
 
 		if ( is_null( $strings ) )
 			$strings = [
-				'sep' => _x( ', ', 'Utilities: From Seconds: Seperator', 'gnetwork' ),
+				'sep' => Strings::separator(),
 
 				/* translators: %s: number of seconds */
 				'noop_seconds' => _nx_noop( '%s second', '%s seconds', 'Utilities: From Seconds: Noop', 'gnetwork' ),
@@ -430,7 +430,7 @@ class Utilities extends Core\Base
 	public static function getJoined( $items, $before = '', $after = '', $empty = '' )
 	{
 		if ( $items && count( $items ) )
-			return $before.implode( _x( ', ', 'Utilities: Item Seperator', 'gnetwork' ), $items ).$after;
+			return $before.implode( Strings::separator(), $items ).$after;
 
 		return $empty;
 	}

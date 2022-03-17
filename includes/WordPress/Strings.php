@@ -7,6 +7,16 @@ use geminorum\gNetwork\Core;
 class Strings extends Core\Base
 {
 
+	// wrapper for `wp_get_list_item_separator()` @since WP 6.0.0
+	public static function separator()
+	{
+		if ( function_exists( 'wp_get_list_item_separator' ) )
+			return wp_get_list_item_separator();
+
+		// return _x( ', ', 'Strings: Item Seperator', 'gnetwork' );
+		return __( ', ' );
+	}
+
 	public static function isEmpty( $string, $empties = NULL )
 	{
 		if ( ! is_string( $string ) )

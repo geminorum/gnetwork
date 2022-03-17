@@ -5,6 +5,7 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 use geminorum\gNetwork;
 use geminorum\gNetwork\Ajax;
 use geminorum\gNetwork\Scripts;
+use geminorum\gNetwork\Strings;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\Arraay;
@@ -409,7 +410,7 @@ class Media extends gNetwork\Module
 				'callback' => static function( $value, $row, $column, $index, $key, $args ) {
 					return Utilities::getPostTitle( $row )
 						.get_the_term_list( $row->ID, 'post_tag',
-							'<div><small>', ', ', '</small></div>' );
+							'<div><small>', Strings::separator(), '</small></div>' );
 				},
 				'actions' => function( $value, $row, $column, $index, $key, $args ) {
 					$query = [
