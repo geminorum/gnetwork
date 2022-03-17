@@ -8,7 +8,7 @@ class Third extends Base
 	// @REF: https://gist.github.com/boonebgorges/5537311
 	public static function getHandle( $string, $url = FALSE, $base = '', $prefix = '@' )
 	{
-		$parts = wp_parse_url( $string );
+		$parts = URL::parse( $string );
 
 		if ( empty( $parts['host'] ) )
 			$handle = 0 === strpos( $string, '@' ) ? substr( $string, 1 ) : $string;
@@ -63,7 +63,7 @@ class Third extends Base
 	{
 		self::_dep( 'Third::getHandle()' );
 
-		$parts = wp_parse_url( $string );
+		$parts = URL::parse( $string );
 
 		if ( empty( $parts['host'] ) )
 			$handle = 0 === strpos( $string, '@' ) ? substr( $string, 1 ) : $string;

@@ -243,6 +243,15 @@ class File extends Base
 		return $format ? self::formatSize( $stat['size'] ) : $stat['size'];
 	}
 
+	// wrapper for `wp_filesize` @since WP 6.0
+	public static function size( $path )
+	{
+		if ( function_exists( 'wp_filesize' ) )
+			return wp_filesize( $path );
+
+		return (int) @filesize( $path );
+	}
+
 	// WP core `size_format()` function without `number_format_i18n()`
 	public static function formatSize( $bytes, $decimals = 0 )
 	{
@@ -378,7 +387,7 @@ class File extends Base
 		header( 'Cache-Control: must-revalidate, post-check=0, pre-check=0' );
 		header( 'Cache-Control: private', FALSE );
 		header( 'Content-Type: '.$mime );
-		header( 'Content-Length: '.filesize( $path ) );
+		header( 'Content-Length: '.self::size( $path ) );
 		header( 'Content-Disposition: attachment; filename="'.$name.'"' );
 		header( 'Content-Transfer-Encoding: binary' );
 		header( 'Connection: close' );

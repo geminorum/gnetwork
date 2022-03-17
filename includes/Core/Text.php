@@ -800,7 +800,7 @@ class Text extends Base
 	{
 		return $skip_links
 			// ? "/<a[^>]*>.*?<\/a\s*>(*SKIP)(*FAIL)|[{$symbols}]+([a-zA-Z0-9-_\.\w\p{L}\p{N}\p{Pd}{$symbols}]+)\b/u"
-			? "/<a[^>]*>.*?<\/a\s*>(*SKIP)(*FAIL)|#(?:\d+|[xX][a-f\d]+)(*SKIP)(*FAIL)|[{$symbols}]+([a-zA-Z0-9-_\.\w\p{L}\p{N}\p{Pd}{$symbols}]+)\b/u"
+			? "/<a[^>]*>.*?<\/a\s*>(*SKIP)(*FAIL)|#(?:\d+|[xX][a-f\d]+)(*SKIP)(*FAIL)|[{$symbols}]+([a-zA-Z0-9-_\.\w\p{L}\p{N}\p{Pd}\x{200c}{$symbols}]+)\b/u"
 			: "/[{$symbols}]+([a-zA-Z0-9-_\.\w\p{L}\p{N}\p{Pd}{$symbols}]+)\b/u";
 	}
 

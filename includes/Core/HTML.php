@@ -766,6 +766,9 @@ class HTML extends Base
 
 			foreach ( $columns as $key => $column ) {
 
+				if ( empty( $column ) )
+					continue;
+
 				$tag   = 'th';
 				$class = [];
 
