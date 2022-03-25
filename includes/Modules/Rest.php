@@ -3,6 +3,7 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\WordPress\Media as WPMedia;
 use geminorum\gNetwork\WordPress\Taxonomy as WPTaxonomy;
@@ -34,6 +35,7 @@ class Rest extends gNetwork\Module
 	{
 		return [
 			'disable_rest_api'    => '0',
+			'allow_cors_requests' => '0',
 		];
 	}
 
@@ -46,6 +48,12 @@ class Rest extends gNetwork\Module
 					'type'        => 'disabled',
 					'title'       => _x( 'Rest API', 'Modules: Rest: Settings', 'gnetwork' ),
 					'description' => _x( 'Whether REST API services are enabled on this site.', 'Modules: Rest: Settings', 'gnetwork' ),
+				],
+				[
+					'field'       => 'allow_cors_requests',
+					'title'       => _x( 'Allow All CORS Requests', 'Modules: Rest: Settings', 'gnetwork' ),
+					'description' => _x( 'Adds headers to allow cross-origin requests to the REST API.', 'Modules: Rest: Settings', 'gnetwork' ),
+					'after'       => Settings::fieldAfterIcon( 'https://gist.github.com/wpscholar/59f5708cba291a314375b2dedd104e1e' ),
 				],
 			],
 		];
@@ -79,6 +87,9 @@ class Rest extends gNetwork\Module
 	{
 		$this->_init_terms_rendered();
 		$this->_init_thumbnail_data();
+
+		if ( $this->options['allow_cors_requests'] )
+			$this->_init_allow_cors();
 	}
 
 	private function _init_terms_rendered()
@@ -100,6 +111,21 @@ class Rest extends gNetwork\Module
 		register_rest_field( $posttypes, 'thumbnail_data', [
 			'get_callback' => [ $this, 'thumbnail_data_get_callback' ],
 		] );
+	}
+
+	// @REF: https://gist.github.com/wpscholar/59f5708cba291a314375b2dedd104e1e
+	private function _init_allow_cors()
+	{
+		remove_filter( 'rest_pre_serve_request', 'rest_send_cors_headers' );
+
+		add_filter( 'rest_pre_serve_request', function ( $value ) {
+
+			header( 'Access-Control-Allow-Origin: *' );
+			header( 'Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE' );
+			header( 'Access-Control-Allow-Credentials: true' );
+
+			return $value;
+		});
 	}
 
 	public function terms_rendered_get_callback( $post, $attr, $request, $object_type )
