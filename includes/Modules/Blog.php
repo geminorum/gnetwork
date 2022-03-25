@@ -78,9 +78,6 @@ class Blog extends gNetwork\Module
 				$this->filter( 'posts_where', 2 );
 		}
 
-		if ( $this->options['disable_rest_api'] )
-			$this->filter( 'rest_authentication_errors', 1, 999 );
-
 		if ( ! $this->options['xmlrpc_enabled'] ) {
 			$this->filter( 'wp_headers' );
 			$this->filter_false( 'xmlrpc_enabled', 12 );
@@ -113,7 +110,6 @@ class Blog extends gNetwork\Module
 			'heartbeat_mode'       => 'default',
 			'heartbeat_frequency'  => 'default',
 			'autosave_interval'    => '',
-			'disable_rest_api'     => 0,
 			'xmlrpc_enabled'       => '0',
 			'wlw_enabled'          => '0',
 			'page_copyright'       => '0',
@@ -228,13 +224,6 @@ class Blog extends gNetwork\Module
 				'min_attr'    => '20',
 				'default'     => '120',
 			];
-
-		$settings['_services'][] = [
-			'field'       => 'disable_rest_api',
-			'type'        => 'disabled',
-			'title'       => _x( 'Rest API', 'Modules: Blog: Settings', 'gnetwork' ),
-			'description' => _x( 'Whether REST API services are enabled on this site.', 'Modules: Blog: Settings', 'gnetwork' ),
-		];
 
 		$settings['_services'][] = [
 			'field'       => 'xmlrpc_enabled',
@@ -669,11 +658,6 @@ class Blog extends gNetwork\Module
 
 		defined( 'GNETWORK_IS_WP_EXPORT' )
 			or define( 'GNETWORK_IS_WP_EXPORT', TRUE );
-	}
-
-	public function rest_authentication_errors( $null )
-	{
-		return new Error( 'rest_disabled', 'The REST API is disabled on this site.', [ 'status' => 503 ] );
 	}
 
 	public function wp_headers( $headers )

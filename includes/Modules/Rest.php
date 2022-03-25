@@ -15,7 +15,40 @@ class Rest extends gNetwork\Module
 
 	protected function setup_actions()
 	{
-		$this->action( 'rest_api_init', 0, 20 );
+		if ( $this->options['disable_rest_api'] ) {
+
+			$this->filter( 'rest_authentication_errors', 1, 999 );
+
+		} else {
+
+			$this->action( 'rest_api_init', 0, 20 );
+		}
+	}
+
+	public function setup_menu( $context )
+	{
+		$this->register_menu( _x( 'Rest', 'Modules: Menu Name', 'gnetwork' ) );
+	}
+
+	public function default_options()
+	{
+		return [
+			'disable_rest_api'    => '0',
+		];
+	}
+
+	public function default_settings()
+	{
+		return [
+			'_general' => [
+				[
+					'field'       => 'disable_rest_api',
+					'type'        => 'disabled',
+					'title'       => _x( 'Rest API', 'Modules: Rest: Settings', 'gnetwork' ),
+					'description' => _x( 'Whether REST API services are enabled on this site.', 'Modules: Rest: Settings', 'gnetwork' ),
+				],
+			],
+		];
 	}
 
 	private function get_supported_posttypes( $posttypes = NULL )
@@ -35,6 +68,11 @@ class Rest extends gNetwork\Module
 			$posttypes = get_post_types( [ 'show_in_rest' => TRUE ] );
 
 		return array_diff_key( $posttypes, array_flip( $excluded ) );
+	}
+
+	public function rest_authentication_errors( $null )
+	{
+		return new Error( 'rest_disabled', 'The REST API is disabled on this site.', [ 'status' => 503 ] );
 	}
 
 	public function rest_api_init()
