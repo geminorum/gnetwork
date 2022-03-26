@@ -1070,16 +1070,14 @@ class Taxonomy extends gNetwork\Module
 
 	public function handle_empty_posts( $term_ids, $taxonomy )
 	{
-		foreach ( $term_ids as $term_id ) {
+		WPTaxonomy::disableTermCounting();
 
-			$posts = get_objects_in_term( (int) $term_id, $taxonomy );
+		foreach ( $term_ids as $term_id )
+			if ( FALSE === WPTaxonomy::removeTermObjects( $term_id, $taxonomy ) )
+				return FALSE;
 
-			if ( self::isError( $posts ) )
-				continue;
-
-			foreach ( $posts as $post )
-				wp_remove_object_terms( $post, (int) $term_id, $taxonomy );
-		}
+		// flush the deferred term counts
+		wp_update_term_count( NULL, NULL, TRUE );
 
 		return TRUE;
 	}
@@ -1220,6 +1218,9 @@ class Taxonomy extends gNetwork\Module
 				return FALSE; // bail if something's wrong!
 		}
 
+		// flush the deferred term counts
+		wp_update_term_count( NULL, NULL, TRUE );
+
 		return TRUE;
 	}
 
@@ -1308,9 +1309,6 @@ class Taxonomy extends gNetwork\Module
 			if ( ! $deleted || self::isError( $deleted ) )
 				return FALSE; // bail if something's wrong!
 		}
-
-		// flush the deferred term counts
-		wp_update_term_count( NULL, NULL, TRUE );
 
 		return TRUE;
 	}
