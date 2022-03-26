@@ -901,6 +901,7 @@ class Taxonomy extends gNetwork\Module
 		$actions['change_tax']     = _x( 'Change Taxonomy', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
 		$actions['clone_tax']      = _x( 'Clone to Taxonomy', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
 		$actions['format_i18n']    = _x( 'Format i18n', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
+		$actions['format_ordinal'] = _x( 'Format Ordinal', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
 		$actions['assign_parents'] = _x( 'Assign Parents', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
 		$actions['empty_posts']    = _x( 'Empty Posts', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
 		$actions['empty_desc']     = _x( 'Empty Description', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
@@ -1158,6 +1159,24 @@ class Taxonomy extends gNetwork\Module
 				$args['slug'] = $args['name'];
 
 			wp_update_term( $term_id, $taxonomy, $args );
+		}
+
+		return TRUE;
+	}
+
+	public function handle_format_ordinal( $term_ids, $taxonomy )
+	{
+		foreach ( $term_ids as $term_id ) {
+
+			$term = get_term( $term_id, $taxonomy );
+
+			if ( self::isError( $term ) )
+				continue;
+
+			$ordinal = Number::toOrdinal( $term->name );
+
+			if ( $ordinal != $term->name )
+				wp_update_term( $term_id, $taxonomy, [ 'name' => $ordinal ] );
 		}
 
 		return TRUE;
