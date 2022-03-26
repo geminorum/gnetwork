@@ -364,6 +364,103 @@ class Taxonomy extends Core\Base
 		return $count;
 	}
 
+	// `get_objects_in_term()` without cache updating
+	// @SOURCE: `wp_delete_term()`
+	public static function getTermObjects( $term_taxonomy_id, $taxonomy )
+	{
+		global $wpdb;
+
+		if ( empty( $term_taxonomy_id ) )
+			return [];
+
+		$query = $wpdb->prepare( "
+			SELECT object_id
+			FROM {$wpdb->term_relationships}
+			WHERE term_taxonomy_id = %d
+		", $term_taxonomy_id );
+
+		$objects = $wpdb->get_col( $query );
+
+		return $objects ? (array) $objects : [];
+	}
+
+	// @SOURCE: `wp_remove_object_terms()`
+	public static function removeTermObjects( $term, $taxonomy )
+	{
+		global $wpdb;
+
+		if ( ! $exists = term_exists( $term, $taxonomy ) )
+			return FALSE;
+
+		$tt_id = $exists['term_taxonomy_id'];
+		$count = 0;
+
+		foreach ( self::getTermObjects( $tt_id, $taxonomy ) as $object_id ) {
+
+			do_action( 'delete_term_relationships', $object_id, $tt_id, $taxonomy );
+
+			$query = $wpdb->prepare( "
+				DELETE FROM {$wpdb->term_relationships}
+				WHERE object_id = %d
+				AND term_taxonomy_id = %d
+			", $object_id, $tt_id );
+
+			if ( $wpdb->query( $query ) )
+				$count++;
+
+			wp_cache_delete( $object_id, $taxonomy.'_relationships' );
+			do_action( 'deleted_term_relationships', $object_id, $tt_id, $taxonomy );
+		}
+
+		wp_cache_delete( 'last_changed', 'terms' );
+		wp_update_term_count( $tt_id, $taxonomy );
+
+		return $count;
+	}
+
+	// @SOURCE: `wp_set_object_terms()`
+	public static function setTermObjects( $objects, $term, $taxonomy )
+	{
+		global $wpdb;
+
+		if ( ! $exists = term_exists( $term, $taxonomy ) )
+			return FALSE;
+
+		$tt_id = $exists['term_taxonomy_id'];
+		$count = 0;
+
+		foreach ( $objects as $object_id ) {
+
+			$query = $wpdb->prepare( "
+				SELECT term_taxonomy_id
+				FROM {$wpdb->term_relationships}
+				WHERE object_id = %d
+				AND term_taxonomy_id = %d
+			", $object_id, $tt_id );
+
+			// already inserted
+			if ( $wpdb->get_var( $query ) )
+				continue;
+
+			do_action( 'add_term_relationship', $object_id, $tt_id, $taxonomy );
+
+			$wpdb->insert( $wpdb->term_relationships, [
+				'object_id'        => $object_id,
+				'term_taxonomy_id' => $tt_id,
+			] );
+
+			wp_cache_delete( $object_id, $taxonomy.'_relationships' );
+			do_action( 'added_term_relationship', $object_id, $tt_id, $taxonomy );
+
+			$count++;
+		}
+
+		wp_cache_delete( 'last_changed', 'terms' );
+		wp_update_term_count( $tt_id, $taxonomy );
+
+		return $count;
+	}
+
 	// @REF: https://developer.wordpress.org/?p=22286
 	public static function listTerms( $taxonomy, $fields = NULL, $extra = array() )
 	{
@@ -392,5 +489,16 @@ class Taxonomy extends Core\Base
 			return array();
 
 		return $query->terms;
+	}
+
+	public static function disableTermCounting()
+	{
+		wp_defer_term_counting( TRUE );
+
+		// also avoids query for post terms
+		remove_action( 'transition_post_status', '_update_term_count_on_transition_post_status', 10 );
+
+		// WooCommerce
+		add_filter( 'woocommerce_product_recount_terms', '__return_false' );
 	}
 }

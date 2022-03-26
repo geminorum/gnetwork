@@ -1089,13 +1089,18 @@ class HTML extends Base
 					'class' => '-next -link button -icon',
 				), $icons['next'] );
 				echo '&nbsp;';
-				echo self::tag( 'a', array(
-					'href' => add_query_arg( array_merge( $args['extra'], array(
-						'paged' => $args['pages'],
-						'limit' => $args['limit'],
-					) ) ),
-					'class' => '-last -link button -icon',
-				), $icons['last'] );
+
+				// when found count is not available
+				if ( $args['pages'] )
+					echo self::tag( 'a', array(
+						'href' => add_query_arg( array_merge( $args['extra'], array(
+							'paged' => $args['pages'],
+							'limit' => $args['limit'],
+						) ) ),
+						'class' => '-last -link button -icon',
+					), $icons['last'] );
+				else
+					echo '<span class="-last -span button -icon" disabled="disabled">'.$icons['last'].'</span>';
 			}
 
 			echo '</div>';
@@ -1115,7 +1120,16 @@ class HTML extends Base
 			'previous' => FALSE,
 		);
 
-		if ( $pagination['pages'] > 1 ) {
+		if ( FALSE === $max ) {
+
+			if ( $pagination['paged'] != 1 )
+				$pagination['previous'] = $pagination['paged'] - 1;
+
+			// if ( $pagination['paged'] != $pagination['pages'] )
+				$pagination['next'] = $pagination['paged'] + 1;
+
+		} else if ( $pagination['pages'] > 1 ) {
+
 			if ( $pagination['paged'] != 1 )
 				$pagination['previous'] = $pagination['paged'] - 1;
 

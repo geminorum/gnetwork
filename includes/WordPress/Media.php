@@ -212,4 +212,22 @@ class Media extends Core\Base
 
 		return $prepared;
 	}
+
+	// @SOURCE: `bp_attachements_get_mime_type()`
+	public static function getMimeType( $path )
+	{
+		$type = wp_check_filetype( $path, wp_get_mime_types() );
+		$mime = $type['type'];
+
+		if ( FALSE === $mime && is_dir( $path ) )
+			$mime = 'directory';
+
+		return $mime;
+	}
+
+	public static function disableThumbnailGeneration()
+	{
+		add_filter( 'intermediate_image_sizes', '__return_empty_array', 99 );
+		add_filter( 'intermediate_image_sizes_advanced', '__return_empty_array', 99 );
+	}
 }

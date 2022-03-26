@@ -255,13 +255,17 @@ class File extends Base
 	// WP core `size_format()` function without `number_format_i18n()`
 	public static function formatSize( $bytes, $decimals = 0 )
 	{
-		$quant = array(
+		$quant = [
+			'YB' => 1024 * 1024 * 1024 * 1024 * 1024 * 1024 * 1024 * 1024,
+			'ZB' => 1024 * 1024 * 1024 * 1024 * 1024 * 1024 * 1024,
+			'EB' => 1024 * 1024 * 1024 * 1024 * 1024 * 1024,
+			'PB' => 1024 * 1024 * 1024 * 1024 * 1024,
 			'TB' => 1024 * 1024 * 1024 * 1024,
 			'GB' => 1024 * 1024 * 1024,
 			'MB' => 1024 * 1024,
 			'KB' => 1024,
 			'B'  => 1,
-		);
+		];
 
 		if ( 0 === $bytes )
 			return number_format( 0, $decimals ).' B';

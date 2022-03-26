@@ -116,6 +116,11 @@ class WordPress extends Base
 		return FALSE;
 	}
 
+	public static function isAdminAJAX()
+	{
+		return self::isAJAX() && Text::has( wp_get_raw_referer(), '/wp-admin/' );
+	}
+
 	public static function isAJAX()
 	{
 		// return defined( 'DOING_AJAX' ) && DOING_AJAX;
