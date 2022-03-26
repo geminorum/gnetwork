@@ -371,7 +371,7 @@ class Profile extends gNetwork\Module
 
 	public function admin_notices()
 	{
-		if ( $this->is_action( 'edit-profile-banned' ) )
+		if ( $this->is_request_action( 'edit-profile-banned' ) )
 			echo HTML::warning( _x( 'Sorry, you are not allowed to edit your profile.', 'Modules: Profile', 'gnetwork' ) );
 	}
 

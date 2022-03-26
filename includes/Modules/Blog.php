@@ -435,12 +435,12 @@ class Blog extends gNetwork\Module
 
 	public function wp_loaded()
 	{
-		if ( $this->is_action( 'flushrewrite' )
+		if ( $this->is_request_action( 'flushrewrite' )
 			&& WordPress::cuc( 'edit_others_posts' ) ) {
 
 			flush_rewrite_rules();
 
-			WordPress::redirect( $this->remove_action() );
+			WordPress::redirect( $this->remove_request_action() );
 		}
 	}
 
@@ -449,10 +449,10 @@ class Blog extends gNetwork\Module
 		if ( $this->options['blog_redirect'] && WordPress::mustRegisterUI() )
 			$this->blog_redirect();
 
-		if ( ( $locale = $this->is_action( 'locale', 'locale' ) )
+		if ( ( $locale = $this->is_request_action( 'locale', 'locale' ) )
 			&& class_exists( __NAMESPACE__.'\\Locale' )
 			&& ( $result = Locale::changeLocale( $locale ) ) )
-				WordPress::redirect( $this->remove_action( 'locale' ) );
+				WordPress::redirect( $this->remove_request_action( 'locale' ) );
 
 		if ( gNetwork()->ssl() ) {
 

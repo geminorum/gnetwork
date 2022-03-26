@@ -151,9 +151,9 @@ class AdminBar extends gNetwork\Module
 	// fires early before the Widgets administration screen loads, after scripts are enqueued.
 	public function sidebar_admin_setup()
 	{
-		if ( $this->is_action( 'resetsidebars' ) ) {
+		if ( $this->is_request_action( 'resetsidebars' ) ) {
 			update_option( 'sidebars_widgets', [] );
-			$_SERVER['REQUEST_URI'] = $this->remove_action( [], $_SERVER['REQUEST_URI'] );
+			$_SERVER['REQUEST_URI'] = $this->remove_request_action( [], $_SERVER['REQUEST_URI'] );
 		}
 
 		$this->sidebar_admin = TRUE;
@@ -165,9 +165,9 @@ class AdminBar extends gNetwork\Module
 			|| 'edit' != self::req( 'action' ) )
 				return;
 
-		if ( $this->is_action( 'resetwpcf7messages' ) ) {
+		if ( $this->is_request_action( 'resetwpcf7messages' ) ) {
 			$this->filter( 'wpcf7_contact_form_properties', 2 );
-			$_SERVER['REQUEST_URI'] = $this->remove_action( [], $_SERVER['REQUEST_URI'] );
+			$_SERVER['REQUEST_URI'] = $this->remove_request_action( [], $_SERVER['REQUEST_URI'] );
 		}
 
 		$this->wpcf7_admin = TRUE;

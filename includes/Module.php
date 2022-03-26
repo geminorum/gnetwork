@@ -1317,7 +1317,7 @@ class Module extends Core\Base
 		return $args['title'];
 	}
 
-	protected function is_action( $action, $extra = NULL, $default = FALSE )
+	protected function is_request_action( $action, $extra = NULL, $default = FALSE )
 	{
 		if ( empty( $_REQUEST[$this->base.'_action'] )
 			|| $_REQUEST[$this->base.'_action'] != $action )
@@ -1333,7 +1333,7 @@ class Module extends Core\Base
 			return $default;
 	}
 
-	protected function remove_action( $extra = [], $url = NULL )
+	protected function remove_request_action( $extra = [], $url = NULL )
 	{
 		if ( is_null( $url ) )
 			$url = URL::current();
