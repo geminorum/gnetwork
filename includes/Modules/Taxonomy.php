@@ -1046,6 +1046,8 @@ class Taxonomy extends gNetwork\Module
 
 	public function handle_assign_parents( $term_ids, $taxonomy )
 	{
+		WPTaxonomy::disableTermCounting();
+
 		foreach ( $term_ids as $term_id ) {
 
 			if ( ! $parents = WPTaxonomy::getTermParents( $term_id, $taxonomy ) )
@@ -1053,12 +1055,15 @@ class Taxonomy extends gNetwork\Module
 
 			$posts = get_objects_in_term( (int) $term_id, $taxonomy );
 
-			if ( self::isError( $posts ) )
+			if ( empty( $posts ) || self::isError( $posts ) )
 				continue;
 
 			foreach ( $posts as $post )
 				wp_set_object_terms( $post, $parents, $taxonomy, TRUE );
 		}
+
+		// flush the deferred term counts
+		wp_update_term_count( NULL, NULL, TRUE );
 
 		return TRUE;
 	}
@@ -1180,6 +1185,8 @@ class Taxonomy extends gNetwork\Module
 		if ( ! count( $new_terms ) )
 			return FALSE;
 
+		WPTaxonomy::disableTermCounting();
+
 		foreach ( $term_ids as $term_id ) {
 
 			if ( array_key_exists( $term_id, $new_terms ) )
@@ -1228,6 +1235,8 @@ class Taxonomy extends gNetwork\Module
 		if ( ! $new_term = WPTaxonomy::getTargetTerm( $target, $taxonomy ) )
 			return FALSE;
 
+		WPTaxonomy::disableTermCounting();
+
 		foreach ( $term_ids as $term_id ) {
 
 			if ( $term_id == $new_term->term_id )
@@ -1250,6 +1259,9 @@ class Taxonomy extends gNetwork\Module
 
 			$this->actions( 'term_merged', $taxonomy, $new_term, $old_term, $old_meta );
 		}
+
+		// flush the deferred term counts
+		wp_update_term_count( NULL, NULL, TRUE );
 
 		return TRUE;
 	}
@@ -1296,6 +1308,9 @@ class Taxonomy extends gNetwork\Module
 			if ( ! $deleted || self::isError( $deleted ) )
 				return FALSE; // bail if something's wrong!
 		}
+
+		// flush the deferred term counts
+		wp_update_term_count( NULL, NULL, TRUE );
 
 		return TRUE;
 	}
@@ -1412,6 +1427,8 @@ class Taxonomy extends gNetwork\Module
 		if ( $cloned_tax == $current_tax )
 			return FALSE;
 
+		WPTaxonomy::disableTermCounting();
+
 		foreach ( $term_ids as $term_id ) {
 
 			$current_term = get_term( $term_id, $current_tax );
@@ -1438,6 +1455,9 @@ class Taxonomy extends gNetwork\Module
 
 			$this->actions( 'term_cloned', $cloned_tax, $cloned_term, $current_term, $current_meta );
 		}
+
+		// flush the deferred term counts
+		wp_update_term_count( NULL, NULL, TRUE );
 
 		return TRUE;
 	}
