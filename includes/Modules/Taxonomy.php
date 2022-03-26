@@ -904,6 +904,7 @@ class Taxonomy extends gNetwork\Module
 		$actions['assign_parents'] = _x( 'Assign Parents', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
 		$actions['empty_posts']    = _x( 'Empty Posts', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
 		$actions['empty_desc']     = _x( 'Empty Description', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
+		$actions['update_count']   = _x( 'Update Count', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
 
 		if ( $this->options['slug_actions'] ) {
 			$actions['rewrite_slug']  = _x( 'Rewrite Slug', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
@@ -1129,6 +1130,11 @@ class Taxonomy extends gNetwork\Module
 		}
 
 		return TRUE;
+	}
+
+	public function handle_update_count( $term_ids, $taxonomy )
+	{
+		return wp_update_term_count_now( $term_ids, $taxonomy );
 	}
 
 	public function handle_format_i18n( $term_ids, $taxonomy )
