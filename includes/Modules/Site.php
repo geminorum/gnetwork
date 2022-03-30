@@ -24,9 +24,6 @@ class Site extends gNetwork\Module
 		if ( ! is_multisite() )
 			return FALSE;
 
-		if ( GNETWORK_LARGE_NETWORK_IS )
-			$this->filter( 'wp_is_large_network', 3, 9 );
-
 		$this->action( 'wp_initialize_site', 2, 12 );
 		$this->action( 'ms_site_not_found', 3, 12 );
 
@@ -389,14 +386,6 @@ class Site extends gNetwork\Module
 			WordPress::redirect( $this->options['redirect_notfound'], 303 );
 
 		Utilities::redirect404();
-	}
-
-	public function wp_is_large_network( $is, $using, $count )
-	{
-		if ( 'users' == $using )
-			return $count > GNETWORK_LARGE_NETWORK_IS;
-
-		return $is;
 	}
 
 	public function get_header( $name )

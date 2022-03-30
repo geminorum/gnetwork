@@ -19,6 +19,11 @@ class User extends gNetwork\Module
 
 	protected function setup_actions()
 	{
+		if ( GNETWORK_LARGE_NETWORK_IS ) {
+			$this->filter( 'wp_is_large_network', 3, 9 );
+			$this->filter( 'wp_is_large_user_count', 3, 9 );
+		}
+
 		$this->filter( 'authenticate', 3, 50 );
 
 		if ( ! in_array( $this->options['apppass_accesscap'], [ '_member_of_network', '_member_of_site'] ) )
@@ -422,6 +427,17 @@ class User extends gNetwork\Module
 		// TODO
 		// add setting option for page
 		// display page content as over view
+	}
+
+	public function wp_is_large_network( $is, $using, $count )
+	{
+		return 'users' == $using ? $count > GNETWORK_LARGE_NETWORK_IS : $is;
+	}
+
+	// @since WP 6.0.0
+	public function wp_is_large_user_count( $is, $count, $network_id )
+	{
+		return $count > GNETWORK_LARGE_NETWORK_IS;
 	}
 
 	public function wp_is_application_passwords_available_for_user( $available, $user )
