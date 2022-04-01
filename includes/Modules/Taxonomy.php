@@ -343,10 +343,10 @@ class Taxonomy extends gNetwork\Module
 			$selected = self::req( $this->classs( 'do-default-selected' ), [] );
 			$data     = $selected ? Arraay::keepByKeys( $terms, array_keys( $selected ) ) : $terms;
 
-			if ( count( $data ) && FALSE !== ( $count = WPTaxonomy::insertDefaultTerms( $taxonomy, $data ) ) )
+			if ( count( $data ) && FALSE !== ( $imported = WPTaxonomy::insertDefaultTerms( $taxonomy, $data ) ) )
 				WordPress::redirectReferer( [
 					'message' => 'imported',
-					'count'   => $count,
+					'count'   => count( $imported ),
 				] );
 
 			WordPress::redirectReferer( 'wrong' );
