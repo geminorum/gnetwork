@@ -33,6 +33,9 @@ class Authors extends gNetwork\Module
 
 		if ( $this->options['replace_author_links'] )
 			$this->filter( 'author_link' );
+
+		if ( $this->options['authors_manage_tags'] )
+			$this->filter( 'map_meta_cap', 4, 9 );
 	}
 
 	public function setup_menu( $context )
@@ -44,6 +47,7 @@ class Authors extends gNetwork\Module
 	public function default_options()
 	{
 		return [
+			'authors_manage_tags'  => '1',
 			'siteuser_as_default'  => '0',
 			'remove_author_pages'  => '0',
 			'replace_author_links' => '',
@@ -56,6 +60,12 @@ class Authors extends gNetwork\Module
 	{
 		return [
 			'_general' => [
+				[
+					'field'       => 'authors_manage_tags',
+					'title'       => _x( 'Manage Post Tags', 'Modules: Authors: Settings', 'gnetwork' ),
+					'description' => _x( 'Allows authors to manage post tags.', 'Modules: Authors: Settings', 'gnetwork' ),
+					'default'     => '1',
+				],
 				[
 					'field'       => 'siteuser_as_default',
 					'title'       => _x( 'Default Author', 'Modules: Authors: Settings', 'gnetwork' ),
@@ -292,6 +302,20 @@ class Authors extends gNetwork\Module
 	public function author_link( $link )
 	{
 		return $this->options['replace_author_links'];
+	}
+
+	// @REF: https://make.wordpress.org/core/2016/10/28/fine-grained-capabilities-for-taxonomy-terms-in-4-7/
+	public function map_meta_cap( $caps = [], $cap = '', $user_id = 0, $args = [] )
+	{
+		switch ( $cap ) {
+			case 'manage_post_tags':
+			case 'edit_post_tags':
+			case 'delete_post_tags':
+			case 'assign_post_tags':
+				$caps = [ 'publish_posts' ];
+		}
+
+		return $caps;
 	}
 
 	protected function get_shortcodes()
