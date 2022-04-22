@@ -6,9 +6,11 @@ use geminorum\gNetwork;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\Arraay;
+use geminorum\gNetwork\Core\Number;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\WordPress\Strings as WPStrings;
 use geminorum\gNetwork\WordPress\User as WPUser;
 
 class User extends gNetwork\Module
@@ -28,6 +30,8 @@ class User extends gNetwork\Module
 
 		if ( ! in_array( $this->options['apppass_accesscap'], [ '_member_of_network', '_member_of_site'] ) )
 			$this->filter( 'wp_is_application_passwords_available_for_user', 2, 9 );
+
+		$this->action( 'activity_box_end', 0, 12 );
 
 		if ( ! is_multisite() )
 			return TRUE;
@@ -450,6 +454,32 @@ class User extends gNetwork\Module
 			return $available;
 
 		return user_can( $user, $this->options['apppass_accesscap'] );
+	}
+
+	public function activity_box_end()
+	{
+		if ( current_user_can( 'list_users' ) && ! WPUser::isLargeCount() )
+			echo $this->wrap( $this->count_users(), '-count-users' );
+	}
+
+	public function count_users()
+	{
+		$result    = count_users();
+		$roles     = WPUser::getAllRoleList();
+		$separator = WPStrings::separator();
+
+		// TODO: report users with no role in this site
+		unset( $result['avail_roles']['none'] );
+
+		/* translators: %s: total user numebr */
+		$html = sprintf( _x( 'There are %s total users', 'Modules: User', 'gnetwork' ), Number::format( $result['total_users'] ) );
+
+		foreach ( $result['avail_roles'] as $role => $count )
+			/* translators: %1$s: role user number, %2$s: role name */
+			$html.= $separator.sprintf( _x( '%1$s are %2$s', 'Modules: User', 'gnetwork' ), Number::format( $count ),
+				( array_key_exists( $role, $roles ) ? $roles[$role] : HTML::code( $role ) ) );
+
+		return $html.'.';
 	}
 
 	// @REF: https://medium.com/@omarkasem/login-with-phone-number-in-woocommerce-wordpress-f7d6d07964d8
