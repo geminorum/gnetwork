@@ -546,19 +546,16 @@ class User extends gNetwork\Module
 
 				// FIXME: WTF?
 				// if multisite, user must be a member of the site
-				if ( is_multisite() && isset( $args[0] ) && ! is_user_member_of_blog( $args[0] ) ) {
+				if ( is_multisite() && isset( $args[0] ) && ! is_user_member_of_blog( $args[0] ) )
 					$caps[] = 'do_not_allow';
 
 				// admins cannot modify super admins
-				} else if ( isset( $args[0] ) && WordPress::isSuperAdmin( $args[0] ) ) {
+				else if ( isset( $args[0] ) && WordPress::isSuperAdmin( $args[0] ) )
 					$caps[] = 'do_not_allow';
 
 				// fallback on `edit_users`
-				} else {
+				else
 					$caps[] = 'edit_users';
-				}
-
-				break;
 		}
 
 		return $caps;

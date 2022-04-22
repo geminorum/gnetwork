@@ -527,7 +527,7 @@ class Taxonomy extends gNetwork\Module
 
 			} else {
 
-				HTML::desc( gNetwork()->na() );
+				HTML::desc( _x( 'No pre-defined default terms available for this taxonomy.', 'Modules: Taxonomy: Message', 'gnetwork' ), TRUE, '-empty' );
 			}
 
 		echo '</div>';
@@ -613,7 +613,7 @@ class Taxonomy extends gNetwork\Module
 
 					if ( $term && ! self::isError( $term ) )
 						/* translators: %s: default term name */
-						HTML::desc( sprintf( _x( 'The Default term for this taxonomy is &ldquo;%s&rdquo; and will <b>not</b> be deleted.', 'Modules: Taxonomy: Info', 'gnetwork' ), '<i>'.$term->name.'</i>' ) );
+						HTML::desc( sprintf( _x( 'The default term for this taxonomy is &ldquo;%s&rdquo; and will <b>not</b> be deleted.', 'Modules: Taxonomy: Info', 'gnetwork' ), '<i>'.$term->name.'</i>' ) );
 				}
 
 				echo $this->wrap_open_buttons( '-toolbox-buttons' );
@@ -661,7 +661,7 @@ class Taxonomy extends gNetwork\Module
 
 			} else {
 
-				HTML::desc( _x( 'There are no empty terms in this taxonomy.', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ) );
+				HTML::desc( _x( 'There are no empty terms in this taxonomy.', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), TRUE, '-empty' );
 			}
 
 		echo '</div>';
@@ -700,7 +700,7 @@ class Taxonomy extends gNetwork\Module
 			HTML::h4( _x( 'Default Term', 'Modules: Taxonomy: Tab Extra', 'gnetwork' ), 'title' );
 
 			if ( ! $this->render_info_default_term( $taxonomy ) )
-				HTML::desc( gNetwork()->na() );
+				HTML::desc( _x( 'No default term available for this taxonomy.', 'Modules: Taxonomy: Message', 'gnetwork' ), TRUE, '-empty' );
 
 		echo '</div>';
 	}
@@ -719,7 +719,7 @@ class Taxonomy extends gNetwork\Module
 			return;
 
 		/* translators: %s: default term name */
-		HTML::desc( sprintf( _x( 'The Default term for this taxonomy is &ldquo;%s&rdquo;.', 'Modules: Taxonomy: Info', 'gnetwork' ), '<i>'.$term->name.'</i>' ) );
+		HTML::desc( sprintf( _x( 'The default term for this taxonomy is &ldquo;%s&rdquo;.', 'Modules: Taxonomy: Info', 'gnetwork' ), '<i>'.$term->name.'</i>' ) );
 
 		return TRUE;
 	}

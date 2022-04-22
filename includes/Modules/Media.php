@@ -528,6 +528,7 @@ class Media extends gNetwork\Module
 				'class'    => '-media-in-content -has-list -has-list-ltr',
 				'callback' => static function( $value, $row, $column, $index, $key, $args ) {
 
+					// @SEE: `wp_extract_urls()`
 					preg_match_all( '|<img.*?src=[\'"](.*?)[\'"].*?>|i', $row->post_content, $matches );
 
 					if ( empty( $matches[1] ) )

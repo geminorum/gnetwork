@@ -894,9 +894,9 @@ class Themes extends gNetwork\Module
 	}
 
 	// with no RTL check
-	public static function linkStyleSheet( $css, $version = GNETWORK_VERSION, $media = 'all', $echo = TRUE )
+	public static function linkStyleSheet( $css, $version = GNETWORK_VERSION, $media = 'all', $verbose = TRUE )
 	{
-		return HTML::linkStyleSheet( GNETWORK_URL.'assets/css/themes/'.$css.'.css', $version, $media, $echo );
+		return HTML::linkStyleSheet( GNETWORK_URL.'assets/css/themes/'.$css.'.css', $version, $media, $verbose );
 	}
 
 	public function publish_credits()

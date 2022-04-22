@@ -403,13 +403,13 @@ class Utilities extends Core\Base
 	}
 
 	// @SEE: https://github.com/bobthecow/mustache.php/wiki/Mustache-Tags
-	public static function renderMustache( $part, $data = [], $echo = TRUE )
+	public static function renderMustache( $part, $data = [], $verbose = TRUE )
 	{
 		$mustache = self::getMustache();
 		$template = $mustache->loadTemplate( $part );
 		$html     = $template->render( $data );
 
-		if ( ! $echo )
+		if ( ! $verbose )
 			return $html;
 
 		echo $html;
@@ -461,9 +461,9 @@ class Utilities extends Core\Base
 			return $layout;
 	}
 
-	public static function linkStyleSheet( $css, $version = GNETWORK_VERSION, $media = 'all', $echo = TRUE )
+	public static function linkStyleSheet( $css, $version = GNETWORK_VERSION, $media = 'all', $verbose = TRUE )
 	{
-		return HTML::linkStyleSheet( GNETWORK_URL.'assets/css/'.$css.( is_rtl() ? '-rtl' : '' ).'.css', $version, $media, $echo );
+		return HTML::linkStyleSheet( GNETWORK_URL.'assets/css/'.$css.( is_rtl() ? '-rtl' : '' ).'.css', $version, $media, $verbose );
 	}
 
 	public static function customStyleSheet( $css, $link = TRUE, $version = GNETWORK_VERSION )

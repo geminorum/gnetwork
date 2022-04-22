@@ -168,9 +168,8 @@ class OpenSearch extends gNetwork\Module
 				'content' => '<p>OpenSearch is a collection of simple formats for the sharing of search results.</p>
 					<p>This site\'s OpenSearch description file is located on:<br />'.HTML::link( NULL, self::getManifestURL() ).'</p>
 				<p>Fore more information:<br />
-					<a href="https://developer.mozilla.org/en-US/Add-ons/Creating_OpenSearch_plugins_for_Firefox" target="_blank">Creating OpenSearch plugins for Firefox</a><br />
-					<a href="https://developer.mozilla.org/en-US/docs/Adding_search_engines_from_web_pages" target="_blank">Adding search engines from web pages</a><br />
-					<a href="http://opensearch.org" target="_blank">OpenSearch.org</a><br />
+					<a href="https://github.com/dewitt/opensearch" target="_blank">OpenSearch Documentation</a><br />
+					<a href="https://developer.mozilla.org/en-US/docs/Web/OpenSearch" target="_blank">OpenSearch on MDN</a><br />
 				</p>',
 			],
 		];

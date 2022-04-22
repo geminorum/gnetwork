@@ -278,10 +278,10 @@ class Plugin extends Base
 		if ( GNETWORK_DISABLE_SSL )
 			return FALSE;
 
-		if ( $this->option( 'ssl_support', 'blog' ) )
+		if ( $this->option( 'ssl_support', 'site' ) )
 			return TRUE;
 
-		if ( $this->option( 'ssl_support', 'site' ) )
+		if ( $this->option( 'ssl_support', 'blog' ) )
 			return TRUE;
 
 		return FALSE;

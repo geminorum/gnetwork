@@ -8,6 +8,7 @@ use geminorum\gNetwork\Core\HTTP;
 use geminorum\gNetwork\Core\Number;
 use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\WordPress\Strings as WPStrings;
 use geminorum\gNetwork\WordPress\PostType as WPPostType;
 use geminorum\gNetwork\WordPress\Taxonomy as WPTaxonomy;
 
@@ -162,7 +163,7 @@ class Settings extends Core\Base
 			$extra[] = sprintf( _x( '%s Counted!', 'Settings: Message', 'gnetwork' ),
 				Number::format( $_REQUEST['count'] ) );
 
-		return count( $extra ) ? ' ('.implode( Strings::separator(), $extra ).')' : '';
+		return count( $extra ) ? ' ('.implode( WPStrings::separator(), $extra ).')' : '';
 	}
 
 	public static function error( $message, $dismissible = TRUE )
@@ -273,7 +274,7 @@ class Settings extends Core\Base
 			echo HTML::tag( 'input', array_merge( $atts, [
 				'type'    => 'submit',
 				'name'    => $name,
-				'id'      => $name,
+				// 'id'      => $name,
 				'value'   => $text,
 				'class'   => $classes,
 				'default' => TRUE === $primary,

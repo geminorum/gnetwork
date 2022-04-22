@@ -143,6 +143,7 @@ class ShortCodes extends gNetwork\Module
 			'menu'        => 'shortcode_menu',
 			'post-title'  => 'shortcode_post_title',
 			// 'post-excerpt' => 'shortcode_post_excerpt', // TODO
+			// 'post-content'  => 'shortcode_post_content', // TODO: https://gist.github.com/wpscholar/84376bb44afabdfa9d93e83b0c87abb8
 			'post-link'   => 'shortcode_permalink',
 			'permalink'   => 'shortcode_permalink',
 		];
