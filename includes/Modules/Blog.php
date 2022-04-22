@@ -460,9 +460,11 @@ class Blog extends gNetwork\Module
 			$this->action( 'wp_print_scripts' );
 			$this->action( 'rest_api_init', 0, -999 );
 			$this->filter( 'wp_get_attachment_url', 2, -999 );
+			$this->filter_true( 'wp_should_replace_insecure_home_url' );
 
 		} else {
 
+			$this->filter_false( 'wp_should_replace_insecure_home_url' );
 			$this->filter_false( 'https_local_ssl_verify' );
 		}
 
