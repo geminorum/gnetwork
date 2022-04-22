@@ -402,7 +402,8 @@ class Taxonomy extends gNetwork\Module
 
 			$this->nonce_check( 'do-delete-empties' );
 
-			$count = $this->_handle_delete_terms( $taxonomy, FALSE, FALSE );
+			// $count = $this->_handle_delete_terms( $taxonomy, FALSE, FALSE );
+			$count = $this->_handle_delete_empty_terms( $taxonomy, FALSE );
 
 			WordPress::redirectReferer( [
 				'message' => 'deleted',
@@ -415,10 +416,44 @@ class Taxonomy extends gNetwork\Module
 		}
 	}
 
+	// terms with zero count and empty description
+	private function _get_empty_terms( $taxonomy )
+	{
+		return $this->filters( 'empty_terms', WPTaxonomy::getEmptyTermIDs( $taxonomy, TRUE ), $taxonomy );
+	}
+
+	private function _handle_delete_empty_terms( $taxonomy, $include_default = FALSE )
+	{
+		$count   = 0;
+		$default = WPTaxonomy::getDefaultTermID( $taxonomy );
+
+		foreach ( $this->_get_empty_terms( $taxonomy ) as $term_id ) {
+
+			if ( ! $include_default && $default == $term_id )
+				continue;
+
+			// @REF: https://wp.me/p2AvED-5kA
+			if ( ! current_user_can( 'delete_term', $term_id ) )
+				continue;
+
+			// manually re-count: skip if the term has relationships
+			if ( WPTaxonomy::countTermObjects( $term_id, $taxonomy ) )
+				continue;
+
+			if ( ! $this->filters( 'delete_empty_term', TRUE, $term_id, $taxonomy ) )
+				continue;
+
+			$deleted = wp_delete_term( $term_id, $taxonomy );
+
+			if ( $deleted && ! is_wp_error( $deleted ) )
+				$count++;
+		}
+
+		return $count;
+	}
+
 	private function _handle_delete_terms( $taxonomy, $force = FALSE, $include_default = FALSE )
 	{
-		global $wpdb;
-
 		$count = 0;
 		$terms = get_terms( [
 			'taxonomy'   => $taxonomy,
@@ -445,10 +480,8 @@ class Taxonomy extends gNetwork\Module
 				} else {
 
 					// NOTE: we can not rely on `$term->count` data from the term query
-					$query = $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->term_relationships} WHERE term_taxonomy_id = %d", $term->term_id );
-
-					// skip if the term  has relationships
-					if ( $wpdb->get_var( $query ) )
+					// skip if the term has relationships
+					if ( WPTaxonomy::countTermObjects( $term->term_id, $term->taxonomy ) )
 						$delete = FALSE;
 				}
 			}
@@ -642,16 +675,15 @@ class Taxonomy extends gNetwork\Module
 		echo $this->wrap_open( '-tab-tools-delete-empties card -toolbox-card' );
 			HTML::h4( _x( 'Delete Empties', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'title' );
 
-			// FIXME: write a proper method!
-			$empties = wp_count_terms( $taxonomy ) - wp_count_terms( $taxonomy, [ 'hide_empty' => TRUE ] );
+			if ( $empties = $this->_get_empty_terms( $taxonomy ) ) {
 
-			if ( $empties ) {
+				$count = count( $empties );
 
 				$this->render_form_start( NULL, 'delete', 'empties', 'tabs', FALSE );
 					$this->nonce_field( 'do-delete-empties' );
 
 					/* translators: %s: number of empty terms */
-					HTML::desc( Utilities::getCounted( $empties, _nx( 'Confirm deletion of %s empty term.', 'Confirm deletion of %s empty terms.', $empties, 'Modules: Taxonomy: Tab Tools', 'gnetwork' ) ) );
+					HTML::desc( Utilities::getCounted( $count, _nx( 'Confirm deletion of %s empty term.', 'Confirm deletion of %s empty terms.', $count, 'Modules: Taxonomy: Tab Tools', 'gnetwork' ) ) );
 
 					echo $this->wrap_open_buttons( '-toolbox-buttons' );
 						Settings::submitButton( $this->classs( 'do-delete-empties' ), _x( 'Delete Empty Terms', 'Modules: Taxonomy: Tab Tools: Button', 'gnetwork' ), 'small button-danger', TRUE );
