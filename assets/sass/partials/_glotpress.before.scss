@@ -5,10 +5,8 @@
 
 
 ////////////////////////////////////////////////////////////////////////////////
-@include theme-fonts-Vazir-CDN();
-@include theme-fonts-Vazir-Bold-CDN();
-// @include theme-fonts-Vazir-Light-CDN();
-// @include theme-fonts-Vazir-Code-CDN();
+@include theme-fonts-VazirMatn-Regular-CDN();
+// @include theme-fonts-VazirMatn-Bold-CDN();
 
 ////////////////////////////////////////////////////////////////////////////////
 html {
@@ -21,5 +19,5 @@ html {
 .gp-content textarea,
 body,
 html {
-  font-family: $font-family-normal;
+  font-family: $font-family-regular;
 }

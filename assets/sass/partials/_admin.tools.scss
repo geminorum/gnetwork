@@ -4,21 +4,47 @@
 /// gNetwork Partials: Admin Tools
 
 ////////////////////////////////////////////////////////////////////////////////
+$spacer: 1rem !default;
+
+////////////////////////////////////////////////////////////////////////////////
 .-wrap.-toolbox-card {
   .-base.nav-tab-base & {
     max-width: 100%;
   }
 
   h3.title {
-    margin: 1rem 0;
+    margin: $spacer 0;
   }
 
   h4.title {
     margin: .75rem 0 .5rem;
   }
 
+  .title + .description {
+    margin-top: -($spacer * .5);
+  }
+
   .-wrap-buttons.-toolbox-buttons {
-    margin-top: .75rem;
+    margin-top: $spacer * .75;
+  }
+
+  .-wrap-button-row + .title {
+    margin-top: $spacer * 2;
+  }
+
+  ul.-wrap-list-items {
+    @include theme-clearfix;
+    margin-bottom: 0;
+
+    li {
+      width: 50%;
+      float: left;
+      margin-bottom: $spacer * .5;
+    }
+  }
+
+  input.regular-text {
+    max-width: 100%;
   }
 }
 
@@ -27,10 +53,10 @@
     display: flex;
     // list-style: none;
     padding: 0;
-    margin: 1rem 0 0;
+    margin: $spacer 0 0;
 
     li + li {
-      margin-left: .25rem;
+      margin-left: $spacer * .25;
     }
   }
 }
