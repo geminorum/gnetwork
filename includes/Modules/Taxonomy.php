@@ -1086,12 +1086,7 @@ class Taxonomy extends gNetwork\Module
 			if ( ! $parents = WPTaxonomy::getTermParents( $term_id, $taxonomy ) )
 				continue;
 
-			$posts = get_objects_in_term( (int) $term_id, $taxonomy );
-
-			if ( empty( $posts ) || self::isError( $posts ) )
-				continue;
-
-			foreach ( $posts as $post )
+			foreach ( WPTaxonomy::getTermObjects( $term_id, $taxonomy ) as $post )
 				wp_set_object_terms( $post, $parents, $taxonomy, TRUE );
 		}
 
