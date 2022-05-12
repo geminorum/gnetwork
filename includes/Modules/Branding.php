@@ -299,6 +299,8 @@ class Branding extends gNetwork\Module
 		return $escape ? esc_url( $url ) : $url;
 	}
 
+	// @REF: https://web.dev/maskable-icon/
+	// @REF: https://w3c.github.io/manifest/
 	private function render_manifest()
 	{
 		$data = [
@@ -335,9 +337,10 @@ class Branding extends gNetwork\Module
 
 			foreach ( $sizes as $size )
 				$data['icons'][] = [
-					'src'   => $this->options['network_siteicon'],
-					'type'  => 'image/svg+xml',
-					'sizes' => sprintf( '%sx%s', $size, $size ),
+					'src'     => $this->options['network_siteicon'],
+					'type'    => 'image/svg+xml',
+					'sizes'   => sprintf( '%sx%s', $size, $size ),
+					'purpose' => 'any',
 				];
 
 		} else if ( $icon = get_option( 'site_icon' ) ) {
@@ -346,9 +349,10 @@ class Branding extends gNetwork\Module
 
 			foreach ( $sizes as $size )
 				$data['icons'][] = [
-					'src'   => wp_get_attachment_image_url( $icon, [ $size, $size ] ),
-					'type'  => $type,
-					'sizes' => sprintf( '%sx%s', $size, $size ),
+					'src'     => wp_get_attachment_image_url( $icon, [ $size, $size ] ),
+					'type'    => $type,
+					'sizes'   => sprintf( '%sx%s', $size, $size ),
+					'purpose' => 'any',
 				];
 		}
 
