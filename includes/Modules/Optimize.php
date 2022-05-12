@@ -12,20 +12,20 @@ class Optimize extends gNetwork\Module
 	protected $key     = 'optimize';
 	protected $network = FALSE;
 
-	private $prefetch_domains = [];
+	private $preconnect_domains = [];
+	private $prefetch_domains   = [];
 
 	protected function setup_actions()
 	{
+		$this->action_self( 'preconnect_domains' );
 		$this->action_self( 'dns_prefetch_domains' );
+	}
 
-		if ( is_admin() ) {
-
-			$this->action( 'admin_head', 0, 1 );
-
-		} else {
-
-			$this->action( 'wp_head', 0, 1 );
-		}
+	public function preconnect_domains( $domains = [] )
+	{
+		foreach ( (array) $domains as $domain )
+			if ( ! empty( $domain ) )
+				$this->preconnect_domains[] = URL::trail( $domain );
 	}
 
 	public function dns_prefetch_domains( $domains = [] )
@@ -36,21 +36,15 @@ class Optimize extends gNetwork\Module
 	}
 
 	// @REF: https://developer.mozilla.org/en-US/docs/Web/Performance/dns-prefetch
-	private function _do_dns_prefetch_links()
+	public function do_html_head()
 	{
+		// The `preconnect` includes DNS resolution, as well as establishing the
+		// TCP connection, and performing the TLS handshake.
+		foreach ( Arraay::prepString( $this->preconnect_domains ) as $domain )
+			printf( '<link rel="preconnect" href="%s" crossorigin>'."\n", $domain );
+
+		// The `dns-prefetch` only performs a DNS lookup.
 		foreach ( Arraay::prepString( $this->prefetch_domains ) as $domain )
-			printf( '<link rel="dns-prefetch" href="%s" />'."\n", $domain );
-	}
-
-	// MAYBE: move to admin module
-	public function admin_head()
-	{
-		$this->_do_dns_prefetch_links();
-	}
-
-	// MAYBE: move to themes module
-	public function wp_head()
-	{
-		$this->_do_dns_prefetch_links();
+			printf( '<link rel="dns-prefetch" href="%s">'."\n", $domain );
 	}
 }

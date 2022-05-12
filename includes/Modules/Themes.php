@@ -41,11 +41,13 @@ class Themes extends gNetwork\Module
 
 		} else {
 
+			$this->action( 'wp_head', 0, 1 );
+
 			if ( $this->options['header_code'] && $this->options['header_html'] )
-				$this->action( 'wp_head', 0, 9999 );
+				$this->action( 'wp_head', 0, 9999, 'html' );
 
 			if ( $this->options['footer_code'] && $this->options['footer_html'] )
-				$this->action( 'wp_footer', 0, 9999 );
+				$this->action( 'wp_footer', 0, 9999, 'html' );
 
 			$this->filter( 'amp_post_template_data', 2 );
 			$this->action( 'amp_post_template_css' );
@@ -287,10 +289,16 @@ class Themes extends gNetwork\Module
 
 	public function wp_head()
 	{
+		if ( gNetwork()->module( 'optimize' ) )
+			gNetwork()->optimize->do_html_head();
+	}
+
+	public function wp_head_html()
+	{
 		echo $this->options['header_html'];
 	}
 
-	public function wp_footer()
+	public function wp_footer_html()
 	{
 		echo $this->options['footer_html'];
 	}
