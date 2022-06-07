@@ -223,7 +223,7 @@ class Debug extends gNetwork\Module
 			],
 		], [ 'active' => TRUE ] );
 
-		Scripts::enqueueScriptVendor( 'prism' );
+		Scripts::enqueueScriptVendor( 'prism', [], '1.28.0' );
 		Scripts::enqueueMasonry();
 	}
 
