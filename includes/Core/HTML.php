@@ -209,8 +209,12 @@ class HTML extends Base
 
 		if ( is_array( $atts ) )
 			$html = self::_tag_open( $tag, $atts, $content );
-		else
+
+		else if ( $atts )
 			return '<'.$tag.'>'.$atts.'</'.$tag.'>'.$sep;
+
+		else
+			return '<'.$tag.'></'.$tag.'>'.$sep;
 
 		if ( FALSE === $content )
 			return $html.$sep;
@@ -558,7 +562,7 @@ class HTML extends Base
 		echo '</table>';
 	}
 
-	public static function linkStyleSheet( $url, $version = NULL, $media = 'all', $echo = TRUE )
+	public static function linkStyleSheet( $url, $version = NULL, $media = 'all', $verbose = TRUE )
 	{
 		if ( is_array( $version ) )
 			$url = add_query_arg( $version, $url );
@@ -573,7 +577,7 @@ class HTML extends Base
 			'media' => $media,
 		) )."\n";
 
-		if ( ! $echo )
+		if ( ! $verbose )
 			return $html;
 
 		echo $html;
@@ -943,7 +947,7 @@ class HTML extends Base
 		return TRUE;
 	}
 
-	public static function tableActions( $actions, $echo = TRUE )
+	public static function tableActions( $actions, $verbose = TRUE )
 	{
 		if ( ! $actions || ! is_array( $actions ) )
 			return;
@@ -962,7 +966,7 @@ class HTML extends Base
 
 		$html.= '</div>';
 
-		if ( ! $echo )
+		if ( ! $verbose )
 			return $html;
 
 		echo $html;
@@ -1165,7 +1169,7 @@ class HTML extends Base
 		echo '</'.$list.'>';
 	}
 
-	public static function wrapScript( $code, $echo = TRUE )
+	public static function wrapScript( $code, $verbose = TRUE )
 	{
 		if ( ! $code )
 			return '';
@@ -1174,14 +1178,14 @@ class HTML extends Base
 		$script.= "\n".$code."\n";
 		$script.= '/* ]]> */'."\n".'</script>'."\n";
 
-		if ( ! $echo )
+		if ( ! $verbose )
 			return $script;
 
 		echo $script;
 	}
 
 	// @REF: https://jquery.com/upgrade-guide/3.0/#deprecated-document-ready-handlers-other-than-jquery-function
-	public static function wrapjQueryReady( $code, $echo = TRUE )
+	public static function wrapjQueryReady( $code, $verbose = TRUE )
 	{
 		if ( ! $code )
 			return '';
@@ -1190,7 +1194,7 @@ class HTML extends Base
 		$script.= 'jQuery(function($){'."\n".$code.'});'."\n";
 		$script.= '/* ]]> */'."\n".'</script>'."\n";
 
-		if ( ! $echo )
+		if ( ! $verbose )
 			return $script;
 
 		echo $script;

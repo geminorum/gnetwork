@@ -2,6 +2,8 @@
 
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
+// TODO: rename `$string` to `$text`
+
 class Text extends Base
 {
 
@@ -21,6 +23,7 @@ class Text extends Base
 		$string = preg_replace( "/[\x{0618}-\x{061A}\x{064B}-\x{065F}]+/u", '', $string );
 
 		// TODO: remove arabic question mark
+		// TODO: remove accents
 
 		$string = str_ireplace( [
 			"\xD8\x8C", // `،` // Arabic Comma

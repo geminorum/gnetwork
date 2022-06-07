@@ -163,7 +163,7 @@ class URL extends Base
 		return empty( $parsed['host'] ) && empty( $parsed['scheme'] );
 	}
 
-	// @ALSO: `esc_url_raw( $url ) === $url`, `wp_http_validate_url()`
+	// @ALSO: `sanitize_url( $url ) === $url`, `wp_http_validate_url()`
 	// @REF: https://halfelf.org/2015/url-validation/
 	// @REF: https://d-mueller.de/blog/why-url-validation-with-filter_var-might-not-be-a-good-idea/
 	public static function isValid( $url )

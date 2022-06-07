@@ -117,6 +117,24 @@ class Taxonomy extends Core\Base
 		return 'default_term_'.$taxonomy;
 	}
 
+	// @REF: `wp_count_terms()`
+	public static function hasTerms( $taxonomy, $empty = TRUE )
+	{
+		$args = [
+			'taxonomy'   => $taxonomy,
+			'hide_empty' => ! $empty,
+
+			'fields'  => 'count',
+			'orderby' => 'none',
+
+			'suppress_filter'        => TRUE,
+			'update_term_meta_cache' => FALSE,
+		];
+
+		$query = new \WP_Term_Query;
+		return $query->query( $args );
+	}
+
 	// @REF: `get_the_term_list()`
 	public static function getTheTermList( $taxonomy, $post = NULL, $before = '', $after = '' )
 	{
@@ -206,6 +224,24 @@ class Taxonomy extends Core\Base
 			add_term_meta( $term['term_id'], $meta_key, $meta_value, TRUE );
 
 		return get_term( $term['term_id'], $taxonomy );
+	}
+
+	public static function getObjectTerms( $taxonomy, $object_id, $fields = 'ids', $extra = [] )
+	{
+		$args = array_merge( [
+			'taxonomy'   => $taxonomy,
+			'object_ids' => $object_id,
+			'hide_empty' => FALSE,
+
+			'fields'  => $fields,
+			'orderby' => 'none',
+
+			'suppress_filter'        => TRUE,
+			'update_term_meta_cache' => FALSE,
+		], $extra );
+
+		$query = new \WP_Term_Query;
+		return $query->query( $args );
 	}
 
 	// @SOURCE: OLD VERSION OF `term_exists()`
@@ -459,6 +495,42 @@ class Taxonomy extends Core\Base
 		wp_update_term_count( $tt_id, $taxonomy );
 
 		return $count;
+	}
+
+	// @REF: `_update_post_term_count()`
+	public static function countTermObjects( $term, $taxonomy )
+	{
+		global $wpdb;
+
+		if ( ! $exists = term_exists( $term, $taxonomy ) )
+			return FALSE;
+
+		$query = $wpdb->prepare( "
+			SELECT COUNT(*)
+			FROM {$wpdb->term_relationships}
+			WHERE term_taxonomy_id = %d
+		", $exists['term_taxonomy_id'] );
+
+		return $wpdb->get_var( $query );
+	}
+
+	public static function getEmptyTermIDs( $taxonomy, $check_description = FALSE )
+	{
+		global $wpdb;
+
+		$query = "
+			SELECT t.term_id
+			FROM {$wpdb->terms} AS t
+			INNER JOIN {$wpdb->term_taxonomy} AS tt
+			ON t.term_id = tt.term_id
+			WHERE tt.taxonomy IN ( '".implode( "', '", esc_sql( (array) $taxonomy ) )."' )
+			AND tt.count < 1
+		";
+
+		if ( $check_description )
+			$query.= " AND (TRIM(COALESCE(tt.description, '')) = '') ";
+
+		return $wpdb->get_col( $query );
 	}
 
 	// @REF: https://developer.wordpress.org/?p=22286

@@ -37,12 +37,12 @@ class Base
 		return ( 'ASC' === $req || 'DESC' === $req ) ? $req : $default;
 	}
 
-	public static function dump( $var, $safe = TRUE, $echo = TRUE )
+	public static function dump( $var, $safe = TRUE, $verbose = TRUE )
 	{
 		$export = var_export( $var, TRUE );
 		if ( $safe ) $export = htmlspecialchars( $export );
 		$export = '<pre dir="ltr" style="text-align:left;direction:ltr;">'.$export.'</pre>';
-		if ( ! $echo ) return $export;
+		if ( ! $verbose ) return $export;
 		echo $export;
 	}
 
@@ -121,12 +121,12 @@ class Base
 	}
 
 	// INTERNAL: used on functions deprecated
-	public static function _dev_func( $function, $version, $replacement = NULL )
+	public static function _dev_func( $func, $version, $replacement = NULL )
 	{
 		if ( is_null( $replacement ) )
-			self::_log( sprintf( 'DEP: \'%1$s\' function, since %2$s with no alternative', $function, $version ) );
+			self::_log( sprintf( 'DEP: \'%1$s\' function, since %2$s with no alternative', $func, $version ) );
 		else
-			self::_log( sprintf( 'DEP: \'%1$s\' function, since %2$s, Use \'%3$s\'', $function, $version, $replacement ) );
+			self::_log( sprintf( 'DEP: \'%1$s\' function, since %2$s, Use \'%3$s\'', $func, $version, $replacement ) );
 	}
 
 	public static function console( $data, $table = FALSE )
@@ -179,11 +179,11 @@ class Base
 	}
 
 	// WP core function without number_format_i18n
-	public static function timerStop( $echo = FALSE, $precision = 3 )
+	public static function timerStop( $verbose = FALSE, $precision = 3 )
 	{
 		global $timestart;
 		$total = number_format( ( microtime( TRUE ) - $timestart ), $precision );
-		if ( $echo ) echo $total;
+		if ( $verbose ) echo $total;
 		return $total;
 	}
 
@@ -194,7 +194,7 @@ class Base
 		if ( is_null( $func ) )
 			return $disabled;
 
-		return in_array( $func, $disabled );
+		return in_array( $func, $disabled, TRUE );
 	}
 
 	// http://stackoverflow.com/a/13272939

@@ -37,7 +37,7 @@ class WordPress extends Base
 	// @REF: `wp_is_php_compatible()`
 	public static function isPHPcompatible( $required )
 	{
-		return empty( $required ) || version_compare( phpversion(), $required, '>=' );
+		return empty( $required ) || version_compare( PHP_VERSION, $required, '>=' );
 	}
 
 	public static function mustRegisterUI( $check_admin = TRUE )
