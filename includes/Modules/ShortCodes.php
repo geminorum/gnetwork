@@ -1174,6 +1174,8 @@ class ShortCodes extends gNetwork\Module
 			'columns'      => NULL,
 			'string_view'  => _x( 'View Resource', 'Modules: ShortCodes: Defaults', 'gnetwork' ), // FALSE to disable
 			'string_empty' => _x( 'Resource is empty!', 'Modules: ShortCodes: Defaults', 'gnetwork' ), // FALSE to disable
+			'cb_title'     => NULL,
+			'cb_data'      => NULL,
 			'context'      => NULL,
 			'wrap'         => TRUE,
 			'before'       => '',
@@ -1243,18 +1245,21 @@ class ShortCodes extends gNetwork\Module
 				return $args['string_empty'] ? HTML::wrap( $args['string_empty'], '-empty' ) : NULL;
 
 			$html = '<table>';
+			$title_callback = $args['cb_title'] && is_callable( $args['cb_title'] ) ? $args['cb_title'] : [ $this, 'default_csv_callback' ];
+			$data_callback  = $args['cb_data']  && is_callable( $args['cb_data'] )  ? $args['cb_data']  : [ $this, 'default_csv_callback' ];
+
 
 			if ( count( $titles ) ) {
 
 				$html.= '<thead><tr>';
 				foreach ( $titles as $title )
-					$html.= '<th>'.( $title ? HTML::escape( apply_filters( 'html_format_i18n', $title ) ) : '&nbsp;' ).'</th>';
+					$html.= sprintf( '<th>%s</th>', call_user_func_array( $title_callback, [ $title, TRUE, '&nbsp;' ] ) );
 				$html.= '</tr></thead><tbody>';
 
 				foreach ( $data as $row ) {
 					$html.= '<tr>';
 					foreach ( $titles as $title )
-						$html.= '<td>'.( isset( $row[$title] ) ? HTML::escape( apply_filters( 'html_format_i18n', $row[$title] ) ) : '&nbsp;' ).'</td>';
+						$html.= sprintf( '<td>%s</td>', call_user_func_array( $data_callback, [ $row[$title], $title, '&nbsp;' ] ) );
 					$html.= '</tr>';
 				}
 
@@ -1265,7 +1270,7 @@ class ShortCodes extends gNetwork\Module
 				foreach ( $data as $row ) {
 					$html.= '<tr>';
 					foreach ( $row as $cell )
-						$html.= '<td>'.( $cell ? HTML::escape( apply_filters( 'html_format_i18n', $cell ) ) : '&nbsp;' ).'</td>';
+						$html.= sprintf( '<td>%s</td>', call_user_func_array( $data_callback, [ $cell, FALSE, '&nbsp;' ] ) );
 					$html.= '</tr>';
 				}
 			}
@@ -1277,6 +1282,11 @@ class ShortCodes extends gNetwork\Module
 		}
 
 		return self::shortcodeWrap( $html, 'csv', $args );
+	}
+
+	public function default_csv_callback( $data, $title = NULL, $fallback = '' )
+	{
+		return $data ? HTML::escape( apply_filters( 'html_format_i18n', $data ) ) : $fallback;
 	}
 
 	public function shortcode_redirect( $atts = [], $content = NULL, $tag = '' )
