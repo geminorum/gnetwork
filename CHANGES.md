@@ -1,3 +1,32 @@
+### 3.15.1
+* main/module: rename helpers for request action
+* main/module: render tools html after
+* module/authors: authors manage tags
+* module/blog: avoid empty http host on server global
+* module/blog: control replace insecure home url by ssl setting
+* module/branding: purpose prop for icons on the manifest
+* module/code: general filter for markdown conversion
+* module/comments: linkify content
+* module/debug: summary card for space usage
+* module/login: log logged-out username
+* module/opensearch: :warning: avoid escaping templates
+* module/optimize: :new: module
+* module/optimize: support for preconnect links
+* module/rest: allow all cors requests
+* module/rest: move disable rest setting
+* module/shortcodes: :new: circular player short-code
+* module/shortcodes: callbacks for csv table cells
+* module/shortcodes: css class for csv table
+* module/taxonomy:  handle delete empty terms revised
+* module/taxonomy: :new: format ordinal action
+* module/taxonomy: :new: update count action
+* module/taxonomy: :warning: avoid notice after term imports
+* module/taxonomy: deferr updating count on actions
+* module/taxonomy: simplify handle assign parents
+* module/typography: linkify content
+* module/user: large user count filtering
+* module/user: total user count report on activity box end
+
 ### 3.15.0
 * main/plugin: avoid escaping on the constant
 * main/settings: better handling min/max/step on number inputs
