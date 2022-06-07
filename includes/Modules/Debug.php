@@ -505,7 +505,7 @@ class Debug extends gNetwork\Module
 	public static function summarySpaceUsage()
 	{
 		$summary = [
-			'Available Space' => function_exists( 'disk_free_space' ) ? @disk_free_space( WP_CONTENT_DIR ) : 'UNAVAILABLE',
+			'Available Space' => function_exists( 'disk_free_space' ) ? File::prefixSI( @disk_free_space( WP_CONTENT_DIR ) ) : 'UNAVAILABLE',
 		];
 
 		echo '<div class="-wrap card -floated" dir="ltr">';
@@ -661,7 +661,7 @@ class Debug extends gNetwork\Module
 		echo '<hr />';
 
 		/* translators: %s: php version */
-		HTML::desc( sprintf( _x( 'Current PHP version: %s', 'Modules: Debug', 'gnetwork' ), HTML::tag( 'code', phpversion() ) ) );
+		HTML::desc( sprintf( _x( 'Current PHP version: %s', 'Modules: Debug', 'gnetwork' ), HTML::tag( 'code', PHP_VERSION ) ) );
 
 		echo HTML::listCode( self::getPHPExtensions(),
 			'<code title="%2$s">%1$s</code>',
@@ -687,25 +687,30 @@ class Debug extends gNetwork\Module
 		HTML::h2( _x( 'Extra', 'Modules: Debug', 'gnetwork' ) );
 
 		foreach ( [
+			'phpinfo',
+			'php_uname',
+			'disk_free_space',
 			'finfo_file',
 			'getimagesize',
 			'mime_content_type',
 			'fastcgi_finish_request',
-		] as $function )
-			self::functionExists( $function );
+			'shell_exec',
+			'exec',
+		] as $func )
+			self::functionExists( $func );
 
 		echo '</div>';
 	}
 
-	public static function functionExists( $function )
+	public static function functionExists( $func )
 	{
-		if ( function_exists( $function ) )
+		if ( function_exists( $func ) )
 			/* translators: %s: function placeholder */
-			HTML::desc( sprintf( _x( '%s available!', 'Modules: Debug', 'gnetwork' ), '<code>'.$function.'</code>' ), TRUE, '-available -color-success' );
+			HTML::desc( sprintf( _x( '%s available!', 'Modules: Debug', 'gnetwork' ), '<code>'.$func.'</code>' ), TRUE, '-available -color-success' );
 
 		else
 			/* translators: %s: function placeholder */
-			HTML::desc( sprintf( _x( '%s not available!', 'Modules: Debug', 'gnetwork' ), '<code>'.$function.'</code>' ), TRUE, '-not-available -color-danger' );
+			HTML::desc( sprintf( _x( '%s not available!', 'Modules: Debug', 'gnetwork' ), '<code>'.$func.'</code>' ), TRUE, '-not-available -color-danger' );
 	}
 
 	public static function getPHPExtensions()

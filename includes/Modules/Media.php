@@ -888,6 +888,7 @@ class Media extends gNetwork\Module
 	}
 
 	// @SEE: `IMAGE_EDIT_OVERWRITE`
+	// @SEE: `wp_delete_attachment_files()`
 	// NOTE: maybe look into stored sizes in meta
 	private function get_attachment_thumbs( $attachment_id, $wpupload = NULL )
 	{
@@ -1008,7 +1009,7 @@ class Media extends gNetwork\Module
 
 				$wpdb->query( $wpdb->prepare( "
 					UPDATE {$wpdb->posts} SET guid = %s WHERE ID = %d
-				", esc_url_raw( URL::trail( $wpupload['url'] ).$clean_file ), $clean_id ) );
+				", sanitize_url( URL::trail( $wpupload['url'] ).$clean_file ), $clean_id ) );
 
 				update_attached_file( $clean_id, $moved_path );
 

@@ -12,6 +12,7 @@ use geminorum\gNetwork\Core\Number;
 use geminorum\gNetwork\Core\Text;
 use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\WordPress\Strings;
 
 class Utilities extends Core\Base
 {
@@ -480,7 +481,7 @@ class Utilities extends Core\Base
 	{
 		global $gNetworkParsedownExtra;
 
-		if ( ! class_exists( 'ParsedownExtra' ) || empty( $markdown ) )
+		if ( empty( $markdown ) || ! class_exists( 'ParsedownExtra' ) )
 			return $markdown;
 
 		if ( empty( $gNetworkParsedownExtra ) )
@@ -496,12 +497,12 @@ class Utilities extends Core\Base
 	// FIXME: check: `URLify::add_chars()`
 	public static function URLifyDownCode( $string, $locale = NULL )
 	{
-		return \URLify::downcode( $string, self::getISO639( $locale ) );
+		return $string ? \URLify::downcode( $string, self::getISO639( $locale ) ) : $string;
 	}
 
 	public static function URLifyFilter( $string, $length = 60, $locale = NULL )
 	{
-		return \URLify::filter( $string, $length, self::getISO639( $locale ), TRUE, FALSE );
+		return $string ? \URLify::filter( $string, $length, self::getISO639( $locale ), TRUE, FALSE ) : $string;
 	}
 
 	public static function IPinfo()

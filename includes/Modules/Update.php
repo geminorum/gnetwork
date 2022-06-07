@@ -198,6 +198,7 @@ class Update extends gNetwork\Module
 		return parent::reset_settings( $options_key );
 	}
 
+	// TODO: auto-refresh packages after plugin install/delete
 	private function refresh_packages()
 	{
 		$packages = [];

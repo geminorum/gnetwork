@@ -152,6 +152,6 @@ class Rest extends gNetwork\Module
 
 	public function thumbnail_data_get_callback( $post, $attr, $request, $object_type )
 	{
-		return WPMedia::prepAttachmentData( $this->filters( 'thumbnail_id', get_post_meta( $post['id'], '_thumbnail_id', TRUE ), $post ) );
+		return WPMedia::prepAttachmentData( $this->filters( 'thumbnail_id', get_post_thumbnail_id( $post['id'] ), $post ) );
 	}
 }

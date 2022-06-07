@@ -632,13 +632,62 @@ class Cleanup extends gNetwork\Module
 			'gletter_components',
 			'gnetwork_redirect',
 			'widget_gnetwork-gplusbadge-widget',
+			'widget_k2-asides',
+			'widget_k2-about',
+			'widget_aagwidget',
+
+			'jarchive_widget',
+			'mps_calendar_widget',
 
 			// 'theme_mods_',
 			'theme_mods_gtwentyeleven',
 			'theme_mods_gtwentytwelve',
+			'theme_mods_gari',
+			'theme_mods_k2',
+			'mods_K2',
+
+			'loginlockdownAdminOptions',
+			'loginlockdown_db2_version',
+			'loginlockdown_db1_version',
+
+			// GoogleSitemapGenerator
+			'sm_options',
+			'sm_status',
+
+			'mps_jd_options_4.1',
+
+			'dashboard_widget_options', // @REF: https://developer.wordpress.org/apis/handbook/dashboard-widgets/
+
+			'k2blogornoblog',
+			'k2headerimage',
+			'k2stylesurl',
+			'k2stylesdir',
+			'k2stylespath',
+			'k2styleinfo',
+			'k2styles',
+			'k2ajaxdonejs',
+			'k2widgetoptions',
+			'k2entrymeta2',
+			'k2entrymeta1',
+			'k2animations',
+			'k2columns',
+			'k2sidebarmanager',
+			'k2archives',
+			'k2rollingarchives',
+			'k2livesearch',
+			'k2asidescategory',
+			'k2version',
 
 			'fileupload_url', // old upload path
+
+			'dnh_dismissed_notices',
 		];
+
+		if ( ! is_main_site() )
+			$options = array_merge( $options, [
+				'odb_rvg_options',
+				'odb_rvg_excluded_tabs',
+			] );
 
 		foreach ( $options as $option )
 			$count += $wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name = '{$option}'" );

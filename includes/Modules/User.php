@@ -479,7 +479,7 @@ class User extends gNetwork\Module
 			$html.= $separator.sprintf( _x( '%1$s are %2$s', 'Modules: User', 'gnetwork' ), Number::format( $count ),
 				( array_key_exists( $role, $roles ) ? $roles[$role] : HTML::code( $role ) ) );
 
-		return $html.'.';
+		return HTML::tag( 'p', $html.'.' );
 	}
 
 	// @REF: https://medium.com/@omarkasem/login-with-phone-number-in-woocommerce-wordpress-f7d6d07964d8
