@@ -1,0 +1,74 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// multiple-circular-player - v0.0.3 - 2022-06-07
+// https://github.com/kuantal/Multiple-circular-player
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+.mediPlayer {
+  *,
+  *:after,
+  *:before {
+      box-sizing             : border-box;
+      -webkit-box-sizing     : border-box;
+      -moz-box-sizing        : border-box;
+      -webkit-font-smoothing : antialiased;
+      -moz-font-smoothing    : antialiased;
+      -o-font-smoothing      : antialiased;
+      font-smoothing         : antialiased;
+      text-rendering         : optimizeLegibility;
+
+  }
+
+  .control {
+    opacity: 0;
+
+    /* transition: opacity .2s linear; */
+    pointer-events: none;
+    cursor: pointer;
+  }
+
+  .not-started .play, .paused .play {
+    opacity: 1;
+  }
+
+  .playing {
+    .pause {
+      opacity: 1;
+    }
+
+    .play {
+      opacity: 0;
+    }
+  }
+
+  .ended .stop {
+    opacity: 1;
+    pointer-events: none;
+  }
+
+  .precache-bar .done {
+    opacity: 0;
+  }
+
+  .not-started .progress-bar {
+    display: none;
+  }
+
+  .ended {
+    .progress-bar {
+      display: none;
+    }
+
+    .progress-track {
+      stroke-opacity: 1;
+    }
+  }
+
+  .progress-bar, .precache-bar {
+    transition: stroke-dashoffset 500ms;
+    stroke-dasharray: 298.1371428256714;
+    stroke-dashoffset: 298.1371428256714;
+  }
+}

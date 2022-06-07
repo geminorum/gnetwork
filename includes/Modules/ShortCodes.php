@@ -146,6 +146,8 @@ class ShortCodes extends gNetwork\Module
 			// 'post-content'  => 'shortcode_post_content', // TODO: https://gist.github.com/wpscholar/84376bb44afabdfa9d93e83b0c87abb8
 			'post-link'   => 'shortcode_permalink',
 			'permalink'   => 'shortcode_permalink',
+
+			'circular-player' => 'shortcode_circular_player',
 		];
 	}
 
@@ -1368,6 +1370,37 @@ class ShortCodes extends gNetwork\Module
 		Scripts::enqueueScript( 'front.audio-go' );
 
 		return self::shortcodeWrap( $html, 'audio-go', $args, FALSE );
+	}
+
+	public function shortcode_circular_player( $atts = [], $content = NULL, $tag = '' )
+	{
+		$args = shortcode_atts( [
+			'src'     => FALSE,
+			'size'    => NULL, // KNOWN-BUG: unable to change the size once is set
+			'context' => NULL,
+			'wrap'    => TRUE,
+			'before'  => '',
+			'after'   => '',
+		], $atts, $tag );
+
+		if ( FALSE === $args['context'] )
+			return NULL;
+
+		if ( ! $args['src'] )
+			return $content;
+
+		if ( WordPress::isXML() || WordPress::isREST() )
+			return $content;
+
+		$html = vsprintf( '<audio preload="none" data-size="%s" src="%s"></audio>', [
+			$args['size'] ?: 25,
+			$args['src'],
+		] );
+
+		Scripts::enqueueCircularPlayer();
+		$args['class'] = 'mediPlayer'; // NOTE: hardcoded!
+
+		return self::shortcodeWrap( $html, 'circular-player', $args, FALSE );
 	}
 
 	// wrapper for default core audio shortcode

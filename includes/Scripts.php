@@ -117,6 +117,19 @@ class Scripts extends Core\Base
 			add_thickbox();
 	}
 
+	public static function enqueueCircularPlayer( $selector = '.mediPlayer', $ver = '0.0.3' )
+	{
+		static $enqueued = FALSE;
+
+		if ( $enqueued )
+			return $enqueued;
+
+		$enqueued = self::enqueueScriptVendor( 'jquery.mediaPlayer', [ 'jquery' ], $ver );
+		wp_add_inline_script( $enqueued, 'jQuery(function($){$("'.( $selector ?: '.mediPlayer' ).'").mediaPlayer();});' );
+
+		return $enqueued;
+	}
+
 	public static function enqueueMasonry( $selector = '.card', $grid = '.masonry-grid' )
 	{
 		$script = 'jQuery(function($) {
