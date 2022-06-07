@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP Multi Network\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2019-02-03 00:42+0330\n"
+"PO-Revision-Date: 2022-05-27 19:06+0430\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: \n"
 "Language: fa_IR\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 3.0.1\n"
 "X-Poedit-Basepath: ../../wp-multi-network/wp-multi-network\n"
 
 #. Tags of the plugin/theme
@@ -181,8 +181,12 @@ msgid "New Network Site"
 msgstr "سایت شبکه تازه"
 
 #: wp-multi-network/includes/functions.php:399
-msgid "Arguments passed to %1$s should be in an associative array. See the inline documentation at %2$s for more details."
-msgstr "پارامترهای ارسال شده به %1$s باید به صورت آرایه باشد. برای جزئیات بیشتر، مستندات درون‌خطی را در %2$s مشاهده نمایید."
+msgid ""
+"Arguments passed to %1$s should be in an associative array. See the inline "
+"documentation at %2$s for more details."
+msgstr ""
+"پارامترهای ارسال شده به %1$s باید به صورت آرایه باشد. برای جزئیات بیشتر، مستندات "
+"درون‌خطی را در %2$s مشاهده نمایید."
 
 #: wp-multi-network/includes/deprecated.php:56
 #: wp-multi-network/includes/deprecated.php:80
@@ -285,12 +289,20 @@ msgid "Please confirm that you still want to delete these networks"
 msgstr "لطفاً تأیید کنید که هنوز می‌خواهید این شبکه‌ها حذف شوند"
 
 #: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:637
-msgid "One or more of these networks have sites. Deleting these networks will permanently delete their sites."
-msgstr "یک یا بیشتر این شبکه‌ها دارای سایت هستند. حذف این شبکه‌ها، سایت‌های آن‌ها را نیز برای همیشه حذف می‌کند."
+msgid ""
+"One or more of these networks have sites. Deleting these networks will "
+"permanently delete their sites."
+msgstr ""
+"یک یا بیشتر این شبکه‌ها دارای سایت هستند. حذف این شبکه‌ها، سایت‌های آن‌ها را نیز "
+"برای همیشه حذف می‌کند."
 
 #: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:636
-msgid "One or more of these networks have sites. Deleting these networks will orphan their sites."
-msgstr "یک یا بیشتر این شبکه‌ها دارای سایت هستند. حذف این شبکه‌ها، سایت‌های آن‌ها را نیز بی‌سرپرست می‌کند."
+msgid ""
+"One or more of these networks have sites. Deleting these networks will orphan "
+"their sites."
+msgstr ""
+"یک یا بیشتر این شبکه‌ها دارای سایت هستند. حذف این شبکه‌ها، سایت‌های آن‌ها را نیز "
+"بی‌سرپرست می‌کند."
 
 #: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:626
 #: wp-multi-network/includes/classes/class-wp-ms-networks-admin.php:649

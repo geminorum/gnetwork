@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WordPress - 5.9.x - Administration - Network Admin\n"
+"Project-Id-Version: WordPress - 6.0.x - Administration - Network Admin\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: \n"
@@ -8,11 +8,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2022-02-05 19:11+0330\n"
+"PO-Revision-Date: 2022-05-26 20:10+0430\n"
 "Language: fa\n"
 "Plural-Forms: nplurals=2; plural=(n==0 || n==1);\n"
 "X-Generator: Poedit 3.0.1\n"
 "X-Poedit-Basepath: ../../../../..\n"
+
+#: wp-admin/network/upgrade.php:141
+msgid "WordPress has been updated! Next and final step is to individually upgrade the sites in your network."
+msgstr "وردپرس به‌روز شد! قدم بعدی و نهایی، ارتقای یک به یک سایت‌های شبکه شماست."
+
+#: wp-admin/network/site-new.php:40
+msgid "Cannot create an empty site."
+msgstr "ایجاد سایت خالی ناممکن است."
 
 #. translators: %s: wp-config.php
 #: wp-admin/includes/network.php:463
@@ -741,10 +749,6 @@ msgstr "از اینجا میتوانید:"
 msgid "Welcome to your Network Admin. This area of the Administration Screens is used for managing all aspects of your Multisite Network."
 msgstr "به مدیریت شبکه خوش آمدید. این بخش برای مدیریت تمامی جنبه‌های شبکه شما به کار می‌رود."
 
-#: wp-admin/network/upgrade.php:141
-msgid "WordPress has been updated! Before we send you on your way, we need to individually upgrade the sites in your network."
-msgstr "وردپرس به‌روز شده است! پیش از ادامه، باید هر یک از سایت‌ها را در شبکهٔ شما ارتقا دهیم."
-
 #: wp-admin/network/upgrade.php:24
 msgid "Only use this screen once you have updated to a new version of WordPress through Updates/Available Updates (via the Network Administration navigation menu or the Toolbar). Clicking the Upgrade Network button will step through each site in the network, five at a time, and make sure any database updates are applied."
 msgstr "تنها زمانی از این صفحه استفاده کنید که وردپرس را (از طریق فهرست‌های مدیریتی یا نوارابزار) به نگارش تازه‌ای به‌روز کرده باشید. با کلیک روی «ارتقای شبکه» فرآیند به‌روزرسانی سایت‌های موجود در شبکهٔ شما در دسته‌های پنج‌تایی آغاز می‌شود. از اعمال تغییرات در پایگاه‌داده اطمینان‌خاطر حاصل کنید."
@@ -1161,8 +1165,8 @@ msgid "If this process fails for any reason, users logging in to their sites wil
 msgstr "اگر این فرآیند به هر دلیلی انجام نشود، کاربران هنگامی که به سایت خودشان وارد می‌شوند به اجبار همین به‌روزرسانی را باید انجام دهند."
 
 #: wp-admin/network/upgrade.php:25
-msgid "If a version update to core has not happened, clicking this button won&#8217;t affect anything."
-msgstr "اگر هستهٔ اصلی وردپرس نیازی به به‌روزرسانی ندارد، کلیک کردن این دکمه هیچ تأثیری نخواهد داشت."
+msgid "If a version update to core has not happened, clicking this button will not affect anything."
+msgstr ""
 
 #: wp-admin/network/themes.php:301
 msgid "If the network admin disables a theme that is in use, it can still remain selected on that site. If another theme is chosen, the disabled theme will not appear in the site&#8217;s Appearance > Themes screen."
@@ -1198,8 +1202,8 @@ msgid "The following words are reserved for use by WordPress functions and canno
 msgstr ""
 
 #: wp-admin/network/upgrade.php:125
-msgid "If your browser doesn&#8217;t start loading the next page automatically, click this link:"
-msgstr "اگر مرورگر شما بطور خودکار به صفحهٔ بعد نرفت روی این پیوند کلیک کنید:"
+msgid "If your browser does not start loading the next page automatically, click this link:"
+msgstr ""
 
 #: wp-admin/network/settings.php:302
 msgid "If you want to ban domains from site registrations. One domain per line."
@@ -1208,10 +1212,6 @@ msgstr "در صورتی که می‌خواهید نام‌نویسی سایت ر
 #: wp-admin/network/settings.php:282
 msgid "If you want to limit site registrations to certain domains. One domain per line."
 msgstr "در صورتی که می‌خواهید نام‌نویسی‌های سایت را، محدود به دامنه‌های مشخصی کنید. یک دامنه در هر خط."
-
-#: wp-admin/network/site-new.php:40
-msgid "Can&#8217;t create an empty site."
-msgstr "نمی‌توانید سایت خالی ایجاد کنید."
 
 #: wp-admin/network/users.php:268
 msgid "Users removed from spam."
@@ -1455,6 +1455,18 @@ msgstr "نام کاربری یا ایمیل تکراری است."
 #: wp-admin/network/user-new.php:41
 msgid "Cannot create an empty user."
 msgstr "ایجاد کاربر خالی، امکان‌پذیر نیست."
+
+#~ msgid "WordPress has been updated! Before we send you on your way, we need to individually upgrade the sites in your network."
+#~ msgstr "وردپرس به‌روز شده است! پیش از ادامه، باید هر یک از سایت‌ها را در شبکهٔ شما ارتقا دهیم."
+
+#~ msgid "If a version update to core has not happened, clicking this button won&#8217;t affect anything."
+#~ msgstr "اگر هستهٔ اصلی وردپرس نیازی به به‌روزرسانی ندارد، کلیک کردن این دکمه هیچ تأثیری نخواهد داشت."
+
+#~ msgid "If your browser doesn&#8217;t start loading the next page automatically, click this link:"
+#~ msgstr "اگر مرورگر شما بطور خودکار به صفحهٔ بعد نرفت روی این پیوند کلیک کنید:"
+
+#~ msgid "Can&#8217;t create an empty site."
+#~ msgstr "نمی‌توانید سایت خالی ایجاد کنید."
 
 #~ msgid "We recommend you back up your existing %s file."
 #~ msgstr "توصیه می‌کنیم از پروندهٔ %s پشتیبان تهیه کنید."
