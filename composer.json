@@ -42,7 +42,7 @@
     "picqer/php-barcode-generator": "^0.2.2",
     "tinify/tinify": "^1.5",
     "ricardoper/twitteroauth": "2.*",
-    "behat/transliterator": "^1.3",
+    "behat/transliterator": "^1.5",
     "davidepastore/ipinfo": "^0.3.0",
     "ziggeo/simple-box-integration": "^0.0.5",
     "nicolab/php-ftp-client": "^1.6",

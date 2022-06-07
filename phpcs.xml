@@ -6,6 +6,7 @@
 <ruleset name="gNetwork">
 	<description>A custom coding standard</description>
 
+	<exclude-pattern>/.temp/*</exclude-pattern>
 	<exclude-pattern>/assets/*</exclude-pattern>
 	<exclude-pattern>/node_modules/*</exclude-pattern>
 	<exclude-pattern>*.min.js</exclude-pattern>
