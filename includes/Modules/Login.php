@@ -40,7 +40,7 @@ class Login extends gNetwork\Module
 			$this->action( 'woocommerce_login_form', 0, 99 );
 		}
 
-		$this->action( 'wp_logout' );
+		$this->action( 'wp_logout', 1, 9 );
 		$this->action( 'wp_login', 2, 99 );
 		$this->filter( 'wp_login_errors', 2 );
 		$this->filter( 'login_message' );
@@ -605,10 +605,10 @@ class Login extends gNetwork\Module
 		$this->check_math();
 	}
 
-	public function wp_logout()
+	public function wp_logout( $user_id )
 	{
 		if ( $this->options['login_log'] )
-			Logger::siteNOTICE( 'LOGGED-OUT', sprintf( '%s', wp_get_current_user()->user_login ) );
+			Logger::siteNOTICE( 'LOGGED-OUT', sprintf( '%s', get_user_by( 'id', $user_id )->user_login ) );
 	}
 
 	public function wp_login( $user_login, $user )
