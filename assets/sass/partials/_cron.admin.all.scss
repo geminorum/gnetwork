@@ -5,12 +5,15 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 #dashboard_right_now {
-  .geditorial-admin-wrap.-audit + .gnetwork-wrap.-cron,
-  .mu-storage + .gnetwork-wrap.-cron {
+  .geditorial-admin-wrap.-audit + .gnetwork-wrap.-user.-count-users,
+  .geditorial-admin-wrap.-audit + .gnetwork-wrap.-cron.-status-check,
+  .mu-storage + .gnetwork-wrap.-user.-count-users,
+  .mu-storage + .gnetwork-wrap.-cron.-status-check {
     margin-top: 1em;
   }
 
-  .gnetwork-wrap.-cron {
+  .gnetwork-wrap.-user.-count-users,
+  .gnetwork-wrap.-cron.-status-check {
     p {
       font-size: smaller;
       margin-bottom: 0.5em;
