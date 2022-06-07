@@ -1176,6 +1176,7 @@ class ShortCodes extends gNetwork\Module
 			'string_empty' => _x( 'Resource is empty!', 'Modules: ShortCodes: Defaults', 'gnetwork' ), // FALSE to disable
 			'cb_title'     => NULL,
 			'cb_data'      => NULL,
+			'class_table'  => 'table',
 			'context'      => NULL,
 			'wrap'         => TRUE,
 			'before'       => '',
@@ -1244,10 +1245,10 @@ class ShortCodes extends gNetwork\Module
 			if ( empty( $data ) )
 				return $args['string_empty'] ? HTML::wrap( $args['string_empty'], '-empty' ) : NULL;
 
-			$html = '<table>';
 			$title_callback = $args['cb_title'] && is_callable( $args['cb_title'] ) ? $args['cb_title'] : [ $this, 'default_csv_callback' ];
 			$data_callback  = $args['cb_data']  && is_callable( $args['cb_data'] )  ? $args['cb_data']  : [ $this, 'default_csv_callback' ];
 
+			$html = '<table class="'.HTML::prepClass( $args['class_table'] ).'">';
 
 			if ( count( $titles ) ) {
 
