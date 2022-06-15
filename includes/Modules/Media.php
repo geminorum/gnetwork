@@ -5,7 +5,6 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 use geminorum\gNetwork;
 use geminorum\gNetwork\Ajax;
 use geminorum\gNetwork\Scripts;
-use geminorum\gNetwork\Strings;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\Arraay;
@@ -16,6 +15,7 @@ use geminorum\gNetwork\Core\L10n;
 use geminorum\gNetwork\Core\Text;
 use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\WordPress\Strings;
 use geminorum\gNetwork\WordPress\PostType as WPPostType;
 use geminorum\gNetwork\WordPress\Media as WPMedia;
 
@@ -1500,6 +1500,7 @@ class Media extends gNetwork\Module
 
 			// TODO: must use filter system
 
+			// FIXME: not working!!
 			if ( 'text/csv' == $attachment->post_mime_type )
 				return '[csv id="'.$id.'"]'
 					.WPMedia::htmlAttachmentShortLink( $id, $html ).'[/csv]';

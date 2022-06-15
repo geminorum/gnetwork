@@ -705,8 +705,8 @@ class Utilities extends Core\Base
 
 			if ( $data = json_decode( File::getContents( $log ), TRUE ) )
 				$logs[] = array_merge( [
-					'file' => basename( $log, '.json' ),
-					'size' => filesize( $log ),
+					'file' => File::basename( $log, '.json' ),
+					'size' => File::size( $log ),
 					'date' => filemtime( $log ),
 				], $data );
 

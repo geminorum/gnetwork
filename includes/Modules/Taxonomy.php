@@ -1702,7 +1702,7 @@ class Taxonomy extends gNetwork\Module
 	public function init_redirect_terms()
 	{
 		add_rewrite_tag( '%t%', '([^&]+)' );
-		add_rewrite_rule( '^t/([^/]*)/?', 'index.php?t=$matches[1]','top' );
+		add_rewrite_rule( '^t/([^/]*)/?', 'index.php?t=$matches[1]', 'top' );
 	}
 
 	public function template_redirect_redirect_terms()

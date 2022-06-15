@@ -193,6 +193,9 @@ class Login extends gNetwork\Module
 
 	public function plugins_loaded()
 	{
+		if ( empty( $_SERVER['REQUEST_URI'] ) )
+			return;
+
 		if ( ! is_multisite() && Text::has( $_SERVER['REQUEST_URI'], [ 'wp-signup', 'wp-activate' ] ) )
 			wp_die( _x( 'Move along, nothing to see here!', 'Modules: Login', 'gnetwork' ), 403 );
 

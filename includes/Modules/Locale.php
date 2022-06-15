@@ -451,6 +451,9 @@ class Locale extends gNetwork\Module
 			// [Slim SEO](https://wordpress.org/plugins/slim-seo/)
 			'slim-seo' => 'page',
 
+			// [YITH WooCommerce Wishlist](https://wordpress.org/plugins/yith-woocommerce-wishlist/)
+			'yith_wcwl_panel' => 'page',
+
 		], $current );
 
 		return $this->check_request( $list, $current, $base );
