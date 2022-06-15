@@ -79,6 +79,8 @@ class ShortCodes extends gNetwork\Module
 				$this->filter( 'amp_post_article_footer_meta', 1, 9 );
 				$this->filter( 'amp_post_template_file', 3 );
 			}
+
+			$this->filter( 'headings_toc', 1, 9999, FALSE, 'geditorial' );
 		}
 	}
 
@@ -1625,6 +1627,23 @@ class ShortCodes extends gNetwork\Module
 			return $file;
 
 		return Utilities::getLayout( 'amp.reference' );
+	}
+
+	// appends ref to table of contents on gEditorial Headings
+	public function headings_toc( $toc )
+	{
+		if ( empty( $toc ) || count( $toc ) < 2 )
+			return $toc;
+
+		if ( ! $this->ref_list )
+			$toc[] = $this->filters( 'reflist_toc', [
+				'slug'  => 'references',
+				'title' => _x( 'References', 'Shortcodes Module: Defaults', 'gnetwork' ),
+				'niche' => '3',
+				'page'  => $GLOBALS['page'],
+			], $toc );
+
+		return $toc;
 	}
 
 	// FIXME: check this!
