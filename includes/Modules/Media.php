@@ -1045,11 +1045,11 @@ class Media extends gNetwork\Module
 	{
 		if ( 'attachment' == $post->post_type ) {
 
-			if ( $alt = get_post_meta( $post->ID, '_wp_attachment_image_alt', TRUE ) )
+			if ( $alt = WPMedia::getAttachmentImageAlt( $post->ID, FALSE ) )
 				return $alt;
 
-			if ( $post->post_excerpt )
-				return wp_trim_words( $post->post_excerpt, 7, ' '.'[&hellip;]' );
+			if ( $caption = wp_get_attachment_caption( $post->ID ) )
+				return wp_trim_words( trim( strip_tags( $caption ) ), 7, ' '.'[&hellip;]' );
 		}
 
 		return $post_title;
