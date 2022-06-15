@@ -108,6 +108,20 @@ class Arraay extends Base
 		return ! array_diff_key( $one, $two ) && ! array_diff_key( $two, $one );
 	}
 
+	// `$a == $b` TRUE if $a and $b have the same key/value pairs
+	// `$a === $b` TRUE if $a and $b have the same key/value pairs in the same order and of the same types
+	// @REF: https://stackoverflow.com/a/5678990
+	public static function equalAssoc( $one, $two )
+	{
+		return ( $one == $two );
+	}
+
+	public static function equalNoneAssoc( $one, $two )
+	{
+		// return ( [] == array_diff( $one, $two ) && [] == array_diff( $two, $one) ); // @REF: https://stackoverflow.com/a/57330018
+		return ( $one === array_intersect( $one, $two ) && $two === array_intersect( $two, $one ) ); // @REF: https://stackoverflow.com/a/32811051
+	}
+
 	public static function range( $start, $end, $step = 1, $format = TRUE )
 	{
 		$array = array();

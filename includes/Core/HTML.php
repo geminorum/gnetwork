@@ -1144,12 +1144,12 @@ class HTML extends Base
 		return $pagination;
 	}
 
-	public static function menu( $menu, $callback = FALSE, $list = 'ul', $children = 'children' )
+	public static function menu( $menu, $callback = FALSE, $list = 'ul', $children = 'children', $class = '-html-menu' )
 	{
 		if ( ! $menu )
 			return;
 
-		echo '<'.$list.'>';
+		echo '<'.$list.( $class ? ' class="'.self::prepClass( $class ).'"' : '' ).'>';
 
 		foreach ( $menu as $item ) {
 
@@ -1161,7 +1161,7 @@ class HTML extends Base
 				echo self::link( $item['title'], '#'.$item['slug'] );
 
 			if ( ! empty( $item[$children] ) )
-				self::menu( $item[$children], $callback, $list, $children );
+				self::menu( $item[$children], $callback, $list, $children, '' );
 
 			echo '</li>';
 		}

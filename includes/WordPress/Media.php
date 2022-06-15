@@ -173,10 +173,10 @@ class Media extends Core\Base
 	// TODO: get title if html is empty
 	public static function htmlAttachmentShortLink( $id, $html, $extra = '', $rel = 'attachment' )
 	{
-		return HTML::tag( 'a', [
-			'href'  => self::getPostShortLink( $id ),
+		return Core\HTML::tag( 'a', [
+			'href'  => Core\WordPress::getPostShortLink( $id ),
 			'rel'   => $rel,
-			'class' => HTML::attrClass( $extra, '-attachment' ),
+			'class' => Core\HTML::attrClass( $extra, '-attachment' ),
 			'data'  => [ 'id' => $id ],
 		], $html );
 	}
@@ -191,6 +191,17 @@ class Media extends Core\Base
 		return empty( $attachment ) ? NULL : $attachment[0];
 	}
 
+	public static function getAttachmentImageAlt( $attachment_id, $fallback = '', $raw = FALSE )
+	{
+		if ( empty( $attachment_id ) )
+			return $fallback;
+
+		if ( $alt = get_post_meta( $attachment_id, '_wp_attachment_image_alt', TRUE ) )
+			return $raw ? $alt : trim( strip_tags( $alt ) );
+
+		return $fallback;
+	}
+
 	// @REF: https://wordpress.stackexchange.com/a/315447
 	public static function prepAttachmentData( $attachment_id )
 	{
@@ -200,9 +211,13 @@ class Media extends Core\Base
 		$uploads  = self::upload();
 		$metadata = wp_get_attachment_metadata( $attachment_id );
 		$prepared = [
+			'alt'       => self::getAttachmentImageAlt( $attachment_id, NULL, TRUE ),
 			'caption'   => wp_get_attachment_caption( $attachment_id ),
 			'mime_type' => get_post_mime_type( $attachment_id ),
 			'url'       => $uploads['baseurl'].'/'.$metadata['file'],
+			'width'     => empty( $metadata['width'] ) ? NULL : $metadata['width'],
+			'height'    => empty( $metadata['height'] ) ? NULL : $metadata['height'],
+			'filesize'  => empty( $metadata['filesize'] ) ? NULL : $metadata['filesize'],
 			'sizes'     => [],
 		];
 

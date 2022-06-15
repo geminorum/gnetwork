@@ -118,7 +118,7 @@ class Taxonomy extends Core\Base
 	}
 
 	// @REF: `wp_count_terms()`
-	public static function hasTerms( $taxonomy, $empty = TRUE )
+	public static function hasTerms( $taxonomy, $object_id = FALSE, $empty = TRUE )
 	{
 		$args = [
 			'taxonomy'   => $taxonomy,
@@ -131,8 +131,85 @@ class Taxonomy extends Core\Base
 			'update_term_meta_cache' => FALSE,
 		];
 
+		if ( $object_id )
+			$args['object_ids'] = (array) $object_id;
+
 		$query = new \WP_Term_Query;
 		return $query->query( $args );
+	}
+
+	// @REF: `wp_update_term_count_now()`
+	// NOTE: without taxonomy
+	public static function updateTermCount( $term_ids )
+	{
+		$list = [];
+
+		foreach ( self::getTermTaxonomies( $term_ids ) as $term_id => $taxonomy ) {
+
+			if ( ! $object = self::object( $taxonomy ) )
+				continue;
+
+			if ( ! $callback = self::updateCountCallback( $object ) )
+				continue;
+
+			call_user_func( $callback, [ $term_id ], $object );
+
+			$list[] = $term_id;
+		}
+
+		clean_term_cache( $list, '', FALSE );
+
+		return count( $list );
+	}
+
+	public static function getTermTaxonomies( $term_ids )
+	{
+		global $wpdb;
+
+		if ( empty( $term_ids ) )
+			return [];
+
+		$list = $wpdb->get_results( "
+			SELECT term_id, taxonomy
+			FROM {$wpdb->term_taxonomy}
+			WHERE term_id IN ( ".implode( ", ", esc_sql( $term_ids ) )." )
+		", ARRAY_A );
+
+		return count( $list ) ? wp_list_pluck( $list, 'taxonomy', 'term_id' ) : [];
+	}
+
+	public static function updateCountCallback( $taxonomy )
+	{
+		static $callbacks = [];
+
+		if ( ! $object = self::object( $taxonomy ) )
+			return FALSE;
+
+		if ( ! is_empty( $callbacks[$object->name] ) )
+			return $callbacks[$object->name];
+
+		if ( ! empty( $object->update_count_callback ) ) {
+
+			$callback = $object->update_count_callback;
+
+		} else {
+
+			$types = (array) $object->object_type;
+
+			foreach ( $types as &$type )
+				if ( 0 === strpos( $type, 'attachment:' ) )
+					list( $type ) = explode( ':', $type );
+
+			if ( array_filter( $types, 'post_type_exists' ) == $types )
+				// Only post types are attached to this taxonomy.
+				$callback = '_update_post_term_count';
+
+			else
+				// Default count updater.
+				$callback = '_update_generic_term_count';
+		}
+
+		return $callbacks[$object->name] = $callback;
 	}
 
 	// @REF: `get_the_term_list()`
@@ -244,6 +321,7 @@ class Taxonomy extends Core\Base
 		return $query->query( $args );
 	}
 
+	// @SEE: https://make.wordpress.org/core/2022/04/28/taxonomy-performance-improvements-in-wordpress-6-0/
 	// @SOURCE: OLD VERSION OF `term_exists()`
 	/**
 	 * Determines whether a taxonomy term exists.
