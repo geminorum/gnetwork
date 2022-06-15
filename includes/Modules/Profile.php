@@ -453,10 +453,9 @@ class Profile extends gNetwork\Module
 
 	public function user_edit_form_tag()
 	{
-		global $profileuser;
-
 		$current_time    = current_time( 'timestamp' );
 		$store_lastlogin = gNetwork()->option( 'login', 'store_lastlogin', TRUE );
+		$profileuser     = get_user_to_edit( $GLOBALS['user_id'] );
 
 		echo '><h2>'._x( 'Account Information', 'Modules: Profile', 'gnetwork' ).'</h2>';
 		echo '<table class="form-table">';
