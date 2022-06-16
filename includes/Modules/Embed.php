@@ -62,6 +62,7 @@ class Embed extends gNetwork\Module
 			'load_docs_pdf'          => 0,
 			'load_instagram'         => 0,
 			'load_aparat'            => 0,
+			'load_balad'             => 0,
 			'load_kavimo'            => 0,
 			'load_giphy'             => 0,
 			'instagram_max_width'    => 640,
@@ -116,6 +117,12 @@ class Embed extends gNetwork\Module
 					'title'       => _x( 'Load Aparat Embeds', 'Modules: Embed: Settings', 'gnetwork' ),
 					'description' => _x( 'Whether to load Aparat.com embed handlers on this site.', 'Modules: Embed: Settings', 'gnetwork' ),
 					'after'       => Settings::fieldAfterIcon( 'https://aparat.com' ),
+				],
+				[
+					'field'       => 'load_balad',
+					'title'       => _x( 'Load Balad Embeds', 'Modules: Embed: Settings', 'gnetwork' ),
+					'description' => _x( 'Whether to load Balad.ir embed handlers on this site.', 'Modules: Embed: Settings', 'gnetwork' ),
+					'after'       => Settings::fieldAfterIcon('https://balad.ir' ),
 				],
 				[
 					'field'       => 'load_kavimo',
@@ -196,6 +203,9 @@ class Embed extends gNetwork\Module
 			wp_embed_register_handler( 'aparat', '#https?://(?:www.)?aparat\.com\/v\/(.*?)\/?$#i', [ $this, 'handle_aparat_video' ], 5 );
 			wp_embed_register_handler( 'aparat', '#https?://(?:www.)?aparat\.com\/(.*?)\/?$#i', [ $this, 'handle_aparat_channel' ], 20 );
 		}
+
+		if ( $this->options['load_balad'] )
+			wp_embed_register_handler('balad', '#https?://(?:www.)?balad\.ir\/p\/(.*?)\/?$#i', [ $this, 'handle_balad' ], 5 );
 
 		if ( $this->options['load_kavimo'] )
 			wp_oembed_add_provider( '/https?\:\/\/(.+)?(kavimo\.com)\/.*/', 'https://kavimo.com/oembed-provider', TRUE );
@@ -350,6 +360,25 @@ class Embed extends gNetwork\Module
 
 		$html = '<div class="gnetwork-wrap-embed -channel -aparat">'.$html.'</div>';
 		return $this->filters( 'aparat_channel', $html, $matches, $attr, $url, $rawattr );
+	}
+
+	// NOTE: balad default is 600x450 (4x3)
+	public function handle_balad( $matches, $attr, $url, $rawattr )
+	{
+		$html = HTML::tag( 'iframe', [
+			'src'             => sprintf( 'https://balad.ir/embed?p=%s', $matches[1] ),
+			'width'           => $attr['width'],
+			'height'          => isset( $rawattr['height'] ) ? $rawattr['height'] : $attr['width'],
+			'style'           => 'border:none',
+			'data'            => [ 'source' => esc_url( $url ) ],
+			'tabindex'        => '0',
+			'frameborder'     => '0',
+			'allowfullscreen' => '',
+			'aria-hidden'     => 'false',
+		], NULL );
+
+		$html = '<div class="gnetwork-wrap-embed -balad -responsive -ratio1x1">'.$html.'</div>';
+		return $this->filters( 'balad', $html, $matches, $attr, $url, $rawattr );
 	}
 
 	// @REF: https://github.com/TweetPressFr/wp-giphy-oembed
