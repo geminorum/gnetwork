@@ -261,7 +261,7 @@ class Dashboard extends gNetwork\Module
 		if ( $html )
 			echo '<div class="main"><ul>'.$html.'</ul></div>';
 		else
-			HTML::desc( _x( 'No Content available!', 'Modules: Dashboard: Right Now', 'gnetwork' ), FALSE, '-empty' );
+			HTML::desc( _x( 'There are no contents available!', 'Modules: Dashboard: Right Now', 'gnetwork' ), FALSE, '-empty' );
 
 		ob_start();
 		// do_action( 'rightnow_end' ); // old hook

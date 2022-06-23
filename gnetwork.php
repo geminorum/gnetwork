@@ -60,7 +60,7 @@ if ( version_compare( GNETWORK_MIN_PHP, PHP_VERSION, '>=' ) ) {
 
 	if ( ! is_multisite() ) {
 		add_action( 'admin_notices', $gnetwork_notice );
-	} elseif ( is_network_admin() ) {
+	} else if ( is_network_admin() ) {
 		add_action( 'network_admin_notices', $gnetwork_notice );
 	}
 

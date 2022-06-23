@@ -215,6 +215,7 @@ class Themes extends gNetwork\Module
 			update_post_meta( $post_id, '_hidden_title', TRUE );
 	}
 
+	// TODO: add `Hide the Image`
 	public function page_attributes_misc_attributes( $post )
 	{
 		$name = $this->classs( 'hidden-title' );

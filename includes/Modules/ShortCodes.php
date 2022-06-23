@@ -422,7 +422,7 @@ class ShortCodes extends gNetwork\Module
 
 		} else if ( $post->post_type == $args['type'] ) {
 
-			$terms = get_the_terms( $post->ID, $args['tax'] );
+			$terms = get_the_terms( $post, $args['tax'] );
 
 			if ( $terms && ! self::isError( $terms ) ) {
 
@@ -550,7 +550,7 @@ class ShortCodes extends gNetwork\Module
 			if ( $args['tax'] && ! in_array( $taxonomy->name, explode( ',', $args['tax'] ) ) )
 				continue;
 
-			if ( $terms = get_the_terms( $post->ID, $taxonomy->name ) ) {
+			if ( $terms = get_the_terms( $post, $taxonomy->name ) ) {
 
 				$html.= '<h3>'.$taxonomy->label.'</h3><ul class="-tax">';
 

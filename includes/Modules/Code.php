@@ -138,7 +138,7 @@ class Code extends gNetwork\Module
 			else
 				$md = FALSE;
 
-			if ( $md ) {
+			if ( trim( $md ) ) {
 
 				if ( $args['trim'] )
 					$md = implode( "\n", array_slice( explode( "\n", $md ), (int) $args['trim'] ) );

@@ -560,7 +560,7 @@ class Taxonomy extends gNetwork\Module
 
 			} else {
 
-				HTML::desc( _x( 'No pre-defined default terms available for this taxonomy.', 'Modules: Taxonomy: Message', 'gnetwork' ), TRUE, '-empty' );
+				HTML::desc( _x( 'There are no pre-defined terms available for this taxonomy.', 'Modules: Taxonomy: Message', 'gnetwork' ), TRUE, '-empty' );
 			}
 
 		echo '</div>';
@@ -732,7 +732,7 @@ class Taxonomy extends gNetwork\Module
 			HTML::h4( _x( 'Default Term', 'Modules: Taxonomy: Tab Extra', 'gnetwork' ), 'title' );
 
 			if ( ! $this->render_info_default_term( $taxonomy ) )
-				HTML::desc( _x( 'No default term available for this taxonomy.', 'Modules: Taxonomy: Message', 'gnetwork' ), TRUE, '-empty' );
+				HTML::desc( _x( 'There is no default term available for this taxonomy.', 'Modules: Taxonomy: Message', 'gnetwork' ), TRUE, '-empty' );
 
 		echo '</div>';
 	}

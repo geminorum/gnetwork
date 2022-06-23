@@ -155,7 +155,7 @@ class OpenSearch extends gNetwork\Module
 				HTML::tag( 'code', HTML::link( URL::relative( $manifest ), $manifest ) ) ) );
 		} else {
 
-			HTML::desc( _x( 'There are no manifest available.', 'Modules: OpenSearch: Settings', 'gnetwork' ) );
+			HTML::desc( _x( 'There is no manifest available.', 'Modules: OpenSearch: Settings', 'gnetwork' ) );
 		}
 	}
 

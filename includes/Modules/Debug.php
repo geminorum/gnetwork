@@ -227,11 +227,11 @@ class Debug extends gNetwork\Module
 		Scripts::enqueueMasonry();
 	}
 
-	// FIXME!
+	// FIXME: WTF?!
 	private static function displayTests()
 	{
 		Settings::headerTitle( _x( 'Website Remote Tests', 'Modules: Debug', 'gnetwork' ) );
-		HTML::desc( _x( 'No tests available, yet!', 'Modules: Debug', 'gnetwork' ), TRUE, '-empty' );
+		HTML::desc( _x( 'There are no tests available!', 'Modules: Debug', 'gnetwork' ), TRUE, '-empty' );
 	}
 
 	// TODO: add limit/length input
