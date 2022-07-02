@@ -41,6 +41,9 @@ class Themes extends gNetwork\Module
 
 		} else {
 
+			if ( ! SCRIPT_DEBUG && ( $this->options['jquery_cdn'] || $this->options['jquery_latest'] ) )
+				$this->action( 'init', 0, 10, 'optimize' );
+
 			$this->action( 'wp_head', 0, 1 );
 
 			if ( $this->options['header_code'] && $this->options['header_html'] )
@@ -286,6 +289,12 @@ class Themes extends gNetwork\Module
 		return $latest
 			? [ '3.6.0', '3.4.0' ]
 			: [ '3.6.0', '3.3.2' ];
+	}
+
+	public function init_optimize()
+	{
+		do_action( sprintf( '%s_%s_%s', $this->base, 'optimize', 'preconnect_domains' ), 'https://code.jquery.com/' );
+		do_action( sprintf( '%s_%s_%s', $this->base, 'optimize', 'dns_prefetch_domains' ), 'https://code.jquery.com/' );
 	}
 
 	public function wp_head()
