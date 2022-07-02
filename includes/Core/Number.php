@@ -114,7 +114,7 @@ class Number extends Base
 
 		$commas = count( $words );
 
-		if ($commas > 1)
+		if ( $commas > 1 )
 			$commas = $commas - 1;
 
 		return implode( ' ', $words );

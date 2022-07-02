@@ -922,6 +922,15 @@ class Text extends Base
 		return $string;
 	}
 
+	// NOTE: the order is important!
+	public static function convertFormatToToken( $template, $keys )
+	{
+		foreach ( $keys as $offset => $key )
+			$template = str_ireplace( '%'.( $offset + 1 ).'$s', '{{'.$key.'}}', $template );
+
+		return $template;
+	}
+
 	// @REF: http://php.net/manual/en/function.fputcsv.php#87120
 	public static function toCSV( $data, $delimiter = ',', $enclosure = '"', $null = FALSE )
 	{

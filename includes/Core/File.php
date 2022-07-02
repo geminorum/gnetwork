@@ -420,32 +420,37 @@ class File extends Base
 	}
 
 	// @REF: https://www.tutorialsmade.com/find-string-get-line-number-file-using-php/
-	public static function find_line_number_by_string($filename, $search, $case_sensitive=false )
+	public static function find_line_number_by_string( $filename, $search, $case_sensitive = FALSE )
 	{
-			$line_number = '';
-			if ($file_handler = fopen($filename, "r")) {
-			   $i = 0;
-			   while ($line = fgets($file_handler)) {
-				  $i++;
-				  //case sensitive is false by default
-	  			  if($case_sensitive == false) {
-					$search = strtolower($search);  //convert file and search string
-					$line = strtolower($line); 		//to lowercase
-				  }
-				  //find the string and store it in an array
-				  if(strpos($line, $search) !== false){
+		$line_number = '';
+
+		if ( $file_handler = fopen( $filename, "r" ) ) {
+
+			$i = 0;
+
+			while ( $line = fgets( $file_handler ) ) {
+
+				$i++;
+
+				// case sensitive is false by default
+				if ( $case_sensitive == false ) {
+					$search = strtolower( $search );  //convert file and search string
+					$line   = strtolower( $line );    //to lowercase
+				}
+
+				//find the string and store it in an array
+				if ( strpos( $line, $search ) !== false ) {
 					$line_number .=  $i.",";
-				  }
-			   }
-			   fclose($file_handler);
-			}else{
-				return "File not exists, Please check the file path or filename";
+				}
 			}
-			//if no match found
-			if(count($line_number)){
-				return substr($line_number, 0, -1);
-			}else{
-				return "No match found";
-			}
-}
+
+			fclose( $file_handler );
+
+		} else {
+
+			return "File not exists, Please check the file path or filename";
+		}
+
+		return $line_number ? substr( $line_number, 0, -1 ) : "No match found";
+	}
 }

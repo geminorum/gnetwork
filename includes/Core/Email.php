@@ -61,7 +61,7 @@ class Email extends Base
 		// Open a socket connection with the hostname, smtp port 25
 		$connect = @fsockopen($mx_ip, 25);
 
-		if ($connect) {
+		if ( $connect ) {
 
 				  // Initiate the Mail Sending SMTP transaction
 			if (preg_match('/^220/i', $out = fgets($connect, 1024))) {
@@ -97,7 +97,7 @@ class Email extends Base
 			$details .= 'Could not connect to server';
 		}
 
-		if ($getdetails) {
+		if ( $getdetails ) {
 			return array($result, $details);
 		} else {
 			return $result;

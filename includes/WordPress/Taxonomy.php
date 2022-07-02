@@ -215,12 +215,7 @@ class Taxonomy extends Core\Base
 	// @REF: `get_the_term_list()`
 	public static function getTheTermList( $taxonomy, $post = NULL, $before = '', $after = '' )
 	{
-		if ( ! $post = get_post( $post ) )
-			return FALSE;
-
-		$terms = get_the_terms( $post, $taxonomy );
-
-		if ( empty( $terms ) || is_wp_error( $terms ) )
+		if ( ! $terms = self::getPostTerms( $taxonomy, $post ) )
 			return FALSE;
 
 		$list = [];
@@ -609,6 +604,23 @@ class Taxonomy extends Core\Base
 			$query.= " AND (TRIM(COALESCE(tt.description, '')) = '') ";
 
 		return $wpdb->get_col( $query );
+	}
+
+	// NOTE: hits cached terms for the post
+	public static function getPostTerms( $taxonomy, $post = NULL, $object = TRUE, $key = FALSE )
+	{
+		$terms = get_the_terms( $post, $taxonomy );
+
+		if ( empty( $terms ) || is_wp_error( $terms ) )
+			return [];
+
+		if ( ! $object )
+			return wp_list_pluck( $terms, $key ?: 'term_id' );
+
+		if ( $key )
+			return Core\Arraay::reKey( $terms, $key );
+
+		return $terms;
 	}
 
 	// @REF: https://developer.wordpress.org/?p=22286
