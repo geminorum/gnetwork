@@ -22,7 +22,7 @@
     "gulp": "./node_modules/gulp/bin/gulp.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "md .build && cd .build && git clone https://github.com/geminorum/gnetwork . && composer install --no-dev --optimize-autoloader --prefer-dist -v && yarn install && gulp build",
-    "ready": "gulp ready",
+    "ready": "gulp ready dev:scripts i18n:core",
     "refresh": "gulp dev:styles dev:scripts i18n:core",
     "i18n:gulp": "gulp pot",
     "i18n:pot": "wp i18n make-pot . --exclude='.temp,.github,assets/vendor,assets/components,assets/js/vendor,assets/blocks/**/src,gulpfile.js' --file-comment='' --headers='{\"Last-Translator\":\"NULL\",\"Language-Team\":\"NULL\",\"Report-Msgid-Bugs-To\":\"https://github.com/geminorum/gnetwork/issues\"}' --skip-plugins --skip-themes --skip-packages",
@@ -43,8 +43,8 @@
     "@wordpress/browserslist-config": "^4.1.2",
     "@wordpress/stylelint-config": "^20.0.2",
     "autoprefixer": "^10.4.7",
-    "browserslist": "^4.20.4",
-    "cssnano": "^5.1.11",
+    "browserslist": "^4.21.1",
+    "cssnano": "^5.1.12",
     "del": "^6.1.1",
     "fancy-log": "^2.0.0",
     "fs-extra": "^10.1.0",
@@ -78,8 +78,7 @@
     "postcss": "^8.4.14",
     "rtlcss": "^3.5.0",
     "semistandard": "^16.0.1",
-    "stylelint": "^14.8.5",
-    "stylelint-config-standard-scss": "^4.0.0",
+    "stylelint": "^14.9.1",
     "xtend": "^4.0.2"
   },
   "optionalDependencies": {
@@ -88,7 +87,7 @@
     "github-markdown-css": "^5.1.0",
     "multiple-audio-player-plugin": "^0.0.3",
     "pdfobject": "^2.2.8",
-    "vazirmatn": "^32.102.0"
+    "vazirmatn": "^33.0.3"
   },
   "babel": {
     "presets": [

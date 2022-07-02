@@ -2,7 +2,7 @@
 
 Set of tools to help you maintain your [WordPress](https://wordpress.org/) network setup.
 
-[![Travis](https://img.shields.io/travis/geminorum/gnetwork.svg?style=for-the-badge)](https://travis-ci.org/geminorum/gnetwork)
+[![Travis (.com)](https://img.shields.io/travis/com/geminorum/gnetwork?style=for-the-badge)](https://app.travis-ci.com/github/geminorum/gnetwork/)
 [![GitHub release](https://img.shields.io/github/release/geminorum/gnetwork.svg?style=for-the-badge)](https://github.com/geminorum/gnetwork/releases)
 [![GitHub Issues](https://img.shields.io/github/issues/geminorum/gnetwork.svg?style=for-the-badge)](https://github.com/geminorum/gnetwork/issues)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge)](http://makeapullrequest.com)
@@ -29,4 +29,3 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 Please log issues [here](https://github.com/geminorum/gnetwork/issues).
 
 [![it's a geminorum project](https://img.shields.io/badge/it's_a-geminorum_project-lightgrey.svg?style=flat-square)](https://geminorum.ir/)
-[![Analytics](https://ga-beacon.appspot.com/UA-865830-4/gnetwork/readme?pixel)](https://github.com/geminorum/gnetwork)
