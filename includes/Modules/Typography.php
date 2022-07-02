@@ -341,6 +341,7 @@ class Typography extends gNetwork\Module
 	// رضوان ﷲ علیهما
 	// رضوان‌ﷲ علیه
 	// قدّس سره
+	// صلی ﷲ علیه و علی آله
 	public function arabic_typography( $content )
 	{
 		$content = preg_replace( "/[\s\t]+(?:(\(ره\)|\(س\)|\(ص\)|\(ع\)|\(عج\)))/i", "$1", $content ); // clean space/tab before

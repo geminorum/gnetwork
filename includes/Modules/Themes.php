@@ -261,11 +261,11 @@ class Themes extends gNetwork\Module
 		list( $jquery_ver, $migrate_ver ) = self::getjQueryVersions( $this->options['jquery_latest'] );
 
 		$jquery_url = $remote
-			? 'https://code.jquery.com/jquery-'.$jquery_ver.'.min.js'
+			? sprintf( 'https://code.jquery.com/jquery-%s.min.js', $jquery_ver )
 			: includes_url( 'js/jquery/jquery.js' );
 
 		$migrate_url = $remote
-			? 'https://code.jquery.com/jquery-migrate-'.$migrate_ver.'.min.js'
+			? sprintf( 'https://code.jquery.com/jquery-migrate-%s.min.js', $migrate_ver )
 			: includes_url( 'js/jquery/jquery-migrate.min.js' );
 
 		$scripts->remove( [ 'jquery', 'jquery-core', 'jquery-migrate' ] );

@@ -122,7 +122,7 @@ class Embed extends gNetwork\Module
 					'field'       => 'load_balad',
 					'title'       => _x( 'Load Balad Embeds', 'Modules: Embed: Settings', 'gnetwork' ),
 					'description' => _x( 'Whether to load Balad.ir embed handlers on this site.', 'Modules: Embed: Settings', 'gnetwork' ),
-					'after'       => Settings::fieldAfterIcon('https://balad.ir' ),
+					'after'       => Settings::fieldAfterIcon('https://balad.ir/blog/embed-balad-map/' ),
 				],
 				[
 					'field'       => 'load_kavimo',
