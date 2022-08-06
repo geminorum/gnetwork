@@ -55,7 +55,6 @@ class Commerce extends gNetwork\Module
 			'custom_string_outofstock' => '',
 			'quantity_price_preview'   => '0',
 			'mobile_field'             => '1',
-			'ssn_field'                => '0',
 		];
 	}
 
@@ -95,18 +94,11 @@ class Commerce extends gNetwork\Module
 					'title'       => _x( 'Quantity &times; Price', 'Modules: Commerce: Settings', 'gnetwork' ),
 					'description' => _x( 'Calculates subtotal on quantity increment by customer.', 'Modules: Commerce: Settings', 'gnetwork' ),
 				],
-			],
-			'_checkout' => [
 				[
 					'field'       => 'mobile_field',
 					'title'       => _x( 'Mobile Number Field', 'Modules: Commerce: Settings', 'gnetwork' ),
 					'description' => _x( 'Adds extra required field for mobile number after checkout form.', 'Modules: Commerce: Settings', 'gnetwork' ),
 					'default'     => '1',
-				],
-				[
-					'field'       => 'ssn_field',
-					'title'       => _x( 'Social Security Number Field', 'Modules: Commerce: Settings', 'gnetwork' ),
-					'description' => _x( 'Adds extra required field for social security number after checkout form.', 'Modules: Commerce: Settings', 'gnetwork' ),
 				],
 			],
 		];
@@ -115,11 +107,6 @@ class Commerce extends gNetwork\Module
 	public function settings_section_fields()
 	{
 		Settings::fieldSection( _x( 'Fields', 'Modules: Commerce: Settings', 'gnetwork' ) );
-	}
-
-	public function settings_section_checkout()
-	{
-		Settings::fieldSection( _x( 'Checkout', 'Modules: Commerce: Settings', 'gnetwork' ) );
 	}
 
 	public function tools( $sub = NULL, $key = NULL )
@@ -410,27 +397,6 @@ class Commerce extends gNetwork\Module
 			];
 		}
 
-		if ( $this->options['ssn_field'] ) {
-
-			$ssn = is_user_logged_in() ? get_user_meta( get_current_user_id(), GNETWORK_COMMERCE_SSN_METAKEY, TRUE ) : FALSE;
-
-			$fields['billing']['customer_ssn'] = [
-				'type'        => 'text',
-				'class'       => [ 'form-row-wide', 'ssn' ],
-				'input_class' => [ 'ltr', 'rtl-placeholder' ],
-				'label'       => _x( 'SSN', 'Modules: Commerce', 'gnetwork' ),
-				'placeholder' => _x( 'Social Security Number', 'Modules: Commerce', 'gnetwork' ),
-				'priority'    => 25, // before the `company` with priority `30`
-				'required'    => TRUE,
-				'default'     => $ssn ?: '',
-			];
-
-			if ( ! GNETWORK_DISABLE_SSN_CHECKS ) {
-				$fields['billing']['customer_ssn']['maxlength'] = 10;
-				$fields['billing']['customer_ssn']['custom_attributes']['pattern'] = Validation::getSSNHTMLPattern();
-			}
-		}
-
 		return $fields;
 	}
 
@@ -439,19 +405,11 @@ class Commerce extends gNetwork\Module
 		return wc_sanitize_phone_number( Number::intval( $input, FALSE ) );
 	}
 
-	private function sanitize_ssn_field( $input )
-	{
-		return preg_replace( '/[^\d]/', '', Number::intval( $input, FALSE ) );
-	}
-
 	// alternatively we can use `woocommerce_process_checkout_field_{$key}` filter
 	public function woocommerce_checkout_posted_data( $data )
 	{
 		if ( $this->options['mobile_field'] && ! empty( $data['customer_mobile'] ) )
 			$data['customer_mobile'] = $this->sanitize_mobile_field( $data['customer_mobile'] );
-
-		if ( $this->options['ssn_field'] && ! empty( $data['customer_ssn'] ) )
-			$data['customer_ssn'] = $this->sanitize_ssn_field( $data['customer_ssn'] );
 
 		if ( ! empty( $data['shipping_postcode'] ) )
 			$data['shipping_postcode'] = Number::intval( $data['shipping_postcode'], FALSE );
@@ -478,36 +436,18 @@ class Commerce extends gNetwork\Module
 			else if ( ! is_user_logged_in() && WPUser::getIDbyMeta( GNETWORK_COMMERCE_MOBILE_METAKEY, $data['customer_mobile'] ) )
 				$errors->add( 'mobile_registered', _x( 'Mobile Number is already registered.', 'Modules: Commerce', 'gnetwork' ) );
 		}
-
-		if ( $this->options['ssn_field'] ) {
-
-			if ( empty( $data['customer_ssn'] ) )
-				$errors->add( 'ssn_empty', _x( 'Social Security Number cannot be empty.', 'Modules: Commerce', 'gnetwork' ) );
-
-			else if ( ! GNETWORK_DISABLE_SSN_CHECKS && ! Validation::isSSN( $data['customer_ssn'] ) )
-				$errors->add( 'ssn_invalid', _x( 'Social Security Number is not valid.', 'Modules: Commerce', 'gnetwork' ) );
-
-			else if ( ! is_user_logged_in() && WPUser::getIDbyMeta( GNETWORK_COMMERCE_SSN_METAKEY, $data['customer_ssn'] ) )
-				$errors->add( 'ssn_registered', _x( 'Social Security Number is already registered.', 'Modules: Commerce', 'gnetwork' ) );
-		}
 	}
 
 	public function woocommerce_checkout_update_customer( $customer, $data )
 	{
 		if ( $this->options['mobile_field'] )
 			$customer->update_meta_data( GNETWORK_COMMERCE_MOBILE_METAKEY, $data['customer_mobile'] );
-
-		if ( $this->options['ssn_field'] )
-			$customer->update_meta_data( GNETWORK_COMMERCE_SSN_METAKEY, $data['customer_ssn'] );
 	}
 
 	public function woocommerce_checkout_create_order( $order, $data )
 	{
 		if ( $this->options['mobile_field'] )
 			$order->update_meta_data( '_customer_mobile', $data['customer_mobile'] );
-
-		if ( $this->options['ssn_field'] )
-			$order->update_meta_data( '_customer_ssn', $data['customer_ssn'] );
 	}
 
 	// @REF: https://docs.woocommerce.com/document/add-a-custom-field-in-an-order-to-the-emails/
@@ -523,15 +463,6 @@ class Commerce extends gNetwork\Module
 				$fields[] = [
 					'label' => _x( 'Mobile Number', 'Modules: Commerce', 'gnetwork' ),
 					'value' => Number::localize( $mobile ),
-				];
-		}
-
-		if ( $this->options['ssn_field'] ) {
-
-			if ( $meta = get_post_meta( $order->get_id(), '_customer_ssn', TRUE ) )
-				$fields[] = [
-					'label' => _x( 'Social Security Number', 'Modules: Commerce', 'gnetwork' ),
-					'value' => Number::localize( $meta ),
 				];
 		}
 
@@ -555,35 +486,10 @@ class Commerce extends gNetwork\Module
 
 			wc_enqueue_js( "$('p#account_mobile_field').insertAfter($('input#account_email').parent());" );
 		}
-
-		if ( $this->options['ssn_field'] ) {
-
-			$ssn = [
-				'type'        => 'text',
-				'class'       => [ 'form-row-wide', 'ssn' ],
-				'input_class' => [ 'ltr', 'rtl-placeholder' ],
-				'label'       => _x( 'SSN', 'Modules: Commerce', 'gnetwork' ),
-				'placeholder' => _x( 'Social Security Number', 'Modules: Commerce', 'gnetwork' ),
-				'required'    => TRUE,
-				'clear'       => TRUE,
-			];
-
-			if ( ! GNETWORK_DISABLE_SSN_CHECKS ) {
-				$ssn['maxlength'] = 10;
-				$ssn['custom_attributes']['pattern'] = Validation::getSSNHTMLPattern();
-			}
-
-			woocommerce_form_field( 'account_ssn', $ssn, get_user_meta( get_current_user_id(), GNETWORK_COMMERCE_SSN_METAKEY, TRUE ) );
-
-			wc_enqueue_js( "$('p#account_ssn_field').insertAfter($('input#account_display_name').parent());" );
-		}
 	}
 
 	public function woocommerce_save_account_details( $user_id )
 	{
-		if ( $this->options['ssn_field'] && array_key_exists( 'account_ssn', $_POST ) )
-			update_user_meta( $user_id, GNETWORK_COMMERCE_SSN_METAKEY, $this->sanitize_ssn_field( sanitize_text_field( $_POST['account_ssn'] ) ) );
-
 		if ( $this->options['mobile_field'] && array_key_exists( 'account_mobile', $_POST ) )
 			update_user_meta( $user_id, GNETWORK_COMMERCE_MOBILE_METAKEY, $this->sanitize_mobile_field( sanitize_text_field( $_POST['account_mobile'] ) ) );
 	}
@@ -603,28 +509,11 @@ class Commerce extends gNetwork\Module
 			else if ( WPUser::getIDbyMeta( GNETWORK_COMMERCE_MOBILE_METAKEY, $mobile ) )
 				$errors->add( 'mobile_registered', _x( 'Mobile Number is already registered.', 'Modules: Commerce', 'gnetwork' ) );
 		}
-
-		if ( $this->options['ssn_field'] ) {
-
-			$ssn = wc_clean( wp_unslash( $_POST['account_ssn'] ) );
-
-			if ( empty( $ssn ) )
-				$errors->add( 'ssn_empty', _x( 'Social Security Number cannot be empty.', 'Modules: Commerce', 'gnetwork' ) );
-
-			else if ( ! GNETWORK_DISABLE_SSN_CHECKS && ! Validation::isSSN( $ssn ) )
-				$errors->add( 'ssn_invalid', _x( 'Social Security Number is not valid.', 'Modules: Commerce', 'gnetwork' ) );
-
-			else if ( WPUser::getIDbyMeta( GNETWORK_COMMERCE_SSN_METAKEY, $ssn ) )
-				$errors->add( 'ssn_registered', _x( 'Social Security Number is already registered.', 'Modules: Commerce', 'gnetwork' ) );
-		}
 	}
 
 	public function woocommerce_save_account_details_required_fields( $fields )
 	{
 		$extra = [];
-
-		if ( $this->options['ssn_field'] )
-			$extra['account_ssn'] = _x( 'SSN', 'Modules: Commerce', 'gnetwork' );
 
 		if ( $this->options['mobile_field'] )
 			$extra['account_mobile'] = _x( 'Mobile', 'Modules: Commerce', 'gnetwork' );
@@ -634,26 +523,6 @@ class Commerce extends gNetwork\Module
 
 	public function woocommerce_register_form()
 	{
-		if ( $this->options['ssn_field'] ) {
-
-			$ssn = [
-				'type'        => 'text',
-				'class'       => [ 'form-row-wide', 'ssn' ],
-				'input_class' => [ 'ltr', 'rtl-placeholder' ],
-				'label'       => _x( 'SSN', 'Modules: Commerce', 'gnetwork' ),
-				'placeholder' => _x( 'Social Security Number', 'Modules: Commerce', 'gnetwork' ),
-				'required'    => TRUE,
-				'clear'       => TRUE,
-			];
-
-			if ( ! GNETWORK_DISABLE_SSN_CHECKS ) {
-				$ssn['maxlength'] = 10;
-				$ssn['custom_attributes']['pattern'] = Validation::getSSNHTMLPattern();
-			}
-
-			woocommerce_form_field( 'account_ssn', $ssn );
-		}
-
 		if ( $this->options['mobile_field'] )
 			woocommerce_form_field( 'account_mobile', [
 				'type'              => 'tel',

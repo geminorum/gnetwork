@@ -47,11 +47,10 @@ class Plugin extends Base
 			'GNETWORK_SITE_USER_ROLE'   => 'editor', // default role for site user in new blog // DEPRECATED
 			'GNETWORK_BODY_CLASS'       => FALSE, // network html body class / FALSE to disable
 
-			'GNETWORK_DISABLE_SSL'        => FALSE,
-			'GNETWORK_DISABLE_BBQ'        => FALSE,
-			'GNETWORK_DISABLE_RECAPTCHA'  => FALSE,
-			'GNETWORK_DISABLE_CREDITS'    => FALSE,
-			'GNETWORK_DISABLE_SSN_CHECKS' => FALSE,
+			'GNETWORK_DISABLE_SSL'       => FALSE,
+			'GNETWORK_DISABLE_BBQ'       => FALSE,
+			'GNETWORK_DISABLE_RECAPTCHA' => FALSE,
+			'GNETWORK_DISABLE_CREDITS'   => FALSE,
 
 			'GNETWORK_BETA_FEATURES' => FALSE,
 
@@ -86,7 +85,6 @@ class Plugin extends Base
 			'GNETWORK_MEDIA_OBJECT_SIZES'      => FALSE, // disable all image sizes and enable for each posttypes
 
 			'GNETWORK_COMMERCE_MOBILE_METAKEY' => 'mobile',
-			'GNETWORK_COMMERCE_SSN_METAKEY'    => 'ssn',
 
 			// reset some stuff
 			'WP_STAGE'       => 'production',
