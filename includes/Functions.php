@@ -136,25 +136,3 @@ if ( ! function_exists( 'get_gmeta' ) ) : function get_gmeta( $field, $args = []
 	if ( is_callable( [ 'geminorum\\gEditorial\\Templates\\Meta', 'getMetaField' ] ) )
 		return \geminorum\gEditorial\Templates\Meta::getMetaField( $field, $args );
 } endif;
-
-// polyfill for `is_countable()` function added in PHP 7.3
-if ( ! function_exists( 'is_countable' ) ) : function is_countable( $var ) {
-	return ( is_array( $var )
-		|| $var instanceof \Countable
-		|| $var instanceof \SimpleXMLElement
-		|| $var instanceof \ResourceBundle
-	);
-} endif;
-
-// polyfill for `is_iterable()` function added in PHP 7.1
-
-if ( ! function_exists( 'is_iterable' ) ) : function is_iterable( $var ) {
-	return ( is_array( $var )
-		|| $var instanceof \Traversable
-	);
-} endif;
-
-// convert a value to non-negative integer
-if ( ! function_exists( 'absint' ) ) : function absint( $maybeint ) {
-	return abs( (int) $maybeint );
-} endif;

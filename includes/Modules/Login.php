@@ -199,8 +199,10 @@ class Login extends gNetwork\Module
 		if ( ! is_multisite() && Text::has( $_SERVER['REQUEST_URI'], [ 'wp-signup', 'wp-activate' ] ) )
 			wp_die( _x( 'Move along, nothing to see here!', 'Modules: Login', 'gnetwork' ), 403 );
 
-		$request = URL::parse( $_SERVER['REQUEST_URI'] );
-		$path    = URL::untrail( $request['path'] );
+		if ( ! $request = URL::parse( $_SERVER['REQUEST_URI'] ) )
+			return;
+
+		$path = URL::untrail( $request['path'] );
 
 		if ( ! is_admin() && ( Text::has( $_SERVER['REQUEST_URI'], 'wp-login.php' )
 			|| $path === site_url( 'wp-login', 'relative' ) ) ) {

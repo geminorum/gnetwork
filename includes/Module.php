@@ -1281,6 +1281,13 @@ class Module extends Core\Base
 		return HTML::tag( $wrap, array_merge( [ 'class' => $classes ], $extra ), $before.$html );
 	}
 
+	/**
+	 * Returns a term as title for shortcode.
+	 *
+	 * @param array $atts
+	 * @param object|boolean $term
+	 * @return string $title
+	 */
 	public static function shortcodeTermTitle( $atts, $term = FALSE )
 	{
 		$args = self::atts( [

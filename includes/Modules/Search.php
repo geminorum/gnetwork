@@ -330,7 +330,7 @@ class Search extends gNetwork\Module
 			return;
 
 		if ( GNETWORK_SEARCH_LOG && ( $query = get_query_var( 's' ) ) )
-			Logger::siteSearch( 'QUERY', sprintf( '%s -- %s', $query, ( isset( $_SERVER['HTTP_REFERER'] ) ? $_SERVER['HTTP_REFERER'] : 'NO-REFERER' ) ) );
+			Logger::siteSearch( 'QUERY', sprintf( '%s -- %s', $query, ( isset( $_SERVER['HTTP_REFERER'] ) ? $_SERVER['HTTP_REFERER'] : 'NO-REFERER' ) ) ); // TODO: must decode referrer
 
 		if ( GNETWORK_SEARCH_REDIRECT )
 			WordPress::redirect( add_query_arg( GNETWORK_SEARCH_QUERYID, $wp_query->query_vars['s'], GNETWORK_SEARCH_URL ) );

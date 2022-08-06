@@ -838,18 +838,12 @@ class Media extends gNetwork\Module
 			if ( GNETWORK_MEDIA_THUMBS_CHECK && file_exists( str_replace( $wpupload['baseurl'], $wpupload['basedir'], $img_url ) ) )
 				return $false;
 
-			$result = [
+			return [
 				str_replace( $wpupload['baseurl'], trailingslashit( GNETWORK_MEDIA_THUMBS_URL ).get_current_blog_id(), $img_url ),
 				$data['width'],
 				$data['height'],
 				TRUE,
 			];
-
-			if ( WordPress::isDev() ) {
-				self::_log( $size, $data, $path, $img_url, $result, $wpupload );
-			}
-
-			return $result;
 		}
 
 		return $false;
@@ -861,10 +855,6 @@ class Media extends gNetwork\Module
 		$info     = pathinfo( $file );
 		$folder   = str_replace( $wpupload['basedir'], '', $info['dirname'] );
 		$path     = File::join( GNETWORK_MEDIA_THUMBS_DIR, get_current_blog_id() ).$folder;
-
-		if ( WordPress::isDev() ) {
-			self::_log( $info, $wpupload, $folder, $path );
-		}
 
 		if ( wp_mkdir_p( $path ) )
 			return $path;

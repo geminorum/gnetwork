@@ -45,6 +45,9 @@ class Notify extends gNetwork\Module
 
 		if ( $this->options['signup_blog_email'] )
 			$this->filter( 'wpmu_signup_blog_notification_email', 8, 12 );
+
+		// `wp_send_new_user_notification_to_admin`
+		// `wp_send_new_user_notification_to_user`
 	}
 
 	public function setup_menu( $context )

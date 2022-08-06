@@ -9,6 +9,8 @@ use geminorum\gNetwork\Core\URL;
 class Optimize extends gNetwork\Module
 {
 
+	// @SEE: `wp_preload_resources`
+
 	protected $key     = 'optimize';
 	protected $network = FALSE;
 

@@ -1669,7 +1669,7 @@ class Taxonomy extends gNetwork\Module
 			$args = [];
 			$meta = [];
 
-			foreach( (array) $row as $key => $value ) {
+			foreach ( (array) $row as $key => $value ) {
 
 				if ( 'name' == $key )
 					$name = trim( $value );
