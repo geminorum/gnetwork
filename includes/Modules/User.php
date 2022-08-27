@@ -31,6 +31,9 @@ class User extends gNetwork\Module
 		if ( ! in_array( $this->options['apppass_accesscap'], [ '_member_of_network', '_member_of_site'] ) )
 			$this->filter( 'wp_is_application_passwords_available_for_user', 2, 9 );
 
+		if ( $this->options['disable_avatars'] )
+			$this->filter_zero( 'pre_option_show_avatars' );
+
 		$this->action( 'activity_box_end', 0, 12 );
 
 		if ( ! is_multisite() )
@@ -86,6 +89,7 @@ class User extends gNetwork\Module
 			'site_user_id'      => '0', // GNETWORK_SITE_USER_ID
 			'site_user_role'    => 'editor', // GNETWORK_SITE_USER_ROLE
 			'apppass_accesscap' => is_multisite() ? '_member_of_network' : '_member_of_site',
+			'disable_avatars'   => '0',
 			'network_roles'     => '0',
 			'admin_user_edit'   => '0',
 			'dashboard_sites'   => '0',
@@ -128,6 +132,13 @@ class User extends gNetwork\Module
 			'title'       => _x( 'Application Password Access', 'Modules: User: Settings', 'gnetwork' ),
 			'description' => _x( 'Selected and above can create Application Passwords.', 'Modules: User: Settings', 'gnetwork' ),
 			'default'     => $multisite ? '_member_of_network' : '_member_of_site',
+		];
+
+		$settings['_general'][] = [
+			'field'       => 'disable_avatars',
+			'type'        => 'disabled',
+			'title'       => _x( 'User Avatars', 'Modules: User: Settings', 'gnetwork' ),
+			'description' => _x( 'Shows user avatars across network.', 'Modules: User: Settings', 'gnetwork' ),
 		];
 
 		if ( $multisite )
