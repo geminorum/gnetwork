@@ -283,7 +283,7 @@ class Restricted extends gNetwork\Module
 			return;
 
 		// blocks search engines and robots
-		$this->filter( 'robots_txt' );
+		$this->filter( 'robots_txt', 2, 99 );
 		$this->filter_zero( 'option_blog_public', 20 );
 
 		// blocks sitemap generation
@@ -307,9 +307,9 @@ class Restricted extends gNetwork\Module
 			: $output;
 	}
 
-	public function robots_txt( $output )
+	public function robots_txt( $output, $public )
 	{
-		return $output.'Disallow: /'."\n";
+		return $output."User-agent: *\nDisallow: /\nDisallow: /*\nDisallow: /*?\n";
 	}
 
 	public function status_header( $status_header, $header, $text, $protocol )
