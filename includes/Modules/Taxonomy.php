@@ -1101,7 +1101,7 @@ class Taxonomy extends gNetwork\Module
 		WPTaxonomy::disableTermCounting();
 
 		foreach ( $term_ids as $term_id )
-			if ( FALSE === WPTaxonomy::removeTermObjects( $term_id, $taxonomy ) )
+			if ( FALSE === WPTaxonomy::removeTermObjects( (int) $term_id, $taxonomy ) )
 				return FALSE;
 
 		// flush the deferred term counts
