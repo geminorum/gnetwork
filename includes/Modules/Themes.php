@@ -281,13 +281,13 @@ class Themes extends gNetwork\Module
 		$scripts->add( 'jquery', FALSE, $deps, ( $remote ? NULL : $jquery_ver ), $bottom );
 	}
 
-	// 2022-07-02 17:43:47
+	// 2022-08-27 11:08:44
 	// 6.1-alpha-53344-src
 	// NOTE: latest & core versions can be equal
 	private static function getjQueryVersions( $latest = FALSE )
 	{
 		return $latest
-			? [ '3.6.0', '3.4.0' ]
+			? [ '3.6.1', '3.4.0' ]
 			: [ '3.6.0', '3.3.2' ];
 	}
 
