@@ -318,7 +318,7 @@ class Code extends gNetwork\Module
 		if ( FALSE === $args['context'] )
 			return NULL;
 
-		Scripts::enqueueScriptVendor( 'prism', [], '1.28.0' );
+		Scripts::enqueueScriptVendor( 'prism', [], '1.29.0' );
 		Scripts::enqueueScript( 'front.prism' );
 
 		if ( ! $content )
