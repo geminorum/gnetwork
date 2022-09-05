@@ -124,8 +124,8 @@ class Locale extends gNetwork\Module
 
 		} else {
 
-			if ( ! empty( $filtered[$locale][$domain] ) )
-				return $filtered[$locale][$domain];
+			if ( isset( $filtered[$locale][$domain] ) )
+				return $filtered[$locale][$domain] ?: $mofile;
 
 			$path = GNETWORK_DIR.'assets/locale/'.$domain.'-'.$locale.'.mo';
 		}
@@ -134,8 +134,12 @@ class Locale extends gNetwork\Module
 
 		$target = File::normalize( $path );
 
-		if ( ! is_readable( $target ) )
-			return $filtered[$locale][$domain] = $mofile;
+		if ( ! is_readable( $target ) ) {
+
+			// avoid caching the default paths
+			$filtered[$locale][$domain] = FALSE;
+			return $mofile;
+		}
 
 		$this->loaded[$locale][$domain][] = $target;
 
