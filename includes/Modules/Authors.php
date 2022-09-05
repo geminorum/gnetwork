@@ -23,6 +23,9 @@ class Authors extends gNetwork\Module
 			&& is_admin() && gNetwork()->user() )
 			$this->filter( 'wp_insert_post_data', 2, 9 );
 
+		if ( $this->options['force_multi_author'] )
+			$this->filter_true( 'pre_transient_is_multi_author', 20 );
+
 		if ( is_admin() )
 			return;
 
@@ -47,6 +50,7 @@ class Authors extends gNetwork\Module
 	public function default_options()
 	{
 		return [
+			'force_multi_author'   => '1',
 			'authors_manage_tags'  => '1',
 			'siteuser_as_default'  => '0',
 			'remove_author_pages'  => '0',
@@ -60,6 +64,12 @@ class Authors extends gNetwork\Module
 	{
 		return [
 			'_general' => [
+				[
+					'field'       => 'force_multi_author',
+					'title'       => _x( 'Force Multi Author', 'Modules: Authors: Settings', 'gnetwork' ),
+					'description' => _x( 'Overrides checks for this site has more than one author.', 'Modules: Authors: Settings', 'gnetwork' ),
+					'default'     => '1',
+				],
 				[
 					'field'       => 'authors_manage_tags',
 					'title'       => _x( 'Manage Post Tags', 'Modules: Authors: Settings', 'gnetwork' ),
