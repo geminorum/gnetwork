@@ -163,6 +163,14 @@ class Cleanup extends gNetwork\Module
 		];
 
 		$settings['_posts'][] = [
+			'field'       => 'postmeta_orphaned',
+			'type'        => 'button',
+			'description' => _x( 'Removes orphaned post meta-data from database.', 'Modules: Cleanup: Settings', 'gnetwork' ),
+			'default'     => _x( 'Purge Orphaned Post Matadata', 'Modules: Cleanup: Settings', 'gnetwork' ),
+			'values'      => $confirm,
+		];
+
+		$settings['_posts'][] = [
 			'field'       => 'thumbnail_orphanedmeta',
 			'type'        => 'button',
 			'description' => _x( 'Checks for orphaned thumbnail meta data.', 'Modules: Cleanup: Settings', 'gnetwork' ),
@@ -282,6 +290,9 @@ class Cleanup extends gNetwork\Module
 
 			else if ( isset( $_POST['postmeta_obsolete'] ) )
 				$message = $this->postmeta_obsolete();
+
+			else if ( isset( $_POST['postmeta_orphaned'] ) )
+				$message = $this->postmeta_orphaned();
 
 			else if ( isset( $_POST['thumbnail_orphanedmeta'] ) )
 				$message = $this->thumbnail_orphanedmeta();
@@ -579,6 +590,22 @@ class Cleanup extends gNetwork\Module
 
 		foreach ( $likes as $like )
 			$count += $wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key LIKE '{$like}'" );
+
+		$wpdb->query( "OPTIMIZE TABLE {$wpdb->postmeta}" );
+
+		return $count ? [
+			'message' => 'purged',
+			'count'   => $count,
+		] : 'optimized';
+	}
+
+	// @REF: https://www.speakinginbytes.com/2013/02/delete-orphaned-post-meta-data-in-wordpress/
+	private function postmeta_orphaned()
+	{
+		global $wpdb;
+
+		// $count = $wpdb->query( "DELETE FROM {$wpdb->postmeta} AS meta LEFT JOIN {$wpdb->posts} AS posts ON posts.ID = meta.post_id WHERE posts.ID IS NULL" );
+		$count = $wpdb->query( "DELETE pm FROM {$wpdb->postmeta} pm LEFT JOIN {$wpdb->posts} wp ON wp.ID = pm.post_id WHERE wp.ID IS NULL" );
 
 		$wpdb->query( "OPTIMIZE TABLE {$wpdb->postmeta}" );
 
