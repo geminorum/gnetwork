@@ -4,7 +4,6 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork\Core\DataCode;
 use geminorum\gNetwork\Core\Date;
-use geminorum\gNetwork\Core\Error;
 use geminorum\gNetwork\Core\File;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\HTTP;
@@ -69,7 +68,7 @@ class Utilities extends Core\Base
 
 	public static function htmlHumanTime( $timestamp, $flip = FALSE )
 	{
-		if ( ! ctype_digit( $timestamp ) )
+		if ( ! Date::isTimestamp( $timestamp ) )
 			$timestamp = strtotime( $timestamp );
 
 		$now = current_time( 'timestamp', FALSE );
@@ -215,7 +214,7 @@ class Utilities extends Core\Base
 		if ( empty( $timestamp ) )
 			return self::htmlEmpty();
 
-		if ( ! ctype_digit( $timestamp ) )
+		if ( ! Date::isTimestamp( $timestamp ) )
 			$timestamp = strtotime( $timestamp );
 
 		$formats = self::dateFormats( FALSE );
@@ -232,6 +231,9 @@ class Utilities extends Core\Base
 
 	public static function getModifiedEditRow( $post, $class = FALSE )
 	{
+		if ( empty( $post->post_modified ) )
+			return self::htmlEmpty();
+
 		$timestamp = strtotime( $post->post_modified );
 		$formats   = self::dateFormats( FALSE );
 
@@ -253,7 +255,7 @@ class Utilities extends Core\Base
 
 	public static function dateFormat( $timestamp, $context = 'default' )
 	{
-		if ( ! ctype_digit( $timestamp ) )
+		if ( ! Date::isTimestamp( $timestamp ) )
 			$timestamp = strtotime( $timestamp );
 
 		return date_i18n( self::dateFormats( $context ), $timestamp );

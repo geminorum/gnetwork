@@ -664,6 +664,10 @@ class Themes extends gNetwork\Module
 
 			if ( $this->rtl ) {
 
+				add_action( 'wp_enqueue_scripts', static function() {
+					wp_dequeue_style( [ 'storefront-fonts' ] );
+				}, 12 );
+
 				add_action( 'wp_head', static function() {
 					Themes::linkStyleSheet( 'storefront-rtl' );
 				}, 20 );
@@ -681,6 +685,7 @@ class Themes extends gNetwork\Module
 			], 1, 9 );
 
 			add_filter( 'woocommerce_subcategory_count_html', '__return_null' );
+			add_filter( 'storefront_make_me_cute', '__return_true' );
 
 		} else if ( $this->isTheme( 'twentyeleven' ) ) {
 

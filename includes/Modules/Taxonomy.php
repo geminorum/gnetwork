@@ -536,7 +536,7 @@ class Taxonomy extends gNetwork\Module
 		echo $this->wrap_open( '-tab-tools-defaults card -toolbox-card' );
 			HTML::h4( _x( 'Default Terms', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'title' );
 
-			$hook = 'default_terms_'.$taxonomy;
+			$hook = sprintf( 'default_terms_%s', $taxonomy );
 
 			if ( $this->hooked( $hook ) ) {
 
@@ -548,6 +548,8 @@ class Taxonomy extends gNetwork\Module
 						'selected' => TRUE,
 						'panel'    => TRUE,
 						'values'   => TRUE,
+						'value'    => 'slug',
+						'prop'     => 'name',
 					] );
 
 					HTML::desc( _x( 'Select to install pre-configured terms for this taxonomy.', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ) );
@@ -1514,15 +1516,15 @@ class Taxonomy extends gNetwork\Module
 
 	private function render_secondary_inputs( $taxonomy, $actions )
 	{
-		foreach ( array_keys( $actions ) as $key ) {
+		foreach ( array_keys( $actions ) as $action ) {
 
-			$callback = $this->filters( 'bulk_input', [ $this, 'secondary_input_'.$key ], $key, $taxonomy );
+			$callback = $this->filters( 'bulk_input', [ $this, 'secondary_input_'.$action ], $action, $taxonomy );
 
 			if ( $callback && is_callable( $callback ) ) {
 
-				echo "<div id='gnetwork-taxonomy-input-$key' class='gnetwork-taxonomy-input-wrap' style='display:none'>\n";
+				echo "<div id='gnetwork-taxonomy-input-$action' class='gnetwork-taxonomy-input-wrap' style='display:none'>\n";
 
-					call_user_func_array( $callback, [ $taxonomy ] );
+					call_user_func_array( $callback, [ $taxonomy, $action ] );
 
 				echo "</div>\n";
 			}

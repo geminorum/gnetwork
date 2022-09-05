@@ -228,6 +228,8 @@ class Site extends gNetwork\Module
 
 			$this->check_referer( $sub, 'settings' );
 
+			// @SEE: `wp_update_urls_to_https()`
+
 			$switch = isset( $_POST['enable_site_ssl'] )
 				? [ 'http://', 'https://' ]
 				: [ 'https://', 'http://' ];

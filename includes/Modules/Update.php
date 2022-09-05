@@ -171,7 +171,7 @@ class Update extends gNetwork\Module
 
 			} else {
 
-				HTML::desc( _x( 'Remote updates are disabled.', 'Modules: Update', 'gnetwork' ), TRUE, '-empty' );
+				HTML::desc( _x( 'Remote updates are disabled.', 'Modules: Update', 'gnetwork' ), FALSE, '-empty' );
 			}
 
 		echo '</p>';
@@ -319,6 +319,9 @@ class Update extends gNetwork\Module
 	{
 		if ( is_null( $endpoint ) )
 			$endpoint = $this->endpoint( $package );
+
+		if ( ! $endpoint )
+			return FALSE;
 
 		$key = $this->hash( 'package', $package, $endpoint );
 
@@ -526,7 +529,7 @@ class Update extends gNetwork\Module
 			return $this->add_token( $endpoint, $package );
 		}
 
-		return $url;
+		return FALSE;
 	}
 
 	private function parse_segments( $uri, $type )

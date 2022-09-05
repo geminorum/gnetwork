@@ -524,6 +524,7 @@ class Debug extends gNetwork\Module
 			'option: max_file_size'    => get_option( 'max_file_size' ),
 			'ini: upload_max_filesize' => ini_get( 'upload_max_filesize' ).' = '.wp_convert_hr_to_bytes( ini_get( 'upload_max_filesize' ) ),
 			'ini: post_max_size'       => ini_get( 'post_max_size' ).' = '.wp_convert_hr_to_bytes( ini_get( 'post_max_size' ) ),
+			'ini: max_input_vars'      => ini_get( 'max_input_vars' ).' = '.ini_get( 'max_input_vars' ),
 			'ms_files_rewriting'       => get_option( 'ms_files_rewriting' ),
 			'option: upload_path'      => get_option( 'upload_path' ),
 			'option: upload_url_path'  => get_site_option( 'upload_url_path' ),

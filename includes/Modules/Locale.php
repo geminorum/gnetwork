@@ -81,7 +81,7 @@ class Locale extends gNetwork\Module
 			'gmember',
 			'gletter',
 			'gtheme',
-			'kowsarsync',
+			// 'kowsarsync',
 		], $context );
 	}
 

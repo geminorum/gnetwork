@@ -386,7 +386,7 @@ class Commerce extends gNetwork\Module
 
 			$fields['billing']['customer_mobile'] = [
 				'type'              => 'tel',
-				'class'             => [ 'form-row-last', 'mobile' ],
+				'class'             => [ 'form-row-last', 'mobile', 'validate-phone' ],
 				'input_class'       => [ 'ltr', 'rtl-placeholder' ],
 				'label'             => _x( 'Mobile', 'Modules: Commerce', 'gnetwork' ),
 				'placeholder'       => _x( 'For short message purposes', 'Modules: Commerce', 'gnetwork' ),
@@ -428,13 +428,16 @@ class Commerce extends gNetwork\Module
 		if ( $this->options['mobile_field'] ) {
 
 			if ( empty( $data['customer_mobile'] ) )
-				$errors->add( 'mobile_empty', _x( 'Mobile Number cannot be empty.', 'Modules: Commerce', 'gnetwork' ) );
+				$errors->add( 'mobile_empty',
+					_x( 'Mobile Number cannot be empty.', 'Modules: Commerce', 'gnetwork' ) );
 
 			else if ( ! Validation::isMobileNumber( $data['customer_mobile'] ) )
-				$errors->add( 'mobile_invalid', _x( 'Mobile Number is not valid.', 'Modules: Commerce', 'gnetwork' ) );
+				$errors->add( 'mobile_invalid',
+					_x( 'Mobile Number is not valid.', 'Modules: Commerce', 'gnetwork' ) );
 
 			else if ( ! is_user_logged_in() && WPUser::getIDbyMeta( GNETWORK_COMMERCE_MOBILE_METAKEY, $data['customer_mobile'] ) )
-				$errors->add( 'mobile_registered', _x( 'Mobile Number is already registered.', 'Modules: Commerce', 'gnetwork' ) );
+				$errors->add( 'mobile_registered',
+					_x( 'Mobile Number is already registered.', 'Modules: Commerce', 'gnetwork' ) );
 		}
 	}
 
@@ -500,14 +503,22 @@ class Commerce extends gNetwork\Module
 
 			$mobile = wc_clean( wp_unslash( $_POST['account_mobile'] ) );
 
-			if ( empty( $mobile ) )
-				$errors->add( 'mobile_empty', _x( 'Mobile Number cannot be empty.', 'Modules: Commerce', 'gnetwork' ) );
+			if ( empty( $mobile ) ) {
 
-			else if ( ! Validation::isMobileNumber( $mobile ) )
-				$errors->add( 'mobile_invalid', _x( 'Mobile Number is not valid.', 'Modules: Commerce', 'gnetwork' ) );
+				$errors->add( 'mobile_empty',
+					_x( 'Mobile Number cannot be empty.', 'Modules: Commerce', 'gnetwork' ) );
 
-			else if ( WPUser::getIDbyMeta( GNETWORK_COMMERCE_MOBILE_METAKEY, $mobile ) )
-				$errors->add( 'mobile_registered', _x( 'Mobile Number is already registered.', 'Modules: Commerce', 'gnetwork' ) );
+			} else if ( ! Validation::isMobileNumber( $mobile ) ) {
+
+				$errors->add( 'mobile_invalid',
+					_x( 'Mobile Number is not valid.', 'Modules: Commerce', 'gnetwork' ) );
+
+			} else if ( $already = WPUser::getIDbyMeta( GNETWORK_COMMERCE_MOBILE_METAKEY, $mobile ) ) {
+
+				if ( $already != get_current_user_id() )
+					$errors->add( 'mobile_registered',
+						_x( 'Mobile Number is already registered.', 'Modules: Commerce', 'gnetwork' ) );
+			}
 		}
 	}
 
