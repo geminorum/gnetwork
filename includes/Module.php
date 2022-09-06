@@ -565,24 +565,28 @@ class Module extends Core\Base
 		return gNetwork()->base;
 	}
 
-	protected function init_options( $sanitize = true ) {
+	protected function init_options( $sanitize = TRUE, $site_id = NULL, $network_id = NULL )
+	{
+		if ( is_null( $site_id ) )
+			$site_id = get_current_blog_id();
 
-		$network = $this->base . 'OptionsNetwork';
-		$blog    = $this->base . 'OptionsBlog';
+		if ( is_null( $network_id ) )
+			$network_id = get_current_network_id();
 
-		if ( empty( $GLOBALS[$network] ) ) {
-			$GLOBALS[$network] = get_network_option( null, $this->base . '_site', [] );
-		}
+		$site    = sprintf( '%sSite_%d_Options', $this->base, $site_id );
+		$network = sprintf( '%sNetwork_%d_Options', $this->base, $network_id );
 
-		if ( empty( $GLOBALS[$blog] ) ) {
-			$GLOBALS[$blog] = get_option( $this->base . '_blog', [] );
-		}
+		if ( empty( $GLOBALS[$site] ) )
+			$GLOBALS[$site] = get_blog_option( $site_id, $this->base.'_blog', [] ); // TODO: migrate to `_site` key
 
-		if ( $this->is_network() ) {
+		if ( empty( $GLOBALS[$network] ) )
+			$GLOBALS[$network] = get_network_option( $network_id, $this->base.'_site', [] ); // TODO: migrate to `_network` key
+
+		if ( $this->is_network() )
 			$options = isset( $GLOBALS[$network][$this->key] ) ? $GLOBALS[$network][$this->key] : [];
-		} else {
-			$options = isset( $GLOBALS[$blog][$this->key] ) ? $GLOBALS[$blog][$this->key] : [];
-		}
+
+		else
+			$options = isset( $GLOBALS[$site][$this->key] ) ? $GLOBALS[$site][$this->key] : [];
 
 		return $sanitize ? $this->settings_sanitize( $options, $this->default_options() ) : $options;
 	}
