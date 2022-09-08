@@ -230,6 +230,8 @@ class Commerce extends gNetwork\Module
 				'woocommerce_variable_sale_price_html',
 			], 2, 12 );
 
+		$this->action( 'admin_order_data_after_order_details', 1, 1, FALSE, 'woocommerce' );
+		$this->action( 'admin_order_data_after_billing_address', 1, 1, FALSE, 'woocommerce' );
 		$this->filter( 'woocommerce_email_order_meta_fields', 3 );
 
 		if ( is_admin() )
@@ -451,6 +453,41 @@ class Commerce extends gNetwork\Module
 	{
 		if ( $this->options['mobile_field'] )
 			$order->update_meta_data( '_customer_mobile', $data['customer_mobile'] );
+	}
+
+	// @REF: https://gist.github.com/bekarice/6d378372c49456dbe8345dc785b6d7f4
+	public function admin_order_data_after_order_details( $order )
+	{
+		if ( ! ( $order instanceof \WC_Order ) )
+			return;
+
+		if ( ! $order->get_user_id() )
+			return;
+
+		$meta = get_user_meta( $order->get_user_id(), GNETWORK_COMMERCE_MOBILE_METAKEY, TRUE );
+
+		echo '<p class="form-field form-field-wide wc-order-received wc-order-status"><label>';
+			_ex( 'Mobile contact:', 'Modules: Commerce', 'gnetwork' );
+
+			if ( $meta )
+				echo HTML::tel( $meta, _x( 'The mobile number associated with this user.', 'Modules: Commerce', 'gnetwork' ) );
+
+			else
+				gNetwork()->na();
+
+		echo '</label></p>';
+	}
+
+	// TODO: better styling
+	public function admin_order_data_after_billing_address( $order )
+	{
+		if ( ! $meta = $order->get_meta( '_customer_mobile', TRUE, 'edit' ) )
+			return;
+
+		echo '<p class="form-field form-field-wide" style="margin:0">';
+			echo '<strong style="display:block">'._x( 'Mobile:', 'Modules: Commerce: Action Title', 'gnetwork' );
+			echo '</strong> '.HTML::tel( $meta );
+		echo '</p>';
 	}
 
 	// @REF: https://docs.woocommerce.com/document/add-a-custom-field-in-an-order-to-the-emails/
