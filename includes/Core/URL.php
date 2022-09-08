@@ -110,14 +110,14 @@ class URL extends Base
 	// @SOURCE: `trailingslashit()`
 	public static function trail( $path )
 	{
-		return self::untrail( $path ).'/';
+		return $path ? ( self::untrail( $path ).'/' ) : $path;
 	}
 
 	// removes trailing forward slashes and backslashes if they exist.
 	// @SOURCE: `untrailingslashit()`
 	public static function untrail( $path )
 	{
-		return rtrim( $path, '/\\' );
+		return $path ? rtrim( $path, '/\\' ) : $path;
 	}
 
 	// FIXME: strip all the path

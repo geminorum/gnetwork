@@ -46,9 +46,10 @@ class HTML extends Base
 	}
 
 	// @REF: https://web.dev/native-lazy-loading/
+	// @SEE: https://www.smashingmagazine.com/2021/04/humble-img-element-core-web-vitals/
 	public static function img( $src, $class = '', $alt = '' )
 	{
-		return $src ? '<img src="'.$src.'" class="'.self::prepClass( $class ).'" alt="'.self::escape( $alt ).'" loading="lazy" />' : '';
+		return $src ? '<img src="'.$src.'" class="'.self::prepClass( $class ).'" alt="'.self::escape( $alt ).'" decoding="async" loading="lazy" />' : '';
 	}
 
 	public static function h1( $html, $class = FALSE, $link = FALSE )
@@ -1251,6 +1252,7 @@ class HTML extends Base
 			'none_title' => NULL,
 			'none_value' => 0,
 			'class'      => FALSE,
+			'style'      => FALSE,
 			'selected'   => 0,
 			'disabled'   => FALSE,
 			'dir'        => FALSE,
@@ -1293,6 +1295,7 @@ class HTML extends Base
 			'name'     => $args['name'],
 			'id'       => $args['id'],
 			'class'    => $args['class'],
+			'style'    => $args['style'],
 			'title'    => $args['title'],
 			'disabled' => $args['disabled'],
 			'dir'      => $args['dir'],
@@ -1326,8 +1329,14 @@ class HTML extends Base
 
 		foreach ( $list as $offset => $value ) {
 
-			if ( $args['value'] )
-				$key = is_object( $value ) ? $value->{$args['value']} : $value[$args['value']];
+			if ( ! $args['value'] )
+				$key = $offset;
+
+			else if ( is_object( $value ) )
+				$key = property_exists( $value, $args['value'] ) ? $value->{$args['value']} : $offset;
+
+			else if ( is_array( $value ) )
+				$key = array_key_exists( $value, $args['value'] ) ? $value[$args['value']] : $offset;
 
 			else
 				$key = $offset;
@@ -1335,8 +1344,14 @@ class HTML extends Base
 			if ( in_array( $key, (array) $args['exclude'] ) )
 				continue;
 
-			if ( $args['prop'] )
-				$title = is_object( $value ) ? $value->{$args['prop']} : $value[$args['prop']];
+			if ( ! $args['prop'] )
+				$title = $value;
+
+			else if ( is_object( $value ) )
+				$title = property_exists( $value, $args['prop'] ) ? $value->{$args['prop']} : $value;
+
+			else if ( is_array( $value ) )
+				$title = array_key_exists( $value, $args['prop'] ) ? $value[$args['prop']] : $value;
 
 			else
 				$title = $value;

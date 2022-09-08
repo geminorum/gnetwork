@@ -5,6 +5,12 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 class Email extends Base
 {
 
+	// wrapper for `is_email()`
+	public static function is( $text )
+	{
+		return is_email( $text );
+	}
+
 	public static function toUsername( $email, $strict = TRUE )
 	{
 		return preg_replace( '/\s+/', '', sanitize_user( preg_replace( '/([^@]*).*/', '$1', $email ), $strict ) );
@@ -14,6 +20,8 @@ class Email extends Base
 	// @REF: https://ctrlq.org/code/20152-validate-email-address
 	public static function verify( $toemail, $fromemail, $getdetails = FALSE )
 	{
+		$details = '';
+
 		// Get the domain of the email recipient
 		$email_arr = explode('@', $toemail);
 		$domain = array_slice($email_arr, -1);

@@ -67,6 +67,12 @@ class Date extends Base
 		return $timezones['0'];
 	}
 
+	// @REF: https://stackoverflow.com/a/2524710
+	public static function isTimestamp( $string )
+	{
+		return is_numeric( $string ) && (int) $string == $string;
+	}
+
 	// PHP >= 5.3
 	// @REF: https://wpartisan.me/tutorials/php-validate-check-dates
 	public static function check( $datetime, $format, $timezone )
@@ -197,7 +203,7 @@ class Date extends Base
 			'noop_years'   => L10n::getNooped( '%s year', '%s years' ),
 		), $atts );
 
-		if ( ! ctype_digit( $timestamp ) )
+		if ( ! self::isTimestamp( $timestamp ) )
 			$timestamp = strtotime( $timestamp );
 
 		if ( empty( $now ) )
@@ -387,7 +393,7 @@ class Date extends Base
 			'format_f_y'     => 'F Y',
 		), $atts );
 
-		if ( ! ctype_digit( $timestamp ) )
+		if ( ! self::isTimestamp( $timestamp ) )
 			$timestamp = strtotime( $timestamp );
 
 		if ( empty( $now ) )

@@ -662,50 +662,24 @@ class Text extends Base
 		return preg_match_all( '/[[:print:]\pL]/u', $string, $$matches );
 	}
 
-	public static function wordCountUTF8( $html, $normalize = TRUE )
+	public static function wordCount( $text, $normalize = TRUE )
 	{
-		if ( ! $html )
+		if ( $normalize )
+			$text = self::wordCountNormalize( $text );
+
+		if ( ! $text )
 			return 0;
 
-		if ( $normalize ) {
+		// @REF: https://github.com/GlotPress/GlotPress/pull/1478
+		return count( preg_split( '/[\s]+/i', $text, 0, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE ) );
+	}
 
-			$html = preg_replace( array(
-				'@<script[^>]*?>.*?</script>@si',
-				'@<style[^>]*?>.*?</style>@siU',
-				'@<embed[^>]*?.*?</embed>@siu',
-				'@<![\s\S]*?--[ \t\n\r]*>@',
-				'/<blockquote.*?>(.*)?<\/blockquote>/im',
-				'/<figure.*?>(.*)?<\/figure>/im',
-			), '', $html );
+	public static function wordCountUTF8( $text, $normalize = TRUE )
+	{
+		if ( $normalize )
+			$text = self::wordCountNormalize( $text );
 
-			$html = strip_tags( $html );
-
-			// FIXME: convert back html entities
-
-			$html = str_replace( array(
-				"&nbsp;",
-				"&mdash;",
-				"&ndash;",
-			), ' ', $html );
-
-			$html = str_replace( array(
-				"&zwnj;",
-				"\xE2\x80\x8C", // Zero Width Non-Joiner U+200C
-				"\xE2\x80\x8F", // Right-To-Left Mark U+200F
-				"\xE2\x80\x8E", // Right-To-Left Mark U+200E
-				"\xEF\xBB\xBF", // UTF8 Bom
-			), '', $html );
-
-			$html = strip_shortcodes( $html );
-
-			$html = self::noLineBreak( $html );
-			$html = self::stripPunctuation( $html );
-			$html = self::normalizeWhitespaceUTF8( $html, TRUE );
-
-			$html = trim( $html );
-		}
-
-		if ( ! $html )
+		if ( ! $text )
 			return 0;
 
 		// http://php.net/manual/en/function.str-word-count.php#85579
@@ -723,7 +697,48 @@ class Text extends Base
 		*
 		* @link http://php.net/manual/en/function.str-word-count.php#107363
 		**/
-		return count( preg_split( '~[^\p{L}\p{N}\']+~u', $html ) );
+		return count( preg_split( '~[^\p{L}\p{N}\']+~u', $text ) );
+	}
+
+	public static function wordCountNormalize( $html )
+	{
+		if ( ! $html )
+			return $html;
+
+		$html = preg_replace( array(
+			'@<script[^>]*?>.*?</script>@si',
+			'@<style[^>]*?>.*?</style>@siU',
+			'@<embed[^>]*?.*?</embed>@siu',
+			'@<![\s\S]*?--[ \t\n\r]*>@',
+			'/<blockquote.*?>(.*)?<\/blockquote>/im',
+			'/<figure.*?>(.*)?<\/figure>/im',
+		), '', $html );
+
+		$html = strip_tags( $html );
+
+		// FIXME: convert back html entities
+
+		$html = str_replace( array(
+			"&nbsp;",
+			"&mdash;",
+			"&ndash;",
+		), ' ', $html );
+
+		$html = str_replace( array(
+			"&zwnj;",
+			"\xE2\x80\x8C", // Zero Width Non-Joiner U+200C
+			"\xE2\x80\x8F", // Right-To-Left Mark U+200F
+			"\xE2\x80\x8E", // Right-To-Left Mark U+200E
+			"\xEF\xBB\xBF", // UTF8 Bom
+		), '', $html );
+
+		$html = strip_shortcodes( $html );
+
+		$html = self::noLineBreak( $html );
+		$html = self::stripPunctuation( $html );
+		$html = self::normalizeWhitespaceUTF8( $html, TRUE );
+
+		return trim( $html );
 	}
 
 	public static function noLineBreak( $string )
@@ -1000,7 +1015,8 @@ class Text extends Base
 	// @REF: https://gist.github.com/man4toman/a645c4022f741c879110d09834f73d12
 	public static function unlinkify( $string )
 	{
-		return preg_replace( '/<a href=\"(.*?)\">(.*?)<\/a>/', "\\2", $string );
+		// return preg_replace( '/<a href=\"(.*?)\">(.*?)<\/a>/', "\\2", $string );
+		return preg_replace( '/<a.*?>(.*?)</a>/i', '\1', $string );
 	}
 
 	// case insensitive version of strtr

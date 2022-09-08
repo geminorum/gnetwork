@@ -40,14 +40,13 @@ class Validation extends Base
 		if ( empty( $input ) )
 			return FALSE;
 
-		// @SOURCE: `WC_Validation::is_phone()`
-		if ( 0 < strlen( trim( preg_replace( '/[\s\#0-9_\-\+\/\(\)\.]/', '', $input ) ) ) )
+		if ( ! Phone::is( $input ) )
 			return FALSE;
 
 		return TRUE; // FIXME!
 	}
 
-	public static function getSSNHTMLPattern()
+	public static function getIdentityNumberHTMLPattern()
 	{
 		if ( defined( 'GNETWORK_WPLANG' ) && 'fa_IR' == constant( 'GNETWORK_WPLANG' ) )
 			return '[0-9۰-۹]{10}';
@@ -55,7 +54,7 @@ class Validation extends Base
 		return '[0-9]{10}';
 	}
 
-	public static function isSSN( $input )
+	public static function isIdentityNumber( $input )
 	{
 		if ( empty( $input ) )
 			return FALSE;
@@ -68,6 +67,16 @@ class Validation extends Base
 			return self::isIranNationalCode( $input );
 
 		return TRUE; // FIXME!
+	}
+
+	public static function sanitizeIdentityNumber( $input )
+	{
+		$sanitized = Number::intval( trim( $input ), FALSE );
+
+		if ( ! self::isIdentityNumber( $sanitized ) )
+			return '';
+
+		return $sanitized;
 	}
 
 	// @REF: https://fandogh.github.io/codemeli/codemeli.html

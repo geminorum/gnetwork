@@ -7,14 +7,18 @@ class Arraay extends Base
 
 	public static function prepString()
 	{
-		$args = func_get_args();
+		$args = array_map( function( $value ) {
+			return $value ? (array) $value : [];
+		}, func_get_args() );
 
 		return empty( $args ) ? [] : array_unique( array_filter( array_map( 'trim', array_merge( ...$args ) ) ) );
 	}
 
 	public static function prepNumeral()
 	{
-		$args = func_get_args();
+		$args = array_map( function( $value ) {
+			return $value ? (array) $value : [];
+		}, func_get_args() );
 
 		return empty( $args ) ? [] : array_unique( array_filter( array_map( 'intval', array_merge( ...$args ) ) ) );
 	}
@@ -191,7 +195,7 @@ class Arraay extends Base
 	//@RF: https://stackoverflow.com/a/11026840
 	public static function stripByKeys( $array, $keys )
 	{
-		return array_diff_key( $array, array_flip( $keys ) );
+		return empty( $keys ) ? $array : array_diff_key( $array, array_flip( $keys ) );
 	}
 
 	// @REF: https://stackoverflow.com/a/34575007

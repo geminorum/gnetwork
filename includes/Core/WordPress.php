@@ -71,6 +71,7 @@ class WordPress extends Base
 	}
 
 	// @REF: https://core.trac.wordpress.org/ticket/19898
+	// @SEE: `is_login_screen()` @since WP 6.1.0
 	public static function isLogin()
 	{
 		return Text::has( self::loginURL(), $_SERVER['SCRIPT_NAME'] );
@@ -431,7 +432,7 @@ class WordPress extends Base
 
 		if ( ! $name && $switch ) {
 
-			switch_to_blog( $site_id );
+			switch_to_blog( $blog_id );
 			$name = get_option( 'blogname' );
 			restore_current_blog();
 		}
@@ -455,7 +456,7 @@ class WordPress extends Base
 
 		if ( ! $url && $switch ) {
 
-			switch_to_blog( $site_id );
+			switch_to_blog( $blog_id );
 			$url = get_option( 'siteurl' );
 			restore_current_blog();
 		}
@@ -566,7 +567,7 @@ class WordPress extends Base
 		wp_die( $message, 403 );
 	}
 
-	// FIXME: add to filter: 'search_link'
+	// TODO: add to filter: 'search_link'
 	public static function getSearchLink( $query = '', $url = FALSE, $query_id = GNETWORK_SEARCH_QUERYID )
 	{
 		if ( $url )
