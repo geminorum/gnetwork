@@ -898,7 +898,15 @@ class Debug extends gNetwork\Module
 			'searchlogs'   => [ GNETWORK_SEARCH_LOG, _x( '%s in Search Logs', 'Modules: Debug', 'gnetwork' ) ],
 		];
 
-		$quota = 2 * 1024 * 1024; // 2 megabytes // FIXME
+		if ( defined( 'WC_LOG_DIR' ) )
+			$logs['wc-logs'] = [
+				WC_LOG_DIR,
+				_x( '%s in WooCommerce Logs', 'Modules: Debug', 'gnetwork' ),
+				add_query_arg( [ 'page' => 'wc-settings' ], admin_url( 'admin.php' ) ),
+				TRUE, // is it folder?
+			];
+
+		$quota = 2 * MB_IN_BYTES; // TODO: customize this
 
 		foreach ( $logs as $sub => $log ) {
 
@@ -908,7 +916,11 @@ class Debug extends gNetwork\Module
 			if ( ! is_readable( $log[0] ) )
 				continue;
 
-			if ( ! $size = File::getSize( $log[0], FALSE ) )
+			$size = empty( $log[3] )
+				? File::getSize( $log[0], FALSE )
+				: File::getFolderSize( $log[0], FALSE );
+
+			if ( ! $size )
 				continue;
 
 			$classes = [ '-log-size' ];
@@ -926,7 +938,7 @@ class Debug extends gNetwork\Module
 				$classes[] = 'warning';
 
 			$items[] = HTML::tag( 'a', [
-				'href'  => $this->get_menu_url( $sub, 'network', 'tools' ),
+				'href'  => empty( $log[2] ) ? $this->get_menu_url( $sub, 'network', 'tools' ) : $log[2],
 				'title' => $title,
 				'class' => $classes,
 			], sprintf( $log[1], HTML::wrapLTR( File::formatSize( $size ) ) ) );
