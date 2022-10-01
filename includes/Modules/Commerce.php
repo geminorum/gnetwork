@@ -35,6 +35,9 @@ class Commerce extends gNetwork\Module
 
 		$this->filter_true( 'pre_transient_pws_notice_all' ); // persian woocommerce shipping notices!
 
+		if ( is_readable( GNETWORK_DIR.'includes/Misc/CommercePluggable.php' ) )
+			require_once GNETWORK_DIR.'includes/Misc/CommercePluggable.php';
+
 		if ( ! defined( 'GNETWORK_WPLANG' ) )
 			return;
 
@@ -51,6 +54,8 @@ class Commerce extends gNetwork\Module
 		return [
 			'hide_price_on_outofstock' => '0',
 			'hide_price_on_shoploops'  => '0',
+			'hide_result_count'        => '0',   // Pluggable
+			'hide_catalog_ordering'    => '0',
 			'custom_string_instock'    => '',
 			'custom_string_outofstock' => '',
 			'quantity_price_preview'   => '0',
@@ -72,6 +77,16 @@ class Commerce extends gNetwork\Module
 					'field'       => 'hide_price_on_shoploops',
 					'title'       => _x( 'Hide Prices on Shop Loops', 'Modules: Commerce: Settings', 'gnetwork' ),
 					'description' => _x( 'Hides prices of products on shop pages loops.', 'Modules: Commerce: Settings', 'gnetwork' ),
+				],
+				[
+					'field'       => 'hide_result_count',
+					'title'       => _x( 'Hide Result Count', 'Modules: Commerce: Settings', 'gnetwork' ),
+					'description' => _x( 'Hides the result count text on shop pages loops.', 'Modules: Commerce: Settings', 'gnetwork' ),
+				],
+				[
+					'field'       => 'hide_catalog_ordering',
+					'title'       => _x( 'Hide Catalog Ordering', 'Modules: Commerce: Settings', 'gnetwork' ),
+					'description' => _x( 'Hides the product sorting options on shop pages loops.', 'Modules: Commerce: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'custom_string_instock',
@@ -236,6 +251,9 @@ class Commerce extends gNetwork\Module
 
 		if ( is_admin() )
 			return;
+
+		if ( $this->options['hide_catalog_ordering'] )
+			remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30 );
 
 		if ( $this->options['quantity_price_preview'] )
 			$this->action( 'woocommerce_after_add_to_cart_button' );
