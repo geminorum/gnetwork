@@ -70,24 +70,41 @@ class File extends Base
 		return self::isAbsolute( $path ) ? $path : rtrim( $base, '/' ).'/'.ltrim( $path, '/' );
 	}
 
-	// test if a give filesystem path is absolute
-	// for example, '/foo/bar', or 'c:\windows'
-	// @SOURCE: `path_is_absolute()`
+	/**
+	 * Tests if a given filesystem path is absolute.
+	 *
+	 * For example, '/foo/bar', or 'c:\windows'.
+	 *
+	 * @source `path_is_absolute()`
+	 *
+	 * @param string $path File path.
+	 * @return bool True if path is absolute, false is not absolute.
+	 */
 	public static function isAbsolute( $path )
 	{
-		// this is definitive if true but fails if $path does not exist or contains a symbolic link
-		if ( $path == realpath( $path ) )
+		// Check to see if the path is a stream and check to see if its an actual
+		// path or file as realpath() does not support stream wrappers.
+		if ( wp_is_stream( $path ) && ( is_dir( $path ) || is_file( $path ) ) )
 			return TRUE;
 
-		if ( 0 == strlen( $path ) || '.' == $path[0] )
+		// This is definitive if true but fails if $path does not exist or contains
+		// a symbolic link.
+		if ( realpath( $path ) === $path )
+			return TRUE;
+
+		if ( strlen( $path ) === 0 || '.' === $path[0] )
 			return FALSE;
 
-		// windows allows absolute paths like this
+		// Windows allows absolute paths like this.
 		if ( preg_match( '#^[a-zA-Z]:\\\\#', $path ) )
 			return TRUE;
 
-		// a path starting with / or \ is absolute; anything else is relative
-		return ( '/' == $path[0] || '\\' == $path[0] );
+		// Normalized Windows paths for local filesystem and network shares (forward slashes).
+		if ( preg_match( '#(^[a-zA-Z]+:/|^//[\w!@\#\$%\^\(\)\-\'{}\.~]{1,15})#', $path ) )
+			return TRUE;
+
+		// A path starting with / or \ is absolute; anything else is relative.
+		return ( '/' === $path[0] || '\\' === $path[0] );
 	}
 
 	// http://stackoverflow.com/a/4994188
@@ -230,6 +247,17 @@ class File extends Base
 
 		// usually, we will read too many lines, correct that here.
 		return array_slice( $lines, 0, $count );
+	}
+
+	// @REF: https://gist.github.com/eusonlito/5099936
+	public static function getFolderSize( $path, $format = TRUE )
+	{
+		$size = 0;
+
+		foreach ( glob( rtrim( $path, '/' ).'/*', GLOB_NOSORT ) as $each )
+			$size += is_file( $each ) ? filesize( $each ) : self::getFolderSize( $each, FALSE );
+
+		return $format ? self::formatSize( $size ) : $size;
 	}
 
 	// @SOURCE: http://stackoverflow.com/a/6674672
