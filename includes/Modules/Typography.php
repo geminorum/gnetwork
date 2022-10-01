@@ -602,7 +602,7 @@ class Typography extends gNetwork\Module
 		if ( is_null( $content ) )
 			return $content;
 
-		return '<span class="ltr" dir="ltr">'.do_shortcode( $content, TRUE ).'</span>';
+		return '<span class="ltr" dir="ltr">'.apply_shortcodes( $content, TRUE ).'</span>';
 	}
 
 	public function shortcode_pad( $atts = [], $content = NULL, $tag = '' )

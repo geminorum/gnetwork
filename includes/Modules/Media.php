@@ -1592,7 +1592,7 @@ class Media extends gNetwork\Module
 
 	public function get_circular_player( $html, $source, $size = NULL, $mimetype = NULL )
 	{
-		return do_shortcode( '[circular-player src="'.$source.'" size="'.( $size ?: '' ).'" /]' );
+		return apply_shortcodes( '[circular-player src="'.$source.'" size="'.( $size ?: '' ).'" /]' );
 	}
 
 	public function enqueue_circular_player( $selector = '.mediPlayer' )

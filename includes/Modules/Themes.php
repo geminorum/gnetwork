@@ -68,6 +68,10 @@ class Themes extends gNetwork\Module
 			// FIXME: WORKING but for front-end, needs custom styles within this plugin
 			// $this->filter_true( 'sensei_disable_styles' );
 		}
+
+		// @REF: https://make.wordpress.org/core/2021/07/01/block-styles-loading-enhancements-in-wordpress-5-8/
+		// NOTE: Editor module not loading on front
+		$this->filter_true( 'should_load_separate_core_block_assets' );
 	}
 
 	public function setup_menu( $context )
@@ -661,6 +665,8 @@ class Themes extends gNetwork\Module
 			// $this->filter_false( 'astra_get_option_footer-copyright-editor' );
 
 		} else if ( $this->isTheme( 'storefront' ) ) {
+
+			// TODO: https://gist.github.com/bekarice/63a0196ef010d0e30407
 
 			if ( $this->rtl ) {
 

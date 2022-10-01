@@ -4,6 +4,7 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork\Core\DataCode;
 use geminorum\gNetwork\Core\Date;
+use geminorum\gNetwork\Core\Email;
 use geminorum\gNetwork\Core\File;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\HTTP;
@@ -349,7 +350,7 @@ class Utilities extends Core\Base
 			return '';
 
 		if ( $shortcode )
-			$text = do_shortcode( $text, TRUE );
+			$text = apply_shortcodes( $text, TRUE );
 
 		$text = apply_filters( 'html_format_i18n', $text );
 		$text = apply_filters( 'gnetwork_typography', $text );
@@ -359,7 +360,7 @@ class Utilities extends Core\Base
 
 	public static function prepContact( $value, $title = NULL )
 	{
-		if ( is_email( $value ) )
+		if ( Email::is( $value ) )
 			$prepared = HTML::mailto( $value, $title );
 
 		else if ( URL::isValid( $value ) )

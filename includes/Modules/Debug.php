@@ -40,9 +40,9 @@ class Debug extends gNetwork\Module
 
 		$this->filter( 'site_status_test_result' );
 
-		add_filter( 'wp_die_handler', function() {
-			return [ $this, 'wp_die_handler' ];
-		} );
+		// add_filter( 'wp_die_handler', function() {
+		// 	return [ $this, 'wp_die_handler' ];
+		// } );
 
 		if ( 'production' == WP_STAGE ) {
 
@@ -1133,13 +1133,16 @@ class Debug extends gNetwork\Module
 	function wp_set_error_handler()
 	{
 		if ( defined( 'E_DEPRECATED' ) )
-				$errcontext = E_WARNING | E_DEPRECATED;
-			else
-				$errcontext = E_WARNING;
+			$errcontext = E_WARNING | E_DEPRECATED;
+		else
+			$errcontext = E_WARNING;
 
 		set_error_handler( function( $errno, $errstr, $errfile ) {
+
 			if ( 'wp-db.php' !== File::basename( $errfile ) ) {
+
 				if ( preg_match( '/^(mysql_[a-zA-Z0-9_]+)/', $errstr, $matches ) ) {
+
 					_doing_it_wrong( $matches[1], __( 'Please talk to the database using $wpdb' ), '3.7' );
 
 					return apply_filters( 'wpdb_drivers_raw_mysql_call_trigger_error', TRUE );

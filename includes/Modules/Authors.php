@@ -32,6 +32,8 @@ class Authors extends gNetwork\Module
 		if ( $this->options['remove_author_pages'] ) {
 			$this->action( 'template_redirect' );
 			$this->filter( 'wp_sitemaps_add_provider', 2 );
+			// $this->filter_empty_string( 'author_link', 12 );
+			// $this->filter_empty_string( 'the_author_posts_link', 12 );
 		}
 
 		if ( $this->options['replace_author_links'] )
@@ -355,7 +357,7 @@ class Authors extends gNetwork\Module
 
 		WordPress::doNotCache();
 
-		return do_shortcode( $content );
+		return apply_shortcodes( $content );
 	}
 
 	public function shortcode_not_logged_in( $atts = [], $content = NULL, $tag = '' )
@@ -375,7 +377,7 @@ class Authors extends gNetwork\Module
 			return $args['text'];
 		}
 
-		return do_shortcode( $content );
+		return apply_shortcodes( $content );
 	}
 
 	public function wp_insert_post_data( $data, $postarr )
