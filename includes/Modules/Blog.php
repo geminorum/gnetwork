@@ -138,11 +138,6 @@ class Blog extends gNetwork\Module
 		$settings  = array_fill_keys( [ '_general', '_admin', '_economics', '_services', '_front', '_login', '_overrides', '_misc' ], [] );
 		$multisite = is_multisite();
 
-		$exclude = array_filter( [
-			get_option( 'page_on_front' ),
-			get_option( 'page_for_posts' ),
-		] );
-
 		if ( ! $multisite )
 			$settings['_general'][] = [
 				'field'       => 'ssl_support',
@@ -277,7 +272,7 @@ class Blog extends gNetwork\Module
 			'title'       => _x( 'Copyright Information', 'Modules: Blog: Settings', 'gnetwork' ),
 			'description' => _x( 'Defines an HTML meta tag as copyright manifest page for this site.', 'Modules: Blog: Settings', 'gnetwork' ),
 			'default'     => '0',
-			'exclude'     => $exclude,
+			'exclude'     => Settings::getPageExcludes(),
 			'after'       => Settings::fieldAfterNewPostType( 'page' ),
 		];
 

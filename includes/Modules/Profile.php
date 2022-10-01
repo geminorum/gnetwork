@@ -96,11 +96,6 @@ class Profile extends gNetwork\Module
 		$settings  = array_fill_keys( [ '_general', '_signup' ], [] );
 		$multisite = is_multisite();
 
-		$exclude = array_filter( [
-			get_option( 'page_on_front' ),
-			get_option( 'page_for_posts' ),
-		] );
-
 		if ( $multisite )
 			$settings['_general'][] = [
 				'field'       => 'display_name_per_site',
@@ -142,7 +137,7 @@ class Profile extends gNetwork\Module
 			'title'       => _x( 'Disabled Page', 'Modules: Profile: Settings', 'gnetwork' ),
 			'description' => _x( 'Redirects network sign-up into this page, if registration have been <b>disabled</b>.', 'Modules: Profile: Settings', 'gnetwork' ),
 			'default'     => '0',
-			'exclude'     => $exclude,
+			'exclude'     => Settings::getPageExcludes(),
 			'after'       => Settings::fieldAfterNewPostType( 'page' ),
 		];
 
