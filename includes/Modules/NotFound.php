@@ -22,6 +22,7 @@ class NotFound extends gNetwork\Module
 		if ( $this->options['page_404'] ) {
 			add_filter( '404_template', [ $this, 'custom_404_template' ] );
 			$this->filter( 'template_include', 1, 99, 'custom_404' );
+			$this->filter( 'display_post_states', 2, 12 );
 			$this->filter( 'wp_sitemaps_posts_query_args', 2, 12 );
 			$this->filter( 'wpseo_exclude_from_sitemap_by_post_ids', 1, 12 );
 		}
@@ -134,6 +135,17 @@ class NotFound extends gNetwork\Module
 		}
 
 		return $template;
+	}
+
+	public function display_post_states( $states, $post )
+	{
+		if ( 'page' !== $post->post_type )
+			return $states;
+
+		if ( $post->ID === (int) $this->options['page_404'] )
+			$states[$this->key] = _x( 'NotFound', 'Modules: NotFound: Page-State', 'gnetwork' );
+
+		return $states;
 	}
 
 	// @REF: https://perishablepress.com/customize-wordpress-sitemaps/
