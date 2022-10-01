@@ -57,11 +57,8 @@ class Debug extends gNetwork\Module
 			$this->filter_false( 'akismet_debug_log', 20 );
 		}
 
-		// @REF: https://core.trac.wordpress.org/ticket/22430#comment:4
-		// @SEE: https://core.trac.wordpress.org/ticket/18525
-		remove_action( 'shutdown', 'wp_ob_end_flush_all', 1 ); // FIXME: must check for zlib enabled/optional
-
 		$this->action( 'shutdown', 1, 99999 );
+		$this->_fix_ob_end_flush_all();
 	}
 
 	public function setup_menu( $context )
@@ -1098,6 +1095,24 @@ class Debug extends gNetwork\Module
 	public function shutdown()
 	{
 		$GLOBALS['wpdb']->close();
+	}
+
+	// @REF: https://core.trac.wordpress.org/ticket/22430#comment:4
+	// @SEE: https://core.trac.wordpress.org/ticket/18525#comment:31
+	private function _fix_ob_end_flush_all()
+	{
+		remove_action( 'shutdown', 'wp_ob_end_flush_all', 1 );
+
+		if ( ini_get( 'zlib.output_compression' ) )
+			add_action( 'shutdown', function() {
+
+				$start  = (int) ini_get( 'zlib.output_compression' );
+				$levels = ob_get_level();
+
+				for ( $i = $start; $i < $levels; $i++ )
+					ob_end_flush();
+
+			}, 1 );
 	}
 
 	// DRAFT
