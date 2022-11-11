@@ -185,7 +185,7 @@ class Taxonomy extends Core\Base
 		if ( ! $object = self::object( $taxonomy ) )
 			return FALSE;
 
-		if ( ! is_empty( $callbacks[$object->name] ) )
+		if ( ! empty( $callbacks[$object->name] ) )
 			return $callbacks[$object->name];
 
 		if ( ! empty( $object->update_count_callback ) ) {

@@ -10,14 +10,14 @@ class Validation extends Base
 		if ( empty( $input ) )
 			return FALSE;
 
-		if ( defined( 'GNETWORK_WPLANG' ) && 'fa_IR' == constant( 'GNETWORK_WPLANG' ) )
+		if ( 'fa_IR' === self::const( 'GNETWORK_WPLANG' ) )
 			return self::isIranPostCode( $input );
 
 		// @SOURCE: `WC_Validation::is_postcode()`
 		if ( 0 < strlen( trim( preg_replace( '/[\s\-A-Za-z0-9]/', '', $input ) ) ) )
 			return FALSE;
 
-		return TRUE; // FIXME!
+		return TRUE;
 	}
 
 	// @REF: https://github.com/VahidN/DNTPersianUtils.Core/blob/master/src/DNTPersianUtils.Core/Validators/IranCodesUtils.cs#L13
@@ -29,10 +29,74 @@ class Validation extends Base
 
 	public static function getMobileHTMLPattern()
 	{
-		if ( defined( 'GNETWORK_WPLANG' ) && 'fa_IR' == constant( 'GNETWORK_WPLANG' ) )
+		if ( 'fa_IR' === self::const( 'GNETWORK_WPLANG' ) )
 			return '[0-9۰-۹+]{11,}';
 
 		return '[0-9+]{11,}';
+	}
+
+	public static function sanitizePhoneNumber( $input )
+	{
+		$sanitized = Number::intval( trim( $input ), FALSE );
+
+		if ( ! self::isPhoneNumber( $sanitized ) )
+			return '';
+
+		$sanitized = trim( str_ireplace( [
+			' ',
+			'.',
+			'-',
+			'#',
+		], '', $sanitized ) );
+
+		if ( 'fa_IR' === self::const( 'GNETWORK_WPLANG' ) ) {
+
+			if ( preg_match( '/^0\d{10}$/', $sanitized ) )
+				$sanitized = sprintf( '+98%s', ltrim( $sanitized, '0' ) );
+
+			else if ( preg_match( '/^[1-9]{1}\d{7}$/', $sanitized ) )
+				$sanitized = sprintf( '+9821%s', $sanitized ); // WTF: Tehran prefix!
+		}
+
+		return $sanitized;
+	}
+
+	public static function isPhoneNumber( $input )
+	{
+		if ( empty( $input ) )
+			return FALSE;
+
+		// @SOURCE: `WC_Validation::is_phone()`
+		if ( 0 < strlen( trim( preg_replace( '/[\s\#0-9_\-\+\/\(\)\.]/', '', $input ) ) ) )
+			return FALSE;
+
+		return TRUE;
+	}
+
+	public static function sanitizeMobileNumber( $input )
+	{
+		$sanitized = Number::intval( trim( $input ), FALSE );
+
+		if ( ! self::isMobileNumber( $sanitized ) )
+			return '';
+
+		$sanitized = trim( str_ireplace( [
+			' ',
+			'.',
+			'-',
+			'#',
+		], '', $sanitized ) );
+
+		if ( 'fa_IR' === self::const( 'GNETWORK_WPLANG' ) ) {
+
+			if ( preg_match( '/^9\d{9}$/', $sanitized ) )
+				$sanitized = sprintf( '+98%s', $sanitized );
+
+			else if ( preg_match( '/^09\d{9}$/', $sanitized ) )
+				$sanitized = sprintf( '+98%s', ltrim( $sanitized, '0' ) );
+		}
+
+		return $sanitized;
 	}
 
 	public static function isMobileNumber( $input )
@@ -40,15 +104,16 @@ class Validation extends Base
 		if ( empty( $input ) )
 			return FALSE;
 
-		if ( ! Phone::is( $input ) )
+		// @SOURCE: `WC_Validation::is_phone()`
+		if ( 0 < strlen( trim( preg_replace( '/[\s\#0-9_\-\+\/\(\)\.]/', '', $input ) ) ) )
 			return FALSE;
 
-		return TRUE; // FIXME!
+		return TRUE;
 	}
 
 	public static function getIdentityNumberHTMLPattern()
 	{
-		if ( defined( 'GNETWORK_WPLANG' ) && 'fa_IR' == constant( 'GNETWORK_WPLANG' ) )
+		if ( 'fa_IR' === self::const( 'GNETWORK_WPLANG' ) )
 			return '[0-9۰-۹]{10}';
 
 		return '[0-9]{10}';
@@ -63,15 +128,18 @@ class Validation extends Base
 		if ( 0 < strlen( trim( preg_replace( '/[\s\#0-9_\-\+\/\(\)\.]/', '', $input ) ) ) )
 			return FALSE;
 
-		if ( defined( 'GNETWORK_WPLANG' ) && 'fa_IR' == constant( 'GNETWORK_WPLANG' ) )
+		if ( 'fa_IR' === self::const( 'GNETWORK_WPLANG' ) )
 			return self::isIranNationalCode( $input );
 
-		return TRUE; // FIXME!
+		return TRUE;
 	}
 
 	public static function sanitizeIdentityNumber( $input )
 	{
 		$sanitized = Number::intval( trim( $input ), FALSE );
+
+		if ( 'fa_IR' === self::const( 'GNETWORK_WPLANG' ) )
+			$sanitized = Number::zeroise( $sanitized, 10 );
 
 		if ( ! self::isIdentityNumber( $sanitized ) )
 			return '';
@@ -98,5 +166,32 @@ class Validation extends Base
 			return TRUE;
 
 		return FALSE;
+	}
+
+	// @SEE: https://fa.wikipedia.org/wiki/%D8%B4%D8%A8%D8%A7
+	// @SEE: https://gist.github.com/mhf-ir/c17374fae395a57c9f8e5fe7a92bbf23
+	public static function sanitizeIBAN( $input )
+	{
+		$sanitized = Number::intval( trim( $input ), FALSE );
+
+		if ( ! self::isIBAN( $sanitized ) )
+			return '';
+
+		return $sanitized;
+	}
+
+	public static function isIBAN( $input )
+	{
+		if ( self::empty( $input ) )
+			return FALSE;
+
+		if ( 'fa_IR' === self::const( 'GNETWORK_WPLANG' ) ) {
+
+			// @REF: https://barnamenevis.org/showthread.php?512577
+			if ( ! preg_match( '/^IR[0-9]{24}$/i', $input ) )
+				return FALSE;
+		}
+
+		return TRUE;
 	}
 }

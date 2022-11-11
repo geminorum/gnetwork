@@ -70,8 +70,8 @@ class WordPress extends Base
 		return in_array( $now, (array) $page );
 	}
 
-	// @REF: https://core.trac.wordpress.org/ticket/19898
-	// @SEE: `is_login_screen()` @since WP 6.1.0
+	// @SEE: `is_login()` @since WP 6.1.0
+	// @REF: https://make.wordpress.org/core/2022/09/11/new-is_login-function-for-determining-if-a-page-is-the-login-screen/
 	public static function isLogin()
 	{
 		return Text::has( self::loginURL(), $_SERVER['SCRIPT_NAME'] );

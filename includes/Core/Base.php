@@ -11,6 +11,23 @@ class Base
 			define( $name, $value );
 	}
 
+	public static function const( $name, $default = FALSE )
+	{
+		return defined( $name ) ? constant( $name ) : $default;
+	}
+
+	public static function empty( $value )
+	{
+		if ( empty( $value ) )
+			return TRUE;
+
+		// TODO: advanced trim
+		// TODO: convert back numbers
+		// TODO: check empty types: html/dashes/
+
+		return FALSE;
+	}
+
 	public static function req( $key, $default = '' )
 	{
 		return isset( $_REQUEST[$key] ) ? $_REQUEST[$key] : $default;
